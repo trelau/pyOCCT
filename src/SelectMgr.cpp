@@ -384,6 +384,7 @@ PYBIND11_MODULE(SelectMgr, mod) {
 	cls_SelectMgr_ViewClipRange.def("MinDepth", (Standard_Real (SelectMgr_ViewClipRange::*)() const ) &SelectMgr_ViewClipRange::MinDepth, "Returns the lower bound of valid depth range");
 	cls_SelectMgr_ViewClipRange.def("Clear", (void (SelectMgr_ViewClipRange::*)()) &SelectMgr_ViewClipRange::Clear, "Invalidates view clipping range");
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_RectangularFrustum.hxx
 	py::class_<SelectMgr_RectangularFrustum, std::unique_ptr<SelectMgr_RectangularFrustum, Deleter<SelectMgr_RectangularFrustum>>, SelectMgr_Frustum<4>> cls_SelectMgr_RectangularFrustum(mod, "SelectMgr_RectangularFrustum", "This class contains representation of rectangular selecting frustum, created in case of point and box selection, and algorithms for overlap detection between selecting frustum and sensitive entities. The principle of frustum calculation: - for point selection: on a near view frustum plane rectangular neighborhood of user-picked point is created according to the pixel tolerance given and then this rectangle is projected onto far view frustum plane. This rectangles define the parallel bases of selecting frustum; - for box selection: box points are projected onto near and far view frustum planes. These 2 projected rectangles define parallel bases of selecting frustum. Overlap detection tests are implemented according to the terms of separating axis theorem (SAT).");
 	cls_SelectMgr_RectangularFrustum.def(py::init<>());
@@ -407,7 +408,9 @@ PYBIND11_MODULE(SelectMgr, mod) {
 	cls_SelectMgr_RectangularFrustum.def("GetNearPnt", (const gp_Pnt & (SelectMgr_RectangularFrustum::*)() const ) &SelectMgr_RectangularFrustum::GetNearPnt, "Returns projection of 2d mouse picked point or projection of center of 2d rectangle (for point and rectangular selection correspondingly) onto near view frustum plane");
 	cls_SelectMgr_RectangularFrustum.def("GetFarPnt", (const gp_Pnt & (SelectMgr_RectangularFrustum::*)() const ) &SelectMgr_RectangularFrustum::GetFarPnt, "Returns projection of 2d mouse picked point or projection of center of 2d rectangle (for point and rectangular selection correspondingly) onto far view frustum plane");
 	cls_SelectMgr_RectangularFrustum.def("GetPlanes", (void (SelectMgr_RectangularFrustum::*)(NCollection_Vector<SelectMgr_Vec4> &) const ) &SelectMgr_RectangularFrustum::GetPlanes, "Stores plane equation coefficients (in the following form: Ax + By + Cz + D = 0) to the given vector", py::arg("thePlaneEquations"));
+	*/
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_TriangularFrustum.hxx
 	py::class_<SelectMgr_TriangularFrustum, std::unique_ptr<SelectMgr_TriangularFrustum, Deleter<SelectMgr_TriangularFrustum>>, SelectMgr_Frustum<3>> cls_SelectMgr_TriangularFrustum(mod, "SelectMgr_TriangularFrustum", "This class contains representation of triangular selecting frustum, created in case of polyline selection, and algorithms for overlap detection between selecting frustum and sensitive entities. Overlap detection tests are implemented according to the terms of separating axis theorem (SAT).");
 	cls_SelectMgr_TriangularFrustum.def(py::init<>());
@@ -424,6 +427,7 @@ PYBIND11_MODULE(SelectMgr, mod) {
 	cls_SelectMgr_TriangularFrustum.def_static("get_type_name_", (const char * (*)()) &SelectMgr_TriangularFrustum::get_type_name, "None");
 	cls_SelectMgr_TriangularFrustum.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &SelectMgr_TriangularFrustum::get_type_descriptor, "None");
 	cls_SelectMgr_TriangularFrustum.def("DynamicType", (const opencascade::handle<Standard_Type> & (SelectMgr_TriangularFrustum::*)() const ) &SelectMgr_TriangularFrustum::DynamicType, "None");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_TriangularFrustumSet.hxx
 	py::class_<SelectMgr_TriangularFrustumSet, opencascade::handle<SelectMgr_TriangularFrustumSet>, SelectMgr_BaseFrustum> cls_SelectMgr_TriangularFrustumSet(mod, "SelectMgr_TriangularFrustumSet", "This class is used to handle polyline selection. The main principle of polyline selection algorithm is to split the polygon defined by polyline onto triangles. Than each of them is considered as a base for triangular frustum building. In other words, each triangle vertiex will be projected from 2d screen space to 3d world space onto near and far view frustum planes. Thus, the projected triangles make up the bases of selecting frustum. When the set of such frustums is created, the function determining selection iterates through triangular frustum set and searches for overlap with any frustum.");
@@ -518,6 +522,7 @@ PYBIND11_MODULE(SelectMgr, mod) {
 	cls_SelectMgr_ToleranceMap.def("CustomTolerance", (Standard_Integer (SelectMgr_ToleranceMap::*)() const ) &SelectMgr_ToleranceMap::CustomTolerance, "Returns the value of custom tolerance regardless of it validity");
 	cls_SelectMgr_ToleranceMap.def("IsCustomTolSet", (Standard_Boolean (SelectMgr_ToleranceMap::*)() const ) &SelectMgr_ToleranceMap::IsCustomTolSet, "Returns true if custom tolerance value is greater than zero");
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_SensitiveEntitySet.hxx
 	py::class_<SelectMgr_SensitiveEntitySet, std::unique_ptr<SelectMgr_SensitiveEntitySet, Deleter<SelectMgr_SensitiveEntitySet>>, BVH_PrimitiveSet3d> cls_SelectMgr_SensitiveEntitySet(mod, "SelectMgr_SensitiveEntitySet", "This class is used to store all calculated sensitive entites of one selectable object. It provides an interface for building BVH tree which is used to speed-up the performance of searching for overlap among sensitives of one selectable object");
 	cls_SelectMgr_SensitiveEntitySet.def(py::init<const opencascade::handle<Select3D_BVHBuilder3d> &>(), py::arg("theBuilder"));
@@ -533,6 +538,7 @@ PYBIND11_MODULE(SelectMgr, mod) {
 	cls_SelectMgr_SensitiveEntitySet.def("Size", (Standard_Integer (SelectMgr_SensitiveEntitySet::*)() const ) &SelectMgr_SensitiveEntitySet::Size, "Returns the amount of entities");
 	cls_SelectMgr_SensitiveEntitySet.def("GetSensitiveById", (const opencascade::handle<SelectMgr_SensitiveEntity> & (SelectMgr_SensitiveEntitySet::*)(const Standard_Integer) const ) &SelectMgr_SensitiveEntitySet::GetSensitiveById, "Returns the entity with index theIndex in the set", py::arg("theIndex"));
 	cls_SelectMgr_SensitiveEntitySet.def("Box", (BVH_Box<double, 3> (SelectMgr_SensitiveEntitySet::*)() const ) &SelectMgr_SensitiveEntitySet::Box, "Returns AABB of primitive set.");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_ViewerSelector.hxx
 	py::class_<SelectMgr_ViewerSelector, opencascade::handle<SelectMgr_ViewerSelector>, Standard_Transient> cls_SelectMgr_ViewerSelector(mod, "SelectMgr_ViewerSelector", "A framework to define finding, sorting the sensitive primitives in a view. Services are also provided to define the return of the owners of those primitives selected. The primitives are sorted by criteria such as priority of the primitive or its depth in the view relative to that of other primitives. Note that in 3D, the inheriting framework StdSelect_ViewerSelector3d is only to be used if you do not want to use the services provided by AIS. Two tools are available to find and select objects found at a given position in the view. If you want to select the owners of all the objects detected at point x,y,z you use the Init - More - Next - Picked loop. If, on the other hand, you want to select only one object detected at that point, you use the Init - More - OnePicked loop. In this iteration, More is used to see if an object was picked and OnePicked, to get the object closest to the pick position. Viewer selectors are driven by SelectMgr_SelectionManager, and manipulate the SelectMgr_Selection objects given to them by the selection manager.");

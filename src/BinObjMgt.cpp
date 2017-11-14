@@ -42,41 +42,43 @@ PYBIND11_MODULE(BinObjMgt, mod) {
 	// ENUMS
 
 	// FUNCTIONS
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BinObjMgt_Persistent.lxx
 	mod.def("operator<<", (Standard_OStream & (*)(Standard_OStream &, BinObjMgt_Persistent &)) &operator<<, "None", py::arg("theOS"), py::arg("theObj"));
-
+	*/
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BinObjMgt_Persistent.lxx
 	mod.def("operator>>", (Standard_IStream & (*)(Standard_IStream &, BinObjMgt_Persistent &)) &operator>>, "None", py::arg("theIS"), py::arg("theObj"));
-
+	*/
 
 	// CLASSES
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BinObjMgt_Persistent.hxx
 	py::class_<BinObjMgt_Persistent, std::unique_ptr<BinObjMgt_Persistent, Deleter<BinObjMgt_Persistent>>> cls_BinObjMgt_Persistent(mod, "BinObjMgt_Persistent", "Binary persistent representation of an object. Really it is used as a buffer for read/write an object.");
 	cls_BinObjMgt_Persistent.def(py::init<>());
 	cls_BinObjMgt_Persistent.def("PutCharacter", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_Character)) &BinObjMgt_Persistent::PutCharacter, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_Character)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_Character)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("PutByte", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_Byte)) &BinObjMgt_Persistent::PutByte, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_Byte)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_Byte)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("PutExtCharacter", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_ExtCharacter)) &BinObjMgt_Persistent::PutExtCharacter, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_ExtCharacter)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_ExtCharacter)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("PutInteger", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_Integer)) &BinObjMgt_Persistent::PutInteger, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_Integer)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_Integer)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("PutBoolean", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_Boolean)) &BinObjMgt_Persistent::PutBoolean, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_Boolean)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_Boolean)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("PutReal", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_Real)) &BinObjMgt_Persistent::PutReal, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_Real)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_Real)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("PutShortReal", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_ShortReal)) &BinObjMgt_Persistent::PutShortReal, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_ShortReal)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_ShortReal)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("PutCString", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_CString)) &BinObjMgt_Persistent::PutCString, "Offset in output buffer is not aligned", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_CString)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_CString)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("PutAsciiString", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const TCollection_AsciiString &)) &BinObjMgt_Persistent::PutAsciiString, "Offset in output buffer is word-aligned", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const TCollection_AsciiString &)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const TCollection_AsciiString &)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("PutExtendedString", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const TCollection_ExtendedString &)) &BinObjMgt_Persistent::PutExtendedString, "Offset in output buffer is word-aligned", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const TCollection_ExtendedString &)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const TCollection_ExtendedString &)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("PutLabel", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const TDF_Label &)) &BinObjMgt_Persistent::PutLabel, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const TDF_Label &)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const TDF_Label &)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("PutGUID", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_GUID &)) &BinObjMgt_Persistent::PutGUID, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_GUID &)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator<<", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const Standard_GUID &)) &BinObjMgt_Persistent::operator<<, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("PutCharArray", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const BinObjMgt_PChar, const Standard_Integer)) &BinObjMgt_Persistent::PutCharArray, "Put C array of char, theLength is the number of elements", py::arg("theArray"), py::arg("theLength"));
 	cls_BinObjMgt_Persistent.def("PutByteArray", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const BinObjMgt_PByte, const Standard_Integer)) &BinObjMgt_Persistent::PutByteArray, "Put C array of unsigned chars, theLength is the number of elements", py::arg("theArray"), py::arg("theLength"));
 	cls_BinObjMgt_Persistent.def("PutExtCharArray", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const BinObjMgt_PExtChar, const Standard_Integer)) &BinObjMgt_Persistent::PutExtCharArray, "Put C array of ExtCharacter, theLength is the number of elements", py::arg("theArray"), py::arg("theLength"));
@@ -84,26 +86,26 @@ PYBIND11_MODULE(BinObjMgt, mod) {
 	cls_BinObjMgt_Persistent.def("PutRealArray", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const BinObjMgt_PReal, const Standard_Integer)) &BinObjMgt_Persistent::PutRealArray, "Put C array of double, theLength is the number of elements", py::arg("theArray"), py::arg("theLength"));
 	cls_BinObjMgt_Persistent.def("PutShortRealArray", (BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const BinObjMgt_PShortReal, const Standard_Integer)) &BinObjMgt_Persistent::PutShortRealArray, "Put C array of float, theLength is the number of elements", py::arg("theArray"), py::arg("theLength"));
 	cls_BinObjMgt_Persistent.def("GetCharacter", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_Character &) const ) &BinObjMgt_Persistent::GetCharacter, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_Character &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_Character &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("GetByte", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_Byte &) const ) &BinObjMgt_Persistent::GetByte, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_Byte &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_Byte &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("GetExtCharacter", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_ExtCharacter &) const ) &BinObjMgt_Persistent::GetExtCharacter, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_ExtCharacter &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_ExtCharacter &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("GetInteger", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_Integer &) const ) &BinObjMgt_Persistent::GetInteger, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_Integer &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_Integer &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("GetBoolean", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_Boolean &) const ) &BinObjMgt_Persistent::GetBoolean, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_Boolean &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_Boolean &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("GetReal", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_Real &) const ) &BinObjMgt_Persistent::GetReal, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_Real &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_Real &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("GetShortReal", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_ShortReal &) const ) &BinObjMgt_Persistent::GetShortReal, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_ShortReal &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_ShortReal &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("GetAsciiString", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(TCollection_AsciiString &) const ) &BinObjMgt_Persistent::GetAsciiString, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(TCollection_AsciiString &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(TCollection_AsciiString &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("GetExtendedString", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(TCollection_ExtendedString &) const ) &BinObjMgt_Persistent::GetExtendedString, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(TCollection_ExtendedString &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(TCollection_ExtendedString &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("GetLabel", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const opencascade::handle<TDF_Data> &, TDF_Label &) const ) &BinObjMgt_Persistent::GetLabel, "None", py::arg("theDS"), py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("GetGUID", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_GUID &) const ) &BinObjMgt_Persistent::GetGUID, "None", py::arg("theValue"));
-	cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_GUID &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
+	// FIXME cls_BinObjMgt_Persistent.def("operator>>", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(Standard_GUID &) const ) &BinObjMgt_Persistent::operator>>, "None", py::arg("theValue"));
 	cls_BinObjMgt_Persistent.def("GetCharArray", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const BinObjMgt_PChar, const Standard_Integer) const ) &BinObjMgt_Persistent::GetCharArray, "Get C array of char, theLength is the number of elements; theArray must point to a space enough to place theLength elements", py::arg("theArray"), py::arg("theLength"));
 	cls_BinObjMgt_Persistent.def("GetByteArray", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const BinObjMgt_PByte, const Standard_Integer) const ) &BinObjMgt_Persistent::GetByteArray, "Get C array of unsigned chars, theLength is the number of elements; theArray must point to a space enough to place theLength elements", py::arg("theArray"), py::arg("theLength"));
 	cls_BinObjMgt_Persistent.def("GetExtCharArray", (const BinObjMgt_Persistent & (BinObjMgt_Persistent::*)(const BinObjMgt_PExtChar, const Standard_Integer) const ) &BinObjMgt_Persistent::GetExtCharArray, "Get C array of ExtCharacter, theLength is the number of elements; theArray must point to a space enough to place theLength elements", py::arg("theArray"), py::arg("theLength"));

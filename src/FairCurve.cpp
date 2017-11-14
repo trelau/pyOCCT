@@ -59,9 +59,10 @@ PYBIND11_MODULE(FairCurve, mod) {
 		.export_values();
 
 	// FUNCTIONS
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\FairCurve_MinimalVariation.lxx
 	mod.def("operator<<", (Standard_OStream & (*)(Standard_OStream &, const FairCurve_MinimalVariation &)) &operator<<, "None", py::arg("o"), py::arg("MVC"));
-
+	*/
 
 	// CLASSES
 	// C:\Miniconda\envs\occt\Library\include\opencascade\FairCurve_Batten.hxx

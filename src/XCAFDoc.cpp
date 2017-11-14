@@ -743,6 +743,7 @@ PYBIND11_MODULE(XCAFDoc, mod) {
 	cls_XCAFDoc.def_static("ViewRefAnnotationGUID_", (Standard_GUID (*)()) &XCAFDoc::ViewRefAnnotationGUID, "None");
 	cls_XCAFDoc.def_static("LockGUID_", (Standard_GUID (*)()) &XCAFDoc::LockGUID, "Returns GUID for UAttribute identifying lock flag");
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\XCAFDoc_AssemblyItemId.hxx
 	py::class_<XCAFDoc_AssemblyItemId, std::unique_ptr<XCAFDoc_AssemblyItemId, Deleter<XCAFDoc_AssemblyItemId>>> cls_XCAFDoc_AssemblyItemId(mod, "XCAFDoc_AssemblyItemId", "Unique item identifier in the hierarchical product structure. A full path to an assembly component in the “part-of” graph starting from the root node.");
 	cls_XCAFDoc_AssemblyItemId.def(py::init<>());
@@ -757,6 +758,7 @@ PYBIND11_MODULE(XCAFDoc, mod) {
 	cls_XCAFDoc_AssemblyItemId.def("IsEqual", (Standard_Boolean (XCAFDoc_AssemblyItemId::*)(const XCAFDoc_AssemblyItemId &) const ) &XCAFDoc_AssemblyItemId::IsEqual, "Checks for item IDs equality.", py::arg("theOther"));
 	cls_XCAFDoc_AssemblyItemId.def("GetPath", (const TColStd_ListOfAsciiString & (XCAFDoc_AssemblyItemId::*)() const ) &XCAFDoc_AssemblyItemId::GetPath, "Returns the full path as a list of label entries.");
 	cls_XCAFDoc_AssemblyItemId.def("ToString", (TCollection_AsciiString (XCAFDoc_AssemblyItemId::*)() const ) &XCAFDoc_AssemblyItemId::ToString, "Returns the full pass as a formatted string.");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\XCAFDoc_AssemblyItemRef.hxx
 	py::class_<XCAFDoc_AssemblyItemRef, opencascade::handle<XCAFDoc_AssemblyItemRef>, TDF_Attribute> cls_XCAFDoc_AssemblyItemRef(mod, "XCAFDoc_AssemblyItemRef", "An attribute that describes a weak reference to an assembly item or to a subshape or to an assembly label attribute.");

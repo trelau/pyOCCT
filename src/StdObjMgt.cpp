@@ -48,17 +48,21 @@ PYBIND11_MODULE(StdObjMgt, mod) {
 	// ENUMS
 
 	// FUNCTIONS
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdObjMgt_ReadData.hxx
 	mod.def("operator>>", (StdObjMgt_ReadData & (*)(StdObjMgt_ReadData::Object, Standard_GUID &)) &operator>>, "None", py::arg("theReadData"), py::arg("theGUID"));
-
+	*/
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdObjMgt_WriteData.hxx
 	mod.def("operator<<", (StdObjMgt_WriteData & (*)(StdObjMgt_WriteData::Object, const Standard_GUID &)) &operator<<, "None", py::arg("theWriteData"), py::arg("theGUID"));
-
+	*/
 
 	// CLASSES
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdObjMgt_MapOfInstantiators.hxx
 	py::class_<StdObjMgt_MapOfInstantiators, std::unique_ptr<StdObjMgt_MapOfInstantiators, Deleter<StdObjMgt_MapOfInstantiators>>, NCollection_DataMap<TCollection_AsciiString, StdObjMgt_Persistent::Instantiator, TCollection_AsciiString>> cls_StdObjMgt_MapOfInstantiators(mod, "StdObjMgt_MapOfInstantiators", "None");
 	cls_StdObjMgt_MapOfInstantiators.def(py::init<>());
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdObjMgt_ReadData.hxx
 	py::class_<StdObjMgt_ReadData, std::unique_ptr<StdObjMgt_ReadData, Deleter<StdObjMgt_ReadData>>> cls_StdObjMgt_ReadData(mod, "StdObjMgt_ReadData", "Auxiliary data used to read persistent objects from a file.");
@@ -66,25 +70,25 @@ PYBIND11_MODULE(StdObjMgt, mod) {
 	cls_StdObjMgt_ReadData.def("ReadPersistentObject", (void (StdObjMgt_ReadData::*)(const Standard_Integer)) &StdObjMgt_ReadData::ReadPersistentObject, "None", py::arg("theRef"));
 	cls_StdObjMgt_ReadData.def("PersistentObject", (opencascade::handle<StdObjMgt_Persistent> (StdObjMgt_ReadData::*)(const Standard_Integer) const ) &StdObjMgt_ReadData::PersistentObject, "None", py::arg("theRef"));
 	cls_StdObjMgt_ReadData.def("ReadReference", (opencascade::handle<StdObjMgt_Persistent> (StdObjMgt_ReadData::*)()) &StdObjMgt_ReadData::ReadReference, "None");
-	cls_StdObjMgt_ReadData.def("operator>>", (StdObjMgt_ReadData & (StdObjMgt_ReadData::*)(opencascade::handle<StdObjMgt_Persistent> &)) &StdObjMgt_ReadData::operator>>, "None", py::arg("theTarget"));
-	cls_StdObjMgt_ReadData.def("operator>>", (StdObjMgt_ReadData & (StdObjMgt_ReadData::*)(Standard_Character &)) &StdObjMgt_ReadData::operator>>, "None", py::arg("theValue"));
-	cls_StdObjMgt_ReadData.def("operator>>", (StdObjMgt_ReadData & (StdObjMgt_ReadData::*)(Standard_ExtCharacter &)) &StdObjMgt_ReadData::operator>>, "None", py::arg("theValue"));
-	cls_StdObjMgt_ReadData.def("operator>>", (StdObjMgt_ReadData & (StdObjMgt_ReadData::*)(Standard_Integer &)) &StdObjMgt_ReadData::operator>>, "None", py::arg("theValue"));
-	cls_StdObjMgt_ReadData.def("operator>>", (StdObjMgt_ReadData & (StdObjMgt_ReadData::*)(Standard_Boolean &)) &StdObjMgt_ReadData::operator>>, "None", py::arg("theValue"));
-	cls_StdObjMgt_ReadData.def("operator>>", (StdObjMgt_ReadData & (StdObjMgt_ReadData::*)(Standard_Real &)) &StdObjMgt_ReadData::operator>>, "None", py::arg("theValue"));
-	cls_StdObjMgt_ReadData.def("operator>>", (StdObjMgt_ReadData & (StdObjMgt_ReadData::*)(Standard_ShortReal &)) &StdObjMgt_ReadData::operator>>, "None", py::arg("theValue"));
+	// FIXME cls_StdObjMgt_ReadData.def("operator>>", (StdObjMgt_ReadData & (StdObjMgt_ReadData::*)(opencascade::handle<StdObjMgt_Persistent> &)) &StdObjMgt_ReadData::operator>>, "None", py::arg("theTarget"));
+	// FIXME cls_StdObjMgt_ReadData.def("operator>>", (StdObjMgt_ReadData & (StdObjMgt_ReadData::*)(Standard_Character &)) &StdObjMgt_ReadData::operator>>, "None", py::arg("theValue"));
+	// FIXME cls_StdObjMgt_ReadData.def("operator>>", (StdObjMgt_ReadData & (StdObjMgt_ReadData::*)(Standard_ExtCharacter &)) &StdObjMgt_ReadData::operator>>, "None", py::arg("theValue"));
+	// FIXME cls_StdObjMgt_ReadData.def("operator>>", (StdObjMgt_ReadData & (StdObjMgt_ReadData::*)(Standard_Integer &)) &StdObjMgt_ReadData::operator>>, "None", py::arg("theValue"));
+	// FIXME cls_StdObjMgt_ReadData.def("operator>>", (StdObjMgt_ReadData & (StdObjMgt_ReadData::*)(Standard_Boolean &)) &StdObjMgt_ReadData::operator>>, "None", py::arg("theValue"));
+	// FIXME cls_StdObjMgt_ReadData.def("operator>>", (StdObjMgt_ReadData & (StdObjMgt_ReadData::*)(Standard_Real &)) &StdObjMgt_ReadData::operator>>, "None", py::arg("theValue"));
+	// FIXME cls_StdObjMgt_ReadData.def("operator>>", (StdObjMgt_ReadData & (StdObjMgt_ReadData::*)(Standard_ShortReal &)) &StdObjMgt_ReadData::operator>>, "None", py::arg("theValue"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdObjMgt_WriteData.hxx
 	py::class_<StdObjMgt_WriteData, std::unique_ptr<StdObjMgt_WriteData, Deleter<StdObjMgt_WriteData>>> cls_StdObjMgt_WriteData(mod, "StdObjMgt_WriteData", "Auxiliary data used to write persistent objects to a file.");
 	cls_StdObjMgt_WriteData.def(py::init<Storage_BaseDriver &>(), py::arg("theDriver"));
 	cls_StdObjMgt_WriteData.def("WritePersistentObject", (void (StdObjMgt_WriteData::*)(const opencascade::handle<StdObjMgt_Persistent> &)) &StdObjMgt_WriteData::WritePersistentObject, "None", py::arg("thePersistent"));
-	cls_StdObjMgt_WriteData.def("operator<<", (StdObjMgt_WriteData & (StdObjMgt_WriteData::*)(const opencascade::handle<StdObjMgt_Persistent> &)) &StdObjMgt_WriteData::operator<<, "None", py::arg("thePersistent"));
-	cls_StdObjMgt_WriteData.def("operator<<", (StdObjMgt_WriteData & (StdObjMgt_WriteData::*)(const Standard_Character &)) &StdObjMgt_WriteData::operator<<, "None", py::arg("theValue"));
-	cls_StdObjMgt_WriteData.def("operator<<", (StdObjMgt_WriteData & (StdObjMgt_WriteData::*)(const Standard_ExtCharacter &)) &StdObjMgt_WriteData::operator<<, "None", py::arg("theValue"));
-	cls_StdObjMgt_WriteData.def("operator<<", (StdObjMgt_WriteData & (StdObjMgt_WriteData::*)(const Standard_Integer &)) &StdObjMgt_WriteData::operator<<, "None", py::arg("theValue"));
-	cls_StdObjMgt_WriteData.def("operator<<", (StdObjMgt_WriteData & (StdObjMgt_WriteData::*)(const Standard_Boolean &)) &StdObjMgt_WriteData::operator<<, "None", py::arg("theValue"));
-	cls_StdObjMgt_WriteData.def("operator<<", (StdObjMgt_WriteData & (StdObjMgt_WriteData::*)(const Standard_Real &)) &StdObjMgt_WriteData::operator<<, "None", py::arg("theValue"));
-	cls_StdObjMgt_WriteData.def("operator<<", (StdObjMgt_WriteData & (StdObjMgt_WriteData::*)(const Standard_ShortReal &)) &StdObjMgt_WriteData::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_StdObjMgt_WriteData.def("operator<<", (StdObjMgt_WriteData & (StdObjMgt_WriteData::*)(const opencascade::handle<StdObjMgt_Persistent> &)) &StdObjMgt_WriteData::operator<<, "None", py::arg("thePersistent"));
+	// FIXME cls_StdObjMgt_WriteData.def("operator<<", (StdObjMgt_WriteData & (StdObjMgt_WriteData::*)(const Standard_Character &)) &StdObjMgt_WriteData::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_StdObjMgt_WriteData.def("operator<<", (StdObjMgt_WriteData & (StdObjMgt_WriteData::*)(const Standard_ExtCharacter &)) &StdObjMgt_WriteData::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_StdObjMgt_WriteData.def("operator<<", (StdObjMgt_WriteData & (StdObjMgt_WriteData::*)(const Standard_Integer &)) &StdObjMgt_WriteData::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_StdObjMgt_WriteData.def("operator<<", (StdObjMgt_WriteData & (StdObjMgt_WriteData::*)(const Standard_Boolean &)) &StdObjMgt_WriteData::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_StdObjMgt_WriteData.def("operator<<", (StdObjMgt_WriteData & (StdObjMgt_WriteData::*)(const Standard_Real &)) &StdObjMgt_WriteData::operator<<, "None", py::arg("theValue"));
+	// FIXME cls_StdObjMgt_WriteData.def("operator<<", (StdObjMgt_WriteData & (StdObjMgt_WriteData::*)(const Standard_ShortReal &)) &StdObjMgt_WriteData::operator<<, "None", py::arg("theValue"));
 
 	// Callback for StdObjMgt_Persistent.
 	class PyCallback_StdObjMgt_Persistent : public StdObjMgt_Persistent {

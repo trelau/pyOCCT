@@ -104,9 +104,10 @@ PYBIND11_MODULE(TDF, mod) {
 
 
 	// FUNCTIONS
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_Label.lxx
 	mod.def("operator<<", (Standard_OStream & (*)(Standard_OStream &, const TDF_Label &)) &operator<<, "None", py::arg("anOS"), py::arg("aLab"));
-
+	*/
 
 	// CLASSES
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_Label.hxx
@@ -150,7 +151,7 @@ PYBIND11_MODULE(TDF, mod) {
 	cls_TDF_Label.def("HasLowerNode", (Standard_Boolean (TDF_Label::*)(const TDF_Label &) const ) &TDF_Label::HasLowerNode, "Returns true if node address of <me> is lower than <otherLabel> one. Used to quickly sort labels (not on entry criterion).", py::arg("otherLabel"));
 	cls_TDF_Label.def("HasGreaterNode", (Standard_Boolean (TDF_Label::*)(const TDF_Label &) const ) &TDF_Label::HasGreaterNode, "Returns true if node address of <me> is greater than <otherLabel> one. Used to quickly sort labels (not on entry criterion).", py::arg("otherLabel"));
 	// FIXME cls_TDF_Label.def("Dump", (Standard_OStream & (TDF_Label::*)(Standard_OStream &) const ) &TDF_Label::Dump, "Dumps the minimum information about <me> on <aStream>.", py::arg("anOS"));
-	cls_TDF_Label.def("operator<<", (Standard_OStream & (TDF_Label::*)(Standard_OStream &) const ) &TDF_Label::operator<<, "None", py::arg("anOS"));
+	// FIXME cls_TDF_Label.def("operator<<", (Standard_OStream & (TDF_Label::*)(Standard_OStream &) const ) &TDF_Label::operator<<, "None", py::arg("anOS"));
 	cls_TDF_Label.def("ExtendedDump", (void (TDF_Label::*)(Standard_OStream &, const TDF_IDFilter &, TDF_AttributeIndexedMap &) const ) &TDF_Label::ExtendedDump, "Dumps the label on <aStream> and its attributes rank in <aMap> if their IDs are kept by <IDFilter>.", py::arg("anOS"), py::arg("aFilter"), py::arg("aMap"));
 	cls_TDF_Label.def("EntryDump", (void (TDF_Label::*)(Standard_OStream &) const ) &TDF_Label::EntryDump, "Dumps the label entry.", py::arg("anOS"));
 
@@ -166,7 +167,7 @@ PYBIND11_MODULE(TDF, mod) {
 	cls_TDF_Data.def("Destroy", (void (TDF_Data::*)()) &TDF_Data::Destroy, "None");
 	cls_TDF_Data.def("NotUndoMode", (Standard_Boolean (TDF_Data::*)() const ) &TDF_Data::NotUndoMode, "Returns the undo mode status.");
 	// FIXME cls_TDF_Data.def("Dump", (Standard_OStream & (TDF_Data::*)(Standard_OStream &) const ) &TDF_Data::Dump, "Dumps the Data on <aStream>.", py::arg("anOS"));
-	cls_TDF_Data.def("operator<<", (Standard_OStream & (TDF_Data::*)(Standard_OStream &) const ) &TDF_Data::operator<<, "None", py::arg("anOS"));
+	// FIXME cls_TDF_Data.def("operator<<", (Standard_OStream & (TDF_Data::*)(Standard_OStream &) const ) &TDF_Data::operator<<, "None", py::arg("anOS"));
 	cls_TDF_Data.def("AllowModification", (void (TDF_Data::*)(const Standard_Boolean)) &TDF_Data::AllowModification, "Sets modification mode.", py::arg("isAllowed"));
 	cls_TDF_Data.def("IsModificationAllowed", (Standard_Boolean (TDF_Data::*)() const ) &TDF_Data::IsModificationAllowed, "returns modification mode.");
 	cls_TDF_Data.def("LabelNodeAllocator", (const TDF_HAllocator & (TDF_Data::*)() const ) &TDF_Data::LabelNodeAllocator, "Returns TDF_HAllocator, which is an incremental allocator used by TDF_LabelNode. This allocator is used to manage TDF_LabelNode objects, but it can also be used for allocating memory to application-specific data (be careful because this allocator does not release the memory). The benefits of this allocation scheme are noticeable when dealing with large OCAF documents, due to: 1. Very quick allocation of objects (memory heap is not used, the algorithm that replaces it is very simple). 2. Very quick destruction of objects (memory is released not by destructors of TDF_LabelNode, but rather by the destructor of TDF_Data). 3. TDF_LabelNode objects do not fragmentize the memory; they are kept compactly in a number of arrays of 16K each. 4. Swapping is reduced on large data, because each document now occupies a smaller number of memory pages.");
@@ -233,7 +234,7 @@ PYBIND11_MODULE(TDF, mod) {
 	cls_TDF_Attribute.def("Paste", (void (TDF_Attribute::*)(const opencascade::handle<TDF_Attribute> &, const opencascade::handle<TDF_RelocationTable> &) const ) &TDF_Attribute::Paste, "This method is different from the 'Copy' one, because it is used when copying an attribute from a source structure into a target structure. This method may paste the contents of <me> into <intoAttribute>.", py::arg("intoAttribute"), py::arg("aRelocationTable"));
 	cls_TDF_Attribute.def("References", (void (TDF_Attribute::*)(const opencascade::handle<TDF_DataSet> &) const ) &TDF_Attribute::References, "Adds the first level referenced attributes and labels to <aDataSet>.", py::arg("aDataSet"));
 	// FIXME cls_TDF_Attribute.def("Dump", (Standard_OStream & (TDF_Attribute::*)(Standard_OStream &) const ) &TDF_Attribute::Dump, "Dumps the minimum information about <me> on <aStream>.", py::arg("anOS"));
-	cls_TDF_Attribute.def("operator<<", (Standard_OStream & (TDF_Attribute::*)(Standard_OStream &) const ) &TDF_Attribute::operator<<, "None", py::arg("anOS"));
+	// FIXME cls_TDF_Attribute.def("operator<<", (Standard_OStream & (TDF_Attribute::*)(Standard_OStream &) const ) &TDF_Attribute::operator<<, "None", py::arg("anOS"));
 	cls_TDF_Attribute.def("ExtendedDump", (void (TDF_Attribute::*)(Standard_OStream &, const TDF_IDFilter &, TDF_AttributeIndexedMap &) const ) &TDF_Attribute::ExtendedDump, "Dumps the attribute content on <aStream>, using <aMap> like this: if an attribute is not in the map, first put add it to the map and then dump it. Use the map rank instead of dumping each attribute field.", py::arg("anOS"), py::arg("aFilter"), py::arg("aMap"));
 	cls_TDF_Attribute.def("Forget", (void (TDF_Attribute::*)(const Standard_Integer)) &TDF_Attribute::Forget, "Forgets the attribute. <aTransaction> is the current transaction in which the forget is done. A forgotten attribute is also flagged not 'Valid'.", py::arg("aTransaction"));
 	cls_TDF_Attribute.def_static("get_type_name_", (const char * (*)()) &TDF_Attribute::get_type_name, "None");
@@ -296,7 +297,7 @@ PYBIND11_MODULE(TDF, mod) {
 	cls_TDF_AttributeDelta.def("Attribute", (opencascade::handle<TDF_Attribute> (TDF_AttributeDelta::*)() const ) &TDF_AttributeDelta::Attribute, "Returns the reference attribute.");
 	cls_TDF_AttributeDelta.def("ID", (Standard_GUID (TDF_AttributeDelta::*)() const ) &TDF_AttributeDelta::ID, "Returns the ID of the attribute concerned by <me>.");
 	// FIXME cls_TDF_AttributeDelta.def("Dump", (Standard_OStream & (TDF_AttributeDelta::*)(Standard_OStream &) const ) &TDF_AttributeDelta::Dump, "Dumps the contents.", py::arg("OS"));
-	cls_TDF_AttributeDelta.def("operator<<", (Standard_OStream & (TDF_AttributeDelta::*)(Standard_OStream &) const ) &TDF_AttributeDelta::operator<<, "None", py::arg("OS"));
+	// FIXME cls_TDF_AttributeDelta.def("operator<<", (Standard_OStream & (TDF_AttributeDelta::*)(Standard_OStream &) const ) &TDF_AttributeDelta::operator<<, "None", py::arg("OS"));
 	cls_TDF_AttributeDelta.def_static("get_type_name_", (const char * (*)()) &TDF_AttributeDelta::get_type_name, "None");
 	cls_TDF_AttributeDelta.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TDF_AttributeDelta::get_type_descriptor, "None");
 	cls_TDF_AttributeDelta.def("DynamicType", (const opencascade::handle<Standard_Type> & (TDF_AttributeDelta::*)() const ) &TDF_AttributeDelta::DynamicType, "None");
@@ -377,7 +378,7 @@ PYBIND11_MODULE(TDF, mod) {
 	cls_TDF_DataSet.def("AddRoot", (void (TDF_DataSet::*)(const TDF_Label &)) &TDF_DataSet::AddRoot, "Adds a root label to <myRootLabels>.", py::arg("aLabel"));
 	cls_TDF_DataSet.def("Roots", (TDF_LabelList & (TDF_DataSet::*)()) &TDF_DataSet::Roots, "Returns <myRootLabels> to be used or updated.");
 	// FIXME cls_TDF_DataSet.def("Dump", (Standard_OStream & (TDF_DataSet::*)(Standard_OStream &) const ) &TDF_DataSet::Dump, "Dumps the minimum information about <me> on <aStream>.", py::arg("anOS"));
-	cls_TDF_DataSet.def("operator<<", (Standard_OStream & (TDF_DataSet::*)(Standard_OStream &) const ) &TDF_DataSet::operator<<, "None", py::arg("anOS"));
+	// FIXME cls_TDF_DataSet.def("operator<<", (Standard_OStream & (TDF_DataSet::*)(Standard_OStream &) const ) &TDF_DataSet::operator<<, "None", py::arg("anOS"));
 	cls_TDF_DataSet.def_static("get_type_name_", (const char * (*)()) &TDF_DataSet::get_type_name, "None");
 	cls_TDF_DataSet.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TDF_DataSet::get_type_descriptor, "None");
 	cls_TDF_DataSet.def("DynamicType", (const opencascade::handle<Standard_Type> & (TDF_DataSet::*)() const ) &TDF_DataSet::DynamicType, "None");

@@ -312,9 +312,10 @@ PYBIND11_MODULE(Standard, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Standard_CString.hxx
 	mod.def("Sprintf", (int (*)(char *, const char *)) &Sprintf, "None", py::arg("theBuffer"), py::arg("theFormat"));
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Standard_Failure.hxx
 	mod.def("operator<<", (Standard_OStream & (*)(Standard_OStream &, const Standard_Failure &)) &operator<<, "None", py::arg("AStream"), py::arg("AFailure"));
-
+	*/
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Standard_Assert.hxx
 	mod.def("Standard_ASSERT_DO_NOTHING", (void (*)()) &Standard_ASSERT_DO_NOTHING, "This header file defines a set of ASSERT macros intended for use in algorithms for debugging purposes and as a tool to organise checks for abnormal situations in the uniform way.");
 
@@ -843,23 +844,23 @@ PYBIND11_MODULE(Standard, mod) {
 	cls_Standard_OStream.def("opfx", (bool (Standard_OStream::*)()) &Standard_OStream::opfx, "None");
 	cls_Standard_OStream.def("osfx", (void (Standard_OStream::*)()) &Standard_OStream::osfx, "None");
 	cls_Standard_OStream.def("_Osfx", (void (Standard_OStream::*)()) &Standard_OStream::_Osfx, "None");
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(std::Standard_OStream::_Myt &(*)(std::Standard_OStream::_Myt &) __attribute__((cdecl)))) &Standard_OStream::operator<<, "None", py::arg("_Pfn"));
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(std::Standard_OStream::_Myios &(*)(std::Standard_OStream::_Myios &) __attribute__((cdecl)))) &Standard_OStream::operator<<, "None", py::arg("_Pfn"));
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(std::ios_base &(*)(std::ios_base &) __attribute__((cdecl)))) &Standard_OStream::operator<<, "None", py::arg("_Pfn"));
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(bool)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(short)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(unsigned short)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(int)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(unsigned int)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(long)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(unsigned long)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(long long)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(unsigned long long)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(float)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(double)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(long double)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(const void *)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
-	cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(std::Standard_OStream::_Mysb *)) &Standard_OStream::operator<<, "None", py::arg("_Strbuf"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(std::Standard_OStream::_Myt &(*)(std::Standard_OStream::_Myt &) __attribute__((cdecl)))) &Standard_OStream::operator<<, "None", py::arg("_Pfn"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(std::Standard_OStream::_Myios &(*)(std::Standard_OStream::_Myios &) __attribute__((cdecl)))) &Standard_OStream::operator<<, "None", py::arg("_Pfn"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(std::ios_base &(*)(std::ios_base &) __attribute__((cdecl)))) &Standard_OStream::operator<<, "None", py::arg("_Pfn"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(bool)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(short)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(unsigned short)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(int)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(unsigned int)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(long)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(unsigned long)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(long long)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(unsigned long long)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(float)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(double)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(long double)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(const void *)) &Standard_OStream::operator<<, "None", py::arg("_Val"));
+	// FIXME cls_Standard_OStream.def("operator<<", (std::Standard_OStream::_Myt & (Standard_OStream::*)(std::Standard_OStream::_Mysb *)) &Standard_OStream::operator<<, "None", py::arg("_Strbuf"));
 	cls_Standard_OStream.def("put", (std::Standard_OStream::_Myt & (Standard_OStream::*)(char)) &Standard_OStream::put, "None", py::arg("_Ch"));
 	cls_Standard_OStream.def("write", (std::Standard_OStream::_Myt & (Standard_OStream::*)(const char *, std::streamsize)) &Standard_OStream::write, "None", py::arg("_Str"), py::arg("_Count"));
 	cls_Standard_OStream.def("flush", (std::Standard_OStream::_Myt & (Standard_OStream::*)()) &Standard_OStream::flush, "None");
@@ -902,23 +903,23 @@ PYBIND11_MODULE(Standard, mod) {
 	cls_Standard_IStream.def("ipfx", [](Standard_IStream &self) -> bool { return self.ipfx(); });
 	cls_Standard_IStream.def("ipfx", (bool (Standard_IStream::*)(bool)) &Standard_IStream::ipfx, "None", py::arg("_Noskip"));
 	cls_Standard_IStream.def("isfx", (void (Standard_IStream::*)()) &Standard_IStream::isfx, "None");
-	cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(std::Standard_IStream::_Myt &(*)(std::Standard_IStream::_Myt &) __attribute__((cdecl)))) &Standard_IStream::operator>>, "None", py::arg("_Pfn"));
-	cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(std::Standard_IStream::_Myios &(*)(std::Standard_IStream::_Myios &) __attribute__((cdecl)))) &Standard_IStream::operator>>, "None", py::arg("_Pfn"));
-	cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(std::ios_base &(*)(std::ios_base &) __attribute__((cdecl)))) &Standard_IStream::operator>>, "None", py::arg("_Pfn"));
-	cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(bool &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
-	cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(short &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
-	cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(unsigned short &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
-	cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(int &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
-	cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(unsigned int &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
-	cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(long &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
-	cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(unsigned long &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
-	cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(long long &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
-	cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(unsigned long long &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
-	cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(float &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
-	cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(double &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
-	cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(long double &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
+	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(std::Standard_IStream::_Myt &(*)(std::Standard_IStream::_Myt &) __attribute__((cdecl)))) &Standard_IStream::operator>>, "None", py::arg("_Pfn"));
+	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(std::Standard_IStream::_Myios &(*)(std::Standard_IStream::_Myios &) __attribute__((cdecl)))) &Standard_IStream::operator>>, "None", py::arg("_Pfn"));
+	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(std::ios_base &(*)(std::ios_base &) __attribute__((cdecl)))) &Standard_IStream::operator>>, "None", py::arg("_Pfn"));
+	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(bool &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
+	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(short &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
+	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(unsigned short &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
+	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(int &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
+	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(unsigned int &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
+	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(long &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
+	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(unsigned long &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
+	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(long long &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
+	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(unsigned long long &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
+	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(float &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
+	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(double &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
+	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(long double &)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
 	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(void *&)) &Standard_IStream::operator>>, "None", py::arg("_Val"));
-	cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(std::Standard_IStream::_Mysb *)) &Standard_IStream::operator>>, "None", py::arg("_Strbuf"));
+	// FIXME cls_Standard_IStream.def("operator>>", (std::Standard_IStream::_Myt & (Standard_IStream::*)(std::Standard_IStream::_Mysb *)) &Standard_IStream::operator>>, "None", py::arg("_Strbuf"));
 	cls_Standard_IStream.def("get", (std::Standard_IStream::int_type (Standard_IStream::*)()) &Standard_IStream::get, "None");
 	cls_Standard_IStream.def("get", (std::Standard_IStream::_Myt & (Standard_IStream::*)(char *, std::streamsize)) &Standard_IStream::get, "None", py::arg("_Str"), py::arg("_Count"));
 	cls_Standard_IStream.def("get", (std::Standard_IStream::_Myt & (Standard_IStream::*)(char *, std::streamsize, char)) &Standard_IStream::get, "None", py::arg("_Str"), py::arg("_Count"), py::arg("_Delim"));

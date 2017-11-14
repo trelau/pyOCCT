@@ -222,6 +222,7 @@ PYBIND11_MODULE(BRepExtrema, mod) {
 	cls_BRepExtrema_ExtPF.def("SetFlag", (void (BRepExtrema_ExtPF::*)(const Extrema_ExtFlag)) &BRepExtrema_ExtPF::SetFlag, "None", py::arg("F"));
 	cls_BRepExtrema_ExtPF.def("SetAlgo", (void (BRepExtrema_ExtPF::*)(const Extrema_ExtAlgo)) &BRepExtrema_ExtPF::SetAlgo, "None", py::arg("A"));
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepExtrema_TriangleSet.hxx
 	py::class_<BRepExtrema_TriangleSet, std::unique_ptr<BRepExtrema_TriangleSet, Deleter<BRepExtrema_TriangleSet>>, BVH_PrimitiveSet3d> cls_BRepExtrema_TriangleSet(mod, "BRepExtrema_TriangleSet", "Triangle set corresponding to specific face.");
 	cls_BRepExtrema_TriangleSet.def(py::init<>());
@@ -238,6 +239,7 @@ PYBIND11_MODULE(BRepExtrema, mod) {
 	cls_BRepExtrema_TriangleSet.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRepExtrema_TriangleSet::get_type_descriptor, "None");
 	cls_BRepExtrema_TriangleSet.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepExtrema_TriangleSet::*)() const ) &BRepExtrema_TriangleSet::DynamicType, "None");
 	cls_BRepExtrema_TriangleSet.def("Box", (BVH_Box<double, 3> (BRepExtrema_TriangleSet::*)() const ) &BRepExtrema_TriangleSet::Box, "Returns AABB of primitive set.");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepExtrema_OverlapTool.hxx
 	py::class_<BRepExtrema_OverlapTool, std::unique_ptr<BRepExtrema_OverlapTool, Deleter<BRepExtrema_OverlapTool>>> cls_BRepExtrema_OverlapTool(mod, "BRepExtrema_OverlapTool", "Tool class for for detection of overlapping of two BVH primitive sets. This tool is not intended to be used independently, and is integrated in other classes, implementing algorithms based on shape tessellation (BRepExtrema_ShapeProximity and BRepExtrema_SelfIntersection).");

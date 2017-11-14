@@ -39,7 +39,7 @@ PYBIND11_MODULE(LDOMString, mod) {
 	cls_LDOMString.def(py::init([] (const LDOMString &other) {return new LDOMString(other);}), "Copy constructor", py::arg("other"));
 	cls_LDOMString.def(py::init<const Standard_Integer>(), py::arg("aValue"));
 	cls_LDOMString.def(py::init<const char *>(), py::arg("aValue"));
-	cls_LDOMString.def("getOwnerDocument", (const LDOM_MemManager & (LDOMString::*)() const ) &LDOMString::getOwnerDocument, "None");
+	cls_LDOMString.def("getOwnerDocument", (const LDOM_MemManager & (LDOMString::*)() const ) &LDOMString::getOwnerDocument, "None", py::call_guard<ImportLDOM>());
 	// FIXME cls_LDOMString.def("assign", (LDOMString & (LDOMString::*)(const LDOM_NullPtr *)) &LDOMString::operator=, py::is_operator(), "None", py::arg("aNull"));
 	cls_LDOMString.def("assign", (LDOMString & (LDOMString::*)(const LDOMString &)) &LDOMString::operator=, py::is_operator(), "None", py::arg("anOther"));
 

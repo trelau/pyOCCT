@@ -22,9 +22,10 @@ PYBIND11_MODULE(Utils, mod) {
 	// ENUMS
 
 	// FUNCTIONS
+	/* FIXME
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\Utils_SALOME_Exception.hxx
 	mod.def("operator<<", (std::ostream & (*)(std::ostream &, const SALOME_Exception &)) &operator<<, "None", py::arg(""), py::arg(""));
-
+	*/
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\Utils_SALOME_Exception.hxx
 	mod.def("makeText", (const char * (*)(const char *, const char *, const unsigned int)) &makeText, "None", py::arg("text"), py::arg("fileName"), py::arg("lineNumber"));
 

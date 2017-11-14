@@ -59,9 +59,10 @@ PYBIND11_MODULE(IntRes2d, mod) {
 		.export_values();
 
 	// FUNCTIONS
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntRes2d_Transition.lxx
 	mod.def("operator<<", (std::ostream & (*)(std::ostream &, IntRes2d_Transition &)) &operator<<, "None", py::arg(""), py::arg(""));
-
+	*/
 
 	// CLASSES
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntRes2d_Transition.hxx

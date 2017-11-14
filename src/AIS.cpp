@@ -1954,6 +1954,7 @@ PYBIND11_MODULE(AIS, mod) {
 	cls_AIS_LengthDimension.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_LengthDimension::get_type_descriptor, "None");
 	cls_AIS_LengthDimension.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_LengthDimension::*)() const ) &AIS_LengthDimension::DynamicType, "None");
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_Manipulator.hxx
 	py::class_<AIS_ManipulatorObjectSequence, opencascade::handle<AIS_ManipulatorObjectSequence>, NCollection_Sequence<opencascade::handle<AIS_InteractiveObject> >, Standard_Transient> cls_AIS_ManipulatorObjectSequence(mod, "AIS_ManipulatorObjectSequence", "None");
 	cls_AIS_ManipulatorObjectSequence.def(py::init<>());
@@ -1965,6 +1966,7 @@ PYBIND11_MODULE(AIS, mod) {
 	cls_AIS_ManipulatorObjectSequence.def_static("get_type_name_", (const char * (*)()) &AIS_ManipulatorObjectSequence::get_type_name, "None");
 	cls_AIS_ManipulatorObjectSequence.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_ManipulatorObjectSequence::get_type_descriptor, "None");
 	cls_AIS_ManipulatorObjectSequence.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_ManipulatorObjectSequence::*)() const ) &AIS_ManipulatorObjectSequence::DynamicType, "None");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_Manipulator.hxx
 	py::class_<AIS_Manipulator, opencascade::handle<AIS_Manipulator>, AIS_InteractiveObject> cls_AIS_Manipulator(mod, "AIS_Manipulator", "Interactive object class to manipulate local transformation of another interactive object or a group of objects via mouse. It manages three types of manipulations in 3D space: - translation through axis - scaling within axis - rotation around axis To enable one of this modes, selection mode (from 1 to 3) is to be activated. There are three orthogonal transformation axes defined by position property of the manipulator. Particular transformation mode can be disabled for each of the axes or all of them. Furthermore each of the axes can be hidden or made visible. The following steps demonstrate how to attach, configure and use manipulator for an interactive object: Step 1. Create manipulator object and adjust it appearance: Note that you can enable only one manipulation mode but have all visual parts displayed. This code allows you to view manipulator and select its manipulation parts. Note that manipulator activates mode on part selection. If this mode is activated, no selection will be performed for manipulator. It can be activated with highlighting. To enable this: Step 2. To perform transformation of object use next code in your event processing chain: Step 3. To deactivate current manipulation mode use: Step 4. To detach manipulator from object use: The last method erases manipulator object.");

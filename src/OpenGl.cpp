@@ -1669,6 +1669,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_StateCounter.def(py::init<>());
 	cls_OpenGl_StateCounter.def("Increment", (Standard_Size (OpenGl_StateCounter::*)()) &OpenGl_StateCounter::Increment, "None");
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_BVHClipPrimitiveSet.hxx
 	py::class_<OpenGl_BVHClipPrimitiveSet, std::unique_ptr<OpenGl_BVHClipPrimitiveSet, Deleter<OpenGl_BVHClipPrimitiveSet>>, BVH_PrimitiveSet3d> cls_OpenGl_BVHClipPrimitiveSet(mod, "OpenGl_BVHClipPrimitiveSet", "Set of OpenGl_Structures for building BVH tree.");
 	cls_OpenGl_BVHClipPrimitiveSet.def(py::init<>());
@@ -1683,7 +1684,9 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_BVHClipPrimitiveSet.def("Remove", (Standard_Boolean (OpenGl_BVHClipPrimitiveSet::*)(const OpenGl_Structure *)) &OpenGl_BVHClipPrimitiveSet::Remove, "Removes the given structure from the set.", py::arg("theStruct"));
 	cls_OpenGl_BVHClipPrimitiveSet.def("Clear", (void (OpenGl_BVHClipPrimitiveSet::*)()) &OpenGl_BVHClipPrimitiveSet::Clear, "Cleans the whole primitive set.");
 	cls_OpenGl_BVHClipPrimitiveSet.def("GetStructureById", (const OpenGl_Structure * (OpenGl_BVHClipPrimitiveSet::*)(Standard_Integer)) &OpenGl_BVHClipPrimitiveSet::GetStructureById, "Returns the structure corresponding to the given ID.", py::arg("theId"));
+	*/
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_BVHClipPrimitiveTrsfPersSet.hxx
 	py::class_<OpenGl_BVHClipPrimitiveTrsfPersSet, std::unique_ptr<OpenGl_BVHClipPrimitiveTrsfPersSet, Deleter<OpenGl_BVHClipPrimitiveTrsfPersSet>>, BVH_Set<Standard_Real, 3>> cls_OpenGl_BVHClipPrimitiveTrsfPersSet(mod, "OpenGl_BVHClipPrimitiveTrsfPersSet", "Set of transformation persistent OpenGl_Structure for building BVH tree. Provides built-in mechanism to invalidate tree when world view projection state changes. Due to frequent invalidation of BVH tree the choice of BVH tree builder is made in favor of BVH linear builder (quick rebuild).");
 	cls_OpenGl_BVHClipPrimitiveTrsfPersSet.def(py::init<const opencascade::handle<Select3D_BVHBuilder3d> &>(), py::arg("theBuilder"));
@@ -1699,6 +1702,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_BVHClipPrimitiveTrsfPersSet.def("BVH", (const opencascade::handle<BVH_Tree<Standard_Real, 3> > & (OpenGl_BVHClipPrimitiveTrsfPersSet::*)(const opencascade::handle<Graphic3d_Camera> &, const OpenGl_Mat4d &, const OpenGl_Mat4d &, const Standard_Integer, const Standard_Integer, const Graphic3d_WorldViewProjState &)) &OpenGl_BVHClipPrimitiveTrsfPersSet::BVH, "Returns BVH tree for the given world view projection (builds it if necessary).", py::arg("theCamera"), py::arg("theProjectionMatrix"), py::arg("theWorldViewMatrix"), py::arg("theViewportWidth"), py::arg("theViewportHeight"), py::arg("theWVPState"));
 	cls_OpenGl_BVHClipPrimitiveTrsfPersSet.def("Builder", (const opencascade::handle<Select3D_BVHBuilder3d> & (OpenGl_BVHClipPrimitiveTrsfPersSet::*)() const ) &OpenGl_BVHClipPrimitiveTrsfPersSet::Builder, "Returns builder for bottom-level BVH.");
 	cls_OpenGl_BVHClipPrimitiveTrsfPersSet.def("SetBuilder", (void (OpenGl_BVHClipPrimitiveTrsfPersSet::*)(const opencascade::handle<Select3D_BVHBuilder3d> &)) &OpenGl_BVHClipPrimitiveTrsfPersSet::SetBuilder, "Assigns builder for bottom-level BVH.", py::arg("theBuilder"));
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_BVHTreeSelector.hxx
 	py::class_<OpenGl_BVHTreeSelector, std::unique_ptr<OpenGl_BVHTreeSelector, Deleter<OpenGl_BVHTreeSelector>>> cls_OpenGl_BVHTreeSelector(mod, "OpenGl_BVHTreeSelector", "BVHTreeSelector class provides a possibility to store parameters of view volume, such as its vertices and equations, and contains methods detecting if given AABB overlaps view volume.");
@@ -1887,6 +1891,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	// OpenGl_BVHTriangulation3f
 	*/
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_SceneGeometry.hxx
 	py::class_<OpenGl_RaytraceGeometry, std::unique_ptr<OpenGl_RaytraceGeometry, Deleter<OpenGl_RaytraceGeometry>>, BVH_Geometry<Standard_ShortReal, 3>> cls_OpenGl_RaytraceGeometry(mod, "OpenGl_RaytraceGeometry", "Stores geometry of ray-tracing scene.");
 	cls_OpenGl_RaytraceGeometry.def(py::init<>());
@@ -1907,6 +1912,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_RaytraceGeometry.def("ReleaseResources", (void (OpenGl_RaytraceGeometry::*)(const opencascade::handle<OpenGl_Context> &)) &OpenGl_RaytraceGeometry::ReleaseResources, "Releases OpenGL resources.", py::arg(""));
 	cls_OpenGl_RaytraceGeometry.def("TopLevelTreeDepth", (Standard_Integer (OpenGl_RaytraceGeometry::*)() const ) &OpenGl_RaytraceGeometry::TopLevelTreeDepth, "Returns depth of top-level scene BVH from last build.");
 	cls_OpenGl_RaytraceGeometry.def("BotLevelTreeDepth", (Standard_Integer (OpenGl_RaytraceGeometry::*)() const ) &OpenGl_RaytraceGeometry::BotLevelTreeDepth, "Returns maximum depth of bottom-level scene BVHs from last build.");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_SetOfShaderPrograms.hxx
 	py::class_<OpenGl_SetOfShaderPrograms, opencascade::handle<OpenGl_SetOfShaderPrograms>, Standard_Transient> cls_OpenGl_SetOfShaderPrograms(mod, "OpenGl_SetOfShaderPrograms", "Alias to programs array of predefined length");
@@ -2407,6 +2413,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	// FIXME cls_QuadBvhHandle.def("operator->", (BVH_Tree<Standard_ShortReal, 3, BVH_QuadTree> * (QuadBvhHandle::*)() const ) &QuadBvhHandle::operator->, "Member access operator (note non-const)");
 	cls_QuadBvhHandle.def("__mul__", (BVH_Tree<Standard_ShortReal, 3, BVH_QuadTree> & (QuadBvhHandle::*)() const ) &QuadBvhHandle::operator*, py::is_operator(), "Dereferencing operator (note non-const)");
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_SceneGeometry.hxx
 	py::class_<OpenGl_TriangleSet, std::unique_ptr<OpenGl_TriangleSet, Deleter<OpenGl_TriangleSet>>, OpenGl_BVHTriangulation3f> cls_OpenGl_TriangleSet(mod, "OpenGl_TriangleSet", "Triangulation of single OpenGL primitive array.");
 	cls_OpenGl_TriangleSet.def(py::init<const Standard_Size, const opencascade::handle<BVH_Builder<Standard_ShortReal, 3> > &>(), py::arg("theArrayID"), py::arg("theBuilder"));
@@ -2420,6 +2427,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_TriangleSet.def("Center", (Standard_ShortReal (OpenGl_TriangleSet::*)(const Standard_Integer, const Standard_Integer) const ) &OpenGl_TriangleSet::Center, "Returns centroid position along the given axis.", py::arg("theIndex"), py::arg("theAxis"));
 	cls_OpenGl_TriangleSet.def("QuadBVH", (const QuadBvhHandle & (OpenGl_TriangleSet::*)()) &OpenGl_TriangleSet::QuadBVH, "Returns quad BVH (QBVH) tree produced from binary BVH.");
 	cls_OpenGl_TriangleSet.def("Box", (BVH_Box<float, 3> (OpenGl_TriangleSet::*)(const Standard_Integer) const ) &OpenGl_TriangleSet::Box, "Returns AABB of the given triangle.", py::arg("theIndex"));
+	*/
 
 	/* FIXME
 	// OpenGl_MapOfShaderPrograms

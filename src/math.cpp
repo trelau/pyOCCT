@@ -98,9 +98,10 @@ PYBIND11_MODULE(math, mod) {
 		.export_values();
 
 	// FUNCTIONS
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\math_Uzawa.lxx
 	mod.def("operator<<", (Standard_OStream & (*)(Standard_OStream &, const math_Uzawa &)) &operator<<, "None", py::arg("o"), py::arg("U"));
-
+	*/
 	// C:\Miniconda\envs\occt\Library\include\opencascade\math_Matrix.lxx
 	mod.def("__mul__", (math_Matrix (*)(const Standard_Real, const math_Matrix &)) &operator*, py::is_operator(), "None", py::arg("Left"), py::arg("Right"));
 

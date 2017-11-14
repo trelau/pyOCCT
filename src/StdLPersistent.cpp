@@ -64,11 +64,13 @@ PYBIND11_MODULE(StdLPersistent, mod) {
 	// ENUMS
 
 	// FUNCTIONS
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdLPersistent_HArray1.hxx
 	mod.def("operator>>", (StdObjMgt_WriteData & (*)(StdObjMgt_WriteData &, const Standard_Byte &)) &operator>>, "None", py::arg("theWriteData"), py::arg("theByte"));
-
+	*/
 
 	// CLASSES
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdLPersistent_HArray1.hxx
 	py::class_<StdLPersistent_HArray1OfPersistent, opencascade::handle<StdLPersistent_HArray1OfPersistent>, NCollection_Array1<opencascade::handle<StdObjMgt_Persistent> >, Standard_Transient> cls_StdLPersistent_HArray1OfPersistent(mod, "StdLPersistent_HArray1OfPersistent", "None");
 	cls_StdLPersistent_HArray1OfPersistent.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
@@ -79,11 +81,13 @@ PYBIND11_MODULE(StdLPersistent, mod) {
 	cls_StdLPersistent_HArray1OfPersistent.def_static("get_type_name_", (const char * (*)()) &StdLPersistent_HArray1OfPersistent::get_type_name, "None");
 	cls_StdLPersistent_HArray1OfPersistent.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StdLPersistent_HArray1OfPersistent::get_type_descriptor, "None");
 	cls_StdLPersistent_HArray1OfPersistent.def("DynamicType", (const opencascade::handle<Standard_Type> & (StdLPersistent_HArray1OfPersistent::*)() const ) &StdLPersistent_HArray1OfPersistent::DynamicType, "None");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdLPersistent_HArray1.hxx
 	py::class_<StdLPersistent_HArray1, std::unique_ptr<StdLPersistent_HArray1, Deleter<StdLPersistent_HArray1>>> cls_StdLPersistent_HArray1(mod, "StdLPersistent_HArray1", "None");
 	cls_StdLPersistent_HArray1.def(py::init<>());
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdLPersistent_HArray2.hxx
 	py::class_<StdLPersistent_HArray2OfPersistent, opencascade::handle<StdLPersistent_HArray2OfPersistent>, NCollection_Array2<opencascade::handle<StdObjMgt_Persistent> >, Standard_Transient> cls_StdLPersistent_HArray2OfPersistent(mod, "StdLPersistent_HArray2OfPersistent", "None");
 	cls_StdLPersistent_HArray2OfPersistent.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
@@ -94,6 +98,7 @@ PYBIND11_MODULE(StdLPersistent, mod) {
 	cls_StdLPersistent_HArray2OfPersistent.def_static("get_type_name_", (const char * (*)()) &StdLPersistent_HArray2OfPersistent::get_type_name, "None");
 	cls_StdLPersistent_HArray2OfPersistent.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StdLPersistent_HArray2OfPersistent::get_type_descriptor, "None");
 	cls_StdLPersistent_HArray2OfPersistent.def("DynamicType", (const opencascade::handle<Standard_Type> & (StdLPersistent_HArray2OfPersistent::*)() const ) &StdLPersistent_HArray2OfPersistent::DynamicType, "None");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdLPersistent_HArray2.hxx
 	py::class_<StdLPersistent_HArray2, std::unique_ptr<StdLPersistent_HArray2, Deleter<StdLPersistent_HArray2>>> cls_StdLPersistent_HArray2(mod, "StdLPersistent_HArray2", "None");
@@ -132,6 +137,7 @@ PYBIND11_MODULE(StdLPersistent, mod) {
 	cls_StdLPersistent_Document.def("PName", (Standard_CString (StdLPersistent_Document::*)() const ) &StdLPersistent_Document::PName, "Returns persistent type name");
 	cls_StdLPersistent_Document.def("ImportDocument", (void (StdLPersistent_Document::*)(const opencascade::handle<TDocStd_Document> &) const ) &StdLPersistent_Document::ImportDocument, "Import transient document from the persistent data.", py::arg("theDocument"));
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdLPersistent_Function.hxx
 	py::class_<StdLPersistent_Function, std::unique_ptr<StdLPersistent_Function, Deleter<StdLPersistent_Function>>, StdObjMgt_Attribute<TFunction_Function>> cls_StdLPersistent_Function(mod, "StdLPersistent_Function", "None");
 	cls_StdLPersistent_Function.def(py::init<>());
@@ -140,7 +146,9 @@ PYBIND11_MODULE(StdLPersistent, mod) {
 	cls_StdLPersistent_Function.def("PChildren", (void (StdLPersistent_Function::*)(StdObjMgt_Persistent::SequenceOfPersistent &) const ) &StdLPersistent_Function::PChildren, "Gets persistent child objects", py::arg(""));
 	cls_StdLPersistent_Function.def("PName", (Standard_CString (StdLPersistent_Function::*)() const ) &StdLPersistent_Function::PName, "Returns persistent type name");
 	cls_StdLPersistent_Function.def("Import", (void (StdLPersistent_Function::*)(const opencascade::handle<TFunction_Function> &) const ) &StdLPersistent_Function::Import, "Import transient attribuite from the persistent data.", py::arg("theAttribute"));
+	*/
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdLPersistent_NamedData.hxx
 	py::class_<StdLPersistent_NamedData, std::unique_ptr<StdLPersistent_NamedData, Deleter<StdLPersistent_NamedData>>, StdObjMgt_Attribute<TDataStd_NamedData>> cls_StdLPersistent_NamedData(mod, "StdLPersistent_NamedData", "None");
 	cls_StdLPersistent_NamedData.def(py::init<>());
@@ -149,7 +157,9 @@ PYBIND11_MODULE(StdLPersistent, mod) {
 	cls_StdLPersistent_NamedData.def("PChildren", (void (StdLPersistent_NamedData::*)(StdObjMgt_Persistent::SequenceOfPersistent &) const ) &StdLPersistent_NamedData::PChildren, "Gets persistent child objects", py::arg(""));
 	cls_StdLPersistent_NamedData.def("PName", (Standard_CString (StdLPersistent_NamedData::*)() const ) &StdLPersistent_NamedData::PName, "Returns persistent type name");
 	cls_StdLPersistent_NamedData.def("Import", (void (StdLPersistent_NamedData::*)(const opencascade::handle<TDataStd_NamedData> &) const ) &StdLPersistent_NamedData::Import, "Import transient attribuite from the persistent data.", py::arg("theAttribute"));
+	*/
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdLPersistent_Real.hxx
 	py::class_<StdLPersistent_Real, std::unique_ptr<StdLPersistent_Real, Deleter<StdLPersistent_Real>>, StdObjMgt_Attribute<TDataStd_Real>> cls_StdLPersistent_Real(mod, "StdLPersistent_Real", "None");
 	cls_StdLPersistent_Real.def(py::init<>());
@@ -158,6 +168,7 @@ PYBIND11_MODULE(StdLPersistent, mod) {
 	cls_StdLPersistent_Real.def("PChildren", (void (StdLPersistent_Real::*)(StdObjMgt_Persistent::SequenceOfPersistent &) const ) &StdLPersistent_Real::PChildren, "Gets persistent child objects", py::arg(""));
 	cls_StdLPersistent_Real.def("PName", (Standard_CString (StdLPersistent_Real::*)() const ) &StdLPersistent_Real::PName, "Returns persistent type name");
 	cls_StdLPersistent_Real.def("Import", (void (StdLPersistent_Real::*)(const opencascade::handle<TDataStd_Real> &) const ) &StdLPersistent_Real::Import, "Import transient attribuite from the persistent data.", py::arg("theAttribute"));
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdLPersistent_TreeNode.hxx
 	py::class_<StdLPersistent_TreeNode, opencascade::handle<StdLPersistent_TreeNode>> cls_StdLPersistent_TreeNode(mod, "StdLPersistent_TreeNode", "None");
@@ -172,6 +183,7 @@ PYBIND11_MODULE(StdLPersistent, mod) {
 	py::class_<StdLPersistent_Value, std::unique_ptr<StdLPersistent_Value, Deleter<StdLPersistent_Value>>> cls_StdLPersistent_Value(mod, "StdLPersistent_Value", "None");
 	cls_StdLPersistent_Value.def(py::init<>());
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdLPersistent_Variable.hxx
 	py::class_<StdLPersistent_Variable, std::unique_ptr<StdLPersistent_Variable, Deleter<StdLPersistent_Variable>>, StdObjMgt_Attribute<TDataStd_Variable>> cls_StdLPersistent_Variable(mod, "StdLPersistent_Variable", "None");
 	cls_StdLPersistent_Variable.def(py::init<>());
@@ -180,11 +192,13 @@ PYBIND11_MODULE(StdLPersistent, mod) {
 	cls_StdLPersistent_Variable.def("PChildren", (void (StdLPersistent_Variable::*)(StdObjMgt_Persistent::SequenceOfPersistent &) const ) &StdLPersistent_Variable::PChildren, "Gets persistent child objects", py::arg("theChildren"));
 	cls_StdLPersistent_Variable.def("PName", (Standard_CString (StdLPersistent_Variable::*)() const ) &StdLPersistent_Variable::PName, "Returns persistent type name");
 	cls_StdLPersistent_Variable.def("Import", (void (StdLPersistent_Variable::*)(const opencascade::handle<TDataStd_Variable> &) const ) &StdLPersistent_Variable::Import, "Import transient attribuite from the persistent data.", py::arg("theAttribute"));
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdLPersistent_Void.hxx
 	py::class_<StdLPersistent_Void, std::unique_ptr<StdLPersistent_Void, Deleter<StdLPersistent_Void>>> cls_StdLPersistent_Void(mod, "StdLPersistent_Void", "None");
 	cls_StdLPersistent_Void.def(py::init<>());
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdLPersistent_XLink.hxx
 	py::class_<StdLPersistent_XLink, std::unique_ptr<StdLPersistent_XLink, Deleter<StdLPersistent_XLink>>, StdObjMgt_Attribute<TDocStd_XLink>> cls_StdLPersistent_XLink(mod, "StdLPersistent_XLink", "None");
 	cls_StdLPersistent_XLink.def(py::init<>());
@@ -193,6 +207,7 @@ PYBIND11_MODULE(StdLPersistent, mod) {
 	cls_StdLPersistent_XLink.def("PChildren", (void (StdLPersistent_XLink::*)(StdObjMgt_Persistent::SequenceOfPersistent &) const ) &StdLPersistent_XLink::PChildren, "Gets persistent child objects", py::arg("theChildren"));
 	cls_StdLPersistent_XLink.def("PName", (Standard_CString (StdLPersistent_XLink::*)() const ) &StdLPersistent_XLink::PName, "Returns persistent type name");
 	cls_StdLPersistent_XLink.def("Import", (void (StdLPersistent_XLink::*)(const opencascade::handle<TDocStd_XLink> &) const ) &StdLPersistent_XLink::Import, "Import transient attribuite from the persistent data.", py::arg("theAttribute"));
+	*/
 
 
 }

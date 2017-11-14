@@ -59,6 +59,7 @@ PYBIND11_MODULE(StdPersistent, mod) {
 	py::class_<StdPersistent_TopoDS, std::unique_ptr<StdPersistent_TopoDS, Deleter<StdPersistent_TopoDS>>> cls_StdPersistent_TopoDS(mod, "StdPersistent_TopoDS", "None");
 	cls_StdPersistent_TopoDS.def(py::init<>());
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdPersistent_HArray1.hxx
 	py::class_<StdPersistent_HArray1OfShape1, opencascade::handle<StdPersistent_HArray1OfShape1>, NCollection_Array1<StdObject_Shape>, Standard_Transient> cls_StdPersistent_HArray1OfShape1(mod, "StdPersistent_HArray1OfShape1", "None");
 	cls_StdPersistent_HArray1OfShape1.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
@@ -69,6 +70,7 @@ PYBIND11_MODULE(StdPersistent, mod) {
 	cls_StdPersistent_HArray1OfShape1.def_static("get_type_name_", (const char * (*)()) &StdPersistent_HArray1OfShape1::get_type_name, "None");
 	cls_StdPersistent_HArray1OfShape1.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StdPersistent_HArray1OfShape1::get_type_descriptor, "None");
 	cls_StdPersistent_HArray1OfShape1.def("DynamicType", (const opencascade::handle<Standard_Type> & (StdPersistent_HArray1OfShape1::*)() const ) &StdPersistent_HArray1OfShape1::DynamicType, "None");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdPersistent_HArray1.hxx
 	py::class_<StdPersistent_HArray1, std::unique_ptr<StdPersistent_HArray1, Deleter<StdPersistent_HArray1>>> cls_StdPersistent_HArray1(mod, "StdPersistent_HArray1", "None");
@@ -83,6 +85,7 @@ PYBIND11_MODULE(StdPersistent, mod) {
 	py::class_<StdPersistent_DataXtd, std::unique_ptr<StdPersistent_DataXtd, Deleter<StdPersistent_DataXtd>>> cls_StdPersistent_DataXtd(mod, "StdPersistent_DataXtd", "None");
 	cls_StdPersistent_DataXtd.def(py::init<>());
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdPersistent_DataXtd_Constraint.hxx
 	py::class_<StdPersistent_DataXtd_Constraint, std::unique_ptr<StdPersistent_DataXtd_Constraint, Deleter<StdPersistent_DataXtd_Constraint>>, StdObjMgt_Attribute<TDataXtd_Constraint>> cls_StdPersistent_DataXtd_Constraint(mod, "StdPersistent_DataXtd_Constraint", "None");
 	cls_StdPersistent_DataXtd_Constraint.def(py::init<>());
@@ -91,7 +94,9 @@ PYBIND11_MODULE(StdPersistent, mod) {
 	cls_StdPersistent_DataXtd_Constraint.def("PChildren", (void (StdPersistent_DataXtd_Constraint::*)(StdObjMgt_Persistent::SequenceOfPersistent &) const ) &StdPersistent_DataXtd_Constraint::PChildren, "Gets persistent child objects", py::arg("theChildren"));
 	cls_StdPersistent_DataXtd_Constraint.def("PName", (Standard_CString (StdPersistent_DataXtd_Constraint::*)() const ) &StdPersistent_DataXtd_Constraint::PName, "Returns persistent type name");
 	cls_StdPersistent_DataXtd_Constraint.def("Import", (void (StdPersistent_DataXtd_Constraint::*)(const opencascade::handle<TDataXtd_Constraint> &) const ) &StdPersistent_DataXtd_Constraint::Import, "Import transient attribuite from the persistent data.", py::arg("theAttribute"));
+	*/
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdPersistent_DataXtd_PatternStd.hxx
 	py::class_<StdPersistent_DataXtd_PatternStd, std::unique_ptr<StdPersistent_DataXtd_PatternStd, Deleter<StdPersistent_DataXtd_PatternStd>>, StdObjMgt_Attribute<TDataXtd_PatternStd>> cls_StdPersistent_DataXtd_PatternStd(mod, "StdPersistent_DataXtd_PatternStd", "None");
 	cls_StdPersistent_DataXtd_PatternStd.def(py::init<>());
@@ -100,6 +105,7 @@ PYBIND11_MODULE(StdPersistent, mod) {
 	cls_StdPersistent_DataXtd_PatternStd.def("PChildren", (void (StdPersistent_DataXtd_PatternStd::*)(StdObjMgt_Persistent::SequenceOfPersistent &) const ) &StdPersistent_DataXtd_PatternStd::PChildren, "Gets persistent child objects", py::arg("theChildren"));
 	cls_StdPersistent_DataXtd_PatternStd.def("PName", (Standard_CString (StdPersistent_DataXtd_PatternStd::*)() const ) &StdPersistent_DataXtd_PatternStd::PName, "Returns persistent type name");
 	cls_StdPersistent_DataXtd_PatternStd.def("Import", (void (StdPersistent_DataXtd_PatternStd::*)(const opencascade::handle<TDataXtd_PatternStd> &) const ) &StdPersistent_DataXtd_PatternStd::Import, "Import transient attribuite from the persistent data.", py::arg("theAttribute"));
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdPersistent_Naming.hxx
 	py::class_<StdPersistent_Naming, std::unique_ptr<StdPersistent_Naming, Deleter<StdPersistent_Naming>>> cls_StdPersistent_Naming(mod, "StdPersistent_Naming", "None");

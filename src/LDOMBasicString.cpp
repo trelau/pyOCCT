@@ -40,12 +40,12 @@ PYBIND11_MODULE(LDOMBasicString, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LDOMBasicString.hxx
 	py::class_<LDOMBasicString, std::unique_ptr<LDOMBasicString, Deleter<LDOMBasicString>>> cls_LDOMBasicString(mod, "LDOMBasicString", "None");
-	cls_LDOMBasicString.def(py::init<>());
+	cls_LDOMBasicString.def(py::init<>(), py::call_guard<ImportLDOM>());
 	cls_LDOMBasicString.def(py::init([] (const LDOMBasicString &other) {return new LDOMBasicString(other);}), "Copy constructor", py::arg("other"));
-	cls_LDOMBasicString.def(py::init<const Standard_Integer>(), py::arg("aValue"));
-	cls_LDOMBasicString.def(py::init<const char *>(), py::arg("aValue"));
-	cls_LDOMBasicString.def(py::init<const char *, const opencascade::handle<LDOM_MemManager> &>(), py::arg("aValue"), py::arg("aDoc"));
-	cls_LDOMBasicString.def(py::init<const char *, const Standard_Integer, const opencascade::handle<LDOM_MemManager> &>(), py::arg("aValue"), py::arg("aLen"), py::arg("aDoc"));
+	cls_LDOMBasicString.def(py::init<const Standard_Integer>(), py::arg("aValue"), py::call_guard<ImportLDOM>());
+	cls_LDOMBasicString.def(py::init<const char *>(), py::arg("aValue"), py::call_guard<ImportLDOM>());
+	cls_LDOMBasicString.def(py::init<const char *, const opencascade::handle<LDOM_MemManager> &>(), py::arg("aValue"), py::arg("aDoc"), py::call_guard<ImportLDOM>());
+	cls_LDOMBasicString.def(py::init<const char *, const Standard_Integer, const opencascade::handle<LDOM_MemManager> &>(), py::arg("aValue"), py::arg("aLen"), py::arg("aDoc"), py::call_guard<ImportLDOM>());
 	cls_LDOMBasicString.def("Type", (LDOMBasicString::StringType (LDOMBasicString::*)() const ) &LDOMBasicString::Type, "None");
 	cls_LDOMBasicString.def("GetInteger", (Standard_Boolean (LDOMBasicString::*)(Standard_Integer &) const ) &LDOMBasicString::GetInteger, "None", py::arg("aResult"));
 	cls_LDOMBasicString.def("GetString", (const char * (LDOMBasicString::*)() const ) &LDOMBasicString::GetString, "None");

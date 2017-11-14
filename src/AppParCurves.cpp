@@ -70,9 +70,10 @@ PYBIND11_MODULE(AppParCurves, mod) {
 		.export_values();
 
 	// FUNCTIONS
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AppParCurves_MultiPoint.lxx
 	mod.def("operator<<", (Standard_OStream & (*)(Standard_OStream &, const AppParCurves_MultiPoint &)) &operator<<, "None", py::arg("o"), py::arg("M"));
-
+	*/
 
 	// CLASSES
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AppParCurves_MultiPoint.hxx

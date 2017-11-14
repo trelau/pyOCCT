@@ -212,9 +212,10 @@ PYBIND11_MODULE(Message, mod) {
 		.export_values();
 
 	// FUNCTIONS
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Message_Messenger.hxx
 	mod.def("operator<<", (const opencascade::handle<Message_Messenger> & (*)(const opencascade::handle<Message_Messenger> &, const opencascade::handle<Message_Messenger> &(*)(const opencascade::handle<Message_Messenger> &))) &operator<<, "None", py::arg("theMessenger"), py::arg("pman"));
-
+	*/
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Message_Messenger.hxx
 	mod.def("endl", (const opencascade::handle<Message_Messenger> & (*)(const opencascade::handle<Message_Messenger> &)) &endl, "None", py::arg("theMessenger"));
 
@@ -343,19 +344,19 @@ PYBIND11_MODULE(Message, mod) {
 	cls_Message_Msg.def("Set", (void (Message_Msg::*)(const Standard_CString)) &Message_Msg::Set, "Set a message body text -- can be used as alternative to using messages from resource file", py::arg("theMsg"));
 	cls_Message_Msg.def("Set", (void (Message_Msg::*)(const TCollection_ExtendedString &)) &Message_Msg::Set, "Set a message body text -- can be used as alternative to using messages from resource file", py::arg("theMsg"));
 	cls_Message_Msg.def("Arg", (Message_Msg & (Message_Msg::*)(const Standard_CString)) &Message_Msg::Arg, "Set a value for %..s conversion", py::arg("theString"));
-	cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const Standard_CString)) &Message_Msg::operator<<, "None", py::arg("theString"));
+	// FIXME cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const Standard_CString)) &Message_Msg::operator<<, "None", py::arg("theString"));
 	cls_Message_Msg.def("Arg", (Message_Msg & (Message_Msg::*)(const TCollection_AsciiString &)) &Message_Msg::Arg, "Set a value for %..s conversion", py::arg("theString"));
-	cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const TCollection_AsciiString &)) &Message_Msg::operator<<, "None", py::arg("theString"));
+	// FIXME cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const TCollection_AsciiString &)) &Message_Msg::operator<<, "None", py::arg("theString"));
 	cls_Message_Msg.def("Arg", (Message_Msg & (Message_Msg::*)(const opencascade::handle<TCollection_HAsciiString> &)) &Message_Msg::Arg, "Set a value for %..s conversion", py::arg("theString"));
-	cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const opencascade::handle<TCollection_HAsciiString> &)) &Message_Msg::operator<<, "None", py::arg("theString"));
+	// FIXME cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const opencascade::handle<TCollection_HAsciiString> &)) &Message_Msg::operator<<, "None", py::arg("theString"));
 	cls_Message_Msg.def("Arg", (Message_Msg & (Message_Msg::*)(const TCollection_ExtendedString &)) &Message_Msg::Arg, "Set a value for %..s conversion", py::arg("theString"));
-	cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const TCollection_ExtendedString &)) &Message_Msg::operator<<, "None", py::arg("theString"));
+	// FIXME cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const TCollection_ExtendedString &)) &Message_Msg::operator<<, "None", py::arg("theString"));
 	cls_Message_Msg.def("Arg", (Message_Msg & (Message_Msg::*)(const opencascade::handle<TCollection_HExtendedString> &)) &Message_Msg::Arg, "Set a value for %..s conversion", py::arg("theString"));
-	cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const opencascade::handle<TCollection_HExtendedString> &)) &Message_Msg::operator<<, "None", py::arg("theString"));
+	// FIXME cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const opencascade::handle<TCollection_HExtendedString> &)) &Message_Msg::operator<<, "None", py::arg("theString"));
 	cls_Message_Msg.def("Arg", (Message_Msg & (Message_Msg::*)(const Standard_Integer)) &Message_Msg::Arg, "Set a value for %..d, %..i, %..o, %..u, %..x or %..X conversion", py::arg("theInt"));
-	cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const Standard_Integer)) &Message_Msg::operator<<, "None", py::arg("theInt"));
+	// FIXME cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const Standard_Integer)) &Message_Msg::operator<<, "None", py::arg("theInt"));
 	cls_Message_Msg.def("Arg", (Message_Msg & (Message_Msg::*)(const Standard_Real)) &Message_Msg::Arg, "Set a value for %..f, %..e, %..E, %..g or %..G conversion", py::arg("theReal"));
-	cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const Standard_Real)) &Message_Msg::operator<<, "None", py::arg("theReal"));
+	// FIXME cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const Standard_Real)) &Message_Msg::operator<<, "None", py::arg("theReal"));
 	cls_Message_Msg.def("Original", (const TCollection_ExtendedString & (Message_Msg::*)() const ) &Message_Msg::Original, "Returns the original message text");
 	cls_Message_Msg.def("Value", (const TCollection_ExtendedString & (Message_Msg::*)() const ) &Message_Msg::Value, "Returns current state of the message text with parameters to the moment");
 	cls_Message_Msg.def("IsEdited", (Standard_Boolean (Message_Msg::*)() const ) &Message_Msg::IsEdited, "Tells if Value differs from Original");
