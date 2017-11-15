@@ -1,4 +1,4 @@
-from setuptools import setup
+from distutils.core import setup
 
 setup(
         name='OCCT',
@@ -7,7 +7,7 @@ setup(
         package_data={'OCCT': ['*.pyd', '*.dll']},
         author='Laughlin Research, LLC',
         author_email='info@laughlinresearch.com',
-        description='Python bindings to OpenCASCADE.',
+        dsescription='Python bindings to OpenCASCADE.',
         license='Proprietary',
         zip_safe=False,
         platforms=['Windows']
