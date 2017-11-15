@@ -29,12 +29,12 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <SMESHDS_Script.hxx>
 #include <TopAbs_ShapeEnum.hxx>
 #include <SMESHDS_GroupBase.hxx>
-#include <SMESHDS_Document.hxx>
+#include <SMDSAbs_ElementType.hxx>
 #include <SMDS_ElemIterator.hxx>
+#include <Quantity_Color.hxx>
+#include <SMESHDS_Document.hxx>
 #include <SMESHDS_CommandType.hxx>
 #include <SMESHDS_Command.hxx>
-#include <SMDSAbs_ElementType.hxx>
-#include <Quantity_Color.hxx>
 #include <Standard_TypeDef.hxx>
 #include <SMESHDS_DataMapOfShape.hxx>
 #include <NCollection_BaseMap.hxx>
@@ -57,11 +57,14 @@ PYBIND11_MODULE(SMESHDS, mod) {
 	py::module::import("OCCT.Quantity");
 	py::module::import("OCCT.Standard");
 	py::module::import("OCCT.NCollection");
-	py::module::import("OCCT.SMESH");
 
 	py::module other_mod;
 
 	// IMPORT GUARDS
+	struct ImportSMESH{
+		ImportSMESH() { py::module::import("OCCT.SMESH"); }
+	};
+
 
 	// ENUMS
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_CommandType.hxx
@@ -191,7 +194,7 @@ PYBIND11_MODULE(SMESHDS, mod) {
 	cls_SMESHDS_Mesh.def("RemoveFreeElement", [](SMESHDS_Mesh &self, const SMDS_MeshElement * a0, SMESHDS_SubMesh * a1) -> void { return self.RemoveFreeElement(a0, a1); }, py::arg(""), py::arg(""));
 	cls_SMESHDS_Mesh.def("RemoveFreeElement", (void (SMESHDS_Mesh::*)(const SMDS_MeshElement *, SMESHDS_SubMesh *, bool)) &SMESHDS_Mesh::RemoveFreeElement, "None", py::arg(""), py::arg(""), py::arg("fromGroups"));
 	cls_SMESHDS_Mesh.def("ClearMesh", (void (SMESHDS_Mesh::*)()) &SMESHDS_Mesh::ClearMesh, "None");
-	cls_SMESHDS_Mesh.def("ChangeElementNodes", (bool (SMESHDS_Mesh::*)(const SMDS_MeshElement *, const SMDS_MeshNode *[], const int)) &SMESHDS_Mesh::ChangeElementNodes, "None", py::arg("elem"), py::arg("nodes"), py::arg("nbnodes"));
+	// FIXME cls_SMESHDS_Mesh.def("ChangeElementNodes", (bool (SMESHDS_Mesh::*)(const SMDS_MeshElement *, const SMDS_MeshNode *[], const int)) &SMESHDS_Mesh::ChangeElementNodes, "None", py::arg("elem"), py::arg("nodes"), py::arg("nbnodes"));
 	cls_SMESHDS_Mesh.def("ChangePolygonNodes", (bool (SMESHDS_Mesh::*)(const SMDS_MeshElement *, std::vector<const SMDS_MeshNode *>)) &SMESHDS_Mesh::ChangePolygonNodes, "None", py::arg("elem"), py::arg("nodes"));
 	cls_SMESHDS_Mesh.def("ChangePolyhedronNodes", (bool (SMESHDS_Mesh::*)(const SMDS_MeshElement *, std::vector<const SMDS_MeshNode *>, std::vector<int>)) &SMESHDS_Mesh::ChangePolyhedronNodes, "None", py::arg("elem"), py::arg("nodes"), py::arg("quantities"));
 	cls_SMESHDS_Mesh.def("ModifyCellNodes", (bool (SMESHDS_Mesh::*)(int, std::map<int, int>)) &SMESHDS_Mesh::ModifyCellNodes, "None", py::arg("smdsVolId"), py::arg("localClonedNodeIds"));
@@ -243,6 +246,37 @@ PYBIND11_MODULE(SMESHDS, mod) {
 	cls_SMESHDS_Mesh.def("compactMesh", (void (SMESHDS_Mesh::*)()) &SMESHDS_Mesh::compactMesh, "None");
 	cls_SMESHDS_Mesh.def("CleanDownWardConnectivity", (void (SMESHDS_Mesh::*)()) &SMESHDS_Mesh::CleanDownWardConnectivity, "None");
 	cls_SMESHDS_Mesh.def("BuildDownWardConnectivity", (void (SMESHDS_Mesh::*)(bool)) &SMESHDS_Mesh::BuildDownWardConnectivity, "None", py::arg("withEdges"));
+
+	// Callback for SMESHDS_GroupBase.
+	class PyCallback_SMESHDS_GroupBase : public SMESHDS_GroupBase {
+	public:
+		using SMESHDS_GroupBase::SMESHDS_GroupBase;
+
+		SMDS_ElemIteratorPtr GetElements() const  override { PYBIND11_OVERLOAD_PURE(SMDS_ElemIteratorPtr, SMESHDS_GroupBase, GetElements, ); }
+		int GetTic() const  override { PYBIND11_OVERLOAD_PURE(int, SMESHDS_GroupBase, GetTic, ); }
+	};
+
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_GroupBase.hxx
+	py::class_<SMESHDS_GroupBase, std::unique_ptr<SMESHDS_GroupBase, Deleter<SMESHDS_GroupBase>>, PyCallback_SMESHDS_GroupBase> cls_SMESHDS_GroupBase(mod, "SMESHDS_GroupBase", "None");
+	cls_SMESHDS_GroupBase.def(py::init<const int, const SMESHDS_Mesh *, const SMDSAbs_ElementType>(), py::arg("theID"), py::arg("theMesh"), py::arg("theType"));
+	cls_SMESHDS_GroupBase.def("GetID", (int (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetID, "None");
+	cls_SMESHDS_GroupBase.def("GetMesh", (const SMESHDS_Mesh * (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetMesh, "None");
+	cls_SMESHDS_GroupBase.def("SetType", (void (SMESHDS_GroupBase::*)(SMDSAbs_ElementType)) &SMESHDS_GroupBase::SetType, "None", py::arg("theType"));
+	cls_SMESHDS_GroupBase.def("GetType", (SMDSAbs_ElementType (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetType, "None");
+	cls_SMESHDS_GroupBase.def("SetStoreName", (void (SMESHDS_GroupBase::*)(const char *)) &SMESHDS_GroupBase::SetStoreName, "None", py::arg("theName"));
+	cls_SMESHDS_GroupBase.def("GetStoreName", (const char * (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetStoreName, "None");
+	cls_SMESHDS_GroupBase.def("Extent", (int (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::Extent, "None");
+	cls_SMESHDS_GroupBase.def("IsEmpty", (bool (SMESHDS_GroupBase::*)()) &SMESHDS_GroupBase::IsEmpty, "None");
+	cls_SMESHDS_GroupBase.def("Contains", (bool (SMESHDS_GroupBase::*)(const int)) &SMESHDS_GroupBase::Contains, "None", py::arg("theID"));
+	cls_SMESHDS_GroupBase.def("Contains", (bool (SMESHDS_GroupBase::*)(const SMDS_MeshElement *)) &SMESHDS_GroupBase::Contains, "None", py::arg("elem"));
+	cls_SMESHDS_GroupBase.def("GetElements", (SMDS_ElemIteratorPtr (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetElements, "None");
+	cls_SMESHDS_GroupBase.def("GetID", (int (SMESHDS_GroupBase::*)(const int)) &SMESHDS_GroupBase::GetID, "None", py::arg("theIndex"));
+	cls_SMESHDS_GroupBase.def("GetTic", (int (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetTic, "None");
+	cls_SMESHDS_GroupBase.def("SetColor", (void (SMESHDS_GroupBase::*)(const Quantity_Color &)) &SMESHDS_GroupBase::SetColor, "None", py::arg("theColor"));
+	cls_SMESHDS_GroupBase.def("GetColor", (Quantity_Color (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetColor, "None");
+	cls_SMESHDS_GroupBase.def("SetColorGroup", (void (SMESHDS_GroupBase::*)(int)) &SMESHDS_GroupBase::SetColorGroup, "None", py::arg("theColorGroup"));
+	cls_SMESHDS_GroupBase.def("GetColorGroup", (int (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetColorGroup, "None");
+	cls_SMESHDS_GroupBase.def_static("SetDefaultColor_", (void (*)(const Quantity_Color &)) &SMESHDS_GroupBase::SetDefaultColor, "None", py::arg("theColor"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_Document.hxx
 	py::class_<SMESHDS_Document, std::unique_ptr<SMESHDS_Document, Deleter<SMESHDS_Document>>> cls_SMESHDS_Document(mod, "SMESHDS_Document", "None");
@@ -351,37 +385,6 @@ PYBIND11_MODULE(SMESHDS, mod) {
 	cls_SMESHDS_Command.def("GetIndexes", (const std::list<int> & (SMESHDS_Command::*)()) &SMESHDS_Command::GetIndexes, "None");
 	cls_SMESHDS_Command.def("GetCoords", (const std::list<double> & (SMESHDS_Command::*)()) &SMESHDS_Command::GetCoords, "None");
 
-	// Callback for SMESHDS_GroupBase.
-	class PyCallback_SMESHDS_GroupBase : public SMESHDS_GroupBase {
-	public:
-		using SMESHDS_GroupBase::SMESHDS_GroupBase;
-
-		SMDS_ElemIteratorPtr GetElements() const  override { PYBIND11_OVERLOAD_PURE(SMDS_ElemIteratorPtr, SMESHDS_GroupBase, GetElements, ); }
-		int GetTic() const  override { PYBIND11_OVERLOAD_PURE(int, SMESHDS_GroupBase, GetTic, ); }
-	};
-
-	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_GroupBase.hxx
-	py::class_<SMESHDS_GroupBase, std::unique_ptr<SMESHDS_GroupBase, Deleter<SMESHDS_GroupBase>>, PyCallback_SMESHDS_GroupBase> cls_SMESHDS_GroupBase(mod, "SMESHDS_GroupBase", "None");
-	cls_SMESHDS_GroupBase.def(py::init<const int, const SMESHDS_Mesh *, const SMDSAbs_ElementType>(), py::arg("theID"), py::arg("theMesh"), py::arg("theType"));
-	cls_SMESHDS_GroupBase.def("GetID", (int (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetID, "None");
-	cls_SMESHDS_GroupBase.def("GetMesh", (const SMESHDS_Mesh * (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetMesh, "None");
-	cls_SMESHDS_GroupBase.def("SetType", (void (SMESHDS_GroupBase::*)(SMDSAbs_ElementType)) &SMESHDS_GroupBase::SetType, "None", py::arg("theType"));
-	cls_SMESHDS_GroupBase.def("GetType", (SMDSAbs_ElementType (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetType, "None");
-	cls_SMESHDS_GroupBase.def("SetStoreName", (void (SMESHDS_GroupBase::*)(const char *)) &SMESHDS_GroupBase::SetStoreName, "None", py::arg("theName"));
-	cls_SMESHDS_GroupBase.def("GetStoreName", (const char * (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetStoreName, "None");
-	cls_SMESHDS_GroupBase.def("Extent", (int (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::Extent, "None");
-	cls_SMESHDS_GroupBase.def("IsEmpty", (bool (SMESHDS_GroupBase::*)()) &SMESHDS_GroupBase::IsEmpty, "None");
-	cls_SMESHDS_GroupBase.def("Contains", (bool (SMESHDS_GroupBase::*)(const int)) &SMESHDS_GroupBase::Contains, "None", py::arg("theID"));
-	cls_SMESHDS_GroupBase.def("Contains", (bool (SMESHDS_GroupBase::*)(const SMDS_MeshElement *)) &SMESHDS_GroupBase::Contains, "None", py::arg("elem"));
-	cls_SMESHDS_GroupBase.def("GetElements", (SMDS_ElemIteratorPtr (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetElements, "None");
-	cls_SMESHDS_GroupBase.def("GetID", (int (SMESHDS_GroupBase::*)(const int)) &SMESHDS_GroupBase::GetID, "None", py::arg("theIndex"));
-	cls_SMESHDS_GroupBase.def("GetTic", (int (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetTic, "None");
-	cls_SMESHDS_GroupBase.def("SetColor", (void (SMESHDS_GroupBase::*)(const Quantity_Color &)) &SMESHDS_GroupBase::SetColor, "None", py::arg("theColor"));
-	cls_SMESHDS_GroupBase.def("GetColor", (Quantity_Color (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetColor, "None");
-	cls_SMESHDS_GroupBase.def("SetColorGroup", (void (SMESHDS_GroupBase::*)(int)) &SMESHDS_GroupBase::SetColorGroup, "None", py::arg("theColorGroup"));
-	cls_SMESHDS_GroupBase.def("GetColorGroup", (int (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetColorGroup, "None");
-	cls_SMESHDS_GroupBase.def_static("SetDefaultColor_", (void (*)(const Quantity_Color &)) &SMESHDS_GroupBase::SetDefaultColor, "None", py::arg("theColor"));
-
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_DataMapOfShape.hxx
 	py::class_<SMESHDS_Hasher, std::unique_ptr<SMESHDS_Hasher, Deleter<SMESHDS_Hasher>>> cls_SMESHDS_Hasher(mod, "SMESHDS_Hasher", "None");
 	cls_SMESHDS_Hasher.def(py::init<>());
@@ -445,9 +448,9 @@ PYBIND11_MODULE(SMESHDS, mod) {
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_GroupOnFilter.hxx
 	py::class_<SMESHDS_GroupOnFilter, std::unique_ptr<SMESHDS_GroupOnFilter, Deleter<SMESHDS_GroupOnFilter>>, SMESHDS_GroupBase> cls_SMESHDS_GroupOnFilter(mod, "SMESHDS_GroupOnFilter", "Groups whose contents is dynamically updated using the filter");
-	cls_SMESHDS_GroupOnFilter.def(py::init<const int, const SMESHDS_Mesh *, const SMDSAbs_ElementType, const SMESH_PredicatePtr &>(), py::arg("theID"), py::arg("theMesh"), py::arg("theType"), py::arg("thePredicate"));
-	cls_SMESHDS_GroupOnFilter.def("SetPredicate", (void (SMESHDS_GroupOnFilter::*)(const SMESH_PredicatePtr &)) &SMESHDS_GroupOnFilter::SetPredicate, "None", py::arg("thePredicate"));
-	cls_SMESHDS_GroupOnFilter.def("GetPredicate", (SMESH_PredicatePtr (SMESHDS_GroupOnFilter::*)() const ) &SMESHDS_GroupOnFilter::GetPredicate, "None");
+	cls_SMESHDS_GroupOnFilter.def(py::init<const int, const SMESHDS_Mesh *, const SMDSAbs_ElementType, const SMESH_PredicatePtr &>(), py::arg("theID"), py::arg("theMesh"), py::arg("theType"), py::arg("thePredicate"), py::call_guard<ImportSMESH>());
+	cls_SMESHDS_GroupOnFilter.def("SetPredicate", (void (SMESHDS_GroupOnFilter::*)(const SMESH_PredicatePtr &)) &SMESHDS_GroupOnFilter::SetPredicate, "None", py::arg("thePredicate"), py::call_guard<ImportSMESH>());
+	cls_SMESHDS_GroupOnFilter.def("GetPredicate", (SMESH_PredicatePtr (SMESHDS_GroupOnFilter::*)() const ) &SMESHDS_GroupOnFilter::GetPredicate, "None", py::call_guard<ImportSMESH>());
 	cls_SMESHDS_GroupOnFilter.def("GetMeshInfo", (std::vector<int> (SMESHDS_GroupOnFilter::*)() const ) &SMESHDS_GroupOnFilter::GetMeshInfo, "None");
 	cls_SMESHDS_GroupOnFilter.def("Extent", (int (SMESHDS_GroupOnFilter::*)() const ) &SMESHDS_GroupOnFilter::Extent, "None");
 	cls_SMESHDS_GroupOnFilter.def("IsEmpty", (bool (SMESHDS_GroupOnFilter::*)()) &SMESHDS_GroupOnFilter::IsEmpty, "None");
@@ -473,6 +476,7 @@ PYBIND11_MODULE(SMESHDS, mod) {
 	cls_SMESHDS_SubMeshIterator.def("next", (const SMESHDS_SubMesh * (SMESHDS_SubMeshIterator::*)()) &SMESHDS_SubMeshIterator::next, "Return the current object and step to the next one");
 	cls_SMESHDS_SubMeshIterator.def("remove", (void (SMESHDS_SubMeshIterator::*)()) &SMESHDS_SubMeshIterator::remove, "Delete the current element and step to the next one");
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
 	py::class_<SMESHDS_SubMeshIteratorPtr, std::unique_ptr<SMESHDS_SubMeshIteratorPtr, Deleter<SMESHDS_SubMeshIteratorPtr>>> cls_SMESHDS_SubMeshIteratorPtr(mod, "SMESHDS_SubMeshIteratorPtr", "None");
 	cls_SMESHDS_SubMeshIteratorPtr.def(py::init<>());
@@ -498,6 +502,8 @@ PYBIND11_MODULE(SMESHDS, mod) {
 	cls_SMESHDS_SubMeshIteratorPtr.def("_internal_get_untyped_deleter", (void * (SMESHDS_SubMeshIteratorPtr::*)() const ) &SMESHDS_SubMeshIteratorPtr::_internal_get_untyped_deleter, "None");
 	cls_SMESHDS_SubMeshIteratorPtr.def("_internal_equiv", (bool (SMESHDS_SubMeshIteratorPtr::*)(const shared_ptr<SMESHDS_SubMeshIterator> &) const ) &SMESHDS_SubMeshIteratorPtr::_internal_equiv, "None", py::arg("r"));
 	cls_SMESHDS_SubMeshIteratorPtr.def("_internal_count", (boost::detail::shared_count (SMESHDS_SubMeshIteratorPtr::*)() const ) &SMESHDS_SubMeshIteratorPtr::_internal_count, "None");
+
+	*/
 
 	/* FIXME
 	// THypList

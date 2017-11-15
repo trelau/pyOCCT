@@ -9,10 +9,15 @@ using opencascade::handle;
 // Deleter template for mixed holder types with public/hidden destructors.
 template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
 
+#include <Driver_SMDS_Mesh.h>
+#include <Driver_Mesh.h>
+#include <DriverDAT_R_SMDS_Mesh.h>
+#include <DriverDAT_W_SMDS_Mesh.h>
 
 PYBIND11_MODULE(DriverDAT, mod) {
 
 	// IMPORT
+	py::module::import("OCCT.Driver");
 
 	py::module other_mod;
 

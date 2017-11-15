@@ -2146,15 +2146,21 @@ PYBIND11_MODULE(Graphic3d, mod) {
 		mod.attr("Graphic3d_Vec3") = other_mod.attr("BVH_Vec3f");
 	}
 
+	/* FIXME
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec3d")) {
 		mod.attr("Graphic3d_Vec3d") = other_mod.attr("BVH_Vec3d");
 	}
 
+	*/
+
+	/* FIXME
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec3i")) {
 		mod.attr("Graphic3d_Vec3i") = other_mod.attr("BVH_Vec3i");
 	}
+
+	*/
 
 	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vec3.hxx
@@ -2368,15 +2374,21 @@ PYBIND11_MODULE(Graphic3d, mod) {
 		mod.attr("Graphic3d_Vec4") = other_mod.attr("BVH_Vec4f");
 	}
 
+	/* FIXME
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec4d")) {
 		mod.attr("Graphic3d_Vec4d") = other_mod.attr("BVH_Vec4d");
 	}
 
+	*/
+
+	/* FIXME
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec4i")) {
 		mod.attr("Graphic3d_Vec4i") = other_mod.attr("BVH_Vec4i");
 	}
+
+	*/
 
 	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vec4.hxx
@@ -2680,15 +2692,21 @@ PYBIND11_MODULE(Graphic3d, mod) {
 		mod.attr("Graphic3d_Vec2") = other_mod.attr("BVH_Vec2f");
 	}
 
+	/* FIXME
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec2d")) {
 		mod.attr("Graphic3d_Vec2d") = other_mod.attr("BVH_Vec2d");
 	}
 
+	*/
+
+	/* FIXME
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec2i")) {
 		mod.attr("Graphic3d_Vec2i") = other_mod.attr("BVH_Vec2i");
 	}
+
+	*/
 
 	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vec2.hxx

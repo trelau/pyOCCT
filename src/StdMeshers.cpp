@@ -62,6 +62,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <StdMeshers_LocalLength.hxx>
 #include <StdMeshers_MaxLength.hxx>
 #include <StdMeshers_MEFISTO_2D.hxx>
+#include <Rn.h>
 #include <StdMeshers_NotConformAllowed.hxx>
 #include <StdMeshers_NumberOfLayers.hxx>
 #include <StdMeshers_NumberOfLayers2D.hxx>
@@ -171,19 +172,19 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_FaceSide.def(py::init<UVPtStructVec &, const TopoDS_Face &>(), py::arg("theSideNodes"), py::arg("theFace"));
 	cls_StdMeshers_FaceSide.def(py::init<UVPtStructVec &, const TopoDS_Face &, const TopoDS_Edge &>(), py::arg("theSideNodes"), py::arg("theFace"), py::arg("theEdge"));
 	cls_StdMeshers_FaceSide.def(py::init<UVPtStructVec &, const TopoDS_Face &, const TopoDS_Edge &, SMESH_Mesh *>(), py::arg("theSideNodes"), py::arg("theFace"), py::arg("theEdge"), py::arg("theMesh"));
-	cls_StdMeshers_FaceSide.def_static("New_", [](const TopoDS_Face & a0, const TopoDS_Edge & a1, SMESH_Mesh * a2, const bool a3, const bool a4) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0, a1, a2, a3, a4); }, py::arg("Face"), py::arg("Edge"), py::arg("Mesh"), py::arg("IsForward"), py::arg("IgnoreMediumNodes"));
-	cls_StdMeshers_FaceSide.def_static("New_", [](const TopoDS_Face & a0, const TopoDS_Edge & a1, SMESH_Mesh * a2, const bool a3, const bool a4, SMESH_MesherHelper * a5) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0, a1, a2, a3, a4, a5); }, py::arg("Face"), py::arg("Edge"), py::arg("Mesh"), py::arg("IsForward"), py::arg("IgnoreMediumNodes"), py::arg("FaceHelper"));
-	cls_StdMeshers_FaceSide.def_static("New_", (StdMeshers_FaceSidePtr (*)(const TopoDS_Face &, const TopoDS_Edge &, SMESH_Mesh *, const bool, const bool, SMESH_MesherHelper *, SMESH_ProxyMesh::Ptr)) &StdMeshers_FaceSide::New, "None", py::arg("Face"), py::arg("Edge"), py::arg("Mesh"), py::arg("IsForward"), py::arg("IgnoreMediumNodes"), py::arg("FaceHelper"), py::arg("ProxyMesh"));
-	cls_StdMeshers_FaceSide.def_static("New_", [](const TopoDS_Face & a0, std::list<TopoDS_Edge> & a1, SMESH_Mesh * a2, const bool a3, const bool a4) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0, a1, a2, a3, a4); }, py::arg("Face"), py::arg("Edges"), py::arg("Mesh"), py::arg("IsForward"), py::arg("IgnoreMediumNodes"));
-	cls_StdMeshers_FaceSide.def_static("New_", [](const TopoDS_Face & a0, std::list<TopoDS_Edge> & a1, SMESH_Mesh * a2, const bool a3, const bool a4, SMESH_MesherHelper * a5) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0, a1, a2, a3, a4, a5); }, py::arg("Face"), py::arg("Edges"), py::arg("Mesh"), py::arg("IsForward"), py::arg("IgnoreMediumNodes"), py::arg("FaceHelper"));
-	cls_StdMeshers_FaceSide.def_static("New_", (StdMeshers_FaceSidePtr (*)(const TopoDS_Face &, std::list<TopoDS_Edge> &, SMESH_Mesh *, const bool, const bool, SMESH_MesherHelper *, SMESH_ProxyMesh::Ptr)) &StdMeshers_FaceSide::New, "None", py::arg("Face"), py::arg("Edges"), py::arg("Mesh"), py::arg("IsForward"), py::arg("IgnoreMediumNodes"), py::arg("FaceHelper"), py::arg("ProxyMesh"));
-	cls_StdMeshers_FaceSide.def_static("New_", [](const StdMeshers_FaceSide * a0, const SMDS_MeshNode * a1, const gp_Pnt2d * a2) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0, a1, a2); }, py::arg("Side"), py::arg("Node"), py::arg("Pnt2d1"));
-	cls_StdMeshers_FaceSide.def_static("New_", [](const StdMeshers_FaceSide * a0, const SMDS_MeshNode * a1, const gp_Pnt2d * a2, const gp_Pnt2d * a3) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0, a1, a2, a3); }, py::arg("Side"), py::arg("Node"), py::arg("Pnt2d1"), py::arg("Pnt2d2"));
-	cls_StdMeshers_FaceSide.def_static("New_", [](const StdMeshers_FaceSide * a0, const SMDS_MeshNode * a1, const gp_Pnt2d * a2, const gp_Pnt2d * a3, const opencascade::handle<Geom2d_Curve> & a4) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0, a1, a2, a3, a4); }, py::arg("Side"), py::arg("Node"), py::arg("Pnt2d1"), py::arg("Pnt2d2"), py::arg("C2d"));
-	cls_StdMeshers_FaceSide.def_static("New_", [](const StdMeshers_FaceSide * a0, const SMDS_MeshNode * a1, const gp_Pnt2d * a2, const gp_Pnt2d * a3, const opencascade::handle<Geom2d_Curve> & a4, const double a5) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0, a1, a2, a3, a4, a5); }, py::arg("Side"), py::arg("Node"), py::arg("Pnt2d1"), py::arg("Pnt2d2"), py::arg("C2d"), py::arg("UFirst"));
-	cls_StdMeshers_FaceSide.def_static("New_", (StdMeshers_FaceSidePtr (*)(const StdMeshers_FaceSide *, const SMDS_MeshNode *, const gp_Pnt2d *, const gp_Pnt2d *, const opencascade::handle<Geom2d_Curve> &, const double, const double)) &StdMeshers_FaceSide::New, "None", py::arg("Side"), py::arg("Node"), py::arg("Pnt2d1"), py::arg("Pnt2d2"), py::arg("C2d"), py::arg("UFirst"), py::arg("ULast"));
-	cls_StdMeshers_FaceSide.def_static("New_", [](UVPtStructVec & a0) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0); }, py::arg("theSideNodes"));
-	cls_StdMeshers_FaceSide.def_static("New_", (StdMeshers_FaceSidePtr (*)(UVPtStructVec &, const TopoDS_Face &)) &StdMeshers_FaceSide::New, "None", py::arg("theSideNodes"), py::arg("theFace"));
+	// FIXME cls_StdMeshers_FaceSide.def_static("New_", [](const TopoDS_Face & a0, const TopoDS_Edge & a1, SMESH_Mesh * a2, const bool a3, const bool a4) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0, a1, a2, a3, a4); }, py::arg("Face"), py::arg("Edge"), py::arg("Mesh"), py::arg("IsForward"), py::arg("IgnoreMediumNodes"));
+	// FIXME cls_StdMeshers_FaceSide.def_static("New_", [](const TopoDS_Face & a0, const TopoDS_Edge & a1, SMESH_Mesh * a2, const bool a3, const bool a4, SMESH_MesherHelper * a5) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0, a1, a2, a3, a4, a5); }, py::arg("Face"), py::arg("Edge"), py::arg("Mesh"), py::arg("IsForward"), py::arg("IgnoreMediumNodes"), py::arg("FaceHelper"));
+	// FIXME cls_StdMeshers_FaceSide.def_static("New_", (StdMeshers_FaceSidePtr (*)(const TopoDS_Face &, const TopoDS_Edge &, SMESH_Mesh *, const bool, const bool, SMESH_MesherHelper *, SMESH_ProxyMesh::Ptr)) &StdMeshers_FaceSide::New, "None", py::arg("Face"), py::arg("Edge"), py::arg("Mesh"), py::arg("IsForward"), py::arg("IgnoreMediumNodes"), py::arg("FaceHelper"), py::arg("ProxyMesh"));
+	// FIXME cls_StdMeshers_FaceSide.def_static("New_", [](const TopoDS_Face & a0, std::list<TopoDS_Edge> & a1, SMESH_Mesh * a2, const bool a3, const bool a4) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0, a1, a2, a3, a4); }, py::arg("Face"), py::arg("Edges"), py::arg("Mesh"), py::arg("IsForward"), py::arg("IgnoreMediumNodes"));
+	// FIXME cls_StdMeshers_FaceSide.def_static("New_", [](const TopoDS_Face & a0, std::list<TopoDS_Edge> & a1, SMESH_Mesh * a2, const bool a3, const bool a4, SMESH_MesherHelper * a5) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0, a1, a2, a3, a4, a5); }, py::arg("Face"), py::arg("Edges"), py::arg("Mesh"), py::arg("IsForward"), py::arg("IgnoreMediumNodes"), py::arg("FaceHelper"));
+	// FIXME cls_StdMeshers_FaceSide.def_static("New_", (StdMeshers_FaceSidePtr (*)(const TopoDS_Face &, std::list<TopoDS_Edge> &, SMESH_Mesh *, const bool, const bool, SMESH_MesherHelper *, SMESH_ProxyMesh::Ptr)) &StdMeshers_FaceSide::New, "None", py::arg("Face"), py::arg("Edges"), py::arg("Mesh"), py::arg("IsForward"), py::arg("IgnoreMediumNodes"), py::arg("FaceHelper"), py::arg("ProxyMesh"));
+	// FIXME cls_StdMeshers_FaceSide.def_static("New_", [](const StdMeshers_FaceSide * a0, const SMDS_MeshNode * a1, const gp_Pnt2d * a2) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0, a1, a2); }, py::arg("Side"), py::arg("Node"), py::arg("Pnt2d1"));
+	// FIXME cls_StdMeshers_FaceSide.def_static("New_", [](const StdMeshers_FaceSide * a0, const SMDS_MeshNode * a1, const gp_Pnt2d * a2, const gp_Pnt2d * a3) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0, a1, a2, a3); }, py::arg("Side"), py::arg("Node"), py::arg("Pnt2d1"), py::arg("Pnt2d2"));
+	// FIXME cls_StdMeshers_FaceSide.def_static("New_", [](const StdMeshers_FaceSide * a0, const SMDS_MeshNode * a1, const gp_Pnt2d * a2, const gp_Pnt2d * a3, const opencascade::handle<Geom2d_Curve> & a4) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0, a1, a2, a3, a4); }, py::arg("Side"), py::arg("Node"), py::arg("Pnt2d1"), py::arg("Pnt2d2"), py::arg("C2d"));
+	// FIXME cls_StdMeshers_FaceSide.def_static("New_", [](const StdMeshers_FaceSide * a0, const SMDS_MeshNode * a1, const gp_Pnt2d * a2, const gp_Pnt2d * a3, const opencascade::handle<Geom2d_Curve> & a4, const double a5) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0, a1, a2, a3, a4, a5); }, py::arg("Side"), py::arg("Node"), py::arg("Pnt2d1"), py::arg("Pnt2d2"), py::arg("C2d"), py::arg("UFirst"));
+	// FIXME cls_StdMeshers_FaceSide.def_static("New_", (StdMeshers_FaceSidePtr (*)(const StdMeshers_FaceSide *, const SMDS_MeshNode *, const gp_Pnt2d *, const gp_Pnt2d *, const opencascade::handle<Geom2d_Curve> &, const double, const double)) &StdMeshers_FaceSide::New, "None", py::arg("Side"), py::arg("Node"), py::arg("Pnt2d1"), py::arg("Pnt2d2"), py::arg("C2d"), py::arg("UFirst"), py::arg("ULast"));
+	// FIXME cls_StdMeshers_FaceSide.def_static("New_", [](UVPtStructVec & a0) -> StdMeshers_FaceSidePtr { return StdMeshers_FaceSide::New(a0); }, py::arg("theSideNodes"));
+	// FIXME cls_StdMeshers_FaceSide.def_static("New_", (StdMeshers_FaceSidePtr (*)(UVPtStructVec &, const TopoDS_Face &)) &StdMeshers_FaceSide::New, "None", py::arg("theSideNodes"), py::arg("theFace"));
 	cls_StdMeshers_FaceSide.def_static("GetFaceWires_", [](const TopoDS_Face & a0, SMESH_Mesh & a1, const bool a2, TError & a3) -> TSideVector { return StdMeshers_FaceSide::GetFaceWires(a0, a1, a2, a3); }, py::arg("theFace"), py::arg("theMesh"), py::arg("theIgnoreMediumNodes"), py::arg("theError"));
 	cls_StdMeshers_FaceSide.def_static("GetFaceWires_", [](const TopoDS_Face & a0, SMESH_Mesh & a1, const bool a2, TError & a3, SMESH_MesherHelper * a4) -> TSideVector { return StdMeshers_FaceSide::GetFaceWires(a0, a1, a2, a3, a4); }, py::arg("theFace"), py::arg("theMesh"), py::arg("theIgnoreMediumNodes"), py::arg("theError"), py::arg("theFaceHelper"));
 	cls_StdMeshers_FaceSide.def_static("GetFaceWires_", [](const TopoDS_Face & a0, SMESH_Mesh & a1, const bool a2, TError & a3, SMESH_MesherHelper * a4, SMESH_ProxyMesh::Ptr a5) -> TSideVector { return StdMeshers_FaceSide::GetFaceWires(a0, a1, a2, a3, a4, a5); }, py::arg("theFace"), py::arg("theMesh"), py::arg("theIgnoreMediumNodes"), py::arg("theError"), py::arg("theFaceHelper"), py::arg("theProxyMesh"));
@@ -974,11 +975,15 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_ViscousLayers2D.def_static("SetProxyMeshOfEdge_", (void (*)(const StdMeshers_FaceSide &)) &StdMeshers_ViscousLayers2D::SetProxyMeshOfEdge, "None", py::arg("edgeNodes"));
 	cls_StdMeshers_ViscousLayers2D.def_static("HasProxyMesh_", (bool (*)(const TopoDS_Face &, SMESH_Mesh &)) &StdMeshers_ViscousLayers2D::HasProxyMesh, "None", py::arg("face"), py::arg("theMesh"));
 
+	/* FIXME
 	other_mod = py::module::import("OCCT.SMESH");
 	if (py::hasattr(other_mod, "SMESH_ComputeErrorPtr")) {
 		mod.attr("TError") = other_mod.attr("SMESH_ComputeErrorPtr");
 	}
 
+	*/
+
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
 	py::class_<StdMeshers_FaceSidePtr, std::unique_ptr<StdMeshers_FaceSidePtr, Deleter<StdMeshers_FaceSidePtr>>> cls_StdMeshers_FaceSidePtr(mod, "StdMeshers_FaceSidePtr", "None");
 	cls_StdMeshers_FaceSidePtr.def(py::init<>());
@@ -1005,30 +1010,45 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_FaceSidePtr.def("_internal_equiv", (bool (StdMeshers_FaceSidePtr::*)(const shared_ptr<StdMeshers_FaceSide> &) const ) &StdMeshers_FaceSidePtr::_internal_equiv, "None", py::arg("r"));
 	cls_StdMeshers_FaceSidePtr.def("_internal_count", (boost::detail::shared_count (StdMeshers_FaceSidePtr::*)() const ) &StdMeshers_FaceSidePtr::_internal_count, "None");
 
+	*/
+
 	/* FIXME
 	// TSideVector
 	*/
 
+	/* FIXME
 	other_mod = py::module::import("OCCT.SMESH");
 	if (py::hasattr(other_mod, "TParam2ColumnMap")) {
 		mod.attr("StdMeshers_IJNodeMap") = other_mod.attr("TParam2ColumnMap");
 	}
 
+	*/
+
+	/* FIXME
 	other_mod = py::module::import("OCCT.TopTools");
 	if (py::hasattr(other_mod, "TopTools_IndexedMapOfOrientedShape")) {
 		mod.attr("TBlockShapes") = other_mod.attr("TopTools_IndexedMapOfOrientedShape");
 	}
 
+	*/
+
+	/* FIXME
 	other_mod = py::module::import("OCCT.SMESH");
 	if (py::hasattr(other_mod, "TNodeColumn")) {
 		mod.attr("TNodeColumn") = other_mod.attr("TNodeColumn");
 	}
 
+	*/
+
+	/* FIXME
 	other_mod = py::module::import("OCCT.SMESH");
 	if (py::hasattr(other_mod, "TParam2ColumnMap")) {
 		mod.attr("TParam2ColumnMap") = other_mod.attr("TParam2ColumnMap");
 	}
 
+	*/
+
+	/* FIXME
 	// C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtree
 	py::class_<TParam2ColumnIt, std::unique_ptr<TParam2ColumnIt, Deleter<TParam2ColumnIt>>, _Tree_unchecked_const_iterator<_Tree_val<std::_Tree_comp_alloc<std::_Tmap_traits<double, std::vector<const SMDS_MeshNode *, std::allocator<const SMDS_MeshNode *> >, std::less<double>, std::allocator<std::pair<const double, std::vector<const SMDS_MeshNode *, std::allocator<const SMDS_MeshNode *> > > >, false> >::_Val_types>, std::_Iterator_base>> cls_TParam2ColumnIt(mod, "TParam2ColumnIt", "None");
 	cls_TParam2ColumnIt.def(py::init<>());
@@ -1043,6 +1063,8 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_TParam2ColumnIt.def("minus_minus", (std::TParam2ColumnIt::_Myiter (TParam2ColumnIt::*)(int)) &TParam2ColumnIt::operator--, py::is_operator(), "None", py::arg(""));
 	cls_TParam2ColumnIt.def("__eq__", (bool (TParam2ColumnIt::*)(const std::TParam2ColumnIt::_Myiter &) const ) &TParam2ColumnIt::operator==, py::is_operator(), "None", py::arg("_Right"));
 	cls_TParam2ColumnIt.def("__ne__", (bool (TParam2ColumnIt::*)(const std::TParam2ColumnIt::_Myiter &) const ) &TParam2ColumnIt::operator!=, py::is_operator(), "None", py::arg("_Right"));
+
+	*/
 
 	/* FIXME
 	// TNode2ColumnMap

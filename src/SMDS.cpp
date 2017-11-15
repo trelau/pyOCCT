@@ -13,6 +13,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <SMDS_ElemIterator.hxx>
 #include <SMDSAbs_ElementType.hxx>
 #include <SMDS_MeshElement.hxx>
+#include <vtkType.h>
 #include <SMDS_MeshNode.hxx>
 #include <SMDS_UnstructuredGrid.hxx>
 #include <SMDS_Mesh.hxx>
@@ -24,14 +25,20 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <SMDS_MeshInfo.hxx>
 #include <SMDS_Position.hxx>
 #include <SMDS_MeshCell.hxx>
+#include <SMDS_MeshGroup.hxx>
 #include <SMDS_MeshIDFactory.hxx>
 #include <SMDS_MeshNodeIDFactory.hxx>
 #include <SMDS_MeshElementIDFactory.hxx>
 #include <SMDS_TypeOfPosition.hxx>
+#include <vtkCellType.h>
 #include <SMDS_VolumeOfNodes.hxx>
 #include <SMDS_VtkEdge.hxx>
 #include <SMDS_VtkFace.hxx>
 #include <SMDS_Downward.hxx>
+#include <vtkCellLinks.h>
+#include <vtkDataSet.h>
+#include <vtkUnstructuredGrid.h>
+#include <vtkPoints.h>
 #include <SMDS_VtkVolume.hxx>
 #include <SMDS_EdgePosition.hxx>
 #include <SMDS_FaceOfEdges.hxx>
@@ -39,7 +46,6 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <SMDS_FacePosition.hxx>
 #include <SMDS_IteratorOfElements.hxx>
 #include <SMDS_LinearEdge.hxx>
-#include <SMDS_MeshGroup.hxx>
 #include <SMDS_PolygonalFaceOfNodes.hxx>
 #include <SMDS_PolyhedralVolumeOfNodes.hxx>
 #include <SMDS_QuadraticEdge.hxx>
@@ -197,7 +203,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_Mesh.def("Clear", (void (SMDS_Mesh::*)()) &SMDS_Mesh::Clear, "None");
 	cls_SMDS_Mesh.def("RemoveFromParent", (bool (SMDS_Mesh::*)()) &SMDS_Mesh::RemoveFromParent, "None");
 	cls_SMDS_Mesh.def("RemoveSubMesh", (bool (SMDS_Mesh::*)(const SMDS_Mesh *)) &SMDS_Mesh::RemoveSubMesh, "None", py::arg("aMesh"));
-	cls_SMDS_Mesh.def("ChangeElementNodes", (bool (SMDS_Mesh::*)(const SMDS_MeshElement *, const SMDS_MeshNode *[], const int)) &SMDS_Mesh::ChangeElementNodes, "None", py::arg("elem"), py::arg("nodes"), py::arg("nbnodes"));
+	// FIXME cls_SMDS_Mesh.def("ChangeElementNodes", (bool (SMDS_Mesh::*)(const SMDS_MeshElement *, const SMDS_MeshNode *[], const int)) &SMDS_Mesh::ChangeElementNodes, "None", py::arg("elem"), py::arg("nodes"), py::arg("nbnodes"));
 	cls_SMDS_Mesh.def("ChangePolyhedronNodes", (bool (SMDS_Mesh::*)(const SMDS_MeshElement *, const std::vector<const SMDS_MeshNode *> &, const std::vector<int> &)) &SMDS_Mesh::ChangePolyhedronNodes, "None", py::arg("elem"), py::arg("nodes"), py::arg("quantities"));
 	cls_SMDS_Mesh.def("Renumber", [](SMDS_Mesh &self, const bool a0) -> void { return self.Renumber(a0); }, py::arg("isNodes"));
 	cls_SMDS_Mesh.def("Renumber", [](SMDS_Mesh &self, const bool a0, const int a1) -> void { return self.Renumber(a0, a1); }, py::arg("isNodes"), py::arg("startID"));
@@ -309,14 +315,13 @@ PYBIND11_MODULE(SMDS, mod) {
 		SMDSAbs_EntityType GetEntityType() const  override { PYBIND11_OVERLOAD_PURE(SMDSAbs_EntityType, SMDS_MeshCell, GetEntityType, ); }
 		SMDSAbs_GeometryType GetGeomType() const  override { PYBIND11_OVERLOAD_PURE(SMDSAbs_GeometryType, SMDS_MeshCell, GetGeomType, ); }
 		vtkIdType GetVtkType() const  override { PYBIND11_OVERLOAD_PURE(vtkIdType, SMDS_MeshCell, GetVtkType, ); }
-		bool ChangeNodes(const SMDS_MeshNode *[] nodes, const int nbNodes) override { PYBIND11_OVERLOAD_PURE(bool, SMDS_MeshCell, ChangeNodes, nodes, nbNodes); }
 	};
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_MeshCell.hxx
 	py::class_<SMDS_MeshCell, std::unique_ptr<SMDS_MeshCell, Deleter<SMDS_MeshCell>>, PyCallback_SMDS_MeshCell, SMDS_MeshElement> cls_SMDS_MeshCell(mod, "SMDS_MeshCell", "Base class for all cells");
-	cls_SMDS_MeshCell.def(py::init<>());
-	cls_SMDS_MeshCell.def("ChangeNodes", (bool (SMDS_MeshCell::*)(const SMDS_MeshNode *[], const int)) &SMDS_MeshCell::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
-	cls_SMDS_MeshCell.def("vtkOrder", (bool (SMDS_MeshCell::*)(const SMDS_MeshNode *[], const int)) &SMDS_MeshCell::vtkOrder, "None", py::arg("nodes"), py::arg("nbNodes"));
+	// FIXME cls_SMDS_MeshCell.def(py::init<>());
+	// FIXME cls_SMDS_MeshCell.def("ChangeNodes", (bool (SMDS_MeshCell::*)(const SMDS_MeshNode *[], const int)) &SMDS_MeshCell::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
+	// FIXME cls_SMDS_MeshCell.def("vtkOrder", (bool (SMDS_MeshCell::*)(const SMDS_MeshNode *[], const int)) &SMDS_MeshCell::vtkOrder, "None", py::arg("nodes"), py::arg("nbNodes"));
 	cls_SMDS_MeshCell.def_static("toVtkType_", (VTKCellType (*)(SMDSAbs_EntityType)) &SMDS_MeshCell::toVtkType, "None", py::arg("vtkType"));
 	cls_SMDS_MeshCell.def_static("toSmdsType_", (SMDSAbs_EntityType (*)(VTKCellType)) &SMDS_MeshCell::toSmdsType, "None", py::arg("vtkType"));
 	cls_SMDS_MeshCell.def_static("toSmdsType_", (SMDSAbs_ElementType (*)(SMDSAbs_GeometryType)) &SMDS_MeshCell::toSmdsType, "None", py::arg("geomType"));
@@ -345,6 +350,32 @@ PYBIND11_MODULE(SMDS, mod) {
 	py::class_<SMDS_MeshVolume, std::unique_ptr<SMDS_MeshVolume, Deleter<SMDS_MeshVolume>>, SMDS_MeshCell> cls_SMDS_MeshVolume(mod, "SMDS_MeshVolume", "None");
 	cls_SMDS_MeshVolume.def("GetType", (SMDSAbs_ElementType (SMDS_MeshVolume::*)() const ) &SMDS_MeshVolume::GetType, "None");
 	cls_SMDS_MeshVolume.def("GetVtkType", (vtkIdType (SMDS_MeshVolume::*)() const ) &SMDS_MeshVolume::GetVtkType, "None");
+
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_MeshGroup.hxx
+	py::class_<SMDS_MeshGroup, std::unique_ptr<SMDS_MeshGroup, Deleter<SMDS_MeshGroup>>, SMDS_MeshObject> cls_SMDS_MeshGroup(mod, "SMDS_MeshGroup", "None");
+	cls_SMDS_MeshGroup.def(py::init<const SMDS_Mesh *>(), py::arg("theMesh"));
+	cls_SMDS_MeshGroup.def(py::init<const SMDS_Mesh *, const SMDSAbs_ElementType>(), py::arg("theMesh"), py::arg("theType"));
+	cls_SMDS_MeshGroup.def("AddSubGroup", [](SMDS_MeshGroup &self) -> const SMDS_MeshGroup * { return self.AddSubGroup(); });
+	cls_SMDS_MeshGroup.def("AddSubGroup", (const SMDS_MeshGroup * (SMDS_MeshGroup::*)(const SMDSAbs_ElementType)) &SMDS_MeshGroup::AddSubGroup, "None", py::arg("theType"));
+	cls_SMDS_MeshGroup.def("RemoveSubGroup", (bool (SMDS_MeshGroup::*)(const SMDS_MeshGroup *)) &SMDS_MeshGroup::RemoveSubGroup, "None", py::arg("theGroup"));
+	cls_SMDS_MeshGroup.def("RemoveFromParent", (bool (SMDS_MeshGroup::*)()) &SMDS_MeshGroup::RemoveFromParent, "None");
+	cls_SMDS_MeshGroup.def("GetMesh", (const SMDS_Mesh * (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::GetMesh, "None");
+	cls_SMDS_MeshGroup.def("SetType", (void (SMDS_MeshGroup::*)(const SMDSAbs_ElementType)) &SMDS_MeshGroup::SetType, "None", py::arg("theType"));
+	cls_SMDS_MeshGroup.def("Clear", (void (SMDS_MeshGroup::*)()) &SMDS_MeshGroup::Clear, "None");
+	cls_SMDS_MeshGroup.def("Add", (bool (SMDS_MeshGroup::*)(const SMDS_MeshElement *)) &SMDS_MeshGroup::Add, "None", py::arg("theElem"));
+	cls_SMDS_MeshGroup.def("Remove", (bool (SMDS_MeshGroup::*)(const SMDS_MeshElement *)) &SMDS_MeshGroup::Remove, "None", py::arg("theElem"));
+	cls_SMDS_MeshGroup.def("IsEmpty", (bool (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::IsEmpty, "None");
+	cls_SMDS_MeshGroup.def("Extent", (int (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::Extent, "None");
+	cls_SMDS_MeshGroup.def("Tic", (int (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::Tic, "None");
+	cls_SMDS_MeshGroup.def("SubGroupsNb", (int (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::SubGroupsNb, "None");
+	cls_SMDS_MeshGroup.def("GetType", (SMDSAbs_ElementType (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::GetType, "None");
+	cls_SMDS_MeshGroup.def("Contains", (bool (SMDS_MeshGroup::*)(const SMDS_MeshElement *) const ) &SMDS_MeshGroup::Contains, "None", py::arg("theElem"));
+	cls_SMDS_MeshGroup.def("InitIterator", (void (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::InitIterator, "None");
+	cls_SMDS_MeshGroup.def("More", (bool (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::More, "None");
+	cls_SMDS_MeshGroup.def("Next", (const SMDS_MeshElement * (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::Next, "None");
+	cls_SMDS_MeshGroup.def("InitSubGroupsIterator", (void (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::InitSubGroupsIterator, "None");
+	cls_SMDS_MeshGroup.def("MoreSubGroups", (bool (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::MoreSubGroups, "None");
+	cls_SMDS_MeshGroup.def("NextSubGroup", (const SMDS_MeshGroup * (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::NextSubGroup, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_MeshNode.hxx
 	py::class_<SMDS_MeshNode, std::unique_ptr<SMDS_MeshNode, py::nodelete>, SMDS_MeshElement> cls_SMDS_MeshNode(mod, "SMDS_MeshNode", "None");
@@ -404,15 +435,19 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_MeshElementIDFactory.def("elementsIterator", (SMDS_ElemIteratorPtr (SMDS_MeshElementIDFactory::*)() const ) &SMDS_MeshElementIDFactory::elementsIterator, "None");
 	cls_SMDS_MeshElementIDFactory.def("Clear", (void (SMDS_MeshElementIDFactory::*)()) &SMDS_MeshElementIDFactory::Clear, "None");
 
+	/* FIXME
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_MeshElement.hxx
 	py::class_<TIDTypeCompare, std::unique_ptr<TIDTypeCompare, Deleter<TIDTypeCompare>>> cls_TIDTypeCompare(mod, "TIDTypeCompare", "Comparator of elements by ID for usage in std containers");
 	cls_TIDTypeCompare.def(py::init<>());
 	cls_TIDTypeCompare.def("__call__", (bool (TIDTypeCompare::*)(const SMDS_MeshElement *, const SMDS_MeshElement *) const ) &TIDTypeCompare::operator(), py::is_operator(), "None", py::arg("e1"), py::arg("e2"));
+	*/
 
+	/* FIXME
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_MeshElement.hxx
 	py::class_<TIDCompare, std::unique_ptr<TIDCompare, Deleter<TIDCompare>>> cls_TIDCompare(mod, "TIDCompare", "None");
 	cls_TIDCompare.def(py::init<>());
 	cls_TIDCompare.def("__call__", (bool (TIDCompare::*)(const SMDS_MeshElement *, const SMDS_MeshElement *) const ) &TIDCompare::operator(), py::is_operator(), "None", py::arg("e1"), py::arg("e2"));
+	*/
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Position.hxx
 	py::class_<SMDS_Position, std::unique_ptr<SMDS_Position, Deleter<SMDS_Position>>> cls_SMDS_Position(mod, "SMDS_Position", "None");
@@ -422,7 +457,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Mesh0DElement.hxx
 	py::class_<SMDS_Mesh0DElement, std::unique_ptr<SMDS_Mesh0DElement, Deleter<SMDS_Mesh0DElement>>, SMDS_MeshCell> cls_SMDS_Mesh0DElement(mod, "SMDS_Mesh0DElement", "None");
 	cls_SMDS_Mesh0DElement.def(py::init<const SMDS_MeshNode *>(), py::arg("node"));
-	cls_SMDS_Mesh0DElement.def("ChangeNodes", (bool (SMDS_Mesh0DElement::*)(const SMDS_MeshNode *[], const int)) &SMDS_Mesh0DElement::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
+	// FIXME cls_SMDS_Mesh0DElement.def("ChangeNodes", (bool (SMDS_Mesh0DElement::*)(const SMDS_MeshNode *[], const int)) &SMDS_Mesh0DElement::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
 	cls_SMDS_Mesh0DElement.def("Print", (void (SMDS_Mesh0DElement::*)(std::ostream &) const ) &SMDS_Mesh0DElement::Print, "None", py::arg("OS"));
 	cls_SMDS_Mesh0DElement.def("GetType", (SMDSAbs_ElementType (SMDS_Mesh0DElement::*)() const ) &SMDS_Mesh0DElement::GetType, "None");
 	cls_SMDS_Mesh0DElement.def("GetVtkType", (vtkIdType (SMDS_Mesh0DElement::*)() const ) &SMDS_Mesh0DElement::GetVtkType, "None");
@@ -479,7 +514,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_VolumeOfNodes.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("node1"), py::arg("node2"), py::arg("node3"), py::arg("node4"), py::arg("node5"));
 	cls_SMDS_VolumeOfNodes.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("node1"), py::arg("node2"), py::arg("node3"), py::arg("node4"), py::arg("node5"), py::arg("node6"));
 	cls_SMDS_VolumeOfNodes.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("node1"), py::arg("node2"), py::arg("node3"), py::arg("node4"), py::arg("node5"), py::arg("node6"), py::arg("node7"), py::arg("node8"));
-	cls_SMDS_VolumeOfNodes.def("ChangeNodes", (bool (SMDS_VolumeOfNodes::*)(const SMDS_MeshNode *[], const int)) &SMDS_VolumeOfNodes::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
+	// FIXME cls_SMDS_VolumeOfNodes.def("ChangeNodes", (bool (SMDS_VolumeOfNodes::*)(const SMDS_MeshNode *[], const int)) &SMDS_VolumeOfNodes::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
 	cls_SMDS_VolumeOfNodes.def("Print", (void (SMDS_VolumeOfNodes::*)(std::ostream &) const ) &SMDS_VolumeOfNodes::Print, "None", py::arg("OS"));
 	cls_SMDS_VolumeOfNodes.def("NbFaces", (int (SMDS_VolumeOfNodes::*)() const ) &SMDS_VolumeOfNodes::NbFaces, "None");
 	cls_SMDS_VolumeOfNodes.def("NbNodes", (int (SMDS_VolumeOfNodes::*)() const ) &SMDS_VolumeOfNodes::NbNodes, "None");
@@ -494,8 +529,8 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_VtkEdge.def(py::init<>());
 	cls_SMDS_VtkEdge.def(py::init<std::vector<vtkIdType> &, SMDS_Mesh *>(), py::arg("nodeIds"), py::arg("mesh"));
 	cls_SMDS_VtkEdge.def("init", (void (SMDS_VtkEdge::*)(std::vector<vtkIdType> &, SMDS_Mesh *)) &SMDS_VtkEdge::init, "None", py::arg("nodeIds"), py::arg("mesh"));
-	cls_SMDS_VtkEdge.def("ChangeNodes", (bool (SMDS_VtkEdge::*)(const SMDS_MeshNode *, const SMDS_MeshNode *)) &SMDS_VtkEdge::ChangeNodes, "None", py::arg("node1"), py::arg("node2"));
-	cls_SMDS_VtkEdge.def("ChangeNodes", (bool (SMDS_VtkEdge::*)(const SMDS_MeshNode *[], const int)) &SMDS_VtkEdge::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
+	// FIXME cls_SMDS_VtkEdge.def("ChangeNodes", (bool (SMDS_VtkEdge::*)(const SMDS_MeshNode *, const SMDS_MeshNode *)) &SMDS_VtkEdge::ChangeNodes, "None", py::arg("node1"), py::arg("node2"));
+	// FIXME cls_SMDS_VtkEdge.def("ChangeNodes", (bool (SMDS_VtkEdge::*)(const SMDS_MeshNode *[], const int)) &SMDS_VtkEdge::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
 	cls_SMDS_VtkEdge.def("IsMediumNode", (bool (SMDS_VtkEdge::*)(const SMDS_MeshNode *) const ) &SMDS_VtkEdge::IsMediumNode, "None", py::arg("node"));
 	cls_SMDS_VtkEdge.def("Print", (void (SMDS_VtkEdge::*)(std::ostream &) const ) &SMDS_VtkEdge::Print, "None", py::arg("OS"));
 	cls_SMDS_VtkEdge.def("NbNodes", (int (SMDS_VtkEdge::*)() const ) &SMDS_VtkEdge::NbNodes, "None");
@@ -515,7 +550,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_VtkFace.def("init", (void (SMDS_VtkFace::*)(const std::vector<vtkIdType> &, SMDS_Mesh *)) &SMDS_VtkFace::init, "None", py::arg("nodeIds"), py::arg("mesh"));
 	cls_SMDS_VtkFace.def("initPoly", (void (SMDS_VtkFace::*)(const std::vector<vtkIdType> &, SMDS_Mesh *)) &SMDS_VtkFace::initPoly, "None", py::arg("nodeIds"), py::arg("mesh"));
 	cls_SMDS_VtkFace.def("initQuadPoly", (void (SMDS_VtkFace::*)(const std::vector<vtkIdType> &, SMDS_Mesh *)) &SMDS_VtkFace::initQuadPoly, "None", py::arg("nodeIds"), py::arg("mesh"));
-	cls_SMDS_VtkFace.def("ChangeNodes", (bool (SMDS_VtkFace::*)(const SMDS_MeshNode *[], const int)) &SMDS_VtkFace::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
+	// FIXME cls_SMDS_VtkFace.def("ChangeNodes", (bool (SMDS_VtkFace::*)(const SMDS_MeshNode *[], const int)) &SMDS_VtkFace::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
 	cls_SMDS_VtkFace.def("ChangeApex", (void (SMDS_VtkFace::*)(SMDS_MeshNode *)) &SMDS_VtkFace::ChangeApex, "None", py::arg("node"));
 	cls_SMDS_VtkFace.def("Print", (void (SMDS_VtkFace::*)(std::ostream &) const ) &SMDS_VtkFace::Print, "None", py::arg("OS"));
 	cls_SMDS_VtkFace.def("NbEdges", (int (SMDS_VtkFace::*)() const ) &SMDS_VtkFace::NbEdges, "None");
@@ -549,12 +584,15 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_Downward.def("getMaxId", (int (SMDS_Downward::*)()) &SMDS_Downward::getMaxId, "None");
 	cls_SMDS_Downward.def_static("getCellDimension_", (int (*)(unsigned char)) &SMDS_Downward::getCellDimension, "None", py::arg("cellType"));
 
+	/* FIXME
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_UnstructuredGrid.hxx
 	py::class_<SMDS_CellLinks, std::unique_ptr<SMDS_CellLinks, py::nodelete>, vtkCellLinks> cls_SMDS_CellLinks(mod, "SMDS_CellLinks", "None");
 	cls_SMDS_CellLinks.def("ResizeForPoint", (void (SMDS_CellLinks::*)(vtkIdType)) &SMDS_CellLinks::ResizeForPoint, "None", py::arg("vtkID"));
 	cls_SMDS_CellLinks.def("BuildLinks", (void (SMDS_CellLinks::*)(vtkDataSet *, vtkCellArray *, vtkUnsignedCharArray *)) &SMDS_CellLinks::BuildLinks, "None", py::arg("data"), py::arg("Connectivity"), py::arg("types"));
 	cls_SMDS_CellLinks.def_static("New_", (SMDS_CellLinks * (*)()) &SMDS_CellLinks::New, "None");
+	*/
 
+	/* FIXME
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_UnstructuredGrid.hxx
 	py::class_<SMDS_UnstructuredGrid, std::unique_ptr<SMDS_UnstructuredGrid, py::nodelete>, vtkUnstructuredGrid> cls_SMDS_UnstructuredGrid(mod, "SMDS_UnstructuredGrid", "None");
 	cls_SMDS_UnstructuredGrid.def("setSMDS_mesh", (void (SMDS_UnstructuredGrid::*)(SMDS_Mesh *)) &SMDS_UnstructuredGrid::setSMDS_mesh, "None", py::arg("mesh"));
@@ -583,6 +621,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_UnstructuredGrid.def("SetBallDiameter", (void (SMDS_UnstructuredGrid::*)(vtkIdType, double)) &SMDS_UnstructuredGrid::SetBallDiameter, "None", py::arg("vtkID"), py::arg("diameter"));
 	cls_SMDS_UnstructuredGrid.def("GetBallDiameter", (double (SMDS_UnstructuredGrid::*)(vtkIdType) const ) &SMDS_UnstructuredGrid::GetBallDiameter, "None", py::arg("vtkID"));
 	cls_SMDS_UnstructuredGrid.def_static("New_", (SMDS_UnstructuredGrid * (*)()) &SMDS_UnstructuredGrid::New, "None");
+	*/
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_VtkVolume.hxx
 	py::class_<SMDS_VtkVolume, std::unique_ptr<SMDS_VtkVolume, Deleter<SMDS_VtkVolume>>, SMDS_MeshVolume> cls_SMDS_VtkVolume(mod, "SMDS_VtkVolume", "None");
@@ -590,8 +629,8 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_VtkVolume.def(py::init<const std::vector<vtkIdType> &, SMDS_Mesh *>(), py::arg("nodeIds"), py::arg("mesh"));
 	cls_SMDS_VtkVolume.def("init", (void (SMDS_VtkVolume::*)(const std::vector<vtkIdType> &, SMDS_Mesh *)) &SMDS_VtkVolume::init, "None", py::arg("nodeIds"), py::arg("mesh"));
 	cls_SMDS_VtkVolume.def("initPoly", (void (SMDS_VtkVolume::*)(const std::vector<vtkIdType> &, const std::vector<int> &, SMDS_Mesh *)) &SMDS_VtkVolume::initPoly, "None", py::arg("nodeIds"), py::arg("nbNodesPerFace"), py::arg("mesh"));
-	cls_SMDS_VtkVolume.def("ChangeNodes", (bool (SMDS_VtkVolume::*)(const SMDS_MeshNode *[], const int)) &SMDS_VtkVolume::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
-	cls_SMDS_VtkVolume.def("vtkOrder", (bool (SMDS_VtkVolume::*)(const SMDS_MeshNode *[], const int)) &SMDS_VtkVolume::vtkOrder, "None", py::arg("nodes"), py::arg("nbNodes"));
+	// FIXME cls_SMDS_VtkVolume.def("ChangeNodes", (bool (SMDS_VtkVolume::*)(const SMDS_MeshNode *[], const int)) &SMDS_VtkVolume::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
+	// FIXME cls_SMDS_VtkVolume.def("vtkOrder", (bool (SMDS_VtkVolume::*)(const SMDS_MeshNode *[], const int)) &SMDS_VtkVolume::vtkOrder, "None", py::arg("nodes"), py::arg("nbNodes"));
 	cls_SMDS_VtkVolume.def("Print", (void (SMDS_VtkVolume::*)(std::ostream &) const ) &SMDS_VtkVolume::Print, "None", py::arg("OS"));
 	cls_SMDS_VtkVolume.def("NbFaces", (int (SMDS_VtkVolume::*)() const ) &SMDS_VtkVolume::NbFaces, "None");
 	cls_SMDS_VtkVolume.def("NbNodes", (int (SMDS_VtkVolume::*)() const ) &SMDS_VtkVolume::NbNodes, "None");
@@ -626,7 +665,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_BallElement.def("GetDiameter", (double (SMDS_BallElement::*)() const ) &SMDS_BallElement::GetDiameter, "None");
 	cls_SMDS_BallElement.def("SetDiameter", (void (SMDS_BallElement::*)(double)) &SMDS_BallElement::SetDiameter, "None", py::arg("diameter"));
 	cls_SMDS_BallElement.def("ChangeNode", (bool (SMDS_BallElement::*)(const SMDS_MeshNode *)) &SMDS_BallElement::ChangeNode, "None", py::arg("node"));
-	cls_SMDS_BallElement.def("ChangeNodes", (bool (SMDS_BallElement::*)(const SMDS_MeshNode *[], const int)) &SMDS_BallElement::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
+	// FIXME cls_SMDS_BallElement.def("ChangeNodes", (bool (SMDS_BallElement::*)(const SMDS_MeshNode *[], const int)) &SMDS_BallElement::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
 	cls_SMDS_BallElement.def("Print", (void (SMDS_BallElement::*)(std::ostream &) const ) &SMDS_BallElement::Print, "None", py::arg("OS"));
 	cls_SMDS_BallElement.def("GetType", (SMDSAbs_ElementType (SMDS_BallElement::*)() const ) &SMDS_BallElement::GetType, "None");
 	cls_SMDS_BallElement.def("GetVtkType", (vtkIdType (SMDS_BallElement::*)() const ) &SMDS_BallElement::GetVtkType, "None");
@@ -645,10 +684,12 @@ PYBIND11_MODULE(SMDS, mod) {
 	py::class_<DownIdType, std::unique_ptr<DownIdType, Deleter<DownIdType>>> cls_DownIdType(mod, "DownIdType", "None");
 	cls_DownIdType.def(py::init<int, unsigned char>(), py::arg("a"), py::arg("b"));
 
+	/* FIXME
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Downward.hxx
 	py::class_<DownIdCompare, std::unique_ptr<DownIdCompare, Deleter<DownIdCompare>>> cls_DownIdCompare(mod, "DownIdCompare", "None");
 	cls_DownIdCompare.def(py::init<>());
 	cls_DownIdCompare.def("__call__", (bool (DownIdCompare::*)(const DownIdType, const DownIdType) const ) &DownIdCompare::operator(), py::is_operator(), "None", py::arg("e1"), py::arg("e2"));
+	*/
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Downward.hxx
 	py::class_<SMDS_Down1D, std::unique_ptr<SMDS_Down1D, py::nodelete>, SMDS_Downward> cls_SMDS_Down1D(mod, "SMDS_Down1D", "None");
@@ -738,7 +779,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_FaceOfEdges.def("GetType", (SMDSAbs_ElementType (SMDS_FaceOfEdges::*)() const ) &SMDS_FaceOfEdges::GetType, "None");
 	cls_SMDS_FaceOfEdges.def("GetEntityType", (SMDSAbs_EntityType (SMDS_FaceOfEdges::*)() const ) &SMDS_FaceOfEdges::GetEntityType, "None");
 	cls_SMDS_FaceOfEdges.def("GetGeomType", (SMDSAbs_GeometryType (SMDS_FaceOfEdges::*)() const ) &SMDS_FaceOfEdges::GetGeomType, "None");
-	cls_SMDS_FaceOfEdges.def("ChangeNodes", (bool (SMDS_FaceOfEdges::*)(const SMDS_MeshNode *[], const int)) &SMDS_FaceOfEdges::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
+	// FIXME cls_SMDS_FaceOfEdges.def("ChangeNodes", (bool (SMDS_FaceOfEdges::*)(const SMDS_MeshNode *[], const int)) &SMDS_FaceOfEdges::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
 	cls_SMDS_FaceOfEdges.def("NbNodes", (int (SMDS_FaceOfEdges::*)() const ) &SMDS_FaceOfEdges::NbNodes, "None");
 	cls_SMDS_FaceOfEdges.def("NbEdges", (int (SMDS_FaceOfEdges::*)() const ) &SMDS_FaceOfEdges::NbEdges, "None");
 	cls_SMDS_FaceOfEdges.def("NbFaces", (int (SMDS_FaceOfEdges::*)() const ) &SMDS_FaceOfEdges::NbFaces, "None");
@@ -749,7 +790,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_FaceOfNodes.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("node1"), py::arg("node2"), py::arg("node3"));
 	cls_SMDS_FaceOfNodes.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("node1"), py::arg("node2"), py::arg("node3"), py::arg("node4"));
 	cls_SMDS_FaceOfNodes.def("Print", (void (SMDS_FaceOfNodes::*)(std::ostream &) const ) &SMDS_FaceOfNodes::Print, "None", py::arg("OS"));
-	cls_SMDS_FaceOfNodes.def("ChangeNodes", (bool (SMDS_FaceOfNodes::*)(const SMDS_MeshNode *[], const int)) &SMDS_FaceOfNodes::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
+	// FIXME cls_SMDS_FaceOfNodes.def("ChangeNodes", (bool (SMDS_FaceOfNodes::*)(const SMDS_MeshNode *[], const int)) &SMDS_FaceOfNodes::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
 	cls_SMDS_FaceOfNodes.def("NbEdges", (int (SMDS_FaceOfNodes::*)() const ) &SMDS_FaceOfNodes::NbEdges, "None");
 	cls_SMDS_FaceOfNodes.def("NbFaces", (int (SMDS_FaceOfNodes::*)() const ) &SMDS_FaceOfNodes::NbFaces, "None");
 	cls_SMDS_FaceOfNodes.def("NbNodes", (int (SMDS_FaceOfNodes::*)() const ) &SMDS_FaceOfNodes::NbNodes, "None");
@@ -778,39 +819,13 @@ PYBIND11_MODULE(SMDS, mod) {
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_LinearEdge.hxx
 	py::class_<SMDS_LinearEdge, std::unique_ptr<SMDS_LinearEdge, Deleter<SMDS_LinearEdge>>, SMDS_MeshEdge> cls_SMDS_LinearEdge(mod, "SMDS_LinearEdge", "None");
 	cls_SMDS_LinearEdge.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("node1"), py::arg("node2"));
-	cls_SMDS_LinearEdge.def("ChangeNodes", (bool (SMDS_LinearEdge::*)(const SMDS_MeshNode *, const SMDS_MeshNode *)) &SMDS_LinearEdge::ChangeNodes, "None", py::arg("node1"), py::arg("node2"));
+	// FIXME cls_SMDS_LinearEdge.def("ChangeNodes", (bool (SMDS_LinearEdge::*)(const SMDS_MeshNode *, const SMDS_MeshNode *)) &SMDS_LinearEdge::ChangeNodes, "None", py::arg("node1"), py::arg("node2"));
 	cls_SMDS_LinearEdge.def("Print", (void (SMDS_LinearEdge::*)(std::ostream &) const ) &SMDS_LinearEdge::Print, "None", py::arg("OS"));
 	cls_SMDS_LinearEdge.def("GetEntityType", (SMDSAbs_EntityType (SMDS_LinearEdge::*)() const ) &SMDS_LinearEdge::GetEntityType, "None");
-	cls_SMDS_LinearEdge.def("ChangeNodes", (bool (SMDS_LinearEdge::*)(const SMDS_MeshNode *[], const int)) &SMDS_LinearEdge::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
+	// FIXME cls_SMDS_LinearEdge.def("ChangeNodes", (bool (SMDS_LinearEdge::*)(const SMDS_MeshNode *[], const int)) &SMDS_LinearEdge::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
 	cls_SMDS_LinearEdge.def("NbNodes", (int (SMDS_LinearEdge::*)() const ) &SMDS_LinearEdge::NbNodes, "None");
 	cls_SMDS_LinearEdge.def("NbEdges", (int (SMDS_LinearEdge::*)() const ) &SMDS_LinearEdge::NbEdges, "None");
 	cls_SMDS_LinearEdge.def("GetNode", (const SMDS_MeshNode * (SMDS_LinearEdge::*)(const int) const ) &SMDS_LinearEdge::GetNode, "Return node by its index", py::arg("ind"));
-
-	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_MeshGroup.hxx
-	py::class_<SMDS_MeshGroup, std::unique_ptr<SMDS_MeshGroup, Deleter<SMDS_MeshGroup>>, SMDS_MeshObject> cls_SMDS_MeshGroup(mod, "SMDS_MeshGroup", "None");
-	cls_SMDS_MeshGroup.def(py::init<const SMDS_Mesh *>(), py::arg("theMesh"));
-	cls_SMDS_MeshGroup.def(py::init<const SMDS_Mesh *, const SMDSAbs_ElementType>(), py::arg("theMesh"), py::arg("theType"));
-	cls_SMDS_MeshGroup.def("AddSubGroup", [](SMDS_MeshGroup &self) -> const SMDS_MeshGroup * { return self.AddSubGroup(); });
-	cls_SMDS_MeshGroup.def("AddSubGroup", (const SMDS_MeshGroup * (SMDS_MeshGroup::*)(const SMDSAbs_ElementType)) &SMDS_MeshGroup::AddSubGroup, "None", py::arg("theType"));
-	cls_SMDS_MeshGroup.def("RemoveSubGroup", (bool (SMDS_MeshGroup::*)(const SMDS_MeshGroup *)) &SMDS_MeshGroup::RemoveSubGroup, "None", py::arg("theGroup"));
-	cls_SMDS_MeshGroup.def("RemoveFromParent", (bool (SMDS_MeshGroup::*)()) &SMDS_MeshGroup::RemoveFromParent, "None");
-	cls_SMDS_MeshGroup.def("GetMesh", (const SMDS_Mesh * (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::GetMesh, "None");
-	cls_SMDS_MeshGroup.def("SetType", (void (SMDS_MeshGroup::*)(const SMDSAbs_ElementType)) &SMDS_MeshGroup::SetType, "None", py::arg("theType"));
-	cls_SMDS_MeshGroup.def("Clear", (void (SMDS_MeshGroup::*)()) &SMDS_MeshGroup::Clear, "None");
-	cls_SMDS_MeshGroup.def("Add", (bool (SMDS_MeshGroup::*)(const SMDS_MeshElement *)) &SMDS_MeshGroup::Add, "None", py::arg("theElem"));
-	cls_SMDS_MeshGroup.def("Remove", (bool (SMDS_MeshGroup::*)(const SMDS_MeshElement *)) &SMDS_MeshGroup::Remove, "None", py::arg("theElem"));
-	cls_SMDS_MeshGroup.def("IsEmpty", (bool (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::IsEmpty, "None");
-	cls_SMDS_MeshGroup.def("Extent", (int (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::Extent, "None");
-	cls_SMDS_MeshGroup.def("Tic", (int (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::Tic, "None");
-	cls_SMDS_MeshGroup.def("SubGroupsNb", (int (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::SubGroupsNb, "None");
-	cls_SMDS_MeshGroup.def("GetType", (SMDSAbs_ElementType (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::GetType, "None");
-	cls_SMDS_MeshGroup.def("Contains", (bool (SMDS_MeshGroup::*)(const SMDS_MeshElement *) const ) &SMDS_MeshGroup::Contains, "None", py::arg("theElem"));
-	cls_SMDS_MeshGroup.def("InitIterator", (void (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::InitIterator, "None");
-	cls_SMDS_MeshGroup.def("More", (bool (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::More, "None");
-	cls_SMDS_MeshGroup.def("Next", (const SMDS_MeshElement * (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::Next, "None");
-	cls_SMDS_MeshGroup.def("InitSubGroupsIterator", (void (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::InitSubGroupsIterator, "None");
-	cls_SMDS_MeshGroup.def("MoreSubGroups", (bool (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::MoreSubGroups, "None");
-	cls_SMDS_MeshGroup.def("NextSubGroup", (const SMDS_MeshGroup * (SMDS_MeshGroup::*)() const ) &SMDS_MeshGroup::NextSubGroup, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_PolygonalFaceOfNodes.hxx
 	py::class_<SMDS_PolygonalFaceOfNodes, std::unique_ptr<SMDS_PolygonalFaceOfNodes, Deleter<SMDS_PolygonalFaceOfNodes>>, SMDS_MeshFace> cls_SMDS_PolygonalFaceOfNodes(mod, "SMDS_PolygonalFaceOfNodes", "None");
@@ -819,8 +834,8 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_PolygonalFaceOfNodes.def("GetEntityType", (SMDSAbs_EntityType (SMDS_PolygonalFaceOfNodes::*)() const ) &SMDS_PolygonalFaceOfNodes::GetEntityType, "None");
 	cls_SMDS_PolygonalFaceOfNodes.def("GetGeomType", (SMDSAbs_GeometryType (SMDS_PolygonalFaceOfNodes::*)() const ) &SMDS_PolygonalFaceOfNodes::GetGeomType, "None");
 	cls_SMDS_PolygonalFaceOfNodes.def("IsPoly", (bool (SMDS_PolygonalFaceOfNodes::*)() const ) &SMDS_PolygonalFaceOfNodes::IsPoly, "None");
-	cls_SMDS_PolygonalFaceOfNodes.def("ChangeNodes", (bool (SMDS_PolygonalFaceOfNodes::*)(std::vector<const SMDS_MeshNode *>)) &SMDS_PolygonalFaceOfNodes::ChangeNodes, "None", py::arg("nodes"));
-	cls_SMDS_PolygonalFaceOfNodes.def("ChangeNodes", (bool (SMDS_PolygonalFaceOfNodes::*)(const SMDS_MeshNode *[], const int)) &SMDS_PolygonalFaceOfNodes::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
+	// FIXME cls_SMDS_PolygonalFaceOfNodes.def("ChangeNodes", (bool (SMDS_PolygonalFaceOfNodes::*)(std::vector<const SMDS_MeshNode *>)) &SMDS_PolygonalFaceOfNodes::ChangeNodes, "None", py::arg("nodes"));
+	// FIXME cls_SMDS_PolygonalFaceOfNodes.def("ChangeNodes", (bool (SMDS_PolygonalFaceOfNodes::*)(const SMDS_MeshNode *[], const int)) &SMDS_PolygonalFaceOfNodes::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
 	cls_SMDS_PolygonalFaceOfNodes.def("NbNodes", (int (SMDS_PolygonalFaceOfNodes::*)() const ) &SMDS_PolygonalFaceOfNodes::NbNodes, "None");
 	cls_SMDS_PolygonalFaceOfNodes.def("NbEdges", (int (SMDS_PolygonalFaceOfNodes::*)() const ) &SMDS_PolygonalFaceOfNodes::NbEdges, "None");
 	cls_SMDS_PolygonalFaceOfNodes.def("NbFaces", (int (SMDS_PolygonalFaceOfNodes::*)() const ) &SMDS_PolygonalFaceOfNodes::NbFaces, "None");
@@ -833,7 +848,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_PolyhedralVolumeOfNodes.def("GetType", (SMDSAbs_ElementType (SMDS_PolyhedralVolumeOfNodes::*)() const ) &SMDS_PolyhedralVolumeOfNodes::GetType, "None");
 	cls_SMDS_PolyhedralVolumeOfNodes.def("GetEntityType", (SMDSAbs_EntityType (SMDS_PolyhedralVolumeOfNodes::*)() const ) &SMDS_PolyhedralVolumeOfNodes::GetEntityType, "None");
 	cls_SMDS_PolyhedralVolumeOfNodes.def("IsPoly", (bool (SMDS_PolyhedralVolumeOfNodes::*)() const ) &SMDS_PolyhedralVolumeOfNodes::IsPoly, "None");
-	cls_SMDS_PolyhedralVolumeOfNodes.def("ChangeNodes", (bool (SMDS_PolyhedralVolumeOfNodes::*)(const std::vector<const SMDS_MeshNode *> &, const std::vector<int> &)) &SMDS_PolyhedralVolumeOfNodes::ChangeNodes, "None", py::arg("nodes"), py::arg("quantities"));
+	// FIXME cls_SMDS_PolyhedralVolumeOfNodes.def("ChangeNodes", (bool (SMDS_PolyhedralVolumeOfNodes::*)(const std::vector<const SMDS_MeshNode *> &, const std::vector<int> &)) &SMDS_PolyhedralVolumeOfNodes::ChangeNodes, "None", py::arg("nodes"), py::arg("quantities"));
 	cls_SMDS_PolyhedralVolumeOfNodes.def("NbNodes", (int (SMDS_PolyhedralVolumeOfNodes::*)() const ) &SMDS_PolyhedralVolumeOfNodes::NbNodes, "None");
 	cls_SMDS_PolyhedralVolumeOfNodes.def("NbEdges", (int (SMDS_PolyhedralVolumeOfNodes::*)() const ) &SMDS_PolyhedralVolumeOfNodes::NbEdges, "None");
 	cls_SMDS_PolyhedralVolumeOfNodes.def("NbFaces", (int (SMDS_PolyhedralVolumeOfNodes::*)() const ) &SMDS_PolyhedralVolumeOfNodes::NbFaces, "None");
@@ -848,7 +863,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_QuadraticEdge.hxx
 	py::class_<SMDS_QuadraticEdge, std::unique_ptr<SMDS_QuadraticEdge, Deleter<SMDS_QuadraticEdge>>, SMDS_LinearEdge> cls_SMDS_QuadraticEdge(mod, "SMDS_QuadraticEdge", "None");
 	cls_SMDS_QuadraticEdge.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("node1"), py::arg("node2"), py::arg("node12"));
-	cls_SMDS_QuadraticEdge.def("ChangeNodes", (bool (SMDS_QuadraticEdge::*)(const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *)) &SMDS_QuadraticEdge::ChangeNodes, "None", py::arg("node1"), py::arg("node2"), py::arg("node12"));
+	// FIXME cls_SMDS_QuadraticEdge.def("ChangeNodes", (bool (SMDS_QuadraticEdge::*)(const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *)) &SMDS_QuadraticEdge::ChangeNodes, "None", py::arg("node1"), py::arg("node2"), py::arg("node12"));
 	cls_SMDS_QuadraticEdge.def("Print", (void (SMDS_QuadraticEdge::*)(std::ostream &) const ) &SMDS_QuadraticEdge::Print, "None", py::arg("OS"));
 	cls_SMDS_QuadraticEdge.def("NbNodes", (int (SMDS_QuadraticEdge::*)() const ) &SMDS_QuadraticEdge::NbNodes, "None");
 	cls_SMDS_QuadraticEdge.def("GetEntityType", (SMDSAbs_EntityType (SMDS_QuadraticEdge::*)() const ) &SMDS_QuadraticEdge::GetEntityType, "None");
@@ -871,7 +886,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_QuadraticFaceOfNodes.def("GetEntityType", (SMDSAbs_EntityType (SMDS_QuadraticFaceOfNodes::*)() const ) &SMDS_QuadraticFaceOfNodes::GetEntityType, "None");
 	cls_SMDS_QuadraticFaceOfNodes.def("IsQuadratic", (bool (SMDS_QuadraticFaceOfNodes::*)() const ) &SMDS_QuadraticFaceOfNodes::IsQuadratic, "None");
 	cls_SMDS_QuadraticFaceOfNodes.def("IsMediumNode", (bool (SMDS_QuadraticFaceOfNodes::*)(const SMDS_MeshNode *) const ) &SMDS_QuadraticFaceOfNodes::IsMediumNode, "None", py::arg("node"));
-	cls_SMDS_QuadraticFaceOfNodes.def("ChangeNodes", (bool (SMDS_QuadraticFaceOfNodes::*)(const SMDS_MeshNode *[], const int)) &SMDS_QuadraticFaceOfNodes::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
+	// FIXME cls_SMDS_QuadraticFaceOfNodes.def("ChangeNodes", (bool (SMDS_QuadraticFaceOfNodes::*)(const SMDS_MeshNode *[], const int)) &SMDS_QuadraticFaceOfNodes::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
 	cls_SMDS_QuadraticFaceOfNodes.def("NbNodes", (int (SMDS_QuadraticFaceOfNodes::*)() const ) &SMDS_QuadraticFaceOfNodes::NbNodes, "None");
 	cls_SMDS_QuadraticFaceOfNodes.def("NbEdges", (int (SMDS_QuadraticFaceOfNodes::*)() const ) &SMDS_QuadraticFaceOfNodes::NbEdges, "None");
 	cls_SMDS_QuadraticFaceOfNodes.def("NbFaces", (int (SMDS_QuadraticFaceOfNodes::*)() const ) &SMDS_QuadraticFaceOfNodes::NbFaces, "None");
@@ -896,7 +911,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_QuadraticVolumeOfNodes.def("GetEntityType", (SMDSAbs_EntityType (SMDS_QuadraticVolumeOfNodes::*)() const ) &SMDS_QuadraticVolumeOfNodes::GetEntityType, "None");
 	cls_SMDS_QuadraticVolumeOfNodes.def("IsQuadratic", (bool (SMDS_QuadraticVolumeOfNodes::*)() const ) &SMDS_QuadraticVolumeOfNodes::IsQuadratic, "None");
 	cls_SMDS_QuadraticVolumeOfNodes.def("IsMediumNode", (bool (SMDS_QuadraticVolumeOfNodes::*)(const SMDS_MeshNode *) const ) &SMDS_QuadraticVolumeOfNodes::IsMediumNode, "None", py::arg("node"));
-	cls_SMDS_QuadraticVolumeOfNodes.def("ChangeNodes", (bool (SMDS_QuadraticVolumeOfNodes::*)(const SMDS_MeshNode *[], const int)) &SMDS_QuadraticVolumeOfNodes::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
+	// FIXME cls_SMDS_QuadraticVolumeOfNodes.def("ChangeNodes", (bool (SMDS_QuadraticVolumeOfNodes::*)(const SMDS_MeshNode *[], const int)) &SMDS_QuadraticVolumeOfNodes::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
 	cls_SMDS_QuadraticVolumeOfNodes.def("NbNodes", (int (SMDS_QuadraticVolumeOfNodes::*)() const ) &SMDS_QuadraticVolumeOfNodes::NbNodes, "None");
 	cls_SMDS_QuadraticVolumeOfNodes.def("NbEdges", (int (SMDS_QuadraticVolumeOfNodes::*)() const ) &SMDS_QuadraticVolumeOfNodes::NbEdges, "None");
 	cls_SMDS_QuadraticVolumeOfNodes.def("NbFaces", (int (SMDS_QuadraticVolumeOfNodes::*)() const ) &SMDS_QuadraticVolumeOfNodes::NbFaces, "None");
@@ -924,7 +939,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_VolumeOfFaces.def(py::init<const SMDS_MeshFace *, const SMDS_MeshFace *, const SMDS_MeshFace *, const SMDS_MeshFace *, const SMDS_MeshFace *, const SMDS_MeshFace *>(), py::arg("face1"), py::arg("face2"), py::arg("face3"), py::arg("face4"), py::arg("face5"), py::arg("face6"));
 	cls_SMDS_VolumeOfFaces.def("GetEntityType", (SMDSAbs_EntityType (SMDS_VolumeOfFaces::*)() const ) &SMDS_VolumeOfFaces::GetEntityType, "None");
 	cls_SMDS_VolumeOfFaces.def("GetGeomType", (SMDSAbs_GeometryType (SMDS_VolumeOfFaces::*)() const ) &SMDS_VolumeOfFaces::GetGeomType, "None");
-	cls_SMDS_VolumeOfFaces.def("ChangeNodes", (bool (SMDS_VolumeOfFaces::*)(const SMDS_MeshNode *[], const int)) &SMDS_VolumeOfFaces::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
+	// FIXME cls_SMDS_VolumeOfFaces.def("ChangeNodes", (bool (SMDS_VolumeOfFaces::*)(const SMDS_MeshNode *[], const int)) &SMDS_VolumeOfFaces::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
 	cls_SMDS_VolumeOfFaces.def("Print", (void (SMDS_VolumeOfFaces::*)(std::ostream &) const ) &SMDS_VolumeOfFaces::Print, "None", py::arg("OS"));
 	cls_SMDS_VolumeOfFaces.def("NbFaces", (int (SMDS_VolumeOfFaces::*)() const ) &SMDS_VolumeOfFaces::NbFaces, "None");
 
@@ -1005,6 +1020,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_IteratorOfElements.def("more", (bool (SMDS_IteratorOfElements::*)()) &SMDS_IteratorOfElements::more, "None");
 	cls_SMDS_IteratorOfElements.def("next", (const SMDS_MeshElement * (SMDS_IteratorOfElements::*)()) &SMDS_IteratorOfElements::next, "None");
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
 	py::class_<SMDS_ElemIteratorPtr, std::unique_ptr<SMDS_ElemIteratorPtr, Deleter<SMDS_ElemIteratorPtr>>> cls_SMDS_ElemIteratorPtr(mod, "SMDS_ElemIteratorPtr", "None");
 	cls_SMDS_ElemIteratorPtr.def(py::init<>());
@@ -1031,12 +1047,15 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_ElemIteratorPtr.def("_internal_equiv", (bool (SMDS_ElemIteratorPtr::*)(const shared_ptr<SMDS_Iterator<const SMDS_MeshElement *>> &) const ) &SMDS_ElemIteratorPtr::_internal_equiv, "None", py::arg("r"));
 	cls_SMDS_ElemIteratorPtr.def("_internal_count", (boost::detail::shared_count (SMDS_ElemIteratorPtr::*)() const ) &SMDS_ElemIteratorPtr::_internal_count, "None");
 
+	*/
+
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_VtkCellIterator.hxx
 	py::class_<SMDS_VtkCellIteratorToUNV, std::unique_ptr<SMDS_VtkCellIteratorToUNV, Deleter<SMDS_VtkCellIteratorToUNV>>, SMDS_NodeIterator> cls_SMDS_VtkCellIteratorToUNV(mod, "SMDS_VtkCellIteratorToUNV", "None");
 	cls_SMDS_VtkCellIteratorToUNV.def(py::init<SMDS_Mesh *, int, SMDSAbs_EntityType>(), py::arg("mesh"), py::arg("vtkCellId"), py::arg("aType"));
 	cls_SMDS_VtkCellIteratorToUNV.def("next", (const SMDS_MeshNode * (SMDS_VtkCellIteratorToUNV::*)()) &SMDS_VtkCellIteratorToUNV::next, "None");
 	cls_SMDS_VtkCellIteratorToUNV.def("more", (bool (SMDS_VtkCellIteratorToUNV::*)()) &SMDS_VtkCellIteratorToUNV::more, "None");
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
 	py::class_<SMDS_NodeIteratorPtr, std::unique_ptr<SMDS_NodeIteratorPtr, Deleter<SMDS_NodeIteratorPtr>>> cls_SMDS_NodeIteratorPtr(mod, "SMDS_NodeIteratorPtr", "None");
 	cls_SMDS_NodeIteratorPtr.def(py::init<>());
@@ -1063,12 +1082,15 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_NodeIteratorPtr.def("_internal_equiv", (bool (SMDS_NodeIteratorPtr::*)(const shared_ptr<SMDS_Iterator<const SMDS_MeshNode *>> &) const ) &SMDS_NodeIteratorPtr::_internal_equiv, "None", py::arg("r"));
 	cls_SMDS_NodeIteratorPtr.def("_internal_count", (boost::detail::shared_count (SMDS_NodeIteratorPtr::*)() const ) &SMDS_NodeIteratorPtr::_internal_count, "None");
 
+	*/
+
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Iterator.hxx
 	py::class_<SMDS_0DElementIterator, std::unique_ptr<SMDS_0DElementIterator, Deleter<SMDS_0DElementIterator>>> cls_SMDS_0DElementIterator(mod, "SMDS_0DElementIterator", "//////////////////////////////////////////////////////////////////////////// Abstract class for iterators");
 	cls_SMDS_0DElementIterator.def("more", (bool (SMDS_0DElementIterator::*)()) &SMDS_0DElementIterator::more, "Return true if and only if there are other object in this iterator");
 	cls_SMDS_0DElementIterator.def("next", (const SMDS_Mesh0DElement * (SMDS_0DElementIterator::*)()) &SMDS_0DElementIterator::next, "Return the current object and step to the next one");
 	cls_SMDS_0DElementIterator.def("remove", (void (SMDS_0DElementIterator::*)()) &SMDS_0DElementIterator::remove, "Delete the current element and step to the next one");
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
 	py::class_<SMDS_0DElementIteratorPtr, std::unique_ptr<SMDS_0DElementIteratorPtr, Deleter<SMDS_0DElementIteratorPtr>>> cls_SMDS_0DElementIteratorPtr(mod, "SMDS_0DElementIteratorPtr", "None");
 	cls_SMDS_0DElementIteratorPtr.def(py::init<>());
@@ -1095,12 +1117,15 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_0DElementIteratorPtr.def("_internal_equiv", (bool (SMDS_0DElementIteratorPtr::*)(const shared_ptr<SMDS_Iterator<const SMDS_Mesh0DElement *>> &) const ) &SMDS_0DElementIteratorPtr::_internal_equiv, "None", py::arg("r"));
 	cls_SMDS_0DElementIteratorPtr.def("_internal_count", (boost::detail::shared_count (SMDS_0DElementIteratorPtr::*)() const ) &SMDS_0DElementIteratorPtr::_internal_count, "None");
 
+	*/
+
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Iterator.hxx
 	py::class_<SMDS_EdgeIterator, std::unique_ptr<SMDS_EdgeIterator, Deleter<SMDS_EdgeIterator>>> cls_SMDS_EdgeIterator(mod, "SMDS_EdgeIterator", "//////////////////////////////////////////////////////////////////////////// Abstract class for iterators");
 	cls_SMDS_EdgeIterator.def("more", (bool (SMDS_EdgeIterator::*)()) &SMDS_EdgeIterator::more, "Return true if and only if there are other object in this iterator");
 	cls_SMDS_EdgeIterator.def("next", (const SMDS_MeshEdge * (SMDS_EdgeIterator::*)()) &SMDS_EdgeIterator::next, "Return the current object and step to the next one");
 	cls_SMDS_EdgeIterator.def("remove", (void (SMDS_EdgeIterator::*)()) &SMDS_EdgeIterator::remove, "Delete the current element and step to the next one");
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
 	py::class_<SMDS_EdgeIteratorPtr, std::unique_ptr<SMDS_EdgeIteratorPtr, Deleter<SMDS_EdgeIteratorPtr>>> cls_SMDS_EdgeIteratorPtr(mod, "SMDS_EdgeIteratorPtr", "None");
 	cls_SMDS_EdgeIteratorPtr.def(py::init<>());
@@ -1127,12 +1152,15 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_EdgeIteratorPtr.def("_internal_equiv", (bool (SMDS_EdgeIteratorPtr::*)(const shared_ptr<SMDS_Iterator<const SMDS_MeshEdge *>> &) const ) &SMDS_EdgeIteratorPtr::_internal_equiv, "None", py::arg("r"));
 	cls_SMDS_EdgeIteratorPtr.def("_internal_count", (boost::detail::shared_count (SMDS_EdgeIteratorPtr::*)() const ) &SMDS_EdgeIteratorPtr::_internal_count, "None");
 
+	*/
+
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Iterator.hxx
 	py::class_<SMDS_FaceIterator, std::unique_ptr<SMDS_FaceIterator, Deleter<SMDS_FaceIterator>>> cls_SMDS_FaceIterator(mod, "SMDS_FaceIterator", "//////////////////////////////////////////////////////////////////////////// Abstract class for iterators");
 	cls_SMDS_FaceIterator.def("more", (bool (SMDS_FaceIterator::*)()) &SMDS_FaceIterator::more, "Return true if and only if there are other object in this iterator");
 	cls_SMDS_FaceIterator.def("next", (const SMDS_MeshFace * (SMDS_FaceIterator::*)()) &SMDS_FaceIterator::next, "Return the current object and step to the next one");
 	cls_SMDS_FaceIterator.def("remove", (void (SMDS_FaceIterator::*)()) &SMDS_FaceIterator::remove, "Delete the current element and step to the next one");
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
 	py::class_<SMDS_FaceIteratorPtr, std::unique_ptr<SMDS_FaceIteratorPtr, Deleter<SMDS_FaceIteratorPtr>>> cls_SMDS_FaceIteratorPtr(mod, "SMDS_FaceIteratorPtr", "None");
 	cls_SMDS_FaceIteratorPtr.def(py::init<>());
@@ -1159,12 +1187,15 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_FaceIteratorPtr.def("_internal_equiv", (bool (SMDS_FaceIteratorPtr::*)(const shared_ptr<SMDS_Iterator<const SMDS_MeshFace *>> &) const ) &SMDS_FaceIteratorPtr::_internal_equiv, "None", py::arg("r"));
 	cls_SMDS_FaceIteratorPtr.def("_internal_count", (boost::detail::shared_count (SMDS_FaceIteratorPtr::*)() const ) &SMDS_FaceIteratorPtr::_internal_count, "None");
 
+	*/
+
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Iterator.hxx
 	py::class_<SMDS_VolumeIterator, std::unique_ptr<SMDS_VolumeIterator, Deleter<SMDS_VolumeIterator>>> cls_SMDS_VolumeIterator(mod, "SMDS_VolumeIterator", "//////////////////////////////////////////////////////////////////////////// Abstract class for iterators");
 	cls_SMDS_VolumeIterator.def("more", (bool (SMDS_VolumeIterator::*)()) &SMDS_VolumeIterator::more, "Return true if and only if there are other object in this iterator");
 	cls_SMDS_VolumeIterator.def("next", (const SMDS_MeshVolume * (SMDS_VolumeIterator::*)()) &SMDS_VolumeIterator::next, "Return the current object and step to the next one");
 	cls_SMDS_VolumeIterator.def("remove", (void (SMDS_VolumeIterator::*)()) &SMDS_VolumeIterator::remove, "Delete the current element and step to the next one");
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
 	py::class_<SMDS_VolumeIteratorPtr, std::unique_ptr<SMDS_VolumeIteratorPtr, Deleter<SMDS_VolumeIteratorPtr>>> cls_SMDS_VolumeIteratorPtr(mod, "SMDS_VolumeIteratorPtr", "None");
 	cls_SMDS_VolumeIteratorPtr.def(py::init<>());
@@ -1191,19 +1222,30 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_VolumeIteratorPtr.def("_internal_equiv", (bool (SMDS_VolumeIteratorPtr::*)(const shared_ptr<SMDS_Iterator<const SMDS_MeshVolume *>> &) const ) &SMDS_VolumeIteratorPtr::_internal_equiv, "None", py::arg("r"));
 	cls_SMDS_VolumeIteratorPtr.def("_internal_count", (boost::detail::shared_count (SMDS_VolumeIteratorPtr::*)() const ) &SMDS_VolumeIteratorPtr::_internal_count, "None");
 
+	*/
+
+	/* FIXME
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "shortint")) {
 		mod.attr("ShortType") = other_mod.attr("shortint");
 	}
 
+	*/
+
+	/* FIXME
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "integer")) {
 		mod.attr("LongType") = other_mod.attr("integer");
 	}
 
+	*/
+
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Position.hxx
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Downward.hxx
+	/* FIXME
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Downward.hxx
+	*/
+
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_SetIterator.hxx
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_SetIterator.hxx
 	/* FIXME

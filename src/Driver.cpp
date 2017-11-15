@@ -9,10 +9,14 @@ using opencascade::handle;
 // Deleter template for mixed holder types with public/hidden destructors.
 template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
 
+#include <Driver_Mesh.h>
 #include <SMESH_ComputeError.hxx>
 #include <SMDS_Mesh.hxx>
+#include <Driver_SMDS_Mesh.h>
 #include <SMESHDS_Mesh.hxx>
+#include <Driver_SMESHDS_Mesh.h>
 #include <SMESHDS_Document.hxx>
+#include <Driver_Document.h>
 
 PYBIND11_MODULE(Driver, mod) {
 

@@ -58,6 +58,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <OpenGl_NamedResource.hxx>
 #include <Graphic3d_ShaderProgram.hxx>
 #include <OpenGl_ShaderObject.hxx>
+#include <glext.h>
 #include <Graphic3d_TextureUnit.hxx>
 #include <Graphic3d_AspectLine3d.hxx>
 #include <OpenGl_Sampler.hxx>

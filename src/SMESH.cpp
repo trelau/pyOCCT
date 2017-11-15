@@ -9,6 +9,8 @@ using opencascade::handle;
 // Deleter template for mixed holder types with public/hidden destructors.
 template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
 
+#include <pybind11/stl.h>
+
 #include <SMESH_Hypothesis.hxx>
 #include <SMESH_Gen.hxx>
 #include <SMESH_Algo.hxx>
@@ -162,6 +164,24 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_Hypothesis.def("SetParametersByDefaults", (bool (SMESH_Hypothesis::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &SMESH_Hypothesis::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 	cls_SMESH_Hypothesis.def("IsAuxiliary", (bool (SMESH_Hypothesis::*)() const ) &SMESH_Hypothesis::IsAuxiliary, "Return true if me is an auxiliary hypothesis bool - auxiliary or not");
 	cls_SMESH_Hypothesis.def("GetMeshByPersistentID", (SMESH_Mesh * (SMESH_Hypothesis::*)(int)) &SMESH_Hypothesis::GetMeshByPersistentID, "Find a mesh with given persistent ID", py::arg("id"));
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Hypothesis.hxx
+	py::enum_<SMESH_Hypothesis::Hypothesis_Status>(cls_SMESH_Hypothesis, "Hypothesis_Status", "None")
+		.value("HYP_OK", SMESH_Hypothesis::Hypothesis_Status::HYP_OK)
+		.value("HYP_MISSING", SMESH_Hypothesis::Hypothesis_Status::HYP_MISSING)
+		.value("HYP_CONCURENT", SMESH_Hypothesis::Hypothesis_Status::HYP_CONCURENT)
+		.value("HYP_BAD_PARAMETER", SMESH_Hypothesis::Hypothesis_Status::HYP_BAD_PARAMETER)
+		.value("HYP_HIDDEN_ALGO", SMESH_Hypothesis::Hypothesis_Status::HYP_HIDDEN_ALGO)
+		.value("HYP_HIDING_ALGO", SMESH_Hypothesis::Hypothesis_Status::HYP_HIDING_ALGO)
+		.value("HYP_UNKNOWN_FATAL", SMESH_Hypothesis::Hypothesis_Status::HYP_UNKNOWN_FATAL)
+		.value("HYP_INCOMPATIBLE", SMESH_Hypothesis::Hypothesis_Status::HYP_INCOMPATIBLE)
+		.value("HYP_NOTCONFORM", SMESH_Hypothesis::Hypothesis_Status::HYP_NOTCONFORM)
+		.value("HYP_ALREADY_EXIST", SMESH_Hypothesis::Hypothesis_Status::HYP_ALREADY_EXIST)
+		.value("HYP_BAD_DIM", SMESH_Hypothesis::Hypothesis_Status::HYP_BAD_DIM)
+		.value("HYP_BAD_SUBSHAPE", SMESH_Hypothesis::Hypothesis_Status::HYP_BAD_SUBSHAPE)
+		.value("HYP_BAD_GEOMETRY", SMESH_Hypothesis::Hypothesis_Status::HYP_BAD_GEOMETRY)
+		.value("HYP_NEED_SHAPE", SMESH_Hypothesis::Hypothesis_Status::HYP_NEED_SHAPE)
+		.value("HYP_INCOMPAT_HYPS", SMESH_Hypothesis::Hypothesis_Status::HYP_INCOMPAT_HYPS)
+		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_ComputeError.hxx
 	py::class_<SMESH_ComputeError, std::unique_ptr<SMESH_ComputeError, Deleter<SMESH_ComputeError>>> cls_SMESH_ComputeError(mod, "SMESH_ComputeError", "Contains an algorithm and description of an occurred error");
@@ -234,6 +254,13 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_Gen.def_static("IsGlobalHypothesis_", (bool (*)(const SMESH_Hypothesis *, SMESH_Mesh &)) &SMESH_Gen::IsGlobalHypothesis, "None", py::arg("theHyp"), py::arg("aMesh"));
 	cls_SMESH_Gen.def_static("GetPluginXMLPaths_", (std::vector<std::string> (*)()) &SMESH_Gen::GetPluginXMLPaths, "None");
 	cls_SMESH_Gen.def("GetANewId", (int (SMESH_Gen::*)()) &SMESH_Gen::GetANewId, "None");
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Gen.hxx
+	py::enum_<SMESH_Gen::ComputeFlags>(cls_SMESH_Gen, "ComputeFlags", "None")
+		.value("SHAPE_ONLY", SMESH_Gen::ComputeFlags::SHAPE_ONLY)
+		.value("UPWARD", SMESH_Gen::ComputeFlags::UPWARD)
+		.value("COMPACT_MESH", SMESH_Gen::ComputeFlags::COMPACT_MESH)
+		.value("SHAPE_ONLY_UPWARD", SMESH_Gen::ComputeFlags::SHAPE_ONLY_UPWARD)
+		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Mesh.hxx
 	py::class_<SMESH_Mesh, std::unique_ptr<SMESH_Mesh, Deleter<SMESH_Mesh>>> cls_SMESH_Mesh(mod, "SMESH_Mesh", "None");
@@ -422,7 +449,15 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_Algo.def_static("VertexNode_", [](const TopoDS_Vertex & a0, const SMESHDS_SubMesh * a1, const SMESH_Mesh * a2) -> const SMDS_MeshNode * { return SMESH_Algo::VertexNode(a0, a1, a2); }, py::arg("V"), py::arg("edgeSM"), py::arg("mesh"));
 	cls_SMESH_Algo.def_static("VertexNode_", (const SMDS_MeshNode * (*)(const TopoDS_Vertex &, const SMESHDS_SubMesh *, const SMESH_Mesh *, const bool)) &SMESH_Algo::VertexNode, "Return the node built on a vertex. A node moved to other geometry by MergeNodes() is also returned.", py::arg("V"), py::arg("edgeSM"), py::arg("mesh"), py::arg("checkV"));
 	cls_SMESH_Algo.def_static("GetMeshError_", (SMESH_Algo::EMeshError (*)(SMESH_subMesh *)) &SMESH_Algo::GetMeshError, "Finds topological errors of a sub-mesh", py::arg("subMesh"));
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Algo.hxx
+	py::enum_<SMESH_Algo::EMeshError>(cls_SMESH_Algo, "EMeshError", "None")
+		.value("MEr_OK", SMESH_Algo::EMeshError::MEr_OK)
+		.value("MEr_HOLES", SMESH_Algo::EMeshError::MEr_HOLES)
+		.value("MEr_BAD_ORI", SMESH_Algo::EMeshError::MEr_BAD_ORI)
+		.value("MEr_EMPTY", SMESH_Algo::EMeshError::MEr_EMPTY)
+		.export_values();
 
+	/* FIXME
 	// C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\utility
 	py::class_<NLink, std::unique_ptr<NLink, Deleter<NLink>>> cls_NLink(mod, "NLink", "None");
 	cls_NLink.def(py::init([] (const pair<const SMDS_MeshNode *, const SMDS_MeshNode *> &other) {return new NLink(other);}), "Copy constructor", py::arg("other"));
@@ -431,8 +466,10 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_NLink.def("assign", (std::NLink::_Myt & (NLink::*)(const std::NLink::_Myt &)) &NLink::operator=, py::is_operator(), "None", py::arg("_Right"));
 	cls_NLink.def("swap", (void (NLink::*)(std::NLink::_Myt &)) &NLink::swap, "None", py::arg("_Right"));
 
+	*/
+
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
-	py::class_<SMESH_TLink, std::unique_ptr<SMESH_TLink, Deleter<SMESH_TLink>>, NLink> cls_SMESH_TLink(mod, "SMESH_TLink", "A sorted pair of nodes");
+	py::class_<SMESH_TLink, std::unique_ptr<SMESH_TLink, Deleter<SMESH_TLink>>> cls_SMESH_TLink(mod, "SMESH_TLink", "A sorted pair of nodes");
 	cls_SMESH_TLink.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("n1"), py::arg("n2"));
 	cls_SMESH_TLink.def(py::init<const NLink &>(), py::arg("link"));
 	cls_SMESH_TLink.def("node1", (const SMDS_MeshNode * (SMESH_TLink::*)() const ) &SMESH_TLink::node1, "None");
@@ -612,13 +649,21 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_MesherHelper.def("GetTLinkNodeMap", (const TLinkNodeMap & (SMESH_MesherHelper::*)() const ) &SMESH_MesherHelper::GetTLinkNodeMap, "Returns myTLinkNodeMap");
 	cls_SMESH_MesherHelper.def("IsQuadraticMesh", (SMESH_MesherHelper::MType (SMESH_MesherHelper::*)()) &SMESH_MesherHelper::IsQuadraticMesh, "None");
 	cls_SMESH_MesherHelper.def_static("WriteShape_", (void (*)(const TopoDS_Shape &)) &SMESH_MesherHelper::WriteShape, "None", py::arg("s"));
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_MesherHelper.hxx
+	py::enum_<SMESH_MesherHelper::MType>(cls_SMESH_MesherHelper, "MType", "Check mesh without geometry for: if all elements on this shape are quadratic, quadratic elements will be created. Used then generated 3D mesh without geometry.")
+		.value("LINEAR", SMESH_MesherHelper::MType::LINEAR)
+		.value("QUADRATIC", SMESH_MesherHelper::MType::QUADRATIC)
+		.value("COMP", SMESH_MesherHelper::MType::COMP)
+		.export_values();
 
+	/* FIXME
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Comment.hxx
 	py::class_<SMESH_Comment, std::unique_ptr<SMESH_Comment, Deleter<SMESH_Comment>>, std::string> cls_SMESH_Comment(mod, "SMESH_Comment", "Class to generate string from any type");
 	cls_SMESH_Comment.def(py::init<>());
 	cls_SMESH_Comment.def(py::init([] (const SMESH_Comment &other) {return new SMESH_Comment(other);}), "Copy constructor", py::arg("other"));
 	cls_SMESH_Comment.def("assign", (SMESH_Comment & (SMESH_Comment::*)(const SMESH_Comment &)) &SMESH_Comment::operator=, py::is_operator(), "None", py::arg("c"));
 	cls_SMESH_Comment.def("Stream", (std::ostream & (SMESH_Comment::*)()) &SMESH_Comment::Stream, "None");
+	*/
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_HypoFilter.hxx
 	py::class_<SMESH_HypoPredicate, std::unique_ptr<SMESH_HypoPredicate, Deleter<SMESH_HypoPredicate>>> cls_SMESH_HypoPredicate(mod, "SMESH_HypoPredicate", "None");
@@ -672,6 +717,50 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_subMesh.def("SubMeshesComputed", (bool (SMESH_subMesh::*)(bool *) const ) &SMESH_subMesh::SubMeshesComputed, "None", py::arg("isFailedToCompute"));
 	cls_SMESH_subMesh.def("GetComputeCost", (int (SMESH_subMesh::*)() const ) &SMESH_subMesh::GetComputeCost, "None");
 	cls_SMESH_subMesh.def("FindIntersection", (bool (SMESH_subMesh::*)(const SMESH_subMesh *, std::set<const SMESH_subMesh *> &) const ) &SMESH_subMesh::FindIntersection, "Find common submeshes (based on shared subshapes with other", py::arg("theOther"), py::arg("theSetOfCommon"));
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_subMesh.hxx
+	py::enum_<SMESH_subMesh::compute_state>(cls_SMESH_subMesh, "compute_state", "None")
+		.value("NOT_READY", SMESH_subMesh::compute_state::NOT_READY)
+		.value("READY_TO_COMPUTE", SMESH_subMesh::compute_state::READY_TO_COMPUTE)
+		.value("COMPUTE_OK", SMESH_subMesh::compute_state::COMPUTE_OK)
+		.value("FAILED_TO_COMPUTE", SMESH_subMesh::compute_state::FAILED_TO_COMPUTE)
+		.export_values();
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_subMesh.hxx
+	py::enum_<SMESH_subMesh::algo_state>(cls_SMESH_subMesh, "algo_state", "None")
+		.value("NO_ALGO", SMESH_subMesh::algo_state::NO_ALGO)
+		.value("MISSING_HYP", SMESH_subMesh::algo_state::MISSING_HYP)
+		.value("HYP_OK", SMESH_subMesh::algo_state::HYP_OK)
+		.export_values();
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_subMesh.hxx
+	py::enum_<SMESH_subMesh::algo_event>(cls_SMESH_subMesh, "algo_event", "None")
+		.value("ADD_HYP", SMESH_subMesh::algo_event::ADD_HYP)
+		.value("ADD_ALGO", SMESH_subMesh::algo_event::ADD_ALGO)
+		.value("REMOVE_HYP", SMESH_subMesh::algo_event::REMOVE_HYP)
+		.value("REMOVE_ALGO", SMESH_subMesh::algo_event::REMOVE_ALGO)
+		.value("ADD_FATHER_HYP", SMESH_subMesh::algo_event::ADD_FATHER_HYP)
+		.value("ADD_FATHER_ALGO", SMESH_subMesh::algo_event::ADD_FATHER_ALGO)
+		.value("REMOVE_FATHER_HYP", SMESH_subMesh::algo_event::REMOVE_FATHER_HYP)
+		.value("REMOVE_FATHER_ALGO", SMESH_subMesh::algo_event::REMOVE_FATHER_ALGO)
+		.value("MODIF_HYP", SMESH_subMesh::algo_event::MODIF_HYP)
+		.export_values();
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_subMesh.hxx
+	py::enum_<SMESH_subMesh::compute_event>(cls_SMESH_subMesh, "compute_event", "None")
+		.value("MODIF_ALGO_STATE", SMESH_subMesh::compute_event::MODIF_ALGO_STATE)
+		.value("COMPUTE", SMESH_subMesh::compute_event::COMPUTE)
+		.value("COMPUTE_SUBMESH", SMESH_subMesh::compute_event::COMPUTE_SUBMESH)
+		.value("COMPUTE_NOGEOM", SMESH_subMesh::compute_event::COMPUTE_NOGEOM)
+		.value("COMPUTE_CANCELED", SMESH_subMesh::compute_event::COMPUTE_CANCELED)
+		.value("CLEAN", SMESH_subMesh::compute_event::CLEAN)
+		.value("SUBMESH_COMPUTED", SMESH_subMesh::compute_event::SUBMESH_COMPUTED)
+		.value("SUBMESH_RESTORED", SMESH_subMesh::compute_event::SUBMESH_RESTORED)
+		.value("SUBMESH_LOADED", SMESH_subMesh::compute_event::SUBMESH_LOADED)
+		.value("MESH_ENTITY_REMOVED", SMESH_subMesh::compute_event::MESH_ENTITY_REMOVED)
+		.value("CHECK_COMPUTE_STATE", SMESH_subMesh::compute_event::CHECK_COMPUTE_STATE)
+		.export_values();
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_subMesh.hxx
+	py::enum_<SMESH_subMesh::event_type>(cls_SMESH_subMesh, "event_type", "None")
+		.value("ALGO_EVENT", SMESH_subMesh::event_type::ALGO_EVENT)
+		.value("COMPUTE_EVENT", SMESH_subMesh::event_type::COMPUTE_EVENT)
+		.export_values();
 
 	// Callback for SMESH_0D_Algo.
 	class PyCallback_SMESH_0D_Algo : public SMESH_0D_Algo {
@@ -789,6 +878,40 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_Block.def("Derivatives", (Standard_Boolean (SMESH_Block::*)(const math_Vector &, math_Matrix &)) &SMESH_Block::Derivatives, "None", py::arg("X"), py::arg("D"));
 	cls_SMESH_Block.def("Values", (Standard_Boolean (SMESH_Block::*)(const math_Vector &, math_Vector &, math_Matrix &)) &SMESH_Block::Values, "None", py::arg("X"), py::arg("F"), py::arg("D"));
 	cls_SMESH_Block.def("GetStateNumber", (Standard_Integer (SMESH_Block::*)()) &SMESH_Block::GetStateNumber, "None");
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Block.hxx
+	py::enum_<SMESH_Block::TShapeID>(cls_SMESH_Block, "TShapeID", "None")
+		.value("ID_NONE", SMESH_Block::TShapeID::ID_NONE)
+		.value("ID_V000", SMESH_Block::TShapeID::ID_V000)
+		.value("ID_V100", SMESH_Block::TShapeID::ID_V100)
+		.value("ID_V010", SMESH_Block::TShapeID::ID_V010)
+		.value("ID_V110", SMESH_Block::TShapeID::ID_V110)
+		.value("ID_V001", SMESH_Block::TShapeID::ID_V001)
+		.value("ID_V101", SMESH_Block::TShapeID::ID_V101)
+		.value("ID_V011", SMESH_Block::TShapeID::ID_V011)
+		.value("ID_V111", SMESH_Block::TShapeID::ID_V111)
+		.value("ID_Ex00", SMESH_Block::TShapeID::ID_Ex00)
+		.value("ID_Ex10", SMESH_Block::TShapeID::ID_Ex10)
+		.value("ID_Ex01", SMESH_Block::TShapeID::ID_Ex01)
+		.value("ID_Ex11", SMESH_Block::TShapeID::ID_Ex11)
+		.value("ID_E0y0", SMESH_Block::TShapeID::ID_E0y0)
+		.value("ID_E1y0", SMESH_Block::TShapeID::ID_E1y0)
+		.value("ID_E0y1", SMESH_Block::TShapeID::ID_E0y1)
+		.value("ID_E1y1", SMESH_Block::TShapeID::ID_E1y1)
+		.value("ID_E00z", SMESH_Block::TShapeID::ID_E00z)
+		.value("ID_E10z", SMESH_Block::TShapeID::ID_E10z)
+		.value("ID_E01z", SMESH_Block::TShapeID::ID_E01z)
+		.value("ID_E11z", SMESH_Block::TShapeID::ID_E11z)
+		.value("ID_Fxy0", SMESH_Block::TShapeID::ID_Fxy0)
+		.value("ID_Fxy1", SMESH_Block::TShapeID::ID_Fxy1)
+		.value("ID_Fx0z", SMESH_Block::TShapeID::ID_Fx0z)
+		.value("ID_Fx1z", SMESH_Block::TShapeID::ID_Fx1z)
+		.value("ID_F0yz", SMESH_Block::TShapeID::ID_F0yz)
+		.value("ID_F1yz", SMESH_Block::TShapeID::ID_F1yz)
+		.value("ID_Shell", SMESH_Block::TShapeID::ID_Shell)
+		.value("ID_FirstV", SMESH_Block::TShapeID::ID_FirstV)
+		.value("ID_FirstE", SMESH_Block::TShapeID::ID_FirstE)
+		.value("ID_FirstF", SMESH_Block::TShapeID::ID_FirstF)
+		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Gen.hxx
 	py::class_<studyContextStruct, std::unique_ptr<studyContextStruct, Deleter<studyContextStruct>>> cls_studyContextStruct(mod, "studyContextStruct", "None");
@@ -863,9 +986,9 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_MeshEditor.def("Smooth", [](SMESH_MeshEditor &self, TIDSortedElemSet & a0, std::set<const SMDS_MeshNode *> & a1, const SMESH_MeshEditor::SmoothMethod a2, const int a3) -> void { return self.Smooth(a0, a1, a2, a3); }, py::arg("theElements"), py::arg("theFixedNodes"), py::arg("theSmoothMethod"), py::arg("theNbIterations"));
 	cls_SMESH_MeshEditor.def("Smooth", [](SMESH_MeshEditor &self, TIDSortedElemSet & a0, std::set<const SMDS_MeshNode *> & a1, const SMESH_MeshEditor::SmoothMethod a2, const int a3, double a4) -> void { return self.Smooth(a0, a1, a2, a3, a4); }, py::arg("theElements"), py::arg("theFixedNodes"), py::arg("theSmoothMethod"), py::arg("theNbIterations"), py::arg("theTgtAspectRatio"));
 	cls_SMESH_MeshEditor.def("Smooth", (void (SMESH_MeshEditor::*)(TIDSortedElemSet &, std::set<const SMDS_MeshNode *> &, const SMESH_MeshEditor::SmoothMethod, const int, double, const bool)) &SMESH_MeshEditor::Smooth, "None", py::arg("theElements"), py::arg("theFixedNodes"), py::arg("theSmoothMethod"), py::arg("theNbIterations"), py::arg("theTgtAspectRatio"), py::arg("the2D"));
-	cls_SMESH_MeshEditor.def("RotationSweep", [](SMESH_MeshEditor &self, TIDSortedElemSet [2] a0, const gp_Ax1 & a1, const double a2, const int a3, const double a4, const bool a5) -> SMESH_MeshEditor::PGroupIDs { return self.RotationSweep(a0, a1, a2, a3, a4, a5); }, py::arg("theElements"), py::arg("theAxis"), py::arg("theAngle"), py::arg("theNbSteps"), py::arg("theToler"), py::arg("theMakeGroups"));
+	// FIXME cls_SMESH_MeshEditor.def("RotationSweep", [](SMESH_MeshEditor &self, TIDSortedElemSet [2] a0, const gp_Ax1 & a1, const double a2, const int a3, const double a4, const bool a5) -> SMESH_MeshEditor::PGroupIDs { return self.RotationSweep(a0, a1, a2, a3, a4, a5); }, py::arg("theElements"), py::arg("theAxis"), py::arg("theAngle"), py::arg("theNbSteps"), py::arg("theToler"), py::arg("theMakeGroups"));
 	// FIXME cls_SMESH_MeshEditor.def("RotationSweep", (SMESH_MeshEditor::PGroupIDs (SMESH_MeshEditor::*)(TIDSortedElemSet [2], const gp_Ax1 &, const double, const int, const double, const bool, const bool)) &SMESH_MeshEditor::RotationSweep, "None", py::arg("theElements"), py::arg("theAxis"), py::arg("theAngle"), py::arg("theNbSteps"), py::arg("theToler"), py::arg("theMakeGroups"), py::arg("theMakeWalls"));
-	cls_SMESH_MeshEditor.def("ExtrusionSweep", [](SMESH_MeshEditor &self, TIDSortedElemSet [2] a0, const gp_Vec & a1, const int a2, SMESH_MeshEditor::TTElemOfElemListMap & a3, const int a4) -> SMESH_MeshEditor::PGroupIDs { return self.ExtrusionSweep(a0, a1, a2, a3, a4); }, py::arg("theElems"), py::arg("theStep"), py::arg("theNbSteps"), py::arg("newElemsMap"), py::arg("theFlags"));
+	// FIXME cls_SMESH_MeshEditor.def("ExtrusionSweep", [](SMESH_MeshEditor &self, TIDSortedElemSet [2] a0, const gp_Vec & a1, const int a2, SMESH_MeshEditor::TTElemOfElemListMap & a3, const int a4) -> SMESH_MeshEditor::PGroupIDs { return self.ExtrusionSweep(a0, a1, a2, a3, a4); }, py::arg("theElems"), py::arg("theStep"), py::arg("theNbSteps"), py::arg("newElemsMap"), py::arg("theFlags"));
 	// FIXME cls_SMESH_MeshEditor.def("ExtrusionSweep", (SMESH_MeshEditor::PGroupIDs (SMESH_MeshEditor::*)(TIDSortedElemSet [2], const gp_Vec &, const int, SMESH_MeshEditor::TTElemOfElemListMap &, const int, const double)) &SMESH_MeshEditor::ExtrusionSweep, "Generate new elements by extrusion of theElements It is a method used in .idl file. All functionality is implemented in the next method (see below) which is used in the current method.", py::arg("theElems"), py::arg("theStep"), py::arg("theNbSteps"), py::arg("newElemsMap"), py::arg("theFlags"), py::arg("theTolerance"));
 	// FIXME cls_SMESH_MeshEditor.def("ExtrusionSweep", (SMESH_MeshEditor::PGroupIDs (SMESH_MeshEditor::*)(TIDSortedElemSet [2], SMESH_MeshEditor::ExtrusParam &, SMESH_MeshEditor::TTElemOfElemListMap &)) &SMESH_MeshEditor::ExtrusionSweep, "Generate new elements by extrusion of theElements", py::arg("theElems"), py::arg("theParams"), py::arg("newElemsMap"));
 	// FIXME cls_SMESH_MeshEditor.def("ExtrusionAlongTrack", (SMESH_MeshEditor::Extrusion_Error (SMESH_MeshEditor::*)(TIDSortedElemSet [2], SMESH_subMesh *, const SMDS_MeshNode *, const bool, std::list<double> &, const bool, const bool, const gp_Pnt &, const bool)) &SMESH_MeshEditor::ExtrusionAlongTrack, "None", py::arg("theElements"), py::arg("theTrackPattern"), py::arg("theNodeStart"), py::arg("theHasAngles"), py::arg("theAngles"), py::arg("theLinearVariation"), py::arg("theHasRefPoint"), py::arg("theRefPoint"), py::arg("theMakeGroups"));
@@ -922,6 +1045,58 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_MeshEditor.def("MakeBoundaryMesh", [](SMESH_MeshEditor &self, const TIDSortedElemSet & a0, SMESH_MeshEditor::Bnd_Dimension a1, SMESH_Group * a2, SMESH_Mesh * a3, bool a4, bool a5) -> int { return self.MakeBoundaryMesh(a0, a1, a2, a3, a4, a5); }, py::arg("elements"), py::arg("dimension"), py::arg("group"), py::arg("targetMesh"), py::arg("toCopyElements"), py::arg("toCopyExistingBondary"));
 	cls_SMESH_MeshEditor.def("MakeBoundaryMesh", [](SMESH_MeshEditor &self, const TIDSortedElemSet & a0, SMESH_MeshEditor::Bnd_Dimension a1, SMESH_Group * a2, SMESH_Mesh * a3, bool a4, bool a5, bool a6) -> int { return self.MakeBoundaryMesh(a0, a1, a2, a3, a4, a5, a6); }, py::arg("elements"), py::arg("dimension"), py::arg("group"), py::arg("targetMesh"), py::arg("toCopyElements"), py::arg("toCopyExistingBondary"), py::arg("toAddExistingBondary"));
 	cls_SMESH_MeshEditor.def("MakeBoundaryMesh", (int (SMESH_MeshEditor::*)(const TIDSortedElemSet &, SMESH_MeshEditor::Bnd_Dimension, SMESH_Group *, SMESH_Mesh *, bool, bool, bool, bool)) &SMESH_MeshEditor::MakeBoundaryMesh, "None", py::arg("elements"), py::arg("dimension"), py::arg("group"), py::arg("targetMesh"), py::arg("toCopyElements"), py::arg("toCopyExistingBondary"), py::arg("toAddExistingBondary"), py::arg("aroundElements"));
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_MeshEditor.hxx
+	py::enum_<SMESH_MeshEditor::SplitVolumToTetraFlags>(cls_SMESH_MeshEditor, "SplitVolumToTetraFlags", "None")
+		.value("HEXA_TO_5", SMESH_MeshEditor::SplitVolumToTetraFlags::HEXA_TO_5)
+		.value("HEXA_TO_6", SMESH_MeshEditor::SplitVolumToTetraFlags::HEXA_TO_6)
+		.value("HEXA_TO_24", SMESH_MeshEditor::SplitVolumToTetraFlags::HEXA_TO_24)
+		.value("HEXA_TO_2_PRISMS", SMESH_MeshEditor::SplitVolumToTetraFlags::HEXA_TO_2_PRISMS)
+		.value("HEXA_TO_4_PRISMS", SMESH_MeshEditor::SplitVolumToTetraFlags::HEXA_TO_4_PRISMS)
+		.export_values();
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_MeshEditor.hxx
+	py::enum_<SMESH_MeshEditor::SmoothMethod>(cls_SMESH_MeshEditor, "SmoothMethod", "None")
+		.value("LAPLACIAN", SMESH_MeshEditor::SmoothMethod::LAPLACIAN)
+		.value("CENTROIDAL", SMESH_MeshEditor::SmoothMethod::CENTROIDAL)
+		.export_values();
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_MeshEditor.hxx
+	py::enum_<SMESH_MeshEditor::ExtrusionFlags>(cls_SMESH_MeshEditor, "ExtrusionFlags", "Flags of extrusion. BOUNDARY: create or not boundary for result of extrusion SEW: try to use existing nodes or create new nodes in any case GROUPS: to create groups BY_AVG_NORMAL: step size is measured along average normal to elements, else step size is measured along average normal of any element USE_INPUT_ELEMS_ONLY: to use only input elements to compute extrusion direction for ExtrusionByNormal() SCALE_LINEAR_VARIATION: to make linear variation of scale factors")
+		.value("EXTRUSION_FLAG_BOUNDARY", SMESH_MeshEditor::ExtrusionFlags::EXTRUSION_FLAG_BOUNDARY)
+		.value("EXTRUSION_FLAG_SEW", SMESH_MeshEditor::ExtrusionFlags::EXTRUSION_FLAG_SEW)
+		.value("EXTRUSION_FLAG_GROUPS", SMESH_MeshEditor::ExtrusionFlags::EXTRUSION_FLAG_GROUPS)
+		.value("EXTRUSION_FLAG_BY_AVG_NORMAL", SMESH_MeshEditor::ExtrusionFlags::EXTRUSION_FLAG_BY_AVG_NORMAL)
+		.value("EXTRUSION_FLAG_USE_INPUT_ELEMS_ONLY", SMESH_MeshEditor::ExtrusionFlags::EXTRUSION_FLAG_USE_INPUT_ELEMS_ONLY)
+		.value("EXTRUSION_FLAG_SCALE_LINEAR_VARIATION", SMESH_MeshEditor::ExtrusionFlags::EXTRUSION_FLAG_SCALE_LINEAR_VARIATION)
+		.export_values();
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_MeshEditor.hxx
+	py::enum_<SMESH_MeshEditor::Extrusion_Error>(cls_SMESH_MeshEditor, "Extrusion_Error", "None")
+		.value("EXTR_OK", SMESH_MeshEditor::Extrusion_Error::EXTR_OK)
+		.value("EXTR_NO_ELEMENTS", SMESH_MeshEditor::Extrusion_Error::EXTR_NO_ELEMENTS)
+		.value("EXTR_PATH_NOT_EDGE", SMESH_MeshEditor::Extrusion_Error::EXTR_PATH_NOT_EDGE)
+		.value("EXTR_BAD_PATH_SHAPE", SMESH_MeshEditor::Extrusion_Error::EXTR_BAD_PATH_SHAPE)
+		.value("EXTR_BAD_STARTING_NODE", SMESH_MeshEditor::Extrusion_Error::EXTR_BAD_STARTING_NODE)
+		.value("EXTR_BAD_ANGLES_NUMBER", SMESH_MeshEditor::Extrusion_Error::EXTR_BAD_ANGLES_NUMBER)
+		.value("EXTR_CANT_GET_TANGENT", SMESH_MeshEditor::Extrusion_Error::EXTR_CANT_GET_TANGENT)
+		.export_values();
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_MeshEditor.hxx
+	py::enum_<SMESH_MeshEditor::Sew_Error>(cls_SMESH_MeshEditor, "Sew_Error", "None")
+		.value("SEW_OK", SMESH_MeshEditor::Sew_Error::SEW_OK)
+		.value("SEW_BORDER1_NOT_FOUND", SMESH_MeshEditor::Sew_Error::SEW_BORDER1_NOT_FOUND)
+		.value("SEW_BORDER2_NOT_FOUND", SMESH_MeshEditor::Sew_Error::SEW_BORDER2_NOT_FOUND)
+		.value("SEW_BOTH_BORDERS_NOT_FOUND", SMESH_MeshEditor::Sew_Error::SEW_BOTH_BORDERS_NOT_FOUND)
+		.value("SEW_BAD_SIDE_NODES", SMESH_MeshEditor::Sew_Error::SEW_BAD_SIDE_NODES)
+		.value("SEW_VOLUMES_TO_SPLIT", SMESH_MeshEditor::Sew_Error::SEW_VOLUMES_TO_SPLIT)
+		.value("SEW_DIFF_NB_OF_ELEMENTS", SMESH_MeshEditor::Sew_Error::SEW_DIFF_NB_OF_ELEMENTS)
+		.value("SEW_TOPO_DIFF_SETS_OF_ELEMENTS", SMESH_MeshEditor::Sew_Error::SEW_TOPO_DIFF_SETS_OF_ELEMENTS)
+		.value("SEW_BAD_SIDE1_NODES", SMESH_MeshEditor::Sew_Error::SEW_BAD_SIDE1_NODES)
+		.value("SEW_BAD_SIDE2_NODES", SMESH_MeshEditor::Sew_Error::SEW_BAD_SIDE2_NODES)
+		.value("SEW_INTERNAL_ERROR", SMESH_MeshEditor::Sew_Error::SEW_INTERNAL_ERROR)
+		.export_values();
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_MeshEditor.hxx
+	py::enum_<SMESH_MeshEditor::Bnd_Dimension>(cls_SMESH_MeshEditor, "Bnd_Dimension", "None")
+		.value("BND_2DFROM3D", SMESH_MeshEditor::Bnd_Dimension::BND_2DFROM3D)
+		.value("BND_1DFROM3D", SMESH_MeshEditor::Bnd_Dimension::BND_1DFROM3D)
+		.value("BND_1DFROM2D", SMESH_MeshEditor::Bnd_Dimension::BND_1DFROM2D)
+		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Tree.hxx
 	py::class_<SMESH_TreeLimit, std::unique_ptr<SMESH_TreeLimit, Deleter<SMESH_TreeLimit>>> cls_SMESH_TreeLimit(mod, "SMESH_TreeLimit", "None");
@@ -929,15 +1104,18 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_TreeLimit.def(py::init<int>(), py::arg("maxLevel"));
 	cls_SMESH_TreeLimit.def(py::init<int, double>(), py::arg("maxLevel"), py::arg("minSize"));
 
+	/* FIXME
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Octree.hxx
 	py::class_<SMESH_Octree, std::unique_ptr<SMESH_Octree, Deleter<SMESH_Octree>>, SMESH_Tree<Bnd_B3d, 8>> cls_SMESH_Octree(mod, "SMESH_Octree", "3D tree of anything. Methods to implement in a descendant are: - Bnd_B3d* buildRootBox(); // box of a tree - descendant* newChild() const; // a new child instance - void buildChildrenData(); // distribute own data among children");
 	cls_SMESH_Octree.def(py::init<>());
 	cls_SMESH_Octree.def(py::init<SMESH_TreeLimit *>(), py::arg("limit"));
 	cls_SMESH_Octree.def("maxSize", (double (SMESH_Octree::*)() const ) &SMESH_Octree::maxSize, "None");
 	cls_SMESH_Octree.def_static("getChildIndex_", (int (*)(double, double, double, const gp_XYZ &)) &SMESH_Octree::getChildIndex, "Return index of a child the given point is in", py::arg("x"), py::arg("y"), py::arg("z"), py::arg("boxMiddle"));
+	*/
 
+	/* FIXME
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_OctreeNode.hxx
-	py::class_<SMESH_OctreeNode, std::unique_ptr<SMESH_OctreeNode, Deleter<SMESH_OctreeNode>>, SMESH_Octree> cls_SMESH_OctreeNode(mod, "SMESH_OctreeNode", "None");
+	py::class_<SMESH_OctreeNode, std::unique_ptr<SMESH_OctreeNode, Deleter<SMESH_OctreeNode>>> cls_SMESH_OctreeNode(mod, "SMESH_OctreeNode", "None");
 	cls_SMESH_OctreeNode.def(py::init<const TIDSortedNodeSet &>(), py::arg("theNodes"));
 	cls_SMESH_OctreeNode.def(py::init<const TIDSortedNodeSet &, const int>(), py::arg("theNodes"), py::arg("maxLevel"));
 	cls_SMESH_OctreeNode.def(py::init<const TIDSortedNodeSet &, const int, const int>(), py::arg("theNodes"), py::arg("maxLevel"), py::arg("maxNbNodes"));
@@ -957,6 +1135,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_OctreeNode.def("GetChildrenIterator", (SMESH_OctreeNodeIteratorPtr (SMESH_OctreeNode::*)()) &SMESH_OctreeNode::GetChildrenIterator, "Return iterator over children");
 	cls_SMESH_OctreeNode.def("GetNodeIterator", (SMDS_NodeIteratorPtr (SMESH_OctreeNode::*)()) &SMESH_OctreeNode::GetNodeIterator, "Return nodes iterator");
 	cls_SMESH_OctreeNode.def("NbNodes", (int (SMESH_OctreeNode::*)() const ) &SMESH_OctreeNode::NbNodes, "Return nb nodes in a tree");
+	*/
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Pattern.hxx
 	py::class_<SMESH_Pattern, std::unique_ptr<SMESH_Pattern, Deleter<SMESH_Pattern>>> cls_SMESH_Pattern(mod, "SMESH_Pattern", "None");
@@ -990,12 +1169,45 @@ PYBIND11_MODULE(SMESH, mod) {
 	// FIXME cls_SMESH_Pattern.def("GetInOutNodes", (void (SMESH_Pattern::*)(std::vector<const SMDS_MeshNode *> *&, std::vector<const SMDS_MeshNode *> *&)) &SMESH_Pattern::GetInOutNodes, "None", py::arg("inNodes"), py::arg("outNodes"));
 	cls_SMESH_Pattern.def("DumpPoints", (void (SMESH_Pattern::*)() const ) &SMESH_Pattern::DumpPoints, "None");
 	cls_SMESH_Pattern.def("GetSubShape", (TopoDS_Shape (SMESH_Pattern::*)(const int) const ) &SMESH_Pattern::GetSubShape, "None", py::arg("i"));
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Pattern.hxx
+	py::enum_<SMESH_Pattern::ErrorCode>(cls_SMESH_Pattern, "ErrorCode", "None")
+		.value("ERR_OK", SMESH_Pattern::ErrorCode::ERR_OK)
+		.value("ERR_READ_NB_POINTS", SMESH_Pattern::ErrorCode::ERR_READ_NB_POINTS)
+		.value("ERR_READ_POINT_COORDS", SMESH_Pattern::ErrorCode::ERR_READ_POINT_COORDS)
+		.value("ERR_READ_TOO_FEW_POINTS", SMESH_Pattern::ErrorCode::ERR_READ_TOO_FEW_POINTS)
+		.value("ERR_READ_3D_COORD", SMESH_Pattern::ErrorCode::ERR_READ_3D_COORD)
+		.value("ERR_READ_NO_KEYPOINT", SMESH_Pattern::ErrorCode::ERR_READ_NO_KEYPOINT)
+		.value("ERR_READ_BAD_INDEX", SMESH_Pattern::ErrorCode::ERR_READ_BAD_INDEX)
+		.value("ERR_READ_ELEM_POINTS", SMESH_Pattern::ErrorCode::ERR_READ_ELEM_POINTS)
+		.value("ERR_READ_NO_ELEMS", SMESH_Pattern::ErrorCode::ERR_READ_NO_ELEMS)
+		.value("ERR_READ_BAD_KEY_POINT", SMESH_Pattern::ErrorCode::ERR_READ_BAD_KEY_POINT)
+		.value("ERR_SAVE_NOT_LOADED", SMESH_Pattern::ErrorCode::ERR_SAVE_NOT_LOADED)
+		.value("ERR_LOAD_EMPTY_SUBMESH", SMESH_Pattern::ErrorCode::ERR_LOAD_EMPTY_SUBMESH)
+		.value("ERR_LOADF_NARROW_FACE", SMESH_Pattern::ErrorCode::ERR_LOADF_NARROW_FACE)
+		.value("ERR_LOADF_CLOSED_FACE", SMESH_Pattern::ErrorCode::ERR_LOADF_CLOSED_FACE)
+		.value("ERR_LOADF_CANT_PROJECT", SMESH_Pattern::ErrorCode::ERR_LOADF_CANT_PROJECT)
+		.value("ERR_LOADV_BAD_SHAPE", SMESH_Pattern::ErrorCode::ERR_LOADV_BAD_SHAPE)
+		.value("ERR_LOADV_COMPUTE_PARAMS", SMESH_Pattern::ErrorCode::ERR_LOADV_COMPUTE_PARAMS)
+		.value("ERR_APPL_NOT_COMPUTED", SMESH_Pattern::ErrorCode::ERR_APPL_NOT_COMPUTED)
+		.value("ERR_APPL_NOT_LOADED", SMESH_Pattern::ErrorCode::ERR_APPL_NOT_LOADED)
+		.value("ERR_APPL_BAD_DIMENTION", SMESH_Pattern::ErrorCode::ERR_APPL_BAD_DIMENTION)
+		.value("ERR_APPL_BAD_NB_VERTICES", SMESH_Pattern::ErrorCode::ERR_APPL_BAD_NB_VERTICES)
+		.value("ERR_APPLF_BAD_TOPOLOGY", SMESH_Pattern::ErrorCode::ERR_APPLF_BAD_TOPOLOGY)
+		.value("ERR_APPLF_BAD_VERTEX", SMESH_Pattern::ErrorCode::ERR_APPLF_BAD_VERTEX)
+		.value("ERR_APPLF_INTERNAL_EEROR", SMESH_Pattern::ErrorCode::ERR_APPLF_INTERNAL_EEROR)
+		.value("ERR_APPLV_BAD_SHAPE", SMESH_Pattern::ErrorCode::ERR_APPLV_BAD_SHAPE)
+		.value("ERR_APPLF_BAD_FACE_GEOM", SMESH_Pattern::ErrorCode::ERR_APPLF_BAD_FACE_GEOM)
+		.value("ERR_MAKEM_NOT_COMPUTED", SMESH_Pattern::ErrorCode::ERR_MAKEM_NOT_COMPUTED)
+		.value("ERR_UNEXPECTED", SMESH_Pattern::ErrorCode::ERR_UNEXPECTED)
+		.export_values();
 
+	/* FIXME
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Quadtree.hxx
 	py::class_<SMESH_Quadtree, std::unique_ptr<SMESH_Quadtree, Deleter<SMESH_Quadtree>>, SMESH_Tree<Bnd_B2d, 4>> cls_SMESH_Quadtree(mod, "SMESH_Quadtree", "2D tree of anything. Methods to implement in a descendant are: - Bnd_B2d* buildRootBox(); // box of the whole tree - descendant* newChild() const; // a new child instance - void buildChildrenData(); // Fill in data of the children");
 	cls_SMESH_Quadtree.def(py::init<>());
 	cls_SMESH_Quadtree.def(py::init<SMESH_TreeLimit *>(), py::arg("limit"));
 	cls_SMESH_Quadtree.def("maxSize", (double (SMESH_Quadtree::*)() const ) &SMESH_Quadtree::maxSize, "None");
+	*/
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_subMeshEventListener.hxx
 	py::class_<SMESH_subMeshEventListener, std::unique_ptr<SMESH_subMeshEventListener, Deleter<SMESH_subMeshEventListener>>> cls_SMESH_subMeshEventListener(mod, "SMESH_subMeshEventListener", "A base for objects reacting on submesh events");
@@ -1013,6 +1225,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_subMeshEventListenerData.def_static("MakeData_", [](SMESH_subMesh * a0) -> SMESH_subMeshEventListenerData * { return SMESH_subMeshEventListenerData::MakeData(a0); }, py::arg("dependentSM"));
 	cls_SMESH_subMeshEventListenerData.def_static("MakeData_", (SMESH_subMeshEventListenerData * (*)(SMESH_subMesh *, const int)) &SMESH_subMeshEventListenerData::MakeData, "Create a default listener data.", py::arg("dependentSM"), py::arg("type"));
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
 	py::class_<SMESH_ComputeErrorPtr, std::unique_ptr<SMESH_ComputeErrorPtr, Deleter<SMESH_ComputeErrorPtr>>> cls_SMESH_ComputeErrorPtr(mod, "SMESH_ComputeErrorPtr", "None");
 	cls_SMESH_ComputeErrorPtr.def(py::init<>());
@@ -1039,6 +1252,8 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_ComputeErrorPtr.def("_internal_equiv", (bool (SMESH_ComputeErrorPtr::*)(const shared_ptr<SMESH_ComputeError> &) const ) &SMESH_ComputeErrorPtr::_internal_equiv, "None", py::arg("r"));
 	cls_SMESH_ComputeErrorPtr.def("_internal_count", (boost::detail::shared_count (SMESH_ComputeErrorPtr::*)() const ) &SMESH_ComputeErrorPtr::_internal_count, "None");
 
+	*/
+
 	/* FIXME
 	// TElemOfElemListMap
 	*/
@@ -1063,6 +1278,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	py::class_<SMESH_OrientedLink, std::unique_ptr<SMESH_OrientedLink, Deleter<SMESH_OrientedLink>>, SMESH_TLink> cls_SMESH_OrientedLink(mod, "SMESH_OrientedLink", "SMESH_TLink knowing its orientation");
 	cls_SMESH_OrientedLink.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("n1"), py::arg("n2"));
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
 	py::class_<TFaceQuadStructPtr, std::unique_ptr<TFaceQuadStructPtr, Deleter<TFaceQuadStructPtr>>> cls_TFaceQuadStructPtr(mod, "TFaceQuadStructPtr", "None");
 	cls_TFaceQuadStructPtr.def(py::init<>());
@@ -1089,6 +1305,8 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_TFaceQuadStructPtr.def("_internal_equiv", (bool (TFaceQuadStructPtr::*)(const shared_ptr<FaceQuadStruct> &) const ) &TFaceQuadStructPtr::_internal_equiv, "None", py::arg("r"));
 	cls_TFaceQuadStructPtr.def("_internal_count", (boost::detail::shared_count (TFaceQuadStructPtr::*)() const ) &TFaceQuadStructPtr::_internal_count, "None");
 
+	*/
+
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
 	/* FIXME
@@ -1100,6 +1318,7 @@ PYBIND11_MODULE(SMESH, mod) {
 		mod.attr("SMDS_MeshElementPtr") = other_mod.attr("SMDS_pElement");
 	}
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
 	py::class_<SMESH_SequenceOfElemPtr, std::unique_ptr<SMESH_SequenceOfElemPtr, Deleter<SMESH_SequenceOfElemPtr>>, NCollection_BaseSequence> cls_SMESH_SequenceOfElemPtr(mod, "SMESH_SequenceOfElemPtr", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
 	cls_SMESH_SequenceOfElemPtr.def(py::init<>());
@@ -1144,6 +1363,8 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_SequenceOfElemPtr.def("__call__", (SMDS_MeshElementPtr & (SMESH_SequenceOfElemPtr::*)(const Standard_Integer)) &SMESH_SequenceOfElemPtr::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
 	cls_SMESH_SequenceOfElemPtr.def("SetValue", (void (SMESH_SequenceOfElemPtr::*)(const Standard_Integer, const SMDS_MeshElementPtr &)) &SMESH_SequenceOfElemPtr::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
 	cls_SMESH_SequenceOfElemPtr.def("__iter__", [](const SMESH_SequenceOfElemPtr &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+
+	*/
 
 	other_mod = py::module::import("OCCT.SMDS");
 	if (py::hasattr(other_mod, "SMDS_pNode")) {
@@ -1199,6 +1420,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	// MapShapeNbElems
 	*/
 
+	/* FIXME
 	// C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtree
 	py::class_<MapShapeNbElemsItr, std::unique_ptr<MapShapeNbElemsItr, Deleter<MapShapeNbElemsItr>>, _Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<SMESH_subMesh *const, std::vector<int, std::allocator<int> > > > >>> cls_MapShapeNbElemsItr(mod, "MapShapeNbElemsItr", "None");
 	cls_MapShapeNbElemsItr.def(py::init<>());
@@ -1212,6 +1434,9 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_MapShapeNbElemsItr.def("minus_minus", (std::MapShapeNbElemsItr::_Myiter & (MapShapeNbElemsItr::*)()) &MapShapeNbElemsItr::operator--, py::is_operator(), "None");
 	cls_MapShapeNbElemsItr.def("minus_minus", (std::MapShapeNbElemsItr::_Myiter (MapShapeNbElemsItr::*)(int)) &MapShapeNbElemsItr::operator--, py::is_operator(), "None", py::arg(""));
 
+	*/
+
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
 	py::class_<SMESH_PredicatePtr, std::unique_ptr<SMESH_PredicatePtr, Deleter<SMESH_PredicatePtr>>> cls_SMESH_PredicatePtr(mod, "SMESH_PredicatePtr", "None");
 	cls_SMESH_PredicatePtr.def(py::init<>());
@@ -1238,6 +1463,8 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_PredicatePtr.def("_internal_equiv", (bool (SMESH_PredicatePtr::*)(const shared_ptr<SMESH::Controls::Predicate> &) const ) &SMESH_PredicatePtr::_internal_equiv, "None", py::arg("r"));
 	cls_SMESH_PredicatePtr.def("_internal_count", (boost::detail::shared_count (SMESH_PredicatePtr::*)() const ) &SMESH_PredicatePtr::_internal_count, "None");
 
+	*/
+
 	/* FIXME
 	// TListOfInt
 	*/
@@ -1256,6 +1483,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	// TLinkNodeMap
 	*/
 
+	/* FIXME
 	// C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtree
 	py::class_<ItTLinkNode, std::unique_ptr<ItTLinkNode, Deleter<ItTLinkNode>>, _Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const SMESH_TLink, const SMDS_MeshNode *> > >>> cls_ItTLinkNode(mod, "ItTLinkNode", "None");
 	cls_ItTLinkNode.def(py::init<>());
@@ -1269,12 +1497,15 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_ItTLinkNode.def("minus_minus", (std::ItTLinkNode::_Myiter & (ItTLinkNode::*)()) &ItTLinkNode::operator--, py::is_operator(), "None");
 	cls_ItTLinkNode.def("minus_minus", (std::ItTLinkNode::_Myiter (ItTLinkNode::*)(int)) &ItTLinkNode::operator--, py::is_operator(), "None", py::arg(""));
 
+	*/
+
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Iterator.hxx
 	py::class_<PShapeIterator, std::unique_ptr<PShapeIterator, Deleter<PShapeIterator>>> cls_PShapeIterator(mod, "PShapeIterator", "//////////////////////////////////////////////////////////////////////////// Abstract class for iterators");
 	cls_PShapeIterator.def("more", (bool (PShapeIterator::*)()) &PShapeIterator::more, "Return true if and only if there are other object in this iterator");
 	cls_PShapeIterator.def("next", (const TopoDS_Shape * (PShapeIterator::*)()) &PShapeIterator::next, "Return the current object and step to the next one");
 	cls_PShapeIterator.def("remove", (void (PShapeIterator::*)()) &PShapeIterator::remove, "Delete the current element and step to the next one");
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
 	py::class_<PShapeIteratorPtr, std::unique_ptr<PShapeIteratorPtr, Deleter<PShapeIteratorPtr>>> cls_PShapeIteratorPtr(mod, "PShapeIteratorPtr", "None");
 	cls_PShapeIteratorPtr.def(py::init<>());
@@ -1301,6 +1532,8 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_PShapeIteratorPtr.def("_internal_equiv", (bool (PShapeIteratorPtr::*)(const shared_ptr<PShapeIterator> &) const ) &PShapeIteratorPtr::_internal_equiv, "None", py::arg("r"));
 	cls_PShapeIteratorPtr.def("_internal_count", (boost::detail::shared_count (PShapeIteratorPtr::*)() const ) &PShapeIteratorPtr::_internal_count, "None");
 
+	*/
+
 	/* FIXME
 	// TNodeColumn
 	*/
@@ -1316,6 +1549,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_OctreeNodeIterator.def("next", (SMESH_OctreeNode * (SMESH_OctreeNodeIterator::*)()) &SMESH_OctreeNodeIterator::next, "Return the current object and step to the next one");
 	cls_SMESH_OctreeNodeIterator.def("remove", (void (SMESH_OctreeNodeIterator::*)()) &SMESH_OctreeNodeIterator::remove, "Delete the current element and step to the next one");
 
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
 	py::class_<SMESH_OctreeNodeIteratorPtr, std::unique_ptr<SMESH_OctreeNodeIteratorPtr, Deleter<SMESH_OctreeNodeIteratorPtr>>> cls_SMESH_OctreeNodeIteratorPtr(mod, "SMESH_OctreeNodeIteratorPtr", "None");
 	cls_SMESH_OctreeNodeIteratorPtr.def(py::init<>());
@@ -1342,8 +1576,11 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_OctreeNodeIteratorPtr.def("_internal_equiv", (bool (SMESH_OctreeNodeIteratorPtr::*)(const shared_ptr<SMESH_OctreeNodeIterator> &) const ) &SMESH_OctreeNodeIteratorPtr::_internal_equiv, "None", py::arg("r"));
 	cls_SMESH_OctreeNodeIteratorPtr.def("_internal_count", (boost::detail::shared_count (SMESH_OctreeNodeIteratorPtr::*)() const ) &SMESH_OctreeNodeIteratorPtr::_internal_count, "None");
 
+	*/
+
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_subMesh.hxx
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_subMesh.hxx
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
 	py::class_<SMESH_subMeshIteratorPtr, std::unique_ptr<SMESH_subMeshIteratorPtr, Deleter<SMESH_subMeshIteratorPtr>>> cls_SMESH_subMeshIteratorPtr(mod, "SMESH_subMeshIteratorPtr", "None");
 	cls_SMESH_subMeshIteratorPtr.def(py::init<>());
@@ -1369,6 +1606,8 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_subMeshIteratorPtr.def("_internal_get_untyped_deleter", (void * (SMESH_subMeshIteratorPtr::*)() const ) &SMESH_subMeshIteratorPtr::_internal_get_untyped_deleter, "None");
 	cls_SMESH_subMeshIteratorPtr.def("_internal_equiv", (bool (SMESH_subMeshIteratorPtr::*)(const shared_ptr<SMDS_Iterator<SMESH_subMesh *>> &) const ) &SMESH_subMeshIteratorPtr::_internal_equiv, "None", py::arg("r"));
 	cls_SMESH_subMeshIteratorPtr.def("_internal_count", (boost::detail::shared_count (SMESH_subMeshIteratorPtr::*)() const ) &SMESH_subMeshIteratorPtr::_internal_count, "None");
+
+	*/
 
 
 }
