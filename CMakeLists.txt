@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 2.8)
 project(pyOCCT)
 
 # DEFINITIONS
-# add_definitions(-DNOMINMAX /wd4996)
 set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /FORCE")
 
 # OCCT
@@ -62,26 +61,19 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${OUTPUT_PATH}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 
-FILE(GLOB SRCS ./src/*.cpp)
+if(WIN32)
+	set(EXTENSION ".pyd")
+else(WIN32)
+	set(EXTENSION ".so")
+endif(WIN32)
+
+# BUILD AND INSTALL
+file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 foreach(SRC ${SRCS})
     get_filename_component(MOD ${SRC} NAME_WE)
     pybind11_add_module(${MOD} ${SRC})
     target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES} ${SMESH_ABS_LIBS})
-    set_target_properties(${MOD} PROPERTIES SUFFIX ".pyd")    
+    set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION})
+    install(FILES ${OUTPUT_PATH}/${MOD}${EXTENSION} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/OCCT)
 endforeach(SRC)
-
-# Install
-if(WIN32)
-	set(EXTENSION "*.pyd")
-else(WIN32)
-	set(EXTENSION "*.so")
-endif(WIN32)
-
-execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())" OUTPUT_VARIABLE site_packages OUTPUT_STRIP_TRAILING_WHITESPACE)
-set(PYOCCT_INSTALL_DIR ${site_packages}/OCCT CACHE PATH "pyOCCT install directory")
-    
-file(GLOB MODS ${OUTPUT_PATH}/${EXTENSION})
-foreach(MOD ${MODS})
-    install(FILES ${MOD} DESTINATION ${PYOCCT_INSTALL_DIR} )
-endforeach(MOD)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/__init__.py DESTINATION ${PYOCCT_INSTALL_DIR})
+INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/__init__.py DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/OCCT)
