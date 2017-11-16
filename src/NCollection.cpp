@@ -106,7 +106,7 @@ PYBIND11_MODULE(NCollection, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_ListNode.hxx
 	py::class_<NCollection_ListNode, std::unique_ptr<NCollection_ListNode, Deleter<NCollection_ListNode>>> cls_NCollection_ListNode(mod, "NCollection_ListNode", "Purpose: This class is used to represent a node in the BaseList and BaseMap.");
 	cls_NCollection_ListNode.def(py::init<NCollection_ListNode *>(), py::arg("theNext"));
-	// FIXME cls_NCollection_ListNode.def("Next", (NCollection_ListNode *& (NCollection_ListNode::*)()) &NCollection_ListNode::Next, "Next pointer access");
+	cls_NCollection_ListNode.def("Next", (NCollection_ListNode *& (NCollection_ListNode::*)()) &NCollection_ListNode::Next, "Next pointer access");
 	cls_NCollection_ListNode.def("Next", (NCollection_ListNode * (NCollection_ListNode::*)() const ) &NCollection_ListNode::Next, "Next pointer const access");
 	*/
 
@@ -149,12 +149,18 @@ PYBIND11_MODULE(NCollection, mod) {
 	cls_NCollection_CellFilter_InspectorXYZ.def(py::init<>());
 	cls_NCollection_CellFilter_InspectorXYZ.def_static("Coord_", (Standard_Real (*)(int, const NCollection_CellFilter_InspectorXYZ::Point &)) &NCollection_CellFilter_InspectorXYZ::Coord, "Access to co-ordinate", py::arg("i"), py::arg("thePnt"));
 	cls_NCollection_CellFilter_InspectorXYZ.def("Shift", (NCollection_CellFilter_InspectorXYZ::Point (NCollection_CellFilter_InspectorXYZ::*)(const NCollection_CellFilter_InspectorXYZ::Point &, Standard_Real) const ) &NCollection_CellFilter_InspectorXYZ::Shift, "Auxiliary method to shift point by each coordinate on given value; useful for preparing a points range for Inspect with tolerance", py::arg("thePnt"), py::arg("theTol"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_CellFilter.hxx
+	cls_NCollection_CellFilter_InspectorXYZ.attr("Dimension") = py::cast(int(NCollection_CellFilter_InspectorXYZ::Dimension));
+
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_CellFilter.hxx
 	py::class_<NCollection_CellFilter_InspectorXY, std::unique_ptr<NCollection_CellFilter_InspectorXY, Deleter<NCollection_CellFilter_InspectorXY>>> cls_NCollection_CellFilter_InspectorXY(mod, "NCollection_CellFilter_InspectorXY", "None");
 	cls_NCollection_CellFilter_InspectorXY.def(py::init<>());
 	cls_NCollection_CellFilter_InspectorXY.def_static("Coord_", (Standard_Real (*)(int, const NCollection_CellFilter_InspectorXY::Point &)) &NCollection_CellFilter_InspectorXY::Coord, "Access to co-ordinate", py::arg("i"), py::arg("thePnt"));
 	cls_NCollection_CellFilter_InspectorXY.def("Shift", (NCollection_CellFilter_InspectorXY::Point (NCollection_CellFilter_InspectorXY::*)(const NCollection_CellFilter_InspectorXY::Point &, Standard_Real) const ) &NCollection_CellFilter_InspectorXY::Shift, "Auxiliary method to shift point by each coordinate on given value; useful for preparing a points range for Inspect with tolerance", py::arg("thePnt"), py::arg("theTol"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_CellFilter.hxx
+	cls_NCollection_CellFilter_InspectorXY.attr("Dimension") = py::cast(int(NCollection_CellFilter_InspectorXY::Dimension));
+
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_StdAllocator.hxx
 	py::class_<NCollection_StdAllocator<void>, std::unique_ptr<NCollection_StdAllocator<void>, Deleter<NCollection_StdAllocator<void>>>> cls_NCollection_StdAllocator_void(mod, "NCollection_StdAllocator_void", "Implements specialization NCollection_StdAllocator<void>. Specialization is of low value and should normally be avoided in favor of a typed specialization.");

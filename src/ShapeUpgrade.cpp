@@ -115,7 +115,7 @@ PYBIND11_MODULE(ShapeUpgrade, mod) {
 	cls_ShapeUpgrade_Tool.def("MinTolerance", (Standard_Real (ShapeUpgrade_Tool::*)() const ) &ShapeUpgrade_Tool::MinTolerance, "Returns minimal allowed tolerance");
 	cls_ShapeUpgrade_Tool.def("SetMaxTolerance", (void (ShapeUpgrade_Tool::*)(const Standard_Real)) &ShapeUpgrade_Tool::SetMaxTolerance, "Sets maximal allowed tolerance", py::arg("maxtol"));
 	cls_ShapeUpgrade_Tool.def("MaxTolerance", (Standard_Real (ShapeUpgrade_Tool::*)() const ) &ShapeUpgrade_Tool::MaxTolerance, "Returns maximal allowed tolerance");
-	// FIXME cls_ShapeUpgrade_Tool.def("LimitTolerance", (Standard_Real (ShapeUpgrade_Tool::*)(const Standard_Real) const ) &ShapeUpgrade_Tool::LimitTolerance, "Returns tolerance limited by [myMinTol,myMaxTol]", py::arg("toler"));
+	cls_ShapeUpgrade_Tool.def("LimitTolerance", (Standard_Real (ShapeUpgrade_Tool::*)(const Standard_Real) const ) &ShapeUpgrade_Tool::LimitTolerance, "Returns tolerance limited by [myMinTol,myMaxTol]", py::arg("toler"));
 	cls_ShapeUpgrade_Tool.def_static("get_type_name_", (const char * (*)()) &ShapeUpgrade_Tool::get_type_name, "None");
 	cls_ShapeUpgrade_Tool.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ShapeUpgrade_Tool::get_type_descriptor, "None");
 	cls_ShapeUpgrade_Tool.def("DynamicType", (const opencascade::handle<Standard_Type> & (ShapeUpgrade_Tool::*)() const ) &ShapeUpgrade_Tool::DynamicType, "None");

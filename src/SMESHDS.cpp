@@ -316,6 +316,14 @@ PYBIND11_MODULE(SMESHDS, mod) {
 	cls_SMESHDS_Hypothesis.def("IsSameName", (bool (SMESHDS_Hypothesis::*)(const SMESHDS_Hypothesis &) const ) &SMESHDS_Hypothesis::IsSameName, "None", py::arg("other"));
 	cls_SMESHDS_Hypothesis.def("__eq__", (bool (SMESHDS_Hypothesis::*)(const SMESHDS_Hypothesis &) const ) &SMESHDS_Hypothesis::operator==, py::is_operator(), "None", py::arg("other"));
 	cls_SMESHDS_Hypothesis.def("__ne__", (bool (SMESHDS_Hypothesis::*)(const SMESHDS_Hypothesis &) const ) &SMESHDS_Hypothesis::operator!=, py::is_operator(), "None", py::arg("other"));
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_Hypothesis.hxx
+	py::enum_<SMESHDS_Hypothesis::hypothesis_type>(cls_SMESHDS_Hypothesis, "hypothesis_type", "None")
+		.value("PARAM_ALGO", SMESHDS_Hypothesis::hypothesis_type::PARAM_ALGO)
+		.value("ALGO_0D", SMESHDS_Hypothesis::hypothesis_type::ALGO_0D)
+		.value("ALGO_1D", SMESHDS_Hypothesis::hypothesis_type::ALGO_1D)
+		.value("ALGO_2D", SMESHDS_Hypothesis::hypothesis_type::ALGO_2D)
+		.value("ALGO_3D", SMESHDS_Hypothesis::hypothesis_type::ALGO_3D)
+		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_SubMesh.hxx
 	py::class_<SMESHDS_SubMesh, std::unique_ptr<SMESHDS_SubMesh, Deleter<SMESHDS_SubMesh>>> cls_SMESHDS_SubMesh(mod, "SMESHDS_SubMesh", "None");

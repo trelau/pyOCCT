@@ -238,6 +238,10 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_FaceSide.def("EdgeLength", (double (StdMeshers_FaceSide::*)(int) const ) &StdMeshers_FaceSide::EdgeLength, "Return length of i-th wrapped edge (count starts from zero)", py::arg("i"));
 	cls_StdMeshers_FaceSide.def("IsReversed", (bool (StdMeshers_FaceSide::*)(int) const ) &StdMeshers_FaceSide::IsReversed, "Return orientation of i-th wrapped edge (count starts from zero)", py::arg("i"));
 	cls_StdMeshers_FaceSide.def("FaceHelper", (SMESH_MesherHelper * (StdMeshers_FaceSide::*)() const ) &StdMeshers_FaceSide::FaceHelper, "Return a helper initialized with the FACE");
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_FaceSide.hxx
+	cls_StdMeshers_FaceSide.attr("ALL_EDGES") = py::cast(int(StdMeshers_FaceSide::ALL_EDGES));
+	cls_StdMeshers_FaceSide.attr("LAST_EDGE") = py::cast(int(StdMeshers_FaceSide::LAST_EDGE));
+
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_MaxElementArea.hxx
 	py::class_<StdMeshers_MaxElementArea, std::unique_ptr<StdMeshers_MaxElementArea, Deleter<StdMeshers_MaxElementArea>>, SMESH_Hypothesis> cls_StdMeshers_MaxElementArea(mod, "StdMeshers_MaxElementArea", "None");
@@ -285,6 +289,12 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_ViscousLayers.def("SetParametersByDefaults", [](StdMeshers_ViscousLayers &self, const SMESH_Hypothesis::TDefaults & a0) -> bool { return self.SetParametersByDefaults(a0); }, py::arg("dflts"));
 	cls_StdMeshers_ViscousLayers.def("SetParametersByDefaults", (bool (StdMeshers_ViscousLayers::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_ViscousLayers::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 	cls_StdMeshers_ViscousLayers.def_static("GetHypType_", (const char * (*)()) &StdMeshers_ViscousLayers::GetHypType, "None");
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_ViscousLayers.hxx
+	py::enum_<StdMeshers_ViscousLayers::ExtrusionMethod>(cls_StdMeshers_ViscousLayers, "ExtrusionMethod", "None")
+		.value("SURF_OFFSET_SMOOTH", StdMeshers_ViscousLayers::ExtrusionMethod::SURF_OFFSET_SMOOTH)
+		.value("FACE_OFFSET", StdMeshers_ViscousLayers::ExtrusionMethod::FACE_OFFSET)
+		.value("NODE_OFFSET", StdMeshers_ViscousLayers::ExtrusionMethod::NODE_OFFSET)
+		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_MaxElementVolume.hxx
 	py::class_<StdMeshers_MaxElementVolume, std::unique_ptr<StdMeshers_MaxElementVolume, Deleter<StdMeshers_MaxElementVolume>>, SMESH_Hypothesis> cls_StdMeshers_MaxElementVolume(mod, "StdMeshers_MaxElementVolume", "None");
@@ -374,7 +384,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_AutomaticLength.def("GetLength", (double (StdMeshers_AutomaticLength::*)(const SMESH_Mesh *, const TopoDS_Shape &)) &StdMeshers_AutomaticLength::GetLength, "Computes segment for a given edge", py::arg("aMesh"), py::arg("anEdge"));
 	cls_StdMeshers_AutomaticLength.def("GetLength", (double (StdMeshers_AutomaticLength::*)(const SMESH_Mesh *, const double)) &StdMeshers_AutomaticLength::GetLength, "Computes segment length for an edge of given length", py::arg("aMesh"), py::arg("edgeLength"));
 	cls_StdMeshers_AutomaticLength.def("SetFineness", (void (StdMeshers_AutomaticLength::*)(double)) &StdMeshers_AutomaticLength::SetFineness, "Set Fineness", py::arg("theFineness"));
-	// FIXME cls_StdMeshers_AutomaticLength.def("GetFineness", (double (StdMeshers_AutomaticLength::*)() const ) &StdMeshers_AutomaticLength::GetFineness, "Return mesh Fineness double - Fineness value [0.0-1.0]");
+	cls_StdMeshers_AutomaticLength.def("GetFineness", (double (StdMeshers_AutomaticLength::*)() const ) &StdMeshers_AutomaticLength::GetFineness, "Return mesh Fineness double - Fineness value [0.0-1.0]");
 	cls_StdMeshers_AutomaticLength.def("SaveTo", (std::ostream & (StdMeshers_AutomaticLength::*)(std::ostream &)) &StdMeshers_AutomaticLength::SaveTo, "None", py::arg("save"));
 	cls_StdMeshers_AutomaticLength.def("LoadFrom", (std::istream & (StdMeshers_AutomaticLength::*)(std::istream &)) &StdMeshers_AutomaticLength::LoadFrom, "None", py::arg("load"));
 	cls_StdMeshers_AutomaticLength.def("SetParametersByMesh", (bool (StdMeshers_AutomaticLength::*)(const SMESH_Mesh *, const TopoDS_Shape &)) &StdMeshers_AutomaticLength::SetParametersByMesh, "Initialize Fineness by the mesh built on the geometry", py::arg("theMesh"), py::arg("theShape"));
@@ -640,6 +650,13 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_NumberOfSegments.def("SetParametersByDefaults", (bool (StdMeshers_NumberOfSegments::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_NumberOfSegments::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 	cls_StdMeshers_NumberOfSegments.def("SaveTo", (std::ostream & (StdMeshers_NumberOfSegments::*)(std::ostream &)) &StdMeshers_NumberOfSegments::SaveTo, "None", py::arg("save"));
 	cls_StdMeshers_NumberOfSegments.def("LoadFrom", (std::istream & (StdMeshers_NumberOfSegments::*)(std::istream &)) &StdMeshers_NumberOfSegments::LoadFrom, "None", py::arg("load"));
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_NumberOfSegments.hxx
+	py::enum_<StdMeshers_NumberOfSegments::DistrType>(cls_StdMeshers_NumberOfSegments, "DistrType", "This enumeration presents available types of distribution")
+		.value("DT_Regular", StdMeshers_NumberOfSegments::DistrType::DT_Regular)
+		.value("DT_Scale", StdMeshers_NumberOfSegments::DistrType::DT_Scale)
+		.value("DT_TabFunc", StdMeshers_NumberOfSegments::DistrType::DT_TabFunc)
+		.value("DT_ExprFunc", StdMeshers_NumberOfSegments::DistrType::DT_ExprFunc)
+		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Penta_3D.hxx
 	py::class_<StdMeshers_SMESHBlock, std::unique_ptr<StdMeshers_SMESHBlock, Deleter<StdMeshers_SMESHBlock>>> cls_StdMeshers_SMESHBlock(mod, "StdMeshers_SMESHBlock", "None");
@@ -794,6 +811,16 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_ShapeShapeBiDirectionMap.def("__call__", [](StdMeshers_ShapeShapeBiDirectionMap &self, const TopoDS_Shape & a0) -> const TopoDS_Shape & { return self.operator()(a0); }, py::arg("s"));
 	cls_StdMeshers_ShapeShapeBiDirectionMap.def("__call__", (const TopoDS_Shape & (StdMeshers_ShapeShapeBiDirectionMap::*)(const TopoDS_Shape &, const bool) const ) &StdMeshers_ShapeShapeBiDirectionMap::operator(), py::is_operator(), "None", py::arg("s"), py::arg("isShape2"));
 	cls_StdMeshers_ShapeShapeBiDirectionMap.def("SetAssocType", (void (StdMeshers_ShapeShapeBiDirectionMap::*)(StdMeshers_ShapeShapeBiDirectionMap::EAssocType)) &StdMeshers_ShapeShapeBiDirectionMap::SetAssocType, "None", py::arg("type"));
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_ProjectionUtils.hxx
+	py::enum_<StdMeshers_ShapeShapeBiDirectionMap::EAssocType>(cls_StdMeshers_ShapeShapeBiDirectionMap, "EAssocType", "None")
+		.value("UNDEF", StdMeshers_ShapeShapeBiDirectionMap::EAssocType::UNDEF)
+		.value("INIT_VERTEX", StdMeshers_ShapeShapeBiDirectionMap::EAssocType::INIT_VERTEX)
+		.value("PROPAGATION", StdMeshers_ShapeShapeBiDirectionMap::EAssocType::PROPAGATION)
+		.value("PARTNER", StdMeshers_ShapeShapeBiDirectionMap::EAssocType::PARTNER)
+		.value("CLOSE_VERTEX", StdMeshers_ShapeShapeBiDirectionMap::EAssocType::CLOSE_VERTEX)
+		.value("COMMON_VERTEX", StdMeshers_ShapeShapeBiDirectionMap::EAssocType::COMMON_VERTEX)
+		.value("FEW_EF", StdMeshers_ShapeShapeBiDirectionMap::EAssocType::FEW_EF)
+		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Projection_1D.hxx
 	py::class_<StdMeshers_Projection_1D, std::unique_ptr<StdMeshers_Projection_1D, Deleter<StdMeshers_Projection_1D>>, SMESH_1D_Algo> cls_StdMeshers_Projection_1D(mod, "StdMeshers_Projection_1D", "None");

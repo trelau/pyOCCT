@@ -565,6 +565,18 @@ PYBIND11_MODULE(BRepBuilderAPI, mod) {
 	cls_BRepBuilderAPI_FastSewing.def_static("get_type_name_", (const char * (*)()) &BRepBuilderAPI_FastSewing::get_type_name, "None");
 	cls_BRepBuilderAPI_FastSewing.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRepBuilderAPI_FastSewing::get_type_descriptor, "None");
 	cls_BRepBuilderAPI_FastSewing.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepBuilderAPI_FastSewing::*)() const ) &BRepBuilderAPI_FastSewing::DynamicType, "None");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepBuilderAPI_FastSewing.hxx
+	py::enum_<BRepBuilderAPI_FastSewing::FS_Statuses>(cls_BRepBuilderAPI_FastSewing, "FS_Statuses", "Enumeration of result statuses")
+		.value("FS_OK", BRepBuilderAPI_FastSewing::FS_Statuses::FS_OK)
+		.value("FS_Degenerated", BRepBuilderAPI_FastSewing::FS_Statuses::FS_Degenerated)
+		.value("FS_FindVertexError", BRepBuilderAPI_FastSewing::FS_Statuses::FS_FindVertexError)
+		.value("FS_FindEdgeError", BRepBuilderAPI_FastSewing::FS_Statuses::FS_FindEdgeError)
+		.value("FS_FaceWithNullSurface", BRepBuilderAPI_FastSewing::FS_Statuses::FS_FaceWithNullSurface)
+		.value("FS_NotNaturalBoundsFace", BRepBuilderAPI_FastSewing::FS_Statuses::FS_NotNaturalBoundsFace)
+		.value("FS_InfiniteSurface", BRepBuilderAPI_FastSewing::FS_Statuses::FS_InfiniteSurface)
+		.value("FS_EmptyInput", BRepBuilderAPI_FastSewing::FS_Statuses::FS_EmptyInput)
+		.value("FS_Exception", BRepBuilderAPI_FastSewing::FS_Statuses::FS_Exception)
+		.export_values();
 
 	other_mod = py::module::import("OCCT.BOPCol");
 	if (py::hasattr(other_mod, "BOPCol_BoxBndTree")) {

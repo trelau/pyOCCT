@@ -52,6 +52,15 @@ PYBIND11_MODULE(Driver, mod) {
 	cls_Driver_Mesh.def("SetOption", (void (Driver_Mesh::*)(const std::string &, const std::string &)) &Driver_Mesh::SetOption, "None", py::arg("optionName"), py::arg("optionValue"));
 	cls_Driver_Mesh.def("Perform", (Driver_Mesh::Status (Driver_Mesh::*)()) &Driver_Mesh::Perform, "None");
 	cls_Driver_Mesh.def("GetError", (SMESH_ComputeErrorPtr (Driver_Mesh::*)()) &Driver_Mesh::GetError, "None");
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\Driver_Mesh.h
+	py::enum_<Driver_Mesh::Status>(cls_Driver_Mesh, "Status", "None")
+		.value("DRS_OK", Driver_Mesh::Status::DRS_OK)
+		.value("DRS_EMPTY", Driver_Mesh::Status::DRS_EMPTY)
+		.value("DRS_WARN_RENUMBER", Driver_Mesh::Status::DRS_WARN_RENUMBER)
+		.value("DRS_WARN_SKIP_ELEM", Driver_Mesh::Status::DRS_WARN_SKIP_ELEM)
+		.value("DRS_WARN_DESCENDING", Driver_Mesh::Status::DRS_WARN_DESCENDING)
+		.value("DRS_FAIL", Driver_Mesh::Status::DRS_FAIL)
+		.export_values();
 
 	// Callback for Driver_SMDS_Mesh.
 	class PyCallback_Driver_SMDS_Mesh : public Driver_SMDS_Mesh {

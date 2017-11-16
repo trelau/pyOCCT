@@ -530,6 +530,12 @@ PYBIND11_MODULE(IntPatch, mod) {
 	cls_IntPatch_ImpImpIntersection.def("Point", (const IntPatch_Point & (IntPatch_ImpImpIntersection::*)(const Standard_Integer) const ) &IntPatch_ImpImpIntersection::Point, "Returns the point of range Index. An exception is raised if Index<=0 or Index>NbPnt.", py::arg("Index"));
 	cls_IntPatch_ImpImpIntersection.def("NbLines", (Standard_Integer (IntPatch_ImpImpIntersection::*)() const ) &IntPatch_ImpImpIntersection::NbLines, "Returns the number of intersection lines.");
 	cls_IntPatch_ImpImpIntersection.def("Line", (const opencascade::handle<IntPatch_Line> & (IntPatch_ImpImpIntersection::*)(const Standard_Integer) const ) &IntPatch_ImpImpIntersection::Line, "Returns the line of range Index. An exception is raised if Index<=0 or Index>NbLine.", py::arg("Index"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntPatch_ImpImpIntersection.hxx
+	py::enum_<IntPatch_ImpImpIntersection::IntStatus>(cls_IntPatch_ImpImpIntersection, "IntStatus", "None")
+		.value("IntStatus_OK", IntPatch_ImpImpIntersection::IntStatus::IntStatus_OK)
+		.value("IntStatus_InfiniteSectionCurve", IntPatch_ImpImpIntersection::IntStatus::IntStatus_InfiniteSectionCurve)
+		.value("IntStatus_Fail", IntPatch_ImpImpIntersection::IntStatus::IntStatus_Fail)
+		.export_values();
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntPatch_TheSurfFunction.hxx
 	py::class_<IntPatch_TheSurfFunction, std::unique_ptr<IntPatch_TheSurfFunction, Deleter<IntPatch_TheSurfFunction>>, math_FunctionSetWithDerivatives> cls_IntPatch_TheSurfFunction(mod, "IntPatch_TheSurfFunction", "None");

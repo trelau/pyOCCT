@@ -422,7 +422,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_Algo.def("Compute", (bool (SMESH_Algo::*)(SMESH_Mesh &, const TopoDS_Shape &)) &SMESH_Algo::Compute, "Computes mesh on a shape", py::arg("aMesh"), py::arg("aShape"));
 	cls_SMESH_Algo.def("Compute", (bool (SMESH_Algo::*)(SMESH_Mesh &, SMESH_MesherHelper *)) &SMESH_Algo::Compute, "Computes mesh without geometry", py::arg("aMesh"), py::arg("aHelper"));
 	cls_SMESH_Algo.def("CancelCompute", (void (SMESH_Algo::*)()) &SMESH_Algo::CancelCompute, "Sets _computeCanceled to true. It's usage depends on implementation of a particular mesher.");
-	// FIXME cls_SMESH_Algo.def("GetProgress", (double (SMESH_Algo::*)() const ) &SMESH_Algo::GetProgress, "If possible, returns progress of computation [0.,1.]");
+	cls_SMESH_Algo.def("GetProgress", (double (SMESH_Algo::*)() const ) &SMESH_Algo::GetProgress, "If possible, returns progress of computation [0.,1.]");
 	cls_SMESH_Algo.def("Evaluate", (bool (SMESH_Algo::*)(SMESH_Mesh &, const TopoDS_Shape &, MapShapeNbElems &)) &SMESH_Algo::Evaluate, "evaluates size of prospective mesh on a shape", py::arg("aMesh"), py::arg("aShape"), py::arg("aResMap"));
 	cls_SMESH_Algo.def("GetUsedHypothesis", [](SMESH_Algo &self, SMESH_Mesh & a0, const TopoDS_Shape & a1) -> const std::list<const SMESHDS_Hypothesis *> & { return self.GetUsedHypothesis(a0, a1); }, py::arg("aMesh"), py::arg("aShape"));
 	cls_SMESH_Algo.def("GetUsedHypothesis", (const std::list<const SMESHDS_Hypothesis *> & (SMESH_Algo::*)(SMESH_Mesh &, const TopoDS_Shape &, const bool) const ) &SMESH_Algo::GetUsedHypothesis, "Returns a list of compatible hypotheses used to mesh a shape", py::arg("aMesh"), py::arg("aShape"), py::arg("ignoreAuxiliary"));

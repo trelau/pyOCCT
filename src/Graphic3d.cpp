@@ -609,8 +609,8 @@ PYBIND11_MODULE(Graphic3d, mod) {
 	cls_Graphic3d_MaterialAspect.def(py::init<>());
 	cls_Graphic3d_MaterialAspect.def(py::init<const Graphic3d_NameOfMaterial>(), py::arg("theName"));
 	cls_Graphic3d_MaterialAspect.def_static("NumberOfMaterials_", (Standard_Integer (*)()) &Graphic3d_MaterialAspect::NumberOfMaterials, "Returns the number of predefined textures.");
-	// FIXME cls_Graphic3d_MaterialAspect.def_static("MaterialName_", (Standard_CString (*)(const Standard_Integer)) &Graphic3d_MaterialAspect::MaterialName, "Returns the name of the predefined material of specified rank within range [1, NumberOfMaterials()].", py::arg("theRank"));
-	// FIXME cls_Graphic3d_MaterialAspect.def_static("MaterialType_", (Graphic3d_TypeOfMaterial (*)(const Standard_Integer)) &Graphic3d_MaterialAspect::MaterialType, "Returns the type of the predefined material of specified rank within range [1, NumberOfMaterials()].", py::arg("theRank"));
+	cls_Graphic3d_MaterialAspect.def_static("MaterialName_", (Standard_CString (*)(const Standard_Integer)) &Graphic3d_MaterialAspect::MaterialName, "Returns the name of the predefined material of specified rank within range [1, NumberOfMaterials()].", py::arg("theRank"));
+	cls_Graphic3d_MaterialAspect.def_static("MaterialType_", (Graphic3d_TypeOfMaterial (*)(const Standard_Integer)) &Graphic3d_MaterialAspect::MaterialType, "Returns the type of the predefined material of specified rank within range [1, NumberOfMaterials()].", py::arg("theRank"));
 	cls_Graphic3d_MaterialAspect.def_static("MaterialFromName_", (Graphic3d_NameOfMaterial (*)(const Standard_CString)) &Graphic3d_MaterialAspect::MaterialFromName, "Returns the material for specified name or Graphic3d_NOM_DEFAULT if name is unknown.", py::arg("theName"));
 	cls_Graphic3d_MaterialAspect.def("Name", (Graphic3d_NameOfMaterial (Graphic3d_MaterialAspect::*)() const ) &Graphic3d_MaterialAspect::Name, "Returns the material name (within predefined enumeration).");
 	cls_Graphic3d_MaterialAspect.def("RequestedName", (Graphic3d_NameOfMaterial (Graphic3d_MaterialAspect::*)() const ) &Graphic3d_MaterialAspect::RequestedName, "Returns the material name within predefined enumeration which has been requested (before modifications).");
@@ -1017,6 +1017,24 @@ PYBIND11_MODULE(Graphic3d, mod) {
 	cls_Graphic3d_Camera.def_static("get_type_name_", (const char * (*)()) &Graphic3d_Camera::get_type_name, "None");
 	cls_Graphic3d_Camera.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_Camera::get_type_descriptor, "None");
 	cls_Graphic3d_Camera.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_Camera::*)() const ) &Graphic3d_Camera::DynamicType, "None");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Camera.hxx
+	py::enum_<Graphic3d_Camera::Projection>(cls_Graphic3d_Camera, "Projection", "Enumerates supported monographic projections. - Projection_Orthographic : orthographic projection. - Projection_Perspective : perspective projection. - Projection_Stereo : stereographic projection. - Projection_MonoLeftEye : mono projection for stereo left eye. - Projection_MonoRightEye : mono projection for stereo right eye.")
+		.value("Projection_Orthographic", Graphic3d_Camera::Projection::Projection_Orthographic)
+		.value("Projection_Perspective", Graphic3d_Camera::Projection::Projection_Perspective)
+		.value("Projection_Stereo", Graphic3d_Camera::Projection::Projection_Stereo)
+		.value("Projection_MonoLeftEye", Graphic3d_Camera::Projection::Projection_MonoLeftEye)
+		.value("Projection_MonoRightEye", Graphic3d_Camera::Projection::Projection_MonoRightEye)
+		.export_values();
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Camera.hxx
+	py::enum_<Graphic3d_Camera::FocusType>(cls_Graphic3d_Camera, "FocusType", "Enumerates approaches to define stereographic focus. - FocusType_Absolute : focus is specified as absolute value. - FocusType_Relative : focus is specified relative to (as coefficient of) camera focal length.")
+		.value("FocusType_Absolute", Graphic3d_Camera::FocusType::FocusType_Absolute)
+		.value("FocusType_Relative", Graphic3d_Camera::FocusType::FocusType_Relative)
+		.export_values();
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Camera.hxx
+	py::enum_<Graphic3d_Camera::IODType>(cls_Graphic3d_Camera, "IODType", "Enumerates approaches to define Intraocular distance. - IODType_Absolute : Intraocular distance is defined as absolute value. - IODType_Relative : Intraocular distance is defined relative to (as coefficient of) camera focal length.")
+		.value("IODType_Absolute", Graphic3d_Camera::IODType::IODType_Absolute)
+		.value("IODType_Relative", Graphic3d_Camera::IODType::IODType_Relative)
+		.export_values();
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_CLight.hxx
 	py::class_<Graphic3d_CLight, std::unique_ptr<Graphic3d_CLight, Deleter<Graphic3d_CLight>>> cls_Graphic3d_CLight(mod, "Graphic3d_CLight", "Light definition");
@@ -1337,8 +1355,8 @@ PYBIND11_MODULE(Graphic3d, mod) {
 	cls_Graphic3d_ArrayOfPrimitives.def("VertexTexel", (void (Graphic3d_ArrayOfPrimitives::*)(const Standard_Integer, Standard_Real &, Standard_Real &) const ) &Graphic3d_ArrayOfPrimitives::VertexTexel, "Returns the vertex texture coordinates at rank theRank from the vertex table if defined.", py::arg("theRank"), py::arg("theTX"), py::arg("theTY"));
 	cls_Graphic3d_ArrayOfPrimitives.def("Indices", (const opencascade::handle<Graphic3d_IndexBuffer> & (Graphic3d_ArrayOfPrimitives::*)() const ) &Graphic3d_ArrayOfPrimitives::Indices, "Returns optional index buffer.");
 	cls_Graphic3d_ArrayOfPrimitives.def("EdgeNumber", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)() const ) &Graphic3d_ArrayOfPrimitives::EdgeNumber, "Returns the number of defined edges");
-	// FIXME cls_Graphic3d_ArrayOfPrimitives.def("Edge", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(const Standard_Integer) const ) &Graphic3d_ArrayOfPrimitives::Edge, "Returns the vertex index at rank theRank in the range [1,EdgeNumber()]", py::arg("theRank"));
-	// FIXME cls_Graphic3d_ArrayOfPrimitives.def("AddEdge", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(const Standard_Integer)) &Graphic3d_ArrayOfPrimitives::AddEdge, "Adds an edge in the range [1,VertexNumber()] in the array.", py::arg("theVertexIndex"));
+	cls_Graphic3d_ArrayOfPrimitives.def("Edge", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(const Standard_Integer) const ) &Graphic3d_ArrayOfPrimitives::Edge, "Returns the vertex index at rank theRank in the range [1,EdgeNumber()]", py::arg("theRank"));
+	cls_Graphic3d_ArrayOfPrimitives.def("AddEdge", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(const Standard_Integer)) &Graphic3d_ArrayOfPrimitives::AddEdge, "Adds an edge in the range [1,VertexNumber()] in the array.", py::arg("theVertexIndex"));
 	cls_Graphic3d_ArrayOfPrimitives.def("Bounds", (const opencascade::handle<Graphic3d_BoundBuffer> & (Graphic3d_ArrayOfPrimitives::*)() const ) &Graphic3d_ArrayOfPrimitives::Bounds, "Returns optional bounds buffer.");
 	cls_Graphic3d_ArrayOfPrimitives.def("HasBoundColors", (Standard_Boolean (Graphic3d_ArrayOfPrimitives::*)() const ) &Graphic3d_ArrayOfPrimitives::HasBoundColors, "Returns TRUE when bound colors array is defined.");
 	cls_Graphic3d_ArrayOfPrimitives.def("BoundNumber", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)() const ) &Graphic3d_ArrayOfPrimitives::BoundNumber, "Returns the number of defined bounds");
@@ -1830,6 +1848,15 @@ PYBIND11_MODULE(Graphic3d, mod) {
 	py::class_<Graphic3d_RenderingParams, std::unique_ptr<Graphic3d_RenderingParams, Deleter<Graphic3d_RenderingParams>>> cls_Graphic3d_RenderingParams(mod, "Graphic3d_RenderingParams", "Helper class to store rendering parameters.");
 	cls_Graphic3d_RenderingParams.def(py::init<>());
 	cls_Graphic3d_RenderingParams.def("ResolutionRatio", (Standard_ShortReal (Graphic3d_RenderingParams::*)() const ) &Graphic3d_RenderingParams::ResolutionRatio, "Returns resolution ratio.");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_RenderingParams.hxx
+	py::enum_<Graphic3d_RenderingParams::Anaglyph>(cls_Graphic3d_RenderingParams, "Anaglyph", "Anaglyph filter presets.")
+		.value("Anaglyph_RedCyan_Simple", Graphic3d_RenderingParams::Anaglyph::Anaglyph_RedCyan_Simple)
+		.value("Anaglyph_RedCyan_Optimized", Graphic3d_RenderingParams::Anaglyph::Anaglyph_RedCyan_Optimized)
+		.value("Anaglyph_YellowBlue_Simple", Graphic3d_RenderingParams::Anaglyph::Anaglyph_YellowBlue_Simple)
+		.value("Anaglyph_YellowBlue_Optimized", Graphic3d_RenderingParams::Anaglyph::Anaglyph_YellowBlue_Optimized)
+		.value("Anaglyph_GreenMagenta_Simple", Graphic3d_RenderingParams::Anaglyph::Anaglyph_GreenMagenta_Simple)
+		.value("Anaglyph_UserDefined", Graphic3d_RenderingParams::Anaglyph::Anaglyph_UserDefined)
+		.export_values();
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_PriorityDefinitionError.hxx
 	py::class_<Graphic3d_PriorityDefinitionError, opencascade::handle<Graphic3d_PriorityDefinitionError>, Standard_OutOfRange> cls_Graphic3d_PriorityDefinitionError(mod, "Graphic3d_PriorityDefinitionError", "None");

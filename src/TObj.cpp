@@ -236,6 +236,18 @@ PYBIND11_MODULE(TObj, mod) {
 	cls_TObj_Object.def_static("get_type_name_", (const char * (*)()) &TObj_Object::get_type_name, "None");
 	cls_TObj_Object.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TObj_Object::get_type_descriptor, "None");
 	cls_TObj_Object.def("DynamicType", (const opencascade::handle<Standard_Type> & (TObj_Object::*)() const ) &TObj_Object::DynamicType, "None");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TObj_Object.hxx
+	py::enum_<TObj_Object::TypeFlags>(cls_TObj_Object, "TypeFlags", "None")
+		.value("Visible", TObj_Object::TypeFlags::Visible)
+		.export_values();
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TObj_Object.hxx
+	py::enum_<TObj_Object::ObjectState>(cls_TObj_Object, "ObjectState", "enumeration describing various object state bit flags (see Set/GetFlags())")
+		.value("ObjectState_Hidden", TObj_Object::ObjectState::ObjectState_Hidden)
+		.value("ObjectState_Saved", TObj_Object::ObjectState::ObjectState_Saved)
+		.value("ObjectState_Imported", TObj_Object::ObjectState::ObjectState_Imported)
+		.value("ObjectState_ImportedByFile", TObj_Object::ObjectState::ObjectState_ImportedByFile)
+		.value("ObjectState_Ordered", TObj_Object::ObjectState::ObjectState_Ordered)
+		.export_values();
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
 	py::class_<TObj_SequenceOfObject, std::unique_ptr<TObj_SequenceOfObject, Deleter<TObj_SequenceOfObject>>, NCollection_BaseSequence> cls_TObj_SequenceOfObject(mod, "TObj_SequenceOfObject", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");

@@ -995,6 +995,21 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_VolumeTool.def_static("NbFaceNodes_", (int (*)(SMDS_VolumeTool::VolumeType, int)) &SMDS_VolumeTool::NbFaceNodes, "None", py::arg("type"), py::arg("faceIndex"));
 	cls_SMDS_VolumeTool.def_static("NbCornerNodes_", (int (*)(SMDS_VolumeTool::VolumeType)) &SMDS_VolumeTool::NbCornerNodes, "None", py::arg("type"));
 	cls_SMDS_VolumeTool.def_static("GetOppFaceIndexOfHex_", (int (*)(int)) &SMDS_VolumeTool::GetOppFaceIndexOfHex, "None", py::arg("faceIndex"));
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_VolumeTool.hxx
+	py::enum_<SMDS_VolumeTool::VolumeType>(cls_SMDS_VolumeTool, "VolumeType", "None")
+		.value("UNKNOWN", SMDS_VolumeTool::VolumeType::UNKNOWN)
+		.value("TETRA", SMDS_VolumeTool::VolumeType::TETRA)
+		.value("PYRAM", SMDS_VolumeTool::VolumeType::PYRAM)
+		.value("PENTA", SMDS_VolumeTool::VolumeType::PENTA)
+		.value("HEXA", SMDS_VolumeTool::VolumeType::HEXA)
+		.value("HEX_PRISM", SMDS_VolumeTool::VolumeType::HEX_PRISM)
+		.value("QUAD_TETRA", SMDS_VolumeTool::VolumeType::QUAD_TETRA)
+		.value("QUAD_PYRAM", SMDS_VolumeTool::VolumeType::QUAD_PYRAM)
+		.value("QUAD_PENTA", SMDS_VolumeTool::VolumeType::QUAD_PENTA)
+		.value("QUAD_HEXA", SMDS_VolumeTool::VolumeType::QUAD_HEXA)
+		.value("POLYHEDA", SMDS_VolumeTool::VolumeType::POLYHEDA)
+		.value("NB_VOLUME_TYPES", SMDS_VolumeTool::VolumeType::NB_VOLUME_TYPES)
+		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_VtkCellIterator.hxx
 	py::class_<SMDS_VtkCellIterator, std::unique_ptr<SMDS_VtkCellIterator, Deleter<SMDS_VtkCellIterator>>, SMDS_ElemIterator> cls_SMDS_VtkCellIterator(mod, "SMDS_VtkCellIterator", "None");

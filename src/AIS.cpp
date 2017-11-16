@@ -1689,6 +1689,12 @@ PYBIND11_MODULE(AIS, mod) {
 	cls_AIS_Dimension.def_static("get_type_name_", (const char * (*)()) &AIS_Dimension::get_type_name, "None");
 	cls_AIS_Dimension.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_Dimension::get_type_descriptor, "None");
 	cls_AIS_Dimension.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_Dimension::*)() const ) &AIS_Dimension::DynamicType, "None");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_Dimension.hxx
+	py::enum_<AIS_Dimension::ComputeMode>(cls_AIS_Dimension, "ComputeMode", "Specifies supported presentation compute modes. Used to compute only parts of presentation for advanced highlighting.")
+		.value("ComputeMode_All", AIS_Dimension::ComputeMode::ComputeMode_All)
+		.value("ComputeMode_Line", AIS_Dimension::ComputeMode::ComputeMode_Line)
+		.value("ComputeMode_Text", AIS_Dimension::ComputeMode::ComputeMode_Text)
+		.export_values();
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_AngleDimension.hxx
 	py::class_<AIS_AngleDimension, opencascade::handle<AIS_AngleDimension>, AIS_Dimension> cls_AIS_AngleDimension(mod, "AIS_AngleDimension", "Angle dimension. Can be constructed: - on two intersected edges. - on three points or vertices. - on conical face. - between two intersected faces.");
@@ -1837,7 +1843,7 @@ PYBIND11_MODULE(AIS, mod) {
 	cls_AIS_ColorScale.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_ColorScale::*)() const ) &AIS_ColorScale::DynamicType, "None");
 	cls_AIS_ColorScale.def_static("FindColor_", (Standard_Boolean (*)(const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Integer, const Graphic3d_Vec3d &, const Graphic3d_Vec3d &, Quantity_Color &)) &AIS_ColorScale::FindColor, "Calculate color according passed value; returns true if value is in range or false, if isn't", py::arg("theValue"), py::arg("theMin"), py::arg("theMax"), py::arg("theColorsCount"), py::arg("theColorHlsMin"), py::arg("theColorHlsMax"), py::arg("theColor"));
 	cls_AIS_ColorScale.def_static("FindColor_", (Standard_Boolean (*)(const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Integer, Quantity_Color &)) &AIS_ColorScale::FindColor, "Calculate color according passed value; returns true if value is in range or false, if isn't", py::arg("theValue"), py::arg("theMin"), py::arg("theMax"), py::arg("theColorsCount"), py::arg("theColor"));
-	// FIXME cls_AIS_ColorScale.def_static("hueToValidRange_", (Standard_Real (*)(const Standard_Real)) &AIS_ColorScale::hueToValidRange, "Shift hue into valid range. Lightness and Saturation should be specified in valid range [0.0, 1.0], however Hue might be given out of Quantity_Color range to specify desired range for interpolation.", py::arg("theHue"));
+	cls_AIS_ColorScale.def_static("hueToValidRange_", (Standard_Real (*)(const Standard_Real)) &AIS_ColorScale::hueToValidRange, "Shift hue into valid range. Lightness and Saturation should be specified in valid range [0.0, 1.0], however Hue might be given out of Quantity_Color range to specify desired range for interpolation.", py::arg("theHue"));
 	cls_AIS_ColorScale.def("FindColor", (Standard_Boolean (AIS_ColorScale::*)(const Standard_Real, Quantity_Color &) const ) &AIS_ColorScale::FindColor, "Calculate color according passed value; returns true if value is in range or false, if isn't", py::arg("theValue"), py::arg("theColor"));
 	cls_AIS_ColorScale.def("GetMin", (Standard_Real (AIS_ColorScale::*)() const ) &AIS_ColorScale::GetMin, "Returns minimal value of color scale, 0.0 by default.");
 	cls_AIS_ColorScale.def("SetMin", (void (AIS_ColorScale::*)(const Standard_Real)) &AIS_ColorScale::SetMin, "Sets the minimal value of color scale.", py::arg("theMin"));
@@ -1848,7 +1854,7 @@ PYBIND11_MODULE(AIS, mod) {
 	cls_AIS_ColorScale.def("HueMin", (Standard_Real (AIS_ColorScale::*)() const ) &AIS_ColorScale::HueMin, "Returns the hue angle corresponding to minimum value, 230 by default (blue).");
 	cls_AIS_ColorScale.def("HueMax", (Standard_Real (AIS_ColorScale::*)() const ) &AIS_ColorScale::HueMax, "Returns the hue angle corresponding to maximum value, 0 by default (red).");
 	cls_AIS_ColorScale.def("HueRange", (void (AIS_ColorScale::*)(Standard_Real &, Standard_Real &) const ) &AIS_ColorScale::HueRange, "Returns the hue angle range corresponding to minimum and maximum values, 230 to 0 by default (blue to red).", py::arg("theMinAngle"), py::arg("theMaxAngle"));
-	// FIXME cls_AIS_ColorScale.def("SetHueRange", (void (AIS_ColorScale::*)(const Standard_Real, const Standard_Real)) &AIS_ColorScale::SetHueRange, "Sets hue angle range corresponding to minimum and maximum values. The valid angle range is [0, 360], see Quantity_Color and Quantity_TOC_HLS for more details.", py::arg("theMinAngle"), py::arg("theMaxAngle"));
+	cls_AIS_ColorScale.def("SetHueRange", (void (AIS_ColorScale::*)(const Standard_Real, const Standard_Real)) &AIS_ColorScale::SetHueRange, "Sets hue angle range corresponding to minimum and maximum values. The valid angle range is [0, 360], see Quantity_Color and Quantity_TOC_HLS for more details.", py::arg("theMinAngle"), py::arg("theMaxAngle"));
 	cls_AIS_ColorScale.def("ColorRange", (void (AIS_ColorScale::*)(Quantity_Color &, Quantity_Color &) const ) &AIS_ColorScale::ColorRange, "Returns color range corresponding to minimum and maximum values, blue to red by default.", py::arg("theMinColor"), py::arg("theMaxColor"));
 	cls_AIS_ColorScale.def("SetColorRange", (void (AIS_ColorScale::*)(const Quantity_Color &, const Quantity_Color &)) &AIS_ColorScale::SetColorRange, "Sets color range corresponding to minimum and maximum values.", py::arg("theMinColor"), py::arg("theMaxColor"));
 	cls_AIS_ColorScale.def("GetLabelType", (Aspect_TypeOfColorScaleData (AIS_ColorScale::*)() const ) &AIS_ColorScale::GetLabelType, "Returns the type of labels, Aspect_TOCSD_AUTO by default. Aspect_TOCSD_AUTO - labels as boundary values for intervals Aspect_TOCSD_USER - user specified label is used");
@@ -2048,6 +2054,16 @@ PYBIND11_MODULE(AIS, mod) {
 	cls_AIS_PointCloud.def_static("get_type_name_", (const char * (*)()) &AIS_PointCloud::get_type_name, "None");
 	cls_AIS_PointCloud.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_PointCloud::get_type_descriptor, "None");
 	cls_AIS_PointCloud.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_PointCloud::*)() const ) &AIS_PointCloud::DynamicType, "None");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_PointCloud.hxx
+	py::enum_<AIS_PointCloud::DisplayMode>(cls_AIS_PointCloud, "DisplayMode", "Display modes supported by this Point Cloud object")
+		.value("DM_Points", AIS_PointCloud::DisplayMode::DM_Points)
+		.value("DM_BndBox", AIS_PointCloud::DisplayMode::DM_BndBox)
+		.export_values();
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_PointCloud.hxx
+	py::enum_<AIS_PointCloud::SelectionMode>(cls_AIS_PointCloud, "SelectionMode", "Selection modes supported by this Point Cloud object")
+		.value("SM_Points", AIS_PointCloud::SelectionMode::SM_Points)
+		.value("SM_BndBox", AIS_PointCloud::SelectionMode::SM_BndBox)
+		.export_values();
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_RadiusDimension.hxx
 	py::class_<AIS_RadiusDimension, opencascade::handle<AIS_RadiusDimension>, AIS_Dimension> cls_AIS_RadiusDimension(mod, "AIS_RadiusDimension", "Radius dimension. Can be constructued: - On generic circle. - On generic circle with user-defined anchor point on that circle. - On generic shape containing geometry that can be measured by diameter dimension: circle wire, arc, circular face, etc. The anchor point is the location of left attachement point of dimension on the circle. It can be user-specified, or computed as middle point on the arc. The radius dimension always lies in the plane of the measured circle. The dimension is considered as invalid if the user-specified anchor point is not lying on the circle, if the radius of the circle is less than Precision::Confusion(). In case if the dimension is built on the arbitrary shape, it can be considered as invalid if the shape does not contain circle geometry.");
@@ -2111,7 +2127,7 @@ PYBIND11_MODULE(AIS, mod) {
 	py::class_<AIS_TextLabel, opencascade::handle<AIS_TextLabel>, AIS_InteractiveObject> cls_AIS_TextLabel(mod, "AIS_TextLabel", "Presentation of the text.");
 	cls_AIS_TextLabel.def(py::init<>());
 	cls_AIS_TextLabel.def("SetColor", (void (AIS_TextLabel::*)(const Quantity_Color &)) &AIS_TextLabel::SetColor, "Setup color of entire text.", py::arg("theColor"));
-	// FIXME cls_AIS_TextLabel.def("SetTransparency", (void (AIS_TextLabel::*)(const Standard_Real)) &AIS_TextLabel::SetTransparency, "Setup transparency within [0, 1] range.", py::arg("theValue"));
+	cls_AIS_TextLabel.def("SetTransparency", (void (AIS_TextLabel::*)(const Standard_Real)) &AIS_TextLabel::SetTransparency, "Setup transparency within [0, 1] range.", py::arg("theValue"));
 	cls_AIS_TextLabel.def("UnsetTransparency", (void (AIS_TextLabel::*)()) &AIS_TextLabel::UnsetTransparency, "Removes the transparency setting.");
 	cls_AIS_TextLabel.def("SetMaterial", (void (AIS_TextLabel::*)(const Graphic3d_MaterialAspect &)) &AIS_TextLabel::SetMaterial, "Material has no effect for text label.", py::arg(""));
 	cls_AIS_TextLabel.def("SetText", (void (AIS_TextLabel::*)(const TCollection_ExtendedString &)) &AIS_TextLabel::SetText, "Setup text.", py::arg("theText"));

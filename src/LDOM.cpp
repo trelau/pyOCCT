@@ -126,6 +126,15 @@ PYBIND11_MODULE(LDOM, mod) {
 	cls_LDOM_Node.def("appendChild", (void (LDOM_Node::*)(const LDOM_Node &)) &LDOM_Node::appendChild, "None", py::arg("aChild"));
 	cls_LDOM_Node.def("hasChildNodes", (Standard_Boolean (LDOM_Node::*)() const ) &LDOM_Node::hasChildNodes, "None");
 	cls_LDOM_Node.def("SetValueClear", (void (LDOM_Node::*)() const ) &LDOM_Node::SetValueClear, "None");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\LDOM_Node.hxx
+	py::enum_<LDOM_Node::NodeType>(cls_LDOM_Node, "NodeType", "None")
+		.value("UNKNOWN", LDOM_Node::NodeType::UNKNOWN)
+		.value("ELEMENT_NODE", LDOM_Node::NodeType::ELEMENT_NODE)
+		.value("ATTRIBUTE_NODE", LDOM_Node::NodeType::ATTRIBUTE_NODE)
+		.value("TEXT_NODE", LDOM_Node::NodeType::TEXT_NODE)
+		.value("CDATA_SECTION_NODE", LDOM_Node::NodeType::CDATA_SECTION_NODE)
+		.value("COMMENT_NODE", LDOM_Node::NodeType::COMMENT_NODE)
+		.export_values();
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LDOM_BasicAttribute.hxx
 	py::class_<LDOM_BasicAttribute, std::unique_ptr<LDOM_BasicAttribute, Deleter<LDOM_BasicAttribute>>, LDOM_BasicNode> cls_LDOM_BasicAttribute(mod, "LDOM_BasicAttribute", "None");
@@ -246,6 +255,19 @@ PYBIND11_MODULE(LDOM, mod) {
 	cls_LDOM_XmlReader.def("GetElement", (LDOM_BasicElement & (LDOM_XmlReader::*)() const ) &LDOM_XmlReader::GetElement, "None");
 	cls_LDOM_XmlReader.def("CreateElement", (void (LDOM_XmlReader::*)(const char *, const Standard_Integer)) &LDOM_XmlReader::CreateElement, "None", py::arg("theName"), py::arg("theLen"));
 	cls_LDOM_XmlReader.def_static("getInteger_", (Standard_Boolean (*)(LDOMBasicString &, const char *, const char *)) &LDOM_XmlReader::getInteger, "None", py::arg("theValue"), py::arg("theStart"), py::arg("theEnd"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\LDOM_XmlReader.hxx
+	py::enum_<LDOM_XmlReader::RecordType>(cls_LDOM_XmlReader, "RecordType", "None")
+		.value("XML_UNKNOWN", LDOM_XmlReader::RecordType::XML_UNKNOWN)
+		.value("XML_HEADER", LDOM_XmlReader::RecordType::XML_HEADER)
+		.value("XML_DOCTYPE", LDOM_XmlReader::RecordType::XML_DOCTYPE)
+		.value("XML_COMMENT", LDOM_XmlReader::RecordType::XML_COMMENT)
+		.value("XML_START_ELEMENT", LDOM_XmlReader::RecordType::XML_START_ELEMENT)
+		.value("XML_END_ELEMENT", LDOM_XmlReader::RecordType::XML_END_ELEMENT)
+		.value("XML_FULL_ELEMENT", LDOM_XmlReader::RecordType::XML_FULL_ELEMENT)
+		.value("XML_TEXT", LDOM_XmlReader::RecordType::XML_TEXT)
+		.value("XML_CDATA", LDOM_XmlReader::RecordType::XML_CDATA)
+		.value("XML_EOF", LDOM_XmlReader::RecordType::XML_EOF)
+		.export_values();
 
 	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LDOM_BasicNode.hxx

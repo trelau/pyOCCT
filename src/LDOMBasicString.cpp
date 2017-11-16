@@ -56,6 +56,15 @@ PYBIND11_MODULE(LDOMBasicString, mod) {
 	// FIXME cls_LDOMBasicString.def("__ne__", (Standard_Boolean (LDOMBasicString::*)(const LDOM_NullPtr *) const ) &LDOMBasicString::operator!=, py::is_operator(), "None", py::arg(""));
 	// FIXME cls_LDOMBasicString.def("__eq__", (Standard_Boolean (LDOMBasicString::*)(const LDOMBasicString &) const ) &LDOMBasicString::operator==, py::is_operator(), "None", py::arg("anOther"));
 	// FIXME cls_LDOMBasicString.def("__ne__", (Standard_Boolean (LDOMBasicString::*)(const LDOMBasicString &) const ) &LDOMBasicString::operator!=, py::is_operator(), "None", py::arg("anOther"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\LDOMBasicString.hxx
+	py::enum_<LDOMBasicString::StringType>(cls_LDOMBasicString, "StringType", "None")
+		.value("LDOM_NULL", LDOMBasicString::StringType::LDOM_NULL)
+		.value("LDOM_Integer", LDOMBasicString::StringType::LDOM_Integer)
+		.value("LDOM_AsciiFree", LDOMBasicString::StringType::LDOM_AsciiFree)
+		.value("LDOM_AsciiDoc", LDOMBasicString::StringType::LDOM_AsciiDoc)
+		.value("LDOM_AsciiDocClear", LDOMBasicString::StringType::LDOM_AsciiDocClear)
+		.value("LDOM_AsciiHashed", LDOMBasicString::StringType::LDOM_AsciiHashed)
+		.export_values();
 
 
 }

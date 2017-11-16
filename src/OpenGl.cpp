@@ -1365,6 +1365,9 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_PrimitiveArray.def("Bounds", (const opencascade::handle<Graphic3d_BoundBuffer> & (OpenGl_PrimitiveArray::*)() const ) &OpenGl_PrimitiveArray::Bounds, "Returns bounds array");
 	cls_OpenGl_PrimitiveArray.def("GetUID", (Standard_Size (OpenGl_PrimitiveArray::*)() const ) &OpenGl_PrimitiveArray::GetUID, "Returns unique ID of primitive array.");
 	cls_OpenGl_PrimitiveArray.def("InitBuffers", (void (OpenGl_PrimitiveArray::*)(const opencascade::handle<OpenGl_Context> &, const Graphic3d_TypeOfPrimitiveArray, const opencascade::handle<Graphic3d_IndexBuffer> &, const opencascade::handle<Graphic3d_Buffer> &, const opencascade::handle<Graphic3d_BoundBuffer> &)) &OpenGl_PrimitiveArray::InitBuffers, "Initialize indices, attributes and bounds with new data.", py::arg("theContext"), py::arg("theType"), py::arg("theIndices"), py::arg("theAttribs"), py::arg("theBounds"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_PrimitiveArray.hxx
+	cls_OpenGl_PrimitiveArray.attr("DRAW_MODE_NONE") = py::cast(int(OpenGl_PrimitiveArray::DRAW_MODE_NONE));
+
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Group.hxx
 	py::class_<OpenGl_Group, opencascade::handle<OpenGl_Group>, Graphic3d_Group> cls_OpenGl_Group(mod, "OpenGl_Group", "Implementation of low-level graphic group.");

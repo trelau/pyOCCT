@@ -2,13 +2,12 @@ import sys
 
 from OCCT.AIS import AIS_InteractiveContext, AIS_Shaded, AIS_Shape
 from OCCT.Aspect import Aspect_DisplayConnection, Aspect_TOTP_LEFT_LOWER
-from OCCT.MeshVS import MeshVS_DA_DisplayNodes, MeshVS_DA_EdgeColor
-from OCCT.MeshVS import (MeshVS_Mesh)
-from OCCT.MeshVS import MeshVS_MeshPrsBuilder
+from OCCT.MeshVS import (MeshVS_DA_DisplayNodes, MeshVS_DA_EdgeColor,
+                         MeshVS_Mesh, MeshVS_MeshPrsBuilder)
 from OCCT.OpenGl import OpenGl_GraphicDriver
-from OCCT.Quantity import Quantity_Color
-from OCCT.Quantity import Quantity_TOC_RGB, Quantity_NOC_WHITE, \
-    Quantity_NOC_BLACK
+from OCCT.Quantity import (Quantity_TOC_RGB, Quantity_NOC_WHITE,
+                           Quantity_Color,
+                           Quantity_NOC_BLACK)
 from OCCT.SMESH import SMESH_MeshVSLink
 from OCCT.V3d import V3d_Viewer
 from OCCT.WNT import WNT_Window

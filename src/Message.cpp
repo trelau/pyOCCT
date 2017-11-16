@@ -300,7 +300,7 @@ PYBIND11_MODULE(Message, mod) {
 	cls_Message_ProgressIndicator.def("NextScope", [](Message_ProgressIndicator &self) -> Standard_Boolean { return self.NextScope(); });
 	cls_Message_ProgressIndicator.def("NextScope", (Standard_Boolean (Message_ProgressIndicator::*)(const Standard_CString)) &Message_ProgressIndicator::NextScope, "None", py::arg("name"));
 	cls_Message_ProgressIndicator.def("NextScope", [](Message_ProgressIndicator &self, const Standard_Real a0) -> Standard_Boolean { return self.NextScope(a0); }, py::arg("span"));
-	// FIXME cls_Message_ProgressIndicator.def("NextScope", (Standard_Boolean (Message_ProgressIndicator::*)(const Standard_Real, const Standard_CString)) &Message_ProgressIndicator::NextScope, "Optimized version of { return EndScope() && NewScope(); }", py::arg("span"), py::arg("name"));
+	cls_Message_ProgressIndicator.def("NextScope", (Standard_Boolean (Message_ProgressIndicator::*)(const Standard_Real, const Standard_CString)) &Message_ProgressIndicator::NextScope, "Optimized version of { return EndScope() && NewScope(); }", py::arg("span"), py::arg("name"));
 	cls_Message_ProgressIndicator.def("UserBreak", (Standard_Boolean (Message_ProgressIndicator::*)()) &Message_ProgressIndicator::UserBreak, "Should return True if user has send a break signal. Default implementation returns False.");
 	cls_Message_ProgressIndicator.def("Show", [](Message_ProgressIndicator &self) -> Standard_Boolean { return self.Show(); });
 	cls_Message_ProgressIndicator.def("Show", (Standard_Boolean (Message_ProgressIndicator::*)(const Standard_Boolean)) &Message_ProgressIndicator::Show, "Update presentation of the progress indicator Called when progress position is changed Flag force is intended for forcing update in case if it is optimized; all internal calls from ProgressIndicator are done with this flag equal to False", py::arg("force"));
@@ -491,10 +491,17 @@ PYBIND11_MODULE(Message, mod) {
 	cls_Message_ExecStatus.def("operator|=", (const Message_ExecStatus & (Message_ExecStatus::*)(const Message_ExecStatus &)) &Message_ExecStatus::operator|=, "None", py::arg("theOther"));
 	cls_Message_ExecStatus.def("And", (void (Message_ExecStatus::*)(const Message_ExecStatus &)) &Message_ExecStatus::And, "Leave only the statuses common with theOther", py::arg("theOther"));
 	cls_Message_ExecStatus.def("operator&=", (const Message_ExecStatus & (Message_ExecStatus::*)(const Message_ExecStatus &)) &Message_ExecStatus::operator&=, "None", py::arg("theOther"));
-	// FIXME cls_Message_ExecStatus.def_static("StatusIndex_", (Standard_Integer (*)(Message_Status)) &Message_ExecStatus::StatusIndex, "Returns index of status in whole range [FirstStatus, LastStatus]", py::arg("status"));
-	// FIXME cls_Message_ExecStatus.def_static("LocalStatusIndex_", (Standard_Integer (*)(Message_Status)) &Message_ExecStatus::LocalStatusIndex, "Returns index of status inside type of status (Done or Warn or, etc) in range [1, StatusesPerType]", py::arg("status"));
+	cls_Message_ExecStatus.def_static("StatusIndex_", (Standard_Integer (*)(Message_Status)) &Message_ExecStatus::StatusIndex, "Returns index of status in whole range [FirstStatus, LastStatus]", py::arg("status"));
+	cls_Message_ExecStatus.def_static("LocalStatusIndex_", (Standard_Integer (*)(Message_Status)) &Message_ExecStatus::LocalStatusIndex, "Returns index of status inside type of status (Done or Warn or, etc) in range [1, StatusesPerType]", py::arg("status"));
 	cls_Message_ExecStatus.def_static("TypeOfStatus_", (Message_StatusType (*)(Message_Status)) &Message_ExecStatus::TypeOfStatus, "Returns status type (DONE, WARN, ALARM, or FAIL)", py::arg("status"));
-	// FIXME cls_Message_ExecStatus.def_static("StatusByIndex_", (Message_Status (*)(const Standard_Integer)) &Message_ExecStatus::StatusByIndex, "Returns status with index theIndex in whole range [FirstStatus, LastStatus]", py::arg("theIndex"));
+	cls_Message_ExecStatus.def_static("StatusByIndex_", (Message_Status (*)(const Standard_Integer)) &Message_ExecStatus::StatusByIndex, "Returns status with index theIndex in whole range [FirstStatus, LastStatus]", py::arg("theIndex"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Message_ExecStatus.hxx
+	py::enum_<Message_ExecStatus::StatusRange>(cls_Message_ExecStatus, "StatusRange", "Definitions of range of available statuses")
+		.value("FirstStatus", Message_ExecStatus::StatusRange::FirstStatus)
+		.value("StatusesPerType", Message_ExecStatus::StatusRange::StatusesPerType)
+		.value("NbStatuses", Message_ExecStatus::StatusRange::NbStatuses)
+		.value("LastStatus", Message_ExecStatus::StatusRange::LastStatus)
+		.export_values();
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
 	py::class_<Message_ListOfAlert, std::unique_ptr<Message_ListOfAlert, Deleter<Message_ListOfAlert>>, NCollection_BaseList> cls_Message_ListOfAlert(mod, "Message_ListOfAlert", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");

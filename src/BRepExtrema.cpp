@@ -143,6 +143,12 @@ PYBIND11_MODULE(BRepExtrema, mod) {
 	py::class_<BRepExtrema_ElementFilter, std::unique_ptr<BRepExtrema_ElementFilter, Deleter<BRepExtrema_ElementFilter>>> cls_BRepExtrema_ElementFilter(mod, "BRepExtrema_ElementFilter", "Filtering tool used to detect if two given mesh elements should be tested for overlapping/intersection or not.");
 	cls_BRepExtrema_ElementFilter.def(py::init<>());
 	cls_BRepExtrema_ElementFilter.def("PreCheckElements", (BRepExtrema_ElementFilter::FilterResult (BRepExtrema_ElementFilter::*)(const Standard_Integer, const Standard_Integer)) &BRepExtrema_ElementFilter::PreCheckElements, "Checks if two mesh elements should be tested for overlapping/intersection (used for detection correct/incorrect cases of shared edges and vertices).", py::arg(""), py::arg(""));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepExtrema_ElementFilter.hxx
+	py::enum_<BRepExtrema_ElementFilter::FilterResult>(cls_BRepExtrema_ElementFilter, "FilterResult", "Result of filtering function.")
+		.value("NoCheck", BRepExtrema_ElementFilter::FilterResult::NoCheck)
+		.value("Overlap", BRepExtrema_ElementFilter::FilterResult::Overlap)
+		.value("DoCheck", BRepExtrema_ElementFilter::FilterResult::DoCheck)
+		.export_values();
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepExtrema_ExtCC.hxx
 	py::class_<BRepExtrema_ExtCC, std::unique_ptr<BRepExtrema_ExtCC, Deleter<BRepExtrema_ExtCC>>> cls_BRepExtrema_ExtCC(mod, "BRepExtrema_ExtCC", "None");

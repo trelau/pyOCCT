@@ -133,7 +133,7 @@ PYBIND11_MODULE(BOPDS, mod) {
 	cls_BOPDS_DS.def(py::init<const BOPCol_BaseAllocator &>(), py::arg("theAllocator"));
 	cls_BOPDS_DS.def("Clear", (void (BOPDS_DS::*)()) &BOPDS_DS::Clear, "Clears the contents");
 	cls_BOPDS_DS.def("Allocator", (const BOPCol_BaseAllocator & (BOPDS_DS::*)() const ) &BOPDS_DS::Allocator, "Selector");
-	// FIXME cls_BOPDS_DS.def("SetArguments", (void (BOPDS_DS::*)(const BOPCol_ListOfShape &)) &BOPDS_DS::SetArguments, "Modifier Sets the arguments [theLS] of an operation", py::arg("theLS"));
+	cls_BOPDS_DS.def("SetArguments", (void (BOPDS_DS::*)(const BOPCol_ListOfShape &)) &BOPDS_DS::SetArguments, "Modifier Sets the arguments [theLS] of an operation", py::arg("theLS"));
 	cls_BOPDS_DS.def("Arguments", (const BOPCol_ListOfShape & (BOPDS_DS::*)() const ) &BOPDS_DS::Arguments, "Selector Returns the arguments of an operation");
 	cls_BOPDS_DS.def("Init", [](BOPDS_DS &self) -> void { return self.Init(); });
 	cls_BOPDS_DS.def("Init", (void (BOPDS_DS::*)(const Standard_Real)) &BOPDS_DS::Init, "Initializes the data structure for the arguments", py::arg("theFuzz"));
@@ -143,8 +143,8 @@ PYBIND11_MODULE(BOPDS, mod) {
 	cls_BOPDS_DS.def("Range", (const BOPDS_IndexRange & (BOPDS_DS::*)(const Standard_Integer) const ) &BOPDS_DS::Range, "Selector Returns the index range 'i'", py::arg("theIndex"));
 	cls_BOPDS_DS.def("Rank", (Standard_Integer (BOPDS_DS::*)(const Standard_Integer) const ) &BOPDS_DS::Rank, "Selector Returns the rank of the shape of index 'i'", py::arg("theIndex"));
 	cls_BOPDS_DS.def("IsNewShape", (Standard_Boolean (BOPDS_DS::*)(const Standard_Integer) const ) &BOPDS_DS::IsNewShape, "Returns true if the shape of index 'i' is not the source shape/sub-shape", py::arg("theIndex"));
-	// FIXME cls_BOPDS_DS.def("Append", (Standard_Integer (BOPDS_DS::*)(const BOPDS_ShapeInfo &)) &BOPDS_DS::Append, "Modifier Appends the information about the shape [theSI] to the data structure Returns the index of theSI in the data structure", py::arg("theSI"));
-	// FIXME cls_BOPDS_DS.def("Append", (Standard_Integer (BOPDS_DS::*)(const TopoDS_Shape &)) &BOPDS_DS::Append, "Modifier Appends the default information about the shape [theS] to the data structure Returns the index of theS in the data structure", py::arg("theS"));
+	cls_BOPDS_DS.def("Append", (Standard_Integer (BOPDS_DS::*)(const BOPDS_ShapeInfo &)) &BOPDS_DS::Append, "Modifier Appends the information about the shape [theSI] to the data structure Returns the index of theSI in the data structure", py::arg("theSI"));
+	cls_BOPDS_DS.def("Append", (Standard_Integer (BOPDS_DS::*)(const TopoDS_Shape &)) &BOPDS_DS::Append, "Modifier Appends the default information about the shape [theS] to the data structure Returns the index of theS in the data structure", py::arg("theS"));
 	cls_BOPDS_DS.def("ShapeInfo", (const BOPDS_ShapeInfo & (BOPDS_DS::*)(const Standard_Integer) const ) &BOPDS_DS::ShapeInfo, "Selector Returns the information about the shape with index theIndex", py::arg("theIndex"));
 	cls_BOPDS_DS.def("ChangeShapeInfo", (BOPDS_ShapeInfo & (BOPDS_DS::*)(const Standard_Integer)) &BOPDS_DS::ChangeShapeInfo, "Selector/Modifier Returns the information about the shape with index theIndex", py::arg("theIndex"));
 	cls_BOPDS_DS.def("Shape", (const TopoDS_Shape & (BOPDS_DS::*)(const Standard_Integer) const ) &BOPDS_DS::Shape, "Selector Returns the shape with index theIndex", py::arg("theIndex"));
@@ -168,8 +168,8 @@ PYBIND11_MODULE(BOPDS, mod) {
 	cls_BOPDS_DS.def("ChangeFaceInfo", (BOPDS_FaceInfo & (BOPDS_DS::*)(const Standard_Integer)) &BOPDS_DS::ChangeFaceInfo, "Selector/Modifier Returns the state of face with index theIndex", py::arg("theIndex"));
 	cls_BOPDS_DS.def("UpdateFaceInfoIn", (void (BOPDS_DS::*)(const Standard_Integer)) &BOPDS_DS::UpdateFaceInfoIn, "Update the state In of face with index theIndex", py::arg("theIndex"));
 	cls_BOPDS_DS.def("UpdateFaceInfoOn", (void (BOPDS_DS::*)(const Standard_Integer)) &BOPDS_DS::UpdateFaceInfoOn, "Update the state On of face with index theIndex", py::arg("theIndex"));
-	// FIXME cls_BOPDS_DS.def("FaceInfoOn", (void (BOPDS_DS::*)(const Standard_Integer, BOPDS_IndexedMapOfPaveBlock &, BOPCol_MapOfInteger &)) &BOPDS_DS::FaceInfoOn, "Selector Returns the state On [theMPB,theMVP] of face with index theIndex", py::arg("theIndex"), py::arg("theMPB"), py::arg("theMVP"));
-	// FIXME cls_BOPDS_DS.def("FaceInfoIn", (void (BOPDS_DS::*)(const Standard_Integer, BOPDS_IndexedMapOfPaveBlock &, BOPCol_MapOfInteger &)) &BOPDS_DS::FaceInfoIn, "Selector Returns the state In [theMPB,theMVP] of face with index theIndex", py::arg("theIndex"), py::arg("theMPB"), py::arg("theMVP"));
+	cls_BOPDS_DS.def("FaceInfoOn", (void (BOPDS_DS::*)(const Standard_Integer, BOPDS_IndexedMapOfPaveBlock &, BOPCol_MapOfInteger &)) &BOPDS_DS::FaceInfoOn, "Selector Returns the state On [theMPB,theMVP] of face with index theIndex", py::arg("theIndex"), py::arg("theMPB"), py::arg("theMVP"));
+	cls_BOPDS_DS.def("FaceInfoIn", (void (BOPDS_DS::*)(const Standard_Integer, BOPDS_IndexedMapOfPaveBlock &, BOPCol_MapOfInteger &)) &BOPDS_DS::FaceInfoIn, "Selector Returns the state In [theMPB,theMVP] of face with index theIndex", py::arg("theIndex"), py::arg("theMPB"), py::arg("theMVP"));
 	cls_BOPDS_DS.def("AloneVertices", (void (BOPDS_DS::*)(const Standard_Integer, BOPCol_ListOfInteger &) const ) &BOPDS_DS::AloneVertices, "Selector Returns the indices of alone vertices for the face with index theIndex", py::arg("theF"), py::arg("theLI"));
 	cls_BOPDS_DS.def("RefineFaceInfoOn", (void (BOPDS_DS::*)()) &BOPDS_DS::RefineFaceInfoOn, "Refine the state On for the all faces having state information");
 	cls_BOPDS_DS.def("SubShapesOnIn", (void (BOPDS_DS::*)(const Standard_Integer, const Standard_Integer, BOPCol_MapOfInteger &, BOPDS_IndexedMapOfPaveBlock &, BOPDS_MapOfPaveBlock &) const ) &BOPDS_DS::SubShapesOnIn, "Returns information about ON/IN subshapes of the given faces.", py::arg("theF1"), py::arg("theF2"), py::arg("theMVOnIn"), py::arg("thePBOnIn"), py::arg("theCommonPB"));

@@ -85,8 +85,8 @@ PYBIND11_MODULE(LProp, mod) {
 	cls_LProp_CurAndInf.def("Clear", (void (LProp_CurAndInf::*)()) &LProp_CurAndInf::Clear, "None");
 	cls_LProp_CurAndInf.def("IsEmpty", (Standard_Boolean (LProp_CurAndInf::*)() const ) &LProp_CurAndInf::IsEmpty, "None");
 	cls_LProp_CurAndInf.def("NbPoints", (Standard_Integer (LProp_CurAndInf::*)() const ) &LProp_CurAndInf::NbPoints, "Returns the number of points. The Points are stored to increasing parameter.");
-	// FIXME cls_LProp_CurAndInf.def("Parameter", (Standard_Real (LProp_CurAndInf::*)(const Standard_Integer) const ) &LProp_CurAndInf::Parameter, "Returns the parameter of the Nth point. raises if N not in the range [1,NbPoints()]", py::arg("N"));
-	// FIXME cls_LProp_CurAndInf.def("Type", (LProp_CIType (LProp_CurAndInf::*)(const Standard_Integer) const ) &LProp_CurAndInf::Type, "Returns - MinCur if the Nth parameter corresponds to a minimum of the radius of curvature. - MaxCur if the Nth parameter corresponds to a maximum of the radius of curvature. - Inflection if the parameter corresponds to a point of inflection. raises if N not in the range [1,NbPoints()]", py::arg("N"));
+	cls_LProp_CurAndInf.def("Parameter", (Standard_Real (LProp_CurAndInf::*)(const Standard_Integer) const ) &LProp_CurAndInf::Parameter, "Returns the parameter of the Nth point. raises if N not in the range [1,NbPoints()]", py::arg("N"));
+	cls_LProp_CurAndInf.def("Type", (LProp_CIType (LProp_CurAndInf::*)(const Standard_Integer) const ) &LProp_CurAndInf::Type, "Returns - MinCur if the Nth parameter corresponds to a minimum of the radius of curvature. - MaxCur if the Nth parameter corresponds to a maximum of the radius of curvature. - Inflection if the parameter corresponds to a point of inflection. raises if N not in the range [1,NbPoints()]", py::arg("N"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LProp_AnalyticCurInf.hxx
 	py::class_<LProp_AnalyticCurInf, std::unique_ptr<LProp_AnalyticCurInf, Deleter<LProp_AnalyticCurInf>>> cls_LProp_AnalyticCurInf(mod, "LProp_AnalyticCurInf", "Computes the locals extremas of curvature of a gp curve Remark : a gp curve has not inflection.");

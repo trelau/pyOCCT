@@ -359,6 +359,20 @@ PYBIND11_MODULE(Poly, mod) {
 	cls_Poly_MakeLoops.def("GetLoop", (const Poly_MakeLoops::Loop & (Poly_MakeLoops::*)(Standard_Integer) const ) &Poly_MakeLoops::GetLoop, "Returns the loop of the given index", py::arg("theIndex"));
 	cls_Poly_MakeLoops.def("GetNbHanging", (Standard_Integer (Poly_MakeLoops::*)() const ) &Poly_MakeLoops::GetNbHanging, "Returns the number of detected hanging chains");
 	cls_Poly_MakeLoops.def("GetHangingLinks", (void (Poly_MakeLoops::*)(Poly_MakeLoops::ListOfLink &) const ) &Poly_MakeLoops::GetHangingLinks, "Fills in the list of hanging links", py::arg("theLinks"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Poly_MakeLoops.hxx
+	py::enum_<Poly_MakeLoops::LinkFlag>(cls_Poly_MakeLoops, "LinkFlag", "Orientation flags that can be attached to a link")
+		.value("LF_None", Poly_MakeLoops::LinkFlag::LF_None)
+		.value("LF_Fwd", Poly_MakeLoops::LinkFlag::LF_Fwd)
+		.value("LF_Rev", Poly_MakeLoops::LinkFlag::LF_Rev)
+		.value("LF_Both", Poly_MakeLoops::LinkFlag::LF_Both)
+		.value("LF_Reversed", Poly_MakeLoops::LinkFlag::LF_Reversed)
+		.export_values();
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Poly_MakeLoops.hxx
+	py::enum_<Poly_MakeLoops::ResultCode>(cls_Poly_MakeLoops, "ResultCode", "None")
+		.value("RC_LoopsDone", Poly_MakeLoops::ResultCode::RC_LoopsDone)
+		.value("RC_HangingLinks", Poly_MakeLoops::ResultCode::RC_HangingLinks)
+		.value("RC_Failure", Poly_MakeLoops::ResultCode::RC_Failure)
+		.export_values();
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Poly_MakeLoops.hxx
 	py::class_<Poly_MakeLoops3D, std::unique_ptr<Poly_MakeLoops3D, Deleter<Poly_MakeLoops3D>>, Poly_MakeLoops> cls_Poly_MakeLoops3D(mod, "Poly_MakeLoops3D", "None");

@@ -132,6 +132,12 @@ PYBIND11_MODULE(BRepTools, mod) {
 	cls_BRepTools_History.def_static("get_type_name_", (const char * (*)()) &BRepTools_History::get_type_name, "None");
 	cls_BRepTools_History.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRepTools_History::get_type_descriptor, "None");
 	cls_BRepTools_History.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepTools_History::*)() const ) &BRepTools_History::DynamicType, "None");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepTools_History.hxx
+	py::enum_<BRepTools_History::TRelationType>(cls_BRepTools_History, "TRelationType", "The types of the historical relations.")
+		.value("TRelationType_Removed", BRepTools_History::TRelationType::TRelationType_Removed)
+		.value("TRelationType_Generated", BRepTools_History::TRelationType::TRelationType_Generated)
+		.value("TRelationType_Modified", BRepTools_History::TRelationType::TRelationType_Modified)
+		.export_values();
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepTools_ReShape.hxx
 	py::class_<BRepTools_ReShape, opencascade::handle<BRepTools_ReShape>, Standard_Transient> cls_BRepTools_ReShape(mod, "BRepTools_ReShape", "Rebuilds a Shape by making pre-defined substitutions on some of its components");

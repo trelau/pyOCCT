@@ -385,6 +385,15 @@ PYBIND11_MODULE(BRepMesh, mod) {
 	cls_BRepMesh_GeomTool.def_static("Normal_", (Standard_Boolean (*)(const opencascade::handle<BRepAdaptor_HSurface> &, const Standard_Real, const Standard_Real, gp_Pnt &, gp_Dir &)) &BRepMesh_GeomTool::Normal, "Computes normal to the given surface at the specified position in parametric space.", py::arg("theSurface"), py::arg("theParamU"), py::arg("theParamV"), py::arg("thePoint"), py::arg("theNormal"));
 	// FIXME cls_BRepMesh_GeomTool.def_static("IntLinLin_", (BRepMesh_GeomTool::IntFlag (*)(const gp_XY &, const gp_XY &, const gp_XY &, const gp_XY &, gp_XY &, Standard_Real (&)[2])) &BRepMesh_GeomTool::IntLinLin, "Checks intersection between two lines defined by two points.", py::arg("theStartPnt1"), py::arg("theEndPnt1"), py::arg("theStartPnt2"), py::arg("theEndPnt2"), py::arg("theIntPnt"), py::arg("theParamOnSegment"));
 	cls_BRepMesh_GeomTool.def_static("IntSegSeg_", (BRepMesh_GeomTool::IntFlag (*)(const gp_XY &, const gp_XY &, const gp_XY &, const gp_XY &, const Standard_Boolean, const Standard_Boolean, gp_Pnt2d &)) &BRepMesh_GeomTool::IntSegSeg, "Checks intersection between the two segments. Checks that intersection point lies within ranges of both segments.", py::arg("theStartPnt1"), py::arg("theEndPnt1"), py::arg("theStartPnt2"), py::arg("theEndPnt2"), py::arg("isConsiderEndPointTouch"), py::arg("isConsiderPointOnSegment"), py::arg("theIntPnt"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepMesh_GeomTool.hxx
+	py::enum_<BRepMesh_GeomTool::IntFlag>(cls_BRepMesh_GeomTool, "IntFlag", "Enumerates states of segments intersection check.")
+		.value("NoIntersection", BRepMesh_GeomTool::IntFlag::NoIntersection)
+		.value("Cross", BRepMesh_GeomTool::IntFlag::Cross)
+		.value("EndPointTouch", BRepMesh_GeomTool::IntFlag::EndPointTouch)
+		.value("PointOnSegment", BRepMesh_GeomTool::IntFlag::PointOnSegment)
+		.value("Glued", BRepMesh_GeomTool::IntFlag::Glued)
+		.value("Same", BRepMesh_GeomTool::IntFlag::Same)
+		.export_values();
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepMesh_Delaun.hxx
 	py::class_<BRepMesh_Delaun, std::unique_ptr<BRepMesh_Delaun, Deleter<BRepMesh_Delaun>>> cls_BRepMesh_Delaun(mod, "BRepMesh_Delaun", "Compute the Delaunay's triangulation with the algorithm of Watson.");
@@ -552,6 +561,15 @@ PYBIND11_MODULE(BRepMesh, mod) {
 	cls_BRepMesh_WireInterferenceChecker.def(py::init<const BRepMesh::Array1OfSegmentsTree &, BRepMesh_Status *>(), py::arg("theWires"), py::arg("theStatus"));
 	cls_BRepMesh_WireInterferenceChecker.def(py::init<const BRepMesh::Array1OfSegmentsTree &, BRepMesh_Status *, Standard_Mutex *>(), py::arg("theWires"), py::arg("theStatus"), py::arg("theMutex"));
 	cls_BRepMesh_WireInterferenceChecker.def("__call__", (void (BRepMesh_WireInterferenceChecker::*)(const Standard_Integer &) const ) &BRepMesh_WireInterferenceChecker::operator(), py::is_operator(), "Checker's body.", py::arg("theWireId"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepMesh_WireInterferenceChecker.hxx
+	py::enum_<BRepMesh_WireInterferenceChecker::IntFlag>(cls_BRepMesh_WireInterferenceChecker, "IntFlag", "Enumerates states of segments intersection check.")
+		.value("NoIntersection", BRepMesh_WireInterferenceChecker::IntFlag::NoIntersection)
+		.value("Cross", BRepMesh_WireInterferenceChecker::IntFlag::Cross)
+		.value("EndPointTouch", BRepMesh_WireInterferenceChecker::IntFlag::EndPointTouch)
+		.value("PointOnSegment", BRepMesh_WireInterferenceChecker::IntFlag::PointOnSegment)
+		.value("Glued", BRepMesh_WireInterferenceChecker::IntFlag::Glued)
+		.value("Same", BRepMesh_WireInterferenceChecker::IntFlag::Same)
+		.export_values();
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepMesh_PluginEntryType.hxx
 

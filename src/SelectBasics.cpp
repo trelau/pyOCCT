@@ -104,6 +104,13 @@ PYBIND11_MODULE(SelectBasics, mod) {
 	cls_SelectBasics_SelectingVolumeManager.def("GetNearPickedPnt", (gp_Pnt (SelectBasics_SelectingVolumeManager::*)() const ) &SelectBasics_SelectingVolumeManager::GetNearPickedPnt, "Valid only for point and rectangular selection. Returns projection of 2d mouse picked point or projection of center of 2d rectangle (for point and rectangular selection correspondingly) onto near view frustum plane");
 	cls_SelectBasics_SelectingVolumeManager.def("GetFarPickedPnt", (gp_Pnt (SelectBasics_SelectingVolumeManager::*)() const ) &SelectBasics_SelectingVolumeManager::GetFarPickedPnt, "Valid only for point and rectangular selection. Returns projection of 2d mouse picked point or projection of center of 2d rectangle (for point and rectangular selection correspondingly) onto far view frustum plane");
 	cls_SelectBasics_SelectingVolumeManager.def("GetPlanes", (void (SelectBasics_SelectingVolumeManager::*)(NCollection_Vector<NCollection_Vec4<Standard_Real> > &) const ) &SelectBasics_SelectingVolumeManager::GetPlanes, "Stores plane equation coefficients (in the following form: Ax + By + Cz + D = 0) to the given vector", py::arg("thePlaneEquations"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectBasics_SelectingVolumeManager.hxx
+	py::enum_<SelectBasics_SelectingVolumeManager::SelectionType>(cls_SelectBasics_SelectingVolumeManager, "SelectionType", "Available selection types")
+		.value("Point", SelectBasics_SelectingVolumeManager::SelectionType::Point)
+		.value("Box", SelectBasics_SelectingVolumeManager::SelectionType::Box)
+		.value("Polyline", SelectBasics_SelectingVolumeManager::SelectionType::Polyline)
+		.value("Unknown", SelectBasics_SelectingVolumeManager::SelectionType::Unknown)
+		.export_values();
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectBasics_PickResult.hxx
 	py::class_<SelectBasics_PickResult, std::unique_ptr<SelectBasics_PickResult, Deleter<SelectBasics_PickResult>>> cls_SelectBasics_PickResult(mod, "SelectBasics_PickResult", "This structure provides unified access to the results of Matches() method in all sensitive entities.");

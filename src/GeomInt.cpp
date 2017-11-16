@@ -667,7 +667,7 @@ PYBIND11_MODULE(GeomInt, mod) {
 	py::class_<GeomInt, std::unique_ptr<GeomInt, Deleter<GeomInt>>> cls_GeomInt(mod, "GeomInt", "Provides intersections on between two surfaces of Geom. The result are curves from Geom.");
 	cls_GeomInt.def(py::init<>());
 	cls_GeomInt.def_static("AdjustPeriodic_", [](const Standard_Real a0, const Standard_Real a1, const Standard_Real a2, const Standard_Real a3, Standard_Real & a4, Standard_Real & a5) -> Standard_Boolean { return GeomInt::AdjustPeriodic(a0, a1, a2, a3, a4, a5); }, py::arg("thePar"), py::arg("theParMin"), py::arg("theParMax"), py::arg("thePeriod"), py::arg("theNewPar"), py::arg("theOffset"));
-	// FIXME cls_GeomInt.def_static("AdjustPeriodic_", (Standard_Boolean (*)(const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, Standard_Real &, Standard_Real &, const Standard_Real)) &GeomInt::AdjustPeriodic, "Adjusts the parameter <thePar> to the range [theParMin, theParMax]", py::arg("thePar"), py::arg("theParMin"), py::arg("theParMax"), py::arg("thePeriod"), py::arg("theNewPar"), py::arg("theOffset"), py::arg("theEps"));
+	cls_GeomInt.def_static("AdjustPeriodic_", (Standard_Boolean (*)(const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, Standard_Real &, Standard_Real &, const Standard_Real)) &GeomInt::AdjustPeriodic, "Adjusts the parameter <thePar> to the range [theParMin, theParMax]", py::arg("thePar"), py::arg("theParMin"), py::arg("theParMax"), py::arg("thePeriod"), py::arg("theNewPar"), py::arg("theOffset"), py::arg("theEps"));
 
 	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomInt_WLApprox.hxx

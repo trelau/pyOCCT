@@ -101,6 +101,15 @@ PYBIND11_MODULE(NETGENPlugin, mod) {
 	cls_NETGENPlugin_Hypothesis.def("SetParametersByMesh", (bool (NETGENPlugin_Hypothesis::*)(const SMESH_Mesh *, const TopoDS_Shape &)) &NETGENPlugin_Hypothesis::SetParametersByMesh, "Does nothing", py::arg("theMesh"), py::arg("theShape"));
 	cls_NETGENPlugin_Hypothesis.def("SetParametersByDefaults", [](NETGENPlugin_Hypothesis &self, const SMESH_Hypothesis::TDefaults & a0) -> bool { return self.SetParametersByDefaults(a0); }, py::arg("dflts"));
 	cls_NETGENPlugin_Hypothesis.def("SetParametersByDefaults", (bool (NETGENPlugin_Hypothesis::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &NETGENPlugin_Hypothesis::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\NETGENPlugin_Hypothesis.hxx
+	py::enum_<NETGENPlugin_Hypothesis::Fineness>(cls_NETGENPlugin_Hypothesis, "Fineness", "None")
+		.value("VeryCoarse", NETGENPlugin_Hypothesis::Fineness::VeryCoarse)
+		.value("Coarse", NETGENPlugin_Hypothesis::Fineness::Coarse)
+		.value("Moderate", NETGENPlugin_Hypothesis::Fineness::Moderate)
+		.value("Fine", NETGENPlugin_Hypothesis::Fineness::Fine)
+		.value("VeryFine", NETGENPlugin_Hypothesis::Fineness::VeryFine)
+		.value("UserDefined", NETGENPlugin_Hypothesis::Fineness::UserDefined)
+		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\NETGENPlugin_Hypothesis_2D.hxx
 	py::class_<NETGENPlugin_Hypothesis_2D, std::unique_ptr<NETGENPlugin_Hypothesis_2D, Deleter<NETGENPlugin_Hypothesis_2D>>, NETGENPlugin_Hypothesis> cls_NETGENPlugin_Hypothesis_2D(mod, "NETGENPlugin_Hypothesis_2D", "None");
