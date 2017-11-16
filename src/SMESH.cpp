@@ -74,6 +74,14 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <SMESH_MeshEditor.hxx>
 #include <gp_Dir.hxx>
 #include <gp_Trsf.hxx>
+#include <MeshVS_DataSource3D.hxx>
+#include <TColStd_Array1OfReal.hxx>
+#include <MeshVS_EntityType.hxx>
+#include <MeshVS_HArray1OfSequenceOfInteger.hxx>
+#include <TColStd_Array1OfInteger.hxx>
+#include <TColStd_PackedMapOfInteger.hxx>
+#include <Standard_Type.hxx>
+#include <SMESH_MeshVSLink.hxx>
 #include <SMESH_Tree.hxx>
 #include <Bnd_B3d.hxx>
 #include <SMESH_Octree.hxx>
@@ -100,6 +108,8 @@ PYBIND11_MODULE(SMESH, mod) {
 	py::module::import("OCCT.TopLoc");
 	py::module::import("OCCT.ShapeAnalysis");
 	py::module::import("OCCT.math");
+	py::module::import("OCCT.MeshVS");
+	py::module::import("OCCT.TColStd");
 	py::module::import("OCCT.Bnd");
 
 	py::module other_mod;
@@ -1097,6 +1107,22 @@ PYBIND11_MODULE(SMESH, mod) {
 		.value("BND_1DFROM3D", SMESH_MeshEditor::Bnd_Dimension::BND_1DFROM3D)
 		.value("BND_1DFROM2D", SMESH_MeshEditor::Bnd_Dimension::BND_1DFROM2D)
 		.export_values();
+
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_MeshVSLink.hxx
+	py::class_<SMESH_MeshVSLink, opencascade::handle<SMESH_MeshVSLink>, MeshVS_DataSource3D> cls_SMESH_MeshVSLink(mod, "SMESH_MeshVSLink", "None");
+	cls_SMESH_MeshVSLink.def(py::init<const SMESH_Mesh *>(), py::arg("aMesh"));
+	cls_SMESH_MeshVSLink.def("GetGeom", (Standard_Boolean (SMESH_MeshVSLink::*)(const Standard_Integer, const Standard_Boolean, TColStd_Array1OfReal &, Standard_Integer &, MeshVS_EntityType &) const ) &SMESH_MeshVSLink::GetGeom, "Returns geometry information about node ( if IsElement is False ) or element ( IsElement is True ) by co-ordinates. For element this method must return all its nodes co-ordinates in the strict order: X, Y, Z and with nodes order is the same as in wire bounding the face or link. NbNodes is number of nodes of element. It is recommended to return 1 for node. Type is an element type.", py::arg("ID"), py::arg("IsElement"), py::arg("Coords"), py::arg("NbNodes"), py::arg("Type"));
+	cls_SMESH_MeshVSLink.def("Get3DGeom", (Standard_Boolean (SMESH_MeshVSLink::*)(const Standard_Integer, Standard_Integer &, opencascade::handle<MeshVS_HArray1OfSequenceOfInteger> &) const ) &SMESH_MeshVSLink::Get3DGeom, "None", py::arg("ID"), py::arg("NbNodes"), py::arg("Data"));
+	cls_SMESH_MeshVSLink.def("GetGeomType", (Standard_Boolean (SMESH_MeshVSLink::*)(const Standard_Integer, const Standard_Boolean, MeshVS_EntityType &) const ) &SMESH_MeshVSLink::GetGeomType, "This method is similar to GetGeom, but returns only element or node type. This method is provided for a fine performance.", py::arg("ID"), py::arg("IsElement"), py::arg("Type"));
+	cls_SMESH_MeshVSLink.def("GetAddr", (Standard_Address (SMESH_MeshVSLink::*)(const Standard_Integer, const Standard_Boolean) const ) &SMESH_MeshVSLink::GetAddr, "This method returns by number an address of any entity which represents element or node data structure.", py::arg("ID"), py::arg("IsElement"));
+	cls_SMESH_MeshVSLink.def("GetNodesByElement", (Standard_Boolean (SMESH_MeshVSLink::*)(const Standard_Integer, TColStd_Array1OfInteger &, Standard_Integer &) const ) &SMESH_MeshVSLink::GetNodesByElement, "This method returns information about what node this element consist of.", py::arg("ID"), py::arg("NodeIDs"), py::arg("NbNodes"));
+	cls_SMESH_MeshVSLink.def("GetAllNodes", (const TColStd_PackedMapOfInteger & (SMESH_MeshVSLink::*)() const ) &SMESH_MeshVSLink::GetAllNodes, "This method returns map of all nodes the object consist of.");
+	cls_SMESH_MeshVSLink.def("GetAllElements", (const TColStd_PackedMapOfInteger & (SMESH_MeshVSLink::*)() const ) &SMESH_MeshVSLink::GetAllElements, "This method returns map of all elements the object consist of.");
+	cls_SMESH_MeshVSLink.def("GetNormal", (Standard_Boolean (SMESH_MeshVSLink::*)(const Standard_Integer, const Standard_Integer, Standard_Real &, Standard_Real &, Standard_Real &) const ) &SMESH_MeshVSLink::GetNormal, "This method calculates normal of face, which is using for correct reflection presentation. There is default method, for advance reflection this method can be redefined.", py::arg("Id"), py::arg("Max"), py::arg("nx"), py::arg("ny"), py::arg("nz"));
+	cls_SMESH_MeshVSLink.def("GetAllGroups", (void (SMESH_MeshVSLink::*)(TColStd_PackedMapOfInteger &) const ) &SMESH_MeshVSLink::GetAllGroups, "This method returns map of all groups the object contains.", py::arg("Ids"));
+	cls_SMESH_MeshVSLink.def_static("get_type_name_", (const char * (*)()) &SMESH_MeshVSLink::get_type_name, "None");
+	cls_SMESH_MeshVSLink.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &SMESH_MeshVSLink::get_type_descriptor, "None");
+	cls_SMESH_MeshVSLink.def("DynamicType", (const opencascade::handle<Standard_Type> & (SMESH_MeshVSLink::*)() const ) &SMESH_MeshVSLink::DynamicType, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Tree.hxx
 	py::class_<SMESH_TreeLimit, std::unique_ptr<SMESH_TreeLimit, Deleter<SMESH_TreeLimit>>> cls_SMESH_TreeLimit(mod, "SMESH_TreeLimit", "None");
