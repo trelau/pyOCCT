@@ -2060,7 +2060,7 @@ PYBIND11_MODULE(AIS, mod) {
 		.value("DM_BndBox", AIS_PointCloud::DisplayMode::DM_BndBox)
 		.export_values();
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_PointCloud.hxx
-	py::enum_<AIS_PointCloud::SelectionMode>(cls_AIS_PointCloud, "SelectionMode_enum", "Selection modes supported by this Point Cloud object")
+	py::enum_<AIS_PointCloud::SelectionMode>(cls_AIS_PointCloud, "SelectionMode", "Selection modes supported by this Point Cloud object")
 		.value("SM_Points", AIS_PointCloud::SelectionMode::SM_Points)
 		.value("SM_BndBox", AIS_PointCloud::SelectionMode::SM_BndBox)
 		.export_values();
