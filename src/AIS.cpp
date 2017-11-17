@@ -2055,12 +2055,12 @@ PYBIND11_MODULE(AIS, mod) {
 	cls_AIS_PointCloud.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_PointCloud::get_type_descriptor, "None");
 	cls_AIS_PointCloud.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_PointCloud::*)() const ) &AIS_PointCloud::DynamicType, "None");
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_PointCloud.hxx
-	py::enum_<AIS_PointCloud::DisplayMode>(cls_AIS_PointCloud, "DisplayMode", "Display modes supported by this Point Cloud object")
+	py::enum_<AIS_PointCloud::DisplayMode>(cls_AIS_PointCloud, "DisplayMode_enum", "Display modes supported by this Point Cloud object")
 		.value("DM_Points", AIS_PointCloud::DisplayMode::DM_Points)
 		.value("DM_BndBox", AIS_PointCloud::DisplayMode::DM_BndBox)
 		.export_values();
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_PointCloud.hxx
-	py::enum_<AIS_PointCloud::SelectionMode>(cls_AIS_PointCloud, "SelectionMode", "Selection modes supported by this Point Cloud object")
+	py::enum_<AIS_PointCloud::SelectionMode>(cls_AIS_PointCloud, "SelectionMode_enum", "Selection modes supported by this Point Cloud object")
 		.value("SM_Points", AIS_PointCloud::SelectionMode::SM_Points)
 		.value("SM_BndBox", AIS_PointCloud::SelectionMode::SM_BndBox)
 		.export_values();
