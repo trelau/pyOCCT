@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <NCollection_DataMap.hxx>
 #include <TCollection_AsciiString.hxx>
@@ -30,6 +21,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_BaseMap.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <StdObjMgt_TransientPersistentMap.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(StdObjMgt, mod) {
 
@@ -134,9 +126,8 @@ PYBIND11_MODULE(StdObjMgt, mod) {
 	cls_StdObjMgt_WriteData_Object.def(py::init<StdObjMgt_WriteData &>(), py::arg("theData"));
 	cls_StdObjMgt_WriteData_Object.def(py::init([] (const StdObjMgt_WriteData::Object &other) {return new StdObjMgt_WriteData::Object(other);}), "Copy constructor", py::arg("other"));
 
-	/* FIXME
-	// StdObjMgt_TransientPersistentMap
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\StdObjMgt_TransientPersistentMap.hxx
+	bind_NCollection_DataMap<opencascade::handle<Standard_Transient>, opencascade::handle<StdObjMgt_Persistent>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "StdObjMgt_TransientPersistentMap");
 
 
 }

@@ -53,6 +53,7 @@ include_directories(${PYTHON_INCLUDE_PATH})
 add_subdirectory(pybind11)
 
 # pyOCCT
+include_directories(inc)
 set(OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin/ CACHE PATH "Targets output path.")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${OUTPUT_PATH}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")

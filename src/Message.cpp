@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
@@ -49,6 +40,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Message_HArrayOfMsg.hxx>
 #include <NCollection_Handle.hxx>
 #include <Message_ListOfMsg.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Message, mod) {
 
@@ -503,218 +495,26 @@ PYBIND11_MODULE(Message, mod) {
 		.value("LastStatus", Message_ExecStatus::StatusRange::LastStatus)
 		.export_values();
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<Message_ListOfAlert, std::unique_ptr<Message_ListOfAlert, Deleter<Message_ListOfAlert>>, NCollection_BaseList> cls_Message_ListOfAlert(mod, "Message_ListOfAlert", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_Message_ListOfAlert.def(py::init<>());
-	cls_Message_ListOfAlert.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Message_ListOfAlert.def(py::init([] (const Message_ListOfAlert &other) {return new Message_ListOfAlert(other);}), "Copy constructor", py::arg("other"));
-	cls_Message_ListOfAlert.def("begin", (Message_ListOfAlert::iterator (Message_ListOfAlert::*)() const ) &Message_ListOfAlert::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_Message_ListOfAlert.def("end", (Message_ListOfAlert::iterator (Message_ListOfAlert::*)() const ) &Message_ListOfAlert::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_Message_ListOfAlert.def("cbegin", (Message_ListOfAlert::const_iterator (Message_ListOfAlert::*)() const ) &Message_ListOfAlert::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_Message_ListOfAlert.def("cend", (Message_ListOfAlert::const_iterator (Message_ListOfAlert::*)() const ) &Message_ListOfAlert::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_Message_ListOfAlert.def("Size", (Standard_Integer (Message_ListOfAlert::*)() const ) &Message_ListOfAlert::Size, "Size - Number of items");
-	cls_Message_ListOfAlert.def("Assign", (Message_ListOfAlert & (Message_ListOfAlert::*)(const Message_ListOfAlert &)) &Message_ListOfAlert::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Message_ListOfAlert.def("assign", (Message_ListOfAlert & (Message_ListOfAlert::*)(const Message_ListOfAlert &)) &Message_ListOfAlert::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Message_ListOfAlert.def("Clear", [](Message_ListOfAlert &self) -> void { return self.Clear(); });
-	cls_Message_ListOfAlert.def("Clear", (void (Message_ListOfAlert::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Message_ListOfAlert::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_Message_ListOfAlert.def("First", (const opencascade::handle<Message_Alert> & (Message_ListOfAlert::*)() const ) &Message_ListOfAlert::First, "First item");
-	cls_Message_ListOfAlert.def("First", (opencascade::handle<Message_Alert> & (Message_ListOfAlert::*)()) &Message_ListOfAlert::First, "First item (non-const)");
-	cls_Message_ListOfAlert.def("Last", (const opencascade::handle<Message_Alert> & (Message_ListOfAlert::*)() const ) &Message_ListOfAlert::Last, "Last item");
-	cls_Message_ListOfAlert.def("Last", (opencascade::handle<Message_Alert> & (Message_ListOfAlert::*)()) &Message_ListOfAlert::Last, "Last item (non-const)");
-	cls_Message_ListOfAlert.def("Append", (opencascade::handle<Message_Alert> & (Message_ListOfAlert::*)(const opencascade::handle<Message_Alert> &)) &Message_ListOfAlert::Append, "Append one item at the end", py::arg("theItem"));
-	cls_Message_ListOfAlert.def("Append", (void (Message_ListOfAlert::*)(const opencascade::handle<Message_Alert> &, Message_ListOfAlert::Iterator &)) &Message_ListOfAlert::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_Message_ListOfAlert.def("Append", (void (Message_ListOfAlert::*)(Message_ListOfAlert &)) &Message_ListOfAlert::Append, "Append another list at the end", py::arg("theOther"));
-	cls_Message_ListOfAlert.def("Prepend", (opencascade::handle<Message_Alert> & (Message_ListOfAlert::*)(const opencascade::handle<Message_Alert> &)) &Message_ListOfAlert::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_Message_ListOfAlert.def("Prepend", (void (Message_ListOfAlert::*)(Message_ListOfAlert &)) &Message_ListOfAlert::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_Message_ListOfAlert.def("RemoveFirst", (void (Message_ListOfAlert::*)()) &Message_ListOfAlert::RemoveFirst, "RemoveFirst item");
-	cls_Message_ListOfAlert.def("Remove", (void (Message_ListOfAlert::*)(Message_ListOfAlert::Iterator &)) &Message_ListOfAlert::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_Message_ListOfAlert.def("InsertBefore", (opencascade::handle<Message_Alert> & (Message_ListOfAlert::*)(const opencascade::handle<Message_Alert> &, Message_ListOfAlert::Iterator &)) &Message_ListOfAlert::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_Message_ListOfAlert.def("InsertBefore", (void (Message_ListOfAlert::*)(Message_ListOfAlert &, Message_ListOfAlert::Iterator &)) &Message_ListOfAlert::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_Message_ListOfAlert.def("InsertAfter", (opencascade::handle<Message_Alert> & (Message_ListOfAlert::*)(const opencascade::handle<Message_Alert> &, Message_ListOfAlert::Iterator &)) &Message_ListOfAlert::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_Message_ListOfAlert.def("InsertAfter", (void (Message_ListOfAlert::*)(Message_ListOfAlert &, Message_ListOfAlert::Iterator &)) &Message_ListOfAlert::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_Message_ListOfAlert.def("Reverse", (void (Message_ListOfAlert::*)()) &Message_ListOfAlert::Reverse, "Reverse the list");
-	cls_Message_ListOfAlert.def("__iter__", [](const Message_ListOfAlert &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Message_ListOfAlert.hxx
+	bind_NCollection_List<opencascade::handle<Message_Alert> >(mod, "Message_ListOfAlert");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Message_SequenceOfProgressScale, std::unique_ptr<Message_SequenceOfProgressScale, Deleter<Message_SequenceOfProgressScale>>, NCollection_BaseSequence> cls_Message_SequenceOfProgressScale(mod, "Message_SequenceOfProgressScale", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Message_SequenceOfProgressScale.def(py::init<>());
-	cls_Message_SequenceOfProgressScale.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Message_SequenceOfProgressScale.def(py::init([] (const Message_SequenceOfProgressScale &other) {return new Message_SequenceOfProgressScale(other);}), "Copy constructor", py::arg("other"));
-	cls_Message_SequenceOfProgressScale.def("begin", (Message_SequenceOfProgressScale::iterator (Message_SequenceOfProgressScale::*)() const ) &Message_SequenceOfProgressScale::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Message_SequenceOfProgressScale.def("end", (Message_SequenceOfProgressScale::iterator (Message_SequenceOfProgressScale::*)() const ) &Message_SequenceOfProgressScale::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Message_SequenceOfProgressScale.def("cbegin", (Message_SequenceOfProgressScale::const_iterator (Message_SequenceOfProgressScale::*)() const ) &Message_SequenceOfProgressScale::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Message_SequenceOfProgressScale.def("cend", (Message_SequenceOfProgressScale::const_iterator (Message_SequenceOfProgressScale::*)() const ) &Message_SequenceOfProgressScale::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Message_SequenceOfProgressScale.def("Size", (Standard_Integer (Message_SequenceOfProgressScale::*)() const ) &Message_SequenceOfProgressScale::Size, "Number of items");
-	cls_Message_SequenceOfProgressScale.def("Length", (Standard_Integer (Message_SequenceOfProgressScale::*)() const ) &Message_SequenceOfProgressScale::Length, "Number of items");
-	cls_Message_SequenceOfProgressScale.def("Lower", (Standard_Integer (Message_SequenceOfProgressScale::*)() const ) &Message_SequenceOfProgressScale::Lower, "Method for consistency with other collections.");
-	cls_Message_SequenceOfProgressScale.def("Upper", (Standard_Integer (Message_SequenceOfProgressScale::*)() const ) &Message_SequenceOfProgressScale::Upper, "Method for consistency with other collections.");
-	cls_Message_SequenceOfProgressScale.def("IsEmpty", (Standard_Boolean (Message_SequenceOfProgressScale::*)() const ) &Message_SequenceOfProgressScale::IsEmpty, "Empty query");
-	cls_Message_SequenceOfProgressScale.def("Reverse", (void (Message_SequenceOfProgressScale::*)()) &Message_SequenceOfProgressScale::Reverse, "Reverse sequence");
-	cls_Message_SequenceOfProgressScale.def("Exchange", (void (Message_SequenceOfProgressScale::*)(const Standard_Integer, const Standard_Integer)) &Message_SequenceOfProgressScale::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Message_SequenceOfProgressScale.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Message_SequenceOfProgressScale::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Message_SequenceOfProgressScale.def("Clear", [](Message_SequenceOfProgressScale &self) -> void { return self.Clear(); });
-	cls_Message_SequenceOfProgressScale.def("Clear", (void (Message_SequenceOfProgressScale::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Message_SequenceOfProgressScale::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Message_SequenceOfProgressScale.def("Assign", (Message_SequenceOfProgressScale & (Message_SequenceOfProgressScale::*)(const Message_SequenceOfProgressScale &)) &Message_SequenceOfProgressScale::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Message_SequenceOfProgressScale.def("assign", (Message_SequenceOfProgressScale & (Message_SequenceOfProgressScale::*)(const Message_SequenceOfProgressScale &)) &Message_SequenceOfProgressScale::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Message_SequenceOfProgressScale.def("Remove", (void (Message_SequenceOfProgressScale::*)(Message_SequenceOfProgressScale::Iterator &)) &Message_SequenceOfProgressScale::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Message_SequenceOfProgressScale.def("Remove", (void (Message_SequenceOfProgressScale::*)(const Standard_Integer)) &Message_SequenceOfProgressScale::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Message_SequenceOfProgressScale.def("Remove", (void (Message_SequenceOfProgressScale::*)(const Standard_Integer, const Standard_Integer)) &Message_SequenceOfProgressScale::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Message_SequenceOfProgressScale.def("Append", (void (Message_SequenceOfProgressScale::*)(const Message_ProgressScale &)) &Message_SequenceOfProgressScale::Append, "Append one item", py::arg("theItem"));
-	cls_Message_SequenceOfProgressScale.def("Append", (void (Message_SequenceOfProgressScale::*)(Message_SequenceOfProgressScale &)) &Message_SequenceOfProgressScale::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Message_SequenceOfProgressScale.def("Prepend", (void (Message_SequenceOfProgressScale::*)(const Message_ProgressScale &)) &Message_SequenceOfProgressScale::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Message_SequenceOfProgressScale.def("Prepend", (void (Message_SequenceOfProgressScale::*)(Message_SequenceOfProgressScale &)) &Message_SequenceOfProgressScale::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Message_SequenceOfProgressScale.def("InsertBefore", (void (Message_SequenceOfProgressScale::*)(const Standard_Integer, const Message_ProgressScale &)) &Message_SequenceOfProgressScale::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Message_SequenceOfProgressScale.def("InsertBefore", (void (Message_SequenceOfProgressScale::*)(const Standard_Integer, Message_SequenceOfProgressScale &)) &Message_SequenceOfProgressScale::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Message_SequenceOfProgressScale.def("InsertAfter", (void (Message_SequenceOfProgressScale::*)(Message_SequenceOfProgressScale::Iterator &, const Message_ProgressScale &)) &Message_SequenceOfProgressScale::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Message_SequenceOfProgressScale.def("InsertAfter", (void (Message_SequenceOfProgressScale::*)(const Standard_Integer, Message_SequenceOfProgressScale &)) &Message_SequenceOfProgressScale::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Message_SequenceOfProgressScale.def("InsertAfter", (void (Message_SequenceOfProgressScale::*)(const Standard_Integer, const Message_ProgressScale &)) &Message_SequenceOfProgressScale::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Message_SequenceOfProgressScale.def("Split", (void (Message_SequenceOfProgressScale::*)(const Standard_Integer, Message_SequenceOfProgressScale &)) &Message_SequenceOfProgressScale::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Message_SequenceOfProgressScale.def("First", (const Message_ProgressScale & (Message_SequenceOfProgressScale::*)() const ) &Message_SequenceOfProgressScale::First, "First item access");
-	cls_Message_SequenceOfProgressScale.def("ChangeFirst", (Message_ProgressScale & (Message_SequenceOfProgressScale::*)()) &Message_SequenceOfProgressScale::ChangeFirst, "First item access");
-	cls_Message_SequenceOfProgressScale.def("Last", (const Message_ProgressScale & (Message_SequenceOfProgressScale::*)() const ) &Message_SequenceOfProgressScale::Last, "Last item access");
-	cls_Message_SequenceOfProgressScale.def("ChangeLast", (Message_ProgressScale & (Message_SequenceOfProgressScale::*)()) &Message_SequenceOfProgressScale::ChangeLast, "Last item access");
-	cls_Message_SequenceOfProgressScale.def("Value", (const Message_ProgressScale & (Message_SequenceOfProgressScale::*)(const Standard_Integer) const ) &Message_SequenceOfProgressScale::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Message_SequenceOfProgressScale.def("__call__", (const Message_ProgressScale & (Message_SequenceOfProgressScale::*)(const Standard_Integer) const ) &Message_SequenceOfProgressScale::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Message_SequenceOfProgressScale.def("ChangeValue", (Message_ProgressScale & (Message_SequenceOfProgressScale::*)(const Standard_Integer)) &Message_SequenceOfProgressScale::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Message_SequenceOfProgressScale.def("__call__", (Message_ProgressScale & (Message_SequenceOfProgressScale::*)(const Standard_Integer)) &Message_SequenceOfProgressScale::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Message_SequenceOfProgressScale.def("SetValue", (void (Message_SequenceOfProgressScale::*)(const Standard_Integer, const Message_ProgressScale &)) &Message_SequenceOfProgressScale::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Message_SequenceOfProgressScale.def("__iter__", [](const Message_SequenceOfProgressScale &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Message_SequenceOfProgressScale.hxx
+	bind_NCollection_Sequence<Message_ProgressScale>(mod, "Message_SequenceOfProgressScale");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Message_ArrayOfMsg, std::unique_ptr<Message_ArrayOfMsg, Deleter<Message_ArrayOfMsg>>> cls_Message_ArrayOfMsg(mod, "Message_ArrayOfMsg", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Message_ArrayOfMsg.def(py::init<>());
-	cls_Message_ArrayOfMsg.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Message_ArrayOfMsg.def(py::init([] (const Message_ArrayOfMsg &other) {return new Message_ArrayOfMsg(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Message_ArrayOfMsg.def(py::init<Message_ArrayOfMsg &&>(), py::arg("theOther"));
-	cls_Message_ArrayOfMsg.def(py::init<const NCollection_Handle<Message_Msg> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Message_ArrayOfMsg.def("begin", (Message_ArrayOfMsg::iterator (Message_ArrayOfMsg::*)() const ) &Message_ArrayOfMsg::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Message_ArrayOfMsg.def("end", (Message_ArrayOfMsg::iterator (Message_ArrayOfMsg::*)() const ) &Message_ArrayOfMsg::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Message_ArrayOfMsg.def("cbegin", (Message_ArrayOfMsg::const_iterator (Message_ArrayOfMsg::*)() const ) &Message_ArrayOfMsg::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Message_ArrayOfMsg.def("cend", (Message_ArrayOfMsg::const_iterator (Message_ArrayOfMsg::*)() const ) &Message_ArrayOfMsg::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Message_ArrayOfMsg.def("Init", (void (Message_ArrayOfMsg::*)(const NCollection_Handle<Message_Msg> &)) &Message_ArrayOfMsg::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Message_ArrayOfMsg.def("Size", (Standard_Integer (Message_ArrayOfMsg::*)() const ) &Message_ArrayOfMsg::Size, "Size query");
-	cls_Message_ArrayOfMsg.def("Length", (Standard_Integer (Message_ArrayOfMsg::*)() const ) &Message_ArrayOfMsg::Length, "Length query (the same)");
-	cls_Message_ArrayOfMsg.def("IsEmpty", (Standard_Boolean (Message_ArrayOfMsg::*)() const ) &Message_ArrayOfMsg::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Message_ArrayOfMsg.def("Lower", (Standard_Integer (Message_ArrayOfMsg::*)() const ) &Message_ArrayOfMsg::Lower, "Lower bound");
-	cls_Message_ArrayOfMsg.def("Upper", (Standard_Integer (Message_ArrayOfMsg::*)() const ) &Message_ArrayOfMsg::Upper, "Upper bound");
-	cls_Message_ArrayOfMsg.def("IsDeletable", (Standard_Boolean (Message_ArrayOfMsg::*)() const ) &Message_ArrayOfMsg::IsDeletable, "myDeletable flag");
-	cls_Message_ArrayOfMsg.def("IsAllocated", (Standard_Boolean (Message_ArrayOfMsg::*)() const ) &Message_ArrayOfMsg::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Message_ArrayOfMsg.def("Assign", (Message_ArrayOfMsg & (Message_ArrayOfMsg::*)(const Message_ArrayOfMsg &)) &Message_ArrayOfMsg::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Message_ArrayOfMsg.def("Move", (Message_ArrayOfMsg & (Message_ArrayOfMsg::*)(Message_ArrayOfMsg &&)) &Message_ArrayOfMsg::Move, "Move assignment", py::arg("theOther"));
-	cls_Message_ArrayOfMsg.def("assign", (Message_ArrayOfMsg & (Message_ArrayOfMsg::*)(const Message_ArrayOfMsg &)) &Message_ArrayOfMsg::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Message_ArrayOfMsg.def("assign", (Message_ArrayOfMsg & (Message_ArrayOfMsg::*)(Message_ArrayOfMsg &&)) &Message_ArrayOfMsg::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Message_ArrayOfMsg.def("First", (const NCollection_Handle<Message_Msg> & (Message_ArrayOfMsg::*)() const ) &Message_ArrayOfMsg::First, "Returns first element");
-	cls_Message_ArrayOfMsg.def("ChangeFirst", (NCollection_Handle<Message_Msg> & (Message_ArrayOfMsg::*)()) &Message_ArrayOfMsg::ChangeFirst, "Returns first element");
-	cls_Message_ArrayOfMsg.def("Last", (const NCollection_Handle<Message_Msg> & (Message_ArrayOfMsg::*)() const ) &Message_ArrayOfMsg::Last, "Returns last element");
-	cls_Message_ArrayOfMsg.def("ChangeLast", (NCollection_Handle<Message_Msg> & (Message_ArrayOfMsg::*)()) &Message_ArrayOfMsg::ChangeLast, "Returns last element");
-	cls_Message_ArrayOfMsg.def("Value", (const NCollection_Handle<Message_Msg> & (Message_ArrayOfMsg::*)(const Standard_Integer) const ) &Message_ArrayOfMsg::Value, "Constant value access", py::arg("theIndex"));
-	cls_Message_ArrayOfMsg.def("__call__", (const NCollection_Handle<Message_Msg> & (Message_ArrayOfMsg::*)(const Standard_Integer) const ) &Message_ArrayOfMsg::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Message_ArrayOfMsg.def("ChangeValue", (NCollection_Handle<Message_Msg> & (Message_ArrayOfMsg::*)(const Standard_Integer)) &Message_ArrayOfMsg::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Message_ArrayOfMsg.def("__call__", (NCollection_Handle<Message_Msg> & (Message_ArrayOfMsg::*)(const Standard_Integer)) &Message_ArrayOfMsg::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Message_ArrayOfMsg.def("SetValue", (void (Message_ArrayOfMsg::*)(const Standard_Integer, const NCollection_Handle<Message_Msg> &)) &Message_ArrayOfMsg::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Message_ArrayOfMsg.def("Resize", (void (Message_ArrayOfMsg::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Message_ArrayOfMsg::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Message_ArrayOfMsg.def("__iter__", [](const Message_ArrayOfMsg &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Message_HArrayOfMsg.hxx
+	bind_NCollection_Array1<NCollection_Handle<Message_Msg> >(mod, "Message_ArrayOfMsg");
 
-	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Handle.hxx
-	py::class_<Message_HArrayOfMsg, std::unique_ptr<Message_HArrayOfMsg, Deleter<Message_HArrayOfMsg>>, opencascade::handle<Standard_Transient>> cls_Message_HArrayOfMsg(mod, "Message_HArrayOfMsg", "Purpose: This template class is used to define Handle adaptor for allocated dynamically objects of arbitrary type.");
-	cls_Message_HArrayOfMsg.def(py::init<>());
-	cls_Message_HArrayOfMsg.def(py::init<Message_ArrayOfMsg *>(), py::arg("theObject"));
-	cls_Message_HArrayOfMsg.def("get", (Message_ArrayOfMsg * (Message_HArrayOfMsg::*)()) &Message_HArrayOfMsg::get, "Cast handle to contained type");
-	cls_Message_HArrayOfMsg.def("get", (const Message_ArrayOfMsg * (Message_HArrayOfMsg::*)() const ) &Message_HArrayOfMsg::get, "Cast handle to contained type");
-	// FIXME cls_Message_HArrayOfMsg.def("operator->", (Message_ArrayOfMsg * (Message_HArrayOfMsg::*)()) &Message_HArrayOfMsg::operator->, "Cast handle to contained type");
-	// FIXME cls_Message_HArrayOfMsg.def("operator->", (const Message_ArrayOfMsg * (Message_HArrayOfMsg::*)() const ) &Message_HArrayOfMsg::operator->, "Cast handle to contained type");
-	cls_Message_HArrayOfMsg.def("__mul__", (Message_ArrayOfMsg & (Message_HArrayOfMsg::*)()) &Message_HArrayOfMsg::operator*, py::is_operator(), "Cast handle to contained type");
-	cls_Message_HArrayOfMsg.def("__mul__", (const Message_ArrayOfMsg & (Message_HArrayOfMsg::*)() const ) &Message_HArrayOfMsg::operator*, py::is_operator(), "Cast handle to contained type");
-	cls_Message_HArrayOfMsg.def_static("DownCast_", (Message_HArrayOfMsg (*)(const opencascade::handle<Standard_Transient> &)) &Message_HArrayOfMsg::DownCast, "Downcast arbitrary Handle to the argument type if contained object is Handle for this type; returns null otherwise", py::arg("theOther"));
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Message_HArrayOfMsg.hxx
+	bind_NCollection_Handle<NCollection_Array1<NCollection_Handle<Message_Msg> > >(mod, "Message_HArrayOfMsg");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<Message_ListOfMsg, std::unique_ptr<Message_ListOfMsg, Deleter<Message_ListOfMsg>>, NCollection_BaseList> cls_Message_ListOfMsg(mod, "Message_ListOfMsg", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_Message_ListOfMsg.def(py::init<>());
-	cls_Message_ListOfMsg.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Message_ListOfMsg.def(py::init([] (const Message_ListOfMsg &other) {return new Message_ListOfMsg(other);}), "Copy constructor", py::arg("other"));
-	cls_Message_ListOfMsg.def("begin", (Message_ListOfMsg::iterator (Message_ListOfMsg::*)() const ) &Message_ListOfMsg::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_Message_ListOfMsg.def("end", (Message_ListOfMsg::iterator (Message_ListOfMsg::*)() const ) &Message_ListOfMsg::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_Message_ListOfMsg.def("cbegin", (Message_ListOfMsg::const_iterator (Message_ListOfMsg::*)() const ) &Message_ListOfMsg::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_Message_ListOfMsg.def("cend", (Message_ListOfMsg::const_iterator (Message_ListOfMsg::*)() const ) &Message_ListOfMsg::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_Message_ListOfMsg.def("Size", (Standard_Integer (Message_ListOfMsg::*)() const ) &Message_ListOfMsg::Size, "Size - Number of items");
-	cls_Message_ListOfMsg.def("Assign", (Message_ListOfMsg & (Message_ListOfMsg::*)(const Message_ListOfMsg &)) &Message_ListOfMsg::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Message_ListOfMsg.def("assign", (Message_ListOfMsg & (Message_ListOfMsg::*)(const Message_ListOfMsg &)) &Message_ListOfMsg::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Message_ListOfMsg.def("Clear", [](Message_ListOfMsg &self) -> void { return self.Clear(); });
-	cls_Message_ListOfMsg.def("Clear", (void (Message_ListOfMsg::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Message_ListOfMsg::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_Message_ListOfMsg.def("First", (const Message_Msg & (Message_ListOfMsg::*)() const ) &Message_ListOfMsg::First, "First item");
-	cls_Message_ListOfMsg.def("First", (Message_Msg & (Message_ListOfMsg::*)()) &Message_ListOfMsg::First, "First item (non-const)");
-	cls_Message_ListOfMsg.def("Last", (const Message_Msg & (Message_ListOfMsg::*)() const ) &Message_ListOfMsg::Last, "Last item");
-	cls_Message_ListOfMsg.def("Last", (Message_Msg & (Message_ListOfMsg::*)()) &Message_ListOfMsg::Last, "Last item (non-const)");
-	cls_Message_ListOfMsg.def("Append", (Message_Msg & (Message_ListOfMsg::*)(const Message_Msg &)) &Message_ListOfMsg::Append, "Append one item at the end", py::arg("theItem"));
-	cls_Message_ListOfMsg.def("Append", (void (Message_ListOfMsg::*)(const Message_Msg &, Message_ListOfMsg::Iterator &)) &Message_ListOfMsg::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_Message_ListOfMsg.def("Append", (void (Message_ListOfMsg::*)(Message_ListOfMsg &)) &Message_ListOfMsg::Append, "Append another list at the end", py::arg("theOther"));
-	cls_Message_ListOfMsg.def("Prepend", (Message_Msg & (Message_ListOfMsg::*)(const Message_Msg &)) &Message_ListOfMsg::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_Message_ListOfMsg.def("Prepend", (void (Message_ListOfMsg::*)(Message_ListOfMsg &)) &Message_ListOfMsg::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_Message_ListOfMsg.def("RemoveFirst", (void (Message_ListOfMsg::*)()) &Message_ListOfMsg::RemoveFirst, "RemoveFirst item");
-	cls_Message_ListOfMsg.def("Remove", (void (Message_ListOfMsg::*)(Message_ListOfMsg::Iterator &)) &Message_ListOfMsg::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_Message_ListOfMsg.def("InsertBefore", (Message_Msg & (Message_ListOfMsg::*)(const Message_Msg &, Message_ListOfMsg::Iterator &)) &Message_ListOfMsg::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_Message_ListOfMsg.def("InsertBefore", (void (Message_ListOfMsg::*)(Message_ListOfMsg &, Message_ListOfMsg::Iterator &)) &Message_ListOfMsg::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_Message_ListOfMsg.def("InsertAfter", (Message_Msg & (Message_ListOfMsg::*)(const Message_Msg &, Message_ListOfMsg::Iterator &)) &Message_ListOfMsg::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_Message_ListOfMsg.def("InsertAfter", (void (Message_ListOfMsg::*)(Message_ListOfMsg &, Message_ListOfMsg::Iterator &)) &Message_ListOfMsg::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_Message_ListOfMsg.def("Reverse", (void (Message_ListOfMsg::*)()) &Message_ListOfMsg::Reverse, "Reverse the list");
-	cls_Message_ListOfMsg.def("__iter__", [](const Message_ListOfMsg &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Message_ListOfMsg.hxx
+	bind_NCollection_List<Message_Msg>(mod, "Message_ListOfMsg");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<Message_ListIteratorOfListOfMsg, std::unique_ptr<Message_ListIteratorOfListOfMsg, Deleter<Message_ListIteratorOfListOfMsg>>> cls_Message_ListIteratorOfListOfMsg(mod, "Message_ListIteratorOfListOfMsg", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_Message_ListIteratorOfListOfMsg.def(py::init<>());
-	cls_Message_ListIteratorOfListOfMsg.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_Message_ListIteratorOfListOfMsg.def("More", (Standard_Boolean (Message_ListIteratorOfListOfMsg::*)() const ) &Message_ListIteratorOfListOfMsg::More, "Check end");
-	cls_Message_ListIteratorOfListOfMsg.def("Next", (void (Message_ListIteratorOfListOfMsg::*)()) &Message_ListIteratorOfListOfMsg::Next, "Make step");
-	cls_Message_ListIteratorOfListOfMsg.def("Value", (const Message_Msg & (Message_ListIteratorOfListOfMsg::*)() const ) &Message_ListIteratorOfListOfMsg::Value, "Constant Value access");
-	cls_Message_ListIteratorOfListOfMsg.def("Value", (Message_Msg & (Message_ListIteratorOfListOfMsg::*)()) &Message_ListIteratorOfListOfMsg::Value, "Non-const Value access");
-	cls_Message_ListIteratorOfListOfMsg.def("ChangeValue", (Message_Msg & (Message_ListIteratorOfListOfMsg::*)() const ) &Message_ListIteratorOfListOfMsg::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Message_ListOfMsg.hxx
+	bind_NCollection_TListIterator<Message_Msg>(mod, "Message_ListIteratorOfListOfMsg");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Message_SequenceOfPrinters, std::unique_ptr<Message_SequenceOfPrinters, Deleter<Message_SequenceOfPrinters>>, NCollection_BaseSequence> cls_Message_SequenceOfPrinters(mod, "Message_SequenceOfPrinters", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Message_SequenceOfPrinters.def(py::init<>());
-	cls_Message_SequenceOfPrinters.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Message_SequenceOfPrinters.def(py::init([] (const Message_SequenceOfPrinters &other) {return new Message_SequenceOfPrinters(other);}), "Copy constructor", py::arg("other"));
-	cls_Message_SequenceOfPrinters.def("begin", (Message_SequenceOfPrinters::iterator (Message_SequenceOfPrinters::*)() const ) &Message_SequenceOfPrinters::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Message_SequenceOfPrinters.def("end", (Message_SequenceOfPrinters::iterator (Message_SequenceOfPrinters::*)() const ) &Message_SequenceOfPrinters::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Message_SequenceOfPrinters.def("cbegin", (Message_SequenceOfPrinters::const_iterator (Message_SequenceOfPrinters::*)() const ) &Message_SequenceOfPrinters::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Message_SequenceOfPrinters.def("cend", (Message_SequenceOfPrinters::const_iterator (Message_SequenceOfPrinters::*)() const ) &Message_SequenceOfPrinters::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Message_SequenceOfPrinters.def("Size", (Standard_Integer (Message_SequenceOfPrinters::*)() const ) &Message_SequenceOfPrinters::Size, "Number of items");
-	cls_Message_SequenceOfPrinters.def("Length", (Standard_Integer (Message_SequenceOfPrinters::*)() const ) &Message_SequenceOfPrinters::Length, "Number of items");
-	cls_Message_SequenceOfPrinters.def("Lower", (Standard_Integer (Message_SequenceOfPrinters::*)() const ) &Message_SequenceOfPrinters::Lower, "Method for consistency with other collections.");
-	cls_Message_SequenceOfPrinters.def("Upper", (Standard_Integer (Message_SequenceOfPrinters::*)() const ) &Message_SequenceOfPrinters::Upper, "Method for consistency with other collections.");
-	cls_Message_SequenceOfPrinters.def("IsEmpty", (Standard_Boolean (Message_SequenceOfPrinters::*)() const ) &Message_SequenceOfPrinters::IsEmpty, "Empty query");
-	cls_Message_SequenceOfPrinters.def("Reverse", (void (Message_SequenceOfPrinters::*)()) &Message_SequenceOfPrinters::Reverse, "Reverse sequence");
-	cls_Message_SequenceOfPrinters.def("Exchange", (void (Message_SequenceOfPrinters::*)(const Standard_Integer, const Standard_Integer)) &Message_SequenceOfPrinters::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Message_SequenceOfPrinters.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Message_SequenceOfPrinters::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Message_SequenceOfPrinters.def("Clear", [](Message_SequenceOfPrinters &self) -> void { return self.Clear(); });
-	cls_Message_SequenceOfPrinters.def("Clear", (void (Message_SequenceOfPrinters::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Message_SequenceOfPrinters::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Message_SequenceOfPrinters.def("Assign", (Message_SequenceOfPrinters & (Message_SequenceOfPrinters::*)(const Message_SequenceOfPrinters &)) &Message_SequenceOfPrinters::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Message_SequenceOfPrinters.def("assign", (Message_SequenceOfPrinters & (Message_SequenceOfPrinters::*)(const Message_SequenceOfPrinters &)) &Message_SequenceOfPrinters::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Message_SequenceOfPrinters.def("Remove", (void (Message_SequenceOfPrinters::*)(Message_SequenceOfPrinters::Iterator &)) &Message_SequenceOfPrinters::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Message_SequenceOfPrinters.def("Remove", (void (Message_SequenceOfPrinters::*)(const Standard_Integer)) &Message_SequenceOfPrinters::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Message_SequenceOfPrinters.def("Remove", (void (Message_SequenceOfPrinters::*)(const Standard_Integer, const Standard_Integer)) &Message_SequenceOfPrinters::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Message_SequenceOfPrinters.def("Append", (void (Message_SequenceOfPrinters::*)(const opencascade::handle<Message_Printer> &)) &Message_SequenceOfPrinters::Append, "Append one item", py::arg("theItem"));
-	cls_Message_SequenceOfPrinters.def("Append", (void (Message_SequenceOfPrinters::*)(Message_SequenceOfPrinters &)) &Message_SequenceOfPrinters::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Message_SequenceOfPrinters.def("Prepend", (void (Message_SequenceOfPrinters::*)(const opencascade::handle<Message_Printer> &)) &Message_SequenceOfPrinters::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Message_SequenceOfPrinters.def("Prepend", (void (Message_SequenceOfPrinters::*)(Message_SequenceOfPrinters &)) &Message_SequenceOfPrinters::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Message_SequenceOfPrinters.def("InsertBefore", (void (Message_SequenceOfPrinters::*)(const Standard_Integer, const opencascade::handle<Message_Printer> &)) &Message_SequenceOfPrinters::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Message_SequenceOfPrinters.def("InsertBefore", (void (Message_SequenceOfPrinters::*)(const Standard_Integer, Message_SequenceOfPrinters &)) &Message_SequenceOfPrinters::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Message_SequenceOfPrinters.def("InsertAfter", (void (Message_SequenceOfPrinters::*)(Message_SequenceOfPrinters::Iterator &, const opencascade::handle<Message_Printer> &)) &Message_SequenceOfPrinters::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Message_SequenceOfPrinters.def("InsertAfter", (void (Message_SequenceOfPrinters::*)(const Standard_Integer, Message_SequenceOfPrinters &)) &Message_SequenceOfPrinters::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Message_SequenceOfPrinters.def("InsertAfter", (void (Message_SequenceOfPrinters::*)(const Standard_Integer, const opencascade::handle<Message_Printer> &)) &Message_SequenceOfPrinters::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Message_SequenceOfPrinters.def("Split", (void (Message_SequenceOfPrinters::*)(const Standard_Integer, Message_SequenceOfPrinters &)) &Message_SequenceOfPrinters::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Message_SequenceOfPrinters.def("First", (const opencascade::handle<Message_Printer> & (Message_SequenceOfPrinters::*)() const ) &Message_SequenceOfPrinters::First, "First item access");
-	cls_Message_SequenceOfPrinters.def("ChangeFirst", (opencascade::handle<Message_Printer> & (Message_SequenceOfPrinters::*)()) &Message_SequenceOfPrinters::ChangeFirst, "First item access");
-	cls_Message_SequenceOfPrinters.def("Last", (const opencascade::handle<Message_Printer> & (Message_SequenceOfPrinters::*)() const ) &Message_SequenceOfPrinters::Last, "Last item access");
-	cls_Message_SequenceOfPrinters.def("ChangeLast", (opencascade::handle<Message_Printer> & (Message_SequenceOfPrinters::*)()) &Message_SequenceOfPrinters::ChangeLast, "Last item access");
-	cls_Message_SequenceOfPrinters.def("Value", (const opencascade::handle<Message_Printer> & (Message_SequenceOfPrinters::*)(const Standard_Integer) const ) &Message_SequenceOfPrinters::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Message_SequenceOfPrinters.def("__call__", (const opencascade::handle<Message_Printer> & (Message_SequenceOfPrinters::*)(const Standard_Integer) const ) &Message_SequenceOfPrinters::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Message_SequenceOfPrinters.def("ChangeValue", (opencascade::handle<Message_Printer> & (Message_SequenceOfPrinters::*)(const Standard_Integer)) &Message_SequenceOfPrinters::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Message_SequenceOfPrinters.def("__call__", (opencascade::handle<Message_Printer> & (Message_SequenceOfPrinters::*)(const Standard_Integer)) &Message_SequenceOfPrinters::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Message_SequenceOfPrinters.def("SetValue", (void (Message_SequenceOfPrinters::*)(const Standard_Integer, const opencascade::handle<Message_Printer> &)) &Message_SequenceOfPrinters::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Message_SequenceOfPrinters.def("__iter__", [](const Message_SequenceOfPrinters &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Message_SequenceOfPrinters.hxx
+	bind_NCollection_Sequence<opencascade::handle<Message_Printer> >(mod, "Message_SequenceOfPrinters");
 
 
 }

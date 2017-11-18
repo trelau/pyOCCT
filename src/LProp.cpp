@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <LProp_Status.hxx>
 #include <Standard_Failure.hxx>
@@ -25,6 +16,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <LProp_CurAndInf.hxx>
 #include <GeomAbs_CurveType.hxx>
 #include <LProp_AnalyticCurInf.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(LProp, mod) {
 
@@ -93,50 +85,8 @@ PYBIND11_MODULE(LProp, mod) {
 	cls_LProp_AnalyticCurInf.def(py::init<>());
 	cls_LProp_AnalyticCurInf.def("Perform", (void (LProp_AnalyticCurInf::*)(const GeomAbs_CurveType, const Standard_Real, const Standard_Real, LProp_CurAndInf &)) &LProp_AnalyticCurInf::Perform, "None", py::arg("T"), py::arg("UFirst"), py::arg("ULast"), py::arg("Result"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<LProp_SequenceOfCIType, std::unique_ptr<LProp_SequenceOfCIType, Deleter<LProp_SequenceOfCIType>>, NCollection_BaseSequence> cls_LProp_SequenceOfCIType(mod, "LProp_SequenceOfCIType", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_LProp_SequenceOfCIType.def(py::init<>());
-	cls_LProp_SequenceOfCIType.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_LProp_SequenceOfCIType.def(py::init([] (const LProp_SequenceOfCIType &other) {return new LProp_SequenceOfCIType(other);}), "Copy constructor", py::arg("other"));
-	cls_LProp_SequenceOfCIType.def("begin", (LProp_SequenceOfCIType::iterator (LProp_SequenceOfCIType::*)() const ) &LProp_SequenceOfCIType::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_LProp_SequenceOfCIType.def("end", (LProp_SequenceOfCIType::iterator (LProp_SequenceOfCIType::*)() const ) &LProp_SequenceOfCIType::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_LProp_SequenceOfCIType.def("cbegin", (LProp_SequenceOfCIType::const_iterator (LProp_SequenceOfCIType::*)() const ) &LProp_SequenceOfCIType::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_LProp_SequenceOfCIType.def("cend", (LProp_SequenceOfCIType::const_iterator (LProp_SequenceOfCIType::*)() const ) &LProp_SequenceOfCIType::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_LProp_SequenceOfCIType.def("Size", (Standard_Integer (LProp_SequenceOfCIType::*)() const ) &LProp_SequenceOfCIType::Size, "Number of items");
-	cls_LProp_SequenceOfCIType.def("Length", (Standard_Integer (LProp_SequenceOfCIType::*)() const ) &LProp_SequenceOfCIType::Length, "Number of items");
-	cls_LProp_SequenceOfCIType.def("Lower", (Standard_Integer (LProp_SequenceOfCIType::*)() const ) &LProp_SequenceOfCIType::Lower, "Method for consistency with other collections.");
-	cls_LProp_SequenceOfCIType.def("Upper", (Standard_Integer (LProp_SequenceOfCIType::*)() const ) &LProp_SequenceOfCIType::Upper, "Method for consistency with other collections.");
-	cls_LProp_SequenceOfCIType.def("IsEmpty", (Standard_Boolean (LProp_SequenceOfCIType::*)() const ) &LProp_SequenceOfCIType::IsEmpty, "Empty query");
-	cls_LProp_SequenceOfCIType.def("Reverse", (void (LProp_SequenceOfCIType::*)()) &LProp_SequenceOfCIType::Reverse, "Reverse sequence");
-	cls_LProp_SequenceOfCIType.def("Exchange", (void (LProp_SequenceOfCIType::*)(const Standard_Integer, const Standard_Integer)) &LProp_SequenceOfCIType::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_LProp_SequenceOfCIType.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &LProp_SequenceOfCIType::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_LProp_SequenceOfCIType.def("Clear", [](LProp_SequenceOfCIType &self) -> void { return self.Clear(); });
-	cls_LProp_SequenceOfCIType.def("Clear", (void (LProp_SequenceOfCIType::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &LProp_SequenceOfCIType::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_LProp_SequenceOfCIType.def("Assign", (LProp_SequenceOfCIType & (LProp_SequenceOfCIType::*)(const LProp_SequenceOfCIType &)) &LProp_SequenceOfCIType::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_LProp_SequenceOfCIType.def("assign", (LProp_SequenceOfCIType & (LProp_SequenceOfCIType::*)(const LProp_SequenceOfCIType &)) &LProp_SequenceOfCIType::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_LProp_SequenceOfCIType.def("Remove", (void (LProp_SequenceOfCIType::*)(LProp_SequenceOfCIType::Iterator &)) &LProp_SequenceOfCIType::Remove, "Remove one item", py::arg("thePosition"));
-	cls_LProp_SequenceOfCIType.def("Remove", (void (LProp_SequenceOfCIType::*)(const Standard_Integer)) &LProp_SequenceOfCIType::Remove, "Remove one item", py::arg("theIndex"));
-	cls_LProp_SequenceOfCIType.def("Remove", (void (LProp_SequenceOfCIType::*)(const Standard_Integer, const Standard_Integer)) &LProp_SequenceOfCIType::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_LProp_SequenceOfCIType.def("Append", (void (LProp_SequenceOfCIType::*)(const LProp_CIType &)) &LProp_SequenceOfCIType::Append, "Append one item", py::arg("theItem"));
-	cls_LProp_SequenceOfCIType.def("Append", (void (LProp_SequenceOfCIType::*)(LProp_SequenceOfCIType &)) &LProp_SequenceOfCIType::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_LProp_SequenceOfCIType.def("Prepend", (void (LProp_SequenceOfCIType::*)(const LProp_CIType &)) &LProp_SequenceOfCIType::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_LProp_SequenceOfCIType.def("Prepend", (void (LProp_SequenceOfCIType::*)(LProp_SequenceOfCIType &)) &LProp_SequenceOfCIType::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_LProp_SequenceOfCIType.def("InsertBefore", (void (LProp_SequenceOfCIType::*)(const Standard_Integer, const LProp_CIType &)) &LProp_SequenceOfCIType::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_LProp_SequenceOfCIType.def("InsertBefore", (void (LProp_SequenceOfCIType::*)(const Standard_Integer, LProp_SequenceOfCIType &)) &LProp_SequenceOfCIType::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_LProp_SequenceOfCIType.def("InsertAfter", (void (LProp_SequenceOfCIType::*)(LProp_SequenceOfCIType::Iterator &, const LProp_CIType &)) &LProp_SequenceOfCIType::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_LProp_SequenceOfCIType.def("InsertAfter", (void (LProp_SequenceOfCIType::*)(const Standard_Integer, LProp_SequenceOfCIType &)) &LProp_SequenceOfCIType::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_LProp_SequenceOfCIType.def("InsertAfter", (void (LProp_SequenceOfCIType::*)(const Standard_Integer, const LProp_CIType &)) &LProp_SequenceOfCIType::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_LProp_SequenceOfCIType.def("Split", (void (LProp_SequenceOfCIType::*)(const Standard_Integer, LProp_SequenceOfCIType &)) &LProp_SequenceOfCIType::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_LProp_SequenceOfCIType.def("First", (const LProp_CIType & (LProp_SequenceOfCIType::*)() const ) &LProp_SequenceOfCIType::First, "First item access");
-	cls_LProp_SequenceOfCIType.def("ChangeFirst", (LProp_CIType & (LProp_SequenceOfCIType::*)()) &LProp_SequenceOfCIType::ChangeFirst, "First item access");
-	cls_LProp_SequenceOfCIType.def("Last", (const LProp_CIType & (LProp_SequenceOfCIType::*)() const ) &LProp_SequenceOfCIType::Last, "Last item access");
-	cls_LProp_SequenceOfCIType.def("ChangeLast", (LProp_CIType & (LProp_SequenceOfCIType::*)()) &LProp_SequenceOfCIType::ChangeLast, "Last item access");
-	cls_LProp_SequenceOfCIType.def("Value", (const LProp_CIType & (LProp_SequenceOfCIType::*)(const Standard_Integer) const ) &LProp_SequenceOfCIType::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_LProp_SequenceOfCIType.def("__call__", (const LProp_CIType & (LProp_SequenceOfCIType::*)(const Standard_Integer) const ) &LProp_SequenceOfCIType::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_LProp_SequenceOfCIType.def("ChangeValue", (LProp_CIType & (LProp_SequenceOfCIType::*)(const Standard_Integer)) &LProp_SequenceOfCIType::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_LProp_SequenceOfCIType.def("__call__", (LProp_CIType & (LProp_SequenceOfCIType::*)(const Standard_Integer)) &LProp_SequenceOfCIType::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_LProp_SequenceOfCIType.def("SetValue", (void (LProp_SequenceOfCIType::*)(const Standard_Integer, const LProp_CIType &)) &LProp_SequenceOfCIType::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_LProp_SequenceOfCIType.def("__iter__", [](const LProp_SequenceOfCIType &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\LProp_SequenceOfCIType.hxx
+	bind_NCollection_Sequence<LProp_CIType>(mod, "LProp_SequenceOfCIType");
 
 
 }

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <BinObjMgt_PChar.hxx>
 #include <BinObjMgt_PByte.hxx>
@@ -27,6 +18,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Standard_IStream.hxx>
 #include <BinObjMgt_RRelocationTable.hxx>
 #include <BinObjMgt_SRelocationTable.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BinObjMgt, mod) {
 
@@ -128,21 +120,25 @@ PYBIND11_MODULE(BinObjMgt, mod) {
 	cls_BinObjMgt_Persistent.def("Read", (Standard_IStream & (BinObjMgt_Persistent::*)(Standard_IStream &)) &BinObjMgt_Persistent::Read, "Retrieves <me> from the stream. inline Standard_IStream& operator>> (Standard_IStream&, BinObjMgt_Persistent&) is also available", py::arg("theIS"));
 	cls_BinObjMgt_Persistent.def("Destroy", (void (BinObjMgt_Persistent::*)()) &BinObjMgt_Persistent::Destroy, "Frees the allocated memory; This object can be reused after call to Init");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BinObjMgt_PChar.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "address")) {
 		mod.attr("BinObjMgt_PChar") = other_mod.attr("address");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BinObjMgt_PByte.hxx
 	other_mod = py::module::import("OCCT.Standard");
 	if (py::hasattr(other_mod, "Standard_PByte")) {
 		mod.attr("BinObjMgt_PByte") = other_mod.attr("Standard_PByte");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BinObjMgt_PExtChar.hxx
 	other_mod = py::module::import("OCCT.Standard");
 	if (py::hasattr(other_mod, "Standard_PExtCharacter")) {
 		mod.attr("BinObjMgt_PExtChar") = other_mod.attr("Standard_PExtCharacter");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BinObjMgt_PInteger.hxx
 	other_mod = py::module::import("OCCT.BOPCol");
 	if (py::hasattr(other_mod, "BOPCol_PInteger")) {
 		mod.attr("BinObjMgt_PInteger") = other_mod.attr("BOPCol_PInteger");
@@ -150,11 +146,13 @@ PYBIND11_MODULE(BinObjMgt, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BinObjMgt_PReal.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BinObjMgt_PShortReal.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BinObjMgt_RRelocationTable.hxx
 	other_mod = py::module::import("OCCT.TColStd");
 	if (py::hasattr(other_mod, "TColStd_DataMapOfIntegerTransient")) {
 		mod.attr("BinObjMgt_RRelocationTable") = other_mod.attr("TColStd_DataMapOfIntegerTransient");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BinObjMgt_SRelocationTable.hxx
 	other_mod = py::module::import("OCCT.TColStd");
 	if (py::hasattr(other_mod, "TColStd_IndexedMapOfTransient")) {
 		mod.attr("BinObjMgt_SRelocationTable") = other_mod.attr("TColStd_IndexedMapOfTransient");

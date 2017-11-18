@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
@@ -88,6 +79,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <V3d_SpotLight.hxx>
 #include <V3d_TypeOfPickCamera.hxx>
 #include <V3d_ViewPointer.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(V3d, mod) {
 
@@ -749,96 +741,22 @@ PYBIND11_MODULE(V3d, mod) {
 	cls_V3d_SpotLight.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &V3d_SpotLight::get_type_descriptor, "None");
 	cls_V3d_SpotLight.def("DynamicType", (const opencascade::handle<Standard_Type> & (V3d_SpotLight::*)() const ) &V3d_SpotLight::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<V3d_ListOfLight, std::unique_ptr<V3d_ListOfLight, Deleter<V3d_ListOfLight>>, NCollection_BaseList> cls_V3d_ListOfLight(mod, "V3d_ListOfLight", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_V3d_ListOfLight.def(py::init<>());
-	cls_V3d_ListOfLight.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_V3d_ListOfLight.def(py::init([] (const V3d_ListOfLight &other) {return new V3d_ListOfLight(other);}), "Copy constructor", py::arg("other"));
-	cls_V3d_ListOfLight.def("begin", (V3d_ListOfLight::iterator (V3d_ListOfLight::*)() const ) &V3d_ListOfLight::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_V3d_ListOfLight.def("end", (V3d_ListOfLight::iterator (V3d_ListOfLight::*)() const ) &V3d_ListOfLight::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_V3d_ListOfLight.def("cbegin", (V3d_ListOfLight::const_iterator (V3d_ListOfLight::*)() const ) &V3d_ListOfLight::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_V3d_ListOfLight.def("cend", (V3d_ListOfLight::const_iterator (V3d_ListOfLight::*)() const ) &V3d_ListOfLight::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_V3d_ListOfLight.def("Size", (Standard_Integer (V3d_ListOfLight::*)() const ) &V3d_ListOfLight::Size, "Size - Number of items");
-	cls_V3d_ListOfLight.def("Assign", (V3d_ListOfLight & (V3d_ListOfLight::*)(const V3d_ListOfLight &)) &V3d_ListOfLight::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_V3d_ListOfLight.def("assign", (V3d_ListOfLight & (V3d_ListOfLight::*)(const V3d_ListOfLight &)) &V3d_ListOfLight::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_V3d_ListOfLight.def("Clear", [](V3d_ListOfLight &self) -> void { return self.Clear(); });
-	cls_V3d_ListOfLight.def("Clear", (void (V3d_ListOfLight::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &V3d_ListOfLight::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_V3d_ListOfLight.def("First", (const opencascade::handle<V3d_Light> & (V3d_ListOfLight::*)() const ) &V3d_ListOfLight::First, "First item");
-	cls_V3d_ListOfLight.def("First", (opencascade::handle<V3d_Light> & (V3d_ListOfLight::*)()) &V3d_ListOfLight::First, "First item (non-const)");
-	cls_V3d_ListOfLight.def("Last", (const opencascade::handle<V3d_Light> & (V3d_ListOfLight::*)() const ) &V3d_ListOfLight::Last, "Last item");
-	cls_V3d_ListOfLight.def("Last", (opencascade::handle<V3d_Light> & (V3d_ListOfLight::*)()) &V3d_ListOfLight::Last, "Last item (non-const)");
-	cls_V3d_ListOfLight.def("Append", (opencascade::handle<V3d_Light> & (V3d_ListOfLight::*)(const opencascade::handle<V3d_Light> &)) &V3d_ListOfLight::Append, "Append one item at the end", py::arg("theItem"));
-	cls_V3d_ListOfLight.def("Append", (void (V3d_ListOfLight::*)(const opencascade::handle<V3d_Light> &, V3d_ListOfLight::Iterator &)) &V3d_ListOfLight::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_V3d_ListOfLight.def("Append", (void (V3d_ListOfLight::*)(V3d_ListOfLight &)) &V3d_ListOfLight::Append, "Append another list at the end", py::arg("theOther"));
-	cls_V3d_ListOfLight.def("Prepend", (opencascade::handle<V3d_Light> & (V3d_ListOfLight::*)(const opencascade::handle<V3d_Light> &)) &V3d_ListOfLight::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_V3d_ListOfLight.def("Prepend", (void (V3d_ListOfLight::*)(V3d_ListOfLight &)) &V3d_ListOfLight::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_V3d_ListOfLight.def("RemoveFirst", (void (V3d_ListOfLight::*)()) &V3d_ListOfLight::RemoveFirst, "RemoveFirst item");
-	cls_V3d_ListOfLight.def("Remove", (void (V3d_ListOfLight::*)(V3d_ListOfLight::Iterator &)) &V3d_ListOfLight::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_V3d_ListOfLight.def("InsertBefore", (opencascade::handle<V3d_Light> & (V3d_ListOfLight::*)(const opencascade::handle<V3d_Light> &, V3d_ListOfLight::Iterator &)) &V3d_ListOfLight::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_V3d_ListOfLight.def("InsertBefore", (void (V3d_ListOfLight::*)(V3d_ListOfLight &, V3d_ListOfLight::Iterator &)) &V3d_ListOfLight::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_V3d_ListOfLight.def("InsertAfter", (opencascade::handle<V3d_Light> & (V3d_ListOfLight::*)(const opencascade::handle<V3d_Light> &, V3d_ListOfLight::Iterator &)) &V3d_ListOfLight::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_V3d_ListOfLight.def("InsertAfter", (void (V3d_ListOfLight::*)(V3d_ListOfLight &, V3d_ListOfLight::Iterator &)) &V3d_ListOfLight::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_V3d_ListOfLight.def("Reverse", (void (V3d_ListOfLight::*)()) &V3d_ListOfLight::Reverse, "Reverse the list");
-	cls_V3d_ListOfLight.def("__iter__", [](const V3d_ListOfLight &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\V3d_ListOfLight.hxx
+	bind_NCollection_List<opencascade::handle<V3d_Light> >(mod, "V3d_ListOfLight");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<V3d_ListOfLightIterator, std::unique_ptr<V3d_ListOfLightIterator, Deleter<V3d_ListOfLightIterator>>> cls_V3d_ListOfLightIterator(mod, "V3d_ListOfLightIterator", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_V3d_ListOfLightIterator.def(py::init<>());
-	cls_V3d_ListOfLightIterator.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_V3d_ListOfLightIterator.def("More", (Standard_Boolean (V3d_ListOfLightIterator::*)() const ) &V3d_ListOfLightIterator::More, "Check end");
-	cls_V3d_ListOfLightIterator.def("Next", (void (V3d_ListOfLightIterator::*)()) &V3d_ListOfLightIterator::Next, "Make step");
-	cls_V3d_ListOfLightIterator.def("Value", (const opencascade::handle<V3d_Light> & (V3d_ListOfLightIterator::*)() const ) &V3d_ListOfLightIterator::Value, "Constant Value access");
-	cls_V3d_ListOfLightIterator.def("Value", (opencascade::handle<V3d_Light> & (V3d_ListOfLightIterator::*)()) &V3d_ListOfLightIterator::Value, "Non-const Value access");
-	cls_V3d_ListOfLightIterator.def("ChangeValue", (opencascade::handle<V3d_Light> & (V3d_ListOfLightIterator::*)() const ) &V3d_ListOfLightIterator::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\V3d_ListOfLight.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\V3d_ListOfView.hxx
+	bind_NCollection_List<opencascade::handle<V3d_View> >(mod, "V3d_ListOfView");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<V3d_ListOfView, std::unique_ptr<V3d_ListOfView, Deleter<V3d_ListOfView>>, NCollection_BaseList> cls_V3d_ListOfView(mod, "V3d_ListOfView", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_V3d_ListOfView.def(py::init<>());
-	cls_V3d_ListOfView.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_V3d_ListOfView.def(py::init([] (const V3d_ListOfView &other) {return new V3d_ListOfView(other);}), "Copy constructor", py::arg("other"));
-	cls_V3d_ListOfView.def("begin", (V3d_ListOfView::iterator (V3d_ListOfView::*)() const ) &V3d_ListOfView::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_V3d_ListOfView.def("end", (V3d_ListOfView::iterator (V3d_ListOfView::*)() const ) &V3d_ListOfView::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_V3d_ListOfView.def("cbegin", (V3d_ListOfView::const_iterator (V3d_ListOfView::*)() const ) &V3d_ListOfView::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_V3d_ListOfView.def("cend", (V3d_ListOfView::const_iterator (V3d_ListOfView::*)() const ) &V3d_ListOfView::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_V3d_ListOfView.def("Size", (Standard_Integer (V3d_ListOfView::*)() const ) &V3d_ListOfView::Size, "Size - Number of items");
-	cls_V3d_ListOfView.def("Assign", (V3d_ListOfView & (V3d_ListOfView::*)(const V3d_ListOfView &)) &V3d_ListOfView::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_V3d_ListOfView.def("assign", (V3d_ListOfView & (V3d_ListOfView::*)(const V3d_ListOfView &)) &V3d_ListOfView::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_V3d_ListOfView.def("Clear", [](V3d_ListOfView &self) -> void { return self.Clear(); });
-	cls_V3d_ListOfView.def("Clear", (void (V3d_ListOfView::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &V3d_ListOfView::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_V3d_ListOfView.def("First", (const opencascade::handle<V3d_View> & (V3d_ListOfView::*)() const ) &V3d_ListOfView::First, "First item");
-	cls_V3d_ListOfView.def("First", (opencascade::handle<V3d_View> & (V3d_ListOfView::*)()) &V3d_ListOfView::First, "First item (non-const)");
-	cls_V3d_ListOfView.def("Last", (const opencascade::handle<V3d_View> & (V3d_ListOfView::*)() const ) &V3d_ListOfView::Last, "Last item");
-	cls_V3d_ListOfView.def("Last", (opencascade::handle<V3d_View> & (V3d_ListOfView::*)()) &V3d_ListOfView::Last, "Last item (non-const)");
-	cls_V3d_ListOfView.def("Append", (opencascade::handle<V3d_View> & (V3d_ListOfView::*)(const opencascade::handle<V3d_View> &)) &V3d_ListOfView::Append, "Append one item at the end", py::arg("theItem"));
-	cls_V3d_ListOfView.def("Append", (void (V3d_ListOfView::*)(const opencascade::handle<V3d_View> &, V3d_ListOfView::Iterator &)) &V3d_ListOfView::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_V3d_ListOfView.def("Append", (void (V3d_ListOfView::*)(V3d_ListOfView &)) &V3d_ListOfView::Append, "Append another list at the end", py::arg("theOther"));
-	cls_V3d_ListOfView.def("Prepend", (opencascade::handle<V3d_View> & (V3d_ListOfView::*)(const opencascade::handle<V3d_View> &)) &V3d_ListOfView::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_V3d_ListOfView.def("Prepend", (void (V3d_ListOfView::*)(V3d_ListOfView &)) &V3d_ListOfView::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_V3d_ListOfView.def("RemoveFirst", (void (V3d_ListOfView::*)()) &V3d_ListOfView::RemoveFirst, "RemoveFirst item");
-	cls_V3d_ListOfView.def("Remove", (void (V3d_ListOfView::*)(V3d_ListOfView::Iterator &)) &V3d_ListOfView::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_V3d_ListOfView.def("InsertBefore", (opencascade::handle<V3d_View> & (V3d_ListOfView::*)(const opencascade::handle<V3d_View> &, V3d_ListOfView::Iterator &)) &V3d_ListOfView::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_V3d_ListOfView.def("InsertBefore", (void (V3d_ListOfView::*)(V3d_ListOfView &, V3d_ListOfView::Iterator &)) &V3d_ListOfView::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_V3d_ListOfView.def("InsertAfter", (opencascade::handle<V3d_View> & (V3d_ListOfView::*)(const opencascade::handle<V3d_View> &, V3d_ListOfView::Iterator &)) &V3d_ListOfView::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_V3d_ListOfView.def("InsertAfter", (void (V3d_ListOfView::*)(V3d_ListOfView &, V3d_ListOfView::Iterator &)) &V3d_ListOfView::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_V3d_ListOfView.def("Reverse", (void (V3d_ListOfView::*)()) &V3d_ListOfView::Reverse, "Reverse the list");
-	cls_V3d_ListOfView.def("__iter__", [](const V3d_ListOfView &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<V3d_ListOfViewIterator, std::unique_ptr<V3d_ListOfViewIterator, Deleter<V3d_ListOfViewIterator>>> cls_V3d_ListOfViewIterator(mod, "V3d_ListOfViewIterator", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_V3d_ListOfViewIterator.def(py::init<>());
-	cls_V3d_ListOfViewIterator.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_V3d_ListOfViewIterator.def("More", (Standard_Boolean (V3d_ListOfViewIterator::*)() const ) &V3d_ListOfViewIterator::More, "Check end");
-	cls_V3d_ListOfViewIterator.def("Next", (void (V3d_ListOfViewIterator::*)()) &V3d_ListOfViewIterator::Next, "Make step");
-	cls_V3d_ListOfViewIterator.def("Value", (const opencascade::handle<V3d_View> & (V3d_ListOfViewIterator::*)() const ) &V3d_ListOfViewIterator::Value, "Constant Value access");
-	cls_V3d_ListOfViewIterator.def("Value", (opencascade::handle<V3d_View> & (V3d_ListOfViewIterator::*)()) &V3d_ListOfViewIterator::Value, "Non-const Value access");
-	cls_V3d_ListOfViewIterator.def("ChangeValue", (opencascade::handle<V3d_View> & (V3d_ListOfViewIterator::*)() const ) &V3d_ListOfViewIterator::ChangeValue, "Non-const Value access");
-
+	// C:\Miniconda\envs\occt\Library\include\opencascade\V3d_ListOfView.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\V3d_ViewerPointer.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\V3d_Coordinate.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("V3d_Coordinate") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\V3d_Parameter.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("V3d_Parameter") = other_mod.attr("doublereal");

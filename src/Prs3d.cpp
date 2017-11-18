@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Prs3d_VertexDrawMode.hxx>
 #include <Prs3d_DimensionUnits.hxx>
@@ -101,6 +92,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Prs3d_ToolDisk.hxx>
 #include <Prs3d_ToolSphere.hxx>
 #include <Prs3d_TypeOfLinePicking.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Prs3d, mod) {
 
@@ -703,47 +695,9 @@ PYBIND11_MODULE(Prs3d, mod) {
 	cls_Prs3d_ToolSphere.def_static("Create_", (opencascade::handle<Graphic3d_ArrayOfTriangles> (*)(const Standard_Real, const Standard_Integer, const Standard_Integer, const gp_Trsf &)) &Prs3d_ToolSphere::Create, "Generate primitives for 3D quadric surface and return a filled array.", py::arg("theRadius"), py::arg("theNbSlices"), py::arg("theNbStacks"), py::arg("theTrsf"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Prs3d_Drawer.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<Prs3d_NListOfSequenceOfPnt, std::unique_ptr<Prs3d_NListOfSequenceOfPnt, Deleter<Prs3d_NListOfSequenceOfPnt>>, NCollection_BaseList> cls_Prs3d_NListOfSequenceOfPnt(mod, "Prs3d_NListOfSequenceOfPnt", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_Prs3d_NListOfSequenceOfPnt.def(py::init<>());
-	cls_Prs3d_NListOfSequenceOfPnt.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Prs3d_NListOfSequenceOfPnt.def(py::init([] (const Prs3d_NListOfSequenceOfPnt &other) {return new Prs3d_NListOfSequenceOfPnt(other);}), "Copy constructor", py::arg("other"));
-	cls_Prs3d_NListOfSequenceOfPnt.def("begin", (Prs3d_NListOfSequenceOfPnt::iterator (Prs3d_NListOfSequenceOfPnt::*)() const ) &Prs3d_NListOfSequenceOfPnt::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_Prs3d_NListOfSequenceOfPnt.def("end", (Prs3d_NListOfSequenceOfPnt::iterator (Prs3d_NListOfSequenceOfPnt::*)() const ) &Prs3d_NListOfSequenceOfPnt::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_Prs3d_NListOfSequenceOfPnt.def("cbegin", (Prs3d_NListOfSequenceOfPnt::const_iterator (Prs3d_NListOfSequenceOfPnt::*)() const ) &Prs3d_NListOfSequenceOfPnt::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_Prs3d_NListOfSequenceOfPnt.def("cend", (Prs3d_NListOfSequenceOfPnt::const_iterator (Prs3d_NListOfSequenceOfPnt::*)() const ) &Prs3d_NListOfSequenceOfPnt::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_Prs3d_NListOfSequenceOfPnt.def("Size", (Standard_Integer (Prs3d_NListOfSequenceOfPnt::*)() const ) &Prs3d_NListOfSequenceOfPnt::Size, "Size - Number of items");
-	cls_Prs3d_NListOfSequenceOfPnt.def("Assign", (Prs3d_NListOfSequenceOfPnt & (Prs3d_NListOfSequenceOfPnt::*)(const Prs3d_NListOfSequenceOfPnt &)) &Prs3d_NListOfSequenceOfPnt::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Prs3d_NListOfSequenceOfPnt.def("assign", (Prs3d_NListOfSequenceOfPnt & (Prs3d_NListOfSequenceOfPnt::*)(const Prs3d_NListOfSequenceOfPnt &)) &Prs3d_NListOfSequenceOfPnt::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Prs3d_NListOfSequenceOfPnt.def("Clear", [](Prs3d_NListOfSequenceOfPnt &self) -> void { return self.Clear(); });
-	cls_Prs3d_NListOfSequenceOfPnt.def("Clear", (void (Prs3d_NListOfSequenceOfPnt::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Prs3d_NListOfSequenceOfPnt::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_Prs3d_NListOfSequenceOfPnt.def("First", (const opencascade::handle<TColgp_HSequenceOfPnt> & (Prs3d_NListOfSequenceOfPnt::*)() const ) &Prs3d_NListOfSequenceOfPnt::First, "First item");
-	cls_Prs3d_NListOfSequenceOfPnt.def("First", (opencascade::handle<TColgp_HSequenceOfPnt> & (Prs3d_NListOfSequenceOfPnt::*)()) &Prs3d_NListOfSequenceOfPnt::First, "First item (non-const)");
-	cls_Prs3d_NListOfSequenceOfPnt.def("Last", (const opencascade::handle<TColgp_HSequenceOfPnt> & (Prs3d_NListOfSequenceOfPnt::*)() const ) &Prs3d_NListOfSequenceOfPnt::Last, "Last item");
-	cls_Prs3d_NListOfSequenceOfPnt.def("Last", (opencascade::handle<TColgp_HSequenceOfPnt> & (Prs3d_NListOfSequenceOfPnt::*)()) &Prs3d_NListOfSequenceOfPnt::Last, "Last item (non-const)");
-	cls_Prs3d_NListOfSequenceOfPnt.def("Append", (opencascade::handle<TColgp_HSequenceOfPnt> & (Prs3d_NListOfSequenceOfPnt::*)(const opencascade::handle<TColgp_HSequenceOfPnt> &)) &Prs3d_NListOfSequenceOfPnt::Append, "Append one item at the end", py::arg("theItem"));
-	cls_Prs3d_NListOfSequenceOfPnt.def("Append", (void (Prs3d_NListOfSequenceOfPnt::*)(const opencascade::handle<TColgp_HSequenceOfPnt> &, Prs3d_NListOfSequenceOfPnt::Iterator &)) &Prs3d_NListOfSequenceOfPnt::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_Prs3d_NListOfSequenceOfPnt.def("Append", (void (Prs3d_NListOfSequenceOfPnt::*)(Prs3d_NListOfSequenceOfPnt &)) &Prs3d_NListOfSequenceOfPnt::Append, "Append another list at the end", py::arg("theOther"));
-	cls_Prs3d_NListOfSequenceOfPnt.def("Prepend", (opencascade::handle<TColgp_HSequenceOfPnt> & (Prs3d_NListOfSequenceOfPnt::*)(const opencascade::handle<TColgp_HSequenceOfPnt> &)) &Prs3d_NListOfSequenceOfPnt::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_Prs3d_NListOfSequenceOfPnt.def("Prepend", (void (Prs3d_NListOfSequenceOfPnt::*)(Prs3d_NListOfSequenceOfPnt &)) &Prs3d_NListOfSequenceOfPnt::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_Prs3d_NListOfSequenceOfPnt.def("RemoveFirst", (void (Prs3d_NListOfSequenceOfPnt::*)()) &Prs3d_NListOfSequenceOfPnt::RemoveFirst, "RemoveFirst item");
-	cls_Prs3d_NListOfSequenceOfPnt.def("Remove", (void (Prs3d_NListOfSequenceOfPnt::*)(Prs3d_NListOfSequenceOfPnt::Iterator &)) &Prs3d_NListOfSequenceOfPnt::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_Prs3d_NListOfSequenceOfPnt.def("InsertBefore", (opencascade::handle<TColgp_HSequenceOfPnt> & (Prs3d_NListOfSequenceOfPnt::*)(const opencascade::handle<TColgp_HSequenceOfPnt> &, Prs3d_NListOfSequenceOfPnt::Iterator &)) &Prs3d_NListOfSequenceOfPnt::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_Prs3d_NListOfSequenceOfPnt.def("InsertBefore", (void (Prs3d_NListOfSequenceOfPnt::*)(Prs3d_NListOfSequenceOfPnt &, Prs3d_NListOfSequenceOfPnt::Iterator &)) &Prs3d_NListOfSequenceOfPnt::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_Prs3d_NListOfSequenceOfPnt.def("InsertAfter", (opencascade::handle<TColgp_HSequenceOfPnt> & (Prs3d_NListOfSequenceOfPnt::*)(const opencascade::handle<TColgp_HSequenceOfPnt> &, Prs3d_NListOfSequenceOfPnt::Iterator &)) &Prs3d_NListOfSequenceOfPnt::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_Prs3d_NListOfSequenceOfPnt.def("InsertAfter", (void (Prs3d_NListOfSequenceOfPnt::*)(Prs3d_NListOfSequenceOfPnt &, Prs3d_NListOfSequenceOfPnt::Iterator &)) &Prs3d_NListOfSequenceOfPnt::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_Prs3d_NListOfSequenceOfPnt.def("Reverse", (void (Prs3d_NListOfSequenceOfPnt::*)()) &Prs3d_NListOfSequenceOfPnt::Reverse, "Reverse the list");
-	cls_Prs3d_NListOfSequenceOfPnt.def("__iter__", [](const Prs3d_NListOfSequenceOfPnt &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Prs3d_NListOfSequenceOfPnt.hxx
+	bind_NCollection_List<opencascade::handle<TColgp_HSequenceOfPnt> >(mod, "Prs3d_NListOfSequenceOfPnt");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<Prs3d_NListIteratorOfListOfSequenceOfPnt, std::unique_ptr<Prs3d_NListIteratorOfListOfSequenceOfPnt, Deleter<Prs3d_NListIteratorOfListOfSequenceOfPnt>>> cls_Prs3d_NListIteratorOfListOfSequenceOfPnt(mod, "Prs3d_NListIteratorOfListOfSequenceOfPnt", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_Prs3d_NListIteratorOfListOfSequenceOfPnt.def(py::init<>());
-	cls_Prs3d_NListIteratorOfListOfSequenceOfPnt.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_Prs3d_NListIteratorOfListOfSequenceOfPnt.def("More", (Standard_Boolean (Prs3d_NListIteratorOfListOfSequenceOfPnt::*)() const ) &Prs3d_NListIteratorOfListOfSequenceOfPnt::More, "Check end");
-	cls_Prs3d_NListIteratorOfListOfSequenceOfPnt.def("Next", (void (Prs3d_NListIteratorOfListOfSequenceOfPnt::*)()) &Prs3d_NListIteratorOfListOfSequenceOfPnt::Next, "Make step");
-	cls_Prs3d_NListIteratorOfListOfSequenceOfPnt.def("Value", (const opencascade::handle<TColgp_HSequenceOfPnt> & (Prs3d_NListIteratorOfListOfSequenceOfPnt::*)() const ) &Prs3d_NListIteratorOfListOfSequenceOfPnt::Value, "Constant Value access");
-	cls_Prs3d_NListIteratorOfListOfSequenceOfPnt.def("Value", (opencascade::handle<TColgp_HSequenceOfPnt> & (Prs3d_NListIteratorOfListOfSequenceOfPnt::*)()) &Prs3d_NListIteratorOfListOfSequenceOfPnt::Value, "Non-const Value access");
-	cls_Prs3d_NListIteratorOfListOfSequenceOfPnt.def("ChangeValue", (opencascade::handle<TColgp_HSequenceOfPnt> & (Prs3d_NListIteratorOfListOfSequenceOfPnt::*)() const ) &Prs3d_NListIteratorOfListOfSequenceOfPnt::ChangeValue, "Non-const Value access");
-
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Prs3d_NListIteratorOfListOfSequenceOfPnt.hxx
 
 }

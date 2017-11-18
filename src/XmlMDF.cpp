@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
@@ -32,6 +23,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <TDF_Data.hxx>
 #include <XmlObjMgt_Element.hxx>
 #include <XmlMDF.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(XmlMDF, mod) {
 
@@ -102,69 +94,19 @@ PYBIND11_MODULE(XmlMDF, mod) {
 	cls_XmlMDF.def_static("FromTo_", (Standard_Boolean (*)(const XmlObjMgt_Element &, opencascade::handle<TDF_Data> &, XmlObjMgt_RRelocationTable &, const opencascade::handle<XmlMDF_ADriverTable> &)) &XmlMDF::FromTo, "Translates a persistent <aSource> into a transient <aTarget>. Returns True if completed successfully (False on error)", py::arg("aSource"), py::arg("aTarget"), py::arg("aReloc"), py::arg("aDrivers"));
 	cls_XmlMDF.def_static("AddDrivers_", (void (*)(const opencascade::handle<XmlMDF_ADriverTable> &, const opencascade::handle<CDM_MessageDriver> &)) &XmlMDF::AddDrivers, "Adds the attribute storage drivers to <aDriverSeq>.", py::arg("aDriverTable"), py::arg("theMessageDriver"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<XmlMDF_MapOfDriver, std::unique_ptr<XmlMDF_MapOfDriver, Deleter<XmlMDF_MapOfDriver>>, NCollection_BaseMap> cls_XmlMDF_MapOfDriver(mod, "XmlMDF_MapOfDriver", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_XmlMDF_MapOfDriver.def(py::init<>());
-	cls_XmlMDF_MapOfDriver.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_XmlMDF_MapOfDriver.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_XmlMDF_MapOfDriver.def(py::init([] (const XmlMDF_MapOfDriver &other) {return new XmlMDF_MapOfDriver(other);}), "Copy constructor", py::arg("other"));
-	cls_XmlMDF_MapOfDriver.def("begin", (XmlMDF_MapOfDriver::iterator (XmlMDF_MapOfDriver::*)() const ) &XmlMDF_MapOfDriver::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_XmlMDF_MapOfDriver.def("end", (XmlMDF_MapOfDriver::iterator (XmlMDF_MapOfDriver::*)() const ) &XmlMDF_MapOfDriver::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_XmlMDF_MapOfDriver.def("cbegin", (XmlMDF_MapOfDriver::const_iterator (XmlMDF_MapOfDriver::*)() const ) &XmlMDF_MapOfDriver::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_XmlMDF_MapOfDriver.def("cend", (XmlMDF_MapOfDriver::const_iterator (XmlMDF_MapOfDriver::*)() const ) &XmlMDF_MapOfDriver::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_XmlMDF_MapOfDriver.def("Exchange", (void (XmlMDF_MapOfDriver::*)(XmlMDF_MapOfDriver &)) &XmlMDF_MapOfDriver::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_XmlMDF_MapOfDriver.def("Assign", (XmlMDF_MapOfDriver & (XmlMDF_MapOfDriver::*)(const XmlMDF_MapOfDriver &)) &XmlMDF_MapOfDriver::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_XmlMDF_MapOfDriver.def("assign", (XmlMDF_MapOfDriver & (XmlMDF_MapOfDriver::*)(const XmlMDF_MapOfDriver &)) &XmlMDF_MapOfDriver::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_XmlMDF_MapOfDriver.def("ReSize", (void (XmlMDF_MapOfDriver::*)(const Standard_Integer)) &XmlMDF_MapOfDriver::ReSize, "ReSize", py::arg("N"));
-	cls_XmlMDF_MapOfDriver.def("Bind", (Standard_Boolean (XmlMDF_MapOfDriver::*)(const TCollection_AsciiString &, const opencascade::handle<XmlMDF_ADriver> &)) &XmlMDF_MapOfDriver::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_XmlMDF_MapOfDriver.def("Bound", (opencascade::handle<XmlMDF_ADriver> * (XmlMDF_MapOfDriver::*)(const TCollection_AsciiString &, const opencascade::handle<XmlMDF_ADriver> &)) &XmlMDF_MapOfDriver::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_XmlMDF_MapOfDriver.def("IsBound", (Standard_Boolean (XmlMDF_MapOfDriver::*)(const TCollection_AsciiString &) const ) &XmlMDF_MapOfDriver::IsBound, "IsBound", py::arg("theKey"));
-	cls_XmlMDF_MapOfDriver.def("UnBind", (Standard_Boolean (XmlMDF_MapOfDriver::*)(const TCollection_AsciiString &)) &XmlMDF_MapOfDriver::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_XmlMDF_MapOfDriver.def("Seek", (const opencascade::handle<XmlMDF_ADriver> * (XmlMDF_MapOfDriver::*)(const TCollection_AsciiString &) const ) &XmlMDF_MapOfDriver::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_XmlMDF_MapOfDriver.def("Find", (const opencascade::handle<XmlMDF_ADriver> & (XmlMDF_MapOfDriver::*)(const TCollection_AsciiString &) const ) &XmlMDF_MapOfDriver::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_XmlMDF_MapOfDriver.def("Find", (Standard_Boolean (XmlMDF_MapOfDriver::*)(const TCollection_AsciiString &, opencascade::handle<XmlMDF_ADriver> &) const ) &XmlMDF_MapOfDriver::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_XmlMDF_MapOfDriver.def("__call__", (const opencascade::handle<XmlMDF_ADriver> & (XmlMDF_MapOfDriver::*)(const TCollection_AsciiString &) const ) &XmlMDF_MapOfDriver::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_XmlMDF_MapOfDriver.def("ChangeSeek", (opencascade::handle<XmlMDF_ADriver> * (XmlMDF_MapOfDriver::*)(const TCollection_AsciiString &)) &XmlMDF_MapOfDriver::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_XmlMDF_MapOfDriver.def("ChangeFind", (opencascade::handle<XmlMDF_ADriver> & (XmlMDF_MapOfDriver::*)(const TCollection_AsciiString &)) &XmlMDF_MapOfDriver::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_XmlMDF_MapOfDriver.def("__call__", (opencascade::handle<XmlMDF_ADriver> & (XmlMDF_MapOfDriver::*)(const TCollection_AsciiString &)) &XmlMDF_MapOfDriver::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_XmlMDF_MapOfDriver.def("Clear", [](XmlMDF_MapOfDriver &self) -> void { return self.Clear(); });
-	cls_XmlMDF_MapOfDriver.def("Clear", (void (XmlMDF_MapOfDriver::*)(const Standard_Boolean)) &XmlMDF_MapOfDriver::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_XmlMDF_MapOfDriver.def("Clear", (void (XmlMDF_MapOfDriver::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &XmlMDF_MapOfDriver::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_XmlMDF_MapOfDriver.def("Size", (Standard_Integer (XmlMDF_MapOfDriver::*)() const ) &XmlMDF_MapOfDriver::Size, "Size");
-	cls_XmlMDF_MapOfDriver.def("__iter__", [](const XmlMDF_MapOfDriver &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\XmlMDF_MapOfDriver.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<XmlMDF_TypeADriverMap, std::unique_ptr<XmlMDF_TypeADriverMap, Deleter<XmlMDF_TypeADriverMap>>, NCollection_BaseMap> cls_XmlMDF_TypeADriverMap(mod, "XmlMDF_TypeADriverMap", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_XmlMDF_TypeADriverMap.def(py::init<>());
-	cls_XmlMDF_TypeADriverMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_XmlMDF_TypeADriverMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_XmlMDF_TypeADriverMap.def(py::init([] (const XmlMDF_TypeADriverMap &other) {return new XmlMDF_TypeADriverMap(other);}), "Copy constructor", py::arg("other"));
-	cls_XmlMDF_TypeADriverMap.def("begin", (XmlMDF_TypeADriverMap::iterator (XmlMDF_TypeADriverMap::*)() const ) &XmlMDF_TypeADriverMap::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_XmlMDF_TypeADriverMap.def("end", (XmlMDF_TypeADriverMap::iterator (XmlMDF_TypeADriverMap::*)() const ) &XmlMDF_TypeADriverMap::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_XmlMDF_TypeADriverMap.def("cbegin", (XmlMDF_TypeADriverMap::const_iterator (XmlMDF_TypeADriverMap::*)() const ) &XmlMDF_TypeADriverMap::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_XmlMDF_TypeADriverMap.def("cend", (XmlMDF_TypeADriverMap::const_iterator (XmlMDF_TypeADriverMap::*)() const ) &XmlMDF_TypeADriverMap::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_XmlMDF_TypeADriverMap.def("Exchange", (void (XmlMDF_TypeADriverMap::*)(XmlMDF_TypeADriverMap &)) &XmlMDF_TypeADriverMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_XmlMDF_TypeADriverMap.def("Assign", (XmlMDF_TypeADriverMap & (XmlMDF_TypeADriverMap::*)(const XmlMDF_TypeADriverMap &)) &XmlMDF_TypeADriverMap::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_XmlMDF_TypeADriverMap.def("assign", (XmlMDF_TypeADriverMap & (XmlMDF_TypeADriverMap::*)(const XmlMDF_TypeADriverMap &)) &XmlMDF_TypeADriverMap::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_XmlMDF_TypeADriverMap.def("ReSize", (void (XmlMDF_TypeADriverMap::*)(const Standard_Integer)) &XmlMDF_TypeADriverMap::ReSize, "ReSize", py::arg("N"));
-	cls_XmlMDF_TypeADriverMap.def("Bind", (Standard_Boolean (XmlMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &, const opencascade::handle<XmlMDF_ADriver> &)) &XmlMDF_TypeADriverMap::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_XmlMDF_TypeADriverMap.def("Bound", (opencascade::handle<XmlMDF_ADriver> * (XmlMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &, const opencascade::handle<XmlMDF_ADriver> &)) &XmlMDF_TypeADriverMap::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_XmlMDF_TypeADriverMap.def("IsBound", (Standard_Boolean (XmlMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &) const ) &XmlMDF_TypeADriverMap::IsBound, "IsBound", py::arg("theKey"));
-	cls_XmlMDF_TypeADriverMap.def("UnBind", (Standard_Boolean (XmlMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &)) &XmlMDF_TypeADriverMap::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_XmlMDF_TypeADriverMap.def("Seek", (const opencascade::handle<XmlMDF_ADriver> * (XmlMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &) const ) &XmlMDF_TypeADriverMap::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_XmlMDF_TypeADriverMap.def("Find", (const opencascade::handle<XmlMDF_ADriver> & (XmlMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &) const ) &XmlMDF_TypeADriverMap::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_XmlMDF_TypeADriverMap.def("Find", (Standard_Boolean (XmlMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &, opencascade::handle<XmlMDF_ADriver> &) const ) &XmlMDF_TypeADriverMap::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_XmlMDF_TypeADriverMap.def("__call__", (const opencascade::handle<XmlMDF_ADriver> & (XmlMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &) const ) &XmlMDF_TypeADriverMap::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_XmlMDF_TypeADriverMap.def("ChangeSeek", (opencascade::handle<XmlMDF_ADriver> * (XmlMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &)) &XmlMDF_TypeADriverMap::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_XmlMDF_TypeADriverMap.def("ChangeFind", (opencascade::handle<XmlMDF_ADriver> & (XmlMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &)) &XmlMDF_TypeADriverMap::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_XmlMDF_TypeADriverMap.def("__call__", (opencascade::handle<XmlMDF_ADriver> & (XmlMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &)) &XmlMDF_TypeADriverMap::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_XmlMDF_TypeADriverMap.def("Clear", [](XmlMDF_TypeADriverMap &self) -> void { return self.Clear(); });
-	cls_XmlMDF_TypeADriverMap.def("Clear", (void (XmlMDF_TypeADriverMap::*)(const Standard_Boolean)) &XmlMDF_TypeADriverMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_XmlMDF_TypeADriverMap.def("Clear", (void (XmlMDF_TypeADriverMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &XmlMDF_TypeADriverMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_XmlMDF_TypeADriverMap.def("Size", (Standard_Integer (XmlMDF_TypeADriverMap::*)() const ) &XmlMDF_TypeADriverMap::Size, "Size");
-	cls_XmlMDF_TypeADriverMap.def("__iter__", [](const XmlMDF_TypeADriverMap &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TCollection_AsciiString, opencascade::handle<XmlMDF_ADriver>, TCollection_AsciiString>(mod, "XmlMDF_MapOfDriver");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\XmlMDF_TypeADriverMap.hxx
+	bind_NCollection_DataMap<opencascade::handle<Standard_Type>, opencascade::handle<XmlMDF_ADriver>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "XmlMDF_TypeADriverMap");
+
+	/* FIXME
+
+	*/
+
 
 }

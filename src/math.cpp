@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_TypeDef.hxx>
 #include <math_Matrix.hxx>
@@ -15,6 +6,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Standard_OStream.hxx>
 #include <math_Function.hxx>
 #include <math_FunctionWithDerivative.hxx>
+#include <math_SingleTab.hxx>
 #include <gp_XY.hxx>
 #include <gp_XYZ.hxx>
 #include <math_DoubleTab.hxx>
@@ -74,6 +66,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <math_Recipes.hxx>
 #include <Standard_Failure.hxx>
 #include <math_SingularMatrix.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(math, mod) {
 
@@ -857,40 +850,8 @@ PYBIND11_MODULE(math, mod) {
 	cls_math_SingularMatrix.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &math_SingularMatrix::get_type_descriptor, "None");
 	cls_math_SingularMatrix.def("DynamicType", (const opencascade::handle<Standard_Type> & (math_SingularMatrix::*)() const ) &math_SingularMatrix::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<math_Array1OfValueAndWeight, std::unique_ptr<math_Array1OfValueAndWeight, Deleter<math_Array1OfValueAndWeight>>> cls_math_Array1OfValueAndWeight(mod, "math_Array1OfValueAndWeight", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_math_Array1OfValueAndWeight.def(py::init<>());
-	cls_math_Array1OfValueAndWeight.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_math_Array1OfValueAndWeight.def(py::init([] (const math_Array1OfValueAndWeight &other) {return new math_Array1OfValueAndWeight(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_math_Array1OfValueAndWeight.def(py::init<math_Array1OfValueAndWeight &&>(), py::arg("theOther"));
-	cls_math_Array1OfValueAndWeight.def(py::init<const math_ValueAndWeight &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_math_Array1OfValueAndWeight.def("begin", (math_Array1OfValueAndWeight::iterator (math_Array1OfValueAndWeight::*)() const ) &math_Array1OfValueAndWeight::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_math_Array1OfValueAndWeight.def("end", (math_Array1OfValueAndWeight::iterator (math_Array1OfValueAndWeight::*)() const ) &math_Array1OfValueAndWeight::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_math_Array1OfValueAndWeight.def("cbegin", (math_Array1OfValueAndWeight::const_iterator (math_Array1OfValueAndWeight::*)() const ) &math_Array1OfValueAndWeight::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_math_Array1OfValueAndWeight.def("cend", (math_Array1OfValueAndWeight::const_iterator (math_Array1OfValueAndWeight::*)() const ) &math_Array1OfValueAndWeight::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_math_Array1OfValueAndWeight.def("Init", (void (math_Array1OfValueAndWeight::*)(const math_ValueAndWeight &)) &math_Array1OfValueAndWeight::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_math_Array1OfValueAndWeight.def("Size", (Standard_Integer (math_Array1OfValueAndWeight::*)() const ) &math_Array1OfValueAndWeight::Size, "Size query");
-	cls_math_Array1OfValueAndWeight.def("Length", (Standard_Integer (math_Array1OfValueAndWeight::*)() const ) &math_Array1OfValueAndWeight::Length, "Length query (the same)");
-	cls_math_Array1OfValueAndWeight.def("IsEmpty", (Standard_Boolean (math_Array1OfValueAndWeight::*)() const ) &math_Array1OfValueAndWeight::IsEmpty, "Return TRUE if array has zero length.");
-	cls_math_Array1OfValueAndWeight.def("Lower", (Standard_Integer (math_Array1OfValueAndWeight::*)() const ) &math_Array1OfValueAndWeight::Lower, "Lower bound");
-	cls_math_Array1OfValueAndWeight.def("Upper", (Standard_Integer (math_Array1OfValueAndWeight::*)() const ) &math_Array1OfValueAndWeight::Upper, "Upper bound");
-	cls_math_Array1OfValueAndWeight.def("IsDeletable", (Standard_Boolean (math_Array1OfValueAndWeight::*)() const ) &math_Array1OfValueAndWeight::IsDeletable, "myDeletable flag");
-	cls_math_Array1OfValueAndWeight.def("IsAllocated", (Standard_Boolean (math_Array1OfValueAndWeight::*)() const ) &math_Array1OfValueAndWeight::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_math_Array1OfValueAndWeight.def("Assign", (math_Array1OfValueAndWeight & (math_Array1OfValueAndWeight::*)(const math_Array1OfValueAndWeight &)) &math_Array1OfValueAndWeight::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_math_Array1OfValueAndWeight.def("Move", (math_Array1OfValueAndWeight & (math_Array1OfValueAndWeight::*)(math_Array1OfValueAndWeight &&)) &math_Array1OfValueAndWeight::Move, "Move assignment", py::arg("theOther"));
-	cls_math_Array1OfValueAndWeight.def("assign", (math_Array1OfValueAndWeight & (math_Array1OfValueAndWeight::*)(const math_Array1OfValueAndWeight &)) &math_Array1OfValueAndWeight::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_math_Array1OfValueAndWeight.def("assign", (math_Array1OfValueAndWeight & (math_Array1OfValueAndWeight::*)(math_Array1OfValueAndWeight &&)) &math_Array1OfValueAndWeight::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_math_Array1OfValueAndWeight.def("First", (const math_ValueAndWeight & (math_Array1OfValueAndWeight::*)() const ) &math_Array1OfValueAndWeight::First, "Returns first element");
-	cls_math_Array1OfValueAndWeight.def("ChangeFirst", (math_ValueAndWeight & (math_Array1OfValueAndWeight::*)()) &math_Array1OfValueAndWeight::ChangeFirst, "Returns first element");
-	cls_math_Array1OfValueAndWeight.def("Last", (const math_ValueAndWeight & (math_Array1OfValueAndWeight::*)() const ) &math_Array1OfValueAndWeight::Last, "Returns last element");
-	cls_math_Array1OfValueAndWeight.def("ChangeLast", (math_ValueAndWeight & (math_Array1OfValueAndWeight::*)()) &math_Array1OfValueAndWeight::ChangeLast, "Returns last element");
-	cls_math_Array1OfValueAndWeight.def("Value", (const math_ValueAndWeight & (math_Array1OfValueAndWeight::*)(const Standard_Integer) const ) &math_Array1OfValueAndWeight::Value, "Constant value access", py::arg("theIndex"));
-	cls_math_Array1OfValueAndWeight.def("__call__", (const math_ValueAndWeight & (math_Array1OfValueAndWeight::*)(const Standard_Integer) const ) &math_Array1OfValueAndWeight::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_math_Array1OfValueAndWeight.def("ChangeValue", (math_ValueAndWeight & (math_Array1OfValueAndWeight::*)(const Standard_Integer)) &math_Array1OfValueAndWeight::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_math_Array1OfValueAndWeight.def("__call__", (math_ValueAndWeight & (math_Array1OfValueAndWeight::*)(const Standard_Integer)) &math_Array1OfValueAndWeight::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_math_Array1OfValueAndWeight.def("SetValue", (void (math_Array1OfValueAndWeight::*)(const Standard_Integer, const math_ValueAndWeight &)) &math_Array1OfValueAndWeight::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_math_Array1OfValueAndWeight.def("Resize", (void (math_Array1OfValueAndWeight::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &math_Array1OfValueAndWeight::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_math_Array1OfValueAndWeight.def("__iter__", [](const math_Array1OfValueAndWeight &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\math_Array1OfValueAndWeight.hxx
+	bind_NCollection_Array1<math_ValueAndWeight>(mod, "math_Array1OfValueAndWeight");
 
 
 }

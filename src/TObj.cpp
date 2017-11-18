@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <TObj_Common.hxx>
 #include <Standard_TypeDef.hxx>
@@ -62,6 +53,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <TObj_TReference.hxx>
 #include <TObj_TXYZ.hxx>
 #include <gp_XYZ.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(TObj, mod) {
 
@@ -249,50 +241,8 @@ PYBIND11_MODULE(TObj, mod) {
 		.value("ObjectState_Ordered", TObj_Object::ObjectState::ObjectState_Ordered)
 		.export_values();
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<TObj_SequenceOfObject, std::unique_ptr<TObj_SequenceOfObject, Deleter<TObj_SequenceOfObject>>, NCollection_BaseSequence> cls_TObj_SequenceOfObject(mod, "TObj_SequenceOfObject", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_TObj_SequenceOfObject.def(py::init<>());
-	cls_TObj_SequenceOfObject.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TObj_SequenceOfObject.def(py::init([] (const TObj_SequenceOfObject &other) {return new TObj_SequenceOfObject(other);}), "Copy constructor", py::arg("other"));
-	cls_TObj_SequenceOfObject.def("begin", (TObj_SequenceOfObject::iterator (TObj_SequenceOfObject::*)() const ) &TObj_SequenceOfObject::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_TObj_SequenceOfObject.def("end", (TObj_SequenceOfObject::iterator (TObj_SequenceOfObject::*)() const ) &TObj_SequenceOfObject::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_TObj_SequenceOfObject.def("cbegin", (TObj_SequenceOfObject::const_iterator (TObj_SequenceOfObject::*)() const ) &TObj_SequenceOfObject::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_TObj_SequenceOfObject.def("cend", (TObj_SequenceOfObject::const_iterator (TObj_SequenceOfObject::*)() const ) &TObj_SequenceOfObject::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_TObj_SequenceOfObject.def("Size", (Standard_Integer (TObj_SequenceOfObject::*)() const ) &TObj_SequenceOfObject::Size, "Number of items");
-	cls_TObj_SequenceOfObject.def("Length", (Standard_Integer (TObj_SequenceOfObject::*)() const ) &TObj_SequenceOfObject::Length, "Number of items");
-	cls_TObj_SequenceOfObject.def("Lower", (Standard_Integer (TObj_SequenceOfObject::*)() const ) &TObj_SequenceOfObject::Lower, "Method for consistency with other collections.");
-	cls_TObj_SequenceOfObject.def("Upper", (Standard_Integer (TObj_SequenceOfObject::*)() const ) &TObj_SequenceOfObject::Upper, "Method for consistency with other collections.");
-	cls_TObj_SequenceOfObject.def("IsEmpty", (Standard_Boolean (TObj_SequenceOfObject::*)() const ) &TObj_SequenceOfObject::IsEmpty, "Empty query");
-	cls_TObj_SequenceOfObject.def("Reverse", (void (TObj_SequenceOfObject::*)()) &TObj_SequenceOfObject::Reverse, "Reverse sequence");
-	cls_TObj_SequenceOfObject.def("Exchange", (void (TObj_SequenceOfObject::*)(const Standard_Integer, const Standard_Integer)) &TObj_SequenceOfObject::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_TObj_SequenceOfObject.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &TObj_SequenceOfObject::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_TObj_SequenceOfObject.def("Clear", [](TObj_SequenceOfObject &self) -> void { return self.Clear(); });
-	cls_TObj_SequenceOfObject.def("Clear", (void (TObj_SequenceOfObject::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TObj_SequenceOfObject::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_TObj_SequenceOfObject.def("Assign", (TObj_SequenceOfObject & (TObj_SequenceOfObject::*)(const TObj_SequenceOfObject &)) &TObj_SequenceOfObject::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TObj_SequenceOfObject.def("assign", (TObj_SequenceOfObject & (TObj_SequenceOfObject::*)(const TObj_SequenceOfObject &)) &TObj_SequenceOfObject::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TObj_SequenceOfObject.def("Remove", (void (TObj_SequenceOfObject::*)(TObj_SequenceOfObject::Iterator &)) &TObj_SequenceOfObject::Remove, "Remove one item", py::arg("thePosition"));
-	cls_TObj_SequenceOfObject.def("Remove", (void (TObj_SequenceOfObject::*)(const Standard_Integer)) &TObj_SequenceOfObject::Remove, "Remove one item", py::arg("theIndex"));
-	cls_TObj_SequenceOfObject.def("Remove", (void (TObj_SequenceOfObject::*)(const Standard_Integer, const Standard_Integer)) &TObj_SequenceOfObject::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_TObj_SequenceOfObject.def("Append", (void (TObj_SequenceOfObject::*)(const opencascade::handle<TObj_Object> &)) &TObj_SequenceOfObject::Append, "Append one item", py::arg("theItem"));
-	cls_TObj_SequenceOfObject.def("Append", (void (TObj_SequenceOfObject::*)(TObj_SequenceOfObject &)) &TObj_SequenceOfObject::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_TObj_SequenceOfObject.def("Prepend", (void (TObj_SequenceOfObject::*)(const opencascade::handle<TObj_Object> &)) &TObj_SequenceOfObject::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_TObj_SequenceOfObject.def("Prepend", (void (TObj_SequenceOfObject::*)(TObj_SequenceOfObject &)) &TObj_SequenceOfObject::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_TObj_SequenceOfObject.def("InsertBefore", (void (TObj_SequenceOfObject::*)(const Standard_Integer, const opencascade::handle<TObj_Object> &)) &TObj_SequenceOfObject::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_TObj_SequenceOfObject.def("InsertBefore", (void (TObj_SequenceOfObject::*)(const Standard_Integer, TObj_SequenceOfObject &)) &TObj_SequenceOfObject::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TObj_SequenceOfObject.def("InsertAfter", (void (TObj_SequenceOfObject::*)(TObj_SequenceOfObject::Iterator &, const opencascade::handle<TObj_Object> &)) &TObj_SequenceOfObject::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_TObj_SequenceOfObject.def("InsertAfter", (void (TObj_SequenceOfObject::*)(const Standard_Integer, TObj_SequenceOfObject &)) &TObj_SequenceOfObject::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TObj_SequenceOfObject.def("InsertAfter", (void (TObj_SequenceOfObject::*)(const Standard_Integer, const opencascade::handle<TObj_Object> &)) &TObj_SequenceOfObject::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_TObj_SequenceOfObject.def("Split", (void (TObj_SequenceOfObject::*)(const Standard_Integer, TObj_SequenceOfObject &)) &TObj_SequenceOfObject::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TObj_SequenceOfObject.def("First", (const opencascade::handle<TObj_Object> & (TObj_SequenceOfObject::*)() const ) &TObj_SequenceOfObject::First, "First item access");
-	cls_TObj_SequenceOfObject.def("ChangeFirst", (opencascade::handle<TObj_Object> & (TObj_SequenceOfObject::*)()) &TObj_SequenceOfObject::ChangeFirst, "First item access");
-	cls_TObj_SequenceOfObject.def("Last", (const opencascade::handle<TObj_Object> & (TObj_SequenceOfObject::*)() const ) &TObj_SequenceOfObject::Last, "Last item access");
-	cls_TObj_SequenceOfObject.def("ChangeLast", (opencascade::handle<TObj_Object> & (TObj_SequenceOfObject::*)()) &TObj_SequenceOfObject::ChangeLast, "Last item access");
-	cls_TObj_SequenceOfObject.def("Value", (const opencascade::handle<TObj_Object> & (TObj_SequenceOfObject::*)(const Standard_Integer) const ) &TObj_SequenceOfObject::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_TObj_SequenceOfObject.def("__call__", (const opencascade::handle<TObj_Object> & (TObj_SequenceOfObject::*)(const Standard_Integer) const ) &TObj_SequenceOfObject::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_TObj_SequenceOfObject.def("ChangeValue", (opencascade::handle<TObj_Object> & (TObj_SequenceOfObject::*)(const Standard_Integer)) &TObj_SequenceOfObject::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_TObj_SequenceOfObject.def("__call__", (opencascade::handle<TObj_Object> & (TObj_SequenceOfObject::*)(const Standard_Integer)) &TObj_SequenceOfObject::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_TObj_SequenceOfObject.def("SetValue", (void (TObj_SequenceOfObject::*)(const Standard_Integer, const opencascade::handle<TObj_Object> &)) &TObj_SequenceOfObject::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_TObj_SequenceOfObject.def("__iter__", [](const TObj_SequenceOfObject &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TObj_SequenceOfObject.hxx
+	bind_NCollection_Sequence<opencascade::handle<TObj_Object> >(mod, "TObj_SequenceOfObject");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TObj_Persistence.hxx
 	py::class_<TObj_Persistence, std::unique_ptr<TObj_Persistence, py::nodelete>> cls_TObj_Persistence(mod, "TObj_Persistence", "This class is intended to be a root of tools (one per class) to manage persistence of objects inherited from TObj_Object It provides a mechanism to recover correctly typed objects (subtypes of TObj_Object) out of their persistent names");
@@ -535,84 +485,25 @@ PYBIND11_MODULE(TObj, mod) {
 	cls_TObj_HSequenceOfObject.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TObj_HSequenceOfObject::get_type_descriptor, "None");
 	cls_TObj_HSequenceOfObject.def("DynamicType", (const opencascade::handle<Standard_Type> & (TObj_HSequenceOfObject::*)() const ) &TObj_HSequenceOfObject::DynamicType, "None");
 
-	/* FIXME
-	// TObj_DataMapOfNameLabel
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TObj_Container.hxx
+	bind_NCollection_DataMap<opencascade::handle<TCollection_HExtendedString>, TDF_Label, NCollection_DefaultHasher<opencascade::handle<TCollection_HExtendedString> > >(mod, "TObj_DataMapOfNameLabel");
 
-	/* FIXME
-	// TObj_DataMapOfObjectHSequenceOcafObjects
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TObj_Container.hxx
+	bind_NCollection_DataMap<opencascade::handle<TObj_Object>, opencascade::handle<TObj_HSequenceOfObject>, NCollection_DefaultHasher<opencascade::handle<TObj_Object> > >(mod, "TObj_DataMapOfObjectHSequenceOcafObjects");
 
-	/* FIXME
-	// TObj_DataMapOfStringPointer
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TObj_Container.hxx
+	bind_NCollection_DataMap<TCollection_AsciiString, void *, NCollection_DefaultHasher<TCollection_AsciiString> >(mod, "TObj_DataMapOfStringPointer");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<TObj_SequenceOfIterator, std::unique_ptr<TObj_SequenceOfIterator, Deleter<TObj_SequenceOfIterator>>, NCollection_BaseSequence> cls_TObj_SequenceOfIterator(mod, "TObj_SequenceOfIterator", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_TObj_SequenceOfIterator.def(py::init<>());
-	cls_TObj_SequenceOfIterator.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TObj_SequenceOfIterator.def(py::init([] (const TObj_SequenceOfIterator &other) {return new TObj_SequenceOfIterator(other);}), "Copy constructor", py::arg("other"));
-	cls_TObj_SequenceOfIterator.def("begin", (TObj_SequenceOfIterator::iterator (TObj_SequenceOfIterator::*)() const ) &TObj_SequenceOfIterator::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_TObj_SequenceOfIterator.def("end", (TObj_SequenceOfIterator::iterator (TObj_SequenceOfIterator::*)() const ) &TObj_SequenceOfIterator::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_TObj_SequenceOfIterator.def("cbegin", (TObj_SequenceOfIterator::const_iterator (TObj_SequenceOfIterator::*)() const ) &TObj_SequenceOfIterator::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_TObj_SequenceOfIterator.def("cend", (TObj_SequenceOfIterator::const_iterator (TObj_SequenceOfIterator::*)() const ) &TObj_SequenceOfIterator::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_TObj_SequenceOfIterator.def("Size", (Standard_Integer (TObj_SequenceOfIterator::*)() const ) &TObj_SequenceOfIterator::Size, "Number of items");
-	cls_TObj_SequenceOfIterator.def("Length", (Standard_Integer (TObj_SequenceOfIterator::*)() const ) &TObj_SequenceOfIterator::Length, "Number of items");
-	cls_TObj_SequenceOfIterator.def("Lower", (Standard_Integer (TObj_SequenceOfIterator::*)() const ) &TObj_SequenceOfIterator::Lower, "Method for consistency with other collections.");
-	cls_TObj_SequenceOfIterator.def("Upper", (Standard_Integer (TObj_SequenceOfIterator::*)() const ) &TObj_SequenceOfIterator::Upper, "Method for consistency with other collections.");
-	cls_TObj_SequenceOfIterator.def("IsEmpty", (Standard_Boolean (TObj_SequenceOfIterator::*)() const ) &TObj_SequenceOfIterator::IsEmpty, "Empty query");
-	cls_TObj_SequenceOfIterator.def("Reverse", (void (TObj_SequenceOfIterator::*)()) &TObj_SequenceOfIterator::Reverse, "Reverse sequence");
-	cls_TObj_SequenceOfIterator.def("Exchange", (void (TObj_SequenceOfIterator::*)(const Standard_Integer, const Standard_Integer)) &TObj_SequenceOfIterator::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_TObj_SequenceOfIterator.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &TObj_SequenceOfIterator::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_TObj_SequenceOfIterator.def("Clear", [](TObj_SequenceOfIterator &self) -> void { return self.Clear(); });
-	cls_TObj_SequenceOfIterator.def("Clear", (void (TObj_SequenceOfIterator::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TObj_SequenceOfIterator::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_TObj_SequenceOfIterator.def("Assign", (TObj_SequenceOfIterator & (TObj_SequenceOfIterator::*)(const TObj_SequenceOfIterator &)) &TObj_SequenceOfIterator::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TObj_SequenceOfIterator.def("assign", (TObj_SequenceOfIterator & (TObj_SequenceOfIterator::*)(const TObj_SequenceOfIterator &)) &TObj_SequenceOfIterator::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TObj_SequenceOfIterator.def("Remove", (void (TObj_SequenceOfIterator::*)(TObj_SequenceOfIterator::Iterator &)) &TObj_SequenceOfIterator::Remove, "Remove one item", py::arg("thePosition"));
-	cls_TObj_SequenceOfIterator.def("Remove", (void (TObj_SequenceOfIterator::*)(const Standard_Integer)) &TObj_SequenceOfIterator::Remove, "Remove one item", py::arg("theIndex"));
-	cls_TObj_SequenceOfIterator.def("Remove", (void (TObj_SequenceOfIterator::*)(const Standard_Integer, const Standard_Integer)) &TObj_SequenceOfIterator::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_TObj_SequenceOfIterator.def("Append", (void (TObj_SequenceOfIterator::*)(const opencascade::handle<TObj_ObjectIterator> &)) &TObj_SequenceOfIterator::Append, "Append one item", py::arg("theItem"));
-	cls_TObj_SequenceOfIterator.def("Append", (void (TObj_SequenceOfIterator::*)(TObj_SequenceOfIterator &)) &TObj_SequenceOfIterator::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_TObj_SequenceOfIterator.def("Prepend", (void (TObj_SequenceOfIterator::*)(const opencascade::handle<TObj_ObjectIterator> &)) &TObj_SequenceOfIterator::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_TObj_SequenceOfIterator.def("Prepend", (void (TObj_SequenceOfIterator::*)(TObj_SequenceOfIterator &)) &TObj_SequenceOfIterator::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_TObj_SequenceOfIterator.def("InsertBefore", (void (TObj_SequenceOfIterator::*)(const Standard_Integer, const opencascade::handle<TObj_ObjectIterator> &)) &TObj_SequenceOfIterator::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_TObj_SequenceOfIterator.def("InsertBefore", (void (TObj_SequenceOfIterator::*)(const Standard_Integer, TObj_SequenceOfIterator &)) &TObj_SequenceOfIterator::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TObj_SequenceOfIterator.def("InsertAfter", (void (TObj_SequenceOfIterator::*)(TObj_SequenceOfIterator::Iterator &, const opencascade::handle<TObj_ObjectIterator> &)) &TObj_SequenceOfIterator::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_TObj_SequenceOfIterator.def("InsertAfter", (void (TObj_SequenceOfIterator::*)(const Standard_Integer, TObj_SequenceOfIterator &)) &TObj_SequenceOfIterator::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TObj_SequenceOfIterator.def("InsertAfter", (void (TObj_SequenceOfIterator::*)(const Standard_Integer, const opencascade::handle<TObj_ObjectIterator> &)) &TObj_SequenceOfIterator::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_TObj_SequenceOfIterator.def("Split", (void (TObj_SequenceOfIterator::*)(const Standard_Integer, TObj_SequenceOfIterator &)) &TObj_SequenceOfIterator::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TObj_SequenceOfIterator.def("First", (const opencascade::handle<TObj_ObjectIterator> & (TObj_SequenceOfIterator::*)() const ) &TObj_SequenceOfIterator::First, "First item access");
-	cls_TObj_SequenceOfIterator.def("ChangeFirst", (opencascade::handle<TObj_ObjectIterator> & (TObj_SequenceOfIterator::*)()) &TObj_SequenceOfIterator::ChangeFirst, "First item access");
-	cls_TObj_SequenceOfIterator.def("Last", (const opencascade::handle<TObj_ObjectIterator> & (TObj_SequenceOfIterator::*)() const ) &TObj_SequenceOfIterator::Last, "Last item access");
-	cls_TObj_SequenceOfIterator.def("ChangeLast", (opencascade::handle<TObj_ObjectIterator> & (TObj_SequenceOfIterator::*)()) &TObj_SequenceOfIterator::ChangeLast, "Last item access");
-	cls_TObj_SequenceOfIterator.def("Value", (const opencascade::handle<TObj_ObjectIterator> & (TObj_SequenceOfIterator::*)(const Standard_Integer) const ) &TObj_SequenceOfIterator::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_TObj_SequenceOfIterator.def("__call__", (const opencascade::handle<TObj_ObjectIterator> & (TObj_SequenceOfIterator::*)(const Standard_Integer) const ) &TObj_SequenceOfIterator::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_TObj_SequenceOfIterator.def("ChangeValue", (opencascade::handle<TObj_ObjectIterator> & (TObj_SequenceOfIterator::*)(const Standard_Integer)) &TObj_SequenceOfIterator::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_TObj_SequenceOfIterator.def("__call__", (opencascade::handle<TObj_ObjectIterator> & (TObj_SequenceOfIterator::*)(const Standard_Integer)) &TObj_SequenceOfIterator::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_TObj_SequenceOfIterator.def("SetValue", (void (TObj_SequenceOfIterator::*)(const Standard_Integer, const opencascade::handle<TObj_ObjectIterator> &)) &TObj_SequenceOfIterator::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_TObj_SequenceOfIterator.def("__iter__", [](const TObj_SequenceOfIterator &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TObj_SequenceOfIterator.hxx
+	bind_NCollection_Sequence<opencascade::handle<TObj_ObjectIterator> >(mod, "TObj_SequenceOfIterator");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TObj_TIntSparseArray.hxx
 	if (py::hasattr(mod, "TObj_TIntSparseArray_MapOfData")) {
 		mod.attr("TObj_TIntSparseArray_VecOfData") = mod.attr("TObj_TIntSparseArray_MapOfData");
 	}
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_SparseArray.hxx
-	py::class_<TObj_TIntSparseArray_MapOfData, std::unique_ptr<TObj_TIntSparseArray_MapOfData, Deleter<TObj_TIntSparseArray_MapOfData>>, NCollection_SparseArrayBase> cls_TObj_TIntSparseArray_MapOfData(mod, "TObj_TIntSparseArray_MapOfData", "Dynamically resizable sparse array of objects");
-	cls_TObj_TIntSparseArray_MapOfData.def(py::init<Standard_Size>(), py::arg("theIncrement"));
-	cls_TObj_TIntSparseArray_MapOfData.def("Assign", (TObj_TIntSparseArray_MapOfData & (TObj_TIntSparseArray_MapOfData::*)(const TObj_TIntSparseArray_MapOfData &)) &TObj_TIntSparseArray_MapOfData::Assign, "Explicit assignment operator", py::arg("theOther"));
-	cls_TObj_TIntSparseArray_MapOfData.def("Exchange", (void (TObj_TIntSparseArray_MapOfData::*)(TObj_TIntSparseArray_MapOfData &)) &TObj_TIntSparseArray_MapOfData::Exchange, "Exchange the data of two arrays; can be used primarily to move contents of theOther into the new array in a fast way (without creation of duplicated data)", py::arg("theOther"));
-	cls_TObj_TIntSparseArray_MapOfData.def("Value", (const Standard_Integer & (TObj_TIntSparseArray_MapOfData::*)(const Standard_Size) const ) &TObj_TIntSparseArray_MapOfData::Value, "Direct const access to the item", py::arg("theIndex"));
-	cls_TObj_TIntSparseArray_MapOfData.def("__call__", (const Standard_Integer & (TObj_TIntSparseArray_MapOfData::*)(const Standard_Size) const ) &TObj_TIntSparseArray_MapOfData::operator(), py::is_operator(), "Const access to the item - operator()", py::arg("theIndex"));
-	cls_TObj_TIntSparseArray_MapOfData.def("ChangeValue", (Standard_Integer & (TObj_TIntSparseArray_MapOfData::*)(const Standard_Size)) &TObj_TIntSparseArray_MapOfData::ChangeValue, "Modification access to the item", py::arg("theIndex"));
-	cls_TObj_TIntSparseArray_MapOfData.def("__call__", (Standard_Integer & (TObj_TIntSparseArray_MapOfData::*)(const Standard_Size)) &TObj_TIntSparseArray_MapOfData::operator(), py::is_operator(), "Access to the item - operator()", py::arg("theIndex"));
-	cls_TObj_TIntSparseArray_MapOfData.def("SetValue", (Standard_Integer & (TObj_TIntSparseArray_MapOfData::*)(const Standard_Size, const Standard_Integer &)) &TObj_TIntSparseArray_MapOfData::SetValue, "Set a value at specified index method", py::arg("theIndex"), py::arg("theValue"));
-	cls_TObj_TIntSparseArray_MapOfData.def("Extent", (Standard_Size (TObj_TIntSparseArray_MapOfData::*)() const ) &TObj_TIntSparseArray_MapOfData::Extent, "Returns number of items in the array");
-	cls_TObj_TIntSparseArray_MapOfData.def("IsEmpty", (Standard_Boolean (TObj_TIntSparseArray_MapOfData::*)() const ) &TObj_TIntSparseArray_MapOfData::IsEmpty, "Returns True if array is empty");
-	cls_TObj_TIntSparseArray_MapOfData.def("Find", (const Standard_Integer & (TObj_TIntSparseArray_MapOfData::*)(const Standard_Size) const ) &TObj_TIntSparseArray_MapOfData::Find, "Direct const access to the item", py::arg("theIndex"));
-	cls_TObj_TIntSparseArray_MapOfData.def("ChangeFind", (Standard_Integer & (TObj_TIntSparseArray_MapOfData::*)(const Standard_Size)) &TObj_TIntSparseArray_MapOfData::ChangeFind, "Modification access to the item", py::arg("theIndex"));
-	cls_TObj_TIntSparseArray_MapOfData.def("Bind", (Standard_Integer & (TObj_TIntSparseArray_MapOfData::*)(const Standard_Size, const Standard_Integer &)) &TObj_TIntSparseArray_MapOfData::Bind, "Set a value as explicit method", py::arg("theIndex"), py::arg("theValue"));
-	cls_TObj_TIntSparseArray_MapOfData.def("IsBound", (Standard_Boolean (TObj_TIntSparseArray_MapOfData::*)(const Standard_Size) const ) &TObj_TIntSparseArray_MapOfData::IsBound, "Returns True if the item is defined", py::arg("theIndex"));
-	cls_TObj_TIntSparseArray_MapOfData.def("UnBind", (Standard_Boolean (TObj_TIntSparseArray_MapOfData::*)(const Standard_Size)) &TObj_TIntSparseArray_MapOfData::UnBind, "Remove the item from array", py::arg("theIndex"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TObj_TIntSparseArray.hxx
+	bind_NCollection_SparseArray<int>(mod, "TObj_TIntSparseArray_MapOfData");
 
 
 }

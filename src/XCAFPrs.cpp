@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_TypeDef.hxx>
 #include <Quantity_Color.hxx>
@@ -31,6 +22,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Graphic3d_MaterialAspect.hxx>
 #include <XCAFPrs_AISObject.hxx>
 #include <XCAFPrs_DataMapOfStyleShape.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(XCAFPrs, mod) {
 
@@ -100,101 +92,26 @@ PYBIND11_MODULE(XCAFPrs, mod) {
 	cls_XCAFPrs_AISObject.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &XCAFPrs_AISObject::get_type_descriptor, "None");
 	cls_XCAFPrs_AISObject.def("DynamicType", (const opencascade::handle<Standard_Type> & (XCAFPrs_AISObject::*)() const ) &XCAFPrs_AISObject::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<XCAFPrs_DataMapOfShapeStyle, std::unique_ptr<XCAFPrs_DataMapOfShapeStyle, Deleter<XCAFPrs_DataMapOfShapeStyle>>, NCollection_BaseMap> cls_XCAFPrs_DataMapOfShapeStyle(mod, "XCAFPrs_DataMapOfShapeStyle", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_XCAFPrs_DataMapOfShapeStyle.def(py::init<>());
-	cls_XCAFPrs_DataMapOfShapeStyle.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_XCAFPrs_DataMapOfShapeStyle.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_XCAFPrs_DataMapOfShapeStyle.def(py::init([] (const XCAFPrs_DataMapOfShapeStyle &other) {return new XCAFPrs_DataMapOfShapeStyle(other);}), "Copy constructor", py::arg("other"));
-	cls_XCAFPrs_DataMapOfShapeStyle.def("begin", (XCAFPrs_DataMapOfShapeStyle::iterator (XCAFPrs_DataMapOfShapeStyle::*)() const ) &XCAFPrs_DataMapOfShapeStyle::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_XCAFPrs_DataMapOfShapeStyle.def("end", (XCAFPrs_DataMapOfShapeStyle::iterator (XCAFPrs_DataMapOfShapeStyle::*)() const ) &XCAFPrs_DataMapOfShapeStyle::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_XCAFPrs_DataMapOfShapeStyle.def("cbegin", (XCAFPrs_DataMapOfShapeStyle::const_iterator (XCAFPrs_DataMapOfShapeStyle::*)() const ) &XCAFPrs_DataMapOfShapeStyle::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_XCAFPrs_DataMapOfShapeStyle.def("cend", (XCAFPrs_DataMapOfShapeStyle::const_iterator (XCAFPrs_DataMapOfShapeStyle::*)() const ) &XCAFPrs_DataMapOfShapeStyle::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_XCAFPrs_DataMapOfShapeStyle.def("Exchange", (void (XCAFPrs_DataMapOfShapeStyle::*)(XCAFPrs_DataMapOfShapeStyle &)) &XCAFPrs_DataMapOfShapeStyle::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_XCAFPrs_DataMapOfShapeStyle.def("Assign", (XCAFPrs_DataMapOfShapeStyle & (XCAFPrs_DataMapOfShapeStyle::*)(const XCAFPrs_DataMapOfShapeStyle &)) &XCAFPrs_DataMapOfShapeStyle::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_XCAFPrs_DataMapOfShapeStyle.def("assign", (XCAFPrs_DataMapOfShapeStyle & (XCAFPrs_DataMapOfShapeStyle::*)(const XCAFPrs_DataMapOfShapeStyle &)) &XCAFPrs_DataMapOfShapeStyle::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_XCAFPrs_DataMapOfShapeStyle.def("ReSize", (void (XCAFPrs_DataMapOfShapeStyle::*)(const Standard_Integer)) &XCAFPrs_DataMapOfShapeStyle::ReSize, "ReSize", py::arg("N"));
-	cls_XCAFPrs_DataMapOfShapeStyle.def("Bind", (Standard_Boolean (XCAFPrs_DataMapOfShapeStyle::*)(const TopoDS_Shape &, const XCAFPrs_Style &)) &XCAFPrs_DataMapOfShapeStyle::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_XCAFPrs_DataMapOfShapeStyle.def("Bound", (XCAFPrs_Style * (XCAFPrs_DataMapOfShapeStyle::*)(const TopoDS_Shape &, const XCAFPrs_Style &)) &XCAFPrs_DataMapOfShapeStyle::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_XCAFPrs_DataMapOfShapeStyle.def("IsBound", (Standard_Boolean (XCAFPrs_DataMapOfShapeStyle::*)(const TopoDS_Shape &) const ) &XCAFPrs_DataMapOfShapeStyle::IsBound, "IsBound", py::arg("theKey"));
-	cls_XCAFPrs_DataMapOfShapeStyle.def("UnBind", (Standard_Boolean (XCAFPrs_DataMapOfShapeStyle::*)(const TopoDS_Shape &)) &XCAFPrs_DataMapOfShapeStyle::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_XCAFPrs_DataMapOfShapeStyle.def("Seek", (const XCAFPrs_Style * (XCAFPrs_DataMapOfShapeStyle::*)(const TopoDS_Shape &) const ) &XCAFPrs_DataMapOfShapeStyle::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_XCAFPrs_DataMapOfShapeStyle.def("Find", (const XCAFPrs_Style & (XCAFPrs_DataMapOfShapeStyle::*)(const TopoDS_Shape &) const ) &XCAFPrs_DataMapOfShapeStyle::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_XCAFPrs_DataMapOfShapeStyle.def("Find", (Standard_Boolean (XCAFPrs_DataMapOfShapeStyle::*)(const TopoDS_Shape &, XCAFPrs_Style &) const ) &XCAFPrs_DataMapOfShapeStyle::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_XCAFPrs_DataMapOfShapeStyle.def("__call__", (const XCAFPrs_Style & (XCAFPrs_DataMapOfShapeStyle::*)(const TopoDS_Shape &) const ) &XCAFPrs_DataMapOfShapeStyle::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_XCAFPrs_DataMapOfShapeStyle.def("ChangeSeek", (XCAFPrs_Style * (XCAFPrs_DataMapOfShapeStyle::*)(const TopoDS_Shape &)) &XCAFPrs_DataMapOfShapeStyle::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_XCAFPrs_DataMapOfShapeStyle.def("ChangeFind", (XCAFPrs_Style & (XCAFPrs_DataMapOfShapeStyle::*)(const TopoDS_Shape &)) &XCAFPrs_DataMapOfShapeStyle::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_XCAFPrs_DataMapOfShapeStyle.def("__call__", (XCAFPrs_Style & (XCAFPrs_DataMapOfShapeStyle::*)(const TopoDS_Shape &)) &XCAFPrs_DataMapOfShapeStyle::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_XCAFPrs_DataMapOfShapeStyle.def("Clear", [](XCAFPrs_DataMapOfShapeStyle &self) -> void { return self.Clear(); });
-	cls_XCAFPrs_DataMapOfShapeStyle.def("Clear", (void (XCAFPrs_DataMapOfShapeStyle::*)(const Standard_Boolean)) &XCAFPrs_DataMapOfShapeStyle::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_XCAFPrs_DataMapOfShapeStyle.def("Clear", (void (XCAFPrs_DataMapOfShapeStyle::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &XCAFPrs_DataMapOfShapeStyle::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_XCAFPrs_DataMapOfShapeStyle.def("Size", (Standard_Integer (XCAFPrs_DataMapOfShapeStyle::*)() const ) &XCAFPrs_DataMapOfShapeStyle::Size, "Size");
-	cls_XCAFPrs_DataMapOfShapeStyle.def("__iter__", [](const XCAFPrs_DataMapOfShapeStyle &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\XCAFPrs_DataMapOfShapeStyle.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<XCAFPrs_DataMapOfStyleTransient, std::unique_ptr<XCAFPrs_DataMapOfStyleTransient, Deleter<XCAFPrs_DataMapOfStyleTransient>>, NCollection_BaseMap> cls_XCAFPrs_DataMapOfStyleTransient(mod, "XCAFPrs_DataMapOfStyleTransient", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_XCAFPrs_DataMapOfStyleTransient.def(py::init<>());
-	cls_XCAFPrs_DataMapOfStyleTransient.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_XCAFPrs_DataMapOfStyleTransient.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_XCAFPrs_DataMapOfStyleTransient.def(py::init([] (const XCAFPrs_DataMapOfStyleTransient &other) {return new XCAFPrs_DataMapOfStyleTransient(other);}), "Copy constructor", py::arg("other"));
-	cls_XCAFPrs_DataMapOfStyleTransient.def("begin", (XCAFPrs_DataMapOfStyleTransient::iterator (XCAFPrs_DataMapOfStyleTransient::*)() const ) &XCAFPrs_DataMapOfStyleTransient::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_XCAFPrs_DataMapOfStyleTransient.def("end", (XCAFPrs_DataMapOfStyleTransient::iterator (XCAFPrs_DataMapOfStyleTransient::*)() const ) &XCAFPrs_DataMapOfStyleTransient::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_XCAFPrs_DataMapOfStyleTransient.def("cbegin", (XCAFPrs_DataMapOfStyleTransient::const_iterator (XCAFPrs_DataMapOfStyleTransient::*)() const ) &XCAFPrs_DataMapOfStyleTransient::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_XCAFPrs_DataMapOfStyleTransient.def("cend", (XCAFPrs_DataMapOfStyleTransient::const_iterator (XCAFPrs_DataMapOfStyleTransient::*)() const ) &XCAFPrs_DataMapOfStyleTransient::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_XCAFPrs_DataMapOfStyleTransient.def("Exchange", (void (XCAFPrs_DataMapOfStyleTransient::*)(XCAFPrs_DataMapOfStyleTransient &)) &XCAFPrs_DataMapOfStyleTransient::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_XCAFPrs_DataMapOfStyleTransient.def("Assign", (XCAFPrs_DataMapOfStyleTransient & (XCAFPrs_DataMapOfStyleTransient::*)(const XCAFPrs_DataMapOfStyleTransient &)) &XCAFPrs_DataMapOfStyleTransient::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_XCAFPrs_DataMapOfStyleTransient.def("assign", (XCAFPrs_DataMapOfStyleTransient & (XCAFPrs_DataMapOfStyleTransient::*)(const XCAFPrs_DataMapOfStyleTransient &)) &XCAFPrs_DataMapOfStyleTransient::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_XCAFPrs_DataMapOfStyleTransient.def("ReSize", (void (XCAFPrs_DataMapOfStyleTransient::*)(const Standard_Integer)) &XCAFPrs_DataMapOfStyleTransient::ReSize, "ReSize", py::arg("N"));
-	cls_XCAFPrs_DataMapOfStyleTransient.def("Bind", (Standard_Boolean (XCAFPrs_DataMapOfStyleTransient::*)(const XCAFPrs_Style &, const opencascade::handle<Standard_Transient> &)) &XCAFPrs_DataMapOfStyleTransient::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_XCAFPrs_DataMapOfStyleTransient.def("Bound", (opencascade::handle<Standard_Transient> * (XCAFPrs_DataMapOfStyleTransient::*)(const XCAFPrs_Style &, const opencascade::handle<Standard_Transient> &)) &XCAFPrs_DataMapOfStyleTransient::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_XCAFPrs_DataMapOfStyleTransient.def("IsBound", (Standard_Boolean (XCAFPrs_DataMapOfStyleTransient::*)(const XCAFPrs_Style &) const ) &XCAFPrs_DataMapOfStyleTransient::IsBound, "IsBound", py::arg("theKey"));
-	cls_XCAFPrs_DataMapOfStyleTransient.def("UnBind", (Standard_Boolean (XCAFPrs_DataMapOfStyleTransient::*)(const XCAFPrs_Style &)) &XCAFPrs_DataMapOfStyleTransient::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_XCAFPrs_DataMapOfStyleTransient.def("Seek", (const opencascade::handle<Standard_Transient> * (XCAFPrs_DataMapOfStyleTransient::*)(const XCAFPrs_Style &) const ) &XCAFPrs_DataMapOfStyleTransient::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_XCAFPrs_DataMapOfStyleTransient.def("Find", (const opencascade::handle<Standard_Transient> & (XCAFPrs_DataMapOfStyleTransient::*)(const XCAFPrs_Style &) const ) &XCAFPrs_DataMapOfStyleTransient::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_XCAFPrs_DataMapOfStyleTransient.def("Find", (Standard_Boolean (XCAFPrs_DataMapOfStyleTransient::*)(const XCAFPrs_Style &, opencascade::handle<Standard_Transient> &) const ) &XCAFPrs_DataMapOfStyleTransient::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_XCAFPrs_DataMapOfStyleTransient.def("__call__", (const opencascade::handle<Standard_Transient> & (XCAFPrs_DataMapOfStyleTransient::*)(const XCAFPrs_Style &) const ) &XCAFPrs_DataMapOfStyleTransient::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_XCAFPrs_DataMapOfStyleTransient.def("ChangeSeek", (opencascade::handle<Standard_Transient> * (XCAFPrs_DataMapOfStyleTransient::*)(const XCAFPrs_Style &)) &XCAFPrs_DataMapOfStyleTransient::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_XCAFPrs_DataMapOfStyleTransient.def("ChangeFind", (opencascade::handle<Standard_Transient> & (XCAFPrs_DataMapOfStyleTransient::*)(const XCAFPrs_Style &)) &XCAFPrs_DataMapOfStyleTransient::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_XCAFPrs_DataMapOfStyleTransient.def("__call__", (opencascade::handle<Standard_Transient> & (XCAFPrs_DataMapOfStyleTransient::*)(const XCAFPrs_Style &)) &XCAFPrs_DataMapOfStyleTransient::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_XCAFPrs_DataMapOfStyleTransient.def("Clear", [](XCAFPrs_DataMapOfStyleTransient &self) -> void { return self.Clear(); });
-	cls_XCAFPrs_DataMapOfStyleTransient.def("Clear", (void (XCAFPrs_DataMapOfStyleTransient::*)(const Standard_Boolean)) &XCAFPrs_DataMapOfStyleTransient::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_XCAFPrs_DataMapOfStyleTransient.def("Clear", (void (XCAFPrs_DataMapOfStyleTransient::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &XCAFPrs_DataMapOfStyleTransient::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_XCAFPrs_DataMapOfStyleTransient.def("Size", (Standard_Integer (XCAFPrs_DataMapOfStyleTransient::*)() const ) &XCAFPrs_DataMapOfStyleTransient::Size, "Size");
-	cls_XCAFPrs_DataMapOfStyleTransient.def("__iter__", [](const XCAFPrs_DataMapOfStyleTransient &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TopoDS_Shape, XCAFPrs_Style, TopTools_ShapeMapHasher>(mod, "XCAFPrs_DataMapOfShapeStyle");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\XCAFPrs_DataMapOfStyleTransient.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<XCAFPrs_DataMapOfStyleShape, std::unique_ptr<XCAFPrs_DataMapOfStyleShape, Deleter<XCAFPrs_DataMapOfStyleShape>>, NCollection_BaseMap> cls_XCAFPrs_DataMapOfStyleShape(mod, "XCAFPrs_DataMapOfStyleShape", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_XCAFPrs_DataMapOfStyleShape.def(py::init<>());
-	cls_XCAFPrs_DataMapOfStyleShape.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_XCAFPrs_DataMapOfStyleShape.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_XCAFPrs_DataMapOfStyleShape.def(py::init([] (const XCAFPrs_DataMapOfStyleShape &other) {return new XCAFPrs_DataMapOfStyleShape(other);}), "Copy constructor", py::arg("other"));
-	cls_XCAFPrs_DataMapOfStyleShape.def("begin", (XCAFPrs_DataMapOfStyleShape::iterator (XCAFPrs_DataMapOfStyleShape::*)() const ) &XCAFPrs_DataMapOfStyleShape::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_XCAFPrs_DataMapOfStyleShape.def("end", (XCAFPrs_DataMapOfStyleShape::iterator (XCAFPrs_DataMapOfStyleShape::*)() const ) &XCAFPrs_DataMapOfStyleShape::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_XCAFPrs_DataMapOfStyleShape.def("cbegin", (XCAFPrs_DataMapOfStyleShape::const_iterator (XCAFPrs_DataMapOfStyleShape::*)() const ) &XCAFPrs_DataMapOfStyleShape::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_XCAFPrs_DataMapOfStyleShape.def("cend", (XCAFPrs_DataMapOfStyleShape::const_iterator (XCAFPrs_DataMapOfStyleShape::*)() const ) &XCAFPrs_DataMapOfStyleShape::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_XCAFPrs_DataMapOfStyleShape.def("Exchange", (void (XCAFPrs_DataMapOfStyleShape::*)(XCAFPrs_DataMapOfStyleShape &)) &XCAFPrs_DataMapOfStyleShape::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_XCAFPrs_DataMapOfStyleShape.def("Assign", (XCAFPrs_DataMapOfStyleShape & (XCAFPrs_DataMapOfStyleShape::*)(const XCAFPrs_DataMapOfStyleShape &)) &XCAFPrs_DataMapOfStyleShape::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_XCAFPrs_DataMapOfStyleShape.def("assign", (XCAFPrs_DataMapOfStyleShape & (XCAFPrs_DataMapOfStyleShape::*)(const XCAFPrs_DataMapOfStyleShape &)) &XCAFPrs_DataMapOfStyleShape::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_XCAFPrs_DataMapOfStyleShape.def("ReSize", (void (XCAFPrs_DataMapOfStyleShape::*)(const Standard_Integer)) &XCAFPrs_DataMapOfStyleShape::ReSize, "ReSize", py::arg("N"));
-	cls_XCAFPrs_DataMapOfStyleShape.def("Bind", (Standard_Boolean (XCAFPrs_DataMapOfStyleShape::*)(const XCAFPrs_Style &, const TopoDS_Shape &)) &XCAFPrs_DataMapOfStyleShape::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_XCAFPrs_DataMapOfStyleShape.def("Bound", (TopoDS_Shape * (XCAFPrs_DataMapOfStyleShape::*)(const XCAFPrs_Style &, const TopoDS_Shape &)) &XCAFPrs_DataMapOfStyleShape::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_XCAFPrs_DataMapOfStyleShape.def("IsBound", (Standard_Boolean (XCAFPrs_DataMapOfStyleShape::*)(const XCAFPrs_Style &) const ) &XCAFPrs_DataMapOfStyleShape::IsBound, "IsBound", py::arg("theKey"));
-	cls_XCAFPrs_DataMapOfStyleShape.def("UnBind", (Standard_Boolean (XCAFPrs_DataMapOfStyleShape::*)(const XCAFPrs_Style &)) &XCAFPrs_DataMapOfStyleShape::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_XCAFPrs_DataMapOfStyleShape.def("Seek", (const TopoDS_Shape * (XCAFPrs_DataMapOfStyleShape::*)(const XCAFPrs_Style &) const ) &XCAFPrs_DataMapOfStyleShape::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_XCAFPrs_DataMapOfStyleShape.def("Find", (const TopoDS_Shape & (XCAFPrs_DataMapOfStyleShape::*)(const XCAFPrs_Style &) const ) &XCAFPrs_DataMapOfStyleShape::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_XCAFPrs_DataMapOfStyleShape.def("Find", (Standard_Boolean (XCAFPrs_DataMapOfStyleShape::*)(const XCAFPrs_Style &, TopoDS_Shape &) const ) &XCAFPrs_DataMapOfStyleShape::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_XCAFPrs_DataMapOfStyleShape.def("__call__", (const TopoDS_Shape & (XCAFPrs_DataMapOfStyleShape::*)(const XCAFPrs_Style &) const ) &XCAFPrs_DataMapOfStyleShape::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_XCAFPrs_DataMapOfStyleShape.def("ChangeSeek", (TopoDS_Shape * (XCAFPrs_DataMapOfStyleShape::*)(const XCAFPrs_Style &)) &XCAFPrs_DataMapOfStyleShape::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_XCAFPrs_DataMapOfStyleShape.def("ChangeFind", (TopoDS_Shape & (XCAFPrs_DataMapOfStyleShape::*)(const XCAFPrs_Style &)) &XCAFPrs_DataMapOfStyleShape::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_XCAFPrs_DataMapOfStyleShape.def("__call__", (TopoDS_Shape & (XCAFPrs_DataMapOfStyleShape::*)(const XCAFPrs_Style &)) &XCAFPrs_DataMapOfStyleShape::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_XCAFPrs_DataMapOfStyleShape.def("Clear", [](XCAFPrs_DataMapOfStyleShape &self) -> void { return self.Clear(); });
-	cls_XCAFPrs_DataMapOfStyleShape.def("Clear", (void (XCAFPrs_DataMapOfStyleShape::*)(const Standard_Boolean)) &XCAFPrs_DataMapOfStyleShape::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_XCAFPrs_DataMapOfStyleShape.def("Clear", (void (XCAFPrs_DataMapOfStyleShape::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &XCAFPrs_DataMapOfStyleShape::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_XCAFPrs_DataMapOfStyleShape.def("Size", (Standard_Integer (XCAFPrs_DataMapOfStyleShape::*)() const ) &XCAFPrs_DataMapOfStyleShape::Size, "Size");
-	cls_XCAFPrs_DataMapOfStyleShape.def("__iter__", [](const XCAFPrs_DataMapOfStyleShape &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<XCAFPrs_Style, opencascade::handle<Standard_Transient>, XCAFPrs_Style>(mod, "XCAFPrs_DataMapOfStyleTransient");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\XCAFPrs_DataMapOfStyleShape.hxx
+	bind_NCollection_DataMap<XCAFPrs_Style, TopoDS_Shape, XCAFPrs_Style>(mod, "XCAFPrs_DataMapOfStyleShape");
+
+	/* FIXME
+
+	*/
+
 
 }

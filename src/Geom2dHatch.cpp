@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Geom2dHatch_Intersector.hxx>
 #include <Standard_TypeDef.hxx>
@@ -35,6 +26,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Geom2dHatch_MapOfElements.hxx>
 #include <Geom2dHatch_Hatching.hxx>
 #include <Geom2dHatch_Hatchings.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Geom2dHatch, mod) {
 
@@ -201,69 +193,19 @@ PYBIND11_MODULE(Geom2dHatch, mod) {
 	cls_Geom2dHatch_Hatching.def("ClrDomains", (void (Geom2dHatch_Hatching::*)()) &Geom2dHatch_Hatching::ClrDomains, "Removes all the domains of the hatching.");
 	cls_Geom2dHatch_Hatching.def("ClassificationPoint", (gp_Pnt2d (Geom2dHatch_Hatching::*)() const ) &Geom2dHatch_Hatching::ClassificationPoint, "Returns a point on the curve. This point will be used for the classification.");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<Geom2dHatch_MapOfElements, std::unique_ptr<Geom2dHatch_MapOfElements, Deleter<Geom2dHatch_MapOfElements>>, NCollection_BaseMap> cls_Geom2dHatch_MapOfElements(mod, "Geom2dHatch_MapOfElements", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_Geom2dHatch_MapOfElements.def(py::init<>());
-	cls_Geom2dHatch_MapOfElements.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_Geom2dHatch_MapOfElements.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_Geom2dHatch_MapOfElements.def(py::init([] (const Geom2dHatch_MapOfElements &other) {return new Geom2dHatch_MapOfElements(other);}), "Copy constructor", py::arg("other"));
-	cls_Geom2dHatch_MapOfElements.def("begin", (Geom2dHatch_MapOfElements::iterator (Geom2dHatch_MapOfElements::*)() const ) &Geom2dHatch_MapOfElements::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_Geom2dHatch_MapOfElements.def("end", (Geom2dHatch_MapOfElements::iterator (Geom2dHatch_MapOfElements::*)() const ) &Geom2dHatch_MapOfElements::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_Geom2dHatch_MapOfElements.def("cbegin", (Geom2dHatch_MapOfElements::const_iterator (Geom2dHatch_MapOfElements::*)() const ) &Geom2dHatch_MapOfElements::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_Geom2dHatch_MapOfElements.def("cend", (Geom2dHatch_MapOfElements::const_iterator (Geom2dHatch_MapOfElements::*)() const ) &Geom2dHatch_MapOfElements::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_Geom2dHatch_MapOfElements.def("Exchange", (void (Geom2dHatch_MapOfElements::*)(Geom2dHatch_MapOfElements &)) &Geom2dHatch_MapOfElements::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_Geom2dHatch_MapOfElements.def("Assign", (Geom2dHatch_MapOfElements & (Geom2dHatch_MapOfElements::*)(const Geom2dHatch_MapOfElements &)) &Geom2dHatch_MapOfElements::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Geom2dHatch_MapOfElements.def("assign", (Geom2dHatch_MapOfElements & (Geom2dHatch_MapOfElements::*)(const Geom2dHatch_MapOfElements &)) &Geom2dHatch_MapOfElements::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Geom2dHatch_MapOfElements.def("ReSize", (void (Geom2dHatch_MapOfElements::*)(const Standard_Integer)) &Geom2dHatch_MapOfElements::ReSize, "ReSize", py::arg("N"));
-	cls_Geom2dHatch_MapOfElements.def("Bind", (Standard_Boolean (Geom2dHatch_MapOfElements::*)(const Standard_Integer &, const Geom2dHatch_Element &)) &Geom2dHatch_MapOfElements::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_Geom2dHatch_MapOfElements.def("Bound", (Geom2dHatch_Element * (Geom2dHatch_MapOfElements::*)(const Standard_Integer &, const Geom2dHatch_Element &)) &Geom2dHatch_MapOfElements::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_Geom2dHatch_MapOfElements.def("IsBound", (Standard_Boolean (Geom2dHatch_MapOfElements::*)(const Standard_Integer &) const ) &Geom2dHatch_MapOfElements::IsBound, "IsBound", py::arg("theKey"));
-	cls_Geom2dHatch_MapOfElements.def("UnBind", (Standard_Boolean (Geom2dHatch_MapOfElements::*)(const Standard_Integer &)) &Geom2dHatch_MapOfElements::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_Geom2dHatch_MapOfElements.def("Seek", (const Geom2dHatch_Element * (Geom2dHatch_MapOfElements::*)(const Standard_Integer &) const ) &Geom2dHatch_MapOfElements::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_Geom2dHatch_MapOfElements.def("Find", (const Geom2dHatch_Element & (Geom2dHatch_MapOfElements::*)(const Standard_Integer &) const ) &Geom2dHatch_MapOfElements::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_Geom2dHatch_MapOfElements.def("Find", (Standard_Boolean (Geom2dHatch_MapOfElements::*)(const Standard_Integer &, Geom2dHatch_Element &) const ) &Geom2dHatch_MapOfElements::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_Geom2dHatch_MapOfElements.def("__call__", (const Geom2dHatch_Element & (Geom2dHatch_MapOfElements::*)(const Standard_Integer &) const ) &Geom2dHatch_MapOfElements::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_Geom2dHatch_MapOfElements.def("ChangeSeek", (Geom2dHatch_Element * (Geom2dHatch_MapOfElements::*)(const Standard_Integer &)) &Geom2dHatch_MapOfElements::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_Geom2dHatch_MapOfElements.def("ChangeFind", (Geom2dHatch_Element & (Geom2dHatch_MapOfElements::*)(const Standard_Integer &)) &Geom2dHatch_MapOfElements::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_Geom2dHatch_MapOfElements.def("__call__", (Geom2dHatch_Element & (Geom2dHatch_MapOfElements::*)(const Standard_Integer &)) &Geom2dHatch_MapOfElements::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_Geom2dHatch_MapOfElements.def("Clear", [](Geom2dHatch_MapOfElements &self) -> void { return self.Clear(); });
-	cls_Geom2dHatch_MapOfElements.def("Clear", (void (Geom2dHatch_MapOfElements::*)(const Standard_Boolean)) &Geom2dHatch_MapOfElements::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_Geom2dHatch_MapOfElements.def("Clear", (void (Geom2dHatch_MapOfElements::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Geom2dHatch_MapOfElements::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_Geom2dHatch_MapOfElements.def("Size", (Standard_Integer (Geom2dHatch_MapOfElements::*)() const ) &Geom2dHatch_MapOfElements::Size, "Size");
-	cls_Geom2dHatch_MapOfElements.def("__iter__", [](const Geom2dHatch_MapOfElements &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Geom2dHatch_MapOfElements.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<Geom2dHatch_Hatchings, std::unique_ptr<Geom2dHatch_Hatchings, Deleter<Geom2dHatch_Hatchings>>, NCollection_BaseMap> cls_Geom2dHatch_Hatchings(mod, "Geom2dHatch_Hatchings", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_Geom2dHatch_Hatchings.def(py::init<>());
-	cls_Geom2dHatch_Hatchings.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_Geom2dHatch_Hatchings.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_Geom2dHatch_Hatchings.def(py::init([] (const Geom2dHatch_Hatchings &other) {return new Geom2dHatch_Hatchings(other);}), "Copy constructor", py::arg("other"));
-	cls_Geom2dHatch_Hatchings.def("begin", (Geom2dHatch_Hatchings::iterator (Geom2dHatch_Hatchings::*)() const ) &Geom2dHatch_Hatchings::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_Geom2dHatch_Hatchings.def("end", (Geom2dHatch_Hatchings::iterator (Geom2dHatch_Hatchings::*)() const ) &Geom2dHatch_Hatchings::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_Geom2dHatch_Hatchings.def("cbegin", (Geom2dHatch_Hatchings::const_iterator (Geom2dHatch_Hatchings::*)() const ) &Geom2dHatch_Hatchings::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_Geom2dHatch_Hatchings.def("cend", (Geom2dHatch_Hatchings::const_iterator (Geom2dHatch_Hatchings::*)() const ) &Geom2dHatch_Hatchings::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_Geom2dHatch_Hatchings.def("Exchange", (void (Geom2dHatch_Hatchings::*)(Geom2dHatch_Hatchings &)) &Geom2dHatch_Hatchings::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_Geom2dHatch_Hatchings.def("Assign", (Geom2dHatch_Hatchings & (Geom2dHatch_Hatchings::*)(const Geom2dHatch_Hatchings &)) &Geom2dHatch_Hatchings::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Geom2dHatch_Hatchings.def("assign", (Geom2dHatch_Hatchings & (Geom2dHatch_Hatchings::*)(const Geom2dHatch_Hatchings &)) &Geom2dHatch_Hatchings::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Geom2dHatch_Hatchings.def("ReSize", (void (Geom2dHatch_Hatchings::*)(const Standard_Integer)) &Geom2dHatch_Hatchings::ReSize, "ReSize", py::arg("N"));
-	cls_Geom2dHatch_Hatchings.def("Bind", (Standard_Boolean (Geom2dHatch_Hatchings::*)(const Standard_Integer &, const Geom2dHatch_Hatching &)) &Geom2dHatch_Hatchings::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_Geom2dHatch_Hatchings.def("Bound", (Geom2dHatch_Hatching * (Geom2dHatch_Hatchings::*)(const Standard_Integer &, const Geom2dHatch_Hatching &)) &Geom2dHatch_Hatchings::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_Geom2dHatch_Hatchings.def("IsBound", (Standard_Boolean (Geom2dHatch_Hatchings::*)(const Standard_Integer &) const ) &Geom2dHatch_Hatchings::IsBound, "IsBound", py::arg("theKey"));
-	cls_Geom2dHatch_Hatchings.def("UnBind", (Standard_Boolean (Geom2dHatch_Hatchings::*)(const Standard_Integer &)) &Geom2dHatch_Hatchings::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_Geom2dHatch_Hatchings.def("Seek", (const Geom2dHatch_Hatching * (Geom2dHatch_Hatchings::*)(const Standard_Integer &) const ) &Geom2dHatch_Hatchings::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_Geom2dHatch_Hatchings.def("Find", (const Geom2dHatch_Hatching & (Geom2dHatch_Hatchings::*)(const Standard_Integer &) const ) &Geom2dHatch_Hatchings::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_Geom2dHatch_Hatchings.def("Find", (Standard_Boolean (Geom2dHatch_Hatchings::*)(const Standard_Integer &, Geom2dHatch_Hatching &) const ) &Geom2dHatch_Hatchings::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_Geom2dHatch_Hatchings.def("__call__", (const Geom2dHatch_Hatching & (Geom2dHatch_Hatchings::*)(const Standard_Integer &) const ) &Geom2dHatch_Hatchings::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_Geom2dHatch_Hatchings.def("ChangeSeek", (Geom2dHatch_Hatching * (Geom2dHatch_Hatchings::*)(const Standard_Integer &)) &Geom2dHatch_Hatchings::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_Geom2dHatch_Hatchings.def("ChangeFind", (Geom2dHatch_Hatching & (Geom2dHatch_Hatchings::*)(const Standard_Integer &)) &Geom2dHatch_Hatchings::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_Geom2dHatch_Hatchings.def("__call__", (Geom2dHatch_Hatching & (Geom2dHatch_Hatchings::*)(const Standard_Integer &)) &Geom2dHatch_Hatchings::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_Geom2dHatch_Hatchings.def("Clear", [](Geom2dHatch_Hatchings &self) -> void { return self.Clear(); });
-	cls_Geom2dHatch_Hatchings.def("Clear", (void (Geom2dHatch_Hatchings::*)(const Standard_Boolean)) &Geom2dHatch_Hatchings::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_Geom2dHatch_Hatchings.def("Clear", (void (Geom2dHatch_Hatchings::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Geom2dHatch_Hatchings::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_Geom2dHatch_Hatchings.def("Size", (Standard_Integer (Geom2dHatch_Hatchings::*)() const ) &Geom2dHatch_Hatchings::Size, "Size");
-	cls_Geom2dHatch_Hatchings.def("__iter__", [](const Geom2dHatch_Hatchings &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<int, Geom2dHatch_Element, NCollection_DefaultHasher<int> >(mod, "Geom2dHatch_MapOfElements");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Geom2dHatch_Hatchings.hxx
+	bind_NCollection_DataMap<int, Geom2dHatch_Hatching, NCollection_DefaultHasher<int> >(mod, "Geom2dHatch_Hatchings");
+
+	/* FIXME
+
+	*/
+
 
 }

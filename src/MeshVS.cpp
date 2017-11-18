@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_TypeDef.hxx>
 #include <NCollection_Array1.hxx>
@@ -114,6 +105,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <MeshVS_Tool.hxx>
 #include <gp_Trsf.hxx>
 #include <MeshVS_VectorPrsBuilder.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(MeshVS, mod) {
 
@@ -226,40 +218,8 @@ PYBIND11_MODULE(MeshVS, mod) {
 	py::class_<MeshVS_Buffer, std::unique_ptr<MeshVS_Buffer, Deleter<MeshVS_Buffer>>> cls_MeshVS_Buffer(mod, "MeshVS_Buffer", "None");
 	cls_MeshVS_Buffer.def(py::init<const Standard_Size>(), py::arg("theSize"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<MeshVS_Array1OfSequenceOfInteger, std::unique_ptr<MeshVS_Array1OfSequenceOfInteger, Deleter<MeshVS_Array1OfSequenceOfInteger>>> cls_MeshVS_Array1OfSequenceOfInteger(mod, "MeshVS_Array1OfSequenceOfInteger", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_MeshVS_Array1OfSequenceOfInteger.def(py::init<>());
-	cls_MeshVS_Array1OfSequenceOfInteger.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_MeshVS_Array1OfSequenceOfInteger.def(py::init([] (const MeshVS_Array1OfSequenceOfInteger &other) {return new MeshVS_Array1OfSequenceOfInteger(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_MeshVS_Array1OfSequenceOfInteger.def(py::init<MeshVS_Array1OfSequenceOfInteger &&>(), py::arg("theOther"));
-	cls_MeshVS_Array1OfSequenceOfInteger.def(py::init<const TColStd_SequenceOfInteger &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_MeshVS_Array1OfSequenceOfInteger.def("begin", (MeshVS_Array1OfSequenceOfInteger::iterator (MeshVS_Array1OfSequenceOfInteger::*)() const ) &MeshVS_Array1OfSequenceOfInteger::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_MeshVS_Array1OfSequenceOfInteger.def("end", (MeshVS_Array1OfSequenceOfInteger::iterator (MeshVS_Array1OfSequenceOfInteger::*)() const ) &MeshVS_Array1OfSequenceOfInteger::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_MeshVS_Array1OfSequenceOfInteger.def("cbegin", (MeshVS_Array1OfSequenceOfInteger::const_iterator (MeshVS_Array1OfSequenceOfInteger::*)() const ) &MeshVS_Array1OfSequenceOfInteger::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_MeshVS_Array1OfSequenceOfInteger.def("cend", (MeshVS_Array1OfSequenceOfInteger::const_iterator (MeshVS_Array1OfSequenceOfInteger::*)() const ) &MeshVS_Array1OfSequenceOfInteger::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_MeshVS_Array1OfSequenceOfInteger.def("Init", (void (MeshVS_Array1OfSequenceOfInteger::*)(const TColStd_SequenceOfInteger &)) &MeshVS_Array1OfSequenceOfInteger::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_MeshVS_Array1OfSequenceOfInteger.def("Size", (Standard_Integer (MeshVS_Array1OfSequenceOfInteger::*)() const ) &MeshVS_Array1OfSequenceOfInteger::Size, "Size query");
-	cls_MeshVS_Array1OfSequenceOfInteger.def("Length", (Standard_Integer (MeshVS_Array1OfSequenceOfInteger::*)() const ) &MeshVS_Array1OfSequenceOfInteger::Length, "Length query (the same)");
-	cls_MeshVS_Array1OfSequenceOfInteger.def("IsEmpty", (Standard_Boolean (MeshVS_Array1OfSequenceOfInteger::*)() const ) &MeshVS_Array1OfSequenceOfInteger::IsEmpty, "Return TRUE if array has zero length.");
-	cls_MeshVS_Array1OfSequenceOfInteger.def("Lower", (Standard_Integer (MeshVS_Array1OfSequenceOfInteger::*)() const ) &MeshVS_Array1OfSequenceOfInteger::Lower, "Lower bound");
-	cls_MeshVS_Array1OfSequenceOfInteger.def("Upper", (Standard_Integer (MeshVS_Array1OfSequenceOfInteger::*)() const ) &MeshVS_Array1OfSequenceOfInteger::Upper, "Upper bound");
-	cls_MeshVS_Array1OfSequenceOfInteger.def("IsDeletable", (Standard_Boolean (MeshVS_Array1OfSequenceOfInteger::*)() const ) &MeshVS_Array1OfSequenceOfInteger::IsDeletable, "myDeletable flag");
-	cls_MeshVS_Array1OfSequenceOfInteger.def("IsAllocated", (Standard_Boolean (MeshVS_Array1OfSequenceOfInteger::*)() const ) &MeshVS_Array1OfSequenceOfInteger::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_MeshVS_Array1OfSequenceOfInteger.def("Assign", (MeshVS_Array1OfSequenceOfInteger & (MeshVS_Array1OfSequenceOfInteger::*)(const MeshVS_Array1OfSequenceOfInteger &)) &MeshVS_Array1OfSequenceOfInteger::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_MeshVS_Array1OfSequenceOfInteger.def("Move", (MeshVS_Array1OfSequenceOfInteger & (MeshVS_Array1OfSequenceOfInteger::*)(MeshVS_Array1OfSequenceOfInteger &&)) &MeshVS_Array1OfSequenceOfInteger::Move, "Move assignment", py::arg("theOther"));
-	cls_MeshVS_Array1OfSequenceOfInteger.def("assign", (MeshVS_Array1OfSequenceOfInteger & (MeshVS_Array1OfSequenceOfInteger::*)(const MeshVS_Array1OfSequenceOfInteger &)) &MeshVS_Array1OfSequenceOfInteger::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_MeshVS_Array1OfSequenceOfInteger.def("assign", (MeshVS_Array1OfSequenceOfInteger & (MeshVS_Array1OfSequenceOfInteger::*)(MeshVS_Array1OfSequenceOfInteger &&)) &MeshVS_Array1OfSequenceOfInteger::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_MeshVS_Array1OfSequenceOfInteger.def("First", (const TColStd_SequenceOfInteger & (MeshVS_Array1OfSequenceOfInteger::*)() const ) &MeshVS_Array1OfSequenceOfInteger::First, "Returns first element");
-	cls_MeshVS_Array1OfSequenceOfInteger.def("ChangeFirst", (TColStd_SequenceOfInteger & (MeshVS_Array1OfSequenceOfInteger::*)()) &MeshVS_Array1OfSequenceOfInteger::ChangeFirst, "Returns first element");
-	cls_MeshVS_Array1OfSequenceOfInteger.def("Last", (const TColStd_SequenceOfInteger & (MeshVS_Array1OfSequenceOfInteger::*)() const ) &MeshVS_Array1OfSequenceOfInteger::Last, "Returns last element");
-	cls_MeshVS_Array1OfSequenceOfInteger.def("ChangeLast", (TColStd_SequenceOfInteger & (MeshVS_Array1OfSequenceOfInteger::*)()) &MeshVS_Array1OfSequenceOfInteger::ChangeLast, "Returns last element");
-	cls_MeshVS_Array1OfSequenceOfInteger.def("Value", (const TColStd_SequenceOfInteger & (MeshVS_Array1OfSequenceOfInteger::*)(const Standard_Integer) const ) &MeshVS_Array1OfSequenceOfInteger::Value, "Constant value access", py::arg("theIndex"));
-	cls_MeshVS_Array1OfSequenceOfInteger.def("__call__", (const TColStd_SequenceOfInteger & (MeshVS_Array1OfSequenceOfInteger::*)(const Standard_Integer) const ) &MeshVS_Array1OfSequenceOfInteger::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_MeshVS_Array1OfSequenceOfInteger.def("ChangeValue", (TColStd_SequenceOfInteger & (MeshVS_Array1OfSequenceOfInteger::*)(const Standard_Integer)) &MeshVS_Array1OfSequenceOfInteger::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_MeshVS_Array1OfSequenceOfInteger.def("__call__", (TColStd_SequenceOfInteger & (MeshVS_Array1OfSequenceOfInteger::*)(const Standard_Integer)) &MeshVS_Array1OfSequenceOfInteger::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_MeshVS_Array1OfSequenceOfInteger.def("SetValue", (void (MeshVS_Array1OfSequenceOfInteger::*)(const Standard_Integer, const TColStd_SequenceOfInteger &)) &MeshVS_Array1OfSequenceOfInteger::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_MeshVS_Array1OfSequenceOfInteger.def("Resize", (void (MeshVS_Array1OfSequenceOfInteger::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &MeshVS_Array1OfSequenceOfInteger::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_MeshVS_Array1OfSequenceOfInteger.def("__iter__", [](const MeshVS_Array1OfSequenceOfInteger &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_Array1OfSequenceOfInteger.hxx
+	bind_NCollection_Array1<NCollection_Sequence<int> >(mod, "MeshVS_Array1OfSequenceOfInteger");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_Mesh.hxx
 	py::class_<MeshVS_Mesh, opencascade::handle<MeshVS_Mesh>, AIS_InteractiveObject> cls_MeshVS_Mesh(mod, "MeshVS_Mesh", "the main class provides interface to create mesh presentation as a whole");
@@ -686,6 +646,7 @@ PYBIND11_MODULE(MeshVS, mod) {
 	cls_MeshVS_HArray1OfSequenceOfInteger.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &MeshVS_HArray1OfSequenceOfInteger::get_type_descriptor, "None");
 	cls_MeshVS_HArray1OfSequenceOfInteger.def("DynamicType", (const opencascade::handle<Standard_Type> & (MeshVS_HArray1OfSequenceOfInteger::*)() const ) &MeshVS_HArray1OfSequenceOfInteger::DynamicType, "None");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_BuilderPriority.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "integer")) {
 		mod.attr("MeshVS_BuilderPriority") = other_mod.attr("integer");
@@ -694,497 +655,114 @@ PYBIND11_MODULE(MeshVS, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_ColorHasher.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_EntityType.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_MeshPtr.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_DisplayModeFlags.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "integer")) {
 		mod.attr("MeshVS_DisplayModeFlags") = other_mod.attr("integer");
 	}
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<MeshVS_SequenceOfPrsBuilder, std::unique_ptr<MeshVS_SequenceOfPrsBuilder, Deleter<MeshVS_SequenceOfPrsBuilder>>, NCollection_BaseSequence> cls_MeshVS_SequenceOfPrsBuilder(mod, "MeshVS_SequenceOfPrsBuilder", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_MeshVS_SequenceOfPrsBuilder.def(py::init<>());
-	cls_MeshVS_SequenceOfPrsBuilder.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_MeshVS_SequenceOfPrsBuilder.def(py::init([] (const MeshVS_SequenceOfPrsBuilder &other) {return new MeshVS_SequenceOfPrsBuilder(other);}), "Copy constructor", py::arg("other"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("begin", (MeshVS_SequenceOfPrsBuilder::iterator (MeshVS_SequenceOfPrsBuilder::*)() const ) &MeshVS_SequenceOfPrsBuilder::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_MeshVS_SequenceOfPrsBuilder.def("end", (MeshVS_SequenceOfPrsBuilder::iterator (MeshVS_SequenceOfPrsBuilder::*)() const ) &MeshVS_SequenceOfPrsBuilder::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_MeshVS_SequenceOfPrsBuilder.def("cbegin", (MeshVS_SequenceOfPrsBuilder::const_iterator (MeshVS_SequenceOfPrsBuilder::*)() const ) &MeshVS_SequenceOfPrsBuilder::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_MeshVS_SequenceOfPrsBuilder.def("cend", (MeshVS_SequenceOfPrsBuilder::const_iterator (MeshVS_SequenceOfPrsBuilder::*)() const ) &MeshVS_SequenceOfPrsBuilder::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_MeshVS_SequenceOfPrsBuilder.def("Size", (Standard_Integer (MeshVS_SequenceOfPrsBuilder::*)() const ) &MeshVS_SequenceOfPrsBuilder::Size, "Number of items");
-	cls_MeshVS_SequenceOfPrsBuilder.def("Length", (Standard_Integer (MeshVS_SequenceOfPrsBuilder::*)() const ) &MeshVS_SequenceOfPrsBuilder::Length, "Number of items");
-	cls_MeshVS_SequenceOfPrsBuilder.def("Lower", (Standard_Integer (MeshVS_SequenceOfPrsBuilder::*)() const ) &MeshVS_SequenceOfPrsBuilder::Lower, "Method for consistency with other collections.");
-	cls_MeshVS_SequenceOfPrsBuilder.def("Upper", (Standard_Integer (MeshVS_SequenceOfPrsBuilder::*)() const ) &MeshVS_SequenceOfPrsBuilder::Upper, "Method for consistency with other collections.");
-	cls_MeshVS_SequenceOfPrsBuilder.def("IsEmpty", (Standard_Boolean (MeshVS_SequenceOfPrsBuilder::*)() const ) &MeshVS_SequenceOfPrsBuilder::IsEmpty, "Empty query");
-	cls_MeshVS_SequenceOfPrsBuilder.def("Reverse", (void (MeshVS_SequenceOfPrsBuilder::*)()) &MeshVS_SequenceOfPrsBuilder::Reverse, "Reverse sequence");
-	cls_MeshVS_SequenceOfPrsBuilder.def("Exchange", (void (MeshVS_SequenceOfPrsBuilder::*)(const Standard_Integer, const Standard_Integer)) &MeshVS_SequenceOfPrsBuilder::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_MeshVS_SequenceOfPrsBuilder.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_SequenceOfPrsBuilder::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("Clear", [](MeshVS_SequenceOfPrsBuilder &self) -> void { return self.Clear(); });
-	cls_MeshVS_SequenceOfPrsBuilder.def("Clear", (void (MeshVS_SequenceOfPrsBuilder::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_SequenceOfPrsBuilder::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("Assign", (MeshVS_SequenceOfPrsBuilder & (MeshVS_SequenceOfPrsBuilder::*)(const MeshVS_SequenceOfPrsBuilder &)) &MeshVS_SequenceOfPrsBuilder::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("assign", (MeshVS_SequenceOfPrsBuilder & (MeshVS_SequenceOfPrsBuilder::*)(const MeshVS_SequenceOfPrsBuilder &)) &MeshVS_SequenceOfPrsBuilder::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("Remove", (void (MeshVS_SequenceOfPrsBuilder::*)(MeshVS_SequenceOfPrsBuilder::Iterator &)) &MeshVS_SequenceOfPrsBuilder::Remove, "Remove one item", py::arg("thePosition"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("Remove", (void (MeshVS_SequenceOfPrsBuilder::*)(const Standard_Integer)) &MeshVS_SequenceOfPrsBuilder::Remove, "Remove one item", py::arg("theIndex"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("Remove", (void (MeshVS_SequenceOfPrsBuilder::*)(const Standard_Integer, const Standard_Integer)) &MeshVS_SequenceOfPrsBuilder::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("Append", (void (MeshVS_SequenceOfPrsBuilder::*)(const opencascade::handle<MeshVS_PrsBuilder> &)) &MeshVS_SequenceOfPrsBuilder::Append, "Append one item", py::arg("theItem"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("Append", (void (MeshVS_SequenceOfPrsBuilder::*)(MeshVS_SequenceOfPrsBuilder &)) &MeshVS_SequenceOfPrsBuilder::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("Prepend", (void (MeshVS_SequenceOfPrsBuilder::*)(const opencascade::handle<MeshVS_PrsBuilder> &)) &MeshVS_SequenceOfPrsBuilder::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("Prepend", (void (MeshVS_SequenceOfPrsBuilder::*)(MeshVS_SequenceOfPrsBuilder &)) &MeshVS_SequenceOfPrsBuilder::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("InsertBefore", (void (MeshVS_SequenceOfPrsBuilder::*)(const Standard_Integer, const opencascade::handle<MeshVS_PrsBuilder> &)) &MeshVS_SequenceOfPrsBuilder::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("InsertBefore", (void (MeshVS_SequenceOfPrsBuilder::*)(const Standard_Integer, MeshVS_SequenceOfPrsBuilder &)) &MeshVS_SequenceOfPrsBuilder::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("InsertAfter", (void (MeshVS_SequenceOfPrsBuilder::*)(MeshVS_SequenceOfPrsBuilder::Iterator &, const opencascade::handle<MeshVS_PrsBuilder> &)) &MeshVS_SequenceOfPrsBuilder::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("InsertAfter", (void (MeshVS_SequenceOfPrsBuilder::*)(const Standard_Integer, MeshVS_SequenceOfPrsBuilder &)) &MeshVS_SequenceOfPrsBuilder::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("InsertAfter", (void (MeshVS_SequenceOfPrsBuilder::*)(const Standard_Integer, const opencascade::handle<MeshVS_PrsBuilder> &)) &MeshVS_SequenceOfPrsBuilder::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("Split", (void (MeshVS_SequenceOfPrsBuilder::*)(const Standard_Integer, MeshVS_SequenceOfPrsBuilder &)) &MeshVS_SequenceOfPrsBuilder::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("First", (const opencascade::handle<MeshVS_PrsBuilder> & (MeshVS_SequenceOfPrsBuilder::*)() const ) &MeshVS_SequenceOfPrsBuilder::First, "First item access");
-	cls_MeshVS_SequenceOfPrsBuilder.def("ChangeFirst", (opencascade::handle<MeshVS_PrsBuilder> & (MeshVS_SequenceOfPrsBuilder::*)()) &MeshVS_SequenceOfPrsBuilder::ChangeFirst, "First item access");
-	cls_MeshVS_SequenceOfPrsBuilder.def("Last", (const opencascade::handle<MeshVS_PrsBuilder> & (MeshVS_SequenceOfPrsBuilder::*)() const ) &MeshVS_SequenceOfPrsBuilder::Last, "Last item access");
-	cls_MeshVS_SequenceOfPrsBuilder.def("ChangeLast", (opencascade::handle<MeshVS_PrsBuilder> & (MeshVS_SequenceOfPrsBuilder::*)()) &MeshVS_SequenceOfPrsBuilder::ChangeLast, "Last item access");
-	cls_MeshVS_SequenceOfPrsBuilder.def("Value", (const opencascade::handle<MeshVS_PrsBuilder> & (MeshVS_SequenceOfPrsBuilder::*)(const Standard_Integer) const ) &MeshVS_SequenceOfPrsBuilder::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("__call__", (const opencascade::handle<MeshVS_PrsBuilder> & (MeshVS_SequenceOfPrsBuilder::*)(const Standard_Integer) const ) &MeshVS_SequenceOfPrsBuilder::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("ChangeValue", (opencascade::handle<MeshVS_PrsBuilder> & (MeshVS_SequenceOfPrsBuilder::*)(const Standard_Integer)) &MeshVS_SequenceOfPrsBuilder::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("__call__", (opencascade::handle<MeshVS_PrsBuilder> & (MeshVS_SequenceOfPrsBuilder::*)(const Standard_Integer)) &MeshVS_SequenceOfPrsBuilder::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("SetValue", (void (MeshVS_SequenceOfPrsBuilder::*)(const Standard_Integer, const opencascade::handle<MeshVS_PrsBuilder> &)) &MeshVS_SequenceOfPrsBuilder::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_MeshVS_SequenceOfPrsBuilder.def("__iter__", [](const MeshVS_SequenceOfPrsBuilder &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MeshVS_DataMapOfIntegerOwner, std::unique_ptr<MeshVS_DataMapOfIntegerOwner, Deleter<MeshVS_DataMapOfIntegerOwner>>, NCollection_BaseMap> cls_MeshVS_DataMapOfIntegerOwner(mod, "MeshVS_DataMapOfIntegerOwner", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MeshVS_DataMapOfIntegerOwner.def(py::init<>());
-	cls_MeshVS_DataMapOfIntegerOwner.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MeshVS_DataMapOfIntegerOwner.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfIntegerOwner.def(py::init([] (const MeshVS_DataMapOfIntegerOwner &other) {return new MeshVS_DataMapOfIntegerOwner(other);}), "Copy constructor", py::arg("other"));
-	cls_MeshVS_DataMapOfIntegerOwner.def("begin", (MeshVS_DataMapOfIntegerOwner::iterator (MeshVS_DataMapOfIntegerOwner::*)() const ) &MeshVS_DataMapOfIntegerOwner::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfIntegerOwner.def("end", (MeshVS_DataMapOfIntegerOwner::iterator (MeshVS_DataMapOfIntegerOwner::*)() const ) &MeshVS_DataMapOfIntegerOwner::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfIntegerOwner.def("cbegin", (MeshVS_DataMapOfIntegerOwner::const_iterator (MeshVS_DataMapOfIntegerOwner::*)() const ) &MeshVS_DataMapOfIntegerOwner::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfIntegerOwner.def("cend", (MeshVS_DataMapOfIntegerOwner::const_iterator (MeshVS_DataMapOfIntegerOwner::*)() const ) &MeshVS_DataMapOfIntegerOwner::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfIntegerOwner.def("Exchange", (void (MeshVS_DataMapOfIntegerOwner::*)(MeshVS_DataMapOfIntegerOwner &)) &MeshVS_DataMapOfIntegerOwner::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerOwner.def("Assign", (MeshVS_DataMapOfIntegerOwner & (MeshVS_DataMapOfIntegerOwner::*)(const MeshVS_DataMapOfIntegerOwner &)) &MeshVS_DataMapOfIntegerOwner::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerOwner.def("assign", (MeshVS_DataMapOfIntegerOwner & (MeshVS_DataMapOfIntegerOwner::*)(const MeshVS_DataMapOfIntegerOwner &)) &MeshVS_DataMapOfIntegerOwner::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerOwner.def("ReSize", (void (MeshVS_DataMapOfIntegerOwner::*)(const Standard_Integer)) &MeshVS_DataMapOfIntegerOwner::ReSize, "ReSize", py::arg("N"));
-	cls_MeshVS_DataMapOfIntegerOwner.def("Bind", (Standard_Boolean (MeshVS_DataMapOfIntegerOwner::*)(const Standard_Integer &, const opencascade::handle<SelectMgr_EntityOwner> &)) &MeshVS_DataMapOfIntegerOwner::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MeshVS_DataMapOfIntegerOwner.def("Bound", (opencascade::handle<SelectMgr_EntityOwner> * (MeshVS_DataMapOfIntegerOwner::*)(const Standard_Integer &, const opencascade::handle<SelectMgr_EntityOwner> &)) &MeshVS_DataMapOfIntegerOwner::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MeshVS_DataMapOfIntegerOwner.def("IsBound", (Standard_Boolean (MeshVS_DataMapOfIntegerOwner::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerOwner::IsBound, "IsBound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerOwner.def("UnBind", (Standard_Boolean (MeshVS_DataMapOfIntegerOwner::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerOwner::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerOwner.def("Seek", (const opencascade::handle<SelectMgr_EntityOwner> * (MeshVS_DataMapOfIntegerOwner::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerOwner::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerOwner.def("Find", (const opencascade::handle<SelectMgr_EntityOwner> & (MeshVS_DataMapOfIntegerOwner::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerOwner::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerOwner.def("Find", (Standard_Boolean (MeshVS_DataMapOfIntegerOwner::*)(const Standard_Integer &, opencascade::handle<SelectMgr_EntityOwner> &) const ) &MeshVS_DataMapOfIntegerOwner::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MeshVS_DataMapOfIntegerOwner.def("__call__", (const opencascade::handle<SelectMgr_EntityOwner> & (MeshVS_DataMapOfIntegerOwner::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerOwner::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerOwner.def("ChangeSeek", (opencascade::handle<SelectMgr_EntityOwner> * (MeshVS_DataMapOfIntegerOwner::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerOwner::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerOwner.def("ChangeFind", (opencascade::handle<SelectMgr_EntityOwner> & (MeshVS_DataMapOfIntegerOwner::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerOwner::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerOwner.def("__call__", (opencascade::handle<SelectMgr_EntityOwner> & (MeshVS_DataMapOfIntegerOwner::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerOwner::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerOwner.def("Clear", [](MeshVS_DataMapOfIntegerOwner &self) -> void { return self.Clear(); });
-	cls_MeshVS_DataMapOfIntegerOwner.def("Clear", (void (MeshVS_DataMapOfIntegerOwner::*)(const Standard_Boolean)) &MeshVS_DataMapOfIntegerOwner::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MeshVS_DataMapOfIntegerOwner.def("Clear", (void (MeshVS_DataMapOfIntegerOwner::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_DataMapOfIntegerOwner::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfIntegerOwner.def("Size", (Standard_Integer (MeshVS_DataMapOfIntegerOwner::*)() const ) &MeshVS_DataMapOfIntegerOwner::Size, "Size");
-	cls_MeshVS_DataMapOfIntegerOwner.def("__iter__", [](const MeshVS_DataMapOfIntegerOwner &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_SequenceOfPrsBuilder.hxx
+	bind_NCollection_Sequence<opencascade::handle<MeshVS_PrsBuilder> >(mod, "MeshVS_SequenceOfPrsBuilder");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_DataMapOfIntegerOwner.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MeshVS_DataMapOfColorMapOfInteger, std::unique_ptr<MeshVS_DataMapOfColorMapOfInteger, Deleter<MeshVS_DataMapOfColorMapOfInteger>>, NCollection_BaseMap> cls_MeshVS_DataMapOfColorMapOfInteger(mod, "MeshVS_DataMapOfColorMapOfInteger", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MeshVS_DataMapOfColorMapOfInteger.def(py::init<>());
-	cls_MeshVS_DataMapOfColorMapOfInteger.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MeshVS_DataMapOfColorMapOfInteger.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfColorMapOfInteger.def(py::init([] (const MeshVS_DataMapOfColorMapOfInteger &other) {return new MeshVS_DataMapOfColorMapOfInteger(other);}), "Copy constructor", py::arg("other"));
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("begin", (MeshVS_DataMapOfColorMapOfInteger::iterator (MeshVS_DataMapOfColorMapOfInteger::*)() const ) &MeshVS_DataMapOfColorMapOfInteger::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("end", (MeshVS_DataMapOfColorMapOfInteger::iterator (MeshVS_DataMapOfColorMapOfInteger::*)() const ) &MeshVS_DataMapOfColorMapOfInteger::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("cbegin", (MeshVS_DataMapOfColorMapOfInteger::const_iterator (MeshVS_DataMapOfColorMapOfInteger::*)() const ) &MeshVS_DataMapOfColorMapOfInteger::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("cend", (MeshVS_DataMapOfColorMapOfInteger::const_iterator (MeshVS_DataMapOfColorMapOfInteger::*)() const ) &MeshVS_DataMapOfColorMapOfInteger::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("Exchange", (void (MeshVS_DataMapOfColorMapOfInteger::*)(MeshVS_DataMapOfColorMapOfInteger &)) &MeshVS_DataMapOfColorMapOfInteger::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("Assign", (MeshVS_DataMapOfColorMapOfInteger & (MeshVS_DataMapOfColorMapOfInteger::*)(const MeshVS_DataMapOfColorMapOfInteger &)) &MeshVS_DataMapOfColorMapOfInteger::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("assign", (MeshVS_DataMapOfColorMapOfInteger & (MeshVS_DataMapOfColorMapOfInteger::*)(const MeshVS_DataMapOfColorMapOfInteger &)) &MeshVS_DataMapOfColorMapOfInteger::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("ReSize", (void (MeshVS_DataMapOfColorMapOfInteger::*)(const Standard_Integer)) &MeshVS_DataMapOfColorMapOfInteger::ReSize, "ReSize", py::arg("N"));
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("Bind", (Standard_Boolean (MeshVS_DataMapOfColorMapOfInteger::*)(const Quantity_Color &, const TColStd_MapOfInteger &)) &MeshVS_DataMapOfColorMapOfInteger::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MeshVS_DataMapOfColorMapOfInteger.def("Bound", (TColStd_MapOfInteger * (MeshVS_DataMapOfColorMapOfInteger::*)(const Quantity_Color &, const TColStd_MapOfInteger &)) &MeshVS_DataMapOfColorMapOfInteger::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("IsBound", (Standard_Boolean (MeshVS_DataMapOfColorMapOfInteger::*)(const Quantity_Color &) const ) &MeshVS_DataMapOfColorMapOfInteger::IsBound, "IsBound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("UnBind", (Standard_Boolean (MeshVS_DataMapOfColorMapOfInteger::*)(const Quantity_Color &)) &MeshVS_DataMapOfColorMapOfInteger::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfColorMapOfInteger.def("Seek", (const TColStd_MapOfInteger * (MeshVS_DataMapOfColorMapOfInteger::*)(const Quantity_Color &) const ) &MeshVS_DataMapOfColorMapOfInteger::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfColorMapOfInteger.def("Find", (const TColStd_MapOfInteger & (MeshVS_DataMapOfColorMapOfInteger::*)(const Quantity_Color &) const ) &MeshVS_DataMapOfColorMapOfInteger::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfColorMapOfInteger.def("Find", (Standard_Boolean (MeshVS_DataMapOfColorMapOfInteger::*)(const Quantity_Color &, TColStd_MapOfInteger &) const ) &MeshVS_DataMapOfColorMapOfInteger::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("__call__", (const TColStd_MapOfInteger & (MeshVS_DataMapOfColorMapOfInteger::*)(const Quantity_Color &) const ) &MeshVS_DataMapOfColorMapOfInteger::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfColorMapOfInteger.def("ChangeSeek", (TColStd_MapOfInteger * (MeshVS_DataMapOfColorMapOfInteger::*)(const Quantity_Color &)) &MeshVS_DataMapOfColorMapOfInteger::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("ChangeFind", (TColStd_MapOfInteger & (MeshVS_DataMapOfColorMapOfInteger::*)(const Quantity_Color &)) &MeshVS_DataMapOfColorMapOfInteger::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("__call__", (TColStd_MapOfInteger & (MeshVS_DataMapOfColorMapOfInteger::*)(const Quantity_Color &)) &MeshVS_DataMapOfColorMapOfInteger::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("Clear", [](MeshVS_DataMapOfColorMapOfInteger &self) -> void { return self.Clear(); });
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("Clear", (void (MeshVS_DataMapOfColorMapOfInteger::*)(const Standard_Boolean)) &MeshVS_DataMapOfColorMapOfInteger::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("Clear", (void (MeshVS_DataMapOfColorMapOfInteger::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_DataMapOfColorMapOfInteger::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("Size", (Standard_Integer (MeshVS_DataMapOfColorMapOfInteger::*)() const ) &MeshVS_DataMapOfColorMapOfInteger::Size, "Size");
-	cls_MeshVS_DataMapOfColorMapOfInteger.def("__iter__", [](const MeshVS_DataMapOfColorMapOfInteger &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<int, opencascade::handle<SelectMgr_EntityOwner>, NCollection_DefaultHasher<int> >(mod, "MeshVS_DataMapOfIntegerOwner");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_DataMapOfColorMapOfInteger.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MeshVS_DataMapOfHArray1OfSequenceOfInteger, std::unique_ptr<MeshVS_DataMapOfHArray1OfSequenceOfInteger, Deleter<MeshVS_DataMapOfHArray1OfSequenceOfInteger>>, NCollection_BaseMap> cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger(mod, "MeshVS_DataMapOfHArray1OfSequenceOfInteger", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def(py::init<>());
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def(py::init([] (const MeshVS_DataMapOfHArray1OfSequenceOfInteger &other) {return new MeshVS_DataMapOfHArray1OfSequenceOfInteger(other);}), "Copy constructor", py::arg("other"));
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("begin", (MeshVS_DataMapOfHArray1OfSequenceOfInteger::iterator (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)() const ) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("end", (MeshVS_DataMapOfHArray1OfSequenceOfInteger::iterator (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)() const ) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("cbegin", (MeshVS_DataMapOfHArray1OfSequenceOfInteger::const_iterator (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)() const ) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("cend", (MeshVS_DataMapOfHArray1OfSequenceOfInteger::const_iterator (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)() const ) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("Exchange", (void (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(MeshVS_DataMapOfHArray1OfSequenceOfInteger &)) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("Assign", (MeshVS_DataMapOfHArray1OfSequenceOfInteger & (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(const MeshVS_DataMapOfHArray1OfSequenceOfInteger &)) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("assign", (MeshVS_DataMapOfHArray1OfSequenceOfInteger & (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(const MeshVS_DataMapOfHArray1OfSequenceOfInteger &)) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("ReSize", (void (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(const Standard_Integer)) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::ReSize, "ReSize", py::arg("N"));
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("Bind", (Standard_Boolean (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(const Standard_Integer &, const opencascade::handle<MeshVS_HArray1OfSequenceOfInteger> &)) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("Bound", (opencascade::handle<MeshVS_HArray1OfSequenceOfInteger> * (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(const Standard_Integer &, const opencascade::handle<MeshVS_HArray1OfSequenceOfInteger> &)) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("IsBound", (Standard_Boolean (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::IsBound, "IsBound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("UnBind", (Standard_Boolean (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(const Standard_Integer &)) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("Seek", (const opencascade::handle<MeshVS_HArray1OfSequenceOfInteger> * (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("Find", (const opencascade::handle<MeshVS_HArray1OfSequenceOfInteger> & (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("Find", (Standard_Boolean (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(const Standard_Integer &, opencascade::handle<MeshVS_HArray1OfSequenceOfInteger> &) const ) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("__call__", (const opencascade::handle<MeshVS_HArray1OfSequenceOfInteger> & (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("ChangeSeek", (opencascade::handle<MeshVS_HArray1OfSequenceOfInteger> * (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(const Standard_Integer &)) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("ChangeFind", (opencascade::handle<MeshVS_HArray1OfSequenceOfInteger> & (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(const Standard_Integer &)) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("__call__", (opencascade::handle<MeshVS_HArray1OfSequenceOfInteger> & (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(const Standard_Integer &)) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("Clear", [](MeshVS_DataMapOfHArray1OfSequenceOfInteger &self) -> void { return self.Clear(); });
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("Clear", (void (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(const Standard_Boolean)) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("Clear", (void (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("Size", (Standard_Integer (MeshVS_DataMapOfHArray1OfSequenceOfInteger::*)() const ) &MeshVS_DataMapOfHArray1OfSequenceOfInteger::Size, "Size");
-	cls_MeshVS_DataMapOfHArray1OfSequenceOfInteger.def("__iter__", [](const MeshVS_DataMapOfHArray1OfSequenceOfInteger &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<Quantity_Color, NCollection_Map<int, NCollection_DefaultHasher<int> >, Quantity_ColorHasher>(mod, "MeshVS_DataMapOfColorMapOfInteger");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_DataMapOfHArray1OfSequenceOfInteger.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MeshVS_DataMapOfIntegerAsciiString, std::unique_ptr<MeshVS_DataMapOfIntegerAsciiString, Deleter<MeshVS_DataMapOfIntegerAsciiString>>, NCollection_BaseMap> cls_MeshVS_DataMapOfIntegerAsciiString(mod, "MeshVS_DataMapOfIntegerAsciiString", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MeshVS_DataMapOfIntegerAsciiString.def(py::init<>());
-	cls_MeshVS_DataMapOfIntegerAsciiString.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MeshVS_DataMapOfIntegerAsciiString.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfIntegerAsciiString.def(py::init([] (const MeshVS_DataMapOfIntegerAsciiString &other) {return new MeshVS_DataMapOfIntegerAsciiString(other);}), "Copy constructor", py::arg("other"));
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("begin", (MeshVS_DataMapOfIntegerAsciiString::iterator (MeshVS_DataMapOfIntegerAsciiString::*)() const ) &MeshVS_DataMapOfIntegerAsciiString::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("end", (MeshVS_DataMapOfIntegerAsciiString::iterator (MeshVS_DataMapOfIntegerAsciiString::*)() const ) &MeshVS_DataMapOfIntegerAsciiString::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("cbegin", (MeshVS_DataMapOfIntegerAsciiString::const_iterator (MeshVS_DataMapOfIntegerAsciiString::*)() const ) &MeshVS_DataMapOfIntegerAsciiString::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("cend", (MeshVS_DataMapOfIntegerAsciiString::const_iterator (MeshVS_DataMapOfIntegerAsciiString::*)() const ) &MeshVS_DataMapOfIntegerAsciiString::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("Exchange", (void (MeshVS_DataMapOfIntegerAsciiString::*)(MeshVS_DataMapOfIntegerAsciiString &)) &MeshVS_DataMapOfIntegerAsciiString::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("Assign", (MeshVS_DataMapOfIntegerAsciiString & (MeshVS_DataMapOfIntegerAsciiString::*)(const MeshVS_DataMapOfIntegerAsciiString &)) &MeshVS_DataMapOfIntegerAsciiString::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("assign", (MeshVS_DataMapOfIntegerAsciiString & (MeshVS_DataMapOfIntegerAsciiString::*)(const MeshVS_DataMapOfIntegerAsciiString &)) &MeshVS_DataMapOfIntegerAsciiString::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("ReSize", (void (MeshVS_DataMapOfIntegerAsciiString::*)(const Standard_Integer)) &MeshVS_DataMapOfIntegerAsciiString::ReSize, "ReSize", py::arg("N"));
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("Bind", (Standard_Boolean (MeshVS_DataMapOfIntegerAsciiString::*)(const Standard_Integer &, const TCollection_AsciiString &)) &MeshVS_DataMapOfIntegerAsciiString::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MeshVS_DataMapOfIntegerAsciiString.def("Bound", (TCollection_AsciiString * (MeshVS_DataMapOfIntegerAsciiString::*)(const Standard_Integer &, const TCollection_AsciiString &)) &MeshVS_DataMapOfIntegerAsciiString::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("IsBound", (Standard_Boolean (MeshVS_DataMapOfIntegerAsciiString::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerAsciiString::IsBound, "IsBound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("UnBind", (Standard_Boolean (MeshVS_DataMapOfIntegerAsciiString::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerAsciiString::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerAsciiString.def("Seek", (const TCollection_AsciiString * (MeshVS_DataMapOfIntegerAsciiString::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerAsciiString::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerAsciiString.def("Find", (const TCollection_AsciiString & (MeshVS_DataMapOfIntegerAsciiString::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerAsciiString::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerAsciiString.def("Find", (Standard_Boolean (MeshVS_DataMapOfIntegerAsciiString::*)(const Standard_Integer &, TCollection_AsciiString &) const ) &MeshVS_DataMapOfIntegerAsciiString::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("__call__", (const TCollection_AsciiString & (MeshVS_DataMapOfIntegerAsciiString::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerAsciiString::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerAsciiString.def("ChangeSeek", (TCollection_AsciiString * (MeshVS_DataMapOfIntegerAsciiString::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerAsciiString::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("ChangeFind", (TCollection_AsciiString & (MeshVS_DataMapOfIntegerAsciiString::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerAsciiString::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("__call__", (TCollection_AsciiString & (MeshVS_DataMapOfIntegerAsciiString::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerAsciiString::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("Clear", [](MeshVS_DataMapOfIntegerAsciiString &self) -> void { return self.Clear(); });
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("Clear", (void (MeshVS_DataMapOfIntegerAsciiString::*)(const Standard_Boolean)) &MeshVS_DataMapOfIntegerAsciiString::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("Clear", (void (MeshVS_DataMapOfIntegerAsciiString::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_DataMapOfIntegerAsciiString::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("Size", (Standard_Integer (MeshVS_DataMapOfIntegerAsciiString::*)() const ) &MeshVS_DataMapOfIntegerAsciiString::Size, "Size");
-	cls_MeshVS_DataMapOfIntegerAsciiString.def("__iter__", [](const MeshVS_DataMapOfIntegerAsciiString &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<int, opencascade::handle<MeshVS_HArray1OfSequenceOfInteger>, NCollection_DefaultHasher<int> >(mod, "MeshVS_DataMapOfHArray1OfSequenceOfInteger");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_DataMapOfIntegerAsciiString.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MeshVS_DataMapOfIntegerBoolean, std::unique_ptr<MeshVS_DataMapOfIntegerBoolean, Deleter<MeshVS_DataMapOfIntegerBoolean>>, NCollection_BaseMap> cls_MeshVS_DataMapOfIntegerBoolean(mod, "MeshVS_DataMapOfIntegerBoolean", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MeshVS_DataMapOfIntegerBoolean.def(py::init<>());
-	cls_MeshVS_DataMapOfIntegerBoolean.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MeshVS_DataMapOfIntegerBoolean.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfIntegerBoolean.def(py::init([] (const MeshVS_DataMapOfIntegerBoolean &other) {return new MeshVS_DataMapOfIntegerBoolean(other);}), "Copy constructor", py::arg("other"));
-	cls_MeshVS_DataMapOfIntegerBoolean.def("begin", (MeshVS_DataMapOfIntegerBoolean::iterator (MeshVS_DataMapOfIntegerBoolean::*)() const ) &MeshVS_DataMapOfIntegerBoolean::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfIntegerBoolean.def("end", (MeshVS_DataMapOfIntegerBoolean::iterator (MeshVS_DataMapOfIntegerBoolean::*)() const ) &MeshVS_DataMapOfIntegerBoolean::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfIntegerBoolean.def("cbegin", (MeshVS_DataMapOfIntegerBoolean::const_iterator (MeshVS_DataMapOfIntegerBoolean::*)() const ) &MeshVS_DataMapOfIntegerBoolean::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfIntegerBoolean.def("cend", (MeshVS_DataMapOfIntegerBoolean::const_iterator (MeshVS_DataMapOfIntegerBoolean::*)() const ) &MeshVS_DataMapOfIntegerBoolean::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfIntegerBoolean.def("Exchange", (void (MeshVS_DataMapOfIntegerBoolean::*)(MeshVS_DataMapOfIntegerBoolean &)) &MeshVS_DataMapOfIntegerBoolean::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerBoolean.def("Assign", (MeshVS_DataMapOfIntegerBoolean & (MeshVS_DataMapOfIntegerBoolean::*)(const MeshVS_DataMapOfIntegerBoolean &)) &MeshVS_DataMapOfIntegerBoolean::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerBoolean.def("assign", (MeshVS_DataMapOfIntegerBoolean & (MeshVS_DataMapOfIntegerBoolean::*)(const MeshVS_DataMapOfIntegerBoolean &)) &MeshVS_DataMapOfIntegerBoolean::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerBoolean.def("ReSize", (void (MeshVS_DataMapOfIntegerBoolean::*)(const Standard_Integer)) &MeshVS_DataMapOfIntegerBoolean::ReSize, "ReSize", py::arg("N"));
-	cls_MeshVS_DataMapOfIntegerBoolean.def("Bind", (Standard_Boolean (MeshVS_DataMapOfIntegerBoolean::*)(const Standard_Integer &, const Standard_Boolean &)) &MeshVS_DataMapOfIntegerBoolean::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MeshVS_DataMapOfIntegerBoolean.def("Bound", (Standard_Boolean * (MeshVS_DataMapOfIntegerBoolean::*)(const Standard_Integer &, const Standard_Boolean &)) &MeshVS_DataMapOfIntegerBoolean::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MeshVS_DataMapOfIntegerBoolean.def("IsBound", (Standard_Boolean (MeshVS_DataMapOfIntegerBoolean::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerBoolean::IsBound, "IsBound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerBoolean.def("UnBind", (Standard_Boolean (MeshVS_DataMapOfIntegerBoolean::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerBoolean::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerBoolean.def("Seek", (const Standard_Boolean * (MeshVS_DataMapOfIntegerBoolean::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerBoolean::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerBoolean.def("Find", (const Standard_Boolean & (MeshVS_DataMapOfIntegerBoolean::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerBoolean::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerBoolean.def("Find", (Standard_Boolean (MeshVS_DataMapOfIntegerBoolean::*)(const Standard_Integer &, Standard_Boolean &) const ) &MeshVS_DataMapOfIntegerBoolean::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MeshVS_DataMapOfIntegerBoolean.def("__call__", (const Standard_Boolean & (MeshVS_DataMapOfIntegerBoolean::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerBoolean::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerBoolean.def("ChangeSeek", (Standard_Boolean * (MeshVS_DataMapOfIntegerBoolean::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerBoolean::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerBoolean.def("ChangeFind", (Standard_Boolean & (MeshVS_DataMapOfIntegerBoolean::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerBoolean::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerBoolean.def("__call__", (Standard_Boolean & (MeshVS_DataMapOfIntegerBoolean::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerBoolean::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerBoolean.def("Clear", [](MeshVS_DataMapOfIntegerBoolean &self) -> void { return self.Clear(); });
-	cls_MeshVS_DataMapOfIntegerBoolean.def("Clear", (void (MeshVS_DataMapOfIntegerBoolean::*)(const Standard_Boolean)) &MeshVS_DataMapOfIntegerBoolean::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MeshVS_DataMapOfIntegerBoolean.def("Clear", (void (MeshVS_DataMapOfIntegerBoolean::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_DataMapOfIntegerBoolean::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfIntegerBoolean.def("Size", (Standard_Integer (MeshVS_DataMapOfIntegerBoolean::*)() const ) &MeshVS_DataMapOfIntegerBoolean::Size, "Size");
-	cls_MeshVS_DataMapOfIntegerBoolean.def("__iter__", [](const MeshVS_DataMapOfIntegerBoolean &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<int, TCollection_AsciiString, NCollection_DefaultHasher<int> >(mod, "MeshVS_DataMapOfIntegerAsciiString");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_DataMapOfIntegerBoolean.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MeshVS_DataMapOfIntegerColor, std::unique_ptr<MeshVS_DataMapOfIntegerColor, Deleter<MeshVS_DataMapOfIntegerColor>>, NCollection_BaseMap> cls_MeshVS_DataMapOfIntegerColor(mod, "MeshVS_DataMapOfIntegerColor", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MeshVS_DataMapOfIntegerColor.def(py::init<>());
-	cls_MeshVS_DataMapOfIntegerColor.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MeshVS_DataMapOfIntegerColor.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfIntegerColor.def(py::init([] (const MeshVS_DataMapOfIntegerColor &other) {return new MeshVS_DataMapOfIntegerColor(other);}), "Copy constructor", py::arg("other"));
-	cls_MeshVS_DataMapOfIntegerColor.def("begin", (MeshVS_DataMapOfIntegerColor::iterator (MeshVS_DataMapOfIntegerColor::*)() const ) &MeshVS_DataMapOfIntegerColor::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfIntegerColor.def("end", (MeshVS_DataMapOfIntegerColor::iterator (MeshVS_DataMapOfIntegerColor::*)() const ) &MeshVS_DataMapOfIntegerColor::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfIntegerColor.def("cbegin", (MeshVS_DataMapOfIntegerColor::const_iterator (MeshVS_DataMapOfIntegerColor::*)() const ) &MeshVS_DataMapOfIntegerColor::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfIntegerColor.def("cend", (MeshVS_DataMapOfIntegerColor::const_iterator (MeshVS_DataMapOfIntegerColor::*)() const ) &MeshVS_DataMapOfIntegerColor::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfIntegerColor.def("Exchange", (void (MeshVS_DataMapOfIntegerColor::*)(MeshVS_DataMapOfIntegerColor &)) &MeshVS_DataMapOfIntegerColor::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerColor.def("Assign", (MeshVS_DataMapOfIntegerColor & (MeshVS_DataMapOfIntegerColor::*)(const MeshVS_DataMapOfIntegerColor &)) &MeshVS_DataMapOfIntegerColor::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerColor.def("assign", (MeshVS_DataMapOfIntegerColor & (MeshVS_DataMapOfIntegerColor::*)(const MeshVS_DataMapOfIntegerColor &)) &MeshVS_DataMapOfIntegerColor::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerColor.def("ReSize", (void (MeshVS_DataMapOfIntegerColor::*)(const Standard_Integer)) &MeshVS_DataMapOfIntegerColor::ReSize, "ReSize", py::arg("N"));
-	cls_MeshVS_DataMapOfIntegerColor.def("Bind", (Standard_Boolean (MeshVS_DataMapOfIntegerColor::*)(const Standard_Integer &, const Quantity_Color &)) &MeshVS_DataMapOfIntegerColor::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MeshVS_DataMapOfIntegerColor.def("Bound", (Quantity_Color * (MeshVS_DataMapOfIntegerColor::*)(const Standard_Integer &, const Quantity_Color &)) &MeshVS_DataMapOfIntegerColor::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MeshVS_DataMapOfIntegerColor.def("IsBound", (Standard_Boolean (MeshVS_DataMapOfIntegerColor::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerColor::IsBound, "IsBound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerColor.def("UnBind", (Standard_Boolean (MeshVS_DataMapOfIntegerColor::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerColor::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerColor.def("Seek", (const Quantity_Color * (MeshVS_DataMapOfIntegerColor::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerColor::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerColor.def("Find", (const Quantity_Color & (MeshVS_DataMapOfIntegerColor::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerColor::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerColor.def("Find", (Standard_Boolean (MeshVS_DataMapOfIntegerColor::*)(const Standard_Integer &, Quantity_Color &) const ) &MeshVS_DataMapOfIntegerColor::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MeshVS_DataMapOfIntegerColor.def("__call__", (const Quantity_Color & (MeshVS_DataMapOfIntegerColor::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerColor::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerColor.def("ChangeSeek", (Quantity_Color * (MeshVS_DataMapOfIntegerColor::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerColor::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerColor.def("ChangeFind", (Quantity_Color & (MeshVS_DataMapOfIntegerColor::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerColor::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerColor.def("__call__", (Quantity_Color & (MeshVS_DataMapOfIntegerColor::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerColor::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerColor.def("Clear", [](MeshVS_DataMapOfIntegerColor &self) -> void { return self.Clear(); });
-	cls_MeshVS_DataMapOfIntegerColor.def("Clear", (void (MeshVS_DataMapOfIntegerColor::*)(const Standard_Boolean)) &MeshVS_DataMapOfIntegerColor::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MeshVS_DataMapOfIntegerColor.def("Clear", (void (MeshVS_DataMapOfIntegerColor::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_DataMapOfIntegerColor::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfIntegerColor.def("Size", (Standard_Integer (MeshVS_DataMapOfIntegerColor::*)() const ) &MeshVS_DataMapOfIntegerColor::Size, "Size");
-	cls_MeshVS_DataMapOfIntegerColor.def("__iter__", [](const MeshVS_DataMapOfIntegerColor &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<int, bool, NCollection_DefaultHasher<int> >(mod, "MeshVS_DataMapOfIntegerBoolean");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_DataMapOfIntegerColor.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MeshVS_DataMapOfIntegerMaterial, std::unique_ptr<MeshVS_DataMapOfIntegerMaterial, Deleter<MeshVS_DataMapOfIntegerMaterial>>, NCollection_BaseMap> cls_MeshVS_DataMapOfIntegerMaterial(mod, "MeshVS_DataMapOfIntegerMaterial", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MeshVS_DataMapOfIntegerMaterial.def(py::init<>());
-	cls_MeshVS_DataMapOfIntegerMaterial.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MeshVS_DataMapOfIntegerMaterial.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfIntegerMaterial.def(py::init([] (const MeshVS_DataMapOfIntegerMaterial &other) {return new MeshVS_DataMapOfIntegerMaterial(other);}), "Copy constructor", py::arg("other"));
-	cls_MeshVS_DataMapOfIntegerMaterial.def("begin", (MeshVS_DataMapOfIntegerMaterial::iterator (MeshVS_DataMapOfIntegerMaterial::*)() const ) &MeshVS_DataMapOfIntegerMaterial::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfIntegerMaterial.def("end", (MeshVS_DataMapOfIntegerMaterial::iterator (MeshVS_DataMapOfIntegerMaterial::*)() const ) &MeshVS_DataMapOfIntegerMaterial::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfIntegerMaterial.def("cbegin", (MeshVS_DataMapOfIntegerMaterial::const_iterator (MeshVS_DataMapOfIntegerMaterial::*)() const ) &MeshVS_DataMapOfIntegerMaterial::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfIntegerMaterial.def("cend", (MeshVS_DataMapOfIntegerMaterial::const_iterator (MeshVS_DataMapOfIntegerMaterial::*)() const ) &MeshVS_DataMapOfIntegerMaterial::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfIntegerMaterial.def("Exchange", (void (MeshVS_DataMapOfIntegerMaterial::*)(MeshVS_DataMapOfIntegerMaterial &)) &MeshVS_DataMapOfIntegerMaterial::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerMaterial.def("Assign", (MeshVS_DataMapOfIntegerMaterial & (MeshVS_DataMapOfIntegerMaterial::*)(const MeshVS_DataMapOfIntegerMaterial &)) &MeshVS_DataMapOfIntegerMaterial::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerMaterial.def("assign", (MeshVS_DataMapOfIntegerMaterial & (MeshVS_DataMapOfIntegerMaterial::*)(const MeshVS_DataMapOfIntegerMaterial &)) &MeshVS_DataMapOfIntegerMaterial::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerMaterial.def("ReSize", (void (MeshVS_DataMapOfIntegerMaterial::*)(const Standard_Integer)) &MeshVS_DataMapOfIntegerMaterial::ReSize, "ReSize", py::arg("N"));
-	cls_MeshVS_DataMapOfIntegerMaterial.def("Bind", (Standard_Boolean (MeshVS_DataMapOfIntegerMaterial::*)(const Standard_Integer &, const Graphic3d_MaterialAspect &)) &MeshVS_DataMapOfIntegerMaterial::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MeshVS_DataMapOfIntegerMaterial.def("Bound", (Graphic3d_MaterialAspect * (MeshVS_DataMapOfIntegerMaterial::*)(const Standard_Integer &, const Graphic3d_MaterialAspect &)) &MeshVS_DataMapOfIntegerMaterial::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MeshVS_DataMapOfIntegerMaterial.def("IsBound", (Standard_Boolean (MeshVS_DataMapOfIntegerMaterial::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerMaterial::IsBound, "IsBound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerMaterial.def("UnBind", (Standard_Boolean (MeshVS_DataMapOfIntegerMaterial::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerMaterial::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerMaterial.def("Seek", (const Graphic3d_MaterialAspect * (MeshVS_DataMapOfIntegerMaterial::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerMaterial::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerMaterial.def("Find", (const Graphic3d_MaterialAspect & (MeshVS_DataMapOfIntegerMaterial::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerMaterial::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerMaterial.def("Find", (Standard_Boolean (MeshVS_DataMapOfIntegerMaterial::*)(const Standard_Integer &, Graphic3d_MaterialAspect &) const ) &MeshVS_DataMapOfIntegerMaterial::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MeshVS_DataMapOfIntegerMaterial.def("__call__", (const Graphic3d_MaterialAspect & (MeshVS_DataMapOfIntegerMaterial::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerMaterial::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerMaterial.def("ChangeSeek", (Graphic3d_MaterialAspect * (MeshVS_DataMapOfIntegerMaterial::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerMaterial::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerMaterial.def("ChangeFind", (Graphic3d_MaterialAspect & (MeshVS_DataMapOfIntegerMaterial::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerMaterial::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerMaterial.def("__call__", (Graphic3d_MaterialAspect & (MeshVS_DataMapOfIntegerMaterial::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerMaterial::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerMaterial.def("Clear", [](MeshVS_DataMapOfIntegerMaterial &self) -> void { return self.Clear(); });
-	cls_MeshVS_DataMapOfIntegerMaterial.def("Clear", (void (MeshVS_DataMapOfIntegerMaterial::*)(const Standard_Boolean)) &MeshVS_DataMapOfIntegerMaterial::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MeshVS_DataMapOfIntegerMaterial.def("Clear", (void (MeshVS_DataMapOfIntegerMaterial::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_DataMapOfIntegerMaterial::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfIntegerMaterial.def("Size", (Standard_Integer (MeshVS_DataMapOfIntegerMaterial::*)() const ) &MeshVS_DataMapOfIntegerMaterial::Size, "Size");
-	cls_MeshVS_DataMapOfIntegerMaterial.def("__iter__", [](const MeshVS_DataMapOfIntegerMaterial &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<int, Quantity_Color, NCollection_DefaultHasher<int> >(mod, "MeshVS_DataMapOfIntegerColor");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_DataMapOfIntegerMaterial.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MeshVS_DataMapOfIntegerMeshEntityOwner, std::unique_ptr<MeshVS_DataMapOfIntegerMeshEntityOwner, Deleter<MeshVS_DataMapOfIntegerMeshEntityOwner>>, NCollection_BaseMap> cls_MeshVS_DataMapOfIntegerMeshEntityOwner(mod, "MeshVS_DataMapOfIntegerMeshEntityOwner", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def(py::init<>());
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def(py::init([] (const MeshVS_DataMapOfIntegerMeshEntityOwner &other) {return new MeshVS_DataMapOfIntegerMeshEntityOwner(other);}), "Copy constructor", py::arg("other"));
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("begin", (MeshVS_DataMapOfIntegerMeshEntityOwner::iterator (MeshVS_DataMapOfIntegerMeshEntityOwner::*)() const ) &MeshVS_DataMapOfIntegerMeshEntityOwner::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("end", (MeshVS_DataMapOfIntegerMeshEntityOwner::iterator (MeshVS_DataMapOfIntegerMeshEntityOwner::*)() const ) &MeshVS_DataMapOfIntegerMeshEntityOwner::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("cbegin", (MeshVS_DataMapOfIntegerMeshEntityOwner::const_iterator (MeshVS_DataMapOfIntegerMeshEntityOwner::*)() const ) &MeshVS_DataMapOfIntegerMeshEntityOwner::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("cend", (MeshVS_DataMapOfIntegerMeshEntityOwner::const_iterator (MeshVS_DataMapOfIntegerMeshEntityOwner::*)() const ) &MeshVS_DataMapOfIntegerMeshEntityOwner::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("Exchange", (void (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(MeshVS_DataMapOfIntegerMeshEntityOwner &)) &MeshVS_DataMapOfIntegerMeshEntityOwner::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("Assign", (MeshVS_DataMapOfIntegerMeshEntityOwner & (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(const MeshVS_DataMapOfIntegerMeshEntityOwner &)) &MeshVS_DataMapOfIntegerMeshEntityOwner::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("assign", (MeshVS_DataMapOfIntegerMeshEntityOwner & (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(const MeshVS_DataMapOfIntegerMeshEntityOwner &)) &MeshVS_DataMapOfIntegerMeshEntityOwner::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("ReSize", (void (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(const Standard_Integer)) &MeshVS_DataMapOfIntegerMeshEntityOwner::ReSize, "ReSize", py::arg("N"));
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("Bind", (Standard_Boolean (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(const Standard_Integer &, const opencascade::handle<MeshVS_MeshEntityOwner> &)) &MeshVS_DataMapOfIntegerMeshEntityOwner::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("Bound", (opencascade::handle<MeshVS_MeshEntityOwner> * (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(const Standard_Integer &, const opencascade::handle<MeshVS_MeshEntityOwner> &)) &MeshVS_DataMapOfIntegerMeshEntityOwner::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("IsBound", (Standard_Boolean (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerMeshEntityOwner::IsBound, "IsBound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("UnBind", (Standard_Boolean (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerMeshEntityOwner::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("Seek", (const opencascade::handle<MeshVS_MeshEntityOwner> * (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerMeshEntityOwner::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("Find", (const opencascade::handle<MeshVS_MeshEntityOwner> & (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerMeshEntityOwner::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("Find", (Standard_Boolean (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(const Standard_Integer &, opencascade::handle<MeshVS_MeshEntityOwner> &) const ) &MeshVS_DataMapOfIntegerMeshEntityOwner::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("__call__", (const opencascade::handle<MeshVS_MeshEntityOwner> & (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerMeshEntityOwner::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("ChangeSeek", (opencascade::handle<MeshVS_MeshEntityOwner> * (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerMeshEntityOwner::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("ChangeFind", (opencascade::handle<MeshVS_MeshEntityOwner> & (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerMeshEntityOwner::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("__call__", (opencascade::handle<MeshVS_MeshEntityOwner> & (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerMeshEntityOwner::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("Clear", [](MeshVS_DataMapOfIntegerMeshEntityOwner &self) -> void { return self.Clear(); });
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("Clear", (void (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(const Standard_Boolean)) &MeshVS_DataMapOfIntegerMeshEntityOwner::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("Clear", (void (MeshVS_DataMapOfIntegerMeshEntityOwner::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_DataMapOfIntegerMeshEntityOwner::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("Size", (Standard_Integer (MeshVS_DataMapOfIntegerMeshEntityOwner::*)() const ) &MeshVS_DataMapOfIntegerMeshEntityOwner::Size, "Size");
-	cls_MeshVS_DataMapOfIntegerMeshEntityOwner.def("__iter__", [](const MeshVS_DataMapOfIntegerMeshEntityOwner &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<int, Graphic3d_MaterialAspect, NCollection_DefaultHasher<int> >(mod, "MeshVS_DataMapOfIntegerMaterial");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_DataMapOfIntegerMeshEntityOwner.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_TwoColors.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MeshVS_DataMapOfIntegerTwoColors, std::unique_ptr<MeshVS_DataMapOfIntegerTwoColors, Deleter<MeshVS_DataMapOfIntegerTwoColors>>, NCollection_BaseMap> cls_MeshVS_DataMapOfIntegerTwoColors(mod, "MeshVS_DataMapOfIntegerTwoColors", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MeshVS_DataMapOfIntegerTwoColors.def(py::init<>());
-	cls_MeshVS_DataMapOfIntegerTwoColors.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MeshVS_DataMapOfIntegerTwoColors.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfIntegerTwoColors.def(py::init([] (const MeshVS_DataMapOfIntegerTwoColors &other) {return new MeshVS_DataMapOfIntegerTwoColors(other);}), "Copy constructor", py::arg("other"));
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("begin", (MeshVS_DataMapOfIntegerTwoColors::iterator (MeshVS_DataMapOfIntegerTwoColors::*)() const ) &MeshVS_DataMapOfIntegerTwoColors::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("end", (MeshVS_DataMapOfIntegerTwoColors::iterator (MeshVS_DataMapOfIntegerTwoColors::*)() const ) &MeshVS_DataMapOfIntegerTwoColors::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("cbegin", (MeshVS_DataMapOfIntegerTwoColors::const_iterator (MeshVS_DataMapOfIntegerTwoColors::*)() const ) &MeshVS_DataMapOfIntegerTwoColors::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("cend", (MeshVS_DataMapOfIntegerTwoColors::const_iterator (MeshVS_DataMapOfIntegerTwoColors::*)() const ) &MeshVS_DataMapOfIntegerTwoColors::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("Exchange", (void (MeshVS_DataMapOfIntegerTwoColors::*)(MeshVS_DataMapOfIntegerTwoColors &)) &MeshVS_DataMapOfIntegerTwoColors::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("Assign", (MeshVS_DataMapOfIntegerTwoColors & (MeshVS_DataMapOfIntegerTwoColors::*)(const MeshVS_DataMapOfIntegerTwoColors &)) &MeshVS_DataMapOfIntegerTwoColors::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("assign", (MeshVS_DataMapOfIntegerTwoColors & (MeshVS_DataMapOfIntegerTwoColors::*)(const MeshVS_DataMapOfIntegerTwoColors &)) &MeshVS_DataMapOfIntegerTwoColors::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("ReSize", (void (MeshVS_DataMapOfIntegerTwoColors::*)(const Standard_Integer)) &MeshVS_DataMapOfIntegerTwoColors::ReSize, "ReSize", py::arg("N"));
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("Bind", (Standard_Boolean (MeshVS_DataMapOfIntegerTwoColors::*)(const Standard_Integer &, const MeshVS_TwoColors &)) &MeshVS_DataMapOfIntegerTwoColors::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MeshVS_DataMapOfIntegerTwoColors.def("Bound", (MeshVS_TwoColors * (MeshVS_DataMapOfIntegerTwoColors::*)(const Standard_Integer &, const MeshVS_TwoColors &)) &MeshVS_DataMapOfIntegerTwoColors::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("IsBound", (Standard_Boolean (MeshVS_DataMapOfIntegerTwoColors::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerTwoColors::IsBound, "IsBound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("UnBind", (Standard_Boolean (MeshVS_DataMapOfIntegerTwoColors::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerTwoColors::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerTwoColors.def("Seek", (const MeshVS_TwoColors * (MeshVS_DataMapOfIntegerTwoColors::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerTwoColors::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerTwoColors.def("Find", (const MeshVS_TwoColors & (MeshVS_DataMapOfIntegerTwoColors::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerTwoColors::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerTwoColors.def("Find", (Standard_Boolean (MeshVS_DataMapOfIntegerTwoColors::*)(const Standard_Integer &, MeshVS_TwoColors &) const ) &MeshVS_DataMapOfIntegerTwoColors::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("__call__", (const MeshVS_TwoColors & (MeshVS_DataMapOfIntegerTwoColors::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerTwoColors::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerTwoColors.def("ChangeSeek", (MeshVS_TwoColors * (MeshVS_DataMapOfIntegerTwoColors::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerTwoColors::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("ChangeFind", (MeshVS_TwoColors & (MeshVS_DataMapOfIntegerTwoColors::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerTwoColors::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("__call__", (MeshVS_TwoColors & (MeshVS_DataMapOfIntegerTwoColors::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerTwoColors::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("Clear", [](MeshVS_DataMapOfIntegerTwoColors &self) -> void { return self.Clear(); });
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("Clear", (void (MeshVS_DataMapOfIntegerTwoColors::*)(const Standard_Boolean)) &MeshVS_DataMapOfIntegerTwoColors::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("Clear", (void (MeshVS_DataMapOfIntegerTwoColors::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_DataMapOfIntegerTwoColors::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("Size", (Standard_Integer (MeshVS_DataMapOfIntegerTwoColors::*)() const ) &MeshVS_DataMapOfIntegerTwoColors::Size, "Size");
-	cls_MeshVS_DataMapOfIntegerTwoColors.def("__iter__", [](const MeshVS_DataMapOfIntegerTwoColors &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<int, opencascade::handle<MeshVS_MeshEntityOwner>, NCollection_DefaultHasher<int> >(mod, "MeshVS_DataMapOfIntegerMeshEntityOwner");
 
+	/* FIXME
+
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_TwoColors.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_DataMapOfIntegerTwoColors.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MeshVS_DataMapOfIntegerVector, std::unique_ptr<MeshVS_DataMapOfIntegerVector, Deleter<MeshVS_DataMapOfIntegerVector>>, NCollection_BaseMap> cls_MeshVS_DataMapOfIntegerVector(mod, "MeshVS_DataMapOfIntegerVector", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MeshVS_DataMapOfIntegerVector.def(py::init<>());
-	cls_MeshVS_DataMapOfIntegerVector.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MeshVS_DataMapOfIntegerVector.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfIntegerVector.def(py::init([] (const MeshVS_DataMapOfIntegerVector &other) {return new MeshVS_DataMapOfIntegerVector(other);}), "Copy constructor", py::arg("other"));
-	cls_MeshVS_DataMapOfIntegerVector.def("begin", (MeshVS_DataMapOfIntegerVector::iterator (MeshVS_DataMapOfIntegerVector::*)() const ) &MeshVS_DataMapOfIntegerVector::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfIntegerVector.def("end", (MeshVS_DataMapOfIntegerVector::iterator (MeshVS_DataMapOfIntegerVector::*)() const ) &MeshVS_DataMapOfIntegerVector::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfIntegerVector.def("cbegin", (MeshVS_DataMapOfIntegerVector::const_iterator (MeshVS_DataMapOfIntegerVector::*)() const ) &MeshVS_DataMapOfIntegerVector::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfIntegerVector.def("cend", (MeshVS_DataMapOfIntegerVector::const_iterator (MeshVS_DataMapOfIntegerVector::*)() const ) &MeshVS_DataMapOfIntegerVector::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfIntegerVector.def("Exchange", (void (MeshVS_DataMapOfIntegerVector::*)(MeshVS_DataMapOfIntegerVector &)) &MeshVS_DataMapOfIntegerVector::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerVector.def("Assign", (MeshVS_DataMapOfIntegerVector & (MeshVS_DataMapOfIntegerVector::*)(const MeshVS_DataMapOfIntegerVector &)) &MeshVS_DataMapOfIntegerVector::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerVector.def("assign", (MeshVS_DataMapOfIntegerVector & (MeshVS_DataMapOfIntegerVector::*)(const MeshVS_DataMapOfIntegerVector &)) &MeshVS_DataMapOfIntegerVector::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MeshVS_DataMapOfIntegerVector.def("ReSize", (void (MeshVS_DataMapOfIntegerVector::*)(const Standard_Integer)) &MeshVS_DataMapOfIntegerVector::ReSize, "ReSize", py::arg("N"));
-	cls_MeshVS_DataMapOfIntegerVector.def("Bind", (Standard_Boolean (MeshVS_DataMapOfIntegerVector::*)(const Standard_Integer &, const gp_Vec &)) &MeshVS_DataMapOfIntegerVector::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MeshVS_DataMapOfIntegerVector.def("Bound", (gp_Vec * (MeshVS_DataMapOfIntegerVector::*)(const Standard_Integer &, const gp_Vec &)) &MeshVS_DataMapOfIntegerVector::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MeshVS_DataMapOfIntegerVector.def("IsBound", (Standard_Boolean (MeshVS_DataMapOfIntegerVector::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerVector::IsBound, "IsBound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerVector.def("UnBind", (Standard_Boolean (MeshVS_DataMapOfIntegerVector::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerVector::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerVector.def("Seek", (const gp_Vec * (MeshVS_DataMapOfIntegerVector::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerVector::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerVector.def("Find", (const gp_Vec & (MeshVS_DataMapOfIntegerVector::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerVector::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerVector.def("Find", (Standard_Boolean (MeshVS_DataMapOfIntegerVector::*)(const Standard_Integer &, gp_Vec &) const ) &MeshVS_DataMapOfIntegerVector::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MeshVS_DataMapOfIntegerVector.def("__call__", (const gp_Vec & (MeshVS_DataMapOfIntegerVector::*)(const Standard_Integer &) const ) &MeshVS_DataMapOfIntegerVector::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfIntegerVector.def("ChangeSeek", (gp_Vec * (MeshVS_DataMapOfIntegerVector::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerVector::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerVector.def("ChangeFind", (gp_Vec & (MeshVS_DataMapOfIntegerVector::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerVector::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerVector.def("__call__", (gp_Vec & (MeshVS_DataMapOfIntegerVector::*)(const Standard_Integer &)) &MeshVS_DataMapOfIntegerVector::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MeshVS_DataMapOfIntegerVector.def("Clear", [](MeshVS_DataMapOfIntegerVector &self) -> void { return self.Clear(); });
-	cls_MeshVS_DataMapOfIntegerVector.def("Clear", (void (MeshVS_DataMapOfIntegerVector::*)(const Standard_Boolean)) &MeshVS_DataMapOfIntegerVector::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MeshVS_DataMapOfIntegerVector.def("Clear", (void (MeshVS_DataMapOfIntegerVector::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_DataMapOfIntegerVector::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfIntegerVector.def("Size", (Standard_Integer (MeshVS_DataMapOfIntegerVector::*)() const ) &MeshVS_DataMapOfIntegerVector::Size, "Size");
-	cls_MeshVS_DataMapOfIntegerVector.def("__iter__", [](const MeshVS_DataMapOfIntegerVector &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<int, MeshVS_TwoColors, NCollection_DefaultHasher<int> >(mod, "MeshVS_DataMapOfIntegerTwoColors");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_DataMapOfIntegerVector.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DefaultHasher.hxx
-	py::class_<MeshVS_TwoColorsHasher, std::unique_ptr<MeshVS_TwoColorsHasher, Deleter<MeshVS_TwoColorsHasher>>> cls_MeshVS_TwoColorsHasher(mod, "MeshVS_TwoColorsHasher", "Purpose: The DefaultHasher is a Hasher that is used by default in NCollection maps. To compute the hash code of the key is used the global function HashCode. To compare two keys is used the global function IsEqual.");
-	cls_MeshVS_TwoColorsHasher.def(py::init<>());
-	cls_MeshVS_TwoColorsHasher.def_static("HashCode_", (Standard_Integer (*)(const MeshVS_TwoColors &, const Standard_Integer)) &MeshVS_TwoColorsHasher::HashCode, "None", py::arg("theKey"), py::arg("Upper"));
-	cls_MeshVS_TwoColorsHasher.def_static("IsEqual_", (Standard_Boolean (*)(const MeshVS_TwoColors &, const MeshVS_TwoColors &)) &MeshVS_TwoColorsHasher::IsEqual, "None", py::arg("theKey1"), py::arg("theKey2"));
+	bind_NCollection_DataMap<int, gp_Vec, NCollection_DefaultHasher<int> >(mod, "MeshVS_DataMapOfIntegerVector");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MeshVS_DataMapOfTwoColorsMapOfInteger, std::unique_ptr<MeshVS_DataMapOfTwoColorsMapOfInteger, Deleter<MeshVS_DataMapOfTwoColorsMapOfInteger>>, NCollection_BaseMap> cls_MeshVS_DataMapOfTwoColorsMapOfInteger(mod, "MeshVS_DataMapOfTwoColorsMapOfInteger", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def(py::init<>());
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def(py::init([] (const MeshVS_DataMapOfTwoColorsMapOfInteger &other) {return new MeshVS_DataMapOfTwoColorsMapOfInteger(other);}), "Copy constructor", py::arg("other"));
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("begin", (MeshVS_DataMapOfTwoColorsMapOfInteger::iterator (MeshVS_DataMapOfTwoColorsMapOfInteger::*)() const ) &MeshVS_DataMapOfTwoColorsMapOfInteger::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("end", (MeshVS_DataMapOfTwoColorsMapOfInteger::iterator (MeshVS_DataMapOfTwoColorsMapOfInteger::*)() const ) &MeshVS_DataMapOfTwoColorsMapOfInteger::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("cbegin", (MeshVS_DataMapOfTwoColorsMapOfInteger::const_iterator (MeshVS_DataMapOfTwoColorsMapOfInteger::*)() const ) &MeshVS_DataMapOfTwoColorsMapOfInteger::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("cend", (MeshVS_DataMapOfTwoColorsMapOfInteger::const_iterator (MeshVS_DataMapOfTwoColorsMapOfInteger::*)() const ) &MeshVS_DataMapOfTwoColorsMapOfInteger::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("Exchange", (void (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(MeshVS_DataMapOfTwoColorsMapOfInteger &)) &MeshVS_DataMapOfTwoColorsMapOfInteger::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("Assign", (MeshVS_DataMapOfTwoColorsMapOfInteger & (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(const MeshVS_DataMapOfTwoColorsMapOfInteger &)) &MeshVS_DataMapOfTwoColorsMapOfInteger::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("assign", (MeshVS_DataMapOfTwoColorsMapOfInteger & (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(const MeshVS_DataMapOfTwoColorsMapOfInteger &)) &MeshVS_DataMapOfTwoColorsMapOfInteger::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("ReSize", (void (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(const Standard_Integer)) &MeshVS_DataMapOfTwoColorsMapOfInteger::ReSize, "ReSize", py::arg("N"));
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("Bind", (Standard_Boolean (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(const MeshVS_TwoColors &, const TColStd_MapOfInteger &)) &MeshVS_DataMapOfTwoColorsMapOfInteger::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("Bound", (TColStd_MapOfInteger * (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(const MeshVS_TwoColors &, const TColStd_MapOfInteger &)) &MeshVS_DataMapOfTwoColorsMapOfInteger::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("IsBound", (Standard_Boolean (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(const MeshVS_TwoColors &) const ) &MeshVS_DataMapOfTwoColorsMapOfInteger::IsBound, "IsBound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("UnBind", (Standard_Boolean (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(const MeshVS_TwoColors &)) &MeshVS_DataMapOfTwoColorsMapOfInteger::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("Seek", (const TColStd_MapOfInteger * (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(const MeshVS_TwoColors &) const ) &MeshVS_DataMapOfTwoColorsMapOfInteger::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("Find", (const TColStd_MapOfInteger & (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(const MeshVS_TwoColors &) const ) &MeshVS_DataMapOfTwoColorsMapOfInteger::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("Find", (Standard_Boolean (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(const MeshVS_TwoColors &, TColStd_MapOfInteger &) const ) &MeshVS_DataMapOfTwoColorsMapOfInteger::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("__call__", (const TColStd_MapOfInteger & (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(const MeshVS_TwoColors &) const ) &MeshVS_DataMapOfTwoColorsMapOfInteger::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("ChangeSeek", (TColStd_MapOfInteger * (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(const MeshVS_TwoColors &)) &MeshVS_DataMapOfTwoColorsMapOfInteger::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("ChangeFind", (TColStd_MapOfInteger & (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(const MeshVS_TwoColors &)) &MeshVS_DataMapOfTwoColorsMapOfInteger::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("__call__", (TColStd_MapOfInteger & (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(const MeshVS_TwoColors &)) &MeshVS_DataMapOfTwoColorsMapOfInteger::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("Clear", [](MeshVS_DataMapOfTwoColorsMapOfInteger &self) -> void { return self.Clear(); });
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("Clear", (void (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(const Standard_Boolean)) &MeshVS_DataMapOfTwoColorsMapOfInteger::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("Clear", (void (MeshVS_DataMapOfTwoColorsMapOfInteger::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_DataMapOfTwoColorsMapOfInteger::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("Size", (Standard_Integer (MeshVS_DataMapOfTwoColorsMapOfInteger::*)() const ) &MeshVS_DataMapOfTwoColorsMapOfInteger::Size, "Size");
-	cls_MeshVS_DataMapOfTwoColorsMapOfInteger.def("__iter__", [](const MeshVS_DataMapOfTwoColorsMapOfInteger &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	/* FIXME
+
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_TwoColorsHasher.hxx
+	bind_NCollection_DefaultHasher<MeshVS_TwoColors>(mod, "MeshVS_TwoColorsHasher");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_DataMapOfTwoColorsMapOfInteger.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DefaultHasher.hxx
-	py::class_<MeshVS_TwoNodesHasher, std::unique_ptr<MeshVS_TwoNodesHasher, Deleter<MeshVS_TwoNodesHasher>>> cls_MeshVS_TwoNodesHasher(mod, "MeshVS_TwoNodesHasher", "Purpose: The DefaultHasher is a Hasher that is used by default in NCollection maps. To compute the hash code of the key is used the global function HashCode. To compare two keys is used the global function IsEqual.");
-	cls_MeshVS_TwoNodesHasher.def(py::init<>());
-	cls_MeshVS_TwoNodesHasher.def_static("HashCode_", (Standard_Integer (*)(const MeshVS_TwoNodes &, const Standard_Integer)) &MeshVS_TwoNodesHasher::HashCode, "None", py::arg("theKey"), py::arg("Upper"));
-	cls_MeshVS_TwoNodesHasher.def_static("IsEqual_", (Standard_Boolean (*)(const MeshVS_TwoNodes &, const MeshVS_TwoNodes &)) &MeshVS_TwoNodesHasher::IsEqual, "None", py::arg("theKey1"), py::arg("theKey2"));
+	bind_NCollection_DataMap<MeshVS_TwoColors, NCollection_Map<int, NCollection_DefaultHasher<int> >, NCollection_DefaultHasher<MeshVS_TwoColors> >(mod, "MeshVS_DataMapOfTwoColorsMapOfInteger");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Map.hxx
-	py::class_<MeshVS_MapOfTwoNodes, std::unique_ptr<MeshVS_MapOfTwoNodes, Deleter<MeshVS_MapOfTwoNodes>>, NCollection_BaseMap> cls_MeshVS_MapOfTwoNodes(mod, "MeshVS_MapOfTwoNodes", "Purpose: Single hashed Map. This Map is used to store and retrieve keys in linear time.");
-	cls_MeshVS_MapOfTwoNodes.def(py::init<>());
-	cls_MeshVS_MapOfTwoNodes.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MeshVS_MapOfTwoNodes.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MeshVS_MapOfTwoNodes.def(py::init([] (const MeshVS_MapOfTwoNodes &other) {return new MeshVS_MapOfTwoNodes(other);}), "Copy constructor", py::arg("other"));
-	cls_MeshVS_MapOfTwoNodes.def("cbegin", (MeshVS_MapOfTwoNodes::const_iterator (MeshVS_MapOfTwoNodes::*)() const ) &MeshVS_MapOfTwoNodes::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MeshVS_MapOfTwoNodes.def("cend", (MeshVS_MapOfTwoNodes::const_iterator (MeshVS_MapOfTwoNodes::*)() const ) &MeshVS_MapOfTwoNodes::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MeshVS_MapOfTwoNodes.def("Exchange", (void (MeshVS_MapOfTwoNodes::*)(MeshVS_MapOfTwoNodes &)) &MeshVS_MapOfTwoNodes::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MeshVS_MapOfTwoNodes.def("Assign", (MeshVS_MapOfTwoNodes & (MeshVS_MapOfTwoNodes::*)(const MeshVS_MapOfTwoNodes &)) &MeshVS_MapOfTwoNodes::Assign, "Assign. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MeshVS_MapOfTwoNodes.def("assign", (MeshVS_MapOfTwoNodes & (MeshVS_MapOfTwoNodes::*)(const MeshVS_MapOfTwoNodes &)) &MeshVS_MapOfTwoNodes::operator=, py::is_operator(), "Assign operator", py::arg("theOther"));
-	cls_MeshVS_MapOfTwoNodes.def("ReSize", (void (MeshVS_MapOfTwoNodes::*)(const Standard_Integer)) &MeshVS_MapOfTwoNodes::ReSize, "ReSize", py::arg("N"));
-	cls_MeshVS_MapOfTwoNodes.def("Add", (Standard_Boolean (MeshVS_MapOfTwoNodes::*)(const MeshVS_TwoNodes &)) &MeshVS_MapOfTwoNodes::Add, "Add", py::arg("K"));
-	cls_MeshVS_MapOfTwoNodes.def("Added", (const MeshVS_TwoNodes & (MeshVS_MapOfTwoNodes::*)(const MeshVS_TwoNodes &)) &MeshVS_MapOfTwoNodes::Added, "Added: add a new key if not yet in the map, and return reference to either newly added or previously existing object", py::arg("K"));
-	cls_MeshVS_MapOfTwoNodes.def("Contains", (Standard_Boolean (MeshVS_MapOfTwoNodes::*)(const MeshVS_TwoNodes &) const ) &MeshVS_MapOfTwoNodes::Contains, "Contains", py::arg("K"));
-	cls_MeshVS_MapOfTwoNodes.def("Remove", (Standard_Boolean (MeshVS_MapOfTwoNodes::*)(const MeshVS_TwoNodes &)) &MeshVS_MapOfTwoNodes::Remove, "Remove", py::arg("K"));
-	cls_MeshVS_MapOfTwoNodes.def("Clear", [](MeshVS_MapOfTwoNodes &self) -> void { return self.Clear(); });
-	cls_MeshVS_MapOfTwoNodes.def("Clear", (void (MeshVS_MapOfTwoNodes::*)(const Standard_Boolean)) &MeshVS_MapOfTwoNodes::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MeshVS_MapOfTwoNodes.def("Clear", (void (MeshVS_MapOfTwoNodes::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_MapOfTwoNodes::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MeshVS_MapOfTwoNodes.def("Size", (Standard_Integer (MeshVS_MapOfTwoNodes::*)() const ) &MeshVS_MapOfTwoNodes::Size, "Size");
-	cls_MeshVS_MapOfTwoNodes.def("IsEqual", (Standard_Boolean (MeshVS_MapOfTwoNodes::*)(const MeshVS_MapOfTwoNodes &) const ) &MeshVS_MapOfTwoNodes::IsEqual, "Returns true if two maps contains exactly the same keys", py::arg("theOther"));
-	cls_MeshVS_MapOfTwoNodes.def("Contains", (Standard_Boolean (MeshVS_MapOfTwoNodes::*)(const MeshVS_MapOfTwoNodes &) const ) &MeshVS_MapOfTwoNodes::Contains, "Returns true if this map contains ALL keys of another map.", py::arg("theOther"));
-	cls_MeshVS_MapOfTwoNodes.def("Union", (void (MeshVS_MapOfTwoNodes::*)(const MeshVS_MapOfTwoNodes &, const MeshVS_MapOfTwoNodes &)) &MeshVS_MapOfTwoNodes::Union, "Sets this Map to be the result of union (aka addition, fuse, merge, boolean OR) operation between two given Maps The new Map contains the values that are contained either in the first map or in the second map or in both. All previous content of this Map is cleared. This map (result of the boolean operation) can also be passed as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_MeshVS_MapOfTwoNodes.def("Unite", (Standard_Boolean (MeshVS_MapOfTwoNodes::*)(const MeshVS_MapOfTwoNodes &)) &MeshVS_MapOfTwoNodes::Unite, "Apply to this Map the boolean operation union (aka addition, fuse, merge, boolean OR) with another (given) Map. The result contains the values that were previously contained in this map or contained in the given (operand) map. This algorithm is similar to method Union(). Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_MeshVS_MapOfTwoNodes.def("HasIntersection", (Standard_Boolean (MeshVS_MapOfTwoNodes::*)(const MeshVS_MapOfTwoNodes &) const ) &MeshVS_MapOfTwoNodes::HasIntersection, "Returns true if this and theMap have common elements.", py::arg("theMap"));
-	cls_MeshVS_MapOfTwoNodes.def("Intersection", (void (MeshVS_MapOfTwoNodes::*)(const MeshVS_MapOfTwoNodes &, const MeshVS_MapOfTwoNodes &)) &MeshVS_MapOfTwoNodes::Intersection, "Sets this Map to be the result of intersection (aka multiplication, common, boolean AND) operation between two given Maps. The new Map contains only the values that are contained in both map operands. All previous content of this Map is cleared. This same map (result of the boolean operation) can also be used as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_MeshVS_MapOfTwoNodes.def("Intersect", (Standard_Boolean (MeshVS_MapOfTwoNodes::*)(const MeshVS_MapOfTwoNodes &)) &MeshVS_MapOfTwoNodes::Intersect, "Apply to this Map the intersection operation (aka multiplication, common, boolean AND) with another (given) Map. The result contains only the values that are contained in both this and the given maps. This algorithm is similar to method Intersection(). Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_MeshVS_MapOfTwoNodes.def("Subtraction", (void (MeshVS_MapOfTwoNodes::*)(const MeshVS_MapOfTwoNodes &, const MeshVS_MapOfTwoNodes &)) &MeshVS_MapOfTwoNodes::Subtraction, "Sets this Map to be the result of subtraction (aka set-theoretic difference, relative complement, exclude, cut, boolean NOT) operation between two given Maps. The new Map contains only the values that are contained in the first map operands and not contained in the second one. All previous content of this Map is cleared.", py::arg("theLeft"), py::arg("theRight"));
-	cls_MeshVS_MapOfTwoNodes.def("Subtract", (Standard_Boolean (MeshVS_MapOfTwoNodes::*)(const MeshVS_MapOfTwoNodes &)) &MeshVS_MapOfTwoNodes::Subtract, "Apply to this Map the subtraction (aka set-theoretic difference, relative complement, exclude, cut, boolean NOT) operation with another (given) Map. The result contains only the values that were previously contained in this map and not contained in this map. This algorithm is similar to method Subtract() with two operands. Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_MeshVS_MapOfTwoNodes.def("Difference", (void (MeshVS_MapOfTwoNodes::*)(const MeshVS_MapOfTwoNodes &, const MeshVS_MapOfTwoNodes &)) &MeshVS_MapOfTwoNodes::Difference, "Sets this Map to be the result of symmetric difference (aka exclusive disjunction, boolean XOR) operation between two given Maps. The new Map contains the values that are contained only in the first or the second operand maps but not in both. All previous content of this Map is cleared. This map (result of the boolean operation) can also be used as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_MeshVS_MapOfTwoNodes.def("Differ", (Standard_Boolean (MeshVS_MapOfTwoNodes::*)(const MeshVS_MapOfTwoNodes &)) &MeshVS_MapOfTwoNodes::Differ, "Apply to this Map the symmetric difference (aka exclusive disjunction, boolean XOR) operation with another (given) Map. The result contains the values that are contained only in this or the operand map, but not in both. This algorithm is similar to method Difference(). Returns True if contents of this map is changed.", py::arg("theOther"));
+	/* FIXME
+
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_TwoNodesHasher.hxx
+	bind_NCollection_DefaultHasher<MeshVS_TwoNodes>(mod, "MeshVS_TwoNodesHasher");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_MapOfTwoNodes.hxx
+	bind_NCollection_Map<MeshVS_TwoNodes, NCollection_DefaultHasher<MeshVS_TwoNodes> >(mod, "MeshVS_MapOfTwoNodes");
+
+	/* FIXME
+
+	*/
+
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_SelectionModeFlags.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<MeshVS_PolyhedronVerts, std::unique_ptr<MeshVS_PolyhedronVerts, Deleter<MeshVS_PolyhedronVerts>>, NCollection_BaseList> cls_MeshVS_PolyhedronVerts(mod, "MeshVS_PolyhedronVerts", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_MeshVS_PolyhedronVerts.def(py::init<>());
-	cls_MeshVS_PolyhedronVerts.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_MeshVS_PolyhedronVerts.def(py::init([] (const MeshVS_PolyhedronVerts &other) {return new MeshVS_PolyhedronVerts(other);}), "Copy constructor", py::arg("other"));
-	cls_MeshVS_PolyhedronVerts.def("begin", (MeshVS_PolyhedronVerts::iterator (MeshVS_PolyhedronVerts::*)() const ) &MeshVS_PolyhedronVerts::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_MeshVS_PolyhedronVerts.def("end", (MeshVS_PolyhedronVerts::iterator (MeshVS_PolyhedronVerts::*)() const ) &MeshVS_PolyhedronVerts::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_MeshVS_PolyhedronVerts.def("cbegin", (MeshVS_PolyhedronVerts::const_iterator (MeshVS_PolyhedronVerts::*)() const ) &MeshVS_PolyhedronVerts::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_MeshVS_PolyhedronVerts.def("cend", (MeshVS_PolyhedronVerts::const_iterator (MeshVS_PolyhedronVerts::*)() const ) &MeshVS_PolyhedronVerts::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_MeshVS_PolyhedronVerts.def("Size", (Standard_Integer (MeshVS_PolyhedronVerts::*)() const ) &MeshVS_PolyhedronVerts::Size, "Size - Number of items");
-	cls_MeshVS_PolyhedronVerts.def("Assign", (MeshVS_PolyhedronVerts & (MeshVS_PolyhedronVerts::*)(const MeshVS_PolyhedronVerts &)) &MeshVS_PolyhedronVerts::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MeshVS_PolyhedronVerts.def("assign", (MeshVS_PolyhedronVerts & (MeshVS_PolyhedronVerts::*)(const MeshVS_PolyhedronVerts &)) &MeshVS_PolyhedronVerts::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_MeshVS_PolyhedronVerts.def("Clear", [](MeshVS_PolyhedronVerts &self) -> void { return self.Clear(); });
-	cls_MeshVS_PolyhedronVerts.def("Clear", (void (MeshVS_PolyhedronVerts::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_PolyhedronVerts::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_MeshVS_PolyhedronVerts.def("First", (const opencascade::handle<TColgp_HArray1OfPnt> & (MeshVS_PolyhedronVerts::*)() const ) &MeshVS_PolyhedronVerts::First, "First item");
-	cls_MeshVS_PolyhedronVerts.def("First", (opencascade::handle<TColgp_HArray1OfPnt> & (MeshVS_PolyhedronVerts::*)()) &MeshVS_PolyhedronVerts::First, "First item (non-const)");
-	cls_MeshVS_PolyhedronVerts.def("Last", (const opencascade::handle<TColgp_HArray1OfPnt> & (MeshVS_PolyhedronVerts::*)() const ) &MeshVS_PolyhedronVerts::Last, "Last item");
-	cls_MeshVS_PolyhedronVerts.def("Last", (opencascade::handle<TColgp_HArray1OfPnt> & (MeshVS_PolyhedronVerts::*)()) &MeshVS_PolyhedronVerts::Last, "Last item (non-const)");
-	cls_MeshVS_PolyhedronVerts.def("Append", (opencascade::handle<TColgp_HArray1OfPnt> & (MeshVS_PolyhedronVerts::*)(const opencascade::handle<TColgp_HArray1OfPnt> &)) &MeshVS_PolyhedronVerts::Append, "Append one item at the end", py::arg("theItem"));
-	cls_MeshVS_PolyhedronVerts.def("Append", (void (MeshVS_PolyhedronVerts::*)(const opencascade::handle<TColgp_HArray1OfPnt> &, MeshVS_PolyhedronVerts::Iterator &)) &MeshVS_PolyhedronVerts::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_MeshVS_PolyhedronVerts.def("Append", (void (MeshVS_PolyhedronVerts::*)(MeshVS_PolyhedronVerts &)) &MeshVS_PolyhedronVerts::Append, "Append another list at the end", py::arg("theOther"));
-	cls_MeshVS_PolyhedronVerts.def("Prepend", (opencascade::handle<TColgp_HArray1OfPnt> & (MeshVS_PolyhedronVerts::*)(const opencascade::handle<TColgp_HArray1OfPnt> &)) &MeshVS_PolyhedronVerts::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_MeshVS_PolyhedronVerts.def("Prepend", (void (MeshVS_PolyhedronVerts::*)(MeshVS_PolyhedronVerts &)) &MeshVS_PolyhedronVerts::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_MeshVS_PolyhedronVerts.def("RemoveFirst", (void (MeshVS_PolyhedronVerts::*)()) &MeshVS_PolyhedronVerts::RemoveFirst, "RemoveFirst item");
-	cls_MeshVS_PolyhedronVerts.def("Remove", (void (MeshVS_PolyhedronVerts::*)(MeshVS_PolyhedronVerts::Iterator &)) &MeshVS_PolyhedronVerts::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_MeshVS_PolyhedronVerts.def("InsertBefore", (opencascade::handle<TColgp_HArray1OfPnt> & (MeshVS_PolyhedronVerts::*)(const opencascade::handle<TColgp_HArray1OfPnt> &, MeshVS_PolyhedronVerts::Iterator &)) &MeshVS_PolyhedronVerts::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_MeshVS_PolyhedronVerts.def("InsertBefore", (void (MeshVS_PolyhedronVerts::*)(MeshVS_PolyhedronVerts &, MeshVS_PolyhedronVerts::Iterator &)) &MeshVS_PolyhedronVerts::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_MeshVS_PolyhedronVerts.def("InsertAfter", (opencascade::handle<TColgp_HArray1OfPnt> & (MeshVS_PolyhedronVerts::*)(const opencascade::handle<TColgp_HArray1OfPnt> &, MeshVS_PolyhedronVerts::Iterator &)) &MeshVS_PolyhedronVerts::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_MeshVS_PolyhedronVerts.def("InsertAfter", (void (MeshVS_PolyhedronVerts::*)(MeshVS_PolyhedronVerts &, MeshVS_PolyhedronVerts::Iterator &)) &MeshVS_PolyhedronVerts::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_MeshVS_PolyhedronVerts.def("Reverse", (void (MeshVS_PolyhedronVerts::*)()) &MeshVS_PolyhedronVerts::Reverse, "Reverse the list");
-	cls_MeshVS_PolyhedronVerts.def("__iter__", [](const MeshVS_PolyhedronVerts &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_SensitivePolyhedron.hxx
+	bind_NCollection_List<opencascade::handle<TColgp_HArray1OfPnt> >(mod, "MeshVS_PolyhedronVerts");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<MeshVS_PolyhedronVertsIter, std::unique_ptr<MeshVS_PolyhedronVertsIter, Deleter<MeshVS_PolyhedronVertsIter>>> cls_MeshVS_PolyhedronVertsIter(mod, "MeshVS_PolyhedronVertsIter", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_MeshVS_PolyhedronVertsIter.def(py::init<>());
-	cls_MeshVS_PolyhedronVertsIter.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_MeshVS_PolyhedronVertsIter.def("More", (Standard_Boolean (MeshVS_PolyhedronVertsIter::*)() const ) &MeshVS_PolyhedronVertsIter::More, "Check end");
-	cls_MeshVS_PolyhedronVertsIter.def("Next", (void (MeshVS_PolyhedronVertsIter::*)()) &MeshVS_PolyhedronVertsIter::Next, "Make step");
-	cls_MeshVS_PolyhedronVertsIter.def("Value", (const opencascade::handle<TColgp_HArray1OfPnt> & (MeshVS_PolyhedronVertsIter::*)() const ) &MeshVS_PolyhedronVertsIter::Value, "Constant Value access");
-	cls_MeshVS_PolyhedronVertsIter.def("Value", (opencascade::handle<TColgp_HArray1OfPnt> & (MeshVS_PolyhedronVertsIter::*)()) &MeshVS_PolyhedronVertsIter::Value, "Non-const Value access");
-	cls_MeshVS_PolyhedronVertsIter.def("ChangeValue", (opencascade::handle<TColgp_HArray1OfPnt> & (MeshVS_PolyhedronVertsIter::*)() const ) &MeshVS_PolyhedronVertsIter::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_SensitivePolyhedron.hxx
+	bind_NCollection_TListIterator<opencascade::handle<TColgp_HArray1OfPnt> >(mod, "MeshVS_PolyhedronVertsIter");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\MeshVS_SymmetricPairHasher.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_EncodedLink")) {
 		mod.attr("MeshVS_NodePair") = other_mod.attr("BVH_EncodedLink");

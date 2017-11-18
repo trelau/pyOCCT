@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <gp_Dir.hxx>
 #include <Standard_TypeDef.hxx>
@@ -17,6 +8,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_Array2.hxx>
 #include <TopTrans_Array2OfOrientation.hxx>
 #include <TopTrans_SurfaceTransition.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(TopTrans, mod) {
 
@@ -56,28 +48,8 @@ PYBIND11_MODULE(TopTrans, mod) {
 	cls_TopTrans_SurfaceTransition.def_static("GetBefore_", (TopAbs_State (*)(const TopAbs_Orientation)) &TopTrans_SurfaceTransition::GetBefore, "None", py::arg("Tran"));
 	cls_TopTrans_SurfaceTransition.def_static("GetAfter_", (TopAbs_State (*)(const TopAbs_Orientation)) &TopTrans_SurfaceTransition::GetAfter, "None", py::arg("Tran"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array2.hxx
-	py::class_<TopTrans_Array2OfOrientation, std::unique_ptr<TopTrans_Array2OfOrientation, Deleter<TopTrans_Array2OfOrientation>>> cls_TopTrans_Array2OfOrientation(mod, "TopTrans_Array2OfOrientation", "Purpose: The class Array2 represents bi-dimensional arrays of fixed size known at run time. The ranges of indices are user defined.");
-	cls_TopTrans_Array2OfOrientation.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_TopTrans_Array2OfOrientation.def(py::init([] (const TopTrans_Array2OfOrientation &other) {return new TopTrans_Array2OfOrientation(other);}), "Copy constructor", py::arg("other"));
-	cls_TopTrans_Array2OfOrientation.def(py::init<const TopAbs_Orientation &, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_TopTrans_Array2OfOrientation.def("Init", (void (TopTrans_Array2OfOrientation::*)(const TopAbs_Orientation &)) &TopTrans_Array2OfOrientation::Init, "Initialise the values", py::arg("theValue"));
-	cls_TopTrans_Array2OfOrientation.def("Size", (Standard_Integer (TopTrans_Array2OfOrientation::*)() const ) &TopTrans_Array2OfOrientation::Size, "Size (number of items)");
-	cls_TopTrans_Array2OfOrientation.def("Length", (Standard_Integer (TopTrans_Array2OfOrientation::*)() const ) &TopTrans_Array2OfOrientation::Length, "Length (number of items)");
-	cls_TopTrans_Array2OfOrientation.def("RowLength", (Standard_Integer (TopTrans_Array2OfOrientation::*)() const ) &TopTrans_Array2OfOrientation::RowLength, "Returns length of the row, i.e. number of columns");
-	cls_TopTrans_Array2OfOrientation.def("ColLength", (Standard_Integer (TopTrans_Array2OfOrientation::*)() const ) &TopTrans_Array2OfOrientation::ColLength, "Returns length of the column, i.e. number of rows");
-	cls_TopTrans_Array2OfOrientation.def("LowerRow", (Standard_Integer (TopTrans_Array2OfOrientation::*)() const ) &TopTrans_Array2OfOrientation::LowerRow, "LowerRow");
-	cls_TopTrans_Array2OfOrientation.def("UpperRow", (Standard_Integer (TopTrans_Array2OfOrientation::*)() const ) &TopTrans_Array2OfOrientation::UpperRow, "UpperRow");
-	cls_TopTrans_Array2OfOrientation.def("LowerCol", (Standard_Integer (TopTrans_Array2OfOrientation::*)() const ) &TopTrans_Array2OfOrientation::LowerCol, "LowerCol");
-	cls_TopTrans_Array2OfOrientation.def("UpperCol", (Standard_Integer (TopTrans_Array2OfOrientation::*)() const ) &TopTrans_Array2OfOrientation::UpperCol, "UpperCol");
-	cls_TopTrans_Array2OfOrientation.def("IsDeletable", (Standard_Boolean (TopTrans_Array2OfOrientation::*)() const ) &TopTrans_Array2OfOrientation::IsDeletable, "myDeletable flag");
-	cls_TopTrans_Array2OfOrientation.def("Assign", (TopTrans_Array2OfOrientation & (TopTrans_Array2OfOrientation::*)(const TopTrans_Array2OfOrientation &)) &TopTrans_Array2OfOrientation::Assign, "Assignment", py::arg("theOther"));
-	cls_TopTrans_Array2OfOrientation.def("assign", (TopTrans_Array2OfOrientation & (TopTrans_Array2OfOrientation::*)(const TopTrans_Array2OfOrientation &)) &TopTrans_Array2OfOrientation::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TopTrans_Array2OfOrientation.def("Value", (const TopAbs_Orientation & (TopTrans_Array2OfOrientation::*)(const Standard_Integer, const Standard_Integer) const ) &TopTrans_Array2OfOrientation::Value, "Constant value access", py::arg("theRow"), py::arg("theCol"));
-	cls_TopTrans_Array2OfOrientation.def("__call__", (const TopAbs_Orientation & (TopTrans_Array2OfOrientation::*)(const Standard_Integer, const Standard_Integer) const ) &TopTrans_Array2OfOrientation::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_TopTrans_Array2OfOrientation.def("ChangeValue", (TopAbs_Orientation & (TopTrans_Array2OfOrientation::*)(const Standard_Integer, const Standard_Integer)) &TopTrans_Array2OfOrientation::ChangeValue, "Variable value access", py::arg("theRow"), py::arg("theCol"));
-	cls_TopTrans_Array2OfOrientation.def("__call__", (TopAbs_Orientation & (TopTrans_Array2OfOrientation::*)(const Standard_Integer, const Standard_Integer)) &TopTrans_Array2OfOrientation::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_TopTrans_Array2OfOrientation.def("SetValue", (void (TopTrans_Array2OfOrientation::*)(const Standard_Integer, const Standard_Integer, const TopAbs_Orientation &)) &TopTrans_Array2OfOrientation::SetValue, "SetValue", py::arg("theRow"), py::arg("theCol"), py::arg("theItem"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TopTrans_Array2OfOrientation.hxx
+	bind_NCollection_Array2<TopAbs_Orientation>(mod, "TopTrans_Array2OfOrientation");
 
 
 }

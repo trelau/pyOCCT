@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <IGESData_IGESEntity.hxx>
 #include <gp_XYZ.hxx>
@@ -91,6 +82,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <IGESDraw_SpecificModule.hxx>
 #include <IGESDraw.hxx>
 #include <IGESDraw_Array1OfViewKindEntity.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(IGESDraw, mod) {
 
@@ -143,40 +135,8 @@ PYBIND11_MODULE(IGESDraw, mod) {
 	cls_IGESDraw_ConnectPoint.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESDraw_ConnectPoint::get_type_descriptor, "None");
 	cls_IGESDraw_ConnectPoint.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESDraw_ConnectPoint::*)() const ) &IGESDraw_ConnectPoint::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESDraw_Array1OfConnectPoint, std::unique_ptr<IGESDraw_Array1OfConnectPoint, Deleter<IGESDraw_Array1OfConnectPoint>>> cls_IGESDraw_Array1OfConnectPoint(mod, "IGESDraw_Array1OfConnectPoint", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESDraw_Array1OfConnectPoint.def(py::init<>());
-	cls_IGESDraw_Array1OfConnectPoint.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESDraw_Array1OfConnectPoint.def(py::init([] (const IGESDraw_Array1OfConnectPoint &other) {return new IGESDraw_Array1OfConnectPoint(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESDraw_Array1OfConnectPoint.def(py::init<IGESDraw_Array1OfConnectPoint &&>(), py::arg("theOther"));
-	cls_IGESDraw_Array1OfConnectPoint.def(py::init<const opencascade::handle<IGESDraw_ConnectPoint> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESDraw_Array1OfConnectPoint.def("begin", (IGESDraw_Array1OfConnectPoint::iterator (IGESDraw_Array1OfConnectPoint::*)() const ) &IGESDraw_Array1OfConnectPoint::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESDraw_Array1OfConnectPoint.def("end", (IGESDraw_Array1OfConnectPoint::iterator (IGESDraw_Array1OfConnectPoint::*)() const ) &IGESDraw_Array1OfConnectPoint::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESDraw_Array1OfConnectPoint.def("cbegin", (IGESDraw_Array1OfConnectPoint::const_iterator (IGESDraw_Array1OfConnectPoint::*)() const ) &IGESDraw_Array1OfConnectPoint::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESDraw_Array1OfConnectPoint.def("cend", (IGESDraw_Array1OfConnectPoint::const_iterator (IGESDraw_Array1OfConnectPoint::*)() const ) &IGESDraw_Array1OfConnectPoint::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESDraw_Array1OfConnectPoint.def("Init", (void (IGESDraw_Array1OfConnectPoint::*)(const opencascade::handle<IGESDraw_ConnectPoint> &)) &IGESDraw_Array1OfConnectPoint::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESDraw_Array1OfConnectPoint.def("Size", (Standard_Integer (IGESDraw_Array1OfConnectPoint::*)() const ) &IGESDraw_Array1OfConnectPoint::Size, "Size query");
-	cls_IGESDraw_Array1OfConnectPoint.def("Length", (Standard_Integer (IGESDraw_Array1OfConnectPoint::*)() const ) &IGESDraw_Array1OfConnectPoint::Length, "Length query (the same)");
-	cls_IGESDraw_Array1OfConnectPoint.def("IsEmpty", (Standard_Boolean (IGESDraw_Array1OfConnectPoint::*)() const ) &IGESDraw_Array1OfConnectPoint::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESDraw_Array1OfConnectPoint.def("Lower", (Standard_Integer (IGESDraw_Array1OfConnectPoint::*)() const ) &IGESDraw_Array1OfConnectPoint::Lower, "Lower bound");
-	cls_IGESDraw_Array1OfConnectPoint.def("Upper", (Standard_Integer (IGESDraw_Array1OfConnectPoint::*)() const ) &IGESDraw_Array1OfConnectPoint::Upper, "Upper bound");
-	cls_IGESDraw_Array1OfConnectPoint.def("IsDeletable", (Standard_Boolean (IGESDraw_Array1OfConnectPoint::*)() const ) &IGESDraw_Array1OfConnectPoint::IsDeletable, "myDeletable flag");
-	cls_IGESDraw_Array1OfConnectPoint.def("IsAllocated", (Standard_Boolean (IGESDraw_Array1OfConnectPoint::*)() const ) &IGESDraw_Array1OfConnectPoint::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESDraw_Array1OfConnectPoint.def("Assign", (IGESDraw_Array1OfConnectPoint & (IGESDraw_Array1OfConnectPoint::*)(const IGESDraw_Array1OfConnectPoint &)) &IGESDraw_Array1OfConnectPoint::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESDraw_Array1OfConnectPoint.def("Move", (IGESDraw_Array1OfConnectPoint & (IGESDraw_Array1OfConnectPoint::*)(IGESDraw_Array1OfConnectPoint &&)) &IGESDraw_Array1OfConnectPoint::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESDraw_Array1OfConnectPoint.def("assign", (IGESDraw_Array1OfConnectPoint & (IGESDraw_Array1OfConnectPoint::*)(const IGESDraw_Array1OfConnectPoint &)) &IGESDraw_Array1OfConnectPoint::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESDraw_Array1OfConnectPoint.def("assign", (IGESDraw_Array1OfConnectPoint & (IGESDraw_Array1OfConnectPoint::*)(IGESDraw_Array1OfConnectPoint &&)) &IGESDraw_Array1OfConnectPoint::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESDraw_Array1OfConnectPoint.def("First", (const opencascade::handle<IGESDraw_ConnectPoint> & (IGESDraw_Array1OfConnectPoint::*)() const ) &IGESDraw_Array1OfConnectPoint::First, "Returns first element");
-	cls_IGESDraw_Array1OfConnectPoint.def("ChangeFirst", (opencascade::handle<IGESDraw_ConnectPoint> & (IGESDraw_Array1OfConnectPoint::*)()) &IGESDraw_Array1OfConnectPoint::ChangeFirst, "Returns first element");
-	cls_IGESDraw_Array1OfConnectPoint.def("Last", (const opencascade::handle<IGESDraw_ConnectPoint> & (IGESDraw_Array1OfConnectPoint::*)() const ) &IGESDraw_Array1OfConnectPoint::Last, "Returns last element");
-	cls_IGESDraw_Array1OfConnectPoint.def("ChangeLast", (opencascade::handle<IGESDraw_ConnectPoint> & (IGESDraw_Array1OfConnectPoint::*)()) &IGESDraw_Array1OfConnectPoint::ChangeLast, "Returns last element");
-	cls_IGESDraw_Array1OfConnectPoint.def("Value", (const opencascade::handle<IGESDraw_ConnectPoint> & (IGESDraw_Array1OfConnectPoint::*)(const Standard_Integer) const ) &IGESDraw_Array1OfConnectPoint::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESDraw_Array1OfConnectPoint.def("__call__", (const opencascade::handle<IGESDraw_ConnectPoint> & (IGESDraw_Array1OfConnectPoint::*)(const Standard_Integer) const ) &IGESDraw_Array1OfConnectPoint::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESDraw_Array1OfConnectPoint.def("ChangeValue", (opencascade::handle<IGESDraw_ConnectPoint> & (IGESDraw_Array1OfConnectPoint::*)(const Standard_Integer)) &IGESDraw_Array1OfConnectPoint::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESDraw_Array1OfConnectPoint.def("__call__", (opencascade::handle<IGESDraw_ConnectPoint> & (IGESDraw_Array1OfConnectPoint::*)(const Standard_Integer)) &IGESDraw_Array1OfConnectPoint::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESDraw_Array1OfConnectPoint.def("SetValue", (void (IGESDraw_Array1OfConnectPoint::*)(const Standard_Integer, const opencascade::handle<IGESDraw_ConnectPoint> &)) &IGESDraw_Array1OfConnectPoint::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESDraw_Array1OfConnectPoint.def("Resize", (void (IGESDraw_Array1OfConnectPoint::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESDraw_Array1OfConnectPoint::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESDraw_Array1OfConnectPoint.def("__iter__", [](const IGESDraw_Array1OfConnectPoint &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESDraw_Array1OfConnectPoint.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESDraw_ConnectPoint> >(mod, "IGESDraw_Array1OfConnectPoint");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESDraw_Protocol.hxx
 	py::class_<IGESDraw_Protocol, opencascade::handle<IGESDraw_Protocol>, IGESData_Protocol> cls_IGESDraw_Protocol(mod, "IGESDraw_Protocol", "Description of Protocol for IGESDraw");
@@ -642,40 +602,8 @@ PYBIND11_MODULE(IGESDraw, mod) {
 	cls_IGESDraw.def_static("Init_", (void (*)()) &IGESDraw::Init, "Prepares dynamic data (Protocol, Modules) for this package");
 	cls_IGESDraw.def_static("Protocol_", (opencascade::handle<IGESDraw_Protocol> (*)()) &IGESDraw::Protocol, "Returns the Protocol for this Package");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESDraw_Array1OfViewKindEntity, std::unique_ptr<IGESDraw_Array1OfViewKindEntity, Deleter<IGESDraw_Array1OfViewKindEntity>>> cls_IGESDraw_Array1OfViewKindEntity(mod, "IGESDraw_Array1OfViewKindEntity", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESDraw_Array1OfViewKindEntity.def(py::init<>());
-	cls_IGESDraw_Array1OfViewKindEntity.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESDraw_Array1OfViewKindEntity.def(py::init([] (const IGESDraw_Array1OfViewKindEntity &other) {return new IGESDraw_Array1OfViewKindEntity(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESDraw_Array1OfViewKindEntity.def(py::init<IGESDraw_Array1OfViewKindEntity &&>(), py::arg("theOther"));
-	cls_IGESDraw_Array1OfViewKindEntity.def(py::init<const opencascade::handle<IGESData_ViewKindEntity> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESDraw_Array1OfViewKindEntity.def("begin", (IGESDraw_Array1OfViewKindEntity::iterator (IGESDraw_Array1OfViewKindEntity::*)() const ) &IGESDraw_Array1OfViewKindEntity::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESDraw_Array1OfViewKindEntity.def("end", (IGESDraw_Array1OfViewKindEntity::iterator (IGESDraw_Array1OfViewKindEntity::*)() const ) &IGESDraw_Array1OfViewKindEntity::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESDraw_Array1OfViewKindEntity.def("cbegin", (IGESDraw_Array1OfViewKindEntity::const_iterator (IGESDraw_Array1OfViewKindEntity::*)() const ) &IGESDraw_Array1OfViewKindEntity::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESDraw_Array1OfViewKindEntity.def("cend", (IGESDraw_Array1OfViewKindEntity::const_iterator (IGESDraw_Array1OfViewKindEntity::*)() const ) &IGESDraw_Array1OfViewKindEntity::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESDraw_Array1OfViewKindEntity.def("Init", (void (IGESDraw_Array1OfViewKindEntity::*)(const opencascade::handle<IGESData_ViewKindEntity> &)) &IGESDraw_Array1OfViewKindEntity::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESDraw_Array1OfViewKindEntity.def("Size", (Standard_Integer (IGESDraw_Array1OfViewKindEntity::*)() const ) &IGESDraw_Array1OfViewKindEntity::Size, "Size query");
-	cls_IGESDraw_Array1OfViewKindEntity.def("Length", (Standard_Integer (IGESDraw_Array1OfViewKindEntity::*)() const ) &IGESDraw_Array1OfViewKindEntity::Length, "Length query (the same)");
-	cls_IGESDraw_Array1OfViewKindEntity.def("IsEmpty", (Standard_Boolean (IGESDraw_Array1OfViewKindEntity::*)() const ) &IGESDraw_Array1OfViewKindEntity::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESDraw_Array1OfViewKindEntity.def("Lower", (Standard_Integer (IGESDraw_Array1OfViewKindEntity::*)() const ) &IGESDraw_Array1OfViewKindEntity::Lower, "Lower bound");
-	cls_IGESDraw_Array1OfViewKindEntity.def("Upper", (Standard_Integer (IGESDraw_Array1OfViewKindEntity::*)() const ) &IGESDraw_Array1OfViewKindEntity::Upper, "Upper bound");
-	cls_IGESDraw_Array1OfViewKindEntity.def("IsDeletable", (Standard_Boolean (IGESDraw_Array1OfViewKindEntity::*)() const ) &IGESDraw_Array1OfViewKindEntity::IsDeletable, "myDeletable flag");
-	cls_IGESDraw_Array1OfViewKindEntity.def("IsAllocated", (Standard_Boolean (IGESDraw_Array1OfViewKindEntity::*)() const ) &IGESDraw_Array1OfViewKindEntity::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESDraw_Array1OfViewKindEntity.def("Assign", (IGESDraw_Array1OfViewKindEntity & (IGESDraw_Array1OfViewKindEntity::*)(const IGESDraw_Array1OfViewKindEntity &)) &IGESDraw_Array1OfViewKindEntity::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESDraw_Array1OfViewKindEntity.def("Move", (IGESDraw_Array1OfViewKindEntity & (IGESDraw_Array1OfViewKindEntity::*)(IGESDraw_Array1OfViewKindEntity &&)) &IGESDraw_Array1OfViewKindEntity::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESDraw_Array1OfViewKindEntity.def("assign", (IGESDraw_Array1OfViewKindEntity & (IGESDraw_Array1OfViewKindEntity::*)(const IGESDraw_Array1OfViewKindEntity &)) &IGESDraw_Array1OfViewKindEntity::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESDraw_Array1OfViewKindEntity.def("assign", (IGESDraw_Array1OfViewKindEntity & (IGESDraw_Array1OfViewKindEntity::*)(IGESDraw_Array1OfViewKindEntity &&)) &IGESDraw_Array1OfViewKindEntity::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESDraw_Array1OfViewKindEntity.def("First", (const opencascade::handle<IGESData_ViewKindEntity> & (IGESDraw_Array1OfViewKindEntity::*)() const ) &IGESDraw_Array1OfViewKindEntity::First, "Returns first element");
-	cls_IGESDraw_Array1OfViewKindEntity.def("ChangeFirst", (opencascade::handle<IGESData_ViewKindEntity> & (IGESDraw_Array1OfViewKindEntity::*)()) &IGESDraw_Array1OfViewKindEntity::ChangeFirst, "Returns first element");
-	cls_IGESDraw_Array1OfViewKindEntity.def("Last", (const opencascade::handle<IGESData_ViewKindEntity> & (IGESDraw_Array1OfViewKindEntity::*)() const ) &IGESDraw_Array1OfViewKindEntity::Last, "Returns last element");
-	cls_IGESDraw_Array1OfViewKindEntity.def("ChangeLast", (opencascade::handle<IGESData_ViewKindEntity> & (IGESDraw_Array1OfViewKindEntity::*)()) &IGESDraw_Array1OfViewKindEntity::ChangeLast, "Returns last element");
-	cls_IGESDraw_Array1OfViewKindEntity.def("Value", (const opencascade::handle<IGESData_ViewKindEntity> & (IGESDraw_Array1OfViewKindEntity::*)(const Standard_Integer) const ) &IGESDraw_Array1OfViewKindEntity::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESDraw_Array1OfViewKindEntity.def("__call__", (const opencascade::handle<IGESData_ViewKindEntity> & (IGESDraw_Array1OfViewKindEntity::*)(const Standard_Integer) const ) &IGESDraw_Array1OfViewKindEntity::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESDraw_Array1OfViewKindEntity.def("ChangeValue", (opencascade::handle<IGESData_ViewKindEntity> & (IGESDraw_Array1OfViewKindEntity::*)(const Standard_Integer)) &IGESDraw_Array1OfViewKindEntity::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESDraw_Array1OfViewKindEntity.def("__call__", (opencascade::handle<IGESData_ViewKindEntity> & (IGESDraw_Array1OfViewKindEntity::*)(const Standard_Integer)) &IGESDraw_Array1OfViewKindEntity::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESDraw_Array1OfViewKindEntity.def("SetValue", (void (IGESDraw_Array1OfViewKindEntity::*)(const Standard_Integer, const opencascade::handle<IGESData_ViewKindEntity> &)) &IGESDraw_Array1OfViewKindEntity::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESDraw_Array1OfViewKindEntity.def("Resize", (void (IGESDraw_Array1OfViewKindEntity::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESDraw_Array1OfViewKindEntity::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESDraw_Array1OfViewKindEntity.def("__iter__", [](const IGESDraw_Array1OfViewKindEntity &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESDraw_Array1OfViewKindEntity.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESData_ViewKindEntity> >(mod, "IGESDraw_Array1OfViewKindEntity");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESDraw_HArray1OfConnectPoint.hxx
 	py::class_<IGESDraw_HArray1OfConnectPoint, opencascade::handle<IGESDraw_HArray1OfConnectPoint>, IGESDraw_Array1OfConnectPoint, Standard_Transient> cls_IGESDraw_HArray1OfConnectPoint(mod, "IGESDraw_HArray1OfConnectPoint", "None");

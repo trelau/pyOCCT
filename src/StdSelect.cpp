@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <StdSelect_TypeOfSelectionImage.hxx>
 #include <SelectMgr_ViewerSelector.hxx>
@@ -55,6 +46,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <StdSelect_IndexedDataMapOfOwnerPrs.hxx>
 #include <StdSelect_SensitivityMode.hxx>
 #include <StdSelect_TypeOfResult.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(StdSelect, mod) {
 
@@ -259,43 +251,8 @@ PYBIND11_MODULE(StdSelect, mod) {
 	cls_StdSelect.def(py::init<>());
 	cls_StdSelect.def_static("SetDrawerForBRepOwner_", (void (*)(const opencascade::handle<SelectMgr_Selection> &, const opencascade::handle<Prs3d_Drawer> &)) &StdSelect::SetDrawerForBRepOwner, "puts The same drawer in every BRepOwner Of SensitivePrimitive Used Only for hilight Of BRepOwner...", py::arg("aSelection"), py::arg("aDrawer"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_IndexedDataMap.hxx
-	py::class_<StdSelect_IndexedDataMapOfOwnerPrs, std::unique_ptr<StdSelect_IndexedDataMapOfOwnerPrs, Deleter<StdSelect_IndexedDataMapOfOwnerPrs>>, NCollection_BaseMap> cls_StdSelect_IndexedDataMapOfOwnerPrs(mod, "StdSelect_IndexedDataMapOfOwnerPrs", "Purpose: An indexed map is used to store keys and to bind an index to them. Each new key stored in the map gets an index. Index are incremented as keys are stored in the map. A key can be found by the index and an index by the key. No key but the last can be removed so the indices are in the range 1.. Extent. An Item is stored with each key.");
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def(py::init<>());
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def(py::init([] (const StdSelect_IndexedDataMapOfOwnerPrs &other) {return new StdSelect_IndexedDataMapOfOwnerPrs(other);}), "Copy constructor", py::arg("other"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("begin", (StdSelect_IndexedDataMapOfOwnerPrs::iterator (StdSelect_IndexedDataMapOfOwnerPrs::*)() const ) &StdSelect_IndexedDataMapOfOwnerPrs::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("end", (StdSelect_IndexedDataMapOfOwnerPrs::iterator (StdSelect_IndexedDataMapOfOwnerPrs::*)() const ) &StdSelect_IndexedDataMapOfOwnerPrs::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("cbegin", (StdSelect_IndexedDataMapOfOwnerPrs::const_iterator (StdSelect_IndexedDataMapOfOwnerPrs::*)() const ) &StdSelect_IndexedDataMapOfOwnerPrs::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("cend", (StdSelect_IndexedDataMapOfOwnerPrs::const_iterator (StdSelect_IndexedDataMapOfOwnerPrs::*)() const ) &StdSelect_IndexedDataMapOfOwnerPrs::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("Exchange", (void (StdSelect_IndexedDataMapOfOwnerPrs::*)(StdSelect_IndexedDataMapOfOwnerPrs &)) &StdSelect_IndexedDataMapOfOwnerPrs::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("Assign", (StdSelect_IndexedDataMapOfOwnerPrs & (StdSelect_IndexedDataMapOfOwnerPrs::*)(const StdSelect_IndexedDataMapOfOwnerPrs &)) &StdSelect_IndexedDataMapOfOwnerPrs::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("assign", (StdSelect_IndexedDataMapOfOwnerPrs & (StdSelect_IndexedDataMapOfOwnerPrs::*)(const StdSelect_IndexedDataMapOfOwnerPrs &)) &StdSelect_IndexedDataMapOfOwnerPrs::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("ReSize", (void (StdSelect_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer)) &StdSelect_IndexedDataMapOfOwnerPrs::ReSize, "ReSize", py::arg("N"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("Add", (Standard_Integer (StdSelect_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<StdSelect_Prs> &)) &StdSelect_IndexedDataMapOfOwnerPrs::Add, "Add", py::arg("theKey1"), py::arg("theItem"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("Contains", (Standard_Boolean (StdSelect_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectBasics_EntityOwner> &) const ) &StdSelect_IndexedDataMapOfOwnerPrs::Contains, "Contains", py::arg("theKey1"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("Substitute", (void (StdSelect_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer, const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<StdSelect_Prs> &)) &StdSelect_IndexedDataMapOfOwnerPrs::Substitute, "Substitute", py::arg("theIndex"), py::arg("theKey1"), py::arg("theItem"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("Swap", (void (StdSelect_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer, const Standard_Integer)) &StdSelect_IndexedDataMapOfOwnerPrs::Swap, "Swaps two elements with the given indices.", py::arg("theIndex1"), py::arg("theIndex2"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("RemoveLast", (void (StdSelect_IndexedDataMapOfOwnerPrs::*)()) &StdSelect_IndexedDataMapOfOwnerPrs::RemoveLast, "RemoveLast");
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("RemoveFromIndex", (void (StdSelect_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer)) &StdSelect_IndexedDataMapOfOwnerPrs::RemoveFromIndex, "Remove the key of the given index. Caution! The index of the last key can be changed.", py::arg("theKey2"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("RemoveKey", (void (StdSelect_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectBasics_EntityOwner> &)) &StdSelect_IndexedDataMapOfOwnerPrs::RemoveKey, "Remove the given key. Caution! The index of the last key can be changed.", py::arg("theKey1"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("FindKey", (const opencascade::handle<SelectBasics_EntityOwner> & (StdSelect_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer) const ) &StdSelect_IndexedDataMapOfOwnerPrs::FindKey, "FindKey", py::arg("theKey2"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("FindFromIndex", (const opencascade::handle<StdSelect_Prs> & (StdSelect_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer) const ) &StdSelect_IndexedDataMapOfOwnerPrs::FindFromIndex, "FindFromIndex", py::arg("theKey2"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("__call__", (const opencascade::handle<StdSelect_Prs> & (StdSelect_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer) const ) &StdSelect_IndexedDataMapOfOwnerPrs::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("ChangeFromIndex", (opencascade::handle<StdSelect_Prs> & (StdSelect_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer)) &StdSelect_IndexedDataMapOfOwnerPrs::ChangeFromIndex, "ChangeFromIndex", py::arg("theKey2"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("__call__", (opencascade::handle<StdSelect_Prs> & (StdSelect_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer)) &StdSelect_IndexedDataMapOfOwnerPrs::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("FindIndex", (Standard_Integer (StdSelect_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectBasics_EntityOwner> &) const ) &StdSelect_IndexedDataMapOfOwnerPrs::FindIndex, "FindIndex", py::arg("theKey1"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("FindFromKey", (const opencascade::handle<StdSelect_Prs> & (StdSelect_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectBasics_EntityOwner> &) const ) &StdSelect_IndexedDataMapOfOwnerPrs::FindFromKey, "FindFromKey", py::arg("theKey1"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("ChangeFromKey", (opencascade::handle<StdSelect_Prs> & (StdSelect_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectBasics_EntityOwner> &)) &StdSelect_IndexedDataMapOfOwnerPrs::ChangeFromKey, "ChangeFromKey", py::arg("theKey1"));
-	// FIXME cls_StdSelect_IndexedDataMapOfOwnerPrs.def("Seek", (const opencascade::handle<StdSelect_Prs> * (StdSelect_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectBasics_EntityOwner> &) const ) &StdSelect_IndexedDataMapOfOwnerPrs::Seek, "Seek returns pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	// FIXME cls_StdSelect_IndexedDataMapOfOwnerPrs.def("ChangeSeek", (opencascade::handle<StdSelect_Prs> * (StdSelect_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectBasics_EntityOwner> &)) &StdSelect_IndexedDataMapOfOwnerPrs::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("FindFromKey", (Standard_Boolean (StdSelect_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectBasics_EntityOwner> &, opencascade::handle<StdSelect_Prs> &) const ) &StdSelect_IndexedDataMapOfOwnerPrs::FindFromKey, "Find value for key with copying.", py::arg("theKey1"), py::arg("theValue"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("Clear", [](StdSelect_IndexedDataMapOfOwnerPrs &self) -> void { return self.Clear(); });
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("Clear", (void (StdSelect_IndexedDataMapOfOwnerPrs::*)(const Standard_Boolean)) &StdSelect_IndexedDataMapOfOwnerPrs::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("Clear", (void (StdSelect_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &StdSelect_IndexedDataMapOfOwnerPrs::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("Size", (Standard_Integer (StdSelect_IndexedDataMapOfOwnerPrs::*)() const ) &StdSelect_IndexedDataMapOfOwnerPrs::Size, "Size");
-	cls_StdSelect_IndexedDataMapOfOwnerPrs.def("__iter__", [](const StdSelect_IndexedDataMapOfOwnerPrs &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\StdSelect_IndexedDataMapOfOwnerPrs.hxx
+	bind_NCollection_IndexedDataMap<opencascade::handle<SelectBasics_EntityOwner>, opencascade::handle<StdSelect_Prs>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "StdSelect_IndexedDataMapOfOwnerPrs");
 
 
 }

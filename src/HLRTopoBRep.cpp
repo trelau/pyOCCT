@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <TopoDS_Shape.hxx>
@@ -37,6 +28,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <gp_Pnt.hxx>
 #include <Geom2d_Line.hxx>
 #include <HLRTopoBRep_FaceIsoLiner.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(HLRTopoBRep, mod) {
 
@@ -143,111 +135,25 @@ PYBIND11_MODULE(HLRTopoBRep, mod) {
 	cls_HLRTopoBRep_FaceIsoLiner.def_static("MakeVertex_", (TopoDS_Vertex (*)(const TopoDS_Edge &, const gp_Pnt &, const Standard_Real, const Standard_Real, HLRTopoBRep_Data &)) &HLRTopoBRep_FaceIsoLiner::MakeVertex, "None", py::arg("E"), py::arg("P"), py::arg("Par"), py::arg("Tol"), py::arg("DS"));
 	cls_HLRTopoBRep_FaceIsoLiner.def_static("MakeIsoLine_", (void (*)(const TopoDS_Face &, const opencascade::handle<Geom2d_Line> &, TopoDS_Vertex &, TopoDS_Vertex &, const Standard_Real, const Standard_Real, const Standard_Real, HLRTopoBRep_Data &)) &HLRTopoBRep_FaceIsoLiner::MakeIsoLine, "None", py::arg("F"), py::arg("Iso"), py::arg("V1"), py::arg("V2"), py::arg("U1"), py::arg("U2"), py::arg("Tol"), py::arg("DS"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<HLRTopoBRep_DataMapOfShapeFaceData, std::unique_ptr<HLRTopoBRep_DataMapOfShapeFaceData, Deleter<HLRTopoBRep_DataMapOfShapeFaceData>>, NCollection_BaseMap> cls_HLRTopoBRep_DataMapOfShapeFaceData(mod, "HLRTopoBRep_DataMapOfShapeFaceData", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def(py::init<>());
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def(py::init([] (const HLRTopoBRep_DataMapOfShapeFaceData &other) {return new HLRTopoBRep_DataMapOfShapeFaceData(other);}), "Copy constructor", py::arg("other"));
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("begin", (HLRTopoBRep_DataMapOfShapeFaceData::iterator (HLRTopoBRep_DataMapOfShapeFaceData::*)() const ) &HLRTopoBRep_DataMapOfShapeFaceData::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("end", (HLRTopoBRep_DataMapOfShapeFaceData::iterator (HLRTopoBRep_DataMapOfShapeFaceData::*)() const ) &HLRTopoBRep_DataMapOfShapeFaceData::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("cbegin", (HLRTopoBRep_DataMapOfShapeFaceData::const_iterator (HLRTopoBRep_DataMapOfShapeFaceData::*)() const ) &HLRTopoBRep_DataMapOfShapeFaceData::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("cend", (HLRTopoBRep_DataMapOfShapeFaceData::const_iterator (HLRTopoBRep_DataMapOfShapeFaceData::*)() const ) &HLRTopoBRep_DataMapOfShapeFaceData::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("Exchange", (void (HLRTopoBRep_DataMapOfShapeFaceData::*)(HLRTopoBRep_DataMapOfShapeFaceData &)) &HLRTopoBRep_DataMapOfShapeFaceData::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("Assign", (HLRTopoBRep_DataMapOfShapeFaceData & (HLRTopoBRep_DataMapOfShapeFaceData::*)(const HLRTopoBRep_DataMapOfShapeFaceData &)) &HLRTopoBRep_DataMapOfShapeFaceData::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("assign", (HLRTopoBRep_DataMapOfShapeFaceData & (HLRTopoBRep_DataMapOfShapeFaceData::*)(const HLRTopoBRep_DataMapOfShapeFaceData &)) &HLRTopoBRep_DataMapOfShapeFaceData::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("ReSize", (void (HLRTopoBRep_DataMapOfShapeFaceData::*)(const Standard_Integer)) &HLRTopoBRep_DataMapOfShapeFaceData::ReSize, "ReSize", py::arg("N"));
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("Bind", (Standard_Boolean (HLRTopoBRep_DataMapOfShapeFaceData::*)(const TopoDS_Shape &, const HLRTopoBRep_FaceData &)) &HLRTopoBRep_DataMapOfShapeFaceData::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_HLRTopoBRep_DataMapOfShapeFaceData.def("Bound", (HLRTopoBRep_FaceData * (HLRTopoBRep_DataMapOfShapeFaceData::*)(const TopoDS_Shape &, const HLRTopoBRep_FaceData &)) &HLRTopoBRep_DataMapOfShapeFaceData::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("IsBound", (Standard_Boolean (HLRTopoBRep_DataMapOfShapeFaceData::*)(const TopoDS_Shape &) const ) &HLRTopoBRep_DataMapOfShapeFaceData::IsBound, "IsBound", py::arg("theKey"));
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("UnBind", (Standard_Boolean (HLRTopoBRep_DataMapOfShapeFaceData::*)(const TopoDS_Shape &)) &HLRTopoBRep_DataMapOfShapeFaceData::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_HLRTopoBRep_DataMapOfShapeFaceData.def("Seek", (const HLRTopoBRep_FaceData * (HLRTopoBRep_DataMapOfShapeFaceData::*)(const TopoDS_Shape &) const ) &HLRTopoBRep_DataMapOfShapeFaceData::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_HLRTopoBRep_DataMapOfShapeFaceData.def("Find", (const HLRTopoBRep_FaceData & (HLRTopoBRep_DataMapOfShapeFaceData::*)(const TopoDS_Shape &) const ) &HLRTopoBRep_DataMapOfShapeFaceData::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_HLRTopoBRep_DataMapOfShapeFaceData.def("Find", (Standard_Boolean (HLRTopoBRep_DataMapOfShapeFaceData::*)(const TopoDS_Shape &, HLRTopoBRep_FaceData &) const ) &HLRTopoBRep_DataMapOfShapeFaceData::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("__call__", (const HLRTopoBRep_FaceData & (HLRTopoBRep_DataMapOfShapeFaceData::*)(const TopoDS_Shape &) const ) &HLRTopoBRep_DataMapOfShapeFaceData::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_HLRTopoBRep_DataMapOfShapeFaceData.def("ChangeSeek", (HLRTopoBRep_FaceData * (HLRTopoBRep_DataMapOfShapeFaceData::*)(const TopoDS_Shape &)) &HLRTopoBRep_DataMapOfShapeFaceData::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("ChangeFind", (HLRTopoBRep_FaceData & (HLRTopoBRep_DataMapOfShapeFaceData::*)(const TopoDS_Shape &)) &HLRTopoBRep_DataMapOfShapeFaceData::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("__call__", (HLRTopoBRep_FaceData & (HLRTopoBRep_DataMapOfShapeFaceData::*)(const TopoDS_Shape &)) &HLRTopoBRep_DataMapOfShapeFaceData::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("Clear", [](HLRTopoBRep_DataMapOfShapeFaceData &self) -> void { return self.Clear(); });
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("Clear", (void (HLRTopoBRep_DataMapOfShapeFaceData::*)(const Standard_Boolean)) &HLRTopoBRep_DataMapOfShapeFaceData::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("Clear", (void (HLRTopoBRep_DataMapOfShapeFaceData::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &HLRTopoBRep_DataMapOfShapeFaceData::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("Size", (Standard_Integer (HLRTopoBRep_DataMapOfShapeFaceData::*)() const ) &HLRTopoBRep_DataMapOfShapeFaceData::Size, "Size");
-	cls_HLRTopoBRep_DataMapOfShapeFaceData.def("__iter__", [](const HLRTopoBRep_DataMapOfShapeFaceData &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRTopoBRep_DataMapOfShapeFaceData.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<HLRTopoBRep_ListOfVData, std::unique_ptr<HLRTopoBRep_ListOfVData, Deleter<HLRTopoBRep_ListOfVData>>, NCollection_BaseList> cls_HLRTopoBRep_ListOfVData(mod, "HLRTopoBRep_ListOfVData", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_HLRTopoBRep_ListOfVData.def(py::init<>());
-	cls_HLRTopoBRep_ListOfVData.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_HLRTopoBRep_ListOfVData.def(py::init([] (const HLRTopoBRep_ListOfVData &other) {return new HLRTopoBRep_ListOfVData(other);}), "Copy constructor", py::arg("other"));
-	cls_HLRTopoBRep_ListOfVData.def("begin", (HLRTopoBRep_ListOfVData::iterator (HLRTopoBRep_ListOfVData::*)() const ) &HLRTopoBRep_ListOfVData::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_HLRTopoBRep_ListOfVData.def("end", (HLRTopoBRep_ListOfVData::iterator (HLRTopoBRep_ListOfVData::*)() const ) &HLRTopoBRep_ListOfVData::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_HLRTopoBRep_ListOfVData.def("cbegin", (HLRTopoBRep_ListOfVData::const_iterator (HLRTopoBRep_ListOfVData::*)() const ) &HLRTopoBRep_ListOfVData::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_HLRTopoBRep_ListOfVData.def("cend", (HLRTopoBRep_ListOfVData::const_iterator (HLRTopoBRep_ListOfVData::*)() const ) &HLRTopoBRep_ListOfVData::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_HLRTopoBRep_ListOfVData.def("Size", (Standard_Integer (HLRTopoBRep_ListOfVData::*)() const ) &HLRTopoBRep_ListOfVData::Size, "Size - Number of items");
-	cls_HLRTopoBRep_ListOfVData.def("Assign", (HLRTopoBRep_ListOfVData & (HLRTopoBRep_ListOfVData::*)(const HLRTopoBRep_ListOfVData &)) &HLRTopoBRep_ListOfVData::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_HLRTopoBRep_ListOfVData.def("assign", (HLRTopoBRep_ListOfVData & (HLRTopoBRep_ListOfVData::*)(const HLRTopoBRep_ListOfVData &)) &HLRTopoBRep_ListOfVData::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_HLRTopoBRep_ListOfVData.def("Clear", [](HLRTopoBRep_ListOfVData &self) -> void { return self.Clear(); });
-	cls_HLRTopoBRep_ListOfVData.def("Clear", (void (HLRTopoBRep_ListOfVData::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &HLRTopoBRep_ListOfVData::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_HLRTopoBRep_ListOfVData.def("First", (const HLRTopoBRep_VData & (HLRTopoBRep_ListOfVData::*)() const ) &HLRTopoBRep_ListOfVData::First, "First item");
-	cls_HLRTopoBRep_ListOfVData.def("First", (HLRTopoBRep_VData & (HLRTopoBRep_ListOfVData::*)()) &HLRTopoBRep_ListOfVData::First, "First item (non-const)");
-	cls_HLRTopoBRep_ListOfVData.def("Last", (const HLRTopoBRep_VData & (HLRTopoBRep_ListOfVData::*)() const ) &HLRTopoBRep_ListOfVData::Last, "Last item");
-	cls_HLRTopoBRep_ListOfVData.def("Last", (HLRTopoBRep_VData & (HLRTopoBRep_ListOfVData::*)()) &HLRTopoBRep_ListOfVData::Last, "Last item (non-const)");
-	cls_HLRTopoBRep_ListOfVData.def("Append", (HLRTopoBRep_VData & (HLRTopoBRep_ListOfVData::*)(const HLRTopoBRep_VData &)) &HLRTopoBRep_ListOfVData::Append, "Append one item at the end", py::arg("theItem"));
-	cls_HLRTopoBRep_ListOfVData.def("Append", (void (HLRTopoBRep_ListOfVData::*)(const HLRTopoBRep_VData &, HLRTopoBRep_ListOfVData::Iterator &)) &HLRTopoBRep_ListOfVData::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_HLRTopoBRep_ListOfVData.def("Append", (void (HLRTopoBRep_ListOfVData::*)(HLRTopoBRep_ListOfVData &)) &HLRTopoBRep_ListOfVData::Append, "Append another list at the end", py::arg("theOther"));
-	cls_HLRTopoBRep_ListOfVData.def("Prepend", (HLRTopoBRep_VData & (HLRTopoBRep_ListOfVData::*)(const HLRTopoBRep_VData &)) &HLRTopoBRep_ListOfVData::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_HLRTopoBRep_ListOfVData.def("Prepend", (void (HLRTopoBRep_ListOfVData::*)(HLRTopoBRep_ListOfVData &)) &HLRTopoBRep_ListOfVData::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_HLRTopoBRep_ListOfVData.def("RemoveFirst", (void (HLRTopoBRep_ListOfVData::*)()) &HLRTopoBRep_ListOfVData::RemoveFirst, "RemoveFirst item");
-	cls_HLRTopoBRep_ListOfVData.def("Remove", (void (HLRTopoBRep_ListOfVData::*)(HLRTopoBRep_ListOfVData::Iterator &)) &HLRTopoBRep_ListOfVData::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_HLRTopoBRep_ListOfVData.def("InsertBefore", (HLRTopoBRep_VData & (HLRTopoBRep_ListOfVData::*)(const HLRTopoBRep_VData &, HLRTopoBRep_ListOfVData::Iterator &)) &HLRTopoBRep_ListOfVData::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_HLRTopoBRep_ListOfVData.def("InsertBefore", (void (HLRTopoBRep_ListOfVData::*)(HLRTopoBRep_ListOfVData &, HLRTopoBRep_ListOfVData::Iterator &)) &HLRTopoBRep_ListOfVData::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_HLRTopoBRep_ListOfVData.def("InsertAfter", (HLRTopoBRep_VData & (HLRTopoBRep_ListOfVData::*)(const HLRTopoBRep_VData &, HLRTopoBRep_ListOfVData::Iterator &)) &HLRTopoBRep_ListOfVData::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_HLRTopoBRep_ListOfVData.def("InsertAfter", (void (HLRTopoBRep_ListOfVData::*)(HLRTopoBRep_ListOfVData &, HLRTopoBRep_ListOfVData::Iterator &)) &HLRTopoBRep_ListOfVData::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_HLRTopoBRep_ListOfVData.def("Reverse", (void (HLRTopoBRep_ListOfVData::*)()) &HLRTopoBRep_ListOfVData::Reverse, "Reverse the list");
-	cls_HLRTopoBRep_ListOfVData.def("__iter__", [](const HLRTopoBRep_ListOfVData &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TopoDS_Shape, HLRTopoBRep_FaceData, TopTools_ShapeMapHasher>(mod, "HLRTopoBRep_DataMapOfShapeFaceData");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<HLRTopoBRep_ListIteratorOfListOfVData, std::unique_ptr<HLRTopoBRep_ListIteratorOfListOfVData, Deleter<HLRTopoBRep_ListIteratorOfListOfVData>>> cls_HLRTopoBRep_ListIteratorOfListOfVData(mod, "HLRTopoBRep_ListIteratorOfListOfVData", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_HLRTopoBRep_ListIteratorOfListOfVData.def(py::init<>());
-	cls_HLRTopoBRep_ListIteratorOfListOfVData.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_HLRTopoBRep_ListIteratorOfListOfVData.def("More", (Standard_Boolean (HLRTopoBRep_ListIteratorOfListOfVData::*)() const ) &HLRTopoBRep_ListIteratorOfListOfVData::More, "Check end");
-	cls_HLRTopoBRep_ListIteratorOfListOfVData.def("Next", (void (HLRTopoBRep_ListIteratorOfListOfVData::*)()) &HLRTopoBRep_ListIteratorOfListOfVData::Next, "Make step");
-	cls_HLRTopoBRep_ListIteratorOfListOfVData.def("Value", (const HLRTopoBRep_VData & (HLRTopoBRep_ListIteratorOfListOfVData::*)() const ) &HLRTopoBRep_ListIteratorOfListOfVData::Value, "Constant Value access");
-	cls_HLRTopoBRep_ListIteratorOfListOfVData.def("Value", (HLRTopoBRep_VData & (HLRTopoBRep_ListIteratorOfListOfVData::*)()) &HLRTopoBRep_ListIteratorOfListOfVData::Value, "Non-const Value access");
-	cls_HLRTopoBRep_ListIteratorOfListOfVData.def("ChangeValue", (HLRTopoBRep_VData & (HLRTopoBRep_ListIteratorOfListOfVData::*)() const ) &HLRTopoBRep_ListIteratorOfListOfVData::ChangeValue, "Non-const Value access");
+	/* FIXME
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<HLRTopoBRep_MapOfShapeListOfVData, std::unique_ptr<HLRTopoBRep_MapOfShapeListOfVData, Deleter<HLRTopoBRep_MapOfShapeListOfVData>>, NCollection_BaseMap> cls_HLRTopoBRep_MapOfShapeListOfVData(mod, "HLRTopoBRep_MapOfShapeListOfVData", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def(py::init<>());
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def(py::init([] (const HLRTopoBRep_MapOfShapeListOfVData &other) {return new HLRTopoBRep_MapOfShapeListOfVData(other);}), "Copy constructor", py::arg("other"));
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("begin", (HLRTopoBRep_MapOfShapeListOfVData::iterator (HLRTopoBRep_MapOfShapeListOfVData::*)() const ) &HLRTopoBRep_MapOfShapeListOfVData::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("end", (HLRTopoBRep_MapOfShapeListOfVData::iterator (HLRTopoBRep_MapOfShapeListOfVData::*)() const ) &HLRTopoBRep_MapOfShapeListOfVData::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("cbegin", (HLRTopoBRep_MapOfShapeListOfVData::const_iterator (HLRTopoBRep_MapOfShapeListOfVData::*)() const ) &HLRTopoBRep_MapOfShapeListOfVData::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("cend", (HLRTopoBRep_MapOfShapeListOfVData::const_iterator (HLRTopoBRep_MapOfShapeListOfVData::*)() const ) &HLRTopoBRep_MapOfShapeListOfVData::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("Exchange", (void (HLRTopoBRep_MapOfShapeListOfVData::*)(HLRTopoBRep_MapOfShapeListOfVData &)) &HLRTopoBRep_MapOfShapeListOfVData::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("Assign", (HLRTopoBRep_MapOfShapeListOfVData & (HLRTopoBRep_MapOfShapeListOfVData::*)(const HLRTopoBRep_MapOfShapeListOfVData &)) &HLRTopoBRep_MapOfShapeListOfVData::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("assign", (HLRTopoBRep_MapOfShapeListOfVData & (HLRTopoBRep_MapOfShapeListOfVData::*)(const HLRTopoBRep_MapOfShapeListOfVData &)) &HLRTopoBRep_MapOfShapeListOfVData::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("ReSize", (void (HLRTopoBRep_MapOfShapeListOfVData::*)(const Standard_Integer)) &HLRTopoBRep_MapOfShapeListOfVData::ReSize, "ReSize", py::arg("N"));
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("Bind", (Standard_Boolean (HLRTopoBRep_MapOfShapeListOfVData::*)(const TopoDS_Shape &, const HLRTopoBRep_ListOfVData &)) &HLRTopoBRep_MapOfShapeListOfVData::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_HLRTopoBRep_MapOfShapeListOfVData.def("Bound", (HLRTopoBRep_ListOfVData * (HLRTopoBRep_MapOfShapeListOfVData::*)(const TopoDS_Shape &, const HLRTopoBRep_ListOfVData &)) &HLRTopoBRep_MapOfShapeListOfVData::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("IsBound", (Standard_Boolean (HLRTopoBRep_MapOfShapeListOfVData::*)(const TopoDS_Shape &) const ) &HLRTopoBRep_MapOfShapeListOfVData::IsBound, "IsBound", py::arg("theKey"));
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("UnBind", (Standard_Boolean (HLRTopoBRep_MapOfShapeListOfVData::*)(const TopoDS_Shape &)) &HLRTopoBRep_MapOfShapeListOfVData::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_HLRTopoBRep_MapOfShapeListOfVData.def("Seek", (const HLRTopoBRep_ListOfVData * (HLRTopoBRep_MapOfShapeListOfVData::*)(const TopoDS_Shape &) const ) &HLRTopoBRep_MapOfShapeListOfVData::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_HLRTopoBRep_MapOfShapeListOfVData.def("Find", (const HLRTopoBRep_ListOfVData & (HLRTopoBRep_MapOfShapeListOfVData::*)(const TopoDS_Shape &) const ) &HLRTopoBRep_MapOfShapeListOfVData::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_HLRTopoBRep_MapOfShapeListOfVData.def("Find", (Standard_Boolean (HLRTopoBRep_MapOfShapeListOfVData::*)(const TopoDS_Shape &, HLRTopoBRep_ListOfVData &) const ) &HLRTopoBRep_MapOfShapeListOfVData::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("__call__", (const HLRTopoBRep_ListOfVData & (HLRTopoBRep_MapOfShapeListOfVData::*)(const TopoDS_Shape &) const ) &HLRTopoBRep_MapOfShapeListOfVData::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_HLRTopoBRep_MapOfShapeListOfVData.def("ChangeSeek", (HLRTopoBRep_ListOfVData * (HLRTopoBRep_MapOfShapeListOfVData::*)(const TopoDS_Shape &)) &HLRTopoBRep_MapOfShapeListOfVData::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("ChangeFind", (HLRTopoBRep_ListOfVData & (HLRTopoBRep_MapOfShapeListOfVData::*)(const TopoDS_Shape &)) &HLRTopoBRep_MapOfShapeListOfVData::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("__call__", (HLRTopoBRep_ListOfVData & (HLRTopoBRep_MapOfShapeListOfVData::*)(const TopoDS_Shape &)) &HLRTopoBRep_MapOfShapeListOfVData::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("Clear", [](HLRTopoBRep_MapOfShapeListOfVData &self) -> void { return self.Clear(); });
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("Clear", (void (HLRTopoBRep_MapOfShapeListOfVData::*)(const Standard_Boolean)) &HLRTopoBRep_MapOfShapeListOfVData::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("Clear", (void (HLRTopoBRep_MapOfShapeListOfVData::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &HLRTopoBRep_MapOfShapeListOfVData::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("Size", (Standard_Integer (HLRTopoBRep_MapOfShapeListOfVData::*)() const ) &HLRTopoBRep_MapOfShapeListOfVData::Size, "Size");
-	cls_HLRTopoBRep_MapOfShapeListOfVData.def("__iter__", [](const HLRTopoBRep_MapOfShapeListOfVData &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRTopoBRep_ListOfVData.hxx
+	bind_NCollection_List<HLRTopoBRep_VData>(mod, "HLRTopoBRep_ListOfVData");
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRTopoBRep_ListOfVData.hxx
+	bind_NCollection_TListIterator<HLRTopoBRep_VData>(mod, "HLRTopoBRep_ListIteratorOfListOfVData");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRTopoBRep_MapOfShapeListOfVData.hxx
+	bind_NCollection_DataMap<TopoDS_Shape, NCollection_List<HLRTopoBRep_VData>, TopTools_ShapeMapHasher>(mod, "HLRTopoBRep_MapOfShapeListOfVData");
+
+	/* FIXME
+
+	*/
+
 
 }

@@ -1,17 +1,8 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_TypeDef.hxx>
-#include <IntPolyh_Edge.hxx>
 #include <IntPolyh_Array.hxx>
+#include <IntPolyh_Edge.hxx>
 #include <IntPolyh_ArrayOfEdges.hxx>
 #include <IntPolyh_Point.hxx>
 #include <Standard_Handle.hxx>
@@ -37,6 +28,8 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_BaseList.hxx>
 #include <NCollection_List.hxx>
 #include <IntPolyh_Intersection.hxx>
+#include <IntPolyh_Templates.hpp>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(IntPolyh, mod) {
 
@@ -273,202 +266,42 @@ PYBIND11_MODULE(IntPolyh, mod) {
 	cls_IntPolyh_Intersection.def("GetTangentZonePoint", (void (IntPolyh_Intersection::*)(const Standard_Integer, const Standard_Integer, Standard_Real &, Standard_Real &, Standard_Real &, Standard_Real &, Standard_Real &, Standard_Real &, Standard_Real &) const ) &IntPolyh_Intersection::GetTangentZonePoint, "None", py::arg("IndexLine"), py::arg("IndexPoint"), py::arg("x"), py::arg("y"), py::arg("z"), py::arg("u1"), py::arg("v1"), py::arg("u2"), py::arg("v2"));
 
 	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\IntPolyh_Array.hxx
-	py::class_<IntPolyh_ArrayOfEdges, std::unique_ptr<IntPolyh_ArrayOfEdges, Deleter<IntPolyh_ArrayOfEdges>>> cls_IntPolyh_ArrayOfEdges(mod, "IntPolyh_ArrayOfEdges", "Class IntPolyh_Array (dynamic array of objects)");
-	cls_IntPolyh_ArrayOfEdges.def(py::init<>());
-	cls_IntPolyh_ArrayOfEdges.def(py::init<const Standard_Integer>(), py::arg("aIncrement"));
-	cls_IntPolyh_ArrayOfEdges.def(py::init<const Standard_Integer>(), py::arg("aN"));
-	cls_IntPolyh_ArrayOfEdges.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("aN"), py::arg("aIncrement"));
-	cls_IntPolyh_ArrayOfEdges.def("assign", (IntPolyh_ArrayOfEdges & (IntPolyh_ArrayOfEdges::*)(const IntPolyh_ArrayOfEdges &)) &IntPolyh_ArrayOfEdges::operator=, py::is_operator(), "Assignment operator", py::arg("aOther"));
-	cls_IntPolyh_ArrayOfEdges.def("Copy", (IntPolyh_ArrayOfEdges & (IntPolyh_ArrayOfEdges::*)(const IntPolyh_ArrayOfEdges &)) &IntPolyh_ArrayOfEdges::Copy, "Copy", py::arg("aOther"));
-	cls_IntPolyh_ArrayOfEdges.def("Init", (void (IntPolyh_ArrayOfEdges::*)(const Standard_Integer)) &IntPolyh_ArrayOfEdges::Init, "Init - allocate memory for <aN> items", py::arg("aN"));
-	cls_IntPolyh_ArrayOfEdges.def("IncrementNbItems", (void (IntPolyh_ArrayOfEdges::*)()) &IntPolyh_ArrayOfEdges::IncrementNbItems, "IncrementNbItems - increment the number of stored items");
-	cls_IntPolyh_ArrayOfEdges.def("GetN", (Standard_Integer (IntPolyh_ArrayOfEdges::*)() const ) &IntPolyh_ArrayOfEdges::GetN, "GetN - returns the number of 'allocated' items");
-	cls_IntPolyh_ArrayOfEdges.def("NbItems", (Standard_Integer (IntPolyh_ArrayOfEdges::*)() const ) &IntPolyh_ArrayOfEdges::NbItems, "NbItems - returns the number of stored items");
-	cls_IntPolyh_ArrayOfEdges.def("SetNbItems", (void (IntPolyh_ArrayOfEdges::*)(const Standard_Integer)) &IntPolyh_ArrayOfEdges::SetNbItems, "set the number of stored items", py::arg("aNb"));
-	cls_IntPolyh_ArrayOfEdges.def("Value", (const IntPolyh_Edge & (IntPolyh_ArrayOfEdges::*)(const Standard_Integer) const ) &IntPolyh_ArrayOfEdges::Value, "query the const value", py::arg("aIndex"));
-	cls_IntPolyh_ArrayOfEdges.def("__getitem__", (const IntPolyh_Edge & (IntPolyh_ArrayOfEdges::*)(const Standard_Integer) const ) &IntPolyh_ArrayOfEdges::operator[], py::is_operator(), "query the const value", py::arg("aIndex"));
-	cls_IntPolyh_ArrayOfEdges.def("ChangeValue", (IntPolyh_Edge & (IntPolyh_ArrayOfEdges::*)(const Standard_Integer)) &IntPolyh_ArrayOfEdges::ChangeValue, "query the value", py::arg("aIndex"));
-	cls_IntPolyh_ArrayOfEdges.def("__getitem__", (IntPolyh_Edge & (IntPolyh_ArrayOfEdges::*)(const Standard_Integer)) &IntPolyh_ArrayOfEdges::operator[], py::is_operator(), "query the value", py::arg("aIndex"));
-	// FIXME cls_IntPolyh_ArrayOfEdges.def("Dump", (void (IntPolyh_ArrayOfEdges::*)() const ) &IntPolyh_ArrayOfEdges::Dump, "dump the contents");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntPolyh_ArrayOfEdges.hxx
+	bind_IntPolyh_Array<IntPolyh_Edge>(mod, "IntPolyh_ArrayOfEdges");
 
 	*/
 
 	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\IntPolyh_Array.hxx
-	py::class_<IntPolyh_ArrayOfPoints, std::unique_ptr<IntPolyh_ArrayOfPoints, Deleter<IntPolyh_ArrayOfPoints>>> cls_IntPolyh_ArrayOfPoints(mod, "IntPolyh_ArrayOfPoints", "Class IntPolyh_Array (dynamic array of objects)");
-	cls_IntPolyh_ArrayOfPoints.def(py::init<>());
-	cls_IntPolyh_ArrayOfPoints.def(py::init<const Standard_Integer>(), py::arg("aIncrement"));
-	cls_IntPolyh_ArrayOfPoints.def(py::init<const Standard_Integer>(), py::arg("aN"));
-	cls_IntPolyh_ArrayOfPoints.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("aN"), py::arg("aIncrement"));
-	cls_IntPolyh_ArrayOfPoints.def("assign", (IntPolyh_ArrayOfPoints & (IntPolyh_ArrayOfPoints::*)(const IntPolyh_ArrayOfPoints &)) &IntPolyh_ArrayOfPoints::operator=, py::is_operator(), "Assignment operator", py::arg("aOther"));
-	cls_IntPolyh_ArrayOfPoints.def("Copy", (IntPolyh_ArrayOfPoints & (IntPolyh_ArrayOfPoints::*)(const IntPolyh_ArrayOfPoints &)) &IntPolyh_ArrayOfPoints::Copy, "Copy", py::arg("aOther"));
-	cls_IntPolyh_ArrayOfPoints.def("Init", (void (IntPolyh_ArrayOfPoints::*)(const Standard_Integer)) &IntPolyh_ArrayOfPoints::Init, "Init - allocate memory for <aN> items", py::arg("aN"));
-	cls_IntPolyh_ArrayOfPoints.def("IncrementNbItems", (void (IntPolyh_ArrayOfPoints::*)()) &IntPolyh_ArrayOfPoints::IncrementNbItems, "IncrementNbItems - increment the number of stored items");
-	cls_IntPolyh_ArrayOfPoints.def("GetN", (Standard_Integer (IntPolyh_ArrayOfPoints::*)() const ) &IntPolyh_ArrayOfPoints::GetN, "GetN - returns the number of 'allocated' items");
-	cls_IntPolyh_ArrayOfPoints.def("NbItems", (Standard_Integer (IntPolyh_ArrayOfPoints::*)() const ) &IntPolyh_ArrayOfPoints::NbItems, "NbItems - returns the number of stored items");
-	cls_IntPolyh_ArrayOfPoints.def("SetNbItems", (void (IntPolyh_ArrayOfPoints::*)(const Standard_Integer)) &IntPolyh_ArrayOfPoints::SetNbItems, "set the number of stored items", py::arg("aNb"));
-	cls_IntPolyh_ArrayOfPoints.def("Value", (const IntPolyh_Point & (IntPolyh_ArrayOfPoints::*)(const Standard_Integer) const ) &IntPolyh_ArrayOfPoints::Value, "query the const value", py::arg("aIndex"));
-	cls_IntPolyh_ArrayOfPoints.def("__getitem__", (const IntPolyh_Point & (IntPolyh_ArrayOfPoints::*)(const Standard_Integer) const ) &IntPolyh_ArrayOfPoints::operator[], py::is_operator(), "query the const value", py::arg("aIndex"));
-	cls_IntPolyh_ArrayOfPoints.def("ChangeValue", (IntPolyh_Point & (IntPolyh_ArrayOfPoints::*)(const Standard_Integer)) &IntPolyh_ArrayOfPoints::ChangeValue, "query the value", py::arg("aIndex"));
-	cls_IntPolyh_ArrayOfPoints.def("__getitem__", (IntPolyh_Point & (IntPolyh_ArrayOfPoints::*)(const Standard_Integer)) &IntPolyh_ArrayOfPoints::operator[], py::is_operator(), "query the value", py::arg("aIndex"));
-	// FIXME cls_IntPolyh_ArrayOfPoints.def("Dump", (void (IntPolyh_ArrayOfPoints::*)() const ) &IntPolyh_ArrayOfPoints::Dump, "dump the contents");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntPolyh_ArrayOfPoints.hxx
+	bind_IntPolyh_Array<IntPolyh_Point>(mod, "IntPolyh_ArrayOfPoints");
 
 	*/
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<IntPolyh_SeqOfStartPoints, std::unique_ptr<IntPolyh_SeqOfStartPoints, Deleter<IntPolyh_SeqOfStartPoints>>, NCollection_BaseSequence> cls_IntPolyh_SeqOfStartPoints(mod, "IntPolyh_SeqOfStartPoints", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_IntPolyh_SeqOfStartPoints.def(py::init<>());
-	cls_IntPolyh_SeqOfStartPoints.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_IntPolyh_SeqOfStartPoints.def(py::init([] (const IntPolyh_SeqOfStartPoints &other) {return new IntPolyh_SeqOfStartPoints(other);}), "Copy constructor", py::arg("other"));
-	cls_IntPolyh_SeqOfStartPoints.def("begin", (IntPolyh_SeqOfStartPoints::iterator (IntPolyh_SeqOfStartPoints::*)() const ) &IntPolyh_SeqOfStartPoints::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_IntPolyh_SeqOfStartPoints.def("end", (IntPolyh_SeqOfStartPoints::iterator (IntPolyh_SeqOfStartPoints::*)() const ) &IntPolyh_SeqOfStartPoints::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_IntPolyh_SeqOfStartPoints.def("cbegin", (IntPolyh_SeqOfStartPoints::const_iterator (IntPolyh_SeqOfStartPoints::*)() const ) &IntPolyh_SeqOfStartPoints::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_IntPolyh_SeqOfStartPoints.def("cend", (IntPolyh_SeqOfStartPoints::const_iterator (IntPolyh_SeqOfStartPoints::*)() const ) &IntPolyh_SeqOfStartPoints::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_IntPolyh_SeqOfStartPoints.def("Size", (Standard_Integer (IntPolyh_SeqOfStartPoints::*)() const ) &IntPolyh_SeqOfStartPoints::Size, "Number of items");
-	cls_IntPolyh_SeqOfStartPoints.def("Length", (Standard_Integer (IntPolyh_SeqOfStartPoints::*)() const ) &IntPolyh_SeqOfStartPoints::Length, "Number of items");
-	cls_IntPolyh_SeqOfStartPoints.def("Lower", (Standard_Integer (IntPolyh_SeqOfStartPoints::*)() const ) &IntPolyh_SeqOfStartPoints::Lower, "Method for consistency with other collections.");
-	cls_IntPolyh_SeqOfStartPoints.def("Upper", (Standard_Integer (IntPolyh_SeqOfStartPoints::*)() const ) &IntPolyh_SeqOfStartPoints::Upper, "Method for consistency with other collections.");
-	cls_IntPolyh_SeqOfStartPoints.def("IsEmpty", (Standard_Boolean (IntPolyh_SeqOfStartPoints::*)() const ) &IntPolyh_SeqOfStartPoints::IsEmpty, "Empty query");
-	cls_IntPolyh_SeqOfStartPoints.def("Reverse", (void (IntPolyh_SeqOfStartPoints::*)()) &IntPolyh_SeqOfStartPoints::Reverse, "Reverse sequence");
-	cls_IntPolyh_SeqOfStartPoints.def("Exchange", (void (IntPolyh_SeqOfStartPoints::*)(const Standard_Integer, const Standard_Integer)) &IntPolyh_SeqOfStartPoints::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_IntPolyh_SeqOfStartPoints.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &IntPolyh_SeqOfStartPoints::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_IntPolyh_SeqOfStartPoints.def("Clear", [](IntPolyh_SeqOfStartPoints &self) -> void { return self.Clear(); });
-	cls_IntPolyh_SeqOfStartPoints.def("Clear", (void (IntPolyh_SeqOfStartPoints::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &IntPolyh_SeqOfStartPoints::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_IntPolyh_SeqOfStartPoints.def("Assign", (IntPolyh_SeqOfStartPoints & (IntPolyh_SeqOfStartPoints::*)(const IntPolyh_SeqOfStartPoints &)) &IntPolyh_SeqOfStartPoints::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_IntPolyh_SeqOfStartPoints.def("assign", (IntPolyh_SeqOfStartPoints & (IntPolyh_SeqOfStartPoints::*)(const IntPolyh_SeqOfStartPoints &)) &IntPolyh_SeqOfStartPoints::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_IntPolyh_SeqOfStartPoints.def("Remove", (void (IntPolyh_SeqOfStartPoints::*)(IntPolyh_SeqOfStartPoints::Iterator &)) &IntPolyh_SeqOfStartPoints::Remove, "Remove one item", py::arg("thePosition"));
-	cls_IntPolyh_SeqOfStartPoints.def("Remove", (void (IntPolyh_SeqOfStartPoints::*)(const Standard_Integer)) &IntPolyh_SeqOfStartPoints::Remove, "Remove one item", py::arg("theIndex"));
-	cls_IntPolyh_SeqOfStartPoints.def("Remove", (void (IntPolyh_SeqOfStartPoints::*)(const Standard_Integer, const Standard_Integer)) &IntPolyh_SeqOfStartPoints::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_IntPolyh_SeqOfStartPoints.def("Append", (void (IntPolyh_SeqOfStartPoints::*)(const IntPolyh_StartPoint &)) &IntPolyh_SeqOfStartPoints::Append, "Append one item", py::arg("theItem"));
-	cls_IntPolyh_SeqOfStartPoints.def("Append", (void (IntPolyh_SeqOfStartPoints::*)(IntPolyh_SeqOfStartPoints &)) &IntPolyh_SeqOfStartPoints::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntPolyh_SeqOfStartPoints.def("Prepend", (void (IntPolyh_SeqOfStartPoints::*)(const IntPolyh_StartPoint &)) &IntPolyh_SeqOfStartPoints::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_IntPolyh_SeqOfStartPoints.def("Prepend", (void (IntPolyh_SeqOfStartPoints::*)(IntPolyh_SeqOfStartPoints &)) &IntPolyh_SeqOfStartPoints::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntPolyh_SeqOfStartPoints.def("InsertBefore", (void (IntPolyh_SeqOfStartPoints::*)(const Standard_Integer, const IntPolyh_StartPoint &)) &IntPolyh_SeqOfStartPoints::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntPolyh_SeqOfStartPoints.def("InsertBefore", (void (IntPolyh_SeqOfStartPoints::*)(const Standard_Integer, IntPolyh_SeqOfStartPoints &)) &IntPolyh_SeqOfStartPoints::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntPolyh_SeqOfStartPoints.def("InsertAfter", (void (IntPolyh_SeqOfStartPoints::*)(IntPolyh_SeqOfStartPoints::Iterator &, const IntPolyh_StartPoint &)) &IntPolyh_SeqOfStartPoints::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_IntPolyh_SeqOfStartPoints.def("InsertAfter", (void (IntPolyh_SeqOfStartPoints::*)(const Standard_Integer, IntPolyh_SeqOfStartPoints &)) &IntPolyh_SeqOfStartPoints::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntPolyh_SeqOfStartPoints.def("InsertAfter", (void (IntPolyh_SeqOfStartPoints::*)(const Standard_Integer, const IntPolyh_StartPoint &)) &IntPolyh_SeqOfStartPoints::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntPolyh_SeqOfStartPoints.def("Split", (void (IntPolyh_SeqOfStartPoints::*)(const Standard_Integer, IntPolyh_SeqOfStartPoints &)) &IntPolyh_SeqOfStartPoints::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntPolyh_SeqOfStartPoints.def("First", (const IntPolyh_StartPoint & (IntPolyh_SeqOfStartPoints::*)() const ) &IntPolyh_SeqOfStartPoints::First, "First item access");
-	cls_IntPolyh_SeqOfStartPoints.def("ChangeFirst", (IntPolyh_StartPoint & (IntPolyh_SeqOfStartPoints::*)()) &IntPolyh_SeqOfStartPoints::ChangeFirst, "First item access");
-	cls_IntPolyh_SeqOfStartPoints.def("Last", (const IntPolyh_StartPoint & (IntPolyh_SeqOfStartPoints::*)() const ) &IntPolyh_SeqOfStartPoints::Last, "Last item access");
-	cls_IntPolyh_SeqOfStartPoints.def("ChangeLast", (IntPolyh_StartPoint & (IntPolyh_SeqOfStartPoints::*)()) &IntPolyh_SeqOfStartPoints::ChangeLast, "Last item access");
-	cls_IntPolyh_SeqOfStartPoints.def("Value", (const IntPolyh_StartPoint & (IntPolyh_SeqOfStartPoints::*)(const Standard_Integer) const ) &IntPolyh_SeqOfStartPoints::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_IntPolyh_SeqOfStartPoints.def("__call__", (const IntPolyh_StartPoint & (IntPolyh_SeqOfStartPoints::*)(const Standard_Integer) const ) &IntPolyh_SeqOfStartPoints::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_IntPolyh_SeqOfStartPoints.def("ChangeValue", (IntPolyh_StartPoint & (IntPolyh_SeqOfStartPoints::*)(const Standard_Integer)) &IntPolyh_SeqOfStartPoints::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_IntPolyh_SeqOfStartPoints.def("__call__", (IntPolyh_StartPoint & (IntPolyh_SeqOfStartPoints::*)(const Standard_Integer)) &IntPolyh_SeqOfStartPoints::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_IntPolyh_SeqOfStartPoints.def("SetValue", (void (IntPolyh_SeqOfStartPoints::*)(const Standard_Integer, const IntPolyh_StartPoint &)) &IntPolyh_SeqOfStartPoints::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntPolyh_SeqOfStartPoints.def("__iter__", [](const IntPolyh_SeqOfStartPoints &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntPolyh_SeqOfStartPoints.hxx
+	bind_NCollection_Sequence<IntPolyh_StartPoint>(mod, "IntPolyh_SeqOfStartPoints");
 
 	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\IntPolyh_Array.hxx
-	py::class_<IntPolyh_ArrayOfSectionLines, std::unique_ptr<IntPolyh_ArrayOfSectionLines, Deleter<IntPolyh_ArrayOfSectionLines>>> cls_IntPolyh_ArrayOfSectionLines(mod, "IntPolyh_ArrayOfSectionLines", "Class IntPolyh_Array (dynamic array of objects)");
-	cls_IntPolyh_ArrayOfSectionLines.def(py::init<>());
-	cls_IntPolyh_ArrayOfSectionLines.def(py::init<const Standard_Integer>(), py::arg("aIncrement"));
-	cls_IntPolyh_ArrayOfSectionLines.def(py::init<const Standard_Integer>(), py::arg("aN"));
-	cls_IntPolyh_ArrayOfSectionLines.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("aN"), py::arg("aIncrement"));
-	cls_IntPolyh_ArrayOfSectionLines.def("assign", (IntPolyh_ArrayOfSectionLines & (IntPolyh_ArrayOfSectionLines::*)(const IntPolyh_ArrayOfSectionLines &)) &IntPolyh_ArrayOfSectionLines::operator=, py::is_operator(), "Assignment operator", py::arg("aOther"));
-	cls_IntPolyh_ArrayOfSectionLines.def("Copy", (IntPolyh_ArrayOfSectionLines & (IntPolyh_ArrayOfSectionLines::*)(const IntPolyh_ArrayOfSectionLines &)) &IntPolyh_ArrayOfSectionLines::Copy, "Copy", py::arg("aOther"));
-	cls_IntPolyh_ArrayOfSectionLines.def("Init", (void (IntPolyh_ArrayOfSectionLines::*)(const Standard_Integer)) &IntPolyh_ArrayOfSectionLines::Init, "Init - allocate memory for <aN> items", py::arg("aN"));
-	cls_IntPolyh_ArrayOfSectionLines.def("IncrementNbItems", (void (IntPolyh_ArrayOfSectionLines::*)()) &IntPolyh_ArrayOfSectionLines::IncrementNbItems, "IncrementNbItems - increment the number of stored items");
-	cls_IntPolyh_ArrayOfSectionLines.def("GetN", (Standard_Integer (IntPolyh_ArrayOfSectionLines::*)() const ) &IntPolyh_ArrayOfSectionLines::GetN, "GetN - returns the number of 'allocated' items");
-	cls_IntPolyh_ArrayOfSectionLines.def("NbItems", (Standard_Integer (IntPolyh_ArrayOfSectionLines::*)() const ) &IntPolyh_ArrayOfSectionLines::NbItems, "NbItems - returns the number of stored items");
-	cls_IntPolyh_ArrayOfSectionLines.def("SetNbItems", (void (IntPolyh_ArrayOfSectionLines::*)(const Standard_Integer)) &IntPolyh_ArrayOfSectionLines::SetNbItems, "set the number of stored items", py::arg("aNb"));
-	cls_IntPolyh_ArrayOfSectionLines.def("Value", (const IntPolyh_SectionLine & (IntPolyh_ArrayOfSectionLines::*)(const Standard_Integer) const ) &IntPolyh_ArrayOfSectionLines::Value, "query the const value", py::arg("aIndex"));
-	cls_IntPolyh_ArrayOfSectionLines.def("__getitem__", (const IntPolyh_SectionLine & (IntPolyh_ArrayOfSectionLines::*)(const Standard_Integer) const ) &IntPolyh_ArrayOfSectionLines::operator[], py::is_operator(), "query the const value", py::arg("aIndex"));
-	cls_IntPolyh_ArrayOfSectionLines.def("ChangeValue", (IntPolyh_SectionLine & (IntPolyh_ArrayOfSectionLines::*)(const Standard_Integer)) &IntPolyh_ArrayOfSectionLines::ChangeValue, "query the value", py::arg("aIndex"));
-	cls_IntPolyh_ArrayOfSectionLines.def("__getitem__", (IntPolyh_SectionLine & (IntPolyh_ArrayOfSectionLines::*)(const Standard_Integer)) &IntPolyh_ArrayOfSectionLines::operator[], py::is_operator(), "query the value", py::arg("aIndex"));
-	// FIXME cls_IntPolyh_ArrayOfSectionLines.def("Dump", (void (IntPolyh_ArrayOfSectionLines::*)() const ) &IntPolyh_ArrayOfSectionLines::Dump, "dump the contents");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntPolyh_ArrayOfSectionLines.hxx
+	bind_IntPolyh_Array<IntPolyh_SectionLine>(mod, "IntPolyh_ArrayOfSectionLines");
 
 	*/
 
 	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\IntPolyh_Array.hxx
-	py::class_<IntPolyh_ArrayOfTangentZones, std::unique_ptr<IntPolyh_ArrayOfTangentZones, Deleter<IntPolyh_ArrayOfTangentZones>>> cls_IntPolyh_ArrayOfTangentZones(mod, "IntPolyh_ArrayOfTangentZones", "Class IntPolyh_Array (dynamic array of objects)");
-	cls_IntPolyh_ArrayOfTangentZones.def(py::init<>());
-	cls_IntPolyh_ArrayOfTangentZones.def(py::init<const Standard_Integer>(), py::arg("aIncrement"));
-	cls_IntPolyh_ArrayOfTangentZones.def(py::init<const Standard_Integer>(), py::arg("aN"));
-	cls_IntPolyh_ArrayOfTangentZones.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("aN"), py::arg("aIncrement"));
-	cls_IntPolyh_ArrayOfTangentZones.def("assign", (IntPolyh_ArrayOfTangentZones & (IntPolyh_ArrayOfTangentZones::*)(const IntPolyh_ArrayOfTangentZones &)) &IntPolyh_ArrayOfTangentZones::operator=, py::is_operator(), "Assignment operator", py::arg("aOther"));
-	cls_IntPolyh_ArrayOfTangentZones.def("Copy", (IntPolyh_ArrayOfTangentZones & (IntPolyh_ArrayOfTangentZones::*)(const IntPolyh_ArrayOfTangentZones &)) &IntPolyh_ArrayOfTangentZones::Copy, "Copy", py::arg("aOther"));
-	cls_IntPolyh_ArrayOfTangentZones.def("Init", (void (IntPolyh_ArrayOfTangentZones::*)(const Standard_Integer)) &IntPolyh_ArrayOfTangentZones::Init, "Init - allocate memory for <aN> items", py::arg("aN"));
-	cls_IntPolyh_ArrayOfTangentZones.def("IncrementNbItems", (void (IntPolyh_ArrayOfTangentZones::*)()) &IntPolyh_ArrayOfTangentZones::IncrementNbItems, "IncrementNbItems - increment the number of stored items");
-	cls_IntPolyh_ArrayOfTangentZones.def("GetN", (Standard_Integer (IntPolyh_ArrayOfTangentZones::*)() const ) &IntPolyh_ArrayOfTangentZones::GetN, "GetN - returns the number of 'allocated' items");
-	cls_IntPolyh_ArrayOfTangentZones.def("NbItems", (Standard_Integer (IntPolyh_ArrayOfTangentZones::*)() const ) &IntPolyh_ArrayOfTangentZones::NbItems, "NbItems - returns the number of stored items");
-	cls_IntPolyh_ArrayOfTangentZones.def("SetNbItems", (void (IntPolyh_ArrayOfTangentZones::*)(const Standard_Integer)) &IntPolyh_ArrayOfTangentZones::SetNbItems, "set the number of stored items", py::arg("aNb"));
-	cls_IntPolyh_ArrayOfTangentZones.def("Value", (const IntPolyh_StartPoint & (IntPolyh_ArrayOfTangentZones::*)(const Standard_Integer) const ) &IntPolyh_ArrayOfTangentZones::Value, "query the const value", py::arg("aIndex"));
-	cls_IntPolyh_ArrayOfTangentZones.def("__getitem__", (const IntPolyh_StartPoint & (IntPolyh_ArrayOfTangentZones::*)(const Standard_Integer) const ) &IntPolyh_ArrayOfTangentZones::operator[], py::is_operator(), "query the const value", py::arg("aIndex"));
-	cls_IntPolyh_ArrayOfTangentZones.def("ChangeValue", (IntPolyh_StartPoint & (IntPolyh_ArrayOfTangentZones::*)(const Standard_Integer)) &IntPolyh_ArrayOfTangentZones::ChangeValue, "query the value", py::arg("aIndex"));
-	cls_IntPolyh_ArrayOfTangentZones.def("__getitem__", (IntPolyh_StartPoint & (IntPolyh_ArrayOfTangentZones::*)(const Standard_Integer)) &IntPolyh_ArrayOfTangentZones::operator[], py::is_operator(), "query the value", py::arg("aIndex"));
-	// FIXME cls_IntPolyh_ArrayOfTangentZones.def("Dump", (void (IntPolyh_ArrayOfTangentZones::*)() const ) &IntPolyh_ArrayOfTangentZones::Dump, "dump the contents");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntPolyh_ArrayOfTangentZones.hxx
+	bind_IntPolyh_Array<IntPolyh_StartPoint>(mod, "IntPolyh_ArrayOfTangentZones");
 
 	*/
 
 	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\IntPolyh_Array.hxx
-	py::class_<IntPolyh_ArrayOfTriangles, std::unique_ptr<IntPolyh_ArrayOfTriangles, Deleter<IntPolyh_ArrayOfTriangles>>> cls_IntPolyh_ArrayOfTriangles(mod, "IntPolyh_ArrayOfTriangles", "Class IntPolyh_Array (dynamic array of objects)");
-	cls_IntPolyh_ArrayOfTriangles.def(py::init<>());
-	cls_IntPolyh_ArrayOfTriangles.def(py::init<const Standard_Integer>(), py::arg("aIncrement"));
-	cls_IntPolyh_ArrayOfTriangles.def(py::init<const Standard_Integer>(), py::arg("aN"));
-	cls_IntPolyh_ArrayOfTriangles.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("aN"), py::arg("aIncrement"));
-	cls_IntPolyh_ArrayOfTriangles.def("assign", (IntPolyh_ArrayOfTriangles & (IntPolyh_ArrayOfTriangles::*)(const IntPolyh_ArrayOfTriangles &)) &IntPolyh_ArrayOfTriangles::operator=, py::is_operator(), "Assignment operator", py::arg("aOther"));
-	cls_IntPolyh_ArrayOfTriangles.def("Copy", (IntPolyh_ArrayOfTriangles & (IntPolyh_ArrayOfTriangles::*)(const IntPolyh_ArrayOfTriangles &)) &IntPolyh_ArrayOfTriangles::Copy, "Copy", py::arg("aOther"));
-	cls_IntPolyh_ArrayOfTriangles.def("Init", (void (IntPolyh_ArrayOfTriangles::*)(const Standard_Integer)) &IntPolyh_ArrayOfTriangles::Init, "Init - allocate memory for <aN> items", py::arg("aN"));
-	cls_IntPolyh_ArrayOfTriangles.def("IncrementNbItems", (void (IntPolyh_ArrayOfTriangles::*)()) &IntPolyh_ArrayOfTriangles::IncrementNbItems, "IncrementNbItems - increment the number of stored items");
-	cls_IntPolyh_ArrayOfTriangles.def("GetN", (Standard_Integer (IntPolyh_ArrayOfTriangles::*)() const ) &IntPolyh_ArrayOfTriangles::GetN, "GetN - returns the number of 'allocated' items");
-	cls_IntPolyh_ArrayOfTriangles.def("NbItems", (Standard_Integer (IntPolyh_ArrayOfTriangles::*)() const ) &IntPolyh_ArrayOfTriangles::NbItems, "NbItems - returns the number of stored items");
-	cls_IntPolyh_ArrayOfTriangles.def("SetNbItems", (void (IntPolyh_ArrayOfTriangles::*)(const Standard_Integer)) &IntPolyh_ArrayOfTriangles::SetNbItems, "set the number of stored items", py::arg("aNb"));
-	cls_IntPolyh_ArrayOfTriangles.def("Value", (const IntPolyh_Triangle & (IntPolyh_ArrayOfTriangles::*)(const Standard_Integer) const ) &IntPolyh_ArrayOfTriangles::Value, "query the const value", py::arg("aIndex"));
-	cls_IntPolyh_ArrayOfTriangles.def("__getitem__", (const IntPolyh_Triangle & (IntPolyh_ArrayOfTriangles::*)(const Standard_Integer) const ) &IntPolyh_ArrayOfTriangles::operator[], py::is_operator(), "query the const value", py::arg("aIndex"));
-	cls_IntPolyh_ArrayOfTriangles.def("ChangeValue", (IntPolyh_Triangle & (IntPolyh_ArrayOfTriangles::*)(const Standard_Integer)) &IntPolyh_ArrayOfTriangles::ChangeValue, "query the value", py::arg("aIndex"));
-	cls_IntPolyh_ArrayOfTriangles.def("__getitem__", (IntPolyh_Triangle & (IntPolyh_ArrayOfTriangles::*)(const Standard_Integer)) &IntPolyh_ArrayOfTriangles::operator[], py::is_operator(), "query the value", py::arg("aIndex"));
-	// FIXME cls_IntPolyh_ArrayOfTriangles.def("Dump", (void (IntPolyh_ArrayOfTriangles::*)() const ) &IntPolyh_ArrayOfTriangles::Dump, "dump the contents");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntPolyh_ArrayOfTriangles.hxx
+	bind_IntPolyh_Array<IntPolyh_Triangle>(mod, "IntPolyh_ArrayOfTriangles");
 
 	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntPolyh_PMaillageAffinage.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<IntPolyh_ListOfCouples, std::unique_ptr<IntPolyh_ListOfCouples, Deleter<IntPolyh_ListOfCouples>>, NCollection_BaseList> cls_IntPolyh_ListOfCouples(mod, "IntPolyh_ListOfCouples", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_IntPolyh_ListOfCouples.def(py::init<>());
-	cls_IntPolyh_ListOfCouples.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_IntPolyh_ListOfCouples.def(py::init([] (const IntPolyh_ListOfCouples &other) {return new IntPolyh_ListOfCouples(other);}), "Copy constructor", py::arg("other"));
-	cls_IntPolyh_ListOfCouples.def("begin", (IntPolyh_ListOfCouples::iterator (IntPolyh_ListOfCouples::*)() const ) &IntPolyh_ListOfCouples::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_IntPolyh_ListOfCouples.def("end", (IntPolyh_ListOfCouples::iterator (IntPolyh_ListOfCouples::*)() const ) &IntPolyh_ListOfCouples::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_IntPolyh_ListOfCouples.def("cbegin", (IntPolyh_ListOfCouples::const_iterator (IntPolyh_ListOfCouples::*)() const ) &IntPolyh_ListOfCouples::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_IntPolyh_ListOfCouples.def("cend", (IntPolyh_ListOfCouples::const_iterator (IntPolyh_ListOfCouples::*)() const ) &IntPolyh_ListOfCouples::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_IntPolyh_ListOfCouples.def("Size", (Standard_Integer (IntPolyh_ListOfCouples::*)() const ) &IntPolyh_ListOfCouples::Size, "Size - Number of items");
-	cls_IntPolyh_ListOfCouples.def("Assign", (IntPolyh_ListOfCouples & (IntPolyh_ListOfCouples::*)(const IntPolyh_ListOfCouples &)) &IntPolyh_ListOfCouples::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_IntPolyh_ListOfCouples.def("assign", (IntPolyh_ListOfCouples & (IntPolyh_ListOfCouples::*)(const IntPolyh_ListOfCouples &)) &IntPolyh_ListOfCouples::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_IntPolyh_ListOfCouples.def("Clear", [](IntPolyh_ListOfCouples &self) -> void { return self.Clear(); });
-	cls_IntPolyh_ListOfCouples.def("Clear", (void (IntPolyh_ListOfCouples::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &IntPolyh_ListOfCouples::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_IntPolyh_ListOfCouples.def("First", (const IntPolyh_Couple & (IntPolyh_ListOfCouples::*)() const ) &IntPolyh_ListOfCouples::First, "First item");
-	cls_IntPolyh_ListOfCouples.def("First", (IntPolyh_Couple & (IntPolyh_ListOfCouples::*)()) &IntPolyh_ListOfCouples::First, "First item (non-const)");
-	cls_IntPolyh_ListOfCouples.def("Last", (const IntPolyh_Couple & (IntPolyh_ListOfCouples::*)() const ) &IntPolyh_ListOfCouples::Last, "Last item");
-	cls_IntPolyh_ListOfCouples.def("Last", (IntPolyh_Couple & (IntPolyh_ListOfCouples::*)()) &IntPolyh_ListOfCouples::Last, "Last item (non-const)");
-	cls_IntPolyh_ListOfCouples.def("Append", (IntPolyh_Couple & (IntPolyh_ListOfCouples::*)(const IntPolyh_Couple &)) &IntPolyh_ListOfCouples::Append, "Append one item at the end", py::arg("theItem"));
-	cls_IntPolyh_ListOfCouples.def("Append", (void (IntPolyh_ListOfCouples::*)(const IntPolyh_Couple &, IntPolyh_ListOfCouples::Iterator &)) &IntPolyh_ListOfCouples::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_IntPolyh_ListOfCouples.def("Append", (void (IntPolyh_ListOfCouples::*)(IntPolyh_ListOfCouples &)) &IntPolyh_ListOfCouples::Append, "Append another list at the end", py::arg("theOther"));
-	cls_IntPolyh_ListOfCouples.def("Prepend", (IntPolyh_Couple & (IntPolyh_ListOfCouples::*)(const IntPolyh_Couple &)) &IntPolyh_ListOfCouples::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_IntPolyh_ListOfCouples.def("Prepend", (void (IntPolyh_ListOfCouples::*)(IntPolyh_ListOfCouples &)) &IntPolyh_ListOfCouples::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_IntPolyh_ListOfCouples.def("RemoveFirst", (void (IntPolyh_ListOfCouples::*)()) &IntPolyh_ListOfCouples::RemoveFirst, "RemoveFirst item");
-	cls_IntPolyh_ListOfCouples.def("Remove", (void (IntPolyh_ListOfCouples::*)(IntPolyh_ListOfCouples::Iterator &)) &IntPolyh_ListOfCouples::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_IntPolyh_ListOfCouples.def("InsertBefore", (IntPolyh_Couple & (IntPolyh_ListOfCouples::*)(const IntPolyh_Couple &, IntPolyh_ListOfCouples::Iterator &)) &IntPolyh_ListOfCouples::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_IntPolyh_ListOfCouples.def("InsertBefore", (void (IntPolyh_ListOfCouples::*)(IntPolyh_ListOfCouples &, IntPolyh_ListOfCouples::Iterator &)) &IntPolyh_ListOfCouples::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_IntPolyh_ListOfCouples.def("InsertAfter", (IntPolyh_Couple & (IntPolyh_ListOfCouples::*)(const IntPolyh_Couple &, IntPolyh_ListOfCouples::Iterator &)) &IntPolyh_ListOfCouples::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_IntPolyh_ListOfCouples.def("InsertAfter", (void (IntPolyh_ListOfCouples::*)(IntPolyh_ListOfCouples &, IntPolyh_ListOfCouples::Iterator &)) &IntPolyh_ListOfCouples::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_IntPolyh_ListOfCouples.def("Reverse", (void (IntPolyh_ListOfCouples::*)()) &IntPolyh_ListOfCouples::Reverse, "Reverse the list");
-	cls_IntPolyh_ListOfCouples.def("__iter__", [](const IntPolyh_ListOfCouples &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntPolyh_ListOfCouples.hxx
+	bind_NCollection_List<IntPolyh_Couple>(mod, "IntPolyh_ListOfCouples");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<IntPolyh_ListIteratorOfListOfCouples, std::unique_ptr<IntPolyh_ListIteratorOfListOfCouples, Deleter<IntPolyh_ListIteratorOfListOfCouples>>> cls_IntPolyh_ListIteratorOfListOfCouples(mod, "IntPolyh_ListIteratorOfListOfCouples", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_IntPolyh_ListIteratorOfListOfCouples.def(py::init<>());
-	cls_IntPolyh_ListIteratorOfListOfCouples.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_IntPolyh_ListIteratorOfListOfCouples.def("More", (Standard_Boolean (IntPolyh_ListIteratorOfListOfCouples::*)() const ) &IntPolyh_ListIteratorOfListOfCouples::More, "Check end");
-	cls_IntPolyh_ListIteratorOfListOfCouples.def("Next", (void (IntPolyh_ListIteratorOfListOfCouples::*)()) &IntPolyh_ListIteratorOfListOfCouples::Next, "Make step");
-	cls_IntPolyh_ListIteratorOfListOfCouples.def("Value", (const IntPolyh_Couple & (IntPolyh_ListIteratorOfListOfCouples::*)() const ) &IntPolyh_ListIteratorOfListOfCouples::Value, "Constant Value access");
-	cls_IntPolyh_ListIteratorOfListOfCouples.def("Value", (IntPolyh_Couple & (IntPolyh_ListIteratorOfListOfCouples::*)()) &IntPolyh_ListIteratorOfListOfCouples::Value, "Non-const Value access");
-	cls_IntPolyh_ListIteratorOfListOfCouples.def("ChangeValue", (IntPolyh_Couple & (IntPolyh_ListIteratorOfListOfCouples::*)() const ) &IntPolyh_ListIteratorOfListOfCouples::ChangeValue, "Non-const Value access");
-
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntPolyh_ListOfCouples.hxx
 
 }

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Handle.hxx>
 #include <TDF_Data.hxx>
@@ -82,6 +73,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <TDF_LabelDoubleMap.hxx>
 #include <TDF_HAttributeArray1.hxx>
 #include <TDF_LabelIndexedMap.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(TDF, mod) {
 
@@ -563,277 +555,46 @@ PYBIND11_MODULE(TDF, mod) {
 	cls_TDF.def_static("GUIDFromProgID_", (Standard_Boolean (*)(const TCollection_ExtendedString &, Standard_GUID &)) &TDF::GUIDFromProgID, "Returns True if there is GUID for given <ProgID> then GUID is returned in <ID>", py::arg("ProgID"), py::arg("ID"));
 	cls_TDF.def_static("ProgIDFromGUID_", (Standard_Boolean (*)(const Standard_GUID &, TCollection_ExtendedString &)) &TDF::ProgIDFromGUID, "Returns True if there is ProgID for given <ID> then ProgID is returned in <ProgID>", py::arg("ID"), py::arg("ProgID"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<TDF_AttributeArray1, std::unique_ptr<TDF_AttributeArray1, Deleter<TDF_AttributeArray1>>> cls_TDF_AttributeArray1(mod, "TDF_AttributeArray1", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_TDF_AttributeArray1.def(py::init<>());
-	cls_TDF_AttributeArray1.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_TDF_AttributeArray1.def(py::init([] (const TDF_AttributeArray1 &other) {return new TDF_AttributeArray1(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_TDF_AttributeArray1.def(py::init<TDF_AttributeArray1 &&>(), py::arg("theOther"));
-	cls_TDF_AttributeArray1.def(py::init<const opencascade::handle<TDF_Attribute> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_TDF_AttributeArray1.def("begin", (TDF_AttributeArray1::iterator (TDF_AttributeArray1::*)() const ) &TDF_AttributeArray1::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_TDF_AttributeArray1.def("end", (TDF_AttributeArray1::iterator (TDF_AttributeArray1::*)() const ) &TDF_AttributeArray1::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_TDF_AttributeArray1.def("cbegin", (TDF_AttributeArray1::const_iterator (TDF_AttributeArray1::*)() const ) &TDF_AttributeArray1::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_TDF_AttributeArray1.def("cend", (TDF_AttributeArray1::const_iterator (TDF_AttributeArray1::*)() const ) &TDF_AttributeArray1::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_TDF_AttributeArray1.def("Init", (void (TDF_AttributeArray1::*)(const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeArray1::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_TDF_AttributeArray1.def("Size", (Standard_Integer (TDF_AttributeArray1::*)() const ) &TDF_AttributeArray1::Size, "Size query");
-	cls_TDF_AttributeArray1.def("Length", (Standard_Integer (TDF_AttributeArray1::*)() const ) &TDF_AttributeArray1::Length, "Length query (the same)");
-	cls_TDF_AttributeArray1.def("IsEmpty", (Standard_Boolean (TDF_AttributeArray1::*)() const ) &TDF_AttributeArray1::IsEmpty, "Return TRUE if array has zero length.");
-	cls_TDF_AttributeArray1.def("Lower", (Standard_Integer (TDF_AttributeArray1::*)() const ) &TDF_AttributeArray1::Lower, "Lower bound");
-	cls_TDF_AttributeArray1.def("Upper", (Standard_Integer (TDF_AttributeArray1::*)() const ) &TDF_AttributeArray1::Upper, "Upper bound");
-	cls_TDF_AttributeArray1.def("IsDeletable", (Standard_Boolean (TDF_AttributeArray1::*)() const ) &TDF_AttributeArray1::IsDeletable, "myDeletable flag");
-	cls_TDF_AttributeArray1.def("IsAllocated", (Standard_Boolean (TDF_AttributeArray1::*)() const ) &TDF_AttributeArray1::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_TDF_AttributeArray1.def("Assign", (TDF_AttributeArray1 & (TDF_AttributeArray1::*)(const TDF_AttributeArray1 &)) &TDF_AttributeArray1::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_TDF_AttributeArray1.def("Move", (TDF_AttributeArray1 & (TDF_AttributeArray1::*)(TDF_AttributeArray1 &&)) &TDF_AttributeArray1::Move, "Move assignment", py::arg("theOther"));
-	cls_TDF_AttributeArray1.def("assign", (TDF_AttributeArray1 & (TDF_AttributeArray1::*)(const TDF_AttributeArray1 &)) &TDF_AttributeArray1::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_TDF_AttributeArray1.def("assign", (TDF_AttributeArray1 & (TDF_AttributeArray1::*)(TDF_AttributeArray1 &&)) &TDF_AttributeArray1::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_TDF_AttributeArray1.def("First", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeArray1::*)() const ) &TDF_AttributeArray1::First, "Returns first element");
-	cls_TDF_AttributeArray1.def("ChangeFirst", (opencascade::handle<TDF_Attribute> & (TDF_AttributeArray1::*)()) &TDF_AttributeArray1::ChangeFirst, "Returns first element");
-	cls_TDF_AttributeArray1.def("Last", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeArray1::*)() const ) &TDF_AttributeArray1::Last, "Returns last element");
-	cls_TDF_AttributeArray1.def("ChangeLast", (opencascade::handle<TDF_Attribute> & (TDF_AttributeArray1::*)()) &TDF_AttributeArray1::ChangeLast, "Returns last element");
-	cls_TDF_AttributeArray1.def("Value", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeArray1::*)(const Standard_Integer) const ) &TDF_AttributeArray1::Value, "Constant value access", py::arg("theIndex"));
-	cls_TDF_AttributeArray1.def("__call__", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeArray1::*)(const Standard_Integer) const ) &TDF_AttributeArray1::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_TDF_AttributeArray1.def("ChangeValue", (opencascade::handle<TDF_Attribute> & (TDF_AttributeArray1::*)(const Standard_Integer)) &TDF_AttributeArray1::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_TDF_AttributeArray1.def("__call__", (opencascade::handle<TDF_Attribute> & (TDF_AttributeArray1::*)(const Standard_Integer)) &TDF_AttributeArray1::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_TDF_AttributeArray1.def("SetValue", (void (TDF_AttributeArray1::*)(const Standard_Integer, const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeArray1::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_TDF_AttributeArray1.def("Resize", (void (TDF_AttributeArray1::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &TDF_AttributeArray1::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_TDF_AttributeArray1.def("__iter__", [](const TDF_AttributeArray1 &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_AttributeArray1.hxx
+	bind_NCollection_Array1<opencascade::handle<TDF_Attribute> >(mod, "TDF_AttributeArray1");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_LabelNodePtr.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_IndexedMap.hxx
-	py::class_<TDF_AttributeIndexedMap, std::unique_ptr<TDF_AttributeIndexedMap, Deleter<TDF_AttributeIndexedMap>>, NCollection_BaseMap> cls_TDF_AttributeIndexedMap(mod, "TDF_AttributeIndexedMap", "Purpose: An indexed map is used to store keys and to bind an index to them. Each new key stored in the map gets an index. Index are incremented as keys are stored in the map. A key can be found by the index and an index by the key. No key but the last can be removed so the indices are in the range 1..Extent. See the class Map from NCollection for a discussion about the number of buckets.");
-	cls_TDF_AttributeIndexedMap.def(py::init<>());
-	cls_TDF_AttributeIndexedMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDF_AttributeIndexedMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDF_AttributeIndexedMap.def(py::init([] (const TDF_AttributeIndexedMap &other) {return new TDF_AttributeIndexedMap(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_AttributeIndexedMap.def("cbegin", (TDF_AttributeIndexedMap::const_iterator (TDF_AttributeIndexedMap::*)() const ) &TDF_AttributeIndexedMap::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TDF_AttributeIndexedMap.def("cend", (TDF_AttributeIndexedMap::const_iterator (TDF_AttributeIndexedMap::*)() const ) &TDF_AttributeIndexedMap::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TDF_AttributeIndexedMap.def("Exchange", (void (TDF_AttributeIndexedMap::*)(TDF_AttributeIndexedMap &)) &TDF_AttributeIndexedMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDF_AttributeIndexedMap.def("Assign", (TDF_AttributeIndexedMap & (TDF_AttributeIndexedMap::*)(const TDF_AttributeIndexedMap &)) &TDF_AttributeIndexedMap::Assign, "Assign. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_AttributeIndexedMap.def("assign", (TDF_AttributeIndexedMap & (TDF_AttributeIndexedMap::*)(const TDF_AttributeIndexedMap &)) &TDF_AttributeIndexedMap::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TDF_AttributeIndexedMap.def("ReSize", (void (TDF_AttributeIndexedMap::*)(const Standard_Integer)) &TDF_AttributeIndexedMap::ReSize, "ReSize", py::arg("N"));
-	cls_TDF_AttributeIndexedMap.def("Add", (Standard_Integer (TDF_AttributeIndexedMap::*)(const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeIndexedMap::Add, "Add", py::arg("theKey1"));
-	cls_TDF_AttributeIndexedMap.def("Contains", (Standard_Boolean (TDF_AttributeIndexedMap::*)(const opencascade::handle<TDF_Attribute> &) const ) &TDF_AttributeIndexedMap::Contains, "Contains", py::arg("theKey1"));
-	cls_TDF_AttributeIndexedMap.def("Substitute", (void (TDF_AttributeIndexedMap::*)(const Standard_Integer, const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeIndexedMap::Substitute, "Substitute", py::arg("theIndex"), py::arg("theKey1"));
-	cls_TDF_AttributeIndexedMap.def("Swap", (void (TDF_AttributeIndexedMap::*)(const Standard_Integer, const Standard_Integer)) &TDF_AttributeIndexedMap::Swap, "Swaps two elements with the given indices.", py::arg("theIndex1"), py::arg("theIndex2"));
-	cls_TDF_AttributeIndexedMap.def("RemoveLast", (void (TDF_AttributeIndexedMap::*)()) &TDF_AttributeIndexedMap::RemoveLast, "RemoveLast");
-	cls_TDF_AttributeIndexedMap.def("RemoveFromIndex", (void (TDF_AttributeIndexedMap::*)(const Standard_Integer)) &TDF_AttributeIndexedMap::RemoveFromIndex, "Remove the key of the given index. Caution! The index of the last key can be changed.", py::arg("theKey2"));
-	cls_TDF_AttributeIndexedMap.def("RemoveKey", (Standard_Boolean (TDF_AttributeIndexedMap::*)(const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeIndexedMap::RemoveKey, "Remove the given key. Caution! The index of the last key can be changed.", py::arg("theKey1"));
-	cls_TDF_AttributeIndexedMap.def("FindKey", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeIndexedMap::*)(const Standard_Integer) const ) &TDF_AttributeIndexedMap::FindKey, "FindKey", py::arg("theKey2"));
-	cls_TDF_AttributeIndexedMap.def("__call__", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeIndexedMap::*)(const Standard_Integer) const ) &TDF_AttributeIndexedMap::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_TDF_AttributeIndexedMap.def("FindIndex", (Standard_Integer (TDF_AttributeIndexedMap::*)(const opencascade::handle<TDF_Attribute> &) const ) &TDF_AttributeIndexedMap::FindIndex, "FindIndex", py::arg("theKey1"));
-	cls_TDF_AttributeIndexedMap.def("Clear", [](TDF_AttributeIndexedMap &self) -> void { return self.Clear(); });
-	cls_TDF_AttributeIndexedMap.def("Clear", (void (TDF_AttributeIndexedMap::*)(const Standard_Boolean)) &TDF_AttributeIndexedMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDF_AttributeIndexedMap.def("Clear", (void (TDF_AttributeIndexedMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_AttributeIndexedMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDF_AttributeIndexedMap.def("Size", (Standard_Integer (TDF_AttributeIndexedMap::*)() const ) &TDF_AttributeIndexedMap::Size, "Size");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_AttributeIndexedMap.hxx
+	bind_NCollection_IndexedMap<opencascade::handle<TDF_Attribute>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "TDF_AttributeIndexedMap");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_HAllocator.hxx
 	other_mod = py::module::import("OCCT.BOPCol");
 	if (py::hasattr(other_mod, "BOPCol_BaseAllocator")) {
 		mod.attr("TDF_HAllocator") = other_mod.attr("BOPCol_BaseAllocator");
 	}
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<TDF_LabelList, std::unique_ptr<TDF_LabelList, Deleter<TDF_LabelList>>, NCollection_BaseList> cls_TDF_LabelList(mod, "TDF_LabelList", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_TDF_LabelList.def(py::init<>());
-	cls_TDF_LabelList.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TDF_LabelList.def(py::init([] (const TDF_LabelList &other) {return new TDF_LabelList(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_LabelList.def("begin", (TDF_LabelList::iterator (TDF_LabelList::*)() const ) &TDF_LabelList::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_TDF_LabelList.def("end", (TDF_LabelList::iterator (TDF_LabelList::*)() const ) &TDF_LabelList::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_TDF_LabelList.def("cbegin", (TDF_LabelList::const_iterator (TDF_LabelList::*)() const ) &TDF_LabelList::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_TDF_LabelList.def("cend", (TDF_LabelList::const_iterator (TDF_LabelList::*)() const ) &TDF_LabelList::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_TDF_LabelList.def("Size", (Standard_Integer (TDF_LabelList::*)() const ) &TDF_LabelList::Size, "Size - Number of items");
-	cls_TDF_LabelList.def("Assign", (TDF_LabelList & (TDF_LabelList::*)(const TDF_LabelList &)) &TDF_LabelList::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_LabelList.def("assign", (TDF_LabelList & (TDF_LabelList::*)(const TDF_LabelList &)) &TDF_LabelList::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TDF_LabelList.def("Clear", [](TDF_LabelList &self) -> void { return self.Clear(); });
-	cls_TDF_LabelList.def("Clear", (void (TDF_LabelList::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_LabelList::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_TDF_LabelList.def("First", (const TDF_Label & (TDF_LabelList::*)() const ) &TDF_LabelList::First, "First item");
-	cls_TDF_LabelList.def("First", (TDF_Label & (TDF_LabelList::*)()) &TDF_LabelList::First, "First item (non-const)");
-	cls_TDF_LabelList.def("Last", (const TDF_Label & (TDF_LabelList::*)() const ) &TDF_LabelList::Last, "Last item");
-	cls_TDF_LabelList.def("Last", (TDF_Label & (TDF_LabelList::*)()) &TDF_LabelList::Last, "Last item (non-const)");
-	cls_TDF_LabelList.def("Append", (TDF_Label & (TDF_LabelList::*)(const TDF_Label &)) &TDF_LabelList::Append, "Append one item at the end", py::arg("theItem"));
-	cls_TDF_LabelList.def("Append", (void (TDF_LabelList::*)(const TDF_Label &, TDF_LabelList::Iterator &)) &TDF_LabelList::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_TDF_LabelList.def("Append", (void (TDF_LabelList::*)(TDF_LabelList &)) &TDF_LabelList::Append, "Append another list at the end", py::arg("theOther"));
-	cls_TDF_LabelList.def("Prepend", (TDF_Label & (TDF_LabelList::*)(const TDF_Label &)) &TDF_LabelList::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_TDF_LabelList.def("Prepend", (void (TDF_LabelList::*)(TDF_LabelList &)) &TDF_LabelList::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_TDF_LabelList.def("RemoveFirst", (void (TDF_LabelList::*)()) &TDF_LabelList::RemoveFirst, "RemoveFirst item");
-	cls_TDF_LabelList.def("Remove", (void (TDF_LabelList::*)(TDF_LabelList::Iterator &)) &TDF_LabelList::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_TDF_LabelList.def("InsertBefore", (TDF_Label & (TDF_LabelList::*)(const TDF_Label &, TDF_LabelList::Iterator &)) &TDF_LabelList::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_TDF_LabelList.def("InsertBefore", (void (TDF_LabelList::*)(TDF_LabelList &, TDF_LabelList::Iterator &)) &TDF_LabelList::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_TDF_LabelList.def("InsertAfter", (TDF_Label & (TDF_LabelList::*)(const TDF_Label &, TDF_LabelList::Iterator &)) &TDF_LabelList::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_TDF_LabelList.def("InsertAfter", (void (TDF_LabelList::*)(TDF_LabelList &, TDF_LabelList::Iterator &)) &TDF_LabelList::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_TDF_LabelList.def("Reverse", (void (TDF_LabelList::*)()) &TDF_LabelList::Reverse, "Reverse the list");
-	cls_TDF_LabelList.def("__iter__", [](const TDF_LabelList &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_LabelList.hxx
+	bind_NCollection_List<TDF_Label>(mod, "TDF_LabelList");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<TDF_ListIteratorOfLabelList, std::unique_ptr<TDF_ListIteratorOfLabelList, Deleter<TDF_ListIteratorOfLabelList>>> cls_TDF_ListIteratorOfLabelList(mod, "TDF_ListIteratorOfLabelList", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_TDF_ListIteratorOfLabelList.def(py::init<>());
-	cls_TDF_ListIteratorOfLabelList.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_TDF_ListIteratorOfLabelList.def("More", (Standard_Boolean (TDF_ListIteratorOfLabelList::*)() const ) &TDF_ListIteratorOfLabelList::More, "Check end");
-	cls_TDF_ListIteratorOfLabelList.def("Next", (void (TDF_ListIteratorOfLabelList::*)()) &TDF_ListIteratorOfLabelList::Next, "Make step");
-	cls_TDF_ListIteratorOfLabelList.def("Value", (const TDF_Label & (TDF_ListIteratorOfLabelList::*)() const ) &TDF_ListIteratorOfLabelList::Value, "Constant Value access");
-	cls_TDF_ListIteratorOfLabelList.def("Value", (TDF_Label & (TDF_ListIteratorOfLabelList::*)()) &TDF_ListIteratorOfLabelList::Value, "Non-const Value access");
-	cls_TDF_ListIteratorOfLabelList.def("ChangeValue", (TDF_Label & (TDF_ListIteratorOfLabelList::*)() const ) &TDF_ListIteratorOfLabelList::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_LabelList.hxx
+	bind_NCollection_TListIterator<TDF_Label>(mod, "TDF_ListIteratorOfLabelList");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<TDF_LabelSequence, std::unique_ptr<TDF_LabelSequence, Deleter<TDF_LabelSequence>>, NCollection_BaseSequence> cls_TDF_LabelSequence(mod, "TDF_LabelSequence", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_TDF_LabelSequence.def(py::init<>());
-	cls_TDF_LabelSequence.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TDF_LabelSequence.def(py::init([] (const TDF_LabelSequence &other) {return new TDF_LabelSequence(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_LabelSequence.def("begin", (TDF_LabelSequence::iterator (TDF_LabelSequence::*)() const ) &TDF_LabelSequence::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_TDF_LabelSequence.def("end", (TDF_LabelSequence::iterator (TDF_LabelSequence::*)() const ) &TDF_LabelSequence::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_TDF_LabelSequence.def("cbegin", (TDF_LabelSequence::const_iterator (TDF_LabelSequence::*)() const ) &TDF_LabelSequence::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_TDF_LabelSequence.def("cend", (TDF_LabelSequence::const_iterator (TDF_LabelSequence::*)() const ) &TDF_LabelSequence::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_TDF_LabelSequence.def("Size", (Standard_Integer (TDF_LabelSequence::*)() const ) &TDF_LabelSequence::Size, "Number of items");
-	cls_TDF_LabelSequence.def("Length", (Standard_Integer (TDF_LabelSequence::*)() const ) &TDF_LabelSequence::Length, "Number of items");
-	cls_TDF_LabelSequence.def("Lower", (Standard_Integer (TDF_LabelSequence::*)() const ) &TDF_LabelSequence::Lower, "Method for consistency with other collections.");
-	cls_TDF_LabelSequence.def("Upper", (Standard_Integer (TDF_LabelSequence::*)() const ) &TDF_LabelSequence::Upper, "Method for consistency with other collections.");
-	cls_TDF_LabelSequence.def("IsEmpty", (Standard_Boolean (TDF_LabelSequence::*)() const ) &TDF_LabelSequence::IsEmpty, "Empty query");
-	cls_TDF_LabelSequence.def("Reverse", (void (TDF_LabelSequence::*)()) &TDF_LabelSequence::Reverse, "Reverse sequence");
-	cls_TDF_LabelSequence.def("Exchange", (void (TDF_LabelSequence::*)(const Standard_Integer, const Standard_Integer)) &TDF_LabelSequence::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_TDF_LabelSequence.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &TDF_LabelSequence::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_TDF_LabelSequence.def("Clear", [](TDF_LabelSequence &self) -> void { return self.Clear(); });
-	cls_TDF_LabelSequence.def("Clear", (void (TDF_LabelSequence::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_LabelSequence::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_TDF_LabelSequence.def("Assign", (TDF_LabelSequence & (TDF_LabelSequence::*)(const TDF_LabelSequence &)) &TDF_LabelSequence::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_LabelSequence.def("assign", (TDF_LabelSequence & (TDF_LabelSequence::*)(const TDF_LabelSequence &)) &TDF_LabelSequence::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TDF_LabelSequence.def("Remove", (void (TDF_LabelSequence::*)(TDF_LabelSequence::Iterator &)) &TDF_LabelSequence::Remove, "Remove one item", py::arg("thePosition"));
-	cls_TDF_LabelSequence.def("Remove", (void (TDF_LabelSequence::*)(const Standard_Integer)) &TDF_LabelSequence::Remove, "Remove one item", py::arg("theIndex"));
-	cls_TDF_LabelSequence.def("Remove", (void (TDF_LabelSequence::*)(const Standard_Integer, const Standard_Integer)) &TDF_LabelSequence::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_TDF_LabelSequence.def("Append", (void (TDF_LabelSequence::*)(const TDF_Label &)) &TDF_LabelSequence::Append, "Append one item", py::arg("theItem"));
-	cls_TDF_LabelSequence.def("Append", (void (TDF_LabelSequence::*)(TDF_LabelSequence &)) &TDF_LabelSequence::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_TDF_LabelSequence.def("Prepend", (void (TDF_LabelSequence::*)(const TDF_Label &)) &TDF_LabelSequence::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_TDF_LabelSequence.def("Prepend", (void (TDF_LabelSequence::*)(TDF_LabelSequence &)) &TDF_LabelSequence::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_TDF_LabelSequence.def("InsertBefore", (void (TDF_LabelSequence::*)(const Standard_Integer, const TDF_Label &)) &TDF_LabelSequence::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_TDF_LabelSequence.def("InsertBefore", (void (TDF_LabelSequence::*)(const Standard_Integer, TDF_LabelSequence &)) &TDF_LabelSequence::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TDF_LabelSequence.def("InsertAfter", (void (TDF_LabelSequence::*)(TDF_LabelSequence::Iterator &, const TDF_Label &)) &TDF_LabelSequence::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_TDF_LabelSequence.def("InsertAfter", (void (TDF_LabelSequence::*)(const Standard_Integer, TDF_LabelSequence &)) &TDF_LabelSequence::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TDF_LabelSequence.def("InsertAfter", (void (TDF_LabelSequence::*)(const Standard_Integer, const TDF_Label &)) &TDF_LabelSequence::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_TDF_LabelSequence.def("Split", (void (TDF_LabelSequence::*)(const Standard_Integer, TDF_LabelSequence &)) &TDF_LabelSequence::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TDF_LabelSequence.def("First", (const TDF_Label & (TDF_LabelSequence::*)() const ) &TDF_LabelSequence::First, "First item access");
-	cls_TDF_LabelSequence.def("ChangeFirst", (TDF_Label & (TDF_LabelSequence::*)()) &TDF_LabelSequence::ChangeFirst, "First item access");
-	cls_TDF_LabelSequence.def("Last", (const TDF_Label & (TDF_LabelSequence::*)() const ) &TDF_LabelSequence::Last, "Last item access");
-	cls_TDF_LabelSequence.def("ChangeLast", (TDF_Label & (TDF_LabelSequence::*)()) &TDF_LabelSequence::ChangeLast, "Last item access");
-	cls_TDF_LabelSequence.def("Value", (const TDF_Label & (TDF_LabelSequence::*)(const Standard_Integer) const ) &TDF_LabelSequence::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_TDF_LabelSequence.def("__call__", (const TDF_Label & (TDF_LabelSequence::*)(const Standard_Integer) const ) &TDF_LabelSequence::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_TDF_LabelSequence.def("ChangeValue", (TDF_Label & (TDF_LabelSequence::*)(const Standard_Integer)) &TDF_LabelSequence::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_TDF_LabelSequence.def("__call__", (TDF_Label & (TDF_LabelSequence::*)(const Standard_Integer)) &TDF_LabelSequence::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_TDF_LabelSequence.def("SetValue", (void (TDF_LabelSequence::*)(const Standard_Integer, const TDF_Label &)) &TDF_LabelSequence::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_TDF_LabelSequence.def("__iter__", [](const TDF_LabelSequence &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_LabelSequence.hxx
+	bind_NCollection_Sequence<TDF_Label>(mod, "TDF_LabelSequence");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<TDF_AttributeList, std::unique_ptr<TDF_AttributeList, Deleter<TDF_AttributeList>>, NCollection_BaseList> cls_TDF_AttributeList(mod, "TDF_AttributeList", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_TDF_AttributeList.def(py::init<>());
-	cls_TDF_AttributeList.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TDF_AttributeList.def(py::init([] (const TDF_AttributeList &other) {return new TDF_AttributeList(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_AttributeList.def("begin", (TDF_AttributeList::iterator (TDF_AttributeList::*)() const ) &TDF_AttributeList::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_TDF_AttributeList.def("end", (TDF_AttributeList::iterator (TDF_AttributeList::*)() const ) &TDF_AttributeList::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_TDF_AttributeList.def("cbegin", (TDF_AttributeList::const_iterator (TDF_AttributeList::*)() const ) &TDF_AttributeList::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_TDF_AttributeList.def("cend", (TDF_AttributeList::const_iterator (TDF_AttributeList::*)() const ) &TDF_AttributeList::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_TDF_AttributeList.def("Size", (Standard_Integer (TDF_AttributeList::*)() const ) &TDF_AttributeList::Size, "Size - Number of items");
-	cls_TDF_AttributeList.def("Assign", (TDF_AttributeList & (TDF_AttributeList::*)(const TDF_AttributeList &)) &TDF_AttributeList::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_AttributeList.def("assign", (TDF_AttributeList & (TDF_AttributeList::*)(const TDF_AttributeList &)) &TDF_AttributeList::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TDF_AttributeList.def("Clear", [](TDF_AttributeList &self) -> void { return self.Clear(); });
-	cls_TDF_AttributeList.def("Clear", (void (TDF_AttributeList::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_AttributeList::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_TDF_AttributeList.def("First", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeList::*)() const ) &TDF_AttributeList::First, "First item");
-	cls_TDF_AttributeList.def("First", (opencascade::handle<TDF_Attribute> & (TDF_AttributeList::*)()) &TDF_AttributeList::First, "First item (non-const)");
-	cls_TDF_AttributeList.def("Last", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeList::*)() const ) &TDF_AttributeList::Last, "Last item");
-	cls_TDF_AttributeList.def("Last", (opencascade::handle<TDF_Attribute> & (TDF_AttributeList::*)()) &TDF_AttributeList::Last, "Last item (non-const)");
-	cls_TDF_AttributeList.def("Append", (opencascade::handle<TDF_Attribute> & (TDF_AttributeList::*)(const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeList::Append, "Append one item at the end", py::arg("theItem"));
-	cls_TDF_AttributeList.def("Append", (void (TDF_AttributeList::*)(const opencascade::handle<TDF_Attribute> &, TDF_AttributeList::Iterator &)) &TDF_AttributeList::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_TDF_AttributeList.def("Append", (void (TDF_AttributeList::*)(TDF_AttributeList &)) &TDF_AttributeList::Append, "Append another list at the end", py::arg("theOther"));
-	cls_TDF_AttributeList.def("Prepend", (opencascade::handle<TDF_Attribute> & (TDF_AttributeList::*)(const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeList::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_TDF_AttributeList.def("Prepend", (void (TDF_AttributeList::*)(TDF_AttributeList &)) &TDF_AttributeList::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_TDF_AttributeList.def("RemoveFirst", (void (TDF_AttributeList::*)()) &TDF_AttributeList::RemoveFirst, "RemoveFirst item");
-	cls_TDF_AttributeList.def("Remove", (void (TDF_AttributeList::*)(TDF_AttributeList::Iterator &)) &TDF_AttributeList::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_TDF_AttributeList.def("InsertBefore", (opencascade::handle<TDF_Attribute> & (TDF_AttributeList::*)(const opencascade::handle<TDF_Attribute> &, TDF_AttributeList::Iterator &)) &TDF_AttributeList::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_TDF_AttributeList.def("InsertBefore", (void (TDF_AttributeList::*)(TDF_AttributeList &, TDF_AttributeList::Iterator &)) &TDF_AttributeList::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_TDF_AttributeList.def("InsertAfter", (opencascade::handle<TDF_Attribute> & (TDF_AttributeList::*)(const opencascade::handle<TDF_Attribute> &, TDF_AttributeList::Iterator &)) &TDF_AttributeList::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_TDF_AttributeList.def("InsertAfter", (void (TDF_AttributeList::*)(TDF_AttributeList &, TDF_AttributeList::Iterator &)) &TDF_AttributeList::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_TDF_AttributeList.def("Reverse", (void (TDF_AttributeList::*)()) &TDF_AttributeList::Reverse, "Reverse the list");
-	cls_TDF_AttributeList.def("__iter__", [](const TDF_AttributeList &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_AttributeList.hxx
+	bind_NCollection_List<opencascade::handle<TDF_Attribute> >(mod, "TDF_AttributeList");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<TDF_ListIteratorOfAttributeList, std::unique_ptr<TDF_ListIteratorOfAttributeList, Deleter<TDF_ListIteratorOfAttributeList>>> cls_TDF_ListIteratorOfAttributeList(mod, "TDF_ListIteratorOfAttributeList", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_TDF_ListIteratorOfAttributeList.def(py::init<>());
-	cls_TDF_ListIteratorOfAttributeList.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_TDF_ListIteratorOfAttributeList.def("More", (Standard_Boolean (TDF_ListIteratorOfAttributeList::*)() const ) &TDF_ListIteratorOfAttributeList::More, "Check end");
-	cls_TDF_ListIteratorOfAttributeList.def("Next", (void (TDF_ListIteratorOfAttributeList::*)()) &TDF_ListIteratorOfAttributeList::Next, "Make step");
-	cls_TDF_ListIteratorOfAttributeList.def("Value", (const opencascade::handle<TDF_Attribute> & (TDF_ListIteratorOfAttributeList::*)() const ) &TDF_ListIteratorOfAttributeList::Value, "Constant Value access");
-	cls_TDF_ListIteratorOfAttributeList.def("Value", (opencascade::handle<TDF_Attribute> & (TDF_ListIteratorOfAttributeList::*)()) &TDF_ListIteratorOfAttributeList::Value, "Non-const Value access");
-	cls_TDF_ListIteratorOfAttributeList.def("ChangeValue", (opencascade::handle<TDF_Attribute> & (TDF_ListIteratorOfAttributeList::*)() const ) &TDF_ListIteratorOfAttributeList::ChangeValue, "Non-const Value access");
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Map.hxx
-	py::class_<TDF_LabelMap, std::unique_ptr<TDF_LabelMap, Deleter<TDF_LabelMap>>, NCollection_BaseMap> cls_TDF_LabelMap(mod, "TDF_LabelMap", "Purpose: Single hashed Map. This Map is used to store and retrieve keys in linear time.");
-	cls_TDF_LabelMap.def(py::init<>());
-	cls_TDF_LabelMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDF_LabelMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDF_LabelMap.def(py::init([] (const TDF_LabelMap &other) {return new TDF_LabelMap(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_LabelMap.def("cbegin", (TDF_LabelMap::const_iterator (TDF_LabelMap::*)() const ) &TDF_LabelMap::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TDF_LabelMap.def("cend", (TDF_LabelMap::const_iterator (TDF_LabelMap::*)() const ) &TDF_LabelMap::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TDF_LabelMap.def("Exchange", (void (TDF_LabelMap::*)(TDF_LabelMap &)) &TDF_LabelMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDF_LabelMap.def("Assign", (TDF_LabelMap & (TDF_LabelMap::*)(const TDF_LabelMap &)) &TDF_LabelMap::Assign, "Assign. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_LabelMap.def("assign", (TDF_LabelMap & (TDF_LabelMap::*)(const TDF_LabelMap &)) &TDF_LabelMap::operator=, py::is_operator(), "Assign operator", py::arg("theOther"));
-	cls_TDF_LabelMap.def("ReSize", (void (TDF_LabelMap::*)(const Standard_Integer)) &TDF_LabelMap::ReSize, "ReSize", py::arg("N"));
-	cls_TDF_LabelMap.def("Add", (Standard_Boolean (TDF_LabelMap::*)(const TDF_Label &)) &TDF_LabelMap::Add, "Add", py::arg("K"));
-	cls_TDF_LabelMap.def("Added", (const TDF_Label & (TDF_LabelMap::*)(const TDF_Label &)) &TDF_LabelMap::Added, "Added: add a new key if not yet in the map, and return reference to either newly added or previously existing object", py::arg("K"));
-	cls_TDF_LabelMap.def("Contains", (Standard_Boolean (TDF_LabelMap::*)(const TDF_Label &) const ) &TDF_LabelMap::Contains, "Contains", py::arg("K"));
-	cls_TDF_LabelMap.def("Remove", (Standard_Boolean (TDF_LabelMap::*)(const TDF_Label &)) &TDF_LabelMap::Remove, "Remove", py::arg("K"));
-	cls_TDF_LabelMap.def("Clear", [](TDF_LabelMap &self) -> void { return self.Clear(); });
-	cls_TDF_LabelMap.def("Clear", (void (TDF_LabelMap::*)(const Standard_Boolean)) &TDF_LabelMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDF_LabelMap.def("Clear", (void (TDF_LabelMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_LabelMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDF_LabelMap.def("Size", (Standard_Integer (TDF_LabelMap::*)() const ) &TDF_LabelMap::Size, "Size");
-	cls_TDF_LabelMap.def("IsEqual", (Standard_Boolean (TDF_LabelMap::*)(const TDF_LabelMap &) const ) &TDF_LabelMap::IsEqual, "Returns true if two maps contains exactly the same keys", py::arg("theOther"));
-	cls_TDF_LabelMap.def("Contains", (Standard_Boolean (TDF_LabelMap::*)(const TDF_LabelMap &) const ) &TDF_LabelMap::Contains, "Returns true if this map contains ALL keys of another map.", py::arg("theOther"));
-	cls_TDF_LabelMap.def("Union", (void (TDF_LabelMap::*)(const TDF_LabelMap &, const TDF_LabelMap &)) &TDF_LabelMap::Union, "Sets this Map to be the result of union (aka addition, fuse, merge, boolean OR) operation between two given Maps The new Map contains the values that are contained either in the first map or in the second map or in both. All previous content of this Map is cleared. This map (result of the boolean operation) can also be passed as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_TDF_LabelMap.def("Unite", (Standard_Boolean (TDF_LabelMap::*)(const TDF_LabelMap &)) &TDF_LabelMap::Unite, "Apply to this Map the boolean operation union (aka addition, fuse, merge, boolean OR) with another (given) Map. The result contains the values that were previously contained in this map or contained in the given (operand) map. This algorithm is similar to method Union(). Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_TDF_LabelMap.def("HasIntersection", (Standard_Boolean (TDF_LabelMap::*)(const TDF_LabelMap &) const ) &TDF_LabelMap::HasIntersection, "Returns true if this and theMap have common elements.", py::arg("theMap"));
-	cls_TDF_LabelMap.def("Intersection", (void (TDF_LabelMap::*)(const TDF_LabelMap &, const TDF_LabelMap &)) &TDF_LabelMap::Intersection, "Sets this Map to be the result of intersection (aka multiplication, common, boolean AND) operation between two given Maps. The new Map contains only the values that are contained in both map operands. All previous content of this Map is cleared. This same map (result of the boolean operation) can also be used as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_TDF_LabelMap.def("Intersect", (Standard_Boolean (TDF_LabelMap::*)(const TDF_LabelMap &)) &TDF_LabelMap::Intersect, "Apply to this Map the intersection operation (aka multiplication, common, boolean AND) with another (given) Map. The result contains only the values that are contained in both this and the given maps. This algorithm is similar to method Intersection(). Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_TDF_LabelMap.def("Subtraction", (void (TDF_LabelMap::*)(const TDF_LabelMap &, const TDF_LabelMap &)) &TDF_LabelMap::Subtraction, "Sets this Map to be the result of subtraction (aka set-theoretic difference, relative complement, exclude, cut, boolean NOT) operation between two given Maps. The new Map contains only the values that are contained in the first map operands and not contained in the second one. All previous content of this Map is cleared.", py::arg("theLeft"), py::arg("theRight"));
-	cls_TDF_LabelMap.def("Subtract", (Standard_Boolean (TDF_LabelMap::*)(const TDF_LabelMap &)) &TDF_LabelMap::Subtract, "Apply to this Map the subtraction (aka set-theoretic difference, relative complement, exclude, cut, boolean NOT) operation with another (given) Map. The result contains only the values that were previously contained in this map and not contained in this map. This algorithm is similar to method Subtract() with two operands. Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_TDF_LabelMap.def("Difference", (void (TDF_LabelMap::*)(const TDF_LabelMap &, const TDF_LabelMap &)) &TDF_LabelMap::Difference, "Sets this Map to be the result of symmetric difference (aka exclusive disjunction, boolean XOR) operation between two given Maps. The new Map contains the values that are contained only in the first or the second operand maps but not in both. All previous content of this Map is cleared. This map (result of the boolean operation) can also be used as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_TDF_LabelMap.def("Differ", (Standard_Boolean (TDF_LabelMap::*)(const TDF_LabelMap &)) &TDF_LabelMap::Differ, "Apply to this Map the symmetric difference (aka exclusive disjunction, boolean XOR) operation with another (given) Map. The result contains the values that are contained only in this or the operand map, but not in both. This algorithm is similar to method Difference(). Returns True if contents of this map is changed.", py::arg("theOther"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_AttributeList.hxx
+	bind_NCollection_TListIterator<opencascade::handle<TDF_Attribute> >(mod, "TDF_ListIteratorOfAttributeList");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_LabelMap.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<TDF_IDList, std::unique_ptr<TDF_IDList, Deleter<TDF_IDList>>, NCollection_BaseList> cls_TDF_IDList(mod, "TDF_IDList", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_TDF_IDList.def(py::init<>());
-	cls_TDF_IDList.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TDF_IDList.def(py::init([] (const TDF_IDList &other) {return new TDF_IDList(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_IDList.def("begin", (TDF_IDList::iterator (TDF_IDList::*)() const ) &TDF_IDList::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_TDF_IDList.def("end", (TDF_IDList::iterator (TDF_IDList::*)() const ) &TDF_IDList::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_TDF_IDList.def("cbegin", (TDF_IDList::const_iterator (TDF_IDList::*)() const ) &TDF_IDList::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_TDF_IDList.def("cend", (TDF_IDList::const_iterator (TDF_IDList::*)() const ) &TDF_IDList::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_TDF_IDList.def("Size", (Standard_Integer (TDF_IDList::*)() const ) &TDF_IDList::Size, "Size - Number of items");
-	cls_TDF_IDList.def("Assign", (TDF_IDList & (TDF_IDList::*)(const TDF_IDList &)) &TDF_IDList::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_IDList.def("assign", (TDF_IDList & (TDF_IDList::*)(const TDF_IDList &)) &TDF_IDList::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TDF_IDList.def("Clear", [](TDF_IDList &self) -> void { return self.Clear(); });
-	cls_TDF_IDList.def("Clear", (void (TDF_IDList::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_IDList::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_TDF_IDList.def("First", (const Standard_GUID & (TDF_IDList::*)() const ) &TDF_IDList::First, "First item");
-	cls_TDF_IDList.def("First", (Standard_GUID & (TDF_IDList::*)()) &TDF_IDList::First, "First item (non-const)");
-	cls_TDF_IDList.def("Last", (const Standard_GUID & (TDF_IDList::*)() const ) &TDF_IDList::Last, "Last item");
-	cls_TDF_IDList.def("Last", (Standard_GUID & (TDF_IDList::*)()) &TDF_IDList::Last, "Last item (non-const)");
-	cls_TDF_IDList.def("Append", (Standard_GUID & (TDF_IDList::*)(const Standard_GUID &)) &TDF_IDList::Append, "Append one item at the end", py::arg("theItem"));
-	cls_TDF_IDList.def("Append", (void (TDF_IDList::*)(const Standard_GUID &, TDF_IDList::Iterator &)) &TDF_IDList::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_TDF_IDList.def("Append", (void (TDF_IDList::*)(TDF_IDList &)) &TDF_IDList::Append, "Append another list at the end", py::arg("theOther"));
-	cls_TDF_IDList.def("Prepend", (Standard_GUID & (TDF_IDList::*)(const Standard_GUID &)) &TDF_IDList::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_TDF_IDList.def("Prepend", (void (TDF_IDList::*)(TDF_IDList &)) &TDF_IDList::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_TDF_IDList.def("RemoveFirst", (void (TDF_IDList::*)()) &TDF_IDList::RemoveFirst, "RemoveFirst item");
-	cls_TDF_IDList.def("Remove", (void (TDF_IDList::*)(TDF_IDList::Iterator &)) &TDF_IDList::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_TDF_IDList.def("InsertBefore", (Standard_GUID & (TDF_IDList::*)(const Standard_GUID &, TDF_IDList::Iterator &)) &TDF_IDList::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_TDF_IDList.def("InsertBefore", (void (TDF_IDList::*)(TDF_IDList &, TDF_IDList::Iterator &)) &TDF_IDList::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_TDF_IDList.def("InsertAfter", (Standard_GUID & (TDF_IDList::*)(const Standard_GUID &, TDF_IDList::Iterator &)) &TDF_IDList::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_TDF_IDList.def("InsertAfter", (void (TDF_IDList::*)(TDF_IDList &, TDF_IDList::Iterator &)) &TDF_IDList::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_TDF_IDList.def("Reverse", (void (TDF_IDList::*)()) &TDF_IDList::Reverse, "Reverse the list");
-	cls_TDF_IDList.def("__iter__", [](const TDF_IDList &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_Map<TDF_Label, TDF_LabelMapHasher>(mod, "TDF_LabelMap");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<TDF_ListIteratorOfIDList, std::unique_ptr<TDF_ListIteratorOfIDList, Deleter<TDF_ListIteratorOfIDList>>> cls_TDF_ListIteratorOfIDList(mod, "TDF_ListIteratorOfIDList", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_TDF_ListIteratorOfIDList.def(py::init<>());
-	cls_TDF_ListIteratorOfIDList.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_TDF_ListIteratorOfIDList.def("More", (Standard_Boolean (TDF_ListIteratorOfIDList::*)() const ) &TDF_ListIteratorOfIDList::More, "Check end");
-	cls_TDF_ListIteratorOfIDList.def("Next", (void (TDF_ListIteratorOfIDList::*)()) &TDF_ListIteratorOfIDList::Next, "Make step");
-	cls_TDF_ListIteratorOfIDList.def("Value", (const Standard_GUID & (TDF_ListIteratorOfIDList::*)() const ) &TDF_ListIteratorOfIDList::Value, "Constant Value access");
-	cls_TDF_ListIteratorOfIDList.def("Value", (Standard_GUID & (TDF_ListIteratorOfIDList::*)()) &TDF_ListIteratorOfIDList::Value, "Non-const Value access");
-	cls_TDF_ListIteratorOfIDList.def("ChangeValue", (Standard_GUID & (TDF_ListIteratorOfIDList::*)() const ) &TDF_ListIteratorOfIDList::ChangeValue, "Non-const Value access");
+	/* FIXME
+
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_IDList.hxx
+	bind_NCollection_List<Standard_GUID>(mod, "TDF_IDList");
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_IDList.hxx
+	bind_NCollection_TListIterator<Standard_GUID>(mod, "TDF_ListIteratorOfIDList");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_HAttributeArray1.hxx
 	py::class_<TDF_HAttributeArray1, opencascade::handle<TDF_HAttributeArray1>, TDF_AttributeArray1, Standard_Transient> cls_TDF_HAttributeArray1(mod, "TDF_HAttributeArray1", "None");
@@ -846,395 +607,79 @@ PYBIND11_MODULE(TDF, mod) {
 	cls_TDF_HAttributeArray1.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TDF_HAttributeArray1::get_type_descriptor, "None");
 	cls_TDF_HAttributeArray1.def("DynamicType", (const opencascade::handle<Standard_Type> & (TDF_HAttributeArray1::*)() const ) &TDF_HAttributeArray1::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<TDF_AttributeDataMap, std::unique_ptr<TDF_AttributeDataMap, Deleter<TDF_AttributeDataMap>>, NCollection_BaseMap> cls_TDF_AttributeDataMap(mod, "TDF_AttributeDataMap", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_TDF_AttributeDataMap.def(py::init<>());
-	cls_TDF_AttributeDataMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDF_AttributeDataMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDF_AttributeDataMap.def(py::init([] (const TDF_AttributeDataMap &other) {return new TDF_AttributeDataMap(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_AttributeDataMap.def("begin", (TDF_AttributeDataMap::iterator (TDF_AttributeDataMap::*)() const ) &TDF_AttributeDataMap::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_TDF_AttributeDataMap.def("end", (TDF_AttributeDataMap::iterator (TDF_AttributeDataMap::*)() const ) &TDF_AttributeDataMap::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_TDF_AttributeDataMap.def("cbegin", (TDF_AttributeDataMap::const_iterator (TDF_AttributeDataMap::*)() const ) &TDF_AttributeDataMap::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TDF_AttributeDataMap.def("cend", (TDF_AttributeDataMap::const_iterator (TDF_AttributeDataMap::*)() const ) &TDF_AttributeDataMap::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TDF_AttributeDataMap.def("Exchange", (void (TDF_AttributeDataMap::*)(TDF_AttributeDataMap &)) &TDF_AttributeDataMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDF_AttributeDataMap.def("Assign", (TDF_AttributeDataMap & (TDF_AttributeDataMap::*)(const TDF_AttributeDataMap &)) &TDF_AttributeDataMap::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_AttributeDataMap.def("assign", (TDF_AttributeDataMap & (TDF_AttributeDataMap::*)(const TDF_AttributeDataMap &)) &TDF_AttributeDataMap::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TDF_AttributeDataMap.def("ReSize", (void (TDF_AttributeDataMap::*)(const Standard_Integer)) &TDF_AttributeDataMap::ReSize, "ReSize", py::arg("N"));
-	cls_TDF_AttributeDataMap.def("Bind", (Standard_Boolean (TDF_AttributeDataMap::*)(const opencascade::handle<TDF_Attribute> &, const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeDataMap::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_TDF_AttributeDataMap.def("Bound", (opencascade::handle<TDF_Attribute> * (TDF_AttributeDataMap::*)(const opencascade::handle<TDF_Attribute> &, const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeDataMap::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_TDF_AttributeDataMap.def("IsBound", (Standard_Boolean (TDF_AttributeDataMap::*)(const opencascade::handle<TDF_Attribute> &) const ) &TDF_AttributeDataMap::IsBound, "IsBound", py::arg("theKey"));
-	cls_TDF_AttributeDataMap.def("UnBind", (Standard_Boolean (TDF_AttributeDataMap::*)(const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeDataMap::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_TDF_AttributeDataMap.def("Seek", (const opencascade::handle<TDF_Attribute> * (TDF_AttributeDataMap::*)(const opencascade::handle<TDF_Attribute> &) const ) &TDF_AttributeDataMap::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_TDF_AttributeDataMap.def("Find", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeDataMap::*)(const opencascade::handle<TDF_Attribute> &) const ) &TDF_AttributeDataMap::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_TDF_AttributeDataMap.def("Find", (Standard_Boolean (TDF_AttributeDataMap::*)(const opencascade::handle<TDF_Attribute> &, opencascade::handle<TDF_Attribute> &) const ) &TDF_AttributeDataMap::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_TDF_AttributeDataMap.def("__call__", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeDataMap::*)(const opencascade::handle<TDF_Attribute> &) const ) &TDF_AttributeDataMap::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_TDF_AttributeDataMap.def("ChangeSeek", (opencascade::handle<TDF_Attribute> * (TDF_AttributeDataMap::*)(const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeDataMap::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_TDF_AttributeDataMap.def("ChangeFind", (opencascade::handle<TDF_Attribute> & (TDF_AttributeDataMap::*)(const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeDataMap::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_TDF_AttributeDataMap.def("__call__", (opencascade::handle<TDF_Attribute> & (TDF_AttributeDataMap::*)(const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeDataMap::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_TDF_AttributeDataMap.def("Clear", [](TDF_AttributeDataMap &self) -> void { return self.Clear(); });
-	cls_TDF_AttributeDataMap.def("Clear", (void (TDF_AttributeDataMap::*)(const Standard_Boolean)) &TDF_AttributeDataMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDF_AttributeDataMap.def("Clear", (void (TDF_AttributeDataMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_AttributeDataMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDF_AttributeDataMap.def("Size", (Standard_Integer (TDF_AttributeDataMap::*)() const ) &TDF_AttributeDataMap::Size, "Size");
-	cls_TDF_AttributeDataMap.def("__iter__", [](const TDF_AttributeDataMap &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_AttributeDataMap.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<TDF_AttributeDeltaList, std::unique_ptr<TDF_AttributeDeltaList, Deleter<TDF_AttributeDeltaList>>, NCollection_BaseList> cls_TDF_AttributeDeltaList(mod, "TDF_AttributeDeltaList", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_TDF_AttributeDeltaList.def(py::init<>());
-	cls_TDF_AttributeDeltaList.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TDF_AttributeDeltaList.def(py::init([] (const TDF_AttributeDeltaList &other) {return new TDF_AttributeDeltaList(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_AttributeDeltaList.def("begin", (TDF_AttributeDeltaList::iterator (TDF_AttributeDeltaList::*)() const ) &TDF_AttributeDeltaList::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_TDF_AttributeDeltaList.def("end", (TDF_AttributeDeltaList::iterator (TDF_AttributeDeltaList::*)() const ) &TDF_AttributeDeltaList::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_TDF_AttributeDeltaList.def("cbegin", (TDF_AttributeDeltaList::const_iterator (TDF_AttributeDeltaList::*)() const ) &TDF_AttributeDeltaList::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_TDF_AttributeDeltaList.def("cend", (TDF_AttributeDeltaList::const_iterator (TDF_AttributeDeltaList::*)() const ) &TDF_AttributeDeltaList::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_TDF_AttributeDeltaList.def("Size", (Standard_Integer (TDF_AttributeDeltaList::*)() const ) &TDF_AttributeDeltaList::Size, "Size - Number of items");
-	cls_TDF_AttributeDeltaList.def("Assign", (TDF_AttributeDeltaList & (TDF_AttributeDeltaList::*)(const TDF_AttributeDeltaList &)) &TDF_AttributeDeltaList::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_AttributeDeltaList.def("assign", (TDF_AttributeDeltaList & (TDF_AttributeDeltaList::*)(const TDF_AttributeDeltaList &)) &TDF_AttributeDeltaList::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TDF_AttributeDeltaList.def("Clear", [](TDF_AttributeDeltaList &self) -> void { return self.Clear(); });
-	cls_TDF_AttributeDeltaList.def("Clear", (void (TDF_AttributeDeltaList::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_AttributeDeltaList::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_TDF_AttributeDeltaList.def("First", (const opencascade::handle<TDF_AttributeDelta> & (TDF_AttributeDeltaList::*)() const ) &TDF_AttributeDeltaList::First, "First item");
-	cls_TDF_AttributeDeltaList.def("First", (opencascade::handle<TDF_AttributeDelta> & (TDF_AttributeDeltaList::*)()) &TDF_AttributeDeltaList::First, "First item (non-const)");
-	cls_TDF_AttributeDeltaList.def("Last", (const opencascade::handle<TDF_AttributeDelta> & (TDF_AttributeDeltaList::*)() const ) &TDF_AttributeDeltaList::Last, "Last item");
-	cls_TDF_AttributeDeltaList.def("Last", (opencascade::handle<TDF_AttributeDelta> & (TDF_AttributeDeltaList::*)()) &TDF_AttributeDeltaList::Last, "Last item (non-const)");
-	cls_TDF_AttributeDeltaList.def("Append", (opencascade::handle<TDF_AttributeDelta> & (TDF_AttributeDeltaList::*)(const opencascade::handle<TDF_AttributeDelta> &)) &TDF_AttributeDeltaList::Append, "Append one item at the end", py::arg("theItem"));
-	cls_TDF_AttributeDeltaList.def("Append", (void (TDF_AttributeDeltaList::*)(const opencascade::handle<TDF_AttributeDelta> &, TDF_AttributeDeltaList::Iterator &)) &TDF_AttributeDeltaList::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_TDF_AttributeDeltaList.def("Append", (void (TDF_AttributeDeltaList::*)(TDF_AttributeDeltaList &)) &TDF_AttributeDeltaList::Append, "Append another list at the end", py::arg("theOther"));
-	cls_TDF_AttributeDeltaList.def("Prepend", (opencascade::handle<TDF_AttributeDelta> & (TDF_AttributeDeltaList::*)(const opencascade::handle<TDF_AttributeDelta> &)) &TDF_AttributeDeltaList::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_TDF_AttributeDeltaList.def("Prepend", (void (TDF_AttributeDeltaList::*)(TDF_AttributeDeltaList &)) &TDF_AttributeDeltaList::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_TDF_AttributeDeltaList.def("RemoveFirst", (void (TDF_AttributeDeltaList::*)()) &TDF_AttributeDeltaList::RemoveFirst, "RemoveFirst item");
-	cls_TDF_AttributeDeltaList.def("Remove", (void (TDF_AttributeDeltaList::*)(TDF_AttributeDeltaList::Iterator &)) &TDF_AttributeDeltaList::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_TDF_AttributeDeltaList.def("InsertBefore", (opencascade::handle<TDF_AttributeDelta> & (TDF_AttributeDeltaList::*)(const opencascade::handle<TDF_AttributeDelta> &, TDF_AttributeDeltaList::Iterator &)) &TDF_AttributeDeltaList::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_TDF_AttributeDeltaList.def("InsertBefore", (void (TDF_AttributeDeltaList::*)(TDF_AttributeDeltaList &, TDF_AttributeDeltaList::Iterator &)) &TDF_AttributeDeltaList::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_TDF_AttributeDeltaList.def("InsertAfter", (opencascade::handle<TDF_AttributeDelta> & (TDF_AttributeDeltaList::*)(const opencascade::handle<TDF_AttributeDelta> &, TDF_AttributeDeltaList::Iterator &)) &TDF_AttributeDeltaList::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_TDF_AttributeDeltaList.def("InsertAfter", (void (TDF_AttributeDeltaList::*)(TDF_AttributeDeltaList &, TDF_AttributeDeltaList::Iterator &)) &TDF_AttributeDeltaList::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_TDF_AttributeDeltaList.def("Reverse", (void (TDF_AttributeDeltaList::*)()) &TDF_AttributeDeltaList::Reverse, "Reverse the list");
-	cls_TDF_AttributeDeltaList.def("__iter__", [](const TDF_AttributeDeltaList &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<opencascade::handle<TDF_Attribute>, opencascade::handle<TDF_Attribute>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "TDF_AttributeDataMap");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<TDF_ListIteratorOfAttributeDeltaList, std::unique_ptr<TDF_ListIteratorOfAttributeDeltaList, Deleter<TDF_ListIteratorOfAttributeDeltaList>>> cls_TDF_ListIteratorOfAttributeDeltaList(mod, "TDF_ListIteratorOfAttributeDeltaList", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_TDF_ListIteratorOfAttributeDeltaList.def(py::init<>());
-	cls_TDF_ListIteratorOfAttributeDeltaList.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_TDF_ListIteratorOfAttributeDeltaList.def("More", (Standard_Boolean (TDF_ListIteratorOfAttributeDeltaList::*)() const ) &TDF_ListIteratorOfAttributeDeltaList::More, "Check end");
-	cls_TDF_ListIteratorOfAttributeDeltaList.def("Next", (void (TDF_ListIteratorOfAttributeDeltaList::*)()) &TDF_ListIteratorOfAttributeDeltaList::Next, "Make step");
-	cls_TDF_ListIteratorOfAttributeDeltaList.def("Value", (const opencascade::handle<TDF_AttributeDelta> & (TDF_ListIteratorOfAttributeDeltaList::*)() const ) &TDF_ListIteratorOfAttributeDeltaList::Value, "Constant Value access");
-	cls_TDF_ListIteratorOfAttributeDeltaList.def("Value", (opencascade::handle<TDF_AttributeDelta> & (TDF_ListIteratorOfAttributeDeltaList::*)()) &TDF_ListIteratorOfAttributeDeltaList::Value, "Non-const Value access");
-	cls_TDF_ListIteratorOfAttributeDeltaList.def("ChangeValue", (opencascade::handle<TDF_AttributeDelta> & (TDF_ListIteratorOfAttributeDeltaList::*)() const ) &TDF_ListIteratorOfAttributeDeltaList::ChangeValue, "Non-const Value access");
+	/* FIXME
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DoubleMap.hxx
-	py::class_<TDF_AttributeDoubleMap, std::unique_ptr<TDF_AttributeDoubleMap, Deleter<TDF_AttributeDoubleMap>>, NCollection_BaseMap> cls_TDF_AttributeDoubleMap(mod, "TDF_AttributeDoubleMap", "Purpose: The DoubleMap is used to bind pairs (Key1,Key2) and retrieve them in linear time.");
-	cls_TDF_AttributeDoubleMap.def(py::init<>());
-	cls_TDF_AttributeDoubleMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDF_AttributeDoubleMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDF_AttributeDoubleMap.def(py::init([] (const TDF_AttributeDoubleMap &other) {return new TDF_AttributeDoubleMap(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_AttributeDoubleMap.def("Exchange", (void (TDF_AttributeDoubleMap::*)(TDF_AttributeDoubleMap &)) &TDF_AttributeDoubleMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDF_AttributeDoubleMap.def("Assign", (TDF_AttributeDoubleMap & (TDF_AttributeDoubleMap::*)(const TDF_AttributeDoubleMap &)) &TDF_AttributeDoubleMap::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_AttributeDoubleMap.def("assign", (TDF_AttributeDoubleMap & (TDF_AttributeDoubleMap::*)(const TDF_AttributeDoubleMap &)) &TDF_AttributeDoubleMap::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TDF_AttributeDoubleMap.def("ReSize", (void (TDF_AttributeDoubleMap::*)(const Standard_Integer)) &TDF_AttributeDoubleMap::ReSize, "ReSize", py::arg("N"));
-	cls_TDF_AttributeDoubleMap.def("Bind", (void (TDF_AttributeDoubleMap::*)(const opencascade::handle<TDF_Attribute> &, const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeDoubleMap::Bind, "Bind", py::arg("theKey1"), py::arg("theKey2"));
-	cls_TDF_AttributeDoubleMap.def("AreBound", (Standard_Boolean (TDF_AttributeDoubleMap::*)(const opencascade::handle<TDF_Attribute> &, const opencascade::handle<TDF_Attribute> &) const ) &TDF_AttributeDoubleMap::AreBound, "* AreBound", py::arg("theKey1"), py::arg("theKey2"));
-	cls_TDF_AttributeDoubleMap.def("IsBound1", (Standard_Boolean (TDF_AttributeDoubleMap::*)(const opencascade::handle<TDF_Attribute> &) const ) &TDF_AttributeDoubleMap::IsBound1, "IsBound1", py::arg("theKey1"));
-	cls_TDF_AttributeDoubleMap.def("IsBound2", (Standard_Boolean (TDF_AttributeDoubleMap::*)(const opencascade::handle<TDF_Attribute> &) const ) &TDF_AttributeDoubleMap::IsBound2, "IsBound2", py::arg("theKey2"));
-	cls_TDF_AttributeDoubleMap.def("UnBind1", (Standard_Boolean (TDF_AttributeDoubleMap::*)(const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeDoubleMap::UnBind1, "UnBind1", py::arg("theKey1"));
-	cls_TDF_AttributeDoubleMap.def("UnBind2", (Standard_Boolean (TDF_AttributeDoubleMap::*)(const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeDoubleMap::UnBind2, "UnBind2", py::arg("theKey2"));
-	cls_TDF_AttributeDoubleMap.def("Find1", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeDoubleMap::*)(const opencascade::handle<TDF_Attribute> &) const ) &TDF_AttributeDoubleMap::Find1, "Find1", py::arg("theKey1"));
-	cls_TDF_AttributeDoubleMap.def("Find2", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeDoubleMap::*)(const opencascade::handle<TDF_Attribute> &) const ) &TDF_AttributeDoubleMap::Find2, "Find2", py::arg("theKey2"));
-	cls_TDF_AttributeDoubleMap.def("Clear", [](TDF_AttributeDoubleMap &self) -> void { return self.Clear(); });
-	cls_TDF_AttributeDoubleMap.def("Clear", (void (TDF_AttributeDoubleMap::*)(const Standard_Boolean)) &TDF_AttributeDoubleMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDF_AttributeDoubleMap.def("Clear", (void (TDF_AttributeDoubleMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_AttributeDoubleMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDF_AttributeDoubleMap.def("Size", (Standard_Integer (TDF_AttributeDoubleMap::*)() const ) &TDF_AttributeDoubleMap::Size, "Size");
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_AttributeDeltaList.hxx
+	bind_NCollection_List<opencascade::handle<TDF_AttributeDelta> >(mod, "TDF_AttributeDeltaList");
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_AttributeDeltaList.hxx
+	bind_NCollection_TListIterator<opencascade::handle<TDF_AttributeDelta> >(mod, "TDF_ListIteratorOfAttributeDeltaList");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_AttributeDoubleMap.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Map.hxx
-	py::class_<TDF_AttributeMap, std::unique_ptr<TDF_AttributeMap, Deleter<TDF_AttributeMap>>, NCollection_BaseMap> cls_TDF_AttributeMap(mod, "TDF_AttributeMap", "Purpose: Single hashed Map. This Map is used to store and retrieve keys in linear time.");
-	cls_TDF_AttributeMap.def(py::init<>());
-	cls_TDF_AttributeMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDF_AttributeMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDF_AttributeMap.def(py::init([] (const TDF_AttributeMap &other) {return new TDF_AttributeMap(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_AttributeMap.def("cbegin", (TDF_AttributeMap::const_iterator (TDF_AttributeMap::*)() const ) &TDF_AttributeMap::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TDF_AttributeMap.def("cend", (TDF_AttributeMap::const_iterator (TDF_AttributeMap::*)() const ) &TDF_AttributeMap::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TDF_AttributeMap.def("Exchange", (void (TDF_AttributeMap::*)(TDF_AttributeMap &)) &TDF_AttributeMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDF_AttributeMap.def("Assign", (TDF_AttributeMap & (TDF_AttributeMap::*)(const TDF_AttributeMap &)) &TDF_AttributeMap::Assign, "Assign. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_AttributeMap.def("assign", (TDF_AttributeMap & (TDF_AttributeMap::*)(const TDF_AttributeMap &)) &TDF_AttributeMap::operator=, py::is_operator(), "Assign operator", py::arg("theOther"));
-	cls_TDF_AttributeMap.def("ReSize", (void (TDF_AttributeMap::*)(const Standard_Integer)) &TDF_AttributeMap::ReSize, "ReSize", py::arg("N"));
-	cls_TDF_AttributeMap.def("Add", (Standard_Boolean (TDF_AttributeMap::*)(const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeMap::Add, "Add", py::arg("K"));
-	cls_TDF_AttributeMap.def("Added", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeMap::*)(const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeMap::Added, "Added: add a new key if not yet in the map, and return reference to either newly added or previously existing object", py::arg("K"));
-	cls_TDF_AttributeMap.def("Contains", (Standard_Boolean (TDF_AttributeMap::*)(const opencascade::handle<TDF_Attribute> &) const ) &TDF_AttributeMap::Contains, "Contains", py::arg("K"));
-	cls_TDF_AttributeMap.def("Remove", (Standard_Boolean (TDF_AttributeMap::*)(const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeMap::Remove, "Remove", py::arg("K"));
-	cls_TDF_AttributeMap.def("Clear", [](TDF_AttributeMap &self) -> void { return self.Clear(); });
-	cls_TDF_AttributeMap.def("Clear", (void (TDF_AttributeMap::*)(const Standard_Boolean)) &TDF_AttributeMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDF_AttributeMap.def("Clear", (void (TDF_AttributeMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_AttributeMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDF_AttributeMap.def("Size", (Standard_Integer (TDF_AttributeMap::*)() const ) &TDF_AttributeMap::Size, "Size");
-	cls_TDF_AttributeMap.def("IsEqual", (Standard_Boolean (TDF_AttributeMap::*)(const TDF_AttributeMap &) const ) &TDF_AttributeMap::IsEqual, "Returns true if two maps contains exactly the same keys", py::arg("theOther"));
-	cls_TDF_AttributeMap.def("Contains", (Standard_Boolean (TDF_AttributeMap::*)(const TDF_AttributeMap &) const ) &TDF_AttributeMap::Contains, "Returns true if this map contains ALL keys of another map.", py::arg("theOther"));
-	cls_TDF_AttributeMap.def("Union", (void (TDF_AttributeMap::*)(const TDF_AttributeMap &, const TDF_AttributeMap &)) &TDF_AttributeMap::Union, "Sets this Map to be the result of union (aka addition, fuse, merge, boolean OR) operation between two given Maps The new Map contains the values that are contained either in the first map or in the second map or in both. All previous content of this Map is cleared. This map (result of the boolean operation) can also be passed as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_TDF_AttributeMap.def("Unite", (Standard_Boolean (TDF_AttributeMap::*)(const TDF_AttributeMap &)) &TDF_AttributeMap::Unite, "Apply to this Map the boolean operation union (aka addition, fuse, merge, boolean OR) with another (given) Map. The result contains the values that were previously contained in this map or contained in the given (operand) map. This algorithm is similar to method Union(). Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_TDF_AttributeMap.def("HasIntersection", (Standard_Boolean (TDF_AttributeMap::*)(const TDF_AttributeMap &) const ) &TDF_AttributeMap::HasIntersection, "Returns true if this and theMap have common elements.", py::arg("theMap"));
-	cls_TDF_AttributeMap.def("Intersection", (void (TDF_AttributeMap::*)(const TDF_AttributeMap &, const TDF_AttributeMap &)) &TDF_AttributeMap::Intersection, "Sets this Map to be the result of intersection (aka multiplication, common, boolean AND) operation between two given Maps. The new Map contains only the values that are contained in both map operands. All previous content of this Map is cleared. This same map (result of the boolean operation) can also be used as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_TDF_AttributeMap.def("Intersect", (Standard_Boolean (TDF_AttributeMap::*)(const TDF_AttributeMap &)) &TDF_AttributeMap::Intersect, "Apply to this Map the intersection operation (aka multiplication, common, boolean AND) with another (given) Map. The result contains only the values that are contained in both this and the given maps. This algorithm is similar to method Intersection(). Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_TDF_AttributeMap.def("Subtraction", (void (TDF_AttributeMap::*)(const TDF_AttributeMap &, const TDF_AttributeMap &)) &TDF_AttributeMap::Subtraction, "Sets this Map to be the result of subtraction (aka set-theoretic difference, relative complement, exclude, cut, boolean NOT) operation between two given Maps. The new Map contains only the values that are contained in the first map operands and not contained in the second one. All previous content of this Map is cleared.", py::arg("theLeft"), py::arg("theRight"));
-	cls_TDF_AttributeMap.def("Subtract", (Standard_Boolean (TDF_AttributeMap::*)(const TDF_AttributeMap &)) &TDF_AttributeMap::Subtract, "Apply to this Map the subtraction (aka set-theoretic difference, relative complement, exclude, cut, boolean NOT) operation with another (given) Map. The result contains only the values that were previously contained in this map and not contained in this map. This algorithm is similar to method Subtract() with two operands. Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_TDF_AttributeMap.def("Difference", (void (TDF_AttributeMap::*)(const TDF_AttributeMap &, const TDF_AttributeMap &)) &TDF_AttributeMap::Difference, "Sets this Map to be the result of symmetric difference (aka exclusive disjunction, boolean XOR) operation between two given Maps. The new Map contains the values that are contained only in the first or the second operand maps but not in both. All previous content of this Map is cleared. This map (result of the boolean operation) can also be used as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_TDF_AttributeMap.def("Differ", (Standard_Boolean (TDF_AttributeMap::*)(const TDF_AttributeMap &)) &TDF_AttributeMap::Differ, "Apply to this Map the symmetric difference (aka exclusive disjunction, boolean XOR) operation with another (given) Map. The result contains the values that are contained only in this or the operand map, but not in both. This algorithm is similar to method Difference(). Returns True if contents of this map is changed.", py::arg("theOther"));
+	bind_NCollection_DoubleMap<opencascade::handle<TDF_Attribute>, opencascade::handle<TDF_Attribute>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> >, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "TDF_AttributeDoubleMap");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_AttributeMap.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<TDF_AttributeSequence, std::unique_ptr<TDF_AttributeSequence, Deleter<TDF_AttributeSequence>>, NCollection_BaseSequence> cls_TDF_AttributeSequence(mod, "TDF_AttributeSequence", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_TDF_AttributeSequence.def(py::init<>());
-	cls_TDF_AttributeSequence.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TDF_AttributeSequence.def(py::init([] (const TDF_AttributeSequence &other) {return new TDF_AttributeSequence(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_AttributeSequence.def("begin", (TDF_AttributeSequence::iterator (TDF_AttributeSequence::*)() const ) &TDF_AttributeSequence::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_TDF_AttributeSequence.def("end", (TDF_AttributeSequence::iterator (TDF_AttributeSequence::*)() const ) &TDF_AttributeSequence::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_TDF_AttributeSequence.def("cbegin", (TDF_AttributeSequence::const_iterator (TDF_AttributeSequence::*)() const ) &TDF_AttributeSequence::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_TDF_AttributeSequence.def("cend", (TDF_AttributeSequence::const_iterator (TDF_AttributeSequence::*)() const ) &TDF_AttributeSequence::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_TDF_AttributeSequence.def("Size", (Standard_Integer (TDF_AttributeSequence::*)() const ) &TDF_AttributeSequence::Size, "Number of items");
-	cls_TDF_AttributeSequence.def("Length", (Standard_Integer (TDF_AttributeSequence::*)() const ) &TDF_AttributeSequence::Length, "Number of items");
-	cls_TDF_AttributeSequence.def("Lower", (Standard_Integer (TDF_AttributeSequence::*)() const ) &TDF_AttributeSequence::Lower, "Method for consistency with other collections.");
-	cls_TDF_AttributeSequence.def("Upper", (Standard_Integer (TDF_AttributeSequence::*)() const ) &TDF_AttributeSequence::Upper, "Method for consistency with other collections.");
-	cls_TDF_AttributeSequence.def("IsEmpty", (Standard_Boolean (TDF_AttributeSequence::*)() const ) &TDF_AttributeSequence::IsEmpty, "Empty query");
-	cls_TDF_AttributeSequence.def("Reverse", (void (TDF_AttributeSequence::*)()) &TDF_AttributeSequence::Reverse, "Reverse sequence");
-	cls_TDF_AttributeSequence.def("Exchange", (void (TDF_AttributeSequence::*)(const Standard_Integer, const Standard_Integer)) &TDF_AttributeSequence::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_TDF_AttributeSequence.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &TDF_AttributeSequence::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_TDF_AttributeSequence.def("Clear", [](TDF_AttributeSequence &self) -> void { return self.Clear(); });
-	cls_TDF_AttributeSequence.def("Clear", (void (TDF_AttributeSequence::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_AttributeSequence::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_TDF_AttributeSequence.def("Assign", (TDF_AttributeSequence & (TDF_AttributeSequence::*)(const TDF_AttributeSequence &)) &TDF_AttributeSequence::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_AttributeSequence.def("assign", (TDF_AttributeSequence & (TDF_AttributeSequence::*)(const TDF_AttributeSequence &)) &TDF_AttributeSequence::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TDF_AttributeSequence.def("Remove", (void (TDF_AttributeSequence::*)(TDF_AttributeSequence::Iterator &)) &TDF_AttributeSequence::Remove, "Remove one item", py::arg("thePosition"));
-	cls_TDF_AttributeSequence.def("Remove", (void (TDF_AttributeSequence::*)(const Standard_Integer)) &TDF_AttributeSequence::Remove, "Remove one item", py::arg("theIndex"));
-	cls_TDF_AttributeSequence.def("Remove", (void (TDF_AttributeSequence::*)(const Standard_Integer, const Standard_Integer)) &TDF_AttributeSequence::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_TDF_AttributeSequence.def("Append", (void (TDF_AttributeSequence::*)(const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeSequence::Append, "Append one item", py::arg("theItem"));
-	cls_TDF_AttributeSequence.def("Append", (void (TDF_AttributeSequence::*)(TDF_AttributeSequence &)) &TDF_AttributeSequence::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_TDF_AttributeSequence.def("Prepend", (void (TDF_AttributeSequence::*)(const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeSequence::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_TDF_AttributeSequence.def("Prepend", (void (TDF_AttributeSequence::*)(TDF_AttributeSequence &)) &TDF_AttributeSequence::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_TDF_AttributeSequence.def("InsertBefore", (void (TDF_AttributeSequence::*)(const Standard_Integer, const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeSequence::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_TDF_AttributeSequence.def("InsertBefore", (void (TDF_AttributeSequence::*)(const Standard_Integer, TDF_AttributeSequence &)) &TDF_AttributeSequence::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TDF_AttributeSequence.def("InsertAfter", (void (TDF_AttributeSequence::*)(TDF_AttributeSequence::Iterator &, const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeSequence::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_TDF_AttributeSequence.def("InsertAfter", (void (TDF_AttributeSequence::*)(const Standard_Integer, TDF_AttributeSequence &)) &TDF_AttributeSequence::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TDF_AttributeSequence.def("InsertAfter", (void (TDF_AttributeSequence::*)(const Standard_Integer, const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeSequence::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_TDF_AttributeSequence.def("Split", (void (TDF_AttributeSequence::*)(const Standard_Integer, TDF_AttributeSequence &)) &TDF_AttributeSequence::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TDF_AttributeSequence.def("First", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeSequence::*)() const ) &TDF_AttributeSequence::First, "First item access");
-	cls_TDF_AttributeSequence.def("ChangeFirst", (opencascade::handle<TDF_Attribute> & (TDF_AttributeSequence::*)()) &TDF_AttributeSequence::ChangeFirst, "First item access");
-	cls_TDF_AttributeSequence.def("Last", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeSequence::*)() const ) &TDF_AttributeSequence::Last, "Last item access");
-	cls_TDF_AttributeSequence.def("ChangeLast", (opencascade::handle<TDF_Attribute> & (TDF_AttributeSequence::*)()) &TDF_AttributeSequence::ChangeLast, "Last item access");
-	cls_TDF_AttributeSequence.def("Value", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeSequence::*)(const Standard_Integer) const ) &TDF_AttributeSequence::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_TDF_AttributeSequence.def("__call__", (const opencascade::handle<TDF_Attribute> & (TDF_AttributeSequence::*)(const Standard_Integer) const ) &TDF_AttributeSequence::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_TDF_AttributeSequence.def("ChangeValue", (opencascade::handle<TDF_Attribute> & (TDF_AttributeSequence::*)(const Standard_Integer)) &TDF_AttributeSequence::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_TDF_AttributeSequence.def("__call__", (opencascade::handle<TDF_Attribute> & (TDF_AttributeSequence::*)(const Standard_Integer)) &TDF_AttributeSequence::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_TDF_AttributeSequence.def("SetValue", (void (TDF_AttributeSequence::*)(const Standard_Integer, const opencascade::handle<TDF_Attribute> &)) &TDF_AttributeSequence::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_TDF_AttributeSequence.def("__iter__", [](const TDF_AttributeSequence &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_Map<opencascade::handle<TDF_Attribute>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "TDF_AttributeMap");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Map.hxx
-	py::class_<TDF_IDMap, std::unique_ptr<TDF_IDMap, Deleter<TDF_IDMap>>, NCollection_BaseMap> cls_TDF_IDMap(mod, "TDF_IDMap", "Purpose: Single hashed Map. This Map is used to store and retrieve keys in linear time.");
-	cls_TDF_IDMap.def(py::init<>());
-	cls_TDF_IDMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDF_IDMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDF_IDMap.def(py::init([] (const TDF_IDMap &other) {return new TDF_IDMap(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_IDMap.def("cbegin", (TDF_IDMap::const_iterator (TDF_IDMap::*)() const ) &TDF_IDMap::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TDF_IDMap.def("cend", (TDF_IDMap::const_iterator (TDF_IDMap::*)() const ) &TDF_IDMap::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TDF_IDMap.def("Exchange", (void (TDF_IDMap::*)(TDF_IDMap &)) &TDF_IDMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDF_IDMap.def("Assign", (TDF_IDMap & (TDF_IDMap::*)(const TDF_IDMap &)) &TDF_IDMap::Assign, "Assign. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_IDMap.def("assign", (TDF_IDMap & (TDF_IDMap::*)(const TDF_IDMap &)) &TDF_IDMap::operator=, py::is_operator(), "Assign operator", py::arg("theOther"));
-	cls_TDF_IDMap.def("ReSize", (void (TDF_IDMap::*)(const Standard_Integer)) &TDF_IDMap::ReSize, "ReSize", py::arg("N"));
-	cls_TDF_IDMap.def("Add", (Standard_Boolean (TDF_IDMap::*)(const Standard_GUID &)) &TDF_IDMap::Add, "Add", py::arg("K"));
-	cls_TDF_IDMap.def("Added", (const Standard_GUID & (TDF_IDMap::*)(const Standard_GUID &)) &TDF_IDMap::Added, "Added: add a new key if not yet in the map, and return reference to either newly added or previously existing object", py::arg("K"));
-	cls_TDF_IDMap.def("Contains", (Standard_Boolean (TDF_IDMap::*)(const Standard_GUID &) const ) &TDF_IDMap::Contains, "Contains", py::arg("K"));
-	cls_TDF_IDMap.def("Remove", (Standard_Boolean (TDF_IDMap::*)(const Standard_GUID &)) &TDF_IDMap::Remove, "Remove", py::arg("K"));
-	cls_TDF_IDMap.def("Clear", [](TDF_IDMap &self) -> void { return self.Clear(); });
-	cls_TDF_IDMap.def("Clear", (void (TDF_IDMap::*)(const Standard_Boolean)) &TDF_IDMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDF_IDMap.def("Clear", (void (TDF_IDMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_IDMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDF_IDMap.def("Size", (Standard_Integer (TDF_IDMap::*)() const ) &TDF_IDMap::Size, "Size");
-	cls_TDF_IDMap.def("IsEqual", (Standard_Boolean (TDF_IDMap::*)(const TDF_IDMap &) const ) &TDF_IDMap::IsEqual, "Returns true if two maps contains exactly the same keys", py::arg("theOther"));
-	cls_TDF_IDMap.def("Contains", (Standard_Boolean (TDF_IDMap::*)(const TDF_IDMap &) const ) &TDF_IDMap::Contains, "Returns true if this map contains ALL keys of another map.", py::arg("theOther"));
-	cls_TDF_IDMap.def("Union", (void (TDF_IDMap::*)(const TDF_IDMap &, const TDF_IDMap &)) &TDF_IDMap::Union, "Sets this Map to be the result of union (aka addition, fuse, merge, boolean OR) operation between two given Maps The new Map contains the values that are contained either in the first map or in the second map or in both. All previous content of this Map is cleared. This map (result of the boolean operation) can also be passed as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_TDF_IDMap.def("Unite", (Standard_Boolean (TDF_IDMap::*)(const TDF_IDMap &)) &TDF_IDMap::Unite, "Apply to this Map the boolean operation union (aka addition, fuse, merge, boolean OR) with another (given) Map. The result contains the values that were previously contained in this map or contained in the given (operand) map. This algorithm is similar to method Union(). Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_TDF_IDMap.def("HasIntersection", (Standard_Boolean (TDF_IDMap::*)(const TDF_IDMap &) const ) &TDF_IDMap::HasIntersection, "Returns true if this and theMap have common elements.", py::arg("theMap"));
-	cls_TDF_IDMap.def("Intersection", (void (TDF_IDMap::*)(const TDF_IDMap &, const TDF_IDMap &)) &TDF_IDMap::Intersection, "Sets this Map to be the result of intersection (aka multiplication, common, boolean AND) operation between two given Maps. The new Map contains only the values that are contained in both map operands. All previous content of this Map is cleared. This same map (result of the boolean operation) can also be used as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_TDF_IDMap.def("Intersect", (Standard_Boolean (TDF_IDMap::*)(const TDF_IDMap &)) &TDF_IDMap::Intersect, "Apply to this Map the intersection operation (aka multiplication, common, boolean AND) with another (given) Map. The result contains only the values that are contained in both this and the given maps. This algorithm is similar to method Intersection(). Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_TDF_IDMap.def("Subtraction", (void (TDF_IDMap::*)(const TDF_IDMap &, const TDF_IDMap &)) &TDF_IDMap::Subtraction, "Sets this Map to be the result of subtraction (aka set-theoretic difference, relative complement, exclude, cut, boolean NOT) operation between two given Maps. The new Map contains only the values that are contained in the first map operands and not contained in the second one. All previous content of this Map is cleared.", py::arg("theLeft"), py::arg("theRight"));
-	cls_TDF_IDMap.def("Subtract", (Standard_Boolean (TDF_IDMap::*)(const TDF_IDMap &)) &TDF_IDMap::Subtract, "Apply to this Map the subtraction (aka set-theoretic difference, relative complement, exclude, cut, boolean NOT) operation with another (given) Map. The result contains only the values that were previously contained in this map and not contained in this map. This algorithm is similar to method Subtract() with two operands. Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_TDF_IDMap.def("Difference", (void (TDF_IDMap::*)(const TDF_IDMap &, const TDF_IDMap &)) &TDF_IDMap::Difference, "Sets this Map to be the result of symmetric difference (aka exclusive disjunction, boolean XOR) operation between two given Maps. The new Map contains the values that are contained only in the first or the second operand maps but not in both. All previous content of this Map is cleared. This map (result of the boolean operation) can also be used as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_TDF_IDMap.def("Differ", (Standard_Boolean (TDF_IDMap::*)(const TDF_IDMap &)) &TDF_IDMap::Differ, "Apply to this Map the symmetric difference (aka exclusive disjunction, boolean XOR) operation with another (given) Map. The result contains the values that are contained only in this or the operand map, but not in both. This algorithm is similar to method Difference(). Returns True if contents of this map is changed.", py::arg("theOther"));
+	/* FIXME
+
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_AttributeSequence.hxx
+	bind_NCollection_Sequence<opencascade::handle<TDF_Attribute> >(mod, "TDF_AttributeSequence");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_IDMap.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<TDF_LabelDataMap, std::unique_ptr<TDF_LabelDataMap, Deleter<TDF_LabelDataMap>>, NCollection_BaseMap> cls_TDF_LabelDataMap(mod, "TDF_LabelDataMap", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_TDF_LabelDataMap.def(py::init<>());
-	cls_TDF_LabelDataMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDF_LabelDataMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDF_LabelDataMap.def(py::init([] (const TDF_LabelDataMap &other) {return new TDF_LabelDataMap(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_LabelDataMap.def("begin", (TDF_LabelDataMap::iterator (TDF_LabelDataMap::*)() const ) &TDF_LabelDataMap::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_TDF_LabelDataMap.def("end", (TDF_LabelDataMap::iterator (TDF_LabelDataMap::*)() const ) &TDF_LabelDataMap::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_TDF_LabelDataMap.def("cbegin", (TDF_LabelDataMap::const_iterator (TDF_LabelDataMap::*)() const ) &TDF_LabelDataMap::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TDF_LabelDataMap.def("cend", (TDF_LabelDataMap::const_iterator (TDF_LabelDataMap::*)() const ) &TDF_LabelDataMap::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TDF_LabelDataMap.def("Exchange", (void (TDF_LabelDataMap::*)(TDF_LabelDataMap &)) &TDF_LabelDataMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDF_LabelDataMap.def("Assign", (TDF_LabelDataMap & (TDF_LabelDataMap::*)(const TDF_LabelDataMap &)) &TDF_LabelDataMap::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_LabelDataMap.def("assign", (TDF_LabelDataMap & (TDF_LabelDataMap::*)(const TDF_LabelDataMap &)) &TDF_LabelDataMap::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TDF_LabelDataMap.def("ReSize", (void (TDF_LabelDataMap::*)(const Standard_Integer)) &TDF_LabelDataMap::ReSize, "ReSize", py::arg("N"));
-	cls_TDF_LabelDataMap.def("Bind", (Standard_Boolean (TDF_LabelDataMap::*)(const TDF_Label &, const TDF_Label &)) &TDF_LabelDataMap::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_TDF_LabelDataMap.def("Bound", (TDF_Label * (TDF_LabelDataMap::*)(const TDF_Label &, const TDF_Label &)) &TDF_LabelDataMap::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_TDF_LabelDataMap.def("IsBound", (Standard_Boolean (TDF_LabelDataMap::*)(const TDF_Label &) const ) &TDF_LabelDataMap::IsBound, "IsBound", py::arg("theKey"));
-	cls_TDF_LabelDataMap.def("UnBind", (Standard_Boolean (TDF_LabelDataMap::*)(const TDF_Label &)) &TDF_LabelDataMap::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_TDF_LabelDataMap.def("Seek", (const TDF_Label * (TDF_LabelDataMap::*)(const TDF_Label &) const ) &TDF_LabelDataMap::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_TDF_LabelDataMap.def("Find", (const TDF_Label & (TDF_LabelDataMap::*)(const TDF_Label &) const ) &TDF_LabelDataMap::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_TDF_LabelDataMap.def("Find", (Standard_Boolean (TDF_LabelDataMap::*)(const TDF_Label &, TDF_Label &) const ) &TDF_LabelDataMap::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_TDF_LabelDataMap.def("__call__", (const TDF_Label & (TDF_LabelDataMap::*)(const TDF_Label &) const ) &TDF_LabelDataMap::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_TDF_LabelDataMap.def("ChangeSeek", (TDF_Label * (TDF_LabelDataMap::*)(const TDF_Label &)) &TDF_LabelDataMap::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_TDF_LabelDataMap.def("ChangeFind", (TDF_Label & (TDF_LabelDataMap::*)(const TDF_Label &)) &TDF_LabelDataMap::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_TDF_LabelDataMap.def("__call__", (TDF_Label & (TDF_LabelDataMap::*)(const TDF_Label &)) &TDF_LabelDataMap::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_TDF_LabelDataMap.def("Clear", [](TDF_LabelDataMap &self) -> void { return self.Clear(); });
-	cls_TDF_LabelDataMap.def("Clear", (void (TDF_LabelDataMap::*)(const Standard_Boolean)) &TDF_LabelDataMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDF_LabelDataMap.def("Clear", (void (TDF_LabelDataMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_LabelDataMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDF_LabelDataMap.def("Size", (Standard_Integer (TDF_LabelDataMap::*)() const ) &TDF_LabelDataMap::Size, "Size");
-	cls_TDF_LabelDataMap.def("__iter__", [](const TDF_LabelDataMap &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_Map<Standard_GUID, Standard_GUID>(mod, "TDF_IDMap");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_LabelDataMap.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<TDF_LabelIntegerMap, std::unique_ptr<TDF_LabelIntegerMap, Deleter<TDF_LabelIntegerMap>>, NCollection_BaseMap> cls_TDF_LabelIntegerMap(mod, "TDF_LabelIntegerMap", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_TDF_LabelIntegerMap.def(py::init<>());
-	cls_TDF_LabelIntegerMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDF_LabelIntegerMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDF_LabelIntegerMap.def(py::init([] (const TDF_LabelIntegerMap &other) {return new TDF_LabelIntegerMap(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_LabelIntegerMap.def("begin", (TDF_LabelIntegerMap::iterator (TDF_LabelIntegerMap::*)() const ) &TDF_LabelIntegerMap::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_TDF_LabelIntegerMap.def("end", (TDF_LabelIntegerMap::iterator (TDF_LabelIntegerMap::*)() const ) &TDF_LabelIntegerMap::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_TDF_LabelIntegerMap.def("cbegin", (TDF_LabelIntegerMap::const_iterator (TDF_LabelIntegerMap::*)() const ) &TDF_LabelIntegerMap::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TDF_LabelIntegerMap.def("cend", (TDF_LabelIntegerMap::const_iterator (TDF_LabelIntegerMap::*)() const ) &TDF_LabelIntegerMap::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TDF_LabelIntegerMap.def("Exchange", (void (TDF_LabelIntegerMap::*)(TDF_LabelIntegerMap &)) &TDF_LabelIntegerMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDF_LabelIntegerMap.def("Assign", (TDF_LabelIntegerMap & (TDF_LabelIntegerMap::*)(const TDF_LabelIntegerMap &)) &TDF_LabelIntegerMap::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_LabelIntegerMap.def("assign", (TDF_LabelIntegerMap & (TDF_LabelIntegerMap::*)(const TDF_LabelIntegerMap &)) &TDF_LabelIntegerMap::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TDF_LabelIntegerMap.def("ReSize", (void (TDF_LabelIntegerMap::*)(const Standard_Integer)) &TDF_LabelIntegerMap::ReSize, "ReSize", py::arg("N"));
-	cls_TDF_LabelIntegerMap.def("Bind", (Standard_Boolean (TDF_LabelIntegerMap::*)(const TDF_Label &, const Standard_Integer &)) &TDF_LabelIntegerMap::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_TDF_LabelIntegerMap.def("Bound", (Standard_Integer * (TDF_LabelIntegerMap::*)(const TDF_Label &, const Standard_Integer &)) &TDF_LabelIntegerMap::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_TDF_LabelIntegerMap.def("IsBound", (Standard_Boolean (TDF_LabelIntegerMap::*)(const TDF_Label &) const ) &TDF_LabelIntegerMap::IsBound, "IsBound", py::arg("theKey"));
-	cls_TDF_LabelIntegerMap.def("UnBind", (Standard_Boolean (TDF_LabelIntegerMap::*)(const TDF_Label &)) &TDF_LabelIntegerMap::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_TDF_LabelIntegerMap.def("Seek", (const Standard_Integer * (TDF_LabelIntegerMap::*)(const TDF_Label &) const ) &TDF_LabelIntegerMap::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_TDF_LabelIntegerMap.def("Find", (const Standard_Integer & (TDF_LabelIntegerMap::*)(const TDF_Label &) const ) &TDF_LabelIntegerMap::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_TDF_LabelIntegerMap.def("Find", (Standard_Boolean (TDF_LabelIntegerMap::*)(const TDF_Label &, Standard_Integer &) const ) &TDF_LabelIntegerMap::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_TDF_LabelIntegerMap.def("__call__", (const Standard_Integer & (TDF_LabelIntegerMap::*)(const TDF_Label &) const ) &TDF_LabelIntegerMap::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_TDF_LabelIntegerMap.def("ChangeSeek", (Standard_Integer * (TDF_LabelIntegerMap::*)(const TDF_Label &)) &TDF_LabelIntegerMap::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_TDF_LabelIntegerMap.def("ChangeFind", (Standard_Integer & (TDF_LabelIntegerMap::*)(const TDF_Label &)) &TDF_LabelIntegerMap::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_TDF_LabelIntegerMap.def("__call__", (Standard_Integer & (TDF_LabelIntegerMap::*)(const TDF_Label &)) &TDF_LabelIntegerMap::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_TDF_LabelIntegerMap.def("Clear", [](TDF_LabelIntegerMap &self) -> void { return self.Clear(); });
-	cls_TDF_LabelIntegerMap.def("Clear", (void (TDF_LabelIntegerMap::*)(const Standard_Boolean)) &TDF_LabelIntegerMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDF_LabelIntegerMap.def("Clear", (void (TDF_LabelIntegerMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_LabelIntegerMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDF_LabelIntegerMap.def("Size", (Standard_Integer (TDF_LabelIntegerMap::*)() const ) &TDF_LabelIntegerMap::Size, "Size");
-	cls_TDF_LabelIntegerMap.def("__iter__", [](const TDF_LabelIntegerMap &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TDF_Label, TDF_Label, TDF_LabelMapHasher>(mod, "TDF_LabelDataMap");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_LabelIntegerMap.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<TDF_DeltaList, std::unique_ptr<TDF_DeltaList, Deleter<TDF_DeltaList>>, NCollection_BaseList> cls_TDF_DeltaList(mod, "TDF_DeltaList", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_TDF_DeltaList.def(py::init<>());
-	cls_TDF_DeltaList.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TDF_DeltaList.def(py::init([] (const TDF_DeltaList &other) {return new TDF_DeltaList(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_DeltaList.def("begin", (TDF_DeltaList::iterator (TDF_DeltaList::*)() const ) &TDF_DeltaList::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_TDF_DeltaList.def("end", (TDF_DeltaList::iterator (TDF_DeltaList::*)() const ) &TDF_DeltaList::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_TDF_DeltaList.def("cbegin", (TDF_DeltaList::const_iterator (TDF_DeltaList::*)() const ) &TDF_DeltaList::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_TDF_DeltaList.def("cend", (TDF_DeltaList::const_iterator (TDF_DeltaList::*)() const ) &TDF_DeltaList::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_TDF_DeltaList.def("Size", (Standard_Integer (TDF_DeltaList::*)() const ) &TDF_DeltaList::Size, "Size - Number of items");
-	cls_TDF_DeltaList.def("Assign", (TDF_DeltaList & (TDF_DeltaList::*)(const TDF_DeltaList &)) &TDF_DeltaList::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_DeltaList.def("assign", (TDF_DeltaList & (TDF_DeltaList::*)(const TDF_DeltaList &)) &TDF_DeltaList::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TDF_DeltaList.def("Clear", [](TDF_DeltaList &self) -> void { return self.Clear(); });
-	cls_TDF_DeltaList.def("Clear", (void (TDF_DeltaList::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_DeltaList::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_TDF_DeltaList.def("First", (const opencascade::handle<TDF_Delta> & (TDF_DeltaList::*)() const ) &TDF_DeltaList::First, "First item");
-	cls_TDF_DeltaList.def("First", (opencascade::handle<TDF_Delta> & (TDF_DeltaList::*)()) &TDF_DeltaList::First, "First item (non-const)");
-	cls_TDF_DeltaList.def("Last", (const opencascade::handle<TDF_Delta> & (TDF_DeltaList::*)() const ) &TDF_DeltaList::Last, "Last item");
-	cls_TDF_DeltaList.def("Last", (opencascade::handle<TDF_Delta> & (TDF_DeltaList::*)()) &TDF_DeltaList::Last, "Last item (non-const)");
-	cls_TDF_DeltaList.def("Append", (opencascade::handle<TDF_Delta> & (TDF_DeltaList::*)(const opencascade::handle<TDF_Delta> &)) &TDF_DeltaList::Append, "Append one item at the end", py::arg("theItem"));
-	cls_TDF_DeltaList.def("Append", (void (TDF_DeltaList::*)(const opencascade::handle<TDF_Delta> &, TDF_DeltaList::Iterator &)) &TDF_DeltaList::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_TDF_DeltaList.def("Append", (void (TDF_DeltaList::*)(TDF_DeltaList &)) &TDF_DeltaList::Append, "Append another list at the end", py::arg("theOther"));
-	cls_TDF_DeltaList.def("Prepend", (opencascade::handle<TDF_Delta> & (TDF_DeltaList::*)(const opencascade::handle<TDF_Delta> &)) &TDF_DeltaList::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_TDF_DeltaList.def("Prepend", (void (TDF_DeltaList::*)(TDF_DeltaList &)) &TDF_DeltaList::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_TDF_DeltaList.def("RemoveFirst", (void (TDF_DeltaList::*)()) &TDF_DeltaList::RemoveFirst, "RemoveFirst item");
-	cls_TDF_DeltaList.def("Remove", (void (TDF_DeltaList::*)(TDF_DeltaList::Iterator &)) &TDF_DeltaList::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_TDF_DeltaList.def("InsertBefore", (opencascade::handle<TDF_Delta> & (TDF_DeltaList::*)(const opencascade::handle<TDF_Delta> &, TDF_DeltaList::Iterator &)) &TDF_DeltaList::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_TDF_DeltaList.def("InsertBefore", (void (TDF_DeltaList::*)(TDF_DeltaList &, TDF_DeltaList::Iterator &)) &TDF_DeltaList::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_TDF_DeltaList.def("InsertAfter", (opencascade::handle<TDF_Delta> & (TDF_DeltaList::*)(const opencascade::handle<TDF_Delta> &, TDF_DeltaList::Iterator &)) &TDF_DeltaList::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_TDF_DeltaList.def("InsertAfter", (void (TDF_DeltaList::*)(TDF_DeltaList &, TDF_DeltaList::Iterator &)) &TDF_DeltaList::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_TDF_DeltaList.def("Reverse", (void (TDF_DeltaList::*)()) &TDF_DeltaList::Reverse, "Reverse the list");
-	cls_TDF_DeltaList.def("__iter__", [](const TDF_DeltaList &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TDF_Label, int, TDF_LabelMapHasher>(mod, "TDF_LabelIntegerMap");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<TDF_ListIteratorOfDeltaList, std::unique_ptr<TDF_ListIteratorOfDeltaList, Deleter<TDF_ListIteratorOfDeltaList>>> cls_TDF_ListIteratorOfDeltaList(mod, "TDF_ListIteratorOfDeltaList", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_TDF_ListIteratorOfDeltaList.def(py::init<>());
-	cls_TDF_ListIteratorOfDeltaList.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_TDF_ListIteratorOfDeltaList.def("More", (Standard_Boolean (TDF_ListIteratorOfDeltaList::*)() const ) &TDF_ListIteratorOfDeltaList::More, "Check end");
-	cls_TDF_ListIteratorOfDeltaList.def("Next", (void (TDF_ListIteratorOfDeltaList::*)()) &TDF_ListIteratorOfDeltaList::Next, "Make step");
-	cls_TDF_ListIteratorOfDeltaList.def("Value", (const opencascade::handle<TDF_Delta> & (TDF_ListIteratorOfDeltaList::*)() const ) &TDF_ListIteratorOfDeltaList::Value, "Constant Value access");
-	cls_TDF_ListIteratorOfDeltaList.def("Value", (opencascade::handle<TDF_Delta> & (TDF_ListIteratorOfDeltaList::*)()) &TDF_ListIteratorOfDeltaList::Value, "Non-const Value access");
-	cls_TDF_ListIteratorOfDeltaList.def("ChangeValue", (opencascade::handle<TDF_Delta> & (TDF_ListIteratorOfDeltaList::*)() const ) &TDF_ListIteratorOfDeltaList::ChangeValue, "Non-const Value access");
+	/* FIXME
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DoubleMap.hxx
-	py::class_<TDF_GUIDProgIDMap, std::unique_ptr<TDF_GUIDProgIDMap, Deleter<TDF_GUIDProgIDMap>>, NCollection_BaseMap> cls_TDF_GUIDProgIDMap(mod, "TDF_GUIDProgIDMap", "Purpose: The DoubleMap is used to bind pairs (Key1,Key2) and retrieve them in linear time.");
-	cls_TDF_GUIDProgIDMap.def(py::init<>());
-	cls_TDF_GUIDProgIDMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDF_GUIDProgIDMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDF_GUIDProgIDMap.def(py::init([] (const TDF_GUIDProgIDMap &other) {return new TDF_GUIDProgIDMap(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_GUIDProgIDMap.def("Exchange", (void (TDF_GUIDProgIDMap::*)(TDF_GUIDProgIDMap &)) &TDF_GUIDProgIDMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDF_GUIDProgIDMap.def("Assign", (TDF_GUIDProgIDMap & (TDF_GUIDProgIDMap::*)(const TDF_GUIDProgIDMap &)) &TDF_GUIDProgIDMap::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_GUIDProgIDMap.def("assign", (TDF_GUIDProgIDMap & (TDF_GUIDProgIDMap::*)(const TDF_GUIDProgIDMap &)) &TDF_GUIDProgIDMap::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TDF_GUIDProgIDMap.def("ReSize", (void (TDF_GUIDProgIDMap::*)(const Standard_Integer)) &TDF_GUIDProgIDMap::ReSize, "ReSize", py::arg("N"));
-	cls_TDF_GUIDProgIDMap.def("Bind", (void (TDF_GUIDProgIDMap::*)(const Standard_GUID &, const TCollection_ExtendedString &)) &TDF_GUIDProgIDMap::Bind, "Bind", py::arg("theKey1"), py::arg("theKey2"));
-	cls_TDF_GUIDProgIDMap.def("AreBound", (Standard_Boolean (TDF_GUIDProgIDMap::*)(const Standard_GUID &, const TCollection_ExtendedString &) const ) &TDF_GUIDProgIDMap::AreBound, "* AreBound", py::arg("theKey1"), py::arg("theKey2"));
-	cls_TDF_GUIDProgIDMap.def("IsBound1", (Standard_Boolean (TDF_GUIDProgIDMap::*)(const Standard_GUID &) const ) &TDF_GUIDProgIDMap::IsBound1, "IsBound1", py::arg("theKey1"));
-	cls_TDF_GUIDProgIDMap.def("IsBound2", (Standard_Boolean (TDF_GUIDProgIDMap::*)(const TCollection_ExtendedString &) const ) &TDF_GUIDProgIDMap::IsBound2, "IsBound2", py::arg("theKey2"));
-	cls_TDF_GUIDProgIDMap.def("UnBind1", (Standard_Boolean (TDF_GUIDProgIDMap::*)(const Standard_GUID &)) &TDF_GUIDProgIDMap::UnBind1, "UnBind1", py::arg("theKey1"));
-	cls_TDF_GUIDProgIDMap.def("UnBind2", (Standard_Boolean (TDF_GUIDProgIDMap::*)(const TCollection_ExtendedString &)) &TDF_GUIDProgIDMap::UnBind2, "UnBind2", py::arg("theKey2"));
-	cls_TDF_GUIDProgIDMap.def("Find1", (const TCollection_ExtendedString & (TDF_GUIDProgIDMap::*)(const Standard_GUID &) const ) &TDF_GUIDProgIDMap::Find1, "Find1", py::arg("theKey1"));
-	cls_TDF_GUIDProgIDMap.def("Find2", (const Standard_GUID & (TDF_GUIDProgIDMap::*)(const TCollection_ExtendedString &) const ) &TDF_GUIDProgIDMap::Find2, "Find2", py::arg("theKey2"));
-	cls_TDF_GUIDProgIDMap.def("Clear", [](TDF_GUIDProgIDMap &self) -> void { return self.Clear(); });
-	cls_TDF_GUIDProgIDMap.def("Clear", (void (TDF_GUIDProgIDMap::*)(const Standard_Boolean)) &TDF_GUIDProgIDMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDF_GUIDProgIDMap.def("Clear", (void (TDF_GUIDProgIDMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_GUIDProgIDMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDF_GUIDProgIDMap.def("Size", (Standard_Integer (TDF_GUIDProgIDMap::*)() const ) &TDF_GUIDProgIDMap::Size, "Size");
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_DeltaList.hxx
+	bind_NCollection_List<opencascade::handle<TDF_Delta> >(mod, "TDF_DeltaList");
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_DeltaList.hxx
+	bind_NCollection_TListIterator<opencascade::handle<TDF_Delta> >(mod, "TDF_ListIteratorOfDeltaList");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_GUIDProgIDMap.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DoubleMap.hxx
-	py::class_<TDF_LabelDoubleMap, std::unique_ptr<TDF_LabelDoubleMap, Deleter<TDF_LabelDoubleMap>>, NCollection_BaseMap> cls_TDF_LabelDoubleMap(mod, "TDF_LabelDoubleMap", "Purpose: The DoubleMap is used to bind pairs (Key1,Key2) and retrieve them in linear time.");
-	cls_TDF_LabelDoubleMap.def(py::init<>());
-	cls_TDF_LabelDoubleMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDF_LabelDoubleMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDF_LabelDoubleMap.def(py::init([] (const TDF_LabelDoubleMap &other) {return new TDF_LabelDoubleMap(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_LabelDoubleMap.def("Exchange", (void (TDF_LabelDoubleMap::*)(TDF_LabelDoubleMap &)) &TDF_LabelDoubleMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDF_LabelDoubleMap.def("Assign", (TDF_LabelDoubleMap & (TDF_LabelDoubleMap::*)(const TDF_LabelDoubleMap &)) &TDF_LabelDoubleMap::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_LabelDoubleMap.def("assign", (TDF_LabelDoubleMap & (TDF_LabelDoubleMap::*)(const TDF_LabelDoubleMap &)) &TDF_LabelDoubleMap::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TDF_LabelDoubleMap.def("ReSize", (void (TDF_LabelDoubleMap::*)(const Standard_Integer)) &TDF_LabelDoubleMap::ReSize, "ReSize", py::arg("N"));
-	cls_TDF_LabelDoubleMap.def("Bind", (void (TDF_LabelDoubleMap::*)(const TDF_Label &, const TDF_Label &)) &TDF_LabelDoubleMap::Bind, "Bind", py::arg("theKey1"), py::arg("theKey2"));
-	cls_TDF_LabelDoubleMap.def("AreBound", (Standard_Boolean (TDF_LabelDoubleMap::*)(const TDF_Label &, const TDF_Label &) const ) &TDF_LabelDoubleMap::AreBound, "* AreBound", py::arg("theKey1"), py::arg("theKey2"));
-	cls_TDF_LabelDoubleMap.def("IsBound1", (Standard_Boolean (TDF_LabelDoubleMap::*)(const TDF_Label &) const ) &TDF_LabelDoubleMap::IsBound1, "IsBound1", py::arg("theKey1"));
-	cls_TDF_LabelDoubleMap.def("IsBound2", (Standard_Boolean (TDF_LabelDoubleMap::*)(const TDF_Label &) const ) &TDF_LabelDoubleMap::IsBound2, "IsBound2", py::arg("theKey2"));
-	cls_TDF_LabelDoubleMap.def("UnBind1", (Standard_Boolean (TDF_LabelDoubleMap::*)(const TDF_Label &)) &TDF_LabelDoubleMap::UnBind1, "UnBind1", py::arg("theKey1"));
-	cls_TDF_LabelDoubleMap.def("UnBind2", (Standard_Boolean (TDF_LabelDoubleMap::*)(const TDF_Label &)) &TDF_LabelDoubleMap::UnBind2, "UnBind2", py::arg("theKey2"));
-	cls_TDF_LabelDoubleMap.def("Find1", (const TDF_Label & (TDF_LabelDoubleMap::*)(const TDF_Label &) const ) &TDF_LabelDoubleMap::Find1, "Find1", py::arg("theKey1"));
-	cls_TDF_LabelDoubleMap.def("Find2", (const TDF_Label & (TDF_LabelDoubleMap::*)(const TDF_Label &) const ) &TDF_LabelDoubleMap::Find2, "Find2", py::arg("theKey2"));
-	cls_TDF_LabelDoubleMap.def("Clear", [](TDF_LabelDoubleMap &self) -> void { return self.Clear(); });
-	cls_TDF_LabelDoubleMap.def("Clear", (void (TDF_LabelDoubleMap::*)(const Standard_Boolean)) &TDF_LabelDoubleMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDF_LabelDoubleMap.def("Clear", (void (TDF_LabelDoubleMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_LabelDoubleMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDF_LabelDoubleMap.def("Size", (Standard_Integer (TDF_LabelDoubleMap::*)() const ) &TDF_LabelDoubleMap::Size, "Size");
+	bind_NCollection_DoubleMap<Standard_GUID, TCollection_ExtendedString, Standard_GUID, TCollection_ExtendedString>(mod, "TDF_GUIDProgIDMap");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_LabelDoubleMap.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_IndexedMap.hxx
-	py::class_<TDF_LabelIndexedMap, std::unique_ptr<TDF_LabelIndexedMap, Deleter<TDF_LabelIndexedMap>>, NCollection_BaseMap> cls_TDF_LabelIndexedMap(mod, "TDF_LabelIndexedMap", "Purpose: An indexed map is used to store keys and to bind an index to them. Each new key stored in the map gets an index. Index are incremented as keys are stored in the map. A key can be found by the index and an index by the key. No key but the last can be removed so the indices are in the range 1..Extent. See the class Map from NCollection for a discussion about the number of buckets.");
-	cls_TDF_LabelIndexedMap.def(py::init<>());
-	cls_TDF_LabelIndexedMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDF_LabelIndexedMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDF_LabelIndexedMap.def(py::init([] (const TDF_LabelIndexedMap &other) {return new TDF_LabelIndexedMap(other);}), "Copy constructor", py::arg("other"));
-	cls_TDF_LabelIndexedMap.def("cbegin", (TDF_LabelIndexedMap::const_iterator (TDF_LabelIndexedMap::*)() const ) &TDF_LabelIndexedMap::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TDF_LabelIndexedMap.def("cend", (TDF_LabelIndexedMap::const_iterator (TDF_LabelIndexedMap::*)() const ) &TDF_LabelIndexedMap::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TDF_LabelIndexedMap.def("Exchange", (void (TDF_LabelIndexedMap::*)(TDF_LabelIndexedMap &)) &TDF_LabelIndexedMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDF_LabelIndexedMap.def("Assign", (TDF_LabelIndexedMap & (TDF_LabelIndexedMap::*)(const TDF_LabelIndexedMap &)) &TDF_LabelIndexedMap::Assign, "Assign. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDF_LabelIndexedMap.def("assign", (TDF_LabelIndexedMap & (TDF_LabelIndexedMap::*)(const TDF_LabelIndexedMap &)) &TDF_LabelIndexedMap::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TDF_LabelIndexedMap.def("ReSize", (void (TDF_LabelIndexedMap::*)(const Standard_Integer)) &TDF_LabelIndexedMap::ReSize, "ReSize", py::arg("N"));
-	cls_TDF_LabelIndexedMap.def("Add", (Standard_Integer (TDF_LabelIndexedMap::*)(const TDF_Label &)) &TDF_LabelIndexedMap::Add, "Add", py::arg("theKey1"));
-	cls_TDF_LabelIndexedMap.def("Contains", (Standard_Boolean (TDF_LabelIndexedMap::*)(const TDF_Label &) const ) &TDF_LabelIndexedMap::Contains, "Contains", py::arg("theKey1"));
-	cls_TDF_LabelIndexedMap.def("Substitute", (void (TDF_LabelIndexedMap::*)(const Standard_Integer, const TDF_Label &)) &TDF_LabelIndexedMap::Substitute, "Substitute", py::arg("theIndex"), py::arg("theKey1"));
-	cls_TDF_LabelIndexedMap.def("Swap", (void (TDF_LabelIndexedMap::*)(const Standard_Integer, const Standard_Integer)) &TDF_LabelIndexedMap::Swap, "Swaps two elements with the given indices.", py::arg("theIndex1"), py::arg("theIndex2"));
-	cls_TDF_LabelIndexedMap.def("RemoveLast", (void (TDF_LabelIndexedMap::*)()) &TDF_LabelIndexedMap::RemoveLast, "RemoveLast");
-	cls_TDF_LabelIndexedMap.def("RemoveFromIndex", (void (TDF_LabelIndexedMap::*)(const Standard_Integer)) &TDF_LabelIndexedMap::RemoveFromIndex, "Remove the key of the given index. Caution! The index of the last key can be changed.", py::arg("theKey2"));
-	cls_TDF_LabelIndexedMap.def("RemoveKey", (Standard_Boolean (TDF_LabelIndexedMap::*)(const TDF_Label &)) &TDF_LabelIndexedMap::RemoveKey, "Remove the given key. Caution! The index of the last key can be changed.", py::arg("theKey1"));
-	cls_TDF_LabelIndexedMap.def("FindKey", (const TDF_Label & (TDF_LabelIndexedMap::*)(const Standard_Integer) const ) &TDF_LabelIndexedMap::FindKey, "FindKey", py::arg("theKey2"));
-	cls_TDF_LabelIndexedMap.def("__call__", (const TDF_Label & (TDF_LabelIndexedMap::*)(const Standard_Integer) const ) &TDF_LabelIndexedMap::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_TDF_LabelIndexedMap.def("FindIndex", (Standard_Integer (TDF_LabelIndexedMap::*)(const TDF_Label &) const ) &TDF_LabelIndexedMap::FindIndex, "FindIndex", py::arg("theKey1"));
-	cls_TDF_LabelIndexedMap.def("Clear", [](TDF_LabelIndexedMap &self) -> void { return self.Clear(); });
-	cls_TDF_LabelIndexedMap.def("Clear", (void (TDF_LabelIndexedMap::*)(const Standard_Boolean)) &TDF_LabelIndexedMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDF_LabelIndexedMap.def("Clear", (void (TDF_LabelIndexedMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_LabelIndexedMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDF_LabelIndexedMap.def("Size", (Standard_Integer (TDF_LabelIndexedMap::*)() const ) &TDF_LabelIndexedMap::Size, "Size");
+	bind_NCollection_DoubleMap<TDF_Label, TDF_Label, TDF_LabelMapHasher, TDF_LabelMapHasher>(mod, "TDF_LabelDoubleMap");
+
+	/* FIXME
+
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDF_LabelIndexedMap.hxx
+	bind_NCollection_IndexedMap<TDF_Label, TDF_LabelMapHasher>(mod, "TDF_LabelIndexedMap");
 
 
 }

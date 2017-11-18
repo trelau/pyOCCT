@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <IntCurveSurface_TransitionOnCurve.hxx>
 #include <gp_Pnt.hxx>
@@ -58,6 +49,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <IntSurf_Quadric.hxx>
 #include <IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter.hxx>
 #include <IntCurveSurface_HInter.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(IntCurveSurface, mod) {
 
@@ -299,95 +291,11 @@ PYBIND11_MODULE(IntCurveSurface, mod) {
 	cls_IntCurveSurface_HInter.def("Perform", (void (IntCurveSurface_HInter::*)(const opencascade::handle<Adaptor3d_HCurve> &, const IntCurveSurface_ThePolygonOfHInter &, const opencascade::handle<Adaptor3d_HSurface> &, const IntCurveSurface_ThePolyhedronOfHInter &, Bnd_BoundSortBox &)) &IntCurveSurface_HInter::Perform, "Compute the Intersection between the curve and the surface. The Curve is already sampled and its polygon : <Polygon> is given. The Surface is also sampled and <Polyhedron> is given.", py::arg("Curve"), py::arg("ThePolygon"), py::arg("Surface"), py::arg("Polyhedron"), py::arg("BndBSB"));
 	cls_IntCurveSurface_HInter.def("Perform", (void (IntCurveSurface_HInter::*)(const opencascade::handle<Adaptor3d_HCurve> &, const opencascade::handle<Adaptor3d_HSurface> &, const IntCurveSurface_ThePolyhedronOfHInter &)) &IntCurveSurface_HInter::Perform, "Compute the Intersection between the curve and the surface. The Surface is already sampled and its polyhedron : <Polyhedron> is given.", py::arg("Curve"), py::arg("Surface"), py::arg("Polyhedron"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<IntCurveSurface_SequenceOfPnt, std::unique_ptr<IntCurveSurface_SequenceOfPnt, Deleter<IntCurveSurface_SequenceOfPnt>>, NCollection_BaseSequence> cls_IntCurveSurface_SequenceOfPnt(mod, "IntCurveSurface_SequenceOfPnt", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_IntCurveSurface_SequenceOfPnt.def(py::init<>());
-	cls_IntCurveSurface_SequenceOfPnt.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_IntCurveSurface_SequenceOfPnt.def(py::init([] (const IntCurveSurface_SequenceOfPnt &other) {return new IntCurveSurface_SequenceOfPnt(other);}), "Copy constructor", py::arg("other"));
-	cls_IntCurveSurface_SequenceOfPnt.def("begin", (IntCurveSurface_SequenceOfPnt::iterator (IntCurveSurface_SequenceOfPnt::*)() const ) &IntCurveSurface_SequenceOfPnt::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_IntCurveSurface_SequenceOfPnt.def("end", (IntCurveSurface_SequenceOfPnt::iterator (IntCurveSurface_SequenceOfPnt::*)() const ) &IntCurveSurface_SequenceOfPnt::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_IntCurveSurface_SequenceOfPnt.def("cbegin", (IntCurveSurface_SequenceOfPnt::const_iterator (IntCurveSurface_SequenceOfPnt::*)() const ) &IntCurveSurface_SequenceOfPnt::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_IntCurveSurface_SequenceOfPnt.def("cend", (IntCurveSurface_SequenceOfPnt::const_iterator (IntCurveSurface_SequenceOfPnt::*)() const ) &IntCurveSurface_SequenceOfPnt::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_IntCurveSurface_SequenceOfPnt.def("Size", (Standard_Integer (IntCurveSurface_SequenceOfPnt::*)() const ) &IntCurveSurface_SequenceOfPnt::Size, "Number of items");
-	cls_IntCurveSurface_SequenceOfPnt.def("Length", (Standard_Integer (IntCurveSurface_SequenceOfPnt::*)() const ) &IntCurveSurface_SequenceOfPnt::Length, "Number of items");
-	cls_IntCurveSurface_SequenceOfPnt.def("Lower", (Standard_Integer (IntCurveSurface_SequenceOfPnt::*)() const ) &IntCurveSurface_SequenceOfPnt::Lower, "Method for consistency with other collections.");
-	cls_IntCurveSurface_SequenceOfPnt.def("Upper", (Standard_Integer (IntCurveSurface_SequenceOfPnt::*)() const ) &IntCurveSurface_SequenceOfPnt::Upper, "Method for consistency with other collections.");
-	cls_IntCurveSurface_SequenceOfPnt.def("IsEmpty", (Standard_Boolean (IntCurveSurface_SequenceOfPnt::*)() const ) &IntCurveSurface_SequenceOfPnt::IsEmpty, "Empty query");
-	cls_IntCurveSurface_SequenceOfPnt.def("Reverse", (void (IntCurveSurface_SequenceOfPnt::*)()) &IntCurveSurface_SequenceOfPnt::Reverse, "Reverse sequence");
-	cls_IntCurveSurface_SequenceOfPnt.def("Exchange", (void (IntCurveSurface_SequenceOfPnt::*)(const Standard_Integer, const Standard_Integer)) &IntCurveSurface_SequenceOfPnt::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_IntCurveSurface_SequenceOfPnt.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &IntCurveSurface_SequenceOfPnt::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_IntCurveSurface_SequenceOfPnt.def("Clear", [](IntCurveSurface_SequenceOfPnt &self) -> void { return self.Clear(); });
-	cls_IntCurveSurface_SequenceOfPnt.def("Clear", (void (IntCurveSurface_SequenceOfPnt::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &IntCurveSurface_SequenceOfPnt::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_IntCurveSurface_SequenceOfPnt.def("Assign", (IntCurveSurface_SequenceOfPnt & (IntCurveSurface_SequenceOfPnt::*)(const IntCurveSurface_SequenceOfPnt &)) &IntCurveSurface_SequenceOfPnt::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_IntCurveSurface_SequenceOfPnt.def("assign", (IntCurveSurface_SequenceOfPnt & (IntCurveSurface_SequenceOfPnt::*)(const IntCurveSurface_SequenceOfPnt &)) &IntCurveSurface_SequenceOfPnt::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_IntCurveSurface_SequenceOfPnt.def("Remove", (void (IntCurveSurface_SequenceOfPnt::*)(IntCurveSurface_SequenceOfPnt::Iterator &)) &IntCurveSurface_SequenceOfPnt::Remove, "Remove one item", py::arg("thePosition"));
-	cls_IntCurveSurface_SequenceOfPnt.def("Remove", (void (IntCurveSurface_SequenceOfPnt::*)(const Standard_Integer)) &IntCurveSurface_SequenceOfPnt::Remove, "Remove one item", py::arg("theIndex"));
-	cls_IntCurveSurface_SequenceOfPnt.def("Remove", (void (IntCurveSurface_SequenceOfPnt::*)(const Standard_Integer, const Standard_Integer)) &IntCurveSurface_SequenceOfPnt::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_IntCurveSurface_SequenceOfPnt.def("Append", (void (IntCurveSurface_SequenceOfPnt::*)(const IntCurveSurface_IntersectionPoint &)) &IntCurveSurface_SequenceOfPnt::Append, "Append one item", py::arg("theItem"));
-	cls_IntCurveSurface_SequenceOfPnt.def("Append", (void (IntCurveSurface_SequenceOfPnt::*)(IntCurveSurface_SequenceOfPnt &)) &IntCurveSurface_SequenceOfPnt::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntCurveSurface_SequenceOfPnt.def("Prepend", (void (IntCurveSurface_SequenceOfPnt::*)(const IntCurveSurface_IntersectionPoint &)) &IntCurveSurface_SequenceOfPnt::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_IntCurveSurface_SequenceOfPnt.def("Prepend", (void (IntCurveSurface_SequenceOfPnt::*)(IntCurveSurface_SequenceOfPnt &)) &IntCurveSurface_SequenceOfPnt::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntCurveSurface_SequenceOfPnt.def("InsertBefore", (void (IntCurveSurface_SequenceOfPnt::*)(const Standard_Integer, const IntCurveSurface_IntersectionPoint &)) &IntCurveSurface_SequenceOfPnt::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntCurveSurface_SequenceOfPnt.def("InsertBefore", (void (IntCurveSurface_SequenceOfPnt::*)(const Standard_Integer, IntCurveSurface_SequenceOfPnt &)) &IntCurveSurface_SequenceOfPnt::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntCurveSurface_SequenceOfPnt.def("InsertAfter", (void (IntCurveSurface_SequenceOfPnt::*)(IntCurveSurface_SequenceOfPnt::Iterator &, const IntCurveSurface_IntersectionPoint &)) &IntCurveSurface_SequenceOfPnt::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_IntCurveSurface_SequenceOfPnt.def("InsertAfter", (void (IntCurveSurface_SequenceOfPnt::*)(const Standard_Integer, IntCurveSurface_SequenceOfPnt &)) &IntCurveSurface_SequenceOfPnt::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntCurveSurface_SequenceOfPnt.def("InsertAfter", (void (IntCurveSurface_SequenceOfPnt::*)(const Standard_Integer, const IntCurveSurface_IntersectionPoint &)) &IntCurveSurface_SequenceOfPnt::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntCurveSurface_SequenceOfPnt.def("Split", (void (IntCurveSurface_SequenceOfPnt::*)(const Standard_Integer, IntCurveSurface_SequenceOfPnt &)) &IntCurveSurface_SequenceOfPnt::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntCurveSurface_SequenceOfPnt.def("First", (const IntCurveSurface_IntersectionPoint & (IntCurveSurface_SequenceOfPnt::*)() const ) &IntCurveSurface_SequenceOfPnt::First, "First item access");
-	cls_IntCurveSurface_SequenceOfPnt.def("ChangeFirst", (IntCurveSurface_IntersectionPoint & (IntCurveSurface_SequenceOfPnt::*)()) &IntCurveSurface_SequenceOfPnt::ChangeFirst, "First item access");
-	cls_IntCurveSurface_SequenceOfPnt.def("Last", (const IntCurveSurface_IntersectionPoint & (IntCurveSurface_SequenceOfPnt::*)() const ) &IntCurveSurface_SequenceOfPnt::Last, "Last item access");
-	cls_IntCurveSurface_SequenceOfPnt.def("ChangeLast", (IntCurveSurface_IntersectionPoint & (IntCurveSurface_SequenceOfPnt::*)()) &IntCurveSurface_SequenceOfPnt::ChangeLast, "Last item access");
-	cls_IntCurveSurface_SequenceOfPnt.def("Value", (const IntCurveSurface_IntersectionPoint & (IntCurveSurface_SequenceOfPnt::*)(const Standard_Integer) const ) &IntCurveSurface_SequenceOfPnt::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_IntCurveSurface_SequenceOfPnt.def("__call__", (const IntCurveSurface_IntersectionPoint & (IntCurveSurface_SequenceOfPnt::*)(const Standard_Integer) const ) &IntCurveSurface_SequenceOfPnt::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_IntCurveSurface_SequenceOfPnt.def("ChangeValue", (IntCurveSurface_IntersectionPoint & (IntCurveSurface_SequenceOfPnt::*)(const Standard_Integer)) &IntCurveSurface_SequenceOfPnt::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_IntCurveSurface_SequenceOfPnt.def("__call__", (IntCurveSurface_IntersectionPoint & (IntCurveSurface_SequenceOfPnt::*)(const Standard_Integer)) &IntCurveSurface_SequenceOfPnt::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_IntCurveSurface_SequenceOfPnt.def("SetValue", (void (IntCurveSurface_SequenceOfPnt::*)(const Standard_Integer, const IntCurveSurface_IntersectionPoint &)) &IntCurveSurface_SequenceOfPnt::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntCurveSurface_SequenceOfPnt.def("__iter__", [](const IntCurveSurface_SequenceOfPnt &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntCurveSurface_SequenceOfPnt.hxx
+	bind_NCollection_Sequence<IntCurveSurface_IntersectionPoint>(mod, "IntCurveSurface_SequenceOfPnt");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<IntCurveSurface_SequenceOfSeg, std::unique_ptr<IntCurveSurface_SequenceOfSeg, Deleter<IntCurveSurface_SequenceOfSeg>>, NCollection_BaseSequence> cls_IntCurveSurface_SequenceOfSeg(mod, "IntCurveSurface_SequenceOfSeg", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_IntCurveSurface_SequenceOfSeg.def(py::init<>());
-	cls_IntCurveSurface_SequenceOfSeg.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_IntCurveSurface_SequenceOfSeg.def(py::init([] (const IntCurveSurface_SequenceOfSeg &other) {return new IntCurveSurface_SequenceOfSeg(other);}), "Copy constructor", py::arg("other"));
-	cls_IntCurveSurface_SequenceOfSeg.def("begin", (IntCurveSurface_SequenceOfSeg::iterator (IntCurveSurface_SequenceOfSeg::*)() const ) &IntCurveSurface_SequenceOfSeg::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_IntCurveSurface_SequenceOfSeg.def("end", (IntCurveSurface_SequenceOfSeg::iterator (IntCurveSurface_SequenceOfSeg::*)() const ) &IntCurveSurface_SequenceOfSeg::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_IntCurveSurface_SequenceOfSeg.def("cbegin", (IntCurveSurface_SequenceOfSeg::const_iterator (IntCurveSurface_SequenceOfSeg::*)() const ) &IntCurveSurface_SequenceOfSeg::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_IntCurveSurface_SequenceOfSeg.def("cend", (IntCurveSurface_SequenceOfSeg::const_iterator (IntCurveSurface_SequenceOfSeg::*)() const ) &IntCurveSurface_SequenceOfSeg::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_IntCurveSurface_SequenceOfSeg.def("Size", (Standard_Integer (IntCurveSurface_SequenceOfSeg::*)() const ) &IntCurveSurface_SequenceOfSeg::Size, "Number of items");
-	cls_IntCurveSurface_SequenceOfSeg.def("Length", (Standard_Integer (IntCurveSurface_SequenceOfSeg::*)() const ) &IntCurveSurface_SequenceOfSeg::Length, "Number of items");
-	cls_IntCurveSurface_SequenceOfSeg.def("Lower", (Standard_Integer (IntCurveSurface_SequenceOfSeg::*)() const ) &IntCurveSurface_SequenceOfSeg::Lower, "Method for consistency with other collections.");
-	cls_IntCurveSurface_SequenceOfSeg.def("Upper", (Standard_Integer (IntCurveSurface_SequenceOfSeg::*)() const ) &IntCurveSurface_SequenceOfSeg::Upper, "Method for consistency with other collections.");
-	cls_IntCurveSurface_SequenceOfSeg.def("IsEmpty", (Standard_Boolean (IntCurveSurface_SequenceOfSeg::*)() const ) &IntCurveSurface_SequenceOfSeg::IsEmpty, "Empty query");
-	cls_IntCurveSurface_SequenceOfSeg.def("Reverse", (void (IntCurveSurface_SequenceOfSeg::*)()) &IntCurveSurface_SequenceOfSeg::Reverse, "Reverse sequence");
-	cls_IntCurveSurface_SequenceOfSeg.def("Exchange", (void (IntCurveSurface_SequenceOfSeg::*)(const Standard_Integer, const Standard_Integer)) &IntCurveSurface_SequenceOfSeg::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_IntCurveSurface_SequenceOfSeg.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &IntCurveSurface_SequenceOfSeg::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_IntCurveSurface_SequenceOfSeg.def("Clear", [](IntCurveSurface_SequenceOfSeg &self) -> void { return self.Clear(); });
-	cls_IntCurveSurface_SequenceOfSeg.def("Clear", (void (IntCurveSurface_SequenceOfSeg::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &IntCurveSurface_SequenceOfSeg::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_IntCurveSurface_SequenceOfSeg.def("Assign", (IntCurveSurface_SequenceOfSeg & (IntCurveSurface_SequenceOfSeg::*)(const IntCurveSurface_SequenceOfSeg &)) &IntCurveSurface_SequenceOfSeg::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_IntCurveSurface_SequenceOfSeg.def("assign", (IntCurveSurface_SequenceOfSeg & (IntCurveSurface_SequenceOfSeg::*)(const IntCurveSurface_SequenceOfSeg &)) &IntCurveSurface_SequenceOfSeg::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_IntCurveSurface_SequenceOfSeg.def("Remove", (void (IntCurveSurface_SequenceOfSeg::*)(IntCurveSurface_SequenceOfSeg::Iterator &)) &IntCurveSurface_SequenceOfSeg::Remove, "Remove one item", py::arg("thePosition"));
-	cls_IntCurveSurface_SequenceOfSeg.def("Remove", (void (IntCurveSurface_SequenceOfSeg::*)(const Standard_Integer)) &IntCurveSurface_SequenceOfSeg::Remove, "Remove one item", py::arg("theIndex"));
-	cls_IntCurveSurface_SequenceOfSeg.def("Remove", (void (IntCurveSurface_SequenceOfSeg::*)(const Standard_Integer, const Standard_Integer)) &IntCurveSurface_SequenceOfSeg::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_IntCurveSurface_SequenceOfSeg.def("Append", (void (IntCurveSurface_SequenceOfSeg::*)(const IntCurveSurface_IntersectionSegment &)) &IntCurveSurface_SequenceOfSeg::Append, "Append one item", py::arg("theItem"));
-	cls_IntCurveSurface_SequenceOfSeg.def("Append", (void (IntCurveSurface_SequenceOfSeg::*)(IntCurveSurface_SequenceOfSeg &)) &IntCurveSurface_SequenceOfSeg::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntCurveSurface_SequenceOfSeg.def("Prepend", (void (IntCurveSurface_SequenceOfSeg::*)(const IntCurveSurface_IntersectionSegment &)) &IntCurveSurface_SequenceOfSeg::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_IntCurveSurface_SequenceOfSeg.def("Prepend", (void (IntCurveSurface_SequenceOfSeg::*)(IntCurveSurface_SequenceOfSeg &)) &IntCurveSurface_SequenceOfSeg::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntCurveSurface_SequenceOfSeg.def("InsertBefore", (void (IntCurveSurface_SequenceOfSeg::*)(const Standard_Integer, const IntCurveSurface_IntersectionSegment &)) &IntCurveSurface_SequenceOfSeg::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntCurveSurface_SequenceOfSeg.def("InsertBefore", (void (IntCurveSurface_SequenceOfSeg::*)(const Standard_Integer, IntCurveSurface_SequenceOfSeg &)) &IntCurveSurface_SequenceOfSeg::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntCurveSurface_SequenceOfSeg.def("InsertAfter", (void (IntCurveSurface_SequenceOfSeg::*)(IntCurveSurface_SequenceOfSeg::Iterator &, const IntCurveSurface_IntersectionSegment &)) &IntCurveSurface_SequenceOfSeg::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_IntCurveSurface_SequenceOfSeg.def("InsertAfter", (void (IntCurveSurface_SequenceOfSeg::*)(const Standard_Integer, IntCurveSurface_SequenceOfSeg &)) &IntCurveSurface_SequenceOfSeg::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntCurveSurface_SequenceOfSeg.def("InsertAfter", (void (IntCurveSurface_SequenceOfSeg::*)(const Standard_Integer, const IntCurveSurface_IntersectionSegment &)) &IntCurveSurface_SequenceOfSeg::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntCurveSurface_SequenceOfSeg.def("Split", (void (IntCurveSurface_SequenceOfSeg::*)(const Standard_Integer, IntCurveSurface_SequenceOfSeg &)) &IntCurveSurface_SequenceOfSeg::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntCurveSurface_SequenceOfSeg.def("First", (const IntCurveSurface_IntersectionSegment & (IntCurveSurface_SequenceOfSeg::*)() const ) &IntCurveSurface_SequenceOfSeg::First, "First item access");
-	cls_IntCurveSurface_SequenceOfSeg.def("ChangeFirst", (IntCurveSurface_IntersectionSegment & (IntCurveSurface_SequenceOfSeg::*)()) &IntCurveSurface_SequenceOfSeg::ChangeFirst, "First item access");
-	cls_IntCurveSurface_SequenceOfSeg.def("Last", (const IntCurveSurface_IntersectionSegment & (IntCurveSurface_SequenceOfSeg::*)() const ) &IntCurveSurface_SequenceOfSeg::Last, "Last item access");
-	cls_IntCurveSurface_SequenceOfSeg.def("ChangeLast", (IntCurveSurface_IntersectionSegment & (IntCurveSurface_SequenceOfSeg::*)()) &IntCurveSurface_SequenceOfSeg::ChangeLast, "Last item access");
-	cls_IntCurveSurface_SequenceOfSeg.def("Value", (const IntCurveSurface_IntersectionSegment & (IntCurveSurface_SequenceOfSeg::*)(const Standard_Integer) const ) &IntCurveSurface_SequenceOfSeg::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_IntCurveSurface_SequenceOfSeg.def("__call__", (const IntCurveSurface_IntersectionSegment & (IntCurveSurface_SequenceOfSeg::*)(const Standard_Integer) const ) &IntCurveSurface_SequenceOfSeg::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_IntCurveSurface_SequenceOfSeg.def("ChangeValue", (IntCurveSurface_IntersectionSegment & (IntCurveSurface_SequenceOfSeg::*)(const Standard_Integer)) &IntCurveSurface_SequenceOfSeg::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_IntCurveSurface_SequenceOfSeg.def("__call__", (IntCurveSurface_IntersectionSegment & (IntCurveSurface_SequenceOfSeg::*)(const Standard_Integer)) &IntCurveSurface_SequenceOfSeg::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_IntCurveSurface_SequenceOfSeg.def("SetValue", (void (IntCurveSurface_SequenceOfSeg::*)(const Standard_Integer, const IntCurveSurface_IntersectionSegment &)) &IntCurveSurface_SequenceOfSeg::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntCurveSurface_SequenceOfSeg.def("__iter__", [](const IntCurveSurface_SequenceOfSeg &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntCurveSurface_SequenceOfSeg.hxx
+	bind_NCollection_Sequence<IntCurveSurface_IntersectionSegment>(mod, "IntCurveSurface_SequenceOfSeg");
 
 
 }

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <StdPrs_Volume.hxx>
 #include <Prs3d_Root.hxx>
@@ -66,6 +57,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Graphic3d_ArrayOfPrimitives.hxx>
 #include <StdPrs_WFShape.hxx>
 #include <StdPrs_WFSurface.hxx>
+#include <Prs3d_Templates.hpp>
 
 PYBIND11_MODULE(StdPrs, mod) {
 
@@ -295,17 +287,11 @@ PYBIND11_MODULE(StdPrs, mod) {
 	cls_StdPrs_WFSurface.def(py::init<>());
 	cls_StdPrs_WFSurface.def_static("Add_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Prs3d_Drawer> &)) &StdPrs_WFSurface::Add, "Draws a surface by drawing the isoparametric curves with respect to a fixed number of points given by the Drawer. The number of isoparametric curves to be drawn and their color are controlled by the furnished Drawer.", py::arg("aPresentation"), py::arg("aSurface"), py::arg("aDrawer"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\Prs3d_Point.hxx
-	py::class_<StdPrs_Point, std::unique_ptr<StdPrs_Point, Deleter<StdPrs_Point>>> cls_StdPrs_Point(mod, "StdPrs_Point", "None");
-	cls_StdPrs_Point.def(py::init<>());
-	cls_StdPrs_Point.def_static("Add_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const opencascade::handle<Geom_Point> &, const opencascade::handle<Prs3d_Drawer> &)) &StdPrs_Point::Add, "None", py::arg("thePresentation"), py::arg("thePoint"), py::arg("theDrawer"));
-	cls_StdPrs_Point.def_static("Match_", (Standard_Boolean (*)(const opencascade::handle<Geom_Point> &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real)) &StdPrs_Point::Match, "None", py::arg("thePoint"), py::arg("theX"), py::arg("theY"), py::arg("theZ"), py::arg("theDistance"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\StdPrs_Point.hxx
+	bind_Prs3d_Point<opencascade::handle<Geom_Point>, StdPrs_ToolPoint>(mod, "StdPrs_Point");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\Prs3d_Point.hxx
-	py::class_<StdPrs_Vertex, std::unique_ptr<StdPrs_Vertex, Deleter<StdPrs_Vertex>>> cls_StdPrs_Vertex(mod, "StdPrs_Vertex", "None");
-	cls_StdPrs_Vertex.def(py::init<>());
-	cls_StdPrs_Vertex.def_static("Add_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const TopoDS_Vertex &, const opencascade::handle<Prs3d_Drawer> &)) &StdPrs_Vertex::Add, "None", py::arg("thePresentation"), py::arg("thePoint"), py::arg("theDrawer"));
-	cls_StdPrs_Vertex.def_static("Match_", (Standard_Boolean (*)(const TopoDS_Vertex &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real)) &StdPrs_Vertex::Match, "None", py::arg("thePoint"), py::arg("theX"), py::arg("theY"), py::arg("theZ"), py::arg("theDistance"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\StdPrs_Vertex.hxx
+	bind_Prs3d_Point<TopoDS_Vertex, StdPrs_ToolVertex>(mod, "StdPrs_Vertex");
 
 
 }

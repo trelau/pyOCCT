@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
@@ -72,6 +63,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <ShapeFix.hxx>
 #include <NCollection_BaseSequence.hxx>
 #include <NCollection_Sequence.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(ShapeFix, mod) {
 
@@ -589,82 +581,15 @@ PYBIND11_MODULE(ShapeFix, mod) {
 	cls_ShapeFix.def_static("FixVertexPosition_", (Standard_Boolean (*)(TopoDS_Shape &, const Standard_Real, const opencascade::handle<ShapeBuild_ReShape> &)) &ShapeFix::FixVertexPosition, "Fix position of the vertices having tolerance more tnan specified one.;", py::arg("theshape"), py::arg("theTolerance"), py::arg("thecontext"));
 	cls_ShapeFix.def_static("LeastEdgeSize_", (Standard_Real (*)(TopoDS_Shape &)) &ShapeFix::LeastEdgeSize, "Calculate size of least edge;", py::arg("theshape"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<ShapeFix_DataMapOfShapeBox2d, std::unique_ptr<ShapeFix_DataMapOfShapeBox2d, Deleter<ShapeFix_DataMapOfShapeBox2d>>, NCollection_BaseMap> cls_ShapeFix_DataMapOfShapeBox2d(mod, "ShapeFix_DataMapOfShapeBox2d", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_ShapeFix_DataMapOfShapeBox2d.def(py::init<>());
-	cls_ShapeFix_DataMapOfShapeBox2d.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_ShapeFix_DataMapOfShapeBox2d.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_ShapeFix_DataMapOfShapeBox2d.def(py::init([] (const ShapeFix_DataMapOfShapeBox2d &other) {return new ShapeFix_DataMapOfShapeBox2d(other);}), "Copy constructor", py::arg("other"));
-	cls_ShapeFix_DataMapOfShapeBox2d.def("begin", (ShapeFix_DataMapOfShapeBox2d::iterator (ShapeFix_DataMapOfShapeBox2d::*)() const ) &ShapeFix_DataMapOfShapeBox2d::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_ShapeFix_DataMapOfShapeBox2d.def("end", (ShapeFix_DataMapOfShapeBox2d::iterator (ShapeFix_DataMapOfShapeBox2d::*)() const ) &ShapeFix_DataMapOfShapeBox2d::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_ShapeFix_DataMapOfShapeBox2d.def("cbegin", (ShapeFix_DataMapOfShapeBox2d::const_iterator (ShapeFix_DataMapOfShapeBox2d::*)() const ) &ShapeFix_DataMapOfShapeBox2d::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_ShapeFix_DataMapOfShapeBox2d.def("cend", (ShapeFix_DataMapOfShapeBox2d::const_iterator (ShapeFix_DataMapOfShapeBox2d::*)() const ) &ShapeFix_DataMapOfShapeBox2d::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_ShapeFix_DataMapOfShapeBox2d.def("Exchange", (void (ShapeFix_DataMapOfShapeBox2d::*)(ShapeFix_DataMapOfShapeBox2d &)) &ShapeFix_DataMapOfShapeBox2d::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_ShapeFix_DataMapOfShapeBox2d.def("Assign", (ShapeFix_DataMapOfShapeBox2d & (ShapeFix_DataMapOfShapeBox2d::*)(const ShapeFix_DataMapOfShapeBox2d &)) &ShapeFix_DataMapOfShapeBox2d::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_ShapeFix_DataMapOfShapeBox2d.def("assign", (ShapeFix_DataMapOfShapeBox2d & (ShapeFix_DataMapOfShapeBox2d::*)(const ShapeFix_DataMapOfShapeBox2d &)) &ShapeFix_DataMapOfShapeBox2d::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_ShapeFix_DataMapOfShapeBox2d.def("ReSize", (void (ShapeFix_DataMapOfShapeBox2d::*)(const Standard_Integer)) &ShapeFix_DataMapOfShapeBox2d::ReSize, "ReSize", py::arg("N"));
-	cls_ShapeFix_DataMapOfShapeBox2d.def("Bind", (Standard_Boolean (ShapeFix_DataMapOfShapeBox2d::*)(const TopoDS_Shape &, const Bnd_Box2d &)) &ShapeFix_DataMapOfShapeBox2d::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_ShapeFix_DataMapOfShapeBox2d.def("Bound", (Bnd_Box2d * (ShapeFix_DataMapOfShapeBox2d::*)(const TopoDS_Shape &, const Bnd_Box2d &)) &ShapeFix_DataMapOfShapeBox2d::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_ShapeFix_DataMapOfShapeBox2d.def("IsBound", (Standard_Boolean (ShapeFix_DataMapOfShapeBox2d::*)(const TopoDS_Shape &) const ) &ShapeFix_DataMapOfShapeBox2d::IsBound, "IsBound", py::arg("theKey"));
-	cls_ShapeFix_DataMapOfShapeBox2d.def("UnBind", (Standard_Boolean (ShapeFix_DataMapOfShapeBox2d::*)(const TopoDS_Shape &)) &ShapeFix_DataMapOfShapeBox2d::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_ShapeFix_DataMapOfShapeBox2d.def("Seek", (const Bnd_Box2d * (ShapeFix_DataMapOfShapeBox2d::*)(const TopoDS_Shape &) const ) &ShapeFix_DataMapOfShapeBox2d::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_ShapeFix_DataMapOfShapeBox2d.def("Find", (const Bnd_Box2d & (ShapeFix_DataMapOfShapeBox2d::*)(const TopoDS_Shape &) const ) &ShapeFix_DataMapOfShapeBox2d::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_ShapeFix_DataMapOfShapeBox2d.def("Find", (Standard_Boolean (ShapeFix_DataMapOfShapeBox2d::*)(const TopoDS_Shape &, Bnd_Box2d &) const ) &ShapeFix_DataMapOfShapeBox2d::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_ShapeFix_DataMapOfShapeBox2d.def("__call__", (const Bnd_Box2d & (ShapeFix_DataMapOfShapeBox2d::*)(const TopoDS_Shape &) const ) &ShapeFix_DataMapOfShapeBox2d::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_ShapeFix_DataMapOfShapeBox2d.def("ChangeSeek", (Bnd_Box2d * (ShapeFix_DataMapOfShapeBox2d::*)(const TopoDS_Shape &)) &ShapeFix_DataMapOfShapeBox2d::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_ShapeFix_DataMapOfShapeBox2d.def("ChangeFind", (Bnd_Box2d & (ShapeFix_DataMapOfShapeBox2d::*)(const TopoDS_Shape &)) &ShapeFix_DataMapOfShapeBox2d::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_ShapeFix_DataMapOfShapeBox2d.def("__call__", (Bnd_Box2d & (ShapeFix_DataMapOfShapeBox2d::*)(const TopoDS_Shape &)) &ShapeFix_DataMapOfShapeBox2d::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_ShapeFix_DataMapOfShapeBox2d.def("Clear", [](ShapeFix_DataMapOfShapeBox2d &self) -> void { return self.Clear(); });
-	cls_ShapeFix_DataMapOfShapeBox2d.def("Clear", (void (ShapeFix_DataMapOfShapeBox2d::*)(const Standard_Boolean)) &ShapeFix_DataMapOfShapeBox2d::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_ShapeFix_DataMapOfShapeBox2d.def("Clear", (void (ShapeFix_DataMapOfShapeBox2d::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &ShapeFix_DataMapOfShapeBox2d::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_ShapeFix_DataMapOfShapeBox2d.def("Size", (Standard_Integer (ShapeFix_DataMapOfShapeBox2d::*)() const ) &ShapeFix_DataMapOfShapeBox2d::Size, "Size");
-	cls_ShapeFix_DataMapOfShapeBox2d.def("__iter__", [](const ShapeFix_DataMapOfShapeBox2d &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\ShapeFix_DataMapOfShapeBox2d.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<ShapeFix_SequenceOfWireSegment, std::unique_ptr<ShapeFix_SequenceOfWireSegment, Deleter<ShapeFix_SequenceOfWireSegment>>, NCollection_BaseSequence> cls_ShapeFix_SequenceOfWireSegment(mod, "ShapeFix_SequenceOfWireSegment", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_ShapeFix_SequenceOfWireSegment.def(py::init<>());
-	cls_ShapeFix_SequenceOfWireSegment.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_ShapeFix_SequenceOfWireSegment.def(py::init([] (const ShapeFix_SequenceOfWireSegment &other) {return new ShapeFix_SequenceOfWireSegment(other);}), "Copy constructor", py::arg("other"));
-	cls_ShapeFix_SequenceOfWireSegment.def("begin", (ShapeFix_SequenceOfWireSegment::iterator (ShapeFix_SequenceOfWireSegment::*)() const ) &ShapeFix_SequenceOfWireSegment::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_ShapeFix_SequenceOfWireSegment.def("end", (ShapeFix_SequenceOfWireSegment::iterator (ShapeFix_SequenceOfWireSegment::*)() const ) &ShapeFix_SequenceOfWireSegment::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_ShapeFix_SequenceOfWireSegment.def("cbegin", (ShapeFix_SequenceOfWireSegment::const_iterator (ShapeFix_SequenceOfWireSegment::*)() const ) &ShapeFix_SequenceOfWireSegment::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_ShapeFix_SequenceOfWireSegment.def("cend", (ShapeFix_SequenceOfWireSegment::const_iterator (ShapeFix_SequenceOfWireSegment::*)() const ) &ShapeFix_SequenceOfWireSegment::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_ShapeFix_SequenceOfWireSegment.def("Size", (Standard_Integer (ShapeFix_SequenceOfWireSegment::*)() const ) &ShapeFix_SequenceOfWireSegment::Size, "Number of items");
-	cls_ShapeFix_SequenceOfWireSegment.def("Length", (Standard_Integer (ShapeFix_SequenceOfWireSegment::*)() const ) &ShapeFix_SequenceOfWireSegment::Length, "Number of items");
-	cls_ShapeFix_SequenceOfWireSegment.def("Lower", (Standard_Integer (ShapeFix_SequenceOfWireSegment::*)() const ) &ShapeFix_SequenceOfWireSegment::Lower, "Method for consistency with other collections.");
-	cls_ShapeFix_SequenceOfWireSegment.def("Upper", (Standard_Integer (ShapeFix_SequenceOfWireSegment::*)() const ) &ShapeFix_SequenceOfWireSegment::Upper, "Method for consistency with other collections.");
-	cls_ShapeFix_SequenceOfWireSegment.def("IsEmpty", (Standard_Boolean (ShapeFix_SequenceOfWireSegment::*)() const ) &ShapeFix_SequenceOfWireSegment::IsEmpty, "Empty query");
-	cls_ShapeFix_SequenceOfWireSegment.def("Reverse", (void (ShapeFix_SequenceOfWireSegment::*)()) &ShapeFix_SequenceOfWireSegment::Reverse, "Reverse sequence");
-	cls_ShapeFix_SequenceOfWireSegment.def("Exchange", (void (ShapeFix_SequenceOfWireSegment::*)(const Standard_Integer, const Standard_Integer)) &ShapeFix_SequenceOfWireSegment::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_ShapeFix_SequenceOfWireSegment.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &ShapeFix_SequenceOfWireSegment::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_ShapeFix_SequenceOfWireSegment.def("Clear", [](ShapeFix_SequenceOfWireSegment &self) -> void { return self.Clear(); });
-	cls_ShapeFix_SequenceOfWireSegment.def("Clear", (void (ShapeFix_SequenceOfWireSegment::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &ShapeFix_SequenceOfWireSegment::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_ShapeFix_SequenceOfWireSegment.def("Assign", (ShapeFix_SequenceOfWireSegment & (ShapeFix_SequenceOfWireSegment::*)(const ShapeFix_SequenceOfWireSegment &)) &ShapeFix_SequenceOfWireSegment::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_ShapeFix_SequenceOfWireSegment.def("assign", (ShapeFix_SequenceOfWireSegment & (ShapeFix_SequenceOfWireSegment::*)(const ShapeFix_SequenceOfWireSegment &)) &ShapeFix_SequenceOfWireSegment::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_ShapeFix_SequenceOfWireSegment.def("Remove", (void (ShapeFix_SequenceOfWireSegment::*)(ShapeFix_SequenceOfWireSegment::Iterator &)) &ShapeFix_SequenceOfWireSegment::Remove, "Remove one item", py::arg("thePosition"));
-	cls_ShapeFix_SequenceOfWireSegment.def("Remove", (void (ShapeFix_SequenceOfWireSegment::*)(const Standard_Integer)) &ShapeFix_SequenceOfWireSegment::Remove, "Remove one item", py::arg("theIndex"));
-	cls_ShapeFix_SequenceOfWireSegment.def("Remove", (void (ShapeFix_SequenceOfWireSegment::*)(const Standard_Integer, const Standard_Integer)) &ShapeFix_SequenceOfWireSegment::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_ShapeFix_SequenceOfWireSegment.def("Append", (void (ShapeFix_SequenceOfWireSegment::*)(const ShapeFix_WireSegment &)) &ShapeFix_SequenceOfWireSegment::Append, "Append one item", py::arg("theItem"));
-	cls_ShapeFix_SequenceOfWireSegment.def("Append", (void (ShapeFix_SequenceOfWireSegment::*)(ShapeFix_SequenceOfWireSegment &)) &ShapeFix_SequenceOfWireSegment::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_ShapeFix_SequenceOfWireSegment.def("Prepend", (void (ShapeFix_SequenceOfWireSegment::*)(const ShapeFix_WireSegment &)) &ShapeFix_SequenceOfWireSegment::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_ShapeFix_SequenceOfWireSegment.def("Prepend", (void (ShapeFix_SequenceOfWireSegment::*)(ShapeFix_SequenceOfWireSegment &)) &ShapeFix_SequenceOfWireSegment::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_ShapeFix_SequenceOfWireSegment.def("InsertBefore", (void (ShapeFix_SequenceOfWireSegment::*)(const Standard_Integer, const ShapeFix_WireSegment &)) &ShapeFix_SequenceOfWireSegment::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_ShapeFix_SequenceOfWireSegment.def("InsertBefore", (void (ShapeFix_SequenceOfWireSegment::*)(const Standard_Integer, ShapeFix_SequenceOfWireSegment &)) &ShapeFix_SequenceOfWireSegment::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_ShapeFix_SequenceOfWireSegment.def("InsertAfter", (void (ShapeFix_SequenceOfWireSegment::*)(ShapeFix_SequenceOfWireSegment::Iterator &, const ShapeFix_WireSegment &)) &ShapeFix_SequenceOfWireSegment::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_ShapeFix_SequenceOfWireSegment.def("InsertAfter", (void (ShapeFix_SequenceOfWireSegment::*)(const Standard_Integer, ShapeFix_SequenceOfWireSegment &)) &ShapeFix_SequenceOfWireSegment::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_ShapeFix_SequenceOfWireSegment.def("InsertAfter", (void (ShapeFix_SequenceOfWireSegment::*)(const Standard_Integer, const ShapeFix_WireSegment &)) &ShapeFix_SequenceOfWireSegment::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_ShapeFix_SequenceOfWireSegment.def("Split", (void (ShapeFix_SequenceOfWireSegment::*)(const Standard_Integer, ShapeFix_SequenceOfWireSegment &)) &ShapeFix_SequenceOfWireSegment::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_ShapeFix_SequenceOfWireSegment.def("First", (const ShapeFix_WireSegment & (ShapeFix_SequenceOfWireSegment::*)() const ) &ShapeFix_SequenceOfWireSegment::First, "First item access");
-	cls_ShapeFix_SequenceOfWireSegment.def("ChangeFirst", (ShapeFix_WireSegment & (ShapeFix_SequenceOfWireSegment::*)()) &ShapeFix_SequenceOfWireSegment::ChangeFirst, "First item access");
-	cls_ShapeFix_SequenceOfWireSegment.def("Last", (const ShapeFix_WireSegment & (ShapeFix_SequenceOfWireSegment::*)() const ) &ShapeFix_SequenceOfWireSegment::Last, "Last item access");
-	cls_ShapeFix_SequenceOfWireSegment.def("ChangeLast", (ShapeFix_WireSegment & (ShapeFix_SequenceOfWireSegment::*)()) &ShapeFix_SequenceOfWireSegment::ChangeLast, "Last item access");
-	cls_ShapeFix_SequenceOfWireSegment.def("Value", (const ShapeFix_WireSegment & (ShapeFix_SequenceOfWireSegment::*)(const Standard_Integer) const ) &ShapeFix_SequenceOfWireSegment::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_ShapeFix_SequenceOfWireSegment.def("__call__", (const ShapeFix_WireSegment & (ShapeFix_SequenceOfWireSegment::*)(const Standard_Integer) const ) &ShapeFix_SequenceOfWireSegment::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_ShapeFix_SequenceOfWireSegment.def("ChangeValue", (ShapeFix_WireSegment & (ShapeFix_SequenceOfWireSegment::*)(const Standard_Integer)) &ShapeFix_SequenceOfWireSegment::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_ShapeFix_SequenceOfWireSegment.def("__call__", (ShapeFix_WireSegment & (ShapeFix_SequenceOfWireSegment::*)(const Standard_Integer)) &ShapeFix_SequenceOfWireSegment::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_ShapeFix_SequenceOfWireSegment.def("SetValue", (void (ShapeFix_SequenceOfWireSegment::*)(const Standard_Integer, const ShapeFix_WireSegment &)) &ShapeFix_SequenceOfWireSegment::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_ShapeFix_SequenceOfWireSegment.def("__iter__", [](const ShapeFix_SequenceOfWireSegment &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TopoDS_Shape, Bnd_Box2d, TopTools_ShapeMapHasher>(mod, "ShapeFix_DataMapOfShapeBox2d");
+
+	/* FIXME
+
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\ShapeFix_SequenceOfWireSegment.hxx
+	bind_NCollection_Sequence<ShapeFix_WireSegment>(mod, "ShapeFix_SequenceOfWireSegment");
 
 
 }

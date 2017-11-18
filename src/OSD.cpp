@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <OSD_SysType.hxx>
 #include <Standard_Failure.hxx>
@@ -873,11 +864,13 @@ PYBIND11_MODULE(OSD, mod) {
 	cls_OSD_SIGSYS.def("DynamicType", (const opencascade::handle<Standard_Type> & (OSD_SIGSYS::*)() const ) &OSD_SIGSYS::DynamicType, "None");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OSD_ThreadFunction.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OSD_PThread.hxx
 	other_mod = py::module::import("OCCT.Aspect");
 	if (py::hasattr(other_mod, "HANDLE")) {
 		mod.attr("OSD_PThread") = other_mod.attr("HANDLE");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OSD_Function.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "U_fp")) {
 		mod.attr("OSD_Function") = other_mod.attr("U_fp");

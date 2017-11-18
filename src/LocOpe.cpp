@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <TopoDS_Shape.hxx>
 #include <TopoDS_Face.hxx>
@@ -63,6 +54,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_BaseMap.hxx>
 #include <NCollection_DataMap.hxx>
 #include <LocOpe_DataMapOfShapePnt.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(LocOpe, mod) {
 
@@ -374,172 +366,21 @@ PYBIND11_MODULE(LocOpe, mod) {
 	cls_LocOpe.def_static("TgtFaces_", (Standard_Boolean (*)(const TopoDS_Edge &, const TopoDS_Face &, const TopoDS_Face &)) &LocOpe::TgtFaces, "Returns Standard_True when the faces are tangent", py::arg("E"), py::arg("F1"), py::arg("F2"));
 	cls_LocOpe.def_static("SampleEdges_", (void (*)(const TopoDS_Shape &, TColgp_SequenceOfPnt &)) &LocOpe::SampleEdges, "None", py::arg("S"), py::arg("Pt"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<LocOpe_SequenceOfLin, std::unique_ptr<LocOpe_SequenceOfLin, Deleter<LocOpe_SequenceOfLin>>, NCollection_BaseSequence> cls_LocOpe_SequenceOfLin(mod, "LocOpe_SequenceOfLin", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_LocOpe_SequenceOfLin.def(py::init<>());
-	cls_LocOpe_SequenceOfLin.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_LocOpe_SequenceOfLin.def(py::init([] (const LocOpe_SequenceOfLin &other) {return new LocOpe_SequenceOfLin(other);}), "Copy constructor", py::arg("other"));
-	cls_LocOpe_SequenceOfLin.def("begin", (LocOpe_SequenceOfLin::iterator (LocOpe_SequenceOfLin::*)() const ) &LocOpe_SequenceOfLin::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_LocOpe_SequenceOfLin.def("end", (LocOpe_SequenceOfLin::iterator (LocOpe_SequenceOfLin::*)() const ) &LocOpe_SequenceOfLin::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_LocOpe_SequenceOfLin.def("cbegin", (LocOpe_SequenceOfLin::const_iterator (LocOpe_SequenceOfLin::*)() const ) &LocOpe_SequenceOfLin::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_LocOpe_SequenceOfLin.def("cend", (LocOpe_SequenceOfLin::const_iterator (LocOpe_SequenceOfLin::*)() const ) &LocOpe_SequenceOfLin::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_LocOpe_SequenceOfLin.def("Size", (Standard_Integer (LocOpe_SequenceOfLin::*)() const ) &LocOpe_SequenceOfLin::Size, "Number of items");
-	cls_LocOpe_SequenceOfLin.def("Length", (Standard_Integer (LocOpe_SequenceOfLin::*)() const ) &LocOpe_SequenceOfLin::Length, "Number of items");
-	cls_LocOpe_SequenceOfLin.def("Lower", (Standard_Integer (LocOpe_SequenceOfLin::*)() const ) &LocOpe_SequenceOfLin::Lower, "Method for consistency with other collections.");
-	cls_LocOpe_SequenceOfLin.def("Upper", (Standard_Integer (LocOpe_SequenceOfLin::*)() const ) &LocOpe_SequenceOfLin::Upper, "Method for consistency with other collections.");
-	cls_LocOpe_SequenceOfLin.def("IsEmpty", (Standard_Boolean (LocOpe_SequenceOfLin::*)() const ) &LocOpe_SequenceOfLin::IsEmpty, "Empty query");
-	cls_LocOpe_SequenceOfLin.def("Reverse", (void (LocOpe_SequenceOfLin::*)()) &LocOpe_SequenceOfLin::Reverse, "Reverse sequence");
-	cls_LocOpe_SequenceOfLin.def("Exchange", (void (LocOpe_SequenceOfLin::*)(const Standard_Integer, const Standard_Integer)) &LocOpe_SequenceOfLin::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_LocOpe_SequenceOfLin.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &LocOpe_SequenceOfLin::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_LocOpe_SequenceOfLin.def("Clear", [](LocOpe_SequenceOfLin &self) -> void { return self.Clear(); });
-	cls_LocOpe_SequenceOfLin.def("Clear", (void (LocOpe_SequenceOfLin::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &LocOpe_SequenceOfLin::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_LocOpe_SequenceOfLin.def("Assign", (LocOpe_SequenceOfLin & (LocOpe_SequenceOfLin::*)(const LocOpe_SequenceOfLin &)) &LocOpe_SequenceOfLin::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_LocOpe_SequenceOfLin.def("assign", (LocOpe_SequenceOfLin & (LocOpe_SequenceOfLin::*)(const LocOpe_SequenceOfLin &)) &LocOpe_SequenceOfLin::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_LocOpe_SequenceOfLin.def("Remove", (void (LocOpe_SequenceOfLin::*)(LocOpe_SequenceOfLin::Iterator &)) &LocOpe_SequenceOfLin::Remove, "Remove one item", py::arg("thePosition"));
-	cls_LocOpe_SequenceOfLin.def("Remove", (void (LocOpe_SequenceOfLin::*)(const Standard_Integer)) &LocOpe_SequenceOfLin::Remove, "Remove one item", py::arg("theIndex"));
-	cls_LocOpe_SequenceOfLin.def("Remove", (void (LocOpe_SequenceOfLin::*)(const Standard_Integer, const Standard_Integer)) &LocOpe_SequenceOfLin::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_LocOpe_SequenceOfLin.def("Append", (void (LocOpe_SequenceOfLin::*)(const gp_Lin &)) &LocOpe_SequenceOfLin::Append, "Append one item", py::arg("theItem"));
-	cls_LocOpe_SequenceOfLin.def("Append", (void (LocOpe_SequenceOfLin::*)(LocOpe_SequenceOfLin &)) &LocOpe_SequenceOfLin::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_LocOpe_SequenceOfLin.def("Prepend", (void (LocOpe_SequenceOfLin::*)(const gp_Lin &)) &LocOpe_SequenceOfLin::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_LocOpe_SequenceOfLin.def("Prepend", (void (LocOpe_SequenceOfLin::*)(LocOpe_SequenceOfLin &)) &LocOpe_SequenceOfLin::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_LocOpe_SequenceOfLin.def("InsertBefore", (void (LocOpe_SequenceOfLin::*)(const Standard_Integer, const gp_Lin &)) &LocOpe_SequenceOfLin::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_LocOpe_SequenceOfLin.def("InsertBefore", (void (LocOpe_SequenceOfLin::*)(const Standard_Integer, LocOpe_SequenceOfLin &)) &LocOpe_SequenceOfLin::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_LocOpe_SequenceOfLin.def("InsertAfter", (void (LocOpe_SequenceOfLin::*)(LocOpe_SequenceOfLin::Iterator &, const gp_Lin &)) &LocOpe_SequenceOfLin::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_LocOpe_SequenceOfLin.def("InsertAfter", (void (LocOpe_SequenceOfLin::*)(const Standard_Integer, LocOpe_SequenceOfLin &)) &LocOpe_SequenceOfLin::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_LocOpe_SequenceOfLin.def("InsertAfter", (void (LocOpe_SequenceOfLin::*)(const Standard_Integer, const gp_Lin &)) &LocOpe_SequenceOfLin::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_LocOpe_SequenceOfLin.def("Split", (void (LocOpe_SequenceOfLin::*)(const Standard_Integer, LocOpe_SequenceOfLin &)) &LocOpe_SequenceOfLin::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_LocOpe_SequenceOfLin.def("First", (const gp_Lin & (LocOpe_SequenceOfLin::*)() const ) &LocOpe_SequenceOfLin::First, "First item access");
-	cls_LocOpe_SequenceOfLin.def("ChangeFirst", (gp_Lin & (LocOpe_SequenceOfLin::*)()) &LocOpe_SequenceOfLin::ChangeFirst, "First item access");
-	cls_LocOpe_SequenceOfLin.def("Last", (const gp_Lin & (LocOpe_SequenceOfLin::*)() const ) &LocOpe_SequenceOfLin::Last, "Last item access");
-	cls_LocOpe_SequenceOfLin.def("ChangeLast", (gp_Lin & (LocOpe_SequenceOfLin::*)()) &LocOpe_SequenceOfLin::ChangeLast, "Last item access");
-	cls_LocOpe_SequenceOfLin.def("Value", (const gp_Lin & (LocOpe_SequenceOfLin::*)(const Standard_Integer) const ) &LocOpe_SequenceOfLin::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_LocOpe_SequenceOfLin.def("__call__", (const gp_Lin & (LocOpe_SequenceOfLin::*)(const Standard_Integer) const ) &LocOpe_SequenceOfLin::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_LocOpe_SequenceOfLin.def("ChangeValue", (gp_Lin & (LocOpe_SequenceOfLin::*)(const Standard_Integer)) &LocOpe_SequenceOfLin::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_LocOpe_SequenceOfLin.def("__call__", (gp_Lin & (LocOpe_SequenceOfLin::*)(const Standard_Integer)) &LocOpe_SequenceOfLin::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_LocOpe_SequenceOfLin.def("SetValue", (void (LocOpe_SequenceOfLin::*)(const Standard_Integer, const gp_Lin &)) &LocOpe_SequenceOfLin::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_LocOpe_SequenceOfLin.def("__iter__", [](const LocOpe_SequenceOfLin &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\LocOpe_SequenceOfLin.hxx
+	bind_NCollection_Sequence<gp_Lin>(mod, "LocOpe_SequenceOfLin");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<LocOpe_SequenceOfCirc, std::unique_ptr<LocOpe_SequenceOfCirc, Deleter<LocOpe_SequenceOfCirc>>, NCollection_BaseSequence> cls_LocOpe_SequenceOfCirc(mod, "LocOpe_SequenceOfCirc", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_LocOpe_SequenceOfCirc.def(py::init<>());
-	cls_LocOpe_SequenceOfCirc.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_LocOpe_SequenceOfCirc.def(py::init([] (const LocOpe_SequenceOfCirc &other) {return new LocOpe_SequenceOfCirc(other);}), "Copy constructor", py::arg("other"));
-	cls_LocOpe_SequenceOfCirc.def("begin", (LocOpe_SequenceOfCirc::iterator (LocOpe_SequenceOfCirc::*)() const ) &LocOpe_SequenceOfCirc::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_LocOpe_SequenceOfCirc.def("end", (LocOpe_SequenceOfCirc::iterator (LocOpe_SequenceOfCirc::*)() const ) &LocOpe_SequenceOfCirc::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_LocOpe_SequenceOfCirc.def("cbegin", (LocOpe_SequenceOfCirc::const_iterator (LocOpe_SequenceOfCirc::*)() const ) &LocOpe_SequenceOfCirc::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_LocOpe_SequenceOfCirc.def("cend", (LocOpe_SequenceOfCirc::const_iterator (LocOpe_SequenceOfCirc::*)() const ) &LocOpe_SequenceOfCirc::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_LocOpe_SequenceOfCirc.def("Size", (Standard_Integer (LocOpe_SequenceOfCirc::*)() const ) &LocOpe_SequenceOfCirc::Size, "Number of items");
-	cls_LocOpe_SequenceOfCirc.def("Length", (Standard_Integer (LocOpe_SequenceOfCirc::*)() const ) &LocOpe_SequenceOfCirc::Length, "Number of items");
-	cls_LocOpe_SequenceOfCirc.def("Lower", (Standard_Integer (LocOpe_SequenceOfCirc::*)() const ) &LocOpe_SequenceOfCirc::Lower, "Method for consistency with other collections.");
-	cls_LocOpe_SequenceOfCirc.def("Upper", (Standard_Integer (LocOpe_SequenceOfCirc::*)() const ) &LocOpe_SequenceOfCirc::Upper, "Method for consistency with other collections.");
-	cls_LocOpe_SequenceOfCirc.def("IsEmpty", (Standard_Boolean (LocOpe_SequenceOfCirc::*)() const ) &LocOpe_SequenceOfCirc::IsEmpty, "Empty query");
-	cls_LocOpe_SequenceOfCirc.def("Reverse", (void (LocOpe_SequenceOfCirc::*)()) &LocOpe_SequenceOfCirc::Reverse, "Reverse sequence");
-	cls_LocOpe_SequenceOfCirc.def("Exchange", (void (LocOpe_SequenceOfCirc::*)(const Standard_Integer, const Standard_Integer)) &LocOpe_SequenceOfCirc::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_LocOpe_SequenceOfCirc.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &LocOpe_SequenceOfCirc::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_LocOpe_SequenceOfCirc.def("Clear", [](LocOpe_SequenceOfCirc &self) -> void { return self.Clear(); });
-	cls_LocOpe_SequenceOfCirc.def("Clear", (void (LocOpe_SequenceOfCirc::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &LocOpe_SequenceOfCirc::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_LocOpe_SequenceOfCirc.def("Assign", (LocOpe_SequenceOfCirc & (LocOpe_SequenceOfCirc::*)(const LocOpe_SequenceOfCirc &)) &LocOpe_SequenceOfCirc::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_LocOpe_SequenceOfCirc.def("assign", (LocOpe_SequenceOfCirc & (LocOpe_SequenceOfCirc::*)(const LocOpe_SequenceOfCirc &)) &LocOpe_SequenceOfCirc::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_LocOpe_SequenceOfCirc.def("Remove", (void (LocOpe_SequenceOfCirc::*)(LocOpe_SequenceOfCirc::Iterator &)) &LocOpe_SequenceOfCirc::Remove, "Remove one item", py::arg("thePosition"));
-	cls_LocOpe_SequenceOfCirc.def("Remove", (void (LocOpe_SequenceOfCirc::*)(const Standard_Integer)) &LocOpe_SequenceOfCirc::Remove, "Remove one item", py::arg("theIndex"));
-	cls_LocOpe_SequenceOfCirc.def("Remove", (void (LocOpe_SequenceOfCirc::*)(const Standard_Integer, const Standard_Integer)) &LocOpe_SequenceOfCirc::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_LocOpe_SequenceOfCirc.def("Append", (void (LocOpe_SequenceOfCirc::*)(const gp_Circ &)) &LocOpe_SequenceOfCirc::Append, "Append one item", py::arg("theItem"));
-	cls_LocOpe_SequenceOfCirc.def("Append", (void (LocOpe_SequenceOfCirc::*)(LocOpe_SequenceOfCirc &)) &LocOpe_SequenceOfCirc::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_LocOpe_SequenceOfCirc.def("Prepend", (void (LocOpe_SequenceOfCirc::*)(const gp_Circ &)) &LocOpe_SequenceOfCirc::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_LocOpe_SequenceOfCirc.def("Prepend", (void (LocOpe_SequenceOfCirc::*)(LocOpe_SequenceOfCirc &)) &LocOpe_SequenceOfCirc::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_LocOpe_SequenceOfCirc.def("InsertBefore", (void (LocOpe_SequenceOfCirc::*)(const Standard_Integer, const gp_Circ &)) &LocOpe_SequenceOfCirc::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_LocOpe_SequenceOfCirc.def("InsertBefore", (void (LocOpe_SequenceOfCirc::*)(const Standard_Integer, LocOpe_SequenceOfCirc &)) &LocOpe_SequenceOfCirc::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_LocOpe_SequenceOfCirc.def("InsertAfter", (void (LocOpe_SequenceOfCirc::*)(LocOpe_SequenceOfCirc::Iterator &, const gp_Circ &)) &LocOpe_SequenceOfCirc::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_LocOpe_SequenceOfCirc.def("InsertAfter", (void (LocOpe_SequenceOfCirc::*)(const Standard_Integer, LocOpe_SequenceOfCirc &)) &LocOpe_SequenceOfCirc::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_LocOpe_SequenceOfCirc.def("InsertAfter", (void (LocOpe_SequenceOfCirc::*)(const Standard_Integer, const gp_Circ &)) &LocOpe_SequenceOfCirc::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_LocOpe_SequenceOfCirc.def("Split", (void (LocOpe_SequenceOfCirc::*)(const Standard_Integer, LocOpe_SequenceOfCirc &)) &LocOpe_SequenceOfCirc::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_LocOpe_SequenceOfCirc.def("First", (const gp_Circ & (LocOpe_SequenceOfCirc::*)() const ) &LocOpe_SequenceOfCirc::First, "First item access");
-	cls_LocOpe_SequenceOfCirc.def("ChangeFirst", (gp_Circ & (LocOpe_SequenceOfCirc::*)()) &LocOpe_SequenceOfCirc::ChangeFirst, "First item access");
-	cls_LocOpe_SequenceOfCirc.def("Last", (const gp_Circ & (LocOpe_SequenceOfCirc::*)() const ) &LocOpe_SequenceOfCirc::Last, "Last item access");
-	cls_LocOpe_SequenceOfCirc.def("ChangeLast", (gp_Circ & (LocOpe_SequenceOfCirc::*)()) &LocOpe_SequenceOfCirc::ChangeLast, "Last item access");
-	cls_LocOpe_SequenceOfCirc.def("Value", (const gp_Circ & (LocOpe_SequenceOfCirc::*)(const Standard_Integer) const ) &LocOpe_SequenceOfCirc::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_LocOpe_SequenceOfCirc.def("__call__", (const gp_Circ & (LocOpe_SequenceOfCirc::*)(const Standard_Integer) const ) &LocOpe_SequenceOfCirc::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_LocOpe_SequenceOfCirc.def("ChangeValue", (gp_Circ & (LocOpe_SequenceOfCirc::*)(const Standard_Integer)) &LocOpe_SequenceOfCirc::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_LocOpe_SequenceOfCirc.def("__call__", (gp_Circ & (LocOpe_SequenceOfCirc::*)(const Standard_Integer)) &LocOpe_SequenceOfCirc::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_LocOpe_SequenceOfCirc.def("SetValue", (void (LocOpe_SequenceOfCirc::*)(const Standard_Integer, const gp_Circ &)) &LocOpe_SequenceOfCirc::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_LocOpe_SequenceOfCirc.def("__iter__", [](const LocOpe_SequenceOfCirc &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\LocOpe_SequenceOfCirc.hxx
+	bind_NCollection_Sequence<gp_Circ>(mod, "LocOpe_SequenceOfCirc");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<LocOpe_SequenceOfPntFace, std::unique_ptr<LocOpe_SequenceOfPntFace, Deleter<LocOpe_SequenceOfPntFace>>, NCollection_BaseSequence> cls_LocOpe_SequenceOfPntFace(mod, "LocOpe_SequenceOfPntFace", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_LocOpe_SequenceOfPntFace.def(py::init<>());
-	cls_LocOpe_SequenceOfPntFace.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_LocOpe_SequenceOfPntFace.def(py::init([] (const LocOpe_SequenceOfPntFace &other) {return new LocOpe_SequenceOfPntFace(other);}), "Copy constructor", py::arg("other"));
-	cls_LocOpe_SequenceOfPntFace.def("begin", (LocOpe_SequenceOfPntFace::iterator (LocOpe_SequenceOfPntFace::*)() const ) &LocOpe_SequenceOfPntFace::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_LocOpe_SequenceOfPntFace.def("end", (LocOpe_SequenceOfPntFace::iterator (LocOpe_SequenceOfPntFace::*)() const ) &LocOpe_SequenceOfPntFace::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_LocOpe_SequenceOfPntFace.def("cbegin", (LocOpe_SequenceOfPntFace::const_iterator (LocOpe_SequenceOfPntFace::*)() const ) &LocOpe_SequenceOfPntFace::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_LocOpe_SequenceOfPntFace.def("cend", (LocOpe_SequenceOfPntFace::const_iterator (LocOpe_SequenceOfPntFace::*)() const ) &LocOpe_SequenceOfPntFace::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_LocOpe_SequenceOfPntFace.def("Size", (Standard_Integer (LocOpe_SequenceOfPntFace::*)() const ) &LocOpe_SequenceOfPntFace::Size, "Number of items");
-	cls_LocOpe_SequenceOfPntFace.def("Length", (Standard_Integer (LocOpe_SequenceOfPntFace::*)() const ) &LocOpe_SequenceOfPntFace::Length, "Number of items");
-	cls_LocOpe_SequenceOfPntFace.def("Lower", (Standard_Integer (LocOpe_SequenceOfPntFace::*)() const ) &LocOpe_SequenceOfPntFace::Lower, "Method for consistency with other collections.");
-	cls_LocOpe_SequenceOfPntFace.def("Upper", (Standard_Integer (LocOpe_SequenceOfPntFace::*)() const ) &LocOpe_SequenceOfPntFace::Upper, "Method for consistency with other collections.");
-	cls_LocOpe_SequenceOfPntFace.def("IsEmpty", (Standard_Boolean (LocOpe_SequenceOfPntFace::*)() const ) &LocOpe_SequenceOfPntFace::IsEmpty, "Empty query");
-	cls_LocOpe_SequenceOfPntFace.def("Reverse", (void (LocOpe_SequenceOfPntFace::*)()) &LocOpe_SequenceOfPntFace::Reverse, "Reverse sequence");
-	cls_LocOpe_SequenceOfPntFace.def("Exchange", (void (LocOpe_SequenceOfPntFace::*)(const Standard_Integer, const Standard_Integer)) &LocOpe_SequenceOfPntFace::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_LocOpe_SequenceOfPntFace.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &LocOpe_SequenceOfPntFace::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_LocOpe_SequenceOfPntFace.def("Clear", [](LocOpe_SequenceOfPntFace &self) -> void { return self.Clear(); });
-	cls_LocOpe_SequenceOfPntFace.def("Clear", (void (LocOpe_SequenceOfPntFace::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &LocOpe_SequenceOfPntFace::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_LocOpe_SequenceOfPntFace.def("Assign", (LocOpe_SequenceOfPntFace & (LocOpe_SequenceOfPntFace::*)(const LocOpe_SequenceOfPntFace &)) &LocOpe_SequenceOfPntFace::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_LocOpe_SequenceOfPntFace.def("assign", (LocOpe_SequenceOfPntFace & (LocOpe_SequenceOfPntFace::*)(const LocOpe_SequenceOfPntFace &)) &LocOpe_SequenceOfPntFace::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_LocOpe_SequenceOfPntFace.def("Remove", (void (LocOpe_SequenceOfPntFace::*)(LocOpe_SequenceOfPntFace::Iterator &)) &LocOpe_SequenceOfPntFace::Remove, "Remove one item", py::arg("thePosition"));
-	cls_LocOpe_SequenceOfPntFace.def("Remove", (void (LocOpe_SequenceOfPntFace::*)(const Standard_Integer)) &LocOpe_SequenceOfPntFace::Remove, "Remove one item", py::arg("theIndex"));
-	cls_LocOpe_SequenceOfPntFace.def("Remove", (void (LocOpe_SequenceOfPntFace::*)(const Standard_Integer, const Standard_Integer)) &LocOpe_SequenceOfPntFace::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_LocOpe_SequenceOfPntFace.def("Append", (void (LocOpe_SequenceOfPntFace::*)(const LocOpe_PntFace &)) &LocOpe_SequenceOfPntFace::Append, "Append one item", py::arg("theItem"));
-	cls_LocOpe_SequenceOfPntFace.def("Append", (void (LocOpe_SequenceOfPntFace::*)(LocOpe_SequenceOfPntFace &)) &LocOpe_SequenceOfPntFace::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_LocOpe_SequenceOfPntFace.def("Prepend", (void (LocOpe_SequenceOfPntFace::*)(const LocOpe_PntFace &)) &LocOpe_SequenceOfPntFace::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_LocOpe_SequenceOfPntFace.def("Prepend", (void (LocOpe_SequenceOfPntFace::*)(LocOpe_SequenceOfPntFace &)) &LocOpe_SequenceOfPntFace::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_LocOpe_SequenceOfPntFace.def("InsertBefore", (void (LocOpe_SequenceOfPntFace::*)(const Standard_Integer, const LocOpe_PntFace &)) &LocOpe_SequenceOfPntFace::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_LocOpe_SequenceOfPntFace.def("InsertBefore", (void (LocOpe_SequenceOfPntFace::*)(const Standard_Integer, LocOpe_SequenceOfPntFace &)) &LocOpe_SequenceOfPntFace::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_LocOpe_SequenceOfPntFace.def("InsertAfter", (void (LocOpe_SequenceOfPntFace::*)(LocOpe_SequenceOfPntFace::Iterator &, const LocOpe_PntFace &)) &LocOpe_SequenceOfPntFace::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_LocOpe_SequenceOfPntFace.def("InsertAfter", (void (LocOpe_SequenceOfPntFace::*)(const Standard_Integer, LocOpe_SequenceOfPntFace &)) &LocOpe_SequenceOfPntFace::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_LocOpe_SequenceOfPntFace.def("InsertAfter", (void (LocOpe_SequenceOfPntFace::*)(const Standard_Integer, const LocOpe_PntFace &)) &LocOpe_SequenceOfPntFace::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_LocOpe_SequenceOfPntFace.def("Split", (void (LocOpe_SequenceOfPntFace::*)(const Standard_Integer, LocOpe_SequenceOfPntFace &)) &LocOpe_SequenceOfPntFace::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_LocOpe_SequenceOfPntFace.def("First", (const LocOpe_PntFace & (LocOpe_SequenceOfPntFace::*)() const ) &LocOpe_SequenceOfPntFace::First, "First item access");
-	cls_LocOpe_SequenceOfPntFace.def("ChangeFirst", (LocOpe_PntFace & (LocOpe_SequenceOfPntFace::*)()) &LocOpe_SequenceOfPntFace::ChangeFirst, "First item access");
-	cls_LocOpe_SequenceOfPntFace.def("Last", (const LocOpe_PntFace & (LocOpe_SequenceOfPntFace::*)() const ) &LocOpe_SequenceOfPntFace::Last, "Last item access");
-	cls_LocOpe_SequenceOfPntFace.def("ChangeLast", (LocOpe_PntFace & (LocOpe_SequenceOfPntFace::*)()) &LocOpe_SequenceOfPntFace::ChangeLast, "Last item access");
-	cls_LocOpe_SequenceOfPntFace.def("Value", (const LocOpe_PntFace & (LocOpe_SequenceOfPntFace::*)(const Standard_Integer) const ) &LocOpe_SequenceOfPntFace::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_LocOpe_SequenceOfPntFace.def("__call__", (const LocOpe_PntFace & (LocOpe_SequenceOfPntFace::*)(const Standard_Integer) const ) &LocOpe_SequenceOfPntFace::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_LocOpe_SequenceOfPntFace.def("ChangeValue", (LocOpe_PntFace & (LocOpe_SequenceOfPntFace::*)(const Standard_Integer)) &LocOpe_SequenceOfPntFace::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_LocOpe_SequenceOfPntFace.def("__call__", (LocOpe_PntFace & (LocOpe_SequenceOfPntFace::*)(const Standard_Integer)) &LocOpe_SequenceOfPntFace::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_LocOpe_SequenceOfPntFace.def("SetValue", (void (LocOpe_SequenceOfPntFace::*)(const Standard_Integer, const LocOpe_PntFace &)) &LocOpe_SequenceOfPntFace::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_LocOpe_SequenceOfPntFace.def("__iter__", [](const LocOpe_SequenceOfPntFace &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<LocOpe_DataMapOfShapePnt, std::unique_ptr<LocOpe_DataMapOfShapePnt, Deleter<LocOpe_DataMapOfShapePnt>>, NCollection_BaseMap> cls_LocOpe_DataMapOfShapePnt(mod, "LocOpe_DataMapOfShapePnt", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_LocOpe_DataMapOfShapePnt.def(py::init<>());
-	cls_LocOpe_DataMapOfShapePnt.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_LocOpe_DataMapOfShapePnt.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_LocOpe_DataMapOfShapePnt.def(py::init([] (const LocOpe_DataMapOfShapePnt &other) {return new LocOpe_DataMapOfShapePnt(other);}), "Copy constructor", py::arg("other"));
-	cls_LocOpe_DataMapOfShapePnt.def("begin", (LocOpe_DataMapOfShapePnt::iterator (LocOpe_DataMapOfShapePnt::*)() const ) &LocOpe_DataMapOfShapePnt::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_LocOpe_DataMapOfShapePnt.def("end", (LocOpe_DataMapOfShapePnt::iterator (LocOpe_DataMapOfShapePnt::*)() const ) &LocOpe_DataMapOfShapePnt::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_LocOpe_DataMapOfShapePnt.def("cbegin", (LocOpe_DataMapOfShapePnt::const_iterator (LocOpe_DataMapOfShapePnt::*)() const ) &LocOpe_DataMapOfShapePnt::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_LocOpe_DataMapOfShapePnt.def("cend", (LocOpe_DataMapOfShapePnt::const_iterator (LocOpe_DataMapOfShapePnt::*)() const ) &LocOpe_DataMapOfShapePnt::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_LocOpe_DataMapOfShapePnt.def("Exchange", (void (LocOpe_DataMapOfShapePnt::*)(LocOpe_DataMapOfShapePnt &)) &LocOpe_DataMapOfShapePnt::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_LocOpe_DataMapOfShapePnt.def("Assign", (LocOpe_DataMapOfShapePnt & (LocOpe_DataMapOfShapePnt::*)(const LocOpe_DataMapOfShapePnt &)) &LocOpe_DataMapOfShapePnt::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_LocOpe_DataMapOfShapePnt.def("assign", (LocOpe_DataMapOfShapePnt & (LocOpe_DataMapOfShapePnt::*)(const LocOpe_DataMapOfShapePnt &)) &LocOpe_DataMapOfShapePnt::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_LocOpe_DataMapOfShapePnt.def("ReSize", (void (LocOpe_DataMapOfShapePnt::*)(const Standard_Integer)) &LocOpe_DataMapOfShapePnt::ReSize, "ReSize", py::arg("N"));
-	cls_LocOpe_DataMapOfShapePnt.def("Bind", (Standard_Boolean (LocOpe_DataMapOfShapePnt::*)(const TopoDS_Shape &, const gp_Pnt &)) &LocOpe_DataMapOfShapePnt::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_LocOpe_DataMapOfShapePnt.def("Bound", (gp_Pnt * (LocOpe_DataMapOfShapePnt::*)(const TopoDS_Shape &, const gp_Pnt &)) &LocOpe_DataMapOfShapePnt::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_LocOpe_DataMapOfShapePnt.def("IsBound", (Standard_Boolean (LocOpe_DataMapOfShapePnt::*)(const TopoDS_Shape &) const ) &LocOpe_DataMapOfShapePnt::IsBound, "IsBound", py::arg("theKey"));
-	cls_LocOpe_DataMapOfShapePnt.def("UnBind", (Standard_Boolean (LocOpe_DataMapOfShapePnt::*)(const TopoDS_Shape &)) &LocOpe_DataMapOfShapePnt::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_LocOpe_DataMapOfShapePnt.def("Seek", (const gp_Pnt * (LocOpe_DataMapOfShapePnt::*)(const TopoDS_Shape &) const ) &LocOpe_DataMapOfShapePnt::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_LocOpe_DataMapOfShapePnt.def("Find", (const gp_Pnt & (LocOpe_DataMapOfShapePnt::*)(const TopoDS_Shape &) const ) &LocOpe_DataMapOfShapePnt::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_LocOpe_DataMapOfShapePnt.def("Find", (Standard_Boolean (LocOpe_DataMapOfShapePnt::*)(const TopoDS_Shape &, gp_Pnt &) const ) &LocOpe_DataMapOfShapePnt::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_LocOpe_DataMapOfShapePnt.def("__call__", (const gp_Pnt & (LocOpe_DataMapOfShapePnt::*)(const TopoDS_Shape &) const ) &LocOpe_DataMapOfShapePnt::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_LocOpe_DataMapOfShapePnt.def("ChangeSeek", (gp_Pnt * (LocOpe_DataMapOfShapePnt::*)(const TopoDS_Shape &)) &LocOpe_DataMapOfShapePnt::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_LocOpe_DataMapOfShapePnt.def("ChangeFind", (gp_Pnt & (LocOpe_DataMapOfShapePnt::*)(const TopoDS_Shape &)) &LocOpe_DataMapOfShapePnt::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_LocOpe_DataMapOfShapePnt.def("__call__", (gp_Pnt & (LocOpe_DataMapOfShapePnt::*)(const TopoDS_Shape &)) &LocOpe_DataMapOfShapePnt::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_LocOpe_DataMapOfShapePnt.def("Clear", [](LocOpe_DataMapOfShapePnt &self) -> void { return self.Clear(); });
-	cls_LocOpe_DataMapOfShapePnt.def("Clear", (void (LocOpe_DataMapOfShapePnt::*)(const Standard_Boolean)) &LocOpe_DataMapOfShapePnt::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_LocOpe_DataMapOfShapePnt.def("Clear", (void (LocOpe_DataMapOfShapePnt::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &LocOpe_DataMapOfShapePnt::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_LocOpe_DataMapOfShapePnt.def("Size", (Standard_Integer (LocOpe_DataMapOfShapePnt::*)() const ) &LocOpe_DataMapOfShapePnt::Size, "Size");
-	cls_LocOpe_DataMapOfShapePnt.def("__iter__", [](const LocOpe_DataMapOfShapePnt &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\LocOpe_SequenceOfPntFace.hxx
+	bind_NCollection_Sequence<LocOpe_PntFace>(mod, "LocOpe_SequenceOfPntFace");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LocOpe_DataMapOfShapePnt.hxx
+	bind_NCollection_DataMap<TopoDS_Shape, gp_Pnt, TopTools_ShapeMapHasher>(mod, "LocOpe_DataMapOfShapePnt");
+
+	/* FIXME
+
+	*/
+
 
 }

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <VrmlData_ErrorStatus.hxx>
 #include <Standard_IStream.hxx>
@@ -62,6 +53,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <VrmlData_ShapeNode.hxx>
 #include <VrmlData_Sphere.hxx>
 #include <VrmlData_UnknownNode.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(VrmlData, mod) {
 
@@ -632,45 +624,14 @@ PYBIND11_MODULE(VrmlData, mod) {
 	cls_VrmlData_UnknownNode.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &VrmlData_UnknownNode::get_type_descriptor, "None");
 	cls_VrmlData_UnknownNode.def("DynamicType", (const opencascade::handle<Standard_Type> & (VrmlData_UnknownNode::*)() const ) &VrmlData_UnknownNode::DynamicType, "None");
 
-	/* FIXME
-	// VrmlData_DataMapOfShapeAppearance
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\VrmlData_DataMapOfShapeAppearance.hxx
+	bind_NCollection_DataMap<opencascade::handle<TopoDS_TShape>, opencascade::handle<VrmlData_Appearance>, NCollection_DefaultHasher<opencascade::handle<TopoDS_TShape> > >(mod, "VrmlData_DataMapOfShapeAppearance");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<VrmlData_ListOfNode, std::unique_ptr<VrmlData_ListOfNode, Deleter<VrmlData_ListOfNode>>, NCollection_BaseList> cls_VrmlData_ListOfNode(mod, "VrmlData_ListOfNode", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_VrmlData_ListOfNode.def(py::init<>());
-	cls_VrmlData_ListOfNode.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_VrmlData_ListOfNode.def(py::init([] (const VrmlData_ListOfNode &other) {return new VrmlData_ListOfNode(other);}), "Copy constructor", py::arg("other"));
-	cls_VrmlData_ListOfNode.def("begin", (VrmlData_ListOfNode::iterator (VrmlData_ListOfNode::*)() const ) &VrmlData_ListOfNode::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_VrmlData_ListOfNode.def("end", (VrmlData_ListOfNode::iterator (VrmlData_ListOfNode::*)() const ) &VrmlData_ListOfNode::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_VrmlData_ListOfNode.def("cbegin", (VrmlData_ListOfNode::const_iterator (VrmlData_ListOfNode::*)() const ) &VrmlData_ListOfNode::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_VrmlData_ListOfNode.def("cend", (VrmlData_ListOfNode::const_iterator (VrmlData_ListOfNode::*)() const ) &VrmlData_ListOfNode::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_VrmlData_ListOfNode.def("Size", (Standard_Integer (VrmlData_ListOfNode::*)() const ) &VrmlData_ListOfNode::Size, "Size - Number of items");
-	cls_VrmlData_ListOfNode.def("Assign", (VrmlData_ListOfNode & (VrmlData_ListOfNode::*)(const VrmlData_ListOfNode &)) &VrmlData_ListOfNode::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_VrmlData_ListOfNode.def("assign", (VrmlData_ListOfNode & (VrmlData_ListOfNode::*)(const VrmlData_ListOfNode &)) &VrmlData_ListOfNode::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_VrmlData_ListOfNode.def("Clear", [](VrmlData_ListOfNode &self) -> void { return self.Clear(); });
-	cls_VrmlData_ListOfNode.def("Clear", (void (VrmlData_ListOfNode::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &VrmlData_ListOfNode::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_VrmlData_ListOfNode.def("First", (const opencascade::handle<VrmlData_Node> & (VrmlData_ListOfNode::*)() const ) &VrmlData_ListOfNode::First, "First item");
-	cls_VrmlData_ListOfNode.def("First", (opencascade::handle<VrmlData_Node> & (VrmlData_ListOfNode::*)()) &VrmlData_ListOfNode::First, "First item (non-const)");
-	cls_VrmlData_ListOfNode.def("Last", (const opencascade::handle<VrmlData_Node> & (VrmlData_ListOfNode::*)() const ) &VrmlData_ListOfNode::Last, "Last item");
-	cls_VrmlData_ListOfNode.def("Last", (opencascade::handle<VrmlData_Node> & (VrmlData_ListOfNode::*)()) &VrmlData_ListOfNode::Last, "Last item (non-const)");
-	cls_VrmlData_ListOfNode.def("Append", (opencascade::handle<VrmlData_Node> & (VrmlData_ListOfNode::*)(const opencascade::handle<VrmlData_Node> &)) &VrmlData_ListOfNode::Append, "Append one item at the end", py::arg("theItem"));
-	cls_VrmlData_ListOfNode.def("Append", (void (VrmlData_ListOfNode::*)(const opencascade::handle<VrmlData_Node> &, VrmlData_ListOfNode::Iterator &)) &VrmlData_ListOfNode::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_VrmlData_ListOfNode.def("Append", (void (VrmlData_ListOfNode::*)(VrmlData_ListOfNode &)) &VrmlData_ListOfNode::Append, "Append another list at the end", py::arg("theOther"));
-	cls_VrmlData_ListOfNode.def("Prepend", (opencascade::handle<VrmlData_Node> & (VrmlData_ListOfNode::*)(const opencascade::handle<VrmlData_Node> &)) &VrmlData_ListOfNode::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_VrmlData_ListOfNode.def("Prepend", (void (VrmlData_ListOfNode::*)(VrmlData_ListOfNode &)) &VrmlData_ListOfNode::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_VrmlData_ListOfNode.def("RemoveFirst", (void (VrmlData_ListOfNode::*)()) &VrmlData_ListOfNode::RemoveFirst, "RemoveFirst item");
-	cls_VrmlData_ListOfNode.def("Remove", (void (VrmlData_ListOfNode::*)(VrmlData_ListOfNode::Iterator &)) &VrmlData_ListOfNode::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_VrmlData_ListOfNode.def("InsertBefore", (opencascade::handle<VrmlData_Node> & (VrmlData_ListOfNode::*)(const opencascade::handle<VrmlData_Node> &, VrmlData_ListOfNode::Iterator &)) &VrmlData_ListOfNode::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_VrmlData_ListOfNode.def("InsertBefore", (void (VrmlData_ListOfNode::*)(VrmlData_ListOfNode &, VrmlData_ListOfNode::Iterator &)) &VrmlData_ListOfNode::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_VrmlData_ListOfNode.def("InsertAfter", (opencascade::handle<VrmlData_Node> & (VrmlData_ListOfNode::*)(const opencascade::handle<VrmlData_Node> &, VrmlData_ListOfNode::Iterator &)) &VrmlData_ListOfNode::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_VrmlData_ListOfNode.def("InsertAfter", (void (VrmlData_ListOfNode::*)(VrmlData_ListOfNode &, VrmlData_ListOfNode::Iterator &)) &VrmlData_ListOfNode::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_VrmlData_ListOfNode.def("Reverse", (void (VrmlData_ListOfNode::*)()) &VrmlData_ListOfNode::Reverse, "Reverse the list");
-	cls_VrmlData_ListOfNode.def("__iter__", [](const VrmlData_ListOfNode &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\VrmlData_ListOfNode.hxx
+	bind_NCollection_List<opencascade::handle<VrmlData_Node> >(mod, "VrmlData_ListOfNode");
 
-	/* FIXME
-	// VrmlData_MapOfNode
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\VrmlData_MapOfNode.hxx
+	bind_NCollection_Map<opencascade::handle<VrmlData_Node>, NCollection_DefaultHasher<opencascade::handle<VrmlData_Node> > >(mod, "VrmlData_MapOfNode");
 
 
 }

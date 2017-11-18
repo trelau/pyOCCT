@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <gp_XY.hxx>
 #include <Standard_TypeDef.hxx>
@@ -57,6 +48,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <gp_QuaternionNLerp.hxx>
 #include <gp_TrsfNLerp.hxx>
 #include <gp_QuaternionSLerp.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(gp, mod) {
 
@@ -1662,13 +1654,8 @@ PYBIND11_MODULE(gp, mod) {
 	cls_gp_QuaternionSLerp.def("Interpolate", (void (gp_QuaternionSLerp::*)(Standard_Real, gp_Quaternion &) const ) &gp_QuaternionSLerp::Interpolate, "Set interpolated quaternion for theT position (from 0.0 to 1.0)", py::arg("theT"), py::arg("theResultQ"));
 
 	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Lerp.hxx
-	py::class_<gp_TrsfNLerp, std::unique_ptr<gp_TrsfNLerp, Deleter<gp_TrsfNLerp>>> cls_gp_TrsfNLerp(mod, "gp_TrsfNLerp", "Simple linear interpolation tool (also known as mix() in GLSL). The main purpose of this template class is making interpolation routines more readable.");
-	cls_gp_TrsfNLerp.def(py::init<>());
-	cls_gp_TrsfNLerp.def(py::init<const gp_Trsf &, const gp_Trsf &>(), py::arg("theStart"), py::arg("theEnd"));
-	cls_gp_TrsfNLerp.def_static("Interpolate_", (gp_Trsf (*)(const gp_Trsf &, const gp_Trsf &, double)) &gp_TrsfNLerp::Interpolate, "Compute interpolated value between two values.", py::arg("theStart"), py::arg("theEnd"), py::arg("theT"));
-	cls_gp_TrsfNLerp.def("Init", (void (gp_TrsfNLerp::*)(const gp_Trsf &, const gp_Trsf &)) &gp_TrsfNLerp::Init, "Initialize values.", py::arg("theStart"), py::arg("theEnd"));
-	cls_gp_TrsfNLerp.def("Interpolate", (void (gp_TrsfNLerp::*)(double, gp_Trsf &) const ) &gp_TrsfNLerp::Interpolate, "Compute interpolated value between two values.", py::arg("theT"), py::arg("theResult"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\gp_TrsfNLerp.hxx
+	bind_NCollection_Lerp<gp_Trsf>(mod, "gp_TrsfNLerp");
 
 	*/
 

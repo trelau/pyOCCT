@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <IGESData_Protocol.hxx>
 #include <Standard_TypeDef.hxx>
@@ -101,6 +92,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <IGESAppli_Array1OfFiniteElement.hxx>
 #include <IGESAppli_Array1OfFlow.hxx>
 #include <IGESAppli_HArray1OfFlow.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(IGESAppli, mod) {
 
@@ -671,110 +663,14 @@ PYBIND11_MODULE(IGESAppli, mod) {
 	cls_IGESAppli.def_static("Init_", (void (*)()) &IGESAppli::Init, "Prepares dynamic data (Protocol, Modules) for this package");
 	cls_IGESAppli.def_static("Protocol_", (opencascade::handle<IGESAppli_Protocol> (*)()) &IGESAppli::Protocol, "Returns the Protocol for this Package");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESAppli_Array1OfNode, std::unique_ptr<IGESAppli_Array1OfNode, Deleter<IGESAppli_Array1OfNode>>> cls_IGESAppli_Array1OfNode(mod, "IGESAppli_Array1OfNode", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESAppli_Array1OfNode.def(py::init<>());
-	cls_IGESAppli_Array1OfNode.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESAppli_Array1OfNode.def(py::init([] (const IGESAppli_Array1OfNode &other) {return new IGESAppli_Array1OfNode(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESAppli_Array1OfNode.def(py::init<IGESAppli_Array1OfNode &&>(), py::arg("theOther"));
-	cls_IGESAppli_Array1OfNode.def(py::init<const opencascade::handle<IGESAppli_Node> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESAppli_Array1OfNode.def("begin", (IGESAppli_Array1OfNode::iterator (IGESAppli_Array1OfNode::*)() const ) &IGESAppli_Array1OfNode::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESAppli_Array1OfNode.def("end", (IGESAppli_Array1OfNode::iterator (IGESAppli_Array1OfNode::*)() const ) &IGESAppli_Array1OfNode::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESAppli_Array1OfNode.def("cbegin", (IGESAppli_Array1OfNode::const_iterator (IGESAppli_Array1OfNode::*)() const ) &IGESAppli_Array1OfNode::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESAppli_Array1OfNode.def("cend", (IGESAppli_Array1OfNode::const_iterator (IGESAppli_Array1OfNode::*)() const ) &IGESAppli_Array1OfNode::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESAppli_Array1OfNode.def("Init", (void (IGESAppli_Array1OfNode::*)(const opencascade::handle<IGESAppli_Node> &)) &IGESAppli_Array1OfNode::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESAppli_Array1OfNode.def("Size", (Standard_Integer (IGESAppli_Array1OfNode::*)() const ) &IGESAppli_Array1OfNode::Size, "Size query");
-	cls_IGESAppli_Array1OfNode.def("Length", (Standard_Integer (IGESAppli_Array1OfNode::*)() const ) &IGESAppli_Array1OfNode::Length, "Length query (the same)");
-	cls_IGESAppli_Array1OfNode.def("IsEmpty", (Standard_Boolean (IGESAppli_Array1OfNode::*)() const ) &IGESAppli_Array1OfNode::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESAppli_Array1OfNode.def("Lower", (Standard_Integer (IGESAppli_Array1OfNode::*)() const ) &IGESAppli_Array1OfNode::Lower, "Lower bound");
-	cls_IGESAppli_Array1OfNode.def("Upper", (Standard_Integer (IGESAppli_Array1OfNode::*)() const ) &IGESAppli_Array1OfNode::Upper, "Upper bound");
-	cls_IGESAppli_Array1OfNode.def("IsDeletable", (Standard_Boolean (IGESAppli_Array1OfNode::*)() const ) &IGESAppli_Array1OfNode::IsDeletable, "myDeletable flag");
-	cls_IGESAppli_Array1OfNode.def("IsAllocated", (Standard_Boolean (IGESAppli_Array1OfNode::*)() const ) &IGESAppli_Array1OfNode::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESAppli_Array1OfNode.def("Assign", (IGESAppli_Array1OfNode & (IGESAppli_Array1OfNode::*)(const IGESAppli_Array1OfNode &)) &IGESAppli_Array1OfNode::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESAppli_Array1OfNode.def("Move", (IGESAppli_Array1OfNode & (IGESAppli_Array1OfNode::*)(IGESAppli_Array1OfNode &&)) &IGESAppli_Array1OfNode::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESAppli_Array1OfNode.def("assign", (IGESAppli_Array1OfNode & (IGESAppli_Array1OfNode::*)(const IGESAppli_Array1OfNode &)) &IGESAppli_Array1OfNode::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESAppli_Array1OfNode.def("assign", (IGESAppli_Array1OfNode & (IGESAppli_Array1OfNode::*)(IGESAppli_Array1OfNode &&)) &IGESAppli_Array1OfNode::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESAppli_Array1OfNode.def("First", (const opencascade::handle<IGESAppli_Node> & (IGESAppli_Array1OfNode::*)() const ) &IGESAppli_Array1OfNode::First, "Returns first element");
-	cls_IGESAppli_Array1OfNode.def("ChangeFirst", (opencascade::handle<IGESAppli_Node> & (IGESAppli_Array1OfNode::*)()) &IGESAppli_Array1OfNode::ChangeFirst, "Returns first element");
-	cls_IGESAppli_Array1OfNode.def("Last", (const opencascade::handle<IGESAppli_Node> & (IGESAppli_Array1OfNode::*)() const ) &IGESAppli_Array1OfNode::Last, "Returns last element");
-	cls_IGESAppli_Array1OfNode.def("ChangeLast", (opencascade::handle<IGESAppli_Node> & (IGESAppli_Array1OfNode::*)()) &IGESAppli_Array1OfNode::ChangeLast, "Returns last element");
-	cls_IGESAppli_Array1OfNode.def("Value", (const opencascade::handle<IGESAppli_Node> & (IGESAppli_Array1OfNode::*)(const Standard_Integer) const ) &IGESAppli_Array1OfNode::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESAppli_Array1OfNode.def("__call__", (const opencascade::handle<IGESAppli_Node> & (IGESAppli_Array1OfNode::*)(const Standard_Integer) const ) &IGESAppli_Array1OfNode::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESAppli_Array1OfNode.def("ChangeValue", (opencascade::handle<IGESAppli_Node> & (IGESAppli_Array1OfNode::*)(const Standard_Integer)) &IGESAppli_Array1OfNode::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESAppli_Array1OfNode.def("__call__", (opencascade::handle<IGESAppli_Node> & (IGESAppli_Array1OfNode::*)(const Standard_Integer)) &IGESAppli_Array1OfNode::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESAppli_Array1OfNode.def("SetValue", (void (IGESAppli_Array1OfNode::*)(const Standard_Integer, const opencascade::handle<IGESAppli_Node> &)) &IGESAppli_Array1OfNode::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESAppli_Array1OfNode.def("Resize", (void (IGESAppli_Array1OfNode::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESAppli_Array1OfNode::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESAppli_Array1OfNode.def("__iter__", [](const IGESAppli_Array1OfNode &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESAppli_Array1OfNode.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESAppli_Node> >(mod, "IGESAppli_Array1OfNode");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESAppli_Array1OfFiniteElement, std::unique_ptr<IGESAppli_Array1OfFiniteElement, Deleter<IGESAppli_Array1OfFiniteElement>>> cls_IGESAppli_Array1OfFiniteElement(mod, "IGESAppli_Array1OfFiniteElement", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESAppli_Array1OfFiniteElement.def(py::init<>());
-	cls_IGESAppli_Array1OfFiniteElement.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESAppli_Array1OfFiniteElement.def(py::init([] (const IGESAppli_Array1OfFiniteElement &other) {return new IGESAppli_Array1OfFiniteElement(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESAppli_Array1OfFiniteElement.def(py::init<IGESAppli_Array1OfFiniteElement &&>(), py::arg("theOther"));
-	cls_IGESAppli_Array1OfFiniteElement.def(py::init<const opencascade::handle<IGESAppli_FiniteElement> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESAppli_Array1OfFiniteElement.def("begin", (IGESAppli_Array1OfFiniteElement::iterator (IGESAppli_Array1OfFiniteElement::*)() const ) &IGESAppli_Array1OfFiniteElement::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESAppli_Array1OfFiniteElement.def("end", (IGESAppli_Array1OfFiniteElement::iterator (IGESAppli_Array1OfFiniteElement::*)() const ) &IGESAppli_Array1OfFiniteElement::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESAppli_Array1OfFiniteElement.def("cbegin", (IGESAppli_Array1OfFiniteElement::const_iterator (IGESAppli_Array1OfFiniteElement::*)() const ) &IGESAppli_Array1OfFiniteElement::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESAppli_Array1OfFiniteElement.def("cend", (IGESAppli_Array1OfFiniteElement::const_iterator (IGESAppli_Array1OfFiniteElement::*)() const ) &IGESAppli_Array1OfFiniteElement::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESAppli_Array1OfFiniteElement.def("Init", (void (IGESAppli_Array1OfFiniteElement::*)(const opencascade::handle<IGESAppli_FiniteElement> &)) &IGESAppli_Array1OfFiniteElement::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESAppli_Array1OfFiniteElement.def("Size", (Standard_Integer (IGESAppli_Array1OfFiniteElement::*)() const ) &IGESAppli_Array1OfFiniteElement::Size, "Size query");
-	cls_IGESAppli_Array1OfFiniteElement.def("Length", (Standard_Integer (IGESAppli_Array1OfFiniteElement::*)() const ) &IGESAppli_Array1OfFiniteElement::Length, "Length query (the same)");
-	cls_IGESAppli_Array1OfFiniteElement.def("IsEmpty", (Standard_Boolean (IGESAppli_Array1OfFiniteElement::*)() const ) &IGESAppli_Array1OfFiniteElement::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESAppli_Array1OfFiniteElement.def("Lower", (Standard_Integer (IGESAppli_Array1OfFiniteElement::*)() const ) &IGESAppli_Array1OfFiniteElement::Lower, "Lower bound");
-	cls_IGESAppli_Array1OfFiniteElement.def("Upper", (Standard_Integer (IGESAppli_Array1OfFiniteElement::*)() const ) &IGESAppli_Array1OfFiniteElement::Upper, "Upper bound");
-	cls_IGESAppli_Array1OfFiniteElement.def("IsDeletable", (Standard_Boolean (IGESAppli_Array1OfFiniteElement::*)() const ) &IGESAppli_Array1OfFiniteElement::IsDeletable, "myDeletable flag");
-	cls_IGESAppli_Array1OfFiniteElement.def("IsAllocated", (Standard_Boolean (IGESAppli_Array1OfFiniteElement::*)() const ) &IGESAppli_Array1OfFiniteElement::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESAppli_Array1OfFiniteElement.def("Assign", (IGESAppli_Array1OfFiniteElement & (IGESAppli_Array1OfFiniteElement::*)(const IGESAppli_Array1OfFiniteElement &)) &IGESAppli_Array1OfFiniteElement::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESAppli_Array1OfFiniteElement.def("Move", (IGESAppli_Array1OfFiniteElement & (IGESAppli_Array1OfFiniteElement::*)(IGESAppli_Array1OfFiniteElement &&)) &IGESAppli_Array1OfFiniteElement::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESAppli_Array1OfFiniteElement.def("assign", (IGESAppli_Array1OfFiniteElement & (IGESAppli_Array1OfFiniteElement::*)(const IGESAppli_Array1OfFiniteElement &)) &IGESAppli_Array1OfFiniteElement::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESAppli_Array1OfFiniteElement.def("assign", (IGESAppli_Array1OfFiniteElement & (IGESAppli_Array1OfFiniteElement::*)(IGESAppli_Array1OfFiniteElement &&)) &IGESAppli_Array1OfFiniteElement::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESAppli_Array1OfFiniteElement.def("First", (const opencascade::handle<IGESAppli_FiniteElement> & (IGESAppli_Array1OfFiniteElement::*)() const ) &IGESAppli_Array1OfFiniteElement::First, "Returns first element");
-	cls_IGESAppli_Array1OfFiniteElement.def("ChangeFirst", (opencascade::handle<IGESAppli_FiniteElement> & (IGESAppli_Array1OfFiniteElement::*)()) &IGESAppli_Array1OfFiniteElement::ChangeFirst, "Returns first element");
-	cls_IGESAppli_Array1OfFiniteElement.def("Last", (const opencascade::handle<IGESAppli_FiniteElement> & (IGESAppli_Array1OfFiniteElement::*)() const ) &IGESAppli_Array1OfFiniteElement::Last, "Returns last element");
-	cls_IGESAppli_Array1OfFiniteElement.def("ChangeLast", (opencascade::handle<IGESAppli_FiniteElement> & (IGESAppli_Array1OfFiniteElement::*)()) &IGESAppli_Array1OfFiniteElement::ChangeLast, "Returns last element");
-	cls_IGESAppli_Array1OfFiniteElement.def("Value", (const opencascade::handle<IGESAppli_FiniteElement> & (IGESAppli_Array1OfFiniteElement::*)(const Standard_Integer) const ) &IGESAppli_Array1OfFiniteElement::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESAppli_Array1OfFiniteElement.def("__call__", (const opencascade::handle<IGESAppli_FiniteElement> & (IGESAppli_Array1OfFiniteElement::*)(const Standard_Integer) const ) &IGESAppli_Array1OfFiniteElement::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESAppli_Array1OfFiniteElement.def("ChangeValue", (opencascade::handle<IGESAppli_FiniteElement> & (IGESAppli_Array1OfFiniteElement::*)(const Standard_Integer)) &IGESAppli_Array1OfFiniteElement::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESAppli_Array1OfFiniteElement.def("__call__", (opencascade::handle<IGESAppli_FiniteElement> & (IGESAppli_Array1OfFiniteElement::*)(const Standard_Integer)) &IGESAppli_Array1OfFiniteElement::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESAppli_Array1OfFiniteElement.def("SetValue", (void (IGESAppli_Array1OfFiniteElement::*)(const Standard_Integer, const opencascade::handle<IGESAppli_FiniteElement> &)) &IGESAppli_Array1OfFiniteElement::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESAppli_Array1OfFiniteElement.def("Resize", (void (IGESAppli_Array1OfFiniteElement::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESAppli_Array1OfFiniteElement::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESAppli_Array1OfFiniteElement.def("__iter__", [](const IGESAppli_Array1OfFiniteElement &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESAppli_Array1OfFiniteElement.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESAppli_FiniteElement> >(mod, "IGESAppli_Array1OfFiniteElement");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESAppli_Array1OfFlow, std::unique_ptr<IGESAppli_Array1OfFlow, Deleter<IGESAppli_Array1OfFlow>>> cls_IGESAppli_Array1OfFlow(mod, "IGESAppli_Array1OfFlow", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESAppli_Array1OfFlow.def(py::init<>());
-	cls_IGESAppli_Array1OfFlow.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESAppli_Array1OfFlow.def(py::init([] (const IGESAppli_Array1OfFlow &other) {return new IGESAppli_Array1OfFlow(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESAppli_Array1OfFlow.def(py::init<IGESAppli_Array1OfFlow &&>(), py::arg("theOther"));
-	cls_IGESAppli_Array1OfFlow.def(py::init<const opencascade::handle<IGESAppli_Flow> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESAppli_Array1OfFlow.def("begin", (IGESAppli_Array1OfFlow::iterator (IGESAppli_Array1OfFlow::*)() const ) &IGESAppli_Array1OfFlow::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESAppli_Array1OfFlow.def("end", (IGESAppli_Array1OfFlow::iterator (IGESAppli_Array1OfFlow::*)() const ) &IGESAppli_Array1OfFlow::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESAppli_Array1OfFlow.def("cbegin", (IGESAppli_Array1OfFlow::const_iterator (IGESAppli_Array1OfFlow::*)() const ) &IGESAppli_Array1OfFlow::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESAppli_Array1OfFlow.def("cend", (IGESAppli_Array1OfFlow::const_iterator (IGESAppli_Array1OfFlow::*)() const ) &IGESAppli_Array1OfFlow::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESAppli_Array1OfFlow.def("Init", (void (IGESAppli_Array1OfFlow::*)(const opencascade::handle<IGESAppli_Flow> &)) &IGESAppli_Array1OfFlow::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESAppli_Array1OfFlow.def("Size", (Standard_Integer (IGESAppli_Array1OfFlow::*)() const ) &IGESAppli_Array1OfFlow::Size, "Size query");
-	cls_IGESAppli_Array1OfFlow.def("Length", (Standard_Integer (IGESAppli_Array1OfFlow::*)() const ) &IGESAppli_Array1OfFlow::Length, "Length query (the same)");
-	cls_IGESAppli_Array1OfFlow.def("IsEmpty", (Standard_Boolean (IGESAppli_Array1OfFlow::*)() const ) &IGESAppli_Array1OfFlow::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESAppli_Array1OfFlow.def("Lower", (Standard_Integer (IGESAppli_Array1OfFlow::*)() const ) &IGESAppli_Array1OfFlow::Lower, "Lower bound");
-	cls_IGESAppli_Array1OfFlow.def("Upper", (Standard_Integer (IGESAppli_Array1OfFlow::*)() const ) &IGESAppli_Array1OfFlow::Upper, "Upper bound");
-	cls_IGESAppli_Array1OfFlow.def("IsDeletable", (Standard_Boolean (IGESAppli_Array1OfFlow::*)() const ) &IGESAppli_Array1OfFlow::IsDeletable, "myDeletable flag");
-	cls_IGESAppli_Array1OfFlow.def("IsAllocated", (Standard_Boolean (IGESAppli_Array1OfFlow::*)() const ) &IGESAppli_Array1OfFlow::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESAppli_Array1OfFlow.def("Assign", (IGESAppli_Array1OfFlow & (IGESAppli_Array1OfFlow::*)(const IGESAppli_Array1OfFlow &)) &IGESAppli_Array1OfFlow::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESAppli_Array1OfFlow.def("Move", (IGESAppli_Array1OfFlow & (IGESAppli_Array1OfFlow::*)(IGESAppli_Array1OfFlow &&)) &IGESAppli_Array1OfFlow::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESAppli_Array1OfFlow.def("assign", (IGESAppli_Array1OfFlow & (IGESAppli_Array1OfFlow::*)(const IGESAppli_Array1OfFlow &)) &IGESAppli_Array1OfFlow::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESAppli_Array1OfFlow.def("assign", (IGESAppli_Array1OfFlow & (IGESAppli_Array1OfFlow::*)(IGESAppli_Array1OfFlow &&)) &IGESAppli_Array1OfFlow::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESAppli_Array1OfFlow.def("First", (const opencascade::handle<IGESAppli_Flow> & (IGESAppli_Array1OfFlow::*)() const ) &IGESAppli_Array1OfFlow::First, "Returns first element");
-	cls_IGESAppli_Array1OfFlow.def("ChangeFirst", (opencascade::handle<IGESAppli_Flow> & (IGESAppli_Array1OfFlow::*)()) &IGESAppli_Array1OfFlow::ChangeFirst, "Returns first element");
-	cls_IGESAppli_Array1OfFlow.def("Last", (const opencascade::handle<IGESAppli_Flow> & (IGESAppli_Array1OfFlow::*)() const ) &IGESAppli_Array1OfFlow::Last, "Returns last element");
-	cls_IGESAppli_Array1OfFlow.def("ChangeLast", (opencascade::handle<IGESAppli_Flow> & (IGESAppli_Array1OfFlow::*)()) &IGESAppli_Array1OfFlow::ChangeLast, "Returns last element");
-	cls_IGESAppli_Array1OfFlow.def("Value", (const opencascade::handle<IGESAppli_Flow> & (IGESAppli_Array1OfFlow::*)(const Standard_Integer) const ) &IGESAppli_Array1OfFlow::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESAppli_Array1OfFlow.def("__call__", (const opencascade::handle<IGESAppli_Flow> & (IGESAppli_Array1OfFlow::*)(const Standard_Integer) const ) &IGESAppli_Array1OfFlow::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESAppli_Array1OfFlow.def("ChangeValue", (opencascade::handle<IGESAppli_Flow> & (IGESAppli_Array1OfFlow::*)(const Standard_Integer)) &IGESAppli_Array1OfFlow::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESAppli_Array1OfFlow.def("__call__", (opencascade::handle<IGESAppli_Flow> & (IGESAppli_Array1OfFlow::*)(const Standard_Integer)) &IGESAppli_Array1OfFlow::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESAppli_Array1OfFlow.def("SetValue", (void (IGESAppli_Array1OfFlow::*)(const Standard_Integer, const opencascade::handle<IGESAppli_Flow> &)) &IGESAppli_Array1OfFlow::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESAppli_Array1OfFlow.def("Resize", (void (IGESAppli_Array1OfFlow::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESAppli_Array1OfFlow::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESAppli_Array1OfFlow.def("__iter__", [](const IGESAppli_Array1OfFlow &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESAppli_Array1OfFlow.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESAppli_Flow> >(mod, "IGESAppli_Array1OfFlow");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESAppli_HArray1OfNode.hxx
 	py::class_<IGESAppli_HArray1OfNode, opencascade::handle<IGESAppli_HArray1OfNode>, IGESAppli_Array1OfNode, Standard_Transient> cls_IGESAppli_HArray1OfNode(mod, "IGESAppli_HArray1OfNode", "None");

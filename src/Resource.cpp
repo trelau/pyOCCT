@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_TypeDef.hxx>
@@ -28,6 +19,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <TCollection_ExtendedString.hxx>
 #include <Standard_PCharacter.hxx>
 #include <Resource_Unicode.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Resource, mod) {
 
@@ -106,69 +98,19 @@ PYBIND11_MODULE(Resource, mod) {
 	cls_Resource_Unicode.def_static("ConvertFormatToUnicode_", (void (*)(const Standard_CString, TCollection_ExtendedString &)) &Resource_Unicode::ConvertFormatToUnicode, "Converts the non-ASCII C string fromstr to the Unicode string of extended characters tostr. fromstr is translated according to the format (either ANSI, EUC, GB or SJIS) returned by the function GetFormat.", py::arg("fromstr"), py::arg("tostr"));
 	// FIXME cls_Resource_Unicode.def_static("ConvertUnicodeToFormat_", (Standard_Boolean (*)(const TCollection_ExtendedString &, Standard_PCharacter &, const Standard_Integer)) &Resource_Unicode::ConvertUnicodeToFormat, "Converts the Unicode string of extended characters fromstr to the non-ASCII C string tostr according to the format (either ANSI, EUC, GB or SJIS) returned by the function GetFormat. maxsize limits the size of the string tostr to a maximum number of characters. You need more than twice the length of the string fromstr to complete the conversion. The function returns true if conversion is complete, i.e. the maximum number of characters maxsize is not reached by tostr before the end of conversion of fromstr.", py::arg("fromstr"), py::arg("tostr"), py::arg("maxsize"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<Resource_DataMapOfAsciiStringAsciiString, std::unique_ptr<Resource_DataMapOfAsciiStringAsciiString, Deleter<Resource_DataMapOfAsciiStringAsciiString>>, NCollection_BaseMap> cls_Resource_DataMapOfAsciiStringAsciiString(mod, "Resource_DataMapOfAsciiStringAsciiString", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_Resource_DataMapOfAsciiStringAsciiString.def(py::init<>());
-	cls_Resource_DataMapOfAsciiStringAsciiString.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_Resource_DataMapOfAsciiStringAsciiString.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_Resource_DataMapOfAsciiStringAsciiString.def(py::init([] (const Resource_DataMapOfAsciiStringAsciiString &other) {return new Resource_DataMapOfAsciiStringAsciiString(other);}), "Copy constructor", py::arg("other"));
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("begin", (Resource_DataMapOfAsciiStringAsciiString::iterator (Resource_DataMapOfAsciiStringAsciiString::*)() const ) &Resource_DataMapOfAsciiStringAsciiString::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("end", (Resource_DataMapOfAsciiStringAsciiString::iterator (Resource_DataMapOfAsciiStringAsciiString::*)() const ) &Resource_DataMapOfAsciiStringAsciiString::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("cbegin", (Resource_DataMapOfAsciiStringAsciiString::const_iterator (Resource_DataMapOfAsciiStringAsciiString::*)() const ) &Resource_DataMapOfAsciiStringAsciiString::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("cend", (Resource_DataMapOfAsciiStringAsciiString::const_iterator (Resource_DataMapOfAsciiStringAsciiString::*)() const ) &Resource_DataMapOfAsciiStringAsciiString::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("Exchange", (void (Resource_DataMapOfAsciiStringAsciiString::*)(Resource_DataMapOfAsciiStringAsciiString &)) &Resource_DataMapOfAsciiStringAsciiString::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("Assign", (Resource_DataMapOfAsciiStringAsciiString & (Resource_DataMapOfAsciiStringAsciiString::*)(const Resource_DataMapOfAsciiStringAsciiString &)) &Resource_DataMapOfAsciiStringAsciiString::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("assign", (Resource_DataMapOfAsciiStringAsciiString & (Resource_DataMapOfAsciiStringAsciiString::*)(const Resource_DataMapOfAsciiStringAsciiString &)) &Resource_DataMapOfAsciiStringAsciiString::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("ReSize", (void (Resource_DataMapOfAsciiStringAsciiString::*)(const Standard_Integer)) &Resource_DataMapOfAsciiStringAsciiString::ReSize, "ReSize", py::arg("N"));
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("Bind", (Standard_Boolean (Resource_DataMapOfAsciiStringAsciiString::*)(const TCollection_AsciiString &, const TCollection_AsciiString &)) &Resource_DataMapOfAsciiStringAsciiString::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_Resource_DataMapOfAsciiStringAsciiString.def("Bound", (TCollection_AsciiString * (Resource_DataMapOfAsciiStringAsciiString::*)(const TCollection_AsciiString &, const TCollection_AsciiString &)) &Resource_DataMapOfAsciiStringAsciiString::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("IsBound", (Standard_Boolean (Resource_DataMapOfAsciiStringAsciiString::*)(const TCollection_AsciiString &) const ) &Resource_DataMapOfAsciiStringAsciiString::IsBound, "IsBound", py::arg("theKey"));
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("UnBind", (Standard_Boolean (Resource_DataMapOfAsciiStringAsciiString::*)(const TCollection_AsciiString &)) &Resource_DataMapOfAsciiStringAsciiString::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_Resource_DataMapOfAsciiStringAsciiString.def("Seek", (const TCollection_AsciiString * (Resource_DataMapOfAsciiStringAsciiString::*)(const TCollection_AsciiString &) const ) &Resource_DataMapOfAsciiStringAsciiString::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_Resource_DataMapOfAsciiStringAsciiString.def("Find", (const TCollection_AsciiString & (Resource_DataMapOfAsciiStringAsciiString::*)(const TCollection_AsciiString &) const ) &Resource_DataMapOfAsciiStringAsciiString::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_Resource_DataMapOfAsciiStringAsciiString.def("Find", (Standard_Boolean (Resource_DataMapOfAsciiStringAsciiString::*)(const TCollection_AsciiString &, TCollection_AsciiString &) const ) &Resource_DataMapOfAsciiStringAsciiString::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("__call__", (const TCollection_AsciiString & (Resource_DataMapOfAsciiStringAsciiString::*)(const TCollection_AsciiString &) const ) &Resource_DataMapOfAsciiStringAsciiString::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_Resource_DataMapOfAsciiStringAsciiString.def("ChangeSeek", (TCollection_AsciiString * (Resource_DataMapOfAsciiStringAsciiString::*)(const TCollection_AsciiString &)) &Resource_DataMapOfAsciiStringAsciiString::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("ChangeFind", (TCollection_AsciiString & (Resource_DataMapOfAsciiStringAsciiString::*)(const TCollection_AsciiString &)) &Resource_DataMapOfAsciiStringAsciiString::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("__call__", (TCollection_AsciiString & (Resource_DataMapOfAsciiStringAsciiString::*)(const TCollection_AsciiString &)) &Resource_DataMapOfAsciiStringAsciiString::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("Clear", [](Resource_DataMapOfAsciiStringAsciiString &self) -> void { return self.Clear(); });
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("Clear", (void (Resource_DataMapOfAsciiStringAsciiString::*)(const Standard_Boolean)) &Resource_DataMapOfAsciiStringAsciiString::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("Clear", (void (Resource_DataMapOfAsciiStringAsciiString::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Resource_DataMapOfAsciiStringAsciiString::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("Size", (Standard_Integer (Resource_DataMapOfAsciiStringAsciiString::*)() const ) &Resource_DataMapOfAsciiStringAsciiString::Size, "Size");
-	cls_Resource_DataMapOfAsciiStringAsciiString.def("__iter__", [](const Resource_DataMapOfAsciiStringAsciiString &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Resource_DataMapOfAsciiStringAsciiString.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<Resource_DataMapOfAsciiStringExtendedString, std::unique_ptr<Resource_DataMapOfAsciiStringExtendedString, Deleter<Resource_DataMapOfAsciiStringExtendedString>>, NCollection_BaseMap> cls_Resource_DataMapOfAsciiStringExtendedString(mod, "Resource_DataMapOfAsciiStringExtendedString", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_Resource_DataMapOfAsciiStringExtendedString.def(py::init<>());
-	cls_Resource_DataMapOfAsciiStringExtendedString.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_Resource_DataMapOfAsciiStringExtendedString.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_Resource_DataMapOfAsciiStringExtendedString.def(py::init([] (const Resource_DataMapOfAsciiStringExtendedString &other) {return new Resource_DataMapOfAsciiStringExtendedString(other);}), "Copy constructor", py::arg("other"));
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("begin", (Resource_DataMapOfAsciiStringExtendedString::iterator (Resource_DataMapOfAsciiStringExtendedString::*)() const ) &Resource_DataMapOfAsciiStringExtendedString::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("end", (Resource_DataMapOfAsciiStringExtendedString::iterator (Resource_DataMapOfAsciiStringExtendedString::*)() const ) &Resource_DataMapOfAsciiStringExtendedString::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("cbegin", (Resource_DataMapOfAsciiStringExtendedString::const_iterator (Resource_DataMapOfAsciiStringExtendedString::*)() const ) &Resource_DataMapOfAsciiStringExtendedString::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("cend", (Resource_DataMapOfAsciiStringExtendedString::const_iterator (Resource_DataMapOfAsciiStringExtendedString::*)() const ) &Resource_DataMapOfAsciiStringExtendedString::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("Exchange", (void (Resource_DataMapOfAsciiStringExtendedString::*)(Resource_DataMapOfAsciiStringExtendedString &)) &Resource_DataMapOfAsciiStringExtendedString::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("Assign", (Resource_DataMapOfAsciiStringExtendedString & (Resource_DataMapOfAsciiStringExtendedString::*)(const Resource_DataMapOfAsciiStringExtendedString &)) &Resource_DataMapOfAsciiStringExtendedString::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("assign", (Resource_DataMapOfAsciiStringExtendedString & (Resource_DataMapOfAsciiStringExtendedString::*)(const Resource_DataMapOfAsciiStringExtendedString &)) &Resource_DataMapOfAsciiStringExtendedString::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("ReSize", (void (Resource_DataMapOfAsciiStringExtendedString::*)(const Standard_Integer)) &Resource_DataMapOfAsciiStringExtendedString::ReSize, "ReSize", py::arg("N"));
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("Bind", (Standard_Boolean (Resource_DataMapOfAsciiStringExtendedString::*)(const TCollection_AsciiString &, const TCollection_ExtendedString &)) &Resource_DataMapOfAsciiStringExtendedString::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_Resource_DataMapOfAsciiStringExtendedString.def("Bound", (TCollection_ExtendedString * (Resource_DataMapOfAsciiStringExtendedString::*)(const TCollection_AsciiString &, const TCollection_ExtendedString &)) &Resource_DataMapOfAsciiStringExtendedString::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("IsBound", (Standard_Boolean (Resource_DataMapOfAsciiStringExtendedString::*)(const TCollection_AsciiString &) const ) &Resource_DataMapOfAsciiStringExtendedString::IsBound, "IsBound", py::arg("theKey"));
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("UnBind", (Standard_Boolean (Resource_DataMapOfAsciiStringExtendedString::*)(const TCollection_AsciiString &)) &Resource_DataMapOfAsciiStringExtendedString::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_Resource_DataMapOfAsciiStringExtendedString.def("Seek", (const TCollection_ExtendedString * (Resource_DataMapOfAsciiStringExtendedString::*)(const TCollection_AsciiString &) const ) &Resource_DataMapOfAsciiStringExtendedString::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_Resource_DataMapOfAsciiStringExtendedString.def("Find", (const TCollection_ExtendedString & (Resource_DataMapOfAsciiStringExtendedString::*)(const TCollection_AsciiString &) const ) &Resource_DataMapOfAsciiStringExtendedString::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_Resource_DataMapOfAsciiStringExtendedString.def("Find", (Standard_Boolean (Resource_DataMapOfAsciiStringExtendedString::*)(const TCollection_AsciiString &, TCollection_ExtendedString &) const ) &Resource_DataMapOfAsciiStringExtendedString::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("__call__", (const TCollection_ExtendedString & (Resource_DataMapOfAsciiStringExtendedString::*)(const TCollection_AsciiString &) const ) &Resource_DataMapOfAsciiStringExtendedString::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_Resource_DataMapOfAsciiStringExtendedString.def("ChangeSeek", (TCollection_ExtendedString * (Resource_DataMapOfAsciiStringExtendedString::*)(const TCollection_AsciiString &)) &Resource_DataMapOfAsciiStringExtendedString::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("ChangeFind", (TCollection_ExtendedString & (Resource_DataMapOfAsciiStringExtendedString::*)(const TCollection_AsciiString &)) &Resource_DataMapOfAsciiStringExtendedString::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("__call__", (TCollection_ExtendedString & (Resource_DataMapOfAsciiStringExtendedString::*)(const TCollection_AsciiString &)) &Resource_DataMapOfAsciiStringExtendedString::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("Clear", [](Resource_DataMapOfAsciiStringExtendedString &self) -> void { return self.Clear(); });
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("Clear", (void (Resource_DataMapOfAsciiStringExtendedString::*)(const Standard_Boolean)) &Resource_DataMapOfAsciiStringExtendedString::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("Clear", (void (Resource_DataMapOfAsciiStringExtendedString::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Resource_DataMapOfAsciiStringExtendedString::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("Size", (Standard_Integer (Resource_DataMapOfAsciiStringExtendedString::*)() const ) &Resource_DataMapOfAsciiStringExtendedString::Size, "Size");
-	cls_Resource_DataMapOfAsciiStringExtendedString.def("__iter__", [](const Resource_DataMapOfAsciiStringExtendedString &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TCollection_AsciiString, TCollection_AsciiString, TCollection_AsciiString>(mod, "Resource_DataMapOfAsciiStringAsciiString");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Resource_DataMapOfAsciiStringExtendedString.hxx
+	bind_NCollection_DataMap<TCollection_AsciiString, TCollection_ExtendedString, TCollection_AsciiString>(mod, "Resource_DataMapOfAsciiStringExtendedString");
+
+	/* FIXME
+
+	*/
+
 
 }

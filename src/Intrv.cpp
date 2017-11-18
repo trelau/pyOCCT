@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Intrv_Position.hxx>
 #include <Standard_TypeDef.hxx>
@@ -18,6 +9,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_Sequence.hxx>
 #include <Intrv_SequenceOfInterval.hxx>
 #include <Intrv_Intervals.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Intrv, mod) {
 
@@ -101,50 +93,8 @@ PYBIND11_MODULE(Intrv, mod) {
 	cls_Intrv_Intervals.def("NbIntervals", (Standard_Integer (Intrv_Intervals::*)() const ) &Intrv_Intervals::NbIntervals, "None");
 	cls_Intrv_Intervals.def("Value", (const Intrv_Interval & (Intrv_Intervals::*)(const Standard_Integer) const ) &Intrv_Intervals::Value, "None", py::arg("Index"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Intrv_SequenceOfInterval, std::unique_ptr<Intrv_SequenceOfInterval, Deleter<Intrv_SequenceOfInterval>>, NCollection_BaseSequence> cls_Intrv_SequenceOfInterval(mod, "Intrv_SequenceOfInterval", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Intrv_SequenceOfInterval.def(py::init<>());
-	cls_Intrv_SequenceOfInterval.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Intrv_SequenceOfInterval.def(py::init([] (const Intrv_SequenceOfInterval &other) {return new Intrv_SequenceOfInterval(other);}), "Copy constructor", py::arg("other"));
-	cls_Intrv_SequenceOfInterval.def("begin", (Intrv_SequenceOfInterval::iterator (Intrv_SequenceOfInterval::*)() const ) &Intrv_SequenceOfInterval::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Intrv_SequenceOfInterval.def("end", (Intrv_SequenceOfInterval::iterator (Intrv_SequenceOfInterval::*)() const ) &Intrv_SequenceOfInterval::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Intrv_SequenceOfInterval.def("cbegin", (Intrv_SequenceOfInterval::const_iterator (Intrv_SequenceOfInterval::*)() const ) &Intrv_SequenceOfInterval::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Intrv_SequenceOfInterval.def("cend", (Intrv_SequenceOfInterval::const_iterator (Intrv_SequenceOfInterval::*)() const ) &Intrv_SequenceOfInterval::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Intrv_SequenceOfInterval.def("Size", (Standard_Integer (Intrv_SequenceOfInterval::*)() const ) &Intrv_SequenceOfInterval::Size, "Number of items");
-	cls_Intrv_SequenceOfInterval.def("Length", (Standard_Integer (Intrv_SequenceOfInterval::*)() const ) &Intrv_SequenceOfInterval::Length, "Number of items");
-	cls_Intrv_SequenceOfInterval.def("Lower", (Standard_Integer (Intrv_SequenceOfInterval::*)() const ) &Intrv_SequenceOfInterval::Lower, "Method for consistency with other collections.");
-	cls_Intrv_SequenceOfInterval.def("Upper", (Standard_Integer (Intrv_SequenceOfInterval::*)() const ) &Intrv_SequenceOfInterval::Upper, "Method for consistency with other collections.");
-	cls_Intrv_SequenceOfInterval.def("IsEmpty", (Standard_Boolean (Intrv_SequenceOfInterval::*)() const ) &Intrv_SequenceOfInterval::IsEmpty, "Empty query");
-	cls_Intrv_SequenceOfInterval.def("Reverse", (void (Intrv_SequenceOfInterval::*)()) &Intrv_SequenceOfInterval::Reverse, "Reverse sequence");
-	cls_Intrv_SequenceOfInterval.def("Exchange", (void (Intrv_SequenceOfInterval::*)(const Standard_Integer, const Standard_Integer)) &Intrv_SequenceOfInterval::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Intrv_SequenceOfInterval.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Intrv_SequenceOfInterval::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Intrv_SequenceOfInterval.def("Clear", [](Intrv_SequenceOfInterval &self) -> void { return self.Clear(); });
-	cls_Intrv_SequenceOfInterval.def("Clear", (void (Intrv_SequenceOfInterval::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Intrv_SequenceOfInterval::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Intrv_SequenceOfInterval.def("Assign", (Intrv_SequenceOfInterval & (Intrv_SequenceOfInterval::*)(const Intrv_SequenceOfInterval &)) &Intrv_SequenceOfInterval::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Intrv_SequenceOfInterval.def("assign", (Intrv_SequenceOfInterval & (Intrv_SequenceOfInterval::*)(const Intrv_SequenceOfInterval &)) &Intrv_SequenceOfInterval::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Intrv_SequenceOfInterval.def("Remove", (void (Intrv_SequenceOfInterval::*)(Intrv_SequenceOfInterval::Iterator &)) &Intrv_SequenceOfInterval::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Intrv_SequenceOfInterval.def("Remove", (void (Intrv_SequenceOfInterval::*)(const Standard_Integer)) &Intrv_SequenceOfInterval::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Intrv_SequenceOfInterval.def("Remove", (void (Intrv_SequenceOfInterval::*)(const Standard_Integer, const Standard_Integer)) &Intrv_SequenceOfInterval::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Intrv_SequenceOfInterval.def("Append", (void (Intrv_SequenceOfInterval::*)(const Intrv_Interval &)) &Intrv_SequenceOfInterval::Append, "Append one item", py::arg("theItem"));
-	cls_Intrv_SequenceOfInterval.def("Append", (void (Intrv_SequenceOfInterval::*)(Intrv_SequenceOfInterval &)) &Intrv_SequenceOfInterval::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Intrv_SequenceOfInterval.def("Prepend", (void (Intrv_SequenceOfInterval::*)(const Intrv_Interval &)) &Intrv_SequenceOfInterval::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Intrv_SequenceOfInterval.def("Prepend", (void (Intrv_SequenceOfInterval::*)(Intrv_SequenceOfInterval &)) &Intrv_SequenceOfInterval::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Intrv_SequenceOfInterval.def("InsertBefore", (void (Intrv_SequenceOfInterval::*)(const Standard_Integer, const Intrv_Interval &)) &Intrv_SequenceOfInterval::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Intrv_SequenceOfInterval.def("InsertBefore", (void (Intrv_SequenceOfInterval::*)(const Standard_Integer, Intrv_SequenceOfInterval &)) &Intrv_SequenceOfInterval::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Intrv_SequenceOfInterval.def("InsertAfter", (void (Intrv_SequenceOfInterval::*)(Intrv_SequenceOfInterval::Iterator &, const Intrv_Interval &)) &Intrv_SequenceOfInterval::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Intrv_SequenceOfInterval.def("InsertAfter", (void (Intrv_SequenceOfInterval::*)(const Standard_Integer, Intrv_SequenceOfInterval &)) &Intrv_SequenceOfInterval::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Intrv_SequenceOfInterval.def("InsertAfter", (void (Intrv_SequenceOfInterval::*)(const Standard_Integer, const Intrv_Interval &)) &Intrv_SequenceOfInterval::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Intrv_SequenceOfInterval.def("Split", (void (Intrv_SequenceOfInterval::*)(const Standard_Integer, Intrv_SequenceOfInterval &)) &Intrv_SequenceOfInterval::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Intrv_SequenceOfInterval.def("First", (const Intrv_Interval & (Intrv_SequenceOfInterval::*)() const ) &Intrv_SequenceOfInterval::First, "First item access");
-	cls_Intrv_SequenceOfInterval.def("ChangeFirst", (Intrv_Interval & (Intrv_SequenceOfInterval::*)()) &Intrv_SequenceOfInterval::ChangeFirst, "First item access");
-	cls_Intrv_SequenceOfInterval.def("Last", (const Intrv_Interval & (Intrv_SequenceOfInterval::*)() const ) &Intrv_SequenceOfInterval::Last, "Last item access");
-	cls_Intrv_SequenceOfInterval.def("ChangeLast", (Intrv_Interval & (Intrv_SequenceOfInterval::*)()) &Intrv_SequenceOfInterval::ChangeLast, "Last item access");
-	cls_Intrv_SequenceOfInterval.def("Value", (const Intrv_Interval & (Intrv_SequenceOfInterval::*)(const Standard_Integer) const ) &Intrv_SequenceOfInterval::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Intrv_SequenceOfInterval.def("__call__", (const Intrv_Interval & (Intrv_SequenceOfInterval::*)(const Standard_Integer) const ) &Intrv_SequenceOfInterval::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Intrv_SequenceOfInterval.def("ChangeValue", (Intrv_Interval & (Intrv_SequenceOfInterval::*)(const Standard_Integer)) &Intrv_SequenceOfInterval::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Intrv_SequenceOfInterval.def("__call__", (Intrv_Interval & (Intrv_SequenceOfInterval::*)(const Standard_Integer)) &Intrv_SequenceOfInterval::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Intrv_SequenceOfInterval.def("SetValue", (void (Intrv_SequenceOfInterval::*)(const Standard_Integer, const Intrv_Interval &)) &Intrv_SequenceOfInterval::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Intrv_SequenceOfInterval.def("__iter__", [](const Intrv_SequenceOfInterval &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Intrv_SequenceOfInterval.hxx
+	bind_NCollection_Sequence<Intrv_Interval>(mod, "Intrv_SequenceOfInterval");
 
 
 }

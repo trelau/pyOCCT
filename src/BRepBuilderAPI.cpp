@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_TypeDef.hxx>
 #include <BRepBuilderAPI_Command.hxx>
@@ -89,6 +80,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <BRepBuilderAPI_PipeError.hxx>
 #include <BRepBuilderAPI_ShapeModification.hxx>
 #include <BRepBuilderAPI_TransitionMode.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BRepBuilderAPI, mod) {
 
@@ -578,60 +570,18 @@ PYBIND11_MODULE(BRepBuilderAPI, mod) {
 		.value("FS_Exception", BRepBuilderAPI_FastSewing::FS_Statuses::FS_Exception)
 		.export_values();
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepBuilderAPI_BndBoxTreeSelector.hxx
 	other_mod = py::module::import("OCCT.BOPCol");
 	if (py::hasattr(other_mod, "BOPCol_BoxBndTree")) {
 		mod.attr("BRepBuilderAPI_BndBoxTree") = other_mod.attr("BOPCol_BoxBndTree");
 	}
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vector.hxx
-	py::class_<VectorOfPoint, std::unique_ptr<VectorOfPoint, Deleter<VectorOfPoint>>, NCollection_BaseVector> cls_VectorOfPoint(mod, "VectorOfPoint", "Class NCollection_Vector (dynamic array of objects)");
-	cls_VectorOfPoint.def(py::init<>());
-	cls_VectorOfPoint.def(py::init<const Standard_Integer>(), py::arg("theIncrement"));
-	cls_VectorOfPoint.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theIncrement"), py::arg("theAlloc"));
-	cls_VectorOfPoint.def(py::init([] (const VectorOfPoint &other) {return new VectorOfPoint(other);}), "Copy constructor", py::arg("other"));
-	cls_VectorOfPoint.def("begin", (VectorOfPoint::iterator (VectorOfPoint::*)() const ) &VectorOfPoint::begin, "Returns an iterator pointing to the first element in the vector.");
-	cls_VectorOfPoint.def("end", (VectorOfPoint::iterator (VectorOfPoint::*)() const ) &VectorOfPoint::end, "Returns an iterator referring to the past-the-end element in the vector.");
-	cls_VectorOfPoint.def("cbegin", (VectorOfPoint::const_iterator (VectorOfPoint::*)() const ) &VectorOfPoint::cbegin, "Returns a const iterator pointing to the first element in the vector.");
-	cls_VectorOfPoint.def("cend", (VectorOfPoint::const_iterator (VectorOfPoint::*)() const ) &VectorOfPoint::cend, "Returns a const iterator referring to the past-the-end element in the vector.");
-	cls_VectorOfPoint.def("Length", (Standard_Integer (VectorOfPoint::*)() const ) &VectorOfPoint::Length, "Total number of items");
-	cls_VectorOfPoint.def("Size", (Standard_Integer (VectorOfPoint::*)() const ) &VectorOfPoint::Size, "Total number of items in the vector");
-	cls_VectorOfPoint.def("Lower", (Standard_Integer (VectorOfPoint::*)() const ) &VectorOfPoint::Lower, "Method for consistency with other collections.");
-	cls_VectorOfPoint.def("Upper", (Standard_Integer (VectorOfPoint::*)() const ) &VectorOfPoint::Upper, "Method for consistency with other collections.");
-	cls_VectorOfPoint.def("IsEmpty", (Standard_Boolean (VectorOfPoint::*)() const ) &VectorOfPoint::IsEmpty, "Empty query");
-	cls_VectorOfPoint.def("Assign", [](VectorOfPoint &self, const VectorOfPoint & a0) -> void { return self.Assign(a0); }, py::arg("theOther"));
-	cls_VectorOfPoint.def("Assign", (void (VectorOfPoint::*)(const VectorOfPoint &, const Standard_Boolean)) &VectorOfPoint::Assign, "Assignment to the collection of the same type", py::arg("theOther"), py::arg("theOwnAllocator"));
-	cls_VectorOfPoint.def("assign", (VectorOfPoint & (VectorOfPoint::*)(const VectorOfPoint &)) &VectorOfPoint::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_VectorOfPoint.def("Append", (gp_XYZ & (VectorOfPoint::*)(const gp_XYZ &)) &VectorOfPoint::Append, "Append", py::arg("theValue"));
-	cls_VectorOfPoint.def("__call__", (const gp_XYZ & (VectorOfPoint::*)(const Standard_Integer) const ) &VectorOfPoint::operator(), py::is_operator(), "Operator() - query the const value", py::arg("theIndex"));
-	cls_VectorOfPoint.def("Value", (const gp_XYZ & (VectorOfPoint::*)(const Standard_Integer) const ) &VectorOfPoint::Value, "None", py::arg("theIndex"));
-	cls_VectorOfPoint.def("First", (const gp_XYZ & (VectorOfPoint::*)() const ) &VectorOfPoint::First, "Returns first element");
-	cls_VectorOfPoint.def("ChangeFirst", (gp_XYZ & (VectorOfPoint::*)()) &VectorOfPoint::ChangeFirst, "Returns first element");
-	cls_VectorOfPoint.def("Last", (const gp_XYZ & (VectorOfPoint::*)() const ) &VectorOfPoint::Last, "Returns last element");
-	cls_VectorOfPoint.def("ChangeLast", (gp_XYZ & (VectorOfPoint::*)()) &VectorOfPoint::ChangeLast, "Returns last element");
-	cls_VectorOfPoint.def("__call__", (gp_XYZ & (VectorOfPoint::*)(const Standard_Integer)) &VectorOfPoint::operator(), py::is_operator(), "Operator() - query the value", py::arg("theIndex"));
-	cls_VectorOfPoint.def("ChangeValue", (gp_XYZ & (VectorOfPoint::*)(const Standard_Integer)) &VectorOfPoint::ChangeValue, "None", py::arg("theIndex"));
-	cls_VectorOfPoint.def("SetValue", (gp_XYZ & (VectorOfPoint::*)(const Standard_Integer, const gp_XYZ &)) &VectorOfPoint::SetValue, "SetValue () - set or append a value", py::arg("theIndex"), py::arg("theValue"));
-	cls_VectorOfPoint.def("__iter__", [](const VectorOfPoint &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepBuilderAPI_VertexInspector.hxx
+	bind_NCollection_Vector<gp_XYZ>(mod, "VectorOfPoint");
 
 	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_CellFilter.hxx
-	py::class_<BRepBuilderAPI_CellFilter, std::unique_ptr<BRepBuilderAPI_CellFilter, Deleter<BRepBuilderAPI_CellFilter>>> cls_BRepBuilderAPI_CellFilter(mod, "BRepBuilderAPI_CellFilter", "A data structure for sorting geometric objects (called targets) in n-dimensional space into cells, with associated algorithm for fast checking of coincidence (overlapping, intersection, etc.) with other objects (called here bullets).");
-	cls_BRepBuilderAPI_CellFilter.def(py::init<const Standard_Integer>(), py::arg("theDim"));
-	cls_BRepBuilderAPI_CellFilter.def(py::init<const Standard_Integer, const Standard_Real>(), py::arg("theDim"), py::arg("theCellSize"));
-	cls_BRepBuilderAPI_CellFilter.def(py::init<const Standard_Integer, const Standard_Real, const opencascade::handle<NCollection_IncAllocator> &>(), py::arg("theDim"), py::arg("theCellSize"), py::arg("theAlloc"));
-	cls_BRepBuilderAPI_CellFilter.def(py::init<>());
-	cls_BRepBuilderAPI_CellFilter.def(py::init<const Standard_Real>(), py::arg("theCellSize"));
-	cls_BRepBuilderAPI_CellFilter.def(py::init<const Standard_Real, const opencascade::handle<NCollection_IncAllocator> &>(), py::arg("theCellSize"), py::arg("theAlloc"));
-	cls_BRepBuilderAPI_CellFilter.def("Reset", [](BRepBuilderAPI_CellFilter &self, Standard_Real a0) -> void { return self.Reset(a0); }, py::arg("theCellSize"));
-	cls_BRepBuilderAPI_CellFilter.def("Reset", (void (BRepBuilderAPI_CellFilter::*)(Standard_Real, const opencascade::handle<NCollection_IncAllocator> &)) &BRepBuilderAPI_CellFilter::Reset, "Clear the data structures, set new cell size and allocator", py::arg("theCellSize"), py::arg("theAlloc"));
-	cls_BRepBuilderAPI_CellFilter.def("Reset", [](BRepBuilderAPI_CellFilter &self, NCollection_Array1<Standard_Real> & a0) -> void { return self.Reset(a0); }, py::arg("theCellSize"));
-	cls_BRepBuilderAPI_CellFilter.def("Reset", (void (BRepBuilderAPI_CellFilter::*)(NCollection_Array1<Standard_Real> &, const opencascade::handle<NCollection_IncAllocator> &)) &BRepBuilderAPI_CellFilter::Reset, "Clear the data structures and set new cell sizes and allocator", py::arg("theCellSize"), py::arg("theAlloc"));
-	cls_BRepBuilderAPI_CellFilter.def("Add", (void (BRepBuilderAPI_CellFilter::*)(const BRepBuilderAPI_CellFilter::Target &, const BRepBuilderAPI_CellFilter::Point &)) &BRepBuilderAPI_CellFilter::Add, "Adds a target object for further search at a point (into only one cell)", py::arg("theTarget"), py::arg("thePnt"));
-	cls_BRepBuilderAPI_CellFilter.def("Add", (void (BRepBuilderAPI_CellFilter::*)(const BRepBuilderAPI_CellFilter::Target &, const BRepBuilderAPI_CellFilter::Point &, const BRepBuilderAPI_CellFilter::Point &)) &BRepBuilderAPI_CellFilter::Add, "Adds a target object for further search in the range of cells defined by two points (the first point must have all co-ordinates equal or less than the same co-ordinate of the second point)", py::arg("theTarget"), py::arg("thePntMin"), py::arg("thePntMax"));
-	cls_BRepBuilderAPI_CellFilter.def("Remove", (void (BRepBuilderAPI_CellFilter::*)(const BRepBuilderAPI_CellFilter::Target &, const BRepBuilderAPI_CellFilter::Point &)) &BRepBuilderAPI_CellFilter::Remove, "Find a target object at a point and remove it from the structures. For usage of this method 'operator ==' should be defined for Target.", py::arg("theTarget"), py::arg("thePnt"));
-	cls_BRepBuilderAPI_CellFilter.def("Remove", (void (BRepBuilderAPI_CellFilter::*)(const BRepBuilderAPI_CellFilter::Target &, const BRepBuilderAPI_CellFilter::Point &, const BRepBuilderAPI_CellFilter::Point &)) &BRepBuilderAPI_CellFilter::Remove, "Find a target object in the range of cells defined by two points and remove it from the structures (the first point must have all co-ordinates equal or less than the same co-ordinate of the second point). For usage of this method 'operator ==' should be defined for Target.", py::arg("theTarget"), py::arg("thePntMin"), py::arg("thePntMax"));
-	cls_BRepBuilderAPI_CellFilter.def("Inspect", (void (BRepBuilderAPI_CellFilter::*)(const BRepBuilderAPI_CellFilter::Point &, BRepBuilderAPI_VertexInspector &)) &BRepBuilderAPI_CellFilter::Inspect, "Inspect all targets in the cell corresponding to the given point", py::arg("thePnt"), py::arg("theInspector"));
-	cls_BRepBuilderAPI_CellFilter.def("Inspect", (void (BRepBuilderAPI_CellFilter::*)(const BRepBuilderAPI_CellFilter::Point &, const BRepBuilderAPI_CellFilter::Point &, BRepBuilderAPI_VertexInspector &)) &BRepBuilderAPI_CellFilter::Inspect, "Inspect all targets in the cells range limited by two given points (the first point must have all co-ordinates equal or less than the same co-ordinate of the second point)", py::arg("thePntMin"), py::arg("thePntMax"), py::arg("theInspector"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepBuilderAPI_CellFilter.hxx
+	bind_NCollection_CellFilter<BRepBuilderAPI_VertexInspector>(mod, "BRepBuilderAPI_CellFilter");
 
 	*/
 

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_TypeDef.hxx>
 #include <Standard_Handle.hxx>
@@ -45,6 +36,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <AdvApp2Var_Data.hxx>
 #include <AdvApp2Var_MathBase.hxx>
 #include <AdvApp2Var_SysBase.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(AdvApp2Var, mod) {
 
@@ -407,210 +399,48 @@ PYBIND11_MODULE(AdvApp2Var, mod) {
 	cls_AdvApp2Var_SysBase.def_static("mswrdbg__", (int (*)(const char *, ftnlen)) &AdvApp2Var_SysBase::mswrdbg_, "None", py::arg("ctexte"), py::arg("ctexte_len"));
 	cls_AdvApp2Var_SysBase.def_static("mvriraz__", (void (*)(integer *, void *)) &AdvApp2Var_SysBase::mvriraz_, "None", py::arg("taille"), py::arg("adt"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<AdvApp2Var_SequenceOfPatch, std::unique_ptr<AdvApp2Var_SequenceOfPatch, Deleter<AdvApp2Var_SequenceOfPatch>>, NCollection_BaseSequence> cls_AdvApp2Var_SequenceOfPatch(mod, "AdvApp2Var_SequenceOfPatch", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_AdvApp2Var_SequenceOfPatch.def(py::init<>());
-	cls_AdvApp2Var_SequenceOfPatch.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_AdvApp2Var_SequenceOfPatch.def(py::init([] (const AdvApp2Var_SequenceOfPatch &other) {return new AdvApp2Var_SequenceOfPatch(other);}), "Copy constructor", py::arg("other"));
-	cls_AdvApp2Var_SequenceOfPatch.def("begin", (AdvApp2Var_SequenceOfPatch::iterator (AdvApp2Var_SequenceOfPatch::*)() const ) &AdvApp2Var_SequenceOfPatch::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_AdvApp2Var_SequenceOfPatch.def("end", (AdvApp2Var_SequenceOfPatch::iterator (AdvApp2Var_SequenceOfPatch::*)() const ) &AdvApp2Var_SequenceOfPatch::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_AdvApp2Var_SequenceOfPatch.def("cbegin", (AdvApp2Var_SequenceOfPatch::const_iterator (AdvApp2Var_SequenceOfPatch::*)() const ) &AdvApp2Var_SequenceOfPatch::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_AdvApp2Var_SequenceOfPatch.def("cend", (AdvApp2Var_SequenceOfPatch::const_iterator (AdvApp2Var_SequenceOfPatch::*)() const ) &AdvApp2Var_SequenceOfPatch::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_AdvApp2Var_SequenceOfPatch.def("Size", (Standard_Integer (AdvApp2Var_SequenceOfPatch::*)() const ) &AdvApp2Var_SequenceOfPatch::Size, "Number of items");
-	cls_AdvApp2Var_SequenceOfPatch.def("Length", (Standard_Integer (AdvApp2Var_SequenceOfPatch::*)() const ) &AdvApp2Var_SequenceOfPatch::Length, "Number of items");
-	cls_AdvApp2Var_SequenceOfPatch.def("Lower", (Standard_Integer (AdvApp2Var_SequenceOfPatch::*)() const ) &AdvApp2Var_SequenceOfPatch::Lower, "Method for consistency with other collections.");
-	cls_AdvApp2Var_SequenceOfPatch.def("Upper", (Standard_Integer (AdvApp2Var_SequenceOfPatch::*)() const ) &AdvApp2Var_SequenceOfPatch::Upper, "Method for consistency with other collections.");
-	cls_AdvApp2Var_SequenceOfPatch.def("IsEmpty", (Standard_Boolean (AdvApp2Var_SequenceOfPatch::*)() const ) &AdvApp2Var_SequenceOfPatch::IsEmpty, "Empty query");
-	cls_AdvApp2Var_SequenceOfPatch.def("Reverse", (void (AdvApp2Var_SequenceOfPatch::*)()) &AdvApp2Var_SequenceOfPatch::Reverse, "Reverse sequence");
-	cls_AdvApp2Var_SequenceOfPatch.def("Exchange", (void (AdvApp2Var_SequenceOfPatch::*)(const Standard_Integer, const Standard_Integer)) &AdvApp2Var_SequenceOfPatch::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_AdvApp2Var_SequenceOfPatch.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &AdvApp2Var_SequenceOfPatch::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_AdvApp2Var_SequenceOfPatch.def("Clear", [](AdvApp2Var_SequenceOfPatch &self) -> void { return self.Clear(); });
-	cls_AdvApp2Var_SequenceOfPatch.def("Clear", (void (AdvApp2Var_SequenceOfPatch::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &AdvApp2Var_SequenceOfPatch::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_AdvApp2Var_SequenceOfPatch.def("Assign", (AdvApp2Var_SequenceOfPatch & (AdvApp2Var_SequenceOfPatch::*)(const AdvApp2Var_SequenceOfPatch &)) &AdvApp2Var_SequenceOfPatch::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_AdvApp2Var_SequenceOfPatch.def("assign", (AdvApp2Var_SequenceOfPatch & (AdvApp2Var_SequenceOfPatch::*)(const AdvApp2Var_SequenceOfPatch &)) &AdvApp2Var_SequenceOfPatch::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_AdvApp2Var_SequenceOfPatch.def("Remove", (void (AdvApp2Var_SequenceOfPatch::*)(AdvApp2Var_SequenceOfPatch::Iterator &)) &AdvApp2Var_SequenceOfPatch::Remove, "Remove one item", py::arg("thePosition"));
-	cls_AdvApp2Var_SequenceOfPatch.def("Remove", (void (AdvApp2Var_SequenceOfPatch::*)(const Standard_Integer)) &AdvApp2Var_SequenceOfPatch::Remove, "Remove one item", py::arg("theIndex"));
-	cls_AdvApp2Var_SequenceOfPatch.def("Remove", (void (AdvApp2Var_SequenceOfPatch::*)(const Standard_Integer, const Standard_Integer)) &AdvApp2Var_SequenceOfPatch::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_AdvApp2Var_SequenceOfPatch.def("Append", (void (AdvApp2Var_SequenceOfPatch::*)(const AdvApp2Var_Patch &)) &AdvApp2Var_SequenceOfPatch::Append, "Append one item", py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfPatch.def("Append", (void (AdvApp2Var_SequenceOfPatch::*)(AdvApp2Var_SequenceOfPatch &)) &AdvApp2Var_SequenceOfPatch::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_AdvApp2Var_SequenceOfPatch.def("Prepend", (void (AdvApp2Var_SequenceOfPatch::*)(const AdvApp2Var_Patch &)) &AdvApp2Var_SequenceOfPatch::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfPatch.def("Prepend", (void (AdvApp2Var_SequenceOfPatch::*)(AdvApp2Var_SequenceOfPatch &)) &AdvApp2Var_SequenceOfPatch::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_AdvApp2Var_SequenceOfPatch.def("InsertBefore", (void (AdvApp2Var_SequenceOfPatch::*)(const Standard_Integer, const AdvApp2Var_Patch &)) &AdvApp2Var_SequenceOfPatch::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfPatch.def("InsertBefore", (void (AdvApp2Var_SequenceOfPatch::*)(const Standard_Integer, AdvApp2Var_SequenceOfPatch &)) &AdvApp2Var_SequenceOfPatch::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AdvApp2Var_SequenceOfPatch.def("InsertAfter", (void (AdvApp2Var_SequenceOfPatch::*)(AdvApp2Var_SequenceOfPatch::Iterator &, const AdvApp2Var_Patch &)) &AdvApp2Var_SequenceOfPatch::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfPatch.def("InsertAfter", (void (AdvApp2Var_SequenceOfPatch::*)(const Standard_Integer, AdvApp2Var_SequenceOfPatch &)) &AdvApp2Var_SequenceOfPatch::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AdvApp2Var_SequenceOfPatch.def("InsertAfter", (void (AdvApp2Var_SequenceOfPatch::*)(const Standard_Integer, const AdvApp2Var_Patch &)) &AdvApp2Var_SequenceOfPatch::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfPatch.def("Split", (void (AdvApp2Var_SequenceOfPatch::*)(const Standard_Integer, AdvApp2Var_SequenceOfPatch &)) &AdvApp2Var_SequenceOfPatch::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AdvApp2Var_SequenceOfPatch.def("First", (const AdvApp2Var_Patch & (AdvApp2Var_SequenceOfPatch::*)() const ) &AdvApp2Var_SequenceOfPatch::First, "First item access");
-	cls_AdvApp2Var_SequenceOfPatch.def("ChangeFirst", (AdvApp2Var_Patch & (AdvApp2Var_SequenceOfPatch::*)()) &AdvApp2Var_SequenceOfPatch::ChangeFirst, "First item access");
-	cls_AdvApp2Var_SequenceOfPatch.def("Last", (const AdvApp2Var_Patch & (AdvApp2Var_SequenceOfPatch::*)() const ) &AdvApp2Var_SequenceOfPatch::Last, "Last item access");
-	cls_AdvApp2Var_SequenceOfPatch.def("ChangeLast", (AdvApp2Var_Patch & (AdvApp2Var_SequenceOfPatch::*)()) &AdvApp2Var_SequenceOfPatch::ChangeLast, "Last item access");
-	cls_AdvApp2Var_SequenceOfPatch.def("Value", (const AdvApp2Var_Patch & (AdvApp2Var_SequenceOfPatch::*)(const Standard_Integer) const ) &AdvApp2Var_SequenceOfPatch::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_AdvApp2Var_SequenceOfPatch.def("__call__", (const AdvApp2Var_Patch & (AdvApp2Var_SequenceOfPatch::*)(const Standard_Integer) const ) &AdvApp2Var_SequenceOfPatch::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_AdvApp2Var_SequenceOfPatch.def("ChangeValue", (AdvApp2Var_Patch & (AdvApp2Var_SequenceOfPatch::*)(const Standard_Integer)) &AdvApp2Var_SequenceOfPatch::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_AdvApp2Var_SequenceOfPatch.def("__call__", (AdvApp2Var_Patch & (AdvApp2Var_SequenceOfPatch::*)(const Standard_Integer)) &AdvApp2Var_SequenceOfPatch::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_AdvApp2Var_SequenceOfPatch.def("SetValue", (void (AdvApp2Var_SequenceOfPatch::*)(const Standard_Integer, const AdvApp2Var_Patch &)) &AdvApp2Var_SequenceOfPatch::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfPatch.def("__iter__", [](const AdvApp2Var_SequenceOfPatch &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_SequenceOfPatch.hxx
+	bind_NCollection_Sequence<AdvApp2Var_Patch>(mod, "AdvApp2Var_SequenceOfPatch");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<AdvApp2Var_SequenceOfNode, std::unique_ptr<AdvApp2Var_SequenceOfNode, Deleter<AdvApp2Var_SequenceOfNode>>, NCollection_BaseSequence> cls_AdvApp2Var_SequenceOfNode(mod, "AdvApp2Var_SequenceOfNode", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_AdvApp2Var_SequenceOfNode.def(py::init<>());
-	cls_AdvApp2Var_SequenceOfNode.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_AdvApp2Var_SequenceOfNode.def(py::init([] (const AdvApp2Var_SequenceOfNode &other) {return new AdvApp2Var_SequenceOfNode(other);}), "Copy constructor", py::arg("other"));
-	cls_AdvApp2Var_SequenceOfNode.def("begin", (AdvApp2Var_SequenceOfNode::iterator (AdvApp2Var_SequenceOfNode::*)() const ) &AdvApp2Var_SequenceOfNode::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_AdvApp2Var_SequenceOfNode.def("end", (AdvApp2Var_SequenceOfNode::iterator (AdvApp2Var_SequenceOfNode::*)() const ) &AdvApp2Var_SequenceOfNode::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_AdvApp2Var_SequenceOfNode.def("cbegin", (AdvApp2Var_SequenceOfNode::const_iterator (AdvApp2Var_SequenceOfNode::*)() const ) &AdvApp2Var_SequenceOfNode::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_AdvApp2Var_SequenceOfNode.def("cend", (AdvApp2Var_SequenceOfNode::const_iterator (AdvApp2Var_SequenceOfNode::*)() const ) &AdvApp2Var_SequenceOfNode::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_AdvApp2Var_SequenceOfNode.def("Size", (Standard_Integer (AdvApp2Var_SequenceOfNode::*)() const ) &AdvApp2Var_SequenceOfNode::Size, "Number of items");
-	cls_AdvApp2Var_SequenceOfNode.def("Length", (Standard_Integer (AdvApp2Var_SequenceOfNode::*)() const ) &AdvApp2Var_SequenceOfNode::Length, "Number of items");
-	cls_AdvApp2Var_SequenceOfNode.def("Lower", (Standard_Integer (AdvApp2Var_SequenceOfNode::*)() const ) &AdvApp2Var_SequenceOfNode::Lower, "Method for consistency with other collections.");
-	cls_AdvApp2Var_SequenceOfNode.def("Upper", (Standard_Integer (AdvApp2Var_SequenceOfNode::*)() const ) &AdvApp2Var_SequenceOfNode::Upper, "Method for consistency with other collections.");
-	cls_AdvApp2Var_SequenceOfNode.def("IsEmpty", (Standard_Boolean (AdvApp2Var_SequenceOfNode::*)() const ) &AdvApp2Var_SequenceOfNode::IsEmpty, "Empty query");
-	cls_AdvApp2Var_SequenceOfNode.def("Reverse", (void (AdvApp2Var_SequenceOfNode::*)()) &AdvApp2Var_SequenceOfNode::Reverse, "Reverse sequence");
-	cls_AdvApp2Var_SequenceOfNode.def("Exchange", (void (AdvApp2Var_SequenceOfNode::*)(const Standard_Integer, const Standard_Integer)) &AdvApp2Var_SequenceOfNode::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_AdvApp2Var_SequenceOfNode.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &AdvApp2Var_SequenceOfNode::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_AdvApp2Var_SequenceOfNode.def("Clear", [](AdvApp2Var_SequenceOfNode &self) -> void { return self.Clear(); });
-	cls_AdvApp2Var_SequenceOfNode.def("Clear", (void (AdvApp2Var_SequenceOfNode::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &AdvApp2Var_SequenceOfNode::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_AdvApp2Var_SequenceOfNode.def("Assign", (AdvApp2Var_SequenceOfNode & (AdvApp2Var_SequenceOfNode::*)(const AdvApp2Var_SequenceOfNode &)) &AdvApp2Var_SequenceOfNode::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_AdvApp2Var_SequenceOfNode.def("assign", (AdvApp2Var_SequenceOfNode & (AdvApp2Var_SequenceOfNode::*)(const AdvApp2Var_SequenceOfNode &)) &AdvApp2Var_SequenceOfNode::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_AdvApp2Var_SequenceOfNode.def("Remove", (void (AdvApp2Var_SequenceOfNode::*)(AdvApp2Var_SequenceOfNode::Iterator &)) &AdvApp2Var_SequenceOfNode::Remove, "Remove one item", py::arg("thePosition"));
-	cls_AdvApp2Var_SequenceOfNode.def("Remove", (void (AdvApp2Var_SequenceOfNode::*)(const Standard_Integer)) &AdvApp2Var_SequenceOfNode::Remove, "Remove one item", py::arg("theIndex"));
-	cls_AdvApp2Var_SequenceOfNode.def("Remove", (void (AdvApp2Var_SequenceOfNode::*)(const Standard_Integer, const Standard_Integer)) &AdvApp2Var_SequenceOfNode::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_AdvApp2Var_SequenceOfNode.def("Append", (void (AdvApp2Var_SequenceOfNode::*)(const AdvApp2Var_Node &)) &AdvApp2Var_SequenceOfNode::Append, "Append one item", py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfNode.def("Append", (void (AdvApp2Var_SequenceOfNode::*)(AdvApp2Var_SequenceOfNode &)) &AdvApp2Var_SequenceOfNode::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_AdvApp2Var_SequenceOfNode.def("Prepend", (void (AdvApp2Var_SequenceOfNode::*)(const AdvApp2Var_Node &)) &AdvApp2Var_SequenceOfNode::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfNode.def("Prepend", (void (AdvApp2Var_SequenceOfNode::*)(AdvApp2Var_SequenceOfNode &)) &AdvApp2Var_SequenceOfNode::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_AdvApp2Var_SequenceOfNode.def("InsertBefore", (void (AdvApp2Var_SequenceOfNode::*)(const Standard_Integer, const AdvApp2Var_Node &)) &AdvApp2Var_SequenceOfNode::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfNode.def("InsertBefore", (void (AdvApp2Var_SequenceOfNode::*)(const Standard_Integer, AdvApp2Var_SequenceOfNode &)) &AdvApp2Var_SequenceOfNode::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AdvApp2Var_SequenceOfNode.def("InsertAfter", (void (AdvApp2Var_SequenceOfNode::*)(AdvApp2Var_SequenceOfNode::Iterator &, const AdvApp2Var_Node &)) &AdvApp2Var_SequenceOfNode::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfNode.def("InsertAfter", (void (AdvApp2Var_SequenceOfNode::*)(const Standard_Integer, AdvApp2Var_SequenceOfNode &)) &AdvApp2Var_SequenceOfNode::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AdvApp2Var_SequenceOfNode.def("InsertAfter", (void (AdvApp2Var_SequenceOfNode::*)(const Standard_Integer, const AdvApp2Var_Node &)) &AdvApp2Var_SequenceOfNode::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfNode.def("Split", (void (AdvApp2Var_SequenceOfNode::*)(const Standard_Integer, AdvApp2Var_SequenceOfNode &)) &AdvApp2Var_SequenceOfNode::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AdvApp2Var_SequenceOfNode.def("First", (const AdvApp2Var_Node & (AdvApp2Var_SequenceOfNode::*)() const ) &AdvApp2Var_SequenceOfNode::First, "First item access");
-	cls_AdvApp2Var_SequenceOfNode.def("ChangeFirst", (AdvApp2Var_Node & (AdvApp2Var_SequenceOfNode::*)()) &AdvApp2Var_SequenceOfNode::ChangeFirst, "First item access");
-	cls_AdvApp2Var_SequenceOfNode.def("Last", (const AdvApp2Var_Node & (AdvApp2Var_SequenceOfNode::*)() const ) &AdvApp2Var_SequenceOfNode::Last, "Last item access");
-	cls_AdvApp2Var_SequenceOfNode.def("ChangeLast", (AdvApp2Var_Node & (AdvApp2Var_SequenceOfNode::*)()) &AdvApp2Var_SequenceOfNode::ChangeLast, "Last item access");
-	cls_AdvApp2Var_SequenceOfNode.def("Value", (const AdvApp2Var_Node & (AdvApp2Var_SequenceOfNode::*)(const Standard_Integer) const ) &AdvApp2Var_SequenceOfNode::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_AdvApp2Var_SequenceOfNode.def("__call__", (const AdvApp2Var_Node & (AdvApp2Var_SequenceOfNode::*)(const Standard_Integer) const ) &AdvApp2Var_SequenceOfNode::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_AdvApp2Var_SequenceOfNode.def("ChangeValue", (AdvApp2Var_Node & (AdvApp2Var_SequenceOfNode::*)(const Standard_Integer)) &AdvApp2Var_SequenceOfNode::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_AdvApp2Var_SequenceOfNode.def("__call__", (AdvApp2Var_Node & (AdvApp2Var_SequenceOfNode::*)(const Standard_Integer)) &AdvApp2Var_SequenceOfNode::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_AdvApp2Var_SequenceOfNode.def("SetValue", (void (AdvApp2Var_SequenceOfNode::*)(const Standard_Integer, const AdvApp2Var_Node &)) &AdvApp2Var_SequenceOfNode::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfNode.def("__iter__", [](const AdvApp2Var_SequenceOfNode &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_SequenceOfNode.hxx
+	bind_NCollection_Sequence<AdvApp2Var_Node>(mod, "AdvApp2Var_SequenceOfNode");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<AdvApp2Var_Strip, std::unique_ptr<AdvApp2Var_Strip, Deleter<AdvApp2Var_Strip>>, NCollection_BaseSequence> cls_AdvApp2Var_Strip(mod, "AdvApp2Var_Strip", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_AdvApp2Var_Strip.def(py::init<>());
-	cls_AdvApp2Var_Strip.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_AdvApp2Var_Strip.def(py::init([] (const AdvApp2Var_Strip &other) {return new AdvApp2Var_Strip(other);}), "Copy constructor", py::arg("other"));
-	cls_AdvApp2Var_Strip.def("begin", (AdvApp2Var_Strip::iterator (AdvApp2Var_Strip::*)() const ) &AdvApp2Var_Strip::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_AdvApp2Var_Strip.def("end", (AdvApp2Var_Strip::iterator (AdvApp2Var_Strip::*)() const ) &AdvApp2Var_Strip::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_AdvApp2Var_Strip.def("cbegin", (AdvApp2Var_Strip::const_iterator (AdvApp2Var_Strip::*)() const ) &AdvApp2Var_Strip::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_AdvApp2Var_Strip.def("cend", (AdvApp2Var_Strip::const_iterator (AdvApp2Var_Strip::*)() const ) &AdvApp2Var_Strip::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_AdvApp2Var_Strip.def("Size", (Standard_Integer (AdvApp2Var_Strip::*)() const ) &AdvApp2Var_Strip::Size, "Number of items");
-	cls_AdvApp2Var_Strip.def("Length", (Standard_Integer (AdvApp2Var_Strip::*)() const ) &AdvApp2Var_Strip::Length, "Number of items");
-	cls_AdvApp2Var_Strip.def("Lower", (Standard_Integer (AdvApp2Var_Strip::*)() const ) &AdvApp2Var_Strip::Lower, "Method for consistency with other collections.");
-	cls_AdvApp2Var_Strip.def("Upper", (Standard_Integer (AdvApp2Var_Strip::*)() const ) &AdvApp2Var_Strip::Upper, "Method for consistency with other collections.");
-	cls_AdvApp2Var_Strip.def("IsEmpty", (Standard_Boolean (AdvApp2Var_Strip::*)() const ) &AdvApp2Var_Strip::IsEmpty, "Empty query");
-	cls_AdvApp2Var_Strip.def("Reverse", (void (AdvApp2Var_Strip::*)()) &AdvApp2Var_Strip::Reverse, "Reverse sequence");
-	cls_AdvApp2Var_Strip.def("Exchange", (void (AdvApp2Var_Strip::*)(const Standard_Integer, const Standard_Integer)) &AdvApp2Var_Strip::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_AdvApp2Var_Strip.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &AdvApp2Var_Strip::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_AdvApp2Var_Strip.def("Clear", [](AdvApp2Var_Strip &self) -> void { return self.Clear(); });
-	cls_AdvApp2Var_Strip.def("Clear", (void (AdvApp2Var_Strip::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &AdvApp2Var_Strip::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_AdvApp2Var_Strip.def("Assign", (AdvApp2Var_Strip & (AdvApp2Var_Strip::*)(const AdvApp2Var_Strip &)) &AdvApp2Var_Strip::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_AdvApp2Var_Strip.def("assign", (AdvApp2Var_Strip & (AdvApp2Var_Strip::*)(const AdvApp2Var_Strip &)) &AdvApp2Var_Strip::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_AdvApp2Var_Strip.def("Remove", (void (AdvApp2Var_Strip::*)(AdvApp2Var_Strip::Iterator &)) &AdvApp2Var_Strip::Remove, "Remove one item", py::arg("thePosition"));
-	cls_AdvApp2Var_Strip.def("Remove", (void (AdvApp2Var_Strip::*)(const Standard_Integer)) &AdvApp2Var_Strip::Remove, "Remove one item", py::arg("theIndex"));
-	cls_AdvApp2Var_Strip.def("Remove", (void (AdvApp2Var_Strip::*)(const Standard_Integer, const Standard_Integer)) &AdvApp2Var_Strip::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_AdvApp2Var_Strip.def("Append", (void (AdvApp2Var_Strip::*)(const AdvApp2Var_Iso &)) &AdvApp2Var_Strip::Append, "Append one item", py::arg("theItem"));
-	cls_AdvApp2Var_Strip.def("Append", (void (AdvApp2Var_Strip::*)(AdvApp2Var_Strip &)) &AdvApp2Var_Strip::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_AdvApp2Var_Strip.def("Prepend", (void (AdvApp2Var_Strip::*)(const AdvApp2Var_Iso &)) &AdvApp2Var_Strip::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_AdvApp2Var_Strip.def("Prepend", (void (AdvApp2Var_Strip::*)(AdvApp2Var_Strip &)) &AdvApp2Var_Strip::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_AdvApp2Var_Strip.def("InsertBefore", (void (AdvApp2Var_Strip::*)(const Standard_Integer, const AdvApp2Var_Iso &)) &AdvApp2Var_Strip::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_AdvApp2Var_Strip.def("InsertBefore", (void (AdvApp2Var_Strip::*)(const Standard_Integer, AdvApp2Var_Strip &)) &AdvApp2Var_Strip::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AdvApp2Var_Strip.def("InsertAfter", (void (AdvApp2Var_Strip::*)(AdvApp2Var_Strip::Iterator &, const AdvApp2Var_Iso &)) &AdvApp2Var_Strip::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_AdvApp2Var_Strip.def("InsertAfter", (void (AdvApp2Var_Strip::*)(const Standard_Integer, AdvApp2Var_Strip &)) &AdvApp2Var_Strip::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AdvApp2Var_Strip.def("InsertAfter", (void (AdvApp2Var_Strip::*)(const Standard_Integer, const AdvApp2Var_Iso &)) &AdvApp2Var_Strip::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_AdvApp2Var_Strip.def("Split", (void (AdvApp2Var_Strip::*)(const Standard_Integer, AdvApp2Var_Strip &)) &AdvApp2Var_Strip::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AdvApp2Var_Strip.def("First", (const AdvApp2Var_Iso & (AdvApp2Var_Strip::*)() const ) &AdvApp2Var_Strip::First, "First item access");
-	cls_AdvApp2Var_Strip.def("ChangeFirst", (AdvApp2Var_Iso & (AdvApp2Var_Strip::*)()) &AdvApp2Var_Strip::ChangeFirst, "First item access");
-	cls_AdvApp2Var_Strip.def("Last", (const AdvApp2Var_Iso & (AdvApp2Var_Strip::*)() const ) &AdvApp2Var_Strip::Last, "Last item access");
-	cls_AdvApp2Var_Strip.def("ChangeLast", (AdvApp2Var_Iso & (AdvApp2Var_Strip::*)()) &AdvApp2Var_Strip::ChangeLast, "Last item access");
-	cls_AdvApp2Var_Strip.def("Value", (const AdvApp2Var_Iso & (AdvApp2Var_Strip::*)(const Standard_Integer) const ) &AdvApp2Var_Strip::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_AdvApp2Var_Strip.def("__call__", (const AdvApp2Var_Iso & (AdvApp2Var_Strip::*)(const Standard_Integer) const ) &AdvApp2Var_Strip::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_AdvApp2Var_Strip.def("ChangeValue", (AdvApp2Var_Iso & (AdvApp2Var_Strip::*)(const Standard_Integer)) &AdvApp2Var_Strip::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_AdvApp2Var_Strip.def("__call__", (AdvApp2Var_Iso & (AdvApp2Var_Strip::*)(const Standard_Integer)) &AdvApp2Var_Strip::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_AdvApp2Var_Strip.def("SetValue", (void (AdvApp2Var_Strip::*)(const Standard_Integer, const AdvApp2Var_Iso &)) &AdvApp2Var_Strip::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_AdvApp2Var_Strip.def("__iter__", [](const AdvApp2Var_Strip &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Strip.hxx
+	bind_NCollection_Sequence<AdvApp2Var_Iso>(mod, "AdvApp2Var_Strip");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<AdvApp2Var_SequenceOfStrip, std::unique_ptr<AdvApp2Var_SequenceOfStrip, Deleter<AdvApp2Var_SequenceOfStrip>>, NCollection_BaseSequence> cls_AdvApp2Var_SequenceOfStrip(mod, "AdvApp2Var_SequenceOfStrip", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_AdvApp2Var_SequenceOfStrip.def(py::init<>());
-	cls_AdvApp2Var_SequenceOfStrip.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_AdvApp2Var_SequenceOfStrip.def(py::init([] (const AdvApp2Var_SequenceOfStrip &other) {return new AdvApp2Var_SequenceOfStrip(other);}), "Copy constructor", py::arg("other"));
-	cls_AdvApp2Var_SequenceOfStrip.def("begin", (AdvApp2Var_SequenceOfStrip::iterator (AdvApp2Var_SequenceOfStrip::*)() const ) &AdvApp2Var_SequenceOfStrip::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_AdvApp2Var_SequenceOfStrip.def("end", (AdvApp2Var_SequenceOfStrip::iterator (AdvApp2Var_SequenceOfStrip::*)() const ) &AdvApp2Var_SequenceOfStrip::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_AdvApp2Var_SequenceOfStrip.def("cbegin", (AdvApp2Var_SequenceOfStrip::const_iterator (AdvApp2Var_SequenceOfStrip::*)() const ) &AdvApp2Var_SequenceOfStrip::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_AdvApp2Var_SequenceOfStrip.def("cend", (AdvApp2Var_SequenceOfStrip::const_iterator (AdvApp2Var_SequenceOfStrip::*)() const ) &AdvApp2Var_SequenceOfStrip::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_AdvApp2Var_SequenceOfStrip.def("Size", (Standard_Integer (AdvApp2Var_SequenceOfStrip::*)() const ) &AdvApp2Var_SequenceOfStrip::Size, "Number of items");
-	cls_AdvApp2Var_SequenceOfStrip.def("Length", (Standard_Integer (AdvApp2Var_SequenceOfStrip::*)() const ) &AdvApp2Var_SequenceOfStrip::Length, "Number of items");
-	cls_AdvApp2Var_SequenceOfStrip.def("Lower", (Standard_Integer (AdvApp2Var_SequenceOfStrip::*)() const ) &AdvApp2Var_SequenceOfStrip::Lower, "Method for consistency with other collections.");
-	cls_AdvApp2Var_SequenceOfStrip.def("Upper", (Standard_Integer (AdvApp2Var_SequenceOfStrip::*)() const ) &AdvApp2Var_SequenceOfStrip::Upper, "Method for consistency with other collections.");
-	cls_AdvApp2Var_SequenceOfStrip.def("IsEmpty", (Standard_Boolean (AdvApp2Var_SequenceOfStrip::*)() const ) &AdvApp2Var_SequenceOfStrip::IsEmpty, "Empty query");
-	cls_AdvApp2Var_SequenceOfStrip.def("Reverse", (void (AdvApp2Var_SequenceOfStrip::*)()) &AdvApp2Var_SequenceOfStrip::Reverse, "Reverse sequence");
-	cls_AdvApp2Var_SequenceOfStrip.def("Exchange", (void (AdvApp2Var_SequenceOfStrip::*)(const Standard_Integer, const Standard_Integer)) &AdvApp2Var_SequenceOfStrip::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_AdvApp2Var_SequenceOfStrip.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &AdvApp2Var_SequenceOfStrip::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_AdvApp2Var_SequenceOfStrip.def("Clear", [](AdvApp2Var_SequenceOfStrip &self) -> void { return self.Clear(); });
-	cls_AdvApp2Var_SequenceOfStrip.def("Clear", (void (AdvApp2Var_SequenceOfStrip::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &AdvApp2Var_SequenceOfStrip::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_AdvApp2Var_SequenceOfStrip.def("Assign", (AdvApp2Var_SequenceOfStrip & (AdvApp2Var_SequenceOfStrip::*)(const AdvApp2Var_SequenceOfStrip &)) &AdvApp2Var_SequenceOfStrip::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_AdvApp2Var_SequenceOfStrip.def("assign", (AdvApp2Var_SequenceOfStrip & (AdvApp2Var_SequenceOfStrip::*)(const AdvApp2Var_SequenceOfStrip &)) &AdvApp2Var_SequenceOfStrip::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_AdvApp2Var_SequenceOfStrip.def("Remove", (void (AdvApp2Var_SequenceOfStrip::*)(AdvApp2Var_SequenceOfStrip::Iterator &)) &AdvApp2Var_SequenceOfStrip::Remove, "Remove one item", py::arg("thePosition"));
-	cls_AdvApp2Var_SequenceOfStrip.def("Remove", (void (AdvApp2Var_SequenceOfStrip::*)(const Standard_Integer)) &AdvApp2Var_SequenceOfStrip::Remove, "Remove one item", py::arg("theIndex"));
-	cls_AdvApp2Var_SequenceOfStrip.def("Remove", (void (AdvApp2Var_SequenceOfStrip::*)(const Standard_Integer, const Standard_Integer)) &AdvApp2Var_SequenceOfStrip::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_AdvApp2Var_SequenceOfStrip.def("Append", (void (AdvApp2Var_SequenceOfStrip::*)(const AdvApp2Var_Strip &)) &AdvApp2Var_SequenceOfStrip::Append, "Append one item", py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfStrip.def("Append", (void (AdvApp2Var_SequenceOfStrip::*)(AdvApp2Var_SequenceOfStrip &)) &AdvApp2Var_SequenceOfStrip::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_AdvApp2Var_SequenceOfStrip.def("Prepend", (void (AdvApp2Var_SequenceOfStrip::*)(const AdvApp2Var_Strip &)) &AdvApp2Var_SequenceOfStrip::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfStrip.def("Prepend", (void (AdvApp2Var_SequenceOfStrip::*)(AdvApp2Var_SequenceOfStrip &)) &AdvApp2Var_SequenceOfStrip::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_AdvApp2Var_SequenceOfStrip.def("InsertBefore", (void (AdvApp2Var_SequenceOfStrip::*)(const Standard_Integer, const AdvApp2Var_Strip &)) &AdvApp2Var_SequenceOfStrip::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfStrip.def("InsertBefore", (void (AdvApp2Var_SequenceOfStrip::*)(const Standard_Integer, AdvApp2Var_SequenceOfStrip &)) &AdvApp2Var_SequenceOfStrip::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AdvApp2Var_SequenceOfStrip.def("InsertAfter", (void (AdvApp2Var_SequenceOfStrip::*)(AdvApp2Var_SequenceOfStrip::Iterator &, const AdvApp2Var_Strip &)) &AdvApp2Var_SequenceOfStrip::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfStrip.def("InsertAfter", (void (AdvApp2Var_SequenceOfStrip::*)(const Standard_Integer, AdvApp2Var_SequenceOfStrip &)) &AdvApp2Var_SequenceOfStrip::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AdvApp2Var_SequenceOfStrip.def("InsertAfter", (void (AdvApp2Var_SequenceOfStrip::*)(const Standard_Integer, const AdvApp2Var_Strip &)) &AdvApp2Var_SequenceOfStrip::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfStrip.def("Split", (void (AdvApp2Var_SequenceOfStrip::*)(const Standard_Integer, AdvApp2Var_SequenceOfStrip &)) &AdvApp2Var_SequenceOfStrip::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AdvApp2Var_SequenceOfStrip.def("First", (const AdvApp2Var_Strip & (AdvApp2Var_SequenceOfStrip::*)() const ) &AdvApp2Var_SequenceOfStrip::First, "First item access");
-	cls_AdvApp2Var_SequenceOfStrip.def("ChangeFirst", (AdvApp2Var_Strip & (AdvApp2Var_SequenceOfStrip::*)()) &AdvApp2Var_SequenceOfStrip::ChangeFirst, "First item access");
-	cls_AdvApp2Var_SequenceOfStrip.def("Last", (const AdvApp2Var_Strip & (AdvApp2Var_SequenceOfStrip::*)() const ) &AdvApp2Var_SequenceOfStrip::Last, "Last item access");
-	cls_AdvApp2Var_SequenceOfStrip.def("ChangeLast", (AdvApp2Var_Strip & (AdvApp2Var_SequenceOfStrip::*)()) &AdvApp2Var_SequenceOfStrip::ChangeLast, "Last item access");
-	cls_AdvApp2Var_SequenceOfStrip.def("Value", (const AdvApp2Var_Strip & (AdvApp2Var_SequenceOfStrip::*)(const Standard_Integer) const ) &AdvApp2Var_SequenceOfStrip::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_AdvApp2Var_SequenceOfStrip.def("__call__", (const AdvApp2Var_Strip & (AdvApp2Var_SequenceOfStrip::*)(const Standard_Integer) const ) &AdvApp2Var_SequenceOfStrip::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_AdvApp2Var_SequenceOfStrip.def("ChangeValue", (AdvApp2Var_Strip & (AdvApp2Var_SequenceOfStrip::*)(const Standard_Integer)) &AdvApp2Var_SequenceOfStrip::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_AdvApp2Var_SequenceOfStrip.def("__call__", (AdvApp2Var_Strip & (AdvApp2Var_SequenceOfStrip::*)(const Standard_Integer)) &AdvApp2Var_SequenceOfStrip::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_AdvApp2Var_SequenceOfStrip.def("SetValue", (void (AdvApp2Var_SequenceOfStrip::*)(const Standard_Integer, const AdvApp2Var_Strip &)) &AdvApp2Var_SequenceOfStrip::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_AdvApp2Var_SequenceOfStrip.def("__iter__", [](const AdvApp2Var_SequenceOfStrip &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_SequenceOfStrip.hxx
+	bind_NCollection_Sequence<NCollection_Sequence<AdvApp2Var_Iso> >(mod, "AdvApp2Var_SequenceOfStrip");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	other_mod = py::module::import("OCCT.Standard");
 	if (py::hasattr(other_mod, "Standard_Integer")) {
 		mod.attr("integer") = other_mod.attr("Standard_Integer");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	other_mod = py::module::import("OCCT.Standard");
 	if (py::hasattr(other_mod, "Standard_Real")) {
 		mod.attr("doublereal") = other_mod.attr("Standard_Real");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	other_mod = py::module::import("OCCT.Standard");
 	if (py::hasattr(other_mod, "Standard_ThreadId")) {
 		mod.attr("uinteger") = other_mod.attr("Standard_ThreadId");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	other_mod = py::module::import("OCCT.Standard");
 	if (py::hasattr(other_mod, "Standard_PCharacter")) {
 		mod.attr("address") = other_mod.attr("Standard_PCharacter");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	if (py::hasattr(mod, "shortlogical")) {
 		mod.attr("shortint") = mod.attr("shortlogical");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	other_mod = py::module::import("OCCT.Standard");
 	if (py::hasattr(other_mod, "Standard_ShortReal")) {
 		mod.attr("real") = other_mod.attr("Standard_ShortReal");
@@ -618,10 +448,12 @@ PYBIND11_MODULE(AdvApp2Var, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	if (py::hasattr(mod, "ftnint")) {
 		mod.attr("logical") = mod.attr("ftnint");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	other_mod = py::module::import("OCCT.Standard");
 	if (py::hasattr(other_mod, "Standard_Utf8Char")) {
@@ -641,14 +473,17 @@ PYBIND11_MODULE(AdvApp2Var, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	if (py::hasattr(mod, "S_fp")) {
 		mod.attr("U_fp") = mod.attr("S_fp");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	if (py::hasattr(mod, "K_fp")) {
 		mod.attr("J_fp") = mod.attr("K_fp");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	if (py::hasattr(mod, "E_fp")) {
@@ -656,10 +491,12 @@ PYBIND11_MODULE(AdvApp2Var, mod) {
 	}
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	if (py::hasattr(mod, "H_fp")) {
 		mod.attr("C_fp") = mod.attr("H_fp");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Data_f2c.hxx

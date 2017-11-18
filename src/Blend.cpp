@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <gp_Pnt.hxx>
 #include <Standard_TypeDef.hxx>
@@ -42,6 +33,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Blend_SurfCurvFuncInv.hxx>
 #include <Blend_SurfPointFuncInv.hxx>
 #include <Blend_SurfRstFunction.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Blend, mod) {
 
@@ -348,50 +340,8 @@ PYBIND11_MODULE(Blend, mod) {
 	cls_Blend_SurfRstFunction.def("Section", (Standard_Boolean (Blend_SurfRstFunction::*)(const Blend_Point &, TColgp_Array1OfPnt &, TColgp_Array1OfVec &, TColgp_Array1OfVec &, TColgp_Array1OfPnt2d &, TColgp_Array1OfVec2d &, TColgp_Array1OfVec2d &, TColStd_Array1OfReal &, TColStd_Array1OfReal &, TColStd_Array1OfReal &)) &Blend_SurfRstFunction::Section, "Used for the first and last section The method returns Standard_True if the derivatives are computed, otherwise it returns Standard_False.", py::arg("P"), py::arg("Poles"), py::arg("DPoles"), py::arg("D2Poles"), py::arg("Poles2d"), py::arg("DPoles2d"), py::arg("D2Poles2d"), py::arg("Weigths"), py::arg("DWeigths"), py::arg("D2Weigths"));
 	cls_Blend_SurfRstFunction.def("Section", (void (Blend_SurfRstFunction::*)(const Blend_Point &, TColgp_Array1OfPnt &, TColgp_Array1OfPnt2d &, TColStd_Array1OfReal &)) &Blend_SurfRstFunction::Section, "None", py::arg("P"), py::arg("Poles"), py::arg("Poles2d"), py::arg("Weigths"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Blend_SequenceOfPoint, std::unique_ptr<Blend_SequenceOfPoint, Deleter<Blend_SequenceOfPoint>>, NCollection_BaseSequence> cls_Blend_SequenceOfPoint(mod, "Blend_SequenceOfPoint", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Blend_SequenceOfPoint.def(py::init<>());
-	cls_Blend_SequenceOfPoint.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Blend_SequenceOfPoint.def(py::init([] (const Blend_SequenceOfPoint &other) {return new Blend_SequenceOfPoint(other);}), "Copy constructor", py::arg("other"));
-	cls_Blend_SequenceOfPoint.def("begin", (Blend_SequenceOfPoint::iterator (Blend_SequenceOfPoint::*)() const ) &Blend_SequenceOfPoint::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Blend_SequenceOfPoint.def("end", (Blend_SequenceOfPoint::iterator (Blend_SequenceOfPoint::*)() const ) &Blend_SequenceOfPoint::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Blend_SequenceOfPoint.def("cbegin", (Blend_SequenceOfPoint::const_iterator (Blend_SequenceOfPoint::*)() const ) &Blend_SequenceOfPoint::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Blend_SequenceOfPoint.def("cend", (Blend_SequenceOfPoint::const_iterator (Blend_SequenceOfPoint::*)() const ) &Blend_SequenceOfPoint::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Blend_SequenceOfPoint.def("Size", (Standard_Integer (Blend_SequenceOfPoint::*)() const ) &Blend_SequenceOfPoint::Size, "Number of items");
-	cls_Blend_SequenceOfPoint.def("Length", (Standard_Integer (Blend_SequenceOfPoint::*)() const ) &Blend_SequenceOfPoint::Length, "Number of items");
-	cls_Blend_SequenceOfPoint.def("Lower", (Standard_Integer (Blend_SequenceOfPoint::*)() const ) &Blend_SequenceOfPoint::Lower, "Method for consistency with other collections.");
-	cls_Blend_SequenceOfPoint.def("Upper", (Standard_Integer (Blend_SequenceOfPoint::*)() const ) &Blend_SequenceOfPoint::Upper, "Method for consistency with other collections.");
-	cls_Blend_SequenceOfPoint.def("IsEmpty", (Standard_Boolean (Blend_SequenceOfPoint::*)() const ) &Blend_SequenceOfPoint::IsEmpty, "Empty query");
-	cls_Blend_SequenceOfPoint.def("Reverse", (void (Blend_SequenceOfPoint::*)()) &Blend_SequenceOfPoint::Reverse, "Reverse sequence");
-	cls_Blend_SequenceOfPoint.def("Exchange", (void (Blend_SequenceOfPoint::*)(const Standard_Integer, const Standard_Integer)) &Blend_SequenceOfPoint::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Blend_SequenceOfPoint.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Blend_SequenceOfPoint::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Blend_SequenceOfPoint.def("Clear", [](Blend_SequenceOfPoint &self) -> void { return self.Clear(); });
-	cls_Blend_SequenceOfPoint.def("Clear", (void (Blend_SequenceOfPoint::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Blend_SequenceOfPoint::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Blend_SequenceOfPoint.def("Assign", (Blend_SequenceOfPoint & (Blend_SequenceOfPoint::*)(const Blend_SequenceOfPoint &)) &Blend_SequenceOfPoint::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Blend_SequenceOfPoint.def("assign", (Blend_SequenceOfPoint & (Blend_SequenceOfPoint::*)(const Blend_SequenceOfPoint &)) &Blend_SequenceOfPoint::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Blend_SequenceOfPoint.def("Remove", (void (Blend_SequenceOfPoint::*)(Blend_SequenceOfPoint::Iterator &)) &Blend_SequenceOfPoint::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Blend_SequenceOfPoint.def("Remove", (void (Blend_SequenceOfPoint::*)(const Standard_Integer)) &Blend_SequenceOfPoint::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Blend_SequenceOfPoint.def("Remove", (void (Blend_SequenceOfPoint::*)(const Standard_Integer, const Standard_Integer)) &Blend_SequenceOfPoint::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Blend_SequenceOfPoint.def("Append", (void (Blend_SequenceOfPoint::*)(const Blend_Point &)) &Blend_SequenceOfPoint::Append, "Append one item", py::arg("theItem"));
-	cls_Blend_SequenceOfPoint.def("Append", (void (Blend_SequenceOfPoint::*)(Blend_SequenceOfPoint &)) &Blend_SequenceOfPoint::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Blend_SequenceOfPoint.def("Prepend", (void (Blend_SequenceOfPoint::*)(const Blend_Point &)) &Blend_SequenceOfPoint::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Blend_SequenceOfPoint.def("Prepend", (void (Blend_SequenceOfPoint::*)(Blend_SequenceOfPoint &)) &Blend_SequenceOfPoint::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Blend_SequenceOfPoint.def("InsertBefore", (void (Blend_SequenceOfPoint::*)(const Standard_Integer, const Blend_Point &)) &Blend_SequenceOfPoint::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Blend_SequenceOfPoint.def("InsertBefore", (void (Blend_SequenceOfPoint::*)(const Standard_Integer, Blend_SequenceOfPoint &)) &Blend_SequenceOfPoint::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Blend_SequenceOfPoint.def("InsertAfter", (void (Blend_SequenceOfPoint::*)(Blend_SequenceOfPoint::Iterator &, const Blend_Point &)) &Blend_SequenceOfPoint::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Blend_SequenceOfPoint.def("InsertAfter", (void (Blend_SequenceOfPoint::*)(const Standard_Integer, Blend_SequenceOfPoint &)) &Blend_SequenceOfPoint::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Blend_SequenceOfPoint.def("InsertAfter", (void (Blend_SequenceOfPoint::*)(const Standard_Integer, const Blend_Point &)) &Blend_SequenceOfPoint::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Blend_SequenceOfPoint.def("Split", (void (Blend_SequenceOfPoint::*)(const Standard_Integer, Blend_SequenceOfPoint &)) &Blend_SequenceOfPoint::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Blend_SequenceOfPoint.def("First", (const Blend_Point & (Blend_SequenceOfPoint::*)() const ) &Blend_SequenceOfPoint::First, "First item access");
-	cls_Blend_SequenceOfPoint.def("ChangeFirst", (Blend_Point & (Blend_SequenceOfPoint::*)()) &Blend_SequenceOfPoint::ChangeFirst, "First item access");
-	cls_Blend_SequenceOfPoint.def("Last", (const Blend_Point & (Blend_SequenceOfPoint::*)() const ) &Blend_SequenceOfPoint::Last, "Last item access");
-	cls_Blend_SequenceOfPoint.def("ChangeLast", (Blend_Point & (Blend_SequenceOfPoint::*)()) &Blend_SequenceOfPoint::ChangeLast, "Last item access");
-	cls_Blend_SequenceOfPoint.def("Value", (const Blend_Point & (Blend_SequenceOfPoint::*)(const Standard_Integer) const ) &Blend_SequenceOfPoint::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Blend_SequenceOfPoint.def("__call__", (const Blend_Point & (Blend_SequenceOfPoint::*)(const Standard_Integer) const ) &Blend_SequenceOfPoint::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Blend_SequenceOfPoint.def("ChangeValue", (Blend_Point & (Blend_SequenceOfPoint::*)(const Standard_Integer)) &Blend_SequenceOfPoint::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Blend_SequenceOfPoint.def("__call__", (Blend_Point & (Blend_SequenceOfPoint::*)(const Standard_Integer)) &Blend_SequenceOfPoint::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Blend_SequenceOfPoint.def("SetValue", (void (Blend_SequenceOfPoint::*)(const Standard_Integer, const Blend_Point &)) &Blend_SequenceOfPoint::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Blend_SequenceOfPoint.def("__iter__", [](const Blend_SequenceOfPoint &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Blend_SequenceOfPoint.hxx
+	bind_NCollection_Sequence<Blend_Point>(mod, "Blend_SequenceOfPoint");
 
 
 }

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Contap_TFunction.hxx>
 #include <math_FunctionWithDerivative.hxx>
@@ -78,6 +69,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <IntSurf_SequenceOfPathPoint.hxx>
 #include <IntSurf_SequenceOfInteriorPoint.hxx>
 #include <Contap_TheIWalking.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Contap, mod) {
 
@@ -176,50 +168,8 @@ PYBIND11_MODULE(Contap, mod) {
 	cls_Contap_Point.def("IsMultiple", (Standard_Boolean (Contap_Point::*)() const ) &Contap_Point::IsMultiple, "Returns True if the point belongs to several lines.");
 	cls_Contap_Point.def("IsInternal", (Standard_Boolean (Contap_Point::*)() const ) &Contap_Point::IsInternal, "Returns True if the point is an internal one, i.e if the tangent to the line on the point and the eye direction are parallel.");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Contap_TheSequenceOfPoint, std::unique_ptr<Contap_TheSequenceOfPoint, Deleter<Contap_TheSequenceOfPoint>>, NCollection_BaseSequence> cls_Contap_TheSequenceOfPoint(mod, "Contap_TheSequenceOfPoint", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Contap_TheSequenceOfPoint.def(py::init<>());
-	cls_Contap_TheSequenceOfPoint.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Contap_TheSequenceOfPoint.def(py::init([] (const Contap_TheSequenceOfPoint &other) {return new Contap_TheSequenceOfPoint(other);}), "Copy constructor", py::arg("other"));
-	cls_Contap_TheSequenceOfPoint.def("begin", (Contap_TheSequenceOfPoint::iterator (Contap_TheSequenceOfPoint::*)() const ) &Contap_TheSequenceOfPoint::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Contap_TheSequenceOfPoint.def("end", (Contap_TheSequenceOfPoint::iterator (Contap_TheSequenceOfPoint::*)() const ) &Contap_TheSequenceOfPoint::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Contap_TheSequenceOfPoint.def("cbegin", (Contap_TheSequenceOfPoint::const_iterator (Contap_TheSequenceOfPoint::*)() const ) &Contap_TheSequenceOfPoint::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Contap_TheSequenceOfPoint.def("cend", (Contap_TheSequenceOfPoint::const_iterator (Contap_TheSequenceOfPoint::*)() const ) &Contap_TheSequenceOfPoint::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Contap_TheSequenceOfPoint.def("Size", (Standard_Integer (Contap_TheSequenceOfPoint::*)() const ) &Contap_TheSequenceOfPoint::Size, "Number of items");
-	cls_Contap_TheSequenceOfPoint.def("Length", (Standard_Integer (Contap_TheSequenceOfPoint::*)() const ) &Contap_TheSequenceOfPoint::Length, "Number of items");
-	cls_Contap_TheSequenceOfPoint.def("Lower", (Standard_Integer (Contap_TheSequenceOfPoint::*)() const ) &Contap_TheSequenceOfPoint::Lower, "Method for consistency with other collections.");
-	cls_Contap_TheSequenceOfPoint.def("Upper", (Standard_Integer (Contap_TheSequenceOfPoint::*)() const ) &Contap_TheSequenceOfPoint::Upper, "Method for consistency with other collections.");
-	cls_Contap_TheSequenceOfPoint.def("IsEmpty", (Standard_Boolean (Contap_TheSequenceOfPoint::*)() const ) &Contap_TheSequenceOfPoint::IsEmpty, "Empty query");
-	cls_Contap_TheSequenceOfPoint.def("Reverse", (void (Contap_TheSequenceOfPoint::*)()) &Contap_TheSequenceOfPoint::Reverse, "Reverse sequence");
-	cls_Contap_TheSequenceOfPoint.def("Exchange", (void (Contap_TheSequenceOfPoint::*)(const Standard_Integer, const Standard_Integer)) &Contap_TheSequenceOfPoint::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Contap_TheSequenceOfPoint.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Contap_TheSequenceOfPoint::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Contap_TheSequenceOfPoint.def("Clear", [](Contap_TheSequenceOfPoint &self) -> void { return self.Clear(); });
-	cls_Contap_TheSequenceOfPoint.def("Clear", (void (Contap_TheSequenceOfPoint::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Contap_TheSequenceOfPoint::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Contap_TheSequenceOfPoint.def("Assign", (Contap_TheSequenceOfPoint & (Contap_TheSequenceOfPoint::*)(const Contap_TheSequenceOfPoint &)) &Contap_TheSequenceOfPoint::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Contap_TheSequenceOfPoint.def("assign", (Contap_TheSequenceOfPoint & (Contap_TheSequenceOfPoint::*)(const Contap_TheSequenceOfPoint &)) &Contap_TheSequenceOfPoint::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Contap_TheSequenceOfPoint.def("Remove", (void (Contap_TheSequenceOfPoint::*)(Contap_TheSequenceOfPoint::Iterator &)) &Contap_TheSequenceOfPoint::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Contap_TheSequenceOfPoint.def("Remove", (void (Contap_TheSequenceOfPoint::*)(const Standard_Integer)) &Contap_TheSequenceOfPoint::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Contap_TheSequenceOfPoint.def("Remove", (void (Contap_TheSequenceOfPoint::*)(const Standard_Integer, const Standard_Integer)) &Contap_TheSequenceOfPoint::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Contap_TheSequenceOfPoint.def("Append", (void (Contap_TheSequenceOfPoint::*)(const Contap_Point &)) &Contap_TheSequenceOfPoint::Append, "Append one item", py::arg("theItem"));
-	cls_Contap_TheSequenceOfPoint.def("Append", (void (Contap_TheSequenceOfPoint::*)(Contap_TheSequenceOfPoint &)) &Contap_TheSequenceOfPoint::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Contap_TheSequenceOfPoint.def("Prepend", (void (Contap_TheSequenceOfPoint::*)(const Contap_Point &)) &Contap_TheSequenceOfPoint::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Contap_TheSequenceOfPoint.def("Prepend", (void (Contap_TheSequenceOfPoint::*)(Contap_TheSequenceOfPoint &)) &Contap_TheSequenceOfPoint::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Contap_TheSequenceOfPoint.def("InsertBefore", (void (Contap_TheSequenceOfPoint::*)(const Standard_Integer, const Contap_Point &)) &Contap_TheSequenceOfPoint::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Contap_TheSequenceOfPoint.def("InsertBefore", (void (Contap_TheSequenceOfPoint::*)(const Standard_Integer, Contap_TheSequenceOfPoint &)) &Contap_TheSequenceOfPoint::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Contap_TheSequenceOfPoint.def("InsertAfter", (void (Contap_TheSequenceOfPoint::*)(Contap_TheSequenceOfPoint::Iterator &, const Contap_Point &)) &Contap_TheSequenceOfPoint::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Contap_TheSequenceOfPoint.def("InsertAfter", (void (Contap_TheSequenceOfPoint::*)(const Standard_Integer, Contap_TheSequenceOfPoint &)) &Contap_TheSequenceOfPoint::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Contap_TheSequenceOfPoint.def("InsertAfter", (void (Contap_TheSequenceOfPoint::*)(const Standard_Integer, const Contap_Point &)) &Contap_TheSequenceOfPoint::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Contap_TheSequenceOfPoint.def("Split", (void (Contap_TheSequenceOfPoint::*)(const Standard_Integer, Contap_TheSequenceOfPoint &)) &Contap_TheSequenceOfPoint::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Contap_TheSequenceOfPoint.def("First", (const Contap_Point & (Contap_TheSequenceOfPoint::*)() const ) &Contap_TheSequenceOfPoint::First, "First item access");
-	cls_Contap_TheSequenceOfPoint.def("ChangeFirst", (Contap_Point & (Contap_TheSequenceOfPoint::*)()) &Contap_TheSequenceOfPoint::ChangeFirst, "First item access");
-	cls_Contap_TheSequenceOfPoint.def("Last", (const Contap_Point & (Contap_TheSequenceOfPoint::*)() const ) &Contap_TheSequenceOfPoint::Last, "Last item access");
-	cls_Contap_TheSequenceOfPoint.def("ChangeLast", (Contap_Point & (Contap_TheSequenceOfPoint::*)()) &Contap_TheSequenceOfPoint::ChangeLast, "Last item access");
-	cls_Contap_TheSequenceOfPoint.def("Value", (const Contap_Point & (Contap_TheSequenceOfPoint::*)(const Standard_Integer) const ) &Contap_TheSequenceOfPoint::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Contap_TheSequenceOfPoint.def("__call__", (const Contap_Point & (Contap_TheSequenceOfPoint::*)(const Standard_Integer) const ) &Contap_TheSequenceOfPoint::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Contap_TheSequenceOfPoint.def("ChangeValue", (Contap_Point & (Contap_TheSequenceOfPoint::*)(const Standard_Integer)) &Contap_TheSequenceOfPoint::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Contap_TheSequenceOfPoint.def("__call__", (Contap_Point & (Contap_TheSequenceOfPoint::*)(const Standard_Integer)) &Contap_TheSequenceOfPoint::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Contap_TheSequenceOfPoint.def("SetValue", (void (Contap_TheSequenceOfPoint::*)(const Standard_Integer, const Contap_Point &)) &Contap_TheSequenceOfPoint::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Contap_TheSequenceOfPoint.def("__iter__", [](const Contap_TheSequenceOfPoint &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Contap_TheSequenceOfPoint.hxx
+	bind_NCollection_Sequence<Contap_Point>(mod, "Contap_TheSequenceOfPoint");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Contap_Line.hxx
 	py::class_<Contap_Line, std::unique_ptr<Contap_Line, Deleter<Contap_Line>>> cls_Contap_Line(mod, "Contap_Line", "None");
@@ -458,185 +408,17 @@ PYBIND11_MODULE(Contap, mod) {
 	cls_Contap_TheHSequenceOfPoint.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Contap_TheHSequenceOfPoint::get_type_descriptor, "None");
 	cls_Contap_TheHSequenceOfPoint.def("DynamicType", (const opencascade::handle<Standard_Type> & (Contap_TheHSequenceOfPoint::*)() const ) &Contap_TheHSequenceOfPoint::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Contap_TheSequenceOfLine, std::unique_ptr<Contap_TheSequenceOfLine, Deleter<Contap_TheSequenceOfLine>>, NCollection_BaseSequence> cls_Contap_TheSequenceOfLine(mod, "Contap_TheSequenceOfLine", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Contap_TheSequenceOfLine.def(py::init<>());
-	cls_Contap_TheSequenceOfLine.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Contap_TheSequenceOfLine.def(py::init([] (const Contap_TheSequenceOfLine &other) {return new Contap_TheSequenceOfLine(other);}), "Copy constructor", py::arg("other"));
-	cls_Contap_TheSequenceOfLine.def("begin", (Contap_TheSequenceOfLine::iterator (Contap_TheSequenceOfLine::*)() const ) &Contap_TheSequenceOfLine::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Contap_TheSequenceOfLine.def("end", (Contap_TheSequenceOfLine::iterator (Contap_TheSequenceOfLine::*)() const ) &Contap_TheSequenceOfLine::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Contap_TheSequenceOfLine.def("cbegin", (Contap_TheSequenceOfLine::const_iterator (Contap_TheSequenceOfLine::*)() const ) &Contap_TheSequenceOfLine::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Contap_TheSequenceOfLine.def("cend", (Contap_TheSequenceOfLine::const_iterator (Contap_TheSequenceOfLine::*)() const ) &Contap_TheSequenceOfLine::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Contap_TheSequenceOfLine.def("Size", (Standard_Integer (Contap_TheSequenceOfLine::*)() const ) &Contap_TheSequenceOfLine::Size, "Number of items");
-	cls_Contap_TheSequenceOfLine.def("Length", (Standard_Integer (Contap_TheSequenceOfLine::*)() const ) &Contap_TheSequenceOfLine::Length, "Number of items");
-	cls_Contap_TheSequenceOfLine.def("Lower", (Standard_Integer (Contap_TheSequenceOfLine::*)() const ) &Contap_TheSequenceOfLine::Lower, "Method for consistency with other collections.");
-	cls_Contap_TheSequenceOfLine.def("Upper", (Standard_Integer (Contap_TheSequenceOfLine::*)() const ) &Contap_TheSequenceOfLine::Upper, "Method for consistency with other collections.");
-	cls_Contap_TheSequenceOfLine.def("IsEmpty", (Standard_Boolean (Contap_TheSequenceOfLine::*)() const ) &Contap_TheSequenceOfLine::IsEmpty, "Empty query");
-	cls_Contap_TheSequenceOfLine.def("Reverse", (void (Contap_TheSequenceOfLine::*)()) &Contap_TheSequenceOfLine::Reverse, "Reverse sequence");
-	cls_Contap_TheSequenceOfLine.def("Exchange", (void (Contap_TheSequenceOfLine::*)(const Standard_Integer, const Standard_Integer)) &Contap_TheSequenceOfLine::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Contap_TheSequenceOfLine.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Contap_TheSequenceOfLine::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Contap_TheSequenceOfLine.def("Clear", [](Contap_TheSequenceOfLine &self) -> void { return self.Clear(); });
-	cls_Contap_TheSequenceOfLine.def("Clear", (void (Contap_TheSequenceOfLine::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Contap_TheSequenceOfLine::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Contap_TheSequenceOfLine.def("Assign", (Contap_TheSequenceOfLine & (Contap_TheSequenceOfLine::*)(const Contap_TheSequenceOfLine &)) &Contap_TheSequenceOfLine::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Contap_TheSequenceOfLine.def("assign", (Contap_TheSequenceOfLine & (Contap_TheSequenceOfLine::*)(const Contap_TheSequenceOfLine &)) &Contap_TheSequenceOfLine::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Contap_TheSequenceOfLine.def("Remove", (void (Contap_TheSequenceOfLine::*)(Contap_TheSequenceOfLine::Iterator &)) &Contap_TheSequenceOfLine::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Contap_TheSequenceOfLine.def("Remove", (void (Contap_TheSequenceOfLine::*)(const Standard_Integer)) &Contap_TheSequenceOfLine::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Contap_TheSequenceOfLine.def("Remove", (void (Contap_TheSequenceOfLine::*)(const Standard_Integer, const Standard_Integer)) &Contap_TheSequenceOfLine::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Contap_TheSequenceOfLine.def("Append", (void (Contap_TheSequenceOfLine::*)(const Contap_Line &)) &Contap_TheSequenceOfLine::Append, "Append one item", py::arg("theItem"));
-	cls_Contap_TheSequenceOfLine.def("Append", (void (Contap_TheSequenceOfLine::*)(Contap_TheSequenceOfLine &)) &Contap_TheSequenceOfLine::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Contap_TheSequenceOfLine.def("Prepend", (void (Contap_TheSequenceOfLine::*)(const Contap_Line &)) &Contap_TheSequenceOfLine::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Contap_TheSequenceOfLine.def("Prepend", (void (Contap_TheSequenceOfLine::*)(Contap_TheSequenceOfLine &)) &Contap_TheSequenceOfLine::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Contap_TheSequenceOfLine.def("InsertBefore", (void (Contap_TheSequenceOfLine::*)(const Standard_Integer, const Contap_Line &)) &Contap_TheSequenceOfLine::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Contap_TheSequenceOfLine.def("InsertBefore", (void (Contap_TheSequenceOfLine::*)(const Standard_Integer, Contap_TheSequenceOfLine &)) &Contap_TheSequenceOfLine::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Contap_TheSequenceOfLine.def("InsertAfter", (void (Contap_TheSequenceOfLine::*)(Contap_TheSequenceOfLine::Iterator &, const Contap_Line &)) &Contap_TheSequenceOfLine::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Contap_TheSequenceOfLine.def("InsertAfter", (void (Contap_TheSequenceOfLine::*)(const Standard_Integer, Contap_TheSequenceOfLine &)) &Contap_TheSequenceOfLine::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Contap_TheSequenceOfLine.def("InsertAfter", (void (Contap_TheSequenceOfLine::*)(const Standard_Integer, const Contap_Line &)) &Contap_TheSequenceOfLine::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Contap_TheSequenceOfLine.def("Split", (void (Contap_TheSequenceOfLine::*)(const Standard_Integer, Contap_TheSequenceOfLine &)) &Contap_TheSequenceOfLine::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Contap_TheSequenceOfLine.def("First", (const Contap_Line & (Contap_TheSequenceOfLine::*)() const ) &Contap_TheSequenceOfLine::First, "First item access");
-	cls_Contap_TheSequenceOfLine.def("ChangeFirst", (Contap_Line & (Contap_TheSequenceOfLine::*)()) &Contap_TheSequenceOfLine::ChangeFirst, "First item access");
-	cls_Contap_TheSequenceOfLine.def("Last", (const Contap_Line & (Contap_TheSequenceOfLine::*)() const ) &Contap_TheSequenceOfLine::Last, "Last item access");
-	cls_Contap_TheSequenceOfLine.def("ChangeLast", (Contap_Line & (Contap_TheSequenceOfLine::*)()) &Contap_TheSequenceOfLine::ChangeLast, "Last item access");
-	cls_Contap_TheSequenceOfLine.def("Value", (const Contap_Line & (Contap_TheSequenceOfLine::*)(const Standard_Integer) const ) &Contap_TheSequenceOfLine::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Contap_TheSequenceOfLine.def("__call__", (const Contap_Line & (Contap_TheSequenceOfLine::*)(const Standard_Integer) const ) &Contap_TheSequenceOfLine::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Contap_TheSequenceOfLine.def("ChangeValue", (Contap_Line & (Contap_TheSequenceOfLine::*)(const Standard_Integer)) &Contap_TheSequenceOfLine::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Contap_TheSequenceOfLine.def("__call__", (Contap_Line & (Contap_TheSequenceOfLine::*)(const Standard_Integer)) &Contap_TheSequenceOfLine::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Contap_TheSequenceOfLine.def("SetValue", (void (Contap_TheSequenceOfLine::*)(const Standard_Integer, const Contap_Line &)) &Contap_TheSequenceOfLine::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Contap_TheSequenceOfLine.def("__iter__", [](const Contap_TheSequenceOfLine &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Contap_TheSequenceOfLine.hxx
+	bind_NCollection_Sequence<Contap_Line>(mod, "Contap_TheSequenceOfLine");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Contap_SequenceOfSegmentOfTheSearch, std::unique_ptr<Contap_SequenceOfSegmentOfTheSearch, Deleter<Contap_SequenceOfSegmentOfTheSearch>>, NCollection_BaseSequence> cls_Contap_SequenceOfSegmentOfTheSearch(mod, "Contap_SequenceOfSegmentOfTheSearch", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Contap_SequenceOfSegmentOfTheSearch.def(py::init<>());
-	cls_Contap_SequenceOfSegmentOfTheSearch.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def(py::init([] (const Contap_SequenceOfSegmentOfTheSearch &other) {return new Contap_SequenceOfSegmentOfTheSearch(other);}), "Copy constructor", py::arg("other"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("begin", (Contap_SequenceOfSegmentOfTheSearch::iterator (Contap_SequenceOfSegmentOfTheSearch::*)() const ) &Contap_SequenceOfSegmentOfTheSearch::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("end", (Contap_SequenceOfSegmentOfTheSearch::iterator (Contap_SequenceOfSegmentOfTheSearch::*)() const ) &Contap_SequenceOfSegmentOfTheSearch::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("cbegin", (Contap_SequenceOfSegmentOfTheSearch::const_iterator (Contap_SequenceOfSegmentOfTheSearch::*)() const ) &Contap_SequenceOfSegmentOfTheSearch::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("cend", (Contap_SequenceOfSegmentOfTheSearch::const_iterator (Contap_SequenceOfSegmentOfTheSearch::*)() const ) &Contap_SequenceOfSegmentOfTheSearch::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Size", (Standard_Integer (Contap_SequenceOfSegmentOfTheSearch::*)() const ) &Contap_SequenceOfSegmentOfTheSearch::Size, "Number of items");
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Length", (Standard_Integer (Contap_SequenceOfSegmentOfTheSearch::*)() const ) &Contap_SequenceOfSegmentOfTheSearch::Length, "Number of items");
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Lower", (Standard_Integer (Contap_SequenceOfSegmentOfTheSearch::*)() const ) &Contap_SequenceOfSegmentOfTheSearch::Lower, "Method for consistency with other collections.");
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Upper", (Standard_Integer (Contap_SequenceOfSegmentOfTheSearch::*)() const ) &Contap_SequenceOfSegmentOfTheSearch::Upper, "Method for consistency with other collections.");
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("IsEmpty", (Standard_Boolean (Contap_SequenceOfSegmentOfTheSearch::*)() const ) &Contap_SequenceOfSegmentOfTheSearch::IsEmpty, "Empty query");
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Reverse", (void (Contap_SequenceOfSegmentOfTheSearch::*)()) &Contap_SequenceOfSegmentOfTheSearch::Reverse, "Reverse sequence");
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Exchange", (void (Contap_SequenceOfSegmentOfTheSearch::*)(const Standard_Integer, const Standard_Integer)) &Contap_SequenceOfSegmentOfTheSearch::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Contap_SequenceOfSegmentOfTheSearch::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Clear", [](Contap_SequenceOfSegmentOfTheSearch &self) -> void { return self.Clear(); });
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Clear", (void (Contap_SequenceOfSegmentOfTheSearch::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Contap_SequenceOfSegmentOfTheSearch::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Assign", (Contap_SequenceOfSegmentOfTheSearch & (Contap_SequenceOfSegmentOfTheSearch::*)(const Contap_SequenceOfSegmentOfTheSearch &)) &Contap_SequenceOfSegmentOfTheSearch::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("assign", (Contap_SequenceOfSegmentOfTheSearch & (Contap_SequenceOfSegmentOfTheSearch::*)(const Contap_SequenceOfSegmentOfTheSearch &)) &Contap_SequenceOfSegmentOfTheSearch::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Remove", (void (Contap_SequenceOfSegmentOfTheSearch::*)(Contap_SequenceOfSegmentOfTheSearch::Iterator &)) &Contap_SequenceOfSegmentOfTheSearch::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Remove", (void (Contap_SequenceOfSegmentOfTheSearch::*)(const Standard_Integer)) &Contap_SequenceOfSegmentOfTheSearch::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Remove", (void (Contap_SequenceOfSegmentOfTheSearch::*)(const Standard_Integer, const Standard_Integer)) &Contap_SequenceOfSegmentOfTheSearch::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Append", (void (Contap_SequenceOfSegmentOfTheSearch::*)(const Contap_TheSegmentOfTheSearch &)) &Contap_SequenceOfSegmentOfTheSearch::Append, "Append one item", py::arg("theItem"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Append", (void (Contap_SequenceOfSegmentOfTheSearch::*)(Contap_SequenceOfSegmentOfTheSearch &)) &Contap_SequenceOfSegmentOfTheSearch::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Prepend", (void (Contap_SequenceOfSegmentOfTheSearch::*)(const Contap_TheSegmentOfTheSearch &)) &Contap_SequenceOfSegmentOfTheSearch::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Prepend", (void (Contap_SequenceOfSegmentOfTheSearch::*)(Contap_SequenceOfSegmentOfTheSearch &)) &Contap_SequenceOfSegmentOfTheSearch::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("InsertBefore", (void (Contap_SequenceOfSegmentOfTheSearch::*)(const Standard_Integer, const Contap_TheSegmentOfTheSearch &)) &Contap_SequenceOfSegmentOfTheSearch::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("InsertBefore", (void (Contap_SequenceOfSegmentOfTheSearch::*)(const Standard_Integer, Contap_SequenceOfSegmentOfTheSearch &)) &Contap_SequenceOfSegmentOfTheSearch::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("InsertAfter", (void (Contap_SequenceOfSegmentOfTheSearch::*)(Contap_SequenceOfSegmentOfTheSearch::Iterator &, const Contap_TheSegmentOfTheSearch &)) &Contap_SequenceOfSegmentOfTheSearch::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("InsertAfter", (void (Contap_SequenceOfSegmentOfTheSearch::*)(const Standard_Integer, Contap_SequenceOfSegmentOfTheSearch &)) &Contap_SequenceOfSegmentOfTheSearch::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("InsertAfter", (void (Contap_SequenceOfSegmentOfTheSearch::*)(const Standard_Integer, const Contap_TheSegmentOfTheSearch &)) &Contap_SequenceOfSegmentOfTheSearch::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Split", (void (Contap_SequenceOfSegmentOfTheSearch::*)(const Standard_Integer, Contap_SequenceOfSegmentOfTheSearch &)) &Contap_SequenceOfSegmentOfTheSearch::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("First", (const Contap_TheSegmentOfTheSearch & (Contap_SequenceOfSegmentOfTheSearch::*)() const ) &Contap_SequenceOfSegmentOfTheSearch::First, "First item access");
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("ChangeFirst", (Contap_TheSegmentOfTheSearch & (Contap_SequenceOfSegmentOfTheSearch::*)()) &Contap_SequenceOfSegmentOfTheSearch::ChangeFirst, "First item access");
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Last", (const Contap_TheSegmentOfTheSearch & (Contap_SequenceOfSegmentOfTheSearch::*)() const ) &Contap_SequenceOfSegmentOfTheSearch::Last, "Last item access");
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("ChangeLast", (Contap_TheSegmentOfTheSearch & (Contap_SequenceOfSegmentOfTheSearch::*)()) &Contap_SequenceOfSegmentOfTheSearch::ChangeLast, "Last item access");
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("Value", (const Contap_TheSegmentOfTheSearch & (Contap_SequenceOfSegmentOfTheSearch::*)(const Standard_Integer) const ) &Contap_SequenceOfSegmentOfTheSearch::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("__call__", (const Contap_TheSegmentOfTheSearch & (Contap_SequenceOfSegmentOfTheSearch::*)(const Standard_Integer) const ) &Contap_SequenceOfSegmentOfTheSearch::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("ChangeValue", (Contap_TheSegmentOfTheSearch & (Contap_SequenceOfSegmentOfTheSearch::*)(const Standard_Integer)) &Contap_SequenceOfSegmentOfTheSearch::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("__call__", (Contap_TheSegmentOfTheSearch & (Contap_SequenceOfSegmentOfTheSearch::*)(const Standard_Integer)) &Contap_SequenceOfSegmentOfTheSearch::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("SetValue", (void (Contap_SequenceOfSegmentOfTheSearch::*)(const Standard_Integer, const Contap_TheSegmentOfTheSearch &)) &Contap_SequenceOfSegmentOfTheSearch::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Contap_SequenceOfSegmentOfTheSearch.def("__iter__", [](const Contap_SequenceOfSegmentOfTheSearch &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Contap_SequenceOfSegmentOfTheSearch.hxx
+	bind_NCollection_Sequence<Contap_TheSegmentOfTheSearch>(mod, "Contap_SequenceOfSegmentOfTheSearch");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Contap_SequenceOfPathPointOfTheSearch, std::unique_ptr<Contap_SequenceOfPathPointOfTheSearch, Deleter<Contap_SequenceOfPathPointOfTheSearch>>, NCollection_BaseSequence> cls_Contap_SequenceOfPathPointOfTheSearch(mod, "Contap_SequenceOfPathPointOfTheSearch", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Contap_SequenceOfPathPointOfTheSearch.def(py::init<>());
-	cls_Contap_SequenceOfPathPointOfTheSearch.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def(py::init([] (const Contap_SequenceOfPathPointOfTheSearch &other) {return new Contap_SequenceOfPathPointOfTheSearch(other);}), "Copy constructor", py::arg("other"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("begin", (Contap_SequenceOfPathPointOfTheSearch::iterator (Contap_SequenceOfPathPointOfTheSearch::*)() const ) &Contap_SequenceOfPathPointOfTheSearch::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("end", (Contap_SequenceOfPathPointOfTheSearch::iterator (Contap_SequenceOfPathPointOfTheSearch::*)() const ) &Contap_SequenceOfPathPointOfTheSearch::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("cbegin", (Contap_SequenceOfPathPointOfTheSearch::const_iterator (Contap_SequenceOfPathPointOfTheSearch::*)() const ) &Contap_SequenceOfPathPointOfTheSearch::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("cend", (Contap_SequenceOfPathPointOfTheSearch::const_iterator (Contap_SequenceOfPathPointOfTheSearch::*)() const ) &Contap_SequenceOfPathPointOfTheSearch::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Size", (Standard_Integer (Contap_SequenceOfPathPointOfTheSearch::*)() const ) &Contap_SequenceOfPathPointOfTheSearch::Size, "Number of items");
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Length", (Standard_Integer (Contap_SequenceOfPathPointOfTheSearch::*)() const ) &Contap_SequenceOfPathPointOfTheSearch::Length, "Number of items");
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Lower", (Standard_Integer (Contap_SequenceOfPathPointOfTheSearch::*)() const ) &Contap_SequenceOfPathPointOfTheSearch::Lower, "Method for consistency with other collections.");
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Upper", (Standard_Integer (Contap_SequenceOfPathPointOfTheSearch::*)() const ) &Contap_SequenceOfPathPointOfTheSearch::Upper, "Method for consistency with other collections.");
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("IsEmpty", (Standard_Boolean (Contap_SequenceOfPathPointOfTheSearch::*)() const ) &Contap_SequenceOfPathPointOfTheSearch::IsEmpty, "Empty query");
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Reverse", (void (Contap_SequenceOfPathPointOfTheSearch::*)()) &Contap_SequenceOfPathPointOfTheSearch::Reverse, "Reverse sequence");
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Exchange", (void (Contap_SequenceOfPathPointOfTheSearch::*)(const Standard_Integer, const Standard_Integer)) &Contap_SequenceOfPathPointOfTheSearch::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Contap_SequenceOfPathPointOfTheSearch::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Clear", [](Contap_SequenceOfPathPointOfTheSearch &self) -> void { return self.Clear(); });
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Clear", (void (Contap_SequenceOfPathPointOfTheSearch::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Contap_SequenceOfPathPointOfTheSearch::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Assign", (Contap_SequenceOfPathPointOfTheSearch & (Contap_SequenceOfPathPointOfTheSearch::*)(const Contap_SequenceOfPathPointOfTheSearch &)) &Contap_SequenceOfPathPointOfTheSearch::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("assign", (Contap_SequenceOfPathPointOfTheSearch & (Contap_SequenceOfPathPointOfTheSearch::*)(const Contap_SequenceOfPathPointOfTheSearch &)) &Contap_SequenceOfPathPointOfTheSearch::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Remove", (void (Contap_SequenceOfPathPointOfTheSearch::*)(Contap_SequenceOfPathPointOfTheSearch::Iterator &)) &Contap_SequenceOfPathPointOfTheSearch::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Remove", (void (Contap_SequenceOfPathPointOfTheSearch::*)(const Standard_Integer)) &Contap_SequenceOfPathPointOfTheSearch::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Remove", (void (Contap_SequenceOfPathPointOfTheSearch::*)(const Standard_Integer, const Standard_Integer)) &Contap_SequenceOfPathPointOfTheSearch::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Append", (void (Contap_SequenceOfPathPointOfTheSearch::*)(const Contap_ThePathPointOfTheSearch &)) &Contap_SequenceOfPathPointOfTheSearch::Append, "Append one item", py::arg("theItem"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Append", (void (Contap_SequenceOfPathPointOfTheSearch::*)(Contap_SequenceOfPathPointOfTheSearch &)) &Contap_SequenceOfPathPointOfTheSearch::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Prepend", (void (Contap_SequenceOfPathPointOfTheSearch::*)(const Contap_ThePathPointOfTheSearch &)) &Contap_SequenceOfPathPointOfTheSearch::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Prepend", (void (Contap_SequenceOfPathPointOfTheSearch::*)(Contap_SequenceOfPathPointOfTheSearch &)) &Contap_SequenceOfPathPointOfTheSearch::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("InsertBefore", (void (Contap_SequenceOfPathPointOfTheSearch::*)(const Standard_Integer, const Contap_ThePathPointOfTheSearch &)) &Contap_SequenceOfPathPointOfTheSearch::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("InsertBefore", (void (Contap_SequenceOfPathPointOfTheSearch::*)(const Standard_Integer, Contap_SequenceOfPathPointOfTheSearch &)) &Contap_SequenceOfPathPointOfTheSearch::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("InsertAfter", (void (Contap_SequenceOfPathPointOfTheSearch::*)(Contap_SequenceOfPathPointOfTheSearch::Iterator &, const Contap_ThePathPointOfTheSearch &)) &Contap_SequenceOfPathPointOfTheSearch::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("InsertAfter", (void (Contap_SequenceOfPathPointOfTheSearch::*)(const Standard_Integer, Contap_SequenceOfPathPointOfTheSearch &)) &Contap_SequenceOfPathPointOfTheSearch::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("InsertAfter", (void (Contap_SequenceOfPathPointOfTheSearch::*)(const Standard_Integer, const Contap_ThePathPointOfTheSearch &)) &Contap_SequenceOfPathPointOfTheSearch::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Split", (void (Contap_SequenceOfPathPointOfTheSearch::*)(const Standard_Integer, Contap_SequenceOfPathPointOfTheSearch &)) &Contap_SequenceOfPathPointOfTheSearch::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("First", (const Contap_ThePathPointOfTheSearch & (Contap_SequenceOfPathPointOfTheSearch::*)() const ) &Contap_SequenceOfPathPointOfTheSearch::First, "First item access");
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("ChangeFirst", (Contap_ThePathPointOfTheSearch & (Contap_SequenceOfPathPointOfTheSearch::*)()) &Contap_SequenceOfPathPointOfTheSearch::ChangeFirst, "First item access");
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Last", (const Contap_ThePathPointOfTheSearch & (Contap_SequenceOfPathPointOfTheSearch::*)() const ) &Contap_SequenceOfPathPointOfTheSearch::Last, "Last item access");
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("ChangeLast", (Contap_ThePathPointOfTheSearch & (Contap_SequenceOfPathPointOfTheSearch::*)()) &Contap_SequenceOfPathPointOfTheSearch::ChangeLast, "Last item access");
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("Value", (const Contap_ThePathPointOfTheSearch & (Contap_SequenceOfPathPointOfTheSearch::*)(const Standard_Integer) const ) &Contap_SequenceOfPathPointOfTheSearch::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("__call__", (const Contap_ThePathPointOfTheSearch & (Contap_SequenceOfPathPointOfTheSearch::*)(const Standard_Integer) const ) &Contap_SequenceOfPathPointOfTheSearch::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("ChangeValue", (Contap_ThePathPointOfTheSearch & (Contap_SequenceOfPathPointOfTheSearch::*)(const Standard_Integer)) &Contap_SequenceOfPathPointOfTheSearch::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("__call__", (Contap_ThePathPointOfTheSearch & (Contap_SequenceOfPathPointOfTheSearch::*)(const Standard_Integer)) &Contap_SequenceOfPathPointOfTheSearch::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("SetValue", (void (Contap_SequenceOfPathPointOfTheSearch::*)(const Standard_Integer, const Contap_ThePathPointOfTheSearch &)) &Contap_SequenceOfPathPointOfTheSearch::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Contap_SequenceOfPathPointOfTheSearch.def("__iter__", [](const Contap_SequenceOfPathPointOfTheSearch &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Contap_SequenceOfPathPointOfTheSearch.hxx
+	bind_NCollection_Sequence<Contap_ThePathPointOfTheSearch>(mod, "Contap_SequenceOfPathPointOfTheSearch");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Contap_SequenceOfIWLineOfTheIWalking, std::unique_ptr<Contap_SequenceOfIWLineOfTheIWalking, Deleter<Contap_SequenceOfIWLineOfTheIWalking>>, NCollection_BaseSequence> cls_Contap_SequenceOfIWLineOfTheIWalking(mod, "Contap_SequenceOfIWLineOfTheIWalking", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def(py::init<>());
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def(py::init([] (const Contap_SequenceOfIWLineOfTheIWalking &other) {return new Contap_SequenceOfIWLineOfTheIWalking(other);}), "Copy constructor", py::arg("other"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("begin", (Contap_SequenceOfIWLineOfTheIWalking::iterator (Contap_SequenceOfIWLineOfTheIWalking::*)() const ) &Contap_SequenceOfIWLineOfTheIWalking::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("end", (Contap_SequenceOfIWLineOfTheIWalking::iterator (Contap_SequenceOfIWLineOfTheIWalking::*)() const ) &Contap_SequenceOfIWLineOfTheIWalking::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("cbegin", (Contap_SequenceOfIWLineOfTheIWalking::const_iterator (Contap_SequenceOfIWLineOfTheIWalking::*)() const ) &Contap_SequenceOfIWLineOfTheIWalking::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("cend", (Contap_SequenceOfIWLineOfTheIWalking::const_iterator (Contap_SequenceOfIWLineOfTheIWalking::*)() const ) &Contap_SequenceOfIWLineOfTheIWalking::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Size", (Standard_Integer (Contap_SequenceOfIWLineOfTheIWalking::*)() const ) &Contap_SequenceOfIWLineOfTheIWalking::Size, "Number of items");
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Length", (Standard_Integer (Contap_SequenceOfIWLineOfTheIWalking::*)() const ) &Contap_SequenceOfIWLineOfTheIWalking::Length, "Number of items");
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Lower", (Standard_Integer (Contap_SequenceOfIWLineOfTheIWalking::*)() const ) &Contap_SequenceOfIWLineOfTheIWalking::Lower, "Method for consistency with other collections.");
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Upper", (Standard_Integer (Contap_SequenceOfIWLineOfTheIWalking::*)() const ) &Contap_SequenceOfIWLineOfTheIWalking::Upper, "Method for consistency with other collections.");
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("IsEmpty", (Standard_Boolean (Contap_SequenceOfIWLineOfTheIWalking::*)() const ) &Contap_SequenceOfIWLineOfTheIWalking::IsEmpty, "Empty query");
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Reverse", (void (Contap_SequenceOfIWLineOfTheIWalking::*)()) &Contap_SequenceOfIWLineOfTheIWalking::Reverse, "Reverse sequence");
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Exchange", (void (Contap_SequenceOfIWLineOfTheIWalking::*)(const Standard_Integer, const Standard_Integer)) &Contap_SequenceOfIWLineOfTheIWalking::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Contap_SequenceOfIWLineOfTheIWalking::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Clear", [](Contap_SequenceOfIWLineOfTheIWalking &self) -> void { return self.Clear(); });
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Clear", (void (Contap_SequenceOfIWLineOfTheIWalking::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Contap_SequenceOfIWLineOfTheIWalking::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Assign", (Contap_SequenceOfIWLineOfTheIWalking & (Contap_SequenceOfIWLineOfTheIWalking::*)(const Contap_SequenceOfIWLineOfTheIWalking &)) &Contap_SequenceOfIWLineOfTheIWalking::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("assign", (Contap_SequenceOfIWLineOfTheIWalking & (Contap_SequenceOfIWLineOfTheIWalking::*)(const Contap_SequenceOfIWLineOfTheIWalking &)) &Contap_SequenceOfIWLineOfTheIWalking::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Remove", (void (Contap_SequenceOfIWLineOfTheIWalking::*)(Contap_SequenceOfIWLineOfTheIWalking::Iterator &)) &Contap_SequenceOfIWLineOfTheIWalking::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Remove", (void (Contap_SequenceOfIWLineOfTheIWalking::*)(const Standard_Integer)) &Contap_SequenceOfIWLineOfTheIWalking::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Remove", (void (Contap_SequenceOfIWLineOfTheIWalking::*)(const Standard_Integer, const Standard_Integer)) &Contap_SequenceOfIWLineOfTheIWalking::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Append", (void (Contap_SequenceOfIWLineOfTheIWalking::*)(const opencascade::handle<Contap_TheIWLineOfTheIWalking> &)) &Contap_SequenceOfIWLineOfTheIWalking::Append, "Append one item", py::arg("theItem"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Append", (void (Contap_SequenceOfIWLineOfTheIWalking::*)(Contap_SequenceOfIWLineOfTheIWalking &)) &Contap_SequenceOfIWLineOfTheIWalking::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Prepend", (void (Contap_SequenceOfIWLineOfTheIWalking::*)(const opencascade::handle<Contap_TheIWLineOfTheIWalking> &)) &Contap_SequenceOfIWLineOfTheIWalking::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Prepend", (void (Contap_SequenceOfIWLineOfTheIWalking::*)(Contap_SequenceOfIWLineOfTheIWalking &)) &Contap_SequenceOfIWLineOfTheIWalking::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("InsertBefore", (void (Contap_SequenceOfIWLineOfTheIWalking::*)(const Standard_Integer, const opencascade::handle<Contap_TheIWLineOfTheIWalking> &)) &Contap_SequenceOfIWLineOfTheIWalking::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("InsertBefore", (void (Contap_SequenceOfIWLineOfTheIWalking::*)(const Standard_Integer, Contap_SequenceOfIWLineOfTheIWalking &)) &Contap_SequenceOfIWLineOfTheIWalking::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("InsertAfter", (void (Contap_SequenceOfIWLineOfTheIWalking::*)(Contap_SequenceOfIWLineOfTheIWalking::Iterator &, const opencascade::handle<Contap_TheIWLineOfTheIWalking> &)) &Contap_SequenceOfIWLineOfTheIWalking::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("InsertAfter", (void (Contap_SequenceOfIWLineOfTheIWalking::*)(const Standard_Integer, Contap_SequenceOfIWLineOfTheIWalking &)) &Contap_SequenceOfIWLineOfTheIWalking::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("InsertAfter", (void (Contap_SequenceOfIWLineOfTheIWalking::*)(const Standard_Integer, const opencascade::handle<Contap_TheIWLineOfTheIWalking> &)) &Contap_SequenceOfIWLineOfTheIWalking::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Split", (void (Contap_SequenceOfIWLineOfTheIWalking::*)(const Standard_Integer, Contap_SequenceOfIWLineOfTheIWalking &)) &Contap_SequenceOfIWLineOfTheIWalking::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("First", (const opencascade::handle<Contap_TheIWLineOfTheIWalking> & (Contap_SequenceOfIWLineOfTheIWalking::*)() const ) &Contap_SequenceOfIWLineOfTheIWalking::First, "First item access");
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("ChangeFirst", (opencascade::handle<Contap_TheIWLineOfTheIWalking> & (Contap_SequenceOfIWLineOfTheIWalking::*)()) &Contap_SequenceOfIWLineOfTheIWalking::ChangeFirst, "First item access");
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Last", (const opencascade::handle<Contap_TheIWLineOfTheIWalking> & (Contap_SequenceOfIWLineOfTheIWalking::*)() const ) &Contap_SequenceOfIWLineOfTheIWalking::Last, "Last item access");
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("ChangeLast", (opencascade::handle<Contap_TheIWLineOfTheIWalking> & (Contap_SequenceOfIWLineOfTheIWalking::*)()) &Contap_SequenceOfIWLineOfTheIWalking::ChangeLast, "Last item access");
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("Value", (const opencascade::handle<Contap_TheIWLineOfTheIWalking> & (Contap_SequenceOfIWLineOfTheIWalking::*)(const Standard_Integer) const ) &Contap_SequenceOfIWLineOfTheIWalking::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("__call__", (const opencascade::handle<Contap_TheIWLineOfTheIWalking> & (Contap_SequenceOfIWLineOfTheIWalking::*)(const Standard_Integer) const ) &Contap_SequenceOfIWLineOfTheIWalking::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("ChangeValue", (opencascade::handle<Contap_TheIWLineOfTheIWalking> & (Contap_SequenceOfIWLineOfTheIWalking::*)(const Standard_Integer)) &Contap_SequenceOfIWLineOfTheIWalking::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("__call__", (opencascade::handle<Contap_TheIWLineOfTheIWalking> & (Contap_SequenceOfIWLineOfTheIWalking::*)(const Standard_Integer)) &Contap_SequenceOfIWLineOfTheIWalking::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("SetValue", (void (Contap_SequenceOfIWLineOfTheIWalking::*)(const Standard_Integer, const opencascade::handle<Contap_TheIWLineOfTheIWalking> &)) &Contap_SequenceOfIWLineOfTheIWalking::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Contap_SequenceOfIWLineOfTheIWalking.def("__iter__", [](const Contap_SequenceOfIWLineOfTheIWalking &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Contap_SequenceOfIWLineOfTheIWalking.hxx
+	bind_NCollection_Sequence<opencascade::handle<Contap_TheIWLineOfTheIWalking> >(mod, "Contap_SequenceOfIWLineOfTheIWalking");
 
 
 }

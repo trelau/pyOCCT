@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <MAT_Side.hxx>
 #include <Standard_Transient.hxx>
@@ -36,6 +27,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <MAT_TListNodeOfListOfBisector.hxx>
 #include <MAT_TListNodeOfListOfEdge.hxx>
 #include <MAT_Zone.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(MAT, mod) {
 
@@ -295,223 +287,39 @@ PYBIND11_MODULE(MAT, mod) {
 	cls_MAT_Zone.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &MAT_Zone::get_type_descriptor, "None");
 	cls_MAT_Zone.def("DynamicType", (const opencascade::handle<Standard_Type> & (MAT_Zone::*)() const ) &MAT_Zone::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<MAT_SequenceOfArc, std::unique_ptr<MAT_SequenceOfArc, Deleter<MAT_SequenceOfArc>>, NCollection_BaseSequence> cls_MAT_SequenceOfArc(mod, "MAT_SequenceOfArc", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_MAT_SequenceOfArc.def(py::init<>());
-	cls_MAT_SequenceOfArc.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_MAT_SequenceOfArc.def(py::init([] (const MAT_SequenceOfArc &other) {return new MAT_SequenceOfArc(other);}), "Copy constructor", py::arg("other"));
-	cls_MAT_SequenceOfArc.def("begin", (MAT_SequenceOfArc::iterator (MAT_SequenceOfArc::*)() const ) &MAT_SequenceOfArc::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_MAT_SequenceOfArc.def("end", (MAT_SequenceOfArc::iterator (MAT_SequenceOfArc::*)() const ) &MAT_SequenceOfArc::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_MAT_SequenceOfArc.def("cbegin", (MAT_SequenceOfArc::const_iterator (MAT_SequenceOfArc::*)() const ) &MAT_SequenceOfArc::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_MAT_SequenceOfArc.def("cend", (MAT_SequenceOfArc::const_iterator (MAT_SequenceOfArc::*)() const ) &MAT_SequenceOfArc::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_MAT_SequenceOfArc.def("Size", (Standard_Integer (MAT_SequenceOfArc::*)() const ) &MAT_SequenceOfArc::Size, "Number of items");
-	cls_MAT_SequenceOfArc.def("Length", (Standard_Integer (MAT_SequenceOfArc::*)() const ) &MAT_SequenceOfArc::Length, "Number of items");
-	cls_MAT_SequenceOfArc.def("Lower", (Standard_Integer (MAT_SequenceOfArc::*)() const ) &MAT_SequenceOfArc::Lower, "Method for consistency with other collections.");
-	cls_MAT_SequenceOfArc.def("Upper", (Standard_Integer (MAT_SequenceOfArc::*)() const ) &MAT_SequenceOfArc::Upper, "Method for consistency with other collections.");
-	cls_MAT_SequenceOfArc.def("IsEmpty", (Standard_Boolean (MAT_SequenceOfArc::*)() const ) &MAT_SequenceOfArc::IsEmpty, "Empty query");
-	cls_MAT_SequenceOfArc.def("Reverse", (void (MAT_SequenceOfArc::*)()) &MAT_SequenceOfArc::Reverse, "Reverse sequence");
-	cls_MAT_SequenceOfArc.def("Exchange", (void (MAT_SequenceOfArc::*)(const Standard_Integer, const Standard_Integer)) &MAT_SequenceOfArc::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_MAT_SequenceOfArc.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &MAT_SequenceOfArc::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_MAT_SequenceOfArc.def("Clear", [](MAT_SequenceOfArc &self) -> void { return self.Clear(); });
-	cls_MAT_SequenceOfArc.def("Clear", (void (MAT_SequenceOfArc::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MAT_SequenceOfArc::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_MAT_SequenceOfArc.def("Assign", (MAT_SequenceOfArc & (MAT_SequenceOfArc::*)(const MAT_SequenceOfArc &)) &MAT_SequenceOfArc::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MAT_SequenceOfArc.def("assign", (MAT_SequenceOfArc & (MAT_SequenceOfArc::*)(const MAT_SequenceOfArc &)) &MAT_SequenceOfArc::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_MAT_SequenceOfArc.def("Remove", (void (MAT_SequenceOfArc::*)(MAT_SequenceOfArc::Iterator &)) &MAT_SequenceOfArc::Remove, "Remove one item", py::arg("thePosition"));
-	cls_MAT_SequenceOfArc.def("Remove", (void (MAT_SequenceOfArc::*)(const Standard_Integer)) &MAT_SequenceOfArc::Remove, "Remove one item", py::arg("theIndex"));
-	cls_MAT_SequenceOfArc.def("Remove", (void (MAT_SequenceOfArc::*)(const Standard_Integer, const Standard_Integer)) &MAT_SequenceOfArc::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_MAT_SequenceOfArc.def("Append", (void (MAT_SequenceOfArc::*)(const opencascade::handle<MAT_Arc> &)) &MAT_SequenceOfArc::Append, "Append one item", py::arg("theItem"));
-	cls_MAT_SequenceOfArc.def("Append", (void (MAT_SequenceOfArc::*)(MAT_SequenceOfArc &)) &MAT_SequenceOfArc::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_MAT_SequenceOfArc.def("Prepend", (void (MAT_SequenceOfArc::*)(const opencascade::handle<MAT_Arc> &)) &MAT_SequenceOfArc::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_MAT_SequenceOfArc.def("Prepend", (void (MAT_SequenceOfArc::*)(MAT_SequenceOfArc &)) &MAT_SequenceOfArc::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_MAT_SequenceOfArc.def("InsertBefore", (void (MAT_SequenceOfArc::*)(const Standard_Integer, const opencascade::handle<MAT_Arc> &)) &MAT_SequenceOfArc::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_MAT_SequenceOfArc.def("InsertBefore", (void (MAT_SequenceOfArc::*)(const Standard_Integer, MAT_SequenceOfArc &)) &MAT_SequenceOfArc::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_MAT_SequenceOfArc.def("InsertAfter", (void (MAT_SequenceOfArc::*)(MAT_SequenceOfArc::Iterator &, const opencascade::handle<MAT_Arc> &)) &MAT_SequenceOfArc::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_MAT_SequenceOfArc.def("InsertAfter", (void (MAT_SequenceOfArc::*)(const Standard_Integer, MAT_SequenceOfArc &)) &MAT_SequenceOfArc::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_MAT_SequenceOfArc.def("InsertAfter", (void (MAT_SequenceOfArc::*)(const Standard_Integer, const opencascade::handle<MAT_Arc> &)) &MAT_SequenceOfArc::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_MAT_SequenceOfArc.def("Split", (void (MAT_SequenceOfArc::*)(const Standard_Integer, MAT_SequenceOfArc &)) &MAT_SequenceOfArc::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_MAT_SequenceOfArc.def("First", (const opencascade::handle<MAT_Arc> & (MAT_SequenceOfArc::*)() const ) &MAT_SequenceOfArc::First, "First item access");
-	cls_MAT_SequenceOfArc.def("ChangeFirst", (opencascade::handle<MAT_Arc> & (MAT_SequenceOfArc::*)()) &MAT_SequenceOfArc::ChangeFirst, "First item access");
-	cls_MAT_SequenceOfArc.def("Last", (const opencascade::handle<MAT_Arc> & (MAT_SequenceOfArc::*)() const ) &MAT_SequenceOfArc::Last, "Last item access");
-	cls_MAT_SequenceOfArc.def("ChangeLast", (opencascade::handle<MAT_Arc> & (MAT_SequenceOfArc::*)()) &MAT_SequenceOfArc::ChangeLast, "Last item access");
-	cls_MAT_SequenceOfArc.def("Value", (const opencascade::handle<MAT_Arc> & (MAT_SequenceOfArc::*)(const Standard_Integer) const ) &MAT_SequenceOfArc::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_MAT_SequenceOfArc.def("__call__", (const opencascade::handle<MAT_Arc> & (MAT_SequenceOfArc::*)(const Standard_Integer) const ) &MAT_SequenceOfArc::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_MAT_SequenceOfArc.def("ChangeValue", (opencascade::handle<MAT_Arc> & (MAT_SequenceOfArc::*)(const Standard_Integer)) &MAT_SequenceOfArc::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_MAT_SequenceOfArc.def("__call__", (opencascade::handle<MAT_Arc> & (MAT_SequenceOfArc::*)(const Standard_Integer)) &MAT_SequenceOfArc::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_MAT_SequenceOfArc.def("SetValue", (void (MAT_SequenceOfArc::*)(const Standard_Integer, const opencascade::handle<MAT_Arc> &)) &MAT_SequenceOfArc::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_MAT_SequenceOfArc.def("__iter__", [](const MAT_SequenceOfArc &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\MAT_SequenceOfArc.hxx
+	bind_NCollection_Sequence<opencascade::handle<MAT_Arc> >(mod, "MAT_SequenceOfArc");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<MAT_SequenceOfBasicElt, std::unique_ptr<MAT_SequenceOfBasicElt, Deleter<MAT_SequenceOfBasicElt>>, NCollection_BaseSequence> cls_MAT_SequenceOfBasicElt(mod, "MAT_SequenceOfBasicElt", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_MAT_SequenceOfBasicElt.def(py::init<>());
-	cls_MAT_SequenceOfBasicElt.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_MAT_SequenceOfBasicElt.def(py::init([] (const MAT_SequenceOfBasicElt &other) {return new MAT_SequenceOfBasicElt(other);}), "Copy constructor", py::arg("other"));
-	cls_MAT_SequenceOfBasicElt.def("begin", (MAT_SequenceOfBasicElt::iterator (MAT_SequenceOfBasicElt::*)() const ) &MAT_SequenceOfBasicElt::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_MAT_SequenceOfBasicElt.def("end", (MAT_SequenceOfBasicElt::iterator (MAT_SequenceOfBasicElt::*)() const ) &MAT_SequenceOfBasicElt::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_MAT_SequenceOfBasicElt.def("cbegin", (MAT_SequenceOfBasicElt::const_iterator (MAT_SequenceOfBasicElt::*)() const ) &MAT_SequenceOfBasicElt::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_MAT_SequenceOfBasicElt.def("cend", (MAT_SequenceOfBasicElt::const_iterator (MAT_SequenceOfBasicElt::*)() const ) &MAT_SequenceOfBasicElt::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_MAT_SequenceOfBasicElt.def("Size", (Standard_Integer (MAT_SequenceOfBasicElt::*)() const ) &MAT_SequenceOfBasicElt::Size, "Number of items");
-	cls_MAT_SequenceOfBasicElt.def("Length", (Standard_Integer (MAT_SequenceOfBasicElt::*)() const ) &MAT_SequenceOfBasicElt::Length, "Number of items");
-	cls_MAT_SequenceOfBasicElt.def("Lower", (Standard_Integer (MAT_SequenceOfBasicElt::*)() const ) &MAT_SequenceOfBasicElt::Lower, "Method for consistency with other collections.");
-	cls_MAT_SequenceOfBasicElt.def("Upper", (Standard_Integer (MAT_SequenceOfBasicElt::*)() const ) &MAT_SequenceOfBasicElt::Upper, "Method for consistency with other collections.");
-	cls_MAT_SequenceOfBasicElt.def("IsEmpty", (Standard_Boolean (MAT_SequenceOfBasicElt::*)() const ) &MAT_SequenceOfBasicElt::IsEmpty, "Empty query");
-	cls_MAT_SequenceOfBasicElt.def("Reverse", (void (MAT_SequenceOfBasicElt::*)()) &MAT_SequenceOfBasicElt::Reverse, "Reverse sequence");
-	cls_MAT_SequenceOfBasicElt.def("Exchange", (void (MAT_SequenceOfBasicElt::*)(const Standard_Integer, const Standard_Integer)) &MAT_SequenceOfBasicElt::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_MAT_SequenceOfBasicElt.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &MAT_SequenceOfBasicElt::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_MAT_SequenceOfBasicElt.def("Clear", [](MAT_SequenceOfBasicElt &self) -> void { return self.Clear(); });
-	cls_MAT_SequenceOfBasicElt.def("Clear", (void (MAT_SequenceOfBasicElt::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MAT_SequenceOfBasicElt::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_MAT_SequenceOfBasicElt.def("Assign", (MAT_SequenceOfBasicElt & (MAT_SequenceOfBasicElt::*)(const MAT_SequenceOfBasicElt &)) &MAT_SequenceOfBasicElt::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MAT_SequenceOfBasicElt.def("assign", (MAT_SequenceOfBasicElt & (MAT_SequenceOfBasicElt::*)(const MAT_SequenceOfBasicElt &)) &MAT_SequenceOfBasicElt::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_MAT_SequenceOfBasicElt.def("Remove", (void (MAT_SequenceOfBasicElt::*)(MAT_SequenceOfBasicElt::Iterator &)) &MAT_SequenceOfBasicElt::Remove, "Remove one item", py::arg("thePosition"));
-	cls_MAT_SequenceOfBasicElt.def("Remove", (void (MAT_SequenceOfBasicElt::*)(const Standard_Integer)) &MAT_SequenceOfBasicElt::Remove, "Remove one item", py::arg("theIndex"));
-	cls_MAT_SequenceOfBasicElt.def("Remove", (void (MAT_SequenceOfBasicElt::*)(const Standard_Integer, const Standard_Integer)) &MAT_SequenceOfBasicElt::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_MAT_SequenceOfBasicElt.def("Append", (void (MAT_SequenceOfBasicElt::*)(const opencascade::handle<MAT_BasicElt> &)) &MAT_SequenceOfBasicElt::Append, "Append one item", py::arg("theItem"));
-	cls_MAT_SequenceOfBasicElt.def("Append", (void (MAT_SequenceOfBasicElt::*)(MAT_SequenceOfBasicElt &)) &MAT_SequenceOfBasicElt::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_MAT_SequenceOfBasicElt.def("Prepend", (void (MAT_SequenceOfBasicElt::*)(const opencascade::handle<MAT_BasicElt> &)) &MAT_SequenceOfBasicElt::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_MAT_SequenceOfBasicElt.def("Prepend", (void (MAT_SequenceOfBasicElt::*)(MAT_SequenceOfBasicElt &)) &MAT_SequenceOfBasicElt::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_MAT_SequenceOfBasicElt.def("InsertBefore", (void (MAT_SequenceOfBasicElt::*)(const Standard_Integer, const opencascade::handle<MAT_BasicElt> &)) &MAT_SequenceOfBasicElt::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_MAT_SequenceOfBasicElt.def("InsertBefore", (void (MAT_SequenceOfBasicElt::*)(const Standard_Integer, MAT_SequenceOfBasicElt &)) &MAT_SequenceOfBasicElt::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_MAT_SequenceOfBasicElt.def("InsertAfter", (void (MAT_SequenceOfBasicElt::*)(MAT_SequenceOfBasicElt::Iterator &, const opencascade::handle<MAT_BasicElt> &)) &MAT_SequenceOfBasicElt::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_MAT_SequenceOfBasicElt.def("InsertAfter", (void (MAT_SequenceOfBasicElt::*)(const Standard_Integer, MAT_SequenceOfBasicElt &)) &MAT_SequenceOfBasicElt::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_MAT_SequenceOfBasicElt.def("InsertAfter", (void (MAT_SequenceOfBasicElt::*)(const Standard_Integer, const opencascade::handle<MAT_BasicElt> &)) &MAT_SequenceOfBasicElt::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_MAT_SequenceOfBasicElt.def("Split", (void (MAT_SequenceOfBasicElt::*)(const Standard_Integer, MAT_SequenceOfBasicElt &)) &MAT_SequenceOfBasicElt::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_MAT_SequenceOfBasicElt.def("First", (const opencascade::handle<MAT_BasicElt> & (MAT_SequenceOfBasicElt::*)() const ) &MAT_SequenceOfBasicElt::First, "First item access");
-	cls_MAT_SequenceOfBasicElt.def("ChangeFirst", (opencascade::handle<MAT_BasicElt> & (MAT_SequenceOfBasicElt::*)()) &MAT_SequenceOfBasicElt::ChangeFirst, "First item access");
-	cls_MAT_SequenceOfBasicElt.def("Last", (const opencascade::handle<MAT_BasicElt> & (MAT_SequenceOfBasicElt::*)() const ) &MAT_SequenceOfBasicElt::Last, "Last item access");
-	cls_MAT_SequenceOfBasicElt.def("ChangeLast", (opencascade::handle<MAT_BasicElt> & (MAT_SequenceOfBasicElt::*)()) &MAT_SequenceOfBasicElt::ChangeLast, "Last item access");
-	cls_MAT_SequenceOfBasicElt.def("Value", (const opencascade::handle<MAT_BasicElt> & (MAT_SequenceOfBasicElt::*)(const Standard_Integer) const ) &MAT_SequenceOfBasicElt::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_MAT_SequenceOfBasicElt.def("__call__", (const opencascade::handle<MAT_BasicElt> & (MAT_SequenceOfBasicElt::*)(const Standard_Integer) const ) &MAT_SequenceOfBasicElt::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_MAT_SequenceOfBasicElt.def("ChangeValue", (opencascade::handle<MAT_BasicElt> & (MAT_SequenceOfBasicElt::*)(const Standard_Integer)) &MAT_SequenceOfBasicElt::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_MAT_SequenceOfBasicElt.def("__call__", (opencascade::handle<MAT_BasicElt> & (MAT_SequenceOfBasicElt::*)(const Standard_Integer)) &MAT_SequenceOfBasicElt::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_MAT_SequenceOfBasicElt.def("SetValue", (void (MAT_SequenceOfBasicElt::*)(const Standard_Integer, const opencascade::handle<MAT_BasicElt> &)) &MAT_SequenceOfBasicElt::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_MAT_SequenceOfBasicElt.def("__iter__", [](const MAT_SequenceOfBasicElt &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MAT_DataMapOfIntegerBasicElt, std::unique_ptr<MAT_DataMapOfIntegerBasicElt, Deleter<MAT_DataMapOfIntegerBasicElt>>, NCollection_BaseMap> cls_MAT_DataMapOfIntegerBasicElt(mod, "MAT_DataMapOfIntegerBasicElt", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MAT_DataMapOfIntegerBasicElt.def(py::init<>());
-	cls_MAT_DataMapOfIntegerBasicElt.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MAT_DataMapOfIntegerBasicElt.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MAT_DataMapOfIntegerBasicElt.def(py::init([] (const MAT_DataMapOfIntegerBasicElt &other) {return new MAT_DataMapOfIntegerBasicElt(other);}), "Copy constructor", py::arg("other"));
-	cls_MAT_DataMapOfIntegerBasicElt.def("begin", (MAT_DataMapOfIntegerBasicElt::iterator (MAT_DataMapOfIntegerBasicElt::*)() const ) &MAT_DataMapOfIntegerBasicElt::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MAT_DataMapOfIntegerBasicElt.def("end", (MAT_DataMapOfIntegerBasicElt::iterator (MAT_DataMapOfIntegerBasicElt::*)() const ) &MAT_DataMapOfIntegerBasicElt::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MAT_DataMapOfIntegerBasicElt.def("cbegin", (MAT_DataMapOfIntegerBasicElt::const_iterator (MAT_DataMapOfIntegerBasicElt::*)() const ) &MAT_DataMapOfIntegerBasicElt::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MAT_DataMapOfIntegerBasicElt.def("cend", (MAT_DataMapOfIntegerBasicElt::const_iterator (MAT_DataMapOfIntegerBasicElt::*)() const ) &MAT_DataMapOfIntegerBasicElt::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MAT_DataMapOfIntegerBasicElt.def("Exchange", (void (MAT_DataMapOfIntegerBasicElt::*)(MAT_DataMapOfIntegerBasicElt &)) &MAT_DataMapOfIntegerBasicElt::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MAT_DataMapOfIntegerBasicElt.def("Assign", (MAT_DataMapOfIntegerBasicElt & (MAT_DataMapOfIntegerBasicElt::*)(const MAT_DataMapOfIntegerBasicElt &)) &MAT_DataMapOfIntegerBasicElt::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MAT_DataMapOfIntegerBasicElt.def("assign", (MAT_DataMapOfIntegerBasicElt & (MAT_DataMapOfIntegerBasicElt::*)(const MAT_DataMapOfIntegerBasicElt &)) &MAT_DataMapOfIntegerBasicElt::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MAT_DataMapOfIntegerBasicElt.def("ReSize", (void (MAT_DataMapOfIntegerBasicElt::*)(const Standard_Integer)) &MAT_DataMapOfIntegerBasicElt::ReSize, "ReSize", py::arg("N"));
-	cls_MAT_DataMapOfIntegerBasicElt.def("Bind", (Standard_Boolean (MAT_DataMapOfIntegerBasicElt::*)(const Standard_Integer &, const opencascade::handle<MAT_BasicElt> &)) &MAT_DataMapOfIntegerBasicElt::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MAT_DataMapOfIntegerBasicElt.def("Bound", (opencascade::handle<MAT_BasicElt> * (MAT_DataMapOfIntegerBasicElt::*)(const Standard_Integer &, const opencascade::handle<MAT_BasicElt> &)) &MAT_DataMapOfIntegerBasicElt::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MAT_DataMapOfIntegerBasicElt.def("IsBound", (Standard_Boolean (MAT_DataMapOfIntegerBasicElt::*)(const Standard_Integer &) const ) &MAT_DataMapOfIntegerBasicElt::IsBound, "IsBound", py::arg("theKey"));
-	cls_MAT_DataMapOfIntegerBasicElt.def("UnBind", (Standard_Boolean (MAT_DataMapOfIntegerBasicElt::*)(const Standard_Integer &)) &MAT_DataMapOfIntegerBasicElt::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MAT_DataMapOfIntegerBasicElt.def("Seek", (const opencascade::handle<MAT_BasicElt> * (MAT_DataMapOfIntegerBasicElt::*)(const Standard_Integer &) const ) &MAT_DataMapOfIntegerBasicElt::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MAT_DataMapOfIntegerBasicElt.def("Find", (const opencascade::handle<MAT_BasicElt> & (MAT_DataMapOfIntegerBasicElt::*)(const Standard_Integer &) const ) &MAT_DataMapOfIntegerBasicElt::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MAT_DataMapOfIntegerBasicElt.def("Find", (Standard_Boolean (MAT_DataMapOfIntegerBasicElt::*)(const Standard_Integer &, opencascade::handle<MAT_BasicElt> &) const ) &MAT_DataMapOfIntegerBasicElt::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MAT_DataMapOfIntegerBasicElt.def("__call__", (const opencascade::handle<MAT_BasicElt> & (MAT_DataMapOfIntegerBasicElt::*)(const Standard_Integer &) const ) &MAT_DataMapOfIntegerBasicElt::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MAT_DataMapOfIntegerBasicElt.def("ChangeSeek", (opencascade::handle<MAT_BasicElt> * (MAT_DataMapOfIntegerBasicElt::*)(const Standard_Integer &)) &MAT_DataMapOfIntegerBasicElt::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MAT_DataMapOfIntegerBasicElt.def("ChangeFind", (opencascade::handle<MAT_BasicElt> & (MAT_DataMapOfIntegerBasicElt::*)(const Standard_Integer &)) &MAT_DataMapOfIntegerBasicElt::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MAT_DataMapOfIntegerBasicElt.def("__call__", (opencascade::handle<MAT_BasicElt> & (MAT_DataMapOfIntegerBasicElt::*)(const Standard_Integer &)) &MAT_DataMapOfIntegerBasicElt::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MAT_DataMapOfIntegerBasicElt.def("Clear", [](MAT_DataMapOfIntegerBasicElt &self) -> void { return self.Clear(); });
-	cls_MAT_DataMapOfIntegerBasicElt.def("Clear", (void (MAT_DataMapOfIntegerBasicElt::*)(const Standard_Boolean)) &MAT_DataMapOfIntegerBasicElt::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MAT_DataMapOfIntegerBasicElt.def("Clear", (void (MAT_DataMapOfIntegerBasicElt::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MAT_DataMapOfIntegerBasicElt::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MAT_DataMapOfIntegerBasicElt.def("Size", (Standard_Integer (MAT_DataMapOfIntegerBasicElt::*)() const ) &MAT_DataMapOfIntegerBasicElt::Size, "Size");
-	cls_MAT_DataMapOfIntegerBasicElt.def("__iter__", [](const MAT_DataMapOfIntegerBasicElt &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\MAT_SequenceOfBasicElt.hxx
+	bind_NCollection_Sequence<opencascade::handle<MAT_BasicElt> >(mod, "MAT_SequenceOfBasicElt");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MAT_DataMapOfIntegerBasicElt.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MAT_DataMapOfIntegerBisector, std::unique_ptr<MAT_DataMapOfIntegerBisector, Deleter<MAT_DataMapOfIntegerBisector>>, NCollection_BaseMap> cls_MAT_DataMapOfIntegerBisector(mod, "MAT_DataMapOfIntegerBisector", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MAT_DataMapOfIntegerBisector.def(py::init<>());
-	cls_MAT_DataMapOfIntegerBisector.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MAT_DataMapOfIntegerBisector.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MAT_DataMapOfIntegerBisector.def(py::init([] (const MAT_DataMapOfIntegerBisector &other) {return new MAT_DataMapOfIntegerBisector(other);}), "Copy constructor", py::arg("other"));
-	cls_MAT_DataMapOfIntegerBisector.def("begin", (MAT_DataMapOfIntegerBisector::iterator (MAT_DataMapOfIntegerBisector::*)() const ) &MAT_DataMapOfIntegerBisector::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MAT_DataMapOfIntegerBisector.def("end", (MAT_DataMapOfIntegerBisector::iterator (MAT_DataMapOfIntegerBisector::*)() const ) &MAT_DataMapOfIntegerBisector::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MAT_DataMapOfIntegerBisector.def("cbegin", (MAT_DataMapOfIntegerBisector::const_iterator (MAT_DataMapOfIntegerBisector::*)() const ) &MAT_DataMapOfIntegerBisector::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MAT_DataMapOfIntegerBisector.def("cend", (MAT_DataMapOfIntegerBisector::const_iterator (MAT_DataMapOfIntegerBisector::*)() const ) &MAT_DataMapOfIntegerBisector::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MAT_DataMapOfIntegerBisector.def("Exchange", (void (MAT_DataMapOfIntegerBisector::*)(MAT_DataMapOfIntegerBisector &)) &MAT_DataMapOfIntegerBisector::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MAT_DataMapOfIntegerBisector.def("Assign", (MAT_DataMapOfIntegerBisector & (MAT_DataMapOfIntegerBisector::*)(const MAT_DataMapOfIntegerBisector &)) &MAT_DataMapOfIntegerBisector::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MAT_DataMapOfIntegerBisector.def("assign", (MAT_DataMapOfIntegerBisector & (MAT_DataMapOfIntegerBisector::*)(const MAT_DataMapOfIntegerBisector &)) &MAT_DataMapOfIntegerBisector::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MAT_DataMapOfIntegerBisector.def("ReSize", (void (MAT_DataMapOfIntegerBisector::*)(const Standard_Integer)) &MAT_DataMapOfIntegerBisector::ReSize, "ReSize", py::arg("N"));
-	cls_MAT_DataMapOfIntegerBisector.def("Bind", (Standard_Boolean (MAT_DataMapOfIntegerBisector::*)(const Standard_Integer &, const opencascade::handle<MAT_Bisector> &)) &MAT_DataMapOfIntegerBisector::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MAT_DataMapOfIntegerBisector.def("Bound", (opencascade::handle<MAT_Bisector> * (MAT_DataMapOfIntegerBisector::*)(const Standard_Integer &, const opencascade::handle<MAT_Bisector> &)) &MAT_DataMapOfIntegerBisector::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MAT_DataMapOfIntegerBisector.def("IsBound", (Standard_Boolean (MAT_DataMapOfIntegerBisector::*)(const Standard_Integer &) const ) &MAT_DataMapOfIntegerBisector::IsBound, "IsBound", py::arg("theKey"));
-	cls_MAT_DataMapOfIntegerBisector.def("UnBind", (Standard_Boolean (MAT_DataMapOfIntegerBisector::*)(const Standard_Integer &)) &MAT_DataMapOfIntegerBisector::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MAT_DataMapOfIntegerBisector.def("Seek", (const opencascade::handle<MAT_Bisector> * (MAT_DataMapOfIntegerBisector::*)(const Standard_Integer &) const ) &MAT_DataMapOfIntegerBisector::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MAT_DataMapOfIntegerBisector.def("Find", (const opencascade::handle<MAT_Bisector> & (MAT_DataMapOfIntegerBisector::*)(const Standard_Integer &) const ) &MAT_DataMapOfIntegerBisector::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MAT_DataMapOfIntegerBisector.def("Find", (Standard_Boolean (MAT_DataMapOfIntegerBisector::*)(const Standard_Integer &, opencascade::handle<MAT_Bisector> &) const ) &MAT_DataMapOfIntegerBisector::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MAT_DataMapOfIntegerBisector.def("__call__", (const opencascade::handle<MAT_Bisector> & (MAT_DataMapOfIntegerBisector::*)(const Standard_Integer &) const ) &MAT_DataMapOfIntegerBisector::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MAT_DataMapOfIntegerBisector.def("ChangeSeek", (opencascade::handle<MAT_Bisector> * (MAT_DataMapOfIntegerBisector::*)(const Standard_Integer &)) &MAT_DataMapOfIntegerBisector::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MAT_DataMapOfIntegerBisector.def("ChangeFind", (opencascade::handle<MAT_Bisector> & (MAT_DataMapOfIntegerBisector::*)(const Standard_Integer &)) &MAT_DataMapOfIntegerBisector::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MAT_DataMapOfIntegerBisector.def("__call__", (opencascade::handle<MAT_Bisector> & (MAT_DataMapOfIntegerBisector::*)(const Standard_Integer &)) &MAT_DataMapOfIntegerBisector::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MAT_DataMapOfIntegerBisector.def("Clear", [](MAT_DataMapOfIntegerBisector &self) -> void { return self.Clear(); });
-	cls_MAT_DataMapOfIntegerBisector.def("Clear", (void (MAT_DataMapOfIntegerBisector::*)(const Standard_Boolean)) &MAT_DataMapOfIntegerBisector::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MAT_DataMapOfIntegerBisector.def("Clear", (void (MAT_DataMapOfIntegerBisector::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MAT_DataMapOfIntegerBisector::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MAT_DataMapOfIntegerBisector.def("Size", (Standard_Integer (MAT_DataMapOfIntegerBisector::*)() const ) &MAT_DataMapOfIntegerBisector::Size, "Size");
-	cls_MAT_DataMapOfIntegerBisector.def("__iter__", [](const MAT_DataMapOfIntegerBisector &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<int, opencascade::handle<MAT_BasicElt>, NCollection_DefaultHasher<int> >(mod, "MAT_DataMapOfIntegerBasicElt");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MAT_DataMapOfIntegerBisector.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MAT_DataMapOfIntegerArc, std::unique_ptr<MAT_DataMapOfIntegerArc, Deleter<MAT_DataMapOfIntegerArc>>, NCollection_BaseMap> cls_MAT_DataMapOfIntegerArc(mod, "MAT_DataMapOfIntegerArc", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MAT_DataMapOfIntegerArc.def(py::init<>());
-	cls_MAT_DataMapOfIntegerArc.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MAT_DataMapOfIntegerArc.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MAT_DataMapOfIntegerArc.def(py::init([] (const MAT_DataMapOfIntegerArc &other) {return new MAT_DataMapOfIntegerArc(other);}), "Copy constructor", py::arg("other"));
-	cls_MAT_DataMapOfIntegerArc.def("begin", (MAT_DataMapOfIntegerArc::iterator (MAT_DataMapOfIntegerArc::*)() const ) &MAT_DataMapOfIntegerArc::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MAT_DataMapOfIntegerArc.def("end", (MAT_DataMapOfIntegerArc::iterator (MAT_DataMapOfIntegerArc::*)() const ) &MAT_DataMapOfIntegerArc::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MAT_DataMapOfIntegerArc.def("cbegin", (MAT_DataMapOfIntegerArc::const_iterator (MAT_DataMapOfIntegerArc::*)() const ) &MAT_DataMapOfIntegerArc::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MAT_DataMapOfIntegerArc.def("cend", (MAT_DataMapOfIntegerArc::const_iterator (MAT_DataMapOfIntegerArc::*)() const ) &MAT_DataMapOfIntegerArc::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MAT_DataMapOfIntegerArc.def("Exchange", (void (MAT_DataMapOfIntegerArc::*)(MAT_DataMapOfIntegerArc &)) &MAT_DataMapOfIntegerArc::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MAT_DataMapOfIntegerArc.def("Assign", (MAT_DataMapOfIntegerArc & (MAT_DataMapOfIntegerArc::*)(const MAT_DataMapOfIntegerArc &)) &MAT_DataMapOfIntegerArc::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MAT_DataMapOfIntegerArc.def("assign", (MAT_DataMapOfIntegerArc & (MAT_DataMapOfIntegerArc::*)(const MAT_DataMapOfIntegerArc &)) &MAT_DataMapOfIntegerArc::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MAT_DataMapOfIntegerArc.def("ReSize", (void (MAT_DataMapOfIntegerArc::*)(const Standard_Integer)) &MAT_DataMapOfIntegerArc::ReSize, "ReSize", py::arg("N"));
-	cls_MAT_DataMapOfIntegerArc.def("Bind", (Standard_Boolean (MAT_DataMapOfIntegerArc::*)(const Standard_Integer &, const opencascade::handle<MAT_Arc> &)) &MAT_DataMapOfIntegerArc::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MAT_DataMapOfIntegerArc.def("Bound", (opencascade::handle<MAT_Arc> * (MAT_DataMapOfIntegerArc::*)(const Standard_Integer &, const opencascade::handle<MAT_Arc> &)) &MAT_DataMapOfIntegerArc::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MAT_DataMapOfIntegerArc.def("IsBound", (Standard_Boolean (MAT_DataMapOfIntegerArc::*)(const Standard_Integer &) const ) &MAT_DataMapOfIntegerArc::IsBound, "IsBound", py::arg("theKey"));
-	cls_MAT_DataMapOfIntegerArc.def("UnBind", (Standard_Boolean (MAT_DataMapOfIntegerArc::*)(const Standard_Integer &)) &MAT_DataMapOfIntegerArc::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MAT_DataMapOfIntegerArc.def("Seek", (const opencascade::handle<MAT_Arc> * (MAT_DataMapOfIntegerArc::*)(const Standard_Integer &) const ) &MAT_DataMapOfIntegerArc::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MAT_DataMapOfIntegerArc.def("Find", (const opencascade::handle<MAT_Arc> & (MAT_DataMapOfIntegerArc::*)(const Standard_Integer &) const ) &MAT_DataMapOfIntegerArc::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MAT_DataMapOfIntegerArc.def("Find", (Standard_Boolean (MAT_DataMapOfIntegerArc::*)(const Standard_Integer &, opencascade::handle<MAT_Arc> &) const ) &MAT_DataMapOfIntegerArc::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MAT_DataMapOfIntegerArc.def("__call__", (const opencascade::handle<MAT_Arc> & (MAT_DataMapOfIntegerArc::*)(const Standard_Integer &) const ) &MAT_DataMapOfIntegerArc::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MAT_DataMapOfIntegerArc.def("ChangeSeek", (opencascade::handle<MAT_Arc> * (MAT_DataMapOfIntegerArc::*)(const Standard_Integer &)) &MAT_DataMapOfIntegerArc::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MAT_DataMapOfIntegerArc.def("ChangeFind", (opencascade::handle<MAT_Arc> & (MAT_DataMapOfIntegerArc::*)(const Standard_Integer &)) &MAT_DataMapOfIntegerArc::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MAT_DataMapOfIntegerArc.def("__call__", (opencascade::handle<MAT_Arc> & (MAT_DataMapOfIntegerArc::*)(const Standard_Integer &)) &MAT_DataMapOfIntegerArc::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MAT_DataMapOfIntegerArc.def("Clear", [](MAT_DataMapOfIntegerArc &self) -> void { return self.Clear(); });
-	cls_MAT_DataMapOfIntegerArc.def("Clear", (void (MAT_DataMapOfIntegerArc::*)(const Standard_Boolean)) &MAT_DataMapOfIntegerArc::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MAT_DataMapOfIntegerArc.def("Clear", (void (MAT_DataMapOfIntegerArc::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MAT_DataMapOfIntegerArc::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MAT_DataMapOfIntegerArc.def("Size", (Standard_Integer (MAT_DataMapOfIntegerArc::*)() const ) &MAT_DataMapOfIntegerArc::Size, "Size");
-	cls_MAT_DataMapOfIntegerArc.def("__iter__", [](const MAT_DataMapOfIntegerArc &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<int, opencascade::handle<MAT_Bisector>, NCollection_DefaultHasher<int> >(mod, "MAT_DataMapOfIntegerBisector");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MAT_DataMapOfIntegerArc.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MAT_DataMapOfIntegerNode, std::unique_ptr<MAT_DataMapOfIntegerNode, Deleter<MAT_DataMapOfIntegerNode>>, NCollection_BaseMap> cls_MAT_DataMapOfIntegerNode(mod, "MAT_DataMapOfIntegerNode", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MAT_DataMapOfIntegerNode.def(py::init<>());
-	cls_MAT_DataMapOfIntegerNode.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MAT_DataMapOfIntegerNode.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MAT_DataMapOfIntegerNode.def(py::init([] (const MAT_DataMapOfIntegerNode &other) {return new MAT_DataMapOfIntegerNode(other);}), "Copy constructor", py::arg("other"));
-	cls_MAT_DataMapOfIntegerNode.def("begin", (MAT_DataMapOfIntegerNode::iterator (MAT_DataMapOfIntegerNode::*)() const ) &MAT_DataMapOfIntegerNode::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MAT_DataMapOfIntegerNode.def("end", (MAT_DataMapOfIntegerNode::iterator (MAT_DataMapOfIntegerNode::*)() const ) &MAT_DataMapOfIntegerNode::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MAT_DataMapOfIntegerNode.def("cbegin", (MAT_DataMapOfIntegerNode::const_iterator (MAT_DataMapOfIntegerNode::*)() const ) &MAT_DataMapOfIntegerNode::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MAT_DataMapOfIntegerNode.def("cend", (MAT_DataMapOfIntegerNode::const_iterator (MAT_DataMapOfIntegerNode::*)() const ) &MAT_DataMapOfIntegerNode::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MAT_DataMapOfIntegerNode.def("Exchange", (void (MAT_DataMapOfIntegerNode::*)(MAT_DataMapOfIntegerNode &)) &MAT_DataMapOfIntegerNode::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MAT_DataMapOfIntegerNode.def("Assign", (MAT_DataMapOfIntegerNode & (MAT_DataMapOfIntegerNode::*)(const MAT_DataMapOfIntegerNode &)) &MAT_DataMapOfIntegerNode::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MAT_DataMapOfIntegerNode.def("assign", (MAT_DataMapOfIntegerNode & (MAT_DataMapOfIntegerNode::*)(const MAT_DataMapOfIntegerNode &)) &MAT_DataMapOfIntegerNode::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MAT_DataMapOfIntegerNode.def("ReSize", (void (MAT_DataMapOfIntegerNode::*)(const Standard_Integer)) &MAT_DataMapOfIntegerNode::ReSize, "ReSize", py::arg("N"));
-	cls_MAT_DataMapOfIntegerNode.def("Bind", (Standard_Boolean (MAT_DataMapOfIntegerNode::*)(const Standard_Integer &, const opencascade::handle<MAT_Node> &)) &MAT_DataMapOfIntegerNode::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MAT_DataMapOfIntegerNode.def("Bound", (opencascade::handle<MAT_Node> * (MAT_DataMapOfIntegerNode::*)(const Standard_Integer &, const opencascade::handle<MAT_Node> &)) &MAT_DataMapOfIntegerNode::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MAT_DataMapOfIntegerNode.def("IsBound", (Standard_Boolean (MAT_DataMapOfIntegerNode::*)(const Standard_Integer &) const ) &MAT_DataMapOfIntegerNode::IsBound, "IsBound", py::arg("theKey"));
-	cls_MAT_DataMapOfIntegerNode.def("UnBind", (Standard_Boolean (MAT_DataMapOfIntegerNode::*)(const Standard_Integer &)) &MAT_DataMapOfIntegerNode::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MAT_DataMapOfIntegerNode.def("Seek", (const opencascade::handle<MAT_Node> * (MAT_DataMapOfIntegerNode::*)(const Standard_Integer &) const ) &MAT_DataMapOfIntegerNode::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MAT_DataMapOfIntegerNode.def("Find", (const opencascade::handle<MAT_Node> & (MAT_DataMapOfIntegerNode::*)(const Standard_Integer &) const ) &MAT_DataMapOfIntegerNode::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MAT_DataMapOfIntegerNode.def("Find", (Standard_Boolean (MAT_DataMapOfIntegerNode::*)(const Standard_Integer &, opencascade::handle<MAT_Node> &) const ) &MAT_DataMapOfIntegerNode::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MAT_DataMapOfIntegerNode.def("__call__", (const opencascade::handle<MAT_Node> & (MAT_DataMapOfIntegerNode::*)(const Standard_Integer &) const ) &MAT_DataMapOfIntegerNode::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MAT_DataMapOfIntegerNode.def("ChangeSeek", (opencascade::handle<MAT_Node> * (MAT_DataMapOfIntegerNode::*)(const Standard_Integer &)) &MAT_DataMapOfIntegerNode::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MAT_DataMapOfIntegerNode.def("ChangeFind", (opencascade::handle<MAT_Node> & (MAT_DataMapOfIntegerNode::*)(const Standard_Integer &)) &MAT_DataMapOfIntegerNode::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MAT_DataMapOfIntegerNode.def("__call__", (opencascade::handle<MAT_Node> & (MAT_DataMapOfIntegerNode::*)(const Standard_Integer &)) &MAT_DataMapOfIntegerNode::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MAT_DataMapOfIntegerNode.def("Clear", [](MAT_DataMapOfIntegerNode &self) -> void { return self.Clear(); });
-	cls_MAT_DataMapOfIntegerNode.def("Clear", (void (MAT_DataMapOfIntegerNode::*)(const Standard_Boolean)) &MAT_DataMapOfIntegerNode::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MAT_DataMapOfIntegerNode.def("Clear", (void (MAT_DataMapOfIntegerNode::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MAT_DataMapOfIntegerNode::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MAT_DataMapOfIntegerNode.def("Size", (Standard_Integer (MAT_DataMapOfIntegerNode::*)() const ) &MAT_DataMapOfIntegerNode::Size, "Size");
-	cls_MAT_DataMapOfIntegerNode.def("__iter__", [](const MAT_DataMapOfIntegerNode &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<int, opencascade::handle<MAT_Arc>, NCollection_DefaultHasher<int> >(mod, "MAT_DataMapOfIntegerArc");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MAT_DataMapOfIntegerNode.hxx
+	bind_NCollection_DataMap<int, opencascade::handle<MAT_Node>, NCollection_DefaultHasher<int> >(mod, "MAT_DataMapOfIntegerNode");
+
+	/* FIXME
+
+	*/
+
 
 }

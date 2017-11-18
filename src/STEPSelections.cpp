@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
@@ -41,6 +32,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <STEPSelections_SelectForTransfer.hxx>
 #include <STEPSelections_SelectGSCurves.hxx>
 #include <STEPSelections_SelectInstances.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(STEPSelections, mod) {
 
@@ -91,50 +83,8 @@ PYBIND11_MODULE(STEPSelections, mod) {
 	cls_STEPSelections_AssemblyLink.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &STEPSelections_AssemblyLink::get_type_descriptor, "None");
 	cls_STEPSelections_AssemblyLink.def("DynamicType", (const opencascade::handle<Standard_Type> & (STEPSelections_AssemblyLink::*)() const ) &STEPSelections_AssemblyLink::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<STEPSelections_SequenceOfAssemblyLink, std::unique_ptr<STEPSelections_SequenceOfAssemblyLink, Deleter<STEPSelections_SequenceOfAssemblyLink>>, NCollection_BaseSequence> cls_STEPSelections_SequenceOfAssemblyLink(mod, "STEPSelections_SequenceOfAssemblyLink", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_STEPSelections_SequenceOfAssemblyLink.def(py::init<>());
-	cls_STEPSelections_SequenceOfAssemblyLink.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def(py::init([] (const STEPSelections_SequenceOfAssemblyLink &other) {return new STEPSelections_SequenceOfAssemblyLink(other);}), "Copy constructor", py::arg("other"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("begin", (STEPSelections_SequenceOfAssemblyLink::iterator (STEPSelections_SequenceOfAssemblyLink::*)() const ) &STEPSelections_SequenceOfAssemblyLink::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_STEPSelections_SequenceOfAssemblyLink.def("end", (STEPSelections_SequenceOfAssemblyLink::iterator (STEPSelections_SequenceOfAssemblyLink::*)() const ) &STEPSelections_SequenceOfAssemblyLink::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_STEPSelections_SequenceOfAssemblyLink.def("cbegin", (STEPSelections_SequenceOfAssemblyLink::const_iterator (STEPSelections_SequenceOfAssemblyLink::*)() const ) &STEPSelections_SequenceOfAssemblyLink::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_STEPSelections_SequenceOfAssemblyLink.def("cend", (STEPSelections_SequenceOfAssemblyLink::const_iterator (STEPSelections_SequenceOfAssemblyLink::*)() const ) &STEPSelections_SequenceOfAssemblyLink::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Size", (Standard_Integer (STEPSelections_SequenceOfAssemblyLink::*)() const ) &STEPSelections_SequenceOfAssemblyLink::Size, "Number of items");
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Length", (Standard_Integer (STEPSelections_SequenceOfAssemblyLink::*)() const ) &STEPSelections_SequenceOfAssemblyLink::Length, "Number of items");
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Lower", (Standard_Integer (STEPSelections_SequenceOfAssemblyLink::*)() const ) &STEPSelections_SequenceOfAssemblyLink::Lower, "Method for consistency with other collections.");
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Upper", (Standard_Integer (STEPSelections_SequenceOfAssemblyLink::*)() const ) &STEPSelections_SequenceOfAssemblyLink::Upper, "Method for consistency with other collections.");
-	cls_STEPSelections_SequenceOfAssemblyLink.def("IsEmpty", (Standard_Boolean (STEPSelections_SequenceOfAssemblyLink::*)() const ) &STEPSelections_SequenceOfAssemblyLink::IsEmpty, "Empty query");
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Reverse", (void (STEPSelections_SequenceOfAssemblyLink::*)()) &STEPSelections_SequenceOfAssemblyLink::Reverse, "Reverse sequence");
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Exchange", (void (STEPSelections_SequenceOfAssemblyLink::*)(const Standard_Integer, const Standard_Integer)) &STEPSelections_SequenceOfAssemblyLink::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &STEPSelections_SequenceOfAssemblyLink::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Clear", [](STEPSelections_SequenceOfAssemblyLink &self) -> void { return self.Clear(); });
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Clear", (void (STEPSelections_SequenceOfAssemblyLink::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &STEPSelections_SequenceOfAssemblyLink::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Assign", (STEPSelections_SequenceOfAssemblyLink & (STEPSelections_SequenceOfAssemblyLink::*)(const STEPSelections_SequenceOfAssemblyLink &)) &STEPSelections_SequenceOfAssemblyLink::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("assign", (STEPSelections_SequenceOfAssemblyLink & (STEPSelections_SequenceOfAssemblyLink::*)(const STEPSelections_SequenceOfAssemblyLink &)) &STEPSelections_SequenceOfAssemblyLink::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Remove", (void (STEPSelections_SequenceOfAssemblyLink::*)(STEPSelections_SequenceOfAssemblyLink::Iterator &)) &STEPSelections_SequenceOfAssemblyLink::Remove, "Remove one item", py::arg("thePosition"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Remove", (void (STEPSelections_SequenceOfAssemblyLink::*)(const Standard_Integer)) &STEPSelections_SequenceOfAssemblyLink::Remove, "Remove one item", py::arg("theIndex"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Remove", (void (STEPSelections_SequenceOfAssemblyLink::*)(const Standard_Integer, const Standard_Integer)) &STEPSelections_SequenceOfAssemblyLink::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Append", (void (STEPSelections_SequenceOfAssemblyLink::*)(const opencascade::handle<STEPSelections_AssemblyLink> &)) &STEPSelections_SequenceOfAssemblyLink::Append, "Append one item", py::arg("theItem"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Append", (void (STEPSelections_SequenceOfAssemblyLink::*)(STEPSelections_SequenceOfAssemblyLink &)) &STEPSelections_SequenceOfAssemblyLink::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Prepend", (void (STEPSelections_SequenceOfAssemblyLink::*)(const opencascade::handle<STEPSelections_AssemblyLink> &)) &STEPSelections_SequenceOfAssemblyLink::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Prepend", (void (STEPSelections_SequenceOfAssemblyLink::*)(STEPSelections_SequenceOfAssemblyLink &)) &STEPSelections_SequenceOfAssemblyLink::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("InsertBefore", (void (STEPSelections_SequenceOfAssemblyLink::*)(const Standard_Integer, const opencascade::handle<STEPSelections_AssemblyLink> &)) &STEPSelections_SequenceOfAssemblyLink::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("InsertBefore", (void (STEPSelections_SequenceOfAssemblyLink::*)(const Standard_Integer, STEPSelections_SequenceOfAssemblyLink &)) &STEPSelections_SequenceOfAssemblyLink::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("InsertAfter", (void (STEPSelections_SequenceOfAssemblyLink::*)(STEPSelections_SequenceOfAssemblyLink::Iterator &, const opencascade::handle<STEPSelections_AssemblyLink> &)) &STEPSelections_SequenceOfAssemblyLink::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("InsertAfter", (void (STEPSelections_SequenceOfAssemblyLink::*)(const Standard_Integer, STEPSelections_SequenceOfAssemblyLink &)) &STEPSelections_SequenceOfAssemblyLink::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("InsertAfter", (void (STEPSelections_SequenceOfAssemblyLink::*)(const Standard_Integer, const opencascade::handle<STEPSelections_AssemblyLink> &)) &STEPSelections_SequenceOfAssemblyLink::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Split", (void (STEPSelections_SequenceOfAssemblyLink::*)(const Standard_Integer, STEPSelections_SequenceOfAssemblyLink &)) &STEPSelections_SequenceOfAssemblyLink::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("First", (const opencascade::handle<STEPSelections_AssemblyLink> & (STEPSelections_SequenceOfAssemblyLink::*)() const ) &STEPSelections_SequenceOfAssemblyLink::First, "First item access");
-	cls_STEPSelections_SequenceOfAssemblyLink.def("ChangeFirst", (opencascade::handle<STEPSelections_AssemblyLink> & (STEPSelections_SequenceOfAssemblyLink::*)()) &STEPSelections_SequenceOfAssemblyLink::ChangeFirst, "First item access");
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Last", (const opencascade::handle<STEPSelections_AssemblyLink> & (STEPSelections_SequenceOfAssemblyLink::*)() const ) &STEPSelections_SequenceOfAssemblyLink::Last, "Last item access");
-	cls_STEPSelections_SequenceOfAssemblyLink.def("ChangeLast", (opencascade::handle<STEPSelections_AssemblyLink> & (STEPSelections_SequenceOfAssemblyLink::*)()) &STEPSelections_SequenceOfAssemblyLink::ChangeLast, "Last item access");
-	cls_STEPSelections_SequenceOfAssemblyLink.def("Value", (const opencascade::handle<STEPSelections_AssemblyLink> & (STEPSelections_SequenceOfAssemblyLink::*)(const Standard_Integer) const ) &STEPSelections_SequenceOfAssemblyLink::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("__call__", (const opencascade::handle<STEPSelections_AssemblyLink> & (STEPSelections_SequenceOfAssemblyLink::*)(const Standard_Integer) const ) &STEPSelections_SequenceOfAssemblyLink::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("ChangeValue", (opencascade::handle<STEPSelections_AssemblyLink> & (STEPSelections_SequenceOfAssemblyLink::*)(const Standard_Integer)) &STEPSelections_SequenceOfAssemblyLink::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("__call__", (opencascade::handle<STEPSelections_AssemblyLink> & (STEPSelections_SequenceOfAssemblyLink::*)(const Standard_Integer)) &STEPSelections_SequenceOfAssemblyLink::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("SetValue", (void (STEPSelections_SequenceOfAssemblyLink::*)(const Standard_Integer, const opencascade::handle<STEPSelections_AssemblyLink> &)) &STEPSelections_SequenceOfAssemblyLink::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_STEPSelections_SequenceOfAssemblyLink.def("__iter__", [](const STEPSelections_SequenceOfAssemblyLink &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\STEPSelections_SequenceOfAssemblyLink.hxx
+	bind_NCollection_Sequence<opencascade::handle<STEPSelections_AssemblyLink> >(mod, "STEPSelections_SequenceOfAssemblyLink");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\STEPSelections_AssemblyExplorer.hxx
 	py::class_<STEPSelections_AssemblyExplorer, std::unique_ptr<STEPSelections_AssemblyExplorer, Deleter<STEPSelections_AssemblyExplorer>>> cls_STEPSelections_AssemblyExplorer(mod, "STEPSelections_AssemblyExplorer", "None");
@@ -232,50 +182,8 @@ PYBIND11_MODULE(STEPSelections, mod) {
 	cls_STEPSelections_HSequenceOfAssemblyLink.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &STEPSelections_HSequenceOfAssemblyLink::get_type_descriptor, "None");
 	cls_STEPSelections_HSequenceOfAssemblyLink.def("DynamicType", (const opencascade::handle<Standard_Type> & (STEPSelections_HSequenceOfAssemblyLink::*)() const ) &STEPSelections_HSequenceOfAssemblyLink::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<STEPSelections_SequenceOfAssemblyComponent, std::unique_ptr<STEPSelections_SequenceOfAssemblyComponent, Deleter<STEPSelections_SequenceOfAssemblyComponent>>, NCollection_BaseSequence> cls_STEPSelections_SequenceOfAssemblyComponent(mod, "STEPSelections_SequenceOfAssemblyComponent", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_STEPSelections_SequenceOfAssemblyComponent.def(py::init<>());
-	cls_STEPSelections_SequenceOfAssemblyComponent.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def(py::init([] (const STEPSelections_SequenceOfAssemblyComponent &other) {return new STEPSelections_SequenceOfAssemblyComponent(other);}), "Copy constructor", py::arg("other"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("begin", (STEPSelections_SequenceOfAssemblyComponent::iterator (STEPSelections_SequenceOfAssemblyComponent::*)() const ) &STEPSelections_SequenceOfAssemblyComponent::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("end", (STEPSelections_SequenceOfAssemblyComponent::iterator (STEPSelections_SequenceOfAssemblyComponent::*)() const ) &STEPSelections_SequenceOfAssemblyComponent::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("cbegin", (STEPSelections_SequenceOfAssemblyComponent::const_iterator (STEPSelections_SequenceOfAssemblyComponent::*)() const ) &STEPSelections_SequenceOfAssemblyComponent::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("cend", (STEPSelections_SequenceOfAssemblyComponent::const_iterator (STEPSelections_SequenceOfAssemblyComponent::*)() const ) &STEPSelections_SequenceOfAssemblyComponent::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Size", (Standard_Integer (STEPSelections_SequenceOfAssemblyComponent::*)() const ) &STEPSelections_SequenceOfAssemblyComponent::Size, "Number of items");
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Length", (Standard_Integer (STEPSelections_SequenceOfAssemblyComponent::*)() const ) &STEPSelections_SequenceOfAssemblyComponent::Length, "Number of items");
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Lower", (Standard_Integer (STEPSelections_SequenceOfAssemblyComponent::*)() const ) &STEPSelections_SequenceOfAssemblyComponent::Lower, "Method for consistency with other collections.");
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Upper", (Standard_Integer (STEPSelections_SequenceOfAssemblyComponent::*)() const ) &STEPSelections_SequenceOfAssemblyComponent::Upper, "Method for consistency with other collections.");
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("IsEmpty", (Standard_Boolean (STEPSelections_SequenceOfAssemblyComponent::*)() const ) &STEPSelections_SequenceOfAssemblyComponent::IsEmpty, "Empty query");
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Reverse", (void (STEPSelections_SequenceOfAssemblyComponent::*)()) &STEPSelections_SequenceOfAssemblyComponent::Reverse, "Reverse sequence");
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Exchange", (void (STEPSelections_SequenceOfAssemblyComponent::*)(const Standard_Integer, const Standard_Integer)) &STEPSelections_SequenceOfAssemblyComponent::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &STEPSelections_SequenceOfAssemblyComponent::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Clear", [](STEPSelections_SequenceOfAssemblyComponent &self) -> void { return self.Clear(); });
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Clear", (void (STEPSelections_SequenceOfAssemblyComponent::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &STEPSelections_SequenceOfAssemblyComponent::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Assign", (STEPSelections_SequenceOfAssemblyComponent & (STEPSelections_SequenceOfAssemblyComponent::*)(const STEPSelections_SequenceOfAssemblyComponent &)) &STEPSelections_SequenceOfAssemblyComponent::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("assign", (STEPSelections_SequenceOfAssemblyComponent & (STEPSelections_SequenceOfAssemblyComponent::*)(const STEPSelections_SequenceOfAssemblyComponent &)) &STEPSelections_SequenceOfAssemblyComponent::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Remove", (void (STEPSelections_SequenceOfAssemblyComponent::*)(STEPSelections_SequenceOfAssemblyComponent::Iterator &)) &STEPSelections_SequenceOfAssemblyComponent::Remove, "Remove one item", py::arg("thePosition"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Remove", (void (STEPSelections_SequenceOfAssemblyComponent::*)(const Standard_Integer)) &STEPSelections_SequenceOfAssemblyComponent::Remove, "Remove one item", py::arg("theIndex"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Remove", (void (STEPSelections_SequenceOfAssemblyComponent::*)(const Standard_Integer, const Standard_Integer)) &STEPSelections_SequenceOfAssemblyComponent::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Append", (void (STEPSelections_SequenceOfAssemblyComponent::*)(const opencascade::handle<STEPSelections_AssemblyComponent> &)) &STEPSelections_SequenceOfAssemblyComponent::Append, "Append one item", py::arg("theItem"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Append", (void (STEPSelections_SequenceOfAssemblyComponent::*)(STEPSelections_SequenceOfAssemblyComponent &)) &STEPSelections_SequenceOfAssemblyComponent::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Prepend", (void (STEPSelections_SequenceOfAssemblyComponent::*)(const opencascade::handle<STEPSelections_AssemblyComponent> &)) &STEPSelections_SequenceOfAssemblyComponent::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Prepend", (void (STEPSelections_SequenceOfAssemblyComponent::*)(STEPSelections_SequenceOfAssemblyComponent &)) &STEPSelections_SequenceOfAssemblyComponent::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("InsertBefore", (void (STEPSelections_SequenceOfAssemblyComponent::*)(const Standard_Integer, const opencascade::handle<STEPSelections_AssemblyComponent> &)) &STEPSelections_SequenceOfAssemblyComponent::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("InsertBefore", (void (STEPSelections_SequenceOfAssemblyComponent::*)(const Standard_Integer, STEPSelections_SequenceOfAssemblyComponent &)) &STEPSelections_SequenceOfAssemblyComponent::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("InsertAfter", (void (STEPSelections_SequenceOfAssemblyComponent::*)(STEPSelections_SequenceOfAssemblyComponent::Iterator &, const opencascade::handle<STEPSelections_AssemblyComponent> &)) &STEPSelections_SequenceOfAssemblyComponent::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("InsertAfter", (void (STEPSelections_SequenceOfAssemblyComponent::*)(const Standard_Integer, STEPSelections_SequenceOfAssemblyComponent &)) &STEPSelections_SequenceOfAssemblyComponent::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("InsertAfter", (void (STEPSelections_SequenceOfAssemblyComponent::*)(const Standard_Integer, const opencascade::handle<STEPSelections_AssemblyComponent> &)) &STEPSelections_SequenceOfAssemblyComponent::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Split", (void (STEPSelections_SequenceOfAssemblyComponent::*)(const Standard_Integer, STEPSelections_SequenceOfAssemblyComponent &)) &STEPSelections_SequenceOfAssemblyComponent::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("First", (const opencascade::handle<STEPSelections_AssemblyComponent> & (STEPSelections_SequenceOfAssemblyComponent::*)() const ) &STEPSelections_SequenceOfAssemblyComponent::First, "First item access");
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("ChangeFirst", (opencascade::handle<STEPSelections_AssemblyComponent> & (STEPSelections_SequenceOfAssemblyComponent::*)()) &STEPSelections_SequenceOfAssemblyComponent::ChangeFirst, "First item access");
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Last", (const opencascade::handle<STEPSelections_AssemblyComponent> & (STEPSelections_SequenceOfAssemblyComponent::*)() const ) &STEPSelections_SequenceOfAssemblyComponent::Last, "Last item access");
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("ChangeLast", (opencascade::handle<STEPSelections_AssemblyComponent> & (STEPSelections_SequenceOfAssemblyComponent::*)()) &STEPSelections_SequenceOfAssemblyComponent::ChangeLast, "Last item access");
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("Value", (const opencascade::handle<STEPSelections_AssemblyComponent> & (STEPSelections_SequenceOfAssemblyComponent::*)(const Standard_Integer) const ) &STEPSelections_SequenceOfAssemblyComponent::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("__call__", (const opencascade::handle<STEPSelections_AssemblyComponent> & (STEPSelections_SequenceOfAssemblyComponent::*)(const Standard_Integer) const ) &STEPSelections_SequenceOfAssemblyComponent::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("ChangeValue", (opencascade::handle<STEPSelections_AssemblyComponent> & (STEPSelections_SequenceOfAssemblyComponent::*)(const Standard_Integer)) &STEPSelections_SequenceOfAssemblyComponent::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("__call__", (opencascade::handle<STEPSelections_AssemblyComponent> & (STEPSelections_SequenceOfAssemblyComponent::*)(const Standard_Integer)) &STEPSelections_SequenceOfAssemblyComponent::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("SetValue", (void (STEPSelections_SequenceOfAssemblyComponent::*)(const Standard_Integer, const opencascade::handle<STEPSelections_AssemblyComponent> &)) &STEPSelections_SequenceOfAssemblyComponent::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_STEPSelections_SequenceOfAssemblyComponent.def("__iter__", [](const STEPSelections_SequenceOfAssemblyComponent &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\STEPSelections_SequenceOfAssemblyComponent.hxx
+	bind_NCollection_Sequence<opencascade::handle<STEPSelections_AssemblyComponent> >(mod, "STEPSelections_SequenceOfAssemblyComponent");
 
 
 }

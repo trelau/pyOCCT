@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Handle.hxx>
 #include <XSControl_WorkSession.hxx>
@@ -83,6 +74,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_BaseMap.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <NCollection_DataMap.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(STEPConstruct, mod) {
 
@@ -356,69 +348,19 @@ PYBIND11_MODULE(STEPConstruct, mod) {
 	cls_STEPConstruct.def_static("FindShape_", (TopoDS_Shape (*)(const opencascade::handle<Transfer_TransientProcess> &, const opencascade::handle<StepRepr_RepresentationItem> &)) &STEPConstruct::FindShape, "Returns Shape resulting from given STEP entity (Null if not mapped)", py::arg("TransientProcess"), py::arg("item"));
 	cls_STEPConstruct.def_static("FindCDSR_", (Standard_Boolean (*)(const opencascade::handle<Transfer_Binder> &, const opencascade::handle<StepShape_ShapeDefinitionRepresentation> &, opencascade::handle<StepShape_ContextDependentShapeRepresentation> &)) &STEPConstruct::FindCDSR, "Find CDSR correcponding to the component in the specified assembly", py::arg("ComponentBinder"), py::arg("AssemblySDR"), py::arg("ComponentCDSR"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<STEPConstruct_DataMapOfAsciiStringTransient, std::unique_ptr<STEPConstruct_DataMapOfAsciiStringTransient, Deleter<STEPConstruct_DataMapOfAsciiStringTransient>>, NCollection_BaseMap> cls_STEPConstruct_DataMapOfAsciiStringTransient(mod, "STEPConstruct_DataMapOfAsciiStringTransient", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def(py::init<>());
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def(py::init([] (const STEPConstruct_DataMapOfAsciiStringTransient &other) {return new STEPConstruct_DataMapOfAsciiStringTransient(other);}), "Copy constructor", py::arg("other"));
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("begin", (STEPConstruct_DataMapOfAsciiStringTransient::iterator (STEPConstruct_DataMapOfAsciiStringTransient::*)() const ) &STEPConstruct_DataMapOfAsciiStringTransient::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("end", (STEPConstruct_DataMapOfAsciiStringTransient::iterator (STEPConstruct_DataMapOfAsciiStringTransient::*)() const ) &STEPConstruct_DataMapOfAsciiStringTransient::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("cbegin", (STEPConstruct_DataMapOfAsciiStringTransient::const_iterator (STEPConstruct_DataMapOfAsciiStringTransient::*)() const ) &STEPConstruct_DataMapOfAsciiStringTransient::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("cend", (STEPConstruct_DataMapOfAsciiStringTransient::const_iterator (STEPConstruct_DataMapOfAsciiStringTransient::*)() const ) &STEPConstruct_DataMapOfAsciiStringTransient::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("Exchange", (void (STEPConstruct_DataMapOfAsciiStringTransient::*)(STEPConstruct_DataMapOfAsciiStringTransient &)) &STEPConstruct_DataMapOfAsciiStringTransient::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("Assign", (STEPConstruct_DataMapOfAsciiStringTransient & (STEPConstruct_DataMapOfAsciiStringTransient::*)(const STEPConstruct_DataMapOfAsciiStringTransient &)) &STEPConstruct_DataMapOfAsciiStringTransient::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("assign", (STEPConstruct_DataMapOfAsciiStringTransient & (STEPConstruct_DataMapOfAsciiStringTransient::*)(const STEPConstruct_DataMapOfAsciiStringTransient &)) &STEPConstruct_DataMapOfAsciiStringTransient::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("ReSize", (void (STEPConstruct_DataMapOfAsciiStringTransient::*)(const Standard_Integer)) &STEPConstruct_DataMapOfAsciiStringTransient::ReSize, "ReSize", py::arg("N"));
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("Bind", (Standard_Boolean (STEPConstruct_DataMapOfAsciiStringTransient::*)(const TCollection_AsciiString &, const opencascade::handle<Standard_Transient> &)) &STEPConstruct_DataMapOfAsciiStringTransient::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_STEPConstruct_DataMapOfAsciiStringTransient.def("Bound", (opencascade::handle<Standard_Transient> * (STEPConstruct_DataMapOfAsciiStringTransient::*)(const TCollection_AsciiString &, const opencascade::handle<Standard_Transient> &)) &STEPConstruct_DataMapOfAsciiStringTransient::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("IsBound", (Standard_Boolean (STEPConstruct_DataMapOfAsciiStringTransient::*)(const TCollection_AsciiString &) const ) &STEPConstruct_DataMapOfAsciiStringTransient::IsBound, "IsBound", py::arg("theKey"));
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("UnBind", (Standard_Boolean (STEPConstruct_DataMapOfAsciiStringTransient::*)(const TCollection_AsciiString &)) &STEPConstruct_DataMapOfAsciiStringTransient::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_STEPConstruct_DataMapOfAsciiStringTransient.def("Seek", (const opencascade::handle<Standard_Transient> * (STEPConstruct_DataMapOfAsciiStringTransient::*)(const TCollection_AsciiString &) const ) &STEPConstruct_DataMapOfAsciiStringTransient::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_STEPConstruct_DataMapOfAsciiStringTransient.def("Find", (const opencascade::handle<Standard_Transient> & (STEPConstruct_DataMapOfAsciiStringTransient::*)(const TCollection_AsciiString &) const ) &STEPConstruct_DataMapOfAsciiStringTransient::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_STEPConstruct_DataMapOfAsciiStringTransient.def("Find", (Standard_Boolean (STEPConstruct_DataMapOfAsciiStringTransient::*)(const TCollection_AsciiString &, opencascade::handle<Standard_Transient> &) const ) &STEPConstruct_DataMapOfAsciiStringTransient::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("__call__", (const opencascade::handle<Standard_Transient> & (STEPConstruct_DataMapOfAsciiStringTransient::*)(const TCollection_AsciiString &) const ) &STEPConstruct_DataMapOfAsciiStringTransient::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_STEPConstruct_DataMapOfAsciiStringTransient.def("ChangeSeek", (opencascade::handle<Standard_Transient> * (STEPConstruct_DataMapOfAsciiStringTransient::*)(const TCollection_AsciiString &)) &STEPConstruct_DataMapOfAsciiStringTransient::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("ChangeFind", (opencascade::handle<Standard_Transient> & (STEPConstruct_DataMapOfAsciiStringTransient::*)(const TCollection_AsciiString &)) &STEPConstruct_DataMapOfAsciiStringTransient::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("__call__", (opencascade::handle<Standard_Transient> & (STEPConstruct_DataMapOfAsciiStringTransient::*)(const TCollection_AsciiString &)) &STEPConstruct_DataMapOfAsciiStringTransient::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("Clear", [](STEPConstruct_DataMapOfAsciiStringTransient &self) -> void { return self.Clear(); });
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("Clear", (void (STEPConstruct_DataMapOfAsciiStringTransient::*)(const Standard_Boolean)) &STEPConstruct_DataMapOfAsciiStringTransient::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("Clear", (void (STEPConstruct_DataMapOfAsciiStringTransient::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &STEPConstruct_DataMapOfAsciiStringTransient::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("Size", (Standard_Integer (STEPConstruct_DataMapOfAsciiStringTransient::*)() const ) &STEPConstruct_DataMapOfAsciiStringTransient::Size, "Size");
-	cls_STEPConstruct_DataMapOfAsciiStringTransient.def("__iter__", [](const STEPConstruct_DataMapOfAsciiStringTransient &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\STEPConstruct_DataMapOfAsciiStringTransient.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<STEPConstruct_DataMapOfPointTransient, std::unique_ptr<STEPConstruct_DataMapOfPointTransient, Deleter<STEPConstruct_DataMapOfPointTransient>>, NCollection_BaseMap> cls_STEPConstruct_DataMapOfPointTransient(mod, "STEPConstruct_DataMapOfPointTransient", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_STEPConstruct_DataMapOfPointTransient.def(py::init<>());
-	cls_STEPConstruct_DataMapOfPointTransient.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_STEPConstruct_DataMapOfPointTransient.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_STEPConstruct_DataMapOfPointTransient.def(py::init([] (const STEPConstruct_DataMapOfPointTransient &other) {return new STEPConstruct_DataMapOfPointTransient(other);}), "Copy constructor", py::arg("other"));
-	cls_STEPConstruct_DataMapOfPointTransient.def("begin", (STEPConstruct_DataMapOfPointTransient::iterator (STEPConstruct_DataMapOfPointTransient::*)() const ) &STEPConstruct_DataMapOfPointTransient::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_STEPConstruct_DataMapOfPointTransient.def("end", (STEPConstruct_DataMapOfPointTransient::iterator (STEPConstruct_DataMapOfPointTransient::*)() const ) &STEPConstruct_DataMapOfPointTransient::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_STEPConstruct_DataMapOfPointTransient.def("cbegin", (STEPConstruct_DataMapOfPointTransient::const_iterator (STEPConstruct_DataMapOfPointTransient::*)() const ) &STEPConstruct_DataMapOfPointTransient::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_STEPConstruct_DataMapOfPointTransient.def("cend", (STEPConstruct_DataMapOfPointTransient::const_iterator (STEPConstruct_DataMapOfPointTransient::*)() const ) &STEPConstruct_DataMapOfPointTransient::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_STEPConstruct_DataMapOfPointTransient.def("Exchange", (void (STEPConstruct_DataMapOfPointTransient::*)(STEPConstruct_DataMapOfPointTransient &)) &STEPConstruct_DataMapOfPointTransient::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_STEPConstruct_DataMapOfPointTransient.def("Assign", (STEPConstruct_DataMapOfPointTransient & (STEPConstruct_DataMapOfPointTransient::*)(const STEPConstruct_DataMapOfPointTransient &)) &STEPConstruct_DataMapOfPointTransient::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_STEPConstruct_DataMapOfPointTransient.def("assign", (STEPConstruct_DataMapOfPointTransient & (STEPConstruct_DataMapOfPointTransient::*)(const STEPConstruct_DataMapOfPointTransient &)) &STEPConstruct_DataMapOfPointTransient::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_STEPConstruct_DataMapOfPointTransient.def("ReSize", (void (STEPConstruct_DataMapOfPointTransient::*)(const Standard_Integer)) &STEPConstruct_DataMapOfPointTransient::ReSize, "ReSize", py::arg("N"));
-	cls_STEPConstruct_DataMapOfPointTransient.def("Bind", (Standard_Boolean (STEPConstruct_DataMapOfPointTransient::*)(const gp_Pnt &, const opencascade::handle<Standard_Transient> &)) &STEPConstruct_DataMapOfPointTransient::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_STEPConstruct_DataMapOfPointTransient.def("Bound", (opencascade::handle<Standard_Transient> * (STEPConstruct_DataMapOfPointTransient::*)(const gp_Pnt &, const opencascade::handle<Standard_Transient> &)) &STEPConstruct_DataMapOfPointTransient::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_STEPConstruct_DataMapOfPointTransient.def("IsBound", (Standard_Boolean (STEPConstruct_DataMapOfPointTransient::*)(const gp_Pnt &) const ) &STEPConstruct_DataMapOfPointTransient::IsBound, "IsBound", py::arg("theKey"));
-	cls_STEPConstruct_DataMapOfPointTransient.def("UnBind", (Standard_Boolean (STEPConstruct_DataMapOfPointTransient::*)(const gp_Pnt &)) &STEPConstruct_DataMapOfPointTransient::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_STEPConstruct_DataMapOfPointTransient.def("Seek", (const opencascade::handle<Standard_Transient> * (STEPConstruct_DataMapOfPointTransient::*)(const gp_Pnt &) const ) &STEPConstruct_DataMapOfPointTransient::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_STEPConstruct_DataMapOfPointTransient.def("Find", (const opencascade::handle<Standard_Transient> & (STEPConstruct_DataMapOfPointTransient::*)(const gp_Pnt &) const ) &STEPConstruct_DataMapOfPointTransient::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_STEPConstruct_DataMapOfPointTransient.def("Find", (Standard_Boolean (STEPConstruct_DataMapOfPointTransient::*)(const gp_Pnt &, opencascade::handle<Standard_Transient> &) const ) &STEPConstruct_DataMapOfPointTransient::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_STEPConstruct_DataMapOfPointTransient.def("__call__", (const opencascade::handle<Standard_Transient> & (STEPConstruct_DataMapOfPointTransient::*)(const gp_Pnt &) const ) &STEPConstruct_DataMapOfPointTransient::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_STEPConstruct_DataMapOfPointTransient.def("ChangeSeek", (opencascade::handle<Standard_Transient> * (STEPConstruct_DataMapOfPointTransient::*)(const gp_Pnt &)) &STEPConstruct_DataMapOfPointTransient::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_STEPConstruct_DataMapOfPointTransient.def("ChangeFind", (opencascade::handle<Standard_Transient> & (STEPConstruct_DataMapOfPointTransient::*)(const gp_Pnt &)) &STEPConstruct_DataMapOfPointTransient::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_STEPConstruct_DataMapOfPointTransient.def("__call__", (opencascade::handle<Standard_Transient> & (STEPConstruct_DataMapOfPointTransient::*)(const gp_Pnt &)) &STEPConstruct_DataMapOfPointTransient::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_STEPConstruct_DataMapOfPointTransient.def("Clear", [](STEPConstruct_DataMapOfPointTransient &self) -> void { return self.Clear(); });
-	cls_STEPConstruct_DataMapOfPointTransient.def("Clear", (void (STEPConstruct_DataMapOfPointTransient::*)(const Standard_Boolean)) &STEPConstruct_DataMapOfPointTransient::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_STEPConstruct_DataMapOfPointTransient.def("Clear", (void (STEPConstruct_DataMapOfPointTransient::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &STEPConstruct_DataMapOfPointTransient::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_STEPConstruct_DataMapOfPointTransient.def("Size", (Standard_Integer (STEPConstruct_DataMapOfPointTransient::*)() const ) &STEPConstruct_DataMapOfPointTransient::Size, "Size");
-	cls_STEPConstruct_DataMapOfPointTransient.def("__iter__", [](const STEPConstruct_DataMapOfPointTransient &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TCollection_AsciiString, opencascade::handle<Standard_Transient>, TCollection_AsciiString>(mod, "STEPConstruct_DataMapOfAsciiStringTransient");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\STEPConstruct_DataMapOfPointTransient.hxx
+	bind_NCollection_DataMap<gp_Pnt, opencascade::handle<Standard_Transient>, STEPConstruct_PointHasher>(mod, "STEPConstruct_DataMapOfPointTransient");
+
+	/* FIXME
+
+	*/
+
 
 }

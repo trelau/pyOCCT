@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <FSD_BStream.hxx>
 #include <FSD_FileHeader.hxx>
@@ -350,53 +341,7 @@ PYBIND11_MODULE(FSD, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\FSD_BStream.hxx
 	/* FIXME
-	// C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\fstream
-	py::class_<FSD_FStream, std::unique_ptr<FSD_FStream, Deleter<FSD_FStream>>, basic_iostream<char, char_traits<char>>> cls_FSD_FStream(mod, "FSD_FStream", "None");
-	cls_FSD_FStream.def(py::init<>());
-	cls_FSD_FStream.def(py::init<const char *>(), py::arg("_Filename"));
-	cls_FSD_FStream.def(py::init<const char *, ios_base::openmode>(), py::arg("_Filename"), py::arg("_Mode"));
-	cls_FSD_FStream.def(py::init<const char *, ios_base::openmode, int>(), py::arg("_Filename"), py::arg("_Mode"), py::arg("_Prot"));
-	cls_FSD_FStream.def(py::init<const std::string &>(), py::arg("_Str"));
-	cls_FSD_FStream.def(py::init<const std::string &, ios_base::openmode>(), py::arg("_Str"), py::arg("_Mode"));
-	cls_FSD_FStream.def(py::init<const std::string &, ios_base::openmode, int>(), py::arg("_Str"), py::arg("_Mode"), py::arg("_Prot"));
-	cls_FSD_FStream.def(py::init<const wchar_t *>(), py::arg("_Filename"));
-	cls_FSD_FStream.def(py::init<const wchar_t *, ios_base::openmode>(), py::arg("_Filename"), py::arg("_Mode"));
-	cls_FSD_FStream.def(py::init<const wchar_t *, ios_base::openmode, int>(), py::arg("_Filename"), py::arg("_Mode"), py::arg("_Prot"));
-	cls_FSD_FStream.def(py::init<const std::wstring &>(), py::arg("_Str"));
-	cls_FSD_FStream.def(py::init<const std::wstring &, ios_base::openmode>(), py::arg("_Str"), py::arg("_Mode"));
-	cls_FSD_FStream.def(py::init<const std::wstring &, ios_base::openmode, int>(), py::arg("_Str"), py::arg("_Mode"), py::arg("_Prot"));
-	cls_FSD_FStream.def(py::init<const unsigned short *>(), py::arg("_Filename"));
-	cls_FSD_FStream.def(py::init<const unsigned short *, ios_base::openmode>(), py::arg("_Filename"), py::arg("_Mode"));
-	cls_FSD_FStream.def(py::init<const unsigned short *, ios_base::openmode, int>(), py::arg("_Filename"), py::arg("_Mode"), py::arg("_Prot"));
-	cls_FSD_FStream.def(py::init<FILE *>(), py::arg("_File"));
-	// FIXME cls_FSD_FStream.def(py::init<std::FSD_FStream::_Myt &&>(), py::arg("_Right"));
-	cls_FSD_FStream.def(py::init([] (const std::FSD_FStream::_Myt &other) {return new FSD_FStream(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_FSD_FStream.def("assign", (std::FSD_FStream::_Myt & (FSD_FStream::*)(std::FSD_FStream::_Myt &&)) &FSD_FStream::operator=, py::is_operator(), "None", py::arg("_Right"));
-	// FIXME cls_FSD_FStream.def("_Assign_rv", (void (FSD_FStream::*)(std::FSD_FStream::_Myt &&)) &FSD_FStream::_Assign_rv, "None", py::arg("_Right"));
-	cls_FSD_FStream.def("swap", (void (FSD_FStream::*)(std::FSD_FStream::_Myt &)) &FSD_FStream::swap, "None", py::arg("_Right"));
-	cls_FSD_FStream.def("assign", (std::FSD_FStream::_Myt & (FSD_FStream::*)(const std::FSD_FStream::_Myt &)) &FSD_FStream::operator=, py::is_operator(), "None", py::arg(""));
-	cls_FSD_FStream.def("open", [](FSD_FStream &self, const wchar_t * a0) -> void { return self.open(a0); }, py::arg("_Filename"));
-	cls_FSD_FStream.def("open", [](FSD_FStream &self, const wchar_t * a0, ios_base::openmode a1) -> void { return self.open(a0, a1); }, py::arg("_Filename"), py::arg("_Mode"));
-	cls_FSD_FStream.def("open", (void (FSD_FStream::*)(const wchar_t *, ios_base::openmode, int)) &FSD_FStream::open, "None", py::arg("_Filename"), py::arg("_Mode"), py::arg("_Prot"));
-	cls_FSD_FStream.def("open", [](FSD_FStream &self, const std::wstring & a0) -> void { return self.open(a0); }, py::arg("_Str"));
-	cls_FSD_FStream.def("open", [](FSD_FStream &self, const std::wstring & a0, ios_base::openmode a1) -> void { return self.open(a0, a1); }, py::arg("_Str"), py::arg("_Mode"));
-	cls_FSD_FStream.def("open", (void (FSD_FStream::*)(const std::wstring &, ios_base::openmode, int)) &FSD_FStream::open, "None", py::arg("_Str"), py::arg("_Mode"), py::arg("_Prot"));
-	cls_FSD_FStream.def("open", (void (FSD_FStream::*)(const wchar_t *, ios_base::open_mode)) &FSD_FStream::open, "None", py::arg("_Filename"), py::arg("_Mode"));
-	cls_FSD_FStream.def("open", [](FSD_FStream &self, const unsigned short * a0) -> void { return self.open(a0); }, py::arg("_Filename"));
-	cls_FSD_FStream.def("open", [](FSD_FStream &self, const unsigned short * a0, ios_base::openmode a1) -> void { return self.open(a0, a1); }, py::arg("_Filename"), py::arg("_Mode"));
-	cls_FSD_FStream.def("open", (void (FSD_FStream::*)(const unsigned short *, ios_base::openmode, int)) &FSD_FStream::open, "None", py::arg("_Filename"), py::arg("_Mode"), py::arg("_Prot"));
-	cls_FSD_FStream.def("open", (void (FSD_FStream::*)(const unsigned short *, ios_base::open_mode)) &FSD_FStream::open, "None", py::arg("_Filename"), py::arg("_Mode"));
-	cls_FSD_FStream.def("rdbuf", (std::FSD_FStream::_Myfb * (FSD_FStream::*)() const ) &FSD_FStream::rdbuf, "None");
-	cls_FSD_FStream.def("is_open", (bool (FSD_FStream::*)() const ) &FSD_FStream::is_open, "None");
-	cls_FSD_FStream.def("open", [](FSD_FStream &self, const char * a0) -> void { return self.open(a0); }, py::arg("_Filename"));
-	cls_FSD_FStream.def("open", [](FSD_FStream &self, const char * a0, ios_base::openmode a1) -> void { return self.open(a0, a1); }, py::arg("_Filename"), py::arg("_Mode"));
-	cls_FSD_FStream.def("open", (void (FSD_FStream::*)(const char *, ios_base::openmode, int)) &FSD_FStream::open, "None", py::arg("_Filename"), py::arg("_Mode"), py::arg("_Prot"));
-	cls_FSD_FStream.def("open", [](FSD_FStream &self, const std::string & a0) -> void { return self.open(a0); }, py::arg("_Str"));
-	cls_FSD_FStream.def("open", [](FSD_FStream &self, const std::string & a0, ios_base::openmode a1) -> void { return self.open(a0, a1); }, py::arg("_Str"), py::arg("_Mode"));
-	cls_FSD_FStream.def("open", (void (FSD_FStream::*)(const std::string &, ios_base::openmode, int)) &FSD_FStream::open, "None", py::arg("_Str"), py::arg("_Mode"), py::arg("_Prot"));
-	cls_FSD_FStream.def("open", (void (FSD_FStream::*)(const char *, ios_base::open_mode)) &FSD_FStream::open, "None", py::arg("_Filename"), py::arg("_Mode"));
-	cls_FSD_FStream.def("close", (void (FSD_FStream::*)()) &FSD_FStream::close, "None");
-
+	// C:\Miniconda\envs\occt\Library\include\opencascade\FSD_FStream.hxx
 	*/
 
 

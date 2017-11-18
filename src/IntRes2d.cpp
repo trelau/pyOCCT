@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <IntRes2d_Position.hxx>
 #include <IntRes2d_TypeTrans.hxx>
@@ -25,6 +16,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <IntRes2d_SequenceOfIntersectionSegment.hxx>
 #include <IntRes2d_Intersection.hxx>
 #include <IntRes2d_Domain.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(IntRes2d, mod) {
 
@@ -134,95 +126,11 @@ PYBIND11_MODULE(IntRes2d, mod) {
 	cls_IntRes2d_Domain.def("IsClosed", (Standard_Boolean (IntRes2d_Domain::*)() const ) &IntRes2d_Domain::IsClosed, "Returns True if the domain is closed.");
 	cls_IntRes2d_Domain.def("EquivalentParameters", (void (IntRes2d_Domain::*)(Standard_Real &, Standard_Real &) const ) &IntRes2d_Domain::EquivalentParameters, "Returns Equivalent parameters if the domain is closed. Otherwise, the exception DomainError is raised.", py::arg("zero"), py::arg("zeroplusperiod"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<IntRes2d_SequenceOfIntersectionPoint, std::unique_ptr<IntRes2d_SequenceOfIntersectionPoint, Deleter<IntRes2d_SequenceOfIntersectionPoint>>, NCollection_BaseSequence> cls_IntRes2d_SequenceOfIntersectionPoint(mod, "IntRes2d_SequenceOfIntersectionPoint", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_IntRes2d_SequenceOfIntersectionPoint.def(py::init<>());
-	cls_IntRes2d_SequenceOfIntersectionPoint.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def(py::init([] (const IntRes2d_SequenceOfIntersectionPoint &other) {return new IntRes2d_SequenceOfIntersectionPoint(other);}), "Copy constructor", py::arg("other"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("begin", (IntRes2d_SequenceOfIntersectionPoint::iterator (IntRes2d_SequenceOfIntersectionPoint::*)() const ) &IntRes2d_SequenceOfIntersectionPoint::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("end", (IntRes2d_SequenceOfIntersectionPoint::iterator (IntRes2d_SequenceOfIntersectionPoint::*)() const ) &IntRes2d_SequenceOfIntersectionPoint::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("cbegin", (IntRes2d_SequenceOfIntersectionPoint::const_iterator (IntRes2d_SequenceOfIntersectionPoint::*)() const ) &IntRes2d_SequenceOfIntersectionPoint::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("cend", (IntRes2d_SequenceOfIntersectionPoint::const_iterator (IntRes2d_SequenceOfIntersectionPoint::*)() const ) &IntRes2d_SequenceOfIntersectionPoint::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Size", (Standard_Integer (IntRes2d_SequenceOfIntersectionPoint::*)() const ) &IntRes2d_SequenceOfIntersectionPoint::Size, "Number of items");
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Length", (Standard_Integer (IntRes2d_SequenceOfIntersectionPoint::*)() const ) &IntRes2d_SequenceOfIntersectionPoint::Length, "Number of items");
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Lower", (Standard_Integer (IntRes2d_SequenceOfIntersectionPoint::*)() const ) &IntRes2d_SequenceOfIntersectionPoint::Lower, "Method for consistency with other collections.");
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Upper", (Standard_Integer (IntRes2d_SequenceOfIntersectionPoint::*)() const ) &IntRes2d_SequenceOfIntersectionPoint::Upper, "Method for consistency with other collections.");
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("IsEmpty", (Standard_Boolean (IntRes2d_SequenceOfIntersectionPoint::*)() const ) &IntRes2d_SequenceOfIntersectionPoint::IsEmpty, "Empty query");
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Reverse", (void (IntRes2d_SequenceOfIntersectionPoint::*)()) &IntRes2d_SequenceOfIntersectionPoint::Reverse, "Reverse sequence");
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Exchange", (void (IntRes2d_SequenceOfIntersectionPoint::*)(const Standard_Integer, const Standard_Integer)) &IntRes2d_SequenceOfIntersectionPoint::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &IntRes2d_SequenceOfIntersectionPoint::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Clear", [](IntRes2d_SequenceOfIntersectionPoint &self) -> void { return self.Clear(); });
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Clear", (void (IntRes2d_SequenceOfIntersectionPoint::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &IntRes2d_SequenceOfIntersectionPoint::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Assign", (IntRes2d_SequenceOfIntersectionPoint & (IntRes2d_SequenceOfIntersectionPoint::*)(const IntRes2d_SequenceOfIntersectionPoint &)) &IntRes2d_SequenceOfIntersectionPoint::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("assign", (IntRes2d_SequenceOfIntersectionPoint & (IntRes2d_SequenceOfIntersectionPoint::*)(const IntRes2d_SequenceOfIntersectionPoint &)) &IntRes2d_SequenceOfIntersectionPoint::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Remove", (void (IntRes2d_SequenceOfIntersectionPoint::*)(IntRes2d_SequenceOfIntersectionPoint::Iterator &)) &IntRes2d_SequenceOfIntersectionPoint::Remove, "Remove one item", py::arg("thePosition"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Remove", (void (IntRes2d_SequenceOfIntersectionPoint::*)(const Standard_Integer)) &IntRes2d_SequenceOfIntersectionPoint::Remove, "Remove one item", py::arg("theIndex"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Remove", (void (IntRes2d_SequenceOfIntersectionPoint::*)(const Standard_Integer, const Standard_Integer)) &IntRes2d_SequenceOfIntersectionPoint::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Append", (void (IntRes2d_SequenceOfIntersectionPoint::*)(const IntRes2d_IntersectionPoint &)) &IntRes2d_SequenceOfIntersectionPoint::Append, "Append one item", py::arg("theItem"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Append", (void (IntRes2d_SequenceOfIntersectionPoint::*)(IntRes2d_SequenceOfIntersectionPoint &)) &IntRes2d_SequenceOfIntersectionPoint::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Prepend", (void (IntRes2d_SequenceOfIntersectionPoint::*)(const IntRes2d_IntersectionPoint &)) &IntRes2d_SequenceOfIntersectionPoint::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Prepend", (void (IntRes2d_SequenceOfIntersectionPoint::*)(IntRes2d_SequenceOfIntersectionPoint &)) &IntRes2d_SequenceOfIntersectionPoint::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("InsertBefore", (void (IntRes2d_SequenceOfIntersectionPoint::*)(const Standard_Integer, const IntRes2d_IntersectionPoint &)) &IntRes2d_SequenceOfIntersectionPoint::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("InsertBefore", (void (IntRes2d_SequenceOfIntersectionPoint::*)(const Standard_Integer, IntRes2d_SequenceOfIntersectionPoint &)) &IntRes2d_SequenceOfIntersectionPoint::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("InsertAfter", (void (IntRes2d_SequenceOfIntersectionPoint::*)(IntRes2d_SequenceOfIntersectionPoint::Iterator &, const IntRes2d_IntersectionPoint &)) &IntRes2d_SequenceOfIntersectionPoint::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("InsertAfter", (void (IntRes2d_SequenceOfIntersectionPoint::*)(const Standard_Integer, IntRes2d_SequenceOfIntersectionPoint &)) &IntRes2d_SequenceOfIntersectionPoint::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("InsertAfter", (void (IntRes2d_SequenceOfIntersectionPoint::*)(const Standard_Integer, const IntRes2d_IntersectionPoint &)) &IntRes2d_SequenceOfIntersectionPoint::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Split", (void (IntRes2d_SequenceOfIntersectionPoint::*)(const Standard_Integer, IntRes2d_SequenceOfIntersectionPoint &)) &IntRes2d_SequenceOfIntersectionPoint::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("First", (const IntRes2d_IntersectionPoint & (IntRes2d_SequenceOfIntersectionPoint::*)() const ) &IntRes2d_SequenceOfIntersectionPoint::First, "First item access");
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("ChangeFirst", (IntRes2d_IntersectionPoint & (IntRes2d_SequenceOfIntersectionPoint::*)()) &IntRes2d_SequenceOfIntersectionPoint::ChangeFirst, "First item access");
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Last", (const IntRes2d_IntersectionPoint & (IntRes2d_SequenceOfIntersectionPoint::*)() const ) &IntRes2d_SequenceOfIntersectionPoint::Last, "Last item access");
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("ChangeLast", (IntRes2d_IntersectionPoint & (IntRes2d_SequenceOfIntersectionPoint::*)()) &IntRes2d_SequenceOfIntersectionPoint::ChangeLast, "Last item access");
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("Value", (const IntRes2d_IntersectionPoint & (IntRes2d_SequenceOfIntersectionPoint::*)(const Standard_Integer) const ) &IntRes2d_SequenceOfIntersectionPoint::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("__call__", (const IntRes2d_IntersectionPoint & (IntRes2d_SequenceOfIntersectionPoint::*)(const Standard_Integer) const ) &IntRes2d_SequenceOfIntersectionPoint::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("ChangeValue", (IntRes2d_IntersectionPoint & (IntRes2d_SequenceOfIntersectionPoint::*)(const Standard_Integer)) &IntRes2d_SequenceOfIntersectionPoint::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("__call__", (IntRes2d_IntersectionPoint & (IntRes2d_SequenceOfIntersectionPoint::*)(const Standard_Integer)) &IntRes2d_SequenceOfIntersectionPoint::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("SetValue", (void (IntRes2d_SequenceOfIntersectionPoint::*)(const Standard_Integer, const IntRes2d_IntersectionPoint &)) &IntRes2d_SequenceOfIntersectionPoint::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntRes2d_SequenceOfIntersectionPoint.def("__iter__", [](const IntRes2d_SequenceOfIntersectionPoint &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntRes2d_SequenceOfIntersectionPoint.hxx
+	bind_NCollection_Sequence<IntRes2d_IntersectionPoint>(mod, "IntRes2d_SequenceOfIntersectionPoint");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<IntRes2d_SequenceOfIntersectionSegment, std::unique_ptr<IntRes2d_SequenceOfIntersectionSegment, Deleter<IntRes2d_SequenceOfIntersectionSegment>>, NCollection_BaseSequence> cls_IntRes2d_SequenceOfIntersectionSegment(mod, "IntRes2d_SequenceOfIntersectionSegment", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_IntRes2d_SequenceOfIntersectionSegment.def(py::init<>());
-	cls_IntRes2d_SequenceOfIntersectionSegment.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def(py::init([] (const IntRes2d_SequenceOfIntersectionSegment &other) {return new IntRes2d_SequenceOfIntersectionSegment(other);}), "Copy constructor", py::arg("other"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("begin", (IntRes2d_SequenceOfIntersectionSegment::iterator (IntRes2d_SequenceOfIntersectionSegment::*)() const ) &IntRes2d_SequenceOfIntersectionSegment::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("end", (IntRes2d_SequenceOfIntersectionSegment::iterator (IntRes2d_SequenceOfIntersectionSegment::*)() const ) &IntRes2d_SequenceOfIntersectionSegment::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("cbegin", (IntRes2d_SequenceOfIntersectionSegment::const_iterator (IntRes2d_SequenceOfIntersectionSegment::*)() const ) &IntRes2d_SequenceOfIntersectionSegment::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("cend", (IntRes2d_SequenceOfIntersectionSegment::const_iterator (IntRes2d_SequenceOfIntersectionSegment::*)() const ) &IntRes2d_SequenceOfIntersectionSegment::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Size", (Standard_Integer (IntRes2d_SequenceOfIntersectionSegment::*)() const ) &IntRes2d_SequenceOfIntersectionSegment::Size, "Number of items");
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Length", (Standard_Integer (IntRes2d_SequenceOfIntersectionSegment::*)() const ) &IntRes2d_SequenceOfIntersectionSegment::Length, "Number of items");
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Lower", (Standard_Integer (IntRes2d_SequenceOfIntersectionSegment::*)() const ) &IntRes2d_SequenceOfIntersectionSegment::Lower, "Method for consistency with other collections.");
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Upper", (Standard_Integer (IntRes2d_SequenceOfIntersectionSegment::*)() const ) &IntRes2d_SequenceOfIntersectionSegment::Upper, "Method for consistency with other collections.");
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("IsEmpty", (Standard_Boolean (IntRes2d_SequenceOfIntersectionSegment::*)() const ) &IntRes2d_SequenceOfIntersectionSegment::IsEmpty, "Empty query");
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Reverse", (void (IntRes2d_SequenceOfIntersectionSegment::*)()) &IntRes2d_SequenceOfIntersectionSegment::Reverse, "Reverse sequence");
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Exchange", (void (IntRes2d_SequenceOfIntersectionSegment::*)(const Standard_Integer, const Standard_Integer)) &IntRes2d_SequenceOfIntersectionSegment::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &IntRes2d_SequenceOfIntersectionSegment::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Clear", [](IntRes2d_SequenceOfIntersectionSegment &self) -> void { return self.Clear(); });
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Clear", (void (IntRes2d_SequenceOfIntersectionSegment::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &IntRes2d_SequenceOfIntersectionSegment::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Assign", (IntRes2d_SequenceOfIntersectionSegment & (IntRes2d_SequenceOfIntersectionSegment::*)(const IntRes2d_SequenceOfIntersectionSegment &)) &IntRes2d_SequenceOfIntersectionSegment::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("assign", (IntRes2d_SequenceOfIntersectionSegment & (IntRes2d_SequenceOfIntersectionSegment::*)(const IntRes2d_SequenceOfIntersectionSegment &)) &IntRes2d_SequenceOfIntersectionSegment::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Remove", (void (IntRes2d_SequenceOfIntersectionSegment::*)(IntRes2d_SequenceOfIntersectionSegment::Iterator &)) &IntRes2d_SequenceOfIntersectionSegment::Remove, "Remove one item", py::arg("thePosition"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Remove", (void (IntRes2d_SequenceOfIntersectionSegment::*)(const Standard_Integer)) &IntRes2d_SequenceOfIntersectionSegment::Remove, "Remove one item", py::arg("theIndex"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Remove", (void (IntRes2d_SequenceOfIntersectionSegment::*)(const Standard_Integer, const Standard_Integer)) &IntRes2d_SequenceOfIntersectionSegment::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Append", (void (IntRes2d_SequenceOfIntersectionSegment::*)(const IntRes2d_IntersectionSegment &)) &IntRes2d_SequenceOfIntersectionSegment::Append, "Append one item", py::arg("theItem"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Append", (void (IntRes2d_SequenceOfIntersectionSegment::*)(IntRes2d_SequenceOfIntersectionSegment &)) &IntRes2d_SequenceOfIntersectionSegment::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Prepend", (void (IntRes2d_SequenceOfIntersectionSegment::*)(const IntRes2d_IntersectionSegment &)) &IntRes2d_SequenceOfIntersectionSegment::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Prepend", (void (IntRes2d_SequenceOfIntersectionSegment::*)(IntRes2d_SequenceOfIntersectionSegment &)) &IntRes2d_SequenceOfIntersectionSegment::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("InsertBefore", (void (IntRes2d_SequenceOfIntersectionSegment::*)(const Standard_Integer, const IntRes2d_IntersectionSegment &)) &IntRes2d_SequenceOfIntersectionSegment::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("InsertBefore", (void (IntRes2d_SequenceOfIntersectionSegment::*)(const Standard_Integer, IntRes2d_SequenceOfIntersectionSegment &)) &IntRes2d_SequenceOfIntersectionSegment::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("InsertAfter", (void (IntRes2d_SequenceOfIntersectionSegment::*)(IntRes2d_SequenceOfIntersectionSegment::Iterator &, const IntRes2d_IntersectionSegment &)) &IntRes2d_SequenceOfIntersectionSegment::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("InsertAfter", (void (IntRes2d_SequenceOfIntersectionSegment::*)(const Standard_Integer, IntRes2d_SequenceOfIntersectionSegment &)) &IntRes2d_SequenceOfIntersectionSegment::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("InsertAfter", (void (IntRes2d_SequenceOfIntersectionSegment::*)(const Standard_Integer, const IntRes2d_IntersectionSegment &)) &IntRes2d_SequenceOfIntersectionSegment::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Split", (void (IntRes2d_SequenceOfIntersectionSegment::*)(const Standard_Integer, IntRes2d_SequenceOfIntersectionSegment &)) &IntRes2d_SequenceOfIntersectionSegment::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("First", (const IntRes2d_IntersectionSegment & (IntRes2d_SequenceOfIntersectionSegment::*)() const ) &IntRes2d_SequenceOfIntersectionSegment::First, "First item access");
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("ChangeFirst", (IntRes2d_IntersectionSegment & (IntRes2d_SequenceOfIntersectionSegment::*)()) &IntRes2d_SequenceOfIntersectionSegment::ChangeFirst, "First item access");
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Last", (const IntRes2d_IntersectionSegment & (IntRes2d_SequenceOfIntersectionSegment::*)() const ) &IntRes2d_SequenceOfIntersectionSegment::Last, "Last item access");
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("ChangeLast", (IntRes2d_IntersectionSegment & (IntRes2d_SequenceOfIntersectionSegment::*)()) &IntRes2d_SequenceOfIntersectionSegment::ChangeLast, "Last item access");
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("Value", (const IntRes2d_IntersectionSegment & (IntRes2d_SequenceOfIntersectionSegment::*)(const Standard_Integer) const ) &IntRes2d_SequenceOfIntersectionSegment::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("__call__", (const IntRes2d_IntersectionSegment & (IntRes2d_SequenceOfIntersectionSegment::*)(const Standard_Integer) const ) &IntRes2d_SequenceOfIntersectionSegment::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("ChangeValue", (IntRes2d_IntersectionSegment & (IntRes2d_SequenceOfIntersectionSegment::*)(const Standard_Integer)) &IntRes2d_SequenceOfIntersectionSegment::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("__call__", (IntRes2d_IntersectionSegment & (IntRes2d_SequenceOfIntersectionSegment::*)(const Standard_Integer)) &IntRes2d_SequenceOfIntersectionSegment::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("SetValue", (void (IntRes2d_SequenceOfIntersectionSegment::*)(const Standard_Integer, const IntRes2d_IntersectionSegment &)) &IntRes2d_SequenceOfIntersectionSegment::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntRes2d_SequenceOfIntersectionSegment.def("__iter__", [](const IntRes2d_SequenceOfIntersectionSegment &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntRes2d_SequenceOfIntersectionSegment.hxx
+	bind_NCollection_Sequence<IntRes2d_IntersectionSegment>(mod, "IntRes2d_SequenceOfIntersectionSegment");
 
 
 }

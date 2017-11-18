@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Approx_ParametrizationType.hxx>
 #include <NCollection_BaseSequence.hxx>
@@ -60,6 +51,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <TColgp_Array2OfPnt.hxx>
 #include <TColStd_Array2OfReal.hxx>
 #include <Approx_SweepApproximation.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Approx, mod) {
 
@@ -227,75 +219,11 @@ PYBIND11_MODULE(Approx, mod) {
 	cls_Approx_FitAndDivide2d.def("Value", (AppParCurves_MultiCurve (Approx_FitAndDivide2d::*)(const Standard_Integer) const ) &Approx_FitAndDivide2d::Value, "returns the approximation MultiCurve of range <Index>.", py::arg("Index"));
 	cls_Approx_FitAndDivide2d.def("Parameters", (void (Approx_FitAndDivide2d::*)(const Standard_Integer, Standard_Real &, Standard_Real &) const ) &Approx_FitAndDivide2d::Parameters, "None", py::arg("Index"), py::arg("firstp"), py::arg("lastp"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Approx_Array1OfAdHSurface, std::unique_ptr<Approx_Array1OfAdHSurface, Deleter<Approx_Array1OfAdHSurface>>> cls_Approx_Array1OfAdHSurface(mod, "Approx_Array1OfAdHSurface", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Approx_Array1OfAdHSurface.def(py::init<>());
-	cls_Approx_Array1OfAdHSurface.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Approx_Array1OfAdHSurface.def(py::init([] (const Approx_Array1OfAdHSurface &other) {return new Approx_Array1OfAdHSurface(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Approx_Array1OfAdHSurface.def(py::init<Approx_Array1OfAdHSurface &&>(), py::arg("theOther"));
-	cls_Approx_Array1OfAdHSurface.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Approx_Array1OfAdHSurface.def("begin", (Approx_Array1OfAdHSurface::iterator (Approx_Array1OfAdHSurface::*)() const ) &Approx_Array1OfAdHSurface::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Approx_Array1OfAdHSurface.def("end", (Approx_Array1OfAdHSurface::iterator (Approx_Array1OfAdHSurface::*)() const ) &Approx_Array1OfAdHSurface::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Approx_Array1OfAdHSurface.def("cbegin", (Approx_Array1OfAdHSurface::const_iterator (Approx_Array1OfAdHSurface::*)() const ) &Approx_Array1OfAdHSurface::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Approx_Array1OfAdHSurface.def("cend", (Approx_Array1OfAdHSurface::const_iterator (Approx_Array1OfAdHSurface::*)() const ) &Approx_Array1OfAdHSurface::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Approx_Array1OfAdHSurface.def("Init", (void (Approx_Array1OfAdHSurface::*)(const opencascade::handle<Adaptor3d_HSurface> &)) &Approx_Array1OfAdHSurface::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Approx_Array1OfAdHSurface.def("Size", (Standard_Integer (Approx_Array1OfAdHSurface::*)() const ) &Approx_Array1OfAdHSurface::Size, "Size query");
-	cls_Approx_Array1OfAdHSurface.def("Length", (Standard_Integer (Approx_Array1OfAdHSurface::*)() const ) &Approx_Array1OfAdHSurface::Length, "Length query (the same)");
-	cls_Approx_Array1OfAdHSurface.def("IsEmpty", (Standard_Boolean (Approx_Array1OfAdHSurface::*)() const ) &Approx_Array1OfAdHSurface::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Approx_Array1OfAdHSurface.def("Lower", (Standard_Integer (Approx_Array1OfAdHSurface::*)() const ) &Approx_Array1OfAdHSurface::Lower, "Lower bound");
-	cls_Approx_Array1OfAdHSurface.def("Upper", (Standard_Integer (Approx_Array1OfAdHSurface::*)() const ) &Approx_Array1OfAdHSurface::Upper, "Upper bound");
-	cls_Approx_Array1OfAdHSurface.def("IsDeletable", (Standard_Boolean (Approx_Array1OfAdHSurface::*)() const ) &Approx_Array1OfAdHSurface::IsDeletable, "myDeletable flag");
-	cls_Approx_Array1OfAdHSurface.def("IsAllocated", (Standard_Boolean (Approx_Array1OfAdHSurface::*)() const ) &Approx_Array1OfAdHSurface::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Approx_Array1OfAdHSurface.def("Assign", (Approx_Array1OfAdHSurface & (Approx_Array1OfAdHSurface::*)(const Approx_Array1OfAdHSurface &)) &Approx_Array1OfAdHSurface::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Approx_Array1OfAdHSurface.def("Move", (Approx_Array1OfAdHSurface & (Approx_Array1OfAdHSurface::*)(Approx_Array1OfAdHSurface &&)) &Approx_Array1OfAdHSurface::Move, "Move assignment", py::arg("theOther"));
-	cls_Approx_Array1OfAdHSurface.def("assign", (Approx_Array1OfAdHSurface & (Approx_Array1OfAdHSurface::*)(const Approx_Array1OfAdHSurface &)) &Approx_Array1OfAdHSurface::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Approx_Array1OfAdHSurface.def("assign", (Approx_Array1OfAdHSurface & (Approx_Array1OfAdHSurface::*)(Approx_Array1OfAdHSurface &&)) &Approx_Array1OfAdHSurface::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Approx_Array1OfAdHSurface.def("First", (const opencascade::handle<Adaptor3d_HSurface> & (Approx_Array1OfAdHSurface::*)() const ) &Approx_Array1OfAdHSurface::First, "Returns first element");
-	cls_Approx_Array1OfAdHSurface.def("ChangeFirst", (opencascade::handle<Adaptor3d_HSurface> & (Approx_Array1OfAdHSurface::*)()) &Approx_Array1OfAdHSurface::ChangeFirst, "Returns first element");
-	cls_Approx_Array1OfAdHSurface.def("Last", (const opencascade::handle<Adaptor3d_HSurface> & (Approx_Array1OfAdHSurface::*)() const ) &Approx_Array1OfAdHSurface::Last, "Returns last element");
-	cls_Approx_Array1OfAdHSurface.def("ChangeLast", (opencascade::handle<Adaptor3d_HSurface> & (Approx_Array1OfAdHSurface::*)()) &Approx_Array1OfAdHSurface::ChangeLast, "Returns last element");
-	cls_Approx_Array1OfAdHSurface.def("Value", (const opencascade::handle<Adaptor3d_HSurface> & (Approx_Array1OfAdHSurface::*)(const Standard_Integer) const ) &Approx_Array1OfAdHSurface::Value, "Constant value access", py::arg("theIndex"));
-	cls_Approx_Array1OfAdHSurface.def("__call__", (const opencascade::handle<Adaptor3d_HSurface> & (Approx_Array1OfAdHSurface::*)(const Standard_Integer) const ) &Approx_Array1OfAdHSurface::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Approx_Array1OfAdHSurface.def("ChangeValue", (opencascade::handle<Adaptor3d_HSurface> & (Approx_Array1OfAdHSurface::*)(const Standard_Integer)) &Approx_Array1OfAdHSurface::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Approx_Array1OfAdHSurface.def("__call__", (opencascade::handle<Adaptor3d_HSurface> & (Approx_Array1OfAdHSurface::*)(const Standard_Integer)) &Approx_Array1OfAdHSurface::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Approx_Array1OfAdHSurface.def("SetValue", (void (Approx_Array1OfAdHSurface::*)(const Standard_Integer, const opencascade::handle<Adaptor3d_HSurface> &)) &Approx_Array1OfAdHSurface::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Approx_Array1OfAdHSurface.def("Resize", (void (Approx_Array1OfAdHSurface::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Approx_Array1OfAdHSurface::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Approx_Array1OfAdHSurface.def("__iter__", [](const Approx_Array1OfAdHSurface &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Approx_Array1OfAdHSurface.hxx
+	bind_NCollection_Array1<opencascade::handle<Adaptor3d_HSurface> >(mod, "Approx_Array1OfAdHSurface");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Approx_Array1OfGTrsf2d, std::unique_ptr<Approx_Array1OfGTrsf2d, Deleter<Approx_Array1OfGTrsf2d>>> cls_Approx_Array1OfGTrsf2d(mod, "Approx_Array1OfGTrsf2d", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Approx_Array1OfGTrsf2d.def(py::init<>());
-	cls_Approx_Array1OfGTrsf2d.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Approx_Array1OfGTrsf2d.def(py::init([] (const Approx_Array1OfGTrsf2d &other) {return new Approx_Array1OfGTrsf2d(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Approx_Array1OfGTrsf2d.def(py::init<Approx_Array1OfGTrsf2d &&>(), py::arg("theOther"));
-	cls_Approx_Array1OfGTrsf2d.def(py::init<const gp_GTrsf2d &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Approx_Array1OfGTrsf2d.def("begin", (Approx_Array1OfGTrsf2d::iterator (Approx_Array1OfGTrsf2d::*)() const ) &Approx_Array1OfGTrsf2d::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Approx_Array1OfGTrsf2d.def("end", (Approx_Array1OfGTrsf2d::iterator (Approx_Array1OfGTrsf2d::*)() const ) &Approx_Array1OfGTrsf2d::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Approx_Array1OfGTrsf2d.def("cbegin", (Approx_Array1OfGTrsf2d::const_iterator (Approx_Array1OfGTrsf2d::*)() const ) &Approx_Array1OfGTrsf2d::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Approx_Array1OfGTrsf2d.def("cend", (Approx_Array1OfGTrsf2d::const_iterator (Approx_Array1OfGTrsf2d::*)() const ) &Approx_Array1OfGTrsf2d::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Approx_Array1OfGTrsf2d.def("Init", (void (Approx_Array1OfGTrsf2d::*)(const gp_GTrsf2d &)) &Approx_Array1OfGTrsf2d::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Approx_Array1OfGTrsf2d.def("Size", (Standard_Integer (Approx_Array1OfGTrsf2d::*)() const ) &Approx_Array1OfGTrsf2d::Size, "Size query");
-	cls_Approx_Array1OfGTrsf2d.def("Length", (Standard_Integer (Approx_Array1OfGTrsf2d::*)() const ) &Approx_Array1OfGTrsf2d::Length, "Length query (the same)");
-	cls_Approx_Array1OfGTrsf2d.def("IsEmpty", (Standard_Boolean (Approx_Array1OfGTrsf2d::*)() const ) &Approx_Array1OfGTrsf2d::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Approx_Array1OfGTrsf2d.def("Lower", (Standard_Integer (Approx_Array1OfGTrsf2d::*)() const ) &Approx_Array1OfGTrsf2d::Lower, "Lower bound");
-	cls_Approx_Array1OfGTrsf2d.def("Upper", (Standard_Integer (Approx_Array1OfGTrsf2d::*)() const ) &Approx_Array1OfGTrsf2d::Upper, "Upper bound");
-	cls_Approx_Array1OfGTrsf2d.def("IsDeletable", (Standard_Boolean (Approx_Array1OfGTrsf2d::*)() const ) &Approx_Array1OfGTrsf2d::IsDeletable, "myDeletable flag");
-	cls_Approx_Array1OfGTrsf2d.def("IsAllocated", (Standard_Boolean (Approx_Array1OfGTrsf2d::*)() const ) &Approx_Array1OfGTrsf2d::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Approx_Array1OfGTrsf2d.def("Assign", (Approx_Array1OfGTrsf2d & (Approx_Array1OfGTrsf2d::*)(const Approx_Array1OfGTrsf2d &)) &Approx_Array1OfGTrsf2d::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Approx_Array1OfGTrsf2d.def("Move", (Approx_Array1OfGTrsf2d & (Approx_Array1OfGTrsf2d::*)(Approx_Array1OfGTrsf2d &&)) &Approx_Array1OfGTrsf2d::Move, "Move assignment", py::arg("theOther"));
-	cls_Approx_Array1OfGTrsf2d.def("assign", (Approx_Array1OfGTrsf2d & (Approx_Array1OfGTrsf2d::*)(const Approx_Array1OfGTrsf2d &)) &Approx_Array1OfGTrsf2d::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Approx_Array1OfGTrsf2d.def("assign", (Approx_Array1OfGTrsf2d & (Approx_Array1OfGTrsf2d::*)(Approx_Array1OfGTrsf2d &&)) &Approx_Array1OfGTrsf2d::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Approx_Array1OfGTrsf2d.def("First", (const gp_GTrsf2d & (Approx_Array1OfGTrsf2d::*)() const ) &Approx_Array1OfGTrsf2d::First, "Returns first element");
-	cls_Approx_Array1OfGTrsf2d.def("ChangeFirst", (gp_GTrsf2d & (Approx_Array1OfGTrsf2d::*)()) &Approx_Array1OfGTrsf2d::ChangeFirst, "Returns first element");
-	cls_Approx_Array1OfGTrsf2d.def("Last", (const gp_GTrsf2d & (Approx_Array1OfGTrsf2d::*)() const ) &Approx_Array1OfGTrsf2d::Last, "Returns last element");
-	cls_Approx_Array1OfGTrsf2d.def("ChangeLast", (gp_GTrsf2d & (Approx_Array1OfGTrsf2d::*)()) &Approx_Array1OfGTrsf2d::ChangeLast, "Returns last element");
-	cls_Approx_Array1OfGTrsf2d.def("Value", (const gp_GTrsf2d & (Approx_Array1OfGTrsf2d::*)(const Standard_Integer) const ) &Approx_Array1OfGTrsf2d::Value, "Constant value access", py::arg("theIndex"));
-	cls_Approx_Array1OfGTrsf2d.def("__call__", (const gp_GTrsf2d & (Approx_Array1OfGTrsf2d::*)(const Standard_Integer) const ) &Approx_Array1OfGTrsf2d::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Approx_Array1OfGTrsf2d.def("ChangeValue", (gp_GTrsf2d & (Approx_Array1OfGTrsf2d::*)(const Standard_Integer)) &Approx_Array1OfGTrsf2d::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Approx_Array1OfGTrsf2d.def("__call__", (gp_GTrsf2d & (Approx_Array1OfGTrsf2d::*)(const Standard_Integer)) &Approx_Array1OfGTrsf2d::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Approx_Array1OfGTrsf2d.def("SetValue", (void (Approx_Array1OfGTrsf2d::*)(const Standard_Integer, const gp_GTrsf2d &)) &Approx_Array1OfGTrsf2d::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Approx_Array1OfGTrsf2d.def("Resize", (void (Approx_Array1OfGTrsf2d::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Approx_Array1OfGTrsf2d::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Approx_Array1OfGTrsf2d.def("__iter__", [](const Approx_Array1OfGTrsf2d &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Approx_Array1OfGTrsf2d.hxx
+	bind_NCollection_Array1<gp_GTrsf2d>(mod, "Approx_Array1OfGTrsf2d");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Approx_MCurvesToBSpCurve.hxx
 	py::class_<Approx_MCurvesToBSpCurve, std::unique_ptr<Approx_MCurvesToBSpCurve, Deleter<Approx_MCurvesToBSpCurve>>> cls_Approx_MCurvesToBSpCurve(mod, "Approx_MCurvesToBSpCurve", "None");
@@ -373,50 +301,8 @@ PYBIND11_MODULE(Approx, mod) {
 	cls_Approx_SweepApproximation.def("TolCurveOnSurf", (Standard_Real (Approx_SweepApproximation::*)(const Standard_Integer) const ) &Approx_SweepApproximation::TolCurveOnSurf, "returns the maximum 3d error of the <Index> 2d curve approximation on the Surface.", py::arg("Index"));
 	// FIXME cls_Approx_SweepApproximation.def("Dump", (void (Approx_SweepApproximation::*)(Standard_OStream &) const ) &Approx_SweepApproximation::Dump, "display information on approximation.", py::arg("o"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Approx_SequenceOfHArray1OfReal, std::unique_ptr<Approx_SequenceOfHArray1OfReal, Deleter<Approx_SequenceOfHArray1OfReal>>, NCollection_BaseSequence> cls_Approx_SequenceOfHArray1OfReal(mod, "Approx_SequenceOfHArray1OfReal", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Approx_SequenceOfHArray1OfReal.def(py::init<>());
-	cls_Approx_SequenceOfHArray1OfReal.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Approx_SequenceOfHArray1OfReal.def(py::init([] (const Approx_SequenceOfHArray1OfReal &other) {return new Approx_SequenceOfHArray1OfReal(other);}), "Copy constructor", py::arg("other"));
-	cls_Approx_SequenceOfHArray1OfReal.def("begin", (Approx_SequenceOfHArray1OfReal::iterator (Approx_SequenceOfHArray1OfReal::*)() const ) &Approx_SequenceOfHArray1OfReal::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Approx_SequenceOfHArray1OfReal.def("end", (Approx_SequenceOfHArray1OfReal::iterator (Approx_SequenceOfHArray1OfReal::*)() const ) &Approx_SequenceOfHArray1OfReal::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Approx_SequenceOfHArray1OfReal.def("cbegin", (Approx_SequenceOfHArray1OfReal::const_iterator (Approx_SequenceOfHArray1OfReal::*)() const ) &Approx_SequenceOfHArray1OfReal::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Approx_SequenceOfHArray1OfReal.def("cend", (Approx_SequenceOfHArray1OfReal::const_iterator (Approx_SequenceOfHArray1OfReal::*)() const ) &Approx_SequenceOfHArray1OfReal::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Approx_SequenceOfHArray1OfReal.def("Size", (Standard_Integer (Approx_SequenceOfHArray1OfReal::*)() const ) &Approx_SequenceOfHArray1OfReal::Size, "Number of items");
-	cls_Approx_SequenceOfHArray1OfReal.def("Length", (Standard_Integer (Approx_SequenceOfHArray1OfReal::*)() const ) &Approx_SequenceOfHArray1OfReal::Length, "Number of items");
-	cls_Approx_SequenceOfHArray1OfReal.def("Lower", (Standard_Integer (Approx_SequenceOfHArray1OfReal::*)() const ) &Approx_SequenceOfHArray1OfReal::Lower, "Method for consistency with other collections.");
-	cls_Approx_SequenceOfHArray1OfReal.def("Upper", (Standard_Integer (Approx_SequenceOfHArray1OfReal::*)() const ) &Approx_SequenceOfHArray1OfReal::Upper, "Method for consistency with other collections.");
-	cls_Approx_SequenceOfHArray1OfReal.def("IsEmpty", (Standard_Boolean (Approx_SequenceOfHArray1OfReal::*)() const ) &Approx_SequenceOfHArray1OfReal::IsEmpty, "Empty query");
-	cls_Approx_SequenceOfHArray1OfReal.def("Reverse", (void (Approx_SequenceOfHArray1OfReal::*)()) &Approx_SequenceOfHArray1OfReal::Reverse, "Reverse sequence");
-	cls_Approx_SequenceOfHArray1OfReal.def("Exchange", (void (Approx_SequenceOfHArray1OfReal::*)(const Standard_Integer, const Standard_Integer)) &Approx_SequenceOfHArray1OfReal::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Approx_SequenceOfHArray1OfReal.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Approx_SequenceOfHArray1OfReal::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Approx_SequenceOfHArray1OfReal.def("Clear", [](Approx_SequenceOfHArray1OfReal &self) -> void { return self.Clear(); });
-	cls_Approx_SequenceOfHArray1OfReal.def("Clear", (void (Approx_SequenceOfHArray1OfReal::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Approx_SequenceOfHArray1OfReal::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Approx_SequenceOfHArray1OfReal.def("Assign", (Approx_SequenceOfHArray1OfReal & (Approx_SequenceOfHArray1OfReal::*)(const Approx_SequenceOfHArray1OfReal &)) &Approx_SequenceOfHArray1OfReal::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Approx_SequenceOfHArray1OfReal.def("assign", (Approx_SequenceOfHArray1OfReal & (Approx_SequenceOfHArray1OfReal::*)(const Approx_SequenceOfHArray1OfReal &)) &Approx_SequenceOfHArray1OfReal::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Approx_SequenceOfHArray1OfReal.def("Remove", (void (Approx_SequenceOfHArray1OfReal::*)(Approx_SequenceOfHArray1OfReal::Iterator &)) &Approx_SequenceOfHArray1OfReal::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Approx_SequenceOfHArray1OfReal.def("Remove", (void (Approx_SequenceOfHArray1OfReal::*)(const Standard_Integer)) &Approx_SequenceOfHArray1OfReal::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Approx_SequenceOfHArray1OfReal.def("Remove", (void (Approx_SequenceOfHArray1OfReal::*)(const Standard_Integer, const Standard_Integer)) &Approx_SequenceOfHArray1OfReal::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Approx_SequenceOfHArray1OfReal.def("Append", (void (Approx_SequenceOfHArray1OfReal::*)(const opencascade::handle<TColStd_HArray1OfReal> &)) &Approx_SequenceOfHArray1OfReal::Append, "Append one item", py::arg("theItem"));
-	cls_Approx_SequenceOfHArray1OfReal.def("Append", (void (Approx_SequenceOfHArray1OfReal::*)(Approx_SequenceOfHArray1OfReal &)) &Approx_SequenceOfHArray1OfReal::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Approx_SequenceOfHArray1OfReal.def("Prepend", (void (Approx_SequenceOfHArray1OfReal::*)(const opencascade::handle<TColStd_HArray1OfReal> &)) &Approx_SequenceOfHArray1OfReal::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Approx_SequenceOfHArray1OfReal.def("Prepend", (void (Approx_SequenceOfHArray1OfReal::*)(Approx_SequenceOfHArray1OfReal &)) &Approx_SequenceOfHArray1OfReal::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Approx_SequenceOfHArray1OfReal.def("InsertBefore", (void (Approx_SequenceOfHArray1OfReal::*)(const Standard_Integer, const opencascade::handle<TColStd_HArray1OfReal> &)) &Approx_SequenceOfHArray1OfReal::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Approx_SequenceOfHArray1OfReal.def("InsertBefore", (void (Approx_SequenceOfHArray1OfReal::*)(const Standard_Integer, Approx_SequenceOfHArray1OfReal &)) &Approx_SequenceOfHArray1OfReal::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Approx_SequenceOfHArray1OfReal.def("InsertAfter", (void (Approx_SequenceOfHArray1OfReal::*)(Approx_SequenceOfHArray1OfReal::Iterator &, const opencascade::handle<TColStd_HArray1OfReal> &)) &Approx_SequenceOfHArray1OfReal::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Approx_SequenceOfHArray1OfReal.def("InsertAfter", (void (Approx_SequenceOfHArray1OfReal::*)(const Standard_Integer, Approx_SequenceOfHArray1OfReal &)) &Approx_SequenceOfHArray1OfReal::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Approx_SequenceOfHArray1OfReal.def("InsertAfter", (void (Approx_SequenceOfHArray1OfReal::*)(const Standard_Integer, const opencascade::handle<TColStd_HArray1OfReal> &)) &Approx_SequenceOfHArray1OfReal::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Approx_SequenceOfHArray1OfReal.def("Split", (void (Approx_SequenceOfHArray1OfReal::*)(const Standard_Integer, Approx_SequenceOfHArray1OfReal &)) &Approx_SequenceOfHArray1OfReal::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Approx_SequenceOfHArray1OfReal.def("First", (const opencascade::handle<TColStd_HArray1OfReal> & (Approx_SequenceOfHArray1OfReal::*)() const ) &Approx_SequenceOfHArray1OfReal::First, "First item access");
-	cls_Approx_SequenceOfHArray1OfReal.def("ChangeFirst", (opencascade::handle<TColStd_HArray1OfReal> & (Approx_SequenceOfHArray1OfReal::*)()) &Approx_SequenceOfHArray1OfReal::ChangeFirst, "First item access");
-	cls_Approx_SequenceOfHArray1OfReal.def("Last", (const opencascade::handle<TColStd_HArray1OfReal> & (Approx_SequenceOfHArray1OfReal::*)() const ) &Approx_SequenceOfHArray1OfReal::Last, "Last item access");
-	cls_Approx_SequenceOfHArray1OfReal.def("ChangeLast", (opencascade::handle<TColStd_HArray1OfReal> & (Approx_SequenceOfHArray1OfReal::*)()) &Approx_SequenceOfHArray1OfReal::ChangeLast, "Last item access");
-	cls_Approx_SequenceOfHArray1OfReal.def("Value", (const opencascade::handle<TColStd_HArray1OfReal> & (Approx_SequenceOfHArray1OfReal::*)(const Standard_Integer) const ) &Approx_SequenceOfHArray1OfReal::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Approx_SequenceOfHArray1OfReal.def("__call__", (const opencascade::handle<TColStd_HArray1OfReal> & (Approx_SequenceOfHArray1OfReal::*)(const Standard_Integer) const ) &Approx_SequenceOfHArray1OfReal::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Approx_SequenceOfHArray1OfReal.def("ChangeValue", (opencascade::handle<TColStd_HArray1OfReal> & (Approx_SequenceOfHArray1OfReal::*)(const Standard_Integer)) &Approx_SequenceOfHArray1OfReal::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Approx_SequenceOfHArray1OfReal.def("__call__", (opencascade::handle<TColStd_HArray1OfReal> & (Approx_SequenceOfHArray1OfReal::*)(const Standard_Integer)) &Approx_SequenceOfHArray1OfReal::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Approx_SequenceOfHArray1OfReal.def("SetValue", (void (Approx_SequenceOfHArray1OfReal::*)(const Standard_Integer, const opencascade::handle<TColStd_HArray1OfReal> &)) &Approx_SequenceOfHArray1OfReal::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Approx_SequenceOfHArray1OfReal.def("__iter__", [](const Approx_SequenceOfHArray1OfReal &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Approx_SequenceOfHArray1OfReal.hxx
+	bind_NCollection_Sequence<opencascade::handle<TColStd_HArray1OfReal> >(mod, "Approx_SequenceOfHArray1OfReal");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Approx_HArray1OfAdHSurface.hxx
 	py::class_<Approx_HArray1OfAdHSurface, opencascade::handle<Approx_HArray1OfAdHSurface>, Approx_Array1OfAdHSurface, Standard_Transient> cls_Approx_HArray1OfAdHSurface(mod, "Approx_HArray1OfAdHSurface", "None");

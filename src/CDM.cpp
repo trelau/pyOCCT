@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
@@ -40,6 +31,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <CDM_PresentationDirectory.hxx>
 #include <CDM_NamesDirectory.hxx>
 #include <CDM_NullMessageDriver.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(CDM, mod) {
 
@@ -224,193 +216,43 @@ PYBIND11_MODULE(CDM, mod) {
 	cls_CDM_NullMessageDriver.def("DynamicType", (const opencascade::handle<Standard_Type> & (CDM_NullMessageDriver::*)() const ) &CDM_NullMessageDriver::DynamicType, "None");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\CDM_DocumentPointer.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<CDM_ListOfReferences, std::unique_ptr<CDM_ListOfReferences, Deleter<CDM_ListOfReferences>>, NCollection_BaseList> cls_CDM_ListOfReferences(mod, "CDM_ListOfReferences", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_CDM_ListOfReferences.def(py::init<>());
-	cls_CDM_ListOfReferences.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_CDM_ListOfReferences.def(py::init([] (const CDM_ListOfReferences &other) {return new CDM_ListOfReferences(other);}), "Copy constructor", py::arg("other"));
-	cls_CDM_ListOfReferences.def("begin", (CDM_ListOfReferences::iterator (CDM_ListOfReferences::*)() const ) &CDM_ListOfReferences::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_CDM_ListOfReferences.def("end", (CDM_ListOfReferences::iterator (CDM_ListOfReferences::*)() const ) &CDM_ListOfReferences::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_CDM_ListOfReferences.def("cbegin", (CDM_ListOfReferences::const_iterator (CDM_ListOfReferences::*)() const ) &CDM_ListOfReferences::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_CDM_ListOfReferences.def("cend", (CDM_ListOfReferences::const_iterator (CDM_ListOfReferences::*)() const ) &CDM_ListOfReferences::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_CDM_ListOfReferences.def("Size", (Standard_Integer (CDM_ListOfReferences::*)() const ) &CDM_ListOfReferences::Size, "Size - Number of items");
-	cls_CDM_ListOfReferences.def("Assign", (CDM_ListOfReferences & (CDM_ListOfReferences::*)(const CDM_ListOfReferences &)) &CDM_ListOfReferences::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_CDM_ListOfReferences.def("assign", (CDM_ListOfReferences & (CDM_ListOfReferences::*)(const CDM_ListOfReferences &)) &CDM_ListOfReferences::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_CDM_ListOfReferences.def("Clear", [](CDM_ListOfReferences &self) -> void { return self.Clear(); });
-	cls_CDM_ListOfReferences.def("Clear", (void (CDM_ListOfReferences::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &CDM_ListOfReferences::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_CDM_ListOfReferences.def("First", (const opencascade::handle<CDM_Reference> & (CDM_ListOfReferences::*)() const ) &CDM_ListOfReferences::First, "First item");
-	cls_CDM_ListOfReferences.def("First", (opencascade::handle<CDM_Reference> & (CDM_ListOfReferences::*)()) &CDM_ListOfReferences::First, "First item (non-const)");
-	cls_CDM_ListOfReferences.def("Last", (const opencascade::handle<CDM_Reference> & (CDM_ListOfReferences::*)() const ) &CDM_ListOfReferences::Last, "Last item");
-	cls_CDM_ListOfReferences.def("Last", (opencascade::handle<CDM_Reference> & (CDM_ListOfReferences::*)()) &CDM_ListOfReferences::Last, "Last item (non-const)");
-	cls_CDM_ListOfReferences.def("Append", (opencascade::handle<CDM_Reference> & (CDM_ListOfReferences::*)(const opencascade::handle<CDM_Reference> &)) &CDM_ListOfReferences::Append, "Append one item at the end", py::arg("theItem"));
-	cls_CDM_ListOfReferences.def("Append", (void (CDM_ListOfReferences::*)(const opencascade::handle<CDM_Reference> &, CDM_ListOfReferences::Iterator &)) &CDM_ListOfReferences::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_CDM_ListOfReferences.def("Append", (void (CDM_ListOfReferences::*)(CDM_ListOfReferences &)) &CDM_ListOfReferences::Append, "Append another list at the end", py::arg("theOther"));
-	cls_CDM_ListOfReferences.def("Prepend", (opencascade::handle<CDM_Reference> & (CDM_ListOfReferences::*)(const opencascade::handle<CDM_Reference> &)) &CDM_ListOfReferences::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_CDM_ListOfReferences.def("Prepend", (void (CDM_ListOfReferences::*)(CDM_ListOfReferences &)) &CDM_ListOfReferences::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_CDM_ListOfReferences.def("RemoveFirst", (void (CDM_ListOfReferences::*)()) &CDM_ListOfReferences::RemoveFirst, "RemoveFirst item");
-	cls_CDM_ListOfReferences.def("Remove", (void (CDM_ListOfReferences::*)(CDM_ListOfReferences::Iterator &)) &CDM_ListOfReferences::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_CDM_ListOfReferences.def("InsertBefore", (opencascade::handle<CDM_Reference> & (CDM_ListOfReferences::*)(const opencascade::handle<CDM_Reference> &, CDM_ListOfReferences::Iterator &)) &CDM_ListOfReferences::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_CDM_ListOfReferences.def("InsertBefore", (void (CDM_ListOfReferences::*)(CDM_ListOfReferences &, CDM_ListOfReferences::Iterator &)) &CDM_ListOfReferences::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_CDM_ListOfReferences.def("InsertAfter", (opencascade::handle<CDM_Reference> & (CDM_ListOfReferences::*)(const opencascade::handle<CDM_Reference> &, CDM_ListOfReferences::Iterator &)) &CDM_ListOfReferences::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_CDM_ListOfReferences.def("InsertAfter", (void (CDM_ListOfReferences::*)(CDM_ListOfReferences &, CDM_ListOfReferences::Iterator &)) &CDM_ListOfReferences::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_CDM_ListOfReferences.def("Reverse", (void (CDM_ListOfReferences::*)()) &CDM_ListOfReferences::Reverse, "Reverse the list");
-	cls_CDM_ListOfReferences.def("__iter__", [](const CDM_ListOfReferences &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\CDM_ListOfReferences.hxx
+	bind_NCollection_List<opencascade::handle<CDM_Reference> >(mod, "CDM_ListOfReferences");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<CDM_ListIteratorOfListOfReferences, std::unique_ptr<CDM_ListIteratorOfListOfReferences, Deleter<CDM_ListIteratorOfListOfReferences>>> cls_CDM_ListIteratorOfListOfReferences(mod, "CDM_ListIteratorOfListOfReferences", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_CDM_ListIteratorOfListOfReferences.def(py::init<>());
-	cls_CDM_ListIteratorOfListOfReferences.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_CDM_ListIteratorOfListOfReferences.def("More", (Standard_Boolean (CDM_ListIteratorOfListOfReferences::*)() const ) &CDM_ListIteratorOfListOfReferences::More, "Check end");
-	cls_CDM_ListIteratorOfListOfReferences.def("Next", (void (CDM_ListIteratorOfListOfReferences::*)()) &CDM_ListIteratorOfListOfReferences::Next, "Make step");
-	cls_CDM_ListIteratorOfListOfReferences.def("Value", (const opencascade::handle<CDM_Reference> & (CDM_ListIteratorOfListOfReferences::*)() const ) &CDM_ListIteratorOfListOfReferences::Value, "Constant Value access");
-	cls_CDM_ListIteratorOfListOfReferences.def("Value", (opencascade::handle<CDM_Reference> & (CDM_ListIteratorOfListOfReferences::*)()) &CDM_ListIteratorOfListOfReferences::Value, "Non-const Value access");
-	cls_CDM_ListIteratorOfListOfReferences.def("ChangeValue", (opencascade::handle<CDM_Reference> & (CDM_ListIteratorOfListOfReferences::*)() const ) &CDM_ListIteratorOfListOfReferences::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\CDM_ListOfReferences.hxx
+	bind_NCollection_TListIterator<opencascade::handle<CDM_Reference> >(mod, "CDM_ListIteratorOfListOfReferences");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<CDM_ListOfDocument, std::unique_ptr<CDM_ListOfDocument, Deleter<CDM_ListOfDocument>>, NCollection_BaseList> cls_CDM_ListOfDocument(mod, "CDM_ListOfDocument", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_CDM_ListOfDocument.def(py::init<>());
-	cls_CDM_ListOfDocument.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_CDM_ListOfDocument.def(py::init([] (const CDM_ListOfDocument &other) {return new CDM_ListOfDocument(other);}), "Copy constructor", py::arg("other"));
-	cls_CDM_ListOfDocument.def("begin", (CDM_ListOfDocument::iterator (CDM_ListOfDocument::*)() const ) &CDM_ListOfDocument::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_CDM_ListOfDocument.def("end", (CDM_ListOfDocument::iterator (CDM_ListOfDocument::*)() const ) &CDM_ListOfDocument::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_CDM_ListOfDocument.def("cbegin", (CDM_ListOfDocument::const_iterator (CDM_ListOfDocument::*)() const ) &CDM_ListOfDocument::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_CDM_ListOfDocument.def("cend", (CDM_ListOfDocument::const_iterator (CDM_ListOfDocument::*)() const ) &CDM_ListOfDocument::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_CDM_ListOfDocument.def("Size", (Standard_Integer (CDM_ListOfDocument::*)() const ) &CDM_ListOfDocument::Size, "Size - Number of items");
-	cls_CDM_ListOfDocument.def("Assign", (CDM_ListOfDocument & (CDM_ListOfDocument::*)(const CDM_ListOfDocument &)) &CDM_ListOfDocument::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_CDM_ListOfDocument.def("assign", (CDM_ListOfDocument & (CDM_ListOfDocument::*)(const CDM_ListOfDocument &)) &CDM_ListOfDocument::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_CDM_ListOfDocument.def("Clear", [](CDM_ListOfDocument &self) -> void { return self.Clear(); });
-	cls_CDM_ListOfDocument.def("Clear", (void (CDM_ListOfDocument::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &CDM_ListOfDocument::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_CDM_ListOfDocument.def("First", (const opencascade::handle<CDM_Document> & (CDM_ListOfDocument::*)() const ) &CDM_ListOfDocument::First, "First item");
-	cls_CDM_ListOfDocument.def("First", (opencascade::handle<CDM_Document> & (CDM_ListOfDocument::*)()) &CDM_ListOfDocument::First, "First item (non-const)");
-	cls_CDM_ListOfDocument.def("Last", (const opencascade::handle<CDM_Document> & (CDM_ListOfDocument::*)() const ) &CDM_ListOfDocument::Last, "Last item");
-	cls_CDM_ListOfDocument.def("Last", (opencascade::handle<CDM_Document> & (CDM_ListOfDocument::*)()) &CDM_ListOfDocument::Last, "Last item (non-const)");
-	cls_CDM_ListOfDocument.def("Append", (opencascade::handle<CDM_Document> & (CDM_ListOfDocument::*)(const opencascade::handle<CDM_Document> &)) &CDM_ListOfDocument::Append, "Append one item at the end", py::arg("theItem"));
-	cls_CDM_ListOfDocument.def("Append", (void (CDM_ListOfDocument::*)(const opencascade::handle<CDM_Document> &, CDM_ListOfDocument::Iterator &)) &CDM_ListOfDocument::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_CDM_ListOfDocument.def("Append", (void (CDM_ListOfDocument::*)(CDM_ListOfDocument &)) &CDM_ListOfDocument::Append, "Append another list at the end", py::arg("theOther"));
-	cls_CDM_ListOfDocument.def("Prepend", (opencascade::handle<CDM_Document> & (CDM_ListOfDocument::*)(const opencascade::handle<CDM_Document> &)) &CDM_ListOfDocument::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_CDM_ListOfDocument.def("Prepend", (void (CDM_ListOfDocument::*)(CDM_ListOfDocument &)) &CDM_ListOfDocument::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_CDM_ListOfDocument.def("RemoveFirst", (void (CDM_ListOfDocument::*)()) &CDM_ListOfDocument::RemoveFirst, "RemoveFirst item");
-	cls_CDM_ListOfDocument.def("Remove", (void (CDM_ListOfDocument::*)(CDM_ListOfDocument::Iterator &)) &CDM_ListOfDocument::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_CDM_ListOfDocument.def("InsertBefore", (opencascade::handle<CDM_Document> & (CDM_ListOfDocument::*)(const opencascade::handle<CDM_Document> &, CDM_ListOfDocument::Iterator &)) &CDM_ListOfDocument::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_CDM_ListOfDocument.def("InsertBefore", (void (CDM_ListOfDocument::*)(CDM_ListOfDocument &, CDM_ListOfDocument::Iterator &)) &CDM_ListOfDocument::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_CDM_ListOfDocument.def("InsertAfter", (opencascade::handle<CDM_Document> & (CDM_ListOfDocument::*)(const opencascade::handle<CDM_Document> &, CDM_ListOfDocument::Iterator &)) &CDM_ListOfDocument::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_CDM_ListOfDocument.def("InsertAfter", (void (CDM_ListOfDocument::*)(CDM_ListOfDocument &, CDM_ListOfDocument::Iterator &)) &CDM_ListOfDocument::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_CDM_ListOfDocument.def("Reverse", (void (CDM_ListOfDocument::*)()) &CDM_ListOfDocument::Reverse, "Reverse the list");
-	cls_CDM_ListOfDocument.def("__iter__", [](const CDM_ListOfDocument &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\CDM_ListOfDocument.hxx
+	bind_NCollection_List<opencascade::handle<CDM_Document> >(mod, "CDM_ListOfDocument");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<CDM_ListIteratorOfListOfDocument, std::unique_ptr<CDM_ListIteratorOfListOfDocument, Deleter<CDM_ListIteratorOfListOfDocument>>> cls_CDM_ListIteratorOfListOfDocument(mod, "CDM_ListIteratorOfListOfDocument", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_CDM_ListIteratorOfListOfDocument.def(py::init<>());
-	cls_CDM_ListIteratorOfListOfDocument.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_CDM_ListIteratorOfListOfDocument.def("More", (Standard_Boolean (CDM_ListIteratorOfListOfDocument::*)() const ) &CDM_ListIteratorOfListOfDocument::More, "Check end");
-	cls_CDM_ListIteratorOfListOfDocument.def("Next", (void (CDM_ListIteratorOfListOfDocument::*)()) &CDM_ListIteratorOfListOfDocument::Next, "Make step");
-	cls_CDM_ListIteratorOfListOfDocument.def("Value", (const opencascade::handle<CDM_Document> & (CDM_ListIteratorOfListOfDocument::*)() const ) &CDM_ListIteratorOfListOfDocument::Value, "Constant Value access");
-	cls_CDM_ListIteratorOfListOfDocument.def("Value", (opencascade::handle<CDM_Document> & (CDM_ListIteratorOfListOfDocument::*)()) &CDM_ListIteratorOfListOfDocument::Value, "Non-const Value access");
-	cls_CDM_ListIteratorOfListOfDocument.def("ChangeValue", (opencascade::handle<CDM_Document> & (CDM_ListIteratorOfListOfDocument::*)() const ) &CDM_ListIteratorOfListOfDocument::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\CDM_ListOfDocument.hxx
+	bind_NCollection_TListIterator<opencascade::handle<CDM_Document> >(mod, "CDM_ListIteratorOfListOfDocument");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DefaultHasher.hxx
-	py::class_<CDM_DocumentHasher, std::unique_ptr<CDM_DocumentHasher, Deleter<CDM_DocumentHasher>>> cls_CDM_DocumentHasher(mod, "CDM_DocumentHasher", "Purpose: The DefaultHasher is a Hasher that is used by default in NCollection maps. To compute the hash code of the key is used the global function HashCode. To compare two keys is used the global function IsEqual.");
-	cls_CDM_DocumentHasher.def(py::init<>());
-	cls_CDM_DocumentHasher.def_static("HashCode_", (Standard_Integer (*)(const opencascade::handle<CDM_Document> &, const Standard_Integer)) &CDM_DocumentHasher::HashCode, "None", py::arg("theKey"), py::arg("Upper"));
-	cls_CDM_DocumentHasher.def_static("IsEqual_", (Standard_Boolean (*)(const opencascade::handle<CDM_Document> &, const opencascade::handle<CDM_Document> &)) &CDM_DocumentHasher::IsEqual, "None", py::arg("theKey1"), py::arg("theKey2"));
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Map.hxx
-	py::class_<CDM_MapOfDocument, std::unique_ptr<CDM_MapOfDocument, Deleter<CDM_MapOfDocument>>, NCollection_BaseMap> cls_CDM_MapOfDocument(mod, "CDM_MapOfDocument", "Purpose: Single hashed Map. This Map is used to store and retrieve keys in linear time.");
-	cls_CDM_MapOfDocument.def(py::init<>());
-	cls_CDM_MapOfDocument.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_CDM_MapOfDocument.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_CDM_MapOfDocument.def(py::init([] (const CDM_MapOfDocument &other) {return new CDM_MapOfDocument(other);}), "Copy constructor", py::arg("other"));
-	cls_CDM_MapOfDocument.def("cbegin", (CDM_MapOfDocument::const_iterator (CDM_MapOfDocument::*)() const ) &CDM_MapOfDocument::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_CDM_MapOfDocument.def("cend", (CDM_MapOfDocument::const_iterator (CDM_MapOfDocument::*)() const ) &CDM_MapOfDocument::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_CDM_MapOfDocument.def("Exchange", (void (CDM_MapOfDocument::*)(CDM_MapOfDocument &)) &CDM_MapOfDocument::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_CDM_MapOfDocument.def("Assign", (CDM_MapOfDocument & (CDM_MapOfDocument::*)(const CDM_MapOfDocument &)) &CDM_MapOfDocument::Assign, "Assign. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_CDM_MapOfDocument.def("assign", (CDM_MapOfDocument & (CDM_MapOfDocument::*)(const CDM_MapOfDocument &)) &CDM_MapOfDocument::operator=, py::is_operator(), "Assign operator", py::arg("theOther"));
-	cls_CDM_MapOfDocument.def("ReSize", (void (CDM_MapOfDocument::*)(const Standard_Integer)) &CDM_MapOfDocument::ReSize, "ReSize", py::arg("N"));
-	cls_CDM_MapOfDocument.def("Add", (Standard_Boolean (CDM_MapOfDocument::*)(const opencascade::handle<CDM_Document> &)) &CDM_MapOfDocument::Add, "Add", py::arg("K"));
-	cls_CDM_MapOfDocument.def("Added", (const opencascade::handle<CDM_Document> & (CDM_MapOfDocument::*)(const opencascade::handle<CDM_Document> &)) &CDM_MapOfDocument::Added, "Added: add a new key if not yet in the map, and return reference to either newly added or previously existing object", py::arg("K"));
-	cls_CDM_MapOfDocument.def("Contains", (Standard_Boolean (CDM_MapOfDocument::*)(const opencascade::handle<CDM_Document> &) const ) &CDM_MapOfDocument::Contains, "Contains", py::arg("K"));
-	cls_CDM_MapOfDocument.def("Remove", (Standard_Boolean (CDM_MapOfDocument::*)(const opencascade::handle<CDM_Document> &)) &CDM_MapOfDocument::Remove, "Remove", py::arg("K"));
-	cls_CDM_MapOfDocument.def("Clear", [](CDM_MapOfDocument &self) -> void { return self.Clear(); });
-	cls_CDM_MapOfDocument.def("Clear", (void (CDM_MapOfDocument::*)(const Standard_Boolean)) &CDM_MapOfDocument::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_CDM_MapOfDocument.def("Clear", (void (CDM_MapOfDocument::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &CDM_MapOfDocument::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_CDM_MapOfDocument.def("Size", (Standard_Integer (CDM_MapOfDocument::*)() const ) &CDM_MapOfDocument::Size, "Size");
-	cls_CDM_MapOfDocument.def("IsEqual", (Standard_Boolean (CDM_MapOfDocument::*)(const CDM_MapOfDocument &) const ) &CDM_MapOfDocument::IsEqual, "Returns true if two maps contains exactly the same keys", py::arg("theOther"));
-	cls_CDM_MapOfDocument.def("Contains", (Standard_Boolean (CDM_MapOfDocument::*)(const CDM_MapOfDocument &) const ) &CDM_MapOfDocument::Contains, "Returns true if this map contains ALL keys of another map.", py::arg("theOther"));
-	cls_CDM_MapOfDocument.def("Union", (void (CDM_MapOfDocument::*)(const CDM_MapOfDocument &, const CDM_MapOfDocument &)) &CDM_MapOfDocument::Union, "Sets this Map to be the result of union (aka addition, fuse, merge, boolean OR) operation between two given Maps The new Map contains the values that are contained either in the first map or in the second map or in both. All previous content of this Map is cleared. This map (result of the boolean operation) can also be passed as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_CDM_MapOfDocument.def("Unite", (Standard_Boolean (CDM_MapOfDocument::*)(const CDM_MapOfDocument &)) &CDM_MapOfDocument::Unite, "Apply to this Map the boolean operation union (aka addition, fuse, merge, boolean OR) with another (given) Map. The result contains the values that were previously contained in this map or contained in the given (operand) map. This algorithm is similar to method Union(). Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_CDM_MapOfDocument.def("HasIntersection", (Standard_Boolean (CDM_MapOfDocument::*)(const CDM_MapOfDocument &) const ) &CDM_MapOfDocument::HasIntersection, "Returns true if this and theMap have common elements.", py::arg("theMap"));
-	cls_CDM_MapOfDocument.def("Intersection", (void (CDM_MapOfDocument::*)(const CDM_MapOfDocument &, const CDM_MapOfDocument &)) &CDM_MapOfDocument::Intersection, "Sets this Map to be the result of intersection (aka multiplication, common, boolean AND) operation between two given Maps. The new Map contains only the values that are contained in both map operands. All previous content of this Map is cleared. This same map (result of the boolean operation) can also be used as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_CDM_MapOfDocument.def("Intersect", (Standard_Boolean (CDM_MapOfDocument::*)(const CDM_MapOfDocument &)) &CDM_MapOfDocument::Intersect, "Apply to this Map the intersection operation (aka multiplication, common, boolean AND) with another (given) Map. The result contains only the values that are contained in both this and the given maps. This algorithm is similar to method Intersection(). Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_CDM_MapOfDocument.def("Subtraction", (void (CDM_MapOfDocument::*)(const CDM_MapOfDocument &, const CDM_MapOfDocument &)) &CDM_MapOfDocument::Subtraction, "Sets this Map to be the result of subtraction (aka set-theoretic difference, relative complement, exclude, cut, boolean NOT) operation between two given Maps. The new Map contains only the values that are contained in the first map operands and not contained in the second one. All previous content of this Map is cleared.", py::arg("theLeft"), py::arg("theRight"));
-	cls_CDM_MapOfDocument.def("Subtract", (Standard_Boolean (CDM_MapOfDocument::*)(const CDM_MapOfDocument &)) &CDM_MapOfDocument::Subtract, "Apply to this Map the subtraction (aka set-theoretic difference, relative complement, exclude, cut, boolean NOT) operation with another (given) Map. The result contains only the values that were previously contained in this map and not contained in this map. This algorithm is similar to method Subtract() with two operands. Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_CDM_MapOfDocument.def("Difference", (void (CDM_MapOfDocument::*)(const CDM_MapOfDocument &, const CDM_MapOfDocument &)) &CDM_MapOfDocument::Difference, "Sets this Map to be the result of symmetric difference (aka exclusive disjunction, boolean XOR) operation between two given Maps. The new Map contains the values that are contained only in the first or the second operand maps but not in both. All previous content of this Map is cleared. This map (result of the boolean operation) can also be used as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_CDM_MapOfDocument.def("Differ", (Standard_Boolean (CDM_MapOfDocument::*)(const CDM_MapOfDocument &)) &CDM_MapOfDocument::Differ, "Apply to this Map the symmetric difference (aka exclusive disjunction, boolean XOR) operation with another (given) Map. The result contains the values that are contained only in this or the operand map, but not in both. This algorithm is similar to method Difference(). Returns True if contents of this map is changed.", py::arg("theOther"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\CDM_DocumentHasher.hxx
+	bind_NCollection_DefaultHasher<opencascade::handle<CDM_Document> >(mod, "CDM_DocumentHasher");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\CDM_MapOfDocument.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<CDM_MetaDataLookUpTable, std::unique_ptr<CDM_MetaDataLookUpTable, Deleter<CDM_MetaDataLookUpTable>>, NCollection_BaseMap> cls_CDM_MetaDataLookUpTable(mod, "CDM_MetaDataLookUpTable", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_CDM_MetaDataLookUpTable.def(py::init<>());
-	cls_CDM_MetaDataLookUpTable.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_CDM_MetaDataLookUpTable.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_CDM_MetaDataLookUpTable.def(py::init([] (const CDM_MetaDataLookUpTable &other) {return new CDM_MetaDataLookUpTable(other);}), "Copy constructor", py::arg("other"));
-	cls_CDM_MetaDataLookUpTable.def("begin", (CDM_MetaDataLookUpTable::iterator (CDM_MetaDataLookUpTable::*)() const ) &CDM_MetaDataLookUpTable::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_CDM_MetaDataLookUpTable.def("end", (CDM_MetaDataLookUpTable::iterator (CDM_MetaDataLookUpTable::*)() const ) &CDM_MetaDataLookUpTable::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_CDM_MetaDataLookUpTable.def("cbegin", (CDM_MetaDataLookUpTable::const_iterator (CDM_MetaDataLookUpTable::*)() const ) &CDM_MetaDataLookUpTable::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_CDM_MetaDataLookUpTable.def("cend", (CDM_MetaDataLookUpTable::const_iterator (CDM_MetaDataLookUpTable::*)() const ) &CDM_MetaDataLookUpTable::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_CDM_MetaDataLookUpTable.def("Exchange", (void (CDM_MetaDataLookUpTable::*)(CDM_MetaDataLookUpTable &)) &CDM_MetaDataLookUpTable::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_CDM_MetaDataLookUpTable.def("Assign", (CDM_MetaDataLookUpTable & (CDM_MetaDataLookUpTable::*)(const CDM_MetaDataLookUpTable &)) &CDM_MetaDataLookUpTable::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_CDM_MetaDataLookUpTable.def("assign", (CDM_MetaDataLookUpTable & (CDM_MetaDataLookUpTable::*)(const CDM_MetaDataLookUpTable &)) &CDM_MetaDataLookUpTable::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_CDM_MetaDataLookUpTable.def("ReSize", (void (CDM_MetaDataLookUpTable::*)(const Standard_Integer)) &CDM_MetaDataLookUpTable::ReSize, "ReSize", py::arg("N"));
-	cls_CDM_MetaDataLookUpTable.def("Bind", (Standard_Boolean (CDM_MetaDataLookUpTable::*)(const TCollection_ExtendedString &, const opencascade::handle<CDM_MetaData> &)) &CDM_MetaDataLookUpTable::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_CDM_MetaDataLookUpTable.def("Bound", (opencascade::handle<CDM_MetaData> * (CDM_MetaDataLookUpTable::*)(const TCollection_ExtendedString &, const opencascade::handle<CDM_MetaData> &)) &CDM_MetaDataLookUpTable::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_CDM_MetaDataLookUpTable.def("IsBound", (Standard_Boolean (CDM_MetaDataLookUpTable::*)(const TCollection_ExtendedString &) const ) &CDM_MetaDataLookUpTable::IsBound, "IsBound", py::arg("theKey"));
-	cls_CDM_MetaDataLookUpTable.def("UnBind", (Standard_Boolean (CDM_MetaDataLookUpTable::*)(const TCollection_ExtendedString &)) &CDM_MetaDataLookUpTable::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_CDM_MetaDataLookUpTable.def("Seek", (const opencascade::handle<CDM_MetaData> * (CDM_MetaDataLookUpTable::*)(const TCollection_ExtendedString &) const ) &CDM_MetaDataLookUpTable::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_CDM_MetaDataLookUpTable.def("Find", (const opencascade::handle<CDM_MetaData> & (CDM_MetaDataLookUpTable::*)(const TCollection_ExtendedString &) const ) &CDM_MetaDataLookUpTable::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_CDM_MetaDataLookUpTable.def("Find", (Standard_Boolean (CDM_MetaDataLookUpTable::*)(const TCollection_ExtendedString &, opencascade::handle<CDM_MetaData> &) const ) &CDM_MetaDataLookUpTable::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_CDM_MetaDataLookUpTable.def("__call__", (const opencascade::handle<CDM_MetaData> & (CDM_MetaDataLookUpTable::*)(const TCollection_ExtendedString &) const ) &CDM_MetaDataLookUpTable::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_CDM_MetaDataLookUpTable.def("ChangeSeek", (opencascade::handle<CDM_MetaData> * (CDM_MetaDataLookUpTable::*)(const TCollection_ExtendedString &)) &CDM_MetaDataLookUpTable::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_CDM_MetaDataLookUpTable.def("ChangeFind", (opencascade::handle<CDM_MetaData> & (CDM_MetaDataLookUpTable::*)(const TCollection_ExtendedString &)) &CDM_MetaDataLookUpTable::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_CDM_MetaDataLookUpTable.def("__call__", (opencascade::handle<CDM_MetaData> & (CDM_MetaDataLookUpTable::*)(const TCollection_ExtendedString &)) &CDM_MetaDataLookUpTable::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_CDM_MetaDataLookUpTable.def("Clear", [](CDM_MetaDataLookUpTable &self) -> void { return self.Clear(); });
-	cls_CDM_MetaDataLookUpTable.def("Clear", (void (CDM_MetaDataLookUpTable::*)(const Standard_Boolean)) &CDM_MetaDataLookUpTable::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_CDM_MetaDataLookUpTable.def("Clear", (void (CDM_MetaDataLookUpTable::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &CDM_MetaDataLookUpTable::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_CDM_MetaDataLookUpTable.def("Size", (Standard_Integer (CDM_MetaDataLookUpTable::*)() const ) &CDM_MetaDataLookUpTable::Size, "Size");
-	cls_CDM_MetaDataLookUpTable.def("__iter__", [](const CDM_MetaDataLookUpTable &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_Map<opencascade::handle<CDM_Document>, NCollection_DefaultHasher<opencascade::handle<CDM_Document> > >(mod, "CDM_MapOfDocument");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\CDM_MetaDataLookUpTable.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<CDM_PresentationDirectory, std::unique_ptr<CDM_PresentationDirectory, Deleter<CDM_PresentationDirectory>>, NCollection_BaseMap> cls_CDM_PresentationDirectory(mod, "CDM_PresentationDirectory", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_CDM_PresentationDirectory.def(py::init<>());
-	cls_CDM_PresentationDirectory.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_CDM_PresentationDirectory.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_CDM_PresentationDirectory.def(py::init([] (const CDM_PresentationDirectory &other) {return new CDM_PresentationDirectory(other);}), "Copy constructor", py::arg("other"));
-	cls_CDM_PresentationDirectory.def("begin", (CDM_PresentationDirectory::iterator (CDM_PresentationDirectory::*)() const ) &CDM_PresentationDirectory::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_CDM_PresentationDirectory.def("end", (CDM_PresentationDirectory::iterator (CDM_PresentationDirectory::*)() const ) &CDM_PresentationDirectory::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_CDM_PresentationDirectory.def("cbegin", (CDM_PresentationDirectory::const_iterator (CDM_PresentationDirectory::*)() const ) &CDM_PresentationDirectory::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_CDM_PresentationDirectory.def("cend", (CDM_PresentationDirectory::const_iterator (CDM_PresentationDirectory::*)() const ) &CDM_PresentationDirectory::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_CDM_PresentationDirectory.def("Exchange", (void (CDM_PresentationDirectory::*)(CDM_PresentationDirectory &)) &CDM_PresentationDirectory::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_CDM_PresentationDirectory.def("Assign", (CDM_PresentationDirectory & (CDM_PresentationDirectory::*)(const CDM_PresentationDirectory &)) &CDM_PresentationDirectory::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_CDM_PresentationDirectory.def("assign", (CDM_PresentationDirectory & (CDM_PresentationDirectory::*)(const CDM_PresentationDirectory &)) &CDM_PresentationDirectory::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_CDM_PresentationDirectory.def("ReSize", (void (CDM_PresentationDirectory::*)(const Standard_Integer)) &CDM_PresentationDirectory::ReSize, "ReSize", py::arg("N"));
-	cls_CDM_PresentationDirectory.def("Bind", (Standard_Boolean (CDM_PresentationDirectory::*)(const TCollection_ExtendedString &, const opencascade::handle<CDM_Document> &)) &CDM_PresentationDirectory::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_CDM_PresentationDirectory.def("Bound", (opencascade::handle<CDM_Document> * (CDM_PresentationDirectory::*)(const TCollection_ExtendedString &, const opencascade::handle<CDM_Document> &)) &CDM_PresentationDirectory::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_CDM_PresentationDirectory.def("IsBound", (Standard_Boolean (CDM_PresentationDirectory::*)(const TCollection_ExtendedString &) const ) &CDM_PresentationDirectory::IsBound, "IsBound", py::arg("theKey"));
-	cls_CDM_PresentationDirectory.def("UnBind", (Standard_Boolean (CDM_PresentationDirectory::*)(const TCollection_ExtendedString &)) &CDM_PresentationDirectory::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_CDM_PresentationDirectory.def("Seek", (const opencascade::handle<CDM_Document> * (CDM_PresentationDirectory::*)(const TCollection_ExtendedString &) const ) &CDM_PresentationDirectory::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_CDM_PresentationDirectory.def("Find", (const opencascade::handle<CDM_Document> & (CDM_PresentationDirectory::*)(const TCollection_ExtendedString &) const ) &CDM_PresentationDirectory::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_CDM_PresentationDirectory.def("Find", (Standard_Boolean (CDM_PresentationDirectory::*)(const TCollection_ExtendedString &, opencascade::handle<CDM_Document> &) const ) &CDM_PresentationDirectory::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_CDM_PresentationDirectory.def("__call__", (const opencascade::handle<CDM_Document> & (CDM_PresentationDirectory::*)(const TCollection_ExtendedString &) const ) &CDM_PresentationDirectory::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_CDM_PresentationDirectory.def("ChangeSeek", (opencascade::handle<CDM_Document> * (CDM_PresentationDirectory::*)(const TCollection_ExtendedString &)) &CDM_PresentationDirectory::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_CDM_PresentationDirectory.def("ChangeFind", (opencascade::handle<CDM_Document> & (CDM_PresentationDirectory::*)(const TCollection_ExtendedString &)) &CDM_PresentationDirectory::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_CDM_PresentationDirectory.def("__call__", (opencascade::handle<CDM_Document> & (CDM_PresentationDirectory::*)(const TCollection_ExtendedString &)) &CDM_PresentationDirectory::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_CDM_PresentationDirectory.def("Clear", [](CDM_PresentationDirectory &self) -> void { return self.Clear(); });
-	cls_CDM_PresentationDirectory.def("Clear", (void (CDM_PresentationDirectory::*)(const Standard_Boolean)) &CDM_PresentationDirectory::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_CDM_PresentationDirectory.def("Clear", (void (CDM_PresentationDirectory::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &CDM_PresentationDirectory::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_CDM_PresentationDirectory.def("Size", (Standard_Integer (CDM_PresentationDirectory::*)() const ) &CDM_PresentationDirectory::Size, "Size");
-	cls_CDM_PresentationDirectory.def("__iter__", [](const CDM_PresentationDirectory &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TCollection_ExtendedString, opencascade::handle<CDM_MetaData>, TCollection_ExtendedString>(mod, "CDM_MetaDataLookUpTable");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\CDM_PresentationDirectory.hxx
+	bind_NCollection_DataMap<TCollection_ExtendedString, opencascade::handle<CDM_Document>, TCollection_ExtendedString>(mod, "CDM_PresentationDirectory");
+
+	/* FIXME
+
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\CDM_NamesDirectory.hxx
 	other_mod = py::module::import("OCCT.TColStd");
 	if (py::hasattr(other_mod, "TColStd_DataMapOfStringInteger")) {
 		mod.attr("CDM_NamesDirectory") = other_mod.attr("TColStd_DataMapOfStringInteger");

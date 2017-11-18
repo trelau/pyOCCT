@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
@@ -64,6 +55,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <AdvApp2Var_Context.hxx>
 #include <GeomPlate_PlateG0Criterion.hxx>
 #include <GeomPlate_PlateG1Criterion.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(GeomPlate, mod) {
 
@@ -127,85 +119,11 @@ PYBIND11_MODULE(GeomPlate, mod) {
 	cls_GeomPlate_CurveConstraint.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &GeomPlate_CurveConstraint::get_type_descriptor, "None");
 	cls_GeomPlate_CurveConstraint.def("DynamicType", (const opencascade::handle<Standard_Type> & (GeomPlate_CurveConstraint::*)() const ) &GeomPlate_CurveConstraint::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<GeomPlate_SequenceOfCurveConstraint, std::unique_ptr<GeomPlate_SequenceOfCurveConstraint, Deleter<GeomPlate_SequenceOfCurveConstraint>>, NCollection_BaseSequence> cls_GeomPlate_SequenceOfCurveConstraint(mod, "GeomPlate_SequenceOfCurveConstraint", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_GeomPlate_SequenceOfCurveConstraint.def(py::init<>());
-	cls_GeomPlate_SequenceOfCurveConstraint.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def(py::init([] (const GeomPlate_SequenceOfCurveConstraint &other) {return new GeomPlate_SequenceOfCurveConstraint(other);}), "Copy constructor", py::arg("other"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("begin", (GeomPlate_SequenceOfCurveConstraint::iterator (GeomPlate_SequenceOfCurveConstraint::*)() const ) &GeomPlate_SequenceOfCurveConstraint::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_GeomPlate_SequenceOfCurveConstraint.def("end", (GeomPlate_SequenceOfCurveConstraint::iterator (GeomPlate_SequenceOfCurveConstraint::*)() const ) &GeomPlate_SequenceOfCurveConstraint::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_GeomPlate_SequenceOfCurveConstraint.def("cbegin", (GeomPlate_SequenceOfCurveConstraint::const_iterator (GeomPlate_SequenceOfCurveConstraint::*)() const ) &GeomPlate_SequenceOfCurveConstraint::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_GeomPlate_SequenceOfCurveConstraint.def("cend", (GeomPlate_SequenceOfCurveConstraint::const_iterator (GeomPlate_SequenceOfCurveConstraint::*)() const ) &GeomPlate_SequenceOfCurveConstraint::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Size", (Standard_Integer (GeomPlate_SequenceOfCurveConstraint::*)() const ) &GeomPlate_SequenceOfCurveConstraint::Size, "Number of items");
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Length", (Standard_Integer (GeomPlate_SequenceOfCurveConstraint::*)() const ) &GeomPlate_SequenceOfCurveConstraint::Length, "Number of items");
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Lower", (Standard_Integer (GeomPlate_SequenceOfCurveConstraint::*)() const ) &GeomPlate_SequenceOfCurveConstraint::Lower, "Method for consistency with other collections.");
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Upper", (Standard_Integer (GeomPlate_SequenceOfCurveConstraint::*)() const ) &GeomPlate_SequenceOfCurveConstraint::Upper, "Method for consistency with other collections.");
-	cls_GeomPlate_SequenceOfCurveConstraint.def("IsEmpty", (Standard_Boolean (GeomPlate_SequenceOfCurveConstraint::*)() const ) &GeomPlate_SequenceOfCurveConstraint::IsEmpty, "Empty query");
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Reverse", (void (GeomPlate_SequenceOfCurveConstraint::*)()) &GeomPlate_SequenceOfCurveConstraint::Reverse, "Reverse sequence");
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Exchange", (void (GeomPlate_SequenceOfCurveConstraint::*)(const Standard_Integer, const Standard_Integer)) &GeomPlate_SequenceOfCurveConstraint::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &GeomPlate_SequenceOfCurveConstraint::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Clear", [](GeomPlate_SequenceOfCurveConstraint &self) -> void { return self.Clear(); });
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Clear", (void (GeomPlate_SequenceOfCurveConstraint::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &GeomPlate_SequenceOfCurveConstraint::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Assign", (GeomPlate_SequenceOfCurveConstraint & (GeomPlate_SequenceOfCurveConstraint::*)(const GeomPlate_SequenceOfCurveConstraint &)) &GeomPlate_SequenceOfCurveConstraint::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("assign", (GeomPlate_SequenceOfCurveConstraint & (GeomPlate_SequenceOfCurveConstraint::*)(const GeomPlate_SequenceOfCurveConstraint &)) &GeomPlate_SequenceOfCurveConstraint::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Remove", (void (GeomPlate_SequenceOfCurveConstraint::*)(GeomPlate_SequenceOfCurveConstraint::Iterator &)) &GeomPlate_SequenceOfCurveConstraint::Remove, "Remove one item", py::arg("thePosition"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Remove", (void (GeomPlate_SequenceOfCurveConstraint::*)(const Standard_Integer)) &GeomPlate_SequenceOfCurveConstraint::Remove, "Remove one item", py::arg("theIndex"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Remove", (void (GeomPlate_SequenceOfCurveConstraint::*)(const Standard_Integer, const Standard_Integer)) &GeomPlate_SequenceOfCurveConstraint::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Append", (void (GeomPlate_SequenceOfCurveConstraint::*)(const opencascade::handle<GeomPlate_CurveConstraint> &)) &GeomPlate_SequenceOfCurveConstraint::Append, "Append one item", py::arg("theItem"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Append", (void (GeomPlate_SequenceOfCurveConstraint::*)(GeomPlate_SequenceOfCurveConstraint &)) &GeomPlate_SequenceOfCurveConstraint::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Prepend", (void (GeomPlate_SequenceOfCurveConstraint::*)(const opencascade::handle<GeomPlate_CurveConstraint> &)) &GeomPlate_SequenceOfCurveConstraint::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Prepend", (void (GeomPlate_SequenceOfCurveConstraint::*)(GeomPlate_SequenceOfCurveConstraint &)) &GeomPlate_SequenceOfCurveConstraint::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("InsertBefore", (void (GeomPlate_SequenceOfCurveConstraint::*)(const Standard_Integer, const opencascade::handle<GeomPlate_CurveConstraint> &)) &GeomPlate_SequenceOfCurveConstraint::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("InsertBefore", (void (GeomPlate_SequenceOfCurveConstraint::*)(const Standard_Integer, GeomPlate_SequenceOfCurveConstraint &)) &GeomPlate_SequenceOfCurveConstraint::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("InsertAfter", (void (GeomPlate_SequenceOfCurveConstraint::*)(GeomPlate_SequenceOfCurveConstraint::Iterator &, const opencascade::handle<GeomPlate_CurveConstraint> &)) &GeomPlate_SequenceOfCurveConstraint::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("InsertAfter", (void (GeomPlate_SequenceOfCurveConstraint::*)(const Standard_Integer, GeomPlate_SequenceOfCurveConstraint &)) &GeomPlate_SequenceOfCurveConstraint::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("InsertAfter", (void (GeomPlate_SequenceOfCurveConstraint::*)(const Standard_Integer, const opencascade::handle<GeomPlate_CurveConstraint> &)) &GeomPlate_SequenceOfCurveConstraint::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Split", (void (GeomPlate_SequenceOfCurveConstraint::*)(const Standard_Integer, GeomPlate_SequenceOfCurveConstraint &)) &GeomPlate_SequenceOfCurveConstraint::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("First", (const opencascade::handle<GeomPlate_CurveConstraint> & (GeomPlate_SequenceOfCurveConstraint::*)() const ) &GeomPlate_SequenceOfCurveConstraint::First, "First item access");
-	cls_GeomPlate_SequenceOfCurveConstraint.def("ChangeFirst", (opencascade::handle<GeomPlate_CurveConstraint> & (GeomPlate_SequenceOfCurveConstraint::*)()) &GeomPlate_SequenceOfCurveConstraint::ChangeFirst, "First item access");
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Last", (const opencascade::handle<GeomPlate_CurveConstraint> & (GeomPlate_SequenceOfCurveConstraint::*)() const ) &GeomPlate_SequenceOfCurveConstraint::Last, "Last item access");
-	cls_GeomPlate_SequenceOfCurveConstraint.def("ChangeLast", (opencascade::handle<GeomPlate_CurveConstraint> & (GeomPlate_SequenceOfCurveConstraint::*)()) &GeomPlate_SequenceOfCurveConstraint::ChangeLast, "Last item access");
-	cls_GeomPlate_SequenceOfCurveConstraint.def("Value", (const opencascade::handle<GeomPlate_CurveConstraint> & (GeomPlate_SequenceOfCurveConstraint::*)(const Standard_Integer) const ) &GeomPlate_SequenceOfCurveConstraint::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("__call__", (const opencascade::handle<GeomPlate_CurveConstraint> & (GeomPlate_SequenceOfCurveConstraint::*)(const Standard_Integer) const ) &GeomPlate_SequenceOfCurveConstraint::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("ChangeValue", (opencascade::handle<GeomPlate_CurveConstraint> & (GeomPlate_SequenceOfCurveConstraint::*)(const Standard_Integer)) &GeomPlate_SequenceOfCurveConstraint::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("__call__", (opencascade::handle<GeomPlate_CurveConstraint> & (GeomPlate_SequenceOfCurveConstraint::*)(const Standard_Integer)) &GeomPlate_SequenceOfCurveConstraint::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("SetValue", (void (GeomPlate_SequenceOfCurveConstraint::*)(const Standard_Integer, const opencascade::handle<GeomPlate_CurveConstraint> &)) &GeomPlate_SequenceOfCurveConstraint::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomPlate_SequenceOfCurveConstraint.def("__iter__", [](const GeomPlate_SequenceOfCurveConstraint &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomPlate_SequenceOfCurveConstraint.hxx
+	bind_NCollection_Sequence<opencascade::handle<GeomPlate_CurveConstraint> >(mod, "GeomPlate_SequenceOfCurveConstraint");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<GeomPlate_Array1OfSequenceOfReal, std::unique_ptr<GeomPlate_Array1OfSequenceOfReal, Deleter<GeomPlate_Array1OfSequenceOfReal>>> cls_GeomPlate_Array1OfSequenceOfReal(mod, "GeomPlate_Array1OfSequenceOfReal", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_GeomPlate_Array1OfSequenceOfReal.def(py::init<>());
-	cls_GeomPlate_Array1OfSequenceOfReal.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_GeomPlate_Array1OfSequenceOfReal.def(py::init([] (const GeomPlate_Array1OfSequenceOfReal &other) {return new GeomPlate_Array1OfSequenceOfReal(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_GeomPlate_Array1OfSequenceOfReal.def(py::init<GeomPlate_Array1OfSequenceOfReal &&>(), py::arg("theOther"));
-	cls_GeomPlate_Array1OfSequenceOfReal.def(py::init<const TColStd_SequenceOfReal &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_GeomPlate_Array1OfSequenceOfReal.def("begin", (GeomPlate_Array1OfSequenceOfReal::iterator (GeomPlate_Array1OfSequenceOfReal::*)() const ) &GeomPlate_Array1OfSequenceOfReal::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_GeomPlate_Array1OfSequenceOfReal.def("end", (GeomPlate_Array1OfSequenceOfReal::iterator (GeomPlate_Array1OfSequenceOfReal::*)() const ) &GeomPlate_Array1OfSequenceOfReal::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_GeomPlate_Array1OfSequenceOfReal.def("cbegin", (GeomPlate_Array1OfSequenceOfReal::const_iterator (GeomPlate_Array1OfSequenceOfReal::*)() const ) &GeomPlate_Array1OfSequenceOfReal::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_GeomPlate_Array1OfSequenceOfReal.def("cend", (GeomPlate_Array1OfSequenceOfReal::const_iterator (GeomPlate_Array1OfSequenceOfReal::*)() const ) &GeomPlate_Array1OfSequenceOfReal::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_GeomPlate_Array1OfSequenceOfReal.def("Init", (void (GeomPlate_Array1OfSequenceOfReal::*)(const TColStd_SequenceOfReal &)) &GeomPlate_Array1OfSequenceOfReal::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_GeomPlate_Array1OfSequenceOfReal.def("Size", (Standard_Integer (GeomPlate_Array1OfSequenceOfReal::*)() const ) &GeomPlate_Array1OfSequenceOfReal::Size, "Size query");
-	cls_GeomPlate_Array1OfSequenceOfReal.def("Length", (Standard_Integer (GeomPlate_Array1OfSequenceOfReal::*)() const ) &GeomPlate_Array1OfSequenceOfReal::Length, "Length query (the same)");
-	cls_GeomPlate_Array1OfSequenceOfReal.def("IsEmpty", (Standard_Boolean (GeomPlate_Array1OfSequenceOfReal::*)() const ) &GeomPlate_Array1OfSequenceOfReal::IsEmpty, "Return TRUE if array has zero length.");
-	cls_GeomPlate_Array1OfSequenceOfReal.def("Lower", (Standard_Integer (GeomPlate_Array1OfSequenceOfReal::*)() const ) &GeomPlate_Array1OfSequenceOfReal::Lower, "Lower bound");
-	cls_GeomPlate_Array1OfSequenceOfReal.def("Upper", (Standard_Integer (GeomPlate_Array1OfSequenceOfReal::*)() const ) &GeomPlate_Array1OfSequenceOfReal::Upper, "Upper bound");
-	cls_GeomPlate_Array1OfSequenceOfReal.def("IsDeletable", (Standard_Boolean (GeomPlate_Array1OfSequenceOfReal::*)() const ) &GeomPlate_Array1OfSequenceOfReal::IsDeletable, "myDeletable flag");
-	cls_GeomPlate_Array1OfSequenceOfReal.def("IsAllocated", (Standard_Boolean (GeomPlate_Array1OfSequenceOfReal::*)() const ) &GeomPlate_Array1OfSequenceOfReal::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_GeomPlate_Array1OfSequenceOfReal.def("Assign", (GeomPlate_Array1OfSequenceOfReal & (GeomPlate_Array1OfSequenceOfReal::*)(const GeomPlate_Array1OfSequenceOfReal &)) &GeomPlate_Array1OfSequenceOfReal::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_GeomPlate_Array1OfSequenceOfReal.def("Move", (GeomPlate_Array1OfSequenceOfReal & (GeomPlate_Array1OfSequenceOfReal::*)(GeomPlate_Array1OfSequenceOfReal &&)) &GeomPlate_Array1OfSequenceOfReal::Move, "Move assignment", py::arg("theOther"));
-	cls_GeomPlate_Array1OfSequenceOfReal.def("assign", (GeomPlate_Array1OfSequenceOfReal & (GeomPlate_Array1OfSequenceOfReal::*)(const GeomPlate_Array1OfSequenceOfReal &)) &GeomPlate_Array1OfSequenceOfReal::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_GeomPlate_Array1OfSequenceOfReal.def("assign", (GeomPlate_Array1OfSequenceOfReal & (GeomPlate_Array1OfSequenceOfReal::*)(GeomPlate_Array1OfSequenceOfReal &&)) &GeomPlate_Array1OfSequenceOfReal::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_GeomPlate_Array1OfSequenceOfReal.def("First", (const TColStd_SequenceOfReal & (GeomPlate_Array1OfSequenceOfReal::*)() const ) &GeomPlate_Array1OfSequenceOfReal::First, "Returns first element");
-	cls_GeomPlate_Array1OfSequenceOfReal.def("ChangeFirst", (TColStd_SequenceOfReal & (GeomPlate_Array1OfSequenceOfReal::*)()) &GeomPlate_Array1OfSequenceOfReal::ChangeFirst, "Returns first element");
-	cls_GeomPlate_Array1OfSequenceOfReal.def("Last", (const TColStd_SequenceOfReal & (GeomPlate_Array1OfSequenceOfReal::*)() const ) &GeomPlate_Array1OfSequenceOfReal::Last, "Returns last element");
-	cls_GeomPlate_Array1OfSequenceOfReal.def("ChangeLast", (TColStd_SequenceOfReal & (GeomPlate_Array1OfSequenceOfReal::*)()) &GeomPlate_Array1OfSequenceOfReal::ChangeLast, "Returns last element");
-	cls_GeomPlate_Array1OfSequenceOfReal.def("Value", (const TColStd_SequenceOfReal & (GeomPlate_Array1OfSequenceOfReal::*)(const Standard_Integer) const ) &GeomPlate_Array1OfSequenceOfReal::Value, "Constant value access", py::arg("theIndex"));
-	cls_GeomPlate_Array1OfSequenceOfReal.def("__call__", (const TColStd_SequenceOfReal & (GeomPlate_Array1OfSequenceOfReal::*)(const Standard_Integer) const ) &GeomPlate_Array1OfSequenceOfReal::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_GeomPlate_Array1OfSequenceOfReal.def("ChangeValue", (TColStd_SequenceOfReal & (GeomPlate_Array1OfSequenceOfReal::*)(const Standard_Integer)) &GeomPlate_Array1OfSequenceOfReal::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_GeomPlate_Array1OfSequenceOfReal.def("__call__", (TColStd_SequenceOfReal & (GeomPlate_Array1OfSequenceOfReal::*)(const Standard_Integer)) &GeomPlate_Array1OfSequenceOfReal::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_GeomPlate_Array1OfSequenceOfReal.def("SetValue", (void (GeomPlate_Array1OfSequenceOfReal::*)(const Standard_Integer, const TColStd_SequenceOfReal &)) &GeomPlate_Array1OfSequenceOfReal::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomPlate_Array1OfSequenceOfReal.def("Resize", (void (GeomPlate_Array1OfSequenceOfReal::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &GeomPlate_Array1OfSequenceOfReal::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_GeomPlate_Array1OfSequenceOfReal.def("__iter__", [](const GeomPlate_Array1OfSequenceOfReal &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomPlate_Array1OfSequenceOfReal.hxx
+	bind_NCollection_Array1<NCollection_Sequence<double> >(mod, "GeomPlate_Array1OfSequenceOfReal");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomPlate_PointConstraint.hxx
 	py::class_<GeomPlate_PointConstraint, opencascade::handle<GeomPlate_PointConstraint>, Standard_Transient> cls_GeomPlate_PointConstraint(mod, "GeomPlate_PointConstraint", "Defines points as constraints to be used to deform a surface.");
@@ -234,85 +152,11 @@ PYBIND11_MODULE(GeomPlate, mod) {
 	cls_GeomPlate_PointConstraint.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &GeomPlate_PointConstraint::get_type_descriptor, "None");
 	cls_GeomPlate_PointConstraint.def("DynamicType", (const opencascade::handle<Standard_Type> & (GeomPlate_PointConstraint::*)() const ) &GeomPlate_PointConstraint::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<GeomPlate_SequenceOfPointConstraint, std::unique_ptr<GeomPlate_SequenceOfPointConstraint, Deleter<GeomPlate_SequenceOfPointConstraint>>, NCollection_BaseSequence> cls_GeomPlate_SequenceOfPointConstraint(mod, "GeomPlate_SequenceOfPointConstraint", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_GeomPlate_SequenceOfPointConstraint.def(py::init<>());
-	cls_GeomPlate_SequenceOfPointConstraint.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_GeomPlate_SequenceOfPointConstraint.def(py::init([] (const GeomPlate_SequenceOfPointConstraint &other) {return new GeomPlate_SequenceOfPointConstraint(other);}), "Copy constructor", py::arg("other"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("begin", (GeomPlate_SequenceOfPointConstraint::iterator (GeomPlate_SequenceOfPointConstraint::*)() const ) &GeomPlate_SequenceOfPointConstraint::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_GeomPlate_SequenceOfPointConstraint.def("end", (GeomPlate_SequenceOfPointConstraint::iterator (GeomPlate_SequenceOfPointConstraint::*)() const ) &GeomPlate_SequenceOfPointConstraint::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_GeomPlate_SequenceOfPointConstraint.def("cbegin", (GeomPlate_SequenceOfPointConstraint::const_iterator (GeomPlate_SequenceOfPointConstraint::*)() const ) &GeomPlate_SequenceOfPointConstraint::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_GeomPlate_SequenceOfPointConstraint.def("cend", (GeomPlate_SequenceOfPointConstraint::const_iterator (GeomPlate_SequenceOfPointConstraint::*)() const ) &GeomPlate_SequenceOfPointConstraint::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_GeomPlate_SequenceOfPointConstraint.def("Size", (Standard_Integer (GeomPlate_SequenceOfPointConstraint::*)() const ) &GeomPlate_SequenceOfPointConstraint::Size, "Number of items");
-	cls_GeomPlate_SequenceOfPointConstraint.def("Length", (Standard_Integer (GeomPlate_SequenceOfPointConstraint::*)() const ) &GeomPlate_SequenceOfPointConstraint::Length, "Number of items");
-	cls_GeomPlate_SequenceOfPointConstraint.def("Lower", (Standard_Integer (GeomPlate_SequenceOfPointConstraint::*)() const ) &GeomPlate_SequenceOfPointConstraint::Lower, "Method for consistency with other collections.");
-	cls_GeomPlate_SequenceOfPointConstraint.def("Upper", (Standard_Integer (GeomPlate_SequenceOfPointConstraint::*)() const ) &GeomPlate_SequenceOfPointConstraint::Upper, "Method for consistency with other collections.");
-	cls_GeomPlate_SequenceOfPointConstraint.def("IsEmpty", (Standard_Boolean (GeomPlate_SequenceOfPointConstraint::*)() const ) &GeomPlate_SequenceOfPointConstraint::IsEmpty, "Empty query");
-	cls_GeomPlate_SequenceOfPointConstraint.def("Reverse", (void (GeomPlate_SequenceOfPointConstraint::*)()) &GeomPlate_SequenceOfPointConstraint::Reverse, "Reverse sequence");
-	cls_GeomPlate_SequenceOfPointConstraint.def("Exchange", (void (GeomPlate_SequenceOfPointConstraint::*)(const Standard_Integer, const Standard_Integer)) &GeomPlate_SequenceOfPointConstraint::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_GeomPlate_SequenceOfPointConstraint.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &GeomPlate_SequenceOfPointConstraint::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("Clear", [](GeomPlate_SequenceOfPointConstraint &self) -> void { return self.Clear(); });
-	cls_GeomPlate_SequenceOfPointConstraint.def("Clear", (void (GeomPlate_SequenceOfPointConstraint::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &GeomPlate_SequenceOfPointConstraint::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("Assign", (GeomPlate_SequenceOfPointConstraint & (GeomPlate_SequenceOfPointConstraint::*)(const GeomPlate_SequenceOfPointConstraint &)) &GeomPlate_SequenceOfPointConstraint::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("assign", (GeomPlate_SequenceOfPointConstraint & (GeomPlate_SequenceOfPointConstraint::*)(const GeomPlate_SequenceOfPointConstraint &)) &GeomPlate_SequenceOfPointConstraint::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("Remove", (void (GeomPlate_SequenceOfPointConstraint::*)(GeomPlate_SequenceOfPointConstraint::Iterator &)) &GeomPlate_SequenceOfPointConstraint::Remove, "Remove one item", py::arg("thePosition"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("Remove", (void (GeomPlate_SequenceOfPointConstraint::*)(const Standard_Integer)) &GeomPlate_SequenceOfPointConstraint::Remove, "Remove one item", py::arg("theIndex"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("Remove", (void (GeomPlate_SequenceOfPointConstraint::*)(const Standard_Integer, const Standard_Integer)) &GeomPlate_SequenceOfPointConstraint::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("Append", (void (GeomPlate_SequenceOfPointConstraint::*)(const opencascade::handle<GeomPlate_PointConstraint> &)) &GeomPlate_SequenceOfPointConstraint::Append, "Append one item", py::arg("theItem"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("Append", (void (GeomPlate_SequenceOfPointConstraint::*)(GeomPlate_SequenceOfPointConstraint &)) &GeomPlate_SequenceOfPointConstraint::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("Prepend", (void (GeomPlate_SequenceOfPointConstraint::*)(const opencascade::handle<GeomPlate_PointConstraint> &)) &GeomPlate_SequenceOfPointConstraint::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("Prepend", (void (GeomPlate_SequenceOfPointConstraint::*)(GeomPlate_SequenceOfPointConstraint &)) &GeomPlate_SequenceOfPointConstraint::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("InsertBefore", (void (GeomPlate_SequenceOfPointConstraint::*)(const Standard_Integer, const opencascade::handle<GeomPlate_PointConstraint> &)) &GeomPlate_SequenceOfPointConstraint::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("InsertBefore", (void (GeomPlate_SequenceOfPointConstraint::*)(const Standard_Integer, GeomPlate_SequenceOfPointConstraint &)) &GeomPlate_SequenceOfPointConstraint::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("InsertAfter", (void (GeomPlate_SequenceOfPointConstraint::*)(GeomPlate_SequenceOfPointConstraint::Iterator &, const opencascade::handle<GeomPlate_PointConstraint> &)) &GeomPlate_SequenceOfPointConstraint::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("InsertAfter", (void (GeomPlate_SequenceOfPointConstraint::*)(const Standard_Integer, GeomPlate_SequenceOfPointConstraint &)) &GeomPlate_SequenceOfPointConstraint::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("InsertAfter", (void (GeomPlate_SequenceOfPointConstraint::*)(const Standard_Integer, const opencascade::handle<GeomPlate_PointConstraint> &)) &GeomPlate_SequenceOfPointConstraint::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("Split", (void (GeomPlate_SequenceOfPointConstraint::*)(const Standard_Integer, GeomPlate_SequenceOfPointConstraint &)) &GeomPlate_SequenceOfPointConstraint::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("First", (const opencascade::handle<GeomPlate_PointConstraint> & (GeomPlate_SequenceOfPointConstraint::*)() const ) &GeomPlate_SequenceOfPointConstraint::First, "First item access");
-	cls_GeomPlate_SequenceOfPointConstraint.def("ChangeFirst", (opencascade::handle<GeomPlate_PointConstraint> & (GeomPlate_SequenceOfPointConstraint::*)()) &GeomPlate_SequenceOfPointConstraint::ChangeFirst, "First item access");
-	cls_GeomPlate_SequenceOfPointConstraint.def("Last", (const opencascade::handle<GeomPlate_PointConstraint> & (GeomPlate_SequenceOfPointConstraint::*)() const ) &GeomPlate_SequenceOfPointConstraint::Last, "Last item access");
-	cls_GeomPlate_SequenceOfPointConstraint.def("ChangeLast", (opencascade::handle<GeomPlate_PointConstraint> & (GeomPlate_SequenceOfPointConstraint::*)()) &GeomPlate_SequenceOfPointConstraint::ChangeLast, "Last item access");
-	cls_GeomPlate_SequenceOfPointConstraint.def("Value", (const opencascade::handle<GeomPlate_PointConstraint> & (GeomPlate_SequenceOfPointConstraint::*)(const Standard_Integer) const ) &GeomPlate_SequenceOfPointConstraint::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("__call__", (const opencascade::handle<GeomPlate_PointConstraint> & (GeomPlate_SequenceOfPointConstraint::*)(const Standard_Integer) const ) &GeomPlate_SequenceOfPointConstraint::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("ChangeValue", (opencascade::handle<GeomPlate_PointConstraint> & (GeomPlate_SequenceOfPointConstraint::*)(const Standard_Integer)) &GeomPlate_SequenceOfPointConstraint::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("__call__", (opencascade::handle<GeomPlate_PointConstraint> & (GeomPlate_SequenceOfPointConstraint::*)(const Standard_Integer)) &GeomPlate_SequenceOfPointConstraint::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("SetValue", (void (GeomPlate_SequenceOfPointConstraint::*)(const Standard_Integer, const opencascade::handle<GeomPlate_PointConstraint> &)) &GeomPlate_SequenceOfPointConstraint::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomPlate_SequenceOfPointConstraint.def("__iter__", [](const GeomPlate_SequenceOfPointConstraint &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomPlate_SequenceOfPointConstraint.hxx
+	bind_NCollection_Sequence<opencascade::handle<GeomPlate_PointConstraint> >(mod, "GeomPlate_SequenceOfPointConstraint");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<GeomPlate_Array1OfHCurve, std::unique_ptr<GeomPlate_Array1OfHCurve, Deleter<GeomPlate_Array1OfHCurve>>> cls_GeomPlate_Array1OfHCurve(mod, "GeomPlate_Array1OfHCurve", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_GeomPlate_Array1OfHCurve.def(py::init<>());
-	cls_GeomPlate_Array1OfHCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_GeomPlate_Array1OfHCurve.def(py::init([] (const GeomPlate_Array1OfHCurve &other) {return new GeomPlate_Array1OfHCurve(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_GeomPlate_Array1OfHCurve.def(py::init<GeomPlate_Array1OfHCurve &&>(), py::arg("theOther"));
-	cls_GeomPlate_Array1OfHCurve.def(py::init<const opencascade::handle<Adaptor3d_HCurve> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_GeomPlate_Array1OfHCurve.def("begin", (GeomPlate_Array1OfHCurve::iterator (GeomPlate_Array1OfHCurve::*)() const ) &GeomPlate_Array1OfHCurve::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_GeomPlate_Array1OfHCurve.def("end", (GeomPlate_Array1OfHCurve::iterator (GeomPlate_Array1OfHCurve::*)() const ) &GeomPlate_Array1OfHCurve::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_GeomPlate_Array1OfHCurve.def("cbegin", (GeomPlate_Array1OfHCurve::const_iterator (GeomPlate_Array1OfHCurve::*)() const ) &GeomPlate_Array1OfHCurve::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_GeomPlate_Array1OfHCurve.def("cend", (GeomPlate_Array1OfHCurve::const_iterator (GeomPlate_Array1OfHCurve::*)() const ) &GeomPlate_Array1OfHCurve::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_GeomPlate_Array1OfHCurve.def("Init", (void (GeomPlate_Array1OfHCurve::*)(const opencascade::handle<Adaptor3d_HCurve> &)) &GeomPlate_Array1OfHCurve::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_GeomPlate_Array1OfHCurve.def("Size", (Standard_Integer (GeomPlate_Array1OfHCurve::*)() const ) &GeomPlate_Array1OfHCurve::Size, "Size query");
-	cls_GeomPlate_Array1OfHCurve.def("Length", (Standard_Integer (GeomPlate_Array1OfHCurve::*)() const ) &GeomPlate_Array1OfHCurve::Length, "Length query (the same)");
-	cls_GeomPlate_Array1OfHCurve.def("IsEmpty", (Standard_Boolean (GeomPlate_Array1OfHCurve::*)() const ) &GeomPlate_Array1OfHCurve::IsEmpty, "Return TRUE if array has zero length.");
-	cls_GeomPlate_Array1OfHCurve.def("Lower", (Standard_Integer (GeomPlate_Array1OfHCurve::*)() const ) &GeomPlate_Array1OfHCurve::Lower, "Lower bound");
-	cls_GeomPlate_Array1OfHCurve.def("Upper", (Standard_Integer (GeomPlate_Array1OfHCurve::*)() const ) &GeomPlate_Array1OfHCurve::Upper, "Upper bound");
-	cls_GeomPlate_Array1OfHCurve.def("IsDeletable", (Standard_Boolean (GeomPlate_Array1OfHCurve::*)() const ) &GeomPlate_Array1OfHCurve::IsDeletable, "myDeletable flag");
-	cls_GeomPlate_Array1OfHCurve.def("IsAllocated", (Standard_Boolean (GeomPlate_Array1OfHCurve::*)() const ) &GeomPlate_Array1OfHCurve::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_GeomPlate_Array1OfHCurve.def("Assign", (GeomPlate_Array1OfHCurve & (GeomPlate_Array1OfHCurve::*)(const GeomPlate_Array1OfHCurve &)) &GeomPlate_Array1OfHCurve::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_GeomPlate_Array1OfHCurve.def("Move", (GeomPlate_Array1OfHCurve & (GeomPlate_Array1OfHCurve::*)(GeomPlate_Array1OfHCurve &&)) &GeomPlate_Array1OfHCurve::Move, "Move assignment", py::arg("theOther"));
-	cls_GeomPlate_Array1OfHCurve.def("assign", (GeomPlate_Array1OfHCurve & (GeomPlate_Array1OfHCurve::*)(const GeomPlate_Array1OfHCurve &)) &GeomPlate_Array1OfHCurve::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_GeomPlate_Array1OfHCurve.def("assign", (GeomPlate_Array1OfHCurve & (GeomPlate_Array1OfHCurve::*)(GeomPlate_Array1OfHCurve &&)) &GeomPlate_Array1OfHCurve::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_GeomPlate_Array1OfHCurve.def("First", (const opencascade::handle<Adaptor3d_HCurve> & (GeomPlate_Array1OfHCurve::*)() const ) &GeomPlate_Array1OfHCurve::First, "Returns first element");
-	cls_GeomPlate_Array1OfHCurve.def("ChangeFirst", (opencascade::handle<Adaptor3d_HCurve> & (GeomPlate_Array1OfHCurve::*)()) &GeomPlate_Array1OfHCurve::ChangeFirst, "Returns first element");
-	cls_GeomPlate_Array1OfHCurve.def("Last", (const opencascade::handle<Adaptor3d_HCurve> & (GeomPlate_Array1OfHCurve::*)() const ) &GeomPlate_Array1OfHCurve::Last, "Returns last element");
-	cls_GeomPlate_Array1OfHCurve.def("ChangeLast", (opencascade::handle<Adaptor3d_HCurve> & (GeomPlate_Array1OfHCurve::*)()) &GeomPlate_Array1OfHCurve::ChangeLast, "Returns last element");
-	cls_GeomPlate_Array1OfHCurve.def("Value", (const opencascade::handle<Adaptor3d_HCurve> & (GeomPlate_Array1OfHCurve::*)(const Standard_Integer) const ) &GeomPlate_Array1OfHCurve::Value, "Constant value access", py::arg("theIndex"));
-	cls_GeomPlate_Array1OfHCurve.def("__call__", (const opencascade::handle<Adaptor3d_HCurve> & (GeomPlate_Array1OfHCurve::*)(const Standard_Integer) const ) &GeomPlate_Array1OfHCurve::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_GeomPlate_Array1OfHCurve.def("ChangeValue", (opencascade::handle<Adaptor3d_HCurve> & (GeomPlate_Array1OfHCurve::*)(const Standard_Integer)) &GeomPlate_Array1OfHCurve::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_GeomPlate_Array1OfHCurve.def("__call__", (opencascade::handle<Adaptor3d_HCurve> & (GeomPlate_Array1OfHCurve::*)(const Standard_Integer)) &GeomPlate_Array1OfHCurve::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_GeomPlate_Array1OfHCurve.def("SetValue", (void (GeomPlate_Array1OfHCurve::*)(const Standard_Integer, const opencascade::handle<Adaptor3d_HCurve> &)) &GeomPlate_Array1OfHCurve::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomPlate_Array1OfHCurve.def("Resize", (void (GeomPlate_Array1OfHCurve::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &GeomPlate_Array1OfHCurve::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_GeomPlate_Array1OfHCurve.def("__iter__", [](const GeomPlate_Array1OfHCurve &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomPlate_Array1OfHCurve.hxx
+	bind_NCollection_Array1<opencascade::handle<Adaptor3d_HCurve> >(mod, "GeomPlate_Array1OfHCurve");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomPlate_Surface.hxx
 	py::class_<GeomPlate_Surface, opencascade::handle<GeomPlate_Surface>, Geom_Surface> cls_GeomPlate_Surface(mod, "GeomPlate_Surface", "Describes the characteristics of plate surface objects returned by BuildPlateSurface::Surface. These can be used to verify the quality of the resulting surface before approximating it to a Geom_BSpline surface generated by MakeApprox. This proves necessary in cases where you want to use the resulting surface as the support for a shape. The algorithmically generated surface cannot fill this function as is, and as a result must be converted first.");
@@ -491,50 +335,8 @@ PYBIND11_MODULE(GeomPlate, mod) {
 	cls_GeomPlate_HArray1OfHCurve.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &GeomPlate_HArray1OfHCurve::get_type_descriptor, "None");
 	cls_GeomPlate_HArray1OfHCurve.def("DynamicType", (const opencascade::handle<Standard_Type> & (GeomPlate_HArray1OfHCurve::*)() const ) &GeomPlate_HArray1OfHCurve::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<GeomPlate_SequenceOfAij, std::unique_ptr<GeomPlate_SequenceOfAij, Deleter<GeomPlate_SequenceOfAij>>, NCollection_BaseSequence> cls_GeomPlate_SequenceOfAij(mod, "GeomPlate_SequenceOfAij", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_GeomPlate_SequenceOfAij.def(py::init<>());
-	cls_GeomPlate_SequenceOfAij.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_GeomPlate_SequenceOfAij.def(py::init([] (const GeomPlate_SequenceOfAij &other) {return new GeomPlate_SequenceOfAij(other);}), "Copy constructor", py::arg("other"));
-	cls_GeomPlate_SequenceOfAij.def("begin", (GeomPlate_SequenceOfAij::iterator (GeomPlate_SequenceOfAij::*)() const ) &GeomPlate_SequenceOfAij::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_GeomPlate_SequenceOfAij.def("end", (GeomPlate_SequenceOfAij::iterator (GeomPlate_SequenceOfAij::*)() const ) &GeomPlate_SequenceOfAij::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_GeomPlate_SequenceOfAij.def("cbegin", (GeomPlate_SequenceOfAij::const_iterator (GeomPlate_SequenceOfAij::*)() const ) &GeomPlate_SequenceOfAij::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_GeomPlate_SequenceOfAij.def("cend", (GeomPlate_SequenceOfAij::const_iterator (GeomPlate_SequenceOfAij::*)() const ) &GeomPlate_SequenceOfAij::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_GeomPlate_SequenceOfAij.def("Size", (Standard_Integer (GeomPlate_SequenceOfAij::*)() const ) &GeomPlate_SequenceOfAij::Size, "Number of items");
-	cls_GeomPlate_SequenceOfAij.def("Length", (Standard_Integer (GeomPlate_SequenceOfAij::*)() const ) &GeomPlate_SequenceOfAij::Length, "Number of items");
-	cls_GeomPlate_SequenceOfAij.def("Lower", (Standard_Integer (GeomPlate_SequenceOfAij::*)() const ) &GeomPlate_SequenceOfAij::Lower, "Method for consistency with other collections.");
-	cls_GeomPlate_SequenceOfAij.def("Upper", (Standard_Integer (GeomPlate_SequenceOfAij::*)() const ) &GeomPlate_SequenceOfAij::Upper, "Method for consistency with other collections.");
-	cls_GeomPlate_SequenceOfAij.def("IsEmpty", (Standard_Boolean (GeomPlate_SequenceOfAij::*)() const ) &GeomPlate_SequenceOfAij::IsEmpty, "Empty query");
-	cls_GeomPlate_SequenceOfAij.def("Reverse", (void (GeomPlate_SequenceOfAij::*)()) &GeomPlate_SequenceOfAij::Reverse, "Reverse sequence");
-	cls_GeomPlate_SequenceOfAij.def("Exchange", (void (GeomPlate_SequenceOfAij::*)(const Standard_Integer, const Standard_Integer)) &GeomPlate_SequenceOfAij::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_GeomPlate_SequenceOfAij.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &GeomPlate_SequenceOfAij::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_GeomPlate_SequenceOfAij.def("Clear", [](GeomPlate_SequenceOfAij &self) -> void { return self.Clear(); });
-	cls_GeomPlate_SequenceOfAij.def("Clear", (void (GeomPlate_SequenceOfAij::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &GeomPlate_SequenceOfAij::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_GeomPlate_SequenceOfAij.def("Assign", (GeomPlate_SequenceOfAij & (GeomPlate_SequenceOfAij::*)(const GeomPlate_SequenceOfAij &)) &GeomPlate_SequenceOfAij::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_GeomPlate_SequenceOfAij.def("assign", (GeomPlate_SequenceOfAij & (GeomPlate_SequenceOfAij::*)(const GeomPlate_SequenceOfAij &)) &GeomPlate_SequenceOfAij::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_GeomPlate_SequenceOfAij.def("Remove", (void (GeomPlate_SequenceOfAij::*)(GeomPlate_SequenceOfAij::Iterator &)) &GeomPlate_SequenceOfAij::Remove, "Remove one item", py::arg("thePosition"));
-	cls_GeomPlate_SequenceOfAij.def("Remove", (void (GeomPlate_SequenceOfAij::*)(const Standard_Integer)) &GeomPlate_SequenceOfAij::Remove, "Remove one item", py::arg("theIndex"));
-	cls_GeomPlate_SequenceOfAij.def("Remove", (void (GeomPlate_SequenceOfAij::*)(const Standard_Integer, const Standard_Integer)) &GeomPlate_SequenceOfAij::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_GeomPlate_SequenceOfAij.def("Append", (void (GeomPlate_SequenceOfAij::*)(const GeomPlate_Aij &)) &GeomPlate_SequenceOfAij::Append, "Append one item", py::arg("theItem"));
-	cls_GeomPlate_SequenceOfAij.def("Append", (void (GeomPlate_SequenceOfAij::*)(GeomPlate_SequenceOfAij &)) &GeomPlate_SequenceOfAij::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_GeomPlate_SequenceOfAij.def("Prepend", (void (GeomPlate_SequenceOfAij::*)(const GeomPlate_Aij &)) &GeomPlate_SequenceOfAij::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_GeomPlate_SequenceOfAij.def("Prepend", (void (GeomPlate_SequenceOfAij::*)(GeomPlate_SequenceOfAij &)) &GeomPlate_SequenceOfAij::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_GeomPlate_SequenceOfAij.def("InsertBefore", (void (GeomPlate_SequenceOfAij::*)(const Standard_Integer, const GeomPlate_Aij &)) &GeomPlate_SequenceOfAij::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomPlate_SequenceOfAij.def("InsertBefore", (void (GeomPlate_SequenceOfAij::*)(const Standard_Integer, GeomPlate_SequenceOfAij &)) &GeomPlate_SequenceOfAij::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomPlate_SequenceOfAij.def("InsertAfter", (void (GeomPlate_SequenceOfAij::*)(GeomPlate_SequenceOfAij::Iterator &, const GeomPlate_Aij &)) &GeomPlate_SequenceOfAij::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_GeomPlate_SequenceOfAij.def("InsertAfter", (void (GeomPlate_SequenceOfAij::*)(const Standard_Integer, GeomPlate_SequenceOfAij &)) &GeomPlate_SequenceOfAij::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomPlate_SequenceOfAij.def("InsertAfter", (void (GeomPlate_SequenceOfAij::*)(const Standard_Integer, const GeomPlate_Aij &)) &GeomPlate_SequenceOfAij::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomPlate_SequenceOfAij.def("Split", (void (GeomPlate_SequenceOfAij::*)(const Standard_Integer, GeomPlate_SequenceOfAij &)) &GeomPlate_SequenceOfAij::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomPlate_SequenceOfAij.def("First", (const GeomPlate_Aij & (GeomPlate_SequenceOfAij::*)() const ) &GeomPlate_SequenceOfAij::First, "First item access");
-	cls_GeomPlate_SequenceOfAij.def("ChangeFirst", (GeomPlate_Aij & (GeomPlate_SequenceOfAij::*)()) &GeomPlate_SequenceOfAij::ChangeFirst, "First item access");
-	cls_GeomPlate_SequenceOfAij.def("Last", (const GeomPlate_Aij & (GeomPlate_SequenceOfAij::*)() const ) &GeomPlate_SequenceOfAij::Last, "Last item access");
-	cls_GeomPlate_SequenceOfAij.def("ChangeLast", (GeomPlate_Aij & (GeomPlate_SequenceOfAij::*)()) &GeomPlate_SequenceOfAij::ChangeLast, "Last item access");
-	cls_GeomPlate_SequenceOfAij.def("Value", (const GeomPlate_Aij & (GeomPlate_SequenceOfAij::*)(const Standard_Integer) const ) &GeomPlate_SequenceOfAij::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_GeomPlate_SequenceOfAij.def("__call__", (const GeomPlate_Aij & (GeomPlate_SequenceOfAij::*)(const Standard_Integer) const ) &GeomPlate_SequenceOfAij::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_GeomPlate_SequenceOfAij.def("ChangeValue", (GeomPlate_Aij & (GeomPlate_SequenceOfAij::*)(const Standard_Integer)) &GeomPlate_SequenceOfAij::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_GeomPlate_SequenceOfAij.def("__call__", (GeomPlate_Aij & (GeomPlate_SequenceOfAij::*)(const Standard_Integer)) &GeomPlate_SequenceOfAij::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_GeomPlate_SequenceOfAij.def("SetValue", (void (GeomPlate_SequenceOfAij::*)(const Standard_Integer, const GeomPlate_Aij &)) &GeomPlate_SequenceOfAij::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomPlate_SequenceOfAij.def("__iter__", [](const GeomPlate_SequenceOfAij &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomPlate_SequenceOfAij.hxx
+	bind_NCollection_Sequence<GeomPlate_Aij>(mod, "GeomPlate_SequenceOfAij");
 
 
 }

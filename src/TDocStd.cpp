@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <CDM_Document.hxx>
 #include <TCollection_ExtendedString.hxx>
@@ -61,6 +52,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_BaseMap.hxx>
 #include <NCollection_DataMap.hxx>
 #include <TDocStd_LabelIDMapDataMap.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(TDocStd, mod) {
 
@@ -342,127 +334,18 @@ PYBIND11_MODULE(TDocStd, mod) {
 	cls_TDocStd.def_static("IDList_", (void (*)(TDF_IDList &)) &TDocStd::IDList, "specific GUID of this package ============================= Appends to <anIDList> the list of the attributes IDs of this package. CAUTION: <anIDList> is NOT cleared before use.", py::arg("anIDList"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDocStd_XLinkPtr.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<TDocStd_SequenceOfDocument, std::unique_ptr<TDocStd_SequenceOfDocument, Deleter<TDocStd_SequenceOfDocument>>, NCollection_BaseSequence> cls_TDocStd_SequenceOfDocument(mod, "TDocStd_SequenceOfDocument", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_TDocStd_SequenceOfDocument.def(py::init<>());
-	cls_TDocStd_SequenceOfDocument.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TDocStd_SequenceOfDocument.def(py::init([] (const TDocStd_SequenceOfDocument &other) {return new TDocStd_SequenceOfDocument(other);}), "Copy constructor", py::arg("other"));
-	cls_TDocStd_SequenceOfDocument.def("begin", (TDocStd_SequenceOfDocument::iterator (TDocStd_SequenceOfDocument::*)() const ) &TDocStd_SequenceOfDocument::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_TDocStd_SequenceOfDocument.def("end", (TDocStd_SequenceOfDocument::iterator (TDocStd_SequenceOfDocument::*)() const ) &TDocStd_SequenceOfDocument::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_TDocStd_SequenceOfDocument.def("cbegin", (TDocStd_SequenceOfDocument::const_iterator (TDocStd_SequenceOfDocument::*)() const ) &TDocStd_SequenceOfDocument::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_TDocStd_SequenceOfDocument.def("cend", (TDocStd_SequenceOfDocument::const_iterator (TDocStd_SequenceOfDocument::*)() const ) &TDocStd_SequenceOfDocument::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_TDocStd_SequenceOfDocument.def("Size", (Standard_Integer (TDocStd_SequenceOfDocument::*)() const ) &TDocStd_SequenceOfDocument::Size, "Number of items");
-	cls_TDocStd_SequenceOfDocument.def("Length", (Standard_Integer (TDocStd_SequenceOfDocument::*)() const ) &TDocStd_SequenceOfDocument::Length, "Number of items");
-	cls_TDocStd_SequenceOfDocument.def("Lower", (Standard_Integer (TDocStd_SequenceOfDocument::*)() const ) &TDocStd_SequenceOfDocument::Lower, "Method for consistency with other collections.");
-	cls_TDocStd_SequenceOfDocument.def("Upper", (Standard_Integer (TDocStd_SequenceOfDocument::*)() const ) &TDocStd_SequenceOfDocument::Upper, "Method for consistency with other collections.");
-	cls_TDocStd_SequenceOfDocument.def("IsEmpty", (Standard_Boolean (TDocStd_SequenceOfDocument::*)() const ) &TDocStd_SequenceOfDocument::IsEmpty, "Empty query");
-	cls_TDocStd_SequenceOfDocument.def("Reverse", (void (TDocStd_SequenceOfDocument::*)()) &TDocStd_SequenceOfDocument::Reverse, "Reverse sequence");
-	cls_TDocStd_SequenceOfDocument.def("Exchange", (void (TDocStd_SequenceOfDocument::*)(const Standard_Integer, const Standard_Integer)) &TDocStd_SequenceOfDocument::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_TDocStd_SequenceOfDocument.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &TDocStd_SequenceOfDocument::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_TDocStd_SequenceOfDocument.def("Clear", [](TDocStd_SequenceOfDocument &self) -> void { return self.Clear(); });
-	cls_TDocStd_SequenceOfDocument.def("Clear", (void (TDocStd_SequenceOfDocument::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDocStd_SequenceOfDocument::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_TDocStd_SequenceOfDocument.def("Assign", (TDocStd_SequenceOfDocument & (TDocStd_SequenceOfDocument::*)(const TDocStd_SequenceOfDocument &)) &TDocStd_SequenceOfDocument::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDocStd_SequenceOfDocument.def("assign", (TDocStd_SequenceOfDocument & (TDocStd_SequenceOfDocument::*)(const TDocStd_SequenceOfDocument &)) &TDocStd_SequenceOfDocument::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TDocStd_SequenceOfDocument.def("Remove", (void (TDocStd_SequenceOfDocument::*)(TDocStd_SequenceOfDocument::Iterator &)) &TDocStd_SequenceOfDocument::Remove, "Remove one item", py::arg("thePosition"));
-	cls_TDocStd_SequenceOfDocument.def("Remove", (void (TDocStd_SequenceOfDocument::*)(const Standard_Integer)) &TDocStd_SequenceOfDocument::Remove, "Remove one item", py::arg("theIndex"));
-	cls_TDocStd_SequenceOfDocument.def("Remove", (void (TDocStd_SequenceOfDocument::*)(const Standard_Integer, const Standard_Integer)) &TDocStd_SequenceOfDocument::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_TDocStd_SequenceOfDocument.def("Append", (void (TDocStd_SequenceOfDocument::*)(const opencascade::handle<TDocStd_Document> &)) &TDocStd_SequenceOfDocument::Append, "Append one item", py::arg("theItem"));
-	cls_TDocStd_SequenceOfDocument.def("Append", (void (TDocStd_SequenceOfDocument::*)(TDocStd_SequenceOfDocument &)) &TDocStd_SequenceOfDocument::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_TDocStd_SequenceOfDocument.def("Prepend", (void (TDocStd_SequenceOfDocument::*)(const opencascade::handle<TDocStd_Document> &)) &TDocStd_SequenceOfDocument::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_TDocStd_SequenceOfDocument.def("Prepend", (void (TDocStd_SequenceOfDocument::*)(TDocStd_SequenceOfDocument &)) &TDocStd_SequenceOfDocument::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_TDocStd_SequenceOfDocument.def("InsertBefore", (void (TDocStd_SequenceOfDocument::*)(const Standard_Integer, const opencascade::handle<TDocStd_Document> &)) &TDocStd_SequenceOfDocument::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_TDocStd_SequenceOfDocument.def("InsertBefore", (void (TDocStd_SequenceOfDocument::*)(const Standard_Integer, TDocStd_SequenceOfDocument &)) &TDocStd_SequenceOfDocument::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TDocStd_SequenceOfDocument.def("InsertAfter", (void (TDocStd_SequenceOfDocument::*)(TDocStd_SequenceOfDocument::Iterator &, const opencascade::handle<TDocStd_Document> &)) &TDocStd_SequenceOfDocument::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_TDocStd_SequenceOfDocument.def("InsertAfter", (void (TDocStd_SequenceOfDocument::*)(const Standard_Integer, TDocStd_SequenceOfDocument &)) &TDocStd_SequenceOfDocument::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TDocStd_SequenceOfDocument.def("InsertAfter", (void (TDocStd_SequenceOfDocument::*)(const Standard_Integer, const opencascade::handle<TDocStd_Document> &)) &TDocStd_SequenceOfDocument::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_TDocStd_SequenceOfDocument.def("Split", (void (TDocStd_SequenceOfDocument::*)(const Standard_Integer, TDocStd_SequenceOfDocument &)) &TDocStd_SequenceOfDocument::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TDocStd_SequenceOfDocument.def("First", (const opencascade::handle<TDocStd_Document> & (TDocStd_SequenceOfDocument::*)() const ) &TDocStd_SequenceOfDocument::First, "First item access");
-	cls_TDocStd_SequenceOfDocument.def("ChangeFirst", (opencascade::handle<TDocStd_Document> & (TDocStd_SequenceOfDocument::*)()) &TDocStd_SequenceOfDocument::ChangeFirst, "First item access");
-	cls_TDocStd_SequenceOfDocument.def("Last", (const opencascade::handle<TDocStd_Document> & (TDocStd_SequenceOfDocument::*)() const ) &TDocStd_SequenceOfDocument::Last, "Last item access");
-	cls_TDocStd_SequenceOfDocument.def("ChangeLast", (opencascade::handle<TDocStd_Document> & (TDocStd_SequenceOfDocument::*)()) &TDocStd_SequenceOfDocument::ChangeLast, "Last item access");
-	cls_TDocStd_SequenceOfDocument.def("Value", (const opencascade::handle<TDocStd_Document> & (TDocStd_SequenceOfDocument::*)(const Standard_Integer) const ) &TDocStd_SequenceOfDocument::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_TDocStd_SequenceOfDocument.def("__call__", (const opencascade::handle<TDocStd_Document> & (TDocStd_SequenceOfDocument::*)(const Standard_Integer) const ) &TDocStd_SequenceOfDocument::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_TDocStd_SequenceOfDocument.def("ChangeValue", (opencascade::handle<TDocStd_Document> & (TDocStd_SequenceOfDocument::*)(const Standard_Integer)) &TDocStd_SequenceOfDocument::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_TDocStd_SequenceOfDocument.def("__call__", (opencascade::handle<TDocStd_Document> & (TDocStd_SequenceOfDocument::*)(const Standard_Integer)) &TDocStd_SequenceOfDocument::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_TDocStd_SequenceOfDocument.def("SetValue", (void (TDocStd_SequenceOfDocument::*)(const Standard_Integer, const opencascade::handle<TDocStd_Document> &)) &TDocStd_SequenceOfDocument::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_TDocStd_SequenceOfDocument.def("__iter__", [](const TDocStd_SequenceOfDocument &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<TDocStd_LabelIDMapDataMap, std::unique_ptr<TDocStd_LabelIDMapDataMap, Deleter<TDocStd_LabelIDMapDataMap>>, NCollection_BaseMap> cls_TDocStd_LabelIDMapDataMap(mod, "TDocStd_LabelIDMapDataMap", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_TDocStd_LabelIDMapDataMap.def(py::init<>());
-	cls_TDocStd_LabelIDMapDataMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDocStd_LabelIDMapDataMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDocStd_LabelIDMapDataMap.def(py::init([] (const TDocStd_LabelIDMapDataMap &other) {return new TDocStd_LabelIDMapDataMap(other);}), "Copy constructor", py::arg("other"));
-	cls_TDocStd_LabelIDMapDataMap.def("begin", (TDocStd_LabelIDMapDataMap::iterator (TDocStd_LabelIDMapDataMap::*)() const ) &TDocStd_LabelIDMapDataMap::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_TDocStd_LabelIDMapDataMap.def("end", (TDocStd_LabelIDMapDataMap::iterator (TDocStd_LabelIDMapDataMap::*)() const ) &TDocStd_LabelIDMapDataMap::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_TDocStd_LabelIDMapDataMap.def("cbegin", (TDocStd_LabelIDMapDataMap::const_iterator (TDocStd_LabelIDMapDataMap::*)() const ) &TDocStd_LabelIDMapDataMap::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TDocStd_LabelIDMapDataMap.def("cend", (TDocStd_LabelIDMapDataMap::const_iterator (TDocStd_LabelIDMapDataMap::*)() const ) &TDocStd_LabelIDMapDataMap::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TDocStd_LabelIDMapDataMap.def("Exchange", (void (TDocStd_LabelIDMapDataMap::*)(TDocStd_LabelIDMapDataMap &)) &TDocStd_LabelIDMapDataMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDocStd_LabelIDMapDataMap.def("Assign", (TDocStd_LabelIDMapDataMap & (TDocStd_LabelIDMapDataMap::*)(const TDocStd_LabelIDMapDataMap &)) &TDocStd_LabelIDMapDataMap::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDocStd_LabelIDMapDataMap.def("assign", (TDocStd_LabelIDMapDataMap & (TDocStd_LabelIDMapDataMap::*)(const TDocStd_LabelIDMapDataMap &)) &TDocStd_LabelIDMapDataMap::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TDocStd_LabelIDMapDataMap.def("ReSize", (void (TDocStd_LabelIDMapDataMap::*)(const Standard_Integer)) &TDocStd_LabelIDMapDataMap::ReSize, "ReSize", py::arg("N"));
-	cls_TDocStd_LabelIDMapDataMap.def("Bind", (Standard_Boolean (TDocStd_LabelIDMapDataMap::*)(const TDF_Label &, const TDF_IDMap &)) &TDocStd_LabelIDMapDataMap::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_TDocStd_LabelIDMapDataMap.def("Bound", (TDF_IDMap * (TDocStd_LabelIDMapDataMap::*)(const TDF_Label &, const TDF_IDMap &)) &TDocStd_LabelIDMapDataMap::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_TDocStd_LabelIDMapDataMap.def("IsBound", (Standard_Boolean (TDocStd_LabelIDMapDataMap::*)(const TDF_Label &) const ) &TDocStd_LabelIDMapDataMap::IsBound, "IsBound", py::arg("theKey"));
-	cls_TDocStd_LabelIDMapDataMap.def("UnBind", (Standard_Boolean (TDocStd_LabelIDMapDataMap::*)(const TDF_Label &)) &TDocStd_LabelIDMapDataMap::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_TDocStd_LabelIDMapDataMap.def("Seek", (const TDF_IDMap * (TDocStd_LabelIDMapDataMap::*)(const TDF_Label &) const ) &TDocStd_LabelIDMapDataMap::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_TDocStd_LabelIDMapDataMap.def("Find", (const TDF_IDMap & (TDocStd_LabelIDMapDataMap::*)(const TDF_Label &) const ) &TDocStd_LabelIDMapDataMap::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_TDocStd_LabelIDMapDataMap.def("Find", (Standard_Boolean (TDocStd_LabelIDMapDataMap::*)(const TDF_Label &, TDF_IDMap &) const ) &TDocStd_LabelIDMapDataMap::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_TDocStd_LabelIDMapDataMap.def("__call__", (const TDF_IDMap & (TDocStd_LabelIDMapDataMap::*)(const TDF_Label &) const ) &TDocStd_LabelIDMapDataMap::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_TDocStd_LabelIDMapDataMap.def("ChangeSeek", (TDF_IDMap * (TDocStd_LabelIDMapDataMap::*)(const TDF_Label &)) &TDocStd_LabelIDMapDataMap::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_TDocStd_LabelIDMapDataMap.def("ChangeFind", (TDF_IDMap & (TDocStd_LabelIDMapDataMap::*)(const TDF_Label &)) &TDocStd_LabelIDMapDataMap::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_TDocStd_LabelIDMapDataMap.def("__call__", (TDF_IDMap & (TDocStd_LabelIDMapDataMap::*)(const TDF_Label &)) &TDocStd_LabelIDMapDataMap::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_TDocStd_LabelIDMapDataMap.def("Clear", [](TDocStd_LabelIDMapDataMap &self) -> void { return self.Clear(); });
-	cls_TDocStd_LabelIDMapDataMap.def("Clear", (void (TDocStd_LabelIDMapDataMap::*)(const Standard_Boolean)) &TDocStd_LabelIDMapDataMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDocStd_LabelIDMapDataMap.def("Clear", (void (TDocStd_LabelIDMapDataMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDocStd_LabelIDMapDataMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDocStd_LabelIDMapDataMap.def("Size", (Standard_Integer (TDocStd_LabelIDMapDataMap::*)() const ) &TDocStd_LabelIDMapDataMap::Size, "Size");
-	cls_TDocStd_LabelIDMapDataMap.def("__iter__", [](const TDocStd_LabelIDMapDataMap &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDocStd_SequenceOfDocument.hxx
+	bind_NCollection_Sequence<opencascade::handle<TDocStd_Document> >(mod, "TDocStd_SequenceOfDocument");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDocStd_LabelIDMapDataMap.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<TDocStd_SequenceOfApplicationDelta, std::unique_ptr<TDocStd_SequenceOfApplicationDelta, Deleter<TDocStd_SequenceOfApplicationDelta>>, NCollection_BaseSequence> cls_TDocStd_SequenceOfApplicationDelta(mod, "TDocStd_SequenceOfApplicationDelta", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_TDocStd_SequenceOfApplicationDelta.def(py::init<>());
-	cls_TDocStd_SequenceOfApplicationDelta.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TDocStd_SequenceOfApplicationDelta.def(py::init([] (const TDocStd_SequenceOfApplicationDelta &other) {return new TDocStd_SequenceOfApplicationDelta(other);}), "Copy constructor", py::arg("other"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("begin", (TDocStd_SequenceOfApplicationDelta::iterator (TDocStd_SequenceOfApplicationDelta::*)() const ) &TDocStd_SequenceOfApplicationDelta::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_TDocStd_SequenceOfApplicationDelta.def("end", (TDocStd_SequenceOfApplicationDelta::iterator (TDocStd_SequenceOfApplicationDelta::*)() const ) &TDocStd_SequenceOfApplicationDelta::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_TDocStd_SequenceOfApplicationDelta.def("cbegin", (TDocStd_SequenceOfApplicationDelta::const_iterator (TDocStd_SequenceOfApplicationDelta::*)() const ) &TDocStd_SequenceOfApplicationDelta::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_TDocStd_SequenceOfApplicationDelta.def("cend", (TDocStd_SequenceOfApplicationDelta::const_iterator (TDocStd_SequenceOfApplicationDelta::*)() const ) &TDocStd_SequenceOfApplicationDelta::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_TDocStd_SequenceOfApplicationDelta.def("Size", (Standard_Integer (TDocStd_SequenceOfApplicationDelta::*)() const ) &TDocStd_SequenceOfApplicationDelta::Size, "Number of items");
-	cls_TDocStd_SequenceOfApplicationDelta.def("Length", (Standard_Integer (TDocStd_SequenceOfApplicationDelta::*)() const ) &TDocStd_SequenceOfApplicationDelta::Length, "Number of items");
-	cls_TDocStd_SequenceOfApplicationDelta.def("Lower", (Standard_Integer (TDocStd_SequenceOfApplicationDelta::*)() const ) &TDocStd_SequenceOfApplicationDelta::Lower, "Method for consistency with other collections.");
-	cls_TDocStd_SequenceOfApplicationDelta.def("Upper", (Standard_Integer (TDocStd_SequenceOfApplicationDelta::*)() const ) &TDocStd_SequenceOfApplicationDelta::Upper, "Method for consistency with other collections.");
-	cls_TDocStd_SequenceOfApplicationDelta.def("IsEmpty", (Standard_Boolean (TDocStd_SequenceOfApplicationDelta::*)() const ) &TDocStd_SequenceOfApplicationDelta::IsEmpty, "Empty query");
-	cls_TDocStd_SequenceOfApplicationDelta.def("Reverse", (void (TDocStd_SequenceOfApplicationDelta::*)()) &TDocStd_SequenceOfApplicationDelta::Reverse, "Reverse sequence");
-	cls_TDocStd_SequenceOfApplicationDelta.def("Exchange", (void (TDocStd_SequenceOfApplicationDelta::*)(const Standard_Integer, const Standard_Integer)) &TDocStd_SequenceOfApplicationDelta::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_TDocStd_SequenceOfApplicationDelta.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &TDocStd_SequenceOfApplicationDelta::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("Clear", [](TDocStd_SequenceOfApplicationDelta &self) -> void { return self.Clear(); });
-	cls_TDocStd_SequenceOfApplicationDelta.def("Clear", (void (TDocStd_SequenceOfApplicationDelta::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDocStd_SequenceOfApplicationDelta::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("Assign", (TDocStd_SequenceOfApplicationDelta & (TDocStd_SequenceOfApplicationDelta::*)(const TDocStd_SequenceOfApplicationDelta &)) &TDocStd_SequenceOfApplicationDelta::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("assign", (TDocStd_SequenceOfApplicationDelta & (TDocStd_SequenceOfApplicationDelta::*)(const TDocStd_SequenceOfApplicationDelta &)) &TDocStd_SequenceOfApplicationDelta::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("Remove", (void (TDocStd_SequenceOfApplicationDelta::*)(TDocStd_SequenceOfApplicationDelta::Iterator &)) &TDocStd_SequenceOfApplicationDelta::Remove, "Remove one item", py::arg("thePosition"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("Remove", (void (TDocStd_SequenceOfApplicationDelta::*)(const Standard_Integer)) &TDocStd_SequenceOfApplicationDelta::Remove, "Remove one item", py::arg("theIndex"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("Remove", (void (TDocStd_SequenceOfApplicationDelta::*)(const Standard_Integer, const Standard_Integer)) &TDocStd_SequenceOfApplicationDelta::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("Append", (void (TDocStd_SequenceOfApplicationDelta::*)(const opencascade::handle<TDocStd_ApplicationDelta> &)) &TDocStd_SequenceOfApplicationDelta::Append, "Append one item", py::arg("theItem"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("Append", (void (TDocStd_SequenceOfApplicationDelta::*)(TDocStd_SequenceOfApplicationDelta &)) &TDocStd_SequenceOfApplicationDelta::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("Prepend", (void (TDocStd_SequenceOfApplicationDelta::*)(const opencascade::handle<TDocStd_ApplicationDelta> &)) &TDocStd_SequenceOfApplicationDelta::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("Prepend", (void (TDocStd_SequenceOfApplicationDelta::*)(TDocStd_SequenceOfApplicationDelta &)) &TDocStd_SequenceOfApplicationDelta::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("InsertBefore", (void (TDocStd_SequenceOfApplicationDelta::*)(const Standard_Integer, const opencascade::handle<TDocStd_ApplicationDelta> &)) &TDocStd_SequenceOfApplicationDelta::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("InsertBefore", (void (TDocStd_SequenceOfApplicationDelta::*)(const Standard_Integer, TDocStd_SequenceOfApplicationDelta &)) &TDocStd_SequenceOfApplicationDelta::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("InsertAfter", (void (TDocStd_SequenceOfApplicationDelta::*)(TDocStd_SequenceOfApplicationDelta::Iterator &, const opencascade::handle<TDocStd_ApplicationDelta> &)) &TDocStd_SequenceOfApplicationDelta::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("InsertAfter", (void (TDocStd_SequenceOfApplicationDelta::*)(const Standard_Integer, TDocStd_SequenceOfApplicationDelta &)) &TDocStd_SequenceOfApplicationDelta::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("InsertAfter", (void (TDocStd_SequenceOfApplicationDelta::*)(const Standard_Integer, const opencascade::handle<TDocStd_ApplicationDelta> &)) &TDocStd_SequenceOfApplicationDelta::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("Split", (void (TDocStd_SequenceOfApplicationDelta::*)(const Standard_Integer, TDocStd_SequenceOfApplicationDelta &)) &TDocStd_SequenceOfApplicationDelta::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("First", (const opencascade::handle<TDocStd_ApplicationDelta> & (TDocStd_SequenceOfApplicationDelta::*)() const ) &TDocStd_SequenceOfApplicationDelta::First, "First item access");
-	cls_TDocStd_SequenceOfApplicationDelta.def("ChangeFirst", (opencascade::handle<TDocStd_ApplicationDelta> & (TDocStd_SequenceOfApplicationDelta::*)()) &TDocStd_SequenceOfApplicationDelta::ChangeFirst, "First item access");
-	cls_TDocStd_SequenceOfApplicationDelta.def("Last", (const opencascade::handle<TDocStd_ApplicationDelta> & (TDocStd_SequenceOfApplicationDelta::*)() const ) &TDocStd_SequenceOfApplicationDelta::Last, "Last item access");
-	cls_TDocStd_SequenceOfApplicationDelta.def("ChangeLast", (opencascade::handle<TDocStd_ApplicationDelta> & (TDocStd_SequenceOfApplicationDelta::*)()) &TDocStd_SequenceOfApplicationDelta::ChangeLast, "Last item access");
-	cls_TDocStd_SequenceOfApplicationDelta.def("Value", (const opencascade::handle<TDocStd_ApplicationDelta> & (TDocStd_SequenceOfApplicationDelta::*)(const Standard_Integer) const ) &TDocStd_SequenceOfApplicationDelta::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("__call__", (const opencascade::handle<TDocStd_ApplicationDelta> & (TDocStd_SequenceOfApplicationDelta::*)(const Standard_Integer) const ) &TDocStd_SequenceOfApplicationDelta::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("ChangeValue", (opencascade::handle<TDocStd_ApplicationDelta> & (TDocStd_SequenceOfApplicationDelta::*)(const Standard_Integer)) &TDocStd_SequenceOfApplicationDelta::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("__call__", (opencascade::handle<TDocStd_ApplicationDelta> & (TDocStd_SequenceOfApplicationDelta::*)(const Standard_Integer)) &TDocStd_SequenceOfApplicationDelta::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("SetValue", (void (TDocStd_SequenceOfApplicationDelta::*)(const Standard_Integer, const opencascade::handle<TDocStd_ApplicationDelta> &)) &TDocStd_SequenceOfApplicationDelta::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_TDocStd_SequenceOfApplicationDelta.def("__iter__", [](const TDocStd_SequenceOfApplicationDelta &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TDF_Label, NCollection_Map<Standard_GUID, Standard_GUID>, TDF_LabelMapHasher>(mod, "TDocStd_LabelIDMapDataMap");
+
+	/* FIXME
+
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDocStd_SequenceOfApplicationDelta.hxx
+	bind_NCollection_Sequence<opencascade::handle<TDocStd_ApplicationDelta> >(mod, "TDocStd_SequenceOfApplicationDelta");
 
 
 }

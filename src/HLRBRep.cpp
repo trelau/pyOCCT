@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Handle.hxx>
 #include <HLRTopoBRep_OutLiner.hxx>
@@ -162,6 +153,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_List.hxx>
 #include <HLRBRep_ListOfBPnt2D.hxx>
 #include <HLRBRep_ListOfBPoint.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(HLRBRep, mod) {
 
@@ -1327,204 +1319,26 @@ PYBIND11_MODULE(HLRBRep, mod) {
 	cls_TableauRejection.def(py::init<>());
 	*/
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<HLRBRep_SeqOfShapeBounds, std::unique_ptr<HLRBRep_SeqOfShapeBounds, Deleter<HLRBRep_SeqOfShapeBounds>>, NCollection_BaseSequence> cls_HLRBRep_SeqOfShapeBounds(mod, "HLRBRep_SeqOfShapeBounds", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_HLRBRep_SeqOfShapeBounds.def(py::init<>());
-	cls_HLRBRep_SeqOfShapeBounds.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_HLRBRep_SeqOfShapeBounds.def(py::init([] (const HLRBRep_SeqOfShapeBounds &other) {return new HLRBRep_SeqOfShapeBounds(other);}), "Copy constructor", py::arg("other"));
-	cls_HLRBRep_SeqOfShapeBounds.def("begin", (HLRBRep_SeqOfShapeBounds::iterator (HLRBRep_SeqOfShapeBounds::*)() const ) &HLRBRep_SeqOfShapeBounds::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_HLRBRep_SeqOfShapeBounds.def("end", (HLRBRep_SeqOfShapeBounds::iterator (HLRBRep_SeqOfShapeBounds::*)() const ) &HLRBRep_SeqOfShapeBounds::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_HLRBRep_SeqOfShapeBounds.def("cbegin", (HLRBRep_SeqOfShapeBounds::const_iterator (HLRBRep_SeqOfShapeBounds::*)() const ) &HLRBRep_SeqOfShapeBounds::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_HLRBRep_SeqOfShapeBounds.def("cend", (HLRBRep_SeqOfShapeBounds::const_iterator (HLRBRep_SeqOfShapeBounds::*)() const ) &HLRBRep_SeqOfShapeBounds::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_HLRBRep_SeqOfShapeBounds.def("Size", (Standard_Integer (HLRBRep_SeqOfShapeBounds::*)() const ) &HLRBRep_SeqOfShapeBounds::Size, "Number of items");
-	cls_HLRBRep_SeqOfShapeBounds.def("Length", (Standard_Integer (HLRBRep_SeqOfShapeBounds::*)() const ) &HLRBRep_SeqOfShapeBounds::Length, "Number of items");
-	cls_HLRBRep_SeqOfShapeBounds.def("Lower", (Standard_Integer (HLRBRep_SeqOfShapeBounds::*)() const ) &HLRBRep_SeqOfShapeBounds::Lower, "Method for consistency with other collections.");
-	cls_HLRBRep_SeqOfShapeBounds.def("Upper", (Standard_Integer (HLRBRep_SeqOfShapeBounds::*)() const ) &HLRBRep_SeqOfShapeBounds::Upper, "Method for consistency with other collections.");
-	cls_HLRBRep_SeqOfShapeBounds.def("IsEmpty", (Standard_Boolean (HLRBRep_SeqOfShapeBounds::*)() const ) &HLRBRep_SeqOfShapeBounds::IsEmpty, "Empty query");
-	cls_HLRBRep_SeqOfShapeBounds.def("Reverse", (void (HLRBRep_SeqOfShapeBounds::*)()) &HLRBRep_SeqOfShapeBounds::Reverse, "Reverse sequence");
-	cls_HLRBRep_SeqOfShapeBounds.def("Exchange", (void (HLRBRep_SeqOfShapeBounds::*)(const Standard_Integer, const Standard_Integer)) &HLRBRep_SeqOfShapeBounds::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_HLRBRep_SeqOfShapeBounds.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &HLRBRep_SeqOfShapeBounds::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_HLRBRep_SeqOfShapeBounds.def("Clear", [](HLRBRep_SeqOfShapeBounds &self) -> void { return self.Clear(); });
-	cls_HLRBRep_SeqOfShapeBounds.def("Clear", (void (HLRBRep_SeqOfShapeBounds::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &HLRBRep_SeqOfShapeBounds::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_HLRBRep_SeqOfShapeBounds.def("Assign", (HLRBRep_SeqOfShapeBounds & (HLRBRep_SeqOfShapeBounds::*)(const HLRBRep_SeqOfShapeBounds &)) &HLRBRep_SeqOfShapeBounds::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_HLRBRep_SeqOfShapeBounds.def("assign", (HLRBRep_SeqOfShapeBounds & (HLRBRep_SeqOfShapeBounds::*)(const HLRBRep_SeqOfShapeBounds &)) &HLRBRep_SeqOfShapeBounds::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_HLRBRep_SeqOfShapeBounds.def("Remove", (void (HLRBRep_SeqOfShapeBounds::*)(HLRBRep_SeqOfShapeBounds::Iterator &)) &HLRBRep_SeqOfShapeBounds::Remove, "Remove one item", py::arg("thePosition"));
-	cls_HLRBRep_SeqOfShapeBounds.def("Remove", (void (HLRBRep_SeqOfShapeBounds::*)(const Standard_Integer)) &HLRBRep_SeqOfShapeBounds::Remove, "Remove one item", py::arg("theIndex"));
-	cls_HLRBRep_SeqOfShapeBounds.def("Remove", (void (HLRBRep_SeqOfShapeBounds::*)(const Standard_Integer, const Standard_Integer)) &HLRBRep_SeqOfShapeBounds::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_HLRBRep_SeqOfShapeBounds.def("Append", (void (HLRBRep_SeqOfShapeBounds::*)(const HLRBRep_ShapeBounds &)) &HLRBRep_SeqOfShapeBounds::Append, "Append one item", py::arg("theItem"));
-	cls_HLRBRep_SeqOfShapeBounds.def("Append", (void (HLRBRep_SeqOfShapeBounds::*)(HLRBRep_SeqOfShapeBounds &)) &HLRBRep_SeqOfShapeBounds::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_HLRBRep_SeqOfShapeBounds.def("Prepend", (void (HLRBRep_SeqOfShapeBounds::*)(const HLRBRep_ShapeBounds &)) &HLRBRep_SeqOfShapeBounds::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_HLRBRep_SeqOfShapeBounds.def("Prepend", (void (HLRBRep_SeqOfShapeBounds::*)(HLRBRep_SeqOfShapeBounds &)) &HLRBRep_SeqOfShapeBounds::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_HLRBRep_SeqOfShapeBounds.def("InsertBefore", (void (HLRBRep_SeqOfShapeBounds::*)(const Standard_Integer, const HLRBRep_ShapeBounds &)) &HLRBRep_SeqOfShapeBounds::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_HLRBRep_SeqOfShapeBounds.def("InsertBefore", (void (HLRBRep_SeqOfShapeBounds::*)(const Standard_Integer, HLRBRep_SeqOfShapeBounds &)) &HLRBRep_SeqOfShapeBounds::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_HLRBRep_SeqOfShapeBounds.def("InsertAfter", (void (HLRBRep_SeqOfShapeBounds::*)(HLRBRep_SeqOfShapeBounds::Iterator &, const HLRBRep_ShapeBounds &)) &HLRBRep_SeqOfShapeBounds::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_HLRBRep_SeqOfShapeBounds.def("InsertAfter", (void (HLRBRep_SeqOfShapeBounds::*)(const Standard_Integer, HLRBRep_SeqOfShapeBounds &)) &HLRBRep_SeqOfShapeBounds::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_HLRBRep_SeqOfShapeBounds.def("InsertAfter", (void (HLRBRep_SeqOfShapeBounds::*)(const Standard_Integer, const HLRBRep_ShapeBounds &)) &HLRBRep_SeqOfShapeBounds::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_HLRBRep_SeqOfShapeBounds.def("Split", (void (HLRBRep_SeqOfShapeBounds::*)(const Standard_Integer, HLRBRep_SeqOfShapeBounds &)) &HLRBRep_SeqOfShapeBounds::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_HLRBRep_SeqOfShapeBounds.def("First", (const HLRBRep_ShapeBounds & (HLRBRep_SeqOfShapeBounds::*)() const ) &HLRBRep_SeqOfShapeBounds::First, "First item access");
-	cls_HLRBRep_SeqOfShapeBounds.def("ChangeFirst", (HLRBRep_ShapeBounds & (HLRBRep_SeqOfShapeBounds::*)()) &HLRBRep_SeqOfShapeBounds::ChangeFirst, "First item access");
-	cls_HLRBRep_SeqOfShapeBounds.def("Last", (const HLRBRep_ShapeBounds & (HLRBRep_SeqOfShapeBounds::*)() const ) &HLRBRep_SeqOfShapeBounds::Last, "Last item access");
-	cls_HLRBRep_SeqOfShapeBounds.def("ChangeLast", (HLRBRep_ShapeBounds & (HLRBRep_SeqOfShapeBounds::*)()) &HLRBRep_SeqOfShapeBounds::ChangeLast, "Last item access");
-	cls_HLRBRep_SeqOfShapeBounds.def("Value", (const HLRBRep_ShapeBounds & (HLRBRep_SeqOfShapeBounds::*)(const Standard_Integer) const ) &HLRBRep_SeqOfShapeBounds::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_HLRBRep_SeqOfShapeBounds.def("__call__", (const HLRBRep_ShapeBounds & (HLRBRep_SeqOfShapeBounds::*)(const Standard_Integer) const ) &HLRBRep_SeqOfShapeBounds::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_HLRBRep_SeqOfShapeBounds.def("ChangeValue", (HLRBRep_ShapeBounds & (HLRBRep_SeqOfShapeBounds::*)(const Standard_Integer)) &HLRBRep_SeqOfShapeBounds::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_HLRBRep_SeqOfShapeBounds.def("__call__", (HLRBRep_ShapeBounds & (HLRBRep_SeqOfShapeBounds::*)(const Standard_Integer)) &HLRBRep_SeqOfShapeBounds::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_HLRBRep_SeqOfShapeBounds.def("SetValue", (void (HLRBRep_SeqOfShapeBounds::*)(const Standard_Integer, const HLRBRep_ShapeBounds &)) &HLRBRep_SeqOfShapeBounds::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_HLRBRep_SeqOfShapeBounds.def("__iter__", [](const HLRBRep_SeqOfShapeBounds &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRBRep_SeqOfShapeBounds.hxx
+	bind_NCollection_Sequence<HLRBRep_ShapeBounds>(mod, "HLRBRep_SeqOfShapeBounds");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<HLRBRep_Array1OfEData, std::unique_ptr<HLRBRep_Array1OfEData, Deleter<HLRBRep_Array1OfEData>>> cls_HLRBRep_Array1OfEData(mod, "HLRBRep_Array1OfEData", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_HLRBRep_Array1OfEData.def(py::init<>());
-	cls_HLRBRep_Array1OfEData.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_HLRBRep_Array1OfEData.def(py::init([] (const HLRBRep_Array1OfEData &other) {return new HLRBRep_Array1OfEData(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_HLRBRep_Array1OfEData.def(py::init<HLRBRep_Array1OfEData &&>(), py::arg("theOther"));
-	cls_HLRBRep_Array1OfEData.def(py::init<const HLRBRep_EdgeData &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_HLRBRep_Array1OfEData.def("begin", (HLRBRep_Array1OfEData::iterator (HLRBRep_Array1OfEData::*)() const ) &HLRBRep_Array1OfEData::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_HLRBRep_Array1OfEData.def("end", (HLRBRep_Array1OfEData::iterator (HLRBRep_Array1OfEData::*)() const ) &HLRBRep_Array1OfEData::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_HLRBRep_Array1OfEData.def("cbegin", (HLRBRep_Array1OfEData::const_iterator (HLRBRep_Array1OfEData::*)() const ) &HLRBRep_Array1OfEData::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_HLRBRep_Array1OfEData.def("cend", (HLRBRep_Array1OfEData::const_iterator (HLRBRep_Array1OfEData::*)() const ) &HLRBRep_Array1OfEData::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_HLRBRep_Array1OfEData.def("Init", (void (HLRBRep_Array1OfEData::*)(const HLRBRep_EdgeData &)) &HLRBRep_Array1OfEData::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_HLRBRep_Array1OfEData.def("Size", (Standard_Integer (HLRBRep_Array1OfEData::*)() const ) &HLRBRep_Array1OfEData::Size, "Size query");
-	cls_HLRBRep_Array1OfEData.def("Length", (Standard_Integer (HLRBRep_Array1OfEData::*)() const ) &HLRBRep_Array1OfEData::Length, "Length query (the same)");
-	cls_HLRBRep_Array1OfEData.def("IsEmpty", (Standard_Boolean (HLRBRep_Array1OfEData::*)() const ) &HLRBRep_Array1OfEData::IsEmpty, "Return TRUE if array has zero length.");
-	cls_HLRBRep_Array1OfEData.def("Lower", (Standard_Integer (HLRBRep_Array1OfEData::*)() const ) &HLRBRep_Array1OfEData::Lower, "Lower bound");
-	cls_HLRBRep_Array1OfEData.def("Upper", (Standard_Integer (HLRBRep_Array1OfEData::*)() const ) &HLRBRep_Array1OfEData::Upper, "Upper bound");
-	cls_HLRBRep_Array1OfEData.def("IsDeletable", (Standard_Boolean (HLRBRep_Array1OfEData::*)() const ) &HLRBRep_Array1OfEData::IsDeletable, "myDeletable flag");
-	cls_HLRBRep_Array1OfEData.def("IsAllocated", (Standard_Boolean (HLRBRep_Array1OfEData::*)() const ) &HLRBRep_Array1OfEData::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_HLRBRep_Array1OfEData.def("Assign", (HLRBRep_Array1OfEData & (HLRBRep_Array1OfEData::*)(const HLRBRep_Array1OfEData &)) &HLRBRep_Array1OfEData::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_HLRBRep_Array1OfEData.def("Move", (HLRBRep_Array1OfEData & (HLRBRep_Array1OfEData::*)(HLRBRep_Array1OfEData &&)) &HLRBRep_Array1OfEData::Move, "Move assignment", py::arg("theOther"));
-	cls_HLRBRep_Array1OfEData.def("assign", (HLRBRep_Array1OfEData & (HLRBRep_Array1OfEData::*)(const HLRBRep_Array1OfEData &)) &HLRBRep_Array1OfEData::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_HLRBRep_Array1OfEData.def("assign", (HLRBRep_Array1OfEData & (HLRBRep_Array1OfEData::*)(HLRBRep_Array1OfEData &&)) &HLRBRep_Array1OfEData::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_HLRBRep_Array1OfEData.def("First", (const HLRBRep_EdgeData & (HLRBRep_Array1OfEData::*)() const ) &HLRBRep_Array1OfEData::First, "Returns first element");
-	cls_HLRBRep_Array1OfEData.def("ChangeFirst", (HLRBRep_EdgeData & (HLRBRep_Array1OfEData::*)()) &HLRBRep_Array1OfEData::ChangeFirst, "Returns first element");
-	cls_HLRBRep_Array1OfEData.def("Last", (const HLRBRep_EdgeData & (HLRBRep_Array1OfEData::*)() const ) &HLRBRep_Array1OfEData::Last, "Returns last element");
-	cls_HLRBRep_Array1OfEData.def("ChangeLast", (HLRBRep_EdgeData & (HLRBRep_Array1OfEData::*)()) &HLRBRep_Array1OfEData::ChangeLast, "Returns last element");
-	cls_HLRBRep_Array1OfEData.def("Value", (const HLRBRep_EdgeData & (HLRBRep_Array1OfEData::*)(const Standard_Integer) const ) &HLRBRep_Array1OfEData::Value, "Constant value access", py::arg("theIndex"));
-	cls_HLRBRep_Array1OfEData.def("__call__", (const HLRBRep_EdgeData & (HLRBRep_Array1OfEData::*)(const Standard_Integer) const ) &HLRBRep_Array1OfEData::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_HLRBRep_Array1OfEData.def("ChangeValue", (HLRBRep_EdgeData & (HLRBRep_Array1OfEData::*)(const Standard_Integer)) &HLRBRep_Array1OfEData::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_HLRBRep_Array1OfEData.def("__call__", (HLRBRep_EdgeData & (HLRBRep_Array1OfEData::*)(const Standard_Integer)) &HLRBRep_Array1OfEData::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_HLRBRep_Array1OfEData.def("SetValue", (void (HLRBRep_Array1OfEData::*)(const Standard_Integer, const HLRBRep_EdgeData &)) &HLRBRep_Array1OfEData::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_HLRBRep_Array1OfEData.def("Resize", (void (HLRBRep_Array1OfEData::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &HLRBRep_Array1OfEData::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_HLRBRep_Array1OfEData.def("__iter__", [](const HLRBRep_Array1OfEData &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRBRep_Array1OfEData.hxx
+	bind_NCollection_Array1<HLRBRep_EdgeData>(mod, "HLRBRep_Array1OfEData");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<HLRBRep_Array1OfFData, std::unique_ptr<HLRBRep_Array1OfFData, Deleter<HLRBRep_Array1OfFData>>> cls_HLRBRep_Array1OfFData(mod, "HLRBRep_Array1OfFData", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_HLRBRep_Array1OfFData.def(py::init<>());
-	cls_HLRBRep_Array1OfFData.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_HLRBRep_Array1OfFData.def(py::init([] (const HLRBRep_Array1OfFData &other) {return new HLRBRep_Array1OfFData(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_HLRBRep_Array1OfFData.def(py::init<HLRBRep_Array1OfFData &&>(), py::arg("theOther"));
-	cls_HLRBRep_Array1OfFData.def(py::init<const HLRBRep_FaceData &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_HLRBRep_Array1OfFData.def("begin", (HLRBRep_Array1OfFData::iterator (HLRBRep_Array1OfFData::*)() const ) &HLRBRep_Array1OfFData::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_HLRBRep_Array1OfFData.def("end", (HLRBRep_Array1OfFData::iterator (HLRBRep_Array1OfFData::*)() const ) &HLRBRep_Array1OfFData::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_HLRBRep_Array1OfFData.def("cbegin", (HLRBRep_Array1OfFData::const_iterator (HLRBRep_Array1OfFData::*)() const ) &HLRBRep_Array1OfFData::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_HLRBRep_Array1OfFData.def("cend", (HLRBRep_Array1OfFData::const_iterator (HLRBRep_Array1OfFData::*)() const ) &HLRBRep_Array1OfFData::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_HLRBRep_Array1OfFData.def("Init", (void (HLRBRep_Array1OfFData::*)(const HLRBRep_FaceData &)) &HLRBRep_Array1OfFData::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_HLRBRep_Array1OfFData.def("Size", (Standard_Integer (HLRBRep_Array1OfFData::*)() const ) &HLRBRep_Array1OfFData::Size, "Size query");
-	cls_HLRBRep_Array1OfFData.def("Length", (Standard_Integer (HLRBRep_Array1OfFData::*)() const ) &HLRBRep_Array1OfFData::Length, "Length query (the same)");
-	cls_HLRBRep_Array1OfFData.def("IsEmpty", (Standard_Boolean (HLRBRep_Array1OfFData::*)() const ) &HLRBRep_Array1OfFData::IsEmpty, "Return TRUE if array has zero length.");
-	cls_HLRBRep_Array1OfFData.def("Lower", (Standard_Integer (HLRBRep_Array1OfFData::*)() const ) &HLRBRep_Array1OfFData::Lower, "Lower bound");
-	cls_HLRBRep_Array1OfFData.def("Upper", (Standard_Integer (HLRBRep_Array1OfFData::*)() const ) &HLRBRep_Array1OfFData::Upper, "Upper bound");
-	cls_HLRBRep_Array1OfFData.def("IsDeletable", (Standard_Boolean (HLRBRep_Array1OfFData::*)() const ) &HLRBRep_Array1OfFData::IsDeletable, "myDeletable flag");
-	cls_HLRBRep_Array1OfFData.def("IsAllocated", (Standard_Boolean (HLRBRep_Array1OfFData::*)() const ) &HLRBRep_Array1OfFData::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_HLRBRep_Array1OfFData.def("Assign", (HLRBRep_Array1OfFData & (HLRBRep_Array1OfFData::*)(const HLRBRep_Array1OfFData &)) &HLRBRep_Array1OfFData::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_HLRBRep_Array1OfFData.def("Move", (HLRBRep_Array1OfFData & (HLRBRep_Array1OfFData::*)(HLRBRep_Array1OfFData &&)) &HLRBRep_Array1OfFData::Move, "Move assignment", py::arg("theOther"));
-	cls_HLRBRep_Array1OfFData.def("assign", (HLRBRep_Array1OfFData & (HLRBRep_Array1OfFData::*)(const HLRBRep_Array1OfFData &)) &HLRBRep_Array1OfFData::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_HLRBRep_Array1OfFData.def("assign", (HLRBRep_Array1OfFData & (HLRBRep_Array1OfFData::*)(HLRBRep_Array1OfFData &&)) &HLRBRep_Array1OfFData::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_HLRBRep_Array1OfFData.def("First", (const HLRBRep_FaceData & (HLRBRep_Array1OfFData::*)() const ) &HLRBRep_Array1OfFData::First, "Returns first element");
-	cls_HLRBRep_Array1OfFData.def("ChangeFirst", (HLRBRep_FaceData & (HLRBRep_Array1OfFData::*)()) &HLRBRep_Array1OfFData::ChangeFirst, "Returns first element");
-	cls_HLRBRep_Array1OfFData.def("Last", (const HLRBRep_FaceData & (HLRBRep_Array1OfFData::*)() const ) &HLRBRep_Array1OfFData::Last, "Returns last element");
-	cls_HLRBRep_Array1OfFData.def("ChangeLast", (HLRBRep_FaceData & (HLRBRep_Array1OfFData::*)()) &HLRBRep_Array1OfFData::ChangeLast, "Returns last element");
-	cls_HLRBRep_Array1OfFData.def("Value", (const HLRBRep_FaceData & (HLRBRep_Array1OfFData::*)(const Standard_Integer) const ) &HLRBRep_Array1OfFData::Value, "Constant value access", py::arg("theIndex"));
-	cls_HLRBRep_Array1OfFData.def("__call__", (const HLRBRep_FaceData & (HLRBRep_Array1OfFData::*)(const Standard_Integer) const ) &HLRBRep_Array1OfFData::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_HLRBRep_Array1OfFData.def("ChangeValue", (HLRBRep_FaceData & (HLRBRep_Array1OfFData::*)(const Standard_Integer)) &HLRBRep_Array1OfFData::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_HLRBRep_Array1OfFData.def("__call__", (HLRBRep_FaceData & (HLRBRep_Array1OfFData::*)(const Standard_Integer)) &HLRBRep_Array1OfFData::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_HLRBRep_Array1OfFData.def("SetValue", (void (HLRBRep_Array1OfFData::*)(const Standard_Integer, const HLRBRep_FaceData &)) &HLRBRep_Array1OfFData::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_HLRBRep_Array1OfFData.def("Resize", (void (HLRBRep_Array1OfFData::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &HLRBRep_Array1OfFData::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_HLRBRep_Array1OfFData.def("__iter__", [](const HLRBRep_Array1OfFData &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRBRep_Array1OfFData.hxx
+	bind_NCollection_Array1<HLRBRep_FaceData>(mod, "HLRBRep_Array1OfFData");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<HLRBRep_ListOfBPnt2D, std::unique_ptr<HLRBRep_ListOfBPnt2D, Deleter<HLRBRep_ListOfBPnt2D>>, NCollection_BaseList> cls_HLRBRep_ListOfBPnt2D(mod, "HLRBRep_ListOfBPnt2D", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_HLRBRep_ListOfBPnt2D.def(py::init<>());
-	cls_HLRBRep_ListOfBPnt2D.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_HLRBRep_ListOfBPnt2D.def(py::init([] (const HLRBRep_ListOfBPnt2D &other) {return new HLRBRep_ListOfBPnt2D(other);}), "Copy constructor", py::arg("other"));
-	cls_HLRBRep_ListOfBPnt2D.def("begin", (HLRBRep_ListOfBPnt2D::iterator (HLRBRep_ListOfBPnt2D::*)() const ) &HLRBRep_ListOfBPnt2D::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_HLRBRep_ListOfBPnt2D.def("end", (HLRBRep_ListOfBPnt2D::iterator (HLRBRep_ListOfBPnt2D::*)() const ) &HLRBRep_ListOfBPnt2D::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_HLRBRep_ListOfBPnt2D.def("cbegin", (HLRBRep_ListOfBPnt2D::const_iterator (HLRBRep_ListOfBPnt2D::*)() const ) &HLRBRep_ListOfBPnt2D::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_HLRBRep_ListOfBPnt2D.def("cend", (HLRBRep_ListOfBPnt2D::const_iterator (HLRBRep_ListOfBPnt2D::*)() const ) &HLRBRep_ListOfBPnt2D::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_HLRBRep_ListOfBPnt2D.def("Size", (Standard_Integer (HLRBRep_ListOfBPnt2D::*)() const ) &HLRBRep_ListOfBPnt2D::Size, "Size - Number of items");
-	cls_HLRBRep_ListOfBPnt2D.def("Assign", (HLRBRep_ListOfBPnt2D & (HLRBRep_ListOfBPnt2D::*)(const HLRBRep_ListOfBPnt2D &)) &HLRBRep_ListOfBPnt2D::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_HLRBRep_ListOfBPnt2D.def("assign", (HLRBRep_ListOfBPnt2D & (HLRBRep_ListOfBPnt2D::*)(const HLRBRep_ListOfBPnt2D &)) &HLRBRep_ListOfBPnt2D::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_HLRBRep_ListOfBPnt2D.def("Clear", [](HLRBRep_ListOfBPnt2D &self) -> void { return self.Clear(); });
-	cls_HLRBRep_ListOfBPnt2D.def("Clear", (void (HLRBRep_ListOfBPnt2D::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &HLRBRep_ListOfBPnt2D::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_HLRBRep_ListOfBPnt2D.def("First", (const HLRBRep_BiPnt2D & (HLRBRep_ListOfBPnt2D::*)() const ) &HLRBRep_ListOfBPnt2D::First, "First item");
-	cls_HLRBRep_ListOfBPnt2D.def("First", (HLRBRep_BiPnt2D & (HLRBRep_ListOfBPnt2D::*)()) &HLRBRep_ListOfBPnt2D::First, "First item (non-const)");
-	cls_HLRBRep_ListOfBPnt2D.def("Last", (const HLRBRep_BiPnt2D & (HLRBRep_ListOfBPnt2D::*)() const ) &HLRBRep_ListOfBPnt2D::Last, "Last item");
-	cls_HLRBRep_ListOfBPnt2D.def("Last", (HLRBRep_BiPnt2D & (HLRBRep_ListOfBPnt2D::*)()) &HLRBRep_ListOfBPnt2D::Last, "Last item (non-const)");
-	cls_HLRBRep_ListOfBPnt2D.def("Append", (HLRBRep_BiPnt2D & (HLRBRep_ListOfBPnt2D::*)(const HLRBRep_BiPnt2D &)) &HLRBRep_ListOfBPnt2D::Append, "Append one item at the end", py::arg("theItem"));
-	cls_HLRBRep_ListOfBPnt2D.def("Append", (void (HLRBRep_ListOfBPnt2D::*)(const HLRBRep_BiPnt2D &, HLRBRep_ListOfBPnt2D::Iterator &)) &HLRBRep_ListOfBPnt2D::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_HLRBRep_ListOfBPnt2D.def("Append", (void (HLRBRep_ListOfBPnt2D::*)(HLRBRep_ListOfBPnt2D &)) &HLRBRep_ListOfBPnt2D::Append, "Append another list at the end", py::arg("theOther"));
-	cls_HLRBRep_ListOfBPnt2D.def("Prepend", (HLRBRep_BiPnt2D & (HLRBRep_ListOfBPnt2D::*)(const HLRBRep_BiPnt2D &)) &HLRBRep_ListOfBPnt2D::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_HLRBRep_ListOfBPnt2D.def("Prepend", (void (HLRBRep_ListOfBPnt2D::*)(HLRBRep_ListOfBPnt2D &)) &HLRBRep_ListOfBPnt2D::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_HLRBRep_ListOfBPnt2D.def("RemoveFirst", (void (HLRBRep_ListOfBPnt2D::*)()) &HLRBRep_ListOfBPnt2D::RemoveFirst, "RemoveFirst item");
-	cls_HLRBRep_ListOfBPnt2D.def("Remove", (void (HLRBRep_ListOfBPnt2D::*)(HLRBRep_ListOfBPnt2D::Iterator &)) &HLRBRep_ListOfBPnt2D::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_HLRBRep_ListOfBPnt2D.def("InsertBefore", (HLRBRep_BiPnt2D & (HLRBRep_ListOfBPnt2D::*)(const HLRBRep_BiPnt2D &, HLRBRep_ListOfBPnt2D::Iterator &)) &HLRBRep_ListOfBPnt2D::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_HLRBRep_ListOfBPnt2D.def("InsertBefore", (void (HLRBRep_ListOfBPnt2D::*)(HLRBRep_ListOfBPnt2D &, HLRBRep_ListOfBPnt2D::Iterator &)) &HLRBRep_ListOfBPnt2D::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_HLRBRep_ListOfBPnt2D.def("InsertAfter", (HLRBRep_BiPnt2D & (HLRBRep_ListOfBPnt2D::*)(const HLRBRep_BiPnt2D &, HLRBRep_ListOfBPnt2D::Iterator &)) &HLRBRep_ListOfBPnt2D::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_HLRBRep_ListOfBPnt2D.def("InsertAfter", (void (HLRBRep_ListOfBPnt2D::*)(HLRBRep_ListOfBPnt2D &, HLRBRep_ListOfBPnt2D::Iterator &)) &HLRBRep_ListOfBPnt2D::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_HLRBRep_ListOfBPnt2D.def("Reverse", (void (HLRBRep_ListOfBPnt2D::*)()) &HLRBRep_ListOfBPnt2D::Reverse, "Reverse the list");
-	cls_HLRBRep_ListOfBPnt2D.def("__iter__", [](const HLRBRep_ListOfBPnt2D &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRBRep_ListOfBPnt2D.hxx
+	bind_NCollection_List<HLRBRep_BiPnt2D>(mod, "HLRBRep_ListOfBPnt2D");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<HLRBRep_ListIteratorOfListOfBPnt2D, std::unique_ptr<HLRBRep_ListIteratorOfListOfBPnt2D, Deleter<HLRBRep_ListIteratorOfListOfBPnt2D>>> cls_HLRBRep_ListIteratorOfListOfBPnt2D(mod, "HLRBRep_ListIteratorOfListOfBPnt2D", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_HLRBRep_ListIteratorOfListOfBPnt2D.def(py::init<>());
-	cls_HLRBRep_ListIteratorOfListOfBPnt2D.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_HLRBRep_ListIteratorOfListOfBPnt2D.def("More", (Standard_Boolean (HLRBRep_ListIteratorOfListOfBPnt2D::*)() const ) &HLRBRep_ListIteratorOfListOfBPnt2D::More, "Check end");
-	cls_HLRBRep_ListIteratorOfListOfBPnt2D.def("Next", (void (HLRBRep_ListIteratorOfListOfBPnt2D::*)()) &HLRBRep_ListIteratorOfListOfBPnt2D::Next, "Make step");
-	cls_HLRBRep_ListIteratorOfListOfBPnt2D.def("Value", (const HLRBRep_BiPnt2D & (HLRBRep_ListIteratorOfListOfBPnt2D::*)() const ) &HLRBRep_ListIteratorOfListOfBPnt2D::Value, "Constant Value access");
-	cls_HLRBRep_ListIteratorOfListOfBPnt2D.def("Value", (HLRBRep_BiPnt2D & (HLRBRep_ListIteratorOfListOfBPnt2D::*)()) &HLRBRep_ListIteratorOfListOfBPnt2D::Value, "Non-const Value access");
-	cls_HLRBRep_ListIteratorOfListOfBPnt2D.def("ChangeValue", (HLRBRep_BiPnt2D & (HLRBRep_ListIteratorOfListOfBPnt2D::*)() const ) &HLRBRep_ListIteratorOfListOfBPnt2D::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRBRep_ListOfBPnt2D.hxx
+	bind_NCollection_TListIterator<HLRBRep_BiPnt2D>(mod, "HLRBRep_ListIteratorOfListOfBPnt2D");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<HLRBRep_ListOfBPoint, std::unique_ptr<HLRBRep_ListOfBPoint, Deleter<HLRBRep_ListOfBPoint>>, NCollection_BaseList> cls_HLRBRep_ListOfBPoint(mod, "HLRBRep_ListOfBPoint", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_HLRBRep_ListOfBPoint.def(py::init<>());
-	cls_HLRBRep_ListOfBPoint.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_HLRBRep_ListOfBPoint.def(py::init([] (const HLRBRep_ListOfBPoint &other) {return new HLRBRep_ListOfBPoint(other);}), "Copy constructor", py::arg("other"));
-	cls_HLRBRep_ListOfBPoint.def("begin", (HLRBRep_ListOfBPoint::iterator (HLRBRep_ListOfBPoint::*)() const ) &HLRBRep_ListOfBPoint::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_HLRBRep_ListOfBPoint.def("end", (HLRBRep_ListOfBPoint::iterator (HLRBRep_ListOfBPoint::*)() const ) &HLRBRep_ListOfBPoint::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_HLRBRep_ListOfBPoint.def("cbegin", (HLRBRep_ListOfBPoint::const_iterator (HLRBRep_ListOfBPoint::*)() const ) &HLRBRep_ListOfBPoint::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_HLRBRep_ListOfBPoint.def("cend", (HLRBRep_ListOfBPoint::const_iterator (HLRBRep_ListOfBPoint::*)() const ) &HLRBRep_ListOfBPoint::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_HLRBRep_ListOfBPoint.def("Size", (Standard_Integer (HLRBRep_ListOfBPoint::*)() const ) &HLRBRep_ListOfBPoint::Size, "Size - Number of items");
-	cls_HLRBRep_ListOfBPoint.def("Assign", (HLRBRep_ListOfBPoint & (HLRBRep_ListOfBPoint::*)(const HLRBRep_ListOfBPoint &)) &HLRBRep_ListOfBPoint::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_HLRBRep_ListOfBPoint.def("assign", (HLRBRep_ListOfBPoint & (HLRBRep_ListOfBPoint::*)(const HLRBRep_ListOfBPoint &)) &HLRBRep_ListOfBPoint::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_HLRBRep_ListOfBPoint.def("Clear", [](HLRBRep_ListOfBPoint &self) -> void { return self.Clear(); });
-	cls_HLRBRep_ListOfBPoint.def("Clear", (void (HLRBRep_ListOfBPoint::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &HLRBRep_ListOfBPoint::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_HLRBRep_ListOfBPoint.def("First", (const HLRBRep_BiPoint & (HLRBRep_ListOfBPoint::*)() const ) &HLRBRep_ListOfBPoint::First, "First item");
-	cls_HLRBRep_ListOfBPoint.def("First", (HLRBRep_BiPoint & (HLRBRep_ListOfBPoint::*)()) &HLRBRep_ListOfBPoint::First, "First item (non-const)");
-	cls_HLRBRep_ListOfBPoint.def("Last", (const HLRBRep_BiPoint & (HLRBRep_ListOfBPoint::*)() const ) &HLRBRep_ListOfBPoint::Last, "Last item");
-	cls_HLRBRep_ListOfBPoint.def("Last", (HLRBRep_BiPoint & (HLRBRep_ListOfBPoint::*)()) &HLRBRep_ListOfBPoint::Last, "Last item (non-const)");
-	cls_HLRBRep_ListOfBPoint.def("Append", (HLRBRep_BiPoint & (HLRBRep_ListOfBPoint::*)(const HLRBRep_BiPoint &)) &HLRBRep_ListOfBPoint::Append, "Append one item at the end", py::arg("theItem"));
-	cls_HLRBRep_ListOfBPoint.def("Append", (void (HLRBRep_ListOfBPoint::*)(const HLRBRep_BiPoint &, HLRBRep_ListOfBPoint::Iterator &)) &HLRBRep_ListOfBPoint::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_HLRBRep_ListOfBPoint.def("Append", (void (HLRBRep_ListOfBPoint::*)(HLRBRep_ListOfBPoint &)) &HLRBRep_ListOfBPoint::Append, "Append another list at the end", py::arg("theOther"));
-	cls_HLRBRep_ListOfBPoint.def("Prepend", (HLRBRep_BiPoint & (HLRBRep_ListOfBPoint::*)(const HLRBRep_BiPoint &)) &HLRBRep_ListOfBPoint::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_HLRBRep_ListOfBPoint.def("Prepend", (void (HLRBRep_ListOfBPoint::*)(HLRBRep_ListOfBPoint &)) &HLRBRep_ListOfBPoint::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_HLRBRep_ListOfBPoint.def("RemoveFirst", (void (HLRBRep_ListOfBPoint::*)()) &HLRBRep_ListOfBPoint::RemoveFirst, "RemoveFirst item");
-	cls_HLRBRep_ListOfBPoint.def("Remove", (void (HLRBRep_ListOfBPoint::*)(HLRBRep_ListOfBPoint::Iterator &)) &HLRBRep_ListOfBPoint::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_HLRBRep_ListOfBPoint.def("InsertBefore", (HLRBRep_BiPoint & (HLRBRep_ListOfBPoint::*)(const HLRBRep_BiPoint &, HLRBRep_ListOfBPoint::Iterator &)) &HLRBRep_ListOfBPoint::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_HLRBRep_ListOfBPoint.def("InsertBefore", (void (HLRBRep_ListOfBPoint::*)(HLRBRep_ListOfBPoint &, HLRBRep_ListOfBPoint::Iterator &)) &HLRBRep_ListOfBPoint::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_HLRBRep_ListOfBPoint.def("InsertAfter", (HLRBRep_BiPoint & (HLRBRep_ListOfBPoint::*)(const HLRBRep_BiPoint &, HLRBRep_ListOfBPoint::Iterator &)) &HLRBRep_ListOfBPoint::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_HLRBRep_ListOfBPoint.def("InsertAfter", (void (HLRBRep_ListOfBPoint::*)(HLRBRep_ListOfBPoint &, HLRBRep_ListOfBPoint::Iterator &)) &HLRBRep_ListOfBPoint::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_HLRBRep_ListOfBPoint.def("Reverse", (void (HLRBRep_ListOfBPoint::*)()) &HLRBRep_ListOfBPoint::Reverse, "Reverse the list");
-	cls_HLRBRep_ListOfBPoint.def("__iter__", [](const HLRBRep_ListOfBPoint &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRBRep_ListOfBPoint.hxx
+	bind_NCollection_List<HLRBRep_BiPoint>(mod, "HLRBRep_ListOfBPoint");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<HLRBRep_ListIteratorOfListOfBPoint, std::unique_ptr<HLRBRep_ListIteratorOfListOfBPoint, Deleter<HLRBRep_ListIteratorOfListOfBPoint>>> cls_HLRBRep_ListIteratorOfListOfBPoint(mod, "HLRBRep_ListIteratorOfListOfBPoint", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_HLRBRep_ListIteratorOfListOfBPoint.def(py::init<>());
-	cls_HLRBRep_ListIteratorOfListOfBPoint.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_HLRBRep_ListIteratorOfListOfBPoint.def("More", (Standard_Boolean (HLRBRep_ListIteratorOfListOfBPoint::*)() const ) &HLRBRep_ListIteratorOfListOfBPoint::More, "Check end");
-	cls_HLRBRep_ListIteratorOfListOfBPoint.def("Next", (void (HLRBRep_ListIteratorOfListOfBPoint::*)()) &HLRBRep_ListIteratorOfListOfBPoint::Next, "Make step");
-	cls_HLRBRep_ListIteratorOfListOfBPoint.def("Value", (const HLRBRep_BiPoint & (HLRBRep_ListIteratorOfListOfBPoint::*)() const ) &HLRBRep_ListIteratorOfListOfBPoint::Value, "Constant Value access");
-	cls_HLRBRep_ListIteratorOfListOfBPoint.def("Value", (HLRBRep_BiPoint & (HLRBRep_ListIteratorOfListOfBPoint::*)()) &HLRBRep_ListIteratorOfListOfBPoint::Value, "Non-const Value access");
-	cls_HLRBRep_ListIteratorOfListOfBPoint.def("ChangeValue", (HLRBRep_BiPoint & (HLRBRep_ListIteratorOfListOfBPoint::*)() const ) &HLRBRep_ListIteratorOfListOfBPoint::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRBRep_ListOfBPoint.hxx
+	bind_NCollection_TListIterator<HLRBRep_BiPoint>(mod, "HLRBRep_ListIteratorOfListOfBPoint");
 
 
 }

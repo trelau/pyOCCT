@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
@@ -57,6 +48,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <BOPTools_ListOfShapeSet.hxx>
 #include <NCollection_Map.hxx>
 #include <BOPTools_MapOfSet.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BOPTools, mod) {
 
@@ -281,237 +273,28 @@ PYBIND11_MODULE(BOPTools, mod) {
 	cls_BOPTools_CoupleOfShape.def("SetShape2", (void (BOPTools_CoupleOfShape::*)(const TopoDS_Shape &)) &BOPTools_CoupleOfShape::SetShape2, "None", py::arg("theShape"));
 	cls_BOPTools_CoupleOfShape.def("Shape2", (const TopoDS_Shape & (BOPTools_CoupleOfShape::*)() const ) &BOPTools_CoupleOfShape::Shape2, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<BOPTools_ListOfConnexityBlock, std::unique_ptr<BOPTools_ListOfConnexityBlock, Deleter<BOPTools_ListOfConnexityBlock>>, NCollection_BaseList> cls_BOPTools_ListOfConnexityBlock(mod, "BOPTools_ListOfConnexityBlock", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_BOPTools_ListOfConnexityBlock.def(py::init<>());
-	cls_BOPTools_ListOfConnexityBlock.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_BOPTools_ListOfConnexityBlock.def(py::init([] (const BOPTools_ListOfConnexityBlock &other) {return new BOPTools_ListOfConnexityBlock(other);}), "Copy constructor", py::arg("other"));
-	cls_BOPTools_ListOfConnexityBlock.def("begin", (BOPTools_ListOfConnexityBlock::iterator (BOPTools_ListOfConnexityBlock::*)() const ) &BOPTools_ListOfConnexityBlock::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_BOPTools_ListOfConnexityBlock.def("end", (BOPTools_ListOfConnexityBlock::iterator (BOPTools_ListOfConnexityBlock::*)() const ) &BOPTools_ListOfConnexityBlock::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_BOPTools_ListOfConnexityBlock.def("cbegin", (BOPTools_ListOfConnexityBlock::const_iterator (BOPTools_ListOfConnexityBlock::*)() const ) &BOPTools_ListOfConnexityBlock::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_BOPTools_ListOfConnexityBlock.def("cend", (BOPTools_ListOfConnexityBlock::const_iterator (BOPTools_ListOfConnexityBlock::*)() const ) &BOPTools_ListOfConnexityBlock::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_BOPTools_ListOfConnexityBlock.def("Size", (Standard_Integer (BOPTools_ListOfConnexityBlock::*)() const ) &BOPTools_ListOfConnexityBlock::Size, "Size - Number of items");
-	cls_BOPTools_ListOfConnexityBlock.def("Assign", (BOPTools_ListOfConnexityBlock & (BOPTools_ListOfConnexityBlock::*)(const BOPTools_ListOfConnexityBlock &)) &BOPTools_ListOfConnexityBlock::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BOPTools_ListOfConnexityBlock.def("assign", (BOPTools_ListOfConnexityBlock & (BOPTools_ListOfConnexityBlock::*)(const BOPTools_ListOfConnexityBlock &)) &BOPTools_ListOfConnexityBlock::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_BOPTools_ListOfConnexityBlock.def("Clear", [](BOPTools_ListOfConnexityBlock &self) -> void { return self.Clear(); });
-	cls_BOPTools_ListOfConnexityBlock.def("Clear", (void (BOPTools_ListOfConnexityBlock::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BOPTools_ListOfConnexityBlock::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_BOPTools_ListOfConnexityBlock.def("First", (const BOPTools_ConnexityBlock & (BOPTools_ListOfConnexityBlock::*)() const ) &BOPTools_ListOfConnexityBlock::First, "First item");
-	cls_BOPTools_ListOfConnexityBlock.def("First", (BOPTools_ConnexityBlock & (BOPTools_ListOfConnexityBlock::*)()) &BOPTools_ListOfConnexityBlock::First, "First item (non-const)");
-	cls_BOPTools_ListOfConnexityBlock.def("Last", (const BOPTools_ConnexityBlock & (BOPTools_ListOfConnexityBlock::*)() const ) &BOPTools_ListOfConnexityBlock::Last, "Last item");
-	cls_BOPTools_ListOfConnexityBlock.def("Last", (BOPTools_ConnexityBlock & (BOPTools_ListOfConnexityBlock::*)()) &BOPTools_ListOfConnexityBlock::Last, "Last item (non-const)");
-	cls_BOPTools_ListOfConnexityBlock.def("Append", (BOPTools_ConnexityBlock & (BOPTools_ListOfConnexityBlock::*)(const BOPTools_ConnexityBlock &)) &BOPTools_ListOfConnexityBlock::Append, "Append one item at the end", py::arg("theItem"));
-	cls_BOPTools_ListOfConnexityBlock.def("Append", (void (BOPTools_ListOfConnexityBlock::*)(const BOPTools_ConnexityBlock &, BOPTools_ListOfConnexityBlock::Iterator &)) &BOPTools_ListOfConnexityBlock::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPTools_ListOfConnexityBlock.def("Append", (void (BOPTools_ListOfConnexityBlock::*)(BOPTools_ListOfConnexityBlock &)) &BOPTools_ListOfConnexityBlock::Append, "Append another list at the end", py::arg("theOther"));
-	cls_BOPTools_ListOfConnexityBlock.def("Prepend", (BOPTools_ConnexityBlock & (BOPTools_ListOfConnexityBlock::*)(const BOPTools_ConnexityBlock &)) &BOPTools_ListOfConnexityBlock::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_BOPTools_ListOfConnexityBlock.def("Prepend", (void (BOPTools_ListOfConnexityBlock::*)(BOPTools_ListOfConnexityBlock &)) &BOPTools_ListOfConnexityBlock::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_BOPTools_ListOfConnexityBlock.def("RemoveFirst", (void (BOPTools_ListOfConnexityBlock::*)()) &BOPTools_ListOfConnexityBlock::RemoveFirst, "RemoveFirst item");
-	cls_BOPTools_ListOfConnexityBlock.def("Remove", (void (BOPTools_ListOfConnexityBlock::*)(BOPTools_ListOfConnexityBlock::Iterator &)) &BOPTools_ListOfConnexityBlock::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_BOPTools_ListOfConnexityBlock.def("InsertBefore", (BOPTools_ConnexityBlock & (BOPTools_ListOfConnexityBlock::*)(const BOPTools_ConnexityBlock &, BOPTools_ListOfConnexityBlock::Iterator &)) &BOPTools_ListOfConnexityBlock::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPTools_ListOfConnexityBlock.def("InsertBefore", (void (BOPTools_ListOfConnexityBlock::*)(BOPTools_ListOfConnexityBlock &, BOPTools_ListOfConnexityBlock::Iterator &)) &BOPTools_ListOfConnexityBlock::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_BOPTools_ListOfConnexityBlock.def("InsertAfter", (BOPTools_ConnexityBlock & (BOPTools_ListOfConnexityBlock::*)(const BOPTools_ConnexityBlock &, BOPTools_ListOfConnexityBlock::Iterator &)) &BOPTools_ListOfConnexityBlock::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPTools_ListOfConnexityBlock.def("InsertAfter", (void (BOPTools_ListOfConnexityBlock::*)(BOPTools_ListOfConnexityBlock &, BOPTools_ListOfConnexityBlock::Iterator &)) &BOPTools_ListOfConnexityBlock::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_BOPTools_ListOfConnexityBlock.def("Reverse", (void (BOPTools_ListOfConnexityBlock::*)()) &BOPTools_ListOfConnexityBlock::Reverse, "Reverse the list");
-	cls_BOPTools_ListOfConnexityBlock.def("__iter__", [](const BOPTools_ListOfConnexityBlock &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPTools_ListOfConnexityBlock.hxx
+	bind_NCollection_List<BOPTools_ConnexityBlock>(mod, "BOPTools_ListOfConnexityBlock");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<BOPTools_ListIteratorOfListOfConnexityBlock, std::unique_ptr<BOPTools_ListIteratorOfListOfConnexityBlock, Deleter<BOPTools_ListIteratorOfListOfConnexityBlock>>> cls_BOPTools_ListIteratorOfListOfConnexityBlock(mod, "BOPTools_ListIteratorOfListOfConnexityBlock", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_BOPTools_ListIteratorOfListOfConnexityBlock.def(py::init<>());
-	cls_BOPTools_ListIteratorOfListOfConnexityBlock.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_BOPTools_ListIteratorOfListOfConnexityBlock.def("More", (Standard_Boolean (BOPTools_ListIteratorOfListOfConnexityBlock::*)() const ) &BOPTools_ListIteratorOfListOfConnexityBlock::More, "Check end");
-	cls_BOPTools_ListIteratorOfListOfConnexityBlock.def("Next", (void (BOPTools_ListIteratorOfListOfConnexityBlock::*)()) &BOPTools_ListIteratorOfListOfConnexityBlock::Next, "Make step");
-	cls_BOPTools_ListIteratorOfListOfConnexityBlock.def("Value", (const BOPTools_ConnexityBlock & (BOPTools_ListIteratorOfListOfConnexityBlock::*)() const ) &BOPTools_ListIteratorOfListOfConnexityBlock::Value, "Constant Value access");
-	cls_BOPTools_ListIteratorOfListOfConnexityBlock.def("Value", (BOPTools_ConnexityBlock & (BOPTools_ListIteratorOfListOfConnexityBlock::*)()) &BOPTools_ListIteratorOfListOfConnexityBlock::Value, "Non-const Value access");
-	cls_BOPTools_ListIteratorOfListOfConnexityBlock.def("ChangeValue", (BOPTools_ConnexityBlock & (BOPTools_ListIteratorOfListOfConnexityBlock::*)() const ) &BOPTools_ListIteratorOfListOfConnexityBlock::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPTools_ListOfConnexityBlock.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPTools_ListOfCoupleOfShape.hxx
+	bind_NCollection_List<BOPTools_CoupleOfShape>(mod, "BOPTools_ListOfCoupleOfShape");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<BOPTools_ListOfCoupleOfShape, std::unique_ptr<BOPTools_ListOfCoupleOfShape, Deleter<BOPTools_ListOfCoupleOfShape>>, NCollection_BaseList> cls_BOPTools_ListOfCoupleOfShape(mod, "BOPTools_ListOfCoupleOfShape", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_BOPTools_ListOfCoupleOfShape.def(py::init<>());
-	cls_BOPTools_ListOfCoupleOfShape.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_BOPTools_ListOfCoupleOfShape.def(py::init([] (const BOPTools_ListOfCoupleOfShape &other) {return new BOPTools_ListOfCoupleOfShape(other);}), "Copy constructor", py::arg("other"));
-	cls_BOPTools_ListOfCoupleOfShape.def("begin", (BOPTools_ListOfCoupleOfShape::iterator (BOPTools_ListOfCoupleOfShape::*)() const ) &BOPTools_ListOfCoupleOfShape::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_BOPTools_ListOfCoupleOfShape.def("end", (BOPTools_ListOfCoupleOfShape::iterator (BOPTools_ListOfCoupleOfShape::*)() const ) &BOPTools_ListOfCoupleOfShape::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_BOPTools_ListOfCoupleOfShape.def("cbegin", (BOPTools_ListOfCoupleOfShape::const_iterator (BOPTools_ListOfCoupleOfShape::*)() const ) &BOPTools_ListOfCoupleOfShape::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_BOPTools_ListOfCoupleOfShape.def("cend", (BOPTools_ListOfCoupleOfShape::const_iterator (BOPTools_ListOfCoupleOfShape::*)() const ) &BOPTools_ListOfCoupleOfShape::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_BOPTools_ListOfCoupleOfShape.def("Size", (Standard_Integer (BOPTools_ListOfCoupleOfShape::*)() const ) &BOPTools_ListOfCoupleOfShape::Size, "Size - Number of items");
-	cls_BOPTools_ListOfCoupleOfShape.def("Assign", (BOPTools_ListOfCoupleOfShape & (BOPTools_ListOfCoupleOfShape::*)(const BOPTools_ListOfCoupleOfShape &)) &BOPTools_ListOfCoupleOfShape::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BOPTools_ListOfCoupleOfShape.def("assign", (BOPTools_ListOfCoupleOfShape & (BOPTools_ListOfCoupleOfShape::*)(const BOPTools_ListOfCoupleOfShape &)) &BOPTools_ListOfCoupleOfShape::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_BOPTools_ListOfCoupleOfShape.def("Clear", [](BOPTools_ListOfCoupleOfShape &self) -> void { return self.Clear(); });
-	cls_BOPTools_ListOfCoupleOfShape.def("Clear", (void (BOPTools_ListOfCoupleOfShape::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BOPTools_ListOfCoupleOfShape::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_BOPTools_ListOfCoupleOfShape.def("First", (const BOPTools_CoupleOfShape & (BOPTools_ListOfCoupleOfShape::*)() const ) &BOPTools_ListOfCoupleOfShape::First, "First item");
-	cls_BOPTools_ListOfCoupleOfShape.def("First", (BOPTools_CoupleOfShape & (BOPTools_ListOfCoupleOfShape::*)()) &BOPTools_ListOfCoupleOfShape::First, "First item (non-const)");
-	cls_BOPTools_ListOfCoupleOfShape.def("Last", (const BOPTools_CoupleOfShape & (BOPTools_ListOfCoupleOfShape::*)() const ) &BOPTools_ListOfCoupleOfShape::Last, "Last item");
-	cls_BOPTools_ListOfCoupleOfShape.def("Last", (BOPTools_CoupleOfShape & (BOPTools_ListOfCoupleOfShape::*)()) &BOPTools_ListOfCoupleOfShape::Last, "Last item (non-const)");
-	cls_BOPTools_ListOfCoupleOfShape.def("Append", (BOPTools_CoupleOfShape & (BOPTools_ListOfCoupleOfShape::*)(const BOPTools_CoupleOfShape &)) &BOPTools_ListOfCoupleOfShape::Append, "Append one item at the end", py::arg("theItem"));
-	cls_BOPTools_ListOfCoupleOfShape.def("Append", (void (BOPTools_ListOfCoupleOfShape::*)(const BOPTools_CoupleOfShape &, BOPTools_ListOfCoupleOfShape::Iterator &)) &BOPTools_ListOfCoupleOfShape::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPTools_ListOfCoupleOfShape.def("Append", (void (BOPTools_ListOfCoupleOfShape::*)(BOPTools_ListOfCoupleOfShape &)) &BOPTools_ListOfCoupleOfShape::Append, "Append another list at the end", py::arg("theOther"));
-	cls_BOPTools_ListOfCoupleOfShape.def("Prepend", (BOPTools_CoupleOfShape & (BOPTools_ListOfCoupleOfShape::*)(const BOPTools_CoupleOfShape &)) &BOPTools_ListOfCoupleOfShape::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_BOPTools_ListOfCoupleOfShape.def("Prepend", (void (BOPTools_ListOfCoupleOfShape::*)(BOPTools_ListOfCoupleOfShape &)) &BOPTools_ListOfCoupleOfShape::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_BOPTools_ListOfCoupleOfShape.def("RemoveFirst", (void (BOPTools_ListOfCoupleOfShape::*)()) &BOPTools_ListOfCoupleOfShape::RemoveFirst, "RemoveFirst item");
-	cls_BOPTools_ListOfCoupleOfShape.def("Remove", (void (BOPTools_ListOfCoupleOfShape::*)(BOPTools_ListOfCoupleOfShape::Iterator &)) &BOPTools_ListOfCoupleOfShape::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_BOPTools_ListOfCoupleOfShape.def("InsertBefore", (BOPTools_CoupleOfShape & (BOPTools_ListOfCoupleOfShape::*)(const BOPTools_CoupleOfShape &, BOPTools_ListOfCoupleOfShape::Iterator &)) &BOPTools_ListOfCoupleOfShape::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPTools_ListOfCoupleOfShape.def("InsertBefore", (void (BOPTools_ListOfCoupleOfShape::*)(BOPTools_ListOfCoupleOfShape &, BOPTools_ListOfCoupleOfShape::Iterator &)) &BOPTools_ListOfCoupleOfShape::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_BOPTools_ListOfCoupleOfShape.def("InsertAfter", (BOPTools_CoupleOfShape & (BOPTools_ListOfCoupleOfShape::*)(const BOPTools_CoupleOfShape &, BOPTools_ListOfCoupleOfShape::Iterator &)) &BOPTools_ListOfCoupleOfShape::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPTools_ListOfCoupleOfShape.def("InsertAfter", (void (BOPTools_ListOfCoupleOfShape::*)(BOPTools_ListOfCoupleOfShape &, BOPTools_ListOfCoupleOfShape::Iterator &)) &BOPTools_ListOfCoupleOfShape::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_BOPTools_ListOfCoupleOfShape.def("Reverse", (void (BOPTools_ListOfCoupleOfShape::*)()) &BOPTools_ListOfCoupleOfShape::Reverse, "Reverse the list");
-	cls_BOPTools_ListOfCoupleOfShape.def("__iter__", [](const BOPTools_ListOfCoupleOfShape &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<BOPTools_ListIteratorOfListOfCoupleOfShape, std::unique_ptr<BOPTools_ListIteratorOfListOfCoupleOfShape, Deleter<BOPTools_ListIteratorOfListOfCoupleOfShape>>> cls_BOPTools_ListIteratorOfListOfCoupleOfShape(mod, "BOPTools_ListIteratorOfListOfCoupleOfShape", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_BOPTools_ListIteratorOfListOfCoupleOfShape.def(py::init<>());
-	cls_BOPTools_ListIteratorOfListOfCoupleOfShape.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_BOPTools_ListIteratorOfListOfCoupleOfShape.def("More", (Standard_Boolean (BOPTools_ListIteratorOfListOfCoupleOfShape::*)() const ) &BOPTools_ListIteratorOfListOfCoupleOfShape::More, "Check end");
-	cls_BOPTools_ListIteratorOfListOfCoupleOfShape.def("Next", (void (BOPTools_ListIteratorOfListOfCoupleOfShape::*)()) &BOPTools_ListIteratorOfListOfCoupleOfShape::Next, "Make step");
-	cls_BOPTools_ListIteratorOfListOfCoupleOfShape.def("Value", (const BOPTools_CoupleOfShape & (BOPTools_ListIteratorOfListOfCoupleOfShape::*)() const ) &BOPTools_ListIteratorOfListOfCoupleOfShape::Value, "Constant Value access");
-	cls_BOPTools_ListIteratorOfListOfCoupleOfShape.def("Value", (BOPTools_CoupleOfShape & (BOPTools_ListIteratorOfListOfCoupleOfShape::*)()) &BOPTools_ListIteratorOfListOfCoupleOfShape::Value, "Non-const Value access");
-	cls_BOPTools_ListIteratorOfListOfCoupleOfShape.def("ChangeValue", (BOPTools_CoupleOfShape & (BOPTools_ListIteratorOfListOfCoupleOfShape::*)() const ) &BOPTools_ListIteratorOfListOfCoupleOfShape::ChangeValue, "Non-const Value access");
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<BOPTools_DataMapOfShapeSet, std::unique_ptr<BOPTools_DataMapOfShapeSet, Deleter<BOPTools_DataMapOfShapeSet>>, NCollection_BaseMap> cls_BOPTools_DataMapOfShapeSet(mod, "BOPTools_DataMapOfShapeSet", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_BOPTools_DataMapOfShapeSet.def(py::init<>());
-	cls_BOPTools_DataMapOfShapeSet.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BOPTools_DataMapOfShapeSet.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BOPTools_DataMapOfShapeSet.def(py::init([] (const BOPTools_DataMapOfShapeSet &other) {return new BOPTools_DataMapOfShapeSet(other);}), "Copy constructor", py::arg("other"));
-	cls_BOPTools_DataMapOfShapeSet.def("begin", (BOPTools_DataMapOfShapeSet::iterator (BOPTools_DataMapOfShapeSet::*)() const ) &BOPTools_DataMapOfShapeSet::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_BOPTools_DataMapOfShapeSet.def("end", (BOPTools_DataMapOfShapeSet::iterator (BOPTools_DataMapOfShapeSet::*)() const ) &BOPTools_DataMapOfShapeSet::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_BOPTools_DataMapOfShapeSet.def("cbegin", (BOPTools_DataMapOfShapeSet::const_iterator (BOPTools_DataMapOfShapeSet::*)() const ) &BOPTools_DataMapOfShapeSet::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_BOPTools_DataMapOfShapeSet.def("cend", (BOPTools_DataMapOfShapeSet::const_iterator (BOPTools_DataMapOfShapeSet::*)() const ) &BOPTools_DataMapOfShapeSet::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_BOPTools_DataMapOfShapeSet.def("Exchange", (void (BOPTools_DataMapOfShapeSet::*)(BOPTools_DataMapOfShapeSet &)) &BOPTools_DataMapOfShapeSet::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BOPTools_DataMapOfShapeSet.def("Assign", (BOPTools_DataMapOfShapeSet & (BOPTools_DataMapOfShapeSet::*)(const BOPTools_DataMapOfShapeSet &)) &BOPTools_DataMapOfShapeSet::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BOPTools_DataMapOfShapeSet.def("assign", (BOPTools_DataMapOfShapeSet & (BOPTools_DataMapOfShapeSet::*)(const BOPTools_DataMapOfShapeSet &)) &BOPTools_DataMapOfShapeSet::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BOPTools_DataMapOfShapeSet.def("ReSize", (void (BOPTools_DataMapOfShapeSet::*)(const Standard_Integer)) &BOPTools_DataMapOfShapeSet::ReSize, "ReSize", py::arg("N"));
-	cls_BOPTools_DataMapOfShapeSet.def("Bind", (Standard_Boolean (BOPTools_DataMapOfShapeSet::*)(const TopoDS_Shape &, const BOPTools_Set &)) &BOPTools_DataMapOfShapeSet::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_BOPTools_DataMapOfShapeSet.def("Bound", (BOPTools_Set * (BOPTools_DataMapOfShapeSet::*)(const TopoDS_Shape &, const BOPTools_Set &)) &BOPTools_DataMapOfShapeSet::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_BOPTools_DataMapOfShapeSet.def("IsBound", (Standard_Boolean (BOPTools_DataMapOfShapeSet::*)(const TopoDS_Shape &) const ) &BOPTools_DataMapOfShapeSet::IsBound, "IsBound", py::arg("theKey"));
-	cls_BOPTools_DataMapOfShapeSet.def("UnBind", (Standard_Boolean (BOPTools_DataMapOfShapeSet::*)(const TopoDS_Shape &)) &BOPTools_DataMapOfShapeSet::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_BOPTools_DataMapOfShapeSet.def("Seek", (const BOPTools_Set * (BOPTools_DataMapOfShapeSet::*)(const TopoDS_Shape &) const ) &BOPTools_DataMapOfShapeSet::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_BOPTools_DataMapOfShapeSet.def("Find", (const BOPTools_Set & (BOPTools_DataMapOfShapeSet::*)(const TopoDS_Shape &) const ) &BOPTools_DataMapOfShapeSet::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_BOPTools_DataMapOfShapeSet.def("Find", (Standard_Boolean (BOPTools_DataMapOfShapeSet::*)(const TopoDS_Shape &, BOPTools_Set &) const ) &BOPTools_DataMapOfShapeSet::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_BOPTools_DataMapOfShapeSet.def("__call__", (const BOPTools_Set & (BOPTools_DataMapOfShapeSet::*)(const TopoDS_Shape &) const ) &BOPTools_DataMapOfShapeSet::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_BOPTools_DataMapOfShapeSet.def("ChangeSeek", (BOPTools_Set * (BOPTools_DataMapOfShapeSet::*)(const TopoDS_Shape &)) &BOPTools_DataMapOfShapeSet::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_BOPTools_DataMapOfShapeSet.def("ChangeFind", (BOPTools_Set & (BOPTools_DataMapOfShapeSet::*)(const TopoDS_Shape &)) &BOPTools_DataMapOfShapeSet::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_BOPTools_DataMapOfShapeSet.def("__call__", (BOPTools_Set & (BOPTools_DataMapOfShapeSet::*)(const TopoDS_Shape &)) &BOPTools_DataMapOfShapeSet::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_BOPTools_DataMapOfShapeSet.def("Clear", [](BOPTools_DataMapOfShapeSet &self) -> void { return self.Clear(); });
-	cls_BOPTools_DataMapOfShapeSet.def("Clear", (void (BOPTools_DataMapOfShapeSet::*)(const Standard_Boolean)) &BOPTools_DataMapOfShapeSet::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BOPTools_DataMapOfShapeSet.def("Clear", (void (BOPTools_DataMapOfShapeSet::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BOPTools_DataMapOfShapeSet::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BOPTools_DataMapOfShapeSet.def("Size", (Standard_Integer (BOPTools_DataMapOfShapeSet::*)() const ) &BOPTools_DataMapOfShapeSet::Size, "Size");
-	cls_BOPTools_DataMapOfShapeSet.def("__iter__", [](const BOPTools_DataMapOfShapeSet &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPTools_ListOfCoupleOfShape.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPTools_DataMapOfShapeSet.hxx
+	bind_NCollection_DataMap<TopoDS_Shape, BOPTools_Set, TopTools_ShapeMapHasher>(mod, "BOPTools_DataMapOfShapeSet");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPTools_DataMapOfShapeSet.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<BOPTools_ListOfEdgeSet, std::unique_ptr<BOPTools_ListOfEdgeSet, Deleter<BOPTools_ListOfEdgeSet>>, NCollection_BaseList> cls_BOPTools_ListOfEdgeSet(mod, "BOPTools_ListOfEdgeSet", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_BOPTools_ListOfEdgeSet.def(py::init<>());
-	cls_BOPTools_ListOfEdgeSet.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_BOPTools_ListOfEdgeSet.def(py::init([] (const BOPTools_ListOfEdgeSet &other) {return new BOPTools_ListOfEdgeSet(other);}), "Copy constructor", py::arg("other"));
-	cls_BOPTools_ListOfEdgeSet.def("begin", (BOPTools_ListOfEdgeSet::iterator (BOPTools_ListOfEdgeSet::*)() const ) &BOPTools_ListOfEdgeSet::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_BOPTools_ListOfEdgeSet.def("end", (BOPTools_ListOfEdgeSet::iterator (BOPTools_ListOfEdgeSet::*)() const ) &BOPTools_ListOfEdgeSet::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_BOPTools_ListOfEdgeSet.def("cbegin", (BOPTools_ListOfEdgeSet::const_iterator (BOPTools_ListOfEdgeSet::*)() const ) &BOPTools_ListOfEdgeSet::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_BOPTools_ListOfEdgeSet.def("cend", (BOPTools_ListOfEdgeSet::const_iterator (BOPTools_ListOfEdgeSet::*)() const ) &BOPTools_ListOfEdgeSet::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_BOPTools_ListOfEdgeSet.def("Size", (Standard_Integer (BOPTools_ListOfEdgeSet::*)() const ) &BOPTools_ListOfEdgeSet::Size, "Size - Number of items");
-	cls_BOPTools_ListOfEdgeSet.def("Assign", (BOPTools_ListOfEdgeSet & (BOPTools_ListOfEdgeSet::*)(const BOPTools_ListOfEdgeSet &)) &BOPTools_ListOfEdgeSet::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BOPTools_ListOfEdgeSet.def("assign", (BOPTools_ListOfEdgeSet & (BOPTools_ListOfEdgeSet::*)(const BOPTools_ListOfEdgeSet &)) &BOPTools_ListOfEdgeSet::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_BOPTools_ListOfEdgeSet.def("Clear", [](BOPTools_ListOfEdgeSet &self) -> void { return self.Clear(); });
-	cls_BOPTools_ListOfEdgeSet.def("Clear", (void (BOPTools_ListOfEdgeSet::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BOPTools_ListOfEdgeSet::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_BOPTools_ListOfEdgeSet.def("First", (const BOPTools_EdgeSet & (BOPTools_ListOfEdgeSet::*)() const ) &BOPTools_ListOfEdgeSet::First, "First item");
-	cls_BOPTools_ListOfEdgeSet.def("First", (BOPTools_EdgeSet & (BOPTools_ListOfEdgeSet::*)()) &BOPTools_ListOfEdgeSet::First, "First item (non-const)");
-	cls_BOPTools_ListOfEdgeSet.def("Last", (const BOPTools_EdgeSet & (BOPTools_ListOfEdgeSet::*)() const ) &BOPTools_ListOfEdgeSet::Last, "Last item");
-	cls_BOPTools_ListOfEdgeSet.def("Last", (BOPTools_EdgeSet & (BOPTools_ListOfEdgeSet::*)()) &BOPTools_ListOfEdgeSet::Last, "Last item (non-const)");
-	cls_BOPTools_ListOfEdgeSet.def("Append", (BOPTools_EdgeSet & (BOPTools_ListOfEdgeSet::*)(const BOPTools_EdgeSet &)) &BOPTools_ListOfEdgeSet::Append, "Append one item at the end", py::arg("theItem"));
-	cls_BOPTools_ListOfEdgeSet.def("Append", (void (BOPTools_ListOfEdgeSet::*)(const BOPTools_EdgeSet &, BOPTools_ListOfEdgeSet::Iterator &)) &BOPTools_ListOfEdgeSet::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPTools_ListOfEdgeSet.def("Append", (void (BOPTools_ListOfEdgeSet::*)(BOPTools_ListOfEdgeSet &)) &BOPTools_ListOfEdgeSet::Append, "Append another list at the end", py::arg("theOther"));
-	cls_BOPTools_ListOfEdgeSet.def("Prepend", (BOPTools_EdgeSet & (BOPTools_ListOfEdgeSet::*)(const BOPTools_EdgeSet &)) &BOPTools_ListOfEdgeSet::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_BOPTools_ListOfEdgeSet.def("Prepend", (void (BOPTools_ListOfEdgeSet::*)(BOPTools_ListOfEdgeSet &)) &BOPTools_ListOfEdgeSet::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_BOPTools_ListOfEdgeSet.def("RemoveFirst", (void (BOPTools_ListOfEdgeSet::*)()) &BOPTools_ListOfEdgeSet::RemoveFirst, "RemoveFirst item");
-	cls_BOPTools_ListOfEdgeSet.def("Remove", (void (BOPTools_ListOfEdgeSet::*)(BOPTools_ListOfEdgeSet::Iterator &)) &BOPTools_ListOfEdgeSet::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_BOPTools_ListOfEdgeSet.def("InsertBefore", (BOPTools_EdgeSet & (BOPTools_ListOfEdgeSet::*)(const BOPTools_EdgeSet &, BOPTools_ListOfEdgeSet::Iterator &)) &BOPTools_ListOfEdgeSet::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPTools_ListOfEdgeSet.def("InsertBefore", (void (BOPTools_ListOfEdgeSet::*)(BOPTools_ListOfEdgeSet &, BOPTools_ListOfEdgeSet::Iterator &)) &BOPTools_ListOfEdgeSet::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_BOPTools_ListOfEdgeSet.def("InsertAfter", (BOPTools_EdgeSet & (BOPTools_ListOfEdgeSet::*)(const BOPTools_EdgeSet &, BOPTools_ListOfEdgeSet::Iterator &)) &BOPTools_ListOfEdgeSet::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPTools_ListOfEdgeSet.def("InsertAfter", (void (BOPTools_ListOfEdgeSet::*)(BOPTools_ListOfEdgeSet &, BOPTools_ListOfEdgeSet::Iterator &)) &BOPTools_ListOfEdgeSet::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_BOPTools_ListOfEdgeSet.def("Reverse", (void (BOPTools_ListOfEdgeSet::*)()) &BOPTools_ListOfEdgeSet::Reverse, "Reverse the list");
-	cls_BOPTools_ListOfEdgeSet.def("__iter__", [](const BOPTools_ListOfEdgeSet &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPTools_ListOfEdgeSet.hxx
+	bind_NCollection_List<BOPTools_EdgeSet>(mod, "BOPTools_ListOfEdgeSet");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<BOPTools_ListIteratorOfListOfEdgeSet, std::unique_ptr<BOPTools_ListIteratorOfListOfEdgeSet, Deleter<BOPTools_ListIteratorOfListOfEdgeSet>>> cls_BOPTools_ListIteratorOfListOfEdgeSet(mod, "BOPTools_ListIteratorOfListOfEdgeSet", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_BOPTools_ListIteratorOfListOfEdgeSet.def(py::init<>());
-	cls_BOPTools_ListIteratorOfListOfEdgeSet.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_BOPTools_ListIteratorOfListOfEdgeSet.def("More", (Standard_Boolean (BOPTools_ListIteratorOfListOfEdgeSet::*)() const ) &BOPTools_ListIteratorOfListOfEdgeSet::More, "Check end");
-	cls_BOPTools_ListIteratorOfListOfEdgeSet.def("Next", (void (BOPTools_ListIteratorOfListOfEdgeSet::*)()) &BOPTools_ListIteratorOfListOfEdgeSet::Next, "Make step");
-	cls_BOPTools_ListIteratorOfListOfEdgeSet.def("Value", (const BOPTools_EdgeSet & (BOPTools_ListIteratorOfListOfEdgeSet::*)() const ) &BOPTools_ListIteratorOfListOfEdgeSet::Value, "Constant Value access");
-	cls_BOPTools_ListIteratorOfListOfEdgeSet.def("Value", (BOPTools_EdgeSet & (BOPTools_ListIteratorOfListOfEdgeSet::*)()) &BOPTools_ListIteratorOfListOfEdgeSet::Value, "Non-const Value access");
-	cls_BOPTools_ListIteratorOfListOfEdgeSet.def("ChangeValue", (BOPTools_EdgeSet & (BOPTools_ListIteratorOfListOfEdgeSet::*)() const ) &BOPTools_ListIteratorOfListOfEdgeSet::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPTools_ListOfEdgeSet.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPTools_ListOfShapeSet.hxx
+	bind_NCollection_List<BOPTools_ShapeSet>(mod, "BOPTools_ListOfShapeSet");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<BOPTools_ListOfShapeSet, std::unique_ptr<BOPTools_ListOfShapeSet, Deleter<BOPTools_ListOfShapeSet>>, NCollection_BaseList> cls_BOPTools_ListOfShapeSet(mod, "BOPTools_ListOfShapeSet", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_BOPTools_ListOfShapeSet.def(py::init<>());
-	cls_BOPTools_ListOfShapeSet.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_BOPTools_ListOfShapeSet.def(py::init([] (const BOPTools_ListOfShapeSet &other) {return new BOPTools_ListOfShapeSet(other);}), "Copy constructor", py::arg("other"));
-	cls_BOPTools_ListOfShapeSet.def("begin", (BOPTools_ListOfShapeSet::iterator (BOPTools_ListOfShapeSet::*)() const ) &BOPTools_ListOfShapeSet::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_BOPTools_ListOfShapeSet.def("end", (BOPTools_ListOfShapeSet::iterator (BOPTools_ListOfShapeSet::*)() const ) &BOPTools_ListOfShapeSet::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_BOPTools_ListOfShapeSet.def("cbegin", (BOPTools_ListOfShapeSet::const_iterator (BOPTools_ListOfShapeSet::*)() const ) &BOPTools_ListOfShapeSet::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_BOPTools_ListOfShapeSet.def("cend", (BOPTools_ListOfShapeSet::const_iterator (BOPTools_ListOfShapeSet::*)() const ) &BOPTools_ListOfShapeSet::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_BOPTools_ListOfShapeSet.def("Size", (Standard_Integer (BOPTools_ListOfShapeSet::*)() const ) &BOPTools_ListOfShapeSet::Size, "Size - Number of items");
-	cls_BOPTools_ListOfShapeSet.def("Assign", (BOPTools_ListOfShapeSet & (BOPTools_ListOfShapeSet::*)(const BOPTools_ListOfShapeSet &)) &BOPTools_ListOfShapeSet::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BOPTools_ListOfShapeSet.def("assign", (BOPTools_ListOfShapeSet & (BOPTools_ListOfShapeSet::*)(const BOPTools_ListOfShapeSet &)) &BOPTools_ListOfShapeSet::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_BOPTools_ListOfShapeSet.def("Clear", [](BOPTools_ListOfShapeSet &self) -> void { return self.Clear(); });
-	cls_BOPTools_ListOfShapeSet.def("Clear", (void (BOPTools_ListOfShapeSet::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BOPTools_ListOfShapeSet::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_BOPTools_ListOfShapeSet.def("First", (const BOPTools_ShapeSet & (BOPTools_ListOfShapeSet::*)() const ) &BOPTools_ListOfShapeSet::First, "First item");
-	cls_BOPTools_ListOfShapeSet.def("First", (BOPTools_ShapeSet & (BOPTools_ListOfShapeSet::*)()) &BOPTools_ListOfShapeSet::First, "First item (non-const)");
-	cls_BOPTools_ListOfShapeSet.def("Last", (const BOPTools_ShapeSet & (BOPTools_ListOfShapeSet::*)() const ) &BOPTools_ListOfShapeSet::Last, "Last item");
-	cls_BOPTools_ListOfShapeSet.def("Last", (BOPTools_ShapeSet & (BOPTools_ListOfShapeSet::*)()) &BOPTools_ListOfShapeSet::Last, "Last item (non-const)");
-	cls_BOPTools_ListOfShapeSet.def("Append", (BOPTools_ShapeSet & (BOPTools_ListOfShapeSet::*)(const BOPTools_ShapeSet &)) &BOPTools_ListOfShapeSet::Append, "Append one item at the end", py::arg("theItem"));
-	cls_BOPTools_ListOfShapeSet.def("Append", (void (BOPTools_ListOfShapeSet::*)(const BOPTools_ShapeSet &, BOPTools_ListOfShapeSet::Iterator &)) &BOPTools_ListOfShapeSet::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPTools_ListOfShapeSet.def("Append", (void (BOPTools_ListOfShapeSet::*)(BOPTools_ListOfShapeSet &)) &BOPTools_ListOfShapeSet::Append, "Append another list at the end", py::arg("theOther"));
-	cls_BOPTools_ListOfShapeSet.def("Prepend", (BOPTools_ShapeSet & (BOPTools_ListOfShapeSet::*)(const BOPTools_ShapeSet &)) &BOPTools_ListOfShapeSet::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_BOPTools_ListOfShapeSet.def("Prepend", (void (BOPTools_ListOfShapeSet::*)(BOPTools_ListOfShapeSet &)) &BOPTools_ListOfShapeSet::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_BOPTools_ListOfShapeSet.def("RemoveFirst", (void (BOPTools_ListOfShapeSet::*)()) &BOPTools_ListOfShapeSet::RemoveFirst, "RemoveFirst item");
-	cls_BOPTools_ListOfShapeSet.def("Remove", (void (BOPTools_ListOfShapeSet::*)(BOPTools_ListOfShapeSet::Iterator &)) &BOPTools_ListOfShapeSet::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_BOPTools_ListOfShapeSet.def("InsertBefore", (BOPTools_ShapeSet & (BOPTools_ListOfShapeSet::*)(const BOPTools_ShapeSet &, BOPTools_ListOfShapeSet::Iterator &)) &BOPTools_ListOfShapeSet::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPTools_ListOfShapeSet.def("InsertBefore", (void (BOPTools_ListOfShapeSet::*)(BOPTools_ListOfShapeSet &, BOPTools_ListOfShapeSet::Iterator &)) &BOPTools_ListOfShapeSet::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_BOPTools_ListOfShapeSet.def("InsertAfter", (BOPTools_ShapeSet & (BOPTools_ListOfShapeSet::*)(const BOPTools_ShapeSet &, BOPTools_ListOfShapeSet::Iterator &)) &BOPTools_ListOfShapeSet::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPTools_ListOfShapeSet.def("InsertAfter", (void (BOPTools_ListOfShapeSet::*)(BOPTools_ListOfShapeSet &, BOPTools_ListOfShapeSet::Iterator &)) &BOPTools_ListOfShapeSet::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_BOPTools_ListOfShapeSet.def("Reverse", (void (BOPTools_ListOfShapeSet::*)()) &BOPTools_ListOfShapeSet::Reverse, "Reverse the list");
-	cls_BOPTools_ListOfShapeSet.def("__iter__", [](const BOPTools_ListOfShapeSet &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<BOPTools_ListIteratorOfListOfShapeSet, std::unique_ptr<BOPTools_ListIteratorOfListOfShapeSet, Deleter<BOPTools_ListIteratorOfListOfShapeSet>>> cls_BOPTools_ListIteratorOfListOfShapeSet(mod, "BOPTools_ListIteratorOfListOfShapeSet", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_BOPTools_ListIteratorOfListOfShapeSet.def(py::init<>());
-	cls_BOPTools_ListIteratorOfListOfShapeSet.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_BOPTools_ListIteratorOfListOfShapeSet.def("More", (Standard_Boolean (BOPTools_ListIteratorOfListOfShapeSet::*)() const ) &BOPTools_ListIteratorOfListOfShapeSet::More, "Check end");
-	cls_BOPTools_ListIteratorOfListOfShapeSet.def("Next", (void (BOPTools_ListIteratorOfListOfShapeSet::*)()) &BOPTools_ListIteratorOfListOfShapeSet::Next, "Make step");
-	cls_BOPTools_ListIteratorOfListOfShapeSet.def("Value", (const BOPTools_ShapeSet & (BOPTools_ListIteratorOfListOfShapeSet::*)() const ) &BOPTools_ListIteratorOfListOfShapeSet::Value, "Constant Value access");
-	cls_BOPTools_ListIteratorOfListOfShapeSet.def("Value", (BOPTools_ShapeSet & (BOPTools_ListIteratorOfListOfShapeSet::*)()) &BOPTools_ListIteratorOfListOfShapeSet::Value, "Non-const Value access");
-	cls_BOPTools_ListIteratorOfListOfShapeSet.def("ChangeValue", (BOPTools_ShapeSet & (BOPTools_ListIteratorOfListOfShapeSet::*)() const ) &BOPTools_ListIteratorOfListOfShapeSet::ChangeValue, "Non-const Value access");
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Map.hxx
-	py::class_<BOPTools_MapOfSet, std::unique_ptr<BOPTools_MapOfSet, Deleter<BOPTools_MapOfSet>>, NCollection_BaseMap> cls_BOPTools_MapOfSet(mod, "BOPTools_MapOfSet", "Purpose: Single hashed Map. This Map is used to store and retrieve keys in linear time.");
-	cls_BOPTools_MapOfSet.def(py::init<>());
-	cls_BOPTools_MapOfSet.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BOPTools_MapOfSet.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BOPTools_MapOfSet.def(py::init([] (const BOPTools_MapOfSet &other) {return new BOPTools_MapOfSet(other);}), "Copy constructor", py::arg("other"));
-	cls_BOPTools_MapOfSet.def("cbegin", (BOPTools_MapOfSet::const_iterator (BOPTools_MapOfSet::*)() const ) &BOPTools_MapOfSet::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_BOPTools_MapOfSet.def("cend", (BOPTools_MapOfSet::const_iterator (BOPTools_MapOfSet::*)() const ) &BOPTools_MapOfSet::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_BOPTools_MapOfSet.def("Exchange", (void (BOPTools_MapOfSet::*)(BOPTools_MapOfSet &)) &BOPTools_MapOfSet::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BOPTools_MapOfSet.def("Assign", (BOPTools_MapOfSet & (BOPTools_MapOfSet::*)(const BOPTools_MapOfSet &)) &BOPTools_MapOfSet::Assign, "Assign. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BOPTools_MapOfSet.def("assign", (BOPTools_MapOfSet & (BOPTools_MapOfSet::*)(const BOPTools_MapOfSet &)) &BOPTools_MapOfSet::operator=, py::is_operator(), "Assign operator", py::arg("theOther"));
-	cls_BOPTools_MapOfSet.def("ReSize", (void (BOPTools_MapOfSet::*)(const Standard_Integer)) &BOPTools_MapOfSet::ReSize, "ReSize", py::arg("N"));
-	cls_BOPTools_MapOfSet.def("Add", (Standard_Boolean (BOPTools_MapOfSet::*)(const BOPTools_Set &)) &BOPTools_MapOfSet::Add, "Add", py::arg("K"));
-	cls_BOPTools_MapOfSet.def("Added", (const BOPTools_Set & (BOPTools_MapOfSet::*)(const BOPTools_Set &)) &BOPTools_MapOfSet::Added, "Added: add a new key if not yet in the map, and return reference to either newly added or previously existing object", py::arg("K"));
-	cls_BOPTools_MapOfSet.def("Contains", (Standard_Boolean (BOPTools_MapOfSet::*)(const BOPTools_Set &) const ) &BOPTools_MapOfSet::Contains, "Contains", py::arg("K"));
-	cls_BOPTools_MapOfSet.def("Remove", (Standard_Boolean (BOPTools_MapOfSet::*)(const BOPTools_Set &)) &BOPTools_MapOfSet::Remove, "Remove", py::arg("K"));
-	cls_BOPTools_MapOfSet.def("Clear", [](BOPTools_MapOfSet &self) -> void { return self.Clear(); });
-	cls_BOPTools_MapOfSet.def("Clear", (void (BOPTools_MapOfSet::*)(const Standard_Boolean)) &BOPTools_MapOfSet::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BOPTools_MapOfSet.def("Clear", (void (BOPTools_MapOfSet::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BOPTools_MapOfSet::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BOPTools_MapOfSet.def("Size", (Standard_Integer (BOPTools_MapOfSet::*)() const ) &BOPTools_MapOfSet::Size, "Size");
-	cls_BOPTools_MapOfSet.def("IsEqual", (Standard_Boolean (BOPTools_MapOfSet::*)(const BOPTools_MapOfSet &) const ) &BOPTools_MapOfSet::IsEqual, "Returns true if two maps contains exactly the same keys", py::arg("theOther"));
-	cls_BOPTools_MapOfSet.def("Contains", (Standard_Boolean (BOPTools_MapOfSet::*)(const BOPTools_MapOfSet &) const ) &BOPTools_MapOfSet::Contains, "Returns true if this map contains ALL keys of another map.", py::arg("theOther"));
-	cls_BOPTools_MapOfSet.def("Union", (void (BOPTools_MapOfSet::*)(const BOPTools_MapOfSet &, const BOPTools_MapOfSet &)) &BOPTools_MapOfSet::Union, "Sets this Map to be the result of union (aka addition, fuse, merge, boolean OR) operation between two given Maps The new Map contains the values that are contained either in the first map or in the second map or in both. All previous content of this Map is cleared. This map (result of the boolean operation) can also be passed as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_BOPTools_MapOfSet.def("Unite", (Standard_Boolean (BOPTools_MapOfSet::*)(const BOPTools_MapOfSet &)) &BOPTools_MapOfSet::Unite, "Apply to this Map the boolean operation union (aka addition, fuse, merge, boolean OR) with another (given) Map. The result contains the values that were previously contained in this map or contained in the given (operand) map. This algorithm is similar to method Union(). Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_BOPTools_MapOfSet.def("HasIntersection", (Standard_Boolean (BOPTools_MapOfSet::*)(const BOPTools_MapOfSet &) const ) &BOPTools_MapOfSet::HasIntersection, "Returns true if this and theMap have common elements.", py::arg("theMap"));
-	cls_BOPTools_MapOfSet.def("Intersection", (void (BOPTools_MapOfSet::*)(const BOPTools_MapOfSet &, const BOPTools_MapOfSet &)) &BOPTools_MapOfSet::Intersection, "Sets this Map to be the result of intersection (aka multiplication, common, boolean AND) operation between two given Maps. The new Map contains only the values that are contained in both map operands. All previous content of this Map is cleared. This same map (result of the boolean operation) can also be used as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_BOPTools_MapOfSet.def("Intersect", (Standard_Boolean (BOPTools_MapOfSet::*)(const BOPTools_MapOfSet &)) &BOPTools_MapOfSet::Intersect, "Apply to this Map the intersection operation (aka multiplication, common, boolean AND) with another (given) Map. The result contains only the values that are contained in both this and the given maps. This algorithm is similar to method Intersection(). Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_BOPTools_MapOfSet.def("Subtraction", (void (BOPTools_MapOfSet::*)(const BOPTools_MapOfSet &, const BOPTools_MapOfSet &)) &BOPTools_MapOfSet::Subtraction, "Sets this Map to be the result of subtraction (aka set-theoretic difference, relative complement, exclude, cut, boolean NOT) operation between two given Maps. The new Map contains only the values that are contained in the first map operands and not contained in the second one. All previous content of this Map is cleared.", py::arg("theLeft"), py::arg("theRight"));
-	cls_BOPTools_MapOfSet.def("Subtract", (Standard_Boolean (BOPTools_MapOfSet::*)(const BOPTools_MapOfSet &)) &BOPTools_MapOfSet::Subtract, "Apply to this Map the subtraction (aka set-theoretic difference, relative complement, exclude, cut, boolean NOT) operation with another (given) Map. The result contains only the values that were previously contained in this map and not contained in this map. This algorithm is similar to method Subtract() with two operands. Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_BOPTools_MapOfSet.def("Difference", (void (BOPTools_MapOfSet::*)(const BOPTools_MapOfSet &, const BOPTools_MapOfSet &)) &BOPTools_MapOfSet::Difference, "Sets this Map to be the result of symmetric difference (aka exclusive disjunction, boolean XOR) operation between two given Maps. The new Map contains the values that are contained only in the first or the second operand maps but not in both. All previous content of this Map is cleared. This map (result of the boolean operation) can also be used as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_BOPTools_MapOfSet.def("Differ", (Standard_Boolean (BOPTools_MapOfSet::*)(const BOPTools_MapOfSet &)) &BOPTools_MapOfSet::Differ, "Apply to this Map the symmetric difference (aka exclusive disjunction, boolean XOR) operation with another (given) Map. The result contains the values that are contained only in this or the operand map, but not in both. This algorithm is similar to method Difference(). Returns True if contents of this map is changed.", py::arg("theOther"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPTools_ListOfShapeSet.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPTools_MapOfSet.hxx
+	bind_NCollection_Map<BOPTools_Set, BOPTools_SetMapHasher>(mod, "BOPTools_MapOfSet");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPTools_MapOfSet.hxx
 

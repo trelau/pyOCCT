@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_TypeDef.hxx>
 #include <NCollection_Array2.hxx>
@@ -43,6 +34,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <FEmTool_LinearFlexion.hxx>
 #include <FEmTool_LinearJerk.hxx>
 #include <FEmTool_LinearTension.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(FEmTool, mod) {
 
@@ -63,28 +55,8 @@ PYBIND11_MODULE(FEmTool, mod) {
 	// FUNCTIONS
 
 	// CLASSES
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array2.hxx
-	py::class_<FEmTool_AssemblyTable, std::unique_ptr<FEmTool_AssemblyTable, Deleter<FEmTool_AssemblyTable>>> cls_FEmTool_AssemblyTable(mod, "FEmTool_AssemblyTable", "Purpose: The class Array2 represents bi-dimensional arrays of fixed size known at run time. The ranges of indices are user defined.");
-	cls_FEmTool_AssemblyTable.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_FEmTool_AssemblyTable.def(py::init([] (const FEmTool_AssemblyTable &other) {return new FEmTool_AssemblyTable(other);}), "Copy constructor", py::arg("other"));
-	cls_FEmTool_AssemblyTable.def(py::init<const opencascade::handle<TColStd_HArray1OfInteger> &, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_FEmTool_AssemblyTable.def("Init", (void (FEmTool_AssemblyTable::*)(const opencascade::handle<TColStd_HArray1OfInteger> &)) &FEmTool_AssemblyTable::Init, "Initialise the values", py::arg("theValue"));
-	cls_FEmTool_AssemblyTable.def("Size", (Standard_Integer (FEmTool_AssemblyTable::*)() const ) &FEmTool_AssemblyTable::Size, "Size (number of items)");
-	cls_FEmTool_AssemblyTable.def("Length", (Standard_Integer (FEmTool_AssemblyTable::*)() const ) &FEmTool_AssemblyTable::Length, "Length (number of items)");
-	cls_FEmTool_AssemblyTable.def("RowLength", (Standard_Integer (FEmTool_AssemblyTable::*)() const ) &FEmTool_AssemblyTable::RowLength, "Returns length of the row, i.e. number of columns");
-	cls_FEmTool_AssemblyTable.def("ColLength", (Standard_Integer (FEmTool_AssemblyTable::*)() const ) &FEmTool_AssemblyTable::ColLength, "Returns length of the column, i.e. number of rows");
-	cls_FEmTool_AssemblyTable.def("LowerRow", (Standard_Integer (FEmTool_AssemblyTable::*)() const ) &FEmTool_AssemblyTable::LowerRow, "LowerRow");
-	cls_FEmTool_AssemblyTable.def("UpperRow", (Standard_Integer (FEmTool_AssemblyTable::*)() const ) &FEmTool_AssemblyTable::UpperRow, "UpperRow");
-	cls_FEmTool_AssemblyTable.def("LowerCol", (Standard_Integer (FEmTool_AssemblyTable::*)() const ) &FEmTool_AssemblyTable::LowerCol, "LowerCol");
-	cls_FEmTool_AssemblyTable.def("UpperCol", (Standard_Integer (FEmTool_AssemblyTable::*)() const ) &FEmTool_AssemblyTable::UpperCol, "UpperCol");
-	cls_FEmTool_AssemblyTable.def("IsDeletable", (Standard_Boolean (FEmTool_AssemblyTable::*)() const ) &FEmTool_AssemblyTable::IsDeletable, "myDeletable flag");
-	cls_FEmTool_AssemblyTable.def("Assign", (FEmTool_AssemblyTable & (FEmTool_AssemblyTable::*)(const FEmTool_AssemblyTable &)) &FEmTool_AssemblyTable::Assign, "Assignment", py::arg("theOther"));
-	cls_FEmTool_AssemblyTable.def("assign", (FEmTool_AssemblyTable & (FEmTool_AssemblyTable::*)(const FEmTool_AssemblyTable &)) &FEmTool_AssemblyTable::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_FEmTool_AssemblyTable.def("Value", (const opencascade::handle<TColStd_HArray1OfInteger> & (FEmTool_AssemblyTable::*)(const Standard_Integer, const Standard_Integer) const ) &FEmTool_AssemblyTable::Value, "Constant value access", py::arg("theRow"), py::arg("theCol"));
-	cls_FEmTool_AssemblyTable.def("__call__", (const opencascade::handle<TColStd_HArray1OfInteger> & (FEmTool_AssemblyTable::*)(const Standard_Integer, const Standard_Integer) const ) &FEmTool_AssemblyTable::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_FEmTool_AssemblyTable.def("ChangeValue", (opencascade::handle<TColStd_HArray1OfInteger> & (FEmTool_AssemblyTable::*)(const Standard_Integer, const Standard_Integer)) &FEmTool_AssemblyTable::ChangeValue, "Variable value access", py::arg("theRow"), py::arg("theCol"));
-	cls_FEmTool_AssemblyTable.def("__call__", (opencascade::handle<TColStd_HArray1OfInteger> & (FEmTool_AssemblyTable::*)(const Standard_Integer, const Standard_Integer)) &FEmTool_AssemblyTable::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_FEmTool_AssemblyTable.def("SetValue", (void (FEmTool_AssemblyTable::*)(const Standard_Integer, const Standard_Integer, const opencascade::handle<TColStd_HArray1OfInteger> &)) &FEmTool_AssemblyTable::SetValue, "SetValue", py::arg("theRow"), py::arg("theCol"), py::arg("theItem"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\FEmTool_AssemblyTable.hxx
+	bind_NCollection_Array2<opencascade::handle<TColStd_HArray1OfInteger> >(mod, "FEmTool_AssemblyTable");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\FEmTool_Curve.hxx
 	py::class_<FEmTool_Curve, opencascade::handle<FEmTool_Curve>, Standard_Transient> cls_FEmTool_Curve(mod, "FEmTool_Curve", "Curve defined by Polynomial Elements.");
@@ -223,92 +195,14 @@ PYBIND11_MODULE(FEmTool, mod) {
 	cls_FEmTool_HAssemblyTable.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &FEmTool_HAssemblyTable::get_type_descriptor, "None");
 	cls_FEmTool_HAssemblyTable.def("DynamicType", (const opencascade::handle<Standard_Type> & (FEmTool_HAssemblyTable::*)() const ) &FEmTool_HAssemblyTable::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<FEmTool_ListOfVectors, std::unique_ptr<FEmTool_ListOfVectors, Deleter<FEmTool_ListOfVectors>>, NCollection_BaseList> cls_FEmTool_ListOfVectors(mod, "FEmTool_ListOfVectors", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_FEmTool_ListOfVectors.def(py::init<>());
-	cls_FEmTool_ListOfVectors.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_FEmTool_ListOfVectors.def(py::init([] (const FEmTool_ListOfVectors &other) {return new FEmTool_ListOfVectors(other);}), "Copy constructor", py::arg("other"));
-	cls_FEmTool_ListOfVectors.def("begin", (FEmTool_ListOfVectors::iterator (FEmTool_ListOfVectors::*)() const ) &FEmTool_ListOfVectors::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_FEmTool_ListOfVectors.def("end", (FEmTool_ListOfVectors::iterator (FEmTool_ListOfVectors::*)() const ) &FEmTool_ListOfVectors::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_FEmTool_ListOfVectors.def("cbegin", (FEmTool_ListOfVectors::const_iterator (FEmTool_ListOfVectors::*)() const ) &FEmTool_ListOfVectors::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_FEmTool_ListOfVectors.def("cend", (FEmTool_ListOfVectors::const_iterator (FEmTool_ListOfVectors::*)() const ) &FEmTool_ListOfVectors::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_FEmTool_ListOfVectors.def("Size", (Standard_Integer (FEmTool_ListOfVectors::*)() const ) &FEmTool_ListOfVectors::Size, "Size - Number of items");
-	cls_FEmTool_ListOfVectors.def("Assign", (FEmTool_ListOfVectors & (FEmTool_ListOfVectors::*)(const FEmTool_ListOfVectors &)) &FEmTool_ListOfVectors::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_FEmTool_ListOfVectors.def("assign", (FEmTool_ListOfVectors & (FEmTool_ListOfVectors::*)(const FEmTool_ListOfVectors &)) &FEmTool_ListOfVectors::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_FEmTool_ListOfVectors.def("Clear", [](FEmTool_ListOfVectors &self) -> void { return self.Clear(); });
-	cls_FEmTool_ListOfVectors.def("Clear", (void (FEmTool_ListOfVectors::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &FEmTool_ListOfVectors::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_FEmTool_ListOfVectors.def("First", (const opencascade::handle<TColStd_HArray1OfReal> & (FEmTool_ListOfVectors::*)() const ) &FEmTool_ListOfVectors::First, "First item");
-	cls_FEmTool_ListOfVectors.def("First", (opencascade::handle<TColStd_HArray1OfReal> & (FEmTool_ListOfVectors::*)()) &FEmTool_ListOfVectors::First, "First item (non-const)");
-	cls_FEmTool_ListOfVectors.def("Last", (const opencascade::handle<TColStd_HArray1OfReal> & (FEmTool_ListOfVectors::*)() const ) &FEmTool_ListOfVectors::Last, "Last item");
-	cls_FEmTool_ListOfVectors.def("Last", (opencascade::handle<TColStd_HArray1OfReal> & (FEmTool_ListOfVectors::*)()) &FEmTool_ListOfVectors::Last, "Last item (non-const)");
-	cls_FEmTool_ListOfVectors.def("Append", (opencascade::handle<TColStd_HArray1OfReal> & (FEmTool_ListOfVectors::*)(const opencascade::handle<TColStd_HArray1OfReal> &)) &FEmTool_ListOfVectors::Append, "Append one item at the end", py::arg("theItem"));
-	cls_FEmTool_ListOfVectors.def("Append", (void (FEmTool_ListOfVectors::*)(const opencascade::handle<TColStd_HArray1OfReal> &, FEmTool_ListOfVectors::Iterator &)) &FEmTool_ListOfVectors::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_FEmTool_ListOfVectors.def("Append", (void (FEmTool_ListOfVectors::*)(FEmTool_ListOfVectors &)) &FEmTool_ListOfVectors::Append, "Append another list at the end", py::arg("theOther"));
-	cls_FEmTool_ListOfVectors.def("Prepend", (opencascade::handle<TColStd_HArray1OfReal> & (FEmTool_ListOfVectors::*)(const opencascade::handle<TColStd_HArray1OfReal> &)) &FEmTool_ListOfVectors::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_FEmTool_ListOfVectors.def("Prepend", (void (FEmTool_ListOfVectors::*)(FEmTool_ListOfVectors &)) &FEmTool_ListOfVectors::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_FEmTool_ListOfVectors.def("RemoveFirst", (void (FEmTool_ListOfVectors::*)()) &FEmTool_ListOfVectors::RemoveFirst, "RemoveFirst item");
-	cls_FEmTool_ListOfVectors.def("Remove", (void (FEmTool_ListOfVectors::*)(FEmTool_ListOfVectors::Iterator &)) &FEmTool_ListOfVectors::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_FEmTool_ListOfVectors.def("InsertBefore", (opencascade::handle<TColStd_HArray1OfReal> & (FEmTool_ListOfVectors::*)(const opencascade::handle<TColStd_HArray1OfReal> &, FEmTool_ListOfVectors::Iterator &)) &FEmTool_ListOfVectors::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_FEmTool_ListOfVectors.def("InsertBefore", (void (FEmTool_ListOfVectors::*)(FEmTool_ListOfVectors &, FEmTool_ListOfVectors::Iterator &)) &FEmTool_ListOfVectors::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_FEmTool_ListOfVectors.def("InsertAfter", (opencascade::handle<TColStd_HArray1OfReal> & (FEmTool_ListOfVectors::*)(const opencascade::handle<TColStd_HArray1OfReal> &, FEmTool_ListOfVectors::Iterator &)) &FEmTool_ListOfVectors::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_FEmTool_ListOfVectors.def("InsertAfter", (void (FEmTool_ListOfVectors::*)(FEmTool_ListOfVectors &, FEmTool_ListOfVectors::Iterator &)) &FEmTool_ListOfVectors::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_FEmTool_ListOfVectors.def("Reverse", (void (FEmTool_ListOfVectors::*)()) &FEmTool_ListOfVectors::Reverse, "Reverse the list");
-	cls_FEmTool_ListOfVectors.def("__iter__", [](const FEmTool_ListOfVectors &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\FEmTool_ListOfVectors.hxx
+	bind_NCollection_List<opencascade::handle<TColStd_HArray1OfReal> >(mod, "FEmTool_ListOfVectors");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<FEmTool_ListIteratorOfListOfVectors, std::unique_ptr<FEmTool_ListIteratorOfListOfVectors, Deleter<FEmTool_ListIteratorOfListOfVectors>>> cls_FEmTool_ListIteratorOfListOfVectors(mod, "FEmTool_ListIteratorOfListOfVectors", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_FEmTool_ListIteratorOfListOfVectors.def(py::init<>());
-	cls_FEmTool_ListIteratorOfListOfVectors.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_FEmTool_ListIteratorOfListOfVectors.def("More", (Standard_Boolean (FEmTool_ListIteratorOfListOfVectors::*)() const ) &FEmTool_ListIteratorOfListOfVectors::More, "Check end");
-	cls_FEmTool_ListIteratorOfListOfVectors.def("Next", (void (FEmTool_ListIteratorOfListOfVectors::*)()) &FEmTool_ListIteratorOfListOfVectors::Next, "Make step");
-	cls_FEmTool_ListIteratorOfListOfVectors.def("Value", (const opencascade::handle<TColStd_HArray1OfReal> & (FEmTool_ListIteratorOfListOfVectors::*)() const ) &FEmTool_ListIteratorOfListOfVectors::Value, "Constant Value access");
-	cls_FEmTool_ListIteratorOfListOfVectors.def("Value", (opencascade::handle<TColStd_HArray1OfReal> & (FEmTool_ListIteratorOfListOfVectors::*)()) &FEmTool_ListIteratorOfListOfVectors::Value, "Non-const Value access");
-	cls_FEmTool_ListIteratorOfListOfVectors.def("ChangeValue", (opencascade::handle<TColStd_HArray1OfReal> & (FEmTool_ListIteratorOfListOfVectors::*)() const ) &FEmTool_ListIteratorOfListOfVectors::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\FEmTool_ListOfVectors.hxx
+	bind_NCollection_TListIterator<opencascade::handle<TColStd_HArray1OfReal> >(mod, "FEmTool_ListIteratorOfListOfVectors");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<FEmTool_SeqOfLinConstr, std::unique_ptr<FEmTool_SeqOfLinConstr, Deleter<FEmTool_SeqOfLinConstr>>, NCollection_BaseSequence> cls_FEmTool_SeqOfLinConstr(mod, "FEmTool_SeqOfLinConstr", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_FEmTool_SeqOfLinConstr.def(py::init<>());
-	cls_FEmTool_SeqOfLinConstr.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_FEmTool_SeqOfLinConstr.def(py::init([] (const FEmTool_SeqOfLinConstr &other) {return new FEmTool_SeqOfLinConstr(other);}), "Copy constructor", py::arg("other"));
-	cls_FEmTool_SeqOfLinConstr.def("begin", (FEmTool_SeqOfLinConstr::iterator (FEmTool_SeqOfLinConstr::*)() const ) &FEmTool_SeqOfLinConstr::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_FEmTool_SeqOfLinConstr.def("end", (FEmTool_SeqOfLinConstr::iterator (FEmTool_SeqOfLinConstr::*)() const ) &FEmTool_SeqOfLinConstr::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_FEmTool_SeqOfLinConstr.def("cbegin", (FEmTool_SeqOfLinConstr::const_iterator (FEmTool_SeqOfLinConstr::*)() const ) &FEmTool_SeqOfLinConstr::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_FEmTool_SeqOfLinConstr.def("cend", (FEmTool_SeqOfLinConstr::const_iterator (FEmTool_SeqOfLinConstr::*)() const ) &FEmTool_SeqOfLinConstr::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_FEmTool_SeqOfLinConstr.def("Size", (Standard_Integer (FEmTool_SeqOfLinConstr::*)() const ) &FEmTool_SeqOfLinConstr::Size, "Number of items");
-	cls_FEmTool_SeqOfLinConstr.def("Length", (Standard_Integer (FEmTool_SeqOfLinConstr::*)() const ) &FEmTool_SeqOfLinConstr::Length, "Number of items");
-	cls_FEmTool_SeqOfLinConstr.def("Lower", (Standard_Integer (FEmTool_SeqOfLinConstr::*)() const ) &FEmTool_SeqOfLinConstr::Lower, "Method for consistency with other collections.");
-	cls_FEmTool_SeqOfLinConstr.def("Upper", (Standard_Integer (FEmTool_SeqOfLinConstr::*)() const ) &FEmTool_SeqOfLinConstr::Upper, "Method for consistency with other collections.");
-	cls_FEmTool_SeqOfLinConstr.def("IsEmpty", (Standard_Boolean (FEmTool_SeqOfLinConstr::*)() const ) &FEmTool_SeqOfLinConstr::IsEmpty, "Empty query");
-	cls_FEmTool_SeqOfLinConstr.def("Reverse", (void (FEmTool_SeqOfLinConstr::*)()) &FEmTool_SeqOfLinConstr::Reverse, "Reverse sequence");
-	cls_FEmTool_SeqOfLinConstr.def("Exchange", (void (FEmTool_SeqOfLinConstr::*)(const Standard_Integer, const Standard_Integer)) &FEmTool_SeqOfLinConstr::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_FEmTool_SeqOfLinConstr.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &FEmTool_SeqOfLinConstr::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_FEmTool_SeqOfLinConstr.def("Clear", [](FEmTool_SeqOfLinConstr &self) -> void { return self.Clear(); });
-	cls_FEmTool_SeqOfLinConstr.def("Clear", (void (FEmTool_SeqOfLinConstr::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &FEmTool_SeqOfLinConstr::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_FEmTool_SeqOfLinConstr.def("Assign", (FEmTool_SeqOfLinConstr & (FEmTool_SeqOfLinConstr::*)(const FEmTool_SeqOfLinConstr &)) &FEmTool_SeqOfLinConstr::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_FEmTool_SeqOfLinConstr.def("assign", (FEmTool_SeqOfLinConstr & (FEmTool_SeqOfLinConstr::*)(const FEmTool_SeqOfLinConstr &)) &FEmTool_SeqOfLinConstr::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_FEmTool_SeqOfLinConstr.def("Remove", (void (FEmTool_SeqOfLinConstr::*)(FEmTool_SeqOfLinConstr::Iterator &)) &FEmTool_SeqOfLinConstr::Remove, "Remove one item", py::arg("thePosition"));
-	cls_FEmTool_SeqOfLinConstr.def("Remove", (void (FEmTool_SeqOfLinConstr::*)(const Standard_Integer)) &FEmTool_SeqOfLinConstr::Remove, "Remove one item", py::arg("theIndex"));
-	cls_FEmTool_SeqOfLinConstr.def("Remove", (void (FEmTool_SeqOfLinConstr::*)(const Standard_Integer, const Standard_Integer)) &FEmTool_SeqOfLinConstr::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_FEmTool_SeqOfLinConstr.def("Append", (void (FEmTool_SeqOfLinConstr::*)(const FEmTool_ListOfVectors &)) &FEmTool_SeqOfLinConstr::Append, "Append one item", py::arg("theItem"));
-	cls_FEmTool_SeqOfLinConstr.def("Append", (void (FEmTool_SeqOfLinConstr::*)(FEmTool_SeqOfLinConstr &)) &FEmTool_SeqOfLinConstr::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_FEmTool_SeqOfLinConstr.def("Prepend", (void (FEmTool_SeqOfLinConstr::*)(const FEmTool_ListOfVectors &)) &FEmTool_SeqOfLinConstr::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_FEmTool_SeqOfLinConstr.def("Prepend", (void (FEmTool_SeqOfLinConstr::*)(FEmTool_SeqOfLinConstr &)) &FEmTool_SeqOfLinConstr::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_FEmTool_SeqOfLinConstr.def("InsertBefore", (void (FEmTool_SeqOfLinConstr::*)(const Standard_Integer, const FEmTool_ListOfVectors &)) &FEmTool_SeqOfLinConstr::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_FEmTool_SeqOfLinConstr.def("InsertBefore", (void (FEmTool_SeqOfLinConstr::*)(const Standard_Integer, FEmTool_SeqOfLinConstr &)) &FEmTool_SeqOfLinConstr::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_FEmTool_SeqOfLinConstr.def("InsertAfter", (void (FEmTool_SeqOfLinConstr::*)(FEmTool_SeqOfLinConstr::Iterator &, const FEmTool_ListOfVectors &)) &FEmTool_SeqOfLinConstr::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_FEmTool_SeqOfLinConstr.def("InsertAfter", (void (FEmTool_SeqOfLinConstr::*)(const Standard_Integer, FEmTool_SeqOfLinConstr &)) &FEmTool_SeqOfLinConstr::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_FEmTool_SeqOfLinConstr.def("InsertAfter", (void (FEmTool_SeqOfLinConstr::*)(const Standard_Integer, const FEmTool_ListOfVectors &)) &FEmTool_SeqOfLinConstr::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_FEmTool_SeqOfLinConstr.def("Split", (void (FEmTool_SeqOfLinConstr::*)(const Standard_Integer, FEmTool_SeqOfLinConstr &)) &FEmTool_SeqOfLinConstr::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_FEmTool_SeqOfLinConstr.def("First", (const FEmTool_ListOfVectors & (FEmTool_SeqOfLinConstr::*)() const ) &FEmTool_SeqOfLinConstr::First, "First item access");
-	cls_FEmTool_SeqOfLinConstr.def("ChangeFirst", (FEmTool_ListOfVectors & (FEmTool_SeqOfLinConstr::*)()) &FEmTool_SeqOfLinConstr::ChangeFirst, "First item access");
-	cls_FEmTool_SeqOfLinConstr.def("Last", (const FEmTool_ListOfVectors & (FEmTool_SeqOfLinConstr::*)() const ) &FEmTool_SeqOfLinConstr::Last, "Last item access");
-	cls_FEmTool_SeqOfLinConstr.def("ChangeLast", (FEmTool_ListOfVectors & (FEmTool_SeqOfLinConstr::*)()) &FEmTool_SeqOfLinConstr::ChangeLast, "Last item access");
-	cls_FEmTool_SeqOfLinConstr.def("Value", (const FEmTool_ListOfVectors & (FEmTool_SeqOfLinConstr::*)(const Standard_Integer) const ) &FEmTool_SeqOfLinConstr::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_FEmTool_SeqOfLinConstr.def("__call__", (const FEmTool_ListOfVectors & (FEmTool_SeqOfLinConstr::*)(const Standard_Integer) const ) &FEmTool_SeqOfLinConstr::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_FEmTool_SeqOfLinConstr.def("ChangeValue", (FEmTool_ListOfVectors & (FEmTool_SeqOfLinConstr::*)(const Standard_Integer)) &FEmTool_SeqOfLinConstr::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_FEmTool_SeqOfLinConstr.def("__call__", (FEmTool_ListOfVectors & (FEmTool_SeqOfLinConstr::*)(const Standard_Integer)) &FEmTool_SeqOfLinConstr::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_FEmTool_SeqOfLinConstr.def("SetValue", (void (FEmTool_SeqOfLinConstr::*)(const Standard_Integer, const FEmTool_ListOfVectors &)) &FEmTool_SeqOfLinConstr::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_FEmTool_SeqOfLinConstr.def("__iter__", [](const FEmTool_SeqOfLinConstr &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\FEmTool_SeqOfLinConstr.hxx
+	bind_NCollection_Sequence<NCollection_List<opencascade::handle<TColStd_HArray1OfReal> > >(mod, "FEmTool_SeqOfLinConstr");
 
 
 }

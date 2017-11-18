@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_ConstructionError.hxx>
 #include <Standard_TypeDef.hxx>
@@ -106,6 +97,7 @@ PYBIND11_MODULE(WNT, mod) {
 	cls_WNT_Window.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &WNT_Window::get_type_descriptor, "None");
 	cls_WNT_Window.def("DynamicType", (const opencascade::handle<Standard_Type> & (WNT_Window::*)() const ) &WNT_Window::DynamicType, "None");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\WNT_Dword.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "uinteger")) {
 		mod.attr("WNT_Dword") = other_mod.attr("uinteger");

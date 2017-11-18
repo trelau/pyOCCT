@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <BRepCheck_Status.hxx>
 #include <NCollection_BaseList.hxx>
@@ -40,6 +31,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_DataMap.hxx>
 #include <BRepCheck_DataMapOfShapeListOfStatus.hxx>
 #include <BRepCheck_DataMapOfShapeResult.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BRepCheck, mod) {
 
@@ -230,111 +222,25 @@ PYBIND11_MODULE(BRepCheck, mod) {
 	cls_BRepCheck.def_static("Print_", (void (*)(const BRepCheck_Status, Standard_OStream &)) &BRepCheck::Print, "None", py::arg("Stat"), py::arg("OS"));
 	cls_BRepCheck.def_static("SelfIntersection_", (Standard_Boolean (*)(const TopoDS_Wire &, const TopoDS_Face &, TopoDS_Edge &, TopoDS_Edge &)) &BRepCheck::SelfIntersection, "None", py::arg("W"), py::arg("F"), py::arg("E1"), py::arg("E2"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<BRepCheck_ListOfStatus, std::unique_ptr<BRepCheck_ListOfStatus, Deleter<BRepCheck_ListOfStatus>>, NCollection_BaseList> cls_BRepCheck_ListOfStatus(mod, "BRepCheck_ListOfStatus", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_BRepCheck_ListOfStatus.def(py::init<>());
-	cls_BRepCheck_ListOfStatus.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_BRepCheck_ListOfStatus.def(py::init([] (const BRepCheck_ListOfStatus &other) {return new BRepCheck_ListOfStatus(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepCheck_ListOfStatus.def("begin", (BRepCheck_ListOfStatus::iterator (BRepCheck_ListOfStatus::*)() const ) &BRepCheck_ListOfStatus::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_BRepCheck_ListOfStatus.def("end", (BRepCheck_ListOfStatus::iterator (BRepCheck_ListOfStatus::*)() const ) &BRepCheck_ListOfStatus::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_BRepCheck_ListOfStatus.def("cbegin", (BRepCheck_ListOfStatus::const_iterator (BRepCheck_ListOfStatus::*)() const ) &BRepCheck_ListOfStatus::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_BRepCheck_ListOfStatus.def("cend", (BRepCheck_ListOfStatus::const_iterator (BRepCheck_ListOfStatus::*)() const ) &BRepCheck_ListOfStatus::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_BRepCheck_ListOfStatus.def("Size", (Standard_Integer (BRepCheck_ListOfStatus::*)() const ) &BRepCheck_ListOfStatus::Size, "Size - Number of items");
-	cls_BRepCheck_ListOfStatus.def("Assign", (BRepCheck_ListOfStatus & (BRepCheck_ListOfStatus::*)(const BRepCheck_ListOfStatus &)) &BRepCheck_ListOfStatus::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepCheck_ListOfStatus.def("assign", (BRepCheck_ListOfStatus & (BRepCheck_ListOfStatus::*)(const BRepCheck_ListOfStatus &)) &BRepCheck_ListOfStatus::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_BRepCheck_ListOfStatus.def("Clear", [](BRepCheck_ListOfStatus &self) -> void { return self.Clear(); });
-	cls_BRepCheck_ListOfStatus.def("Clear", (void (BRepCheck_ListOfStatus::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepCheck_ListOfStatus::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_BRepCheck_ListOfStatus.def("First", (const BRepCheck_Status & (BRepCheck_ListOfStatus::*)() const ) &BRepCheck_ListOfStatus::First, "First item");
-	cls_BRepCheck_ListOfStatus.def("First", (BRepCheck_Status & (BRepCheck_ListOfStatus::*)()) &BRepCheck_ListOfStatus::First, "First item (non-const)");
-	cls_BRepCheck_ListOfStatus.def("Last", (const BRepCheck_Status & (BRepCheck_ListOfStatus::*)() const ) &BRepCheck_ListOfStatus::Last, "Last item");
-	cls_BRepCheck_ListOfStatus.def("Last", (BRepCheck_Status & (BRepCheck_ListOfStatus::*)()) &BRepCheck_ListOfStatus::Last, "Last item (non-const)");
-	cls_BRepCheck_ListOfStatus.def("Append", (BRepCheck_Status & (BRepCheck_ListOfStatus::*)(const BRepCheck_Status &)) &BRepCheck_ListOfStatus::Append, "Append one item at the end", py::arg("theItem"));
-	cls_BRepCheck_ListOfStatus.def("Append", (void (BRepCheck_ListOfStatus::*)(const BRepCheck_Status &, BRepCheck_ListOfStatus::Iterator &)) &BRepCheck_ListOfStatus::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_BRepCheck_ListOfStatus.def("Append", (void (BRepCheck_ListOfStatus::*)(BRepCheck_ListOfStatus &)) &BRepCheck_ListOfStatus::Append, "Append another list at the end", py::arg("theOther"));
-	cls_BRepCheck_ListOfStatus.def("Prepend", (BRepCheck_Status & (BRepCheck_ListOfStatus::*)(const BRepCheck_Status &)) &BRepCheck_ListOfStatus::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_BRepCheck_ListOfStatus.def("Prepend", (void (BRepCheck_ListOfStatus::*)(BRepCheck_ListOfStatus &)) &BRepCheck_ListOfStatus::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_BRepCheck_ListOfStatus.def("RemoveFirst", (void (BRepCheck_ListOfStatus::*)()) &BRepCheck_ListOfStatus::RemoveFirst, "RemoveFirst item");
-	cls_BRepCheck_ListOfStatus.def("Remove", (void (BRepCheck_ListOfStatus::*)(BRepCheck_ListOfStatus::Iterator &)) &BRepCheck_ListOfStatus::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_BRepCheck_ListOfStatus.def("InsertBefore", (BRepCheck_Status & (BRepCheck_ListOfStatus::*)(const BRepCheck_Status &, BRepCheck_ListOfStatus::Iterator &)) &BRepCheck_ListOfStatus::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_BRepCheck_ListOfStatus.def("InsertBefore", (void (BRepCheck_ListOfStatus::*)(BRepCheck_ListOfStatus &, BRepCheck_ListOfStatus::Iterator &)) &BRepCheck_ListOfStatus::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_BRepCheck_ListOfStatus.def("InsertAfter", (BRepCheck_Status & (BRepCheck_ListOfStatus::*)(const BRepCheck_Status &, BRepCheck_ListOfStatus::Iterator &)) &BRepCheck_ListOfStatus::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_BRepCheck_ListOfStatus.def("InsertAfter", (void (BRepCheck_ListOfStatus::*)(BRepCheck_ListOfStatus &, BRepCheck_ListOfStatus::Iterator &)) &BRepCheck_ListOfStatus::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_BRepCheck_ListOfStatus.def("Reverse", (void (BRepCheck_ListOfStatus::*)()) &BRepCheck_ListOfStatus::Reverse, "Reverse the list");
-	cls_BRepCheck_ListOfStatus.def("__iter__", [](const BRepCheck_ListOfStatus &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepCheck_ListOfStatus.hxx
+	bind_NCollection_List<BRepCheck_Status>(mod, "BRepCheck_ListOfStatus");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<BRepCheck_ListIteratorOfListOfStatus, std::unique_ptr<BRepCheck_ListIteratorOfListOfStatus, Deleter<BRepCheck_ListIteratorOfListOfStatus>>> cls_BRepCheck_ListIteratorOfListOfStatus(mod, "BRepCheck_ListIteratorOfListOfStatus", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_BRepCheck_ListIteratorOfListOfStatus.def(py::init<>());
-	cls_BRepCheck_ListIteratorOfListOfStatus.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_BRepCheck_ListIteratorOfListOfStatus.def("More", (Standard_Boolean (BRepCheck_ListIteratorOfListOfStatus::*)() const ) &BRepCheck_ListIteratorOfListOfStatus::More, "Check end");
-	cls_BRepCheck_ListIteratorOfListOfStatus.def("Next", (void (BRepCheck_ListIteratorOfListOfStatus::*)()) &BRepCheck_ListIteratorOfListOfStatus::Next, "Make step");
-	cls_BRepCheck_ListIteratorOfListOfStatus.def("Value", (const BRepCheck_Status & (BRepCheck_ListIteratorOfListOfStatus::*)() const ) &BRepCheck_ListIteratorOfListOfStatus::Value, "Constant Value access");
-	cls_BRepCheck_ListIteratorOfListOfStatus.def("Value", (BRepCheck_Status & (BRepCheck_ListIteratorOfListOfStatus::*)()) &BRepCheck_ListIteratorOfListOfStatus::Value, "Non-const Value access");
-	cls_BRepCheck_ListIteratorOfListOfStatus.def("ChangeValue", (BRepCheck_Status & (BRepCheck_ListIteratorOfListOfStatus::*)() const ) &BRepCheck_ListIteratorOfListOfStatus::ChangeValue, "Non-const Value access");
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<BRepCheck_DataMapOfShapeListOfStatus, std::unique_ptr<BRepCheck_DataMapOfShapeListOfStatus, Deleter<BRepCheck_DataMapOfShapeListOfStatus>>, NCollection_BaseMap> cls_BRepCheck_DataMapOfShapeListOfStatus(mod, "BRepCheck_DataMapOfShapeListOfStatus", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def(py::init<>());
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def(py::init([] (const BRepCheck_DataMapOfShapeListOfStatus &other) {return new BRepCheck_DataMapOfShapeListOfStatus(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("begin", (BRepCheck_DataMapOfShapeListOfStatus::iterator (BRepCheck_DataMapOfShapeListOfStatus::*)() const ) &BRepCheck_DataMapOfShapeListOfStatus::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("end", (BRepCheck_DataMapOfShapeListOfStatus::iterator (BRepCheck_DataMapOfShapeListOfStatus::*)() const ) &BRepCheck_DataMapOfShapeListOfStatus::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("cbegin", (BRepCheck_DataMapOfShapeListOfStatus::const_iterator (BRepCheck_DataMapOfShapeListOfStatus::*)() const ) &BRepCheck_DataMapOfShapeListOfStatus::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("cend", (BRepCheck_DataMapOfShapeListOfStatus::const_iterator (BRepCheck_DataMapOfShapeListOfStatus::*)() const ) &BRepCheck_DataMapOfShapeListOfStatus::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("Exchange", (void (BRepCheck_DataMapOfShapeListOfStatus::*)(BRepCheck_DataMapOfShapeListOfStatus &)) &BRepCheck_DataMapOfShapeListOfStatus::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("Assign", (BRepCheck_DataMapOfShapeListOfStatus & (BRepCheck_DataMapOfShapeListOfStatus::*)(const BRepCheck_DataMapOfShapeListOfStatus &)) &BRepCheck_DataMapOfShapeListOfStatus::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("assign", (BRepCheck_DataMapOfShapeListOfStatus & (BRepCheck_DataMapOfShapeListOfStatus::*)(const BRepCheck_DataMapOfShapeListOfStatus &)) &BRepCheck_DataMapOfShapeListOfStatus::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("ReSize", (void (BRepCheck_DataMapOfShapeListOfStatus::*)(const Standard_Integer)) &BRepCheck_DataMapOfShapeListOfStatus::ReSize, "ReSize", py::arg("N"));
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("Bind", (Standard_Boolean (BRepCheck_DataMapOfShapeListOfStatus::*)(const TopoDS_Shape &, const BRepCheck_ListOfStatus &)) &BRepCheck_DataMapOfShapeListOfStatus::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_BRepCheck_DataMapOfShapeListOfStatus.def("Bound", (BRepCheck_ListOfStatus * (BRepCheck_DataMapOfShapeListOfStatus::*)(const TopoDS_Shape &, const BRepCheck_ListOfStatus &)) &BRepCheck_DataMapOfShapeListOfStatus::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("IsBound", (Standard_Boolean (BRepCheck_DataMapOfShapeListOfStatus::*)(const TopoDS_Shape &) const ) &BRepCheck_DataMapOfShapeListOfStatus::IsBound, "IsBound", py::arg("theKey"));
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("UnBind", (Standard_Boolean (BRepCheck_DataMapOfShapeListOfStatus::*)(const TopoDS_Shape &)) &BRepCheck_DataMapOfShapeListOfStatus::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_BRepCheck_DataMapOfShapeListOfStatus.def("Seek", (const BRepCheck_ListOfStatus * (BRepCheck_DataMapOfShapeListOfStatus::*)(const TopoDS_Shape &) const ) &BRepCheck_DataMapOfShapeListOfStatus::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_BRepCheck_DataMapOfShapeListOfStatus.def("Find", (const BRepCheck_ListOfStatus & (BRepCheck_DataMapOfShapeListOfStatus::*)(const TopoDS_Shape &) const ) &BRepCheck_DataMapOfShapeListOfStatus::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_BRepCheck_DataMapOfShapeListOfStatus.def("Find", (Standard_Boolean (BRepCheck_DataMapOfShapeListOfStatus::*)(const TopoDS_Shape &, BRepCheck_ListOfStatus &) const ) &BRepCheck_DataMapOfShapeListOfStatus::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("__call__", (const BRepCheck_ListOfStatus & (BRepCheck_DataMapOfShapeListOfStatus::*)(const TopoDS_Shape &) const ) &BRepCheck_DataMapOfShapeListOfStatus::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_BRepCheck_DataMapOfShapeListOfStatus.def("ChangeSeek", (BRepCheck_ListOfStatus * (BRepCheck_DataMapOfShapeListOfStatus::*)(const TopoDS_Shape &)) &BRepCheck_DataMapOfShapeListOfStatus::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("ChangeFind", (BRepCheck_ListOfStatus & (BRepCheck_DataMapOfShapeListOfStatus::*)(const TopoDS_Shape &)) &BRepCheck_DataMapOfShapeListOfStatus::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("__call__", (BRepCheck_ListOfStatus & (BRepCheck_DataMapOfShapeListOfStatus::*)(const TopoDS_Shape &)) &BRepCheck_DataMapOfShapeListOfStatus::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("Clear", [](BRepCheck_DataMapOfShapeListOfStatus &self) -> void { return self.Clear(); });
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("Clear", (void (BRepCheck_DataMapOfShapeListOfStatus::*)(const Standard_Boolean)) &BRepCheck_DataMapOfShapeListOfStatus::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("Clear", (void (BRepCheck_DataMapOfShapeListOfStatus::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepCheck_DataMapOfShapeListOfStatus::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("Size", (Standard_Integer (BRepCheck_DataMapOfShapeListOfStatus::*)() const ) &BRepCheck_DataMapOfShapeListOfStatus::Size, "Size");
-	cls_BRepCheck_DataMapOfShapeListOfStatus.def("__iter__", [](const BRepCheck_DataMapOfShapeListOfStatus &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepCheck_ListOfStatus.hxx
+	bind_NCollection_TListIterator<BRepCheck_Status>(mod, "BRepCheck_ListIteratorOfListOfStatus");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepCheck_DataMapOfShapeListOfStatus.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<BRepCheck_DataMapOfShapeResult, std::unique_ptr<BRepCheck_DataMapOfShapeResult, Deleter<BRepCheck_DataMapOfShapeResult>>, NCollection_BaseMap> cls_BRepCheck_DataMapOfShapeResult(mod, "BRepCheck_DataMapOfShapeResult", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_BRepCheck_DataMapOfShapeResult.def(py::init<>());
-	cls_BRepCheck_DataMapOfShapeResult.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BRepCheck_DataMapOfShapeResult.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BRepCheck_DataMapOfShapeResult.def(py::init([] (const BRepCheck_DataMapOfShapeResult &other) {return new BRepCheck_DataMapOfShapeResult(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepCheck_DataMapOfShapeResult.def("begin", (BRepCheck_DataMapOfShapeResult::iterator (BRepCheck_DataMapOfShapeResult::*)() const ) &BRepCheck_DataMapOfShapeResult::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_BRepCheck_DataMapOfShapeResult.def("end", (BRepCheck_DataMapOfShapeResult::iterator (BRepCheck_DataMapOfShapeResult::*)() const ) &BRepCheck_DataMapOfShapeResult::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_BRepCheck_DataMapOfShapeResult.def("cbegin", (BRepCheck_DataMapOfShapeResult::const_iterator (BRepCheck_DataMapOfShapeResult::*)() const ) &BRepCheck_DataMapOfShapeResult::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_BRepCheck_DataMapOfShapeResult.def("cend", (BRepCheck_DataMapOfShapeResult::const_iterator (BRepCheck_DataMapOfShapeResult::*)() const ) &BRepCheck_DataMapOfShapeResult::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_BRepCheck_DataMapOfShapeResult.def("Exchange", (void (BRepCheck_DataMapOfShapeResult::*)(BRepCheck_DataMapOfShapeResult &)) &BRepCheck_DataMapOfShapeResult::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BRepCheck_DataMapOfShapeResult.def("Assign", (BRepCheck_DataMapOfShapeResult & (BRepCheck_DataMapOfShapeResult::*)(const BRepCheck_DataMapOfShapeResult &)) &BRepCheck_DataMapOfShapeResult::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepCheck_DataMapOfShapeResult.def("assign", (BRepCheck_DataMapOfShapeResult & (BRepCheck_DataMapOfShapeResult::*)(const BRepCheck_DataMapOfShapeResult &)) &BRepCheck_DataMapOfShapeResult::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BRepCheck_DataMapOfShapeResult.def("ReSize", (void (BRepCheck_DataMapOfShapeResult::*)(const Standard_Integer)) &BRepCheck_DataMapOfShapeResult::ReSize, "ReSize", py::arg("N"));
-	cls_BRepCheck_DataMapOfShapeResult.def("Bind", (Standard_Boolean (BRepCheck_DataMapOfShapeResult::*)(const TopoDS_Shape &, const opencascade::handle<BRepCheck_Result> &)) &BRepCheck_DataMapOfShapeResult::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_BRepCheck_DataMapOfShapeResult.def("Bound", (opencascade::handle<BRepCheck_Result> * (BRepCheck_DataMapOfShapeResult::*)(const TopoDS_Shape &, const opencascade::handle<BRepCheck_Result> &)) &BRepCheck_DataMapOfShapeResult::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_BRepCheck_DataMapOfShapeResult.def("IsBound", (Standard_Boolean (BRepCheck_DataMapOfShapeResult::*)(const TopoDS_Shape &) const ) &BRepCheck_DataMapOfShapeResult::IsBound, "IsBound", py::arg("theKey"));
-	cls_BRepCheck_DataMapOfShapeResult.def("UnBind", (Standard_Boolean (BRepCheck_DataMapOfShapeResult::*)(const TopoDS_Shape &)) &BRepCheck_DataMapOfShapeResult::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_BRepCheck_DataMapOfShapeResult.def("Seek", (const opencascade::handle<BRepCheck_Result> * (BRepCheck_DataMapOfShapeResult::*)(const TopoDS_Shape &) const ) &BRepCheck_DataMapOfShapeResult::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_BRepCheck_DataMapOfShapeResult.def("Find", (const opencascade::handle<BRepCheck_Result> & (BRepCheck_DataMapOfShapeResult::*)(const TopoDS_Shape &) const ) &BRepCheck_DataMapOfShapeResult::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_BRepCheck_DataMapOfShapeResult.def("Find", (Standard_Boolean (BRepCheck_DataMapOfShapeResult::*)(const TopoDS_Shape &, opencascade::handle<BRepCheck_Result> &) const ) &BRepCheck_DataMapOfShapeResult::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_BRepCheck_DataMapOfShapeResult.def("__call__", (const opencascade::handle<BRepCheck_Result> & (BRepCheck_DataMapOfShapeResult::*)(const TopoDS_Shape &) const ) &BRepCheck_DataMapOfShapeResult::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_BRepCheck_DataMapOfShapeResult.def("ChangeSeek", (opencascade::handle<BRepCheck_Result> * (BRepCheck_DataMapOfShapeResult::*)(const TopoDS_Shape &)) &BRepCheck_DataMapOfShapeResult::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_BRepCheck_DataMapOfShapeResult.def("ChangeFind", (opencascade::handle<BRepCheck_Result> & (BRepCheck_DataMapOfShapeResult::*)(const TopoDS_Shape &)) &BRepCheck_DataMapOfShapeResult::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_BRepCheck_DataMapOfShapeResult.def("__call__", (opencascade::handle<BRepCheck_Result> & (BRepCheck_DataMapOfShapeResult::*)(const TopoDS_Shape &)) &BRepCheck_DataMapOfShapeResult::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_BRepCheck_DataMapOfShapeResult.def("Clear", [](BRepCheck_DataMapOfShapeResult &self) -> void { return self.Clear(); });
-	cls_BRepCheck_DataMapOfShapeResult.def("Clear", (void (BRepCheck_DataMapOfShapeResult::*)(const Standard_Boolean)) &BRepCheck_DataMapOfShapeResult::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BRepCheck_DataMapOfShapeResult.def("Clear", (void (BRepCheck_DataMapOfShapeResult::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepCheck_DataMapOfShapeResult::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BRepCheck_DataMapOfShapeResult.def("Size", (Standard_Integer (BRepCheck_DataMapOfShapeResult::*)() const ) &BRepCheck_DataMapOfShapeResult::Size, "Size");
-	cls_BRepCheck_DataMapOfShapeResult.def("__iter__", [](const BRepCheck_DataMapOfShapeResult &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TopoDS_Shape, NCollection_List<BRepCheck_Status>, TopTools_ShapeMapHasher>(mod, "BRepCheck_DataMapOfShapeListOfStatus");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepCheck_DataMapOfShapeResult.hxx
+	bind_NCollection_DataMap<TopoDS_Shape, opencascade::handle<BRepCheck_Result>, TopTools_OrientedShapeMapHasher>(mod, "BRepCheck_DataMapOfShapeResult");
+
+	/* FIXME
+
+	*/
+
 
 }

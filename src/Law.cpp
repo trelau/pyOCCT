@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <GeomAbs_Shape.hxx>
@@ -36,6 +27,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Law_BSplineKnotSplitting.hxx>
 #include <Adaptor3d_Curve.hxx>
 #include <Law.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Law, mod) {
 
@@ -269,47 +261,11 @@ PYBIND11_MODULE(Law, mod) {
 	cls_Law.def_static("Scale_", (opencascade::handle<Law_BSpline> (*)(const Standard_Real, const Standard_Real, const Standard_Boolean, const Standard_Boolean, const Standard_Real, const Standard_Real)) &Law::Scale, "Computes a 1 d curve to scale a field of tangency. Value is 1. for t = (First+Last)/2 . If HasFirst value for t = First is VFirst (null derivative). If HasLast value for t = Last is VLast (null derivative).", py::arg("First"), py::arg("Last"), py::arg("HasF"), py::arg("HasL"), py::arg("VFirst"), py::arg("VLast"));
 	cls_Law.def_static("ScaleCub_", (opencascade::handle<Law_BSpline> (*)(const Standard_Real, const Standard_Real, const Standard_Boolean, const Standard_Boolean, const Standard_Real, const Standard_Real)) &Law::ScaleCub, "None", py::arg("First"), py::arg("Last"), py::arg("HasF"), py::arg("HasL"), py::arg("VFirst"), py::arg("VLast"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<Law_Laws, std::unique_ptr<Law_Laws, Deleter<Law_Laws>>, NCollection_BaseList> cls_Law_Laws(mod, "Law_Laws", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_Law_Laws.def(py::init<>());
-	cls_Law_Laws.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Law_Laws.def(py::init([] (const Law_Laws &other) {return new Law_Laws(other);}), "Copy constructor", py::arg("other"));
-	cls_Law_Laws.def("begin", (Law_Laws::iterator (Law_Laws::*)() const ) &Law_Laws::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_Law_Laws.def("end", (Law_Laws::iterator (Law_Laws::*)() const ) &Law_Laws::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_Law_Laws.def("cbegin", (Law_Laws::const_iterator (Law_Laws::*)() const ) &Law_Laws::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_Law_Laws.def("cend", (Law_Laws::const_iterator (Law_Laws::*)() const ) &Law_Laws::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_Law_Laws.def("Size", (Standard_Integer (Law_Laws::*)() const ) &Law_Laws::Size, "Size - Number of items");
-	cls_Law_Laws.def("Assign", (Law_Laws & (Law_Laws::*)(const Law_Laws &)) &Law_Laws::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Law_Laws.def("assign", (Law_Laws & (Law_Laws::*)(const Law_Laws &)) &Law_Laws::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Law_Laws.def("Clear", [](Law_Laws &self) -> void { return self.Clear(); });
-	cls_Law_Laws.def("Clear", (void (Law_Laws::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Law_Laws::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_Law_Laws.def("First", (const opencascade::handle<Law_Function> & (Law_Laws::*)() const ) &Law_Laws::First, "First item");
-	cls_Law_Laws.def("First", (opencascade::handle<Law_Function> & (Law_Laws::*)()) &Law_Laws::First, "First item (non-const)");
-	cls_Law_Laws.def("Last", (const opencascade::handle<Law_Function> & (Law_Laws::*)() const ) &Law_Laws::Last, "Last item");
-	cls_Law_Laws.def("Last", (opencascade::handle<Law_Function> & (Law_Laws::*)()) &Law_Laws::Last, "Last item (non-const)");
-	cls_Law_Laws.def("Append", (opencascade::handle<Law_Function> & (Law_Laws::*)(const opencascade::handle<Law_Function> &)) &Law_Laws::Append, "Append one item at the end", py::arg("theItem"));
-	cls_Law_Laws.def("Append", (void (Law_Laws::*)(const opencascade::handle<Law_Function> &, Law_Laws::Iterator &)) &Law_Laws::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_Law_Laws.def("Append", (void (Law_Laws::*)(Law_Laws &)) &Law_Laws::Append, "Append another list at the end", py::arg("theOther"));
-	cls_Law_Laws.def("Prepend", (opencascade::handle<Law_Function> & (Law_Laws::*)(const opencascade::handle<Law_Function> &)) &Law_Laws::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_Law_Laws.def("Prepend", (void (Law_Laws::*)(Law_Laws &)) &Law_Laws::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_Law_Laws.def("RemoveFirst", (void (Law_Laws::*)()) &Law_Laws::RemoveFirst, "RemoveFirst item");
-	cls_Law_Laws.def("Remove", (void (Law_Laws::*)(Law_Laws::Iterator &)) &Law_Laws::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_Law_Laws.def("InsertBefore", (opencascade::handle<Law_Function> & (Law_Laws::*)(const opencascade::handle<Law_Function> &, Law_Laws::Iterator &)) &Law_Laws::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_Law_Laws.def("InsertBefore", (void (Law_Laws::*)(Law_Laws &, Law_Laws::Iterator &)) &Law_Laws::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_Law_Laws.def("InsertAfter", (opencascade::handle<Law_Function> & (Law_Laws::*)(const opencascade::handle<Law_Function> &, Law_Laws::Iterator &)) &Law_Laws::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_Law_Laws.def("InsertAfter", (void (Law_Laws::*)(Law_Laws &, Law_Laws::Iterator &)) &Law_Laws::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_Law_Laws.def("Reverse", (void (Law_Laws::*)()) &Law_Laws::Reverse, "Reverse the list");
-	cls_Law_Laws.def("__iter__", [](const Law_Laws &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Law_Laws.hxx
+	bind_NCollection_List<opencascade::handle<Law_Function> >(mod, "Law_Laws");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<Law_ListIteratorOfLaws, std::unique_ptr<Law_ListIteratorOfLaws, Deleter<Law_ListIteratorOfLaws>>> cls_Law_ListIteratorOfLaws(mod, "Law_ListIteratorOfLaws", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_Law_ListIteratorOfLaws.def(py::init<>());
-	cls_Law_ListIteratorOfLaws.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_Law_ListIteratorOfLaws.def("More", (Standard_Boolean (Law_ListIteratorOfLaws::*)() const ) &Law_ListIteratorOfLaws::More, "Check end");
-	cls_Law_ListIteratorOfLaws.def("Next", (void (Law_ListIteratorOfLaws::*)()) &Law_ListIteratorOfLaws::Next, "Make step");
-	cls_Law_ListIteratorOfLaws.def("Value", (const opencascade::handle<Law_Function> & (Law_ListIteratorOfLaws::*)() const ) &Law_ListIteratorOfLaws::Value, "Constant Value access");
-	cls_Law_ListIteratorOfLaws.def("Value", (opencascade::handle<Law_Function> & (Law_ListIteratorOfLaws::*)()) &Law_ListIteratorOfLaws::Value, "Non-const Value access");
-	cls_Law_ListIteratorOfLaws.def("ChangeValue", (opencascade::handle<Law_Function> & (Law_ListIteratorOfLaws::*)() const ) &Law_ListIteratorOfLaws::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Law_Laws.hxx
+	bind_NCollection_TListIterator<opencascade::handle<Law_Function> >(mod, "Law_ListIteratorOfLaws");
 
 
 }

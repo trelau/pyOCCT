@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <GeomFill_PipeError.hxx>
 #include <Standard_Transient.hxx>
@@ -125,6 +116,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <GeomFill.hxx>
 #include <GeomFill_SequenceOfAx2.hxx>
 #include <GeomFill_HSequenceOfAx2.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(GeomFill, mod) {
 
@@ -216,40 +208,8 @@ PYBIND11_MODULE(GeomFill, mod) {
 	cls_GeomFill_LocationLaw.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &GeomFill_LocationLaw::get_type_descriptor, "None");
 	cls_GeomFill_LocationLaw.def("DynamicType", (const opencascade::handle<Standard_Type> & (GeomFill_LocationLaw::*)() const ) &GeomFill_LocationLaw::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<GeomFill_Array1OfLocationLaw, std::unique_ptr<GeomFill_Array1OfLocationLaw, Deleter<GeomFill_Array1OfLocationLaw>>> cls_GeomFill_Array1OfLocationLaw(mod, "GeomFill_Array1OfLocationLaw", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_GeomFill_Array1OfLocationLaw.def(py::init<>());
-	cls_GeomFill_Array1OfLocationLaw.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_GeomFill_Array1OfLocationLaw.def(py::init([] (const GeomFill_Array1OfLocationLaw &other) {return new GeomFill_Array1OfLocationLaw(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_GeomFill_Array1OfLocationLaw.def(py::init<GeomFill_Array1OfLocationLaw &&>(), py::arg("theOther"));
-	cls_GeomFill_Array1OfLocationLaw.def(py::init<const opencascade::handle<GeomFill_LocationLaw> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_GeomFill_Array1OfLocationLaw.def("begin", (GeomFill_Array1OfLocationLaw::iterator (GeomFill_Array1OfLocationLaw::*)() const ) &GeomFill_Array1OfLocationLaw::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_GeomFill_Array1OfLocationLaw.def("end", (GeomFill_Array1OfLocationLaw::iterator (GeomFill_Array1OfLocationLaw::*)() const ) &GeomFill_Array1OfLocationLaw::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_GeomFill_Array1OfLocationLaw.def("cbegin", (GeomFill_Array1OfLocationLaw::const_iterator (GeomFill_Array1OfLocationLaw::*)() const ) &GeomFill_Array1OfLocationLaw::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_GeomFill_Array1OfLocationLaw.def("cend", (GeomFill_Array1OfLocationLaw::const_iterator (GeomFill_Array1OfLocationLaw::*)() const ) &GeomFill_Array1OfLocationLaw::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_GeomFill_Array1OfLocationLaw.def("Init", (void (GeomFill_Array1OfLocationLaw::*)(const opencascade::handle<GeomFill_LocationLaw> &)) &GeomFill_Array1OfLocationLaw::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_GeomFill_Array1OfLocationLaw.def("Size", (Standard_Integer (GeomFill_Array1OfLocationLaw::*)() const ) &GeomFill_Array1OfLocationLaw::Size, "Size query");
-	cls_GeomFill_Array1OfLocationLaw.def("Length", (Standard_Integer (GeomFill_Array1OfLocationLaw::*)() const ) &GeomFill_Array1OfLocationLaw::Length, "Length query (the same)");
-	cls_GeomFill_Array1OfLocationLaw.def("IsEmpty", (Standard_Boolean (GeomFill_Array1OfLocationLaw::*)() const ) &GeomFill_Array1OfLocationLaw::IsEmpty, "Return TRUE if array has zero length.");
-	cls_GeomFill_Array1OfLocationLaw.def("Lower", (Standard_Integer (GeomFill_Array1OfLocationLaw::*)() const ) &GeomFill_Array1OfLocationLaw::Lower, "Lower bound");
-	cls_GeomFill_Array1OfLocationLaw.def("Upper", (Standard_Integer (GeomFill_Array1OfLocationLaw::*)() const ) &GeomFill_Array1OfLocationLaw::Upper, "Upper bound");
-	cls_GeomFill_Array1OfLocationLaw.def("IsDeletable", (Standard_Boolean (GeomFill_Array1OfLocationLaw::*)() const ) &GeomFill_Array1OfLocationLaw::IsDeletable, "myDeletable flag");
-	cls_GeomFill_Array1OfLocationLaw.def("IsAllocated", (Standard_Boolean (GeomFill_Array1OfLocationLaw::*)() const ) &GeomFill_Array1OfLocationLaw::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_GeomFill_Array1OfLocationLaw.def("Assign", (GeomFill_Array1OfLocationLaw & (GeomFill_Array1OfLocationLaw::*)(const GeomFill_Array1OfLocationLaw &)) &GeomFill_Array1OfLocationLaw::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_GeomFill_Array1OfLocationLaw.def("Move", (GeomFill_Array1OfLocationLaw & (GeomFill_Array1OfLocationLaw::*)(GeomFill_Array1OfLocationLaw &&)) &GeomFill_Array1OfLocationLaw::Move, "Move assignment", py::arg("theOther"));
-	cls_GeomFill_Array1OfLocationLaw.def("assign", (GeomFill_Array1OfLocationLaw & (GeomFill_Array1OfLocationLaw::*)(const GeomFill_Array1OfLocationLaw &)) &GeomFill_Array1OfLocationLaw::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_GeomFill_Array1OfLocationLaw.def("assign", (GeomFill_Array1OfLocationLaw & (GeomFill_Array1OfLocationLaw::*)(GeomFill_Array1OfLocationLaw &&)) &GeomFill_Array1OfLocationLaw::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_GeomFill_Array1OfLocationLaw.def("First", (const opencascade::handle<GeomFill_LocationLaw> & (GeomFill_Array1OfLocationLaw::*)() const ) &GeomFill_Array1OfLocationLaw::First, "Returns first element");
-	cls_GeomFill_Array1OfLocationLaw.def("ChangeFirst", (opencascade::handle<GeomFill_LocationLaw> & (GeomFill_Array1OfLocationLaw::*)()) &GeomFill_Array1OfLocationLaw::ChangeFirst, "Returns first element");
-	cls_GeomFill_Array1OfLocationLaw.def("Last", (const opencascade::handle<GeomFill_LocationLaw> & (GeomFill_Array1OfLocationLaw::*)() const ) &GeomFill_Array1OfLocationLaw::Last, "Returns last element");
-	cls_GeomFill_Array1OfLocationLaw.def("ChangeLast", (opencascade::handle<GeomFill_LocationLaw> & (GeomFill_Array1OfLocationLaw::*)()) &GeomFill_Array1OfLocationLaw::ChangeLast, "Returns last element");
-	cls_GeomFill_Array1OfLocationLaw.def("Value", (const opencascade::handle<GeomFill_LocationLaw> & (GeomFill_Array1OfLocationLaw::*)(const Standard_Integer) const ) &GeomFill_Array1OfLocationLaw::Value, "Constant value access", py::arg("theIndex"));
-	cls_GeomFill_Array1OfLocationLaw.def("__call__", (const opencascade::handle<GeomFill_LocationLaw> & (GeomFill_Array1OfLocationLaw::*)(const Standard_Integer) const ) &GeomFill_Array1OfLocationLaw::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_GeomFill_Array1OfLocationLaw.def("ChangeValue", (opencascade::handle<GeomFill_LocationLaw> & (GeomFill_Array1OfLocationLaw::*)(const Standard_Integer)) &GeomFill_Array1OfLocationLaw::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_GeomFill_Array1OfLocationLaw.def("__call__", (opencascade::handle<GeomFill_LocationLaw> & (GeomFill_Array1OfLocationLaw::*)(const Standard_Integer)) &GeomFill_Array1OfLocationLaw::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_GeomFill_Array1OfLocationLaw.def("SetValue", (void (GeomFill_Array1OfLocationLaw::*)(const Standard_Integer, const opencascade::handle<GeomFill_LocationLaw> &)) &GeomFill_Array1OfLocationLaw::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomFill_Array1OfLocationLaw.def("Resize", (void (GeomFill_Array1OfLocationLaw::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &GeomFill_Array1OfLocationLaw::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_GeomFill_Array1OfLocationLaw.def("__iter__", [](const GeomFill_Array1OfLocationLaw &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomFill_Array1OfLocationLaw.hxx
+	bind_NCollection_Array1<opencascade::handle<GeomFill_LocationLaw> >(mod, "GeomFill_Array1OfLocationLaw");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomFill_LocationGuide.hxx
 	py::class_<GeomFill_LocationGuide, opencascade::handle<GeomFill_LocationGuide>, GeomFill_LocationLaw> cls_GeomFill_LocationGuide(mod, "GeomFill_LocationGuide", "None");
@@ -351,40 +311,8 @@ PYBIND11_MODULE(GeomFill, mod) {
 	cls_GeomFill_SectionLaw.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &GeomFill_SectionLaw::get_type_descriptor, "None");
 	cls_GeomFill_SectionLaw.def("DynamicType", (const opencascade::handle<Standard_Type> & (GeomFill_SectionLaw::*)() const ) &GeomFill_SectionLaw::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<GeomFill_Array1OfSectionLaw, std::unique_ptr<GeomFill_Array1OfSectionLaw, Deleter<GeomFill_Array1OfSectionLaw>>> cls_GeomFill_Array1OfSectionLaw(mod, "GeomFill_Array1OfSectionLaw", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_GeomFill_Array1OfSectionLaw.def(py::init<>());
-	cls_GeomFill_Array1OfSectionLaw.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_GeomFill_Array1OfSectionLaw.def(py::init([] (const GeomFill_Array1OfSectionLaw &other) {return new GeomFill_Array1OfSectionLaw(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_GeomFill_Array1OfSectionLaw.def(py::init<GeomFill_Array1OfSectionLaw &&>(), py::arg("theOther"));
-	cls_GeomFill_Array1OfSectionLaw.def(py::init<const opencascade::handle<GeomFill_SectionLaw> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_GeomFill_Array1OfSectionLaw.def("begin", (GeomFill_Array1OfSectionLaw::iterator (GeomFill_Array1OfSectionLaw::*)() const ) &GeomFill_Array1OfSectionLaw::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_GeomFill_Array1OfSectionLaw.def("end", (GeomFill_Array1OfSectionLaw::iterator (GeomFill_Array1OfSectionLaw::*)() const ) &GeomFill_Array1OfSectionLaw::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_GeomFill_Array1OfSectionLaw.def("cbegin", (GeomFill_Array1OfSectionLaw::const_iterator (GeomFill_Array1OfSectionLaw::*)() const ) &GeomFill_Array1OfSectionLaw::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_GeomFill_Array1OfSectionLaw.def("cend", (GeomFill_Array1OfSectionLaw::const_iterator (GeomFill_Array1OfSectionLaw::*)() const ) &GeomFill_Array1OfSectionLaw::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_GeomFill_Array1OfSectionLaw.def("Init", (void (GeomFill_Array1OfSectionLaw::*)(const opencascade::handle<GeomFill_SectionLaw> &)) &GeomFill_Array1OfSectionLaw::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_GeomFill_Array1OfSectionLaw.def("Size", (Standard_Integer (GeomFill_Array1OfSectionLaw::*)() const ) &GeomFill_Array1OfSectionLaw::Size, "Size query");
-	cls_GeomFill_Array1OfSectionLaw.def("Length", (Standard_Integer (GeomFill_Array1OfSectionLaw::*)() const ) &GeomFill_Array1OfSectionLaw::Length, "Length query (the same)");
-	cls_GeomFill_Array1OfSectionLaw.def("IsEmpty", (Standard_Boolean (GeomFill_Array1OfSectionLaw::*)() const ) &GeomFill_Array1OfSectionLaw::IsEmpty, "Return TRUE if array has zero length.");
-	cls_GeomFill_Array1OfSectionLaw.def("Lower", (Standard_Integer (GeomFill_Array1OfSectionLaw::*)() const ) &GeomFill_Array1OfSectionLaw::Lower, "Lower bound");
-	cls_GeomFill_Array1OfSectionLaw.def("Upper", (Standard_Integer (GeomFill_Array1OfSectionLaw::*)() const ) &GeomFill_Array1OfSectionLaw::Upper, "Upper bound");
-	cls_GeomFill_Array1OfSectionLaw.def("IsDeletable", (Standard_Boolean (GeomFill_Array1OfSectionLaw::*)() const ) &GeomFill_Array1OfSectionLaw::IsDeletable, "myDeletable flag");
-	cls_GeomFill_Array1OfSectionLaw.def("IsAllocated", (Standard_Boolean (GeomFill_Array1OfSectionLaw::*)() const ) &GeomFill_Array1OfSectionLaw::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_GeomFill_Array1OfSectionLaw.def("Assign", (GeomFill_Array1OfSectionLaw & (GeomFill_Array1OfSectionLaw::*)(const GeomFill_Array1OfSectionLaw &)) &GeomFill_Array1OfSectionLaw::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_GeomFill_Array1OfSectionLaw.def("Move", (GeomFill_Array1OfSectionLaw & (GeomFill_Array1OfSectionLaw::*)(GeomFill_Array1OfSectionLaw &&)) &GeomFill_Array1OfSectionLaw::Move, "Move assignment", py::arg("theOther"));
-	cls_GeomFill_Array1OfSectionLaw.def("assign", (GeomFill_Array1OfSectionLaw & (GeomFill_Array1OfSectionLaw::*)(const GeomFill_Array1OfSectionLaw &)) &GeomFill_Array1OfSectionLaw::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_GeomFill_Array1OfSectionLaw.def("assign", (GeomFill_Array1OfSectionLaw & (GeomFill_Array1OfSectionLaw::*)(GeomFill_Array1OfSectionLaw &&)) &GeomFill_Array1OfSectionLaw::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_GeomFill_Array1OfSectionLaw.def("First", (const opencascade::handle<GeomFill_SectionLaw> & (GeomFill_Array1OfSectionLaw::*)() const ) &GeomFill_Array1OfSectionLaw::First, "Returns first element");
-	cls_GeomFill_Array1OfSectionLaw.def("ChangeFirst", (opencascade::handle<GeomFill_SectionLaw> & (GeomFill_Array1OfSectionLaw::*)()) &GeomFill_Array1OfSectionLaw::ChangeFirst, "Returns first element");
-	cls_GeomFill_Array1OfSectionLaw.def("Last", (const opencascade::handle<GeomFill_SectionLaw> & (GeomFill_Array1OfSectionLaw::*)() const ) &GeomFill_Array1OfSectionLaw::Last, "Returns last element");
-	cls_GeomFill_Array1OfSectionLaw.def("ChangeLast", (opencascade::handle<GeomFill_SectionLaw> & (GeomFill_Array1OfSectionLaw::*)()) &GeomFill_Array1OfSectionLaw::ChangeLast, "Returns last element");
-	cls_GeomFill_Array1OfSectionLaw.def("Value", (const opencascade::handle<GeomFill_SectionLaw> & (GeomFill_Array1OfSectionLaw::*)(const Standard_Integer) const ) &GeomFill_Array1OfSectionLaw::Value, "Constant value access", py::arg("theIndex"));
-	cls_GeomFill_Array1OfSectionLaw.def("__call__", (const opencascade::handle<GeomFill_SectionLaw> & (GeomFill_Array1OfSectionLaw::*)(const Standard_Integer) const ) &GeomFill_Array1OfSectionLaw::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_GeomFill_Array1OfSectionLaw.def("ChangeValue", (opencascade::handle<GeomFill_SectionLaw> & (GeomFill_Array1OfSectionLaw::*)(const Standard_Integer)) &GeomFill_Array1OfSectionLaw::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_GeomFill_Array1OfSectionLaw.def("__call__", (opencascade::handle<GeomFill_SectionLaw> & (GeomFill_Array1OfSectionLaw::*)(const Standard_Integer)) &GeomFill_Array1OfSectionLaw::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_GeomFill_Array1OfSectionLaw.def("SetValue", (void (GeomFill_Array1OfSectionLaw::*)(const Standard_Integer, const opencascade::handle<GeomFill_SectionLaw> &)) &GeomFill_Array1OfSectionLaw::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomFill_Array1OfSectionLaw.def("Resize", (void (GeomFill_Array1OfSectionLaw::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &GeomFill_Array1OfSectionLaw::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_GeomFill_Array1OfSectionLaw.def("__iter__", [](const GeomFill_Array1OfSectionLaw &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomFill_Array1OfSectionLaw.hxx
+	bind_NCollection_Array1<opencascade::handle<GeomFill_SectionLaw> >(mod, "GeomFill_Array1OfSectionLaw");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomFill_Boundary.hxx
 	py::class_<GeomFill_Boundary, opencascade::handle<GeomFill_Boundary>, Standard_Transient> cls_GeomFill_Boundary(mod, "GeomFill_Boundary", "Root class to define a boundary which will form part of a contour around a gap requiring filling. Any new type of constrained boundary must inherit this class. The GeomFill package provides two classes to define constrained boundaries: - GeomFill_SimpleBound to define an unattached boundary - GeomFill_BoundWithSurf to define a boundary attached to a surface. These objects are used to define the boundaries for a GeomFill_ConstrainedFilling framework.");
@@ -1253,50 +1181,8 @@ PYBIND11_MODULE(GeomFill, mod) {
 	cls_GeomFill.def_static("GetMinimalWeights_", (void (*)(const Convert_ParameterisationType, const Standard_Real, const Standard_Real, TColStd_Array1OfReal &)) &GeomFill::GetMinimalWeights, "None", py::arg("TConv"), py::arg("AngleMin"), py::arg("AngleMax"), py::arg("Weigths"));
 	cls_GeomFill.def_static("GetTolerance_", (Standard_Real (*)(const Convert_ParameterisationType, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real)) &GeomFill::GetTolerance, "Used by the generical classes to determine Tolerance for approximation", py::arg("TConv"), py::arg("AngleMin"), py::arg("Radius"), py::arg("AngularTol"), py::arg("SpatialTol"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<GeomFill_SequenceOfAx2, std::unique_ptr<GeomFill_SequenceOfAx2, Deleter<GeomFill_SequenceOfAx2>>, NCollection_BaseSequence> cls_GeomFill_SequenceOfAx2(mod, "GeomFill_SequenceOfAx2", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_GeomFill_SequenceOfAx2.def(py::init<>());
-	cls_GeomFill_SequenceOfAx2.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_GeomFill_SequenceOfAx2.def(py::init([] (const GeomFill_SequenceOfAx2 &other) {return new GeomFill_SequenceOfAx2(other);}), "Copy constructor", py::arg("other"));
-	cls_GeomFill_SequenceOfAx2.def("begin", (GeomFill_SequenceOfAx2::iterator (GeomFill_SequenceOfAx2::*)() const ) &GeomFill_SequenceOfAx2::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_GeomFill_SequenceOfAx2.def("end", (GeomFill_SequenceOfAx2::iterator (GeomFill_SequenceOfAx2::*)() const ) &GeomFill_SequenceOfAx2::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_GeomFill_SequenceOfAx2.def("cbegin", (GeomFill_SequenceOfAx2::const_iterator (GeomFill_SequenceOfAx2::*)() const ) &GeomFill_SequenceOfAx2::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_GeomFill_SequenceOfAx2.def("cend", (GeomFill_SequenceOfAx2::const_iterator (GeomFill_SequenceOfAx2::*)() const ) &GeomFill_SequenceOfAx2::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_GeomFill_SequenceOfAx2.def("Size", (Standard_Integer (GeomFill_SequenceOfAx2::*)() const ) &GeomFill_SequenceOfAx2::Size, "Number of items");
-	cls_GeomFill_SequenceOfAx2.def("Length", (Standard_Integer (GeomFill_SequenceOfAx2::*)() const ) &GeomFill_SequenceOfAx2::Length, "Number of items");
-	cls_GeomFill_SequenceOfAx2.def("Lower", (Standard_Integer (GeomFill_SequenceOfAx2::*)() const ) &GeomFill_SequenceOfAx2::Lower, "Method for consistency with other collections.");
-	cls_GeomFill_SequenceOfAx2.def("Upper", (Standard_Integer (GeomFill_SequenceOfAx2::*)() const ) &GeomFill_SequenceOfAx2::Upper, "Method for consistency with other collections.");
-	cls_GeomFill_SequenceOfAx2.def("IsEmpty", (Standard_Boolean (GeomFill_SequenceOfAx2::*)() const ) &GeomFill_SequenceOfAx2::IsEmpty, "Empty query");
-	cls_GeomFill_SequenceOfAx2.def("Reverse", (void (GeomFill_SequenceOfAx2::*)()) &GeomFill_SequenceOfAx2::Reverse, "Reverse sequence");
-	cls_GeomFill_SequenceOfAx2.def("Exchange", (void (GeomFill_SequenceOfAx2::*)(const Standard_Integer, const Standard_Integer)) &GeomFill_SequenceOfAx2::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_GeomFill_SequenceOfAx2.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &GeomFill_SequenceOfAx2::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_GeomFill_SequenceOfAx2.def("Clear", [](GeomFill_SequenceOfAx2 &self) -> void { return self.Clear(); });
-	cls_GeomFill_SequenceOfAx2.def("Clear", (void (GeomFill_SequenceOfAx2::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &GeomFill_SequenceOfAx2::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_GeomFill_SequenceOfAx2.def("Assign", (GeomFill_SequenceOfAx2 & (GeomFill_SequenceOfAx2::*)(const GeomFill_SequenceOfAx2 &)) &GeomFill_SequenceOfAx2::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_GeomFill_SequenceOfAx2.def("assign", (GeomFill_SequenceOfAx2 & (GeomFill_SequenceOfAx2::*)(const GeomFill_SequenceOfAx2 &)) &GeomFill_SequenceOfAx2::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_GeomFill_SequenceOfAx2.def("Remove", (void (GeomFill_SequenceOfAx2::*)(GeomFill_SequenceOfAx2::Iterator &)) &GeomFill_SequenceOfAx2::Remove, "Remove one item", py::arg("thePosition"));
-	cls_GeomFill_SequenceOfAx2.def("Remove", (void (GeomFill_SequenceOfAx2::*)(const Standard_Integer)) &GeomFill_SequenceOfAx2::Remove, "Remove one item", py::arg("theIndex"));
-	cls_GeomFill_SequenceOfAx2.def("Remove", (void (GeomFill_SequenceOfAx2::*)(const Standard_Integer, const Standard_Integer)) &GeomFill_SequenceOfAx2::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_GeomFill_SequenceOfAx2.def("Append", (void (GeomFill_SequenceOfAx2::*)(const gp_Ax2 &)) &GeomFill_SequenceOfAx2::Append, "Append one item", py::arg("theItem"));
-	cls_GeomFill_SequenceOfAx2.def("Append", (void (GeomFill_SequenceOfAx2::*)(GeomFill_SequenceOfAx2 &)) &GeomFill_SequenceOfAx2::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_GeomFill_SequenceOfAx2.def("Prepend", (void (GeomFill_SequenceOfAx2::*)(const gp_Ax2 &)) &GeomFill_SequenceOfAx2::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_GeomFill_SequenceOfAx2.def("Prepend", (void (GeomFill_SequenceOfAx2::*)(GeomFill_SequenceOfAx2 &)) &GeomFill_SequenceOfAx2::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_GeomFill_SequenceOfAx2.def("InsertBefore", (void (GeomFill_SequenceOfAx2::*)(const Standard_Integer, const gp_Ax2 &)) &GeomFill_SequenceOfAx2::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomFill_SequenceOfAx2.def("InsertBefore", (void (GeomFill_SequenceOfAx2::*)(const Standard_Integer, GeomFill_SequenceOfAx2 &)) &GeomFill_SequenceOfAx2::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomFill_SequenceOfAx2.def("InsertAfter", (void (GeomFill_SequenceOfAx2::*)(GeomFill_SequenceOfAx2::Iterator &, const gp_Ax2 &)) &GeomFill_SequenceOfAx2::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_GeomFill_SequenceOfAx2.def("InsertAfter", (void (GeomFill_SequenceOfAx2::*)(const Standard_Integer, GeomFill_SequenceOfAx2 &)) &GeomFill_SequenceOfAx2::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomFill_SequenceOfAx2.def("InsertAfter", (void (GeomFill_SequenceOfAx2::*)(const Standard_Integer, const gp_Ax2 &)) &GeomFill_SequenceOfAx2::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomFill_SequenceOfAx2.def("Split", (void (GeomFill_SequenceOfAx2::*)(const Standard_Integer, GeomFill_SequenceOfAx2 &)) &GeomFill_SequenceOfAx2::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomFill_SequenceOfAx2.def("First", (const gp_Ax2 & (GeomFill_SequenceOfAx2::*)() const ) &GeomFill_SequenceOfAx2::First, "First item access");
-	cls_GeomFill_SequenceOfAx2.def("ChangeFirst", (gp_Ax2 & (GeomFill_SequenceOfAx2::*)()) &GeomFill_SequenceOfAx2::ChangeFirst, "First item access");
-	cls_GeomFill_SequenceOfAx2.def("Last", (const gp_Ax2 & (GeomFill_SequenceOfAx2::*)() const ) &GeomFill_SequenceOfAx2::Last, "Last item access");
-	cls_GeomFill_SequenceOfAx2.def("ChangeLast", (gp_Ax2 & (GeomFill_SequenceOfAx2::*)()) &GeomFill_SequenceOfAx2::ChangeLast, "Last item access");
-	cls_GeomFill_SequenceOfAx2.def("Value", (const gp_Ax2 & (GeomFill_SequenceOfAx2::*)(const Standard_Integer) const ) &GeomFill_SequenceOfAx2::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_GeomFill_SequenceOfAx2.def("__call__", (const gp_Ax2 & (GeomFill_SequenceOfAx2::*)(const Standard_Integer) const ) &GeomFill_SequenceOfAx2::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_GeomFill_SequenceOfAx2.def("ChangeValue", (gp_Ax2 & (GeomFill_SequenceOfAx2::*)(const Standard_Integer)) &GeomFill_SequenceOfAx2::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_GeomFill_SequenceOfAx2.def("__call__", (gp_Ax2 & (GeomFill_SequenceOfAx2::*)(const Standard_Integer)) &GeomFill_SequenceOfAx2::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_GeomFill_SequenceOfAx2.def("SetValue", (void (GeomFill_SequenceOfAx2::*)(const Standard_Integer, const gp_Ax2 &)) &GeomFill_SequenceOfAx2::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomFill_SequenceOfAx2.def("__iter__", [](const GeomFill_SequenceOfAx2 &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomFill_SequenceOfAx2.hxx
+	bind_NCollection_Sequence<gp_Ax2>(mod, "GeomFill_SequenceOfAx2");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomFill_HArray1OfLocationLaw.hxx
 	py::class_<GeomFill_HArray1OfLocationLaw, opencascade::handle<GeomFill_HArray1OfLocationLaw>, GeomFill_Array1OfLocationLaw, Standard_Transient> cls_GeomFill_HArray1OfLocationLaw(mod, "GeomFill_HArray1OfLocationLaw", "None");
@@ -1309,50 +1195,8 @@ PYBIND11_MODULE(GeomFill, mod) {
 	cls_GeomFill_HArray1OfLocationLaw.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &GeomFill_HArray1OfLocationLaw::get_type_descriptor, "None");
 	cls_GeomFill_HArray1OfLocationLaw.def("DynamicType", (const opencascade::handle<Standard_Type> & (GeomFill_HArray1OfLocationLaw::*)() const ) &GeomFill_HArray1OfLocationLaw::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<GeomFill_SequenceOfTrsf, std::unique_ptr<GeomFill_SequenceOfTrsf, Deleter<GeomFill_SequenceOfTrsf>>, NCollection_BaseSequence> cls_GeomFill_SequenceOfTrsf(mod, "GeomFill_SequenceOfTrsf", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_GeomFill_SequenceOfTrsf.def(py::init<>());
-	cls_GeomFill_SequenceOfTrsf.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_GeomFill_SequenceOfTrsf.def(py::init([] (const GeomFill_SequenceOfTrsf &other) {return new GeomFill_SequenceOfTrsf(other);}), "Copy constructor", py::arg("other"));
-	cls_GeomFill_SequenceOfTrsf.def("begin", (GeomFill_SequenceOfTrsf::iterator (GeomFill_SequenceOfTrsf::*)() const ) &GeomFill_SequenceOfTrsf::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_GeomFill_SequenceOfTrsf.def("end", (GeomFill_SequenceOfTrsf::iterator (GeomFill_SequenceOfTrsf::*)() const ) &GeomFill_SequenceOfTrsf::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_GeomFill_SequenceOfTrsf.def("cbegin", (GeomFill_SequenceOfTrsf::const_iterator (GeomFill_SequenceOfTrsf::*)() const ) &GeomFill_SequenceOfTrsf::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_GeomFill_SequenceOfTrsf.def("cend", (GeomFill_SequenceOfTrsf::const_iterator (GeomFill_SequenceOfTrsf::*)() const ) &GeomFill_SequenceOfTrsf::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_GeomFill_SequenceOfTrsf.def("Size", (Standard_Integer (GeomFill_SequenceOfTrsf::*)() const ) &GeomFill_SequenceOfTrsf::Size, "Number of items");
-	cls_GeomFill_SequenceOfTrsf.def("Length", (Standard_Integer (GeomFill_SequenceOfTrsf::*)() const ) &GeomFill_SequenceOfTrsf::Length, "Number of items");
-	cls_GeomFill_SequenceOfTrsf.def("Lower", (Standard_Integer (GeomFill_SequenceOfTrsf::*)() const ) &GeomFill_SequenceOfTrsf::Lower, "Method for consistency with other collections.");
-	cls_GeomFill_SequenceOfTrsf.def("Upper", (Standard_Integer (GeomFill_SequenceOfTrsf::*)() const ) &GeomFill_SequenceOfTrsf::Upper, "Method for consistency with other collections.");
-	cls_GeomFill_SequenceOfTrsf.def("IsEmpty", (Standard_Boolean (GeomFill_SequenceOfTrsf::*)() const ) &GeomFill_SequenceOfTrsf::IsEmpty, "Empty query");
-	cls_GeomFill_SequenceOfTrsf.def("Reverse", (void (GeomFill_SequenceOfTrsf::*)()) &GeomFill_SequenceOfTrsf::Reverse, "Reverse sequence");
-	cls_GeomFill_SequenceOfTrsf.def("Exchange", (void (GeomFill_SequenceOfTrsf::*)(const Standard_Integer, const Standard_Integer)) &GeomFill_SequenceOfTrsf::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_GeomFill_SequenceOfTrsf.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &GeomFill_SequenceOfTrsf::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_GeomFill_SequenceOfTrsf.def("Clear", [](GeomFill_SequenceOfTrsf &self) -> void { return self.Clear(); });
-	cls_GeomFill_SequenceOfTrsf.def("Clear", (void (GeomFill_SequenceOfTrsf::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &GeomFill_SequenceOfTrsf::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_GeomFill_SequenceOfTrsf.def("Assign", (GeomFill_SequenceOfTrsf & (GeomFill_SequenceOfTrsf::*)(const GeomFill_SequenceOfTrsf &)) &GeomFill_SequenceOfTrsf::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_GeomFill_SequenceOfTrsf.def("assign", (GeomFill_SequenceOfTrsf & (GeomFill_SequenceOfTrsf::*)(const GeomFill_SequenceOfTrsf &)) &GeomFill_SequenceOfTrsf::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_GeomFill_SequenceOfTrsf.def("Remove", (void (GeomFill_SequenceOfTrsf::*)(GeomFill_SequenceOfTrsf::Iterator &)) &GeomFill_SequenceOfTrsf::Remove, "Remove one item", py::arg("thePosition"));
-	cls_GeomFill_SequenceOfTrsf.def("Remove", (void (GeomFill_SequenceOfTrsf::*)(const Standard_Integer)) &GeomFill_SequenceOfTrsf::Remove, "Remove one item", py::arg("theIndex"));
-	cls_GeomFill_SequenceOfTrsf.def("Remove", (void (GeomFill_SequenceOfTrsf::*)(const Standard_Integer, const Standard_Integer)) &GeomFill_SequenceOfTrsf::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_GeomFill_SequenceOfTrsf.def("Append", (void (GeomFill_SequenceOfTrsf::*)(const gp_Trsf &)) &GeomFill_SequenceOfTrsf::Append, "Append one item", py::arg("theItem"));
-	cls_GeomFill_SequenceOfTrsf.def("Append", (void (GeomFill_SequenceOfTrsf::*)(GeomFill_SequenceOfTrsf &)) &GeomFill_SequenceOfTrsf::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_GeomFill_SequenceOfTrsf.def("Prepend", (void (GeomFill_SequenceOfTrsf::*)(const gp_Trsf &)) &GeomFill_SequenceOfTrsf::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_GeomFill_SequenceOfTrsf.def("Prepend", (void (GeomFill_SequenceOfTrsf::*)(GeomFill_SequenceOfTrsf &)) &GeomFill_SequenceOfTrsf::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_GeomFill_SequenceOfTrsf.def("InsertBefore", (void (GeomFill_SequenceOfTrsf::*)(const Standard_Integer, const gp_Trsf &)) &GeomFill_SequenceOfTrsf::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomFill_SequenceOfTrsf.def("InsertBefore", (void (GeomFill_SequenceOfTrsf::*)(const Standard_Integer, GeomFill_SequenceOfTrsf &)) &GeomFill_SequenceOfTrsf::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomFill_SequenceOfTrsf.def("InsertAfter", (void (GeomFill_SequenceOfTrsf::*)(GeomFill_SequenceOfTrsf::Iterator &, const gp_Trsf &)) &GeomFill_SequenceOfTrsf::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_GeomFill_SequenceOfTrsf.def("InsertAfter", (void (GeomFill_SequenceOfTrsf::*)(const Standard_Integer, GeomFill_SequenceOfTrsf &)) &GeomFill_SequenceOfTrsf::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomFill_SequenceOfTrsf.def("InsertAfter", (void (GeomFill_SequenceOfTrsf::*)(const Standard_Integer, const gp_Trsf &)) &GeomFill_SequenceOfTrsf::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomFill_SequenceOfTrsf.def("Split", (void (GeomFill_SequenceOfTrsf::*)(const Standard_Integer, GeomFill_SequenceOfTrsf &)) &GeomFill_SequenceOfTrsf::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomFill_SequenceOfTrsf.def("First", (const gp_Trsf & (GeomFill_SequenceOfTrsf::*)() const ) &GeomFill_SequenceOfTrsf::First, "First item access");
-	cls_GeomFill_SequenceOfTrsf.def("ChangeFirst", (gp_Trsf & (GeomFill_SequenceOfTrsf::*)()) &GeomFill_SequenceOfTrsf::ChangeFirst, "First item access");
-	cls_GeomFill_SequenceOfTrsf.def("Last", (const gp_Trsf & (GeomFill_SequenceOfTrsf::*)() const ) &GeomFill_SequenceOfTrsf::Last, "Last item access");
-	cls_GeomFill_SequenceOfTrsf.def("ChangeLast", (gp_Trsf & (GeomFill_SequenceOfTrsf::*)()) &GeomFill_SequenceOfTrsf::ChangeLast, "Last item access");
-	cls_GeomFill_SequenceOfTrsf.def("Value", (const gp_Trsf & (GeomFill_SequenceOfTrsf::*)(const Standard_Integer) const ) &GeomFill_SequenceOfTrsf::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_GeomFill_SequenceOfTrsf.def("__call__", (const gp_Trsf & (GeomFill_SequenceOfTrsf::*)(const Standard_Integer) const ) &GeomFill_SequenceOfTrsf::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_GeomFill_SequenceOfTrsf.def("ChangeValue", (gp_Trsf & (GeomFill_SequenceOfTrsf::*)(const Standard_Integer)) &GeomFill_SequenceOfTrsf::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_GeomFill_SequenceOfTrsf.def("__call__", (gp_Trsf & (GeomFill_SequenceOfTrsf::*)(const Standard_Integer)) &GeomFill_SequenceOfTrsf::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_GeomFill_SequenceOfTrsf.def("SetValue", (void (GeomFill_SequenceOfTrsf::*)(const Standard_Integer, const gp_Trsf &)) &GeomFill_SequenceOfTrsf::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomFill_SequenceOfTrsf.def("__iter__", [](const GeomFill_SequenceOfTrsf &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomFill_SequenceOfTrsf.hxx
+	bind_NCollection_Sequence<gp_Trsf>(mod, "GeomFill_SequenceOfTrsf");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomFill_HArray1OfSectionLaw.hxx
 	py::class_<GeomFill_HArray1OfSectionLaw, opencascade::handle<GeomFill_HArray1OfSectionLaw>, GeomFill_Array1OfSectionLaw, Standard_Transient> cls_GeomFill_HArray1OfSectionLaw(mod, "GeomFill_HArray1OfSectionLaw", "None");

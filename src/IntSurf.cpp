@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <gp_Pnt.hxx>
 #include <Standard_TypeDef.hxx>
@@ -50,6 +41,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <gp_Dir.hxx>
 #include <Adaptor3d_HSurface.hxx>
 #include <IntSurf.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(IntSurf, mod) {
 
@@ -231,243 +223,26 @@ PYBIND11_MODULE(IntSurf, mod) {
 	cls_IntSurf.def_static("MakeTransition_", (void (*)(const gp_Vec &, const gp_Vec &, const gp_Dir &, IntSurf_Transition &, IntSurf_Transition &)) &IntSurf::MakeTransition, "Computes the transition of the intersection point between the two lines. TgFirst is the tangent vector of the first line. TgSecond is the tangent vector of the second line. Normal is the direction used to orientate the cross product TgFirst^TgSecond. TFirst is the transition of the point on the first line. TSecond is the transition of the point on the second line.", py::arg("TgFirst"), py::arg("TgSecond"), py::arg("Normal"), py::arg("TFirst"), py::arg("TSecond"));
 	// FIXME cls_IntSurf.def_static("SetPeriod_", (void (*)(const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &, Standard_Real [4])) &IntSurf::SetPeriod, "Fills theArrOfPeriod array by the period values of theFirstSurf and theSecondSurf. [0] = U-period of theFirstSurf, [1] = V-period of theFirstSurf, [2] = U-period of theSecondSurf, [3] = V-period of theSecondSurf.", py::arg("theFirstSurf"), py::arg("theSecondSurf"), py::arg("theArrOfPeriod"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<IntSurf_ListOfPntOn2S, std::unique_ptr<IntSurf_ListOfPntOn2S, Deleter<IntSurf_ListOfPntOn2S>>, NCollection_BaseList> cls_IntSurf_ListOfPntOn2S(mod, "IntSurf_ListOfPntOn2S", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_IntSurf_ListOfPntOn2S.def(py::init<>());
-	cls_IntSurf_ListOfPntOn2S.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_IntSurf_ListOfPntOn2S.def(py::init([] (const IntSurf_ListOfPntOn2S &other) {return new IntSurf_ListOfPntOn2S(other);}), "Copy constructor", py::arg("other"));
-	cls_IntSurf_ListOfPntOn2S.def("begin", (IntSurf_ListOfPntOn2S::iterator (IntSurf_ListOfPntOn2S::*)() const ) &IntSurf_ListOfPntOn2S::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_IntSurf_ListOfPntOn2S.def("end", (IntSurf_ListOfPntOn2S::iterator (IntSurf_ListOfPntOn2S::*)() const ) &IntSurf_ListOfPntOn2S::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_IntSurf_ListOfPntOn2S.def("cbegin", (IntSurf_ListOfPntOn2S::const_iterator (IntSurf_ListOfPntOn2S::*)() const ) &IntSurf_ListOfPntOn2S::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_IntSurf_ListOfPntOn2S.def("cend", (IntSurf_ListOfPntOn2S::const_iterator (IntSurf_ListOfPntOn2S::*)() const ) &IntSurf_ListOfPntOn2S::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_IntSurf_ListOfPntOn2S.def("Size", (Standard_Integer (IntSurf_ListOfPntOn2S::*)() const ) &IntSurf_ListOfPntOn2S::Size, "Size - Number of items");
-	cls_IntSurf_ListOfPntOn2S.def("Assign", (IntSurf_ListOfPntOn2S & (IntSurf_ListOfPntOn2S::*)(const IntSurf_ListOfPntOn2S &)) &IntSurf_ListOfPntOn2S::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_IntSurf_ListOfPntOn2S.def("assign", (IntSurf_ListOfPntOn2S & (IntSurf_ListOfPntOn2S::*)(const IntSurf_ListOfPntOn2S &)) &IntSurf_ListOfPntOn2S::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_IntSurf_ListOfPntOn2S.def("Clear", [](IntSurf_ListOfPntOn2S &self) -> void { return self.Clear(); });
-	cls_IntSurf_ListOfPntOn2S.def("Clear", (void (IntSurf_ListOfPntOn2S::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &IntSurf_ListOfPntOn2S::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_IntSurf_ListOfPntOn2S.def("First", (const IntSurf_PntOn2S & (IntSurf_ListOfPntOn2S::*)() const ) &IntSurf_ListOfPntOn2S::First, "First item");
-	cls_IntSurf_ListOfPntOn2S.def("First", (IntSurf_PntOn2S & (IntSurf_ListOfPntOn2S::*)()) &IntSurf_ListOfPntOn2S::First, "First item (non-const)");
-	cls_IntSurf_ListOfPntOn2S.def("Last", (const IntSurf_PntOn2S & (IntSurf_ListOfPntOn2S::*)() const ) &IntSurf_ListOfPntOn2S::Last, "Last item");
-	cls_IntSurf_ListOfPntOn2S.def("Last", (IntSurf_PntOn2S & (IntSurf_ListOfPntOn2S::*)()) &IntSurf_ListOfPntOn2S::Last, "Last item (non-const)");
-	cls_IntSurf_ListOfPntOn2S.def("Append", (IntSurf_PntOn2S & (IntSurf_ListOfPntOn2S::*)(const IntSurf_PntOn2S &)) &IntSurf_ListOfPntOn2S::Append, "Append one item at the end", py::arg("theItem"));
-	cls_IntSurf_ListOfPntOn2S.def("Append", (void (IntSurf_ListOfPntOn2S::*)(const IntSurf_PntOn2S &, IntSurf_ListOfPntOn2S::Iterator &)) &IntSurf_ListOfPntOn2S::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_IntSurf_ListOfPntOn2S.def("Append", (void (IntSurf_ListOfPntOn2S::*)(IntSurf_ListOfPntOn2S &)) &IntSurf_ListOfPntOn2S::Append, "Append another list at the end", py::arg("theOther"));
-	cls_IntSurf_ListOfPntOn2S.def("Prepend", (IntSurf_PntOn2S & (IntSurf_ListOfPntOn2S::*)(const IntSurf_PntOn2S &)) &IntSurf_ListOfPntOn2S::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_IntSurf_ListOfPntOn2S.def("Prepend", (void (IntSurf_ListOfPntOn2S::*)(IntSurf_ListOfPntOn2S &)) &IntSurf_ListOfPntOn2S::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_IntSurf_ListOfPntOn2S.def("RemoveFirst", (void (IntSurf_ListOfPntOn2S::*)()) &IntSurf_ListOfPntOn2S::RemoveFirst, "RemoveFirst item");
-	cls_IntSurf_ListOfPntOn2S.def("Remove", (void (IntSurf_ListOfPntOn2S::*)(IntSurf_ListOfPntOn2S::Iterator &)) &IntSurf_ListOfPntOn2S::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_IntSurf_ListOfPntOn2S.def("InsertBefore", (IntSurf_PntOn2S & (IntSurf_ListOfPntOn2S::*)(const IntSurf_PntOn2S &, IntSurf_ListOfPntOn2S::Iterator &)) &IntSurf_ListOfPntOn2S::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_IntSurf_ListOfPntOn2S.def("InsertBefore", (void (IntSurf_ListOfPntOn2S::*)(IntSurf_ListOfPntOn2S &, IntSurf_ListOfPntOn2S::Iterator &)) &IntSurf_ListOfPntOn2S::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_IntSurf_ListOfPntOn2S.def("InsertAfter", (IntSurf_PntOn2S & (IntSurf_ListOfPntOn2S::*)(const IntSurf_PntOn2S &, IntSurf_ListOfPntOn2S::Iterator &)) &IntSurf_ListOfPntOn2S::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_IntSurf_ListOfPntOn2S.def("InsertAfter", (void (IntSurf_ListOfPntOn2S::*)(IntSurf_ListOfPntOn2S &, IntSurf_ListOfPntOn2S::Iterator &)) &IntSurf_ListOfPntOn2S::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_IntSurf_ListOfPntOn2S.def("Reverse", (void (IntSurf_ListOfPntOn2S::*)()) &IntSurf_ListOfPntOn2S::Reverse, "Reverse the list");
-	cls_IntSurf_ListOfPntOn2S.def("__iter__", [](const IntSurf_ListOfPntOn2S &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntSurf_ListOfPntOn2S.hxx
+	bind_NCollection_List<IntSurf_PntOn2S>(mod, "IntSurf_ListOfPntOn2S");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<IntSurf_ListIteratorOfListOfPntOn2S, std::unique_ptr<IntSurf_ListIteratorOfListOfPntOn2S, Deleter<IntSurf_ListIteratorOfListOfPntOn2S>>> cls_IntSurf_ListIteratorOfListOfPntOn2S(mod, "IntSurf_ListIteratorOfListOfPntOn2S", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_IntSurf_ListIteratorOfListOfPntOn2S.def(py::init<>());
-	cls_IntSurf_ListIteratorOfListOfPntOn2S.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_IntSurf_ListIteratorOfListOfPntOn2S.def("More", (Standard_Boolean (IntSurf_ListIteratorOfListOfPntOn2S::*)() const ) &IntSurf_ListIteratorOfListOfPntOn2S::More, "Check end");
-	cls_IntSurf_ListIteratorOfListOfPntOn2S.def("Next", (void (IntSurf_ListIteratorOfListOfPntOn2S::*)()) &IntSurf_ListIteratorOfListOfPntOn2S::Next, "Make step");
-	cls_IntSurf_ListIteratorOfListOfPntOn2S.def("Value", (const IntSurf_PntOn2S & (IntSurf_ListIteratorOfListOfPntOn2S::*)() const ) &IntSurf_ListIteratorOfListOfPntOn2S::Value, "Constant Value access");
-	cls_IntSurf_ListIteratorOfListOfPntOn2S.def("Value", (IntSurf_PntOn2S & (IntSurf_ListIteratorOfListOfPntOn2S::*)()) &IntSurf_ListIteratorOfListOfPntOn2S::Value, "Non-const Value access");
-	cls_IntSurf_ListIteratorOfListOfPntOn2S.def("ChangeValue", (IntSurf_PntOn2S & (IntSurf_ListIteratorOfListOfPntOn2S::*)() const ) &IntSurf_ListIteratorOfListOfPntOn2S::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntSurf_ListOfPntOn2S.hxx
+	bind_NCollection_TListIterator<IntSurf_PntOn2S>(mod, "IntSurf_ListIteratorOfListOfPntOn2S");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<IntSurf_SequenceOfPntOn2S, std::unique_ptr<IntSurf_SequenceOfPntOn2S, Deleter<IntSurf_SequenceOfPntOn2S>>, NCollection_BaseSequence> cls_IntSurf_SequenceOfPntOn2S(mod, "IntSurf_SequenceOfPntOn2S", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_IntSurf_SequenceOfPntOn2S.def(py::init<>());
-	cls_IntSurf_SequenceOfPntOn2S.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_IntSurf_SequenceOfPntOn2S.def(py::init([] (const IntSurf_SequenceOfPntOn2S &other) {return new IntSurf_SequenceOfPntOn2S(other);}), "Copy constructor", py::arg("other"));
-	cls_IntSurf_SequenceOfPntOn2S.def("begin", (IntSurf_SequenceOfPntOn2S::iterator (IntSurf_SequenceOfPntOn2S::*)() const ) &IntSurf_SequenceOfPntOn2S::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_IntSurf_SequenceOfPntOn2S.def("end", (IntSurf_SequenceOfPntOn2S::iterator (IntSurf_SequenceOfPntOn2S::*)() const ) &IntSurf_SequenceOfPntOn2S::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_IntSurf_SequenceOfPntOn2S.def("cbegin", (IntSurf_SequenceOfPntOn2S::const_iterator (IntSurf_SequenceOfPntOn2S::*)() const ) &IntSurf_SequenceOfPntOn2S::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_IntSurf_SequenceOfPntOn2S.def("cend", (IntSurf_SequenceOfPntOn2S::const_iterator (IntSurf_SequenceOfPntOn2S::*)() const ) &IntSurf_SequenceOfPntOn2S::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_IntSurf_SequenceOfPntOn2S.def("Size", (Standard_Integer (IntSurf_SequenceOfPntOn2S::*)() const ) &IntSurf_SequenceOfPntOn2S::Size, "Number of items");
-	cls_IntSurf_SequenceOfPntOn2S.def("Length", (Standard_Integer (IntSurf_SequenceOfPntOn2S::*)() const ) &IntSurf_SequenceOfPntOn2S::Length, "Number of items");
-	cls_IntSurf_SequenceOfPntOn2S.def("Lower", (Standard_Integer (IntSurf_SequenceOfPntOn2S::*)() const ) &IntSurf_SequenceOfPntOn2S::Lower, "Method for consistency with other collections.");
-	cls_IntSurf_SequenceOfPntOn2S.def("Upper", (Standard_Integer (IntSurf_SequenceOfPntOn2S::*)() const ) &IntSurf_SequenceOfPntOn2S::Upper, "Method for consistency with other collections.");
-	cls_IntSurf_SequenceOfPntOn2S.def("IsEmpty", (Standard_Boolean (IntSurf_SequenceOfPntOn2S::*)() const ) &IntSurf_SequenceOfPntOn2S::IsEmpty, "Empty query");
-	cls_IntSurf_SequenceOfPntOn2S.def("Reverse", (void (IntSurf_SequenceOfPntOn2S::*)()) &IntSurf_SequenceOfPntOn2S::Reverse, "Reverse sequence");
-	cls_IntSurf_SequenceOfPntOn2S.def("Exchange", (void (IntSurf_SequenceOfPntOn2S::*)(const Standard_Integer, const Standard_Integer)) &IntSurf_SequenceOfPntOn2S::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_IntSurf_SequenceOfPntOn2S.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &IntSurf_SequenceOfPntOn2S::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_IntSurf_SequenceOfPntOn2S.def("Clear", [](IntSurf_SequenceOfPntOn2S &self) -> void { return self.Clear(); });
-	cls_IntSurf_SequenceOfPntOn2S.def("Clear", (void (IntSurf_SequenceOfPntOn2S::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &IntSurf_SequenceOfPntOn2S::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_IntSurf_SequenceOfPntOn2S.def("Assign", (IntSurf_SequenceOfPntOn2S & (IntSurf_SequenceOfPntOn2S::*)(const IntSurf_SequenceOfPntOn2S &)) &IntSurf_SequenceOfPntOn2S::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_IntSurf_SequenceOfPntOn2S.def("assign", (IntSurf_SequenceOfPntOn2S & (IntSurf_SequenceOfPntOn2S::*)(const IntSurf_SequenceOfPntOn2S &)) &IntSurf_SequenceOfPntOn2S::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_IntSurf_SequenceOfPntOn2S.def("Remove", (void (IntSurf_SequenceOfPntOn2S::*)(IntSurf_SequenceOfPntOn2S::Iterator &)) &IntSurf_SequenceOfPntOn2S::Remove, "Remove one item", py::arg("thePosition"));
-	cls_IntSurf_SequenceOfPntOn2S.def("Remove", (void (IntSurf_SequenceOfPntOn2S::*)(const Standard_Integer)) &IntSurf_SequenceOfPntOn2S::Remove, "Remove one item", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfPntOn2S.def("Remove", (void (IntSurf_SequenceOfPntOn2S::*)(const Standard_Integer, const Standard_Integer)) &IntSurf_SequenceOfPntOn2S::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_IntSurf_SequenceOfPntOn2S.def("Append", (void (IntSurf_SequenceOfPntOn2S::*)(const IntSurf_PntOn2S &)) &IntSurf_SequenceOfPntOn2S::Append, "Append one item", py::arg("theItem"));
-	cls_IntSurf_SequenceOfPntOn2S.def("Append", (void (IntSurf_SequenceOfPntOn2S::*)(IntSurf_SequenceOfPntOn2S &)) &IntSurf_SequenceOfPntOn2S::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntSurf_SequenceOfPntOn2S.def("Prepend", (void (IntSurf_SequenceOfPntOn2S::*)(const IntSurf_PntOn2S &)) &IntSurf_SequenceOfPntOn2S::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_IntSurf_SequenceOfPntOn2S.def("Prepend", (void (IntSurf_SequenceOfPntOn2S::*)(IntSurf_SequenceOfPntOn2S &)) &IntSurf_SequenceOfPntOn2S::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntSurf_SequenceOfPntOn2S.def("InsertBefore", (void (IntSurf_SequenceOfPntOn2S::*)(const Standard_Integer, const IntSurf_PntOn2S &)) &IntSurf_SequenceOfPntOn2S::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntSurf_SequenceOfPntOn2S.def("InsertBefore", (void (IntSurf_SequenceOfPntOn2S::*)(const Standard_Integer, IntSurf_SequenceOfPntOn2S &)) &IntSurf_SequenceOfPntOn2S::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntSurf_SequenceOfPntOn2S.def("InsertAfter", (void (IntSurf_SequenceOfPntOn2S::*)(IntSurf_SequenceOfPntOn2S::Iterator &, const IntSurf_PntOn2S &)) &IntSurf_SequenceOfPntOn2S::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_IntSurf_SequenceOfPntOn2S.def("InsertAfter", (void (IntSurf_SequenceOfPntOn2S::*)(const Standard_Integer, IntSurf_SequenceOfPntOn2S &)) &IntSurf_SequenceOfPntOn2S::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntSurf_SequenceOfPntOn2S.def("InsertAfter", (void (IntSurf_SequenceOfPntOn2S::*)(const Standard_Integer, const IntSurf_PntOn2S &)) &IntSurf_SequenceOfPntOn2S::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntSurf_SequenceOfPntOn2S.def("Split", (void (IntSurf_SequenceOfPntOn2S::*)(const Standard_Integer, IntSurf_SequenceOfPntOn2S &)) &IntSurf_SequenceOfPntOn2S::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntSurf_SequenceOfPntOn2S.def("First", (const IntSurf_PntOn2S & (IntSurf_SequenceOfPntOn2S::*)() const ) &IntSurf_SequenceOfPntOn2S::First, "First item access");
-	cls_IntSurf_SequenceOfPntOn2S.def("ChangeFirst", (IntSurf_PntOn2S & (IntSurf_SequenceOfPntOn2S::*)()) &IntSurf_SequenceOfPntOn2S::ChangeFirst, "First item access");
-	cls_IntSurf_SequenceOfPntOn2S.def("Last", (const IntSurf_PntOn2S & (IntSurf_SequenceOfPntOn2S::*)() const ) &IntSurf_SequenceOfPntOn2S::Last, "Last item access");
-	cls_IntSurf_SequenceOfPntOn2S.def("ChangeLast", (IntSurf_PntOn2S & (IntSurf_SequenceOfPntOn2S::*)()) &IntSurf_SequenceOfPntOn2S::ChangeLast, "Last item access");
-	cls_IntSurf_SequenceOfPntOn2S.def("Value", (const IntSurf_PntOn2S & (IntSurf_SequenceOfPntOn2S::*)(const Standard_Integer) const ) &IntSurf_SequenceOfPntOn2S::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfPntOn2S.def("__call__", (const IntSurf_PntOn2S & (IntSurf_SequenceOfPntOn2S::*)(const Standard_Integer) const ) &IntSurf_SequenceOfPntOn2S::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfPntOn2S.def("ChangeValue", (IntSurf_PntOn2S & (IntSurf_SequenceOfPntOn2S::*)(const Standard_Integer)) &IntSurf_SequenceOfPntOn2S::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfPntOn2S.def("__call__", (IntSurf_PntOn2S & (IntSurf_SequenceOfPntOn2S::*)(const Standard_Integer)) &IntSurf_SequenceOfPntOn2S::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfPntOn2S.def("SetValue", (void (IntSurf_SequenceOfPntOn2S::*)(const Standard_Integer, const IntSurf_PntOn2S &)) &IntSurf_SequenceOfPntOn2S::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntSurf_SequenceOfPntOn2S.def("__iter__", [](const IntSurf_SequenceOfPntOn2S &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntSurf_SequenceOfPntOn2S.hxx
+	bind_NCollection_Sequence<IntSurf_PntOn2S>(mod, "IntSurf_SequenceOfPntOn2S");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\Standard_Handle.hxx
-	py::class_<IntSurf_Allocator, std::unique_ptr<IntSurf_Allocator, Deleter<IntSurf_Allocator>>> cls_IntSurf_Allocator(mod, "IntSurf_Allocator", "Intrusive smart pointer for use with Standard_Transient class and its descendants.");
-	cls_IntSurf_Allocator.def(py::init<>());
-	cls_IntSurf_Allocator.def(py::init<const NCollection_BaseAllocator *>(), py::arg("thePtr"));
-	cls_IntSurf_Allocator.def(py::init([] (const handle<NCollection_BaseAllocator> &other) {return new IntSurf_Allocator(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IntSurf_Allocator.def(py::init<handle<NCollection_BaseAllocator> &&>(), py::arg("theHandle"));
-	cls_IntSurf_Allocator.def("Nullify", (void (IntSurf_Allocator::*)()) &IntSurf_Allocator::Nullify, "Nullify the handle");
-	cls_IntSurf_Allocator.def("IsNull", (bool (IntSurf_Allocator::*)() const ) &IntSurf_Allocator::IsNull, "Check for being null");
-	cls_IntSurf_Allocator.def("reset", (void (IntSurf_Allocator::*)(NCollection_BaseAllocator *)) &IntSurf_Allocator::reset, "Reset by new pointer", py::arg("thePtr"));
-	cls_IntSurf_Allocator.def("assign", (handle<NCollection_BaseAllocator> & (IntSurf_Allocator::*)(const handle<NCollection_BaseAllocator> &)) &IntSurf_Allocator::operator=, py::is_operator(), "Assignment operator", py::arg("theHandle"));
-	cls_IntSurf_Allocator.def("assign", (handle<NCollection_BaseAllocator> & (IntSurf_Allocator::*)(const NCollection_BaseAllocator *)) &IntSurf_Allocator::operator=, py::is_operator(), "Assignment to pointer", py::arg("thePtr"));
-	// FIXME cls_IntSurf_Allocator.def("assign", (handle<NCollection_BaseAllocator> & (IntSurf_Allocator::*)(handle<NCollection_BaseAllocator> &&)) &IntSurf_Allocator::operator=, py::is_operator(), "Move operator", py::arg("theHandle"));
-	cls_IntSurf_Allocator.def("get", (NCollection_BaseAllocator * (IntSurf_Allocator::*)() const ) &IntSurf_Allocator::get, "STL-like cast to pointer to referred object (note non-const).");
-	// FIXME cls_IntSurf_Allocator.def("operator->", (NCollection_BaseAllocator * (IntSurf_Allocator::*)() const ) &IntSurf_Allocator::operator->, "Member access operator (note non-const)");
-	cls_IntSurf_Allocator.def("__mul__", (NCollection_BaseAllocator & (IntSurf_Allocator::*)() const ) &IntSurf_Allocator::operator*, py::is_operator(), "Dereferencing operator (note non-const)");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntSurf_Allocator.hxx
+	// FIXME bind_opencascade::handle<NCollection_BaseAllocator>(mod, "IntSurf_Allocator");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<IntSurf_SequenceOfInteriorPoint, std::unique_ptr<IntSurf_SequenceOfInteriorPoint, Deleter<IntSurf_SequenceOfInteriorPoint>>, NCollection_BaseSequence> cls_IntSurf_SequenceOfInteriorPoint(mod, "IntSurf_SequenceOfInteriorPoint", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_IntSurf_SequenceOfInteriorPoint.def(py::init<>());
-	cls_IntSurf_SequenceOfInteriorPoint.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_IntSurf_SequenceOfInteriorPoint.def(py::init([] (const IntSurf_SequenceOfInteriorPoint &other) {return new IntSurf_SequenceOfInteriorPoint(other);}), "Copy constructor", py::arg("other"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("begin", (IntSurf_SequenceOfInteriorPoint::iterator (IntSurf_SequenceOfInteriorPoint::*)() const ) &IntSurf_SequenceOfInteriorPoint::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_IntSurf_SequenceOfInteriorPoint.def("end", (IntSurf_SequenceOfInteriorPoint::iterator (IntSurf_SequenceOfInteriorPoint::*)() const ) &IntSurf_SequenceOfInteriorPoint::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_IntSurf_SequenceOfInteriorPoint.def("cbegin", (IntSurf_SequenceOfInteriorPoint::const_iterator (IntSurf_SequenceOfInteriorPoint::*)() const ) &IntSurf_SequenceOfInteriorPoint::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_IntSurf_SequenceOfInteriorPoint.def("cend", (IntSurf_SequenceOfInteriorPoint::const_iterator (IntSurf_SequenceOfInteriorPoint::*)() const ) &IntSurf_SequenceOfInteriorPoint::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_IntSurf_SequenceOfInteriorPoint.def("Size", (Standard_Integer (IntSurf_SequenceOfInteriorPoint::*)() const ) &IntSurf_SequenceOfInteriorPoint::Size, "Number of items");
-	cls_IntSurf_SequenceOfInteriorPoint.def("Length", (Standard_Integer (IntSurf_SequenceOfInteriorPoint::*)() const ) &IntSurf_SequenceOfInteriorPoint::Length, "Number of items");
-	cls_IntSurf_SequenceOfInteriorPoint.def("Lower", (Standard_Integer (IntSurf_SequenceOfInteriorPoint::*)() const ) &IntSurf_SequenceOfInteriorPoint::Lower, "Method for consistency with other collections.");
-	cls_IntSurf_SequenceOfInteriorPoint.def("Upper", (Standard_Integer (IntSurf_SequenceOfInteriorPoint::*)() const ) &IntSurf_SequenceOfInteriorPoint::Upper, "Method for consistency with other collections.");
-	cls_IntSurf_SequenceOfInteriorPoint.def("IsEmpty", (Standard_Boolean (IntSurf_SequenceOfInteriorPoint::*)() const ) &IntSurf_SequenceOfInteriorPoint::IsEmpty, "Empty query");
-	cls_IntSurf_SequenceOfInteriorPoint.def("Reverse", (void (IntSurf_SequenceOfInteriorPoint::*)()) &IntSurf_SequenceOfInteriorPoint::Reverse, "Reverse sequence");
-	cls_IntSurf_SequenceOfInteriorPoint.def("Exchange", (void (IntSurf_SequenceOfInteriorPoint::*)(const Standard_Integer, const Standard_Integer)) &IntSurf_SequenceOfInteriorPoint::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_IntSurf_SequenceOfInteriorPoint.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &IntSurf_SequenceOfInteriorPoint::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("Clear", [](IntSurf_SequenceOfInteriorPoint &self) -> void { return self.Clear(); });
-	cls_IntSurf_SequenceOfInteriorPoint.def("Clear", (void (IntSurf_SequenceOfInteriorPoint::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &IntSurf_SequenceOfInteriorPoint::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("Assign", (IntSurf_SequenceOfInteriorPoint & (IntSurf_SequenceOfInteriorPoint::*)(const IntSurf_SequenceOfInteriorPoint &)) &IntSurf_SequenceOfInteriorPoint::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("assign", (IntSurf_SequenceOfInteriorPoint & (IntSurf_SequenceOfInteriorPoint::*)(const IntSurf_SequenceOfInteriorPoint &)) &IntSurf_SequenceOfInteriorPoint::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("Remove", (void (IntSurf_SequenceOfInteriorPoint::*)(IntSurf_SequenceOfInteriorPoint::Iterator &)) &IntSurf_SequenceOfInteriorPoint::Remove, "Remove one item", py::arg("thePosition"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("Remove", (void (IntSurf_SequenceOfInteriorPoint::*)(const Standard_Integer)) &IntSurf_SequenceOfInteriorPoint::Remove, "Remove one item", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("Remove", (void (IntSurf_SequenceOfInteriorPoint::*)(const Standard_Integer, const Standard_Integer)) &IntSurf_SequenceOfInteriorPoint::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("Append", (void (IntSurf_SequenceOfInteriorPoint::*)(const IntSurf_InteriorPoint &)) &IntSurf_SequenceOfInteriorPoint::Append, "Append one item", py::arg("theItem"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("Append", (void (IntSurf_SequenceOfInteriorPoint::*)(IntSurf_SequenceOfInteriorPoint &)) &IntSurf_SequenceOfInteriorPoint::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("Prepend", (void (IntSurf_SequenceOfInteriorPoint::*)(const IntSurf_InteriorPoint &)) &IntSurf_SequenceOfInteriorPoint::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("Prepend", (void (IntSurf_SequenceOfInteriorPoint::*)(IntSurf_SequenceOfInteriorPoint &)) &IntSurf_SequenceOfInteriorPoint::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("InsertBefore", (void (IntSurf_SequenceOfInteriorPoint::*)(const Standard_Integer, const IntSurf_InteriorPoint &)) &IntSurf_SequenceOfInteriorPoint::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("InsertBefore", (void (IntSurf_SequenceOfInteriorPoint::*)(const Standard_Integer, IntSurf_SequenceOfInteriorPoint &)) &IntSurf_SequenceOfInteriorPoint::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("InsertAfter", (void (IntSurf_SequenceOfInteriorPoint::*)(IntSurf_SequenceOfInteriorPoint::Iterator &, const IntSurf_InteriorPoint &)) &IntSurf_SequenceOfInteriorPoint::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("InsertAfter", (void (IntSurf_SequenceOfInteriorPoint::*)(const Standard_Integer, IntSurf_SequenceOfInteriorPoint &)) &IntSurf_SequenceOfInteriorPoint::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("InsertAfter", (void (IntSurf_SequenceOfInteriorPoint::*)(const Standard_Integer, const IntSurf_InteriorPoint &)) &IntSurf_SequenceOfInteriorPoint::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("Split", (void (IntSurf_SequenceOfInteriorPoint::*)(const Standard_Integer, IntSurf_SequenceOfInteriorPoint &)) &IntSurf_SequenceOfInteriorPoint::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("First", (const IntSurf_InteriorPoint & (IntSurf_SequenceOfInteriorPoint::*)() const ) &IntSurf_SequenceOfInteriorPoint::First, "First item access");
-	cls_IntSurf_SequenceOfInteriorPoint.def("ChangeFirst", (IntSurf_InteriorPoint & (IntSurf_SequenceOfInteriorPoint::*)()) &IntSurf_SequenceOfInteriorPoint::ChangeFirst, "First item access");
-	cls_IntSurf_SequenceOfInteriorPoint.def("Last", (const IntSurf_InteriorPoint & (IntSurf_SequenceOfInteriorPoint::*)() const ) &IntSurf_SequenceOfInteriorPoint::Last, "Last item access");
-	cls_IntSurf_SequenceOfInteriorPoint.def("ChangeLast", (IntSurf_InteriorPoint & (IntSurf_SequenceOfInteriorPoint::*)()) &IntSurf_SequenceOfInteriorPoint::ChangeLast, "Last item access");
-	cls_IntSurf_SequenceOfInteriorPoint.def("Value", (const IntSurf_InteriorPoint & (IntSurf_SequenceOfInteriorPoint::*)(const Standard_Integer) const ) &IntSurf_SequenceOfInteriorPoint::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("__call__", (const IntSurf_InteriorPoint & (IntSurf_SequenceOfInteriorPoint::*)(const Standard_Integer) const ) &IntSurf_SequenceOfInteriorPoint::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("ChangeValue", (IntSurf_InteriorPoint & (IntSurf_SequenceOfInteriorPoint::*)(const Standard_Integer)) &IntSurf_SequenceOfInteriorPoint::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("__call__", (IntSurf_InteriorPoint & (IntSurf_SequenceOfInteriorPoint::*)(const Standard_Integer)) &IntSurf_SequenceOfInteriorPoint::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("SetValue", (void (IntSurf_SequenceOfInteriorPoint::*)(const Standard_Integer, const IntSurf_InteriorPoint &)) &IntSurf_SequenceOfInteriorPoint::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntSurf_SequenceOfInteriorPoint.def("__iter__", [](const IntSurf_SequenceOfInteriorPoint &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntSurf_SequenceOfInteriorPoint.hxx
+	bind_NCollection_Sequence<IntSurf_InteriorPoint>(mod, "IntSurf_SequenceOfInteriorPoint");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<IntSurf_SequenceOfCouple, std::unique_ptr<IntSurf_SequenceOfCouple, Deleter<IntSurf_SequenceOfCouple>>, NCollection_BaseSequence> cls_IntSurf_SequenceOfCouple(mod, "IntSurf_SequenceOfCouple", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_IntSurf_SequenceOfCouple.def(py::init<>());
-	cls_IntSurf_SequenceOfCouple.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_IntSurf_SequenceOfCouple.def(py::init([] (const IntSurf_SequenceOfCouple &other) {return new IntSurf_SequenceOfCouple(other);}), "Copy constructor", py::arg("other"));
-	cls_IntSurf_SequenceOfCouple.def("begin", (IntSurf_SequenceOfCouple::iterator (IntSurf_SequenceOfCouple::*)() const ) &IntSurf_SequenceOfCouple::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_IntSurf_SequenceOfCouple.def("end", (IntSurf_SequenceOfCouple::iterator (IntSurf_SequenceOfCouple::*)() const ) &IntSurf_SequenceOfCouple::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_IntSurf_SequenceOfCouple.def("cbegin", (IntSurf_SequenceOfCouple::const_iterator (IntSurf_SequenceOfCouple::*)() const ) &IntSurf_SequenceOfCouple::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_IntSurf_SequenceOfCouple.def("cend", (IntSurf_SequenceOfCouple::const_iterator (IntSurf_SequenceOfCouple::*)() const ) &IntSurf_SequenceOfCouple::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_IntSurf_SequenceOfCouple.def("Size", (Standard_Integer (IntSurf_SequenceOfCouple::*)() const ) &IntSurf_SequenceOfCouple::Size, "Number of items");
-	cls_IntSurf_SequenceOfCouple.def("Length", (Standard_Integer (IntSurf_SequenceOfCouple::*)() const ) &IntSurf_SequenceOfCouple::Length, "Number of items");
-	cls_IntSurf_SequenceOfCouple.def("Lower", (Standard_Integer (IntSurf_SequenceOfCouple::*)() const ) &IntSurf_SequenceOfCouple::Lower, "Method for consistency with other collections.");
-	cls_IntSurf_SequenceOfCouple.def("Upper", (Standard_Integer (IntSurf_SequenceOfCouple::*)() const ) &IntSurf_SequenceOfCouple::Upper, "Method for consistency with other collections.");
-	cls_IntSurf_SequenceOfCouple.def("IsEmpty", (Standard_Boolean (IntSurf_SequenceOfCouple::*)() const ) &IntSurf_SequenceOfCouple::IsEmpty, "Empty query");
-	cls_IntSurf_SequenceOfCouple.def("Reverse", (void (IntSurf_SequenceOfCouple::*)()) &IntSurf_SequenceOfCouple::Reverse, "Reverse sequence");
-	cls_IntSurf_SequenceOfCouple.def("Exchange", (void (IntSurf_SequenceOfCouple::*)(const Standard_Integer, const Standard_Integer)) &IntSurf_SequenceOfCouple::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_IntSurf_SequenceOfCouple.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &IntSurf_SequenceOfCouple::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_IntSurf_SequenceOfCouple.def("Clear", [](IntSurf_SequenceOfCouple &self) -> void { return self.Clear(); });
-	cls_IntSurf_SequenceOfCouple.def("Clear", (void (IntSurf_SequenceOfCouple::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &IntSurf_SequenceOfCouple::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_IntSurf_SequenceOfCouple.def("Assign", (IntSurf_SequenceOfCouple & (IntSurf_SequenceOfCouple::*)(const IntSurf_SequenceOfCouple &)) &IntSurf_SequenceOfCouple::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_IntSurf_SequenceOfCouple.def("assign", (IntSurf_SequenceOfCouple & (IntSurf_SequenceOfCouple::*)(const IntSurf_SequenceOfCouple &)) &IntSurf_SequenceOfCouple::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_IntSurf_SequenceOfCouple.def("Remove", (void (IntSurf_SequenceOfCouple::*)(IntSurf_SequenceOfCouple::Iterator &)) &IntSurf_SequenceOfCouple::Remove, "Remove one item", py::arg("thePosition"));
-	cls_IntSurf_SequenceOfCouple.def("Remove", (void (IntSurf_SequenceOfCouple::*)(const Standard_Integer)) &IntSurf_SequenceOfCouple::Remove, "Remove one item", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfCouple.def("Remove", (void (IntSurf_SequenceOfCouple::*)(const Standard_Integer, const Standard_Integer)) &IntSurf_SequenceOfCouple::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_IntSurf_SequenceOfCouple.def("Append", (void (IntSurf_SequenceOfCouple::*)(const IntSurf_Couple &)) &IntSurf_SequenceOfCouple::Append, "Append one item", py::arg("theItem"));
-	cls_IntSurf_SequenceOfCouple.def("Append", (void (IntSurf_SequenceOfCouple::*)(IntSurf_SequenceOfCouple &)) &IntSurf_SequenceOfCouple::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntSurf_SequenceOfCouple.def("Prepend", (void (IntSurf_SequenceOfCouple::*)(const IntSurf_Couple &)) &IntSurf_SequenceOfCouple::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_IntSurf_SequenceOfCouple.def("Prepend", (void (IntSurf_SequenceOfCouple::*)(IntSurf_SequenceOfCouple &)) &IntSurf_SequenceOfCouple::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntSurf_SequenceOfCouple.def("InsertBefore", (void (IntSurf_SequenceOfCouple::*)(const Standard_Integer, const IntSurf_Couple &)) &IntSurf_SequenceOfCouple::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntSurf_SequenceOfCouple.def("InsertBefore", (void (IntSurf_SequenceOfCouple::*)(const Standard_Integer, IntSurf_SequenceOfCouple &)) &IntSurf_SequenceOfCouple::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntSurf_SequenceOfCouple.def("InsertAfter", (void (IntSurf_SequenceOfCouple::*)(IntSurf_SequenceOfCouple::Iterator &, const IntSurf_Couple &)) &IntSurf_SequenceOfCouple::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_IntSurf_SequenceOfCouple.def("InsertAfter", (void (IntSurf_SequenceOfCouple::*)(const Standard_Integer, IntSurf_SequenceOfCouple &)) &IntSurf_SequenceOfCouple::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntSurf_SequenceOfCouple.def("InsertAfter", (void (IntSurf_SequenceOfCouple::*)(const Standard_Integer, const IntSurf_Couple &)) &IntSurf_SequenceOfCouple::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntSurf_SequenceOfCouple.def("Split", (void (IntSurf_SequenceOfCouple::*)(const Standard_Integer, IntSurf_SequenceOfCouple &)) &IntSurf_SequenceOfCouple::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntSurf_SequenceOfCouple.def("First", (const IntSurf_Couple & (IntSurf_SequenceOfCouple::*)() const ) &IntSurf_SequenceOfCouple::First, "First item access");
-	cls_IntSurf_SequenceOfCouple.def("ChangeFirst", (IntSurf_Couple & (IntSurf_SequenceOfCouple::*)()) &IntSurf_SequenceOfCouple::ChangeFirst, "First item access");
-	cls_IntSurf_SequenceOfCouple.def("Last", (const IntSurf_Couple & (IntSurf_SequenceOfCouple::*)() const ) &IntSurf_SequenceOfCouple::Last, "Last item access");
-	cls_IntSurf_SequenceOfCouple.def("ChangeLast", (IntSurf_Couple & (IntSurf_SequenceOfCouple::*)()) &IntSurf_SequenceOfCouple::ChangeLast, "Last item access");
-	cls_IntSurf_SequenceOfCouple.def("Value", (const IntSurf_Couple & (IntSurf_SequenceOfCouple::*)(const Standard_Integer) const ) &IntSurf_SequenceOfCouple::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfCouple.def("__call__", (const IntSurf_Couple & (IntSurf_SequenceOfCouple::*)(const Standard_Integer) const ) &IntSurf_SequenceOfCouple::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfCouple.def("ChangeValue", (IntSurf_Couple & (IntSurf_SequenceOfCouple::*)(const Standard_Integer)) &IntSurf_SequenceOfCouple::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfCouple.def("__call__", (IntSurf_Couple & (IntSurf_SequenceOfCouple::*)(const Standard_Integer)) &IntSurf_SequenceOfCouple::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfCouple.def("SetValue", (void (IntSurf_SequenceOfCouple::*)(const Standard_Integer, const IntSurf_Couple &)) &IntSurf_SequenceOfCouple::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntSurf_SequenceOfCouple.def("__iter__", [](const IntSurf_SequenceOfCouple &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntSurf_SequenceOfCouple.hxx
+	bind_NCollection_Sequence<IntSurf_Couple>(mod, "IntSurf_SequenceOfCouple");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<IntSurf_SequenceOfPathPoint, std::unique_ptr<IntSurf_SequenceOfPathPoint, Deleter<IntSurf_SequenceOfPathPoint>>, NCollection_BaseSequence> cls_IntSurf_SequenceOfPathPoint(mod, "IntSurf_SequenceOfPathPoint", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_IntSurf_SequenceOfPathPoint.def(py::init<>());
-	cls_IntSurf_SequenceOfPathPoint.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_IntSurf_SequenceOfPathPoint.def(py::init([] (const IntSurf_SequenceOfPathPoint &other) {return new IntSurf_SequenceOfPathPoint(other);}), "Copy constructor", py::arg("other"));
-	cls_IntSurf_SequenceOfPathPoint.def("begin", (IntSurf_SequenceOfPathPoint::iterator (IntSurf_SequenceOfPathPoint::*)() const ) &IntSurf_SequenceOfPathPoint::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_IntSurf_SequenceOfPathPoint.def("end", (IntSurf_SequenceOfPathPoint::iterator (IntSurf_SequenceOfPathPoint::*)() const ) &IntSurf_SequenceOfPathPoint::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_IntSurf_SequenceOfPathPoint.def("cbegin", (IntSurf_SequenceOfPathPoint::const_iterator (IntSurf_SequenceOfPathPoint::*)() const ) &IntSurf_SequenceOfPathPoint::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_IntSurf_SequenceOfPathPoint.def("cend", (IntSurf_SequenceOfPathPoint::const_iterator (IntSurf_SequenceOfPathPoint::*)() const ) &IntSurf_SequenceOfPathPoint::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_IntSurf_SequenceOfPathPoint.def("Size", (Standard_Integer (IntSurf_SequenceOfPathPoint::*)() const ) &IntSurf_SequenceOfPathPoint::Size, "Number of items");
-	cls_IntSurf_SequenceOfPathPoint.def("Length", (Standard_Integer (IntSurf_SequenceOfPathPoint::*)() const ) &IntSurf_SequenceOfPathPoint::Length, "Number of items");
-	cls_IntSurf_SequenceOfPathPoint.def("Lower", (Standard_Integer (IntSurf_SequenceOfPathPoint::*)() const ) &IntSurf_SequenceOfPathPoint::Lower, "Method for consistency with other collections.");
-	cls_IntSurf_SequenceOfPathPoint.def("Upper", (Standard_Integer (IntSurf_SequenceOfPathPoint::*)() const ) &IntSurf_SequenceOfPathPoint::Upper, "Method for consistency with other collections.");
-	cls_IntSurf_SequenceOfPathPoint.def("IsEmpty", (Standard_Boolean (IntSurf_SequenceOfPathPoint::*)() const ) &IntSurf_SequenceOfPathPoint::IsEmpty, "Empty query");
-	cls_IntSurf_SequenceOfPathPoint.def("Reverse", (void (IntSurf_SequenceOfPathPoint::*)()) &IntSurf_SequenceOfPathPoint::Reverse, "Reverse sequence");
-	cls_IntSurf_SequenceOfPathPoint.def("Exchange", (void (IntSurf_SequenceOfPathPoint::*)(const Standard_Integer, const Standard_Integer)) &IntSurf_SequenceOfPathPoint::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_IntSurf_SequenceOfPathPoint.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &IntSurf_SequenceOfPathPoint::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_IntSurf_SequenceOfPathPoint.def("Clear", [](IntSurf_SequenceOfPathPoint &self) -> void { return self.Clear(); });
-	cls_IntSurf_SequenceOfPathPoint.def("Clear", (void (IntSurf_SequenceOfPathPoint::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &IntSurf_SequenceOfPathPoint::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_IntSurf_SequenceOfPathPoint.def("Assign", (IntSurf_SequenceOfPathPoint & (IntSurf_SequenceOfPathPoint::*)(const IntSurf_SequenceOfPathPoint &)) &IntSurf_SequenceOfPathPoint::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_IntSurf_SequenceOfPathPoint.def("assign", (IntSurf_SequenceOfPathPoint & (IntSurf_SequenceOfPathPoint::*)(const IntSurf_SequenceOfPathPoint &)) &IntSurf_SequenceOfPathPoint::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_IntSurf_SequenceOfPathPoint.def("Remove", (void (IntSurf_SequenceOfPathPoint::*)(IntSurf_SequenceOfPathPoint::Iterator &)) &IntSurf_SequenceOfPathPoint::Remove, "Remove one item", py::arg("thePosition"));
-	cls_IntSurf_SequenceOfPathPoint.def("Remove", (void (IntSurf_SequenceOfPathPoint::*)(const Standard_Integer)) &IntSurf_SequenceOfPathPoint::Remove, "Remove one item", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfPathPoint.def("Remove", (void (IntSurf_SequenceOfPathPoint::*)(const Standard_Integer, const Standard_Integer)) &IntSurf_SequenceOfPathPoint::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_IntSurf_SequenceOfPathPoint.def("Append", (void (IntSurf_SequenceOfPathPoint::*)(const IntSurf_PathPoint &)) &IntSurf_SequenceOfPathPoint::Append, "Append one item", py::arg("theItem"));
-	cls_IntSurf_SequenceOfPathPoint.def("Append", (void (IntSurf_SequenceOfPathPoint::*)(IntSurf_SequenceOfPathPoint &)) &IntSurf_SequenceOfPathPoint::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntSurf_SequenceOfPathPoint.def("Prepend", (void (IntSurf_SequenceOfPathPoint::*)(const IntSurf_PathPoint &)) &IntSurf_SequenceOfPathPoint::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_IntSurf_SequenceOfPathPoint.def("Prepend", (void (IntSurf_SequenceOfPathPoint::*)(IntSurf_SequenceOfPathPoint &)) &IntSurf_SequenceOfPathPoint::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_IntSurf_SequenceOfPathPoint.def("InsertBefore", (void (IntSurf_SequenceOfPathPoint::*)(const Standard_Integer, const IntSurf_PathPoint &)) &IntSurf_SequenceOfPathPoint::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntSurf_SequenceOfPathPoint.def("InsertBefore", (void (IntSurf_SequenceOfPathPoint::*)(const Standard_Integer, IntSurf_SequenceOfPathPoint &)) &IntSurf_SequenceOfPathPoint::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntSurf_SequenceOfPathPoint.def("InsertAfter", (void (IntSurf_SequenceOfPathPoint::*)(IntSurf_SequenceOfPathPoint::Iterator &, const IntSurf_PathPoint &)) &IntSurf_SequenceOfPathPoint::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_IntSurf_SequenceOfPathPoint.def("InsertAfter", (void (IntSurf_SequenceOfPathPoint::*)(const Standard_Integer, IntSurf_SequenceOfPathPoint &)) &IntSurf_SequenceOfPathPoint::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntSurf_SequenceOfPathPoint.def("InsertAfter", (void (IntSurf_SequenceOfPathPoint::*)(const Standard_Integer, const IntSurf_PathPoint &)) &IntSurf_SequenceOfPathPoint::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntSurf_SequenceOfPathPoint.def("Split", (void (IntSurf_SequenceOfPathPoint::*)(const Standard_Integer, IntSurf_SequenceOfPathPoint &)) &IntSurf_SequenceOfPathPoint::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_IntSurf_SequenceOfPathPoint.def("First", (const IntSurf_PathPoint & (IntSurf_SequenceOfPathPoint::*)() const ) &IntSurf_SequenceOfPathPoint::First, "First item access");
-	cls_IntSurf_SequenceOfPathPoint.def("ChangeFirst", (IntSurf_PathPoint & (IntSurf_SequenceOfPathPoint::*)()) &IntSurf_SequenceOfPathPoint::ChangeFirst, "First item access");
-	cls_IntSurf_SequenceOfPathPoint.def("Last", (const IntSurf_PathPoint & (IntSurf_SequenceOfPathPoint::*)() const ) &IntSurf_SequenceOfPathPoint::Last, "Last item access");
-	cls_IntSurf_SequenceOfPathPoint.def("ChangeLast", (IntSurf_PathPoint & (IntSurf_SequenceOfPathPoint::*)()) &IntSurf_SequenceOfPathPoint::ChangeLast, "Last item access");
-	cls_IntSurf_SequenceOfPathPoint.def("Value", (const IntSurf_PathPoint & (IntSurf_SequenceOfPathPoint::*)(const Standard_Integer) const ) &IntSurf_SequenceOfPathPoint::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfPathPoint.def("__call__", (const IntSurf_PathPoint & (IntSurf_SequenceOfPathPoint::*)(const Standard_Integer) const ) &IntSurf_SequenceOfPathPoint::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfPathPoint.def("ChangeValue", (IntSurf_PathPoint & (IntSurf_SequenceOfPathPoint::*)(const Standard_Integer)) &IntSurf_SequenceOfPathPoint::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfPathPoint.def("__call__", (IntSurf_PathPoint & (IntSurf_SequenceOfPathPoint::*)(const Standard_Integer)) &IntSurf_SequenceOfPathPoint::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_IntSurf_SequenceOfPathPoint.def("SetValue", (void (IntSurf_SequenceOfPathPoint::*)(const Standard_Integer, const IntSurf_PathPoint &)) &IntSurf_SequenceOfPathPoint::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_IntSurf_SequenceOfPathPoint.def("__iter__", [](const IntSurf_SequenceOfPathPoint &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntSurf_SequenceOfPathPoint.hxx
+	bind_NCollection_Sequence<IntSurf_PathPoint>(mod, "IntSurf_SequenceOfPathPoint");
 
 
 }

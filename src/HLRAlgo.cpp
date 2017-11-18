@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <gp_XYZ.hxx>
 
@@ -61,6 +52,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <HLRAlgo_PolyInternalData.hxx>
 #include <HLRAlgo_PolyMask.hxx>
 #include <HLRAlgo_PolyShellData.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(HLRAlgo, mod) {
 
@@ -248,145 +240,17 @@ PYBIND11_MODULE(HLRAlgo, mod) {
 	cls_HLRAlgo_EdgeIterator.def("NextVisible", (void (HLRAlgo_EdgeIterator::*)()) &HLRAlgo_EdgeIterator::NextVisible, "None");
 	cls_HLRAlgo_EdgeIterator.def("Visible", (void (HLRAlgo_EdgeIterator::*)(Standard_Real &, Standard_ShortReal &, Standard_Real &, Standard_ShortReal &)) &HLRAlgo_EdgeIterator::Visible, "Returns the bounds and the tolerances of the current Visible Interval", py::arg("Start"), py::arg("TolStart"), py::arg("End"), py::arg("TolEnd"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<HLRAlgo_Array1OfPHDat, std::unique_ptr<HLRAlgo_Array1OfPHDat, Deleter<HLRAlgo_Array1OfPHDat>>> cls_HLRAlgo_Array1OfPHDat(mod, "HLRAlgo_Array1OfPHDat", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_HLRAlgo_Array1OfPHDat.def(py::init<>());
-	cls_HLRAlgo_Array1OfPHDat.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_HLRAlgo_Array1OfPHDat.def(py::init([] (const HLRAlgo_Array1OfPHDat &other) {return new HLRAlgo_Array1OfPHDat(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_HLRAlgo_Array1OfPHDat.def(py::init<HLRAlgo_Array1OfPHDat &&>(), py::arg("theOther"));
-	cls_HLRAlgo_Array1OfPHDat.def(py::init<const HLRAlgo_PolyHidingData &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_HLRAlgo_Array1OfPHDat.def("begin", (HLRAlgo_Array1OfPHDat::iterator (HLRAlgo_Array1OfPHDat::*)() const ) &HLRAlgo_Array1OfPHDat::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_HLRAlgo_Array1OfPHDat.def("end", (HLRAlgo_Array1OfPHDat::iterator (HLRAlgo_Array1OfPHDat::*)() const ) &HLRAlgo_Array1OfPHDat::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_HLRAlgo_Array1OfPHDat.def("cbegin", (HLRAlgo_Array1OfPHDat::const_iterator (HLRAlgo_Array1OfPHDat::*)() const ) &HLRAlgo_Array1OfPHDat::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_HLRAlgo_Array1OfPHDat.def("cend", (HLRAlgo_Array1OfPHDat::const_iterator (HLRAlgo_Array1OfPHDat::*)() const ) &HLRAlgo_Array1OfPHDat::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_HLRAlgo_Array1OfPHDat.def("Init", (void (HLRAlgo_Array1OfPHDat::*)(const HLRAlgo_PolyHidingData &)) &HLRAlgo_Array1OfPHDat::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_HLRAlgo_Array1OfPHDat.def("Size", (Standard_Integer (HLRAlgo_Array1OfPHDat::*)() const ) &HLRAlgo_Array1OfPHDat::Size, "Size query");
-	cls_HLRAlgo_Array1OfPHDat.def("Length", (Standard_Integer (HLRAlgo_Array1OfPHDat::*)() const ) &HLRAlgo_Array1OfPHDat::Length, "Length query (the same)");
-	cls_HLRAlgo_Array1OfPHDat.def("IsEmpty", (Standard_Boolean (HLRAlgo_Array1OfPHDat::*)() const ) &HLRAlgo_Array1OfPHDat::IsEmpty, "Return TRUE if array has zero length.");
-	cls_HLRAlgo_Array1OfPHDat.def("Lower", (Standard_Integer (HLRAlgo_Array1OfPHDat::*)() const ) &HLRAlgo_Array1OfPHDat::Lower, "Lower bound");
-	cls_HLRAlgo_Array1OfPHDat.def("Upper", (Standard_Integer (HLRAlgo_Array1OfPHDat::*)() const ) &HLRAlgo_Array1OfPHDat::Upper, "Upper bound");
-	cls_HLRAlgo_Array1OfPHDat.def("IsDeletable", (Standard_Boolean (HLRAlgo_Array1OfPHDat::*)() const ) &HLRAlgo_Array1OfPHDat::IsDeletable, "myDeletable flag");
-	cls_HLRAlgo_Array1OfPHDat.def("IsAllocated", (Standard_Boolean (HLRAlgo_Array1OfPHDat::*)() const ) &HLRAlgo_Array1OfPHDat::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_HLRAlgo_Array1OfPHDat.def("Assign", (HLRAlgo_Array1OfPHDat & (HLRAlgo_Array1OfPHDat::*)(const HLRAlgo_Array1OfPHDat &)) &HLRAlgo_Array1OfPHDat::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_HLRAlgo_Array1OfPHDat.def("Move", (HLRAlgo_Array1OfPHDat & (HLRAlgo_Array1OfPHDat::*)(HLRAlgo_Array1OfPHDat &&)) &HLRAlgo_Array1OfPHDat::Move, "Move assignment", py::arg("theOther"));
-	cls_HLRAlgo_Array1OfPHDat.def("assign", (HLRAlgo_Array1OfPHDat & (HLRAlgo_Array1OfPHDat::*)(const HLRAlgo_Array1OfPHDat &)) &HLRAlgo_Array1OfPHDat::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_HLRAlgo_Array1OfPHDat.def("assign", (HLRAlgo_Array1OfPHDat & (HLRAlgo_Array1OfPHDat::*)(HLRAlgo_Array1OfPHDat &&)) &HLRAlgo_Array1OfPHDat::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_HLRAlgo_Array1OfPHDat.def("First", (const HLRAlgo_PolyHidingData & (HLRAlgo_Array1OfPHDat::*)() const ) &HLRAlgo_Array1OfPHDat::First, "Returns first element");
-	cls_HLRAlgo_Array1OfPHDat.def("ChangeFirst", (HLRAlgo_PolyHidingData & (HLRAlgo_Array1OfPHDat::*)()) &HLRAlgo_Array1OfPHDat::ChangeFirst, "Returns first element");
-	cls_HLRAlgo_Array1OfPHDat.def("Last", (const HLRAlgo_PolyHidingData & (HLRAlgo_Array1OfPHDat::*)() const ) &HLRAlgo_Array1OfPHDat::Last, "Returns last element");
-	cls_HLRAlgo_Array1OfPHDat.def("ChangeLast", (HLRAlgo_PolyHidingData & (HLRAlgo_Array1OfPHDat::*)()) &HLRAlgo_Array1OfPHDat::ChangeLast, "Returns last element");
-	cls_HLRAlgo_Array1OfPHDat.def("Value", (const HLRAlgo_PolyHidingData & (HLRAlgo_Array1OfPHDat::*)(const Standard_Integer) const ) &HLRAlgo_Array1OfPHDat::Value, "Constant value access", py::arg("theIndex"));
-	cls_HLRAlgo_Array1OfPHDat.def("__call__", (const HLRAlgo_PolyHidingData & (HLRAlgo_Array1OfPHDat::*)(const Standard_Integer) const ) &HLRAlgo_Array1OfPHDat::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_HLRAlgo_Array1OfPHDat.def("ChangeValue", (HLRAlgo_PolyHidingData & (HLRAlgo_Array1OfPHDat::*)(const Standard_Integer)) &HLRAlgo_Array1OfPHDat::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_HLRAlgo_Array1OfPHDat.def("__call__", (HLRAlgo_PolyHidingData & (HLRAlgo_Array1OfPHDat::*)(const Standard_Integer)) &HLRAlgo_Array1OfPHDat::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_HLRAlgo_Array1OfPHDat.def("SetValue", (void (HLRAlgo_Array1OfPHDat::*)(const Standard_Integer, const HLRAlgo_PolyHidingData &)) &HLRAlgo_Array1OfPHDat::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_HLRAlgo_Array1OfPHDat.def("Resize", (void (HLRAlgo_Array1OfPHDat::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &HLRAlgo_Array1OfPHDat::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_HLRAlgo_Array1OfPHDat.def("__iter__", [](const HLRAlgo_Array1OfPHDat &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRAlgo_Array1OfPHDat.hxx
+	bind_NCollection_Array1<HLRAlgo_PolyHidingData>(mod, "HLRAlgo_Array1OfPHDat");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<HLRAlgo_Array1OfPINod, std::unique_ptr<HLRAlgo_Array1OfPINod, Deleter<HLRAlgo_Array1OfPINod>>> cls_HLRAlgo_Array1OfPINod(mod, "HLRAlgo_Array1OfPINod", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_HLRAlgo_Array1OfPINod.def(py::init<>());
-	cls_HLRAlgo_Array1OfPINod.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_HLRAlgo_Array1OfPINod.def(py::init([] (const HLRAlgo_Array1OfPINod &other) {return new HLRAlgo_Array1OfPINod(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_HLRAlgo_Array1OfPINod.def(py::init<HLRAlgo_Array1OfPINod &&>(), py::arg("theOther"));
-	cls_HLRAlgo_Array1OfPINod.def(py::init<const opencascade::handle<HLRAlgo_PolyInternalNode> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_HLRAlgo_Array1OfPINod.def("begin", (HLRAlgo_Array1OfPINod::iterator (HLRAlgo_Array1OfPINod::*)() const ) &HLRAlgo_Array1OfPINod::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_HLRAlgo_Array1OfPINod.def("end", (HLRAlgo_Array1OfPINod::iterator (HLRAlgo_Array1OfPINod::*)() const ) &HLRAlgo_Array1OfPINod::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_HLRAlgo_Array1OfPINod.def("cbegin", (HLRAlgo_Array1OfPINod::const_iterator (HLRAlgo_Array1OfPINod::*)() const ) &HLRAlgo_Array1OfPINod::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_HLRAlgo_Array1OfPINod.def("cend", (HLRAlgo_Array1OfPINod::const_iterator (HLRAlgo_Array1OfPINod::*)() const ) &HLRAlgo_Array1OfPINod::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_HLRAlgo_Array1OfPINod.def("Init", (void (HLRAlgo_Array1OfPINod::*)(const opencascade::handle<HLRAlgo_PolyInternalNode> &)) &HLRAlgo_Array1OfPINod::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_HLRAlgo_Array1OfPINod.def("Size", (Standard_Integer (HLRAlgo_Array1OfPINod::*)() const ) &HLRAlgo_Array1OfPINod::Size, "Size query");
-	cls_HLRAlgo_Array1OfPINod.def("Length", (Standard_Integer (HLRAlgo_Array1OfPINod::*)() const ) &HLRAlgo_Array1OfPINod::Length, "Length query (the same)");
-	cls_HLRAlgo_Array1OfPINod.def("IsEmpty", (Standard_Boolean (HLRAlgo_Array1OfPINod::*)() const ) &HLRAlgo_Array1OfPINod::IsEmpty, "Return TRUE if array has zero length.");
-	cls_HLRAlgo_Array1OfPINod.def("Lower", (Standard_Integer (HLRAlgo_Array1OfPINod::*)() const ) &HLRAlgo_Array1OfPINod::Lower, "Lower bound");
-	cls_HLRAlgo_Array1OfPINod.def("Upper", (Standard_Integer (HLRAlgo_Array1OfPINod::*)() const ) &HLRAlgo_Array1OfPINod::Upper, "Upper bound");
-	cls_HLRAlgo_Array1OfPINod.def("IsDeletable", (Standard_Boolean (HLRAlgo_Array1OfPINod::*)() const ) &HLRAlgo_Array1OfPINod::IsDeletable, "myDeletable flag");
-	cls_HLRAlgo_Array1OfPINod.def("IsAllocated", (Standard_Boolean (HLRAlgo_Array1OfPINod::*)() const ) &HLRAlgo_Array1OfPINod::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_HLRAlgo_Array1OfPINod.def("Assign", (HLRAlgo_Array1OfPINod & (HLRAlgo_Array1OfPINod::*)(const HLRAlgo_Array1OfPINod &)) &HLRAlgo_Array1OfPINod::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_HLRAlgo_Array1OfPINod.def("Move", (HLRAlgo_Array1OfPINod & (HLRAlgo_Array1OfPINod::*)(HLRAlgo_Array1OfPINod &&)) &HLRAlgo_Array1OfPINod::Move, "Move assignment", py::arg("theOther"));
-	cls_HLRAlgo_Array1OfPINod.def("assign", (HLRAlgo_Array1OfPINod & (HLRAlgo_Array1OfPINod::*)(const HLRAlgo_Array1OfPINod &)) &HLRAlgo_Array1OfPINod::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_HLRAlgo_Array1OfPINod.def("assign", (HLRAlgo_Array1OfPINod & (HLRAlgo_Array1OfPINod::*)(HLRAlgo_Array1OfPINod &&)) &HLRAlgo_Array1OfPINod::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_HLRAlgo_Array1OfPINod.def("First", (const opencascade::handle<HLRAlgo_PolyInternalNode> & (HLRAlgo_Array1OfPINod::*)() const ) &HLRAlgo_Array1OfPINod::First, "Returns first element");
-	cls_HLRAlgo_Array1OfPINod.def("ChangeFirst", (opencascade::handle<HLRAlgo_PolyInternalNode> & (HLRAlgo_Array1OfPINod::*)()) &HLRAlgo_Array1OfPINod::ChangeFirst, "Returns first element");
-	cls_HLRAlgo_Array1OfPINod.def("Last", (const opencascade::handle<HLRAlgo_PolyInternalNode> & (HLRAlgo_Array1OfPINod::*)() const ) &HLRAlgo_Array1OfPINod::Last, "Returns last element");
-	cls_HLRAlgo_Array1OfPINod.def("ChangeLast", (opencascade::handle<HLRAlgo_PolyInternalNode> & (HLRAlgo_Array1OfPINod::*)()) &HLRAlgo_Array1OfPINod::ChangeLast, "Returns last element");
-	cls_HLRAlgo_Array1OfPINod.def("Value", (const opencascade::handle<HLRAlgo_PolyInternalNode> & (HLRAlgo_Array1OfPINod::*)(const Standard_Integer) const ) &HLRAlgo_Array1OfPINod::Value, "Constant value access", py::arg("theIndex"));
-	cls_HLRAlgo_Array1OfPINod.def("__call__", (const opencascade::handle<HLRAlgo_PolyInternalNode> & (HLRAlgo_Array1OfPINod::*)(const Standard_Integer) const ) &HLRAlgo_Array1OfPINod::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_HLRAlgo_Array1OfPINod.def("ChangeValue", (opencascade::handle<HLRAlgo_PolyInternalNode> & (HLRAlgo_Array1OfPINod::*)(const Standard_Integer)) &HLRAlgo_Array1OfPINod::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_HLRAlgo_Array1OfPINod.def("__call__", (opencascade::handle<HLRAlgo_PolyInternalNode> & (HLRAlgo_Array1OfPINod::*)(const Standard_Integer)) &HLRAlgo_Array1OfPINod::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_HLRAlgo_Array1OfPINod.def("SetValue", (void (HLRAlgo_Array1OfPINod::*)(const Standard_Integer, const opencascade::handle<HLRAlgo_PolyInternalNode> &)) &HLRAlgo_Array1OfPINod::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_HLRAlgo_Array1OfPINod.def("Resize", (void (HLRAlgo_Array1OfPINod::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &HLRAlgo_Array1OfPINod::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_HLRAlgo_Array1OfPINod.def("__iter__", [](const HLRAlgo_Array1OfPINod &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRAlgo_Array1OfPINod.hxx
+	bind_NCollection_Array1<opencascade::handle<HLRAlgo_PolyInternalNode> >(mod, "HLRAlgo_Array1OfPINod");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<HLRAlgo_Array1OfPISeg, std::unique_ptr<HLRAlgo_Array1OfPISeg, Deleter<HLRAlgo_Array1OfPISeg>>> cls_HLRAlgo_Array1OfPISeg(mod, "HLRAlgo_Array1OfPISeg", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_HLRAlgo_Array1OfPISeg.def(py::init<>());
-	cls_HLRAlgo_Array1OfPISeg.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_HLRAlgo_Array1OfPISeg.def(py::init([] (const HLRAlgo_Array1OfPISeg &other) {return new HLRAlgo_Array1OfPISeg(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_HLRAlgo_Array1OfPISeg.def(py::init<HLRAlgo_Array1OfPISeg &&>(), py::arg("theOther"));
-	cls_HLRAlgo_Array1OfPISeg.def(py::init<const HLRAlgo_PolyInternalSegment &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_HLRAlgo_Array1OfPISeg.def("begin", (HLRAlgo_Array1OfPISeg::iterator (HLRAlgo_Array1OfPISeg::*)() const ) &HLRAlgo_Array1OfPISeg::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_HLRAlgo_Array1OfPISeg.def("end", (HLRAlgo_Array1OfPISeg::iterator (HLRAlgo_Array1OfPISeg::*)() const ) &HLRAlgo_Array1OfPISeg::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_HLRAlgo_Array1OfPISeg.def("cbegin", (HLRAlgo_Array1OfPISeg::const_iterator (HLRAlgo_Array1OfPISeg::*)() const ) &HLRAlgo_Array1OfPISeg::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_HLRAlgo_Array1OfPISeg.def("cend", (HLRAlgo_Array1OfPISeg::const_iterator (HLRAlgo_Array1OfPISeg::*)() const ) &HLRAlgo_Array1OfPISeg::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_HLRAlgo_Array1OfPISeg.def("Init", (void (HLRAlgo_Array1OfPISeg::*)(const HLRAlgo_PolyInternalSegment &)) &HLRAlgo_Array1OfPISeg::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_HLRAlgo_Array1OfPISeg.def("Size", (Standard_Integer (HLRAlgo_Array1OfPISeg::*)() const ) &HLRAlgo_Array1OfPISeg::Size, "Size query");
-	cls_HLRAlgo_Array1OfPISeg.def("Length", (Standard_Integer (HLRAlgo_Array1OfPISeg::*)() const ) &HLRAlgo_Array1OfPISeg::Length, "Length query (the same)");
-	cls_HLRAlgo_Array1OfPISeg.def("IsEmpty", (Standard_Boolean (HLRAlgo_Array1OfPISeg::*)() const ) &HLRAlgo_Array1OfPISeg::IsEmpty, "Return TRUE if array has zero length.");
-	cls_HLRAlgo_Array1OfPISeg.def("Lower", (Standard_Integer (HLRAlgo_Array1OfPISeg::*)() const ) &HLRAlgo_Array1OfPISeg::Lower, "Lower bound");
-	cls_HLRAlgo_Array1OfPISeg.def("Upper", (Standard_Integer (HLRAlgo_Array1OfPISeg::*)() const ) &HLRAlgo_Array1OfPISeg::Upper, "Upper bound");
-	cls_HLRAlgo_Array1OfPISeg.def("IsDeletable", (Standard_Boolean (HLRAlgo_Array1OfPISeg::*)() const ) &HLRAlgo_Array1OfPISeg::IsDeletable, "myDeletable flag");
-	cls_HLRAlgo_Array1OfPISeg.def("IsAllocated", (Standard_Boolean (HLRAlgo_Array1OfPISeg::*)() const ) &HLRAlgo_Array1OfPISeg::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_HLRAlgo_Array1OfPISeg.def("Assign", (HLRAlgo_Array1OfPISeg & (HLRAlgo_Array1OfPISeg::*)(const HLRAlgo_Array1OfPISeg &)) &HLRAlgo_Array1OfPISeg::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_HLRAlgo_Array1OfPISeg.def("Move", (HLRAlgo_Array1OfPISeg & (HLRAlgo_Array1OfPISeg::*)(HLRAlgo_Array1OfPISeg &&)) &HLRAlgo_Array1OfPISeg::Move, "Move assignment", py::arg("theOther"));
-	cls_HLRAlgo_Array1OfPISeg.def("assign", (HLRAlgo_Array1OfPISeg & (HLRAlgo_Array1OfPISeg::*)(const HLRAlgo_Array1OfPISeg &)) &HLRAlgo_Array1OfPISeg::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_HLRAlgo_Array1OfPISeg.def("assign", (HLRAlgo_Array1OfPISeg & (HLRAlgo_Array1OfPISeg::*)(HLRAlgo_Array1OfPISeg &&)) &HLRAlgo_Array1OfPISeg::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_HLRAlgo_Array1OfPISeg.def("First", (const HLRAlgo_PolyInternalSegment & (HLRAlgo_Array1OfPISeg::*)() const ) &HLRAlgo_Array1OfPISeg::First, "Returns first element");
-	cls_HLRAlgo_Array1OfPISeg.def("ChangeFirst", (HLRAlgo_PolyInternalSegment & (HLRAlgo_Array1OfPISeg::*)()) &HLRAlgo_Array1OfPISeg::ChangeFirst, "Returns first element");
-	cls_HLRAlgo_Array1OfPISeg.def("Last", (const HLRAlgo_PolyInternalSegment & (HLRAlgo_Array1OfPISeg::*)() const ) &HLRAlgo_Array1OfPISeg::Last, "Returns last element");
-	cls_HLRAlgo_Array1OfPISeg.def("ChangeLast", (HLRAlgo_PolyInternalSegment & (HLRAlgo_Array1OfPISeg::*)()) &HLRAlgo_Array1OfPISeg::ChangeLast, "Returns last element");
-	cls_HLRAlgo_Array1OfPISeg.def("Value", (const HLRAlgo_PolyInternalSegment & (HLRAlgo_Array1OfPISeg::*)(const Standard_Integer) const ) &HLRAlgo_Array1OfPISeg::Value, "Constant value access", py::arg("theIndex"));
-	cls_HLRAlgo_Array1OfPISeg.def("__call__", (const HLRAlgo_PolyInternalSegment & (HLRAlgo_Array1OfPISeg::*)(const Standard_Integer) const ) &HLRAlgo_Array1OfPISeg::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_HLRAlgo_Array1OfPISeg.def("ChangeValue", (HLRAlgo_PolyInternalSegment & (HLRAlgo_Array1OfPISeg::*)(const Standard_Integer)) &HLRAlgo_Array1OfPISeg::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_HLRAlgo_Array1OfPISeg.def("__call__", (HLRAlgo_PolyInternalSegment & (HLRAlgo_Array1OfPISeg::*)(const Standard_Integer)) &HLRAlgo_Array1OfPISeg::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_HLRAlgo_Array1OfPISeg.def("SetValue", (void (HLRAlgo_Array1OfPISeg::*)(const Standard_Integer, const HLRAlgo_PolyInternalSegment &)) &HLRAlgo_Array1OfPISeg::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_HLRAlgo_Array1OfPISeg.def("Resize", (void (HLRAlgo_Array1OfPISeg::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &HLRAlgo_Array1OfPISeg::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_HLRAlgo_Array1OfPISeg.def("__iter__", [](const HLRAlgo_Array1OfPISeg &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRAlgo_Array1OfPISeg.hxx
+	bind_NCollection_Array1<HLRAlgo_PolyInternalSegment>(mod, "HLRAlgo_Array1OfPISeg");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<HLRAlgo_Array1OfTData, std::unique_ptr<HLRAlgo_Array1OfTData, Deleter<HLRAlgo_Array1OfTData>>> cls_HLRAlgo_Array1OfTData(mod, "HLRAlgo_Array1OfTData", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_HLRAlgo_Array1OfTData.def(py::init<>());
-	cls_HLRAlgo_Array1OfTData.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_HLRAlgo_Array1OfTData.def(py::init([] (const HLRAlgo_Array1OfTData &other) {return new HLRAlgo_Array1OfTData(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_HLRAlgo_Array1OfTData.def(py::init<HLRAlgo_Array1OfTData &&>(), py::arg("theOther"));
-	cls_HLRAlgo_Array1OfTData.def(py::init<const HLRAlgo_TriangleData &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_HLRAlgo_Array1OfTData.def("begin", (HLRAlgo_Array1OfTData::iterator (HLRAlgo_Array1OfTData::*)() const ) &HLRAlgo_Array1OfTData::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_HLRAlgo_Array1OfTData.def("end", (HLRAlgo_Array1OfTData::iterator (HLRAlgo_Array1OfTData::*)() const ) &HLRAlgo_Array1OfTData::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_HLRAlgo_Array1OfTData.def("cbegin", (HLRAlgo_Array1OfTData::const_iterator (HLRAlgo_Array1OfTData::*)() const ) &HLRAlgo_Array1OfTData::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_HLRAlgo_Array1OfTData.def("cend", (HLRAlgo_Array1OfTData::const_iterator (HLRAlgo_Array1OfTData::*)() const ) &HLRAlgo_Array1OfTData::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_HLRAlgo_Array1OfTData.def("Init", (void (HLRAlgo_Array1OfTData::*)(const HLRAlgo_TriangleData &)) &HLRAlgo_Array1OfTData::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_HLRAlgo_Array1OfTData.def("Size", (Standard_Integer (HLRAlgo_Array1OfTData::*)() const ) &HLRAlgo_Array1OfTData::Size, "Size query");
-	cls_HLRAlgo_Array1OfTData.def("Length", (Standard_Integer (HLRAlgo_Array1OfTData::*)() const ) &HLRAlgo_Array1OfTData::Length, "Length query (the same)");
-	cls_HLRAlgo_Array1OfTData.def("IsEmpty", (Standard_Boolean (HLRAlgo_Array1OfTData::*)() const ) &HLRAlgo_Array1OfTData::IsEmpty, "Return TRUE if array has zero length.");
-	cls_HLRAlgo_Array1OfTData.def("Lower", (Standard_Integer (HLRAlgo_Array1OfTData::*)() const ) &HLRAlgo_Array1OfTData::Lower, "Lower bound");
-	cls_HLRAlgo_Array1OfTData.def("Upper", (Standard_Integer (HLRAlgo_Array1OfTData::*)() const ) &HLRAlgo_Array1OfTData::Upper, "Upper bound");
-	cls_HLRAlgo_Array1OfTData.def("IsDeletable", (Standard_Boolean (HLRAlgo_Array1OfTData::*)() const ) &HLRAlgo_Array1OfTData::IsDeletable, "myDeletable flag");
-	cls_HLRAlgo_Array1OfTData.def("IsAllocated", (Standard_Boolean (HLRAlgo_Array1OfTData::*)() const ) &HLRAlgo_Array1OfTData::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_HLRAlgo_Array1OfTData.def("Assign", (HLRAlgo_Array1OfTData & (HLRAlgo_Array1OfTData::*)(const HLRAlgo_Array1OfTData &)) &HLRAlgo_Array1OfTData::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_HLRAlgo_Array1OfTData.def("Move", (HLRAlgo_Array1OfTData & (HLRAlgo_Array1OfTData::*)(HLRAlgo_Array1OfTData &&)) &HLRAlgo_Array1OfTData::Move, "Move assignment", py::arg("theOther"));
-	cls_HLRAlgo_Array1OfTData.def("assign", (HLRAlgo_Array1OfTData & (HLRAlgo_Array1OfTData::*)(const HLRAlgo_Array1OfTData &)) &HLRAlgo_Array1OfTData::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_HLRAlgo_Array1OfTData.def("assign", (HLRAlgo_Array1OfTData & (HLRAlgo_Array1OfTData::*)(HLRAlgo_Array1OfTData &&)) &HLRAlgo_Array1OfTData::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_HLRAlgo_Array1OfTData.def("First", (const HLRAlgo_TriangleData & (HLRAlgo_Array1OfTData::*)() const ) &HLRAlgo_Array1OfTData::First, "Returns first element");
-	cls_HLRAlgo_Array1OfTData.def("ChangeFirst", (HLRAlgo_TriangleData & (HLRAlgo_Array1OfTData::*)()) &HLRAlgo_Array1OfTData::ChangeFirst, "Returns first element");
-	cls_HLRAlgo_Array1OfTData.def("Last", (const HLRAlgo_TriangleData & (HLRAlgo_Array1OfTData::*)() const ) &HLRAlgo_Array1OfTData::Last, "Returns last element");
-	cls_HLRAlgo_Array1OfTData.def("ChangeLast", (HLRAlgo_TriangleData & (HLRAlgo_Array1OfTData::*)()) &HLRAlgo_Array1OfTData::ChangeLast, "Returns last element");
-	cls_HLRAlgo_Array1OfTData.def("Value", (const HLRAlgo_TriangleData & (HLRAlgo_Array1OfTData::*)(const Standard_Integer) const ) &HLRAlgo_Array1OfTData::Value, "Constant value access", py::arg("theIndex"));
-	cls_HLRAlgo_Array1OfTData.def("__call__", (const HLRAlgo_TriangleData & (HLRAlgo_Array1OfTData::*)(const Standard_Integer) const ) &HLRAlgo_Array1OfTData::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_HLRAlgo_Array1OfTData.def("ChangeValue", (HLRAlgo_TriangleData & (HLRAlgo_Array1OfTData::*)(const Standard_Integer)) &HLRAlgo_Array1OfTData::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_HLRAlgo_Array1OfTData.def("__call__", (HLRAlgo_TriangleData & (HLRAlgo_Array1OfTData::*)(const Standard_Integer)) &HLRAlgo_Array1OfTData::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_HLRAlgo_Array1OfTData.def("SetValue", (void (HLRAlgo_Array1OfTData::*)(const Standard_Integer, const HLRAlgo_TriangleData &)) &HLRAlgo_Array1OfTData::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_HLRAlgo_Array1OfTData.def("Resize", (void (HLRAlgo_Array1OfTData::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &HLRAlgo_Array1OfTData::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_HLRAlgo_Array1OfTData.def("__iter__", [](const HLRAlgo_Array1OfTData &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRAlgo_Array1OfTData.hxx
+	bind_NCollection_Array1<HLRAlgo_TriangleData>(mod, "HLRAlgo_Array1OfTData");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRAlgo_Intersection.hxx
 	py::class_<HLRAlgo_Intersection, std::unique_ptr<HLRAlgo_Intersection, Deleter<HLRAlgo_Intersection>>> cls_HLRAlgo_Intersection(mod, "HLRAlgo_Intersection", "Describes an intersection on an edge to hide. Contains a parameter and a state (ON = on the face, OUT = above the face, IN = under the Face)");
@@ -547,89 +411,17 @@ PYBIND11_MODULE(HLRAlgo, mod) {
 	cls_HLRAlgo_HArray1OfTData.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &HLRAlgo_HArray1OfTData::get_type_descriptor, "None");
 	cls_HLRAlgo_HArray1OfTData.def("DynamicType", (const opencascade::handle<Standard_Type> & (HLRAlgo_HArray1OfTData::*)() const ) &HLRAlgo_HArray1OfTData::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<HLRAlgo_InterferenceList, std::unique_ptr<HLRAlgo_InterferenceList, Deleter<HLRAlgo_InterferenceList>>, NCollection_BaseList> cls_HLRAlgo_InterferenceList(mod, "HLRAlgo_InterferenceList", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_HLRAlgo_InterferenceList.def(py::init<>());
-	cls_HLRAlgo_InterferenceList.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_HLRAlgo_InterferenceList.def(py::init([] (const HLRAlgo_InterferenceList &other) {return new HLRAlgo_InterferenceList(other);}), "Copy constructor", py::arg("other"));
-	cls_HLRAlgo_InterferenceList.def("begin", (HLRAlgo_InterferenceList::iterator (HLRAlgo_InterferenceList::*)() const ) &HLRAlgo_InterferenceList::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_HLRAlgo_InterferenceList.def("end", (HLRAlgo_InterferenceList::iterator (HLRAlgo_InterferenceList::*)() const ) &HLRAlgo_InterferenceList::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_HLRAlgo_InterferenceList.def("cbegin", (HLRAlgo_InterferenceList::const_iterator (HLRAlgo_InterferenceList::*)() const ) &HLRAlgo_InterferenceList::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_HLRAlgo_InterferenceList.def("cend", (HLRAlgo_InterferenceList::const_iterator (HLRAlgo_InterferenceList::*)() const ) &HLRAlgo_InterferenceList::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_HLRAlgo_InterferenceList.def("Size", (Standard_Integer (HLRAlgo_InterferenceList::*)() const ) &HLRAlgo_InterferenceList::Size, "Size - Number of items");
-	cls_HLRAlgo_InterferenceList.def("Assign", (HLRAlgo_InterferenceList & (HLRAlgo_InterferenceList::*)(const HLRAlgo_InterferenceList &)) &HLRAlgo_InterferenceList::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_HLRAlgo_InterferenceList.def("assign", (HLRAlgo_InterferenceList & (HLRAlgo_InterferenceList::*)(const HLRAlgo_InterferenceList &)) &HLRAlgo_InterferenceList::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_HLRAlgo_InterferenceList.def("Clear", [](HLRAlgo_InterferenceList &self) -> void { return self.Clear(); });
-	cls_HLRAlgo_InterferenceList.def("Clear", (void (HLRAlgo_InterferenceList::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &HLRAlgo_InterferenceList::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_HLRAlgo_InterferenceList.def("First", (const HLRAlgo_Interference & (HLRAlgo_InterferenceList::*)() const ) &HLRAlgo_InterferenceList::First, "First item");
-	cls_HLRAlgo_InterferenceList.def("First", (HLRAlgo_Interference & (HLRAlgo_InterferenceList::*)()) &HLRAlgo_InterferenceList::First, "First item (non-const)");
-	cls_HLRAlgo_InterferenceList.def("Last", (const HLRAlgo_Interference & (HLRAlgo_InterferenceList::*)() const ) &HLRAlgo_InterferenceList::Last, "Last item");
-	cls_HLRAlgo_InterferenceList.def("Last", (HLRAlgo_Interference & (HLRAlgo_InterferenceList::*)()) &HLRAlgo_InterferenceList::Last, "Last item (non-const)");
-	cls_HLRAlgo_InterferenceList.def("Append", (HLRAlgo_Interference & (HLRAlgo_InterferenceList::*)(const HLRAlgo_Interference &)) &HLRAlgo_InterferenceList::Append, "Append one item at the end", py::arg("theItem"));
-	cls_HLRAlgo_InterferenceList.def("Append", (void (HLRAlgo_InterferenceList::*)(const HLRAlgo_Interference &, HLRAlgo_InterferenceList::Iterator &)) &HLRAlgo_InterferenceList::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_HLRAlgo_InterferenceList.def("Append", (void (HLRAlgo_InterferenceList::*)(HLRAlgo_InterferenceList &)) &HLRAlgo_InterferenceList::Append, "Append another list at the end", py::arg("theOther"));
-	cls_HLRAlgo_InterferenceList.def("Prepend", (HLRAlgo_Interference & (HLRAlgo_InterferenceList::*)(const HLRAlgo_Interference &)) &HLRAlgo_InterferenceList::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_HLRAlgo_InterferenceList.def("Prepend", (void (HLRAlgo_InterferenceList::*)(HLRAlgo_InterferenceList &)) &HLRAlgo_InterferenceList::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_HLRAlgo_InterferenceList.def("RemoveFirst", (void (HLRAlgo_InterferenceList::*)()) &HLRAlgo_InterferenceList::RemoveFirst, "RemoveFirst item");
-	cls_HLRAlgo_InterferenceList.def("Remove", (void (HLRAlgo_InterferenceList::*)(HLRAlgo_InterferenceList::Iterator &)) &HLRAlgo_InterferenceList::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_HLRAlgo_InterferenceList.def("InsertBefore", (HLRAlgo_Interference & (HLRAlgo_InterferenceList::*)(const HLRAlgo_Interference &, HLRAlgo_InterferenceList::Iterator &)) &HLRAlgo_InterferenceList::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_HLRAlgo_InterferenceList.def("InsertBefore", (void (HLRAlgo_InterferenceList::*)(HLRAlgo_InterferenceList &, HLRAlgo_InterferenceList::Iterator &)) &HLRAlgo_InterferenceList::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_HLRAlgo_InterferenceList.def("InsertAfter", (HLRAlgo_Interference & (HLRAlgo_InterferenceList::*)(const HLRAlgo_Interference &, HLRAlgo_InterferenceList::Iterator &)) &HLRAlgo_InterferenceList::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_HLRAlgo_InterferenceList.def("InsertAfter", (void (HLRAlgo_InterferenceList::*)(HLRAlgo_InterferenceList &, HLRAlgo_InterferenceList::Iterator &)) &HLRAlgo_InterferenceList::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_HLRAlgo_InterferenceList.def("Reverse", (void (HLRAlgo_InterferenceList::*)()) &HLRAlgo_InterferenceList::Reverse, "Reverse the list");
-	cls_HLRAlgo_InterferenceList.def("__iter__", [](const HLRAlgo_InterferenceList &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRAlgo_InterferenceList.hxx
+	bind_NCollection_List<HLRAlgo_Interference>(mod, "HLRAlgo_InterferenceList");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<HLRAlgo_ListIteratorOfInterferenceList, std::unique_ptr<HLRAlgo_ListIteratorOfInterferenceList, Deleter<HLRAlgo_ListIteratorOfInterferenceList>>> cls_HLRAlgo_ListIteratorOfInterferenceList(mod, "HLRAlgo_ListIteratorOfInterferenceList", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_HLRAlgo_ListIteratorOfInterferenceList.def(py::init<>());
-	cls_HLRAlgo_ListIteratorOfInterferenceList.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_HLRAlgo_ListIteratorOfInterferenceList.def("More", (Standard_Boolean (HLRAlgo_ListIteratorOfInterferenceList::*)() const ) &HLRAlgo_ListIteratorOfInterferenceList::More, "Check end");
-	cls_HLRAlgo_ListIteratorOfInterferenceList.def("Next", (void (HLRAlgo_ListIteratorOfInterferenceList::*)()) &HLRAlgo_ListIteratorOfInterferenceList::Next, "Make step");
-	cls_HLRAlgo_ListIteratorOfInterferenceList.def("Value", (const HLRAlgo_Interference & (HLRAlgo_ListIteratorOfInterferenceList::*)() const ) &HLRAlgo_ListIteratorOfInterferenceList::Value, "Constant Value access");
-	cls_HLRAlgo_ListIteratorOfInterferenceList.def("Value", (HLRAlgo_Interference & (HLRAlgo_ListIteratorOfInterferenceList::*)()) &HLRAlgo_ListIteratorOfInterferenceList::Value, "Non-const Value access");
-	cls_HLRAlgo_ListIteratorOfInterferenceList.def("ChangeValue", (HLRAlgo_Interference & (HLRAlgo_ListIteratorOfInterferenceList::*)() const ) &HLRAlgo_ListIteratorOfInterferenceList::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRAlgo_InterferenceList.hxx
+	bind_NCollection_TListIterator<HLRAlgo_Interference>(mod, "HLRAlgo_ListIteratorOfInterferenceList");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<HLRAlgo_ListOfBPoint, std::unique_ptr<HLRAlgo_ListOfBPoint, Deleter<HLRAlgo_ListOfBPoint>>, NCollection_BaseList> cls_HLRAlgo_ListOfBPoint(mod, "HLRAlgo_ListOfBPoint", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_HLRAlgo_ListOfBPoint.def(py::init<>());
-	cls_HLRAlgo_ListOfBPoint.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_HLRAlgo_ListOfBPoint.def(py::init([] (const HLRAlgo_ListOfBPoint &other) {return new HLRAlgo_ListOfBPoint(other);}), "Copy constructor", py::arg("other"));
-	cls_HLRAlgo_ListOfBPoint.def("begin", (HLRAlgo_ListOfBPoint::iterator (HLRAlgo_ListOfBPoint::*)() const ) &HLRAlgo_ListOfBPoint::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_HLRAlgo_ListOfBPoint.def("end", (HLRAlgo_ListOfBPoint::iterator (HLRAlgo_ListOfBPoint::*)() const ) &HLRAlgo_ListOfBPoint::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_HLRAlgo_ListOfBPoint.def("cbegin", (HLRAlgo_ListOfBPoint::const_iterator (HLRAlgo_ListOfBPoint::*)() const ) &HLRAlgo_ListOfBPoint::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_HLRAlgo_ListOfBPoint.def("cend", (HLRAlgo_ListOfBPoint::const_iterator (HLRAlgo_ListOfBPoint::*)() const ) &HLRAlgo_ListOfBPoint::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_HLRAlgo_ListOfBPoint.def("Size", (Standard_Integer (HLRAlgo_ListOfBPoint::*)() const ) &HLRAlgo_ListOfBPoint::Size, "Size - Number of items");
-	cls_HLRAlgo_ListOfBPoint.def("Assign", (HLRAlgo_ListOfBPoint & (HLRAlgo_ListOfBPoint::*)(const HLRAlgo_ListOfBPoint &)) &HLRAlgo_ListOfBPoint::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_HLRAlgo_ListOfBPoint.def("assign", (HLRAlgo_ListOfBPoint & (HLRAlgo_ListOfBPoint::*)(const HLRAlgo_ListOfBPoint &)) &HLRAlgo_ListOfBPoint::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_HLRAlgo_ListOfBPoint.def("Clear", [](HLRAlgo_ListOfBPoint &self) -> void { return self.Clear(); });
-	cls_HLRAlgo_ListOfBPoint.def("Clear", (void (HLRAlgo_ListOfBPoint::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &HLRAlgo_ListOfBPoint::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_HLRAlgo_ListOfBPoint.def("First", (const HLRAlgo_BiPoint & (HLRAlgo_ListOfBPoint::*)() const ) &HLRAlgo_ListOfBPoint::First, "First item");
-	cls_HLRAlgo_ListOfBPoint.def("First", (HLRAlgo_BiPoint & (HLRAlgo_ListOfBPoint::*)()) &HLRAlgo_ListOfBPoint::First, "First item (non-const)");
-	cls_HLRAlgo_ListOfBPoint.def("Last", (const HLRAlgo_BiPoint & (HLRAlgo_ListOfBPoint::*)() const ) &HLRAlgo_ListOfBPoint::Last, "Last item");
-	cls_HLRAlgo_ListOfBPoint.def("Last", (HLRAlgo_BiPoint & (HLRAlgo_ListOfBPoint::*)()) &HLRAlgo_ListOfBPoint::Last, "Last item (non-const)");
-	cls_HLRAlgo_ListOfBPoint.def("Append", (HLRAlgo_BiPoint & (HLRAlgo_ListOfBPoint::*)(const HLRAlgo_BiPoint &)) &HLRAlgo_ListOfBPoint::Append, "Append one item at the end", py::arg("theItem"));
-	cls_HLRAlgo_ListOfBPoint.def("Append", (void (HLRAlgo_ListOfBPoint::*)(const HLRAlgo_BiPoint &, HLRAlgo_ListOfBPoint::Iterator &)) &HLRAlgo_ListOfBPoint::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_HLRAlgo_ListOfBPoint.def("Append", (void (HLRAlgo_ListOfBPoint::*)(HLRAlgo_ListOfBPoint &)) &HLRAlgo_ListOfBPoint::Append, "Append another list at the end", py::arg("theOther"));
-	cls_HLRAlgo_ListOfBPoint.def("Prepend", (HLRAlgo_BiPoint & (HLRAlgo_ListOfBPoint::*)(const HLRAlgo_BiPoint &)) &HLRAlgo_ListOfBPoint::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_HLRAlgo_ListOfBPoint.def("Prepend", (void (HLRAlgo_ListOfBPoint::*)(HLRAlgo_ListOfBPoint &)) &HLRAlgo_ListOfBPoint::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_HLRAlgo_ListOfBPoint.def("RemoveFirst", (void (HLRAlgo_ListOfBPoint::*)()) &HLRAlgo_ListOfBPoint::RemoveFirst, "RemoveFirst item");
-	cls_HLRAlgo_ListOfBPoint.def("Remove", (void (HLRAlgo_ListOfBPoint::*)(HLRAlgo_ListOfBPoint::Iterator &)) &HLRAlgo_ListOfBPoint::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_HLRAlgo_ListOfBPoint.def("InsertBefore", (HLRAlgo_BiPoint & (HLRAlgo_ListOfBPoint::*)(const HLRAlgo_BiPoint &, HLRAlgo_ListOfBPoint::Iterator &)) &HLRAlgo_ListOfBPoint::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_HLRAlgo_ListOfBPoint.def("InsertBefore", (void (HLRAlgo_ListOfBPoint::*)(HLRAlgo_ListOfBPoint &, HLRAlgo_ListOfBPoint::Iterator &)) &HLRAlgo_ListOfBPoint::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_HLRAlgo_ListOfBPoint.def("InsertAfter", (HLRAlgo_BiPoint & (HLRAlgo_ListOfBPoint::*)(const HLRAlgo_BiPoint &, HLRAlgo_ListOfBPoint::Iterator &)) &HLRAlgo_ListOfBPoint::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_HLRAlgo_ListOfBPoint.def("InsertAfter", (void (HLRAlgo_ListOfBPoint::*)(HLRAlgo_ListOfBPoint &, HLRAlgo_ListOfBPoint::Iterator &)) &HLRAlgo_ListOfBPoint::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_HLRAlgo_ListOfBPoint.def("Reverse", (void (HLRAlgo_ListOfBPoint::*)()) &HLRAlgo_ListOfBPoint::Reverse, "Reverse the list");
-	cls_HLRAlgo_ListOfBPoint.def("__iter__", [](const HLRAlgo_ListOfBPoint &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRAlgo_ListOfBPoint.hxx
+	bind_NCollection_List<HLRAlgo_BiPoint>(mod, "HLRAlgo_ListOfBPoint");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<HLRAlgo_ListIteratorOfListOfBPoint, std::unique_ptr<HLRAlgo_ListIteratorOfListOfBPoint, Deleter<HLRAlgo_ListIteratorOfListOfBPoint>>> cls_HLRAlgo_ListIteratorOfListOfBPoint(mod, "HLRAlgo_ListIteratorOfListOfBPoint", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_HLRAlgo_ListIteratorOfListOfBPoint.def(py::init<>());
-	cls_HLRAlgo_ListIteratorOfListOfBPoint.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_HLRAlgo_ListIteratorOfListOfBPoint.def("More", (Standard_Boolean (HLRAlgo_ListIteratorOfListOfBPoint::*)() const ) &HLRAlgo_ListIteratorOfListOfBPoint::More, "Check end");
-	cls_HLRAlgo_ListIteratorOfListOfBPoint.def("Next", (void (HLRAlgo_ListIteratorOfListOfBPoint::*)()) &HLRAlgo_ListIteratorOfListOfBPoint::Next, "Make step");
-	cls_HLRAlgo_ListIteratorOfListOfBPoint.def("Value", (const HLRAlgo_BiPoint & (HLRAlgo_ListIteratorOfListOfBPoint::*)() const ) &HLRAlgo_ListIteratorOfListOfBPoint::Value, "Constant Value access");
-	cls_HLRAlgo_ListIteratorOfListOfBPoint.def("Value", (HLRAlgo_BiPoint & (HLRAlgo_ListIteratorOfListOfBPoint::*)()) &HLRAlgo_ListIteratorOfListOfBPoint::Value, "Non-const Value access");
-	cls_HLRAlgo_ListIteratorOfListOfBPoint.def("ChangeValue", (HLRAlgo_BiPoint & (HLRAlgo_ListIteratorOfListOfBPoint::*)() const ) &HLRAlgo_ListIteratorOfListOfBPoint::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRAlgo_ListOfBPoint.hxx
+	bind_NCollection_TListIterator<HLRAlgo_BiPoint>(mod, "HLRAlgo_ListIteratorOfListOfBPoint");
 
 
 }

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Interface_InterfaceModel.hxx>
 #include <Standard_Handle.hxx>
@@ -80,6 +71,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <StepData_Array1OfField.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <StepData_HArray1OfField.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(StepData, mod) {
 
@@ -913,40 +905,8 @@ PYBIND11_MODULE(StepData, mod) {
 	cls_StepData.def_static("Init_", (void (*)()) &StepData::Init, "Prepares General Data required to work with this package, which are the Protocol and Modules to be loaded into Libraries");
 	cls_StepData.def_static("Protocol_", (opencascade::handle<StepData_Protocol> (*)()) &StepData::Protocol, "Returns a Protocol from StepData (avoids to create it)");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<StepData_Array1OfField, std::unique_ptr<StepData_Array1OfField, Deleter<StepData_Array1OfField>>> cls_StepData_Array1OfField(mod, "StepData_Array1OfField", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_StepData_Array1OfField.def(py::init<>());
-	cls_StepData_Array1OfField.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_StepData_Array1OfField.def(py::init([] (const StepData_Array1OfField &other) {return new StepData_Array1OfField(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_StepData_Array1OfField.def(py::init<StepData_Array1OfField &&>(), py::arg("theOther"));
-	cls_StepData_Array1OfField.def(py::init<const StepData_Field &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_StepData_Array1OfField.def("begin", (StepData_Array1OfField::iterator (StepData_Array1OfField::*)() const ) &StepData_Array1OfField::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_StepData_Array1OfField.def("end", (StepData_Array1OfField::iterator (StepData_Array1OfField::*)() const ) &StepData_Array1OfField::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_StepData_Array1OfField.def("cbegin", (StepData_Array1OfField::const_iterator (StepData_Array1OfField::*)() const ) &StepData_Array1OfField::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_StepData_Array1OfField.def("cend", (StepData_Array1OfField::const_iterator (StepData_Array1OfField::*)() const ) &StepData_Array1OfField::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_StepData_Array1OfField.def("Init", (void (StepData_Array1OfField::*)(const StepData_Field &)) &StepData_Array1OfField::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_StepData_Array1OfField.def("Size", (Standard_Integer (StepData_Array1OfField::*)() const ) &StepData_Array1OfField::Size, "Size query");
-	cls_StepData_Array1OfField.def("Length", (Standard_Integer (StepData_Array1OfField::*)() const ) &StepData_Array1OfField::Length, "Length query (the same)");
-	cls_StepData_Array1OfField.def("IsEmpty", (Standard_Boolean (StepData_Array1OfField::*)() const ) &StepData_Array1OfField::IsEmpty, "Return TRUE if array has zero length.");
-	cls_StepData_Array1OfField.def("Lower", (Standard_Integer (StepData_Array1OfField::*)() const ) &StepData_Array1OfField::Lower, "Lower bound");
-	cls_StepData_Array1OfField.def("Upper", (Standard_Integer (StepData_Array1OfField::*)() const ) &StepData_Array1OfField::Upper, "Upper bound");
-	cls_StepData_Array1OfField.def("IsDeletable", (Standard_Boolean (StepData_Array1OfField::*)() const ) &StepData_Array1OfField::IsDeletable, "myDeletable flag");
-	cls_StepData_Array1OfField.def("IsAllocated", (Standard_Boolean (StepData_Array1OfField::*)() const ) &StepData_Array1OfField::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_StepData_Array1OfField.def("Assign", (StepData_Array1OfField & (StepData_Array1OfField::*)(const StepData_Array1OfField &)) &StepData_Array1OfField::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_StepData_Array1OfField.def("Move", (StepData_Array1OfField & (StepData_Array1OfField::*)(StepData_Array1OfField &&)) &StepData_Array1OfField::Move, "Move assignment", py::arg("theOther"));
-	cls_StepData_Array1OfField.def("assign", (StepData_Array1OfField & (StepData_Array1OfField::*)(const StepData_Array1OfField &)) &StepData_Array1OfField::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_StepData_Array1OfField.def("assign", (StepData_Array1OfField & (StepData_Array1OfField::*)(StepData_Array1OfField &&)) &StepData_Array1OfField::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_StepData_Array1OfField.def("First", (const StepData_Field & (StepData_Array1OfField::*)() const ) &StepData_Array1OfField::First, "Returns first element");
-	cls_StepData_Array1OfField.def("ChangeFirst", (StepData_Field & (StepData_Array1OfField::*)()) &StepData_Array1OfField::ChangeFirst, "Returns first element");
-	cls_StepData_Array1OfField.def("Last", (const StepData_Field & (StepData_Array1OfField::*)() const ) &StepData_Array1OfField::Last, "Returns last element");
-	cls_StepData_Array1OfField.def("ChangeLast", (StepData_Field & (StepData_Array1OfField::*)()) &StepData_Array1OfField::ChangeLast, "Returns last element");
-	cls_StepData_Array1OfField.def("Value", (const StepData_Field & (StepData_Array1OfField::*)(const Standard_Integer) const ) &StepData_Array1OfField::Value, "Constant value access", py::arg("theIndex"));
-	cls_StepData_Array1OfField.def("__call__", (const StepData_Field & (StepData_Array1OfField::*)(const Standard_Integer) const ) &StepData_Array1OfField::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_StepData_Array1OfField.def("ChangeValue", (StepData_Field & (StepData_Array1OfField::*)(const Standard_Integer)) &StepData_Array1OfField::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_StepData_Array1OfField.def("__call__", (StepData_Field & (StepData_Array1OfField::*)(const Standard_Integer)) &StepData_Array1OfField::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_StepData_Array1OfField.def("SetValue", (void (StepData_Array1OfField::*)(const Standard_Integer, const StepData_Field &)) &StepData_Array1OfField::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_StepData_Array1OfField.def("Resize", (void (StepData_Array1OfField::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &StepData_Array1OfField::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_StepData_Array1OfField.def("__iter__", [](const StepData_Array1OfField &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\StepData_Array1OfField.hxx
+	bind_NCollection_Array1<StepData_Field>(mod, "StepData_Array1OfField");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StepData_HArray1OfField.hxx
 	py::class_<StepData_HArray1OfField, opencascade::handle<StepData_HArray1OfField>, StepData_Array1OfField, Standard_Transient> cls_StepData_HArray1OfField(mod, "StepData_HArray1OfField", "None");

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_TypeDef.hxx>
@@ -53,6 +44,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <MoniTool_Stat.hxx>
 #include <MoniTool_TimerSentry.hxx>
 #include <MoniTool_TransientElem.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(MoniTool, mod) {
 
@@ -322,50 +314,8 @@ PYBIND11_MODULE(MoniTool, mod) {
 	cls_MoniTool_ElemHasher.def_static("HashCode_", (Standard_Integer (*)(const opencascade::handle<MoniTool_Element> &, const Standard_Integer)) &MoniTool_ElemHasher::HashCode, "Returns a HashCode in the range <0,Upper> for a Element : asks the Element its HashCode then transforms it to be in the required range", py::arg("K"), py::arg("Upper"));
 	cls_MoniTool_ElemHasher.def_static("IsEqual_", (Standard_Boolean (*)(const opencascade::handle<MoniTool_Element> &, const opencascade::handle<MoniTool_Element> &)) &MoniTool_ElemHasher::IsEqual, "Returns True if two keys are the same. The test does not work on the Elements themselves but by calling their methods Equates", py::arg("K1"), py::arg("K2"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<MoniTool_SequenceOfElement, std::unique_ptr<MoniTool_SequenceOfElement, Deleter<MoniTool_SequenceOfElement>>, NCollection_BaseSequence> cls_MoniTool_SequenceOfElement(mod, "MoniTool_SequenceOfElement", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_MoniTool_SequenceOfElement.def(py::init<>());
-	cls_MoniTool_SequenceOfElement.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_MoniTool_SequenceOfElement.def(py::init([] (const MoniTool_SequenceOfElement &other) {return new MoniTool_SequenceOfElement(other);}), "Copy constructor", py::arg("other"));
-	cls_MoniTool_SequenceOfElement.def("begin", (MoniTool_SequenceOfElement::iterator (MoniTool_SequenceOfElement::*)() const ) &MoniTool_SequenceOfElement::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_MoniTool_SequenceOfElement.def("end", (MoniTool_SequenceOfElement::iterator (MoniTool_SequenceOfElement::*)() const ) &MoniTool_SequenceOfElement::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_MoniTool_SequenceOfElement.def("cbegin", (MoniTool_SequenceOfElement::const_iterator (MoniTool_SequenceOfElement::*)() const ) &MoniTool_SequenceOfElement::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_MoniTool_SequenceOfElement.def("cend", (MoniTool_SequenceOfElement::const_iterator (MoniTool_SequenceOfElement::*)() const ) &MoniTool_SequenceOfElement::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_MoniTool_SequenceOfElement.def("Size", (Standard_Integer (MoniTool_SequenceOfElement::*)() const ) &MoniTool_SequenceOfElement::Size, "Number of items");
-	cls_MoniTool_SequenceOfElement.def("Length", (Standard_Integer (MoniTool_SequenceOfElement::*)() const ) &MoniTool_SequenceOfElement::Length, "Number of items");
-	cls_MoniTool_SequenceOfElement.def("Lower", (Standard_Integer (MoniTool_SequenceOfElement::*)() const ) &MoniTool_SequenceOfElement::Lower, "Method for consistency with other collections.");
-	cls_MoniTool_SequenceOfElement.def("Upper", (Standard_Integer (MoniTool_SequenceOfElement::*)() const ) &MoniTool_SequenceOfElement::Upper, "Method for consistency with other collections.");
-	cls_MoniTool_SequenceOfElement.def("IsEmpty", (Standard_Boolean (MoniTool_SequenceOfElement::*)() const ) &MoniTool_SequenceOfElement::IsEmpty, "Empty query");
-	cls_MoniTool_SequenceOfElement.def("Reverse", (void (MoniTool_SequenceOfElement::*)()) &MoniTool_SequenceOfElement::Reverse, "Reverse sequence");
-	cls_MoniTool_SequenceOfElement.def("Exchange", (void (MoniTool_SequenceOfElement::*)(const Standard_Integer, const Standard_Integer)) &MoniTool_SequenceOfElement::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_MoniTool_SequenceOfElement.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &MoniTool_SequenceOfElement::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_MoniTool_SequenceOfElement.def("Clear", [](MoniTool_SequenceOfElement &self) -> void { return self.Clear(); });
-	cls_MoniTool_SequenceOfElement.def("Clear", (void (MoniTool_SequenceOfElement::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MoniTool_SequenceOfElement::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_MoniTool_SequenceOfElement.def("Assign", (MoniTool_SequenceOfElement & (MoniTool_SequenceOfElement::*)(const MoniTool_SequenceOfElement &)) &MoniTool_SequenceOfElement::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MoniTool_SequenceOfElement.def("assign", (MoniTool_SequenceOfElement & (MoniTool_SequenceOfElement::*)(const MoniTool_SequenceOfElement &)) &MoniTool_SequenceOfElement::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_MoniTool_SequenceOfElement.def("Remove", (void (MoniTool_SequenceOfElement::*)(MoniTool_SequenceOfElement::Iterator &)) &MoniTool_SequenceOfElement::Remove, "Remove one item", py::arg("thePosition"));
-	cls_MoniTool_SequenceOfElement.def("Remove", (void (MoniTool_SequenceOfElement::*)(const Standard_Integer)) &MoniTool_SequenceOfElement::Remove, "Remove one item", py::arg("theIndex"));
-	cls_MoniTool_SequenceOfElement.def("Remove", (void (MoniTool_SequenceOfElement::*)(const Standard_Integer, const Standard_Integer)) &MoniTool_SequenceOfElement::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_MoniTool_SequenceOfElement.def("Append", (void (MoniTool_SequenceOfElement::*)(const opencascade::handle<MoniTool_Element> &)) &MoniTool_SequenceOfElement::Append, "Append one item", py::arg("theItem"));
-	cls_MoniTool_SequenceOfElement.def("Append", (void (MoniTool_SequenceOfElement::*)(MoniTool_SequenceOfElement &)) &MoniTool_SequenceOfElement::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_MoniTool_SequenceOfElement.def("Prepend", (void (MoniTool_SequenceOfElement::*)(const opencascade::handle<MoniTool_Element> &)) &MoniTool_SequenceOfElement::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_MoniTool_SequenceOfElement.def("Prepend", (void (MoniTool_SequenceOfElement::*)(MoniTool_SequenceOfElement &)) &MoniTool_SequenceOfElement::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_MoniTool_SequenceOfElement.def("InsertBefore", (void (MoniTool_SequenceOfElement::*)(const Standard_Integer, const opencascade::handle<MoniTool_Element> &)) &MoniTool_SequenceOfElement::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_MoniTool_SequenceOfElement.def("InsertBefore", (void (MoniTool_SequenceOfElement::*)(const Standard_Integer, MoniTool_SequenceOfElement &)) &MoniTool_SequenceOfElement::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_MoniTool_SequenceOfElement.def("InsertAfter", (void (MoniTool_SequenceOfElement::*)(MoniTool_SequenceOfElement::Iterator &, const opencascade::handle<MoniTool_Element> &)) &MoniTool_SequenceOfElement::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_MoniTool_SequenceOfElement.def("InsertAfter", (void (MoniTool_SequenceOfElement::*)(const Standard_Integer, MoniTool_SequenceOfElement &)) &MoniTool_SequenceOfElement::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_MoniTool_SequenceOfElement.def("InsertAfter", (void (MoniTool_SequenceOfElement::*)(const Standard_Integer, const opencascade::handle<MoniTool_Element> &)) &MoniTool_SequenceOfElement::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_MoniTool_SequenceOfElement.def("Split", (void (MoniTool_SequenceOfElement::*)(const Standard_Integer, MoniTool_SequenceOfElement &)) &MoniTool_SequenceOfElement::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_MoniTool_SequenceOfElement.def("First", (const opencascade::handle<MoniTool_Element> & (MoniTool_SequenceOfElement::*)() const ) &MoniTool_SequenceOfElement::First, "First item access");
-	cls_MoniTool_SequenceOfElement.def("ChangeFirst", (opencascade::handle<MoniTool_Element> & (MoniTool_SequenceOfElement::*)()) &MoniTool_SequenceOfElement::ChangeFirst, "First item access");
-	cls_MoniTool_SequenceOfElement.def("Last", (const opencascade::handle<MoniTool_Element> & (MoniTool_SequenceOfElement::*)() const ) &MoniTool_SequenceOfElement::Last, "Last item access");
-	cls_MoniTool_SequenceOfElement.def("ChangeLast", (opencascade::handle<MoniTool_Element> & (MoniTool_SequenceOfElement::*)()) &MoniTool_SequenceOfElement::ChangeLast, "Last item access");
-	cls_MoniTool_SequenceOfElement.def("Value", (const opencascade::handle<MoniTool_Element> & (MoniTool_SequenceOfElement::*)(const Standard_Integer) const ) &MoniTool_SequenceOfElement::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_MoniTool_SequenceOfElement.def("__call__", (const opencascade::handle<MoniTool_Element> & (MoniTool_SequenceOfElement::*)(const Standard_Integer) const ) &MoniTool_SequenceOfElement::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_MoniTool_SequenceOfElement.def("ChangeValue", (opencascade::handle<MoniTool_Element> & (MoniTool_SequenceOfElement::*)(const Standard_Integer)) &MoniTool_SequenceOfElement::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_MoniTool_SequenceOfElement.def("__call__", (opencascade::handle<MoniTool_Element> & (MoniTool_SequenceOfElement::*)(const Standard_Integer)) &MoniTool_SequenceOfElement::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_MoniTool_SequenceOfElement.def("SetValue", (void (MoniTool_SequenceOfElement::*)(const Standard_Integer, const opencascade::handle<MoniTool_Element> &)) &MoniTool_SequenceOfElement::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_MoniTool_SequenceOfElement.def("__iter__", [](const MoniTool_SequenceOfElement &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\MoniTool_SequenceOfElement.hxx
+	bind_NCollection_Sequence<opencascade::handle<MoniTool_Element> >(mod, "MoniTool_SequenceOfElement");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MoniTool_IntVal.hxx
 	py::class_<MoniTool_IntVal, opencascade::handle<MoniTool_IntVal>, Standard_Transient> cls_MoniTool_IntVal(mod, "MoniTool_IntVal", "An Integer through a Handle (i.e. managed as TShared)");
@@ -433,72 +383,25 @@ PYBIND11_MODULE(MoniTool, mod) {
 	cls_MoniTool_TransientElem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &MoniTool_TransientElem::get_type_descriptor, "None");
 	cls_MoniTool_TransientElem.def("DynamicType", (const opencascade::handle<Standard_Type> & (MoniTool_TransientElem::*)() const ) &MoniTool_TransientElem::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\MoniTool_ValueInterpret.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\MoniTool_ValueSatisfies.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MoniTool_DataMapOfShapeTransient, std::unique_ptr<MoniTool_DataMapOfShapeTransient, Deleter<MoniTool_DataMapOfShapeTransient>>, NCollection_BaseMap> cls_MoniTool_DataMapOfShapeTransient(mod, "MoniTool_DataMapOfShapeTransient", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MoniTool_DataMapOfShapeTransient.def(py::init<>());
-	cls_MoniTool_DataMapOfShapeTransient.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MoniTool_DataMapOfShapeTransient.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MoniTool_DataMapOfShapeTransient.def(py::init([] (const MoniTool_DataMapOfShapeTransient &other) {return new MoniTool_DataMapOfShapeTransient(other);}), "Copy constructor", py::arg("other"));
-	cls_MoniTool_DataMapOfShapeTransient.def("begin", (MoniTool_DataMapOfShapeTransient::iterator (MoniTool_DataMapOfShapeTransient::*)() const ) &MoniTool_DataMapOfShapeTransient::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MoniTool_DataMapOfShapeTransient.def("end", (MoniTool_DataMapOfShapeTransient::iterator (MoniTool_DataMapOfShapeTransient::*)() const ) &MoniTool_DataMapOfShapeTransient::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MoniTool_DataMapOfShapeTransient.def("cbegin", (MoniTool_DataMapOfShapeTransient::const_iterator (MoniTool_DataMapOfShapeTransient::*)() const ) &MoniTool_DataMapOfShapeTransient::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MoniTool_DataMapOfShapeTransient.def("cend", (MoniTool_DataMapOfShapeTransient::const_iterator (MoniTool_DataMapOfShapeTransient::*)() const ) &MoniTool_DataMapOfShapeTransient::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MoniTool_DataMapOfShapeTransient.def("Exchange", (void (MoniTool_DataMapOfShapeTransient::*)(MoniTool_DataMapOfShapeTransient &)) &MoniTool_DataMapOfShapeTransient::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MoniTool_DataMapOfShapeTransient.def("Assign", (MoniTool_DataMapOfShapeTransient & (MoniTool_DataMapOfShapeTransient::*)(const MoniTool_DataMapOfShapeTransient &)) &MoniTool_DataMapOfShapeTransient::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MoniTool_DataMapOfShapeTransient.def("assign", (MoniTool_DataMapOfShapeTransient & (MoniTool_DataMapOfShapeTransient::*)(const MoniTool_DataMapOfShapeTransient &)) &MoniTool_DataMapOfShapeTransient::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MoniTool_DataMapOfShapeTransient.def("ReSize", (void (MoniTool_DataMapOfShapeTransient::*)(const Standard_Integer)) &MoniTool_DataMapOfShapeTransient::ReSize, "ReSize", py::arg("N"));
-	cls_MoniTool_DataMapOfShapeTransient.def("Bind", (Standard_Boolean (MoniTool_DataMapOfShapeTransient::*)(const TopoDS_Shape &, const opencascade::handle<Standard_Transient> &)) &MoniTool_DataMapOfShapeTransient::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MoniTool_DataMapOfShapeTransient.def("Bound", (opencascade::handle<Standard_Transient> * (MoniTool_DataMapOfShapeTransient::*)(const TopoDS_Shape &, const opencascade::handle<Standard_Transient> &)) &MoniTool_DataMapOfShapeTransient::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MoniTool_DataMapOfShapeTransient.def("IsBound", (Standard_Boolean (MoniTool_DataMapOfShapeTransient::*)(const TopoDS_Shape &) const ) &MoniTool_DataMapOfShapeTransient::IsBound, "IsBound", py::arg("theKey"));
-	cls_MoniTool_DataMapOfShapeTransient.def("UnBind", (Standard_Boolean (MoniTool_DataMapOfShapeTransient::*)(const TopoDS_Shape &)) &MoniTool_DataMapOfShapeTransient::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MoniTool_DataMapOfShapeTransient.def("Seek", (const opencascade::handle<Standard_Transient> * (MoniTool_DataMapOfShapeTransient::*)(const TopoDS_Shape &) const ) &MoniTool_DataMapOfShapeTransient::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MoniTool_DataMapOfShapeTransient.def("Find", (const opencascade::handle<Standard_Transient> & (MoniTool_DataMapOfShapeTransient::*)(const TopoDS_Shape &) const ) &MoniTool_DataMapOfShapeTransient::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MoniTool_DataMapOfShapeTransient.def("Find", (Standard_Boolean (MoniTool_DataMapOfShapeTransient::*)(const TopoDS_Shape &, opencascade::handle<Standard_Transient> &) const ) &MoniTool_DataMapOfShapeTransient::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MoniTool_DataMapOfShapeTransient.def("__call__", (const opencascade::handle<Standard_Transient> & (MoniTool_DataMapOfShapeTransient::*)(const TopoDS_Shape &) const ) &MoniTool_DataMapOfShapeTransient::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MoniTool_DataMapOfShapeTransient.def("ChangeSeek", (opencascade::handle<Standard_Transient> * (MoniTool_DataMapOfShapeTransient::*)(const TopoDS_Shape &)) &MoniTool_DataMapOfShapeTransient::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MoniTool_DataMapOfShapeTransient.def("ChangeFind", (opencascade::handle<Standard_Transient> & (MoniTool_DataMapOfShapeTransient::*)(const TopoDS_Shape &)) &MoniTool_DataMapOfShapeTransient::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MoniTool_DataMapOfShapeTransient.def("__call__", (opencascade::handle<Standard_Transient> & (MoniTool_DataMapOfShapeTransient::*)(const TopoDS_Shape &)) &MoniTool_DataMapOfShapeTransient::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MoniTool_DataMapOfShapeTransient.def("Clear", [](MoniTool_DataMapOfShapeTransient &self) -> void { return self.Clear(); });
-	cls_MoniTool_DataMapOfShapeTransient.def("Clear", (void (MoniTool_DataMapOfShapeTransient::*)(const Standard_Boolean)) &MoniTool_DataMapOfShapeTransient::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MoniTool_DataMapOfShapeTransient.def("Clear", (void (MoniTool_DataMapOfShapeTransient::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MoniTool_DataMapOfShapeTransient::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MoniTool_DataMapOfShapeTransient.def("Size", (Standard_Integer (MoniTool_DataMapOfShapeTransient::*)() const ) &MoniTool_DataMapOfShapeTransient::Size, "Size");
-	cls_MoniTool_DataMapOfShapeTransient.def("__iter__", [](const MoniTool_DataMapOfShapeTransient &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	/* FIXME
 
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\MoniTool_ValueSatisfies.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MoniTool_DataMapOfShapeTransient.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<MoniTool_DataMapOfTimer, std::unique_ptr<MoniTool_DataMapOfTimer, Deleter<MoniTool_DataMapOfTimer>>, NCollection_BaseMap> cls_MoniTool_DataMapOfTimer(mod, "MoniTool_DataMapOfTimer", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_MoniTool_DataMapOfTimer.def(py::init<>());
-	cls_MoniTool_DataMapOfTimer.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MoniTool_DataMapOfTimer.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MoniTool_DataMapOfTimer.def(py::init([] (const MoniTool_DataMapOfTimer &other) {return new MoniTool_DataMapOfTimer(other);}), "Copy constructor", py::arg("other"));
-	cls_MoniTool_DataMapOfTimer.def("begin", (MoniTool_DataMapOfTimer::iterator (MoniTool_DataMapOfTimer::*)() const ) &MoniTool_DataMapOfTimer::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MoniTool_DataMapOfTimer.def("end", (MoniTool_DataMapOfTimer::iterator (MoniTool_DataMapOfTimer::*)() const ) &MoniTool_DataMapOfTimer::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MoniTool_DataMapOfTimer.def("cbegin", (MoniTool_DataMapOfTimer::const_iterator (MoniTool_DataMapOfTimer::*)() const ) &MoniTool_DataMapOfTimer::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MoniTool_DataMapOfTimer.def("cend", (MoniTool_DataMapOfTimer::const_iterator (MoniTool_DataMapOfTimer::*)() const ) &MoniTool_DataMapOfTimer::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MoniTool_DataMapOfTimer.def("Exchange", (void (MoniTool_DataMapOfTimer::*)(MoniTool_DataMapOfTimer &)) &MoniTool_DataMapOfTimer::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MoniTool_DataMapOfTimer.def("Assign", (MoniTool_DataMapOfTimer & (MoniTool_DataMapOfTimer::*)(const MoniTool_DataMapOfTimer &)) &MoniTool_DataMapOfTimer::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MoniTool_DataMapOfTimer.def("assign", (MoniTool_DataMapOfTimer & (MoniTool_DataMapOfTimer::*)(const MoniTool_DataMapOfTimer &)) &MoniTool_DataMapOfTimer::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MoniTool_DataMapOfTimer.def("ReSize", (void (MoniTool_DataMapOfTimer::*)(const Standard_Integer)) &MoniTool_DataMapOfTimer::ReSize, "ReSize", py::arg("N"));
-	cls_MoniTool_DataMapOfTimer.def("Bind", (Standard_Boolean (MoniTool_DataMapOfTimer::*)(const Standard_CString &, const opencascade::handle<MoniTool_Timer> &)) &MoniTool_DataMapOfTimer::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_MoniTool_DataMapOfTimer.def("Bound", (opencascade::handle<MoniTool_Timer> * (MoniTool_DataMapOfTimer::*)(const Standard_CString &, const opencascade::handle<MoniTool_Timer> &)) &MoniTool_DataMapOfTimer::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_MoniTool_DataMapOfTimer.def("IsBound", (Standard_Boolean (MoniTool_DataMapOfTimer::*)(const Standard_CString &) const ) &MoniTool_DataMapOfTimer::IsBound, "IsBound", py::arg("theKey"));
-	cls_MoniTool_DataMapOfTimer.def("UnBind", (Standard_Boolean (MoniTool_DataMapOfTimer::*)(const Standard_CString &)) &MoniTool_DataMapOfTimer::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_MoniTool_DataMapOfTimer.def("Seek", (const opencascade::handle<MoniTool_Timer> * (MoniTool_DataMapOfTimer::*)(const Standard_CString &) const ) &MoniTool_DataMapOfTimer::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_MoniTool_DataMapOfTimer.def("Find", (const opencascade::handle<MoniTool_Timer> & (MoniTool_DataMapOfTimer::*)(const Standard_CString &) const ) &MoniTool_DataMapOfTimer::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_MoniTool_DataMapOfTimer.def("Find", (Standard_Boolean (MoniTool_DataMapOfTimer::*)(const Standard_CString &, opencascade::handle<MoniTool_Timer> &) const ) &MoniTool_DataMapOfTimer::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_MoniTool_DataMapOfTimer.def("__call__", (const opencascade::handle<MoniTool_Timer> & (MoniTool_DataMapOfTimer::*)(const Standard_CString &) const ) &MoniTool_DataMapOfTimer::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_MoniTool_DataMapOfTimer.def("ChangeSeek", (opencascade::handle<MoniTool_Timer> * (MoniTool_DataMapOfTimer::*)(const Standard_CString &)) &MoniTool_DataMapOfTimer::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_MoniTool_DataMapOfTimer.def("ChangeFind", (opencascade::handle<MoniTool_Timer> & (MoniTool_DataMapOfTimer::*)(const Standard_CString &)) &MoniTool_DataMapOfTimer::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_MoniTool_DataMapOfTimer.def("__call__", (opencascade::handle<MoniTool_Timer> & (MoniTool_DataMapOfTimer::*)(const Standard_CString &)) &MoniTool_DataMapOfTimer::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_MoniTool_DataMapOfTimer.def("Clear", [](MoniTool_DataMapOfTimer &self) -> void { return self.Clear(); });
-	cls_MoniTool_DataMapOfTimer.def("Clear", (void (MoniTool_DataMapOfTimer::*)(const Standard_Boolean)) &MoniTool_DataMapOfTimer::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MoniTool_DataMapOfTimer.def("Clear", (void (MoniTool_DataMapOfTimer::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MoniTool_DataMapOfTimer::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MoniTool_DataMapOfTimer.def("Size", (Standard_Integer (MoniTool_DataMapOfTimer::*)() const ) &MoniTool_DataMapOfTimer::Size, "Size");
-	cls_MoniTool_DataMapOfTimer.def("__iter__", [](const MoniTool_DataMapOfTimer &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TopoDS_Shape, opencascade::handle<Standard_Transient>, TopTools_ShapeMapHasher>(mod, "MoniTool_DataMapOfShapeTransient");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MoniTool_DataMapOfTimer.hxx
+	bind_NCollection_DataMap<const char *, opencascade::handle<MoniTool_Timer>, MoniTool_MTHasher>(mod, "MoniTool_DataMapOfTimer");
+
+	/* FIXME
+
+	*/
+
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MoniTool_HSequenceOfElement.hxx
 	py::class_<MoniTool_HSequenceOfElement, opencascade::handle<MoniTool_HSequenceOfElement>, MoniTool_SequenceOfElement, Standard_Transient> cls_MoniTool_HSequenceOfElement(mod, "MoniTool_HSequenceOfElement", "None");
 	cls_MoniTool_HSequenceOfElement.def(py::init<>());
@@ -511,43 +414,8 @@ PYBIND11_MODULE(MoniTool, mod) {
 	cls_MoniTool_HSequenceOfElement.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &MoniTool_HSequenceOfElement::get_type_descriptor, "None");
 	cls_MoniTool_HSequenceOfElement.def("DynamicType", (const opencascade::handle<Standard_Type> & (MoniTool_HSequenceOfElement::*)() const ) &MoniTool_HSequenceOfElement::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_IndexedDataMap.hxx
-	py::class_<MoniTool_IndexedDataMapOfShapeTransient, std::unique_ptr<MoniTool_IndexedDataMapOfShapeTransient, Deleter<MoniTool_IndexedDataMapOfShapeTransient>>, NCollection_BaseMap> cls_MoniTool_IndexedDataMapOfShapeTransient(mod, "MoniTool_IndexedDataMapOfShapeTransient", "Purpose: An indexed map is used to store keys and to bind an index to them. Each new key stored in the map gets an index. Index are incremented as keys are stored in the map. A key can be found by the index and an index by the key. No key but the last can be removed so the indices are in the range 1.. Extent. An Item is stored with each key.");
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def(py::init<>());
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def(py::init([] (const MoniTool_IndexedDataMapOfShapeTransient &other) {return new MoniTool_IndexedDataMapOfShapeTransient(other);}), "Copy constructor", py::arg("other"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("begin", (MoniTool_IndexedDataMapOfShapeTransient::iterator (MoniTool_IndexedDataMapOfShapeTransient::*)() const ) &MoniTool_IndexedDataMapOfShapeTransient::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("end", (MoniTool_IndexedDataMapOfShapeTransient::iterator (MoniTool_IndexedDataMapOfShapeTransient::*)() const ) &MoniTool_IndexedDataMapOfShapeTransient::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("cbegin", (MoniTool_IndexedDataMapOfShapeTransient::const_iterator (MoniTool_IndexedDataMapOfShapeTransient::*)() const ) &MoniTool_IndexedDataMapOfShapeTransient::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("cend", (MoniTool_IndexedDataMapOfShapeTransient::const_iterator (MoniTool_IndexedDataMapOfShapeTransient::*)() const ) &MoniTool_IndexedDataMapOfShapeTransient::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("Exchange", (void (MoniTool_IndexedDataMapOfShapeTransient::*)(MoniTool_IndexedDataMapOfShapeTransient &)) &MoniTool_IndexedDataMapOfShapeTransient::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("Assign", (MoniTool_IndexedDataMapOfShapeTransient & (MoniTool_IndexedDataMapOfShapeTransient::*)(const MoniTool_IndexedDataMapOfShapeTransient &)) &MoniTool_IndexedDataMapOfShapeTransient::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("assign", (MoniTool_IndexedDataMapOfShapeTransient & (MoniTool_IndexedDataMapOfShapeTransient::*)(const MoniTool_IndexedDataMapOfShapeTransient &)) &MoniTool_IndexedDataMapOfShapeTransient::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("ReSize", (void (MoniTool_IndexedDataMapOfShapeTransient::*)(const Standard_Integer)) &MoniTool_IndexedDataMapOfShapeTransient::ReSize, "ReSize", py::arg("N"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("Add", (Standard_Integer (MoniTool_IndexedDataMapOfShapeTransient::*)(const TopoDS_Shape &, const opencascade::handle<Standard_Transient> &)) &MoniTool_IndexedDataMapOfShapeTransient::Add, "Add", py::arg("theKey1"), py::arg("theItem"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("Contains", (Standard_Boolean (MoniTool_IndexedDataMapOfShapeTransient::*)(const TopoDS_Shape &) const ) &MoniTool_IndexedDataMapOfShapeTransient::Contains, "Contains", py::arg("theKey1"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("Substitute", (void (MoniTool_IndexedDataMapOfShapeTransient::*)(const Standard_Integer, const TopoDS_Shape &, const opencascade::handle<Standard_Transient> &)) &MoniTool_IndexedDataMapOfShapeTransient::Substitute, "Substitute", py::arg("theIndex"), py::arg("theKey1"), py::arg("theItem"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("Swap", (void (MoniTool_IndexedDataMapOfShapeTransient::*)(const Standard_Integer, const Standard_Integer)) &MoniTool_IndexedDataMapOfShapeTransient::Swap, "Swaps two elements with the given indices.", py::arg("theIndex1"), py::arg("theIndex2"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("RemoveLast", (void (MoniTool_IndexedDataMapOfShapeTransient::*)()) &MoniTool_IndexedDataMapOfShapeTransient::RemoveLast, "RemoveLast");
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("RemoveFromIndex", (void (MoniTool_IndexedDataMapOfShapeTransient::*)(const Standard_Integer)) &MoniTool_IndexedDataMapOfShapeTransient::RemoveFromIndex, "Remove the key of the given index. Caution! The index of the last key can be changed.", py::arg("theKey2"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("RemoveKey", (void (MoniTool_IndexedDataMapOfShapeTransient::*)(const TopoDS_Shape &)) &MoniTool_IndexedDataMapOfShapeTransient::RemoveKey, "Remove the given key. Caution! The index of the last key can be changed.", py::arg("theKey1"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("FindKey", (const TopoDS_Shape & (MoniTool_IndexedDataMapOfShapeTransient::*)(const Standard_Integer) const ) &MoniTool_IndexedDataMapOfShapeTransient::FindKey, "FindKey", py::arg("theKey2"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("FindFromIndex", (const opencascade::handle<Standard_Transient> & (MoniTool_IndexedDataMapOfShapeTransient::*)(const Standard_Integer) const ) &MoniTool_IndexedDataMapOfShapeTransient::FindFromIndex, "FindFromIndex", py::arg("theKey2"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("__call__", (const opencascade::handle<Standard_Transient> & (MoniTool_IndexedDataMapOfShapeTransient::*)(const Standard_Integer) const ) &MoniTool_IndexedDataMapOfShapeTransient::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("ChangeFromIndex", (opencascade::handle<Standard_Transient> & (MoniTool_IndexedDataMapOfShapeTransient::*)(const Standard_Integer)) &MoniTool_IndexedDataMapOfShapeTransient::ChangeFromIndex, "ChangeFromIndex", py::arg("theKey2"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("__call__", (opencascade::handle<Standard_Transient> & (MoniTool_IndexedDataMapOfShapeTransient::*)(const Standard_Integer)) &MoniTool_IndexedDataMapOfShapeTransient::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("FindIndex", (Standard_Integer (MoniTool_IndexedDataMapOfShapeTransient::*)(const TopoDS_Shape &) const ) &MoniTool_IndexedDataMapOfShapeTransient::FindIndex, "FindIndex", py::arg("theKey1"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("FindFromKey", (const opencascade::handle<Standard_Transient> & (MoniTool_IndexedDataMapOfShapeTransient::*)(const TopoDS_Shape &) const ) &MoniTool_IndexedDataMapOfShapeTransient::FindFromKey, "FindFromKey", py::arg("theKey1"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("ChangeFromKey", (opencascade::handle<Standard_Transient> & (MoniTool_IndexedDataMapOfShapeTransient::*)(const TopoDS_Shape &)) &MoniTool_IndexedDataMapOfShapeTransient::ChangeFromKey, "ChangeFromKey", py::arg("theKey1"));
-	// FIXME cls_MoniTool_IndexedDataMapOfShapeTransient.def("Seek", (const opencascade::handle<Standard_Transient> * (MoniTool_IndexedDataMapOfShapeTransient::*)(const TopoDS_Shape &) const ) &MoniTool_IndexedDataMapOfShapeTransient::Seek, "Seek returns pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	// FIXME cls_MoniTool_IndexedDataMapOfShapeTransient.def("ChangeSeek", (opencascade::handle<Standard_Transient> * (MoniTool_IndexedDataMapOfShapeTransient::*)(const TopoDS_Shape &)) &MoniTool_IndexedDataMapOfShapeTransient::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("FindFromKey", (Standard_Boolean (MoniTool_IndexedDataMapOfShapeTransient::*)(const TopoDS_Shape &, opencascade::handle<Standard_Transient> &) const ) &MoniTool_IndexedDataMapOfShapeTransient::FindFromKey, "Find value for key with copying.", py::arg("theKey1"), py::arg("theValue"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("Clear", [](MoniTool_IndexedDataMapOfShapeTransient &self) -> void { return self.Clear(); });
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("Clear", (void (MoniTool_IndexedDataMapOfShapeTransient::*)(const Standard_Boolean)) &MoniTool_IndexedDataMapOfShapeTransient::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("Clear", (void (MoniTool_IndexedDataMapOfShapeTransient::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &MoniTool_IndexedDataMapOfShapeTransient::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("Size", (Standard_Integer (MoniTool_IndexedDataMapOfShapeTransient::*)() const ) &MoniTool_IndexedDataMapOfShapeTransient::Size, "Size");
-	cls_MoniTool_IndexedDataMapOfShapeTransient.def("__iter__", [](const MoniTool_IndexedDataMapOfShapeTransient &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\MoniTool_IndexedDataMapOfShapeTransient.hxx
+	bind_NCollection_IndexedDataMap<TopoDS_Shape, opencascade::handle<Standard_Transient>, TopTools_ShapeMapHasher>(mod, "MoniTool_IndexedDataMapOfShapeTransient");
 
 
 }

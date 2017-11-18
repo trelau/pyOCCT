@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_TypeDef.hxx>
@@ -83,6 +74,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <IGESData_SpecificModule.hxx>
 #include <IGESGraph_SpecificModule.hxx>
 #include <IGESGraph.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(IGESGraph, mod) {
 
@@ -147,75 +139,11 @@ PYBIND11_MODULE(IGESGraph, mod) {
 	cls_IGESGraph_TextFontDef.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESGraph_TextFontDef::get_type_descriptor, "None");
 	cls_IGESGraph_TextFontDef.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESGraph_TextFontDef::*)() const ) &IGESGraph_TextFontDef::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESGraph_Array1OfTextDisplayTemplate, std::unique_ptr<IGESGraph_Array1OfTextDisplayTemplate, Deleter<IGESGraph_Array1OfTextDisplayTemplate>>> cls_IGESGraph_Array1OfTextDisplayTemplate(mod, "IGESGraph_Array1OfTextDisplayTemplate", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def(py::init<>());
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def(py::init([] (const IGESGraph_Array1OfTextDisplayTemplate &other) {return new IGESGraph_Array1OfTextDisplayTemplate(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESGraph_Array1OfTextDisplayTemplate.def(py::init<IGESGraph_Array1OfTextDisplayTemplate &&>(), py::arg("theOther"));
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def(py::init<const opencascade::handle<IGESGraph_TextDisplayTemplate> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("begin", (IGESGraph_Array1OfTextDisplayTemplate::iterator (IGESGraph_Array1OfTextDisplayTemplate::*)() const ) &IGESGraph_Array1OfTextDisplayTemplate::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("end", (IGESGraph_Array1OfTextDisplayTemplate::iterator (IGESGraph_Array1OfTextDisplayTemplate::*)() const ) &IGESGraph_Array1OfTextDisplayTemplate::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("cbegin", (IGESGraph_Array1OfTextDisplayTemplate::const_iterator (IGESGraph_Array1OfTextDisplayTemplate::*)() const ) &IGESGraph_Array1OfTextDisplayTemplate::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("cend", (IGESGraph_Array1OfTextDisplayTemplate::const_iterator (IGESGraph_Array1OfTextDisplayTemplate::*)() const ) &IGESGraph_Array1OfTextDisplayTemplate::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("Init", (void (IGESGraph_Array1OfTextDisplayTemplate::*)(const opencascade::handle<IGESGraph_TextDisplayTemplate> &)) &IGESGraph_Array1OfTextDisplayTemplate::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("Size", (Standard_Integer (IGESGraph_Array1OfTextDisplayTemplate::*)() const ) &IGESGraph_Array1OfTextDisplayTemplate::Size, "Size query");
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("Length", (Standard_Integer (IGESGraph_Array1OfTextDisplayTemplate::*)() const ) &IGESGraph_Array1OfTextDisplayTemplate::Length, "Length query (the same)");
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("IsEmpty", (Standard_Boolean (IGESGraph_Array1OfTextDisplayTemplate::*)() const ) &IGESGraph_Array1OfTextDisplayTemplate::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("Lower", (Standard_Integer (IGESGraph_Array1OfTextDisplayTemplate::*)() const ) &IGESGraph_Array1OfTextDisplayTemplate::Lower, "Lower bound");
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("Upper", (Standard_Integer (IGESGraph_Array1OfTextDisplayTemplate::*)() const ) &IGESGraph_Array1OfTextDisplayTemplate::Upper, "Upper bound");
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("IsDeletable", (Standard_Boolean (IGESGraph_Array1OfTextDisplayTemplate::*)() const ) &IGESGraph_Array1OfTextDisplayTemplate::IsDeletable, "myDeletable flag");
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("IsAllocated", (Standard_Boolean (IGESGraph_Array1OfTextDisplayTemplate::*)() const ) &IGESGraph_Array1OfTextDisplayTemplate::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("Assign", (IGESGraph_Array1OfTextDisplayTemplate & (IGESGraph_Array1OfTextDisplayTemplate::*)(const IGESGraph_Array1OfTextDisplayTemplate &)) &IGESGraph_Array1OfTextDisplayTemplate::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESGraph_Array1OfTextDisplayTemplate.def("Move", (IGESGraph_Array1OfTextDisplayTemplate & (IGESGraph_Array1OfTextDisplayTemplate::*)(IGESGraph_Array1OfTextDisplayTemplate &&)) &IGESGraph_Array1OfTextDisplayTemplate::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("assign", (IGESGraph_Array1OfTextDisplayTemplate & (IGESGraph_Array1OfTextDisplayTemplate::*)(const IGESGraph_Array1OfTextDisplayTemplate &)) &IGESGraph_Array1OfTextDisplayTemplate::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESGraph_Array1OfTextDisplayTemplate.def("assign", (IGESGraph_Array1OfTextDisplayTemplate & (IGESGraph_Array1OfTextDisplayTemplate::*)(IGESGraph_Array1OfTextDisplayTemplate &&)) &IGESGraph_Array1OfTextDisplayTemplate::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("First", (const opencascade::handle<IGESGraph_TextDisplayTemplate> & (IGESGraph_Array1OfTextDisplayTemplate::*)() const ) &IGESGraph_Array1OfTextDisplayTemplate::First, "Returns first element");
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("ChangeFirst", (opencascade::handle<IGESGraph_TextDisplayTemplate> & (IGESGraph_Array1OfTextDisplayTemplate::*)()) &IGESGraph_Array1OfTextDisplayTemplate::ChangeFirst, "Returns first element");
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("Last", (const opencascade::handle<IGESGraph_TextDisplayTemplate> & (IGESGraph_Array1OfTextDisplayTemplate::*)() const ) &IGESGraph_Array1OfTextDisplayTemplate::Last, "Returns last element");
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("ChangeLast", (opencascade::handle<IGESGraph_TextDisplayTemplate> & (IGESGraph_Array1OfTextDisplayTemplate::*)()) &IGESGraph_Array1OfTextDisplayTemplate::ChangeLast, "Returns last element");
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("Value", (const opencascade::handle<IGESGraph_TextDisplayTemplate> & (IGESGraph_Array1OfTextDisplayTemplate::*)(const Standard_Integer) const ) &IGESGraph_Array1OfTextDisplayTemplate::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("__call__", (const opencascade::handle<IGESGraph_TextDisplayTemplate> & (IGESGraph_Array1OfTextDisplayTemplate::*)(const Standard_Integer) const ) &IGESGraph_Array1OfTextDisplayTemplate::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("ChangeValue", (opencascade::handle<IGESGraph_TextDisplayTemplate> & (IGESGraph_Array1OfTextDisplayTemplate::*)(const Standard_Integer)) &IGESGraph_Array1OfTextDisplayTemplate::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("__call__", (opencascade::handle<IGESGraph_TextDisplayTemplate> & (IGESGraph_Array1OfTextDisplayTemplate::*)(const Standard_Integer)) &IGESGraph_Array1OfTextDisplayTemplate::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("SetValue", (void (IGESGraph_Array1OfTextDisplayTemplate::*)(const Standard_Integer, const opencascade::handle<IGESGraph_TextDisplayTemplate> &)) &IGESGraph_Array1OfTextDisplayTemplate::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("Resize", (void (IGESGraph_Array1OfTextDisplayTemplate::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESGraph_Array1OfTextDisplayTemplate::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESGraph_Array1OfTextDisplayTemplate.def("__iter__", [](const IGESGraph_Array1OfTextDisplayTemplate &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESGraph_Array1OfTextDisplayTemplate.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESGraph_TextDisplayTemplate> >(mod, "IGESGraph_Array1OfTextDisplayTemplate");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESGraph_Array1OfTextFontDef, std::unique_ptr<IGESGraph_Array1OfTextFontDef, Deleter<IGESGraph_Array1OfTextFontDef>>> cls_IGESGraph_Array1OfTextFontDef(mod, "IGESGraph_Array1OfTextFontDef", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESGraph_Array1OfTextFontDef.def(py::init<>());
-	cls_IGESGraph_Array1OfTextFontDef.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESGraph_Array1OfTextFontDef.def(py::init([] (const IGESGraph_Array1OfTextFontDef &other) {return new IGESGraph_Array1OfTextFontDef(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESGraph_Array1OfTextFontDef.def(py::init<IGESGraph_Array1OfTextFontDef &&>(), py::arg("theOther"));
-	cls_IGESGraph_Array1OfTextFontDef.def(py::init<const opencascade::handle<IGESGraph_TextFontDef> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESGraph_Array1OfTextFontDef.def("begin", (IGESGraph_Array1OfTextFontDef::iterator (IGESGraph_Array1OfTextFontDef::*)() const ) &IGESGraph_Array1OfTextFontDef::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESGraph_Array1OfTextFontDef.def("end", (IGESGraph_Array1OfTextFontDef::iterator (IGESGraph_Array1OfTextFontDef::*)() const ) &IGESGraph_Array1OfTextFontDef::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESGraph_Array1OfTextFontDef.def("cbegin", (IGESGraph_Array1OfTextFontDef::const_iterator (IGESGraph_Array1OfTextFontDef::*)() const ) &IGESGraph_Array1OfTextFontDef::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESGraph_Array1OfTextFontDef.def("cend", (IGESGraph_Array1OfTextFontDef::const_iterator (IGESGraph_Array1OfTextFontDef::*)() const ) &IGESGraph_Array1OfTextFontDef::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESGraph_Array1OfTextFontDef.def("Init", (void (IGESGraph_Array1OfTextFontDef::*)(const opencascade::handle<IGESGraph_TextFontDef> &)) &IGESGraph_Array1OfTextFontDef::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESGraph_Array1OfTextFontDef.def("Size", (Standard_Integer (IGESGraph_Array1OfTextFontDef::*)() const ) &IGESGraph_Array1OfTextFontDef::Size, "Size query");
-	cls_IGESGraph_Array1OfTextFontDef.def("Length", (Standard_Integer (IGESGraph_Array1OfTextFontDef::*)() const ) &IGESGraph_Array1OfTextFontDef::Length, "Length query (the same)");
-	cls_IGESGraph_Array1OfTextFontDef.def("IsEmpty", (Standard_Boolean (IGESGraph_Array1OfTextFontDef::*)() const ) &IGESGraph_Array1OfTextFontDef::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESGraph_Array1OfTextFontDef.def("Lower", (Standard_Integer (IGESGraph_Array1OfTextFontDef::*)() const ) &IGESGraph_Array1OfTextFontDef::Lower, "Lower bound");
-	cls_IGESGraph_Array1OfTextFontDef.def("Upper", (Standard_Integer (IGESGraph_Array1OfTextFontDef::*)() const ) &IGESGraph_Array1OfTextFontDef::Upper, "Upper bound");
-	cls_IGESGraph_Array1OfTextFontDef.def("IsDeletable", (Standard_Boolean (IGESGraph_Array1OfTextFontDef::*)() const ) &IGESGraph_Array1OfTextFontDef::IsDeletable, "myDeletable flag");
-	cls_IGESGraph_Array1OfTextFontDef.def("IsAllocated", (Standard_Boolean (IGESGraph_Array1OfTextFontDef::*)() const ) &IGESGraph_Array1OfTextFontDef::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESGraph_Array1OfTextFontDef.def("Assign", (IGESGraph_Array1OfTextFontDef & (IGESGraph_Array1OfTextFontDef::*)(const IGESGraph_Array1OfTextFontDef &)) &IGESGraph_Array1OfTextFontDef::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESGraph_Array1OfTextFontDef.def("Move", (IGESGraph_Array1OfTextFontDef & (IGESGraph_Array1OfTextFontDef::*)(IGESGraph_Array1OfTextFontDef &&)) &IGESGraph_Array1OfTextFontDef::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESGraph_Array1OfTextFontDef.def("assign", (IGESGraph_Array1OfTextFontDef & (IGESGraph_Array1OfTextFontDef::*)(const IGESGraph_Array1OfTextFontDef &)) &IGESGraph_Array1OfTextFontDef::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESGraph_Array1OfTextFontDef.def("assign", (IGESGraph_Array1OfTextFontDef & (IGESGraph_Array1OfTextFontDef::*)(IGESGraph_Array1OfTextFontDef &&)) &IGESGraph_Array1OfTextFontDef::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESGraph_Array1OfTextFontDef.def("First", (const opencascade::handle<IGESGraph_TextFontDef> & (IGESGraph_Array1OfTextFontDef::*)() const ) &IGESGraph_Array1OfTextFontDef::First, "Returns first element");
-	cls_IGESGraph_Array1OfTextFontDef.def("ChangeFirst", (opencascade::handle<IGESGraph_TextFontDef> & (IGESGraph_Array1OfTextFontDef::*)()) &IGESGraph_Array1OfTextFontDef::ChangeFirst, "Returns first element");
-	cls_IGESGraph_Array1OfTextFontDef.def("Last", (const opencascade::handle<IGESGraph_TextFontDef> & (IGESGraph_Array1OfTextFontDef::*)() const ) &IGESGraph_Array1OfTextFontDef::Last, "Returns last element");
-	cls_IGESGraph_Array1OfTextFontDef.def("ChangeLast", (opencascade::handle<IGESGraph_TextFontDef> & (IGESGraph_Array1OfTextFontDef::*)()) &IGESGraph_Array1OfTextFontDef::ChangeLast, "Returns last element");
-	cls_IGESGraph_Array1OfTextFontDef.def("Value", (const opencascade::handle<IGESGraph_TextFontDef> & (IGESGraph_Array1OfTextFontDef::*)(const Standard_Integer) const ) &IGESGraph_Array1OfTextFontDef::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESGraph_Array1OfTextFontDef.def("__call__", (const opencascade::handle<IGESGraph_TextFontDef> & (IGESGraph_Array1OfTextFontDef::*)(const Standard_Integer) const ) &IGESGraph_Array1OfTextFontDef::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESGraph_Array1OfTextFontDef.def("ChangeValue", (opencascade::handle<IGESGraph_TextFontDef> & (IGESGraph_Array1OfTextFontDef::*)(const Standard_Integer)) &IGESGraph_Array1OfTextFontDef::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESGraph_Array1OfTextFontDef.def("__call__", (opencascade::handle<IGESGraph_TextFontDef> & (IGESGraph_Array1OfTextFontDef::*)(const Standard_Integer)) &IGESGraph_Array1OfTextFontDef::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESGraph_Array1OfTextFontDef.def("SetValue", (void (IGESGraph_Array1OfTextFontDef::*)(const Standard_Integer, const opencascade::handle<IGESGraph_TextFontDef> &)) &IGESGraph_Array1OfTextFontDef::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESGraph_Array1OfTextFontDef.def("Resize", (void (IGESGraph_Array1OfTextFontDef::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESGraph_Array1OfTextFontDef::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESGraph_Array1OfTextFontDef.def("__iter__", [](const IGESGraph_Array1OfTextFontDef &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESGraph_Array1OfTextFontDef.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESGraph_TextFontDef> >(mod, "IGESGraph_Array1OfTextFontDef");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESGraph_Color.hxx
 	py::class_<IGESGraph_Color, opencascade::handle<IGESGraph_Color>, IGESData_ColorEntity> cls_IGESGraph_Color(mod, "IGESGraph_Color", "defines IGESColor, Type <314> Form <0> in package IGESGraph");
@@ -230,40 +158,8 @@ PYBIND11_MODULE(IGESGraph, mod) {
 	cls_IGESGraph_Color.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESGraph_Color::get_type_descriptor, "None");
 	cls_IGESGraph_Color.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESGraph_Color::*)() const ) &IGESGraph_Color::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESGraph_Array1OfColor, std::unique_ptr<IGESGraph_Array1OfColor, Deleter<IGESGraph_Array1OfColor>>> cls_IGESGraph_Array1OfColor(mod, "IGESGraph_Array1OfColor", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESGraph_Array1OfColor.def(py::init<>());
-	cls_IGESGraph_Array1OfColor.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESGraph_Array1OfColor.def(py::init([] (const IGESGraph_Array1OfColor &other) {return new IGESGraph_Array1OfColor(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESGraph_Array1OfColor.def(py::init<IGESGraph_Array1OfColor &&>(), py::arg("theOther"));
-	cls_IGESGraph_Array1OfColor.def(py::init<const opencascade::handle<IGESGraph_Color> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESGraph_Array1OfColor.def("begin", (IGESGraph_Array1OfColor::iterator (IGESGraph_Array1OfColor::*)() const ) &IGESGraph_Array1OfColor::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESGraph_Array1OfColor.def("end", (IGESGraph_Array1OfColor::iterator (IGESGraph_Array1OfColor::*)() const ) &IGESGraph_Array1OfColor::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESGraph_Array1OfColor.def("cbegin", (IGESGraph_Array1OfColor::const_iterator (IGESGraph_Array1OfColor::*)() const ) &IGESGraph_Array1OfColor::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESGraph_Array1OfColor.def("cend", (IGESGraph_Array1OfColor::const_iterator (IGESGraph_Array1OfColor::*)() const ) &IGESGraph_Array1OfColor::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESGraph_Array1OfColor.def("Init", (void (IGESGraph_Array1OfColor::*)(const opencascade::handle<IGESGraph_Color> &)) &IGESGraph_Array1OfColor::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESGraph_Array1OfColor.def("Size", (Standard_Integer (IGESGraph_Array1OfColor::*)() const ) &IGESGraph_Array1OfColor::Size, "Size query");
-	cls_IGESGraph_Array1OfColor.def("Length", (Standard_Integer (IGESGraph_Array1OfColor::*)() const ) &IGESGraph_Array1OfColor::Length, "Length query (the same)");
-	cls_IGESGraph_Array1OfColor.def("IsEmpty", (Standard_Boolean (IGESGraph_Array1OfColor::*)() const ) &IGESGraph_Array1OfColor::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESGraph_Array1OfColor.def("Lower", (Standard_Integer (IGESGraph_Array1OfColor::*)() const ) &IGESGraph_Array1OfColor::Lower, "Lower bound");
-	cls_IGESGraph_Array1OfColor.def("Upper", (Standard_Integer (IGESGraph_Array1OfColor::*)() const ) &IGESGraph_Array1OfColor::Upper, "Upper bound");
-	cls_IGESGraph_Array1OfColor.def("IsDeletable", (Standard_Boolean (IGESGraph_Array1OfColor::*)() const ) &IGESGraph_Array1OfColor::IsDeletable, "myDeletable flag");
-	cls_IGESGraph_Array1OfColor.def("IsAllocated", (Standard_Boolean (IGESGraph_Array1OfColor::*)() const ) &IGESGraph_Array1OfColor::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESGraph_Array1OfColor.def("Assign", (IGESGraph_Array1OfColor & (IGESGraph_Array1OfColor::*)(const IGESGraph_Array1OfColor &)) &IGESGraph_Array1OfColor::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESGraph_Array1OfColor.def("Move", (IGESGraph_Array1OfColor & (IGESGraph_Array1OfColor::*)(IGESGraph_Array1OfColor &&)) &IGESGraph_Array1OfColor::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESGraph_Array1OfColor.def("assign", (IGESGraph_Array1OfColor & (IGESGraph_Array1OfColor::*)(const IGESGraph_Array1OfColor &)) &IGESGraph_Array1OfColor::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESGraph_Array1OfColor.def("assign", (IGESGraph_Array1OfColor & (IGESGraph_Array1OfColor::*)(IGESGraph_Array1OfColor &&)) &IGESGraph_Array1OfColor::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESGraph_Array1OfColor.def("First", (const opencascade::handle<IGESGraph_Color> & (IGESGraph_Array1OfColor::*)() const ) &IGESGraph_Array1OfColor::First, "Returns first element");
-	cls_IGESGraph_Array1OfColor.def("ChangeFirst", (opencascade::handle<IGESGraph_Color> & (IGESGraph_Array1OfColor::*)()) &IGESGraph_Array1OfColor::ChangeFirst, "Returns first element");
-	cls_IGESGraph_Array1OfColor.def("Last", (const opencascade::handle<IGESGraph_Color> & (IGESGraph_Array1OfColor::*)() const ) &IGESGraph_Array1OfColor::Last, "Returns last element");
-	cls_IGESGraph_Array1OfColor.def("ChangeLast", (opencascade::handle<IGESGraph_Color> & (IGESGraph_Array1OfColor::*)()) &IGESGraph_Array1OfColor::ChangeLast, "Returns last element");
-	cls_IGESGraph_Array1OfColor.def("Value", (const opencascade::handle<IGESGraph_Color> & (IGESGraph_Array1OfColor::*)(const Standard_Integer) const ) &IGESGraph_Array1OfColor::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESGraph_Array1OfColor.def("__call__", (const opencascade::handle<IGESGraph_Color> & (IGESGraph_Array1OfColor::*)(const Standard_Integer) const ) &IGESGraph_Array1OfColor::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESGraph_Array1OfColor.def("ChangeValue", (opencascade::handle<IGESGraph_Color> & (IGESGraph_Array1OfColor::*)(const Standard_Integer)) &IGESGraph_Array1OfColor::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESGraph_Array1OfColor.def("__call__", (opencascade::handle<IGESGraph_Color> & (IGESGraph_Array1OfColor::*)(const Standard_Integer)) &IGESGraph_Array1OfColor::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESGraph_Array1OfColor.def("SetValue", (void (IGESGraph_Array1OfColor::*)(const Standard_Integer, const opencascade::handle<IGESGraph_Color> &)) &IGESGraph_Array1OfColor::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESGraph_Array1OfColor.def("Resize", (void (IGESGraph_Array1OfColor::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESGraph_Array1OfColor::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESGraph_Array1OfColor.def("__iter__", [](const IGESGraph_Array1OfColor &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESGraph_Array1OfColor.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESGraph_Color> >(mod, "IGESGraph_Array1OfColor");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESGraph_Protocol.hxx
 	py::class_<IGESGraph_Protocol, opencascade::handle<IGESGraph_Protocol>, IGESData_Protocol> cls_IGESGraph_Protocol(mod, "IGESGraph_Protocol", "Description of Protocol for IGESGraph");

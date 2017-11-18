@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Storage_Error.hxx>
 #include <Standard_Transient.hxx>
@@ -63,6 +54,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Storage_HArrayOfSchema.hxx>
 #include <Storage_StreamModeError.hxx>
 #include <Storage_StreamUnknownTypeError.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Storage, mod) {
 
@@ -156,50 +148,8 @@ PYBIND11_MODULE(Storage, mod) {
 	cls_Storage_Root.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Storage_Root::get_type_descriptor, "None");
 	cls_Storage_Root.def("DynamicType", (const opencascade::handle<Standard_Type> & (Storage_Root::*)() const ) &Storage_Root::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Storage_SeqOfRoot, std::unique_ptr<Storage_SeqOfRoot, Deleter<Storage_SeqOfRoot>>, NCollection_BaseSequence> cls_Storage_SeqOfRoot(mod, "Storage_SeqOfRoot", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Storage_SeqOfRoot.def(py::init<>());
-	cls_Storage_SeqOfRoot.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Storage_SeqOfRoot.def(py::init([] (const Storage_SeqOfRoot &other) {return new Storage_SeqOfRoot(other);}), "Copy constructor", py::arg("other"));
-	cls_Storage_SeqOfRoot.def("begin", (Storage_SeqOfRoot::iterator (Storage_SeqOfRoot::*)() const ) &Storage_SeqOfRoot::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Storage_SeqOfRoot.def("end", (Storage_SeqOfRoot::iterator (Storage_SeqOfRoot::*)() const ) &Storage_SeqOfRoot::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Storage_SeqOfRoot.def("cbegin", (Storage_SeqOfRoot::const_iterator (Storage_SeqOfRoot::*)() const ) &Storage_SeqOfRoot::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Storage_SeqOfRoot.def("cend", (Storage_SeqOfRoot::const_iterator (Storage_SeqOfRoot::*)() const ) &Storage_SeqOfRoot::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Storage_SeqOfRoot.def("Size", (Standard_Integer (Storage_SeqOfRoot::*)() const ) &Storage_SeqOfRoot::Size, "Number of items");
-	cls_Storage_SeqOfRoot.def("Length", (Standard_Integer (Storage_SeqOfRoot::*)() const ) &Storage_SeqOfRoot::Length, "Number of items");
-	cls_Storage_SeqOfRoot.def("Lower", (Standard_Integer (Storage_SeqOfRoot::*)() const ) &Storage_SeqOfRoot::Lower, "Method for consistency with other collections.");
-	cls_Storage_SeqOfRoot.def("Upper", (Standard_Integer (Storage_SeqOfRoot::*)() const ) &Storage_SeqOfRoot::Upper, "Method for consistency with other collections.");
-	cls_Storage_SeqOfRoot.def("IsEmpty", (Standard_Boolean (Storage_SeqOfRoot::*)() const ) &Storage_SeqOfRoot::IsEmpty, "Empty query");
-	cls_Storage_SeqOfRoot.def("Reverse", (void (Storage_SeqOfRoot::*)()) &Storage_SeqOfRoot::Reverse, "Reverse sequence");
-	cls_Storage_SeqOfRoot.def("Exchange", (void (Storage_SeqOfRoot::*)(const Standard_Integer, const Standard_Integer)) &Storage_SeqOfRoot::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Storage_SeqOfRoot.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Storage_SeqOfRoot::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Storage_SeqOfRoot.def("Clear", [](Storage_SeqOfRoot &self) -> void { return self.Clear(); });
-	cls_Storage_SeqOfRoot.def("Clear", (void (Storage_SeqOfRoot::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Storage_SeqOfRoot::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Storage_SeqOfRoot.def("Assign", (Storage_SeqOfRoot & (Storage_SeqOfRoot::*)(const Storage_SeqOfRoot &)) &Storage_SeqOfRoot::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Storage_SeqOfRoot.def("assign", (Storage_SeqOfRoot & (Storage_SeqOfRoot::*)(const Storage_SeqOfRoot &)) &Storage_SeqOfRoot::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Storage_SeqOfRoot.def("Remove", (void (Storage_SeqOfRoot::*)(Storage_SeqOfRoot::Iterator &)) &Storage_SeqOfRoot::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Storage_SeqOfRoot.def("Remove", (void (Storage_SeqOfRoot::*)(const Standard_Integer)) &Storage_SeqOfRoot::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Storage_SeqOfRoot.def("Remove", (void (Storage_SeqOfRoot::*)(const Standard_Integer, const Standard_Integer)) &Storage_SeqOfRoot::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Storage_SeqOfRoot.def("Append", (void (Storage_SeqOfRoot::*)(const opencascade::handle<Storage_Root> &)) &Storage_SeqOfRoot::Append, "Append one item", py::arg("theItem"));
-	cls_Storage_SeqOfRoot.def("Append", (void (Storage_SeqOfRoot::*)(Storage_SeqOfRoot &)) &Storage_SeqOfRoot::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Storage_SeqOfRoot.def("Prepend", (void (Storage_SeqOfRoot::*)(const opencascade::handle<Storage_Root> &)) &Storage_SeqOfRoot::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Storage_SeqOfRoot.def("Prepend", (void (Storage_SeqOfRoot::*)(Storage_SeqOfRoot &)) &Storage_SeqOfRoot::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Storage_SeqOfRoot.def("InsertBefore", (void (Storage_SeqOfRoot::*)(const Standard_Integer, const opencascade::handle<Storage_Root> &)) &Storage_SeqOfRoot::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Storage_SeqOfRoot.def("InsertBefore", (void (Storage_SeqOfRoot::*)(const Standard_Integer, Storage_SeqOfRoot &)) &Storage_SeqOfRoot::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Storage_SeqOfRoot.def("InsertAfter", (void (Storage_SeqOfRoot::*)(Storage_SeqOfRoot::Iterator &, const opencascade::handle<Storage_Root> &)) &Storage_SeqOfRoot::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Storage_SeqOfRoot.def("InsertAfter", (void (Storage_SeqOfRoot::*)(const Standard_Integer, Storage_SeqOfRoot &)) &Storage_SeqOfRoot::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Storage_SeqOfRoot.def("InsertAfter", (void (Storage_SeqOfRoot::*)(const Standard_Integer, const opencascade::handle<Storage_Root> &)) &Storage_SeqOfRoot::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Storage_SeqOfRoot.def("Split", (void (Storage_SeqOfRoot::*)(const Standard_Integer, Storage_SeqOfRoot &)) &Storage_SeqOfRoot::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Storage_SeqOfRoot.def("First", (const opencascade::handle<Storage_Root> & (Storage_SeqOfRoot::*)() const ) &Storage_SeqOfRoot::First, "First item access");
-	cls_Storage_SeqOfRoot.def("ChangeFirst", (opencascade::handle<Storage_Root> & (Storage_SeqOfRoot::*)()) &Storage_SeqOfRoot::ChangeFirst, "First item access");
-	cls_Storage_SeqOfRoot.def("Last", (const opencascade::handle<Storage_Root> & (Storage_SeqOfRoot::*)() const ) &Storage_SeqOfRoot::Last, "Last item access");
-	cls_Storage_SeqOfRoot.def("ChangeLast", (opencascade::handle<Storage_Root> & (Storage_SeqOfRoot::*)()) &Storage_SeqOfRoot::ChangeLast, "Last item access");
-	cls_Storage_SeqOfRoot.def("Value", (const opencascade::handle<Storage_Root> & (Storage_SeqOfRoot::*)(const Standard_Integer) const ) &Storage_SeqOfRoot::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Storage_SeqOfRoot.def("__call__", (const opencascade::handle<Storage_Root> & (Storage_SeqOfRoot::*)(const Standard_Integer) const ) &Storage_SeqOfRoot::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Storage_SeqOfRoot.def("ChangeValue", (opencascade::handle<Storage_Root> & (Storage_SeqOfRoot::*)(const Standard_Integer)) &Storage_SeqOfRoot::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Storage_SeqOfRoot.def("__call__", (opencascade::handle<Storage_Root> & (Storage_SeqOfRoot::*)(const Standard_Integer)) &Storage_SeqOfRoot::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Storage_SeqOfRoot.def("SetValue", (void (Storage_SeqOfRoot::*)(const Standard_Integer, const opencascade::handle<Storage_Root> &)) &Storage_SeqOfRoot::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Storage_SeqOfRoot.def("__iter__", [](const Storage_SeqOfRoot &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Storage_SeqOfRoot.hxx
+	bind_NCollection_Sequence<opencascade::handle<Storage_Root> >(mod, "Storage_SeqOfRoot");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Storage_HeaderData.hxx
 	py::class_<Storage_HeaderData, opencascade::handle<Storage_HeaderData>, Standard_Transient> cls_Storage_HeaderData(mod, "Storage_HeaderData", "None");
@@ -518,110 +468,14 @@ PYBIND11_MODULE(Storage, mod) {
 	cls_Storage_Bucket.def(py::init<const Standard_Integer>(), py::arg("theSpaceSize"));
 	cls_Storage_Bucket.def("Clear", (void (Storage_Bucket::*)()) &Storage_Bucket::Clear, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Storage_ArrayOfCallBack, std::unique_ptr<Storage_ArrayOfCallBack, Deleter<Storage_ArrayOfCallBack>>> cls_Storage_ArrayOfCallBack(mod, "Storage_ArrayOfCallBack", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Storage_ArrayOfCallBack.def(py::init<>());
-	cls_Storage_ArrayOfCallBack.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Storage_ArrayOfCallBack.def(py::init([] (const Storage_ArrayOfCallBack &other) {return new Storage_ArrayOfCallBack(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Storage_ArrayOfCallBack.def(py::init<Storage_ArrayOfCallBack &&>(), py::arg("theOther"));
-	cls_Storage_ArrayOfCallBack.def(py::init<const opencascade::handle<Storage_CallBack> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Storage_ArrayOfCallBack.def("begin", (Storage_ArrayOfCallBack::iterator (Storage_ArrayOfCallBack::*)() const ) &Storage_ArrayOfCallBack::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Storage_ArrayOfCallBack.def("end", (Storage_ArrayOfCallBack::iterator (Storage_ArrayOfCallBack::*)() const ) &Storage_ArrayOfCallBack::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Storage_ArrayOfCallBack.def("cbegin", (Storage_ArrayOfCallBack::const_iterator (Storage_ArrayOfCallBack::*)() const ) &Storage_ArrayOfCallBack::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Storage_ArrayOfCallBack.def("cend", (Storage_ArrayOfCallBack::const_iterator (Storage_ArrayOfCallBack::*)() const ) &Storage_ArrayOfCallBack::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Storage_ArrayOfCallBack.def("Init", (void (Storage_ArrayOfCallBack::*)(const opencascade::handle<Storage_CallBack> &)) &Storage_ArrayOfCallBack::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Storage_ArrayOfCallBack.def("Size", (Standard_Integer (Storage_ArrayOfCallBack::*)() const ) &Storage_ArrayOfCallBack::Size, "Size query");
-	cls_Storage_ArrayOfCallBack.def("Length", (Standard_Integer (Storage_ArrayOfCallBack::*)() const ) &Storage_ArrayOfCallBack::Length, "Length query (the same)");
-	cls_Storage_ArrayOfCallBack.def("IsEmpty", (Standard_Boolean (Storage_ArrayOfCallBack::*)() const ) &Storage_ArrayOfCallBack::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Storage_ArrayOfCallBack.def("Lower", (Standard_Integer (Storage_ArrayOfCallBack::*)() const ) &Storage_ArrayOfCallBack::Lower, "Lower bound");
-	cls_Storage_ArrayOfCallBack.def("Upper", (Standard_Integer (Storage_ArrayOfCallBack::*)() const ) &Storage_ArrayOfCallBack::Upper, "Upper bound");
-	cls_Storage_ArrayOfCallBack.def("IsDeletable", (Standard_Boolean (Storage_ArrayOfCallBack::*)() const ) &Storage_ArrayOfCallBack::IsDeletable, "myDeletable flag");
-	cls_Storage_ArrayOfCallBack.def("IsAllocated", (Standard_Boolean (Storage_ArrayOfCallBack::*)() const ) &Storage_ArrayOfCallBack::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Storage_ArrayOfCallBack.def("Assign", (Storage_ArrayOfCallBack & (Storage_ArrayOfCallBack::*)(const Storage_ArrayOfCallBack &)) &Storage_ArrayOfCallBack::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Storage_ArrayOfCallBack.def("Move", (Storage_ArrayOfCallBack & (Storage_ArrayOfCallBack::*)(Storage_ArrayOfCallBack &&)) &Storage_ArrayOfCallBack::Move, "Move assignment", py::arg("theOther"));
-	cls_Storage_ArrayOfCallBack.def("assign", (Storage_ArrayOfCallBack & (Storage_ArrayOfCallBack::*)(const Storage_ArrayOfCallBack &)) &Storage_ArrayOfCallBack::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Storage_ArrayOfCallBack.def("assign", (Storage_ArrayOfCallBack & (Storage_ArrayOfCallBack::*)(Storage_ArrayOfCallBack &&)) &Storage_ArrayOfCallBack::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Storage_ArrayOfCallBack.def("First", (const opencascade::handle<Storage_CallBack> & (Storage_ArrayOfCallBack::*)() const ) &Storage_ArrayOfCallBack::First, "Returns first element");
-	cls_Storage_ArrayOfCallBack.def("ChangeFirst", (opencascade::handle<Storage_CallBack> & (Storage_ArrayOfCallBack::*)()) &Storage_ArrayOfCallBack::ChangeFirst, "Returns first element");
-	cls_Storage_ArrayOfCallBack.def("Last", (const opencascade::handle<Storage_CallBack> & (Storage_ArrayOfCallBack::*)() const ) &Storage_ArrayOfCallBack::Last, "Returns last element");
-	cls_Storage_ArrayOfCallBack.def("ChangeLast", (opencascade::handle<Storage_CallBack> & (Storage_ArrayOfCallBack::*)()) &Storage_ArrayOfCallBack::ChangeLast, "Returns last element");
-	cls_Storage_ArrayOfCallBack.def("Value", (const opencascade::handle<Storage_CallBack> & (Storage_ArrayOfCallBack::*)(const Standard_Integer) const ) &Storage_ArrayOfCallBack::Value, "Constant value access", py::arg("theIndex"));
-	cls_Storage_ArrayOfCallBack.def("__call__", (const opencascade::handle<Storage_CallBack> & (Storage_ArrayOfCallBack::*)(const Standard_Integer) const ) &Storage_ArrayOfCallBack::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Storage_ArrayOfCallBack.def("ChangeValue", (opencascade::handle<Storage_CallBack> & (Storage_ArrayOfCallBack::*)(const Standard_Integer)) &Storage_ArrayOfCallBack::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Storage_ArrayOfCallBack.def("__call__", (opencascade::handle<Storage_CallBack> & (Storage_ArrayOfCallBack::*)(const Standard_Integer)) &Storage_ArrayOfCallBack::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Storage_ArrayOfCallBack.def("SetValue", (void (Storage_ArrayOfCallBack::*)(const Standard_Integer, const opencascade::handle<Storage_CallBack> &)) &Storage_ArrayOfCallBack::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Storage_ArrayOfCallBack.def("Resize", (void (Storage_ArrayOfCallBack::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Storage_ArrayOfCallBack::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Storage_ArrayOfCallBack.def("__iter__", [](const Storage_ArrayOfCallBack &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Storage_ArrayOfCallBack.hxx
+	bind_NCollection_Array1<opencascade::handle<Storage_CallBack> >(mod, "Storage_ArrayOfCallBack");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Storage_PArray, std::unique_ptr<Storage_PArray, Deleter<Storage_PArray>>> cls_Storage_PArray(mod, "Storage_PArray", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Storage_PArray.def(py::init<>());
-	cls_Storage_PArray.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Storage_PArray.def(py::init([] (const Storage_PArray &other) {return new Storage_PArray(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Storage_PArray.def(py::init<Storage_PArray &&>(), py::arg("theOther"));
-	cls_Storage_PArray.def(py::init<const opencascade::handle<Standard_Persistent> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Storage_PArray.def("begin", (Storage_PArray::iterator (Storage_PArray::*)() const ) &Storage_PArray::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Storage_PArray.def("end", (Storage_PArray::iterator (Storage_PArray::*)() const ) &Storage_PArray::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Storage_PArray.def("cbegin", (Storage_PArray::const_iterator (Storage_PArray::*)() const ) &Storage_PArray::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Storage_PArray.def("cend", (Storage_PArray::const_iterator (Storage_PArray::*)() const ) &Storage_PArray::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Storage_PArray.def("Init", (void (Storage_PArray::*)(const opencascade::handle<Standard_Persistent> &)) &Storage_PArray::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Storage_PArray.def("Size", (Standard_Integer (Storage_PArray::*)() const ) &Storage_PArray::Size, "Size query");
-	cls_Storage_PArray.def("Length", (Standard_Integer (Storage_PArray::*)() const ) &Storage_PArray::Length, "Length query (the same)");
-	cls_Storage_PArray.def("IsEmpty", (Standard_Boolean (Storage_PArray::*)() const ) &Storage_PArray::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Storage_PArray.def("Lower", (Standard_Integer (Storage_PArray::*)() const ) &Storage_PArray::Lower, "Lower bound");
-	cls_Storage_PArray.def("Upper", (Standard_Integer (Storage_PArray::*)() const ) &Storage_PArray::Upper, "Upper bound");
-	cls_Storage_PArray.def("IsDeletable", (Standard_Boolean (Storage_PArray::*)() const ) &Storage_PArray::IsDeletable, "myDeletable flag");
-	cls_Storage_PArray.def("IsAllocated", (Standard_Boolean (Storage_PArray::*)() const ) &Storage_PArray::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Storage_PArray.def("Assign", (Storage_PArray & (Storage_PArray::*)(const Storage_PArray &)) &Storage_PArray::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Storage_PArray.def("Move", (Storage_PArray & (Storage_PArray::*)(Storage_PArray &&)) &Storage_PArray::Move, "Move assignment", py::arg("theOther"));
-	cls_Storage_PArray.def("assign", (Storage_PArray & (Storage_PArray::*)(const Storage_PArray &)) &Storage_PArray::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Storage_PArray.def("assign", (Storage_PArray & (Storage_PArray::*)(Storage_PArray &&)) &Storage_PArray::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Storage_PArray.def("First", (const opencascade::handle<Standard_Persistent> & (Storage_PArray::*)() const ) &Storage_PArray::First, "Returns first element");
-	cls_Storage_PArray.def("ChangeFirst", (opencascade::handle<Standard_Persistent> & (Storage_PArray::*)()) &Storage_PArray::ChangeFirst, "Returns first element");
-	cls_Storage_PArray.def("Last", (const opencascade::handle<Standard_Persistent> & (Storage_PArray::*)() const ) &Storage_PArray::Last, "Returns last element");
-	cls_Storage_PArray.def("ChangeLast", (opencascade::handle<Standard_Persistent> & (Storage_PArray::*)()) &Storage_PArray::ChangeLast, "Returns last element");
-	cls_Storage_PArray.def("Value", (const opencascade::handle<Standard_Persistent> & (Storage_PArray::*)(const Standard_Integer) const ) &Storage_PArray::Value, "Constant value access", py::arg("theIndex"));
-	cls_Storage_PArray.def("__call__", (const opencascade::handle<Standard_Persistent> & (Storage_PArray::*)(const Standard_Integer) const ) &Storage_PArray::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Storage_PArray.def("ChangeValue", (opencascade::handle<Standard_Persistent> & (Storage_PArray::*)(const Standard_Integer)) &Storage_PArray::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Storage_PArray.def("__call__", (opencascade::handle<Standard_Persistent> & (Storage_PArray::*)(const Standard_Integer)) &Storage_PArray::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Storage_PArray.def("SetValue", (void (Storage_PArray::*)(const Standard_Integer, const opencascade::handle<Standard_Persistent> &)) &Storage_PArray::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Storage_PArray.def("Resize", (void (Storage_PArray::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Storage_PArray::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Storage_PArray.def("__iter__", [](const Storage_PArray &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Storage_PArray.hxx
+	bind_NCollection_Array1<opencascade::handle<Standard_Persistent> >(mod, "Storage_PArray");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Storage_ArrayOfSchema, std::unique_ptr<Storage_ArrayOfSchema, Deleter<Storage_ArrayOfSchema>>> cls_Storage_ArrayOfSchema(mod, "Storage_ArrayOfSchema", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Storage_ArrayOfSchema.def(py::init<>());
-	cls_Storage_ArrayOfSchema.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Storage_ArrayOfSchema.def(py::init([] (const Storage_ArrayOfSchema &other) {return new Storage_ArrayOfSchema(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Storage_ArrayOfSchema.def(py::init<Storage_ArrayOfSchema &&>(), py::arg("theOther"));
-	cls_Storage_ArrayOfSchema.def(py::init<const opencascade::handle<Storage_Schema> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Storage_ArrayOfSchema.def("begin", (Storage_ArrayOfSchema::iterator (Storage_ArrayOfSchema::*)() const ) &Storage_ArrayOfSchema::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Storage_ArrayOfSchema.def("end", (Storage_ArrayOfSchema::iterator (Storage_ArrayOfSchema::*)() const ) &Storage_ArrayOfSchema::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Storage_ArrayOfSchema.def("cbegin", (Storage_ArrayOfSchema::const_iterator (Storage_ArrayOfSchema::*)() const ) &Storage_ArrayOfSchema::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Storage_ArrayOfSchema.def("cend", (Storage_ArrayOfSchema::const_iterator (Storage_ArrayOfSchema::*)() const ) &Storage_ArrayOfSchema::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Storage_ArrayOfSchema.def("Init", (void (Storage_ArrayOfSchema::*)(const opencascade::handle<Storage_Schema> &)) &Storage_ArrayOfSchema::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Storage_ArrayOfSchema.def("Size", (Standard_Integer (Storage_ArrayOfSchema::*)() const ) &Storage_ArrayOfSchema::Size, "Size query");
-	cls_Storage_ArrayOfSchema.def("Length", (Standard_Integer (Storage_ArrayOfSchema::*)() const ) &Storage_ArrayOfSchema::Length, "Length query (the same)");
-	cls_Storage_ArrayOfSchema.def("IsEmpty", (Standard_Boolean (Storage_ArrayOfSchema::*)() const ) &Storage_ArrayOfSchema::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Storage_ArrayOfSchema.def("Lower", (Standard_Integer (Storage_ArrayOfSchema::*)() const ) &Storage_ArrayOfSchema::Lower, "Lower bound");
-	cls_Storage_ArrayOfSchema.def("Upper", (Standard_Integer (Storage_ArrayOfSchema::*)() const ) &Storage_ArrayOfSchema::Upper, "Upper bound");
-	cls_Storage_ArrayOfSchema.def("IsDeletable", (Standard_Boolean (Storage_ArrayOfSchema::*)() const ) &Storage_ArrayOfSchema::IsDeletable, "myDeletable flag");
-	cls_Storage_ArrayOfSchema.def("IsAllocated", (Standard_Boolean (Storage_ArrayOfSchema::*)() const ) &Storage_ArrayOfSchema::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Storage_ArrayOfSchema.def("Assign", (Storage_ArrayOfSchema & (Storage_ArrayOfSchema::*)(const Storage_ArrayOfSchema &)) &Storage_ArrayOfSchema::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Storage_ArrayOfSchema.def("Move", (Storage_ArrayOfSchema & (Storage_ArrayOfSchema::*)(Storage_ArrayOfSchema &&)) &Storage_ArrayOfSchema::Move, "Move assignment", py::arg("theOther"));
-	cls_Storage_ArrayOfSchema.def("assign", (Storage_ArrayOfSchema & (Storage_ArrayOfSchema::*)(const Storage_ArrayOfSchema &)) &Storage_ArrayOfSchema::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Storage_ArrayOfSchema.def("assign", (Storage_ArrayOfSchema & (Storage_ArrayOfSchema::*)(Storage_ArrayOfSchema &&)) &Storage_ArrayOfSchema::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Storage_ArrayOfSchema.def("First", (const opencascade::handle<Storage_Schema> & (Storage_ArrayOfSchema::*)() const ) &Storage_ArrayOfSchema::First, "Returns first element");
-	cls_Storage_ArrayOfSchema.def("ChangeFirst", (opencascade::handle<Storage_Schema> & (Storage_ArrayOfSchema::*)()) &Storage_ArrayOfSchema::ChangeFirst, "Returns first element");
-	cls_Storage_ArrayOfSchema.def("Last", (const opencascade::handle<Storage_Schema> & (Storage_ArrayOfSchema::*)() const ) &Storage_ArrayOfSchema::Last, "Returns last element");
-	cls_Storage_ArrayOfSchema.def("ChangeLast", (opencascade::handle<Storage_Schema> & (Storage_ArrayOfSchema::*)()) &Storage_ArrayOfSchema::ChangeLast, "Returns last element");
-	cls_Storage_ArrayOfSchema.def("Value", (const opencascade::handle<Storage_Schema> & (Storage_ArrayOfSchema::*)(const Standard_Integer) const ) &Storage_ArrayOfSchema::Value, "Constant value access", py::arg("theIndex"));
-	cls_Storage_ArrayOfSchema.def("__call__", (const opencascade::handle<Storage_Schema> & (Storage_ArrayOfSchema::*)(const Standard_Integer) const ) &Storage_ArrayOfSchema::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Storage_ArrayOfSchema.def("ChangeValue", (opencascade::handle<Storage_Schema> & (Storage_ArrayOfSchema::*)(const Standard_Integer)) &Storage_ArrayOfSchema::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Storage_ArrayOfSchema.def("__call__", (opencascade::handle<Storage_Schema> & (Storage_ArrayOfSchema::*)(const Standard_Integer)) &Storage_ArrayOfSchema::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Storage_ArrayOfSchema.def("SetValue", (void (Storage_ArrayOfSchema::*)(const Standard_Integer, const opencascade::handle<Storage_Schema> &)) &Storage_ArrayOfSchema::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Storage_ArrayOfSchema.def("Resize", (void (Storage_ArrayOfSchema::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Storage_ArrayOfSchema::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Storage_ArrayOfSchema.def("__iter__", [](const Storage_ArrayOfSchema &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Storage_ArrayOfSchema.hxx
+	bind_NCollection_Array1<opencascade::handle<Storage_Schema> >(mod, "Storage_ArrayOfSchema");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Storage_StreamTypeMismatchError.hxx
 	py::class_<Storage_StreamTypeMismatchError, opencascade::handle<Storage_StreamTypeMismatchError>, Storage_StreamReadError> cls_Storage_StreamTypeMismatchError(mod, "Storage_StreamTypeMismatchError", "None");
@@ -668,6 +522,7 @@ PYBIND11_MODULE(Storage, mod) {
 	cls_Storage_HSeqOfRoot.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Storage_HSeqOfRoot::get_type_descriptor, "None");
 	cls_Storage_HSeqOfRoot.def("DynamicType", (const opencascade::handle<Standard_Type> & (Storage_HSeqOfRoot::*)() const ) &Storage_HSeqOfRoot::DynamicType, "None");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Storage_Position.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "logical")) {
 		mod.attr("Storage_Position") = other_mod.attr("logical");
@@ -695,70 +550,20 @@ PYBIND11_MODULE(Storage, mod) {
 	cls_Storage_HArrayOfSchema.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Storage_HArrayOfSchema::get_type_descriptor, "None");
 	cls_Storage_HArrayOfSchema.def("DynamicType", (const opencascade::handle<Standard_Type> & (Storage_HArrayOfSchema::*)() const ) &Storage_HArrayOfSchema::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<Storage_MapOfCallBack, std::unique_ptr<Storage_MapOfCallBack, Deleter<Storage_MapOfCallBack>>, NCollection_BaseMap> cls_Storage_MapOfCallBack(mod, "Storage_MapOfCallBack", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_Storage_MapOfCallBack.def(py::init<>());
-	cls_Storage_MapOfCallBack.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_Storage_MapOfCallBack.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_Storage_MapOfCallBack.def(py::init([] (const Storage_MapOfCallBack &other) {return new Storage_MapOfCallBack(other);}), "Copy constructor", py::arg("other"));
-	cls_Storage_MapOfCallBack.def("begin", (Storage_MapOfCallBack::iterator (Storage_MapOfCallBack::*)() const ) &Storage_MapOfCallBack::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_Storage_MapOfCallBack.def("end", (Storage_MapOfCallBack::iterator (Storage_MapOfCallBack::*)() const ) &Storage_MapOfCallBack::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_Storage_MapOfCallBack.def("cbegin", (Storage_MapOfCallBack::const_iterator (Storage_MapOfCallBack::*)() const ) &Storage_MapOfCallBack::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_Storage_MapOfCallBack.def("cend", (Storage_MapOfCallBack::const_iterator (Storage_MapOfCallBack::*)() const ) &Storage_MapOfCallBack::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_Storage_MapOfCallBack.def("Exchange", (void (Storage_MapOfCallBack::*)(Storage_MapOfCallBack &)) &Storage_MapOfCallBack::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_Storage_MapOfCallBack.def("Assign", (Storage_MapOfCallBack & (Storage_MapOfCallBack::*)(const Storage_MapOfCallBack &)) &Storage_MapOfCallBack::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Storage_MapOfCallBack.def("assign", (Storage_MapOfCallBack & (Storage_MapOfCallBack::*)(const Storage_MapOfCallBack &)) &Storage_MapOfCallBack::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Storage_MapOfCallBack.def("ReSize", (void (Storage_MapOfCallBack::*)(const Standard_Integer)) &Storage_MapOfCallBack::ReSize, "ReSize", py::arg("N"));
-	cls_Storage_MapOfCallBack.def("Bind", (Standard_Boolean (Storage_MapOfCallBack::*)(const TCollection_AsciiString &, const opencascade::handle<Storage_TypedCallBack> &)) &Storage_MapOfCallBack::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_Storage_MapOfCallBack.def("Bound", (opencascade::handle<Storage_TypedCallBack> * (Storage_MapOfCallBack::*)(const TCollection_AsciiString &, const opencascade::handle<Storage_TypedCallBack> &)) &Storage_MapOfCallBack::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_Storage_MapOfCallBack.def("IsBound", (Standard_Boolean (Storage_MapOfCallBack::*)(const TCollection_AsciiString &) const ) &Storage_MapOfCallBack::IsBound, "IsBound", py::arg("theKey"));
-	cls_Storage_MapOfCallBack.def("UnBind", (Standard_Boolean (Storage_MapOfCallBack::*)(const TCollection_AsciiString &)) &Storage_MapOfCallBack::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_Storage_MapOfCallBack.def("Seek", (const opencascade::handle<Storage_TypedCallBack> * (Storage_MapOfCallBack::*)(const TCollection_AsciiString &) const ) &Storage_MapOfCallBack::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_Storage_MapOfCallBack.def("Find", (const opencascade::handle<Storage_TypedCallBack> & (Storage_MapOfCallBack::*)(const TCollection_AsciiString &) const ) &Storage_MapOfCallBack::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_Storage_MapOfCallBack.def("Find", (Standard_Boolean (Storage_MapOfCallBack::*)(const TCollection_AsciiString &, opencascade::handle<Storage_TypedCallBack> &) const ) &Storage_MapOfCallBack::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_Storage_MapOfCallBack.def("__call__", (const opencascade::handle<Storage_TypedCallBack> & (Storage_MapOfCallBack::*)(const TCollection_AsciiString &) const ) &Storage_MapOfCallBack::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_Storage_MapOfCallBack.def("ChangeSeek", (opencascade::handle<Storage_TypedCallBack> * (Storage_MapOfCallBack::*)(const TCollection_AsciiString &)) &Storage_MapOfCallBack::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_Storage_MapOfCallBack.def("ChangeFind", (opencascade::handle<Storage_TypedCallBack> & (Storage_MapOfCallBack::*)(const TCollection_AsciiString &)) &Storage_MapOfCallBack::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_Storage_MapOfCallBack.def("__call__", (opencascade::handle<Storage_TypedCallBack> & (Storage_MapOfCallBack::*)(const TCollection_AsciiString &)) &Storage_MapOfCallBack::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_Storage_MapOfCallBack.def("Clear", [](Storage_MapOfCallBack &self) -> void { return self.Clear(); });
-	cls_Storage_MapOfCallBack.def("Clear", (void (Storage_MapOfCallBack::*)(const Standard_Boolean)) &Storage_MapOfCallBack::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_Storage_MapOfCallBack.def("Clear", (void (Storage_MapOfCallBack::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Storage_MapOfCallBack::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_Storage_MapOfCallBack.def("Size", (Standard_Integer (Storage_MapOfCallBack::*)() const ) &Storage_MapOfCallBack::Size, "Size");
-	cls_Storage_MapOfCallBack.def("__iter__", [](const Storage_MapOfCallBack &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Storage_MapOfCallBack.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<Storage_MapOfPers, std::unique_ptr<Storage_MapOfPers, Deleter<Storage_MapOfPers>>, NCollection_BaseMap> cls_Storage_MapOfPers(mod, "Storage_MapOfPers", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_Storage_MapOfPers.def(py::init<>());
-	cls_Storage_MapOfPers.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_Storage_MapOfPers.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_Storage_MapOfPers.def(py::init([] (const Storage_MapOfPers &other) {return new Storage_MapOfPers(other);}), "Copy constructor", py::arg("other"));
-	cls_Storage_MapOfPers.def("begin", (Storage_MapOfPers::iterator (Storage_MapOfPers::*)() const ) &Storage_MapOfPers::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_Storage_MapOfPers.def("end", (Storage_MapOfPers::iterator (Storage_MapOfPers::*)() const ) &Storage_MapOfPers::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_Storage_MapOfPers.def("cbegin", (Storage_MapOfPers::const_iterator (Storage_MapOfPers::*)() const ) &Storage_MapOfPers::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_Storage_MapOfPers.def("cend", (Storage_MapOfPers::const_iterator (Storage_MapOfPers::*)() const ) &Storage_MapOfPers::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_Storage_MapOfPers.def("Exchange", (void (Storage_MapOfPers::*)(Storage_MapOfPers &)) &Storage_MapOfPers::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_Storage_MapOfPers.def("Assign", (Storage_MapOfPers & (Storage_MapOfPers::*)(const Storage_MapOfPers &)) &Storage_MapOfPers::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Storage_MapOfPers.def("assign", (Storage_MapOfPers & (Storage_MapOfPers::*)(const Storage_MapOfPers &)) &Storage_MapOfPers::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Storage_MapOfPers.def("ReSize", (void (Storage_MapOfPers::*)(const Standard_Integer)) &Storage_MapOfPers::ReSize, "ReSize", py::arg("N"));
-	cls_Storage_MapOfPers.def("Bind", (Standard_Boolean (Storage_MapOfPers::*)(const TCollection_AsciiString &, const opencascade::handle<Storage_Root> &)) &Storage_MapOfPers::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_Storage_MapOfPers.def("Bound", (opencascade::handle<Storage_Root> * (Storage_MapOfPers::*)(const TCollection_AsciiString &, const opencascade::handle<Storage_Root> &)) &Storage_MapOfPers::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_Storage_MapOfPers.def("IsBound", (Standard_Boolean (Storage_MapOfPers::*)(const TCollection_AsciiString &) const ) &Storage_MapOfPers::IsBound, "IsBound", py::arg("theKey"));
-	cls_Storage_MapOfPers.def("UnBind", (Standard_Boolean (Storage_MapOfPers::*)(const TCollection_AsciiString &)) &Storage_MapOfPers::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_Storage_MapOfPers.def("Seek", (const opencascade::handle<Storage_Root> * (Storage_MapOfPers::*)(const TCollection_AsciiString &) const ) &Storage_MapOfPers::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_Storage_MapOfPers.def("Find", (const opencascade::handle<Storage_Root> & (Storage_MapOfPers::*)(const TCollection_AsciiString &) const ) &Storage_MapOfPers::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_Storage_MapOfPers.def("Find", (Standard_Boolean (Storage_MapOfPers::*)(const TCollection_AsciiString &, opencascade::handle<Storage_Root> &) const ) &Storage_MapOfPers::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_Storage_MapOfPers.def("__call__", (const opencascade::handle<Storage_Root> & (Storage_MapOfPers::*)(const TCollection_AsciiString &) const ) &Storage_MapOfPers::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_Storage_MapOfPers.def("ChangeSeek", (opencascade::handle<Storage_Root> * (Storage_MapOfPers::*)(const TCollection_AsciiString &)) &Storage_MapOfPers::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_Storage_MapOfPers.def("ChangeFind", (opencascade::handle<Storage_Root> & (Storage_MapOfPers::*)(const TCollection_AsciiString &)) &Storage_MapOfPers::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_Storage_MapOfPers.def("__call__", (opencascade::handle<Storage_Root> & (Storage_MapOfPers::*)(const TCollection_AsciiString &)) &Storage_MapOfPers::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_Storage_MapOfPers.def("Clear", [](Storage_MapOfPers &self) -> void { return self.Clear(); });
-	cls_Storage_MapOfPers.def("Clear", (void (Storage_MapOfPers::*)(const Standard_Boolean)) &Storage_MapOfPers::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_Storage_MapOfPers.def("Clear", (void (Storage_MapOfPers::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Storage_MapOfPers::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_Storage_MapOfPers.def("Size", (Standard_Integer (Storage_MapOfPers::*)() const ) &Storage_MapOfPers::Size, "Size");
-	cls_Storage_MapOfPers.def("__iter__", [](const Storage_MapOfPers &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TCollection_AsciiString, opencascade::handle<Storage_TypedCallBack>, TCollection_AsciiString>(mod, "Storage_MapOfCallBack");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Storage_MapOfPers.hxx
+	bind_NCollection_DataMap<TCollection_AsciiString, opencascade::handle<Storage_Root>, TCollection_AsciiString>(mod, "Storage_MapOfPers");
+
+	/* FIXME
+
+	*/
+
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Storage_HPArray.hxx
 	py::class_<Storage_HPArray, opencascade::handle<Storage_HPArray>, Storage_PArray, Standard_Transient> cls_Storage_HPArray(mod, "Storage_HPArray", "None");
 	cls_Storage_HPArray.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));

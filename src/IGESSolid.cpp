@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Handle.hxx>
@@ -105,6 +96,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <IGESSolid_Array1OfFace.hxx>
 #include <IGESSolid_Array1OfShell.hxx>
 #include <IGESSolid_Array1OfVertexList.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(IGESSolid, mod) {
 
@@ -806,145 +798,17 @@ PYBIND11_MODULE(IGESSolid, mod) {
 	cls_IGESSolid.def_static("Init_", (void (*)()) &IGESSolid::Init, "Prepares dynamic data (Protocol, Modules) for this package");
 	cls_IGESSolid.def_static("Protocol_", (opencascade::handle<IGESSolid_Protocol> (*)()) &IGESSolid::Protocol, "Returns the Protocol for this Package");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESSolid_Array1OfLoop, std::unique_ptr<IGESSolid_Array1OfLoop, Deleter<IGESSolid_Array1OfLoop>>> cls_IGESSolid_Array1OfLoop(mod, "IGESSolid_Array1OfLoop", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESSolid_Array1OfLoop.def(py::init<>());
-	cls_IGESSolid_Array1OfLoop.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESSolid_Array1OfLoop.def(py::init([] (const IGESSolid_Array1OfLoop &other) {return new IGESSolid_Array1OfLoop(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESSolid_Array1OfLoop.def(py::init<IGESSolid_Array1OfLoop &&>(), py::arg("theOther"));
-	cls_IGESSolid_Array1OfLoop.def(py::init<const opencascade::handle<IGESSolid_Loop> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESSolid_Array1OfLoop.def("begin", (IGESSolid_Array1OfLoop::iterator (IGESSolid_Array1OfLoop::*)() const ) &IGESSolid_Array1OfLoop::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESSolid_Array1OfLoop.def("end", (IGESSolid_Array1OfLoop::iterator (IGESSolid_Array1OfLoop::*)() const ) &IGESSolid_Array1OfLoop::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESSolid_Array1OfLoop.def("cbegin", (IGESSolid_Array1OfLoop::const_iterator (IGESSolid_Array1OfLoop::*)() const ) &IGESSolid_Array1OfLoop::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESSolid_Array1OfLoop.def("cend", (IGESSolid_Array1OfLoop::const_iterator (IGESSolid_Array1OfLoop::*)() const ) &IGESSolid_Array1OfLoop::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESSolid_Array1OfLoop.def("Init", (void (IGESSolid_Array1OfLoop::*)(const opencascade::handle<IGESSolid_Loop> &)) &IGESSolid_Array1OfLoop::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESSolid_Array1OfLoop.def("Size", (Standard_Integer (IGESSolid_Array1OfLoop::*)() const ) &IGESSolid_Array1OfLoop::Size, "Size query");
-	cls_IGESSolid_Array1OfLoop.def("Length", (Standard_Integer (IGESSolid_Array1OfLoop::*)() const ) &IGESSolid_Array1OfLoop::Length, "Length query (the same)");
-	cls_IGESSolid_Array1OfLoop.def("IsEmpty", (Standard_Boolean (IGESSolid_Array1OfLoop::*)() const ) &IGESSolid_Array1OfLoop::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESSolid_Array1OfLoop.def("Lower", (Standard_Integer (IGESSolid_Array1OfLoop::*)() const ) &IGESSolid_Array1OfLoop::Lower, "Lower bound");
-	cls_IGESSolid_Array1OfLoop.def("Upper", (Standard_Integer (IGESSolid_Array1OfLoop::*)() const ) &IGESSolid_Array1OfLoop::Upper, "Upper bound");
-	cls_IGESSolid_Array1OfLoop.def("IsDeletable", (Standard_Boolean (IGESSolid_Array1OfLoop::*)() const ) &IGESSolid_Array1OfLoop::IsDeletable, "myDeletable flag");
-	cls_IGESSolid_Array1OfLoop.def("IsAllocated", (Standard_Boolean (IGESSolid_Array1OfLoop::*)() const ) &IGESSolid_Array1OfLoop::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESSolid_Array1OfLoop.def("Assign", (IGESSolid_Array1OfLoop & (IGESSolid_Array1OfLoop::*)(const IGESSolid_Array1OfLoop &)) &IGESSolid_Array1OfLoop::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESSolid_Array1OfLoop.def("Move", (IGESSolid_Array1OfLoop & (IGESSolid_Array1OfLoop::*)(IGESSolid_Array1OfLoop &&)) &IGESSolid_Array1OfLoop::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESSolid_Array1OfLoop.def("assign", (IGESSolid_Array1OfLoop & (IGESSolid_Array1OfLoop::*)(const IGESSolid_Array1OfLoop &)) &IGESSolid_Array1OfLoop::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESSolid_Array1OfLoop.def("assign", (IGESSolid_Array1OfLoop & (IGESSolid_Array1OfLoop::*)(IGESSolid_Array1OfLoop &&)) &IGESSolid_Array1OfLoop::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESSolid_Array1OfLoop.def("First", (const opencascade::handle<IGESSolid_Loop> & (IGESSolid_Array1OfLoop::*)() const ) &IGESSolid_Array1OfLoop::First, "Returns first element");
-	cls_IGESSolid_Array1OfLoop.def("ChangeFirst", (opencascade::handle<IGESSolid_Loop> & (IGESSolid_Array1OfLoop::*)()) &IGESSolid_Array1OfLoop::ChangeFirst, "Returns first element");
-	cls_IGESSolid_Array1OfLoop.def("Last", (const opencascade::handle<IGESSolid_Loop> & (IGESSolid_Array1OfLoop::*)() const ) &IGESSolid_Array1OfLoop::Last, "Returns last element");
-	cls_IGESSolid_Array1OfLoop.def("ChangeLast", (opencascade::handle<IGESSolid_Loop> & (IGESSolid_Array1OfLoop::*)()) &IGESSolid_Array1OfLoop::ChangeLast, "Returns last element");
-	cls_IGESSolid_Array1OfLoop.def("Value", (const opencascade::handle<IGESSolid_Loop> & (IGESSolid_Array1OfLoop::*)(const Standard_Integer) const ) &IGESSolid_Array1OfLoop::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESSolid_Array1OfLoop.def("__call__", (const opencascade::handle<IGESSolid_Loop> & (IGESSolid_Array1OfLoop::*)(const Standard_Integer) const ) &IGESSolid_Array1OfLoop::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESSolid_Array1OfLoop.def("ChangeValue", (opencascade::handle<IGESSolid_Loop> & (IGESSolid_Array1OfLoop::*)(const Standard_Integer)) &IGESSolid_Array1OfLoop::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESSolid_Array1OfLoop.def("__call__", (opencascade::handle<IGESSolid_Loop> & (IGESSolid_Array1OfLoop::*)(const Standard_Integer)) &IGESSolid_Array1OfLoop::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESSolid_Array1OfLoop.def("SetValue", (void (IGESSolid_Array1OfLoop::*)(const Standard_Integer, const opencascade::handle<IGESSolid_Loop> &)) &IGESSolid_Array1OfLoop::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESSolid_Array1OfLoop.def("Resize", (void (IGESSolid_Array1OfLoop::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESSolid_Array1OfLoop::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESSolid_Array1OfLoop.def("__iter__", [](const IGESSolid_Array1OfLoop &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESSolid_Array1OfLoop.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESSolid_Loop> >(mod, "IGESSolid_Array1OfLoop");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESSolid_Array1OfFace, std::unique_ptr<IGESSolid_Array1OfFace, Deleter<IGESSolid_Array1OfFace>>> cls_IGESSolid_Array1OfFace(mod, "IGESSolid_Array1OfFace", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESSolid_Array1OfFace.def(py::init<>());
-	cls_IGESSolid_Array1OfFace.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESSolid_Array1OfFace.def(py::init([] (const IGESSolid_Array1OfFace &other) {return new IGESSolid_Array1OfFace(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESSolid_Array1OfFace.def(py::init<IGESSolid_Array1OfFace &&>(), py::arg("theOther"));
-	cls_IGESSolid_Array1OfFace.def(py::init<const opencascade::handle<IGESSolid_Face> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESSolid_Array1OfFace.def("begin", (IGESSolid_Array1OfFace::iterator (IGESSolid_Array1OfFace::*)() const ) &IGESSolid_Array1OfFace::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESSolid_Array1OfFace.def("end", (IGESSolid_Array1OfFace::iterator (IGESSolid_Array1OfFace::*)() const ) &IGESSolid_Array1OfFace::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESSolid_Array1OfFace.def("cbegin", (IGESSolid_Array1OfFace::const_iterator (IGESSolid_Array1OfFace::*)() const ) &IGESSolid_Array1OfFace::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESSolid_Array1OfFace.def("cend", (IGESSolid_Array1OfFace::const_iterator (IGESSolid_Array1OfFace::*)() const ) &IGESSolid_Array1OfFace::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESSolid_Array1OfFace.def("Init", (void (IGESSolid_Array1OfFace::*)(const opencascade::handle<IGESSolid_Face> &)) &IGESSolid_Array1OfFace::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESSolid_Array1OfFace.def("Size", (Standard_Integer (IGESSolid_Array1OfFace::*)() const ) &IGESSolid_Array1OfFace::Size, "Size query");
-	cls_IGESSolid_Array1OfFace.def("Length", (Standard_Integer (IGESSolid_Array1OfFace::*)() const ) &IGESSolid_Array1OfFace::Length, "Length query (the same)");
-	cls_IGESSolid_Array1OfFace.def("IsEmpty", (Standard_Boolean (IGESSolid_Array1OfFace::*)() const ) &IGESSolid_Array1OfFace::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESSolid_Array1OfFace.def("Lower", (Standard_Integer (IGESSolid_Array1OfFace::*)() const ) &IGESSolid_Array1OfFace::Lower, "Lower bound");
-	cls_IGESSolid_Array1OfFace.def("Upper", (Standard_Integer (IGESSolid_Array1OfFace::*)() const ) &IGESSolid_Array1OfFace::Upper, "Upper bound");
-	cls_IGESSolid_Array1OfFace.def("IsDeletable", (Standard_Boolean (IGESSolid_Array1OfFace::*)() const ) &IGESSolid_Array1OfFace::IsDeletable, "myDeletable flag");
-	cls_IGESSolid_Array1OfFace.def("IsAllocated", (Standard_Boolean (IGESSolid_Array1OfFace::*)() const ) &IGESSolid_Array1OfFace::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESSolid_Array1OfFace.def("Assign", (IGESSolid_Array1OfFace & (IGESSolid_Array1OfFace::*)(const IGESSolid_Array1OfFace &)) &IGESSolid_Array1OfFace::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESSolid_Array1OfFace.def("Move", (IGESSolid_Array1OfFace & (IGESSolid_Array1OfFace::*)(IGESSolid_Array1OfFace &&)) &IGESSolid_Array1OfFace::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESSolid_Array1OfFace.def("assign", (IGESSolid_Array1OfFace & (IGESSolid_Array1OfFace::*)(const IGESSolid_Array1OfFace &)) &IGESSolid_Array1OfFace::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESSolid_Array1OfFace.def("assign", (IGESSolid_Array1OfFace & (IGESSolid_Array1OfFace::*)(IGESSolid_Array1OfFace &&)) &IGESSolid_Array1OfFace::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESSolid_Array1OfFace.def("First", (const opencascade::handle<IGESSolid_Face> & (IGESSolid_Array1OfFace::*)() const ) &IGESSolid_Array1OfFace::First, "Returns first element");
-	cls_IGESSolid_Array1OfFace.def("ChangeFirst", (opencascade::handle<IGESSolid_Face> & (IGESSolid_Array1OfFace::*)()) &IGESSolid_Array1OfFace::ChangeFirst, "Returns first element");
-	cls_IGESSolid_Array1OfFace.def("Last", (const opencascade::handle<IGESSolid_Face> & (IGESSolid_Array1OfFace::*)() const ) &IGESSolid_Array1OfFace::Last, "Returns last element");
-	cls_IGESSolid_Array1OfFace.def("ChangeLast", (opencascade::handle<IGESSolid_Face> & (IGESSolid_Array1OfFace::*)()) &IGESSolid_Array1OfFace::ChangeLast, "Returns last element");
-	cls_IGESSolid_Array1OfFace.def("Value", (const opencascade::handle<IGESSolid_Face> & (IGESSolid_Array1OfFace::*)(const Standard_Integer) const ) &IGESSolid_Array1OfFace::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESSolid_Array1OfFace.def("__call__", (const opencascade::handle<IGESSolid_Face> & (IGESSolid_Array1OfFace::*)(const Standard_Integer) const ) &IGESSolid_Array1OfFace::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESSolid_Array1OfFace.def("ChangeValue", (opencascade::handle<IGESSolid_Face> & (IGESSolid_Array1OfFace::*)(const Standard_Integer)) &IGESSolid_Array1OfFace::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESSolid_Array1OfFace.def("__call__", (opencascade::handle<IGESSolid_Face> & (IGESSolid_Array1OfFace::*)(const Standard_Integer)) &IGESSolid_Array1OfFace::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESSolid_Array1OfFace.def("SetValue", (void (IGESSolid_Array1OfFace::*)(const Standard_Integer, const opencascade::handle<IGESSolid_Face> &)) &IGESSolid_Array1OfFace::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESSolid_Array1OfFace.def("Resize", (void (IGESSolid_Array1OfFace::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESSolid_Array1OfFace::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESSolid_Array1OfFace.def("__iter__", [](const IGESSolid_Array1OfFace &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESSolid_Array1OfFace.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESSolid_Face> >(mod, "IGESSolid_Array1OfFace");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESSolid_Array1OfVertexList, std::unique_ptr<IGESSolid_Array1OfVertexList, Deleter<IGESSolid_Array1OfVertexList>>> cls_IGESSolid_Array1OfVertexList(mod, "IGESSolid_Array1OfVertexList", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESSolid_Array1OfVertexList.def(py::init<>());
-	cls_IGESSolid_Array1OfVertexList.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESSolid_Array1OfVertexList.def(py::init([] (const IGESSolid_Array1OfVertexList &other) {return new IGESSolid_Array1OfVertexList(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESSolid_Array1OfVertexList.def(py::init<IGESSolid_Array1OfVertexList &&>(), py::arg("theOther"));
-	cls_IGESSolid_Array1OfVertexList.def(py::init<const opencascade::handle<IGESSolid_VertexList> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESSolid_Array1OfVertexList.def("begin", (IGESSolid_Array1OfVertexList::iterator (IGESSolid_Array1OfVertexList::*)() const ) &IGESSolid_Array1OfVertexList::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESSolid_Array1OfVertexList.def("end", (IGESSolid_Array1OfVertexList::iterator (IGESSolid_Array1OfVertexList::*)() const ) &IGESSolid_Array1OfVertexList::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESSolid_Array1OfVertexList.def("cbegin", (IGESSolid_Array1OfVertexList::const_iterator (IGESSolid_Array1OfVertexList::*)() const ) &IGESSolid_Array1OfVertexList::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESSolid_Array1OfVertexList.def("cend", (IGESSolid_Array1OfVertexList::const_iterator (IGESSolid_Array1OfVertexList::*)() const ) &IGESSolid_Array1OfVertexList::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESSolid_Array1OfVertexList.def("Init", (void (IGESSolid_Array1OfVertexList::*)(const opencascade::handle<IGESSolid_VertexList> &)) &IGESSolid_Array1OfVertexList::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESSolid_Array1OfVertexList.def("Size", (Standard_Integer (IGESSolid_Array1OfVertexList::*)() const ) &IGESSolid_Array1OfVertexList::Size, "Size query");
-	cls_IGESSolid_Array1OfVertexList.def("Length", (Standard_Integer (IGESSolid_Array1OfVertexList::*)() const ) &IGESSolid_Array1OfVertexList::Length, "Length query (the same)");
-	cls_IGESSolid_Array1OfVertexList.def("IsEmpty", (Standard_Boolean (IGESSolid_Array1OfVertexList::*)() const ) &IGESSolid_Array1OfVertexList::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESSolid_Array1OfVertexList.def("Lower", (Standard_Integer (IGESSolid_Array1OfVertexList::*)() const ) &IGESSolid_Array1OfVertexList::Lower, "Lower bound");
-	cls_IGESSolid_Array1OfVertexList.def("Upper", (Standard_Integer (IGESSolid_Array1OfVertexList::*)() const ) &IGESSolid_Array1OfVertexList::Upper, "Upper bound");
-	cls_IGESSolid_Array1OfVertexList.def("IsDeletable", (Standard_Boolean (IGESSolid_Array1OfVertexList::*)() const ) &IGESSolid_Array1OfVertexList::IsDeletable, "myDeletable flag");
-	cls_IGESSolid_Array1OfVertexList.def("IsAllocated", (Standard_Boolean (IGESSolid_Array1OfVertexList::*)() const ) &IGESSolid_Array1OfVertexList::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESSolid_Array1OfVertexList.def("Assign", (IGESSolid_Array1OfVertexList & (IGESSolid_Array1OfVertexList::*)(const IGESSolid_Array1OfVertexList &)) &IGESSolid_Array1OfVertexList::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESSolid_Array1OfVertexList.def("Move", (IGESSolid_Array1OfVertexList & (IGESSolid_Array1OfVertexList::*)(IGESSolid_Array1OfVertexList &&)) &IGESSolid_Array1OfVertexList::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESSolid_Array1OfVertexList.def("assign", (IGESSolid_Array1OfVertexList & (IGESSolid_Array1OfVertexList::*)(const IGESSolid_Array1OfVertexList &)) &IGESSolid_Array1OfVertexList::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESSolid_Array1OfVertexList.def("assign", (IGESSolid_Array1OfVertexList & (IGESSolid_Array1OfVertexList::*)(IGESSolid_Array1OfVertexList &&)) &IGESSolid_Array1OfVertexList::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESSolid_Array1OfVertexList.def("First", (const opencascade::handle<IGESSolid_VertexList> & (IGESSolid_Array1OfVertexList::*)() const ) &IGESSolid_Array1OfVertexList::First, "Returns first element");
-	cls_IGESSolid_Array1OfVertexList.def("ChangeFirst", (opencascade::handle<IGESSolid_VertexList> & (IGESSolid_Array1OfVertexList::*)()) &IGESSolid_Array1OfVertexList::ChangeFirst, "Returns first element");
-	cls_IGESSolid_Array1OfVertexList.def("Last", (const opencascade::handle<IGESSolid_VertexList> & (IGESSolid_Array1OfVertexList::*)() const ) &IGESSolid_Array1OfVertexList::Last, "Returns last element");
-	cls_IGESSolid_Array1OfVertexList.def("ChangeLast", (opencascade::handle<IGESSolid_VertexList> & (IGESSolid_Array1OfVertexList::*)()) &IGESSolid_Array1OfVertexList::ChangeLast, "Returns last element");
-	cls_IGESSolid_Array1OfVertexList.def("Value", (const opencascade::handle<IGESSolid_VertexList> & (IGESSolid_Array1OfVertexList::*)(const Standard_Integer) const ) &IGESSolid_Array1OfVertexList::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESSolid_Array1OfVertexList.def("__call__", (const opencascade::handle<IGESSolid_VertexList> & (IGESSolid_Array1OfVertexList::*)(const Standard_Integer) const ) &IGESSolid_Array1OfVertexList::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESSolid_Array1OfVertexList.def("ChangeValue", (opencascade::handle<IGESSolid_VertexList> & (IGESSolid_Array1OfVertexList::*)(const Standard_Integer)) &IGESSolid_Array1OfVertexList::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESSolid_Array1OfVertexList.def("__call__", (opencascade::handle<IGESSolid_VertexList> & (IGESSolid_Array1OfVertexList::*)(const Standard_Integer)) &IGESSolid_Array1OfVertexList::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESSolid_Array1OfVertexList.def("SetValue", (void (IGESSolid_Array1OfVertexList::*)(const Standard_Integer, const opencascade::handle<IGESSolid_VertexList> &)) &IGESSolid_Array1OfVertexList::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESSolid_Array1OfVertexList.def("Resize", (void (IGESSolid_Array1OfVertexList::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESSolid_Array1OfVertexList::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESSolid_Array1OfVertexList.def("__iter__", [](const IGESSolid_Array1OfVertexList &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESSolid_Array1OfVertexList.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESSolid_VertexList> >(mod, "IGESSolid_Array1OfVertexList");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESSolid_Array1OfShell, std::unique_ptr<IGESSolid_Array1OfShell, Deleter<IGESSolid_Array1OfShell>>> cls_IGESSolid_Array1OfShell(mod, "IGESSolid_Array1OfShell", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESSolid_Array1OfShell.def(py::init<>());
-	cls_IGESSolid_Array1OfShell.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESSolid_Array1OfShell.def(py::init([] (const IGESSolid_Array1OfShell &other) {return new IGESSolid_Array1OfShell(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESSolid_Array1OfShell.def(py::init<IGESSolid_Array1OfShell &&>(), py::arg("theOther"));
-	cls_IGESSolid_Array1OfShell.def(py::init<const opencascade::handle<IGESSolid_Shell> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESSolid_Array1OfShell.def("begin", (IGESSolid_Array1OfShell::iterator (IGESSolid_Array1OfShell::*)() const ) &IGESSolid_Array1OfShell::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESSolid_Array1OfShell.def("end", (IGESSolid_Array1OfShell::iterator (IGESSolid_Array1OfShell::*)() const ) &IGESSolid_Array1OfShell::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESSolid_Array1OfShell.def("cbegin", (IGESSolid_Array1OfShell::const_iterator (IGESSolid_Array1OfShell::*)() const ) &IGESSolid_Array1OfShell::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESSolid_Array1OfShell.def("cend", (IGESSolid_Array1OfShell::const_iterator (IGESSolid_Array1OfShell::*)() const ) &IGESSolid_Array1OfShell::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESSolid_Array1OfShell.def("Init", (void (IGESSolid_Array1OfShell::*)(const opencascade::handle<IGESSolid_Shell> &)) &IGESSolid_Array1OfShell::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESSolid_Array1OfShell.def("Size", (Standard_Integer (IGESSolid_Array1OfShell::*)() const ) &IGESSolid_Array1OfShell::Size, "Size query");
-	cls_IGESSolid_Array1OfShell.def("Length", (Standard_Integer (IGESSolid_Array1OfShell::*)() const ) &IGESSolid_Array1OfShell::Length, "Length query (the same)");
-	cls_IGESSolid_Array1OfShell.def("IsEmpty", (Standard_Boolean (IGESSolid_Array1OfShell::*)() const ) &IGESSolid_Array1OfShell::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESSolid_Array1OfShell.def("Lower", (Standard_Integer (IGESSolid_Array1OfShell::*)() const ) &IGESSolid_Array1OfShell::Lower, "Lower bound");
-	cls_IGESSolid_Array1OfShell.def("Upper", (Standard_Integer (IGESSolid_Array1OfShell::*)() const ) &IGESSolid_Array1OfShell::Upper, "Upper bound");
-	cls_IGESSolid_Array1OfShell.def("IsDeletable", (Standard_Boolean (IGESSolid_Array1OfShell::*)() const ) &IGESSolid_Array1OfShell::IsDeletable, "myDeletable flag");
-	cls_IGESSolid_Array1OfShell.def("IsAllocated", (Standard_Boolean (IGESSolid_Array1OfShell::*)() const ) &IGESSolid_Array1OfShell::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESSolid_Array1OfShell.def("Assign", (IGESSolid_Array1OfShell & (IGESSolid_Array1OfShell::*)(const IGESSolid_Array1OfShell &)) &IGESSolid_Array1OfShell::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESSolid_Array1OfShell.def("Move", (IGESSolid_Array1OfShell & (IGESSolid_Array1OfShell::*)(IGESSolid_Array1OfShell &&)) &IGESSolid_Array1OfShell::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESSolid_Array1OfShell.def("assign", (IGESSolid_Array1OfShell & (IGESSolid_Array1OfShell::*)(const IGESSolid_Array1OfShell &)) &IGESSolid_Array1OfShell::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESSolid_Array1OfShell.def("assign", (IGESSolid_Array1OfShell & (IGESSolid_Array1OfShell::*)(IGESSolid_Array1OfShell &&)) &IGESSolid_Array1OfShell::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESSolid_Array1OfShell.def("First", (const opencascade::handle<IGESSolid_Shell> & (IGESSolid_Array1OfShell::*)() const ) &IGESSolid_Array1OfShell::First, "Returns first element");
-	cls_IGESSolid_Array1OfShell.def("ChangeFirst", (opencascade::handle<IGESSolid_Shell> & (IGESSolid_Array1OfShell::*)()) &IGESSolid_Array1OfShell::ChangeFirst, "Returns first element");
-	cls_IGESSolid_Array1OfShell.def("Last", (const opencascade::handle<IGESSolid_Shell> & (IGESSolid_Array1OfShell::*)() const ) &IGESSolid_Array1OfShell::Last, "Returns last element");
-	cls_IGESSolid_Array1OfShell.def("ChangeLast", (opencascade::handle<IGESSolid_Shell> & (IGESSolid_Array1OfShell::*)()) &IGESSolid_Array1OfShell::ChangeLast, "Returns last element");
-	cls_IGESSolid_Array1OfShell.def("Value", (const opencascade::handle<IGESSolid_Shell> & (IGESSolid_Array1OfShell::*)(const Standard_Integer) const ) &IGESSolid_Array1OfShell::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESSolid_Array1OfShell.def("__call__", (const opencascade::handle<IGESSolid_Shell> & (IGESSolid_Array1OfShell::*)(const Standard_Integer) const ) &IGESSolid_Array1OfShell::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESSolid_Array1OfShell.def("ChangeValue", (opencascade::handle<IGESSolid_Shell> & (IGESSolid_Array1OfShell::*)(const Standard_Integer)) &IGESSolid_Array1OfShell::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESSolid_Array1OfShell.def("__call__", (opencascade::handle<IGESSolid_Shell> & (IGESSolid_Array1OfShell::*)(const Standard_Integer)) &IGESSolid_Array1OfShell::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESSolid_Array1OfShell.def("SetValue", (void (IGESSolid_Array1OfShell::*)(const Standard_Integer, const opencascade::handle<IGESSolid_Shell> &)) &IGESSolid_Array1OfShell::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESSolid_Array1OfShell.def("Resize", (void (IGESSolid_Array1OfShell::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESSolid_Array1OfShell::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESSolid_Array1OfShell.def("__iter__", [](const IGESSolid_Array1OfShell &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESSolid_Array1OfShell.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESSolid_Shell> >(mod, "IGESSolid_Array1OfShell");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESSolid_HArray1OfLoop.hxx
 	py::class_<IGESSolid_HArray1OfLoop, opencascade::handle<IGESSolid_HArray1OfLoop>, IGESSolid_Array1OfLoop, Standard_Transient> cls_IGESSolid_HArray1OfLoop(mod, "IGESSolid_HArray1OfLoop", "None");

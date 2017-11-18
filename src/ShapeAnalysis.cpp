@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
@@ -77,6 +68,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_BaseSequence.hxx>
 #include <NCollection_Sequence.hxx>
 #include <ShapeAnalysis_SequenceOfFreeBounds.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(ShapeAnalysis, mod) {
 
@@ -643,88 +635,22 @@ PYBIND11_MODULE(ShapeAnalysis, mod) {
 	cls_ShapeAnalysis_BoxBndTreeSelector.def("Reject", (Standard_Boolean (ShapeAnalysis_BoxBndTreeSelector::*)(const Bnd_Box &) const ) &ShapeAnalysis_BoxBndTreeSelector::Reject, "None", py::arg("theBnd"));
 	cls_ShapeAnalysis_BoxBndTreeSelector.def("Accept", (Standard_Boolean (ShapeAnalysis_BoxBndTreeSelector::*)(const Standard_Integer &)) &ShapeAnalysis_BoxBndTreeSelector::Accept, "None", py::arg(""));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<ShapeAnalysis_SequenceOfFreeBounds, std::unique_ptr<ShapeAnalysis_SequenceOfFreeBounds, Deleter<ShapeAnalysis_SequenceOfFreeBounds>>, NCollection_BaseSequence> cls_ShapeAnalysis_SequenceOfFreeBounds(mod, "ShapeAnalysis_SequenceOfFreeBounds", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def(py::init<>());
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def(py::init([] (const ShapeAnalysis_SequenceOfFreeBounds &other) {return new ShapeAnalysis_SequenceOfFreeBounds(other);}), "Copy constructor", py::arg("other"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("begin", (ShapeAnalysis_SequenceOfFreeBounds::iterator (ShapeAnalysis_SequenceOfFreeBounds::*)() const ) &ShapeAnalysis_SequenceOfFreeBounds::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("end", (ShapeAnalysis_SequenceOfFreeBounds::iterator (ShapeAnalysis_SequenceOfFreeBounds::*)() const ) &ShapeAnalysis_SequenceOfFreeBounds::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("cbegin", (ShapeAnalysis_SequenceOfFreeBounds::const_iterator (ShapeAnalysis_SequenceOfFreeBounds::*)() const ) &ShapeAnalysis_SequenceOfFreeBounds::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("cend", (ShapeAnalysis_SequenceOfFreeBounds::const_iterator (ShapeAnalysis_SequenceOfFreeBounds::*)() const ) &ShapeAnalysis_SequenceOfFreeBounds::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Size", (Standard_Integer (ShapeAnalysis_SequenceOfFreeBounds::*)() const ) &ShapeAnalysis_SequenceOfFreeBounds::Size, "Number of items");
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Length", (Standard_Integer (ShapeAnalysis_SequenceOfFreeBounds::*)() const ) &ShapeAnalysis_SequenceOfFreeBounds::Length, "Number of items");
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Lower", (Standard_Integer (ShapeAnalysis_SequenceOfFreeBounds::*)() const ) &ShapeAnalysis_SequenceOfFreeBounds::Lower, "Method for consistency with other collections.");
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Upper", (Standard_Integer (ShapeAnalysis_SequenceOfFreeBounds::*)() const ) &ShapeAnalysis_SequenceOfFreeBounds::Upper, "Method for consistency with other collections.");
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("IsEmpty", (Standard_Boolean (ShapeAnalysis_SequenceOfFreeBounds::*)() const ) &ShapeAnalysis_SequenceOfFreeBounds::IsEmpty, "Empty query");
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Reverse", (void (ShapeAnalysis_SequenceOfFreeBounds::*)()) &ShapeAnalysis_SequenceOfFreeBounds::Reverse, "Reverse sequence");
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Exchange", (void (ShapeAnalysis_SequenceOfFreeBounds::*)(const Standard_Integer, const Standard_Integer)) &ShapeAnalysis_SequenceOfFreeBounds::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &ShapeAnalysis_SequenceOfFreeBounds::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Clear", [](ShapeAnalysis_SequenceOfFreeBounds &self) -> void { return self.Clear(); });
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Clear", (void (ShapeAnalysis_SequenceOfFreeBounds::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &ShapeAnalysis_SequenceOfFreeBounds::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Assign", (ShapeAnalysis_SequenceOfFreeBounds & (ShapeAnalysis_SequenceOfFreeBounds::*)(const ShapeAnalysis_SequenceOfFreeBounds &)) &ShapeAnalysis_SequenceOfFreeBounds::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("assign", (ShapeAnalysis_SequenceOfFreeBounds & (ShapeAnalysis_SequenceOfFreeBounds::*)(const ShapeAnalysis_SequenceOfFreeBounds &)) &ShapeAnalysis_SequenceOfFreeBounds::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Remove", (void (ShapeAnalysis_SequenceOfFreeBounds::*)(ShapeAnalysis_SequenceOfFreeBounds::Iterator &)) &ShapeAnalysis_SequenceOfFreeBounds::Remove, "Remove one item", py::arg("thePosition"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Remove", (void (ShapeAnalysis_SequenceOfFreeBounds::*)(const Standard_Integer)) &ShapeAnalysis_SequenceOfFreeBounds::Remove, "Remove one item", py::arg("theIndex"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Remove", (void (ShapeAnalysis_SequenceOfFreeBounds::*)(const Standard_Integer, const Standard_Integer)) &ShapeAnalysis_SequenceOfFreeBounds::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Append", (void (ShapeAnalysis_SequenceOfFreeBounds::*)(const opencascade::handle<ShapeAnalysis_FreeBoundData> &)) &ShapeAnalysis_SequenceOfFreeBounds::Append, "Append one item", py::arg("theItem"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Append", (void (ShapeAnalysis_SequenceOfFreeBounds::*)(ShapeAnalysis_SequenceOfFreeBounds &)) &ShapeAnalysis_SequenceOfFreeBounds::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Prepend", (void (ShapeAnalysis_SequenceOfFreeBounds::*)(const opencascade::handle<ShapeAnalysis_FreeBoundData> &)) &ShapeAnalysis_SequenceOfFreeBounds::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Prepend", (void (ShapeAnalysis_SequenceOfFreeBounds::*)(ShapeAnalysis_SequenceOfFreeBounds &)) &ShapeAnalysis_SequenceOfFreeBounds::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("InsertBefore", (void (ShapeAnalysis_SequenceOfFreeBounds::*)(const Standard_Integer, const opencascade::handle<ShapeAnalysis_FreeBoundData> &)) &ShapeAnalysis_SequenceOfFreeBounds::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("InsertBefore", (void (ShapeAnalysis_SequenceOfFreeBounds::*)(const Standard_Integer, ShapeAnalysis_SequenceOfFreeBounds &)) &ShapeAnalysis_SequenceOfFreeBounds::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("InsertAfter", (void (ShapeAnalysis_SequenceOfFreeBounds::*)(ShapeAnalysis_SequenceOfFreeBounds::Iterator &, const opencascade::handle<ShapeAnalysis_FreeBoundData> &)) &ShapeAnalysis_SequenceOfFreeBounds::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("InsertAfter", (void (ShapeAnalysis_SequenceOfFreeBounds::*)(const Standard_Integer, ShapeAnalysis_SequenceOfFreeBounds &)) &ShapeAnalysis_SequenceOfFreeBounds::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("InsertAfter", (void (ShapeAnalysis_SequenceOfFreeBounds::*)(const Standard_Integer, const opencascade::handle<ShapeAnalysis_FreeBoundData> &)) &ShapeAnalysis_SequenceOfFreeBounds::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Split", (void (ShapeAnalysis_SequenceOfFreeBounds::*)(const Standard_Integer, ShapeAnalysis_SequenceOfFreeBounds &)) &ShapeAnalysis_SequenceOfFreeBounds::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("First", (const opencascade::handle<ShapeAnalysis_FreeBoundData> & (ShapeAnalysis_SequenceOfFreeBounds::*)() const ) &ShapeAnalysis_SequenceOfFreeBounds::First, "First item access");
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("ChangeFirst", (opencascade::handle<ShapeAnalysis_FreeBoundData> & (ShapeAnalysis_SequenceOfFreeBounds::*)()) &ShapeAnalysis_SequenceOfFreeBounds::ChangeFirst, "First item access");
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Last", (const opencascade::handle<ShapeAnalysis_FreeBoundData> & (ShapeAnalysis_SequenceOfFreeBounds::*)() const ) &ShapeAnalysis_SequenceOfFreeBounds::Last, "Last item access");
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("ChangeLast", (opencascade::handle<ShapeAnalysis_FreeBoundData> & (ShapeAnalysis_SequenceOfFreeBounds::*)()) &ShapeAnalysis_SequenceOfFreeBounds::ChangeLast, "Last item access");
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("Value", (const opencascade::handle<ShapeAnalysis_FreeBoundData> & (ShapeAnalysis_SequenceOfFreeBounds::*)(const Standard_Integer) const ) &ShapeAnalysis_SequenceOfFreeBounds::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("__call__", (const opencascade::handle<ShapeAnalysis_FreeBoundData> & (ShapeAnalysis_SequenceOfFreeBounds::*)(const Standard_Integer) const ) &ShapeAnalysis_SequenceOfFreeBounds::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("ChangeValue", (opencascade::handle<ShapeAnalysis_FreeBoundData> & (ShapeAnalysis_SequenceOfFreeBounds::*)(const Standard_Integer)) &ShapeAnalysis_SequenceOfFreeBounds::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("__call__", (opencascade::handle<ShapeAnalysis_FreeBoundData> & (ShapeAnalysis_SequenceOfFreeBounds::*)(const Standard_Integer)) &ShapeAnalysis_SequenceOfFreeBounds::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("SetValue", (void (ShapeAnalysis_SequenceOfFreeBounds::*)(const Standard_Integer, const opencascade::handle<ShapeAnalysis_FreeBoundData> &)) &ShapeAnalysis_SequenceOfFreeBounds::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_ShapeAnalysis_SequenceOfFreeBounds.def("__iter__", [](const ShapeAnalysis_SequenceOfFreeBounds &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\ShapeAnalysis_SequenceOfFreeBounds.hxx
+	bind_NCollection_Sequence<opencascade::handle<ShapeAnalysis_FreeBoundData> >(mod, "ShapeAnalysis_SequenceOfFreeBounds");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\ShapeAnalysis_BoxBndTree.hxx
 	other_mod = py::module::import("OCCT.BOPCol");
 	if (py::hasattr(other_mod, "BOPCol_BoxBndTree")) {
 		mod.attr("ShapeAnalysis_BoxBndTree") = other_mod.attr("BOPCol_BoxBndTree");
 	}
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<ShapeAnalysis_DataMapOfShapeListOfReal, std::unique_ptr<ShapeAnalysis_DataMapOfShapeListOfReal, Deleter<ShapeAnalysis_DataMapOfShapeListOfReal>>, NCollection_BaseMap> cls_ShapeAnalysis_DataMapOfShapeListOfReal(mod, "ShapeAnalysis_DataMapOfShapeListOfReal", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def(py::init<>());
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def(py::init([] (const ShapeAnalysis_DataMapOfShapeListOfReal &other) {return new ShapeAnalysis_DataMapOfShapeListOfReal(other);}), "Copy constructor", py::arg("other"));
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("begin", (ShapeAnalysis_DataMapOfShapeListOfReal::iterator (ShapeAnalysis_DataMapOfShapeListOfReal::*)() const ) &ShapeAnalysis_DataMapOfShapeListOfReal::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("end", (ShapeAnalysis_DataMapOfShapeListOfReal::iterator (ShapeAnalysis_DataMapOfShapeListOfReal::*)() const ) &ShapeAnalysis_DataMapOfShapeListOfReal::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("cbegin", (ShapeAnalysis_DataMapOfShapeListOfReal::const_iterator (ShapeAnalysis_DataMapOfShapeListOfReal::*)() const ) &ShapeAnalysis_DataMapOfShapeListOfReal::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("cend", (ShapeAnalysis_DataMapOfShapeListOfReal::const_iterator (ShapeAnalysis_DataMapOfShapeListOfReal::*)() const ) &ShapeAnalysis_DataMapOfShapeListOfReal::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("Exchange", (void (ShapeAnalysis_DataMapOfShapeListOfReal::*)(ShapeAnalysis_DataMapOfShapeListOfReal &)) &ShapeAnalysis_DataMapOfShapeListOfReal::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("Assign", (ShapeAnalysis_DataMapOfShapeListOfReal & (ShapeAnalysis_DataMapOfShapeListOfReal::*)(const ShapeAnalysis_DataMapOfShapeListOfReal &)) &ShapeAnalysis_DataMapOfShapeListOfReal::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("assign", (ShapeAnalysis_DataMapOfShapeListOfReal & (ShapeAnalysis_DataMapOfShapeListOfReal::*)(const ShapeAnalysis_DataMapOfShapeListOfReal &)) &ShapeAnalysis_DataMapOfShapeListOfReal::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("ReSize", (void (ShapeAnalysis_DataMapOfShapeListOfReal::*)(const Standard_Integer)) &ShapeAnalysis_DataMapOfShapeListOfReal::ReSize, "ReSize", py::arg("N"));
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("Bind", (Standard_Boolean (ShapeAnalysis_DataMapOfShapeListOfReal::*)(const TopoDS_Shape &, const TColStd_ListOfReal &)) &ShapeAnalysis_DataMapOfShapeListOfReal::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("Bound", (TColStd_ListOfReal * (ShapeAnalysis_DataMapOfShapeListOfReal::*)(const TopoDS_Shape &, const TColStd_ListOfReal &)) &ShapeAnalysis_DataMapOfShapeListOfReal::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("IsBound", (Standard_Boolean (ShapeAnalysis_DataMapOfShapeListOfReal::*)(const TopoDS_Shape &) const ) &ShapeAnalysis_DataMapOfShapeListOfReal::IsBound, "IsBound", py::arg("theKey"));
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("UnBind", (Standard_Boolean (ShapeAnalysis_DataMapOfShapeListOfReal::*)(const TopoDS_Shape &)) &ShapeAnalysis_DataMapOfShapeListOfReal::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("Seek", (const TColStd_ListOfReal * (ShapeAnalysis_DataMapOfShapeListOfReal::*)(const TopoDS_Shape &) const ) &ShapeAnalysis_DataMapOfShapeListOfReal::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("Find", (const TColStd_ListOfReal & (ShapeAnalysis_DataMapOfShapeListOfReal::*)(const TopoDS_Shape &) const ) &ShapeAnalysis_DataMapOfShapeListOfReal::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("Find", (Standard_Boolean (ShapeAnalysis_DataMapOfShapeListOfReal::*)(const TopoDS_Shape &, TColStd_ListOfReal &) const ) &ShapeAnalysis_DataMapOfShapeListOfReal::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("__call__", (const TColStd_ListOfReal & (ShapeAnalysis_DataMapOfShapeListOfReal::*)(const TopoDS_Shape &) const ) &ShapeAnalysis_DataMapOfShapeListOfReal::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("ChangeSeek", (TColStd_ListOfReal * (ShapeAnalysis_DataMapOfShapeListOfReal::*)(const TopoDS_Shape &)) &ShapeAnalysis_DataMapOfShapeListOfReal::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("ChangeFind", (TColStd_ListOfReal & (ShapeAnalysis_DataMapOfShapeListOfReal::*)(const TopoDS_Shape &)) &ShapeAnalysis_DataMapOfShapeListOfReal::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("__call__", (TColStd_ListOfReal & (ShapeAnalysis_DataMapOfShapeListOfReal::*)(const TopoDS_Shape &)) &ShapeAnalysis_DataMapOfShapeListOfReal::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("Clear", [](ShapeAnalysis_DataMapOfShapeListOfReal &self) -> void { return self.Clear(); });
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("Clear", (void (ShapeAnalysis_DataMapOfShapeListOfReal::*)(const Standard_Boolean)) &ShapeAnalysis_DataMapOfShapeListOfReal::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("Clear", (void (ShapeAnalysis_DataMapOfShapeListOfReal::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &ShapeAnalysis_DataMapOfShapeListOfReal::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("Size", (Standard_Integer (ShapeAnalysis_DataMapOfShapeListOfReal::*)() const ) &ShapeAnalysis_DataMapOfShapeListOfReal::Size, "Size");
-	cls_ShapeAnalysis_DataMapOfShapeListOfReal.def("__iter__", [](const ShapeAnalysis_DataMapOfShapeListOfReal &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\ShapeAnalysis_DataMapOfShapeListOfReal.hxx
+	bind_NCollection_DataMap<TopoDS_Shape, NCollection_List<double>, TopTools_ShapeMapHasher>(mod, "ShapeAnalysis_DataMapOfShapeListOfReal");
+
+	/* FIXME
+
+	*/
+
 	// C:\Miniconda\envs\occt\Library\include\opencascade\ShapeAnalysis_HSequenceOfFreeBounds.hxx
 	py::class_<ShapeAnalysis_HSequenceOfFreeBounds, opencascade::handle<ShapeAnalysis_HSequenceOfFreeBounds>, ShapeAnalysis_SequenceOfFreeBounds, Standard_Transient> cls_ShapeAnalysis_HSequenceOfFreeBounds(mod, "ShapeAnalysis_HSequenceOfFreeBounds", "None");
 	cls_ShapeAnalysis_HSequenceOfFreeBounds.def(py::init<>());

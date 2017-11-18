@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_IStream.hxx>
 
@@ -53,6 +44,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Storage_OpenMode.hxx>
 #include <PCDM_ReadWriter.hxx>
 #include <PCDM_ReadWriter_1.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(PCDM, mod) {
 
@@ -246,95 +238,11 @@ PYBIND11_MODULE(PCDM, mod) {
 	cls_PCDM_ReadWriter_1.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &PCDM_ReadWriter_1::get_type_descriptor, "None");
 	cls_PCDM_ReadWriter_1.def("DynamicType", (const opencascade::handle<Standard_Type> & (PCDM_ReadWriter_1::*)() const ) &PCDM_ReadWriter_1::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<PCDM_SequenceOfReference, std::unique_ptr<PCDM_SequenceOfReference, Deleter<PCDM_SequenceOfReference>>, NCollection_BaseSequence> cls_PCDM_SequenceOfReference(mod, "PCDM_SequenceOfReference", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_PCDM_SequenceOfReference.def(py::init<>());
-	cls_PCDM_SequenceOfReference.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_PCDM_SequenceOfReference.def(py::init([] (const PCDM_SequenceOfReference &other) {return new PCDM_SequenceOfReference(other);}), "Copy constructor", py::arg("other"));
-	cls_PCDM_SequenceOfReference.def("begin", (PCDM_SequenceOfReference::iterator (PCDM_SequenceOfReference::*)() const ) &PCDM_SequenceOfReference::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_PCDM_SequenceOfReference.def("end", (PCDM_SequenceOfReference::iterator (PCDM_SequenceOfReference::*)() const ) &PCDM_SequenceOfReference::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_PCDM_SequenceOfReference.def("cbegin", (PCDM_SequenceOfReference::const_iterator (PCDM_SequenceOfReference::*)() const ) &PCDM_SequenceOfReference::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_PCDM_SequenceOfReference.def("cend", (PCDM_SequenceOfReference::const_iterator (PCDM_SequenceOfReference::*)() const ) &PCDM_SequenceOfReference::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_PCDM_SequenceOfReference.def("Size", (Standard_Integer (PCDM_SequenceOfReference::*)() const ) &PCDM_SequenceOfReference::Size, "Number of items");
-	cls_PCDM_SequenceOfReference.def("Length", (Standard_Integer (PCDM_SequenceOfReference::*)() const ) &PCDM_SequenceOfReference::Length, "Number of items");
-	cls_PCDM_SequenceOfReference.def("Lower", (Standard_Integer (PCDM_SequenceOfReference::*)() const ) &PCDM_SequenceOfReference::Lower, "Method for consistency with other collections.");
-	cls_PCDM_SequenceOfReference.def("Upper", (Standard_Integer (PCDM_SequenceOfReference::*)() const ) &PCDM_SequenceOfReference::Upper, "Method for consistency with other collections.");
-	cls_PCDM_SequenceOfReference.def("IsEmpty", (Standard_Boolean (PCDM_SequenceOfReference::*)() const ) &PCDM_SequenceOfReference::IsEmpty, "Empty query");
-	cls_PCDM_SequenceOfReference.def("Reverse", (void (PCDM_SequenceOfReference::*)()) &PCDM_SequenceOfReference::Reverse, "Reverse sequence");
-	cls_PCDM_SequenceOfReference.def("Exchange", (void (PCDM_SequenceOfReference::*)(const Standard_Integer, const Standard_Integer)) &PCDM_SequenceOfReference::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_PCDM_SequenceOfReference.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &PCDM_SequenceOfReference::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_PCDM_SequenceOfReference.def("Clear", [](PCDM_SequenceOfReference &self) -> void { return self.Clear(); });
-	cls_PCDM_SequenceOfReference.def("Clear", (void (PCDM_SequenceOfReference::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &PCDM_SequenceOfReference::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_PCDM_SequenceOfReference.def("Assign", (PCDM_SequenceOfReference & (PCDM_SequenceOfReference::*)(const PCDM_SequenceOfReference &)) &PCDM_SequenceOfReference::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_PCDM_SequenceOfReference.def("assign", (PCDM_SequenceOfReference & (PCDM_SequenceOfReference::*)(const PCDM_SequenceOfReference &)) &PCDM_SequenceOfReference::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_PCDM_SequenceOfReference.def("Remove", (void (PCDM_SequenceOfReference::*)(PCDM_SequenceOfReference::Iterator &)) &PCDM_SequenceOfReference::Remove, "Remove one item", py::arg("thePosition"));
-	cls_PCDM_SequenceOfReference.def("Remove", (void (PCDM_SequenceOfReference::*)(const Standard_Integer)) &PCDM_SequenceOfReference::Remove, "Remove one item", py::arg("theIndex"));
-	cls_PCDM_SequenceOfReference.def("Remove", (void (PCDM_SequenceOfReference::*)(const Standard_Integer, const Standard_Integer)) &PCDM_SequenceOfReference::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_PCDM_SequenceOfReference.def("Append", (void (PCDM_SequenceOfReference::*)(const PCDM_Reference &)) &PCDM_SequenceOfReference::Append, "Append one item", py::arg("theItem"));
-	cls_PCDM_SequenceOfReference.def("Append", (void (PCDM_SequenceOfReference::*)(PCDM_SequenceOfReference &)) &PCDM_SequenceOfReference::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_PCDM_SequenceOfReference.def("Prepend", (void (PCDM_SequenceOfReference::*)(const PCDM_Reference &)) &PCDM_SequenceOfReference::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_PCDM_SequenceOfReference.def("Prepend", (void (PCDM_SequenceOfReference::*)(PCDM_SequenceOfReference &)) &PCDM_SequenceOfReference::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_PCDM_SequenceOfReference.def("InsertBefore", (void (PCDM_SequenceOfReference::*)(const Standard_Integer, const PCDM_Reference &)) &PCDM_SequenceOfReference::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_PCDM_SequenceOfReference.def("InsertBefore", (void (PCDM_SequenceOfReference::*)(const Standard_Integer, PCDM_SequenceOfReference &)) &PCDM_SequenceOfReference::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_PCDM_SequenceOfReference.def("InsertAfter", (void (PCDM_SequenceOfReference::*)(PCDM_SequenceOfReference::Iterator &, const PCDM_Reference &)) &PCDM_SequenceOfReference::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_PCDM_SequenceOfReference.def("InsertAfter", (void (PCDM_SequenceOfReference::*)(const Standard_Integer, PCDM_SequenceOfReference &)) &PCDM_SequenceOfReference::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_PCDM_SequenceOfReference.def("InsertAfter", (void (PCDM_SequenceOfReference::*)(const Standard_Integer, const PCDM_Reference &)) &PCDM_SequenceOfReference::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_PCDM_SequenceOfReference.def("Split", (void (PCDM_SequenceOfReference::*)(const Standard_Integer, PCDM_SequenceOfReference &)) &PCDM_SequenceOfReference::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_PCDM_SequenceOfReference.def("First", (const PCDM_Reference & (PCDM_SequenceOfReference::*)() const ) &PCDM_SequenceOfReference::First, "First item access");
-	cls_PCDM_SequenceOfReference.def("ChangeFirst", (PCDM_Reference & (PCDM_SequenceOfReference::*)()) &PCDM_SequenceOfReference::ChangeFirst, "First item access");
-	cls_PCDM_SequenceOfReference.def("Last", (const PCDM_Reference & (PCDM_SequenceOfReference::*)() const ) &PCDM_SequenceOfReference::Last, "Last item access");
-	cls_PCDM_SequenceOfReference.def("ChangeLast", (PCDM_Reference & (PCDM_SequenceOfReference::*)()) &PCDM_SequenceOfReference::ChangeLast, "Last item access");
-	cls_PCDM_SequenceOfReference.def("Value", (const PCDM_Reference & (PCDM_SequenceOfReference::*)(const Standard_Integer) const ) &PCDM_SequenceOfReference::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_PCDM_SequenceOfReference.def("__call__", (const PCDM_Reference & (PCDM_SequenceOfReference::*)(const Standard_Integer) const ) &PCDM_SequenceOfReference::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_PCDM_SequenceOfReference.def("ChangeValue", (PCDM_Reference & (PCDM_SequenceOfReference::*)(const Standard_Integer)) &PCDM_SequenceOfReference::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_PCDM_SequenceOfReference.def("__call__", (PCDM_Reference & (PCDM_SequenceOfReference::*)(const Standard_Integer)) &PCDM_SequenceOfReference::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_PCDM_SequenceOfReference.def("SetValue", (void (PCDM_SequenceOfReference::*)(const Standard_Integer, const PCDM_Reference &)) &PCDM_SequenceOfReference::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_PCDM_SequenceOfReference.def("__iter__", [](const PCDM_SequenceOfReference &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\PCDM_SequenceOfReference.hxx
+	bind_NCollection_Sequence<PCDM_Reference>(mod, "PCDM_SequenceOfReference");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<PCDM_SequenceOfDocument, std::unique_ptr<PCDM_SequenceOfDocument, Deleter<PCDM_SequenceOfDocument>>, NCollection_BaseSequence> cls_PCDM_SequenceOfDocument(mod, "PCDM_SequenceOfDocument", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_PCDM_SequenceOfDocument.def(py::init<>());
-	cls_PCDM_SequenceOfDocument.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_PCDM_SequenceOfDocument.def(py::init([] (const PCDM_SequenceOfDocument &other) {return new PCDM_SequenceOfDocument(other);}), "Copy constructor", py::arg("other"));
-	cls_PCDM_SequenceOfDocument.def("begin", (PCDM_SequenceOfDocument::iterator (PCDM_SequenceOfDocument::*)() const ) &PCDM_SequenceOfDocument::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_PCDM_SequenceOfDocument.def("end", (PCDM_SequenceOfDocument::iterator (PCDM_SequenceOfDocument::*)() const ) &PCDM_SequenceOfDocument::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_PCDM_SequenceOfDocument.def("cbegin", (PCDM_SequenceOfDocument::const_iterator (PCDM_SequenceOfDocument::*)() const ) &PCDM_SequenceOfDocument::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_PCDM_SequenceOfDocument.def("cend", (PCDM_SequenceOfDocument::const_iterator (PCDM_SequenceOfDocument::*)() const ) &PCDM_SequenceOfDocument::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_PCDM_SequenceOfDocument.def("Size", (Standard_Integer (PCDM_SequenceOfDocument::*)() const ) &PCDM_SequenceOfDocument::Size, "Number of items");
-	cls_PCDM_SequenceOfDocument.def("Length", (Standard_Integer (PCDM_SequenceOfDocument::*)() const ) &PCDM_SequenceOfDocument::Length, "Number of items");
-	cls_PCDM_SequenceOfDocument.def("Lower", (Standard_Integer (PCDM_SequenceOfDocument::*)() const ) &PCDM_SequenceOfDocument::Lower, "Method for consistency with other collections.");
-	cls_PCDM_SequenceOfDocument.def("Upper", (Standard_Integer (PCDM_SequenceOfDocument::*)() const ) &PCDM_SequenceOfDocument::Upper, "Method for consistency with other collections.");
-	cls_PCDM_SequenceOfDocument.def("IsEmpty", (Standard_Boolean (PCDM_SequenceOfDocument::*)() const ) &PCDM_SequenceOfDocument::IsEmpty, "Empty query");
-	cls_PCDM_SequenceOfDocument.def("Reverse", (void (PCDM_SequenceOfDocument::*)()) &PCDM_SequenceOfDocument::Reverse, "Reverse sequence");
-	cls_PCDM_SequenceOfDocument.def("Exchange", (void (PCDM_SequenceOfDocument::*)(const Standard_Integer, const Standard_Integer)) &PCDM_SequenceOfDocument::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_PCDM_SequenceOfDocument.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &PCDM_SequenceOfDocument::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_PCDM_SequenceOfDocument.def("Clear", [](PCDM_SequenceOfDocument &self) -> void { return self.Clear(); });
-	cls_PCDM_SequenceOfDocument.def("Clear", (void (PCDM_SequenceOfDocument::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &PCDM_SequenceOfDocument::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_PCDM_SequenceOfDocument.def("Assign", (PCDM_SequenceOfDocument & (PCDM_SequenceOfDocument::*)(const PCDM_SequenceOfDocument &)) &PCDM_SequenceOfDocument::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_PCDM_SequenceOfDocument.def("assign", (PCDM_SequenceOfDocument & (PCDM_SequenceOfDocument::*)(const PCDM_SequenceOfDocument &)) &PCDM_SequenceOfDocument::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_PCDM_SequenceOfDocument.def("Remove", (void (PCDM_SequenceOfDocument::*)(PCDM_SequenceOfDocument::Iterator &)) &PCDM_SequenceOfDocument::Remove, "Remove one item", py::arg("thePosition"));
-	cls_PCDM_SequenceOfDocument.def("Remove", (void (PCDM_SequenceOfDocument::*)(const Standard_Integer)) &PCDM_SequenceOfDocument::Remove, "Remove one item", py::arg("theIndex"));
-	cls_PCDM_SequenceOfDocument.def("Remove", (void (PCDM_SequenceOfDocument::*)(const Standard_Integer, const Standard_Integer)) &PCDM_SequenceOfDocument::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_PCDM_SequenceOfDocument.def("Append", (void (PCDM_SequenceOfDocument::*)(const opencascade::handle<PCDM_Document> &)) &PCDM_SequenceOfDocument::Append, "Append one item", py::arg("theItem"));
-	cls_PCDM_SequenceOfDocument.def("Append", (void (PCDM_SequenceOfDocument::*)(PCDM_SequenceOfDocument &)) &PCDM_SequenceOfDocument::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_PCDM_SequenceOfDocument.def("Prepend", (void (PCDM_SequenceOfDocument::*)(const opencascade::handle<PCDM_Document> &)) &PCDM_SequenceOfDocument::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_PCDM_SequenceOfDocument.def("Prepend", (void (PCDM_SequenceOfDocument::*)(PCDM_SequenceOfDocument &)) &PCDM_SequenceOfDocument::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_PCDM_SequenceOfDocument.def("InsertBefore", (void (PCDM_SequenceOfDocument::*)(const Standard_Integer, const opencascade::handle<PCDM_Document> &)) &PCDM_SequenceOfDocument::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_PCDM_SequenceOfDocument.def("InsertBefore", (void (PCDM_SequenceOfDocument::*)(const Standard_Integer, PCDM_SequenceOfDocument &)) &PCDM_SequenceOfDocument::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_PCDM_SequenceOfDocument.def("InsertAfter", (void (PCDM_SequenceOfDocument::*)(PCDM_SequenceOfDocument::Iterator &, const opencascade::handle<PCDM_Document> &)) &PCDM_SequenceOfDocument::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_PCDM_SequenceOfDocument.def("InsertAfter", (void (PCDM_SequenceOfDocument::*)(const Standard_Integer, PCDM_SequenceOfDocument &)) &PCDM_SequenceOfDocument::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_PCDM_SequenceOfDocument.def("InsertAfter", (void (PCDM_SequenceOfDocument::*)(const Standard_Integer, const opencascade::handle<PCDM_Document> &)) &PCDM_SequenceOfDocument::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_PCDM_SequenceOfDocument.def("Split", (void (PCDM_SequenceOfDocument::*)(const Standard_Integer, PCDM_SequenceOfDocument &)) &PCDM_SequenceOfDocument::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_PCDM_SequenceOfDocument.def("First", (const opencascade::handle<PCDM_Document> & (PCDM_SequenceOfDocument::*)() const ) &PCDM_SequenceOfDocument::First, "First item access");
-	cls_PCDM_SequenceOfDocument.def("ChangeFirst", (opencascade::handle<PCDM_Document> & (PCDM_SequenceOfDocument::*)()) &PCDM_SequenceOfDocument::ChangeFirst, "First item access");
-	cls_PCDM_SequenceOfDocument.def("Last", (const opencascade::handle<PCDM_Document> & (PCDM_SequenceOfDocument::*)() const ) &PCDM_SequenceOfDocument::Last, "Last item access");
-	cls_PCDM_SequenceOfDocument.def("ChangeLast", (opencascade::handle<PCDM_Document> & (PCDM_SequenceOfDocument::*)()) &PCDM_SequenceOfDocument::ChangeLast, "Last item access");
-	cls_PCDM_SequenceOfDocument.def("Value", (const opencascade::handle<PCDM_Document> & (PCDM_SequenceOfDocument::*)(const Standard_Integer) const ) &PCDM_SequenceOfDocument::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_PCDM_SequenceOfDocument.def("__call__", (const opencascade::handle<PCDM_Document> & (PCDM_SequenceOfDocument::*)(const Standard_Integer) const ) &PCDM_SequenceOfDocument::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_PCDM_SequenceOfDocument.def("ChangeValue", (opencascade::handle<PCDM_Document> & (PCDM_SequenceOfDocument::*)(const Standard_Integer)) &PCDM_SequenceOfDocument::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_PCDM_SequenceOfDocument.def("__call__", (opencascade::handle<PCDM_Document> & (PCDM_SequenceOfDocument::*)(const Standard_Integer)) &PCDM_SequenceOfDocument::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_PCDM_SequenceOfDocument.def("SetValue", (void (PCDM_SequenceOfDocument::*)(const Standard_Integer, const opencascade::handle<PCDM_Document> &)) &PCDM_SequenceOfDocument::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_PCDM_SequenceOfDocument.def("__iter__", [](const PCDM_SequenceOfDocument &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\PCDM_SequenceOfDocument.hxx
+	bind_NCollection_Sequence<opencascade::handle<PCDM_Document> >(mod, "PCDM_SequenceOfDocument");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\PCDM_BaseDriverPointer.hxx
 

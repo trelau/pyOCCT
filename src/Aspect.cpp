@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Aspect_TypeOfDeflection.hxx>
 #include <Aspect_TypeOfHighlightMethod.hxx>
@@ -72,6 +63,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Aspect_TypeOfPrimitive.hxx>
 #include <Aspect_WidthOfLine.hxx>
 #include <Aspect_XWD.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Aspect, mod) {
 
@@ -593,6 +585,7 @@ PYBIND11_MODULE(Aspect, mod) {
 	cls__xcolor.def(py::init<>());
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Aspect_PolygonOffsetMode.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Aspect_Handle.hxx
 	other_mod = py::module::import("OCCT.Standard");
 	if (py::hasattr(other_mod, "Standard_Address")) {
 		mod.attr("HANDLE") = other_mod.attr("Standard_Address");
@@ -602,50 +595,8 @@ PYBIND11_MODULE(Aspect, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Aspect_RenderingContext.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Aspect_FBConfig.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Aspect_Drawable.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Aspect_SequenceOfColor, std::unique_ptr<Aspect_SequenceOfColor, Deleter<Aspect_SequenceOfColor>>, NCollection_BaseSequence> cls_Aspect_SequenceOfColor(mod, "Aspect_SequenceOfColor", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Aspect_SequenceOfColor.def(py::init<>());
-	cls_Aspect_SequenceOfColor.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Aspect_SequenceOfColor.def(py::init([] (const Aspect_SequenceOfColor &other) {return new Aspect_SequenceOfColor(other);}), "Copy constructor", py::arg("other"));
-	cls_Aspect_SequenceOfColor.def("begin", (Aspect_SequenceOfColor::iterator (Aspect_SequenceOfColor::*)() const ) &Aspect_SequenceOfColor::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Aspect_SequenceOfColor.def("end", (Aspect_SequenceOfColor::iterator (Aspect_SequenceOfColor::*)() const ) &Aspect_SequenceOfColor::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Aspect_SequenceOfColor.def("cbegin", (Aspect_SequenceOfColor::const_iterator (Aspect_SequenceOfColor::*)() const ) &Aspect_SequenceOfColor::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Aspect_SequenceOfColor.def("cend", (Aspect_SequenceOfColor::const_iterator (Aspect_SequenceOfColor::*)() const ) &Aspect_SequenceOfColor::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Aspect_SequenceOfColor.def("Size", (Standard_Integer (Aspect_SequenceOfColor::*)() const ) &Aspect_SequenceOfColor::Size, "Number of items");
-	cls_Aspect_SequenceOfColor.def("Length", (Standard_Integer (Aspect_SequenceOfColor::*)() const ) &Aspect_SequenceOfColor::Length, "Number of items");
-	cls_Aspect_SequenceOfColor.def("Lower", (Standard_Integer (Aspect_SequenceOfColor::*)() const ) &Aspect_SequenceOfColor::Lower, "Method for consistency with other collections.");
-	cls_Aspect_SequenceOfColor.def("Upper", (Standard_Integer (Aspect_SequenceOfColor::*)() const ) &Aspect_SequenceOfColor::Upper, "Method for consistency with other collections.");
-	cls_Aspect_SequenceOfColor.def("IsEmpty", (Standard_Boolean (Aspect_SequenceOfColor::*)() const ) &Aspect_SequenceOfColor::IsEmpty, "Empty query");
-	cls_Aspect_SequenceOfColor.def("Reverse", (void (Aspect_SequenceOfColor::*)()) &Aspect_SequenceOfColor::Reverse, "Reverse sequence");
-	cls_Aspect_SequenceOfColor.def("Exchange", (void (Aspect_SequenceOfColor::*)(const Standard_Integer, const Standard_Integer)) &Aspect_SequenceOfColor::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Aspect_SequenceOfColor.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Aspect_SequenceOfColor::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Aspect_SequenceOfColor.def("Clear", [](Aspect_SequenceOfColor &self) -> void { return self.Clear(); });
-	cls_Aspect_SequenceOfColor.def("Clear", (void (Aspect_SequenceOfColor::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Aspect_SequenceOfColor::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Aspect_SequenceOfColor.def("Assign", (Aspect_SequenceOfColor & (Aspect_SequenceOfColor::*)(const Aspect_SequenceOfColor &)) &Aspect_SequenceOfColor::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Aspect_SequenceOfColor.def("assign", (Aspect_SequenceOfColor & (Aspect_SequenceOfColor::*)(const Aspect_SequenceOfColor &)) &Aspect_SequenceOfColor::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Aspect_SequenceOfColor.def("Remove", (void (Aspect_SequenceOfColor::*)(Aspect_SequenceOfColor::Iterator &)) &Aspect_SequenceOfColor::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Aspect_SequenceOfColor.def("Remove", (void (Aspect_SequenceOfColor::*)(const Standard_Integer)) &Aspect_SequenceOfColor::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Aspect_SequenceOfColor.def("Remove", (void (Aspect_SequenceOfColor::*)(const Standard_Integer, const Standard_Integer)) &Aspect_SequenceOfColor::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Aspect_SequenceOfColor.def("Append", (void (Aspect_SequenceOfColor::*)(const Quantity_Color &)) &Aspect_SequenceOfColor::Append, "Append one item", py::arg("theItem"));
-	cls_Aspect_SequenceOfColor.def("Append", (void (Aspect_SequenceOfColor::*)(Aspect_SequenceOfColor &)) &Aspect_SequenceOfColor::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Aspect_SequenceOfColor.def("Prepend", (void (Aspect_SequenceOfColor::*)(const Quantity_Color &)) &Aspect_SequenceOfColor::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Aspect_SequenceOfColor.def("Prepend", (void (Aspect_SequenceOfColor::*)(Aspect_SequenceOfColor &)) &Aspect_SequenceOfColor::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Aspect_SequenceOfColor.def("InsertBefore", (void (Aspect_SequenceOfColor::*)(const Standard_Integer, const Quantity_Color &)) &Aspect_SequenceOfColor::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Aspect_SequenceOfColor.def("InsertBefore", (void (Aspect_SequenceOfColor::*)(const Standard_Integer, Aspect_SequenceOfColor &)) &Aspect_SequenceOfColor::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Aspect_SequenceOfColor.def("InsertAfter", (void (Aspect_SequenceOfColor::*)(Aspect_SequenceOfColor::Iterator &, const Quantity_Color &)) &Aspect_SequenceOfColor::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Aspect_SequenceOfColor.def("InsertAfter", (void (Aspect_SequenceOfColor::*)(const Standard_Integer, Aspect_SequenceOfColor &)) &Aspect_SequenceOfColor::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Aspect_SequenceOfColor.def("InsertAfter", (void (Aspect_SequenceOfColor::*)(const Standard_Integer, const Quantity_Color &)) &Aspect_SequenceOfColor::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Aspect_SequenceOfColor.def("Split", (void (Aspect_SequenceOfColor::*)(const Standard_Integer, Aspect_SequenceOfColor &)) &Aspect_SequenceOfColor::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Aspect_SequenceOfColor.def("First", (const Quantity_Color & (Aspect_SequenceOfColor::*)() const ) &Aspect_SequenceOfColor::First, "First item access");
-	cls_Aspect_SequenceOfColor.def("ChangeFirst", (Quantity_Color & (Aspect_SequenceOfColor::*)()) &Aspect_SequenceOfColor::ChangeFirst, "First item access");
-	cls_Aspect_SequenceOfColor.def("Last", (const Quantity_Color & (Aspect_SequenceOfColor::*)() const ) &Aspect_SequenceOfColor::Last, "Last item access");
-	cls_Aspect_SequenceOfColor.def("ChangeLast", (Quantity_Color & (Aspect_SequenceOfColor::*)()) &Aspect_SequenceOfColor::ChangeLast, "Last item access");
-	cls_Aspect_SequenceOfColor.def("Value", (const Quantity_Color & (Aspect_SequenceOfColor::*)(const Standard_Integer) const ) &Aspect_SequenceOfColor::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Aspect_SequenceOfColor.def("__call__", (const Quantity_Color & (Aspect_SequenceOfColor::*)(const Standard_Integer) const ) &Aspect_SequenceOfColor::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Aspect_SequenceOfColor.def("ChangeValue", (Quantity_Color & (Aspect_SequenceOfColor::*)(const Standard_Integer)) &Aspect_SequenceOfColor::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Aspect_SequenceOfColor.def("__call__", (Quantity_Color & (Aspect_SequenceOfColor::*)(const Standard_Integer)) &Aspect_SequenceOfColor::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Aspect_SequenceOfColor.def("SetValue", (void (Aspect_SequenceOfColor::*)(const Standard_Integer, const Quantity_Color &)) &Aspect_SequenceOfColor::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Aspect_SequenceOfColor.def("__iter__", [](const Aspect_SequenceOfColor &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Aspect_SequenceOfColor.hxx
+	bind_NCollection_Sequence<Quantity_Color>(mod, "Aspect_SequenceOfColor");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Aspect_Display.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Aspect_XWD.hxx

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <MoniTool_TypedValue.hxx>
 #include <Standard_TypeDef.hxx>
@@ -102,6 +93,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Interface_Static.hxx>
 #include <Interface_ValueInterpret.hxx>
 #include <Interface_ValueSatisfies.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Interface, mod) {
 
@@ -253,40 +245,8 @@ PYBIND11_MODULE(Interface, mod) {
 	cls_Interface_InterfaceModel.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Interface_InterfaceModel::get_type_descriptor, "None");
 	cls_Interface_InterfaceModel.def("DynamicType", (const opencascade::handle<Standard_Type> & (Interface_InterfaceModel::*)() const ) &Interface_InterfaceModel::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Interface_Array1OfHAsciiString, std::unique_ptr<Interface_Array1OfHAsciiString, Deleter<Interface_Array1OfHAsciiString>>> cls_Interface_Array1OfHAsciiString(mod, "Interface_Array1OfHAsciiString", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Interface_Array1OfHAsciiString.def(py::init<>());
-	cls_Interface_Array1OfHAsciiString.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Interface_Array1OfHAsciiString.def(py::init([] (const Interface_Array1OfHAsciiString &other) {return new Interface_Array1OfHAsciiString(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Interface_Array1OfHAsciiString.def(py::init<Interface_Array1OfHAsciiString &&>(), py::arg("theOther"));
-	cls_Interface_Array1OfHAsciiString.def(py::init<const opencascade::handle<TCollection_HAsciiString> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Interface_Array1OfHAsciiString.def("begin", (Interface_Array1OfHAsciiString::iterator (Interface_Array1OfHAsciiString::*)() const ) &Interface_Array1OfHAsciiString::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Interface_Array1OfHAsciiString.def("end", (Interface_Array1OfHAsciiString::iterator (Interface_Array1OfHAsciiString::*)() const ) &Interface_Array1OfHAsciiString::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Interface_Array1OfHAsciiString.def("cbegin", (Interface_Array1OfHAsciiString::const_iterator (Interface_Array1OfHAsciiString::*)() const ) &Interface_Array1OfHAsciiString::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Interface_Array1OfHAsciiString.def("cend", (Interface_Array1OfHAsciiString::const_iterator (Interface_Array1OfHAsciiString::*)() const ) &Interface_Array1OfHAsciiString::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Interface_Array1OfHAsciiString.def("Init", (void (Interface_Array1OfHAsciiString::*)(const opencascade::handle<TCollection_HAsciiString> &)) &Interface_Array1OfHAsciiString::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Interface_Array1OfHAsciiString.def("Size", (Standard_Integer (Interface_Array1OfHAsciiString::*)() const ) &Interface_Array1OfHAsciiString::Size, "Size query");
-	cls_Interface_Array1OfHAsciiString.def("Length", (Standard_Integer (Interface_Array1OfHAsciiString::*)() const ) &Interface_Array1OfHAsciiString::Length, "Length query (the same)");
-	cls_Interface_Array1OfHAsciiString.def("IsEmpty", (Standard_Boolean (Interface_Array1OfHAsciiString::*)() const ) &Interface_Array1OfHAsciiString::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Interface_Array1OfHAsciiString.def("Lower", (Standard_Integer (Interface_Array1OfHAsciiString::*)() const ) &Interface_Array1OfHAsciiString::Lower, "Lower bound");
-	cls_Interface_Array1OfHAsciiString.def("Upper", (Standard_Integer (Interface_Array1OfHAsciiString::*)() const ) &Interface_Array1OfHAsciiString::Upper, "Upper bound");
-	cls_Interface_Array1OfHAsciiString.def("IsDeletable", (Standard_Boolean (Interface_Array1OfHAsciiString::*)() const ) &Interface_Array1OfHAsciiString::IsDeletable, "myDeletable flag");
-	cls_Interface_Array1OfHAsciiString.def("IsAllocated", (Standard_Boolean (Interface_Array1OfHAsciiString::*)() const ) &Interface_Array1OfHAsciiString::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Interface_Array1OfHAsciiString.def("Assign", (Interface_Array1OfHAsciiString & (Interface_Array1OfHAsciiString::*)(const Interface_Array1OfHAsciiString &)) &Interface_Array1OfHAsciiString::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Interface_Array1OfHAsciiString.def("Move", (Interface_Array1OfHAsciiString & (Interface_Array1OfHAsciiString::*)(Interface_Array1OfHAsciiString &&)) &Interface_Array1OfHAsciiString::Move, "Move assignment", py::arg("theOther"));
-	cls_Interface_Array1OfHAsciiString.def("assign", (Interface_Array1OfHAsciiString & (Interface_Array1OfHAsciiString::*)(const Interface_Array1OfHAsciiString &)) &Interface_Array1OfHAsciiString::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Interface_Array1OfHAsciiString.def("assign", (Interface_Array1OfHAsciiString & (Interface_Array1OfHAsciiString::*)(Interface_Array1OfHAsciiString &&)) &Interface_Array1OfHAsciiString::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Interface_Array1OfHAsciiString.def("First", (const opencascade::handle<TCollection_HAsciiString> & (Interface_Array1OfHAsciiString::*)() const ) &Interface_Array1OfHAsciiString::First, "Returns first element");
-	cls_Interface_Array1OfHAsciiString.def("ChangeFirst", (opencascade::handle<TCollection_HAsciiString> & (Interface_Array1OfHAsciiString::*)()) &Interface_Array1OfHAsciiString::ChangeFirst, "Returns first element");
-	cls_Interface_Array1OfHAsciiString.def("Last", (const opencascade::handle<TCollection_HAsciiString> & (Interface_Array1OfHAsciiString::*)() const ) &Interface_Array1OfHAsciiString::Last, "Returns last element");
-	cls_Interface_Array1OfHAsciiString.def("ChangeLast", (opencascade::handle<TCollection_HAsciiString> & (Interface_Array1OfHAsciiString::*)()) &Interface_Array1OfHAsciiString::ChangeLast, "Returns last element");
-	cls_Interface_Array1OfHAsciiString.def("Value", (const opencascade::handle<TCollection_HAsciiString> & (Interface_Array1OfHAsciiString::*)(const Standard_Integer) const ) &Interface_Array1OfHAsciiString::Value, "Constant value access", py::arg("theIndex"));
-	cls_Interface_Array1OfHAsciiString.def("__call__", (const opencascade::handle<TCollection_HAsciiString> & (Interface_Array1OfHAsciiString::*)(const Standard_Integer) const ) &Interface_Array1OfHAsciiString::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Interface_Array1OfHAsciiString.def("ChangeValue", (opencascade::handle<TCollection_HAsciiString> & (Interface_Array1OfHAsciiString::*)(const Standard_Integer)) &Interface_Array1OfHAsciiString::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Interface_Array1OfHAsciiString.def("__call__", (opencascade::handle<TCollection_HAsciiString> & (Interface_Array1OfHAsciiString::*)(const Standard_Integer)) &Interface_Array1OfHAsciiString::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Interface_Array1OfHAsciiString.def("SetValue", (void (Interface_Array1OfHAsciiString::*)(const Standard_Integer, const opencascade::handle<TCollection_HAsciiString> &)) &Interface_Array1OfHAsciiString::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Interface_Array1OfHAsciiString.def("Resize", (void (Interface_Array1OfHAsciiString::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Interface_Array1OfHAsciiString::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Interface_Array1OfHAsciiString.def("__iter__", [](const Interface_Array1OfHAsciiString &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Interface_Array1OfHAsciiString.hxx
+	bind_NCollection_Array1<opencascade::handle<TCollection_HAsciiString> >(mod, "Interface_Array1OfHAsciiString");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Interface_Protocol.hxx
 	py::class_<Interface_Protocol, opencascade::handle<Interface_Protocol>, Standard_Transient> cls_Interface_Protocol(mod, "Interface_Protocol", "General description of Interface Protocols. A Protocol defines a set of Entity types. This class provides also the notion of Active Protocol, as a working context, defined once then exploited by various Tools and Libraries.");
@@ -635,50 +595,8 @@ PYBIND11_MODULE(Interface, mod) {
 	cls_Interface_IntList.def("AdjustSize", [](Interface_IntList &self) -> void { return self.AdjustSize(); });
 	cls_Interface_IntList.def("AdjustSize", (void (Interface_IntList::*)(const Standard_Integer)) &Interface_IntList::AdjustSize, "Resizes lists to exact sizes. For list of refs, a positive margin can be added.", py::arg("margin"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Interface_SequenceOfCheck, std::unique_ptr<Interface_SequenceOfCheck, Deleter<Interface_SequenceOfCheck>>, NCollection_BaseSequence> cls_Interface_SequenceOfCheck(mod, "Interface_SequenceOfCheck", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Interface_SequenceOfCheck.def(py::init<>());
-	cls_Interface_SequenceOfCheck.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Interface_SequenceOfCheck.def(py::init([] (const Interface_SequenceOfCheck &other) {return new Interface_SequenceOfCheck(other);}), "Copy constructor", py::arg("other"));
-	cls_Interface_SequenceOfCheck.def("begin", (Interface_SequenceOfCheck::iterator (Interface_SequenceOfCheck::*)() const ) &Interface_SequenceOfCheck::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Interface_SequenceOfCheck.def("end", (Interface_SequenceOfCheck::iterator (Interface_SequenceOfCheck::*)() const ) &Interface_SequenceOfCheck::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Interface_SequenceOfCheck.def("cbegin", (Interface_SequenceOfCheck::const_iterator (Interface_SequenceOfCheck::*)() const ) &Interface_SequenceOfCheck::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Interface_SequenceOfCheck.def("cend", (Interface_SequenceOfCheck::const_iterator (Interface_SequenceOfCheck::*)() const ) &Interface_SequenceOfCheck::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Interface_SequenceOfCheck.def("Size", (Standard_Integer (Interface_SequenceOfCheck::*)() const ) &Interface_SequenceOfCheck::Size, "Number of items");
-	cls_Interface_SequenceOfCheck.def("Length", (Standard_Integer (Interface_SequenceOfCheck::*)() const ) &Interface_SequenceOfCheck::Length, "Number of items");
-	cls_Interface_SequenceOfCheck.def("Lower", (Standard_Integer (Interface_SequenceOfCheck::*)() const ) &Interface_SequenceOfCheck::Lower, "Method for consistency with other collections.");
-	cls_Interface_SequenceOfCheck.def("Upper", (Standard_Integer (Interface_SequenceOfCheck::*)() const ) &Interface_SequenceOfCheck::Upper, "Method for consistency with other collections.");
-	cls_Interface_SequenceOfCheck.def("IsEmpty", (Standard_Boolean (Interface_SequenceOfCheck::*)() const ) &Interface_SequenceOfCheck::IsEmpty, "Empty query");
-	cls_Interface_SequenceOfCheck.def("Reverse", (void (Interface_SequenceOfCheck::*)()) &Interface_SequenceOfCheck::Reverse, "Reverse sequence");
-	cls_Interface_SequenceOfCheck.def("Exchange", (void (Interface_SequenceOfCheck::*)(const Standard_Integer, const Standard_Integer)) &Interface_SequenceOfCheck::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Interface_SequenceOfCheck.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Interface_SequenceOfCheck::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Interface_SequenceOfCheck.def("Clear", [](Interface_SequenceOfCheck &self) -> void { return self.Clear(); });
-	cls_Interface_SequenceOfCheck.def("Clear", (void (Interface_SequenceOfCheck::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Interface_SequenceOfCheck::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Interface_SequenceOfCheck.def("Assign", (Interface_SequenceOfCheck & (Interface_SequenceOfCheck::*)(const Interface_SequenceOfCheck &)) &Interface_SequenceOfCheck::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Interface_SequenceOfCheck.def("assign", (Interface_SequenceOfCheck & (Interface_SequenceOfCheck::*)(const Interface_SequenceOfCheck &)) &Interface_SequenceOfCheck::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Interface_SequenceOfCheck.def("Remove", (void (Interface_SequenceOfCheck::*)(Interface_SequenceOfCheck::Iterator &)) &Interface_SequenceOfCheck::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Interface_SequenceOfCheck.def("Remove", (void (Interface_SequenceOfCheck::*)(const Standard_Integer)) &Interface_SequenceOfCheck::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Interface_SequenceOfCheck.def("Remove", (void (Interface_SequenceOfCheck::*)(const Standard_Integer, const Standard_Integer)) &Interface_SequenceOfCheck::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Interface_SequenceOfCheck.def("Append", (void (Interface_SequenceOfCheck::*)(const opencascade::handle<Interface_Check> &)) &Interface_SequenceOfCheck::Append, "Append one item", py::arg("theItem"));
-	cls_Interface_SequenceOfCheck.def("Append", (void (Interface_SequenceOfCheck::*)(Interface_SequenceOfCheck &)) &Interface_SequenceOfCheck::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Interface_SequenceOfCheck.def("Prepend", (void (Interface_SequenceOfCheck::*)(const opencascade::handle<Interface_Check> &)) &Interface_SequenceOfCheck::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Interface_SequenceOfCheck.def("Prepend", (void (Interface_SequenceOfCheck::*)(Interface_SequenceOfCheck &)) &Interface_SequenceOfCheck::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Interface_SequenceOfCheck.def("InsertBefore", (void (Interface_SequenceOfCheck::*)(const Standard_Integer, const opencascade::handle<Interface_Check> &)) &Interface_SequenceOfCheck::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Interface_SequenceOfCheck.def("InsertBefore", (void (Interface_SequenceOfCheck::*)(const Standard_Integer, Interface_SequenceOfCheck &)) &Interface_SequenceOfCheck::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Interface_SequenceOfCheck.def("InsertAfter", (void (Interface_SequenceOfCheck::*)(Interface_SequenceOfCheck::Iterator &, const opencascade::handle<Interface_Check> &)) &Interface_SequenceOfCheck::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Interface_SequenceOfCheck.def("InsertAfter", (void (Interface_SequenceOfCheck::*)(const Standard_Integer, Interface_SequenceOfCheck &)) &Interface_SequenceOfCheck::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Interface_SequenceOfCheck.def("InsertAfter", (void (Interface_SequenceOfCheck::*)(const Standard_Integer, const opencascade::handle<Interface_Check> &)) &Interface_SequenceOfCheck::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Interface_SequenceOfCheck.def("Split", (void (Interface_SequenceOfCheck::*)(const Standard_Integer, Interface_SequenceOfCheck &)) &Interface_SequenceOfCheck::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Interface_SequenceOfCheck.def("First", (const opencascade::handle<Interface_Check> & (Interface_SequenceOfCheck::*)() const ) &Interface_SequenceOfCheck::First, "First item access");
-	cls_Interface_SequenceOfCheck.def("ChangeFirst", (opencascade::handle<Interface_Check> & (Interface_SequenceOfCheck::*)()) &Interface_SequenceOfCheck::ChangeFirst, "First item access");
-	cls_Interface_SequenceOfCheck.def("Last", (const opencascade::handle<Interface_Check> & (Interface_SequenceOfCheck::*)() const ) &Interface_SequenceOfCheck::Last, "Last item access");
-	cls_Interface_SequenceOfCheck.def("ChangeLast", (opencascade::handle<Interface_Check> & (Interface_SequenceOfCheck::*)()) &Interface_SequenceOfCheck::ChangeLast, "Last item access");
-	cls_Interface_SequenceOfCheck.def("Value", (const opencascade::handle<Interface_Check> & (Interface_SequenceOfCheck::*)(const Standard_Integer) const ) &Interface_SequenceOfCheck::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Interface_SequenceOfCheck.def("__call__", (const opencascade::handle<Interface_Check> & (Interface_SequenceOfCheck::*)(const Standard_Integer) const ) &Interface_SequenceOfCheck::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Interface_SequenceOfCheck.def("ChangeValue", (opencascade::handle<Interface_Check> & (Interface_SequenceOfCheck::*)(const Standard_Integer)) &Interface_SequenceOfCheck::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Interface_SequenceOfCheck.def("__call__", (opencascade::handle<Interface_Check> & (Interface_SequenceOfCheck::*)(const Standard_Integer)) &Interface_SequenceOfCheck::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Interface_SequenceOfCheck.def("SetValue", (void (Interface_SequenceOfCheck::*)(const Standard_Integer, const opencascade::handle<Interface_Check> &)) &Interface_SequenceOfCheck::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Interface_SequenceOfCheck.def("__iter__", [](const Interface_SequenceOfCheck &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Interface_SequenceOfCheck.hxx
+	bind_NCollection_Sequence<opencascade::handle<Interface_Check> >(mod, "Interface_SequenceOfCheck");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Interface_CopyControl.hxx
 	py::class_<Interface_CopyControl, opencascade::handle<Interface_CopyControl>, Standard_Transient> cls_Interface_CopyControl(mod, "Interface_CopyControl", "This deferred class describes the services required by CopyTool to work. They are very simple and correspond basically to the management of an indexed map. But they can be provided by various classes which can control a Transfer. Each Starting Entity have at most one Result (Mapping one-one)");
@@ -1243,38 +1161,13 @@ PYBIND11_MODULE(Interface, mod) {
 	cls_Interface_HArray1OfHAsciiString.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Interface_HArray1OfHAsciiString::get_type_descriptor, "None");
 	cls_Interface_HArray1OfHAsciiString.def("DynamicType", (const opencascade::handle<Standard_Type> & (Interface_HArray1OfHAsciiString::*)() const ) &Interface_HArray1OfHAsciiString::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<Interface_DataMapOfTransientInteger, std::unique_ptr<Interface_DataMapOfTransientInteger, Deleter<Interface_DataMapOfTransientInteger>>, NCollection_BaseMap> cls_Interface_DataMapOfTransientInteger(mod, "Interface_DataMapOfTransientInteger", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_Interface_DataMapOfTransientInteger.def(py::init<>());
-	cls_Interface_DataMapOfTransientInteger.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_Interface_DataMapOfTransientInteger.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_Interface_DataMapOfTransientInteger.def(py::init([] (const Interface_DataMapOfTransientInteger &other) {return new Interface_DataMapOfTransientInteger(other);}), "Copy constructor", py::arg("other"));
-	cls_Interface_DataMapOfTransientInteger.def("begin", (Interface_DataMapOfTransientInteger::iterator (Interface_DataMapOfTransientInteger::*)() const ) &Interface_DataMapOfTransientInteger::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_Interface_DataMapOfTransientInteger.def("end", (Interface_DataMapOfTransientInteger::iterator (Interface_DataMapOfTransientInteger::*)() const ) &Interface_DataMapOfTransientInteger::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_Interface_DataMapOfTransientInteger.def("cbegin", (Interface_DataMapOfTransientInteger::const_iterator (Interface_DataMapOfTransientInteger::*)() const ) &Interface_DataMapOfTransientInteger::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_Interface_DataMapOfTransientInteger.def("cend", (Interface_DataMapOfTransientInteger::const_iterator (Interface_DataMapOfTransientInteger::*)() const ) &Interface_DataMapOfTransientInteger::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_Interface_DataMapOfTransientInteger.def("Exchange", (void (Interface_DataMapOfTransientInteger::*)(Interface_DataMapOfTransientInteger &)) &Interface_DataMapOfTransientInteger::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_Interface_DataMapOfTransientInteger.def("Assign", (Interface_DataMapOfTransientInteger & (Interface_DataMapOfTransientInteger::*)(const Interface_DataMapOfTransientInteger &)) &Interface_DataMapOfTransientInteger::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Interface_DataMapOfTransientInteger.def("assign", (Interface_DataMapOfTransientInteger & (Interface_DataMapOfTransientInteger::*)(const Interface_DataMapOfTransientInteger &)) &Interface_DataMapOfTransientInteger::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Interface_DataMapOfTransientInteger.def("ReSize", (void (Interface_DataMapOfTransientInteger::*)(const Standard_Integer)) &Interface_DataMapOfTransientInteger::ReSize, "ReSize", py::arg("N"));
-	cls_Interface_DataMapOfTransientInteger.def("Bind", (Standard_Boolean (Interface_DataMapOfTransientInteger::*)(const opencascade::handle<Standard_Transient> &, const Standard_Integer &)) &Interface_DataMapOfTransientInteger::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_Interface_DataMapOfTransientInteger.def("Bound", (Standard_Integer * (Interface_DataMapOfTransientInteger::*)(const opencascade::handle<Standard_Transient> &, const Standard_Integer &)) &Interface_DataMapOfTransientInteger::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_Interface_DataMapOfTransientInteger.def("IsBound", (Standard_Boolean (Interface_DataMapOfTransientInteger::*)(const opencascade::handle<Standard_Transient> &) const ) &Interface_DataMapOfTransientInteger::IsBound, "IsBound", py::arg("theKey"));
-	cls_Interface_DataMapOfTransientInteger.def("UnBind", (Standard_Boolean (Interface_DataMapOfTransientInteger::*)(const opencascade::handle<Standard_Transient> &)) &Interface_DataMapOfTransientInteger::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_Interface_DataMapOfTransientInteger.def("Seek", (const Standard_Integer * (Interface_DataMapOfTransientInteger::*)(const opencascade::handle<Standard_Transient> &) const ) &Interface_DataMapOfTransientInteger::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_Interface_DataMapOfTransientInteger.def("Find", (const Standard_Integer & (Interface_DataMapOfTransientInteger::*)(const opencascade::handle<Standard_Transient> &) const ) &Interface_DataMapOfTransientInteger::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_Interface_DataMapOfTransientInteger.def("Find", (Standard_Boolean (Interface_DataMapOfTransientInteger::*)(const opencascade::handle<Standard_Transient> &, Standard_Integer &) const ) &Interface_DataMapOfTransientInteger::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_Interface_DataMapOfTransientInteger.def("__call__", (const Standard_Integer & (Interface_DataMapOfTransientInteger::*)(const opencascade::handle<Standard_Transient> &) const ) &Interface_DataMapOfTransientInteger::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_Interface_DataMapOfTransientInteger.def("ChangeSeek", (Standard_Integer * (Interface_DataMapOfTransientInteger::*)(const opencascade::handle<Standard_Transient> &)) &Interface_DataMapOfTransientInteger::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_Interface_DataMapOfTransientInteger.def("ChangeFind", (Standard_Integer & (Interface_DataMapOfTransientInteger::*)(const opencascade::handle<Standard_Transient> &)) &Interface_DataMapOfTransientInteger::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_Interface_DataMapOfTransientInteger.def("__call__", (Standard_Integer & (Interface_DataMapOfTransientInteger::*)(const opencascade::handle<Standard_Transient> &)) &Interface_DataMapOfTransientInteger::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_Interface_DataMapOfTransientInteger.def("Clear", [](Interface_DataMapOfTransientInteger &self) -> void { return self.Clear(); });
-	cls_Interface_DataMapOfTransientInteger.def("Clear", (void (Interface_DataMapOfTransientInteger::*)(const Standard_Boolean)) &Interface_DataMapOfTransientInteger::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_Interface_DataMapOfTransientInteger.def("Clear", (void (Interface_DataMapOfTransientInteger::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Interface_DataMapOfTransientInteger::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_Interface_DataMapOfTransientInteger.def("Size", (Standard_Integer (Interface_DataMapOfTransientInteger::*)() const ) &Interface_DataMapOfTransientInteger::Size, "Size");
-	cls_Interface_DataMapOfTransientInteger.def("__iter__", [](const Interface_DataMapOfTransientInteger &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Interface_DataMapOfTransientInteger.hxx
+	bind_NCollection_DataMap<opencascade::handle<Standard_Transient>, int, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "Interface_DataMapOfTransientInteger");
+
+	/* FIXME
+
+	*/
+
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Interface_HSequenceOfCheck.hxx
 	py::class_<Interface_HSequenceOfCheck, opencascade::handle<Interface_HSequenceOfCheck>, Interface_SequenceOfCheck, Standard_Transient> cls_Interface_HSequenceOfCheck(mod, "Interface_HSequenceOfCheck", "None");
 	cls_Interface_HSequenceOfCheck.def(py::init<>());
@@ -1287,104 +1180,25 @@ PYBIND11_MODULE(Interface, mod) {
 	cls_Interface_HSequenceOfCheck.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Interface_HSequenceOfCheck::get_type_descriptor, "None");
 	cls_Interface_HSequenceOfCheck.def("DynamicType", (const opencascade::handle<Standard_Type> & (Interface_HSequenceOfCheck::*)() const ) &Interface_HSequenceOfCheck::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Interface_Array1OfFileParameter, std::unique_ptr<Interface_Array1OfFileParameter, Deleter<Interface_Array1OfFileParameter>>> cls_Interface_Array1OfFileParameter(mod, "Interface_Array1OfFileParameter", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Interface_Array1OfFileParameter.def(py::init<>());
-	cls_Interface_Array1OfFileParameter.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Interface_Array1OfFileParameter.def(py::init([] (const Interface_Array1OfFileParameter &other) {return new Interface_Array1OfFileParameter(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Interface_Array1OfFileParameter.def(py::init<Interface_Array1OfFileParameter &&>(), py::arg("theOther"));
-	cls_Interface_Array1OfFileParameter.def(py::init<const Interface_FileParameter &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Interface_Array1OfFileParameter.def("begin", (Interface_Array1OfFileParameter::iterator (Interface_Array1OfFileParameter::*)() const ) &Interface_Array1OfFileParameter::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Interface_Array1OfFileParameter.def("end", (Interface_Array1OfFileParameter::iterator (Interface_Array1OfFileParameter::*)() const ) &Interface_Array1OfFileParameter::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Interface_Array1OfFileParameter.def("cbegin", (Interface_Array1OfFileParameter::const_iterator (Interface_Array1OfFileParameter::*)() const ) &Interface_Array1OfFileParameter::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Interface_Array1OfFileParameter.def("cend", (Interface_Array1OfFileParameter::const_iterator (Interface_Array1OfFileParameter::*)() const ) &Interface_Array1OfFileParameter::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Interface_Array1OfFileParameter.def("Init", (void (Interface_Array1OfFileParameter::*)(const Interface_FileParameter &)) &Interface_Array1OfFileParameter::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Interface_Array1OfFileParameter.def("Size", (Standard_Integer (Interface_Array1OfFileParameter::*)() const ) &Interface_Array1OfFileParameter::Size, "Size query");
-	cls_Interface_Array1OfFileParameter.def("Length", (Standard_Integer (Interface_Array1OfFileParameter::*)() const ) &Interface_Array1OfFileParameter::Length, "Length query (the same)");
-	cls_Interface_Array1OfFileParameter.def("IsEmpty", (Standard_Boolean (Interface_Array1OfFileParameter::*)() const ) &Interface_Array1OfFileParameter::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Interface_Array1OfFileParameter.def("Lower", (Standard_Integer (Interface_Array1OfFileParameter::*)() const ) &Interface_Array1OfFileParameter::Lower, "Lower bound");
-	cls_Interface_Array1OfFileParameter.def("Upper", (Standard_Integer (Interface_Array1OfFileParameter::*)() const ) &Interface_Array1OfFileParameter::Upper, "Upper bound");
-	cls_Interface_Array1OfFileParameter.def("IsDeletable", (Standard_Boolean (Interface_Array1OfFileParameter::*)() const ) &Interface_Array1OfFileParameter::IsDeletable, "myDeletable flag");
-	cls_Interface_Array1OfFileParameter.def("IsAllocated", (Standard_Boolean (Interface_Array1OfFileParameter::*)() const ) &Interface_Array1OfFileParameter::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Interface_Array1OfFileParameter.def("Assign", (Interface_Array1OfFileParameter & (Interface_Array1OfFileParameter::*)(const Interface_Array1OfFileParameter &)) &Interface_Array1OfFileParameter::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Interface_Array1OfFileParameter.def("Move", (Interface_Array1OfFileParameter & (Interface_Array1OfFileParameter::*)(Interface_Array1OfFileParameter &&)) &Interface_Array1OfFileParameter::Move, "Move assignment", py::arg("theOther"));
-	cls_Interface_Array1OfFileParameter.def("assign", (Interface_Array1OfFileParameter & (Interface_Array1OfFileParameter::*)(const Interface_Array1OfFileParameter &)) &Interface_Array1OfFileParameter::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Interface_Array1OfFileParameter.def("assign", (Interface_Array1OfFileParameter & (Interface_Array1OfFileParameter::*)(Interface_Array1OfFileParameter &&)) &Interface_Array1OfFileParameter::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Interface_Array1OfFileParameter.def("First", (const Interface_FileParameter & (Interface_Array1OfFileParameter::*)() const ) &Interface_Array1OfFileParameter::First, "Returns first element");
-	cls_Interface_Array1OfFileParameter.def("ChangeFirst", (Interface_FileParameter & (Interface_Array1OfFileParameter::*)()) &Interface_Array1OfFileParameter::ChangeFirst, "Returns first element");
-	cls_Interface_Array1OfFileParameter.def("Last", (const Interface_FileParameter & (Interface_Array1OfFileParameter::*)() const ) &Interface_Array1OfFileParameter::Last, "Returns last element");
-	cls_Interface_Array1OfFileParameter.def("ChangeLast", (Interface_FileParameter & (Interface_Array1OfFileParameter::*)()) &Interface_Array1OfFileParameter::ChangeLast, "Returns last element");
-	cls_Interface_Array1OfFileParameter.def("Value", (const Interface_FileParameter & (Interface_Array1OfFileParameter::*)(const Standard_Integer) const ) &Interface_Array1OfFileParameter::Value, "Constant value access", py::arg("theIndex"));
-	cls_Interface_Array1OfFileParameter.def("__call__", (const Interface_FileParameter & (Interface_Array1OfFileParameter::*)(const Standard_Integer) const ) &Interface_Array1OfFileParameter::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Interface_Array1OfFileParameter.def("ChangeValue", (Interface_FileParameter & (Interface_Array1OfFileParameter::*)(const Standard_Integer)) &Interface_Array1OfFileParameter::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Interface_Array1OfFileParameter.def("__call__", (Interface_FileParameter & (Interface_Array1OfFileParameter::*)(const Standard_Integer)) &Interface_Array1OfFileParameter::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Interface_Array1OfFileParameter.def("SetValue", (void (Interface_Array1OfFileParameter::*)(const Standard_Integer, const Interface_FileParameter &)) &Interface_Array1OfFileParameter::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Interface_Array1OfFileParameter.def("Resize", (void (Interface_Array1OfFileParameter::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Interface_Array1OfFileParameter::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Interface_Array1OfFileParameter.def("__iter__", [](const Interface_Array1OfFileParameter &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Interface_Array1OfFileParameter.hxx
+	bind_NCollection_Array1<Interface_FileParameter>(mod, "Interface_Array1OfFileParameter");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_IndexedMap.hxx
-	py::class_<Interface_IndexedMapOfAsciiString, std::unique_ptr<Interface_IndexedMapOfAsciiString, Deleter<Interface_IndexedMapOfAsciiString>>, NCollection_BaseMap> cls_Interface_IndexedMapOfAsciiString(mod, "Interface_IndexedMapOfAsciiString", "Purpose: An indexed map is used to store keys and to bind an index to them. Each new key stored in the map gets an index. Index are incremented as keys are stored in the map. A key can be found by the index and an index by the key. No key but the last can be removed so the indices are in the range 1..Extent. See the class Map from NCollection for a discussion about the number of buckets.");
-	cls_Interface_IndexedMapOfAsciiString.def(py::init<>());
-	cls_Interface_IndexedMapOfAsciiString.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_Interface_IndexedMapOfAsciiString.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_Interface_IndexedMapOfAsciiString.def(py::init([] (const Interface_IndexedMapOfAsciiString &other) {return new Interface_IndexedMapOfAsciiString(other);}), "Copy constructor", py::arg("other"));
-	cls_Interface_IndexedMapOfAsciiString.def("cbegin", (Interface_IndexedMapOfAsciiString::const_iterator (Interface_IndexedMapOfAsciiString::*)() const ) &Interface_IndexedMapOfAsciiString::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_Interface_IndexedMapOfAsciiString.def("cend", (Interface_IndexedMapOfAsciiString::const_iterator (Interface_IndexedMapOfAsciiString::*)() const ) &Interface_IndexedMapOfAsciiString::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_Interface_IndexedMapOfAsciiString.def("Exchange", (void (Interface_IndexedMapOfAsciiString::*)(Interface_IndexedMapOfAsciiString &)) &Interface_IndexedMapOfAsciiString::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_Interface_IndexedMapOfAsciiString.def("Assign", (Interface_IndexedMapOfAsciiString & (Interface_IndexedMapOfAsciiString::*)(const Interface_IndexedMapOfAsciiString &)) &Interface_IndexedMapOfAsciiString::Assign, "Assign. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Interface_IndexedMapOfAsciiString.def("assign", (Interface_IndexedMapOfAsciiString & (Interface_IndexedMapOfAsciiString::*)(const Interface_IndexedMapOfAsciiString &)) &Interface_IndexedMapOfAsciiString::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Interface_IndexedMapOfAsciiString.def("ReSize", (void (Interface_IndexedMapOfAsciiString::*)(const Standard_Integer)) &Interface_IndexedMapOfAsciiString::ReSize, "ReSize", py::arg("N"));
-	cls_Interface_IndexedMapOfAsciiString.def("Add", (Standard_Integer (Interface_IndexedMapOfAsciiString::*)(const TCollection_AsciiString &)) &Interface_IndexedMapOfAsciiString::Add, "Add", py::arg("theKey1"));
-	cls_Interface_IndexedMapOfAsciiString.def("Contains", (Standard_Boolean (Interface_IndexedMapOfAsciiString::*)(const TCollection_AsciiString &) const ) &Interface_IndexedMapOfAsciiString::Contains, "Contains", py::arg("theKey1"));
-	cls_Interface_IndexedMapOfAsciiString.def("Substitute", (void (Interface_IndexedMapOfAsciiString::*)(const Standard_Integer, const TCollection_AsciiString &)) &Interface_IndexedMapOfAsciiString::Substitute, "Substitute", py::arg("theIndex"), py::arg("theKey1"));
-	cls_Interface_IndexedMapOfAsciiString.def("Swap", (void (Interface_IndexedMapOfAsciiString::*)(const Standard_Integer, const Standard_Integer)) &Interface_IndexedMapOfAsciiString::Swap, "Swaps two elements with the given indices.", py::arg("theIndex1"), py::arg("theIndex2"));
-	cls_Interface_IndexedMapOfAsciiString.def("RemoveLast", (void (Interface_IndexedMapOfAsciiString::*)()) &Interface_IndexedMapOfAsciiString::RemoveLast, "RemoveLast");
-	cls_Interface_IndexedMapOfAsciiString.def("RemoveFromIndex", (void (Interface_IndexedMapOfAsciiString::*)(const Standard_Integer)) &Interface_IndexedMapOfAsciiString::RemoveFromIndex, "Remove the key of the given index. Caution! The index of the last key can be changed.", py::arg("theKey2"));
-	cls_Interface_IndexedMapOfAsciiString.def("RemoveKey", (Standard_Boolean (Interface_IndexedMapOfAsciiString::*)(const TCollection_AsciiString &)) &Interface_IndexedMapOfAsciiString::RemoveKey, "Remove the given key. Caution! The index of the last key can be changed.", py::arg("theKey1"));
-	cls_Interface_IndexedMapOfAsciiString.def("FindKey", (const TCollection_AsciiString & (Interface_IndexedMapOfAsciiString::*)(const Standard_Integer) const ) &Interface_IndexedMapOfAsciiString::FindKey, "FindKey", py::arg("theKey2"));
-	cls_Interface_IndexedMapOfAsciiString.def("__call__", (const TCollection_AsciiString & (Interface_IndexedMapOfAsciiString::*)(const Standard_Integer) const ) &Interface_IndexedMapOfAsciiString::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_Interface_IndexedMapOfAsciiString.def("FindIndex", (Standard_Integer (Interface_IndexedMapOfAsciiString::*)(const TCollection_AsciiString &) const ) &Interface_IndexedMapOfAsciiString::FindIndex, "FindIndex", py::arg("theKey1"));
-	cls_Interface_IndexedMapOfAsciiString.def("Clear", [](Interface_IndexedMapOfAsciiString &self) -> void { return self.Clear(); });
-	cls_Interface_IndexedMapOfAsciiString.def("Clear", (void (Interface_IndexedMapOfAsciiString::*)(const Standard_Boolean)) &Interface_IndexedMapOfAsciiString::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_Interface_IndexedMapOfAsciiString.def("Clear", (void (Interface_IndexedMapOfAsciiString::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Interface_IndexedMapOfAsciiString::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_Interface_IndexedMapOfAsciiString.def("Size", (Standard_Integer (Interface_IndexedMapOfAsciiString::*)() const ) &Interface_IndexedMapOfAsciiString::Size, "Size");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Interface_IndexedMapOfAsciiString.hxx
+	bind_NCollection_IndexedMap<TCollection_AsciiString, Interface_MapAsciiStringHasher>(mod, "Interface_IndexedMapOfAsciiString");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vector.hxx
-	py::class_<Interface_VectorOfFileParameter, std::unique_ptr<Interface_VectorOfFileParameter, Deleter<Interface_VectorOfFileParameter>>, NCollection_BaseVector> cls_Interface_VectorOfFileParameter(mod, "Interface_VectorOfFileParameter", "Class NCollection_Vector (dynamic array of objects)");
-	cls_Interface_VectorOfFileParameter.def(py::init<>());
-	cls_Interface_VectorOfFileParameter.def(py::init<const Standard_Integer>(), py::arg("theIncrement"));
-	cls_Interface_VectorOfFileParameter.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theIncrement"), py::arg("theAlloc"));
-	cls_Interface_VectorOfFileParameter.def(py::init([] (const Interface_VectorOfFileParameter &other) {return new Interface_VectorOfFileParameter(other);}), "Copy constructor", py::arg("other"));
-	cls_Interface_VectorOfFileParameter.def("begin", (Interface_VectorOfFileParameter::iterator (Interface_VectorOfFileParameter::*)() const ) &Interface_VectorOfFileParameter::begin, "Returns an iterator pointing to the first element in the vector.");
-	cls_Interface_VectorOfFileParameter.def("end", (Interface_VectorOfFileParameter::iterator (Interface_VectorOfFileParameter::*)() const ) &Interface_VectorOfFileParameter::end, "Returns an iterator referring to the past-the-end element in the vector.");
-	cls_Interface_VectorOfFileParameter.def("cbegin", (Interface_VectorOfFileParameter::const_iterator (Interface_VectorOfFileParameter::*)() const ) &Interface_VectorOfFileParameter::cbegin, "Returns a const iterator pointing to the first element in the vector.");
-	cls_Interface_VectorOfFileParameter.def("cend", (Interface_VectorOfFileParameter::const_iterator (Interface_VectorOfFileParameter::*)() const ) &Interface_VectorOfFileParameter::cend, "Returns a const iterator referring to the past-the-end element in the vector.");
-	cls_Interface_VectorOfFileParameter.def("Length", (Standard_Integer (Interface_VectorOfFileParameter::*)() const ) &Interface_VectorOfFileParameter::Length, "Total number of items");
-	cls_Interface_VectorOfFileParameter.def("Size", (Standard_Integer (Interface_VectorOfFileParameter::*)() const ) &Interface_VectorOfFileParameter::Size, "Total number of items in the vector");
-	cls_Interface_VectorOfFileParameter.def("Lower", (Standard_Integer (Interface_VectorOfFileParameter::*)() const ) &Interface_VectorOfFileParameter::Lower, "Method for consistency with other collections.");
-	cls_Interface_VectorOfFileParameter.def("Upper", (Standard_Integer (Interface_VectorOfFileParameter::*)() const ) &Interface_VectorOfFileParameter::Upper, "Method for consistency with other collections.");
-	cls_Interface_VectorOfFileParameter.def("IsEmpty", (Standard_Boolean (Interface_VectorOfFileParameter::*)() const ) &Interface_VectorOfFileParameter::IsEmpty, "Empty query");
-	cls_Interface_VectorOfFileParameter.def("Assign", [](Interface_VectorOfFileParameter &self, const Interface_VectorOfFileParameter & a0) -> void { return self.Assign(a0); }, py::arg("theOther"));
-	cls_Interface_VectorOfFileParameter.def("Assign", (void (Interface_VectorOfFileParameter::*)(const Interface_VectorOfFileParameter &, const Standard_Boolean)) &Interface_VectorOfFileParameter::Assign, "Assignment to the collection of the same type", py::arg("theOther"), py::arg("theOwnAllocator"));
-	cls_Interface_VectorOfFileParameter.def("assign", (Interface_VectorOfFileParameter & (Interface_VectorOfFileParameter::*)(const Interface_VectorOfFileParameter &)) &Interface_VectorOfFileParameter::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Interface_VectorOfFileParameter.def("Append", (Interface_FileParameter & (Interface_VectorOfFileParameter::*)(const Interface_FileParameter &)) &Interface_VectorOfFileParameter::Append, "Append", py::arg("theValue"));
-	cls_Interface_VectorOfFileParameter.def("__call__", (const Interface_FileParameter & (Interface_VectorOfFileParameter::*)(const Standard_Integer) const ) &Interface_VectorOfFileParameter::operator(), py::is_operator(), "Operator() - query the const value", py::arg("theIndex"));
-	cls_Interface_VectorOfFileParameter.def("Value", (const Interface_FileParameter & (Interface_VectorOfFileParameter::*)(const Standard_Integer) const ) &Interface_VectorOfFileParameter::Value, "None", py::arg("theIndex"));
-	cls_Interface_VectorOfFileParameter.def("First", (const Interface_FileParameter & (Interface_VectorOfFileParameter::*)() const ) &Interface_VectorOfFileParameter::First, "Returns first element");
-	cls_Interface_VectorOfFileParameter.def("ChangeFirst", (Interface_FileParameter & (Interface_VectorOfFileParameter::*)()) &Interface_VectorOfFileParameter::ChangeFirst, "Returns first element");
-	cls_Interface_VectorOfFileParameter.def("Last", (const Interface_FileParameter & (Interface_VectorOfFileParameter::*)() const ) &Interface_VectorOfFileParameter::Last, "Returns last element");
-	cls_Interface_VectorOfFileParameter.def("ChangeLast", (Interface_FileParameter & (Interface_VectorOfFileParameter::*)()) &Interface_VectorOfFileParameter::ChangeLast, "Returns last element");
-	cls_Interface_VectorOfFileParameter.def("__call__", (Interface_FileParameter & (Interface_VectorOfFileParameter::*)(const Standard_Integer)) &Interface_VectorOfFileParameter::operator(), py::is_operator(), "Operator() - query the value", py::arg("theIndex"));
-	cls_Interface_VectorOfFileParameter.def("ChangeValue", (Interface_FileParameter & (Interface_VectorOfFileParameter::*)(const Standard_Integer)) &Interface_VectorOfFileParameter::ChangeValue, "None", py::arg("theIndex"));
-	cls_Interface_VectorOfFileParameter.def("SetValue", (Interface_FileParameter & (Interface_VectorOfFileParameter::*)(const Standard_Integer, const Interface_FileParameter &)) &Interface_VectorOfFileParameter::SetValue, "SetValue () - set or append a value", py::arg("theIndex"), py::arg("theValue"));
-	cls_Interface_VectorOfFileParameter.def("__iter__", [](const Interface_VectorOfFileParameter &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Interface_VectorOfFileParameter.hxx
+	bind_NCollection_Vector<Interface_FileParameter>(mod, "Interface_VectorOfFileParameter");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Interface_StaticSatisfies.hxx
 	other_mod = py::module::import("OCCT.MoniTool");
 	if (py::hasattr(other_mod, "MoniTool_ValueSatisfies")) {
 		mod.attr("Interface_StaticSatisfies") = other_mod.attr("MoniTool_ValueSatisfies");
 	}
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\Interface_ValueInterpret.hxx
+	/* FIXME
+
+	*/
+
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Interface_ValueSatisfies.hxx
 
 }

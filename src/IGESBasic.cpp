@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_TypeDef.hxx>
@@ -88,6 +79,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_BaseAllocator.hxx>
 #include <IGESBasic_HArray1OfLineFontEntity.hxx>
 #include <IGESBasic_HArray2OfHArray1OfReal.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(IGESBasic, mod) {
 
@@ -577,63 +569,11 @@ PYBIND11_MODULE(IGESBasic, mod) {
 	cls_IGESBasic.def_static("Init_", (void (*)()) &IGESBasic::Init, "Prepares dynqmic data (Protocol, Modules) for this package");
 	cls_IGESBasic.def_static("Protocol_", (opencascade::handle<IGESBasic_Protocol> (*)()) &IGESBasic::Protocol, "Returns the Protocol for this Package");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESBasic_Array1OfLineFontEntity, std::unique_ptr<IGESBasic_Array1OfLineFontEntity, Deleter<IGESBasic_Array1OfLineFontEntity>>> cls_IGESBasic_Array1OfLineFontEntity(mod, "IGESBasic_Array1OfLineFontEntity", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESBasic_Array1OfLineFontEntity.def(py::init<>());
-	cls_IGESBasic_Array1OfLineFontEntity.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESBasic_Array1OfLineFontEntity.def(py::init([] (const IGESBasic_Array1OfLineFontEntity &other) {return new IGESBasic_Array1OfLineFontEntity(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESBasic_Array1OfLineFontEntity.def(py::init<IGESBasic_Array1OfLineFontEntity &&>(), py::arg("theOther"));
-	cls_IGESBasic_Array1OfLineFontEntity.def(py::init<const opencascade::handle<IGESData_LineFontEntity> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESBasic_Array1OfLineFontEntity.def("begin", (IGESBasic_Array1OfLineFontEntity::iterator (IGESBasic_Array1OfLineFontEntity::*)() const ) &IGESBasic_Array1OfLineFontEntity::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESBasic_Array1OfLineFontEntity.def("end", (IGESBasic_Array1OfLineFontEntity::iterator (IGESBasic_Array1OfLineFontEntity::*)() const ) &IGESBasic_Array1OfLineFontEntity::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESBasic_Array1OfLineFontEntity.def("cbegin", (IGESBasic_Array1OfLineFontEntity::const_iterator (IGESBasic_Array1OfLineFontEntity::*)() const ) &IGESBasic_Array1OfLineFontEntity::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESBasic_Array1OfLineFontEntity.def("cend", (IGESBasic_Array1OfLineFontEntity::const_iterator (IGESBasic_Array1OfLineFontEntity::*)() const ) &IGESBasic_Array1OfLineFontEntity::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESBasic_Array1OfLineFontEntity.def("Init", (void (IGESBasic_Array1OfLineFontEntity::*)(const opencascade::handle<IGESData_LineFontEntity> &)) &IGESBasic_Array1OfLineFontEntity::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESBasic_Array1OfLineFontEntity.def("Size", (Standard_Integer (IGESBasic_Array1OfLineFontEntity::*)() const ) &IGESBasic_Array1OfLineFontEntity::Size, "Size query");
-	cls_IGESBasic_Array1OfLineFontEntity.def("Length", (Standard_Integer (IGESBasic_Array1OfLineFontEntity::*)() const ) &IGESBasic_Array1OfLineFontEntity::Length, "Length query (the same)");
-	cls_IGESBasic_Array1OfLineFontEntity.def("IsEmpty", (Standard_Boolean (IGESBasic_Array1OfLineFontEntity::*)() const ) &IGESBasic_Array1OfLineFontEntity::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESBasic_Array1OfLineFontEntity.def("Lower", (Standard_Integer (IGESBasic_Array1OfLineFontEntity::*)() const ) &IGESBasic_Array1OfLineFontEntity::Lower, "Lower bound");
-	cls_IGESBasic_Array1OfLineFontEntity.def("Upper", (Standard_Integer (IGESBasic_Array1OfLineFontEntity::*)() const ) &IGESBasic_Array1OfLineFontEntity::Upper, "Upper bound");
-	cls_IGESBasic_Array1OfLineFontEntity.def("IsDeletable", (Standard_Boolean (IGESBasic_Array1OfLineFontEntity::*)() const ) &IGESBasic_Array1OfLineFontEntity::IsDeletable, "myDeletable flag");
-	cls_IGESBasic_Array1OfLineFontEntity.def("IsAllocated", (Standard_Boolean (IGESBasic_Array1OfLineFontEntity::*)() const ) &IGESBasic_Array1OfLineFontEntity::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESBasic_Array1OfLineFontEntity.def("Assign", (IGESBasic_Array1OfLineFontEntity & (IGESBasic_Array1OfLineFontEntity::*)(const IGESBasic_Array1OfLineFontEntity &)) &IGESBasic_Array1OfLineFontEntity::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESBasic_Array1OfLineFontEntity.def("Move", (IGESBasic_Array1OfLineFontEntity & (IGESBasic_Array1OfLineFontEntity::*)(IGESBasic_Array1OfLineFontEntity &&)) &IGESBasic_Array1OfLineFontEntity::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESBasic_Array1OfLineFontEntity.def("assign", (IGESBasic_Array1OfLineFontEntity & (IGESBasic_Array1OfLineFontEntity::*)(const IGESBasic_Array1OfLineFontEntity &)) &IGESBasic_Array1OfLineFontEntity::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESBasic_Array1OfLineFontEntity.def("assign", (IGESBasic_Array1OfLineFontEntity & (IGESBasic_Array1OfLineFontEntity::*)(IGESBasic_Array1OfLineFontEntity &&)) &IGESBasic_Array1OfLineFontEntity::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESBasic_Array1OfLineFontEntity.def("First", (const opencascade::handle<IGESData_LineFontEntity> & (IGESBasic_Array1OfLineFontEntity::*)() const ) &IGESBasic_Array1OfLineFontEntity::First, "Returns first element");
-	cls_IGESBasic_Array1OfLineFontEntity.def("ChangeFirst", (opencascade::handle<IGESData_LineFontEntity> & (IGESBasic_Array1OfLineFontEntity::*)()) &IGESBasic_Array1OfLineFontEntity::ChangeFirst, "Returns first element");
-	cls_IGESBasic_Array1OfLineFontEntity.def("Last", (const opencascade::handle<IGESData_LineFontEntity> & (IGESBasic_Array1OfLineFontEntity::*)() const ) &IGESBasic_Array1OfLineFontEntity::Last, "Returns last element");
-	cls_IGESBasic_Array1OfLineFontEntity.def("ChangeLast", (opencascade::handle<IGESData_LineFontEntity> & (IGESBasic_Array1OfLineFontEntity::*)()) &IGESBasic_Array1OfLineFontEntity::ChangeLast, "Returns last element");
-	cls_IGESBasic_Array1OfLineFontEntity.def("Value", (const opencascade::handle<IGESData_LineFontEntity> & (IGESBasic_Array1OfLineFontEntity::*)(const Standard_Integer) const ) &IGESBasic_Array1OfLineFontEntity::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESBasic_Array1OfLineFontEntity.def("__call__", (const opencascade::handle<IGESData_LineFontEntity> & (IGESBasic_Array1OfLineFontEntity::*)(const Standard_Integer) const ) &IGESBasic_Array1OfLineFontEntity::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESBasic_Array1OfLineFontEntity.def("ChangeValue", (opencascade::handle<IGESData_LineFontEntity> & (IGESBasic_Array1OfLineFontEntity::*)(const Standard_Integer)) &IGESBasic_Array1OfLineFontEntity::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESBasic_Array1OfLineFontEntity.def("__call__", (opencascade::handle<IGESData_LineFontEntity> & (IGESBasic_Array1OfLineFontEntity::*)(const Standard_Integer)) &IGESBasic_Array1OfLineFontEntity::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESBasic_Array1OfLineFontEntity.def("SetValue", (void (IGESBasic_Array1OfLineFontEntity::*)(const Standard_Integer, const opencascade::handle<IGESData_LineFontEntity> &)) &IGESBasic_Array1OfLineFontEntity::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESBasic_Array1OfLineFontEntity.def("Resize", (void (IGESBasic_Array1OfLineFontEntity::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESBasic_Array1OfLineFontEntity::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESBasic_Array1OfLineFontEntity.def("__iter__", [](const IGESBasic_Array1OfLineFontEntity &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESBasic_Array1OfLineFontEntity.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESData_LineFontEntity> >(mod, "IGESBasic_Array1OfLineFontEntity");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array2.hxx
-	py::class_<IGESBasic_Array2OfHArray1OfReal, std::unique_ptr<IGESBasic_Array2OfHArray1OfReal, Deleter<IGESBasic_Array2OfHArray1OfReal>>> cls_IGESBasic_Array2OfHArray1OfReal(mod, "IGESBasic_Array2OfHArray1OfReal", "Purpose: The class Array2 represents bi-dimensional arrays of fixed size known at run time. The ranges of indices are user defined.");
-	cls_IGESBasic_Array2OfHArray1OfReal.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_IGESBasic_Array2OfHArray1OfReal.def(py::init([] (const IGESBasic_Array2OfHArray1OfReal &other) {return new IGESBasic_Array2OfHArray1OfReal(other);}), "Copy constructor", py::arg("other"));
-	cls_IGESBasic_Array2OfHArray1OfReal.def(py::init<const opencascade::handle<TColStd_HArray1OfReal> &, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_IGESBasic_Array2OfHArray1OfReal.def("Init", (void (IGESBasic_Array2OfHArray1OfReal::*)(const opencascade::handle<TColStd_HArray1OfReal> &)) &IGESBasic_Array2OfHArray1OfReal::Init, "Initialise the values", py::arg("theValue"));
-	cls_IGESBasic_Array2OfHArray1OfReal.def("Size", (Standard_Integer (IGESBasic_Array2OfHArray1OfReal::*)() const ) &IGESBasic_Array2OfHArray1OfReal::Size, "Size (number of items)");
-	cls_IGESBasic_Array2OfHArray1OfReal.def("Length", (Standard_Integer (IGESBasic_Array2OfHArray1OfReal::*)() const ) &IGESBasic_Array2OfHArray1OfReal::Length, "Length (number of items)");
-	cls_IGESBasic_Array2OfHArray1OfReal.def("RowLength", (Standard_Integer (IGESBasic_Array2OfHArray1OfReal::*)() const ) &IGESBasic_Array2OfHArray1OfReal::RowLength, "Returns length of the row, i.e. number of columns");
-	cls_IGESBasic_Array2OfHArray1OfReal.def("ColLength", (Standard_Integer (IGESBasic_Array2OfHArray1OfReal::*)() const ) &IGESBasic_Array2OfHArray1OfReal::ColLength, "Returns length of the column, i.e. number of rows");
-	cls_IGESBasic_Array2OfHArray1OfReal.def("LowerRow", (Standard_Integer (IGESBasic_Array2OfHArray1OfReal::*)() const ) &IGESBasic_Array2OfHArray1OfReal::LowerRow, "LowerRow");
-	cls_IGESBasic_Array2OfHArray1OfReal.def("UpperRow", (Standard_Integer (IGESBasic_Array2OfHArray1OfReal::*)() const ) &IGESBasic_Array2OfHArray1OfReal::UpperRow, "UpperRow");
-	cls_IGESBasic_Array2OfHArray1OfReal.def("LowerCol", (Standard_Integer (IGESBasic_Array2OfHArray1OfReal::*)() const ) &IGESBasic_Array2OfHArray1OfReal::LowerCol, "LowerCol");
-	cls_IGESBasic_Array2OfHArray1OfReal.def("UpperCol", (Standard_Integer (IGESBasic_Array2OfHArray1OfReal::*)() const ) &IGESBasic_Array2OfHArray1OfReal::UpperCol, "UpperCol");
-	cls_IGESBasic_Array2OfHArray1OfReal.def("IsDeletable", (Standard_Boolean (IGESBasic_Array2OfHArray1OfReal::*)() const ) &IGESBasic_Array2OfHArray1OfReal::IsDeletable, "myDeletable flag");
-	cls_IGESBasic_Array2OfHArray1OfReal.def("Assign", (IGESBasic_Array2OfHArray1OfReal & (IGESBasic_Array2OfHArray1OfReal::*)(const IGESBasic_Array2OfHArray1OfReal &)) &IGESBasic_Array2OfHArray1OfReal::Assign, "Assignment", py::arg("theOther"));
-	cls_IGESBasic_Array2OfHArray1OfReal.def("assign", (IGESBasic_Array2OfHArray1OfReal & (IGESBasic_Array2OfHArray1OfReal::*)(const IGESBasic_Array2OfHArray1OfReal &)) &IGESBasic_Array2OfHArray1OfReal::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_IGESBasic_Array2OfHArray1OfReal.def("Value", (const opencascade::handle<TColStd_HArray1OfReal> & (IGESBasic_Array2OfHArray1OfReal::*)(const Standard_Integer, const Standard_Integer) const ) &IGESBasic_Array2OfHArray1OfReal::Value, "Constant value access", py::arg("theRow"), py::arg("theCol"));
-	cls_IGESBasic_Array2OfHArray1OfReal.def("__call__", (const opencascade::handle<TColStd_HArray1OfReal> & (IGESBasic_Array2OfHArray1OfReal::*)(const Standard_Integer, const Standard_Integer) const ) &IGESBasic_Array2OfHArray1OfReal::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_IGESBasic_Array2OfHArray1OfReal.def("ChangeValue", (opencascade::handle<TColStd_HArray1OfReal> & (IGESBasic_Array2OfHArray1OfReal::*)(const Standard_Integer, const Standard_Integer)) &IGESBasic_Array2OfHArray1OfReal::ChangeValue, "Variable value access", py::arg("theRow"), py::arg("theCol"));
-	cls_IGESBasic_Array2OfHArray1OfReal.def("__call__", (opencascade::handle<TColStd_HArray1OfReal> & (IGESBasic_Array2OfHArray1OfReal::*)(const Standard_Integer, const Standard_Integer)) &IGESBasic_Array2OfHArray1OfReal::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_IGESBasic_Array2OfHArray1OfReal.def("SetValue", (void (IGESBasic_Array2OfHArray1OfReal::*)(const Standard_Integer, const Standard_Integer, const opencascade::handle<TColStd_HArray1OfReal> &)) &IGESBasic_Array2OfHArray1OfReal::SetValue, "SetValue", py::arg("theRow"), py::arg("theCol"), py::arg("theItem"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESBasic_Array2OfHArray1OfReal.hxx
+	bind_NCollection_Array2<opencascade::handle<TColStd_HArray1OfReal> >(mod, "IGESBasic_Array2OfHArray1OfReal");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESBasic_HArray1OfLineFontEntity.hxx
 	py::class_<IGESBasic_HArray1OfLineFontEntity, opencascade::handle<IGESBasic_HArray1OfLineFontEntity>, IGESBasic_Array1OfLineFontEntity, Standard_Transient> cls_IGESBasic_HArray1OfLineFontEntity(mod, "IGESBasic_HArray1OfLineFontEntity", "None");

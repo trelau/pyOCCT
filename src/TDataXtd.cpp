@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <TDF_Attribute.hxx>
 #include <Standard_TypeDef.hxx>
@@ -57,6 +48,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Standard_Transient.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <TDataXtd_HArray1OfTrsf.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(TDataXtd, mod) {
 
@@ -416,40 +408,8 @@ PYBIND11_MODULE(TDataXtd, mod) {
 	cls_TDataXtd.def_static("Print_", (Standard_OStream & (*)(const TDataXtd_GeometryEnum, Standard_OStream &)) &TDataXtd::Print, "Prints the name of the geometry dimension <GEO> as a String on the Stream <S> and returns <S>.", py::arg("GEO"), py::arg("S"));
 	cls_TDataXtd.def_static("Print_", (Standard_OStream & (*)(const TDataXtd_ConstraintEnum, Standard_OStream &)) &TDataXtd::Print, "Prints the name of the constraint <CTR> as a String on the Stream <S> and returns <S>.", py::arg("CTR"), py::arg("S"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<TDataXtd_Array1OfTrsf, std::unique_ptr<TDataXtd_Array1OfTrsf, Deleter<TDataXtd_Array1OfTrsf>>> cls_TDataXtd_Array1OfTrsf(mod, "TDataXtd_Array1OfTrsf", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_TDataXtd_Array1OfTrsf.def(py::init<>());
-	cls_TDataXtd_Array1OfTrsf.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_TDataXtd_Array1OfTrsf.def(py::init([] (const TDataXtd_Array1OfTrsf &other) {return new TDataXtd_Array1OfTrsf(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_TDataXtd_Array1OfTrsf.def(py::init<TDataXtd_Array1OfTrsf &&>(), py::arg("theOther"));
-	cls_TDataXtd_Array1OfTrsf.def(py::init<const gp_Trsf &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_TDataXtd_Array1OfTrsf.def("begin", (TDataXtd_Array1OfTrsf::iterator (TDataXtd_Array1OfTrsf::*)() const ) &TDataXtd_Array1OfTrsf::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_TDataXtd_Array1OfTrsf.def("end", (TDataXtd_Array1OfTrsf::iterator (TDataXtd_Array1OfTrsf::*)() const ) &TDataXtd_Array1OfTrsf::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_TDataXtd_Array1OfTrsf.def("cbegin", (TDataXtd_Array1OfTrsf::const_iterator (TDataXtd_Array1OfTrsf::*)() const ) &TDataXtd_Array1OfTrsf::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_TDataXtd_Array1OfTrsf.def("cend", (TDataXtd_Array1OfTrsf::const_iterator (TDataXtd_Array1OfTrsf::*)() const ) &TDataXtd_Array1OfTrsf::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_TDataXtd_Array1OfTrsf.def("Init", (void (TDataXtd_Array1OfTrsf::*)(const gp_Trsf &)) &TDataXtd_Array1OfTrsf::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_TDataXtd_Array1OfTrsf.def("Size", (Standard_Integer (TDataXtd_Array1OfTrsf::*)() const ) &TDataXtd_Array1OfTrsf::Size, "Size query");
-	cls_TDataXtd_Array1OfTrsf.def("Length", (Standard_Integer (TDataXtd_Array1OfTrsf::*)() const ) &TDataXtd_Array1OfTrsf::Length, "Length query (the same)");
-	cls_TDataXtd_Array1OfTrsf.def("IsEmpty", (Standard_Boolean (TDataXtd_Array1OfTrsf::*)() const ) &TDataXtd_Array1OfTrsf::IsEmpty, "Return TRUE if array has zero length.");
-	cls_TDataXtd_Array1OfTrsf.def("Lower", (Standard_Integer (TDataXtd_Array1OfTrsf::*)() const ) &TDataXtd_Array1OfTrsf::Lower, "Lower bound");
-	cls_TDataXtd_Array1OfTrsf.def("Upper", (Standard_Integer (TDataXtd_Array1OfTrsf::*)() const ) &TDataXtd_Array1OfTrsf::Upper, "Upper bound");
-	cls_TDataXtd_Array1OfTrsf.def("IsDeletable", (Standard_Boolean (TDataXtd_Array1OfTrsf::*)() const ) &TDataXtd_Array1OfTrsf::IsDeletable, "myDeletable flag");
-	cls_TDataXtd_Array1OfTrsf.def("IsAllocated", (Standard_Boolean (TDataXtd_Array1OfTrsf::*)() const ) &TDataXtd_Array1OfTrsf::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_TDataXtd_Array1OfTrsf.def("Assign", (TDataXtd_Array1OfTrsf & (TDataXtd_Array1OfTrsf::*)(const TDataXtd_Array1OfTrsf &)) &TDataXtd_Array1OfTrsf::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_TDataXtd_Array1OfTrsf.def("Move", (TDataXtd_Array1OfTrsf & (TDataXtd_Array1OfTrsf::*)(TDataXtd_Array1OfTrsf &&)) &TDataXtd_Array1OfTrsf::Move, "Move assignment", py::arg("theOther"));
-	cls_TDataXtd_Array1OfTrsf.def("assign", (TDataXtd_Array1OfTrsf & (TDataXtd_Array1OfTrsf::*)(const TDataXtd_Array1OfTrsf &)) &TDataXtd_Array1OfTrsf::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_TDataXtd_Array1OfTrsf.def("assign", (TDataXtd_Array1OfTrsf & (TDataXtd_Array1OfTrsf::*)(TDataXtd_Array1OfTrsf &&)) &TDataXtd_Array1OfTrsf::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_TDataXtd_Array1OfTrsf.def("First", (const gp_Trsf & (TDataXtd_Array1OfTrsf::*)() const ) &TDataXtd_Array1OfTrsf::First, "Returns first element");
-	cls_TDataXtd_Array1OfTrsf.def("ChangeFirst", (gp_Trsf & (TDataXtd_Array1OfTrsf::*)()) &TDataXtd_Array1OfTrsf::ChangeFirst, "Returns first element");
-	cls_TDataXtd_Array1OfTrsf.def("Last", (const gp_Trsf & (TDataXtd_Array1OfTrsf::*)() const ) &TDataXtd_Array1OfTrsf::Last, "Returns last element");
-	cls_TDataXtd_Array1OfTrsf.def("ChangeLast", (gp_Trsf & (TDataXtd_Array1OfTrsf::*)()) &TDataXtd_Array1OfTrsf::ChangeLast, "Returns last element");
-	cls_TDataXtd_Array1OfTrsf.def("Value", (const gp_Trsf & (TDataXtd_Array1OfTrsf::*)(const Standard_Integer) const ) &TDataXtd_Array1OfTrsf::Value, "Constant value access", py::arg("theIndex"));
-	cls_TDataXtd_Array1OfTrsf.def("__call__", (const gp_Trsf & (TDataXtd_Array1OfTrsf::*)(const Standard_Integer) const ) &TDataXtd_Array1OfTrsf::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_TDataXtd_Array1OfTrsf.def("ChangeValue", (gp_Trsf & (TDataXtd_Array1OfTrsf::*)(const Standard_Integer)) &TDataXtd_Array1OfTrsf::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_TDataXtd_Array1OfTrsf.def("__call__", (gp_Trsf & (TDataXtd_Array1OfTrsf::*)(const Standard_Integer)) &TDataXtd_Array1OfTrsf::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_TDataXtd_Array1OfTrsf.def("SetValue", (void (TDataXtd_Array1OfTrsf::*)(const Standard_Integer, const gp_Trsf &)) &TDataXtd_Array1OfTrsf::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_TDataXtd_Array1OfTrsf.def("Resize", (void (TDataXtd_Array1OfTrsf::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &TDataXtd_Array1OfTrsf::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_TDataXtd_Array1OfTrsf.def("__iter__", [](const TDataXtd_Array1OfTrsf &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDataXtd_Array1OfTrsf.hxx
+	bind_NCollection_Array1<gp_Trsf>(mod, "TDataXtd_Array1OfTrsf");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDataXtd_HArray1OfTrsf.hxx
 	py::class_<TDataXtd_HArray1OfTrsf, opencascade::handle<TDataXtd_HArray1OfTrsf>, TDataXtd_Array1OfTrsf, Standard_Transient> cls_TDataXtd_HArray1OfTrsf(mod, "TDataXtd_HArray1OfTrsf", "None");

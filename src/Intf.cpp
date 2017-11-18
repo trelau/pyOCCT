@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Bnd_Box2d.hxx>
 #include <Standard_TypeDef.hxx>
@@ -39,6 +30,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Intf_InterferencePolygon2d.hxx>
 #include <Intf.hxx>
 #include <gp_XYZ.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Intf, mod) {
 
@@ -183,175 +175,17 @@ PYBIND11_MODULE(Intf, mod) {
 	cls_Intf.def_static("PlaneEquation_", (void (*)(const gp_Pnt &, const gp_Pnt &, const gp_Pnt &, gp_XYZ &, Standard_Real &)) &Intf::PlaneEquation, "Computes the interference between two polygons in 2d. Result : points of intersections and zones of tangence. Computes the interference between a polygon or a straight line and a polyhedron. Points of intersection and zones of tangence. Give the plane equation of the triangle <P1> <P2> <P3>.", py::arg("P1"), py::arg("P2"), py::arg("P3"), py::arg("NormalVector"), py::arg("PolarDistance"));
 	cls_Intf.def_static("Contain_", (Standard_Boolean (*)(const gp_Pnt &, const gp_Pnt &, const gp_Pnt &, const gp_Pnt &)) &Intf::Contain, "Compute if the triangle <P1> <P2> <P3> contain <ThePnt>.", py::arg("P1"), py::arg("P2"), py::arg("P3"), py::arg("ThePnt"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Intf_SeqOfSectionPoint, std::unique_ptr<Intf_SeqOfSectionPoint, Deleter<Intf_SeqOfSectionPoint>>, NCollection_BaseSequence> cls_Intf_SeqOfSectionPoint(mod, "Intf_SeqOfSectionPoint", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Intf_SeqOfSectionPoint.def(py::init<>());
-	cls_Intf_SeqOfSectionPoint.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Intf_SeqOfSectionPoint.def(py::init([] (const Intf_SeqOfSectionPoint &other) {return new Intf_SeqOfSectionPoint(other);}), "Copy constructor", py::arg("other"));
-	cls_Intf_SeqOfSectionPoint.def("begin", (Intf_SeqOfSectionPoint::iterator (Intf_SeqOfSectionPoint::*)() const ) &Intf_SeqOfSectionPoint::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Intf_SeqOfSectionPoint.def("end", (Intf_SeqOfSectionPoint::iterator (Intf_SeqOfSectionPoint::*)() const ) &Intf_SeqOfSectionPoint::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Intf_SeqOfSectionPoint.def("cbegin", (Intf_SeqOfSectionPoint::const_iterator (Intf_SeqOfSectionPoint::*)() const ) &Intf_SeqOfSectionPoint::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Intf_SeqOfSectionPoint.def("cend", (Intf_SeqOfSectionPoint::const_iterator (Intf_SeqOfSectionPoint::*)() const ) &Intf_SeqOfSectionPoint::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Intf_SeqOfSectionPoint.def("Size", (Standard_Integer (Intf_SeqOfSectionPoint::*)() const ) &Intf_SeqOfSectionPoint::Size, "Number of items");
-	cls_Intf_SeqOfSectionPoint.def("Length", (Standard_Integer (Intf_SeqOfSectionPoint::*)() const ) &Intf_SeqOfSectionPoint::Length, "Number of items");
-	cls_Intf_SeqOfSectionPoint.def("Lower", (Standard_Integer (Intf_SeqOfSectionPoint::*)() const ) &Intf_SeqOfSectionPoint::Lower, "Method for consistency with other collections.");
-	cls_Intf_SeqOfSectionPoint.def("Upper", (Standard_Integer (Intf_SeqOfSectionPoint::*)() const ) &Intf_SeqOfSectionPoint::Upper, "Method for consistency with other collections.");
-	cls_Intf_SeqOfSectionPoint.def("IsEmpty", (Standard_Boolean (Intf_SeqOfSectionPoint::*)() const ) &Intf_SeqOfSectionPoint::IsEmpty, "Empty query");
-	cls_Intf_SeqOfSectionPoint.def("Reverse", (void (Intf_SeqOfSectionPoint::*)()) &Intf_SeqOfSectionPoint::Reverse, "Reverse sequence");
-	cls_Intf_SeqOfSectionPoint.def("Exchange", (void (Intf_SeqOfSectionPoint::*)(const Standard_Integer, const Standard_Integer)) &Intf_SeqOfSectionPoint::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Intf_SeqOfSectionPoint.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Intf_SeqOfSectionPoint::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Intf_SeqOfSectionPoint.def("Clear", [](Intf_SeqOfSectionPoint &self) -> void { return self.Clear(); });
-	cls_Intf_SeqOfSectionPoint.def("Clear", (void (Intf_SeqOfSectionPoint::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Intf_SeqOfSectionPoint::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Intf_SeqOfSectionPoint.def("Assign", (Intf_SeqOfSectionPoint & (Intf_SeqOfSectionPoint::*)(const Intf_SeqOfSectionPoint &)) &Intf_SeqOfSectionPoint::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Intf_SeqOfSectionPoint.def("assign", (Intf_SeqOfSectionPoint & (Intf_SeqOfSectionPoint::*)(const Intf_SeqOfSectionPoint &)) &Intf_SeqOfSectionPoint::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Intf_SeqOfSectionPoint.def("Remove", (void (Intf_SeqOfSectionPoint::*)(Intf_SeqOfSectionPoint::Iterator &)) &Intf_SeqOfSectionPoint::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Intf_SeqOfSectionPoint.def("Remove", (void (Intf_SeqOfSectionPoint::*)(const Standard_Integer)) &Intf_SeqOfSectionPoint::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Intf_SeqOfSectionPoint.def("Remove", (void (Intf_SeqOfSectionPoint::*)(const Standard_Integer, const Standard_Integer)) &Intf_SeqOfSectionPoint::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Intf_SeqOfSectionPoint.def("Append", (void (Intf_SeqOfSectionPoint::*)(const Intf_SectionPoint &)) &Intf_SeqOfSectionPoint::Append, "Append one item", py::arg("theItem"));
-	cls_Intf_SeqOfSectionPoint.def("Append", (void (Intf_SeqOfSectionPoint::*)(Intf_SeqOfSectionPoint &)) &Intf_SeqOfSectionPoint::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Intf_SeqOfSectionPoint.def("Prepend", (void (Intf_SeqOfSectionPoint::*)(const Intf_SectionPoint &)) &Intf_SeqOfSectionPoint::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Intf_SeqOfSectionPoint.def("Prepend", (void (Intf_SeqOfSectionPoint::*)(Intf_SeqOfSectionPoint &)) &Intf_SeqOfSectionPoint::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Intf_SeqOfSectionPoint.def("InsertBefore", (void (Intf_SeqOfSectionPoint::*)(const Standard_Integer, const Intf_SectionPoint &)) &Intf_SeqOfSectionPoint::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Intf_SeqOfSectionPoint.def("InsertBefore", (void (Intf_SeqOfSectionPoint::*)(const Standard_Integer, Intf_SeqOfSectionPoint &)) &Intf_SeqOfSectionPoint::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Intf_SeqOfSectionPoint.def("InsertAfter", (void (Intf_SeqOfSectionPoint::*)(Intf_SeqOfSectionPoint::Iterator &, const Intf_SectionPoint &)) &Intf_SeqOfSectionPoint::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Intf_SeqOfSectionPoint.def("InsertAfter", (void (Intf_SeqOfSectionPoint::*)(const Standard_Integer, Intf_SeqOfSectionPoint &)) &Intf_SeqOfSectionPoint::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Intf_SeqOfSectionPoint.def("InsertAfter", (void (Intf_SeqOfSectionPoint::*)(const Standard_Integer, const Intf_SectionPoint &)) &Intf_SeqOfSectionPoint::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Intf_SeqOfSectionPoint.def("Split", (void (Intf_SeqOfSectionPoint::*)(const Standard_Integer, Intf_SeqOfSectionPoint &)) &Intf_SeqOfSectionPoint::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Intf_SeqOfSectionPoint.def("First", (const Intf_SectionPoint & (Intf_SeqOfSectionPoint::*)() const ) &Intf_SeqOfSectionPoint::First, "First item access");
-	cls_Intf_SeqOfSectionPoint.def("ChangeFirst", (Intf_SectionPoint & (Intf_SeqOfSectionPoint::*)()) &Intf_SeqOfSectionPoint::ChangeFirst, "First item access");
-	cls_Intf_SeqOfSectionPoint.def("Last", (const Intf_SectionPoint & (Intf_SeqOfSectionPoint::*)() const ) &Intf_SeqOfSectionPoint::Last, "Last item access");
-	cls_Intf_SeqOfSectionPoint.def("ChangeLast", (Intf_SectionPoint & (Intf_SeqOfSectionPoint::*)()) &Intf_SeqOfSectionPoint::ChangeLast, "Last item access");
-	cls_Intf_SeqOfSectionPoint.def("Value", (const Intf_SectionPoint & (Intf_SeqOfSectionPoint::*)(const Standard_Integer) const ) &Intf_SeqOfSectionPoint::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Intf_SeqOfSectionPoint.def("__call__", (const Intf_SectionPoint & (Intf_SeqOfSectionPoint::*)(const Standard_Integer) const ) &Intf_SeqOfSectionPoint::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Intf_SeqOfSectionPoint.def("ChangeValue", (Intf_SectionPoint & (Intf_SeqOfSectionPoint::*)(const Standard_Integer)) &Intf_SeqOfSectionPoint::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Intf_SeqOfSectionPoint.def("__call__", (Intf_SectionPoint & (Intf_SeqOfSectionPoint::*)(const Standard_Integer)) &Intf_SeqOfSectionPoint::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Intf_SeqOfSectionPoint.def("SetValue", (void (Intf_SeqOfSectionPoint::*)(const Standard_Integer, const Intf_SectionPoint &)) &Intf_SeqOfSectionPoint::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Intf_SeqOfSectionPoint.def("__iter__", [](const Intf_SeqOfSectionPoint &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Intf_SeqOfSectionPoint.hxx
+	bind_NCollection_Sequence<Intf_SectionPoint>(mod, "Intf_SeqOfSectionPoint");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Intf_SeqOfSectionLine, std::unique_ptr<Intf_SeqOfSectionLine, Deleter<Intf_SeqOfSectionLine>>, NCollection_BaseSequence> cls_Intf_SeqOfSectionLine(mod, "Intf_SeqOfSectionLine", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Intf_SeqOfSectionLine.def(py::init<>());
-	cls_Intf_SeqOfSectionLine.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Intf_SeqOfSectionLine.def(py::init([] (const Intf_SeqOfSectionLine &other) {return new Intf_SeqOfSectionLine(other);}), "Copy constructor", py::arg("other"));
-	cls_Intf_SeqOfSectionLine.def("begin", (Intf_SeqOfSectionLine::iterator (Intf_SeqOfSectionLine::*)() const ) &Intf_SeqOfSectionLine::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Intf_SeqOfSectionLine.def("end", (Intf_SeqOfSectionLine::iterator (Intf_SeqOfSectionLine::*)() const ) &Intf_SeqOfSectionLine::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Intf_SeqOfSectionLine.def("cbegin", (Intf_SeqOfSectionLine::const_iterator (Intf_SeqOfSectionLine::*)() const ) &Intf_SeqOfSectionLine::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Intf_SeqOfSectionLine.def("cend", (Intf_SeqOfSectionLine::const_iterator (Intf_SeqOfSectionLine::*)() const ) &Intf_SeqOfSectionLine::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Intf_SeqOfSectionLine.def("Size", (Standard_Integer (Intf_SeqOfSectionLine::*)() const ) &Intf_SeqOfSectionLine::Size, "Number of items");
-	cls_Intf_SeqOfSectionLine.def("Length", (Standard_Integer (Intf_SeqOfSectionLine::*)() const ) &Intf_SeqOfSectionLine::Length, "Number of items");
-	cls_Intf_SeqOfSectionLine.def("Lower", (Standard_Integer (Intf_SeqOfSectionLine::*)() const ) &Intf_SeqOfSectionLine::Lower, "Method for consistency with other collections.");
-	cls_Intf_SeqOfSectionLine.def("Upper", (Standard_Integer (Intf_SeqOfSectionLine::*)() const ) &Intf_SeqOfSectionLine::Upper, "Method for consistency with other collections.");
-	cls_Intf_SeqOfSectionLine.def("IsEmpty", (Standard_Boolean (Intf_SeqOfSectionLine::*)() const ) &Intf_SeqOfSectionLine::IsEmpty, "Empty query");
-	cls_Intf_SeqOfSectionLine.def("Reverse", (void (Intf_SeqOfSectionLine::*)()) &Intf_SeqOfSectionLine::Reverse, "Reverse sequence");
-	cls_Intf_SeqOfSectionLine.def("Exchange", (void (Intf_SeqOfSectionLine::*)(const Standard_Integer, const Standard_Integer)) &Intf_SeqOfSectionLine::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Intf_SeqOfSectionLine.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Intf_SeqOfSectionLine::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Intf_SeqOfSectionLine.def("Clear", [](Intf_SeqOfSectionLine &self) -> void { return self.Clear(); });
-	cls_Intf_SeqOfSectionLine.def("Clear", (void (Intf_SeqOfSectionLine::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Intf_SeqOfSectionLine::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Intf_SeqOfSectionLine.def("Assign", (Intf_SeqOfSectionLine & (Intf_SeqOfSectionLine::*)(const Intf_SeqOfSectionLine &)) &Intf_SeqOfSectionLine::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Intf_SeqOfSectionLine.def("assign", (Intf_SeqOfSectionLine & (Intf_SeqOfSectionLine::*)(const Intf_SeqOfSectionLine &)) &Intf_SeqOfSectionLine::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Intf_SeqOfSectionLine.def("Remove", (void (Intf_SeqOfSectionLine::*)(Intf_SeqOfSectionLine::Iterator &)) &Intf_SeqOfSectionLine::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Intf_SeqOfSectionLine.def("Remove", (void (Intf_SeqOfSectionLine::*)(const Standard_Integer)) &Intf_SeqOfSectionLine::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Intf_SeqOfSectionLine.def("Remove", (void (Intf_SeqOfSectionLine::*)(const Standard_Integer, const Standard_Integer)) &Intf_SeqOfSectionLine::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Intf_SeqOfSectionLine.def("Append", (void (Intf_SeqOfSectionLine::*)(const Intf_SectionLine &)) &Intf_SeqOfSectionLine::Append, "Append one item", py::arg("theItem"));
-	cls_Intf_SeqOfSectionLine.def("Append", (void (Intf_SeqOfSectionLine::*)(Intf_SeqOfSectionLine &)) &Intf_SeqOfSectionLine::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Intf_SeqOfSectionLine.def("Prepend", (void (Intf_SeqOfSectionLine::*)(const Intf_SectionLine &)) &Intf_SeqOfSectionLine::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Intf_SeqOfSectionLine.def("Prepend", (void (Intf_SeqOfSectionLine::*)(Intf_SeqOfSectionLine &)) &Intf_SeqOfSectionLine::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Intf_SeqOfSectionLine.def("InsertBefore", (void (Intf_SeqOfSectionLine::*)(const Standard_Integer, const Intf_SectionLine &)) &Intf_SeqOfSectionLine::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Intf_SeqOfSectionLine.def("InsertBefore", (void (Intf_SeqOfSectionLine::*)(const Standard_Integer, Intf_SeqOfSectionLine &)) &Intf_SeqOfSectionLine::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Intf_SeqOfSectionLine.def("InsertAfter", (void (Intf_SeqOfSectionLine::*)(Intf_SeqOfSectionLine::Iterator &, const Intf_SectionLine &)) &Intf_SeqOfSectionLine::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Intf_SeqOfSectionLine.def("InsertAfter", (void (Intf_SeqOfSectionLine::*)(const Standard_Integer, Intf_SeqOfSectionLine &)) &Intf_SeqOfSectionLine::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Intf_SeqOfSectionLine.def("InsertAfter", (void (Intf_SeqOfSectionLine::*)(const Standard_Integer, const Intf_SectionLine &)) &Intf_SeqOfSectionLine::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Intf_SeqOfSectionLine.def("Split", (void (Intf_SeqOfSectionLine::*)(const Standard_Integer, Intf_SeqOfSectionLine &)) &Intf_SeqOfSectionLine::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Intf_SeqOfSectionLine.def("First", (const Intf_SectionLine & (Intf_SeqOfSectionLine::*)() const ) &Intf_SeqOfSectionLine::First, "First item access");
-	cls_Intf_SeqOfSectionLine.def("ChangeFirst", (Intf_SectionLine & (Intf_SeqOfSectionLine::*)()) &Intf_SeqOfSectionLine::ChangeFirst, "First item access");
-	cls_Intf_SeqOfSectionLine.def("Last", (const Intf_SectionLine & (Intf_SeqOfSectionLine::*)() const ) &Intf_SeqOfSectionLine::Last, "Last item access");
-	cls_Intf_SeqOfSectionLine.def("ChangeLast", (Intf_SectionLine & (Intf_SeqOfSectionLine::*)()) &Intf_SeqOfSectionLine::ChangeLast, "Last item access");
-	cls_Intf_SeqOfSectionLine.def("Value", (const Intf_SectionLine & (Intf_SeqOfSectionLine::*)(const Standard_Integer) const ) &Intf_SeqOfSectionLine::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Intf_SeqOfSectionLine.def("__call__", (const Intf_SectionLine & (Intf_SeqOfSectionLine::*)(const Standard_Integer) const ) &Intf_SeqOfSectionLine::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Intf_SeqOfSectionLine.def("ChangeValue", (Intf_SectionLine & (Intf_SeqOfSectionLine::*)(const Standard_Integer)) &Intf_SeqOfSectionLine::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Intf_SeqOfSectionLine.def("__call__", (Intf_SectionLine & (Intf_SeqOfSectionLine::*)(const Standard_Integer)) &Intf_SeqOfSectionLine::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Intf_SeqOfSectionLine.def("SetValue", (void (Intf_SeqOfSectionLine::*)(const Standard_Integer, const Intf_SectionLine &)) &Intf_SeqOfSectionLine::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Intf_SeqOfSectionLine.def("__iter__", [](const Intf_SeqOfSectionLine &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Intf_SeqOfSectionLine.hxx
+	bind_NCollection_Sequence<Intf_SectionLine>(mod, "Intf_SeqOfSectionLine");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Intf_SeqOfTangentZone, std::unique_ptr<Intf_SeqOfTangentZone, Deleter<Intf_SeqOfTangentZone>>, NCollection_BaseSequence> cls_Intf_SeqOfTangentZone(mod, "Intf_SeqOfTangentZone", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Intf_SeqOfTangentZone.def(py::init<>());
-	cls_Intf_SeqOfTangentZone.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Intf_SeqOfTangentZone.def(py::init([] (const Intf_SeqOfTangentZone &other) {return new Intf_SeqOfTangentZone(other);}), "Copy constructor", py::arg("other"));
-	cls_Intf_SeqOfTangentZone.def("begin", (Intf_SeqOfTangentZone::iterator (Intf_SeqOfTangentZone::*)() const ) &Intf_SeqOfTangentZone::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Intf_SeqOfTangentZone.def("end", (Intf_SeqOfTangentZone::iterator (Intf_SeqOfTangentZone::*)() const ) &Intf_SeqOfTangentZone::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Intf_SeqOfTangentZone.def("cbegin", (Intf_SeqOfTangentZone::const_iterator (Intf_SeqOfTangentZone::*)() const ) &Intf_SeqOfTangentZone::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Intf_SeqOfTangentZone.def("cend", (Intf_SeqOfTangentZone::const_iterator (Intf_SeqOfTangentZone::*)() const ) &Intf_SeqOfTangentZone::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Intf_SeqOfTangentZone.def("Size", (Standard_Integer (Intf_SeqOfTangentZone::*)() const ) &Intf_SeqOfTangentZone::Size, "Number of items");
-	cls_Intf_SeqOfTangentZone.def("Length", (Standard_Integer (Intf_SeqOfTangentZone::*)() const ) &Intf_SeqOfTangentZone::Length, "Number of items");
-	cls_Intf_SeqOfTangentZone.def("Lower", (Standard_Integer (Intf_SeqOfTangentZone::*)() const ) &Intf_SeqOfTangentZone::Lower, "Method for consistency with other collections.");
-	cls_Intf_SeqOfTangentZone.def("Upper", (Standard_Integer (Intf_SeqOfTangentZone::*)() const ) &Intf_SeqOfTangentZone::Upper, "Method for consistency with other collections.");
-	cls_Intf_SeqOfTangentZone.def("IsEmpty", (Standard_Boolean (Intf_SeqOfTangentZone::*)() const ) &Intf_SeqOfTangentZone::IsEmpty, "Empty query");
-	cls_Intf_SeqOfTangentZone.def("Reverse", (void (Intf_SeqOfTangentZone::*)()) &Intf_SeqOfTangentZone::Reverse, "Reverse sequence");
-	cls_Intf_SeqOfTangentZone.def("Exchange", (void (Intf_SeqOfTangentZone::*)(const Standard_Integer, const Standard_Integer)) &Intf_SeqOfTangentZone::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Intf_SeqOfTangentZone.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Intf_SeqOfTangentZone::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Intf_SeqOfTangentZone.def("Clear", [](Intf_SeqOfTangentZone &self) -> void { return self.Clear(); });
-	cls_Intf_SeqOfTangentZone.def("Clear", (void (Intf_SeqOfTangentZone::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Intf_SeqOfTangentZone::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Intf_SeqOfTangentZone.def("Assign", (Intf_SeqOfTangentZone & (Intf_SeqOfTangentZone::*)(const Intf_SeqOfTangentZone &)) &Intf_SeqOfTangentZone::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Intf_SeqOfTangentZone.def("assign", (Intf_SeqOfTangentZone & (Intf_SeqOfTangentZone::*)(const Intf_SeqOfTangentZone &)) &Intf_SeqOfTangentZone::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Intf_SeqOfTangentZone.def("Remove", (void (Intf_SeqOfTangentZone::*)(Intf_SeqOfTangentZone::Iterator &)) &Intf_SeqOfTangentZone::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Intf_SeqOfTangentZone.def("Remove", (void (Intf_SeqOfTangentZone::*)(const Standard_Integer)) &Intf_SeqOfTangentZone::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Intf_SeqOfTangentZone.def("Remove", (void (Intf_SeqOfTangentZone::*)(const Standard_Integer, const Standard_Integer)) &Intf_SeqOfTangentZone::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Intf_SeqOfTangentZone.def("Append", (void (Intf_SeqOfTangentZone::*)(const Intf_TangentZone &)) &Intf_SeqOfTangentZone::Append, "Append one item", py::arg("theItem"));
-	cls_Intf_SeqOfTangentZone.def("Append", (void (Intf_SeqOfTangentZone::*)(Intf_SeqOfTangentZone &)) &Intf_SeqOfTangentZone::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Intf_SeqOfTangentZone.def("Prepend", (void (Intf_SeqOfTangentZone::*)(const Intf_TangentZone &)) &Intf_SeqOfTangentZone::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Intf_SeqOfTangentZone.def("Prepend", (void (Intf_SeqOfTangentZone::*)(Intf_SeqOfTangentZone &)) &Intf_SeqOfTangentZone::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Intf_SeqOfTangentZone.def("InsertBefore", (void (Intf_SeqOfTangentZone::*)(const Standard_Integer, const Intf_TangentZone &)) &Intf_SeqOfTangentZone::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Intf_SeqOfTangentZone.def("InsertBefore", (void (Intf_SeqOfTangentZone::*)(const Standard_Integer, Intf_SeqOfTangentZone &)) &Intf_SeqOfTangentZone::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Intf_SeqOfTangentZone.def("InsertAfter", (void (Intf_SeqOfTangentZone::*)(Intf_SeqOfTangentZone::Iterator &, const Intf_TangentZone &)) &Intf_SeqOfTangentZone::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Intf_SeqOfTangentZone.def("InsertAfter", (void (Intf_SeqOfTangentZone::*)(const Standard_Integer, Intf_SeqOfTangentZone &)) &Intf_SeqOfTangentZone::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Intf_SeqOfTangentZone.def("InsertAfter", (void (Intf_SeqOfTangentZone::*)(const Standard_Integer, const Intf_TangentZone &)) &Intf_SeqOfTangentZone::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Intf_SeqOfTangentZone.def("Split", (void (Intf_SeqOfTangentZone::*)(const Standard_Integer, Intf_SeqOfTangentZone &)) &Intf_SeqOfTangentZone::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Intf_SeqOfTangentZone.def("First", (const Intf_TangentZone & (Intf_SeqOfTangentZone::*)() const ) &Intf_SeqOfTangentZone::First, "First item access");
-	cls_Intf_SeqOfTangentZone.def("ChangeFirst", (Intf_TangentZone & (Intf_SeqOfTangentZone::*)()) &Intf_SeqOfTangentZone::ChangeFirst, "First item access");
-	cls_Intf_SeqOfTangentZone.def("Last", (const Intf_TangentZone & (Intf_SeqOfTangentZone::*)() const ) &Intf_SeqOfTangentZone::Last, "Last item access");
-	cls_Intf_SeqOfTangentZone.def("ChangeLast", (Intf_TangentZone & (Intf_SeqOfTangentZone::*)()) &Intf_SeqOfTangentZone::ChangeLast, "Last item access");
-	cls_Intf_SeqOfTangentZone.def("Value", (const Intf_TangentZone & (Intf_SeqOfTangentZone::*)(const Standard_Integer) const ) &Intf_SeqOfTangentZone::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Intf_SeqOfTangentZone.def("__call__", (const Intf_TangentZone & (Intf_SeqOfTangentZone::*)(const Standard_Integer) const ) &Intf_SeqOfTangentZone::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Intf_SeqOfTangentZone.def("ChangeValue", (Intf_TangentZone & (Intf_SeqOfTangentZone::*)(const Standard_Integer)) &Intf_SeqOfTangentZone::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Intf_SeqOfTangentZone.def("__call__", (Intf_TangentZone & (Intf_SeqOfTangentZone::*)(const Standard_Integer)) &Intf_SeqOfTangentZone::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Intf_SeqOfTangentZone.def("SetValue", (void (Intf_SeqOfTangentZone::*)(const Standard_Integer, const Intf_TangentZone &)) &Intf_SeqOfTangentZone::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Intf_SeqOfTangentZone.def("__iter__", [](const Intf_SeqOfTangentZone &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Intf_SeqOfTangentZone.hxx
+	bind_NCollection_Sequence<Intf_TangentZone>(mod, "Intf_SeqOfTangentZone");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Intf_Array1OfLin, std::unique_ptr<Intf_Array1OfLin, Deleter<Intf_Array1OfLin>>> cls_Intf_Array1OfLin(mod, "Intf_Array1OfLin", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Intf_Array1OfLin.def(py::init<>());
-	cls_Intf_Array1OfLin.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Intf_Array1OfLin.def(py::init([] (const Intf_Array1OfLin &other) {return new Intf_Array1OfLin(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Intf_Array1OfLin.def(py::init<Intf_Array1OfLin &&>(), py::arg("theOther"));
-	cls_Intf_Array1OfLin.def(py::init<const gp_Lin &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Intf_Array1OfLin.def("begin", (Intf_Array1OfLin::iterator (Intf_Array1OfLin::*)() const ) &Intf_Array1OfLin::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Intf_Array1OfLin.def("end", (Intf_Array1OfLin::iterator (Intf_Array1OfLin::*)() const ) &Intf_Array1OfLin::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Intf_Array1OfLin.def("cbegin", (Intf_Array1OfLin::const_iterator (Intf_Array1OfLin::*)() const ) &Intf_Array1OfLin::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Intf_Array1OfLin.def("cend", (Intf_Array1OfLin::const_iterator (Intf_Array1OfLin::*)() const ) &Intf_Array1OfLin::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Intf_Array1OfLin.def("Init", (void (Intf_Array1OfLin::*)(const gp_Lin &)) &Intf_Array1OfLin::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Intf_Array1OfLin.def("Size", (Standard_Integer (Intf_Array1OfLin::*)() const ) &Intf_Array1OfLin::Size, "Size query");
-	cls_Intf_Array1OfLin.def("Length", (Standard_Integer (Intf_Array1OfLin::*)() const ) &Intf_Array1OfLin::Length, "Length query (the same)");
-	cls_Intf_Array1OfLin.def("IsEmpty", (Standard_Boolean (Intf_Array1OfLin::*)() const ) &Intf_Array1OfLin::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Intf_Array1OfLin.def("Lower", (Standard_Integer (Intf_Array1OfLin::*)() const ) &Intf_Array1OfLin::Lower, "Lower bound");
-	cls_Intf_Array1OfLin.def("Upper", (Standard_Integer (Intf_Array1OfLin::*)() const ) &Intf_Array1OfLin::Upper, "Upper bound");
-	cls_Intf_Array1OfLin.def("IsDeletable", (Standard_Boolean (Intf_Array1OfLin::*)() const ) &Intf_Array1OfLin::IsDeletable, "myDeletable flag");
-	cls_Intf_Array1OfLin.def("IsAllocated", (Standard_Boolean (Intf_Array1OfLin::*)() const ) &Intf_Array1OfLin::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Intf_Array1OfLin.def("Assign", (Intf_Array1OfLin & (Intf_Array1OfLin::*)(const Intf_Array1OfLin &)) &Intf_Array1OfLin::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Intf_Array1OfLin.def("Move", (Intf_Array1OfLin & (Intf_Array1OfLin::*)(Intf_Array1OfLin &&)) &Intf_Array1OfLin::Move, "Move assignment", py::arg("theOther"));
-	cls_Intf_Array1OfLin.def("assign", (Intf_Array1OfLin & (Intf_Array1OfLin::*)(const Intf_Array1OfLin &)) &Intf_Array1OfLin::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Intf_Array1OfLin.def("assign", (Intf_Array1OfLin & (Intf_Array1OfLin::*)(Intf_Array1OfLin &&)) &Intf_Array1OfLin::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Intf_Array1OfLin.def("First", (const gp_Lin & (Intf_Array1OfLin::*)() const ) &Intf_Array1OfLin::First, "Returns first element");
-	cls_Intf_Array1OfLin.def("ChangeFirst", (gp_Lin & (Intf_Array1OfLin::*)()) &Intf_Array1OfLin::ChangeFirst, "Returns first element");
-	cls_Intf_Array1OfLin.def("Last", (const gp_Lin & (Intf_Array1OfLin::*)() const ) &Intf_Array1OfLin::Last, "Returns last element");
-	cls_Intf_Array1OfLin.def("ChangeLast", (gp_Lin & (Intf_Array1OfLin::*)()) &Intf_Array1OfLin::ChangeLast, "Returns last element");
-	cls_Intf_Array1OfLin.def("Value", (const gp_Lin & (Intf_Array1OfLin::*)(const Standard_Integer) const ) &Intf_Array1OfLin::Value, "Constant value access", py::arg("theIndex"));
-	cls_Intf_Array1OfLin.def("__call__", (const gp_Lin & (Intf_Array1OfLin::*)(const Standard_Integer) const ) &Intf_Array1OfLin::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Intf_Array1OfLin.def("ChangeValue", (gp_Lin & (Intf_Array1OfLin::*)(const Standard_Integer)) &Intf_Array1OfLin::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Intf_Array1OfLin.def("__call__", (gp_Lin & (Intf_Array1OfLin::*)(const Standard_Integer)) &Intf_Array1OfLin::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Intf_Array1OfLin.def("SetValue", (void (Intf_Array1OfLin::*)(const Standard_Integer, const gp_Lin &)) &Intf_Array1OfLin::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Intf_Array1OfLin.def("Resize", (void (Intf_Array1OfLin::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Intf_Array1OfLin::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Intf_Array1OfLin.def("__iter__", [](const Intf_Array1OfLin &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Intf_Array1OfLin.hxx
+	bind_NCollection_Array1<gp_Lin>(mod, "Intf_Array1OfLin");
 
 
 }

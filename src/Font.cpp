@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Font_FontAspect.hxx>
 #include <NCollection_Vec2.hxx>
@@ -36,6 +27,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Font_NListOfSystemFont.hxx>
 #include <Font_FontMgr.hxx>
 #include <TColStd_SequenceOfHAsciiString.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Font, mod) {
 
@@ -219,37 +211,8 @@ PYBIND11_MODULE(Font, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Font_FTFont.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Font_FTFont.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<Font_NListOfSystemFont, std::unique_ptr<Font_NListOfSystemFont, Deleter<Font_NListOfSystemFont>>, NCollection_BaseList> cls_Font_NListOfSystemFont(mod, "Font_NListOfSystemFont", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_Font_NListOfSystemFont.def(py::init<>());
-	cls_Font_NListOfSystemFont.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Font_NListOfSystemFont.def(py::init([] (const Font_NListOfSystemFont &other) {return new Font_NListOfSystemFont(other);}), "Copy constructor", py::arg("other"));
-	cls_Font_NListOfSystemFont.def("begin", (Font_NListOfSystemFont::iterator (Font_NListOfSystemFont::*)() const ) &Font_NListOfSystemFont::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_Font_NListOfSystemFont.def("end", (Font_NListOfSystemFont::iterator (Font_NListOfSystemFont::*)() const ) &Font_NListOfSystemFont::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_Font_NListOfSystemFont.def("cbegin", (Font_NListOfSystemFont::const_iterator (Font_NListOfSystemFont::*)() const ) &Font_NListOfSystemFont::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_Font_NListOfSystemFont.def("cend", (Font_NListOfSystemFont::const_iterator (Font_NListOfSystemFont::*)() const ) &Font_NListOfSystemFont::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_Font_NListOfSystemFont.def("Size", (Standard_Integer (Font_NListOfSystemFont::*)() const ) &Font_NListOfSystemFont::Size, "Size - Number of items");
-	cls_Font_NListOfSystemFont.def("Assign", (Font_NListOfSystemFont & (Font_NListOfSystemFont::*)(const Font_NListOfSystemFont &)) &Font_NListOfSystemFont::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Font_NListOfSystemFont.def("assign", (Font_NListOfSystemFont & (Font_NListOfSystemFont::*)(const Font_NListOfSystemFont &)) &Font_NListOfSystemFont::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Font_NListOfSystemFont.def("Clear", [](Font_NListOfSystemFont &self) -> void { return self.Clear(); });
-	cls_Font_NListOfSystemFont.def("Clear", (void (Font_NListOfSystemFont::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Font_NListOfSystemFont::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_Font_NListOfSystemFont.def("First", (const opencascade::handle<Font_SystemFont> & (Font_NListOfSystemFont::*)() const ) &Font_NListOfSystemFont::First, "First item");
-	cls_Font_NListOfSystemFont.def("First", (opencascade::handle<Font_SystemFont> & (Font_NListOfSystemFont::*)()) &Font_NListOfSystemFont::First, "First item (non-const)");
-	cls_Font_NListOfSystemFont.def("Last", (const opencascade::handle<Font_SystemFont> & (Font_NListOfSystemFont::*)() const ) &Font_NListOfSystemFont::Last, "Last item");
-	cls_Font_NListOfSystemFont.def("Last", (opencascade::handle<Font_SystemFont> & (Font_NListOfSystemFont::*)()) &Font_NListOfSystemFont::Last, "Last item (non-const)");
-	cls_Font_NListOfSystemFont.def("Append", (opencascade::handle<Font_SystemFont> & (Font_NListOfSystemFont::*)(const opencascade::handle<Font_SystemFont> &)) &Font_NListOfSystemFont::Append, "Append one item at the end", py::arg("theItem"));
-	cls_Font_NListOfSystemFont.def("Append", (void (Font_NListOfSystemFont::*)(const opencascade::handle<Font_SystemFont> &, Font_NListOfSystemFont::Iterator &)) &Font_NListOfSystemFont::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_Font_NListOfSystemFont.def("Append", (void (Font_NListOfSystemFont::*)(Font_NListOfSystemFont &)) &Font_NListOfSystemFont::Append, "Append another list at the end", py::arg("theOther"));
-	cls_Font_NListOfSystemFont.def("Prepend", (opencascade::handle<Font_SystemFont> & (Font_NListOfSystemFont::*)(const opencascade::handle<Font_SystemFont> &)) &Font_NListOfSystemFont::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_Font_NListOfSystemFont.def("Prepend", (void (Font_NListOfSystemFont::*)(Font_NListOfSystemFont &)) &Font_NListOfSystemFont::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_Font_NListOfSystemFont.def("RemoveFirst", (void (Font_NListOfSystemFont::*)()) &Font_NListOfSystemFont::RemoveFirst, "RemoveFirst item");
-	cls_Font_NListOfSystemFont.def("Remove", (void (Font_NListOfSystemFont::*)(Font_NListOfSystemFont::Iterator &)) &Font_NListOfSystemFont::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_Font_NListOfSystemFont.def("InsertBefore", (opencascade::handle<Font_SystemFont> & (Font_NListOfSystemFont::*)(const opencascade::handle<Font_SystemFont> &, Font_NListOfSystemFont::Iterator &)) &Font_NListOfSystemFont::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_Font_NListOfSystemFont.def("InsertBefore", (void (Font_NListOfSystemFont::*)(Font_NListOfSystemFont &, Font_NListOfSystemFont::Iterator &)) &Font_NListOfSystemFont::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_Font_NListOfSystemFont.def("InsertAfter", (opencascade::handle<Font_SystemFont> & (Font_NListOfSystemFont::*)(const opencascade::handle<Font_SystemFont> &, Font_NListOfSystemFont::Iterator &)) &Font_NListOfSystemFont::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_Font_NListOfSystemFont.def("InsertAfter", (void (Font_NListOfSystemFont::*)(Font_NListOfSystemFont &, Font_NListOfSystemFont::Iterator &)) &Font_NListOfSystemFont::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_Font_NListOfSystemFont.def("Reverse", (void (Font_NListOfSystemFont::*)()) &Font_NListOfSystemFont::Reverse, "Reverse the list");
-	cls_Font_NListOfSystemFont.def("__iter__", [](const Font_NListOfSystemFont &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Font_NListOfSystemFont.hxx
+	bind_NCollection_List<opencascade::handle<Font_SystemFont> >(mod, "Font_NListOfSystemFont");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Font_FTLibrary.hxx
 

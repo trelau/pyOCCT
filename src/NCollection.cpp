@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <gp_XYZ.hxx>
 #include <gp_XY.hxx>
@@ -17,15 +8,34 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_BaseAllocator.hxx>
 #include <Standard_TypeDef.hxx>
 #include <Standard_Type.hxx>
+#include <NCollection_StlIterator.hxx>
+#include <NCollection_Array1.hxx>
+#include <NCollection_Vec2.hxx>
+#include <NCollection_Vec3.hxx>
+#include <NCollection_Vec4.hxx>
+#include <NCollection_Mat4.hxx>
+#include <NCollection_Array2.hxx>
 #include <NCollection_BaseSequence.hxx>
+#include <NCollection_Sequence.hxx>
 #include <NCollection_Buffer.hxx>
 #include <NCollection_ListNode.hxx>
 #include <NCollection_BaseList.hxx>
+#include <NCollection_List.hxx>
 #include <NCollection_BaseVector.hxx>
+#include <NCollection_Vector.hxx>
 #include <NCollection_BaseMap.hxx>
 #include <Standard_OStream.hxx>
+#include <NCollection_DataMap.hxx>
+#include <NCollection_Map.hxx>
+#include <NCollection_IndexedMap.hxx>
+#include <NCollection_IndexedDataMap.hxx>
+#include <NCollection_Handle.hxx>
+#include <NCollection_DoubleMap.hxx>
+#include <NCollection_UBTree.hxx>
 #include <NCollection_IncAllocator.hxx>
 #include <NCollection_CellFilter.hxx>
+#include <NCollection_UBTreeFiller.hxx>
+#include <NCollection_EBTree.hxx>
 #include <NCollection_StdAllocator.hxx>
 #include <NCollection_UtfIterator.hxx>
 #include <NCollection_UtfString.hxx>
@@ -34,7 +44,9 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_AlignedAllocator.hxx>
 #include <NCollection_HeapAllocator.hxx>
 #include <NCollection_SparseArrayBase.hxx>
+#include <NCollection_SparseArray.hxx>
 #include <NCollection_WinHeapAllocator.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(NCollection, mod) {
 
@@ -222,251 +234,40 @@ PYBIND11_MODULE(NCollection, mod) {
 	cls_NCollection_WinHeapAllocator.def("DynamicType", (const opencascade::handle<Standard_Type> & (NCollection_WinHeapAllocator::*)() const ) &NCollection_WinHeapAllocator::DynamicType, "None");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_BaseSequence.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_BaseList.hxx
 	if (py::hasattr(mod, "NCollection_DelMapNode")) {
 		mod.attr("NCollection_DelListNode") = mod.attr("NCollection_DelMapNode");
 	}
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_BaseMap.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_UtfIterator.hxx
-	py::class_<NCollection_Utf8Iter, std::unique_ptr<NCollection_Utf8Iter, Deleter<NCollection_Utf8Iter>>> cls_NCollection_Utf8Iter(mod, "NCollection_Utf8Iter", "Template class for Unicode strings support. It defines an iterator and provide correct way to read multi-byte text (UTF-8 and UTF-16) and convert it from one to another. The current value of iterator returned as UTF-32 Unicode code.");
-	cls_NCollection_Utf8Iter.def(py::init<const Standard_Utf8Char *>(), py::arg("theString"));
-	cls_NCollection_Utf8Iter.def("Init", (void (NCollection_Utf8Iter::*)(const Standard_Utf8Char *)) &NCollection_Utf8Iter::Init, "Initialize iterator within specified NULL-terminated string.", py::arg("theString"));
-	cls_NCollection_Utf8Iter.def("plus_plus", (NCollection_Utf8Iter & (NCollection_Utf8Iter::*)()) &NCollection_Utf8Iter::operator++, py::is_operator(), "Pre-increment operator. Reads the next unicode character. Notice - no protection against overrun!");
-	cls_NCollection_Utf8Iter.def("plus_plus", (NCollection_Utf8Iter (NCollection_Utf8Iter::*)(int)) &NCollection_Utf8Iter::operator++, py::is_operator(), "Post-increment operator. Notice - no protection against overrun!", py::arg(""));
-	cls_NCollection_Utf8Iter.def("__eq__", (bool (NCollection_Utf8Iter::*)(const NCollection_Utf8Iter &) const ) &NCollection_Utf8Iter::operator==, py::is_operator(), "Equality operator.", py::arg("theRight"));
-	cls_NCollection_Utf8Iter.def("IsValid", (bool (NCollection_Utf8Iter::*)() const ) &NCollection_Utf8Iter::IsValid, "Return true if Unicode symbol is within valid range.");
-	cls_NCollection_Utf8Iter.def("__mul__", (Standard_Utf32Char (NCollection_Utf8Iter::*)() const ) &NCollection_Utf8Iter::operator*, py::is_operator(), "Dereference operator.");
-	cls_NCollection_Utf8Iter.def("BufferHere", (const Standard_Utf8Char * (NCollection_Utf8Iter::*)() const ) &NCollection_Utf8Iter::BufferHere, "Buffer-fetching getter.");
-	cls_NCollection_Utf8Iter.def("ChangeBufferHere", (Standard_Utf8Char * (NCollection_Utf8Iter::*)()) &NCollection_Utf8Iter::ChangeBufferHere, "Buffer-fetching getter. Dangerous! Iterator should be reinitialized on buffer change.");
-	cls_NCollection_Utf8Iter.def("BufferNext", (const Standard_Utf8Char * (NCollection_Utf8Iter::*)() const ) &NCollection_Utf8Iter::BufferNext, "Buffer-fetching getter.");
-	cls_NCollection_Utf8Iter.def("Index", (Standard_Integer (NCollection_Utf8Iter::*)() const ) &NCollection_Utf8Iter::Index, "Returns the index displacement from iterator intialization");
-	cls_NCollection_Utf8Iter.def("AdvanceBytesUtf8", (Standard_Integer (NCollection_Utf8Iter::*)() const ) &NCollection_Utf8Iter::AdvanceBytesUtf8, "Returns the advance in bytes to store current symbol in UTF-8. 0 means an invalid symbol; 1-4 bytes are valid range.");
-	cls_NCollection_Utf8Iter.def("AdvanceBytesUtf16", (Standard_Integer (NCollection_Utf8Iter::*)() const ) &NCollection_Utf8Iter::AdvanceBytesUtf16, "Returns the advance in bytes to store current symbol in UTF-16. 0 means an invalid symbol; 2 bytes is a general case; 4 bytes for surrogate pair.");
-	cls_NCollection_Utf8Iter.def("AdvanceCodeUnitsUtf16", (Standard_Integer (NCollection_Utf8Iter::*)() const ) &NCollection_Utf8Iter::AdvanceCodeUnitsUtf16, "Returns the advance in bytes to store current symbol in UTF-16. 0 means an invalid symbol; 1 16-bit code unit is a general case; 2 16-bit code units for surrogate pair.");
-	cls_NCollection_Utf8Iter.def("AdvanceBytesUtf32", (Standard_Integer (NCollection_Utf8Iter::*)() const ) &NCollection_Utf8Iter::AdvanceBytesUtf32, "Returns the advance in bytes to store current symbol in UTF-32. Always 4 bytes (method for consistency).");
-	cls_NCollection_Utf8Iter.def("GetUtf8", (Standard_Utf8Char * (NCollection_Utf8Iter::*)(Standard_Utf8Char *) const ) &NCollection_Utf8Iter::GetUtf8, "Fill the UTF-8 buffer within current Unicode symbol. Use method AdvanceUtf8() to allocate buffer with enough size.", py::arg("theBuffer"));
-	cls_NCollection_Utf8Iter.def("GetUtf8", (Standard_Utf8UChar * (NCollection_Utf8Iter::*)(Standard_Utf8UChar *) const ) &NCollection_Utf8Iter::GetUtf8, "None", py::arg("theBuffer"));
-	cls_NCollection_Utf8Iter.def("GetUtf16", (Standard_Utf16Char * (NCollection_Utf8Iter::*)(Standard_Utf16Char *) const ) &NCollection_Utf8Iter::GetUtf16, "Fill the UTF-16 buffer within current Unicode symbol. Use method AdvanceUtf16() to allocate buffer with enough size.", py::arg("theBuffer"));
-	cls_NCollection_Utf8Iter.def("GetUtf32", (Standard_Utf32Char * (NCollection_Utf8Iter::*)(Standard_Utf32Char *) const ) &NCollection_Utf8Iter::GetUtf32, "Fill the UTF-32 buffer within current Unicode symbol. Use method AdvanceUtf32() to allocate buffer with enough size.", py::arg("theBuffer"));
+	bind_NCollection_UtfIterator<char>(mod, "NCollection_Utf8Iter");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_UtfIterator.hxx
-	py::class_<NCollection_Utf16Iter, std::unique_ptr<NCollection_Utf16Iter, Deleter<NCollection_Utf16Iter>>> cls_NCollection_Utf16Iter(mod, "NCollection_Utf16Iter", "Template class for Unicode strings support. It defines an iterator and provide correct way to read multi-byte text (UTF-8 and UTF-16) and convert it from one to another. The current value of iterator returned as UTF-32 Unicode code.");
-	cls_NCollection_Utf16Iter.def(py::init<const Standard_Utf16Char *>(), py::arg("theString"));
-	cls_NCollection_Utf16Iter.def("Init", (void (NCollection_Utf16Iter::*)(const Standard_Utf16Char *)) &NCollection_Utf16Iter::Init, "Initialize iterator within specified NULL-terminated string.", py::arg("theString"));
-	cls_NCollection_Utf16Iter.def("plus_plus", (NCollection_Utf16Iter & (NCollection_Utf16Iter::*)()) &NCollection_Utf16Iter::operator++, py::is_operator(), "Pre-increment operator. Reads the next unicode character. Notice - no protection against overrun!");
-	cls_NCollection_Utf16Iter.def("plus_plus", (NCollection_Utf16Iter (NCollection_Utf16Iter::*)(int)) &NCollection_Utf16Iter::operator++, py::is_operator(), "Post-increment operator. Notice - no protection against overrun!", py::arg(""));
-	cls_NCollection_Utf16Iter.def("__eq__", (bool (NCollection_Utf16Iter::*)(const NCollection_Utf16Iter &) const ) &NCollection_Utf16Iter::operator==, py::is_operator(), "Equality operator.", py::arg("theRight"));
-	cls_NCollection_Utf16Iter.def("IsValid", (bool (NCollection_Utf16Iter::*)() const ) &NCollection_Utf16Iter::IsValid, "Return true if Unicode symbol is within valid range.");
-	cls_NCollection_Utf16Iter.def("__mul__", (Standard_Utf32Char (NCollection_Utf16Iter::*)() const ) &NCollection_Utf16Iter::operator*, py::is_operator(), "Dereference operator.");
-	cls_NCollection_Utf16Iter.def("BufferHere", (const Standard_Utf16Char * (NCollection_Utf16Iter::*)() const ) &NCollection_Utf16Iter::BufferHere, "Buffer-fetching getter.");
-	cls_NCollection_Utf16Iter.def("ChangeBufferHere", (Standard_Utf16Char * (NCollection_Utf16Iter::*)()) &NCollection_Utf16Iter::ChangeBufferHere, "Buffer-fetching getter. Dangerous! Iterator should be reinitialized on buffer change.");
-	cls_NCollection_Utf16Iter.def("BufferNext", (const Standard_Utf16Char * (NCollection_Utf16Iter::*)() const ) &NCollection_Utf16Iter::BufferNext, "Buffer-fetching getter.");
-	cls_NCollection_Utf16Iter.def("Index", (Standard_Integer (NCollection_Utf16Iter::*)() const ) &NCollection_Utf16Iter::Index, "Returns the index displacement from iterator intialization");
-	cls_NCollection_Utf16Iter.def("AdvanceBytesUtf8", (Standard_Integer (NCollection_Utf16Iter::*)() const ) &NCollection_Utf16Iter::AdvanceBytesUtf8, "Returns the advance in bytes to store current symbol in UTF-8. 0 means an invalid symbol; 1-4 bytes are valid range.");
-	cls_NCollection_Utf16Iter.def("AdvanceBytesUtf16", (Standard_Integer (NCollection_Utf16Iter::*)() const ) &NCollection_Utf16Iter::AdvanceBytesUtf16, "Returns the advance in bytes to store current symbol in UTF-16. 0 means an invalid symbol; 2 bytes is a general case; 4 bytes for surrogate pair.");
-	cls_NCollection_Utf16Iter.def("AdvanceCodeUnitsUtf16", (Standard_Integer (NCollection_Utf16Iter::*)() const ) &NCollection_Utf16Iter::AdvanceCodeUnitsUtf16, "Returns the advance in bytes to store current symbol in UTF-16. 0 means an invalid symbol; 1 16-bit code unit is a general case; 2 16-bit code units for surrogate pair.");
-	cls_NCollection_Utf16Iter.def("AdvanceBytesUtf32", (Standard_Integer (NCollection_Utf16Iter::*)() const ) &NCollection_Utf16Iter::AdvanceBytesUtf32, "Returns the advance in bytes to store current symbol in UTF-32. Always 4 bytes (method for consistency).");
-	cls_NCollection_Utf16Iter.def("GetUtf8", (Standard_Utf8Char * (NCollection_Utf16Iter::*)(Standard_Utf8Char *) const ) &NCollection_Utf16Iter::GetUtf8, "Fill the UTF-8 buffer within current Unicode symbol. Use method AdvanceUtf8() to allocate buffer with enough size.", py::arg("theBuffer"));
-	cls_NCollection_Utf16Iter.def("GetUtf8", (Standard_Utf8UChar * (NCollection_Utf16Iter::*)(Standard_Utf8UChar *) const ) &NCollection_Utf16Iter::GetUtf8, "None", py::arg("theBuffer"));
-	cls_NCollection_Utf16Iter.def("GetUtf16", (Standard_Utf16Char * (NCollection_Utf16Iter::*)(Standard_Utf16Char *) const ) &NCollection_Utf16Iter::GetUtf16, "Fill the UTF-16 buffer within current Unicode symbol. Use method AdvanceUtf16() to allocate buffer with enough size.", py::arg("theBuffer"));
-	cls_NCollection_Utf16Iter.def("GetUtf32", (Standard_Utf32Char * (NCollection_Utf16Iter::*)(Standard_Utf32Char *) const ) &NCollection_Utf16Iter::GetUtf32, "Fill the UTF-32 buffer within current Unicode symbol. Use method AdvanceUtf32() to allocate buffer with enough size.", py::arg("theBuffer"));
+	bind_NCollection_UtfIterator<char16_t>(mod, "NCollection_Utf16Iter");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_UtfIterator.hxx
-	py::class_<NCollection_Utf32Iter, std::unique_ptr<NCollection_Utf32Iter, Deleter<NCollection_Utf32Iter>>> cls_NCollection_Utf32Iter(mod, "NCollection_Utf32Iter", "Template class for Unicode strings support. It defines an iterator and provide correct way to read multi-byte text (UTF-8 and UTF-16) and convert it from one to another. The current value of iterator returned as UTF-32 Unicode code.");
-	cls_NCollection_Utf32Iter.def(py::init<const Standard_Utf32Char *>(), py::arg("theString"));
-	cls_NCollection_Utf32Iter.def("Init", (void (NCollection_Utf32Iter::*)(const Standard_Utf32Char *)) &NCollection_Utf32Iter::Init, "Initialize iterator within specified NULL-terminated string.", py::arg("theString"));
-	cls_NCollection_Utf32Iter.def("plus_plus", (NCollection_Utf32Iter & (NCollection_Utf32Iter::*)()) &NCollection_Utf32Iter::operator++, py::is_operator(), "Pre-increment operator. Reads the next unicode character. Notice - no protection against overrun!");
-	cls_NCollection_Utf32Iter.def("plus_plus", (NCollection_Utf32Iter (NCollection_Utf32Iter::*)(int)) &NCollection_Utf32Iter::operator++, py::is_operator(), "Post-increment operator. Notice - no protection against overrun!", py::arg(""));
-	cls_NCollection_Utf32Iter.def("__eq__", (bool (NCollection_Utf32Iter::*)(const NCollection_Utf32Iter &) const ) &NCollection_Utf32Iter::operator==, py::is_operator(), "Equality operator.", py::arg("theRight"));
-	cls_NCollection_Utf32Iter.def("IsValid", (bool (NCollection_Utf32Iter::*)() const ) &NCollection_Utf32Iter::IsValid, "Return true if Unicode symbol is within valid range.");
-	cls_NCollection_Utf32Iter.def("__mul__", (Standard_Utf32Char (NCollection_Utf32Iter::*)() const ) &NCollection_Utf32Iter::operator*, py::is_operator(), "Dereference operator.");
-	cls_NCollection_Utf32Iter.def("BufferHere", (const Standard_Utf32Char * (NCollection_Utf32Iter::*)() const ) &NCollection_Utf32Iter::BufferHere, "Buffer-fetching getter.");
-	cls_NCollection_Utf32Iter.def("ChangeBufferHere", (Standard_Utf32Char * (NCollection_Utf32Iter::*)()) &NCollection_Utf32Iter::ChangeBufferHere, "Buffer-fetching getter. Dangerous! Iterator should be reinitialized on buffer change.");
-	cls_NCollection_Utf32Iter.def("BufferNext", (const Standard_Utf32Char * (NCollection_Utf32Iter::*)() const ) &NCollection_Utf32Iter::BufferNext, "Buffer-fetching getter.");
-	cls_NCollection_Utf32Iter.def("Index", (Standard_Integer (NCollection_Utf32Iter::*)() const ) &NCollection_Utf32Iter::Index, "Returns the index displacement from iterator intialization");
-	cls_NCollection_Utf32Iter.def("AdvanceBytesUtf8", (Standard_Integer (NCollection_Utf32Iter::*)() const ) &NCollection_Utf32Iter::AdvanceBytesUtf8, "Returns the advance in bytes to store current symbol in UTF-8. 0 means an invalid symbol; 1-4 bytes are valid range.");
-	cls_NCollection_Utf32Iter.def("AdvanceBytesUtf16", (Standard_Integer (NCollection_Utf32Iter::*)() const ) &NCollection_Utf32Iter::AdvanceBytesUtf16, "Returns the advance in bytes to store current symbol in UTF-16. 0 means an invalid symbol; 2 bytes is a general case; 4 bytes for surrogate pair.");
-	cls_NCollection_Utf32Iter.def("AdvanceCodeUnitsUtf16", (Standard_Integer (NCollection_Utf32Iter::*)() const ) &NCollection_Utf32Iter::AdvanceCodeUnitsUtf16, "Returns the advance in bytes to store current symbol in UTF-16. 0 means an invalid symbol; 1 16-bit code unit is a general case; 2 16-bit code units for surrogate pair.");
-	cls_NCollection_Utf32Iter.def("AdvanceBytesUtf32", (Standard_Integer (NCollection_Utf32Iter::*)() const ) &NCollection_Utf32Iter::AdvanceBytesUtf32, "Returns the advance in bytes to store current symbol in UTF-32. Always 4 bytes (method for consistency).");
-	cls_NCollection_Utf32Iter.def("GetUtf8", (Standard_Utf8Char * (NCollection_Utf32Iter::*)(Standard_Utf8Char *) const ) &NCollection_Utf32Iter::GetUtf8, "Fill the UTF-8 buffer within current Unicode symbol. Use method AdvanceUtf8() to allocate buffer with enough size.", py::arg("theBuffer"));
-	cls_NCollection_Utf32Iter.def("GetUtf8", (Standard_Utf8UChar * (NCollection_Utf32Iter::*)(Standard_Utf8UChar *) const ) &NCollection_Utf32Iter::GetUtf8, "None", py::arg("theBuffer"));
-	cls_NCollection_Utf32Iter.def("GetUtf16", (Standard_Utf16Char * (NCollection_Utf32Iter::*)(Standard_Utf16Char *) const ) &NCollection_Utf32Iter::GetUtf16, "Fill the UTF-16 buffer within current Unicode symbol. Use method AdvanceUtf16() to allocate buffer with enough size.", py::arg("theBuffer"));
-	cls_NCollection_Utf32Iter.def("GetUtf32", (Standard_Utf32Char * (NCollection_Utf32Iter::*)(Standard_Utf32Char *) const ) &NCollection_Utf32Iter::GetUtf32, "Fill the UTF-32 buffer within current Unicode symbol. Use method AdvanceUtf32() to allocate buffer with enough size.", py::arg("theBuffer"));
+	bind_NCollection_UtfIterator<char32_t>(mod, "NCollection_Utf32Iter");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_UtfIterator.hxx
-	py::class_<NCollection_UtfWideIter, std::unique_ptr<NCollection_UtfWideIter, Deleter<NCollection_UtfWideIter>>> cls_NCollection_UtfWideIter(mod, "NCollection_UtfWideIter", "Template class for Unicode strings support. It defines an iterator and provide correct way to read multi-byte text (UTF-8 and UTF-16) and convert it from one to another. The current value of iterator returned as UTF-32 Unicode code.");
-	cls_NCollection_UtfWideIter.def(py::init<const Standard_WideChar *>(), py::arg("theString"));
-	cls_NCollection_UtfWideIter.def("Init", (void (NCollection_UtfWideIter::*)(const Standard_WideChar *)) &NCollection_UtfWideIter::Init, "Initialize iterator within specified NULL-terminated string.", py::arg("theString"));
-	cls_NCollection_UtfWideIter.def("plus_plus", (NCollection_UtfWideIter & (NCollection_UtfWideIter::*)()) &NCollection_UtfWideIter::operator++, py::is_operator(), "Pre-increment operator. Reads the next unicode character. Notice - no protection against overrun!");
-	cls_NCollection_UtfWideIter.def("plus_plus", (NCollection_UtfWideIter (NCollection_UtfWideIter::*)(int)) &NCollection_UtfWideIter::operator++, py::is_operator(), "Post-increment operator. Notice - no protection against overrun!", py::arg(""));
-	cls_NCollection_UtfWideIter.def("__eq__", (bool (NCollection_UtfWideIter::*)(const NCollection_UtfWideIter &) const ) &NCollection_UtfWideIter::operator==, py::is_operator(), "Equality operator.", py::arg("theRight"));
-	cls_NCollection_UtfWideIter.def("IsValid", (bool (NCollection_UtfWideIter::*)() const ) &NCollection_UtfWideIter::IsValid, "Return true if Unicode symbol is within valid range.");
-	cls_NCollection_UtfWideIter.def("__mul__", (Standard_Utf32Char (NCollection_UtfWideIter::*)() const ) &NCollection_UtfWideIter::operator*, py::is_operator(), "Dereference operator.");
-	cls_NCollection_UtfWideIter.def("BufferHere", (const Standard_WideChar * (NCollection_UtfWideIter::*)() const ) &NCollection_UtfWideIter::BufferHere, "Buffer-fetching getter.");
-	cls_NCollection_UtfWideIter.def("ChangeBufferHere", (Standard_WideChar * (NCollection_UtfWideIter::*)()) &NCollection_UtfWideIter::ChangeBufferHere, "Buffer-fetching getter. Dangerous! Iterator should be reinitialized on buffer change.");
-	cls_NCollection_UtfWideIter.def("BufferNext", (const Standard_WideChar * (NCollection_UtfWideIter::*)() const ) &NCollection_UtfWideIter::BufferNext, "Buffer-fetching getter.");
-	cls_NCollection_UtfWideIter.def("Index", (Standard_Integer (NCollection_UtfWideIter::*)() const ) &NCollection_UtfWideIter::Index, "Returns the index displacement from iterator intialization");
-	cls_NCollection_UtfWideIter.def("AdvanceBytesUtf8", (Standard_Integer (NCollection_UtfWideIter::*)() const ) &NCollection_UtfWideIter::AdvanceBytesUtf8, "Returns the advance in bytes to store current symbol in UTF-8. 0 means an invalid symbol; 1-4 bytes are valid range.");
-	cls_NCollection_UtfWideIter.def("AdvanceBytesUtf16", (Standard_Integer (NCollection_UtfWideIter::*)() const ) &NCollection_UtfWideIter::AdvanceBytesUtf16, "Returns the advance in bytes to store current symbol in UTF-16. 0 means an invalid symbol; 2 bytes is a general case; 4 bytes for surrogate pair.");
-	cls_NCollection_UtfWideIter.def("AdvanceCodeUnitsUtf16", (Standard_Integer (NCollection_UtfWideIter::*)() const ) &NCollection_UtfWideIter::AdvanceCodeUnitsUtf16, "Returns the advance in bytes to store current symbol in UTF-16. 0 means an invalid symbol; 1 16-bit code unit is a general case; 2 16-bit code units for surrogate pair.");
-	cls_NCollection_UtfWideIter.def("AdvanceBytesUtf32", (Standard_Integer (NCollection_UtfWideIter::*)() const ) &NCollection_UtfWideIter::AdvanceBytesUtf32, "Returns the advance in bytes to store current symbol in UTF-32. Always 4 bytes (method for consistency).");
-	cls_NCollection_UtfWideIter.def("GetUtf8", (Standard_Utf8Char * (NCollection_UtfWideIter::*)(Standard_Utf8Char *) const ) &NCollection_UtfWideIter::GetUtf8, "Fill the UTF-8 buffer within current Unicode symbol. Use method AdvanceUtf8() to allocate buffer with enough size.", py::arg("theBuffer"));
-	cls_NCollection_UtfWideIter.def("GetUtf8", (Standard_Utf8UChar * (NCollection_UtfWideIter::*)(Standard_Utf8UChar *) const ) &NCollection_UtfWideIter::GetUtf8, "None", py::arg("theBuffer"));
-	cls_NCollection_UtfWideIter.def("GetUtf16", (Standard_Utf16Char * (NCollection_UtfWideIter::*)(Standard_Utf16Char *) const ) &NCollection_UtfWideIter::GetUtf16, "Fill the UTF-16 buffer within current Unicode symbol. Use method AdvanceUtf16() to allocate buffer with enough size.", py::arg("theBuffer"));
-	cls_NCollection_UtfWideIter.def("GetUtf32", (Standard_Utf32Char * (NCollection_UtfWideIter::*)(Standard_Utf32Char *) const ) &NCollection_UtfWideIter::GetUtf32, "Fill the UTF-32 buffer within current Unicode symbol. Use method AdvanceUtf32() to allocate buffer with enough size.", py::arg("theBuffer"));
+	bind_NCollection_UtfIterator<wchar_t>(mod, "NCollection_UtfWideIter");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_UtfString.hxx
 	if (py::hasattr(mod, "NCollection_String")) {
 		mod.attr("NCollection_Utf8String") = mod.attr("NCollection_String");
 	}
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_UtfString.hxx
-	py::class_<NCollection_Utf16String, std::unique_ptr<NCollection_Utf16String, Deleter<NCollection_Utf16String>>> cls_NCollection_Utf16String(mod, "NCollection_Utf16String", "This template class represent constant UTF-* string. String stored in memory continuously, always NULL-terminated and can be used as standard C-string using ToCString() method.");
-	cls_NCollection_Utf16String.def(py::init<>());
-	cls_NCollection_Utf16String.def(py::init([] (const NCollection_Utf16String &other) {return new NCollection_Utf16String(other);}), "Copy constructor", py::arg("other"));
-	cls_NCollection_Utf16String.def(py::init<const char *>(), py::arg("theCopyUtf8"));
-	cls_NCollection_Utf16String.def(py::init<const char *, const Standard_Integer>(), py::arg("theCopyUtf8"), py::arg("theLength"));
-	cls_NCollection_Utf16String.def(py::init<const Standard_Utf16Char *>(), py::arg("theCopyUtf16"));
-	cls_NCollection_Utf16String.def(py::init<const Standard_Utf16Char *, const Standard_Integer>(), py::arg("theCopyUtf16"), py::arg("theLength"));
-	cls_NCollection_Utf16String.def(py::init<const Standard_Utf32Char *>(), py::arg("theCopyUtf32"));
-	cls_NCollection_Utf16String.def(py::init<const Standard_Utf32Char *, const Standard_Integer>(), py::arg("theCopyUtf32"), py::arg("theLength"));
-	cls_NCollection_Utf16String.def(py::init<const Standard_WideChar *>(), py::arg("theCopyUtfWide"));
-	cls_NCollection_Utf16String.def(py::init<const Standard_WideChar *, const Standard_Integer>(), py::arg("theCopyUtfWide"), py::arg("theLength"));
-	cls_NCollection_Utf16String.def("Iterator", (NCollection_UtfIterator<Standard_Utf16Char> (NCollection_Utf16String::*)() const ) &NCollection_Utf16String::Iterator, "None");
-	cls_NCollection_Utf16String.def("Size", (Standard_Integer (NCollection_Utf16String::*)() const ) &NCollection_Utf16String::Size, "Returns the size of the buffer, excluding NULL-termination symbol");
-	cls_NCollection_Utf16String.def("Length", (Standard_Integer (NCollection_Utf16String::*)() const ) &NCollection_Utf16String::Length, "Returns the length of the string in Unicode symbols");
-	cls_NCollection_Utf16String.def("GetChar", (Standard_Utf32Char (NCollection_Utf16String::*)(const Standard_Integer) const ) &NCollection_Utf16String::GetChar, "Retrieve Unicode symbol at specified position. Warning! This is a slow access. Iterator should be used for consecutive parsing.", py::arg("theCharIndex"));
-	cls_NCollection_Utf16String.def("GetCharBuffer", (const Standard_Utf16Char * (NCollection_Utf16String::*)(const Standard_Integer) const ) &NCollection_Utf16String::GetCharBuffer, "Retrieve string buffer at specified position. Warning! This is a slow access. Iterator should be used for consecutive parsing.", py::arg("theCharIndex"));
-	cls_NCollection_Utf16String.def("__getitem__", (Standard_Utf32Char (NCollection_Utf16String::*)(const Standard_Integer) const ) &NCollection_Utf16String::operator[], py::is_operator(), "Retrieve Unicode symbol at specified position. Warning! This is a slow access. Iterator should be used for consecutive parsing.", py::arg("theCharIndex"));
-	cls_NCollection_Utf16String.def("FromLocale", [](NCollection_Utf16String &self, const char * a0) -> void { return self.FromLocale(a0); }, py::arg("theString"));
-	cls_NCollection_Utf16String.def("FromLocale", (void (NCollection_Utf16String::*)(const char *, const Standard_Integer)) &NCollection_Utf16String::FromLocale, "Copy from NULL-terminated multibyte string in system locale. You should avoid this function unless extreme necessity.", py::arg("theString"), py::arg("theLength"));
-	cls_NCollection_Utf16String.def("IsEqual", (bool (NCollection_Utf16String::*)(const NCollection_Utf16String &) const ) &NCollection_Utf16String::IsEqual, "Compares this string with another one.", py::arg("theCompare"));
-	cls_NCollection_Utf16String.def("SubString", (NCollection_Utf16String (NCollection_Utf16String::*)(const Standard_Integer, const Standard_Integer) const ) &NCollection_Utf16String::SubString, "Returns the substring.", py::arg("theStart"), py::arg("theEnd"));
-	cls_NCollection_Utf16String.def("ToCString", (const Standard_Utf16Char * (NCollection_Utf16String::*)() const ) &NCollection_Utf16String::ToCString, "Returns NULL-terminated Unicode string. Should not be modifed or deleted!");
-	cls_NCollection_Utf16String.def("ToUtf8", (const NCollection_UtfString<Standard_Utf8Char> (NCollection_Utf16String::*)() const ) &NCollection_Utf16String::ToUtf8, "Returns copy in UTF-8 format");
-	cls_NCollection_Utf16String.def("ToUtf16", (const NCollection_UtfString<Standard_Utf16Char> (NCollection_Utf16String::*)() const ) &NCollection_Utf16String::ToUtf16, "Returns copy in UTF-16 format");
-	cls_NCollection_Utf16String.def("ToUtf32", (const NCollection_UtfString<Standard_Utf32Char> (NCollection_Utf16String::*)() const ) &NCollection_Utf16String::ToUtf32, "Returns copy in UTF-32 format");
-	cls_NCollection_Utf16String.def("ToUtfWide", (const NCollection_UtfString<Standard_WideChar> (NCollection_Utf16String::*)() const ) &NCollection_Utf16String::ToUtfWide, "Returns copy in wide format (UTF-16 on Windows and UTF-32 on Linux)");
-	cls_NCollection_Utf16String.def("ToLocale", (bool (NCollection_Utf16String::*)(char *, const Standard_Integer) const ) &NCollection_Utf16String::ToLocale, "Converts the string into multibyte string. You should avoid this function unless extreme necessity.", py::arg("theBuffer"), py::arg("theSizeBytes"));
-	cls_NCollection_Utf16String.def("IsEmpty", (bool (NCollection_Utf16String::*)() const ) &NCollection_Utf16String::IsEmpty, "Returns true if string is empty");
-	cls_NCollection_Utf16String.def("Clear", (void (NCollection_Utf16String::*)()) &NCollection_Utf16String::Clear, "Zero string.");
-	cls_NCollection_Utf16String.def("assign", (const NCollection_Utf16String & (NCollection_Utf16String::*)(const NCollection_Utf16String &)) &NCollection_Utf16String::operator=, py::is_operator(), "Copy from another string.", py::arg("theOther"));
-	cls_NCollection_Utf16String.def("assign", (const NCollection_Utf16String & (NCollection_Utf16String::*)(const char *)) &NCollection_Utf16String::operator=, py::is_operator(), "Copy from UTF-8 NULL-terminated string.", py::arg("theStringUtf8"));
-	cls_NCollection_Utf16String.def("assign", (const NCollection_Utf16String & (NCollection_Utf16String::*)(const Standard_WideChar *)) &NCollection_Utf16String::operator=, py::is_operator(), "Copy from wchar_t UTF NULL-terminated string.", py::arg("theStringUtfWide"));
-	cls_NCollection_Utf16String.def("__iadd__", (NCollection_Utf16String & (NCollection_Utf16String::*)(const NCollection_Utf16String &)) &NCollection_Utf16String::operator+=, "Join strings.", py::arg("theAppend"));
-	cls_NCollection_Utf16String.def("__eq__", (bool (NCollection_Utf16String::*)(const NCollection_Utf16String &) const ) &NCollection_Utf16String::operator==, py::is_operator(), "", py::arg("theCompare"));
-	cls_NCollection_Utf16String.def("__ne__", (bool (NCollection_Utf16String::*)(const NCollection_Utf16String &) const ) &NCollection_Utf16String::operator!=, py::is_operator(), "None", py::arg("theCompare"));
+	bind_NCollection_UtfString<char16_t>(mod, "NCollection_Utf16String");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_UtfString.hxx
-	py::class_<NCollection_Utf32String, std::unique_ptr<NCollection_Utf32String, Deleter<NCollection_Utf32String>>> cls_NCollection_Utf32String(mod, "NCollection_Utf32String", "This template class represent constant UTF-* string. String stored in memory continuously, always NULL-terminated and can be used as standard C-string using ToCString() method.");
-	cls_NCollection_Utf32String.def(py::init<>());
-	cls_NCollection_Utf32String.def(py::init([] (const NCollection_Utf32String &other) {return new NCollection_Utf32String(other);}), "Copy constructor", py::arg("other"));
-	cls_NCollection_Utf32String.def(py::init<const char *>(), py::arg("theCopyUtf8"));
-	cls_NCollection_Utf32String.def(py::init<const char *, const Standard_Integer>(), py::arg("theCopyUtf8"), py::arg("theLength"));
-	cls_NCollection_Utf32String.def(py::init<const Standard_Utf16Char *>(), py::arg("theCopyUtf16"));
-	cls_NCollection_Utf32String.def(py::init<const Standard_Utf16Char *, const Standard_Integer>(), py::arg("theCopyUtf16"), py::arg("theLength"));
-	cls_NCollection_Utf32String.def(py::init<const Standard_Utf32Char *>(), py::arg("theCopyUtf32"));
-	cls_NCollection_Utf32String.def(py::init<const Standard_Utf32Char *, const Standard_Integer>(), py::arg("theCopyUtf32"), py::arg("theLength"));
-	cls_NCollection_Utf32String.def(py::init<const Standard_WideChar *>(), py::arg("theCopyUtfWide"));
-	cls_NCollection_Utf32String.def(py::init<const Standard_WideChar *, const Standard_Integer>(), py::arg("theCopyUtfWide"), py::arg("theLength"));
-	cls_NCollection_Utf32String.def("Iterator", (NCollection_UtfIterator<Standard_Utf32Char> (NCollection_Utf32String::*)() const ) &NCollection_Utf32String::Iterator, "None");
-	cls_NCollection_Utf32String.def("Size", (Standard_Integer (NCollection_Utf32String::*)() const ) &NCollection_Utf32String::Size, "Returns the size of the buffer, excluding NULL-termination symbol");
-	cls_NCollection_Utf32String.def("Length", (Standard_Integer (NCollection_Utf32String::*)() const ) &NCollection_Utf32String::Length, "Returns the length of the string in Unicode symbols");
-	cls_NCollection_Utf32String.def("GetChar", (Standard_Utf32Char (NCollection_Utf32String::*)(const Standard_Integer) const ) &NCollection_Utf32String::GetChar, "Retrieve Unicode symbol at specified position. Warning! This is a slow access. Iterator should be used for consecutive parsing.", py::arg("theCharIndex"));
-	cls_NCollection_Utf32String.def("GetCharBuffer", (const Standard_Utf32Char * (NCollection_Utf32String::*)(const Standard_Integer) const ) &NCollection_Utf32String::GetCharBuffer, "Retrieve string buffer at specified position. Warning! This is a slow access. Iterator should be used for consecutive parsing.", py::arg("theCharIndex"));
-	cls_NCollection_Utf32String.def("__getitem__", (Standard_Utf32Char (NCollection_Utf32String::*)(const Standard_Integer) const ) &NCollection_Utf32String::operator[], py::is_operator(), "Retrieve Unicode symbol at specified position. Warning! This is a slow access. Iterator should be used for consecutive parsing.", py::arg("theCharIndex"));
-	cls_NCollection_Utf32String.def("FromLocale", [](NCollection_Utf32String &self, const char * a0) -> void { return self.FromLocale(a0); }, py::arg("theString"));
-	cls_NCollection_Utf32String.def("FromLocale", (void (NCollection_Utf32String::*)(const char *, const Standard_Integer)) &NCollection_Utf32String::FromLocale, "Copy from NULL-terminated multibyte string in system locale. You should avoid this function unless extreme necessity.", py::arg("theString"), py::arg("theLength"));
-	cls_NCollection_Utf32String.def("IsEqual", (bool (NCollection_Utf32String::*)(const NCollection_Utf32String &) const ) &NCollection_Utf32String::IsEqual, "Compares this string with another one.", py::arg("theCompare"));
-	cls_NCollection_Utf32String.def("SubString", (NCollection_Utf32String (NCollection_Utf32String::*)(const Standard_Integer, const Standard_Integer) const ) &NCollection_Utf32String::SubString, "Returns the substring.", py::arg("theStart"), py::arg("theEnd"));
-	cls_NCollection_Utf32String.def("ToCString", (const Standard_Utf32Char * (NCollection_Utf32String::*)() const ) &NCollection_Utf32String::ToCString, "Returns NULL-terminated Unicode string. Should not be modifed or deleted!");
-	cls_NCollection_Utf32String.def("ToUtf8", (const NCollection_UtfString<Standard_Utf8Char> (NCollection_Utf32String::*)() const ) &NCollection_Utf32String::ToUtf8, "Returns copy in UTF-8 format");
-	cls_NCollection_Utf32String.def("ToUtf16", (const NCollection_UtfString<Standard_Utf16Char> (NCollection_Utf32String::*)() const ) &NCollection_Utf32String::ToUtf16, "Returns copy in UTF-16 format");
-	cls_NCollection_Utf32String.def("ToUtf32", (const NCollection_UtfString<Standard_Utf32Char> (NCollection_Utf32String::*)() const ) &NCollection_Utf32String::ToUtf32, "Returns copy in UTF-32 format");
-	cls_NCollection_Utf32String.def("ToUtfWide", (const NCollection_UtfString<Standard_WideChar> (NCollection_Utf32String::*)() const ) &NCollection_Utf32String::ToUtfWide, "Returns copy in wide format (UTF-16 on Windows and UTF-32 on Linux)");
-	cls_NCollection_Utf32String.def("ToLocale", (bool (NCollection_Utf32String::*)(char *, const Standard_Integer) const ) &NCollection_Utf32String::ToLocale, "Converts the string into multibyte string. You should avoid this function unless extreme necessity.", py::arg("theBuffer"), py::arg("theSizeBytes"));
-	cls_NCollection_Utf32String.def("IsEmpty", (bool (NCollection_Utf32String::*)() const ) &NCollection_Utf32String::IsEmpty, "Returns true if string is empty");
-	cls_NCollection_Utf32String.def("Clear", (void (NCollection_Utf32String::*)()) &NCollection_Utf32String::Clear, "Zero string.");
-	cls_NCollection_Utf32String.def("assign", (const NCollection_Utf32String & (NCollection_Utf32String::*)(const NCollection_Utf32String &)) &NCollection_Utf32String::operator=, py::is_operator(), "Copy from another string.", py::arg("theOther"));
-	cls_NCollection_Utf32String.def("assign", (const NCollection_Utf32String & (NCollection_Utf32String::*)(const char *)) &NCollection_Utf32String::operator=, py::is_operator(), "Copy from UTF-8 NULL-terminated string.", py::arg("theStringUtf8"));
-	cls_NCollection_Utf32String.def("assign", (const NCollection_Utf32String & (NCollection_Utf32String::*)(const Standard_WideChar *)) &NCollection_Utf32String::operator=, py::is_operator(), "Copy from wchar_t UTF NULL-terminated string.", py::arg("theStringUtfWide"));
-	cls_NCollection_Utf32String.def("__iadd__", (NCollection_Utf32String & (NCollection_Utf32String::*)(const NCollection_Utf32String &)) &NCollection_Utf32String::operator+=, "Join strings.", py::arg("theAppend"));
-	cls_NCollection_Utf32String.def("__eq__", (bool (NCollection_Utf32String::*)(const NCollection_Utf32String &) const ) &NCollection_Utf32String::operator==, py::is_operator(), "", py::arg("theCompare"));
-	cls_NCollection_Utf32String.def("__ne__", (bool (NCollection_Utf32String::*)(const NCollection_Utf32String &) const ) &NCollection_Utf32String::operator!=, py::is_operator(), "None", py::arg("theCompare"));
+	bind_NCollection_UtfString<char32_t>(mod, "NCollection_Utf32String");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_UtfString.hxx
-	py::class_<NCollection_UtfWideString, std::unique_ptr<NCollection_UtfWideString, Deleter<NCollection_UtfWideString>>> cls_NCollection_UtfWideString(mod, "NCollection_UtfWideString", "This template class represent constant UTF-* string. String stored in memory continuously, always NULL-terminated and can be used as standard C-string using ToCString() method.");
-	cls_NCollection_UtfWideString.def(py::init<>());
-	cls_NCollection_UtfWideString.def(py::init([] (const NCollection_UtfWideString &other) {return new NCollection_UtfWideString(other);}), "Copy constructor", py::arg("other"));
-	cls_NCollection_UtfWideString.def(py::init<const char *>(), py::arg("theCopyUtf8"));
-	cls_NCollection_UtfWideString.def(py::init<const char *, const Standard_Integer>(), py::arg("theCopyUtf8"), py::arg("theLength"));
-	cls_NCollection_UtfWideString.def(py::init<const Standard_Utf16Char *>(), py::arg("theCopyUtf16"));
-	cls_NCollection_UtfWideString.def(py::init<const Standard_Utf16Char *, const Standard_Integer>(), py::arg("theCopyUtf16"), py::arg("theLength"));
-	cls_NCollection_UtfWideString.def(py::init<const Standard_Utf32Char *>(), py::arg("theCopyUtf32"));
-	cls_NCollection_UtfWideString.def(py::init<const Standard_Utf32Char *, const Standard_Integer>(), py::arg("theCopyUtf32"), py::arg("theLength"));
-	cls_NCollection_UtfWideString.def(py::init<const Standard_WideChar *>(), py::arg("theCopyUtfWide"));
-	cls_NCollection_UtfWideString.def(py::init<const Standard_WideChar *, const Standard_Integer>(), py::arg("theCopyUtfWide"), py::arg("theLength"));
-	cls_NCollection_UtfWideString.def("Iterator", (NCollection_UtfIterator<Standard_WideChar> (NCollection_UtfWideString::*)() const ) &NCollection_UtfWideString::Iterator, "None");
-	cls_NCollection_UtfWideString.def("Size", (Standard_Integer (NCollection_UtfWideString::*)() const ) &NCollection_UtfWideString::Size, "Returns the size of the buffer, excluding NULL-termination symbol");
-	cls_NCollection_UtfWideString.def("Length", (Standard_Integer (NCollection_UtfWideString::*)() const ) &NCollection_UtfWideString::Length, "Returns the length of the string in Unicode symbols");
-	cls_NCollection_UtfWideString.def("GetChar", (Standard_Utf32Char (NCollection_UtfWideString::*)(const Standard_Integer) const ) &NCollection_UtfWideString::GetChar, "Retrieve Unicode symbol at specified position. Warning! This is a slow access. Iterator should be used for consecutive parsing.", py::arg("theCharIndex"));
-	cls_NCollection_UtfWideString.def("GetCharBuffer", (const Standard_WideChar * (NCollection_UtfWideString::*)(const Standard_Integer) const ) &NCollection_UtfWideString::GetCharBuffer, "Retrieve string buffer at specified position. Warning! This is a slow access. Iterator should be used for consecutive parsing.", py::arg("theCharIndex"));
-	cls_NCollection_UtfWideString.def("__getitem__", (Standard_Utf32Char (NCollection_UtfWideString::*)(const Standard_Integer) const ) &NCollection_UtfWideString::operator[], py::is_operator(), "Retrieve Unicode symbol at specified position. Warning! This is a slow access. Iterator should be used for consecutive parsing.", py::arg("theCharIndex"));
-	cls_NCollection_UtfWideString.def("FromLocale", [](NCollection_UtfWideString &self, const char * a0) -> void { return self.FromLocale(a0); }, py::arg("theString"));
-	cls_NCollection_UtfWideString.def("FromLocale", (void (NCollection_UtfWideString::*)(const char *, const Standard_Integer)) &NCollection_UtfWideString::FromLocale, "Copy from NULL-terminated multibyte string in system locale. You should avoid this function unless extreme necessity.", py::arg("theString"), py::arg("theLength"));
-	cls_NCollection_UtfWideString.def("IsEqual", (bool (NCollection_UtfWideString::*)(const NCollection_UtfWideString &) const ) &NCollection_UtfWideString::IsEqual, "Compares this string with another one.", py::arg("theCompare"));
-	cls_NCollection_UtfWideString.def("SubString", (NCollection_UtfWideString (NCollection_UtfWideString::*)(const Standard_Integer, const Standard_Integer) const ) &NCollection_UtfWideString::SubString, "Returns the substring.", py::arg("theStart"), py::arg("theEnd"));
-	cls_NCollection_UtfWideString.def("ToCString", (const Standard_WideChar * (NCollection_UtfWideString::*)() const ) &NCollection_UtfWideString::ToCString, "Returns NULL-terminated Unicode string. Should not be modifed or deleted!");
-	cls_NCollection_UtfWideString.def("ToUtf8", (const NCollection_UtfString<Standard_Utf8Char> (NCollection_UtfWideString::*)() const ) &NCollection_UtfWideString::ToUtf8, "Returns copy in UTF-8 format");
-	cls_NCollection_UtfWideString.def("ToUtf16", (const NCollection_UtfString<Standard_Utf16Char> (NCollection_UtfWideString::*)() const ) &NCollection_UtfWideString::ToUtf16, "Returns copy in UTF-16 format");
-	cls_NCollection_UtfWideString.def("ToUtf32", (const NCollection_UtfString<Standard_Utf32Char> (NCollection_UtfWideString::*)() const ) &NCollection_UtfWideString::ToUtf32, "Returns copy in UTF-32 format");
-	cls_NCollection_UtfWideString.def("ToUtfWide", (const NCollection_UtfString<Standard_WideChar> (NCollection_UtfWideString::*)() const ) &NCollection_UtfWideString::ToUtfWide, "Returns copy in wide format (UTF-16 on Windows and UTF-32 on Linux)");
-	cls_NCollection_UtfWideString.def("ToLocale", (bool (NCollection_UtfWideString::*)(char *, const Standard_Integer) const ) &NCollection_UtfWideString::ToLocale, "Converts the string into multibyte string. You should avoid this function unless extreme necessity.", py::arg("theBuffer"), py::arg("theSizeBytes"));
-	cls_NCollection_UtfWideString.def("IsEmpty", (bool (NCollection_UtfWideString::*)() const ) &NCollection_UtfWideString::IsEmpty, "Returns true if string is empty");
-	cls_NCollection_UtfWideString.def("Clear", (void (NCollection_UtfWideString::*)()) &NCollection_UtfWideString::Clear, "Zero string.");
-	cls_NCollection_UtfWideString.def("assign", (const NCollection_UtfWideString & (NCollection_UtfWideString::*)(const NCollection_UtfWideString &)) &NCollection_UtfWideString::operator=, py::is_operator(), "Copy from another string.", py::arg("theOther"));
-	cls_NCollection_UtfWideString.def("assign", (const NCollection_UtfWideString & (NCollection_UtfWideString::*)(const char *)) &NCollection_UtfWideString::operator=, py::is_operator(), "Copy from UTF-8 NULL-terminated string.", py::arg("theStringUtf8"));
-	cls_NCollection_UtfWideString.def("assign", (const NCollection_UtfWideString & (NCollection_UtfWideString::*)(const Standard_WideChar *)) &NCollection_UtfWideString::operator=, py::is_operator(), "Copy from wchar_t UTF NULL-terminated string.", py::arg("theStringUtfWide"));
-	cls_NCollection_UtfWideString.def("__iadd__", (NCollection_UtfWideString & (NCollection_UtfWideString::*)(const NCollection_UtfWideString &)) &NCollection_UtfWideString::operator+=, "Join strings.", py::arg("theAppend"));
-	cls_NCollection_UtfWideString.def("__eq__", (bool (NCollection_UtfWideString::*)(const NCollection_UtfWideString &) const ) &NCollection_UtfWideString::operator==, py::is_operator(), "", py::arg("theCompare"));
-	cls_NCollection_UtfWideString.def("__ne__", (bool (NCollection_UtfWideString::*)(const NCollection_UtfWideString &) const ) &NCollection_UtfWideString::operator!=, py::is_operator(), "None", py::arg("theCompare"));
+	bind_NCollection_UtfString<wchar_t>(mod, "NCollection_UtfWideString");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_UtfString.hxx
-	py::class_<NCollection_String, std::unique_ptr<NCollection_String, Deleter<NCollection_String>>> cls_NCollection_String(mod, "NCollection_String", "This template class represent constant UTF-* string. String stored in memory continuously, always NULL-terminated and can be used as standard C-string using ToCString() method.");
-	cls_NCollection_String.def(py::init<>());
-	cls_NCollection_String.def(py::init([] (const NCollection_String &other) {return new NCollection_String(other);}), "Copy constructor", py::arg("other"));
-	cls_NCollection_String.def(py::init<const char *>(), py::arg("theCopyUtf8"));
-	cls_NCollection_String.def(py::init<const char *, const Standard_Integer>(), py::arg("theCopyUtf8"), py::arg("theLength"));
-	cls_NCollection_String.def(py::init<const Standard_Utf16Char *>(), py::arg("theCopyUtf16"));
-	cls_NCollection_String.def(py::init<const Standard_Utf16Char *, const Standard_Integer>(), py::arg("theCopyUtf16"), py::arg("theLength"));
-	cls_NCollection_String.def(py::init<const Standard_Utf32Char *>(), py::arg("theCopyUtf32"));
-	cls_NCollection_String.def(py::init<const Standard_Utf32Char *, const Standard_Integer>(), py::arg("theCopyUtf32"), py::arg("theLength"));
-	cls_NCollection_String.def(py::init<const Standard_WideChar *>(), py::arg("theCopyUtfWide"));
-	cls_NCollection_String.def(py::init<const Standard_WideChar *, const Standard_Integer>(), py::arg("theCopyUtfWide"), py::arg("theLength"));
-	cls_NCollection_String.def("Iterator", (NCollection_UtfIterator<Standard_Utf8Char> (NCollection_String::*)() const ) &NCollection_String::Iterator, "None");
-	cls_NCollection_String.def("Size", (Standard_Integer (NCollection_String::*)() const ) &NCollection_String::Size, "Returns the size of the buffer, excluding NULL-termination symbol");
-	cls_NCollection_String.def("Length", (Standard_Integer (NCollection_String::*)() const ) &NCollection_String::Length, "Returns the length of the string in Unicode symbols");
-	cls_NCollection_String.def("GetChar", (Standard_Utf32Char (NCollection_String::*)(const Standard_Integer) const ) &NCollection_String::GetChar, "Retrieve Unicode symbol at specified position. Warning! This is a slow access. Iterator should be used for consecutive parsing.", py::arg("theCharIndex"));
-	cls_NCollection_String.def("GetCharBuffer", (const Standard_Utf8Char * (NCollection_String::*)(const Standard_Integer) const ) &NCollection_String::GetCharBuffer, "Retrieve string buffer at specified position. Warning! This is a slow access. Iterator should be used for consecutive parsing.", py::arg("theCharIndex"));
-	cls_NCollection_String.def("__getitem__", (Standard_Utf32Char (NCollection_String::*)(const Standard_Integer) const ) &NCollection_String::operator[], py::is_operator(), "Retrieve Unicode symbol at specified position. Warning! This is a slow access. Iterator should be used for consecutive parsing.", py::arg("theCharIndex"));
-	cls_NCollection_String.def("FromLocale", [](NCollection_String &self, const char * a0) -> void { return self.FromLocale(a0); }, py::arg("theString"));
-	cls_NCollection_String.def("FromLocale", (void (NCollection_String::*)(const char *, const Standard_Integer)) &NCollection_String::FromLocale, "Copy from NULL-terminated multibyte string in system locale. You should avoid this function unless extreme necessity.", py::arg("theString"), py::arg("theLength"));
-	cls_NCollection_String.def("IsEqual", (bool (NCollection_String::*)(const NCollection_String &) const ) &NCollection_String::IsEqual, "Compares this string with another one.", py::arg("theCompare"));
-	cls_NCollection_String.def("SubString", (NCollection_String (NCollection_String::*)(const Standard_Integer, const Standard_Integer) const ) &NCollection_String::SubString, "Returns the substring.", py::arg("theStart"), py::arg("theEnd"));
-	cls_NCollection_String.def("ToCString", (const Standard_Utf8Char * (NCollection_String::*)() const ) &NCollection_String::ToCString, "Returns NULL-terminated Unicode string. Should not be modifed or deleted!");
-	cls_NCollection_String.def("ToUtf8", (const NCollection_UtfString<Standard_Utf8Char> (NCollection_String::*)() const ) &NCollection_String::ToUtf8, "Returns copy in UTF-8 format");
-	cls_NCollection_String.def("ToUtf16", (const NCollection_UtfString<Standard_Utf16Char> (NCollection_String::*)() const ) &NCollection_String::ToUtf16, "Returns copy in UTF-16 format");
-	cls_NCollection_String.def("ToUtf32", (const NCollection_UtfString<Standard_Utf32Char> (NCollection_String::*)() const ) &NCollection_String::ToUtf32, "Returns copy in UTF-32 format");
-	cls_NCollection_String.def("ToUtfWide", (const NCollection_UtfString<Standard_WideChar> (NCollection_String::*)() const ) &NCollection_String::ToUtfWide, "Returns copy in wide format (UTF-16 on Windows and UTF-32 on Linux)");
-	cls_NCollection_String.def("ToLocale", (bool (NCollection_String::*)(char *, const Standard_Integer) const ) &NCollection_String::ToLocale, "Converts the string into multibyte string. You should avoid this function unless extreme necessity.", py::arg("theBuffer"), py::arg("theSizeBytes"));
-	cls_NCollection_String.def("IsEmpty", (bool (NCollection_String::*)() const ) &NCollection_String::IsEmpty, "Returns true if string is empty");
-	cls_NCollection_String.def("Clear", (void (NCollection_String::*)()) &NCollection_String::Clear, "Zero string.");
-	cls_NCollection_String.def("assign", (const NCollection_String & (NCollection_String::*)(const NCollection_String &)) &NCollection_String::operator=, py::is_operator(), "Copy from another string.", py::arg("theOther"));
-	cls_NCollection_String.def("assign", (const NCollection_String & (NCollection_String::*)(const char *)) &NCollection_String::operator=, py::is_operator(), "Copy from UTF-8 NULL-terminated string.", py::arg("theStringUtf8"));
-	cls_NCollection_String.def("assign", (const NCollection_String & (NCollection_String::*)(const Standard_WideChar *)) &NCollection_String::operator=, py::is_operator(), "Copy from wchar_t UTF NULL-terminated string.", py::arg("theStringUtfWide"));
-	cls_NCollection_String.def("__iadd__", (NCollection_String & (NCollection_String::*)(const NCollection_String &)) &NCollection_String::operator+=, "Join strings.", py::arg("theAppend"));
-	cls_NCollection_String.def("__eq__", (bool (NCollection_String::*)(const NCollection_String &) const ) &NCollection_String::operator==, py::is_operator(), "", py::arg("theCompare"));
-	cls_NCollection_String.def("__ne__", (bool (NCollection_String::*)(const NCollection_String &) const ) &NCollection_String::operator!=, py::is_operator(), "None", py::arg("theCompare"));
-
+	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_String.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_SparseArrayBase.hxx
 	other_mod = py::module::import("OCCT.Standard");
 	if (py::hasattr(other_mod, "Standard_Size")) {
 		mod.attr("Standard_Size") = other_mod.attr("Standard_Size");

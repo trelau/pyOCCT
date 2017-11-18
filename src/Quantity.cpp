@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Quantity_NameOfColor.hxx>
 #include <Quantity_TypeOfColor.hxx>
@@ -116,6 +107,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Quantity_VolumeFlow.hxx>
 #include <Quantity_Weight.hxx>
 #include <Quantity_Work.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Quantity, mod) {
 
@@ -794,40 +786,8 @@ PYBIND11_MODULE(Quantity, mod) {
 	cls_Quantity_ColorRGBA.def("IsEqual", (bool (Quantity_ColorRGBA::*)(const Quantity_ColorRGBA &) const ) &Quantity_ColorRGBA::IsEqual, "Two colors are considered to be equal if their distance is no greater than Epsilon().", py::arg("theOther"));
 	cls_Quantity_ColorRGBA.def("__eq__", (bool (Quantity_ColorRGBA::*)(const Quantity_ColorRGBA &) const ) &Quantity_ColorRGBA::operator==, py::is_operator(), "Two colors are considered to be equal if their distance is no greater than Epsilon().", py::arg("theOther"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Quantity_Array1OfColor, std::unique_ptr<Quantity_Array1OfColor, Deleter<Quantity_Array1OfColor>>> cls_Quantity_Array1OfColor(mod, "Quantity_Array1OfColor", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Quantity_Array1OfColor.def(py::init<>());
-	cls_Quantity_Array1OfColor.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Quantity_Array1OfColor.def(py::init([] (const Quantity_Array1OfColor &other) {return new Quantity_Array1OfColor(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Quantity_Array1OfColor.def(py::init<Quantity_Array1OfColor &&>(), py::arg("theOther"));
-	cls_Quantity_Array1OfColor.def(py::init<const Quantity_Color &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Quantity_Array1OfColor.def("begin", (Quantity_Array1OfColor::iterator (Quantity_Array1OfColor::*)() const ) &Quantity_Array1OfColor::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Quantity_Array1OfColor.def("end", (Quantity_Array1OfColor::iterator (Quantity_Array1OfColor::*)() const ) &Quantity_Array1OfColor::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Quantity_Array1OfColor.def("cbegin", (Quantity_Array1OfColor::const_iterator (Quantity_Array1OfColor::*)() const ) &Quantity_Array1OfColor::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Quantity_Array1OfColor.def("cend", (Quantity_Array1OfColor::const_iterator (Quantity_Array1OfColor::*)() const ) &Quantity_Array1OfColor::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Quantity_Array1OfColor.def("Init", (void (Quantity_Array1OfColor::*)(const Quantity_Color &)) &Quantity_Array1OfColor::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Quantity_Array1OfColor.def("Size", (Standard_Integer (Quantity_Array1OfColor::*)() const ) &Quantity_Array1OfColor::Size, "Size query");
-	cls_Quantity_Array1OfColor.def("Length", (Standard_Integer (Quantity_Array1OfColor::*)() const ) &Quantity_Array1OfColor::Length, "Length query (the same)");
-	cls_Quantity_Array1OfColor.def("IsEmpty", (Standard_Boolean (Quantity_Array1OfColor::*)() const ) &Quantity_Array1OfColor::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Quantity_Array1OfColor.def("Lower", (Standard_Integer (Quantity_Array1OfColor::*)() const ) &Quantity_Array1OfColor::Lower, "Lower bound");
-	cls_Quantity_Array1OfColor.def("Upper", (Standard_Integer (Quantity_Array1OfColor::*)() const ) &Quantity_Array1OfColor::Upper, "Upper bound");
-	cls_Quantity_Array1OfColor.def("IsDeletable", (Standard_Boolean (Quantity_Array1OfColor::*)() const ) &Quantity_Array1OfColor::IsDeletable, "myDeletable flag");
-	cls_Quantity_Array1OfColor.def("IsAllocated", (Standard_Boolean (Quantity_Array1OfColor::*)() const ) &Quantity_Array1OfColor::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Quantity_Array1OfColor.def("Assign", (Quantity_Array1OfColor & (Quantity_Array1OfColor::*)(const Quantity_Array1OfColor &)) &Quantity_Array1OfColor::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Quantity_Array1OfColor.def("Move", (Quantity_Array1OfColor & (Quantity_Array1OfColor::*)(Quantity_Array1OfColor &&)) &Quantity_Array1OfColor::Move, "Move assignment", py::arg("theOther"));
-	cls_Quantity_Array1OfColor.def("assign", (Quantity_Array1OfColor & (Quantity_Array1OfColor::*)(const Quantity_Array1OfColor &)) &Quantity_Array1OfColor::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Quantity_Array1OfColor.def("assign", (Quantity_Array1OfColor & (Quantity_Array1OfColor::*)(Quantity_Array1OfColor &&)) &Quantity_Array1OfColor::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Quantity_Array1OfColor.def("First", (const Quantity_Color & (Quantity_Array1OfColor::*)() const ) &Quantity_Array1OfColor::First, "Returns first element");
-	cls_Quantity_Array1OfColor.def("ChangeFirst", (Quantity_Color & (Quantity_Array1OfColor::*)()) &Quantity_Array1OfColor::ChangeFirst, "Returns first element");
-	cls_Quantity_Array1OfColor.def("Last", (const Quantity_Color & (Quantity_Array1OfColor::*)() const ) &Quantity_Array1OfColor::Last, "Returns last element");
-	cls_Quantity_Array1OfColor.def("ChangeLast", (Quantity_Color & (Quantity_Array1OfColor::*)()) &Quantity_Array1OfColor::ChangeLast, "Returns last element");
-	cls_Quantity_Array1OfColor.def("Value", (const Quantity_Color & (Quantity_Array1OfColor::*)(const Standard_Integer) const ) &Quantity_Array1OfColor::Value, "Constant value access", py::arg("theIndex"));
-	cls_Quantity_Array1OfColor.def("__call__", (const Quantity_Color & (Quantity_Array1OfColor::*)(const Standard_Integer) const ) &Quantity_Array1OfColor::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Quantity_Array1OfColor.def("ChangeValue", (Quantity_Color & (Quantity_Array1OfColor::*)(const Standard_Integer)) &Quantity_Array1OfColor::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Quantity_Array1OfColor.def("__call__", (Quantity_Color & (Quantity_Array1OfColor::*)(const Standard_Integer)) &Quantity_Array1OfColor::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Quantity_Array1OfColor.def("SetValue", (void (Quantity_Array1OfColor::*)(const Standard_Integer, const Quantity_Color &)) &Quantity_Array1OfColor::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Quantity_Array1OfColor.def("Resize", (void (Quantity_Array1OfColor::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Quantity_Array1OfColor::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Quantity_Array1OfColor.def("__iter__", [](const Quantity_Array1OfColor &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Array1OfColor.hxx
+	bind_NCollection_Array1<Quantity_Color>(mod, "Quantity_Array1OfColor");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_ColorHasher.hxx
 	py::class_<Quantity_ColorHasher, std::unique_ptr<Quantity_ColorHasher, Deleter<Quantity_ColorHasher>>> cls_Quantity_ColorHasher(mod, "Quantity_ColorHasher", "Hasher of Quantity_Color.");
@@ -946,419 +906,478 @@ PYBIND11_MODULE(Quantity, mod) {
 	cls_Quantity_HArray1OfColor.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Quantity_HArray1OfColor::get_type_descriptor, "None");
 	cls_Quantity_HArray1OfColor.def("DynamicType", (const opencascade::handle<Standard_Type> & (Quantity_HArray1OfColor::*)() const ) &Quantity_HArray1OfColor::DynamicType, "None");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_AbsorbedDose.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_AbsorbedDose") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Acceleration.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Acceleration") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_AcousticIntensity.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_AcousticIntensity") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Activity.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Activity") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Admittance.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Admittance") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_AmountOfSubstance.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_AmountOfSubstance") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_AngularVelocity.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_AngularVelocity") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Area.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Area") = other_mod.attr("doublereal");
 	}
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array2.hxx
-	py::class_<Quantity_Array2OfColor, std::unique_ptr<Quantity_Array2OfColor, Deleter<Quantity_Array2OfColor>>> cls_Quantity_Array2OfColor(mod, "Quantity_Array2OfColor", "Purpose: The class Array2 represents bi-dimensional arrays of fixed size known at run time. The ranges of indices are user defined.");
-	cls_Quantity_Array2OfColor.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_Quantity_Array2OfColor.def(py::init([] (const Quantity_Array2OfColor &other) {return new Quantity_Array2OfColor(other);}), "Copy constructor", py::arg("other"));
-	cls_Quantity_Array2OfColor.def(py::init<const Quantity_Color &, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_Quantity_Array2OfColor.def("Init", (void (Quantity_Array2OfColor::*)(const Quantity_Color &)) &Quantity_Array2OfColor::Init, "Initialise the values", py::arg("theValue"));
-	cls_Quantity_Array2OfColor.def("Size", (Standard_Integer (Quantity_Array2OfColor::*)() const ) &Quantity_Array2OfColor::Size, "Size (number of items)");
-	cls_Quantity_Array2OfColor.def("Length", (Standard_Integer (Quantity_Array2OfColor::*)() const ) &Quantity_Array2OfColor::Length, "Length (number of items)");
-	cls_Quantity_Array2OfColor.def("RowLength", (Standard_Integer (Quantity_Array2OfColor::*)() const ) &Quantity_Array2OfColor::RowLength, "Returns length of the row, i.e. number of columns");
-	cls_Quantity_Array2OfColor.def("ColLength", (Standard_Integer (Quantity_Array2OfColor::*)() const ) &Quantity_Array2OfColor::ColLength, "Returns length of the column, i.e. number of rows");
-	cls_Quantity_Array2OfColor.def("LowerRow", (Standard_Integer (Quantity_Array2OfColor::*)() const ) &Quantity_Array2OfColor::LowerRow, "LowerRow");
-	cls_Quantity_Array2OfColor.def("UpperRow", (Standard_Integer (Quantity_Array2OfColor::*)() const ) &Quantity_Array2OfColor::UpperRow, "UpperRow");
-	cls_Quantity_Array2OfColor.def("LowerCol", (Standard_Integer (Quantity_Array2OfColor::*)() const ) &Quantity_Array2OfColor::LowerCol, "LowerCol");
-	cls_Quantity_Array2OfColor.def("UpperCol", (Standard_Integer (Quantity_Array2OfColor::*)() const ) &Quantity_Array2OfColor::UpperCol, "UpperCol");
-	cls_Quantity_Array2OfColor.def("IsDeletable", (Standard_Boolean (Quantity_Array2OfColor::*)() const ) &Quantity_Array2OfColor::IsDeletable, "myDeletable flag");
-	cls_Quantity_Array2OfColor.def("Assign", (Quantity_Array2OfColor & (Quantity_Array2OfColor::*)(const Quantity_Array2OfColor &)) &Quantity_Array2OfColor::Assign, "Assignment", py::arg("theOther"));
-	cls_Quantity_Array2OfColor.def("assign", (Quantity_Array2OfColor & (Quantity_Array2OfColor::*)(const Quantity_Array2OfColor &)) &Quantity_Array2OfColor::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Quantity_Array2OfColor.def("Value", (const Quantity_Color & (Quantity_Array2OfColor::*)(const Standard_Integer, const Standard_Integer) const ) &Quantity_Array2OfColor::Value, "Constant value access", py::arg("theRow"), py::arg("theCol"));
-	cls_Quantity_Array2OfColor.def("__call__", (const Quantity_Color & (Quantity_Array2OfColor::*)(const Standard_Integer, const Standard_Integer) const ) &Quantity_Array2OfColor::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_Quantity_Array2OfColor.def("ChangeValue", (Quantity_Color & (Quantity_Array2OfColor::*)(const Standard_Integer, const Standard_Integer)) &Quantity_Array2OfColor::ChangeValue, "Variable value access", py::arg("theRow"), py::arg("theCol"));
-	cls_Quantity_Array2OfColor.def("__call__", (Quantity_Color & (Quantity_Array2OfColor::*)(const Standard_Integer, const Standard_Integer)) &Quantity_Array2OfColor::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_Quantity_Array2OfColor.def("SetValue", (void (Quantity_Array2OfColor::*)(const Standard_Integer, const Standard_Integer, const Quantity_Color &)) &Quantity_Array2OfColor::SetValue, "SetValue", py::arg("theRow"), py::arg("theCol"), py::arg("theItem"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Array2OfColor.hxx
+	bind_NCollection_Array2<Quantity_Color>(mod, "Quantity_Array2OfColor");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Capacitance.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Capacitance") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Coefficient.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Coefficient") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_CoefficientOfExpansion.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_CoefficientOfExpansion") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Concentration.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Concentration") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Conductivity.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Conductivity") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Constant.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Constant") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Consumption.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Consumption") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Content.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Content") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Density.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Density") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_DoseEquivalent.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_DoseEquivalent") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_ElectricCapacitance.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_ElectricCapacitance") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_ElectricCharge.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_ElectricCharge") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_ElectricCurrent.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_ElectricCurrent") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_ElectricFieldStrength.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_ElectricFieldStrength") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_ElectricPotential.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_ElectricPotential") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Energy.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Energy") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Enthalpy.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Enthalpy") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Entropy.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Entropy") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Factor.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Factor") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Force.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Force") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Frequency.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Frequency") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Illuminance.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Illuminance") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Impedance.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Impedance") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Index.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Index") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Inductance.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Inductance") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_KinematicViscosity.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_KinematicViscosity") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_KineticMoment.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_KineticMoment") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Length.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Length") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Luminance.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Luminance") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_LuminousEfficacity.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_LuminousEfficacity") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_LuminousExposition.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_LuminousExposition") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_LuminousFlux.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_LuminousFlux") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_LuminousIntensity.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_LuminousIntensity") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_MagneticFieldStrength.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_MagneticFieldStrength") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_MagneticFlux.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_MagneticFlux") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_MagneticFluxDensity.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_MagneticFluxDensity") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Mass.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Mass") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_MassFlow.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_MassFlow") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_MolarConcentration.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_MolarConcentration") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Molarity.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Molarity") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_MolarMass.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_MolarMass") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_MolarVolume.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_MolarVolume") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_MomentOfAForce.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_MomentOfAForce") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_MomentOfInertia.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_MomentOfInertia") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Momentum.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Momentum") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Normality.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Normality") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Parameter.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Parameter") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_PlaneAngle.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_PlaneAngle") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Power.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Power") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Pressure.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Pressure") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Quotient.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Quotient") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Rate.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Rate") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Ratio.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Ratio") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Reluctance.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Reluctance") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Resistance.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Resistance") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Resistivity.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Resistivity") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Scalaire.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Scalaire") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_SolidAngle.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_SolidAngle") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_SoundIntensity.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_SoundIntensity") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_SpecificHeatCapacity.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_SpecificHeatCapacity") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Speed.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Speed") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_SurfaceTension.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_SurfaceTension") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Temperature.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Temperature") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_ThermalConductivity.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_ThermalConductivity") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Torque.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Torque") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Velocity.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Velocity") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Viscosity.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Viscosity") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Volume.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Volume") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_VolumeFlow.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_VolumeFlow") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Weight.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Weight") = other_mod.attr("doublereal");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Quantity_Work.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "doublereal")) {
 		mod.attr("Quantity_Work") = other_mod.attr("doublereal");

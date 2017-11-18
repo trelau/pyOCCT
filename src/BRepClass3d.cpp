@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <BRepClass3d_SClassifier.hxx>
 #include <TopoDS_Shape.hxx>
@@ -39,6 +30,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_BaseMap.hxx>
 #include <NCollection_DataMap.hxx>
 #include <BRepClass3d_MapOfInter.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BRepClass3d, mod) {
 
@@ -184,16 +176,19 @@ PYBIND11_MODULE(BRepClass3d, mod) {
 	cls_BRepClass3d_BndBoxTreeSelectorLine.def("GetNbVertParam", (Standard_Integer (BRepClass3d_BndBoxTreeSelectorLine::*)() const ) &BRepClass3d_BndBoxTreeSelectorLine::GetNbVertParam, "None");
 	cls_BRepClass3d_BndBoxTreeSelectorLine.def("ClearResults", (void (BRepClass3d_BndBoxTreeSelectorLine::*)()) &BRepClass3d_BndBoxTreeSelectorLine::ClearResults, "None");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepClass3d_BndBoxTree.hxx
 	other_mod = py::module::import("OCCT.BOPCol");
 	if (py::hasattr(other_mod, "BOPCol_BoxBndTree")) {
 		mod.attr("BRepClass3d_BndBoxTree") = other_mod.attr("BOPCol_BoxBndTree");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepClass3d_MapOfInter.hxx
 	other_mod = py::module::import("OCCT.BOPCol");
 	if (py::hasattr(other_mod, "BOPCol_DataMapOfShapeAddress")) {
 		mod.attr("BRepClass3d_MapOfInter") = other_mod.attr("BOPCol_DataMapOfShapeAddress");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepClass3d_MapOfInter.hxx
 	other_mod = py::module::import("OCCT.BOPCol");
 	if (py::hasattr(other_mod, "BOPCol_DataMapIteratorOfDataMapOfShapeAddress")) {
 		mod.attr("BRepClass3d_DataMapIteratorOfMapOfInter") = other_mod.attr("BOPCol_DataMapIteratorOfDataMapOfShapeAddress");

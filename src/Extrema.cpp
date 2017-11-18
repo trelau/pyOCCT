@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Extrema_ExtFlag.hxx>
 #include <Extrema_ExtAlgo.hxx>
@@ -140,6 +131,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Extrema_LocateExtPC2d.hxx>
 #include <Extrema_LocECC.hxx>
 #include <Extrema_LocECC2d.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Extrema, mod) {
 
@@ -281,40 +273,8 @@ PYBIND11_MODULE(Extrema, mod) {
 	cls_Extrema_ExtCC.def("SetSingleSolutionFlag", (void (Extrema_ExtCC::*)(const Standard_Boolean)) &Extrema_ExtCC::SetSingleSolutionFlag, "Set flag for single extrema computation. Works on parametric solver only.", py::arg("theSingleSolutionFlag"));
 	cls_Extrema_ExtCC.def("GetSingleSolutionFlag", (Standard_Boolean (Extrema_ExtCC::*)() const ) &Extrema_ExtCC::GetSingleSolutionFlag, "Get flag for single extrema computation. Works on parametric solver only.");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Extrema_Array1OfPOnCurv, std::unique_ptr<Extrema_Array1OfPOnCurv, Deleter<Extrema_Array1OfPOnCurv>>> cls_Extrema_Array1OfPOnCurv(mod, "Extrema_Array1OfPOnCurv", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Extrema_Array1OfPOnCurv.def(py::init<>());
-	cls_Extrema_Array1OfPOnCurv.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Extrema_Array1OfPOnCurv.def(py::init([] (const Extrema_Array1OfPOnCurv &other) {return new Extrema_Array1OfPOnCurv(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Extrema_Array1OfPOnCurv.def(py::init<Extrema_Array1OfPOnCurv &&>(), py::arg("theOther"));
-	cls_Extrema_Array1OfPOnCurv.def(py::init<const Extrema_POnCurv &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Extrema_Array1OfPOnCurv.def("begin", (Extrema_Array1OfPOnCurv::iterator (Extrema_Array1OfPOnCurv::*)() const ) &Extrema_Array1OfPOnCurv::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Extrema_Array1OfPOnCurv.def("end", (Extrema_Array1OfPOnCurv::iterator (Extrema_Array1OfPOnCurv::*)() const ) &Extrema_Array1OfPOnCurv::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Extrema_Array1OfPOnCurv.def("cbegin", (Extrema_Array1OfPOnCurv::const_iterator (Extrema_Array1OfPOnCurv::*)() const ) &Extrema_Array1OfPOnCurv::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Extrema_Array1OfPOnCurv.def("cend", (Extrema_Array1OfPOnCurv::const_iterator (Extrema_Array1OfPOnCurv::*)() const ) &Extrema_Array1OfPOnCurv::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Extrema_Array1OfPOnCurv.def("Init", (void (Extrema_Array1OfPOnCurv::*)(const Extrema_POnCurv &)) &Extrema_Array1OfPOnCurv::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Extrema_Array1OfPOnCurv.def("Size", (Standard_Integer (Extrema_Array1OfPOnCurv::*)() const ) &Extrema_Array1OfPOnCurv::Size, "Size query");
-	cls_Extrema_Array1OfPOnCurv.def("Length", (Standard_Integer (Extrema_Array1OfPOnCurv::*)() const ) &Extrema_Array1OfPOnCurv::Length, "Length query (the same)");
-	cls_Extrema_Array1OfPOnCurv.def("IsEmpty", (Standard_Boolean (Extrema_Array1OfPOnCurv::*)() const ) &Extrema_Array1OfPOnCurv::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Extrema_Array1OfPOnCurv.def("Lower", (Standard_Integer (Extrema_Array1OfPOnCurv::*)() const ) &Extrema_Array1OfPOnCurv::Lower, "Lower bound");
-	cls_Extrema_Array1OfPOnCurv.def("Upper", (Standard_Integer (Extrema_Array1OfPOnCurv::*)() const ) &Extrema_Array1OfPOnCurv::Upper, "Upper bound");
-	cls_Extrema_Array1OfPOnCurv.def("IsDeletable", (Standard_Boolean (Extrema_Array1OfPOnCurv::*)() const ) &Extrema_Array1OfPOnCurv::IsDeletable, "myDeletable flag");
-	cls_Extrema_Array1OfPOnCurv.def("IsAllocated", (Standard_Boolean (Extrema_Array1OfPOnCurv::*)() const ) &Extrema_Array1OfPOnCurv::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Extrema_Array1OfPOnCurv.def("Assign", (Extrema_Array1OfPOnCurv & (Extrema_Array1OfPOnCurv::*)(const Extrema_Array1OfPOnCurv &)) &Extrema_Array1OfPOnCurv::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Extrema_Array1OfPOnCurv.def("Move", (Extrema_Array1OfPOnCurv & (Extrema_Array1OfPOnCurv::*)(Extrema_Array1OfPOnCurv &&)) &Extrema_Array1OfPOnCurv::Move, "Move assignment", py::arg("theOther"));
-	cls_Extrema_Array1OfPOnCurv.def("assign", (Extrema_Array1OfPOnCurv & (Extrema_Array1OfPOnCurv::*)(const Extrema_Array1OfPOnCurv &)) &Extrema_Array1OfPOnCurv::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Extrema_Array1OfPOnCurv.def("assign", (Extrema_Array1OfPOnCurv & (Extrema_Array1OfPOnCurv::*)(Extrema_Array1OfPOnCurv &&)) &Extrema_Array1OfPOnCurv::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Extrema_Array1OfPOnCurv.def("First", (const Extrema_POnCurv & (Extrema_Array1OfPOnCurv::*)() const ) &Extrema_Array1OfPOnCurv::First, "Returns first element");
-	cls_Extrema_Array1OfPOnCurv.def("ChangeFirst", (Extrema_POnCurv & (Extrema_Array1OfPOnCurv::*)()) &Extrema_Array1OfPOnCurv::ChangeFirst, "Returns first element");
-	cls_Extrema_Array1OfPOnCurv.def("Last", (const Extrema_POnCurv & (Extrema_Array1OfPOnCurv::*)() const ) &Extrema_Array1OfPOnCurv::Last, "Returns last element");
-	cls_Extrema_Array1OfPOnCurv.def("ChangeLast", (Extrema_POnCurv & (Extrema_Array1OfPOnCurv::*)()) &Extrema_Array1OfPOnCurv::ChangeLast, "Returns last element");
-	cls_Extrema_Array1OfPOnCurv.def("Value", (const Extrema_POnCurv & (Extrema_Array1OfPOnCurv::*)(const Standard_Integer) const ) &Extrema_Array1OfPOnCurv::Value, "Constant value access", py::arg("theIndex"));
-	cls_Extrema_Array1OfPOnCurv.def("__call__", (const Extrema_POnCurv & (Extrema_Array1OfPOnCurv::*)(const Standard_Integer) const ) &Extrema_Array1OfPOnCurv::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Extrema_Array1OfPOnCurv.def("ChangeValue", (Extrema_POnCurv & (Extrema_Array1OfPOnCurv::*)(const Standard_Integer)) &Extrema_Array1OfPOnCurv::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Extrema_Array1OfPOnCurv.def("__call__", (Extrema_POnCurv & (Extrema_Array1OfPOnCurv::*)(const Standard_Integer)) &Extrema_Array1OfPOnCurv::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Extrema_Array1OfPOnCurv.def("SetValue", (void (Extrema_Array1OfPOnCurv::*)(const Standard_Integer, const Extrema_POnCurv &)) &Extrema_Array1OfPOnCurv::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Extrema_Array1OfPOnCurv.def("Resize", (void (Extrema_Array1OfPOnCurv::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Extrema_Array1OfPOnCurv::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Extrema_Array1OfPOnCurv.def("__iter__", [](const Extrema_Array1OfPOnCurv &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_Array1OfPOnCurv.hxx
+	bind_NCollection_Array1<Extrema_POnCurv>(mod, "Extrema_Array1OfPOnCurv");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_POnSurf.hxx
 	py::class_<Extrema_POnSurf, std::unique_ptr<Extrema_POnSurf, Deleter<Extrema_POnSurf>>> cls_Extrema_POnSurf(mod, "Extrema_POnSurf", "Definition of a point on surface.");
@@ -324,40 +284,8 @@ PYBIND11_MODULE(Extrema, mod) {
 	cls_Extrema_POnSurf.def("SetParameters", (void (Extrema_POnSurf::*)(const Standard_Real, const Standard_Real, const gp_Pnt &)) &Extrema_POnSurf::SetParameters, "Sets the params of current POnSurf instance. (e.g. to the point to be projected).", py::arg("theU"), py::arg("theV"), py::arg("thePnt"));
 	cls_Extrema_POnSurf.def("Parameter", (void (Extrema_POnSurf::*)(Standard_Real &, Standard_Real &) const ) &Extrema_POnSurf::Parameter, "Returns the parameter values on the surface.", py::arg("U"), py::arg("V"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Extrema_Array1OfPOnSurf, std::unique_ptr<Extrema_Array1OfPOnSurf, Deleter<Extrema_Array1OfPOnSurf>>> cls_Extrema_Array1OfPOnSurf(mod, "Extrema_Array1OfPOnSurf", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Extrema_Array1OfPOnSurf.def(py::init<>());
-	cls_Extrema_Array1OfPOnSurf.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Extrema_Array1OfPOnSurf.def(py::init([] (const Extrema_Array1OfPOnSurf &other) {return new Extrema_Array1OfPOnSurf(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Extrema_Array1OfPOnSurf.def(py::init<Extrema_Array1OfPOnSurf &&>(), py::arg("theOther"));
-	cls_Extrema_Array1OfPOnSurf.def(py::init<const Extrema_POnSurf &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Extrema_Array1OfPOnSurf.def("begin", (Extrema_Array1OfPOnSurf::iterator (Extrema_Array1OfPOnSurf::*)() const ) &Extrema_Array1OfPOnSurf::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Extrema_Array1OfPOnSurf.def("end", (Extrema_Array1OfPOnSurf::iterator (Extrema_Array1OfPOnSurf::*)() const ) &Extrema_Array1OfPOnSurf::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Extrema_Array1OfPOnSurf.def("cbegin", (Extrema_Array1OfPOnSurf::const_iterator (Extrema_Array1OfPOnSurf::*)() const ) &Extrema_Array1OfPOnSurf::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Extrema_Array1OfPOnSurf.def("cend", (Extrema_Array1OfPOnSurf::const_iterator (Extrema_Array1OfPOnSurf::*)() const ) &Extrema_Array1OfPOnSurf::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Extrema_Array1OfPOnSurf.def("Init", (void (Extrema_Array1OfPOnSurf::*)(const Extrema_POnSurf &)) &Extrema_Array1OfPOnSurf::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Extrema_Array1OfPOnSurf.def("Size", (Standard_Integer (Extrema_Array1OfPOnSurf::*)() const ) &Extrema_Array1OfPOnSurf::Size, "Size query");
-	cls_Extrema_Array1OfPOnSurf.def("Length", (Standard_Integer (Extrema_Array1OfPOnSurf::*)() const ) &Extrema_Array1OfPOnSurf::Length, "Length query (the same)");
-	cls_Extrema_Array1OfPOnSurf.def("IsEmpty", (Standard_Boolean (Extrema_Array1OfPOnSurf::*)() const ) &Extrema_Array1OfPOnSurf::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Extrema_Array1OfPOnSurf.def("Lower", (Standard_Integer (Extrema_Array1OfPOnSurf::*)() const ) &Extrema_Array1OfPOnSurf::Lower, "Lower bound");
-	cls_Extrema_Array1OfPOnSurf.def("Upper", (Standard_Integer (Extrema_Array1OfPOnSurf::*)() const ) &Extrema_Array1OfPOnSurf::Upper, "Upper bound");
-	cls_Extrema_Array1OfPOnSurf.def("IsDeletable", (Standard_Boolean (Extrema_Array1OfPOnSurf::*)() const ) &Extrema_Array1OfPOnSurf::IsDeletable, "myDeletable flag");
-	cls_Extrema_Array1OfPOnSurf.def("IsAllocated", (Standard_Boolean (Extrema_Array1OfPOnSurf::*)() const ) &Extrema_Array1OfPOnSurf::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Extrema_Array1OfPOnSurf.def("Assign", (Extrema_Array1OfPOnSurf & (Extrema_Array1OfPOnSurf::*)(const Extrema_Array1OfPOnSurf &)) &Extrema_Array1OfPOnSurf::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Extrema_Array1OfPOnSurf.def("Move", (Extrema_Array1OfPOnSurf & (Extrema_Array1OfPOnSurf::*)(Extrema_Array1OfPOnSurf &&)) &Extrema_Array1OfPOnSurf::Move, "Move assignment", py::arg("theOther"));
-	cls_Extrema_Array1OfPOnSurf.def("assign", (Extrema_Array1OfPOnSurf & (Extrema_Array1OfPOnSurf::*)(const Extrema_Array1OfPOnSurf &)) &Extrema_Array1OfPOnSurf::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Extrema_Array1OfPOnSurf.def("assign", (Extrema_Array1OfPOnSurf & (Extrema_Array1OfPOnSurf::*)(Extrema_Array1OfPOnSurf &&)) &Extrema_Array1OfPOnSurf::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Extrema_Array1OfPOnSurf.def("First", (const Extrema_POnSurf & (Extrema_Array1OfPOnSurf::*)() const ) &Extrema_Array1OfPOnSurf::First, "Returns first element");
-	cls_Extrema_Array1OfPOnSurf.def("ChangeFirst", (Extrema_POnSurf & (Extrema_Array1OfPOnSurf::*)()) &Extrema_Array1OfPOnSurf::ChangeFirst, "Returns first element");
-	cls_Extrema_Array1OfPOnSurf.def("Last", (const Extrema_POnSurf & (Extrema_Array1OfPOnSurf::*)() const ) &Extrema_Array1OfPOnSurf::Last, "Returns last element");
-	cls_Extrema_Array1OfPOnSurf.def("ChangeLast", (Extrema_POnSurf & (Extrema_Array1OfPOnSurf::*)()) &Extrema_Array1OfPOnSurf::ChangeLast, "Returns last element");
-	cls_Extrema_Array1OfPOnSurf.def("Value", (const Extrema_POnSurf & (Extrema_Array1OfPOnSurf::*)(const Standard_Integer) const ) &Extrema_Array1OfPOnSurf::Value, "Constant value access", py::arg("theIndex"));
-	cls_Extrema_Array1OfPOnSurf.def("__call__", (const Extrema_POnSurf & (Extrema_Array1OfPOnSurf::*)(const Standard_Integer) const ) &Extrema_Array1OfPOnSurf::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Extrema_Array1OfPOnSurf.def("ChangeValue", (Extrema_POnSurf & (Extrema_Array1OfPOnSurf::*)(const Standard_Integer)) &Extrema_Array1OfPOnSurf::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Extrema_Array1OfPOnSurf.def("__call__", (Extrema_POnSurf & (Extrema_Array1OfPOnSurf::*)(const Standard_Integer)) &Extrema_Array1OfPOnSurf::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Extrema_Array1OfPOnSurf.def("SetValue", (void (Extrema_Array1OfPOnSurf::*)(const Standard_Integer, const Extrema_POnSurf &)) &Extrema_Array1OfPOnSurf::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Extrema_Array1OfPOnSurf.def("Resize", (void (Extrema_Array1OfPOnSurf::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Extrema_Array1OfPOnSurf::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Extrema_Array1OfPOnSurf.def("__iter__", [](const Extrema_Array1OfPOnSurf &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_Array1OfPOnSurf.hxx
+	bind_NCollection_Array1<Extrema_POnSurf>(mod, "Extrema_Array1OfPOnSurf");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_ExtElCS.hxx
 	py::class_<Extrema_ExtElCS, std::unique_ptr<Extrema_ExtElCS, Deleter<Extrema_ExtElCS>>> cls_Extrema_ExtElCS(mod, "Extrema_ExtElCS", "It calculates all the distances between a curve and a surface. These distances can be maximum or minimum.");
@@ -537,28 +465,8 @@ PYBIND11_MODULE(Extrema, mod) {
 	cls_Extrema_POnSurfParams.def("SetIndices", (void (Extrema_POnSurfParams::*)(const Standard_Integer, const Standard_Integer)) &Extrema_POnSurfParams::SetIndices, "Sets the U and V indices of an element that contains this point.", py::arg("theIndexU"), py::arg("theIndexV"));
 	cls_Extrema_POnSurfParams.def("GetIndices", (void (Extrema_POnSurfParams::*)(Standard_Integer &, Standard_Integer &) const ) &Extrema_POnSurfParams::GetIndices, "Query the U and V indices of an element that contains this point.", py::arg("theIndexU"), py::arg("theIndexV"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array2.hxx
-	py::class_<Extrema_Array2OfPOnSurfParams, std::unique_ptr<Extrema_Array2OfPOnSurfParams, Deleter<Extrema_Array2OfPOnSurfParams>>> cls_Extrema_Array2OfPOnSurfParams(mod, "Extrema_Array2OfPOnSurfParams", "Purpose: The class Array2 represents bi-dimensional arrays of fixed size known at run time. The ranges of indices are user defined.");
-	cls_Extrema_Array2OfPOnSurfParams.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_Extrema_Array2OfPOnSurfParams.def(py::init([] (const Extrema_Array2OfPOnSurfParams &other) {return new Extrema_Array2OfPOnSurfParams(other);}), "Copy constructor", py::arg("other"));
-	cls_Extrema_Array2OfPOnSurfParams.def(py::init<const Extrema_POnSurfParams &, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_Extrema_Array2OfPOnSurfParams.def("Init", (void (Extrema_Array2OfPOnSurfParams::*)(const Extrema_POnSurfParams &)) &Extrema_Array2OfPOnSurfParams::Init, "Initialise the values", py::arg("theValue"));
-	cls_Extrema_Array2OfPOnSurfParams.def("Size", (Standard_Integer (Extrema_Array2OfPOnSurfParams::*)() const ) &Extrema_Array2OfPOnSurfParams::Size, "Size (number of items)");
-	cls_Extrema_Array2OfPOnSurfParams.def("Length", (Standard_Integer (Extrema_Array2OfPOnSurfParams::*)() const ) &Extrema_Array2OfPOnSurfParams::Length, "Length (number of items)");
-	cls_Extrema_Array2OfPOnSurfParams.def("RowLength", (Standard_Integer (Extrema_Array2OfPOnSurfParams::*)() const ) &Extrema_Array2OfPOnSurfParams::RowLength, "Returns length of the row, i.e. number of columns");
-	cls_Extrema_Array2OfPOnSurfParams.def("ColLength", (Standard_Integer (Extrema_Array2OfPOnSurfParams::*)() const ) &Extrema_Array2OfPOnSurfParams::ColLength, "Returns length of the column, i.e. number of rows");
-	cls_Extrema_Array2OfPOnSurfParams.def("LowerRow", (Standard_Integer (Extrema_Array2OfPOnSurfParams::*)() const ) &Extrema_Array2OfPOnSurfParams::LowerRow, "LowerRow");
-	cls_Extrema_Array2OfPOnSurfParams.def("UpperRow", (Standard_Integer (Extrema_Array2OfPOnSurfParams::*)() const ) &Extrema_Array2OfPOnSurfParams::UpperRow, "UpperRow");
-	cls_Extrema_Array2OfPOnSurfParams.def("LowerCol", (Standard_Integer (Extrema_Array2OfPOnSurfParams::*)() const ) &Extrema_Array2OfPOnSurfParams::LowerCol, "LowerCol");
-	cls_Extrema_Array2OfPOnSurfParams.def("UpperCol", (Standard_Integer (Extrema_Array2OfPOnSurfParams::*)() const ) &Extrema_Array2OfPOnSurfParams::UpperCol, "UpperCol");
-	cls_Extrema_Array2OfPOnSurfParams.def("IsDeletable", (Standard_Boolean (Extrema_Array2OfPOnSurfParams::*)() const ) &Extrema_Array2OfPOnSurfParams::IsDeletable, "myDeletable flag");
-	cls_Extrema_Array2OfPOnSurfParams.def("Assign", (Extrema_Array2OfPOnSurfParams & (Extrema_Array2OfPOnSurfParams::*)(const Extrema_Array2OfPOnSurfParams &)) &Extrema_Array2OfPOnSurfParams::Assign, "Assignment", py::arg("theOther"));
-	cls_Extrema_Array2OfPOnSurfParams.def("assign", (Extrema_Array2OfPOnSurfParams & (Extrema_Array2OfPOnSurfParams::*)(const Extrema_Array2OfPOnSurfParams &)) &Extrema_Array2OfPOnSurfParams::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Extrema_Array2OfPOnSurfParams.def("Value", (const Extrema_POnSurfParams & (Extrema_Array2OfPOnSurfParams::*)(const Standard_Integer, const Standard_Integer) const ) &Extrema_Array2OfPOnSurfParams::Value, "Constant value access", py::arg("theRow"), py::arg("theCol"));
-	cls_Extrema_Array2OfPOnSurfParams.def("__call__", (const Extrema_POnSurfParams & (Extrema_Array2OfPOnSurfParams::*)(const Standard_Integer, const Standard_Integer) const ) &Extrema_Array2OfPOnSurfParams::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_Extrema_Array2OfPOnSurfParams.def("ChangeValue", (Extrema_POnSurfParams & (Extrema_Array2OfPOnSurfParams::*)(const Standard_Integer, const Standard_Integer)) &Extrema_Array2OfPOnSurfParams::ChangeValue, "Variable value access", py::arg("theRow"), py::arg("theCol"));
-	cls_Extrema_Array2OfPOnSurfParams.def("__call__", (Extrema_POnSurfParams & (Extrema_Array2OfPOnSurfParams::*)(const Standard_Integer, const Standard_Integer)) &Extrema_Array2OfPOnSurfParams::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_Extrema_Array2OfPOnSurfParams.def("SetValue", (void (Extrema_Array2OfPOnSurfParams::*)(const Standard_Integer, const Standard_Integer, const Extrema_POnSurfParams &)) &Extrema_Array2OfPOnSurfParams::SetValue, "SetValue", py::arg("theRow"), py::arg("theCol"), py::arg("theItem"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_Array2OfPOnSurfParams.hxx
+	bind_NCollection_Array2<Extrema_POnSurfParams>(mod, "Extrema_Array2OfPOnSurfParams");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_FuncPSNorm.hxx
 	py::class_<Extrema_FuncPSNorm, std::unique_ptr<Extrema_FuncPSNorm, Deleter<Extrema_FuncPSNorm>>, math_FunctionSetWithDerivatives> cls_Extrema_FuncPSNorm(mod, "Extrema_FuncPSNorm", "Functional for search of extremum of the distance between point P and surface S, starting from approximate solution (u0, v0).");
@@ -1140,109 +1048,17 @@ PYBIND11_MODULE(Extrema, mod) {
 	cls_Extrema_GlobOptFuncCS.def("Values", (Standard_Boolean (Extrema_GlobOptFuncCS::*)(const math_Vector &, Standard_Real &, math_Vector &)) &Extrema_GlobOptFuncCS::Values, "None", py::arg("theX"), py::arg("theF"), py::arg("theG"));
 	cls_Extrema_GlobOptFuncCS.def("Values", (Standard_Boolean (Extrema_GlobOptFuncCS::*)(const math_Vector &, Standard_Real &, math_Vector &, math_Matrix &)) &Extrema_GlobOptFuncCS::Values, "None", py::arg("theX"), py::arg("theF"), py::arg("theG"), py::arg("theH"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Extrema_Array1OfPOnCurv2d, std::unique_ptr<Extrema_Array1OfPOnCurv2d, Deleter<Extrema_Array1OfPOnCurv2d>>> cls_Extrema_Array1OfPOnCurv2d(mod, "Extrema_Array1OfPOnCurv2d", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Extrema_Array1OfPOnCurv2d.def(py::init<>());
-	cls_Extrema_Array1OfPOnCurv2d.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Extrema_Array1OfPOnCurv2d.def(py::init([] (const Extrema_Array1OfPOnCurv2d &other) {return new Extrema_Array1OfPOnCurv2d(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Extrema_Array1OfPOnCurv2d.def(py::init<Extrema_Array1OfPOnCurv2d &&>(), py::arg("theOther"));
-	cls_Extrema_Array1OfPOnCurv2d.def(py::init<const Extrema_POnCurv2d &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Extrema_Array1OfPOnCurv2d.def("begin", (Extrema_Array1OfPOnCurv2d::iterator (Extrema_Array1OfPOnCurv2d::*)() const ) &Extrema_Array1OfPOnCurv2d::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Extrema_Array1OfPOnCurv2d.def("end", (Extrema_Array1OfPOnCurv2d::iterator (Extrema_Array1OfPOnCurv2d::*)() const ) &Extrema_Array1OfPOnCurv2d::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Extrema_Array1OfPOnCurv2d.def("cbegin", (Extrema_Array1OfPOnCurv2d::const_iterator (Extrema_Array1OfPOnCurv2d::*)() const ) &Extrema_Array1OfPOnCurv2d::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Extrema_Array1OfPOnCurv2d.def("cend", (Extrema_Array1OfPOnCurv2d::const_iterator (Extrema_Array1OfPOnCurv2d::*)() const ) &Extrema_Array1OfPOnCurv2d::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Extrema_Array1OfPOnCurv2d.def("Init", (void (Extrema_Array1OfPOnCurv2d::*)(const Extrema_POnCurv2d &)) &Extrema_Array1OfPOnCurv2d::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Extrema_Array1OfPOnCurv2d.def("Size", (Standard_Integer (Extrema_Array1OfPOnCurv2d::*)() const ) &Extrema_Array1OfPOnCurv2d::Size, "Size query");
-	cls_Extrema_Array1OfPOnCurv2d.def("Length", (Standard_Integer (Extrema_Array1OfPOnCurv2d::*)() const ) &Extrema_Array1OfPOnCurv2d::Length, "Length query (the same)");
-	cls_Extrema_Array1OfPOnCurv2d.def("IsEmpty", (Standard_Boolean (Extrema_Array1OfPOnCurv2d::*)() const ) &Extrema_Array1OfPOnCurv2d::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Extrema_Array1OfPOnCurv2d.def("Lower", (Standard_Integer (Extrema_Array1OfPOnCurv2d::*)() const ) &Extrema_Array1OfPOnCurv2d::Lower, "Lower bound");
-	cls_Extrema_Array1OfPOnCurv2d.def("Upper", (Standard_Integer (Extrema_Array1OfPOnCurv2d::*)() const ) &Extrema_Array1OfPOnCurv2d::Upper, "Upper bound");
-	cls_Extrema_Array1OfPOnCurv2d.def("IsDeletable", (Standard_Boolean (Extrema_Array1OfPOnCurv2d::*)() const ) &Extrema_Array1OfPOnCurv2d::IsDeletable, "myDeletable flag");
-	cls_Extrema_Array1OfPOnCurv2d.def("IsAllocated", (Standard_Boolean (Extrema_Array1OfPOnCurv2d::*)() const ) &Extrema_Array1OfPOnCurv2d::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Extrema_Array1OfPOnCurv2d.def("Assign", (Extrema_Array1OfPOnCurv2d & (Extrema_Array1OfPOnCurv2d::*)(const Extrema_Array1OfPOnCurv2d &)) &Extrema_Array1OfPOnCurv2d::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Extrema_Array1OfPOnCurv2d.def("Move", (Extrema_Array1OfPOnCurv2d & (Extrema_Array1OfPOnCurv2d::*)(Extrema_Array1OfPOnCurv2d &&)) &Extrema_Array1OfPOnCurv2d::Move, "Move assignment", py::arg("theOther"));
-	cls_Extrema_Array1OfPOnCurv2d.def("assign", (Extrema_Array1OfPOnCurv2d & (Extrema_Array1OfPOnCurv2d::*)(const Extrema_Array1OfPOnCurv2d &)) &Extrema_Array1OfPOnCurv2d::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Extrema_Array1OfPOnCurv2d.def("assign", (Extrema_Array1OfPOnCurv2d & (Extrema_Array1OfPOnCurv2d::*)(Extrema_Array1OfPOnCurv2d &&)) &Extrema_Array1OfPOnCurv2d::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Extrema_Array1OfPOnCurv2d.def("First", (const Extrema_POnCurv2d & (Extrema_Array1OfPOnCurv2d::*)() const ) &Extrema_Array1OfPOnCurv2d::First, "Returns first element");
-	cls_Extrema_Array1OfPOnCurv2d.def("ChangeFirst", (Extrema_POnCurv2d & (Extrema_Array1OfPOnCurv2d::*)()) &Extrema_Array1OfPOnCurv2d::ChangeFirst, "Returns first element");
-	cls_Extrema_Array1OfPOnCurv2d.def("Last", (const Extrema_POnCurv2d & (Extrema_Array1OfPOnCurv2d::*)() const ) &Extrema_Array1OfPOnCurv2d::Last, "Returns last element");
-	cls_Extrema_Array1OfPOnCurv2d.def("ChangeLast", (Extrema_POnCurv2d & (Extrema_Array1OfPOnCurv2d::*)()) &Extrema_Array1OfPOnCurv2d::ChangeLast, "Returns last element");
-	cls_Extrema_Array1OfPOnCurv2d.def("Value", (const Extrema_POnCurv2d & (Extrema_Array1OfPOnCurv2d::*)(const Standard_Integer) const ) &Extrema_Array1OfPOnCurv2d::Value, "Constant value access", py::arg("theIndex"));
-	cls_Extrema_Array1OfPOnCurv2d.def("__call__", (const Extrema_POnCurv2d & (Extrema_Array1OfPOnCurv2d::*)(const Standard_Integer) const ) &Extrema_Array1OfPOnCurv2d::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Extrema_Array1OfPOnCurv2d.def("ChangeValue", (Extrema_POnCurv2d & (Extrema_Array1OfPOnCurv2d::*)(const Standard_Integer)) &Extrema_Array1OfPOnCurv2d::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Extrema_Array1OfPOnCurv2d.def("__call__", (Extrema_POnCurv2d & (Extrema_Array1OfPOnCurv2d::*)(const Standard_Integer)) &Extrema_Array1OfPOnCurv2d::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Extrema_Array1OfPOnCurv2d.def("SetValue", (void (Extrema_Array1OfPOnCurv2d::*)(const Standard_Integer, const Extrema_POnCurv2d &)) &Extrema_Array1OfPOnCurv2d::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Extrema_Array1OfPOnCurv2d.def("Resize", (void (Extrema_Array1OfPOnCurv2d::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Extrema_Array1OfPOnCurv2d::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Extrema_Array1OfPOnCurv2d.def("__iter__", [](const Extrema_Array1OfPOnCurv2d &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_Array1OfPOnCurv2d.hxx
+	bind_NCollection_Array1<Extrema_POnCurv2d>(mod, "Extrema_Array1OfPOnCurv2d");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array2.hxx
-	py::class_<Extrema_Array2OfPOnCurv, std::unique_ptr<Extrema_Array2OfPOnCurv, Deleter<Extrema_Array2OfPOnCurv>>> cls_Extrema_Array2OfPOnCurv(mod, "Extrema_Array2OfPOnCurv", "Purpose: The class Array2 represents bi-dimensional arrays of fixed size known at run time. The ranges of indices are user defined.");
-	cls_Extrema_Array2OfPOnCurv.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_Extrema_Array2OfPOnCurv.def(py::init([] (const Extrema_Array2OfPOnCurv &other) {return new Extrema_Array2OfPOnCurv(other);}), "Copy constructor", py::arg("other"));
-	cls_Extrema_Array2OfPOnCurv.def(py::init<const Extrema_POnCurv &, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_Extrema_Array2OfPOnCurv.def("Init", (void (Extrema_Array2OfPOnCurv::*)(const Extrema_POnCurv &)) &Extrema_Array2OfPOnCurv::Init, "Initialise the values", py::arg("theValue"));
-	cls_Extrema_Array2OfPOnCurv.def("Size", (Standard_Integer (Extrema_Array2OfPOnCurv::*)() const ) &Extrema_Array2OfPOnCurv::Size, "Size (number of items)");
-	cls_Extrema_Array2OfPOnCurv.def("Length", (Standard_Integer (Extrema_Array2OfPOnCurv::*)() const ) &Extrema_Array2OfPOnCurv::Length, "Length (number of items)");
-	cls_Extrema_Array2OfPOnCurv.def("RowLength", (Standard_Integer (Extrema_Array2OfPOnCurv::*)() const ) &Extrema_Array2OfPOnCurv::RowLength, "Returns length of the row, i.e. number of columns");
-	cls_Extrema_Array2OfPOnCurv.def("ColLength", (Standard_Integer (Extrema_Array2OfPOnCurv::*)() const ) &Extrema_Array2OfPOnCurv::ColLength, "Returns length of the column, i.e. number of rows");
-	cls_Extrema_Array2OfPOnCurv.def("LowerRow", (Standard_Integer (Extrema_Array2OfPOnCurv::*)() const ) &Extrema_Array2OfPOnCurv::LowerRow, "LowerRow");
-	cls_Extrema_Array2OfPOnCurv.def("UpperRow", (Standard_Integer (Extrema_Array2OfPOnCurv::*)() const ) &Extrema_Array2OfPOnCurv::UpperRow, "UpperRow");
-	cls_Extrema_Array2OfPOnCurv.def("LowerCol", (Standard_Integer (Extrema_Array2OfPOnCurv::*)() const ) &Extrema_Array2OfPOnCurv::LowerCol, "LowerCol");
-	cls_Extrema_Array2OfPOnCurv.def("UpperCol", (Standard_Integer (Extrema_Array2OfPOnCurv::*)() const ) &Extrema_Array2OfPOnCurv::UpperCol, "UpperCol");
-	cls_Extrema_Array2OfPOnCurv.def("IsDeletable", (Standard_Boolean (Extrema_Array2OfPOnCurv::*)() const ) &Extrema_Array2OfPOnCurv::IsDeletable, "myDeletable flag");
-	cls_Extrema_Array2OfPOnCurv.def("Assign", (Extrema_Array2OfPOnCurv & (Extrema_Array2OfPOnCurv::*)(const Extrema_Array2OfPOnCurv &)) &Extrema_Array2OfPOnCurv::Assign, "Assignment", py::arg("theOther"));
-	cls_Extrema_Array2OfPOnCurv.def("assign", (Extrema_Array2OfPOnCurv & (Extrema_Array2OfPOnCurv::*)(const Extrema_Array2OfPOnCurv &)) &Extrema_Array2OfPOnCurv::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Extrema_Array2OfPOnCurv.def("Value", (const Extrema_POnCurv & (Extrema_Array2OfPOnCurv::*)(const Standard_Integer, const Standard_Integer) const ) &Extrema_Array2OfPOnCurv::Value, "Constant value access", py::arg("theRow"), py::arg("theCol"));
-	cls_Extrema_Array2OfPOnCurv.def("__call__", (const Extrema_POnCurv & (Extrema_Array2OfPOnCurv::*)(const Standard_Integer, const Standard_Integer) const ) &Extrema_Array2OfPOnCurv::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_Extrema_Array2OfPOnCurv.def("ChangeValue", (Extrema_POnCurv & (Extrema_Array2OfPOnCurv::*)(const Standard_Integer, const Standard_Integer)) &Extrema_Array2OfPOnCurv::ChangeValue, "Variable value access", py::arg("theRow"), py::arg("theCol"));
-	cls_Extrema_Array2OfPOnCurv.def("__call__", (Extrema_POnCurv & (Extrema_Array2OfPOnCurv::*)(const Standard_Integer, const Standard_Integer)) &Extrema_Array2OfPOnCurv::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_Extrema_Array2OfPOnCurv.def("SetValue", (void (Extrema_Array2OfPOnCurv::*)(const Standard_Integer, const Standard_Integer, const Extrema_POnCurv &)) &Extrema_Array2OfPOnCurv::SetValue, "SetValue", py::arg("theRow"), py::arg("theCol"), py::arg("theItem"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_Array2OfPOnCurv.hxx
+	bind_NCollection_Array2<Extrema_POnCurv>(mod, "Extrema_Array2OfPOnCurv");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array2.hxx
-	py::class_<Extrema_Array2OfPOnCurv2d, std::unique_ptr<Extrema_Array2OfPOnCurv2d, Deleter<Extrema_Array2OfPOnCurv2d>>> cls_Extrema_Array2OfPOnCurv2d(mod, "Extrema_Array2OfPOnCurv2d", "Purpose: The class Array2 represents bi-dimensional arrays of fixed size known at run time. The ranges of indices are user defined.");
-	cls_Extrema_Array2OfPOnCurv2d.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_Extrema_Array2OfPOnCurv2d.def(py::init([] (const Extrema_Array2OfPOnCurv2d &other) {return new Extrema_Array2OfPOnCurv2d(other);}), "Copy constructor", py::arg("other"));
-	cls_Extrema_Array2OfPOnCurv2d.def(py::init<const Extrema_POnCurv2d &, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_Extrema_Array2OfPOnCurv2d.def("Init", (void (Extrema_Array2OfPOnCurv2d::*)(const Extrema_POnCurv2d &)) &Extrema_Array2OfPOnCurv2d::Init, "Initialise the values", py::arg("theValue"));
-	cls_Extrema_Array2OfPOnCurv2d.def("Size", (Standard_Integer (Extrema_Array2OfPOnCurv2d::*)() const ) &Extrema_Array2OfPOnCurv2d::Size, "Size (number of items)");
-	cls_Extrema_Array2OfPOnCurv2d.def("Length", (Standard_Integer (Extrema_Array2OfPOnCurv2d::*)() const ) &Extrema_Array2OfPOnCurv2d::Length, "Length (number of items)");
-	cls_Extrema_Array2OfPOnCurv2d.def("RowLength", (Standard_Integer (Extrema_Array2OfPOnCurv2d::*)() const ) &Extrema_Array2OfPOnCurv2d::RowLength, "Returns length of the row, i.e. number of columns");
-	cls_Extrema_Array2OfPOnCurv2d.def("ColLength", (Standard_Integer (Extrema_Array2OfPOnCurv2d::*)() const ) &Extrema_Array2OfPOnCurv2d::ColLength, "Returns length of the column, i.e. number of rows");
-	cls_Extrema_Array2OfPOnCurv2d.def("LowerRow", (Standard_Integer (Extrema_Array2OfPOnCurv2d::*)() const ) &Extrema_Array2OfPOnCurv2d::LowerRow, "LowerRow");
-	cls_Extrema_Array2OfPOnCurv2d.def("UpperRow", (Standard_Integer (Extrema_Array2OfPOnCurv2d::*)() const ) &Extrema_Array2OfPOnCurv2d::UpperRow, "UpperRow");
-	cls_Extrema_Array2OfPOnCurv2d.def("LowerCol", (Standard_Integer (Extrema_Array2OfPOnCurv2d::*)() const ) &Extrema_Array2OfPOnCurv2d::LowerCol, "LowerCol");
-	cls_Extrema_Array2OfPOnCurv2d.def("UpperCol", (Standard_Integer (Extrema_Array2OfPOnCurv2d::*)() const ) &Extrema_Array2OfPOnCurv2d::UpperCol, "UpperCol");
-	cls_Extrema_Array2OfPOnCurv2d.def("IsDeletable", (Standard_Boolean (Extrema_Array2OfPOnCurv2d::*)() const ) &Extrema_Array2OfPOnCurv2d::IsDeletable, "myDeletable flag");
-	cls_Extrema_Array2OfPOnCurv2d.def("Assign", (Extrema_Array2OfPOnCurv2d & (Extrema_Array2OfPOnCurv2d::*)(const Extrema_Array2OfPOnCurv2d &)) &Extrema_Array2OfPOnCurv2d::Assign, "Assignment", py::arg("theOther"));
-	cls_Extrema_Array2OfPOnCurv2d.def("assign", (Extrema_Array2OfPOnCurv2d & (Extrema_Array2OfPOnCurv2d::*)(const Extrema_Array2OfPOnCurv2d &)) &Extrema_Array2OfPOnCurv2d::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Extrema_Array2OfPOnCurv2d.def("Value", (const Extrema_POnCurv2d & (Extrema_Array2OfPOnCurv2d::*)(const Standard_Integer, const Standard_Integer) const ) &Extrema_Array2OfPOnCurv2d::Value, "Constant value access", py::arg("theRow"), py::arg("theCol"));
-	cls_Extrema_Array2OfPOnCurv2d.def("__call__", (const Extrema_POnCurv2d & (Extrema_Array2OfPOnCurv2d::*)(const Standard_Integer, const Standard_Integer) const ) &Extrema_Array2OfPOnCurv2d::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_Extrema_Array2OfPOnCurv2d.def("ChangeValue", (Extrema_POnCurv2d & (Extrema_Array2OfPOnCurv2d::*)(const Standard_Integer, const Standard_Integer)) &Extrema_Array2OfPOnCurv2d::ChangeValue, "Variable value access", py::arg("theRow"), py::arg("theCol"));
-	cls_Extrema_Array2OfPOnCurv2d.def("__call__", (Extrema_POnCurv2d & (Extrema_Array2OfPOnCurv2d::*)(const Standard_Integer, const Standard_Integer)) &Extrema_Array2OfPOnCurv2d::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_Extrema_Array2OfPOnCurv2d.def("SetValue", (void (Extrema_Array2OfPOnCurv2d::*)(const Standard_Integer, const Standard_Integer, const Extrema_POnCurv2d &)) &Extrema_Array2OfPOnCurv2d::SetValue, "SetValue", py::arg("theRow"), py::arg("theCol"), py::arg("theItem"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_Array2OfPOnCurv2d.hxx
+	bind_NCollection_Array2<Extrema_POnCurv2d>(mod, "Extrema_Array2OfPOnCurv2d");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array2.hxx
-	py::class_<Extrema_Array2OfPOnSurf, std::unique_ptr<Extrema_Array2OfPOnSurf, Deleter<Extrema_Array2OfPOnSurf>>> cls_Extrema_Array2OfPOnSurf(mod, "Extrema_Array2OfPOnSurf", "Purpose: The class Array2 represents bi-dimensional arrays of fixed size known at run time. The ranges of indices are user defined.");
-	cls_Extrema_Array2OfPOnSurf.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_Extrema_Array2OfPOnSurf.def(py::init([] (const Extrema_Array2OfPOnSurf &other) {return new Extrema_Array2OfPOnSurf(other);}), "Copy constructor", py::arg("other"));
-	cls_Extrema_Array2OfPOnSurf.def(py::init<const Extrema_POnSurf &, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_Extrema_Array2OfPOnSurf.def("Init", (void (Extrema_Array2OfPOnSurf::*)(const Extrema_POnSurf &)) &Extrema_Array2OfPOnSurf::Init, "Initialise the values", py::arg("theValue"));
-	cls_Extrema_Array2OfPOnSurf.def("Size", (Standard_Integer (Extrema_Array2OfPOnSurf::*)() const ) &Extrema_Array2OfPOnSurf::Size, "Size (number of items)");
-	cls_Extrema_Array2OfPOnSurf.def("Length", (Standard_Integer (Extrema_Array2OfPOnSurf::*)() const ) &Extrema_Array2OfPOnSurf::Length, "Length (number of items)");
-	cls_Extrema_Array2OfPOnSurf.def("RowLength", (Standard_Integer (Extrema_Array2OfPOnSurf::*)() const ) &Extrema_Array2OfPOnSurf::RowLength, "Returns length of the row, i.e. number of columns");
-	cls_Extrema_Array2OfPOnSurf.def("ColLength", (Standard_Integer (Extrema_Array2OfPOnSurf::*)() const ) &Extrema_Array2OfPOnSurf::ColLength, "Returns length of the column, i.e. number of rows");
-	cls_Extrema_Array2OfPOnSurf.def("LowerRow", (Standard_Integer (Extrema_Array2OfPOnSurf::*)() const ) &Extrema_Array2OfPOnSurf::LowerRow, "LowerRow");
-	cls_Extrema_Array2OfPOnSurf.def("UpperRow", (Standard_Integer (Extrema_Array2OfPOnSurf::*)() const ) &Extrema_Array2OfPOnSurf::UpperRow, "UpperRow");
-	cls_Extrema_Array2OfPOnSurf.def("LowerCol", (Standard_Integer (Extrema_Array2OfPOnSurf::*)() const ) &Extrema_Array2OfPOnSurf::LowerCol, "LowerCol");
-	cls_Extrema_Array2OfPOnSurf.def("UpperCol", (Standard_Integer (Extrema_Array2OfPOnSurf::*)() const ) &Extrema_Array2OfPOnSurf::UpperCol, "UpperCol");
-	cls_Extrema_Array2OfPOnSurf.def("IsDeletable", (Standard_Boolean (Extrema_Array2OfPOnSurf::*)() const ) &Extrema_Array2OfPOnSurf::IsDeletable, "myDeletable flag");
-	cls_Extrema_Array2OfPOnSurf.def("Assign", (Extrema_Array2OfPOnSurf & (Extrema_Array2OfPOnSurf::*)(const Extrema_Array2OfPOnSurf &)) &Extrema_Array2OfPOnSurf::Assign, "Assignment", py::arg("theOther"));
-	cls_Extrema_Array2OfPOnSurf.def("assign", (Extrema_Array2OfPOnSurf & (Extrema_Array2OfPOnSurf::*)(const Extrema_Array2OfPOnSurf &)) &Extrema_Array2OfPOnSurf::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Extrema_Array2OfPOnSurf.def("Value", (const Extrema_POnSurf & (Extrema_Array2OfPOnSurf::*)(const Standard_Integer, const Standard_Integer) const ) &Extrema_Array2OfPOnSurf::Value, "Constant value access", py::arg("theRow"), py::arg("theCol"));
-	cls_Extrema_Array2OfPOnSurf.def("__call__", (const Extrema_POnSurf & (Extrema_Array2OfPOnSurf::*)(const Standard_Integer, const Standard_Integer) const ) &Extrema_Array2OfPOnSurf::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_Extrema_Array2OfPOnSurf.def("ChangeValue", (Extrema_POnSurf & (Extrema_Array2OfPOnSurf::*)(const Standard_Integer, const Standard_Integer)) &Extrema_Array2OfPOnSurf::ChangeValue, "Variable value access", py::arg("theRow"), py::arg("theCol"));
-	cls_Extrema_Array2OfPOnSurf.def("__call__", (Extrema_POnSurf & (Extrema_Array2OfPOnSurf::*)(const Standard_Integer, const Standard_Integer)) &Extrema_Array2OfPOnSurf::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_Extrema_Array2OfPOnSurf.def("SetValue", (void (Extrema_Array2OfPOnSurf::*)(const Standard_Integer, const Standard_Integer, const Extrema_POnSurf &)) &Extrema_Array2OfPOnSurf::SetValue, "SetValue", py::arg("theRow"), py::arg("theCol"), py::arg("theItem"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_Array2OfPOnSurf.hxx
+	bind_NCollection_Array2<Extrema_POnSurf>(mod, "Extrema_Array2OfPOnSurf");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_LocateExtCC2d.hxx
 	py::class_<Extrema_LocateExtCC2d, std::unique_ptr<Extrema_LocateExtCC2d, Deleter<Extrema_LocateExtCC2d>>> cls_Extrema_LocateExtCC2d(mod, "Extrema_LocateExtCC2d", "It calculates the distance between two curves with a close point; these distances can be maximum or minimum.");
@@ -1306,50 +1122,8 @@ PYBIND11_MODULE(Extrema, mod) {
 	cls_Extrema_LocECC2d.def("SquareDistance", (Standard_Real (Extrema_LocECC2d::*)() const ) &Extrema_LocECC2d::SquareDistance, "Returns the value of the extremum square distance.");
 	cls_Extrema_LocECC2d.def("Point", (void (Extrema_LocECC2d::*)(Extrema_POnCurv2d &, Extrema_POnCurv2d &) const ) &Extrema_LocECC2d::Point, "Returns the points of the extremum distance. P1 is on the first curve, P2 on the second one.", py::arg("P1"), py::arg("P2"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Extrema_SequenceOfPOnCurv, std::unique_ptr<Extrema_SequenceOfPOnCurv, Deleter<Extrema_SequenceOfPOnCurv>>, NCollection_BaseSequence> cls_Extrema_SequenceOfPOnCurv(mod, "Extrema_SequenceOfPOnCurv", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Extrema_SequenceOfPOnCurv.def(py::init<>());
-	cls_Extrema_SequenceOfPOnCurv.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Extrema_SequenceOfPOnCurv.def(py::init([] (const Extrema_SequenceOfPOnCurv &other) {return new Extrema_SequenceOfPOnCurv(other);}), "Copy constructor", py::arg("other"));
-	cls_Extrema_SequenceOfPOnCurv.def("begin", (Extrema_SequenceOfPOnCurv::iterator (Extrema_SequenceOfPOnCurv::*)() const ) &Extrema_SequenceOfPOnCurv::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Extrema_SequenceOfPOnCurv.def("end", (Extrema_SequenceOfPOnCurv::iterator (Extrema_SequenceOfPOnCurv::*)() const ) &Extrema_SequenceOfPOnCurv::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Extrema_SequenceOfPOnCurv.def("cbegin", (Extrema_SequenceOfPOnCurv::const_iterator (Extrema_SequenceOfPOnCurv::*)() const ) &Extrema_SequenceOfPOnCurv::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Extrema_SequenceOfPOnCurv.def("cend", (Extrema_SequenceOfPOnCurv::const_iterator (Extrema_SequenceOfPOnCurv::*)() const ) &Extrema_SequenceOfPOnCurv::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Extrema_SequenceOfPOnCurv.def("Size", (Standard_Integer (Extrema_SequenceOfPOnCurv::*)() const ) &Extrema_SequenceOfPOnCurv::Size, "Number of items");
-	cls_Extrema_SequenceOfPOnCurv.def("Length", (Standard_Integer (Extrema_SequenceOfPOnCurv::*)() const ) &Extrema_SequenceOfPOnCurv::Length, "Number of items");
-	cls_Extrema_SequenceOfPOnCurv.def("Lower", (Standard_Integer (Extrema_SequenceOfPOnCurv::*)() const ) &Extrema_SequenceOfPOnCurv::Lower, "Method for consistency with other collections.");
-	cls_Extrema_SequenceOfPOnCurv.def("Upper", (Standard_Integer (Extrema_SequenceOfPOnCurv::*)() const ) &Extrema_SequenceOfPOnCurv::Upper, "Method for consistency with other collections.");
-	cls_Extrema_SequenceOfPOnCurv.def("IsEmpty", (Standard_Boolean (Extrema_SequenceOfPOnCurv::*)() const ) &Extrema_SequenceOfPOnCurv::IsEmpty, "Empty query");
-	cls_Extrema_SequenceOfPOnCurv.def("Reverse", (void (Extrema_SequenceOfPOnCurv::*)()) &Extrema_SequenceOfPOnCurv::Reverse, "Reverse sequence");
-	cls_Extrema_SequenceOfPOnCurv.def("Exchange", (void (Extrema_SequenceOfPOnCurv::*)(const Standard_Integer, const Standard_Integer)) &Extrema_SequenceOfPOnCurv::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Extrema_SequenceOfPOnCurv.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_SequenceOfPOnCurv::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Extrema_SequenceOfPOnCurv.def("Clear", [](Extrema_SequenceOfPOnCurv &self) -> void { return self.Clear(); });
-	cls_Extrema_SequenceOfPOnCurv.def("Clear", (void (Extrema_SequenceOfPOnCurv::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_SequenceOfPOnCurv::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Extrema_SequenceOfPOnCurv.def("Assign", (Extrema_SequenceOfPOnCurv & (Extrema_SequenceOfPOnCurv::*)(const Extrema_SequenceOfPOnCurv &)) &Extrema_SequenceOfPOnCurv::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Extrema_SequenceOfPOnCurv.def("assign", (Extrema_SequenceOfPOnCurv & (Extrema_SequenceOfPOnCurv::*)(const Extrema_SequenceOfPOnCurv &)) &Extrema_SequenceOfPOnCurv::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Extrema_SequenceOfPOnCurv.def("Remove", (void (Extrema_SequenceOfPOnCurv::*)(Extrema_SequenceOfPOnCurv::Iterator &)) &Extrema_SequenceOfPOnCurv::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Extrema_SequenceOfPOnCurv.def("Remove", (void (Extrema_SequenceOfPOnCurv::*)(const Standard_Integer)) &Extrema_SequenceOfPOnCurv::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Extrema_SequenceOfPOnCurv.def("Remove", (void (Extrema_SequenceOfPOnCurv::*)(const Standard_Integer, const Standard_Integer)) &Extrema_SequenceOfPOnCurv::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Extrema_SequenceOfPOnCurv.def("Append", (void (Extrema_SequenceOfPOnCurv::*)(const Extrema_POnCurv &)) &Extrema_SequenceOfPOnCurv::Append, "Append one item", py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnCurv.def("Append", (void (Extrema_SequenceOfPOnCurv::*)(Extrema_SequenceOfPOnCurv &)) &Extrema_SequenceOfPOnCurv::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Extrema_SequenceOfPOnCurv.def("Prepend", (void (Extrema_SequenceOfPOnCurv::*)(const Extrema_POnCurv &)) &Extrema_SequenceOfPOnCurv::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnCurv.def("Prepend", (void (Extrema_SequenceOfPOnCurv::*)(Extrema_SequenceOfPOnCurv &)) &Extrema_SequenceOfPOnCurv::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Extrema_SequenceOfPOnCurv.def("InsertBefore", (void (Extrema_SequenceOfPOnCurv::*)(const Standard_Integer, const Extrema_POnCurv &)) &Extrema_SequenceOfPOnCurv::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnCurv.def("InsertBefore", (void (Extrema_SequenceOfPOnCurv::*)(const Standard_Integer, Extrema_SequenceOfPOnCurv &)) &Extrema_SequenceOfPOnCurv::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Extrema_SequenceOfPOnCurv.def("InsertAfter", (void (Extrema_SequenceOfPOnCurv::*)(Extrema_SequenceOfPOnCurv::Iterator &, const Extrema_POnCurv &)) &Extrema_SequenceOfPOnCurv::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnCurv.def("InsertAfter", (void (Extrema_SequenceOfPOnCurv::*)(const Standard_Integer, Extrema_SequenceOfPOnCurv &)) &Extrema_SequenceOfPOnCurv::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Extrema_SequenceOfPOnCurv.def("InsertAfter", (void (Extrema_SequenceOfPOnCurv::*)(const Standard_Integer, const Extrema_POnCurv &)) &Extrema_SequenceOfPOnCurv::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnCurv.def("Split", (void (Extrema_SequenceOfPOnCurv::*)(const Standard_Integer, Extrema_SequenceOfPOnCurv &)) &Extrema_SequenceOfPOnCurv::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Extrema_SequenceOfPOnCurv.def("First", (const Extrema_POnCurv & (Extrema_SequenceOfPOnCurv::*)() const ) &Extrema_SequenceOfPOnCurv::First, "First item access");
-	cls_Extrema_SequenceOfPOnCurv.def("ChangeFirst", (Extrema_POnCurv & (Extrema_SequenceOfPOnCurv::*)()) &Extrema_SequenceOfPOnCurv::ChangeFirst, "First item access");
-	cls_Extrema_SequenceOfPOnCurv.def("Last", (const Extrema_POnCurv & (Extrema_SequenceOfPOnCurv::*)() const ) &Extrema_SequenceOfPOnCurv::Last, "Last item access");
-	cls_Extrema_SequenceOfPOnCurv.def("ChangeLast", (Extrema_POnCurv & (Extrema_SequenceOfPOnCurv::*)()) &Extrema_SequenceOfPOnCurv::ChangeLast, "Last item access");
-	cls_Extrema_SequenceOfPOnCurv.def("Value", (const Extrema_POnCurv & (Extrema_SequenceOfPOnCurv::*)(const Standard_Integer) const ) &Extrema_SequenceOfPOnCurv::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Extrema_SequenceOfPOnCurv.def("__call__", (const Extrema_POnCurv & (Extrema_SequenceOfPOnCurv::*)(const Standard_Integer) const ) &Extrema_SequenceOfPOnCurv::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Extrema_SequenceOfPOnCurv.def("ChangeValue", (Extrema_POnCurv & (Extrema_SequenceOfPOnCurv::*)(const Standard_Integer)) &Extrema_SequenceOfPOnCurv::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Extrema_SequenceOfPOnCurv.def("__call__", (Extrema_POnCurv & (Extrema_SequenceOfPOnCurv::*)(const Standard_Integer)) &Extrema_SequenceOfPOnCurv::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Extrema_SequenceOfPOnCurv.def("SetValue", (void (Extrema_SequenceOfPOnCurv::*)(const Standard_Integer, const Extrema_POnCurv &)) &Extrema_SequenceOfPOnCurv::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnCurv.def("__iter__", [](const Extrema_SequenceOfPOnCurv &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_SequenceOfPOnCurv.hxx
+	bind_NCollection_Sequence<Extrema_POnCurv>(mod, "Extrema_SequenceOfPOnCurv");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_HArray1OfPOnCurv.hxx
 	py::class_<Extrema_HArray1OfPOnCurv, opencascade::handle<Extrema_HArray1OfPOnCurv>, Extrema_Array1OfPOnCurv, Standard_Transient> cls_Extrema_HArray1OfPOnCurv(mod, "Extrema_HArray1OfPOnCurv", "None");
@@ -1373,50 +1147,8 @@ PYBIND11_MODULE(Extrema, mod) {
 	cls_Extrema_HArray1OfPOnSurf.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Extrema_HArray1OfPOnSurf::get_type_descriptor, "None");
 	cls_Extrema_HArray1OfPOnSurf.def("DynamicType", (const opencascade::handle<Standard_Type> & (Extrema_HArray1OfPOnSurf::*)() const ) &Extrema_HArray1OfPOnSurf::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Extrema_SequenceOfPOnSurf, std::unique_ptr<Extrema_SequenceOfPOnSurf, Deleter<Extrema_SequenceOfPOnSurf>>, NCollection_BaseSequence> cls_Extrema_SequenceOfPOnSurf(mod, "Extrema_SequenceOfPOnSurf", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Extrema_SequenceOfPOnSurf.def(py::init<>());
-	cls_Extrema_SequenceOfPOnSurf.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Extrema_SequenceOfPOnSurf.def(py::init([] (const Extrema_SequenceOfPOnSurf &other) {return new Extrema_SequenceOfPOnSurf(other);}), "Copy constructor", py::arg("other"));
-	cls_Extrema_SequenceOfPOnSurf.def("begin", (Extrema_SequenceOfPOnSurf::iterator (Extrema_SequenceOfPOnSurf::*)() const ) &Extrema_SequenceOfPOnSurf::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Extrema_SequenceOfPOnSurf.def("end", (Extrema_SequenceOfPOnSurf::iterator (Extrema_SequenceOfPOnSurf::*)() const ) &Extrema_SequenceOfPOnSurf::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Extrema_SequenceOfPOnSurf.def("cbegin", (Extrema_SequenceOfPOnSurf::const_iterator (Extrema_SequenceOfPOnSurf::*)() const ) &Extrema_SequenceOfPOnSurf::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Extrema_SequenceOfPOnSurf.def("cend", (Extrema_SequenceOfPOnSurf::const_iterator (Extrema_SequenceOfPOnSurf::*)() const ) &Extrema_SequenceOfPOnSurf::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Extrema_SequenceOfPOnSurf.def("Size", (Standard_Integer (Extrema_SequenceOfPOnSurf::*)() const ) &Extrema_SequenceOfPOnSurf::Size, "Number of items");
-	cls_Extrema_SequenceOfPOnSurf.def("Length", (Standard_Integer (Extrema_SequenceOfPOnSurf::*)() const ) &Extrema_SequenceOfPOnSurf::Length, "Number of items");
-	cls_Extrema_SequenceOfPOnSurf.def("Lower", (Standard_Integer (Extrema_SequenceOfPOnSurf::*)() const ) &Extrema_SequenceOfPOnSurf::Lower, "Method for consistency with other collections.");
-	cls_Extrema_SequenceOfPOnSurf.def("Upper", (Standard_Integer (Extrema_SequenceOfPOnSurf::*)() const ) &Extrema_SequenceOfPOnSurf::Upper, "Method for consistency with other collections.");
-	cls_Extrema_SequenceOfPOnSurf.def("IsEmpty", (Standard_Boolean (Extrema_SequenceOfPOnSurf::*)() const ) &Extrema_SequenceOfPOnSurf::IsEmpty, "Empty query");
-	cls_Extrema_SequenceOfPOnSurf.def("Reverse", (void (Extrema_SequenceOfPOnSurf::*)()) &Extrema_SequenceOfPOnSurf::Reverse, "Reverse sequence");
-	cls_Extrema_SequenceOfPOnSurf.def("Exchange", (void (Extrema_SequenceOfPOnSurf::*)(const Standard_Integer, const Standard_Integer)) &Extrema_SequenceOfPOnSurf::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Extrema_SequenceOfPOnSurf.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_SequenceOfPOnSurf::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Extrema_SequenceOfPOnSurf.def("Clear", [](Extrema_SequenceOfPOnSurf &self) -> void { return self.Clear(); });
-	cls_Extrema_SequenceOfPOnSurf.def("Clear", (void (Extrema_SequenceOfPOnSurf::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_SequenceOfPOnSurf::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Extrema_SequenceOfPOnSurf.def("Assign", (Extrema_SequenceOfPOnSurf & (Extrema_SequenceOfPOnSurf::*)(const Extrema_SequenceOfPOnSurf &)) &Extrema_SequenceOfPOnSurf::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Extrema_SequenceOfPOnSurf.def("assign", (Extrema_SequenceOfPOnSurf & (Extrema_SequenceOfPOnSurf::*)(const Extrema_SequenceOfPOnSurf &)) &Extrema_SequenceOfPOnSurf::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Extrema_SequenceOfPOnSurf.def("Remove", (void (Extrema_SequenceOfPOnSurf::*)(Extrema_SequenceOfPOnSurf::Iterator &)) &Extrema_SequenceOfPOnSurf::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Extrema_SequenceOfPOnSurf.def("Remove", (void (Extrema_SequenceOfPOnSurf::*)(const Standard_Integer)) &Extrema_SequenceOfPOnSurf::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Extrema_SequenceOfPOnSurf.def("Remove", (void (Extrema_SequenceOfPOnSurf::*)(const Standard_Integer, const Standard_Integer)) &Extrema_SequenceOfPOnSurf::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Extrema_SequenceOfPOnSurf.def("Append", (void (Extrema_SequenceOfPOnSurf::*)(const Extrema_POnSurf &)) &Extrema_SequenceOfPOnSurf::Append, "Append one item", py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnSurf.def("Append", (void (Extrema_SequenceOfPOnSurf::*)(Extrema_SequenceOfPOnSurf &)) &Extrema_SequenceOfPOnSurf::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Extrema_SequenceOfPOnSurf.def("Prepend", (void (Extrema_SequenceOfPOnSurf::*)(const Extrema_POnSurf &)) &Extrema_SequenceOfPOnSurf::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnSurf.def("Prepend", (void (Extrema_SequenceOfPOnSurf::*)(Extrema_SequenceOfPOnSurf &)) &Extrema_SequenceOfPOnSurf::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Extrema_SequenceOfPOnSurf.def("InsertBefore", (void (Extrema_SequenceOfPOnSurf::*)(const Standard_Integer, const Extrema_POnSurf &)) &Extrema_SequenceOfPOnSurf::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnSurf.def("InsertBefore", (void (Extrema_SequenceOfPOnSurf::*)(const Standard_Integer, Extrema_SequenceOfPOnSurf &)) &Extrema_SequenceOfPOnSurf::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Extrema_SequenceOfPOnSurf.def("InsertAfter", (void (Extrema_SequenceOfPOnSurf::*)(Extrema_SequenceOfPOnSurf::Iterator &, const Extrema_POnSurf &)) &Extrema_SequenceOfPOnSurf::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnSurf.def("InsertAfter", (void (Extrema_SequenceOfPOnSurf::*)(const Standard_Integer, Extrema_SequenceOfPOnSurf &)) &Extrema_SequenceOfPOnSurf::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Extrema_SequenceOfPOnSurf.def("InsertAfter", (void (Extrema_SequenceOfPOnSurf::*)(const Standard_Integer, const Extrema_POnSurf &)) &Extrema_SequenceOfPOnSurf::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnSurf.def("Split", (void (Extrema_SequenceOfPOnSurf::*)(const Standard_Integer, Extrema_SequenceOfPOnSurf &)) &Extrema_SequenceOfPOnSurf::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Extrema_SequenceOfPOnSurf.def("First", (const Extrema_POnSurf & (Extrema_SequenceOfPOnSurf::*)() const ) &Extrema_SequenceOfPOnSurf::First, "First item access");
-	cls_Extrema_SequenceOfPOnSurf.def("ChangeFirst", (Extrema_POnSurf & (Extrema_SequenceOfPOnSurf::*)()) &Extrema_SequenceOfPOnSurf::ChangeFirst, "First item access");
-	cls_Extrema_SequenceOfPOnSurf.def("Last", (const Extrema_POnSurf & (Extrema_SequenceOfPOnSurf::*)() const ) &Extrema_SequenceOfPOnSurf::Last, "Last item access");
-	cls_Extrema_SequenceOfPOnSurf.def("ChangeLast", (Extrema_POnSurf & (Extrema_SequenceOfPOnSurf::*)()) &Extrema_SequenceOfPOnSurf::ChangeLast, "Last item access");
-	cls_Extrema_SequenceOfPOnSurf.def("Value", (const Extrema_POnSurf & (Extrema_SequenceOfPOnSurf::*)(const Standard_Integer) const ) &Extrema_SequenceOfPOnSurf::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Extrema_SequenceOfPOnSurf.def("__call__", (const Extrema_POnSurf & (Extrema_SequenceOfPOnSurf::*)(const Standard_Integer) const ) &Extrema_SequenceOfPOnSurf::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Extrema_SequenceOfPOnSurf.def("ChangeValue", (Extrema_POnSurf & (Extrema_SequenceOfPOnSurf::*)(const Standard_Integer)) &Extrema_SequenceOfPOnSurf::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Extrema_SequenceOfPOnSurf.def("__call__", (Extrema_POnSurf & (Extrema_SequenceOfPOnSurf::*)(const Standard_Integer)) &Extrema_SequenceOfPOnSurf::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Extrema_SequenceOfPOnSurf.def("SetValue", (void (Extrema_SequenceOfPOnSurf::*)(const Standard_Integer, const Extrema_POnSurf &)) &Extrema_SequenceOfPOnSurf::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnSurf.def("__iter__", [](const Extrema_SequenceOfPOnSurf &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_SequenceOfPOnSurf.hxx
+	bind_NCollection_Sequence<Extrema_POnSurf>(mod, "Extrema_SequenceOfPOnSurf");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_HArray2OfPOnSurfParams.hxx
 	py::class_<Extrema_HArray2OfPOnSurfParams, opencascade::handle<Extrema_HArray2OfPOnSurfParams>, Extrema_Array2OfPOnSurfParams, Standard_Transient> cls_Extrema_HArray2OfPOnSurfParams(mod, "Extrema_HArray2OfPOnSurfParams", "None");
@@ -1429,41 +1161,14 @@ PYBIND11_MODULE(Extrema, mod) {
 	cls_Extrema_HArray2OfPOnSurfParams.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Extrema_HArray2OfPOnSurfParams::get_type_descriptor, "None");
 	cls_Extrema_HArray2OfPOnSurfParams.def("DynamicType", (const opencascade::handle<Standard_Type> & (Extrema_HArray2OfPOnSurfParams::*)() const ) &Extrema_HArray2OfPOnSurfParams::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_UBTree.hxx
-	py::class_<Extrema_UBTreeOfSphere, std::unique_ptr<Extrema_UBTreeOfSphere, Deleter<Extrema_UBTreeOfSphere>>> cls_Extrema_UBTreeOfSphere(mod, "Extrema_UBTreeOfSphere", "The algorithm of unbalanced binary tree of overlapped bounding boxes.");
-	cls_Extrema_UBTreeOfSphere.def(py::init<>());
-	cls_Extrema_UBTreeOfSphere.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Extrema_UBTreeOfSphere.def("Add", (Standard_Boolean (Extrema_UBTreeOfSphere::*)(const Standard_Integer &, const Bnd_Sphere &)) &Extrema_UBTreeOfSphere::Add, "Update the tree with a new object and its bounding box.", py::arg("theObj"), py::arg("theBnd"));
-	cls_Extrema_UBTreeOfSphere.def("Select", (Standard_Integer (Extrema_UBTreeOfSphere::*)(Extrema_UBTreeOfSphere::Selector &) const ) &Extrema_UBTreeOfSphere::Select, "Searches in the tree all objects conforming to the given selector. return Number of objects accepted", py::arg("theSelector"));
-	cls_Extrema_UBTreeOfSphere.def("Clear", [](Extrema_UBTreeOfSphere &self) -> void { return self.Clear(); });
-	cls_Extrema_UBTreeOfSphere.def("Clear", (void (Extrema_UBTreeOfSphere::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_UBTreeOfSphere::Clear, "Clears the contents of the tree.", py::arg("aNewAlloc"));
-	cls_Extrema_UBTreeOfSphere.def("IsEmpty", (Standard_Boolean (Extrema_UBTreeOfSphere::*)() const ) &Extrema_UBTreeOfSphere::IsEmpty, "None");
-	cls_Extrema_UBTreeOfSphere.def("Root", (const Extrema_UBTreeOfSphere::TreeNode & (Extrema_UBTreeOfSphere::*)() const ) &Extrema_UBTreeOfSphere::Root, "Returns the root node of the tree");
-	cls_Extrema_UBTreeOfSphere.def("Allocator", (const opencascade::handle<NCollection_BaseAllocator> & (Extrema_UBTreeOfSphere::*)() const ) &Extrema_UBTreeOfSphere::Allocator, "Recommended to be used only in sub-classes.");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_HUBTreeOfSphere.hxx
+	bind_NCollection_UBTree<int, Bnd_Sphere>(mod, "Extrema_UBTreeOfSphere");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_UBTreeFiller.hxx
-	py::class_<Extrema_UBTreeFillerOfSphere, std::unique_ptr<Extrema_UBTreeFillerOfSphere, Deleter<Extrema_UBTreeFillerOfSphere>>> cls_Extrema_UBTreeFillerOfSphere(mod, "Extrema_UBTreeFillerOfSphere", "This class is used to fill an UBTree in a random order. The quality of a tree is much better (from the point of view of the search time) if objects are added to it in a random order to avoid adding a chain of neerby objects one following each other.");
-	cls_Extrema_UBTreeFillerOfSphere.def(py::init<Extrema_UBTreeFillerOfSphere::UBTree &>(), py::arg("theTree"));
-	cls_Extrema_UBTreeFillerOfSphere.def(py::init<Extrema_UBTreeFillerOfSphere::UBTree &, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theTree"), py::arg("theAlloc"));
-	cls_Extrema_UBTreeFillerOfSphere.def(py::init<Extrema_UBTreeFillerOfSphere::UBTree &, const opencascade::handle<NCollection_BaseAllocator> &, const Standard_Boolean>(), py::arg("theTree"), py::arg("theAlloc"), py::arg("isFullRandom"));
-	cls_Extrema_UBTreeFillerOfSphere.def("Add", (void (Extrema_UBTreeFillerOfSphere::*)(const Standard_Integer &, const Bnd_Sphere &)) &Extrema_UBTreeFillerOfSphere::Add, "Adds a pair (theObj, theBnd) to my sequence", py::arg("theObj"), py::arg("theBnd"));
-	cls_Extrema_UBTreeFillerOfSphere.def("Fill", (Standard_Integer (Extrema_UBTreeFillerOfSphere::*)()) &Extrema_UBTreeFillerOfSphere::Fill, "Fills the tree with the objects from my sequence. This method clears the internal buffer of added items making sure that no item would be added twice.");
-	cls_Extrema_UBTreeFillerOfSphere.def("Reset", (void (Extrema_UBTreeFillerOfSphere::*)()) &Extrema_UBTreeFillerOfSphere::Reset, "Remove all data from Filler, partculary if the Tree no more needed so the destructor of this Filler should not populate the useless Tree.");
-	cls_Extrema_UBTreeFillerOfSphere.def("CheckTree", (Standard_Integer (Extrema_UBTreeFillerOfSphere::*)(Standard_OStream &)) &Extrema_UBTreeFillerOfSphere::CheckTree, "Check the filled tree for the total number of items and the balance outputting these results to ostream.", py::arg("theStream"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_HUBTreeOfSphere.hxx
+	bind_NCollection_UBTreeFiller<int, Bnd_Sphere>(mod, "Extrema_UBTreeFillerOfSphere");
 
-	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Handle.hxx
-	py::class_<Extrema_HUBTreeOfSphere, std::unique_ptr<Extrema_HUBTreeOfSphere, Deleter<Extrema_HUBTreeOfSphere>>, opencascade::handle<Standard_Transient>> cls_Extrema_HUBTreeOfSphere(mod, "Extrema_HUBTreeOfSphere", "Purpose: This template class is used to define Handle adaptor for allocated dynamically objects of arbitrary type.");
-	cls_Extrema_HUBTreeOfSphere.def(py::init<>());
-	cls_Extrema_HUBTreeOfSphere.def(py::init<Extrema_UBTreeOfSphere *>(), py::arg("theObject"));
-	cls_Extrema_HUBTreeOfSphere.def("get", (Extrema_UBTreeOfSphere * (Extrema_HUBTreeOfSphere::*)()) &Extrema_HUBTreeOfSphere::get, "Cast handle to contained type");
-	cls_Extrema_HUBTreeOfSphere.def("get", (const Extrema_UBTreeOfSphere * (Extrema_HUBTreeOfSphere::*)() const ) &Extrema_HUBTreeOfSphere::get, "Cast handle to contained type");
-	// FIXME cls_Extrema_HUBTreeOfSphere.def("operator->", (Extrema_UBTreeOfSphere * (Extrema_HUBTreeOfSphere::*)()) &Extrema_HUBTreeOfSphere::operator->, "Cast handle to contained type");
-	// FIXME cls_Extrema_HUBTreeOfSphere.def("operator->", (const Extrema_UBTreeOfSphere * (Extrema_HUBTreeOfSphere::*)() const ) &Extrema_HUBTreeOfSphere::operator->, "Cast handle to contained type");
-	cls_Extrema_HUBTreeOfSphere.def("__mul__", (Extrema_UBTreeOfSphere & (Extrema_HUBTreeOfSphere::*)()) &Extrema_HUBTreeOfSphere::operator*, py::is_operator(), "Cast handle to contained type");
-	cls_Extrema_HUBTreeOfSphere.def("__mul__", (const Extrema_UBTreeOfSphere & (Extrema_HUBTreeOfSphere::*)() const ) &Extrema_HUBTreeOfSphere::operator*, py::is_operator(), "Cast handle to contained type");
-	cls_Extrema_HUBTreeOfSphere.def_static("DownCast_", (Extrema_HUBTreeOfSphere (*)(const opencascade::handle<Standard_Transient> &)) &Extrema_HUBTreeOfSphere::DownCast, "Downcast arbitrary Handle to the argument type if contained object is Handle for this type; returns null otherwise", py::arg("theOther"));
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_HUBTreeOfSphere.hxx
+	bind_NCollection_Handle<NCollection_UBTree<int, Bnd_Sphere> >(mod, "Extrema_HUBTreeOfSphere");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_HArray1OfPOnCurv2d.hxx
 	py::class_<Extrema_HArray1OfPOnCurv2d, opencascade::handle<Extrema_HArray1OfPOnCurv2d>, Extrema_Array1OfPOnCurv2d, Standard_Transient> cls_Extrema_HArray1OfPOnCurv2d(mod, "Extrema_HArray1OfPOnCurv2d", "None");
@@ -1509,50 +1214,8 @@ PYBIND11_MODULE(Extrema, mod) {
 	cls_Extrema_HArray2OfPOnSurf.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Extrema_HArray2OfPOnSurf::get_type_descriptor, "None");
 	cls_Extrema_HArray2OfPOnSurf.def("DynamicType", (const opencascade::handle<Standard_Type> & (Extrema_HArray2OfPOnSurf::*)() const ) &Extrema_HArray2OfPOnSurf::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Extrema_SequenceOfPOnCurv2d, std::unique_ptr<Extrema_SequenceOfPOnCurv2d, Deleter<Extrema_SequenceOfPOnCurv2d>>, NCollection_BaseSequence> cls_Extrema_SequenceOfPOnCurv2d(mod, "Extrema_SequenceOfPOnCurv2d", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Extrema_SequenceOfPOnCurv2d.def(py::init<>());
-	cls_Extrema_SequenceOfPOnCurv2d.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Extrema_SequenceOfPOnCurv2d.def(py::init([] (const Extrema_SequenceOfPOnCurv2d &other) {return new Extrema_SequenceOfPOnCurv2d(other);}), "Copy constructor", py::arg("other"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("begin", (Extrema_SequenceOfPOnCurv2d::iterator (Extrema_SequenceOfPOnCurv2d::*)() const ) &Extrema_SequenceOfPOnCurv2d::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Extrema_SequenceOfPOnCurv2d.def("end", (Extrema_SequenceOfPOnCurv2d::iterator (Extrema_SequenceOfPOnCurv2d::*)() const ) &Extrema_SequenceOfPOnCurv2d::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Extrema_SequenceOfPOnCurv2d.def("cbegin", (Extrema_SequenceOfPOnCurv2d::const_iterator (Extrema_SequenceOfPOnCurv2d::*)() const ) &Extrema_SequenceOfPOnCurv2d::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Extrema_SequenceOfPOnCurv2d.def("cend", (Extrema_SequenceOfPOnCurv2d::const_iterator (Extrema_SequenceOfPOnCurv2d::*)() const ) &Extrema_SequenceOfPOnCurv2d::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Extrema_SequenceOfPOnCurv2d.def("Size", (Standard_Integer (Extrema_SequenceOfPOnCurv2d::*)() const ) &Extrema_SequenceOfPOnCurv2d::Size, "Number of items");
-	cls_Extrema_SequenceOfPOnCurv2d.def("Length", (Standard_Integer (Extrema_SequenceOfPOnCurv2d::*)() const ) &Extrema_SequenceOfPOnCurv2d::Length, "Number of items");
-	cls_Extrema_SequenceOfPOnCurv2d.def("Lower", (Standard_Integer (Extrema_SequenceOfPOnCurv2d::*)() const ) &Extrema_SequenceOfPOnCurv2d::Lower, "Method for consistency with other collections.");
-	cls_Extrema_SequenceOfPOnCurv2d.def("Upper", (Standard_Integer (Extrema_SequenceOfPOnCurv2d::*)() const ) &Extrema_SequenceOfPOnCurv2d::Upper, "Method for consistency with other collections.");
-	cls_Extrema_SequenceOfPOnCurv2d.def("IsEmpty", (Standard_Boolean (Extrema_SequenceOfPOnCurv2d::*)() const ) &Extrema_SequenceOfPOnCurv2d::IsEmpty, "Empty query");
-	cls_Extrema_SequenceOfPOnCurv2d.def("Reverse", (void (Extrema_SequenceOfPOnCurv2d::*)()) &Extrema_SequenceOfPOnCurv2d::Reverse, "Reverse sequence");
-	cls_Extrema_SequenceOfPOnCurv2d.def("Exchange", (void (Extrema_SequenceOfPOnCurv2d::*)(const Standard_Integer, const Standard_Integer)) &Extrema_SequenceOfPOnCurv2d::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Extrema_SequenceOfPOnCurv2d.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_SequenceOfPOnCurv2d::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("Clear", [](Extrema_SequenceOfPOnCurv2d &self) -> void { return self.Clear(); });
-	cls_Extrema_SequenceOfPOnCurv2d.def("Clear", (void (Extrema_SequenceOfPOnCurv2d::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_SequenceOfPOnCurv2d::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("Assign", (Extrema_SequenceOfPOnCurv2d & (Extrema_SequenceOfPOnCurv2d::*)(const Extrema_SequenceOfPOnCurv2d &)) &Extrema_SequenceOfPOnCurv2d::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("assign", (Extrema_SequenceOfPOnCurv2d & (Extrema_SequenceOfPOnCurv2d::*)(const Extrema_SequenceOfPOnCurv2d &)) &Extrema_SequenceOfPOnCurv2d::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("Remove", (void (Extrema_SequenceOfPOnCurv2d::*)(Extrema_SequenceOfPOnCurv2d::Iterator &)) &Extrema_SequenceOfPOnCurv2d::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("Remove", (void (Extrema_SequenceOfPOnCurv2d::*)(const Standard_Integer)) &Extrema_SequenceOfPOnCurv2d::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("Remove", (void (Extrema_SequenceOfPOnCurv2d::*)(const Standard_Integer, const Standard_Integer)) &Extrema_SequenceOfPOnCurv2d::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("Append", (void (Extrema_SequenceOfPOnCurv2d::*)(const Extrema_POnCurv2d &)) &Extrema_SequenceOfPOnCurv2d::Append, "Append one item", py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("Append", (void (Extrema_SequenceOfPOnCurv2d::*)(Extrema_SequenceOfPOnCurv2d &)) &Extrema_SequenceOfPOnCurv2d::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("Prepend", (void (Extrema_SequenceOfPOnCurv2d::*)(const Extrema_POnCurv2d &)) &Extrema_SequenceOfPOnCurv2d::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("Prepend", (void (Extrema_SequenceOfPOnCurv2d::*)(Extrema_SequenceOfPOnCurv2d &)) &Extrema_SequenceOfPOnCurv2d::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("InsertBefore", (void (Extrema_SequenceOfPOnCurv2d::*)(const Standard_Integer, const Extrema_POnCurv2d &)) &Extrema_SequenceOfPOnCurv2d::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("InsertBefore", (void (Extrema_SequenceOfPOnCurv2d::*)(const Standard_Integer, Extrema_SequenceOfPOnCurv2d &)) &Extrema_SequenceOfPOnCurv2d::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("InsertAfter", (void (Extrema_SequenceOfPOnCurv2d::*)(Extrema_SequenceOfPOnCurv2d::Iterator &, const Extrema_POnCurv2d &)) &Extrema_SequenceOfPOnCurv2d::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("InsertAfter", (void (Extrema_SequenceOfPOnCurv2d::*)(const Standard_Integer, Extrema_SequenceOfPOnCurv2d &)) &Extrema_SequenceOfPOnCurv2d::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("InsertAfter", (void (Extrema_SequenceOfPOnCurv2d::*)(const Standard_Integer, const Extrema_POnCurv2d &)) &Extrema_SequenceOfPOnCurv2d::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("Split", (void (Extrema_SequenceOfPOnCurv2d::*)(const Standard_Integer, Extrema_SequenceOfPOnCurv2d &)) &Extrema_SequenceOfPOnCurv2d::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("First", (const Extrema_POnCurv2d & (Extrema_SequenceOfPOnCurv2d::*)() const ) &Extrema_SequenceOfPOnCurv2d::First, "First item access");
-	cls_Extrema_SequenceOfPOnCurv2d.def("ChangeFirst", (Extrema_POnCurv2d & (Extrema_SequenceOfPOnCurv2d::*)()) &Extrema_SequenceOfPOnCurv2d::ChangeFirst, "First item access");
-	cls_Extrema_SequenceOfPOnCurv2d.def("Last", (const Extrema_POnCurv2d & (Extrema_SequenceOfPOnCurv2d::*)() const ) &Extrema_SequenceOfPOnCurv2d::Last, "Last item access");
-	cls_Extrema_SequenceOfPOnCurv2d.def("ChangeLast", (Extrema_POnCurv2d & (Extrema_SequenceOfPOnCurv2d::*)()) &Extrema_SequenceOfPOnCurv2d::ChangeLast, "Last item access");
-	cls_Extrema_SequenceOfPOnCurv2d.def("Value", (const Extrema_POnCurv2d & (Extrema_SequenceOfPOnCurv2d::*)(const Standard_Integer) const ) &Extrema_SequenceOfPOnCurv2d::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("__call__", (const Extrema_POnCurv2d & (Extrema_SequenceOfPOnCurv2d::*)(const Standard_Integer) const ) &Extrema_SequenceOfPOnCurv2d::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("ChangeValue", (Extrema_POnCurv2d & (Extrema_SequenceOfPOnCurv2d::*)(const Standard_Integer)) &Extrema_SequenceOfPOnCurv2d::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("__call__", (Extrema_POnCurv2d & (Extrema_SequenceOfPOnCurv2d::*)(const Standard_Integer)) &Extrema_SequenceOfPOnCurv2d::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("SetValue", (void (Extrema_SequenceOfPOnCurv2d::*)(const Standard_Integer, const Extrema_POnCurv2d &)) &Extrema_SequenceOfPOnCurv2d::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Extrema_SequenceOfPOnCurv2d.def("__iter__", [](const Extrema_SequenceOfPOnCurv2d &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Extrema_SequenceOfPOnCurv2d.hxx
+	bind_NCollection_Sequence<Extrema_POnCurv2d>(mod, "Extrema_SequenceOfPOnCurv2d");
 
 
 }

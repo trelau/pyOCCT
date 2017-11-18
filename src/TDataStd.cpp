@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <TDF_DeltaOnModification.hxx>
 #include <Standard_Handle.hxx>
@@ -92,6 +83,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <TDataStd_Current.hxx>
 #include <TDF_IDList.hxx>
 #include <TDataStd.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(TDataStd, mod) {
 
@@ -303,40 +295,8 @@ PYBIND11_MODULE(TDataStd, mod) {
 	cls_TDataStd_BooleanArray.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TDataStd_BooleanArray::get_type_descriptor, "None");
 	cls_TDataStd_BooleanArray.def("DynamicType", (const opencascade::handle<Standard_Type> & (TDataStd_BooleanArray::*)() const ) &TDataStd_BooleanArray::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<TDataStd_LabelArray1, std::unique_ptr<TDataStd_LabelArray1, Deleter<TDataStd_LabelArray1>>> cls_TDataStd_LabelArray1(mod, "TDataStd_LabelArray1", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_TDataStd_LabelArray1.def(py::init<>());
-	cls_TDataStd_LabelArray1.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_TDataStd_LabelArray1.def(py::init([] (const TDataStd_LabelArray1 &other) {return new TDataStd_LabelArray1(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_TDataStd_LabelArray1.def(py::init<TDataStd_LabelArray1 &&>(), py::arg("theOther"));
-	cls_TDataStd_LabelArray1.def(py::init<const TDF_Label &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_TDataStd_LabelArray1.def("begin", (TDataStd_LabelArray1::iterator (TDataStd_LabelArray1::*)() const ) &TDataStd_LabelArray1::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_TDataStd_LabelArray1.def("end", (TDataStd_LabelArray1::iterator (TDataStd_LabelArray1::*)() const ) &TDataStd_LabelArray1::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_TDataStd_LabelArray1.def("cbegin", (TDataStd_LabelArray1::const_iterator (TDataStd_LabelArray1::*)() const ) &TDataStd_LabelArray1::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_TDataStd_LabelArray1.def("cend", (TDataStd_LabelArray1::const_iterator (TDataStd_LabelArray1::*)() const ) &TDataStd_LabelArray1::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_TDataStd_LabelArray1.def("Init", (void (TDataStd_LabelArray1::*)(const TDF_Label &)) &TDataStd_LabelArray1::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_TDataStd_LabelArray1.def("Size", (Standard_Integer (TDataStd_LabelArray1::*)() const ) &TDataStd_LabelArray1::Size, "Size query");
-	cls_TDataStd_LabelArray1.def("Length", (Standard_Integer (TDataStd_LabelArray1::*)() const ) &TDataStd_LabelArray1::Length, "Length query (the same)");
-	cls_TDataStd_LabelArray1.def("IsEmpty", (Standard_Boolean (TDataStd_LabelArray1::*)() const ) &TDataStd_LabelArray1::IsEmpty, "Return TRUE if array has zero length.");
-	cls_TDataStd_LabelArray1.def("Lower", (Standard_Integer (TDataStd_LabelArray1::*)() const ) &TDataStd_LabelArray1::Lower, "Lower bound");
-	cls_TDataStd_LabelArray1.def("Upper", (Standard_Integer (TDataStd_LabelArray1::*)() const ) &TDataStd_LabelArray1::Upper, "Upper bound");
-	cls_TDataStd_LabelArray1.def("IsDeletable", (Standard_Boolean (TDataStd_LabelArray1::*)() const ) &TDataStd_LabelArray1::IsDeletable, "myDeletable flag");
-	cls_TDataStd_LabelArray1.def("IsAllocated", (Standard_Boolean (TDataStd_LabelArray1::*)() const ) &TDataStd_LabelArray1::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_TDataStd_LabelArray1.def("Assign", (TDataStd_LabelArray1 & (TDataStd_LabelArray1::*)(const TDataStd_LabelArray1 &)) &TDataStd_LabelArray1::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_TDataStd_LabelArray1.def("Move", (TDataStd_LabelArray1 & (TDataStd_LabelArray1::*)(TDataStd_LabelArray1 &&)) &TDataStd_LabelArray1::Move, "Move assignment", py::arg("theOther"));
-	cls_TDataStd_LabelArray1.def("assign", (TDataStd_LabelArray1 & (TDataStd_LabelArray1::*)(const TDataStd_LabelArray1 &)) &TDataStd_LabelArray1::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_TDataStd_LabelArray1.def("assign", (TDataStd_LabelArray1 & (TDataStd_LabelArray1::*)(TDataStd_LabelArray1 &&)) &TDataStd_LabelArray1::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_TDataStd_LabelArray1.def("First", (const TDF_Label & (TDataStd_LabelArray1::*)() const ) &TDataStd_LabelArray1::First, "Returns first element");
-	cls_TDataStd_LabelArray1.def("ChangeFirst", (TDF_Label & (TDataStd_LabelArray1::*)()) &TDataStd_LabelArray1::ChangeFirst, "Returns first element");
-	cls_TDataStd_LabelArray1.def("Last", (const TDF_Label & (TDataStd_LabelArray1::*)() const ) &TDataStd_LabelArray1::Last, "Returns last element");
-	cls_TDataStd_LabelArray1.def("ChangeLast", (TDF_Label & (TDataStd_LabelArray1::*)()) &TDataStd_LabelArray1::ChangeLast, "Returns last element");
-	cls_TDataStd_LabelArray1.def("Value", (const TDF_Label & (TDataStd_LabelArray1::*)(const Standard_Integer) const ) &TDataStd_LabelArray1::Value, "Constant value access", py::arg("theIndex"));
-	cls_TDataStd_LabelArray1.def("__call__", (const TDF_Label & (TDataStd_LabelArray1::*)(const Standard_Integer) const ) &TDataStd_LabelArray1::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_TDataStd_LabelArray1.def("ChangeValue", (TDF_Label & (TDataStd_LabelArray1::*)(const Standard_Integer)) &TDataStd_LabelArray1::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_TDataStd_LabelArray1.def("__call__", (TDF_Label & (TDataStd_LabelArray1::*)(const Standard_Integer)) &TDataStd_LabelArray1::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_TDataStd_LabelArray1.def("SetValue", (void (TDataStd_LabelArray1::*)(const Standard_Integer, const TDF_Label &)) &TDataStd_LabelArray1::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_TDataStd_LabelArray1.def("Resize", (void (TDataStd_LabelArray1::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &TDataStd_LabelArray1::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_TDataStd_LabelArray1.def("__iter__", [](const TDataStd_LabelArray1 &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDataStd_LabelArray1.hxx
+	bind_NCollection_Array1<TDF_Label>(mod, "TDataStd_LabelArray1");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDataStd_ReferenceArray.hxx
 	py::class_<TDataStd_ReferenceArray, opencascade::handle<TDataStd_ReferenceArray>, TDF_Attribute> cls_TDataStd_ReferenceArray(mod, "TDataStd_ReferenceArray", "Contains an array of references to the labels.");
@@ -1005,250 +965,53 @@ PYBIND11_MODULE(TDataStd, mod) {
 	cls_TDataStd_HLabelArray1.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TDataStd_HLabelArray1::get_type_descriptor, "None");
 	cls_TDataStd_HLabelArray1.def("DynamicType", (const opencascade::handle<Standard_Type> & (TDataStd_HLabelArray1::*)() const ) &TDataStd_HLabelArray1::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<TDataStd_ListOfExtendedString, std::unique_ptr<TDataStd_ListOfExtendedString, Deleter<TDataStd_ListOfExtendedString>>, NCollection_BaseList> cls_TDataStd_ListOfExtendedString(mod, "TDataStd_ListOfExtendedString", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_TDataStd_ListOfExtendedString.def(py::init<>());
-	cls_TDataStd_ListOfExtendedString.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TDataStd_ListOfExtendedString.def(py::init([] (const TDataStd_ListOfExtendedString &other) {return new TDataStd_ListOfExtendedString(other);}), "Copy constructor", py::arg("other"));
-	cls_TDataStd_ListOfExtendedString.def("begin", (TDataStd_ListOfExtendedString::iterator (TDataStd_ListOfExtendedString::*)() const ) &TDataStd_ListOfExtendedString::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_TDataStd_ListOfExtendedString.def("end", (TDataStd_ListOfExtendedString::iterator (TDataStd_ListOfExtendedString::*)() const ) &TDataStd_ListOfExtendedString::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_TDataStd_ListOfExtendedString.def("cbegin", (TDataStd_ListOfExtendedString::const_iterator (TDataStd_ListOfExtendedString::*)() const ) &TDataStd_ListOfExtendedString::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_TDataStd_ListOfExtendedString.def("cend", (TDataStd_ListOfExtendedString::const_iterator (TDataStd_ListOfExtendedString::*)() const ) &TDataStd_ListOfExtendedString::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_TDataStd_ListOfExtendedString.def("Size", (Standard_Integer (TDataStd_ListOfExtendedString::*)() const ) &TDataStd_ListOfExtendedString::Size, "Size - Number of items");
-	cls_TDataStd_ListOfExtendedString.def("Assign", (TDataStd_ListOfExtendedString & (TDataStd_ListOfExtendedString::*)(const TDataStd_ListOfExtendedString &)) &TDataStd_ListOfExtendedString::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDataStd_ListOfExtendedString.def("assign", (TDataStd_ListOfExtendedString & (TDataStd_ListOfExtendedString::*)(const TDataStd_ListOfExtendedString &)) &TDataStd_ListOfExtendedString::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TDataStd_ListOfExtendedString.def("Clear", [](TDataStd_ListOfExtendedString &self) -> void { return self.Clear(); });
-	cls_TDataStd_ListOfExtendedString.def("Clear", (void (TDataStd_ListOfExtendedString::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDataStd_ListOfExtendedString::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_TDataStd_ListOfExtendedString.def("First", (const TCollection_ExtendedString & (TDataStd_ListOfExtendedString::*)() const ) &TDataStd_ListOfExtendedString::First, "First item");
-	cls_TDataStd_ListOfExtendedString.def("First", (TCollection_ExtendedString & (TDataStd_ListOfExtendedString::*)()) &TDataStd_ListOfExtendedString::First, "First item (non-const)");
-	cls_TDataStd_ListOfExtendedString.def("Last", (const TCollection_ExtendedString & (TDataStd_ListOfExtendedString::*)() const ) &TDataStd_ListOfExtendedString::Last, "Last item");
-	cls_TDataStd_ListOfExtendedString.def("Last", (TCollection_ExtendedString & (TDataStd_ListOfExtendedString::*)()) &TDataStd_ListOfExtendedString::Last, "Last item (non-const)");
-	cls_TDataStd_ListOfExtendedString.def("Append", (TCollection_ExtendedString & (TDataStd_ListOfExtendedString::*)(const TCollection_ExtendedString &)) &TDataStd_ListOfExtendedString::Append, "Append one item at the end", py::arg("theItem"));
-	cls_TDataStd_ListOfExtendedString.def("Append", (void (TDataStd_ListOfExtendedString::*)(const TCollection_ExtendedString &, TDataStd_ListOfExtendedString::Iterator &)) &TDataStd_ListOfExtendedString::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_TDataStd_ListOfExtendedString.def("Append", (void (TDataStd_ListOfExtendedString::*)(TDataStd_ListOfExtendedString &)) &TDataStd_ListOfExtendedString::Append, "Append another list at the end", py::arg("theOther"));
-	cls_TDataStd_ListOfExtendedString.def("Prepend", (TCollection_ExtendedString & (TDataStd_ListOfExtendedString::*)(const TCollection_ExtendedString &)) &TDataStd_ListOfExtendedString::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_TDataStd_ListOfExtendedString.def("Prepend", (void (TDataStd_ListOfExtendedString::*)(TDataStd_ListOfExtendedString &)) &TDataStd_ListOfExtendedString::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_TDataStd_ListOfExtendedString.def("RemoveFirst", (void (TDataStd_ListOfExtendedString::*)()) &TDataStd_ListOfExtendedString::RemoveFirst, "RemoveFirst item");
-	cls_TDataStd_ListOfExtendedString.def("Remove", (void (TDataStd_ListOfExtendedString::*)(TDataStd_ListOfExtendedString::Iterator &)) &TDataStd_ListOfExtendedString::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_TDataStd_ListOfExtendedString.def("InsertBefore", (TCollection_ExtendedString & (TDataStd_ListOfExtendedString::*)(const TCollection_ExtendedString &, TDataStd_ListOfExtendedString::Iterator &)) &TDataStd_ListOfExtendedString::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_TDataStd_ListOfExtendedString.def("InsertBefore", (void (TDataStd_ListOfExtendedString::*)(TDataStd_ListOfExtendedString &, TDataStd_ListOfExtendedString::Iterator &)) &TDataStd_ListOfExtendedString::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_TDataStd_ListOfExtendedString.def("InsertAfter", (TCollection_ExtendedString & (TDataStd_ListOfExtendedString::*)(const TCollection_ExtendedString &, TDataStd_ListOfExtendedString::Iterator &)) &TDataStd_ListOfExtendedString::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_TDataStd_ListOfExtendedString.def("InsertAfter", (void (TDataStd_ListOfExtendedString::*)(TDataStd_ListOfExtendedString &, TDataStd_ListOfExtendedString::Iterator &)) &TDataStd_ListOfExtendedString::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_TDataStd_ListOfExtendedString.def("Reverse", (void (TDataStd_ListOfExtendedString::*)()) &TDataStd_ListOfExtendedString::Reverse, "Reverse the list");
-	cls_TDataStd_ListOfExtendedString.def("__iter__", [](const TDataStd_ListOfExtendedString &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDataStd_ListOfExtendedString.hxx
+	bind_NCollection_List<TCollection_ExtendedString>(mod, "TDataStd_ListOfExtendedString");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<TDataStd_ListIteratorOfListOfExtendedString, std::unique_ptr<TDataStd_ListIteratorOfListOfExtendedString, Deleter<TDataStd_ListIteratorOfListOfExtendedString>>> cls_TDataStd_ListIteratorOfListOfExtendedString(mod, "TDataStd_ListIteratorOfListOfExtendedString", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_TDataStd_ListIteratorOfListOfExtendedString.def(py::init<>());
-	cls_TDataStd_ListIteratorOfListOfExtendedString.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_TDataStd_ListIteratorOfListOfExtendedString.def("More", (Standard_Boolean (TDataStd_ListIteratorOfListOfExtendedString::*)() const ) &TDataStd_ListIteratorOfListOfExtendedString::More, "Check end");
-	cls_TDataStd_ListIteratorOfListOfExtendedString.def("Next", (void (TDataStd_ListIteratorOfListOfExtendedString::*)()) &TDataStd_ListIteratorOfListOfExtendedString::Next, "Make step");
-	cls_TDataStd_ListIteratorOfListOfExtendedString.def("Value", (const TCollection_ExtendedString & (TDataStd_ListIteratorOfListOfExtendedString::*)() const ) &TDataStd_ListIteratorOfListOfExtendedString::Value, "Constant Value access");
-	cls_TDataStd_ListIteratorOfListOfExtendedString.def("Value", (TCollection_ExtendedString & (TDataStd_ListIteratorOfListOfExtendedString::*)()) &TDataStd_ListIteratorOfListOfExtendedString::Value, "Non-const Value access");
-	cls_TDataStd_ListIteratorOfListOfExtendedString.def("ChangeValue", (TCollection_ExtendedString & (TDataStd_ListIteratorOfListOfExtendedString::*)() const ) &TDataStd_ListIteratorOfListOfExtendedString::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDataStd_ListOfExtendedString.hxx
+	bind_NCollection_TListIterator<TCollection_ExtendedString>(mod, "TDataStd_ListIteratorOfListOfExtendedString");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<TDataStd_ListOfByte, std::unique_ptr<TDataStd_ListOfByte, Deleter<TDataStd_ListOfByte>>, NCollection_BaseList> cls_TDataStd_ListOfByte(mod, "TDataStd_ListOfByte", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_TDataStd_ListOfByte.def(py::init<>());
-	cls_TDataStd_ListOfByte.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TDataStd_ListOfByte.def(py::init([] (const TDataStd_ListOfByte &other) {return new TDataStd_ListOfByte(other);}), "Copy constructor", py::arg("other"));
-	cls_TDataStd_ListOfByte.def("begin", (TDataStd_ListOfByte::iterator (TDataStd_ListOfByte::*)() const ) &TDataStd_ListOfByte::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_TDataStd_ListOfByte.def("end", (TDataStd_ListOfByte::iterator (TDataStd_ListOfByte::*)() const ) &TDataStd_ListOfByte::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_TDataStd_ListOfByte.def("cbegin", (TDataStd_ListOfByte::const_iterator (TDataStd_ListOfByte::*)() const ) &TDataStd_ListOfByte::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_TDataStd_ListOfByte.def("cend", (TDataStd_ListOfByte::const_iterator (TDataStd_ListOfByte::*)() const ) &TDataStd_ListOfByte::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_TDataStd_ListOfByte.def("Size", (Standard_Integer (TDataStd_ListOfByte::*)() const ) &TDataStd_ListOfByte::Size, "Size - Number of items");
-	cls_TDataStd_ListOfByte.def("Assign", (TDataStd_ListOfByte & (TDataStd_ListOfByte::*)(const TDataStd_ListOfByte &)) &TDataStd_ListOfByte::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDataStd_ListOfByte.def("assign", (TDataStd_ListOfByte & (TDataStd_ListOfByte::*)(const TDataStd_ListOfByte &)) &TDataStd_ListOfByte::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TDataStd_ListOfByte.def("Clear", [](TDataStd_ListOfByte &self) -> void { return self.Clear(); });
-	cls_TDataStd_ListOfByte.def("Clear", (void (TDataStd_ListOfByte::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDataStd_ListOfByte::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_TDataStd_ListOfByte.def("First", (const Standard_Byte & (TDataStd_ListOfByte::*)() const ) &TDataStd_ListOfByte::First, "First item");
-	cls_TDataStd_ListOfByte.def("First", (Standard_Byte & (TDataStd_ListOfByte::*)()) &TDataStd_ListOfByte::First, "First item (non-const)");
-	cls_TDataStd_ListOfByte.def("Last", (const Standard_Byte & (TDataStd_ListOfByte::*)() const ) &TDataStd_ListOfByte::Last, "Last item");
-	cls_TDataStd_ListOfByte.def("Last", (Standard_Byte & (TDataStd_ListOfByte::*)()) &TDataStd_ListOfByte::Last, "Last item (non-const)");
-	cls_TDataStd_ListOfByte.def("Append", (Standard_Byte & (TDataStd_ListOfByte::*)(const Standard_Byte &)) &TDataStd_ListOfByte::Append, "Append one item at the end", py::arg("theItem"));
-	cls_TDataStd_ListOfByte.def("Append", (void (TDataStd_ListOfByte::*)(const Standard_Byte &, TDataStd_ListOfByte::Iterator &)) &TDataStd_ListOfByte::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_TDataStd_ListOfByte.def("Append", (void (TDataStd_ListOfByte::*)(TDataStd_ListOfByte &)) &TDataStd_ListOfByte::Append, "Append another list at the end", py::arg("theOther"));
-	cls_TDataStd_ListOfByte.def("Prepend", (Standard_Byte & (TDataStd_ListOfByte::*)(const Standard_Byte &)) &TDataStd_ListOfByte::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_TDataStd_ListOfByte.def("Prepend", (void (TDataStd_ListOfByte::*)(TDataStd_ListOfByte &)) &TDataStd_ListOfByte::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_TDataStd_ListOfByte.def("RemoveFirst", (void (TDataStd_ListOfByte::*)()) &TDataStd_ListOfByte::RemoveFirst, "RemoveFirst item");
-	cls_TDataStd_ListOfByte.def("Remove", (void (TDataStd_ListOfByte::*)(TDataStd_ListOfByte::Iterator &)) &TDataStd_ListOfByte::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_TDataStd_ListOfByte.def("InsertBefore", (Standard_Byte & (TDataStd_ListOfByte::*)(const Standard_Byte &, TDataStd_ListOfByte::Iterator &)) &TDataStd_ListOfByte::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_TDataStd_ListOfByte.def("InsertBefore", (void (TDataStd_ListOfByte::*)(TDataStd_ListOfByte &, TDataStd_ListOfByte::Iterator &)) &TDataStd_ListOfByte::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_TDataStd_ListOfByte.def("InsertAfter", (Standard_Byte & (TDataStd_ListOfByte::*)(const Standard_Byte &, TDataStd_ListOfByte::Iterator &)) &TDataStd_ListOfByte::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_TDataStd_ListOfByte.def("InsertAfter", (void (TDataStd_ListOfByte::*)(TDataStd_ListOfByte &, TDataStd_ListOfByte::Iterator &)) &TDataStd_ListOfByte::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_TDataStd_ListOfByte.def("Reverse", (void (TDataStd_ListOfByte::*)()) &TDataStd_ListOfByte::Reverse, "Reverse the list");
-	cls_TDataStd_ListOfByte.def("__iter__", [](const TDataStd_ListOfByte &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDataStd_ListOfByte.hxx
+	bind_NCollection_List<unsigned char>(mod, "TDataStd_ListOfByte");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<TDataStd_ListIteratorOfListOfByte, std::unique_ptr<TDataStd_ListIteratorOfListOfByte, Deleter<TDataStd_ListIteratorOfListOfByte>>> cls_TDataStd_ListIteratorOfListOfByte(mod, "TDataStd_ListIteratorOfListOfByte", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_TDataStd_ListIteratorOfListOfByte.def(py::init<>());
-	cls_TDataStd_ListIteratorOfListOfByte.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_TDataStd_ListIteratorOfListOfByte.def("More", (Standard_Boolean (TDataStd_ListIteratorOfListOfByte::*)() const ) &TDataStd_ListIteratorOfListOfByte::More, "Check end");
-	cls_TDataStd_ListIteratorOfListOfByte.def("Next", (void (TDataStd_ListIteratorOfListOfByte::*)()) &TDataStd_ListIteratorOfListOfByte::Next, "Make step");
-	cls_TDataStd_ListIteratorOfListOfByte.def("Value", (const unsigned char & (TDataStd_ListIteratorOfListOfByte::*)() const ) &TDataStd_ListIteratorOfListOfByte::Value, "Constant Value access");
-	cls_TDataStd_ListIteratorOfListOfByte.def("Value", (unsigned char & (TDataStd_ListIteratorOfListOfByte::*)()) &TDataStd_ListIteratorOfListOfByte::Value, "Non-const Value access");
-	cls_TDataStd_ListIteratorOfListOfByte.def("ChangeValue", (unsigned char & (TDataStd_ListIteratorOfListOfByte::*)() const ) &TDataStd_ListIteratorOfListOfByte::ChangeValue, "Non-const Value access");
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<TDataStd_DataMapOfStringReal, std::unique_ptr<TDataStd_DataMapOfStringReal, Deleter<TDataStd_DataMapOfStringReal>>, NCollection_BaseMap> cls_TDataStd_DataMapOfStringReal(mod, "TDataStd_DataMapOfStringReal", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_TDataStd_DataMapOfStringReal.def(py::init<>());
-	cls_TDataStd_DataMapOfStringReal.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDataStd_DataMapOfStringReal.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDataStd_DataMapOfStringReal.def(py::init([] (const TDataStd_DataMapOfStringReal &other) {return new TDataStd_DataMapOfStringReal(other);}), "Copy constructor", py::arg("other"));
-	cls_TDataStd_DataMapOfStringReal.def("begin", (TDataStd_DataMapOfStringReal::iterator (TDataStd_DataMapOfStringReal::*)() const ) &TDataStd_DataMapOfStringReal::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_TDataStd_DataMapOfStringReal.def("end", (TDataStd_DataMapOfStringReal::iterator (TDataStd_DataMapOfStringReal::*)() const ) &TDataStd_DataMapOfStringReal::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_TDataStd_DataMapOfStringReal.def("cbegin", (TDataStd_DataMapOfStringReal::const_iterator (TDataStd_DataMapOfStringReal::*)() const ) &TDataStd_DataMapOfStringReal::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TDataStd_DataMapOfStringReal.def("cend", (TDataStd_DataMapOfStringReal::const_iterator (TDataStd_DataMapOfStringReal::*)() const ) &TDataStd_DataMapOfStringReal::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TDataStd_DataMapOfStringReal.def("Exchange", (void (TDataStd_DataMapOfStringReal::*)(TDataStd_DataMapOfStringReal &)) &TDataStd_DataMapOfStringReal::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDataStd_DataMapOfStringReal.def("Assign", (TDataStd_DataMapOfStringReal & (TDataStd_DataMapOfStringReal::*)(const TDataStd_DataMapOfStringReal &)) &TDataStd_DataMapOfStringReal::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDataStd_DataMapOfStringReal.def("assign", (TDataStd_DataMapOfStringReal & (TDataStd_DataMapOfStringReal::*)(const TDataStd_DataMapOfStringReal &)) &TDataStd_DataMapOfStringReal::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TDataStd_DataMapOfStringReal.def("ReSize", (void (TDataStd_DataMapOfStringReal::*)(const Standard_Integer)) &TDataStd_DataMapOfStringReal::ReSize, "ReSize", py::arg("N"));
-	cls_TDataStd_DataMapOfStringReal.def("Bind", (Standard_Boolean (TDataStd_DataMapOfStringReal::*)(const TCollection_ExtendedString &, const Standard_Real &)) &TDataStd_DataMapOfStringReal::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_TDataStd_DataMapOfStringReal.def("Bound", (Standard_Real * (TDataStd_DataMapOfStringReal::*)(const TCollection_ExtendedString &, const Standard_Real &)) &TDataStd_DataMapOfStringReal::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_TDataStd_DataMapOfStringReal.def("IsBound", (Standard_Boolean (TDataStd_DataMapOfStringReal::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringReal::IsBound, "IsBound", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringReal.def("UnBind", (Standard_Boolean (TDataStd_DataMapOfStringReal::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringReal::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringReal.def("Seek", (const Standard_Real * (TDataStd_DataMapOfStringReal::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringReal::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringReal.def("Find", (const Standard_Real & (TDataStd_DataMapOfStringReal::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringReal::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringReal.def("Find", (Standard_Boolean (TDataStd_DataMapOfStringReal::*)(const TCollection_ExtendedString &, Standard_Real &) const ) &TDataStd_DataMapOfStringReal::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_TDataStd_DataMapOfStringReal.def("__call__", (const Standard_Real & (TDataStd_DataMapOfStringReal::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringReal::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringReal.def("ChangeSeek", (Standard_Real * (TDataStd_DataMapOfStringReal::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringReal::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringReal.def("ChangeFind", (Standard_Real & (TDataStd_DataMapOfStringReal::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringReal::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringReal.def("__call__", (Standard_Real & (TDataStd_DataMapOfStringReal::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringReal::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringReal.def("Clear", [](TDataStd_DataMapOfStringReal &self) -> void { return self.Clear(); });
-	cls_TDataStd_DataMapOfStringReal.def("Clear", (void (TDataStd_DataMapOfStringReal::*)(const Standard_Boolean)) &TDataStd_DataMapOfStringReal::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDataStd_DataMapOfStringReal.def("Clear", (void (TDataStd_DataMapOfStringReal::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDataStd_DataMapOfStringReal::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDataStd_DataMapOfStringReal.def("Size", (Standard_Integer (TDataStd_DataMapOfStringReal::*)() const ) &TDataStd_DataMapOfStringReal::Size, "Size");
-	cls_TDataStd_DataMapOfStringReal.def("__iter__", [](const TDataStd_DataMapOfStringReal &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TDataStd_ListOfByte.hxx
+	bind_NCollection_TListIterator<unsigned char>(mod, "TDataStd_ListIteratorOfListOfByte");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDataStd_DataMapOfStringReal.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<TDataStd_DataMapOfStringString, std::unique_ptr<TDataStd_DataMapOfStringString, Deleter<TDataStd_DataMapOfStringString>>, NCollection_BaseMap> cls_TDataStd_DataMapOfStringString(mod, "TDataStd_DataMapOfStringString", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_TDataStd_DataMapOfStringString.def(py::init<>());
-	cls_TDataStd_DataMapOfStringString.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDataStd_DataMapOfStringString.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDataStd_DataMapOfStringString.def(py::init([] (const TDataStd_DataMapOfStringString &other) {return new TDataStd_DataMapOfStringString(other);}), "Copy constructor", py::arg("other"));
-	cls_TDataStd_DataMapOfStringString.def("begin", (TDataStd_DataMapOfStringString::iterator (TDataStd_DataMapOfStringString::*)() const ) &TDataStd_DataMapOfStringString::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_TDataStd_DataMapOfStringString.def("end", (TDataStd_DataMapOfStringString::iterator (TDataStd_DataMapOfStringString::*)() const ) &TDataStd_DataMapOfStringString::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_TDataStd_DataMapOfStringString.def("cbegin", (TDataStd_DataMapOfStringString::const_iterator (TDataStd_DataMapOfStringString::*)() const ) &TDataStd_DataMapOfStringString::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TDataStd_DataMapOfStringString.def("cend", (TDataStd_DataMapOfStringString::const_iterator (TDataStd_DataMapOfStringString::*)() const ) &TDataStd_DataMapOfStringString::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TDataStd_DataMapOfStringString.def("Exchange", (void (TDataStd_DataMapOfStringString::*)(TDataStd_DataMapOfStringString &)) &TDataStd_DataMapOfStringString::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDataStd_DataMapOfStringString.def("Assign", (TDataStd_DataMapOfStringString & (TDataStd_DataMapOfStringString::*)(const TDataStd_DataMapOfStringString &)) &TDataStd_DataMapOfStringString::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDataStd_DataMapOfStringString.def("assign", (TDataStd_DataMapOfStringString & (TDataStd_DataMapOfStringString::*)(const TDataStd_DataMapOfStringString &)) &TDataStd_DataMapOfStringString::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TDataStd_DataMapOfStringString.def("ReSize", (void (TDataStd_DataMapOfStringString::*)(const Standard_Integer)) &TDataStd_DataMapOfStringString::ReSize, "ReSize", py::arg("N"));
-	cls_TDataStd_DataMapOfStringString.def("Bind", (Standard_Boolean (TDataStd_DataMapOfStringString::*)(const TCollection_ExtendedString &, const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringString::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_TDataStd_DataMapOfStringString.def("Bound", (TCollection_ExtendedString * (TDataStd_DataMapOfStringString::*)(const TCollection_ExtendedString &, const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringString::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_TDataStd_DataMapOfStringString.def("IsBound", (Standard_Boolean (TDataStd_DataMapOfStringString::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringString::IsBound, "IsBound", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringString.def("UnBind", (Standard_Boolean (TDataStd_DataMapOfStringString::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringString::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringString.def("Seek", (const TCollection_ExtendedString * (TDataStd_DataMapOfStringString::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringString::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringString.def("Find", (const TCollection_ExtendedString & (TDataStd_DataMapOfStringString::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringString::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringString.def("Find", (Standard_Boolean (TDataStd_DataMapOfStringString::*)(const TCollection_ExtendedString &, TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringString::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_TDataStd_DataMapOfStringString.def("__call__", (const TCollection_ExtendedString & (TDataStd_DataMapOfStringString::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringString::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringString.def("ChangeSeek", (TCollection_ExtendedString * (TDataStd_DataMapOfStringString::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringString::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringString.def("ChangeFind", (TCollection_ExtendedString & (TDataStd_DataMapOfStringString::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringString::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringString.def("__call__", (TCollection_ExtendedString & (TDataStd_DataMapOfStringString::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringString::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringString.def("Clear", [](TDataStd_DataMapOfStringString &self) -> void { return self.Clear(); });
-	cls_TDataStd_DataMapOfStringString.def("Clear", (void (TDataStd_DataMapOfStringString::*)(const Standard_Boolean)) &TDataStd_DataMapOfStringString::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDataStd_DataMapOfStringString.def("Clear", (void (TDataStd_DataMapOfStringString::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDataStd_DataMapOfStringString::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDataStd_DataMapOfStringString.def("Size", (Standard_Integer (TDataStd_DataMapOfStringString::*)() const ) &TDataStd_DataMapOfStringString::Size, "Size");
-	cls_TDataStd_DataMapOfStringString.def("__iter__", [](const TDataStd_DataMapOfStringString &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TCollection_ExtendedString, double, TCollection_ExtendedString>(mod, "TDataStd_DataMapOfStringReal");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDataStd_DataMapOfStringString.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<TDataStd_DataMapOfStringByte, std::unique_ptr<TDataStd_DataMapOfStringByte, Deleter<TDataStd_DataMapOfStringByte>>, NCollection_BaseMap> cls_TDataStd_DataMapOfStringByte(mod, "TDataStd_DataMapOfStringByte", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_TDataStd_DataMapOfStringByte.def(py::init<>());
-	cls_TDataStd_DataMapOfStringByte.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDataStd_DataMapOfStringByte.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDataStd_DataMapOfStringByte.def(py::init([] (const TDataStd_DataMapOfStringByte &other) {return new TDataStd_DataMapOfStringByte(other);}), "Copy constructor", py::arg("other"));
-	cls_TDataStd_DataMapOfStringByte.def("begin", (TDataStd_DataMapOfStringByte::iterator (TDataStd_DataMapOfStringByte::*)() const ) &TDataStd_DataMapOfStringByte::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_TDataStd_DataMapOfStringByte.def("end", (TDataStd_DataMapOfStringByte::iterator (TDataStd_DataMapOfStringByte::*)() const ) &TDataStd_DataMapOfStringByte::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_TDataStd_DataMapOfStringByte.def("cbegin", (TDataStd_DataMapOfStringByte::const_iterator (TDataStd_DataMapOfStringByte::*)() const ) &TDataStd_DataMapOfStringByte::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TDataStd_DataMapOfStringByte.def("cend", (TDataStd_DataMapOfStringByte::const_iterator (TDataStd_DataMapOfStringByte::*)() const ) &TDataStd_DataMapOfStringByte::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TDataStd_DataMapOfStringByte.def("Exchange", (void (TDataStd_DataMapOfStringByte::*)(TDataStd_DataMapOfStringByte &)) &TDataStd_DataMapOfStringByte::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDataStd_DataMapOfStringByte.def("Assign", (TDataStd_DataMapOfStringByte & (TDataStd_DataMapOfStringByte::*)(const TDataStd_DataMapOfStringByte &)) &TDataStd_DataMapOfStringByte::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDataStd_DataMapOfStringByte.def("assign", (TDataStd_DataMapOfStringByte & (TDataStd_DataMapOfStringByte::*)(const TDataStd_DataMapOfStringByte &)) &TDataStd_DataMapOfStringByte::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TDataStd_DataMapOfStringByte.def("ReSize", (void (TDataStd_DataMapOfStringByte::*)(const Standard_Integer)) &TDataStd_DataMapOfStringByte::ReSize, "ReSize", py::arg("N"));
-	cls_TDataStd_DataMapOfStringByte.def("Bind", (Standard_Boolean (TDataStd_DataMapOfStringByte::*)(const TCollection_ExtendedString &, const Standard_Byte &)) &TDataStd_DataMapOfStringByte::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_TDataStd_DataMapOfStringByte.def("Bound", (Standard_Byte * (TDataStd_DataMapOfStringByte::*)(const TCollection_ExtendedString &, const Standard_Byte &)) &TDataStd_DataMapOfStringByte::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_TDataStd_DataMapOfStringByte.def("IsBound", (Standard_Boolean (TDataStd_DataMapOfStringByte::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringByte::IsBound, "IsBound", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringByte.def("UnBind", (Standard_Boolean (TDataStd_DataMapOfStringByte::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringByte::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringByte.def("Seek", (const Standard_Byte * (TDataStd_DataMapOfStringByte::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringByte::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringByte.def("Find", (const Standard_Byte & (TDataStd_DataMapOfStringByte::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringByte::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringByte.def("Find", (Standard_Boolean (TDataStd_DataMapOfStringByte::*)(const TCollection_ExtendedString &, Standard_Byte &) const ) &TDataStd_DataMapOfStringByte::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_TDataStd_DataMapOfStringByte.def("__call__", (const Standard_Byte & (TDataStd_DataMapOfStringByte::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringByte::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringByte.def("ChangeSeek", (Standard_Byte * (TDataStd_DataMapOfStringByte::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringByte::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringByte.def("ChangeFind", (Standard_Byte & (TDataStd_DataMapOfStringByte::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringByte::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringByte.def("__call__", (Standard_Byte & (TDataStd_DataMapOfStringByte::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringByte::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringByte.def("Clear", [](TDataStd_DataMapOfStringByte &self) -> void { return self.Clear(); });
-	cls_TDataStd_DataMapOfStringByte.def("Clear", (void (TDataStd_DataMapOfStringByte::*)(const Standard_Boolean)) &TDataStd_DataMapOfStringByte::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDataStd_DataMapOfStringByte.def("Clear", (void (TDataStd_DataMapOfStringByte::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDataStd_DataMapOfStringByte::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDataStd_DataMapOfStringByte.def("Size", (Standard_Integer (TDataStd_DataMapOfStringByte::*)() const ) &TDataStd_DataMapOfStringByte::Size, "Size");
-	cls_TDataStd_DataMapOfStringByte.def("__iter__", [](const TDataStd_DataMapOfStringByte &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TCollection_ExtendedString, TCollection_ExtendedString, TCollection_ExtendedString>(mod, "TDataStd_DataMapOfStringString");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDataStd_DataMapOfStringByte.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<TDataStd_DataMapOfStringHArray1OfInteger, std::unique_ptr<TDataStd_DataMapOfStringHArray1OfInteger, Deleter<TDataStd_DataMapOfStringHArray1OfInteger>>, NCollection_BaseMap> cls_TDataStd_DataMapOfStringHArray1OfInteger(mod, "TDataStd_DataMapOfStringHArray1OfInteger", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def(py::init<>());
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def(py::init([] (const TDataStd_DataMapOfStringHArray1OfInteger &other) {return new TDataStd_DataMapOfStringHArray1OfInteger(other);}), "Copy constructor", py::arg("other"));
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("begin", (TDataStd_DataMapOfStringHArray1OfInteger::iterator (TDataStd_DataMapOfStringHArray1OfInteger::*)() const ) &TDataStd_DataMapOfStringHArray1OfInteger::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("end", (TDataStd_DataMapOfStringHArray1OfInteger::iterator (TDataStd_DataMapOfStringHArray1OfInteger::*)() const ) &TDataStd_DataMapOfStringHArray1OfInteger::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("cbegin", (TDataStd_DataMapOfStringHArray1OfInteger::const_iterator (TDataStd_DataMapOfStringHArray1OfInteger::*)() const ) &TDataStd_DataMapOfStringHArray1OfInteger::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("cend", (TDataStd_DataMapOfStringHArray1OfInteger::const_iterator (TDataStd_DataMapOfStringHArray1OfInteger::*)() const ) &TDataStd_DataMapOfStringHArray1OfInteger::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("Exchange", (void (TDataStd_DataMapOfStringHArray1OfInteger::*)(TDataStd_DataMapOfStringHArray1OfInteger &)) &TDataStd_DataMapOfStringHArray1OfInteger::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("Assign", (TDataStd_DataMapOfStringHArray1OfInteger & (TDataStd_DataMapOfStringHArray1OfInteger::*)(const TDataStd_DataMapOfStringHArray1OfInteger &)) &TDataStd_DataMapOfStringHArray1OfInteger::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("assign", (TDataStd_DataMapOfStringHArray1OfInteger & (TDataStd_DataMapOfStringHArray1OfInteger::*)(const TDataStd_DataMapOfStringHArray1OfInteger &)) &TDataStd_DataMapOfStringHArray1OfInteger::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("ReSize", (void (TDataStd_DataMapOfStringHArray1OfInteger::*)(const Standard_Integer)) &TDataStd_DataMapOfStringHArray1OfInteger::ReSize, "ReSize", py::arg("N"));
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("Bind", (Standard_Boolean (TDataStd_DataMapOfStringHArray1OfInteger::*)(const TCollection_ExtendedString &, const opencascade::handle<TColStd_HArray1OfInteger> &)) &TDataStd_DataMapOfStringHArray1OfInteger::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_TDataStd_DataMapOfStringHArray1OfInteger.def("Bound", (opencascade::handle<TColStd_HArray1OfInteger> * (TDataStd_DataMapOfStringHArray1OfInteger::*)(const TCollection_ExtendedString &, const opencascade::handle<TColStd_HArray1OfInteger> &)) &TDataStd_DataMapOfStringHArray1OfInteger::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("IsBound", (Standard_Boolean (TDataStd_DataMapOfStringHArray1OfInteger::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringHArray1OfInteger::IsBound, "IsBound", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("UnBind", (Standard_Boolean (TDataStd_DataMapOfStringHArray1OfInteger::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringHArray1OfInteger::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringHArray1OfInteger.def("Seek", (const opencascade::handle<TColStd_HArray1OfInteger> * (TDataStd_DataMapOfStringHArray1OfInteger::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringHArray1OfInteger::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringHArray1OfInteger.def("Find", (const opencascade::handle<TColStd_HArray1OfInteger> & (TDataStd_DataMapOfStringHArray1OfInteger::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringHArray1OfInteger::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringHArray1OfInteger.def("Find", (Standard_Boolean (TDataStd_DataMapOfStringHArray1OfInteger::*)(const TCollection_ExtendedString &, opencascade::handle<TColStd_HArray1OfInteger> &) const ) &TDataStd_DataMapOfStringHArray1OfInteger::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("__call__", (const opencascade::handle<TColStd_HArray1OfInteger> & (TDataStd_DataMapOfStringHArray1OfInteger::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringHArray1OfInteger::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringHArray1OfInteger.def("ChangeSeek", (opencascade::handle<TColStd_HArray1OfInteger> * (TDataStd_DataMapOfStringHArray1OfInteger::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringHArray1OfInteger::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("ChangeFind", (opencascade::handle<TColStd_HArray1OfInteger> & (TDataStd_DataMapOfStringHArray1OfInteger::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringHArray1OfInteger::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("__call__", (opencascade::handle<TColStd_HArray1OfInteger> & (TDataStd_DataMapOfStringHArray1OfInteger::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringHArray1OfInteger::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("Clear", [](TDataStd_DataMapOfStringHArray1OfInteger &self) -> void { return self.Clear(); });
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("Clear", (void (TDataStd_DataMapOfStringHArray1OfInteger::*)(const Standard_Boolean)) &TDataStd_DataMapOfStringHArray1OfInteger::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("Clear", (void (TDataStd_DataMapOfStringHArray1OfInteger::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDataStd_DataMapOfStringHArray1OfInteger::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("Size", (Standard_Integer (TDataStd_DataMapOfStringHArray1OfInteger::*)() const ) &TDataStd_DataMapOfStringHArray1OfInteger::Size, "Size");
-	cls_TDataStd_DataMapOfStringHArray1OfInteger.def("__iter__", [](const TDataStd_DataMapOfStringHArray1OfInteger &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TCollection_ExtendedString, unsigned char, TCollection_ExtendedString>(mod, "TDataStd_DataMapOfStringByte");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDataStd_DataMapOfStringHArray1OfInteger.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<TDataStd_DataMapOfStringHArray1OfReal, std::unique_ptr<TDataStd_DataMapOfStringHArray1OfReal, Deleter<TDataStd_DataMapOfStringHArray1OfReal>>, NCollection_BaseMap> cls_TDataStd_DataMapOfStringHArray1OfReal(mod, "TDataStd_DataMapOfStringHArray1OfReal", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def(py::init<>());
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def(py::init([] (const TDataStd_DataMapOfStringHArray1OfReal &other) {return new TDataStd_DataMapOfStringHArray1OfReal(other);}), "Copy constructor", py::arg("other"));
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("begin", (TDataStd_DataMapOfStringHArray1OfReal::iterator (TDataStd_DataMapOfStringHArray1OfReal::*)() const ) &TDataStd_DataMapOfStringHArray1OfReal::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("end", (TDataStd_DataMapOfStringHArray1OfReal::iterator (TDataStd_DataMapOfStringHArray1OfReal::*)() const ) &TDataStd_DataMapOfStringHArray1OfReal::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("cbegin", (TDataStd_DataMapOfStringHArray1OfReal::const_iterator (TDataStd_DataMapOfStringHArray1OfReal::*)() const ) &TDataStd_DataMapOfStringHArray1OfReal::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("cend", (TDataStd_DataMapOfStringHArray1OfReal::const_iterator (TDataStd_DataMapOfStringHArray1OfReal::*)() const ) &TDataStd_DataMapOfStringHArray1OfReal::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("Exchange", (void (TDataStd_DataMapOfStringHArray1OfReal::*)(TDataStd_DataMapOfStringHArray1OfReal &)) &TDataStd_DataMapOfStringHArray1OfReal::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("Assign", (TDataStd_DataMapOfStringHArray1OfReal & (TDataStd_DataMapOfStringHArray1OfReal::*)(const TDataStd_DataMapOfStringHArray1OfReal &)) &TDataStd_DataMapOfStringHArray1OfReal::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("assign", (TDataStd_DataMapOfStringHArray1OfReal & (TDataStd_DataMapOfStringHArray1OfReal::*)(const TDataStd_DataMapOfStringHArray1OfReal &)) &TDataStd_DataMapOfStringHArray1OfReal::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("ReSize", (void (TDataStd_DataMapOfStringHArray1OfReal::*)(const Standard_Integer)) &TDataStd_DataMapOfStringHArray1OfReal::ReSize, "ReSize", py::arg("N"));
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("Bind", (Standard_Boolean (TDataStd_DataMapOfStringHArray1OfReal::*)(const TCollection_ExtendedString &, const opencascade::handle<TColStd_HArray1OfReal> &)) &TDataStd_DataMapOfStringHArray1OfReal::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_TDataStd_DataMapOfStringHArray1OfReal.def("Bound", (opencascade::handle<TColStd_HArray1OfReal> * (TDataStd_DataMapOfStringHArray1OfReal::*)(const TCollection_ExtendedString &, const opencascade::handle<TColStd_HArray1OfReal> &)) &TDataStd_DataMapOfStringHArray1OfReal::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("IsBound", (Standard_Boolean (TDataStd_DataMapOfStringHArray1OfReal::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringHArray1OfReal::IsBound, "IsBound", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("UnBind", (Standard_Boolean (TDataStd_DataMapOfStringHArray1OfReal::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringHArray1OfReal::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringHArray1OfReal.def("Seek", (const opencascade::handle<TColStd_HArray1OfReal> * (TDataStd_DataMapOfStringHArray1OfReal::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringHArray1OfReal::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringHArray1OfReal.def("Find", (const opencascade::handle<TColStd_HArray1OfReal> & (TDataStd_DataMapOfStringHArray1OfReal::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringHArray1OfReal::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringHArray1OfReal.def("Find", (Standard_Boolean (TDataStd_DataMapOfStringHArray1OfReal::*)(const TCollection_ExtendedString &, opencascade::handle<TColStd_HArray1OfReal> &) const ) &TDataStd_DataMapOfStringHArray1OfReal::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("__call__", (const opencascade::handle<TColStd_HArray1OfReal> & (TDataStd_DataMapOfStringHArray1OfReal::*)(const TCollection_ExtendedString &) const ) &TDataStd_DataMapOfStringHArray1OfReal::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_TDataStd_DataMapOfStringHArray1OfReal.def("ChangeSeek", (opencascade::handle<TColStd_HArray1OfReal> * (TDataStd_DataMapOfStringHArray1OfReal::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringHArray1OfReal::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("ChangeFind", (opencascade::handle<TColStd_HArray1OfReal> & (TDataStd_DataMapOfStringHArray1OfReal::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringHArray1OfReal::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("__call__", (opencascade::handle<TColStd_HArray1OfReal> & (TDataStd_DataMapOfStringHArray1OfReal::*)(const TCollection_ExtendedString &)) &TDataStd_DataMapOfStringHArray1OfReal::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("Clear", [](TDataStd_DataMapOfStringHArray1OfReal &self) -> void { return self.Clear(); });
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("Clear", (void (TDataStd_DataMapOfStringHArray1OfReal::*)(const Standard_Boolean)) &TDataStd_DataMapOfStringHArray1OfReal::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("Clear", (void (TDataStd_DataMapOfStringHArray1OfReal::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TDataStd_DataMapOfStringHArray1OfReal::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("Size", (Standard_Integer (TDataStd_DataMapOfStringHArray1OfReal::*)() const ) &TDataStd_DataMapOfStringHArray1OfReal::Size, "Size");
-	cls_TDataStd_DataMapOfStringHArray1OfReal.def("__iter__", [](const TDataStd_DataMapOfStringHArray1OfReal &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TCollection_ExtendedString, opencascade::handle<TColStd_HArray1OfInteger>, TCollection_ExtendedString>(mod, "TDataStd_DataMapOfStringHArray1OfInteger");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDataStd_DataMapOfStringHArray1OfReal.hxx
+	bind_NCollection_DataMap<TCollection_ExtendedString, opencascade::handle<TColStd_HArray1OfReal>, TCollection_ExtendedString>(mod, "TDataStd_DataMapOfStringHArray1OfReal");
+
+	/* FIXME
+
+	*/
+
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TDataStd_PtrTreeNode.hxx
 
 }

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Adaptor3d_HCurve.hxx>
 #include <ChFiDS_ElSpine.hxx>
@@ -75,6 +66,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <ChFiDS_FilSpine.hxx>
 #include <ChFiDS_SequenceOfSpine.hxx>
 #include <ChFiDS_StripeArray1.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(ChFiDS, mod) {
 
@@ -146,40 +138,8 @@ PYBIND11_MODULE(ChFiDS, mod) {
 	cls_ChFiDS_CircSection.def("Get", (void (ChFiDS_CircSection::*)(gp_Circ &, Standard_Real &, Standard_Real &) const ) &ChFiDS_CircSection::Get, "None", py::arg("C"), py::arg("F"), py::arg("L"));
 	cls_ChFiDS_CircSection.def("Get", (void (ChFiDS_CircSection::*)(gp_Lin &, Standard_Real &, Standard_Real &) const ) &ChFiDS_CircSection::Get, "None", py::arg("C"), py::arg("F"), py::arg("L"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<ChFiDS_SecArray1, std::unique_ptr<ChFiDS_SecArray1, Deleter<ChFiDS_SecArray1>>> cls_ChFiDS_SecArray1(mod, "ChFiDS_SecArray1", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_ChFiDS_SecArray1.def(py::init<>());
-	cls_ChFiDS_SecArray1.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_ChFiDS_SecArray1.def(py::init([] (const ChFiDS_SecArray1 &other) {return new ChFiDS_SecArray1(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_ChFiDS_SecArray1.def(py::init<ChFiDS_SecArray1 &&>(), py::arg("theOther"));
-	cls_ChFiDS_SecArray1.def(py::init<const ChFiDS_CircSection &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_ChFiDS_SecArray1.def("begin", (ChFiDS_SecArray1::iterator (ChFiDS_SecArray1::*)() const ) &ChFiDS_SecArray1::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_ChFiDS_SecArray1.def("end", (ChFiDS_SecArray1::iterator (ChFiDS_SecArray1::*)() const ) &ChFiDS_SecArray1::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_ChFiDS_SecArray1.def("cbegin", (ChFiDS_SecArray1::const_iterator (ChFiDS_SecArray1::*)() const ) &ChFiDS_SecArray1::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_ChFiDS_SecArray1.def("cend", (ChFiDS_SecArray1::const_iterator (ChFiDS_SecArray1::*)() const ) &ChFiDS_SecArray1::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_ChFiDS_SecArray1.def("Init", (void (ChFiDS_SecArray1::*)(const ChFiDS_CircSection &)) &ChFiDS_SecArray1::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_ChFiDS_SecArray1.def("Size", (Standard_Integer (ChFiDS_SecArray1::*)() const ) &ChFiDS_SecArray1::Size, "Size query");
-	cls_ChFiDS_SecArray1.def("Length", (Standard_Integer (ChFiDS_SecArray1::*)() const ) &ChFiDS_SecArray1::Length, "Length query (the same)");
-	cls_ChFiDS_SecArray1.def("IsEmpty", (Standard_Boolean (ChFiDS_SecArray1::*)() const ) &ChFiDS_SecArray1::IsEmpty, "Return TRUE if array has zero length.");
-	cls_ChFiDS_SecArray1.def("Lower", (Standard_Integer (ChFiDS_SecArray1::*)() const ) &ChFiDS_SecArray1::Lower, "Lower bound");
-	cls_ChFiDS_SecArray1.def("Upper", (Standard_Integer (ChFiDS_SecArray1::*)() const ) &ChFiDS_SecArray1::Upper, "Upper bound");
-	cls_ChFiDS_SecArray1.def("IsDeletable", (Standard_Boolean (ChFiDS_SecArray1::*)() const ) &ChFiDS_SecArray1::IsDeletable, "myDeletable flag");
-	cls_ChFiDS_SecArray1.def("IsAllocated", (Standard_Boolean (ChFiDS_SecArray1::*)() const ) &ChFiDS_SecArray1::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_ChFiDS_SecArray1.def("Assign", (ChFiDS_SecArray1 & (ChFiDS_SecArray1::*)(const ChFiDS_SecArray1 &)) &ChFiDS_SecArray1::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_ChFiDS_SecArray1.def("Move", (ChFiDS_SecArray1 & (ChFiDS_SecArray1::*)(ChFiDS_SecArray1 &&)) &ChFiDS_SecArray1::Move, "Move assignment", py::arg("theOther"));
-	cls_ChFiDS_SecArray1.def("assign", (ChFiDS_SecArray1 & (ChFiDS_SecArray1::*)(const ChFiDS_SecArray1 &)) &ChFiDS_SecArray1::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_ChFiDS_SecArray1.def("assign", (ChFiDS_SecArray1 & (ChFiDS_SecArray1::*)(ChFiDS_SecArray1 &&)) &ChFiDS_SecArray1::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_ChFiDS_SecArray1.def("First", (const ChFiDS_CircSection & (ChFiDS_SecArray1::*)() const ) &ChFiDS_SecArray1::First, "Returns first element");
-	cls_ChFiDS_SecArray1.def("ChangeFirst", (ChFiDS_CircSection & (ChFiDS_SecArray1::*)()) &ChFiDS_SecArray1::ChangeFirst, "Returns first element");
-	cls_ChFiDS_SecArray1.def("Last", (const ChFiDS_CircSection & (ChFiDS_SecArray1::*)() const ) &ChFiDS_SecArray1::Last, "Returns last element");
-	cls_ChFiDS_SecArray1.def("ChangeLast", (ChFiDS_CircSection & (ChFiDS_SecArray1::*)()) &ChFiDS_SecArray1::ChangeLast, "Returns last element");
-	cls_ChFiDS_SecArray1.def("Value", (const ChFiDS_CircSection & (ChFiDS_SecArray1::*)(const Standard_Integer) const ) &ChFiDS_SecArray1::Value, "Constant value access", py::arg("theIndex"));
-	cls_ChFiDS_SecArray1.def("__call__", (const ChFiDS_CircSection & (ChFiDS_SecArray1::*)(const Standard_Integer) const ) &ChFiDS_SecArray1::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_ChFiDS_SecArray1.def("ChangeValue", (ChFiDS_CircSection & (ChFiDS_SecArray1::*)(const Standard_Integer)) &ChFiDS_SecArray1::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_ChFiDS_SecArray1.def("__call__", (ChFiDS_CircSection & (ChFiDS_SecArray1::*)(const Standard_Integer)) &ChFiDS_SecArray1::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_ChFiDS_SecArray1.def("SetValue", (void (ChFiDS_SecArray1::*)(const Standard_Integer, const ChFiDS_CircSection &)) &ChFiDS_SecArray1::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_ChFiDS_SecArray1.def("Resize", (void (ChFiDS_SecArray1::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &ChFiDS_SecArray1::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_ChFiDS_SecArray1.def("__iter__", [](const ChFiDS_SecArray1 &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFiDS_SecArray1.hxx
+	bind_NCollection_Array1<ChFiDS_CircSection>(mod, "ChFiDS_SecArray1");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFiDS_Map.hxx
 	py::class_<ChFiDS_Map, std::unique_ptr<ChFiDS_Map, Deleter<ChFiDS_Map>>> cls_ChFiDS_Map(mod, "ChFiDS_Map", "Encapsulation of IndexedDataMapOfShapeListOfShape.");
@@ -291,50 +251,8 @@ PYBIND11_MODULE(ChFiDS, mod) {
 	cls_ChFiDS_SurfData.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ChFiDS_SurfData::get_type_descriptor, "None");
 	cls_ChFiDS_SurfData.def("DynamicType", (const opencascade::handle<Standard_Type> & (ChFiDS_SurfData::*)() const ) &ChFiDS_SurfData::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<ChFiDS_SequenceOfSurfData, std::unique_ptr<ChFiDS_SequenceOfSurfData, Deleter<ChFiDS_SequenceOfSurfData>>, NCollection_BaseSequence> cls_ChFiDS_SequenceOfSurfData(mod, "ChFiDS_SequenceOfSurfData", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_ChFiDS_SequenceOfSurfData.def(py::init<>());
-	cls_ChFiDS_SequenceOfSurfData.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_ChFiDS_SequenceOfSurfData.def(py::init([] (const ChFiDS_SequenceOfSurfData &other) {return new ChFiDS_SequenceOfSurfData(other);}), "Copy constructor", py::arg("other"));
-	cls_ChFiDS_SequenceOfSurfData.def("begin", (ChFiDS_SequenceOfSurfData::iterator (ChFiDS_SequenceOfSurfData::*)() const ) &ChFiDS_SequenceOfSurfData::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_ChFiDS_SequenceOfSurfData.def("end", (ChFiDS_SequenceOfSurfData::iterator (ChFiDS_SequenceOfSurfData::*)() const ) &ChFiDS_SequenceOfSurfData::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_ChFiDS_SequenceOfSurfData.def("cbegin", (ChFiDS_SequenceOfSurfData::const_iterator (ChFiDS_SequenceOfSurfData::*)() const ) &ChFiDS_SequenceOfSurfData::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_ChFiDS_SequenceOfSurfData.def("cend", (ChFiDS_SequenceOfSurfData::const_iterator (ChFiDS_SequenceOfSurfData::*)() const ) &ChFiDS_SequenceOfSurfData::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_ChFiDS_SequenceOfSurfData.def("Size", (Standard_Integer (ChFiDS_SequenceOfSurfData::*)() const ) &ChFiDS_SequenceOfSurfData::Size, "Number of items");
-	cls_ChFiDS_SequenceOfSurfData.def("Length", (Standard_Integer (ChFiDS_SequenceOfSurfData::*)() const ) &ChFiDS_SequenceOfSurfData::Length, "Number of items");
-	cls_ChFiDS_SequenceOfSurfData.def("Lower", (Standard_Integer (ChFiDS_SequenceOfSurfData::*)() const ) &ChFiDS_SequenceOfSurfData::Lower, "Method for consistency with other collections.");
-	cls_ChFiDS_SequenceOfSurfData.def("Upper", (Standard_Integer (ChFiDS_SequenceOfSurfData::*)() const ) &ChFiDS_SequenceOfSurfData::Upper, "Method for consistency with other collections.");
-	cls_ChFiDS_SequenceOfSurfData.def("IsEmpty", (Standard_Boolean (ChFiDS_SequenceOfSurfData::*)() const ) &ChFiDS_SequenceOfSurfData::IsEmpty, "Empty query");
-	cls_ChFiDS_SequenceOfSurfData.def("Reverse", (void (ChFiDS_SequenceOfSurfData::*)()) &ChFiDS_SequenceOfSurfData::Reverse, "Reverse sequence");
-	cls_ChFiDS_SequenceOfSurfData.def("Exchange", (void (ChFiDS_SequenceOfSurfData::*)(const Standard_Integer, const Standard_Integer)) &ChFiDS_SequenceOfSurfData::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_ChFiDS_SequenceOfSurfData.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &ChFiDS_SequenceOfSurfData::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_ChFiDS_SequenceOfSurfData.def("Clear", [](ChFiDS_SequenceOfSurfData &self) -> void { return self.Clear(); });
-	cls_ChFiDS_SequenceOfSurfData.def("Clear", (void (ChFiDS_SequenceOfSurfData::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &ChFiDS_SequenceOfSurfData::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_ChFiDS_SequenceOfSurfData.def("Assign", (ChFiDS_SequenceOfSurfData & (ChFiDS_SequenceOfSurfData::*)(const ChFiDS_SequenceOfSurfData &)) &ChFiDS_SequenceOfSurfData::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_ChFiDS_SequenceOfSurfData.def("assign", (ChFiDS_SequenceOfSurfData & (ChFiDS_SequenceOfSurfData::*)(const ChFiDS_SequenceOfSurfData &)) &ChFiDS_SequenceOfSurfData::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_ChFiDS_SequenceOfSurfData.def("Remove", (void (ChFiDS_SequenceOfSurfData::*)(ChFiDS_SequenceOfSurfData::Iterator &)) &ChFiDS_SequenceOfSurfData::Remove, "Remove one item", py::arg("thePosition"));
-	cls_ChFiDS_SequenceOfSurfData.def("Remove", (void (ChFiDS_SequenceOfSurfData::*)(const Standard_Integer)) &ChFiDS_SequenceOfSurfData::Remove, "Remove one item", py::arg("theIndex"));
-	cls_ChFiDS_SequenceOfSurfData.def("Remove", (void (ChFiDS_SequenceOfSurfData::*)(const Standard_Integer, const Standard_Integer)) &ChFiDS_SequenceOfSurfData::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_ChFiDS_SequenceOfSurfData.def("Append", (void (ChFiDS_SequenceOfSurfData::*)(const opencascade::handle<ChFiDS_SurfData> &)) &ChFiDS_SequenceOfSurfData::Append, "Append one item", py::arg("theItem"));
-	cls_ChFiDS_SequenceOfSurfData.def("Append", (void (ChFiDS_SequenceOfSurfData::*)(ChFiDS_SequenceOfSurfData &)) &ChFiDS_SequenceOfSurfData::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_ChFiDS_SequenceOfSurfData.def("Prepend", (void (ChFiDS_SequenceOfSurfData::*)(const opencascade::handle<ChFiDS_SurfData> &)) &ChFiDS_SequenceOfSurfData::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_ChFiDS_SequenceOfSurfData.def("Prepend", (void (ChFiDS_SequenceOfSurfData::*)(ChFiDS_SequenceOfSurfData &)) &ChFiDS_SequenceOfSurfData::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_ChFiDS_SequenceOfSurfData.def("InsertBefore", (void (ChFiDS_SequenceOfSurfData::*)(const Standard_Integer, const opencascade::handle<ChFiDS_SurfData> &)) &ChFiDS_SequenceOfSurfData::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_ChFiDS_SequenceOfSurfData.def("InsertBefore", (void (ChFiDS_SequenceOfSurfData::*)(const Standard_Integer, ChFiDS_SequenceOfSurfData &)) &ChFiDS_SequenceOfSurfData::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_ChFiDS_SequenceOfSurfData.def("InsertAfter", (void (ChFiDS_SequenceOfSurfData::*)(ChFiDS_SequenceOfSurfData::Iterator &, const opencascade::handle<ChFiDS_SurfData> &)) &ChFiDS_SequenceOfSurfData::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_ChFiDS_SequenceOfSurfData.def("InsertAfter", (void (ChFiDS_SequenceOfSurfData::*)(const Standard_Integer, ChFiDS_SequenceOfSurfData &)) &ChFiDS_SequenceOfSurfData::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_ChFiDS_SequenceOfSurfData.def("InsertAfter", (void (ChFiDS_SequenceOfSurfData::*)(const Standard_Integer, const opencascade::handle<ChFiDS_SurfData> &)) &ChFiDS_SequenceOfSurfData::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_ChFiDS_SequenceOfSurfData.def("Split", (void (ChFiDS_SequenceOfSurfData::*)(const Standard_Integer, ChFiDS_SequenceOfSurfData &)) &ChFiDS_SequenceOfSurfData::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_ChFiDS_SequenceOfSurfData.def("First", (const opencascade::handle<ChFiDS_SurfData> & (ChFiDS_SequenceOfSurfData::*)() const ) &ChFiDS_SequenceOfSurfData::First, "First item access");
-	cls_ChFiDS_SequenceOfSurfData.def("ChangeFirst", (opencascade::handle<ChFiDS_SurfData> & (ChFiDS_SequenceOfSurfData::*)()) &ChFiDS_SequenceOfSurfData::ChangeFirst, "First item access");
-	cls_ChFiDS_SequenceOfSurfData.def("Last", (const opencascade::handle<ChFiDS_SurfData> & (ChFiDS_SequenceOfSurfData::*)() const ) &ChFiDS_SequenceOfSurfData::Last, "Last item access");
-	cls_ChFiDS_SequenceOfSurfData.def("ChangeLast", (opencascade::handle<ChFiDS_SurfData> & (ChFiDS_SequenceOfSurfData::*)()) &ChFiDS_SequenceOfSurfData::ChangeLast, "Last item access");
-	cls_ChFiDS_SequenceOfSurfData.def("Value", (const opencascade::handle<ChFiDS_SurfData> & (ChFiDS_SequenceOfSurfData::*)(const Standard_Integer) const ) &ChFiDS_SequenceOfSurfData::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_ChFiDS_SequenceOfSurfData.def("__call__", (const opencascade::handle<ChFiDS_SurfData> & (ChFiDS_SequenceOfSurfData::*)(const Standard_Integer) const ) &ChFiDS_SequenceOfSurfData::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_ChFiDS_SequenceOfSurfData.def("ChangeValue", (opencascade::handle<ChFiDS_SurfData> & (ChFiDS_SequenceOfSurfData::*)(const Standard_Integer)) &ChFiDS_SequenceOfSurfData::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_ChFiDS_SequenceOfSurfData.def("__call__", (opencascade::handle<ChFiDS_SurfData> & (ChFiDS_SequenceOfSurfData::*)(const Standard_Integer)) &ChFiDS_SequenceOfSurfData::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_ChFiDS_SequenceOfSurfData.def("SetValue", (void (ChFiDS_SequenceOfSurfData::*)(const Standard_Integer, const opencascade::handle<ChFiDS_SurfData> &)) &ChFiDS_SequenceOfSurfData::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_ChFiDS_SequenceOfSurfData.def("__iter__", [](const ChFiDS_SequenceOfSurfData &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFiDS_SequenceOfSurfData.hxx
+	bind_NCollection_Sequence<opencascade::handle<ChFiDS_SurfData> >(mod, "ChFiDS_SequenceOfSurfData");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFiDS_Spine.hxx
 	py::class_<ChFiDS_Spine, opencascade::handle<ChFiDS_Spine>, Standard_Transient> cls_ChFiDS_Spine(mod, "ChFiDS_Spine", "Contains information necessary for construction of a 3D fillet or chamfer:");
@@ -603,249 +521,32 @@ PYBIND11_MODULE(ChFiDS, mod) {
 	cls_ChFiDS_HData.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ChFiDS_HData::get_type_descriptor, "None");
 	cls_ChFiDS_HData.def("DynamicType", (const opencascade::handle<Standard_Type> & (ChFiDS_HData::*)() const ) &ChFiDS_HData::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<ChFiDS_ListOfStripe, std::unique_ptr<ChFiDS_ListOfStripe, Deleter<ChFiDS_ListOfStripe>>, NCollection_BaseList> cls_ChFiDS_ListOfStripe(mod, "ChFiDS_ListOfStripe", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_ChFiDS_ListOfStripe.def(py::init<>());
-	cls_ChFiDS_ListOfStripe.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_ChFiDS_ListOfStripe.def(py::init([] (const ChFiDS_ListOfStripe &other) {return new ChFiDS_ListOfStripe(other);}), "Copy constructor", py::arg("other"));
-	cls_ChFiDS_ListOfStripe.def("begin", (ChFiDS_ListOfStripe::iterator (ChFiDS_ListOfStripe::*)() const ) &ChFiDS_ListOfStripe::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_ChFiDS_ListOfStripe.def("end", (ChFiDS_ListOfStripe::iterator (ChFiDS_ListOfStripe::*)() const ) &ChFiDS_ListOfStripe::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_ChFiDS_ListOfStripe.def("cbegin", (ChFiDS_ListOfStripe::const_iterator (ChFiDS_ListOfStripe::*)() const ) &ChFiDS_ListOfStripe::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_ChFiDS_ListOfStripe.def("cend", (ChFiDS_ListOfStripe::const_iterator (ChFiDS_ListOfStripe::*)() const ) &ChFiDS_ListOfStripe::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_ChFiDS_ListOfStripe.def("Size", (Standard_Integer (ChFiDS_ListOfStripe::*)() const ) &ChFiDS_ListOfStripe::Size, "Size - Number of items");
-	cls_ChFiDS_ListOfStripe.def("Assign", (ChFiDS_ListOfStripe & (ChFiDS_ListOfStripe::*)(const ChFiDS_ListOfStripe &)) &ChFiDS_ListOfStripe::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_ChFiDS_ListOfStripe.def("assign", (ChFiDS_ListOfStripe & (ChFiDS_ListOfStripe::*)(const ChFiDS_ListOfStripe &)) &ChFiDS_ListOfStripe::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_ChFiDS_ListOfStripe.def("Clear", [](ChFiDS_ListOfStripe &self) -> void { return self.Clear(); });
-	cls_ChFiDS_ListOfStripe.def("Clear", (void (ChFiDS_ListOfStripe::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &ChFiDS_ListOfStripe::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_ChFiDS_ListOfStripe.def("First", (const opencascade::handle<ChFiDS_Stripe> & (ChFiDS_ListOfStripe::*)() const ) &ChFiDS_ListOfStripe::First, "First item");
-	cls_ChFiDS_ListOfStripe.def("First", (opencascade::handle<ChFiDS_Stripe> & (ChFiDS_ListOfStripe::*)()) &ChFiDS_ListOfStripe::First, "First item (non-const)");
-	cls_ChFiDS_ListOfStripe.def("Last", (const opencascade::handle<ChFiDS_Stripe> & (ChFiDS_ListOfStripe::*)() const ) &ChFiDS_ListOfStripe::Last, "Last item");
-	cls_ChFiDS_ListOfStripe.def("Last", (opencascade::handle<ChFiDS_Stripe> & (ChFiDS_ListOfStripe::*)()) &ChFiDS_ListOfStripe::Last, "Last item (non-const)");
-	cls_ChFiDS_ListOfStripe.def("Append", (opencascade::handle<ChFiDS_Stripe> & (ChFiDS_ListOfStripe::*)(const opencascade::handle<ChFiDS_Stripe> &)) &ChFiDS_ListOfStripe::Append, "Append one item at the end", py::arg("theItem"));
-	cls_ChFiDS_ListOfStripe.def("Append", (void (ChFiDS_ListOfStripe::*)(const opencascade::handle<ChFiDS_Stripe> &, ChFiDS_ListOfStripe::Iterator &)) &ChFiDS_ListOfStripe::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_ChFiDS_ListOfStripe.def("Append", (void (ChFiDS_ListOfStripe::*)(ChFiDS_ListOfStripe &)) &ChFiDS_ListOfStripe::Append, "Append another list at the end", py::arg("theOther"));
-	cls_ChFiDS_ListOfStripe.def("Prepend", (opencascade::handle<ChFiDS_Stripe> & (ChFiDS_ListOfStripe::*)(const opencascade::handle<ChFiDS_Stripe> &)) &ChFiDS_ListOfStripe::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_ChFiDS_ListOfStripe.def("Prepend", (void (ChFiDS_ListOfStripe::*)(ChFiDS_ListOfStripe &)) &ChFiDS_ListOfStripe::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_ChFiDS_ListOfStripe.def("RemoveFirst", (void (ChFiDS_ListOfStripe::*)()) &ChFiDS_ListOfStripe::RemoveFirst, "RemoveFirst item");
-	cls_ChFiDS_ListOfStripe.def("Remove", (void (ChFiDS_ListOfStripe::*)(ChFiDS_ListOfStripe::Iterator &)) &ChFiDS_ListOfStripe::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_ChFiDS_ListOfStripe.def("InsertBefore", (opencascade::handle<ChFiDS_Stripe> & (ChFiDS_ListOfStripe::*)(const opencascade::handle<ChFiDS_Stripe> &, ChFiDS_ListOfStripe::Iterator &)) &ChFiDS_ListOfStripe::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_ChFiDS_ListOfStripe.def("InsertBefore", (void (ChFiDS_ListOfStripe::*)(ChFiDS_ListOfStripe &, ChFiDS_ListOfStripe::Iterator &)) &ChFiDS_ListOfStripe::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_ChFiDS_ListOfStripe.def("InsertAfter", (opencascade::handle<ChFiDS_Stripe> & (ChFiDS_ListOfStripe::*)(const opencascade::handle<ChFiDS_Stripe> &, ChFiDS_ListOfStripe::Iterator &)) &ChFiDS_ListOfStripe::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_ChFiDS_ListOfStripe.def("InsertAfter", (void (ChFiDS_ListOfStripe::*)(ChFiDS_ListOfStripe &, ChFiDS_ListOfStripe::Iterator &)) &ChFiDS_ListOfStripe::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_ChFiDS_ListOfStripe.def("Reverse", (void (ChFiDS_ListOfStripe::*)()) &ChFiDS_ListOfStripe::Reverse, "Reverse the list");
-	cls_ChFiDS_ListOfStripe.def("__iter__", [](const ChFiDS_ListOfStripe &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFiDS_ListOfStripe.hxx
+	bind_NCollection_List<opencascade::handle<ChFiDS_Stripe> >(mod, "ChFiDS_ListOfStripe");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<ChFiDS_ListIteratorOfListOfStripe, std::unique_ptr<ChFiDS_ListIteratorOfListOfStripe, Deleter<ChFiDS_ListIteratorOfListOfStripe>>> cls_ChFiDS_ListIteratorOfListOfStripe(mod, "ChFiDS_ListIteratorOfListOfStripe", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_ChFiDS_ListIteratorOfListOfStripe.def(py::init<>());
-	cls_ChFiDS_ListIteratorOfListOfStripe.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_ChFiDS_ListIteratorOfListOfStripe.def("More", (Standard_Boolean (ChFiDS_ListIteratorOfListOfStripe::*)() const ) &ChFiDS_ListIteratorOfListOfStripe::More, "Check end");
-	cls_ChFiDS_ListIteratorOfListOfStripe.def("Next", (void (ChFiDS_ListIteratorOfListOfStripe::*)()) &ChFiDS_ListIteratorOfListOfStripe::Next, "Make step");
-	cls_ChFiDS_ListIteratorOfListOfStripe.def("Value", (const opencascade::handle<ChFiDS_Stripe> & (ChFiDS_ListIteratorOfListOfStripe::*)() const ) &ChFiDS_ListIteratorOfListOfStripe::Value, "Constant Value access");
-	cls_ChFiDS_ListIteratorOfListOfStripe.def("Value", (opencascade::handle<ChFiDS_Stripe> & (ChFiDS_ListIteratorOfListOfStripe::*)()) &ChFiDS_ListIteratorOfListOfStripe::Value, "Non-const Value access");
-	cls_ChFiDS_ListIteratorOfListOfStripe.def("ChangeValue", (opencascade::handle<ChFiDS_Stripe> & (ChFiDS_ListIteratorOfListOfStripe::*)() const ) &ChFiDS_ListIteratorOfListOfStripe::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFiDS_ListOfStripe.hxx
+	bind_NCollection_TListIterator<opencascade::handle<ChFiDS_Stripe> >(mod, "ChFiDS_ListIteratorOfListOfStripe");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_IndexedDataMap.hxx
-	py::class_<ChFiDS_IndexedDataMapOfVertexListOfStripe, std::unique_ptr<ChFiDS_IndexedDataMapOfVertexListOfStripe, Deleter<ChFiDS_IndexedDataMapOfVertexListOfStripe>>, NCollection_BaseMap> cls_ChFiDS_IndexedDataMapOfVertexListOfStripe(mod, "ChFiDS_IndexedDataMapOfVertexListOfStripe", "Purpose: An indexed map is used to store keys and to bind an index to them. Each new key stored in the map gets an index. Index are incremented as keys are stored in the map. A key can be found by the index and an index by the key. No key but the last can be removed so the indices are in the range 1.. Extent. An Item is stored with each key.");
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def(py::init<>());
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def(py::init([] (const ChFiDS_IndexedDataMapOfVertexListOfStripe &other) {return new ChFiDS_IndexedDataMapOfVertexListOfStripe(other);}), "Copy constructor", py::arg("other"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("begin", (ChFiDS_IndexedDataMapOfVertexListOfStripe::iterator (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)() const ) &ChFiDS_IndexedDataMapOfVertexListOfStripe::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("end", (ChFiDS_IndexedDataMapOfVertexListOfStripe::iterator (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)() const ) &ChFiDS_IndexedDataMapOfVertexListOfStripe::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("cbegin", (ChFiDS_IndexedDataMapOfVertexListOfStripe::const_iterator (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)() const ) &ChFiDS_IndexedDataMapOfVertexListOfStripe::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("cend", (ChFiDS_IndexedDataMapOfVertexListOfStripe::const_iterator (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)() const ) &ChFiDS_IndexedDataMapOfVertexListOfStripe::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("Exchange", (void (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(ChFiDS_IndexedDataMapOfVertexListOfStripe &)) &ChFiDS_IndexedDataMapOfVertexListOfStripe::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("Assign", (ChFiDS_IndexedDataMapOfVertexListOfStripe & (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const ChFiDS_IndexedDataMapOfVertexListOfStripe &)) &ChFiDS_IndexedDataMapOfVertexListOfStripe::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("assign", (ChFiDS_IndexedDataMapOfVertexListOfStripe & (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const ChFiDS_IndexedDataMapOfVertexListOfStripe &)) &ChFiDS_IndexedDataMapOfVertexListOfStripe::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("ReSize", (void (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const Standard_Integer)) &ChFiDS_IndexedDataMapOfVertexListOfStripe::ReSize, "ReSize", py::arg("N"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("Add", (Standard_Integer (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const TopoDS_Vertex &, const ChFiDS_ListOfStripe &)) &ChFiDS_IndexedDataMapOfVertexListOfStripe::Add, "Add", py::arg("theKey1"), py::arg("theItem"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("Contains", (Standard_Boolean (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const TopoDS_Vertex &) const ) &ChFiDS_IndexedDataMapOfVertexListOfStripe::Contains, "Contains", py::arg("theKey1"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("Substitute", (void (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const Standard_Integer, const TopoDS_Vertex &, const ChFiDS_ListOfStripe &)) &ChFiDS_IndexedDataMapOfVertexListOfStripe::Substitute, "Substitute", py::arg("theIndex"), py::arg("theKey1"), py::arg("theItem"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("Swap", (void (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const Standard_Integer, const Standard_Integer)) &ChFiDS_IndexedDataMapOfVertexListOfStripe::Swap, "Swaps two elements with the given indices.", py::arg("theIndex1"), py::arg("theIndex2"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("RemoveLast", (void (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)()) &ChFiDS_IndexedDataMapOfVertexListOfStripe::RemoveLast, "RemoveLast");
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("RemoveFromIndex", (void (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const Standard_Integer)) &ChFiDS_IndexedDataMapOfVertexListOfStripe::RemoveFromIndex, "Remove the key of the given index. Caution! The index of the last key can be changed.", py::arg("theKey2"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("RemoveKey", (void (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const TopoDS_Vertex &)) &ChFiDS_IndexedDataMapOfVertexListOfStripe::RemoveKey, "Remove the given key. Caution! The index of the last key can be changed.", py::arg("theKey1"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("FindKey", (const TopoDS_Vertex & (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const Standard_Integer) const ) &ChFiDS_IndexedDataMapOfVertexListOfStripe::FindKey, "FindKey", py::arg("theKey2"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("FindFromIndex", (const ChFiDS_ListOfStripe & (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const Standard_Integer) const ) &ChFiDS_IndexedDataMapOfVertexListOfStripe::FindFromIndex, "FindFromIndex", py::arg("theKey2"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("__call__", (const ChFiDS_ListOfStripe & (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const Standard_Integer) const ) &ChFiDS_IndexedDataMapOfVertexListOfStripe::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("ChangeFromIndex", (ChFiDS_ListOfStripe & (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const Standard_Integer)) &ChFiDS_IndexedDataMapOfVertexListOfStripe::ChangeFromIndex, "ChangeFromIndex", py::arg("theKey2"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("__call__", (ChFiDS_ListOfStripe & (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const Standard_Integer)) &ChFiDS_IndexedDataMapOfVertexListOfStripe::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("FindIndex", (Standard_Integer (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const TopoDS_Vertex &) const ) &ChFiDS_IndexedDataMapOfVertexListOfStripe::FindIndex, "FindIndex", py::arg("theKey1"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("FindFromKey", (const ChFiDS_ListOfStripe & (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const TopoDS_Vertex &) const ) &ChFiDS_IndexedDataMapOfVertexListOfStripe::FindFromKey, "FindFromKey", py::arg("theKey1"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("ChangeFromKey", (ChFiDS_ListOfStripe & (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const TopoDS_Vertex &)) &ChFiDS_IndexedDataMapOfVertexListOfStripe::ChangeFromKey, "ChangeFromKey", py::arg("theKey1"));
-	// FIXME cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("Seek", (const ChFiDS_ListOfStripe * (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const TopoDS_Vertex &) const ) &ChFiDS_IndexedDataMapOfVertexListOfStripe::Seek, "Seek returns pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	// FIXME cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("ChangeSeek", (ChFiDS_ListOfStripe * (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const TopoDS_Vertex &)) &ChFiDS_IndexedDataMapOfVertexListOfStripe::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("FindFromKey", (Standard_Boolean (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const TopoDS_Vertex &, ChFiDS_ListOfStripe &) const ) &ChFiDS_IndexedDataMapOfVertexListOfStripe::FindFromKey, "Find value for key with copying.", py::arg("theKey1"), py::arg("theValue"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("Clear", [](ChFiDS_IndexedDataMapOfVertexListOfStripe &self) -> void { return self.Clear(); });
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("Clear", (void (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const Standard_Boolean)) &ChFiDS_IndexedDataMapOfVertexListOfStripe::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("Clear", (void (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &ChFiDS_IndexedDataMapOfVertexListOfStripe::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("Size", (Standard_Integer (ChFiDS_IndexedDataMapOfVertexListOfStripe::*)() const ) &ChFiDS_IndexedDataMapOfVertexListOfStripe::Size, "Size");
-	cls_ChFiDS_IndexedDataMapOfVertexListOfStripe.def("__iter__", [](const ChFiDS_IndexedDataMapOfVertexListOfStripe &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFiDS_IndexedDataMapOfVertexListOfStripe.hxx
+	bind_NCollection_IndexedDataMap<TopoDS_Vertex, NCollection_List<opencascade::handle<ChFiDS_Stripe> >, TopTools_ShapeMapHasher>(mod, "ChFiDS_IndexedDataMapOfVertexListOfStripe");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<ChFiDS_Regularities, std::unique_ptr<ChFiDS_Regularities, Deleter<ChFiDS_Regularities>>, NCollection_BaseList> cls_ChFiDS_Regularities(mod, "ChFiDS_Regularities", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_ChFiDS_Regularities.def(py::init<>());
-	cls_ChFiDS_Regularities.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_ChFiDS_Regularities.def(py::init([] (const ChFiDS_Regularities &other) {return new ChFiDS_Regularities(other);}), "Copy constructor", py::arg("other"));
-	cls_ChFiDS_Regularities.def("begin", (ChFiDS_Regularities::iterator (ChFiDS_Regularities::*)() const ) &ChFiDS_Regularities::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_ChFiDS_Regularities.def("end", (ChFiDS_Regularities::iterator (ChFiDS_Regularities::*)() const ) &ChFiDS_Regularities::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_ChFiDS_Regularities.def("cbegin", (ChFiDS_Regularities::const_iterator (ChFiDS_Regularities::*)() const ) &ChFiDS_Regularities::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_ChFiDS_Regularities.def("cend", (ChFiDS_Regularities::const_iterator (ChFiDS_Regularities::*)() const ) &ChFiDS_Regularities::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_ChFiDS_Regularities.def("Size", (Standard_Integer (ChFiDS_Regularities::*)() const ) &ChFiDS_Regularities::Size, "Size - Number of items");
-	cls_ChFiDS_Regularities.def("Assign", (ChFiDS_Regularities & (ChFiDS_Regularities::*)(const ChFiDS_Regularities &)) &ChFiDS_Regularities::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_ChFiDS_Regularities.def("assign", (ChFiDS_Regularities & (ChFiDS_Regularities::*)(const ChFiDS_Regularities &)) &ChFiDS_Regularities::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_ChFiDS_Regularities.def("Clear", [](ChFiDS_Regularities &self) -> void { return self.Clear(); });
-	cls_ChFiDS_Regularities.def("Clear", (void (ChFiDS_Regularities::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &ChFiDS_Regularities::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_ChFiDS_Regularities.def("First", (const ChFiDS_Regul & (ChFiDS_Regularities::*)() const ) &ChFiDS_Regularities::First, "First item");
-	cls_ChFiDS_Regularities.def("First", (ChFiDS_Regul & (ChFiDS_Regularities::*)()) &ChFiDS_Regularities::First, "First item (non-const)");
-	cls_ChFiDS_Regularities.def("Last", (const ChFiDS_Regul & (ChFiDS_Regularities::*)() const ) &ChFiDS_Regularities::Last, "Last item");
-	cls_ChFiDS_Regularities.def("Last", (ChFiDS_Regul & (ChFiDS_Regularities::*)()) &ChFiDS_Regularities::Last, "Last item (non-const)");
-	cls_ChFiDS_Regularities.def("Append", (ChFiDS_Regul & (ChFiDS_Regularities::*)(const ChFiDS_Regul &)) &ChFiDS_Regularities::Append, "Append one item at the end", py::arg("theItem"));
-	cls_ChFiDS_Regularities.def("Append", (void (ChFiDS_Regularities::*)(const ChFiDS_Regul &, ChFiDS_Regularities::Iterator &)) &ChFiDS_Regularities::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_ChFiDS_Regularities.def("Append", (void (ChFiDS_Regularities::*)(ChFiDS_Regularities &)) &ChFiDS_Regularities::Append, "Append another list at the end", py::arg("theOther"));
-	cls_ChFiDS_Regularities.def("Prepend", (ChFiDS_Regul & (ChFiDS_Regularities::*)(const ChFiDS_Regul &)) &ChFiDS_Regularities::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_ChFiDS_Regularities.def("Prepend", (void (ChFiDS_Regularities::*)(ChFiDS_Regularities &)) &ChFiDS_Regularities::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_ChFiDS_Regularities.def("RemoveFirst", (void (ChFiDS_Regularities::*)()) &ChFiDS_Regularities::RemoveFirst, "RemoveFirst item");
-	cls_ChFiDS_Regularities.def("Remove", (void (ChFiDS_Regularities::*)(ChFiDS_Regularities::Iterator &)) &ChFiDS_Regularities::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_ChFiDS_Regularities.def("InsertBefore", (ChFiDS_Regul & (ChFiDS_Regularities::*)(const ChFiDS_Regul &, ChFiDS_Regularities::Iterator &)) &ChFiDS_Regularities::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_ChFiDS_Regularities.def("InsertBefore", (void (ChFiDS_Regularities::*)(ChFiDS_Regularities &, ChFiDS_Regularities::Iterator &)) &ChFiDS_Regularities::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_ChFiDS_Regularities.def("InsertAfter", (ChFiDS_Regul & (ChFiDS_Regularities::*)(const ChFiDS_Regul &, ChFiDS_Regularities::Iterator &)) &ChFiDS_Regularities::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_ChFiDS_Regularities.def("InsertAfter", (void (ChFiDS_Regularities::*)(ChFiDS_Regularities &, ChFiDS_Regularities::Iterator &)) &ChFiDS_Regularities::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_ChFiDS_Regularities.def("Reverse", (void (ChFiDS_Regularities::*)()) &ChFiDS_Regularities::Reverse, "Reverse the list");
-	cls_ChFiDS_Regularities.def("__iter__", [](const ChFiDS_Regularities &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFiDS_Regularities.hxx
+	bind_NCollection_List<ChFiDS_Regul>(mod, "ChFiDS_Regularities");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<ChFiDS_ListIteratorOfRegularities, std::unique_ptr<ChFiDS_ListIteratorOfRegularities, Deleter<ChFiDS_ListIteratorOfRegularities>>> cls_ChFiDS_ListIteratorOfRegularities(mod, "ChFiDS_ListIteratorOfRegularities", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_ChFiDS_ListIteratorOfRegularities.def(py::init<>());
-	cls_ChFiDS_ListIteratorOfRegularities.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_ChFiDS_ListIteratorOfRegularities.def("More", (Standard_Boolean (ChFiDS_ListIteratorOfRegularities::*)() const ) &ChFiDS_ListIteratorOfRegularities::More, "Check end");
-	cls_ChFiDS_ListIteratorOfRegularities.def("Next", (void (ChFiDS_ListIteratorOfRegularities::*)()) &ChFiDS_ListIteratorOfRegularities::Next, "Make step");
-	cls_ChFiDS_ListIteratorOfRegularities.def("Value", (const ChFiDS_Regul & (ChFiDS_ListIteratorOfRegularities::*)() const ) &ChFiDS_ListIteratorOfRegularities::Value, "Constant Value access");
-	cls_ChFiDS_ListIteratorOfRegularities.def("Value", (ChFiDS_Regul & (ChFiDS_ListIteratorOfRegularities::*)()) &ChFiDS_ListIteratorOfRegularities::Value, "Non-const Value access");
-	cls_ChFiDS_ListIteratorOfRegularities.def("ChangeValue", (ChFiDS_Regul & (ChFiDS_ListIteratorOfRegularities::*)() const ) &ChFiDS_ListIteratorOfRegularities::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFiDS_Regularities.hxx
+	bind_NCollection_TListIterator<ChFiDS_Regul>(mod, "ChFiDS_ListIteratorOfRegularities");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<ChFiDS_ListOfHElSpine, std::unique_ptr<ChFiDS_ListOfHElSpine, Deleter<ChFiDS_ListOfHElSpine>>, NCollection_BaseList> cls_ChFiDS_ListOfHElSpine(mod, "ChFiDS_ListOfHElSpine", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_ChFiDS_ListOfHElSpine.def(py::init<>());
-	cls_ChFiDS_ListOfHElSpine.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_ChFiDS_ListOfHElSpine.def(py::init([] (const ChFiDS_ListOfHElSpine &other) {return new ChFiDS_ListOfHElSpine(other);}), "Copy constructor", py::arg("other"));
-	cls_ChFiDS_ListOfHElSpine.def("begin", (ChFiDS_ListOfHElSpine::iterator (ChFiDS_ListOfHElSpine::*)() const ) &ChFiDS_ListOfHElSpine::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_ChFiDS_ListOfHElSpine.def("end", (ChFiDS_ListOfHElSpine::iterator (ChFiDS_ListOfHElSpine::*)() const ) &ChFiDS_ListOfHElSpine::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_ChFiDS_ListOfHElSpine.def("cbegin", (ChFiDS_ListOfHElSpine::const_iterator (ChFiDS_ListOfHElSpine::*)() const ) &ChFiDS_ListOfHElSpine::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_ChFiDS_ListOfHElSpine.def("cend", (ChFiDS_ListOfHElSpine::const_iterator (ChFiDS_ListOfHElSpine::*)() const ) &ChFiDS_ListOfHElSpine::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_ChFiDS_ListOfHElSpine.def("Size", (Standard_Integer (ChFiDS_ListOfHElSpine::*)() const ) &ChFiDS_ListOfHElSpine::Size, "Size - Number of items");
-	cls_ChFiDS_ListOfHElSpine.def("Assign", (ChFiDS_ListOfHElSpine & (ChFiDS_ListOfHElSpine::*)(const ChFiDS_ListOfHElSpine &)) &ChFiDS_ListOfHElSpine::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_ChFiDS_ListOfHElSpine.def("assign", (ChFiDS_ListOfHElSpine & (ChFiDS_ListOfHElSpine::*)(const ChFiDS_ListOfHElSpine &)) &ChFiDS_ListOfHElSpine::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_ChFiDS_ListOfHElSpine.def("Clear", [](ChFiDS_ListOfHElSpine &self) -> void { return self.Clear(); });
-	cls_ChFiDS_ListOfHElSpine.def("Clear", (void (ChFiDS_ListOfHElSpine::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &ChFiDS_ListOfHElSpine::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_ChFiDS_ListOfHElSpine.def("First", (const opencascade::handle<ChFiDS_HElSpine> & (ChFiDS_ListOfHElSpine::*)() const ) &ChFiDS_ListOfHElSpine::First, "First item");
-	cls_ChFiDS_ListOfHElSpine.def("First", (opencascade::handle<ChFiDS_HElSpine> & (ChFiDS_ListOfHElSpine::*)()) &ChFiDS_ListOfHElSpine::First, "First item (non-const)");
-	cls_ChFiDS_ListOfHElSpine.def("Last", (const opencascade::handle<ChFiDS_HElSpine> & (ChFiDS_ListOfHElSpine::*)() const ) &ChFiDS_ListOfHElSpine::Last, "Last item");
-	cls_ChFiDS_ListOfHElSpine.def("Last", (opencascade::handle<ChFiDS_HElSpine> & (ChFiDS_ListOfHElSpine::*)()) &ChFiDS_ListOfHElSpine::Last, "Last item (non-const)");
-	cls_ChFiDS_ListOfHElSpine.def("Append", (opencascade::handle<ChFiDS_HElSpine> & (ChFiDS_ListOfHElSpine::*)(const opencascade::handle<ChFiDS_HElSpine> &)) &ChFiDS_ListOfHElSpine::Append, "Append one item at the end", py::arg("theItem"));
-	cls_ChFiDS_ListOfHElSpine.def("Append", (void (ChFiDS_ListOfHElSpine::*)(const opencascade::handle<ChFiDS_HElSpine> &, ChFiDS_ListOfHElSpine::Iterator &)) &ChFiDS_ListOfHElSpine::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_ChFiDS_ListOfHElSpine.def("Append", (void (ChFiDS_ListOfHElSpine::*)(ChFiDS_ListOfHElSpine &)) &ChFiDS_ListOfHElSpine::Append, "Append another list at the end", py::arg("theOther"));
-	cls_ChFiDS_ListOfHElSpine.def("Prepend", (opencascade::handle<ChFiDS_HElSpine> & (ChFiDS_ListOfHElSpine::*)(const opencascade::handle<ChFiDS_HElSpine> &)) &ChFiDS_ListOfHElSpine::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_ChFiDS_ListOfHElSpine.def("Prepend", (void (ChFiDS_ListOfHElSpine::*)(ChFiDS_ListOfHElSpine &)) &ChFiDS_ListOfHElSpine::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_ChFiDS_ListOfHElSpine.def("RemoveFirst", (void (ChFiDS_ListOfHElSpine::*)()) &ChFiDS_ListOfHElSpine::RemoveFirst, "RemoveFirst item");
-	cls_ChFiDS_ListOfHElSpine.def("Remove", (void (ChFiDS_ListOfHElSpine::*)(ChFiDS_ListOfHElSpine::Iterator &)) &ChFiDS_ListOfHElSpine::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_ChFiDS_ListOfHElSpine.def("InsertBefore", (opencascade::handle<ChFiDS_HElSpine> & (ChFiDS_ListOfHElSpine::*)(const opencascade::handle<ChFiDS_HElSpine> &, ChFiDS_ListOfHElSpine::Iterator &)) &ChFiDS_ListOfHElSpine::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_ChFiDS_ListOfHElSpine.def("InsertBefore", (void (ChFiDS_ListOfHElSpine::*)(ChFiDS_ListOfHElSpine &, ChFiDS_ListOfHElSpine::Iterator &)) &ChFiDS_ListOfHElSpine::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_ChFiDS_ListOfHElSpine.def("InsertAfter", (opencascade::handle<ChFiDS_HElSpine> & (ChFiDS_ListOfHElSpine::*)(const opencascade::handle<ChFiDS_HElSpine> &, ChFiDS_ListOfHElSpine::Iterator &)) &ChFiDS_ListOfHElSpine::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_ChFiDS_ListOfHElSpine.def("InsertAfter", (void (ChFiDS_ListOfHElSpine::*)(ChFiDS_ListOfHElSpine &, ChFiDS_ListOfHElSpine::Iterator &)) &ChFiDS_ListOfHElSpine::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_ChFiDS_ListOfHElSpine.def("Reverse", (void (ChFiDS_ListOfHElSpine::*)()) &ChFiDS_ListOfHElSpine::Reverse, "Reverse the list");
-	cls_ChFiDS_ListOfHElSpine.def("__iter__", [](const ChFiDS_ListOfHElSpine &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFiDS_ListOfHElSpine.hxx
+	bind_NCollection_List<opencascade::handle<ChFiDS_HElSpine> >(mod, "ChFiDS_ListOfHElSpine");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<ChFiDS_ListIteratorOfListOfHElSpine, std::unique_ptr<ChFiDS_ListIteratorOfListOfHElSpine, Deleter<ChFiDS_ListIteratorOfListOfHElSpine>>> cls_ChFiDS_ListIteratorOfListOfHElSpine(mod, "ChFiDS_ListIteratorOfListOfHElSpine", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_ChFiDS_ListIteratorOfListOfHElSpine.def(py::init<>());
-	cls_ChFiDS_ListIteratorOfListOfHElSpine.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_ChFiDS_ListIteratorOfListOfHElSpine.def("More", (Standard_Boolean (ChFiDS_ListIteratorOfListOfHElSpine::*)() const ) &ChFiDS_ListIteratorOfListOfHElSpine::More, "Check end");
-	cls_ChFiDS_ListIteratorOfListOfHElSpine.def("Next", (void (ChFiDS_ListIteratorOfListOfHElSpine::*)()) &ChFiDS_ListIteratorOfListOfHElSpine::Next, "Make step");
-	cls_ChFiDS_ListIteratorOfListOfHElSpine.def("Value", (const opencascade::handle<ChFiDS_HElSpine> & (ChFiDS_ListIteratorOfListOfHElSpine::*)() const ) &ChFiDS_ListIteratorOfListOfHElSpine::Value, "Constant Value access");
-	cls_ChFiDS_ListIteratorOfListOfHElSpine.def("Value", (opencascade::handle<ChFiDS_HElSpine> & (ChFiDS_ListIteratorOfListOfHElSpine::*)()) &ChFiDS_ListIteratorOfListOfHElSpine::Value, "Non-const Value access");
-	cls_ChFiDS_ListIteratorOfListOfHElSpine.def("ChangeValue", (opencascade::handle<ChFiDS_HElSpine> & (ChFiDS_ListIteratorOfListOfHElSpine::*)() const ) &ChFiDS_ListIteratorOfListOfHElSpine::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFiDS_ListOfHElSpine.hxx
+	bind_NCollection_TListIterator<opencascade::handle<ChFiDS_HElSpine> >(mod, "ChFiDS_ListIteratorOfListOfHElSpine");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<ChFiDS_SequenceOfSpine, std::unique_ptr<ChFiDS_SequenceOfSpine, Deleter<ChFiDS_SequenceOfSpine>>, NCollection_BaseSequence> cls_ChFiDS_SequenceOfSpine(mod, "ChFiDS_SequenceOfSpine", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_ChFiDS_SequenceOfSpine.def(py::init<>());
-	cls_ChFiDS_SequenceOfSpine.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_ChFiDS_SequenceOfSpine.def(py::init([] (const ChFiDS_SequenceOfSpine &other) {return new ChFiDS_SequenceOfSpine(other);}), "Copy constructor", py::arg("other"));
-	cls_ChFiDS_SequenceOfSpine.def("begin", (ChFiDS_SequenceOfSpine::iterator (ChFiDS_SequenceOfSpine::*)() const ) &ChFiDS_SequenceOfSpine::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_ChFiDS_SequenceOfSpine.def("end", (ChFiDS_SequenceOfSpine::iterator (ChFiDS_SequenceOfSpine::*)() const ) &ChFiDS_SequenceOfSpine::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_ChFiDS_SequenceOfSpine.def("cbegin", (ChFiDS_SequenceOfSpine::const_iterator (ChFiDS_SequenceOfSpine::*)() const ) &ChFiDS_SequenceOfSpine::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_ChFiDS_SequenceOfSpine.def("cend", (ChFiDS_SequenceOfSpine::const_iterator (ChFiDS_SequenceOfSpine::*)() const ) &ChFiDS_SequenceOfSpine::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_ChFiDS_SequenceOfSpine.def("Size", (Standard_Integer (ChFiDS_SequenceOfSpine::*)() const ) &ChFiDS_SequenceOfSpine::Size, "Number of items");
-	cls_ChFiDS_SequenceOfSpine.def("Length", (Standard_Integer (ChFiDS_SequenceOfSpine::*)() const ) &ChFiDS_SequenceOfSpine::Length, "Number of items");
-	cls_ChFiDS_SequenceOfSpine.def("Lower", (Standard_Integer (ChFiDS_SequenceOfSpine::*)() const ) &ChFiDS_SequenceOfSpine::Lower, "Method for consistency with other collections.");
-	cls_ChFiDS_SequenceOfSpine.def("Upper", (Standard_Integer (ChFiDS_SequenceOfSpine::*)() const ) &ChFiDS_SequenceOfSpine::Upper, "Method for consistency with other collections.");
-	cls_ChFiDS_SequenceOfSpine.def("IsEmpty", (Standard_Boolean (ChFiDS_SequenceOfSpine::*)() const ) &ChFiDS_SequenceOfSpine::IsEmpty, "Empty query");
-	cls_ChFiDS_SequenceOfSpine.def("Reverse", (void (ChFiDS_SequenceOfSpine::*)()) &ChFiDS_SequenceOfSpine::Reverse, "Reverse sequence");
-	cls_ChFiDS_SequenceOfSpine.def("Exchange", (void (ChFiDS_SequenceOfSpine::*)(const Standard_Integer, const Standard_Integer)) &ChFiDS_SequenceOfSpine::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_ChFiDS_SequenceOfSpine.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &ChFiDS_SequenceOfSpine::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_ChFiDS_SequenceOfSpine.def("Clear", [](ChFiDS_SequenceOfSpine &self) -> void { return self.Clear(); });
-	cls_ChFiDS_SequenceOfSpine.def("Clear", (void (ChFiDS_SequenceOfSpine::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &ChFiDS_SequenceOfSpine::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_ChFiDS_SequenceOfSpine.def("Assign", (ChFiDS_SequenceOfSpine & (ChFiDS_SequenceOfSpine::*)(const ChFiDS_SequenceOfSpine &)) &ChFiDS_SequenceOfSpine::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_ChFiDS_SequenceOfSpine.def("assign", (ChFiDS_SequenceOfSpine & (ChFiDS_SequenceOfSpine::*)(const ChFiDS_SequenceOfSpine &)) &ChFiDS_SequenceOfSpine::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_ChFiDS_SequenceOfSpine.def("Remove", (void (ChFiDS_SequenceOfSpine::*)(ChFiDS_SequenceOfSpine::Iterator &)) &ChFiDS_SequenceOfSpine::Remove, "Remove one item", py::arg("thePosition"));
-	cls_ChFiDS_SequenceOfSpine.def("Remove", (void (ChFiDS_SequenceOfSpine::*)(const Standard_Integer)) &ChFiDS_SequenceOfSpine::Remove, "Remove one item", py::arg("theIndex"));
-	cls_ChFiDS_SequenceOfSpine.def("Remove", (void (ChFiDS_SequenceOfSpine::*)(const Standard_Integer, const Standard_Integer)) &ChFiDS_SequenceOfSpine::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_ChFiDS_SequenceOfSpine.def("Append", (void (ChFiDS_SequenceOfSpine::*)(const opencascade::handle<ChFiDS_Spine> &)) &ChFiDS_SequenceOfSpine::Append, "Append one item", py::arg("theItem"));
-	cls_ChFiDS_SequenceOfSpine.def("Append", (void (ChFiDS_SequenceOfSpine::*)(ChFiDS_SequenceOfSpine &)) &ChFiDS_SequenceOfSpine::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_ChFiDS_SequenceOfSpine.def("Prepend", (void (ChFiDS_SequenceOfSpine::*)(const opencascade::handle<ChFiDS_Spine> &)) &ChFiDS_SequenceOfSpine::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_ChFiDS_SequenceOfSpine.def("Prepend", (void (ChFiDS_SequenceOfSpine::*)(ChFiDS_SequenceOfSpine &)) &ChFiDS_SequenceOfSpine::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_ChFiDS_SequenceOfSpine.def("InsertBefore", (void (ChFiDS_SequenceOfSpine::*)(const Standard_Integer, const opencascade::handle<ChFiDS_Spine> &)) &ChFiDS_SequenceOfSpine::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_ChFiDS_SequenceOfSpine.def("InsertBefore", (void (ChFiDS_SequenceOfSpine::*)(const Standard_Integer, ChFiDS_SequenceOfSpine &)) &ChFiDS_SequenceOfSpine::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_ChFiDS_SequenceOfSpine.def("InsertAfter", (void (ChFiDS_SequenceOfSpine::*)(ChFiDS_SequenceOfSpine::Iterator &, const opencascade::handle<ChFiDS_Spine> &)) &ChFiDS_SequenceOfSpine::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_ChFiDS_SequenceOfSpine.def("InsertAfter", (void (ChFiDS_SequenceOfSpine::*)(const Standard_Integer, ChFiDS_SequenceOfSpine &)) &ChFiDS_SequenceOfSpine::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_ChFiDS_SequenceOfSpine.def("InsertAfter", (void (ChFiDS_SequenceOfSpine::*)(const Standard_Integer, const opencascade::handle<ChFiDS_Spine> &)) &ChFiDS_SequenceOfSpine::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_ChFiDS_SequenceOfSpine.def("Split", (void (ChFiDS_SequenceOfSpine::*)(const Standard_Integer, ChFiDS_SequenceOfSpine &)) &ChFiDS_SequenceOfSpine::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_ChFiDS_SequenceOfSpine.def("First", (const opencascade::handle<ChFiDS_Spine> & (ChFiDS_SequenceOfSpine::*)() const ) &ChFiDS_SequenceOfSpine::First, "First item access");
-	cls_ChFiDS_SequenceOfSpine.def("ChangeFirst", (opencascade::handle<ChFiDS_Spine> & (ChFiDS_SequenceOfSpine::*)()) &ChFiDS_SequenceOfSpine::ChangeFirst, "First item access");
-	cls_ChFiDS_SequenceOfSpine.def("Last", (const opencascade::handle<ChFiDS_Spine> & (ChFiDS_SequenceOfSpine::*)() const ) &ChFiDS_SequenceOfSpine::Last, "Last item access");
-	cls_ChFiDS_SequenceOfSpine.def("ChangeLast", (opencascade::handle<ChFiDS_Spine> & (ChFiDS_SequenceOfSpine::*)()) &ChFiDS_SequenceOfSpine::ChangeLast, "Last item access");
-	cls_ChFiDS_SequenceOfSpine.def("Value", (const opencascade::handle<ChFiDS_Spine> & (ChFiDS_SequenceOfSpine::*)(const Standard_Integer) const ) &ChFiDS_SequenceOfSpine::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_ChFiDS_SequenceOfSpine.def("__call__", (const opencascade::handle<ChFiDS_Spine> & (ChFiDS_SequenceOfSpine::*)(const Standard_Integer) const ) &ChFiDS_SequenceOfSpine::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_ChFiDS_SequenceOfSpine.def("ChangeValue", (opencascade::handle<ChFiDS_Spine> & (ChFiDS_SequenceOfSpine::*)(const Standard_Integer)) &ChFiDS_SequenceOfSpine::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_ChFiDS_SequenceOfSpine.def("__call__", (opencascade::handle<ChFiDS_Spine> & (ChFiDS_SequenceOfSpine::*)(const Standard_Integer)) &ChFiDS_SequenceOfSpine::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_ChFiDS_SequenceOfSpine.def("SetValue", (void (ChFiDS_SequenceOfSpine::*)(const Standard_Integer, const opencascade::handle<ChFiDS_Spine> &)) &ChFiDS_SequenceOfSpine::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_ChFiDS_SequenceOfSpine.def("__iter__", [](const ChFiDS_SequenceOfSpine &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFiDS_SequenceOfSpine.hxx
+	bind_NCollection_Sequence<opencascade::handle<ChFiDS_Spine> >(mod, "ChFiDS_SequenceOfSpine");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<ChFiDS_StripeArray1, std::unique_ptr<ChFiDS_StripeArray1, Deleter<ChFiDS_StripeArray1>>> cls_ChFiDS_StripeArray1(mod, "ChFiDS_StripeArray1", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_ChFiDS_StripeArray1.def(py::init<>());
-	cls_ChFiDS_StripeArray1.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_ChFiDS_StripeArray1.def(py::init([] (const ChFiDS_StripeArray1 &other) {return new ChFiDS_StripeArray1(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_ChFiDS_StripeArray1.def(py::init<ChFiDS_StripeArray1 &&>(), py::arg("theOther"));
-	cls_ChFiDS_StripeArray1.def(py::init<const opencascade::handle<ChFiDS_Stripe> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_ChFiDS_StripeArray1.def("begin", (ChFiDS_StripeArray1::iterator (ChFiDS_StripeArray1::*)() const ) &ChFiDS_StripeArray1::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_ChFiDS_StripeArray1.def("end", (ChFiDS_StripeArray1::iterator (ChFiDS_StripeArray1::*)() const ) &ChFiDS_StripeArray1::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_ChFiDS_StripeArray1.def("cbegin", (ChFiDS_StripeArray1::const_iterator (ChFiDS_StripeArray1::*)() const ) &ChFiDS_StripeArray1::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_ChFiDS_StripeArray1.def("cend", (ChFiDS_StripeArray1::const_iterator (ChFiDS_StripeArray1::*)() const ) &ChFiDS_StripeArray1::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_ChFiDS_StripeArray1.def("Init", (void (ChFiDS_StripeArray1::*)(const opencascade::handle<ChFiDS_Stripe> &)) &ChFiDS_StripeArray1::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_ChFiDS_StripeArray1.def("Size", (Standard_Integer (ChFiDS_StripeArray1::*)() const ) &ChFiDS_StripeArray1::Size, "Size query");
-	cls_ChFiDS_StripeArray1.def("Length", (Standard_Integer (ChFiDS_StripeArray1::*)() const ) &ChFiDS_StripeArray1::Length, "Length query (the same)");
-	cls_ChFiDS_StripeArray1.def("IsEmpty", (Standard_Boolean (ChFiDS_StripeArray1::*)() const ) &ChFiDS_StripeArray1::IsEmpty, "Return TRUE if array has zero length.");
-	cls_ChFiDS_StripeArray1.def("Lower", (Standard_Integer (ChFiDS_StripeArray1::*)() const ) &ChFiDS_StripeArray1::Lower, "Lower bound");
-	cls_ChFiDS_StripeArray1.def("Upper", (Standard_Integer (ChFiDS_StripeArray1::*)() const ) &ChFiDS_StripeArray1::Upper, "Upper bound");
-	cls_ChFiDS_StripeArray1.def("IsDeletable", (Standard_Boolean (ChFiDS_StripeArray1::*)() const ) &ChFiDS_StripeArray1::IsDeletable, "myDeletable flag");
-	cls_ChFiDS_StripeArray1.def("IsAllocated", (Standard_Boolean (ChFiDS_StripeArray1::*)() const ) &ChFiDS_StripeArray1::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_ChFiDS_StripeArray1.def("Assign", (ChFiDS_StripeArray1 & (ChFiDS_StripeArray1::*)(const ChFiDS_StripeArray1 &)) &ChFiDS_StripeArray1::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_ChFiDS_StripeArray1.def("Move", (ChFiDS_StripeArray1 & (ChFiDS_StripeArray1::*)(ChFiDS_StripeArray1 &&)) &ChFiDS_StripeArray1::Move, "Move assignment", py::arg("theOther"));
-	cls_ChFiDS_StripeArray1.def("assign", (ChFiDS_StripeArray1 & (ChFiDS_StripeArray1::*)(const ChFiDS_StripeArray1 &)) &ChFiDS_StripeArray1::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_ChFiDS_StripeArray1.def("assign", (ChFiDS_StripeArray1 & (ChFiDS_StripeArray1::*)(ChFiDS_StripeArray1 &&)) &ChFiDS_StripeArray1::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_ChFiDS_StripeArray1.def("First", (const opencascade::handle<ChFiDS_Stripe> & (ChFiDS_StripeArray1::*)() const ) &ChFiDS_StripeArray1::First, "Returns first element");
-	cls_ChFiDS_StripeArray1.def("ChangeFirst", (opencascade::handle<ChFiDS_Stripe> & (ChFiDS_StripeArray1::*)()) &ChFiDS_StripeArray1::ChangeFirst, "Returns first element");
-	cls_ChFiDS_StripeArray1.def("Last", (const opencascade::handle<ChFiDS_Stripe> & (ChFiDS_StripeArray1::*)() const ) &ChFiDS_StripeArray1::Last, "Returns last element");
-	cls_ChFiDS_StripeArray1.def("ChangeLast", (opencascade::handle<ChFiDS_Stripe> & (ChFiDS_StripeArray1::*)()) &ChFiDS_StripeArray1::ChangeLast, "Returns last element");
-	cls_ChFiDS_StripeArray1.def("Value", (const opencascade::handle<ChFiDS_Stripe> & (ChFiDS_StripeArray1::*)(const Standard_Integer) const ) &ChFiDS_StripeArray1::Value, "Constant value access", py::arg("theIndex"));
-	cls_ChFiDS_StripeArray1.def("__call__", (const opencascade::handle<ChFiDS_Stripe> & (ChFiDS_StripeArray1::*)(const Standard_Integer) const ) &ChFiDS_StripeArray1::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_ChFiDS_StripeArray1.def("ChangeValue", (opencascade::handle<ChFiDS_Stripe> & (ChFiDS_StripeArray1::*)(const Standard_Integer)) &ChFiDS_StripeArray1::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_ChFiDS_StripeArray1.def("__call__", (opencascade::handle<ChFiDS_Stripe> & (ChFiDS_StripeArray1::*)(const Standard_Integer)) &ChFiDS_StripeArray1::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_ChFiDS_StripeArray1.def("SetValue", (void (ChFiDS_StripeArray1::*)(const Standard_Integer, const opencascade::handle<ChFiDS_Stripe> &)) &ChFiDS_StripeArray1::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_ChFiDS_StripeArray1.def("Resize", (void (ChFiDS_StripeArray1::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &ChFiDS_StripeArray1::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_ChFiDS_StripeArray1.def("__iter__", [](const ChFiDS_StripeArray1 &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFiDS_StripeArray1.hxx
+	bind_NCollection_Array1<opencascade::handle<ChFiDS_Stripe> >(mod, "ChFiDS_StripeArray1");
 
 
 }

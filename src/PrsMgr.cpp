@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <NCollection_BaseList.hxx>
 #include <Standard_Handle.hxx>
@@ -47,6 +38,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_BaseSequence.hxx>
 #include <NCollection_Sequence.hxx>
 #include <PrsMgr_Presentation3d.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(PrsMgr, mod) {
 
@@ -205,126 +197,19 @@ PYBIND11_MODULE(PrsMgr, mod) {
 	cls_PrsMgr_ModedPresentation.def("Presentation", (const opencascade::handle<PrsMgr_Presentation> & (PrsMgr_ModedPresentation::*)() const ) &PrsMgr_ModedPresentation::Presentation, "None");
 	cls_PrsMgr_ModedPresentation.def("Mode", (Standard_Integer (PrsMgr_ModedPresentation::*)() const ) &PrsMgr_ModedPresentation::Mode, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<PrsMgr_ListOfPresentations, std::unique_ptr<PrsMgr_ListOfPresentations, Deleter<PrsMgr_ListOfPresentations>>, NCollection_BaseList> cls_PrsMgr_ListOfPresentations(mod, "PrsMgr_ListOfPresentations", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_PrsMgr_ListOfPresentations.def(py::init<>());
-	cls_PrsMgr_ListOfPresentations.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_PrsMgr_ListOfPresentations.def(py::init([] (const PrsMgr_ListOfPresentations &other) {return new PrsMgr_ListOfPresentations(other);}), "Copy constructor", py::arg("other"));
-	cls_PrsMgr_ListOfPresentations.def("begin", (PrsMgr_ListOfPresentations::iterator (PrsMgr_ListOfPresentations::*)() const ) &PrsMgr_ListOfPresentations::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_PrsMgr_ListOfPresentations.def("end", (PrsMgr_ListOfPresentations::iterator (PrsMgr_ListOfPresentations::*)() const ) &PrsMgr_ListOfPresentations::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_PrsMgr_ListOfPresentations.def("cbegin", (PrsMgr_ListOfPresentations::const_iterator (PrsMgr_ListOfPresentations::*)() const ) &PrsMgr_ListOfPresentations::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_PrsMgr_ListOfPresentations.def("cend", (PrsMgr_ListOfPresentations::const_iterator (PrsMgr_ListOfPresentations::*)() const ) &PrsMgr_ListOfPresentations::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_PrsMgr_ListOfPresentations.def("Size", (Standard_Integer (PrsMgr_ListOfPresentations::*)() const ) &PrsMgr_ListOfPresentations::Size, "Size - Number of items");
-	cls_PrsMgr_ListOfPresentations.def("Assign", (PrsMgr_ListOfPresentations & (PrsMgr_ListOfPresentations::*)(const PrsMgr_ListOfPresentations &)) &PrsMgr_ListOfPresentations::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_PrsMgr_ListOfPresentations.def("assign", (PrsMgr_ListOfPresentations & (PrsMgr_ListOfPresentations::*)(const PrsMgr_ListOfPresentations &)) &PrsMgr_ListOfPresentations::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_PrsMgr_ListOfPresentations.def("Clear", [](PrsMgr_ListOfPresentations &self) -> void { return self.Clear(); });
-	cls_PrsMgr_ListOfPresentations.def("Clear", (void (PrsMgr_ListOfPresentations::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &PrsMgr_ListOfPresentations::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_PrsMgr_ListOfPresentations.def("First", (const opencascade::handle<Prs3d_Presentation> & (PrsMgr_ListOfPresentations::*)() const ) &PrsMgr_ListOfPresentations::First, "First item");
-	cls_PrsMgr_ListOfPresentations.def("First", (opencascade::handle<Prs3d_Presentation> & (PrsMgr_ListOfPresentations::*)()) &PrsMgr_ListOfPresentations::First, "First item (non-const)");
-	cls_PrsMgr_ListOfPresentations.def("Last", (const opencascade::handle<Prs3d_Presentation> & (PrsMgr_ListOfPresentations::*)() const ) &PrsMgr_ListOfPresentations::Last, "Last item");
-	cls_PrsMgr_ListOfPresentations.def("Last", (opencascade::handle<Prs3d_Presentation> & (PrsMgr_ListOfPresentations::*)()) &PrsMgr_ListOfPresentations::Last, "Last item (non-const)");
-	cls_PrsMgr_ListOfPresentations.def("Append", (opencascade::handle<Prs3d_Presentation> & (PrsMgr_ListOfPresentations::*)(const opencascade::handle<Prs3d_Presentation> &)) &PrsMgr_ListOfPresentations::Append, "Append one item at the end", py::arg("theItem"));
-	cls_PrsMgr_ListOfPresentations.def("Append", (void (PrsMgr_ListOfPresentations::*)(const opencascade::handle<Prs3d_Presentation> &, PrsMgr_ListOfPresentations::Iterator &)) &PrsMgr_ListOfPresentations::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_PrsMgr_ListOfPresentations.def("Append", (void (PrsMgr_ListOfPresentations::*)(PrsMgr_ListOfPresentations &)) &PrsMgr_ListOfPresentations::Append, "Append another list at the end", py::arg("theOther"));
-	cls_PrsMgr_ListOfPresentations.def("Prepend", (opencascade::handle<Prs3d_Presentation> & (PrsMgr_ListOfPresentations::*)(const opencascade::handle<Prs3d_Presentation> &)) &PrsMgr_ListOfPresentations::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_PrsMgr_ListOfPresentations.def("Prepend", (void (PrsMgr_ListOfPresentations::*)(PrsMgr_ListOfPresentations &)) &PrsMgr_ListOfPresentations::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_PrsMgr_ListOfPresentations.def("RemoveFirst", (void (PrsMgr_ListOfPresentations::*)()) &PrsMgr_ListOfPresentations::RemoveFirst, "RemoveFirst item");
-	cls_PrsMgr_ListOfPresentations.def("Remove", (void (PrsMgr_ListOfPresentations::*)(PrsMgr_ListOfPresentations::Iterator &)) &PrsMgr_ListOfPresentations::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_PrsMgr_ListOfPresentations.def("InsertBefore", (opencascade::handle<Prs3d_Presentation> & (PrsMgr_ListOfPresentations::*)(const opencascade::handle<Prs3d_Presentation> &, PrsMgr_ListOfPresentations::Iterator &)) &PrsMgr_ListOfPresentations::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_PrsMgr_ListOfPresentations.def("InsertBefore", (void (PrsMgr_ListOfPresentations::*)(PrsMgr_ListOfPresentations &, PrsMgr_ListOfPresentations::Iterator &)) &PrsMgr_ListOfPresentations::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_PrsMgr_ListOfPresentations.def("InsertAfter", (opencascade::handle<Prs3d_Presentation> & (PrsMgr_ListOfPresentations::*)(const opencascade::handle<Prs3d_Presentation> &, PrsMgr_ListOfPresentations::Iterator &)) &PrsMgr_ListOfPresentations::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_PrsMgr_ListOfPresentations.def("InsertAfter", (void (PrsMgr_ListOfPresentations::*)(PrsMgr_ListOfPresentations &, PrsMgr_ListOfPresentations::Iterator &)) &PrsMgr_ListOfPresentations::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_PrsMgr_ListOfPresentations.def("Reverse", (void (PrsMgr_ListOfPresentations::*)()) &PrsMgr_ListOfPresentations::Reverse, "Reverse the list");
-	cls_PrsMgr_ListOfPresentations.def("__iter__", [](const PrsMgr_ListOfPresentations &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\PrsMgr_ListOfPresentations.hxx
+	bind_NCollection_List<opencascade::handle<Prs3d_Presentation> >(mod, "PrsMgr_ListOfPresentations");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\PrsMgr_PresentationManager3d.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<PrsMgr_ListOfPresentableObjects, std::unique_ptr<PrsMgr_ListOfPresentableObjects, Deleter<PrsMgr_ListOfPresentableObjects>>, NCollection_BaseList> cls_PrsMgr_ListOfPresentableObjects(mod, "PrsMgr_ListOfPresentableObjects", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_PrsMgr_ListOfPresentableObjects.def(py::init<>());
-	cls_PrsMgr_ListOfPresentableObjects.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_PrsMgr_ListOfPresentableObjects.def(py::init([] (const PrsMgr_ListOfPresentableObjects &other) {return new PrsMgr_ListOfPresentableObjects(other);}), "Copy constructor", py::arg("other"));
-	cls_PrsMgr_ListOfPresentableObjects.def("begin", (PrsMgr_ListOfPresentableObjects::iterator (PrsMgr_ListOfPresentableObjects::*)() const ) &PrsMgr_ListOfPresentableObjects::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_PrsMgr_ListOfPresentableObjects.def("end", (PrsMgr_ListOfPresentableObjects::iterator (PrsMgr_ListOfPresentableObjects::*)() const ) &PrsMgr_ListOfPresentableObjects::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_PrsMgr_ListOfPresentableObjects.def("cbegin", (PrsMgr_ListOfPresentableObjects::const_iterator (PrsMgr_ListOfPresentableObjects::*)() const ) &PrsMgr_ListOfPresentableObjects::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_PrsMgr_ListOfPresentableObjects.def("cend", (PrsMgr_ListOfPresentableObjects::const_iterator (PrsMgr_ListOfPresentableObjects::*)() const ) &PrsMgr_ListOfPresentableObjects::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_PrsMgr_ListOfPresentableObjects.def("Size", (Standard_Integer (PrsMgr_ListOfPresentableObjects::*)() const ) &PrsMgr_ListOfPresentableObjects::Size, "Size - Number of items");
-	cls_PrsMgr_ListOfPresentableObjects.def("Assign", (PrsMgr_ListOfPresentableObjects & (PrsMgr_ListOfPresentableObjects::*)(const PrsMgr_ListOfPresentableObjects &)) &PrsMgr_ListOfPresentableObjects::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_PrsMgr_ListOfPresentableObjects.def("assign", (PrsMgr_ListOfPresentableObjects & (PrsMgr_ListOfPresentableObjects::*)(const PrsMgr_ListOfPresentableObjects &)) &PrsMgr_ListOfPresentableObjects::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_PrsMgr_ListOfPresentableObjects.def("Clear", [](PrsMgr_ListOfPresentableObjects &self) -> void { return self.Clear(); });
-	cls_PrsMgr_ListOfPresentableObjects.def("Clear", (void (PrsMgr_ListOfPresentableObjects::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &PrsMgr_ListOfPresentableObjects::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_PrsMgr_ListOfPresentableObjects.def("First", (const opencascade::handle<PrsMgr_PresentableObject> & (PrsMgr_ListOfPresentableObjects::*)() const ) &PrsMgr_ListOfPresentableObjects::First, "First item");
-	cls_PrsMgr_ListOfPresentableObjects.def("First", (opencascade::handle<PrsMgr_PresentableObject> & (PrsMgr_ListOfPresentableObjects::*)()) &PrsMgr_ListOfPresentableObjects::First, "First item (non-const)");
-	cls_PrsMgr_ListOfPresentableObjects.def("Last", (const opencascade::handle<PrsMgr_PresentableObject> & (PrsMgr_ListOfPresentableObjects::*)() const ) &PrsMgr_ListOfPresentableObjects::Last, "Last item");
-	cls_PrsMgr_ListOfPresentableObjects.def("Last", (opencascade::handle<PrsMgr_PresentableObject> & (PrsMgr_ListOfPresentableObjects::*)()) &PrsMgr_ListOfPresentableObjects::Last, "Last item (non-const)");
-	cls_PrsMgr_ListOfPresentableObjects.def("Append", (opencascade::handle<PrsMgr_PresentableObject> & (PrsMgr_ListOfPresentableObjects::*)(const opencascade::handle<PrsMgr_PresentableObject> &)) &PrsMgr_ListOfPresentableObjects::Append, "Append one item at the end", py::arg("theItem"));
-	cls_PrsMgr_ListOfPresentableObjects.def("Append", (void (PrsMgr_ListOfPresentableObjects::*)(const opencascade::handle<PrsMgr_PresentableObject> &, PrsMgr_ListOfPresentableObjects::Iterator &)) &PrsMgr_ListOfPresentableObjects::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_PrsMgr_ListOfPresentableObjects.def("Append", (void (PrsMgr_ListOfPresentableObjects::*)(PrsMgr_ListOfPresentableObjects &)) &PrsMgr_ListOfPresentableObjects::Append, "Append another list at the end", py::arg("theOther"));
-	cls_PrsMgr_ListOfPresentableObjects.def("Prepend", (opencascade::handle<PrsMgr_PresentableObject> & (PrsMgr_ListOfPresentableObjects::*)(const opencascade::handle<PrsMgr_PresentableObject> &)) &PrsMgr_ListOfPresentableObjects::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_PrsMgr_ListOfPresentableObjects.def("Prepend", (void (PrsMgr_ListOfPresentableObjects::*)(PrsMgr_ListOfPresentableObjects &)) &PrsMgr_ListOfPresentableObjects::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_PrsMgr_ListOfPresentableObjects.def("RemoveFirst", (void (PrsMgr_ListOfPresentableObjects::*)()) &PrsMgr_ListOfPresentableObjects::RemoveFirst, "RemoveFirst item");
-	cls_PrsMgr_ListOfPresentableObjects.def("Remove", (void (PrsMgr_ListOfPresentableObjects::*)(PrsMgr_ListOfPresentableObjects::Iterator &)) &PrsMgr_ListOfPresentableObjects::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_PrsMgr_ListOfPresentableObjects.def("InsertBefore", (opencascade::handle<PrsMgr_PresentableObject> & (PrsMgr_ListOfPresentableObjects::*)(const opencascade::handle<PrsMgr_PresentableObject> &, PrsMgr_ListOfPresentableObjects::Iterator &)) &PrsMgr_ListOfPresentableObjects::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_PrsMgr_ListOfPresentableObjects.def("InsertBefore", (void (PrsMgr_ListOfPresentableObjects::*)(PrsMgr_ListOfPresentableObjects &, PrsMgr_ListOfPresentableObjects::Iterator &)) &PrsMgr_ListOfPresentableObjects::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_PrsMgr_ListOfPresentableObjects.def("InsertAfter", (opencascade::handle<PrsMgr_PresentableObject> & (PrsMgr_ListOfPresentableObjects::*)(const opencascade::handle<PrsMgr_PresentableObject> &, PrsMgr_ListOfPresentableObjects::Iterator &)) &PrsMgr_ListOfPresentableObjects::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_PrsMgr_ListOfPresentableObjects.def("InsertAfter", (void (PrsMgr_ListOfPresentableObjects::*)(PrsMgr_ListOfPresentableObjects &, PrsMgr_ListOfPresentableObjects::Iterator &)) &PrsMgr_ListOfPresentableObjects::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_PrsMgr_ListOfPresentableObjects.def("Reverse", (void (PrsMgr_ListOfPresentableObjects::*)()) &PrsMgr_ListOfPresentableObjects::Reverse, "Reverse the list");
-	cls_PrsMgr_ListOfPresentableObjects.def("__iter__", [](const PrsMgr_ListOfPresentableObjects &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\PrsMgr_ListOfPresentableObjects.hxx
+	bind_NCollection_List<opencascade::handle<PrsMgr_PresentableObject> >(mod, "PrsMgr_ListOfPresentableObjects");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<PrsMgr_ListOfPresentableObjectsIter, std::unique_ptr<PrsMgr_ListOfPresentableObjectsIter, Deleter<PrsMgr_ListOfPresentableObjectsIter>>> cls_PrsMgr_ListOfPresentableObjectsIter(mod, "PrsMgr_ListOfPresentableObjectsIter", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_PrsMgr_ListOfPresentableObjectsIter.def(py::init<>());
-	cls_PrsMgr_ListOfPresentableObjectsIter.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_PrsMgr_ListOfPresentableObjectsIter.def("More", (Standard_Boolean (PrsMgr_ListOfPresentableObjectsIter::*)() const ) &PrsMgr_ListOfPresentableObjectsIter::More, "Check end");
-	cls_PrsMgr_ListOfPresentableObjectsIter.def("Next", (void (PrsMgr_ListOfPresentableObjectsIter::*)()) &PrsMgr_ListOfPresentableObjectsIter::Next, "Make step");
-	cls_PrsMgr_ListOfPresentableObjectsIter.def("Value", (const opencascade::handle<PrsMgr_PresentableObject> & (PrsMgr_ListOfPresentableObjectsIter::*)() const ) &PrsMgr_ListOfPresentableObjectsIter::Value, "Constant Value access");
-	cls_PrsMgr_ListOfPresentableObjectsIter.def("Value", (opencascade::handle<PrsMgr_PresentableObject> & (PrsMgr_ListOfPresentableObjectsIter::*)()) &PrsMgr_ListOfPresentableObjectsIter::Value, "Non-const Value access");
-	cls_PrsMgr_ListOfPresentableObjectsIter.def("ChangeValue", (opencascade::handle<PrsMgr_PresentableObject> & (PrsMgr_ListOfPresentableObjectsIter::*)() const ) &PrsMgr_ListOfPresentableObjectsIter::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\PrsMgr_ListOfPresentableObjects.hxx
+	bind_NCollection_TListIterator<opencascade::handle<PrsMgr_PresentableObject> >(mod, "PrsMgr_ListOfPresentableObjectsIter");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\PrsMgr_PresentableObjectPointer.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<PrsMgr_Presentations, std::unique_ptr<PrsMgr_Presentations, Deleter<PrsMgr_Presentations>>, NCollection_BaseSequence> cls_PrsMgr_Presentations(mod, "PrsMgr_Presentations", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_PrsMgr_Presentations.def(py::init<>());
-	cls_PrsMgr_Presentations.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_PrsMgr_Presentations.def(py::init([] (const PrsMgr_Presentations &other) {return new PrsMgr_Presentations(other);}), "Copy constructor", py::arg("other"));
-	cls_PrsMgr_Presentations.def("begin", (PrsMgr_Presentations::iterator (PrsMgr_Presentations::*)() const ) &PrsMgr_Presentations::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_PrsMgr_Presentations.def("end", (PrsMgr_Presentations::iterator (PrsMgr_Presentations::*)() const ) &PrsMgr_Presentations::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_PrsMgr_Presentations.def("cbegin", (PrsMgr_Presentations::const_iterator (PrsMgr_Presentations::*)() const ) &PrsMgr_Presentations::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_PrsMgr_Presentations.def("cend", (PrsMgr_Presentations::const_iterator (PrsMgr_Presentations::*)() const ) &PrsMgr_Presentations::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_PrsMgr_Presentations.def("Size", (Standard_Integer (PrsMgr_Presentations::*)() const ) &PrsMgr_Presentations::Size, "Number of items");
-	cls_PrsMgr_Presentations.def("Length", (Standard_Integer (PrsMgr_Presentations::*)() const ) &PrsMgr_Presentations::Length, "Number of items");
-	cls_PrsMgr_Presentations.def("Lower", (Standard_Integer (PrsMgr_Presentations::*)() const ) &PrsMgr_Presentations::Lower, "Method for consistency with other collections.");
-	cls_PrsMgr_Presentations.def("Upper", (Standard_Integer (PrsMgr_Presentations::*)() const ) &PrsMgr_Presentations::Upper, "Method for consistency with other collections.");
-	cls_PrsMgr_Presentations.def("IsEmpty", (Standard_Boolean (PrsMgr_Presentations::*)() const ) &PrsMgr_Presentations::IsEmpty, "Empty query");
-	cls_PrsMgr_Presentations.def("Reverse", (void (PrsMgr_Presentations::*)()) &PrsMgr_Presentations::Reverse, "Reverse sequence");
-	cls_PrsMgr_Presentations.def("Exchange", (void (PrsMgr_Presentations::*)(const Standard_Integer, const Standard_Integer)) &PrsMgr_Presentations::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_PrsMgr_Presentations.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &PrsMgr_Presentations::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_PrsMgr_Presentations.def("Clear", [](PrsMgr_Presentations &self) -> void { return self.Clear(); });
-	cls_PrsMgr_Presentations.def("Clear", (void (PrsMgr_Presentations::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &PrsMgr_Presentations::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_PrsMgr_Presentations.def("Assign", (PrsMgr_Presentations & (PrsMgr_Presentations::*)(const PrsMgr_Presentations &)) &PrsMgr_Presentations::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_PrsMgr_Presentations.def("assign", (PrsMgr_Presentations & (PrsMgr_Presentations::*)(const PrsMgr_Presentations &)) &PrsMgr_Presentations::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_PrsMgr_Presentations.def("Remove", (void (PrsMgr_Presentations::*)(PrsMgr_Presentations::Iterator &)) &PrsMgr_Presentations::Remove, "Remove one item", py::arg("thePosition"));
-	cls_PrsMgr_Presentations.def("Remove", (void (PrsMgr_Presentations::*)(const Standard_Integer)) &PrsMgr_Presentations::Remove, "Remove one item", py::arg("theIndex"));
-	cls_PrsMgr_Presentations.def("Remove", (void (PrsMgr_Presentations::*)(const Standard_Integer, const Standard_Integer)) &PrsMgr_Presentations::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_PrsMgr_Presentations.def("Append", (void (PrsMgr_Presentations::*)(const PrsMgr_ModedPresentation &)) &PrsMgr_Presentations::Append, "Append one item", py::arg("theItem"));
-	cls_PrsMgr_Presentations.def("Append", (void (PrsMgr_Presentations::*)(PrsMgr_Presentations &)) &PrsMgr_Presentations::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_PrsMgr_Presentations.def("Prepend", (void (PrsMgr_Presentations::*)(const PrsMgr_ModedPresentation &)) &PrsMgr_Presentations::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_PrsMgr_Presentations.def("Prepend", (void (PrsMgr_Presentations::*)(PrsMgr_Presentations &)) &PrsMgr_Presentations::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_PrsMgr_Presentations.def("InsertBefore", (void (PrsMgr_Presentations::*)(const Standard_Integer, const PrsMgr_ModedPresentation &)) &PrsMgr_Presentations::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_PrsMgr_Presentations.def("InsertBefore", (void (PrsMgr_Presentations::*)(const Standard_Integer, PrsMgr_Presentations &)) &PrsMgr_Presentations::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_PrsMgr_Presentations.def("InsertAfter", (void (PrsMgr_Presentations::*)(PrsMgr_Presentations::Iterator &, const PrsMgr_ModedPresentation &)) &PrsMgr_Presentations::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_PrsMgr_Presentations.def("InsertAfter", (void (PrsMgr_Presentations::*)(const Standard_Integer, PrsMgr_Presentations &)) &PrsMgr_Presentations::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_PrsMgr_Presentations.def("InsertAfter", (void (PrsMgr_Presentations::*)(const Standard_Integer, const PrsMgr_ModedPresentation &)) &PrsMgr_Presentations::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_PrsMgr_Presentations.def("Split", (void (PrsMgr_Presentations::*)(const Standard_Integer, PrsMgr_Presentations &)) &PrsMgr_Presentations::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_PrsMgr_Presentations.def("First", (const PrsMgr_ModedPresentation & (PrsMgr_Presentations::*)() const ) &PrsMgr_Presentations::First, "First item access");
-	cls_PrsMgr_Presentations.def("ChangeFirst", (PrsMgr_ModedPresentation & (PrsMgr_Presentations::*)()) &PrsMgr_Presentations::ChangeFirst, "First item access");
-	cls_PrsMgr_Presentations.def("Last", (const PrsMgr_ModedPresentation & (PrsMgr_Presentations::*)() const ) &PrsMgr_Presentations::Last, "Last item access");
-	cls_PrsMgr_Presentations.def("ChangeLast", (PrsMgr_ModedPresentation & (PrsMgr_Presentations::*)()) &PrsMgr_Presentations::ChangeLast, "Last item access");
-	cls_PrsMgr_Presentations.def("Value", (const PrsMgr_ModedPresentation & (PrsMgr_Presentations::*)(const Standard_Integer) const ) &PrsMgr_Presentations::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_PrsMgr_Presentations.def("__call__", (const PrsMgr_ModedPresentation & (PrsMgr_Presentations::*)(const Standard_Integer) const ) &PrsMgr_Presentations::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_PrsMgr_Presentations.def("ChangeValue", (PrsMgr_ModedPresentation & (PrsMgr_Presentations::*)(const Standard_Integer)) &PrsMgr_Presentations::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_PrsMgr_Presentations.def("__call__", (PrsMgr_ModedPresentation & (PrsMgr_Presentations::*)(const Standard_Integer)) &PrsMgr_Presentations::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_PrsMgr_Presentations.def("SetValue", (void (PrsMgr_Presentations::*)(const Standard_Integer, const PrsMgr_ModedPresentation &)) &PrsMgr_Presentations::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_PrsMgr_Presentations.def("__iter__", [](const PrsMgr_Presentations &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\PrsMgr_Presentations.hxx
+	bind_NCollection_Sequence<PrsMgr_ModedPresentation>(mod, "PrsMgr_Presentations");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\PrsMgr_Presentation3d.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\PrsMgr_PresentationPointer.hxx

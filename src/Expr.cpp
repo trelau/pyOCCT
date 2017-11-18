@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_TypeDef.hxx>
@@ -88,6 +79,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_Sequence.hxx>
 #include <Expr_Operators.hxx>
 #include <Expr_SequenceOfGeneralRelation.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Expr, mod) {
 
@@ -937,227 +929,23 @@ PYBIND11_MODULE(Expr, mod) {
 	cls_Expr_NotAssigned.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Expr_NotAssigned::get_type_descriptor, "None");
 	cls_Expr_NotAssigned.def("DynamicType", (const opencascade::handle<Standard_Type> & (Expr_NotAssigned::*)() const ) &Expr_NotAssigned::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Expr_Array1OfNamedUnknown, std::unique_ptr<Expr_Array1OfNamedUnknown, Deleter<Expr_Array1OfNamedUnknown>>> cls_Expr_Array1OfNamedUnknown(mod, "Expr_Array1OfNamedUnknown", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Expr_Array1OfNamedUnknown.def(py::init<>());
-	cls_Expr_Array1OfNamedUnknown.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Expr_Array1OfNamedUnknown.def(py::init([] (const Expr_Array1OfNamedUnknown &other) {return new Expr_Array1OfNamedUnknown(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Expr_Array1OfNamedUnknown.def(py::init<Expr_Array1OfNamedUnknown &&>(), py::arg("theOther"));
-	cls_Expr_Array1OfNamedUnknown.def(py::init<const opencascade::handle<Expr_NamedUnknown> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Expr_Array1OfNamedUnknown.def("begin", (Expr_Array1OfNamedUnknown::iterator (Expr_Array1OfNamedUnknown::*)() const ) &Expr_Array1OfNamedUnknown::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Expr_Array1OfNamedUnknown.def("end", (Expr_Array1OfNamedUnknown::iterator (Expr_Array1OfNamedUnknown::*)() const ) &Expr_Array1OfNamedUnknown::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Expr_Array1OfNamedUnknown.def("cbegin", (Expr_Array1OfNamedUnknown::const_iterator (Expr_Array1OfNamedUnknown::*)() const ) &Expr_Array1OfNamedUnknown::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Expr_Array1OfNamedUnknown.def("cend", (Expr_Array1OfNamedUnknown::const_iterator (Expr_Array1OfNamedUnknown::*)() const ) &Expr_Array1OfNamedUnknown::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Expr_Array1OfNamedUnknown.def("Init", (void (Expr_Array1OfNamedUnknown::*)(const opencascade::handle<Expr_NamedUnknown> &)) &Expr_Array1OfNamedUnknown::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Expr_Array1OfNamedUnknown.def("Size", (Standard_Integer (Expr_Array1OfNamedUnknown::*)() const ) &Expr_Array1OfNamedUnknown::Size, "Size query");
-	cls_Expr_Array1OfNamedUnknown.def("Length", (Standard_Integer (Expr_Array1OfNamedUnknown::*)() const ) &Expr_Array1OfNamedUnknown::Length, "Length query (the same)");
-	cls_Expr_Array1OfNamedUnknown.def("IsEmpty", (Standard_Boolean (Expr_Array1OfNamedUnknown::*)() const ) &Expr_Array1OfNamedUnknown::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Expr_Array1OfNamedUnknown.def("Lower", (Standard_Integer (Expr_Array1OfNamedUnknown::*)() const ) &Expr_Array1OfNamedUnknown::Lower, "Lower bound");
-	cls_Expr_Array1OfNamedUnknown.def("Upper", (Standard_Integer (Expr_Array1OfNamedUnknown::*)() const ) &Expr_Array1OfNamedUnknown::Upper, "Upper bound");
-	cls_Expr_Array1OfNamedUnknown.def("IsDeletable", (Standard_Boolean (Expr_Array1OfNamedUnknown::*)() const ) &Expr_Array1OfNamedUnknown::IsDeletable, "myDeletable flag");
-	cls_Expr_Array1OfNamedUnknown.def("IsAllocated", (Standard_Boolean (Expr_Array1OfNamedUnknown::*)() const ) &Expr_Array1OfNamedUnknown::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Expr_Array1OfNamedUnknown.def("Assign", (Expr_Array1OfNamedUnknown & (Expr_Array1OfNamedUnknown::*)(const Expr_Array1OfNamedUnknown &)) &Expr_Array1OfNamedUnknown::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Expr_Array1OfNamedUnknown.def("Move", (Expr_Array1OfNamedUnknown & (Expr_Array1OfNamedUnknown::*)(Expr_Array1OfNamedUnknown &&)) &Expr_Array1OfNamedUnknown::Move, "Move assignment", py::arg("theOther"));
-	cls_Expr_Array1OfNamedUnknown.def("assign", (Expr_Array1OfNamedUnknown & (Expr_Array1OfNamedUnknown::*)(const Expr_Array1OfNamedUnknown &)) &Expr_Array1OfNamedUnknown::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Expr_Array1OfNamedUnknown.def("assign", (Expr_Array1OfNamedUnknown & (Expr_Array1OfNamedUnknown::*)(Expr_Array1OfNamedUnknown &&)) &Expr_Array1OfNamedUnknown::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Expr_Array1OfNamedUnknown.def("First", (const opencascade::handle<Expr_NamedUnknown> & (Expr_Array1OfNamedUnknown::*)() const ) &Expr_Array1OfNamedUnknown::First, "Returns first element");
-	cls_Expr_Array1OfNamedUnknown.def("ChangeFirst", (opencascade::handle<Expr_NamedUnknown> & (Expr_Array1OfNamedUnknown::*)()) &Expr_Array1OfNamedUnknown::ChangeFirst, "Returns first element");
-	cls_Expr_Array1OfNamedUnknown.def("Last", (const opencascade::handle<Expr_NamedUnknown> & (Expr_Array1OfNamedUnknown::*)() const ) &Expr_Array1OfNamedUnknown::Last, "Returns last element");
-	cls_Expr_Array1OfNamedUnknown.def("ChangeLast", (opencascade::handle<Expr_NamedUnknown> & (Expr_Array1OfNamedUnknown::*)()) &Expr_Array1OfNamedUnknown::ChangeLast, "Returns last element");
-	cls_Expr_Array1OfNamedUnknown.def("Value", (const opencascade::handle<Expr_NamedUnknown> & (Expr_Array1OfNamedUnknown::*)(const Standard_Integer) const ) &Expr_Array1OfNamedUnknown::Value, "Constant value access", py::arg("theIndex"));
-	cls_Expr_Array1OfNamedUnknown.def("__call__", (const opencascade::handle<Expr_NamedUnknown> & (Expr_Array1OfNamedUnknown::*)(const Standard_Integer) const ) &Expr_Array1OfNamedUnknown::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Expr_Array1OfNamedUnknown.def("ChangeValue", (opencascade::handle<Expr_NamedUnknown> & (Expr_Array1OfNamedUnknown::*)(const Standard_Integer)) &Expr_Array1OfNamedUnknown::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Expr_Array1OfNamedUnknown.def("__call__", (opencascade::handle<Expr_NamedUnknown> & (Expr_Array1OfNamedUnknown::*)(const Standard_Integer)) &Expr_Array1OfNamedUnknown::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Expr_Array1OfNamedUnknown.def("SetValue", (void (Expr_Array1OfNamedUnknown::*)(const Standard_Integer, const opencascade::handle<Expr_NamedUnknown> &)) &Expr_Array1OfNamedUnknown::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Expr_Array1OfNamedUnknown.def("Resize", (void (Expr_Array1OfNamedUnknown::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Expr_Array1OfNamedUnknown::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Expr_Array1OfNamedUnknown.def("__iter__", [](const Expr_Array1OfNamedUnknown &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Expr_Array1OfNamedUnknown.hxx
+	bind_NCollection_Array1<opencascade::handle<Expr_NamedUnknown> >(mod, "Expr_Array1OfNamedUnknown");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Expr_Array1OfGeneralExpression, std::unique_ptr<Expr_Array1OfGeneralExpression, Deleter<Expr_Array1OfGeneralExpression>>> cls_Expr_Array1OfGeneralExpression(mod, "Expr_Array1OfGeneralExpression", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Expr_Array1OfGeneralExpression.def(py::init<>());
-	cls_Expr_Array1OfGeneralExpression.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Expr_Array1OfGeneralExpression.def(py::init([] (const Expr_Array1OfGeneralExpression &other) {return new Expr_Array1OfGeneralExpression(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Expr_Array1OfGeneralExpression.def(py::init<Expr_Array1OfGeneralExpression &&>(), py::arg("theOther"));
-	cls_Expr_Array1OfGeneralExpression.def(py::init<const opencascade::handle<Expr_GeneralExpression> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Expr_Array1OfGeneralExpression.def("begin", (Expr_Array1OfGeneralExpression::iterator (Expr_Array1OfGeneralExpression::*)() const ) &Expr_Array1OfGeneralExpression::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Expr_Array1OfGeneralExpression.def("end", (Expr_Array1OfGeneralExpression::iterator (Expr_Array1OfGeneralExpression::*)() const ) &Expr_Array1OfGeneralExpression::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Expr_Array1OfGeneralExpression.def("cbegin", (Expr_Array1OfGeneralExpression::const_iterator (Expr_Array1OfGeneralExpression::*)() const ) &Expr_Array1OfGeneralExpression::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Expr_Array1OfGeneralExpression.def("cend", (Expr_Array1OfGeneralExpression::const_iterator (Expr_Array1OfGeneralExpression::*)() const ) &Expr_Array1OfGeneralExpression::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Expr_Array1OfGeneralExpression.def("Init", (void (Expr_Array1OfGeneralExpression::*)(const opencascade::handle<Expr_GeneralExpression> &)) &Expr_Array1OfGeneralExpression::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Expr_Array1OfGeneralExpression.def("Size", (Standard_Integer (Expr_Array1OfGeneralExpression::*)() const ) &Expr_Array1OfGeneralExpression::Size, "Size query");
-	cls_Expr_Array1OfGeneralExpression.def("Length", (Standard_Integer (Expr_Array1OfGeneralExpression::*)() const ) &Expr_Array1OfGeneralExpression::Length, "Length query (the same)");
-	cls_Expr_Array1OfGeneralExpression.def("IsEmpty", (Standard_Boolean (Expr_Array1OfGeneralExpression::*)() const ) &Expr_Array1OfGeneralExpression::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Expr_Array1OfGeneralExpression.def("Lower", (Standard_Integer (Expr_Array1OfGeneralExpression::*)() const ) &Expr_Array1OfGeneralExpression::Lower, "Lower bound");
-	cls_Expr_Array1OfGeneralExpression.def("Upper", (Standard_Integer (Expr_Array1OfGeneralExpression::*)() const ) &Expr_Array1OfGeneralExpression::Upper, "Upper bound");
-	cls_Expr_Array1OfGeneralExpression.def("IsDeletable", (Standard_Boolean (Expr_Array1OfGeneralExpression::*)() const ) &Expr_Array1OfGeneralExpression::IsDeletable, "myDeletable flag");
-	cls_Expr_Array1OfGeneralExpression.def("IsAllocated", (Standard_Boolean (Expr_Array1OfGeneralExpression::*)() const ) &Expr_Array1OfGeneralExpression::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Expr_Array1OfGeneralExpression.def("Assign", (Expr_Array1OfGeneralExpression & (Expr_Array1OfGeneralExpression::*)(const Expr_Array1OfGeneralExpression &)) &Expr_Array1OfGeneralExpression::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Expr_Array1OfGeneralExpression.def("Move", (Expr_Array1OfGeneralExpression & (Expr_Array1OfGeneralExpression::*)(Expr_Array1OfGeneralExpression &&)) &Expr_Array1OfGeneralExpression::Move, "Move assignment", py::arg("theOther"));
-	cls_Expr_Array1OfGeneralExpression.def("assign", (Expr_Array1OfGeneralExpression & (Expr_Array1OfGeneralExpression::*)(const Expr_Array1OfGeneralExpression &)) &Expr_Array1OfGeneralExpression::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Expr_Array1OfGeneralExpression.def("assign", (Expr_Array1OfGeneralExpression & (Expr_Array1OfGeneralExpression::*)(Expr_Array1OfGeneralExpression &&)) &Expr_Array1OfGeneralExpression::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Expr_Array1OfGeneralExpression.def("First", (const opencascade::handle<Expr_GeneralExpression> & (Expr_Array1OfGeneralExpression::*)() const ) &Expr_Array1OfGeneralExpression::First, "Returns first element");
-	cls_Expr_Array1OfGeneralExpression.def("ChangeFirst", (opencascade::handle<Expr_GeneralExpression> & (Expr_Array1OfGeneralExpression::*)()) &Expr_Array1OfGeneralExpression::ChangeFirst, "Returns first element");
-	cls_Expr_Array1OfGeneralExpression.def("Last", (const opencascade::handle<Expr_GeneralExpression> & (Expr_Array1OfGeneralExpression::*)() const ) &Expr_Array1OfGeneralExpression::Last, "Returns last element");
-	cls_Expr_Array1OfGeneralExpression.def("ChangeLast", (opencascade::handle<Expr_GeneralExpression> & (Expr_Array1OfGeneralExpression::*)()) &Expr_Array1OfGeneralExpression::ChangeLast, "Returns last element");
-	cls_Expr_Array1OfGeneralExpression.def("Value", (const opencascade::handle<Expr_GeneralExpression> & (Expr_Array1OfGeneralExpression::*)(const Standard_Integer) const ) &Expr_Array1OfGeneralExpression::Value, "Constant value access", py::arg("theIndex"));
-	cls_Expr_Array1OfGeneralExpression.def("__call__", (const opencascade::handle<Expr_GeneralExpression> & (Expr_Array1OfGeneralExpression::*)(const Standard_Integer) const ) &Expr_Array1OfGeneralExpression::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Expr_Array1OfGeneralExpression.def("ChangeValue", (opencascade::handle<Expr_GeneralExpression> & (Expr_Array1OfGeneralExpression::*)(const Standard_Integer)) &Expr_Array1OfGeneralExpression::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Expr_Array1OfGeneralExpression.def("__call__", (opencascade::handle<Expr_GeneralExpression> & (Expr_Array1OfGeneralExpression::*)(const Standard_Integer)) &Expr_Array1OfGeneralExpression::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Expr_Array1OfGeneralExpression.def("SetValue", (void (Expr_Array1OfGeneralExpression::*)(const Standard_Integer, const opencascade::handle<Expr_GeneralExpression> &)) &Expr_Array1OfGeneralExpression::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Expr_Array1OfGeneralExpression.def("Resize", (void (Expr_Array1OfGeneralExpression::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Expr_Array1OfGeneralExpression::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Expr_Array1OfGeneralExpression.def("__iter__", [](const Expr_Array1OfGeneralExpression &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Expr_Array1OfGeneralExpression.hxx
+	bind_NCollection_Array1<opencascade::handle<Expr_GeneralExpression> >(mod, "Expr_Array1OfGeneralExpression");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Expr_Array1OfSingleRelation, std::unique_ptr<Expr_Array1OfSingleRelation, Deleter<Expr_Array1OfSingleRelation>>> cls_Expr_Array1OfSingleRelation(mod, "Expr_Array1OfSingleRelation", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Expr_Array1OfSingleRelation.def(py::init<>());
-	cls_Expr_Array1OfSingleRelation.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Expr_Array1OfSingleRelation.def(py::init([] (const Expr_Array1OfSingleRelation &other) {return new Expr_Array1OfSingleRelation(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Expr_Array1OfSingleRelation.def(py::init<Expr_Array1OfSingleRelation &&>(), py::arg("theOther"));
-	cls_Expr_Array1OfSingleRelation.def(py::init<const opencascade::handle<Expr_SingleRelation> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Expr_Array1OfSingleRelation.def("begin", (Expr_Array1OfSingleRelation::iterator (Expr_Array1OfSingleRelation::*)() const ) &Expr_Array1OfSingleRelation::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Expr_Array1OfSingleRelation.def("end", (Expr_Array1OfSingleRelation::iterator (Expr_Array1OfSingleRelation::*)() const ) &Expr_Array1OfSingleRelation::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Expr_Array1OfSingleRelation.def("cbegin", (Expr_Array1OfSingleRelation::const_iterator (Expr_Array1OfSingleRelation::*)() const ) &Expr_Array1OfSingleRelation::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Expr_Array1OfSingleRelation.def("cend", (Expr_Array1OfSingleRelation::const_iterator (Expr_Array1OfSingleRelation::*)() const ) &Expr_Array1OfSingleRelation::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Expr_Array1OfSingleRelation.def("Init", (void (Expr_Array1OfSingleRelation::*)(const opencascade::handle<Expr_SingleRelation> &)) &Expr_Array1OfSingleRelation::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Expr_Array1OfSingleRelation.def("Size", (Standard_Integer (Expr_Array1OfSingleRelation::*)() const ) &Expr_Array1OfSingleRelation::Size, "Size query");
-	cls_Expr_Array1OfSingleRelation.def("Length", (Standard_Integer (Expr_Array1OfSingleRelation::*)() const ) &Expr_Array1OfSingleRelation::Length, "Length query (the same)");
-	cls_Expr_Array1OfSingleRelation.def("IsEmpty", (Standard_Boolean (Expr_Array1OfSingleRelation::*)() const ) &Expr_Array1OfSingleRelation::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Expr_Array1OfSingleRelation.def("Lower", (Standard_Integer (Expr_Array1OfSingleRelation::*)() const ) &Expr_Array1OfSingleRelation::Lower, "Lower bound");
-	cls_Expr_Array1OfSingleRelation.def("Upper", (Standard_Integer (Expr_Array1OfSingleRelation::*)() const ) &Expr_Array1OfSingleRelation::Upper, "Upper bound");
-	cls_Expr_Array1OfSingleRelation.def("IsDeletable", (Standard_Boolean (Expr_Array1OfSingleRelation::*)() const ) &Expr_Array1OfSingleRelation::IsDeletable, "myDeletable flag");
-	cls_Expr_Array1OfSingleRelation.def("IsAllocated", (Standard_Boolean (Expr_Array1OfSingleRelation::*)() const ) &Expr_Array1OfSingleRelation::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Expr_Array1OfSingleRelation.def("Assign", (Expr_Array1OfSingleRelation & (Expr_Array1OfSingleRelation::*)(const Expr_Array1OfSingleRelation &)) &Expr_Array1OfSingleRelation::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Expr_Array1OfSingleRelation.def("Move", (Expr_Array1OfSingleRelation & (Expr_Array1OfSingleRelation::*)(Expr_Array1OfSingleRelation &&)) &Expr_Array1OfSingleRelation::Move, "Move assignment", py::arg("theOther"));
-	cls_Expr_Array1OfSingleRelation.def("assign", (Expr_Array1OfSingleRelation & (Expr_Array1OfSingleRelation::*)(const Expr_Array1OfSingleRelation &)) &Expr_Array1OfSingleRelation::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Expr_Array1OfSingleRelation.def("assign", (Expr_Array1OfSingleRelation & (Expr_Array1OfSingleRelation::*)(Expr_Array1OfSingleRelation &&)) &Expr_Array1OfSingleRelation::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Expr_Array1OfSingleRelation.def("First", (const opencascade::handle<Expr_SingleRelation> & (Expr_Array1OfSingleRelation::*)() const ) &Expr_Array1OfSingleRelation::First, "Returns first element");
-	cls_Expr_Array1OfSingleRelation.def("ChangeFirst", (opencascade::handle<Expr_SingleRelation> & (Expr_Array1OfSingleRelation::*)()) &Expr_Array1OfSingleRelation::ChangeFirst, "Returns first element");
-	cls_Expr_Array1OfSingleRelation.def("Last", (const opencascade::handle<Expr_SingleRelation> & (Expr_Array1OfSingleRelation::*)() const ) &Expr_Array1OfSingleRelation::Last, "Returns last element");
-	cls_Expr_Array1OfSingleRelation.def("ChangeLast", (opencascade::handle<Expr_SingleRelation> & (Expr_Array1OfSingleRelation::*)()) &Expr_Array1OfSingleRelation::ChangeLast, "Returns last element");
-	cls_Expr_Array1OfSingleRelation.def("Value", (const opencascade::handle<Expr_SingleRelation> & (Expr_Array1OfSingleRelation::*)(const Standard_Integer) const ) &Expr_Array1OfSingleRelation::Value, "Constant value access", py::arg("theIndex"));
-	cls_Expr_Array1OfSingleRelation.def("__call__", (const opencascade::handle<Expr_SingleRelation> & (Expr_Array1OfSingleRelation::*)(const Standard_Integer) const ) &Expr_Array1OfSingleRelation::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Expr_Array1OfSingleRelation.def("ChangeValue", (opencascade::handle<Expr_SingleRelation> & (Expr_Array1OfSingleRelation::*)(const Standard_Integer)) &Expr_Array1OfSingleRelation::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Expr_Array1OfSingleRelation.def("__call__", (opencascade::handle<Expr_SingleRelation> & (Expr_Array1OfSingleRelation::*)(const Standard_Integer)) &Expr_Array1OfSingleRelation::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Expr_Array1OfSingleRelation.def("SetValue", (void (Expr_Array1OfSingleRelation::*)(const Standard_Integer, const opencascade::handle<Expr_SingleRelation> &)) &Expr_Array1OfSingleRelation::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Expr_Array1OfSingleRelation.def("Resize", (void (Expr_Array1OfSingleRelation::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Expr_Array1OfSingleRelation::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Expr_Array1OfSingleRelation.def("__iter__", [](const Expr_Array1OfSingleRelation &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Expr_Array1OfSingleRelation.hxx
+	bind_NCollection_Array1<opencascade::handle<Expr_SingleRelation> >(mod, "Expr_Array1OfSingleRelation");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_IndexedMap.hxx
-	py::class_<Expr_MapOfNamedUnknown, std::unique_ptr<Expr_MapOfNamedUnknown, Deleter<Expr_MapOfNamedUnknown>>, NCollection_BaseMap> cls_Expr_MapOfNamedUnknown(mod, "Expr_MapOfNamedUnknown", "Purpose: An indexed map is used to store keys and to bind an index to them. Each new key stored in the map gets an index. Index are incremented as keys are stored in the map. A key can be found by the index and an index by the key. No key but the last can be removed so the indices are in the range 1..Extent. See the class Map from NCollection for a discussion about the number of buckets.");
-	cls_Expr_MapOfNamedUnknown.def(py::init<>());
-	cls_Expr_MapOfNamedUnknown.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_Expr_MapOfNamedUnknown.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_Expr_MapOfNamedUnknown.def(py::init([] (const Expr_MapOfNamedUnknown &other) {return new Expr_MapOfNamedUnknown(other);}), "Copy constructor", py::arg("other"));
-	cls_Expr_MapOfNamedUnknown.def("cbegin", (Expr_MapOfNamedUnknown::const_iterator (Expr_MapOfNamedUnknown::*)() const ) &Expr_MapOfNamedUnknown::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_Expr_MapOfNamedUnknown.def("cend", (Expr_MapOfNamedUnknown::const_iterator (Expr_MapOfNamedUnknown::*)() const ) &Expr_MapOfNamedUnknown::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_Expr_MapOfNamedUnknown.def("Exchange", (void (Expr_MapOfNamedUnknown::*)(Expr_MapOfNamedUnknown &)) &Expr_MapOfNamedUnknown::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_Expr_MapOfNamedUnknown.def("Assign", (Expr_MapOfNamedUnknown & (Expr_MapOfNamedUnknown::*)(const Expr_MapOfNamedUnknown &)) &Expr_MapOfNamedUnknown::Assign, "Assign. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Expr_MapOfNamedUnknown.def("assign", (Expr_MapOfNamedUnknown & (Expr_MapOfNamedUnknown::*)(const Expr_MapOfNamedUnknown &)) &Expr_MapOfNamedUnknown::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Expr_MapOfNamedUnknown.def("ReSize", (void (Expr_MapOfNamedUnknown::*)(const Standard_Integer)) &Expr_MapOfNamedUnknown::ReSize, "ReSize", py::arg("N"));
-	cls_Expr_MapOfNamedUnknown.def("Add", (Standard_Integer (Expr_MapOfNamedUnknown::*)(const opencascade::handle<Expr_NamedUnknown> &)) &Expr_MapOfNamedUnknown::Add, "Add", py::arg("theKey1"));
-	cls_Expr_MapOfNamedUnknown.def("Contains", (Standard_Boolean (Expr_MapOfNamedUnknown::*)(const opencascade::handle<Expr_NamedUnknown> &) const ) &Expr_MapOfNamedUnknown::Contains, "Contains", py::arg("theKey1"));
-	cls_Expr_MapOfNamedUnknown.def("Substitute", (void (Expr_MapOfNamedUnknown::*)(const Standard_Integer, const opencascade::handle<Expr_NamedUnknown> &)) &Expr_MapOfNamedUnknown::Substitute, "Substitute", py::arg("theIndex"), py::arg("theKey1"));
-	cls_Expr_MapOfNamedUnknown.def("Swap", (void (Expr_MapOfNamedUnknown::*)(const Standard_Integer, const Standard_Integer)) &Expr_MapOfNamedUnknown::Swap, "Swaps two elements with the given indices.", py::arg("theIndex1"), py::arg("theIndex2"));
-	cls_Expr_MapOfNamedUnknown.def("RemoveLast", (void (Expr_MapOfNamedUnknown::*)()) &Expr_MapOfNamedUnknown::RemoveLast, "RemoveLast");
-	cls_Expr_MapOfNamedUnknown.def("RemoveFromIndex", (void (Expr_MapOfNamedUnknown::*)(const Standard_Integer)) &Expr_MapOfNamedUnknown::RemoveFromIndex, "Remove the key of the given index. Caution! The index of the last key can be changed.", py::arg("theKey2"));
-	cls_Expr_MapOfNamedUnknown.def("RemoveKey", (Standard_Boolean (Expr_MapOfNamedUnknown::*)(const opencascade::handle<Expr_NamedUnknown> &)) &Expr_MapOfNamedUnknown::RemoveKey, "Remove the given key. Caution! The index of the last key can be changed.", py::arg("theKey1"));
-	cls_Expr_MapOfNamedUnknown.def("FindKey", (const opencascade::handle<Expr_NamedUnknown> & (Expr_MapOfNamedUnknown::*)(const Standard_Integer) const ) &Expr_MapOfNamedUnknown::FindKey, "FindKey", py::arg("theKey2"));
-	cls_Expr_MapOfNamedUnknown.def("__call__", (const opencascade::handle<Expr_NamedUnknown> & (Expr_MapOfNamedUnknown::*)(const Standard_Integer) const ) &Expr_MapOfNamedUnknown::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_Expr_MapOfNamedUnknown.def("FindIndex", (Standard_Integer (Expr_MapOfNamedUnknown::*)(const opencascade::handle<Expr_NamedUnknown> &) const ) &Expr_MapOfNamedUnknown::FindIndex, "FindIndex", py::arg("theKey1"));
-	cls_Expr_MapOfNamedUnknown.def("Clear", [](Expr_MapOfNamedUnknown &self) -> void { return self.Clear(); });
-	cls_Expr_MapOfNamedUnknown.def("Clear", (void (Expr_MapOfNamedUnknown::*)(const Standard_Boolean)) &Expr_MapOfNamedUnknown::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_Expr_MapOfNamedUnknown.def("Clear", (void (Expr_MapOfNamedUnknown::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Expr_MapOfNamedUnknown::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_Expr_MapOfNamedUnknown.def("Size", (Standard_Integer (Expr_MapOfNamedUnknown::*)() const ) &Expr_MapOfNamedUnknown::Size, "Size");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Expr_MapOfNamedUnknown.hxx
+	bind_NCollection_IndexedMap<opencascade::handle<Expr_NamedUnknown>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "Expr_MapOfNamedUnknown");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Expr_SequenceOfGeneralExpression, std::unique_ptr<Expr_SequenceOfGeneralExpression, Deleter<Expr_SequenceOfGeneralExpression>>, NCollection_BaseSequence> cls_Expr_SequenceOfGeneralExpression(mod, "Expr_SequenceOfGeneralExpression", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Expr_SequenceOfGeneralExpression.def(py::init<>());
-	cls_Expr_SequenceOfGeneralExpression.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Expr_SequenceOfGeneralExpression.def(py::init([] (const Expr_SequenceOfGeneralExpression &other) {return new Expr_SequenceOfGeneralExpression(other);}), "Copy constructor", py::arg("other"));
-	cls_Expr_SequenceOfGeneralExpression.def("begin", (Expr_SequenceOfGeneralExpression::iterator (Expr_SequenceOfGeneralExpression::*)() const ) &Expr_SequenceOfGeneralExpression::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Expr_SequenceOfGeneralExpression.def("end", (Expr_SequenceOfGeneralExpression::iterator (Expr_SequenceOfGeneralExpression::*)() const ) &Expr_SequenceOfGeneralExpression::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Expr_SequenceOfGeneralExpression.def("cbegin", (Expr_SequenceOfGeneralExpression::const_iterator (Expr_SequenceOfGeneralExpression::*)() const ) &Expr_SequenceOfGeneralExpression::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Expr_SequenceOfGeneralExpression.def("cend", (Expr_SequenceOfGeneralExpression::const_iterator (Expr_SequenceOfGeneralExpression::*)() const ) &Expr_SequenceOfGeneralExpression::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Expr_SequenceOfGeneralExpression.def("Size", (Standard_Integer (Expr_SequenceOfGeneralExpression::*)() const ) &Expr_SequenceOfGeneralExpression::Size, "Number of items");
-	cls_Expr_SequenceOfGeneralExpression.def("Length", (Standard_Integer (Expr_SequenceOfGeneralExpression::*)() const ) &Expr_SequenceOfGeneralExpression::Length, "Number of items");
-	cls_Expr_SequenceOfGeneralExpression.def("Lower", (Standard_Integer (Expr_SequenceOfGeneralExpression::*)() const ) &Expr_SequenceOfGeneralExpression::Lower, "Method for consistency with other collections.");
-	cls_Expr_SequenceOfGeneralExpression.def("Upper", (Standard_Integer (Expr_SequenceOfGeneralExpression::*)() const ) &Expr_SequenceOfGeneralExpression::Upper, "Method for consistency with other collections.");
-	cls_Expr_SequenceOfGeneralExpression.def("IsEmpty", (Standard_Boolean (Expr_SequenceOfGeneralExpression::*)() const ) &Expr_SequenceOfGeneralExpression::IsEmpty, "Empty query");
-	cls_Expr_SequenceOfGeneralExpression.def("Reverse", (void (Expr_SequenceOfGeneralExpression::*)()) &Expr_SequenceOfGeneralExpression::Reverse, "Reverse sequence");
-	cls_Expr_SequenceOfGeneralExpression.def("Exchange", (void (Expr_SequenceOfGeneralExpression::*)(const Standard_Integer, const Standard_Integer)) &Expr_SequenceOfGeneralExpression::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Expr_SequenceOfGeneralExpression.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Expr_SequenceOfGeneralExpression::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Expr_SequenceOfGeneralExpression.def("Clear", [](Expr_SequenceOfGeneralExpression &self) -> void { return self.Clear(); });
-	cls_Expr_SequenceOfGeneralExpression.def("Clear", (void (Expr_SequenceOfGeneralExpression::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Expr_SequenceOfGeneralExpression::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Expr_SequenceOfGeneralExpression.def("Assign", (Expr_SequenceOfGeneralExpression & (Expr_SequenceOfGeneralExpression::*)(const Expr_SequenceOfGeneralExpression &)) &Expr_SequenceOfGeneralExpression::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Expr_SequenceOfGeneralExpression.def("assign", (Expr_SequenceOfGeneralExpression & (Expr_SequenceOfGeneralExpression::*)(const Expr_SequenceOfGeneralExpression &)) &Expr_SequenceOfGeneralExpression::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Expr_SequenceOfGeneralExpression.def("Remove", (void (Expr_SequenceOfGeneralExpression::*)(Expr_SequenceOfGeneralExpression::Iterator &)) &Expr_SequenceOfGeneralExpression::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Expr_SequenceOfGeneralExpression.def("Remove", (void (Expr_SequenceOfGeneralExpression::*)(const Standard_Integer)) &Expr_SequenceOfGeneralExpression::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Expr_SequenceOfGeneralExpression.def("Remove", (void (Expr_SequenceOfGeneralExpression::*)(const Standard_Integer, const Standard_Integer)) &Expr_SequenceOfGeneralExpression::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Expr_SequenceOfGeneralExpression.def("Append", (void (Expr_SequenceOfGeneralExpression::*)(const opencascade::handle<Expr_GeneralExpression> &)) &Expr_SequenceOfGeneralExpression::Append, "Append one item", py::arg("theItem"));
-	cls_Expr_SequenceOfGeneralExpression.def("Append", (void (Expr_SequenceOfGeneralExpression::*)(Expr_SequenceOfGeneralExpression &)) &Expr_SequenceOfGeneralExpression::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Expr_SequenceOfGeneralExpression.def("Prepend", (void (Expr_SequenceOfGeneralExpression::*)(const opencascade::handle<Expr_GeneralExpression> &)) &Expr_SequenceOfGeneralExpression::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Expr_SequenceOfGeneralExpression.def("Prepend", (void (Expr_SequenceOfGeneralExpression::*)(Expr_SequenceOfGeneralExpression &)) &Expr_SequenceOfGeneralExpression::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Expr_SequenceOfGeneralExpression.def("InsertBefore", (void (Expr_SequenceOfGeneralExpression::*)(const Standard_Integer, const opencascade::handle<Expr_GeneralExpression> &)) &Expr_SequenceOfGeneralExpression::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Expr_SequenceOfGeneralExpression.def("InsertBefore", (void (Expr_SequenceOfGeneralExpression::*)(const Standard_Integer, Expr_SequenceOfGeneralExpression &)) &Expr_SequenceOfGeneralExpression::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Expr_SequenceOfGeneralExpression.def("InsertAfter", (void (Expr_SequenceOfGeneralExpression::*)(Expr_SequenceOfGeneralExpression::Iterator &, const opencascade::handle<Expr_GeneralExpression> &)) &Expr_SequenceOfGeneralExpression::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Expr_SequenceOfGeneralExpression.def("InsertAfter", (void (Expr_SequenceOfGeneralExpression::*)(const Standard_Integer, Expr_SequenceOfGeneralExpression &)) &Expr_SequenceOfGeneralExpression::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Expr_SequenceOfGeneralExpression.def("InsertAfter", (void (Expr_SequenceOfGeneralExpression::*)(const Standard_Integer, const opencascade::handle<Expr_GeneralExpression> &)) &Expr_SequenceOfGeneralExpression::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Expr_SequenceOfGeneralExpression.def("Split", (void (Expr_SequenceOfGeneralExpression::*)(const Standard_Integer, Expr_SequenceOfGeneralExpression &)) &Expr_SequenceOfGeneralExpression::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Expr_SequenceOfGeneralExpression.def("First", (const opencascade::handle<Expr_GeneralExpression> & (Expr_SequenceOfGeneralExpression::*)() const ) &Expr_SequenceOfGeneralExpression::First, "First item access");
-	cls_Expr_SequenceOfGeneralExpression.def("ChangeFirst", (opencascade::handle<Expr_GeneralExpression> & (Expr_SequenceOfGeneralExpression::*)()) &Expr_SequenceOfGeneralExpression::ChangeFirst, "First item access");
-	cls_Expr_SequenceOfGeneralExpression.def("Last", (const opencascade::handle<Expr_GeneralExpression> & (Expr_SequenceOfGeneralExpression::*)() const ) &Expr_SequenceOfGeneralExpression::Last, "Last item access");
-	cls_Expr_SequenceOfGeneralExpression.def("ChangeLast", (opencascade::handle<Expr_GeneralExpression> & (Expr_SequenceOfGeneralExpression::*)()) &Expr_SequenceOfGeneralExpression::ChangeLast, "Last item access");
-	cls_Expr_SequenceOfGeneralExpression.def("Value", (const opencascade::handle<Expr_GeneralExpression> & (Expr_SequenceOfGeneralExpression::*)(const Standard_Integer) const ) &Expr_SequenceOfGeneralExpression::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Expr_SequenceOfGeneralExpression.def("__call__", (const opencascade::handle<Expr_GeneralExpression> & (Expr_SequenceOfGeneralExpression::*)(const Standard_Integer) const ) &Expr_SequenceOfGeneralExpression::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Expr_SequenceOfGeneralExpression.def("ChangeValue", (opencascade::handle<Expr_GeneralExpression> & (Expr_SequenceOfGeneralExpression::*)(const Standard_Integer)) &Expr_SequenceOfGeneralExpression::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Expr_SequenceOfGeneralExpression.def("__call__", (opencascade::handle<Expr_GeneralExpression> & (Expr_SequenceOfGeneralExpression::*)(const Standard_Integer)) &Expr_SequenceOfGeneralExpression::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Expr_SequenceOfGeneralExpression.def("SetValue", (void (Expr_SequenceOfGeneralExpression::*)(const Standard_Integer, const opencascade::handle<Expr_GeneralExpression> &)) &Expr_SequenceOfGeneralExpression::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Expr_SequenceOfGeneralExpression.def("__iter__", [](const Expr_SequenceOfGeneralExpression &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Expr_SequenceOfGeneralExpression.hxx
+	bind_NCollection_Sequence<opencascade::handle<Expr_GeneralExpression> >(mod, "Expr_SequenceOfGeneralExpression");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Expr_SequenceOfGeneralRelation, std::unique_ptr<Expr_SequenceOfGeneralRelation, Deleter<Expr_SequenceOfGeneralRelation>>, NCollection_BaseSequence> cls_Expr_SequenceOfGeneralRelation(mod, "Expr_SequenceOfGeneralRelation", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Expr_SequenceOfGeneralRelation.def(py::init<>());
-	cls_Expr_SequenceOfGeneralRelation.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Expr_SequenceOfGeneralRelation.def(py::init([] (const Expr_SequenceOfGeneralRelation &other) {return new Expr_SequenceOfGeneralRelation(other);}), "Copy constructor", py::arg("other"));
-	cls_Expr_SequenceOfGeneralRelation.def("begin", (Expr_SequenceOfGeneralRelation::iterator (Expr_SequenceOfGeneralRelation::*)() const ) &Expr_SequenceOfGeneralRelation::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Expr_SequenceOfGeneralRelation.def("end", (Expr_SequenceOfGeneralRelation::iterator (Expr_SequenceOfGeneralRelation::*)() const ) &Expr_SequenceOfGeneralRelation::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Expr_SequenceOfGeneralRelation.def("cbegin", (Expr_SequenceOfGeneralRelation::const_iterator (Expr_SequenceOfGeneralRelation::*)() const ) &Expr_SequenceOfGeneralRelation::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Expr_SequenceOfGeneralRelation.def("cend", (Expr_SequenceOfGeneralRelation::const_iterator (Expr_SequenceOfGeneralRelation::*)() const ) &Expr_SequenceOfGeneralRelation::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Expr_SequenceOfGeneralRelation.def("Size", (Standard_Integer (Expr_SequenceOfGeneralRelation::*)() const ) &Expr_SequenceOfGeneralRelation::Size, "Number of items");
-	cls_Expr_SequenceOfGeneralRelation.def("Length", (Standard_Integer (Expr_SequenceOfGeneralRelation::*)() const ) &Expr_SequenceOfGeneralRelation::Length, "Number of items");
-	cls_Expr_SequenceOfGeneralRelation.def("Lower", (Standard_Integer (Expr_SequenceOfGeneralRelation::*)() const ) &Expr_SequenceOfGeneralRelation::Lower, "Method for consistency with other collections.");
-	cls_Expr_SequenceOfGeneralRelation.def("Upper", (Standard_Integer (Expr_SequenceOfGeneralRelation::*)() const ) &Expr_SequenceOfGeneralRelation::Upper, "Method for consistency with other collections.");
-	cls_Expr_SequenceOfGeneralRelation.def("IsEmpty", (Standard_Boolean (Expr_SequenceOfGeneralRelation::*)() const ) &Expr_SequenceOfGeneralRelation::IsEmpty, "Empty query");
-	cls_Expr_SequenceOfGeneralRelation.def("Reverse", (void (Expr_SequenceOfGeneralRelation::*)()) &Expr_SequenceOfGeneralRelation::Reverse, "Reverse sequence");
-	cls_Expr_SequenceOfGeneralRelation.def("Exchange", (void (Expr_SequenceOfGeneralRelation::*)(const Standard_Integer, const Standard_Integer)) &Expr_SequenceOfGeneralRelation::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Expr_SequenceOfGeneralRelation.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Expr_SequenceOfGeneralRelation::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Expr_SequenceOfGeneralRelation.def("Clear", [](Expr_SequenceOfGeneralRelation &self) -> void { return self.Clear(); });
-	cls_Expr_SequenceOfGeneralRelation.def("Clear", (void (Expr_SequenceOfGeneralRelation::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Expr_SequenceOfGeneralRelation::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Expr_SequenceOfGeneralRelation.def("Assign", (Expr_SequenceOfGeneralRelation & (Expr_SequenceOfGeneralRelation::*)(const Expr_SequenceOfGeneralRelation &)) &Expr_SequenceOfGeneralRelation::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Expr_SequenceOfGeneralRelation.def("assign", (Expr_SequenceOfGeneralRelation & (Expr_SequenceOfGeneralRelation::*)(const Expr_SequenceOfGeneralRelation &)) &Expr_SequenceOfGeneralRelation::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Expr_SequenceOfGeneralRelation.def("Remove", (void (Expr_SequenceOfGeneralRelation::*)(Expr_SequenceOfGeneralRelation::Iterator &)) &Expr_SequenceOfGeneralRelation::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Expr_SequenceOfGeneralRelation.def("Remove", (void (Expr_SequenceOfGeneralRelation::*)(const Standard_Integer)) &Expr_SequenceOfGeneralRelation::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Expr_SequenceOfGeneralRelation.def("Remove", (void (Expr_SequenceOfGeneralRelation::*)(const Standard_Integer, const Standard_Integer)) &Expr_SequenceOfGeneralRelation::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Expr_SequenceOfGeneralRelation.def("Append", (void (Expr_SequenceOfGeneralRelation::*)(const opencascade::handle<Expr_GeneralRelation> &)) &Expr_SequenceOfGeneralRelation::Append, "Append one item", py::arg("theItem"));
-	cls_Expr_SequenceOfGeneralRelation.def("Append", (void (Expr_SequenceOfGeneralRelation::*)(Expr_SequenceOfGeneralRelation &)) &Expr_SequenceOfGeneralRelation::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Expr_SequenceOfGeneralRelation.def("Prepend", (void (Expr_SequenceOfGeneralRelation::*)(const opencascade::handle<Expr_GeneralRelation> &)) &Expr_SequenceOfGeneralRelation::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Expr_SequenceOfGeneralRelation.def("Prepend", (void (Expr_SequenceOfGeneralRelation::*)(Expr_SequenceOfGeneralRelation &)) &Expr_SequenceOfGeneralRelation::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Expr_SequenceOfGeneralRelation.def("InsertBefore", (void (Expr_SequenceOfGeneralRelation::*)(const Standard_Integer, const opencascade::handle<Expr_GeneralRelation> &)) &Expr_SequenceOfGeneralRelation::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Expr_SequenceOfGeneralRelation.def("InsertBefore", (void (Expr_SequenceOfGeneralRelation::*)(const Standard_Integer, Expr_SequenceOfGeneralRelation &)) &Expr_SequenceOfGeneralRelation::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Expr_SequenceOfGeneralRelation.def("InsertAfter", (void (Expr_SequenceOfGeneralRelation::*)(Expr_SequenceOfGeneralRelation::Iterator &, const opencascade::handle<Expr_GeneralRelation> &)) &Expr_SequenceOfGeneralRelation::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Expr_SequenceOfGeneralRelation.def("InsertAfter", (void (Expr_SequenceOfGeneralRelation::*)(const Standard_Integer, Expr_SequenceOfGeneralRelation &)) &Expr_SequenceOfGeneralRelation::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Expr_SequenceOfGeneralRelation.def("InsertAfter", (void (Expr_SequenceOfGeneralRelation::*)(const Standard_Integer, const opencascade::handle<Expr_GeneralRelation> &)) &Expr_SequenceOfGeneralRelation::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Expr_SequenceOfGeneralRelation.def("Split", (void (Expr_SequenceOfGeneralRelation::*)(const Standard_Integer, Expr_SequenceOfGeneralRelation &)) &Expr_SequenceOfGeneralRelation::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Expr_SequenceOfGeneralRelation.def("First", (const opencascade::handle<Expr_GeneralRelation> & (Expr_SequenceOfGeneralRelation::*)() const ) &Expr_SequenceOfGeneralRelation::First, "First item access");
-	cls_Expr_SequenceOfGeneralRelation.def("ChangeFirst", (opencascade::handle<Expr_GeneralRelation> & (Expr_SequenceOfGeneralRelation::*)()) &Expr_SequenceOfGeneralRelation::ChangeFirst, "First item access");
-	cls_Expr_SequenceOfGeneralRelation.def("Last", (const opencascade::handle<Expr_GeneralRelation> & (Expr_SequenceOfGeneralRelation::*)() const ) &Expr_SequenceOfGeneralRelation::Last, "Last item access");
-	cls_Expr_SequenceOfGeneralRelation.def("ChangeLast", (opencascade::handle<Expr_GeneralRelation> & (Expr_SequenceOfGeneralRelation::*)()) &Expr_SequenceOfGeneralRelation::ChangeLast, "Last item access");
-	cls_Expr_SequenceOfGeneralRelation.def("Value", (const opencascade::handle<Expr_GeneralRelation> & (Expr_SequenceOfGeneralRelation::*)(const Standard_Integer) const ) &Expr_SequenceOfGeneralRelation::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Expr_SequenceOfGeneralRelation.def("__call__", (const opencascade::handle<Expr_GeneralRelation> & (Expr_SequenceOfGeneralRelation::*)(const Standard_Integer) const ) &Expr_SequenceOfGeneralRelation::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Expr_SequenceOfGeneralRelation.def("ChangeValue", (opencascade::handle<Expr_GeneralRelation> & (Expr_SequenceOfGeneralRelation::*)(const Standard_Integer)) &Expr_SequenceOfGeneralRelation::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Expr_SequenceOfGeneralRelation.def("__call__", (opencascade::handle<Expr_GeneralRelation> & (Expr_SequenceOfGeneralRelation::*)(const Standard_Integer)) &Expr_SequenceOfGeneralRelation::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Expr_SequenceOfGeneralRelation.def("SetValue", (void (Expr_SequenceOfGeneralRelation::*)(const Standard_Integer, const opencascade::handle<Expr_GeneralRelation> &)) &Expr_SequenceOfGeneralRelation::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Expr_SequenceOfGeneralRelation.def("__iter__", [](const Expr_SequenceOfGeneralRelation &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Expr_SequenceOfGeneralRelation.hxx
+	bind_NCollection_Sequence<opencascade::handle<Expr_GeneralRelation> >(mod, "Expr_SequenceOfGeneralRelation");
 
 
 }

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <BRepExtrema_SupportType.hxx>
 #include <Standard_TypeDef.hxx>
@@ -51,6 +42,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Standard_DomainError.hxx>
 #include <Standard_SStream.hxx>
 #include <BRepExtrema_UnCompatibleShape.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BRepExtrema, mod) {
 
@@ -310,84 +302,14 @@ PYBIND11_MODULE(BRepExtrema, mod) {
 	cls_BRepExtrema_UnCompatibleShape.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRepExtrema_UnCompatibleShape::get_type_descriptor, "None");
 	cls_BRepExtrema_UnCompatibleShape.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepExtrema_UnCompatibleShape::*)() const ) &BRepExtrema_UnCompatibleShape::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<BRepExtrema_SeqOfSolution, std::unique_ptr<BRepExtrema_SeqOfSolution, Deleter<BRepExtrema_SeqOfSolution>>, NCollection_BaseSequence> cls_BRepExtrema_SeqOfSolution(mod, "BRepExtrema_SeqOfSolution", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_BRepExtrema_SeqOfSolution.def(py::init<>());
-	cls_BRepExtrema_SeqOfSolution.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_BRepExtrema_SeqOfSolution.def(py::init([] (const BRepExtrema_SeqOfSolution &other) {return new BRepExtrema_SeqOfSolution(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepExtrema_SeqOfSolution.def("begin", (BRepExtrema_SeqOfSolution::iterator (BRepExtrema_SeqOfSolution::*)() const ) &BRepExtrema_SeqOfSolution::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_BRepExtrema_SeqOfSolution.def("end", (BRepExtrema_SeqOfSolution::iterator (BRepExtrema_SeqOfSolution::*)() const ) &BRepExtrema_SeqOfSolution::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_BRepExtrema_SeqOfSolution.def("cbegin", (BRepExtrema_SeqOfSolution::const_iterator (BRepExtrema_SeqOfSolution::*)() const ) &BRepExtrema_SeqOfSolution::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_BRepExtrema_SeqOfSolution.def("cend", (BRepExtrema_SeqOfSolution::const_iterator (BRepExtrema_SeqOfSolution::*)() const ) &BRepExtrema_SeqOfSolution::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_BRepExtrema_SeqOfSolution.def("Size", (Standard_Integer (BRepExtrema_SeqOfSolution::*)() const ) &BRepExtrema_SeqOfSolution::Size, "Number of items");
-	cls_BRepExtrema_SeqOfSolution.def("Length", (Standard_Integer (BRepExtrema_SeqOfSolution::*)() const ) &BRepExtrema_SeqOfSolution::Length, "Number of items");
-	cls_BRepExtrema_SeqOfSolution.def("Lower", (Standard_Integer (BRepExtrema_SeqOfSolution::*)() const ) &BRepExtrema_SeqOfSolution::Lower, "Method for consistency with other collections.");
-	cls_BRepExtrema_SeqOfSolution.def("Upper", (Standard_Integer (BRepExtrema_SeqOfSolution::*)() const ) &BRepExtrema_SeqOfSolution::Upper, "Method for consistency with other collections.");
-	cls_BRepExtrema_SeqOfSolution.def("IsEmpty", (Standard_Boolean (BRepExtrema_SeqOfSolution::*)() const ) &BRepExtrema_SeqOfSolution::IsEmpty, "Empty query");
-	cls_BRepExtrema_SeqOfSolution.def("Reverse", (void (BRepExtrema_SeqOfSolution::*)()) &BRepExtrema_SeqOfSolution::Reverse, "Reverse sequence");
-	cls_BRepExtrema_SeqOfSolution.def("Exchange", (void (BRepExtrema_SeqOfSolution::*)(const Standard_Integer, const Standard_Integer)) &BRepExtrema_SeqOfSolution::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_BRepExtrema_SeqOfSolution.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &BRepExtrema_SeqOfSolution::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_BRepExtrema_SeqOfSolution.def("Clear", [](BRepExtrema_SeqOfSolution &self) -> void { return self.Clear(); });
-	cls_BRepExtrema_SeqOfSolution.def("Clear", (void (BRepExtrema_SeqOfSolution::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepExtrema_SeqOfSolution::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_BRepExtrema_SeqOfSolution.def("Assign", (BRepExtrema_SeqOfSolution & (BRepExtrema_SeqOfSolution::*)(const BRepExtrema_SeqOfSolution &)) &BRepExtrema_SeqOfSolution::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepExtrema_SeqOfSolution.def("assign", (BRepExtrema_SeqOfSolution & (BRepExtrema_SeqOfSolution::*)(const BRepExtrema_SeqOfSolution &)) &BRepExtrema_SeqOfSolution::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_BRepExtrema_SeqOfSolution.def("Remove", (void (BRepExtrema_SeqOfSolution::*)(BRepExtrema_SeqOfSolution::Iterator &)) &BRepExtrema_SeqOfSolution::Remove, "Remove one item", py::arg("thePosition"));
-	cls_BRepExtrema_SeqOfSolution.def("Remove", (void (BRepExtrema_SeqOfSolution::*)(const Standard_Integer)) &BRepExtrema_SeqOfSolution::Remove, "Remove one item", py::arg("theIndex"));
-	cls_BRepExtrema_SeqOfSolution.def("Remove", (void (BRepExtrema_SeqOfSolution::*)(const Standard_Integer, const Standard_Integer)) &BRepExtrema_SeqOfSolution::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_BRepExtrema_SeqOfSolution.def("Append", (void (BRepExtrema_SeqOfSolution::*)(const BRepExtrema_SolutionElem &)) &BRepExtrema_SeqOfSolution::Append, "Append one item", py::arg("theItem"));
-	cls_BRepExtrema_SeqOfSolution.def("Append", (void (BRepExtrema_SeqOfSolution::*)(BRepExtrema_SeqOfSolution &)) &BRepExtrema_SeqOfSolution::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_BRepExtrema_SeqOfSolution.def("Prepend", (void (BRepExtrema_SeqOfSolution::*)(const BRepExtrema_SolutionElem &)) &BRepExtrema_SeqOfSolution::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_BRepExtrema_SeqOfSolution.def("Prepend", (void (BRepExtrema_SeqOfSolution::*)(BRepExtrema_SeqOfSolution &)) &BRepExtrema_SeqOfSolution::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_BRepExtrema_SeqOfSolution.def("InsertBefore", (void (BRepExtrema_SeqOfSolution::*)(const Standard_Integer, const BRepExtrema_SolutionElem &)) &BRepExtrema_SeqOfSolution::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_BRepExtrema_SeqOfSolution.def("InsertBefore", (void (BRepExtrema_SeqOfSolution::*)(const Standard_Integer, BRepExtrema_SeqOfSolution &)) &BRepExtrema_SeqOfSolution::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_BRepExtrema_SeqOfSolution.def("InsertAfter", (void (BRepExtrema_SeqOfSolution::*)(BRepExtrema_SeqOfSolution::Iterator &, const BRepExtrema_SolutionElem &)) &BRepExtrema_SeqOfSolution::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_BRepExtrema_SeqOfSolution.def("InsertAfter", (void (BRepExtrema_SeqOfSolution::*)(const Standard_Integer, BRepExtrema_SeqOfSolution &)) &BRepExtrema_SeqOfSolution::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_BRepExtrema_SeqOfSolution.def("InsertAfter", (void (BRepExtrema_SeqOfSolution::*)(const Standard_Integer, const BRepExtrema_SolutionElem &)) &BRepExtrema_SeqOfSolution::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_BRepExtrema_SeqOfSolution.def("Split", (void (BRepExtrema_SeqOfSolution::*)(const Standard_Integer, BRepExtrema_SeqOfSolution &)) &BRepExtrema_SeqOfSolution::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_BRepExtrema_SeqOfSolution.def("First", (const BRepExtrema_SolutionElem & (BRepExtrema_SeqOfSolution::*)() const ) &BRepExtrema_SeqOfSolution::First, "First item access");
-	cls_BRepExtrema_SeqOfSolution.def("ChangeFirst", (BRepExtrema_SolutionElem & (BRepExtrema_SeqOfSolution::*)()) &BRepExtrema_SeqOfSolution::ChangeFirst, "First item access");
-	cls_BRepExtrema_SeqOfSolution.def("Last", (const BRepExtrema_SolutionElem & (BRepExtrema_SeqOfSolution::*)() const ) &BRepExtrema_SeqOfSolution::Last, "Last item access");
-	cls_BRepExtrema_SeqOfSolution.def("ChangeLast", (BRepExtrema_SolutionElem & (BRepExtrema_SeqOfSolution::*)()) &BRepExtrema_SeqOfSolution::ChangeLast, "Last item access");
-	cls_BRepExtrema_SeqOfSolution.def("Value", (const BRepExtrema_SolutionElem & (BRepExtrema_SeqOfSolution::*)(const Standard_Integer) const ) &BRepExtrema_SeqOfSolution::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_BRepExtrema_SeqOfSolution.def("__call__", (const BRepExtrema_SolutionElem & (BRepExtrema_SeqOfSolution::*)(const Standard_Integer) const ) &BRepExtrema_SeqOfSolution::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_BRepExtrema_SeqOfSolution.def("ChangeValue", (BRepExtrema_SolutionElem & (BRepExtrema_SeqOfSolution::*)(const Standard_Integer)) &BRepExtrema_SeqOfSolution::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_BRepExtrema_SeqOfSolution.def("__call__", (BRepExtrema_SolutionElem & (BRepExtrema_SeqOfSolution::*)(const Standard_Integer)) &BRepExtrema_SeqOfSolution::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_BRepExtrema_SeqOfSolution.def("SetValue", (void (BRepExtrema_SeqOfSolution::*)(const Standard_Integer, const BRepExtrema_SolutionElem &)) &BRepExtrema_SeqOfSolution::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_BRepExtrema_SeqOfSolution.def("__iter__", [](const BRepExtrema_SeqOfSolution &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepExtrema_SeqOfSolution.hxx
+	bind_NCollection_Sequence<BRepExtrema_SolutionElem>(mod, "BRepExtrema_SeqOfSolution");
 
-	/* FIXME
-	// BRepExtrema_MapOfIntegerPackedMapOfInteger
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepExtrema_MapOfIntegerPackedMapOfInteger.hxx
+	bind_NCollection_DataMap<int, TColStd_PackedMapOfInteger, NCollection_DefaultHasher<int> >(mod, "BRepExtrema_MapOfIntegerPackedMapOfInteger");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vector.hxx
-	py::class_<BRepExtrema_ShapeList, std::unique_ptr<BRepExtrema_ShapeList, Deleter<BRepExtrema_ShapeList>>, NCollection_BaseVector> cls_BRepExtrema_ShapeList(mod, "BRepExtrema_ShapeList", "Class NCollection_Vector (dynamic array of objects)");
-	cls_BRepExtrema_ShapeList.def(py::init<>());
-	cls_BRepExtrema_ShapeList.def(py::init<const Standard_Integer>(), py::arg("theIncrement"));
-	cls_BRepExtrema_ShapeList.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theIncrement"), py::arg("theAlloc"));
-	cls_BRepExtrema_ShapeList.def(py::init([] (const BRepExtrema_ShapeList &other) {return new BRepExtrema_ShapeList(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepExtrema_ShapeList.def("begin", (BRepExtrema_ShapeList::iterator (BRepExtrema_ShapeList::*)() const ) &BRepExtrema_ShapeList::begin, "Returns an iterator pointing to the first element in the vector.");
-	cls_BRepExtrema_ShapeList.def("end", (BRepExtrema_ShapeList::iterator (BRepExtrema_ShapeList::*)() const ) &BRepExtrema_ShapeList::end, "Returns an iterator referring to the past-the-end element in the vector.");
-	cls_BRepExtrema_ShapeList.def("cbegin", (BRepExtrema_ShapeList::const_iterator (BRepExtrema_ShapeList::*)() const ) &BRepExtrema_ShapeList::cbegin, "Returns a const iterator pointing to the first element in the vector.");
-	cls_BRepExtrema_ShapeList.def("cend", (BRepExtrema_ShapeList::const_iterator (BRepExtrema_ShapeList::*)() const ) &BRepExtrema_ShapeList::cend, "Returns a const iterator referring to the past-the-end element in the vector.");
-	cls_BRepExtrema_ShapeList.def("Length", (Standard_Integer (BRepExtrema_ShapeList::*)() const ) &BRepExtrema_ShapeList::Length, "Total number of items");
-	cls_BRepExtrema_ShapeList.def("Size", (Standard_Integer (BRepExtrema_ShapeList::*)() const ) &BRepExtrema_ShapeList::Size, "Total number of items in the vector");
-	cls_BRepExtrema_ShapeList.def("Lower", (Standard_Integer (BRepExtrema_ShapeList::*)() const ) &BRepExtrema_ShapeList::Lower, "Method for consistency with other collections.");
-	cls_BRepExtrema_ShapeList.def("Upper", (Standard_Integer (BRepExtrema_ShapeList::*)() const ) &BRepExtrema_ShapeList::Upper, "Method for consistency with other collections.");
-	cls_BRepExtrema_ShapeList.def("IsEmpty", (Standard_Boolean (BRepExtrema_ShapeList::*)() const ) &BRepExtrema_ShapeList::IsEmpty, "Empty query");
-	cls_BRepExtrema_ShapeList.def("Assign", [](BRepExtrema_ShapeList &self, const BRepExtrema_ShapeList & a0) -> void { return self.Assign(a0); }, py::arg("theOther"));
-	cls_BRepExtrema_ShapeList.def("Assign", (void (BRepExtrema_ShapeList::*)(const BRepExtrema_ShapeList &, const Standard_Boolean)) &BRepExtrema_ShapeList::Assign, "Assignment to the collection of the same type", py::arg("theOther"), py::arg("theOwnAllocator"));
-	cls_BRepExtrema_ShapeList.def("assign", (BRepExtrema_ShapeList & (BRepExtrema_ShapeList::*)(const BRepExtrema_ShapeList &)) &BRepExtrema_ShapeList::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BRepExtrema_ShapeList.def("Append", (TopoDS_Face & (BRepExtrema_ShapeList::*)(const TopoDS_Face &)) &BRepExtrema_ShapeList::Append, "Append", py::arg("theValue"));
-	cls_BRepExtrema_ShapeList.def("__call__", (const TopoDS_Face & (BRepExtrema_ShapeList::*)(const Standard_Integer) const ) &BRepExtrema_ShapeList::operator(), py::is_operator(), "Operator() - query the const value", py::arg("theIndex"));
-	cls_BRepExtrema_ShapeList.def("Value", (const TopoDS_Face & (BRepExtrema_ShapeList::*)(const Standard_Integer) const ) &BRepExtrema_ShapeList::Value, "None", py::arg("theIndex"));
-	cls_BRepExtrema_ShapeList.def("First", (const TopoDS_Face & (BRepExtrema_ShapeList::*)() const ) &BRepExtrema_ShapeList::First, "Returns first element");
-	cls_BRepExtrema_ShapeList.def("ChangeFirst", (TopoDS_Face & (BRepExtrema_ShapeList::*)()) &BRepExtrema_ShapeList::ChangeFirst, "Returns first element");
-	cls_BRepExtrema_ShapeList.def("Last", (const TopoDS_Face & (BRepExtrema_ShapeList::*)() const ) &BRepExtrema_ShapeList::Last, "Returns last element");
-	cls_BRepExtrema_ShapeList.def("ChangeLast", (TopoDS_Face & (BRepExtrema_ShapeList::*)()) &BRepExtrema_ShapeList::ChangeLast, "Returns last element");
-	cls_BRepExtrema_ShapeList.def("__call__", (TopoDS_Face & (BRepExtrema_ShapeList::*)(const Standard_Integer)) &BRepExtrema_ShapeList::operator(), py::is_operator(), "Operator() - query the value", py::arg("theIndex"));
-	cls_BRepExtrema_ShapeList.def("ChangeValue", (TopoDS_Face & (BRepExtrema_ShapeList::*)(const Standard_Integer)) &BRepExtrema_ShapeList::ChangeValue, "None", py::arg("theIndex"));
-	cls_BRepExtrema_ShapeList.def("SetValue", (TopoDS_Face & (BRepExtrema_ShapeList::*)(const Standard_Integer, const TopoDS_Face &)) &BRepExtrema_ShapeList::SetValue, "SetValue () - set or append a value", py::arg("theIndex"), py::arg("theValue"));
-	cls_BRepExtrema_ShapeList.def("__iter__", [](const BRepExtrema_ShapeList &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepExtrema_TriangleSet.hxx
+	bind_NCollection_Vector<TopoDS_Face>(mod, "BRepExtrema_ShapeList");
 
 
 }

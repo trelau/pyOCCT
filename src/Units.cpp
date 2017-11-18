@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
@@ -46,6 +37,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Units_NoSuchType.hxx>
 #include <Units_NoSuchUnit.hxx>
 #include <Units_Operators.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Units, mod) {
 
@@ -364,140 +356,14 @@ PYBIND11_MODULE(Units, mod) {
 	cls_Units.def_static("FromSI_", (Standard_Real (*)(const Standard_Real, const Standard_CString, opencascade::handle<Units_Dimensions> &)) &Units::FromSI, "None", py::arg("aData"), py::arg("aUnit"), py::arg("aDim"));
 	cls_Units.def_static("Dimensions_", (opencascade::handle<Units_Dimensions> (*)(const Standard_CString)) &Units::Dimensions, "return the dimension associated to the Type", py::arg("aType"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Units_UtsSequence, std::unique_ptr<Units_UtsSequence, Deleter<Units_UtsSequence>>, NCollection_BaseSequence> cls_Units_UtsSequence(mod, "Units_UtsSequence", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Units_UtsSequence.def(py::init<>());
-	cls_Units_UtsSequence.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Units_UtsSequence.def(py::init([] (const Units_UtsSequence &other) {return new Units_UtsSequence(other);}), "Copy constructor", py::arg("other"));
-	cls_Units_UtsSequence.def("begin", (Units_UtsSequence::iterator (Units_UtsSequence::*)() const ) &Units_UtsSequence::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Units_UtsSequence.def("end", (Units_UtsSequence::iterator (Units_UtsSequence::*)() const ) &Units_UtsSequence::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Units_UtsSequence.def("cbegin", (Units_UtsSequence::const_iterator (Units_UtsSequence::*)() const ) &Units_UtsSequence::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Units_UtsSequence.def("cend", (Units_UtsSequence::const_iterator (Units_UtsSequence::*)() const ) &Units_UtsSequence::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Units_UtsSequence.def("Size", (Standard_Integer (Units_UtsSequence::*)() const ) &Units_UtsSequence::Size, "Number of items");
-	cls_Units_UtsSequence.def("Length", (Standard_Integer (Units_UtsSequence::*)() const ) &Units_UtsSequence::Length, "Number of items");
-	cls_Units_UtsSequence.def("Lower", (Standard_Integer (Units_UtsSequence::*)() const ) &Units_UtsSequence::Lower, "Method for consistency with other collections.");
-	cls_Units_UtsSequence.def("Upper", (Standard_Integer (Units_UtsSequence::*)() const ) &Units_UtsSequence::Upper, "Method for consistency with other collections.");
-	cls_Units_UtsSequence.def("IsEmpty", (Standard_Boolean (Units_UtsSequence::*)() const ) &Units_UtsSequence::IsEmpty, "Empty query");
-	cls_Units_UtsSequence.def("Reverse", (void (Units_UtsSequence::*)()) &Units_UtsSequence::Reverse, "Reverse sequence");
-	cls_Units_UtsSequence.def("Exchange", (void (Units_UtsSequence::*)(const Standard_Integer, const Standard_Integer)) &Units_UtsSequence::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Units_UtsSequence.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Units_UtsSequence::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Units_UtsSequence.def("Clear", [](Units_UtsSequence &self) -> void { return self.Clear(); });
-	cls_Units_UtsSequence.def("Clear", (void (Units_UtsSequence::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Units_UtsSequence::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Units_UtsSequence.def("Assign", (Units_UtsSequence & (Units_UtsSequence::*)(const Units_UtsSequence &)) &Units_UtsSequence::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Units_UtsSequence.def("assign", (Units_UtsSequence & (Units_UtsSequence::*)(const Units_UtsSequence &)) &Units_UtsSequence::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Units_UtsSequence.def("Remove", (void (Units_UtsSequence::*)(Units_UtsSequence::Iterator &)) &Units_UtsSequence::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Units_UtsSequence.def("Remove", (void (Units_UtsSequence::*)(const Standard_Integer)) &Units_UtsSequence::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Units_UtsSequence.def("Remove", (void (Units_UtsSequence::*)(const Standard_Integer, const Standard_Integer)) &Units_UtsSequence::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Units_UtsSequence.def("Append", (void (Units_UtsSequence::*)(const opencascade::handle<Units_Unit> &)) &Units_UtsSequence::Append, "Append one item", py::arg("theItem"));
-	cls_Units_UtsSequence.def("Append", (void (Units_UtsSequence::*)(Units_UtsSequence &)) &Units_UtsSequence::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Units_UtsSequence.def("Prepend", (void (Units_UtsSequence::*)(const opencascade::handle<Units_Unit> &)) &Units_UtsSequence::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Units_UtsSequence.def("Prepend", (void (Units_UtsSequence::*)(Units_UtsSequence &)) &Units_UtsSequence::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Units_UtsSequence.def("InsertBefore", (void (Units_UtsSequence::*)(const Standard_Integer, const opencascade::handle<Units_Unit> &)) &Units_UtsSequence::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Units_UtsSequence.def("InsertBefore", (void (Units_UtsSequence::*)(const Standard_Integer, Units_UtsSequence &)) &Units_UtsSequence::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Units_UtsSequence.def("InsertAfter", (void (Units_UtsSequence::*)(Units_UtsSequence::Iterator &, const opencascade::handle<Units_Unit> &)) &Units_UtsSequence::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Units_UtsSequence.def("InsertAfter", (void (Units_UtsSequence::*)(const Standard_Integer, Units_UtsSequence &)) &Units_UtsSequence::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Units_UtsSequence.def("InsertAfter", (void (Units_UtsSequence::*)(const Standard_Integer, const opencascade::handle<Units_Unit> &)) &Units_UtsSequence::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Units_UtsSequence.def("Split", (void (Units_UtsSequence::*)(const Standard_Integer, Units_UtsSequence &)) &Units_UtsSequence::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Units_UtsSequence.def("First", (const opencascade::handle<Units_Unit> & (Units_UtsSequence::*)() const ) &Units_UtsSequence::First, "First item access");
-	cls_Units_UtsSequence.def("ChangeFirst", (opencascade::handle<Units_Unit> & (Units_UtsSequence::*)()) &Units_UtsSequence::ChangeFirst, "First item access");
-	cls_Units_UtsSequence.def("Last", (const opencascade::handle<Units_Unit> & (Units_UtsSequence::*)() const ) &Units_UtsSequence::Last, "Last item access");
-	cls_Units_UtsSequence.def("ChangeLast", (opencascade::handle<Units_Unit> & (Units_UtsSequence::*)()) &Units_UtsSequence::ChangeLast, "Last item access");
-	cls_Units_UtsSequence.def("Value", (const opencascade::handle<Units_Unit> & (Units_UtsSequence::*)(const Standard_Integer) const ) &Units_UtsSequence::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Units_UtsSequence.def("__call__", (const opencascade::handle<Units_Unit> & (Units_UtsSequence::*)(const Standard_Integer) const ) &Units_UtsSequence::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Units_UtsSequence.def("ChangeValue", (opencascade::handle<Units_Unit> & (Units_UtsSequence::*)(const Standard_Integer)) &Units_UtsSequence::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Units_UtsSequence.def("__call__", (opencascade::handle<Units_Unit> & (Units_UtsSequence::*)(const Standard_Integer)) &Units_UtsSequence::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Units_UtsSequence.def("SetValue", (void (Units_UtsSequence::*)(const Standard_Integer, const opencascade::handle<Units_Unit> &)) &Units_UtsSequence::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Units_UtsSequence.def("__iter__", [](const Units_UtsSequence &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Units_UtsSequence.hxx
+	bind_NCollection_Sequence<opencascade::handle<Units_Unit> >(mod, "Units_UtsSequence");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Units_QtsSequence, std::unique_ptr<Units_QtsSequence, Deleter<Units_QtsSequence>>, NCollection_BaseSequence> cls_Units_QtsSequence(mod, "Units_QtsSequence", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Units_QtsSequence.def(py::init<>());
-	cls_Units_QtsSequence.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Units_QtsSequence.def(py::init([] (const Units_QtsSequence &other) {return new Units_QtsSequence(other);}), "Copy constructor", py::arg("other"));
-	cls_Units_QtsSequence.def("begin", (Units_QtsSequence::iterator (Units_QtsSequence::*)() const ) &Units_QtsSequence::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Units_QtsSequence.def("end", (Units_QtsSequence::iterator (Units_QtsSequence::*)() const ) &Units_QtsSequence::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Units_QtsSequence.def("cbegin", (Units_QtsSequence::const_iterator (Units_QtsSequence::*)() const ) &Units_QtsSequence::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Units_QtsSequence.def("cend", (Units_QtsSequence::const_iterator (Units_QtsSequence::*)() const ) &Units_QtsSequence::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Units_QtsSequence.def("Size", (Standard_Integer (Units_QtsSequence::*)() const ) &Units_QtsSequence::Size, "Number of items");
-	cls_Units_QtsSequence.def("Length", (Standard_Integer (Units_QtsSequence::*)() const ) &Units_QtsSequence::Length, "Number of items");
-	cls_Units_QtsSequence.def("Lower", (Standard_Integer (Units_QtsSequence::*)() const ) &Units_QtsSequence::Lower, "Method for consistency with other collections.");
-	cls_Units_QtsSequence.def("Upper", (Standard_Integer (Units_QtsSequence::*)() const ) &Units_QtsSequence::Upper, "Method for consistency with other collections.");
-	cls_Units_QtsSequence.def("IsEmpty", (Standard_Boolean (Units_QtsSequence::*)() const ) &Units_QtsSequence::IsEmpty, "Empty query");
-	cls_Units_QtsSequence.def("Reverse", (void (Units_QtsSequence::*)()) &Units_QtsSequence::Reverse, "Reverse sequence");
-	cls_Units_QtsSequence.def("Exchange", (void (Units_QtsSequence::*)(const Standard_Integer, const Standard_Integer)) &Units_QtsSequence::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Units_QtsSequence.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Units_QtsSequence::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Units_QtsSequence.def("Clear", [](Units_QtsSequence &self) -> void { return self.Clear(); });
-	cls_Units_QtsSequence.def("Clear", (void (Units_QtsSequence::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Units_QtsSequence::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Units_QtsSequence.def("Assign", (Units_QtsSequence & (Units_QtsSequence::*)(const Units_QtsSequence &)) &Units_QtsSequence::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Units_QtsSequence.def("assign", (Units_QtsSequence & (Units_QtsSequence::*)(const Units_QtsSequence &)) &Units_QtsSequence::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Units_QtsSequence.def("Remove", (void (Units_QtsSequence::*)(Units_QtsSequence::Iterator &)) &Units_QtsSequence::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Units_QtsSequence.def("Remove", (void (Units_QtsSequence::*)(const Standard_Integer)) &Units_QtsSequence::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Units_QtsSequence.def("Remove", (void (Units_QtsSequence::*)(const Standard_Integer, const Standard_Integer)) &Units_QtsSequence::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Units_QtsSequence.def("Append", (void (Units_QtsSequence::*)(const opencascade::handle<Units_Quantity> &)) &Units_QtsSequence::Append, "Append one item", py::arg("theItem"));
-	cls_Units_QtsSequence.def("Append", (void (Units_QtsSequence::*)(Units_QtsSequence &)) &Units_QtsSequence::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Units_QtsSequence.def("Prepend", (void (Units_QtsSequence::*)(const opencascade::handle<Units_Quantity> &)) &Units_QtsSequence::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Units_QtsSequence.def("Prepend", (void (Units_QtsSequence::*)(Units_QtsSequence &)) &Units_QtsSequence::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Units_QtsSequence.def("InsertBefore", (void (Units_QtsSequence::*)(const Standard_Integer, const opencascade::handle<Units_Quantity> &)) &Units_QtsSequence::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Units_QtsSequence.def("InsertBefore", (void (Units_QtsSequence::*)(const Standard_Integer, Units_QtsSequence &)) &Units_QtsSequence::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Units_QtsSequence.def("InsertAfter", (void (Units_QtsSequence::*)(Units_QtsSequence::Iterator &, const opencascade::handle<Units_Quantity> &)) &Units_QtsSequence::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Units_QtsSequence.def("InsertAfter", (void (Units_QtsSequence::*)(const Standard_Integer, Units_QtsSequence &)) &Units_QtsSequence::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Units_QtsSequence.def("InsertAfter", (void (Units_QtsSequence::*)(const Standard_Integer, const opencascade::handle<Units_Quantity> &)) &Units_QtsSequence::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Units_QtsSequence.def("Split", (void (Units_QtsSequence::*)(const Standard_Integer, Units_QtsSequence &)) &Units_QtsSequence::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Units_QtsSequence.def("First", (const opencascade::handle<Units_Quantity> & (Units_QtsSequence::*)() const ) &Units_QtsSequence::First, "First item access");
-	cls_Units_QtsSequence.def("ChangeFirst", (opencascade::handle<Units_Quantity> & (Units_QtsSequence::*)()) &Units_QtsSequence::ChangeFirst, "First item access");
-	cls_Units_QtsSequence.def("Last", (const opencascade::handle<Units_Quantity> & (Units_QtsSequence::*)() const ) &Units_QtsSequence::Last, "Last item access");
-	cls_Units_QtsSequence.def("ChangeLast", (opencascade::handle<Units_Quantity> & (Units_QtsSequence::*)()) &Units_QtsSequence::ChangeLast, "Last item access");
-	cls_Units_QtsSequence.def("Value", (const opencascade::handle<Units_Quantity> & (Units_QtsSequence::*)(const Standard_Integer) const ) &Units_QtsSequence::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Units_QtsSequence.def("__call__", (const opencascade::handle<Units_Quantity> & (Units_QtsSequence::*)(const Standard_Integer) const ) &Units_QtsSequence::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Units_QtsSequence.def("ChangeValue", (opencascade::handle<Units_Quantity> & (Units_QtsSequence::*)(const Standard_Integer)) &Units_QtsSequence::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Units_QtsSequence.def("__call__", (opencascade::handle<Units_Quantity> & (Units_QtsSequence::*)(const Standard_Integer)) &Units_QtsSequence::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Units_QtsSequence.def("SetValue", (void (Units_QtsSequence::*)(const Standard_Integer, const opencascade::handle<Units_Quantity> &)) &Units_QtsSequence::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Units_QtsSequence.def("__iter__", [](const Units_QtsSequence &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Units_QtsSequence.hxx
+	bind_NCollection_Sequence<opencascade::handle<Units_Quantity> >(mod, "Units_QtsSequence");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Units_TksSequence, std::unique_ptr<Units_TksSequence, Deleter<Units_TksSequence>>, NCollection_BaseSequence> cls_Units_TksSequence(mod, "Units_TksSequence", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Units_TksSequence.def(py::init<>());
-	cls_Units_TksSequence.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Units_TksSequence.def(py::init([] (const Units_TksSequence &other) {return new Units_TksSequence(other);}), "Copy constructor", py::arg("other"));
-	cls_Units_TksSequence.def("begin", (Units_TksSequence::iterator (Units_TksSequence::*)() const ) &Units_TksSequence::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Units_TksSequence.def("end", (Units_TksSequence::iterator (Units_TksSequence::*)() const ) &Units_TksSequence::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Units_TksSequence.def("cbegin", (Units_TksSequence::const_iterator (Units_TksSequence::*)() const ) &Units_TksSequence::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Units_TksSequence.def("cend", (Units_TksSequence::const_iterator (Units_TksSequence::*)() const ) &Units_TksSequence::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Units_TksSequence.def("Size", (Standard_Integer (Units_TksSequence::*)() const ) &Units_TksSequence::Size, "Number of items");
-	cls_Units_TksSequence.def("Length", (Standard_Integer (Units_TksSequence::*)() const ) &Units_TksSequence::Length, "Number of items");
-	cls_Units_TksSequence.def("Lower", (Standard_Integer (Units_TksSequence::*)() const ) &Units_TksSequence::Lower, "Method for consistency with other collections.");
-	cls_Units_TksSequence.def("Upper", (Standard_Integer (Units_TksSequence::*)() const ) &Units_TksSequence::Upper, "Method for consistency with other collections.");
-	cls_Units_TksSequence.def("IsEmpty", (Standard_Boolean (Units_TksSequence::*)() const ) &Units_TksSequence::IsEmpty, "Empty query");
-	cls_Units_TksSequence.def("Reverse", (void (Units_TksSequence::*)()) &Units_TksSequence::Reverse, "Reverse sequence");
-	cls_Units_TksSequence.def("Exchange", (void (Units_TksSequence::*)(const Standard_Integer, const Standard_Integer)) &Units_TksSequence::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Units_TksSequence.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Units_TksSequence::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Units_TksSequence.def("Clear", [](Units_TksSequence &self) -> void { return self.Clear(); });
-	cls_Units_TksSequence.def("Clear", (void (Units_TksSequence::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Units_TksSequence::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Units_TksSequence.def("Assign", (Units_TksSequence & (Units_TksSequence::*)(const Units_TksSequence &)) &Units_TksSequence::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Units_TksSequence.def("assign", (Units_TksSequence & (Units_TksSequence::*)(const Units_TksSequence &)) &Units_TksSequence::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Units_TksSequence.def("Remove", (void (Units_TksSequence::*)(Units_TksSequence::Iterator &)) &Units_TksSequence::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Units_TksSequence.def("Remove", (void (Units_TksSequence::*)(const Standard_Integer)) &Units_TksSequence::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Units_TksSequence.def("Remove", (void (Units_TksSequence::*)(const Standard_Integer, const Standard_Integer)) &Units_TksSequence::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Units_TksSequence.def("Append", (void (Units_TksSequence::*)(const opencascade::handle<Units_Token> &)) &Units_TksSequence::Append, "Append one item", py::arg("theItem"));
-	cls_Units_TksSequence.def("Append", (void (Units_TksSequence::*)(Units_TksSequence &)) &Units_TksSequence::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Units_TksSequence.def("Prepend", (void (Units_TksSequence::*)(const opencascade::handle<Units_Token> &)) &Units_TksSequence::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Units_TksSequence.def("Prepend", (void (Units_TksSequence::*)(Units_TksSequence &)) &Units_TksSequence::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Units_TksSequence.def("InsertBefore", (void (Units_TksSequence::*)(const Standard_Integer, const opencascade::handle<Units_Token> &)) &Units_TksSequence::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Units_TksSequence.def("InsertBefore", (void (Units_TksSequence::*)(const Standard_Integer, Units_TksSequence &)) &Units_TksSequence::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Units_TksSequence.def("InsertAfter", (void (Units_TksSequence::*)(Units_TksSequence::Iterator &, const opencascade::handle<Units_Token> &)) &Units_TksSequence::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Units_TksSequence.def("InsertAfter", (void (Units_TksSequence::*)(const Standard_Integer, Units_TksSequence &)) &Units_TksSequence::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Units_TksSequence.def("InsertAfter", (void (Units_TksSequence::*)(const Standard_Integer, const opencascade::handle<Units_Token> &)) &Units_TksSequence::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Units_TksSequence.def("Split", (void (Units_TksSequence::*)(const Standard_Integer, Units_TksSequence &)) &Units_TksSequence::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Units_TksSequence.def("First", (const opencascade::handle<Units_Token> & (Units_TksSequence::*)() const ) &Units_TksSequence::First, "First item access");
-	cls_Units_TksSequence.def("ChangeFirst", (opencascade::handle<Units_Token> & (Units_TksSequence::*)()) &Units_TksSequence::ChangeFirst, "First item access");
-	cls_Units_TksSequence.def("Last", (const opencascade::handle<Units_Token> & (Units_TksSequence::*)() const ) &Units_TksSequence::Last, "Last item access");
-	cls_Units_TksSequence.def("ChangeLast", (opencascade::handle<Units_Token> & (Units_TksSequence::*)()) &Units_TksSequence::ChangeLast, "Last item access");
-	cls_Units_TksSequence.def("Value", (const opencascade::handle<Units_Token> & (Units_TksSequence::*)(const Standard_Integer) const ) &Units_TksSequence::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Units_TksSequence.def("__call__", (const opencascade::handle<Units_Token> & (Units_TksSequence::*)(const Standard_Integer) const ) &Units_TksSequence::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Units_TksSequence.def("ChangeValue", (opencascade::handle<Units_Token> & (Units_TksSequence::*)(const Standard_Integer)) &Units_TksSequence::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Units_TksSequence.def("__call__", (opencascade::handle<Units_Token> & (Units_TksSequence::*)(const Standard_Integer)) &Units_TksSequence::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Units_TksSequence.def("SetValue", (void (Units_TksSequence::*)(const Standard_Integer, const opencascade::handle<Units_Token> &)) &Units_TksSequence::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Units_TksSequence.def("__iter__", [](const Units_TksSequence &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Units_TksSequence.hxx
+	bind_NCollection_Sequence<opencascade::handle<Units_Token> >(mod, "Units_TksSequence");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Units_NoSuchType.hxx
 	py::class_<Units_NoSuchType, opencascade::handle<Units_NoSuchType>, Standard_NoSuchObject> cls_Units_NoSuchType(mod, "Units_NoSuchType", "None");

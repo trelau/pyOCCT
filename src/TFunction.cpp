@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <TDF_Attribute.hxx>
 #include <Standard_Handle.hxx>
@@ -41,6 +32,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <TFunction_IFunction.hxx>
 #include <TFunction_Scope.hxx>
 #include <TFunction_Iterator.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(TFunction, mod) {
 
@@ -129,40 +121,8 @@ PYBIND11_MODULE(TFunction, mod) {
 	cls_TFunction_Driver.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TFunction_Driver::get_type_descriptor, "None");
 	cls_TFunction_Driver.def("DynamicType", (const opencascade::handle<Standard_Type> & (TFunction_Driver::*)() const ) &TFunction_Driver::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<TFunction_Array1OfDataMapOfGUIDDriver, std::unique_ptr<TFunction_Array1OfDataMapOfGUIDDriver, Deleter<TFunction_Array1OfDataMapOfGUIDDriver>>> cls_TFunction_Array1OfDataMapOfGUIDDriver(mod, "TFunction_Array1OfDataMapOfGUIDDriver", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def(py::init<>());
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def(py::init([] (const TFunction_Array1OfDataMapOfGUIDDriver &other) {return new TFunction_Array1OfDataMapOfGUIDDriver(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_TFunction_Array1OfDataMapOfGUIDDriver.def(py::init<TFunction_Array1OfDataMapOfGUIDDriver &&>(), py::arg("theOther"));
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def(py::init<const TFunction_DataMapOfGUIDDriver &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("begin", (TFunction_Array1OfDataMapOfGUIDDriver::iterator (TFunction_Array1OfDataMapOfGUIDDriver::*)() const ) &TFunction_Array1OfDataMapOfGUIDDriver::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("end", (TFunction_Array1OfDataMapOfGUIDDriver::iterator (TFunction_Array1OfDataMapOfGUIDDriver::*)() const ) &TFunction_Array1OfDataMapOfGUIDDriver::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("cbegin", (TFunction_Array1OfDataMapOfGUIDDriver::const_iterator (TFunction_Array1OfDataMapOfGUIDDriver::*)() const ) &TFunction_Array1OfDataMapOfGUIDDriver::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("cend", (TFunction_Array1OfDataMapOfGUIDDriver::const_iterator (TFunction_Array1OfDataMapOfGUIDDriver::*)() const ) &TFunction_Array1OfDataMapOfGUIDDriver::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("Init", (void (TFunction_Array1OfDataMapOfGUIDDriver::*)(const TFunction_DataMapOfGUIDDriver &)) &TFunction_Array1OfDataMapOfGUIDDriver::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("Size", (Standard_Integer (TFunction_Array1OfDataMapOfGUIDDriver::*)() const ) &TFunction_Array1OfDataMapOfGUIDDriver::Size, "Size query");
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("Length", (Standard_Integer (TFunction_Array1OfDataMapOfGUIDDriver::*)() const ) &TFunction_Array1OfDataMapOfGUIDDriver::Length, "Length query (the same)");
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("IsEmpty", (Standard_Boolean (TFunction_Array1OfDataMapOfGUIDDriver::*)() const ) &TFunction_Array1OfDataMapOfGUIDDriver::IsEmpty, "Return TRUE if array has zero length.");
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("Lower", (Standard_Integer (TFunction_Array1OfDataMapOfGUIDDriver::*)() const ) &TFunction_Array1OfDataMapOfGUIDDriver::Lower, "Lower bound");
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("Upper", (Standard_Integer (TFunction_Array1OfDataMapOfGUIDDriver::*)() const ) &TFunction_Array1OfDataMapOfGUIDDriver::Upper, "Upper bound");
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("IsDeletable", (Standard_Boolean (TFunction_Array1OfDataMapOfGUIDDriver::*)() const ) &TFunction_Array1OfDataMapOfGUIDDriver::IsDeletable, "myDeletable flag");
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("IsAllocated", (Standard_Boolean (TFunction_Array1OfDataMapOfGUIDDriver::*)() const ) &TFunction_Array1OfDataMapOfGUIDDriver::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("Assign", (TFunction_Array1OfDataMapOfGUIDDriver & (TFunction_Array1OfDataMapOfGUIDDriver::*)(const TFunction_Array1OfDataMapOfGUIDDriver &)) &TFunction_Array1OfDataMapOfGUIDDriver::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_TFunction_Array1OfDataMapOfGUIDDriver.def("Move", (TFunction_Array1OfDataMapOfGUIDDriver & (TFunction_Array1OfDataMapOfGUIDDriver::*)(TFunction_Array1OfDataMapOfGUIDDriver &&)) &TFunction_Array1OfDataMapOfGUIDDriver::Move, "Move assignment", py::arg("theOther"));
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("assign", (TFunction_Array1OfDataMapOfGUIDDriver & (TFunction_Array1OfDataMapOfGUIDDriver::*)(const TFunction_Array1OfDataMapOfGUIDDriver &)) &TFunction_Array1OfDataMapOfGUIDDriver::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_TFunction_Array1OfDataMapOfGUIDDriver.def("assign", (TFunction_Array1OfDataMapOfGUIDDriver & (TFunction_Array1OfDataMapOfGUIDDriver::*)(TFunction_Array1OfDataMapOfGUIDDriver &&)) &TFunction_Array1OfDataMapOfGUIDDriver::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("First", (const TFunction_DataMapOfGUIDDriver & (TFunction_Array1OfDataMapOfGUIDDriver::*)() const ) &TFunction_Array1OfDataMapOfGUIDDriver::First, "Returns first element");
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("ChangeFirst", (TFunction_DataMapOfGUIDDriver & (TFunction_Array1OfDataMapOfGUIDDriver::*)()) &TFunction_Array1OfDataMapOfGUIDDriver::ChangeFirst, "Returns first element");
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("Last", (const TFunction_DataMapOfGUIDDriver & (TFunction_Array1OfDataMapOfGUIDDriver::*)() const ) &TFunction_Array1OfDataMapOfGUIDDriver::Last, "Returns last element");
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("ChangeLast", (TFunction_DataMapOfGUIDDriver & (TFunction_Array1OfDataMapOfGUIDDriver::*)()) &TFunction_Array1OfDataMapOfGUIDDriver::ChangeLast, "Returns last element");
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("Value", (const TFunction_DataMapOfGUIDDriver & (TFunction_Array1OfDataMapOfGUIDDriver::*)(const Standard_Integer) const ) &TFunction_Array1OfDataMapOfGUIDDriver::Value, "Constant value access", py::arg("theIndex"));
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("__call__", (const TFunction_DataMapOfGUIDDriver & (TFunction_Array1OfDataMapOfGUIDDriver::*)(const Standard_Integer) const ) &TFunction_Array1OfDataMapOfGUIDDriver::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("ChangeValue", (TFunction_DataMapOfGUIDDriver & (TFunction_Array1OfDataMapOfGUIDDriver::*)(const Standard_Integer)) &TFunction_Array1OfDataMapOfGUIDDriver::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("__call__", (TFunction_DataMapOfGUIDDriver & (TFunction_Array1OfDataMapOfGUIDDriver::*)(const Standard_Integer)) &TFunction_Array1OfDataMapOfGUIDDriver::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("SetValue", (void (TFunction_Array1OfDataMapOfGUIDDriver::*)(const Standard_Integer, const TFunction_DataMapOfGUIDDriver &)) &TFunction_Array1OfDataMapOfGUIDDriver::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("Resize", (void (TFunction_Array1OfDataMapOfGUIDDriver::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &TFunction_Array1OfDataMapOfGUIDDriver::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_TFunction_Array1OfDataMapOfGUIDDriver.def("__iter__", [](const TFunction_Array1OfDataMapOfGUIDDriver &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TFunction_Array1OfDataMapOfGUIDDriver.hxx
+	bind_NCollection_Array1<NCollection_DataMap<Standard_GUID, opencascade::handle<TFunction_Driver>, Standard_GUID> >(mod, "TFunction_Array1OfDataMapOfGUIDDriver");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TFunction_DriverTable.hxx
 	py::class_<TFunction_DriverTable, opencascade::handle<TFunction_DriverTable>, Standard_Transient> cls_TFunction_DriverTable(mod, "TFunction_DriverTable", "A container for instances of drivers. You create a new instance of TFunction_Driver and use the method AddDriver to load it into the driver table.");
@@ -276,38 +236,13 @@ PYBIND11_MODULE(TFunction, mod) {
 	cls_TFunction_Iterator.def("SetStatus", (void (TFunction_Iterator::*)(const TDF_Label &, const TFunction_ExecutionStatus) const ) &TFunction_Iterator::SetStatus, "A help-function aimed to help the user to change the execution status of a function. It calls TFunction_GraphNode::SetStatus() inside.", py::arg("func"), py::arg("status"));
 	// FIXME cls_TFunction_Iterator.def("Dump", (Standard_OStream & (TFunction_Iterator::*)(Standard_OStream &) const ) &TFunction_Iterator::Dump, "None", py::arg("OS"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<TFunction_DataMapOfGUIDDriver, std::unique_ptr<TFunction_DataMapOfGUIDDriver, Deleter<TFunction_DataMapOfGUIDDriver>>, NCollection_BaseMap> cls_TFunction_DataMapOfGUIDDriver(mod, "TFunction_DataMapOfGUIDDriver", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_TFunction_DataMapOfGUIDDriver.def(py::init<>());
-	cls_TFunction_DataMapOfGUIDDriver.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TFunction_DataMapOfGUIDDriver.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TFunction_DataMapOfGUIDDriver.def(py::init([] (const TFunction_DataMapOfGUIDDriver &other) {return new TFunction_DataMapOfGUIDDriver(other);}), "Copy constructor", py::arg("other"));
-	cls_TFunction_DataMapOfGUIDDriver.def("begin", (TFunction_DataMapOfGUIDDriver::iterator (TFunction_DataMapOfGUIDDriver::*)() const ) &TFunction_DataMapOfGUIDDriver::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_TFunction_DataMapOfGUIDDriver.def("end", (TFunction_DataMapOfGUIDDriver::iterator (TFunction_DataMapOfGUIDDriver::*)() const ) &TFunction_DataMapOfGUIDDriver::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_TFunction_DataMapOfGUIDDriver.def("cbegin", (TFunction_DataMapOfGUIDDriver::const_iterator (TFunction_DataMapOfGUIDDriver::*)() const ) &TFunction_DataMapOfGUIDDriver::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TFunction_DataMapOfGUIDDriver.def("cend", (TFunction_DataMapOfGUIDDriver::const_iterator (TFunction_DataMapOfGUIDDriver::*)() const ) &TFunction_DataMapOfGUIDDriver::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TFunction_DataMapOfGUIDDriver.def("Exchange", (void (TFunction_DataMapOfGUIDDriver::*)(TFunction_DataMapOfGUIDDriver &)) &TFunction_DataMapOfGUIDDriver::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TFunction_DataMapOfGUIDDriver.def("Assign", (TFunction_DataMapOfGUIDDriver & (TFunction_DataMapOfGUIDDriver::*)(const TFunction_DataMapOfGUIDDriver &)) &TFunction_DataMapOfGUIDDriver::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TFunction_DataMapOfGUIDDriver.def("assign", (TFunction_DataMapOfGUIDDriver & (TFunction_DataMapOfGUIDDriver::*)(const TFunction_DataMapOfGUIDDriver &)) &TFunction_DataMapOfGUIDDriver::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TFunction_DataMapOfGUIDDriver.def("ReSize", (void (TFunction_DataMapOfGUIDDriver::*)(const Standard_Integer)) &TFunction_DataMapOfGUIDDriver::ReSize, "ReSize", py::arg("N"));
-	cls_TFunction_DataMapOfGUIDDriver.def("Bind", (Standard_Boolean (TFunction_DataMapOfGUIDDriver::*)(const Standard_GUID &, const opencascade::handle<TFunction_Driver> &)) &TFunction_DataMapOfGUIDDriver::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_TFunction_DataMapOfGUIDDriver.def("Bound", (opencascade::handle<TFunction_Driver> * (TFunction_DataMapOfGUIDDriver::*)(const Standard_GUID &, const opencascade::handle<TFunction_Driver> &)) &TFunction_DataMapOfGUIDDriver::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_TFunction_DataMapOfGUIDDriver.def("IsBound", (Standard_Boolean (TFunction_DataMapOfGUIDDriver::*)(const Standard_GUID &) const ) &TFunction_DataMapOfGUIDDriver::IsBound, "IsBound", py::arg("theKey"));
-	cls_TFunction_DataMapOfGUIDDriver.def("UnBind", (Standard_Boolean (TFunction_DataMapOfGUIDDriver::*)(const Standard_GUID &)) &TFunction_DataMapOfGUIDDriver::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_TFunction_DataMapOfGUIDDriver.def("Seek", (const opencascade::handle<TFunction_Driver> * (TFunction_DataMapOfGUIDDriver::*)(const Standard_GUID &) const ) &TFunction_DataMapOfGUIDDriver::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_TFunction_DataMapOfGUIDDriver.def("Find", (const opencascade::handle<TFunction_Driver> & (TFunction_DataMapOfGUIDDriver::*)(const Standard_GUID &) const ) &TFunction_DataMapOfGUIDDriver::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_TFunction_DataMapOfGUIDDriver.def("Find", (Standard_Boolean (TFunction_DataMapOfGUIDDriver::*)(const Standard_GUID &, opencascade::handle<TFunction_Driver> &) const ) &TFunction_DataMapOfGUIDDriver::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_TFunction_DataMapOfGUIDDriver.def("__call__", (const opencascade::handle<TFunction_Driver> & (TFunction_DataMapOfGUIDDriver::*)(const Standard_GUID &) const ) &TFunction_DataMapOfGUIDDriver::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_TFunction_DataMapOfGUIDDriver.def("ChangeSeek", (opencascade::handle<TFunction_Driver> * (TFunction_DataMapOfGUIDDriver::*)(const Standard_GUID &)) &TFunction_DataMapOfGUIDDriver::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_TFunction_DataMapOfGUIDDriver.def("ChangeFind", (opencascade::handle<TFunction_Driver> & (TFunction_DataMapOfGUIDDriver::*)(const Standard_GUID &)) &TFunction_DataMapOfGUIDDriver::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_TFunction_DataMapOfGUIDDriver.def("__call__", (opencascade::handle<TFunction_Driver> & (TFunction_DataMapOfGUIDDriver::*)(const Standard_GUID &)) &TFunction_DataMapOfGUIDDriver::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_TFunction_DataMapOfGUIDDriver.def("Clear", [](TFunction_DataMapOfGUIDDriver &self) -> void { return self.Clear(); });
-	cls_TFunction_DataMapOfGUIDDriver.def("Clear", (void (TFunction_DataMapOfGUIDDriver::*)(const Standard_Boolean)) &TFunction_DataMapOfGUIDDriver::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TFunction_DataMapOfGUIDDriver.def("Clear", (void (TFunction_DataMapOfGUIDDriver::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TFunction_DataMapOfGUIDDriver::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TFunction_DataMapOfGUIDDriver.def("Size", (Standard_Integer (TFunction_DataMapOfGUIDDriver::*)() const ) &TFunction_DataMapOfGUIDDriver::Size, "Size");
-	cls_TFunction_DataMapOfGUIDDriver.def("__iter__", [](const TFunction_DataMapOfGUIDDriver &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TFunction_DataMapOfGUIDDriver.hxx
+	bind_NCollection_DataMap<Standard_GUID, opencascade::handle<TFunction_Driver>, Standard_GUID>(mod, "TFunction_DataMapOfGUIDDriver");
+
+	/* FIXME
+
+	*/
+
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TFunction_HArray1OfDataMapOfGUIDDriver.hxx
 	py::class_<TFunction_HArray1OfDataMapOfGUIDDriver, opencascade::handle<TFunction_HArray1OfDataMapOfGUIDDriver>, TFunction_Array1OfDataMapOfGUIDDriver, Standard_Transient> cls_TFunction_HArray1OfDataMapOfGUIDDriver(mod, "TFunction_HArray1OfDataMapOfGUIDDriver", "None");
 	cls_TFunction_HArray1OfDataMapOfGUIDDriver.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
@@ -319,61 +254,19 @@ PYBIND11_MODULE(TFunction, mod) {
 	cls_TFunction_HArray1OfDataMapOfGUIDDriver.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TFunction_HArray1OfDataMapOfGUIDDriver::get_type_descriptor, "None");
 	cls_TFunction_HArray1OfDataMapOfGUIDDriver.def("DynamicType", (const opencascade::handle<Standard_Type> & (TFunction_HArray1OfDataMapOfGUIDDriver::*)() const ) &TFunction_HArray1OfDataMapOfGUIDDriver::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<TFunction_DataMapOfLabelListOfLabel, std::unique_ptr<TFunction_DataMapOfLabelListOfLabel, Deleter<TFunction_DataMapOfLabelListOfLabel>>, NCollection_BaseMap> cls_TFunction_DataMapOfLabelListOfLabel(mod, "TFunction_DataMapOfLabelListOfLabel", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_TFunction_DataMapOfLabelListOfLabel.def(py::init<>());
-	cls_TFunction_DataMapOfLabelListOfLabel.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TFunction_DataMapOfLabelListOfLabel.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TFunction_DataMapOfLabelListOfLabel.def(py::init([] (const TFunction_DataMapOfLabelListOfLabel &other) {return new TFunction_DataMapOfLabelListOfLabel(other);}), "Copy constructor", py::arg("other"));
-	cls_TFunction_DataMapOfLabelListOfLabel.def("begin", (TFunction_DataMapOfLabelListOfLabel::iterator (TFunction_DataMapOfLabelListOfLabel::*)() const ) &TFunction_DataMapOfLabelListOfLabel::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_TFunction_DataMapOfLabelListOfLabel.def("end", (TFunction_DataMapOfLabelListOfLabel::iterator (TFunction_DataMapOfLabelListOfLabel::*)() const ) &TFunction_DataMapOfLabelListOfLabel::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_TFunction_DataMapOfLabelListOfLabel.def("cbegin", (TFunction_DataMapOfLabelListOfLabel::const_iterator (TFunction_DataMapOfLabelListOfLabel::*)() const ) &TFunction_DataMapOfLabelListOfLabel::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TFunction_DataMapOfLabelListOfLabel.def("cend", (TFunction_DataMapOfLabelListOfLabel::const_iterator (TFunction_DataMapOfLabelListOfLabel::*)() const ) &TFunction_DataMapOfLabelListOfLabel::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TFunction_DataMapOfLabelListOfLabel.def("Exchange", (void (TFunction_DataMapOfLabelListOfLabel::*)(TFunction_DataMapOfLabelListOfLabel &)) &TFunction_DataMapOfLabelListOfLabel::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TFunction_DataMapOfLabelListOfLabel.def("Assign", (TFunction_DataMapOfLabelListOfLabel & (TFunction_DataMapOfLabelListOfLabel::*)(const TFunction_DataMapOfLabelListOfLabel &)) &TFunction_DataMapOfLabelListOfLabel::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TFunction_DataMapOfLabelListOfLabel.def("assign", (TFunction_DataMapOfLabelListOfLabel & (TFunction_DataMapOfLabelListOfLabel::*)(const TFunction_DataMapOfLabelListOfLabel &)) &TFunction_DataMapOfLabelListOfLabel::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TFunction_DataMapOfLabelListOfLabel.def("ReSize", (void (TFunction_DataMapOfLabelListOfLabel::*)(const Standard_Integer)) &TFunction_DataMapOfLabelListOfLabel::ReSize, "ReSize", py::arg("N"));
-	cls_TFunction_DataMapOfLabelListOfLabel.def("Bind", (Standard_Boolean (TFunction_DataMapOfLabelListOfLabel::*)(const TDF_Label &, const TDF_LabelList &)) &TFunction_DataMapOfLabelListOfLabel::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_TFunction_DataMapOfLabelListOfLabel.def("Bound", (TDF_LabelList * (TFunction_DataMapOfLabelListOfLabel::*)(const TDF_Label &, const TDF_LabelList &)) &TFunction_DataMapOfLabelListOfLabel::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_TFunction_DataMapOfLabelListOfLabel.def("IsBound", (Standard_Boolean (TFunction_DataMapOfLabelListOfLabel::*)(const TDF_Label &) const ) &TFunction_DataMapOfLabelListOfLabel::IsBound, "IsBound", py::arg("theKey"));
-	cls_TFunction_DataMapOfLabelListOfLabel.def("UnBind", (Standard_Boolean (TFunction_DataMapOfLabelListOfLabel::*)(const TDF_Label &)) &TFunction_DataMapOfLabelListOfLabel::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_TFunction_DataMapOfLabelListOfLabel.def("Seek", (const TDF_LabelList * (TFunction_DataMapOfLabelListOfLabel::*)(const TDF_Label &) const ) &TFunction_DataMapOfLabelListOfLabel::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_TFunction_DataMapOfLabelListOfLabel.def("Find", (const TDF_LabelList & (TFunction_DataMapOfLabelListOfLabel::*)(const TDF_Label &) const ) &TFunction_DataMapOfLabelListOfLabel::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_TFunction_DataMapOfLabelListOfLabel.def("Find", (Standard_Boolean (TFunction_DataMapOfLabelListOfLabel::*)(const TDF_Label &, TDF_LabelList &) const ) &TFunction_DataMapOfLabelListOfLabel::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_TFunction_DataMapOfLabelListOfLabel.def("__call__", (const TDF_LabelList & (TFunction_DataMapOfLabelListOfLabel::*)(const TDF_Label &) const ) &TFunction_DataMapOfLabelListOfLabel::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_TFunction_DataMapOfLabelListOfLabel.def("ChangeSeek", (TDF_LabelList * (TFunction_DataMapOfLabelListOfLabel::*)(const TDF_Label &)) &TFunction_DataMapOfLabelListOfLabel::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_TFunction_DataMapOfLabelListOfLabel.def("ChangeFind", (TDF_LabelList & (TFunction_DataMapOfLabelListOfLabel::*)(const TDF_Label &)) &TFunction_DataMapOfLabelListOfLabel::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_TFunction_DataMapOfLabelListOfLabel.def("__call__", (TDF_LabelList & (TFunction_DataMapOfLabelListOfLabel::*)(const TDF_Label &)) &TFunction_DataMapOfLabelListOfLabel::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_TFunction_DataMapOfLabelListOfLabel.def("Clear", [](TFunction_DataMapOfLabelListOfLabel &self) -> void { return self.Clear(); });
-	cls_TFunction_DataMapOfLabelListOfLabel.def("Clear", (void (TFunction_DataMapOfLabelListOfLabel::*)(const Standard_Boolean)) &TFunction_DataMapOfLabelListOfLabel::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TFunction_DataMapOfLabelListOfLabel.def("Clear", (void (TFunction_DataMapOfLabelListOfLabel::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TFunction_DataMapOfLabelListOfLabel::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TFunction_DataMapOfLabelListOfLabel.def("Size", (Standard_Integer (TFunction_DataMapOfLabelListOfLabel::*)() const ) &TFunction_DataMapOfLabelListOfLabel::Size, "Size");
-	cls_TFunction_DataMapOfLabelListOfLabel.def("__iter__", [](const TFunction_DataMapOfLabelListOfLabel &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TFunction_DataMapOfLabelListOfLabel.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DoubleMap.hxx
-	py::class_<TFunction_DoubleMapOfIntegerLabel, std::unique_ptr<TFunction_DoubleMapOfIntegerLabel, Deleter<TFunction_DoubleMapOfIntegerLabel>>, NCollection_BaseMap> cls_TFunction_DoubleMapOfIntegerLabel(mod, "TFunction_DoubleMapOfIntegerLabel", "Purpose: The DoubleMap is used to bind pairs (Key1,Key2) and retrieve them in linear time.");
-	cls_TFunction_DoubleMapOfIntegerLabel.def(py::init<>());
-	cls_TFunction_DoubleMapOfIntegerLabel.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def(py::init([] (const TFunction_DoubleMapOfIntegerLabel &other) {return new TFunction_DoubleMapOfIntegerLabel(other);}), "Copy constructor", py::arg("other"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def("Exchange", (void (TFunction_DoubleMapOfIntegerLabel::*)(TFunction_DoubleMapOfIntegerLabel &)) &TFunction_DoubleMapOfIntegerLabel::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def("Assign", (TFunction_DoubleMapOfIntegerLabel & (TFunction_DoubleMapOfIntegerLabel::*)(const TFunction_DoubleMapOfIntegerLabel &)) &TFunction_DoubleMapOfIntegerLabel::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def("assign", (TFunction_DoubleMapOfIntegerLabel & (TFunction_DoubleMapOfIntegerLabel::*)(const TFunction_DoubleMapOfIntegerLabel &)) &TFunction_DoubleMapOfIntegerLabel::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def("ReSize", (void (TFunction_DoubleMapOfIntegerLabel::*)(const Standard_Integer)) &TFunction_DoubleMapOfIntegerLabel::ReSize, "ReSize", py::arg("N"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def("Bind", (void (TFunction_DoubleMapOfIntegerLabel::*)(const Standard_Integer &, const TDF_Label &)) &TFunction_DoubleMapOfIntegerLabel::Bind, "Bind", py::arg("theKey1"), py::arg("theKey2"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def("AreBound", (Standard_Boolean (TFunction_DoubleMapOfIntegerLabel::*)(const Standard_Integer &, const TDF_Label &) const ) &TFunction_DoubleMapOfIntegerLabel::AreBound, "* AreBound", py::arg("theKey1"), py::arg("theKey2"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def("IsBound1", (Standard_Boolean (TFunction_DoubleMapOfIntegerLabel::*)(const Standard_Integer &) const ) &TFunction_DoubleMapOfIntegerLabel::IsBound1, "IsBound1", py::arg("theKey1"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def("IsBound2", (Standard_Boolean (TFunction_DoubleMapOfIntegerLabel::*)(const TDF_Label &) const ) &TFunction_DoubleMapOfIntegerLabel::IsBound2, "IsBound2", py::arg("theKey2"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def("UnBind1", (Standard_Boolean (TFunction_DoubleMapOfIntegerLabel::*)(const Standard_Integer &)) &TFunction_DoubleMapOfIntegerLabel::UnBind1, "UnBind1", py::arg("theKey1"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def("UnBind2", (Standard_Boolean (TFunction_DoubleMapOfIntegerLabel::*)(const TDF_Label &)) &TFunction_DoubleMapOfIntegerLabel::UnBind2, "UnBind2", py::arg("theKey2"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def("Find1", (const TDF_Label & (TFunction_DoubleMapOfIntegerLabel::*)(const Standard_Integer &) const ) &TFunction_DoubleMapOfIntegerLabel::Find1, "Find1", py::arg("theKey1"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def("Find2", (const Standard_Integer & (TFunction_DoubleMapOfIntegerLabel::*)(const TDF_Label &) const ) &TFunction_DoubleMapOfIntegerLabel::Find2, "Find2", py::arg("theKey2"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def("Clear", [](TFunction_DoubleMapOfIntegerLabel &self) -> void { return self.Clear(); });
-	cls_TFunction_DoubleMapOfIntegerLabel.def("Clear", (void (TFunction_DoubleMapOfIntegerLabel::*)(const Standard_Boolean)) &TFunction_DoubleMapOfIntegerLabel::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def("Clear", (void (TFunction_DoubleMapOfIntegerLabel::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TFunction_DoubleMapOfIntegerLabel::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TFunction_DoubleMapOfIntegerLabel.def("Size", (Standard_Integer (TFunction_DoubleMapOfIntegerLabel::*)() const ) &TFunction_DoubleMapOfIntegerLabel::Size, "Size");
+	bind_NCollection_DataMap<TDF_Label, NCollection_List<TDF_Label>, TDF_LabelMapHasher>(mod, "TFunction_DataMapOfLabelListOfLabel");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TFunction_DoubleMapOfIntegerLabel.hxx
+	bind_NCollection_DoubleMap<int, TDF_Label, NCollection_DefaultHasher<int>, TDF_LabelMapHasher>(mod, "TFunction_DoubleMapOfIntegerLabel");
+
+	/* FIXME
+
+	*/
+
 
 }

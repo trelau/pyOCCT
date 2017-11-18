@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Geom_BoundedCurve.hxx>
 #include <TColgp_Array1OfPnt.hxx>
@@ -86,6 +77,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Geom_Vector.hxx>
 #include <Geom_VectorWithMagnitude.hxx>
 #include <Geom_Direction.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Geom, mod) {
 
@@ -996,50 +988,8 @@ PYBIND11_MODULE(Geom, mod) {
 	cls_Geom_RectangularTrimmedSurface.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Geom_RectangularTrimmedSurface::get_type_descriptor, "None");
 	cls_Geom_RectangularTrimmedSurface.def("DynamicType", (const opencascade::handle<Standard_Type> & (Geom_RectangularTrimmedSurface::*)() const ) &Geom_RectangularTrimmedSurface::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Geom_SequenceOfBSplineSurface, std::unique_ptr<Geom_SequenceOfBSplineSurface, Deleter<Geom_SequenceOfBSplineSurface>>, NCollection_BaseSequence> cls_Geom_SequenceOfBSplineSurface(mod, "Geom_SequenceOfBSplineSurface", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Geom_SequenceOfBSplineSurface.def(py::init<>());
-	cls_Geom_SequenceOfBSplineSurface.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Geom_SequenceOfBSplineSurface.def(py::init([] (const Geom_SequenceOfBSplineSurface &other) {return new Geom_SequenceOfBSplineSurface(other);}), "Copy constructor", py::arg("other"));
-	cls_Geom_SequenceOfBSplineSurface.def("begin", (Geom_SequenceOfBSplineSurface::iterator (Geom_SequenceOfBSplineSurface::*)() const ) &Geom_SequenceOfBSplineSurface::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Geom_SequenceOfBSplineSurface.def("end", (Geom_SequenceOfBSplineSurface::iterator (Geom_SequenceOfBSplineSurface::*)() const ) &Geom_SequenceOfBSplineSurface::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Geom_SequenceOfBSplineSurface.def("cbegin", (Geom_SequenceOfBSplineSurface::const_iterator (Geom_SequenceOfBSplineSurface::*)() const ) &Geom_SequenceOfBSplineSurface::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Geom_SequenceOfBSplineSurface.def("cend", (Geom_SequenceOfBSplineSurface::const_iterator (Geom_SequenceOfBSplineSurface::*)() const ) &Geom_SequenceOfBSplineSurface::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Geom_SequenceOfBSplineSurface.def("Size", (Standard_Integer (Geom_SequenceOfBSplineSurface::*)() const ) &Geom_SequenceOfBSplineSurface::Size, "Number of items");
-	cls_Geom_SequenceOfBSplineSurface.def("Length", (Standard_Integer (Geom_SequenceOfBSplineSurface::*)() const ) &Geom_SequenceOfBSplineSurface::Length, "Number of items");
-	cls_Geom_SequenceOfBSplineSurface.def("Lower", (Standard_Integer (Geom_SequenceOfBSplineSurface::*)() const ) &Geom_SequenceOfBSplineSurface::Lower, "Method for consistency with other collections.");
-	cls_Geom_SequenceOfBSplineSurface.def("Upper", (Standard_Integer (Geom_SequenceOfBSplineSurface::*)() const ) &Geom_SequenceOfBSplineSurface::Upper, "Method for consistency with other collections.");
-	cls_Geom_SequenceOfBSplineSurface.def("IsEmpty", (Standard_Boolean (Geom_SequenceOfBSplineSurface::*)() const ) &Geom_SequenceOfBSplineSurface::IsEmpty, "Empty query");
-	cls_Geom_SequenceOfBSplineSurface.def("Reverse", (void (Geom_SequenceOfBSplineSurface::*)()) &Geom_SequenceOfBSplineSurface::Reverse, "Reverse sequence");
-	cls_Geom_SequenceOfBSplineSurface.def("Exchange", (void (Geom_SequenceOfBSplineSurface::*)(const Standard_Integer, const Standard_Integer)) &Geom_SequenceOfBSplineSurface::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Geom_SequenceOfBSplineSurface.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Geom_SequenceOfBSplineSurface::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Geom_SequenceOfBSplineSurface.def("Clear", [](Geom_SequenceOfBSplineSurface &self) -> void { return self.Clear(); });
-	cls_Geom_SequenceOfBSplineSurface.def("Clear", (void (Geom_SequenceOfBSplineSurface::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Geom_SequenceOfBSplineSurface::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Geom_SequenceOfBSplineSurface.def("Assign", (Geom_SequenceOfBSplineSurface & (Geom_SequenceOfBSplineSurface::*)(const Geom_SequenceOfBSplineSurface &)) &Geom_SequenceOfBSplineSurface::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Geom_SequenceOfBSplineSurface.def("assign", (Geom_SequenceOfBSplineSurface & (Geom_SequenceOfBSplineSurface::*)(const Geom_SequenceOfBSplineSurface &)) &Geom_SequenceOfBSplineSurface::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Geom_SequenceOfBSplineSurface.def("Remove", (void (Geom_SequenceOfBSplineSurface::*)(Geom_SequenceOfBSplineSurface::Iterator &)) &Geom_SequenceOfBSplineSurface::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Geom_SequenceOfBSplineSurface.def("Remove", (void (Geom_SequenceOfBSplineSurface::*)(const Standard_Integer)) &Geom_SequenceOfBSplineSurface::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Geom_SequenceOfBSplineSurface.def("Remove", (void (Geom_SequenceOfBSplineSurface::*)(const Standard_Integer, const Standard_Integer)) &Geom_SequenceOfBSplineSurface::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Geom_SequenceOfBSplineSurface.def("Append", (void (Geom_SequenceOfBSplineSurface::*)(const opencascade::handle<Geom_BSplineSurface> &)) &Geom_SequenceOfBSplineSurface::Append, "Append one item", py::arg("theItem"));
-	cls_Geom_SequenceOfBSplineSurface.def("Append", (void (Geom_SequenceOfBSplineSurface::*)(Geom_SequenceOfBSplineSurface &)) &Geom_SequenceOfBSplineSurface::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Geom_SequenceOfBSplineSurface.def("Prepend", (void (Geom_SequenceOfBSplineSurface::*)(const opencascade::handle<Geom_BSplineSurface> &)) &Geom_SequenceOfBSplineSurface::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Geom_SequenceOfBSplineSurface.def("Prepend", (void (Geom_SequenceOfBSplineSurface::*)(Geom_SequenceOfBSplineSurface &)) &Geom_SequenceOfBSplineSurface::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Geom_SequenceOfBSplineSurface.def("InsertBefore", (void (Geom_SequenceOfBSplineSurface::*)(const Standard_Integer, const opencascade::handle<Geom_BSplineSurface> &)) &Geom_SequenceOfBSplineSurface::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Geom_SequenceOfBSplineSurface.def("InsertBefore", (void (Geom_SequenceOfBSplineSurface::*)(const Standard_Integer, Geom_SequenceOfBSplineSurface &)) &Geom_SequenceOfBSplineSurface::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Geom_SequenceOfBSplineSurface.def("InsertAfter", (void (Geom_SequenceOfBSplineSurface::*)(Geom_SequenceOfBSplineSurface::Iterator &, const opencascade::handle<Geom_BSplineSurface> &)) &Geom_SequenceOfBSplineSurface::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Geom_SequenceOfBSplineSurface.def("InsertAfter", (void (Geom_SequenceOfBSplineSurface::*)(const Standard_Integer, Geom_SequenceOfBSplineSurface &)) &Geom_SequenceOfBSplineSurface::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Geom_SequenceOfBSplineSurface.def("InsertAfter", (void (Geom_SequenceOfBSplineSurface::*)(const Standard_Integer, const opencascade::handle<Geom_BSplineSurface> &)) &Geom_SequenceOfBSplineSurface::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Geom_SequenceOfBSplineSurface.def("Split", (void (Geom_SequenceOfBSplineSurface::*)(const Standard_Integer, Geom_SequenceOfBSplineSurface &)) &Geom_SequenceOfBSplineSurface::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Geom_SequenceOfBSplineSurface.def("First", (const opencascade::handle<Geom_BSplineSurface> & (Geom_SequenceOfBSplineSurface::*)() const ) &Geom_SequenceOfBSplineSurface::First, "First item access");
-	cls_Geom_SequenceOfBSplineSurface.def("ChangeFirst", (opencascade::handle<Geom_BSplineSurface> & (Geom_SequenceOfBSplineSurface::*)()) &Geom_SequenceOfBSplineSurface::ChangeFirst, "First item access");
-	cls_Geom_SequenceOfBSplineSurface.def("Last", (const opencascade::handle<Geom_BSplineSurface> & (Geom_SequenceOfBSplineSurface::*)() const ) &Geom_SequenceOfBSplineSurface::Last, "Last item access");
-	cls_Geom_SequenceOfBSplineSurface.def("ChangeLast", (opencascade::handle<Geom_BSplineSurface> & (Geom_SequenceOfBSplineSurface::*)()) &Geom_SequenceOfBSplineSurface::ChangeLast, "Last item access");
-	cls_Geom_SequenceOfBSplineSurface.def("Value", (const opencascade::handle<Geom_BSplineSurface> & (Geom_SequenceOfBSplineSurface::*)(const Standard_Integer) const ) &Geom_SequenceOfBSplineSurface::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Geom_SequenceOfBSplineSurface.def("__call__", (const opencascade::handle<Geom_BSplineSurface> & (Geom_SequenceOfBSplineSurface::*)(const Standard_Integer) const ) &Geom_SequenceOfBSplineSurface::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Geom_SequenceOfBSplineSurface.def("ChangeValue", (opencascade::handle<Geom_BSplineSurface> & (Geom_SequenceOfBSplineSurface::*)(const Standard_Integer)) &Geom_SequenceOfBSplineSurface::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Geom_SequenceOfBSplineSurface.def("__call__", (opencascade::handle<Geom_BSplineSurface> & (Geom_SequenceOfBSplineSurface::*)(const Standard_Integer)) &Geom_SequenceOfBSplineSurface::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Geom_SequenceOfBSplineSurface.def("SetValue", (void (Geom_SequenceOfBSplineSurface::*)(const Standard_Integer, const opencascade::handle<Geom_BSplineSurface> &)) &Geom_SequenceOfBSplineSurface::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Geom_SequenceOfBSplineSurface.def("__iter__", [](const Geom_SequenceOfBSplineSurface &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Geom_SequenceOfBSplineSurface.hxx
+	bind_NCollection_Sequence<opencascade::handle<Geom_BSplineSurface> >(mod, "Geom_SequenceOfBSplineSurface");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Geom_OsculatingSurface.hxx
 	py::class_<Geom_OsculatingSurface, opencascade::handle<Geom_OsculatingSurface>, Standard_Transient> cls_Geom_OsculatingSurface(mod, "Geom_OsculatingSurface", "None");

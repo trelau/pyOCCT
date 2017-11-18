@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Handle.hxx>
 #include <Geom_Curve.hxx>
@@ -53,6 +44,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_Array1.hxx>
 #include <GeomLib_Array1OfMat.hxx>
 #include <GeomLib_DenominatorMultiplierPtr.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(GeomLib, mod) {
 
@@ -200,40 +192,8 @@ PYBIND11_MODULE(GeomLib, mod) {
 	cls_GeomLib.def_static("IsBzUClosed_", (Standard_Boolean (*)(const opencascade::handle<Geom_BezierSurface> &, const Standard_Real, const Standard_Real, const Standard_Real)) &GeomLib::IsBzUClosed, "Returns true if the poles of U1 isoline and the poles of U2 isoline of surface are identical according to tolerance criterion.", py::arg("S"), py::arg("U1"), py::arg("U2"), py::arg("Tol"));
 	cls_GeomLib.def_static("IsBzVClosed_", (Standard_Boolean (*)(const opencascade::handle<Geom_BezierSurface> &, const Standard_Real, const Standard_Real, const Standard_Real)) &GeomLib::IsBzVClosed, "Returns true if the poles of V1 isoline and the poles of V2 isoline of surface are identical according to tolerance criterion.", py::arg("S"), py::arg("V1"), py::arg("V2"), py::arg("Tol"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<GeomLib_Array1OfMat, std::unique_ptr<GeomLib_Array1OfMat, Deleter<GeomLib_Array1OfMat>>> cls_GeomLib_Array1OfMat(mod, "GeomLib_Array1OfMat", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_GeomLib_Array1OfMat.def(py::init<>());
-	cls_GeomLib_Array1OfMat.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_GeomLib_Array1OfMat.def(py::init([] (const GeomLib_Array1OfMat &other) {return new GeomLib_Array1OfMat(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_GeomLib_Array1OfMat.def(py::init<GeomLib_Array1OfMat &&>(), py::arg("theOther"));
-	cls_GeomLib_Array1OfMat.def(py::init<const gp_Mat &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_GeomLib_Array1OfMat.def("begin", (GeomLib_Array1OfMat::iterator (GeomLib_Array1OfMat::*)() const ) &GeomLib_Array1OfMat::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_GeomLib_Array1OfMat.def("end", (GeomLib_Array1OfMat::iterator (GeomLib_Array1OfMat::*)() const ) &GeomLib_Array1OfMat::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_GeomLib_Array1OfMat.def("cbegin", (GeomLib_Array1OfMat::const_iterator (GeomLib_Array1OfMat::*)() const ) &GeomLib_Array1OfMat::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_GeomLib_Array1OfMat.def("cend", (GeomLib_Array1OfMat::const_iterator (GeomLib_Array1OfMat::*)() const ) &GeomLib_Array1OfMat::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_GeomLib_Array1OfMat.def("Init", (void (GeomLib_Array1OfMat::*)(const gp_Mat &)) &GeomLib_Array1OfMat::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_GeomLib_Array1OfMat.def("Size", (Standard_Integer (GeomLib_Array1OfMat::*)() const ) &GeomLib_Array1OfMat::Size, "Size query");
-	cls_GeomLib_Array1OfMat.def("Length", (Standard_Integer (GeomLib_Array1OfMat::*)() const ) &GeomLib_Array1OfMat::Length, "Length query (the same)");
-	cls_GeomLib_Array1OfMat.def("IsEmpty", (Standard_Boolean (GeomLib_Array1OfMat::*)() const ) &GeomLib_Array1OfMat::IsEmpty, "Return TRUE if array has zero length.");
-	cls_GeomLib_Array1OfMat.def("Lower", (Standard_Integer (GeomLib_Array1OfMat::*)() const ) &GeomLib_Array1OfMat::Lower, "Lower bound");
-	cls_GeomLib_Array1OfMat.def("Upper", (Standard_Integer (GeomLib_Array1OfMat::*)() const ) &GeomLib_Array1OfMat::Upper, "Upper bound");
-	cls_GeomLib_Array1OfMat.def("IsDeletable", (Standard_Boolean (GeomLib_Array1OfMat::*)() const ) &GeomLib_Array1OfMat::IsDeletable, "myDeletable flag");
-	cls_GeomLib_Array1OfMat.def("IsAllocated", (Standard_Boolean (GeomLib_Array1OfMat::*)() const ) &GeomLib_Array1OfMat::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_GeomLib_Array1OfMat.def("Assign", (GeomLib_Array1OfMat & (GeomLib_Array1OfMat::*)(const GeomLib_Array1OfMat &)) &GeomLib_Array1OfMat::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_GeomLib_Array1OfMat.def("Move", (GeomLib_Array1OfMat & (GeomLib_Array1OfMat::*)(GeomLib_Array1OfMat &&)) &GeomLib_Array1OfMat::Move, "Move assignment", py::arg("theOther"));
-	cls_GeomLib_Array1OfMat.def("assign", (GeomLib_Array1OfMat & (GeomLib_Array1OfMat::*)(const GeomLib_Array1OfMat &)) &GeomLib_Array1OfMat::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_GeomLib_Array1OfMat.def("assign", (GeomLib_Array1OfMat & (GeomLib_Array1OfMat::*)(GeomLib_Array1OfMat &&)) &GeomLib_Array1OfMat::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_GeomLib_Array1OfMat.def("First", (const gp_Mat & (GeomLib_Array1OfMat::*)() const ) &GeomLib_Array1OfMat::First, "Returns first element");
-	cls_GeomLib_Array1OfMat.def("ChangeFirst", (gp_Mat & (GeomLib_Array1OfMat::*)()) &GeomLib_Array1OfMat::ChangeFirst, "Returns first element");
-	cls_GeomLib_Array1OfMat.def("Last", (const gp_Mat & (GeomLib_Array1OfMat::*)() const ) &GeomLib_Array1OfMat::Last, "Returns last element");
-	cls_GeomLib_Array1OfMat.def("ChangeLast", (gp_Mat & (GeomLib_Array1OfMat::*)()) &GeomLib_Array1OfMat::ChangeLast, "Returns last element");
-	cls_GeomLib_Array1OfMat.def("Value", (const gp_Mat & (GeomLib_Array1OfMat::*)(const Standard_Integer) const ) &GeomLib_Array1OfMat::Value, "Constant value access", py::arg("theIndex"));
-	cls_GeomLib_Array1OfMat.def("__call__", (const gp_Mat & (GeomLib_Array1OfMat::*)(const Standard_Integer) const ) &GeomLib_Array1OfMat::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_GeomLib_Array1OfMat.def("ChangeValue", (gp_Mat & (GeomLib_Array1OfMat::*)(const Standard_Integer)) &GeomLib_Array1OfMat::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_GeomLib_Array1OfMat.def("__call__", (gp_Mat & (GeomLib_Array1OfMat::*)(const Standard_Integer)) &GeomLib_Array1OfMat::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_GeomLib_Array1OfMat.def("SetValue", (void (GeomLib_Array1OfMat::*)(const Standard_Integer, const gp_Mat &)) &GeomLib_Array1OfMat::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomLib_Array1OfMat.def("Resize", (void (GeomLib_Array1OfMat::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &GeomLib_Array1OfMat::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_GeomLib_Array1OfMat.def("__iter__", [](const GeomLib_Array1OfMat &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomLib_Array1OfMat.hxx
+	bind_NCollection_Array1<gp_Mat>(mod, "GeomLib_Array1OfMat");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomLib_DenominatorMultiplierPtr.hxx
 

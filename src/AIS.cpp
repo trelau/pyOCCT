@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <AIS_KindOfSurface.hxx>
 #include <AIS_InteractiveObject.hxx>
@@ -206,6 +197,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <AIS_TexturedShape.hxx>
 #include <AIS_TrihedronSelectionMode.hxx>
 #include <AIS_TrihedronOwner.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(AIS, mod) {
 
@@ -2205,399 +2197,61 @@ PYBIND11_MODULE(AIS, mod) {
 	cls_AIS_TrihedronOwner.def("IsHilighted", (Standard_Boolean (AIS_TrihedronOwner::*)(const opencascade::handle<PrsMgr_PresentationManager> &, const Standard_Integer) const ) &AIS_TrihedronOwner::IsHilighted, "Returns true if the presentation manager thePM highlights selections corresponding to the selection mode aMode.", py::arg("thePM"), py::arg("theMode"));
 	cls_AIS_TrihedronOwner.def("Unhilight", (void (AIS_TrihedronOwner::*)(const opencascade::handle<PrsMgr_PresentationManager> &, const Standard_Integer)) &AIS_TrihedronOwner::Unhilight, "Removes highlighting from the owner of a detected selectable object in the presentation manager thePM.", py::arg("thePM"), py::arg("theMode"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<AIS_DataMapOfSelStat, std::unique_ptr<AIS_DataMapOfSelStat, Deleter<AIS_DataMapOfSelStat>>, NCollection_BaseMap> cls_AIS_DataMapOfSelStat(mod, "AIS_DataMapOfSelStat", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_AIS_DataMapOfSelStat.def(py::init<>());
-	cls_AIS_DataMapOfSelStat.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_AIS_DataMapOfSelStat.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_AIS_DataMapOfSelStat.def(py::init([] (const AIS_DataMapOfSelStat &other) {return new AIS_DataMapOfSelStat(other);}), "Copy constructor", py::arg("other"));
-	cls_AIS_DataMapOfSelStat.def("begin", (AIS_DataMapOfSelStat::iterator (AIS_DataMapOfSelStat::*)() const ) &AIS_DataMapOfSelStat::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_AIS_DataMapOfSelStat.def("end", (AIS_DataMapOfSelStat::iterator (AIS_DataMapOfSelStat::*)() const ) &AIS_DataMapOfSelStat::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_AIS_DataMapOfSelStat.def("cbegin", (AIS_DataMapOfSelStat::const_iterator (AIS_DataMapOfSelStat::*)() const ) &AIS_DataMapOfSelStat::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_AIS_DataMapOfSelStat.def("cend", (AIS_DataMapOfSelStat::const_iterator (AIS_DataMapOfSelStat::*)() const ) &AIS_DataMapOfSelStat::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_AIS_DataMapOfSelStat.def("Exchange", (void (AIS_DataMapOfSelStat::*)(AIS_DataMapOfSelStat &)) &AIS_DataMapOfSelStat::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_AIS_DataMapOfSelStat.def("Assign", (AIS_DataMapOfSelStat & (AIS_DataMapOfSelStat::*)(const AIS_DataMapOfSelStat &)) &AIS_DataMapOfSelStat::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_AIS_DataMapOfSelStat.def("assign", (AIS_DataMapOfSelStat & (AIS_DataMapOfSelStat::*)(const AIS_DataMapOfSelStat &)) &AIS_DataMapOfSelStat::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_AIS_DataMapOfSelStat.def("ReSize", (void (AIS_DataMapOfSelStat::*)(const Standard_Integer)) &AIS_DataMapOfSelStat::ReSize, "ReSize", py::arg("N"));
-	cls_AIS_DataMapOfSelStat.def("Bind", (Standard_Boolean (AIS_DataMapOfSelStat::*)(const opencascade::handle<SelectMgr_SelectableObject> &, const opencascade::handle<AIS_LocalStatus> &)) &AIS_DataMapOfSelStat::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_AIS_DataMapOfSelStat.def("Bound", (opencascade::handle<AIS_LocalStatus> * (AIS_DataMapOfSelStat::*)(const opencascade::handle<SelectMgr_SelectableObject> &, const opencascade::handle<AIS_LocalStatus> &)) &AIS_DataMapOfSelStat::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_AIS_DataMapOfSelStat.def("IsBound", (Standard_Boolean (AIS_DataMapOfSelStat::*)(const opencascade::handle<SelectMgr_SelectableObject> &) const ) &AIS_DataMapOfSelStat::IsBound, "IsBound", py::arg("theKey"));
-	cls_AIS_DataMapOfSelStat.def("UnBind", (Standard_Boolean (AIS_DataMapOfSelStat::*)(const opencascade::handle<SelectMgr_SelectableObject> &)) &AIS_DataMapOfSelStat::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapOfSelStat.def("Seek", (const opencascade::handle<AIS_LocalStatus> * (AIS_DataMapOfSelStat::*)(const opencascade::handle<SelectMgr_SelectableObject> &) const ) &AIS_DataMapOfSelStat::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapOfSelStat.def("Find", (const opencascade::handle<AIS_LocalStatus> & (AIS_DataMapOfSelStat::*)(const opencascade::handle<SelectMgr_SelectableObject> &) const ) &AIS_DataMapOfSelStat::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapOfSelStat.def("Find", (Standard_Boolean (AIS_DataMapOfSelStat::*)(const opencascade::handle<SelectMgr_SelectableObject> &, opencascade::handle<AIS_LocalStatus> &) const ) &AIS_DataMapOfSelStat::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_AIS_DataMapOfSelStat.def("__call__", (const opencascade::handle<AIS_LocalStatus> & (AIS_DataMapOfSelStat::*)(const opencascade::handle<SelectMgr_SelectableObject> &) const ) &AIS_DataMapOfSelStat::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapOfSelStat.def("ChangeSeek", (opencascade::handle<AIS_LocalStatus> * (AIS_DataMapOfSelStat::*)(const opencascade::handle<SelectMgr_SelectableObject> &)) &AIS_DataMapOfSelStat::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_AIS_DataMapOfSelStat.def("ChangeFind", (opencascade::handle<AIS_LocalStatus> & (AIS_DataMapOfSelStat::*)(const opencascade::handle<SelectMgr_SelectableObject> &)) &AIS_DataMapOfSelStat::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_AIS_DataMapOfSelStat.def("__call__", (opencascade::handle<AIS_LocalStatus> & (AIS_DataMapOfSelStat::*)(const opencascade::handle<SelectMgr_SelectableObject> &)) &AIS_DataMapOfSelStat::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_AIS_DataMapOfSelStat.def("Clear", [](AIS_DataMapOfSelStat &self) -> void { return self.Clear(); });
-	cls_AIS_DataMapOfSelStat.def("Clear", (void (AIS_DataMapOfSelStat::*)(const Standard_Boolean)) &AIS_DataMapOfSelStat::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_AIS_DataMapOfSelStat.def("Clear", (void (AIS_DataMapOfSelStat::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &AIS_DataMapOfSelStat::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_AIS_DataMapOfSelStat.def("Size", (Standard_Integer (AIS_DataMapOfSelStat::*)() const ) &AIS_DataMapOfSelStat::Size, "Size");
-	cls_AIS_DataMapOfSelStat.def("__iter__", [](const AIS_DataMapOfSelStat &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_DataMapOfSelStat.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<AIS_SequenceOfInteractive, std::unique_ptr<AIS_SequenceOfInteractive, Deleter<AIS_SequenceOfInteractive>>, NCollection_BaseSequence> cls_AIS_SequenceOfInteractive(mod, "AIS_SequenceOfInteractive", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_AIS_SequenceOfInteractive.def(py::init<>());
-	cls_AIS_SequenceOfInteractive.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_AIS_SequenceOfInteractive.def(py::init([] (const AIS_SequenceOfInteractive &other) {return new AIS_SequenceOfInteractive(other);}), "Copy constructor", py::arg("other"));
-	cls_AIS_SequenceOfInteractive.def("begin", (AIS_SequenceOfInteractive::iterator (AIS_SequenceOfInteractive::*)() const ) &AIS_SequenceOfInteractive::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_AIS_SequenceOfInteractive.def("end", (AIS_SequenceOfInteractive::iterator (AIS_SequenceOfInteractive::*)() const ) &AIS_SequenceOfInteractive::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_AIS_SequenceOfInteractive.def("cbegin", (AIS_SequenceOfInteractive::const_iterator (AIS_SequenceOfInteractive::*)() const ) &AIS_SequenceOfInteractive::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_AIS_SequenceOfInteractive.def("cend", (AIS_SequenceOfInteractive::const_iterator (AIS_SequenceOfInteractive::*)() const ) &AIS_SequenceOfInteractive::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_AIS_SequenceOfInteractive.def("Size", (Standard_Integer (AIS_SequenceOfInteractive::*)() const ) &AIS_SequenceOfInteractive::Size, "Number of items");
-	cls_AIS_SequenceOfInteractive.def("Length", (Standard_Integer (AIS_SequenceOfInteractive::*)() const ) &AIS_SequenceOfInteractive::Length, "Number of items");
-	cls_AIS_SequenceOfInteractive.def("Lower", (Standard_Integer (AIS_SequenceOfInteractive::*)() const ) &AIS_SequenceOfInteractive::Lower, "Method for consistency with other collections.");
-	cls_AIS_SequenceOfInteractive.def("Upper", (Standard_Integer (AIS_SequenceOfInteractive::*)() const ) &AIS_SequenceOfInteractive::Upper, "Method for consistency with other collections.");
-	cls_AIS_SequenceOfInteractive.def("IsEmpty", (Standard_Boolean (AIS_SequenceOfInteractive::*)() const ) &AIS_SequenceOfInteractive::IsEmpty, "Empty query");
-	cls_AIS_SequenceOfInteractive.def("Reverse", (void (AIS_SequenceOfInteractive::*)()) &AIS_SequenceOfInteractive::Reverse, "Reverse sequence");
-	cls_AIS_SequenceOfInteractive.def("Exchange", (void (AIS_SequenceOfInteractive::*)(const Standard_Integer, const Standard_Integer)) &AIS_SequenceOfInteractive::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_AIS_SequenceOfInteractive.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &AIS_SequenceOfInteractive::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_AIS_SequenceOfInteractive.def("Clear", [](AIS_SequenceOfInteractive &self) -> void { return self.Clear(); });
-	cls_AIS_SequenceOfInteractive.def("Clear", (void (AIS_SequenceOfInteractive::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &AIS_SequenceOfInteractive::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_AIS_SequenceOfInteractive.def("Assign", (AIS_SequenceOfInteractive & (AIS_SequenceOfInteractive::*)(const AIS_SequenceOfInteractive &)) &AIS_SequenceOfInteractive::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_AIS_SequenceOfInteractive.def("assign", (AIS_SequenceOfInteractive & (AIS_SequenceOfInteractive::*)(const AIS_SequenceOfInteractive &)) &AIS_SequenceOfInteractive::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_AIS_SequenceOfInteractive.def("Remove", (void (AIS_SequenceOfInteractive::*)(AIS_SequenceOfInteractive::Iterator &)) &AIS_SequenceOfInteractive::Remove, "Remove one item", py::arg("thePosition"));
-	cls_AIS_SequenceOfInteractive.def("Remove", (void (AIS_SequenceOfInteractive::*)(const Standard_Integer)) &AIS_SequenceOfInteractive::Remove, "Remove one item", py::arg("theIndex"));
-	cls_AIS_SequenceOfInteractive.def("Remove", (void (AIS_SequenceOfInteractive::*)(const Standard_Integer, const Standard_Integer)) &AIS_SequenceOfInteractive::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_AIS_SequenceOfInteractive.def("Append", (void (AIS_SequenceOfInteractive::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_SequenceOfInteractive::Append, "Append one item", py::arg("theItem"));
-	cls_AIS_SequenceOfInteractive.def("Append", (void (AIS_SequenceOfInteractive::*)(AIS_SequenceOfInteractive &)) &AIS_SequenceOfInteractive::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_AIS_SequenceOfInteractive.def("Prepend", (void (AIS_SequenceOfInteractive::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_SequenceOfInteractive::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_AIS_SequenceOfInteractive.def("Prepend", (void (AIS_SequenceOfInteractive::*)(AIS_SequenceOfInteractive &)) &AIS_SequenceOfInteractive::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_AIS_SequenceOfInteractive.def("InsertBefore", (void (AIS_SequenceOfInteractive::*)(const Standard_Integer, const opencascade::handle<AIS_InteractiveObject> &)) &AIS_SequenceOfInteractive::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_AIS_SequenceOfInteractive.def("InsertBefore", (void (AIS_SequenceOfInteractive::*)(const Standard_Integer, AIS_SequenceOfInteractive &)) &AIS_SequenceOfInteractive::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AIS_SequenceOfInteractive.def("InsertAfter", (void (AIS_SequenceOfInteractive::*)(AIS_SequenceOfInteractive::Iterator &, const opencascade::handle<AIS_InteractiveObject> &)) &AIS_SequenceOfInteractive::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_AIS_SequenceOfInteractive.def("InsertAfter", (void (AIS_SequenceOfInteractive::*)(const Standard_Integer, AIS_SequenceOfInteractive &)) &AIS_SequenceOfInteractive::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AIS_SequenceOfInteractive.def("InsertAfter", (void (AIS_SequenceOfInteractive::*)(const Standard_Integer, const opencascade::handle<AIS_InteractiveObject> &)) &AIS_SequenceOfInteractive::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_AIS_SequenceOfInteractive.def("Split", (void (AIS_SequenceOfInteractive::*)(const Standard_Integer, AIS_SequenceOfInteractive &)) &AIS_SequenceOfInteractive::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AIS_SequenceOfInteractive.def("First", (const opencascade::handle<AIS_InteractiveObject> & (AIS_SequenceOfInteractive::*)() const ) &AIS_SequenceOfInteractive::First, "First item access");
-	cls_AIS_SequenceOfInteractive.def("ChangeFirst", (opencascade::handle<AIS_InteractiveObject> & (AIS_SequenceOfInteractive::*)()) &AIS_SequenceOfInteractive::ChangeFirst, "First item access");
-	cls_AIS_SequenceOfInteractive.def("Last", (const opencascade::handle<AIS_InteractiveObject> & (AIS_SequenceOfInteractive::*)() const ) &AIS_SequenceOfInteractive::Last, "Last item access");
-	cls_AIS_SequenceOfInteractive.def("ChangeLast", (opencascade::handle<AIS_InteractiveObject> & (AIS_SequenceOfInteractive::*)()) &AIS_SequenceOfInteractive::ChangeLast, "Last item access");
-	cls_AIS_SequenceOfInteractive.def("Value", (const opencascade::handle<AIS_InteractiveObject> & (AIS_SequenceOfInteractive::*)(const Standard_Integer) const ) &AIS_SequenceOfInteractive::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_AIS_SequenceOfInteractive.def("__call__", (const opencascade::handle<AIS_InteractiveObject> & (AIS_SequenceOfInteractive::*)(const Standard_Integer) const ) &AIS_SequenceOfInteractive::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_AIS_SequenceOfInteractive.def("ChangeValue", (opencascade::handle<AIS_InteractiveObject> & (AIS_SequenceOfInteractive::*)(const Standard_Integer)) &AIS_SequenceOfInteractive::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_AIS_SequenceOfInteractive.def("__call__", (opencascade::handle<AIS_InteractiveObject> & (AIS_SequenceOfInteractive::*)(const Standard_Integer)) &AIS_SequenceOfInteractive::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_AIS_SequenceOfInteractive.def("SetValue", (void (AIS_SequenceOfInteractive::*)(const Standard_Integer, const opencascade::handle<AIS_InteractiveObject> &)) &AIS_SequenceOfInteractive::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_AIS_SequenceOfInteractive.def("__iter__", [](const AIS_SequenceOfInteractive &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<opencascade::handle<SelectMgr_SelectableObject>, opencascade::handle<AIS_LocalStatus>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "AIS_DataMapOfSelStat");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<AIS_NListOfEntityOwner, std::unique_ptr<AIS_NListOfEntityOwner, Deleter<AIS_NListOfEntityOwner>>, NCollection_BaseList> cls_AIS_NListOfEntityOwner(mod, "AIS_NListOfEntityOwner", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_AIS_NListOfEntityOwner.def(py::init<>());
-	cls_AIS_NListOfEntityOwner.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_AIS_NListOfEntityOwner.def(py::init([] (const AIS_NListOfEntityOwner &other) {return new AIS_NListOfEntityOwner(other);}), "Copy constructor", py::arg("other"));
-	cls_AIS_NListOfEntityOwner.def("begin", (AIS_NListOfEntityOwner::iterator (AIS_NListOfEntityOwner::*)() const ) &AIS_NListOfEntityOwner::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_AIS_NListOfEntityOwner.def("end", (AIS_NListOfEntityOwner::iterator (AIS_NListOfEntityOwner::*)() const ) &AIS_NListOfEntityOwner::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_AIS_NListOfEntityOwner.def("cbegin", (AIS_NListOfEntityOwner::const_iterator (AIS_NListOfEntityOwner::*)() const ) &AIS_NListOfEntityOwner::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_AIS_NListOfEntityOwner.def("cend", (AIS_NListOfEntityOwner::const_iterator (AIS_NListOfEntityOwner::*)() const ) &AIS_NListOfEntityOwner::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_AIS_NListOfEntityOwner.def("Size", (Standard_Integer (AIS_NListOfEntityOwner::*)() const ) &AIS_NListOfEntityOwner::Size, "Size - Number of items");
-	cls_AIS_NListOfEntityOwner.def("Assign", (AIS_NListOfEntityOwner & (AIS_NListOfEntityOwner::*)(const AIS_NListOfEntityOwner &)) &AIS_NListOfEntityOwner::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_AIS_NListOfEntityOwner.def("assign", (AIS_NListOfEntityOwner & (AIS_NListOfEntityOwner::*)(const AIS_NListOfEntityOwner &)) &AIS_NListOfEntityOwner::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_AIS_NListOfEntityOwner.def("Clear", [](AIS_NListOfEntityOwner &self) -> void { return self.Clear(); });
-	cls_AIS_NListOfEntityOwner.def("Clear", (void (AIS_NListOfEntityOwner::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &AIS_NListOfEntityOwner::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_AIS_NListOfEntityOwner.def("First", (const opencascade::handle<SelectMgr_EntityOwner> & (AIS_NListOfEntityOwner::*)() const ) &AIS_NListOfEntityOwner::First, "First item");
-	cls_AIS_NListOfEntityOwner.def("First", (opencascade::handle<SelectMgr_EntityOwner> & (AIS_NListOfEntityOwner::*)()) &AIS_NListOfEntityOwner::First, "First item (non-const)");
-	cls_AIS_NListOfEntityOwner.def("Last", (const opencascade::handle<SelectMgr_EntityOwner> & (AIS_NListOfEntityOwner::*)() const ) &AIS_NListOfEntityOwner::Last, "Last item");
-	cls_AIS_NListOfEntityOwner.def("Last", (opencascade::handle<SelectMgr_EntityOwner> & (AIS_NListOfEntityOwner::*)()) &AIS_NListOfEntityOwner::Last, "Last item (non-const)");
-	cls_AIS_NListOfEntityOwner.def("Append", (opencascade::handle<SelectMgr_EntityOwner> & (AIS_NListOfEntityOwner::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &AIS_NListOfEntityOwner::Append, "Append one item at the end", py::arg("theItem"));
-	cls_AIS_NListOfEntityOwner.def("Append", (void (AIS_NListOfEntityOwner::*)(const opencascade::handle<SelectMgr_EntityOwner> &, AIS_NListOfEntityOwner::Iterator &)) &AIS_NListOfEntityOwner::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_AIS_NListOfEntityOwner.def("Append", (void (AIS_NListOfEntityOwner::*)(AIS_NListOfEntityOwner &)) &AIS_NListOfEntityOwner::Append, "Append another list at the end", py::arg("theOther"));
-	cls_AIS_NListOfEntityOwner.def("Prepend", (opencascade::handle<SelectMgr_EntityOwner> & (AIS_NListOfEntityOwner::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &AIS_NListOfEntityOwner::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_AIS_NListOfEntityOwner.def("Prepend", (void (AIS_NListOfEntityOwner::*)(AIS_NListOfEntityOwner &)) &AIS_NListOfEntityOwner::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_AIS_NListOfEntityOwner.def("RemoveFirst", (void (AIS_NListOfEntityOwner::*)()) &AIS_NListOfEntityOwner::RemoveFirst, "RemoveFirst item");
-	cls_AIS_NListOfEntityOwner.def("Remove", (void (AIS_NListOfEntityOwner::*)(AIS_NListOfEntityOwner::Iterator &)) &AIS_NListOfEntityOwner::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_AIS_NListOfEntityOwner.def("InsertBefore", (opencascade::handle<SelectMgr_EntityOwner> & (AIS_NListOfEntityOwner::*)(const opencascade::handle<SelectMgr_EntityOwner> &, AIS_NListOfEntityOwner::Iterator &)) &AIS_NListOfEntityOwner::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_AIS_NListOfEntityOwner.def("InsertBefore", (void (AIS_NListOfEntityOwner::*)(AIS_NListOfEntityOwner &, AIS_NListOfEntityOwner::Iterator &)) &AIS_NListOfEntityOwner::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_AIS_NListOfEntityOwner.def("InsertAfter", (opencascade::handle<SelectMgr_EntityOwner> & (AIS_NListOfEntityOwner::*)(const opencascade::handle<SelectMgr_EntityOwner> &, AIS_NListOfEntityOwner::Iterator &)) &AIS_NListOfEntityOwner::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_AIS_NListOfEntityOwner.def("InsertAfter", (void (AIS_NListOfEntityOwner::*)(AIS_NListOfEntityOwner &, AIS_NListOfEntityOwner::Iterator &)) &AIS_NListOfEntityOwner::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_AIS_NListOfEntityOwner.def("Reverse", (void (AIS_NListOfEntityOwner::*)()) &AIS_NListOfEntityOwner::Reverse, "Reverse the list");
-	cls_AIS_NListOfEntityOwner.def("__iter__", [](const AIS_NListOfEntityOwner &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	/* FIXME
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<AIS_DataMapOfILC, std::unique_ptr<AIS_DataMapOfILC, Deleter<AIS_DataMapOfILC>>, NCollection_BaseMap> cls_AIS_DataMapOfILC(mod, "AIS_DataMapOfILC", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_AIS_DataMapOfILC.def(py::init<>());
-	cls_AIS_DataMapOfILC.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_AIS_DataMapOfILC.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_AIS_DataMapOfILC.def(py::init([] (const AIS_DataMapOfILC &other) {return new AIS_DataMapOfILC(other);}), "Copy constructor", py::arg("other"));
-	cls_AIS_DataMapOfILC.def("begin", (AIS_DataMapOfILC::iterator (AIS_DataMapOfILC::*)() const ) &AIS_DataMapOfILC::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_AIS_DataMapOfILC.def("end", (AIS_DataMapOfILC::iterator (AIS_DataMapOfILC::*)() const ) &AIS_DataMapOfILC::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_AIS_DataMapOfILC.def("cbegin", (AIS_DataMapOfILC::const_iterator (AIS_DataMapOfILC::*)() const ) &AIS_DataMapOfILC::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_AIS_DataMapOfILC.def("cend", (AIS_DataMapOfILC::const_iterator (AIS_DataMapOfILC::*)() const ) &AIS_DataMapOfILC::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_AIS_DataMapOfILC.def("Exchange", (void (AIS_DataMapOfILC::*)(AIS_DataMapOfILC &)) &AIS_DataMapOfILC::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_AIS_DataMapOfILC.def("Assign", (AIS_DataMapOfILC & (AIS_DataMapOfILC::*)(const AIS_DataMapOfILC &)) &AIS_DataMapOfILC::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_AIS_DataMapOfILC.def("assign", (AIS_DataMapOfILC & (AIS_DataMapOfILC::*)(const AIS_DataMapOfILC &)) &AIS_DataMapOfILC::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_AIS_DataMapOfILC.def("ReSize", (void (AIS_DataMapOfILC::*)(const Standard_Integer)) &AIS_DataMapOfILC::ReSize, "ReSize", py::arg("N"));
-	cls_AIS_DataMapOfILC.def("Bind", (Standard_Boolean (AIS_DataMapOfILC::*)(const Standard_Integer &, const opencascade::handle<AIS_LocalContext> &)) &AIS_DataMapOfILC::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_AIS_DataMapOfILC.def("Bound", (opencascade::handle<AIS_LocalContext> * (AIS_DataMapOfILC::*)(const Standard_Integer &, const opencascade::handle<AIS_LocalContext> &)) &AIS_DataMapOfILC::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_AIS_DataMapOfILC.def("IsBound", (Standard_Boolean (AIS_DataMapOfILC::*)(const Standard_Integer &) const ) &AIS_DataMapOfILC::IsBound, "IsBound", py::arg("theKey"));
-	cls_AIS_DataMapOfILC.def("UnBind", (Standard_Boolean (AIS_DataMapOfILC::*)(const Standard_Integer &)) &AIS_DataMapOfILC::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapOfILC.def("Seek", (const opencascade::handle<AIS_LocalContext> * (AIS_DataMapOfILC::*)(const Standard_Integer &) const ) &AIS_DataMapOfILC::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapOfILC.def("Find", (const opencascade::handle<AIS_LocalContext> & (AIS_DataMapOfILC::*)(const Standard_Integer &) const ) &AIS_DataMapOfILC::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapOfILC.def("Find", (Standard_Boolean (AIS_DataMapOfILC::*)(const Standard_Integer &, opencascade::handle<AIS_LocalContext> &) const ) &AIS_DataMapOfILC::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_AIS_DataMapOfILC.def("__call__", (const opencascade::handle<AIS_LocalContext> & (AIS_DataMapOfILC::*)(const Standard_Integer &) const ) &AIS_DataMapOfILC::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapOfILC.def("ChangeSeek", (opencascade::handle<AIS_LocalContext> * (AIS_DataMapOfILC::*)(const Standard_Integer &)) &AIS_DataMapOfILC::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_AIS_DataMapOfILC.def("ChangeFind", (opencascade::handle<AIS_LocalContext> & (AIS_DataMapOfILC::*)(const Standard_Integer &)) &AIS_DataMapOfILC::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_AIS_DataMapOfILC.def("__call__", (opencascade::handle<AIS_LocalContext> & (AIS_DataMapOfILC::*)(const Standard_Integer &)) &AIS_DataMapOfILC::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_AIS_DataMapOfILC.def("Clear", [](AIS_DataMapOfILC &self) -> void { return self.Clear(); });
-	cls_AIS_DataMapOfILC.def("Clear", (void (AIS_DataMapOfILC::*)(const Standard_Boolean)) &AIS_DataMapOfILC::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_AIS_DataMapOfILC.def("Clear", (void (AIS_DataMapOfILC::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &AIS_DataMapOfILC::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_AIS_DataMapOfILC.def("Size", (Standard_Integer (AIS_DataMapOfILC::*)() const ) &AIS_DataMapOfILC::Size, "Size");
-	cls_AIS_DataMapOfILC.def("__iter__", [](const AIS_DataMapOfILC &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_SequenceOfInteractive.hxx
+	bind_NCollection_Sequence<opencascade::handle<AIS_InteractiveObject> >(mod, "AIS_SequenceOfInteractive");
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_NListOfEntityOwner.hxx
+	bind_NCollection_List<opencascade::handle<SelectMgr_EntityOwner> >(mod, "AIS_NListOfEntityOwner");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_DataMapOfILC.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<AIS_DataMapOfIOStatus, std::unique_ptr<AIS_DataMapOfIOStatus, Deleter<AIS_DataMapOfIOStatus>>, NCollection_BaseMap> cls_AIS_DataMapOfIOStatus(mod, "AIS_DataMapOfIOStatus", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_AIS_DataMapOfIOStatus.def(py::init<>());
-	cls_AIS_DataMapOfIOStatus.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_AIS_DataMapOfIOStatus.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_AIS_DataMapOfIOStatus.def(py::init([] (const AIS_DataMapOfIOStatus &other) {return new AIS_DataMapOfIOStatus(other);}), "Copy constructor", py::arg("other"));
-	cls_AIS_DataMapOfIOStatus.def("begin", (AIS_DataMapOfIOStatus::iterator (AIS_DataMapOfIOStatus::*)() const ) &AIS_DataMapOfIOStatus::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_AIS_DataMapOfIOStatus.def("end", (AIS_DataMapOfIOStatus::iterator (AIS_DataMapOfIOStatus::*)() const ) &AIS_DataMapOfIOStatus::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_AIS_DataMapOfIOStatus.def("cbegin", (AIS_DataMapOfIOStatus::const_iterator (AIS_DataMapOfIOStatus::*)() const ) &AIS_DataMapOfIOStatus::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_AIS_DataMapOfIOStatus.def("cend", (AIS_DataMapOfIOStatus::const_iterator (AIS_DataMapOfIOStatus::*)() const ) &AIS_DataMapOfIOStatus::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_AIS_DataMapOfIOStatus.def("Exchange", (void (AIS_DataMapOfIOStatus::*)(AIS_DataMapOfIOStatus &)) &AIS_DataMapOfIOStatus::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_AIS_DataMapOfIOStatus.def("Assign", (AIS_DataMapOfIOStatus & (AIS_DataMapOfIOStatus::*)(const AIS_DataMapOfIOStatus &)) &AIS_DataMapOfIOStatus::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_AIS_DataMapOfIOStatus.def("assign", (AIS_DataMapOfIOStatus & (AIS_DataMapOfIOStatus::*)(const AIS_DataMapOfIOStatus &)) &AIS_DataMapOfIOStatus::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_AIS_DataMapOfIOStatus.def("ReSize", (void (AIS_DataMapOfIOStatus::*)(const Standard_Integer)) &AIS_DataMapOfIOStatus::ReSize, "ReSize", py::arg("N"));
-	cls_AIS_DataMapOfIOStatus.def("Bind", (Standard_Boolean (AIS_DataMapOfIOStatus::*)(const opencascade::handle<AIS_InteractiveObject> &, const opencascade::handle<AIS_GlobalStatus> &)) &AIS_DataMapOfIOStatus::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_AIS_DataMapOfIOStatus.def("Bound", (opencascade::handle<AIS_GlobalStatus> * (AIS_DataMapOfIOStatus::*)(const opencascade::handle<AIS_InteractiveObject> &, const opencascade::handle<AIS_GlobalStatus> &)) &AIS_DataMapOfIOStatus::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_AIS_DataMapOfIOStatus.def("IsBound", (Standard_Boolean (AIS_DataMapOfIOStatus::*)(const opencascade::handle<AIS_InteractiveObject> &) const ) &AIS_DataMapOfIOStatus::IsBound, "IsBound", py::arg("theKey"));
-	cls_AIS_DataMapOfIOStatus.def("UnBind", (Standard_Boolean (AIS_DataMapOfIOStatus::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_DataMapOfIOStatus::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapOfIOStatus.def("Seek", (const opencascade::handle<AIS_GlobalStatus> * (AIS_DataMapOfIOStatus::*)(const opencascade::handle<AIS_InteractiveObject> &) const ) &AIS_DataMapOfIOStatus::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapOfIOStatus.def("Find", (const opencascade::handle<AIS_GlobalStatus> & (AIS_DataMapOfIOStatus::*)(const opencascade::handle<AIS_InteractiveObject> &) const ) &AIS_DataMapOfIOStatus::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapOfIOStatus.def("Find", (Standard_Boolean (AIS_DataMapOfIOStatus::*)(const opencascade::handle<AIS_InteractiveObject> &, opencascade::handle<AIS_GlobalStatus> &) const ) &AIS_DataMapOfIOStatus::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_AIS_DataMapOfIOStatus.def("__call__", (const opencascade::handle<AIS_GlobalStatus> & (AIS_DataMapOfIOStatus::*)(const opencascade::handle<AIS_InteractiveObject> &) const ) &AIS_DataMapOfIOStatus::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapOfIOStatus.def("ChangeSeek", (opencascade::handle<AIS_GlobalStatus> * (AIS_DataMapOfIOStatus::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_DataMapOfIOStatus::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_AIS_DataMapOfIOStatus.def("ChangeFind", (opencascade::handle<AIS_GlobalStatus> & (AIS_DataMapOfIOStatus::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_DataMapOfIOStatus::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_AIS_DataMapOfIOStatus.def("__call__", (opencascade::handle<AIS_GlobalStatus> & (AIS_DataMapOfIOStatus::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_DataMapOfIOStatus::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_AIS_DataMapOfIOStatus.def("Clear", [](AIS_DataMapOfIOStatus &self) -> void { return self.Clear(); });
-	cls_AIS_DataMapOfIOStatus.def("Clear", (void (AIS_DataMapOfIOStatus::*)(const Standard_Boolean)) &AIS_DataMapOfIOStatus::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_AIS_DataMapOfIOStatus.def("Clear", (void (AIS_DataMapOfIOStatus::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &AIS_DataMapOfIOStatus::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_AIS_DataMapOfIOStatus.def("Size", (Standard_Integer (AIS_DataMapOfIOStatus::*)() const ) &AIS_DataMapOfIOStatus::Size, "Size");
-	cls_AIS_DataMapOfIOStatus.def("__iter__", [](const AIS_DataMapOfIOStatus &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<int, opencascade::handle<AIS_LocalContext>, NCollection_DefaultHasher<int> >(mod, "AIS_DataMapOfILC");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_DataMapOfIOStatus.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<AIS_ListOfInteractive, std::unique_ptr<AIS_ListOfInteractive, Deleter<AIS_ListOfInteractive>>, NCollection_BaseList> cls_AIS_ListOfInteractive(mod, "AIS_ListOfInteractive", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_AIS_ListOfInteractive.def(py::init<>());
-	cls_AIS_ListOfInteractive.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_AIS_ListOfInteractive.def(py::init([] (const AIS_ListOfInteractive &other) {return new AIS_ListOfInteractive(other);}), "Copy constructor", py::arg("other"));
-	cls_AIS_ListOfInteractive.def("begin", (AIS_ListOfInteractive::iterator (AIS_ListOfInteractive::*)() const ) &AIS_ListOfInteractive::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_AIS_ListOfInteractive.def("end", (AIS_ListOfInteractive::iterator (AIS_ListOfInteractive::*)() const ) &AIS_ListOfInteractive::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_AIS_ListOfInteractive.def("cbegin", (AIS_ListOfInteractive::const_iterator (AIS_ListOfInteractive::*)() const ) &AIS_ListOfInteractive::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_AIS_ListOfInteractive.def("cend", (AIS_ListOfInteractive::const_iterator (AIS_ListOfInteractive::*)() const ) &AIS_ListOfInteractive::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_AIS_ListOfInteractive.def("Size", (Standard_Integer (AIS_ListOfInteractive::*)() const ) &AIS_ListOfInteractive::Size, "Size - Number of items");
-	cls_AIS_ListOfInteractive.def("Assign", (AIS_ListOfInteractive & (AIS_ListOfInteractive::*)(const AIS_ListOfInteractive &)) &AIS_ListOfInteractive::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_AIS_ListOfInteractive.def("assign", (AIS_ListOfInteractive & (AIS_ListOfInteractive::*)(const AIS_ListOfInteractive &)) &AIS_ListOfInteractive::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_AIS_ListOfInteractive.def("Clear", [](AIS_ListOfInteractive &self) -> void { return self.Clear(); });
-	cls_AIS_ListOfInteractive.def("Clear", (void (AIS_ListOfInteractive::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &AIS_ListOfInteractive::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_AIS_ListOfInteractive.def("First", (const opencascade::handle<AIS_InteractiveObject> & (AIS_ListOfInteractive::*)() const ) &AIS_ListOfInteractive::First, "First item");
-	cls_AIS_ListOfInteractive.def("First", (opencascade::handle<AIS_InteractiveObject> & (AIS_ListOfInteractive::*)()) &AIS_ListOfInteractive::First, "First item (non-const)");
-	cls_AIS_ListOfInteractive.def("Last", (const opencascade::handle<AIS_InteractiveObject> & (AIS_ListOfInteractive::*)() const ) &AIS_ListOfInteractive::Last, "Last item");
-	cls_AIS_ListOfInteractive.def("Last", (opencascade::handle<AIS_InteractiveObject> & (AIS_ListOfInteractive::*)()) &AIS_ListOfInteractive::Last, "Last item (non-const)");
-	cls_AIS_ListOfInteractive.def("Append", (opencascade::handle<AIS_InteractiveObject> & (AIS_ListOfInteractive::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_ListOfInteractive::Append, "Append one item at the end", py::arg("theItem"));
-	cls_AIS_ListOfInteractive.def("Append", (void (AIS_ListOfInteractive::*)(const opencascade::handle<AIS_InteractiveObject> &, AIS_ListOfInteractive::Iterator &)) &AIS_ListOfInteractive::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_AIS_ListOfInteractive.def("Append", (void (AIS_ListOfInteractive::*)(AIS_ListOfInteractive &)) &AIS_ListOfInteractive::Append, "Append another list at the end", py::arg("theOther"));
-	cls_AIS_ListOfInteractive.def("Prepend", (opencascade::handle<AIS_InteractiveObject> & (AIS_ListOfInteractive::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_ListOfInteractive::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_AIS_ListOfInteractive.def("Prepend", (void (AIS_ListOfInteractive::*)(AIS_ListOfInteractive &)) &AIS_ListOfInteractive::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_AIS_ListOfInteractive.def("RemoveFirst", (void (AIS_ListOfInteractive::*)()) &AIS_ListOfInteractive::RemoveFirst, "RemoveFirst item");
-	cls_AIS_ListOfInteractive.def("Remove", (void (AIS_ListOfInteractive::*)(AIS_ListOfInteractive::Iterator &)) &AIS_ListOfInteractive::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_AIS_ListOfInteractive.def("InsertBefore", (opencascade::handle<AIS_InteractiveObject> & (AIS_ListOfInteractive::*)(const opencascade::handle<AIS_InteractiveObject> &, AIS_ListOfInteractive::Iterator &)) &AIS_ListOfInteractive::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_AIS_ListOfInteractive.def("InsertBefore", (void (AIS_ListOfInteractive::*)(AIS_ListOfInteractive &, AIS_ListOfInteractive::Iterator &)) &AIS_ListOfInteractive::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_AIS_ListOfInteractive.def("InsertAfter", (opencascade::handle<AIS_InteractiveObject> & (AIS_ListOfInteractive::*)(const opencascade::handle<AIS_InteractiveObject> &, AIS_ListOfInteractive::Iterator &)) &AIS_ListOfInteractive::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_AIS_ListOfInteractive.def("InsertAfter", (void (AIS_ListOfInteractive::*)(AIS_ListOfInteractive &, AIS_ListOfInteractive::Iterator &)) &AIS_ListOfInteractive::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_AIS_ListOfInteractive.def("Reverse", (void (AIS_ListOfInteractive::*)()) &AIS_ListOfInteractive::Reverse, "Reverse the list");
-	cls_AIS_ListOfInteractive.def("__iter__", [](const AIS_ListOfInteractive &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<opencascade::handle<AIS_InteractiveObject>, opencascade::handle<AIS_GlobalStatus>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "AIS_DataMapOfIOStatus");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<AIS_ListIteratorOfListOfInteractive, std::unique_ptr<AIS_ListIteratorOfListOfInteractive, Deleter<AIS_ListIteratorOfListOfInteractive>>> cls_AIS_ListIteratorOfListOfInteractive(mod, "AIS_ListIteratorOfListOfInteractive", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_AIS_ListIteratorOfListOfInteractive.def(py::init<>());
-	cls_AIS_ListIteratorOfListOfInteractive.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_AIS_ListIteratorOfListOfInteractive.def("More", (Standard_Boolean (AIS_ListIteratorOfListOfInteractive::*)() const ) &AIS_ListIteratorOfListOfInteractive::More, "Check end");
-	cls_AIS_ListIteratorOfListOfInteractive.def("Next", (void (AIS_ListIteratorOfListOfInteractive::*)()) &AIS_ListIteratorOfListOfInteractive::Next, "Make step");
-	cls_AIS_ListIteratorOfListOfInteractive.def("Value", (const opencascade::handle<AIS_InteractiveObject> & (AIS_ListIteratorOfListOfInteractive::*)() const ) &AIS_ListIteratorOfListOfInteractive::Value, "Constant Value access");
-	cls_AIS_ListIteratorOfListOfInteractive.def("Value", (opencascade::handle<AIS_InteractiveObject> & (AIS_ListIteratorOfListOfInteractive::*)()) &AIS_ListIteratorOfListOfInteractive::Value, "Non-const Value access");
-	cls_AIS_ListIteratorOfListOfInteractive.def("ChangeValue", (opencascade::handle<AIS_InteractiveObject> & (AIS_ListIteratorOfListOfInteractive::*)() const ) &AIS_ListIteratorOfListOfInteractive::ChangeValue, "Non-const Value access");
+	/* FIXME
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<AIS_DataMapOfShapeDrawer, std::unique_ptr<AIS_DataMapOfShapeDrawer, Deleter<AIS_DataMapOfShapeDrawer>>, NCollection_BaseMap> cls_AIS_DataMapOfShapeDrawer(mod, "AIS_DataMapOfShapeDrawer", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_AIS_DataMapOfShapeDrawer.def(py::init<>());
-	cls_AIS_DataMapOfShapeDrawer.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_AIS_DataMapOfShapeDrawer.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_AIS_DataMapOfShapeDrawer.def(py::init([] (const AIS_DataMapOfShapeDrawer &other) {return new AIS_DataMapOfShapeDrawer(other);}), "Copy constructor", py::arg("other"));
-	cls_AIS_DataMapOfShapeDrawer.def("begin", (AIS_DataMapOfShapeDrawer::iterator (AIS_DataMapOfShapeDrawer::*)() const ) &AIS_DataMapOfShapeDrawer::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_AIS_DataMapOfShapeDrawer.def("end", (AIS_DataMapOfShapeDrawer::iterator (AIS_DataMapOfShapeDrawer::*)() const ) &AIS_DataMapOfShapeDrawer::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_AIS_DataMapOfShapeDrawer.def("cbegin", (AIS_DataMapOfShapeDrawer::const_iterator (AIS_DataMapOfShapeDrawer::*)() const ) &AIS_DataMapOfShapeDrawer::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_AIS_DataMapOfShapeDrawer.def("cend", (AIS_DataMapOfShapeDrawer::const_iterator (AIS_DataMapOfShapeDrawer::*)() const ) &AIS_DataMapOfShapeDrawer::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_AIS_DataMapOfShapeDrawer.def("Exchange", (void (AIS_DataMapOfShapeDrawer::*)(AIS_DataMapOfShapeDrawer &)) &AIS_DataMapOfShapeDrawer::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_AIS_DataMapOfShapeDrawer.def("Assign", (AIS_DataMapOfShapeDrawer & (AIS_DataMapOfShapeDrawer::*)(const AIS_DataMapOfShapeDrawer &)) &AIS_DataMapOfShapeDrawer::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_AIS_DataMapOfShapeDrawer.def("assign", (AIS_DataMapOfShapeDrawer & (AIS_DataMapOfShapeDrawer::*)(const AIS_DataMapOfShapeDrawer &)) &AIS_DataMapOfShapeDrawer::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_AIS_DataMapOfShapeDrawer.def("ReSize", (void (AIS_DataMapOfShapeDrawer::*)(const Standard_Integer)) &AIS_DataMapOfShapeDrawer::ReSize, "ReSize", py::arg("N"));
-	cls_AIS_DataMapOfShapeDrawer.def("Bind", (Standard_Boolean (AIS_DataMapOfShapeDrawer::*)(const TopoDS_Shape &, const opencascade::handle<AIS_ColoredDrawer> &)) &AIS_DataMapOfShapeDrawer::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_AIS_DataMapOfShapeDrawer.def("Bound", (opencascade::handle<AIS_ColoredDrawer> * (AIS_DataMapOfShapeDrawer::*)(const TopoDS_Shape &, const opencascade::handle<AIS_ColoredDrawer> &)) &AIS_DataMapOfShapeDrawer::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_AIS_DataMapOfShapeDrawer.def("IsBound", (Standard_Boolean (AIS_DataMapOfShapeDrawer::*)(const TopoDS_Shape &) const ) &AIS_DataMapOfShapeDrawer::IsBound, "IsBound", py::arg("theKey"));
-	cls_AIS_DataMapOfShapeDrawer.def("UnBind", (Standard_Boolean (AIS_DataMapOfShapeDrawer::*)(const TopoDS_Shape &)) &AIS_DataMapOfShapeDrawer::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapOfShapeDrawer.def("Seek", (const opencascade::handle<AIS_ColoredDrawer> * (AIS_DataMapOfShapeDrawer::*)(const TopoDS_Shape &) const ) &AIS_DataMapOfShapeDrawer::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapOfShapeDrawer.def("Find", (const opencascade::handle<AIS_ColoredDrawer> & (AIS_DataMapOfShapeDrawer::*)(const TopoDS_Shape &) const ) &AIS_DataMapOfShapeDrawer::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapOfShapeDrawer.def("Find", (Standard_Boolean (AIS_DataMapOfShapeDrawer::*)(const TopoDS_Shape &, opencascade::handle<AIS_ColoredDrawer> &) const ) &AIS_DataMapOfShapeDrawer::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_AIS_DataMapOfShapeDrawer.def("__call__", (const opencascade::handle<AIS_ColoredDrawer> & (AIS_DataMapOfShapeDrawer::*)(const TopoDS_Shape &) const ) &AIS_DataMapOfShapeDrawer::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapOfShapeDrawer.def("ChangeSeek", (opencascade::handle<AIS_ColoredDrawer> * (AIS_DataMapOfShapeDrawer::*)(const TopoDS_Shape &)) &AIS_DataMapOfShapeDrawer::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_AIS_DataMapOfShapeDrawer.def("ChangeFind", (opencascade::handle<AIS_ColoredDrawer> & (AIS_DataMapOfShapeDrawer::*)(const TopoDS_Shape &)) &AIS_DataMapOfShapeDrawer::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_AIS_DataMapOfShapeDrawer.def("__call__", (opencascade::handle<AIS_ColoredDrawer> & (AIS_DataMapOfShapeDrawer::*)(const TopoDS_Shape &)) &AIS_DataMapOfShapeDrawer::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_AIS_DataMapOfShapeDrawer.def("Clear", [](AIS_DataMapOfShapeDrawer &self) -> void { return self.Clear(); });
-	cls_AIS_DataMapOfShapeDrawer.def("Clear", (void (AIS_DataMapOfShapeDrawer::*)(const Standard_Boolean)) &AIS_DataMapOfShapeDrawer::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_AIS_DataMapOfShapeDrawer.def("Clear", (void (AIS_DataMapOfShapeDrawer::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &AIS_DataMapOfShapeDrawer::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_AIS_DataMapOfShapeDrawer.def("Size", (Standard_Integer (AIS_DataMapOfShapeDrawer::*)() const ) &AIS_DataMapOfShapeDrawer::Size, "Size");
-	cls_AIS_DataMapOfShapeDrawer.def("__iter__", [](const AIS_DataMapOfShapeDrawer &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	*/
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<AIS_DataMapofIntegerListOfinteractive, std::unique_ptr<AIS_DataMapofIntegerListOfinteractive, Deleter<AIS_DataMapofIntegerListOfinteractive>>, NCollection_BaseMap> cls_AIS_DataMapofIntegerListOfinteractive(mod, "AIS_DataMapofIntegerListOfinteractive", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_AIS_DataMapofIntegerListOfinteractive.def(py::init<>());
-	cls_AIS_DataMapofIntegerListOfinteractive.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_AIS_DataMapofIntegerListOfinteractive.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_AIS_DataMapofIntegerListOfinteractive.def(py::init([] (const AIS_DataMapofIntegerListOfinteractive &other) {return new AIS_DataMapofIntegerListOfinteractive(other);}), "Copy constructor", py::arg("other"));
-	cls_AIS_DataMapofIntegerListOfinteractive.def("begin", (AIS_DataMapofIntegerListOfinteractive::iterator (AIS_DataMapofIntegerListOfinteractive::*)() const ) &AIS_DataMapofIntegerListOfinteractive::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_AIS_DataMapofIntegerListOfinteractive.def("end", (AIS_DataMapofIntegerListOfinteractive::iterator (AIS_DataMapofIntegerListOfinteractive::*)() const ) &AIS_DataMapofIntegerListOfinteractive::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_AIS_DataMapofIntegerListOfinteractive.def("cbegin", (AIS_DataMapofIntegerListOfinteractive::const_iterator (AIS_DataMapofIntegerListOfinteractive::*)() const ) &AIS_DataMapofIntegerListOfinteractive::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_AIS_DataMapofIntegerListOfinteractive.def("cend", (AIS_DataMapofIntegerListOfinteractive::const_iterator (AIS_DataMapofIntegerListOfinteractive::*)() const ) &AIS_DataMapofIntegerListOfinteractive::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_AIS_DataMapofIntegerListOfinteractive.def("Exchange", (void (AIS_DataMapofIntegerListOfinteractive::*)(AIS_DataMapofIntegerListOfinteractive &)) &AIS_DataMapofIntegerListOfinteractive::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_AIS_DataMapofIntegerListOfinteractive.def("Assign", (AIS_DataMapofIntegerListOfinteractive & (AIS_DataMapofIntegerListOfinteractive::*)(const AIS_DataMapofIntegerListOfinteractive &)) &AIS_DataMapofIntegerListOfinteractive::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_AIS_DataMapofIntegerListOfinteractive.def("assign", (AIS_DataMapofIntegerListOfinteractive & (AIS_DataMapofIntegerListOfinteractive::*)(const AIS_DataMapofIntegerListOfinteractive &)) &AIS_DataMapofIntegerListOfinteractive::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_AIS_DataMapofIntegerListOfinteractive.def("ReSize", (void (AIS_DataMapofIntegerListOfinteractive::*)(const Standard_Integer)) &AIS_DataMapofIntegerListOfinteractive::ReSize, "ReSize", py::arg("N"));
-	cls_AIS_DataMapofIntegerListOfinteractive.def("Bind", (Standard_Boolean (AIS_DataMapofIntegerListOfinteractive::*)(const Standard_Integer &, const AIS_ListOfInteractive &)) &AIS_DataMapofIntegerListOfinteractive::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_AIS_DataMapofIntegerListOfinteractive.def("Bound", (AIS_ListOfInteractive * (AIS_DataMapofIntegerListOfinteractive::*)(const Standard_Integer &, const AIS_ListOfInteractive &)) &AIS_DataMapofIntegerListOfinteractive::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_AIS_DataMapofIntegerListOfinteractive.def("IsBound", (Standard_Boolean (AIS_DataMapofIntegerListOfinteractive::*)(const Standard_Integer &) const ) &AIS_DataMapofIntegerListOfinteractive::IsBound, "IsBound", py::arg("theKey"));
-	cls_AIS_DataMapofIntegerListOfinteractive.def("UnBind", (Standard_Boolean (AIS_DataMapofIntegerListOfinteractive::*)(const Standard_Integer &)) &AIS_DataMapofIntegerListOfinteractive::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapofIntegerListOfinteractive.def("Seek", (const AIS_ListOfInteractive * (AIS_DataMapofIntegerListOfinteractive::*)(const Standard_Integer &) const ) &AIS_DataMapofIntegerListOfinteractive::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapofIntegerListOfinteractive.def("Find", (const AIS_ListOfInteractive & (AIS_DataMapofIntegerListOfinteractive::*)(const Standard_Integer &) const ) &AIS_DataMapofIntegerListOfinteractive::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapofIntegerListOfinteractive.def("Find", (Standard_Boolean (AIS_DataMapofIntegerListOfinteractive::*)(const Standard_Integer &, AIS_ListOfInteractive &) const ) &AIS_DataMapofIntegerListOfinteractive::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_AIS_DataMapofIntegerListOfinteractive.def("__call__", (const AIS_ListOfInteractive & (AIS_DataMapofIntegerListOfinteractive::*)(const Standard_Integer &) const ) &AIS_DataMapofIntegerListOfinteractive::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_AIS_DataMapofIntegerListOfinteractive.def("ChangeSeek", (AIS_ListOfInteractive * (AIS_DataMapofIntegerListOfinteractive::*)(const Standard_Integer &)) &AIS_DataMapofIntegerListOfinteractive::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_AIS_DataMapofIntegerListOfinteractive.def("ChangeFind", (AIS_ListOfInteractive & (AIS_DataMapofIntegerListOfinteractive::*)(const Standard_Integer &)) &AIS_DataMapofIntegerListOfinteractive::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_AIS_DataMapofIntegerListOfinteractive.def("__call__", (AIS_ListOfInteractive & (AIS_DataMapofIntegerListOfinteractive::*)(const Standard_Integer &)) &AIS_DataMapofIntegerListOfinteractive::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_AIS_DataMapofIntegerListOfinteractive.def("Clear", [](AIS_DataMapofIntegerListOfinteractive &self) -> void { return self.Clear(); });
-	cls_AIS_DataMapofIntegerListOfinteractive.def("Clear", (void (AIS_DataMapofIntegerListOfinteractive::*)(const Standard_Boolean)) &AIS_DataMapofIntegerListOfinteractive::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_AIS_DataMapofIntegerListOfinteractive.def("Clear", (void (AIS_DataMapofIntegerListOfinteractive::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &AIS_DataMapofIntegerListOfinteractive::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_AIS_DataMapofIntegerListOfinteractive.def("Size", (Standard_Integer (AIS_DataMapofIntegerListOfinteractive::*)() const ) &AIS_DataMapofIntegerListOfinteractive::Size, "Size");
-	cls_AIS_DataMapofIntegerListOfinteractive.def("__iter__", [](const AIS_DataMapofIntegerListOfinteractive &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_ListOfInteractive.hxx
+	bind_NCollection_List<opencascade::handle<AIS_InteractiveObject> >(mod, "AIS_ListOfInteractive");
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_ListOfInteractive.hxx
+	bind_NCollection_TListIterator<opencascade::handle<AIS_InteractiveObject> >(mod, "AIS_ListIteratorOfListOfInteractive");
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_DataMapOfShapeDrawer.hxx
+	bind_NCollection_DataMap<TopoDS_Shape, opencascade::handle<AIS_ColoredDrawer>, TopTools_ShapeMapHasher>(mod, "AIS_DataMapOfShapeDrawer");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_DataMapofIntegerListOfinteractive.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_IndexedDataMap.hxx
-	py::class_<AIS_IndexedDataMapOfOwnerPrs, std::unique_ptr<AIS_IndexedDataMapOfOwnerPrs, Deleter<AIS_IndexedDataMapOfOwnerPrs>>, NCollection_BaseMap> cls_AIS_IndexedDataMapOfOwnerPrs(mod, "AIS_IndexedDataMapOfOwnerPrs", "Purpose: An indexed map is used to store keys and to bind an index to them. Each new key stored in the map gets an index. Index are incremented as keys are stored in the map. A key can be found by the index and an index by the key. No key but the last can be removed so the indices are in the range 1.. Extent. An Item is stored with each key.");
-	cls_AIS_IndexedDataMapOfOwnerPrs.def(py::init<>());
-	cls_AIS_IndexedDataMapOfOwnerPrs.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def(py::init([] (const AIS_IndexedDataMapOfOwnerPrs &other) {return new AIS_IndexedDataMapOfOwnerPrs(other);}), "Copy constructor", py::arg("other"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("begin", (AIS_IndexedDataMapOfOwnerPrs::iterator (AIS_IndexedDataMapOfOwnerPrs::*)() const ) &AIS_IndexedDataMapOfOwnerPrs::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("end", (AIS_IndexedDataMapOfOwnerPrs::iterator (AIS_IndexedDataMapOfOwnerPrs::*)() const ) &AIS_IndexedDataMapOfOwnerPrs::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("cbegin", (AIS_IndexedDataMapOfOwnerPrs::const_iterator (AIS_IndexedDataMapOfOwnerPrs::*)() const ) &AIS_IndexedDataMapOfOwnerPrs::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("cend", (AIS_IndexedDataMapOfOwnerPrs::const_iterator (AIS_IndexedDataMapOfOwnerPrs::*)() const ) &AIS_IndexedDataMapOfOwnerPrs::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("Exchange", (void (AIS_IndexedDataMapOfOwnerPrs::*)(AIS_IndexedDataMapOfOwnerPrs &)) &AIS_IndexedDataMapOfOwnerPrs::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("Assign", (AIS_IndexedDataMapOfOwnerPrs & (AIS_IndexedDataMapOfOwnerPrs::*)(const AIS_IndexedDataMapOfOwnerPrs &)) &AIS_IndexedDataMapOfOwnerPrs::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("assign", (AIS_IndexedDataMapOfOwnerPrs & (AIS_IndexedDataMapOfOwnerPrs::*)(const AIS_IndexedDataMapOfOwnerPrs &)) &AIS_IndexedDataMapOfOwnerPrs::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("ReSize", (void (AIS_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer)) &AIS_IndexedDataMapOfOwnerPrs::ReSize, "ReSize", py::arg("N"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("Add", (Standard_Integer (AIS_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_IndexedDataMapOfOwnerPrs::Add, "Add", py::arg("theKey1"), py::arg("theItem"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("Contains", (Standard_Boolean (AIS_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectMgr_EntityOwner> &) const ) &AIS_IndexedDataMapOfOwnerPrs::Contains, "Contains", py::arg("theKey1"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("Substitute", (void (AIS_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer, const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_IndexedDataMapOfOwnerPrs::Substitute, "Substitute", py::arg("theIndex"), py::arg("theKey1"), py::arg("theItem"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("Swap", (void (AIS_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer, const Standard_Integer)) &AIS_IndexedDataMapOfOwnerPrs::Swap, "Swaps two elements with the given indices.", py::arg("theIndex1"), py::arg("theIndex2"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("RemoveLast", (void (AIS_IndexedDataMapOfOwnerPrs::*)()) &AIS_IndexedDataMapOfOwnerPrs::RemoveLast, "RemoveLast");
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("RemoveFromIndex", (void (AIS_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer)) &AIS_IndexedDataMapOfOwnerPrs::RemoveFromIndex, "Remove the key of the given index. Caution! The index of the last key can be changed.", py::arg("theKey2"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("RemoveKey", (void (AIS_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &AIS_IndexedDataMapOfOwnerPrs::RemoveKey, "Remove the given key. Caution! The index of the last key can be changed.", py::arg("theKey1"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("FindKey", (const opencascade::handle<SelectMgr_EntityOwner> & (AIS_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer) const ) &AIS_IndexedDataMapOfOwnerPrs::FindKey, "FindKey", py::arg("theKey2"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("FindFromIndex", (const opencascade::handle<Prs3d_Presentation> & (AIS_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer) const ) &AIS_IndexedDataMapOfOwnerPrs::FindFromIndex, "FindFromIndex", py::arg("theKey2"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("__call__", (const opencascade::handle<Prs3d_Presentation> & (AIS_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer) const ) &AIS_IndexedDataMapOfOwnerPrs::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("ChangeFromIndex", (opencascade::handle<Prs3d_Presentation> & (AIS_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer)) &AIS_IndexedDataMapOfOwnerPrs::ChangeFromIndex, "ChangeFromIndex", py::arg("theKey2"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("__call__", (opencascade::handle<Prs3d_Presentation> & (AIS_IndexedDataMapOfOwnerPrs::*)(const Standard_Integer)) &AIS_IndexedDataMapOfOwnerPrs::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("FindIndex", (Standard_Integer (AIS_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectMgr_EntityOwner> &) const ) &AIS_IndexedDataMapOfOwnerPrs::FindIndex, "FindIndex", py::arg("theKey1"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("FindFromKey", (const opencascade::handle<Prs3d_Presentation> & (AIS_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectMgr_EntityOwner> &) const ) &AIS_IndexedDataMapOfOwnerPrs::FindFromKey, "FindFromKey", py::arg("theKey1"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("ChangeFromKey", (opencascade::handle<Prs3d_Presentation> & (AIS_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &AIS_IndexedDataMapOfOwnerPrs::ChangeFromKey, "ChangeFromKey", py::arg("theKey1"));
-	// FIXME cls_AIS_IndexedDataMapOfOwnerPrs.def("Seek", (const opencascade::handle<Prs3d_Presentation> * (AIS_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectMgr_EntityOwner> &) const ) &AIS_IndexedDataMapOfOwnerPrs::Seek, "Seek returns pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	// FIXME cls_AIS_IndexedDataMapOfOwnerPrs.def("ChangeSeek", (opencascade::handle<Prs3d_Presentation> * (AIS_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &AIS_IndexedDataMapOfOwnerPrs::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("FindFromKey", (Standard_Boolean (AIS_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<SelectMgr_EntityOwner> &, opencascade::handle<Prs3d_Presentation> &) const ) &AIS_IndexedDataMapOfOwnerPrs::FindFromKey, "Find value for key with copying.", py::arg("theKey1"), py::arg("theValue"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("Clear", [](AIS_IndexedDataMapOfOwnerPrs &self) -> void { return self.Clear(); });
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("Clear", (void (AIS_IndexedDataMapOfOwnerPrs::*)(const Standard_Boolean)) &AIS_IndexedDataMapOfOwnerPrs::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("Clear", (void (AIS_IndexedDataMapOfOwnerPrs::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &AIS_IndexedDataMapOfOwnerPrs::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("Size", (Standard_Integer (AIS_IndexedDataMapOfOwnerPrs::*)() const ) &AIS_IndexedDataMapOfOwnerPrs::Size, "Size");
-	cls_AIS_IndexedDataMapOfOwnerPrs.def("__iter__", [](const AIS_IndexedDataMapOfOwnerPrs &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<int, NCollection_List<opencascade::handle<AIS_InteractiveObject> >, NCollection_DefaultHasher<int> >(mod, "AIS_DataMapofIntegerListOfinteractive");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Map.hxx
-	py::class_<AIS_MapOfInteractive, std::unique_ptr<AIS_MapOfInteractive, Deleter<AIS_MapOfInteractive>>, NCollection_BaseMap> cls_AIS_MapOfInteractive(mod, "AIS_MapOfInteractive", "Purpose: Single hashed Map. This Map is used to store and retrieve keys in linear time.");
-	cls_AIS_MapOfInteractive.def(py::init<>());
-	cls_AIS_MapOfInteractive.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_AIS_MapOfInteractive.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_AIS_MapOfInteractive.def(py::init([] (const AIS_MapOfInteractive &other) {return new AIS_MapOfInteractive(other);}), "Copy constructor", py::arg("other"));
-	cls_AIS_MapOfInteractive.def("cbegin", (AIS_MapOfInteractive::const_iterator (AIS_MapOfInteractive::*)() const ) &AIS_MapOfInteractive::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_AIS_MapOfInteractive.def("cend", (AIS_MapOfInteractive::const_iterator (AIS_MapOfInteractive::*)() const ) &AIS_MapOfInteractive::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_AIS_MapOfInteractive.def("Exchange", (void (AIS_MapOfInteractive::*)(AIS_MapOfInteractive &)) &AIS_MapOfInteractive::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_AIS_MapOfInteractive.def("Assign", (AIS_MapOfInteractive & (AIS_MapOfInteractive::*)(const AIS_MapOfInteractive &)) &AIS_MapOfInteractive::Assign, "Assign. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_AIS_MapOfInteractive.def("assign", (AIS_MapOfInteractive & (AIS_MapOfInteractive::*)(const AIS_MapOfInteractive &)) &AIS_MapOfInteractive::operator=, py::is_operator(), "Assign operator", py::arg("theOther"));
-	cls_AIS_MapOfInteractive.def("ReSize", (void (AIS_MapOfInteractive::*)(const Standard_Integer)) &AIS_MapOfInteractive::ReSize, "ReSize", py::arg("N"));
-	cls_AIS_MapOfInteractive.def("Add", (Standard_Boolean (AIS_MapOfInteractive::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_MapOfInteractive::Add, "Add", py::arg("K"));
-	cls_AIS_MapOfInteractive.def("Added", (const opencascade::handle<AIS_InteractiveObject> & (AIS_MapOfInteractive::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_MapOfInteractive::Added, "Added: add a new key if not yet in the map, and return reference to either newly added or previously existing object", py::arg("K"));
-	cls_AIS_MapOfInteractive.def("Contains", (Standard_Boolean (AIS_MapOfInteractive::*)(const opencascade::handle<AIS_InteractiveObject> &) const ) &AIS_MapOfInteractive::Contains, "Contains", py::arg("K"));
-	cls_AIS_MapOfInteractive.def("Remove", (Standard_Boolean (AIS_MapOfInteractive::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_MapOfInteractive::Remove, "Remove", py::arg("K"));
-	cls_AIS_MapOfInteractive.def("Clear", [](AIS_MapOfInteractive &self) -> void { return self.Clear(); });
-	cls_AIS_MapOfInteractive.def("Clear", (void (AIS_MapOfInteractive::*)(const Standard_Boolean)) &AIS_MapOfInteractive::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_AIS_MapOfInteractive.def("Clear", (void (AIS_MapOfInteractive::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &AIS_MapOfInteractive::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_AIS_MapOfInteractive.def("Size", (Standard_Integer (AIS_MapOfInteractive::*)() const ) &AIS_MapOfInteractive::Size, "Size");
-	cls_AIS_MapOfInteractive.def("IsEqual", (Standard_Boolean (AIS_MapOfInteractive::*)(const AIS_MapOfInteractive &) const ) &AIS_MapOfInteractive::IsEqual, "Returns true if two maps contains exactly the same keys", py::arg("theOther"));
-	cls_AIS_MapOfInteractive.def("Contains", (Standard_Boolean (AIS_MapOfInteractive::*)(const AIS_MapOfInteractive &) const ) &AIS_MapOfInteractive::Contains, "Returns true if this map contains ALL keys of another map.", py::arg("theOther"));
-	cls_AIS_MapOfInteractive.def("Union", (void (AIS_MapOfInteractive::*)(const AIS_MapOfInteractive &, const AIS_MapOfInteractive &)) &AIS_MapOfInteractive::Union, "Sets this Map to be the result of union (aka addition, fuse, merge, boolean OR) operation between two given Maps The new Map contains the values that are contained either in the first map or in the second map or in both. All previous content of this Map is cleared. This map (result of the boolean operation) can also be passed as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_AIS_MapOfInteractive.def("Unite", (Standard_Boolean (AIS_MapOfInteractive::*)(const AIS_MapOfInteractive &)) &AIS_MapOfInteractive::Unite, "Apply to this Map the boolean operation union (aka addition, fuse, merge, boolean OR) with another (given) Map. The result contains the values that were previously contained in this map or contained in the given (operand) map. This algorithm is similar to method Union(). Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_AIS_MapOfInteractive.def("HasIntersection", (Standard_Boolean (AIS_MapOfInteractive::*)(const AIS_MapOfInteractive &) const ) &AIS_MapOfInteractive::HasIntersection, "Returns true if this and theMap have common elements.", py::arg("theMap"));
-	cls_AIS_MapOfInteractive.def("Intersection", (void (AIS_MapOfInteractive::*)(const AIS_MapOfInteractive &, const AIS_MapOfInteractive &)) &AIS_MapOfInteractive::Intersection, "Sets this Map to be the result of intersection (aka multiplication, common, boolean AND) operation between two given Maps. The new Map contains only the values that are contained in both map operands. All previous content of this Map is cleared. This same map (result of the boolean operation) can also be used as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_AIS_MapOfInteractive.def("Intersect", (Standard_Boolean (AIS_MapOfInteractive::*)(const AIS_MapOfInteractive &)) &AIS_MapOfInteractive::Intersect, "Apply to this Map the intersection operation (aka multiplication, common, boolean AND) with another (given) Map. The result contains only the values that are contained in both this and the given maps. This algorithm is similar to method Intersection(). Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_AIS_MapOfInteractive.def("Subtraction", (void (AIS_MapOfInteractive::*)(const AIS_MapOfInteractive &, const AIS_MapOfInteractive &)) &AIS_MapOfInteractive::Subtraction, "Sets this Map to be the result of subtraction (aka set-theoretic difference, relative complement, exclude, cut, boolean NOT) operation between two given Maps. The new Map contains only the values that are contained in the first map operands and not contained in the second one. All previous content of this Map is cleared.", py::arg("theLeft"), py::arg("theRight"));
-	cls_AIS_MapOfInteractive.def("Subtract", (Standard_Boolean (AIS_MapOfInteractive::*)(const AIS_MapOfInteractive &)) &AIS_MapOfInteractive::Subtract, "Apply to this Map the subtraction (aka set-theoretic difference, relative complement, exclude, cut, boolean NOT) operation with another (given) Map. The result contains only the values that were previously contained in this map and not contained in this map. This algorithm is similar to method Subtract() with two operands. Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_AIS_MapOfInteractive.def("Difference", (void (AIS_MapOfInteractive::*)(const AIS_MapOfInteractive &, const AIS_MapOfInteractive &)) &AIS_MapOfInteractive::Difference, "Sets this Map to be the result of symmetric difference (aka exclusive disjunction, boolean XOR) operation between two given Maps. The new Map contains the values that are contained only in the first or the second operand maps but not in both. All previous content of this Map is cleared. This map (result of the boolean operation) can also be used as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_AIS_MapOfInteractive.def("Differ", (Standard_Boolean (AIS_MapOfInteractive::*)(const AIS_MapOfInteractive &)) &AIS_MapOfInteractive::Differ, "Apply to this Map the symmetric difference (aka exclusive disjunction, boolean XOR) operation with another (given) Map. The result contains the values that are contained only in this or the operand map, but not in both. This algorithm is similar to method Difference(). Returns True if contents of this map is changed.", py::arg("theOther"));
+	/* FIXME
+
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_IndexedDataMapOfOwnerPrs.hxx
+	bind_NCollection_IndexedDataMap<opencascade::handle<SelectMgr_EntityOwner>, opencascade::handle<Prs3d_Presentation>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "AIS_IndexedDataMapOfOwnerPrs");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_MapOfInteractive.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<AIS_SequenceOfDimension, std::unique_ptr<AIS_SequenceOfDimension, Deleter<AIS_SequenceOfDimension>>, NCollection_BaseSequence> cls_AIS_SequenceOfDimension(mod, "AIS_SequenceOfDimension", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_AIS_SequenceOfDimension.def(py::init<>());
-	cls_AIS_SequenceOfDimension.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_AIS_SequenceOfDimension.def(py::init([] (const AIS_SequenceOfDimension &other) {return new AIS_SequenceOfDimension(other);}), "Copy constructor", py::arg("other"));
-	cls_AIS_SequenceOfDimension.def("begin", (AIS_SequenceOfDimension::iterator (AIS_SequenceOfDimension::*)() const ) &AIS_SequenceOfDimension::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_AIS_SequenceOfDimension.def("end", (AIS_SequenceOfDimension::iterator (AIS_SequenceOfDimension::*)() const ) &AIS_SequenceOfDimension::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_AIS_SequenceOfDimension.def("cbegin", (AIS_SequenceOfDimension::const_iterator (AIS_SequenceOfDimension::*)() const ) &AIS_SequenceOfDimension::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_AIS_SequenceOfDimension.def("cend", (AIS_SequenceOfDimension::const_iterator (AIS_SequenceOfDimension::*)() const ) &AIS_SequenceOfDimension::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_AIS_SequenceOfDimension.def("Size", (Standard_Integer (AIS_SequenceOfDimension::*)() const ) &AIS_SequenceOfDimension::Size, "Number of items");
-	cls_AIS_SequenceOfDimension.def("Length", (Standard_Integer (AIS_SequenceOfDimension::*)() const ) &AIS_SequenceOfDimension::Length, "Number of items");
-	cls_AIS_SequenceOfDimension.def("Lower", (Standard_Integer (AIS_SequenceOfDimension::*)() const ) &AIS_SequenceOfDimension::Lower, "Method for consistency with other collections.");
-	cls_AIS_SequenceOfDimension.def("Upper", (Standard_Integer (AIS_SequenceOfDimension::*)() const ) &AIS_SequenceOfDimension::Upper, "Method for consistency with other collections.");
-	cls_AIS_SequenceOfDimension.def("IsEmpty", (Standard_Boolean (AIS_SequenceOfDimension::*)() const ) &AIS_SequenceOfDimension::IsEmpty, "Empty query");
-	cls_AIS_SequenceOfDimension.def("Reverse", (void (AIS_SequenceOfDimension::*)()) &AIS_SequenceOfDimension::Reverse, "Reverse sequence");
-	cls_AIS_SequenceOfDimension.def("Exchange", (void (AIS_SequenceOfDimension::*)(const Standard_Integer, const Standard_Integer)) &AIS_SequenceOfDimension::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_AIS_SequenceOfDimension.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &AIS_SequenceOfDimension::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_AIS_SequenceOfDimension.def("Clear", [](AIS_SequenceOfDimension &self) -> void { return self.Clear(); });
-	cls_AIS_SequenceOfDimension.def("Clear", (void (AIS_SequenceOfDimension::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &AIS_SequenceOfDimension::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_AIS_SequenceOfDimension.def("Assign", (AIS_SequenceOfDimension & (AIS_SequenceOfDimension::*)(const AIS_SequenceOfDimension &)) &AIS_SequenceOfDimension::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_AIS_SequenceOfDimension.def("assign", (AIS_SequenceOfDimension & (AIS_SequenceOfDimension::*)(const AIS_SequenceOfDimension &)) &AIS_SequenceOfDimension::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_AIS_SequenceOfDimension.def("Remove", (void (AIS_SequenceOfDimension::*)(AIS_SequenceOfDimension::Iterator &)) &AIS_SequenceOfDimension::Remove, "Remove one item", py::arg("thePosition"));
-	cls_AIS_SequenceOfDimension.def("Remove", (void (AIS_SequenceOfDimension::*)(const Standard_Integer)) &AIS_SequenceOfDimension::Remove, "Remove one item", py::arg("theIndex"));
-	cls_AIS_SequenceOfDimension.def("Remove", (void (AIS_SequenceOfDimension::*)(const Standard_Integer, const Standard_Integer)) &AIS_SequenceOfDimension::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_AIS_SequenceOfDimension.def("Append", (void (AIS_SequenceOfDimension::*)(const opencascade::handle<AIS_Relation> &)) &AIS_SequenceOfDimension::Append, "Append one item", py::arg("theItem"));
-	cls_AIS_SequenceOfDimension.def("Append", (void (AIS_SequenceOfDimension::*)(AIS_SequenceOfDimension &)) &AIS_SequenceOfDimension::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_AIS_SequenceOfDimension.def("Prepend", (void (AIS_SequenceOfDimension::*)(const opencascade::handle<AIS_Relation> &)) &AIS_SequenceOfDimension::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_AIS_SequenceOfDimension.def("Prepend", (void (AIS_SequenceOfDimension::*)(AIS_SequenceOfDimension &)) &AIS_SequenceOfDimension::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_AIS_SequenceOfDimension.def("InsertBefore", (void (AIS_SequenceOfDimension::*)(const Standard_Integer, const opencascade::handle<AIS_Relation> &)) &AIS_SequenceOfDimension::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_AIS_SequenceOfDimension.def("InsertBefore", (void (AIS_SequenceOfDimension::*)(const Standard_Integer, AIS_SequenceOfDimension &)) &AIS_SequenceOfDimension::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AIS_SequenceOfDimension.def("InsertAfter", (void (AIS_SequenceOfDimension::*)(AIS_SequenceOfDimension::Iterator &, const opencascade::handle<AIS_Relation> &)) &AIS_SequenceOfDimension::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_AIS_SequenceOfDimension.def("InsertAfter", (void (AIS_SequenceOfDimension::*)(const Standard_Integer, AIS_SequenceOfDimension &)) &AIS_SequenceOfDimension::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AIS_SequenceOfDimension.def("InsertAfter", (void (AIS_SequenceOfDimension::*)(const Standard_Integer, const opencascade::handle<AIS_Relation> &)) &AIS_SequenceOfDimension::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_AIS_SequenceOfDimension.def("Split", (void (AIS_SequenceOfDimension::*)(const Standard_Integer, AIS_SequenceOfDimension &)) &AIS_SequenceOfDimension::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_AIS_SequenceOfDimension.def("First", (const opencascade::handle<AIS_Relation> & (AIS_SequenceOfDimension::*)() const ) &AIS_SequenceOfDimension::First, "First item access");
-	cls_AIS_SequenceOfDimension.def("ChangeFirst", (opencascade::handle<AIS_Relation> & (AIS_SequenceOfDimension::*)()) &AIS_SequenceOfDimension::ChangeFirst, "First item access");
-	cls_AIS_SequenceOfDimension.def("Last", (const opencascade::handle<AIS_Relation> & (AIS_SequenceOfDimension::*)() const ) &AIS_SequenceOfDimension::Last, "Last item access");
-	cls_AIS_SequenceOfDimension.def("ChangeLast", (opencascade::handle<AIS_Relation> & (AIS_SequenceOfDimension::*)()) &AIS_SequenceOfDimension::ChangeLast, "Last item access");
-	cls_AIS_SequenceOfDimension.def("Value", (const opencascade::handle<AIS_Relation> & (AIS_SequenceOfDimension::*)(const Standard_Integer) const ) &AIS_SequenceOfDimension::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_AIS_SequenceOfDimension.def("__call__", (const opencascade::handle<AIS_Relation> & (AIS_SequenceOfDimension::*)(const Standard_Integer) const ) &AIS_SequenceOfDimension::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_AIS_SequenceOfDimension.def("ChangeValue", (opencascade::handle<AIS_Relation> & (AIS_SequenceOfDimension::*)(const Standard_Integer)) &AIS_SequenceOfDimension::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_AIS_SequenceOfDimension.def("__call__", (opencascade::handle<AIS_Relation> & (AIS_SequenceOfDimension::*)(const Standard_Integer)) &AIS_SequenceOfDimension::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_AIS_SequenceOfDimension.def("SetValue", (void (AIS_SequenceOfDimension::*)(const Standard_Integer, const opencascade::handle<AIS_Relation> &)) &AIS_SequenceOfDimension::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_AIS_SequenceOfDimension.def("__iter__", [](const AIS_SequenceOfDimension &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_Map<opencascade::handle<AIS_InteractiveObject>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "AIS_MapOfInteractive");
+
+	/* FIXME
+
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AIS_SequenceOfDimension.hxx
+	bind_NCollection_Sequence<opencascade::handle<AIS_Relation> >(mod, "AIS_SequenceOfDimension");
 
 
 }

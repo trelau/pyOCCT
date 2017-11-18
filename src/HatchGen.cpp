@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <HatchGen_IntersectionType.hxx>
 #include <Standard_TypeDef.hxx>
@@ -26,6 +17,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <HatchGen_ErrorStatus.hxx>
 #include <HatchGen_Domain.hxx>
 #include <HatchGen_Domains.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(HatchGen, mod) {
 
@@ -126,140 +118,14 @@ PYBIND11_MODULE(HatchGen, mod) {
 	// FIXME cls_HatchGen_Domain.def("Dump", [](HatchGen_Domain &self) -> void { return self.Dump(); });
 	// FIXME cls_HatchGen_Domain.def("Dump", (void (HatchGen_Domain::*)(const Standard_Integer) const ) &HatchGen_Domain::Dump, "Dump of the domain.", py::arg("Index"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<HatchGen_PointsOnElement, std::unique_ptr<HatchGen_PointsOnElement, Deleter<HatchGen_PointsOnElement>>, NCollection_BaseSequence> cls_HatchGen_PointsOnElement(mod, "HatchGen_PointsOnElement", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_HatchGen_PointsOnElement.def(py::init<>());
-	cls_HatchGen_PointsOnElement.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_HatchGen_PointsOnElement.def(py::init([] (const HatchGen_PointsOnElement &other) {return new HatchGen_PointsOnElement(other);}), "Copy constructor", py::arg("other"));
-	cls_HatchGen_PointsOnElement.def("begin", (HatchGen_PointsOnElement::iterator (HatchGen_PointsOnElement::*)() const ) &HatchGen_PointsOnElement::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_HatchGen_PointsOnElement.def("end", (HatchGen_PointsOnElement::iterator (HatchGen_PointsOnElement::*)() const ) &HatchGen_PointsOnElement::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_HatchGen_PointsOnElement.def("cbegin", (HatchGen_PointsOnElement::const_iterator (HatchGen_PointsOnElement::*)() const ) &HatchGen_PointsOnElement::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_HatchGen_PointsOnElement.def("cend", (HatchGen_PointsOnElement::const_iterator (HatchGen_PointsOnElement::*)() const ) &HatchGen_PointsOnElement::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_HatchGen_PointsOnElement.def("Size", (Standard_Integer (HatchGen_PointsOnElement::*)() const ) &HatchGen_PointsOnElement::Size, "Number of items");
-	cls_HatchGen_PointsOnElement.def("Length", (Standard_Integer (HatchGen_PointsOnElement::*)() const ) &HatchGen_PointsOnElement::Length, "Number of items");
-	cls_HatchGen_PointsOnElement.def("Lower", (Standard_Integer (HatchGen_PointsOnElement::*)() const ) &HatchGen_PointsOnElement::Lower, "Method for consistency with other collections.");
-	cls_HatchGen_PointsOnElement.def("Upper", (Standard_Integer (HatchGen_PointsOnElement::*)() const ) &HatchGen_PointsOnElement::Upper, "Method for consistency with other collections.");
-	cls_HatchGen_PointsOnElement.def("IsEmpty", (Standard_Boolean (HatchGen_PointsOnElement::*)() const ) &HatchGen_PointsOnElement::IsEmpty, "Empty query");
-	cls_HatchGen_PointsOnElement.def("Reverse", (void (HatchGen_PointsOnElement::*)()) &HatchGen_PointsOnElement::Reverse, "Reverse sequence");
-	cls_HatchGen_PointsOnElement.def("Exchange", (void (HatchGen_PointsOnElement::*)(const Standard_Integer, const Standard_Integer)) &HatchGen_PointsOnElement::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_HatchGen_PointsOnElement.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &HatchGen_PointsOnElement::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_HatchGen_PointsOnElement.def("Clear", [](HatchGen_PointsOnElement &self) -> void { return self.Clear(); });
-	cls_HatchGen_PointsOnElement.def("Clear", (void (HatchGen_PointsOnElement::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &HatchGen_PointsOnElement::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_HatchGen_PointsOnElement.def("Assign", (HatchGen_PointsOnElement & (HatchGen_PointsOnElement::*)(const HatchGen_PointsOnElement &)) &HatchGen_PointsOnElement::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_HatchGen_PointsOnElement.def("assign", (HatchGen_PointsOnElement & (HatchGen_PointsOnElement::*)(const HatchGen_PointsOnElement &)) &HatchGen_PointsOnElement::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_HatchGen_PointsOnElement.def("Remove", (void (HatchGen_PointsOnElement::*)(HatchGen_PointsOnElement::Iterator &)) &HatchGen_PointsOnElement::Remove, "Remove one item", py::arg("thePosition"));
-	cls_HatchGen_PointsOnElement.def("Remove", (void (HatchGen_PointsOnElement::*)(const Standard_Integer)) &HatchGen_PointsOnElement::Remove, "Remove one item", py::arg("theIndex"));
-	cls_HatchGen_PointsOnElement.def("Remove", (void (HatchGen_PointsOnElement::*)(const Standard_Integer, const Standard_Integer)) &HatchGen_PointsOnElement::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_HatchGen_PointsOnElement.def("Append", (void (HatchGen_PointsOnElement::*)(const HatchGen_PointOnElement &)) &HatchGen_PointsOnElement::Append, "Append one item", py::arg("theItem"));
-	cls_HatchGen_PointsOnElement.def("Append", (void (HatchGen_PointsOnElement::*)(HatchGen_PointsOnElement &)) &HatchGen_PointsOnElement::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_HatchGen_PointsOnElement.def("Prepend", (void (HatchGen_PointsOnElement::*)(const HatchGen_PointOnElement &)) &HatchGen_PointsOnElement::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_HatchGen_PointsOnElement.def("Prepend", (void (HatchGen_PointsOnElement::*)(HatchGen_PointsOnElement &)) &HatchGen_PointsOnElement::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_HatchGen_PointsOnElement.def("InsertBefore", (void (HatchGen_PointsOnElement::*)(const Standard_Integer, const HatchGen_PointOnElement &)) &HatchGen_PointsOnElement::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_HatchGen_PointsOnElement.def("InsertBefore", (void (HatchGen_PointsOnElement::*)(const Standard_Integer, HatchGen_PointsOnElement &)) &HatchGen_PointsOnElement::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_HatchGen_PointsOnElement.def("InsertAfter", (void (HatchGen_PointsOnElement::*)(HatchGen_PointsOnElement::Iterator &, const HatchGen_PointOnElement &)) &HatchGen_PointsOnElement::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_HatchGen_PointsOnElement.def("InsertAfter", (void (HatchGen_PointsOnElement::*)(const Standard_Integer, HatchGen_PointsOnElement &)) &HatchGen_PointsOnElement::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_HatchGen_PointsOnElement.def("InsertAfter", (void (HatchGen_PointsOnElement::*)(const Standard_Integer, const HatchGen_PointOnElement &)) &HatchGen_PointsOnElement::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_HatchGen_PointsOnElement.def("Split", (void (HatchGen_PointsOnElement::*)(const Standard_Integer, HatchGen_PointsOnElement &)) &HatchGen_PointsOnElement::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_HatchGen_PointsOnElement.def("First", (const HatchGen_PointOnElement & (HatchGen_PointsOnElement::*)() const ) &HatchGen_PointsOnElement::First, "First item access");
-	cls_HatchGen_PointsOnElement.def("ChangeFirst", (HatchGen_PointOnElement & (HatchGen_PointsOnElement::*)()) &HatchGen_PointsOnElement::ChangeFirst, "First item access");
-	cls_HatchGen_PointsOnElement.def("Last", (const HatchGen_PointOnElement & (HatchGen_PointsOnElement::*)() const ) &HatchGen_PointsOnElement::Last, "Last item access");
-	cls_HatchGen_PointsOnElement.def("ChangeLast", (HatchGen_PointOnElement & (HatchGen_PointsOnElement::*)()) &HatchGen_PointsOnElement::ChangeLast, "Last item access");
-	cls_HatchGen_PointsOnElement.def("Value", (const HatchGen_PointOnElement & (HatchGen_PointsOnElement::*)(const Standard_Integer) const ) &HatchGen_PointsOnElement::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_HatchGen_PointsOnElement.def("__call__", (const HatchGen_PointOnElement & (HatchGen_PointsOnElement::*)(const Standard_Integer) const ) &HatchGen_PointsOnElement::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_HatchGen_PointsOnElement.def("ChangeValue", (HatchGen_PointOnElement & (HatchGen_PointsOnElement::*)(const Standard_Integer)) &HatchGen_PointsOnElement::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_HatchGen_PointsOnElement.def("__call__", (HatchGen_PointOnElement & (HatchGen_PointsOnElement::*)(const Standard_Integer)) &HatchGen_PointsOnElement::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_HatchGen_PointsOnElement.def("SetValue", (void (HatchGen_PointsOnElement::*)(const Standard_Integer, const HatchGen_PointOnElement &)) &HatchGen_PointsOnElement::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_HatchGen_PointsOnElement.def("__iter__", [](const HatchGen_PointsOnElement &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HatchGen_PointsOnElement.hxx
+	bind_NCollection_Sequence<HatchGen_PointOnElement>(mod, "HatchGen_PointsOnElement");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<HatchGen_PointsOnHatching, std::unique_ptr<HatchGen_PointsOnHatching, Deleter<HatchGen_PointsOnHatching>>, NCollection_BaseSequence> cls_HatchGen_PointsOnHatching(mod, "HatchGen_PointsOnHatching", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_HatchGen_PointsOnHatching.def(py::init<>());
-	cls_HatchGen_PointsOnHatching.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_HatchGen_PointsOnHatching.def(py::init([] (const HatchGen_PointsOnHatching &other) {return new HatchGen_PointsOnHatching(other);}), "Copy constructor", py::arg("other"));
-	cls_HatchGen_PointsOnHatching.def("begin", (HatchGen_PointsOnHatching::iterator (HatchGen_PointsOnHatching::*)() const ) &HatchGen_PointsOnHatching::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_HatchGen_PointsOnHatching.def("end", (HatchGen_PointsOnHatching::iterator (HatchGen_PointsOnHatching::*)() const ) &HatchGen_PointsOnHatching::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_HatchGen_PointsOnHatching.def("cbegin", (HatchGen_PointsOnHatching::const_iterator (HatchGen_PointsOnHatching::*)() const ) &HatchGen_PointsOnHatching::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_HatchGen_PointsOnHatching.def("cend", (HatchGen_PointsOnHatching::const_iterator (HatchGen_PointsOnHatching::*)() const ) &HatchGen_PointsOnHatching::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_HatchGen_PointsOnHatching.def("Size", (Standard_Integer (HatchGen_PointsOnHatching::*)() const ) &HatchGen_PointsOnHatching::Size, "Number of items");
-	cls_HatchGen_PointsOnHatching.def("Length", (Standard_Integer (HatchGen_PointsOnHatching::*)() const ) &HatchGen_PointsOnHatching::Length, "Number of items");
-	cls_HatchGen_PointsOnHatching.def("Lower", (Standard_Integer (HatchGen_PointsOnHatching::*)() const ) &HatchGen_PointsOnHatching::Lower, "Method for consistency with other collections.");
-	cls_HatchGen_PointsOnHatching.def("Upper", (Standard_Integer (HatchGen_PointsOnHatching::*)() const ) &HatchGen_PointsOnHatching::Upper, "Method for consistency with other collections.");
-	cls_HatchGen_PointsOnHatching.def("IsEmpty", (Standard_Boolean (HatchGen_PointsOnHatching::*)() const ) &HatchGen_PointsOnHatching::IsEmpty, "Empty query");
-	cls_HatchGen_PointsOnHatching.def("Reverse", (void (HatchGen_PointsOnHatching::*)()) &HatchGen_PointsOnHatching::Reverse, "Reverse sequence");
-	cls_HatchGen_PointsOnHatching.def("Exchange", (void (HatchGen_PointsOnHatching::*)(const Standard_Integer, const Standard_Integer)) &HatchGen_PointsOnHatching::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_HatchGen_PointsOnHatching.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &HatchGen_PointsOnHatching::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_HatchGen_PointsOnHatching.def("Clear", [](HatchGen_PointsOnHatching &self) -> void { return self.Clear(); });
-	cls_HatchGen_PointsOnHatching.def("Clear", (void (HatchGen_PointsOnHatching::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &HatchGen_PointsOnHatching::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_HatchGen_PointsOnHatching.def("Assign", (HatchGen_PointsOnHatching & (HatchGen_PointsOnHatching::*)(const HatchGen_PointsOnHatching &)) &HatchGen_PointsOnHatching::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_HatchGen_PointsOnHatching.def("assign", (HatchGen_PointsOnHatching & (HatchGen_PointsOnHatching::*)(const HatchGen_PointsOnHatching &)) &HatchGen_PointsOnHatching::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_HatchGen_PointsOnHatching.def("Remove", (void (HatchGen_PointsOnHatching::*)(HatchGen_PointsOnHatching::Iterator &)) &HatchGen_PointsOnHatching::Remove, "Remove one item", py::arg("thePosition"));
-	cls_HatchGen_PointsOnHatching.def("Remove", (void (HatchGen_PointsOnHatching::*)(const Standard_Integer)) &HatchGen_PointsOnHatching::Remove, "Remove one item", py::arg("theIndex"));
-	cls_HatchGen_PointsOnHatching.def("Remove", (void (HatchGen_PointsOnHatching::*)(const Standard_Integer, const Standard_Integer)) &HatchGen_PointsOnHatching::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_HatchGen_PointsOnHatching.def("Append", (void (HatchGen_PointsOnHatching::*)(const HatchGen_PointOnHatching &)) &HatchGen_PointsOnHatching::Append, "Append one item", py::arg("theItem"));
-	cls_HatchGen_PointsOnHatching.def("Append", (void (HatchGen_PointsOnHatching::*)(HatchGen_PointsOnHatching &)) &HatchGen_PointsOnHatching::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_HatchGen_PointsOnHatching.def("Prepend", (void (HatchGen_PointsOnHatching::*)(const HatchGen_PointOnHatching &)) &HatchGen_PointsOnHatching::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_HatchGen_PointsOnHatching.def("Prepend", (void (HatchGen_PointsOnHatching::*)(HatchGen_PointsOnHatching &)) &HatchGen_PointsOnHatching::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_HatchGen_PointsOnHatching.def("InsertBefore", (void (HatchGen_PointsOnHatching::*)(const Standard_Integer, const HatchGen_PointOnHatching &)) &HatchGen_PointsOnHatching::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_HatchGen_PointsOnHatching.def("InsertBefore", (void (HatchGen_PointsOnHatching::*)(const Standard_Integer, HatchGen_PointsOnHatching &)) &HatchGen_PointsOnHatching::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_HatchGen_PointsOnHatching.def("InsertAfter", (void (HatchGen_PointsOnHatching::*)(HatchGen_PointsOnHatching::Iterator &, const HatchGen_PointOnHatching &)) &HatchGen_PointsOnHatching::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_HatchGen_PointsOnHatching.def("InsertAfter", (void (HatchGen_PointsOnHatching::*)(const Standard_Integer, HatchGen_PointsOnHatching &)) &HatchGen_PointsOnHatching::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_HatchGen_PointsOnHatching.def("InsertAfter", (void (HatchGen_PointsOnHatching::*)(const Standard_Integer, const HatchGen_PointOnHatching &)) &HatchGen_PointsOnHatching::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_HatchGen_PointsOnHatching.def("Split", (void (HatchGen_PointsOnHatching::*)(const Standard_Integer, HatchGen_PointsOnHatching &)) &HatchGen_PointsOnHatching::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_HatchGen_PointsOnHatching.def("First", (const HatchGen_PointOnHatching & (HatchGen_PointsOnHatching::*)() const ) &HatchGen_PointsOnHatching::First, "First item access");
-	cls_HatchGen_PointsOnHatching.def("ChangeFirst", (HatchGen_PointOnHatching & (HatchGen_PointsOnHatching::*)()) &HatchGen_PointsOnHatching::ChangeFirst, "First item access");
-	cls_HatchGen_PointsOnHatching.def("Last", (const HatchGen_PointOnHatching & (HatchGen_PointsOnHatching::*)() const ) &HatchGen_PointsOnHatching::Last, "Last item access");
-	cls_HatchGen_PointsOnHatching.def("ChangeLast", (HatchGen_PointOnHatching & (HatchGen_PointsOnHatching::*)()) &HatchGen_PointsOnHatching::ChangeLast, "Last item access");
-	cls_HatchGen_PointsOnHatching.def("Value", (const HatchGen_PointOnHatching & (HatchGen_PointsOnHatching::*)(const Standard_Integer) const ) &HatchGen_PointsOnHatching::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_HatchGen_PointsOnHatching.def("__call__", (const HatchGen_PointOnHatching & (HatchGen_PointsOnHatching::*)(const Standard_Integer) const ) &HatchGen_PointsOnHatching::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_HatchGen_PointsOnHatching.def("ChangeValue", (HatchGen_PointOnHatching & (HatchGen_PointsOnHatching::*)(const Standard_Integer)) &HatchGen_PointsOnHatching::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_HatchGen_PointsOnHatching.def("__call__", (HatchGen_PointOnHatching & (HatchGen_PointsOnHatching::*)(const Standard_Integer)) &HatchGen_PointsOnHatching::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_HatchGen_PointsOnHatching.def("SetValue", (void (HatchGen_PointsOnHatching::*)(const Standard_Integer, const HatchGen_PointOnHatching &)) &HatchGen_PointsOnHatching::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_HatchGen_PointsOnHatching.def("__iter__", [](const HatchGen_PointsOnHatching &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HatchGen_PointsOnHatching.hxx
+	bind_NCollection_Sequence<HatchGen_PointOnHatching>(mod, "HatchGen_PointsOnHatching");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<HatchGen_Domains, std::unique_ptr<HatchGen_Domains, Deleter<HatchGen_Domains>>, NCollection_BaseSequence> cls_HatchGen_Domains(mod, "HatchGen_Domains", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_HatchGen_Domains.def(py::init<>());
-	cls_HatchGen_Domains.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_HatchGen_Domains.def(py::init([] (const HatchGen_Domains &other) {return new HatchGen_Domains(other);}), "Copy constructor", py::arg("other"));
-	cls_HatchGen_Domains.def("begin", (HatchGen_Domains::iterator (HatchGen_Domains::*)() const ) &HatchGen_Domains::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_HatchGen_Domains.def("end", (HatchGen_Domains::iterator (HatchGen_Domains::*)() const ) &HatchGen_Domains::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_HatchGen_Domains.def("cbegin", (HatchGen_Domains::const_iterator (HatchGen_Domains::*)() const ) &HatchGen_Domains::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_HatchGen_Domains.def("cend", (HatchGen_Domains::const_iterator (HatchGen_Domains::*)() const ) &HatchGen_Domains::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_HatchGen_Domains.def("Size", (Standard_Integer (HatchGen_Domains::*)() const ) &HatchGen_Domains::Size, "Number of items");
-	cls_HatchGen_Domains.def("Length", (Standard_Integer (HatchGen_Domains::*)() const ) &HatchGen_Domains::Length, "Number of items");
-	cls_HatchGen_Domains.def("Lower", (Standard_Integer (HatchGen_Domains::*)() const ) &HatchGen_Domains::Lower, "Method for consistency with other collections.");
-	cls_HatchGen_Domains.def("Upper", (Standard_Integer (HatchGen_Domains::*)() const ) &HatchGen_Domains::Upper, "Method for consistency with other collections.");
-	cls_HatchGen_Domains.def("IsEmpty", (Standard_Boolean (HatchGen_Domains::*)() const ) &HatchGen_Domains::IsEmpty, "Empty query");
-	cls_HatchGen_Domains.def("Reverse", (void (HatchGen_Domains::*)()) &HatchGen_Domains::Reverse, "Reverse sequence");
-	cls_HatchGen_Domains.def("Exchange", (void (HatchGen_Domains::*)(const Standard_Integer, const Standard_Integer)) &HatchGen_Domains::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_HatchGen_Domains.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &HatchGen_Domains::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_HatchGen_Domains.def("Clear", [](HatchGen_Domains &self) -> void { return self.Clear(); });
-	cls_HatchGen_Domains.def("Clear", (void (HatchGen_Domains::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &HatchGen_Domains::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_HatchGen_Domains.def("Assign", (HatchGen_Domains & (HatchGen_Domains::*)(const HatchGen_Domains &)) &HatchGen_Domains::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_HatchGen_Domains.def("assign", (HatchGen_Domains & (HatchGen_Domains::*)(const HatchGen_Domains &)) &HatchGen_Domains::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_HatchGen_Domains.def("Remove", (void (HatchGen_Domains::*)(HatchGen_Domains::Iterator &)) &HatchGen_Domains::Remove, "Remove one item", py::arg("thePosition"));
-	cls_HatchGen_Domains.def("Remove", (void (HatchGen_Domains::*)(const Standard_Integer)) &HatchGen_Domains::Remove, "Remove one item", py::arg("theIndex"));
-	cls_HatchGen_Domains.def("Remove", (void (HatchGen_Domains::*)(const Standard_Integer, const Standard_Integer)) &HatchGen_Domains::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_HatchGen_Domains.def("Append", (void (HatchGen_Domains::*)(const HatchGen_Domain &)) &HatchGen_Domains::Append, "Append one item", py::arg("theItem"));
-	cls_HatchGen_Domains.def("Append", (void (HatchGen_Domains::*)(HatchGen_Domains &)) &HatchGen_Domains::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_HatchGen_Domains.def("Prepend", (void (HatchGen_Domains::*)(const HatchGen_Domain &)) &HatchGen_Domains::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_HatchGen_Domains.def("Prepend", (void (HatchGen_Domains::*)(HatchGen_Domains &)) &HatchGen_Domains::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_HatchGen_Domains.def("InsertBefore", (void (HatchGen_Domains::*)(const Standard_Integer, const HatchGen_Domain &)) &HatchGen_Domains::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_HatchGen_Domains.def("InsertBefore", (void (HatchGen_Domains::*)(const Standard_Integer, HatchGen_Domains &)) &HatchGen_Domains::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_HatchGen_Domains.def("InsertAfter", (void (HatchGen_Domains::*)(HatchGen_Domains::Iterator &, const HatchGen_Domain &)) &HatchGen_Domains::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_HatchGen_Domains.def("InsertAfter", (void (HatchGen_Domains::*)(const Standard_Integer, HatchGen_Domains &)) &HatchGen_Domains::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_HatchGen_Domains.def("InsertAfter", (void (HatchGen_Domains::*)(const Standard_Integer, const HatchGen_Domain &)) &HatchGen_Domains::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_HatchGen_Domains.def("Split", (void (HatchGen_Domains::*)(const Standard_Integer, HatchGen_Domains &)) &HatchGen_Domains::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_HatchGen_Domains.def("First", (const HatchGen_Domain & (HatchGen_Domains::*)() const ) &HatchGen_Domains::First, "First item access");
-	cls_HatchGen_Domains.def("ChangeFirst", (HatchGen_Domain & (HatchGen_Domains::*)()) &HatchGen_Domains::ChangeFirst, "First item access");
-	cls_HatchGen_Domains.def("Last", (const HatchGen_Domain & (HatchGen_Domains::*)() const ) &HatchGen_Domains::Last, "Last item access");
-	cls_HatchGen_Domains.def("ChangeLast", (HatchGen_Domain & (HatchGen_Domains::*)()) &HatchGen_Domains::ChangeLast, "Last item access");
-	cls_HatchGen_Domains.def("Value", (const HatchGen_Domain & (HatchGen_Domains::*)(const Standard_Integer) const ) &HatchGen_Domains::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_HatchGen_Domains.def("__call__", (const HatchGen_Domain & (HatchGen_Domains::*)(const Standard_Integer) const ) &HatchGen_Domains::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_HatchGen_Domains.def("ChangeValue", (HatchGen_Domain & (HatchGen_Domains::*)(const Standard_Integer)) &HatchGen_Domains::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_HatchGen_Domains.def("__call__", (HatchGen_Domain & (HatchGen_Domains::*)(const Standard_Integer)) &HatchGen_Domains::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_HatchGen_Domains.def("SetValue", (void (HatchGen_Domains::*)(const Standard_Integer, const HatchGen_Domain &)) &HatchGen_Domains::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_HatchGen_Domains.def("__iter__", [](const HatchGen_Domains &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\HatchGen_Domains.hxx
+	bind_NCollection_Sequence<HatchGen_Domain>(mod, "HatchGen_Domains");
 
 
 }

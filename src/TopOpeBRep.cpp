@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <TopOpeBRepTool_ShapeClassifier.hxx>
 
@@ -108,6 +99,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_List.hxx>
 #include <TopOpeBRep_ListOfBipoint.hxx>
 #include <TopOpeBRep_PIntRes2d_IntersectionPoint.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(TopOpeBRep, mod) {
 
@@ -237,40 +229,8 @@ PYBIND11_MODULE(TopOpeBRep, mod) {
 	// FIXME cls_TopOpeBRep_VPointInter.def("Dump", (Standard_OStream & (TopOpeBRep_VPointInter::*)(const TopoDS_Face &, const TopoDS_Face &, Standard_OStream &) const ) &TopOpeBRep_VPointInter::Dump, "None", py::arg("F1"), py::arg("F2"), py::arg("OS"));
 	cls_TopOpeBRep_VPointInter.def("PThePointOfIntersectionDummy", (TopOpeBRep_PThePointOfIntersection (TopOpeBRep_VPointInter::*)() const ) &TopOpeBRep_VPointInter::PThePointOfIntersectionDummy, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<TopOpeBRep_Array1OfVPointInter, std::unique_ptr<TopOpeBRep_Array1OfVPointInter, Deleter<TopOpeBRep_Array1OfVPointInter>>> cls_TopOpeBRep_Array1OfVPointInter(mod, "TopOpeBRep_Array1OfVPointInter", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_TopOpeBRep_Array1OfVPointInter.def(py::init<>());
-	cls_TopOpeBRep_Array1OfVPointInter.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_TopOpeBRep_Array1OfVPointInter.def(py::init([] (const TopOpeBRep_Array1OfVPointInter &other) {return new TopOpeBRep_Array1OfVPointInter(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_TopOpeBRep_Array1OfVPointInter.def(py::init<TopOpeBRep_Array1OfVPointInter &&>(), py::arg("theOther"));
-	cls_TopOpeBRep_Array1OfVPointInter.def(py::init<const TopOpeBRep_VPointInter &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_TopOpeBRep_Array1OfVPointInter.def("begin", (TopOpeBRep_Array1OfVPointInter::iterator (TopOpeBRep_Array1OfVPointInter::*)() const ) &TopOpeBRep_Array1OfVPointInter::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_TopOpeBRep_Array1OfVPointInter.def("end", (TopOpeBRep_Array1OfVPointInter::iterator (TopOpeBRep_Array1OfVPointInter::*)() const ) &TopOpeBRep_Array1OfVPointInter::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_TopOpeBRep_Array1OfVPointInter.def("cbegin", (TopOpeBRep_Array1OfVPointInter::const_iterator (TopOpeBRep_Array1OfVPointInter::*)() const ) &TopOpeBRep_Array1OfVPointInter::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_TopOpeBRep_Array1OfVPointInter.def("cend", (TopOpeBRep_Array1OfVPointInter::const_iterator (TopOpeBRep_Array1OfVPointInter::*)() const ) &TopOpeBRep_Array1OfVPointInter::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_TopOpeBRep_Array1OfVPointInter.def("Init", (void (TopOpeBRep_Array1OfVPointInter::*)(const TopOpeBRep_VPointInter &)) &TopOpeBRep_Array1OfVPointInter::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_TopOpeBRep_Array1OfVPointInter.def("Size", (Standard_Integer (TopOpeBRep_Array1OfVPointInter::*)() const ) &TopOpeBRep_Array1OfVPointInter::Size, "Size query");
-	cls_TopOpeBRep_Array1OfVPointInter.def("Length", (Standard_Integer (TopOpeBRep_Array1OfVPointInter::*)() const ) &TopOpeBRep_Array1OfVPointInter::Length, "Length query (the same)");
-	cls_TopOpeBRep_Array1OfVPointInter.def("IsEmpty", (Standard_Boolean (TopOpeBRep_Array1OfVPointInter::*)() const ) &TopOpeBRep_Array1OfVPointInter::IsEmpty, "Return TRUE if array has zero length.");
-	cls_TopOpeBRep_Array1OfVPointInter.def("Lower", (Standard_Integer (TopOpeBRep_Array1OfVPointInter::*)() const ) &TopOpeBRep_Array1OfVPointInter::Lower, "Lower bound");
-	cls_TopOpeBRep_Array1OfVPointInter.def("Upper", (Standard_Integer (TopOpeBRep_Array1OfVPointInter::*)() const ) &TopOpeBRep_Array1OfVPointInter::Upper, "Upper bound");
-	cls_TopOpeBRep_Array1OfVPointInter.def("IsDeletable", (Standard_Boolean (TopOpeBRep_Array1OfVPointInter::*)() const ) &TopOpeBRep_Array1OfVPointInter::IsDeletable, "myDeletable flag");
-	cls_TopOpeBRep_Array1OfVPointInter.def("IsAllocated", (Standard_Boolean (TopOpeBRep_Array1OfVPointInter::*)() const ) &TopOpeBRep_Array1OfVPointInter::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_TopOpeBRep_Array1OfVPointInter.def("Assign", (TopOpeBRep_Array1OfVPointInter & (TopOpeBRep_Array1OfVPointInter::*)(const TopOpeBRep_Array1OfVPointInter &)) &TopOpeBRep_Array1OfVPointInter::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_TopOpeBRep_Array1OfVPointInter.def("Move", (TopOpeBRep_Array1OfVPointInter & (TopOpeBRep_Array1OfVPointInter::*)(TopOpeBRep_Array1OfVPointInter &&)) &TopOpeBRep_Array1OfVPointInter::Move, "Move assignment", py::arg("theOther"));
-	cls_TopOpeBRep_Array1OfVPointInter.def("assign", (TopOpeBRep_Array1OfVPointInter & (TopOpeBRep_Array1OfVPointInter::*)(const TopOpeBRep_Array1OfVPointInter &)) &TopOpeBRep_Array1OfVPointInter::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_TopOpeBRep_Array1OfVPointInter.def("assign", (TopOpeBRep_Array1OfVPointInter & (TopOpeBRep_Array1OfVPointInter::*)(TopOpeBRep_Array1OfVPointInter &&)) &TopOpeBRep_Array1OfVPointInter::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_TopOpeBRep_Array1OfVPointInter.def("First", (const TopOpeBRep_VPointInter & (TopOpeBRep_Array1OfVPointInter::*)() const ) &TopOpeBRep_Array1OfVPointInter::First, "Returns first element");
-	cls_TopOpeBRep_Array1OfVPointInter.def("ChangeFirst", (TopOpeBRep_VPointInter & (TopOpeBRep_Array1OfVPointInter::*)()) &TopOpeBRep_Array1OfVPointInter::ChangeFirst, "Returns first element");
-	cls_TopOpeBRep_Array1OfVPointInter.def("Last", (const TopOpeBRep_VPointInter & (TopOpeBRep_Array1OfVPointInter::*)() const ) &TopOpeBRep_Array1OfVPointInter::Last, "Returns last element");
-	cls_TopOpeBRep_Array1OfVPointInter.def("ChangeLast", (TopOpeBRep_VPointInter & (TopOpeBRep_Array1OfVPointInter::*)()) &TopOpeBRep_Array1OfVPointInter::ChangeLast, "Returns last element");
-	cls_TopOpeBRep_Array1OfVPointInter.def("Value", (const TopOpeBRep_VPointInter & (TopOpeBRep_Array1OfVPointInter::*)(const Standard_Integer) const ) &TopOpeBRep_Array1OfVPointInter::Value, "Constant value access", py::arg("theIndex"));
-	cls_TopOpeBRep_Array1OfVPointInter.def("__call__", (const TopOpeBRep_VPointInter & (TopOpeBRep_Array1OfVPointInter::*)(const Standard_Integer) const ) &TopOpeBRep_Array1OfVPointInter::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_TopOpeBRep_Array1OfVPointInter.def("ChangeValue", (TopOpeBRep_VPointInter & (TopOpeBRep_Array1OfVPointInter::*)(const Standard_Integer)) &TopOpeBRep_Array1OfVPointInter::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_TopOpeBRep_Array1OfVPointInter.def("__call__", (TopOpeBRep_VPointInter & (TopOpeBRep_Array1OfVPointInter::*)(const Standard_Integer)) &TopOpeBRep_Array1OfVPointInter::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_TopOpeBRep_Array1OfVPointInter.def("SetValue", (void (TopOpeBRep_Array1OfVPointInter::*)(const Standard_Integer, const TopOpeBRep_VPointInter &)) &TopOpeBRep_Array1OfVPointInter::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_TopOpeBRep_Array1OfVPointInter.def("Resize", (void (TopOpeBRep_Array1OfVPointInter::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &TopOpeBRep_Array1OfVPointInter::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_TopOpeBRep_Array1OfVPointInter.def("__iter__", [](const TopOpeBRep_Array1OfVPointInter &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRep_Array1OfVPointInter.hxx
+	bind_NCollection_Array1<TopOpeBRep_VPointInter>(mod, "TopOpeBRep_Array1OfVPointInter");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRep_Bipoint.hxx
 	py::class_<TopOpeBRep_Bipoint, std::unique_ptr<TopOpeBRep_Bipoint, Deleter<TopOpeBRep_Bipoint>>> cls_TopOpeBRep_Bipoint(mod, "TopOpeBRep_Bipoint", "None");
@@ -328,40 +288,8 @@ PYBIND11_MODULE(TopOpeBRep, mod) {
 	cls_TopOpeBRep_LineInter.def("GetTraceIndex", (void (TopOpeBRep_LineInter::*)(Standard_Integer &, Standard_Integer &) const ) &TopOpeBRep_LineInter::GetTraceIndex, "None", py::arg("exF1"), py::arg("exF2"));
 	cls_TopOpeBRep_LineInter.def("DumpLineTransitions", (Standard_OStream & (TopOpeBRep_LineInter::*)(Standard_OStream &) const ) &TopOpeBRep_LineInter::DumpLineTransitions, "None", py::arg("OS"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<TopOpeBRep_Array1OfLineInter, std::unique_ptr<TopOpeBRep_Array1OfLineInter, Deleter<TopOpeBRep_Array1OfLineInter>>> cls_TopOpeBRep_Array1OfLineInter(mod, "TopOpeBRep_Array1OfLineInter", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_TopOpeBRep_Array1OfLineInter.def(py::init<>());
-	cls_TopOpeBRep_Array1OfLineInter.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_TopOpeBRep_Array1OfLineInter.def(py::init([] (const TopOpeBRep_Array1OfLineInter &other) {return new TopOpeBRep_Array1OfLineInter(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_TopOpeBRep_Array1OfLineInter.def(py::init<TopOpeBRep_Array1OfLineInter &&>(), py::arg("theOther"));
-	cls_TopOpeBRep_Array1OfLineInter.def(py::init<const TopOpeBRep_LineInter &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_TopOpeBRep_Array1OfLineInter.def("begin", (TopOpeBRep_Array1OfLineInter::iterator (TopOpeBRep_Array1OfLineInter::*)() const ) &TopOpeBRep_Array1OfLineInter::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_TopOpeBRep_Array1OfLineInter.def("end", (TopOpeBRep_Array1OfLineInter::iterator (TopOpeBRep_Array1OfLineInter::*)() const ) &TopOpeBRep_Array1OfLineInter::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_TopOpeBRep_Array1OfLineInter.def("cbegin", (TopOpeBRep_Array1OfLineInter::const_iterator (TopOpeBRep_Array1OfLineInter::*)() const ) &TopOpeBRep_Array1OfLineInter::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_TopOpeBRep_Array1OfLineInter.def("cend", (TopOpeBRep_Array1OfLineInter::const_iterator (TopOpeBRep_Array1OfLineInter::*)() const ) &TopOpeBRep_Array1OfLineInter::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_TopOpeBRep_Array1OfLineInter.def("Init", (void (TopOpeBRep_Array1OfLineInter::*)(const TopOpeBRep_LineInter &)) &TopOpeBRep_Array1OfLineInter::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_TopOpeBRep_Array1OfLineInter.def("Size", (Standard_Integer (TopOpeBRep_Array1OfLineInter::*)() const ) &TopOpeBRep_Array1OfLineInter::Size, "Size query");
-	cls_TopOpeBRep_Array1OfLineInter.def("Length", (Standard_Integer (TopOpeBRep_Array1OfLineInter::*)() const ) &TopOpeBRep_Array1OfLineInter::Length, "Length query (the same)");
-	cls_TopOpeBRep_Array1OfLineInter.def("IsEmpty", (Standard_Boolean (TopOpeBRep_Array1OfLineInter::*)() const ) &TopOpeBRep_Array1OfLineInter::IsEmpty, "Return TRUE if array has zero length.");
-	cls_TopOpeBRep_Array1OfLineInter.def("Lower", (Standard_Integer (TopOpeBRep_Array1OfLineInter::*)() const ) &TopOpeBRep_Array1OfLineInter::Lower, "Lower bound");
-	cls_TopOpeBRep_Array1OfLineInter.def("Upper", (Standard_Integer (TopOpeBRep_Array1OfLineInter::*)() const ) &TopOpeBRep_Array1OfLineInter::Upper, "Upper bound");
-	cls_TopOpeBRep_Array1OfLineInter.def("IsDeletable", (Standard_Boolean (TopOpeBRep_Array1OfLineInter::*)() const ) &TopOpeBRep_Array1OfLineInter::IsDeletable, "myDeletable flag");
-	cls_TopOpeBRep_Array1OfLineInter.def("IsAllocated", (Standard_Boolean (TopOpeBRep_Array1OfLineInter::*)() const ) &TopOpeBRep_Array1OfLineInter::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_TopOpeBRep_Array1OfLineInter.def("Assign", (TopOpeBRep_Array1OfLineInter & (TopOpeBRep_Array1OfLineInter::*)(const TopOpeBRep_Array1OfLineInter &)) &TopOpeBRep_Array1OfLineInter::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_TopOpeBRep_Array1OfLineInter.def("Move", (TopOpeBRep_Array1OfLineInter & (TopOpeBRep_Array1OfLineInter::*)(TopOpeBRep_Array1OfLineInter &&)) &TopOpeBRep_Array1OfLineInter::Move, "Move assignment", py::arg("theOther"));
-	cls_TopOpeBRep_Array1OfLineInter.def("assign", (TopOpeBRep_Array1OfLineInter & (TopOpeBRep_Array1OfLineInter::*)(const TopOpeBRep_Array1OfLineInter &)) &TopOpeBRep_Array1OfLineInter::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_TopOpeBRep_Array1OfLineInter.def("assign", (TopOpeBRep_Array1OfLineInter & (TopOpeBRep_Array1OfLineInter::*)(TopOpeBRep_Array1OfLineInter &&)) &TopOpeBRep_Array1OfLineInter::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_TopOpeBRep_Array1OfLineInter.def("First", (const TopOpeBRep_LineInter & (TopOpeBRep_Array1OfLineInter::*)() const ) &TopOpeBRep_Array1OfLineInter::First, "Returns first element");
-	cls_TopOpeBRep_Array1OfLineInter.def("ChangeFirst", (TopOpeBRep_LineInter & (TopOpeBRep_Array1OfLineInter::*)()) &TopOpeBRep_Array1OfLineInter::ChangeFirst, "Returns first element");
-	cls_TopOpeBRep_Array1OfLineInter.def("Last", (const TopOpeBRep_LineInter & (TopOpeBRep_Array1OfLineInter::*)() const ) &TopOpeBRep_Array1OfLineInter::Last, "Returns last element");
-	cls_TopOpeBRep_Array1OfLineInter.def("ChangeLast", (TopOpeBRep_LineInter & (TopOpeBRep_Array1OfLineInter::*)()) &TopOpeBRep_Array1OfLineInter::ChangeLast, "Returns last element");
-	cls_TopOpeBRep_Array1OfLineInter.def("Value", (const TopOpeBRep_LineInter & (TopOpeBRep_Array1OfLineInter::*)(const Standard_Integer) const ) &TopOpeBRep_Array1OfLineInter::Value, "Constant value access", py::arg("theIndex"));
-	cls_TopOpeBRep_Array1OfLineInter.def("__call__", (const TopOpeBRep_LineInter & (TopOpeBRep_Array1OfLineInter::*)(const Standard_Integer) const ) &TopOpeBRep_Array1OfLineInter::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_TopOpeBRep_Array1OfLineInter.def("ChangeValue", (TopOpeBRep_LineInter & (TopOpeBRep_Array1OfLineInter::*)(const Standard_Integer)) &TopOpeBRep_Array1OfLineInter::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_TopOpeBRep_Array1OfLineInter.def("__call__", (TopOpeBRep_LineInter & (TopOpeBRep_Array1OfLineInter::*)(const Standard_Integer)) &TopOpeBRep_Array1OfLineInter::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_TopOpeBRep_Array1OfLineInter.def("SetValue", (void (TopOpeBRep_Array1OfLineInter::*)(const Standard_Integer, const TopOpeBRep_LineInter &)) &TopOpeBRep_Array1OfLineInter::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_TopOpeBRep_Array1OfLineInter.def("Resize", (void (TopOpeBRep_Array1OfLineInter::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &TopOpeBRep_Array1OfLineInter::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_TopOpeBRep_Array1OfLineInter.def("__iter__", [](const TopOpeBRep_Array1OfLineInter &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRep_Array1OfLineInter.hxx
+	bind_NCollection_Array1<TopOpeBRep_LineInter>(mod, "TopOpeBRep_Array1OfLineInter");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRep_FacesIntersector.hxx
 	py::class_<TopOpeBRep_FacesIntersector, std::unique_ptr<TopOpeBRep_FacesIntersector, Deleter<TopOpeBRep_FacesIntersector>>> cls_TopOpeBRep_FacesIntersector(mod, "TopOpeBRep_FacesIntersector", "Describes the intersection of two faces.");
@@ -744,128 +672,25 @@ PYBIND11_MODULE(TopOpeBRep, mod) {
 	cls_TopOpeBRep_HArray1OfLineInter.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRep_HArray1OfLineInter::get_type_descriptor, "None");
 	cls_TopOpeBRep_HArray1OfLineInter.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRep_HArray1OfLineInter::*)() const ) &TopOpeBRep_HArray1OfLineInter::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<TopOpeBRep_SequenceOfPoint2d, std::unique_ptr<TopOpeBRep_SequenceOfPoint2d, Deleter<TopOpeBRep_SequenceOfPoint2d>>, NCollection_BaseSequence> cls_TopOpeBRep_SequenceOfPoint2d(mod, "TopOpeBRep_SequenceOfPoint2d", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_TopOpeBRep_SequenceOfPoint2d.def(py::init<>());
-	cls_TopOpeBRep_SequenceOfPoint2d.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def(py::init([] (const TopOpeBRep_SequenceOfPoint2d &other) {return new TopOpeBRep_SequenceOfPoint2d(other);}), "Copy constructor", py::arg("other"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("begin", (TopOpeBRep_SequenceOfPoint2d::iterator (TopOpeBRep_SequenceOfPoint2d::*)() const ) &TopOpeBRep_SequenceOfPoint2d::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_TopOpeBRep_SequenceOfPoint2d.def("end", (TopOpeBRep_SequenceOfPoint2d::iterator (TopOpeBRep_SequenceOfPoint2d::*)() const ) &TopOpeBRep_SequenceOfPoint2d::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_TopOpeBRep_SequenceOfPoint2d.def("cbegin", (TopOpeBRep_SequenceOfPoint2d::const_iterator (TopOpeBRep_SequenceOfPoint2d::*)() const ) &TopOpeBRep_SequenceOfPoint2d::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_TopOpeBRep_SequenceOfPoint2d.def("cend", (TopOpeBRep_SequenceOfPoint2d::const_iterator (TopOpeBRep_SequenceOfPoint2d::*)() const ) &TopOpeBRep_SequenceOfPoint2d::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Size", (Standard_Integer (TopOpeBRep_SequenceOfPoint2d::*)() const ) &TopOpeBRep_SequenceOfPoint2d::Size, "Number of items");
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Length", (Standard_Integer (TopOpeBRep_SequenceOfPoint2d::*)() const ) &TopOpeBRep_SequenceOfPoint2d::Length, "Number of items");
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Lower", (Standard_Integer (TopOpeBRep_SequenceOfPoint2d::*)() const ) &TopOpeBRep_SequenceOfPoint2d::Lower, "Method for consistency with other collections.");
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Upper", (Standard_Integer (TopOpeBRep_SequenceOfPoint2d::*)() const ) &TopOpeBRep_SequenceOfPoint2d::Upper, "Method for consistency with other collections.");
-	cls_TopOpeBRep_SequenceOfPoint2d.def("IsEmpty", (Standard_Boolean (TopOpeBRep_SequenceOfPoint2d::*)() const ) &TopOpeBRep_SequenceOfPoint2d::IsEmpty, "Empty query");
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Reverse", (void (TopOpeBRep_SequenceOfPoint2d::*)()) &TopOpeBRep_SequenceOfPoint2d::Reverse, "Reverse sequence");
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Exchange", (void (TopOpeBRep_SequenceOfPoint2d::*)(const Standard_Integer, const Standard_Integer)) &TopOpeBRep_SequenceOfPoint2d::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &TopOpeBRep_SequenceOfPoint2d::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Clear", [](TopOpeBRep_SequenceOfPoint2d &self) -> void { return self.Clear(); });
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Clear", (void (TopOpeBRep_SequenceOfPoint2d::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TopOpeBRep_SequenceOfPoint2d::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Assign", (TopOpeBRep_SequenceOfPoint2d & (TopOpeBRep_SequenceOfPoint2d::*)(const TopOpeBRep_SequenceOfPoint2d &)) &TopOpeBRep_SequenceOfPoint2d::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("assign", (TopOpeBRep_SequenceOfPoint2d & (TopOpeBRep_SequenceOfPoint2d::*)(const TopOpeBRep_SequenceOfPoint2d &)) &TopOpeBRep_SequenceOfPoint2d::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Remove", (void (TopOpeBRep_SequenceOfPoint2d::*)(TopOpeBRep_SequenceOfPoint2d::Iterator &)) &TopOpeBRep_SequenceOfPoint2d::Remove, "Remove one item", py::arg("thePosition"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Remove", (void (TopOpeBRep_SequenceOfPoint2d::*)(const Standard_Integer)) &TopOpeBRep_SequenceOfPoint2d::Remove, "Remove one item", py::arg("theIndex"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Remove", (void (TopOpeBRep_SequenceOfPoint2d::*)(const Standard_Integer, const Standard_Integer)) &TopOpeBRep_SequenceOfPoint2d::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Append", (void (TopOpeBRep_SequenceOfPoint2d::*)(const TopOpeBRep_Point2d &)) &TopOpeBRep_SequenceOfPoint2d::Append, "Append one item", py::arg("theItem"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Append", (void (TopOpeBRep_SequenceOfPoint2d::*)(TopOpeBRep_SequenceOfPoint2d &)) &TopOpeBRep_SequenceOfPoint2d::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Prepend", (void (TopOpeBRep_SequenceOfPoint2d::*)(const TopOpeBRep_Point2d &)) &TopOpeBRep_SequenceOfPoint2d::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Prepend", (void (TopOpeBRep_SequenceOfPoint2d::*)(TopOpeBRep_SequenceOfPoint2d &)) &TopOpeBRep_SequenceOfPoint2d::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("InsertBefore", (void (TopOpeBRep_SequenceOfPoint2d::*)(const Standard_Integer, const TopOpeBRep_Point2d &)) &TopOpeBRep_SequenceOfPoint2d::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("InsertBefore", (void (TopOpeBRep_SequenceOfPoint2d::*)(const Standard_Integer, TopOpeBRep_SequenceOfPoint2d &)) &TopOpeBRep_SequenceOfPoint2d::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("InsertAfter", (void (TopOpeBRep_SequenceOfPoint2d::*)(TopOpeBRep_SequenceOfPoint2d::Iterator &, const TopOpeBRep_Point2d &)) &TopOpeBRep_SequenceOfPoint2d::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("InsertAfter", (void (TopOpeBRep_SequenceOfPoint2d::*)(const Standard_Integer, TopOpeBRep_SequenceOfPoint2d &)) &TopOpeBRep_SequenceOfPoint2d::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("InsertAfter", (void (TopOpeBRep_SequenceOfPoint2d::*)(const Standard_Integer, const TopOpeBRep_Point2d &)) &TopOpeBRep_SequenceOfPoint2d::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Split", (void (TopOpeBRep_SequenceOfPoint2d::*)(const Standard_Integer, TopOpeBRep_SequenceOfPoint2d &)) &TopOpeBRep_SequenceOfPoint2d::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("First", (const TopOpeBRep_Point2d & (TopOpeBRep_SequenceOfPoint2d::*)() const ) &TopOpeBRep_SequenceOfPoint2d::First, "First item access");
-	cls_TopOpeBRep_SequenceOfPoint2d.def("ChangeFirst", (TopOpeBRep_Point2d & (TopOpeBRep_SequenceOfPoint2d::*)()) &TopOpeBRep_SequenceOfPoint2d::ChangeFirst, "First item access");
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Last", (const TopOpeBRep_Point2d & (TopOpeBRep_SequenceOfPoint2d::*)() const ) &TopOpeBRep_SequenceOfPoint2d::Last, "Last item access");
-	cls_TopOpeBRep_SequenceOfPoint2d.def("ChangeLast", (TopOpeBRep_Point2d & (TopOpeBRep_SequenceOfPoint2d::*)()) &TopOpeBRep_SequenceOfPoint2d::ChangeLast, "Last item access");
-	cls_TopOpeBRep_SequenceOfPoint2d.def("Value", (const TopOpeBRep_Point2d & (TopOpeBRep_SequenceOfPoint2d::*)(const Standard_Integer) const ) &TopOpeBRep_SequenceOfPoint2d::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("__call__", (const TopOpeBRep_Point2d & (TopOpeBRep_SequenceOfPoint2d::*)(const Standard_Integer) const ) &TopOpeBRep_SequenceOfPoint2d::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("ChangeValue", (TopOpeBRep_Point2d & (TopOpeBRep_SequenceOfPoint2d::*)(const Standard_Integer)) &TopOpeBRep_SequenceOfPoint2d::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("__call__", (TopOpeBRep_Point2d & (TopOpeBRep_SequenceOfPoint2d::*)(const Standard_Integer)) &TopOpeBRep_SequenceOfPoint2d::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("SetValue", (void (TopOpeBRep_SequenceOfPoint2d::*)(const Standard_Integer, const TopOpeBRep_Point2d &)) &TopOpeBRep_SequenceOfPoint2d::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_TopOpeBRep_SequenceOfPoint2d.def("__iter__", [](const TopOpeBRep_SequenceOfPoint2d &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRep_SequenceOfPoint2d.hxx
+	bind_NCollection_Sequence<TopOpeBRep_Point2d>(mod, "TopOpeBRep_SequenceOfPoint2d");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRep_PFacesIntersector.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRep_PLineInter.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<TopOpeBRep_DataMapOfTopolTool, std::unique_ptr<TopOpeBRep_DataMapOfTopolTool, Deleter<TopOpeBRep_DataMapOfTopolTool>>, NCollection_BaseMap> cls_TopOpeBRep_DataMapOfTopolTool(mod, "TopOpeBRep_DataMapOfTopolTool", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_TopOpeBRep_DataMapOfTopolTool.def(py::init<>());
-	cls_TopOpeBRep_DataMapOfTopolTool.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TopOpeBRep_DataMapOfTopolTool.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TopOpeBRep_DataMapOfTopolTool.def(py::init([] (const TopOpeBRep_DataMapOfTopolTool &other) {return new TopOpeBRep_DataMapOfTopolTool(other);}), "Copy constructor", py::arg("other"));
-	cls_TopOpeBRep_DataMapOfTopolTool.def("begin", (TopOpeBRep_DataMapOfTopolTool::iterator (TopOpeBRep_DataMapOfTopolTool::*)() const ) &TopOpeBRep_DataMapOfTopolTool::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_TopOpeBRep_DataMapOfTopolTool.def("end", (TopOpeBRep_DataMapOfTopolTool::iterator (TopOpeBRep_DataMapOfTopolTool::*)() const ) &TopOpeBRep_DataMapOfTopolTool::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_TopOpeBRep_DataMapOfTopolTool.def("cbegin", (TopOpeBRep_DataMapOfTopolTool::const_iterator (TopOpeBRep_DataMapOfTopolTool::*)() const ) &TopOpeBRep_DataMapOfTopolTool::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TopOpeBRep_DataMapOfTopolTool.def("cend", (TopOpeBRep_DataMapOfTopolTool::const_iterator (TopOpeBRep_DataMapOfTopolTool::*)() const ) &TopOpeBRep_DataMapOfTopolTool::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TopOpeBRep_DataMapOfTopolTool.def("Exchange", (void (TopOpeBRep_DataMapOfTopolTool::*)(TopOpeBRep_DataMapOfTopolTool &)) &TopOpeBRep_DataMapOfTopolTool::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TopOpeBRep_DataMapOfTopolTool.def("Assign", (TopOpeBRep_DataMapOfTopolTool & (TopOpeBRep_DataMapOfTopolTool::*)(const TopOpeBRep_DataMapOfTopolTool &)) &TopOpeBRep_DataMapOfTopolTool::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TopOpeBRep_DataMapOfTopolTool.def("assign", (TopOpeBRep_DataMapOfTopolTool & (TopOpeBRep_DataMapOfTopolTool::*)(const TopOpeBRep_DataMapOfTopolTool &)) &TopOpeBRep_DataMapOfTopolTool::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TopOpeBRep_DataMapOfTopolTool.def("ReSize", (void (TopOpeBRep_DataMapOfTopolTool::*)(const Standard_Integer)) &TopOpeBRep_DataMapOfTopolTool::ReSize, "ReSize", py::arg("N"));
-	cls_TopOpeBRep_DataMapOfTopolTool.def("Bind", (Standard_Boolean (TopOpeBRep_DataMapOfTopolTool::*)(const TopoDS_Shape &, const opencascade::handle<BRepTopAdaptor_TopolTool> &)) &TopOpeBRep_DataMapOfTopolTool::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_TopOpeBRep_DataMapOfTopolTool.def("Bound", (opencascade::handle<BRepTopAdaptor_TopolTool> * (TopOpeBRep_DataMapOfTopolTool::*)(const TopoDS_Shape &, const opencascade::handle<BRepTopAdaptor_TopolTool> &)) &TopOpeBRep_DataMapOfTopolTool::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_TopOpeBRep_DataMapOfTopolTool.def("IsBound", (Standard_Boolean (TopOpeBRep_DataMapOfTopolTool::*)(const TopoDS_Shape &) const ) &TopOpeBRep_DataMapOfTopolTool::IsBound, "IsBound", py::arg("theKey"));
-	cls_TopOpeBRep_DataMapOfTopolTool.def("UnBind", (Standard_Boolean (TopOpeBRep_DataMapOfTopolTool::*)(const TopoDS_Shape &)) &TopOpeBRep_DataMapOfTopolTool::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_TopOpeBRep_DataMapOfTopolTool.def("Seek", (const opencascade::handle<BRepTopAdaptor_TopolTool> * (TopOpeBRep_DataMapOfTopolTool::*)(const TopoDS_Shape &) const ) &TopOpeBRep_DataMapOfTopolTool::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_TopOpeBRep_DataMapOfTopolTool.def("Find", (const opencascade::handle<BRepTopAdaptor_TopolTool> & (TopOpeBRep_DataMapOfTopolTool::*)(const TopoDS_Shape &) const ) &TopOpeBRep_DataMapOfTopolTool::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_TopOpeBRep_DataMapOfTopolTool.def("Find", (Standard_Boolean (TopOpeBRep_DataMapOfTopolTool::*)(const TopoDS_Shape &, opencascade::handle<BRepTopAdaptor_TopolTool> &) const ) &TopOpeBRep_DataMapOfTopolTool::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_TopOpeBRep_DataMapOfTopolTool.def("__call__", (const opencascade::handle<BRepTopAdaptor_TopolTool> & (TopOpeBRep_DataMapOfTopolTool::*)(const TopoDS_Shape &) const ) &TopOpeBRep_DataMapOfTopolTool::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_TopOpeBRep_DataMapOfTopolTool.def("ChangeSeek", (opencascade::handle<BRepTopAdaptor_TopolTool> * (TopOpeBRep_DataMapOfTopolTool::*)(const TopoDS_Shape &)) &TopOpeBRep_DataMapOfTopolTool::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_TopOpeBRep_DataMapOfTopolTool.def("ChangeFind", (opencascade::handle<BRepTopAdaptor_TopolTool> & (TopOpeBRep_DataMapOfTopolTool::*)(const TopoDS_Shape &)) &TopOpeBRep_DataMapOfTopolTool::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_TopOpeBRep_DataMapOfTopolTool.def("__call__", (opencascade::handle<BRepTopAdaptor_TopolTool> & (TopOpeBRep_DataMapOfTopolTool::*)(const TopoDS_Shape &)) &TopOpeBRep_DataMapOfTopolTool::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_TopOpeBRep_DataMapOfTopolTool.def("Clear", [](TopOpeBRep_DataMapOfTopolTool &self) -> void { return self.Clear(); });
-	cls_TopOpeBRep_DataMapOfTopolTool.def("Clear", (void (TopOpeBRep_DataMapOfTopolTool::*)(const Standard_Boolean)) &TopOpeBRep_DataMapOfTopolTool::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TopOpeBRep_DataMapOfTopolTool.def("Clear", (void (TopOpeBRep_DataMapOfTopolTool::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TopOpeBRep_DataMapOfTopolTool::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TopOpeBRep_DataMapOfTopolTool.def("Size", (Standard_Integer (TopOpeBRep_DataMapOfTopolTool::*)() const ) &TopOpeBRep_DataMapOfTopolTool::Size, "Size");
-	cls_TopOpeBRep_DataMapOfTopolTool.def("__iter__", [](const TopOpeBRep_DataMapOfTopolTool &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRep_DataMapOfTopolTool.hxx
+	bind_NCollection_DataMap<TopoDS_Shape, opencascade::handle<BRepTopAdaptor_TopolTool>, TopTools_ShapeMapHasher>(mod, "TopOpeBRep_DataMapOfTopolTool");
+
+	/* FIXME
+
+	*/
+
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRep_PEdgesIntersector.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRep_PFacesFiller.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<TopOpeBRep_ListOfBipoint, std::unique_ptr<TopOpeBRep_ListOfBipoint, Deleter<TopOpeBRep_ListOfBipoint>>, NCollection_BaseList> cls_TopOpeBRep_ListOfBipoint(mod, "TopOpeBRep_ListOfBipoint", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_TopOpeBRep_ListOfBipoint.def(py::init<>());
-	cls_TopOpeBRep_ListOfBipoint.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TopOpeBRep_ListOfBipoint.def(py::init([] (const TopOpeBRep_ListOfBipoint &other) {return new TopOpeBRep_ListOfBipoint(other);}), "Copy constructor", py::arg("other"));
-	cls_TopOpeBRep_ListOfBipoint.def("begin", (TopOpeBRep_ListOfBipoint::iterator (TopOpeBRep_ListOfBipoint::*)() const ) &TopOpeBRep_ListOfBipoint::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_TopOpeBRep_ListOfBipoint.def("end", (TopOpeBRep_ListOfBipoint::iterator (TopOpeBRep_ListOfBipoint::*)() const ) &TopOpeBRep_ListOfBipoint::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_TopOpeBRep_ListOfBipoint.def("cbegin", (TopOpeBRep_ListOfBipoint::const_iterator (TopOpeBRep_ListOfBipoint::*)() const ) &TopOpeBRep_ListOfBipoint::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_TopOpeBRep_ListOfBipoint.def("cend", (TopOpeBRep_ListOfBipoint::const_iterator (TopOpeBRep_ListOfBipoint::*)() const ) &TopOpeBRep_ListOfBipoint::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_TopOpeBRep_ListOfBipoint.def("Size", (Standard_Integer (TopOpeBRep_ListOfBipoint::*)() const ) &TopOpeBRep_ListOfBipoint::Size, "Size - Number of items");
-	cls_TopOpeBRep_ListOfBipoint.def("Assign", (TopOpeBRep_ListOfBipoint & (TopOpeBRep_ListOfBipoint::*)(const TopOpeBRep_ListOfBipoint &)) &TopOpeBRep_ListOfBipoint::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TopOpeBRep_ListOfBipoint.def("assign", (TopOpeBRep_ListOfBipoint & (TopOpeBRep_ListOfBipoint::*)(const TopOpeBRep_ListOfBipoint &)) &TopOpeBRep_ListOfBipoint::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TopOpeBRep_ListOfBipoint.def("Clear", [](TopOpeBRep_ListOfBipoint &self) -> void { return self.Clear(); });
-	cls_TopOpeBRep_ListOfBipoint.def("Clear", (void (TopOpeBRep_ListOfBipoint::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TopOpeBRep_ListOfBipoint::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_TopOpeBRep_ListOfBipoint.def("First", (const TopOpeBRep_Bipoint & (TopOpeBRep_ListOfBipoint::*)() const ) &TopOpeBRep_ListOfBipoint::First, "First item");
-	cls_TopOpeBRep_ListOfBipoint.def("First", (TopOpeBRep_Bipoint & (TopOpeBRep_ListOfBipoint::*)()) &TopOpeBRep_ListOfBipoint::First, "First item (non-const)");
-	cls_TopOpeBRep_ListOfBipoint.def("Last", (const TopOpeBRep_Bipoint & (TopOpeBRep_ListOfBipoint::*)() const ) &TopOpeBRep_ListOfBipoint::Last, "Last item");
-	cls_TopOpeBRep_ListOfBipoint.def("Last", (TopOpeBRep_Bipoint & (TopOpeBRep_ListOfBipoint::*)()) &TopOpeBRep_ListOfBipoint::Last, "Last item (non-const)");
-	cls_TopOpeBRep_ListOfBipoint.def("Append", (TopOpeBRep_Bipoint & (TopOpeBRep_ListOfBipoint::*)(const TopOpeBRep_Bipoint &)) &TopOpeBRep_ListOfBipoint::Append, "Append one item at the end", py::arg("theItem"));
-	cls_TopOpeBRep_ListOfBipoint.def("Append", (void (TopOpeBRep_ListOfBipoint::*)(const TopOpeBRep_Bipoint &, TopOpeBRep_ListOfBipoint::Iterator &)) &TopOpeBRep_ListOfBipoint::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_TopOpeBRep_ListOfBipoint.def("Append", (void (TopOpeBRep_ListOfBipoint::*)(TopOpeBRep_ListOfBipoint &)) &TopOpeBRep_ListOfBipoint::Append, "Append another list at the end", py::arg("theOther"));
-	cls_TopOpeBRep_ListOfBipoint.def("Prepend", (TopOpeBRep_Bipoint & (TopOpeBRep_ListOfBipoint::*)(const TopOpeBRep_Bipoint &)) &TopOpeBRep_ListOfBipoint::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_TopOpeBRep_ListOfBipoint.def("Prepend", (void (TopOpeBRep_ListOfBipoint::*)(TopOpeBRep_ListOfBipoint &)) &TopOpeBRep_ListOfBipoint::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_TopOpeBRep_ListOfBipoint.def("RemoveFirst", (void (TopOpeBRep_ListOfBipoint::*)()) &TopOpeBRep_ListOfBipoint::RemoveFirst, "RemoveFirst item");
-	cls_TopOpeBRep_ListOfBipoint.def("Remove", (void (TopOpeBRep_ListOfBipoint::*)(TopOpeBRep_ListOfBipoint::Iterator &)) &TopOpeBRep_ListOfBipoint::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_TopOpeBRep_ListOfBipoint.def("InsertBefore", (TopOpeBRep_Bipoint & (TopOpeBRep_ListOfBipoint::*)(const TopOpeBRep_Bipoint &, TopOpeBRep_ListOfBipoint::Iterator &)) &TopOpeBRep_ListOfBipoint::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_TopOpeBRep_ListOfBipoint.def("InsertBefore", (void (TopOpeBRep_ListOfBipoint::*)(TopOpeBRep_ListOfBipoint &, TopOpeBRep_ListOfBipoint::Iterator &)) &TopOpeBRep_ListOfBipoint::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_TopOpeBRep_ListOfBipoint.def("InsertAfter", (TopOpeBRep_Bipoint & (TopOpeBRep_ListOfBipoint::*)(const TopOpeBRep_Bipoint &, TopOpeBRep_ListOfBipoint::Iterator &)) &TopOpeBRep_ListOfBipoint::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_TopOpeBRep_ListOfBipoint.def("InsertAfter", (void (TopOpeBRep_ListOfBipoint::*)(TopOpeBRep_ListOfBipoint &, TopOpeBRep_ListOfBipoint::Iterator &)) &TopOpeBRep_ListOfBipoint::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_TopOpeBRep_ListOfBipoint.def("Reverse", (void (TopOpeBRep_ListOfBipoint::*)()) &TopOpeBRep_ListOfBipoint::Reverse, "Reverse the list");
-	cls_TopOpeBRep_ListOfBipoint.def("__iter__", [](const TopOpeBRep_ListOfBipoint &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRep_ListOfBipoint.hxx
+	bind_NCollection_List<TopOpeBRep_Bipoint>(mod, "TopOpeBRep_ListOfBipoint");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<TopOpeBRep_ListIteratorOfListOfBipoint, std::unique_ptr<TopOpeBRep_ListIteratorOfListOfBipoint, Deleter<TopOpeBRep_ListIteratorOfListOfBipoint>>> cls_TopOpeBRep_ListIteratorOfListOfBipoint(mod, "TopOpeBRep_ListIteratorOfListOfBipoint", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_TopOpeBRep_ListIteratorOfListOfBipoint.def(py::init<>());
-	cls_TopOpeBRep_ListIteratorOfListOfBipoint.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_TopOpeBRep_ListIteratorOfListOfBipoint.def("More", (Standard_Boolean (TopOpeBRep_ListIteratorOfListOfBipoint::*)() const ) &TopOpeBRep_ListIteratorOfListOfBipoint::More, "Check end");
-	cls_TopOpeBRep_ListIteratorOfListOfBipoint.def("Next", (void (TopOpeBRep_ListIteratorOfListOfBipoint::*)()) &TopOpeBRep_ListIteratorOfListOfBipoint::Next, "Make step");
-	cls_TopOpeBRep_ListIteratorOfListOfBipoint.def("Value", (const TopOpeBRep_Bipoint & (TopOpeBRep_ListIteratorOfListOfBipoint::*)() const ) &TopOpeBRep_ListIteratorOfListOfBipoint::Value, "Constant Value access");
-	cls_TopOpeBRep_ListIteratorOfListOfBipoint.def("Value", (TopOpeBRep_Bipoint & (TopOpeBRep_ListIteratorOfListOfBipoint::*)()) &TopOpeBRep_ListIteratorOfListOfBipoint::Value, "Non-const Value access");
-	cls_TopOpeBRep_ListIteratorOfListOfBipoint.def("ChangeValue", (TopOpeBRep_Bipoint & (TopOpeBRep_ListIteratorOfListOfBipoint::*)() const ) &TopOpeBRep_ListIteratorOfListOfBipoint::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRep_ListOfBipoint.hxx
+	bind_NCollection_TListIterator<TopOpeBRep_Bipoint>(mod, "TopOpeBRep_ListIteratorOfListOfBipoint");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRep_PIntRes2d_IntersectionPoint.hxx
 

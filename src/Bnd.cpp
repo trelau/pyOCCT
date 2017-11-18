@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <gp_Pnt.hxx>
 #include <gp_Dir.hxx>
@@ -49,6 +40,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_BaseSequence.hxx>
 #include <NCollection_Sequence.hxx>
 #include <Bnd_SeqOfBox.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Bnd, mod) {
 
@@ -284,40 +276,8 @@ PYBIND11_MODULE(Bnd, mod) {
 	cls_Bnd_B3f.def("SetCenter", (void (Bnd_B3f::*)(const gp_XYZ &)) &Bnd_B3f::SetCenter, "Set the Center coordinates", py::arg("theCenter"));
 	cls_Bnd_B3f.def("SetHSize", (void (Bnd_B3f::*)(const gp_XYZ &)) &Bnd_B3f::SetHSize, "Set the HSize (half-diagonal) coordinates. All components of theHSize must be non-negative.", py::arg("theHSize"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Bnd_Array1OfBox, std::unique_ptr<Bnd_Array1OfBox, Deleter<Bnd_Array1OfBox>>> cls_Bnd_Array1OfBox(mod, "Bnd_Array1OfBox", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Bnd_Array1OfBox.def(py::init<>());
-	cls_Bnd_Array1OfBox.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Bnd_Array1OfBox.def(py::init([] (const Bnd_Array1OfBox &other) {return new Bnd_Array1OfBox(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Bnd_Array1OfBox.def(py::init<Bnd_Array1OfBox &&>(), py::arg("theOther"));
-	cls_Bnd_Array1OfBox.def(py::init<const Bnd_Box &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Bnd_Array1OfBox.def("begin", (Bnd_Array1OfBox::iterator (Bnd_Array1OfBox::*)() const ) &Bnd_Array1OfBox::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Bnd_Array1OfBox.def("end", (Bnd_Array1OfBox::iterator (Bnd_Array1OfBox::*)() const ) &Bnd_Array1OfBox::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Bnd_Array1OfBox.def("cbegin", (Bnd_Array1OfBox::const_iterator (Bnd_Array1OfBox::*)() const ) &Bnd_Array1OfBox::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Bnd_Array1OfBox.def("cend", (Bnd_Array1OfBox::const_iterator (Bnd_Array1OfBox::*)() const ) &Bnd_Array1OfBox::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Bnd_Array1OfBox.def("Init", (void (Bnd_Array1OfBox::*)(const Bnd_Box &)) &Bnd_Array1OfBox::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Bnd_Array1OfBox.def("Size", (Standard_Integer (Bnd_Array1OfBox::*)() const ) &Bnd_Array1OfBox::Size, "Size query");
-	cls_Bnd_Array1OfBox.def("Length", (Standard_Integer (Bnd_Array1OfBox::*)() const ) &Bnd_Array1OfBox::Length, "Length query (the same)");
-	cls_Bnd_Array1OfBox.def("IsEmpty", (Standard_Boolean (Bnd_Array1OfBox::*)() const ) &Bnd_Array1OfBox::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Bnd_Array1OfBox.def("Lower", (Standard_Integer (Bnd_Array1OfBox::*)() const ) &Bnd_Array1OfBox::Lower, "Lower bound");
-	cls_Bnd_Array1OfBox.def("Upper", (Standard_Integer (Bnd_Array1OfBox::*)() const ) &Bnd_Array1OfBox::Upper, "Upper bound");
-	cls_Bnd_Array1OfBox.def("IsDeletable", (Standard_Boolean (Bnd_Array1OfBox::*)() const ) &Bnd_Array1OfBox::IsDeletable, "myDeletable flag");
-	cls_Bnd_Array1OfBox.def("IsAllocated", (Standard_Boolean (Bnd_Array1OfBox::*)() const ) &Bnd_Array1OfBox::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Bnd_Array1OfBox.def("Assign", (Bnd_Array1OfBox & (Bnd_Array1OfBox::*)(const Bnd_Array1OfBox &)) &Bnd_Array1OfBox::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Bnd_Array1OfBox.def("Move", (Bnd_Array1OfBox & (Bnd_Array1OfBox::*)(Bnd_Array1OfBox &&)) &Bnd_Array1OfBox::Move, "Move assignment", py::arg("theOther"));
-	cls_Bnd_Array1OfBox.def("assign", (Bnd_Array1OfBox & (Bnd_Array1OfBox::*)(const Bnd_Array1OfBox &)) &Bnd_Array1OfBox::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Bnd_Array1OfBox.def("assign", (Bnd_Array1OfBox & (Bnd_Array1OfBox::*)(Bnd_Array1OfBox &&)) &Bnd_Array1OfBox::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Bnd_Array1OfBox.def("First", (const Bnd_Box & (Bnd_Array1OfBox::*)() const ) &Bnd_Array1OfBox::First, "Returns first element");
-	cls_Bnd_Array1OfBox.def("ChangeFirst", (Bnd_Box & (Bnd_Array1OfBox::*)()) &Bnd_Array1OfBox::ChangeFirst, "Returns first element");
-	cls_Bnd_Array1OfBox.def("Last", (const Bnd_Box & (Bnd_Array1OfBox::*)() const ) &Bnd_Array1OfBox::Last, "Returns last element");
-	cls_Bnd_Array1OfBox.def("ChangeLast", (Bnd_Box & (Bnd_Array1OfBox::*)()) &Bnd_Array1OfBox::ChangeLast, "Returns last element");
-	cls_Bnd_Array1OfBox.def("Value", (const Bnd_Box & (Bnd_Array1OfBox::*)(const Standard_Integer) const ) &Bnd_Array1OfBox::Value, "Constant value access", py::arg("theIndex"));
-	cls_Bnd_Array1OfBox.def("__call__", (const Bnd_Box & (Bnd_Array1OfBox::*)(const Standard_Integer) const ) &Bnd_Array1OfBox::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Bnd_Array1OfBox.def("ChangeValue", (Bnd_Box & (Bnd_Array1OfBox::*)(const Standard_Integer)) &Bnd_Array1OfBox::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Bnd_Array1OfBox.def("__call__", (Bnd_Box & (Bnd_Array1OfBox::*)(const Standard_Integer)) &Bnd_Array1OfBox::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Bnd_Array1OfBox.def("SetValue", (void (Bnd_Array1OfBox::*)(const Standard_Integer, const Bnd_Box &)) &Bnd_Array1OfBox::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Bnd_Array1OfBox.def("Resize", (void (Bnd_Array1OfBox::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Bnd_Array1OfBox::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Bnd_Array1OfBox.def("__iter__", [](const Bnd_Array1OfBox &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Bnd_Array1OfBox.hxx
+	bind_NCollection_Array1<Bnd_Box>(mod, "Bnd_Array1OfBox");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Bnd_BoundSortBox.hxx
 	py::class_<Bnd_BoundSortBox, std::unique_ptr<Bnd_BoundSortBox, Deleter<Bnd_BoundSortBox>>> cls_Bnd_BoundSortBox(mod, "Bnd_BoundSortBox", "A tool to compare a bounding box or a plane with a set of bounding boxes. It sorts the set of bounding boxes to give the list of boxes which intersect the element being compared. The boxes being sorted generally bound a set of shapes, while the box being compared bounds a shape to be compared. The resulting list of intersecting boxes therefore gives the list of items which potentially intersect the shape to be compared.");
@@ -331,40 +291,8 @@ PYBIND11_MODULE(Bnd, mod) {
 	// FIXME cls_Bnd_BoundSortBox.def("Dump", (void (Bnd_BoundSortBox::*)() const ) &Bnd_BoundSortBox::Dump, "None");
 	cls_Bnd_BoundSortBox.def("Destroy", (void (Bnd_BoundSortBox::*)()) &Bnd_BoundSortBox::Destroy, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Bnd_Array1OfBox2d, std::unique_ptr<Bnd_Array1OfBox2d, Deleter<Bnd_Array1OfBox2d>>> cls_Bnd_Array1OfBox2d(mod, "Bnd_Array1OfBox2d", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Bnd_Array1OfBox2d.def(py::init<>());
-	cls_Bnd_Array1OfBox2d.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Bnd_Array1OfBox2d.def(py::init([] (const Bnd_Array1OfBox2d &other) {return new Bnd_Array1OfBox2d(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Bnd_Array1OfBox2d.def(py::init<Bnd_Array1OfBox2d &&>(), py::arg("theOther"));
-	cls_Bnd_Array1OfBox2d.def(py::init<const Bnd_Box2d &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Bnd_Array1OfBox2d.def("begin", (Bnd_Array1OfBox2d::iterator (Bnd_Array1OfBox2d::*)() const ) &Bnd_Array1OfBox2d::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Bnd_Array1OfBox2d.def("end", (Bnd_Array1OfBox2d::iterator (Bnd_Array1OfBox2d::*)() const ) &Bnd_Array1OfBox2d::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Bnd_Array1OfBox2d.def("cbegin", (Bnd_Array1OfBox2d::const_iterator (Bnd_Array1OfBox2d::*)() const ) &Bnd_Array1OfBox2d::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Bnd_Array1OfBox2d.def("cend", (Bnd_Array1OfBox2d::const_iterator (Bnd_Array1OfBox2d::*)() const ) &Bnd_Array1OfBox2d::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Bnd_Array1OfBox2d.def("Init", (void (Bnd_Array1OfBox2d::*)(const Bnd_Box2d &)) &Bnd_Array1OfBox2d::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Bnd_Array1OfBox2d.def("Size", (Standard_Integer (Bnd_Array1OfBox2d::*)() const ) &Bnd_Array1OfBox2d::Size, "Size query");
-	cls_Bnd_Array1OfBox2d.def("Length", (Standard_Integer (Bnd_Array1OfBox2d::*)() const ) &Bnd_Array1OfBox2d::Length, "Length query (the same)");
-	cls_Bnd_Array1OfBox2d.def("IsEmpty", (Standard_Boolean (Bnd_Array1OfBox2d::*)() const ) &Bnd_Array1OfBox2d::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Bnd_Array1OfBox2d.def("Lower", (Standard_Integer (Bnd_Array1OfBox2d::*)() const ) &Bnd_Array1OfBox2d::Lower, "Lower bound");
-	cls_Bnd_Array1OfBox2d.def("Upper", (Standard_Integer (Bnd_Array1OfBox2d::*)() const ) &Bnd_Array1OfBox2d::Upper, "Upper bound");
-	cls_Bnd_Array1OfBox2d.def("IsDeletable", (Standard_Boolean (Bnd_Array1OfBox2d::*)() const ) &Bnd_Array1OfBox2d::IsDeletable, "myDeletable flag");
-	cls_Bnd_Array1OfBox2d.def("IsAllocated", (Standard_Boolean (Bnd_Array1OfBox2d::*)() const ) &Bnd_Array1OfBox2d::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Bnd_Array1OfBox2d.def("Assign", (Bnd_Array1OfBox2d & (Bnd_Array1OfBox2d::*)(const Bnd_Array1OfBox2d &)) &Bnd_Array1OfBox2d::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Bnd_Array1OfBox2d.def("Move", (Bnd_Array1OfBox2d & (Bnd_Array1OfBox2d::*)(Bnd_Array1OfBox2d &&)) &Bnd_Array1OfBox2d::Move, "Move assignment", py::arg("theOther"));
-	cls_Bnd_Array1OfBox2d.def("assign", (Bnd_Array1OfBox2d & (Bnd_Array1OfBox2d::*)(const Bnd_Array1OfBox2d &)) &Bnd_Array1OfBox2d::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Bnd_Array1OfBox2d.def("assign", (Bnd_Array1OfBox2d & (Bnd_Array1OfBox2d::*)(Bnd_Array1OfBox2d &&)) &Bnd_Array1OfBox2d::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Bnd_Array1OfBox2d.def("First", (const Bnd_Box2d & (Bnd_Array1OfBox2d::*)() const ) &Bnd_Array1OfBox2d::First, "Returns first element");
-	cls_Bnd_Array1OfBox2d.def("ChangeFirst", (Bnd_Box2d & (Bnd_Array1OfBox2d::*)()) &Bnd_Array1OfBox2d::ChangeFirst, "Returns first element");
-	cls_Bnd_Array1OfBox2d.def("Last", (const Bnd_Box2d & (Bnd_Array1OfBox2d::*)() const ) &Bnd_Array1OfBox2d::Last, "Returns last element");
-	cls_Bnd_Array1OfBox2d.def("ChangeLast", (Bnd_Box2d & (Bnd_Array1OfBox2d::*)()) &Bnd_Array1OfBox2d::ChangeLast, "Returns last element");
-	cls_Bnd_Array1OfBox2d.def("Value", (const Bnd_Box2d & (Bnd_Array1OfBox2d::*)(const Standard_Integer) const ) &Bnd_Array1OfBox2d::Value, "Constant value access", py::arg("theIndex"));
-	cls_Bnd_Array1OfBox2d.def("__call__", (const Bnd_Box2d & (Bnd_Array1OfBox2d::*)(const Standard_Integer) const ) &Bnd_Array1OfBox2d::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Bnd_Array1OfBox2d.def("ChangeValue", (Bnd_Box2d & (Bnd_Array1OfBox2d::*)(const Standard_Integer)) &Bnd_Array1OfBox2d::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Bnd_Array1OfBox2d.def("__call__", (Bnd_Box2d & (Bnd_Array1OfBox2d::*)(const Standard_Integer)) &Bnd_Array1OfBox2d::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Bnd_Array1OfBox2d.def("SetValue", (void (Bnd_Array1OfBox2d::*)(const Standard_Integer, const Bnd_Box2d &)) &Bnd_Array1OfBox2d::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Bnd_Array1OfBox2d.def("Resize", (void (Bnd_Array1OfBox2d::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Bnd_Array1OfBox2d::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Bnd_Array1OfBox2d.def("__iter__", [](const Bnd_Array1OfBox2d &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Bnd_Array1OfBox2d.hxx
+	bind_NCollection_Array1<Bnd_Box2d>(mod, "Bnd_Array1OfBox2d");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Bnd_BoundSortBox2d.hxx
 	py::class_<Bnd_BoundSortBox2d, std::unique_ptr<Bnd_BoundSortBox2d, Deleter<Bnd_BoundSortBox2d>>> cls_Bnd_BoundSortBox2d(mod, "Bnd_BoundSortBox2d", "A tool to compare a 2D bounding box with a set of 2D bounding boxes. It sorts the set of bounding boxes to give the list of boxes which intersect the element being compared. The boxes being sorted generally bound a set of shapes, while the box being compared bounds a shape to be compared. The resulting list of intersecting boxes therefore gives the list of items which potentially intersect the shape to be compared.");
@@ -376,40 +304,8 @@ PYBIND11_MODULE(Bnd, mod) {
 	cls_Bnd_BoundSortBox2d.def("Compare", (const TColStd_ListOfInteger & (Bnd_BoundSortBox2d::*)(const Bnd_Box2d &)) &Bnd_BoundSortBox2d::Compare, "Compares the 2D bounding box theBox with the set of bounding boxes to be sorted by this comparison algorithm, and returns the list of intersecting bounding boxes as a list of indexes on the array of bounding boxes used by this algorithm.", py::arg("theBox"));
 	// FIXME cls_Bnd_BoundSortBox2d.def("Dump", (void (Bnd_BoundSortBox2d::*)() const ) &Bnd_BoundSortBox2d::Dump, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Bnd_Array1OfSphere, std::unique_ptr<Bnd_Array1OfSphere, Deleter<Bnd_Array1OfSphere>>> cls_Bnd_Array1OfSphere(mod, "Bnd_Array1OfSphere", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Bnd_Array1OfSphere.def(py::init<>());
-	cls_Bnd_Array1OfSphere.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Bnd_Array1OfSphere.def(py::init([] (const Bnd_Array1OfSphere &other) {return new Bnd_Array1OfSphere(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Bnd_Array1OfSphere.def(py::init<Bnd_Array1OfSphere &&>(), py::arg("theOther"));
-	cls_Bnd_Array1OfSphere.def(py::init<const Bnd_Sphere &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Bnd_Array1OfSphere.def("begin", (Bnd_Array1OfSphere::iterator (Bnd_Array1OfSphere::*)() const ) &Bnd_Array1OfSphere::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Bnd_Array1OfSphere.def("end", (Bnd_Array1OfSphere::iterator (Bnd_Array1OfSphere::*)() const ) &Bnd_Array1OfSphere::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Bnd_Array1OfSphere.def("cbegin", (Bnd_Array1OfSphere::const_iterator (Bnd_Array1OfSphere::*)() const ) &Bnd_Array1OfSphere::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Bnd_Array1OfSphere.def("cend", (Bnd_Array1OfSphere::const_iterator (Bnd_Array1OfSphere::*)() const ) &Bnd_Array1OfSphere::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Bnd_Array1OfSphere.def("Init", (void (Bnd_Array1OfSphere::*)(const Bnd_Sphere &)) &Bnd_Array1OfSphere::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Bnd_Array1OfSphere.def("Size", (Standard_Integer (Bnd_Array1OfSphere::*)() const ) &Bnd_Array1OfSphere::Size, "Size query");
-	cls_Bnd_Array1OfSphere.def("Length", (Standard_Integer (Bnd_Array1OfSphere::*)() const ) &Bnd_Array1OfSphere::Length, "Length query (the same)");
-	cls_Bnd_Array1OfSphere.def("IsEmpty", (Standard_Boolean (Bnd_Array1OfSphere::*)() const ) &Bnd_Array1OfSphere::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Bnd_Array1OfSphere.def("Lower", (Standard_Integer (Bnd_Array1OfSphere::*)() const ) &Bnd_Array1OfSphere::Lower, "Lower bound");
-	cls_Bnd_Array1OfSphere.def("Upper", (Standard_Integer (Bnd_Array1OfSphere::*)() const ) &Bnd_Array1OfSphere::Upper, "Upper bound");
-	cls_Bnd_Array1OfSphere.def("IsDeletable", (Standard_Boolean (Bnd_Array1OfSphere::*)() const ) &Bnd_Array1OfSphere::IsDeletable, "myDeletable flag");
-	cls_Bnd_Array1OfSphere.def("IsAllocated", (Standard_Boolean (Bnd_Array1OfSphere::*)() const ) &Bnd_Array1OfSphere::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Bnd_Array1OfSphere.def("Assign", (Bnd_Array1OfSphere & (Bnd_Array1OfSphere::*)(const Bnd_Array1OfSphere &)) &Bnd_Array1OfSphere::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Bnd_Array1OfSphere.def("Move", (Bnd_Array1OfSphere & (Bnd_Array1OfSphere::*)(Bnd_Array1OfSphere &&)) &Bnd_Array1OfSphere::Move, "Move assignment", py::arg("theOther"));
-	cls_Bnd_Array1OfSphere.def("assign", (Bnd_Array1OfSphere & (Bnd_Array1OfSphere::*)(const Bnd_Array1OfSphere &)) &Bnd_Array1OfSphere::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Bnd_Array1OfSphere.def("assign", (Bnd_Array1OfSphere & (Bnd_Array1OfSphere::*)(Bnd_Array1OfSphere &&)) &Bnd_Array1OfSphere::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Bnd_Array1OfSphere.def("First", (const Bnd_Sphere & (Bnd_Array1OfSphere::*)() const ) &Bnd_Array1OfSphere::First, "Returns first element");
-	cls_Bnd_Array1OfSphere.def("ChangeFirst", (Bnd_Sphere & (Bnd_Array1OfSphere::*)()) &Bnd_Array1OfSphere::ChangeFirst, "Returns first element");
-	cls_Bnd_Array1OfSphere.def("Last", (const Bnd_Sphere & (Bnd_Array1OfSphere::*)() const ) &Bnd_Array1OfSphere::Last, "Returns last element");
-	cls_Bnd_Array1OfSphere.def("ChangeLast", (Bnd_Sphere & (Bnd_Array1OfSphere::*)()) &Bnd_Array1OfSphere::ChangeLast, "Returns last element");
-	cls_Bnd_Array1OfSphere.def("Value", (const Bnd_Sphere & (Bnd_Array1OfSphere::*)(const Standard_Integer) const ) &Bnd_Array1OfSphere::Value, "Constant value access", py::arg("theIndex"));
-	cls_Bnd_Array1OfSphere.def("__call__", (const Bnd_Sphere & (Bnd_Array1OfSphere::*)(const Standard_Integer) const ) &Bnd_Array1OfSphere::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Bnd_Array1OfSphere.def("ChangeValue", (Bnd_Sphere & (Bnd_Array1OfSphere::*)(const Standard_Integer)) &Bnd_Array1OfSphere::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Bnd_Array1OfSphere.def("__call__", (Bnd_Sphere & (Bnd_Array1OfSphere::*)(const Standard_Integer)) &Bnd_Array1OfSphere::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Bnd_Array1OfSphere.def("SetValue", (void (Bnd_Array1OfSphere::*)(const Standard_Integer, const Bnd_Sphere &)) &Bnd_Array1OfSphere::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Bnd_Array1OfSphere.def("Resize", (void (Bnd_Array1OfSphere::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Bnd_Array1OfSphere::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Bnd_Array1OfSphere.def("__iter__", [](const Bnd_Array1OfSphere &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Bnd_Array1OfSphere.hxx
+	bind_NCollection_Array1<Bnd_Sphere>(mod, "Bnd_Array1OfSphere");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Bnd_Range.hxx
 	py::class_<Bnd_Range, std::unique_ptr<Bnd_Range, Deleter<Bnd_Range>>> cls_Bnd_Range(mod, "Bnd_Range", "This class describes a range in 1D space restricted by two real values. A range can be void indicating there is no point included in the range.");
@@ -466,50 +362,8 @@ PYBIND11_MODULE(Bnd, mod) {
 	cls_Bnd_HArray1OfSphere.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Bnd_HArray1OfSphere::get_type_descriptor, "None");
 	cls_Bnd_HArray1OfSphere.def("DynamicType", (const opencascade::handle<Standard_Type> & (Bnd_HArray1OfSphere::*)() const ) &Bnd_HArray1OfSphere::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Bnd_SeqOfBox, std::unique_ptr<Bnd_SeqOfBox, Deleter<Bnd_SeqOfBox>>, NCollection_BaseSequence> cls_Bnd_SeqOfBox(mod, "Bnd_SeqOfBox", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Bnd_SeqOfBox.def(py::init<>());
-	cls_Bnd_SeqOfBox.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Bnd_SeqOfBox.def(py::init([] (const Bnd_SeqOfBox &other) {return new Bnd_SeqOfBox(other);}), "Copy constructor", py::arg("other"));
-	cls_Bnd_SeqOfBox.def("begin", (Bnd_SeqOfBox::iterator (Bnd_SeqOfBox::*)() const ) &Bnd_SeqOfBox::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Bnd_SeqOfBox.def("end", (Bnd_SeqOfBox::iterator (Bnd_SeqOfBox::*)() const ) &Bnd_SeqOfBox::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Bnd_SeqOfBox.def("cbegin", (Bnd_SeqOfBox::const_iterator (Bnd_SeqOfBox::*)() const ) &Bnd_SeqOfBox::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Bnd_SeqOfBox.def("cend", (Bnd_SeqOfBox::const_iterator (Bnd_SeqOfBox::*)() const ) &Bnd_SeqOfBox::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Bnd_SeqOfBox.def("Size", (Standard_Integer (Bnd_SeqOfBox::*)() const ) &Bnd_SeqOfBox::Size, "Number of items");
-	cls_Bnd_SeqOfBox.def("Length", (Standard_Integer (Bnd_SeqOfBox::*)() const ) &Bnd_SeqOfBox::Length, "Number of items");
-	cls_Bnd_SeqOfBox.def("Lower", (Standard_Integer (Bnd_SeqOfBox::*)() const ) &Bnd_SeqOfBox::Lower, "Method for consistency with other collections.");
-	cls_Bnd_SeqOfBox.def("Upper", (Standard_Integer (Bnd_SeqOfBox::*)() const ) &Bnd_SeqOfBox::Upper, "Method for consistency with other collections.");
-	cls_Bnd_SeqOfBox.def("IsEmpty", (Standard_Boolean (Bnd_SeqOfBox::*)() const ) &Bnd_SeqOfBox::IsEmpty, "Empty query");
-	cls_Bnd_SeqOfBox.def("Reverse", (void (Bnd_SeqOfBox::*)()) &Bnd_SeqOfBox::Reverse, "Reverse sequence");
-	cls_Bnd_SeqOfBox.def("Exchange", (void (Bnd_SeqOfBox::*)(const Standard_Integer, const Standard_Integer)) &Bnd_SeqOfBox::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Bnd_SeqOfBox.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Bnd_SeqOfBox::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Bnd_SeqOfBox.def("Clear", [](Bnd_SeqOfBox &self) -> void { return self.Clear(); });
-	cls_Bnd_SeqOfBox.def("Clear", (void (Bnd_SeqOfBox::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Bnd_SeqOfBox::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Bnd_SeqOfBox.def("Assign", (Bnd_SeqOfBox & (Bnd_SeqOfBox::*)(const Bnd_SeqOfBox &)) &Bnd_SeqOfBox::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Bnd_SeqOfBox.def("assign", (Bnd_SeqOfBox & (Bnd_SeqOfBox::*)(const Bnd_SeqOfBox &)) &Bnd_SeqOfBox::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Bnd_SeqOfBox.def("Remove", (void (Bnd_SeqOfBox::*)(Bnd_SeqOfBox::Iterator &)) &Bnd_SeqOfBox::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Bnd_SeqOfBox.def("Remove", (void (Bnd_SeqOfBox::*)(const Standard_Integer)) &Bnd_SeqOfBox::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Bnd_SeqOfBox.def("Remove", (void (Bnd_SeqOfBox::*)(const Standard_Integer, const Standard_Integer)) &Bnd_SeqOfBox::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Bnd_SeqOfBox.def("Append", (void (Bnd_SeqOfBox::*)(const Bnd_Box &)) &Bnd_SeqOfBox::Append, "Append one item", py::arg("theItem"));
-	cls_Bnd_SeqOfBox.def("Append", (void (Bnd_SeqOfBox::*)(Bnd_SeqOfBox &)) &Bnd_SeqOfBox::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Bnd_SeqOfBox.def("Prepend", (void (Bnd_SeqOfBox::*)(const Bnd_Box &)) &Bnd_SeqOfBox::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Bnd_SeqOfBox.def("Prepend", (void (Bnd_SeqOfBox::*)(Bnd_SeqOfBox &)) &Bnd_SeqOfBox::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Bnd_SeqOfBox.def("InsertBefore", (void (Bnd_SeqOfBox::*)(const Standard_Integer, const Bnd_Box &)) &Bnd_SeqOfBox::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Bnd_SeqOfBox.def("InsertBefore", (void (Bnd_SeqOfBox::*)(const Standard_Integer, Bnd_SeqOfBox &)) &Bnd_SeqOfBox::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Bnd_SeqOfBox.def("InsertAfter", (void (Bnd_SeqOfBox::*)(Bnd_SeqOfBox::Iterator &, const Bnd_Box &)) &Bnd_SeqOfBox::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Bnd_SeqOfBox.def("InsertAfter", (void (Bnd_SeqOfBox::*)(const Standard_Integer, Bnd_SeqOfBox &)) &Bnd_SeqOfBox::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Bnd_SeqOfBox.def("InsertAfter", (void (Bnd_SeqOfBox::*)(const Standard_Integer, const Bnd_Box &)) &Bnd_SeqOfBox::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Bnd_SeqOfBox.def("Split", (void (Bnd_SeqOfBox::*)(const Standard_Integer, Bnd_SeqOfBox &)) &Bnd_SeqOfBox::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Bnd_SeqOfBox.def("First", (const Bnd_Box & (Bnd_SeqOfBox::*)() const ) &Bnd_SeqOfBox::First, "First item access");
-	cls_Bnd_SeqOfBox.def("ChangeFirst", (Bnd_Box & (Bnd_SeqOfBox::*)()) &Bnd_SeqOfBox::ChangeFirst, "First item access");
-	cls_Bnd_SeqOfBox.def("Last", (const Bnd_Box & (Bnd_SeqOfBox::*)() const ) &Bnd_SeqOfBox::Last, "Last item access");
-	cls_Bnd_SeqOfBox.def("ChangeLast", (Bnd_Box & (Bnd_SeqOfBox::*)()) &Bnd_SeqOfBox::ChangeLast, "Last item access");
-	cls_Bnd_SeqOfBox.def("Value", (const Bnd_Box & (Bnd_SeqOfBox::*)(const Standard_Integer) const ) &Bnd_SeqOfBox::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Bnd_SeqOfBox.def("__call__", (const Bnd_Box & (Bnd_SeqOfBox::*)(const Standard_Integer) const ) &Bnd_SeqOfBox::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Bnd_SeqOfBox.def("ChangeValue", (Bnd_Box & (Bnd_SeqOfBox::*)(const Standard_Integer)) &Bnd_SeqOfBox::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Bnd_SeqOfBox.def("__call__", (Bnd_Box & (Bnd_SeqOfBox::*)(const Standard_Integer)) &Bnd_SeqOfBox::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Bnd_SeqOfBox.def("SetValue", (void (Bnd_SeqOfBox::*)(const Standard_Integer, const Bnd_Box &)) &Bnd_SeqOfBox::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Bnd_SeqOfBox.def("__iter__", [](const Bnd_SeqOfBox &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Bnd_SeqOfBox.hxx
+	bind_NCollection_Sequence<Bnd_Box>(mod, "Bnd_SeqOfBox");
 
 
 }

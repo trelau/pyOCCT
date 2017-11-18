@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <TopoDS_Builder.hxx>
 #include <TopoDS_Face.hxx>
@@ -60,6 +51,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <BRep_PolygonOnClosedTriangulation.hxx>
 #include <TopoDS_TEdge.hxx>
 #include <BRep_TEdge.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BRep, mod) {
 
@@ -491,89 +483,17 @@ PYBIND11_MODULE(BRep, mod) {
 	cls_BRep_TEdge.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRep_TEdge::get_type_descriptor, "None");
 	cls_BRep_TEdge.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRep_TEdge::*)() const ) &BRep_TEdge::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<BRep_ListOfPointRepresentation, std::unique_ptr<BRep_ListOfPointRepresentation, Deleter<BRep_ListOfPointRepresentation>>, NCollection_BaseList> cls_BRep_ListOfPointRepresentation(mod, "BRep_ListOfPointRepresentation", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_BRep_ListOfPointRepresentation.def(py::init<>());
-	cls_BRep_ListOfPointRepresentation.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_BRep_ListOfPointRepresentation.def(py::init([] (const BRep_ListOfPointRepresentation &other) {return new BRep_ListOfPointRepresentation(other);}), "Copy constructor", py::arg("other"));
-	cls_BRep_ListOfPointRepresentation.def("begin", (BRep_ListOfPointRepresentation::iterator (BRep_ListOfPointRepresentation::*)() const ) &BRep_ListOfPointRepresentation::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_BRep_ListOfPointRepresentation.def("end", (BRep_ListOfPointRepresentation::iterator (BRep_ListOfPointRepresentation::*)() const ) &BRep_ListOfPointRepresentation::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_BRep_ListOfPointRepresentation.def("cbegin", (BRep_ListOfPointRepresentation::const_iterator (BRep_ListOfPointRepresentation::*)() const ) &BRep_ListOfPointRepresentation::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_BRep_ListOfPointRepresentation.def("cend", (BRep_ListOfPointRepresentation::const_iterator (BRep_ListOfPointRepresentation::*)() const ) &BRep_ListOfPointRepresentation::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_BRep_ListOfPointRepresentation.def("Size", (Standard_Integer (BRep_ListOfPointRepresentation::*)() const ) &BRep_ListOfPointRepresentation::Size, "Size - Number of items");
-	cls_BRep_ListOfPointRepresentation.def("Assign", (BRep_ListOfPointRepresentation & (BRep_ListOfPointRepresentation::*)(const BRep_ListOfPointRepresentation &)) &BRep_ListOfPointRepresentation::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRep_ListOfPointRepresentation.def("assign", (BRep_ListOfPointRepresentation & (BRep_ListOfPointRepresentation::*)(const BRep_ListOfPointRepresentation &)) &BRep_ListOfPointRepresentation::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_BRep_ListOfPointRepresentation.def("Clear", [](BRep_ListOfPointRepresentation &self) -> void { return self.Clear(); });
-	cls_BRep_ListOfPointRepresentation.def("Clear", (void (BRep_ListOfPointRepresentation::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRep_ListOfPointRepresentation::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_BRep_ListOfPointRepresentation.def("First", (const opencascade::handle<BRep_PointRepresentation> & (BRep_ListOfPointRepresentation::*)() const ) &BRep_ListOfPointRepresentation::First, "First item");
-	cls_BRep_ListOfPointRepresentation.def("First", (opencascade::handle<BRep_PointRepresentation> & (BRep_ListOfPointRepresentation::*)()) &BRep_ListOfPointRepresentation::First, "First item (non-const)");
-	cls_BRep_ListOfPointRepresentation.def("Last", (const opencascade::handle<BRep_PointRepresentation> & (BRep_ListOfPointRepresentation::*)() const ) &BRep_ListOfPointRepresentation::Last, "Last item");
-	cls_BRep_ListOfPointRepresentation.def("Last", (opencascade::handle<BRep_PointRepresentation> & (BRep_ListOfPointRepresentation::*)()) &BRep_ListOfPointRepresentation::Last, "Last item (non-const)");
-	cls_BRep_ListOfPointRepresentation.def("Append", (opencascade::handle<BRep_PointRepresentation> & (BRep_ListOfPointRepresentation::*)(const opencascade::handle<BRep_PointRepresentation> &)) &BRep_ListOfPointRepresentation::Append, "Append one item at the end", py::arg("theItem"));
-	cls_BRep_ListOfPointRepresentation.def("Append", (void (BRep_ListOfPointRepresentation::*)(const opencascade::handle<BRep_PointRepresentation> &, BRep_ListOfPointRepresentation::Iterator &)) &BRep_ListOfPointRepresentation::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_BRep_ListOfPointRepresentation.def("Append", (void (BRep_ListOfPointRepresentation::*)(BRep_ListOfPointRepresentation &)) &BRep_ListOfPointRepresentation::Append, "Append another list at the end", py::arg("theOther"));
-	cls_BRep_ListOfPointRepresentation.def("Prepend", (opencascade::handle<BRep_PointRepresentation> & (BRep_ListOfPointRepresentation::*)(const opencascade::handle<BRep_PointRepresentation> &)) &BRep_ListOfPointRepresentation::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_BRep_ListOfPointRepresentation.def("Prepend", (void (BRep_ListOfPointRepresentation::*)(BRep_ListOfPointRepresentation &)) &BRep_ListOfPointRepresentation::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_BRep_ListOfPointRepresentation.def("RemoveFirst", (void (BRep_ListOfPointRepresentation::*)()) &BRep_ListOfPointRepresentation::RemoveFirst, "RemoveFirst item");
-	cls_BRep_ListOfPointRepresentation.def("Remove", (void (BRep_ListOfPointRepresentation::*)(BRep_ListOfPointRepresentation::Iterator &)) &BRep_ListOfPointRepresentation::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_BRep_ListOfPointRepresentation.def("InsertBefore", (opencascade::handle<BRep_PointRepresentation> & (BRep_ListOfPointRepresentation::*)(const opencascade::handle<BRep_PointRepresentation> &, BRep_ListOfPointRepresentation::Iterator &)) &BRep_ListOfPointRepresentation::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_BRep_ListOfPointRepresentation.def("InsertBefore", (void (BRep_ListOfPointRepresentation::*)(BRep_ListOfPointRepresentation &, BRep_ListOfPointRepresentation::Iterator &)) &BRep_ListOfPointRepresentation::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_BRep_ListOfPointRepresentation.def("InsertAfter", (opencascade::handle<BRep_PointRepresentation> & (BRep_ListOfPointRepresentation::*)(const opencascade::handle<BRep_PointRepresentation> &, BRep_ListOfPointRepresentation::Iterator &)) &BRep_ListOfPointRepresentation::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_BRep_ListOfPointRepresentation.def("InsertAfter", (void (BRep_ListOfPointRepresentation::*)(BRep_ListOfPointRepresentation &, BRep_ListOfPointRepresentation::Iterator &)) &BRep_ListOfPointRepresentation::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_BRep_ListOfPointRepresentation.def("Reverse", (void (BRep_ListOfPointRepresentation::*)()) &BRep_ListOfPointRepresentation::Reverse, "Reverse the list");
-	cls_BRep_ListOfPointRepresentation.def("__iter__", [](const BRep_ListOfPointRepresentation &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRep_ListOfPointRepresentation.hxx
+	bind_NCollection_List<opencascade::handle<BRep_PointRepresentation> >(mod, "BRep_ListOfPointRepresentation");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<BRep_ListIteratorOfListOfPointRepresentation, std::unique_ptr<BRep_ListIteratorOfListOfPointRepresentation, Deleter<BRep_ListIteratorOfListOfPointRepresentation>>> cls_BRep_ListIteratorOfListOfPointRepresentation(mod, "BRep_ListIteratorOfListOfPointRepresentation", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_BRep_ListIteratorOfListOfPointRepresentation.def(py::init<>());
-	cls_BRep_ListIteratorOfListOfPointRepresentation.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_BRep_ListIteratorOfListOfPointRepresentation.def("More", (Standard_Boolean (BRep_ListIteratorOfListOfPointRepresentation::*)() const ) &BRep_ListIteratorOfListOfPointRepresentation::More, "Check end");
-	cls_BRep_ListIteratorOfListOfPointRepresentation.def("Next", (void (BRep_ListIteratorOfListOfPointRepresentation::*)()) &BRep_ListIteratorOfListOfPointRepresentation::Next, "Make step");
-	cls_BRep_ListIteratorOfListOfPointRepresentation.def("Value", (const opencascade::handle<BRep_PointRepresentation> & (BRep_ListIteratorOfListOfPointRepresentation::*)() const ) &BRep_ListIteratorOfListOfPointRepresentation::Value, "Constant Value access");
-	cls_BRep_ListIteratorOfListOfPointRepresentation.def("Value", (opencascade::handle<BRep_PointRepresentation> & (BRep_ListIteratorOfListOfPointRepresentation::*)()) &BRep_ListIteratorOfListOfPointRepresentation::Value, "Non-const Value access");
-	cls_BRep_ListIteratorOfListOfPointRepresentation.def("ChangeValue", (opencascade::handle<BRep_PointRepresentation> & (BRep_ListIteratorOfListOfPointRepresentation::*)() const ) &BRep_ListIteratorOfListOfPointRepresentation::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRep_ListOfPointRepresentation.hxx
+	bind_NCollection_TListIterator<opencascade::handle<BRep_PointRepresentation> >(mod, "BRep_ListIteratorOfListOfPointRepresentation");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<BRep_ListOfCurveRepresentation, std::unique_ptr<BRep_ListOfCurveRepresentation, Deleter<BRep_ListOfCurveRepresentation>>, NCollection_BaseList> cls_BRep_ListOfCurveRepresentation(mod, "BRep_ListOfCurveRepresentation", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_BRep_ListOfCurveRepresentation.def(py::init<>());
-	cls_BRep_ListOfCurveRepresentation.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_BRep_ListOfCurveRepresentation.def(py::init([] (const BRep_ListOfCurveRepresentation &other) {return new BRep_ListOfCurveRepresentation(other);}), "Copy constructor", py::arg("other"));
-	cls_BRep_ListOfCurveRepresentation.def("begin", (BRep_ListOfCurveRepresentation::iterator (BRep_ListOfCurveRepresentation::*)() const ) &BRep_ListOfCurveRepresentation::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_BRep_ListOfCurveRepresentation.def("end", (BRep_ListOfCurveRepresentation::iterator (BRep_ListOfCurveRepresentation::*)() const ) &BRep_ListOfCurveRepresentation::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_BRep_ListOfCurveRepresentation.def("cbegin", (BRep_ListOfCurveRepresentation::const_iterator (BRep_ListOfCurveRepresentation::*)() const ) &BRep_ListOfCurveRepresentation::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_BRep_ListOfCurveRepresentation.def("cend", (BRep_ListOfCurveRepresentation::const_iterator (BRep_ListOfCurveRepresentation::*)() const ) &BRep_ListOfCurveRepresentation::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_BRep_ListOfCurveRepresentation.def("Size", (Standard_Integer (BRep_ListOfCurveRepresentation::*)() const ) &BRep_ListOfCurveRepresentation::Size, "Size - Number of items");
-	cls_BRep_ListOfCurveRepresentation.def("Assign", (BRep_ListOfCurveRepresentation & (BRep_ListOfCurveRepresentation::*)(const BRep_ListOfCurveRepresentation &)) &BRep_ListOfCurveRepresentation::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRep_ListOfCurveRepresentation.def("assign", (BRep_ListOfCurveRepresentation & (BRep_ListOfCurveRepresentation::*)(const BRep_ListOfCurveRepresentation &)) &BRep_ListOfCurveRepresentation::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_BRep_ListOfCurveRepresentation.def("Clear", [](BRep_ListOfCurveRepresentation &self) -> void { return self.Clear(); });
-	cls_BRep_ListOfCurveRepresentation.def("Clear", (void (BRep_ListOfCurveRepresentation::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRep_ListOfCurveRepresentation::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_BRep_ListOfCurveRepresentation.def("First", (const opencascade::handle<BRep_CurveRepresentation> & (BRep_ListOfCurveRepresentation::*)() const ) &BRep_ListOfCurveRepresentation::First, "First item");
-	cls_BRep_ListOfCurveRepresentation.def("First", (opencascade::handle<BRep_CurveRepresentation> & (BRep_ListOfCurveRepresentation::*)()) &BRep_ListOfCurveRepresentation::First, "First item (non-const)");
-	cls_BRep_ListOfCurveRepresentation.def("Last", (const opencascade::handle<BRep_CurveRepresentation> & (BRep_ListOfCurveRepresentation::*)() const ) &BRep_ListOfCurveRepresentation::Last, "Last item");
-	cls_BRep_ListOfCurveRepresentation.def("Last", (opencascade::handle<BRep_CurveRepresentation> & (BRep_ListOfCurveRepresentation::*)()) &BRep_ListOfCurveRepresentation::Last, "Last item (non-const)");
-	cls_BRep_ListOfCurveRepresentation.def("Append", (opencascade::handle<BRep_CurveRepresentation> & (BRep_ListOfCurveRepresentation::*)(const opencascade::handle<BRep_CurveRepresentation> &)) &BRep_ListOfCurveRepresentation::Append, "Append one item at the end", py::arg("theItem"));
-	cls_BRep_ListOfCurveRepresentation.def("Append", (void (BRep_ListOfCurveRepresentation::*)(const opencascade::handle<BRep_CurveRepresentation> &, BRep_ListOfCurveRepresentation::Iterator &)) &BRep_ListOfCurveRepresentation::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_BRep_ListOfCurveRepresentation.def("Append", (void (BRep_ListOfCurveRepresentation::*)(BRep_ListOfCurveRepresentation &)) &BRep_ListOfCurveRepresentation::Append, "Append another list at the end", py::arg("theOther"));
-	cls_BRep_ListOfCurveRepresentation.def("Prepend", (opencascade::handle<BRep_CurveRepresentation> & (BRep_ListOfCurveRepresentation::*)(const opencascade::handle<BRep_CurveRepresentation> &)) &BRep_ListOfCurveRepresentation::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_BRep_ListOfCurveRepresentation.def("Prepend", (void (BRep_ListOfCurveRepresentation::*)(BRep_ListOfCurveRepresentation &)) &BRep_ListOfCurveRepresentation::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_BRep_ListOfCurveRepresentation.def("RemoveFirst", (void (BRep_ListOfCurveRepresentation::*)()) &BRep_ListOfCurveRepresentation::RemoveFirst, "RemoveFirst item");
-	cls_BRep_ListOfCurveRepresentation.def("Remove", (void (BRep_ListOfCurveRepresentation::*)(BRep_ListOfCurveRepresentation::Iterator &)) &BRep_ListOfCurveRepresentation::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_BRep_ListOfCurveRepresentation.def("InsertBefore", (opencascade::handle<BRep_CurveRepresentation> & (BRep_ListOfCurveRepresentation::*)(const opencascade::handle<BRep_CurveRepresentation> &, BRep_ListOfCurveRepresentation::Iterator &)) &BRep_ListOfCurveRepresentation::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_BRep_ListOfCurveRepresentation.def("InsertBefore", (void (BRep_ListOfCurveRepresentation::*)(BRep_ListOfCurveRepresentation &, BRep_ListOfCurveRepresentation::Iterator &)) &BRep_ListOfCurveRepresentation::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_BRep_ListOfCurveRepresentation.def("InsertAfter", (opencascade::handle<BRep_CurveRepresentation> & (BRep_ListOfCurveRepresentation::*)(const opencascade::handle<BRep_CurveRepresentation> &, BRep_ListOfCurveRepresentation::Iterator &)) &BRep_ListOfCurveRepresentation::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_BRep_ListOfCurveRepresentation.def("InsertAfter", (void (BRep_ListOfCurveRepresentation::*)(BRep_ListOfCurveRepresentation &, BRep_ListOfCurveRepresentation::Iterator &)) &BRep_ListOfCurveRepresentation::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_BRep_ListOfCurveRepresentation.def("Reverse", (void (BRep_ListOfCurveRepresentation::*)()) &BRep_ListOfCurveRepresentation::Reverse, "Reverse the list");
-	cls_BRep_ListOfCurveRepresentation.def("__iter__", [](const BRep_ListOfCurveRepresentation &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRep_ListOfCurveRepresentation.hxx
+	bind_NCollection_List<opencascade::handle<BRep_CurveRepresentation> >(mod, "BRep_ListOfCurveRepresentation");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<BRep_ListIteratorOfListOfCurveRepresentation, std::unique_ptr<BRep_ListIteratorOfListOfCurveRepresentation, Deleter<BRep_ListIteratorOfListOfCurveRepresentation>>> cls_BRep_ListIteratorOfListOfCurveRepresentation(mod, "BRep_ListIteratorOfListOfCurveRepresentation", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_BRep_ListIteratorOfListOfCurveRepresentation.def(py::init<>());
-	cls_BRep_ListIteratorOfListOfCurveRepresentation.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_BRep_ListIteratorOfListOfCurveRepresentation.def("More", (Standard_Boolean (BRep_ListIteratorOfListOfCurveRepresentation::*)() const ) &BRep_ListIteratorOfListOfCurveRepresentation::More, "Check end");
-	cls_BRep_ListIteratorOfListOfCurveRepresentation.def("Next", (void (BRep_ListIteratorOfListOfCurveRepresentation::*)()) &BRep_ListIteratorOfListOfCurveRepresentation::Next, "Make step");
-	cls_BRep_ListIteratorOfListOfCurveRepresentation.def("Value", (const opencascade::handle<BRep_CurveRepresentation> & (BRep_ListIteratorOfListOfCurveRepresentation::*)() const ) &BRep_ListIteratorOfListOfCurveRepresentation::Value, "Constant Value access");
-	cls_BRep_ListIteratorOfListOfCurveRepresentation.def("Value", (opencascade::handle<BRep_CurveRepresentation> & (BRep_ListIteratorOfListOfCurveRepresentation::*)()) &BRep_ListIteratorOfListOfCurveRepresentation::Value, "Non-const Value access");
-	cls_BRep_ListIteratorOfListOfCurveRepresentation.def("ChangeValue", (opencascade::handle<BRep_CurveRepresentation> & (BRep_ListIteratorOfListOfCurveRepresentation::*)() const ) &BRep_ListIteratorOfListOfCurveRepresentation::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRep_ListOfCurveRepresentation.hxx
+	bind_NCollection_TListIterator<opencascade::handle<BRep_CurveRepresentation> >(mod, "BRep_ListIteratorOfListOfCurveRepresentation");
 
 
 }

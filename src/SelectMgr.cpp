@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <SelectMgr_TypeOfUpdate.hxx>
 #include <Standard_Transient.hxx>
@@ -94,6 +85,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <SelectMgr_DataMapOfObjectSelectors.hxx>
 #include <NCollection_IndexedMap.hxx>
 #include <SelectMgr_SequenceOfFilter.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(SelectMgr, mod) {
 
@@ -631,372 +623,74 @@ PYBIND11_MODULE(SelectMgr, mod) {
 	cls_SelectMgr_AndFilter.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &SelectMgr_AndFilter::get_type_descriptor, "None");
 	cls_SelectMgr_AndFilter.def("DynamicType", (const opencascade::handle<Standard_Type> & (SelectMgr_AndFilter::*)() const ) &SelectMgr_AndFilter::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<SelectMgr_SequenceOfSelection, std::unique_ptr<SelectMgr_SequenceOfSelection, Deleter<SelectMgr_SequenceOfSelection>>, NCollection_BaseSequence> cls_SelectMgr_SequenceOfSelection(mod, "SelectMgr_SequenceOfSelection", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_SelectMgr_SequenceOfSelection.def(py::init<>());
-	cls_SelectMgr_SequenceOfSelection.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_SelectMgr_SequenceOfSelection.def(py::init([] (const SelectMgr_SequenceOfSelection &other) {return new SelectMgr_SequenceOfSelection(other);}), "Copy constructor", py::arg("other"));
-	cls_SelectMgr_SequenceOfSelection.def("begin", (SelectMgr_SequenceOfSelection::iterator (SelectMgr_SequenceOfSelection::*)() const ) &SelectMgr_SequenceOfSelection::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_SelectMgr_SequenceOfSelection.def("end", (SelectMgr_SequenceOfSelection::iterator (SelectMgr_SequenceOfSelection::*)() const ) &SelectMgr_SequenceOfSelection::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_SelectMgr_SequenceOfSelection.def("cbegin", (SelectMgr_SequenceOfSelection::const_iterator (SelectMgr_SequenceOfSelection::*)() const ) &SelectMgr_SequenceOfSelection::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_SelectMgr_SequenceOfSelection.def("cend", (SelectMgr_SequenceOfSelection::const_iterator (SelectMgr_SequenceOfSelection::*)() const ) &SelectMgr_SequenceOfSelection::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_SelectMgr_SequenceOfSelection.def("Size", (Standard_Integer (SelectMgr_SequenceOfSelection::*)() const ) &SelectMgr_SequenceOfSelection::Size, "Number of items");
-	cls_SelectMgr_SequenceOfSelection.def("Length", (Standard_Integer (SelectMgr_SequenceOfSelection::*)() const ) &SelectMgr_SequenceOfSelection::Length, "Number of items");
-	cls_SelectMgr_SequenceOfSelection.def("Lower", (Standard_Integer (SelectMgr_SequenceOfSelection::*)() const ) &SelectMgr_SequenceOfSelection::Lower, "Method for consistency with other collections.");
-	cls_SelectMgr_SequenceOfSelection.def("Upper", (Standard_Integer (SelectMgr_SequenceOfSelection::*)() const ) &SelectMgr_SequenceOfSelection::Upper, "Method for consistency with other collections.");
-	cls_SelectMgr_SequenceOfSelection.def("IsEmpty", (Standard_Boolean (SelectMgr_SequenceOfSelection::*)() const ) &SelectMgr_SequenceOfSelection::IsEmpty, "Empty query");
-	cls_SelectMgr_SequenceOfSelection.def("Reverse", (void (SelectMgr_SequenceOfSelection::*)()) &SelectMgr_SequenceOfSelection::Reverse, "Reverse sequence");
-	cls_SelectMgr_SequenceOfSelection.def("Exchange", (void (SelectMgr_SequenceOfSelection::*)(const Standard_Integer, const Standard_Integer)) &SelectMgr_SequenceOfSelection::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_SelectMgr_SequenceOfSelection.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &SelectMgr_SequenceOfSelection::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_SelectMgr_SequenceOfSelection.def("Clear", [](SelectMgr_SequenceOfSelection &self) -> void { return self.Clear(); });
-	cls_SelectMgr_SequenceOfSelection.def("Clear", (void (SelectMgr_SequenceOfSelection::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &SelectMgr_SequenceOfSelection::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_SelectMgr_SequenceOfSelection.def("Assign", (SelectMgr_SequenceOfSelection & (SelectMgr_SequenceOfSelection::*)(const SelectMgr_SequenceOfSelection &)) &SelectMgr_SequenceOfSelection::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_SelectMgr_SequenceOfSelection.def("assign", (SelectMgr_SequenceOfSelection & (SelectMgr_SequenceOfSelection::*)(const SelectMgr_SequenceOfSelection &)) &SelectMgr_SequenceOfSelection::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_SelectMgr_SequenceOfSelection.def("Remove", (void (SelectMgr_SequenceOfSelection::*)(SelectMgr_SequenceOfSelection::Iterator &)) &SelectMgr_SequenceOfSelection::Remove, "Remove one item", py::arg("thePosition"));
-	cls_SelectMgr_SequenceOfSelection.def("Remove", (void (SelectMgr_SequenceOfSelection::*)(const Standard_Integer)) &SelectMgr_SequenceOfSelection::Remove, "Remove one item", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfSelection.def("Remove", (void (SelectMgr_SequenceOfSelection::*)(const Standard_Integer, const Standard_Integer)) &SelectMgr_SequenceOfSelection::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_SelectMgr_SequenceOfSelection.def("Append", (void (SelectMgr_SequenceOfSelection::*)(const opencascade::handle<SelectMgr_Selection> &)) &SelectMgr_SequenceOfSelection::Append, "Append one item", py::arg("theItem"));
-	cls_SelectMgr_SequenceOfSelection.def("Append", (void (SelectMgr_SequenceOfSelection::*)(SelectMgr_SequenceOfSelection &)) &SelectMgr_SequenceOfSelection::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfSelection.def("Prepend", (void (SelectMgr_SequenceOfSelection::*)(const opencascade::handle<SelectMgr_Selection> &)) &SelectMgr_SequenceOfSelection::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_SelectMgr_SequenceOfSelection.def("Prepend", (void (SelectMgr_SequenceOfSelection::*)(SelectMgr_SequenceOfSelection &)) &SelectMgr_SequenceOfSelection::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfSelection.def("InsertBefore", (void (SelectMgr_SequenceOfSelection::*)(const Standard_Integer, const opencascade::handle<SelectMgr_Selection> &)) &SelectMgr_SequenceOfSelection::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_SelectMgr_SequenceOfSelection.def("InsertBefore", (void (SelectMgr_SequenceOfSelection::*)(const Standard_Integer, SelectMgr_SequenceOfSelection &)) &SelectMgr_SequenceOfSelection::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfSelection.def("InsertAfter", (void (SelectMgr_SequenceOfSelection::*)(SelectMgr_SequenceOfSelection::Iterator &, const opencascade::handle<SelectMgr_Selection> &)) &SelectMgr_SequenceOfSelection::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_SelectMgr_SequenceOfSelection.def("InsertAfter", (void (SelectMgr_SequenceOfSelection::*)(const Standard_Integer, SelectMgr_SequenceOfSelection &)) &SelectMgr_SequenceOfSelection::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfSelection.def("InsertAfter", (void (SelectMgr_SequenceOfSelection::*)(const Standard_Integer, const opencascade::handle<SelectMgr_Selection> &)) &SelectMgr_SequenceOfSelection::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_SelectMgr_SequenceOfSelection.def("Split", (void (SelectMgr_SequenceOfSelection::*)(const Standard_Integer, SelectMgr_SequenceOfSelection &)) &SelectMgr_SequenceOfSelection::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfSelection.def("First", (const opencascade::handle<SelectMgr_Selection> & (SelectMgr_SequenceOfSelection::*)() const ) &SelectMgr_SequenceOfSelection::First, "First item access");
-	cls_SelectMgr_SequenceOfSelection.def("ChangeFirst", (opencascade::handle<SelectMgr_Selection> & (SelectMgr_SequenceOfSelection::*)()) &SelectMgr_SequenceOfSelection::ChangeFirst, "First item access");
-	cls_SelectMgr_SequenceOfSelection.def("Last", (const opencascade::handle<SelectMgr_Selection> & (SelectMgr_SequenceOfSelection::*)() const ) &SelectMgr_SequenceOfSelection::Last, "Last item access");
-	cls_SelectMgr_SequenceOfSelection.def("ChangeLast", (opencascade::handle<SelectMgr_Selection> & (SelectMgr_SequenceOfSelection::*)()) &SelectMgr_SequenceOfSelection::ChangeLast, "Last item access");
-	cls_SelectMgr_SequenceOfSelection.def("Value", (const opencascade::handle<SelectMgr_Selection> & (SelectMgr_SequenceOfSelection::*)(const Standard_Integer) const ) &SelectMgr_SequenceOfSelection::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfSelection.def("__call__", (const opencascade::handle<SelectMgr_Selection> & (SelectMgr_SequenceOfSelection::*)(const Standard_Integer) const ) &SelectMgr_SequenceOfSelection::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfSelection.def("ChangeValue", (opencascade::handle<SelectMgr_Selection> & (SelectMgr_SequenceOfSelection::*)(const Standard_Integer)) &SelectMgr_SequenceOfSelection::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfSelection.def("__call__", (opencascade::handle<SelectMgr_Selection> & (SelectMgr_SequenceOfSelection::*)(const Standard_Integer)) &SelectMgr_SequenceOfSelection::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfSelection.def("SetValue", (void (SelectMgr_SequenceOfSelection::*)(const Standard_Integer, const opencascade::handle<SelectMgr_Selection> &)) &SelectMgr_SequenceOfSelection::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_SelectMgr_SequenceOfSelection.def("__iter__", [](const SelectMgr_SequenceOfSelection &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_SequenceOfSelection.hxx
+	bind_NCollection_Sequence<opencascade::handle<SelectMgr_Selection> >(mod, "SelectMgr_SequenceOfSelection");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<SelectMgr_SequenceOfOwner, std::unique_ptr<SelectMgr_SequenceOfOwner, Deleter<SelectMgr_SequenceOfOwner>>, NCollection_BaseSequence> cls_SelectMgr_SequenceOfOwner(mod, "SelectMgr_SequenceOfOwner", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_SelectMgr_SequenceOfOwner.def(py::init<>());
-	cls_SelectMgr_SequenceOfOwner.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_SelectMgr_SequenceOfOwner.def(py::init([] (const SelectMgr_SequenceOfOwner &other) {return new SelectMgr_SequenceOfOwner(other);}), "Copy constructor", py::arg("other"));
-	cls_SelectMgr_SequenceOfOwner.def("begin", (SelectMgr_SequenceOfOwner::iterator (SelectMgr_SequenceOfOwner::*)() const ) &SelectMgr_SequenceOfOwner::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_SelectMgr_SequenceOfOwner.def("end", (SelectMgr_SequenceOfOwner::iterator (SelectMgr_SequenceOfOwner::*)() const ) &SelectMgr_SequenceOfOwner::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_SelectMgr_SequenceOfOwner.def("cbegin", (SelectMgr_SequenceOfOwner::const_iterator (SelectMgr_SequenceOfOwner::*)() const ) &SelectMgr_SequenceOfOwner::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_SelectMgr_SequenceOfOwner.def("cend", (SelectMgr_SequenceOfOwner::const_iterator (SelectMgr_SequenceOfOwner::*)() const ) &SelectMgr_SequenceOfOwner::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_SelectMgr_SequenceOfOwner.def("Size", (Standard_Integer (SelectMgr_SequenceOfOwner::*)() const ) &SelectMgr_SequenceOfOwner::Size, "Number of items");
-	cls_SelectMgr_SequenceOfOwner.def("Length", (Standard_Integer (SelectMgr_SequenceOfOwner::*)() const ) &SelectMgr_SequenceOfOwner::Length, "Number of items");
-	cls_SelectMgr_SequenceOfOwner.def("Lower", (Standard_Integer (SelectMgr_SequenceOfOwner::*)() const ) &SelectMgr_SequenceOfOwner::Lower, "Method for consistency with other collections.");
-	cls_SelectMgr_SequenceOfOwner.def("Upper", (Standard_Integer (SelectMgr_SequenceOfOwner::*)() const ) &SelectMgr_SequenceOfOwner::Upper, "Method for consistency with other collections.");
-	cls_SelectMgr_SequenceOfOwner.def("IsEmpty", (Standard_Boolean (SelectMgr_SequenceOfOwner::*)() const ) &SelectMgr_SequenceOfOwner::IsEmpty, "Empty query");
-	cls_SelectMgr_SequenceOfOwner.def("Reverse", (void (SelectMgr_SequenceOfOwner::*)()) &SelectMgr_SequenceOfOwner::Reverse, "Reverse sequence");
-	cls_SelectMgr_SequenceOfOwner.def("Exchange", (void (SelectMgr_SequenceOfOwner::*)(const Standard_Integer, const Standard_Integer)) &SelectMgr_SequenceOfOwner::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_SelectMgr_SequenceOfOwner.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &SelectMgr_SequenceOfOwner::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_SelectMgr_SequenceOfOwner.def("Clear", [](SelectMgr_SequenceOfOwner &self) -> void { return self.Clear(); });
-	cls_SelectMgr_SequenceOfOwner.def("Clear", (void (SelectMgr_SequenceOfOwner::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &SelectMgr_SequenceOfOwner::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_SelectMgr_SequenceOfOwner.def("Assign", (SelectMgr_SequenceOfOwner & (SelectMgr_SequenceOfOwner::*)(const SelectMgr_SequenceOfOwner &)) &SelectMgr_SequenceOfOwner::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_SelectMgr_SequenceOfOwner.def("assign", (SelectMgr_SequenceOfOwner & (SelectMgr_SequenceOfOwner::*)(const SelectMgr_SequenceOfOwner &)) &SelectMgr_SequenceOfOwner::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_SelectMgr_SequenceOfOwner.def("Remove", (void (SelectMgr_SequenceOfOwner::*)(SelectMgr_SequenceOfOwner::Iterator &)) &SelectMgr_SequenceOfOwner::Remove, "Remove one item", py::arg("thePosition"));
-	cls_SelectMgr_SequenceOfOwner.def("Remove", (void (SelectMgr_SequenceOfOwner::*)(const Standard_Integer)) &SelectMgr_SequenceOfOwner::Remove, "Remove one item", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfOwner.def("Remove", (void (SelectMgr_SequenceOfOwner::*)(const Standard_Integer, const Standard_Integer)) &SelectMgr_SequenceOfOwner::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_SelectMgr_SequenceOfOwner.def("Append", (void (SelectMgr_SequenceOfOwner::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &SelectMgr_SequenceOfOwner::Append, "Append one item", py::arg("theItem"));
-	cls_SelectMgr_SequenceOfOwner.def("Append", (void (SelectMgr_SequenceOfOwner::*)(SelectMgr_SequenceOfOwner &)) &SelectMgr_SequenceOfOwner::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfOwner.def("Prepend", (void (SelectMgr_SequenceOfOwner::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &SelectMgr_SequenceOfOwner::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_SelectMgr_SequenceOfOwner.def("Prepend", (void (SelectMgr_SequenceOfOwner::*)(SelectMgr_SequenceOfOwner &)) &SelectMgr_SequenceOfOwner::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfOwner.def("InsertBefore", (void (SelectMgr_SequenceOfOwner::*)(const Standard_Integer, const opencascade::handle<SelectMgr_EntityOwner> &)) &SelectMgr_SequenceOfOwner::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_SelectMgr_SequenceOfOwner.def("InsertBefore", (void (SelectMgr_SequenceOfOwner::*)(const Standard_Integer, SelectMgr_SequenceOfOwner &)) &SelectMgr_SequenceOfOwner::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfOwner.def("InsertAfter", (void (SelectMgr_SequenceOfOwner::*)(SelectMgr_SequenceOfOwner::Iterator &, const opencascade::handle<SelectMgr_EntityOwner> &)) &SelectMgr_SequenceOfOwner::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_SelectMgr_SequenceOfOwner.def("InsertAfter", (void (SelectMgr_SequenceOfOwner::*)(const Standard_Integer, SelectMgr_SequenceOfOwner &)) &SelectMgr_SequenceOfOwner::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfOwner.def("InsertAfter", (void (SelectMgr_SequenceOfOwner::*)(const Standard_Integer, const opencascade::handle<SelectMgr_EntityOwner> &)) &SelectMgr_SequenceOfOwner::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_SelectMgr_SequenceOfOwner.def("Split", (void (SelectMgr_SequenceOfOwner::*)(const Standard_Integer, SelectMgr_SequenceOfOwner &)) &SelectMgr_SequenceOfOwner::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfOwner.def("First", (const opencascade::handle<SelectMgr_EntityOwner> & (SelectMgr_SequenceOfOwner::*)() const ) &SelectMgr_SequenceOfOwner::First, "First item access");
-	cls_SelectMgr_SequenceOfOwner.def("ChangeFirst", (opencascade::handle<SelectMgr_EntityOwner> & (SelectMgr_SequenceOfOwner::*)()) &SelectMgr_SequenceOfOwner::ChangeFirst, "First item access");
-	cls_SelectMgr_SequenceOfOwner.def("Last", (const opencascade::handle<SelectMgr_EntityOwner> & (SelectMgr_SequenceOfOwner::*)() const ) &SelectMgr_SequenceOfOwner::Last, "Last item access");
-	cls_SelectMgr_SequenceOfOwner.def("ChangeLast", (opencascade::handle<SelectMgr_EntityOwner> & (SelectMgr_SequenceOfOwner::*)()) &SelectMgr_SequenceOfOwner::ChangeLast, "Last item access");
-	cls_SelectMgr_SequenceOfOwner.def("Value", (const opencascade::handle<SelectMgr_EntityOwner> & (SelectMgr_SequenceOfOwner::*)(const Standard_Integer) const ) &SelectMgr_SequenceOfOwner::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfOwner.def("__call__", (const opencascade::handle<SelectMgr_EntityOwner> & (SelectMgr_SequenceOfOwner::*)(const Standard_Integer) const ) &SelectMgr_SequenceOfOwner::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfOwner.def("ChangeValue", (opencascade::handle<SelectMgr_EntityOwner> & (SelectMgr_SequenceOfOwner::*)(const Standard_Integer)) &SelectMgr_SequenceOfOwner::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfOwner.def("__call__", (opencascade::handle<SelectMgr_EntityOwner> & (SelectMgr_SequenceOfOwner::*)(const Standard_Integer)) &SelectMgr_SequenceOfOwner::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfOwner.def("SetValue", (void (SelectMgr_SequenceOfOwner::*)(const Standard_Integer, const opencascade::handle<SelectMgr_EntityOwner> &)) &SelectMgr_SequenceOfOwner::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_SelectMgr_SequenceOfOwner.def("__iter__", [](const SelectMgr_SequenceOfOwner &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_SequenceOfOwner.hxx
+	bind_NCollection_Sequence<opencascade::handle<SelectMgr_EntityOwner> >(mod, "SelectMgr_SequenceOfOwner");
 
-	/* FIXME
-	// SelectMgr_IndexedMapOfOwner
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_IndexedMapOfOwner.hxx
+	bind_NCollection_Shared<NCollection_IndexedMap<opencascade::handle<SelectMgr_EntityOwner>, NCollection_DefaultHasher<opencascade::handle<SelectMgr_EntityOwner> > >, void>(mod, "SelectMgr_IndexedMapOfOwner");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_IndexedDataMap.hxx
-	py::class_<SelectMgr_IndexedDataMapOfOwnerCriterion, std::unique_ptr<SelectMgr_IndexedDataMapOfOwnerCriterion, Deleter<SelectMgr_IndexedDataMapOfOwnerCriterion>>, NCollection_BaseMap> cls_SelectMgr_IndexedDataMapOfOwnerCriterion(mod, "SelectMgr_IndexedDataMapOfOwnerCriterion", "Purpose: An indexed map is used to store keys and to bind an index to them. Each new key stored in the map gets an index. Index are incremented as keys are stored in the map. A key can be found by the index and an index by the key. No key but the last can be removed so the indices are in the range 1.. Extent. An Item is stored with each key.");
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def(py::init<>());
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def(py::init([] (const SelectMgr_IndexedDataMapOfOwnerCriterion &other) {return new SelectMgr_IndexedDataMapOfOwnerCriterion(other);}), "Copy constructor", py::arg("other"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("begin", (SelectMgr_IndexedDataMapOfOwnerCriterion::iterator (SelectMgr_IndexedDataMapOfOwnerCriterion::*)() const ) &SelectMgr_IndexedDataMapOfOwnerCriterion::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("end", (SelectMgr_IndexedDataMapOfOwnerCriterion::iterator (SelectMgr_IndexedDataMapOfOwnerCriterion::*)() const ) &SelectMgr_IndexedDataMapOfOwnerCriterion::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("cbegin", (SelectMgr_IndexedDataMapOfOwnerCriterion::const_iterator (SelectMgr_IndexedDataMapOfOwnerCriterion::*)() const ) &SelectMgr_IndexedDataMapOfOwnerCriterion::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("cend", (SelectMgr_IndexedDataMapOfOwnerCriterion::const_iterator (SelectMgr_IndexedDataMapOfOwnerCriterion::*)() const ) &SelectMgr_IndexedDataMapOfOwnerCriterion::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("Exchange", (void (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(SelectMgr_IndexedDataMapOfOwnerCriterion &)) &SelectMgr_IndexedDataMapOfOwnerCriterion::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("Assign", (SelectMgr_IndexedDataMapOfOwnerCriterion & (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const SelectMgr_IndexedDataMapOfOwnerCriterion &)) &SelectMgr_IndexedDataMapOfOwnerCriterion::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("assign", (SelectMgr_IndexedDataMapOfOwnerCriterion & (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const SelectMgr_IndexedDataMapOfOwnerCriterion &)) &SelectMgr_IndexedDataMapOfOwnerCriterion::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("ReSize", (void (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const Standard_Integer)) &SelectMgr_IndexedDataMapOfOwnerCriterion::ReSize, "ReSize", py::arg("N"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("Add", (Standard_Integer (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const opencascade::handle<SelectBasics_EntityOwner> &, const SelectMgr_SortCriterion &)) &SelectMgr_IndexedDataMapOfOwnerCriterion::Add, "Add", py::arg("theKey1"), py::arg("theItem"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("Contains", (Standard_Boolean (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const opencascade::handle<SelectBasics_EntityOwner> &) const ) &SelectMgr_IndexedDataMapOfOwnerCriterion::Contains, "Contains", py::arg("theKey1"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("Substitute", (void (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const Standard_Integer, const opencascade::handle<SelectBasics_EntityOwner> &, const SelectMgr_SortCriterion &)) &SelectMgr_IndexedDataMapOfOwnerCriterion::Substitute, "Substitute", py::arg("theIndex"), py::arg("theKey1"), py::arg("theItem"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("Swap", (void (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const Standard_Integer, const Standard_Integer)) &SelectMgr_IndexedDataMapOfOwnerCriterion::Swap, "Swaps two elements with the given indices.", py::arg("theIndex1"), py::arg("theIndex2"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("RemoveLast", (void (SelectMgr_IndexedDataMapOfOwnerCriterion::*)()) &SelectMgr_IndexedDataMapOfOwnerCriterion::RemoveLast, "RemoveLast");
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("RemoveFromIndex", (void (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const Standard_Integer)) &SelectMgr_IndexedDataMapOfOwnerCriterion::RemoveFromIndex, "Remove the key of the given index. Caution! The index of the last key can be changed.", py::arg("theKey2"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("RemoveKey", (void (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const opencascade::handle<SelectBasics_EntityOwner> &)) &SelectMgr_IndexedDataMapOfOwnerCriterion::RemoveKey, "Remove the given key. Caution! The index of the last key can be changed.", py::arg("theKey1"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("FindKey", (const opencascade::handle<SelectBasics_EntityOwner> & (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const Standard_Integer) const ) &SelectMgr_IndexedDataMapOfOwnerCriterion::FindKey, "FindKey", py::arg("theKey2"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("FindFromIndex", (const SelectMgr_SortCriterion & (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const Standard_Integer) const ) &SelectMgr_IndexedDataMapOfOwnerCriterion::FindFromIndex, "FindFromIndex", py::arg("theKey2"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("__call__", (const SelectMgr_SortCriterion & (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const Standard_Integer) const ) &SelectMgr_IndexedDataMapOfOwnerCriterion::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("ChangeFromIndex", (SelectMgr_SortCriterion & (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const Standard_Integer)) &SelectMgr_IndexedDataMapOfOwnerCriterion::ChangeFromIndex, "ChangeFromIndex", py::arg("theKey2"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("__call__", (SelectMgr_SortCriterion & (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const Standard_Integer)) &SelectMgr_IndexedDataMapOfOwnerCriterion::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("FindIndex", (Standard_Integer (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const opencascade::handle<SelectBasics_EntityOwner> &) const ) &SelectMgr_IndexedDataMapOfOwnerCriterion::FindIndex, "FindIndex", py::arg("theKey1"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("FindFromKey", (const SelectMgr_SortCriterion & (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const opencascade::handle<SelectBasics_EntityOwner> &) const ) &SelectMgr_IndexedDataMapOfOwnerCriterion::FindFromKey, "FindFromKey", py::arg("theKey1"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("ChangeFromKey", (SelectMgr_SortCriterion & (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const opencascade::handle<SelectBasics_EntityOwner> &)) &SelectMgr_IndexedDataMapOfOwnerCriterion::ChangeFromKey, "ChangeFromKey", py::arg("theKey1"));
-	// FIXME cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("Seek", (const SelectMgr_SortCriterion * (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const opencascade::handle<SelectBasics_EntityOwner> &) const ) &SelectMgr_IndexedDataMapOfOwnerCriterion::Seek, "Seek returns pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	// FIXME cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("ChangeSeek", (SelectMgr_SortCriterion * (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const opencascade::handle<SelectBasics_EntityOwner> &)) &SelectMgr_IndexedDataMapOfOwnerCriterion::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("FindFromKey", (Standard_Boolean (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const opencascade::handle<SelectBasics_EntityOwner> &, SelectMgr_SortCriterion &) const ) &SelectMgr_IndexedDataMapOfOwnerCriterion::FindFromKey, "Find value for key with copying.", py::arg("theKey1"), py::arg("theValue"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("Clear", [](SelectMgr_IndexedDataMapOfOwnerCriterion &self) -> void { return self.Clear(); });
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("Clear", (void (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const Standard_Boolean)) &SelectMgr_IndexedDataMapOfOwnerCriterion::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("Clear", (void (SelectMgr_IndexedDataMapOfOwnerCriterion::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &SelectMgr_IndexedDataMapOfOwnerCriterion::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("Size", (Standard_Integer (SelectMgr_IndexedDataMapOfOwnerCriterion::*)() const ) &SelectMgr_IndexedDataMapOfOwnerCriterion::Size, "Size");
-	cls_SelectMgr_IndexedDataMapOfOwnerCriterion.def("__iter__", [](const SelectMgr_IndexedDataMapOfOwnerCriterion &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_IndexedDataMapOfOwnerCriterion.hxx
+	bind_NCollection_IndexedDataMap<opencascade::handle<SelectBasics_EntityOwner>, SelectMgr_SortCriterion, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "SelectMgr_IndexedDataMapOfOwnerCriterion");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_VectorTypes.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec3d")) {
 		mod.attr("SelectMgr_Vec3") = other_mod.attr("BVH_Vec3d");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_VectorTypes.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec4d")) {
 		mod.attr("SelectMgr_Vec4") = other_mod.attr("BVH_Vec4d");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_VectorTypes.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Mat4d")) {
 		mod.attr("SelectMgr_Mat4") = other_mod.attr("BVH_Mat4d");
 	}
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<SelectMgr_TriangFrustums, std::unique_ptr<SelectMgr_TriangFrustums, Deleter<SelectMgr_TriangFrustums>>, NCollection_BaseList> cls_SelectMgr_TriangFrustums(mod, "SelectMgr_TriangFrustums", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_SelectMgr_TriangFrustums.def(py::init<>());
-	cls_SelectMgr_TriangFrustums.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_SelectMgr_TriangFrustums.def(py::init([] (const SelectMgr_TriangFrustums &other) {return new SelectMgr_TriangFrustums(other);}), "Copy constructor", py::arg("other"));
-	cls_SelectMgr_TriangFrustums.def("begin", (SelectMgr_TriangFrustums::iterator (SelectMgr_TriangFrustums::*)() const ) &SelectMgr_TriangFrustums::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_SelectMgr_TriangFrustums.def("end", (SelectMgr_TriangFrustums::iterator (SelectMgr_TriangFrustums::*)() const ) &SelectMgr_TriangFrustums::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_SelectMgr_TriangFrustums.def("cbegin", (SelectMgr_TriangFrustums::const_iterator (SelectMgr_TriangFrustums::*)() const ) &SelectMgr_TriangFrustums::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_SelectMgr_TriangFrustums.def("cend", (SelectMgr_TriangFrustums::const_iterator (SelectMgr_TriangFrustums::*)() const ) &SelectMgr_TriangFrustums::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_SelectMgr_TriangFrustums.def("Size", (Standard_Integer (SelectMgr_TriangFrustums::*)() const ) &SelectMgr_TriangFrustums::Size, "Size - Number of items");
-	cls_SelectMgr_TriangFrustums.def("Assign", (SelectMgr_TriangFrustums & (SelectMgr_TriangFrustums::*)(const SelectMgr_TriangFrustums &)) &SelectMgr_TriangFrustums::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_SelectMgr_TriangFrustums.def("assign", (SelectMgr_TriangFrustums & (SelectMgr_TriangFrustums::*)(const SelectMgr_TriangFrustums &)) &SelectMgr_TriangFrustums::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_SelectMgr_TriangFrustums.def("Clear", [](SelectMgr_TriangFrustums &self) -> void { return self.Clear(); });
-	cls_SelectMgr_TriangFrustums.def("Clear", (void (SelectMgr_TriangFrustums::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &SelectMgr_TriangFrustums::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_SelectMgr_TriangFrustums.def("First", (const opencascade::handle<SelectMgr_TriangularFrustum> & (SelectMgr_TriangFrustums::*)() const ) &SelectMgr_TriangFrustums::First, "First item");
-	cls_SelectMgr_TriangFrustums.def("First", (opencascade::handle<SelectMgr_TriangularFrustum> & (SelectMgr_TriangFrustums::*)()) &SelectMgr_TriangFrustums::First, "First item (non-const)");
-	cls_SelectMgr_TriangFrustums.def("Last", (const opencascade::handle<SelectMgr_TriangularFrustum> & (SelectMgr_TriangFrustums::*)() const ) &SelectMgr_TriangFrustums::Last, "Last item");
-	cls_SelectMgr_TriangFrustums.def("Last", (opencascade::handle<SelectMgr_TriangularFrustum> & (SelectMgr_TriangFrustums::*)()) &SelectMgr_TriangFrustums::Last, "Last item (non-const)");
-	cls_SelectMgr_TriangFrustums.def("Append", (opencascade::handle<SelectMgr_TriangularFrustum> & (SelectMgr_TriangFrustums::*)(const opencascade::handle<SelectMgr_TriangularFrustum> &)) &SelectMgr_TriangFrustums::Append, "Append one item at the end", py::arg("theItem"));
-	cls_SelectMgr_TriangFrustums.def("Append", (void (SelectMgr_TriangFrustums::*)(const opencascade::handle<SelectMgr_TriangularFrustum> &, SelectMgr_TriangFrustums::Iterator &)) &SelectMgr_TriangFrustums::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_SelectMgr_TriangFrustums.def("Append", (void (SelectMgr_TriangFrustums::*)(SelectMgr_TriangFrustums &)) &SelectMgr_TriangFrustums::Append, "Append another list at the end", py::arg("theOther"));
-	cls_SelectMgr_TriangFrustums.def("Prepend", (opencascade::handle<SelectMgr_TriangularFrustum> & (SelectMgr_TriangFrustums::*)(const opencascade::handle<SelectMgr_TriangularFrustum> &)) &SelectMgr_TriangFrustums::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_SelectMgr_TriangFrustums.def("Prepend", (void (SelectMgr_TriangFrustums::*)(SelectMgr_TriangFrustums &)) &SelectMgr_TriangFrustums::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_SelectMgr_TriangFrustums.def("RemoveFirst", (void (SelectMgr_TriangFrustums::*)()) &SelectMgr_TriangFrustums::RemoveFirst, "RemoveFirst item");
-	cls_SelectMgr_TriangFrustums.def("Remove", (void (SelectMgr_TriangFrustums::*)(SelectMgr_TriangFrustums::Iterator &)) &SelectMgr_TriangFrustums::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_SelectMgr_TriangFrustums.def("InsertBefore", (opencascade::handle<SelectMgr_TriangularFrustum> & (SelectMgr_TriangFrustums::*)(const opencascade::handle<SelectMgr_TriangularFrustum> &, SelectMgr_TriangFrustums::Iterator &)) &SelectMgr_TriangFrustums::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_SelectMgr_TriangFrustums.def("InsertBefore", (void (SelectMgr_TriangFrustums::*)(SelectMgr_TriangFrustums &, SelectMgr_TriangFrustums::Iterator &)) &SelectMgr_TriangFrustums::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_SelectMgr_TriangFrustums.def("InsertAfter", (opencascade::handle<SelectMgr_TriangularFrustum> & (SelectMgr_TriangFrustums::*)(const opencascade::handle<SelectMgr_TriangularFrustum> &, SelectMgr_TriangFrustums::Iterator &)) &SelectMgr_TriangFrustums::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_SelectMgr_TriangFrustums.def("InsertAfter", (void (SelectMgr_TriangFrustums::*)(SelectMgr_TriangFrustums &, SelectMgr_TriangFrustums::Iterator &)) &SelectMgr_TriangFrustums::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_SelectMgr_TriangFrustums.def("Reverse", (void (SelectMgr_TriangFrustums::*)()) &SelectMgr_TriangFrustums::Reverse, "Reverse the list");
-	cls_SelectMgr_TriangFrustums.def("__iter__", [](const SelectMgr_TriangFrustums &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_TriangularFrustumSet.hxx
+	bind_NCollection_List<opencascade::handle<SelectMgr_TriangularFrustum> >(mod, "SelectMgr_TriangFrustums");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<SelectMgr_TriangFrustumsIter, std::unique_ptr<SelectMgr_TriangFrustumsIter, Deleter<SelectMgr_TriangFrustumsIter>>> cls_SelectMgr_TriangFrustumsIter(mod, "SelectMgr_TriangFrustumsIter", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_SelectMgr_TriangFrustumsIter.def(py::init<>());
-	cls_SelectMgr_TriangFrustumsIter.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_SelectMgr_TriangFrustumsIter.def("More", (Standard_Boolean (SelectMgr_TriangFrustumsIter::*)() const ) &SelectMgr_TriangFrustumsIter::More, "Check end");
-	cls_SelectMgr_TriangFrustumsIter.def("Next", (void (SelectMgr_TriangFrustumsIter::*)()) &SelectMgr_TriangFrustumsIter::Next, "Make step");
-	cls_SelectMgr_TriangFrustumsIter.def("Value", (const opencascade::handle<SelectMgr_TriangularFrustum> & (SelectMgr_TriangFrustumsIter::*)() const ) &SelectMgr_TriangFrustumsIter::Value, "Constant Value access");
-	cls_SelectMgr_TriangFrustumsIter.def("Value", (opencascade::handle<SelectMgr_TriangularFrustum> & (SelectMgr_TriangFrustumsIter::*)()) &SelectMgr_TriangFrustumsIter::Value, "Non-const Value access");
-	cls_SelectMgr_TriangFrustumsIter.def("ChangeValue", (opencascade::handle<SelectMgr_TriangularFrustum> & (SelectMgr_TriangFrustumsIter::*)() const ) &SelectMgr_TriangFrustumsIter::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_TriangularFrustumSet.hxx
+	bind_NCollection_TListIterator<opencascade::handle<SelectMgr_TriangularFrustum> >(mod, "SelectMgr_TriangFrustumsIter");
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_ViewerSelector.hxx
+	bind_NCollection_DataMap<opencascade::handle<SelectMgr_SelectableObject>, opencascade::handle<SelectMgr_SensitiveEntitySet>, NCollection_DefaultHasher<opencascade::handle<SelectMgr_SelectableObject> > >(mod, "SelectMgr_MapOfObjectSensitives");
 
 	/* FIXME
-	// SelectMgr_MapOfObjectSensitives
+
 	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_ViewerSelector.hxx
-	/* FIXME
-	// SelectMgr_FrustumCache
-	*/
+	bind_NCollection_DataMap<int, SelectMgr_SelectingVolumeManager, NCollection_DefaultHasher<int> >(mod, "SelectMgr_FrustumCache");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<SelectMgr_ListOfFilter, std::unique_ptr<SelectMgr_ListOfFilter, Deleter<SelectMgr_ListOfFilter>>, NCollection_BaseList> cls_SelectMgr_ListOfFilter(mod, "SelectMgr_ListOfFilter", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_SelectMgr_ListOfFilter.def(py::init<>());
-	cls_SelectMgr_ListOfFilter.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_SelectMgr_ListOfFilter.def(py::init([] (const SelectMgr_ListOfFilter &other) {return new SelectMgr_ListOfFilter(other);}), "Copy constructor", py::arg("other"));
-	cls_SelectMgr_ListOfFilter.def("begin", (SelectMgr_ListOfFilter::iterator (SelectMgr_ListOfFilter::*)() const ) &SelectMgr_ListOfFilter::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_SelectMgr_ListOfFilter.def("end", (SelectMgr_ListOfFilter::iterator (SelectMgr_ListOfFilter::*)() const ) &SelectMgr_ListOfFilter::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_SelectMgr_ListOfFilter.def("cbegin", (SelectMgr_ListOfFilter::const_iterator (SelectMgr_ListOfFilter::*)() const ) &SelectMgr_ListOfFilter::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_SelectMgr_ListOfFilter.def("cend", (SelectMgr_ListOfFilter::const_iterator (SelectMgr_ListOfFilter::*)() const ) &SelectMgr_ListOfFilter::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_SelectMgr_ListOfFilter.def("Size", (Standard_Integer (SelectMgr_ListOfFilter::*)() const ) &SelectMgr_ListOfFilter::Size, "Size - Number of items");
-	cls_SelectMgr_ListOfFilter.def("Assign", (SelectMgr_ListOfFilter & (SelectMgr_ListOfFilter::*)(const SelectMgr_ListOfFilter &)) &SelectMgr_ListOfFilter::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_SelectMgr_ListOfFilter.def("assign", (SelectMgr_ListOfFilter & (SelectMgr_ListOfFilter::*)(const SelectMgr_ListOfFilter &)) &SelectMgr_ListOfFilter::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_SelectMgr_ListOfFilter.def("Clear", [](SelectMgr_ListOfFilter &self) -> void { return self.Clear(); });
-	cls_SelectMgr_ListOfFilter.def("Clear", (void (SelectMgr_ListOfFilter::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &SelectMgr_ListOfFilter::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_SelectMgr_ListOfFilter.def("First", (const opencascade::handle<SelectMgr_Filter> & (SelectMgr_ListOfFilter::*)() const ) &SelectMgr_ListOfFilter::First, "First item");
-	cls_SelectMgr_ListOfFilter.def("First", (opencascade::handle<SelectMgr_Filter> & (SelectMgr_ListOfFilter::*)()) &SelectMgr_ListOfFilter::First, "First item (non-const)");
-	cls_SelectMgr_ListOfFilter.def("Last", (const opencascade::handle<SelectMgr_Filter> & (SelectMgr_ListOfFilter::*)() const ) &SelectMgr_ListOfFilter::Last, "Last item");
-	cls_SelectMgr_ListOfFilter.def("Last", (opencascade::handle<SelectMgr_Filter> & (SelectMgr_ListOfFilter::*)()) &SelectMgr_ListOfFilter::Last, "Last item (non-const)");
-	cls_SelectMgr_ListOfFilter.def("Append", (opencascade::handle<SelectMgr_Filter> & (SelectMgr_ListOfFilter::*)(const opencascade::handle<SelectMgr_Filter> &)) &SelectMgr_ListOfFilter::Append, "Append one item at the end", py::arg("theItem"));
-	cls_SelectMgr_ListOfFilter.def("Append", (void (SelectMgr_ListOfFilter::*)(const opencascade::handle<SelectMgr_Filter> &, SelectMgr_ListOfFilter::Iterator &)) &SelectMgr_ListOfFilter::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_SelectMgr_ListOfFilter.def("Append", (void (SelectMgr_ListOfFilter::*)(SelectMgr_ListOfFilter &)) &SelectMgr_ListOfFilter::Append, "Append another list at the end", py::arg("theOther"));
-	cls_SelectMgr_ListOfFilter.def("Prepend", (opencascade::handle<SelectMgr_Filter> & (SelectMgr_ListOfFilter::*)(const opencascade::handle<SelectMgr_Filter> &)) &SelectMgr_ListOfFilter::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_SelectMgr_ListOfFilter.def("Prepend", (void (SelectMgr_ListOfFilter::*)(SelectMgr_ListOfFilter &)) &SelectMgr_ListOfFilter::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_SelectMgr_ListOfFilter.def("RemoveFirst", (void (SelectMgr_ListOfFilter::*)()) &SelectMgr_ListOfFilter::RemoveFirst, "RemoveFirst item");
-	cls_SelectMgr_ListOfFilter.def("Remove", (void (SelectMgr_ListOfFilter::*)(SelectMgr_ListOfFilter::Iterator &)) &SelectMgr_ListOfFilter::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_SelectMgr_ListOfFilter.def("InsertBefore", (opencascade::handle<SelectMgr_Filter> & (SelectMgr_ListOfFilter::*)(const opencascade::handle<SelectMgr_Filter> &, SelectMgr_ListOfFilter::Iterator &)) &SelectMgr_ListOfFilter::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_SelectMgr_ListOfFilter.def("InsertBefore", (void (SelectMgr_ListOfFilter::*)(SelectMgr_ListOfFilter &, SelectMgr_ListOfFilter::Iterator &)) &SelectMgr_ListOfFilter::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_SelectMgr_ListOfFilter.def("InsertAfter", (opencascade::handle<SelectMgr_Filter> & (SelectMgr_ListOfFilter::*)(const opencascade::handle<SelectMgr_Filter> &, SelectMgr_ListOfFilter::Iterator &)) &SelectMgr_ListOfFilter::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_SelectMgr_ListOfFilter.def("InsertAfter", (void (SelectMgr_ListOfFilter::*)(SelectMgr_ListOfFilter &, SelectMgr_ListOfFilter::Iterator &)) &SelectMgr_ListOfFilter::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_SelectMgr_ListOfFilter.def("Reverse", (void (SelectMgr_ListOfFilter::*)()) &SelectMgr_ListOfFilter::Reverse, "Reverse the list");
-	cls_SelectMgr_ListOfFilter.def("__iter__", [](const SelectMgr_ListOfFilter &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_ListOfFilter.hxx
+	bind_NCollection_List<opencascade::handle<SelectMgr_Filter> >(mod, "SelectMgr_ListOfFilter");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<SelectMgr_ListIteratorOfListOfFilter, std::unique_ptr<SelectMgr_ListIteratorOfListOfFilter, Deleter<SelectMgr_ListIteratorOfListOfFilter>>> cls_SelectMgr_ListIteratorOfListOfFilter(mod, "SelectMgr_ListIteratorOfListOfFilter", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_SelectMgr_ListIteratorOfListOfFilter.def(py::init<>());
-	cls_SelectMgr_ListIteratorOfListOfFilter.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_SelectMgr_ListIteratorOfListOfFilter.def("More", (Standard_Boolean (SelectMgr_ListIteratorOfListOfFilter::*)() const ) &SelectMgr_ListIteratorOfListOfFilter::More, "Check end");
-	cls_SelectMgr_ListIteratorOfListOfFilter.def("Next", (void (SelectMgr_ListIteratorOfListOfFilter::*)()) &SelectMgr_ListIteratorOfListOfFilter::Next, "Make step");
-	cls_SelectMgr_ListIteratorOfListOfFilter.def("Value", (const opencascade::handle<SelectMgr_Filter> & (SelectMgr_ListIteratorOfListOfFilter::*)() const ) &SelectMgr_ListIteratorOfListOfFilter::Value, "Constant Value access");
-	cls_SelectMgr_ListIteratorOfListOfFilter.def("Value", (opencascade::handle<SelectMgr_Filter> & (SelectMgr_ListIteratorOfListOfFilter::*)()) &SelectMgr_ListIteratorOfListOfFilter::Value, "Non-const Value access");
-	cls_SelectMgr_ListIteratorOfListOfFilter.def("ChangeValue", (opencascade::handle<SelectMgr_Filter> & (SelectMgr_ListIteratorOfListOfFilter::*)() const ) &SelectMgr_ListIteratorOfListOfFilter::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_ListOfFilter.hxx
+	bind_NCollection_TListIterator<opencascade::handle<SelectMgr_Filter> >(mod, "SelectMgr_ListIteratorOfListOfFilter");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_SOPtr.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<SelectMgr_SequenceOfSelector, std::unique_ptr<SelectMgr_SequenceOfSelector, Deleter<SelectMgr_SequenceOfSelector>>, NCollection_BaseSequence> cls_SelectMgr_SequenceOfSelector(mod, "SelectMgr_SequenceOfSelector", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_SelectMgr_SequenceOfSelector.def(py::init<>());
-	cls_SelectMgr_SequenceOfSelector.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_SelectMgr_SequenceOfSelector.def(py::init([] (const SelectMgr_SequenceOfSelector &other) {return new SelectMgr_SequenceOfSelector(other);}), "Copy constructor", py::arg("other"));
-	cls_SelectMgr_SequenceOfSelector.def("begin", (SelectMgr_SequenceOfSelector::iterator (SelectMgr_SequenceOfSelector::*)() const ) &SelectMgr_SequenceOfSelector::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_SelectMgr_SequenceOfSelector.def("end", (SelectMgr_SequenceOfSelector::iterator (SelectMgr_SequenceOfSelector::*)() const ) &SelectMgr_SequenceOfSelector::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_SelectMgr_SequenceOfSelector.def("cbegin", (SelectMgr_SequenceOfSelector::const_iterator (SelectMgr_SequenceOfSelector::*)() const ) &SelectMgr_SequenceOfSelector::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_SelectMgr_SequenceOfSelector.def("cend", (SelectMgr_SequenceOfSelector::const_iterator (SelectMgr_SequenceOfSelector::*)() const ) &SelectMgr_SequenceOfSelector::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_SelectMgr_SequenceOfSelector.def("Size", (Standard_Integer (SelectMgr_SequenceOfSelector::*)() const ) &SelectMgr_SequenceOfSelector::Size, "Number of items");
-	cls_SelectMgr_SequenceOfSelector.def("Length", (Standard_Integer (SelectMgr_SequenceOfSelector::*)() const ) &SelectMgr_SequenceOfSelector::Length, "Number of items");
-	cls_SelectMgr_SequenceOfSelector.def("Lower", (Standard_Integer (SelectMgr_SequenceOfSelector::*)() const ) &SelectMgr_SequenceOfSelector::Lower, "Method for consistency with other collections.");
-	cls_SelectMgr_SequenceOfSelector.def("Upper", (Standard_Integer (SelectMgr_SequenceOfSelector::*)() const ) &SelectMgr_SequenceOfSelector::Upper, "Method for consistency with other collections.");
-	cls_SelectMgr_SequenceOfSelector.def("IsEmpty", (Standard_Boolean (SelectMgr_SequenceOfSelector::*)() const ) &SelectMgr_SequenceOfSelector::IsEmpty, "Empty query");
-	cls_SelectMgr_SequenceOfSelector.def("Reverse", (void (SelectMgr_SequenceOfSelector::*)()) &SelectMgr_SequenceOfSelector::Reverse, "Reverse sequence");
-	cls_SelectMgr_SequenceOfSelector.def("Exchange", (void (SelectMgr_SequenceOfSelector::*)(const Standard_Integer, const Standard_Integer)) &SelectMgr_SequenceOfSelector::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_SelectMgr_SequenceOfSelector.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &SelectMgr_SequenceOfSelector::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_SelectMgr_SequenceOfSelector.def("Clear", [](SelectMgr_SequenceOfSelector &self) -> void { return self.Clear(); });
-	cls_SelectMgr_SequenceOfSelector.def("Clear", (void (SelectMgr_SequenceOfSelector::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &SelectMgr_SequenceOfSelector::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_SelectMgr_SequenceOfSelector.def("Assign", (SelectMgr_SequenceOfSelector & (SelectMgr_SequenceOfSelector::*)(const SelectMgr_SequenceOfSelector &)) &SelectMgr_SequenceOfSelector::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_SelectMgr_SequenceOfSelector.def("assign", (SelectMgr_SequenceOfSelector & (SelectMgr_SequenceOfSelector::*)(const SelectMgr_SequenceOfSelector &)) &SelectMgr_SequenceOfSelector::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_SelectMgr_SequenceOfSelector.def("Remove", (void (SelectMgr_SequenceOfSelector::*)(SelectMgr_SequenceOfSelector::Iterator &)) &SelectMgr_SequenceOfSelector::Remove, "Remove one item", py::arg("thePosition"));
-	cls_SelectMgr_SequenceOfSelector.def("Remove", (void (SelectMgr_SequenceOfSelector::*)(const Standard_Integer)) &SelectMgr_SequenceOfSelector::Remove, "Remove one item", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfSelector.def("Remove", (void (SelectMgr_SequenceOfSelector::*)(const Standard_Integer, const Standard_Integer)) &SelectMgr_SequenceOfSelector::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_SelectMgr_SequenceOfSelector.def("Append", (void (SelectMgr_SequenceOfSelector::*)(const opencascade::handle<SelectMgr_ViewerSelector> &)) &SelectMgr_SequenceOfSelector::Append, "Append one item", py::arg("theItem"));
-	cls_SelectMgr_SequenceOfSelector.def("Append", (void (SelectMgr_SequenceOfSelector::*)(SelectMgr_SequenceOfSelector &)) &SelectMgr_SequenceOfSelector::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfSelector.def("Prepend", (void (SelectMgr_SequenceOfSelector::*)(const opencascade::handle<SelectMgr_ViewerSelector> &)) &SelectMgr_SequenceOfSelector::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_SelectMgr_SequenceOfSelector.def("Prepend", (void (SelectMgr_SequenceOfSelector::*)(SelectMgr_SequenceOfSelector &)) &SelectMgr_SequenceOfSelector::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfSelector.def("InsertBefore", (void (SelectMgr_SequenceOfSelector::*)(const Standard_Integer, const opencascade::handle<SelectMgr_ViewerSelector> &)) &SelectMgr_SequenceOfSelector::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_SelectMgr_SequenceOfSelector.def("InsertBefore", (void (SelectMgr_SequenceOfSelector::*)(const Standard_Integer, SelectMgr_SequenceOfSelector &)) &SelectMgr_SequenceOfSelector::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfSelector.def("InsertAfter", (void (SelectMgr_SequenceOfSelector::*)(SelectMgr_SequenceOfSelector::Iterator &, const opencascade::handle<SelectMgr_ViewerSelector> &)) &SelectMgr_SequenceOfSelector::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_SelectMgr_SequenceOfSelector.def("InsertAfter", (void (SelectMgr_SequenceOfSelector::*)(const Standard_Integer, SelectMgr_SequenceOfSelector &)) &SelectMgr_SequenceOfSelector::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfSelector.def("InsertAfter", (void (SelectMgr_SequenceOfSelector::*)(const Standard_Integer, const opencascade::handle<SelectMgr_ViewerSelector> &)) &SelectMgr_SequenceOfSelector::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_SelectMgr_SequenceOfSelector.def("Split", (void (SelectMgr_SequenceOfSelector::*)(const Standard_Integer, SelectMgr_SequenceOfSelector &)) &SelectMgr_SequenceOfSelector::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfSelector.def("First", (const opencascade::handle<SelectMgr_ViewerSelector> & (SelectMgr_SequenceOfSelector::*)() const ) &SelectMgr_SequenceOfSelector::First, "First item access");
-	cls_SelectMgr_SequenceOfSelector.def("ChangeFirst", (opencascade::handle<SelectMgr_ViewerSelector> & (SelectMgr_SequenceOfSelector::*)()) &SelectMgr_SequenceOfSelector::ChangeFirst, "First item access");
-	cls_SelectMgr_SequenceOfSelector.def("Last", (const opencascade::handle<SelectMgr_ViewerSelector> & (SelectMgr_SequenceOfSelector::*)() const ) &SelectMgr_SequenceOfSelector::Last, "Last item access");
-	cls_SelectMgr_SequenceOfSelector.def("ChangeLast", (opencascade::handle<SelectMgr_ViewerSelector> & (SelectMgr_SequenceOfSelector::*)()) &SelectMgr_SequenceOfSelector::ChangeLast, "Last item access");
-	cls_SelectMgr_SequenceOfSelector.def("Value", (const opencascade::handle<SelectMgr_ViewerSelector> & (SelectMgr_SequenceOfSelector::*)(const Standard_Integer) const ) &SelectMgr_SequenceOfSelector::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfSelector.def("__call__", (const opencascade::handle<SelectMgr_ViewerSelector> & (SelectMgr_SequenceOfSelector::*)(const Standard_Integer) const ) &SelectMgr_SequenceOfSelector::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfSelector.def("ChangeValue", (opencascade::handle<SelectMgr_ViewerSelector> & (SelectMgr_SequenceOfSelector::*)(const Standard_Integer)) &SelectMgr_SequenceOfSelector::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfSelector.def("__call__", (opencascade::handle<SelectMgr_ViewerSelector> & (SelectMgr_SequenceOfSelector::*)(const Standard_Integer)) &SelectMgr_SequenceOfSelector::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfSelector.def("SetValue", (void (SelectMgr_SequenceOfSelector::*)(const Standard_Integer, const opencascade::handle<SelectMgr_ViewerSelector> &)) &SelectMgr_SequenceOfSelector::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_SelectMgr_SequenceOfSelector.def("__iter__", [](const SelectMgr_SequenceOfSelector &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<SelectMgr_DataMapOfObjectSelectors, std::unique_ptr<SelectMgr_DataMapOfObjectSelectors, Deleter<SelectMgr_DataMapOfObjectSelectors>>, NCollection_BaseMap> cls_SelectMgr_DataMapOfObjectSelectors(mod, "SelectMgr_DataMapOfObjectSelectors", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_SelectMgr_DataMapOfObjectSelectors.def(py::init<>());
-	cls_SelectMgr_DataMapOfObjectSelectors.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_SelectMgr_DataMapOfObjectSelectors.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_SelectMgr_DataMapOfObjectSelectors.def(py::init([] (const SelectMgr_DataMapOfObjectSelectors &other) {return new SelectMgr_DataMapOfObjectSelectors(other);}), "Copy constructor", py::arg("other"));
-	cls_SelectMgr_DataMapOfObjectSelectors.def("begin", (SelectMgr_DataMapOfObjectSelectors::iterator (SelectMgr_DataMapOfObjectSelectors::*)() const ) &SelectMgr_DataMapOfObjectSelectors::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_SelectMgr_DataMapOfObjectSelectors.def("end", (SelectMgr_DataMapOfObjectSelectors::iterator (SelectMgr_DataMapOfObjectSelectors::*)() const ) &SelectMgr_DataMapOfObjectSelectors::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_SelectMgr_DataMapOfObjectSelectors.def("cbegin", (SelectMgr_DataMapOfObjectSelectors::const_iterator (SelectMgr_DataMapOfObjectSelectors::*)() const ) &SelectMgr_DataMapOfObjectSelectors::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_SelectMgr_DataMapOfObjectSelectors.def("cend", (SelectMgr_DataMapOfObjectSelectors::const_iterator (SelectMgr_DataMapOfObjectSelectors::*)() const ) &SelectMgr_DataMapOfObjectSelectors::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_SelectMgr_DataMapOfObjectSelectors.def("Exchange", (void (SelectMgr_DataMapOfObjectSelectors::*)(SelectMgr_DataMapOfObjectSelectors &)) &SelectMgr_DataMapOfObjectSelectors::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_SelectMgr_DataMapOfObjectSelectors.def("Assign", (SelectMgr_DataMapOfObjectSelectors & (SelectMgr_DataMapOfObjectSelectors::*)(const SelectMgr_DataMapOfObjectSelectors &)) &SelectMgr_DataMapOfObjectSelectors::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_SelectMgr_DataMapOfObjectSelectors.def("assign", (SelectMgr_DataMapOfObjectSelectors & (SelectMgr_DataMapOfObjectSelectors::*)(const SelectMgr_DataMapOfObjectSelectors &)) &SelectMgr_DataMapOfObjectSelectors::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_SelectMgr_DataMapOfObjectSelectors.def("ReSize", (void (SelectMgr_DataMapOfObjectSelectors::*)(const Standard_Integer)) &SelectMgr_DataMapOfObjectSelectors::ReSize, "ReSize", py::arg("N"));
-	cls_SelectMgr_DataMapOfObjectSelectors.def("Bind", (Standard_Boolean (SelectMgr_DataMapOfObjectSelectors::*)(const opencascade::handle<SelectMgr_SelectableObject> &, const SelectMgr_SequenceOfSelector &)) &SelectMgr_DataMapOfObjectSelectors::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_SelectMgr_DataMapOfObjectSelectors.def("Bound", (SelectMgr_SequenceOfSelector * (SelectMgr_DataMapOfObjectSelectors::*)(const opencascade::handle<SelectMgr_SelectableObject> &, const SelectMgr_SequenceOfSelector &)) &SelectMgr_DataMapOfObjectSelectors::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_SelectMgr_DataMapOfObjectSelectors.def("IsBound", (Standard_Boolean (SelectMgr_DataMapOfObjectSelectors::*)(const opencascade::handle<SelectMgr_SelectableObject> &) const ) &SelectMgr_DataMapOfObjectSelectors::IsBound, "IsBound", py::arg("theKey"));
-	cls_SelectMgr_DataMapOfObjectSelectors.def("UnBind", (Standard_Boolean (SelectMgr_DataMapOfObjectSelectors::*)(const opencascade::handle<SelectMgr_SelectableObject> &)) &SelectMgr_DataMapOfObjectSelectors::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_SelectMgr_DataMapOfObjectSelectors.def("Seek", (const SelectMgr_SequenceOfSelector * (SelectMgr_DataMapOfObjectSelectors::*)(const opencascade::handle<SelectMgr_SelectableObject> &) const ) &SelectMgr_DataMapOfObjectSelectors::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_SelectMgr_DataMapOfObjectSelectors.def("Find", (const SelectMgr_SequenceOfSelector & (SelectMgr_DataMapOfObjectSelectors::*)(const opencascade::handle<SelectMgr_SelectableObject> &) const ) &SelectMgr_DataMapOfObjectSelectors::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_SelectMgr_DataMapOfObjectSelectors.def("Find", (Standard_Boolean (SelectMgr_DataMapOfObjectSelectors::*)(const opencascade::handle<SelectMgr_SelectableObject> &, SelectMgr_SequenceOfSelector &) const ) &SelectMgr_DataMapOfObjectSelectors::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_SelectMgr_DataMapOfObjectSelectors.def("__call__", (const SelectMgr_SequenceOfSelector & (SelectMgr_DataMapOfObjectSelectors::*)(const opencascade::handle<SelectMgr_SelectableObject> &) const ) &SelectMgr_DataMapOfObjectSelectors::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_SelectMgr_DataMapOfObjectSelectors.def("ChangeSeek", (SelectMgr_SequenceOfSelector * (SelectMgr_DataMapOfObjectSelectors::*)(const opencascade::handle<SelectMgr_SelectableObject> &)) &SelectMgr_DataMapOfObjectSelectors::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_SelectMgr_DataMapOfObjectSelectors.def("ChangeFind", (SelectMgr_SequenceOfSelector & (SelectMgr_DataMapOfObjectSelectors::*)(const opencascade::handle<SelectMgr_SelectableObject> &)) &SelectMgr_DataMapOfObjectSelectors::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_SelectMgr_DataMapOfObjectSelectors.def("__call__", (SelectMgr_SequenceOfSelector & (SelectMgr_DataMapOfObjectSelectors::*)(const opencascade::handle<SelectMgr_SelectableObject> &)) &SelectMgr_DataMapOfObjectSelectors::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_SelectMgr_DataMapOfObjectSelectors.def("Clear", [](SelectMgr_DataMapOfObjectSelectors &self) -> void { return self.Clear(); });
-	cls_SelectMgr_DataMapOfObjectSelectors.def("Clear", (void (SelectMgr_DataMapOfObjectSelectors::*)(const Standard_Boolean)) &SelectMgr_DataMapOfObjectSelectors::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_SelectMgr_DataMapOfObjectSelectors.def("Clear", (void (SelectMgr_DataMapOfObjectSelectors::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &SelectMgr_DataMapOfObjectSelectors::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_SelectMgr_DataMapOfObjectSelectors.def("Size", (Standard_Integer (SelectMgr_DataMapOfObjectSelectors::*)() const ) &SelectMgr_DataMapOfObjectSelectors::Size, "Size");
-	cls_SelectMgr_DataMapOfObjectSelectors.def("__iter__", [](const SelectMgr_DataMapOfObjectSelectors &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_SequenceOfSelector.hxx
+	bind_NCollection_Sequence<opencascade::handle<SelectMgr_ViewerSelector> >(mod, "SelectMgr_SequenceOfSelector");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_DataMapOfObjectSelectors.hxx
+	bind_NCollection_DataMap<opencascade::handle<SelectMgr_SelectableObject>, NCollection_Sequence<opencascade::handle<SelectMgr_ViewerSelector> >, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "SelectMgr_DataMapOfObjectSelectors");
+
 	/* FIXME
-	// SelectMgr_IndexedMapOfHSensitive
+
 	*/
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<SelectMgr_SequenceOfFilter, std::unique_ptr<SelectMgr_SequenceOfFilter, Deleter<SelectMgr_SequenceOfFilter>>, NCollection_BaseSequence> cls_SelectMgr_SequenceOfFilter(mod, "SelectMgr_SequenceOfFilter", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_SelectMgr_SequenceOfFilter.def(py::init<>());
-	cls_SelectMgr_SequenceOfFilter.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_SelectMgr_SequenceOfFilter.def(py::init([] (const SelectMgr_SequenceOfFilter &other) {return new SelectMgr_SequenceOfFilter(other);}), "Copy constructor", py::arg("other"));
-	cls_SelectMgr_SequenceOfFilter.def("begin", (SelectMgr_SequenceOfFilter::iterator (SelectMgr_SequenceOfFilter::*)() const ) &SelectMgr_SequenceOfFilter::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_SelectMgr_SequenceOfFilter.def("end", (SelectMgr_SequenceOfFilter::iterator (SelectMgr_SequenceOfFilter::*)() const ) &SelectMgr_SequenceOfFilter::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_SelectMgr_SequenceOfFilter.def("cbegin", (SelectMgr_SequenceOfFilter::const_iterator (SelectMgr_SequenceOfFilter::*)() const ) &SelectMgr_SequenceOfFilter::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_SelectMgr_SequenceOfFilter.def("cend", (SelectMgr_SequenceOfFilter::const_iterator (SelectMgr_SequenceOfFilter::*)() const ) &SelectMgr_SequenceOfFilter::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_SelectMgr_SequenceOfFilter.def("Size", (Standard_Integer (SelectMgr_SequenceOfFilter::*)() const ) &SelectMgr_SequenceOfFilter::Size, "Number of items");
-	cls_SelectMgr_SequenceOfFilter.def("Length", (Standard_Integer (SelectMgr_SequenceOfFilter::*)() const ) &SelectMgr_SequenceOfFilter::Length, "Number of items");
-	cls_SelectMgr_SequenceOfFilter.def("Lower", (Standard_Integer (SelectMgr_SequenceOfFilter::*)() const ) &SelectMgr_SequenceOfFilter::Lower, "Method for consistency with other collections.");
-	cls_SelectMgr_SequenceOfFilter.def("Upper", (Standard_Integer (SelectMgr_SequenceOfFilter::*)() const ) &SelectMgr_SequenceOfFilter::Upper, "Method for consistency with other collections.");
-	cls_SelectMgr_SequenceOfFilter.def("IsEmpty", (Standard_Boolean (SelectMgr_SequenceOfFilter::*)() const ) &SelectMgr_SequenceOfFilter::IsEmpty, "Empty query");
-	cls_SelectMgr_SequenceOfFilter.def("Reverse", (void (SelectMgr_SequenceOfFilter::*)()) &SelectMgr_SequenceOfFilter::Reverse, "Reverse sequence");
-	cls_SelectMgr_SequenceOfFilter.def("Exchange", (void (SelectMgr_SequenceOfFilter::*)(const Standard_Integer, const Standard_Integer)) &SelectMgr_SequenceOfFilter::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_SelectMgr_SequenceOfFilter.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &SelectMgr_SequenceOfFilter::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_SelectMgr_SequenceOfFilter.def("Clear", [](SelectMgr_SequenceOfFilter &self) -> void { return self.Clear(); });
-	cls_SelectMgr_SequenceOfFilter.def("Clear", (void (SelectMgr_SequenceOfFilter::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &SelectMgr_SequenceOfFilter::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_SelectMgr_SequenceOfFilter.def("Assign", (SelectMgr_SequenceOfFilter & (SelectMgr_SequenceOfFilter::*)(const SelectMgr_SequenceOfFilter &)) &SelectMgr_SequenceOfFilter::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_SelectMgr_SequenceOfFilter.def("assign", (SelectMgr_SequenceOfFilter & (SelectMgr_SequenceOfFilter::*)(const SelectMgr_SequenceOfFilter &)) &SelectMgr_SequenceOfFilter::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_SelectMgr_SequenceOfFilter.def("Remove", (void (SelectMgr_SequenceOfFilter::*)(SelectMgr_SequenceOfFilter::Iterator &)) &SelectMgr_SequenceOfFilter::Remove, "Remove one item", py::arg("thePosition"));
-	cls_SelectMgr_SequenceOfFilter.def("Remove", (void (SelectMgr_SequenceOfFilter::*)(const Standard_Integer)) &SelectMgr_SequenceOfFilter::Remove, "Remove one item", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfFilter.def("Remove", (void (SelectMgr_SequenceOfFilter::*)(const Standard_Integer, const Standard_Integer)) &SelectMgr_SequenceOfFilter::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_SelectMgr_SequenceOfFilter.def("Append", (void (SelectMgr_SequenceOfFilter::*)(const opencascade::handle<SelectMgr_Filter> &)) &SelectMgr_SequenceOfFilter::Append, "Append one item", py::arg("theItem"));
-	cls_SelectMgr_SequenceOfFilter.def("Append", (void (SelectMgr_SequenceOfFilter::*)(SelectMgr_SequenceOfFilter &)) &SelectMgr_SequenceOfFilter::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfFilter.def("Prepend", (void (SelectMgr_SequenceOfFilter::*)(const opencascade::handle<SelectMgr_Filter> &)) &SelectMgr_SequenceOfFilter::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_SelectMgr_SequenceOfFilter.def("Prepend", (void (SelectMgr_SequenceOfFilter::*)(SelectMgr_SequenceOfFilter &)) &SelectMgr_SequenceOfFilter::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfFilter.def("InsertBefore", (void (SelectMgr_SequenceOfFilter::*)(const Standard_Integer, const opencascade::handle<SelectMgr_Filter> &)) &SelectMgr_SequenceOfFilter::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_SelectMgr_SequenceOfFilter.def("InsertBefore", (void (SelectMgr_SequenceOfFilter::*)(const Standard_Integer, SelectMgr_SequenceOfFilter &)) &SelectMgr_SequenceOfFilter::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfFilter.def("InsertAfter", (void (SelectMgr_SequenceOfFilter::*)(SelectMgr_SequenceOfFilter::Iterator &, const opencascade::handle<SelectMgr_Filter> &)) &SelectMgr_SequenceOfFilter::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_SelectMgr_SequenceOfFilter.def("InsertAfter", (void (SelectMgr_SequenceOfFilter::*)(const Standard_Integer, SelectMgr_SequenceOfFilter &)) &SelectMgr_SequenceOfFilter::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfFilter.def("InsertAfter", (void (SelectMgr_SequenceOfFilter::*)(const Standard_Integer, const opencascade::handle<SelectMgr_Filter> &)) &SelectMgr_SequenceOfFilter::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_SelectMgr_SequenceOfFilter.def("Split", (void (SelectMgr_SequenceOfFilter::*)(const Standard_Integer, SelectMgr_SequenceOfFilter &)) &SelectMgr_SequenceOfFilter::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SelectMgr_SequenceOfFilter.def("First", (const opencascade::handle<SelectMgr_Filter> & (SelectMgr_SequenceOfFilter::*)() const ) &SelectMgr_SequenceOfFilter::First, "First item access");
-	cls_SelectMgr_SequenceOfFilter.def("ChangeFirst", (opencascade::handle<SelectMgr_Filter> & (SelectMgr_SequenceOfFilter::*)()) &SelectMgr_SequenceOfFilter::ChangeFirst, "First item access");
-	cls_SelectMgr_SequenceOfFilter.def("Last", (const opencascade::handle<SelectMgr_Filter> & (SelectMgr_SequenceOfFilter::*)() const ) &SelectMgr_SequenceOfFilter::Last, "Last item access");
-	cls_SelectMgr_SequenceOfFilter.def("ChangeLast", (opencascade::handle<SelectMgr_Filter> & (SelectMgr_SequenceOfFilter::*)()) &SelectMgr_SequenceOfFilter::ChangeLast, "Last item access");
-	cls_SelectMgr_SequenceOfFilter.def("Value", (const opencascade::handle<SelectMgr_Filter> & (SelectMgr_SequenceOfFilter::*)(const Standard_Integer) const ) &SelectMgr_SequenceOfFilter::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfFilter.def("__call__", (const opencascade::handle<SelectMgr_Filter> & (SelectMgr_SequenceOfFilter::*)(const Standard_Integer) const ) &SelectMgr_SequenceOfFilter::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfFilter.def("ChangeValue", (opencascade::handle<SelectMgr_Filter> & (SelectMgr_SequenceOfFilter::*)(const Standard_Integer)) &SelectMgr_SequenceOfFilter::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfFilter.def("__call__", (opencascade::handle<SelectMgr_Filter> & (SelectMgr_SequenceOfFilter::*)(const Standard_Integer)) &SelectMgr_SequenceOfFilter::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_SelectMgr_SequenceOfFilter.def("SetValue", (void (SelectMgr_SequenceOfFilter::*)(const Standard_Integer, const opencascade::handle<SelectMgr_Filter> &)) &SelectMgr_SequenceOfFilter::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_SelectMgr_SequenceOfFilter.def("__iter__", [](const SelectMgr_SequenceOfFilter &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_SensitiveEntitySet.hxx
+	bind_NCollection_IndexedMap<opencascade::handle<SelectMgr_SensitiveEntity>, NCollection_DefaultHasher<opencascade::handle<SelectMgr_SensitiveEntity> > >(mod, "SelectMgr_IndexedMapOfHSensitive");
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_SequenceOfFilter.hxx
+	bind_NCollection_Sequence<opencascade::handle<SelectMgr_Filter> >(mod, "SelectMgr_SequenceOfFilter");
 
 
 }

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <TDF_Attribute.hxx>
 #include <Standard_GUID.hxx>
@@ -40,6 +31,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <TPrsStd_NamedShapeDriver.hxx>
 #include <TPrsStd_PlaneDriver.hxx>
 #include <TPrsStd_PointDriver.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(TPrsStd, mod) {
 
@@ -239,37 +231,12 @@ PYBIND11_MODULE(TPrsStd, mod) {
 	cls_TPrsStd_PointDriver.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TPrsStd_PointDriver::get_type_descriptor, "None");
 	cls_TPrsStd_PointDriver.def("DynamicType", (const opencascade::handle<Standard_Type> & (TPrsStd_PointDriver::*)() const ) &TPrsStd_PointDriver::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<TPrsStd_DataMapOfGUIDDriver, std::unique_ptr<TPrsStd_DataMapOfGUIDDriver, Deleter<TPrsStd_DataMapOfGUIDDriver>>, NCollection_BaseMap> cls_TPrsStd_DataMapOfGUIDDriver(mod, "TPrsStd_DataMapOfGUIDDriver", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_TPrsStd_DataMapOfGUIDDriver.def(py::init<>());
-	cls_TPrsStd_DataMapOfGUIDDriver.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TPrsStd_DataMapOfGUIDDriver.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TPrsStd_DataMapOfGUIDDriver.def(py::init([] (const TPrsStd_DataMapOfGUIDDriver &other) {return new TPrsStd_DataMapOfGUIDDriver(other);}), "Copy constructor", py::arg("other"));
-	cls_TPrsStd_DataMapOfGUIDDriver.def("begin", (TPrsStd_DataMapOfGUIDDriver::iterator (TPrsStd_DataMapOfGUIDDriver::*)() const ) &TPrsStd_DataMapOfGUIDDriver::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_TPrsStd_DataMapOfGUIDDriver.def("end", (TPrsStd_DataMapOfGUIDDriver::iterator (TPrsStd_DataMapOfGUIDDriver::*)() const ) &TPrsStd_DataMapOfGUIDDriver::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_TPrsStd_DataMapOfGUIDDriver.def("cbegin", (TPrsStd_DataMapOfGUIDDriver::const_iterator (TPrsStd_DataMapOfGUIDDriver::*)() const ) &TPrsStd_DataMapOfGUIDDriver::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TPrsStd_DataMapOfGUIDDriver.def("cend", (TPrsStd_DataMapOfGUIDDriver::const_iterator (TPrsStd_DataMapOfGUIDDriver::*)() const ) &TPrsStd_DataMapOfGUIDDriver::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TPrsStd_DataMapOfGUIDDriver.def("Exchange", (void (TPrsStd_DataMapOfGUIDDriver::*)(TPrsStd_DataMapOfGUIDDriver &)) &TPrsStd_DataMapOfGUIDDriver::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TPrsStd_DataMapOfGUIDDriver.def("Assign", (TPrsStd_DataMapOfGUIDDriver & (TPrsStd_DataMapOfGUIDDriver::*)(const TPrsStd_DataMapOfGUIDDriver &)) &TPrsStd_DataMapOfGUIDDriver::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TPrsStd_DataMapOfGUIDDriver.def("assign", (TPrsStd_DataMapOfGUIDDriver & (TPrsStd_DataMapOfGUIDDriver::*)(const TPrsStd_DataMapOfGUIDDriver &)) &TPrsStd_DataMapOfGUIDDriver::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TPrsStd_DataMapOfGUIDDriver.def("ReSize", (void (TPrsStd_DataMapOfGUIDDriver::*)(const Standard_Integer)) &TPrsStd_DataMapOfGUIDDriver::ReSize, "ReSize", py::arg("N"));
-	cls_TPrsStd_DataMapOfGUIDDriver.def("Bind", (Standard_Boolean (TPrsStd_DataMapOfGUIDDriver::*)(const Standard_GUID &, const opencascade::handle<TPrsStd_Driver> &)) &TPrsStd_DataMapOfGUIDDriver::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_TPrsStd_DataMapOfGUIDDriver.def("Bound", (opencascade::handle<TPrsStd_Driver> * (TPrsStd_DataMapOfGUIDDriver::*)(const Standard_GUID &, const opencascade::handle<TPrsStd_Driver> &)) &TPrsStd_DataMapOfGUIDDriver::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_TPrsStd_DataMapOfGUIDDriver.def("IsBound", (Standard_Boolean (TPrsStd_DataMapOfGUIDDriver::*)(const Standard_GUID &) const ) &TPrsStd_DataMapOfGUIDDriver::IsBound, "IsBound", py::arg("theKey"));
-	cls_TPrsStd_DataMapOfGUIDDriver.def("UnBind", (Standard_Boolean (TPrsStd_DataMapOfGUIDDriver::*)(const Standard_GUID &)) &TPrsStd_DataMapOfGUIDDriver::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_TPrsStd_DataMapOfGUIDDriver.def("Seek", (const opencascade::handle<TPrsStd_Driver> * (TPrsStd_DataMapOfGUIDDriver::*)(const Standard_GUID &) const ) &TPrsStd_DataMapOfGUIDDriver::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_TPrsStd_DataMapOfGUIDDriver.def("Find", (const opencascade::handle<TPrsStd_Driver> & (TPrsStd_DataMapOfGUIDDriver::*)(const Standard_GUID &) const ) &TPrsStd_DataMapOfGUIDDriver::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_TPrsStd_DataMapOfGUIDDriver.def("Find", (Standard_Boolean (TPrsStd_DataMapOfGUIDDriver::*)(const Standard_GUID &, opencascade::handle<TPrsStd_Driver> &) const ) &TPrsStd_DataMapOfGUIDDriver::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_TPrsStd_DataMapOfGUIDDriver.def("__call__", (const opencascade::handle<TPrsStd_Driver> & (TPrsStd_DataMapOfGUIDDriver::*)(const Standard_GUID &) const ) &TPrsStd_DataMapOfGUIDDriver::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_TPrsStd_DataMapOfGUIDDriver.def("ChangeSeek", (opencascade::handle<TPrsStd_Driver> * (TPrsStd_DataMapOfGUIDDriver::*)(const Standard_GUID &)) &TPrsStd_DataMapOfGUIDDriver::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_TPrsStd_DataMapOfGUIDDriver.def("ChangeFind", (opencascade::handle<TPrsStd_Driver> & (TPrsStd_DataMapOfGUIDDriver::*)(const Standard_GUID &)) &TPrsStd_DataMapOfGUIDDriver::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_TPrsStd_DataMapOfGUIDDriver.def("__call__", (opencascade::handle<TPrsStd_Driver> & (TPrsStd_DataMapOfGUIDDriver::*)(const Standard_GUID &)) &TPrsStd_DataMapOfGUIDDriver::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_TPrsStd_DataMapOfGUIDDriver.def("Clear", [](TPrsStd_DataMapOfGUIDDriver &self) -> void { return self.Clear(); });
-	cls_TPrsStd_DataMapOfGUIDDriver.def("Clear", (void (TPrsStd_DataMapOfGUIDDriver::*)(const Standard_Boolean)) &TPrsStd_DataMapOfGUIDDriver::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TPrsStd_DataMapOfGUIDDriver.def("Clear", (void (TPrsStd_DataMapOfGUIDDriver::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TPrsStd_DataMapOfGUIDDriver::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TPrsStd_DataMapOfGUIDDriver.def("Size", (Standard_Integer (TPrsStd_DataMapOfGUIDDriver::*)() const ) &TPrsStd_DataMapOfGUIDDriver::Size, "Size");
-	cls_TPrsStd_DataMapOfGUIDDriver.def("__iter__", [](const TPrsStd_DataMapOfGUIDDriver &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TPrsStd_DataMapOfGUIDDriver.hxx
+	bind_NCollection_DataMap<Standard_GUID, opencascade::handle<TPrsStd_Driver>, Standard_GUID>(mod, "TPrsStd_DataMapOfGUIDDriver");
+
+	/* FIXME
+
+	*/
+
 
 }

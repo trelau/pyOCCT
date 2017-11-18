@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <BRepMAT2d_Explorer.hxx>
 #include <Standard_TypeDef.hxx>
@@ -33,6 +24,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_DataMap.hxx>
 #include <BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.hxx>
 #include <BRepMAT2d_DataMapOfBasicEltShape.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BRepMAT2d, mod) {
 
@@ -104,69 +96,19 @@ PYBIND11_MODULE(BRepMAT2d, mod) {
 	cls_BRepMAT2d_Explorer.def("ModifiedShape", (TopoDS_Shape (BRepMAT2d_Explorer::*)(const TopoDS_Shape &) const ) &BRepMAT2d_Explorer::ModifiedShape, "If the shape is not modified, returns the shape itself.", py::arg("aShape"));
 	cls_BRepMAT2d_Explorer.def("GetIsClosed", (const TColStd_SequenceOfBoolean & (BRepMAT2d_Explorer::*)() const ) &BRepMAT2d_Explorer::GetIsClosed, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<BRepMAT2d_DataMapOfShapeSequenceOfBasicElt, std::unique_ptr<BRepMAT2d_DataMapOfShapeSequenceOfBasicElt, Deleter<BRepMAT2d_DataMapOfShapeSequenceOfBasicElt>>, NCollection_BaseMap> cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt(mod, "BRepMAT2d_DataMapOfShapeSequenceOfBasicElt", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def(py::init<>());
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def(py::init([] (const BRepMAT2d_DataMapOfShapeSequenceOfBasicElt &other) {return new BRepMAT2d_DataMapOfShapeSequenceOfBasicElt(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("begin", (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::iterator (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)() const ) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("end", (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::iterator (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)() const ) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("cbegin", (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::const_iterator (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)() const ) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("cend", (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::const_iterator (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)() const ) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("Exchange", (void (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(BRepMAT2d_DataMapOfShapeSequenceOfBasicElt &)) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("Assign", (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt & (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(const BRepMAT2d_DataMapOfShapeSequenceOfBasicElt &)) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("assign", (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt & (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(const BRepMAT2d_DataMapOfShapeSequenceOfBasicElt &)) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("ReSize", (void (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(const Standard_Integer)) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::ReSize, "ReSize", py::arg("N"));
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("Bind", (Standard_Boolean (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(const TopoDS_Shape &, const MAT_SequenceOfBasicElt &)) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("Bound", (MAT_SequenceOfBasicElt * (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(const TopoDS_Shape &, const MAT_SequenceOfBasicElt &)) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("IsBound", (Standard_Boolean (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(const TopoDS_Shape &) const ) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::IsBound, "IsBound", py::arg("theKey"));
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("UnBind", (Standard_Boolean (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(const TopoDS_Shape &)) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("Seek", (const MAT_SequenceOfBasicElt * (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(const TopoDS_Shape &) const ) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("Find", (const MAT_SequenceOfBasicElt & (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(const TopoDS_Shape &) const ) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("Find", (Standard_Boolean (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(const TopoDS_Shape &, MAT_SequenceOfBasicElt &) const ) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("__call__", (const MAT_SequenceOfBasicElt & (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(const TopoDS_Shape &) const ) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("ChangeSeek", (MAT_SequenceOfBasicElt * (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(const TopoDS_Shape &)) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("ChangeFind", (MAT_SequenceOfBasicElt & (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(const TopoDS_Shape &)) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("__call__", (MAT_SequenceOfBasicElt & (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(const TopoDS_Shape &)) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("Clear", [](BRepMAT2d_DataMapOfShapeSequenceOfBasicElt &self) -> void { return self.Clear(); });
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("Clear", (void (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(const Standard_Boolean)) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("Clear", (void (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("Size", (Standard_Integer (BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::*)() const ) &BRepMAT2d_DataMapOfShapeSequenceOfBasicElt::Size, "Size");
-	cls_BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.def("__iter__", [](const BRepMAT2d_DataMapOfShapeSequenceOfBasicElt &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepMAT2d_DataMapOfShapeSequenceOfBasicElt.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<BRepMAT2d_DataMapOfBasicEltShape, std::unique_ptr<BRepMAT2d_DataMapOfBasicEltShape, Deleter<BRepMAT2d_DataMapOfBasicEltShape>>, NCollection_BaseMap> cls_BRepMAT2d_DataMapOfBasicEltShape(mod, "BRepMAT2d_DataMapOfBasicEltShape", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def(py::init<>());
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def(py::init([] (const BRepMAT2d_DataMapOfBasicEltShape &other) {return new BRepMAT2d_DataMapOfBasicEltShape(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("begin", (BRepMAT2d_DataMapOfBasicEltShape::iterator (BRepMAT2d_DataMapOfBasicEltShape::*)() const ) &BRepMAT2d_DataMapOfBasicEltShape::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("end", (BRepMAT2d_DataMapOfBasicEltShape::iterator (BRepMAT2d_DataMapOfBasicEltShape::*)() const ) &BRepMAT2d_DataMapOfBasicEltShape::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("cbegin", (BRepMAT2d_DataMapOfBasicEltShape::const_iterator (BRepMAT2d_DataMapOfBasicEltShape::*)() const ) &BRepMAT2d_DataMapOfBasicEltShape::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("cend", (BRepMAT2d_DataMapOfBasicEltShape::const_iterator (BRepMAT2d_DataMapOfBasicEltShape::*)() const ) &BRepMAT2d_DataMapOfBasicEltShape::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("Exchange", (void (BRepMAT2d_DataMapOfBasicEltShape::*)(BRepMAT2d_DataMapOfBasicEltShape &)) &BRepMAT2d_DataMapOfBasicEltShape::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("Assign", (BRepMAT2d_DataMapOfBasicEltShape & (BRepMAT2d_DataMapOfBasicEltShape::*)(const BRepMAT2d_DataMapOfBasicEltShape &)) &BRepMAT2d_DataMapOfBasicEltShape::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("assign", (BRepMAT2d_DataMapOfBasicEltShape & (BRepMAT2d_DataMapOfBasicEltShape::*)(const BRepMAT2d_DataMapOfBasicEltShape &)) &BRepMAT2d_DataMapOfBasicEltShape::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("ReSize", (void (BRepMAT2d_DataMapOfBasicEltShape::*)(const Standard_Integer)) &BRepMAT2d_DataMapOfBasicEltShape::ReSize, "ReSize", py::arg("N"));
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("Bind", (Standard_Boolean (BRepMAT2d_DataMapOfBasicEltShape::*)(const opencascade::handle<MAT_BasicElt> &, const TopoDS_Shape &)) &BRepMAT2d_DataMapOfBasicEltShape::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_BRepMAT2d_DataMapOfBasicEltShape.def("Bound", (TopoDS_Shape * (BRepMAT2d_DataMapOfBasicEltShape::*)(const opencascade::handle<MAT_BasicElt> &, const TopoDS_Shape &)) &BRepMAT2d_DataMapOfBasicEltShape::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("IsBound", (Standard_Boolean (BRepMAT2d_DataMapOfBasicEltShape::*)(const opencascade::handle<MAT_BasicElt> &) const ) &BRepMAT2d_DataMapOfBasicEltShape::IsBound, "IsBound", py::arg("theKey"));
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("UnBind", (Standard_Boolean (BRepMAT2d_DataMapOfBasicEltShape::*)(const opencascade::handle<MAT_BasicElt> &)) &BRepMAT2d_DataMapOfBasicEltShape::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_BRepMAT2d_DataMapOfBasicEltShape.def("Seek", (const TopoDS_Shape * (BRepMAT2d_DataMapOfBasicEltShape::*)(const opencascade::handle<MAT_BasicElt> &) const ) &BRepMAT2d_DataMapOfBasicEltShape::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_BRepMAT2d_DataMapOfBasicEltShape.def("Find", (const TopoDS_Shape & (BRepMAT2d_DataMapOfBasicEltShape::*)(const opencascade::handle<MAT_BasicElt> &) const ) &BRepMAT2d_DataMapOfBasicEltShape::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_BRepMAT2d_DataMapOfBasicEltShape.def("Find", (Standard_Boolean (BRepMAT2d_DataMapOfBasicEltShape::*)(const opencascade::handle<MAT_BasicElt> &, TopoDS_Shape &) const ) &BRepMAT2d_DataMapOfBasicEltShape::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("__call__", (const TopoDS_Shape & (BRepMAT2d_DataMapOfBasicEltShape::*)(const opencascade::handle<MAT_BasicElt> &) const ) &BRepMAT2d_DataMapOfBasicEltShape::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_BRepMAT2d_DataMapOfBasicEltShape.def("ChangeSeek", (TopoDS_Shape * (BRepMAT2d_DataMapOfBasicEltShape::*)(const opencascade::handle<MAT_BasicElt> &)) &BRepMAT2d_DataMapOfBasicEltShape::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("ChangeFind", (TopoDS_Shape & (BRepMAT2d_DataMapOfBasicEltShape::*)(const opencascade::handle<MAT_BasicElt> &)) &BRepMAT2d_DataMapOfBasicEltShape::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("__call__", (TopoDS_Shape & (BRepMAT2d_DataMapOfBasicEltShape::*)(const opencascade::handle<MAT_BasicElt> &)) &BRepMAT2d_DataMapOfBasicEltShape::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("Clear", [](BRepMAT2d_DataMapOfBasicEltShape &self) -> void { return self.Clear(); });
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("Clear", (void (BRepMAT2d_DataMapOfBasicEltShape::*)(const Standard_Boolean)) &BRepMAT2d_DataMapOfBasicEltShape::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("Clear", (void (BRepMAT2d_DataMapOfBasicEltShape::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepMAT2d_DataMapOfBasicEltShape::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("Size", (Standard_Integer (BRepMAT2d_DataMapOfBasicEltShape::*)() const ) &BRepMAT2d_DataMapOfBasicEltShape::Size, "Size");
-	cls_BRepMAT2d_DataMapOfBasicEltShape.def("__iter__", [](const BRepMAT2d_DataMapOfBasicEltShape &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TopoDS_Shape, NCollection_Sequence<opencascade::handle<MAT_BasicElt> >, TopTools_ShapeMapHasher>(mod, "BRepMAT2d_DataMapOfShapeSequenceOfBasicElt");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepMAT2d_DataMapOfBasicEltShape.hxx
+	bind_NCollection_DataMap<opencascade::handle<MAT_BasicElt>, TopoDS_Shape, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "BRepMAT2d_DataMapOfBasicEltShape");
+
+	/* FIXME
+
+	*/
+
 
 }

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Adaptor2d_Curve2d.hxx>
 #include <Standard_Handle.hxx>
@@ -76,6 +67,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_Sequence.hxx>
 #include <ProjLib_SequenceOfHSequenceOfPnt.hxx>
 #include <Standard_Transient.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(ProjLib, mod) {
 
@@ -398,50 +390,8 @@ PYBIND11_MODULE(ProjLib, mod) {
 	cls_ProjLib.def_static("Project_", (gp_Lin2d (*)(const gp_Torus &, const gp_Circ &)) &ProjLib::Project, "None", py::arg("To"), py::arg("Ci"));
 	cls_ProjLib.def_static("MakePCurveOfType_", (void (*)(const ProjLib_ProjectedCurve &, opencascade::handle<Geom2d_Curve> &)) &ProjLib::MakePCurveOfType, "Make empty P-Curve <aC> of relevant to <PC> type", py::arg("PC"), py::arg("aC"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<ProjLib_SequenceOfHSequenceOfPnt, std::unique_ptr<ProjLib_SequenceOfHSequenceOfPnt, Deleter<ProjLib_SequenceOfHSequenceOfPnt>>, NCollection_BaseSequence> cls_ProjLib_SequenceOfHSequenceOfPnt(mod, "ProjLib_SequenceOfHSequenceOfPnt", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def(py::init<>());
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def(py::init([] (const ProjLib_SequenceOfHSequenceOfPnt &other) {return new ProjLib_SequenceOfHSequenceOfPnt(other);}), "Copy constructor", py::arg("other"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("begin", (ProjLib_SequenceOfHSequenceOfPnt::iterator (ProjLib_SequenceOfHSequenceOfPnt::*)() const ) &ProjLib_SequenceOfHSequenceOfPnt::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("end", (ProjLib_SequenceOfHSequenceOfPnt::iterator (ProjLib_SequenceOfHSequenceOfPnt::*)() const ) &ProjLib_SequenceOfHSequenceOfPnt::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("cbegin", (ProjLib_SequenceOfHSequenceOfPnt::const_iterator (ProjLib_SequenceOfHSequenceOfPnt::*)() const ) &ProjLib_SequenceOfHSequenceOfPnt::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("cend", (ProjLib_SequenceOfHSequenceOfPnt::const_iterator (ProjLib_SequenceOfHSequenceOfPnt::*)() const ) &ProjLib_SequenceOfHSequenceOfPnt::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Size", (Standard_Integer (ProjLib_SequenceOfHSequenceOfPnt::*)() const ) &ProjLib_SequenceOfHSequenceOfPnt::Size, "Number of items");
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Length", (Standard_Integer (ProjLib_SequenceOfHSequenceOfPnt::*)() const ) &ProjLib_SequenceOfHSequenceOfPnt::Length, "Number of items");
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Lower", (Standard_Integer (ProjLib_SequenceOfHSequenceOfPnt::*)() const ) &ProjLib_SequenceOfHSequenceOfPnt::Lower, "Method for consistency with other collections.");
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Upper", (Standard_Integer (ProjLib_SequenceOfHSequenceOfPnt::*)() const ) &ProjLib_SequenceOfHSequenceOfPnt::Upper, "Method for consistency with other collections.");
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("IsEmpty", (Standard_Boolean (ProjLib_SequenceOfHSequenceOfPnt::*)() const ) &ProjLib_SequenceOfHSequenceOfPnt::IsEmpty, "Empty query");
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Reverse", (void (ProjLib_SequenceOfHSequenceOfPnt::*)()) &ProjLib_SequenceOfHSequenceOfPnt::Reverse, "Reverse sequence");
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Exchange", (void (ProjLib_SequenceOfHSequenceOfPnt::*)(const Standard_Integer, const Standard_Integer)) &ProjLib_SequenceOfHSequenceOfPnt::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &ProjLib_SequenceOfHSequenceOfPnt::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Clear", [](ProjLib_SequenceOfHSequenceOfPnt &self) -> void { return self.Clear(); });
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Clear", (void (ProjLib_SequenceOfHSequenceOfPnt::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &ProjLib_SequenceOfHSequenceOfPnt::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Assign", (ProjLib_SequenceOfHSequenceOfPnt & (ProjLib_SequenceOfHSequenceOfPnt::*)(const ProjLib_SequenceOfHSequenceOfPnt &)) &ProjLib_SequenceOfHSequenceOfPnt::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("assign", (ProjLib_SequenceOfHSequenceOfPnt & (ProjLib_SequenceOfHSequenceOfPnt::*)(const ProjLib_SequenceOfHSequenceOfPnt &)) &ProjLib_SequenceOfHSequenceOfPnt::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Remove", (void (ProjLib_SequenceOfHSequenceOfPnt::*)(ProjLib_SequenceOfHSequenceOfPnt::Iterator &)) &ProjLib_SequenceOfHSequenceOfPnt::Remove, "Remove one item", py::arg("thePosition"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Remove", (void (ProjLib_SequenceOfHSequenceOfPnt::*)(const Standard_Integer)) &ProjLib_SequenceOfHSequenceOfPnt::Remove, "Remove one item", py::arg("theIndex"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Remove", (void (ProjLib_SequenceOfHSequenceOfPnt::*)(const Standard_Integer, const Standard_Integer)) &ProjLib_SequenceOfHSequenceOfPnt::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Append", (void (ProjLib_SequenceOfHSequenceOfPnt::*)(const opencascade::handle<TColgp_HSequenceOfPnt> &)) &ProjLib_SequenceOfHSequenceOfPnt::Append, "Append one item", py::arg("theItem"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Append", (void (ProjLib_SequenceOfHSequenceOfPnt::*)(ProjLib_SequenceOfHSequenceOfPnt &)) &ProjLib_SequenceOfHSequenceOfPnt::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Prepend", (void (ProjLib_SequenceOfHSequenceOfPnt::*)(const opencascade::handle<TColgp_HSequenceOfPnt> &)) &ProjLib_SequenceOfHSequenceOfPnt::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Prepend", (void (ProjLib_SequenceOfHSequenceOfPnt::*)(ProjLib_SequenceOfHSequenceOfPnt &)) &ProjLib_SequenceOfHSequenceOfPnt::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("InsertBefore", (void (ProjLib_SequenceOfHSequenceOfPnt::*)(const Standard_Integer, const opencascade::handle<TColgp_HSequenceOfPnt> &)) &ProjLib_SequenceOfHSequenceOfPnt::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("InsertBefore", (void (ProjLib_SequenceOfHSequenceOfPnt::*)(const Standard_Integer, ProjLib_SequenceOfHSequenceOfPnt &)) &ProjLib_SequenceOfHSequenceOfPnt::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("InsertAfter", (void (ProjLib_SequenceOfHSequenceOfPnt::*)(ProjLib_SequenceOfHSequenceOfPnt::Iterator &, const opencascade::handle<TColgp_HSequenceOfPnt> &)) &ProjLib_SequenceOfHSequenceOfPnt::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("InsertAfter", (void (ProjLib_SequenceOfHSequenceOfPnt::*)(const Standard_Integer, ProjLib_SequenceOfHSequenceOfPnt &)) &ProjLib_SequenceOfHSequenceOfPnt::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("InsertAfter", (void (ProjLib_SequenceOfHSequenceOfPnt::*)(const Standard_Integer, const opencascade::handle<TColgp_HSequenceOfPnt> &)) &ProjLib_SequenceOfHSequenceOfPnt::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Split", (void (ProjLib_SequenceOfHSequenceOfPnt::*)(const Standard_Integer, ProjLib_SequenceOfHSequenceOfPnt &)) &ProjLib_SequenceOfHSequenceOfPnt::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("First", (const opencascade::handle<TColgp_HSequenceOfPnt> & (ProjLib_SequenceOfHSequenceOfPnt::*)() const ) &ProjLib_SequenceOfHSequenceOfPnt::First, "First item access");
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("ChangeFirst", (opencascade::handle<TColgp_HSequenceOfPnt> & (ProjLib_SequenceOfHSequenceOfPnt::*)()) &ProjLib_SequenceOfHSequenceOfPnt::ChangeFirst, "First item access");
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Last", (const opencascade::handle<TColgp_HSequenceOfPnt> & (ProjLib_SequenceOfHSequenceOfPnt::*)() const ) &ProjLib_SequenceOfHSequenceOfPnt::Last, "Last item access");
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("ChangeLast", (opencascade::handle<TColgp_HSequenceOfPnt> & (ProjLib_SequenceOfHSequenceOfPnt::*)()) &ProjLib_SequenceOfHSequenceOfPnt::ChangeLast, "Last item access");
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("Value", (const opencascade::handle<TColgp_HSequenceOfPnt> & (ProjLib_SequenceOfHSequenceOfPnt::*)(const Standard_Integer) const ) &ProjLib_SequenceOfHSequenceOfPnt::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("__call__", (const opencascade::handle<TColgp_HSequenceOfPnt> & (ProjLib_SequenceOfHSequenceOfPnt::*)(const Standard_Integer) const ) &ProjLib_SequenceOfHSequenceOfPnt::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("ChangeValue", (opencascade::handle<TColgp_HSequenceOfPnt> & (ProjLib_SequenceOfHSequenceOfPnt::*)(const Standard_Integer)) &ProjLib_SequenceOfHSequenceOfPnt::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("__call__", (opencascade::handle<TColgp_HSequenceOfPnt> & (ProjLib_SequenceOfHSequenceOfPnt::*)(const Standard_Integer)) &ProjLib_SequenceOfHSequenceOfPnt::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("SetValue", (void (ProjLib_SequenceOfHSequenceOfPnt::*)(const Standard_Integer, const opencascade::handle<TColgp_HSequenceOfPnt> &)) &ProjLib_SequenceOfHSequenceOfPnt::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_ProjLib_SequenceOfHSequenceOfPnt.def("__iter__", [](const ProjLib_SequenceOfHSequenceOfPnt &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\ProjLib_SequenceOfHSequenceOfPnt.hxx
+	bind_NCollection_Sequence<opencascade::handle<TColgp_HSequenceOfPnt> >(mod, "ProjLib_SequenceOfHSequenceOfPnt");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\ProjLib_HSequenceOfHSequenceOfPnt.hxx
 	py::class_<ProjLib_HSequenceOfHSequenceOfPnt, opencascade::handle<ProjLib_HSequenceOfHSequenceOfPnt>, ProjLib_SequenceOfHSequenceOfPnt, Standard_Transient> cls_ProjLib_HSequenceOfHSequenceOfPnt(mod, "ProjLib_HSequenceOfHSequenceOfPnt", "None");

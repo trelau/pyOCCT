@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Interface_InterfaceModel.hxx>
 #include <Standard_Handle.hxx>
@@ -91,6 +82,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <IGESData_NodeOfWriterLib.hxx>
 #include <IGESData.hxx>
 #include <IGESData_Array1OfDirPart.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(IGESData, mod) {
 
@@ -387,40 +379,8 @@ PYBIND11_MODULE(IGESData, mod) {
 	cls_IGESData_ColorEntity.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESData_ColorEntity::get_type_descriptor, "None");
 	cls_IGESData_ColorEntity.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESData_ColorEntity::*)() const ) &IGESData_ColorEntity::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESData_Array1OfIGESEntity, std::unique_ptr<IGESData_Array1OfIGESEntity, Deleter<IGESData_Array1OfIGESEntity>>> cls_IGESData_Array1OfIGESEntity(mod, "IGESData_Array1OfIGESEntity", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESData_Array1OfIGESEntity.def(py::init<>());
-	cls_IGESData_Array1OfIGESEntity.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESData_Array1OfIGESEntity.def(py::init([] (const IGESData_Array1OfIGESEntity &other) {return new IGESData_Array1OfIGESEntity(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESData_Array1OfIGESEntity.def(py::init<IGESData_Array1OfIGESEntity &&>(), py::arg("theOther"));
-	cls_IGESData_Array1OfIGESEntity.def(py::init<const opencascade::handle<IGESData_IGESEntity> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESData_Array1OfIGESEntity.def("begin", (IGESData_Array1OfIGESEntity::iterator (IGESData_Array1OfIGESEntity::*)() const ) &IGESData_Array1OfIGESEntity::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESData_Array1OfIGESEntity.def("end", (IGESData_Array1OfIGESEntity::iterator (IGESData_Array1OfIGESEntity::*)() const ) &IGESData_Array1OfIGESEntity::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESData_Array1OfIGESEntity.def("cbegin", (IGESData_Array1OfIGESEntity::const_iterator (IGESData_Array1OfIGESEntity::*)() const ) &IGESData_Array1OfIGESEntity::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESData_Array1OfIGESEntity.def("cend", (IGESData_Array1OfIGESEntity::const_iterator (IGESData_Array1OfIGESEntity::*)() const ) &IGESData_Array1OfIGESEntity::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESData_Array1OfIGESEntity.def("Init", (void (IGESData_Array1OfIGESEntity::*)(const opencascade::handle<IGESData_IGESEntity> &)) &IGESData_Array1OfIGESEntity::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESData_Array1OfIGESEntity.def("Size", (Standard_Integer (IGESData_Array1OfIGESEntity::*)() const ) &IGESData_Array1OfIGESEntity::Size, "Size query");
-	cls_IGESData_Array1OfIGESEntity.def("Length", (Standard_Integer (IGESData_Array1OfIGESEntity::*)() const ) &IGESData_Array1OfIGESEntity::Length, "Length query (the same)");
-	cls_IGESData_Array1OfIGESEntity.def("IsEmpty", (Standard_Boolean (IGESData_Array1OfIGESEntity::*)() const ) &IGESData_Array1OfIGESEntity::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESData_Array1OfIGESEntity.def("Lower", (Standard_Integer (IGESData_Array1OfIGESEntity::*)() const ) &IGESData_Array1OfIGESEntity::Lower, "Lower bound");
-	cls_IGESData_Array1OfIGESEntity.def("Upper", (Standard_Integer (IGESData_Array1OfIGESEntity::*)() const ) &IGESData_Array1OfIGESEntity::Upper, "Upper bound");
-	cls_IGESData_Array1OfIGESEntity.def("IsDeletable", (Standard_Boolean (IGESData_Array1OfIGESEntity::*)() const ) &IGESData_Array1OfIGESEntity::IsDeletable, "myDeletable flag");
-	cls_IGESData_Array1OfIGESEntity.def("IsAllocated", (Standard_Boolean (IGESData_Array1OfIGESEntity::*)() const ) &IGESData_Array1OfIGESEntity::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESData_Array1OfIGESEntity.def("Assign", (IGESData_Array1OfIGESEntity & (IGESData_Array1OfIGESEntity::*)(const IGESData_Array1OfIGESEntity &)) &IGESData_Array1OfIGESEntity::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESData_Array1OfIGESEntity.def("Move", (IGESData_Array1OfIGESEntity & (IGESData_Array1OfIGESEntity::*)(IGESData_Array1OfIGESEntity &&)) &IGESData_Array1OfIGESEntity::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESData_Array1OfIGESEntity.def("assign", (IGESData_Array1OfIGESEntity & (IGESData_Array1OfIGESEntity::*)(const IGESData_Array1OfIGESEntity &)) &IGESData_Array1OfIGESEntity::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESData_Array1OfIGESEntity.def("assign", (IGESData_Array1OfIGESEntity & (IGESData_Array1OfIGESEntity::*)(IGESData_Array1OfIGESEntity &&)) &IGESData_Array1OfIGESEntity::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESData_Array1OfIGESEntity.def("First", (const opencascade::handle<IGESData_IGESEntity> & (IGESData_Array1OfIGESEntity::*)() const ) &IGESData_Array1OfIGESEntity::First, "Returns first element");
-	cls_IGESData_Array1OfIGESEntity.def("ChangeFirst", (opencascade::handle<IGESData_IGESEntity> & (IGESData_Array1OfIGESEntity::*)()) &IGESData_Array1OfIGESEntity::ChangeFirst, "Returns first element");
-	cls_IGESData_Array1OfIGESEntity.def("Last", (const opencascade::handle<IGESData_IGESEntity> & (IGESData_Array1OfIGESEntity::*)() const ) &IGESData_Array1OfIGESEntity::Last, "Returns last element");
-	cls_IGESData_Array1OfIGESEntity.def("ChangeLast", (opencascade::handle<IGESData_IGESEntity> & (IGESData_Array1OfIGESEntity::*)()) &IGESData_Array1OfIGESEntity::ChangeLast, "Returns last element");
-	cls_IGESData_Array1OfIGESEntity.def("Value", (const opencascade::handle<IGESData_IGESEntity> & (IGESData_Array1OfIGESEntity::*)(const Standard_Integer) const ) &IGESData_Array1OfIGESEntity::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESData_Array1OfIGESEntity.def("__call__", (const opencascade::handle<IGESData_IGESEntity> & (IGESData_Array1OfIGESEntity::*)(const Standard_Integer) const ) &IGESData_Array1OfIGESEntity::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESData_Array1OfIGESEntity.def("ChangeValue", (opencascade::handle<IGESData_IGESEntity> & (IGESData_Array1OfIGESEntity::*)(const Standard_Integer)) &IGESData_Array1OfIGESEntity::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESData_Array1OfIGESEntity.def("__call__", (opencascade::handle<IGESData_IGESEntity> & (IGESData_Array1OfIGESEntity::*)(const Standard_Integer)) &IGESData_Array1OfIGESEntity::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESData_Array1OfIGESEntity.def("SetValue", (void (IGESData_Array1OfIGESEntity::*)(const Standard_Integer, const opencascade::handle<IGESData_IGESEntity> &)) &IGESData_Array1OfIGESEntity::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESData_Array1OfIGESEntity.def("Resize", (void (IGESData_Array1OfIGESEntity::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESData_Array1OfIGESEntity::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESData_Array1OfIGESEntity.def("__iter__", [](const IGESData_Array1OfIGESEntity &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESData_Array1OfIGESEntity.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESData_IGESEntity> >(mod, "IGESData_Array1OfIGESEntity");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESData_Protocol.hxx
 	py::class_<IGESData_Protocol, opencascade::handle<IGESData_Protocol>, Interface_Protocol> cls_IGESData_Protocol(mod, "IGESData_Protocol", "Description of basic Protocol for IGES This comprises treatement of IGESModel and Recognition of Undefined-FreeFormat-Entity");
@@ -935,40 +895,8 @@ PYBIND11_MODULE(IGESData, mod) {
 	cls_IGESData_HArray1OfIGESEntity.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESData_HArray1OfIGESEntity::get_type_descriptor, "None");
 	cls_IGESData_HArray1OfIGESEntity.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESData_HArray1OfIGESEntity::*)() const ) &IGESData_HArray1OfIGESEntity::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESData_Array1OfDirPart, std::unique_ptr<IGESData_Array1OfDirPart, Deleter<IGESData_Array1OfDirPart>>> cls_IGESData_Array1OfDirPart(mod, "IGESData_Array1OfDirPart", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESData_Array1OfDirPart.def(py::init<>());
-	cls_IGESData_Array1OfDirPart.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESData_Array1OfDirPart.def(py::init([] (const IGESData_Array1OfDirPart &other) {return new IGESData_Array1OfDirPart(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESData_Array1OfDirPart.def(py::init<IGESData_Array1OfDirPart &&>(), py::arg("theOther"));
-	cls_IGESData_Array1OfDirPart.def(py::init<const IGESData_DirPart &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESData_Array1OfDirPart.def("begin", (IGESData_Array1OfDirPart::iterator (IGESData_Array1OfDirPart::*)() const ) &IGESData_Array1OfDirPart::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESData_Array1OfDirPart.def("end", (IGESData_Array1OfDirPart::iterator (IGESData_Array1OfDirPart::*)() const ) &IGESData_Array1OfDirPart::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESData_Array1OfDirPart.def("cbegin", (IGESData_Array1OfDirPart::const_iterator (IGESData_Array1OfDirPart::*)() const ) &IGESData_Array1OfDirPart::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESData_Array1OfDirPart.def("cend", (IGESData_Array1OfDirPart::const_iterator (IGESData_Array1OfDirPart::*)() const ) &IGESData_Array1OfDirPart::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESData_Array1OfDirPart.def("Init", (void (IGESData_Array1OfDirPart::*)(const IGESData_DirPart &)) &IGESData_Array1OfDirPart::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESData_Array1OfDirPart.def("Size", (Standard_Integer (IGESData_Array1OfDirPart::*)() const ) &IGESData_Array1OfDirPart::Size, "Size query");
-	cls_IGESData_Array1OfDirPart.def("Length", (Standard_Integer (IGESData_Array1OfDirPart::*)() const ) &IGESData_Array1OfDirPart::Length, "Length query (the same)");
-	cls_IGESData_Array1OfDirPart.def("IsEmpty", (Standard_Boolean (IGESData_Array1OfDirPart::*)() const ) &IGESData_Array1OfDirPart::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESData_Array1OfDirPart.def("Lower", (Standard_Integer (IGESData_Array1OfDirPart::*)() const ) &IGESData_Array1OfDirPart::Lower, "Lower bound");
-	cls_IGESData_Array1OfDirPart.def("Upper", (Standard_Integer (IGESData_Array1OfDirPart::*)() const ) &IGESData_Array1OfDirPart::Upper, "Upper bound");
-	cls_IGESData_Array1OfDirPart.def("IsDeletable", (Standard_Boolean (IGESData_Array1OfDirPart::*)() const ) &IGESData_Array1OfDirPart::IsDeletable, "myDeletable flag");
-	cls_IGESData_Array1OfDirPart.def("IsAllocated", (Standard_Boolean (IGESData_Array1OfDirPart::*)() const ) &IGESData_Array1OfDirPart::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESData_Array1OfDirPart.def("Assign", (IGESData_Array1OfDirPart & (IGESData_Array1OfDirPart::*)(const IGESData_Array1OfDirPart &)) &IGESData_Array1OfDirPart::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESData_Array1OfDirPart.def("Move", (IGESData_Array1OfDirPart & (IGESData_Array1OfDirPart::*)(IGESData_Array1OfDirPart &&)) &IGESData_Array1OfDirPart::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESData_Array1OfDirPart.def("assign", (IGESData_Array1OfDirPart & (IGESData_Array1OfDirPart::*)(const IGESData_Array1OfDirPart &)) &IGESData_Array1OfDirPart::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESData_Array1OfDirPart.def("assign", (IGESData_Array1OfDirPart & (IGESData_Array1OfDirPart::*)(IGESData_Array1OfDirPart &&)) &IGESData_Array1OfDirPart::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESData_Array1OfDirPart.def("First", (const IGESData_DirPart & (IGESData_Array1OfDirPart::*)() const ) &IGESData_Array1OfDirPart::First, "Returns first element");
-	cls_IGESData_Array1OfDirPart.def("ChangeFirst", (IGESData_DirPart & (IGESData_Array1OfDirPart::*)()) &IGESData_Array1OfDirPart::ChangeFirst, "Returns first element");
-	cls_IGESData_Array1OfDirPart.def("Last", (const IGESData_DirPart & (IGESData_Array1OfDirPart::*)() const ) &IGESData_Array1OfDirPart::Last, "Returns last element");
-	cls_IGESData_Array1OfDirPart.def("ChangeLast", (IGESData_DirPart & (IGESData_Array1OfDirPart::*)()) &IGESData_Array1OfDirPart::ChangeLast, "Returns last element");
-	cls_IGESData_Array1OfDirPart.def("Value", (const IGESData_DirPart & (IGESData_Array1OfDirPart::*)(const Standard_Integer) const ) &IGESData_Array1OfDirPart::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESData_Array1OfDirPart.def("__call__", (const IGESData_DirPart & (IGESData_Array1OfDirPart::*)(const Standard_Integer) const ) &IGESData_Array1OfDirPart::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESData_Array1OfDirPart.def("ChangeValue", (IGESData_DirPart & (IGESData_Array1OfDirPart::*)(const Standard_Integer)) &IGESData_Array1OfDirPart::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESData_Array1OfDirPart.def("__call__", (IGESData_DirPart & (IGESData_Array1OfDirPart::*)(const Standard_Integer)) &IGESData_Array1OfDirPart::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESData_Array1OfDirPart.def("SetValue", (void (IGESData_Array1OfDirPart::*)(const Standard_Integer, const IGESData_DirPart &)) &IGESData_Array1OfDirPart::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESData_Array1OfDirPart.def("Resize", (void (IGESData_Array1OfDirPart::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESData_Array1OfDirPart::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESData_Array1OfDirPart.def("__iter__", [](const IGESData_Array1OfDirPart &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESData_Array1OfDirPart.hxx
+	bind_NCollection_Array1<IGESData_DirPart>(mod, "IGESData_Array1OfDirPart");
 
 
 }

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Convert_ParameterisationType.hxx>
 #include <Standard_TypeDef.hxx>
@@ -53,6 +44,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Convert_SphereToBSplineSurface.hxx>
 #include <gp_Torus.hxx>
 #include <Convert_TorusToBSplineSurface.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Convert, mod) {
 
@@ -217,55 +209,14 @@ PYBIND11_MODULE(Convert, mod) {
 	cls_Convert_TorusToBSplineSurface.def(py::init<const gp_Torus &, const Standard_Real, const Standard_Real, const Standard_Boolean>(), py::arg("T"), py::arg("Param1"), py::arg("Param2"), py::arg("UTrim"));
 	cls_Convert_TorusToBSplineSurface.def(py::init<const gp_Torus &>(), py::arg("T"));
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Convert_SequenceOfArray1OfPoles2d.hxx
 	other_mod = py::module::import("OCCT.TColgp");
 	if (py::hasattr(other_mod, "TColgp_SequenceOfArray1OfPnt2d")) {
 		mod.attr("Convert_SequenceOfArray1OfPoles2d") = other_mod.attr("TColgp_SequenceOfArray1OfPnt2d");
 	}
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Convert_SequenceOfArray1OfPoles, std::unique_ptr<Convert_SequenceOfArray1OfPoles, Deleter<Convert_SequenceOfArray1OfPoles>>, NCollection_BaseSequence> cls_Convert_SequenceOfArray1OfPoles(mod, "Convert_SequenceOfArray1OfPoles", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Convert_SequenceOfArray1OfPoles.def(py::init<>());
-	cls_Convert_SequenceOfArray1OfPoles.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Convert_SequenceOfArray1OfPoles.def(py::init([] (const Convert_SequenceOfArray1OfPoles &other) {return new Convert_SequenceOfArray1OfPoles(other);}), "Copy constructor", py::arg("other"));
-	cls_Convert_SequenceOfArray1OfPoles.def("begin", (Convert_SequenceOfArray1OfPoles::iterator (Convert_SequenceOfArray1OfPoles::*)() const ) &Convert_SequenceOfArray1OfPoles::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Convert_SequenceOfArray1OfPoles.def("end", (Convert_SequenceOfArray1OfPoles::iterator (Convert_SequenceOfArray1OfPoles::*)() const ) &Convert_SequenceOfArray1OfPoles::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Convert_SequenceOfArray1OfPoles.def("cbegin", (Convert_SequenceOfArray1OfPoles::const_iterator (Convert_SequenceOfArray1OfPoles::*)() const ) &Convert_SequenceOfArray1OfPoles::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Convert_SequenceOfArray1OfPoles.def("cend", (Convert_SequenceOfArray1OfPoles::const_iterator (Convert_SequenceOfArray1OfPoles::*)() const ) &Convert_SequenceOfArray1OfPoles::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Convert_SequenceOfArray1OfPoles.def("Size", (Standard_Integer (Convert_SequenceOfArray1OfPoles::*)() const ) &Convert_SequenceOfArray1OfPoles::Size, "Number of items");
-	cls_Convert_SequenceOfArray1OfPoles.def("Length", (Standard_Integer (Convert_SequenceOfArray1OfPoles::*)() const ) &Convert_SequenceOfArray1OfPoles::Length, "Number of items");
-	cls_Convert_SequenceOfArray1OfPoles.def("Lower", (Standard_Integer (Convert_SequenceOfArray1OfPoles::*)() const ) &Convert_SequenceOfArray1OfPoles::Lower, "Method for consistency with other collections.");
-	cls_Convert_SequenceOfArray1OfPoles.def("Upper", (Standard_Integer (Convert_SequenceOfArray1OfPoles::*)() const ) &Convert_SequenceOfArray1OfPoles::Upper, "Method for consistency with other collections.");
-	cls_Convert_SequenceOfArray1OfPoles.def("IsEmpty", (Standard_Boolean (Convert_SequenceOfArray1OfPoles::*)() const ) &Convert_SequenceOfArray1OfPoles::IsEmpty, "Empty query");
-	cls_Convert_SequenceOfArray1OfPoles.def("Reverse", (void (Convert_SequenceOfArray1OfPoles::*)()) &Convert_SequenceOfArray1OfPoles::Reverse, "Reverse sequence");
-	cls_Convert_SequenceOfArray1OfPoles.def("Exchange", (void (Convert_SequenceOfArray1OfPoles::*)(const Standard_Integer, const Standard_Integer)) &Convert_SequenceOfArray1OfPoles::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Convert_SequenceOfArray1OfPoles.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Convert_SequenceOfArray1OfPoles::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Convert_SequenceOfArray1OfPoles.def("Clear", [](Convert_SequenceOfArray1OfPoles &self) -> void { return self.Clear(); });
-	cls_Convert_SequenceOfArray1OfPoles.def("Clear", (void (Convert_SequenceOfArray1OfPoles::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Convert_SequenceOfArray1OfPoles::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Convert_SequenceOfArray1OfPoles.def("Assign", (Convert_SequenceOfArray1OfPoles & (Convert_SequenceOfArray1OfPoles::*)(const Convert_SequenceOfArray1OfPoles &)) &Convert_SequenceOfArray1OfPoles::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Convert_SequenceOfArray1OfPoles.def("assign", (Convert_SequenceOfArray1OfPoles & (Convert_SequenceOfArray1OfPoles::*)(const Convert_SequenceOfArray1OfPoles &)) &Convert_SequenceOfArray1OfPoles::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Convert_SequenceOfArray1OfPoles.def("Remove", (void (Convert_SequenceOfArray1OfPoles::*)(Convert_SequenceOfArray1OfPoles::Iterator &)) &Convert_SequenceOfArray1OfPoles::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Convert_SequenceOfArray1OfPoles.def("Remove", (void (Convert_SequenceOfArray1OfPoles::*)(const Standard_Integer)) &Convert_SequenceOfArray1OfPoles::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Convert_SequenceOfArray1OfPoles.def("Remove", (void (Convert_SequenceOfArray1OfPoles::*)(const Standard_Integer, const Standard_Integer)) &Convert_SequenceOfArray1OfPoles::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Convert_SequenceOfArray1OfPoles.def("Append", (void (Convert_SequenceOfArray1OfPoles::*)(const opencascade::handle<TColgp_HArray1OfPnt> &)) &Convert_SequenceOfArray1OfPoles::Append, "Append one item", py::arg("theItem"));
-	cls_Convert_SequenceOfArray1OfPoles.def("Append", (void (Convert_SequenceOfArray1OfPoles::*)(Convert_SequenceOfArray1OfPoles &)) &Convert_SequenceOfArray1OfPoles::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Convert_SequenceOfArray1OfPoles.def("Prepend", (void (Convert_SequenceOfArray1OfPoles::*)(const opencascade::handle<TColgp_HArray1OfPnt> &)) &Convert_SequenceOfArray1OfPoles::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Convert_SequenceOfArray1OfPoles.def("Prepend", (void (Convert_SequenceOfArray1OfPoles::*)(Convert_SequenceOfArray1OfPoles &)) &Convert_SequenceOfArray1OfPoles::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Convert_SequenceOfArray1OfPoles.def("InsertBefore", (void (Convert_SequenceOfArray1OfPoles::*)(const Standard_Integer, const opencascade::handle<TColgp_HArray1OfPnt> &)) &Convert_SequenceOfArray1OfPoles::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Convert_SequenceOfArray1OfPoles.def("InsertBefore", (void (Convert_SequenceOfArray1OfPoles::*)(const Standard_Integer, Convert_SequenceOfArray1OfPoles &)) &Convert_SequenceOfArray1OfPoles::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Convert_SequenceOfArray1OfPoles.def("InsertAfter", (void (Convert_SequenceOfArray1OfPoles::*)(Convert_SequenceOfArray1OfPoles::Iterator &, const opencascade::handle<TColgp_HArray1OfPnt> &)) &Convert_SequenceOfArray1OfPoles::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Convert_SequenceOfArray1OfPoles.def("InsertAfter", (void (Convert_SequenceOfArray1OfPoles::*)(const Standard_Integer, Convert_SequenceOfArray1OfPoles &)) &Convert_SequenceOfArray1OfPoles::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Convert_SequenceOfArray1OfPoles.def("InsertAfter", (void (Convert_SequenceOfArray1OfPoles::*)(const Standard_Integer, const opencascade::handle<TColgp_HArray1OfPnt> &)) &Convert_SequenceOfArray1OfPoles::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Convert_SequenceOfArray1OfPoles.def("Split", (void (Convert_SequenceOfArray1OfPoles::*)(const Standard_Integer, Convert_SequenceOfArray1OfPoles &)) &Convert_SequenceOfArray1OfPoles::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Convert_SequenceOfArray1OfPoles.def("First", (const opencascade::handle<TColgp_HArray1OfPnt> & (Convert_SequenceOfArray1OfPoles::*)() const ) &Convert_SequenceOfArray1OfPoles::First, "First item access");
-	cls_Convert_SequenceOfArray1OfPoles.def("ChangeFirst", (opencascade::handle<TColgp_HArray1OfPnt> & (Convert_SequenceOfArray1OfPoles::*)()) &Convert_SequenceOfArray1OfPoles::ChangeFirst, "First item access");
-	cls_Convert_SequenceOfArray1OfPoles.def("Last", (const opencascade::handle<TColgp_HArray1OfPnt> & (Convert_SequenceOfArray1OfPoles::*)() const ) &Convert_SequenceOfArray1OfPoles::Last, "Last item access");
-	cls_Convert_SequenceOfArray1OfPoles.def("ChangeLast", (opencascade::handle<TColgp_HArray1OfPnt> & (Convert_SequenceOfArray1OfPoles::*)()) &Convert_SequenceOfArray1OfPoles::ChangeLast, "Last item access");
-	cls_Convert_SequenceOfArray1OfPoles.def("Value", (const opencascade::handle<TColgp_HArray1OfPnt> & (Convert_SequenceOfArray1OfPoles::*)(const Standard_Integer) const ) &Convert_SequenceOfArray1OfPoles::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Convert_SequenceOfArray1OfPoles.def("__call__", (const opencascade::handle<TColgp_HArray1OfPnt> & (Convert_SequenceOfArray1OfPoles::*)(const Standard_Integer) const ) &Convert_SequenceOfArray1OfPoles::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Convert_SequenceOfArray1OfPoles.def("ChangeValue", (opencascade::handle<TColgp_HArray1OfPnt> & (Convert_SequenceOfArray1OfPoles::*)(const Standard_Integer)) &Convert_SequenceOfArray1OfPoles::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Convert_SequenceOfArray1OfPoles.def("__call__", (opencascade::handle<TColgp_HArray1OfPnt> & (Convert_SequenceOfArray1OfPoles::*)(const Standard_Integer)) &Convert_SequenceOfArray1OfPoles::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Convert_SequenceOfArray1OfPoles.def("SetValue", (void (Convert_SequenceOfArray1OfPoles::*)(const Standard_Integer, const opencascade::handle<TColgp_HArray1OfPnt> &)) &Convert_SequenceOfArray1OfPoles::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Convert_SequenceOfArray1OfPoles.def("__iter__", [](const Convert_SequenceOfArray1OfPoles &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Convert_SequenceOfArray1OfPoles.hxx
+	bind_NCollection_Sequence<opencascade::handle<TColgp_HArray1OfPnt> >(mod, "Convert_SequenceOfArray1OfPoles");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Convert_CosAndSinEvalFunction.hxx
 

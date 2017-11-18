@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <TopoDS_Face.hxx>
 #include <StdMeshers_Quadrangle_2D.hxx>
@@ -96,6 +87,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <StdMeshers_StartEndLength.hxx>
 #include <StdMeshers_UseExisting_1D2D.hxx>
 #include <StdMeshers_ViscousLayers2D.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(StdMeshers, mod) {
 
@@ -1003,6 +995,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_ViscousLayers2D.def_static("HasProxyMesh_", (bool (*)(const TopoDS_Face &, SMESH_Mesh &)) &StdMeshers_ViscousLayers2D::HasProxyMesh, "None", py::arg("face"), py::arg("theMesh"));
 
 	/* FIXME
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_FaceSide.hxx
 	other_mod = py::module::import("OCCT.SMESH");
 	if (py::hasattr(other_mod, "SMESH_ComputeErrorPtr")) {
 		mod.attr("TError") = other_mod.attr("SMESH_ComputeErrorPtr");
@@ -1011,39 +1004,16 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	*/
 
 	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
-	py::class_<StdMeshers_FaceSidePtr, std::unique_ptr<StdMeshers_FaceSidePtr, Deleter<StdMeshers_FaceSidePtr>>> cls_StdMeshers_FaceSidePtr(mod, "StdMeshers_FaceSidePtr", "None");
-	cls_StdMeshers_FaceSidePtr.def(py::init<>());
-	cls_StdMeshers_FaceSidePtr.def(py::init<boost::detail::sp_nullptr_t>(), py::arg(""));
-	cls_StdMeshers_FaceSidePtr.def(py::init<boost::detail::sp_internal_constructor_tag, boost::StdMeshers_FaceSidePtr::element_type *, const boost::detail::shared_count &>(), py::arg(""), py::arg("px_"), py::arg("pn_"));
-	cls_StdMeshers_FaceSidePtr.def(py::init<boost::detail::sp_internal_constructor_tag, boost::StdMeshers_FaceSidePtr::element_type *, boost::detail::shared_count &&>(), py::arg(""), py::arg("px_"), py::arg("pn_"));
-	cls_StdMeshers_FaceSidePtr.def(py::init([] (const shared_ptr<StdMeshers_FaceSide> &other) {return new StdMeshers_FaceSidePtr(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_StdMeshers_FaceSidePtr.def(py::init<shared_ptr<StdMeshers_FaceSide> &&>(), py::arg("r"));
-	cls_StdMeshers_FaceSidePtr.def("assign", (shared_ptr<StdMeshers_FaceSide> & (StdMeshers_FaceSidePtr::*)(const shared_ptr<StdMeshers_FaceSide> &)) &StdMeshers_FaceSidePtr::operator=, py::is_operator(), "None", py::arg("r"));
-	// FIXME cls_StdMeshers_FaceSidePtr.def("assign", (shared_ptr<StdMeshers_FaceSide> & (StdMeshers_FaceSidePtr::*)(shared_ptr<StdMeshers_FaceSide> &&)) &StdMeshers_FaceSidePtr::operator=, py::is_operator(), "None", py::arg("r"));
-	cls_StdMeshers_FaceSidePtr.def("assign", (shared_ptr<StdMeshers_FaceSide> & (StdMeshers_FaceSidePtr::*)(boost::detail::sp_nullptr_t)) &StdMeshers_FaceSidePtr::operator=, py::is_operator(), "None", py::arg(""));
-	cls_StdMeshers_FaceSidePtr.def("reset", (void (StdMeshers_FaceSidePtr::*)()) &StdMeshers_FaceSidePtr::reset, "None");
-	cls_StdMeshers_FaceSidePtr.def("__mul__", (typename boost::detail::sp_dereference<StdMeshers_FaceSide>::type (StdMeshers_FaceSidePtr::*)() const ) &StdMeshers_FaceSidePtr::operator*, py::is_operator(), "None");
-	// FIXME cls_StdMeshers_FaceSidePtr.def("operator->", (typename boost::detail::sp_member_access<StdMeshers_FaceSide>::type (StdMeshers_FaceSidePtr::*)() const ) &StdMeshers_FaceSidePtr::operator->, "None");
-	cls_StdMeshers_FaceSidePtr.def("__getitem__", (typename boost::detail::sp_array_access<StdMeshers_FaceSide>::type (StdMeshers_FaceSidePtr::*)(std::ptrdiff_t) const ) &StdMeshers_FaceSidePtr::operator[], py::is_operator(), "None", py::arg("i"));
-	cls_StdMeshers_FaceSidePtr.def("get", (boost::StdMeshers_FaceSidePtr::element_type * (StdMeshers_FaceSidePtr::*)() const ) &StdMeshers_FaceSidePtr::get, "None");
-	cls_StdMeshers_FaceSidePtr.def("operator!", (bool (StdMeshers_FaceSidePtr::*)() const ) &StdMeshers_FaceSidePtr::operator!, "None");
-	cls_StdMeshers_FaceSidePtr.def("unique", (bool (StdMeshers_FaceSidePtr::*)() const ) &StdMeshers_FaceSidePtr::unique, "None");
-	cls_StdMeshers_FaceSidePtr.def("use_count", (long (StdMeshers_FaceSidePtr::*)() const ) &StdMeshers_FaceSidePtr::use_count, "None");
-	cls_StdMeshers_FaceSidePtr.def("swap", (void (StdMeshers_FaceSidePtr::*)(shared_ptr<StdMeshers_FaceSide> &)) &StdMeshers_FaceSidePtr::swap, "None", py::arg("other"));
-	cls_StdMeshers_FaceSidePtr.def("_internal_get_deleter", (void * (StdMeshers_FaceSidePtr::*)(const boost::detail::sp_typeinfo &) const ) &StdMeshers_FaceSidePtr::_internal_get_deleter, "None", py::arg("ti"));
-	cls_StdMeshers_FaceSidePtr.def("_internal_get_local_deleter", (void * (StdMeshers_FaceSidePtr::*)(const boost::detail::sp_typeinfo &) const ) &StdMeshers_FaceSidePtr::_internal_get_local_deleter, "None", py::arg("ti"));
-	cls_StdMeshers_FaceSidePtr.def("_internal_get_untyped_deleter", (void * (StdMeshers_FaceSidePtr::*)() const ) &StdMeshers_FaceSidePtr::_internal_get_untyped_deleter, "None");
-	cls_StdMeshers_FaceSidePtr.def("_internal_equiv", (bool (StdMeshers_FaceSidePtr::*)(const shared_ptr<StdMeshers_FaceSide> &) const ) &StdMeshers_FaceSidePtr::_internal_equiv, "None", py::arg("r"));
-	cls_StdMeshers_FaceSidePtr.def("_internal_count", (boost::detail::shared_count (StdMeshers_FaceSidePtr::*)() const ) &StdMeshers_FaceSidePtr::_internal_count, "None");
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_FaceSide.hxx
+	// FIXME bind_boost::shared_ptr<StdMeshers_FaceSide>(mod, "StdMeshers_FaceSidePtr");
 
 	*/
 
-	/* FIXME
-	// TSideVector
-	*/
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_FaceSide.hxx
+	// FIXME bind_std::vector<boost::shared_ptr<StdMeshers_FaceSide>, std::allocator<boost::shared_ptr<StdMeshers_FaceSide> > >(mod, "TSideVector");
 
 	/* FIXME
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Penta_3D.hxx
 	other_mod = py::module::import("OCCT.SMESH");
 	if (py::hasattr(other_mod, "TParam2ColumnMap")) {
 		mod.attr("StdMeshers_IJNodeMap") = other_mod.attr("TParam2ColumnMap");
@@ -1052,6 +1022,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	*/
 
 	/* FIXME
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Prism_3D.hxx
 	other_mod = py::module::import("OCCT.TopTools");
 	if (py::hasattr(other_mod, "TopTools_IndexedMapOfOrientedShape")) {
 		mod.attr("TBlockShapes") = other_mod.attr("TopTools_IndexedMapOfOrientedShape");
@@ -1060,6 +1031,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	*/
 
 	/* FIXME
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Prism_3D.hxx
 	other_mod = py::module::import("OCCT.SMESH");
 	if (py::hasattr(other_mod, "TNodeColumn")) {
 		mod.attr("TNodeColumn") = other_mod.attr("TNodeColumn");
@@ -1068,6 +1040,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	*/
 
 	/* FIXME
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Prism_3D.hxx
 	other_mod = py::module::import("OCCT.SMESH");
 	if (py::hasattr(other_mod, "TParam2ColumnMap")) {
 		mod.attr("TParam2ColumnMap") = other_mod.attr("TParam2ColumnMap");
@@ -1076,27 +1049,15 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	*/
 
 	/* FIXME
-	// C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtree
-	py::class_<TParam2ColumnIt, std::unique_ptr<TParam2ColumnIt, Deleter<TParam2ColumnIt>>, _Tree_unchecked_const_iterator<_Tree_val<std::_Tree_comp_alloc<std::_Tmap_traits<double, std::vector<const SMDS_MeshNode *, std::allocator<const SMDS_MeshNode *> >, std::less<double>, std::allocator<std::pair<const double, std::vector<const SMDS_MeshNode *, std::allocator<const SMDS_MeshNode *> > > >, false> >::_Val_types>, std::_Iterator_base>> cls_TParam2ColumnIt(mod, "TParam2ColumnIt", "None");
-	cls_TParam2ColumnIt.def(py::init<>());
-	cls_TParam2ColumnIt.def(py::init<std::TParam2ColumnIt::_Nodeptr, const _Tree_val<std::_Tree_comp_alloc<std::_Tmap_traits<double, std::vector<const SMDS_MeshNode *, std::allocator<const SMDS_MeshNode *> >, std::less<double>, std::allocator<std::pair<const double, std::vector<const SMDS_MeshNode *, std::allocator<const SMDS_MeshNode *> > > >, false> >::_Val_types> *>(), py::arg("_Pnode"), py::arg("_Plist"));
-	cls_TParam2ColumnIt.def("_Rechecked", (std::TParam2ColumnIt::_Myiter & (TParam2ColumnIt::*)(std::TParam2ColumnIt::_Unchecked_type)) &TParam2ColumnIt::_Rechecked, "None", py::arg("_Right"));
-	cls_TParam2ColumnIt.def("_Unchecked", (std::TParam2ColumnIt::_Unchecked_type (TParam2ColumnIt::*)() const ) &TParam2ColumnIt::_Unchecked, "None");
-	cls_TParam2ColumnIt.def("__mul__", (std::TParam2ColumnIt::reference (TParam2ColumnIt::*)() const ) &TParam2ColumnIt::operator*, py::is_operator(), "None");
-	// FIXME cls_TParam2ColumnIt.def("operator->", (std::TParam2ColumnIt::pointer (TParam2ColumnIt::*)() const ) &TParam2ColumnIt::operator->, "None");
-	cls_TParam2ColumnIt.def("plus_plus", (std::TParam2ColumnIt::_Myiter & (TParam2ColumnIt::*)()) &TParam2ColumnIt::operator++, py::is_operator(), "None");
-	cls_TParam2ColumnIt.def("plus_plus", (std::TParam2ColumnIt::_Myiter (TParam2ColumnIt::*)(int)) &TParam2ColumnIt::operator++, py::is_operator(), "None", py::arg(""));
-	cls_TParam2ColumnIt.def("minus_minus", (std::TParam2ColumnIt::_Myiter & (TParam2ColumnIt::*)()) &TParam2ColumnIt::operator--, py::is_operator(), "None");
-	cls_TParam2ColumnIt.def("minus_minus", (std::TParam2ColumnIt::_Myiter (TParam2ColumnIt::*)(int)) &TParam2ColumnIt::operator--, py::is_operator(), "None", py::arg(""));
-	cls_TParam2ColumnIt.def("__eq__", (bool (TParam2ColumnIt::*)(const std::TParam2ColumnIt::_Myiter &) const ) &TParam2ColumnIt::operator==, py::is_operator(), "None", py::arg("_Right"));
-	cls_TParam2ColumnIt.def("__ne__", (bool (TParam2ColumnIt::*)(const std::TParam2ColumnIt::_Myiter &) const ) &TParam2ColumnIt::operator!=, py::is_operator(), "None", py::arg("_Right"));
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Prism_3D.hxx
+	// FIXME bind_std::_Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const double, std::vector<const SMDS_MeshNode *, std::allocator<const SMDS_MeshNode *> > > > > >(mod, "TParam2ColumnIt");
 
 	*/
 
-	/* FIXME
-	// TNode2ColumnMap
-	*/
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Prism_3D.hxx
+	// FIXME bind_std::map<Prism_3D::TNode, std::vector<const SMDS_MeshNode *, std::allocator<const SMDS_MeshNode *> >, std::less<Prism_3D::TNode>, std::allocator<std::pair<const Prism_3D::TNode, std::vector<const SMDS_MeshNode *, std::allocator<const SMDS_MeshNode *> > > > >(mod, "TNode2ColumnMap");
 
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Quadrangle_2D.hxx
 	other_mod = py::module::import("OCCT.SMESH");
 	if (py::hasattr(other_mod, "UVPtStruct")) {
 		mod.attr("UVPtStruct") = other_mod.attr("UVPtStruct");

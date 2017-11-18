@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <TopoDS_Shape.hxx>
 #include <TopTools_ListOfShape.hxx>
@@ -54,6 +45,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_BaseSequence.hxx>
 #include <NCollection_Sequence.hxx>
 #include <BRepAlgo_SequenceOfSequenceOfInteger.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BRepAlgo, mod) {
 
@@ -305,114 +297,22 @@ PYBIND11_MODULE(BRepAlgo, mod) {
 	cls_BRepAlgo.def_static("IsValid_", (Standard_Boolean (*)(const TopTools_ListOfShape &, const TopoDS_Shape &, const Standard_Boolean, const Standard_Boolean)) &BRepAlgo::IsValid, "Checks if the Generated and Modified Faces from the shapes <arguments> in the shape <result> are 'correct'. The args may be empty, then all faces will be checked. If <Closed> is True, only closed shape are valid. If <GeomCtrl> is False the geometry of new vertices and edges are not verified and the auto-intersection of new wires are not searched.", py::arg("theArgs"), py::arg("theResult"), py::arg("closedSolid"), py::arg("GeomCtrl"));
 	cls_BRepAlgo.def_static("IsTopologicallyValid_", (Standard_Boolean (*)(const TopoDS_Shape &)) &BRepAlgo::IsTopologicallyValid, "Checks if the shape is 'correct'. If not, returns <Standard_False>, else returns <Standard_True>. This method differs from the previous one in the fact that no geometric contols (intersection of wires, pcurve validity) are performed.", py::arg("S"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<BRepAlgo_DataMapOfShapeBoolean, std::unique_ptr<BRepAlgo_DataMapOfShapeBoolean, Deleter<BRepAlgo_DataMapOfShapeBoolean>>, NCollection_BaseMap> cls_BRepAlgo_DataMapOfShapeBoolean(mod, "BRepAlgo_DataMapOfShapeBoolean", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_BRepAlgo_DataMapOfShapeBoolean.def(py::init<>());
-	cls_BRepAlgo_DataMapOfShapeBoolean.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BRepAlgo_DataMapOfShapeBoolean.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BRepAlgo_DataMapOfShapeBoolean.def(py::init([] (const BRepAlgo_DataMapOfShapeBoolean &other) {return new BRepAlgo_DataMapOfShapeBoolean(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("begin", (BRepAlgo_DataMapOfShapeBoolean::iterator (BRepAlgo_DataMapOfShapeBoolean::*)() const ) &BRepAlgo_DataMapOfShapeBoolean::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("end", (BRepAlgo_DataMapOfShapeBoolean::iterator (BRepAlgo_DataMapOfShapeBoolean::*)() const ) &BRepAlgo_DataMapOfShapeBoolean::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("cbegin", (BRepAlgo_DataMapOfShapeBoolean::const_iterator (BRepAlgo_DataMapOfShapeBoolean::*)() const ) &BRepAlgo_DataMapOfShapeBoolean::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("cend", (BRepAlgo_DataMapOfShapeBoolean::const_iterator (BRepAlgo_DataMapOfShapeBoolean::*)() const ) &BRepAlgo_DataMapOfShapeBoolean::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("Exchange", (void (BRepAlgo_DataMapOfShapeBoolean::*)(BRepAlgo_DataMapOfShapeBoolean &)) &BRepAlgo_DataMapOfShapeBoolean::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("Assign", (BRepAlgo_DataMapOfShapeBoolean & (BRepAlgo_DataMapOfShapeBoolean::*)(const BRepAlgo_DataMapOfShapeBoolean &)) &BRepAlgo_DataMapOfShapeBoolean::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("assign", (BRepAlgo_DataMapOfShapeBoolean & (BRepAlgo_DataMapOfShapeBoolean::*)(const BRepAlgo_DataMapOfShapeBoolean &)) &BRepAlgo_DataMapOfShapeBoolean::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("ReSize", (void (BRepAlgo_DataMapOfShapeBoolean::*)(const Standard_Integer)) &BRepAlgo_DataMapOfShapeBoolean::ReSize, "ReSize", py::arg("N"));
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("Bind", (Standard_Boolean (BRepAlgo_DataMapOfShapeBoolean::*)(const TopoDS_Shape &, const Standard_Boolean &)) &BRepAlgo_DataMapOfShapeBoolean::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_BRepAlgo_DataMapOfShapeBoolean.def("Bound", (Standard_Boolean * (BRepAlgo_DataMapOfShapeBoolean::*)(const TopoDS_Shape &, const Standard_Boolean &)) &BRepAlgo_DataMapOfShapeBoolean::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("IsBound", (Standard_Boolean (BRepAlgo_DataMapOfShapeBoolean::*)(const TopoDS_Shape &) const ) &BRepAlgo_DataMapOfShapeBoolean::IsBound, "IsBound", py::arg("theKey"));
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("UnBind", (Standard_Boolean (BRepAlgo_DataMapOfShapeBoolean::*)(const TopoDS_Shape &)) &BRepAlgo_DataMapOfShapeBoolean::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_BRepAlgo_DataMapOfShapeBoolean.def("Seek", (const Standard_Boolean * (BRepAlgo_DataMapOfShapeBoolean::*)(const TopoDS_Shape &) const ) &BRepAlgo_DataMapOfShapeBoolean::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_BRepAlgo_DataMapOfShapeBoolean.def("Find", (const Standard_Boolean & (BRepAlgo_DataMapOfShapeBoolean::*)(const TopoDS_Shape &) const ) &BRepAlgo_DataMapOfShapeBoolean::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_BRepAlgo_DataMapOfShapeBoolean.def("Find", (Standard_Boolean (BRepAlgo_DataMapOfShapeBoolean::*)(const TopoDS_Shape &, Standard_Boolean &) const ) &BRepAlgo_DataMapOfShapeBoolean::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("__call__", (const Standard_Boolean & (BRepAlgo_DataMapOfShapeBoolean::*)(const TopoDS_Shape &) const ) &BRepAlgo_DataMapOfShapeBoolean::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_BRepAlgo_DataMapOfShapeBoolean.def("ChangeSeek", (Standard_Boolean * (BRepAlgo_DataMapOfShapeBoolean::*)(const TopoDS_Shape &)) &BRepAlgo_DataMapOfShapeBoolean::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("ChangeFind", (Standard_Boolean & (BRepAlgo_DataMapOfShapeBoolean::*)(const TopoDS_Shape &)) &BRepAlgo_DataMapOfShapeBoolean::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("__call__", (Standard_Boolean & (BRepAlgo_DataMapOfShapeBoolean::*)(const TopoDS_Shape &)) &BRepAlgo_DataMapOfShapeBoolean::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("Clear", [](BRepAlgo_DataMapOfShapeBoolean &self) -> void { return self.Clear(); });
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("Clear", (void (BRepAlgo_DataMapOfShapeBoolean::*)(const Standard_Boolean)) &BRepAlgo_DataMapOfShapeBoolean::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("Clear", (void (BRepAlgo_DataMapOfShapeBoolean::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepAlgo_DataMapOfShapeBoolean::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("Size", (Standard_Integer (BRepAlgo_DataMapOfShapeBoolean::*)() const ) &BRepAlgo_DataMapOfShapeBoolean::Size, "Size");
-	cls_BRepAlgo_DataMapOfShapeBoolean.def("__iter__", [](const BRepAlgo_DataMapOfShapeBoolean &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepAlgo_DataMapOfShapeBoolean.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<BRepAlgo_DataMapOfShapeInterference, std::unique_ptr<BRepAlgo_DataMapOfShapeInterference, Deleter<BRepAlgo_DataMapOfShapeInterference>>, NCollection_BaseMap> cls_BRepAlgo_DataMapOfShapeInterference(mod, "BRepAlgo_DataMapOfShapeInterference", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_BRepAlgo_DataMapOfShapeInterference.def(py::init<>());
-	cls_BRepAlgo_DataMapOfShapeInterference.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BRepAlgo_DataMapOfShapeInterference.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BRepAlgo_DataMapOfShapeInterference.def(py::init([] (const BRepAlgo_DataMapOfShapeInterference &other) {return new BRepAlgo_DataMapOfShapeInterference(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepAlgo_DataMapOfShapeInterference.def("begin", (BRepAlgo_DataMapOfShapeInterference::iterator (BRepAlgo_DataMapOfShapeInterference::*)() const ) &BRepAlgo_DataMapOfShapeInterference::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_BRepAlgo_DataMapOfShapeInterference.def("end", (BRepAlgo_DataMapOfShapeInterference::iterator (BRepAlgo_DataMapOfShapeInterference::*)() const ) &BRepAlgo_DataMapOfShapeInterference::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_BRepAlgo_DataMapOfShapeInterference.def("cbegin", (BRepAlgo_DataMapOfShapeInterference::const_iterator (BRepAlgo_DataMapOfShapeInterference::*)() const ) &BRepAlgo_DataMapOfShapeInterference::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_BRepAlgo_DataMapOfShapeInterference.def("cend", (BRepAlgo_DataMapOfShapeInterference::const_iterator (BRepAlgo_DataMapOfShapeInterference::*)() const ) &BRepAlgo_DataMapOfShapeInterference::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_BRepAlgo_DataMapOfShapeInterference.def("Exchange", (void (BRepAlgo_DataMapOfShapeInterference::*)(BRepAlgo_DataMapOfShapeInterference &)) &BRepAlgo_DataMapOfShapeInterference::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BRepAlgo_DataMapOfShapeInterference.def("Assign", (BRepAlgo_DataMapOfShapeInterference & (BRepAlgo_DataMapOfShapeInterference::*)(const BRepAlgo_DataMapOfShapeInterference &)) &BRepAlgo_DataMapOfShapeInterference::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepAlgo_DataMapOfShapeInterference.def("assign", (BRepAlgo_DataMapOfShapeInterference & (BRepAlgo_DataMapOfShapeInterference::*)(const BRepAlgo_DataMapOfShapeInterference &)) &BRepAlgo_DataMapOfShapeInterference::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BRepAlgo_DataMapOfShapeInterference.def("ReSize", (void (BRepAlgo_DataMapOfShapeInterference::*)(const Standard_Integer)) &BRepAlgo_DataMapOfShapeInterference::ReSize, "ReSize", py::arg("N"));
-	cls_BRepAlgo_DataMapOfShapeInterference.def("Bind", (Standard_Boolean (BRepAlgo_DataMapOfShapeInterference::*)(const TopoDS_Shape &, const opencascade::handle<TopOpeBRepDS_Interference> &)) &BRepAlgo_DataMapOfShapeInterference::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_BRepAlgo_DataMapOfShapeInterference.def("Bound", (opencascade::handle<TopOpeBRepDS_Interference> * (BRepAlgo_DataMapOfShapeInterference::*)(const TopoDS_Shape &, const opencascade::handle<TopOpeBRepDS_Interference> &)) &BRepAlgo_DataMapOfShapeInterference::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_BRepAlgo_DataMapOfShapeInterference.def("IsBound", (Standard_Boolean (BRepAlgo_DataMapOfShapeInterference::*)(const TopoDS_Shape &) const ) &BRepAlgo_DataMapOfShapeInterference::IsBound, "IsBound", py::arg("theKey"));
-	cls_BRepAlgo_DataMapOfShapeInterference.def("UnBind", (Standard_Boolean (BRepAlgo_DataMapOfShapeInterference::*)(const TopoDS_Shape &)) &BRepAlgo_DataMapOfShapeInterference::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_BRepAlgo_DataMapOfShapeInterference.def("Seek", (const opencascade::handle<TopOpeBRepDS_Interference> * (BRepAlgo_DataMapOfShapeInterference::*)(const TopoDS_Shape &) const ) &BRepAlgo_DataMapOfShapeInterference::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_BRepAlgo_DataMapOfShapeInterference.def("Find", (const opencascade::handle<TopOpeBRepDS_Interference> & (BRepAlgo_DataMapOfShapeInterference::*)(const TopoDS_Shape &) const ) &BRepAlgo_DataMapOfShapeInterference::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_BRepAlgo_DataMapOfShapeInterference.def("Find", (Standard_Boolean (BRepAlgo_DataMapOfShapeInterference::*)(const TopoDS_Shape &, opencascade::handle<TopOpeBRepDS_Interference> &) const ) &BRepAlgo_DataMapOfShapeInterference::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_BRepAlgo_DataMapOfShapeInterference.def("__call__", (const opencascade::handle<TopOpeBRepDS_Interference> & (BRepAlgo_DataMapOfShapeInterference::*)(const TopoDS_Shape &) const ) &BRepAlgo_DataMapOfShapeInterference::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_BRepAlgo_DataMapOfShapeInterference.def("ChangeSeek", (opencascade::handle<TopOpeBRepDS_Interference> * (BRepAlgo_DataMapOfShapeInterference::*)(const TopoDS_Shape &)) &BRepAlgo_DataMapOfShapeInterference::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_BRepAlgo_DataMapOfShapeInterference.def("ChangeFind", (opencascade::handle<TopOpeBRepDS_Interference> & (BRepAlgo_DataMapOfShapeInterference::*)(const TopoDS_Shape &)) &BRepAlgo_DataMapOfShapeInterference::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_BRepAlgo_DataMapOfShapeInterference.def("__call__", (opencascade::handle<TopOpeBRepDS_Interference> & (BRepAlgo_DataMapOfShapeInterference::*)(const TopoDS_Shape &)) &BRepAlgo_DataMapOfShapeInterference::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_BRepAlgo_DataMapOfShapeInterference.def("Clear", [](BRepAlgo_DataMapOfShapeInterference &self) -> void { return self.Clear(); });
-	cls_BRepAlgo_DataMapOfShapeInterference.def("Clear", (void (BRepAlgo_DataMapOfShapeInterference::*)(const Standard_Boolean)) &BRepAlgo_DataMapOfShapeInterference::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BRepAlgo_DataMapOfShapeInterference.def("Clear", (void (BRepAlgo_DataMapOfShapeInterference::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepAlgo_DataMapOfShapeInterference::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BRepAlgo_DataMapOfShapeInterference.def("Size", (Standard_Integer (BRepAlgo_DataMapOfShapeInterference::*)() const ) &BRepAlgo_DataMapOfShapeInterference::Size, "Size");
-	cls_BRepAlgo_DataMapOfShapeInterference.def("__iter__", [](const BRepAlgo_DataMapOfShapeInterference &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TopoDS_Shape, bool, TopTools_ShapeMapHasher>(mod, "BRepAlgo_DataMapOfShapeBoolean");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepAlgo_DataMapOfShapeInterference.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<BRepAlgo_SequenceOfSequenceOfInteger, std::unique_ptr<BRepAlgo_SequenceOfSequenceOfInteger, Deleter<BRepAlgo_SequenceOfSequenceOfInteger>>, NCollection_BaseSequence> cls_BRepAlgo_SequenceOfSequenceOfInteger(mod, "BRepAlgo_SequenceOfSequenceOfInteger", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def(py::init<>());
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def(py::init([] (const BRepAlgo_SequenceOfSequenceOfInteger &other) {return new BRepAlgo_SequenceOfSequenceOfInteger(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("begin", (BRepAlgo_SequenceOfSequenceOfInteger::iterator (BRepAlgo_SequenceOfSequenceOfInteger::*)() const ) &BRepAlgo_SequenceOfSequenceOfInteger::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("end", (BRepAlgo_SequenceOfSequenceOfInteger::iterator (BRepAlgo_SequenceOfSequenceOfInteger::*)() const ) &BRepAlgo_SequenceOfSequenceOfInteger::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("cbegin", (BRepAlgo_SequenceOfSequenceOfInteger::const_iterator (BRepAlgo_SequenceOfSequenceOfInteger::*)() const ) &BRepAlgo_SequenceOfSequenceOfInteger::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("cend", (BRepAlgo_SequenceOfSequenceOfInteger::const_iterator (BRepAlgo_SequenceOfSequenceOfInteger::*)() const ) &BRepAlgo_SequenceOfSequenceOfInteger::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Size", (Standard_Integer (BRepAlgo_SequenceOfSequenceOfInteger::*)() const ) &BRepAlgo_SequenceOfSequenceOfInteger::Size, "Number of items");
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Length", (Standard_Integer (BRepAlgo_SequenceOfSequenceOfInteger::*)() const ) &BRepAlgo_SequenceOfSequenceOfInteger::Length, "Number of items");
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Lower", (Standard_Integer (BRepAlgo_SequenceOfSequenceOfInteger::*)() const ) &BRepAlgo_SequenceOfSequenceOfInteger::Lower, "Method for consistency with other collections.");
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Upper", (Standard_Integer (BRepAlgo_SequenceOfSequenceOfInteger::*)() const ) &BRepAlgo_SequenceOfSequenceOfInteger::Upper, "Method for consistency with other collections.");
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("IsEmpty", (Standard_Boolean (BRepAlgo_SequenceOfSequenceOfInteger::*)() const ) &BRepAlgo_SequenceOfSequenceOfInteger::IsEmpty, "Empty query");
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Reverse", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)()) &BRepAlgo_SequenceOfSequenceOfInteger::Reverse, "Reverse sequence");
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Exchange", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)(const Standard_Integer, const Standard_Integer)) &BRepAlgo_SequenceOfSequenceOfInteger::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &BRepAlgo_SequenceOfSequenceOfInteger::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Clear", [](BRepAlgo_SequenceOfSequenceOfInteger &self) -> void { return self.Clear(); });
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Clear", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepAlgo_SequenceOfSequenceOfInteger::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Assign", (BRepAlgo_SequenceOfSequenceOfInteger & (BRepAlgo_SequenceOfSequenceOfInteger::*)(const BRepAlgo_SequenceOfSequenceOfInteger &)) &BRepAlgo_SequenceOfSequenceOfInteger::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("assign", (BRepAlgo_SequenceOfSequenceOfInteger & (BRepAlgo_SequenceOfSequenceOfInteger::*)(const BRepAlgo_SequenceOfSequenceOfInteger &)) &BRepAlgo_SequenceOfSequenceOfInteger::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Remove", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)(BRepAlgo_SequenceOfSequenceOfInteger::Iterator &)) &BRepAlgo_SequenceOfSequenceOfInteger::Remove, "Remove one item", py::arg("thePosition"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Remove", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)(const Standard_Integer)) &BRepAlgo_SequenceOfSequenceOfInteger::Remove, "Remove one item", py::arg("theIndex"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Remove", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)(const Standard_Integer, const Standard_Integer)) &BRepAlgo_SequenceOfSequenceOfInteger::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Append", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)(const TColStd_SequenceOfInteger &)) &BRepAlgo_SequenceOfSequenceOfInteger::Append, "Append one item", py::arg("theItem"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Append", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)(BRepAlgo_SequenceOfSequenceOfInteger &)) &BRepAlgo_SequenceOfSequenceOfInteger::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Prepend", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)(const TColStd_SequenceOfInteger &)) &BRepAlgo_SequenceOfSequenceOfInteger::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Prepend", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)(BRepAlgo_SequenceOfSequenceOfInteger &)) &BRepAlgo_SequenceOfSequenceOfInteger::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("InsertBefore", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)(const Standard_Integer, const TColStd_SequenceOfInteger &)) &BRepAlgo_SequenceOfSequenceOfInteger::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("InsertBefore", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)(const Standard_Integer, BRepAlgo_SequenceOfSequenceOfInteger &)) &BRepAlgo_SequenceOfSequenceOfInteger::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("InsertAfter", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)(BRepAlgo_SequenceOfSequenceOfInteger::Iterator &, const TColStd_SequenceOfInteger &)) &BRepAlgo_SequenceOfSequenceOfInteger::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("InsertAfter", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)(const Standard_Integer, BRepAlgo_SequenceOfSequenceOfInteger &)) &BRepAlgo_SequenceOfSequenceOfInteger::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("InsertAfter", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)(const Standard_Integer, const TColStd_SequenceOfInteger &)) &BRepAlgo_SequenceOfSequenceOfInteger::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Split", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)(const Standard_Integer, BRepAlgo_SequenceOfSequenceOfInteger &)) &BRepAlgo_SequenceOfSequenceOfInteger::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("First", (const TColStd_SequenceOfInteger & (BRepAlgo_SequenceOfSequenceOfInteger::*)() const ) &BRepAlgo_SequenceOfSequenceOfInteger::First, "First item access");
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("ChangeFirst", (TColStd_SequenceOfInteger & (BRepAlgo_SequenceOfSequenceOfInteger::*)()) &BRepAlgo_SequenceOfSequenceOfInteger::ChangeFirst, "First item access");
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Last", (const TColStd_SequenceOfInteger & (BRepAlgo_SequenceOfSequenceOfInteger::*)() const ) &BRepAlgo_SequenceOfSequenceOfInteger::Last, "Last item access");
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("ChangeLast", (TColStd_SequenceOfInteger & (BRepAlgo_SequenceOfSequenceOfInteger::*)()) &BRepAlgo_SequenceOfSequenceOfInteger::ChangeLast, "Last item access");
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("Value", (const TColStd_SequenceOfInteger & (BRepAlgo_SequenceOfSequenceOfInteger::*)(const Standard_Integer) const ) &BRepAlgo_SequenceOfSequenceOfInteger::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("__call__", (const TColStd_SequenceOfInteger & (BRepAlgo_SequenceOfSequenceOfInteger::*)(const Standard_Integer) const ) &BRepAlgo_SequenceOfSequenceOfInteger::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("ChangeValue", (TColStd_SequenceOfInteger & (BRepAlgo_SequenceOfSequenceOfInteger::*)(const Standard_Integer)) &BRepAlgo_SequenceOfSequenceOfInteger::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("__call__", (TColStd_SequenceOfInteger & (BRepAlgo_SequenceOfSequenceOfInteger::*)(const Standard_Integer)) &BRepAlgo_SequenceOfSequenceOfInteger::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("SetValue", (void (BRepAlgo_SequenceOfSequenceOfInteger::*)(const Standard_Integer, const TColStd_SequenceOfInteger &)) &BRepAlgo_SequenceOfSequenceOfInteger::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_BRepAlgo_SequenceOfSequenceOfInteger.def("__iter__", [](const BRepAlgo_SequenceOfSequenceOfInteger &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TopoDS_Shape, opencascade::handle<TopOpeBRepDS_Interference>, TopTools_ShapeMapHasher>(mod, "BRepAlgo_DataMapOfShapeInterference");
+
+	/* FIXME
+
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepAlgo_SequenceOfSequenceOfInteger.hxx
+	bind_NCollection_Sequence<NCollection_Sequence<int> >(mod, "BRepAlgo_SequenceOfSequenceOfInteger");
 
 
 }

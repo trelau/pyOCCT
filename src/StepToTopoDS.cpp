@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <NCollection_BaseMap.hxx>
 #include <Standard_TypeDef.hxx>
@@ -89,6 +80,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <StepToTopoDS.hxx>
 #include <StepToTopoDS_PointEdgeMap.hxx>
 #include <StepToTopoDS_PointVertexMap.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(StepToTopoDS, mod) {
 
@@ -366,165 +358,40 @@ PYBIND11_MODULE(StepToTopoDS, mod) {
 	cls_StepToTopoDS.def_static("DecodePolyLoopError_", (opencascade::handle<TCollection_HAsciiString> (*)(const StepToTopoDS_TranslatePolyLoopError)) &StepToTopoDS::DecodePolyLoopError, "None", py::arg("Error"));
 	cls_StepToTopoDS.def_static("DecodeGeometricToolError_", (Standard_CString (*)(const StepToTopoDS_GeometricToolError)) &StepToTopoDS::DecodeGeometricToolError, "None", py::arg("Error"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<StepToTopoDS_DataMapOfRI, std::unique_ptr<StepToTopoDS_DataMapOfRI, Deleter<StepToTopoDS_DataMapOfRI>>, NCollection_BaseMap> cls_StepToTopoDS_DataMapOfRI(mod, "StepToTopoDS_DataMapOfRI", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_StepToTopoDS_DataMapOfRI.def(py::init<>());
-	cls_StepToTopoDS_DataMapOfRI.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_StepToTopoDS_DataMapOfRI.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_StepToTopoDS_DataMapOfRI.def(py::init([] (const StepToTopoDS_DataMapOfRI &other) {return new StepToTopoDS_DataMapOfRI(other);}), "Copy constructor", py::arg("other"));
-	cls_StepToTopoDS_DataMapOfRI.def("begin", (StepToTopoDS_DataMapOfRI::iterator (StepToTopoDS_DataMapOfRI::*)() const ) &StepToTopoDS_DataMapOfRI::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_StepToTopoDS_DataMapOfRI.def("end", (StepToTopoDS_DataMapOfRI::iterator (StepToTopoDS_DataMapOfRI::*)() const ) &StepToTopoDS_DataMapOfRI::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_StepToTopoDS_DataMapOfRI.def("cbegin", (StepToTopoDS_DataMapOfRI::const_iterator (StepToTopoDS_DataMapOfRI::*)() const ) &StepToTopoDS_DataMapOfRI::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_StepToTopoDS_DataMapOfRI.def("cend", (StepToTopoDS_DataMapOfRI::const_iterator (StepToTopoDS_DataMapOfRI::*)() const ) &StepToTopoDS_DataMapOfRI::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_StepToTopoDS_DataMapOfRI.def("Exchange", (void (StepToTopoDS_DataMapOfRI::*)(StepToTopoDS_DataMapOfRI &)) &StepToTopoDS_DataMapOfRI::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_StepToTopoDS_DataMapOfRI.def("Assign", (StepToTopoDS_DataMapOfRI & (StepToTopoDS_DataMapOfRI::*)(const StepToTopoDS_DataMapOfRI &)) &StepToTopoDS_DataMapOfRI::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_StepToTopoDS_DataMapOfRI.def("assign", (StepToTopoDS_DataMapOfRI & (StepToTopoDS_DataMapOfRI::*)(const StepToTopoDS_DataMapOfRI &)) &StepToTopoDS_DataMapOfRI::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_StepToTopoDS_DataMapOfRI.def("ReSize", (void (StepToTopoDS_DataMapOfRI::*)(const Standard_Integer)) &StepToTopoDS_DataMapOfRI::ReSize, "ReSize", py::arg("N"));
-	cls_StepToTopoDS_DataMapOfRI.def("Bind", (Standard_Boolean (StepToTopoDS_DataMapOfRI::*)(const opencascade::handle<StepRepr_RepresentationItem> &, const TopoDS_Shape &)) &StepToTopoDS_DataMapOfRI::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_StepToTopoDS_DataMapOfRI.def("Bound", (TopoDS_Shape * (StepToTopoDS_DataMapOfRI::*)(const opencascade::handle<StepRepr_RepresentationItem> &, const TopoDS_Shape &)) &StepToTopoDS_DataMapOfRI::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_StepToTopoDS_DataMapOfRI.def("IsBound", (Standard_Boolean (StepToTopoDS_DataMapOfRI::*)(const opencascade::handle<StepRepr_RepresentationItem> &) const ) &StepToTopoDS_DataMapOfRI::IsBound, "IsBound", py::arg("theKey"));
-	cls_StepToTopoDS_DataMapOfRI.def("UnBind", (Standard_Boolean (StepToTopoDS_DataMapOfRI::*)(const opencascade::handle<StepRepr_RepresentationItem> &)) &StepToTopoDS_DataMapOfRI::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_DataMapOfRI.def("Seek", (const TopoDS_Shape * (StepToTopoDS_DataMapOfRI::*)(const opencascade::handle<StepRepr_RepresentationItem> &) const ) &StepToTopoDS_DataMapOfRI::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_DataMapOfRI.def("Find", (const TopoDS_Shape & (StepToTopoDS_DataMapOfRI::*)(const opencascade::handle<StepRepr_RepresentationItem> &) const ) &StepToTopoDS_DataMapOfRI::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_DataMapOfRI.def("Find", (Standard_Boolean (StepToTopoDS_DataMapOfRI::*)(const opencascade::handle<StepRepr_RepresentationItem> &, TopoDS_Shape &) const ) &StepToTopoDS_DataMapOfRI::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_StepToTopoDS_DataMapOfRI.def("__call__", (const TopoDS_Shape & (StepToTopoDS_DataMapOfRI::*)(const opencascade::handle<StepRepr_RepresentationItem> &) const ) &StepToTopoDS_DataMapOfRI::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_DataMapOfRI.def("ChangeSeek", (TopoDS_Shape * (StepToTopoDS_DataMapOfRI::*)(const opencascade::handle<StepRepr_RepresentationItem> &)) &StepToTopoDS_DataMapOfRI::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_StepToTopoDS_DataMapOfRI.def("ChangeFind", (TopoDS_Shape & (StepToTopoDS_DataMapOfRI::*)(const opencascade::handle<StepRepr_RepresentationItem> &)) &StepToTopoDS_DataMapOfRI::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_StepToTopoDS_DataMapOfRI.def("__call__", (TopoDS_Shape & (StepToTopoDS_DataMapOfRI::*)(const opencascade::handle<StepRepr_RepresentationItem> &)) &StepToTopoDS_DataMapOfRI::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_StepToTopoDS_DataMapOfRI.def("Clear", [](StepToTopoDS_DataMapOfRI &self) -> void { return self.Clear(); });
-	cls_StepToTopoDS_DataMapOfRI.def("Clear", (void (StepToTopoDS_DataMapOfRI::*)(const Standard_Boolean)) &StepToTopoDS_DataMapOfRI::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_StepToTopoDS_DataMapOfRI.def("Clear", (void (StepToTopoDS_DataMapOfRI::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &StepToTopoDS_DataMapOfRI::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_StepToTopoDS_DataMapOfRI.def("Size", (Standard_Integer (StepToTopoDS_DataMapOfRI::*)() const ) &StepToTopoDS_DataMapOfRI::Size, "Size");
-	cls_StepToTopoDS_DataMapOfRI.def("__iter__", [](const StepToTopoDS_DataMapOfRI &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StepToTopoDS_DataMapOfRI.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<StepToTopoDS_DataMapOfRINames, std::unique_ptr<StepToTopoDS_DataMapOfRINames, Deleter<StepToTopoDS_DataMapOfRINames>>, NCollection_BaseMap> cls_StepToTopoDS_DataMapOfRINames(mod, "StepToTopoDS_DataMapOfRINames", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_StepToTopoDS_DataMapOfRINames.def(py::init<>());
-	cls_StepToTopoDS_DataMapOfRINames.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_StepToTopoDS_DataMapOfRINames.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_StepToTopoDS_DataMapOfRINames.def(py::init([] (const StepToTopoDS_DataMapOfRINames &other) {return new StepToTopoDS_DataMapOfRINames(other);}), "Copy constructor", py::arg("other"));
-	cls_StepToTopoDS_DataMapOfRINames.def("begin", (StepToTopoDS_DataMapOfRINames::iterator (StepToTopoDS_DataMapOfRINames::*)() const ) &StepToTopoDS_DataMapOfRINames::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_StepToTopoDS_DataMapOfRINames.def("end", (StepToTopoDS_DataMapOfRINames::iterator (StepToTopoDS_DataMapOfRINames::*)() const ) &StepToTopoDS_DataMapOfRINames::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_StepToTopoDS_DataMapOfRINames.def("cbegin", (StepToTopoDS_DataMapOfRINames::const_iterator (StepToTopoDS_DataMapOfRINames::*)() const ) &StepToTopoDS_DataMapOfRINames::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_StepToTopoDS_DataMapOfRINames.def("cend", (StepToTopoDS_DataMapOfRINames::const_iterator (StepToTopoDS_DataMapOfRINames::*)() const ) &StepToTopoDS_DataMapOfRINames::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_StepToTopoDS_DataMapOfRINames.def("Exchange", (void (StepToTopoDS_DataMapOfRINames::*)(StepToTopoDS_DataMapOfRINames &)) &StepToTopoDS_DataMapOfRINames::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_StepToTopoDS_DataMapOfRINames.def("Assign", (StepToTopoDS_DataMapOfRINames & (StepToTopoDS_DataMapOfRINames::*)(const StepToTopoDS_DataMapOfRINames &)) &StepToTopoDS_DataMapOfRINames::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_StepToTopoDS_DataMapOfRINames.def("assign", (StepToTopoDS_DataMapOfRINames & (StepToTopoDS_DataMapOfRINames::*)(const StepToTopoDS_DataMapOfRINames &)) &StepToTopoDS_DataMapOfRINames::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_StepToTopoDS_DataMapOfRINames.def("ReSize", (void (StepToTopoDS_DataMapOfRINames::*)(const Standard_Integer)) &StepToTopoDS_DataMapOfRINames::ReSize, "ReSize", py::arg("N"));
-	cls_StepToTopoDS_DataMapOfRINames.def("Bind", (Standard_Boolean (StepToTopoDS_DataMapOfRINames::*)(const TCollection_AsciiString &, const TopoDS_Shape &)) &StepToTopoDS_DataMapOfRINames::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_StepToTopoDS_DataMapOfRINames.def("Bound", (TopoDS_Shape * (StepToTopoDS_DataMapOfRINames::*)(const TCollection_AsciiString &, const TopoDS_Shape &)) &StepToTopoDS_DataMapOfRINames::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_StepToTopoDS_DataMapOfRINames.def("IsBound", (Standard_Boolean (StepToTopoDS_DataMapOfRINames::*)(const TCollection_AsciiString &) const ) &StepToTopoDS_DataMapOfRINames::IsBound, "IsBound", py::arg("theKey"));
-	cls_StepToTopoDS_DataMapOfRINames.def("UnBind", (Standard_Boolean (StepToTopoDS_DataMapOfRINames::*)(const TCollection_AsciiString &)) &StepToTopoDS_DataMapOfRINames::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_DataMapOfRINames.def("Seek", (const TopoDS_Shape * (StepToTopoDS_DataMapOfRINames::*)(const TCollection_AsciiString &) const ) &StepToTopoDS_DataMapOfRINames::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_DataMapOfRINames.def("Find", (const TopoDS_Shape & (StepToTopoDS_DataMapOfRINames::*)(const TCollection_AsciiString &) const ) &StepToTopoDS_DataMapOfRINames::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_DataMapOfRINames.def("Find", (Standard_Boolean (StepToTopoDS_DataMapOfRINames::*)(const TCollection_AsciiString &, TopoDS_Shape &) const ) &StepToTopoDS_DataMapOfRINames::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_StepToTopoDS_DataMapOfRINames.def("__call__", (const TopoDS_Shape & (StepToTopoDS_DataMapOfRINames::*)(const TCollection_AsciiString &) const ) &StepToTopoDS_DataMapOfRINames::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_DataMapOfRINames.def("ChangeSeek", (TopoDS_Shape * (StepToTopoDS_DataMapOfRINames::*)(const TCollection_AsciiString &)) &StepToTopoDS_DataMapOfRINames::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_StepToTopoDS_DataMapOfRINames.def("ChangeFind", (TopoDS_Shape & (StepToTopoDS_DataMapOfRINames::*)(const TCollection_AsciiString &)) &StepToTopoDS_DataMapOfRINames::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_StepToTopoDS_DataMapOfRINames.def("__call__", (TopoDS_Shape & (StepToTopoDS_DataMapOfRINames::*)(const TCollection_AsciiString &)) &StepToTopoDS_DataMapOfRINames::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_StepToTopoDS_DataMapOfRINames.def("Clear", [](StepToTopoDS_DataMapOfRINames &self) -> void { return self.Clear(); });
-	cls_StepToTopoDS_DataMapOfRINames.def("Clear", (void (StepToTopoDS_DataMapOfRINames::*)(const Standard_Boolean)) &StepToTopoDS_DataMapOfRINames::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_StepToTopoDS_DataMapOfRINames.def("Clear", (void (StepToTopoDS_DataMapOfRINames::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &StepToTopoDS_DataMapOfRINames::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_StepToTopoDS_DataMapOfRINames.def("Size", (Standard_Integer (StepToTopoDS_DataMapOfRINames::*)() const ) &StepToTopoDS_DataMapOfRINames::Size, "Size");
-	cls_StepToTopoDS_DataMapOfRINames.def("__iter__", [](const StepToTopoDS_DataMapOfRINames &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<opencascade::handle<StepRepr_RepresentationItem>, TopoDS_Shape, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "StepToTopoDS_DataMapOfRI");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StepToTopoDS_DataMapOfRINames.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<StepToTopoDS_DataMapOfTRI, std::unique_ptr<StepToTopoDS_DataMapOfTRI, Deleter<StepToTopoDS_DataMapOfTRI>>, NCollection_BaseMap> cls_StepToTopoDS_DataMapOfTRI(mod, "StepToTopoDS_DataMapOfTRI", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_StepToTopoDS_DataMapOfTRI.def(py::init<>());
-	cls_StepToTopoDS_DataMapOfTRI.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_StepToTopoDS_DataMapOfTRI.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_StepToTopoDS_DataMapOfTRI.def(py::init([] (const StepToTopoDS_DataMapOfTRI &other) {return new StepToTopoDS_DataMapOfTRI(other);}), "Copy constructor", py::arg("other"));
-	cls_StepToTopoDS_DataMapOfTRI.def("begin", (StepToTopoDS_DataMapOfTRI::iterator (StepToTopoDS_DataMapOfTRI::*)() const ) &StepToTopoDS_DataMapOfTRI::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_StepToTopoDS_DataMapOfTRI.def("end", (StepToTopoDS_DataMapOfTRI::iterator (StepToTopoDS_DataMapOfTRI::*)() const ) &StepToTopoDS_DataMapOfTRI::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_StepToTopoDS_DataMapOfTRI.def("cbegin", (StepToTopoDS_DataMapOfTRI::const_iterator (StepToTopoDS_DataMapOfTRI::*)() const ) &StepToTopoDS_DataMapOfTRI::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_StepToTopoDS_DataMapOfTRI.def("cend", (StepToTopoDS_DataMapOfTRI::const_iterator (StepToTopoDS_DataMapOfTRI::*)() const ) &StepToTopoDS_DataMapOfTRI::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_StepToTopoDS_DataMapOfTRI.def("Exchange", (void (StepToTopoDS_DataMapOfTRI::*)(StepToTopoDS_DataMapOfTRI &)) &StepToTopoDS_DataMapOfTRI::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_StepToTopoDS_DataMapOfTRI.def("Assign", (StepToTopoDS_DataMapOfTRI & (StepToTopoDS_DataMapOfTRI::*)(const StepToTopoDS_DataMapOfTRI &)) &StepToTopoDS_DataMapOfTRI::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_StepToTopoDS_DataMapOfTRI.def("assign", (StepToTopoDS_DataMapOfTRI & (StepToTopoDS_DataMapOfTRI::*)(const StepToTopoDS_DataMapOfTRI &)) &StepToTopoDS_DataMapOfTRI::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_StepToTopoDS_DataMapOfTRI.def("ReSize", (void (StepToTopoDS_DataMapOfTRI::*)(const Standard_Integer)) &StepToTopoDS_DataMapOfTRI::ReSize, "ReSize", py::arg("N"));
-	cls_StepToTopoDS_DataMapOfTRI.def("Bind", (Standard_Boolean (StepToTopoDS_DataMapOfTRI::*)(const opencascade::handle<StepShape_TopologicalRepresentationItem> &, const TopoDS_Shape &)) &StepToTopoDS_DataMapOfTRI::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_StepToTopoDS_DataMapOfTRI.def("Bound", (TopoDS_Shape * (StepToTopoDS_DataMapOfTRI::*)(const opencascade::handle<StepShape_TopologicalRepresentationItem> &, const TopoDS_Shape &)) &StepToTopoDS_DataMapOfTRI::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_StepToTopoDS_DataMapOfTRI.def("IsBound", (Standard_Boolean (StepToTopoDS_DataMapOfTRI::*)(const opencascade::handle<StepShape_TopologicalRepresentationItem> &) const ) &StepToTopoDS_DataMapOfTRI::IsBound, "IsBound", py::arg("theKey"));
-	cls_StepToTopoDS_DataMapOfTRI.def("UnBind", (Standard_Boolean (StepToTopoDS_DataMapOfTRI::*)(const opencascade::handle<StepShape_TopologicalRepresentationItem> &)) &StepToTopoDS_DataMapOfTRI::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_DataMapOfTRI.def("Seek", (const TopoDS_Shape * (StepToTopoDS_DataMapOfTRI::*)(const opencascade::handle<StepShape_TopologicalRepresentationItem> &) const ) &StepToTopoDS_DataMapOfTRI::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_DataMapOfTRI.def("Find", (const TopoDS_Shape & (StepToTopoDS_DataMapOfTRI::*)(const opencascade::handle<StepShape_TopologicalRepresentationItem> &) const ) &StepToTopoDS_DataMapOfTRI::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_DataMapOfTRI.def("Find", (Standard_Boolean (StepToTopoDS_DataMapOfTRI::*)(const opencascade::handle<StepShape_TopologicalRepresentationItem> &, TopoDS_Shape &) const ) &StepToTopoDS_DataMapOfTRI::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_StepToTopoDS_DataMapOfTRI.def("__call__", (const TopoDS_Shape & (StepToTopoDS_DataMapOfTRI::*)(const opencascade::handle<StepShape_TopologicalRepresentationItem> &) const ) &StepToTopoDS_DataMapOfTRI::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_DataMapOfTRI.def("ChangeSeek", (TopoDS_Shape * (StepToTopoDS_DataMapOfTRI::*)(const opencascade::handle<StepShape_TopologicalRepresentationItem> &)) &StepToTopoDS_DataMapOfTRI::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_StepToTopoDS_DataMapOfTRI.def("ChangeFind", (TopoDS_Shape & (StepToTopoDS_DataMapOfTRI::*)(const opencascade::handle<StepShape_TopologicalRepresentationItem> &)) &StepToTopoDS_DataMapOfTRI::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_StepToTopoDS_DataMapOfTRI.def("__call__", (TopoDS_Shape & (StepToTopoDS_DataMapOfTRI::*)(const opencascade::handle<StepShape_TopologicalRepresentationItem> &)) &StepToTopoDS_DataMapOfTRI::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_StepToTopoDS_DataMapOfTRI.def("Clear", [](StepToTopoDS_DataMapOfTRI &self) -> void { return self.Clear(); });
-	cls_StepToTopoDS_DataMapOfTRI.def("Clear", (void (StepToTopoDS_DataMapOfTRI::*)(const Standard_Boolean)) &StepToTopoDS_DataMapOfTRI::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_StepToTopoDS_DataMapOfTRI.def("Clear", (void (StepToTopoDS_DataMapOfTRI::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &StepToTopoDS_DataMapOfTRI::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_StepToTopoDS_DataMapOfTRI.def("Size", (Standard_Integer (StepToTopoDS_DataMapOfTRI::*)() const ) &StepToTopoDS_DataMapOfTRI::Size, "Size");
-	cls_StepToTopoDS_DataMapOfTRI.def("__iter__", [](const StepToTopoDS_DataMapOfTRI &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TCollection_AsciiString, TopoDS_Shape, TCollection_AsciiString>(mod, "StepToTopoDS_DataMapOfRINames");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StepToTopoDS_DataMapOfTRI.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<StepToTopoDS_PointEdgeMap, std::unique_ptr<StepToTopoDS_PointEdgeMap, Deleter<StepToTopoDS_PointEdgeMap>>, NCollection_BaseMap> cls_StepToTopoDS_PointEdgeMap(mod, "StepToTopoDS_PointEdgeMap", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_StepToTopoDS_PointEdgeMap.def(py::init<>());
-	cls_StepToTopoDS_PointEdgeMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_StepToTopoDS_PointEdgeMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_StepToTopoDS_PointEdgeMap.def(py::init([] (const StepToTopoDS_PointEdgeMap &other) {return new StepToTopoDS_PointEdgeMap(other);}), "Copy constructor", py::arg("other"));
-	cls_StepToTopoDS_PointEdgeMap.def("begin", (StepToTopoDS_PointEdgeMap::iterator (StepToTopoDS_PointEdgeMap::*)() const ) &StepToTopoDS_PointEdgeMap::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_StepToTopoDS_PointEdgeMap.def("end", (StepToTopoDS_PointEdgeMap::iterator (StepToTopoDS_PointEdgeMap::*)() const ) &StepToTopoDS_PointEdgeMap::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_StepToTopoDS_PointEdgeMap.def("cbegin", (StepToTopoDS_PointEdgeMap::const_iterator (StepToTopoDS_PointEdgeMap::*)() const ) &StepToTopoDS_PointEdgeMap::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_StepToTopoDS_PointEdgeMap.def("cend", (StepToTopoDS_PointEdgeMap::const_iterator (StepToTopoDS_PointEdgeMap::*)() const ) &StepToTopoDS_PointEdgeMap::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_StepToTopoDS_PointEdgeMap.def("Exchange", (void (StepToTopoDS_PointEdgeMap::*)(StepToTopoDS_PointEdgeMap &)) &StepToTopoDS_PointEdgeMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_StepToTopoDS_PointEdgeMap.def("Assign", (StepToTopoDS_PointEdgeMap & (StepToTopoDS_PointEdgeMap::*)(const StepToTopoDS_PointEdgeMap &)) &StepToTopoDS_PointEdgeMap::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_StepToTopoDS_PointEdgeMap.def("assign", (StepToTopoDS_PointEdgeMap & (StepToTopoDS_PointEdgeMap::*)(const StepToTopoDS_PointEdgeMap &)) &StepToTopoDS_PointEdgeMap::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_StepToTopoDS_PointEdgeMap.def("ReSize", (void (StepToTopoDS_PointEdgeMap::*)(const Standard_Integer)) &StepToTopoDS_PointEdgeMap::ReSize, "ReSize", py::arg("N"));
-	cls_StepToTopoDS_PointEdgeMap.def("Bind", (Standard_Boolean (StepToTopoDS_PointEdgeMap::*)(const StepToTopoDS_PointPair &, const TopoDS_Edge &)) &StepToTopoDS_PointEdgeMap::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_StepToTopoDS_PointEdgeMap.def("Bound", (TopoDS_Edge * (StepToTopoDS_PointEdgeMap::*)(const StepToTopoDS_PointPair &, const TopoDS_Edge &)) &StepToTopoDS_PointEdgeMap::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_StepToTopoDS_PointEdgeMap.def("IsBound", (Standard_Boolean (StepToTopoDS_PointEdgeMap::*)(const StepToTopoDS_PointPair &) const ) &StepToTopoDS_PointEdgeMap::IsBound, "IsBound", py::arg("theKey"));
-	cls_StepToTopoDS_PointEdgeMap.def("UnBind", (Standard_Boolean (StepToTopoDS_PointEdgeMap::*)(const StepToTopoDS_PointPair &)) &StepToTopoDS_PointEdgeMap::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_PointEdgeMap.def("Seek", (const TopoDS_Edge * (StepToTopoDS_PointEdgeMap::*)(const StepToTopoDS_PointPair &) const ) &StepToTopoDS_PointEdgeMap::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_PointEdgeMap.def("Find", (const TopoDS_Edge & (StepToTopoDS_PointEdgeMap::*)(const StepToTopoDS_PointPair &) const ) &StepToTopoDS_PointEdgeMap::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_PointEdgeMap.def("Find", (Standard_Boolean (StepToTopoDS_PointEdgeMap::*)(const StepToTopoDS_PointPair &, TopoDS_Edge &) const ) &StepToTopoDS_PointEdgeMap::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_StepToTopoDS_PointEdgeMap.def("__call__", (const TopoDS_Edge & (StepToTopoDS_PointEdgeMap::*)(const StepToTopoDS_PointPair &) const ) &StepToTopoDS_PointEdgeMap::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_PointEdgeMap.def("ChangeSeek", (TopoDS_Edge * (StepToTopoDS_PointEdgeMap::*)(const StepToTopoDS_PointPair &)) &StepToTopoDS_PointEdgeMap::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_StepToTopoDS_PointEdgeMap.def("ChangeFind", (TopoDS_Edge & (StepToTopoDS_PointEdgeMap::*)(const StepToTopoDS_PointPair &)) &StepToTopoDS_PointEdgeMap::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_StepToTopoDS_PointEdgeMap.def("__call__", (TopoDS_Edge & (StepToTopoDS_PointEdgeMap::*)(const StepToTopoDS_PointPair &)) &StepToTopoDS_PointEdgeMap::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_StepToTopoDS_PointEdgeMap.def("Clear", [](StepToTopoDS_PointEdgeMap &self) -> void { return self.Clear(); });
-	cls_StepToTopoDS_PointEdgeMap.def("Clear", (void (StepToTopoDS_PointEdgeMap::*)(const Standard_Boolean)) &StepToTopoDS_PointEdgeMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_StepToTopoDS_PointEdgeMap.def("Clear", (void (StepToTopoDS_PointEdgeMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &StepToTopoDS_PointEdgeMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_StepToTopoDS_PointEdgeMap.def("Size", (Standard_Integer (StepToTopoDS_PointEdgeMap::*)() const ) &StepToTopoDS_PointEdgeMap::Size, "Size");
-	cls_StepToTopoDS_PointEdgeMap.def("__iter__", [](const StepToTopoDS_PointEdgeMap &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<opencascade::handle<StepShape_TopologicalRepresentationItem>, TopoDS_Shape, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "StepToTopoDS_DataMapOfTRI");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StepToTopoDS_PointEdgeMap.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<StepToTopoDS_PointVertexMap, std::unique_ptr<StepToTopoDS_PointVertexMap, Deleter<StepToTopoDS_PointVertexMap>>, NCollection_BaseMap> cls_StepToTopoDS_PointVertexMap(mod, "StepToTopoDS_PointVertexMap", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_StepToTopoDS_PointVertexMap.def(py::init<>());
-	cls_StepToTopoDS_PointVertexMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_StepToTopoDS_PointVertexMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_StepToTopoDS_PointVertexMap.def(py::init([] (const StepToTopoDS_PointVertexMap &other) {return new StepToTopoDS_PointVertexMap(other);}), "Copy constructor", py::arg("other"));
-	cls_StepToTopoDS_PointVertexMap.def("begin", (StepToTopoDS_PointVertexMap::iterator (StepToTopoDS_PointVertexMap::*)() const ) &StepToTopoDS_PointVertexMap::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_StepToTopoDS_PointVertexMap.def("end", (StepToTopoDS_PointVertexMap::iterator (StepToTopoDS_PointVertexMap::*)() const ) &StepToTopoDS_PointVertexMap::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_StepToTopoDS_PointVertexMap.def("cbegin", (StepToTopoDS_PointVertexMap::const_iterator (StepToTopoDS_PointVertexMap::*)() const ) &StepToTopoDS_PointVertexMap::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_StepToTopoDS_PointVertexMap.def("cend", (StepToTopoDS_PointVertexMap::const_iterator (StepToTopoDS_PointVertexMap::*)() const ) &StepToTopoDS_PointVertexMap::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_StepToTopoDS_PointVertexMap.def("Exchange", (void (StepToTopoDS_PointVertexMap::*)(StepToTopoDS_PointVertexMap &)) &StepToTopoDS_PointVertexMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_StepToTopoDS_PointVertexMap.def("Assign", (StepToTopoDS_PointVertexMap & (StepToTopoDS_PointVertexMap::*)(const StepToTopoDS_PointVertexMap &)) &StepToTopoDS_PointVertexMap::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_StepToTopoDS_PointVertexMap.def("assign", (StepToTopoDS_PointVertexMap & (StepToTopoDS_PointVertexMap::*)(const StepToTopoDS_PointVertexMap &)) &StepToTopoDS_PointVertexMap::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_StepToTopoDS_PointVertexMap.def("ReSize", (void (StepToTopoDS_PointVertexMap::*)(const Standard_Integer)) &StepToTopoDS_PointVertexMap::ReSize, "ReSize", py::arg("N"));
-	cls_StepToTopoDS_PointVertexMap.def("Bind", (Standard_Boolean (StepToTopoDS_PointVertexMap::*)(const opencascade::handle<StepGeom_CartesianPoint> &, const TopoDS_Vertex &)) &StepToTopoDS_PointVertexMap::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_StepToTopoDS_PointVertexMap.def("Bound", (TopoDS_Vertex * (StepToTopoDS_PointVertexMap::*)(const opencascade::handle<StepGeom_CartesianPoint> &, const TopoDS_Vertex &)) &StepToTopoDS_PointVertexMap::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_StepToTopoDS_PointVertexMap.def("IsBound", (Standard_Boolean (StepToTopoDS_PointVertexMap::*)(const opencascade::handle<StepGeom_CartesianPoint> &) const ) &StepToTopoDS_PointVertexMap::IsBound, "IsBound", py::arg("theKey"));
-	cls_StepToTopoDS_PointVertexMap.def("UnBind", (Standard_Boolean (StepToTopoDS_PointVertexMap::*)(const opencascade::handle<StepGeom_CartesianPoint> &)) &StepToTopoDS_PointVertexMap::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_PointVertexMap.def("Seek", (const TopoDS_Vertex * (StepToTopoDS_PointVertexMap::*)(const opencascade::handle<StepGeom_CartesianPoint> &) const ) &StepToTopoDS_PointVertexMap::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_PointVertexMap.def("Find", (const TopoDS_Vertex & (StepToTopoDS_PointVertexMap::*)(const opencascade::handle<StepGeom_CartesianPoint> &) const ) &StepToTopoDS_PointVertexMap::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_PointVertexMap.def("Find", (Standard_Boolean (StepToTopoDS_PointVertexMap::*)(const opencascade::handle<StepGeom_CartesianPoint> &, TopoDS_Vertex &) const ) &StepToTopoDS_PointVertexMap::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_StepToTopoDS_PointVertexMap.def("__call__", (const TopoDS_Vertex & (StepToTopoDS_PointVertexMap::*)(const opencascade::handle<StepGeom_CartesianPoint> &) const ) &StepToTopoDS_PointVertexMap::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_StepToTopoDS_PointVertexMap.def("ChangeSeek", (TopoDS_Vertex * (StepToTopoDS_PointVertexMap::*)(const opencascade::handle<StepGeom_CartesianPoint> &)) &StepToTopoDS_PointVertexMap::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_StepToTopoDS_PointVertexMap.def("ChangeFind", (TopoDS_Vertex & (StepToTopoDS_PointVertexMap::*)(const opencascade::handle<StepGeom_CartesianPoint> &)) &StepToTopoDS_PointVertexMap::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_StepToTopoDS_PointVertexMap.def("__call__", (TopoDS_Vertex & (StepToTopoDS_PointVertexMap::*)(const opencascade::handle<StepGeom_CartesianPoint> &)) &StepToTopoDS_PointVertexMap::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_StepToTopoDS_PointVertexMap.def("Clear", [](StepToTopoDS_PointVertexMap &self) -> void { return self.Clear(); });
-	cls_StepToTopoDS_PointVertexMap.def("Clear", (void (StepToTopoDS_PointVertexMap::*)(const Standard_Boolean)) &StepToTopoDS_PointVertexMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_StepToTopoDS_PointVertexMap.def("Clear", (void (StepToTopoDS_PointVertexMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &StepToTopoDS_PointVertexMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_StepToTopoDS_PointVertexMap.def("Size", (Standard_Integer (StepToTopoDS_PointVertexMap::*)() const ) &StepToTopoDS_PointVertexMap::Size, "Size");
-	cls_StepToTopoDS_PointVertexMap.def("__iter__", [](const StepToTopoDS_PointVertexMap &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<StepToTopoDS_PointPair, TopoDS_Edge, StepToTopoDS_PointPairHasher>(mod, "StepToTopoDS_PointEdgeMap");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StepToTopoDS_PointVertexMap.hxx
+	bind_NCollection_DataMap<opencascade::handle<StepGeom_CartesianPoint>, TopoDS_Vertex, StepToTopoDS_CartesianPointHasher>(mod, "StepToTopoDS_PointVertexMap");
+
+	/* FIXME
+
+	*/
+
 
 }

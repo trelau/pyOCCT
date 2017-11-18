@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
@@ -34,6 +25,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_DoubleMap.hxx>
 #include <BinMDF_TypeIdMap.hxx>
 #include <BinMDF_StringIdMap.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BinMDF, mod) {
 
@@ -104,62 +96,21 @@ PYBIND11_MODULE(BinMDF, mod) {
 	cls_BinMDF.def(py::init<>());
 	cls_BinMDF.def_static("AddDrivers_", (void (*)(const opencascade::handle<BinMDF_ADriverTable> &, const opencascade::handle<CDM_MessageDriver> &)) &BinMDF::AddDrivers, "Adds the attribute storage drivers to <aDriverTable>.", py::arg("aDriverTable"), py::arg("aMsgDrv"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<BinMDF_TypeADriverMap, std::unique_ptr<BinMDF_TypeADriverMap, Deleter<BinMDF_TypeADriverMap>>, NCollection_BaseMap> cls_BinMDF_TypeADriverMap(mod, "BinMDF_TypeADriverMap", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_BinMDF_TypeADriverMap.def(py::init<>());
-	cls_BinMDF_TypeADriverMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BinMDF_TypeADriverMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BinMDF_TypeADriverMap.def(py::init([] (const BinMDF_TypeADriverMap &other) {return new BinMDF_TypeADriverMap(other);}), "Copy constructor", py::arg("other"));
-	cls_BinMDF_TypeADriverMap.def("begin", (BinMDF_TypeADriverMap::iterator (BinMDF_TypeADriverMap::*)() const ) &BinMDF_TypeADriverMap::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_BinMDF_TypeADriverMap.def("end", (BinMDF_TypeADriverMap::iterator (BinMDF_TypeADriverMap::*)() const ) &BinMDF_TypeADriverMap::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_BinMDF_TypeADriverMap.def("cbegin", (BinMDF_TypeADriverMap::const_iterator (BinMDF_TypeADriverMap::*)() const ) &BinMDF_TypeADriverMap::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_BinMDF_TypeADriverMap.def("cend", (BinMDF_TypeADriverMap::const_iterator (BinMDF_TypeADriverMap::*)() const ) &BinMDF_TypeADriverMap::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_BinMDF_TypeADriverMap.def("Exchange", (void (BinMDF_TypeADriverMap::*)(BinMDF_TypeADriverMap &)) &BinMDF_TypeADriverMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BinMDF_TypeADriverMap.def("Assign", (BinMDF_TypeADriverMap & (BinMDF_TypeADriverMap::*)(const BinMDF_TypeADriverMap &)) &BinMDF_TypeADriverMap::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BinMDF_TypeADriverMap.def("assign", (BinMDF_TypeADriverMap & (BinMDF_TypeADriverMap::*)(const BinMDF_TypeADriverMap &)) &BinMDF_TypeADriverMap::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BinMDF_TypeADriverMap.def("ReSize", (void (BinMDF_TypeADriverMap::*)(const Standard_Integer)) &BinMDF_TypeADriverMap::ReSize, "ReSize", py::arg("N"));
-	cls_BinMDF_TypeADriverMap.def("Bind", (Standard_Boolean (BinMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &, const opencascade::handle<BinMDF_ADriver> &)) &BinMDF_TypeADriverMap::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_BinMDF_TypeADriverMap.def("Bound", (opencascade::handle<BinMDF_ADriver> * (BinMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &, const opencascade::handle<BinMDF_ADriver> &)) &BinMDF_TypeADriverMap::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_BinMDF_TypeADriverMap.def("IsBound", (Standard_Boolean (BinMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &) const ) &BinMDF_TypeADriverMap::IsBound, "IsBound", py::arg("theKey"));
-	cls_BinMDF_TypeADriverMap.def("UnBind", (Standard_Boolean (BinMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &)) &BinMDF_TypeADriverMap::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_BinMDF_TypeADriverMap.def("Seek", (const opencascade::handle<BinMDF_ADriver> * (BinMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &) const ) &BinMDF_TypeADriverMap::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_BinMDF_TypeADriverMap.def("Find", (const opencascade::handle<BinMDF_ADriver> & (BinMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &) const ) &BinMDF_TypeADriverMap::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_BinMDF_TypeADriverMap.def("Find", (Standard_Boolean (BinMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &, opencascade::handle<BinMDF_ADriver> &) const ) &BinMDF_TypeADriverMap::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_BinMDF_TypeADriverMap.def("__call__", (const opencascade::handle<BinMDF_ADriver> & (BinMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &) const ) &BinMDF_TypeADriverMap::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_BinMDF_TypeADriverMap.def("ChangeSeek", (opencascade::handle<BinMDF_ADriver> * (BinMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &)) &BinMDF_TypeADriverMap::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_BinMDF_TypeADriverMap.def("ChangeFind", (opencascade::handle<BinMDF_ADriver> & (BinMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &)) &BinMDF_TypeADriverMap::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_BinMDF_TypeADriverMap.def("__call__", (opencascade::handle<BinMDF_ADriver> & (BinMDF_TypeADriverMap::*)(const opencascade::handle<Standard_Type> &)) &BinMDF_TypeADriverMap::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_BinMDF_TypeADriverMap.def("Clear", [](BinMDF_TypeADriverMap &self) -> void { return self.Clear(); });
-	cls_BinMDF_TypeADriverMap.def("Clear", (void (BinMDF_TypeADriverMap::*)(const Standard_Boolean)) &BinMDF_TypeADriverMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BinMDF_TypeADriverMap.def("Clear", (void (BinMDF_TypeADriverMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BinMDF_TypeADriverMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BinMDF_TypeADriverMap.def("Size", (Standard_Integer (BinMDF_TypeADriverMap::*)() const ) &BinMDF_TypeADriverMap::Size, "Size");
-	cls_BinMDF_TypeADriverMap.def("__iter__", [](const BinMDF_TypeADriverMap &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BinMDF_TypeADriverMap.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DoubleMap.hxx
-	py::class_<BinMDF_TypeIdMap, std::unique_ptr<BinMDF_TypeIdMap, Deleter<BinMDF_TypeIdMap>>, NCollection_BaseMap> cls_BinMDF_TypeIdMap(mod, "BinMDF_TypeIdMap", "Purpose: The DoubleMap is used to bind pairs (Key1,Key2) and retrieve them in linear time.");
-	cls_BinMDF_TypeIdMap.def(py::init<>());
-	cls_BinMDF_TypeIdMap.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BinMDF_TypeIdMap.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BinMDF_TypeIdMap.def(py::init([] (const BinMDF_TypeIdMap &other) {return new BinMDF_TypeIdMap(other);}), "Copy constructor", py::arg("other"));
-	cls_BinMDF_TypeIdMap.def("Exchange", (void (BinMDF_TypeIdMap::*)(BinMDF_TypeIdMap &)) &BinMDF_TypeIdMap::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BinMDF_TypeIdMap.def("Assign", (BinMDF_TypeIdMap & (BinMDF_TypeIdMap::*)(const BinMDF_TypeIdMap &)) &BinMDF_TypeIdMap::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BinMDF_TypeIdMap.def("assign", (BinMDF_TypeIdMap & (BinMDF_TypeIdMap::*)(const BinMDF_TypeIdMap &)) &BinMDF_TypeIdMap::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BinMDF_TypeIdMap.def("ReSize", (void (BinMDF_TypeIdMap::*)(const Standard_Integer)) &BinMDF_TypeIdMap::ReSize, "ReSize", py::arg("N"));
-	cls_BinMDF_TypeIdMap.def("Bind", (void (BinMDF_TypeIdMap::*)(const opencascade::handle<Standard_Type> &, const Standard_Integer &)) &BinMDF_TypeIdMap::Bind, "Bind", py::arg("theKey1"), py::arg("theKey2"));
-	cls_BinMDF_TypeIdMap.def("AreBound", (Standard_Boolean (BinMDF_TypeIdMap::*)(const opencascade::handle<Standard_Type> &, const Standard_Integer &) const ) &BinMDF_TypeIdMap::AreBound, "* AreBound", py::arg("theKey1"), py::arg("theKey2"));
-	cls_BinMDF_TypeIdMap.def("IsBound1", (Standard_Boolean (BinMDF_TypeIdMap::*)(const opencascade::handle<Standard_Type> &) const ) &BinMDF_TypeIdMap::IsBound1, "IsBound1", py::arg("theKey1"));
-	cls_BinMDF_TypeIdMap.def("IsBound2", (Standard_Boolean (BinMDF_TypeIdMap::*)(const Standard_Integer &) const ) &BinMDF_TypeIdMap::IsBound2, "IsBound2", py::arg("theKey2"));
-	cls_BinMDF_TypeIdMap.def("UnBind1", (Standard_Boolean (BinMDF_TypeIdMap::*)(const opencascade::handle<Standard_Type> &)) &BinMDF_TypeIdMap::UnBind1, "UnBind1", py::arg("theKey1"));
-	cls_BinMDF_TypeIdMap.def("UnBind2", (Standard_Boolean (BinMDF_TypeIdMap::*)(const Standard_Integer &)) &BinMDF_TypeIdMap::UnBind2, "UnBind2", py::arg("theKey2"));
-	cls_BinMDF_TypeIdMap.def("Find1", (const Standard_Integer & (BinMDF_TypeIdMap::*)(const opencascade::handle<Standard_Type> &) const ) &BinMDF_TypeIdMap::Find1, "Find1", py::arg("theKey1"));
-	cls_BinMDF_TypeIdMap.def("Find2", (const opencascade::handle<Standard_Type> & (BinMDF_TypeIdMap::*)(const Standard_Integer &) const ) &BinMDF_TypeIdMap::Find2, "Find2", py::arg("theKey2"));
-	cls_BinMDF_TypeIdMap.def("Clear", [](BinMDF_TypeIdMap &self) -> void { return self.Clear(); });
-	cls_BinMDF_TypeIdMap.def("Clear", (void (BinMDF_TypeIdMap::*)(const Standard_Boolean)) &BinMDF_TypeIdMap::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BinMDF_TypeIdMap.def("Clear", (void (BinMDF_TypeIdMap::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BinMDF_TypeIdMap::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BinMDF_TypeIdMap.def("Size", (Standard_Integer (BinMDF_TypeIdMap::*)() const ) &BinMDF_TypeIdMap::Size, "Size");
+	bind_NCollection_DataMap<opencascade::handle<Standard_Type>, opencascade::handle<BinMDF_ADriver>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "BinMDF_TypeADriverMap");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BinMDF_TypeIdMap.hxx
+	bind_NCollection_DoubleMap<opencascade::handle<Standard_Type>, int, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> >, NCollection_DefaultHasher<int> >(mod, "BinMDF_TypeIdMap");
+
+	/* FIXME
+
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BinMDF_StringIdMap.hxx
 	other_mod = py::module::import("OCCT.TColStd");
 	if (py::hasattr(other_mod, "TColStd_DataMapOfAsciiStringInteger")) {
 		mod.attr("BinMDF_StringIdMap") = other_mod.attr("TColStd_DataMapOfAsciiStringInteger");

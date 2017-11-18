@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Graphic3d_GroupAspect.hxx>
 #include <Standard_Transient.hxx>
@@ -184,6 +175,9 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Graphic3d_Texture1Dsegment.hxx>
 #include <Graphic3d_Texture2Dplane.hxx>
 #include <Graphic3d_TypeOfBackground.hxx>
+#include <NCollection_Templates.hpp>
+#include <Graphic3d_Templates.hpp>
+#include <BVH_Templates.hpp>
 
 PYBIND11_MODULE(Graphic3d, mod) {
 
@@ -2168,1089 +2162,177 @@ PYBIND11_MODULE(Graphic3d, mod) {
 	cls_Graphic3d_Texture2Dplane.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_Texture2Dplane::get_type_descriptor, "None");
 	cls_Graphic3d_Texture2Dplane.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_Texture2Dplane::*)() const ) &Graphic3d_Texture2Dplane::DynamicType, "None");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec3.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec3f")) {
 		mod.attr("Graphic3d_Vec3") = other_mod.attr("BVH_Vec3f");
 	}
 
-	/* FIXME
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec3.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec3d")) {
 		mod.attr("Graphic3d_Vec3d") = other_mod.attr("BVH_Vec3d");
 	}
 
-	*/
-
-	/* FIXME
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec3.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec3i")) {
 		mod.attr("Graphic3d_Vec3i") = other_mod.attr("BVH_Vec3i");
 	}
 
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec3.hxx
+	bind_NCollection_Vec3<unsigned int>(mod, "Graphic3d_Vec3u");
 
-	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vec3.hxx
-	py::class_<Graphic3d_Vec3u, std::unique_ptr<Graphic3d_Vec3u, Deleter<Graphic3d_Vec3u>>> cls_Graphic3d_Vec3u(mod, "Graphic3d_Vec3u", "Generic 3-components vector. To be used as RGB color pixel or XYZ 3D-point. The main target for this class - to handle raw low-level arrays (from/to graphic driver etc.).");
-	cls_Graphic3d_Vec3u.def(py::init<>());
-	cls_Graphic3d_Vec3u.def(py::init<unsigned int>(), py::arg("theValue"));
-	cls_Graphic3d_Vec3u.def(py::init<const unsigned int, const unsigned int, const unsigned int>(), py::arg("theX"), py::arg("theY"), py::arg("theZ"));
-	cls_Graphic3d_Vec3u.def(py::init<const NCollection_Vec2<unsigned int> &>(), py::arg("theVec2"));
-	cls_Graphic3d_Vec3u.def_static("Length_", (int (*)()) &Graphic3d_Vec3u::Length, "Returns the number of components.");
-	cls_Graphic3d_Vec3u.def("SetValues", (void (Graphic3d_Vec3u::*)(const unsigned int, const unsigned int, const unsigned int)) &Graphic3d_Vec3u::SetValues, "Assign new values to the vector.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
-	cls_Graphic3d_Vec3u.def("x", (unsigned int (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::x, "Alias to 1st component as X coordinate in XYZ.");
-	cls_Graphic3d_Vec3u.def("r", (unsigned int (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::r, "Alias to 1st component as RED channel in RGB.");
-	cls_Graphic3d_Vec3u.def("y", (unsigned int (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::y, "Alias to 2nd component as Y coordinate in XYZ.");
-	cls_Graphic3d_Vec3u.def("g", (unsigned int (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::g, "Alias to 2nd component as GREEN channel in RGB.");
-	cls_Graphic3d_Vec3u.def("z", (unsigned int (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::z, "Alias to 3rd component as Z coordinate in XYZ.");
-	cls_Graphic3d_Vec3u.def("b", (unsigned int (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::b, "Alias to 3rd component as BLUE channel in RGB.");
-	cls_Graphic3d_Vec3u.def("xy", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::xy, "None");
-	cls_Graphic3d_Vec3u.def("yx", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::yx, "None");
-	cls_Graphic3d_Vec3u.def("xz", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::xz, "None");
-	cls_Graphic3d_Vec3u.def("zx", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::zx, "None");
-	cls_Graphic3d_Vec3u.def("yz", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::yz, "None");
-	cls_Graphic3d_Vec3u.def("zy", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::zy, "None");
-	cls_Graphic3d_Vec3u.def("xyz", (const Graphic3d_Vec3u (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::xyz, "None");
-	cls_Graphic3d_Vec3u.def("xzy", (const Graphic3d_Vec3u (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::xzy, "None");
-	cls_Graphic3d_Vec3u.def("yxz", (const Graphic3d_Vec3u (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::yxz, "None");
-	cls_Graphic3d_Vec3u.def("yzx", (const Graphic3d_Vec3u (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::yzx, "None");
-	cls_Graphic3d_Vec3u.def("zyx", (const Graphic3d_Vec3u (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::zyx, "None");
-	cls_Graphic3d_Vec3u.def("zxy", (const Graphic3d_Vec3u (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::zxy, "None");
-	cls_Graphic3d_Vec3u.def("x", (unsigned int & (Graphic3d_Vec3u::*)()) &Graphic3d_Vec3u::x, "Alias to 1st component as X coordinate in XYZ.");
-	cls_Graphic3d_Vec3u.def("r", (unsigned int & (Graphic3d_Vec3u::*)()) &Graphic3d_Vec3u::r, "Alias to 1st component as RED channel in RGB.");
-	cls_Graphic3d_Vec3u.def("y", (unsigned int & (Graphic3d_Vec3u::*)()) &Graphic3d_Vec3u::y, "Alias to 2nd component as Y coordinate in XYZ.");
-	cls_Graphic3d_Vec3u.def("g", (unsigned int & (Graphic3d_Vec3u::*)()) &Graphic3d_Vec3u::g, "Alias to 2nd component as GREEN channel in RGB.");
-	cls_Graphic3d_Vec3u.def("z", (unsigned int & (Graphic3d_Vec3u::*)()) &Graphic3d_Vec3u::z, "Alias to 3rd component as Z coordinate in XYZ.");
-	cls_Graphic3d_Vec3u.def("b", (unsigned int & (Graphic3d_Vec3u::*)()) &Graphic3d_Vec3u::b, "Alias to 3rd component as BLUE channel in RGB.");
-	cls_Graphic3d_Vec3u.def("xy", (NCollection_Vec2<unsigned int> & (Graphic3d_Vec3u::*)()) &Graphic3d_Vec3u::xy, "Returns XY-components modifiable vector");
-	cls_Graphic3d_Vec3u.def("yz", (NCollection_Vec2<unsigned int> & (Graphic3d_Vec3u::*)()) &Graphic3d_Vec3u::yz, "Returns YZ-components modifiable vector");
-	cls_Graphic3d_Vec3u.def("IsEqual", (bool (Graphic3d_Vec3u::*)(const Graphic3d_Vec3u &) const ) &Graphic3d_Vec3u::IsEqual, "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec3u.def("__eq__", (bool (Graphic3d_Vec3u::*)(const Graphic3d_Vec3u &)) &Graphic3d_Vec3u::operator==, py::is_operator(), "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec3u.def("__eq__", (bool (Graphic3d_Vec3u::*)(const Graphic3d_Vec3u &) const ) &Graphic3d_Vec3u::operator==, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec3u.def("__ne__", (bool (Graphic3d_Vec3u::*)(const Graphic3d_Vec3u &)) &Graphic3d_Vec3u::operator!=, py::is_operator(), "Check this vector with another vector for non-equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec3u.def("__ne__", (bool (Graphic3d_Vec3u::*)(const Graphic3d_Vec3u &) const ) &Graphic3d_Vec3u::operator!=, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec3u.def("GetData", (const unsigned int * (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::GetData, "Raw access to the data (for OpenGL exchange).");
-	cls_Graphic3d_Vec3u.def("ChangeData", (unsigned int * (Graphic3d_Vec3u::*)()) &Graphic3d_Vec3u::ChangeData, "None");
-	cls_Graphic3d_Vec3u.def("__iadd__", (Graphic3d_Vec3u & (Graphic3d_Vec3u::*)(const Graphic3d_Vec3u &)) &Graphic3d_Vec3u::operator+=, "Compute per-component summary.", py::arg("theAdd"));
-	cls_Graphic3d_Vec3u.def("__sub__", (Graphic3d_Vec3u (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::operator-, py::is_operator(), "Unary -.");
-	cls_Graphic3d_Vec3u.def("__isub__", (Graphic3d_Vec3u & (Graphic3d_Vec3u::*)(const Graphic3d_Vec3u &)) &Graphic3d_Vec3u::operator-=, "Compute per-component subtraction.", py::arg("theDec"));
-	cls_Graphic3d_Vec3u.def("Multiply", (void (Graphic3d_Vec3u::*)(const unsigned int)) &Graphic3d_Vec3u::Multiply, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec3u.def("__imul__", (Graphic3d_Vec3u & (Graphic3d_Vec3u::*)(const Graphic3d_Vec3u &)) &Graphic3d_Vec3u::operator*=, "Compute per-component multiplication.", py::arg("theRight"));
-	cls_Graphic3d_Vec3u.def("__imul__", (Graphic3d_Vec3u & (Graphic3d_Vec3u::*)(const unsigned int)) &Graphic3d_Vec3u::operator*=, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec3u.def("__mul__", (Graphic3d_Vec3u (Graphic3d_Vec3u::*)(const unsigned int) const ) &Graphic3d_Vec3u::operator*, py::is_operator(), "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec3u.def("Multiplied", (Graphic3d_Vec3u (Graphic3d_Vec3u::*)(const unsigned int) const ) &Graphic3d_Vec3u::Multiplied, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec3u.def("cwiseMin", (Graphic3d_Vec3u (Graphic3d_Vec3u::*)(const Graphic3d_Vec3u &) const ) &Graphic3d_Vec3u::cwiseMin, "Compute component-wise minimum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec3u.def("cwiseMax", (Graphic3d_Vec3u (Graphic3d_Vec3u::*)(const Graphic3d_Vec3u &) const ) &Graphic3d_Vec3u::cwiseMax, "Compute component-wise maximum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec3u.def("cwiseAbs", (Graphic3d_Vec3u (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::cwiseAbs, "Compute component-wise modulus of the vector.");
-	cls_Graphic3d_Vec3u.def("maxComp", (unsigned int (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::maxComp, "Compute maximum component of the vector.");
-	cls_Graphic3d_Vec3u.def("minComp", (unsigned int (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::minComp, "Compute minimum component of the vector.");
-	cls_Graphic3d_Vec3u.def("__itruediv__", (Graphic3d_Vec3u & (Graphic3d_Vec3u::*)(const unsigned int)) &Graphic3d_Vec3u::operator/=, "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-	cls_Graphic3d_Vec3u.def("__truediv__", (Graphic3d_Vec3u (Graphic3d_Vec3u::*)(const unsigned int)) &Graphic3d_Vec3u::operator/, py::is_operator(), "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-	cls_Graphic3d_Vec3u.def("Dot", (unsigned int (Graphic3d_Vec3u::*)(const Graphic3d_Vec3u &) const ) &Graphic3d_Vec3u::Dot, "Computes the dot product.", py::arg("theOther"));
-	cls_Graphic3d_Vec3u.def("Modulus", (unsigned int (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::Modulus, "Computes the vector modulus (magnitude, length).");
-	cls_Graphic3d_Vec3u.def("SquareModulus", (unsigned int (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::SquareModulus, "Computes the square of vector modulus (magnitude, length). This method may be used for performance tricks.");
-	cls_Graphic3d_Vec3u.def("Normalize", (void (Graphic3d_Vec3u::*)()) &Graphic3d_Vec3u::Normalize, "Normalize the vector.");
-	cls_Graphic3d_Vec3u.def("Normalized", (Graphic3d_Vec3u (Graphic3d_Vec3u::*)() const ) &Graphic3d_Vec3u::Normalized, "Normalize the vector.");
-	cls_Graphic3d_Vec3u.def_static("Cross_", (Graphic3d_Vec3u (*)(const Graphic3d_Vec3u &, const Graphic3d_Vec3u &)) &Graphic3d_Vec3u::Cross, "Computes the cross product.", py::arg("theVec1"), py::arg("theVec2"));
-	cls_Graphic3d_Vec3u.def_static("GetLERP_", (Graphic3d_Vec3u (*)(const Graphic3d_Vec3u &, const Graphic3d_Vec3u &, const unsigned int)) &Graphic3d_Vec3u::GetLERP, "Compute linear interpolation between to vectors.", py::arg("theFrom"), py::arg("theTo"), py::arg("theT"));
-	cls_Graphic3d_Vec3u.def_static("DX_", (Graphic3d_Vec3u (*)()) &Graphic3d_Vec3u::DX, "Constuct DX unit vector.");
-	cls_Graphic3d_Vec3u.def_static("DY_", (Graphic3d_Vec3u (*)()) &Graphic3d_Vec3u::DY, "Constuct DY unit vector.");
-	cls_Graphic3d_Vec3u.def_static("DZ_", (Graphic3d_Vec3u (*)()) &Graphic3d_Vec3u::DZ, "Constuct DZ unit vector.");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec3.hxx
+	bind_NCollection_Vec3<unsigned char>(mod, "Graphic3d_Vec3ub");
 
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec3.hxx
+	bind_NCollection_Vec3<char>(mod, "Graphic3d_Vec3b");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vec3.hxx
-	py::class_<Graphic3d_Vec3ub, std::unique_ptr<Graphic3d_Vec3ub, Deleter<Graphic3d_Vec3ub>>> cls_Graphic3d_Vec3ub(mod, "Graphic3d_Vec3ub", "Generic 3-components vector. To be used as RGB color pixel or XYZ 3D-point. The main target for this class - to handle raw low-level arrays (from/to graphic driver etc.).");
-	cls_Graphic3d_Vec3ub.def(py::init<>());
-	cls_Graphic3d_Vec3ub.def(py::init<Standard_Byte>(), py::arg("theValue"));
-	cls_Graphic3d_Vec3ub.def(py::init<const Standard_Byte, const Standard_Byte, const Standard_Byte>(), py::arg("theX"), py::arg("theY"), py::arg("theZ"));
-	cls_Graphic3d_Vec3ub.def(py::init<const NCollection_Vec2<Standard_Byte> &>(), py::arg("theVec2"));
-	cls_Graphic3d_Vec3ub.def_static("Length_", (int (*)()) &Graphic3d_Vec3ub::Length, "Returns the number of components.");
-	cls_Graphic3d_Vec3ub.def("SetValues", (void (Graphic3d_Vec3ub::*)(const Standard_Byte, const Standard_Byte, const Standard_Byte)) &Graphic3d_Vec3ub::SetValues, "Assign new values to the vector.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
-	cls_Graphic3d_Vec3ub.def("x", (Standard_Byte (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::x, "Alias to 1st component as X coordinate in XYZ.");
-	cls_Graphic3d_Vec3ub.def("r", (Standard_Byte (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::r, "Alias to 1st component as RED channel in RGB.");
-	cls_Graphic3d_Vec3ub.def("y", (Standard_Byte (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::y, "Alias to 2nd component as Y coordinate in XYZ.");
-	cls_Graphic3d_Vec3ub.def("g", (Standard_Byte (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::g, "Alias to 2nd component as GREEN channel in RGB.");
-	cls_Graphic3d_Vec3ub.def("z", (Standard_Byte (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::z, "Alias to 3rd component as Z coordinate in XYZ.");
-	cls_Graphic3d_Vec3ub.def("b", (Standard_Byte (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::b, "Alias to 3rd component as BLUE channel in RGB.");
-	cls_Graphic3d_Vec3ub.def("xy", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::xy, "None");
-	cls_Graphic3d_Vec3ub.def("yx", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::yx, "None");
-	cls_Graphic3d_Vec3ub.def("xz", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::xz, "None");
-	cls_Graphic3d_Vec3ub.def("zx", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::zx, "None");
-	cls_Graphic3d_Vec3ub.def("yz", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::yz, "None");
-	cls_Graphic3d_Vec3ub.def("zy", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::zy, "None");
-	cls_Graphic3d_Vec3ub.def("xyz", (const Graphic3d_Vec3ub (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::xyz, "None");
-	cls_Graphic3d_Vec3ub.def("xzy", (const Graphic3d_Vec3ub (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::xzy, "None");
-	cls_Graphic3d_Vec3ub.def("yxz", (const Graphic3d_Vec3ub (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::yxz, "None");
-	cls_Graphic3d_Vec3ub.def("yzx", (const Graphic3d_Vec3ub (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::yzx, "None");
-	cls_Graphic3d_Vec3ub.def("zyx", (const Graphic3d_Vec3ub (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::zyx, "None");
-	cls_Graphic3d_Vec3ub.def("zxy", (const Graphic3d_Vec3ub (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::zxy, "None");
-	cls_Graphic3d_Vec3ub.def("x", (Standard_Byte & (Graphic3d_Vec3ub::*)()) &Graphic3d_Vec3ub::x, "Alias to 1st component as X coordinate in XYZ.");
-	cls_Graphic3d_Vec3ub.def("r", (Standard_Byte & (Graphic3d_Vec3ub::*)()) &Graphic3d_Vec3ub::r, "Alias to 1st component as RED channel in RGB.");
-	cls_Graphic3d_Vec3ub.def("y", (Standard_Byte & (Graphic3d_Vec3ub::*)()) &Graphic3d_Vec3ub::y, "Alias to 2nd component as Y coordinate in XYZ.");
-	cls_Graphic3d_Vec3ub.def("g", (Standard_Byte & (Graphic3d_Vec3ub::*)()) &Graphic3d_Vec3ub::g, "Alias to 2nd component as GREEN channel in RGB.");
-	cls_Graphic3d_Vec3ub.def("z", (Standard_Byte & (Graphic3d_Vec3ub::*)()) &Graphic3d_Vec3ub::z, "Alias to 3rd component as Z coordinate in XYZ.");
-	cls_Graphic3d_Vec3ub.def("b", (Standard_Byte & (Graphic3d_Vec3ub::*)()) &Graphic3d_Vec3ub::b, "Alias to 3rd component as BLUE channel in RGB.");
-	cls_Graphic3d_Vec3ub.def("xy", (NCollection_Vec2<Standard_Byte> & (Graphic3d_Vec3ub::*)()) &Graphic3d_Vec3ub::xy, "Returns XY-components modifiable vector");
-	cls_Graphic3d_Vec3ub.def("yz", (NCollection_Vec2<Standard_Byte> & (Graphic3d_Vec3ub::*)()) &Graphic3d_Vec3ub::yz, "Returns YZ-components modifiable vector");
-	cls_Graphic3d_Vec3ub.def("IsEqual", (bool (Graphic3d_Vec3ub::*)(const Graphic3d_Vec3ub &) const ) &Graphic3d_Vec3ub::IsEqual, "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec3ub.def("__eq__", (bool (Graphic3d_Vec3ub::*)(const Graphic3d_Vec3ub &)) &Graphic3d_Vec3ub::operator==, py::is_operator(), "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec3ub.def("__eq__", (bool (Graphic3d_Vec3ub::*)(const Graphic3d_Vec3ub &) const ) &Graphic3d_Vec3ub::operator==, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec3ub.def("__ne__", (bool (Graphic3d_Vec3ub::*)(const Graphic3d_Vec3ub &)) &Graphic3d_Vec3ub::operator!=, py::is_operator(), "Check this vector with another vector for non-equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec3ub.def("__ne__", (bool (Graphic3d_Vec3ub::*)(const Graphic3d_Vec3ub &) const ) &Graphic3d_Vec3ub::operator!=, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec3ub.def("GetData", (const Standard_Byte * (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::GetData, "Raw access to the data (for OpenGL exchange).");
-	cls_Graphic3d_Vec3ub.def("ChangeData", (Standard_Byte * (Graphic3d_Vec3ub::*)()) &Graphic3d_Vec3ub::ChangeData, "None");
-	cls_Graphic3d_Vec3ub.def("__iadd__", (Graphic3d_Vec3ub & (Graphic3d_Vec3ub::*)(const Graphic3d_Vec3ub &)) &Graphic3d_Vec3ub::operator+=, "Compute per-component summary.", py::arg("theAdd"));
-	cls_Graphic3d_Vec3ub.def("__sub__", (Graphic3d_Vec3ub (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::operator-, py::is_operator(), "Unary -.");
-	cls_Graphic3d_Vec3ub.def("__isub__", (Graphic3d_Vec3ub & (Graphic3d_Vec3ub::*)(const Graphic3d_Vec3ub &)) &Graphic3d_Vec3ub::operator-=, "Compute per-component subtraction.", py::arg("theDec"));
-	cls_Graphic3d_Vec3ub.def("Multiply", (void (Graphic3d_Vec3ub::*)(const Standard_Byte)) &Graphic3d_Vec3ub::Multiply, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec3ub.def("__imul__", (Graphic3d_Vec3ub & (Graphic3d_Vec3ub::*)(const Graphic3d_Vec3ub &)) &Graphic3d_Vec3ub::operator*=, "Compute per-component multiplication.", py::arg("theRight"));
-	cls_Graphic3d_Vec3ub.def("__imul__", (Graphic3d_Vec3ub & (Graphic3d_Vec3ub::*)(const Standard_Byte)) &Graphic3d_Vec3ub::operator*=, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec3ub.def("__mul__", (Graphic3d_Vec3ub (Graphic3d_Vec3ub::*)(const Standard_Byte) const ) &Graphic3d_Vec3ub::operator*, py::is_operator(), "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec3ub.def("Multiplied", (Graphic3d_Vec3ub (Graphic3d_Vec3ub::*)(const Standard_Byte) const ) &Graphic3d_Vec3ub::Multiplied, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec3ub.def("cwiseMin", (Graphic3d_Vec3ub (Graphic3d_Vec3ub::*)(const Graphic3d_Vec3ub &) const ) &Graphic3d_Vec3ub::cwiseMin, "Compute component-wise minimum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec3ub.def("cwiseMax", (Graphic3d_Vec3ub (Graphic3d_Vec3ub::*)(const Graphic3d_Vec3ub &) const ) &Graphic3d_Vec3ub::cwiseMax, "Compute component-wise maximum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec3ub.def("cwiseAbs", (Graphic3d_Vec3ub (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::cwiseAbs, "Compute component-wise modulus of the vector.");
-	cls_Graphic3d_Vec3ub.def("maxComp", (Standard_Byte (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::maxComp, "Compute maximum component of the vector.");
-	cls_Graphic3d_Vec3ub.def("minComp", (Standard_Byte (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::minComp, "Compute minimum component of the vector.");
-	cls_Graphic3d_Vec3ub.def("__itruediv__", (Graphic3d_Vec3ub & (Graphic3d_Vec3ub::*)(const Standard_Byte)) &Graphic3d_Vec3ub::operator/=, "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-	cls_Graphic3d_Vec3ub.def("__truediv__", (Graphic3d_Vec3ub (Graphic3d_Vec3ub::*)(const Standard_Byte)) &Graphic3d_Vec3ub::operator/, py::is_operator(), "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-	cls_Graphic3d_Vec3ub.def("Dot", (Standard_Byte (Graphic3d_Vec3ub::*)(const Graphic3d_Vec3ub &) const ) &Graphic3d_Vec3ub::Dot, "Computes the dot product.", py::arg("theOther"));
-	cls_Graphic3d_Vec3ub.def("Modulus", (Standard_Byte (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::Modulus, "Computes the vector modulus (magnitude, length).");
-	cls_Graphic3d_Vec3ub.def("SquareModulus", (Standard_Byte (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::SquareModulus, "Computes the square of vector modulus (magnitude, length). This method may be used for performance tricks.");
-	cls_Graphic3d_Vec3ub.def("Normalize", (void (Graphic3d_Vec3ub::*)()) &Graphic3d_Vec3ub::Normalize, "Normalize the vector.");
-	cls_Graphic3d_Vec3ub.def("Normalized", (Graphic3d_Vec3ub (Graphic3d_Vec3ub::*)() const ) &Graphic3d_Vec3ub::Normalized, "Normalize the vector.");
-	cls_Graphic3d_Vec3ub.def_static("Cross_", (Graphic3d_Vec3ub (*)(const Graphic3d_Vec3ub &, const Graphic3d_Vec3ub &)) &Graphic3d_Vec3ub::Cross, "Computes the cross product.", py::arg("theVec1"), py::arg("theVec2"));
-	cls_Graphic3d_Vec3ub.def_static("GetLERP_", (Graphic3d_Vec3ub (*)(const Graphic3d_Vec3ub &, const Graphic3d_Vec3ub &, const Standard_Byte)) &Graphic3d_Vec3ub::GetLERP, "Compute linear interpolation between to vectors.", py::arg("theFrom"), py::arg("theTo"), py::arg("theT"));
-	cls_Graphic3d_Vec3ub.def_static("DX_", (Graphic3d_Vec3ub (*)()) &Graphic3d_Vec3ub::DX, "Constuct DX unit vector.");
-	cls_Graphic3d_Vec3ub.def_static("DY_", (Graphic3d_Vec3ub (*)()) &Graphic3d_Vec3ub::DY, "Constuct DY unit vector.");
-	cls_Graphic3d_Vec3ub.def_static("DZ_", (Graphic3d_Vec3ub (*)()) &Graphic3d_Vec3ub::DZ, "Constuct DZ unit vector.");
-
-	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vec3.hxx
-	py::class_<Graphic3d_Vec3b, std::unique_ptr<Graphic3d_Vec3b, Deleter<Graphic3d_Vec3b>>> cls_Graphic3d_Vec3b(mod, "Graphic3d_Vec3b", "Generic 3-components vector. To be used as RGB color pixel or XYZ 3D-point. The main target for this class - to handle raw low-level arrays (from/to graphic driver etc.).");
-	cls_Graphic3d_Vec3b.def(py::init<>());
-	cls_Graphic3d_Vec3b.def(py::init<Standard_Character>(), py::arg("theValue"));
-	cls_Graphic3d_Vec3b.def(py::init<const Standard_Character, const Standard_Character, const Standard_Character>(), py::arg("theX"), py::arg("theY"), py::arg("theZ"));
-	cls_Graphic3d_Vec3b.def(py::init<const NCollection_Vec2<Standard_Character> &>(), py::arg("theVec2"));
-	cls_Graphic3d_Vec3b.def_static("Length_", (int (*)()) &Graphic3d_Vec3b::Length, "Returns the number of components.");
-	cls_Graphic3d_Vec3b.def("SetValues", (void (Graphic3d_Vec3b::*)(const Standard_Character, const Standard_Character, const Standard_Character)) &Graphic3d_Vec3b::SetValues, "Assign new values to the vector.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
-	cls_Graphic3d_Vec3b.def("x", (Standard_Character (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::x, "Alias to 1st component as X coordinate in XYZ.");
-	cls_Graphic3d_Vec3b.def("r", (Standard_Character (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::r, "Alias to 1st component as RED channel in RGB.");
-	cls_Graphic3d_Vec3b.def("y", (Standard_Character (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::y, "Alias to 2nd component as Y coordinate in XYZ.");
-	cls_Graphic3d_Vec3b.def("g", (Standard_Character (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::g, "Alias to 2nd component as GREEN channel in RGB.");
-	cls_Graphic3d_Vec3b.def("z", (Standard_Character (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::z, "Alias to 3rd component as Z coordinate in XYZ.");
-	cls_Graphic3d_Vec3b.def("b", (Standard_Character (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::b, "Alias to 3rd component as BLUE channel in RGB.");
-	cls_Graphic3d_Vec3b.def("xy", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::xy, "None");
-	cls_Graphic3d_Vec3b.def("yx", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::yx, "None");
-	cls_Graphic3d_Vec3b.def("xz", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::xz, "None");
-	cls_Graphic3d_Vec3b.def("zx", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::zx, "None");
-	cls_Graphic3d_Vec3b.def("yz", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::yz, "None");
-	cls_Graphic3d_Vec3b.def("zy", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::zy, "None");
-	cls_Graphic3d_Vec3b.def("xyz", (const Graphic3d_Vec3b (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::xyz, "None");
-	cls_Graphic3d_Vec3b.def("xzy", (const Graphic3d_Vec3b (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::xzy, "None");
-	cls_Graphic3d_Vec3b.def("yxz", (const Graphic3d_Vec3b (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::yxz, "None");
-	cls_Graphic3d_Vec3b.def("yzx", (const Graphic3d_Vec3b (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::yzx, "None");
-	cls_Graphic3d_Vec3b.def("zyx", (const Graphic3d_Vec3b (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::zyx, "None");
-	cls_Graphic3d_Vec3b.def("zxy", (const Graphic3d_Vec3b (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::zxy, "None");
-	cls_Graphic3d_Vec3b.def("x", (Standard_Character & (Graphic3d_Vec3b::*)()) &Graphic3d_Vec3b::x, "Alias to 1st component as X coordinate in XYZ.");
-	cls_Graphic3d_Vec3b.def("r", (Standard_Character & (Graphic3d_Vec3b::*)()) &Graphic3d_Vec3b::r, "Alias to 1st component as RED channel in RGB.");
-	cls_Graphic3d_Vec3b.def("y", (Standard_Character & (Graphic3d_Vec3b::*)()) &Graphic3d_Vec3b::y, "Alias to 2nd component as Y coordinate in XYZ.");
-	cls_Graphic3d_Vec3b.def("g", (Standard_Character & (Graphic3d_Vec3b::*)()) &Graphic3d_Vec3b::g, "Alias to 2nd component as GREEN channel in RGB.");
-	cls_Graphic3d_Vec3b.def("z", (Standard_Character & (Graphic3d_Vec3b::*)()) &Graphic3d_Vec3b::z, "Alias to 3rd component as Z coordinate in XYZ.");
-	cls_Graphic3d_Vec3b.def("b", (Standard_Character & (Graphic3d_Vec3b::*)()) &Graphic3d_Vec3b::b, "Alias to 3rd component as BLUE channel in RGB.");
-	cls_Graphic3d_Vec3b.def("xy", (NCollection_Vec2<Standard_Character> & (Graphic3d_Vec3b::*)()) &Graphic3d_Vec3b::xy, "Returns XY-components modifiable vector");
-	cls_Graphic3d_Vec3b.def("yz", (NCollection_Vec2<Standard_Character> & (Graphic3d_Vec3b::*)()) &Graphic3d_Vec3b::yz, "Returns YZ-components modifiable vector");
-	cls_Graphic3d_Vec3b.def("IsEqual", (bool (Graphic3d_Vec3b::*)(const Graphic3d_Vec3b &) const ) &Graphic3d_Vec3b::IsEqual, "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec3b.def("__eq__", (bool (Graphic3d_Vec3b::*)(const Graphic3d_Vec3b &)) &Graphic3d_Vec3b::operator==, py::is_operator(), "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec3b.def("__eq__", (bool (Graphic3d_Vec3b::*)(const Graphic3d_Vec3b &) const ) &Graphic3d_Vec3b::operator==, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec3b.def("__ne__", (bool (Graphic3d_Vec3b::*)(const Graphic3d_Vec3b &)) &Graphic3d_Vec3b::operator!=, py::is_operator(), "Check this vector with another vector for non-equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec3b.def("__ne__", (bool (Graphic3d_Vec3b::*)(const Graphic3d_Vec3b &) const ) &Graphic3d_Vec3b::operator!=, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec3b.def("GetData", (const Standard_Character * (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::GetData, "Raw access to the data (for OpenGL exchange).");
-	cls_Graphic3d_Vec3b.def("ChangeData", (Standard_Character * (Graphic3d_Vec3b::*)()) &Graphic3d_Vec3b::ChangeData, "None");
-	cls_Graphic3d_Vec3b.def("__iadd__", (Graphic3d_Vec3b & (Graphic3d_Vec3b::*)(const Graphic3d_Vec3b &)) &Graphic3d_Vec3b::operator+=, "Compute per-component summary.", py::arg("theAdd"));
-	cls_Graphic3d_Vec3b.def("__sub__", (Graphic3d_Vec3b (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::operator-, py::is_operator(), "Unary -.");
-	cls_Graphic3d_Vec3b.def("__isub__", (Graphic3d_Vec3b & (Graphic3d_Vec3b::*)(const Graphic3d_Vec3b &)) &Graphic3d_Vec3b::operator-=, "Compute per-component subtraction.", py::arg("theDec"));
-	cls_Graphic3d_Vec3b.def("Multiply", (void (Graphic3d_Vec3b::*)(const Standard_Character)) &Graphic3d_Vec3b::Multiply, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec3b.def("__imul__", (Graphic3d_Vec3b & (Graphic3d_Vec3b::*)(const Graphic3d_Vec3b &)) &Graphic3d_Vec3b::operator*=, "Compute per-component multiplication.", py::arg("theRight"));
-	cls_Graphic3d_Vec3b.def("__imul__", (Graphic3d_Vec3b & (Graphic3d_Vec3b::*)(const Standard_Character)) &Graphic3d_Vec3b::operator*=, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec3b.def("__mul__", (Graphic3d_Vec3b (Graphic3d_Vec3b::*)(const Standard_Character) const ) &Graphic3d_Vec3b::operator*, py::is_operator(), "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec3b.def("Multiplied", (Graphic3d_Vec3b (Graphic3d_Vec3b::*)(const Standard_Character) const ) &Graphic3d_Vec3b::Multiplied, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec3b.def("cwiseMin", (Graphic3d_Vec3b (Graphic3d_Vec3b::*)(const Graphic3d_Vec3b &) const ) &Graphic3d_Vec3b::cwiseMin, "Compute component-wise minimum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec3b.def("cwiseMax", (Graphic3d_Vec3b (Graphic3d_Vec3b::*)(const Graphic3d_Vec3b &) const ) &Graphic3d_Vec3b::cwiseMax, "Compute component-wise maximum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec3b.def("cwiseAbs", (Graphic3d_Vec3b (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::cwiseAbs, "Compute component-wise modulus of the vector.");
-	cls_Graphic3d_Vec3b.def("maxComp", (Standard_Character (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::maxComp, "Compute maximum component of the vector.");
-	cls_Graphic3d_Vec3b.def("minComp", (Standard_Character (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::minComp, "Compute minimum component of the vector.");
-	cls_Graphic3d_Vec3b.def("__itruediv__", (Graphic3d_Vec3b & (Graphic3d_Vec3b::*)(const Standard_Character)) &Graphic3d_Vec3b::operator/=, "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-	cls_Graphic3d_Vec3b.def("__truediv__", (Graphic3d_Vec3b (Graphic3d_Vec3b::*)(const Standard_Character)) &Graphic3d_Vec3b::operator/, py::is_operator(), "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-	cls_Graphic3d_Vec3b.def("Dot", (Standard_Character (Graphic3d_Vec3b::*)(const Graphic3d_Vec3b &) const ) &Graphic3d_Vec3b::Dot, "Computes the dot product.", py::arg("theOther"));
-	cls_Graphic3d_Vec3b.def("Modulus", (Standard_Character (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::Modulus, "Computes the vector modulus (magnitude, length).");
-	cls_Graphic3d_Vec3b.def("SquareModulus", (Standard_Character (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::SquareModulus, "Computes the square of vector modulus (magnitude, length). This method may be used for performance tricks.");
-	cls_Graphic3d_Vec3b.def("Normalize", (void (Graphic3d_Vec3b::*)()) &Graphic3d_Vec3b::Normalize, "Normalize the vector.");
-	cls_Graphic3d_Vec3b.def("Normalized", (Graphic3d_Vec3b (Graphic3d_Vec3b::*)() const ) &Graphic3d_Vec3b::Normalized, "Normalize the vector.");
-	cls_Graphic3d_Vec3b.def_static("Cross_", (Graphic3d_Vec3b (*)(const Graphic3d_Vec3b &, const Graphic3d_Vec3b &)) &Graphic3d_Vec3b::Cross, "Computes the cross product.", py::arg("theVec1"), py::arg("theVec2"));
-	cls_Graphic3d_Vec3b.def_static("GetLERP_", (Graphic3d_Vec3b (*)(const Graphic3d_Vec3b &, const Graphic3d_Vec3b &, const Standard_Character)) &Graphic3d_Vec3b::GetLERP, "Compute linear interpolation between to vectors.", py::arg("theFrom"), py::arg("theTo"), py::arg("theT"));
-	cls_Graphic3d_Vec3b.def_static("DX_", (Graphic3d_Vec3b (*)()) &Graphic3d_Vec3b::DX, "Constuct DX unit vector.");
-	cls_Graphic3d_Vec3b.def_static("DY_", (Graphic3d_Vec3b (*)()) &Graphic3d_Vec3b::DY, "Constuct DY unit vector.");
-	cls_Graphic3d_Vec3b.def_static("DZ_", (Graphic3d_Vec3b (*)()) &Graphic3d_Vec3b::DZ, "Constuct DZ unit vector.");
-
-	*/
-
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec4.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec4f")) {
 		mod.attr("Graphic3d_Vec4") = other_mod.attr("BVH_Vec4f");
 	}
 
-	/* FIXME
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec4.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec4d")) {
 		mod.attr("Graphic3d_Vec4d") = other_mod.attr("BVH_Vec4d");
 	}
 
-	*/
-
-	/* FIXME
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec4.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec4i")) {
 		mod.attr("Graphic3d_Vec4i") = other_mod.attr("BVH_Vec4i");
 	}
 
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec4.hxx
+	bind_NCollection_Vec4<unsigned int>(mod, "Graphic3d_Vec4u");
 
-	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vec4.hxx
-	py::class_<Graphic3d_Vec4u, std::unique_ptr<Graphic3d_Vec4u, Deleter<Graphic3d_Vec4u>>> cls_Graphic3d_Vec4u(mod, "Graphic3d_Vec4u", "Generic 4-components vector. To be used as RGBA color vector or XYZW 3D-point with special W-component for operations with projection / model view matrices. Use this class for 3D-points carefully because declared W-component may results in incorrect results if used without matrices.");
-	cls_Graphic3d_Vec4u.def(py::init<>());
-	cls_Graphic3d_Vec4u.def(py::init<const unsigned int>(), py::arg("theValue"));
-	cls_Graphic3d_Vec4u.def(py::init<const unsigned int, const unsigned int, const unsigned int, const unsigned int>(), py::arg("theX"), py::arg("theY"), py::arg("theZ"), py::arg("theW"));
-	cls_Graphic3d_Vec4u.def(py::init<const NCollection_Vec2<unsigned int> &>(), py::arg("theVec2"));
-	cls_Graphic3d_Vec4u.def(py::init<const NCollection_Vec3<unsigned int> &>(), py::arg("theVec3"));
-	cls_Graphic3d_Vec4u.def(py::init<const NCollection_Vec3<unsigned int> &, const unsigned int>(), py::arg("theVec3"), py::arg("theAlpha"));
-	cls_Graphic3d_Vec4u.def_static("Length_", (int (*)()) &Graphic3d_Vec4u::Length, "Returns the number of components.");
-	cls_Graphic3d_Vec4u.def("SetValues", (void (Graphic3d_Vec4u::*)(const unsigned int, const unsigned int, const unsigned int, const unsigned int)) &Graphic3d_Vec4u::SetValues, "Assign new values to the vector.", py::arg("theX"), py::arg("theY"), py::arg("theZ"), py::arg("theW"));
-	cls_Graphic3d_Vec4u.def("x", (unsigned int (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::x, "Alias to 1st component as X coordinate in XYZW.");
-	cls_Graphic3d_Vec4u.def("r", (unsigned int (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::r, "Alias to 1st component as RED channel in RGBA.");
-	cls_Graphic3d_Vec4u.def("y", (unsigned int (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::y, "Alias to 2nd component as Y coordinate in XYZW.");
-	cls_Graphic3d_Vec4u.def("g", (unsigned int (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::g, "Alias to 2nd component as GREEN channel in RGBA.");
-	cls_Graphic3d_Vec4u.def("z", (unsigned int (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::z, "Alias to 3rd component as Z coordinate in XYZW.");
-	cls_Graphic3d_Vec4u.def("b", (unsigned int (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::b, "Alias to 3rd component as BLUE channel in RGBA.");
-	cls_Graphic3d_Vec4u.def("w", (unsigned int (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::w, "Alias to 4th component as W coordinate in XYZW.");
-	cls_Graphic3d_Vec4u.def("a", (unsigned int (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::a, "Alias to 4th component as ALPHA channel in RGBA.");
-	cls_Graphic3d_Vec4u.def("xy", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::xy, "None");
-	cls_Graphic3d_Vec4u.def("yx", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::yx, "None");
-	cls_Graphic3d_Vec4u.def("xz", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::xz, "None");
-	cls_Graphic3d_Vec4u.def("zx", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::zx, "None");
-	cls_Graphic3d_Vec4u.def("xw", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::xw, "None");
-	cls_Graphic3d_Vec4u.def("wx", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::wx, "None");
-	cls_Graphic3d_Vec4u.def("yz", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::yz, "None");
-	cls_Graphic3d_Vec4u.def("zy", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::zy, "None");
-	cls_Graphic3d_Vec4u.def("yw", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::yw, "None");
-	cls_Graphic3d_Vec4u.def("wy", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::wy, "None");
-	cls_Graphic3d_Vec4u.def("zw", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::zw, "None");
-	cls_Graphic3d_Vec4u.def("wz", (const NCollection_Vec2<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::wz, "None");
-	cls_Graphic3d_Vec4u.def("xyz", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::xyz, "None");
-	cls_Graphic3d_Vec4u.def("xzy", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::xzy, "None");
-	cls_Graphic3d_Vec4u.def("yxz", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::yxz, "None");
-	cls_Graphic3d_Vec4u.def("yzx", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::yzx, "None");
-	cls_Graphic3d_Vec4u.def("zyx", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::zyx, "None");
-	cls_Graphic3d_Vec4u.def("zxy", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::zxy, "None");
-	cls_Graphic3d_Vec4u.def("xyw", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::xyw, "None");
-	cls_Graphic3d_Vec4u.def("xwy", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::xwy, "None");
-	cls_Graphic3d_Vec4u.def("yxw", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::yxw, "None");
-	cls_Graphic3d_Vec4u.def("ywx", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::ywx, "None");
-	cls_Graphic3d_Vec4u.def("wyx", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::wyx, "None");
-	cls_Graphic3d_Vec4u.def("wxy", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::wxy, "None");
-	cls_Graphic3d_Vec4u.def("xzw", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::xzw, "None");
-	cls_Graphic3d_Vec4u.def("xwz", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::xwz, "None");
-	cls_Graphic3d_Vec4u.def("zxw", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::zxw, "None");
-	cls_Graphic3d_Vec4u.def("zwx", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::zwx, "None");
-	cls_Graphic3d_Vec4u.def("wzx", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::wzx, "None");
-	cls_Graphic3d_Vec4u.def("wxz", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::wxz, "None");
-	cls_Graphic3d_Vec4u.def("yzw", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::yzw, "None");
-	cls_Graphic3d_Vec4u.def("ywz", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::ywz, "None");
-	cls_Graphic3d_Vec4u.def("zyw", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::zyw, "None");
-	cls_Graphic3d_Vec4u.def("zwy", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::zwy, "None");
-	cls_Graphic3d_Vec4u.def("wzy", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::wzy, "None");
-	cls_Graphic3d_Vec4u.def("wyz", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::wyz, "None");
-	cls_Graphic3d_Vec4u.def("rgb", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::rgb, "None");
-	cls_Graphic3d_Vec4u.def("rbg", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::rbg, "None");
-	cls_Graphic3d_Vec4u.def("grb", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::grb, "None");
-	cls_Graphic3d_Vec4u.def("gbr", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::gbr, "None");
-	cls_Graphic3d_Vec4u.def("bgr", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::bgr, "None");
-	cls_Graphic3d_Vec4u.def("brg", (const NCollection_Vec3<unsigned int> (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::brg, "None");
-	cls_Graphic3d_Vec4u.def("x", (unsigned int & (Graphic3d_Vec4u::*)()) &Graphic3d_Vec4u::x, "Alias to 1st component as X coordinate in XYZW.");
-	cls_Graphic3d_Vec4u.def("r", (unsigned int & (Graphic3d_Vec4u::*)()) &Graphic3d_Vec4u::r, "Alias to 1st component as RED channel in RGBA.");
-	cls_Graphic3d_Vec4u.def("y", (unsigned int & (Graphic3d_Vec4u::*)()) &Graphic3d_Vec4u::y, "Alias to 2nd component as Y coordinate in XYZW.");
-	cls_Graphic3d_Vec4u.def("g", (unsigned int & (Graphic3d_Vec4u::*)()) &Graphic3d_Vec4u::g, "Alias to 2nd component as GREEN channel in RGBA.");
-	cls_Graphic3d_Vec4u.def("z", (unsigned int & (Graphic3d_Vec4u::*)()) &Graphic3d_Vec4u::z, "Alias to 3rd component as Z coordinate in XYZW.");
-	cls_Graphic3d_Vec4u.def("b", (unsigned int & (Graphic3d_Vec4u::*)()) &Graphic3d_Vec4u::b, "Alias to 3rd component as BLUE channel in RGBA.");
-	cls_Graphic3d_Vec4u.def("w", (unsigned int & (Graphic3d_Vec4u::*)()) &Graphic3d_Vec4u::w, "Alias to 4th component as W coordinate in XYZW.");
-	cls_Graphic3d_Vec4u.def("a", (unsigned int & (Graphic3d_Vec4u::*)()) &Graphic3d_Vec4u::a, "Alias to 4th component as ALPHA channel in RGBA.");
-	cls_Graphic3d_Vec4u.def("xy", (NCollection_Vec2<unsigned int> & (Graphic3d_Vec4u::*)()) &Graphic3d_Vec4u::xy, "Returns XY-components modifiable vector");
-	cls_Graphic3d_Vec4u.def("yz", (NCollection_Vec2<unsigned int> & (Graphic3d_Vec4u::*)()) &Graphic3d_Vec4u::yz, "Returns YZ-components modifiable vector");
-	cls_Graphic3d_Vec4u.def("zw", (NCollection_Vec2<unsigned int> & (Graphic3d_Vec4u::*)()) &Graphic3d_Vec4u::zw, "Returns YZ-components modifiable vector");
-	cls_Graphic3d_Vec4u.def("xyz", (NCollection_Vec3<unsigned int> & (Graphic3d_Vec4u::*)()) &Graphic3d_Vec4u::xyz, "Returns XYZ-components modifiable vector");
-	cls_Graphic3d_Vec4u.def("yzw", (NCollection_Vec3<unsigned int> & (Graphic3d_Vec4u::*)()) &Graphic3d_Vec4u::yzw, "Returns YZW-components modifiable vector");
-	cls_Graphic3d_Vec4u.def("IsEqual", (bool (Graphic3d_Vec4u::*)(const Graphic3d_Vec4u &) const ) &Graphic3d_Vec4u::IsEqual, "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec4u.def("__eq__", (bool (Graphic3d_Vec4u::*)(const Graphic3d_Vec4u &)) &Graphic3d_Vec4u::operator==, py::is_operator(), "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec4u.def("__eq__", (bool (Graphic3d_Vec4u::*)(const Graphic3d_Vec4u &) const ) &Graphic3d_Vec4u::operator==, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec4u.def("__ne__", (bool (Graphic3d_Vec4u::*)(const Graphic3d_Vec4u &)) &Graphic3d_Vec4u::operator!=, py::is_operator(), "Check this vector with another vector for non-equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec4u.def("__ne__", (bool (Graphic3d_Vec4u::*)(const Graphic3d_Vec4u &) const ) &Graphic3d_Vec4u::operator!=, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec4u.def("GetData", (const unsigned int * (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::GetData, "Raw access to the data (for OpenGL exchange).");
-	cls_Graphic3d_Vec4u.def("ChangeData", (unsigned int * (Graphic3d_Vec4u::*)()) &Graphic3d_Vec4u::ChangeData, "None");
-	cls_Graphic3d_Vec4u.def("__iadd__", (Graphic3d_Vec4u & (Graphic3d_Vec4u::*)(const Graphic3d_Vec4u &)) &Graphic3d_Vec4u::operator+=, "Compute per-component summary.", py::arg("theAdd"));
-	cls_Graphic3d_Vec4u.def("__sub__", (Graphic3d_Vec4u (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::operator-, py::is_operator(), "Unary -.");
-	cls_Graphic3d_Vec4u.def("__isub__", (Graphic3d_Vec4u & (Graphic3d_Vec4u::*)(const Graphic3d_Vec4u &)) &Graphic3d_Vec4u::operator-=, "Compute per-component subtraction.", py::arg("theDec"));
-	cls_Graphic3d_Vec4u.def("__imul__", (Graphic3d_Vec4u & (Graphic3d_Vec4u::*)(const Graphic3d_Vec4u &)) &Graphic3d_Vec4u::operator*=, "Compute per-component multiplication.", py::arg("theRight"));
-	cls_Graphic3d_Vec4u.def("Multiply", (void (Graphic3d_Vec4u::*)(const unsigned int)) &Graphic3d_Vec4u::Multiply, "Compute per-component multiplication.", py::arg("theFactor"));
-	cls_Graphic3d_Vec4u.def("__imul__", (Graphic3d_Vec4u & (Graphic3d_Vec4u::*)(const unsigned int)) &Graphic3d_Vec4u::operator*=, "Compute per-component multiplication.", py::arg("theFactor"));
-	cls_Graphic3d_Vec4u.def("__mul__", (Graphic3d_Vec4u (Graphic3d_Vec4u::*)(const unsigned int) const ) &Graphic3d_Vec4u::operator*, py::is_operator(), "Compute per-component multiplication.", py::arg("theFactor"));
-	cls_Graphic3d_Vec4u.def("Multiplied", (Graphic3d_Vec4u (Graphic3d_Vec4u::*)(const unsigned int) const ) &Graphic3d_Vec4u::Multiplied, "Compute per-component multiplication.", py::arg("theFactor"));
-	cls_Graphic3d_Vec4u.def("cwiseMin", (Graphic3d_Vec4u (Graphic3d_Vec4u::*)(const Graphic3d_Vec4u &) const ) &Graphic3d_Vec4u::cwiseMin, "Compute component-wise minimum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec4u.def("cwiseMax", (Graphic3d_Vec4u (Graphic3d_Vec4u::*)(const Graphic3d_Vec4u &) const ) &Graphic3d_Vec4u::cwiseMax, "Compute component-wise maximum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec4u.def("cwiseAbs", (Graphic3d_Vec4u (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::cwiseAbs, "Compute component-wise modulus of the vector.");
-	cls_Graphic3d_Vec4u.def("maxComp", (unsigned int (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::maxComp, "Compute maximum component of the vector.");
-	cls_Graphic3d_Vec4u.def("minComp", (unsigned int (Graphic3d_Vec4u::*)() const ) &Graphic3d_Vec4u::minComp, "Compute minimum component of the vector.");
-	cls_Graphic3d_Vec4u.def("Dot", (unsigned int (Graphic3d_Vec4u::*)(const Graphic3d_Vec4u &) const ) &Graphic3d_Vec4u::Dot, "Computes the dot product.", py::arg("theOther"));
-	cls_Graphic3d_Vec4u.def("__itruediv__", (Graphic3d_Vec4u & (Graphic3d_Vec4u::*)(const unsigned int)) &Graphic3d_Vec4u::operator/=, "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-	cls_Graphic3d_Vec4u.def("__truediv__", (Graphic3d_Vec4u (Graphic3d_Vec4u::*)(const unsigned int)) &Graphic3d_Vec4u::operator/, py::is_operator(), "Compute per-component division by scale factor.", py::arg("theInvFactor"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec4.hxx
+	bind_NCollection_Vec4<unsigned char>(mod, "Graphic3d_Vec4ub");
 
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec4.hxx
+	bind_NCollection_Vec4<char>(mod, "Graphic3d_Vec4b");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vec4.hxx
-	py::class_<Graphic3d_Vec4ub, std::unique_ptr<Graphic3d_Vec4ub, Deleter<Graphic3d_Vec4ub>>> cls_Graphic3d_Vec4ub(mod, "Graphic3d_Vec4ub", "Generic 4-components vector. To be used as RGBA color vector or XYZW 3D-point with special W-component for operations with projection / model view matrices. Use this class for 3D-points carefully because declared W-component may results in incorrect results if used without matrices.");
-	cls_Graphic3d_Vec4ub.def(py::init<>());
-	cls_Graphic3d_Vec4ub.def(py::init<const Standard_Byte>(), py::arg("theValue"));
-	cls_Graphic3d_Vec4ub.def(py::init<const Standard_Byte, const Standard_Byte, const Standard_Byte, const Standard_Byte>(), py::arg("theX"), py::arg("theY"), py::arg("theZ"), py::arg("theW"));
-	cls_Graphic3d_Vec4ub.def(py::init<const NCollection_Vec2<Standard_Byte> &>(), py::arg("theVec2"));
-	cls_Graphic3d_Vec4ub.def(py::init<const NCollection_Vec3<Standard_Byte> &>(), py::arg("theVec3"));
-	cls_Graphic3d_Vec4ub.def(py::init<const NCollection_Vec3<Standard_Byte> &, const Standard_Byte>(), py::arg("theVec3"), py::arg("theAlpha"));
-	cls_Graphic3d_Vec4ub.def_static("Length_", (int (*)()) &Graphic3d_Vec4ub::Length, "Returns the number of components.");
-	cls_Graphic3d_Vec4ub.def("SetValues", (void (Graphic3d_Vec4ub::*)(const Standard_Byte, const Standard_Byte, const Standard_Byte, const Standard_Byte)) &Graphic3d_Vec4ub::SetValues, "Assign new values to the vector.", py::arg("theX"), py::arg("theY"), py::arg("theZ"), py::arg("theW"));
-	cls_Graphic3d_Vec4ub.def("x", (Standard_Byte (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::x, "Alias to 1st component as X coordinate in XYZW.");
-	cls_Graphic3d_Vec4ub.def("r", (Standard_Byte (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::r, "Alias to 1st component as RED channel in RGBA.");
-	cls_Graphic3d_Vec4ub.def("y", (Standard_Byte (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::y, "Alias to 2nd component as Y coordinate in XYZW.");
-	cls_Graphic3d_Vec4ub.def("g", (Standard_Byte (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::g, "Alias to 2nd component as GREEN channel in RGBA.");
-	cls_Graphic3d_Vec4ub.def("z", (Standard_Byte (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::z, "Alias to 3rd component as Z coordinate in XYZW.");
-	cls_Graphic3d_Vec4ub.def("b", (Standard_Byte (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::b, "Alias to 3rd component as BLUE channel in RGBA.");
-	cls_Graphic3d_Vec4ub.def("w", (Standard_Byte (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::w, "Alias to 4th component as W coordinate in XYZW.");
-	cls_Graphic3d_Vec4ub.def("a", (Standard_Byte (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::a, "Alias to 4th component as ALPHA channel in RGBA.");
-	cls_Graphic3d_Vec4ub.def("xy", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::xy, "None");
-	cls_Graphic3d_Vec4ub.def("yx", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::yx, "None");
-	cls_Graphic3d_Vec4ub.def("xz", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::xz, "None");
-	cls_Graphic3d_Vec4ub.def("zx", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::zx, "None");
-	cls_Graphic3d_Vec4ub.def("xw", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::xw, "None");
-	cls_Graphic3d_Vec4ub.def("wx", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::wx, "None");
-	cls_Graphic3d_Vec4ub.def("yz", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::yz, "None");
-	cls_Graphic3d_Vec4ub.def("zy", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::zy, "None");
-	cls_Graphic3d_Vec4ub.def("yw", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::yw, "None");
-	cls_Graphic3d_Vec4ub.def("wy", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::wy, "None");
-	cls_Graphic3d_Vec4ub.def("zw", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::zw, "None");
-	cls_Graphic3d_Vec4ub.def("wz", (const NCollection_Vec2<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::wz, "None");
-	cls_Graphic3d_Vec4ub.def("xyz", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::xyz, "None");
-	cls_Graphic3d_Vec4ub.def("xzy", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::xzy, "None");
-	cls_Graphic3d_Vec4ub.def("yxz", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::yxz, "None");
-	cls_Graphic3d_Vec4ub.def("yzx", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::yzx, "None");
-	cls_Graphic3d_Vec4ub.def("zyx", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::zyx, "None");
-	cls_Graphic3d_Vec4ub.def("zxy", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::zxy, "None");
-	cls_Graphic3d_Vec4ub.def("xyw", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::xyw, "None");
-	cls_Graphic3d_Vec4ub.def("xwy", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::xwy, "None");
-	cls_Graphic3d_Vec4ub.def("yxw", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::yxw, "None");
-	cls_Graphic3d_Vec4ub.def("ywx", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::ywx, "None");
-	cls_Graphic3d_Vec4ub.def("wyx", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::wyx, "None");
-	cls_Graphic3d_Vec4ub.def("wxy", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::wxy, "None");
-	cls_Graphic3d_Vec4ub.def("xzw", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::xzw, "None");
-	cls_Graphic3d_Vec4ub.def("xwz", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::xwz, "None");
-	cls_Graphic3d_Vec4ub.def("zxw", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::zxw, "None");
-	cls_Graphic3d_Vec4ub.def("zwx", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::zwx, "None");
-	cls_Graphic3d_Vec4ub.def("wzx", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::wzx, "None");
-	cls_Graphic3d_Vec4ub.def("wxz", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::wxz, "None");
-	cls_Graphic3d_Vec4ub.def("yzw", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::yzw, "None");
-	cls_Graphic3d_Vec4ub.def("ywz", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::ywz, "None");
-	cls_Graphic3d_Vec4ub.def("zyw", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::zyw, "None");
-	cls_Graphic3d_Vec4ub.def("zwy", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::zwy, "None");
-	cls_Graphic3d_Vec4ub.def("wzy", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::wzy, "None");
-	cls_Graphic3d_Vec4ub.def("wyz", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::wyz, "None");
-	cls_Graphic3d_Vec4ub.def("rgb", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::rgb, "None");
-	cls_Graphic3d_Vec4ub.def("rbg", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::rbg, "None");
-	cls_Graphic3d_Vec4ub.def("grb", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::grb, "None");
-	cls_Graphic3d_Vec4ub.def("gbr", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::gbr, "None");
-	cls_Graphic3d_Vec4ub.def("bgr", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::bgr, "None");
-	cls_Graphic3d_Vec4ub.def("brg", (const NCollection_Vec3<Standard_Byte> (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::brg, "None");
-	cls_Graphic3d_Vec4ub.def("x", (Standard_Byte & (Graphic3d_Vec4ub::*)()) &Graphic3d_Vec4ub::x, "Alias to 1st component as X coordinate in XYZW.");
-	cls_Graphic3d_Vec4ub.def("r", (Standard_Byte & (Graphic3d_Vec4ub::*)()) &Graphic3d_Vec4ub::r, "Alias to 1st component as RED channel in RGBA.");
-	cls_Graphic3d_Vec4ub.def("y", (Standard_Byte & (Graphic3d_Vec4ub::*)()) &Graphic3d_Vec4ub::y, "Alias to 2nd component as Y coordinate in XYZW.");
-	cls_Graphic3d_Vec4ub.def("g", (Standard_Byte & (Graphic3d_Vec4ub::*)()) &Graphic3d_Vec4ub::g, "Alias to 2nd component as GREEN channel in RGBA.");
-	cls_Graphic3d_Vec4ub.def("z", (Standard_Byte & (Graphic3d_Vec4ub::*)()) &Graphic3d_Vec4ub::z, "Alias to 3rd component as Z coordinate in XYZW.");
-	cls_Graphic3d_Vec4ub.def("b", (Standard_Byte & (Graphic3d_Vec4ub::*)()) &Graphic3d_Vec4ub::b, "Alias to 3rd component as BLUE channel in RGBA.");
-	cls_Graphic3d_Vec4ub.def("w", (Standard_Byte & (Graphic3d_Vec4ub::*)()) &Graphic3d_Vec4ub::w, "Alias to 4th component as W coordinate in XYZW.");
-	cls_Graphic3d_Vec4ub.def("a", (Standard_Byte & (Graphic3d_Vec4ub::*)()) &Graphic3d_Vec4ub::a, "Alias to 4th component as ALPHA channel in RGBA.");
-	cls_Graphic3d_Vec4ub.def("xy", (NCollection_Vec2<Standard_Byte> & (Graphic3d_Vec4ub::*)()) &Graphic3d_Vec4ub::xy, "Returns XY-components modifiable vector");
-	cls_Graphic3d_Vec4ub.def("yz", (NCollection_Vec2<Standard_Byte> & (Graphic3d_Vec4ub::*)()) &Graphic3d_Vec4ub::yz, "Returns YZ-components modifiable vector");
-	cls_Graphic3d_Vec4ub.def("zw", (NCollection_Vec2<Standard_Byte> & (Graphic3d_Vec4ub::*)()) &Graphic3d_Vec4ub::zw, "Returns YZ-components modifiable vector");
-	cls_Graphic3d_Vec4ub.def("xyz", (NCollection_Vec3<Standard_Byte> & (Graphic3d_Vec4ub::*)()) &Graphic3d_Vec4ub::xyz, "Returns XYZ-components modifiable vector");
-	cls_Graphic3d_Vec4ub.def("yzw", (NCollection_Vec3<Standard_Byte> & (Graphic3d_Vec4ub::*)()) &Graphic3d_Vec4ub::yzw, "Returns YZW-components modifiable vector");
-	cls_Graphic3d_Vec4ub.def("IsEqual", (bool (Graphic3d_Vec4ub::*)(const Graphic3d_Vec4ub &) const ) &Graphic3d_Vec4ub::IsEqual, "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec4ub.def("__eq__", (bool (Graphic3d_Vec4ub::*)(const Graphic3d_Vec4ub &)) &Graphic3d_Vec4ub::operator==, py::is_operator(), "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec4ub.def("__eq__", (bool (Graphic3d_Vec4ub::*)(const Graphic3d_Vec4ub &) const ) &Graphic3d_Vec4ub::operator==, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec4ub.def("__ne__", (bool (Graphic3d_Vec4ub::*)(const Graphic3d_Vec4ub &)) &Graphic3d_Vec4ub::operator!=, py::is_operator(), "Check this vector with another vector for non-equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec4ub.def("__ne__", (bool (Graphic3d_Vec4ub::*)(const Graphic3d_Vec4ub &) const ) &Graphic3d_Vec4ub::operator!=, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec4ub.def("GetData", (const Standard_Byte * (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::GetData, "Raw access to the data (for OpenGL exchange).");
-	cls_Graphic3d_Vec4ub.def("ChangeData", (Standard_Byte * (Graphic3d_Vec4ub::*)()) &Graphic3d_Vec4ub::ChangeData, "None");
-	cls_Graphic3d_Vec4ub.def("__iadd__", (Graphic3d_Vec4ub & (Graphic3d_Vec4ub::*)(const Graphic3d_Vec4ub &)) &Graphic3d_Vec4ub::operator+=, "Compute per-component summary.", py::arg("theAdd"));
-	cls_Graphic3d_Vec4ub.def("__sub__", (Graphic3d_Vec4ub (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::operator-, py::is_operator(), "Unary -.");
-	cls_Graphic3d_Vec4ub.def("__isub__", (Graphic3d_Vec4ub & (Graphic3d_Vec4ub::*)(const Graphic3d_Vec4ub &)) &Graphic3d_Vec4ub::operator-=, "Compute per-component subtraction.", py::arg("theDec"));
-	cls_Graphic3d_Vec4ub.def("__imul__", (Graphic3d_Vec4ub & (Graphic3d_Vec4ub::*)(const Graphic3d_Vec4ub &)) &Graphic3d_Vec4ub::operator*=, "Compute per-component multiplication.", py::arg("theRight"));
-	cls_Graphic3d_Vec4ub.def("Multiply", (void (Graphic3d_Vec4ub::*)(const Standard_Byte)) &Graphic3d_Vec4ub::Multiply, "Compute per-component multiplication.", py::arg("theFactor"));
-	cls_Graphic3d_Vec4ub.def("__imul__", (Graphic3d_Vec4ub & (Graphic3d_Vec4ub::*)(const Standard_Byte)) &Graphic3d_Vec4ub::operator*=, "Compute per-component multiplication.", py::arg("theFactor"));
-	cls_Graphic3d_Vec4ub.def("__mul__", (Graphic3d_Vec4ub (Graphic3d_Vec4ub::*)(const Standard_Byte) const ) &Graphic3d_Vec4ub::operator*, py::is_operator(), "Compute per-component multiplication.", py::arg("theFactor"));
-	cls_Graphic3d_Vec4ub.def("Multiplied", (Graphic3d_Vec4ub (Graphic3d_Vec4ub::*)(const Standard_Byte) const ) &Graphic3d_Vec4ub::Multiplied, "Compute per-component multiplication.", py::arg("theFactor"));
-	cls_Graphic3d_Vec4ub.def("cwiseMin", (Graphic3d_Vec4ub (Graphic3d_Vec4ub::*)(const Graphic3d_Vec4ub &) const ) &Graphic3d_Vec4ub::cwiseMin, "Compute component-wise minimum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec4ub.def("cwiseMax", (Graphic3d_Vec4ub (Graphic3d_Vec4ub::*)(const Graphic3d_Vec4ub &) const ) &Graphic3d_Vec4ub::cwiseMax, "Compute component-wise maximum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec4ub.def("cwiseAbs", (Graphic3d_Vec4ub (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::cwiseAbs, "Compute component-wise modulus of the vector.");
-	cls_Graphic3d_Vec4ub.def("maxComp", (Standard_Byte (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::maxComp, "Compute maximum component of the vector.");
-	cls_Graphic3d_Vec4ub.def("minComp", (Standard_Byte (Graphic3d_Vec4ub::*)() const ) &Graphic3d_Vec4ub::minComp, "Compute minimum component of the vector.");
-	cls_Graphic3d_Vec4ub.def("Dot", (Standard_Byte (Graphic3d_Vec4ub::*)(const Graphic3d_Vec4ub &) const ) &Graphic3d_Vec4ub::Dot, "Computes the dot product.", py::arg("theOther"));
-	cls_Graphic3d_Vec4ub.def("__itruediv__", (Graphic3d_Vec4ub & (Graphic3d_Vec4ub::*)(const Standard_Byte)) &Graphic3d_Vec4ub::operator/=, "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-	cls_Graphic3d_Vec4ub.def("__truediv__", (Graphic3d_Vec4ub (Graphic3d_Vec4ub::*)(const Standard_Byte)) &Graphic3d_Vec4ub::operator/, py::is_operator(), "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-
-	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vec4.hxx
-	py::class_<Graphic3d_Vec4b, std::unique_ptr<Graphic3d_Vec4b, Deleter<Graphic3d_Vec4b>>> cls_Graphic3d_Vec4b(mod, "Graphic3d_Vec4b", "Generic 4-components vector. To be used as RGBA color vector or XYZW 3D-point with special W-component for operations with projection / model view matrices. Use this class for 3D-points carefully because declared W-component may results in incorrect results if used without matrices.");
-	cls_Graphic3d_Vec4b.def(py::init<>());
-	cls_Graphic3d_Vec4b.def(py::init<const Standard_Character>(), py::arg("theValue"));
-	cls_Graphic3d_Vec4b.def(py::init<const Standard_Character, const Standard_Character, const Standard_Character, const Standard_Character>(), py::arg("theX"), py::arg("theY"), py::arg("theZ"), py::arg("theW"));
-	cls_Graphic3d_Vec4b.def(py::init<const NCollection_Vec2<Standard_Character> &>(), py::arg("theVec2"));
-	cls_Graphic3d_Vec4b.def(py::init<const NCollection_Vec3<Standard_Character> &>(), py::arg("theVec3"));
-	cls_Graphic3d_Vec4b.def(py::init<const NCollection_Vec3<Standard_Character> &, const Standard_Character>(), py::arg("theVec3"), py::arg("theAlpha"));
-	cls_Graphic3d_Vec4b.def_static("Length_", (int (*)()) &Graphic3d_Vec4b::Length, "Returns the number of components.");
-	cls_Graphic3d_Vec4b.def("SetValues", (void (Graphic3d_Vec4b::*)(const Standard_Character, const Standard_Character, const Standard_Character, const Standard_Character)) &Graphic3d_Vec4b::SetValues, "Assign new values to the vector.", py::arg("theX"), py::arg("theY"), py::arg("theZ"), py::arg("theW"));
-	cls_Graphic3d_Vec4b.def("x", (Standard_Character (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::x, "Alias to 1st component as X coordinate in XYZW.");
-	cls_Graphic3d_Vec4b.def("r", (Standard_Character (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::r, "Alias to 1st component as RED channel in RGBA.");
-	cls_Graphic3d_Vec4b.def("y", (Standard_Character (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::y, "Alias to 2nd component as Y coordinate in XYZW.");
-	cls_Graphic3d_Vec4b.def("g", (Standard_Character (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::g, "Alias to 2nd component as GREEN channel in RGBA.");
-	cls_Graphic3d_Vec4b.def("z", (Standard_Character (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::z, "Alias to 3rd component as Z coordinate in XYZW.");
-	cls_Graphic3d_Vec4b.def("b", (Standard_Character (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::b, "Alias to 3rd component as BLUE channel in RGBA.");
-	cls_Graphic3d_Vec4b.def("w", (Standard_Character (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::w, "Alias to 4th component as W coordinate in XYZW.");
-	cls_Graphic3d_Vec4b.def("a", (Standard_Character (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::a, "Alias to 4th component as ALPHA channel in RGBA.");
-	cls_Graphic3d_Vec4b.def("xy", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::xy, "None");
-	cls_Graphic3d_Vec4b.def("yx", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::yx, "None");
-	cls_Graphic3d_Vec4b.def("xz", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::xz, "None");
-	cls_Graphic3d_Vec4b.def("zx", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::zx, "None");
-	cls_Graphic3d_Vec4b.def("xw", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::xw, "None");
-	cls_Graphic3d_Vec4b.def("wx", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::wx, "None");
-	cls_Graphic3d_Vec4b.def("yz", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::yz, "None");
-	cls_Graphic3d_Vec4b.def("zy", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::zy, "None");
-	cls_Graphic3d_Vec4b.def("yw", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::yw, "None");
-	cls_Graphic3d_Vec4b.def("wy", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::wy, "None");
-	cls_Graphic3d_Vec4b.def("zw", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::zw, "None");
-	cls_Graphic3d_Vec4b.def("wz", (const NCollection_Vec2<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::wz, "None");
-	cls_Graphic3d_Vec4b.def("xyz", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::xyz, "None");
-	cls_Graphic3d_Vec4b.def("xzy", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::xzy, "None");
-	cls_Graphic3d_Vec4b.def("yxz", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::yxz, "None");
-	cls_Graphic3d_Vec4b.def("yzx", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::yzx, "None");
-	cls_Graphic3d_Vec4b.def("zyx", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::zyx, "None");
-	cls_Graphic3d_Vec4b.def("zxy", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::zxy, "None");
-	cls_Graphic3d_Vec4b.def("xyw", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::xyw, "None");
-	cls_Graphic3d_Vec4b.def("xwy", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::xwy, "None");
-	cls_Graphic3d_Vec4b.def("yxw", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::yxw, "None");
-	cls_Graphic3d_Vec4b.def("ywx", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::ywx, "None");
-	cls_Graphic3d_Vec4b.def("wyx", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::wyx, "None");
-	cls_Graphic3d_Vec4b.def("wxy", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::wxy, "None");
-	cls_Graphic3d_Vec4b.def("xzw", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::xzw, "None");
-	cls_Graphic3d_Vec4b.def("xwz", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::xwz, "None");
-	cls_Graphic3d_Vec4b.def("zxw", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::zxw, "None");
-	cls_Graphic3d_Vec4b.def("zwx", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::zwx, "None");
-	cls_Graphic3d_Vec4b.def("wzx", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::wzx, "None");
-	cls_Graphic3d_Vec4b.def("wxz", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::wxz, "None");
-	cls_Graphic3d_Vec4b.def("yzw", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::yzw, "None");
-	cls_Graphic3d_Vec4b.def("ywz", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::ywz, "None");
-	cls_Graphic3d_Vec4b.def("zyw", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::zyw, "None");
-	cls_Graphic3d_Vec4b.def("zwy", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::zwy, "None");
-	cls_Graphic3d_Vec4b.def("wzy", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::wzy, "None");
-	cls_Graphic3d_Vec4b.def("wyz", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::wyz, "None");
-	cls_Graphic3d_Vec4b.def("rgb", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::rgb, "None");
-	cls_Graphic3d_Vec4b.def("rbg", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::rbg, "None");
-	cls_Graphic3d_Vec4b.def("grb", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::grb, "None");
-	cls_Graphic3d_Vec4b.def("gbr", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::gbr, "None");
-	cls_Graphic3d_Vec4b.def("bgr", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::bgr, "None");
-	cls_Graphic3d_Vec4b.def("brg", (const NCollection_Vec3<Standard_Character> (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::brg, "None");
-	cls_Graphic3d_Vec4b.def("x", (Standard_Character & (Graphic3d_Vec4b::*)()) &Graphic3d_Vec4b::x, "Alias to 1st component as X coordinate in XYZW.");
-	cls_Graphic3d_Vec4b.def("r", (Standard_Character & (Graphic3d_Vec4b::*)()) &Graphic3d_Vec4b::r, "Alias to 1st component as RED channel in RGBA.");
-	cls_Graphic3d_Vec4b.def("y", (Standard_Character & (Graphic3d_Vec4b::*)()) &Graphic3d_Vec4b::y, "Alias to 2nd component as Y coordinate in XYZW.");
-	cls_Graphic3d_Vec4b.def("g", (Standard_Character & (Graphic3d_Vec4b::*)()) &Graphic3d_Vec4b::g, "Alias to 2nd component as GREEN channel in RGBA.");
-	cls_Graphic3d_Vec4b.def("z", (Standard_Character & (Graphic3d_Vec4b::*)()) &Graphic3d_Vec4b::z, "Alias to 3rd component as Z coordinate in XYZW.");
-	cls_Graphic3d_Vec4b.def("b", (Standard_Character & (Graphic3d_Vec4b::*)()) &Graphic3d_Vec4b::b, "Alias to 3rd component as BLUE channel in RGBA.");
-	cls_Graphic3d_Vec4b.def("w", (Standard_Character & (Graphic3d_Vec4b::*)()) &Graphic3d_Vec4b::w, "Alias to 4th component as W coordinate in XYZW.");
-	cls_Graphic3d_Vec4b.def("a", (Standard_Character & (Graphic3d_Vec4b::*)()) &Graphic3d_Vec4b::a, "Alias to 4th component as ALPHA channel in RGBA.");
-	cls_Graphic3d_Vec4b.def("xy", (NCollection_Vec2<Standard_Character> & (Graphic3d_Vec4b::*)()) &Graphic3d_Vec4b::xy, "Returns XY-components modifiable vector");
-	cls_Graphic3d_Vec4b.def("yz", (NCollection_Vec2<Standard_Character> & (Graphic3d_Vec4b::*)()) &Graphic3d_Vec4b::yz, "Returns YZ-components modifiable vector");
-	cls_Graphic3d_Vec4b.def("zw", (NCollection_Vec2<Standard_Character> & (Graphic3d_Vec4b::*)()) &Graphic3d_Vec4b::zw, "Returns YZ-components modifiable vector");
-	cls_Graphic3d_Vec4b.def("xyz", (NCollection_Vec3<Standard_Character> & (Graphic3d_Vec4b::*)()) &Graphic3d_Vec4b::xyz, "Returns XYZ-components modifiable vector");
-	cls_Graphic3d_Vec4b.def("yzw", (NCollection_Vec3<Standard_Character> & (Graphic3d_Vec4b::*)()) &Graphic3d_Vec4b::yzw, "Returns YZW-components modifiable vector");
-	cls_Graphic3d_Vec4b.def("IsEqual", (bool (Graphic3d_Vec4b::*)(const Graphic3d_Vec4b &) const ) &Graphic3d_Vec4b::IsEqual, "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec4b.def("__eq__", (bool (Graphic3d_Vec4b::*)(const Graphic3d_Vec4b &)) &Graphic3d_Vec4b::operator==, py::is_operator(), "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec4b.def("__eq__", (bool (Graphic3d_Vec4b::*)(const Graphic3d_Vec4b &) const ) &Graphic3d_Vec4b::operator==, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec4b.def("__ne__", (bool (Graphic3d_Vec4b::*)(const Graphic3d_Vec4b &)) &Graphic3d_Vec4b::operator!=, py::is_operator(), "Check this vector with another vector for non-equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec4b.def("__ne__", (bool (Graphic3d_Vec4b::*)(const Graphic3d_Vec4b &) const ) &Graphic3d_Vec4b::operator!=, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec4b.def("GetData", (const Standard_Character * (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::GetData, "Raw access to the data (for OpenGL exchange).");
-	cls_Graphic3d_Vec4b.def("ChangeData", (Standard_Character * (Graphic3d_Vec4b::*)()) &Graphic3d_Vec4b::ChangeData, "None");
-	cls_Graphic3d_Vec4b.def("__iadd__", (Graphic3d_Vec4b & (Graphic3d_Vec4b::*)(const Graphic3d_Vec4b &)) &Graphic3d_Vec4b::operator+=, "Compute per-component summary.", py::arg("theAdd"));
-	cls_Graphic3d_Vec4b.def("__sub__", (Graphic3d_Vec4b (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::operator-, py::is_operator(), "Unary -.");
-	cls_Graphic3d_Vec4b.def("__isub__", (Graphic3d_Vec4b & (Graphic3d_Vec4b::*)(const Graphic3d_Vec4b &)) &Graphic3d_Vec4b::operator-=, "Compute per-component subtraction.", py::arg("theDec"));
-	cls_Graphic3d_Vec4b.def("__imul__", (Graphic3d_Vec4b & (Graphic3d_Vec4b::*)(const Graphic3d_Vec4b &)) &Graphic3d_Vec4b::operator*=, "Compute per-component multiplication.", py::arg("theRight"));
-	cls_Graphic3d_Vec4b.def("Multiply", (void (Graphic3d_Vec4b::*)(const Standard_Character)) &Graphic3d_Vec4b::Multiply, "Compute per-component multiplication.", py::arg("theFactor"));
-	cls_Graphic3d_Vec4b.def("__imul__", (Graphic3d_Vec4b & (Graphic3d_Vec4b::*)(const Standard_Character)) &Graphic3d_Vec4b::operator*=, "Compute per-component multiplication.", py::arg("theFactor"));
-	cls_Graphic3d_Vec4b.def("__mul__", (Graphic3d_Vec4b (Graphic3d_Vec4b::*)(const Standard_Character) const ) &Graphic3d_Vec4b::operator*, py::is_operator(), "Compute per-component multiplication.", py::arg("theFactor"));
-	cls_Graphic3d_Vec4b.def("Multiplied", (Graphic3d_Vec4b (Graphic3d_Vec4b::*)(const Standard_Character) const ) &Graphic3d_Vec4b::Multiplied, "Compute per-component multiplication.", py::arg("theFactor"));
-	cls_Graphic3d_Vec4b.def("cwiseMin", (Graphic3d_Vec4b (Graphic3d_Vec4b::*)(const Graphic3d_Vec4b &) const ) &Graphic3d_Vec4b::cwiseMin, "Compute component-wise minimum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec4b.def("cwiseMax", (Graphic3d_Vec4b (Graphic3d_Vec4b::*)(const Graphic3d_Vec4b &) const ) &Graphic3d_Vec4b::cwiseMax, "Compute component-wise maximum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec4b.def("cwiseAbs", (Graphic3d_Vec4b (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::cwiseAbs, "Compute component-wise modulus of the vector.");
-	cls_Graphic3d_Vec4b.def("maxComp", (Standard_Character (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::maxComp, "Compute maximum component of the vector.");
-	cls_Graphic3d_Vec4b.def("minComp", (Standard_Character (Graphic3d_Vec4b::*)() const ) &Graphic3d_Vec4b::minComp, "Compute minimum component of the vector.");
-	cls_Graphic3d_Vec4b.def("Dot", (Standard_Character (Graphic3d_Vec4b::*)(const Graphic3d_Vec4b &) const ) &Graphic3d_Vec4b::Dot, "Computes the dot product.", py::arg("theOther"));
-	cls_Graphic3d_Vec4b.def("__itruediv__", (Graphic3d_Vec4b & (Graphic3d_Vec4b::*)(const Standard_Character)) &Graphic3d_Vec4b::operator/=, "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-	cls_Graphic3d_Vec4b.def("__truediv__", (Graphic3d_Vec4b (Graphic3d_Vec4b::*)(const Standard_Character)) &Graphic3d_Vec4b::operator/, py::is_operator(), "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-
-	*/
-
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec2.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec2f")) {
 		mod.attr("Graphic3d_Vec2") = other_mod.attr("BVH_Vec2f");
 	}
 
-	/* FIXME
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec2.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec2d")) {
 		mod.attr("Graphic3d_Vec2d") = other_mod.attr("BVH_Vec2d");
 	}
 
-	*/
-
-	/* FIXME
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec2.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec2i")) {
 		mod.attr("Graphic3d_Vec2i") = other_mod.attr("BVH_Vec2i");
 	}
 
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec2.hxx
+	bind_NCollection_Vec2<unsigned int>(mod, "Graphic3d_Vec2u");
 
-	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vec2.hxx
-	py::class_<Graphic3d_Vec2u, std::unique_ptr<Graphic3d_Vec2u, Deleter<Graphic3d_Vec2u>>> cls_Graphic3d_Vec2u(mod, "Graphic3d_Vec2u", "Defines the 2D-vector template. The main target for this class - to handle raw low-level arrays (from/to graphic driver etc.).");
-	cls_Graphic3d_Vec2u.def(py::init<>());
-	cls_Graphic3d_Vec2u.def(py::init<const unsigned int>(), py::arg("theXY"));
-	cls_Graphic3d_Vec2u.def(py::init<const unsigned int, const unsigned int>(), py::arg("theX"), py::arg("theY"));
-	cls_Graphic3d_Vec2u.def_static("Length_", (int (*)()) &Graphic3d_Vec2u::Length, "Returns the number of components.");
-	cls_Graphic3d_Vec2u.def("SetValues", (void (Graphic3d_Vec2u::*)(const unsigned int, const unsigned int)) &Graphic3d_Vec2u::SetValues, "Assign new values to the vector.", py::arg("theX"), py::arg("theY"));
-	cls_Graphic3d_Vec2u.def("x", (unsigned int (Graphic3d_Vec2u::*)() const ) &Graphic3d_Vec2u::x, "Alias to 1st component as X coordinate in XY.");
-	cls_Graphic3d_Vec2u.def("y", (unsigned int (Graphic3d_Vec2u::*)() const ) &Graphic3d_Vec2u::y, "Alias to 2nd component as Y coordinate in XY.");
-	cls_Graphic3d_Vec2u.def("xy", (const Graphic3d_Vec2u (Graphic3d_Vec2u::*)() const ) &Graphic3d_Vec2u::xy, "None");
-	cls_Graphic3d_Vec2u.def("yx", (const Graphic3d_Vec2u (Graphic3d_Vec2u::*)() const ) &Graphic3d_Vec2u::yx, "None");
-	cls_Graphic3d_Vec2u.def("x", (unsigned int & (Graphic3d_Vec2u::*)()) &Graphic3d_Vec2u::x, "Alias to 1st component as X coordinate in XY.");
-	cls_Graphic3d_Vec2u.def("y", (unsigned int & (Graphic3d_Vec2u::*)()) &Graphic3d_Vec2u::y, "Alias to 2nd component as Y coordinate in XY.");
-	cls_Graphic3d_Vec2u.def("IsEqual", (bool (Graphic3d_Vec2u::*)(const Graphic3d_Vec2u &) const ) &Graphic3d_Vec2u::IsEqual, "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec2u.def("__eq__", (bool (Graphic3d_Vec2u::*)(const Graphic3d_Vec2u &)) &Graphic3d_Vec2u::operator==, py::is_operator(), "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec2u.def("__eq__", (bool (Graphic3d_Vec2u::*)(const Graphic3d_Vec2u &) const ) &Graphic3d_Vec2u::operator==, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec2u.def("__ne__", (bool (Graphic3d_Vec2u::*)(const Graphic3d_Vec2u &)) &Graphic3d_Vec2u::operator!=, py::is_operator(), "Check this vector with another vector for non-equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec2u.def("__ne__", (bool (Graphic3d_Vec2u::*)(const Graphic3d_Vec2u &) const ) &Graphic3d_Vec2u::operator!=, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec2u.def("GetData", (const unsigned int * (Graphic3d_Vec2u::*)() const ) &Graphic3d_Vec2u::GetData, "Raw access to the data (for OpenGL exchange).");
-	cls_Graphic3d_Vec2u.def("ChangeData", (unsigned int * (Graphic3d_Vec2u::*)()) &Graphic3d_Vec2u::ChangeData, "None");
-	cls_Graphic3d_Vec2u.def("__iadd__", (Graphic3d_Vec2u & (Graphic3d_Vec2u::*)(const Graphic3d_Vec2u &)) &Graphic3d_Vec2u::operator+=, "Compute per-component summary.", py::arg("theAdd"));
-	cls_Graphic3d_Vec2u.def("__isub__", (Graphic3d_Vec2u & (Graphic3d_Vec2u::*)(const Graphic3d_Vec2u &)) &Graphic3d_Vec2u::operator-=, "Compute per-component subtraction.", py::arg("theDec"));
-	cls_Graphic3d_Vec2u.def("__sub__", (Graphic3d_Vec2u (Graphic3d_Vec2u::*)() const ) &Graphic3d_Vec2u::operator-, py::is_operator(), "Unary -.");
-	cls_Graphic3d_Vec2u.def("__imul__", (Graphic3d_Vec2u & (Graphic3d_Vec2u::*)(const Graphic3d_Vec2u &)) &Graphic3d_Vec2u::operator*=, "Compute per-component multiplication.", py::arg("theRight"));
-	cls_Graphic3d_Vec2u.def("Multiply", (void (Graphic3d_Vec2u::*)(const unsigned int)) &Graphic3d_Vec2u::Multiply, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec2u.def("Multiplied", (Graphic3d_Vec2u (Graphic3d_Vec2u::*)(const unsigned int) const ) &Graphic3d_Vec2u::Multiplied, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec2u.def("cwiseMin", (Graphic3d_Vec2u (Graphic3d_Vec2u::*)(const Graphic3d_Vec2u &) const ) &Graphic3d_Vec2u::cwiseMin, "Compute component-wise minimum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec2u.def("cwiseMax", (Graphic3d_Vec2u (Graphic3d_Vec2u::*)(const Graphic3d_Vec2u &) const ) &Graphic3d_Vec2u::cwiseMax, "Compute component-wise maximum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec2u.def("cwiseAbs", (Graphic3d_Vec2u (Graphic3d_Vec2u::*)() const ) &Graphic3d_Vec2u::cwiseAbs, "Compute component-wise modulus of the vector.");
-	cls_Graphic3d_Vec2u.def("maxComp", (unsigned int (Graphic3d_Vec2u::*)() const ) &Graphic3d_Vec2u::maxComp, "Compute maximum component of the vector.");
-	cls_Graphic3d_Vec2u.def("minComp", (unsigned int (Graphic3d_Vec2u::*)() const ) &Graphic3d_Vec2u::minComp, "Compute minimum component of the vector.");
-	cls_Graphic3d_Vec2u.def("__imul__", (Graphic3d_Vec2u & (Graphic3d_Vec2u::*)(const unsigned int)) &Graphic3d_Vec2u::operator*=, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec2u.def("__itruediv__", (Graphic3d_Vec2u & (Graphic3d_Vec2u::*)(const unsigned int)) &Graphic3d_Vec2u::operator/=, "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-	cls_Graphic3d_Vec2u.def("__mul__", (Graphic3d_Vec2u (Graphic3d_Vec2u::*)(const unsigned int) const ) &Graphic3d_Vec2u::operator*, py::is_operator(), "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec2u.def("__truediv__", (Graphic3d_Vec2u (Graphic3d_Vec2u::*)(const unsigned int) const ) &Graphic3d_Vec2u::operator/, py::is_operator(), "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-	cls_Graphic3d_Vec2u.def("Dot", (unsigned int (Graphic3d_Vec2u::*)(const Graphic3d_Vec2u &) const ) &Graphic3d_Vec2u::Dot, "Computes the dot product.", py::arg("theOther"));
-	cls_Graphic3d_Vec2u.def("Modulus", (unsigned int (Graphic3d_Vec2u::*)() const ) &Graphic3d_Vec2u::Modulus, "Computes the vector modulus (magnitude, length).");
-	cls_Graphic3d_Vec2u.def("SquareModulus", (unsigned int (Graphic3d_Vec2u::*)() const ) &Graphic3d_Vec2u::SquareModulus, "Computes the square of vector modulus (magnitude, length). This method may be used for performance tricks.");
-	cls_Graphic3d_Vec2u.def_static("DX_", (Graphic3d_Vec2u (*)()) &Graphic3d_Vec2u::DX, "Constuct DX unit vector.");
-	cls_Graphic3d_Vec2u.def_static("DY_", (Graphic3d_Vec2u (*)()) &Graphic3d_Vec2u::DY, "Constuct DY unit vector.");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec2.hxx
+	bind_NCollection_Vec2<unsigned char>(mod, "Graphic3d_Vec2ub");
 
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Vec2.hxx
+	bind_NCollection_Vec2<char>(mod, "Graphic3d_Vec2b");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vec2.hxx
-	py::class_<Graphic3d_Vec2ub, std::unique_ptr<Graphic3d_Vec2ub, Deleter<Graphic3d_Vec2ub>>> cls_Graphic3d_Vec2ub(mod, "Graphic3d_Vec2ub", "Defines the 2D-vector template. The main target for this class - to handle raw low-level arrays (from/to graphic driver etc.).");
-	cls_Graphic3d_Vec2ub.def(py::init<>());
-	cls_Graphic3d_Vec2ub.def(py::init<const Standard_Byte>(), py::arg("theXY"));
-	cls_Graphic3d_Vec2ub.def(py::init<const Standard_Byte, const Standard_Byte>(), py::arg("theX"), py::arg("theY"));
-	cls_Graphic3d_Vec2ub.def_static("Length_", (int (*)()) &Graphic3d_Vec2ub::Length, "Returns the number of components.");
-	cls_Graphic3d_Vec2ub.def("SetValues", (void (Graphic3d_Vec2ub::*)(const Standard_Byte, const Standard_Byte)) &Graphic3d_Vec2ub::SetValues, "Assign new values to the vector.", py::arg("theX"), py::arg("theY"));
-	cls_Graphic3d_Vec2ub.def("x", (Standard_Byte (Graphic3d_Vec2ub::*)() const ) &Graphic3d_Vec2ub::x, "Alias to 1st component as X coordinate in XY.");
-	cls_Graphic3d_Vec2ub.def("y", (Standard_Byte (Graphic3d_Vec2ub::*)() const ) &Graphic3d_Vec2ub::y, "Alias to 2nd component as Y coordinate in XY.");
-	cls_Graphic3d_Vec2ub.def("xy", (const Graphic3d_Vec2ub (Graphic3d_Vec2ub::*)() const ) &Graphic3d_Vec2ub::xy, "None");
-	cls_Graphic3d_Vec2ub.def("yx", (const Graphic3d_Vec2ub (Graphic3d_Vec2ub::*)() const ) &Graphic3d_Vec2ub::yx, "None");
-	cls_Graphic3d_Vec2ub.def("x", (Standard_Byte & (Graphic3d_Vec2ub::*)()) &Graphic3d_Vec2ub::x, "Alias to 1st component as X coordinate in XY.");
-	cls_Graphic3d_Vec2ub.def("y", (Standard_Byte & (Graphic3d_Vec2ub::*)()) &Graphic3d_Vec2ub::y, "Alias to 2nd component as Y coordinate in XY.");
-	cls_Graphic3d_Vec2ub.def("IsEqual", (bool (Graphic3d_Vec2ub::*)(const Graphic3d_Vec2ub &) const ) &Graphic3d_Vec2ub::IsEqual, "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec2ub.def("__eq__", (bool (Graphic3d_Vec2ub::*)(const Graphic3d_Vec2ub &)) &Graphic3d_Vec2ub::operator==, py::is_operator(), "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec2ub.def("__eq__", (bool (Graphic3d_Vec2ub::*)(const Graphic3d_Vec2ub &) const ) &Graphic3d_Vec2ub::operator==, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec2ub.def("__ne__", (bool (Graphic3d_Vec2ub::*)(const Graphic3d_Vec2ub &)) &Graphic3d_Vec2ub::operator!=, py::is_operator(), "Check this vector with another vector for non-equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec2ub.def("__ne__", (bool (Graphic3d_Vec2ub::*)(const Graphic3d_Vec2ub &) const ) &Graphic3d_Vec2ub::operator!=, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec2ub.def("GetData", (const Standard_Byte * (Graphic3d_Vec2ub::*)() const ) &Graphic3d_Vec2ub::GetData, "Raw access to the data (for OpenGL exchange).");
-	cls_Graphic3d_Vec2ub.def("ChangeData", (Standard_Byte * (Graphic3d_Vec2ub::*)()) &Graphic3d_Vec2ub::ChangeData, "None");
-	cls_Graphic3d_Vec2ub.def("__iadd__", (Graphic3d_Vec2ub & (Graphic3d_Vec2ub::*)(const Graphic3d_Vec2ub &)) &Graphic3d_Vec2ub::operator+=, "Compute per-component summary.", py::arg("theAdd"));
-	cls_Graphic3d_Vec2ub.def("__isub__", (Graphic3d_Vec2ub & (Graphic3d_Vec2ub::*)(const Graphic3d_Vec2ub &)) &Graphic3d_Vec2ub::operator-=, "Compute per-component subtraction.", py::arg("theDec"));
-	cls_Graphic3d_Vec2ub.def("__sub__", (Graphic3d_Vec2ub (Graphic3d_Vec2ub::*)() const ) &Graphic3d_Vec2ub::operator-, py::is_operator(), "Unary -.");
-	cls_Graphic3d_Vec2ub.def("__imul__", (Graphic3d_Vec2ub & (Graphic3d_Vec2ub::*)(const Graphic3d_Vec2ub &)) &Graphic3d_Vec2ub::operator*=, "Compute per-component multiplication.", py::arg("theRight"));
-	cls_Graphic3d_Vec2ub.def("Multiply", (void (Graphic3d_Vec2ub::*)(const Standard_Byte)) &Graphic3d_Vec2ub::Multiply, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec2ub.def("Multiplied", (Graphic3d_Vec2ub (Graphic3d_Vec2ub::*)(const Standard_Byte) const ) &Graphic3d_Vec2ub::Multiplied, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec2ub.def("cwiseMin", (Graphic3d_Vec2ub (Graphic3d_Vec2ub::*)(const Graphic3d_Vec2ub &) const ) &Graphic3d_Vec2ub::cwiseMin, "Compute component-wise minimum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec2ub.def("cwiseMax", (Graphic3d_Vec2ub (Graphic3d_Vec2ub::*)(const Graphic3d_Vec2ub &) const ) &Graphic3d_Vec2ub::cwiseMax, "Compute component-wise maximum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec2ub.def("cwiseAbs", (Graphic3d_Vec2ub (Graphic3d_Vec2ub::*)() const ) &Graphic3d_Vec2ub::cwiseAbs, "Compute component-wise modulus of the vector.");
-	cls_Graphic3d_Vec2ub.def("maxComp", (Standard_Byte (Graphic3d_Vec2ub::*)() const ) &Graphic3d_Vec2ub::maxComp, "Compute maximum component of the vector.");
-	cls_Graphic3d_Vec2ub.def("minComp", (Standard_Byte (Graphic3d_Vec2ub::*)() const ) &Graphic3d_Vec2ub::minComp, "Compute minimum component of the vector.");
-	cls_Graphic3d_Vec2ub.def("__imul__", (Graphic3d_Vec2ub & (Graphic3d_Vec2ub::*)(const Standard_Byte)) &Graphic3d_Vec2ub::operator*=, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec2ub.def("__itruediv__", (Graphic3d_Vec2ub & (Graphic3d_Vec2ub::*)(const Standard_Byte)) &Graphic3d_Vec2ub::operator/=, "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-	cls_Graphic3d_Vec2ub.def("__mul__", (Graphic3d_Vec2ub (Graphic3d_Vec2ub::*)(const Standard_Byte) const ) &Graphic3d_Vec2ub::operator*, py::is_operator(), "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec2ub.def("__truediv__", (Graphic3d_Vec2ub (Graphic3d_Vec2ub::*)(const Standard_Byte) const ) &Graphic3d_Vec2ub::operator/, py::is_operator(), "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-	cls_Graphic3d_Vec2ub.def("Dot", (Standard_Byte (Graphic3d_Vec2ub::*)(const Graphic3d_Vec2ub &) const ) &Graphic3d_Vec2ub::Dot, "Computes the dot product.", py::arg("theOther"));
-	cls_Graphic3d_Vec2ub.def("Modulus", (Standard_Byte (Graphic3d_Vec2ub::*)() const ) &Graphic3d_Vec2ub::Modulus, "Computes the vector modulus (magnitude, length).");
-	cls_Graphic3d_Vec2ub.def("SquareModulus", (Standard_Byte (Graphic3d_Vec2ub::*)() const ) &Graphic3d_Vec2ub::SquareModulus, "Computes the square of vector modulus (magnitude, length). This method may be used for performance tricks.");
-	cls_Graphic3d_Vec2ub.def_static("DX_", (Graphic3d_Vec2ub (*)()) &Graphic3d_Vec2ub::DX, "Constuct DX unit vector.");
-	cls_Graphic3d_Vec2ub.def_static("DY_", (Graphic3d_Vec2ub (*)()) &Graphic3d_Vec2ub::DY, "Constuct DY unit vector.");
-
-	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vec2.hxx
-	py::class_<Graphic3d_Vec2b, std::unique_ptr<Graphic3d_Vec2b, Deleter<Graphic3d_Vec2b>>> cls_Graphic3d_Vec2b(mod, "Graphic3d_Vec2b", "Defines the 2D-vector template. The main target for this class - to handle raw low-level arrays (from/to graphic driver etc.).");
-	cls_Graphic3d_Vec2b.def(py::init<>());
-	cls_Graphic3d_Vec2b.def(py::init<const Standard_Character>(), py::arg("theXY"));
-	cls_Graphic3d_Vec2b.def(py::init<const Standard_Character, const Standard_Character>(), py::arg("theX"), py::arg("theY"));
-	cls_Graphic3d_Vec2b.def_static("Length_", (int (*)()) &Graphic3d_Vec2b::Length, "Returns the number of components.");
-	cls_Graphic3d_Vec2b.def("SetValues", (void (Graphic3d_Vec2b::*)(const Standard_Character, const Standard_Character)) &Graphic3d_Vec2b::SetValues, "Assign new values to the vector.", py::arg("theX"), py::arg("theY"));
-	cls_Graphic3d_Vec2b.def("x", (Standard_Character (Graphic3d_Vec2b::*)() const ) &Graphic3d_Vec2b::x, "Alias to 1st component as X coordinate in XY.");
-	cls_Graphic3d_Vec2b.def("y", (Standard_Character (Graphic3d_Vec2b::*)() const ) &Graphic3d_Vec2b::y, "Alias to 2nd component as Y coordinate in XY.");
-	cls_Graphic3d_Vec2b.def("xy", (const Graphic3d_Vec2b (Graphic3d_Vec2b::*)() const ) &Graphic3d_Vec2b::xy, "None");
-	cls_Graphic3d_Vec2b.def("yx", (const Graphic3d_Vec2b (Graphic3d_Vec2b::*)() const ) &Graphic3d_Vec2b::yx, "None");
-	cls_Graphic3d_Vec2b.def("x", (Standard_Character & (Graphic3d_Vec2b::*)()) &Graphic3d_Vec2b::x, "Alias to 1st component as X coordinate in XY.");
-	cls_Graphic3d_Vec2b.def("y", (Standard_Character & (Graphic3d_Vec2b::*)()) &Graphic3d_Vec2b::y, "Alias to 2nd component as Y coordinate in XY.");
-	cls_Graphic3d_Vec2b.def("IsEqual", (bool (Graphic3d_Vec2b::*)(const Graphic3d_Vec2b &) const ) &Graphic3d_Vec2b::IsEqual, "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec2b.def("__eq__", (bool (Graphic3d_Vec2b::*)(const Graphic3d_Vec2b &)) &Graphic3d_Vec2b::operator==, py::is_operator(), "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec2b.def("__eq__", (bool (Graphic3d_Vec2b::*)(const Graphic3d_Vec2b &) const ) &Graphic3d_Vec2b::operator==, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec2b.def("__ne__", (bool (Graphic3d_Vec2b::*)(const Graphic3d_Vec2b &)) &Graphic3d_Vec2b::operator!=, py::is_operator(), "Check this vector with another vector for non-equality (without tolerance!).", py::arg("theOther"));
-	cls_Graphic3d_Vec2b.def("__ne__", (bool (Graphic3d_Vec2b::*)(const Graphic3d_Vec2b &) const ) &Graphic3d_Vec2b::operator!=, py::is_operator(), "None", py::arg("theOther"));
-	cls_Graphic3d_Vec2b.def("GetData", (const Standard_Character * (Graphic3d_Vec2b::*)() const ) &Graphic3d_Vec2b::GetData, "Raw access to the data (for OpenGL exchange).");
-	cls_Graphic3d_Vec2b.def("ChangeData", (Standard_Character * (Graphic3d_Vec2b::*)()) &Graphic3d_Vec2b::ChangeData, "None");
-	cls_Graphic3d_Vec2b.def("__iadd__", (Graphic3d_Vec2b & (Graphic3d_Vec2b::*)(const Graphic3d_Vec2b &)) &Graphic3d_Vec2b::operator+=, "Compute per-component summary.", py::arg("theAdd"));
-	cls_Graphic3d_Vec2b.def("__isub__", (Graphic3d_Vec2b & (Graphic3d_Vec2b::*)(const Graphic3d_Vec2b &)) &Graphic3d_Vec2b::operator-=, "Compute per-component subtraction.", py::arg("theDec"));
-	cls_Graphic3d_Vec2b.def("__sub__", (Graphic3d_Vec2b (Graphic3d_Vec2b::*)() const ) &Graphic3d_Vec2b::operator-, py::is_operator(), "Unary -.");
-	cls_Graphic3d_Vec2b.def("__imul__", (Graphic3d_Vec2b & (Graphic3d_Vec2b::*)(const Graphic3d_Vec2b &)) &Graphic3d_Vec2b::operator*=, "Compute per-component multiplication.", py::arg("theRight"));
-	cls_Graphic3d_Vec2b.def("Multiply", (void (Graphic3d_Vec2b::*)(const Standard_Character)) &Graphic3d_Vec2b::Multiply, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec2b.def("Multiplied", (Graphic3d_Vec2b (Graphic3d_Vec2b::*)(const Standard_Character) const ) &Graphic3d_Vec2b::Multiplied, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec2b.def("cwiseMin", (Graphic3d_Vec2b (Graphic3d_Vec2b::*)(const Graphic3d_Vec2b &) const ) &Graphic3d_Vec2b::cwiseMin, "Compute component-wise minimum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec2b.def("cwiseMax", (Graphic3d_Vec2b (Graphic3d_Vec2b::*)(const Graphic3d_Vec2b &) const ) &Graphic3d_Vec2b::cwiseMax, "Compute component-wise maximum of two vectors.", py::arg("theVec"));
-	cls_Graphic3d_Vec2b.def("cwiseAbs", (Graphic3d_Vec2b (Graphic3d_Vec2b::*)() const ) &Graphic3d_Vec2b::cwiseAbs, "Compute component-wise modulus of the vector.");
-	cls_Graphic3d_Vec2b.def("maxComp", (Standard_Character (Graphic3d_Vec2b::*)() const ) &Graphic3d_Vec2b::maxComp, "Compute maximum component of the vector.");
-	cls_Graphic3d_Vec2b.def("minComp", (Standard_Character (Graphic3d_Vec2b::*)() const ) &Graphic3d_Vec2b::minComp, "Compute minimum component of the vector.");
-	cls_Graphic3d_Vec2b.def("__imul__", (Graphic3d_Vec2b & (Graphic3d_Vec2b::*)(const Standard_Character)) &Graphic3d_Vec2b::operator*=, "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec2b.def("__itruediv__", (Graphic3d_Vec2b & (Graphic3d_Vec2b::*)(const Standard_Character)) &Graphic3d_Vec2b::operator/=, "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-	cls_Graphic3d_Vec2b.def("__mul__", (Graphic3d_Vec2b (Graphic3d_Vec2b::*)(const Standard_Character) const ) &Graphic3d_Vec2b::operator*, py::is_operator(), "Compute per-component multiplication by scale factor.", py::arg("theFactor"));
-	cls_Graphic3d_Vec2b.def("__truediv__", (Graphic3d_Vec2b (Graphic3d_Vec2b::*)(const Standard_Character) const ) &Graphic3d_Vec2b::operator/, py::is_operator(), "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-	cls_Graphic3d_Vec2b.def("Dot", (Standard_Character (Graphic3d_Vec2b::*)(const Graphic3d_Vec2b &) const ) &Graphic3d_Vec2b::Dot, "Computes the dot product.", py::arg("theOther"));
-	cls_Graphic3d_Vec2b.def("Modulus", (Standard_Character (Graphic3d_Vec2b::*)() const ) &Graphic3d_Vec2b::Modulus, "Computes the vector modulus (magnitude, length).");
-	cls_Graphic3d_Vec2b.def("SquareModulus", (Standard_Character (Graphic3d_Vec2b::*)() const ) &Graphic3d_Vec2b::SquareModulus, "Computes the square of vector modulus (magnitude, length). This method may be used for performance tricks.");
-	cls_Graphic3d_Vec2b.def_static("DX_", (Graphic3d_Vec2b (*)()) &Graphic3d_Vec2b::DX, "Constuct DX unit vector.");
-	cls_Graphic3d_Vec2b.def_static("DY_", (Graphic3d_Vec2b (*)()) &Graphic3d_Vec2b::DY, "Constuct DY unit vector.");
-
-	*/
-
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Mat4.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Mat4f")) {
 		mod.attr("Graphic3d_Mat4") = other_mod.attr("BVH_Mat4f");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Mat4d.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Mat4d")) {
 		mod.attr("Graphic3d_Mat4d") = other_mod.attr("BVH_Mat4d");
 	}
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_ShaderVariable.hxx
-	py::class_<Graphic3d_UniformInt, std::unique_ptr<Graphic3d_UniformInt, Deleter<Graphic3d_UniformInt>>, Graphic3d_ValueInterface> cls_Graphic3d_UniformInt(mod, "Graphic3d_UniformInt", "Describes specific value of custom uniform variable.");
-	cls_Graphic3d_UniformInt.def(py::init<const Standard_Integer &>(), py::arg("theValue"));
-	cls_Graphic3d_UniformInt.def("TypeID", (Standard_Size (Graphic3d_UniformInt::*)() const ) &Graphic3d_UniformInt::TypeID, "Returns unique identifier of value type.");
+	bind_Graphic3d_UniformValue<int>(mod, "Graphic3d_UniformInt");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_ShaderVariable.hxx
-	py::class_<Graphic3d_UniformVec2i, std::unique_ptr<Graphic3d_UniformVec2i, Deleter<Graphic3d_UniformVec2i>>, Graphic3d_ValueInterface> cls_Graphic3d_UniformVec2i(mod, "Graphic3d_UniformVec2i", "Describes specific value of custom uniform variable.");
-	cls_Graphic3d_UniformVec2i.def(py::init<const Graphic3d_Vec2i &>(), py::arg("theValue"));
-	cls_Graphic3d_UniformVec2i.def("TypeID", (Standard_Size (Graphic3d_UniformVec2i::*)() const ) &Graphic3d_UniformVec2i::TypeID, "Returns unique identifier of value type.");
+	bind_Graphic3d_UniformValue<NCollection_Vec2<int> >(mod, "Graphic3d_UniformVec2i");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_ShaderVariable.hxx
-	py::class_<Graphic3d_UniformVec3i, std::unique_ptr<Graphic3d_UniformVec3i, Deleter<Graphic3d_UniformVec3i>>, Graphic3d_ValueInterface> cls_Graphic3d_UniformVec3i(mod, "Graphic3d_UniformVec3i", "Describes specific value of custom uniform variable.");
-	cls_Graphic3d_UniformVec3i.def(py::init<const Graphic3d_Vec3i &>(), py::arg("theValue"));
-	cls_Graphic3d_UniformVec3i.def("TypeID", (Standard_Size (Graphic3d_UniformVec3i::*)() const ) &Graphic3d_UniformVec3i::TypeID, "Returns unique identifier of value type.");
+	bind_Graphic3d_UniformValue<NCollection_Vec3<int> >(mod, "Graphic3d_UniformVec3i");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_ShaderVariable.hxx
-	py::class_<Graphic3d_UniformVec4i, std::unique_ptr<Graphic3d_UniformVec4i, Deleter<Graphic3d_UniformVec4i>>, Graphic3d_ValueInterface> cls_Graphic3d_UniformVec4i(mod, "Graphic3d_UniformVec4i", "Describes specific value of custom uniform variable.");
-	cls_Graphic3d_UniformVec4i.def(py::init<const Graphic3d_Vec4i &>(), py::arg("theValue"));
-	cls_Graphic3d_UniformVec4i.def("TypeID", (Standard_Size (Graphic3d_UniformVec4i::*)() const ) &Graphic3d_UniformVec4i::TypeID, "Returns unique identifier of value type.");
+	bind_Graphic3d_UniformValue<NCollection_Vec4<int> >(mod, "Graphic3d_UniformVec4i");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_ShaderVariable.hxx
-	py::class_<Graphic3d_UniformFloat, std::unique_ptr<Graphic3d_UniformFloat, Deleter<Graphic3d_UniformFloat>>, Graphic3d_ValueInterface> cls_Graphic3d_UniformFloat(mod, "Graphic3d_UniformFloat", "Describes specific value of custom uniform variable.");
-	cls_Graphic3d_UniformFloat.def(py::init<const Standard_ShortReal &>(), py::arg("theValue"));
-	cls_Graphic3d_UniformFloat.def("TypeID", (Standard_Size (Graphic3d_UniformFloat::*)() const ) &Graphic3d_UniformFloat::TypeID, "Returns unique identifier of value type.");
+	bind_Graphic3d_UniformValue<float>(mod, "Graphic3d_UniformFloat");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_ShaderVariable.hxx
-	py::class_<Graphic3d_UniformVec2, std::unique_ptr<Graphic3d_UniformVec2, Deleter<Graphic3d_UniformVec2>>, Graphic3d_ValueInterface> cls_Graphic3d_UniformVec2(mod, "Graphic3d_UniformVec2", "Describes specific value of custom uniform variable.");
-	cls_Graphic3d_UniformVec2.def(py::init<const Graphic3d_Vec2 &>(), py::arg("theValue"));
-	cls_Graphic3d_UniformVec2.def("TypeID", (Standard_Size (Graphic3d_UniformVec2::*)() const ) &Graphic3d_UniformVec2::TypeID, "Returns unique identifier of value type.");
+	bind_Graphic3d_UniformValue<NCollection_Vec2<float> >(mod, "Graphic3d_UniformVec2");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_ShaderVariable.hxx
-	py::class_<Graphic3d_UniformVec3, std::unique_ptr<Graphic3d_UniformVec3, Deleter<Graphic3d_UniformVec3>>, Graphic3d_ValueInterface> cls_Graphic3d_UniformVec3(mod, "Graphic3d_UniformVec3", "Describes specific value of custom uniform variable.");
-	cls_Graphic3d_UniformVec3.def(py::init<const Graphic3d_Vec3 &>(), py::arg("theValue"));
-	cls_Graphic3d_UniformVec3.def("TypeID", (Standard_Size (Graphic3d_UniformVec3::*)() const ) &Graphic3d_UniformVec3::TypeID, "Returns unique identifier of value type.");
+	bind_Graphic3d_UniformValue<NCollection_Vec3<float> >(mod, "Graphic3d_UniformVec3");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_ShaderVariable.hxx
-	py::class_<Graphic3d_UniformVec4, std::unique_ptr<Graphic3d_UniformVec4, Deleter<Graphic3d_UniformVec4>>, Graphic3d_ValueInterface> cls_Graphic3d_UniformVec4(mod, "Graphic3d_UniformVec4", "Describes specific value of custom uniform variable.");
-	cls_Graphic3d_UniformVec4.def(py::init<const Graphic3d_Vec4 &>(), py::arg("theValue"));
-	cls_Graphic3d_UniformVec4.def("TypeID", (Standard_Size (Graphic3d_UniformVec4::*)() const ) &Graphic3d_UniformVec4::TypeID, "Returns unique identifier of value type.");
+	bind_Graphic3d_UniformValue<NCollection_Vec4<float> >(mod, "Graphic3d_UniformVec4");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Graphic3d_ShaderObjectList, std::unique_ptr<Graphic3d_ShaderObjectList, Deleter<Graphic3d_ShaderObjectList>>, NCollection_BaseSequence> cls_Graphic3d_ShaderObjectList(mod, "Graphic3d_ShaderObjectList", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Graphic3d_ShaderObjectList.def(py::init<>());
-	cls_Graphic3d_ShaderObjectList.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Graphic3d_ShaderObjectList.def(py::init([] (const Graphic3d_ShaderObjectList &other) {return new Graphic3d_ShaderObjectList(other);}), "Copy constructor", py::arg("other"));
-	cls_Graphic3d_ShaderObjectList.def("begin", (Graphic3d_ShaderObjectList::iterator (Graphic3d_ShaderObjectList::*)() const ) &Graphic3d_ShaderObjectList::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Graphic3d_ShaderObjectList.def("end", (Graphic3d_ShaderObjectList::iterator (Graphic3d_ShaderObjectList::*)() const ) &Graphic3d_ShaderObjectList::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Graphic3d_ShaderObjectList.def("cbegin", (Graphic3d_ShaderObjectList::const_iterator (Graphic3d_ShaderObjectList::*)() const ) &Graphic3d_ShaderObjectList::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Graphic3d_ShaderObjectList.def("cend", (Graphic3d_ShaderObjectList::const_iterator (Graphic3d_ShaderObjectList::*)() const ) &Graphic3d_ShaderObjectList::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Graphic3d_ShaderObjectList.def("Size", (Standard_Integer (Graphic3d_ShaderObjectList::*)() const ) &Graphic3d_ShaderObjectList::Size, "Number of items");
-	cls_Graphic3d_ShaderObjectList.def("Length", (Standard_Integer (Graphic3d_ShaderObjectList::*)() const ) &Graphic3d_ShaderObjectList::Length, "Number of items");
-	cls_Graphic3d_ShaderObjectList.def("Lower", (Standard_Integer (Graphic3d_ShaderObjectList::*)() const ) &Graphic3d_ShaderObjectList::Lower, "Method for consistency with other collections.");
-	cls_Graphic3d_ShaderObjectList.def("Upper", (Standard_Integer (Graphic3d_ShaderObjectList::*)() const ) &Graphic3d_ShaderObjectList::Upper, "Method for consistency with other collections.");
-	cls_Graphic3d_ShaderObjectList.def("IsEmpty", (Standard_Boolean (Graphic3d_ShaderObjectList::*)() const ) &Graphic3d_ShaderObjectList::IsEmpty, "Empty query");
-	cls_Graphic3d_ShaderObjectList.def("Reverse", (void (Graphic3d_ShaderObjectList::*)()) &Graphic3d_ShaderObjectList::Reverse, "Reverse sequence");
-	cls_Graphic3d_ShaderObjectList.def("Exchange", (void (Graphic3d_ShaderObjectList::*)(const Standard_Integer, const Standard_Integer)) &Graphic3d_ShaderObjectList::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Graphic3d_ShaderObjectList.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Graphic3d_ShaderObjectList::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Graphic3d_ShaderObjectList.def("Clear", [](Graphic3d_ShaderObjectList &self) -> void { return self.Clear(); });
-	cls_Graphic3d_ShaderObjectList.def("Clear", (void (Graphic3d_ShaderObjectList::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Graphic3d_ShaderObjectList::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Graphic3d_ShaderObjectList.def("Assign", (Graphic3d_ShaderObjectList & (Graphic3d_ShaderObjectList::*)(const Graphic3d_ShaderObjectList &)) &Graphic3d_ShaderObjectList::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Graphic3d_ShaderObjectList.def("assign", (Graphic3d_ShaderObjectList & (Graphic3d_ShaderObjectList::*)(const Graphic3d_ShaderObjectList &)) &Graphic3d_ShaderObjectList::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Graphic3d_ShaderObjectList.def("Remove", (void (Graphic3d_ShaderObjectList::*)(Graphic3d_ShaderObjectList::Iterator &)) &Graphic3d_ShaderObjectList::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Graphic3d_ShaderObjectList.def("Remove", (void (Graphic3d_ShaderObjectList::*)(const Standard_Integer)) &Graphic3d_ShaderObjectList::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Graphic3d_ShaderObjectList.def("Remove", (void (Graphic3d_ShaderObjectList::*)(const Standard_Integer, const Standard_Integer)) &Graphic3d_ShaderObjectList::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Graphic3d_ShaderObjectList.def("Append", (void (Graphic3d_ShaderObjectList::*)(const opencascade::handle<Graphic3d_ShaderObject> &)) &Graphic3d_ShaderObjectList::Append, "Append one item", py::arg("theItem"));
-	cls_Graphic3d_ShaderObjectList.def("Append", (void (Graphic3d_ShaderObjectList::*)(Graphic3d_ShaderObjectList &)) &Graphic3d_ShaderObjectList::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Graphic3d_ShaderObjectList.def("Prepend", (void (Graphic3d_ShaderObjectList::*)(const opencascade::handle<Graphic3d_ShaderObject> &)) &Graphic3d_ShaderObjectList::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Graphic3d_ShaderObjectList.def("Prepend", (void (Graphic3d_ShaderObjectList::*)(Graphic3d_ShaderObjectList &)) &Graphic3d_ShaderObjectList::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Graphic3d_ShaderObjectList.def("InsertBefore", (void (Graphic3d_ShaderObjectList::*)(const Standard_Integer, const opencascade::handle<Graphic3d_ShaderObject> &)) &Graphic3d_ShaderObjectList::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Graphic3d_ShaderObjectList.def("InsertBefore", (void (Graphic3d_ShaderObjectList::*)(const Standard_Integer, Graphic3d_ShaderObjectList &)) &Graphic3d_ShaderObjectList::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Graphic3d_ShaderObjectList.def("InsertAfter", (void (Graphic3d_ShaderObjectList::*)(Graphic3d_ShaderObjectList::Iterator &, const opencascade::handle<Graphic3d_ShaderObject> &)) &Graphic3d_ShaderObjectList::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Graphic3d_ShaderObjectList.def("InsertAfter", (void (Graphic3d_ShaderObjectList::*)(const Standard_Integer, Graphic3d_ShaderObjectList &)) &Graphic3d_ShaderObjectList::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Graphic3d_ShaderObjectList.def("InsertAfter", (void (Graphic3d_ShaderObjectList::*)(const Standard_Integer, const opencascade::handle<Graphic3d_ShaderObject> &)) &Graphic3d_ShaderObjectList::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Graphic3d_ShaderObjectList.def("Split", (void (Graphic3d_ShaderObjectList::*)(const Standard_Integer, Graphic3d_ShaderObjectList &)) &Graphic3d_ShaderObjectList::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Graphic3d_ShaderObjectList.def("First", (const opencascade::handle<Graphic3d_ShaderObject> & (Graphic3d_ShaderObjectList::*)() const ) &Graphic3d_ShaderObjectList::First, "First item access");
-	cls_Graphic3d_ShaderObjectList.def("ChangeFirst", (opencascade::handle<Graphic3d_ShaderObject> & (Graphic3d_ShaderObjectList::*)()) &Graphic3d_ShaderObjectList::ChangeFirst, "First item access");
-	cls_Graphic3d_ShaderObjectList.def("Last", (const opencascade::handle<Graphic3d_ShaderObject> & (Graphic3d_ShaderObjectList::*)() const ) &Graphic3d_ShaderObjectList::Last, "Last item access");
-	cls_Graphic3d_ShaderObjectList.def("ChangeLast", (opencascade::handle<Graphic3d_ShaderObject> & (Graphic3d_ShaderObjectList::*)()) &Graphic3d_ShaderObjectList::ChangeLast, "Last item access");
-	cls_Graphic3d_ShaderObjectList.def("Value", (const opencascade::handle<Graphic3d_ShaderObject> & (Graphic3d_ShaderObjectList::*)(const Standard_Integer) const ) &Graphic3d_ShaderObjectList::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Graphic3d_ShaderObjectList.def("__call__", (const opencascade::handle<Graphic3d_ShaderObject> & (Graphic3d_ShaderObjectList::*)(const Standard_Integer) const ) &Graphic3d_ShaderObjectList::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Graphic3d_ShaderObjectList.def("ChangeValue", (opencascade::handle<Graphic3d_ShaderObject> & (Graphic3d_ShaderObjectList::*)(const Standard_Integer)) &Graphic3d_ShaderObjectList::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Graphic3d_ShaderObjectList.def("__call__", (opencascade::handle<Graphic3d_ShaderObject> & (Graphic3d_ShaderObjectList::*)(const Standard_Integer)) &Graphic3d_ShaderObjectList::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Graphic3d_ShaderObjectList.def("SetValue", (void (Graphic3d_ShaderObjectList::*)(const Standard_Integer, const opencascade::handle<Graphic3d_ShaderObject> &)) &Graphic3d_ShaderObjectList::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Graphic3d_ShaderObjectList.def("__iter__", [](const Graphic3d_ShaderObjectList &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_ShaderProgram.hxx
+	bind_NCollection_Sequence<opencascade::handle<Graphic3d_ShaderObject> >(mod, "Graphic3d_ShaderObjectList");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Graphic3d_ShaderVariableList, std::unique_ptr<Graphic3d_ShaderVariableList, Deleter<Graphic3d_ShaderVariableList>>, NCollection_BaseSequence> cls_Graphic3d_ShaderVariableList(mod, "Graphic3d_ShaderVariableList", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Graphic3d_ShaderVariableList.def(py::init<>());
-	cls_Graphic3d_ShaderVariableList.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Graphic3d_ShaderVariableList.def(py::init([] (const Graphic3d_ShaderVariableList &other) {return new Graphic3d_ShaderVariableList(other);}), "Copy constructor", py::arg("other"));
-	cls_Graphic3d_ShaderVariableList.def("begin", (Graphic3d_ShaderVariableList::iterator (Graphic3d_ShaderVariableList::*)() const ) &Graphic3d_ShaderVariableList::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Graphic3d_ShaderVariableList.def("end", (Graphic3d_ShaderVariableList::iterator (Graphic3d_ShaderVariableList::*)() const ) &Graphic3d_ShaderVariableList::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Graphic3d_ShaderVariableList.def("cbegin", (Graphic3d_ShaderVariableList::const_iterator (Graphic3d_ShaderVariableList::*)() const ) &Graphic3d_ShaderVariableList::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Graphic3d_ShaderVariableList.def("cend", (Graphic3d_ShaderVariableList::const_iterator (Graphic3d_ShaderVariableList::*)() const ) &Graphic3d_ShaderVariableList::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Graphic3d_ShaderVariableList.def("Size", (Standard_Integer (Graphic3d_ShaderVariableList::*)() const ) &Graphic3d_ShaderVariableList::Size, "Number of items");
-	cls_Graphic3d_ShaderVariableList.def("Length", (Standard_Integer (Graphic3d_ShaderVariableList::*)() const ) &Graphic3d_ShaderVariableList::Length, "Number of items");
-	cls_Graphic3d_ShaderVariableList.def("Lower", (Standard_Integer (Graphic3d_ShaderVariableList::*)() const ) &Graphic3d_ShaderVariableList::Lower, "Method for consistency with other collections.");
-	cls_Graphic3d_ShaderVariableList.def("Upper", (Standard_Integer (Graphic3d_ShaderVariableList::*)() const ) &Graphic3d_ShaderVariableList::Upper, "Method for consistency with other collections.");
-	cls_Graphic3d_ShaderVariableList.def("IsEmpty", (Standard_Boolean (Graphic3d_ShaderVariableList::*)() const ) &Graphic3d_ShaderVariableList::IsEmpty, "Empty query");
-	cls_Graphic3d_ShaderVariableList.def("Reverse", (void (Graphic3d_ShaderVariableList::*)()) &Graphic3d_ShaderVariableList::Reverse, "Reverse sequence");
-	cls_Graphic3d_ShaderVariableList.def("Exchange", (void (Graphic3d_ShaderVariableList::*)(const Standard_Integer, const Standard_Integer)) &Graphic3d_ShaderVariableList::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Graphic3d_ShaderVariableList.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Graphic3d_ShaderVariableList::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Graphic3d_ShaderVariableList.def("Clear", [](Graphic3d_ShaderVariableList &self) -> void { return self.Clear(); });
-	cls_Graphic3d_ShaderVariableList.def("Clear", (void (Graphic3d_ShaderVariableList::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Graphic3d_ShaderVariableList::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Graphic3d_ShaderVariableList.def("Assign", (Graphic3d_ShaderVariableList & (Graphic3d_ShaderVariableList::*)(const Graphic3d_ShaderVariableList &)) &Graphic3d_ShaderVariableList::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Graphic3d_ShaderVariableList.def("assign", (Graphic3d_ShaderVariableList & (Graphic3d_ShaderVariableList::*)(const Graphic3d_ShaderVariableList &)) &Graphic3d_ShaderVariableList::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Graphic3d_ShaderVariableList.def("Remove", (void (Graphic3d_ShaderVariableList::*)(Graphic3d_ShaderVariableList::Iterator &)) &Graphic3d_ShaderVariableList::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Graphic3d_ShaderVariableList.def("Remove", (void (Graphic3d_ShaderVariableList::*)(const Standard_Integer)) &Graphic3d_ShaderVariableList::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Graphic3d_ShaderVariableList.def("Remove", (void (Graphic3d_ShaderVariableList::*)(const Standard_Integer, const Standard_Integer)) &Graphic3d_ShaderVariableList::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Graphic3d_ShaderVariableList.def("Append", (void (Graphic3d_ShaderVariableList::*)(const opencascade::handle<Graphic3d_ShaderVariable> &)) &Graphic3d_ShaderVariableList::Append, "Append one item", py::arg("theItem"));
-	cls_Graphic3d_ShaderVariableList.def("Append", (void (Graphic3d_ShaderVariableList::*)(Graphic3d_ShaderVariableList &)) &Graphic3d_ShaderVariableList::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Graphic3d_ShaderVariableList.def("Prepend", (void (Graphic3d_ShaderVariableList::*)(const opencascade::handle<Graphic3d_ShaderVariable> &)) &Graphic3d_ShaderVariableList::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Graphic3d_ShaderVariableList.def("Prepend", (void (Graphic3d_ShaderVariableList::*)(Graphic3d_ShaderVariableList &)) &Graphic3d_ShaderVariableList::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Graphic3d_ShaderVariableList.def("InsertBefore", (void (Graphic3d_ShaderVariableList::*)(const Standard_Integer, const opencascade::handle<Graphic3d_ShaderVariable> &)) &Graphic3d_ShaderVariableList::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Graphic3d_ShaderVariableList.def("InsertBefore", (void (Graphic3d_ShaderVariableList::*)(const Standard_Integer, Graphic3d_ShaderVariableList &)) &Graphic3d_ShaderVariableList::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Graphic3d_ShaderVariableList.def("InsertAfter", (void (Graphic3d_ShaderVariableList::*)(Graphic3d_ShaderVariableList::Iterator &, const opencascade::handle<Graphic3d_ShaderVariable> &)) &Graphic3d_ShaderVariableList::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Graphic3d_ShaderVariableList.def("InsertAfter", (void (Graphic3d_ShaderVariableList::*)(const Standard_Integer, Graphic3d_ShaderVariableList &)) &Graphic3d_ShaderVariableList::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Graphic3d_ShaderVariableList.def("InsertAfter", (void (Graphic3d_ShaderVariableList::*)(const Standard_Integer, const opencascade::handle<Graphic3d_ShaderVariable> &)) &Graphic3d_ShaderVariableList::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Graphic3d_ShaderVariableList.def("Split", (void (Graphic3d_ShaderVariableList::*)(const Standard_Integer, Graphic3d_ShaderVariableList &)) &Graphic3d_ShaderVariableList::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Graphic3d_ShaderVariableList.def("First", (const opencascade::handle<Graphic3d_ShaderVariable> & (Graphic3d_ShaderVariableList::*)() const ) &Graphic3d_ShaderVariableList::First, "First item access");
-	cls_Graphic3d_ShaderVariableList.def("ChangeFirst", (opencascade::handle<Graphic3d_ShaderVariable> & (Graphic3d_ShaderVariableList::*)()) &Graphic3d_ShaderVariableList::ChangeFirst, "First item access");
-	cls_Graphic3d_ShaderVariableList.def("Last", (const opencascade::handle<Graphic3d_ShaderVariable> & (Graphic3d_ShaderVariableList::*)() const ) &Graphic3d_ShaderVariableList::Last, "Last item access");
-	cls_Graphic3d_ShaderVariableList.def("ChangeLast", (opencascade::handle<Graphic3d_ShaderVariable> & (Graphic3d_ShaderVariableList::*)()) &Graphic3d_ShaderVariableList::ChangeLast, "Last item access");
-	cls_Graphic3d_ShaderVariableList.def("Value", (const opencascade::handle<Graphic3d_ShaderVariable> & (Graphic3d_ShaderVariableList::*)(const Standard_Integer) const ) &Graphic3d_ShaderVariableList::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Graphic3d_ShaderVariableList.def("__call__", (const opencascade::handle<Graphic3d_ShaderVariable> & (Graphic3d_ShaderVariableList::*)(const Standard_Integer) const ) &Graphic3d_ShaderVariableList::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Graphic3d_ShaderVariableList.def("ChangeValue", (opencascade::handle<Graphic3d_ShaderVariable> & (Graphic3d_ShaderVariableList::*)(const Standard_Integer)) &Graphic3d_ShaderVariableList::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Graphic3d_ShaderVariableList.def("__call__", (opencascade::handle<Graphic3d_ShaderVariable> & (Graphic3d_ShaderVariableList::*)(const Standard_Integer)) &Graphic3d_ShaderVariableList::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Graphic3d_ShaderVariableList.def("SetValue", (void (Graphic3d_ShaderVariableList::*)(const Standard_Integer, const opencascade::handle<Graphic3d_ShaderVariable> &)) &Graphic3d_ShaderVariableList::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Graphic3d_ShaderVariableList.def("__iter__", [](const Graphic3d_ShaderVariableList &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_ShaderProgram.hxx
+	bind_NCollection_Sequence<opencascade::handle<Graphic3d_ShaderVariable> >(mod, "Graphic3d_ShaderVariableList");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Graphic3d_ShaderAttributeList, std::unique_ptr<Graphic3d_ShaderAttributeList, Deleter<Graphic3d_ShaderAttributeList>>, NCollection_BaseSequence> cls_Graphic3d_ShaderAttributeList(mod, "Graphic3d_ShaderAttributeList", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Graphic3d_ShaderAttributeList.def(py::init<>());
-	cls_Graphic3d_ShaderAttributeList.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Graphic3d_ShaderAttributeList.def(py::init([] (const Graphic3d_ShaderAttributeList &other) {return new Graphic3d_ShaderAttributeList(other);}), "Copy constructor", py::arg("other"));
-	cls_Graphic3d_ShaderAttributeList.def("begin", (Graphic3d_ShaderAttributeList::iterator (Graphic3d_ShaderAttributeList::*)() const ) &Graphic3d_ShaderAttributeList::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Graphic3d_ShaderAttributeList.def("end", (Graphic3d_ShaderAttributeList::iterator (Graphic3d_ShaderAttributeList::*)() const ) &Graphic3d_ShaderAttributeList::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Graphic3d_ShaderAttributeList.def("cbegin", (Graphic3d_ShaderAttributeList::const_iterator (Graphic3d_ShaderAttributeList::*)() const ) &Graphic3d_ShaderAttributeList::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Graphic3d_ShaderAttributeList.def("cend", (Graphic3d_ShaderAttributeList::const_iterator (Graphic3d_ShaderAttributeList::*)() const ) &Graphic3d_ShaderAttributeList::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Graphic3d_ShaderAttributeList.def("Size", (Standard_Integer (Graphic3d_ShaderAttributeList::*)() const ) &Graphic3d_ShaderAttributeList::Size, "Number of items");
-	cls_Graphic3d_ShaderAttributeList.def("Length", (Standard_Integer (Graphic3d_ShaderAttributeList::*)() const ) &Graphic3d_ShaderAttributeList::Length, "Number of items");
-	cls_Graphic3d_ShaderAttributeList.def("Lower", (Standard_Integer (Graphic3d_ShaderAttributeList::*)() const ) &Graphic3d_ShaderAttributeList::Lower, "Method for consistency with other collections.");
-	cls_Graphic3d_ShaderAttributeList.def("Upper", (Standard_Integer (Graphic3d_ShaderAttributeList::*)() const ) &Graphic3d_ShaderAttributeList::Upper, "Method for consistency with other collections.");
-	cls_Graphic3d_ShaderAttributeList.def("IsEmpty", (Standard_Boolean (Graphic3d_ShaderAttributeList::*)() const ) &Graphic3d_ShaderAttributeList::IsEmpty, "Empty query");
-	cls_Graphic3d_ShaderAttributeList.def("Reverse", (void (Graphic3d_ShaderAttributeList::*)()) &Graphic3d_ShaderAttributeList::Reverse, "Reverse sequence");
-	cls_Graphic3d_ShaderAttributeList.def("Exchange", (void (Graphic3d_ShaderAttributeList::*)(const Standard_Integer, const Standard_Integer)) &Graphic3d_ShaderAttributeList::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Graphic3d_ShaderAttributeList.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Graphic3d_ShaderAttributeList::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Graphic3d_ShaderAttributeList.def("Clear", [](Graphic3d_ShaderAttributeList &self) -> void { return self.Clear(); });
-	cls_Graphic3d_ShaderAttributeList.def("Clear", (void (Graphic3d_ShaderAttributeList::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Graphic3d_ShaderAttributeList::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Graphic3d_ShaderAttributeList.def("Assign", (Graphic3d_ShaderAttributeList & (Graphic3d_ShaderAttributeList::*)(const Graphic3d_ShaderAttributeList &)) &Graphic3d_ShaderAttributeList::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Graphic3d_ShaderAttributeList.def("assign", (Graphic3d_ShaderAttributeList & (Graphic3d_ShaderAttributeList::*)(const Graphic3d_ShaderAttributeList &)) &Graphic3d_ShaderAttributeList::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Graphic3d_ShaderAttributeList.def("Remove", (void (Graphic3d_ShaderAttributeList::*)(Graphic3d_ShaderAttributeList::Iterator &)) &Graphic3d_ShaderAttributeList::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Graphic3d_ShaderAttributeList.def("Remove", (void (Graphic3d_ShaderAttributeList::*)(const Standard_Integer)) &Graphic3d_ShaderAttributeList::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Graphic3d_ShaderAttributeList.def("Remove", (void (Graphic3d_ShaderAttributeList::*)(const Standard_Integer, const Standard_Integer)) &Graphic3d_ShaderAttributeList::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Graphic3d_ShaderAttributeList.def("Append", (void (Graphic3d_ShaderAttributeList::*)(const opencascade::handle<Graphic3d_ShaderAttribute> &)) &Graphic3d_ShaderAttributeList::Append, "Append one item", py::arg("theItem"));
-	cls_Graphic3d_ShaderAttributeList.def("Append", (void (Graphic3d_ShaderAttributeList::*)(Graphic3d_ShaderAttributeList &)) &Graphic3d_ShaderAttributeList::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Graphic3d_ShaderAttributeList.def("Prepend", (void (Graphic3d_ShaderAttributeList::*)(const opencascade::handle<Graphic3d_ShaderAttribute> &)) &Graphic3d_ShaderAttributeList::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Graphic3d_ShaderAttributeList.def("Prepend", (void (Graphic3d_ShaderAttributeList::*)(Graphic3d_ShaderAttributeList &)) &Graphic3d_ShaderAttributeList::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Graphic3d_ShaderAttributeList.def("InsertBefore", (void (Graphic3d_ShaderAttributeList::*)(const Standard_Integer, const opencascade::handle<Graphic3d_ShaderAttribute> &)) &Graphic3d_ShaderAttributeList::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Graphic3d_ShaderAttributeList.def("InsertBefore", (void (Graphic3d_ShaderAttributeList::*)(const Standard_Integer, Graphic3d_ShaderAttributeList &)) &Graphic3d_ShaderAttributeList::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Graphic3d_ShaderAttributeList.def("InsertAfter", (void (Graphic3d_ShaderAttributeList::*)(Graphic3d_ShaderAttributeList::Iterator &, const opencascade::handle<Graphic3d_ShaderAttribute> &)) &Graphic3d_ShaderAttributeList::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Graphic3d_ShaderAttributeList.def("InsertAfter", (void (Graphic3d_ShaderAttributeList::*)(const Standard_Integer, Graphic3d_ShaderAttributeList &)) &Graphic3d_ShaderAttributeList::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Graphic3d_ShaderAttributeList.def("InsertAfter", (void (Graphic3d_ShaderAttributeList::*)(const Standard_Integer, const opencascade::handle<Graphic3d_ShaderAttribute> &)) &Graphic3d_ShaderAttributeList::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Graphic3d_ShaderAttributeList.def("Split", (void (Graphic3d_ShaderAttributeList::*)(const Standard_Integer, Graphic3d_ShaderAttributeList &)) &Graphic3d_ShaderAttributeList::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Graphic3d_ShaderAttributeList.def("First", (const opencascade::handle<Graphic3d_ShaderAttribute> & (Graphic3d_ShaderAttributeList::*)() const ) &Graphic3d_ShaderAttributeList::First, "First item access");
-	cls_Graphic3d_ShaderAttributeList.def("ChangeFirst", (opencascade::handle<Graphic3d_ShaderAttribute> & (Graphic3d_ShaderAttributeList::*)()) &Graphic3d_ShaderAttributeList::ChangeFirst, "First item access");
-	cls_Graphic3d_ShaderAttributeList.def("Last", (const opencascade::handle<Graphic3d_ShaderAttribute> & (Graphic3d_ShaderAttributeList::*)() const ) &Graphic3d_ShaderAttributeList::Last, "Last item access");
-	cls_Graphic3d_ShaderAttributeList.def("ChangeLast", (opencascade::handle<Graphic3d_ShaderAttribute> & (Graphic3d_ShaderAttributeList::*)()) &Graphic3d_ShaderAttributeList::ChangeLast, "Last item access");
-	cls_Graphic3d_ShaderAttributeList.def("Value", (const opencascade::handle<Graphic3d_ShaderAttribute> & (Graphic3d_ShaderAttributeList::*)(const Standard_Integer) const ) &Graphic3d_ShaderAttributeList::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Graphic3d_ShaderAttributeList.def("__call__", (const opencascade::handle<Graphic3d_ShaderAttribute> & (Graphic3d_ShaderAttributeList::*)(const Standard_Integer) const ) &Graphic3d_ShaderAttributeList::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Graphic3d_ShaderAttributeList.def("ChangeValue", (opencascade::handle<Graphic3d_ShaderAttribute> & (Graphic3d_ShaderAttributeList::*)(const Standard_Integer)) &Graphic3d_ShaderAttributeList::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Graphic3d_ShaderAttributeList.def("__call__", (opencascade::handle<Graphic3d_ShaderAttribute> & (Graphic3d_ShaderAttributeList::*)(const Standard_Integer)) &Graphic3d_ShaderAttributeList::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Graphic3d_ShaderAttributeList.def("SetValue", (void (Graphic3d_ShaderAttributeList::*)(const Standard_Integer, const opencascade::handle<Graphic3d_ShaderAttribute> &)) &Graphic3d_ShaderAttributeList::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Graphic3d_ShaderAttributeList.def("__iter__", [](const Graphic3d_ShaderAttributeList &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_ShaderProgram.hxx
+	bind_NCollection_Sequence<opencascade::handle<Graphic3d_ShaderAttribute> >(mod, "Graphic3d_ShaderAttributeList");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_ZLayerId.hxx
 	other_mod = py::module::import("OCCT.AdvApp2Var");
 	if (py::hasattr(other_mod, "integer")) {
 		mod.attr("Graphic3d_ZLayerId") = other_mod.attr("integer");
 	}
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_BufferType.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Lerp.hxx
-	py::class_<Graphic3d_CameraLerp, std::unique_ptr<Graphic3d_CameraLerp, Deleter<Graphic3d_CameraLerp>>> cls_Graphic3d_CameraLerp(mod, "Graphic3d_CameraLerp", "Simple linear interpolation tool (also known as mix() in GLSL). The main purpose of this template class is making interpolation routines more readable.");
-	cls_Graphic3d_CameraLerp.def(py::init<>());
-	cls_Graphic3d_CameraLerp.def(py::init<const opencascade::handle<Graphic3d_Camera> &, const opencascade::handle<Graphic3d_Camera> &>(), py::arg("theStart"), py::arg("theEnd"));
-	cls_Graphic3d_CameraLerp.def_static("Interpolate_", (opencascade::handle<Graphic3d_Camera> (*)(const opencascade::handle<Graphic3d_Camera> &, const opencascade::handle<Graphic3d_Camera> &, double)) &Graphic3d_CameraLerp::Interpolate, "Compute interpolated value between two values.", py::arg("theStart"), py::arg("theEnd"), py::arg("theT"));
-	cls_Graphic3d_CameraLerp.def("Init", (void (Graphic3d_CameraLerp::*)(const opencascade::handle<Graphic3d_Camera> &, const opencascade::handle<Graphic3d_Camera> &)) &Graphic3d_CameraLerp::Init, "Initialize values.", py::arg("theStart"), py::arg("theEnd"));
-	cls_Graphic3d_CameraLerp.def("Interpolate", (void (Graphic3d_CameraLerp::*)(double, opencascade::handle<Graphic3d_Camera> &) const ) &Graphic3d_CameraLerp::Interpolate, "Compute interpolated value between two values.", py::arg("theT"), py::arg("theResult"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Camera.hxx
+	bind_NCollection_Lerp<opencascade::handle<Graphic3d_Camera> >(mod, "Graphic3d_CameraLerp");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<Graphic3d_ListOfCLight, std::unique_ptr<Graphic3d_ListOfCLight, Deleter<Graphic3d_ListOfCLight>>, NCollection_BaseList> cls_Graphic3d_ListOfCLight(mod, "Graphic3d_ListOfCLight", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_Graphic3d_ListOfCLight.def(py::init<>());
-	cls_Graphic3d_ListOfCLight.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Graphic3d_ListOfCLight.def(py::init([] (const Graphic3d_ListOfCLight &other) {return new Graphic3d_ListOfCLight(other);}), "Copy constructor", py::arg("other"));
-	cls_Graphic3d_ListOfCLight.def("begin", (Graphic3d_ListOfCLight::iterator (Graphic3d_ListOfCLight::*)() const ) &Graphic3d_ListOfCLight::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_Graphic3d_ListOfCLight.def("end", (Graphic3d_ListOfCLight::iterator (Graphic3d_ListOfCLight::*)() const ) &Graphic3d_ListOfCLight::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_Graphic3d_ListOfCLight.def("cbegin", (Graphic3d_ListOfCLight::const_iterator (Graphic3d_ListOfCLight::*)() const ) &Graphic3d_ListOfCLight::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_Graphic3d_ListOfCLight.def("cend", (Graphic3d_ListOfCLight::const_iterator (Graphic3d_ListOfCLight::*)() const ) &Graphic3d_ListOfCLight::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_Graphic3d_ListOfCLight.def("Size", (Standard_Integer (Graphic3d_ListOfCLight::*)() const ) &Graphic3d_ListOfCLight::Size, "Size - Number of items");
-	cls_Graphic3d_ListOfCLight.def("Assign", (Graphic3d_ListOfCLight & (Graphic3d_ListOfCLight::*)(const Graphic3d_ListOfCLight &)) &Graphic3d_ListOfCLight::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Graphic3d_ListOfCLight.def("assign", (Graphic3d_ListOfCLight & (Graphic3d_ListOfCLight::*)(const Graphic3d_ListOfCLight &)) &Graphic3d_ListOfCLight::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Graphic3d_ListOfCLight.def("Clear", [](Graphic3d_ListOfCLight &self) -> void { return self.Clear(); });
-	cls_Graphic3d_ListOfCLight.def("Clear", (void (Graphic3d_ListOfCLight::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Graphic3d_ListOfCLight::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_Graphic3d_ListOfCLight.def("First", (const Graphic3d_CLight & (Graphic3d_ListOfCLight::*)() const ) &Graphic3d_ListOfCLight::First, "First item");
-	cls_Graphic3d_ListOfCLight.def("First", (Graphic3d_CLight & (Graphic3d_ListOfCLight::*)()) &Graphic3d_ListOfCLight::First, "First item (non-const)");
-	cls_Graphic3d_ListOfCLight.def("Last", (const Graphic3d_CLight & (Graphic3d_ListOfCLight::*)() const ) &Graphic3d_ListOfCLight::Last, "Last item");
-	cls_Graphic3d_ListOfCLight.def("Last", (Graphic3d_CLight & (Graphic3d_ListOfCLight::*)()) &Graphic3d_ListOfCLight::Last, "Last item (non-const)");
-	cls_Graphic3d_ListOfCLight.def("Append", (Graphic3d_CLight & (Graphic3d_ListOfCLight::*)(const Graphic3d_CLight &)) &Graphic3d_ListOfCLight::Append, "Append one item at the end", py::arg("theItem"));
-	cls_Graphic3d_ListOfCLight.def("Append", (void (Graphic3d_ListOfCLight::*)(const Graphic3d_CLight &, Graphic3d_ListOfCLight::Iterator &)) &Graphic3d_ListOfCLight::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_Graphic3d_ListOfCLight.def("Append", (void (Graphic3d_ListOfCLight::*)(Graphic3d_ListOfCLight &)) &Graphic3d_ListOfCLight::Append, "Append another list at the end", py::arg("theOther"));
-	cls_Graphic3d_ListOfCLight.def("Prepend", (Graphic3d_CLight & (Graphic3d_ListOfCLight::*)(const Graphic3d_CLight &)) &Graphic3d_ListOfCLight::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_Graphic3d_ListOfCLight.def("Prepend", (void (Graphic3d_ListOfCLight::*)(Graphic3d_ListOfCLight &)) &Graphic3d_ListOfCLight::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_Graphic3d_ListOfCLight.def("RemoveFirst", (void (Graphic3d_ListOfCLight::*)()) &Graphic3d_ListOfCLight::RemoveFirst, "RemoveFirst item");
-	cls_Graphic3d_ListOfCLight.def("Remove", (void (Graphic3d_ListOfCLight::*)(Graphic3d_ListOfCLight::Iterator &)) &Graphic3d_ListOfCLight::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_Graphic3d_ListOfCLight.def("InsertBefore", (Graphic3d_CLight & (Graphic3d_ListOfCLight::*)(const Graphic3d_CLight &, Graphic3d_ListOfCLight::Iterator &)) &Graphic3d_ListOfCLight::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_Graphic3d_ListOfCLight.def("InsertBefore", (void (Graphic3d_ListOfCLight::*)(Graphic3d_ListOfCLight &, Graphic3d_ListOfCLight::Iterator &)) &Graphic3d_ListOfCLight::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_Graphic3d_ListOfCLight.def("InsertAfter", (Graphic3d_CLight & (Graphic3d_ListOfCLight::*)(const Graphic3d_CLight &, Graphic3d_ListOfCLight::Iterator &)) &Graphic3d_ListOfCLight::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_Graphic3d_ListOfCLight.def("InsertAfter", (void (Graphic3d_ListOfCLight::*)(Graphic3d_ListOfCLight &, Graphic3d_ListOfCLight::Iterator &)) &Graphic3d_ListOfCLight::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_Graphic3d_ListOfCLight.def("Reverse", (void (Graphic3d_ListOfCLight::*)()) &Graphic3d_ListOfCLight::Reverse, "Reverse the list");
-	cls_Graphic3d_ListOfCLight.def("__iter__", [](const Graphic3d_ListOfCLight &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_CLight.hxx
+	bind_NCollection_List<Graphic3d_CLight>(mod, "Graphic3d_ListOfCLight");
 
-	/* FIXME
-	// Graphic3d_BndBox3d
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_BndBox3d.hxx
+	bind_BVH_Box<double, 3>(mod, "Graphic3d_BndBox3d");
 
-	/* FIXME
-	// Graphic3d_BndBox4f
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_BndBox4f.hxx
+	bind_BVH_Box<float, 4>(mod, "Graphic3d_BndBox4f");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Graphic3d_Array1OfAttribute, std::unique_ptr<Graphic3d_Array1OfAttribute, Deleter<Graphic3d_Array1OfAttribute>>> cls_Graphic3d_Array1OfAttribute(mod, "Graphic3d_Array1OfAttribute", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Graphic3d_Array1OfAttribute.def(py::init<>());
-	cls_Graphic3d_Array1OfAttribute.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Graphic3d_Array1OfAttribute.def(py::init([] (const Graphic3d_Array1OfAttribute &other) {return new Graphic3d_Array1OfAttribute(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Graphic3d_Array1OfAttribute.def(py::init<Graphic3d_Array1OfAttribute &&>(), py::arg("theOther"));
-	cls_Graphic3d_Array1OfAttribute.def(py::init<const Graphic3d_Attribute &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Graphic3d_Array1OfAttribute.def("begin", (Graphic3d_Array1OfAttribute::iterator (Graphic3d_Array1OfAttribute::*)() const ) &Graphic3d_Array1OfAttribute::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Graphic3d_Array1OfAttribute.def("end", (Graphic3d_Array1OfAttribute::iterator (Graphic3d_Array1OfAttribute::*)() const ) &Graphic3d_Array1OfAttribute::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Graphic3d_Array1OfAttribute.def("cbegin", (Graphic3d_Array1OfAttribute::const_iterator (Graphic3d_Array1OfAttribute::*)() const ) &Graphic3d_Array1OfAttribute::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Graphic3d_Array1OfAttribute.def("cend", (Graphic3d_Array1OfAttribute::const_iterator (Graphic3d_Array1OfAttribute::*)() const ) &Graphic3d_Array1OfAttribute::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Graphic3d_Array1OfAttribute.def("Init", (void (Graphic3d_Array1OfAttribute::*)(const Graphic3d_Attribute &)) &Graphic3d_Array1OfAttribute::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Graphic3d_Array1OfAttribute.def("Size", (Standard_Integer (Graphic3d_Array1OfAttribute::*)() const ) &Graphic3d_Array1OfAttribute::Size, "Size query");
-	cls_Graphic3d_Array1OfAttribute.def("Length", (Standard_Integer (Graphic3d_Array1OfAttribute::*)() const ) &Graphic3d_Array1OfAttribute::Length, "Length query (the same)");
-	cls_Graphic3d_Array1OfAttribute.def("IsEmpty", (Standard_Boolean (Graphic3d_Array1OfAttribute::*)() const ) &Graphic3d_Array1OfAttribute::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Graphic3d_Array1OfAttribute.def("Lower", (Standard_Integer (Graphic3d_Array1OfAttribute::*)() const ) &Graphic3d_Array1OfAttribute::Lower, "Lower bound");
-	cls_Graphic3d_Array1OfAttribute.def("Upper", (Standard_Integer (Graphic3d_Array1OfAttribute::*)() const ) &Graphic3d_Array1OfAttribute::Upper, "Upper bound");
-	cls_Graphic3d_Array1OfAttribute.def("IsDeletable", (Standard_Boolean (Graphic3d_Array1OfAttribute::*)() const ) &Graphic3d_Array1OfAttribute::IsDeletable, "myDeletable flag");
-	cls_Graphic3d_Array1OfAttribute.def("IsAllocated", (Standard_Boolean (Graphic3d_Array1OfAttribute::*)() const ) &Graphic3d_Array1OfAttribute::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Graphic3d_Array1OfAttribute.def("Assign", (Graphic3d_Array1OfAttribute & (Graphic3d_Array1OfAttribute::*)(const Graphic3d_Array1OfAttribute &)) &Graphic3d_Array1OfAttribute::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Graphic3d_Array1OfAttribute.def("Move", (Graphic3d_Array1OfAttribute & (Graphic3d_Array1OfAttribute::*)(Graphic3d_Array1OfAttribute &&)) &Graphic3d_Array1OfAttribute::Move, "Move assignment", py::arg("theOther"));
-	cls_Graphic3d_Array1OfAttribute.def("assign", (Graphic3d_Array1OfAttribute & (Graphic3d_Array1OfAttribute::*)(const Graphic3d_Array1OfAttribute &)) &Graphic3d_Array1OfAttribute::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Graphic3d_Array1OfAttribute.def("assign", (Graphic3d_Array1OfAttribute & (Graphic3d_Array1OfAttribute::*)(Graphic3d_Array1OfAttribute &&)) &Graphic3d_Array1OfAttribute::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Graphic3d_Array1OfAttribute.def("First", (const Graphic3d_Attribute & (Graphic3d_Array1OfAttribute::*)() const ) &Graphic3d_Array1OfAttribute::First, "Returns first element");
-	cls_Graphic3d_Array1OfAttribute.def("ChangeFirst", (Graphic3d_Attribute & (Graphic3d_Array1OfAttribute::*)()) &Graphic3d_Array1OfAttribute::ChangeFirst, "Returns first element");
-	cls_Graphic3d_Array1OfAttribute.def("Last", (const Graphic3d_Attribute & (Graphic3d_Array1OfAttribute::*)() const ) &Graphic3d_Array1OfAttribute::Last, "Returns last element");
-	cls_Graphic3d_Array1OfAttribute.def("ChangeLast", (Graphic3d_Attribute & (Graphic3d_Array1OfAttribute::*)()) &Graphic3d_Array1OfAttribute::ChangeLast, "Returns last element");
-	cls_Graphic3d_Array1OfAttribute.def("Value", (const Graphic3d_Attribute & (Graphic3d_Array1OfAttribute::*)(const Standard_Integer) const ) &Graphic3d_Array1OfAttribute::Value, "Constant value access", py::arg("theIndex"));
-	cls_Graphic3d_Array1OfAttribute.def("__call__", (const Graphic3d_Attribute & (Graphic3d_Array1OfAttribute::*)(const Standard_Integer) const ) &Graphic3d_Array1OfAttribute::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Graphic3d_Array1OfAttribute.def("ChangeValue", (Graphic3d_Attribute & (Graphic3d_Array1OfAttribute::*)(const Standard_Integer)) &Graphic3d_Array1OfAttribute::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Graphic3d_Array1OfAttribute.def("__call__", (Graphic3d_Attribute & (Graphic3d_Array1OfAttribute::*)(const Standard_Integer)) &Graphic3d_Array1OfAttribute::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Graphic3d_Array1OfAttribute.def("SetValue", (void (Graphic3d_Array1OfAttribute::*)(const Standard_Integer, const Graphic3d_Attribute &)) &Graphic3d_Array1OfAttribute::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Graphic3d_Array1OfAttribute.def("Resize", (void (Graphic3d_Array1OfAttribute::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Graphic3d_Array1OfAttribute::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Graphic3d_Array1OfAttribute.def("__iter__", [](const Graphic3d_Array1OfAttribute &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_Buffer.hxx
+	bind_NCollection_Array1<Graphic3d_Attribute>(mod, "Graphic3d_Array1OfAttribute");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Graphic3d_SequenceOfGroup, std::unique_ptr<Graphic3d_SequenceOfGroup, Deleter<Graphic3d_SequenceOfGroup>>, NCollection_BaseSequence> cls_Graphic3d_SequenceOfGroup(mod, "Graphic3d_SequenceOfGroup", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Graphic3d_SequenceOfGroup.def(py::init<>());
-	cls_Graphic3d_SequenceOfGroup.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Graphic3d_SequenceOfGroup.def(py::init([] (const Graphic3d_SequenceOfGroup &other) {return new Graphic3d_SequenceOfGroup(other);}), "Copy constructor", py::arg("other"));
-	cls_Graphic3d_SequenceOfGroup.def("begin", (Graphic3d_SequenceOfGroup::iterator (Graphic3d_SequenceOfGroup::*)() const ) &Graphic3d_SequenceOfGroup::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Graphic3d_SequenceOfGroup.def("end", (Graphic3d_SequenceOfGroup::iterator (Graphic3d_SequenceOfGroup::*)() const ) &Graphic3d_SequenceOfGroup::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Graphic3d_SequenceOfGroup.def("cbegin", (Graphic3d_SequenceOfGroup::const_iterator (Graphic3d_SequenceOfGroup::*)() const ) &Graphic3d_SequenceOfGroup::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Graphic3d_SequenceOfGroup.def("cend", (Graphic3d_SequenceOfGroup::const_iterator (Graphic3d_SequenceOfGroup::*)() const ) &Graphic3d_SequenceOfGroup::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Graphic3d_SequenceOfGroup.def("Size", (Standard_Integer (Graphic3d_SequenceOfGroup::*)() const ) &Graphic3d_SequenceOfGroup::Size, "Number of items");
-	cls_Graphic3d_SequenceOfGroup.def("Length", (Standard_Integer (Graphic3d_SequenceOfGroup::*)() const ) &Graphic3d_SequenceOfGroup::Length, "Number of items");
-	cls_Graphic3d_SequenceOfGroup.def("Lower", (Standard_Integer (Graphic3d_SequenceOfGroup::*)() const ) &Graphic3d_SequenceOfGroup::Lower, "Method for consistency with other collections.");
-	cls_Graphic3d_SequenceOfGroup.def("Upper", (Standard_Integer (Graphic3d_SequenceOfGroup::*)() const ) &Graphic3d_SequenceOfGroup::Upper, "Method for consistency with other collections.");
-	cls_Graphic3d_SequenceOfGroup.def("IsEmpty", (Standard_Boolean (Graphic3d_SequenceOfGroup::*)() const ) &Graphic3d_SequenceOfGroup::IsEmpty, "Empty query");
-	cls_Graphic3d_SequenceOfGroup.def("Reverse", (void (Graphic3d_SequenceOfGroup::*)()) &Graphic3d_SequenceOfGroup::Reverse, "Reverse sequence");
-	cls_Graphic3d_SequenceOfGroup.def("Exchange", (void (Graphic3d_SequenceOfGroup::*)(const Standard_Integer, const Standard_Integer)) &Graphic3d_SequenceOfGroup::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Graphic3d_SequenceOfGroup.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Graphic3d_SequenceOfGroup::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Graphic3d_SequenceOfGroup.def("Clear", [](Graphic3d_SequenceOfGroup &self) -> void { return self.Clear(); });
-	cls_Graphic3d_SequenceOfGroup.def("Clear", (void (Graphic3d_SequenceOfGroup::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Graphic3d_SequenceOfGroup::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Graphic3d_SequenceOfGroup.def("Assign", (Graphic3d_SequenceOfGroup & (Graphic3d_SequenceOfGroup::*)(const Graphic3d_SequenceOfGroup &)) &Graphic3d_SequenceOfGroup::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Graphic3d_SequenceOfGroup.def("assign", (Graphic3d_SequenceOfGroup & (Graphic3d_SequenceOfGroup::*)(const Graphic3d_SequenceOfGroup &)) &Graphic3d_SequenceOfGroup::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Graphic3d_SequenceOfGroup.def("Remove", (void (Graphic3d_SequenceOfGroup::*)(Graphic3d_SequenceOfGroup::Iterator &)) &Graphic3d_SequenceOfGroup::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Graphic3d_SequenceOfGroup.def("Remove", (void (Graphic3d_SequenceOfGroup::*)(const Standard_Integer)) &Graphic3d_SequenceOfGroup::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Graphic3d_SequenceOfGroup.def("Remove", (void (Graphic3d_SequenceOfGroup::*)(const Standard_Integer, const Standard_Integer)) &Graphic3d_SequenceOfGroup::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Graphic3d_SequenceOfGroup.def("Append", (void (Graphic3d_SequenceOfGroup::*)(const opencascade::handle<Graphic3d_Group> &)) &Graphic3d_SequenceOfGroup::Append, "Append one item", py::arg("theItem"));
-	cls_Graphic3d_SequenceOfGroup.def("Append", (void (Graphic3d_SequenceOfGroup::*)(Graphic3d_SequenceOfGroup &)) &Graphic3d_SequenceOfGroup::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Graphic3d_SequenceOfGroup.def("Prepend", (void (Graphic3d_SequenceOfGroup::*)(const opencascade::handle<Graphic3d_Group> &)) &Graphic3d_SequenceOfGroup::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Graphic3d_SequenceOfGroup.def("Prepend", (void (Graphic3d_SequenceOfGroup::*)(Graphic3d_SequenceOfGroup &)) &Graphic3d_SequenceOfGroup::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Graphic3d_SequenceOfGroup.def("InsertBefore", (void (Graphic3d_SequenceOfGroup::*)(const Standard_Integer, const opencascade::handle<Graphic3d_Group> &)) &Graphic3d_SequenceOfGroup::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Graphic3d_SequenceOfGroup.def("InsertBefore", (void (Graphic3d_SequenceOfGroup::*)(const Standard_Integer, Graphic3d_SequenceOfGroup &)) &Graphic3d_SequenceOfGroup::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Graphic3d_SequenceOfGroup.def("InsertAfter", (void (Graphic3d_SequenceOfGroup::*)(Graphic3d_SequenceOfGroup::Iterator &, const opencascade::handle<Graphic3d_Group> &)) &Graphic3d_SequenceOfGroup::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Graphic3d_SequenceOfGroup.def("InsertAfter", (void (Graphic3d_SequenceOfGroup::*)(const Standard_Integer, Graphic3d_SequenceOfGroup &)) &Graphic3d_SequenceOfGroup::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Graphic3d_SequenceOfGroup.def("InsertAfter", (void (Graphic3d_SequenceOfGroup::*)(const Standard_Integer, const opencascade::handle<Graphic3d_Group> &)) &Graphic3d_SequenceOfGroup::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Graphic3d_SequenceOfGroup.def("Split", (void (Graphic3d_SequenceOfGroup::*)(const Standard_Integer, Graphic3d_SequenceOfGroup &)) &Graphic3d_SequenceOfGroup::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Graphic3d_SequenceOfGroup.def("First", (const opencascade::handle<Graphic3d_Group> & (Graphic3d_SequenceOfGroup::*)() const ) &Graphic3d_SequenceOfGroup::First, "First item access");
-	cls_Graphic3d_SequenceOfGroup.def("ChangeFirst", (opencascade::handle<Graphic3d_Group> & (Graphic3d_SequenceOfGroup::*)()) &Graphic3d_SequenceOfGroup::ChangeFirst, "First item access");
-	cls_Graphic3d_SequenceOfGroup.def("Last", (const opencascade::handle<Graphic3d_Group> & (Graphic3d_SequenceOfGroup::*)() const ) &Graphic3d_SequenceOfGroup::Last, "Last item access");
-	cls_Graphic3d_SequenceOfGroup.def("ChangeLast", (opencascade::handle<Graphic3d_Group> & (Graphic3d_SequenceOfGroup::*)()) &Graphic3d_SequenceOfGroup::ChangeLast, "Last item access");
-	cls_Graphic3d_SequenceOfGroup.def("Value", (const opencascade::handle<Graphic3d_Group> & (Graphic3d_SequenceOfGroup::*)(const Standard_Integer) const ) &Graphic3d_SequenceOfGroup::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Graphic3d_SequenceOfGroup.def("__call__", (const opencascade::handle<Graphic3d_Group> & (Graphic3d_SequenceOfGroup::*)(const Standard_Integer) const ) &Graphic3d_SequenceOfGroup::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Graphic3d_SequenceOfGroup.def("ChangeValue", (opencascade::handle<Graphic3d_Group> & (Graphic3d_SequenceOfGroup::*)(const Standard_Integer)) &Graphic3d_SequenceOfGroup::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Graphic3d_SequenceOfGroup.def("__call__", (opencascade::handle<Graphic3d_Group> & (Graphic3d_SequenceOfGroup::*)(const Standard_Integer)) &Graphic3d_SequenceOfGroup::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Graphic3d_SequenceOfGroup.def("SetValue", (void (Graphic3d_SequenceOfGroup::*)(const Standard_Integer, const opencascade::handle<Graphic3d_Group> &)) &Graphic3d_SequenceOfGroup::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Graphic3d_SequenceOfGroup.def("__iter__", [](const Graphic3d_SequenceOfGroup &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_SequenceOfGroup.hxx
+	bind_NCollection_Sequence<opencascade::handle<Graphic3d_Group> >(mod, "Graphic3d_SequenceOfGroup");
 
-	/* FIXME
-	// Graphic3d_MapOfStructure
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_MapOfStructure.hxx
+	bind_NCollection_Map<opencascade::handle<Graphic3d_Structure>, NCollection_DefaultHasher<opencascade::handle<Graphic3d_Structure> > >(mod, "Graphic3d_MapOfStructure");
 
-	/* FIXME
-	// Graphic3d_NMapOfTransient
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_NMapOfTransient.hxx
+	bind_NCollection_Shared<NCollection_Map<const Standard_Transient *, NCollection_DefaultHasher<const Standard_Transient *> >, void>(mod, "Graphic3d_NMapOfTransient");
 
-	/* FIXME
-	// Graphic3d_IndexedMapOfAddress
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_IndexedMapOfAddress.hxx
+	bind_NCollection_IndexedMap<void *const, NCollection_DefaultHasher<void *const> >(mod, "Graphic3d_IndexedMapOfAddress");
 
-	/* FIXME
-	// Graphic3d_BndBox4d
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_BndBox4d.hxx
+	bind_BVH_Box<double, 4>(mod, "Graphic3d_BndBox4d");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Graphic3d_SequenceOfStructure, std::unique_ptr<Graphic3d_SequenceOfStructure, Deleter<Graphic3d_SequenceOfStructure>>, NCollection_BaseSequence> cls_Graphic3d_SequenceOfStructure(mod, "Graphic3d_SequenceOfStructure", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Graphic3d_SequenceOfStructure.def(py::init<>());
-	cls_Graphic3d_SequenceOfStructure.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Graphic3d_SequenceOfStructure.def(py::init([] (const Graphic3d_SequenceOfStructure &other) {return new Graphic3d_SequenceOfStructure(other);}), "Copy constructor", py::arg("other"));
-	cls_Graphic3d_SequenceOfStructure.def("begin", (Graphic3d_SequenceOfStructure::iterator (Graphic3d_SequenceOfStructure::*)() const ) &Graphic3d_SequenceOfStructure::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Graphic3d_SequenceOfStructure.def("end", (Graphic3d_SequenceOfStructure::iterator (Graphic3d_SequenceOfStructure::*)() const ) &Graphic3d_SequenceOfStructure::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Graphic3d_SequenceOfStructure.def("cbegin", (Graphic3d_SequenceOfStructure::const_iterator (Graphic3d_SequenceOfStructure::*)() const ) &Graphic3d_SequenceOfStructure::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Graphic3d_SequenceOfStructure.def("cend", (Graphic3d_SequenceOfStructure::const_iterator (Graphic3d_SequenceOfStructure::*)() const ) &Graphic3d_SequenceOfStructure::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Graphic3d_SequenceOfStructure.def("Size", (Standard_Integer (Graphic3d_SequenceOfStructure::*)() const ) &Graphic3d_SequenceOfStructure::Size, "Number of items");
-	cls_Graphic3d_SequenceOfStructure.def("Length", (Standard_Integer (Graphic3d_SequenceOfStructure::*)() const ) &Graphic3d_SequenceOfStructure::Length, "Number of items");
-	cls_Graphic3d_SequenceOfStructure.def("Lower", (Standard_Integer (Graphic3d_SequenceOfStructure::*)() const ) &Graphic3d_SequenceOfStructure::Lower, "Method for consistency with other collections.");
-	cls_Graphic3d_SequenceOfStructure.def("Upper", (Standard_Integer (Graphic3d_SequenceOfStructure::*)() const ) &Graphic3d_SequenceOfStructure::Upper, "Method for consistency with other collections.");
-	cls_Graphic3d_SequenceOfStructure.def("IsEmpty", (Standard_Boolean (Graphic3d_SequenceOfStructure::*)() const ) &Graphic3d_SequenceOfStructure::IsEmpty, "Empty query");
-	cls_Graphic3d_SequenceOfStructure.def("Reverse", (void (Graphic3d_SequenceOfStructure::*)()) &Graphic3d_SequenceOfStructure::Reverse, "Reverse sequence");
-	cls_Graphic3d_SequenceOfStructure.def("Exchange", (void (Graphic3d_SequenceOfStructure::*)(const Standard_Integer, const Standard_Integer)) &Graphic3d_SequenceOfStructure::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Graphic3d_SequenceOfStructure.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Graphic3d_SequenceOfStructure::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Graphic3d_SequenceOfStructure.def("Clear", [](Graphic3d_SequenceOfStructure &self) -> void { return self.Clear(); });
-	cls_Graphic3d_SequenceOfStructure.def("Clear", (void (Graphic3d_SequenceOfStructure::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Graphic3d_SequenceOfStructure::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Graphic3d_SequenceOfStructure.def("Assign", (Graphic3d_SequenceOfStructure & (Graphic3d_SequenceOfStructure::*)(const Graphic3d_SequenceOfStructure &)) &Graphic3d_SequenceOfStructure::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Graphic3d_SequenceOfStructure.def("assign", (Graphic3d_SequenceOfStructure & (Graphic3d_SequenceOfStructure::*)(const Graphic3d_SequenceOfStructure &)) &Graphic3d_SequenceOfStructure::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Graphic3d_SequenceOfStructure.def("Remove", (void (Graphic3d_SequenceOfStructure::*)(Graphic3d_SequenceOfStructure::Iterator &)) &Graphic3d_SequenceOfStructure::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Graphic3d_SequenceOfStructure.def("Remove", (void (Graphic3d_SequenceOfStructure::*)(const Standard_Integer)) &Graphic3d_SequenceOfStructure::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Graphic3d_SequenceOfStructure.def("Remove", (void (Graphic3d_SequenceOfStructure::*)(const Standard_Integer, const Standard_Integer)) &Graphic3d_SequenceOfStructure::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Graphic3d_SequenceOfStructure.def("Append", (void (Graphic3d_SequenceOfStructure::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_SequenceOfStructure::Append, "Append one item", py::arg("theItem"));
-	cls_Graphic3d_SequenceOfStructure.def("Append", (void (Graphic3d_SequenceOfStructure::*)(Graphic3d_SequenceOfStructure &)) &Graphic3d_SequenceOfStructure::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Graphic3d_SequenceOfStructure.def("Prepend", (void (Graphic3d_SequenceOfStructure::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_SequenceOfStructure::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Graphic3d_SequenceOfStructure.def("Prepend", (void (Graphic3d_SequenceOfStructure::*)(Graphic3d_SequenceOfStructure &)) &Graphic3d_SequenceOfStructure::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Graphic3d_SequenceOfStructure.def("InsertBefore", (void (Graphic3d_SequenceOfStructure::*)(const Standard_Integer, const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_SequenceOfStructure::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Graphic3d_SequenceOfStructure.def("InsertBefore", (void (Graphic3d_SequenceOfStructure::*)(const Standard_Integer, Graphic3d_SequenceOfStructure &)) &Graphic3d_SequenceOfStructure::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Graphic3d_SequenceOfStructure.def("InsertAfter", (void (Graphic3d_SequenceOfStructure::*)(Graphic3d_SequenceOfStructure::Iterator &, const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_SequenceOfStructure::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Graphic3d_SequenceOfStructure.def("InsertAfter", (void (Graphic3d_SequenceOfStructure::*)(const Standard_Integer, Graphic3d_SequenceOfStructure &)) &Graphic3d_SequenceOfStructure::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Graphic3d_SequenceOfStructure.def("InsertAfter", (void (Graphic3d_SequenceOfStructure::*)(const Standard_Integer, const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_SequenceOfStructure::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Graphic3d_SequenceOfStructure.def("Split", (void (Graphic3d_SequenceOfStructure::*)(const Standard_Integer, Graphic3d_SequenceOfStructure &)) &Graphic3d_SequenceOfStructure::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Graphic3d_SequenceOfStructure.def("First", (const opencascade::handle<Graphic3d_Structure> & (Graphic3d_SequenceOfStructure::*)() const ) &Graphic3d_SequenceOfStructure::First, "First item access");
-	cls_Graphic3d_SequenceOfStructure.def("ChangeFirst", (opencascade::handle<Graphic3d_Structure> & (Graphic3d_SequenceOfStructure::*)()) &Graphic3d_SequenceOfStructure::ChangeFirst, "First item access");
-	cls_Graphic3d_SequenceOfStructure.def("Last", (const opencascade::handle<Graphic3d_Structure> & (Graphic3d_SequenceOfStructure::*)() const ) &Graphic3d_SequenceOfStructure::Last, "Last item access");
-	cls_Graphic3d_SequenceOfStructure.def("ChangeLast", (opencascade::handle<Graphic3d_Structure> & (Graphic3d_SequenceOfStructure::*)()) &Graphic3d_SequenceOfStructure::ChangeLast, "Last item access");
-	cls_Graphic3d_SequenceOfStructure.def("Value", (const opencascade::handle<Graphic3d_Structure> & (Graphic3d_SequenceOfStructure::*)(const Standard_Integer) const ) &Graphic3d_SequenceOfStructure::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Graphic3d_SequenceOfStructure.def("__call__", (const opencascade::handle<Graphic3d_Structure> & (Graphic3d_SequenceOfStructure::*)(const Standard_Integer) const ) &Graphic3d_SequenceOfStructure::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Graphic3d_SequenceOfStructure.def("ChangeValue", (opencascade::handle<Graphic3d_Structure> & (Graphic3d_SequenceOfStructure::*)(const Standard_Integer)) &Graphic3d_SequenceOfStructure::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Graphic3d_SequenceOfStructure.def("__call__", (opencascade::handle<Graphic3d_Structure> & (Graphic3d_SequenceOfStructure::*)(const Standard_Integer)) &Graphic3d_SequenceOfStructure::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Graphic3d_SequenceOfStructure.def("SetValue", (void (Graphic3d_SequenceOfStructure::*)(const Standard_Integer, const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_SequenceOfStructure::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Graphic3d_SequenceOfStructure.def("__iter__", [](const Graphic3d_SequenceOfStructure &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_SequenceOfStructure.hxx
+	bind_NCollection_Sequence<opencascade::handle<Graphic3d_Structure> >(mod, "Graphic3d_SequenceOfStructure");
 
-	/* FIXME
-	// Graphic3d_MapOfObject
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_MapOfObject.hxx
+	bind_NCollection_DataMap<const Standard_Transient *, opencascade::handle<Graphic3d_ViewAffinity>, NCollection_DefaultHasher<const Standard_Transient *> >(mod, "Graphic3d_MapOfObject");
 
-	/* FIXME
-	// Graphic3d_IndexedMapOfView
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_StructureManager.hxx
+	bind_NCollection_IndexedMap<Graphic3d_CView *, NCollection_DefaultHasher<Graphic3d_CView *> >(mod, "Graphic3d_IndexedMapOfView");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_MapIteratorOfMapOfStructure.hxx
 

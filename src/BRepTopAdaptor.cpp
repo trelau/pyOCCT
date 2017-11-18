@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Adaptor3d_TopolTool.hxx>
 #include <Standard_Handle.hxx>
@@ -32,6 +23,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <TopoDS_Vertex.hxx>
 #include <BRepAdaptor_HCurve2d.hxx>
 #include <BRepTopAdaptor_HVertex.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BRepTopAdaptor, mod) {
 
@@ -129,42 +121,18 @@ PYBIND11_MODULE(BRepTopAdaptor, mod) {
 	cls_BRepTopAdaptor_HVertex.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRepTopAdaptor_HVertex::get_type_descriptor, "None");
 	cls_BRepTopAdaptor_HVertex.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepTopAdaptor_HVertex::*)() const ) &BRepTopAdaptor_HVertex::DynamicType, "None");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepTopAdaptor_SeqOfPtr.hxx
 	other_mod = py::module::import("OCCT.TColStd");
 	if (py::hasattr(other_mod, "TColStd_SequenceOfAddress")) {
 		mod.attr("BRepTopAdaptor_SeqOfPtr") = other_mod.attr("TColStd_SequenceOfAddress");
 	}
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<BRepTopAdaptor_MapOfShapeTool, std::unique_ptr<BRepTopAdaptor_MapOfShapeTool, Deleter<BRepTopAdaptor_MapOfShapeTool>>, NCollection_BaseMap> cls_BRepTopAdaptor_MapOfShapeTool(mod, "BRepTopAdaptor_MapOfShapeTool", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_BRepTopAdaptor_MapOfShapeTool.def(py::init<>());
-	cls_BRepTopAdaptor_MapOfShapeTool.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BRepTopAdaptor_MapOfShapeTool.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BRepTopAdaptor_MapOfShapeTool.def(py::init([] (const BRepTopAdaptor_MapOfShapeTool &other) {return new BRepTopAdaptor_MapOfShapeTool(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepTopAdaptor_MapOfShapeTool.def("begin", (BRepTopAdaptor_MapOfShapeTool::iterator (BRepTopAdaptor_MapOfShapeTool::*)() const ) &BRepTopAdaptor_MapOfShapeTool::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_BRepTopAdaptor_MapOfShapeTool.def("end", (BRepTopAdaptor_MapOfShapeTool::iterator (BRepTopAdaptor_MapOfShapeTool::*)() const ) &BRepTopAdaptor_MapOfShapeTool::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_BRepTopAdaptor_MapOfShapeTool.def("cbegin", (BRepTopAdaptor_MapOfShapeTool::const_iterator (BRepTopAdaptor_MapOfShapeTool::*)() const ) &BRepTopAdaptor_MapOfShapeTool::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_BRepTopAdaptor_MapOfShapeTool.def("cend", (BRepTopAdaptor_MapOfShapeTool::const_iterator (BRepTopAdaptor_MapOfShapeTool::*)() const ) &BRepTopAdaptor_MapOfShapeTool::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_BRepTopAdaptor_MapOfShapeTool.def("Exchange", (void (BRepTopAdaptor_MapOfShapeTool::*)(BRepTopAdaptor_MapOfShapeTool &)) &BRepTopAdaptor_MapOfShapeTool::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BRepTopAdaptor_MapOfShapeTool.def("Assign", (BRepTopAdaptor_MapOfShapeTool & (BRepTopAdaptor_MapOfShapeTool::*)(const BRepTopAdaptor_MapOfShapeTool &)) &BRepTopAdaptor_MapOfShapeTool::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepTopAdaptor_MapOfShapeTool.def("assign", (BRepTopAdaptor_MapOfShapeTool & (BRepTopAdaptor_MapOfShapeTool::*)(const BRepTopAdaptor_MapOfShapeTool &)) &BRepTopAdaptor_MapOfShapeTool::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BRepTopAdaptor_MapOfShapeTool.def("ReSize", (void (BRepTopAdaptor_MapOfShapeTool::*)(const Standard_Integer)) &BRepTopAdaptor_MapOfShapeTool::ReSize, "ReSize", py::arg("N"));
-	cls_BRepTopAdaptor_MapOfShapeTool.def("Bind", (Standard_Boolean (BRepTopAdaptor_MapOfShapeTool::*)(const TopoDS_Shape &, const BRepTopAdaptor_Tool &)) &BRepTopAdaptor_MapOfShapeTool::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_BRepTopAdaptor_MapOfShapeTool.def("Bound", (BRepTopAdaptor_Tool * (BRepTopAdaptor_MapOfShapeTool::*)(const TopoDS_Shape &, const BRepTopAdaptor_Tool &)) &BRepTopAdaptor_MapOfShapeTool::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_BRepTopAdaptor_MapOfShapeTool.def("IsBound", (Standard_Boolean (BRepTopAdaptor_MapOfShapeTool::*)(const TopoDS_Shape &) const ) &BRepTopAdaptor_MapOfShapeTool::IsBound, "IsBound", py::arg("theKey"));
-	cls_BRepTopAdaptor_MapOfShapeTool.def("UnBind", (Standard_Boolean (BRepTopAdaptor_MapOfShapeTool::*)(const TopoDS_Shape &)) &BRepTopAdaptor_MapOfShapeTool::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_BRepTopAdaptor_MapOfShapeTool.def("Seek", (const BRepTopAdaptor_Tool * (BRepTopAdaptor_MapOfShapeTool::*)(const TopoDS_Shape &) const ) &BRepTopAdaptor_MapOfShapeTool::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_BRepTopAdaptor_MapOfShapeTool.def("Find", (const BRepTopAdaptor_Tool & (BRepTopAdaptor_MapOfShapeTool::*)(const TopoDS_Shape &) const ) &BRepTopAdaptor_MapOfShapeTool::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_BRepTopAdaptor_MapOfShapeTool.def("Find", (Standard_Boolean (BRepTopAdaptor_MapOfShapeTool::*)(const TopoDS_Shape &, BRepTopAdaptor_Tool &) const ) &BRepTopAdaptor_MapOfShapeTool::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_BRepTopAdaptor_MapOfShapeTool.def("__call__", (const BRepTopAdaptor_Tool & (BRepTopAdaptor_MapOfShapeTool::*)(const TopoDS_Shape &) const ) &BRepTopAdaptor_MapOfShapeTool::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_BRepTopAdaptor_MapOfShapeTool.def("ChangeSeek", (BRepTopAdaptor_Tool * (BRepTopAdaptor_MapOfShapeTool::*)(const TopoDS_Shape &)) &BRepTopAdaptor_MapOfShapeTool::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_BRepTopAdaptor_MapOfShapeTool.def("ChangeFind", (BRepTopAdaptor_Tool & (BRepTopAdaptor_MapOfShapeTool::*)(const TopoDS_Shape &)) &BRepTopAdaptor_MapOfShapeTool::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_BRepTopAdaptor_MapOfShapeTool.def("__call__", (BRepTopAdaptor_Tool & (BRepTopAdaptor_MapOfShapeTool::*)(const TopoDS_Shape &)) &BRepTopAdaptor_MapOfShapeTool::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_BRepTopAdaptor_MapOfShapeTool.def("Clear", [](BRepTopAdaptor_MapOfShapeTool &self) -> void { return self.Clear(); });
-	cls_BRepTopAdaptor_MapOfShapeTool.def("Clear", (void (BRepTopAdaptor_MapOfShapeTool::*)(const Standard_Boolean)) &BRepTopAdaptor_MapOfShapeTool::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BRepTopAdaptor_MapOfShapeTool.def("Clear", (void (BRepTopAdaptor_MapOfShapeTool::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepTopAdaptor_MapOfShapeTool::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BRepTopAdaptor_MapOfShapeTool.def("Size", (Standard_Integer (BRepTopAdaptor_MapOfShapeTool::*)() const ) &BRepTopAdaptor_MapOfShapeTool::Size, "Size");
-	cls_BRepTopAdaptor_MapOfShapeTool.def("__iter__", [](const BRepTopAdaptor_MapOfShapeTool &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepTopAdaptor_MapOfShapeTool.hxx
+	bind_NCollection_DataMap<TopoDS_Shape, BRepTopAdaptor_Tool, TopTools_ShapeMapHasher>(mod, "BRepTopAdaptor_MapOfShapeTool");
+
+	/* FIXME
+
+	*/
+
 
 }

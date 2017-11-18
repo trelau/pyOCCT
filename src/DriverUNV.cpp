@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <DriverUNV_R_SMDS_Mesh.h>
 #include <Driver_SMDS_Mesh.h>
@@ -45,17 +36,14 @@ PYBIND11_MODULE(DriverUNV, mod) {
 	cls_DriverUNV_W_SMDS_Mesh.def("Perform", (Driver_Mesh::Status (DriverUNV_W_SMDS_Mesh::*)()) &DriverUNV_W_SMDS_Mesh::Perform, "None");
 	cls_DriverUNV_W_SMDS_Mesh.def("AddGroup", (void (DriverUNV_W_SMDS_Mesh::*)(SMESHDS_GroupBase *)) &DriverUNV_W_SMDS_Mesh::AddGroup, "None", py::arg("theGroup"));
 
-	/* FIXME
-	// TGroupNamesMap
-	*/
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\DriverUNV_R_SMDS_Mesh.h
+	// FIXME bind_std::map<SMDS_MeshGroup *, std::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<SMDS_MeshGroup *>, std::allocator<std::pair<SMDS_MeshGroup *const, std::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >(mod, "TGroupNamesMap");
 
-	/* FIXME
-	// TGroupIdMap
-	*/
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\DriverUNV_R_SMDS_Mesh.h
+	// FIXME bind_std::map<SMDS_MeshGroup *, int, std::less<SMDS_MeshGroup *>, std::allocator<std::pair<SMDS_MeshGroup *const, int> > >(mod, "TGroupIdMap");
 
-	/* FIXME
-	// TGroupList
-	*/
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\DriverUNV_W_SMDS_Mesh.h
+	// FIXME bind_std::list<SMESHDS_GroupBase *, std::allocator<SMESHDS_GroupBase *> >(mod, "TGroupList");
 
 
 }

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <BOPDS_Iterator.hxx>
 
@@ -79,6 +70,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <TopoDS_Edge.hxx>
 #include <NCollection_BaseMap.hxx>
 #include <NCollection_IndexedDataMap.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BOPAlgo, mod) {
 
@@ -556,133 +548,22 @@ PYBIND11_MODULE(BOPAlgo, mod) {
 	cls_BOPAlgo_EdgeInfo.def("SetAngle", (void (BOPAlgo_EdgeInfo::*)(const Standard_Real)) &BOPAlgo_EdgeInfo::SetAngle, "None", py::arg("theAngle"));
 	cls_BOPAlgo_EdgeInfo.def("Angle", (Standard_Real (BOPAlgo_EdgeInfo::*)() const ) &BOPAlgo_EdgeInfo::Angle, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<BOPAlgo_ListOfCheckResult, std::unique_ptr<BOPAlgo_ListOfCheckResult, Deleter<BOPAlgo_ListOfCheckResult>>, NCollection_BaseList> cls_BOPAlgo_ListOfCheckResult(mod, "BOPAlgo_ListOfCheckResult", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_BOPAlgo_ListOfCheckResult.def(py::init<>());
-	cls_BOPAlgo_ListOfCheckResult.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_BOPAlgo_ListOfCheckResult.def(py::init([] (const BOPAlgo_ListOfCheckResult &other) {return new BOPAlgo_ListOfCheckResult(other);}), "Copy constructor", py::arg("other"));
-	cls_BOPAlgo_ListOfCheckResult.def("begin", (BOPAlgo_ListOfCheckResult::iterator (BOPAlgo_ListOfCheckResult::*)() const ) &BOPAlgo_ListOfCheckResult::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_BOPAlgo_ListOfCheckResult.def("end", (BOPAlgo_ListOfCheckResult::iterator (BOPAlgo_ListOfCheckResult::*)() const ) &BOPAlgo_ListOfCheckResult::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_BOPAlgo_ListOfCheckResult.def("cbegin", (BOPAlgo_ListOfCheckResult::const_iterator (BOPAlgo_ListOfCheckResult::*)() const ) &BOPAlgo_ListOfCheckResult::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_BOPAlgo_ListOfCheckResult.def("cend", (BOPAlgo_ListOfCheckResult::const_iterator (BOPAlgo_ListOfCheckResult::*)() const ) &BOPAlgo_ListOfCheckResult::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_BOPAlgo_ListOfCheckResult.def("Size", (Standard_Integer (BOPAlgo_ListOfCheckResult::*)() const ) &BOPAlgo_ListOfCheckResult::Size, "Size - Number of items");
-	cls_BOPAlgo_ListOfCheckResult.def("Assign", (BOPAlgo_ListOfCheckResult & (BOPAlgo_ListOfCheckResult::*)(const BOPAlgo_ListOfCheckResult &)) &BOPAlgo_ListOfCheckResult::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BOPAlgo_ListOfCheckResult.def("assign", (BOPAlgo_ListOfCheckResult & (BOPAlgo_ListOfCheckResult::*)(const BOPAlgo_ListOfCheckResult &)) &BOPAlgo_ListOfCheckResult::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_BOPAlgo_ListOfCheckResult.def("Clear", [](BOPAlgo_ListOfCheckResult &self) -> void { return self.Clear(); });
-	cls_BOPAlgo_ListOfCheckResult.def("Clear", (void (BOPAlgo_ListOfCheckResult::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BOPAlgo_ListOfCheckResult::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_BOPAlgo_ListOfCheckResult.def("First", (const BOPAlgo_CheckResult & (BOPAlgo_ListOfCheckResult::*)() const ) &BOPAlgo_ListOfCheckResult::First, "First item");
-	cls_BOPAlgo_ListOfCheckResult.def("First", (BOPAlgo_CheckResult & (BOPAlgo_ListOfCheckResult::*)()) &BOPAlgo_ListOfCheckResult::First, "First item (non-const)");
-	cls_BOPAlgo_ListOfCheckResult.def("Last", (const BOPAlgo_CheckResult & (BOPAlgo_ListOfCheckResult::*)() const ) &BOPAlgo_ListOfCheckResult::Last, "Last item");
-	cls_BOPAlgo_ListOfCheckResult.def("Last", (BOPAlgo_CheckResult & (BOPAlgo_ListOfCheckResult::*)()) &BOPAlgo_ListOfCheckResult::Last, "Last item (non-const)");
-	cls_BOPAlgo_ListOfCheckResult.def("Append", (BOPAlgo_CheckResult & (BOPAlgo_ListOfCheckResult::*)(const BOPAlgo_CheckResult &)) &BOPAlgo_ListOfCheckResult::Append, "Append one item at the end", py::arg("theItem"));
-	cls_BOPAlgo_ListOfCheckResult.def("Append", (void (BOPAlgo_ListOfCheckResult::*)(const BOPAlgo_CheckResult &, BOPAlgo_ListOfCheckResult::Iterator &)) &BOPAlgo_ListOfCheckResult::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPAlgo_ListOfCheckResult.def("Append", (void (BOPAlgo_ListOfCheckResult::*)(BOPAlgo_ListOfCheckResult &)) &BOPAlgo_ListOfCheckResult::Append, "Append another list at the end", py::arg("theOther"));
-	cls_BOPAlgo_ListOfCheckResult.def("Prepend", (BOPAlgo_CheckResult & (BOPAlgo_ListOfCheckResult::*)(const BOPAlgo_CheckResult &)) &BOPAlgo_ListOfCheckResult::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_BOPAlgo_ListOfCheckResult.def("Prepend", (void (BOPAlgo_ListOfCheckResult::*)(BOPAlgo_ListOfCheckResult &)) &BOPAlgo_ListOfCheckResult::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_BOPAlgo_ListOfCheckResult.def("RemoveFirst", (void (BOPAlgo_ListOfCheckResult::*)()) &BOPAlgo_ListOfCheckResult::RemoveFirst, "RemoveFirst item");
-	cls_BOPAlgo_ListOfCheckResult.def("Remove", (void (BOPAlgo_ListOfCheckResult::*)(BOPAlgo_ListOfCheckResult::Iterator &)) &BOPAlgo_ListOfCheckResult::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_BOPAlgo_ListOfCheckResult.def("InsertBefore", (BOPAlgo_CheckResult & (BOPAlgo_ListOfCheckResult::*)(const BOPAlgo_CheckResult &, BOPAlgo_ListOfCheckResult::Iterator &)) &BOPAlgo_ListOfCheckResult::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPAlgo_ListOfCheckResult.def("InsertBefore", (void (BOPAlgo_ListOfCheckResult::*)(BOPAlgo_ListOfCheckResult &, BOPAlgo_ListOfCheckResult::Iterator &)) &BOPAlgo_ListOfCheckResult::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_BOPAlgo_ListOfCheckResult.def("InsertAfter", (BOPAlgo_CheckResult & (BOPAlgo_ListOfCheckResult::*)(const BOPAlgo_CheckResult &, BOPAlgo_ListOfCheckResult::Iterator &)) &BOPAlgo_ListOfCheckResult::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPAlgo_ListOfCheckResult.def("InsertAfter", (void (BOPAlgo_ListOfCheckResult::*)(BOPAlgo_ListOfCheckResult &, BOPAlgo_ListOfCheckResult::Iterator &)) &BOPAlgo_ListOfCheckResult::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_BOPAlgo_ListOfCheckResult.def("Reverse", (void (BOPAlgo_ListOfCheckResult::*)()) &BOPAlgo_ListOfCheckResult::Reverse, "Reverse the list");
-	cls_BOPAlgo_ListOfCheckResult.def("__iter__", [](const BOPAlgo_ListOfCheckResult &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPAlgo_ListOfCheckResult.hxx
+	bind_NCollection_List<BOPAlgo_CheckResult>(mod, "BOPAlgo_ListOfCheckResult");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<BOPAlgo_ListIteratorOfListOfCheckResult, std::unique_ptr<BOPAlgo_ListIteratorOfListOfCheckResult, Deleter<BOPAlgo_ListIteratorOfListOfCheckResult>>> cls_BOPAlgo_ListIteratorOfListOfCheckResult(mod, "BOPAlgo_ListIteratorOfListOfCheckResult", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_BOPAlgo_ListIteratorOfListOfCheckResult.def(py::init<>());
-	cls_BOPAlgo_ListIteratorOfListOfCheckResult.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_BOPAlgo_ListIteratorOfListOfCheckResult.def("More", (Standard_Boolean (BOPAlgo_ListIteratorOfListOfCheckResult::*)() const ) &BOPAlgo_ListIteratorOfListOfCheckResult::More, "Check end");
-	cls_BOPAlgo_ListIteratorOfListOfCheckResult.def("Next", (void (BOPAlgo_ListIteratorOfListOfCheckResult::*)()) &BOPAlgo_ListIteratorOfListOfCheckResult::Next, "Make step");
-	cls_BOPAlgo_ListIteratorOfListOfCheckResult.def("Value", (const BOPAlgo_CheckResult & (BOPAlgo_ListIteratorOfListOfCheckResult::*)() const ) &BOPAlgo_ListIteratorOfListOfCheckResult::Value, "Constant Value access");
-	cls_BOPAlgo_ListIteratorOfListOfCheckResult.def("Value", (BOPAlgo_CheckResult & (BOPAlgo_ListIteratorOfListOfCheckResult::*)()) &BOPAlgo_ListIteratorOfListOfCheckResult::Value, "Non-const Value access");
-	cls_BOPAlgo_ListIteratorOfListOfCheckResult.def("ChangeValue", (BOPAlgo_CheckResult & (BOPAlgo_ListIteratorOfListOfCheckResult::*)() const ) &BOPAlgo_ListIteratorOfListOfCheckResult::ChangeValue, "Non-const Value access");
-
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPAlgo_ListOfCheckResult.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPAlgo_PPaveFiller.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPAlgo_PArgumentAnalyzer.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPAlgo_PBOP.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPAlgo_PBuilder.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPAlgo_PSection.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPAlgo_PWireEdgeSet.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<BOPAlgo_ListOfEdgeInfo, std::unique_ptr<BOPAlgo_ListOfEdgeInfo, Deleter<BOPAlgo_ListOfEdgeInfo>>, NCollection_BaseList> cls_BOPAlgo_ListOfEdgeInfo(mod, "BOPAlgo_ListOfEdgeInfo", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_BOPAlgo_ListOfEdgeInfo.def(py::init<>());
-	cls_BOPAlgo_ListOfEdgeInfo.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_BOPAlgo_ListOfEdgeInfo.def(py::init([] (const BOPAlgo_ListOfEdgeInfo &other) {return new BOPAlgo_ListOfEdgeInfo(other);}), "Copy constructor", py::arg("other"));
-	cls_BOPAlgo_ListOfEdgeInfo.def("begin", (BOPAlgo_ListOfEdgeInfo::iterator (BOPAlgo_ListOfEdgeInfo::*)() const ) &BOPAlgo_ListOfEdgeInfo::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_BOPAlgo_ListOfEdgeInfo.def("end", (BOPAlgo_ListOfEdgeInfo::iterator (BOPAlgo_ListOfEdgeInfo::*)() const ) &BOPAlgo_ListOfEdgeInfo::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_BOPAlgo_ListOfEdgeInfo.def("cbegin", (BOPAlgo_ListOfEdgeInfo::const_iterator (BOPAlgo_ListOfEdgeInfo::*)() const ) &BOPAlgo_ListOfEdgeInfo::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_BOPAlgo_ListOfEdgeInfo.def("cend", (BOPAlgo_ListOfEdgeInfo::const_iterator (BOPAlgo_ListOfEdgeInfo::*)() const ) &BOPAlgo_ListOfEdgeInfo::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_BOPAlgo_ListOfEdgeInfo.def("Size", (Standard_Integer (BOPAlgo_ListOfEdgeInfo::*)() const ) &BOPAlgo_ListOfEdgeInfo::Size, "Size - Number of items");
-	cls_BOPAlgo_ListOfEdgeInfo.def("Assign", (BOPAlgo_ListOfEdgeInfo & (BOPAlgo_ListOfEdgeInfo::*)(const BOPAlgo_ListOfEdgeInfo &)) &BOPAlgo_ListOfEdgeInfo::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BOPAlgo_ListOfEdgeInfo.def("assign", (BOPAlgo_ListOfEdgeInfo & (BOPAlgo_ListOfEdgeInfo::*)(const BOPAlgo_ListOfEdgeInfo &)) &BOPAlgo_ListOfEdgeInfo::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_BOPAlgo_ListOfEdgeInfo.def("Clear", [](BOPAlgo_ListOfEdgeInfo &self) -> void { return self.Clear(); });
-	cls_BOPAlgo_ListOfEdgeInfo.def("Clear", (void (BOPAlgo_ListOfEdgeInfo::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BOPAlgo_ListOfEdgeInfo::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_BOPAlgo_ListOfEdgeInfo.def("First", (const BOPAlgo_EdgeInfo & (BOPAlgo_ListOfEdgeInfo::*)() const ) &BOPAlgo_ListOfEdgeInfo::First, "First item");
-	cls_BOPAlgo_ListOfEdgeInfo.def("First", (BOPAlgo_EdgeInfo & (BOPAlgo_ListOfEdgeInfo::*)()) &BOPAlgo_ListOfEdgeInfo::First, "First item (non-const)");
-	cls_BOPAlgo_ListOfEdgeInfo.def("Last", (const BOPAlgo_EdgeInfo & (BOPAlgo_ListOfEdgeInfo::*)() const ) &BOPAlgo_ListOfEdgeInfo::Last, "Last item");
-	cls_BOPAlgo_ListOfEdgeInfo.def("Last", (BOPAlgo_EdgeInfo & (BOPAlgo_ListOfEdgeInfo::*)()) &BOPAlgo_ListOfEdgeInfo::Last, "Last item (non-const)");
-	cls_BOPAlgo_ListOfEdgeInfo.def("Append", (BOPAlgo_EdgeInfo & (BOPAlgo_ListOfEdgeInfo::*)(const BOPAlgo_EdgeInfo &)) &BOPAlgo_ListOfEdgeInfo::Append, "Append one item at the end", py::arg("theItem"));
-	cls_BOPAlgo_ListOfEdgeInfo.def("Append", (void (BOPAlgo_ListOfEdgeInfo::*)(const BOPAlgo_EdgeInfo &, BOPAlgo_ListOfEdgeInfo::Iterator &)) &BOPAlgo_ListOfEdgeInfo::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPAlgo_ListOfEdgeInfo.def("Append", (void (BOPAlgo_ListOfEdgeInfo::*)(BOPAlgo_ListOfEdgeInfo &)) &BOPAlgo_ListOfEdgeInfo::Append, "Append another list at the end", py::arg("theOther"));
-	cls_BOPAlgo_ListOfEdgeInfo.def("Prepend", (BOPAlgo_EdgeInfo & (BOPAlgo_ListOfEdgeInfo::*)(const BOPAlgo_EdgeInfo &)) &BOPAlgo_ListOfEdgeInfo::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_BOPAlgo_ListOfEdgeInfo.def("Prepend", (void (BOPAlgo_ListOfEdgeInfo::*)(BOPAlgo_ListOfEdgeInfo &)) &BOPAlgo_ListOfEdgeInfo::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_BOPAlgo_ListOfEdgeInfo.def("RemoveFirst", (void (BOPAlgo_ListOfEdgeInfo::*)()) &BOPAlgo_ListOfEdgeInfo::RemoveFirst, "RemoveFirst item");
-	cls_BOPAlgo_ListOfEdgeInfo.def("Remove", (void (BOPAlgo_ListOfEdgeInfo::*)(BOPAlgo_ListOfEdgeInfo::Iterator &)) &BOPAlgo_ListOfEdgeInfo::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_BOPAlgo_ListOfEdgeInfo.def("InsertBefore", (BOPAlgo_EdgeInfo & (BOPAlgo_ListOfEdgeInfo::*)(const BOPAlgo_EdgeInfo &, BOPAlgo_ListOfEdgeInfo::Iterator &)) &BOPAlgo_ListOfEdgeInfo::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPAlgo_ListOfEdgeInfo.def("InsertBefore", (void (BOPAlgo_ListOfEdgeInfo::*)(BOPAlgo_ListOfEdgeInfo &, BOPAlgo_ListOfEdgeInfo::Iterator &)) &BOPAlgo_ListOfEdgeInfo::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_BOPAlgo_ListOfEdgeInfo.def("InsertAfter", (BOPAlgo_EdgeInfo & (BOPAlgo_ListOfEdgeInfo::*)(const BOPAlgo_EdgeInfo &, BOPAlgo_ListOfEdgeInfo::Iterator &)) &BOPAlgo_ListOfEdgeInfo::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_BOPAlgo_ListOfEdgeInfo.def("InsertAfter", (void (BOPAlgo_ListOfEdgeInfo::*)(BOPAlgo_ListOfEdgeInfo &, BOPAlgo_ListOfEdgeInfo::Iterator &)) &BOPAlgo_ListOfEdgeInfo::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_BOPAlgo_ListOfEdgeInfo.def("Reverse", (void (BOPAlgo_ListOfEdgeInfo::*)()) &BOPAlgo_ListOfEdgeInfo::Reverse, "Reverse the list");
-	cls_BOPAlgo_ListOfEdgeInfo.def("__iter__", [](const BOPAlgo_ListOfEdgeInfo &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPAlgo_WireSplitter.lxx
+	bind_NCollection_List<BOPAlgo_EdgeInfo>(mod, "BOPAlgo_ListOfEdgeInfo");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<BOPAlgo_ListIteratorOfListOfEdgeInfo, std::unique_ptr<BOPAlgo_ListIteratorOfListOfEdgeInfo, Deleter<BOPAlgo_ListIteratorOfListOfEdgeInfo>>> cls_BOPAlgo_ListIteratorOfListOfEdgeInfo(mod, "BOPAlgo_ListIteratorOfListOfEdgeInfo", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_BOPAlgo_ListIteratorOfListOfEdgeInfo.def(py::init<>());
-	cls_BOPAlgo_ListIteratorOfListOfEdgeInfo.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_BOPAlgo_ListIteratorOfListOfEdgeInfo.def("More", (Standard_Boolean (BOPAlgo_ListIteratorOfListOfEdgeInfo::*)() const ) &BOPAlgo_ListIteratorOfListOfEdgeInfo::More, "Check end");
-	cls_BOPAlgo_ListIteratorOfListOfEdgeInfo.def("Next", (void (BOPAlgo_ListIteratorOfListOfEdgeInfo::*)()) &BOPAlgo_ListIteratorOfListOfEdgeInfo::Next, "Make step");
-	cls_BOPAlgo_ListIteratorOfListOfEdgeInfo.def("Value", (const BOPAlgo_EdgeInfo & (BOPAlgo_ListIteratorOfListOfEdgeInfo::*)() const ) &BOPAlgo_ListIteratorOfListOfEdgeInfo::Value, "Constant Value access");
-	cls_BOPAlgo_ListIteratorOfListOfEdgeInfo.def("Value", (BOPAlgo_EdgeInfo & (BOPAlgo_ListIteratorOfListOfEdgeInfo::*)()) &BOPAlgo_ListIteratorOfListOfEdgeInfo::Value, "Non-const Value access");
-	cls_BOPAlgo_ListIteratorOfListOfEdgeInfo.def("ChangeValue", (BOPAlgo_EdgeInfo & (BOPAlgo_ListIteratorOfListOfEdgeInfo::*)() const ) &BOPAlgo_ListIteratorOfListOfEdgeInfo::ChangeValue, "Non-const Value access");
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_IndexedDataMap.hxx
-	py::class_<BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo, std::unique_ptr<BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo, Deleter<BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo>>, NCollection_BaseMap> cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo(mod, "BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo", "Purpose: An indexed map is used to store keys and to bind an index to them. Each new key stored in the map gets an index. Index are incremented as keys are stored in the map. A key can be found by the index and an index by the key. No key but the last can be removed so the indices are in the range 1.. Extent. An Item is stored with each key.");
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def(py::init<>());
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def(py::init([] (const BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo &other) {return new BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo(other);}), "Copy constructor", py::arg("other"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("begin", (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::iterator (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)() const ) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("end", (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::iterator (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)() const ) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("cbegin", (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::const_iterator (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)() const ) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("cend", (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::const_iterator (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)() const ) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("Exchange", (void (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo &)) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("Assign", (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo & (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo &)) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("assign", (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo & (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo &)) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("ReSize", (void (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const Standard_Integer)) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::ReSize, "ReSize", py::arg("N"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("Add", (Standard_Integer (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const TopoDS_Shape &, const BOPAlgo_ListOfEdgeInfo &)) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::Add, "Add", py::arg("theKey1"), py::arg("theItem"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("Contains", (Standard_Boolean (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const TopoDS_Shape &) const ) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::Contains, "Contains", py::arg("theKey1"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("Substitute", (void (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const Standard_Integer, const TopoDS_Shape &, const BOPAlgo_ListOfEdgeInfo &)) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::Substitute, "Substitute", py::arg("theIndex"), py::arg("theKey1"), py::arg("theItem"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("Swap", (void (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const Standard_Integer, const Standard_Integer)) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::Swap, "Swaps two elements with the given indices.", py::arg("theIndex1"), py::arg("theIndex2"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("RemoveLast", (void (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)()) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::RemoveLast, "RemoveLast");
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("RemoveFromIndex", (void (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const Standard_Integer)) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::RemoveFromIndex, "Remove the key of the given index. Caution! The index of the last key can be changed.", py::arg("theKey2"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("RemoveKey", (void (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const TopoDS_Shape &)) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::RemoveKey, "Remove the given key. Caution! The index of the last key can be changed.", py::arg("theKey1"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("FindKey", (const TopoDS_Shape & (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const Standard_Integer) const ) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::FindKey, "FindKey", py::arg("theKey2"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("FindFromIndex", (const BOPAlgo_ListOfEdgeInfo & (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const Standard_Integer) const ) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::FindFromIndex, "FindFromIndex", py::arg("theKey2"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("__call__", (const BOPAlgo_ListOfEdgeInfo & (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const Standard_Integer) const ) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("ChangeFromIndex", (BOPAlgo_ListOfEdgeInfo & (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const Standard_Integer)) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::ChangeFromIndex, "ChangeFromIndex", py::arg("theKey2"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("__call__", (BOPAlgo_ListOfEdgeInfo & (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const Standard_Integer)) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("FindIndex", (Standard_Integer (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const TopoDS_Shape &) const ) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::FindIndex, "FindIndex", py::arg("theKey1"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("FindFromKey", (const BOPAlgo_ListOfEdgeInfo & (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const TopoDS_Shape &) const ) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::FindFromKey, "FindFromKey", py::arg("theKey1"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("ChangeFromKey", (BOPAlgo_ListOfEdgeInfo & (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const TopoDS_Shape &)) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::ChangeFromKey, "ChangeFromKey", py::arg("theKey1"));
-	// FIXME cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("Seek", (const BOPAlgo_ListOfEdgeInfo * (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const TopoDS_Shape &) const ) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::Seek, "Seek returns pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	// FIXME cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("ChangeSeek", (BOPAlgo_ListOfEdgeInfo * (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const TopoDS_Shape &)) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("FindFromKey", (Standard_Boolean (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const TopoDS_Shape &, BOPAlgo_ListOfEdgeInfo &) const ) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::FindFromKey, "Find value for key with copying.", py::arg("theKey1"), py::arg("theValue"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("Clear", [](BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo &self) -> void { return self.Clear(); });
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("Clear", (void (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const Standard_Boolean)) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("Clear", (void (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("Size", (Standard_Integer (BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::*)() const ) &BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo::Size, "Size");
-	cls_BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo.def("__iter__", [](const BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPAlgo_WireSplitter.lxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPAlgo_WireSplitter.lxx
+	bind_NCollection_IndexedDataMap<TopoDS_Shape, NCollection_List<BOPAlgo_EdgeInfo>, TopTools_ShapeMapHasher>(mod, "BOPAlgo_IndexedDataMapOfShapeListOfEdgeInfo");
 
 
 }

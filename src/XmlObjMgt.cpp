@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <XmlObjMgt_RRelocationTable.hxx>
 #include <XmlObjMgt_Element.hxx>
@@ -24,6 +15,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <TCollection_ExtendedString.hxx>
 #include <TCollection_AsciiString.hxx>
 #include <XmlObjMgt.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(XmlObjMgt, mod) {
 
@@ -92,12 +84,14 @@ PYBIND11_MODULE(XmlObjMgt, mod) {
 	// FIXME cls_XmlObjMgt.def_static("GetReal_", (Standard_Boolean (*)(Standard_CString &, Standard_Real &)) &XmlObjMgt::GetReal, "None", py::arg("theString"), py::arg("theValue"));
 	// FIXME cls_XmlObjMgt.def_static("GetReal_", (Standard_Boolean (*)(const XmlObjMgt_DOMString &, Standard_Real &)) &XmlObjMgt::GetReal, "None", py::arg("theString"), py::arg("theValue"));
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\XmlObjMgt_RRelocationTable.hxx
 	other_mod = py::module::import("OCCT.BinObjMgt");
 	if (py::hasattr(other_mod, "BinObjMgt_RRelocationTable")) {
 		mod.attr("XmlObjMgt_RRelocationTable") = other_mod.attr("BinObjMgt_RRelocationTable");
 	}
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\XmlObjMgt_Element.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\XmlObjMgt_SRelocationTable.hxx
 	other_mod = py::module::import("OCCT.BinObjMgt");
 	if (py::hasattr(other_mod, "BinObjMgt_SRelocationTable")) {
 		mod.attr("XmlObjMgt_SRelocationTable") = other_mod.attr("BinObjMgt_SRelocationTable");

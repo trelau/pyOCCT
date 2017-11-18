@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_Handle.hxx>
@@ -101,6 +92,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <IGESDimen_SpecificModule.hxx>
 #include <IGESDimen.hxx>
 #include <IGESDimen_Array1OfLeaderArrow.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(IGESDimen, mod) {
 
@@ -150,40 +142,8 @@ PYBIND11_MODULE(IGESDimen, mod) {
 	cls_IGESDimen_GeneralNote.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESDimen_GeneralNote::get_type_descriptor, "None");
 	cls_IGESDimen_GeneralNote.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESDimen_GeneralNote::*)() const ) &IGESDimen_GeneralNote::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESDimen_Array1OfGeneralNote, std::unique_ptr<IGESDimen_Array1OfGeneralNote, Deleter<IGESDimen_Array1OfGeneralNote>>> cls_IGESDimen_Array1OfGeneralNote(mod, "IGESDimen_Array1OfGeneralNote", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESDimen_Array1OfGeneralNote.def(py::init<>());
-	cls_IGESDimen_Array1OfGeneralNote.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESDimen_Array1OfGeneralNote.def(py::init([] (const IGESDimen_Array1OfGeneralNote &other) {return new IGESDimen_Array1OfGeneralNote(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESDimen_Array1OfGeneralNote.def(py::init<IGESDimen_Array1OfGeneralNote &&>(), py::arg("theOther"));
-	cls_IGESDimen_Array1OfGeneralNote.def(py::init<const opencascade::handle<IGESDimen_GeneralNote> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESDimen_Array1OfGeneralNote.def("begin", (IGESDimen_Array1OfGeneralNote::iterator (IGESDimen_Array1OfGeneralNote::*)() const ) &IGESDimen_Array1OfGeneralNote::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESDimen_Array1OfGeneralNote.def("end", (IGESDimen_Array1OfGeneralNote::iterator (IGESDimen_Array1OfGeneralNote::*)() const ) &IGESDimen_Array1OfGeneralNote::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESDimen_Array1OfGeneralNote.def("cbegin", (IGESDimen_Array1OfGeneralNote::const_iterator (IGESDimen_Array1OfGeneralNote::*)() const ) &IGESDimen_Array1OfGeneralNote::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESDimen_Array1OfGeneralNote.def("cend", (IGESDimen_Array1OfGeneralNote::const_iterator (IGESDimen_Array1OfGeneralNote::*)() const ) &IGESDimen_Array1OfGeneralNote::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESDimen_Array1OfGeneralNote.def("Init", (void (IGESDimen_Array1OfGeneralNote::*)(const opencascade::handle<IGESDimen_GeneralNote> &)) &IGESDimen_Array1OfGeneralNote::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESDimen_Array1OfGeneralNote.def("Size", (Standard_Integer (IGESDimen_Array1OfGeneralNote::*)() const ) &IGESDimen_Array1OfGeneralNote::Size, "Size query");
-	cls_IGESDimen_Array1OfGeneralNote.def("Length", (Standard_Integer (IGESDimen_Array1OfGeneralNote::*)() const ) &IGESDimen_Array1OfGeneralNote::Length, "Length query (the same)");
-	cls_IGESDimen_Array1OfGeneralNote.def("IsEmpty", (Standard_Boolean (IGESDimen_Array1OfGeneralNote::*)() const ) &IGESDimen_Array1OfGeneralNote::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESDimen_Array1OfGeneralNote.def("Lower", (Standard_Integer (IGESDimen_Array1OfGeneralNote::*)() const ) &IGESDimen_Array1OfGeneralNote::Lower, "Lower bound");
-	cls_IGESDimen_Array1OfGeneralNote.def("Upper", (Standard_Integer (IGESDimen_Array1OfGeneralNote::*)() const ) &IGESDimen_Array1OfGeneralNote::Upper, "Upper bound");
-	cls_IGESDimen_Array1OfGeneralNote.def("IsDeletable", (Standard_Boolean (IGESDimen_Array1OfGeneralNote::*)() const ) &IGESDimen_Array1OfGeneralNote::IsDeletable, "myDeletable flag");
-	cls_IGESDimen_Array1OfGeneralNote.def("IsAllocated", (Standard_Boolean (IGESDimen_Array1OfGeneralNote::*)() const ) &IGESDimen_Array1OfGeneralNote::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESDimen_Array1OfGeneralNote.def("Assign", (IGESDimen_Array1OfGeneralNote & (IGESDimen_Array1OfGeneralNote::*)(const IGESDimen_Array1OfGeneralNote &)) &IGESDimen_Array1OfGeneralNote::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESDimen_Array1OfGeneralNote.def("Move", (IGESDimen_Array1OfGeneralNote & (IGESDimen_Array1OfGeneralNote::*)(IGESDimen_Array1OfGeneralNote &&)) &IGESDimen_Array1OfGeneralNote::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESDimen_Array1OfGeneralNote.def("assign", (IGESDimen_Array1OfGeneralNote & (IGESDimen_Array1OfGeneralNote::*)(const IGESDimen_Array1OfGeneralNote &)) &IGESDimen_Array1OfGeneralNote::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESDimen_Array1OfGeneralNote.def("assign", (IGESDimen_Array1OfGeneralNote & (IGESDimen_Array1OfGeneralNote::*)(IGESDimen_Array1OfGeneralNote &&)) &IGESDimen_Array1OfGeneralNote::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESDimen_Array1OfGeneralNote.def("First", (const opencascade::handle<IGESDimen_GeneralNote> & (IGESDimen_Array1OfGeneralNote::*)() const ) &IGESDimen_Array1OfGeneralNote::First, "Returns first element");
-	cls_IGESDimen_Array1OfGeneralNote.def("ChangeFirst", (opencascade::handle<IGESDimen_GeneralNote> & (IGESDimen_Array1OfGeneralNote::*)()) &IGESDimen_Array1OfGeneralNote::ChangeFirst, "Returns first element");
-	cls_IGESDimen_Array1OfGeneralNote.def("Last", (const opencascade::handle<IGESDimen_GeneralNote> & (IGESDimen_Array1OfGeneralNote::*)() const ) &IGESDimen_Array1OfGeneralNote::Last, "Returns last element");
-	cls_IGESDimen_Array1OfGeneralNote.def("ChangeLast", (opencascade::handle<IGESDimen_GeneralNote> & (IGESDimen_Array1OfGeneralNote::*)()) &IGESDimen_Array1OfGeneralNote::ChangeLast, "Returns last element");
-	cls_IGESDimen_Array1OfGeneralNote.def("Value", (const opencascade::handle<IGESDimen_GeneralNote> & (IGESDimen_Array1OfGeneralNote::*)(const Standard_Integer) const ) &IGESDimen_Array1OfGeneralNote::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESDimen_Array1OfGeneralNote.def("__call__", (const opencascade::handle<IGESDimen_GeneralNote> & (IGESDimen_Array1OfGeneralNote::*)(const Standard_Integer) const ) &IGESDimen_Array1OfGeneralNote::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESDimen_Array1OfGeneralNote.def("ChangeValue", (opencascade::handle<IGESDimen_GeneralNote> & (IGESDimen_Array1OfGeneralNote::*)(const Standard_Integer)) &IGESDimen_Array1OfGeneralNote::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESDimen_Array1OfGeneralNote.def("__call__", (opencascade::handle<IGESDimen_GeneralNote> & (IGESDimen_Array1OfGeneralNote::*)(const Standard_Integer)) &IGESDimen_Array1OfGeneralNote::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESDimen_Array1OfGeneralNote.def("SetValue", (void (IGESDimen_Array1OfGeneralNote::*)(const Standard_Integer, const opencascade::handle<IGESDimen_GeneralNote> &)) &IGESDimen_Array1OfGeneralNote::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESDimen_Array1OfGeneralNote.def("Resize", (void (IGESDimen_Array1OfGeneralNote::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESDimen_Array1OfGeneralNote::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESDimen_Array1OfGeneralNote.def("__iter__", [](const IGESDimen_Array1OfGeneralNote &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESDimen_Array1OfGeneralNote.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESDimen_GeneralNote> >(mod, "IGESDimen_Array1OfGeneralNote");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESDimen_Protocol.hxx
 	py::class_<IGESDimen_Protocol, opencascade::handle<IGESDimen_Protocol>, IGESData_Protocol> cls_IGESDimen_Protocol(mod, "IGESDimen_Protocol", "Description of Protocol for IGESDimen");
@@ -868,40 +828,8 @@ PYBIND11_MODULE(IGESDimen, mod) {
 	cls_IGESDimen.def_static("Init_", (void (*)()) &IGESDimen::Init, "Prepares dynamic data (Protocol, Modules) for this package");
 	cls_IGESDimen.def_static("Protocol_", (opencascade::handle<IGESDimen_Protocol> (*)()) &IGESDimen::Protocol, "Returns the Protocol for this Package");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESDimen_Array1OfLeaderArrow, std::unique_ptr<IGESDimen_Array1OfLeaderArrow, Deleter<IGESDimen_Array1OfLeaderArrow>>> cls_IGESDimen_Array1OfLeaderArrow(mod, "IGESDimen_Array1OfLeaderArrow", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESDimen_Array1OfLeaderArrow.def(py::init<>());
-	cls_IGESDimen_Array1OfLeaderArrow.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESDimen_Array1OfLeaderArrow.def(py::init([] (const IGESDimen_Array1OfLeaderArrow &other) {return new IGESDimen_Array1OfLeaderArrow(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESDimen_Array1OfLeaderArrow.def(py::init<IGESDimen_Array1OfLeaderArrow &&>(), py::arg("theOther"));
-	cls_IGESDimen_Array1OfLeaderArrow.def(py::init<const opencascade::handle<IGESDimen_LeaderArrow> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESDimen_Array1OfLeaderArrow.def("begin", (IGESDimen_Array1OfLeaderArrow::iterator (IGESDimen_Array1OfLeaderArrow::*)() const ) &IGESDimen_Array1OfLeaderArrow::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESDimen_Array1OfLeaderArrow.def("end", (IGESDimen_Array1OfLeaderArrow::iterator (IGESDimen_Array1OfLeaderArrow::*)() const ) &IGESDimen_Array1OfLeaderArrow::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESDimen_Array1OfLeaderArrow.def("cbegin", (IGESDimen_Array1OfLeaderArrow::const_iterator (IGESDimen_Array1OfLeaderArrow::*)() const ) &IGESDimen_Array1OfLeaderArrow::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESDimen_Array1OfLeaderArrow.def("cend", (IGESDimen_Array1OfLeaderArrow::const_iterator (IGESDimen_Array1OfLeaderArrow::*)() const ) &IGESDimen_Array1OfLeaderArrow::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESDimen_Array1OfLeaderArrow.def("Init", (void (IGESDimen_Array1OfLeaderArrow::*)(const opencascade::handle<IGESDimen_LeaderArrow> &)) &IGESDimen_Array1OfLeaderArrow::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESDimen_Array1OfLeaderArrow.def("Size", (Standard_Integer (IGESDimen_Array1OfLeaderArrow::*)() const ) &IGESDimen_Array1OfLeaderArrow::Size, "Size query");
-	cls_IGESDimen_Array1OfLeaderArrow.def("Length", (Standard_Integer (IGESDimen_Array1OfLeaderArrow::*)() const ) &IGESDimen_Array1OfLeaderArrow::Length, "Length query (the same)");
-	cls_IGESDimen_Array1OfLeaderArrow.def("IsEmpty", (Standard_Boolean (IGESDimen_Array1OfLeaderArrow::*)() const ) &IGESDimen_Array1OfLeaderArrow::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESDimen_Array1OfLeaderArrow.def("Lower", (Standard_Integer (IGESDimen_Array1OfLeaderArrow::*)() const ) &IGESDimen_Array1OfLeaderArrow::Lower, "Lower bound");
-	cls_IGESDimen_Array1OfLeaderArrow.def("Upper", (Standard_Integer (IGESDimen_Array1OfLeaderArrow::*)() const ) &IGESDimen_Array1OfLeaderArrow::Upper, "Upper bound");
-	cls_IGESDimen_Array1OfLeaderArrow.def("IsDeletable", (Standard_Boolean (IGESDimen_Array1OfLeaderArrow::*)() const ) &IGESDimen_Array1OfLeaderArrow::IsDeletable, "myDeletable flag");
-	cls_IGESDimen_Array1OfLeaderArrow.def("IsAllocated", (Standard_Boolean (IGESDimen_Array1OfLeaderArrow::*)() const ) &IGESDimen_Array1OfLeaderArrow::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESDimen_Array1OfLeaderArrow.def("Assign", (IGESDimen_Array1OfLeaderArrow & (IGESDimen_Array1OfLeaderArrow::*)(const IGESDimen_Array1OfLeaderArrow &)) &IGESDimen_Array1OfLeaderArrow::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESDimen_Array1OfLeaderArrow.def("Move", (IGESDimen_Array1OfLeaderArrow & (IGESDimen_Array1OfLeaderArrow::*)(IGESDimen_Array1OfLeaderArrow &&)) &IGESDimen_Array1OfLeaderArrow::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESDimen_Array1OfLeaderArrow.def("assign", (IGESDimen_Array1OfLeaderArrow & (IGESDimen_Array1OfLeaderArrow::*)(const IGESDimen_Array1OfLeaderArrow &)) &IGESDimen_Array1OfLeaderArrow::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESDimen_Array1OfLeaderArrow.def("assign", (IGESDimen_Array1OfLeaderArrow & (IGESDimen_Array1OfLeaderArrow::*)(IGESDimen_Array1OfLeaderArrow &&)) &IGESDimen_Array1OfLeaderArrow::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESDimen_Array1OfLeaderArrow.def("First", (const opencascade::handle<IGESDimen_LeaderArrow> & (IGESDimen_Array1OfLeaderArrow::*)() const ) &IGESDimen_Array1OfLeaderArrow::First, "Returns first element");
-	cls_IGESDimen_Array1OfLeaderArrow.def("ChangeFirst", (opencascade::handle<IGESDimen_LeaderArrow> & (IGESDimen_Array1OfLeaderArrow::*)()) &IGESDimen_Array1OfLeaderArrow::ChangeFirst, "Returns first element");
-	cls_IGESDimen_Array1OfLeaderArrow.def("Last", (const opencascade::handle<IGESDimen_LeaderArrow> & (IGESDimen_Array1OfLeaderArrow::*)() const ) &IGESDimen_Array1OfLeaderArrow::Last, "Returns last element");
-	cls_IGESDimen_Array1OfLeaderArrow.def("ChangeLast", (opencascade::handle<IGESDimen_LeaderArrow> & (IGESDimen_Array1OfLeaderArrow::*)()) &IGESDimen_Array1OfLeaderArrow::ChangeLast, "Returns last element");
-	cls_IGESDimen_Array1OfLeaderArrow.def("Value", (const opencascade::handle<IGESDimen_LeaderArrow> & (IGESDimen_Array1OfLeaderArrow::*)(const Standard_Integer) const ) &IGESDimen_Array1OfLeaderArrow::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESDimen_Array1OfLeaderArrow.def("__call__", (const opencascade::handle<IGESDimen_LeaderArrow> & (IGESDimen_Array1OfLeaderArrow::*)(const Standard_Integer) const ) &IGESDimen_Array1OfLeaderArrow::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESDimen_Array1OfLeaderArrow.def("ChangeValue", (opencascade::handle<IGESDimen_LeaderArrow> & (IGESDimen_Array1OfLeaderArrow::*)(const Standard_Integer)) &IGESDimen_Array1OfLeaderArrow::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESDimen_Array1OfLeaderArrow.def("__call__", (opencascade::handle<IGESDimen_LeaderArrow> & (IGESDimen_Array1OfLeaderArrow::*)(const Standard_Integer)) &IGESDimen_Array1OfLeaderArrow::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESDimen_Array1OfLeaderArrow.def("SetValue", (void (IGESDimen_Array1OfLeaderArrow::*)(const Standard_Integer, const opencascade::handle<IGESDimen_LeaderArrow> &)) &IGESDimen_Array1OfLeaderArrow::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESDimen_Array1OfLeaderArrow.def("Resize", (void (IGESDimen_Array1OfLeaderArrow::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESDimen_Array1OfLeaderArrow::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESDimen_Array1OfLeaderArrow.def("__iter__", [](const IGESDimen_Array1OfLeaderArrow &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESDimen_Array1OfLeaderArrow.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESDimen_LeaderArrow> >(mod, "IGESDimen_Array1OfLeaderArrow");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESDimen_HArray1OfGeneralNote.hxx
 	py::class_<IGESDimen_HArray1OfGeneralNote, opencascade::handle<IGESDimen_HArray1OfGeneralNote>, IGESDimen_Array1OfGeneralNote, Standard_Transient> cls_IGESDimen_HArray1OfGeneralNote(mod, "IGESDimen_HArray1OfGeneralNote", "None");

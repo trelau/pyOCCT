@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_TypeDef.hxx>
@@ -59,6 +50,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_BaseAllocator.hxx>
 #include <NCollection_DataMap.hxx>
 #include <BRepTools_MapOfVertexPnt2d.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BRepTools, mod) {
 
@@ -303,37 +295,12 @@ PYBIND11_MODULE(BRepTools, mod) {
 	cls_BRepTools.def_static("Read_", (Standard_Boolean (*)(TopoDS_Shape &, const Standard_CString, const BRep_Builder &, const opencascade::handle<Message_ProgressIndicator> &)) &BRepTools::Read, "Reads a Shape from <File>, returns it in <Sh>. <B> is used to build the shape.", py::arg("Sh"), py::arg("File"), py::arg("B"), py::arg("PR"));
 	cls_BRepTools.def_static("EvalAndUpdateTol_", (Standard_Real (*)(const TopoDS_Edge &, const opencascade::handle<Geom_Curve> &, const opencascade::handle<Geom2d_Curve>, const opencascade::handle<Geom_Surface> &, const Standard_Real, const Standard_Real)) &BRepTools::EvalAndUpdateTol, "Evals real tolerance of edge <theE>. <theC3d>, <theC2d>, <theS>, <theF>, <theL> are correspondently 3d curve of edge, 2d curve on surface <theS> and rang of edge If calculated tolerance is more then current edge tolerance, edge is updated. Method returns actual tolerance of edge", py::arg("theE"), py::arg("theC3d"), py::arg("theC2d"), py::arg("theS"), py::arg("theF"), py::arg("theL"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<BRepTools_MapOfVertexPnt2d, std::unique_ptr<BRepTools_MapOfVertexPnt2d, Deleter<BRepTools_MapOfVertexPnt2d>>, NCollection_BaseMap> cls_BRepTools_MapOfVertexPnt2d(mod, "BRepTools_MapOfVertexPnt2d", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_BRepTools_MapOfVertexPnt2d.def(py::init<>());
-	cls_BRepTools_MapOfVertexPnt2d.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BRepTools_MapOfVertexPnt2d.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BRepTools_MapOfVertexPnt2d.def(py::init([] (const BRepTools_MapOfVertexPnt2d &other) {return new BRepTools_MapOfVertexPnt2d(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepTools_MapOfVertexPnt2d.def("begin", (BRepTools_MapOfVertexPnt2d::iterator (BRepTools_MapOfVertexPnt2d::*)() const ) &BRepTools_MapOfVertexPnt2d::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_BRepTools_MapOfVertexPnt2d.def("end", (BRepTools_MapOfVertexPnt2d::iterator (BRepTools_MapOfVertexPnt2d::*)() const ) &BRepTools_MapOfVertexPnt2d::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_BRepTools_MapOfVertexPnt2d.def("cbegin", (BRepTools_MapOfVertexPnt2d::const_iterator (BRepTools_MapOfVertexPnt2d::*)() const ) &BRepTools_MapOfVertexPnt2d::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_BRepTools_MapOfVertexPnt2d.def("cend", (BRepTools_MapOfVertexPnt2d::const_iterator (BRepTools_MapOfVertexPnt2d::*)() const ) &BRepTools_MapOfVertexPnt2d::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_BRepTools_MapOfVertexPnt2d.def("Exchange", (void (BRepTools_MapOfVertexPnt2d::*)(BRepTools_MapOfVertexPnt2d &)) &BRepTools_MapOfVertexPnt2d::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BRepTools_MapOfVertexPnt2d.def("Assign", (BRepTools_MapOfVertexPnt2d & (BRepTools_MapOfVertexPnt2d::*)(const BRepTools_MapOfVertexPnt2d &)) &BRepTools_MapOfVertexPnt2d::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepTools_MapOfVertexPnt2d.def("assign", (BRepTools_MapOfVertexPnt2d & (BRepTools_MapOfVertexPnt2d::*)(const BRepTools_MapOfVertexPnt2d &)) &BRepTools_MapOfVertexPnt2d::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BRepTools_MapOfVertexPnt2d.def("ReSize", (void (BRepTools_MapOfVertexPnt2d::*)(const Standard_Integer)) &BRepTools_MapOfVertexPnt2d::ReSize, "ReSize", py::arg("N"));
-	cls_BRepTools_MapOfVertexPnt2d.def("Bind", (Standard_Boolean (BRepTools_MapOfVertexPnt2d::*)(const TopoDS_Shape &, const TColgp_SequenceOfPnt2d &)) &BRepTools_MapOfVertexPnt2d::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_BRepTools_MapOfVertexPnt2d.def("Bound", (TColgp_SequenceOfPnt2d * (BRepTools_MapOfVertexPnt2d::*)(const TopoDS_Shape &, const TColgp_SequenceOfPnt2d &)) &BRepTools_MapOfVertexPnt2d::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_BRepTools_MapOfVertexPnt2d.def("IsBound", (Standard_Boolean (BRepTools_MapOfVertexPnt2d::*)(const TopoDS_Shape &) const ) &BRepTools_MapOfVertexPnt2d::IsBound, "IsBound", py::arg("theKey"));
-	cls_BRepTools_MapOfVertexPnt2d.def("UnBind", (Standard_Boolean (BRepTools_MapOfVertexPnt2d::*)(const TopoDS_Shape &)) &BRepTools_MapOfVertexPnt2d::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_BRepTools_MapOfVertexPnt2d.def("Seek", (const TColgp_SequenceOfPnt2d * (BRepTools_MapOfVertexPnt2d::*)(const TopoDS_Shape &) const ) &BRepTools_MapOfVertexPnt2d::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_BRepTools_MapOfVertexPnt2d.def("Find", (const TColgp_SequenceOfPnt2d & (BRepTools_MapOfVertexPnt2d::*)(const TopoDS_Shape &) const ) &BRepTools_MapOfVertexPnt2d::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_BRepTools_MapOfVertexPnt2d.def("Find", (Standard_Boolean (BRepTools_MapOfVertexPnt2d::*)(const TopoDS_Shape &, TColgp_SequenceOfPnt2d &) const ) &BRepTools_MapOfVertexPnt2d::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_BRepTools_MapOfVertexPnt2d.def("__call__", (const TColgp_SequenceOfPnt2d & (BRepTools_MapOfVertexPnt2d::*)(const TopoDS_Shape &) const ) &BRepTools_MapOfVertexPnt2d::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_BRepTools_MapOfVertexPnt2d.def("ChangeSeek", (TColgp_SequenceOfPnt2d * (BRepTools_MapOfVertexPnt2d::*)(const TopoDS_Shape &)) &BRepTools_MapOfVertexPnt2d::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_BRepTools_MapOfVertexPnt2d.def("ChangeFind", (TColgp_SequenceOfPnt2d & (BRepTools_MapOfVertexPnt2d::*)(const TopoDS_Shape &)) &BRepTools_MapOfVertexPnt2d::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_BRepTools_MapOfVertexPnt2d.def("__call__", (TColgp_SequenceOfPnt2d & (BRepTools_MapOfVertexPnt2d::*)(const TopoDS_Shape &)) &BRepTools_MapOfVertexPnt2d::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_BRepTools_MapOfVertexPnt2d.def("Clear", [](BRepTools_MapOfVertexPnt2d &self) -> void { return self.Clear(); });
-	cls_BRepTools_MapOfVertexPnt2d.def("Clear", (void (BRepTools_MapOfVertexPnt2d::*)(const Standard_Boolean)) &BRepTools_MapOfVertexPnt2d::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BRepTools_MapOfVertexPnt2d.def("Clear", (void (BRepTools_MapOfVertexPnt2d::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepTools_MapOfVertexPnt2d::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BRepTools_MapOfVertexPnt2d.def("Size", (Standard_Integer (BRepTools_MapOfVertexPnt2d::*)() const ) &BRepTools_MapOfVertexPnt2d::Size, "Size");
-	cls_BRepTools_MapOfVertexPnt2d.def("__iter__", [](const BRepTools_MapOfVertexPnt2d &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepTools_MapOfVertexPnt2d.hxx
+	bind_NCollection_DataMap<TopoDS_Shape, NCollection_Sequence<gp_Pnt2d>, TopTools_ShapeMapHasher>(mod, "BRepTools_MapOfVertexPnt2d");
+
+	/* FIXME
+
+	*/
+
 
 }

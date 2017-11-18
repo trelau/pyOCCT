@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Blend_Point.hxx>
@@ -111,6 +102,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <ChFiDS_HElSpine.hxx>
 #include <TopAbs_State.hxx>
 #include <BRepBlend_Walking.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BRepBlend, mod) {
 
@@ -701,99 +693,15 @@ PYBIND11_MODULE(BRepBlend, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepBlend_ConstRadInv.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepBlend_CSCircular.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepBlend_CSConstRad.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<BRepBlend_SequenceOfPointOnRst, std::unique_ptr<BRepBlend_SequenceOfPointOnRst, Deleter<BRepBlend_SequenceOfPointOnRst>>, NCollection_BaseSequence> cls_BRepBlend_SequenceOfPointOnRst(mod, "BRepBlend_SequenceOfPointOnRst", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_BRepBlend_SequenceOfPointOnRst.def(py::init<>());
-	cls_BRepBlend_SequenceOfPointOnRst.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_BRepBlend_SequenceOfPointOnRst.def(py::init([] (const BRepBlend_SequenceOfPointOnRst &other) {return new BRepBlend_SequenceOfPointOnRst(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("begin", (BRepBlend_SequenceOfPointOnRst::iterator (BRepBlend_SequenceOfPointOnRst::*)() const ) &BRepBlend_SequenceOfPointOnRst::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_BRepBlend_SequenceOfPointOnRst.def("end", (BRepBlend_SequenceOfPointOnRst::iterator (BRepBlend_SequenceOfPointOnRst::*)() const ) &BRepBlend_SequenceOfPointOnRst::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_BRepBlend_SequenceOfPointOnRst.def("cbegin", (BRepBlend_SequenceOfPointOnRst::const_iterator (BRepBlend_SequenceOfPointOnRst::*)() const ) &BRepBlend_SequenceOfPointOnRst::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_BRepBlend_SequenceOfPointOnRst.def("cend", (BRepBlend_SequenceOfPointOnRst::const_iterator (BRepBlend_SequenceOfPointOnRst::*)() const ) &BRepBlend_SequenceOfPointOnRst::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_BRepBlend_SequenceOfPointOnRst.def("Size", (Standard_Integer (BRepBlend_SequenceOfPointOnRst::*)() const ) &BRepBlend_SequenceOfPointOnRst::Size, "Number of items");
-	cls_BRepBlend_SequenceOfPointOnRst.def("Length", (Standard_Integer (BRepBlend_SequenceOfPointOnRst::*)() const ) &BRepBlend_SequenceOfPointOnRst::Length, "Number of items");
-	cls_BRepBlend_SequenceOfPointOnRst.def("Lower", (Standard_Integer (BRepBlend_SequenceOfPointOnRst::*)() const ) &BRepBlend_SequenceOfPointOnRst::Lower, "Method for consistency with other collections.");
-	cls_BRepBlend_SequenceOfPointOnRst.def("Upper", (Standard_Integer (BRepBlend_SequenceOfPointOnRst::*)() const ) &BRepBlend_SequenceOfPointOnRst::Upper, "Method for consistency with other collections.");
-	cls_BRepBlend_SequenceOfPointOnRst.def("IsEmpty", (Standard_Boolean (BRepBlend_SequenceOfPointOnRst::*)() const ) &BRepBlend_SequenceOfPointOnRst::IsEmpty, "Empty query");
-	cls_BRepBlend_SequenceOfPointOnRst.def("Reverse", (void (BRepBlend_SequenceOfPointOnRst::*)()) &BRepBlend_SequenceOfPointOnRst::Reverse, "Reverse sequence");
-	cls_BRepBlend_SequenceOfPointOnRst.def("Exchange", (void (BRepBlend_SequenceOfPointOnRst::*)(const Standard_Integer, const Standard_Integer)) &BRepBlend_SequenceOfPointOnRst::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_BRepBlend_SequenceOfPointOnRst.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &BRepBlend_SequenceOfPointOnRst::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("Clear", [](BRepBlend_SequenceOfPointOnRst &self) -> void { return self.Clear(); });
-	cls_BRepBlend_SequenceOfPointOnRst.def("Clear", (void (BRepBlend_SequenceOfPointOnRst::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepBlend_SequenceOfPointOnRst::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("Assign", (BRepBlend_SequenceOfPointOnRst & (BRepBlend_SequenceOfPointOnRst::*)(const BRepBlend_SequenceOfPointOnRst &)) &BRepBlend_SequenceOfPointOnRst::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("assign", (BRepBlend_SequenceOfPointOnRst & (BRepBlend_SequenceOfPointOnRst::*)(const BRepBlend_SequenceOfPointOnRst &)) &BRepBlend_SequenceOfPointOnRst::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("Remove", (void (BRepBlend_SequenceOfPointOnRst::*)(BRepBlend_SequenceOfPointOnRst::Iterator &)) &BRepBlend_SequenceOfPointOnRst::Remove, "Remove one item", py::arg("thePosition"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("Remove", (void (BRepBlend_SequenceOfPointOnRst::*)(const Standard_Integer)) &BRepBlend_SequenceOfPointOnRst::Remove, "Remove one item", py::arg("theIndex"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("Remove", (void (BRepBlend_SequenceOfPointOnRst::*)(const Standard_Integer, const Standard_Integer)) &BRepBlend_SequenceOfPointOnRst::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("Append", (void (BRepBlend_SequenceOfPointOnRst::*)(const BRepBlend_PointOnRst &)) &BRepBlend_SequenceOfPointOnRst::Append, "Append one item", py::arg("theItem"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("Append", (void (BRepBlend_SequenceOfPointOnRst::*)(BRepBlend_SequenceOfPointOnRst &)) &BRepBlend_SequenceOfPointOnRst::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("Prepend", (void (BRepBlend_SequenceOfPointOnRst::*)(const BRepBlend_PointOnRst &)) &BRepBlend_SequenceOfPointOnRst::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("Prepend", (void (BRepBlend_SequenceOfPointOnRst::*)(BRepBlend_SequenceOfPointOnRst &)) &BRepBlend_SequenceOfPointOnRst::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("InsertBefore", (void (BRepBlend_SequenceOfPointOnRst::*)(const Standard_Integer, const BRepBlend_PointOnRst &)) &BRepBlend_SequenceOfPointOnRst::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("InsertBefore", (void (BRepBlend_SequenceOfPointOnRst::*)(const Standard_Integer, BRepBlend_SequenceOfPointOnRst &)) &BRepBlend_SequenceOfPointOnRst::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("InsertAfter", (void (BRepBlend_SequenceOfPointOnRst::*)(BRepBlend_SequenceOfPointOnRst::Iterator &, const BRepBlend_PointOnRst &)) &BRepBlend_SequenceOfPointOnRst::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("InsertAfter", (void (BRepBlend_SequenceOfPointOnRst::*)(const Standard_Integer, BRepBlend_SequenceOfPointOnRst &)) &BRepBlend_SequenceOfPointOnRst::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("InsertAfter", (void (BRepBlend_SequenceOfPointOnRst::*)(const Standard_Integer, const BRepBlend_PointOnRst &)) &BRepBlend_SequenceOfPointOnRst::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("Split", (void (BRepBlend_SequenceOfPointOnRst::*)(const Standard_Integer, BRepBlend_SequenceOfPointOnRst &)) &BRepBlend_SequenceOfPointOnRst::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("First", (const BRepBlend_PointOnRst & (BRepBlend_SequenceOfPointOnRst::*)() const ) &BRepBlend_SequenceOfPointOnRst::First, "First item access");
-	cls_BRepBlend_SequenceOfPointOnRst.def("ChangeFirst", (BRepBlend_PointOnRst & (BRepBlend_SequenceOfPointOnRst::*)()) &BRepBlend_SequenceOfPointOnRst::ChangeFirst, "First item access");
-	cls_BRepBlend_SequenceOfPointOnRst.def("Last", (const BRepBlend_PointOnRst & (BRepBlend_SequenceOfPointOnRst::*)() const ) &BRepBlend_SequenceOfPointOnRst::Last, "Last item access");
-	cls_BRepBlend_SequenceOfPointOnRst.def("ChangeLast", (BRepBlend_PointOnRst & (BRepBlend_SequenceOfPointOnRst::*)()) &BRepBlend_SequenceOfPointOnRst::ChangeLast, "Last item access");
-	cls_BRepBlend_SequenceOfPointOnRst.def("Value", (const BRepBlend_PointOnRst & (BRepBlend_SequenceOfPointOnRst::*)(const Standard_Integer) const ) &BRepBlend_SequenceOfPointOnRst::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("__call__", (const BRepBlend_PointOnRst & (BRepBlend_SequenceOfPointOnRst::*)(const Standard_Integer) const ) &BRepBlend_SequenceOfPointOnRst::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("ChangeValue", (BRepBlend_PointOnRst & (BRepBlend_SequenceOfPointOnRst::*)(const Standard_Integer)) &BRepBlend_SequenceOfPointOnRst::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("__call__", (BRepBlend_PointOnRst & (BRepBlend_SequenceOfPointOnRst::*)(const Standard_Integer)) &BRepBlend_SequenceOfPointOnRst::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("SetValue", (void (BRepBlend_SequenceOfPointOnRst::*)(const Standard_Integer, const BRepBlend_PointOnRst &)) &BRepBlend_SequenceOfPointOnRst::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_BRepBlend_SequenceOfPointOnRst.def("__iter__", [](const BRepBlend_SequenceOfPointOnRst &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepBlend_SequenceOfPointOnRst.hxx
+	bind_NCollection_Sequence<BRepBlend_PointOnRst>(mod, "BRepBlend_SequenceOfPointOnRst");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepBlend_EvolRad.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepBlend_EvolRadInv.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepBlend_Ruled.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepBlend_RuledInv.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<BRepBlend_SequenceOfLine, std::unique_ptr<BRepBlend_SequenceOfLine, Deleter<BRepBlend_SequenceOfLine>>, NCollection_BaseSequence> cls_BRepBlend_SequenceOfLine(mod, "BRepBlend_SequenceOfLine", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_BRepBlend_SequenceOfLine.def(py::init<>());
-	cls_BRepBlend_SequenceOfLine.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_BRepBlend_SequenceOfLine.def(py::init([] (const BRepBlend_SequenceOfLine &other) {return new BRepBlend_SequenceOfLine(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepBlend_SequenceOfLine.def("begin", (BRepBlend_SequenceOfLine::iterator (BRepBlend_SequenceOfLine::*)() const ) &BRepBlend_SequenceOfLine::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_BRepBlend_SequenceOfLine.def("end", (BRepBlend_SequenceOfLine::iterator (BRepBlend_SequenceOfLine::*)() const ) &BRepBlend_SequenceOfLine::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_BRepBlend_SequenceOfLine.def("cbegin", (BRepBlend_SequenceOfLine::const_iterator (BRepBlend_SequenceOfLine::*)() const ) &BRepBlend_SequenceOfLine::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_BRepBlend_SequenceOfLine.def("cend", (BRepBlend_SequenceOfLine::const_iterator (BRepBlend_SequenceOfLine::*)() const ) &BRepBlend_SequenceOfLine::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_BRepBlend_SequenceOfLine.def("Size", (Standard_Integer (BRepBlend_SequenceOfLine::*)() const ) &BRepBlend_SequenceOfLine::Size, "Number of items");
-	cls_BRepBlend_SequenceOfLine.def("Length", (Standard_Integer (BRepBlend_SequenceOfLine::*)() const ) &BRepBlend_SequenceOfLine::Length, "Number of items");
-	cls_BRepBlend_SequenceOfLine.def("Lower", (Standard_Integer (BRepBlend_SequenceOfLine::*)() const ) &BRepBlend_SequenceOfLine::Lower, "Method for consistency with other collections.");
-	cls_BRepBlend_SequenceOfLine.def("Upper", (Standard_Integer (BRepBlend_SequenceOfLine::*)() const ) &BRepBlend_SequenceOfLine::Upper, "Method for consistency with other collections.");
-	cls_BRepBlend_SequenceOfLine.def("IsEmpty", (Standard_Boolean (BRepBlend_SequenceOfLine::*)() const ) &BRepBlend_SequenceOfLine::IsEmpty, "Empty query");
-	cls_BRepBlend_SequenceOfLine.def("Reverse", (void (BRepBlend_SequenceOfLine::*)()) &BRepBlend_SequenceOfLine::Reverse, "Reverse sequence");
-	cls_BRepBlend_SequenceOfLine.def("Exchange", (void (BRepBlend_SequenceOfLine::*)(const Standard_Integer, const Standard_Integer)) &BRepBlend_SequenceOfLine::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_BRepBlend_SequenceOfLine.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &BRepBlend_SequenceOfLine::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_BRepBlend_SequenceOfLine.def("Clear", [](BRepBlend_SequenceOfLine &self) -> void { return self.Clear(); });
-	cls_BRepBlend_SequenceOfLine.def("Clear", (void (BRepBlend_SequenceOfLine::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepBlend_SequenceOfLine::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_BRepBlend_SequenceOfLine.def("Assign", (BRepBlend_SequenceOfLine & (BRepBlend_SequenceOfLine::*)(const BRepBlend_SequenceOfLine &)) &BRepBlend_SequenceOfLine::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepBlend_SequenceOfLine.def("assign", (BRepBlend_SequenceOfLine & (BRepBlend_SequenceOfLine::*)(const BRepBlend_SequenceOfLine &)) &BRepBlend_SequenceOfLine::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_BRepBlend_SequenceOfLine.def("Remove", (void (BRepBlend_SequenceOfLine::*)(BRepBlend_SequenceOfLine::Iterator &)) &BRepBlend_SequenceOfLine::Remove, "Remove one item", py::arg("thePosition"));
-	cls_BRepBlend_SequenceOfLine.def("Remove", (void (BRepBlend_SequenceOfLine::*)(const Standard_Integer)) &BRepBlend_SequenceOfLine::Remove, "Remove one item", py::arg("theIndex"));
-	cls_BRepBlend_SequenceOfLine.def("Remove", (void (BRepBlend_SequenceOfLine::*)(const Standard_Integer, const Standard_Integer)) &BRepBlend_SequenceOfLine::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_BRepBlend_SequenceOfLine.def("Append", (void (BRepBlend_SequenceOfLine::*)(const opencascade::handle<BRepBlend_Line> &)) &BRepBlend_SequenceOfLine::Append, "Append one item", py::arg("theItem"));
-	cls_BRepBlend_SequenceOfLine.def("Append", (void (BRepBlend_SequenceOfLine::*)(BRepBlend_SequenceOfLine &)) &BRepBlend_SequenceOfLine::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_BRepBlend_SequenceOfLine.def("Prepend", (void (BRepBlend_SequenceOfLine::*)(const opencascade::handle<BRepBlend_Line> &)) &BRepBlend_SequenceOfLine::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_BRepBlend_SequenceOfLine.def("Prepend", (void (BRepBlend_SequenceOfLine::*)(BRepBlend_SequenceOfLine &)) &BRepBlend_SequenceOfLine::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_BRepBlend_SequenceOfLine.def("InsertBefore", (void (BRepBlend_SequenceOfLine::*)(const Standard_Integer, const opencascade::handle<BRepBlend_Line> &)) &BRepBlend_SequenceOfLine::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_BRepBlend_SequenceOfLine.def("InsertBefore", (void (BRepBlend_SequenceOfLine::*)(const Standard_Integer, BRepBlend_SequenceOfLine &)) &BRepBlend_SequenceOfLine::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_BRepBlend_SequenceOfLine.def("InsertAfter", (void (BRepBlend_SequenceOfLine::*)(BRepBlend_SequenceOfLine::Iterator &, const opencascade::handle<BRepBlend_Line> &)) &BRepBlend_SequenceOfLine::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_BRepBlend_SequenceOfLine.def("InsertAfter", (void (BRepBlend_SequenceOfLine::*)(const Standard_Integer, BRepBlend_SequenceOfLine &)) &BRepBlend_SequenceOfLine::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_BRepBlend_SequenceOfLine.def("InsertAfter", (void (BRepBlend_SequenceOfLine::*)(const Standard_Integer, const opencascade::handle<BRepBlend_Line> &)) &BRepBlend_SequenceOfLine::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_BRepBlend_SequenceOfLine.def("Split", (void (BRepBlend_SequenceOfLine::*)(const Standard_Integer, BRepBlend_SequenceOfLine &)) &BRepBlend_SequenceOfLine::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_BRepBlend_SequenceOfLine.def("First", (const opencascade::handle<BRepBlend_Line> & (BRepBlend_SequenceOfLine::*)() const ) &BRepBlend_SequenceOfLine::First, "First item access");
-	cls_BRepBlend_SequenceOfLine.def("ChangeFirst", (opencascade::handle<BRepBlend_Line> & (BRepBlend_SequenceOfLine::*)()) &BRepBlend_SequenceOfLine::ChangeFirst, "First item access");
-	cls_BRepBlend_SequenceOfLine.def("Last", (const opencascade::handle<BRepBlend_Line> & (BRepBlend_SequenceOfLine::*)() const ) &BRepBlend_SequenceOfLine::Last, "Last item access");
-	cls_BRepBlend_SequenceOfLine.def("ChangeLast", (opencascade::handle<BRepBlend_Line> & (BRepBlend_SequenceOfLine::*)()) &BRepBlend_SequenceOfLine::ChangeLast, "Last item access");
-	cls_BRepBlend_SequenceOfLine.def("Value", (const opencascade::handle<BRepBlend_Line> & (BRepBlend_SequenceOfLine::*)(const Standard_Integer) const ) &BRepBlend_SequenceOfLine::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_BRepBlend_SequenceOfLine.def("__call__", (const opencascade::handle<BRepBlend_Line> & (BRepBlend_SequenceOfLine::*)(const Standard_Integer) const ) &BRepBlend_SequenceOfLine::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_BRepBlend_SequenceOfLine.def("ChangeValue", (opencascade::handle<BRepBlend_Line> & (BRepBlend_SequenceOfLine::*)(const Standard_Integer)) &BRepBlend_SequenceOfLine::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_BRepBlend_SequenceOfLine.def("__call__", (opencascade::handle<BRepBlend_Line> & (BRepBlend_SequenceOfLine::*)(const Standard_Integer)) &BRepBlend_SequenceOfLine::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_BRepBlend_SequenceOfLine.def("SetValue", (void (BRepBlend_SequenceOfLine::*)(const Standard_Integer, const opencascade::handle<BRepBlend_Line> &)) &BRepBlend_SequenceOfLine::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_BRepBlend_SequenceOfLine.def("__iter__", [](const BRepBlend_SequenceOfLine &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepBlend_SequenceOfLine.hxx
+	bind_NCollection_Sequence<opencascade::handle<BRepBlend_Line> >(mod, "BRepBlend_SequenceOfLine");
 
 
 }

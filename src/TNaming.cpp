@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <TDF_Attribute.hxx>
 #include <Standard_GUID.hxx>
@@ -88,6 +79,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_Map.hxx>
 #include <TNaming_NCollections.hxx>
 #include <TNaming_PtrAttribute.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(TNaming, mod) {
 
@@ -503,244 +495,55 @@ PYBIND11_MODULE(TNaming, mod) {
 	cls_TNaming.def_static("Print_", (Standard_OStream & (*)(const TDF_Label &, Standard_OStream &)) &TNaming::Print, "Prints the content of UsedShapes private attribute as a String Table on the Stream <S> and returns <S>.", py::arg("ACCESS"), py::arg("S"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_PtrNode.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<TNaming_ListOfNamedShape, std::unique_ptr<TNaming_ListOfNamedShape, Deleter<TNaming_ListOfNamedShape>>, NCollection_BaseList> cls_TNaming_ListOfNamedShape(mod, "TNaming_ListOfNamedShape", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_TNaming_ListOfNamedShape.def(py::init<>());
-	cls_TNaming_ListOfNamedShape.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TNaming_ListOfNamedShape.def(py::init([] (const TNaming_ListOfNamedShape &other) {return new TNaming_ListOfNamedShape(other);}), "Copy constructor", py::arg("other"));
-	cls_TNaming_ListOfNamedShape.def("begin", (TNaming_ListOfNamedShape::iterator (TNaming_ListOfNamedShape::*)() const ) &TNaming_ListOfNamedShape::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_TNaming_ListOfNamedShape.def("end", (TNaming_ListOfNamedShape::iterator (TNaming_ListOfNamedShape::*)() const ) &TNaming_ListOfNamedShape::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_TNaming_ListOfNamedShape.def("cbegin", (TNaming_ListOfNamedShape::const_iterator (TNaming_ListOfNamedShape::*)() const ) &TNaming_ListOfNamedShape::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_TNaming_ListOfNamedShape.def("cend", (TNaming_ListOfNamedShape::const_iterator (TNaming_ListOfNamedShape::*)() const ) &TNaming_ListOfNamedShape::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_TNaming_ListOfNamedShape.def("Size", (Standard_Integer (TNaming_ListOfNamedShape::*)() const ) &TNaming_ListOfNamedShape::Size, "Size - Number of items");
-	cls_TNaming_ListOfNamedShape.def("Assign", (TNaming_ListOfNamedShape & (TNaming_ListOfNamedShape::*)(const TNaming_ListOfNamedShape &)) &TNaming_ListOfNamedShape::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TNaming_ListOfNamedShape.def("assign", (TNaming_ListOfNamedShape & (TNaming_ListOfNamedShape::*)(const TNaming_ListOfNamedShape &)) &TNaming_ListOfNamedShape::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TNaming_ListOfNamedShape.def("Clear", [](TNaming_ListOfNamedShape &self) -> void { return self.Clear(); });
-	cls_TNaming_ListOfNamedShape.def("Clear", (void (TNaming_ListOfNamedShape::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TNaming_ListOfNamedShape::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_TNaming_ListOfNamedShape.def("First", (const opencascade::handle<TNaming_NamedShape> & (TNaming_ListOfNamedShape::*)() const ) &TNaming_ListOfNamedShape::First, "First item");
-	cls_TNaming_ListOfNamedShape.def("First", (opencascade::handle<TNaming_NamedShape> & (TNaming_ListOfNamedShape::*)()) &TNaming_ListOfNamedShape::First, "First item (non-const)");
-	cls_TNaming_ListOfNamedShape.def("Last", (const opencascade::handle<TNaming_NamedShape> & (TNaming_ListOfNamedShape::*)() const ) &TNaming_ListOfNamedShape::Last, "Last item");
-	cls_TNaming_ListOfNamedShape.def("Last", (opencascade::handle<TNaming_NamedShape> & (TNaming_ListOfNamedShape::*)()) &TNaming_ListOfNamedShape::Last, "Last item (non-const)");
-	cls_TNaming_ListOfNamedShape.def("Append", (opencascade::handle<TNaming_NamedShape> & (TNaming_ListOfNamedShape::*)(const opencascade::handle<TNaming_NamedShape> &)) &TNaming_ListOfNamedShape::Append, "Append one item at the end", py::arg("theItem"));
-	cls_TNaming_ListOfNamedShape.def("Append", (void (TNaming_ListOfNamedShape::*)(const opencascade::handle<TNaming_NamedShape> &, TNaming_ListOfNamedShape::Iterator &)) &TNaming_ListOfNamedShape::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_TNaming_ListOfNamedShape.def("Append", (void (TNaming_ListOfNamedShape::*)(TNaming_ListOfNamedShape &)) &TNaming_ListOfNamedShape::Append, "Append another list at the end", py::arg("theOther"));
-	cls_TNaming_ListOfNamedShape.def("Prepend", (opencascade::handle<TNaming_NamedShape> & (TNaming_ListOfNamedShape::*)(const opencascade::handle<TNaming_NamedShape> &)) &TNaming_ListOfNamedShape::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_TNaming_ListOfNamedShape.def("Prepend", (void (TNaming_ListOfNamedShape::*)(TNaming_ListOfNamedShape &)) &TNaming_ListOfNamedShape::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_TNaming_ListOfNamedShape.def("RemoveFirst", (void (TNaming_ListOfNamedShape::*)()) &TNaming_ListOfNamedShape::RemoveFirst, "RemoveFirst item");
-	cls_TNaming_ListOfNamedShape.def("Remove", (void (TNaming_ListOfNamedShape::*)(TNaming_ListOfNamedShape::Iterator &)) &TNaming_ListOfNamedShape::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_TNaming_ListOfNamedShape.def("InsertBefore", (opencascade::handle<TNaming_NamedShape> & (TNaming_ListOfNamedShape::*)(const opencascade::handle<TNaming_NamedShape> &, TNaming_ListOfNamedShape::Iterator &)) &TNaming_ListOfNamedShape::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_TNaming_ListOfNamedShape.def("InsertBefore", (void (TNaming_ListOfNamedShape::*)(TNaming_ListOfNamedShape &, TNaming_ListOfNamedShape::Iterator &)) &TNaming_ListOfNamedShape::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_TNaming_ListOfNamedShape.def("InsertAfter", (opencascade::handle<TNaming_NamedShape> & (TNaming_ListOfNamedShape::*)(const opencascade::handle<TNaming_NamedShape> &, TNaming_ListOfNamedShape::Iterator &)) &TNaming_ListOfNamedShape::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_TNaming_ListOfNamedShape.def("InsertAfter", (void (TNaming_ListOfNamedShape::*)(TNaming_ListOfNamedShape &, TNaming_ListOfNamedShape::Iterator &)) &TNaming_ListOfNamedShape::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_TNaming_ListOfNamedShape.def("Reverse", (void (TNaming_ListOfNamedShape::*)()) &TNaming_ListOfNamedShape::Reverse, "Reverse the list");
-	cls_TNaming_ListOfNamedShape.def("__iter__", [](const TNaming_ListOfNamedShape &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_ListOfNamedShape.hxx
+	bind_NCollection_List<opencascade::handle<TNaming_NamedShape> >(mod, "TNaming_ListOfNamedShape");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<TNaming_ListIteratorOfListOfNamedShape, std::unique_ptr<TNaming_ListIteratorOfListOfNamedShape, Deleter<TNaming_ListIteratorOfListOfNamedShape>>> cls_TNaming_ListIteratorOfListOfNamedShape(mod, "TNaming_ListIteratorOfListOfNamedShape", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_TNaming_ListIteratorOfListOfNamedShape.def(py::init<>());
-	cls_TNaming_ListIteratorOfListOfNamedShape.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_TNaming_ListIteratorOfListOfNamedShape.def("More", (Standard_Boolean (TNaming_ListIteratorOfListOfNamedShape::*)() const ) &TNaming_ListIteratorOfListOfNamedShape::More, "Check end");
-	cls_TNaming_ListIteratorOfListOfNamedShape.def("Next", (void (TNaming_ListIteratorOfListOfNamedShape::*)()) &TNaming_ListIteratorOfListOfNamedShape::Next, "Make step");
-	cls_TNaming_ListIteratorOfListOfNamedShape.def("Value", (const opencascade::handle<TNaming_NamedShape> & (TNaming_ListIteratorOfListOfNamedShape::*)() const ) &TNaming_ListIteratorOfListOfNamedShape::Value, "Constant Value access");
-	cls_TNaming_ListIteratorOfListOfNamedShape.def("Value", (opencascade::handle<TNaming_NamedShape> & (TNaming_ListIteratorOfListOfNamedShape::*)()) &TNaming_ListIteratorOfListOfNamedShape::Value, "Non-const Value access");
-	cls_TNaming_ListIteratorOfListOfNamedShape.def("ChangeValue", (opencascade::handle<TNaming_NamedShape> & (TNaming_ListIteratorOfListOfNamedShape::*)() const ) &TNaming_ListIteratorOfListOfNamedShape::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_ListOfNamedShape.hxx
+	bind_NCollection_TListIterator<opencascade::handle<TNaming_NamedShape> >(mod, "TNaming_ListIteratorOfListOfNamedShape");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_PtrRefShape.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<TNaming_DataMapOfShapePtrRefShape, std::unique_ptr<TNaming_DataMapOfShapePtrRefShape, Deleter<TNaming_DataMapOfShapePtrRefShape>>, NCollection_BaseMap> cls_TNaming_DataMapOfShapePtrRefShape(mod, "TNaming_DataMapOfShapePtrRefShape", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_TNaming_DataMapOfShapePtrRefShape.def(py::init<>());
-	cls_TNaming_DataMapOfShapePtrRefShape.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TNaming_DataMapOfShapePtrRefShape.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TNaming_DataMapOfShapePtrRefShape.def(py::init([] (const TNaming_DataMapOfShapePtrRefShape &other) {return new TNaming_DataMapOfShapePtrRefShape(other);}), "Copy constructor", py::arg("other"));
-	cls_TNaming_DataMapOfShapePtrRefShape.def("begin", (TNaming_DataMapOfShapePtrRefShape::iterator (TNaming_DataMapOfShapePtrRefShape::*)() const ) &TNaming_DataMapOfShapePtrRefShape::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_TNaming_DataMapOfShapePtrRefShape.def("end", (TNaming_DataMapOfShapePtrRefShape::iterator (TNaming_DataMapOfShapePtrRefShape::*)() const ) &TNaming_DataMapOfShapePtrRefShape::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_TNaming_DataMapOfShapePtrRefShape.def("cbegin", (TNaming_DataMapOfShapePtrRefShape::const_iterator (TNaming_DataMapOfShapePtrRefShape::*)() const ) &TNaming_DataMapOfShapePtrRefShape::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TNaming_DataMapOfShapePtrRefShape.def("cend", (TNaming_DataMapOfShapePtrRefShape::const_iterator (TNaming_DataMapOfShapePtrRefShape::*)() const ) &TNaming_DataMapOfShapePtrRefShape::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TNaming_DataMapOfShapePtrRefShape.def("Exchange", (void (TNaming_DataMapOfShapePtrRefShape::*)(TNaming_DataMapOfShapePtrRefShape &)) &TNaming_DataMapOfShapePtrRefShape::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TNaming_DataMapOfShapePtrRefShape.def("Assign", (TNaming_DataMapOfShapePtrRefShape & (TNaming_DataMapOfShapePtrRefShape::*)(const TNaming_DataMapOfShapePtrRefShape &)) &TNaming_DataMapOfShapePtrRefShape::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TNaming_DataMapOfShapePtrRefShape.def("assign", (TNaming_DataMapOfShapePtrRefShape & (TNaming_DataMapOfShapePtrRefShape::*)(const TNaming_DataMapOfShapePtrRefShape &)) &TNaming_DataMapOfShapePtrRefShape::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TNaming_DataMapOfShapePtrRefShape.def("ReSize", (void (TNaming_DataMapOfShapePtrRefShape::*)(const Standard_Integer)) &TNaming_DataMapOfShapePtrRefShape::ReSize, "ReSize", py::arg("N"));
-	cls_TNaming_DataMapOfShapePtrRefShape.def("Bind", (Standard_Boolean (TNaming_DataMapOfShapePtrRefShape::*)(const TopoDS_Shape &, const TNaming_PtrRefShape &)) &TNaming_DataMapOfShapePtrRefShape::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_TNaming_DataMapOfShapePtrRefShape.def("Bound", (TNaming_PtrRefShape * (TNaming_DataMapOfShapePtrRefShape::*)(const TopoDS_Shape &, const TNaming_PtrRefShape &)) &TNaming_DataMapOfShapePtrRefShape::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_TNaming_DataMapOfShapePtrRefShape.def("IsBound", (Standard_Boolean (TNaming_DataMapOfShapePtrRefShape::*)(const TopoDS_Shape &) const ) &TNaming_DataMapOfShapePtrRefShape::IsBound, "IsBound", py::arg("theKey"));
-	cls_TNaming_DataMapOfShapePtrRefShape.def("UnBind", (Standard_Boolean (TNaming_DataMapOfShapePtrRefShape::*)(const TopoDS_Shape &)) &TNaming_DataMapOfShapePtrRefShape::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_TNaming_DataMapOfShapePtrRefShape.def("Seek", (const TNaming_PtrRefShape * (TNaming_DataMapOfShapePtrRefShape::*)(const TopoDS_Shape &) const ) &TNaming_DataMapOfShapePtrRefShape::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_TNaming_DataMapOfShapePtrRefShape.def("Find", (const TNaming_PtrRefShape & (TNaming_DataMapOfShapePtrRefShape::*)(const TopoDS_Shape &) const ) &TNaming_DataMapOfShapePtrRefShape::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_TNaming_DataMapOfShapePtrRefShape.def("Find", (Standard_Boolean (TNaming_DataMapOfShapePtrRefShape::*)(const TopoDS_Shape &, TNaming_PtrRefShape &) const ) &TNaming_DataMapOfShapePtrRefShape::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_TNaming_DataMapOfShapePtrRefShape.def("__call__", (const TNaming_PtrRefShape & (TNaming_DataMapOfShapePtrRefShape::*)(const TopoDS_Shape &) const ) &TNaming_DataMapOfShapePtrRefShape::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_TNaming_DataMapOfShapePtrRefShape.def("ChangeSeek", (TNaming_PtrRefShape * (TNaming_DataMapOfShapePtrRefShape::*)(const TopoDS_Shape &)) &TNaming_DataMapOfShapePtrRefShape::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_TNaming_DataMapOfShapePtrRefShape.def("ChangeFind", (TNaming_PtrRefShape & (TNaming_DataMapOfShapePtrRefShape::*)(const TopoDS_Shape &)) &TNaming_DataMapOfShapePtrRefShape::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_TNaming_DataMapOfShapePtrRefShape.def("__call__", (TNaming_PtrRefShape & (TNaming_DataMapOfShapePtrRefShape::*)(const TopoDS_Shape &)) &TNaming_DataMapOfShapePtrRefShape::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_TNaming_DataMapOfShapePtrRefShape.def("Clear", [](TNaming_DataMapOfShapePtrRefShape &self) -> void { return self.Clear(); });
-	cls_TNaming_DataMapOfShapePtrRefShape.def("Clear", (void (TNaming_DataMapOfShapePtrRefShape::*)(const Standard_Boolean)) &TNaming_DataMapOfShapePtrRefShape::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TNaming_DataMapOfShapePtrRefShape.def("Clear", (void (TNaming_DataMapOfShapePtrRefShape::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TNaming_DataMapOfShapePtrRefShape::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TNaming_DataMapOfShapePtrRefShape.def("Size", (Standard_Integer (TNaming_DataMapOfShapePtrRefShape::*)() const ) &TNaming_DataMapOfShapePtrRefShape::Size, "Size");
-	cls_TNaming_DataMapOfShapePtrRefShape.def("__iter__", [](const TNaming_DataMapOfShapePtrRefShape &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_DataMapOfShapePtrRefShape.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<TNaming_DataMapOfShapeShapesSet, std::unique_ptr<TNaming_DataMapOfShapeShapesSet, Deleter<TNaming_DataMapOfShapeShapesSet>>, NCollection_BaseMap> cls_TNaming_DataMapOfShapeShapesSet(mod, "TNaming_DataMapOfShapeShapesSet", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_TNaming_DataMapOfShapeShapesSet.def(py::init<>());
-	cls_TNaming_DataMapOfShapeShapesSet.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TNaming_DataMapOfShapeShapesSet.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TNaming_DataMapOfShapeShapesSet.def(py::init([] (const TNaming_DataMapOfShapeShapesSet &other) {return new TNaming_DataMapOfShapeShapesSet(other);}), "Copy constructor", py::arg("other"));
-	cls_TNaming_DataMapOfShapeShapesSet.def("begin", (TNaming_DataMapOfShapeShapesSet::iterator (TNaming_DataMapOfShapeShapesSet::*)() const ) &TNaming_DataMapOfShapeShapesSet::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_TNaming_DataMapOfShapeShapesSet.def("end", (TNaming_DataMapOfShapeShapesSet::iterator (TNaming_DataMapOfShapeShapesSet::*)() const ) &TNaming_DataMapOfShapeShapesSet::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_TNaming_DataMapOfShapeShapesSet.def("cbegin", (TNaming_DataMapOfShapeShapesSet::const_iterator (TNaming_DataMapOfShapeShapesSet::*)() const ) &TNaming_DataMapOfShapeShapesSet::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TNaming_DataMapOfShapeShapesSet.def("cend", (TNaming_DataMapOfShapeShapesSet::const_iterator (TNaming_DataMapOfShapeShapesSet::*)() const ) &TNaming_DataMapOfShapeShapesSet::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TNaming_DataMapOfShapeShapesSet.def("Exchange", (void (TNaming_DataMapOfShapeShapesSet::*)(TNaming_DataMapOfShapeShapesSet &)) &TNaming_DataMapOfShapeShapesSet::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TNaming_DataMapOfShapeShapesSet.def("Assign", (TNaming_DataMapOfShapeShapesSet & (TNaming_DataMapOfShapeShapesSet::*)(const TNaming_DataMapOfShapeShapesSet &)) &TNaming_DataMapOfShapeShapesSet::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TNaming_DataMapOfShapeShapesSet.def("assign", (TNaming_DataMapOfShapeShapesSet & (TNaming_DataMapOfShapeShapesSet::*)(const TNaming_DataMapOfShapeShapesSet &)) &TNaming_DataMapOfShapeShapesSet::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_TNaming_DataMapOfShapeShapesSet.def("ReSize", (void (TNaming_DataMapOfShapeShapesSet::*)(const Standard_Integer)) &TNaming_DataMapOfShapeShapesSet::ReSize, "ReSize", py::arg("N"));
-	cls_TNaming_DataMapOfShapeShapesSet.def("Bind", (Standard_Boolean (TNaming_DataMapOfShapeShapesSet::*)(const TopoDS_Shape &, const TNaming_ShapesSet &)) &TNaming_DataMapOfShapeShapesSet::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_TNaming_DataMapOfShapeShapesSet.def("Bound", (TNaming_ShapesSet * (TNaming_DataMapOfShapeShapesSet::*)(const TopoDS_Shape &, const TNaming_ShapesSet &)) &TNaming_DataMapOfShapeShapesSet::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_TNaming_DataMapOfShapeShapesSet.def("IsBound", (Standard_Boolean (TNaming_DataMapOfShapeShapesSet::*)(const TopoDS_Shape &) const ) &TNaming_DataMapOfShapeShapesSet::IsBound, "IsBound", py::arg("theKey"));
-	cls_TNaming_DataMapOfShapeShapesSet.def("UnBind", (Standard_Boolean (TNaming_DataMapOfShapeShapesSet::*)(const TopoDS_Shape &)) &TNaming_DataMapOfShapeShapesSet::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_TNaming_DataMapOfShapeShapesSet.def("Seek", (const TNaming_ShapesSet * (TNaming_DataMapOfShapeShapesSet::*)(const TopoDS_Shape &) const ) &TNaming_DataMapOfShapeShapesSet::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_TNaming_DataMapOfShapeShapesSet.def("Find", (const TNaming_ShapesSet & (TNaming_DataMapOfShapeShapesSet::*)(const TopoDS_Shape &) const ) &TNaming_DataMapOfShapeShapesSet::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_TNaming_DataMapOfShapeShapesSet.def("Find", (Standard_Boolean (TNaming_DataMapOfShapeShapesSet::*)(const TopoDS_Shape &, TNaming_ShapesSet &) const ) &TNaming_DataMapOfShapeShapesSet::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_TNaming_DataMapOfShapeShapesSet.def("__call__", (const TNaming_ShapesSet & (TNaming_DataMapOfShapeShapesSet::*)(const TopoDS_Shape &) const ) &TNaming_DataMapOfShapeShapesSet::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_TNaming_DataMapOfShapeShapesSet.def("ChangeSeek", (TNaming_ShapesSet * (TNaming_DataMapOfShapeShapesSet::*)(const TopoDS_Shape &)) &TNaming_DataMapOfShapeShapesSet::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_TNaming_DataMapOfShapeShapesSet.def("ChangeFind", (TNaming_ShapesSet & (TNaming_DataMapOfShapeShapesSet::*)(const TopoDS_Shape &)) &TNaming_DataMapOfShapeShapesSet::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_TNaming_DataMapOfShapeShapesSet.def("__call__", (TNaming_ShapesSet & (TNaming_DataMapOfShapeShapesSet::*)(const TopoDS_Shape &)) &TNaming_DataMapOfShapeShapesSet::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_TNaming_DataMapOfShapeShapesSet.def("Clear", [](TNaming_DataMapOfShapeShapesSet &self) -> void { return self.Clear(); });
-	cls_TNaming_DataMapOfShapeShapesSet.def("Clear", (void (TNaming_DataMapOfShapeShapesSet::*)(const Standard_Boolean)) &TNaming_DataMapOfShapeShapesSet::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TNaming_DataMapOfShapeShapesSet.def("Clear", (void (TNaming_DataMapOfShapeShapesSet::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TNaming_DataMapOfShapeShapesSet::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TNaming_DataMapOfShapeShapesSet.def("Size", (Standard_Integer (TNaming_DataMapOfShapeShapesSet::*)() const ) &TNaming_DataMapOfShapeShapesSet::Size, "Size");
-	cls_TNaming_DataMapOfShapeShapesSet.def("__iter__", [](const TNaming_DataMapOfShapeShapesSet &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TopoDS_Shape, TNaming_RefShape *, TopTools_ShapeMapHasher>(mod, "TNaming_DataMapOfShapePtrRefShape");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_DataMapOfShapeShapesSet.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<TNaming_ListOfIndexedDataMapOfShapeListOfShape, std::unique_ptr<TNaming_ListOfIndexedDataMapOfShapeListOfShape, Deleter<TNaming_ListOfIndexedDataMapOfShapeListOfShape>>, NCollection_BaseList> cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape(mod, "TNaming_ListOfIndexedDataMapOfShapeListOfShape", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def(py::init<>());
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def(py::init([] (const TNaming_ListOfIndexedDataMapOfShapeListOfShape &other) {return new TNaming_ListOfIndexedDataMapOfShapeListOfShape(other);}), "Copy constructor", py::arg("other"));
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("begin", (TNaming_ListOfIndexedDataMapOfShapeListOfShape::iterator (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)() const ) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("end", (TNaming_ListOfIndexedDataMapOfShapeListOfShape::iterator (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)() const ) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("cbegin", (TNaming_ListOfIndexedDataMapOfShapeListOfShape::const_iterator (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)() const ) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("cend", (TNaming_ListOfIndexedDataMapOfShapeListOfShape::const_iterator (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)() const ) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("Size", (Standard_Integer (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)() const ) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::Size, "Size - Number of items");
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("Assign", (TNaming_ListOfIndexedDataMapOfShapeListOfShape & (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)(const TNaming_ListOfIndexedDataMapOfShapeListOfShape &)) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("assign", (TNaming_ListOfIndexedDataMapOfShapeListOfShape & (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)(const TNaming_ListOfIndexedDataMapOfShapeListOfShape &)) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("Clear", [](TNaming_ListOfIndexedDataMapOfShapeListOfShape &self) -> void { return self.Clear(); });
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("Clear", (void (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("First", (const TopTools_IndexedDataMapOfShapeListOfShape & (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)() const ) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::First, "First item");
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("First", (TopTools_IndexedDataMapOfShapeListOfShape & (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)()) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::First, "First item (non-const)");
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("Last", (const TopTools_IndexedDataMapOfShapeListOfShape & (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)() const ) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::Last, "Last item");
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("Last", (TopTools_IndexedDataMapOfShapeListOfShape & (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)()) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::Last, "Last item (non-const)");
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("Append", (TopTools_IndexedDataMapOfShapeListOfShape & (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)(const TopTools_IndexedDataMapOfShapeListOfShape &)) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::Append, "Append one item at the end", py::arg("theItem"));
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("Append", (void (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)(const TopTools_IndexedDataMapOfShapeListOfShape &, TNaming_ListOfIndexedDataMapOfShapeListOfShape::Iterator &)) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("Append", (void (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)(TNaming_ListOfIndexedDataMapOfShapeListOfShape &)) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::Append, "Append another list at the end", py::arg("theOther"));
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("Prepend", (TopTools_IndexedDataMapOfShapeListOfShape & (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)(const TopTools_IndexedDataMapOfShapeListOfShape &)) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("Prepend", (void (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)(TNaming_ListOfIndexedDataMapOfShapeListOfShape &)) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("RemoveFirst", (void (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)()) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::RemoveFirst, "RemoveFirst item");
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("Remove", (void (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)(TNaming_ListOfIndexedDataMapOfShapeListOfShape::Iterator &)) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("InsertBefore", (TopTools_IndexedDataMapOfShapeListOfShape & (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)(const TopTools_IndexedDataMapOfShapeListOfShape &, TNaming_ListOfIndexedDataMapOfShapeListOfShape::Iterator &)) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("InsertBefore", (void (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)(TNaming_ListOfIndexedDataMapOfShapeListOfShape &, TNaming_ListOfIndexedDataMapOfShapeListOfShape::Iterator &)) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("InsertAfter", (TopTools_IndexedDataMapOfShapeListOfShape & (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)(const TopTools_IndexedDataMapOfShapeListOfShape &, TNaming_ListOfIndexedDataMapOfShapeListOfShape::Iterator &)) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("InsertAfter", (void (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)(TNaming_ListOfIndexedDataMapOfShapeListOfShape &, TNaming_ListOfIndexedDataMapOfShapeListOfShape::Iterator &)) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("Reverse", (void (TNaming_ListOfIndexedDataMapOfShapeListOfShape::*)()) &TNaming_ListOfIndexedDataMapOfShapeListOfShape::Reverse, "Reverse the list");
-	cls_TNaming_ListOfIndexedDataMapOfShapeListOfShape.def("__iter__", [](const TNaming_ListOfIndexedDataMapOfShapeListOfShape &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TopoDS_Shape, TNaming_ShapesSet, TopTools_ShapeMapHasher>(mod, "TNaming_DataMapOfShapeShapesSet");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape, std::unique_ptr<TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape, Deleter<TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape>>> cls_TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape(mod, "TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape.def(py::init<>());
-	cls_TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape.def("More", (Standard_Boolean (TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape::*)() const ) &TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape::More, "Check end");
-	cls_TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape.def("Next", (void (TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape::*)()) &TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape::Next, "Make step");
-	cls_TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape.def("Value", (const NCollection_IndexedDataMap<TopoDS_Shape, NCollection_List<TopoDS_Shape>, TopTools_ShapeMapHasher> & (TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape::*)() const ) &TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape::Value, "Constant Value access");
-	cls_TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape.def("Value", (NCollection_IndexedDataMap<TopoDS_Shape, NCollection_List<TopoDS_Shape>, TopTools_ShapeMapHasher> & (TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape::*)()) &TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape::Value, "Non-const Value access");
-	cls_TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape.def("ChangeValue", (NCollection_IndexedDataMap<TopoDS_Shape, NCollection_List<TopoDS_Shape>, TopTools_ShapeMapHasher> & (TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape::*)() const ) &TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape::ChangeValue, "Non-const Value access");
+	/* FIXME
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<TNaming_ListOfMapOfShape, std::unique_ptr<TNaming_ListOfMapOfShape, Deleter<TNaming_ListOfMapOfShape>>, NCollection_BaseList> cls_TNaming_ListOfMapOfShape(mod, "TNaming_ListOfMapOfShape", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_TNaming_ListOfMapOfShape.def(py::init<>());
-	cls_TNaming_ListOfMapOfShape.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TNaming_ListOfMapOfShape.def(py::init([] (const TNaming_ListOfMapOfShape &other) {return new TNaming_ListOfMapOfShape(other);}), "Copy constructor", py::arg("other"));
-	cls_TNaming_ListOfMapOfShape.def("begin", (TNaming_ListOfMapOfShape::iterator (TNaming_ListOfMapOfShape::*)() const ) &TNaming_ListOfMapOfShape::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_TNaming_ListOfMapOfShape.def("end", (TNaming_ListOfMapOfShape::iterator (TNaming_ListOfMapOfShape::*)() const ) &TNaming_ListOfMapOfShape::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_TNaming_ListOfMapOfShape.def("cbegin", (TNaming_ListOfMapOfShape::const_iterator (TNaming_ListOfMapOfShape::*)() const ) &TNaming_ListOfMapOfShape::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_TNaming_ListOfMapOfShape.def("cend", (TNaming_ListOfMapOfShape::const_iterator (TNaming_ListOfMapOfShape::*)() const ) &TNaming_ListOfMapOfShape::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_TNaming_ListOfMapOfShape.def("Size", (Standard_Integer (TNaming_ListOfMapOfShape::*)() const ) &TNaming_ListOfMapOfShape::Size, "Size - Number of items");
-	cls_TNaming_ListOfMapOfShape.def("Assign", (TNaming_ListOfMapOfShape & (TNaming_ListOfMapOfShape::*)(const TNaming_ListOfMapOfShape &)) &TNaming_ListOfMapOfShape::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TNaming_ListOfMapOfShape.def("assign", (TNaming_ListOfMapOfShape & (TNaming_ListOfMapOfShape::*)(const TNaming_ListOfMapOfShape &)) &TNaming_ListOfMapOfShape::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TNaming_ListOfMapOfShape.def("Clear", [](TNaming_ListOfMapOfShape &self) -> void { return self.Clear(); });
-	cls_TNaming_ListOfMapOfShape.def("Clear", (void (TNaming_ListOfMapOfShape::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TNaming_ListOfMapOfShape::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_TNaming_ListOfMapOfShape.def("First", (const TopTools_MapOfShape & (TNaming_ListOfMapOfShape::*)() const ) &TNaming_ListOfMapOfShape::First, "First item");
-	cls_TNaming_ListOfMapOfShape.def("First", (TopTools_MapOfShape & (TNaming_ListOfMapOfShape::*)()) &TNaming_ListOfMapOfShape::First, "First item (non-const)");
-	cls_TNaming_ListOfMapOfShape.def("Last", (const TopTools_MapOfShape & (TNaming_ListOfMapOfShape::*)() const ) &TNaming_ListOfMapOfShape::Last, "Last item");
-	cls_TNaming_ListOfMapOfShape.def("Last", (TopTools_MapOfShape & (TNaming_ListOfMapOfShape::*)()) &TNaming_ListOfMapOfShape::Last, "Last item (non-const)");
-	cls_TNaming_ListOfMapOfShape.def("Append", (TopTools_MapOfShape & (TNaming_ListOfMapOfShape::*)(const TopTools_MapOfShape &)) &TNaming_ListOfMapOfShape::Append, "Append one item at the end", py::arg("theItem"));
-	cls_TNaming_ListOfMapOfShape.def("Append", (void (TNaming_ListOfMapOfShape::*)(const TopTools_MapOfShape &, TNaming_ListOfMapOfShape::Iterator &)) &TNaming_ListOfMapOfShape::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_TNaming_ListOfMapOfShape.def("Append", (void (TNaming_ListOfMapOfShape::*)(TNaming_ListOfMapOfShape &)) &TNaming_ListOfMapOfShape::Append, "Append another list at the end", py::arg("theOther"));
-	cls_TNaming_ListOfMapOfShape.def("Prepend", (TopTools_MapOfShape & (TNaming_ListOfMapOfShape::*)(const TopTools_MapOfShape &)) &TNaming_ListOfMapOfShape::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_TNaming_ListOfMapOfShape.def("Prepend", (void (TNaming_ListOfMapOfShape::*)(TNaming_ListOfMapOfShape &)) &TNaming_ListOfMapOfShape::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_TNaming_ListOfMapOfShape.def("RemoveFirst", (void (TNaming_ListOfMapOfShape::*)()) &TNaming_ListOfMapOfShape::RemoveFirst, "RemoveFirst item");
-	cls_TNaming_ListOfMapOfShape.def("Remove", (void (TNaming_ListOfMapOfShape::*)(TNaming_ListOfMapOfShape::Iterator &)) &TNaming_ListOfMapOfShape::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_TNaming_ListOfMapOfShape.def("InsertBefore", (TopTools_MapOfShape & (TNaming_ListOfMapOfShape::*)(const TopTools_MapOfShape &, TNaming_ListOfMapOfShape::Iterator &)) &TNaming_ListOfMapOfShape::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_TNaming_ListOfMapOfShape.def("InsertBefore", (void (TNaming_ListOfMapOfShape::*)(TNaming_ListOfMapOfShape &, TNaming_ListOfMapOfShape::Iterator &)) &TNaming_ListOfMapOfShape::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_TNaming_ListOfMapOfShape.def("InsertAfter", (TopTools_MapOfShape & (TNaming_ListOfMapOfShape::*)(const TopTools_MapOfShape &, TNaming_ListOfMapOfShape::Iterator &)) &TNaming_ListOfMapOfShape::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_TNaming_ListOfMapOfShape.def("InsertAfter", (void (TNaming_ListOfMapOfShape::*)(TNaming_ListOfMapOfShape &, TNaming_ListOfMapOfShape::Iterator &)) &TNaming_ListOfMapOfShape::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_TNaming_ListOfMapOfShape.def("Reverse", (void (TNaming_ListOfMapOfShape::*)()) &TNaming_ListOfMapOfShape::Reverse, "Reverse the list");
-	cls_TNaming_ListOfMapOfShape.def("__iter__", [](const TNaming_ListOfMapOfShape &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	*/
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<TNaming_ListIteratorOfListOfMapOfShape, std::unique_ptr<TNaming_ListIteratorOfListOfMapOfShape, Deleter<TNaming_ListIteratorOfListOfMapOfShape>>> cls_TNaming_ListIteratorOfListOfMapOfShape(mod, "TNaming_ListIteratorOfListOfMapOfShape", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_TNaming_ListIteratorOfListOfMapOfShape.def(py::init<>());
-	cls_TNaming_ListIteratorOfListOfMapOfShape.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_TNaming_ListIteratorOfListOfMapOfShape.def("More", (Standard_Boolean (TNaming_ListIteratorOfListOfMapOfShape::*)() const ) &TNaming_ListIteratorOfListOfMapOfShape::More, "Check end");
-	cls_TNaming_ListIteratorOfListOfMapOfShape.def("Next", (void (TNaming_ListIteratorOfListOfMapOfShape::*)()) &TNaming_ListIteratorOfListOfMapOfShape::Next, "Make step");
-	cls_TNaming_ListIteratorOfListOfMapOfShape.def("Value", (const NCollection_Map<TopoDS_Shape, TopTools_ShapeMapHasher> & (TNaming_ListIteratorOfListOfMapOfShape::*)() const ) &TNaming_ListIteratorOfListOfMapOfShape::Value, "Constant Value access");
-	cls_TNaming_ListIteratorOfListOfMapOfShape.def("Value", (NCollection_Map<TopoDS_Shape, TopTools_ShapeMapHasher> & (TNaming_ListIteratorOfListOfMapOfShape::*)()) &TNaming_ListIteratorOfListOfMapOfShape::Value, "Non-const Value access");
-	cls_TNaming_ListIteratorOfListOfMapOfShape.def("ChangeValue", (NCollection_Map<TopoDS_Shape, TopTools_ShapeMapHasher> & (TNaming_ListIteratorOfListOfMapOfShape::*)() const ) &TNaming_ListIteratorOfListOfMapOfShape::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_ListOfIndexedDataMapOfShapeListOfShape.hxx
+	bind_NCollection_List<NCollection_IndexedDataMap<TopoDS_Shape, NCollection_List<TopoDS_Shape>, TopTools_ShapeMapHasher> >(mod, "TNaming_ListOfIndexedDataMapOfShapeListOfShape");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DefaultHasher.hxx
-	py::class_<TNaming_NamedShapeHasher, std::unique_ptr<TNaming_NamedShapeHasher, Deleter<TNaming_NamedShapeHasher>>> cls_TNaming_NamedShapeHasher(mod, "TNaming_NamedShapeHasher", "Purpose: The DefaultHasher is a Hasher that is used by default in NCollection maps. To compute the hash code of the key is used the global function HashCode. To compare two keys is used the global function IsEqual.");
-	cls_TNaming_NamedShapeHasher.def(py::init<>());
-	cls_TNaming_NamedShapeHasher.def_static("HashCode_", (Standard_Integer (*)(const opencascade::handle<TNaming_NamedShape> &, const Standard_Integer)) &TNaming_NamedShapeHasher::HashCode, "None", py::arg("theKey"), py::arg("Upper"));
-	cls_TNaming_NamedShapeHasher.def_static("IsEqual_", (Standard_Boolean (*)(const opencascade::handle<TNaming_NamedShape> &, const opencascade::handle<TNaming_NamedShape> &)) &TNaming_NamedShapeHasher::IsEqual, "None", py::arg("theKey1"), py::arg("theKey2"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_ListOfIndexedDataMapOfShapeListOfShape.hxx
+	bind_NCollection_TListIterator<NCollection_IndexedDataMap<TopoDS_Shape, NCollection_List<TopoDS_Shape>, TopTools_ShapeMapHasher> >(mod, "TNaming_ListIteratorOfListOfIndexedDataMapOfShapeListOfShape");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Map.hxx
-	py::class_<TNaming_MapOfNamedShape, std::unique_ptr<TNaming_MapOfNamedShape, Deleter<TNaming_MapOfNamedShape>>, NCollection_BaseMap> cls_TNaming_MapOfNamedShape(mod, "TNaming_MapOfNamedShape", "Purpose: Single hashed Map. This Map is used to store and retrieve keys in linear time.");
-	cls_TNaming_MapOfNamedShape.def(py::init<>());
-	cls_TNaming_MapOfNamedShape.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_TNaming_MapOfNamedShape.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_TNaming_MapOfNamedShape.def(py::init([] (const TNaming_MapOfNamedShape &other) {return new TNaming_MapOfNamedShape(other);}), "Copy constructor", py::arg("other"));
-	cls_TNaming_MapOfNamedShape.def("cbegin", (TNaming_MapOfNamedShape::const_iterator (TNaming_MapOfNamedShape::*)() const ) &TNaming_MapOfNamedShape::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_TNaming_MapOfNamedShape.def("cend", (TNaming_MapOfNamedShape::const_iterator (TNaming_MapOfNamedShape::*)() const ) &TNaming_MapOfNamedShape::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_TNaming_MapOfNamedShape.def("Exchange", (void (TNaming_MapOfNamedShape::*)(TNaming_MapOfNamedShape &)) &TNaming_MapOfNamedShape::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_TNaming_MapOfNamedShape.def("Assign", (TNaming_MapOfNamedShape & (TNaming_MapOfNamedShape::*)(const TNaming_MapOfNamedShape &)) &TNaming_MapOfNamedShape::Assign, "Assign. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TNaming_MapOfNamedShape.def("assign", (TNaming_MapOfNamedShape & (TNaming_MapOfNamedShape::*)(const TNaming_MapOfNamedShape &)) &TNaming_MapOfNamedShape::operator=, py::is_operator(), "Assign operator", py::arg("theOther"));
-	cls_TNaming_MapOfNamedShape.def("ReSize", (void (TNaming_MapOfNamedShape::*)(const Standard_Integer)) &TNaming_MapOfNamedShape::ReSize, "ReSize", py::arg("N"));
-	cls_TNaming_MapOfNamedShape.def("Add", (Standard_Boolean (TNaming_MapOfNamedShape::*)(const opencascade::handle<TNaming_NamedShape> &)) &TNaming_MapOfNamedShape::Add, "Add", py::arg("K"));
-	cls_TNaming_MapOfNamedShape.def("Added", (const opencascade::handle<TNaming_NamedShape> & (TNaming_MapOfNamedShape::*)(const opencascade::handle<TNaming_NamedShape> &)) &TNaming_MapOfNamedShape::Added, "Added: add a new key if not yet in the map, and return reference to either newly added or previously existing object", py::arg("K"));
-	cls_TNaming_MapOfNamedShape.def("Contains", (Standard_Boolean (TNaming_MapOfNamedShape::*)(const opencascade::handle<TNaming_NamedShape> &) const ) &TNaming_MapOfNamedShape::Contains, "Contains", py::arg("K"));
-	cls_TNaming_MapOfNamedShape.def("Remove", (Standard_Boolean (TNaming_MapOfNamedShape::*)(const opencascade::handle<TNaming_NamedShape> &)) &TNaming_MapOfNamedShape::Remove, "Remove", py::arg("K"));
-	cls_TNaming_MapOfNamedShape.def("Clear", [](TNaming_MapOfNamedShape &self) -> void { return self.Clear(); });
-	cls_TNaming_MapOfNamedShape.def("Clear", (void (TNaming_MapOfNamedShape::*)(const Standard_Boolean)) &TNaming_MapOfNamedShape::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_TNaming_MapOfNamedShape.def("Clear", (void (TNaming_MapOfNamedShape::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TNaming_MapOfNamedShape::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_TNaming_MapOfNamedShape.def("Size", (Standard_Integer (TNaming_MapOfNamedShape::*)() const ) &TNaming_MapOfNamedShape::Size, "Size");
-	cls_TNaming_MapOfNamedShape.def("IsEqual", (Standard_Boolean (TNaming_MapOfNamedShape::*)(const TNaming_MapOfNamedShape &) const ) &TNaming_MapOfNamedShape::IsEqual, "Returns true if two maps contains exactly the same keys", py::arg("theOther"));
-	cls_TNaming_MapOfNamedShape.def("Contains", (Standard_Boolean (TNaming_MapOfNamedShape::*)(const TNaming_MapOfNamedShape &) const ) &TNaming_MapOfNamedShape::Contains, "Returns true if this map contains ALL keys of another map.", py::arg("theOther"));
-	cls_TNaming_MapOfNamedShape.def("Union", (void (TNaming_MapOfNamedShape::*)(const TNaming_MapOfNamedShape &, const TNaming_MapOfNamedShape &)) &TNaming_MapOfNamedShape::Union, "Sets this Map to be the result of union (aka addition, fuse, merge, boolean OR) operation between two given Maps The new Map contains the values that are contained either in the first map or in the second map or in both. All previous content of this Map is cleared. This map (result of the boolean operation) can also be passed as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_TNaming_MapOfNamedShape.def("Unite", (Standard_Boolean (TNaming_MapOfNamedShape::*)(const TNaming_MapOfNamedShape &)) &TNaming_MapOfNamedShape::Unite, "Apply to this Map the boolean operation union (aka addition, fuse, merge, boolean OR) with another (given) Map. The result contains the values that were previously contained in this map or contained in the given (operand) map. This algorithm is similar to method Union(). Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_TNaming_MapOfNamedShape.def("HasIntersection", (Standard_Boolean (TNaming_MapOfNamedShape::*)(const TNaming_MapOfNamedShape &) const ) &TNaming_MapOfNamedShape::HasIntersection, "Returns true if this and theMap have common elements.", py::arg("theMap"));
-	cls_TNaming_MapOfNamedShape.def("Intersection", (void (TNaming_MapOfNamedShape::*)(const TNaming_MapOfNamedShape &, const TNaming_MapOfNamedShape &)) &TNaming_MapOfNamedShape::Intersection, "Sets this Map to be the result of intersection (aka multiplication, common, boolean AND) operation between two given Maps. The new Map contains only the values that are contained in both map operands. All previous content of this Map is cleared. This same map (result of the boolean operation) can also be used as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_TNaming_MapOfNamedShape.def("Intersect", (Standard_Boolean (TNaming_MapOfNamedShape::*)(const TNaming_MapOfNamedShape &)) &TNaming_MapOfNamedShape::Intersect, "Apply to this Map the intersection operation (aka multiplication, common, boolean AND) with another (given) Map. The result contains only the values that are contained in both this and the given maps. This algorithm is similar to method Intersection(). Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_TNaming_MapOfNamedShape.def("Subtraction", (void (TNaming_MapOfNamedShape::*)(const TNaming_MapOfNamedShape &, const TNaming_MapOfNamedShape &)) &TNaming_MapOfNamedShape::Subtraction, "Sets this Map to be the result of subtraction (aka set-theoretic difference, relative complement, exclude, cut, boolean NOT) operation between two given Maps. The new Map contains only the values that are contained in the first map operands and not contained in the second one. All previous content of this Map is cleared.", py::arg("theLeft"), py::arg("theRight"));
-	cls_TNaming_MapOfNamedShape.def("Subtract", (Standard_Boolean (TNaming_MapOfNamedShape::*)(const TNaming_MapOfNamedShape &)) &TNaming_MapOfNamedShape::Subtract, "Apply to this Map the subtraction (aka set-theoretic difference, relative complement, exclude, cut, boolean NOT) operation with another (given) Map. The result contains only the values that were previously contained in this map and not contained in this map. This algorithm is similar to method Subtract() with two operands. Returns True if contents of this map is changed.", py::arg("theOther"));
-	cls_TNaming_MapOfNamedShape.def("Difference", (void (TNaming_MapOfNamedShape::*)(const TNaming_MapOfNamedShape &, const TNaming_MapOfNamedShape &)) &TNaming_MapOfNamedShape::Difference, "Sets this Map to be the result of symmetric difference (aka exclusive disjunction, boolean XOR) operation between two given Maps. The new Map contains the values that are contained only in the first or the second operand maps but not in both. All previous content of this Map is cleared. This map (result of the boolean operation) can also be used as one of operands.", py::arg("theLeft"), py::arg("theRight"));
-	cls_TNaming_MapOfNamedShape.def("Differ", (Standard_Boolean (TNaming_MapOfNamedShape::*)(const TNaming_MapOfNamedShape &)) &TNaming_MapOfNamedShape::Differ, "Apply to this Map the symmetric difference (aka exclusive disjunction, boolean XOR) operation with another (given) Map. The result contains the values that are contained only in this or the operand map, but not in both. This algorithm is similar to method Difference(). Returns True if contents of this map is changed.", py::arg("theOther"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_ListOfMapOfShape.hxx
+	bind_NCollection_List<NCollection_Map<TopoDS_Shape, TopTools_ShapeMapHasher> >(mod, "TNaming_ListOfMapOfShape");
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_ListOfMapOfShape.hxx
+	bind_NCollection_TListIterator<NCollection_Map<TopoDS_Shape, TopTools_ShapeMapHasher> >(mod, "TNaming_ListIteratorOfListOfMapOfShape");
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_NamedShapeHasher.hxx
+	bind_NCollection_DefaultHasher<opencascade::handle<TNaming_NamedShape> >(mod, "TNaming_NamedShapeHasher");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_MapOfNamedShape.hxx
+	bind_NCollection_Map<opencascade::handle<TNaming_NamedShape>, NCollection_DefaultHasher<opencascade::handle<TNaming_NamedShape> > >(mod, "TNaming_MapOfNamedShape");
+
 	/* FIXME
-	// TNaming_MapOfShape
+
 	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_NCollections.hxx
-	/* FIXME
-	// TNaming_DataMapOfShapeMapOfShape
-	*/
+	bind_NCollection_Map<TopoDS_Shape, NCollection_DefaultHasher<TopoDS_Shape> >(mod, "TNaming_MapOfShape");
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_NCollections.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_NCollections.hxx
+	bind_NCollection_DataMap<TopoDS_Shape, NCollection_Map<TopoDS_Shape, NCollection_DefaultHasher<TopoDS_Shape> >, NCollection_DefaultHasher<TopoDS_Shape> >(mod, "TNaming_DataMapOfShapeMapOfShape");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_NCollections.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TNaming_PtrAttribute.hxx

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <SMDS_Mesh.hxx>
 #include <TopoDS_Shape.hxx>
@@ -46,6 +37,9 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <SMESH_Controls.hxx>
 #include <SMESHDS_GroupOnFilter.hxx>
 #include <SMESHDS_GroupOnGeom.hxx>
+#include <SMDS_Iterator.hxx>
+#include <SMDS_Templates.hpp>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(SMESHDS, mod) {
 
@@ -478,75 +472,20 @@ PYBIND11_MODULE(SMESHDS, mod) {
 	cls_SMESHDS_GroupOnGeom.def("GetElements", (SMDS_ElemIteratorPtr (SMESHDS_GroupOnGeom::*)() const ) &SMESHDS_GroupOnGeom::GetElements, "None");
 	cls_SMESHDS_GroupOnGeom.def("GetTic", (int (SMESHDS_GroupOnGeom::*)() const ) &SMESHDS_GroupOnGeom::GetTic, "None");
 
-	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Iterator.hxx
-	py::class_<SMESHDS_SubMeshIterator, std::unique_ptr<SMESHDS_SubMeshIterator, Deleter<SMESHDS_SubMeshIterator>>> cls_SMESHDS_SubMeshIterator(mod, "SMESHDS_SubMeshIterator", "//////////////////////////////////////////////////////////////////////////// Abstract class for iterators");
-	cls_SMESHDS_SubMeshIterator.def("more", (bool (SMESHDS_SubMeshIterator::*)()) &SMESHDS_SubMeshIterator::more, "Return true if and only if there are other object in this iterator");
-	cls_SMESHDS_SubMeshIterator.def("next", (const SMESHDS_SubMesh * (SMESHDS_SubMeshIterator::*)()) &SMESHDS_SubMeshIterator::next, "Return the current object and step to the next one");
-	cls_SMESHDS_SubMeshIterator.def("remove", (void (SMESHDS_SubMeshIterator::*)()) &SMESHDS_SubMeshIterator::remove, "Delete the current element and step to the next one");
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_SubMesh.hxx
+	bind_SMDS_Iterator<const SMESHDS_SubMesh *>(mod, "SMESHDS_SubMeshIterator");
 
 	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
-	py::class_<SMESHDS_SubMeshIteratorPtr, std::unique_ptr<SMESHDS_SubMeshIteratorPtr, Deleter<SMESHDS_SubMeshIteratorPtr>>> cls_SMESHDS_SubMeshIteratorPtr(mod, "SMESHDS_SubMeshIteratorPtr", "None");
-	cls_SMESHDS_SubMeshIteratorPtr.def(py::init<>());
-	cls_SMESHDS_SubMeshIteratorPtr.def(py::init<boost::detail::sp_nullptr_t>(), py::arg(""));
-	cls_SMESHDS_SubMeshIteratorPtr.def(py::init<boost::detail::sp_internal_constructor_tag, boost::SMESHDS_SubMeshIteratorPtr::element_type *, const boost::detail::shared_count &>(), py::arg(""), py::arg("px_"), py::arg("pn_"));
-	cls_SMESHDS_SubMeshIteratorPtr.def(py::init<boost::detail::sp_internal_constructor_tag, boost::SMESHDS_SubMeshIteratorPtr::element_type *, boost::detail::shared_count &&>(), py::arg(""), py::arg("px_"), py::arg("pn_"));
-	cls_SMESHDS_SubMeshIteratorPtr.def(py::init([] (const shared_ptr<SMESHDS_SubMeshIterator> &other) {return new SMESHDS_SubMeshIteratorPtr(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_SMESHDS_SubMeshIteratorPtr.def(py::init<shared_ptr<SMESHDS_SubMeshIterator> &&>(), py::arg("r"));
-	cls_SMESHDS_SubMeshIteratorPtr.def("assign", (shared_ptr<SMESHDS_SubMeshIterator> & (SMESHDS_SubMeshIteratorPtr::*)(const shared_ptr<SMESHDS_SubMeshIterator> &)) &SMESHDS_SubMeshIteratorPtr::operator=, py::is_operator(), "None", py::arg("r"));
-	// FIXME cls_SMESHDS_SubMeshIteratorPtr.def("assign", (shared_ptr<SMESHDS_SubMeshIterator> & (SMESHDS_SubMeshIteratorPtr::*)(shared_ptr<SMESHDS_SubMeshIterator> &&)) &SMESHDS_SubMeshIteratorPtr::operator=, py::is_operator(), "None", py::arg("r"));
-	cls_SMESHDS_SubMeshIteratorPtr.def("assign", (shared_ptr<SMESHDS_SubMeshIterator> & (SMESHDS_SubMeshIteratorPtr::*)(boost::detail::sp_nullptr_t)) &SMESHDS_SubMeshIteratorPtr::operator=, py::is_operator(), "None", py::arg(""));
-	cls_SMESHDS_SubMeshIteratorPtr.def("reset", (void (SMESHDS_SubMeshIteratorPtr::*)()) &SMESHDS_SubMeshIteratorPtr::reset, "None");
-	cls_SMESHDS_SubMeshIteratorPtr.def("__mul__", (typename boost::detail::sp_dereference<SMESHDS_SubMeshIterator>::type (SMESHDS_SubMeshIteratorPtr::*)() const ) &SMESHDS_SubMeshIteratorPtr::operator*, py::is_operator(), "None");
-	// FIXME cls_SMESHDS_SubMeshIteratorPtr.def("operator->", (typename boost::detail::sp_member_access<SMESHDS_SubMeshIterator>::type (SMESHDS_SubMeshIteratorPtr::*)() const ) &SMESHDS_SubMeshIteratorPtr::operator->, "None");
-	cls_SMESHDS_SubMeshIteratorPtr.def("__getitem__", (typename boost::detail::sp_array_access<SMESHDS_SubMeshIterator>::type (SMESHDS_SubMeshIteratorPtr::*)(std::ptrdiff_t) const ) &SMESHDS_SubMeshIteratorPtr::operator[], py::is_operator(), "None", py::arg("i"));
-	cls_SMESHDS_SubMeshIteratorPtr.def("get", (boost::SMESHDS_SubMeshIteratorPtr::element_type * (SMESHDS_SubMeshIteratorPtr::*)() const ) &SMESHDS_SubMeshIteratorPtr::get, "None");
-	cls_SMESHDS_SubMeshIteratorPtr.def("operator!", (bool (SMESHDS_SubMeshIteratorPtr::*)() const ) &SMESHDS_SubMeshIteratorPtr::operator!, "None");
-	cls_SMESHDS_SubMeshIteratorPtr.def("unique", (bool (SMESHDS_SubMeshIteratorPtr::*)() const ) &SMESHDS_SubMeshIteratorPtr::unique, "None");
-	cls_SMESHDS_SubMeshIteratorPtr.def("use_count", (long (SMESHDS_SubMeshIteratorPtr::*)() const ) &SMESHDS_SubMeshIteratorPtr::use_count, "None");
-	cls_SMESHDS_SubMeshIteratorPtr.def("swap", (void (SMESHDS_SubMeshIteratorPtr::*)(shared_ptr<SMESHDS_SubMeshIterator> &)) &SMESHDS_SubMeshIteratorPtr::swap, "None", py::arg("other"));
-	cls_SMESHDS_SubMeshIteratorPtr.def("_internal_get_deleter", (void * (SMESHDS_SubMeshIteratorPtr::*)(const boost::detail::sp_typeinfo &) const ) &SMESHDS_SubMeshIteratorPtr::_internal_get_deleter, "None", py::arg("ti"));
-	cls_SMESHDS_SubMeshIteratorPtr.def("_internal_get_local_deleter", (void * (SMESHDS_SubMeshIteratorPtr::*)(const boost::detail::sp_typeinfo &) const ) &SMESHDS_SubMeshIteratorPtr::_internal_get_local_deleter, "None", py::arg("ti"));
-	cls_SMESHDS_SubMeshIteratorPtr.def("_internal_get_untyped_deleter", (void * (SMESHDS_SubMeshIteratorPtr::*)() const ) &SMESHDS_SubMeshIteratorPtr::_internal_get_untyped_deleter, "None");
-	cls_SMESHDS_SubMeshIteratorPtr.def("_internal_equiv", (bool (SMESHDS_SubMeshIteratorPtr::*)(const shared_ptr<SMESHDS_SubMeshIterator> &) const ) &SMESHDS_SubMeshIteratorPtr::_internal_equiv, "None", py::arg("r"));
-	cls_SMESHDS_SubMeshIteratorPtr.def("_internal_count", (boost::detail::shared_count (SMESHDS_SubMeshIteratorPtr::*)() const ) &SMESHDS_SubMeshIteratorPtr::_internal_count, "None");
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_SubMesh.hxx
+	// FIXME bind_boost::shared_ptr<SMDS_Iterator<const SMESHDS_SubMesh *> >(mod, "SMESHDS_SubMeshIteratorPtr");
 
 	*/
 
-	/* FIXME
-	// THypList
-	*/
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_Mesh.hxx
+	// FIXME bind_std::list<const SMESHDS_Hypothesis *, std::allocator<const SMESHDS_Hypothesis *> >(mod, "THypList");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<ShapeToHypothesis, std::unique_ptr<ShapeToHypothesis, Deleter<ShapeToHypothesis>>, NCollection_BaseMap> cls_ShapeToHypothesis(mod, "ShapeToHypothesis", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_ShapeToHypothesis.def(py::init<>());
-	cls_ShapeToHypothesis.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_ShapeToHypothesis.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_ShapeToHypothesis.def(py::init([] (const ShapeToHypothesis &other) {return new ShapeToHypothesis(other);}), "Copy constructor", py::arg("other"));
-	cls_ShapeToHypothesis.def("begin", (ShapeToHypothesis::iterator (ShapeToHypothesis::*)() const ) &ShapeToHypothesis::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_ShapeToHypothesis.def("end", (ShapeToHypothesis::iterator (ShapeToHypothesis::*)() const ) &ShapeToHypothesis::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_ShapeToHypothesis.def("cbegin", (ShapeToHypothesis::const_iterator (ShapeToHypothesis::*)() const ) &ShapeToHypothesis::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_ShapeToHypothesis.def("cend", (ShapeToHypothesis::const_iterator (ShapeToHypothesis::*)() const ) &ShapeToHypothesis::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_ShapeToHypothesis.def("Exchange", (void (ShapeToHypothesis::*)(ShapeToHypothesis &)) &ShapeToHypothesis::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_ShapeToHypothesis.def("Assign", (ShapeToHypothesis & (ShapeToHypothesis::*)(const ShapeToHypothesis &)) &ShapeToHypothesis::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_ShapeToHypothesis.def("assign", (ShapeToHypothesis & (ShapeToHypothesis::*)(const ShapeToHypothesis &)) &ShapeToHypothesis::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_ShapeToHypothesis.def("ReSize", (void (ShapeToHypothesis::*)(const Standard_Integer)) &ShapeToHypothesis::ReSize, "ReSize", py::arg("N"));
-	cls_ShapeToHypothesis.def("Bind", (Standard_Boolean (ShapeToHypothesis::*)(const TopoDS_Shape &, const THypList &)) &ShapeToHypothesis::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_ShapeToHypothesis.def("Bound", (THypList * (ShapeToHypothesis::*)(const TopoDS_Shape &, const THypList &)) &ShapeToHypothesis::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_ShapeToHypothesis.def("IsBound", (Standard_Boolean (ShapeToHypothesis::*)(const TopoDS_Shape &) const ) &ShapeToHypothesis::IsBound, "IsBound", py::arg("theKey"));
-	cls_ShapeToHypothesis.def("UnBind", (Standard_Boolean (ShapeToHypothesis::*)(const TopoDS_Shape &)) &ShapeToHypothesis::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_ShapeToHypothesis.def("Seek", (const THypList * (ShapeToHypothesis::*)(const TopoDS_Shape &) const ) &ShapeToHypothesis::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_ShapeToHypothesis.def("Find", (const THypList & (ShapeToHypothesis::*)(const TopoDS_Shape &) const ) &ShapeToHypothesis::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_ShapeToHypothesis.def("Find", (Standard_Boolean (ShapeToHypothesis::*)(const TopoDS_Shape &, THypList &) const ) &ShapeToHypothesis::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_ShapeToHypothesis.def("__call__", (const THypList & (ShapeToHypothesis::*)(const TopoDS_Shape &) const ) &ShapeToHypothesis::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_ShapeToHypothesis.def("ChangeSeek", (THypList * (ShapeToHypothesis::*)(const TopoDS_Shape &)) &ShapeToHypothesis::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_ShapeToHypothesis.def("ChangeFind", (THypList & (ShapeToHypothesis::*)(const TopoDS_Shape &)) &ShapeToHypothesis::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_ShapeToHypothesis.def("__call__", (THypList & (ShapeToHypothesis::*)(const TopoDS_Shape &)) &ShapeToHypothesis::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_ShapeToHypothesis.def("Clear", [](ShapeToHypothesis &self) -> void { return self.Clear(); });
-	cls_ShapeToHypothesis.def("Clear", (void (ShapeToHypothesis::*)(const Standard_Boolean)) &ShapeToHypothesis::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_ShapeToHypothesis.def("Clear", (void (ShapeToHypothesis::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &ShapeToHypothesis::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_ShapeToHypothesis.def("Size", (Standard_Integer (ShapeToHypothesis::*)() const ) &ShapeToHypothesis::Size, "Size");
-	cls_ShapeToHypothesis.def("__iter__", [](const ShapeToHypothesis &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_Mesh.hxx
+	bind_NCollection_DataMap<TopoDS_Shape, std::list<const SMESHDS_Hypothesis *, std::allocator<const SMESHDS_Hypothesis *> >, SMESHDS_Hasher>(mod, "ShapeToHypothesis");
 
 
 }

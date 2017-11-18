@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <TransferBRep_BinderOfShape.hxx>
 #include <TopoDS_Shape.hxx>
@@ -51,6 +42,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Message_Printer.hxx>
 #include <Message_Msg.hxx>
 #include <TransferBRep.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(TransferBRep, mod) {
 
@@ -103,50 +95,8 @@ PYBIND11_MODULE(TransferBRep, mod) {
 	cls_TransferBRep_TransferResultInfo.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TransferBRep_TransferResultInfo::get_type_descriptor, "None");
 	cls_TransferBRep_TransferResultInfo.def("DynamicType", (const opencascade::handle<Standard_Type> & (TransferBRep_TransferResultInfo::*)() const ) &TransferBRep_TransferResultInfo::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<TransferBRep_SequenceOfTransferResultInfo, std::unique_ptr<TransferBRep_SequenceOfTransferResultInfo, Deleter<TransferBRep_SequenceOfTransferResultInfo>>, NCollection_BaseSequence> cls_TransferBRep_SequenceOfTransferResultInfo(mod, "TransferBRep_SequenceOfTransferResultInfo", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_TransferBRep_SequenceOfTransferResultInfo.def(py::init<>());
-	cls_TransferBRep_SequenceOfTransferResultInfo.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def(py::init([] (const TransferBRep_SequenceOfTransferResultInfo &other) {return new TransferBRep_SequenceOfTransferResultInfo(other);}), "Copy constructor", py::arg("other"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("begin", (TransferBRep_SequenceOfTransferResultInfo::iterator (TransferBRep_SequenceOfTransferResultInfo::*)() const ) &TransferBRep_SequenceOfTransferResultInfo::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("end", (TransferBRep_SequenceOfTransferResultInfo::iterator (TransferBRep_SequenceOfTransferResultInfo::*)() const ) &TransferBRep_SequenceOfTransferResultInfo::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("cbegin", (TransferBRep_SequenceOfTransferResultInfo::const_iterator (TransferBRep_SequenceOfTransferResultInfo::*)() const ) &TransferBRep_SequenceOfTransferResultInfo::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("cend", (TransferBRep_SequenceOfTransferResultInfo::const_iterator (TransferBRep_SequenceOfTransferResultInfo::*)() const ) &TransferBRep_SequenceOfTransferResultInfo::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Size", (Standard_Integer (TransferBRep_SequenceOfTransferResultInfo::*)() const ) &TransferBRep_SequenceOfTransferResultInfo::Size, "Number of items");
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Length", (Standard_Integer (TransferBRep_SequenceOfTransferResultInfo::*)() const ) &TransferBRep_SequenceOfTransferResultInfo::Length, "Number of items");
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Lower", (Standard_Integer (TransferBRep_SequenceOfTransferResultInfo::*)() const ) &TransferBRep_SequenceOfTransferResultInfo::Lower, "Method for consistency with other collections.");
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Upper", (Standard_Integer (TransferBRep_SequenceOfTransferResultInfo::*)() const ) &TransferBRep_SequenceOfTransferResultInfo::Upper, "Method for consistency with other collections.");
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("IsEmpty", (Standard_Boolean (TransferBRep_SequenceOfTransferResultInfo::*)() const ) &TransferBRep_SequenceOfTransferResultInfo::IsEmpty, "Empty query");
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Reverse", (void (TransferBRep_SequenceOfTransferResultInfo::*)()) &TransferBRep_SequenceOfTransferResultInfo::Reverse, "Reverse sequence");
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Exchange", (void (TransferBRep_SequenceOfTransferResultInfo::*)(const Standard_Integer, const Standard_Integer)) &TransferBRep_SequenceOfTransferResultInfo::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &TransferBRep_SequenceOfTransferResultInfo::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Clear", [](TransferBRep_SequenceOfTransferResultInfo &self) -> void { return self.Clear(); });
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Clear", (void (TransferBRep_SequenceOfTransferResultInfo::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &TransferBRep_SequenceOfTransferResultInfo::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Assign", (TransferBRep_SequenceOfTransferResultInfo & (TransferBRep_SequenceOfTransferResultInfo::*)(const TransferBRep_SequenceOfTransferResultInfo &)) &TransferBRep_SequenceOfTransferResultInfo::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("assign", (TransferBRep_SequenceOfTransferResultInfo & (TransferBRep_SequenceOfTransferResultInfo::*)(const TransferBRep_SequenceOfTransferResultInfo &)) &TransferBRep_SequenceOfTransferResultInfo::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Remove", (void (TransferBRep_SequenceOfTransferResultInfo::*)(TransferBRep_SequenceOfTransferResultInfo::Iterator &)) &TransferBRep_SequenceOfTransferResultInfo::Remove, "Remove one item", py::arg("thePosition"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Remove", (void (TransferBRep_SequenceOfTransferResultInfo::*)(const Standard_Integer)) &TransferBRep_SequenceOfTransferResultInfo::Remove, "Remove one item", py::arg("theIndex"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Remove", (void (TransferBRep_SequenceOfTransferResultInfo::*)(const Standard_Integer, const Standard_Integer)) &TransferBRep_SequenceOfTransferResultInfo::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Append", (void (TransferBRep_SequenceOfTransferResultInfo::*)(const opencascade::handle<TransferBRep_TransferResultInfo> &)) &TransferBRep_SequenceOfTransferResultInfo::Append, "Append one item", py::arg("theItem"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Append", (void (TransferBRep_SequenceOfTransferResultInfo::*)(TransferBRep_SequenceOfTransferResultInfo &)) &TransferBRep_SequenceOfTransferResultInfo::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Prepend", (void (TransferBRep_SequenceOfTransferResultInfo::*)(const opencascade::handle<TransferBRep_TransferResultInfo> &)) &TransferBRep_SequenceOfTransferResultInfo::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Prepend", (void (TransferBRep_SequenceOfTransferResultInfo::*)(TransferBRep_SequenceOfTransferResultInfo &)) &TransferBRep_SequenceOfTransferResultInfo::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("InsertBefore", (void (TransferBRep_SequenceOfTransferResultInfo::*)(const Standard_Integer, const opencascade::handle<TransferBRep_TransferResultInfo> &)) &TransferBRep_SequenceOfTransferResultInfo::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("InsertBefore", (void (TransferBRep_SequenceOfTransferResultInfo::*)(const Standard_Integer, TransferBRep_SequenceOfTransferResultInfo &)) &TransferBRep_SequenceOfTransferResultInfo::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("InsertAfter", (void (TransferBRep_SequenceOfTransferResultInfo::*)(TransferBRep_SequenceOfTransferResultInfo::Iterator &, const opencascade::handle<TransferBRep_TransferResultInfo> &)) &TransferBRep_SequenceOfTransferResultInfo::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("InsertAfter", (void (TransferBRep_SequenceOfTransferResultInfo::*)(const Standard_Integer, TransferBRep_SequenceOfTransferResultInfo &)) &TransferBRep_SequenceOfTransferResultInfo::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("InsertAfter", (void (TransferBRep_SequenceOfTransferResultInfo::*)(const Standard_Integer, const opencascade::handle<TransferBRep_TransferResultInfo> &)) &TransferBRep_SequenceOfTransferResultInfo::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Split", (void (TransferBRep_SequenceOfTransferResultInfo::*)(const Standard_Integer, TransferBRep_SequenceOfTransferResultInfo &)) &TransferBRep_SequenceOfTransferResultInfo::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("First", (const opencascade::handle<TransferBRep_TransferResultInfo> & (TransferBRep_SequenceOfTransferResultInfo::*)() const ) &TransferBRep_SequenceOfTransferResultInfo::First, "First item access");
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("ChangeFirst", (opencascade::handle<TransferBRep_TransferResultInfo> & (TransferBRep_SequenceOfTransferResultInfo::*)()) &TransferBRep_SequenceOfTransferResultInfo::ChangeFirst, "First item access");
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Last", (const opencascade::handle<TransferBRep_TransferResultInfo> & (TransferBRep_SequenceOfTransferResultInfo::*)() const ) &TransferBRep_SequenceOfTransferResultInfo::Last, "Last item access");
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("ChangeLast", (opencascade::handle<TransferBRep_TransferResultInfo> & (TransferBRep_SequenceOfTransferResultInfo::*)()) &TransferBRep_SequenceOfTransferResultInfo::ChangeLast, "Last item access");
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("Value", (const opencascade::handle<TransferBRep_TransferResultInfo> & (TransferBRep_SequenceOfTransferResultInfo::*)(const Standard_Integer) const ) &TransferBRep_SequenceOfTransferResultInfo::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("__call__", (const opencascade::handle<TransferBRep_TransferResultInfo> & (TransferBRep_SequenceOfTransferResultInfo::*)(const Standard_Integer) const ) &TransferBRep_SequenceOfTransferResultInfo::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("ChangeValue", (opencascade::handle<TransferBRep_TransferResultInfo> & (TransferBRep_SequenceOfTransferResultInfo::*)(const Standard_Integer)) &TransferBRep_SequenceOfTransferResultInfo::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("__call__", (opencascade::handle<TransferBRep_TransferResultInfo> & (TransferBRep_SequenceOfTransferResultInfo::*)(const Standard_Integer)) &TransferBRep_SequenceOfTransferResultInfo::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("SetValue", (void (TransferBRep_SequenceOfTransferResultInfo::*)(const Standard_Integer, const opencascade::handle<TransferBRep_TransferResultInfo> &)) &TransferBRep_SequenceOfTransferResultInfo::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_TransferBRep_SequenceOfTransferResultInfo.def("__iter__", [](const TransferBRep_SequenceOfTransferResultInfo &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\TransferBRep_SequenceOfTransferResultInfo.hxx
+	bind_NCollection_Sequence<opencascade::handle<TransferBRep_TransferResultInfo> >(mod, "TransferBRep_SequenceOfTransferResultInfo");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TransferBRep_ShapeMapper.hxx
 	py::class_<TransferBRep_ShapeMapper, opencascade::handle<TransferBRep_ShapeMapper>, Transfer_Finder> cls_TransferBRep_ShapeMapper(mod, "TransferBRep_ShapeMapper", "None");

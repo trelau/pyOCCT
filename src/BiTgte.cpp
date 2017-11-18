@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <BiTgte_ContactType.hxx>
 #include <NCollection_BaseMap.hxx>
@@ -44,6 +35,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Standard_Type.hxx>
 #include <BiTgte_HCurveOnEdge.hxx>
 #include <BiTgte_HCurveOnVertex.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BiTgte, mod) {
 
@@ -201,37 +193,12 @@ PYBIND11_MODULE(BiTgte, mod) {
 	cls_BiTgte_HCurveOnVertex.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BiTgte_HCurveOnVertex::get_type_descriptor, "None");
 	cls_BiTgte_HCurveOnVertex.def("DynamicType", (const opencascade::handle<Standard_Type> & (BiTgte_HCurveOnVertex::*)() const ) &BiTgte_HCurveOnVertex::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<BiTgte_DataMapOfShapeBox, std::unique_ptr<BiTgte_DataMapOfShapeBox, Deleter<BiTgte_DataMapOfShapeBox>>, NCollection_BaseMap> cls_BiTgte_DataMapOfShapeBox(mod, "BiTgte_DataMapOfShapeBox", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_BiTgte_DataMapOfShapeBox.def(py::init<>());
-	cls_BiTgte_DataMapOfShapeBox.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BiTgte_DataMapOfShapeBox.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BiTgte_DataMapOfShapeBox.def(py::init([] (const BiTgte_DataMapOfShapeBox &other) {return new BiTgte_DataMapOfShapeBox(other);}), "Copy constructor", py::arg("other"));
-	cls_BiTgte_DataMapOfShapeBox.def("begin", (BiTgte_DataMapOfShapeBox::iterator (BiTgte_DataMapOfShapeBox::*)() const ) &BiTgte_DataMapOfShapeBox::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_BiTgte_DataMapOfShapeBox.def("end", (BiTgte_DataMapOfShapeBox::iterator (BiTgte_DataMapOfShapeBox::*)() const ) &BiTgte_DataMapOfShapeBox::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_BiTgte_DataMapOfShapeBox.def("cbegin", (BiTgte_DataMapOfShapeBox::const_iterator (BiTgte_DataMapOfShapeBox::*)() const ) &BiTgte_DataMapOfShapeBox::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_BiTgte_DataMapOfShapeBox.def("cend", (BiTgte_DataMapOfShapeBox::const_iterator (BiTgte_DataMapOfShapeBox::*)() const ) &BiTgte_DataMapOfShapeBox::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_BiTgte_DataMapOfShapeBox.def("Exchange", (void (BiTgte_DataMapOfShapeBox::*)(BiTgte_DataMapOfShapeBox &)) &BiTgte_DataMapOfShapeBox::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BiTgte_DataMapOfShapeBox.def("Assign", (BiTgte_DataMapOfShapeBox & (BiTgte_DataMapOfShapeBox::*)(const BiTgte_DataMapOfShapeBox &)) &BiTgte_DataMapOfShapeBox::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BiTgte_DataMapOfShapeBox.def("assign", (BiTgte_DataMapOfShapeBox & (BiTgte_DataMapOfShapeBox::*)(const BiTgte_DataMapOfShapeBox &)) &BiTgte_DataMapOfShapeBox::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BiTgte_DataMapOfShapeBox.def("ReSize", (void (BiTgte_DataMapOfShapeBox::*)(const Standard_Integer)) &BiTgte_DataMapOfShapeBox::ReSize, "ReSize", py::arg("N"));
-	cls_BiTgte_DataMapOfShapeBox.def("Bind", (Standard_Boolean (BiTgte_DataMapOfShapeBox::*)(const TopoDS_Shape &, const Bnd_Box &)) &BiTgte_DataMapOfShapeBox::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_BiTgte_DataMapOfShapeBox.def("Bound", (Bnd_Box * (BiTgte_DataMapOfShapeBox::*)(const TopoDS_Shape &, const Bnd_Box &)) &BiTgte_DataMapOfShapeBox::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_BiTgte_DataMapOfShapeBox.def("IsBound", (Standard_Boolean (BiTgte_DataMapOfShapeBox::*)(const TopoDS_Shape &) const ) &BiTgte_DataMapOfShapeBox::IsBound, "IsBound", py::arg("theKey"));
-	cls_BiTgte_DataMapOfShapeBox.def("UnBind", (Standard_Boolean (BiTgte_DataMapOfShapeBox::*)(const TopoDS_Shape &)) &BiTgte_DataMapOfShapeBox::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_BiTgte_DataMapOfShapeBox.def("Seek", (const Bnd_Box * (BiTgte_DataMapOfShapeBox::*)(const TopoDS_Shape &) const ) &BiTgte_DataMapOfShapeBox::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_BiTgte_DataMapOfShapeBox.def("Find", (const Bnd_Box & (BiTgte_DataMapOfShapeBox::*)(const TopoDS_Shape &) const ) &BiTgte_DataMapOfShapeBox::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_BiTgte_DataMapOfShapeBox.def("Find", (Standard_Boolean (BiTgte_DataMapOfShapeBox::*)(const TopoDS_Shape &, Bnd_Box &) const ) &BiTgte_DataMapOfShapeBox::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_BiTgte_DataMapOfShapeBox.def("__call__", (const Bnd_Box & (BiTgte_DataMapOfShapeBox::*)(const TopoDS_Shape &) const ) &BiTgte_DataMapOfShapeBox::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_BiTgte_DataMapOfShapeBox.def("ChangeSeek", (Bnd_Box * (BiTgte_DataMapOfShapeBox::*)(const TopoDS_Shape &)) &BiTgte_DataMapOfShapeBox::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_BiTgte_DataMapOfShapeBox.def("ChangeFind", (Bnd_Box & (BiTgte_DataMapOfShapeBox::*)(const TopoDS_Shape &)) &BiTgte_DataMapOfShapeBox::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_BiTgte_DataMapOfShapeBox.def("__call__", (Bnd_Box & (BiTgte_DataMapOfShapeBox::*)(const TopoDS_Shape &)) &BiTgte_DataMapOfShapeBox::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_BiTgte_DataMapOfShapeBox.def("Clear", [](BiTgte_DataMapOfShapeBox &self) -> void { return self.Clear(); });
-	cls_BiTgte_DataMapOfShapeBox.def("Clear", (void (BiTgte_DataMapOfShapeBox::*)(const Standard_Boolean)) &BiTgte_DataMapOfShapeBox::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BiTgte_DataMapOfShapeBox.def("Clear", (void (BiTgte_DataMapOfShapeBox::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BiTgte_DataMapOfShapeBox::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BiTgte_DataMapOfShapeBox.def("Size", (Standard_Integer (BiTgte_DataMapOfShapeBox::*)() const ) &BiTgte_DataMapOfShapeBox::Size, "Size");
-	cls_BiTgte_DataMapOfShapeBox.def("__iter__", [](const BiTgte_DataMapOfShapeBox &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BiTgte_DataMapOfShapeBox.hxx
+	bind_NCollection_DataMap<TopoDS_Shape, Bnd_Box, TopTools_ShapeMapHasher>(mod, "BiTgte_DataMapOfShapeBox");
+
+	/* FIXME
+
+	*/
+
 
 }

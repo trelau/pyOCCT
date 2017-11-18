@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <GccEnt_Position.hxx>
 #include <Standard_TypeDef.hxx>
@@ -24,6 +15,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <GccEnt_QualifiedLin.hxx>
 #include <Standard_OStream.hxx>
 #include <GccEnt.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(GccEnt, mod) {
 
@@ -94,40 +86,8 @@ PYBIND11_MODULE(GccEnt, mod) {
 	cls_GccEnt.def_static("Outside_", (GccEnt_QualifiedLin (*)(const gp_Lin2d &)) &GccEnt::Outside, "Constructs a qualified line, so that the solution computed by a construction algorithm using the qualified circle or line and the circle or line are external to one another.", py::arg("Obj"));
 	cls_GccEnt.def_static("Outside_", (GccEnt_QualifiedCirc (*)(const gp_Circ2d &)) &GccEnt::Outside, "Constructs a qualified circle so that the solution computed by a construction algorithm using the qualified circle or line and the circle or line are external to one another.", py::arg("Obj"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<GccEnt_Array1OfPosition, std::unique_ptr<GccEnt_Array1OfPosition, Deleter<GccEnt_Array1OfPosition>>> cls_GccEnt_Array1OfPosition(mod, "GccEnt_Array1OfPosition", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_GccEnt_Array1OfPosition.def(py::init<>());
-	cls_GccEnt_Array1OfPosition.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_GccEnt_Array1OfPosition.def(py::init([] (const GccEnt_Array1OfPosition &other) {return new GccEnt_Array1OfPosition(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_GccEnt_Array1OfPosition.def(py::init<GccEnt_Array1OfPosition &&>(), py::arg("theOther"));
-	cls_GccEnt_Array1OfPosition.def(py::init<const GccEnt_Position &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_GccEnt_Array1OfPosition.def("begin", (GccEnt_Array1OfPosition::iterator (GccEnt_Array1OfPosition::*)() const ) &GccEnt_Array1OfPosition::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_GccEnt_Array1OfPosition.def("end", (GccEnt_Array1OfPosition::iterator (GccEnt_Array1OfPosition::*)() const ) &GccEnt_Array1OfPosition::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_GccEnt_Array1OfPosition.def("cbegin", (GccEnt_Array1OfPosition::const_iterator (GccEnt_Array1OfPosition::*)() const ) &GccEnt_Array1OfPosition::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_GccEnt_Array1OfPosition.def("cend", (GccEnt_Array1OfPosition::const_iterator (GccEnt_Array1OfPosition::*)() const ) &GccEnt_Array1OfPosition::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_GccEnt_Array1OfPosition.def("Init", (void (GccEnt_Array1OfPosition::*)(const GccEnt_Position &)) &GccEnt_Array1OfPosition::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_GccEnt_Array1OfPosition.def("Size", (Standard_Integer (GccEnt_Array1OfPosition::*)() const ) &GccEnt_Array1OfPosition::Size, "Size query");
-	cls_GccEnt_Array1OfPosition.def("Length", (Standard_Integer (GccEnt_Array1OfPosition::*)() const ) &GccEnt_Array1OfPosition::Length, "Length query (the same)");
-	cls_GccEnt_Array1OfPosition.def("IsEmpty", (Standard_Boolean (GccEnt_Array1OfPosition::*)() const ) &GccEnt_Array1OfPosition::IsEmpty, "Return TRUE if array has zero length.");
-	cls_GccEnt_Array1OfPosition.def("Lower", (Standard_Integer (GccEnt_Array1OfPosition::*)() const ) &GccEnt_Array1OfPosition::Lower, "Lower bound");
-	cls_GccEnt_Array1OfPosition.def("Upper", (Standard_Integer (GccEnt_Array1OfPosition::*)() const ) &GccEnt_Array1OfPosition::Upper, "Upper bound");
-	cls_GccEnt_Array1OfPosition.def("IsDeletable", (Standard_Boolean (GccEnt_Array1OfPosition::*)() const ) &GccEnt_Array1OfPosition::IsDeletable, "myDeletable flag");
-	cls_GccEnt_Array1OfPosition.def("IsAllocated", (Standard_Boolean (GccEnt_Array1OfPosition::*)() const ) &GccEnt_Array1OfPosition::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_GccEnt_Array1OfPosition.def("Assign", (GccEnt_Array1OfPosition & (GccEnt_Array1OfPosition::*)(const GccEnt_Array1OfPosition &)) &GccEnt_Array1OfPosition::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_GccEnt_Array1OfPosition.def("Move", (GccEnt_Array1OfPosition & (GccEnt_Array1OfPosition::*)(GccEnt_Array1OfPosition &&)) &GccEnt_Array1OfPosition::Move, "Move assignment", py::arg("theOther"));
-	cls_GccEnt_Array1OfPosition.def("assign", (GccEnt_Array1OfPosition & (GccEnt_Array1OfPosition::*)(const GccEnt_Array1OfPosition &)) &GccEnt_Array1OfPosition::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_GccEnt_Array1OfPosition.def("assign", (GccEnt_Array1OfPosition & (GccEnt_Array1OfPosition::*)(GccEnt_Array1OfPosition &&)) &GccEnt_Array1OfPosition::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_GccEnt_Array1OfPosition.def("First", (const GccEnt_Position & (GccEnt_Array1OfPosition::*)() const ) &GccEnt_Array1OfPosition::First, "Returns first element");
-	cls_GccEnt_Array1OfPosition.def("ChangeFirst", (GccEnt_Position & (GccEnt_Array1OfPosition::*)()) &GccEnt_Array1OfPosition::ChangeFirst, "Returns first element");
-	cls_GccEnt_Array1OfPosition.def("Last", (const GccEnt_Position & (GccEnt_Array1OfPosition::*)() const ) &GccEnt_Array1OfPosition::Last, "Returns last element");
-	cls_GccEnt_Array1OfPosition.def("ChangeLast", (GccEnt_Position & (GccEnt_Array1OfPosition::*)()) &GccEnt_Array1OfPosition::ChangeLast, "Returns last element");
-	cls_GccEnt_Array1OfPosition.def("Value", (const GccEnt_Position & (GccEnt_Array1OfPosition::*)(const Standard_Integer) const ) &GccEnt_Array1OfPosition::Value, "Constant value access", py::arg("theIndex"));
-	cls_GccEnt_Array1OfPosition.def("__call__", (const GccEnt_Position & (GccEnt_Array1OfPosition::*)(const Standard_Integer) const ) &GccEnt_Array1OfPosition::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_GccEnt_Array1OfPosition.def("ChangeValue", (GccEnt_Position & (GccEnt_Array1OfPosition::*)(const Standard_Integer)) &GccEnt_Array1OfPosition::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_GccEnt_Array1OfPosition.def("__call__", (GccEnt_Position & (GccEnt_Array1OfPosition::*)(const Standard_Integer)) &GccEnt_Array1OfPosition::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_GccEnt_Array1OfPosition.def("SetValue", (void (GccEnt_Array1OfPosition::*)(const Standard_Integer, const GccEnt_Position &)) &GccEnt_Array1OfPosition::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_GccEnt_Array1OfPosition.def("Resize", (void (GccEnt_Array1OfPosition::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &GccEnt_Array1OfPosition::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_GccEnt_Array1OfPosition.def("__iter__", [](const GccEnt_Array1OfPosition &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\GccEnt_Array1OfPosition.hxx
+	bind_NCollection_Array1<GccEnt_Position>(mod, "GccEnt_Array1OfPosition");
 
 
 }

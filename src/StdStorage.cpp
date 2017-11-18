@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
@@ -38,6 +29,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <StdStorage_MapOfRoots.hxx>
 #include <NCollection_IndexedDataMap.hxx>
 #include <StdStorage_MapOfTypes.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(StdStorage, mod) {
 
@@ -182,50 +174,8 @@ PYBIND11_MODULE(StdStorage, mod) {
 	cls_StdStorage_Root.def("SetType", (void (StdStorage_Root::*)(const TCollection_AsciiString &)) &StdStorage_Root::SetType, "Sets a root's persistent type", py::arg("aType"));
 	cls_StdStorage_Root.def("Reference", (Standard_Integer (StdStorage_Root::*)() const ) &StdStorage_Root::Reference, "Returns root's position in the root data section");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<StdStorage_SequenceOfRoots, std::unique_ptr<StdStorage_SequenceOfRoots, Deleter<StdStorage_SequenceOfRoots>>, NCollection_BaseSequence> cls_StdStorage_SequenceOfRoots(mod, "StdStorage_SequenceOfRoots", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_StdStorage_SequenceOfRoots.def(py::init<>());
-	cls_StdStorage_SequenceOfRoots.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_StdStorage_SequenceOfRoots.def(py::init([] (const StdStorage_SequenceOfRoots &other) {return new StdStorage_SequenceOfRoots(other);}), "Copy constructor", py::arg("other"));
-	cls_StdStorage_SequenceOfRoots.def("begin", (StdStorage_SequenceOfRoots::iterator (StdStorage_SequenceOfRoots::*)() const ) &StdStorage_SequenceOfRoots::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_StdStorage_SequenceOfRoots.def("end", (StdStorage_SequenceOfRoots::iterator (StdStorage_SequenceOfRoots::*)() const ) &StdStorage_SequenceOfRoots::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_StdStorage_SequenceOfRoots.def("cbegin", (StdStorage_SequenceOfRoots::const_iterator (StdStorage_SequenceOfRoots::*)() const ) &StdStorage_SequenceOfRoots::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_StdStorage_SequenceOfRoots.def("cend", (StdStorage_SequenceOfRoots::const_iterator (StdStorage_SequenceOfRoots::*)() const ) &StdStorage_SequenceOfRoots::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_StdStorage_SequenceOfRoots.def("Size", (Standard_Integer (StdStorage_SequenceOfRoots::*)() const ) &StdStorage_SequenceOfRoots::Size, "Number of items");
-	cls_StdStorage_SequenceOfRoots.def("Length", (Standard_Integer (StdStorage_SequenceOfRoots::*)() const ) &StdStorage_SequenceOfRoots::Length, "Number of items");
-	cls_StdStorage_SequenceOfRoots.def("Lower", (Standard_Integer (StdStorage_SequenceOfRoots::*)() const ) &StdStorage_SequenceOfRoots::Lower, "Method for consistency with other collections.");
-	cls_StdStorage_SequenceOfRoots.def("Upper", (Standard_Integer (StdStorage_SequenceOfRoots::*)() const ) &StdStorage_SequenceOfRoots::Upper, "Method for consistency with other collections.");
-	cls_StdStorage_SequenceOfRoots.def("IsEmpty", (Standard_Boolean (StdStorage_SequenceOfRoots::*)() const ) &StdStorage_SequenceOfRoots::IsEmpty, "Empty query");
-	cls_StdStorage_SequenceOfRoots.def("Reverse", (void (StdStorage_SequenceOfRoots::*)()) &StdStorage_SequenceOfRoots::Reverse, "Reverse sequence");
-	cls_StdStorage_SequenceOfRoots.def("Exchange", (void (StdStorage_SequenceOfRoots::*)(const Standard_Integer, const Standard_Integer)) &StdStorage_SequenceOfRoots::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_StdStorage_SequenceOfRoots.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &StdStorage_SequenceOfRoots::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_StdStorage_SequenceOfRoots.def("Clear", [](StdStorage_SequenceOfRoots &self) -> void { return self.Clear(); });
-	cls_StdStorage_SequenceOfRoots.def("Clear", (void (StdStorage_SequenceOfRoots::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &StdStorage_SequenceOfRoots::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_StdStorage_SequenceOfRoots.def("Assign", (StdStorage_SequenceOfRoots & (StdStorage_SequenceOfRoots::*)(const StdStorage_SequenceOfRoots &)) &StdStorage_SequenceOfRoots::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_StdStorage_SequenceOfRoots.def("assign", (StdStorage_SequenceOfRoots & (StdStorage_SequenceOfRoots::*)(const StdStorage_SequenceOfRoots &)) &StdStorage_SequenceOfRoots::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_StdStorage_SequenceOfRoots.def("Remove", (void (StdStorage_SequenceOfRoots::*)(StdStorage_SequenceOfRoots::Iterator &)) &StdStorage_SequenceOfRoots::Remove, "Remove one item", py::arg("thePosition"));
-	cls_StdStorage_SequenceOfRoots.def("Remove", (void (StdStorage_SequenceOfRoots::*)(const Standard_Integer)) &StdStorage_SequenceOfRoots::Remove, "Remove one item", py::arg("theIndex"));
-	cls_StdStorage_SequenceOfRoots.def("Remove", (void (StdStorage_SequenceOfRoots::*)(const Standard_Integer, const Standard_Integer)) &StdStorage_SequenceOfRoots::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_StdStorage_SequenceOfRoots.def("Append", (void (StdStorage_SequenceOfRoots::*)(const opencascade::handle<StdStorage_Root> &)) &StdStorage_SequenceOfRoots::Append, "Append one item", py::arg("theItem"));
-	cls_StdStorage_SequenceOfRoots.def("Append", (void (StdStorage_SequenceOfRoots::*)(StdStorage_SequenceOfRoots &)) &StdStorage_SequenceOfRoots::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_StdStorage_SequenceOfRoots.def("Prepend", (void (StdStorage_SequenceOfRoots::*)(const opencascade::handle<StdStorage_Root> &)) &StdStorage_SequenceOfRoots::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_StdStorage_SequenceOfRoots.def("Prepend", (void (StdStorage_SequenceOfRoots::*)(StdStorage_SequenceOfRoots &)) &StdStorage_SequenceOfRoots::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_StdStorage_SequenceOfRoots.def("InsertBefore", (void (StdStorage_SequenceOfRoots::*)(const Standard_Integer, const opencascade::handle<StdStorage_Root> &)) &StdStorage_SequenceOfRoots::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_StdStorage_SequenceOfRoots.def("InsertBefore", (void (StdStorage_SequenceOfRoots::*)(const Standard_Integer, StdStorage_SequenceOfRoots &)) &StdStorage_SequenceOfRoots::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_StdStorage_SequenceOfRoots.def("InsertAfter", (void (StdStorage_SequenceOfRoots::*)(StdStorage_SequenceOfRoots::Iterator &, const opencascade::handle<StdStorage_Root> &)) &StdStorage_SequenceOfRoots::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_StdStorage_SequenceOfRoots.def("InsertAfter", (void (StdStorage_SequenceOfRoots::*)(const Standard_Integer, StdStorage_SequenceOfRoots &)) &StdStorage_SequenceOfRoots::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_StdStorage_SequenceOfRoots.def("InsertAfter", (void (StdStorage_SequenceOfRoots::*)(const Standard_Integer, const opencascade::handle<StdStorage_Root> &)) &StdStorage_SequenceOfRoots::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_StdStorage_SequenceOfRoots.def("Split", (void (StdStorage_SequenceOfRoots::*)(const Standard_Integer, StdStorage_SequenceOfRoots &)) &StdStorage_SequenceOfRoots::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_StdStorage_SequenceOfRoots.def("First", (const opencascade::handle<StdStorage_Root> & (StdStorage_SequenceOfRoots::*)() const ) &StdStorage_SequenceOfRoots::First, "First item access");
-	cls_StdStorage_SequenceOfRoots.def("ChangeFirst", (opencascade::handle<StdStorage_Root> & (StdStorage_SequenceOfRoots::*)()) &StdStorage_SequenceOfRoots::ChangeFirst, "First item access");
-	cls_StdStorage_SequenceOfRoots.def("Last", (const opencascade::handle<StdStorage_Root> & (StdStorage_SequenceOfRoots::*)() const ) &StdStorage_SequenceOfRoots::Last, "Last item access");
-	cls_StdStorage_SequenceOfRoots.def("ChangeLast", (opencascade::handle<StdStorage_Root> & (StdStorage_SequenceOfRoots::*)()) &StdStorage_SequenceOfRoots::ChangeLast, "Last item access");
-	cls_StdStorage_SequenceOfRoots.def("Value", (const opencascade::handle<StdStorage_Root> & (StdStorage_SequenceOfRoots::*)(const Standard_Integer) const ) &StdStorage_SequenceOfRoots::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_StdStorage_SequenceOfRoots.def("__call__", (const opencascade::handle<StdStorage_Root> & (StdStorage_SequenceOfRoots::*)(const Standard_Integer) const ) &StdStorage_SequenceOfRoots::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_StdStorage_SequenceOfRoots.def("ChangeValue", (opencascade::handle<StdStorage_Root> & (StdStorage_SequenceOfRoots::*)(const Standard_Integer)) &StdStorage_SequenceOfRoots::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_StdStorage_SequenceOfRoots.def("__call__", (opencascade::handle<StdStorage_Root> & (StdStorage_SequenceOfRoots::*)(const Standard_Integer)) &StdStorage_SequenceOfRoots::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_StdStorage_SequenceOfRoots.def("SetValue", (void (StdStorage_SequenceOfRoots::*)(const Standard_Integer, const opencascade::handle<StdStorage_Root> &)) &StdStorage_SequenceOfRoots::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_StdStorage_SequenceOfRoots.def("__iter__", [](const StdStorage_SequenceOfRoots &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\StdStorage_SequenceOfRoots.hxx
+	bind_NCollection_Sequence<opencascade::handle<StdStorage_Root> >(mod, "StdStorage_SequenceOfRoots");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdStorage_HSequenceOfRoots.hxx
 	py::class_<StdStorage_HSequenceOfRoots, opencascade::handle<StdStorage_HSequenceOfRoots>, StdStorage_SequenceOfRoots, Standard_Transient> cls_StdStorage_HSequenceOfRoots(mod, "StdStorage_HSequenceOfRoots", "None");
@@ -239,75 +189,15 @@ PYBIND11_MODULE(StdStorage, mod) {
 	cls_StdStorage_HSequenceOfRoots.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StdStorage_HSequenceOfRoots::get_type_descriptor, "None");
 	cls_StdStorage_HSequenceOfRoots.def("DynamicType", (const opencascade::handle<Standard_Type> & (StdStorage_HSequenceOfRoots::*)() const ) &StdStorage_HSequenceOfRoots::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<StdStorage_MapOfRoots, std::unique_ptr<StdStorage_MapOfRoots, Deleter<StdStorage_MapOfRoots>>, NCollection_BaseMap> cls_StdStorage_MapOfRoots(mod, "StdStorage_MapOfRoots", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_StdStorage_MapOfRoots.def(py::init<>());
-	cls_StdStorage_MapOfRoots.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_StdStorage_MapOfRoots.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_StdStorage_MapOfRoots.def(py::init([] (const StdStorage_MapOfRoots &other) {return new StdStorage_MapOfRoots(other);}), "Copy constructor", py::arg("other"));
-	cls_StdStorage_MapOfRoots.def("begin", (StdStorage_MapOfRoots::iterator (StdStorage_MapOfRoots::*)() const ) &StdStorage_MapOfRoots::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_StdStorage_MapOfRoots.def("end", (StdStorage_MapOfRoots::iterator (StdStorage_MapOfRoots::*)() const ) &StdStorage_MapOfRoots::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_StdStorage_MapOfRoots.def("cbegin", (StdStorage_MapOfRoots::const_iterator (StdStorage_MapOfRoots::*)() const ) &StdStorage_MapOfRoots::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_StdStorage_MapOfRoots.def("cend", (StdStorage_MapOfRoots::const_iterator (StdStorage_MapOfRoots::*)() const ) &StdStorage_MapOfRoots::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_StdStorage_MapOfRoots.def("Exchange", (void (StdStorage_MapOfRoots::*)(StdStorage_MapOfRoots &)) &StdStorage_MapOfRoots::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_StdStorage_MapOfRoots.def("Assign", (StdStorage_MapOfRoots & (StdStorage_MapOfRoots::*)(const StdStorage_MapOfRoots &)) &StdStorage_MapOfRoots::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_StdStorage_MapOfRoots.def("assign", (StdStorage_MapOfRoots & (StdStorage_MapOfRoots::*)(const StdStorage_MapOfRoots &)) &StdStorage_MapOfRoots::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_StdStorage_MapOfRoots.def("ReSize", (void (StdStorage_MapOfRoots::*)(const Standard_Integer)) &StdStorage_MapOfRoots::ReSize, "ReSize", py::arg("N"));
-	cls_StdStorage_MapOfRoots.def("Bind", (Standard_Boolean (StdStorage_MapOfRoots::*)(const TCollection_AsciiString &, const opencascade::handle<StdStorage_Root> &)) &StdStorage_MapOfRoots::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_StdStorage_MapOfRoots.def("Bound", (opencascade::handle<StdStorage_Root> * (StdStorage_MapOfRoots::*)(const TCollection_AsciiString &, const opencascade::handle<StdStorage_Root> &)) &StdStorage_MapOfRoots::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_StdStorage_MapOfRoots.def("IsBound", (Standard_Boolean (StdStorage_MapOfRoots::*)(const TCollection_AsciiString &) const ) &StdStorage_MapOfRoots::IsBound, "IsBound", py::arg("theKey"));
-	cls_StdStorage_MapOfRoots.def("UnBind", (Standard_Boolean (StdStorage_MapOfRoots::*)(const TCollection_AsciiString &)) &StdStorage_MapOfRoots::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_StdStorage_MapOfRoots.def("Seek", (const opencascade::handle<StdStorage_Root> * (StdStorage_MapOfRoots::*)(const TCollection_AsciiString &) const ) &StdStorage_MapOfRoots::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_StdStorage_MapOfRoots.def("Find", (const opencascade::handle<StdStorage_Root> & (StdStorage_MapOfRoots::*)(const TCollection_AsciiString &) const ) &StdStorage_MapOfRoots::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_StdStorage_MapOfRoots.def("Find", (Standard_Boolean (StdStorage_MapOfRoots::*)(const TCollection_AsciiString &, opencascade::handle<StdStorage_Root> &) const ) &StdStorage_MapOfRoots::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_StdStorage_MapOfRoots.def("__call__", (const opencascade::handle<StdStorage_Root> & (StdStorage_MapOfRoots::*)(const TCollection_AsciiString &) const ) &StdStorage_MapOfRoots::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_StdStorage_MapOfRoots.def("ChangeSeek", (opencascade::handle<StdStorage_Root> * (StdStorage_MapOfRoots::*)(const TCollection_AsciiString &)) &StdStorage_MapOfRoots::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_StdStorage_MapOfRoots.def("ChangeFind", (opencascade::handle<StdStorage_Root> & (StdStorage_MapOfRoots::*)(const TCollection_AsciiString &)) &StdStorage_MapOfRoots::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_StdStorage_MapOfRoots.def("__call__", (opencascade::handle<StdStorage_Root> & (StdStorage_MapOfRoots::*)(const TCollection_AsciiString &)) &StdStorage_MapOfRoots::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_StdStorage_MapOfRoots.def("Clear", [](StdStorage_MapOfRoots &self) -> void { return self.Clear(); });
-	cls_StdStorage_MapOfRoots.def("Clear", (void (StdStorage_MapOfRoots::*)(const Standard_Boolean)) &StdStorage_MapOfRoots::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_StdStorage_MapOfRoots.def("Clear", (void (StdStorage_MapOfRoots::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &StdStorage_MapOfRoots::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_StdStorage_MapOfRoots.def("Size", (Standard_Integer (StdStorage_MapOfRoots::*)() const ) &StdStorage_MapOfRoots::Size, "Size");
-	cls_StdStorage_MapOfRoots.def("__iter__", [](const StdStorage_MapOfRoots &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdStorage_MapOfRoots.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_IndexedDataMap.hxx
-	py::class_<StdStorage_MapOfTypes, std::unique_ptr<StdStorage_MapOfTypes, Deleter<StdStorage_MapOfTypes>>, NCollection_BaseMap> cls_StdStorage_MapOfTypes(mod, "StdStorage_MapOfTypes", "Purpose: An indexed map is used to store keys and to bind an index to them. Each new key stored in the map gets an index. Index are incremented as keys are stored in the map. A key can be found by the index and an index by the key. No key but the last can be removed so the indices are in the range 1.. Extent. An Item is stored with each key.");
-	cls_StdStorage_MapOfTypes.def(py::init<>());
-	cls_StdStorage_MapOfTypes.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_StdStorage_MapOfTypes.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_StdStorage_MapOfTypes.def(py::init([] (const StdStorage_MapOfTypes &other) {return new StdStorage_MapOfTypes(other);}), "Copy constructor", py::arg("other"));
-	cls_StdStorage_MapOfTypes.def("begin", (StdStorage_MapOfTypes::iterator (StdStorage_MapOfTypes::*)() const ) &StdStorage_MapOfTypes::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_StdStorage_MapOfTypes.def("end", (StdStorage_MapOfTypes::iterator (StdStorage_MapOfTypes::*)() const ) &StdStorage_MapOfTypes::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_StdStorage_MapOfTypes.def("cbegin", (StdStorage_MapOfTypes::const_iterator (StdStorage_MapOfTypes::*)() const ) &StdStorage_MapOfTypes::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_StdStorage_MapOfTypes.def("cend", (StdStorage_MapOfTypes::const_iterator (StdStorage_MapOfTypes::*)() const ) &StdStorage_MapOfTypes::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_StdStorage_MapOfTypes.def("Exchange", (void (StdStorage_MapOfTypes::*)(StdStorage_MapOfTypes &)) &StdStorage_MapOfTypes::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_StdStorage_MapOfTypes.def("Assign", (StdStorage_MapOfTypes & (StdStorage_MapOfTypes::*)(const StdStorage_MapOfTypes &)) &StdStorage_MapOfTypes::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_StdStorage_MapOfTypes.def("assign", (StdStorage_MapOfTypes & (StdStorage_MapOfTypes::*)(const StdStorage_MapOfTypes &)) &StdStorage_MapOfTypes::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_StdStorage_MapOfTypes.def("ReSize", (void (StdStorage_MapOfTypes::*)(const Standard_Integer)) &StdStorage_MapOfTypes::ReSize, "ReSize", py::arg("N"));
-	cls_StdStorage_MapOfTypes.def("Add", (Standard_Integer (StdStorage_MapOfTypes::*)(const TCollection_AsciiString &, const Standard_Integer &)) &StdStorage_MapOfTypes::Add, "Add", py::arg("theKey1"), py::arg("theItem"));
-	cls_StdStorage_MapOfTypes.def("Contains", (Standard_Boolean (StdStorage_MapOfTypes::*)(const TCollection_AsciiString &) const ) &StdStorage_MapOfTypes::Contains, "Contains", py::arg("theKey1"));
-	cls_StdStorage_MapOfTypes.def("Substitute", (void (StdStorage_MapOfTypes::*)(const Standard_Integer, const TCollection_AsciiString &, const Standard_Integer &)) &StdStorage_MapOfTypes::Substitute, "Substitute", py::arg("theIndex"), py::arg("theKey1"), py::arg("theItem"));
-	cls_StdStorage_MapOfTypes.def("Swap", (void (StdStorage_MapOfTypes::*)(const Standard_Integer, const Standard_Integer)) &StdStorage_MapOfTypes::Swap, "Swaps two elements with the given indices.", py::arg("theIndex1"), py::arg("theIndex2"));
-	cls_StdStorage_MapOfTypes.def("RemoveLast", (void (StdStorage_MapOfTypes::*)()) &StdStorage_MapOfTypes::RemoveLast, "RemoveLast");
-	cls_StdStorage_MapOfTypes.def("RemoveFromIndex", (void (StdStorage_MapOfTypes::*)(const Standard_Integer)) &StdStorage_MapOfTypes::RemoveFromIndex, "Remove the key of the given index. Caution! The index of the last key can be changed.", py::arg("theKey2"));
-	cls_StdStorage_MapOfTypes.def("RemoveKey", (void (StdStorage_MapOfTypes::*)(const TCollection_AsciiString &)) &StdStorage_MapOfTypes::RemoveKey, "Remove the given key. Caution! The index of the last key can be changed.", py::arg("theKey1"));
-	cls_StdStorage_MapOfTypes.def("FindKey", (const TCollection_AsciiString & (StdStorage_MapOfTypes::*)(const Standard_Integer) const ) &StdStorage_MapOfTypes::FindKey, "FindKey", py::arg("theKey2"));
-	cls_StdStorage_MapOfTypes.def("FindFromIndex", (const Standard_Integer & (StdStorage_MapOfTypes::*)(const Standard_Integer) const ) &StdStorage_MapOfTypes::FindFromIndex, "FindFromIndex", py::arg("theKey2"));
-	cls_StdStorage_MapOfTypes.def("__call__", (const Standard_Integer & (StdStorage_MapOfTypes::*)(const Standard_Integer) const ) &StdStorage_MapOfTypes::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_StdStorage_MapOfTypes.def("ChangeFromIndex", (Standard_Integer & (StdStorage_MapOfTypes::*)(const Standard_Integer)) &StdStorage_MapOfTypes::ChangeFromIndex, "ChangeFromIndex", py::arg("theKey2"));
-	cls_StdStorage_MapOfTypes.def("__call__", (Standard_Integer & (StdStorage_MapOfTypes::*)(const Standard_Integer)) &StdStorage_MapOfTypes::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_StdStorage_MapOfTypes.def("FindIndex", (Standard_Integer (StdStorage_MapOfTypes::*)(const TCollection_AsciiString &) const ) &StdStorage_MapOfTypes::FindIndex, "FindIndex", py::arg("theKey1"));
-	cls_StdStorage_MapOfTypes.def("FindFromKey", (const Standard_Integer & (StdStorage_MapOfTypes::*)(const TCollection_AsciiString &) const ) &StdStorage_MapOfTypes::FindFromKey, "FindFromKey", py::arg("theKey1"));
-	cls_StdStorage_MapOfTypes.def("ChangeFromKey", (Standard_Integer & (StdStorage_MapOfTypes::*)(const TCollection_AsciiString &)) &StdStorage_MapOfTypes::ChangeFromKey, "ChangeFromKey", py::arg("theKey1"));
-	// FIXME cls_StdStorage_MapOfTypes.def("Seek", (const Standard_Integer * (StdStorage_MapOfTypes::*)(const TCollection_AsciiString &) const ) &StdStorage_MapOfTypes::Seek, "Seek returns pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	// FIXME cls_StdStorage_MapOfTypes.def("ChangeSeek", (Standard_Integer * (StdStorage_MapOfTypes::*)(const TCollection_AsciiString &)) &StdStorage_MapOfTypes::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	cls_StdStorage_MapOfTypes.def("FindFromKey", (Standard_Boolean (StdStorage_MapOfTypes::*)(const TCollection_AsciiString &, Standard_Integer &) const ) &StdStorage_MapOfTypes::FindFromKey, "Find value for key with copying.", py::arg("theKey1"), py::arg("theValue"));
-	cls_StdStorage_MapOfTypes.def("Clear", [](StdStorage_MapOfTypes &self) -> void { return self.Clear(); });
-	cls_StdStorage_MapOfTypes.def("Clear", (void (StdStorage_MapOfTypes::*)(const Standard_Boolean)) &StdStorage_MapOfTypes::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_StdStorage_MapOfTypes.def("Clear", (void (StdStorage_MapOfTypes::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &StdStorage_MapOfTypes::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_StdStorage_MapOfTypes.def("Size", (Standard_Integer (StdStorage_MapOfTypes::*)() const ) &StdStorage_MapOfTypes::Size, "Size");
-	cls_StdStorage_MapOfTypes.def("__iter__", [](const StdStorage_MapOfTypes &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TCollection_AsciiString, opencascade::handle<StdStorage_Root>, TCollection_AsciiString>(mod, "StdStorage_MapOfRoots");
+
+	/* FIXME
+
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\StdStorage_MapOfTypes.hxx
+	bind_NCollection_IndexedDataMap<TCollection_AsciiString, int, TCollection_AsciiString>(mod, "StdStorage_MapOfTypes");
 
 
 }

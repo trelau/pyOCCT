@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <StepGeom_Placement.hxx>
 #include <Standard_Handle.hxx>
@@ -148,6 +139,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <StepData_SelectReal.hxx>
 #include <StepGeom_TrimmingMember.hxx>
 #include <StepGeom_VectorOrDirection.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(StepGeom, mod) {
 
@@ -1276,40 +1268,8 @@ PYBIND11_MODULE(StepGeom, mod) {
 	cls_StepGeom_UniformSurfaceAndRationalBSplineSurface.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepGeom_UniformSurfaceAndRationalBSplineSurface::get_type_descriptor, "None");
 	cls_StepGeom_UniformSurfaceAndRationalBSplineSurface.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepGeom_UniformSurfaceAndRationalBSplineSurface::*)() const ) &StepGeom_UniformSurfaceAndRationalBSplineSurface::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<StepGeom_Array1OfCompositeCurveSegment, std::unique_ptr<StepGeom_Array1OfCompositeCurveSegment, Deleter<StepGeom_Array1OfCompositeCurveSegment>>> cls_StepGeom_Array1OfCompositeCurveSegment(mod, "StepGeom_Array1OfCompositeCurveSegment", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_StepGeom_Array1OfCompositeCurveSegment.def(py::init<>());
-	cls_StepGeom_Array1OfCompositeCurveSegment.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_StepGeom_Array1OfCompositeCurveSegment.def(py::init([] (const StepGeom_Array1OfCompositeCurveSegment &other) {return new StepGeom_Array1OfCompositeCurveSegment(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_StepGeom_Array1OfCompositeCurveSegment.def(py::init<StepGeom_Array1OfCompositeCurveSegment &&>(), py::arg("theOther"));
-	cls_StepGeom_Array1OfCompositeCurveSegment.def(py::init<const opencascade::handle<StepGeom_CompositeCurveSegment> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("begin", (StepGeom_Array1OfCompositeCurveSegment::iterator (StepGeom_Array1OfCompositeCurveSegment::*)() const ) &StepGeom_Array1OfCompositeCurveSegment::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("end", (StepGeom_Array1OfCompositeCurveSegment::iterator (StepGeom_Array1OfCompositeCurveSegment::*)() const ) &StepGeom_Array1OfCompositeCurveSegment::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("cbegin", (StepGeom_Array1OfCompositeCurveSegment::const_iterator (StepGeom_Array1OfCompositeCurveSegment::*)() const ) &StepGeom_Array1OfCompositeCurveSegment::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("cend", (StepGeom_Array1OfCompositeCurveSegment::const_iterator (StepGeom_Array1OfCompositeCurveSegment::*)() const ) &StepGeom_Array1OfCompositeCurveSegment::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("Init", (void (StepGeom_Array1OfCompositeCurveSegment::*)(const opencascade::handle<StepGeom_CompositeCurveSegment> &)) &StepGeom_Array1OfCompositeCurveSegment::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("Size", (Standard_Integer (StepGeom_Array1OfCompositeCurveSegment::*)() const ) &StepGeom_Array1OfCompositeCurveSegment::Size, "Size query");
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("Length", (Standard_Integer (StepGeom_Array1OfCompositeCurveSegment::*)() const ) &StepGeom_Array1OfCompositeCurveSegment::Length, "Length query (the same)");
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("IsEmpty", (Standard_Boolean (StepGeom_Array1OfCompositeCurveSegment::*)() const ) &StepGeom_Array1OfCompositeCurveSegment::IsEmpty, "Return TRUE if array has zero length.");
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("Lower", (Standard_Integer (StepGeom_Array1OfCompositeCurveSegment::*)() const ) &StepGeom_Array1OfCompositeCurveSegment::Lower, "Lower bound");
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("Upper", (Standard_Integer (StepGeom_Array1OfCompositeCurveSegment::*)() const ) &StepGeom_Array1OfCompositeCurveSegment::Upper, "Upper bound");
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("IsDeletable", (Standard_Boolean (StepGeom_Array1OfCompositeCurveSegment::*)() const ) &StepGeom_Array1OfCompositeCurveSegment::IsDeletable, "myDeletable flag");
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("IsAllocated", (Standard_Boolean (StepGeom_Array1OfCompositeCurveSegment::*)() const ) &StepGeom_Array1OfCompositeCurveSegment::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("Assign", (StepGeom_Array1OfCompositeCurveSegment & (StepGeom_Array1OfCompositeCurveSegment::*)(const StepGeom_Array1OfCompositeCurveSegment &)) &StepGeom_Array1OfCompositeCurveSegment::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_StepGeom_Array1OfCompositeCurveSegment.def("Move", (StepGeom_Array1OfCompositeCurveSegment & (StepGeom_Array1OfCompositeCurveSegment::*)(StepGeom_Array1OfCompositeCurveSegment &&)) &StepGeom_Array1OfCompositeCurveSegment::Move, "Move assignment", py::arg("theOther"));
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("assign", (StepGeom_Array1OfCompositeCurveSegment & (StepGeom_Array1OfCompositeCurveSegment::*)(const StepGeom_Array1OfCompositeCurveSegment &)) &StepGeom_Array1OfCompositeCurveSegment::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_StepGeom_Array1OfCompositeCurveSegment.def("assign", (StepGeom_Array1OfCompositeCurveSegment & (StepGeom_Array1OfCompositeCurveSegment::*)(StepGeom_Array1OfCompositeCurveSegment &&)) &StepGeom_Array1OfCompositeCurveSegment::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("First", (const opencascade::handle<StepGeom_CompositeCurveSegment> & (StepGeom_Array1OfCompositeCurveSegment::*)() const ) &StepGeom_Array1OfCompositeCurveSegment::First, "Returns first element");
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("ChangeFirst", (opencascade::handle<StepGeom_CompositeCurveSegment> & (StepGeom_Array1OfCompositeCurveSegment::*)()) &StepGeom_Array1OfCompositeCurveSegment::ChangeFirst, "Returns first element");
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("Last", (const opencascade::handle<StepGeom_CompositeCurveSegment> & (StepGeom_Array1OfCompositeCurveSegment::*)() const ) &StepGeom_Array1OfCompositeCurveSegment::Last, "Returns last element");
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("ChangeLast", (opencascade::handle<StepGeom_CompositeCurveSegment> & (StepGeom_Array1OfCompositeCurveSegment::*)()) &StepGeom_Array1OfCompositeCurveSegment::ChangeLast, "Returns last element");
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("Value", (const opencascade::handle<StepGeom_CompositeCurveSegment> & (StepGeom_Array1OfCompositeCurveSegment::*)(const Standard_Integer) const ) &StepGeom_Array1OfCompositeCurveSegment::Value, "Constant value access", py::arg("theIndex"));
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("__call__", (const opencascade::handle<StepGeom_CompositeCurveSegment> & (StepGeom_Array1OfCompositeCurveSegment::*)(const Standard_Integer) const ) &StepGeom_Array1OfCompositeCurveSegment::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("ChangeValue", (opencascade::handle<StepGeom_CompositeCurveSegment> & (StepGeom_Array1OfCompositeCurveSegment::*)(const Standard_Integer)) &StepGeom_Array1OfCompositeCurveSegment::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("__call__", (opencascade::handle<StepGeom_CompositeCurveSegment> & (StepGeom_Array1OfCompositeCurveSegment::*)(const Standard_Integer)) &StepGeom_Array1OfCompositeCurveSegment::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("SetValue", (void (StepGeom_Array1OfCompositeCurveSegment::*)(const Standard_Integer, const opencascade::handle<StepGeom_CompositeCurveSegment> &)) &StepGeom_Array1OfCompositeCurveSegment::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("Resize", (void (StepGeom_Array1OfCompositeCurveSegment::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &StepGeom_Array1OfCompositeCurveSegment::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_StepGeom_Array1OfCompositeCurveSegment.def("__iter__", [](const StepGeom_Array1OfCompositeCurveSegment &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\StepGeom_Array1OfCompositeCurveSegment.hxx
+	bind_NCollection_Array1<opencascade::handle<StepGeom_CompositeCurveSegment> >(mod, "StepGeom_Array1OfCompositeCurveSegment");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StepGeom_PcurveOrSurface.hxx
 	py::class_<StepGeom_PcurveOrSurface, std::unique_ptr<StepGeom_PcurveOrSurface, Deleter<StepGeom_PcurveOrSurface>>, StepData_SelectType> cls_StepGeom_PcurveOrSurface(mod, "StepGeom_PcurveOrSurface", "None");
@@ -1342,63 +1302,11 @@ PYBIND11_MODULE(StepGeom, mod) {
 	cls_StepGeom_Axis2Placement.def("Axis2Placement2d", (opencascade::handle<StepGeom_Axis2Placement2d> (StepGeom_Axis2Placement::*)() const ) &StepGeom_Axis2Placement::Axis2Placement2d, "returns Value as a Axis2Placement2d (Null if another type)");
 	cls_StepGeom_Axis2Placement.def("Axis2Placement3d", (opencascade::handle<StepGeom_Axis2Placement3d> (StepGeom_Axis2Placement::*)() const ) &StepGeom_Axis2Placement::Axis2Placement3d, "returns Value as a Axis2Placement3d (Null if another type)");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<StepGeom_Array1OfCartesianPoint, std::unique_ptr<StepGeom_Array1OfCartesianPoint, Deleter<StepGeom_Array1OfCartesianPoint>>> cls_StepGeom_Array1OfCartesianPoint(mod, "StepGeom_Array1OfCartesianPoint", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_StepGeom_Array1OfCartesianPoint.def(py::init<>());
-	cls_StepGeom_Array1OfCartesianPoint.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_StepGeom_Array1OfCartesianPoint.def(py::init([] (const StepGeom_Array1OfCartesianPoint &other) {return new StepGeom_Array1OfCartesianPoint(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_StepGeom_Array1OfCartesianPoint.def(py::init<StepGeom_Array1OfCartesianPoint &&>(), py::arg("theOther"));
-	cls_StepGeom_Array1OfCartesianPoint.def(py::init<const opencascade::handle<StepGeom_CartesianPoint> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_StepGeom_Array1OfCartesianPoint.def("begin", (StepGeom_Array1OfCartesianPoint::iterator (StepGeom_Array1OfCartesianPoint::*)() const ) &StepGeom_Array1OfCartesianPoint::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_StepGeom_Array1OfCartesianPoint.def("end", (StepGeom_Array1OfCartesianPoint::iterator (StepGeom_Array1OfCartesianPoint::*)() const ) &StepGeom_Array1OfCartesianPoint::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_StepGeom_Array1OfCartesianPoint.def("cbegin", (StepGeom_Array1OfCartesianPoint::const_iterator (StepGeom_Array1OfCartesianPoint::*)() const ) &StepGeom_Array1OfCartesianPoint::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_StepGeom_Array1OfCartesianPoint.def("cend", (StepGeom_Array1OfCartesianPoint::const_iterator (StepGeom_Array1OfCartesianPoint::*)() const ) &StepGeom_Array1OfCartesianPoint::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_StepGeom_Array1OfCartesianPoint.def("Init", (void (StepGeom_Array1OfCartesianPoint::*)(const opencascade::handle<StepGeom_CartesianPoint> &)) &StepGeom_Array1OfCartesianPoint::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_StepGeom_Array1OfCartesianPoint.def("Size", (Standard_Integer (StepGeom_Array1OfCartesianPoint::*)() const ) &StepGeom_Array1OfCartesianPoint::Size, "Size query");
-	cls_StepGeom_Array1OfCartesianPoint.def("Length", (Standard_Integer (StepGeom_Array1OfCartesianPoint::*)() const ) &StepGeom_Array1OfCartesianPoint::Length, "Length query (the same)");
-	cls_StepGeom_Array1OfCartesianPoint.def("IsEmpty", (Standard_Boolean (StepGeom_Array1OfCartesianPoint::*)() const ) &StepGeom_Array1OfCartesianPoint::IsEmpty, "Return TRUE if array has zero length.");
-	cls_StepGeom_Array1OfCartesianPoint.def("Lower", (Standard_Integer (StepGeom_Array1OfCartesianPoint::*)() const ) &StepGeom_Array1OfCartesianPoint::Lower, "Lower bound");
-	cls_StepGeom_Array1OfCartesianPoint.def("Upper", (Standard_Integer (StepGeom_Array1OfCartesianPoint::*)() const ) &StepGeom_Array1OfCartesianPoint::Upper, "Upper bound");
-	cls_StepGeom_Array1OfCartesianPoint.def("IsDeletable", (Standard_Boolean (StepGeom_Array1OfCartesianPoint::*)() const ) &StepGeom_Array1OfCartesianPoint::IsDeletable, "myDeletable flag");
-	cls_StepGeom_Array1OfCartesianPoint.def("IsAllocated", (Standard_Boolean (StepGeom_Array1OfCartesianPoint::*)() const ) &StepGeom_Array1OfCartesianPoint::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_StepGeom_Array1OfCartesianPoint.def("Assign", (StepGeom_Array1OfCartesianPoint & (StepGeom_Array1OfCartesianPoint::*)(const StepGeom_Array1OfCartesianPoint &)) &StepGeom_Array1OfCartesianPoint::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_StepGeom_Array1OfCartesianPoint.def("Move", (StepGeom_Array1OfCartesianPoint & (StepGeom_Array1OfCartesianPoint::*)(StepGeom_Array1OfCartesianPoint &&)) &StepGeom_Array1OfCartesianPoint::Move, "Move assignment", py::arg("theOther"));
-	cls_StepGeom_Array1OfCartesianPoint.def("assign", (StepGeom_Array1OfCartesianPoint & (StepGeom_Array1OfCartesianPoint::*)(const StepGeom_Array1OfCartesianPoint &)) &StepGeom_Array1OfCartesianPoint::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_StepGeom_Array1OfCartesianPoint.def("assign", (StepGeom_Array1OfCartesianPoint & (StepGeom_Array1OfCartesianPoint::*)(StepGeom_Array1OfCartesianPoint &&)) &StepGeom_Array1OfCartesianPoint::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_StepGeom_Array1OfCartesianPoint.def("First", (const opencascade::handle<StepGeom_CartesianPoint> & (StepGeom_Array1OfCartesianPoint::*)() const ) &StepGeom_Array1OfCartesianPoint::First, "Returns first element");
-	cls_StepGeom_Array1OfCartesianPoint.def("ChangeFirst", (opencascade::handle<StepGeom_CartesianPoint> & (StepGeom_Array1OfCartesianPoint::*)()) &StepGeom_Array1OfCartesianPoint::ChangeFirst, "Returns first element");
-	cls_StepGeom_Array1OfCartesianPoint.def("Last", (const opencascade::handle<StepGeom_CartesianPoint> & (StepGeom_Array1OfCartesianPoint::*)() const ) &StepGeom_Array1OfCartesianPoint::Last, "Returns last element");
-	cls_StepGeom_Array1OfCartesianPoint.def("ChangeLast", (opencascade::handle<StepGeom_CartesianPoint> & (StepGeom_Array1OfCartesianPoint::*)()) &StepGeom_Array1OfCartesianPoint::ChangeLast, "Returns last element");
-	cls_StepGeom_Array1OfCartesianPoint.def("Value", (const opencascade::handle<StepGeom_CartesianPoint> & (StepGeom_Array1OfCartesianPoint::*)(const Standard_Integer) const ) &StepGeom_Array1OfCartesianPoint::Value, "Constant value access", py::arg("theIndex"));
-	cls_StepGeom_Array1OfCartesianPoint.def("__call__", (const opencascade::handle<StepGeom_CartesianPoint> & (StepGeom_Array1OfCartesianPoint::*)(const Standard_Integer) const ) &StepGeom_Array1OfCartesianPoint::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_StepGeom_Array1OfCartesianPoint.def("ChangeValue", (opencascade::handle<StepGeom_CartesianPoint> & (StepGeom_Array1OfCartesianPoint::*)(const Standard_Integer)) &StepGeom_Array1OfCartesianPoint::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_StepGeom_Array1OfCartesianPoint.def("__call__", (opencascade::handle<StepGeom_CartesianPoint> & (StepGeom_Array1OfCartesianPoint::*)(const Standard_Integer)) &StepGeom_Array1OfCartesianPoint::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_StepGeom_Array1OfCartesianPoint.def("SetValue", (void (StepGeom_Array1OfCartesianPoint::*)(const Standard_Integer, const opencascade::handle<StepGeom_CartesianPoint> &)) &StepGeom_Array1OfCartesianPoint::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_StepGeom_Array1OfCartesianPoint.def("Resize", (void (StepGeom_Array1OfCartesianPoint::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &StepGeom_Array1OfCartesianPoint::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_StepGeom_Array1OfCartesianPoint.def("__iter__", [](const StepGeom_Array1OfCartesianPoint &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\StepGeom_Array1OfCartesianPoint.hxx
+	bind_NCollection_Array1<opencascade::handle<StepGeom_CartesianPoint> >(mod, "StepGeom_Array1OfCartesianPoint");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array2.hxx
-	py::class_<StepGeom_Array2OfCartesianPoint, std::unique_ptr<StepGeom_Array2OfCartesianPoint, Deleter<StepGeom_Array2OfCartesianPoint>>> cls_StepGeom_Array2OfCartesianPoint(mod, "StepGeom_Array2OfCartesianPoint", "Purpose: The class Array2 represents bi-dimensional arrays of fixed size known at run time. The ranges of indices are user defined.");
-	cls_StepGeom_Array2OfCartesianPoint.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_StepGeom_Array2OfCartesianPoint.def(py::init([] (const StepGeom_Array2OfCartesianPoint &other) {return new StepGeom_Array2OfCartesianPoint(other);}), "Copy constructor", py::arg("other"));
-	cls_StepGeom_Array2OfCartesianPoint.def(py::init<const opencascade::handle<StepGeom_CartesianPoint> &, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_StepGeom_Array2OfCartesianPoint.def("Init", (void (StepGeom_Array2OfCartesianPoint::*)(const opencascade::handle<StepGeom_CartesianPoint> &)) &StepGeom_Array2OfCartesianPoint::Init, "Initialise the values", py::arg("theValue"));
-	cls_StepGeom_Array2OfCartesianPoint.def("Size", (Standard_Integer (StepGeom_Array2OfCartesianPoint::*)() const ) &StepGeom_Array2OfCartesianPoint::Size, "Size (number of items)");
-	cls_StepGeom_Array2OfCartesianPoint.def("Length", (Standard_Integer (StepGeom_Array2OfCartesianPoint::*)() const ) &StepGeom_Array2OfCartesianPoint::Length, "Length (number of items)");
-	cls_StepGeom_Array2OfCartesianPoint.def("RowLength", (Standard_Integer (StepGeom_Array2OfCartesianPoint::*)() const ) &StepGeom_Array2OfCartesianPoint::RowLength, "Returns length of the row, i.e. number of columns");
-	cls_StepGeom_Array2OfCartesianPoint.def("ColLength", (Standard_Integer (StepGeom_Array2OfCartesianPoint::*)() const ) &StepGeom_Array2OfCartesianPoint::ColLength, "Returns length of the column, i.e. number of rows");
-	cls_StepGeom_Array2OfCartesianPoint.def("LowerRow", (Standard_Integer (StepGeom_Array2OfCartesianPoint::*)() const ) &StepGeom_Array2OfCartesianPoint::LowerRow, "LowerRow");
-	cls_StepGeom_Array2OfCartesianPoint.def("UpperRow", (Standard_Integer (StepGeom_Array2OfCartesianPoint::*)() const ) &StepGeom_Array2OfCartesianPoint::UpperRow, "UpperRow");
-	cls_StepGeom_Array2OfCartesianPoint.def("LowerCol", (Standard_Integer (StepGeom_Array2OfCartesianPoint::*)() const ) &StepGeom_Array2OfCartesianPoint::LowerCol, "LowerCol");
-	cls_StepGeom_Array2OfCartesianPoint.def("UpperCol", (Standard_Integer (StepGeom_Array2OfCartesianPoint::*)() const ) &StepGeom_Array2OfCartesianPoint::UpperCol, "UpperCol");
-	cls_StepGeom_Array2OfCartesianPoint.def("IsDeletable", (Standard_Boolean (StepGeom_Array2OfCartesianPoint::*)() const ) &StepGeom_Array2OfCartesianPoint::IsDeletable, "myDeletable flag");
-	cls_StepGeom_Array2OfCartesianPoint.def("Assign", (StepGeom_Array2OfCartesianPoint & (StepGeom_Array2OfCartesianPoint::*)(const StepGeom_Array2OfCartesianPoint &)) &StepGeom_Array2OfCartesianPoint::Assign, "Assignment", py::arg("theOther"));
-	cls_StepGeom_Array2OfCartesianPoint.def("assign", (StepGeom_Array2OfCartesianPoint & (StepGeom_Array2OfCartesianPoint::*)(const StepGeom_Array2OfCartesianPoint &)) &StepGeom_Array2OfCartesianPoint::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_StepGeom_Array2OfCartesianPoint.def("Value", (const opencascade::handle<StepGeom_CartesianPoint> & (StepGeom_Array2OfCartesianPoint::*)(const Standard_Integer, const Standard_Integer) const ) &StepGeom_Array2OfCartesianPoint::Value, "Constant value access", py::arg("theRow"), py::arg("theCol"));
-	cls_StepGeom_Array2OfCartesianPoint.def("__call__", (const opencascade::handle<StepGeom_CartesianPoint> & (StepGeom_Array2OfCartesianPoint::*)(const Standard_Integer, const Standard_Integer) const ) &StepGeom_Array2OfCartesianPoint::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_StepGeom_Array2OfCartesianPoint.def("ChangeValue", (opencascade::handle<StepGeom_CartesianPoint> & (StepGeom_Array2OfCartesianPoint::*)(const Standard_Integer, const Standard_Integer)) &StepGeom_Array2OfCartesianPoint::ChangeValue, "Variable value access", py::arg("theRow"), py::arg("theCol"));
-	cls_StepGeom_Array2OfCartesianPoint.def("__call__", (opencascade::handle<StepGeom_CartesianPoint> & (StepGeom_Array2OfCartesianPoint::*)(const Standard_Integer, const Standard_Integer)) &StepGeom_Array2OfCartesianPoint::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_StepGeom_Array2OfCartesianPoint.def("SetValue", (void (StepGeom_Array2OfCartesianPoint::*)(const Standard_Integer, const Standard_Integer, const opencascade::handle<StepGeom_CartesianPoint> &)) &StepGeom_Array2OfCartesianPoint::SetValue, "SetValue", py::arg("theRow"), py::arg("theCol"), py::arg("theItem"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\StepGeom_Array2OfCartesianPoint.hxx
+	bind_NCollection_Array2<opencascade::handle<StepGeom_CartesianPoint> >(mod, "StepGeom_Array2OfCartesianPoint");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StepGeom_CartesianTransformationOperator2d.hxx
 	py::class_<StepGeom_CartesianTransformationOperator2d, opencascade::handle<StepGeom_CartesianTransformationOperator2d>, StepGeom_CartesianTransformationOperator> cls_StepGeom_CartesianTransformationOperator2d(mod, "StepGeom_CartesianTransformationOperator2d", "Added from StepGeom Rev2 to Rev4");
@@ -1407,40 +1315,8 @@ PYBIND11_MODULE(StepGeom, mod) {
 	cls_StepGeom_CartesianTransformationOperator2d.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepGeom_CartesianTransformationOperator2d::get_type_descriptor, "None");
 	cls_StepGeom_CartesianTransformationOperator2d.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepGeom_CartesianTransformationOperator2d::*)() const ) &StepGeom_CartesianTransformationOperator2d::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<StepGeom_Array1OfSurfaceBoundary, std::unique_ptr<StepGeom_Array1OfSurfaceBoundary, Deleter<StepGeom_Array1OfSurfaceBoundary>>> cls_StepGeom_Array1OfSurfaceBoundary(mod, "StepGeom_Array1OfSurfaceBoundary", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_StepGeom_Array1OfSurfaceBoundary.def(py::init<>());
-	cls_StepGeom_Array1OfSurfaceBoundary.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_StepGeom_Array1OfSurfaceBoundary.def(py::init([] (const StepGeom_Array1OfSurfaceBoundary &other) {return new StepGeom_Array1OfSurfaceBoundary(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_StepGeom_Array1OfSurfaceBoundary.def(py::init<StepGeom_Array1OfSurfaceBoundary &&>(), py::arg("theOther"));
-	cls_StepGeom_Array1OfSurfaceBoundary.def(py::init<const StepGeom_SurfaceBoundary &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_StepGeom_Array1OfSurfaceBoundary.def("begin", (StepGeom_Array1OfSurfaceBoundary::iterator (StepGeom_Array1OfSurfaceBoundary::*)() const ) &StepGeom_Array1OfSurfaceBoundary::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_StepGeom_Array1OfSurfaceBoundary.def("end", (StepGeom_Array1OfSurfaceBoundary::iterator (StepGeom_Array1OfSurfaceBoundary::*)() const ) &StepGeom_Array1OfSurfaceBoundary::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_StepGeom_Array1OfSurfaceBoundary.def("cbegin", (StepGeom_Array1OfSurfaceBoundary::const_iterator (StepGeom_Array1OfSurfaceBoundary::*)() const ) &StepGeom_Array1OfSurfaceBoundary::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_StepGeom_Array1OfSurfaceBoundary.def("cend", (StepGeom_Array1OfSurfaceBoundary::const_iterator (StepGeom_Array1OfSurfaceBoundary::*)() const ) &StepGeom_Array1OfSurfaceBoundary::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_StepGeom_Array1OfSurfaceBoundary.def("Init", (void (StepGeom_Array1OfSurfaceBoundary::*)(const StepGeom_SurfaceBoundary &)) &StepGeom_Array1OfSurfaceBoundary::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_StepGeom_Array1OfSurfaceBoundary.def("Size", (Standard_Integer (StepGeom_Array1OfSurfaceBoundary::*)() const ) &StepGeom_Array1OfSurfaceBoundary::Size, "Size query");
-	cls_StepGeom_Array1OfSurfaceBoundary.def("Length", (Standard_Integer (StepGeom_Array1OfSurfaceBoundary::*)() const ) &StepGeom_Array1OfSurfaceBoundary::Length, "Length query (the same)");
-	cls_StepGeom_Array1OfSurfaceBoundary.def("IsEmpty", (Standard_Boolean (StepGeom_Array1OfSurfaceBoundary::*)() const ) &StepGeom_Array1OfSurfaceBoundary::IsEmpty, "Return TRUE if array has zero length.");
-	cls_StepGeom_Array1OfSurfaceBoundary.def("Lower", (Standard_Integer (StepGeom_Array1OfSurfaceBoundary::*)() const ) &StepGeom_Array1OfSurfaceBoundary::Lower, "Lower bound");
-	cls_StepGeom_Array1OfSurfaceBoundary.def("Upper", (Standard_Integer (StepGeom_Array1OfSurfaceBoundary::*)() const ) &StepGeom_Array1OfSurfaceBoundary::Upper, "Upper bound");
-	cls_StepGeom_Array1OfSurfaceBoundary.def("IsDeletable", (Standard_Boolean (StepGeom_Array1OfSurfaceBoundary::*)() const ) &StepGeom_Array1OfSurfaceBoundary::IsDeletable, "myDeletable flag");
-	cls_StepGeom_Array1OfSurfaceBoundary.def("IsAllocated", (Standard_Boolean (StepGeom_Array1OfSurfaceBoundary::*)() const ) &StepGeom_Array1OfSurfaceBoundary::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_StepGeom_Array1OfSurfaceBoundary.def("Assign", (StepGeom_Array1OfSurfaceBoundary & (StepGeom_Array1OfSurfaceBoundary::*)(const StepGeom_Array1OfSurfaceBoundary &)) &StepGeom_Array1OfSurfaceBoundary::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_StepGeom_Array1OfSurfaceBoundary.def("Move", (StepGeom_Array1OfSurfaceBoundary & (StepGeom_Array1OfSurfaceBoundary::*)(StepGeom_Array1OfSurfaceBoundary &&)) &StepGeom_Array1OfSurfaceBoundary::Move, "Move assignment", py::arg("theOther"));
-	cls_StepGeom_Array1OfSurfaceBoundary.def("assign", (StepGeom_Array1OfSurfaceBoundary & (StepGeom_Array1OfSurfaceBoundary::*)(const StepGeom_Array1OfSurfaceBoundary &)) &StepGeom_Array1OfSurfaceBoundary::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_StepGeom_Array1OfSurfaceBoundary.def("assign", (StepGeom_Array1OfSurfaceBoundary & (StepGeom_Array1OfSurfaceBoundary::*)(StepGeom_Array1OfSurfaceBoundary &&)) &StepGeom_Array1OfSurfaceBoundary::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_StepGeom_Array1OfSurfaceBoundary.def("First", (const StepGeom_SurfaceBoundary & (StepGeom_Array1OfSurfaceBoundary::*)() const ) &StepGeom_Array1OfSurfaceBoundary::First, "Returns first element");
-	cls_StepGeom_Array1OfSurfaceBoundary.def("ChangeFirst", (StepGeom_SurfaceBoundary & (StepGeom_Array1OfSurfaceBoundary::*)()) &StepGeom_Array1OfSurfaceBoundary::ChangeFirst, "Returns first element");
-	cls_StepGeom_Array1OfSurfaceBoundary.def("Last", (const StepGeom_SurfaceBoundary & (StepGeom_Array1OfSurfaceBoundary::*)() const ) &StepGeom_Array1OfSurfaceBoundary::Last, "Returns last element");
-	cls_StepGeom_Array1OfSurfaceBoundary.def("ChangeLast", (StepGeom_SurfaceBoundary & (StepGeom_Array1OfSurfaceBoundary::*)()) &StepGeom_Array1OfSurfaceBoundary::ChangeLast, "Returns last element");
-	cls_StepGeom_Array1OfSurfaceBoundary.def("Value", (const StepGeom_SurfaceBoundary & (StepGeom_Array1OfSurfaceBoundary::*)(const Standard_Integer) const ) &StepGeom_Array1OfSurfaceBoundary::Value, "Constant value access", py::arg("theIndex"));
-	cls_StepGeom_Array1OfSurfaceBoundary.def("__call__", (const StepGeom_SurfaceBoundary & (StepGeom_Array1OfSurfaceBoundary::*)(const Standard_Integer) const ) &StepGeom_Array1OfSurfaceBoundary::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_StepGeom_Array1OfSurfaceBoundary.def("ChangeValue", (StepGeom_SurfaceBoundary & (StepGeom_Array1OfSurfaceBoundary::*)(const Standard_Integer)) &StepGeom_Array1OfSurfaceBoundary::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_StepGeom_Array1OfSurfaceBoundary.def("__call__", (StepGeom_SurfaceBoundary & (StepGeom_Array1OfSurfaceBoundary::*)(const Standard_Integer)) &StepGeom_Array1OfSurfaceBoundary::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_StepGeom_Array1OfSurfaceBoundary.def("SetValue", (void (StepGeom_Array1OfSurfaceBoundary::*)(const Standard_Integer, const StepGeom_SurfaceBoundary &)) &StepGeom_Array1OfSurfaceBoundary::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_StepGeom_Array1OfSurfaceBoundary.def("Resize", (void (StepGeom_Array1OfSurfaceBoundary::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &StepGeom_Array1OfSurfaceBoundary::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_StepGeom_Array1OfSurfaceBoundary.def("__iter__", [](const StepGeom_Array1OfSurfaceBoundary &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\StepGeom_Array1OfSurfaceBoundary.hxx
+	bind_NCollection_Array1<StepGeom_SurfaceBoundary>(mod, "StepGeom_Array1OfSurfaceBoundary");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StepGeom_CurveOnSurface.hxx
 	py::class_<StepGeom_CurveOnSurface, std::unique_ptr<StepGeom_CurveOnSurface, Deleter<StepGeom_CurveOnSurface>>, StepData_SelectType> cls_StepGeom_CurveOnSurface(mod, "StepGeom_CurveOnSurface", "None");
@@ -1450,168 +1326,20 @@ PYBIND11_MODULE(StepGeom, mod) {
 	cls_StepGeom_CurveOnSurface.def("SurfaceCurve", (opencascade::handle<StepGeom_SurfaceCurve> (StepGeom_CurveOnSurface::*)() const ) &StepGeom_CurveOnSurface::SurfaceCurve, "returns Value as a SurfaceCurve (Null if another type)");
 	cls_StepGeom_CurveOnSurface.def("CompositeCurveOnSurface", (opencascade::handle<StepGeom_CompositeCurveOnSurface> (StepGeom_CurveOnSurface::*)() const ) &StepGeom_CurveOnSurface::CompositeCurveOnSurface, "returns Value as a CompositeCurveOnSurface (Null if another type)");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<StepGeom_Array1OfBoundaryCurve, std::unique_ptr<StepGeom_Array1OfBoundaryCurve, Deleter<StepGeom_Array1OfBoundaryCurve>>> cls_StepGeom_Array1OfBoundaryCurve(mod, "StepGeom_Array1OfBoundaryCurve", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_StepGeom_Array1OfBoundaryCurve.def(py::init<>());
-	cls_StepGeom_Array1OfBoundaryCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_StepGeom_Array1OfBoundaryCurve.def(py::init([] (const StepGeom_Array1OfBoundaryCurve &other) {return new StepGeom_Array1OfBoundaryCurve(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_StepGeom_Array1OfBoundaryCurve.def(py::init<StepGeom_Array1OfBoundaryCurve &&>(), py::arg("theOther"));
-	cls_StepGeom_Array1OfBoundaryCurve.def(py::init<const opencascade::handle<StepGeom_BoundaryCurve> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_StepGeom_Array1OfBoundaryCurve.def("begin", (StepGeom_Array1OfBoundaryCurve::iterator (StepGeom_Array1OfBoundaryCurve::*)() const ) &StepGeom_Array1OfBoundaryCurve::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_StepGeom_Array1OfBoundaryCurve.def("end", (StepGeom_Array1OfBoundaryCurve::iterator (StepGeom_Array1OfBoundaryCurve::*)() const ) &StepGeom_Array1OfBoundaryCurve::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_StepGeom_Array1OfBoundaryCurve.def("cbegin", (StepGeom_Array1OfBoundaryCurve::const_iterator (StepGeom_Array1OfBoundaryCurve::*)() const ) &StepGeom_Array1OfBoundaryCurve::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_StepGeom_Array1OfBoundaryCurve.def("cend", (StepGeom_Array1OfBoundaryCurve::const_iterator (StepGeom_Array1OfBoundaryCurve::*)() const ) &StepGeom_Array1OfBoundaryCurve::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_StepGeom_Array1OfBoundaryCurve.def("Init", (void (StepGeom_Array1OfBoundaryCurve::*)(const opencascade::handle<StepGeom_BoundaryCurve> &)) &StepGeom_Array1OfBoundaryCurve::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_StepGeom_Array1OfBoundaryCurve.def("Size", (Standard_Integer (StepGeom_Array1OfBoundaryCurve::*)() const ) &StepGeom_Array1OfBoundaryCurve::Size, "Size query");
-	cls_StepGeom_Array1OfBoundaryCurve.def("Length", (Standard_Integer (StepGeom_Array1OfBoundaryCurve::*)() const ) &StepGeom_Array1OfBoundaryCurve::Length, "Length query (the same)");
-	cls_StepGeom_Array1OfBoundaryCurve.def("IsEmpty", (Standard_Boolean (StepGeom_Array1OfBoundaryCurve::*)() const ) &StepGeom_Array1OfBoundaryCurve::IsEmpty, "Return TRUE if array has zero length.");
-	cls_StepGeom_Array1OfBoundaryCurve.def("Lower", (Standard_Integer (StepGeom_Array1OfBoundaryCurve::*)() const ) &StepGeom_Array1OfBoundaryCurve::Lower, "Lower bound");
-	cls_StepGeom_Array1OfBoundaryCurve.def("Upper", (Standard_Integer (StepGeom_Array1OfBoundaryCurve::*)() const ) &StepGeom_Array1OfBoundaryCurve::Upper, "Upper bound");
-	cls_StepGeom_Array1OfBoundaryCurve.def("IsDeletable", (Standard_Boolean (StepGeom_Array1OfBoundaryCurve::*)() const ) &StepGeom_Array1OfBoundaryCurve::IsDeletable, "myDeletable flag");
-	cls_StepGeom_Array1OfBoundaryCurve.def("IsAllocated", (Standard_Boolean (StepGeom_Array1OfBoundaryCurve::*)() const ) &StepGeom_Array1OfBoundaryCurve::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_StepGeom_Array1OfBoundaryCurve.def("Assign", (StepGeom_Array1OfBoundaryCurve & (StepGeom_Array1OfBoundaryCurve::*)(const StepGeom_Array1OfBoundaryCurve &)) &StepGeom_Array1OfBoundaryCurve::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_StepGeom_Array1OfBoundaryCurve.def("Move", (StepGeom_Array1OfBoundaryCurve & (StepGeom_Array1OfBoundaryCurve::*)(StepGeom_Array1OfBoundaryCurve &&)) &StepGeom_Array1OfBoundaryCurve::Move, "Move assignment", py::arg("theOther"));
-	cls_StepGeom_Array1OfBoundaryCurve.def("assign", (StepGeom_Array1OfBoundaryCurve & (StepGeom_Array1OfBoundaryCurve::*)(const StepGeom_Array1OfBoundaryCurve &)) &StepGeom_Array1OfBoundaryCurve::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_StepGeom_Array1OfBoundaryCurve.def("assign", (StepGeom_Array1OfBoundaryCurve & (StepGeom_Array1OfBoundaryCurve::*)(StepGeom_Array1OfBoundaryCurve &&)) &StepGeom_Array1OfBoundaryCurve::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_StepGeom_Array1OfBoundaryCurve.def("First", (const opencascade::handle<StepGeom_BoundaryCurve> & (StepGeom_Array1OfBoundaryCurve::*)() const ) &StepGeom_Array1OfBoundaryCurve::First, "Returns first element");
-	cls_StepGeom_Array1OfBoundaryCurve.def("ChangeFirst", (opencascade::handle<StepGeom_BoundaryCurve> & (StepGeom_Array1OfBoundaryCurve::*)()) &StepGeom_Array1OfBoundaryCurve::ChangeFirst, "Returns first element");
-	cls_StepGeom_Array1OfBoundaryCurve.def("Last", (const opencascade::handle<StepGeom_BoundaryCurve> & (StepGeom_Array1OfBoundaryCurve::*)() const ) &StepGeom_Array1OfBoundaryCurve::Last, "Returns last element");
-	cls_StepGeom_Array1OfBoundaryCurve.def("ChangeLast", (opencascade::handle<StepGeom_BoundaryCurve> & (StepGeom_Array1OfBoundaryCurve::*)()) &StepGeom_Array1OfBoundaryCurve::ChangeLast, "Returns last element");
-	cls_StepGeom_Array1OfBoundaryCurve.def("Value", (const opencascade::handle<StepGeom_BoundaryCurve> & (StepGeom_Array1OfBoundaryCurve::*)(const Standard_Integer) const ) &StepGeom_Array1OfBoundaryCurve::Value, "Constant value access", py::arg("theIndex"));
-	cls_StepGeom_Array1OfBoundaryCurve.def("__call__", (const opencascade::handle<StepGeom_BoundaryCurve> & (StepGeom_Array1OfBoundaryCurve::*)(const Standard_Integer) const ) &StepGeom_Array1OfBoundaryCurve::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_StepGeom_Array1OfBoundaryCurve.def("ChangeValue", (opencascade::handle<StepGeom_BoundaryCurve> & (StepGeom_Array1OfBoundaryCurve::*)(const Standard_Integer)) &StepGeom_Array1OfBoundaryCurve::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_StepGeom_Array1OfBoundaryCurve.def("__call__", (opencascade::handle<StepGeom_BoundaryCurve> & (StepGeom_Array1OfBoundaryCurve::*)(const Standard_Integer)) &StepGeom_Array1OfBoundaryCurve::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_StepGeom_Array1OfBoundaryCurve.def("SetValue", (void (StepGeom_Array1OfBoundaryCurve::*)(const Standard_Integer, const opencascade::handle<StepGeom_BoundaryCurve> &)) &StepGeom_Array1OfBoundaryCurve::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_StepGeom_Array1OfBoundaryCurve.def("Resize", (void (StepGeom_Array1OfBoundaryCurve::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &StepGeom_Array1OfBoundaryCurve::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_StepGeom_Array1OfBoundaryCurve.def("__iter__", [](const StepGeom_Array1OfBoundaryCurve &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\StepGeom_Array1OfBoundaryCurve.hxx
+	bind_NCollection_Array1<opencascade::handle<StepGeom_BoundaryCurve> >(mod, "StepGeom_Array1OfBoundaryCurve");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<StepGeom_Array1OfCurve, std::unique_ptr<StepGeom_Array1OfCurve, Deleter<StepGeom_Array1OfCurve>>> cls_StepGeom_Array1OfCurve(mod, "StepGeom_Array1OfCurve", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_StepGeom_Array1OfCurve.def(py::init<>());
-	cls_StepGeom_Array1OfCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_StepGeom_Array1OfCurve.def(py::init([] (const StepGeom_Array1OfCurve &other) {return new StepGeom_Array1OfCurve(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_StepGeom_Array1OfCurve.def(py::init<StepGeom_Array1OfCurve &&>(), py::arg("theOther"));
-	cls_StepGeom_Array1OfCurve.def(py::init<const opencascade::handle<StepGeom_Curve> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_StepGeom_Array1OfCurve.def("begin", (StepGeom_Array1OfCurve::iterator (StepGeom_Array1OfCurve::*)() const ) &StepGeom_Array1OfCurve::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_StepGeom_Array1OfCurve.def("end", (StepGeom_Array1OfCurve::iterator (StepGeom_Array1OfCurve::*)() const ) &StepGeom_Array1OfCurve::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_StepGeom_Array1OfCurve.def("cbegin", (StepGeom_Array1OfCurve::const_iterator (StepGeom_Array1OfCurve::*)() const ) &StepGeom_Array1OfCurve::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_StepGeom_Array1OfCurve.def("cend", (StepGeom_Array1OfCurve::const_iterator (StepGeom_Array1OfCurve::*)() const ) &StepGeom_Array1OfCurve::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_StepGeom_Array1OfCurve.def("Init", (void (StepGeom_Array1OfCurve::*)(const opencascade::handle<StepGeom_Curve> &)) &StepGeom_Array1OfCurve::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_StepGeom_Array1OfCurve.def("Size", (Standard_Integer (StepGeom_Array1OfCurve::*)() const ) &StepGeom_Array1OfCurve::Size, "Size query");
-	cls_StepGeom_Array1OfCurve.def("Length", (Standard_Integer (StepGeom_Array1OfCurve::*)() const ) &StepGeom_Array1OfCurve::Length, "Length query (the same)");
-	cls_StepGeom_Array1OfCurve.def("IsEmpty", (Standard_Boolean (StepGeom_Array1OfCurve::*)() const ) &StepGeom_Array1OfCurve::IsEmpty, "Return TRUE if array has zero length.");
-	cls_StepGeom_Array1OfCurve.def("Lower", (Standard_Integer (StepGeom_Array1OfCurve::*)() const ) &StepGeom_Array1OfCurve::Lower, "Lower bound");
-	cls_StepGeom_Array1OfCurve.def("Upper", (Standard_Integer (StepGeom_Array1OfCurve::*)() const ) &StepGeom_Array1OfCurve::Upper, "Upper bound");
-	cls_StepGeom_Array1OfCurve.def("IsDeletable", (Standard_Boolean (StepGeom_Array1OfCurve::*)() const ) &StepGeom_Array1OfCurve::IsDeletable, "myDeletable flag");
-	cls_StepGeom_Array1OfCurve.def("IsAllocated", (Standard_Boolean (StepGeom_Array1OfCurve::*)() const ) &StepGeom_Array1OfCurve::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_StepGeom_Array1OfCurve.def("Assign", (StepGeom_Array1OfCurve & (StepGeom_Array1OfCurve::*)(const StepGeom_Array1OfCurve &)) &StepGeom_Array1OfCurve::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_StepGeom_Array1OfCurve.def("Move", (StepGeom_Array1OfCurve & (StepGeom_Array1OfCurve::*)(StepGeom_Array1OfCurve &&)) &StepGeom_Array1OfCurve::Move, "Move assignment", py::arg("theOther"));
-	cls_StepGeom_Array1OfCurve.def("assign", (StepGeom_Array1OfCurve & (StepGeom_Array1OfCurve::*)(const StepGeom_Array1OfCurve &)) &StepGeom_Array1OfCurve::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_StepGeom_Array1OfCurve.def("assign", (StepGeom_Array1OfCurve & (StepGeom_Array1OfCurve::*)(StepGeom_Array1OfCurve &&)) &StepGeom_Array1OfCurve::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_StepGeom_Array1OfCurve.def("First", (const opencascade::handle<StepGeom_Curve> & (StepGeom_Array1OfCurve::*)() const ) &StepGeom_Array1OfCurve::First, "Returns first element");
-	cls_StepGeom_Array1OfCurve.def("ChangeFirst", (opencascade::handle<StepGeom_Curve> & (StepGeom_Array1OfCurve::*)()) &StepGeom_Array1OfCurve::ChangeFirst, "Returns first element");
-	cls_StepGeom_Array1OfCurve.def("Last", (const opencascade::handle<StepGeom_Curve> & (StepGeom_Array1OfCurve::*)() const ) &StepGeom_Array1OfCurve::Last, "Returns last element");
-	cls_StepGeom_Array1OfCurve.def("ChangeLast", (opencascade::handle<StepGeom_Curve> & (StepGeom_Array1OfCurve::*)()) &StepGeom_Array1OfCurve::ChangeLast, "Returns last element");
-	cls_StepGeom_Array1OfCurve.def("Value", (const opencascade::handle<StepGeom_Curve> & (StepGeom_Array1OfCurve::*)(const Standard_Integer) const ) &StepGeom_Array1OfCurve::Value, "Constant value access", py::arg("theIndex"));
-	cls_StepGeom_Array1OfCurve.def("__call__", (const opencascade::handle<StepGeom_Curve> & (StepGeom_Array1OfCurve::*)(const Standard_Integer) const ) &StepGeom_Array1OfCurve::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_StepGeom_Array1OfCurve.def("ChangeValue", (opencascade::handle<StepGeom_Curve> & (StepGeom_Array1OfCurve::*)(const Standard_Integer)) &StepGeom_Array1OfCurve::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_StepGeom_Array1OfCurve.def("__call__", (opencascade::handle<StepGeom_Curve> & (StepGeom_Array1OfCurve::*)(const Standard_Integer)) &StepGeom_Array1OfCurve::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_StepGeom_Array1OfCurve.def("SetValue", (void (StepGeom_Array1OfCurve::*)(const Standard_Integer, const opencascade::handle<StepGeom_Curve> &)) &StepGeom_Array1OfCurve::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_StepGeom_Array1OfCurve.def("Resize", (void (StepGeom_Array1OfCurve::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &StepGeom_Array1OfCurve::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_StepGeom_Array1OfCurve.def("__iter__", [](const StepGeom_Array1OfCurve &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\StepGeom_Array1OfCurve.hxx
+	bind_NCollection_Array1<opencascade::handle<StepGeom_Curve> >(mod, "StepGeom_Array1OfCurve");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<StepGeom_Array1OfPcurveOrSurface, std::unique_ptr<StepGeom_Array1OfPcurveOrSurface, Deleter<StepGeom_Array1OfPcurveOrSurface>>> cls_StepGeom_Array1OfPcurveOrSurface(mod, "StepGeom_Array1OfPcurveOrSurface", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_StepGeom_Array1OfPcurveOrSurface.def(py::init<>());
-	cls_StepGeom_Array1OfPcurveOrSurface.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_StepGeom_Array1OfPcurveOrSurface.def(py::init([] (const StepGeom_Array1OfPcurveOrSurface &other) {return new StepGeom_Array1OfPcurveOrSurface(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_StepGeom_Array1OfPcurveOrSurface.def(py::init<StepGeom_Array1OfPcurveOrSurface &&>(), py::arg("theOther"));
-	cls_StepGeom_Array1OfPcurveOrSurface.def(py::init<const StepGeom_PcurveOrSurface &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_StepGeom_Array1OfPcurveOrSurface.def("begin", (StepGeom_Array1OfPcurveOrSurface::iterator (StepGeom_Array1OfPcurveOrSurface::*)() const ) &StepGeom_Array1OfPcurveOrSurface::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_StepGeom_Array1OfPcurveOrSurface.def("end", (StepGeom_Array1OfPcurveOrSurface::iterator (StepGeom_Array1OfPcurveOrSurface::*)() const ) &StepGeom_Array1OfPcurveOrSurface::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_StepGeom_Array1OfPcurveOrSurface.def("cbegin", (StepGeom_Array1OfPcurveOrSurface::const_iterator (StepGeom_Array1OfPcurveOrSurface::*)() const ) &StepGeom_Array1OfPcurveOrSurface::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_StepGeom_Array1OfPcurveOrSurface.def("cend", (StepGeom_Array1OfPcurveOrSurface::const_iterator (StepGeom_Array1OfPcurveOrSurface::*)() const ) &StepGeom_Array1OfPcurveOrSurface::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_StepGeom_Array1OfPcurveOrSurface.def("Init", (void (StepGeom_Array1OfPcurveOrSurface::*)(const StepGeom_PcurveOrSurface &)) &StepGeom_Array1OfPcurveOrSurface::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_StepGeom_Array1OfPcurveOrSurface.def("Size", (Standard_Integer (StepGeom_Array1OfPcurveOrSurface::*)() const ) &StepGeom_Array1OfPcurveOrSurface::Size, "Size query");
-	cls_StepGeom_Array1OfPcurveOrSurface.def("Length", (Standard_Integer (StepGeom_Array1OfPcurveOrSurface::*)() const ) &StepGeom_Array1OfPcurveOrSurface::Length, "Length query (the same)");
-	cls_StepGeom_Array1OfPcurveOrSurface.def("IsEmpty", (Standard_Boolean (StepGeom_Array1OfPcurveOrSurface::*)() const ) &StepGeom_Array1OfPcurveOrSurface::IsEmpty, "Return TRUE if array has zero length.");
-	cls_StepGeom_Array1OfPcurveOrSurface.def("Lower", (Standard_Integer (StepGeom_Array1OfPcurveOrSurface::*)() const ) &StepGeom_Array1OfPcurveOrSurface::Lower, "Lower bound");
-	cls_StepGeom_Array1OfPcurveOrSurface.def("Upper", (Standard_Integer (StepGeom_Array1OfPcurveOrSurface::*)() const ) &StepGeom_Array1OfPcurveOrSurface::Upper, "Upper bound");
-	cls_StepGeom_Array1OfPcurveOrSurface.def("IsDeletable", (Standard_Boolean (StepGeom_Array1OfPcurveOrSurface::*)() const ) &StepGeom_Array1OfPcurveOrSurface::IsDeletable, "myDeletable flag");
-	cls_StepGeom_Array1OfPcurveOrSurface.def("IsAllocated", (Standard_Boolean (StepGeom_Array1OfPcurveOrSurface::*)() const ) &StepGeom_Array1OfPcurveOrSurface::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_StepGeom_Array1OfPcurveOrSurface.def("Assign", (StepGeom_Array1OfPcurveOrSurface & (StepGeom_Array1OfPcurveOrSurface::*)(const StepGeom_Array1OfPcurveOrSurface &)) &StepGeom_Array1OfPcurveOrSurface::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_StepGeom_Array1OfPcurveOrSurface.def("Move", (StepGeom_Array1OfPcurveOrSurface & (StepGeom_Array1OfPcurveOrSurface::*)(StepGeom_Array1OfPcurveOrSurface &&)) &StepGeom_Array1OfPcurveOrSurface::Move, "Move assignment", py::arg("theOther"));
-	cls_StepGeom_Array1OfPcurveOrSurface.def("assign", (StepGeom_Array1OfPcurveOrSurface & (StepGeom_Array1OfPcurveOrSurface::*)(const StepGeom_Array1OfPcurveOrSurface &)) &StepGeom_Array1OfPcurveOrSurface::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_StepGeom_Array1OfPcurveOrSurface.def("assign", (StepGeom_Array1OfPcurveOrSurface & (StepGeom_Array1OfPcurveOrSurface::*)(StepGeom_Array1OfPcurveOrSurface &&)) &StepGeom_Array1OfPcurveOrSurface::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_StepGeom_Array1OfPcurveOrSurface.def("First", (const StepGeom_PcurveOrSurface & (StepGeom_Array1OfPcurveOrSurface::*)() const ) &StepGeom_Array1OfPcurveOrSurface::First, "Returns first element");
-	cls_StepGeom_Array1OfPcurveOrSurface.def("ChangeFirst", (StepGeom_PcurveOrSurface & (StepGeom_Array1OfPcurveOrSurface::*)()) &StepGeom_Array1OfPcurveOrSurface::ChangeFirst, "Returns first element");
-	cls_StepGeom_Array1OfPcurveOrSurface.def("Last", (const StepGeom_PcurveOrSurface & (StepGeom_Array1OfPcurveOrSurface::*)() const ) &StepGeom_Array1OfPcurveOrSurface::Last, "Returns last element");
-	cls_StepGeom_Array1OfPcurveOrSurface.def("ChangeLast", (StepGeom_PcurveOrSurface & (StepGeom_Array1OfPcurveOrSurface::*)()) &StepGeom_Array1OfPcurveOrSurface::ChangeLast, "Returns last element");
-	cls_StepGeom_Array1OfPcurveOrSurface.def("Value", (const StepGeom_PcurveOrSurface & (StepGeom_Array1OfPcurveOrSurface::*)(const Standard_Integer) const ) &StepGeom_Array1OfPcurveOrSurface::Value, "Constant value access", py::arg("theIndex"));
-	cls_StepGeom_Array1OfPcurveOrSurface.def("__call__", (const StepGeom_PcurveOrSurface & (StepGeom_Array1OfPcurveOrSurface::*)(const Standard_Integer) const ) &StepGeom_Array1OfPcurveOrSurface::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_StepGeom_Array1OfPcurveOrSurface.def("ChangeValue", (StepGeom_PcurveOrSurface & (StepGeom_Array1OfPcurveOrSurface::*)(const Standard_Integer)) &StepGeom_Array1OfPcurveOrSurface::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_StepGeom_Array1OfPcurveOrSurface.def("__call__", (StepGeom_PcurveOrSurface & (StepGeom_Array1OfPcurveOrSurface::*)(const Standard_Integer)) &StepGeom_Array1OfPcurveOrSurface::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_StepGeom_Array1OfPcurveOrSurface.def("SetValue", (void (StepGeom_Array1OfPcurveOrSurface::*)(const Standard_Integer, const StepGeom_PcurveOrSurface &)) &StepGeom_Array1OfPcurveOrSurface::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_StepGeom_Array1OfPcurveOrSurface.def("Resize", (void (StepGeom_Array1OfPcurveOrSurface::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &StepGeom_Array1OfPcurveOrSurface::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_StepGeom_Array1OfPcurveOrSurface.def("__iter__", [](const StepGeom_Array1OfPcurveOrSurface &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\StepGeom_Array1OfPcurveOrSurface.hxx
+	bind_NCollection_Array1<StepGeom_PcurveOrSurface>(mod, "StepGeom_Array1OfPcurveOrSurface");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<StepGeom_Array1OfTrimmingSelect, std::unique_ptr<StepGeom_Array1OfTrimmingSelect, Deleter<StepGeom_Array1OfTrimmingSelect>>> cls_StepGeom_Array1OfTrimmingSelect(mod, "StepGeom_Array1OfTrimmingSelect", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_StepGeom_Array1OfTrimmingSelect.def(py::init<>());
-	cls_StepGeom_Array1OfTrimmingSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_StepGeom_Array1OfTrimmingSelect.def(py::init([] (const StepGeom_Array1OfTrimmingSelect &other) {return new StepGeom_Array1OfTrimmingSelect(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_StepGeom_Array1OfTrimmingSelect.def(py::init<StepGeom_Array1OfTrimmingSelect &&>(), py::arg("theOther"));
-	cls_StepGeom_Array1OfTrimmingSelect.def(py::init<const StepGeom_TrimmingSelect &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_StepGeom_Array1OfTrimmingSelect.def("begin", (StepGeom_Array1OfTrimmingSelect::iterator (StepGeom_Array1OfTrimmingSelect::*)() const ) &StepGeom_Array1OfTrimmingSelect::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_StepGeom_Array1OfTrimmingSelect.def("end", (StepGeom_Array1OfTrimmingSelect::iterator (StepGeom_Array1OfTrimmingSelect::*)() const ) &StepGeom_Array1OfTrimmingSelect::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_StepGeom_Array1OfTrimmingSelect.def("cbegin", (StepGeom_Array1OfTrimmingSelect::const_iterator (StepGeom_Array1OfTrimmingSelect::*)() const ) &StepGeom_Array1OfTrimmingSelect::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_StepGeom_Array1OfTrimmingSelect.def("cend", (StepGeom_Array1OfTrimmingSelect::const_iterator (StepGeom_Array1OfTrimmingSelect::*)() const ) &StepGeom_Array1OfTrimmingSelect::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_StepGeom_Array1OfTrimmingSelect.def("Init", (void (StepGeom_Array1OfTrimmingSelect::*)(const StepGeom_TrimmingSelect &)) &StepGeom_Array1OfTrimmingSelect::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_StepGeom_Array1OfTrimmingSelect.def("Size", (Standard_Integer (StepGeom_Array1OfTrimmingSelect::*)() const ) &StepGeom_Array1OfTrimmingSelect::Size, "Size query");
-	cls_StepGeom_Array1OfTrimmingSelect.def("Length", (Standard_Integer (StepGeom_Array1OfTrimmingSelect::*)() const ) &StepGeom_Array1OfTrimmingSelect::Length, "Length query (the same)");
-	cls_StepGeom_Array1OfTrimmingSelect.def("IsEmpty", (Standard_Boolean (StepGeom_Array1OfTrimmingSelect::*)() const ) &StepGeom_Array1OfTrimmingSelect::IsEmpty, "Return TRUE if array has zero length.");
-	cls_StepGeom_Array1OfTrimmingSelect.def("Lower", (Standard_Integer (StepGeom_Array1OfTrimmingSelect::*)() const ) &StepGeom_Array1OfTrimmingSelect::Lower, "Lower bound");
-	cls_StepGeom_Array1OfTrimmingSelect.def("Upper", (Standard_Integer (StepGeom_Array1OfTrimmingSelect::*)() const ) &StepGeom_Array1OfTrimmingSelect::Upper, "Upper bound");
-	cls_StepGeom_Array1OfTrimmingSelect.def("IsDeletable", (Standard_Boolean (StepGeom_Array1OfTrimmingSelect::*)() const ) &StepGeom_Array1OfTrimmingSelect::IsDeletable, "myDeletable flag");
-	cls_StepGeom_Array1OfTrimmingSelect.def("IsAllocated", (Standard_Boolean (StepGeom_Array1OfTrimmingSelect::*)() const ) &StepGeom_Array1OfTrimmingSelect::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_StepGeom_Array1OfTrimmingSelect.def("Assign", (StepGeom_Array1OfTrimmingSelect & (StepGeom_Array1OfTrimmingSelect::*)(const StepGeom_Array1OfTrimmingSelect &)) &StepGeom_Array1OfTrimmingSelect::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_StepGeom_Array1OfTrimmingSelect.def("Move", (StepGeom_Array1OfTrimmingSelect & (StepGeom_Array1OfTrimmingSelect::*)(StepGeom_Array1OfTrimmingSelect &&)) &StepGeom_Array1OfTrimmingSelect::Move, "Move assignment", py::arg("theOther"));
-	cls_StepGeom_Array1OfTrimmingSelect.def("assign", (StepGeom_Array1OfTrimmingSelect & (StepGeom_Array1OfTrimmingSelect::*)(const StepGeom_Array1OfTrimmingSelect &)) &StepGeom_Array1OfTrimmingSelect::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_StepGeom_Array1OfTrimmingSelect.def("assign", (StepGeom_Array1OfTrimmingSelect & (StepGeom_Array1OfTrimmingSelect::*)(StepGeom_Array1OfTrimmingSelect &&)) &StepGeom_Array1OfTrimmingSelect::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_StepGeom_Array1OfTrimmingSelect.def("First", (const StepGeom_TrimmingSelect & (StepGeom_Array1OfTrimmingSelect::*)() const ) &StepGeom_Array1OfTrimmingSelect::First, "Returns first element");
-	cls_StepGeom_Array1OfTrimmingSelect.def("ChangeFirst", (StepGeom_TrimmingSelect & (StepGeom_Array1OfTrimmingSelect::*)()) &StepGeom_Array1OfTrimmingSelect::ChangeFirst, "Returns first element");
-	cls_StepGeom_Array1OfTrimmingSelect.def("Last", (const StepGeom_TrimmingSelect & (StepGeom_Array1OfTrimmingSelect::*)() const ) &StepGeom_Array1OfTrimmingSelect::Last, "Returns last element");
-	cls_StepGeom_Array1OfTrimmingSelect.def("ChangeLast", (StepGeom_TrimmingSelect & (StepGeom_Array1OfTrimmingSelect::*)()) &StepGeom_Array1OfTrimmingSelect::ChangeLast, "Returns last element");
-	cls_StepGeom_Array1OfTrimmingSelect.def("Value", (const StepGeom_TrimmingSelect & (StepGeom_Array1OfTrimmingSelect::*)(const Standard_Integer) const ) &StepGeom_Array1OfTrimmingSelect::Value, "Constant value access", py::arg("theIndex"));
-	cls_StepGeom_Array1OfTrimmingSelect.def("__call__", (const StepGeom_TrimmingSelect & (StepGeom_Array1OfTrimmingSelect::*)(const Standard_Integer) const ) &StepGeom_Array1OfTrimmingSelect::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_StepGeom_Array1OfTrimmingSelect.def("ChangeValue", (StepGeom_TrimmingSelect & (StepGeom_Array1OfTrimmingSelect::*)(const Standard_Integer)) &StepGeom_Array1OfTrimmingSelect::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_StepGeom_Array1OfTrimmingSelect.def("__call__", (StepGeom_TrimmingSelect & (StepGeom_Array1OfTrimmingSelect::*)(const Standard_Integer)) &StepGeom_Array1OfTrimmingSelect::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_StepGeom_Array1OfTrimmingSelect.def("SetValue", (void (StepGeom_Array1OfTrimmingSelect::*)(const Standard_Integer, const StepGeom_TrimmingSelect &)) &StepGeom_Array1OfTrimmingSelect::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_StepGeom_Array1OfTrimmingSelect.def("Resize", (void (StepGeom_Array1OfTrimmingSelect::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &StepGeom_Array1OfTrimmingSelect::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_StepGeom_Array1OfTrimmingSelect.def("__iter__", [](const StepGeom_Array1OfTrimmingSelect &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\StepGeom_Array1OfTrimmingSelect.hxx
+	bind_NCollection_Array1<StepGeom_TrimmingSelect>(mod, "StepGeom_Array1OfTrimmingSelect");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array2.hxx
-	py::class_<StepGeom_Array2OfSurfacePatch, std::unique_ptr<StepGeom_Array2OfSurfacePatch, Deleter<StepGeom_Array2OfSurfacePatch>>> cls_StepGeom_Array2OfSurfacePatch(mod, "StepGeom_Array2OfSurfacePatch", "Purpose: The class Array2 represents bi-dimensional arrays of fixed size known at run time. The ranges of indices are user defined.");
-	cls_StepGeom_Array2OfSurfacePatch.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_StepGeom_Array2OfSurfacePatch.def(py::init([] (const StepGeom_Array2OfSurfacePatch &other) {return new StepGeom_Array2OfSurfacePatch(other);}), "Copy constructor", py::arg("other"));
-	cls_StepGeom_Array2OfSurfacePatch.def(py::init<const opencascade::handle<StepGeom_SurfacePatch> &, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
-	cls_StepGeom_Array2OfSurfacePatch.def("Init", (void (StepGeom_Array2OfSurfacePatch::*)(const opencascade::handle<StepGeom_SurfacePatch> &)) &StepGeom_Array2OfSurfacePatch::Init, "Initialise the values", py::arg("theValue"));
-	cls_StepGeom_Array2OfSurfacePatch.def("Size", (Standard_Integer (StepGeom_Array2OfSurfacePatch::*)() const ) &StepGeom_Array2OfSurfacePatch::Size, "Size (number of items)");
-	cls_StepGeom_Array2OfSurfacePatch.def("Length", (Standard_Integer (StepGeom_Array2OfSurfacePatch::*)() const ) &StepGeom_Array2OfSurfacePatch::Length, "Length (number of items)");
-	cls_StepGeom_Array2OfSurfacePatch.def("RowLength", (Standard_Integer (StepGeom_Array2OfSurfacePatch::*)() const ) &StepGeom_Array2OfSurfacePatch::RowLength, "Returns length of the row, i.e. number of columns");
-	cls_StepGeom_Array2OfSurfacePatch.def("ColLength", (Standard_Integer (StepGeom_Array2OfSurfacePatch::*)() const ) &StepGeom_Array2OfSurfacePatch::ColLength, "Returns length of the column, i.e. number of rows");
-	cls_StepGeom_Array2OfSurfacePatch.def("LowerRow", (Standard_Integer (StepGeom_Array2OfSurfacePatch::*)() const ) &StepGeom_Array2OfSurfacePatch::LowerRow, "LowerRow");
-	cls_StepGeom_Array2OfSurfacePatch.def("UpperRow", (Standard_Integer (StepGeom_Array2OfSurfacePatch::*)() const ) &StepGeom_Array2OfSurfacePatch::UpperRow, "UpperRow");
-	cls_StepGeom_Array2OfSurfacePatch.def("LowerCol", (Standard_Integer (StepGeom_Array2OfSurfacePatch::*)() const ) &StepGeom_Array2OfSurfacePatch::LowerCol, "LowerCol");
-	cls_StepGeom_Array2OfSurfacePatch.def("UpperCol", (Standard_Integer (StepGeom_Array2OfSurfacePatch::*)() const ) &StepGeom_Array2OfSurfacePatch::UpperCol, "UpperCol");
-	cls_StepGeom_Array2OfSurfacePatch.def("IsDeletable", (Standard_Boolean (StepGeom_Array2OfSurfacePatch::*)() const ) &StepGeom_Array2OfSurfacePatch::IsDeletable, "myDeletable flag");
-	cls_StepGeom_Array2OfSurfacePatch.def("Assign", (StepGeom_Array2OfSurfacePatch & (StepGeom_Array2OfSurfacePatch::*)(const StepGeom_Array2OfSurfacePatch &)) &StepGeom_Array2OfSurfacePatch::Assign, "Assignment", py::arg("theOther"));
-	cls_StepGeom_Array2OfSurfacePatch.def("assign", (StepGeom_Array2OfSurfacePatch & (StepGeom_Array2OfSurfacePatch::*)(const StepGeom_Array2OfSurfacePatch &)) &StepGeom_Array2OfSurfacePatch::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_StepGeom_Array2OfSurfacePatch.def("Value", (const opencascade::handle<StepGeom_SurfacePatch> & (StepGeom_Array2OfSurfacePatch::*)(const Standard_Integer, const Standard_Integer) const ) &StepGeom_Array2OfSurfacePatch::Value, "Constant value access", py::arg("theRow"), py::arg("theCol"));
-	cls_StepGeom_Array2OfSurfacePatch.def("__call__", (const opencascade::handle<StepGeom_SurfacePatch> & (StepGeom_Array2OfSurfacePatch::*)(const Standard_Integer, const Standard_Integer) const ) &StepGeom_Array2OfSurfacePatch::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_StepGeom_Array2OfSurfacePatch.def("ChangeValue", (opencascade::handle<StepGeom_SurfacePatch> & (StepGeom_Array2OfSurfacePatch::*)(const Standard_Integer, const Standard_Integer)) &StepGeom_Array2OfSurfacePatch::ChangeValue, "Variable value access", py::arg("theRow"), py::arg("theCol"));
-	cls_StepGeom_Array2OfSurfacePatch.def("__call__", (opencascade::handle<StepGeom_SurfacePatch> & (StepGeom_Array2OfSurfacePatch::*)(const Standard_Integer, const Standard_Integer)) &StepGeom_Array2OfSurfacePatch::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
-	cls_StepGeom_Array2OfSurfacePatch.def("SetValue", (void (StepGeom_Array2OfSurfacePatch::*)(const Standard_Integer, const Standard_Integer, const opencascade::handle<StepGeom_SurfacePatch> &)) &StepGeom_Array2OfSurfacePatch::SetValue, "SetValue", py::arg("theRow"), py::arg("theCol"), py::arg("theItem"));
+	// C:\Miniconda\envs\occt\Library\include\opencascade\StepGeom_Array2OfSurfacePatch.hxx
+	bind_NCollection_Array2<opencascade::handle<StepGeom_SurfacePatch> >(mod, "StepGeom_Array2OfSurfacePatch");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StepGeom_TrimmingMember.hxx
 	py::class_<StepGeom_TrimmingMember, opencascade::handle<StepGeom_TrimmingMember>, StepData_SelectReal> cls_StepGeom_TrimmingMember(mod, "StepGeom_TrimmingMember", "For immediate members of TrimmingSelect, i.e. : ParameterValue (a Real)");

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Transient.hxx>
 #include <Standard_TypeDef.hxx>
@@ -35,6 +26,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NLPlate_SequenceOfHGPPConstraint.hxx>
 #include <Geom_Surface.hxx>
 #include <NLPlate_NLPlate.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(NLPlate, mod) {
 
@@ -186,92 +178,14 @@ PYBIND11_MODULE(NLPlate, mod) {
 	cls_NLPlate_NLPlate.def("ConstraintsSliding", (void (NLPlate_NLPlate::*)(const Standard_Integer)) &NLPlate_NLPlate::ConstraintsSliding, "None", py::arg("NbIterations"));
 	cls_NLPlate_NLPlate.def("MaxActiveConstraintOrder", (Standard_Integer (NLPlate_NLPlate::*)() const ) &NLPlate_NLPlate::MaxActiveConstraintOrder, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<NLPlate_StackOfPlate, std::unique_ptr<NLPlate_StackOfPlate, Deleter<NLPlate_StackOfPlate>>, NCollection_BaseList> cls_NLPlate_StackOfPlate(mod, "NLPlate_StackOfPlate", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_NLPlate_StackOfPlate.def(py::init<>());
-	cls_NLPlate_StackOfPlate.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_NLPlate_StackOfPlate.def(py::init([] (const NLPlate_StackOfPlate &other) {return new NLPlate_StackOfPlate(other);}), "Copy constructor", py::arg("other"));
-	cls_NLPlate_StackOfPlate.def("begin", (NLPlate_StackOfPlate::iterator (NLPlate_StackOfPlate::*)() const ) &NLPlate_StackOfPlate::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_NLPlate_StackOfPlate.def("end", (NLPlate_StackOfPlate::iterator (NLPlate_StackOfPlate::*)() const ) &NLPlate_StackOfPlate::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_NLPlate_StackOfPlate.def("cbegin", (NLPlate_StackOfPlate::const_iterator (NLPlate_StackOfPlate::*)() const ) &NLPlate_StackOfPlate::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_NLPlate_StackOfPlate.def("cend", (NLPlate_StackOfPlate::const_iterator (NLPlate_StackOfPlate::*)() const ) &NLPlate_StackOfPlate::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_NLPlate_StackOfPlate.def("Size", (Standard_Integer (NLPlate_StackOfPlate::*)() const ) &NLPlate_StackOfPlate::Size, "Size - Number of items");
-	cls_NLPlate_StackOfPlate.def("Assign", (NLPlate_StackOfPlate & (NLPlate_StackOfPlate::*)(const NLPlate_StackOfPlate &)) &NLPlate_StackOfPlate::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_NLPlate_StackOfPlate.def("assign", (NLPlate_StackOfPlate & (NLPlate_StackOfPlate::*)(const NLPlate_StackOfPlate &)) &NLPlate_StackOfPlate::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_NLPlate_StackOfPlate.def("Clear", [](NLPlate_StackOfPlate &self) -> void { return self.Clear(); });
-	cls_NLPlate_StackOfPlate.def("Clear", (void (NLPlate_StackOfPlate::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &NLPlate_StackOfPlate::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_NLPlate_StackOfPlate.def("First", (const Plate_Plate & (NLPlate_StackOfPlate::*)() const ) &NLPlate_StackOfPlate::First, "First item");
-	cls_NLPlate_StackOfPlate.def("First", (Plate_Plate & (NLPlate_StackOfPlate::*)()) &NLPlate_StackOfPlate::First, "First item (non-const)");
-	cls_NLPlate_StackOfPlate.def("Last", (const Plate_Plate & (NLPlate_StackOfPlate::*)() const ) &NLPlate_StackOfPlate::Last, "Last item");
-	cls_NLPlate_StackOfPlate.def("Last", (Plate_Plate & (NLPlate_StackOfPlate::*)()) &NLPlate_StackOfPlate::Last, "Last item (non-const)");
-	cls_NLPlate_StackOfPlate.def("Append", (Plate_Plate & (NLPlate_StackOfPlate::*)(const Plate_Plate &)) &NLPlate_StackOfPlate::Append, "Append one item at the end", py::arg("theItem"));
-	cls_NLPlate_StackOfPlate.def("Append", (void (NLPlate_StackOfPlate::*)(const Plate_Plate &, NLPlate_StackOfPlate::Iterator &)) &NLPlate_StackOfPlate::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_NLPlate_StackOfPlate.def("Append", (void (NLPlate_StackOfPlate::*)(NLPlate_StackOfPlate &)) &NLPlate_StackOfPlate::Append, "Append another list at the end", py::arg("theOther"));
-	cls_NLPlate_StackOfPlate.def("Prepend", (Plate_Plate & (NLPlate_StackOfPlate::*)(const Plate_Plate &)) &NLPlate_StackOfPlate::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_NLPlate_StackOfPlate.def("Prepend", (void (NLPlate_StackOfPlate::*)(NLPlate_StackOfPlate &)) &NLPlate_StackOfPlate::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_NLPlate_StackOfPlate.def("RemoveFirst", (void (NLPlate_StackOfPlate::*)()) &NLPlate_StackOfPlate::RemoveFirst, "RemoveFirst item");
-	cls_NLPlate_StackOfPlate.def("Remove", (void (NLPlate_StackOfPlate::*)(NLPlate_StackOfPlate::Iterator &)) &NLPlate_StackOfPlate::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_NLPlate_StackOfPlate.def("InsertBefore", (Plate_Plate & (NLPlate_StackOfPlate::*)(const Plate_Plate &, NLPlate_StackOfPlate::Iterator &)) &NLPlate_StackOfPlate::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_NLPlate_StackOfPlate.def("InsertBefore", (void (NLPlate_StackOfPlate::*)(NLPlate_StackOfPlate &, NLPlate_StackOfPlate::Iterator &)) &NLPlate_StackOfPlate::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_NLPlate_StackOfPlate.def("InsertAfter", (Plate_Plate & (NLPlate_StackOfPlate::*)(const Plate_Plate &, NLPlate_StackOfPlate::Iterator &)) &NLPlate_StackOfPlate::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_NLPlate_StackOfPlate.def("InsertAfter", (void (NLPlate_StackOfPlate::*)(NLPlate_StackOfPlate &, NLPlate_StackOfPlate::Iterator &)) &NLPlate_StackOfPlate::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_NLPlate_StackOfPlate.def("Reverse", (void (NLPlate_StackOfPlate::*)()) &NLPlate_StackOfPlate::Reverse, "Reverse the list");
-	cls_NLPlate_StackOfPlate.def("__iter__", [](const NLPlate_StackOfPlate &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\NLPlate_StackOfPlate.hxx
+	bind_NCollection_List<Plate_Plate>(mod, "NLPlate_StackOfPlate");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<NLPlate_ListIteratorOfStackOfPlate, std::unique_ptr<NLPlate_ListIteratorOfStackOfPlate, Deleter<NLPlate_ListIteratorOfStackOfPlate>>> cls_NLPlate_ListIteratorOfStackOfPlate(mod, "NLPlate_ListIteratorOfStackOfPlate", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_NLPlate_ListIteratorOfStackOfPlate.def(py::init<>());
-	cls_NLPlate_ListIteratorOfStackOfPlate.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_NLPlate_ListIteratorOfStackOfPlate.def("More", (Standard_Boolean (NLPlate_ListIteratorOfStackOfPlate::*)() const ) &NLPlate_ListIteratorOfStackOfPlate::More, "Check end");
-	cls_NLPlate_ListIteratorOfStackOfPlate.def("Next", (void (NLPlate_ListIteratorOfStackOfPlate::*)()) &NLPlate_ListIteratorOfStackOfPlate::Next, "Make step");
-	cls_NLPlate_ListIteratorOfStackOfPlate.def("Value", (const Plate_Plate & (NLPlate_ListIteratorOfStackOfPlate::*)() const ) &NLPlate_ListIteratorOfStackOfPlate::Value, "Constant Value access");
-	cls_NLPlate_ListIteratorOfStackOfPlate.def("Value", (Plate_Plate & (NLPlate_ListIteratorOfStackOfPlate::*)()) &NLPlate_ListIteratorOfStackOfPlate::Value, "Non-const Value access");
-	cls_NLPlate_ListIteratorOfStackOfPlate.def("ChangeValue", (Plate_Plate & (NLPlate_ListIteratorOfStackOfPlate::*)() const ) &NLPlate_ListIteratorOfStackOfPlate::ChangeValue, "Non-const Value access");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\NLPlate_StackOfPlate.hxx
+	bind_NCollection_TListIterator<Plate_Plate>(mod, "NLPlate_ListIteratorOfStackOfPlate");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<NLPlate_SequenceOfHGPPConstraint, std::unique_ptr<NLPlate_SequenceOfHGPPConstraint, Deleter<NLPlate_SequenceOfHGPPConstraint>>, NCollection_BaseSequence> cls_NLPlate_SequenceOfHGPPConstraint(mod, "NLPlate_SequenceOfHGPPConstraint", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_NLPlate_SequenceOfHGPPConstraint.def(py::init<>());
-	cls_NLPlate_SequenceOfHGPPConstraint.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def(py::init([] (const NLPlate_SequenceOfHGPPConstraint &other) {return new NLPlate_SequenceOfHGPPConstraint(other);}), "Copy constructor", py::arg("other"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("begin", (NLPlate_SequenceOfHGPPConstraint::iterator (NLPlate_SequenceOfHGPPConstraint::*)() const ) &NLPlate_SequenceOfHGPPConstraint::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_NLPlate_SequenceOfHGPPConstraint.def("end", (NLPlate_SequenceOfHGPPConstraint::iterator (NLPlate_SequenceOfHGPPConstraint::*)() const ) &NLPlate_SequenceOfHGPPConstraint::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_NLPlate_SequenceOfHGPPConstraint.def("cbegin", (NLPlate_SequenceOfHGPPConstraint::const_iterator (NLPlate_SequenceOfHGPPConstraint::*)() const ) &NLPlate_SequenceOfHGPPConstraint::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_NLPlate_SequenceOfHGPPConstraint.def("cend", (NLPlate_SequenceOfHGPPConstraint::const_iterator (NLPlate_SequenceOfHGPPConstraint::*)() const ) &NLPlate_SequenceOfHGPPConstraint::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Size", (Standard_Integer (NLPlate_SequenceOfHGPPConstraint::*)() const ) &NLPlate_SequenceOfHGPPConstraint::Size, "Number of items");
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Length", (Standard_Integer (NLPlate_SequenceOfHGPPConstraint::*)() const ) &NLPlate_SequenceOfHGPPConstraint::Length, "Number of items");
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Lower", (Standard_Integer (NLPlate_SequenceOfHGPPConstraint::*)() const ) &NLPlate_SequenceOfHGPPConstraint::Lower, "Method for consistency with other collections.");
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Upper", (Standard_Integer (NLPlate_SequenceOfHGPPConstraint::*)() const ) &NLPlate_SequenceOfHGPPConstraint::Upper, "Method for consistency with other collections.");
-	cls_NLPlate_SequenceOfHGPPConstraint.def("IsEmpty", (Standard_Boolean (NLPlate_SequenceOfHGPPConstraint::*)() const ) &NLPlate_SequenceOfHGPPConstraint::IsEmpty, "Empty query");
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Reverse", (void (NLPlate_SequenceOfHGPPConstraint::*)()) &NLPlate_SequenceOfHGPPConstraint::Reverse, "Reverse sequence");
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Exchange", (void (NLPlate_SequenceOfHGPPConstraint::*)(const Standard_Integer, const Standard_Integer)) &NLPlate_SequenceOfHGPPConstraint::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &NLPlate_SequenceOfHGPPConstraint::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Clear", [](NLPlate_SequenceOfHGPPConstraint &self) -> void { return self.Clear(); });
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Clear", (void (NLPlate_SequenceOfHGPPConstraint::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &NLPlate_SequenceOfHGPPConstraint::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Assign", (NLPlate_SequenceOfHGPPConstraint & (NLPlate_SequenceOfHGPPConstraint::*)(const NLPlate_SequenceOfHGPPConstraint &)) &NLPlate_SequenceOfHGPPConstraint::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("assign", (NLPlate_SequenceOfHGPPConstraint & (NLPlate_SequenceOfHGPPConstraint::*)(const NLPlate_SequenceOfHGPPConstraint &)) &NLPlate_SequenceOfHGPPConstraint::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Remove", (void (NLPlate_SequenceOfHGPPConstraint::*)(NLPlate_SequenceOfHGPPConstraint::Iterator &)) &NLPlate_SequenceOfHGPPConstraint::Remove, "Remove one item", py::arg("thePosition"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Remove", (void (NLPlate_SequenceOfHGPPConstraint::*)(const Standard_Integer)) &NLPlate_SequenceOfHGPPConstraint::Remove, "Remove one item", py::arg("theIndex"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Remove", (void (NLPlate_SequenceOfHGPPConstraint::*)(const Standard_Integer, const Standard_Integer)) &NLPlate_SequenceOfHGPPConstraint::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Append", (void (NLPlate_SequenceOfHGPPConstraint::*)(const opencascade::handle<NLPlate_HGPPConstraint> &)) &NLPlate_SequenceOfHGPPConstraint::Append, "Append one item", py::arg("theItem"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Append", (void (NLPlate_SequenceOfHGPPConstraint::*)(NLPlate_SequenceOfHGPPConstraint &)) &NLPlate_SequenceOfHGPPConstraint::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Prepend", (void (NLPlate_SequenceOfHGPPConstraint::*)(const opencascade::handle<NLPlate_HGPPConstraint> &)) &NLPlate_SequenceOfHGPPConstraint::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Prepend", (void (NLPlate_SequenceOfHGPPConstraint::*)(NLPlate_SequenceOfHGPPConstraint &)) &NLPlate_SequenceOfHGPPConstraint::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("InsertBefore", (void (NLPlate_SequenceOfHGPPConstraint::*)(const Standard_Integer, const opencascade::handle<NLPlate_HGPPConstraint> &)) &NLPlate_SequenceOfHGPPConstraint::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("InsertBefore", (void (NLPlate_SequenceOfHGPPConstraint::*)(const Standard_Integer, NLPlate_SequenceOfHGPPConstraint &)) &NLPlate_SequenceOfHGPPConstraint::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("InsertAfter", (void (NLPlate_SequenceOfHGPPConstraint::*)(NLPlate_SequenceOfHGPPConstraint::Iterator &, const opencascade::handle<NLPlate_HGPPConstraint> &)) &NLPlate_SequenceOfHGPPConstraint::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("InsertAfter", (void (NLPlate_SequenceOfHGPPConstraint::*)(const Standard_Integer, NLPlate_SequenceOfHGPPConstraint &)) &NLPlate_SequenceOfHGPPConstraint::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("InsertAfter", (void (NLPlate_SequenceOfHGPPConstraint::*)(const Standard_Integer, const opencascade::handle<NLPlate_HGPPConstraint> &)) &NLPlate_SequenceOfHGPPConstraint::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Split", (void (NLPlate_SequenceOfHGPPConstraint::*)(const Standard_Integer, NLPlate_SequenceOfHGPPConstraint &)) &NLPlate_SequenceOfHGPPConstraint::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("First", (const opencascade::handle<NLPlate_HGPPConstraint> & (NLPlate_SequenceOfHGPPConstraint::*)() const ) &NLPlate_SequenceOfHGPPConstraint::First, "First item access");
-	cls_NLPlate_SequenceOfHGPPConstraint.def("ChangeFirst", (opencascade::handle<NLPlate_HGPPConstraint> & (NLPlate_SequenceOfHGPPConstraint::*)()) &NLPlate_SequenceOfHGPPConstraint::ChangeFirst, "First item access");
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Last", (const opencascade::handle<NLPlate_HGPPConstraint> & (NLPlate_SequenceOfHGPPConstraint::*)() const ) &NLPlate_SequenceOfHGPPConstraint::Last, "Last item access");
-	cls_NLPlate_SequenceOfHGPPConstraint.def("ChangeLast", (opencascade::handle<NLPlate_HGPPConstraint> & (NLPlate_SequenceOfHGPPConstraint::*)()) &NLPlate_SequenceOfHGPPConstraint::ChangeLast, "Last item access");
-	cls_NLPlate_SequenceOfHGPPConstraint.def("Value", (const opencascade::handle<NLPlate_HGPPConstraint> & (NLPlate_SequenceOfHGPPConstraint::*)(const Standard_Integer) const ) &NLPlate_SequenceOfHGPPConstraint::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("__call__", (const opencascade::handle<NLPlate_HGPPConstraint> & (NLPlate_SequenceOfHGPPConstraint::*)(const Standard_Integer) const ) &NLPlate_SequenceOfHGPPConstraint::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("ChangeValue", (opencascade::handle<NLPlate_HGPPConstraint> & (NLPlate_SequenceOfHGPPConstraint::*)(const Standard_Integer)) &NLPlate_SequenceOfHGPPConstraint::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("__call__", (opencascade::handle<NLPlate_HGPPConstraint> & (NLPlate_SequenceOfHGPPConstraint::*)(const Standard_Integer)) &NLPlate_SequenceOfHGPPConstraint::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("SetValue", (void (NLPlate_SequenceOfHGPPConstraint::*)(const Standard_Integer, const opencascade::handle<NLPlate_HGPPConstraint> &)) &NLPlate_SequenceOfHGPPConstraint::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_NLPlate_SequenceOfHGPPConstraint.def("__iter__", [](const NLPlate_SequenceOfHGPPConstraint &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\NLPlate_SequenceOfHGPPConstraint.hxx
+	bind_NCollection_Sequence<opencascade::handle<NLPlate_HGPPConstraint> >(mod, "NLPlate_SequenceOfHGPPConstraint");
 
 
 }

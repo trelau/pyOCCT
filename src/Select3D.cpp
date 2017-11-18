@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <BVH_Box.hxx>
 #include <Standard_TypeDef.hxx>
@@ -65,6 +56,8 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <TColStd_HArray1OfInteger.hxx>
 #include <Select3D_SensitiveTriangulation.hxx>
 #include <Select3D_SensitiveWire.hxx>
+#include <BVH_Templates.hpp>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Select3D, mod) {
 
@@ -444,99 +437,33 @@ PYBIND11_MODULE(Select3D, mod) {
 	cls_Select3D_SensitiveWire.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Select3D_SensitiveWire::get_type_descriptor, "None");
 	cls_Select3D_SensitiveWire.def("DynamicType", (const opencascade::handle<Standard_Type> & (Select3D_SensitiveWire::*)() const ) &Select3D_SensitiveWire::DynamicType, "None");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Select3D_BndBox3d.hxx
 	other_mod = py::module::import("OCCT.Graphic3d");
 	if (py::hasattr(other_mod, "Graphic3d_BndBox3d")) {
 		mod.attr("Select3D_BndBox3d") = other_mod.attr("Graphic3d_BndBox3d");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Select3D_BndBox3d.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec3d")) {
 		mod.attr("Select3D_Vec3") = other_mod.attr("BVH_Vec3d");
 	}
 
-	/* FIXME
-	// Select3D_BVHBuilder3d
-	*/
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<Select3D_EntitySequence, std::unique_ptr<Select3D_EntitySequence, Deleter<Select3D_EntitySequence>>, NCollection_BaseSequence> cls_Select3D_EntitySequence(mod, "Select3D_EntitySequence", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_Select3D_EntitySequence.def(py::init<>());
-	cls_Select3D_EntitySequence.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Select3D_EntitySequence.def(py::init([] (const Select3D_EntitySequence &other) {return new Select3D_EntitySequence(other);}), "Copy constructor", py::arg("other"));
-	cls_Select3D_EntitySequence.def("begin", (Select3D_EntitySequence::iterator (Select3D_EntitySequence::*)() const ) &Select3D_EntitySequence::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_Select3D_EntitySequence.def("end", (Select3D_EntitySequence::iterator (Select3D_EntitySequence::*)() const ) &Select3D_EntitySequence::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_Select3D_EntitySequence.def("cbegin", (Select3D_EntitySequence::const_iterator (Select3D_EntitySequence::*)() const ) &Select3D_EntitySequence::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_Select3D_EntitySequence.def("cend", (Select3D_EntitySequence::const_iterator (Select3D_EntitySequence::*)() const ) &Select3D_EntitySequence::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_Select3D_EntitySequence.def("Size", (Standard_Integer (Select3D_EntitySequence::*)() const ) &Select3D_EntitySequence::Size, "Number of items");
-	cls_Select3D_EntitySequence.def("Length", (Standard_Integer (Select3D_EntitySequence::*)() const ) &Select3D_EntitySequence::Length, "Number of items");
-	cls_Select3D_EntitySequence.def("Lower", (Standard_Integer (Select3D_EntitySequence::*)() const ) &Select3D_EntitySequence::Lower, "Method for consistency with other collections.");
-	cls_Select3D_EntitySequence.def("Upper", (Standard_Integer (Select3D_EntitySequence::*)() const ) &Select3D_EntitySequence::Upper, "Method for consistency with other collections.");
-	cls_Select3D_EntitySequence.def("IsEmpty", (Standard_Boolean (Select3D_EntitySequence::*)() const ) &Select3D_EntitySequence::IsEmpty, "Empty query");
-	cls_Select3D_EntitySequence.def("Reverse", (void (Select3D_EntitySequence::*)()) &Select3D_EntitySequence::Reverse, "Reverse sequence");
-	cls_Select3D_EntitySequence.def("Exchange", (void (Select3D_EntitySequence::*)(const Standard_Integer, const Standard_Integer)) &Select3D_EntitySequence::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_Select3D_EntitySequence.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &Select3D_EntitySequence::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_Select3D_EntitySequence.def("Clear", [](Select3D_EntitySequence &self) -> void { return self.Clear(); });
-	cls_Select3D_EntitySequence.def("Clear", (void (Select3D_EntitySequence::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Select3D_EntitySequence::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_Select3D_EntitySequence.def("Assign", (Select3D_EntitySequence & (Select3D_EntitySequence::*)(const Select3D_EntitySequence &)) &Select3D_EntitySequence::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Select3D_EntitySequence.def("assign", (Select3D_EntitySequence & (Select3D_EntitySequence::*)(const Select3D_EntitySequence &)) &Select3D_EntitySequence::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Select3D_EntitySequence.def("Remove", (void (Select3D_EntitySequence::*)(Select3D_EntitySequence::Iterator &)) &Select3D_EntitySequence::Remove, "Remove one item", py::arg("thePosition"));
-	cls_Select3D_EntitySequence.def("Remove", (void (Select3D_EntitySequence::*)(const Standard_Integer)) &Select3D_EntitySequence::Remove, "Remove one item", py::arg("theIndex"));
-	cls_Select3D_EntitySequence.def("Remove", (void (Select3D_EntitySequence::*)(const Standard_Integer, const Standard_Integer)) &Select3D_EntitySequence::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_Select3D_EntitySequence.def("Append", (void (Select3D_EntitySequence::*)(const opencascade::handle<Select3D_SensitiveEntity> &)) &Select3D_EntitySequence::Append, "Append one item", py::arg("theItem"));
-	cls_Select3D_EntitySequence.def("Append", (void (Select3D_EntitySequence::*)(Select3D_EntitySequence &)) &Select3D_EntitySequence::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_Select3D_EntitySequence.def("Prepend", (void (Select3D_EntitySequence::*)(const opencascade::handle<Select3D_SensitiveEntity> &)) &Select3D_EntitySequence::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_Select3D_EntitySequence.def("Prepend", (void (Select3D_EntitySequence::*)(Select3D_EntitySequence &)) &Select3D_EntitySequence::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_Select3D_EntitySequence.def("InsertBefore", (void (Select3D_EntitySequence::*)(const Standard_Integer, const opencascade::handle<Select3D_SensitiveEntity> &)) &Select3D_EntitySequence::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_Select3D_EntitySequence.def("InsertBefore", (void (Select3D_EntitySequence::*)(const Standard_Integer, Select3D_EntitySequence &)) &Select3D_EntitySequence::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Select3D_EntitySequence.def("InsertAfter", (void (Select3D_EntitySequence::*)(Select3D_EntitySequence::Iterator &, const opencascade::handle<Select3D_SensitiveEntity> &)) &Select3D_EntitySequence::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_Select3D_EntitySequence.def("InsertAfter", (void (Select3D_EntitySequence::*)(const Standard_Integer, Select3D_EntitySequence &)) &Select3D_EntitySequence::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Select3D_EntitySequence.def("InsertAfter", (void (Select3D_EntitySequence::*)(const Standard_Integer, const opencascade::handle<Select3D_SensitiveEntity> &)) &Select3D_EntitySequence::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_Select3D_EntitySequence.def("Split", (void (Select3D_EntitySequence::*)(const Standard_Integer, Select3D_EntitySequence &)) &Select3D_EntitySequence::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_Select3D_EntitySequence.def("First", (const opencascade::handle<Select3D_SensitiveEntity> & (Select3D_EntitySequence::*)() const ) &Select3D_EntitySequence::First, "First item access");
-	cls_Select3D_EntitySequence.def("ChangeFirst", (opencascade::handle<Select3D_SensitiveEntity> & (Select3D_EntitySequence::*)()) &Select3D_EntitySequence::ChangeFirst, "First item access");
-	cls_Select3D_EntitySequence.def("Last", (const opencascade::handle<Select3D_SensitiveEntity> & (Select3D_EntitySequence::*)() const ) &Select3D_EntitySequence::Last, "Last item access");
-	cls_Select3D_EntitySequence.def("ChangeLast", (opencascade::handle<Select3D_SensitiveEntity> & (Select3D_EntitySequence::*)()) &Select3D_EntitySequence::ChangeLast, "Last item access");
-	cls_Select3D_EntitySequence.def("Value", (const opencascade::handle<Select3D_SensitiveEntity> & (Select3D_EntitySequence::*)(const Standard_Integer) const ) &Select3D_EntitySequence::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_Select3D_EntitySequence.def("__call__", (const opencascade::handle<Select3D_SensitiveEntity> & (Select3D_EntitySequence::*)(const Standard_Integer) const ) &Select3D_EntitySequence::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_Select3D_EntitySequence.def("ChangeValue", (opencascade::handle<Select3D_SensitiveEntity> & (Select3D_EntitySequence::*)(const Standard_Integer)) &Select3D_EntitySequence::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_Select3D_EntitySequence.def("__call__", (opencascade::handle<Select3D_SensitiveEntity> & (Select3D_EntitySequence::*)(const Standard_Integer)) &Select3D_EntitySequence::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_Select3D_EntitySequence.def("SetValue", (void (Select3D_EntitySequence::*)(const Standard_Integer, const opencascade::handle<Select3D_SensitiveEntity> &)) &Select3D_EntitySequence::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_Select3D_EntitySequence.def("__iter__", [](const Select3D_EntitySequence &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Select3D_BVHBuilder3d.hxx
+	bind_BVH_Builder<double, 3>(mod, "Select3D_BVHBuilder3d");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Select3D_EntitySequence.hxx
+	bind_NCollection_Sequence<opencascade::handle<Select3D_SensitiveEntity> >(mod, "Select3D_EntitySequence");
+
 	/* FIXME
-	// Select3D_IndexedMapOfEntity
+
 	*/
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vector.hxx
-	py::class_<Select3D_VectorOfHPoly, std::unique_ptr<Select3D_VectorOfHPoly, Deleter<Select3D_VectorOfHPoly>>, NCollection_BaseVector> cls_Select3D_VectorOfHPoly(mod, "Select3D_VectorOfHPoly", "Class NCollection_Vector (dynamic array of objects)");
-	cls_Select3D_VectorOfHPoly.def(py::init<>());
-	cls_Select3D_VectorOfHPoly.def(py::init<const Standard_Integer>(), py::arg("theIncrement"));
-	cls_Select3D_VectorOfHPoly.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theIncrement"), py::arg("theAlloc"));
-	cls_Select3D_VectorOfHPoly.def(py::init([] (const Select3D_VectorOfHPoly &other) {return new Select3D_VectorOfHPoly(other);}), "Copy constructor", py::arg("other"));
-	cls_Select3D_VectorOfHPoly.def("begin", (Select3D_VectorOfHPoly::iterator (Select3D_VectorOfHPoly::*)() const ) &Select3D_VectorOfHPoly::begin, "Returns an iterator pointing to the first element in the vector.");
-	cls_Select3D_VectorOfHPoly.def("end", (Select3D_VectorOfHPoly::iterator (Select3D_VectorOfHPoly::*)() const ) &Select3D_VectorOfHPoly::end, "Returns an iterator referring to the past-the-end element in the vector.");
-	cls_Select3D_VectorOfHPoly.def("cbegin", (Select3D_VectorOfHPoly::const_iterator (Select3D_VectorOfHPoly::*)() const ) &Select3D_VectorOfHPoly::cbegin, "Returns a const iterator pointing to the first element in the vector.");
-	cls_Select3D_VectorOfHPoly.def("cend", (Select3D_VectorOfHPoly::const_iterator (Select3D_VectorOfHPoly::*)() const ) &Select3D_VectorOfHPoly::cend, "Returns a const iterator referring to the past-the-end element in the vector.");
-	cls_Select3D_VectorOfHPoly.def("Length", (Standard_Integer (Select3D_VectorOfHPoly::*)() const ) &Select3D_VectorOfHPoly::Length, "Total number of items");
-	cls_Select3D_VectorOfHPoly.def("Size", (Standard_Integer (Select3D_VectorOfHPoly::*)() const ) &Select3D_VectorOfHPoly::Size, "Total number of items in the vector");
-	cls_Select3D_VectorOfHPoly.def("Lower", (Standard_Integer (Select3D_VectorOfHPoly::*)() const ) &Select3D_VectorOfHPoly::Lower, "Method for consistency with other collections.");
-	cls_Select3D_VectorOfHPoly.def("Upper", (Standard_Integer (Select3D_VectorOfHPoly::*)() const ) &Select3D_VectorOfHPoly::Upper, "Method for consistency with other collections.");
-	cls_Select3D_VectorOfHPoly.def("IsEmpty", (Standard_Boolean (Select3D_VectorOfHPoly::*)() const ) &Select3D_VectorOfHPoly::IsEmpty, "Empty query");
-	cls_Select3D_VectorOfHPoly.def("Assign", [](Select3D_VectorOfHPoly &self, const Select3D_VectorOfHPoly & a0) -> void { return self.Assign(a0); }, py::arg("theOther"));
-	cls_Select3D_VectorOfHPoly.def("Assign", (void (Select3D_VectorOfHPoly::*)(const Select3D_VectorOfHPoly &, const Standard_Boolean)) &Select3D_VectorOfHPoly::Assign, "Assignment to the collection of the same type", py::arg("theOther"), py::arg("theOwnAllocator"));
-	cls_Select3D_VectorOfHPoly.def("assign", (Select3D_VectorOfHPoly & (Select3D_VectorOfHPoly::*)(const Select3D_VectorOfHPoly &)) &Select3D_VectorOfHPoly::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Select3D_VectorOfHPoly.def("Append", (opencascade::handle<Select3D_SensitivePoly> & (Select3D_VectorOfHPoly::*)(const opencascade::handle<Select3D_SensitivePoly> &)) &Select3D_VectorOfHPoly::Append, "Append", py::arg("theValue"));
-	cls_Select3D_VectorOfHPoly.def("__call__", (const opencascade::handle<Select3D_SensitivePoly> & (Select3D_VectorOfHPoly::*)(const Standard_Integer) const ) &Select3D_VectorOfHPoly::operator(), py::is_operator(), "Operator() - query the const value", py::arg("theIndex"));
-	cls_Select3D_VectorOfHPoly.def("Value", (const opencascade::handle<Select3D_SensitivePoly> & (Select3D_VectorOfHPoly::*)(const Standard_Integer) const ) &Select3D_VectorOfHPoly::Value, "None", py::arg("theIndex"));
-	cls_Select3D_VectorOfHPoly.def("First", (const opencascade::handle<Select3D_SensitivePoly> & (Select3D_VectorOfHPoly::*)() const ) &Select3D_VectorOfHPoly::First, "Returns first element");
-	cls_Select3D_VectorOfHPoly.def("ChangeFirst", (opencascade::handle<Select3D_SensitivePoly> & (Select3D_VectorOfHPoly::*)()) &Select3D_VectorOfHPoly::ChangeFirst, "Returns first element");
-	cls_Select3D_VectorOfHPoly.def("Last", (const opencascade::handle<Select3D_SensitivePoly> & (Select3D_VectorOfHPoly::*)() const ) &Select3D_VectorOfHPoly::Last, "Returns last element");
-	cls_Select3D_VectorOfHPoly.def("ChangeLast", (opencascade::handle<Select3D_SensitivePoly> & (Select3D_VectorOfHPoly::*)()) &Select3D_VectorOfHPoly::ChangeLast, "Returns last element");
-	cls_Select3D_VectorOfHPoly.def("__call__", (opencascade::handle<Select3D_SensitivePoly> & (Select3D_VectorOfHPoly::*)(const Standard_Integer)) &Select3D_VectorOfHPoly::operator(), py::is_operator(), "Operator() - query the value", py::arg("theIndex"));
-	cls_Select3D_VectorOfHPoly.def("ChangeValue", (opencascade::handle<Select3D_SensitivePoly> & (Select3D_VectorOfHPoly::*)(const Standard_Integer)) &Select3D_VectorOfHPoly::ChangeValue, "None", py::arg("theIndex"));
-	cls_Select3D_VectorOfHPoly.def("SetValue", (opencascade::handle<Select3D_SensitivePoly> & (Select3D_VectorOfHPoly::*)(const Standard_Integer, const opencascade::handle<Select3D_SensitivePoly> &)) &Select3D_VectorOfHPoly::SetValue, "SetValue () - set or append a value", py::arg("theIndex"), py::arg("theValue"));
-	cls_Select3D_VectorOfHPoly.def("__iter__", [](const Select3D_VectorOfHPoly &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Select3D_IndexedMapOfEntity.hxx
+	bind_NCollection_IndexedMap<opencascade::handle<Select3D_SensitiveEntity>, NCollection_DefaultHasher<opencascade::handle<Select3D_SensitiveEntity> > >(mod, "Select3D_IndexedMapOfEntity");
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Select3D_InteriorSensitivePointSet.hxx
+	bind_NCollection_Vector<opencascade::handle<Select3D_SensitivePoly> >(mod, "Select3D_VectorOfHPoly");
 
 
 }

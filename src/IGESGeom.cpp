@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <IGESData_IGESEntity.hxx>
 #include <gp_XYZ.hxx>
@@ -105,6 +96,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <IGESGeom_Array1OfTransformationMatrix.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <IGESGeom_HArray1OfTransformationMatrix.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(IGESGeom, mod) {
 
@@ -814,110 +806,14 @@ PYBIND11_MODULE(IGESGeom, mod) {
 	cls_IGESGeom.def_static("Init_", (void (*)()) &IGESGeom::Init, "Prepares dymanic data (Protocol, Modules) for this package");
 	cls_IGESGeom.def_static("Protocol_", (opencascade::handle<IGESGeom_Protocol> (*)()) &IGESGeom::Protocol, "Returns the Protocol for this Package");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESGeom_Array1OfBoundary, std::unique_ptr<IGESGeom_Array1OfBoundary, Deleter<IGESGeom_Array1OfBoundary>>> cls_IGESGeom_Array1OfBoundary(mod, "IGESGeom_Array1OfBoundary", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESGeom_Array1OfBoundary.def(py::init<>());
-	cls_IGESGeom_Array1OfBoundary.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESGeom_Array1OfBoundary.def(py::init([] (const IGESGeom_Array1OfBoundary &other) {return new IGESGeom_Array1OfBoundary(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESGeom_Array1OfBoundary.def(py::init<IGESGeom_Array1OfBoundary &&>(), py::arg("theOther"));
-	cls_IGESGeom_Array1OfBoundary.def(py::init<const opencascade::handle<IGESGeom_Boundary> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESGeom_Array1OfBoundary.def("begin", (IGESGeom_Array1OfBoundary::iterator (IGESGeom_Array1OfBoundary::*)() const ) &IGESGeom_Array1OfBoundary::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESGeom_Array1OfBoundary.def("end", (IGESGeom_Array1OfBoundary::iterator (IGESGeom_Array1OfBoundary::*)() const ) &IGESGeom_Array1OfBoundary::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESGeom_Array1OfBoundary.def("cbegin", (IGESGeom_Array1OfBoundary::const_iterator (IGESGeom_Array1OfBoundary::*)() const ) &IGESGeom_Array1OfBoundary::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESGeom_Array1OfBoundary.def("cend", (IGESGeom_Array1OfBoundary::const_iterator (IGESGeom_Array1OfBoundary::*)() const ) &IGESGeom_Array1OfBoundary::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESGeom_Array1OfBoundary.def("Init", (void (IGESGeom_Array1OfBoundary::*)(const opencascade::handle<IGESGeom_Boundary> &)) &IGESGeom_Array1OfBoundary::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESGeom_Array1OfBoundary.def("Size", (Standard_Integer (IGESGeom_Array1OfBoundary::*)() const ) &IGESGeom_Array1OfBoundary::Size, "Size query");
-	cls_IGESGeom_Array1OfBoundary.def("Length", (Standard_Integer (IGESGeom_Array1OfBoundary::*)() const ) &IGESGeom_Array1OfBoundary::Length, "Length query (the same)");
-	cls_IGESGeom_Array1OfBoundary.def("IsEmpty", (Standard_Boolean (IGESGeom_Array1OfBoundary::*)() const ) &IGESGeom_Array1OfBoundary::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESGeom_Array1OfBoundary.def("Lower", (Standard_Integer (IGESGeom_Array1OfBoundary::*)() const ) &IGESGeom_Array1OfBoundary::Lower, "Lower bound");
-	cls_IGESGeom_Array1OfBoundary.def("Upper", (Standard_Integer (IGESGeom_Array1OfBoundary::*)() const ) &IGESGeom_Array1OfBoundary::Upper, "Upper bound");
-	cls_IGESGeom_Array1OfBoundary.def("IsDeletable", (Standard_Boolean (IGESGeom_Array1OfBoundary::*)() const ) &IGESGeom_Array1OfBoundary::IsDeletable, "myDeletable flag");
-	cls_IGESGeom_Array1OfBoundary.def("IsAllocated", (Standard_Boolean (IGESGeom_Array1OfBoundary::*)() const ) &IGESGeom_Array1OfBoundary::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESGeom_Array1OfBoundary.def("Assign", (IGESGeom_Array1OfBoundary & (IGESGeom_Array1OfBoundary::*)(const IGESGeom_Array1OfBoundary &)) &IGESGeom_Array1OfBoundary::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESGeom_Array1OfBoundary.def("Move", (IGESGeom_Array1OfBoundary & (IGESGeom_Array1OfBoundary::*)(IGESGeom_Array1OfBoundary &&)) &IGESGeom_Array1OfBoundary::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESGeom_Array1OfBoundary.def("assign", (IGESGeom_Array1OfBoundary & (IGESGeom_Array1OfBoundary::*)(const IGESGeom_Array1OfBoundary &)) &IGESGeom_Array1OfBoundary::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESGeom_Array1OfBoundary.def("assign", (IGESGeom_Array1OfBoundary & (IGESGeom_Array1OfBoundary::*)(IGESGeom_Array1OfBoundary &&)) &IGESGeom_Array1OfBoundary::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESGeom_Array1OfBoundary.def("First", (const opencascade::handle<IGESGeom_Boundary> & (IGESGeom_Array1OfBoundary::*)() const ) &IGESGeom_Array1OfBoundary::First, "Returns first element");
-	cls_IGESGeom_Array1OfBoundary.def("ChangeFirst", (opencascade::handle<IGESGeom_Boundary> & (IGESGeom_Array1OfBoundary::*)()) &IGESGeom_Array1OfBoundary::ChangeFirst, "Returns first element");
-	cls_IGESGeom_Array1OfBoundary.def("Last", (const opencascade::handle<IGESGeom_Boundary> & (IGESGeom_Array1OfBoundary::*)() const ) &IGESGeom_Array1OfBoundary::Last, "Returns last element");
-	cls_IGESGeom_Array1OfBoundary.def("ChangeLast", (opencascade::handle<IGESGeom_Boundary> & (IGESGeom_Array1OfBoundary::*)()) &IGESGeom_Array1OfBoundary::ChangeLast, "Returns last element");
-	cls_IGESGeom_Array1OfBoundary.def("Value", (const opencascade::handle<IGESGeom_Boundary> & (IGESGeom_Array1OfBoundary::*)(const Standard_Integer) const ) &IGESGeom_Array1OfBoundary::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESGeom_Array1OfBoundary.def("__call__", (const opencascade::handle<IGESGeom_Boundary> & (IGESGeom_Array1OfBoundary::*)(const Standard_Integer) const ) &IGESGeom_Array1OfBoundary::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESGeom_Array1OfBoundary.def("ChangeValue", (opencascade::handle<IGESGeom_Boundary> & (IGESGeom_Array1OfBoundary::*)(const Standard_Integer)) &IGESGeom_Array1OfBoundary::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESGeom_Array1OfBoundary.def("__call__", (opencascade::handle<IGESGeom_Boundary> & (IGESGeom_Array1OfBoundary::*)(const Standard_Integer)) &IGESGeom_Array1OfBoundary::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESGeom_Array1OfBoundary.def("SetValue", (void (IGESGeom_Array1OfBoundary::*)(const Standard_Integer, const opencascade::handle<IGESGeom_Boundary> &)) &IGESGeom_Array1OfBoundary::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESGeom_Array1OfBoundary.def("Resize", (void (IGESGeom_Array1OfBoundary::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESGeom_Array1OfBoundary::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESGeom_Array1OfBoundary.def("__iter__", [](const IGESGeom_Array1OfBoundary &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESGeom_Array1OfBoundary.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESGeom_Boundary> >(mod, "IGESGeom_Array1OfBoundary");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESGeom_Array1OfCurveOnSurface, std::unique_ptr<IGESGeom_Array1OfCurveOnSurface, Deleter<IGESGeom_Array1OfCurveOnSurface>>> cls_IGESGeom_Array1OfCurveOnSurface(mod, "IGESGeom_Array1OfCurveOnSurface", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESGeom_Array1OfCurveOnSurface.def(py::init<>());
-	cls_IGESGeom_Array1OfCurveOnSurface.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESGeom_Array1OfCurveOnSurface.def(py::init([] (const IGESGeom_Array1OfCurveOnSurface &other) {return new IGESGeom_Array1OfCurveOnSurface(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESGeom_Array1OfCurveOnSurface.def(py::init<IGESGeom_Array1OfCurveOnSurface &&>(), py::arg("theOther"));
-	cls_IGESGeom_Array1OfCurveOnSurface.def(py::init<const opencascade::handle<IGESGeom_CurveOnSurface> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESGeom_Array1OfCurveOnSurface.def("begin", (IGESGeom_Array1OfCurveOnSurface::iterator (IGESGeom_Array1OfCurveOnSurface::*)() const ) &IGESGeom_Array1OfCurveOnSurface::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESGeom_Array1OfCurveOnSurface.def("end", (IGESGeom_Array1OfCurveOnSurface::iterator (IGESGeom_Array1OfCurveOnSurface::*)() const ) &IGESGeom_Array1OfCurveOnSurface::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESGeom_Array1OfCurveOnSurface.def("cbegin", (IGESGeom_Array1OfCurveOnSurface::const_iterator (IGESGeom_Array1OfCurveOnSurface::*)() const ) &IGESGeom_Array1OfCurveOnSurface::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESGeom_Array1OfCurveOnSurface.def("cend", (IGESGeom_Array1OfCurveOnSurface::const_iterator (IGESGeom_Array1OfCurveOnSurface::*)() const ) &IGESGeom_Array1OfCurveOnSurface::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESGeom_Array1OfCurveOnSurface.def("Init", (void (IGESGeom_Array1OfCurveOnSurface::*)(const opencascade::handle<IGESGeom_CurveOnSurface> &)) &IGESGeom_Array1OfCurveOnSurface::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESGeom_Array1OfCurveOnSurface.def("Size", (Standard_Integer (IGESGeom_Array1OfCurveOnSurface::*)() const ) &IGESGeom_Array1OfCurveOnSurface::Size, "Size query");
-	cls_IGESGeom_Array1OfCurveOnSurface.def("Length", (Standard_Integer (IGESGeom_Array1OfCurveOnSurface::*)() const ) &IGESGeom_Array1OfCurveOnSurface::Length, "Length query (the same)");
-	cls_IGESGeom_Array1OfCurveOnSurface.def("IsEmpty", (Standard_Boolean (IGESGeom_Array1OfCurveOnSurface::*)() const ) &IGESGeom_Array1OfCurveOnSurface::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESGeom_Array1OfCurveOnSurface.def("Lower", (Standard_Integer (IGESGeom_Array1OfCurveOnSurface::*)() const ) &IGESGeom_Array1OfCurveOnSurface::Lower, "Lower bound");
-	cls_IGESGeom_Array1OfCurveOnSurface.def("Upper", (Standard_Integer (IGESGeom_Array1OfCurveOnSurface::*)() const ) &IGESGeom_Array1OfCurveOnSurface::Upper, "Upper bound");
-	cls_IGESGeom_Array1OfCurveOnSurface.def("IsDeletable", (Standard_Boolean (IGESGeom_Array1OfCurveOnSurface::*)() const ) &IGESGeom_Array1OfCurveOnSurface::IsDeletable, "myDeletable flag");
-	cls_IGESGeom_Array1OfCurveOnSurface.def("IsAllocated", (Standard_Boolean (IGESGeom_Array1OfCurveOnSurface::*)() const ) &IGESGeom_Array1OfCurveOnSurface::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESGeom_Array1OfCurveOnSurface.def("Assign", (IGESGeom_Array1OfCurveOnSurface & (IGESGeom_Array1OfCurveOnSurface::*)(const IGESGeom_Array1OfCurveOnSurface &)) &IGESGeom_Array1OfCurveOnSurface::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESGeom_Array1OfCurveOnSurface.def("Move", (IGESGeom_Array1OfCurveOnSurface & (IGESGeom_Array1OfCurveOnSurface::*)(IGESGeom_Array1OfCurveOnSurface &&)) &IGESGeom_Array1OfCurveOnSurface::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESGeom_Array1OfCurveOnSurface.def("assign", (IGESGeom_Array1OfCurveOnSurface & (IGESGeom_Array1OfCurveOnSurface::*)(const IGESGeom_Array1OfCurveOnSurface &)) &IGESGeom_Array1OfCurveOnSurface::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESGeom_Array1OfCurveOnSurface.def("assign", (IGESGeom_Array1OfCurveOnSurface & (IGESGeom_Array1OfCurveOnSurface::*)(IGESGeom_Array1OfCurveOnSurface &&)) &IGESGeom_Array1OfCurveOnSurface::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESGeom_Array1OfCurveOnSurface.def("First", (const opencascade::handle<IGESGeom_CurveOnSurface> & (IGESGeom_Array1OfCurveOnSurface::*)() const ) &IGESGeom_Array1OfCurveOnSurface::First, "Returns first element");
-	cls_IGESGeom_Array1OfCurveOnSurface.def("ChangeFirst", (opencascade::handle<IGESGeom_CurveOnSurface> & (IGESGeom_Array1OfCurveOnSurface::*)()) &IGESGeom_Array1OfCurveOnSurface::ChangeFirst, "Returns first element");
-	cls_IGESGeom_Array1OfCurveOnSurface.def("Last", (const opencascade::handle<IGESGeom_CurveOnSurface> & (IGESGeom_Array1OfCurveOnSurface::*)() const ) &IGESGeom_Array1OfCurveOnSurface::Last, "Returns last element");
-	cls_IGESGeom_Array1OfCurveOnSurface.def("ChangeLast", (opencascade::handle<IGESGeom_CurveOnSurface> & (IGESGeom_Array1OfCurveOnSurface::*)()) &IGESGeom_Array1OfCurveOnSurface::ChangeLast, "Returns last element");
-	cls_IGESGeom_Array1OfCurveOnSurface.def("Value", (const opencascade::handle<IGESGeom_CurveOnSurface> & (IGESGeom_Array1OfCurveOnSurface::*)(const Standard_Integer) const ) &IGESGeom_Array1OfCurveOnSurface::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESGeom_Array1OfCurveOnSurface.def("__call__", (const opencascade::handle<IGESGeom_CurveOnSurface> & (IGESGeom_Array1OfCurveOnSurface::*)(const Standard_Integer) const ) &IGESGeom_Array1OfCurveOnSurface::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESGeom_Array1OfCurveOnSurface.def("ChangeValue", (opencascade::handle<IGESGeom_CurveOnSurface> & (IGESGeom_Array1OfCurveOnSurface::*)(const Standard_Integer)) &IGESGeom_Array1OfCurveOnSurface::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESGeom_Array1OfCurveOnSurface.def("__call__", (opencascade::handle<IGESGeom_CurveOnSurface> & (IGESGeom_Array1OfCurveOnSurface::*)(const Standard_Integer)) &IGESGeom_Array1OfCurveOnSurface::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESGeom_Array1OfCurveOnSurface.def("SetValue", (void (IGESGeom_Array1OfCurveOnSurface::*)(const Standard_Integer, const opencascade::handle<IGESGeom_CurveOnSurface> &)) &IGESGeom_Array1OfCurveOnSurface::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESGeom_Array1OfCurveOnSurface.def("Resize", (void (IGESGeom_Array1OfCurveOnSurface::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESGeom_Array1OfCurveOnSurface::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESGeom_Array1OfCurveOnSurface.def("__iter__", [](const IGESGeom_Array1OfCurveOnSurface &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESGeom_Array1OfCurveOnSurface.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESGeom_CurveOnSurface> >(mod, "IGESGeom_Array1OfCurveOnSurface");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESGeom_Array1OfTransformationMatrix, std::unique_ptr<IGESGeom_Array1OfTransformationMatrix, Deleter<IGESGeom_Array1OfTransformationMatrix>>> cls_IGESGeom_Array1OfTransformationMatrix(mod, "IGESGeom_Array1OfTransformationMatrix", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESGeom_Array1OfTransformationMatrix.def(py::init<>());
-	cls_IGESGeom_Array1OfTransformationMatrix.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESGeom_Array1OfTransformationMatrix.def(py::init([] (const IGESGeom_Array1OfTransformationMatrix &other) {return new IGESGeom_Array1OfTransformationMatrix(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESGeom_Array1OfTransformationMatrix.def(py::init<IGESGeom_Array1OfTransformationMatrix &&>(), py::arg("theOther"));
-	cls_IGESGeom_Array1OfTransformationMatrix.def(py::init<const opencascade::handle<IGESGeom_TransformationMatrix> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESGeom_Array1OfTransformationMatrix.def("begin", (IGESGeom_Array1OfTransformationMatrix::iterator (IGESGeom_Array1OfTransformationMatrix::*)() const ) &IGESGeom_Array1OfTransformationMatrix::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESGeom_Array1OfTransformationMatrix.def("end", (IGESGeom_Array1OfTransformationMatrix::iterator (IGESGeom_Array1OfTransformationMatrix::*)() const ) &IGESGeom_Array1OfTransformationMatrix::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESGeom_Array1OfTransformationMatrix.def("cbegin", (IGESGeom_Array1OfTransformationMatrix::const_iterator (IGESGeom_Array1OfTransformationMatrix::*)() const ) &IGESGeom_Array1OfTransformationMatrix::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESGeom_Array1OfTransformationMatrix.def("cend", (IGESGeom_Array1OfTransformationMatrix::const_iterator (IGESGeom_Array1OfTransformationMatrix::*)() const ) &IGESGeom_Array1OfTransformationMatrix::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESGeom_Array1OfTransformationMatrix.def("Init", (void (IGESGeom_Array1OfTransformationMatrix::*)(const opencascade::handle<IGESGeom_TransformationMatrix> &)) &IGESGeom_Array1OfTransformationMatrix::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESGeom_Array1OfTransformationMatrix.def("Size", (Standard_Integer (IGESGeom_Array1OfTransformationMatrix::*)() const ) &IGESGeom_Array1OfTransformationMatrix::Size, "Size query");
-	cls_IGESGeom_Array1OfTransformationMatrix.def("Length", (Standard_Integer (IGESGeom_Array1OfTransformationMatrix::*)() const ) &IGESGeom_Array1OfTransformationMatrix::Length, "Length query (the same)");
-	cls_IGESGeom_Array1OfTransformationMatrix.def("IsEmpty", (Standard_Boolean (IGESGeom_Array1OfTransformationMatrix::*)() const ) &IGESGeom_Array1OfTransformationMatrix::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESGeom_Array1OfTransformationMatrix.def("Lower", (Standard_Integer (IGESGeom_Array1OfTransformationMatrix::*)() const ) &IGESGeom_Array1OfTransformationMatrix::Lower, "Lower bound");
-	cls_IGESGeom_Array1OfTransformationMatrix.def("Upper", (Standard_Integer (IGESGeom_Array1OfTransformationMatrix::*)() const ) &IGESGeom_Array1OfTransformationMatrix::Upper, "Upper bound");
-	cls_IGESGeom_Array1OfTransformationMatrix.def("IsDeletable", (Standard_Boolean (IGESGeom_Array1OfTransformationMatrix::*)() const ) &IGESGeom_Array1OfTransformationMatrix::IsDeletable, "myDeletable flag");
-	cls_IGESGeom_Array1OfTransformationMatrix.def("IsAllocated", (Standard_Boolean (IGESGeom_Array1OfTransformationMatrix::*)() const ) &IGESGeom_Array1OfTransformationMatrix::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESGeom_Array1OfTransformationMatrix.def("Assign", (IGESGeom_Array1OfTransformationMatrix & (IGESGeom_Array1OfTransformationMatrix::*)(const IGESGeom_Array1OfTransformationMatrix &)) &IGESGeom_Array1OfTransformationMatrix::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESGeom_Array1OfTransformationMatrix.def("Move", (IGESGeom_Array1OfTransformationMatrix & (IGESGeom_Array1OfTransformationMatrix::*)(IGESGeom_Array1OfTransformationMatrix &&)) &IGESGeom_Array1OfTransformationMatrix::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESGeom_Array1OfTransformationMatrix.def("assign", (IGESGeom_Array1OfTransformationMatrix & (IGESGeom_Array1OfTransformationMatrix::*)(const IGESGeom_Array1OfTransformationMatrix &)) &IGESGeom_Array1OfTransformationMatrix::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESGeom_Array1OfTransformationMatrix.def("assign", (IGESGeom_Array1OfTransformationMatrix & (IGESGeom_Array1OfTransformationMatrix::*)(IGESGeom_Array1OfTransformationMatrix &&)) &IGESGeom_Array1OfTransformationMatrix::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESGeom_Array1OfTransformationMatrix.def("First", (const opencascade::handle<IGESGeom_TransformationMatrix> & (IGESGeom_Array1OfTransformationMatrix::*)() const ) &IGESGeom_Array1OfTransformationMatrix::First, "Returns first element");
-	cls_IGESGeom_Array1OfTransformationMatrix.def("ChangeFirst", (opencascade::handle<IGESGeom_TransformationMatrix> & (IGESGeom_Array1OfTransformationMatrix::*)()) &IGESGeom_Array1OfTransformationMatrix::ChangeFirst, "Returns first element");
-	cls_IGESGeom_Array1OfTransformationMatrix.def("Last", (const opencascade::handle<IGESGeom_TransformationMatrix> & (IGESGeom_Array1OfTransformationMatrix::*)() const ) &IGESGeom_Array1OfTransformationMatrix::Last, "Returns last element");
-	cls_IGESGeom_Array1OfTransformationMatrix.def("ChangeLast", (opencascade::handle<IGESGeom_TransformationMatrix> & (IGESGeom_Array1OfTransformationMatrix::*)()) &IGESGeom_Array1OfTransformationMatrix::ChangeLast, "Returns last element");
-	cls_IGESGeom_Array1OfTransformationMatrix.def("Value", (const opencascade::handle<IGESGeom_TransformationMatrix> & (IGESGeom_Array1OfTransformationMatrix::*)(const Standard_Integer) const ) &IGESGeom_Array1OfTransformationMatrix::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESGeom_Array1OfTransformationMatrix.def("__call__", (const opencascade::handle<IGESGeom_TransformationMatrix> & (IGESGeom_Array1OfTransformationMatrix::*)(const Standard_Integer) const ) &IGESGeom_Array1OfTransformationMatrix::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESGeom_Array1OfTransformationMatrix.def("ChangeValue", (opencascade::handle<IGESGeom_TransformationMatrix> & (IGESGeom_Array1OfTransformationMatrix::*)(const Standard_Integer)) &IGESGeom_Array1OfTransformationMatrix::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESGeom_Array1OfTransformationMatrix.def("__call__", (opencascade::handle<IGESGeom_TransformationMatrix> & (IGESGeom_Array1OfTransformationMatrix::*)(const Standard_Integer)) &IGESGeom_Array1OfTransformationMatrix::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESGeom_Array1OfTransformationMatrix.def("SetValue", (void (IGESGeom_Array1OfTransformationMatrix::*)(const Standard_Integer, const opencascade::handle<IGESGeom_TransformationMatrix> &)) &IGESGeom_Array1OfTransformationMatrix::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESGeom_Array1OfTransformationMatrix.def("Resize", (void (IGESGeom_Array1OfTransformationMatrix::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESGeom_Array1OfTransformationMatrix::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESGeom_Array1OfTransformationMatrix.def("__iter__", [](const IGESGeom_Array1OfTransformationMatrix &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESGeom_Array1OfTransformationMatrix.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESGeom_TransformationMatrix> >(mod, "IGESGeom_Array1OfTransformationMatrix");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESGeom_HArray1OfBoundary.hxx
 	py::class_<IGESGeom_HArray1OfBoundary, opencascade::handle<IGESGeom_HArray1OfBoundary>, IGESGeom_Array1OfBoundary, Standard_Transient> cls_IGESGeom_HArray1OfBoundary(mod, "IGESGeom_HArray1OfBoundary", "None");

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <TCollection_AsciiString.hxx>
 #include <Standard_TypeDef.hxx>
@@ -35,6 +26,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <TDocStd_Application.hxx>
 #include <BinLDrivers.hxx>
 #include <BinLDrivers_Marker.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BinLDrivers, mod) {
 
@@ -107,35 +99,8 @@ PYBIND11_MODULE(BinLDrivers, mod) {
 	cls_BinLDrivers.def_static("AttributeDrivers_", (opencascade::handle<BinMDF_ADriverTable> (*)(const opencascade::handle<CDM_MessageDriver> &)) &BinLDrivers::AttributeDrivers, "Creates a table of the supported drivers' types", py::arg("MsgDrv"));
 	cls_BinLDrivers.def_static("StorageVersion_", (TCollection_AsciiString (*)()) &BinLDrivers::StorageVersion, "returns last storage version");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vector.hxx
-	py::class_<BinLDrivers_VectorOfDocumentSection, std::unique_ptr<BinLDrivers_VectorOfDocumentSection, Deleter<BinLDrivers_VectorOfDocumentSection>>, NCollection_BaseVector> cls_BinLDrivers_VectorOfDocumentSection(mod, "BinLDrivers_VectorOfDocumentSection", "Class NCollection_Vector (dynamic array of objects)");
-	cls_BinLDrivers_VectorOfDocumentSection.def(py::init<>());
-	cls_BinLDrivers_VectorOfDocumentSection.def(py::init<const Standard_Integer>(), py::arg("theIncrement"));
-	cls_BinLDrivers_VectorOfDocumentSection.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theIncrement"), py::arg("theAlloc"));
-	cls_BinLDrivers_VectorOfDocumentSection.def(py::init([] (const BinLDrivers_VectorOfDocumentSection &other) {return new BinLDrivers_VectorOfDocumentSection(other);}), "Copy constructor", py::arg("other"));
-	cls_BinLDrivers_VectorOfDocumentSection.def("begin", (BinLDrivers_VectorOfDocumentSection::iterator (BinLDrivers_VectorOfDocumentSection::*)() const ) &BinLDrivers_VectorOfDocumentSection::begin, "Returns an iterator pointing to the first element in the vector.");
-	cls_BinLDrivers_VectorOfDocumentSection.def("end", (BinLDrivers_VectorOfDocumentSection::iterator (BinLDrivers_VectorOfDocumentSection::*)() const ) &BinLDrivers_VectorOfDocumentSection::end, "Returns an iterator referring to the past-the-end element in the vector.");
-	cls_BinLDrivers_VectorOfDocumentSection.def("cbegin", (BinLDrivers_VectorOfDocumentSection::const_iterator (BinLDrivers_VectorOfDocumentSection::*)() const ) &BinLDrivers_VectorOfDocumentSection::cbegin, "Returns a const iterator pointing to the first element in the vector.");
-	cls_BinLDrivers_VectorOfDocumentSection.def("cend", (BinLDrivers_VectorOfDocumentSection::const_iterator (BinLDrivers_VectorOfDocumentSection::*)() const ) &BinLDrivers_VectorOfDocumentSection::cend, "Returns a const iterator referring to the past-the-end element in the vector.");
-	cls_BinLDrivers_VectorOfDocumentSection.def("Length", (Standard_Integer (BinLDrivers_VectorOfDocumentSection::*)() const ) &BinLDrivers_VectorOfDocumentSection::Length, "Total number of items");
-	cls_BinLDrivers_VectorOfDocumentSection.def("Size", (Standard_Integer (BinLDrivers_VectorOfDocumentSection::*)() const ) &BinLDrivers_VectorOfDocumentSection::Size, "Total number of items in the vector");
-	cls_BinLDrivers_VectorOfDocumentSection.def("Lower", (Standard_Integer (BinLDrivers_VectorOfDocumentSection::*)() const ) &BinLDrivers_VectorOfDocumentSection::Lower, "Method for consistency with other collections.");
-	cls_BinLDrivers_VectorOfDocumentSection.def("Upper", (Standard_Integer (BinLDrivers_VectorOfDocumentSection::*)() const ) &BinLDrivers_VectorOfDocumentSection::Upper, "Method for consistency with other collections.");
-	cls_BinLDrivers_VectorOfDocumentSection.def("IsEmpty", (Standard_Boolean (BinLDrivers_VectorOfDocumentSection::*)() const ) &BinLDrivers_VectorOfDocumentSection::IsEmpty, "Empty query");
-	cls_BinLDrivers_VectorOfDocumentSection.def("Assign", [](BinLDrivers_VectorOfDocumentSection &self, const BinLDrivers_VectorOfDocumentSection & a0) -> void { return self.Assign(a0); }, py::arg("theOther"));
-	cls_BinLDrivers_VectorOfDocumentSection.def("Assign", (void (BinLDrivers_VectorOfDocumentSection::*)(const BinLDrivers_VectorOfDocumentSection &, const Standard_Boolean)) &BinLDrivers_VectorOfDocumentSection::Assign, "Assignment to the collection of the same type", py::arg("theOther"), py::arg("theOwnAllocator"));
-	cls_BinLDrivers_VectorOfDocumentSection.def("assign", (BinLDrivers_VectorOfDocumentSection & (BinLDrivers_VectorOfDocumentSection::*)(const BinLDrivers_VectorOfDocumentSection &)) &BinLDrivers_VectorOfDocumentSection::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BinLDrivers_VectorOfDocumentSection.def("Append", (BinLDrivers_DocumentSection & (BinLDrivers_VectorOfDocumentSection::*)(const BinLDrivers_DocumentSection &)) &BinLDrivers_VectorOfDocumentSection::Append, "Append", py::arg("theValue"));
-	cls_BinLDrivers_VectorOfDocumentSection.def("__call__", (const BinLDrivers_DocumentSection & (BinLDrivers_VectorOfDocumentSection::*)(const Standard_Integer) const ) &BinLDrivers_VectorOfDocumentSection::operator(), py::is_operator(), "Operator() - query the const value", py::arg("theIndex"));
-	cls_BinLDrivers_VectorOfDocumentSection.def("Value", (const BinLDrivers_DocumentSection & (BinLDrivers_VectorOfDocumentSection::*)(const Standard_Integer) const ) &BinLDrivers_VectorOfDocumentSection::Value, "None", py::arg("theIndex"));
-	cls_BinLDrivers_VectorOfDocumentSection.def("First", (const BinLDrivers_DocumentSection & (BinLDrivers_VectorOfDocumentSection::*)() const ) &BinLDrivers_VectorOfDocumentSection::First, "Returns first element");
-	cls_BinLDrivers_VectorOfDocumentSection.def("ChangeFirst", (BinLDrivers_DocumentSection & (BinLDrivers_VectorOfDocumentSection::*)()) &BinLDrivers_VectorOfDocumentSection::ChangeFirst, "Returns first element");
-	cls_BinLDrivers_VectorOfDocumentSection.def("Last", (const BinLDrivers_DocumentSection & (BinLDrivers_VectorOfDocumentSection::*)() const ) &BinLDrivers_VectorOfDocumentSection::Last, "Returns last element");
-	cls_BinLDrivers_VectorOfDocumentSection.def("ChangeLast", (BinLDrivers_DocumentSection & (BinLDrivers_VectorOfDocumentSection::*)()) &BinLDrivers_VectorOfDocumentSection::ChangeLast, "Returns last element");
-	cls_BinLDrivers_VectorOfDocumentSection.def("__call__", (BinLDrivers_DocumentSection & (BinLDrivers_VectorOfDocumentSection::*)(const Standard_Integer)) &BinLDrivers_VectorOfDocumentSection::operator(), py::is_operator(), "Operator() - query the value", py::arg("theIndex"));
-	cls_BinLDrivers_VectorOfDocumentSection.def("ChangeValue", (BinLDrivers_DocumentSection & (BinLDrivers_VectorOfDocumentSection::*)(const Standard_Integer)) &BinLDrivers_VectorOfDocumentSection::ChangeValue, "None", py::arg("theIndex"));
-	cls_BinLDrivers_VectorOfDocumentSection.def("SetValue", (BinLDrivers_DocumentSection & (BinLDrivers_VectorOfDocumentSection::*)(const Standard_Integer, const BinLDrivers_DocumentSection &)) &BinLDrivers_VectorOfDocumentSection::SetValue, "SetValue () - set or append a value", py::arg("theIndex"), py::arg("theValue"));
-	cls_BinLDrivers_VectorOfDocumentSection.def("__iter__", [](const BinLDrivers_VectorOfDocumentSection &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BinLDrivers_VectorOfDocumentSection.hxx
+	bind_NCollection_Vector<BinLDrivers_DocumentSection>(mod, "BinLDrivers_VectorOfDocumentSection");
 
 
 }

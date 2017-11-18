@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Adaptor3d_Surface.hxx>
 #include <TopoDS_Face.hxx>
@@ -62,6 +53,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Adaptor2d_Curve2d.hxx>
 #include <BRepAdaptor_HCurve2d.hxx>
 #include <BRepAdaptor_HSurface.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BRepAdaptor, mod) {
 
@@ -191,40 +183,8 @@ PYBIND11_MODULE(BRepAdaptor, mod) {
 	cls_BRepAdaptor_Curve.def("BSpline", (opencascade::handle<Geom_BSplineCurve> (BRepAdaptor_Curve::*)() const ) &BRepAdaptor_Curve::BSpline, "Warning : This will make a copy of the BSpline Curve since it applies to it myTsrf . Be carefull when using this method");
 	cls_BRepAdaptor_Curve.def("OffsetCurve", (opencascade::handle<Geom_OffsetCurve> (BRepAdaptor_Curve::*)() const ) &BRepAdaptor_Curve::OffsetCurve, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<BRepAdaptor_Array1OfCurve, std::unique_ptr<BRepAdaptor_Array1OfCurve, Deleter<BRepAdaptor_Array1OfCurve>>> cls_BRepAdaptor_Array1OfCurve(mod, "BRepAdaptor_Array1OfCurve", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_BRepAdaptor_Array1OfCurve.def(py::init<>());
-	cls_BRepAdaptor_Array1OfCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_BRepAdaptor_Array1OfCurve.def(py::init([] (const BRepAdaptor_Array1OfCurve &other) {return new BRepAdaptor_Array1OfCurve(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_BRepAdaptor_Array1OfCurve.def(py::init<BRepAdaptor_Array1OfCurve &&>(), py::arg("theOther"));
-	cls_BRepAdaptor_Array1OfCurve.def(py::init<const BRepAdaptor_Curve &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_BRepAdaptor_Array1OfCurve.def("begin", (BRepAdaptor_Array1OfCurve::iterator (BRepAdaptor_Array1OfCurve::*)() const ) &BRepAdaptor_Array1OfCurve::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_BRepAdaptor_Array1OfCurve.def("end", (BRepAdaptor_Array1OfCurve::iterator (BRepAdaptor_Array1OfCurve::*)() const ) &BRepAdaptor_Array1OfCurve::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_BRepAdaptor_Array1OfCurve.def("cbegin", (BRepAdaptor_Array1OfCurve::const_iterator (BRepAdaptor_Array1OfCurve::*)() const ) &BRepAdaptor_Array1OfCurve::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_BRepAdaptor_Array1OfCurve.def("cend", (BRepAdaptor_Array1OfCurve::const_iterator (BRepAdaptor_Array1OfCurve::*)() const ) &BRepAdaptor_Array1OfCurve::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_BRepAdaptor_Array1OfCurve.def("Init", (void (BRepAdaptor_Array1OfCurve::*)(const BRepAdaptor_Curve &)) &BRepAdaptor_Array1OfCurve::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_BRepAdaptor_Array1OfCurve.def("Size", (Standard_Integer (BRepAdaptor_Array1OfCurve::*)() const ) &BRepAdaptor_Array1OfCurve::Size, "Size query");
-	cls_BRepAdaptor_Array1OfCurve.def("Length", (Standard_Integer (BRepAdaptor_Array1OfCurve::*)() const ) &BRepAdaptor_Array1OfCurve::Length, "Length query (the same)");
-	cls_BRepAdaptor_Array1OfCurve.def("IsEmpty", (Standard_Boolean (BRepAdaptor_Array1OfCurve::*)() const ) &BRepAdaptor_Array1OfCurve::IsEmpty, "Return TRUE if array has zero length.");
-	cls_BRepAdaptor_Array1OfCurve.def("Lower", (Standard_Integer (BRepAdaptor_Array1OfCurve::*)() const ) &BRepAdaptor_Array1OfCurve::Lower, "Lower bound");
-	cls_BRepAdaptor_Array1OfCurve.def("Upper", (Standard_Integer (BRepAdaptor_Array1OfCurve::*)() const ) &BRepAdaptor_Array1OfCurve::Upper, "Upper bound");
-	cls_BRepAdaptor_Array1OfCurve.def("IsDeletable", (Standard_Boolean (BRepAdaptor_Array1OfCurve::*)() const ) &BRepAdaptor_Array1OfCurve::IsDeletable, "myDeletable flag");
-	cls_BRepAdaptor_Array1OfCurve.def("IsAllocated", (Standard_Boolean (BRepAdaptor_Array1OfCurve::*)() const ) &BRepAdaptor_Array1OfCurve::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_BRepAdaptor_Array1OfCurve.def("Assign", (BRepAdaptor_Array1OfCurve & (BRepAdaptor_Array1OfCurve::*)(const BRepAdaptor_Array1OfCurve &)) &BRepAdaptor_Array1OfCurve::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_BRepAdaptor_Array1OfCurve.def("Move", (BRepAdaptor_Array1OfCurve & (BRepAdaptor_Array1OfCurve::*)(BRepAdaptor_Array1OfCurve &&)) &BRepAdaptor_Array1OfCurve::Move, "Move assignment", py::arg("theOther"));
-	cls_BRepAdaptor_Array1OfCurve.def("assign", (BRepAdaptor_Array1OfCurve & (BRepAdaptor_Array1OfCurve::*)(const BRepAdaptor_Array1OfCurve &)) &BRepAdaptor_Array1OfCurve::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_BRepAdaptor_Array1OfCurve.def("assign", (BRepAdaptor_Array1OfCurve & (BRepAdaptor_Array1OfCurve::*)(BRepAdaptor_Array1OfCurve &&)) &BRepAdaptor_Array1OfCurve::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_BRepAdaptor_Array1OfCurve.def("First", (const BRepAdaptor_Curve & (BRepAdaptor_Array1OfCurve::*)() const ) &BRepAdaptor_Array1OfCurve::First, "Returns first element");
-	cls_BRepAdaptor_Array1OfCurve.def("ChangeFirst", (BRepAdaptor_Curve & (BRepAdaptor_Array1OfCurve::*)()) &BRepAdaptor_Array1OfCurve::ChangeFirst, "Returns first element");
-	cls_BRepAdaptor_Array1OfCurve.def("Last", (const BRepAdaptor_Curve & (BRepAdaptor_Array1OfCurve::*)() const ) &BRepAdaptor_Array1OfCurve::Last, "Returns last element");
-	cls_BRepAdaptor_Array1OfCurve.def("ChangeLast", (BRepAdaptor_Curve & (BRepAdaptor_Array1OfCurve::*)()) &BRepAdaptor_Array1OfCurve::ChangeLast, "Returns last element");
-	cls_BRepAdaptor_Array1OfCurve.def("Value", (const BRepAdaptor_Curve & (BRepAdaptor_Array1OfCurve::*)(const Standard_Integer) const ) &BRepAdaptor_Array1OfCurve::Value, "Constant value access", py::arg("theIndex"));
-	cls_BRepAdaptor_Array1OfCurve.def("__call__", (const BRepAdaptor_Curve & (BRepAdaptor_Array1OfCurve::*)(const Standard_Integer) const ) &BRepAdaptor_Array1OfCurve::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_BRepAdaptor_Array1OfCurve.def("ChangeValue", (BRepAdaptor_Curve & (BRepAdaptor_Array1OfCurve::*)(const Standard_Integer)) &BRepAdaptor_Array1OfCurve::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_BRepAdaptor_Array1OfCurve.def("__call__", (BRepAdaptor_Curve & (BRepAdaptor_Array1OfCurve::*)(const Standard_Integer)) &BRepAdaptor_Array1OfCurve::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_BRepAdaptor_Array1OfCurve.def("SetValue", (void (BRepAdaptor_Array1OfCurve::*)(const Standard_Integer, const BRepAdaptor_Curve &)) &BRepAdaptor_Array1OfCurve::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_BRepAdaptor_Array1OfCurve.def("Resize", (void (BRepAdaptor_Array1OfCurve::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &BRepAdaptor_Array1OfCurve::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_BRepAdaptor_Array1OfCurve.def("__iter__", [](const BRepAdaptor_Array1OfCurve &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepAdaptor_Array1OfCurve.hxx
+	bind_NCollection_Array1<BRepAdaptor_Curve>(mod, "BRepAdaptor_Array1OfCurve");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepAdaptor_CompCurve.hxx
 	py::class_<BRepAdaptor_CompCurve, std::unique_ptr<BRepAdaptor_CompCurve, Deleter<BRepAdaptor_CompCurve>>, Adaptor3d_Curve> cls_BRepAdaptor_CompCurve(mod, "BRepAdaptor_CompCurve", "The Curve from BRepAdaptor allows to use a Wire of the BRep topology like a 3D curve. Warning: With this class of curve, C0 and C1 continuities are not assumed. So be carful with some algorithm!");

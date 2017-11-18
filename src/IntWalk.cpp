@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <IntWalk_VectorOfWalkingData.hxx>
 #include <IntWalk_VectorOfInteger.hxx>
@@ -121,148 +112,14 @@ PYBIND11_MODULE(IntWalk, mod) {
 	cls_IntWalk_PWalking.def("MaxStep", (Standard_Real (IntWalk_PWalking::*)(Standard_Integer)) &IntWalk_PWalking::MaxStep, "None", py::arg("theIndex"));
 
 	/* FIXME
-	// C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\vector
-	py::class_<IntWalk_VectorOfWalkingData, std::unique_ptr<IntWalk_VectorOfWalkingData, Deleter<IntWalk_VectorOfWalkingData>>, _Vector_alloc<_Vec_base_types<IntWalk_WalkingData, NCollection_StdAllocator<IntWalk_WalkingData>> >> cls_IntWalk_VectorOfWalkingData(mod, "IntWalk_VectorOfWalkingData", "None");
-	cls_IntWalk_VectorOfWalkingData.def(py::init<>());
-	cls_IntWalk_VectorOfWalkingData.def(py::init<const NCollection_StdAllocator<IntWalk_WalkingData> &>(), py::arg("_Al"));
-	cls_IntWalk_VectorOfWalkingData.def(py::init<std::IntWalk_VectorOfWalkingData::size_type>(), py::arg("_Count"));
-	cls_IntWalk_VectorOfWalkingData.def(py::init<std::IntWalk_VectorOfWalkingData::size_type, const std::IntWalk_VectorOfWalkingData::value_type &>(), py::arg("_Count"), py::arg("_Val"));
-	cls_IntWalk_VectorOfWalkingData.def(py::init<std::IntWalk_VectorOfWalkingData::size_type, const std::IntWalk_VectorOfWalkingData::value_type &, const NCollection_StdAllocator<IntWalk_WalkingData> &>(), py::arg("_Count"), py::arg("_Val"), py::arg("_Al"));
-	cls_IntWalk_VectorOfWalkingData.def(py::init([] (const std::IntWalk_VectorOfWalkingData::_Myt &other) {return new IntWalk_VectorOfWalkingData(other);}), "Copy constructor", py::arg("other"));
-	cls_IntWalk_VectorOfWalkingData.def(py::init<const std::IntWalk_VectorOfWalkingData::_Myt &, const NCollection_StdAllocator<IntWalk_WalkingData> &>(), py::arg("_Right"), py::arg("_Al"));
-	// FIXME cls_IntWalk_VectorOfWalkingData.def(py::init<std::IntWalk_VectorOfWalkingData::_Myt &&>(), py::arg("_Right"));
-	cls_IntWalk_VectorOfWalkingData.def(py::init<std::IntWalk_VectorOfWalkingData::_Myt &&, const NCollection_StdAllocator<IntWalk_WalkingData> &>(), py::arg("_Right"), py::arg("_Al"));
-	cls_IntWalk_VectorOfWalkingData.def(py::init<::std::initializer_list<value_type>>(), py::arg("_Ilist"));
-	cls_IntWalk_VectorOfWalkingData.def(py::init<::std::initializer_list<value_type>, const NCollection_StdAllocator<IntWalk_WalkingData> &>(), py::arg("_Ilist"), py::arg("_Al"));
-	cls_IntWalk_VectorOfWalkingData.def("_Construct_n", (void (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::size_type, const std::IntWalk_VectorOfWalkingData::value_type *)) &IntWalk_VectorOfWalkingData::_Construct_n, "None", py::arg("_Count"), py::arg("_Pval"));
-	// FIXME cls_IntWalk_VectorOfWalkingData.def("assign", (std::IntWalk_VectorOfWalkingData::_Myt & (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::_Myt &&)) &IntWalk_VectorOfWalkingData::operator=, py::is_operator(), "None", py::arg("_Right"));
-	// FIXME cls_IntWalk_VectorOfWalkingData.def("_Assign_rv", (void (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::_Myt &&, std::true_type)) &IntWalk_VectorOfWalkingData::_Assign_rv, "None", py::arg("_Right"), py::arg(""));
-	// FIXME cls_IntWalk_VectorOfWalkingData.def("_Assign_rv", (void (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::_Myt &&, std::false_type)) &IntWalk_VectorOfWalkingData::_Assign_rv, "None", py::arg("_Right"), py::arg(""));
-	// FIXME cls_IntWalk_VectorOfWalkingData.def("_Assign_rv", (void (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::_Myt &&)) &IntWalk_VectorOfWalkingData::_Assign_rv, "None", py::arg("_Right"));
-	// FIXME cls_IntWalk_VectorOfWalkingData.def("push_back", (void (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::value_type &&)) &IntWalk_VectorOfWalkingData::push_back, "None", py::arg("_Val"));
-	// FIXME cls_IntWalk_VectorOfWalkingData.def("insert", (std::IntWalk_VectorOfWalkingData::iterator (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::const_iterator, IntWalk_WalkingData &&)) &IntWalk_VectorOfWalkingData::insert, "None", py::arg("_Where"), py::arg("_Val"));
-	cls_IntWalk_VectorOfWalkingData.def("assign", (std::IntWalk_VectorOfWalkingData::_Myt & (IntWalk_VectorOfWalkingData::*)(::std::initializer_list<value_type>)) &IntWalk_VectorOfWalkingData::operator=, py::is_operator(), "None", py::arg("_Ilist"));
-	cls_IntWalk_VectorOfWalkingData.def("assign", (void (IntWalk_VectorOfWalkingData::*)(::std::initializer_list<value_type>)) &IntWalk_VectorOfWalkingData::assign, "None", py::arg("_Ilist"));
-	cls_IntWalk_VectorOfWalkingData.def("insert", (std::IntWalk_VectorOfWalkingData::iterator (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::const_iterator, ::std::initializer_list<value_type>)) &IntWalk_VectorOfWalkingData::insert, "None", py::arg("_Where"), py::arg("_Ilist"));
-	cls_IntWalk_VectorOfWalkingData.def("assign", (std::IntWalk_VectorOfWalkingData::_Myt & (IntWalk_VectorOfWalkingData::*)(const std::IntWalk_VectorOfWalkingData::_Myt &)) &IntWalk_VectorOfWalkingData::operator=, py::is_operator(), "None", py::arg("_Right"));
-	cls_IntWalk_VectorOfWalkingData.def("reserve", (void (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::size_type)) &IntWalk_VectorOfWalkingData::reserve, "None", py::arg("_Count"));
-	cls_IntWalk_VectorOfWalkingData.def("capacity", (std::IntWalk_VectorOfWalkingData::size_type (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::capacity, "None");
-	cls_IntWalk_VectorOfWalkingData.def("_Unused_capacity", (std::IntWalk_VectorOfWalkingData::size_type (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::_Unused_capacity, "None");
-	cls_IntWalk_VectorOfWalkingData.def("_Has_unused_capacity", (std::IntWalk_VectorOfWalkingData::size_type (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::_Has_unused_capacity, "None");
-	cls_IntWalk_VectorOfWalkingData.def("begin", (std::IntWalk_VectorOfWalkingData::iterator (IntWalk_VectorOfWalkingData::*)()) &IntWalk_VectorOfWalkingData::begin, "None");
-	cls_IntWalk_VectorOfWalkingData.def("begin", (std::IntWalk_VectorOfWalkingData::const_iterator (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::begin, "None");
-	cls_IntWalk_VectorOfWalkingData.def("end", (std::IntWalk_VectorOfWalkingData::iterator (IntWalk_VectorOfWalkingData::*)()) &IntWalk_VectorOfWalkingData::end, "None");
-	cls_IntWalk_VectorOfWalkingData.def("end", (std::IntWalk_VectorOfWalkingData::const_iterator (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::end, "None");
-	cls_IntWalk_VectorOfWalkingData.def("_Make_iter", (std::IntWalk_VectorOfWalkingData::iterator (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::const_iterator) const ) &IntWalk_VectorOfWalkingData::_Make_iter, "None", py::arg("_Where"));
-	cls_IntWalk_VectorOfWalkingData.def("rbegin", (std::IntWalk_VectorOfWalkingData::reverse_iterator (IntWalk_VectorOfWalkingData::*)()) &IntWalk_VectorOfWalkingData::rbegin, "None");
-	cls_IntWalk_VectorOfWalkingData.def("rbegin", (std::IntWalk_VectorOfWalkingData::const_reverse_iterator (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::rbegin, "None");
-	cls_IntWalk_VectorOfWalkingData.def("rend", (std::IntWalk_VectorOfWalkingData::reverse_iterator (IntWalk_VectorOfWalkingData::*)()) &IntWalk_VectorOfWalkingData::rend, "None");
-	cls_IntWalk_VectorOfWalkingData.def("rend", (std::IntWalk_VectorOfWalkingData::const_reverse_iterator (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::rend, "None");
-	cls_IntWalk_VectorOfWalkingData.def("cbegin", (std::IntWalk_VectorOfWalkingData::const_iterator (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::cbegin, "None");
-	cls_IntWalk_VectorOfWalkingData.def("cend", (std::IntWalk_VectorOfWalkingData::const_iterator (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::cend, "None");
-	cls_IntWalk_VectorOfWalkingData.def("crbegin", (std::IntWalk_VectorOfWalkingData::const_reverse_iterator (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::crbegin, "None");
-	cls_IntWalk_VectorOfWalkingData.def("crend", (std::IntWalk_VectorOfWalkingData::const_reverse_iterator (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::crend, "None");
-	cls_IntWalk_VectorOfWalkingData.def("shrink_to_fit", (void (IntWalk_VectorOfWalkingData::*)()) &IntWalk_VectorOfWalkingData::shrink_to_fit, "None");
-	cls_IntWalk_VectorOfWalkingData.def("resize", (void (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::size_type)) &IntWalk_VectorOfWalkingData::resize, "None", py::arg("_Newsize"));
-	cls_IntWalk_VectorOfWalkingData.def("resize", (void (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::size_type, const std::IntWalk_VectorOfWalkingData::value_type &)) &IntWalk_VectorOfWalkingData::resize, "None", py::arg("_Newsize"), py::arg("_Val"));
-	cls_IntWalk_VectorOfWalkingData.def("size", (std::IntWalk_VectorOfWalkingData::size_type (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::size, "None");
-	cls_IntWalk_VectorOfWalkingData.def("max_size", (std::IntWalk_VectorOfWalkingData::size_type (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::max_size, "None");
-	cls_IntWalk_VectorOfWalkingData.def("empty", (bool (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::empty, "None");
-	cls_IntWalk_VectorOfWalkingData.def("get_allocator", (NCollection_StdAllocator<IntWalk_WalkingData> (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::get_allocator, "None");
-	cls_IntWalk_VectorOfWalkingData.def("at", (std::IntWalk_VectorOfWalkingData::const_reference (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::size_type) const ) &IntWalk_VectorOfWalkingData::at, "None", py::arg("_Pos"));
-	cls_IntWalk_VectorOfWalkingData.def("at", (std::IntWalk_VectorOfWalkingData::reference (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::size_type)) &IntWalk_VectorOfWalkingData::at, "None", py::arg("_Pos"));
-	cls_IntWalk_VectorOfWalkingData.def("__getitem__", (std::IntWalk_VectorOfWalkingData::const_reference (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::size_type) const ) &IntWalk_VectorOfWalkingData::operator[], py::is_operator(), "None", py::arg("_Pos"));
-	cls_IntWalk_VectorOfWalkingData.def("__getitem__", (std::IntWalk_VectorOfWalkingData::reference (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::size_type)) &IntWalk_VectorOfWalkingData::operator[], py::is_operator(), "None", py::arg("_Pos"));
-	cls_IntWalk_VectorOfWalkingData.def("data", (IntWalk_WalkingData * (IntWalk_VectorOfWalkingData::*)()) &IntWalk_VectorOfWalkingData::data, "None");
-	cls_IntWalk_VectorOfWalkingData.def("data", (const IntWalk_WalkingData * (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::data, "None");
-	cls_IntWalk_VectorOfWalkingData.def("front", (std::IntWalk_VectorOfWalkingData::reference (IntWalk_VectorOfWalkingData::*)()) &IntWalk_VectorOfWalkingData::front, "None");
-	cls_IntWalk_VectorOfWalkingData.def("front", (std::IntWalk_VectorOfWalkingData::const_reference (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::front, "None");
-	cls_IntWalk_VectorOfWalkingData.def("back", (std::IntWalk_VectorOfWalkingData::reference (IntWalk_VectorOfWalkingData::*)()) &IntWalk_VectorOfWalkingData::back, "None");
-	cls_IntWalk_VectorOfWalkingData.def("back", (std::IntWalk_VectorOfWalkingData::const_reference (IntWalk_VectorOfWalkingData::*)() const ) &IntWalk_VectorOfWalkingData::back, "None");
-	cls_IntWalk_VectorOfWalkingData.def("push_back", (void (IntWalk_VectorOfWalkingData::*)(const std::IntWalk_VectorOfWalkingData::value_type &)) &IntWalk_VectorOfWalkingData::push_back, "None", py::arg("_Val"));
-	cls_IntWalk_VectorOfWalkingData.def("pop_back", (void (IntWalk_VectorOfWalkingData::*)()) &IntWalk_VectorOfWalkingData::pop_back, "None");
-	cls_IntWalk_VectorOfWalkingData.def("assign", (void (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::size_type, const std::IntWalk_VectorOfWalkingData::value_type &)) &IntWalk_VectorOfWalkingData::assign, "None", py::arg("_Count"), py::arg("_Val"));
-	cls_IntWalk_VectorOfWalkingData.def("insert", (std::IntWalk_VectorOfWalkingData::iterator (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::const_iterator, const IntWalk_WalkingData &)) &IntWalk_VectorOfWalkingData::insert, "None", py::arg("_Where"), py::arg("_Val"));
-	cls_IntWalk_VectorOfWalkingData.def("insert", (std::IntWalk_VectorOfWalkingData::iterator (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::const_iterator, std::IntWalk_VectorOfWalkingData::size_type, const IntWalk_WalkingData &)) &IntWalk_VectorOfWalkingData::insert, "None", py::arg("_Where"), py::arg("_Count"), py::arg("_Val"));
-	cls_IntWalk_VectorOfWalkingData.def("erase", (std::IntWalk_VectorOfWalkingData::iterator (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::const_iterator)) &IntWalk_VectorOfWalkingData::erase, "None", py::arg("_Where"));
-	cls_IntWalk_VectorOfWalkingData.def("erase", (std::IntWalk_VectorOfWalkingData::iterator (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::const_iterator, std::IntWalk_VectorOfWalkingData::const_iterator)) &IntWalk_VectorOfWalkingData::erase, "None", py::arg("_First_arg"), py::arg("_Last_arg"));
-	cls_IntWalk_VectorOfWalkingData.def("_Pop_back_n", (void (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::size_type)) &IntWalk_VectorOfWalkingData::_Pop_back_n, "None", py::arg("_Count"));
-	cls_IntWalk_VectorOfWalkingData.def("clear", (void (IntWalk_VectorOfWalkingData::*)()) &IntWalk_VectorOfWalkingData::clear, "None");
-	cls_IntWalk_VectorOfWalkingData.def("swap", (void (IntWalk_VectorOfWalkingData::*)(std::IntWalk_VectorOfWalkingData::_Myt &)) &IntWalk_VectorOfWalkingData::swap, "None", py::arg("_Right"));
-	cls_IntWalk_VectorOfWalkingData.def("__iter__", [](const IntWalk_VectorOfWalkingData &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntWalk_VectorOfWalkingData.hxx
+	// FIXME bind_std::vector<IntWalk_WalkingData, NCollection_StdAllocator<IntWalk_WalkingData> >(mod, "IntWalk_VectorOfWalkingData");
 
 	*/
 
 	/* FIXME
-	// C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\vector
-	py::class_<IntWalk_VectorOfInteger, std::unique_ptr<IntWalk_VectorOfInteger, Deleter<IntWalk_VectorOfInteger>>, _Vector_alloc<_Vec_base_types<Standard_Integer, NCollection_StdAllocator<Standard_Integer>> >> cls_IntWalk_VectorOfInteger(mod, "IntWalk_VectorOfInteger", "None");
-	cls_IntWalk_VectorOfInteger.def(py::init<>());
-	cls_IntWalk_VectorOfInteger.def(py::init<const NCollection_StdAllocator<Standard_Integer> &>(), py::arg("_Al"));
-	cls_IntWalk_VectorOfInteger.def(py::init<std::IntWalk_VectorOfInteger::size_type>(), py::arg("_Count"));
-	cls_IntWalk_VectorOfInteger.def(py::init<std::IntWalk_VectorOfInteger::size_type, const std::IntWalk_VectorOfInteger::value_type &>(), py::arg("_Count"), py::arg("_Val"));
-	cls_IntWalk_VectorOfInteger.def(py::init<std::IntWalk_VectorOfInteger::size_type, const std::IntWalk_VectorOfInteger::value_type &, const NCollection_StdAllocator<Standard_Integer> &>(), py::arg("_Count"), py::arg("_Val"), py::arg("_Al"));
-	cls_IntWalk_VectorOfInteger.def(py::init([] (const std::IntWalk_VectorOfInteger::_Myt &other) {return new IntWalk_VectorOfInteger(other);}), "Copy constructor", py::arg("other"));
-	cls_IntWalk_VectorOfInteger.def(py::init<const std::IntWalk_VectorOfInteger::_Myt &, const NCollection_StdAllocator<Standard_Integer> &>(), py::arg("_Right"), py::arg("_Al"));
-	// FIXME cls_IntWalk_VectorOfInteger.def(py::init<std::IntWalk_VectorOfInteger::_Myt &&>(), py::arg("_Right"));
-	cls_IntWalk_VectorOfInteger.def(py::init<std::IntWalk_VectorOfInteger::_Myt &&, const NCollection_StdAllocator<Standard_Integer> &>(), py::arg("_Right"), py::arg("_Al"));
-	cls_IntWalk_VectorOfInteger.def(py::init<::std::initializer_list<value_type>>(), py::arg("_Ilist"));
-	cls_IntWalk_VectorOfInteger.def(py::init<::std::initializer_list<value_type>, const NCollection_StdAllocator<Standard_Integer> &>(), py::arg("_Ilist"), py::arg("_Al"));
-	cls_IntWalk_VectorOfInteger.def("_Construct_n", (void (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::size_type, const std::IntWalk_VectorOfInteger::value_type *)) &IntWalk_VectorOfInteger::_Construct_n, "None", py::arg("_Count"), py::arg("_Pval"));
-	// FIXME cls_IntWalk_VectorOfInteger.def("assign", (std::IntWalk_VectorOfInteger::_Myt & (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::_Myt &&)) &IntWalk_VectorOfInteger::operator=, py::is_operator(), "None", py::arg("_Right"));
-	// FIXME cls_IntWalk_VectorOfInteger.def("_Assign_rv", (void (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::_Myt &&, std::true_type)) &IntWalk_VectorOfInteger::_Assign_rv, "None", py::arg("_Right"), py::arg(""));
-	// FIXME cls_IntWalk_VectorOfInteger.def("_Assign_rv", (void (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::_Myt &&, std::false_type)) &IntWalk_VectorOfInteger::_Assign_rv, "None", py::arg("_Right"), py::arg(""));
-	// FIXME cls_IntWalk_VectorOfInteger.def("_Assign_rv", (void (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::_Myt &&)) &IntWalk_VectorOfInteger::_Assign_rv, "None", py::arg("_Right"));
-	// FIXME cls_IntWalk_VectorOfInteger.def("push_back", (void (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::value_type &&)) &IntWalk_VectorOfInteger::push_back, "None", py::arg("_Val"));
-	// FIXME cls_IntWalk_VectorOfInteger.def("insert", (std::IntWalk_VectorOfInteger::iterator (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::const_iterator, Standard_Integer &&)) &IntWalk_VectorOfInteger::insert, "None", py::arg("_Where"), py::arg("_Val"));
-	cls_IntWalk_VectorOfInteger.def("assign", (std::IntWalk_VectorOfInteger::_Myt & (IntWalk_VectorOfInteger::*)(::std::initializer_list<value_type>)) &IntWalk_VectorOfInteger::operator=, py::is_operator(), "None", py::arg("_Ilist"));
-	cls_IntWalk_VectorOfInteger.def("assign", (void (IntWalk_VectorOfInteger::*)(::std::initializer_list<value_type>)) &IntWalk_VectorOfInteger::assign, "None", py::arg("_Ilist"));
-	cls_IntWalk_VectorOfInteger.def("insert", (std::IntWalk_VectorOfInteger::iterator (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::const_iterator, ::std::initializer_list<value_type>)) &IntWalk_VectorOfInteger::insert, "None", py::arg("_Where"), py::arg("_Ilist"));
-	cls_IntWalk_VectorOfInteger.def("assign", (std::IntWalk_VectorOfInteger::_Myt & (IntWalk_VectorOfInteger::*)(const std::IntWalk_VectorOfInteger::_Myt &)) &IntWalk_VectorOfInteger::operator=, py::is_operator(), "None", py::arg("_Right"));
-	cls_IntWalk_VectorOfInteger.def("reserve", (void (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::size_type)) &IntWalk_VectorOfInteger::reserve, "None", py::arg("_Count"));
-	cls_IntWalk_VectorOfInteger.def("capacity", (std::IntWalk_VectorOfInteger::size_type (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::capacity, "None");
-	cls_IntWalk_VectorOfInteger.def("_Unused_capacity", (std::IntWalk_VectorOfInteger::size_type (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::_Unused_capacity, "None");
-	cls_IntWalk_VectorOfInteger.def("_Has_unused_capacity", (std::IntWalk_VectorOfInteger::size_type (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::_Has_unused_capacity, "None");
-	cls_IntWalk_VectorOfInteger.def("begin", (std::IntWalk_VectorOfInteger::iterator (IntWalk_VectorOfInteger::*)()) &IntWalk_VectorOfInteger::begin, "None");
-	cls_IntWalk_VectorOfInteger.def("begin", (std::IntWalk_VectorOfInteger::const_iterator (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::begin, "None");
-	cls_IntWalk_VectorOfInteger.def("end", (std::IntWalk_VectorOfInteger::iterator (IntWalk_VectorOfInteger::*)()) &IntWalk_VectorOfInteger::end, "None");
-	cls_IntWalk_VectorOfInteger.def("end", (std::IntWalk_VectorOfInteger::const_iterator (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::end, "None");
-	cls_IntWalk_VectorOfInteger.def("_Make_iter", (std::IntWalk_VectorOfInteger::iterator (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::const_iterator) const ) &IntWalk_VectorOfInteger::_Make_iter, "None", py::arg("_Where"));
-	cls_IntWalk_VectorOfInteger.def("rbegin", (std::IntWalk_VectorOfInteger::reverse_iterator (IntWalk_VectorOfInteger::*)()) &IntWalk_VectorOfInteger::rbegin, "None");
-	cls_IntWalk_VectorOfInteger.def("rbegin", (std::IntWalk_VectorOfInteger::const_reverse_iterator (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::rbegin, "None");
-	cls_IntWalk_VectorOfInteger.def("rend", (std::IntWalk_VectorOfInteger::reverse_iterator (IntWalk_VectorOfInteger::*)()) &IntWalk_VectorOfInteger::rend, "None");
-	cls_IntWalk_VectorOfInteger.def("rend", (std::IntWalk_VectorOfInteger::const_reverse_iterator (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::rend, "None");
-	cls_IntWalk_VectorOfInteger.def("cbegin", (std::IntWalk_VectorOfInteger::const_iterator (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::cbegin, "None");
-	cls_IntWalk_VectorOfInteger.def("cend", (std::IntWalk_VectorOfInteger::const_iterator (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::cend, "None");
-	cls_IntWalk_VectorOfInteger.def("crbegin", (std::IntWalk_VectorOfInteger::const_reverse_iterator (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::crbegin, "None");
-	cls_IntWalk_VectorOfInteger.def("crend", (std::IntWalk_VectorOfInteger::const_reverse_iterator (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::crend, "None");
-	cls_IntWalk_VectorOfInteger.def("shrink_to_fit", (void (IntWalk_VectorOfInteger::*)()) &IntWalk_VectorOfInteger::shrink_to_fit, "None");
-	cls_IntWalk_VectorOfInteger.def("resize", (void (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::size_type)) &IntWalk_VectorOfInteger::resize, "None", py::arg("_Newsize"));
-	cls_IntWalk_VectorOfInteger.def("resize", (void (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::size_type, const std::IntWalk_VectorOfInteger::value_type &)) &IntWalk_VectorOfInteger::resize, "None", py::arg("_Newsize"), py::arg("_Val"));
-	cls_IntWalk_VectorOfInteger.def("size", (std::IntWalk_VectorOfInteger::size_type (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::size, "None");
-	cls_IntWalk_VectorOfInteger.def("max_size", (std::IntWalk_VectorOfInteger::size_type (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::max_size, "None");
-	cls_IntWalk_VectorOfInteger.def("empty", (bool (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::empty, "None");
-	cls_IntWalk_VectorOfInteger.def("get_allocator", (NCollection_StdAllocator<Standard_Integer> (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::get_allocator, "None");
-	cls_IntWalk_VectorOfInteger.def("at", (std::IntWalk_VectorOfInteger::const_reference (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::size_type) const ) &IntWalk_VectorOfInteger::at, "None", py::arg("_Pos"));
-	cls_IntWalk_VectorOfInteger.def("at", (std::IntWalk_VectorOfInteger::reference (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::size_type)) &IntWalk_VectorOfInteger::at, "None", py::arg("_Pos"));
-	cls_IntWalk_VectorOfInteger.def("__getitem__", (std::IntWalk_VectorOfInteger::const_reference (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::size_type) const ) &IntWalk_VectorOfInteger::operator[], py::is_operator(), "None", py::arg("_Pos"));
-	cls_IntWalk_VectorOfInteger.def("__getitem__", (std::IntWalk_VectorOfInteger::reference (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::size_type)) &IntWalk_VectorOfInteger::operator[], py::is_operator(), "None", py::arg("_Pos"));
-	cls_IntWalk_VectorOfInteger.def("data", (Standard_Integer * (IntWalk_VectorOfInteger::*)()) &IntWalk_VectorOfInteger::data, "None");
-	cls_IntWalk_VectorOfInteger.def("data", (const Standard_Integer * (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::data, "None");
-	cls_IntWalk_VectorOfInteger.def("front", (std::IntWalk_VectorOfInteger::reference (IntWalk_VectorOfInteger::*)()) &IntWalk_VectorOfInteger::front, "None");
-	cls_IntWalk_VectorOfInteger.def("front", (std::IntWalk_VectorOfInteger::const_reference (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::front, "None");
-	cls_IntWalk_VectorOfInteger.def("back", (std::IntWalk_VectorOfInteger::reference (IntWalk_VectorOfInteger::*)()) &IntWalk_VectorOfInteger::back, "None");
-	cls_IntWalk_VectorOfInteger.def("back", (std::IntWalk_VectorOfInteger::const_reference (IntWalk_VectorOfInteger::*)() const ) &IntWalk_VectorOfInteger::back, "None");
-	cls_IntWalk_VectorOfInteger.def("push_back", (void (IntWalk_VectorOfInteger::*)(const std::IntWalk_VectorOfInteger::value_type &)) &IntWalk_VectorOfInteger::push_back, "None", py::arg("_Val"));
-	cls_IntWalk_VectorOfInteger.def("pop_back", (void (IntWalk_VectorOfInteger::*)()) &IntWalk_VectorOfInteger::pop_back, "None");
-	cls_IntWalk_VectorOfInteger.def("assign", (void (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::size_type, const std::IntWalk_VectorOfInteger::value_type &)) &IntWalk_VectorOfInteger::assign, "None", py::arg("_Count"), py::arg("_Val"));
-	cls_IntWalk_VectorOfInteger.def("insert", (std::IntWalk_VectorOfInteger::iterator (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::const_iterator, const Standard_Integer &)) &IntWalk_VectorOfInteger::insert, "None", py::arg("_Where"), py::arg("_Val"));
-	cls_IntWalk_VectorOfInteger.def("insert", (std::IntWalk_VectorOfInteger::iterator (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::const_iterator, std::IntWalk_VectorOfInteger::size_type, const Standard_Integer &)) &IntWalk_VectorOfInteger::insert, "None", py::arg("_Where"), py::arg("_Count"), py::arg("_Val"));
-	cls_IntWalk_VectorOfInteger.def("erase", (std::IntWalk_VectorOfInteger::iterator (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::const_iterator)) &IntWalk_VectorOfInteger::erase, "None", py::arg("_Where"));
-	cls_IntWalk_VectorOfInteger.def("erase", (std::IntWalk_VectorOfInteger::iterator (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::const_iterator, std::IntWalk_VectorOfInteger::const_iterator)) &IntWalk_VectorOfInteger::erase, "None", py::arg("_First_arg"), py::arg("_Last_arg"));
-	cls_IntWalk_VectorOfInteger.def("_Pop_back_n", (void (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::size_type)) &IntWalk_VectorOfInteger::_Pop_back_n, "None", py::arg("_Count"));
-	cls_IntWalk_VectorOfInteger.def("clear", (void (IntWalk_VectorOfInteger::*)()) &IntWalk_VectorOfInteger::clear, "None");
-	cls_IntWalk_VectorOfInteger.def("swap", (void (IntWalk_VectorOfInteger::*)(std::IntWalk_VectorOfInteger::_Myt &)) &IntWalk_VectorOfInteger::swap, "None", py::arg("_Right"));
-	cls_IntWalk_VectorOfInteger.def("__iter__", [](const IntWalk_VectorOfInteger &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IntWalk_VectorOfInteger.hxx
+	// FIXME bind_std::vector<int, NCollection_StdAllocator<int> >(mod, "IntWalk_VectorOfInteger");
 
 	*/
 

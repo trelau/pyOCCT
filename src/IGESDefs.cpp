@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_TypeDef.hxx>
@@ -63,6 +54,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <IGESDefs_SpecificModule.hxx>
 #include <IGESGraph_HArray1OfTextDisplayTemplate.hxx>
 #include <IGESDefs.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(IGESDefs, mod) {
 
@@ -105,40 +97,8 @@ PYBIND11_MODULE(IGESDefs, mod) {
 	cls_IGESDefs_TabularData.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESDefs_TabularData::get_type_descriptor, "None");
 	cls_IGESDefs_TabularData.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESDefs_TabularData::*)() const ) &IGESDefs_TabularData::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<IGESDefs_Array1OfTabularData, std::unique_ptr<IGESDefs_Array1OfTabularData, Deleter<IGESDefs_Array1OfTabularData>>> cls_IGESDefs_Array1OfTabularData(mod, "IGESDefs_Array1OfTabularData", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_IGESDefs_Array1OfTabularData.def(py::init<>());
-	cls_IGESDefs_Array1OfTabularData.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESDefs_Array1OfTabularData.def(py::init([] (const IGESDefs_Array1OfTabularData &other) {return new IGESDefs_Array1OfTabularData(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_IGESDefs_Array1OfTabularData.def(py::init<IGESDefs_Array1OfTabularData &&>(), py::arg("theOther"));
-	cls_IGESDefs_Array1OfTabularData.def(py::init<const opencascade::handle<IGESDefs_TabularData> &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_IGESDefs_Array1OfTabularData.def("begin", (IGESDefs_Array1OfTabularData::iterator (IGESDefs_Array1OfTabularData::*)() const ) &IGESDefs_Array1OfTabularData::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_IGESDefs_Array1OfTabularData.def("end", (IGESDefs_Array1OfTabularData::iterator (IGESDefs_Array1OfTabularData::*)() const ) &IGESDefs_Array1OfTabularData::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_IGESDefs_Array1OfTabularData.def("cbegin", (IGESDefs_Array1OfTabularData::const_iterator (IGESDefs_Array1OfTabularData::*)() const ) &IGESDefs_Array1OfTabularData::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_IGESDefs_Array1OfTabularData.def("cend", (IGESDefs_Array1OfTabularData::const_iterator (IGESDefs_Array1OfTabularData::*)() const ) &IGESDefs_Array1OfTabularData::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_IGESDefs_Array1OfTabularData.def("Init", (void (IGESDefs_Array1OfTabularData::*)(const opencascade::handle<IGESDefs_TabularData> &)) &IGESDefs_Array1OfTabularData::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_IGESDefs_Array1OfTabularData.def("Size", (Standard_Integer (IGESDefs_Array1OfTabularData::*)() const ) &IGESDefs_Array1OfTabularData::Size, "Size query");
-	cls_IGESDefs_Array1OfTabularData.def("Length", (Standard_Integer (IGESDefs_Array1OfTabularData::*)() const ) &IGESDefs_Array1OfTabularData::Length, "Length query (the same)");
-	cls_IGESDefs_Array1OfTabularData.def("IsEmpty", (Standard_Boolean (IGESDefs_Array1OfTabularData::*)() const ) &IGESDefs_Array1OfTabularData::IsEmpty, "Return TRUE if array has zero length.");
-	cls_IGESDefs_Array1OfTabularData.def("Lower", (Standard_Integer (IGESDefs_Array1OfTabularData::*)() const ) &IGESDefs_Array1OfTabularData::Lower, "Lower bound");
-	cls_IGESDefs_Array1OfTabularData.def("Upper", (Standard_Integer (IGESDefs_Array1OfTabularData::*)() const ) &IGESDefs_Array1OfTabularData::Upper, "Upper bound");
-	cls_IGESDefs_Array1OfTabularData.def("IsDeletable", (Standard_Boolean (IGESDefs_Array1OfTabularData::*)() const ) &IGESDefs_Array1OfTabularData::IsDeletable, "myDeletable flag");
-	cls_IGESDefs_Array1OfTabularData.def("IsAllocated", (Standard_Boolean (IGESDefs_Array1OfTabularData::*)() const ) &IGESDefs_Array1OfTabularData::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_IGESDefs_Array1OfTabularData.def("Assign", (IGESDefs_Array1OfTabularData & (IGESDefs_Array1OfTabularData::*)(const IGESDefs_Array1OfTabularData &)) &IGESDefs_Array1OfTabularData::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_IGESDefs_Array1OfTabularData.def("Move", (IGESDefs_Array1OfTabularData & (IGESDefs_Array1OfTabularData::*)(IGESDefs_Array1OfTabularData &&)) &IGESDefs_Array1OfTabularData::Move, "Move assignment", py::arg("theOther"));
-	cls_IGESDefs_Array1OfTabularData.def("assign", (IGESDefs_Array1OfTabularData & (IGESDefs_Array1OfTabularData::*)(const IGESDefs_Array1OfTabularData &)) &IGESDefs_Array1OfTabularData::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_IGESDefs_Array1OfTabularData.def("assign", (IGESDefs_Array1OfTabularData & (IGESDefs_Array1OfTabularData::*)(IGESDefs_Array1OfTabularData &&)) &IGESDefs_Array1OfTabularData::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_IGESDefs_Array1OfTabularData.def("First", (const opencascade::handle<IGESDefs_TabularData> & (IGESDefs_Array1OfTabularData::*)() const ) &IGESDefs_Array1OfTabularData::First, "Returns first element");
-	cls_IGESDefs_Array1OfTabularData.def("ChangeFirst", (opencascade::handle<IGESDefs_TabularData> & (IGESDefs_Array1OfTabularData::*)()) &IGESDefs_Array1OfTabularData::ChangeFirst, "Returns first element");
-	cls_IGESDefs_Array1OfTabularData.def("Last", (const opencascade::handle<IGESDefs_TabularData> & (IGESDefs_Array1OfTabularData::*)() const ) &IGESDefs_Array1OfTabularData::Last, "Returns last element");
-	cls_IGESDefs_Array1OfTabularData.def("ChangeLast", (opencascade::handle<IGESDefs_TabularData> & (IGESDefs_Array1OfTabularData::*)()) &IGESDefs_Array1OfTabularData::ChangeLast, "Returns last element");
-	cls_IGESDefs_Array1OfTabularData.def("Value", (const opencascade::handle<IGESDefs_TabularData> & (IGESDefs_Array1OfTabularData::*)(const Standard_Integer) const ) &IGESDefs_Array1OfTabularData::Value, "Constant value access", py::arg("theIndex"));
-	cls_IGESDefs_Array1OfTabularData.def("__call__", (const opencascade::handle<IGESDefs_TabularData> & (IGESDefs_Array1OfTabularData::*)(const Standard_Integer) const ) &IGESDefs_Array1OfTabularData::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_IGESDefs_Array1OfTabularData.def("ChangeValue", (opencascade::handle<IGESDefs_TabularData> & (IGESDefs_Array1OfTabularData::*)(const Standard_Integer)) &IGESDefs_Array1OfTabularData::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_IGESDefs_Array1OfTabularData.def("__call__", (opencascade::handle<IGESDefs_TabularData> & (IGESDefs_Array1OfTabularData::*)(const Standard_Integer)) &IGESDefs_Array1OfTabularData::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_IGESDefs_Array1OfTabularData.def("SetValue", (void (IGESDefs_Array1OfTabularData::*)(const Standard_Integer, const opencascade::handle<IGESDefs_TabularData> &)) &IGESDefs_Array1OfTabularData::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_IGESDefs_Array1OfTabularData.def("Resize", (void (IGESDefs_Array1OfTabularData::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &IGESDefs_Array1OfTabularData::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_IGESDefs_Array1OfTabularData.def("__iter__", [](const IGESDefs_Array1OfTabularData &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESDefs_Array1OfTabularData.hxx
+	bind_NCollection_Array1<opencascade::handle<IGESDefs_TabularData> >(mod, "IGESDefs_Array1OfTabularData");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IGESDefs_Protocol.hxx
 	py::class_<IGESDefs_Protocol, opencascade::handle<IGESDefs_Protocol>, IGESData_Protocol> cls_IGESDefs_Protocol(mod, "IGESDefs_Protocol", "Description of Protocol for IGESDefs");

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <BRepOffset_Type.hxx>
 #include <Standard_TypeDef.hxx>
@@ -62,6 +53,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <TopoDS_Wire.hxx>
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <BRepOffset_Tool.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(BRepOffset, mod) {
 
@@ -338,143 +330,32 @@ PYBIND11_MODULE(BRepOffset, mod) {
 	cls_BRepOffset_Tool.def_static("CheckPlanesNormals_", [](const TopoDS_Face & a0, const TopoDS_Face & a1) -> Standard_Boolean { return BRepOffset_Tool::CheckPlanesNormals(a0, a1); }, py::arg("theFace1"), py::arg("theFace2"));
 	cls_BRepOffset_Tool.def_static("CheckPlanesNormals_", (Standard_Boolean (*)(const TopoDS_Face &, const TopoDS_Face &, const Standard_Real)) &BRepOffset_Tool::CheckPlanesNormals, "Compares the normal directions of the planar faces and returns TRUE if the directions are the same with the given precision.", py::arg("theFace1"), py::arg("theFace2"), py::arg("theTolAng"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<BRepOffset_ListOfInterval, std::unique_ptr<BRepOffset_ListOfInterval, Deleter<BRepOffset_ListOfInterval>>, NCollection_BaseList> cls_BRepOffset_ListOfInterval(mod, "BRepOffset_ListOfInterval", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_BRepOffset_ListOfInterval.def(py::init<>());
-	cls_BRepOffset_ListOfInterval.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_BRepOffset_ListOfInterval.def(py::init([] (const BRepOffset_ListOfInterval &other) {return new BRepOffset_ListOfInterval(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepOffset_ListOfInterval.def("begin", (BRepOffset_ListOfInterval::iterator (BRepOffset_ListOfInterval::*)() const ) &BRepOffset_ListOfInterval::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_BRepOffset_ListOfInterval.def("end", (BRepOffset_ListOfInterval::iterator (BRepOffset_ListOfInterval::*)() const ) &BRepOffset_ListOfInterval::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_BRepOffset_ListOfInterval.def("cbegin", (BRepOffset_ListOfInterval::const_iterator (BRepOffset_ListOfInterval::*)() const ) &BRepOffset_ListOfInterval::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_BRepOffset_ListOfInterval.def("cend", (BRepOffset_ListOfInterval::const_iterator (BRepOffset_ListOfInterval::*)() const ) &BRepOffset_ListOfInterval::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_BRepOffset_ListOfInterval.def("Size", (Standard_Integer (BRepOffset_ListOfInterval::*)() const ) &BRepOffset_ListOfInterval::Size, "Size - Number of items");
-	cls_BRepOffset_ListOfInterval.def("Assign", (BRepOffset_ListOfInterval & (BRepOffset_ListOfInterval::*)(const BRepOffset_ListOfInterval &)) &BRepOffset_ListOfInterval::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepOffset_ListOfInterval.def("assign", (BRepOffset_ListOfInterval & (BRepOffset_ListOfInterval::*)(const BRepOffset_ListOfInterval &)) &BRepOffset_ListOfInterval::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_BRepOffset_ListOfInterval.def("Clear", [](BRepOffset_ListOfInterval &self) -> void { return self.Clear(); });
-	cls_BRepOffset_ListOfInterval.def("Clear", (void (BRepOffset_ListOfInterval::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepOffset_ListOfInterval::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_BRepOffset_ListOfInterval.def("First", (const BRepOffset_Interval & (BRepOffset_ListOfInterval::*)() const ) &BRepOffset_ListOfInterval::First, "First item");
-	cls_BRepOffset_ListOfInterval.def("First", (BRepOffset_Interval & (BRepOffset_ListOfInterval::*)()) &BRepOffset_ListOfInterval::First, "First item (non-const)");
-	cls_BRepOffset_ListOfInterval.def("Last", (const BRepOffset_Interval & (BRepOffset_ListOfInterval::*)() const ) &BRepOffset_ListOfInterval::Last, "Last item");
-	cls_BRepOffset_ListOfInterval.def("Last", (BRepOffset_Interval & (BRepOffset_ListOfInterval::*)()) &BRepOffset_ListOfInterval::Last, "Last item (non-const)");
-	cls_BRepOffset_ListOfInterval.def("Append", (BRepOffset_Interval & (BRepOffset_ListOfInterval::*)(const BRepOffset_Interval &)) &BRepOffset_ListOfInterval::Append, "Append one item at the end", py::arg("theItem"));
-	cls_BRepOffset_ListOfInterval.def("Append", (void (BRepOffset_ListOfInterval::*)(const BRepOffset_Interval &, BRepOffset_ListOfInterval::Iterator &)) &BRepOffset_ListOfInterval::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_BRepOffset_ListOfInterval.def("Append", (void (BRepOffset_ListOfInterval::*)(BRepOffset_ListOfInterval &)) &BRepOffset_ListOfInterval::Append, "Append another list at the end", py::arg("theOther"));
-	cls_BRepOffset_ListOfInterval.def("Prepend", (BRepOffset_Interval & (BRepOffset_ListOfInterval::*)(const BRepOffset_Interval &)) &BRepOffset_ListOfInterval::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_BRepOffset_ListOfInterval.def("Prepend", (void (BRepOffset_ListOfInterval::*)(BRepOffset_ListOfInterval &)) &BRepOffset_ListOfInterval::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_BRepOffset_ListOfInterval.def("RemoveFirst", (void (BRepOffset_ListOfInterval::*)()) &BRepOffset_ListOfInterval::RemoveFirst, "RemoveFirst item");
-	cls_BRepOffset_ListOfInterval.def("Remove", (void (BRepOffset_ListOfInterval::*)(BRepOffset_ListOfInterval::Iterator &)) &BRepOffset_ListOfInterval::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_BRepOffset_ListOfInterval.def("InsertBefore", (BRepOffset_Interval & (BRepOffset_ListOfInterval::*)(const BRepOffset_Interval &, BRepOffset_ListOfInterval::Iterator &)) &BRepOffset_ListOfInterval::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_BRepOffset_ListOfInterval.def("InsertBefore", (void (BRepOffset_ListOfInterval::*)(BRepOffset_ListOfInterval &, BRepOffset_ListOfInterval::Iterator &)) &BRepOffset_ListOfInterval::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_BRepOffset_ListOfInterval.def("InsertAfter", (BRepOffset_Interval & (BRepOffset_ListOfInterval::*)(const BRepOffset_Interval &, BRepOffset_ListOfInterval::Iterator &)) &BRepOffset_ListOfInterval::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_BRepOffset_ListOfInterval.def("InsertAfter", (void (BRepOffset_ListOfInterval::*)(BRepOffset_ListOfInterval &, BRepOffset_ListOfInterval::Iterator &)) &BRepOffset_ListOfInterval::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_BRepOffset_ListOfInterval.def("Reverse", (void (BRepOffset_ListOfInterval::*)()) &BRepOffset_ListOfInterval::Reverse, "Reverse the list");
-	cls_BRepOffset_ListOfInterval.def("__iter__", [](const BRepOffset_ListOfInterval &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepOffset_ListOfInterval.hxx
+	bind_NCollection_List<BRepOffset_Interval>(mod, "BRepOffset_ListOfInterval");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_TListIterator.hxx
-	py::class_<BRepOffset_ListIteratorOfListOfInterval, std::unique_ptr<BRepOffset_ListIteratorOfListOfInterval, Deleter<BRepOffset_ListIteratorOfListOfInterval>>> cls_BRepOffset_ListIteratorOfListOfInterval(mod, "BRepOffset_ListIteratorOfListOfInterval", "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class");
-	cls_BRepOffset_ListIteratorOfListOfInterval.def(py::init<>());
-	cls_BRepOffset_ListIteratorOfListOfInterval.def(py::init<const NCollection_BaseList &>(), py::arg("theList"));
-	cls_BRepOffset_ListIteratorOfListOfInterval.def("More", (Standard_Boolean (BRepOffset_ListIteratorOfListOfInterval::*)() const ) &BRepOffset_ListIteratorOfListOfInterval::More, "Check end");
-	cls_BRepOffset_ListIteratorOfListOfInterval.def("Next", (void (BRepOffset_ListIteratorOfListOfInterval::*)()) &BRepOffset_ListIteratorOfListOfInterval::Next, "Make step");
-	cls_BRepOffset_ListIteratorOfListOfInterval.def("Value", (const BRepOffset_Interval & (BRepOffset_ListIteratorOfListOfInterval::*)() const ) &BRepOffset_ListIteratorOfListOfInterval::Value, "Constant Value access");
-	cls_BRepOffset_ListIteratorOfListOfInterval.def("Value", (BRepOffset_Interval & (BRepOffset_ListIteratorOfListOfInterval::*)()) &BRepOffset_ListIteratorOfListOfInterval::Value, "Non-const Value access");
-	cls_BRepOffset_ListIteratorOfListOfInterval.def("ChangeValue", (BRepOffset_Interval & (BRepOffset_ListIteratorOfListOfInterval::*)() const ) &BRepOffset_ListIteratorOfListOfInterval::ChangeValue, "Non-const Value access");
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<BRepOffset_DataMapOfShapeListOfInterval, std::unique_ptr<BRepOffset_DataMapOfShapeListOfInterval, Deleter<BRepOffset_DataMapOfShapeListOfInterval>>, NCollection_BaseMap> cls_BRepOffset_DataMapOfShapeListOfInterval(mod, "BRepOffset_DataMapOfShapeListOfInterval", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def(py::init<>());
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def(py::init([] (const BRepOffset_DataMapOfShapeListOfInterval &other) {return new BRepOffset_DataMapOfShapeListOfInterval(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("begin", (BRepOffset_DataMapOfShapeListOfInterval::iterator (BRepOffset_DataMapOfShapeListOfInterval::*)() const ) &BRepOffset_DataMapOfShapeListOfInterval::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("end", (BRepOffset_DataMapOfShapeListOfInterval::iterator (BRepOffset_DataMapOfShapeListOfInterval::*)() const ) &BRepOffset_DataMapOfShapeListOfInterval::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("cbegin", (BRepOffset_DataMapOfShapeListOfInterval::const_iterator (BRepOffset_DataMapOfShapeListOfInterval::*)() const ) &BRepOffset_DataMapOfShapeListOfInterval::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("cend", (BRepOffset_DataMapOfShapeListOfInterval::const_iterator (BRepOffset_DataMapOfShapeListOfInterval::*)() const ) &BRepOffset_DataMapOfShapeListOfInterval::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("Exchange", (void (BRepOffset_DataMapOfShapeListOfInterval::*)(BRepOffset_DataMapOfShapeListOfInterval &)) &BRepOffset_DataMapOfShapeListOfInterval::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("Assign", (BRepOffset_DataMapOfShapeListOfInterval & (BRepOffset_DataMapOfShapeListOfInterval::*)(const BRepOffset_DataMapOfShapeListOfInterval &)) &BRepOffset_DataMapOfShapeListOfInterval::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("assign", (BRepOffset_DataMapOfShapeListOfInterval & (BRepOffset_DataMapOfShapeListOfInterval::*)(const BRepOffset_DataMapOfShapeListOfInterval &)) &BRepOffset_DataMapOfShapeListOfInterval::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("ReSize", (void (BRepOffset_DataMapOfShapeListOfInterval::*)(const Standard_Integer)) &BRepOffset_DataMapOfShapeListOfInterval::ReSize, "ReSize", py::arg("N"));
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("Bind", (Standard_Boolean (BRepOffset_DataMapOfShapeListOfInterval::*)(const TopoDS_Shape &, const BRepOffset_ListOfInterval &)) &BRepOffset_DataMapOfShapeListOfInterval::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_BRepOffset_DataMapOfShapeListOfInterval.def("Bound", (BRepOffset_ListOfInterval * (BRepOffset_DataMapOfShapeListOfInterval::*)(const TopoDS_Shape &, const BRepOffset_ListOfInterval &)) &BRepOffset_DataMapOfShapeListOfInterval::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("IsBound", (Standard_Boolean (BRepOffset_DataMapOfShapeListOfInterval::*)(const TopoDS_Shape &) const ) &BRepOffset_DataMapOfShapeListOfInterval::IsBound, "IsBound", py::arg("theKey"));
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("UnBind", (Standard_Boolean (BRepOffset_DataMapOfShapeListOfInterval::*)(const TopoDS_Shape &)) &BRepOffset_DataMapOfShapeListOfInterval::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_BRepOffset_DataMapOfShapeListOfInterval.def("Seek", (const BRepOffset_ListOfInterval * (BRepOffset_DataMapOfShapeListOfInterval::*)(const TopoDS_Shape &) const ) &BRepOffset_DataMapOfShapeListOfInterval::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_BRepOffset_DataMapOfShapeListOfInterval.def("Find", (const BRepOffset_ListOfInterval & (BRepOffset_DataMapOfShapeListOfInterval::*)(const TopoDS_Shape &) const ) &BRepOffset_DataMapOfShapeListOfInterval::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_BRepOffset_DataMapOfShapeListOfInterval.def("Find", (Standard_Boolean (BRepOffset_DataMapOfShapeListOfInterval::*)(const TopoDS_Shape &, BRepOffset_ListOfInterval &) const ) &BRepOffset_DataMapOfShapeListOfInterval::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("__call__", (const BRepOffset_ListOfInterval & (BRepOffset_DataMapOfShapeListOfInterval::*)(const TopoDS_Shape &) const ) &BRepOffset_DataMapOfShapeListOfInterval::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_BRepOffset_DataMapOfShapeListOfInterval.def("ChangeSeek", (BRepOffset_ListOfInterval * (BRepOffset_DataMapOfShapeListOfInterval::*)(const TopoDS_Shape &)) &BRepOffset_DataMapOfShapeListOfInterval::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("ChangeFind", (BRepOffset_ListOfInterval & (BRepOffset_DataMapOfShapeListOfInterval::*)(const TopoDS_Shape &)) &BRepOffset_DataMapOfShapeListOfInterval::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("__call__", (BRepOffset_ListOfInterval & (BRepOffset_DataMapOfShapeListOfInterval::*)(const TopoDS_Shape &)) &BRepOffset_DataMapOfShapeListOfInterval::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("Clear", [](BRepOffset_DataMapOfShapeListOfInterval &self) -> void { return self.Clear(); });
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("Clear", (void (BRepOffset_DataMapOfShapeListOfInterval::*)(const Standard_Boolean)) &BRepOffset_DataMapOfShapeListOfInterval::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("Clear", (void (BRepOffset_DataMapOfShapeListOfInterval::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepOffset_DataMapOfShapeListOfInterval::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("Size", (Standard_Integer (BRepOffset_DataMapOfShapeListOfInterval::*)() const ) &BRepOffset_DataMapOfShapeListOfInterval::Size, "Size");
-	cls_BRepOffset_DataMapOfShapeListOfInterval.def("__iter__", [](const BRepOffset_DataMapOfShapeListOfInterval &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepOffset_ListOfInterval.hxx
+	bind_NCollection_TListIterator<BRepOffset_Interval>(mod, "BRepOffset_ListIteratorOfListOfInterval");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepOffset_DataMapOfShapeListOfInterval.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<BRepOffset_DataMapOfShapeOffset, std::unique_ptr<BRepOffset_DataMapOfShapeOffset, Deleter<BRepOffset_DataMapOfShapeOffset>>, NCollection_BaseMap> cls_BRepOffset_DataMapOfShapeOffset(mod, "BRepOffset_DataMapOfShapeOffset", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_BRepOffset_DataMapOfShapeOffset.def(py::init<>());
-	cls_BRepOffset_DataMapOfShapeOffset.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BRepOffset_DataMapOfShapeOffset.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BRepOffset_DataMapOfShapeOffset.def(py::init([] (const BRepOffset_DataMapOfShapeOffset &other) {return new BRepOffset_DataMapOfShapeOffset(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepOffset_DataMapOfShapeOffset.def("begin", (BRepOffset_DataMapOfShapeOffset::iterator (BRepOffset_DataMapOfShapeOffset::*)() const ) &BRepOffset_DataMapOfShapeOffset::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_BRepOffset_DataMapOfShapeOffset.def("end", (BRepOffset_DataMapOfShapeOffset::iterator (BRepOffset_DataMapOfShapeOffset::*)() const ) &BRepOffset_DataMapOfShapeOffset::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_BRepOffset_DataMapOfShapeOffset.def("cbegin", (BRepOffset_DataMapOfShapeOffset::const_iterator (BRepOffset_DataMapOfShapeOffset::*)() const ) &BRepOffset_DataMapOfShapeOffset::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_BRepOffset_DataMapOfShapeOffset.def("cend", (BRepOffset_DataMapOfShapeOffset::const_iterator (BRepOffset_DataMapOfShapeOffset::*)() const ) &BRepOffset_DataMapOfShapeOffset::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_BRepOffset_DataMapOfShapeOffset.def("Exchange", (void (BRepOffset_DataMapOfShapeOffset::*)(BRepOffset_DataMapOfShapeOffset &)) &BRepOffset_DataMapOfShapeOffset::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BRepOffset_DataMapOfShapeOffset.def("Assign", (BRepOffset_DataMapOfShapeOffset & (BRepOffset_DataMapOfShapeOffset::*)(const BRepOffset_DataMapOfShapeOffset &)) &BRepOffset_DataMapOfShapeOffset::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepOffset_DataMapOfShapeOffset.def("assign", (BRepOffset_DataMapOfShapeOffset & (BRepOffset_DataMapOfShapeOffset::*)(const BRepOffset_DataMapOfShapeOffset &)) &BRepOffset_DataMapOfShapeOffset::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BRepOffset_DataMapOfShapeOffset.def("ReSize", (void (BRepOffset_DataMapOfShapeOffset::*)(const Standard_Integer)) &BRepOffset_DataMapOfShapeOffset::ReSize, "ReSize", py::arg("N"));
-	cls_BRepOffset_DataMapOfShapeOffset.def("Bind", (Standard_Boolean (BRepOffset_DataMapOfShapeOffset::*)(const TopoDS_Shape &, const BRepOffset_Offset &)) &BRepOffset_DataMapOfShapeOffset::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_BRepOffset_DataMapOfShapeOffset.def("Bound", (BRepOffset_Offset * (BRepOffset_DataMapOfShapeOffset::*)(const TopoDS_Shape &, const BRepOffset_Offset &)) &BRepOffset_DataMapOfShapeOffset::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_BRepOffset_DataMapOfShapeOffset.def("IsBound", (Standard_Boolean (BRepOffset_DataMapOfShapeOffset::*)(const TopoDS_Shape &) const ) &BRepOffset_DataMapOfShapeOffset::IsBound, "IsBound", py::arg("theKey"));
-	cls_BRepOffset_DataMapOfShapeOffset.def("UnBind", (Standard_Boolean (BRepOffset_DataMapOfShapeOffset::*)(const TopoDS_Shape &)) &BRepOffset_DataMapOfShapeOffset::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_BRepOffset_DataMapOfShapeOffset.def("Seek", (const BRepOffset_Offset * (BRepOffset_DataMapOfShapeOffset::*)(const TopoDS_Shape &) const ) &BRepOffset_DataMapOfShapeOffset::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_BRepOffset_DataMapOfShapeOffset.def("Find", (const BRepOffset_Offset & (BRepOffset_DataMapOfShapeOffset::*)(const TopoDS_Shape &) const ) &BRepOffset_DataMapOfShapeOffset::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_BRepOffset_DataMapOfShapeOffset.def("Find", (Standard_Boolean (BRepOffset_DataMapOfShapeOffset::*)(const TopoDS_Shape &, BRepOffset_Offset &) const ) &BRepOffset_DataMapOfShapeOffset::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_BRepOffset_DataMapOfShapeOffset.def("__call__", (const BRepOffset_Offset & (BRepOffset_DataMapOfShapeOffset::*)(const TopoDS_Shape &) const ) &BRepOffset_DataMapOfShapeOffset::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_BRepOffset_DataMapOfShapeOffset.def("ChangeSeek", (BRepOffset_Offset * (BRepOffset_DataMapOfShapeOffset::*)(const TopoDS_Shape &)) &BRepOffset_DataMapOfShapeOffset::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_BRepOffset_DataMapOfShapeOffset.def("ChangeFind", (BRepOffset_Offset & (BRepOffset_DataMapOfShapeOffset::*)(const TopoDS_Shape &)) &BRepOffset_DataMapOfShapeOffset::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_BRepOffset_DataMapOfShapeOffset.def("__call__", (BRepOffset_Offset & (BRepOffset_DataMapOfShapeOffset::*)(const TopoDS_Shape &)) &BRepOffset_DataMapOfShapeOffset::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_BRepOffset_DataMapOfShapeOffset.def("Clear", [](BRepOffset_DataMapOfShapeOffset &self) -> void { return self.Clear(); });
-	cls_BRepOffset_DataMapOfShapeOffset.def("Clear", (void (BRepOffset_DataMapOfShapeOffset::*)(const Standard_Boolean)) &BRepOffset_DataMapOfShapeOffset::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BRepOffset_DataMapOfShapeOffset.def("Clear", (void (BRepOffset_DataMapOfShapeOffset::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepOffset_DataMapOfShapeOffset::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BRepOffset_DataMapOfShapeOffset.def("Size", (Standard_Integer (BRepOffset_DataMapOfShapeOffset::*)() const ) &BRepOffset_DataMapOfShapeOffset::Size, "Size");
-	cls_BRepOffset_DataMapOfShapeOffset.def("__iter__", [](const BRepOffset_DataMapOfShapeOffset &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TopoDS_Shape, NCollection_List<BRepOffset_Interval>, TopTools_ShapeMapHasher>(mod, "BRepOffset_DataMapOfShapeListOfInterval");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepOffset_DataMapOfShapeOffset.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<BRepOffset_DataMapOfShapeMapOfShape, std::unique_ptr<BRepOffset_DataMapOfShapeMapOfShape, Deleter<BRepOffset_DataMapOfShapeMapOfShape>>, NCollection_BaseMap> cls_BRepOffset_DataMapOfShapeMapOfShape(mod, "BRepOffset_DataMapOfShapeMapOfShape", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def(py::init<>());
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def(py::init([] (const BRepOffset_DataMapOfShapeMapOfShape &other) {return new BRepOffset_DataMapOfShapeMapOfShape(other);}), "Copy constructor", py::arg("other"));
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("begin", (BRepOffset_DataMapOfShapeMapOfShape::iterator (BRepOffset_DataMapOfShapeMapOfShape::*)() const ) &BRepOffset_DataMapOfShapeMapOfShape::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("end", (BRepOffset_DataMapOfShapeMapOfShape::iterator (BRepOffset_DataMapOfShapeMapOfShape::*)() const ) &BRepOffset_DataMapOfShapeMapOfShape::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("cbegin", (BRepOffset_DataMapOfShapeMapOfShape::const_iterator (BRepOffset_DataMapOfShapeMapOfShape::*)() const ) &BRepOffset_DataMapOfShapeMapOfShape::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("cend", (BRepOffset_DataMapOfShapeMapOfShape::const_iterator (BRepOffset_DataMapOfShapeMapOfShape::*)() const ) &BRepOffset_DataMapOfShapeMapOfShape::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("Exchange", (void (BRepOffset_DataMapOfShapeMapOfShape::*)(BRepOffset_DataMapOfShapeMapOfShape &)) &BRepOffset_DataMapOfShapeMapOfShape::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("Assign", (BRepOffset_DataMapOfShapeMapOfShape & (BRepOffset_DataMapOfShapeMapOfShape::*)(const BRepOffset_DataMapOfShapeMapOfShape &)) &BRepOffset_DataMapOfShapeMapOfShape::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("assign", (BRepOffset_DataMapOfShapeMapOfShape & (BRepOffset_DataMapOfShapeMapOfShape::*)(const BRepOffset_DataMapOfShapeMapOfShape &)) &BRepOffset_DataMapOfShapeMapOfShape::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("ReSize", (void (BRepOffset_DataMapOfShapeMapOfShape::*)(const Standard_Integer)) &BRepOffset_DataMapOfShapeMapOfShape::ReSize, "ReSize", py::arg("N"));
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("Bind", (Standard_Boolean (BRepOffset_DataMapOfShapeMapOfShape::*)(const TopoDS_Shape &, const TopTools_MapOfShape &)) &BRepOffset_DataMapOfShapeMapOfShape::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_BRepOffset_DataMapOfShapeMapOfShape.def("Bound", (TopTools_MapOfShape * (BRepOffset_DataMapOfShapeMapOfShape::*)(const TopoDS_Shape &, const TopTools_MapOfShape &)) &BRepOffset_DataMapOfShapeMapOfShape::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("IsBound", (Standard_Boolean (BRepOffset_DataMapOfShapeMapOfShape::*)(const TopoDS_Shape &) const ) &BRepOffset_DataMapOfShapeMapOfShape::IsBound, "IsBound", py::arg("theKey"));
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("UnBind", (Standard_Boolean (BRepOffset_DataMapOfShapeMapOfShape::*)(const TopoDS_Shape &)) &BRepOffset_DataMapOfShapeMapOfShape::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_BRepOffset_DataMapOfShapeMapOfShape.def("Seek", (const TopTools_MapOfShape * (BRepOffset_DataMapOfShapeMapOfShape::*)(const TopoDS_Shape &) const ) &BRepOffset_DataMapOfShapeMapOfShape::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_BRepOffset_DataMapOfShapeMapOfShape.def("Find", (const TopTools_MapOfShape & (BRepOffset_DataMapOfShapeMapOfShape::*)(const TopoDS_Shape &) const ) &BRepOffset_DataMapOfShapeMapOfShape::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_BRepOffset_DataMapOfShapeMapOfShape.def("Find", (Standard_Boolean (BRepOffset_DataMapOfShapeMapOfShape::*)(const TopoDS_Shape &, TopTools_MapOfShape &) const ) &BRepOffset_DataMapOfShapeMapOfShape::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("__call__", (const TopTools_MapOfShape & (BRepOffset_DataMapOfShapeMapOfShape::*)(const TopoDS_Shape &) const ) &BRepOffset_DataMapOfShapeMapOfShape::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_BRepOffset_DataMapOfShapeMapOfShape.def("ChangeSeek", (TopTools_MapOfShape * (BRepOffset_DataMapOfShapeMapOfShape::*)(const TopoDS_Shape &)) &BRepOffset_DataMapOfShapeMapOfShape::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("ChangeFind", (TopTools_MapOfShape & (BRepOffset_DataMapOfShapeMapOfShape::*)(const TopoDS_Shape &)) &BRepOffset_DataMapOfShapeMapOfShape::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("__call__", (TopTools_MapOfShape & (BRepOffset_DataMapOfShapeMapOfShape::*)(const TopoDS_Shape &)) &BRepOffset_DataMapOfShapeMapOfShape::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("Clear", [](BRepOffset_DataMapOfShapeMapOfShape &self) -> void { return self.Clear(); });
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("Clear", (void (BRepOffset_DataMapOfShapeMapOfShape::*)(const Standard_Boolean)) &BRepOffset_DataMapOfShapeMapOfShape::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("Clear", (void (BRepOffset_DataMapOfShapeMapOfShape::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &BRepOffset_DataMapOfShapeMapOfShape::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("Size", (Standard_Integer (BRepOffset_DataMapOfShapeMapOfShape::*)() const ) &BRepOffset_DataMapOfShapeMapOfShape::Size, "Size");
-	cls_BRepOffset_DataMapOfShapeMapOfShape.def("__iter__", [](const BRepOffset_DataMapOfShapeMapOfShape &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TopoDS_Shape, BRepOffset_Offset, TopTools_ShapeMapHasher>(mod, "BRepOffset_DataMapOfShapeOffset");
+
+	/* FIXME
+
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepOffset_DataMapOfShapeMapOfShape.hxx
+	bind_NCollection_DataMap<TopoDS_Shape, NCollection_Map<TopoDS_Shape, TopTools_ShapeMapHasher>, TopTools_ShapeMapHasher>(mod, "BRepOffset_DataMapOfShapeMapOfShape");
+
+	/* FIXME
+
+	*/
+
 
 }

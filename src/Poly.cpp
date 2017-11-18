@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_TypeDef.hxx>
 #include <Poly_Triangle.hxx>
@@ -49,6 +40,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_Vector.hxx>
 #include <Poly_HArray1OfTriangle.hxx>
 #include <Poly_MakeLoops.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Poly, mod) {
 
@@ -301,40 +293,8 @@ PYBIND11_MODULE(Poly, mod) {
 	cls_Poly_CoherentTrianguation.def(py::init<>());
 	*/
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<Poly_Array1OfTriangle, std::unique_ptr<Poly_Array1OfTriangle, Deleter<Poly_Array1OfTriangle>>> cls_Poly_Array1OfTriangle(mod, "Poly_Array1OfTriangle", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_Poly_Array1OfTriangle.def(py::init<>());
-	cls_Poly_Array1OfTriangle.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_Poly_Array1OfTriangle.def(py::init([] (const Poly_Array1OfTriangle &other) {return new Poly_Array1OfTriangle(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_Poly_Array1OfTriangle.def(py::init<Poly_Array1OfTriangle &&>(), py::arg("theOther"));
-	cls_Poly_Array1OfTriangle.def(py::init<const Poly_Triangle &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_Poly_Array1OfTriangle.def("begin", (Poly_Array1OfTriangle::iterator (Poly_Array1OfTriangle::*)() const ) &Poly_Array1OfTriangle::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_Poly_Array1OfTriangle.def("end", (Poly_Array1OfTriangle::iterator (Poly_Array1OfTriangle::*)() const ) &Poly_Array1OfTriangle::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_Poly_Array1OfTriangle.def("cbegin", (Poly_Array1OfTriangle::const_iterator (Poly_Array1OfTriangle::*)() const ) &Poly_Array1OfTriangle::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_Poly_Array1OfTriangle.def("cend", (Poly_Array1OfTriangle::const_iterator (Poly_Array1OfTriangle::*)() const ) &Poly_Array1OfTriangle::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_Poly_Array1OfTriangle.def("Init", (void (Poly_Array1OfTriangle::*)(const Poly_Triangle &)) &Poly_Array1OfTriangle::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_Poly_Array1OfTriangle.def("Size", (Standard_Integer (Poly_Array1OfTriangle::*)() const ) &Poly_Array1OfTriangle::Size, "Size query");
-	cls_Poly_Array1OfTriangle.def("Length", (Standard_Integer (Poly_Array1OfTriangle::*)() const ) &Poly_Array1OfTriangle::Length, "Length query (the same)");
-	cls_Poly_Array1OfTriangle.def("IsEmpty", (Standard_Boolean (Poly_Array1OfTriangle::*)() const ) &Poly_Array1OfTriangle::IsEmpty, "Return TRUE if array has zero length.");
-	cls_Poly_Array1OfTriangle.def("Lower", (Standard_Integer (Poly_Array1OfTriangle::*)() const ) &Poly_Array1OfTriangle::Lower, "Lower bound");
-	cls_Poly_Array1OfTriangle.def("Upper", (Standard_Integer (Poly_Array1OfTriangle::*)() const ) &Poly_Array1OfTriangle::Upper, "Upper bound");
-	cls_Poly_Array1OfTriangle.def("IsDeletable", (Standard_Boolean (Poly_Array1OfTriangle::*)() const ) &Poly_Array1OfTriangle::IsDeletable, "myDeletable flag");
-	cls_Poly_Array1OfTriangle.def("IsAllocated", (Standard_Boolean (Poly_Array1OfTriangle::*)() const ) &Poly_Array1OfTriangle::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_Poly_Array1OfTriangle.def("Assign", (Poly_Array1OfTriangle & (Poly_Array1OfTriangle::*)(const Poly_Array1OfTriangle &)) &Poly_Array1OfTriangle::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_Poly_Array1OfTriangle.def("Move", (Poly_Array1OfTriangle & (Poly_Array1OfTriangle::*)(Poly_Array1OfTriangle &&)) &Poly_Array1OfTriangle::Move, "Move assignment", py::arg("theOther"));
-	cls_Poly_Array1OfTriangle.def("assign", (Poly_Array1OfTriangle & (Poly_Array1OfTriangle::*)(const Poly_Array1OfTriangle &)) &Poly_Array1OfTriangle::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_Poly_Array1OfTriangle.def("assign", (Poly_Array1OfTriangle & (Poly_Array1OfTriangle::*)(Poly_Array1OfTriangle &&)) &Poly_Array1OfTriangle::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_Poly_Array1OfTriangle.def("First", (const Poly_Triangle & (Poly_Array1OfTriangle::*)() const ) &Poly_Array1OfTriangle::First, "Returns first element");
-	cls_Poly_Array1OfTriangle.def("ChangeFirst", (Poly_Triangle & (Poly_Array1OfTriangle::*)()) &Poly_Array1OfTriangle::ChangeFirst, "Returns first element");
-	cls_Poly_Array1OfTriangle.def("Last", (const Poly_Triangle & (Poly_Array1OfTriangle::*)() const ) &Poly_Array1OfTriangle::Last, "Returns last element");
-	cls_Poly_Array1OfTriangle.def("ChangeLast", (Poly_Triangle & (Poly_Array1OfTriangle::*)()) &Poly_Array1OfTriangle::ChangeLast, "Returns last element");
-	cls_Poly_Array1OfTriangle.def("Value", (const Poly_Triangle & (Poly_Array1OfTriangle::*)(const Standard_Integer) const ) &Poly_Array1OfTriangle::Value, "Constant value access", py::arg("theIndex"));
-	cls_Poly_Array1OfTriangle.def("__call__", (const Poly_Triangle & (Poly_Array1OfTriangle::*)(const Standard_Integer) const ) &Poly_Array1OfTriangle::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_Poly_Array1OfTriangle.def("ChangeValue", (Poly_Triangle & (Poly_Array1OfTriangle::*)(const Standard_Integer)) &Poly_Array1OfTriangle::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_Poly_Array1OfTriangle.def("__call__", (Poly_Triangle & (Poly_Array1OfTriangle::*)(const Standard_Integer)) &Poly_Array1OfTriangle::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_Poly_Array1OfTriangle.def("SetValue", (void (Poly_Array1OfTriangle::*)(const Standard_Integer, const Poly_Triangle &)) &Poly_Array1OfTriangle::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_Poly_Array1OfTriangle.def("Resize", (void (Poly_Array1OfTriangle::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &Poly_Array1OfTriangle::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_Poly_Array1OfTriangle.def("__iter__", [](const Poly_Array1OfTriangle &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Poly_Array1OfTriangle.hxx
+	bind_NCollection_Array1<Poly_Triangle>(mod, "Poly_Array1OfTriangle");
 
 	// Callback for Poly_MakeLoops.
 	class PyCallback_Poly_MakeLoops : public Poly_MakeLoops {
@@ -393,40 +353,20 @@ PYBIND11_MODULE(Poly, mod) {
 	cls_Poly_HArray1OfTriangle.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Poly_HArray1OfTriangle::get_type_descriptor, "None");
 	cls_Poly_HArray1OfTriangle.def("DynamicType", (const opencascade::handle<Standard_Type> & (Poly_HArray1OfTriangle::*)() const ) &Poly_HArray1OfTriangle::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<Poly_ListOfTriangulation, std::unique_ptr<Poly_ListOfTriangulation, Deleter<Poly_ListOfTriangulation>>, NCollection_BaseList> cls_Poly_ListOfTriangulation(mod, "Poly_ListOfTriangulation", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_Poly_ListOfTriangulation.def(py::init<>());
-	cls_Poly_ListOfTriangulation.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_Poly_ListOfTriangulation.def(py::init([] (const Poly_ListOfTriangulation &other) {return new Poly_ListOfTriangulation(other);}), "Copy constructor", py::arg("other"));
-	cls_Poly_ListOfTriangulation.def("begin", (Poly_ListOfTriangulation::iterator (Poly_ListOfTriangulation::*)() const ) &Poly_ListOfTriangulation::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_Poly_ListOfTriangulation.def("end", (Poly_ListOfTriangulation::iterator (Poly_ListOfTriangulation::*)() const ) &Poly_ListOfTriangulation::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_Poly_ListOfTriangulation.def("cbegin", (Poly_ListOfTriangulation::const_iterator (Poly_ListOfTriangulation::*)() const ) &Poly_ListOfTriangulation::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_Poly_ListOfTriangulation.def("cend", (Poly_ListOfTriangulation::const_iterator (Poly_ListOfTriangulation::*)() const ) &Poly_ListOfTriangulation::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_Poly_ListOfTriangulation.def("Size", (Standard_Integer (Poly_ListOfTriangulation::*)() const ) &Poly_ListOfTriangulation::Size, "Size - Number of items");
-	cls_Poly_ListOfTriangulation.def("Assign", (Poly_ListOfTriangulation & (Poly_ListOfTriangulation::*)(const Poly_ListOfTriangulation &)) &Poly_ListOfTriangulation::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Poly_ListOfTriangulation.def("assign", (Poly_ListOfTriangulation & (Poly_ListOfTriangulation::*)(const Poly_ListOfTriangulation &)) &Poly_ListOfTriangulation::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_Poly_ListOfTriangulation.def("Clear", [](Poly_ListOfTriangulation &self) -> void { return self.Clear(); });
-	cls_Poly_ListOfTriangulation.def("Clear", (void (Poly_ListOfTriangulation::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Poly_ListOfTriangulation::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_Poly_ListOfTriangulation.def("First", (const opencascade::handle<Poly_Triangulation> & (Poly_ListOfTriangulation::*)() const ) &Poly_ListOfTriangulation::First, "First item");
-	cls_Poly_ListOfTriangulation.def("First", (opencascade::handle<Poly_Triangulation> & (Poly_ListOfTriangulation::*)()) &Poly_ListOfTriangulation::First, "First item (non-const)");
-	cls_Poly_ListOfTriangulation.def("Last", (const opencascade::handle<Poly_Triangulation> & (Poly_ListOfTriangulation::*)() const ) &Poly_ListOfTriangulation::Last, "Last item");
-	cls_Poly_ListOfTriangulation.def("Last", (opencascade::handle<Poly_Triangulation> & (Poly_ListOfTriangulation::*)()) &Poly_ListOfTriangulation::Last, "Last item (non-const)");
-	cls_Poly_ListOfTriangulation.def("Append", (opencascade::handle<Poly_Triangulation> & (Poly_ListOfTriangulation::*)(const opencascade::handle<Poly_Triangulation> &)) &Poly_ListOfTriangulation::Append, "Append one item at the end", py::arg("theItem"));
-	cls_Poly_ListOfTriangulation.def("Append", (void (Poly_ListOfTriangulation::*)(const opencascade::handle<Poly_Triangulation> &, Poly_ListOfTriangulation::Iterator &)) &Poly_ListOfTriangulation::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_Poly_ListOfTriangulation.def("Append", (void (Poly_ListOfTriangulation::*)(Poly_ListOfTriangulation &)) &Poly_ListOfTriangulation::Append, "Append another list at the end", py::arg("theOther"));
-	cls_Poly_ListOfTriangulation.def("Prepend", (opencascade::handle<Poly_Triangulation> & (Poly_ListOfTriangulation::*)(const opencascade::handle<Poly_Triangulation> &)) &Poly_ListOfTriangulation::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_Poly_ListOfTriangulation.def("Prepend", (void (Poly_ListOfTriangulation::*)(Poly_ListOfTriangulation &)) &Poly_ListOfTriangulation::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_Poly_ListOfTriangulation.def("RemoveFirst", (void (Poly_ListOfTriangulation::*)()) &Poly_ListOfTriangulation::RemoveFirst, "RemoveFirst item");
-	cls_Poly_ListOfTriangulation.def("Remove", (void (Poly_ListOfTriangulation::*)(Poly_ListOfTriangulation::Iterator &)) &Poly_ListOfTriangulation::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_Poly_ListOfTriangulation.def("InsertBefore", (opencascade::handle<Poly_Triangulation> & (Poly_ListOfTriangulation::*)(const opencascade::handle<Poly_Triangulation> &, Poly_ListOfTriangulation::Iterator &)) &Poly_ListOfTriangulation::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_Poly_ListOfTriangulation.def("InsertBefore", (void (Poly_ListOfTriangulation::*)(Poly_ListOfTriangulation &, Poly_ListOfTriangulation::Iterator &)) &Poly_ListOfTriangulation::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_Poly_ListOfTriangulation.def("InsertAfter", (opencascade::handle<Poly_Triangulation> & (Poly_ListOfTriangulation::*)(const opencascade::handle<Poly_Triangulation> &, Poly_ListOfTriangulation::Iterator &)) &Poly_ListOfTriangulation::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_Poly_ListOfTriangulation.def("InsertAfter", (void (Poly_ListOfTriangulation::*)(Poly_ListOfTriangulation &, Poly_ListOfTriangulation::Iterator &)) &Poly_ListOfTriangulation::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_Poly_ListOfTriangulation.def("Reverse", (void (Poly_ListOfTriangulation::*)()) &Poly_ListOfTriangulation::Reverse, "Reverse the list");
-	cls_Poly_ListOfTriangulation.def("__iter__", [](const Poly_ListOfTriangulation &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Poly_ListOfTriangulation.hxx
+	bind_NCollection_List<opencascade::handle<Poly_Triangulation> >(mod, "Poly_ListOfTriangulation");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\Poly_CoherentTriangulation.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\Poly_CoherentTriangulation.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\Poly_CoherentTriangulation.hxx
+	/* FIXME
+
+	*/
+
+	/* FIXME
+
+	*/
+
+	/* FIXME
+
+	*/
+
 
 }

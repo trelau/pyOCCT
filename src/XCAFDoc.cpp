@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <NCollection_BaseMap.hxx>
 #include <Standard_TypeDef.hxx>
@@ -82,6 +73,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <XCAFDoc_PartId.hxx>
 #include <XCAFDoc_View.hxx>
 #include <XCAFView_Object.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(XCAFDoc, mod) {
 
@@ -942,82 +934,15 @@ PYBIND11_MODULE(XCAFDoc, mod) {
 	cls_XCAFDoc_View.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &XCAFDoc_View::get_type_descriptor, "None");
 	cls_XCAFDoc_View.def("DynamicType", (const opencascade::handle<Standard_Type> & (XCAFDoc_View::*)() const ) &XCAFDoc_View::DynamicType, "None");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_DataMap.hxx
-	py::class_<XCAFDoc_DataMapOfShapeLabel, std::unique_ptr<XCAFDoc_DataMapOfShapeLabel, Deleter<XCAFDoc_DataMapOfShapeLabel>>, NCollection_BaseMap> cls_XCAFDoc_DataMapOfShapeLabel(mod, "XCAFDoc_DataMapOfShapeLabel", "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.");
-	cls_XCAFDoc_DataMapOfShapeLabel.def(py::init<>());
-	cls_XCAFDoc_DataMapOfShapeLabel.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_XCAFDoc_DataMapOfShapeLabel.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_XCAFDoc_DataMapOfShapeLabel.def(py::init([] (const XCAFDoc_DataMapOfShapeLabel &other) {return new XCAFDoc_DataMapOfShapeLabel(other);}), "Copy constructor", py::arg("other"));
-	cls_XCAFDoc_DataMapOfShapeLabel.def("begin", (XCAFDoc_DataMapOfShapeLabel::iterator (XCAFDoc_DataMapOfShapeLabel::*)() const ) &XCAFDoc_DataMapOfShapeLabel::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_XCAFDoc_DataMapOfShapeLabel.def("end", (XCAFDoc_DataMapOfShapeLabel::iterator (XCAFDoc_DataMapOfShapeLabel::*)() const ) &XCAFDoc_DataMapOfShapeLabel::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_XCAFDoc_DataMapOfShapeLabel.def("cbegin", (XCAFDoc_DataMapOfShapeLabel::const_iterator (XCAFDoc_DataMapOfShapeLabel::*)() const ) &XCAFDoc_DataMapOfShapeLabel::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_XCAFDoc_DataMapOfShapeLabel.def("cend", (XCAFDoc_DataMapOfShapeLabel::const_iterator (XCAFDoc_DataMapOfShapeLabel::*)() const ) &XCAFDoc_DataMapOfShapeLabel::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_XCAFDoc_DataMapOfShapeLabel.def("Exchange", (void (XCAFDoc_DataMapOfShapeLabel::*)(XCAFDoc_DataMapOfShapeLabel &)) &XCAFDoc_DataMapOfShapeLabel::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_XCAFDoc_DataMapOfShapeLabel.def("Assign", (XCAFDoc_DataMapOfShapeLabel & (XCAFDoc_DataMapOfShapeLabel::*)(const XCAFDoc_DataMapOfShapeLabel &)) &XCAFDoc_DataMapOfShapeLabel::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_XCAFDoc_DataMapOfShapeLabel.def("assign", (XCAFDoc_DataMapOfShapeLabel & (XCAFDoc_DataMapOfShapeLabel::*)(const XCAFDoc_DataMapOfShapeLabel &)) &XCAFDoc_DataMapOfShapeLabel::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_XCAFDoc_DataMapOfShapeLabel.def("ReSize", (void (XCAFDoc_DataMapOfShapeLabel::*)(const Standard_Integer)) &XCAFDoc_DataMapOfShapeLabel::ReSize, "ReSize", py::arg("N"));
-	cls_XCAFDoc_DataMapOfShapeLabel.def("Bind", (Standard_Boolean (XCAFDoc_DataMapOfShapeLabel::*)(const TopoDS_Shape &, const TDF_Label &)) &XCAFDoc_DataMapOfShapeLabel::Bind, "Bind binds Item to Key in map. Returns Standard_True if Key was not exist in the map. If the Key was already bound, the Item will be rebinded and Standard_False will be returned.", py::arg("theKey"), py::arg("theItem"));
-	// FIXME cls_XCAFDoc_DataMapOfShapeLabel.def("Bound", (TDF_Label * (XCAFDoc_DataMapOfShapeLabel::*)(const TopoDS_Shape &, const TDF_Label &)) &XCAFDoc_DataMapOfShapeLabel::Bound, "Bound binds Item to Key in map. Returns modifiable Item", py::arg("theKey"), py::arg("theItem"));
-	cls_XCAFDoc_DataMapOfShapeLabel.def("IsBound", (Standard_Boolean (XCAFDoc_DataMapOfShapeLabel::*)(const TopoDS_Shape &) const ) &XCAFDoc_DataMapOfShapeLabel::IsBound, "IsBound", py::arg("theKey"));
-	cls_XCAFDoc_DataMapOfShapeLabel.def("UnBind", (Standard_Boolean (XCAFDoc_DataMapOfShapeLabel::*)(const TopoDS_Shape &)) &XCAFDoc_DataMapOfShapeLabel::UnBind, "UnBind removes Item Key pair from map", py::arg("theKey"));
-	// FIXME cls_XCAFDoc_DataMapOfShapeLabel.def("Seek", (const TDF_Label * (XCAFDoc_DataMapOfShapeLabel::*)(const TopoDS_Shape &) const ) &XCAFDoc_DataMapOfShapeLabel::Seek, "Seek returns pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	// FIXME cls_XCAFDoc_DataMapOfShapeLabel.def("Find", (const TDF_Label & (XCAFDoc_DataMapOfShapeLabel::*)(const TopoDS_Shape &) const ) &XCAFDoc_DataMapOfShapeLabel::Find, "Find returns the Item for Key. Raises if Key was not bound", py::arg("theKey"));
-	// FIXME cls_XCAFDoc_DataMapOfShapeLabel.def("Find", (Standard_Boolean (XCAFDoc_DataMapOfShapeLabel::*)(const TopoDS_Shape &, TDF_Label &) const ) &XCAFDoc_DataMapOfShapeLabel::Find, "Find Item for key with copying.", py::arg("theKey"), py::arg("theValue"));
-	cls_XCAFDoc_DataMapOfShapeLabel.def("__call__", (const TDF_Label & (XCAFDoc_DataMapOfShapeLabel::*)(const TopoDS_Shape &) const ) &XCAFDoc_DataMapOfShapeLabel::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	// FIXME cls_XCAFDoc_DataMapOfShapeLabel.def("ChangeSeek", (TDF_Label * (XCAFDoc_DataMapOfShapeLabel::*)(const TopoDS_Shape &)) &XCAFDoc_DataMapOfShapeLabel::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL is Key was not bound.", py::arg("theKey"));
-	cls_XCAFDoc_DataMapOfShapeLabel.def("ChangeFind", (TDF_Label & (XCAFDoc_DataMapOfShapeLabel::*)(const TopoDS_Shape &)) &XCAFDoc_DataMapOfShapeLabel::ChangeFind, "ChangeFind returns mofifiable Item by Key. Raises if Key was not bound", py::arg("theKey"));
-	cls_XCAFDoc_DataMapOfShapeLabel.def("__call__", (TDF_Label & (XCAFDoc_DataMapOfShapeLabel::*)(const TopoDS_Shape &)) &XCAFDoc_DataMapOfShapeLabel::operator(), py::is_operator(), "operator ()", py::arg("theKey"));
-	cls_XCAFDoc_DataMapOfShapeLabel.def("Clear", [](XCAFDoc_DataMapOfShapeLabel &self) -> void { return self.Clear(); });
-	cls_XCAFDoc_DataMapOfShapeLabel.def("Clear", (void (XCAFDoc_DataMapOfShapeLabel::*)(const Standard_Boolean)) &XCAFDoc_DataMapOfShapeLabel::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_XCAFDoc_DataMapOfShapeLabel.def("Clear", (void (XCAFDoc_DataMapOfShapeLabel::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &XCAFDoc_DataMapOfShapeLabel::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_XCAFDoc_DataMapOfShapeLabel.def("Size", (Standard_Integer (XCAFDoc_DataMapOfShapeLabel::*)() const ) &XCAFDoc_DataMapOfShapeLabel::Size, "Size");
-	cls_XCAFDoc_DataMapOfShapeLabel.def("__iter__", [](const XCAFDoc_DataMapOfShapeLabel &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
 	// C:\Miniconda\envs\occt\Library\include\opencascade\XCAFDoc_DataMapOfShapeLabel.hxx
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<XCAFDoc_GraphNodeSequence, std::unique_ptr<XCAFDoc_GraphNodeSequence, Deleter<XCAFDoc_GraphNodeSequence>>, NCollection_BaseSequence> cls_XCAFDoc_GraphNodeSequence(mod, "XCAFDoc_GraphNodeSequence", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_XCAFDoc_GraphNodeSequence.def(py::init<>());
-	cls_XCAFDoc_GraphNodeSequence.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_XCAFDoc_GraphNodeSequence.def(py::init([] (const XCAFDoc_GraphNodeSequence &other) {return new XCAFDoc_GraphNodeSequence(other);}), "Copy constructor", py::arg("other"));
-	cls_XCAFDoc_GraphNodeSequence.def("begin", (XCAFDoc_GraphNodeSequence::iterator (XCAFDoc_GraphNodeSequence::*)() const ) &XCAFDoc_GraphNodeSequence::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_XCAFDoc_GraphNodeSequence.def("end", (XCAFDoc_GraphNodeSequence::iterator (XCAFDoc_GraphNodeSequence::*)() const ) &XCAFDoc_GraphNodeSequence::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_XCAFDoc_GraphNodeSequence.def("cbegin", (XCAFDoc_GraphNodeSequence::const_iterator (XCAFDoc_GraphNodeSequence::*)() const ) &XCAFDoc_GraphNodeSequence::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_XCAFDoc_GraphNodeSequence.def("cend", (XCAFDoc_GraphNodeSequence::const_iterator (XCAFDoc_GraphNodeSequence::*)() const ) &XCAFDoc_GraphNodeSequence::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_XCAFDoc_GraphNodeSequence.def("Size", (Standard_Integer (XCAFDoc_GraphNodeSequence::*)() const ) &XCAFDoc_GraphNodeSequence::Size, "Number of items");
-	cls_XCAFDoc_GraphNodeSequence.def("Length", (Standard_Integer (XCAFDoc_GraphNodeSequence::*)() const ) &XCAFDoc_GraphNodeSequence::Length, "Number of items");
-	cls_XCAFDoc_GraphNodeSequence.def("Lower", (Standard_Integer (XCAFDoc_GraphNodeSequence::*)() const ) &XCAFDoc_GraphNodeSequence::Lower, "Method for consistency with other collections.");
-	cls_XCAFDoc_GraphNodeSequence.def("Upper", (Standard_Integer (XCAFDoc_GraphNodeSequence::*)() const ) &XCAFDoc_GraphNodeSequence::Upper, "Method for consistency with other collections.");
-	cls_XCAFDoc_GraphNodeSequence.def("IsEmpty", (Standard_Boolean (XCAFDoc_GraphNodeSequence::*)() const ) &XCAFDoc_GraphNodeSequence::IsEmpty, "Empty query");
-	cls_XCAFDoc_GraphNodeSequence.def("Reverse", (void (XCAFDoc_GraphNodeSequence::*)()) &XCAFDoc_GraphNodeSequence::Reverse, "Reverse sequence");
-	cls_XCAFDoc_GraphNodeSequence.def("Exchange", (void (XCAFDoc_GraphNodeSequence::*)(const Standard_Integer, const Standard_Integer)) &XCAFDoc_GraphNodeSequence::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_XCAFDoc_GraphNodeSequence.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &XCAFDoc_GraphNodeSequence::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_XCAFDoc_GraphNodeSequence.def("Clear", [](XCAFDoc_GraphNodeSequence &self) -> void { return self.Clear(); });
-	cls_XCAFDoc_GraphNodeSequence.def("Clear", (void (XCAFDoc_GraphNodeSequence::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &XCAFDoc_GraphNodeSequence::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_XCAFDoc_GraphNodeSequence.def("Assign", (XCAFDoc_GraphNodeSequence & (XCAFDoc_GraphNodeSequence::*)(const XCAFDoc_GraphNodeSequence &)) &XCAFDoc_GraphNodeSequence::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_XCAFDoc_GraphNodeSequence.def("assign", (XCAFDoc_GraphNodeSequence & (XCAFDoc_GraphNodeSequence::*)(const XCAFDoc_GraphNodeSequence &)) &XCAFDoc_GraphNodeSequence::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_XCAFDoc_GraphNodeSequence.def("Remove", (void (XCAFDoc_GraphNodeSequence::*)(XCAFDoc_GraphNodeSequence::Iterator &)) &XCAFDoc_GraphNodeSequence::Remove, "Remove one item", py::arg("thePosition"));
-	cls_XCAFDoc_GraphNodeSequence.def("Remove", (void (XCAFDoc_GraphNodeSequence::*)(const Standard_Integer)) &XCAFDoc_GraphNodeSequence::Remove, "Remove one item", py::arg("theIndex"));
-	cls_XCAFDoc_GraphNodeSequence.def("Remove", (void (XCAFDoc_GraphNodeSequence::*)(const Standard_Integer, const Standard_Integer)) &XCAFDoc_GraphNodeSequence::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_XCAFDoc_GraphNodeSequence.def("Append", (void (XCAFDoc_GraphNodeSequence::*)(const opencascade::handle<XCAFDoc_GraphNode> &)) &XCAFDoc_GraphNodeSequence::Append, "Append one item", py::arg("theItem"));
-	cls_XCAFDoc_GraphNodeSequence.def("Append", (void (XCAFDoc_GraphNodeSequence::*)(XCAFDoc_GraphNodeSequence &)) &XCAFDoc_GraphNodeSequence::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_XCAFDoc_GraphNodeSequence.def("Prepend", (void (XCAFDoc_GraphNodeSequence::*)(const opencascade::handle<XCAFDoc_GraphNode> &)) &XCAFDoc_GraphNodeSequence::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_XCAFDoc_GraphNodeSequence.def("Prepend", (void (XCAFDoc_GraphNodeSequence::*)(XCAFDoc_GraphNodeSequence &)) &XCAFDoc_GraphNodeSequence::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_XCAFDoc_GraphNodeSequence.def("InsertBefore", (void (XCAFDoc_GraphNodeSequence::*)(const Standard_Integer, const opencascade::handle<XCAFDoc_GraphNode> &)) &XCAFDoc_GraphNodeSequence::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_XCAFDoc_GraphNodeSequence.def("InsertBefore", (void (XCAFDoc_GraphNodeSequence::*)(const Standard_Integer, XCAFDoc_GraphNodeSequence &)) &XCAFDoc_GraphNodeSequence::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_XCAFDoc_GraphNodeSequence.def("InsertAfter", (void (XCAFDoc_GraphNodeSequence::*)(XCAFDoc_GraphNodeSequence::Iterator &, const opencascade::handle<XCAFDoc_GraphNode> &)) &XCAFDoc_GraphNodeSequence::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_XCAFDoc_GraphNodeSequence.def("InsertAfter", (void (XCAFDoc_GraphNodeSequence::*)(const Standard_Integer, XCAFDoc_GraphNodeSequence &)) &XCAFDoc_GraphNodeSequence::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_XCAFDoc_GraphNodeSequence.def("InsertAfter", (void (XCAFDoc_GraphNodeSequence::*)(const Standard_Integer, const opencascade::handle<XCAFDoc_GraphNode> &)) &XCAFDoc_GraphNodeSequence::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_XCAFDoc_GraphNodeSequence.def("Split", (void (XCAFDoc_GraphNodeSequence::*)(const Standard_Integer, XCAFDoc_GraphNodeSequence &)) &XCAFDoc_GraphNodeSequence::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_XCAFDoc_GraphNodeSequence.def("First", (const opencascade::handle<XCAFDoc_GraphNode> & (XCAFDoc_GraphNodeSequence::*)() const ) &XCAFDoc_GraphNodeSequence::First, "First item access");
-	cls_XCAFDoc_GraphNodeSequence.def("ChangeFirst", (opencascade::handle<XCAFDoc_GraphNode> & (XCAFDoc_GraphNodeSequence::*)()) &XCAFDoc_GraphNodeSequence::ChangeFirst, "First item access");
-	cls_XCAFDoc_GraphNodeSequence.def("Last", (const opencascade::handle<XCAFDoc_GraphNode> & (XCAFDoc_GraphNodeSequence::*)() const ) &XCAFDoc_GraphNodeSequence::Last, "Last item access");
-	cls_XCAFDoc_GraphNodeSequence.def("ChangeLast", (opencascade::handle<XCAFDoc_GraphNode> & (XCAFDoc_GraphNodeSequence::*)()) &XCAFDoc_GraphNodeSequence::ChangeLast, "Last item access");
-	cls_XCAFDoc_GraphNodeSequence.def("Value", (const opencascade::handle<XCAFDoc_GraphNode> & (XCAFDoc_GraphNodeSequence::*)(const Standard_Integer) const ) &XCAFDoc_GraphNodeSequence::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_XCAFDoc_GraphNodeSequence.def("__call__", (const opencascade::handle<XCAFDoc_GraphNode> & (XCAFDoc_GraphNodeSequence::*)(const Standard_Integer) const ) &XCAFDoc_GraphNodeSequence::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_XCAFDoc_GraphNodeSequence.def("ChangeValue", (opencascade::handle<XCAFDoc_GraphNode> & (XCAFDoc_GraphNodeSequence::*)(const Standard_Integer)) &XCAFDoc_GraphNodeSequence::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_XCAFDoc_GraphNodeSequence.def("__call__", (opencascade::handle<XCAFDoc_GraphNode> & (XCAFDoc_GraphNodeSequence::*)(const Standard_Integer)) &XCAFDoc_GraphNodeSequence::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_XCAFDoc_GraphNodeSequence.def("SetValue", (void (XCAFDoc_GraphNodeSequence::*)(const Standard_Integer, const opencascade::handle<XCAFDoc_GraphNode> &)) &XCAFDoc_GraphNodeSequence::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_XCAFDoc_GraphNodeSequence.def("__iter__", [](const XCAFDoc_GraphNodeSequence &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	bind_NCollection_DataMap<TopoDS_Shape, TDF_Label, TopTools_ShapeMapHasher>(mod, "XCAFDoc_DataMapOfShapeLabel");
+
+	/* FIXME
+
+	*/
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\XCAFDoc_GraphNodeSequence.hxx
+	bind_NCollection_Sequence<opencascade::handle<XCAFDoc_GraphNode> >(mod, "XCAFDoc_GraphNodeSequence");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\XCAFDoc_PartId.hxx
 

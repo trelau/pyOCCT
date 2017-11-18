@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <AppParCurves_MultiPoint.hxx>
 #include <Standard_TypeDef.hxx>
@@ -73,6 +64,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <AppDef_TheFunction.hxx>
 #include <GeomAbs_Shape.hxx>
 #include <AppDef_Variational.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(AppDef, mod) {
 
@@ -346,40 +338,8 @@ PYBIND11_MODULE(AppDef, mod) {
 	cls_AppDef_BSplineCompute.def("ChangeValue", (AppParCurves_MultiBSpCurve & (AppDef_BSplineCompute::*)()) &AppDef_BSplineCompute::ChangeValue, "returns the result of the approximation.");
 	cls_AppDef_BSplineCompute.def("Parameters", (const TColStd_Array1OfReal & (AppDef_BSplineCompute::*)() const ) &AppDef_BSplineCompute::Parameters, "returns the new parameters of the approximation corresponding to the points of the MultiBSpCurve.");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<AppDef_Array1OfMultiPointConstraint, std::unique_ptr<AppDef_Array1OfMultiPointConstraint, Deleter<AppDef_Array1OfMultiPointConstraint>>> cls_AppDef_Array1OfMultiPointConstraint(mod, "AppDef_Array1OfMultiPointConstraint", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_AppDef_Array1OfMultiPointConstraint.def(py::init<>());
-	cls_AppDef_Array1OfMultiPointConstraint.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_AppDef_Array1OfMultiPointConstraint.def(py::init([] (const AppDef_Array1OfMultiPointConstraint &other) {return new AppDef_Array1OfMultiPointConstraint(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_AppDef_Array1OfMultiPointConstraint.def(py::init<AppDef_Array1OfMultiPointConstraint &&>(), py::arg("theOther"));
-	cls_AppDef_Array1OfMultiPointConstraint.def(py::init<const AppDef_MultiPointConstraint &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_AppDef_Array1OfMultiPointConstraint.def("begin", (AppDef_Array1OfMultiPointConstraint::iterator (AppDef_Array1OfMultiPointConstraint::*)() const ) &AppDef_Array1OfMultiPointConstraint::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_AppDef_Array1OfMultiPointConstraint.def("end", (AppDef_Array1OfMultiPointConstraint::iterator (AppDef_Array1OfMultiPointConstraint::*)() const ) &AppDef_Array1OfMultiPointConstraint::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_AppDef_Array1OfMultiPointConstraint.def("cbegin", (AppDef_Array1OfMultiPointConstraint::const_iterator (AppDef_Array1OfMultiPointConstraint::*)() const ) &AppDef_Array1OfMultiPointConstraint::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_AppDef_Array1OfMultiPointConstraint.def("cend", (AppDef_Array1OfMultiPointConstraint::const_iterator (AppDef_Array1OfMultiPointConstraint::*)() const ) &AppDef_Array1OfMultiPointConstraint::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_AppDef_Array1OfMultiPointConstraint.def("Init", (void (AppDef_Array1OfMultiPointConstraint::*)(const AppDef_MultiPointConstraint &)) &AppDef_Array1OfMultiPointConstraint::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_AppDef_Array1OfMultiPointConstraint.def("Size", (Standard_Integer (AppDef_Array1OfMultiPointConstraint::*)() const ) &AppDef_Array1OfMultiPointConstraint::Size, "Size query");
-	cls_AppDef_Array1OfMultiPointConstraint.def("Length", (Standard_Integer (AppDef_Array1OfMultiPointConstraint::*)() const ) &AppDef_Array1OfMultiPointConstraint::Length, "Length query (the same)");
-	cls_AppDef_Array1OfMultiPointConstraint.def("IsEmpty", (Standard_Boolean (AppDef_Array1OfMultiPointConstraint::*)() const ) &AppDef_Array1OfMultiPointConstraint::IsEmpty, "Return TRUE if array has zero length.");
-	cls_AppDef_Array1OfMultiPointConstraint.def("Lower", (Standard_Integer (AppDef_Array1OfMultiPointConstraint::*)() const ) &AppDef_Array1OfMultiPointConstraint::Lower, "Lower bound");
-	cls_AppDef_Array1OfMultiPointConstraint.def("Upper", (Standard_Integer (AppDef_Array1OfMultiPointConstraint::*)() const ) &AppDef_Array1OfMultiPointConstraint::Upper, "Upper bound");
-	cls_AppDef_Array1OfMultiPointConstraint.def("IsDeletable", (Standard_Boolean (AppDef_Array1OfMultiPointConstraint::*)() const ) &AppDef_Array1OfMultiPointConstraint::IsDeletable, "myDeletable flag");
-	cls_AppDef_Array1OfMultiPointConstraint.def("IsAllocated", (Standard_Boolean (AppDef_Array1OfMultiPointConstraint::*)() const ) &AppDef_Array1OfMultiPointConstraint::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_AppDef_Array1OfMultiPointConstraint.def("Assign", (AppDef_Array1OfMultiPointConstraint & (AppDef_Array1OfMultiPointConstraint::*)(const AppDef_Array1OfMultiPointConstraint &)) &AppDef_Array1OfMultiPointConstraint::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_AppDef_Array1OfMultiPointConstraint.def("Move", (AppDef_Array1OfMultiPointConstraint & (AppDef_Array1OfMultiPointConstraint::*)(AppDef_Array1OfMultiPointConstraint &&)) &AppDef_Array1OfMultiPointConstraint::Move, "Move assignment", py::arg("theOther"));
-	cls_AppDef_Array1OfMultiPointConstraint.def("assign", (AppDef_Array1OfMultiPointConstraint & (AppDef_Array1OfMultiPointConstraint::*)(const AppDef_Array1OfMultiPointConstraint &)) &AppDef_Array1OfMultiPointConstraint::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_AppDef_Array1OfMultiPointConstraint.def("assign", (AppDef_Array1OfMultiPointConstraint & (AppDef_Array1OfMultiPointConstraint::*)(AppDef_Array1OfMultiPointConstraint &&)) &AppDef_Array1OfMultiPointConstraint::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_AppDef_Array1OfMultiPointConstraint.def("First", (const AppDef_MultiPointConstraint & (AppDef_Array1OfMultiPointConstraint::*)() const ) &AppDef_Array1OfMultiPointConstraint::First, "Returns first element");
-	cls_AppDef_Array1OfMultiPointConstraint.def("ChangeFirst", (AppDef_MultiPointConstraint & (AppDef_Array1OfMultiPointConstraint::*)()) &AppDef_Array1OfMultiPointConstraint::ChangeFirst, "Returns first element");
-	cls_AppDef_Array1OfMultiPointConstraint.def("Last", (const AppDef_MultiPointConstraint & (AppDef_Array1OfMultiPointConstraint::*)() const ) &AppDef_Array1OfMultiPointConstraint::Last, "Returns last element");
-	cls_AppDef_Array1OfMultiPointConstraint.def("ChangeLast", (AppDef_MultiPointConstraint & (AppDef_Array1OfMultiPointConstraint::*)()) &AppDef_Array1OfMultiPointConstraint::ChangeLast, "Returns last element");
-	cls_AppDef_Array1OfMultiPointConstraint.def("Value", (const AppDef_MultiPointConstraint & (AppDef_Array1OfMultiPointConstraint::*)(const Standard_Integer) const ) &AppDef_Array1OfMultiPointConstraint::Value, "Constant value access", py::arg("theIndex"));
-	cls_AppDef_Array1OfMultiPointConstraint.def("__call__", (const AppDef_MultiPointConstraint & (AppDef_Array1OfMultiPointConstraint::*)(const Standard_Integer) const ) &AppDef_Array1OfMultiPointConstraint::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_AppDef_Array1OfMultiPointConstraint.def("ChangeValue", (AppDef_MultiPointConstraint & (AppDef_Array1OfMultiPointConstraint::*)(const Standard_Integer)) &AppDef_Array1OfMultiPointConstraint::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_AppDef_Array1OfMultiPointConstraint.def("__call__", (AppDef_MultiPointConstraint & (AppDef_Array1OfMultiPointConstraint::*)(const Standard_Integer)) &AppDef_Array1OfMultiPointConstraint::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_AppDef_Array1OfMultiPointConstraint.def("SetValue", (void (AppDef_Array1OfMultiPointConstraint::*)(const Standard_Integer, const AppDef_MultiPointConstraint &)) &AppDef_Array1OfMultiPointConstraint::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_AppDef_Array1OfMultiPointConstraint.def("Resize", (void (AppDef_Array1OfMultiPointConstraint::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &AppDef_Array1OfMultiPointConstraint::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_AppDef_Array1OfMultiPointConstraint.def("__iter__", [](const AppDef_Array1OfMultiPointConstraint &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\AppDef_Array1OfMultiPointConstraint.hxx
+	bind_NCollection_Array1<AppDef_MultiPointConstraint>(mod, "AppDef_Array1OfMultiPointConstraint");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AppDef_MyGradientOfCompute.hxx
 	py::class_<AppDef_MyGradientOfCompute, std::unique_ptr<AppDef_MyGradientOfCompute, Deleter<AppDef_MyGradientOfCompute>>> cls_AppDef_MyGradientOfCompute(mod, "AppDef_MyGradientOfCompute", "None");

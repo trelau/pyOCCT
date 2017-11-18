@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <OpenGl_GlFunctions.hxx>
 #include <OpenGl_ArbDbg.hxx>
@@ -189,6 +180,9 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <OpenGl_TileSampler.hxx>
 #include <NCollection_Buffer.hxx>
 #include <OpenGl_VertexBufferCompat.hxx>
+#include <OpenGl_Templates.hpp>
+#include <NCollection_Templates.hpp>
+#include <BVH_Templates.hpp>
 
 PYBIND11_MODULE(OpenGl, mod) {
 
@@ -965,13 +959,11 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_GlCore11.def("glEnableClientState", (void (OpenGl_GlCore11::*)(GLenum)) &OpenGl_GlCore11::glEnableClientState, "None", py::arg("theCap"));
 	cls_OpenGl_GlCore11.def("glDisableClientState", (void (OpenGl_GlCore11::*)(GLenum)) &OpenGl_GlCore11::glDisableClientState, "None", py::arg("theCap"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore12.hxx
-	py::class_<OpenGl_GlCore12Fwd, std::unique_ptr<OpenGl_GlCore12Fwd, Deleter<OpenGl_GlCore12Fwd>>, OpenGl_GlCore11Fwd> cls_OpenGl_GlCore12Fwd(mod, "OpenGl_GlCore12Fwd", "OpenGL 1.2 core based on 1.1 version.");
-	cls_OpenGl_GlCore12Fwd.def(py::init<>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Context.hxx
+	bind_OpenGl_TmplCore12<OpenGl_GlCore11Fwd>(mod, "OpenGl_GlCore12Fwd");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore12.hxx
-	py::class_<OpenGl_GlCore12, std::unique_ptr<OpenGl_GlCore12, Deleter<OpenGl_GlCore12>>, OpenGl_GlCore11> cls_OpenGl_GlCore12(mod, "OpenGl_GlCore12", "OpenGL 1.2 core based on 1.1 version.");
-	cls_OpenGl_GlCore12.def(py::init<>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Context.hxx
+	bind_OpenGl_TmplCore12<OpenGl_GlCore11>(mod, "OpenGl_GlCore12");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_PointSprite.hxx
 	py::class_<OpenGl_PointSprite, opencascade::handle<OpenGl_PointSprite>, OpenGl_Texture> cls_OpenGl_PointSprite(mod, "OpenGl_PointSprite", "Point sprite resource. On modern hardware it will be texture with extra parameters. On ancient hardware sprites will be drawn using bitmaps.");
@@ -1891,9 +1883,8 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_RaytraceLight.def(py::init<const BVH_Vec4f &, const BVH_Vec4f &>(), py::arg("theEmission"), py::arg("thePosition"));
 	cls_OpenGl_RaytraceLight.def("Packed", (const Standard_ShortReal * (OpenGl_RaytraceLight::*)()) &OpenGl_RaytraceLight::Packed, "Returns packed (serialized) representation of light source.");
 
-	/* FIXME
-	// OpenGl_BVHTriangulation3f
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_SceneGeometry.hxx
+	bind_BVH_Triangulation<float, 3>(mod, "OpenGl_BVHTriangulation3f");
 
 	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_SceneGeometry.hxx
@@ -1980,442 +1971,249 @@ PYBIND11_MODULE(OpenGl, mod) {
 	py::class_<OpenGl_GlCore13Fwd, std::unique_ptr<OpenGl_GlCore13Fwd, Deleter<OpenGl_GlCore13Fwd>>, OpenGl_GlCore12Fwd> cls_OpenGl_GlCore13Fwd(mod, "OpenGl_GlCore13Fwd", "OpenGL 1.3 without deprecated entry points.");
 	cls_OpenGl_GlCore13Fwd.def(py::init<>());
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore14.hxx
-	py::class_<OpenGl_GlCore14, std::unique_ptr<OpenGl_GlCore14, Deleter<OpenGl_GlCore14>>, OpenGl_GlCore13> cls_OpenGl_GlCore14(mod, "OpenGl_GlCore14", "OpenGL 1.4 core based on 1.3 version.");
-	cls_OpenGl_GlCore14.def(py::init<>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Context.hxx
+	bind_OpenGl_TmplCore14<OpenGl_GlCore13>(mod, "OpenGl_GlCore14");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore14.hxx
-	py::class_<OpenGl_GlCore14Fwd, std::unique_ptr<OpenGl_GlCore14Fwd, Deleter<OpenGl_GlCore14Fwd>>, OpenGl_GlCore13Fwd> cls_OpenGl_GlCore14Fwd(mod, "OpenGl_GlCore14Fwd", "OpenGL 1.4 core based on 1.3 version.");
-	cls_OpenGl_GlCore14Fwd.def(py::init<>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Context.hxx
+	bind_OpenGl_TmplCore14<OpenGl_GlCore13Fwd>(mod, "OpenGl_GlCore14Fwd");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore15.hxx
-	py::class_<OpenGl_GlCore15, std::unique_ptr<OpenGl_GlCore15, Deleter<OpenGl_GlCore15>>, OpenGl_GlCore14> cls_OpenGl_GlCore15(mod, "OpenGl_GlCore15", "OpenGL 1.5 core based on 1.4 version.");
-	cls_OpenGl_GlCore15.def(py::init<>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Context.hxx
+	bind_OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13> >(mod, "OpenGl_GlCore15");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore15.hxx
-	py::class_<OpenGl_GlCore15Fwd, std::unique_ptr<OpenGl_GlCore15Fwd, Deleter<OpenGl_GlCore15Fwd>>, OpenGl_GlCore14Fwd> cls_OpenGl_GlCore15Fwd(mod, "OpenGl_GlCore15Fwd", "OpenGL 1.5 core based on 1.4 version.");
-	cls_OpenGl_GlCore15Fwd.def(py::init<>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Context.hxx
+	bind_OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13Fwd> >(mod, "OpenGl_GlCore15Fwd");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore20.hxx
-	py::class_<OpenGl_GlCore20, std::unique_ptr<OpenGl_GlCore20, Deleter<OpenGl_GlCore20>>, OpenGl_GlCore15> cls_OpenGl_GlCore20(mod, "OpenGl_GlCore20", "OpenGL 2.0 core based on 1.5 version.");
-	cls_OpenGl_GlCore20.def(py::init<>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Context.hxx
+	bind_OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13> > >(mod, "OpenGl_GlCore20");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore20.hxx
-	py::class_<OpenGl_GlCore20Fwd, std::unique_ptr<OpenGl_GlCore20Fwd, Deleter<OpenGl_GlCore20Fwd>>, OpenGl_GlCore15Fwd> cls_OpenGl_GlCore20Fwd(mod, "OpenGl_GlCore20Fwd", "OpenGL 2.0 core based on 1.5 version.");
-	cls_OpenGl_GlCore20Fwd.def(py::init<>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Context.hxx
+	bind_OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13Fwd> > >(mod, "OpenGl_GlCore20Fwd");
 
-	/* FIXME
-	// OpenGl_MapOfHatchStylesAndIds
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_LineAttributes.hxx
+	bind_NCollection_DataMap<opencascade::handle<Graphic3d_HatchStyle>, unsigned int, NCollection_DefaultHasher<opencascade::handle<Graphic3d_HatchStyle> > >(mod, "OpenGl_MapOfHatchStylesAndIds");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec2i")) {
 		mod.attr("OpenGl_Vec2i") = other_mod.attr("BVH_Vec2i");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec3i")) {
 		mod.attr("OpenGl_Vec3i") = other_mod.attr("BVH_Vec3i");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec4i")) {
 		mod.attr("OpenGl_Vec4i") = other_mod.attr("BVH_Vec4i");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.Graphic3d");
 	if (py::hasattr(other_mod, "Graphic3d_Vec2b")) {
 		mod.attr("OpenGl_Vec2b") = other_mod.attr("Graphic3d_Vec2b");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.Graphic3d");
 	if (py::hasattr(other_mod, "Graphic3d_Vec3b")) {
 		mod.attr("OpenGl_Vec3b") = other_mod.attr("Graphic3d_Vec3b");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.Graphic3d");
 	if (py::hasattr(other_mod, "Graphic3d_Vec4b")) {
 		mod.attr("OpenGl_Vec4b") = other_mod.attr("Graphic3d_Vec4b");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.Graphic3d");
 	if (py::hasattr(other_mod, "Graphic3d_Vec2u")) {
 		mod.attr("OpenGl_Vec2u") = other_mod.attr("Graphic3d_Vec2u");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.Graphic3d");
 	if (py::hasattr(other_mod, "Graphic3d_Vec3u")) {
 		mod.attr("OpenGl_Vec3u") = other_mod.attr("Graphic3d_Vec3u");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.Graphic3d");
 	if (py::hasattr(other_mod, "Graphic3d_Vec4u")) {
 		mod.attr("OpenGl_Vec4u") = other_mod.attr("Graphic3d_Vec4u");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.Graphic3d");
 	if (py::hasattr(other_mod, "Graphic3d_Vec2ub")) {
 		mod.attr("OpenGl_Vec2ub") = other_mod.attr("Graphic3d_Vec2ub");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.Graphic3d");
 	if (py::hasattr(other_mod, "Graphic3d_Vec3ub")) {
 		mod.attr("OpenGl_Vec3ub") = other_mod.attr("Graphic3d_Vec3ub");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.Graphic3d");
 	if (py::hasattr(other_mod, "Graphic3d_Vec4ub")) {
 		mod.attr("OpenGl_Vec4ub") = other_mod.attr("Graphic3d_Vec4ub");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec2f")) {
 		mod.attr("OpenGl_Vec2") = other_mod.attr("BVH_Vec2f");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec3f")) {
 		mod.attr("OpenGl_Vec3") = other_mod.attr("BVH_Vec3f");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec4f")) {
 		mod.attr("OpenGl_Vec4") = other_mod.attr("BVH_Vec4f");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec2d")) {
 		mod.attr("OpenGl_Vec2d") = other_mod.attr("BVH_Vec2d");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec3d")) {
 		mod.attr("OpenGl_Vec3d") = other_mod.attr("BVH_Vec3d");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Vec4d")) {
 		mod.attr("OpenGl_Vec4d") = other_mod.attr("BVH_Vec4d");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Mat4f")) {
 		mod.attr("OpenGl_Mat4") = other_mod.attr("BVH_Mat4f");
 	}
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Vec.hxx
 	other_mod = py::module::import("OCCT.BVH");
 	if (py::hasattr(other_mod, "BVH_Mat4d")) {
 		mod.attr("OpenGl_Mat4d") = other_mod.attr("BVH_Mat4d");
 	}
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore21.hxx
-	py::class_<OpenGl_GlCore21, std::unique_ptr<OpenGl_GlCore21, Deleter<OpenGl_GlCore21>>, OpenGl_GlCore20> cls_OpenGl_GlCore21(mod, "OpenGl_GlCore21", "OpenGL 2.1 core based on 2.0 version.");
-	cls_OpenGl_GlCore21.def(py::init<>());
+	bind_OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13> > > >(mod, "OpenGl_GlCore21");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore21.hxx
-	py::class_<OpenGl_GlCore21Fwd, std::unique_ptr<OpenGl_GlCore21Fwd, Deleter<OpenGl_GlCore21Fwd>>, OpenGl_GlCore20Fwd> cls_OpenGl_GlCore21Fwd(mod, "OpenGl_GlCore21Fwd", "OpenGL 2.1 core based on 2.0 version.");
-	cls_OpenGl_GlCore21Fwd.def(py::init<>());
+	bind_OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13Fwd> > > >(mod, "OpenGl_GlCore21Fwd");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore30.hxx
-	py::class_<OpenGl_GlCore30, std::unique_ptr<OpenGl_GlCore30, Deleter<OpenGl_GlCore30>>, OpenGl_GlCore21> cls_OpenGl_GlCore30(mod, "OpenGl_GlCore30", "OpenGL 3.0 core. This is first version with deprecation model introduced - a lot of functionality regarding to fixed pipeline were marked deprecated. Notice that nothing were actually removed in this version (unless Forward context loaded)!");
-	cls_OpenGl_GlCore30.def(py::init<>());
+	bind_OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13> > > > >(mod, "OpenGl_GlCore30");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore30.hxx
-	py::class_<OpenGl_GlCore30Fwd, std::unique_ptr<OpenGl_GlCore30Fwd, Deleter<OpenGl_GlCore30Fwd>>, OpenGl_GlCore21Fwd> cls_OpenGl_GlCore30Fwd(mod, "OpenGl_GlCore30Fwd", "OpenGL 3.0 core. This is first version with deprecation model introduced - a lot of functionality regarding to fixed pipeline were marked deprecated. Notice that nothing were actually removed in this version (unless Forward context loaded)!");
-	cls_OpenGl_GlCore30Fwd.def(py::init<>());
+	bind_OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13Fwd> > > > >(mod, "OpenGl_GlCore30Fwd");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore31.hxx
-	py::class_<OpenGl_GlCore31Back, std::unique_ptr<OpenGl_GlCore31Back, Deleter<OpenGl_GlCore31Back>>, OpenGl_GlCore30> cls_OpenGl_GlCore31Back(mod, "OpenGl_GlCore31Back", "OpenGL 3.1 definition.");
-	cls_OpenGl_GlCore31Back.def(py::init<>());
+	bind_OpenGl_TmplCore31<OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13> > > > > >(mod, "OpenGl_GlCore31Back");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore31.hxx
-	py::class_<OpenGl_GlCore31, std::unique_ptr<OpenGl_GlCore31, Deleter<OpenGl_GlCore31>>, OpenGl_GlCore30Fwd> cls_OpenGl_GlCore31(mod, "OpenGl_GlCore31", "OpenGL 3.1 definition.");
-	cls_OpenGl_GlCore31.def(py::init<>());
+	bind_OpenGl_TmplCore31<OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13Fwd> > > > > >(mod, "OpenGl_GlCore31");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore32.hxx
-	py::class_<OpenGl_GlCore32Back, std::unique_ptr<OpenGl_GlCore32Back, Deleter<OpenGl_GlCore32Back>>, OpenGl_GlCore31Back> cls_OpenGl_GlCore32Back(mod, "OpenGl_GlCore32Back", "OpenGL 3.2 definition.");
-	cls_OpenGl_GlCore32Back.def(py::init<>());
+	bind_OpenGl_TmplCore32<OpenGl_TmplCore31<OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13> > > > > > >(mod, "OpenGl_GlCore32Back");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore32.hxx
-	py::class_<OpenGl_GlCore32, std::unique_ptr<OpenGl_GlCore32, Deleter<OpenGl_GlCore32>>, OpenGl_GlCore31> cls_OpenGl_GlCore32(mod, "OpenGl_GlCore32", "OpenGL 3.2 definition.");
-	cls_OpenGl_GlCore32.def(py::init<>());
+	bind_OpenGl_TmplCore32<OpenGl_TmplCore31<OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13Fwd> > > > > > >(mod, "OpenGl_GlCore32");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore33.hxx
-	py::class_<OpenGl_GlCore33Back, std::unique_ptr<OpenGl_GlCore33Back, Deleter<OpenGl_GlCore33Back>>, OpenGl_GlCore32Back> cls_OpenGl_GlCore33Back(mod, "OpenGl_GlCore33Back", "OpenGL 3.3 definition.");
-	cls_OpenGl_GlCore33Back.def(py::init<>());
+	bind_OpenGl_TmplCore33<OpenGl_TmplCore32<OpenGl_TmplCore31<OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13> > > > > > > >(mod, "OpenGl_GlCore33Back");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore33.hxx
-	py::class_<OpenGl_GlCore33, std::unique_ptr<OpenGl_GlCore33, Deleter<OpenGl_GlCore33>>, OpenGl_GlCore32> cls_OpenGl_GlCore33(mod, "OpenGl_GlCore33", "OpenGL 3.3 definition.");
-	cls_OpenGl_GlCore33.def(py::init<>());
+	bind_OpenGl_TmplCore33<OpenGl_TmplCore32<OpenGl_TmplCore31<OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13Fwd> > > > > > > >(mod, "OpenGl_GlCore33");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore40.hxx
-	py::class_<OpenGl_GlCore40Back, std::unique_ptr<OpenGl_GlCore40Back, Deleter<OpenGl_GlCore40Back>>, OpenGl_GlCore33Back> cls_OpenGl_GlCore40Back(mod, "OpenGl_GlCore40Back", "OpenGL 4.0 definition.");
-	cls_OpenGl_GlCore40Back.def(py::init<>());
+	bind_OpenGl_TmplCore40<OpenGl_TmplCore33<OpenGl_TmplCore32<OpenGl_TmplCore31<OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13> > > > > > > > >(mod, "OpenGl_GlCore40Back");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore40.hxx
-	py::class_<OpenGl_GlCore40, std::unique_ptr<OpenGl_GlCore40, Deleter<OpenGl_GlCore40>>, OpenGl_GlCore33> cls_OpenGl_GlCore40(mod, "OpenGl_GlCore40", "OpenGL 4.0 definition.");
-	cls_OpenGl_GlCore40.def(py::init<>());
+	bind_OpenGl_TmplCore40<OpenGl_TmplCore33<OpenGl_TmplCore32<OpenGl_TmplCore31<OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13Fwd> > > > > > > > >(mod, "OpenGl_GlCore40");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore41.hxx
-	py::class_<OpenGl_GlCore41Back, std::unique_ptr<OpenGl_GlCore41Back, Deleter<OpenGl_GlCore41Back>>, OpenGl_GlCore40Back> cls_OpenGl_GlCore41Back(mod, "OpenGl_GlCore41Back", "OpenGL 4.1 definition.");
-	cls_OpenGl_GlCore41Back.def(py::init<>());
+	bind_OpenGl_TmplCore41<OpenGl_TmplCore40<OpenGl_TmplCore33<OpenGl_TmplCore32<OpenGl_TmplCore31<OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13> > > > > > > > > >(mod, "OpenGl_GlCore41Back");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore41.hxx
-	py::class_<OpenGl_GlCore41, std::unique_ptr<OpenGl_GlCore41, Deleter<OpenGl_GlCore41>>, OpenGl_GlCore40> cls_OpenGl_GlCore41(mod, "OpenGl_GlCore41", "OpenGL 4.1 definition.");
-	cls_OpenGl_GlCore41.def(py::init<>());
+	bind_OpenGl_TmplCore41<OpenGl_TmplCore40<OpenGl_TmplCore33<OpenGl_TmplCore32<OpenGl_TmplCore31<OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13Fwd> > > > > > > > > >(mod, "OpenGl_GlCore41");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore42.hxx
-	py::class_<OpenGl_GlCore42Back, std::unique_ptr<OpenGl_GlCore42Back, Deleter<OpenGl_GlCore42Back>>, OpenGl_GlCore41Back> cls_OpenGl_GlCore42Back(mod, "OpenGl_GlCore42Back", "OpenGL 4.2 definition.");
-	cls_OpenGl_GlCore42Back.def(py::init<>());
+	bind_OpenGl_TmplCore42<OpenGl_TmplCore41<OpenGl_TmplCore40<OpenGl_TmplCore33<OpenGl_TmplCore32<OpenGl_TmplCore31<OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13> > > > > > > > > > >(mod, "OpenGl_GlCore42Back");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore42.hxx
-	py::class_<OpenGl_GlCore42, std::unique_ptr<OpenGl_GlCore42, Deleter<OpenGl_GlCore42>>, OpenGl_GlCore41> cls_OpenGl_GlCore42(mod, "OpenGl_GlCore42", "OpenGL 4.2 definition.");
-	cls_OpenGl_GlCore42.def(py::init<>());
+	bind_OpenGl_TmplCore42<OpenGl_TmplCore41<OpenGl_TmplCore40<OpenGl_TmplCore33<OpenGl_TmplCore32<OpenGl_TmplCore31<OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13Fwd> > > > > > > > > > >(mod, "OpenGl_GlCore42");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore43.hxx
-	py::class_<OpenGl_GlCore43Back, std::unique_ptr<OpenGl_GlCore43Back, Deleter<OpenGl_GlCore43Back>>, OpenGl_GlCore42Back> cls_OpenGl_GlCore43Back(mod, "OpenGl_GlCore43Back", "OpenGL 4.3 definition.");
-	cls_OpenGl_GlCore43Back.def(py::init<>());
+	bind_OpenGl_TmplCore43<OpenGl_TmplCore42<OpenGl_TmplCore41<OpenGl_TmplCore40<OpenGl_TmplCore33<OpenGl_TmplCore32<OpenGl_TmplCore31<OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13> > > > > > > > > > > >(mod, "OpenGl_GlCore43Back");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore43.hxx
-	py::class_<OpenGl_GlCore43, std::unique_ptr<OpenGl_GlCore43, Deleter<OpenGl_GlCore43>>, OpenGl_GlCore42> cls_OpenGl_GlCore43(mod, "OpenGl_GlCore43", "OpenGL 4.3 definition.");
-	cls_OpenGl_GlCore43.def(py::init<>());
+	bind_OpenGl_TmplCore43<OpenGl_TmplCore42<OpenGl_TmplCore41<OpenGl_TmplCore40<OpenGl_TmplCore33<OpenGl_TmplCore32<OpenGl_TmplCore31<OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13Fwd> > > > > > > > > > > >(mod, "OpenGl_GlCore43");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore44.hxx
-	py::class_<OpenGl_GlCore44Back, std::unique_ptr<OpenGl_GlCore44Back, Deleter<OpenGl_GlCore44Back>>, OpenGl_GlCore43Back> cls_OpenGl_GlCore44Back(mod, "OpenGl_GlCore44Back", "OpenGL 4.4 definition.");
-	cls_OpenGl_GlCore44Back.def(py::init<>());
+	bind_OpenGl_TmplCore44<OpenGl_TmplCore43<OpenGl_TmplCore42<OpenGl_TmplCore41<OpenGl_TmplCore40<OpenGl_TmplCore33<OpenGl_TmplCore32<OpenGl_TmplCore31<OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13> > > > > > > > > > > > >(mod, "OpenGl_GlCore44Back");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GlCore44.hxx
-	py::class_<OpenGl_GlCore44, std::unique_ptr<OpenGl_GlCore44, Deleter<OpenGl_GlCore44>>, OpenGl_GlCore43> cls_OpenGl_GlCore44(mod, "OpenGl_GlCore44", "OpenGL 4.4 definition.");
-	cls_OpenGl_GlCore44.def(py::init<>());
+	bind_OpenGl_TmplCore44<OpenGl_TmplCore43<OpenGl_TmplCore42<OpenGl_TmplCore41<OpenGl_TmplCore40<OpenGl_TmplCore33<OpenGl_TmplCore32<OpenGl_TmplCore31<OpenGl_TmplCore30<OpenGl_TmplCore21<OpenGl_TmplCore20<OpenGl_TmplCore15<OpenGl_TmplCore14<OpenGl_GlCore13Fwd> > > > > > > > > > > > >(mod, "OpenGl_GlCore44");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<OpenGl_ShaderList, std::unique_ptr<OpenGl_ShaderList, Deleter<OpenGl_ShaderList>>, NCollection_BaseSequence> cls_OpenGl_ShaderList(mod, "OpenGl_ShaderList", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_OpenGl_ShaderList.def(py::init<>());
-	cls_OpenGl_ShaderList.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_OpenGl_ShaderList.def(py::init([] (const OpenGl_ShaderList &other) {return new OpenGl_ShaderList(other);}), "Copy constructor", py::arg("other"));
-	cls_OpenGl_ShaderList.def("begin", (OpenGl_ShaderList::iterator (OpenGl_ShaderList::*)() const ) &OpenGl_ShaderList::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_OpenGl_ShaderList.def("end", (OpenGl_ShaderList::iterator (OpenGl_ShaderList::*)() const ) &OpenGl_ShaderList::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_OpenGl_ShaderList.def("cbegin", (OpenGl_ShaderList::const_iterator (OpenGl_ShaderList::*)() const ) &OpenGl_ShaderList::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_OpenGl_ShaderList.def("cend", (OpenGl_ShaderList::const_iterator (OpenGl_ShaderList::*)() const ) &OpenGl_ShaderList::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_OpenGl_ShaderList.def("Size", (Standard_Integer (OpenGl_ShaderList::*)() const ) &OpenGl_ShaderList::Size, "Number of items");
-	cls_OpenGl_ShaderList.def("Length", (Standard_Integer (OpenGl_ShaderList::*)() const ) &OpenGl_ShaderList::Length, "Number of items");
-	cls_OpenGl_ShaderList.def("Lower", (Standard_Integer (OpenGl_ShaderList::*)() const ) &OpenGl_ShaderList::Lower, "Method for consistency with other collections.");
-	cls_OpenGl_ShaderList.def("Upper", (Standard_Integer (OpenGl_ShaderList::*)() const ) &OpenGl_ShaderList::Upper, "Method for consistency with other collections.");
-	cls_OpenGl_ShaderList.def("IsEmpty", (Standard_Boolean (OpenGl_ShaderList::*)() const ) &OpenGl_ShaderList::IsEmpty, "Empty query");
-	cls_OpenGl_ShaderList.def("Reverse", (void (OpenGl_ShaderList::*)()) &OpenGl_ShaderList::Reverse, "Reverse sequence");
-	cls_OpenGl_ShaderList.def("Exchange", (void (OpenGl_ShaderList::*)(const Standard_Integer, const Standard_Integer)) &OpenGl_ShaderList::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_OpenGl_ShaderList.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &OpenGl_ShaderList::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_OpenGl_ShaderList.def("Clear", [](OpenGl_ShaderList &self) -> void { return self.Clear(); });
-	cls_OpenGl_ShaderList.def("Clear", (void (OpenGl_ShaderList::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &OpenGl_ShaderList::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_OpenGl_ShaderList.def("Assign", (OpenGl_ShaderList & (OpenGl_ShaderList::*)(const OpenGl_ShaderList &)) &OpenGl_ShaderList::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_OpenGl_ShaderList.def("assign", (OpenGl_ShaderList & (OpenGl_ShaderList::*)(const OpenGl_ShaderList &)) &OpenGl_ShaderList::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_OpenGl_ShaderList.def("Remove", (void (OpenGl_ShaderList::*)(OpenGl_ShaderList::Iterator &)) &OpenGl_ShaderList::Remove, "Remove one item", py::arg("thePosition"));
-	cls_OpenGl_ShaderList.def("Remove", (void (OpenGl_ShaderList::*)(const Standard_Integer)) &OpenGl_ShaderList::Remove, "Remove one item", py::arg("theIndex"));
-	cls_OpenGl_ShaderList.def("Remove", (void (OpenGl_ShaderList::*)(const Standard_Integer, const Standard_Integer)) &OpenGl_ShaderList::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_OpenGl_ShaderList.def("Append", (void (OpenGl_ShaderList::*)(const opencascade::handle<OpenGl_ShaderObject> &)) &OpenGl_ShaderList::Append, "Append one item", py::arg("theItem"));
-	cls_OpenGl_ShaderList.def("Append", (void (OpenGl_ShaderList::*)(OpenGl_ShaderList &)) &OpenGl_ShaderList::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_OpenGl_ShaderList.def("Prepend", (void (OpenGl_ShaderList::*)(const opencascade::handle<OpenGl_ShaderObject> &)) &OpenGl_ShaderList::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_OpenGl_ShaderList.def("Prepend", (void (OpenGl_ShaderList::*)(OpenGl_ShaderList &)) &OpenGl_ShaderList::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_OpenGl_ShaderList.def("InsertBefore", (void (OpenGl_ShaderList::*)(const Standard_Integer, const opencascade::handle<OpenGl_ShaderObject> &)) &OpenGl_ShaderList::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_OpenGl_ShaderList.def("InsertBefore", (void (OpenGl_ShaderList::*)(const Standard_Integer, OpenGl_ShaderList &)) &OpenGl_ShaderList::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_OpenGl_ShaderList.def("InsertAfter", (void (OpenGl_ShaderList::*)(OpenGl_ShaderList::Iterator &, const opencascade::handle<OpenGl_ShaderObject> &)) &OpenGl_ShaderList::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_OpenGl_ShaderList.def("InsertAfter", (void (OpenGl_ShaderList::*)(const Standard_Integer, OpenGl_ShaderList &)) &OpenGl_ShaderList::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_OpenGl_ShaderList.def("InsertAfter", (void (OpenGl_ShaderList::*)(const Standard_Integer, const opencascade::handle<OpenGl_ShaderObject> &)) &OpenGl_ShaderList::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_OpenGl_ShaderList.def("Split", (void (OpenGl_ShaderList::*)(const Standard_Integer, OpenGl_ShaderList &)) &OpenGl_ShaderList::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_OpenGl_ShaderList.def("First", (const opencascade::handle<OpenGl_ShaderObject> & (OpenGl_ShaderList::*)() const ) &OpenGl_ShaderList::First, "First item access");
-	cls_OpenGl_ShaderList.def("ChangeFirst", (opencascade::handle<OpenGl_ShaderObject> & (OpenGl_ShaderList::*)()) &OpenGl_ShaderList::ChangeFirst, "First item access");
-	cls_OpenGl_ShaderList.def("Last", (const opencascade::handle<OpenGl_ShaderObject> & (OpenGl_ShaderList::*)() const ) &OpenGl_ShaderList::Last, "Last item access");
-	cls_OpenGl_ShaderList.def("ChangeLast", (opencascade::handle<OpenGl_ShaderObject> & (OpenGl_ShaderList::*)()) &OpenGl_ShaderList::ChangeLast, "Last item access");
-	cls_OpenGl_ShaderList.def("Value", (const opencascade::handle<OpenGl_ShaderObject> & (OpenGl_ShaderList::*)(const Standard_Integer) const ) &OpenGl_ShaderList::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_OpenGl_ShaderList.def("__call__", (const opencascade::handle<OpenGl_ShaderObject> & (OpenGl_ShaderList::*)(const Standard_Integer) const ) &OpenGl_ShaderList::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_OpenGl_ShaderList.def("ChangeValue", (opencascade::handle<OpenGl_ShaderObject> & (OpenGl_ShaderList::*)(const Standard_Integer)) &OpenGl_ShaderList::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_OpenGl_ShaderList.def("__call__", (opencascade::handle<OpenGl_ShaderObject> & (OpenGl_ShaderList::*)(const Standard_Integer)) &OpenGl_ShaderList::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_OpenGl_ShaderList.def("SetValue", (void (OpenGl_ShaderList::*)(const Standard_Integer, const opencascade::handle<OpenGl_ShaderObject> &)) &OpenGl_ShaderList::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_OpenGl_ShaderList.def("__iter__", [](const OpenGl_ShaderList &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_ShaderProgram.hxx
+	bind_NCollection_Sequence<opencascade::handle<OpenGl_ShaderObject> >(mod, "OpenGl_ShaderList");
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_ShaderProgram.hxx
+	bind_NCollection_DataMap<unsigned long long, OpenGl_SetterInterface *, NCollection_DefaultHasher<unsigned long long> >(mod, "OpenGl_SetterList");
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_FrameBuffer.hxx
+	bind_NCollection_Vector<int>(mod, "OpenGl_ColorFormats");
+
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_MapOfZLayerSettings.hxx
+	bind_NCollection_DataMap<int, Graphic3d_ZLayerSettings, NCollection_DefaultHasher<int> >(mod, "OpenGl_MapOfZLayerSettings");
 
 	/* FIXME
-	// OpenGl_SetterList
-	*/
-
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vector.hxx
-	py::class_<OpenGl_ColorFormats, std::unique_ptr<OpenGl_ColorFormats, Deleter<OpenGl_ColorFormats>>, NCollection_BaseVector> cls_OpenGl_ColorFormats(mod, "OpenGl_ColorFormats", "Class NCollection_Vector (dynamic array of objects)");
-	cls_OpenGl_ColorFormats.def(py::init<>());
-	cls_OpenGl_ColorFormats.def(py::init<const Standard_Integer>(), py::arg("theIncrement"));
-	cls_OpenGl_ColorFormats.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theIncrement"), py::arg("theAlloc"));
-	cls_OpenGl_ColorFormats.def(py::init([] (const OpenGl_ColorFormats &other) {return new OpenGl_ColorFormats(other);}), "Copy constructor", py::arg("other"));
-	cls_OpenGl_ColorFormats.def("begin", (OpenGl_ColorFormats::iterator (OpenGl_ColorFormats::*)() const ) &OpenGl_ColorFormats::begin, "Returns an iterator pointing to the first element in the vector.");
-	cls_OpenGl_ColorFormats.def("end", (OpenGl_ColorFormats::iterator (OpenGl_ColorFormats::*)() const ) &OpenGl_ColorFormats::end, "Returns an iterator referring to the past-the-end element in the vector.");
-	cls_OpenGl_ColorFormats.def("cbegin", (OpenGl_ColorFormats::const_iterator (OpenGl_ColorFormats::*)() const ) &OpenGl_ColorFormats::cbegin, "Returns a const iterator pointing to the first element in the vector.");
-	cls_OpenGl_ColorFormats.def("cend", (OpenGl_ColorFormats::const_iterator (OpenGl_ColorFormats::*)() const ) &OpenGl_ColorFormats::cend, "Returns a const iterator referring to the past-the-end element in the vector.");
-	cls_OpenGl_ColorFormats.def("Length", (Standard_Integer (OpenGl_ColorFormats::*)() const ) &OpenGl_ColorFormats::Length, "Total number of items");
-	cls_OpenGl_ColorFormats.def("Size", (Standard_Integer (OpenGl_ColorFormats::*)() const ) &OpenGl_ColorFormats::Size, "Total number of items in the vector");
-	cls_OpenGl_ColorFormats.def("Lower", (Standard_Integer (OpenGl_ColorFormats::*)() const ) &OpenGl_ColorFormats::Lower, "Method for consistency with other collections.");
-	cls_OpenGl_ColorFormats.def("Upper", (Standard_Integer (OpenGl_ColorFormats::*)() const ) &OpenGl_ColorFormats::Upper, "Method for consistency with other collections.");
-	cls_OpenGl_ColorFormats.def("IsEmpty", (Standard_Boolean (OpenGl_ColorFormats::*)() const ) &OpenGl_ColorFormats::IsEmpty, "Empty query");
-	cls_OpenGl_ColorFormats.def("Assign", [](OpenGl_ColorFormats &self, const OpenGl_ColorFormats & a0) -> void { return self.Assign(a0); }, py::arg("theOther"));
-	cls_OpenGl_ColorFormats.def("Assign", (void (OpenGl_ColorFormats::*)(const OpenGl_ColorFormats &, const Standard_Boolean)) &OpenGl_ColorFormats::Assign, "Assignment to the collection of the same type", py::arg("theOther"), py::arg("theOwnAllocator"));
-	cls_OpenGl_ColorFormats.def("assign", (OpenGl_ColorFormats & (OpenGl_ColorFormats::*)(const OpenGl_ColorFormats &)) &OpenGl_ColorFormats::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_OpenGl_ColorFormats.def("Append", (GLint & (OpenGl_ColorFormats::*)(const GLint &)) &OpenGl_ColorFormats::Append, "Append", py::arg("theValue"));
-	cls_OpenGl_ColorFormats.def("__call__", (const GLint & (OpenGl_ColorFormats::*)(const Standard_Integer) const ) &OpenGl_ColorFormats::operator(), py::is_operator(), "Operator() - query the const value", py::arg("theIndex"));
-	cls_OpenGl_ColorFormats.def("Value", (const GLint & (OpenGl_ColorFormats::*)(const Standard_Integer) const ) &OpenGl_ColorFormats::Value, "None", py::arg("theIndex"));
-	cls_OpenGl_ColorFormats.def("First", (const GLint & (OpenGl_ColorFormats::*)() const ) &OpenGl_ColorFormats::First, "Returns first element");
-	cls_OpenGl_ColorFormats.def("ChangeFirst", (GLint & (OpenGl_ColorFormats::*)()) &OpenGl_ColorFormats::ChangeFirst, "Returns first element");
-	cls_OpenGl_ColorFormats.def("Last", (const GLint & (OpenGl_ColorFormats::*)() const ) &OpenGl_ColorFormats::Last, "Returns last element");
-	cls_OpenGl_ColorFormats.def("ChangeLast", (GLint & (OpenGl_ColorFormats::*)()) &OpenGl_ColorFormats::ChangeLast, "Returns last element");
-	cls_OpenGl_ColorFormats.def("__call__", (GLint & (OpenGl_ColorFormats::*)(const Standard_Integer)) &OpenGl_ColorFormats::operator(), py::is_operator(), "Operator() - query the value", py::arg("theIndex"));
-	cls_OpenGl_ColorFormats.def("ChangeValue", (GLint & (OpenGl_ColorFormats::*)(const Standard_Integer)) &OpenGl_ColorFormats::ChangeValue, "None", py::arg("theIndex"));
-	cls_OpenGl_ColorFormats.def("SetValue", (GLint & (OpenGl_ColorFormats::*)(const Standard_Integer, const GLint &)) &OpenGl_ColorFormats::SetValue, "SetValue () - set or append a value", py::arg("theIndex"), py::arg("theValue"));
-	cls_OpenGl_ColorFormats.def("__iter__", [](const OpenGl_ColorFormats &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
-
-	/* FIXME
-	// OpenGl_MapOfZLayerSettings
-	*/
-
-	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_List.hxx
-	py::class_<OpenGl_ListOfStructure, std::unique_ptr<OpenGl_ListOfStructure, Deleter<OpenGl_ListOfStructure>>, NCollection_BaseList> cls_OpenGl_ListOfStructure(mod, "OpenGl_ListOfStructure", "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.");
-	cls_OpenGl_ListOfStructure.def(py::init<>());
-	cls_OpenGl_ListOfStructure.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_OpenGl_ListOfStructure.def(py::init([] (const OpenGl_ListOfStructure &other) {return new OpenGl_ListOfStructure(other);}), "Copy constructor", py::arg("other"));
-	cls_OpenGl_ListOfStructure.def("begin", (OpenGl_ListOfStructure::iterator (OpenGl_ListOfStructure::*)() const ) &OpenGl_ListOfStructure::begin, "Returns an iterator pointing to the first element in the list.");
-	cls_OpenGl_ListOfStructure.def("end", (OpenGl_ListOfStructure::iterator (OpenGl_ListOfStructure::*)() const ) &OpenGl_ListOfStructure::end, "Returns an iterator referring to the past-the-end element in the list.");
-	cls_OpenGl_ListOfStructure.def("cbegin", (OpenGl_ListOfStructure::const_iterator (OpenGl_ListOfStructure::*)() const ) &OpenGl_ListOfStructure::cbegin, "Returns a const iterator pointing to the first element in the list.");
-	cls_OpenGl_ListOfStructure.def("cend", (OpenGl_ListOfStructure::const_iterator (OpenGl_ListOfStructure::*)() const ) &OpenGl_ListOfStructure::cend, "Returns a const iterator referring to the past-the-end element in the list.");
-	cls_OpenGl_ListOfStructure.def("Size", (Standard_Integer (OpenGl_ListOfStructure::*)() const ) &OpenGl_ListOfStructure::Size, "Size - Number of items");
-	cls_OpenGl_ListOfStructure.def("Assign", (OpenGl_ListOfStructure & (OpenGl_ListOfStructure::*)(const OpenGl_ListOfStructure &)) &OpenGl_ListOfStructure::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
-	cls_OpenGl_ListOfStructure.def("assign", (OpenGl_ListOfStructure & (OpenGl_ListOfStructure::*)(const OpenGl_ListOfStructure &)) &OpenGl_ListOfStructure::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_OpenGl_ListOfStructure.def("Clear", [](OpenGl_ListOfStructure &self) -> void { return self.Clear(); });
-	cls_OpenGl_ListOfStructure.def("Clear", (void (OpenGl_ListOfStructure::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &OpenGl_ListOfStructure::Clear, "Clear this list", py::arg("theAllocator"));
-	cls_OpenGl_ListOfStructure.def("First", (const const OpenGl_Structure * & (OpenGl_ListOfStructure::*)() const ) &OpenGl_ListOfStructure::First, "First item");
-	cls_OpenGl_ListOfStructure.def("First", (const OpenGl_Structure * & (OpenGl_ListOfStructure::*)()) &OpenGl_ListOfStructure::First, "First item (non-const)");
-	cls_OpenGl_ListOfStructure.def("Last", (const const OpenGl_Structure * & (OpenGl_ListOfStructure::*)() const ) &OpenGl_ListOfStructure::Last, "Last item");
-	cls_OpenGl_ListOfStructure.def("Last", (const OpenGl_Structure * & (OpenGl_ListOfStructure::*)()) &OpenGl_ListOfStructure::Last, "Last item (non-const)");
-	cls_OpenGl_ListOfStructure.def("Append", (const OpenGl_Structure * & (OpenGl_ListOfStructure::*)(const const OpenGl_Structure * &)) &OpenGl_ListOfStructure::Append, "Append one item at the end", py::arg("theItem"));
-	cls_OpenGl_ListOfStructure.def("Append", (void (OpenGl_ListOfStructure::*)(const const OpenGl_Structure * &, OpenGl_ListOfStructure::Iterator &)) &OpenGl_ListOfStructure::Append, "Append one item at the end and output iterator pointing at the appended item", py::arg("theItem"), py::arg("theIter"));
-	cls_OpenGl_ListOfStructure.def("Append", (void (OpenGl_ListOfStructure::*)(OpenGl_ListOfStructure &)) &OpenGl_ListOfStructure::Append, "Append another list at the end", py::arg("theOther"));
-	cls_OpenGl_ListOfStructure.def("Prepend", (const OpenGl_Structure * & (OpenGl_ListOfStructure::*)(const const OpenGl_Structure * &)) &OpenGl_ListOfStructure::Prepend, "Prepend one item at the beginning", py::arg("theItem"));
-	cls_OpenGl_ListOfStructure.def("Prepend", (void (OpenGl_ListOfStructure::*)(OpenGl_ListOfStructure &)) &OpenGl_ListOfStructure::Prepend, "Prepend another list at the beginning", py::arg("theOther"));
-	cls_OpenGl_ListOfStructure.def("RemoveFirst", (void (OpenGl_ListOfStructure::*)()) &OpenGl_ListOfStructure::RemoveFirst, "RemoveFirst item");
-	cls_OpenGl_ListOfStructure.def("Remove", (void (OpenGl_ListOfStructure::*)(OpenGl_ListOfStructure::Iterator &)) &OpenGl_ListOfStructure::Remove, "Remove item pointed by iterator theIter; theIter is then set to the next item", py::arg("theIter"));
-	cls_OpenGl_ListOfStructure.def("InsertBefore", (const OpenGl_Structure * & (OpenGl_ListOfStructure::*)(const const OpenGl_Structure * &, OpenGl_ListOfStructure::Iterator &)) &OpenGl_ListOfStructure::InsertBefore, "InsertBefore", py::arg("theItem"), py::arg("theIter"));
-	cls_OpenGl_ListOfStructure.def("InsertBefore", (void (OpenGl_ListOfStructure::*)(OpenGl_ListOfStructure &, OpenGl_ListOfStructure::Iterator &)) &OpenGl_ListOfStructure::InsertBefore, "InsertBefore", py::arg("theOther"), py::arg("theIter"));
-	cls_OpenGl_ListOfStructure.def("InsertAfter", (const OpenGl_Structure * & (OpenGl_ListOfStructure::*)(const const OpenGl_Structure * &, OpenGl_ListOfStructure::Iterator &)) &OpenGl_ListOfStructure::InsertAfter, "InsertAfter", py::arg("theItem"), py::arg("theIter"));
-	cls_OpenGl_ListOfStructure.def("InsertAfter", (void (OpenGl_ListOfStructure::*)(OpenGl_ListOfStructure &, OpenGl_ListOfStructure::Iterator &)) &OpenGl_ListOfStructure::InsertAfter, "InsertAfter", py::arg("theOther"), py::arg("theIter"));
-	cls_OpenGl_ListOfStructure.def("Reverse", (void (OpenGl_ListOfStructure::*)()) &OpenGl_ListOfStructure::Reverse, "Reverse the list");
-	cls_OpenGl_ListOfStructure.def("__iter__", [](const OpenGl_ListOfStructure &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Structure.hxx
+	bind_NCollection_List<const OpenGl_Structure *>(mod, "OpenGl_ListOfStructure");
 
 	*/
 
-	/* FIXME
-	// OpenGl_IndexedMapOfStructure
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Layer.hxx
+	bind_NCollection_IndexedMap<const OpenGl_Structure *, NCollection_DefaultHasher<const OpenGl_Structure *> >(mod, "OpenGl_IndexedMapOfStructure");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Array1.hxx
-	py::class_<OpenGl_ArrayOfIndexedMapOfStructure, std::unique_ptr<OpenGl_ArrayOfIndexedMapOfStructure, Deleter<OpenGl_ArrayOfIndexedMapOfStructure>>> cls_OpenGl_ArrayOfIndexedMapOfStructure(mod, "OpenGl_ArrayOfIndexedMapOfStructure", "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.");
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def(py::init<>());
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def(py::init([] (const OpenGl_ArrayOfIndexedMapOfStructure &other) {return new OpenGl_ArrayOfIndexedMapOfStructure(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_OpenGl_ArrayOfIndexedMapOfStructure.def(py::init<OpenGl_ArrayOfIndexedMapOfStructure &&>(), py::arg("theOther"));
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def(py::init<const OpenGl_IndexedMapOfStructure &, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theLower"), py::arg("theUpper"));
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("begin", (OpenGl_ArrayOfIndexedMapOfStructure::iterator (OpenGl_ArrayOfIndexedMapOfStructure::*)() const ) &OpenGl_ArrayOfIndexedMapOfStructure::begin, "Returns an iterator pointing to the first element in the array.");
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("end", (OpenGl_ArrayOfIndexedMapOfStructure::iterator (OpenGl_ArrayOfIndexedMapOfStructure::*)() const ) &OpenGl_ArrayOfIndexedMapOfStructure::end, "Returns an iterator referring to the past-the-end element in the array.");
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("cbegin", (OpenGl_ArrayOfIndexedMapOfStructure::const_iterator (OpenGl_ArrayOfIndexedMapOfStructure::*)() const ) &OpenGl_ArrayOfIndexedMapOfStructure::cbegin, "Returns a const iterator pointing to the first element in the array.");
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("cend", (OpenGl_ArrayOfIndexedMapOfStructure::const_iterator (OpenGl_ArrayOfIndexedMapOfStructure::*)() const ) &OpenGl_ArrayOfIndexedMapOfStructure::cend, "Returns a const iterator referring to the past-the-end element in the array.");
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("Init", (void (OpenGl_ArrayOfIndexedMapOfStructure::*)(const OpenGl_IndexedMapOfStructure &)) &OpenGl_ArrayOfIndexedMapOfStructure::Init, "Initialise the items with theValue", py::arg("theValue"));
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("Size", (Standard_Integer (OpenGl_ArrayOfIndexedMapOfStructure::*)() const ) &OpenGl_ArrayOfIndexedMapOfStructure::Size, "Size query");
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("Length", (Standard_Integer (OpenGl_ArrayOfIndexedMapOfStructure::*)() const ) &OpenGl_ArrayOfIndexedMapOfStructure::Length, "Length query (the same)");
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("IsEmpty", (Standard_Boolean (OpenGl_ArrayOfIndexedMapOfStructure::*)() const ) &OpenGl_ArrayOfIndexedMapOfStructure::IsEmpty, "Return TRUE if array has zero length.");
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("Lower", (Standard_Integer (OpenGl_ArrayOfIndexedMapOfStructure::*)() const ) &OpenGl_ArrayOfIndexedMapOfStructure::Lower, "Lower bound");
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("Upper", (Standard_Integer (OpenGl_ArrayOfIndexedMapOfStructure::*)() const ) &OpenGl_ArrayOfIndexedMapOfStructure::Upper, "Upper bound");
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("IsDeletable", (Standard_Boolean (OpenGl_ArrayOfIndexedMapOfStructure::*)() const ) &OpenGl_ArrayOfIndexedMapOfStructure::IsDeletable, "myDeletable flag");
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("IsAllocated", (Standard_Boolean (OpenGl_ArrayOfIndexedMapOfStructure::*)() const ) &OpenGl_ArrayOfIndexedMapOfStructure::IsAllocated, "IsAllocated flag - for naming compatibility");
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("Assign", (OpenGl_ArrayOfIndexedMapOfStructure & (OpenGl_ArrayOfIndexedMapOfStructure::*)(const OpenGl_ArrayOfIndexedMapOfStructure &)) &OpenGl_ArrayOfIndexedMapOfStructure::Assign, "Assignment", py::arg("theOther"));
-	// FIXME cls_OpenGl_ArrayOfIndexedMapOfStructure.def("Move", (OpenGl_ArrayOfIndexedMapOfStructure & (OpenGl_ArrayOfIndexedMapOfStructure::*)(OpenGl_ArrayOfIndexedMapOfStructure &&)) &OpenGl_ArrayOfIndexedMapOfStructure::Move, "Move assignment", py::arg("theOther"));
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("assign", (OpenGl_ArrayOfIndexedMapOfStructure & (OpenGl_ArrayOfIndexedMapOfStructure::*)(const OpenGl_ArrayOfIndexedMapOfStructure &)) &OpenGl_ArrayOfIndexedMapOfStructure::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	// FIXME cls_OpenGl_ArrayOfIndexedMapOfStructure.def("assign", (OpenGl_ArrayOfIndexedMapOfStructure & (OpenGl_ArrayOfIndexedMapOfStructure::*)(OpenGl_ArrayOfIndexedMapOfStructure &&)) &OpenGl_ArrayOfIndexedMapOfStructure::operator=, py::is_operator(), "Move assignment operator.", py::arg("theOther"));
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("First", (const OpenGl_IndexedMapOfStructure & (OpenGl_ArrayOfIndexedMapOfStructure::*)() const ) &OpenGl_ArrayOfIndexedMapOfStructure::First, "Returns first element");
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("ChangeFirst", (OpenGl_IndexedMapOfStructure & (OpenGl_ArrayOfIndexedMapOfStructure::*)()) &OpenGl_ArrayOfIndexedMapOfStructure::ChangeFirst, "Returns first element");
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("Last", (const OpenGl_IndexedMapOfStructure & (OpenGl_ArrayOfIndexedMapOfStructure::*)() const ) &OpenGl_ArrayOfIndexedMapOfStructure::Last, "Returns last element");
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("ChangeLast", (OpenGl_IndexedMapOfStructure & (OpenGl_ArrayOfIndexedMapOfStructure::*)()) &OpenGl_ArrayOfIndexedMapOfStructure::ChangeLast, "Returns last element");
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("Value", (const OpenGl_IndexedMapOfStructure & (OpenGl_ArrayOfIndexedMapOfStructure::*)(const Standard_Integer) const ) &OpenGl_ArrayOfIndexedMapOfStructure::Value, "Constant value access", py::arg("theIndex"));
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("__call__", (const OpenGl_IndexedMapOfStructure & (OpenGl_ArrayOfIndexedMapOfStructure::*)(const Standard_Integer) const ) &OpenGl_ArrayOfIndexedMapOfStructure::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("ChangeValue", (OpenGl_IndexedMapOfStructure & (OpenGl_ArrayOfIndexedMapOfStructure::*)(const Standard_Integer)) &OpenGl_ArrayOfIndexedMapOfStructure::ChangeValue, "Variable value access", py::arg("theIndex"));
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("__call__", (OpenGl_IndexedMapOfStructure & (OpenGl_ArrayOfIndexedMapOfStructure::*)(const Standard_Integer)) &OpenGl_ArrayOfIndexedMapOfStructure::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("SetValue", (void (OpenGl_ArrayOfIndexedMapOfStructure::*)(const Standard_Integer, const OpenGl_IndexedMapOfStructure &)) &OpenGl_ArrayOfIndexedMapOfStructure::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("Resize", (void (OpenGl_ArrayOfIndexedMapOfStructure::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &OpenGl_ArrayOfIndexedMapOfStructure::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
-	cls_OpenGl_ArrayOfIndexedMapOfStructure.def("__iter__", [](const OpenGl_ArrayOfIndexedMapOfStructure &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Layer.hxx
+	bind_NCollection_Array1<NCollection_IndexedMap<const OpenGl_Structure *, NCollection_DefaultHasher<const OpenGl_Structure *> > >(mod, "OpenGl_ArrayOfIndexedMapOfStructure");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<OpenGl_SequenceOfLayers, std::unique_ptr<OpenGl_SequenceOfLayers, Deleter<OpenGl_SequenceOfLayers>>, NCollection_BaseSequence> cls_OpenGl_SequenceOfLayers(mod, "OpenGl_SequenceOfLayers", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_OpenGl_SequenceOfLayers.def(py::init<>());
-	cls_OpenGl_SequenceOfLayers.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_OpenGl_SequenceOfLayers.def(py::init([] (const OpenGl_SequenceOfLayers &other) {return new OpenGl_SequenceOfLayers(other);}), "Copy constructor", py::arg("other"));
-	cls_OpenGl_SequenceOfLayers.def("begin", (OpenGl_SequenceOfLayers::iterator (OpenGl_SequenceOfLayers::*)() const ) &OpenGl_SequenceOfLayers::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_OpenGl_SequenceOfLayers.def("end", (OpenGl_SequenceOfLayers::iterator (OpenGl_SequenceOfLayers::*)() const ) &OpenGl_SequenceOfLayers::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_OpenGl_SequenceOfLayers.def("cbegin", (OpenGl_SequenceOfLayers::const_iterator (OpenGl_SequenceOfLayers::*)() const ) &OpenGl_SequenceOfLayers::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_OpenGl_SequenceOfLayers.def("cend", (OpenGl_SequenceOfLayers::const_iterator (OpenGl_SequenceOfLayers::*)() const ) &OpenGl_SequenceOfLayers::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_OpenGl_SequenceOfLayers.def("Size", (Standard_Integer (OpenGl_SequenceOfLayers::*)() const ) &OpenGl_SequenceOfLayers::Size, "Number of items");
-	cls_OpenGl_SequenceOfLayers.def("Length", (Standard_Integer (OpenGl_SequenceOfLayers::*)() const ) &OpenGl_SequenceOfLayers::Length, "Number of items");
-	cls_OpenGl_SequenceOfLayers.def("Lower", (Standard_Integer (OpenGl_SequenceOfLayers::*)() const ) &OpenGl_SequenceOfLayers::Lower, "Method for consistency with other collections.");
-	cls_OpenGl_SequenceOfLayers.def("Upper", (Standard_Integer (OpenGl_SequenceOfLayers::*)() const ) &OpenGl_SequenceOfLayers::Upper, "Method for consistency with other collections.");
-	cls_OpenGl_SequenceOfLayers.def("IsEmpty", (Standard_Boolean (OpenGl_SequenceOfLayers::*)() const ) &OpenGl_SequenceOfLayers::IsEmpty, "Empty query");
-	cls_OpenGl_SequenceOfLayers.def("Reverse", (void (OpenGl_SequenceOfLayers::*)()) &OpenGl_SequenceOfLayers::Reverse, "Reverse sequence");
-	cls_OpenGl_SequenceOfLayers.def("Exchange", (void (OpenGl_SequenceOfLayers::*)(const Standard_Integer, const Standard_Integer)) &OpenGl_SequenceOfLayers::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_OpenGl_SequenceOfLayers.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &OpenGl_SequenceOfLayers::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_OpenGl_SequenceOfLayers.def("Clear", [](OpenGl_SequenceOfLayers &self) -> void { return self.Clear(); });
-	cls_OpenGl_SequenceOfLayers.def("Clear", (void (OpenGl_SequenceOfLayers::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &OpenGl_SequenceOfLayers::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_OpenGl_SequenceOfLayers.def("Assign", (OpenGl_SequenceOfLayers & (OpenGl_SequenceOfLayers::*)(const OpenGl_SequenceOfLayers &)) &OpenGl_SequenceOfLayers::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_OpenGl_SequenceOfLayers.def("assign", (OpenGl_SequenceOfLayers & (OpenGl_SequenceOfLayers::*)(const OpenGl_SequenceOfLayers &)) &OpenGl_SequenceOfLayers::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_OpenGl_SequenceOfLayers.def("Remove", (void (OpenGl_SequenceOfLayers::*)(OpenGl_SequenceOfLayers::Iterator &)) &OpenGl_SequenceOfLayers::Remove, "Remove one item", py::arg("thePosition"));
-	cls_OpenGl_SequenceOfLayers.def("Remove", (void (OpenGl_SequenceOfLayers::*)(const Standard_Integer)) &OpenGl_SequenceOfLayers::Remove, "Remove one item", py::arg("theIndex"));
-	cls_OpenGl_SequenceOfLayers.def("Remove", (void (OpenGl_SequenceOfLayers::*)(const Standard_Integer, const Standard_Integer)) &OpenGl_SequenceOfLayers::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_OpenGl_SequenceOfLayers.def("Append", (void (OpenGl_SequenceOfLayers::*)(const opencascade::handle<OpenGl_Layer> &)) &OpenGl_SequenceOfLayers::Append, "Append one item", py::arg("theItem"));
-	cls_OpenGl_SequenceOfLayers.def("Append", (void (OpenGl_SequenceOfLayers::*)(OpenGl_SequenceOfLayers &)) &OpenGl_SequenceOfLayers::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_OpenGl_SequenceOfLayers.def("Prepend", (void (OpenGl_SequenceOfLayers::*)(const opencascade::handle<OpenGl_Layer> &)) &OpenGl_SequenceOfLayers::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_OpenGl_SequenceOfLayers.def("Prepend", (void (OpenGl_SequenceOfLayers::*)(OpenGl_SequenceOfLayers &)) &OpenGl_SequenceOfLayers::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_OpenGl_SequenceOfLayers.def("InsertBefore", (void (OpenGl_SequenceOfLayers::*)(const Standard_Integer, const opencascade::handle<OpenGl_Layer> &)) &OpenGl_SequenceOfLayers::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_OpenGl_SequenceOfLayers.def("InsertBefore", (void (OpenGl_SequenceOfLayers::*)(const Standard_Integer, OpenGl_SequenceOfLayers &)) &OpenGl_SequenceOfLayers::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_OpenGl_SequenceOfLayers.def("InsertAfter", (void (OpenGl_SequenceOfLayers::*)(OpenGl_SequenceOfLayers::Iterator &, const opencascade::handle<OpenGl_Layer> &)) &OpenGl_SequenceOfLayers::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_OpenGl_SequenceOfLayers.def("InsertAfter", (void (OpenGl_SequenceOfLayers::*)(const Standard_Integer, OpenGl_SequenceOfLayers &)) &OpenGl_SequenceOfLayers::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_OpenGl_SequenceOfLayers.def("InsertAfter", (void (OpenGl_SequenceOfLayers::*)(const Standard_Integer, const opencascade::handle<OpenGl_Layer> &)) &OpenGl_SequenceOfLayers::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_OpenGl_SequenceOfLayers.def("Split", (void (OpenGl_SequenceOfLayers::*)(const Standard_Integer, OpenGl_SequenceOfLayers &)) &OpenGl_SequenceOfLayers::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_OpenGl_SequenceOfLayers.def("First", (const opencascade::handle<OpenGl_Layer> & (OpenGl_SequenceOfLayers::*)() const ) &OpenGl_SequenceOfLayers::First, "First item access");
-	cls_OpenGl_SequenceOfLayers.def("ChangeFirst", (opencascade::handle<OpenGl_Layer> & (OpenGl_SequenceOfLayers::*)()) &OpenGl_SequenceOfLayers::ChangeFirst, "First item access");
-	cls_OpenGl_SequenceOfLayers.def("Last", (const opencascade::handle<OpenGl_Layer> & (OpenGl_SequenceOfLayers::*)() const ) &OpenGl_SequenceOfLayers::Last, "Last item access");
-	cls_OpenGl_SequenceOfLayers.def("ChangeLast", (opencascade::handle<OpenGl_Layer> & (OpenGl_SequenceOfLayers::*)()) &OpenGl_SequenceOfLayers::ChangeLast, "Last item access");
-	cls_OpenGl_SequenceOfLayers.def("Value", (const opencascade::handle<OpenGl_Layer> & (OpenGl_SequenceOfLayers::*)(const Standard_Integer) const ) &OpenGl_SequenceOfLayers::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_OpenGl_SequenceOfLayers.def("__call__", (const opencascade::handle<OpenGl_Layer> & (OpenGl_SequenceOfLayers::*)(const Standard_Integer) const ) &OpenGl_SequenceOfLayers::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_OpenGl_SequenceOfLayers.def("ChangeValue", (opencascade::handle<OpenGl_Layer> & (OpenGl_SequenceOfLayers::*)(const Standard_Integer)) &OpenGl_SequenceOfLayers::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_OpenGl_SequenceOfLayers.def("__call__", (opencascade::handle<OpenGl_Layer> & (OpenGl_SequenceOfLayers::*)(const Standard_Integer)) &OpenGl_SequenceOfLayers::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_OpenGl_SequenceOfLayers.def("SetValue", (void (OpenGl_SequenceOfLayers::*)(const Standard_Integer, const opencascade::handle<OpenGl_Layer> &)) &OpenGl_SequenceOfLayers::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_OpenGl_SequenceOfLayers.def("__iter__", [](const OpenGl_SequenceOfLayers &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_LayerList.hxx
+	bind_NCollection_Sequence<opencascade::handle<OpenGl_Layer> >(mod, "OpenGl_SequenceOfLayers");
 
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_LayerList.hxx
 	other_mod = py::module::import("OCCT.BOPCol");
 	if (py::hasattr(other_mod, "BOPCol_DataMapOfIntegerInteger")) {
 		mod.attr("OpenGl_LayerSeqIds") = other_mod.attr("BOPCol_DataMapOfIntegerInteger");
 	}
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Light.hxx
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Light.hxx
 	other_mod = py::module::import("OCCT.Graphic3d");
 	if (py::hasattr(other_mod, "Graphic3d_ListOfCLight")) {
 		mod.attr("OpenGl_ListOfLight") = other_mod.attr("Graphic3d_ListOfCLight");
 	}
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\Standard_Handle.hxx
-	py::class_<QuadBvhHandle, std::unique_ptr<QuadBvhHandle, Deleter<QuadBvhHandle>>> cls_QuadBvhHandle(mod, "QuadBvhHandle", "Intrusive smart pointer for use with Standard_Transient class and its descendants.");
-	cls_QuadBvhHandle.def(py::init<>());
-	cls_QuadBvhHandle.def(py::init<const BVH_Tree<Standard_ShortReal, 3, BVH_QuadTree> *>(), py::arg("thePtr"));
-	cls_QuadBvhHandle.def(py::init([] (const handle<BVH_Tree<Standard_ShortReal, 3, BVH_QuadTree>> &other) {return new QuadBvhHandle(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_QuadBvhHandle.def(py::init<handle<BVH_Tree<Standard_ShortReal, 3, BVH_QuadTree>> &&>(), py::arg("theHandle"));
-	cls_QuadBvhHandle.def("Nullify", (void (QuadBvhHandle::*)()) &QuadBvhHandle::Nullify, "Nullify the handle");
-	cls_QuadBvhHandle.def("IsNull", (bool (QuadBvhHandle::*)() const ) &QuadBvhHandle::IsNull, "Check for being null");
-	cls_QuadBvhHandle.def("reset", (void (QuadBvhHandle::*)(BVH_Tree<Standard_ShortReal, 3, BVH_QuadTree> *)) &QuadBvhHandle::reset, "Reset by new pointer", py::arg("thePtr"));
-	cls_QuadBvhHandle.def("assign", (handle<BVH_Tree<Standard_ShortReal, 3, BVH_QuadTree>> & (QuadBvhHandle::*)(const handle<BVH_Tree<Standard_ShortReal, 3, BVH_QuadTree>> &)) &QuadBvhHandle::operator=, py::is_operator(), "Assignment operator", py::arg("theHandle"));
-	cls_QuadBvhHandle.def("assign", (handle<BVH_Tree<Standard_ShortReal, 3, BVH_QuadTree>> & (QuadBvhHandle::*)(const BVH_Tree<Standard_ShortReal, 3, BVH_QuadTree> *)) &QuadBvhHandle::operator=, py::is_operator(), "Assignment to pointer", py::arg("thePtr"));
-	// FIXME cls_QuadBvhHandle.def("assign", (handle<BVH_Tree<Standard_ShortReal, 3, BVH_QuadTree>> & (QuadBvhHandle::*)(handle<BVH_Tree<Standard_ShortReal, 3, BVH_QuadTree>> &&)) &QuadBvhHandle::operator=, py::is_operator(), "Move operator", py::arg("theHandle"));
-	cls_QuadBvhHandle.def("get", (BVH_Tree<Standard_ShortReal, 3, BVH_QuadTree> * (QuadBvhHandle::*)() const ) &QuadBvhHandle::get, "STL-like cast to pointer to referred object (note non-const).");
-	// FIXME cls_QuadBvhHandle.def("operator->", (BVH_Tree<Standard_ShortReal, 3, BVH_QuadTree> * (QuadBvhHandle::*)() const ) &QuadBvhHandle::operator->, "Member access operator (note non-const)");
-	cls_QuadBvhHandle.def("__mul__", (BVH_Tree<Standard_ShortReal, 3, BVH_QuadTree> & (QuadBvhHandle::*)() const ) &QuadBvhHandle::operator*, py::is_operator(), "Dereferencing operator (note non-const)");
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_SceneGeometry.hxx
+	// FIXME bind_opencascade::handle<BVH_Tree<float, 3, BVH_QuadTree> >(mod, "QuadBvhHandle");
 
 	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_SceneGeometry.hxx
@@ -2433,54 +2231,11 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_TriangleSet.def("Box", (BVH_Box<float, 3> (OpenGl_TriangleSet::*)(const Standard_Integer) const ) &OpenGl_TriangleSet::Box, "Returns AABB of the given triangle.", py::arg("theIndex"));
 	*/
 
-	/* FIXME
-	// OpenGl_MapOfShaderPrograms
-	*/
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_SetOfShaderPrograms.hxx
+	bind_NCollection_DataMap<TCollection_AsciiString, opencascade::handle<OpenGl_SetOfShaderPrograms>, NCollection_DefaultHasher<TCollection_AsciiString> >(mod, "OpenGl_MapOfShaderPrograms");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<OpenGl_ShaderProgramList, std::unique_ptr<OpenGl_ShaderProgramList, Deleter<OpenGl_ShaderProgramList>>, NCollection_BaseSequence> cls_OpenGl_ShaderProgramList(mod, "OpenGl_ShaderProgramList", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_OpenGl_ShaderProgramList.def(py::init<>());
-	cls_OpenGl_ShaderProgramList.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_OpenGl_ShaderProgramList.def(py::init([] (const OpenGl_ShaderProgramList &other) {return new OpenGl_ShaderProgramList(other);}), "Copy constructor", py::arg("other"));
-	cls_OpenGl_ShaderProgramList.def("begin", (OpenGl_ShaderProgramList::iterator (OpenGl_ShaderProgramList::*)() const ) &OpenGl_ShaderProgramList::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_OpenGl_ShaderProgramList.def("end", (OpenGl_ShaderProgramList::iterator (OpenGl_ShaderProgramList::*)() const ) &OpenGl_ShaderProgramList::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_OpenGl_ShaderProgramList.def("cbegin", (OpenGl_ShaderProgramList::const_iterator (OpenGl_ShaderProgramList::*)() const ) &OpenGl_ShaderProgramList::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_OpenGl_ShaderProgramList.def("cend", (OpenGl_ShaderProgramList::const_iterator (OpenGl_ShaderProgramList::*)() const ) &OpenGl_ShaderProgramList::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_OpenGl_ShaderProgramList.def("Size", (Standard_Integer (OpenGl_ShaderProgramList::*)() const ) &OpenGl_ShaderProgramList::Size, "Number of items");
-	cls_OpenGl_ShaderProgramList.def("Length", (Standard_Integer (OpenGl_ShaderProgramList::*)() const ) &OpenGl_ShaderProgramList::Length, "Number of items");
-	cls_OpenGl_ShaderProgramList.def("Lower", (Standard_Integer (OpenGl_ShaderProgramList::*)() const ) &OpenGl_ShaderProgramList::Lower, "Method for consistency with other collections.");
-	cls_OpenGl_ShaderProgramList.def("Upper", (Standard_Integer (OpenGl_ShaderProgramList::*)() const ) &OpenGl_ShaderProgramList::Upper, "Method for consistency with other collections.");
-	cls_OpenGl_ShaderProgramList.def("IsEmpty", (Standard_Boolean (OpenGl_ShaderProgramList::*)() const ) &OpenGl_ShaderProgramList::IsEmpty, "Empty query");
-	cls_OpenGl_ShaderProgramList.def("Reverse", (void (OpenGl_ShaderProgramList::*)()) &OpenGl_ShaderProgramList::Reverse, "Reverse sequence");
-	cls_OpenGl_ShaderProgramList.def("Exchange", (void (OpenGl_ShaderProgramList::*)(const Standard_Integer, const Standard_Integer)) &OpenGl_ShaderProgramList::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_OpenGl_ShaderProgramList.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &OpenGl_ShaderProgramList::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_OpenGl_ShaderProgramList.def("Clear", [](OpenGl_ShaderProgramList &self) -> void { return self.Clear(); });
-	cls_OpenGl_ShaderProgramList.def("Clear", (void (OpenGl_ShaderProgramList::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &OpenGl_ShaderProgramList::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_OpenGl_ShaderProgramList.def("Assign", (OpenGl_ShaderProgramList & (OpenGl_ShaderProgramList::*)(const OpenGl_ShaderProgramList &)) &OpenGl_ShaderProgramList::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_OpenGl_ShaderProgramList.def("assign", (OpenGl_ShaderProgramList & (OpenGl_ShaderProgramList::*)(const OpenGl_ShaderProgramList &)) &OpenGl_ShaderProgramList::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_OpenGl_ShaderProgramList.def("Remove", (void (OpenGl_ShaderProgramList::*)(OpenGl_ShaderProgramList::Iterator &)) &OpenGl_ShaderProgramList::Remove, "Remove one item", py::arg("thePosition"));
-	cls_OpenGl_ShaderProgramList.def("Remove", (void (OpenGl_ShaderProgramList::*)(const Standard_Integer)) &OpenGl_ShaderProgramList::Remove, "Remove one item", py::arg("theIndex"));
-	cls_OpenGl_ShaderProgramList.def("Remove", (void (OpenGl_ShaderProgramList::*)(const Standard_Integer, const Standard_Integer)) &OpenGl_ShaderProgramList::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_OpenGl_ShaderProgramList.def("Append", (void (OpenGl_ShaderProgramList::*)(const opencascade::handle<OpenGl_ShaderProgram> &)) &OpenGl_ShaderProgramList::Append, "Append one item", py::arg("theItem"));
-	cls_OpenGl_ShaderProgramList.def("Append", (void (OpenGl_ShaderProgramList::*)(OpenGl_ShaderProgramList &)) &OpenGl_ShaderProgramList::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_OpenGl_ShaderProgramList.def("Prepend", (void (OpenGl_ShaderProgramList::*)(const opencascade::handle<OpenGl_ShaderProgram> &)) &OpenGl_ShaderProgramList::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_OpenGl_ShaderProgramList.def("Prepend", (void (OpenGl_ShaderProgramList::*)(OpenGl_ShaderProgramList &)) &OpenGl_ShaderProgramList::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_OpenGl_ShaderProgramList.def("InsertBefore", (void (OpenGl_ShaderProgramList::*)(const Standard_Integer, const opencascade::handle<OpenGl_ShaderProgram> &)) &OpenGl_ShaderProgramList::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_OpenGl_ShaderProgramList.def("InsertBefore", (void (OpenGl_ShaderProgramList::*)(const Standard_Integer, OpenGl_ShaderProgramList &)) &OpenGl_ShaderProgramList::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_OpenGl_ShaderProgramList.def("InsertAfter", (void (OpenGl_ShaderProgramList::*)(OpenGl_ShaderProgramList::Iterator &, const opencascade::handle<OpenGl_ShaderProgram> &)) &OpenGl_ShaderProgramList::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_OpenGl_ShaderProgramList.def("InsertAfter", (void (OpenGl_ShaderProgramList::*)(const Standard_Integer, OpenGl_ShaderProgramList &)) &OpenGl_ShaderProgramList::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_OpenGl_ShaderProgramList.def("InsertAfter", (void (OpenGl_ShaderProgramList::*)(const Standard_Integer, const opencascade::handle<OpenGl_ShaderProgram> &)) &OpenGl_ShaderProgramList::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_OpenGl_ShaderProgramList.def("Split", (void (OpenGl_ShaderProgramList::*)(const Standard_Integer, OpenGl_ShaderProgramList &)) &OpenGl_ShaderProgramList::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_OpenGl_ShaderProgramList.def("First", (const opencascade::handle<OpenGl_ShaderProgram> & (OpenGl_ShaderProgramList::*)() const ) &OpenGl_ShaderProgramList::First, "First item access");
-	cls_OpenGl_ShaderProgramList.def("ChangeFirst", (opencascade::handle<OpenGl_ShaderProgram> & (OpenGl_ShaderProgramList::*)()) &OpenGl_ShaderProgramList::ChangeFirst, "First item access");
-	cls_OpenGl_ShaderProgramList.def("Last", (const opencascade::handle<OpenGl_ShaderProgram> & (OpenGl_ShaderProgramList::*)() const ) &OpenGl_ShaderProgramList::Last, "Last item access");
-	cls_OpenGl_ShaderProgramList.def("ChangeLast", (opencascade::handle<OpenGl_ShaderProgram> & (OpenGl_ShaderProgramList::*)()) &OpenGl_ShaderProgramList::ChangeLast, "Last item access");
-	cls_OpenGl_ShaderProgramList.def("Value", (const opencascade::handle<OpenGl_ShaderProgram> & (OpenGl_ShaderProgramList::*)(const Standard_Integer) const ) &OpenGl_ShaderProgramList::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_OpenGl_ShaderProgramList.def("__call__", (const opencascade::handle<OpenGl_ShaderProgram> & (OpenGl_ShaderProgramList::*)(const Standard_Integer) const ) &OpenGl_ShaderProgramList::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_OpenGl_ShaderProgramList.def("ChangeValue", (opencascade::handle<OpenGl_ShaderProgram> & (OpenGl_ShaderProgramList::*)(const Standard_Integer)) &OpenGl_ShaderProgramList::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_OpenGl_ShaderProgramList.def("__call__", (opencascade::handle<OpenGl_ShaderProgram> & (OpenGl_ShaderProgramList::*)(const Standard_Integer)) &OpenGl_ShaderProgramList::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_OpenGl_ShaderProgramList.def("SetValue", (void (OpenGl_ShaderProgramList::*)(const Standard_Integer, const opencascade::handle<OpenGl_ShaderProgram> &)) &OpenGl_ShaderProgramList::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_OpenGl_ShaderProgramList.def("__iter__", [](const OpenGl_ShaderProgramList &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_ShaderManager.hxx
+	bind_NCollection_Sequence<opencascade::handle<OpenGl_ShaderProgram> >(mod, "OpenGl_ShaderProgramList");
 
 
 }

@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Standard_Handle.hxx>
 #include <Adaptor3d_TopolTool.hxx>
@@ -90,6 +81,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <NCollection_BaseSequence.hxx>
 #include <NCollection_Sequence.hxx>
 #include <GeomInt_SequenceOfParameterAndOrientation.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(GeomInt, mod) {
 
@@ -675,80 +667,11 @@ PYBIND11_MODULE(GeomInt, mod) {
 	cls_.def(py::init<>());
 	*/
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Vector.hxx
-	py::class_<GeomInt_VectorOfReal, std::unique_ptr<GeomInt_VectorOfReal, Deleter<GeomInt_VectorOfReal>>, NCollection_BaseVector> cls_GeomInt_VectorOfReal(mod, "GeomInt_VectorOfReal", "Class NCollection_Vector (dynamic array of objects)");
-	cls_GeomInt_VectorOfReal.def(py::init<>());
-	cls_GeomInt_VectorOfReal.def(py::init<const Standard_Integer>(), py::arg("theIncrement"));
-	cls_GeomInt_VectorOfReal.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theIncrement"), py::arg("theAlloc"));
-	cls_GeomInt_VectorOfReal.def(py::init([] (const GeomInt_VectorOfReal &other) {return new GeomInt_VectorOfReal(other);}), "Copy constructor", py::arg("other"));
-	cls_GeomInt_VectorOfReal.def("begin", (GeomInt_VectorOfReal::iterator (GeomInt_VectorOfReal::*)() const ) &GeomInt_VectorOfReal::begin, "Returns an iterator pointing to the first element in the vector.");
-	cls_GeomInt_VectorOfReal.def("end", (GeomInt_VectorOfReal::iterator (GeomInt_VectorOfReal::*)() const ) &GeomInt_VectorOfReal::end, "Returns an iterator referring to the past-the-end element in the vector.");
-	cls_GeomInt_VectorOfReal.def("cbegin", (GeomInt_VectorOfReal::const_iterator (GeomInt_VectorOfReal::*)() const ) &GeomInt_VectorOfReal::cbegin, "Returns a const iterator pointing to the first element in the vector.");
-	cls_GeomInt_VectorOfReal.def("cend", (GeomInt_VectorOfReal::const_iterator (GeomInt_VectorOfReal::*)() const ) &GeomInt_VectorOfReal::cend, "Returns a const iterator referring to the past-the-end element in the vector.");
-	cls_GeomInt_VectorOfReal.def("Length", (Standard_Integer (GeomInt_VectorOfReal::*)() const ) &GeomInt_VectorOfReal::Length, "Total number of items");
-	cls_GeomInt_VectorOfReal.def("Size", (Standard_Integer (GeomInt_VectorOfReal::*)() const ) &GeomInt_VectorOfReal::Size, "Total number of items in the vector");
-	cls_GeomInt_VectorOfReal.def("Lower", (Standard_Integer (GeomInt_VectorOfReal::*)() const ) &GeomInt_VectorOfReal::Lower, "Method for consistency with other collections.");
-	cls_GeomInt_VectorOfReal.def("Upper", (Standard_Integer (GeomInt_VectorOfReal::*)() const ) &GeomInt_VectorOfReal::Upper, "Method for consistency with other collections.");
-	cls_GeomInt_VectorOfReal.def("IsEmpty", (Standard_Boolean (GeomInt_VectorOfReal::*)() const ) &GeomInt_VectorOfReal::IsEmpty, "Empty query");
-	cls_GeomInt_VectorOfReal.def("Assign", [](GeomInt_VectorOfReal &self, const GeomInt_VectorOfReal & a0) -> void { return self.Assign(a0); }, py::arg("theOther"));
-	cls_GeomInt_VectorOfReal.def("Assign", (void (GeomInt_VectorOfReal::*)(const GeomInt_VectorOfReal &, const Standard_Boolean)) &GeomInt_VectorOfReal::Assign, "Assignment to the collection of the same type", py::arg("theOther"), py::arg("theOwnAllocator"));
-	cls_GeomInt_VectorOfReal.def("assign", (GeomInt_VectorOfReal & (GeomInt_VectorOfReal::*)(const GeomInt_VectorOfReal &)) &GeomInt_VectorOfReal::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_GeomInt_VectorOfReal.def("Append", (Standard_Real & (GeomInt_VectorOfReal::*)(const Standard_Real &)) &GeomInt_VectorOfReal::Append, "Append", py::arg("theValue"));
-	cls_GeomInt_VectorOfReal.def("__call__", (const Standard_Real & (GeomInt_VectorOfReal::*)(const Standard_Integer) const ) &GeomInt_VectorOfReal::operator(), py::is_operator(), "Operator() - query the const value", py::arg("theIndex"));
-	cls_GeomInt_VectorOfReal.def("Value", (const Standard_Real & (GeomInt_VectorOfReal::*)(const Standard_Integer) const ) &GeomInt_VectorOfReal::Value, "None", py::arg("theIndex"));
-	cls_GeomInt_VectorOfReal.def("First", (const Standard_Real & (GeomInt_VectorOfReal::*)() const ) &GeomInt_VectorOfReal::First, "Returns first element");
-	cls_GeomInt_VectorOfReal.def("ChangeFirst", (Standard_Real & (GeomInt_VectorOfReal::*)()) &GeomInt_VectorOfReal::ChangeFirst, "Returns first element");
-	cls_GeomInt_VectorOfReal.def("Last", (const Standard_Real & (GeomInt_VectorOfReal::*)() const ) &GeomInt_VectorOfReal::Last, "Returns last element");
-	cls_GeomInt_VectorOfReal.def("ChangeLast", (Standard_Real & (GeomInt_VectorOfReal::*)()) &GeomInt_VectorOfReal::ChangeLast, "Returns last element");
-	cls_GeomInt_VectorOfReal.def("__call__", (Standard_Real & (GeomInt_VectorOfReal::*)(const Standard_Integer)) &GeomInt_VectorOfReal::operator(), py::is_operator(), "Operator() - query the value", py::arg("theIndex"));
-	cls_GeomInt_VectorOfReal.def("ChangeValue", (Standard_Real & (GeomInt_VectorOfReal::*)(const Standard_Integer)) &GeomInt_VectorOfReal::ChangeValue, "None", py::arg("theIndex"));
-	cls_GeomInt_VectorOfReal.def("SetValue", (Standard_Real & (GeomInt_VectorOfReal::*)(const Standard_Integer, const Standard_Real &)) &GeomInt_VectorOfReal::SetValue, "SetValue () - set or append a value", py::arg("theIndex"), py::arg("theValue"));
-	cls_GeomInt_VectorOfReal.def("__iter__", [](const GeomInt_VectorOfReal &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomInt_VectorOfReal.hxx
+	bind_NCollection_Vector<double>(mod, "GeomInt_VectorOfReal");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<GeomInt_SequenceOfParameterAndOrientation, std::unique_ptr<GeomInt_SequenceOfParameterAndOrientation, Deleter<GeomInt_SequenceOfParameterAndOrientation>>, NCollection_BaseSequence> cls_GeomInt_SequenceOfParameterAndOrientation(mod, "GeomInt_SequenceOfParameterAndOrientation", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_GeomInt_SequenceOfParameterAndOrientation.def(py::init<>());
-	cls_GeomInt_SequenceOfParameterAndOrientation.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def(py::init([] (const GeomInt_SequenceOfParameterAndOrientation &other) {return new GeomInt_SequenceOfParameterAndOrientation(other);}), "Copy constructor", py::arg("other"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("begin", (GeomInt_SequenceOfParameterAndOrientation::iterator (GeomInt_SequenceOfParameterAndOrientation::*)() const ) &GeomInt_SequenceOfParameterAndOrientation::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("end", (GeomInt_SequenceOfParameterAndOrientation::iterator (GeomInt_SequenceOfParameterAndOrientation::*)() const ) &GeomInt_SequenceOfParameterAndOrientation::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("cbegin", (GeomInt_SequenceOfParameterAndOrientation::const_iterator (GeomInt_SequenceOfParameterAndOrientation::*)() const ) &GeomInt_SequenceOfParameterAndOrientation::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("cend", (GeomInt_SequenceOfParameterAndOrientation::const_iterator (GeomInt_SequenceOfParameterAndOrientation::*)() const ) &GeomInt_SequenceOfParameterAndOrientation::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Size", (Standard_Integer (GeomInt_SequenceOfParameterAndOrientation::*)() const ) &GeomInt_SequenceOfParameterAndOrientation::Size, "Number of items");
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Length", (Standard_Integer (GeomInt_SequenceOfParameterAndOrientation::*)() const ) &GeomInt_SequenceOfParameterAndOrientation::Length, "Number of items");
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Lower", (Standard_Integer (GeomInt_SequenceOfParameterAndOrientation::*)() const ) &GeomInt_SequenceOfParameterAndOrientation::Lower, "Method for consistency with other collections.");
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Upper", (Standard_Integer (GeomInt_SequenceOfParameterAndOrientation::*)() const ) &GeomInt_SequenceOfParameterAndOrientation::Upper, "Method for consistency with other collections.");
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("IsEmpty", (Standard_Boolean (GeomInt_SequenceOfParameterAndOrientation::*)() const ) &GeomInt_SequenceOfParameterAndOrientation::IsEmpty, "Empty query");
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Reverse", (void (GeomInt_SequenceOfParameterAndOrientation::*)()) &GeomInt_SequenceOfParameterAndOrientation::Reverse, "Reverse sequence");
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Exchange", (void (GeomInt_SequenceOfParameterAndOrientation::*)(const Standard_Integer, const Standard_Integer)) &GeomInt_SequenceOfParameterAndOrientation::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &GeomInt_SequenceOfParameterAndOrientation::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Clear", [](GeomInt_SequenceOfParameterAndOrientation &self) -> void { return self.Clear(); });
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Clear", (void (GeomInt_SequenceOfParameterAndOrientation::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &GeomInt_SequenceOfParameterAndOrientation::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Assign", (GeomInt_SequenceOfParameterAndOrientation & (GeomInt_SequenceOfParameterAndOrientation::*)(const GeomInt_SequenceOfParameterAndOrientation &)) &GeomInt_SequenceOfParameterAndOrientation::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("assign", (GeomInt_SequenceOfParameterAndOrientation & (GeomInt_SequenceOfParameterAndOrientation::*)(const GeomInt_SequenceOfParameterAndOrientation &)) &GeomInt_SequenceOfParameterAndOrientation::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Remove", (void (GeomInt_SequenceOfParameterAndOrientation::*)(GeomInt_SequenceOfParameterAndOrientation::Iterator &)) &GeomInt_SequenceOfParameterAndOrientation::Remove, "Remove one item", py::arg("thePosition"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Remove", (void (GeomInt_SequenceOfParameterAndOrientation::*)(const Standard_Integer)) &GeomInt_SequenceOfParameterAndOrientation::Remove, "Remove one item", py::arg("theIndex"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Remove", (void (GeomInt_SequenceOfParameterAndOrientation::*)(const Standard_Integer, const Standard_Integer)) &GeomInt_SequenceOfParameterAndOrientation::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Append", (void (GeomInt_SequenceOfParameterAndOrientation::*)(const GeomInt_ParameterAndOrientation &)) &GeomInt_SequenceOfParameterAndOrientation::Append, "Append one item", py::arg("theItem"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Append", (void (GeomInt_SequenceOfParameterAndOrientation::*)(GeomInt_SequenceOfParameterAndOrientation &)) &GeomInt_SequenceOfParameterAndOrientation::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Prepend", (void (GeomInt_SequenceOfParameterAndOrientation::*)(const GeomInt_ParameterAndOrientation &)) &GeomInt_SequenceOfParameterAndOrientation::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Prepend", (void (GeomInt_SequenceOfParameterAndOrientation::*)(GeomInt_SequenceOfParameterAndOrientation &)) &GeomInt_SequenceOfParameterAndOrientation::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("InsertBefore", (void (GeomInt_SequenceOfParameterAndOrientation::*)(const Standard_Integer, const GeomInt_ParameterAndOrientation &)) &GeomInt_SequenceOfParameterAndOrientation::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("InsertBefore", (void (GeomInt_SequenceOfParameterAndOrientation::*)(const Standard_Integer, GeomInt_SequenceOfParameterAndOrientation &)) &GeomInt_SequenceOfParameterAndOrientation::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("InsertAfter", (void (GeomInt_SequenceOfParameterAndOrientation::*)(GeomInt_SequenceOfParameterAndOrientation::Iterator &, const GeomInt_ParameterAndOrientation &)) &GeomInt_SequenceOfParameterAndOrientation::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("InsertAfter", (void (GeomInt_SequenceOfParameterAndOrientation::*)(const Standard_Integer, GeomInt_SequenceOfParameterAndOrientation &)) &GeomInt_SequenceOfParameterAndOrientation::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("InsertAfter", (void (GeomInt_SequenceOfParameterAndOrientation::*)(const Standard_Integer, const GeomInt_ParameterAndOrientation &)) &GeomInt_SequenceOfParameterAndOrientation::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Split", (void (GeomInt_SequenceOfParameterAndOrientation::*)(const Standard_Integer, GeomInt_SequenceOfParameterAndOrientation &)) &GeomInt_SequenceOfParameterAndOrientation::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("First", (const GeomInt_ParameterAndOrientation & (GeomInt_SequenceOfParameterAndOrientation::*)() const ) &GeomInt_SequenceOfParameterAndOrientation::First, "First item access");
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("ChangeFirst", (GeomInt_ParameterAndOrientation & (GeomInt_SequenceOfParameterAndOrientation::*)()) &GeomInt_SequenceOfParameterAndOrientation::ChangeFirst, "First item access");
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Last", (const GeomInt_ParameterAndOrientation & (GeomInt_SequenceOfParameterAndOrientation::*)() const ) &GeomInt_SequenceOfParameterAndOrientation::Last, "Last item access");
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("ChangeLast", (GeomInt_ParameterAndOrientation & (GeomInt_SequenceOfParameterAndOrientation::*)()) &GeomInt_SequenceOfParameterAndOrientation::ChangeLast, "Last item access");
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("Value", (const GeomInt_ParameterAndOrientation & (GeomInt_SequenceOfParameterAndOrientation::*)(const Standard_Integer) const ) &GeomInt_SequenceOfParameterAndOrientation::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("__call__", (const GeomInt_ParameterAndOrientation & (GeomInt_SequenceOfParameterAndOrientation::*)(const Standard_Integer) const ) &GeomInt_SequenceOfParameterAndOrientation::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("ChangeValue", (GeomInt_ParameterAndOrientation & (GeomInt_SequenceOfParameterAndOrientation::*)(const Standard_Integer)) &GeomInt_SequenceOfParameterAndOrientation::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("__call__", (GeomInt_ParameterAndOrientation & (GeomInt_SequenceOfParameterAndOrientation::*)(const Standard_Integer)) &GeomInt_SequenceOfParameterAndOrientation::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("SetValue", (void (GeomInt_SequenceOfParameterAndOrientation::*)(const Standard_Integer, const GeomInt_ParameterAndOrientation &)) &GeomInt_SequenceOfParameterAndOrientation::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_GeomInt_SequenceOfParameterAndOrientation.def("__iter__", [](const GeomInt_SequenceOfParameterAndOrientation &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\GeomInt_SequenceOfParameterAndOrientation.hxx
+	bind_NCollection_Sequence<GeomInt_ParameterAndOrientation>(mod, "GeomInt_SequenceOfParameterAndOrientation");
 
 
 }

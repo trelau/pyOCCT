@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <Draft_ErrorStatus.hxx>
 #include <BRepTools_Modification.hxx>
@@ -38,6 +29,7 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Draft_IndexedDataMapOfEdgeEdgeInfo.hxx>
 #include <Draft_IndexedDataMapOfFaceFaceInfo.hxx>
 #include <Draft_IndexedDataMapOfVertexVertexInfo.hxx>
+#include <NCollection_Templates.hpp>
 
 PYBIND11_MODULE(Draft, mod) {
 
@@ -148,119 +140,14 @@ PYBIND11_MODULE(Draft, mod) {
 	cls_Draft.def(py::init<>());
 	cls_Draft.def_static("Angle_", (Standard_Real (*)(const TopoDS_Face &, const gp_Dir &)) &Draft::Angle, "Returns the draft angle of the face <F> using the direction <Direction>. The method is valid for : - Plane faces, - Cylindrical or conical faces, when the direction of the axis of the surface is colinear with the direction. Otherwise, the exception DomainError is raised.", py::arg("F"), py::arg("Direction"));
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_IndexedDataMap.hxx
-	py::class_<Draft_IndexedDataMapOfEdgeEdgeInfo, std::unique_ptr<Draft_IndexedDataMapOfEdgeEdgeInfo, Deleter<Draft_IndexedDataMapOfEdgeEdgeInfo>>, NCollection_BaseMap> cls_Draft_IndexedDataMapOfEdgeEdgeInfo(mod, "Draft_IndexedDataMapOfEdgeEdgeInfo", "Purpose: An indexed map is used to store keys and to bind an index to them. Each new key stored in the map gets an index. Index are incremented as keys are stored in the map. A key can be found by the index and an index by the key. No key but the last can be removed so the indices are in the range 1.. Extent. An Item is stored with each key.");
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def(py::init<>());
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def(py::init([] (const Draft_IndexedDataMapOfEdgeEdgeInfo &other) {return new Draft_IndexedDataMapOfEdgeEdgeInfo(other);}), "Copy constructor", py::arg("other"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("begin", (Draft_IndexedDataMapOfEdgeEdgeInfo::iterator (Draft_IndexedDataMapOfEdgeEdgeInfo::*)() const ) &Draft_IndexedDataMapOfEdgeEdgeInfo::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("end", (Draft_IndexedDataMapOfEdgeEdgeInfo::iterator (Draft_IndexedDataMapOfEdgeEdgeInfo::*)() const ) &Draft_IndexedDataMapOfEdgeEdgeInfo::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("cbegin", (Draft_IndexedDataMapOfEdgeEdgeInfo::const_iterator (Draft_IndexedDataMapOfEdgeEdgeInfo::*)() const ) &Draft_IndexedDataMapOfEdgeEdgeInfo::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("cend", (Draft_IndexedDataMapOfEdgeEdgeInfo::const_iterator (Draft_IndexedDataMapOfEdgeEdgeInfo::*)() const ) &Draft_IndexedDataMapOfEdgeEdgeInfo::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("Exchange", (void (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(Draft_IndexedDataMapOfEdgeEdgeInfo &)) &Draft_IndexedDataMapOfEdgeEdgeInfo::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("Assign", (Draft_IndexedDataMapOfEdgeEdgeInfo & (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const Draft_IndexedDataMapOfEdgeEdgeInfo &)) &Draft_IndexedDataMapOfEdgeEdgeInfo::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("assign", (Draft_IndexedDataMapOfEdgeEdgeInfo & (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const Draft_IndexedDataMapOfEdgeEdgeInfo &)) &Draft_IndexedDataMapOfEdgeEdgeInfo::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("ReSize", (void (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const Standard_Integer)) &Draft_IndexedDataMapOfEdgeEdgeInfo::ReSize, "ReSize", py::arg("N"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("Add", (Standard_Integer (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const TopoDS_Edge &, const Draft_EdgeInfo &)) &Draft_IndexedDataMapOfEdgeEdgeInfo::Add, "Add", py::arg("theKey1"), py::arg("theItem"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("Contains", (Standard_Boolean (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const TopoDS_Edge &) const ) &Draft_IndexedDataMapOfEdgeEdgeInfo::Contains, "Contains", py::arg("theKey1"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("Substitute", (void (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const Standard_Integer, const TopoDS_Edge &, const Draft_EdgeInfo &)) &Draft_IndexedDataMapOfEdgeEdgeInfo::Substitute, "Substitute", py::arg("theIndex"), py::arg("theKey1"), py::arg("theItem"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("Swap", (void (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const Standard_Integer, const Standard_Integer)) &Draft_IndexedDataMapOfEdgeEdgeInfo::Swap, "Swaps two elements with the given indices.", py::arg("theIndex1"), py::arg("theIndex2"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("RemoveLast", (void (Draft_IndexedDataMapOfEdgeEdgeInfo::*)()) &Draft_IndexedDataMapOfEdgeEdgeInfo::RemoveLast, "RemoveLast");
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("RemoveFromIndex", (void (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const Standard_Integer)) &Draft_IndexedDataMapOfEdgeEdgeInfo::RemoveFromIndex, "Remove the key of the given index. Caution! The index of the last key can be changed.", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("RemoveKey", (void (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const TopoDS_Edge &)) &Draft_IndexedDataMapOfEdgeEdgeInfo::RemoveKey, "Remove the given key. Caution! The index of the last key can be changed.", py::arg("theKey1"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("FindKey", (const TopoDS_Edge & (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const Standard_Integer) const ) &Draft_IndexedDataMapOfEdgeEdgeInfo::FindKey, "FindKey", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("FindFromIndex", (const Draft_EdgeInfo & (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const Standard_Integer) const ) &Draft_IndexedDataMapOfEdgeEdgeInfo::FindFromIndex, "FindFromIndex", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("__call__", (const Draft_EdgeInfo & (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const Standard_Integer) const ) &Draft_IndexedDataMapOfEdgeEdgeInfo::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("ChangeFromIndex", (Draft_EdgeInfo & (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const Standard_Integer)) &Draft_IndexedDataMapOfEdgeEdgeInfo::ChangeFromIndex, "ChangeFromIndex", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("__call__", (Draft_EdgeInfo & (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const Standard_Integer)) &Draft_IndexedDataMapOfEdgeEdgeInfo::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("FindIndex", (Standard_Integer (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const TopoDS_Edge &) const ) &Draft_IndexedDataMapOfEdgeEdgeInfo::FindIndex, "FindIndex", py::arg("theKey1"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("FindFromKey", (const Draft_EdgeInfo & (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const TopoDS_Edge &) const ) &Draft_IndexedDataMapOfEdgeEdgeInfo::FindFromKey, "FindFromKey", py::arg("theKey1"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("ChangeFromKey", (Draft_EdgeInfo & (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const TopoDS_Edge &)) &Draft_IndexedDataMapOfEdgeEdgeInfo::ChangeFromKey, "ChangeFromKey", py::arg("theKey1"));
-	// FIXME cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("Seek", (const Draft_EdgeInfo * (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const TopoDS_Edge &) const ) &Draft_IndexedDataMapOfEdgeEdgeInfo::Seek, "Seek returns pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	// FIXME cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("ChangeSeek", (Draft_EdgeInfo * (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const TopoDS_Edge &)) &Draft_IndexedDataMapOfEdgeEdgeInfo::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("FindFromKey", (Standard_Boolean (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const TopoDS_Edge &, Draft_EdgeInfo &) const ) &Draft_IndexedDataMapOfEdgeEdgeInfo::FindFromKey, "Find value for key with copying.", py::arg("theKey1"), py::arg("theValue"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("Clear", [](Draft_IndexedDataMapOfEdgeEdgeInfo &self) -> void { return self.Clear(); });
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("Clear", (void (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const Standard_Boolean)) &Draft_IndexedDataMapOfEdgeEdgeInfo::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("Clear", (void (Draft_IndexedDataMapOfEdgeEdgeInfo::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Draft_IndexedDataMapOfEdgeEdgeInfo::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("Size", (Standard_Integer (Draft_IndexedDataMapOfEdgeEdgeInfo::*)() const ) &Draft_IndexedDataMapOfEdgeEdgeInfo::Size, "Size");
-	cls_Draft_IndexedDataMapOfEdgeEdgeInfo.def("__iter__", [](const Draft_IndexedDataMapOfEdgeEdgeInfo &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Draft_IndexedDataMapOfEdgeEdgeInfo.hxx
+	bind_NCollection_IndexedDataMap<TopoDS_Edge, Draft_EdgeInfo, TopTools_ShapeMapHasher>(mod, "Draft_IndexedDataMapOfEdgeEdgeInfo");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_IndexedDataMap.hxx
-	py::class_<Draft_IndexedDataMapOfFaceFaceInfo, std::unique_ptr<Draft_IndexedDataMapOfFaceFaceInfo, Deleter<Draft_IndexedDataMapOfFaceFaceInfo>>, NCollection_BaseMap> cls_Draft_IndexedDataMapOfFaceFaceInfo(mod, "Draft_IndexedDataMapOfFaceFaceInfo", "Purpose: An indexed map is used to store keys and to bind an index to them. Each new key stored in the map gets an index. Index are incremented as keys are stored in the map. A key can be found by the index and an index by the key. No key but the last can be removed so the indices are in the range 1.. Extent. An Item is stored with each key.");
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def(py::init<>());
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def(py::init([] (const Draft_IndexedDataMapOfFaceFaceInfo &other) {return new Draft_IndexedDataMapOfFaceFaceInfo(other);}), "Copy constructor", py::arg("other"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("begin", (Draft_IndexedDataMapOfFaceFaceInfo::iterator (Draft_IndexedDataMapOfFaceFaceInfo::*)() const ) &Draft_IndexedDataMapOfFaceFaceInfo::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("end", (Draft_IndexedDataMapOfFaceFaceInfo::iterator (Draft_IndexedDataMapOfFaceFaceInfo::*)() const ) &Draft_IndexedDataMapOfFaceFaceInfo::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("cbegin", (Draft_IndexedDataMapOfFaceFaceInfo::const_iterator (Draft_IndexedDataMapOfFaceFaceInfo::*)() const ) &Draft_IndexedDataMapOfFaceFaceInfo::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("cend", (Draft_IndexedDataMapOfFaceFaceInfo::const_iterator (Draft_IndexedDataMapOfFaceFaceInfo::*)() const ) &Draft_IndexedDataMapOfFaceFaceInfo::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("Exchange", (void (Draft_IndexedDataMapOfFaceFaceInfo::*)(Draft_IndexedDataMapOfFaceFaceInfo &)) &Draft_IndexedDataMapOfFaceFaceInfo::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("Assign", (Draft_IndexedDataMapOfFaceFaceInfo & (Draft_IndexedDataMapOfFaceFaceInfo::*)(const Draft_IndexedDataMapOfFaceFaceInfo &)) &Draft_IndexedDataMapOfFaceFaceInfo::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("assign", (Draft_IndexedDataMapOfFaceFaceInfo & (Draft_IndexedDataMapOfFaceFaceInfo::*)(const Draft_IndexedDataMapOfFaceFaceInfo &)) &Draft_IndexedDataMapOfFaceFaceInfo::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("ReSize", (void (Draft_IndexedDataMapOfFaceFaceInfo::*)(const Standard_Integer)) &Draft_IndexedDataMapOfFaceFaceInfo::ReSize, "ReSize", py::arg("N"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("Add", (Standard_Integer (Draft_IndexedDataMapOfFaceFaceInfo::*)(const TopoDS_Face &, const Draft_FaceInfo &)) &Draft_IndexedDataMapOfFaceFaceInfo::Add, "Add", py::arg("theKey1"), py::arg("theItem"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("Contains", (Standard_Boolean (Draft_IndexedDataMapOfFaceFaceInfo::*)(const TopoDS_Face &) const ) &Draft_IndexedDataMapOfFaceFaceInfo::Contains, "Contains", py::arg("theKey1"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("Substitute", (void (Draft_IndexedDataMapOfFaceFaceInfo::*)(const Standard_Integer, const TopoDS_Face &, const Draft_FaceInfo &)) &Draft_IndexedDataMapOfFaceFaceInfo::Substitute, "Substitute", py::arg("theIndex"), py::arg("theKey1"), py::arg("theItem"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("Swap", (void (Draft_IndexedDataMapOfFaceFaceInfo::*)(const Standard_Integer, const Standard_Integer)) &Draft_IndexedDataMapOfFaceFaceInfo::Swap, "Swaps two elements with the given indices.", py::arg("theIndex1"), py::arg("theIndex2"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("RemoveLast", (void (Draft_IndexedDataMapOfFaceFaceInfo::*)()) &Draft_IndexedDataMapOfFaceFaceInfo::RemoveLast, "RemoveLast");
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("RemoveFromIndex", (void (Draft_IndexedDataMapOfFaceFaceInfo::*)(const Standard_Integer)) &Draft_IndexedDataMapOfFaceFaceInfo::RemoveFromIndex, "Remove the key of the given index. Caution! The index of the last key can be changed.", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("RemoveKey", (void (Draft_IndexedDataMapOfFaceFaceInfo::*)(const TopoDS_Face &)) &Draft_IndexedDataMapOfFaceFaceInfo::RemoveKey, "Remove the given key. Caution! The index of the last key can be changed.", py::arg("theKey1"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("FindKey", (const TopoDS_Face & (Draft_IndexedDataMapOfFaceFaceInfo::*)(const Standard_Integer) const ) &Draft_IndexedDataMapOfFaceFaceInfo::FindKey, "FindKey", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("FindFromIndex", (const Draft_FaceInfo & (Draft_IndexedDataMapOfFaceFaceInfo::*)(const Standard_Integer) const ) &Draft_IndexedDataMapOfFaceFaceInfo::FindFromIndex, "FindFromIndex", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("__call__", (const Draft_FaceInfo & (Draft_IndexedDataMapOfFaceFaceInfo::*)(const Standard_Integer) const ) &Draft_IndexedDataMapOfFaceFaceInfo::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("ChangeFromIndex", (Draft_FaceInfo & (Draft_IndexedDataMapOfFaceFaceInfo::*)(const Standard_Integer)) &Draft_IndexedDataMapOfFaceFaceInfo::ChangeFromIndex, "ChangeFromIndex", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("__call__", (Draft_FaceInfo & (Draft_IndexedDataMapOfFaceFaceInfo::*)(const Standard_Integer)) &Draft_IndexedDataMapOfFaceFaceInfo::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("FindIndex", (Standard_Integer (Draft_IndexedDataMapOfFaceFaceInfo::*)(const TopoDS_Face &) const ) &Draft_IndexedDataMapOfFaceFaceInfo::FindIndex, "FindIndex", py::arg("theKey1"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("FindFromKey", (const Draft_FaceInfo & (Draft_IndexedDataMapOfFaceFaceInfo::*)(const TopoDS_Face &) const ) &Draft_IndexedDataMapOfFaceFaceInfo::FindFromKey, "FindFromKey", py::arg("theKey1"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("ChangeFromKey", (Draft_FaceInfo & (Draft_IndexedDataMapOfFaceFaceInfo::*)(const TopoDS_Face &)) &Draft_IndexedDataMapOfFaceFaceInfo::ChangeFromKey, "ChangeFromKey", py::arg("theKey1"));
-	// FIXME cls_Draft_IndexedDataMapOfFaceFaceInfo.def("Seek", (const Draft_FaceInfo * (Draft_IndexedDataMapOfFaceFaceInfo::*)(const TopoDS_Face &) const ) &Draft_IndexedDataMapOfFaceFaceInfo::Seek, "Seek returns pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	// FIXME cls_Draft_IndexedDataMapOfFaceFaceInfo.def("ChangeSeek", (Draft_FaceInfo * (Draft_IndexedDataMapOfFaceFaceInfo::*)(const TopoDS_Face &)) &Draft_IndexedDataMapOfFaceFaceInfo::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("FindFromKey", (Standard_Boolean (Draft_IndexedDataMapOfFaceFaceInfo::*)(const TopoDS_Face &, Draft_FaceInfo &) const ) &Draft_IndexedDataMapOfFaceFaceInfo::FindFromKey, "Find value for key with copying.", py::arg("theKey1"), py::arg("theValue"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("Clear", [](Draft_IndexedDataMapOfFaceFaceInfo &self) -> void { return self.Clear(); });
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("Clear", (void (Draft_IndexedDataMapOfFaceFaceInfo::*)(const Standard_Boolean)) &Draft_IndexedDataMapOfFaceFaceInfo::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("Clear", (void (Draft_IndexedDataMapOfFaceFaceInfo::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Draft_IndexedDataMapOfFaceFaceInfo::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("Size", (Standard_Integer (Draft_IndexedDataMapOfFaceFaceInfo::*)() const ) &Draft_IndexedDataMapOfFaceFaceInfo::Size, "Size");
-	cls_Draft_IndexedDataMapOfFaceFaceInfo.def("__iter__", [](const Draft_IndexedDataMapOfFaceFaceInfo &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Draft_IndexedDataMapOfFaceFaceInfo.hxx
+	bind_NCollection_IndexedDataMap<TopoDS_Face, Draft_FaceInfo, TopTools_ShapeMapHasher>(mod, "Draft_IndexedDataMapOfFaceFaceInfo");
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_IndexedDataMap.hxx
-	py::class_<Draft_IndexedDataMapOfVertexVertexInfo, std::unique_ptr<Draft_IndexedDataMapOfVertexVertexInfo, Deleter<Draft_IndexedDataMapOfVertexVertexInfo>>, NCollection_BaseMap> cls_Draft_IndexedDataMapOfVertexVertexInfo(mod, "Draft_IndexedDataMapOfVertexVertexInfo", "Purpose: An indexed map is used to store keys and to bind an index to them. Each new key stored in the map gets an index. Index are incremented as keys are stored in the map. A key can be found by the index and an index by the key. No key but the last can be removed so the indices are in the range 1.. Extent. An Item is stored with each key.");
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def(py::init<>());
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def(py::init<const Standard_Integer>(), py::arg("NbBuckets"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def(py::init<const Standard_Integer, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("NbBuckets"), py::arg("theAllocator"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def(py::init([] (const Draft_IndexedDataMapOfVertexVertexInfo &other) {return new Draft_IndexedDataMapOfVertexVertexInfo(other);}), "Copy constructor", py::arg("other"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("begin", (Draft_IndexedDataMapOfVertexVertexInfo::iterator (Draft_IndexedDataMapOfVertexVertexInfo::*)() const ) &Draft_IndexedDataMapOfVertexVertexInfo::begin, "Returns an iterator pointing to the first element in the map.");
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("end", (Draft_IndexedDataMapOfVertexVertexInfo::iterator (Draft_IndexedDataMapOfVertexVertexInfo::*)() const ) &Draft_IndexedDataMapOfVertexVertexInfo::end, "Returns an iterator referring to the past-the-end element in the map.");
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("cbegin", (Draft_IndexedDataMapOfVertexVertexInfo::const_iterator (Draft_IndexedDataMapOfVertexVertexInfo::*)() const ) &Draft_IndexedDataMapOfVertexVertexInfo::cbegin, "Returns a const iterator pointing to the first element in the map.");
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("cend", (Draft_IndexedDataMapOfVertexVertexInfo::const_iterator (Draft_IndexedDataMapOfVertexVertexInfo::*)() const ) &Draft_IndexedDataMapOfVertexVertexInfo::cend, "Returns a const iterator referring to the past-the-end element in the map.");
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("Exchange", (void (Draft_IndexedDataMapOfVertexVertexInfo::*)(Draft_IndexedDataMapOfVertexVertexInfo &)) &Draft_IndexedDataMapOfVertexVertexInfo::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("Assign", (Draft_IndexedDataMapOfVertexVertexInfo & (Draft_IndexedDataMapOfVertexVertexInfo::*)(const Draft_IndexedDataMapOfVertexVertexInfo &)) &Draft_IndexedDataMapOfVertexVertexInfo::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("assign", (Draft_IndexedDataMapOfVertexVertexInfo & (Draft_IndexedDataMapOfVertexVertexInfo::*)(const Draft_IndexedDataMapOfVertexVertexInfo &)) &Draft_IndexedDataMapOfVertexVertexInfo::operator=, py::is_operator(), "Assignment operator", py::arg("theOther"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("ReSize", (void (Draft_IndexedDataMapOfVertexVertexInfo::*)(const Standard_Integer)) &Draft_IndexedDataMapOfVertexVertexInfo::ReSize, "ReSize", py::arg("N"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("Add", (Standard_Integer (Draft_IndexedDataMapOfVertexVertexInfo::*)(const TopoDS_Vertex &, const Draft_VertexInfo &)) &Draft_IndexedDataMapOfVertexVertexInfo::Add, "Add", py::arg("theKey1"), py::arg("theItem"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("Contains", (Standard_Boolean (Draft_IndexedDataMapOfVertexVertexInfo::*)(const TopoDS_Vertex &) const ) &Draft_IndexedDataMapOfVertexVertexInfo::Contains, "Contains", py::arg("theKey1"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("Substitute", (void (Draft_IndexedDataMapOfVertexVertexInfo::*)(const Standard_Integer, const TopoDS_Vertex &, const Draft_VertexInfo &)) &Draft_IndexedDataMapOfVertexVertexInfo::Substitute, "Substitute", py::arg("theIndex"), py::arg("theKey1"), py::arg("theItem"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("Swap", (void (Draft_IndexedDataMapOfVertexVertexInfo::*)(const Standard_Integer, const Standard_Integer)) &Draft_IndexedDataMapOfVertexVertexInfo::Swap, "Swaps two elements with the given indices.", py::arg("theIndex1"), py::arg("theIndex2"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("RemoveLast", (void (Draft_IndexedDataMapOfVertexVertexInfo::*)()) &Draft_IndexedDataMapOfVertexVertexInfo::RemoveLast, "RemoveLast");
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("RemoveFromIndex", (void (Draft_IndexedDataMapOfVertexVertexInfo::*)(const Standard_Integer)) &Draft_IndexedDataMapOfVertexVertexInfo::RemoveFromIndex, "Remove the key of the given index. Caution! The index of the last key can be changed.", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("RemoveKey", (void (Draft_IndexedDataMapOfVertexVertexInfo::*)(const TopoDS_Vertex &)) &Draft_IndexedDataMapOfVertexVertexInfo::RemoveKey, "Remove the given key. Caution! The index of the last key can be changed.", py::arg("theKey1"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("FindKey", (const TopoDS_Vertex & (Draft_IndexedDataMapOfVertexVertexInfo::*)(const Standard_Integer) const ) &Draft_IndexedDataMapOfVertexVertexInfo::FindKey, "FindKey", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("FindFromIndex", (const Draft_VertexInfo & (Draft_IndexedDataMapOfVertexVertexInfo::*)(const Standard_Integer) const ) &Draft_IndexedDataMapOfVertexVertexInfo::FindFromIndex, "FindFromIndex", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("__call__", (const Draft_VertexInfo & (Draft_IndexedDataMapOfVertexVertexInfo::*)(const Standard_Integer) const ) &Draft_IndexedDataMapOfVertexVertexInfo::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("ChangeFromIndex", (Draft_VertexInfo & (Draft_IndexedDataMapOfVertexVertexInfo::*)(const Standard_Integer)) &Draft_IndexedDataMapOfVertexVertexInfo::ChangeFromIndex, "ChangeFromIndex", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("__call__", (Draft_VertexInfo & (Draft_IndexedDataMapOfVertexVertexInfo::*)(const Standard_Integer)) &Draft_IndexedDataMapOfVertexVertexInfo::operator(), py::is_operator(), "operator ()", py::arg("theKey2"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("FindIndex", (Standard_Integer (Draft_IndexedDataMapOfVertexVertexInfo::*)(const TopoDS_Vertex &) const ) &Draft_IndexedDataMapOfVertexVertexInfo::FindIndex, "FindIndex", py::arg("theKey1"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("FindFromKey", (const Draft_VertexInfo & (Draft_IndexedDataMapOfVertexVertexInfo::*)(const TopoDS_Vertex &) const ) &Draft_IndexedDataMapOfVertexVertexInfo::FindFromKey, "FindFromKey", py::arg("theKey1"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("ChangeFromKey", (Draft_VertexInfo & (Draft_IndexedDataMapOfVertexVertexInfo::*)(const TopoDS_Vertex &)) &Draft_IndexedDataMapOfVertexVertexInfo::ChangeFromKey, "ChangeFromKey", py::arg("theKey1"));
-	// FIXME cls_Draft_IndexedDataMapOfVertexVertexInfo.def("Seek", (const Draft_VertexInfo * (Draft_IndexedDataMapOfVertexVertexInfo::*)(const TopoDS_Vertex &) const ) &Draft_IndexedDataMapOfVertexVertexInfo::Seek, "Seek returns pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	// FIXME cls_Draft_IndexedDataMapOfVertexVertexInfo.def("ChangeSeek", (Draft_VertexInfo * (Draft_IndexedDataMapOfVertexVertexInfo::*)(const TopoDS_Vertex &)) &Draft_IndexedDataMapOfVertexVertexInfo::ChangeSeek, "ChangeSeek returns modifiable pointer to Item by Key. Returns NULL if Key was not found.", py::arg("theKey1"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("FindFromKey", (Standard_Boolean (Draft_IndexedDataMapOfVertexVertexInfo::*)(const TopoDS_Vertex &, Draft_VertexInfo &) const ) &Draft_IndexedDataMapOfVertexVertexInfo::FindFromKey, "Find value for key with copying.", py::arg("theKey1"), py::arg("theValue"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("Clear", [](Draft_IndexedDataMapOfVertexVertexInfo &self) -> void { return self.Clear(); });
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("Clear", (void (Draft_IndexedDataMapOfVertexVertexInfo::*)(const Standard_Boolean)) &Draft_IndexedDataMapOfVertexVertexInfo::Clear, "Clear data. If doReleaseMemory is false then the table of buckets is not released and will be reused.", py::arg("doReleaseMemory"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("Clear", (void (Draft_IndexedDataMapOfVertexVertexInfo::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &Draft_IndexedDataMapOfVertexVertexInfo::Clear, "Clear data and reset allocator", py::arg("theAllocator"));
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("Size", (Standard_Integer (Draft_IndexedDataMapOfVertexVertexInfo::*)() const ) &Draft_IndexedDataMapOfVertexVertexInfo::Size, "Size");
-	cls_Draft_IndexedDataMapOfVertexVertexInfo.def("__iter__", [](const Draft_IndexedDataMapOfVertexVertexInfo &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Miniconda\envs\occt\Library\include\opencascade\Draft_IndexedDataMapOfVertexVertexInfo.hxx
+	bind_NCollection_IndexedDataMap<TopoDS_Vertex, Draft_VertexInfo, TopTools_ShapeMapHasher>(mod, "Draft_IndexedDataMapOfVertexVertexInfo");
 
 
 }

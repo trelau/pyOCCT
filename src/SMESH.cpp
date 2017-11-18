@@ -1,13 +1,4 @@
-#include <pybind11/pybind11.h>
-namespace py = pybind11;
-
-#include <Standard_Handle.hxx>
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-PYBIND11_DECLARE_HOLDER_TYPE(T, T*);
-using opencascade::handle;
-
-// Deleter template for mixed holder types with public/hidden destructors.
-template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+#include <pyOCCT_Common.hpp>
 
 #include <pybind11/stl.h>
 
@@ -89,6 +80,8 @@ template<typename T> struct Deleter { void operator() (T *o) const { delete o; }
 #include <Bnd_B2d.hxx>
 #include <SMESH_Quadtree.hxx>
 #include <SMESH_subMeshEventListener.hxx>
+#include <NCollection_Templates.hpp>
+#include <SMDS_Templates.hpp>
 
 PYBIND11_MODULE(SMESH, mod) {
 
@@ -468,13 +461,8 @@ PYBIND11_MODULE(SMESH, mod) {
 		.export_values();
 
 	/* FIXME
-	// C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\utility
-	py::class_<NLink, std::unique_ptr<NLink, Deleter<NLink>>> cls_NLink(mod, "NLink", "None");
-	cls_NLink.def(py::init([] (const pair<const SMDS_MeshNode *, const SMDS_MeshNode *> &other) {return new NLink(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_NLink.def(py::init<pair<const SMDS_MeshNode *, const SMDS_MeshNode *> &&>(), py::arg(""));
-	// FIXME cls_NLink.def("assign", (std::NLink::_Myt & (NLink::*)(std::NLink::_Myt &&)) &NLink::operator=, py::is_operator(), "None", py::arg("_Right"));
-	cls_NLink.def("assign", (std::NLink::_Myt & (NLink::*)(const std::NLink::_Myt &)) &NLink::operator=, py::is_operator(), "None", py::arg("_Right"));
-	cls_NLink.def("swap", (void (NLink::*)(std::NLink::_Myt &)) &NLink::swap, "None", py::arg("_Right"));
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
+	// FIXME bind_std::pair<const SMDS_MeshNode *, const SMDS_MeshNode *>(mod, "NLink");
 
 	*/
 
@@ -1252,386 +1240,131 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_subMeshEventListenerData.def_static("MakeData_", (SMESH_subMeshEventListenerData * (*)(SMESH_subMesh *, const int)) &SMESH_subMeshEventListenerData::MakeData, "Create a default listener data.", py::arg("dependentSM"), py::arg("type"));
 
 	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
-	py::class_<SMESH_ComputeErrorPtr, std::unique_ptr<SMESH_ComputeErrorPtr, Deleter<SMESH_ComputeErrorPtr>>> cls_SMESH_ComputeErrorPtr(mod, "SMESH_ComputeErrorPtr", "None");
-	cls_SMESH_ComputeErrorPtr.def(py::init<>());
-	cls_SMESH_ComputeErrorPtr.def(py::init<boost::detail::sp_nullptr_t>(), py::arg(""));
-	cls_SMESH_ComputeErrorPtr.def(py::init<boost::detail::sp_internal_constructor_tag, boost::SMESH_ComputeErrorPtr::element_type *, const boost::detail::shared_count &>(), py::arg(""), py::arg("px_"), py::arg("pn_"));
-	cls_SMESH_ComputeErrorPtr.def(py::init<boost::detail::sp_internal_constructor_tag, boost::SMESH_ComputeErrorPtr::element_type *, boost::detail::shared_count &&>(), py::arg(""), py::arg("px_"), py::arg("pn_"));
-	cls_SMESH_ComputeErrorPtr.def(py::init([] (const shared_ptr<SMESH_ComputeError> &other) {return new SMESH_ComputeErrorPtr(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_SMESH_ComputeErrorPtr.def(py::init<shared_ptr<SMESH_ComputeError> &&>(), py::arg("r"));
-	cls_SMESH_ComputeErrorPtr.def("assign", (shared_ptr<SMESH_ComputeError> & (SMESH_ComputeErrorPtr::*)(const shared_ptr<SMESH_ComputeError> &)) &SMESH_ComputeErrorPtr::operator=, py::is_operator(), "None", py::arg("r"));
-	// FIXME cls_SMESH_ComputeErrorPtr.def("assign", (shared_ptr<SMESH_ComputeError> & (SMESH_ComputeErrorPtr::*)(shared_ptr<SMESH_ComputeError> &&)) &SMESH_ComputeErrorPtr::operator=, py::is_operator(), "None", py::arg("r"));
-	cls_SMESH_ComputeErrorPtr.def("assign", (shared_ptr<SMESH_ComputeError> & (SMESH_ComputeErrorPtr::*)(boost::detail::sp_nullptr_t)) &SMESH_ComputeErrorPtr::operator=, py::is_operator(), "None", py::arg(""));
-	cls_SMESH_ComputeErrorPtr.def("reset", (void (SMESH_ComputeErrorPtr::*)()) &SMESH_ComputeErrorPtr::reset, "None");
-	cls_SMESH_ComputeErrorPtr.def("__mul__", (typename boost::detail::sp_dereference<SMESH_ComputeError>::type (SMESH_ComputeErrorPtr::*)() const ) &SMESH_ComputeErrorPtr::operator*, py::is_operator(), "None");
-	// FIXME cls_SMESH_ComputeErrorPtr.def("operator->", (typename boost::detail::sp_member_access<SMESH_ComputeError>::type (SMESH_ComputeErrorPtr::*)() const ) &SMESH_ComputeErrorPtr::operator->, "None");
-	cls_SMESH_ComputeErrorPtr.def("__getitem__", (typename boost::detail::sp_array_access<SMESH_ComputeError>::type (SMESH_ComputeErrorPtr::*)(std::ptrdiff_t) const ) &SMESH_ComputeErrorPtr::operator[], py::is_operator(), "None", py::arg("i"));
-	cls_SMESH_ComputeErrorPtr.def("get", (boost::SMESH_ComputeErrorPtr::element_type * (SMESH_ComputeErrorPtr::*)() const ) &SMESH_ComputeErrorPtr::get, "None");
-	cls_SMESH_ComputeErrorPtr.def("operator!", (bool (SMESH_ComputeErrorPtr::*)() const ) &SMESH_ComputeErrorPtr::operator!, "None");
-	cls_SMESH_ComputeErrorPtr.def("unique", (bool (SMESH_ComputeErrorPtr::*)() const ) &SMESH_ComputeErrorPtr::unique, "None");
-	cls_SMESH_ComputeErrorPtr.def("use_count", (long (SMESH_ComputeErrorPtr::*)() const ) &SMESH_ComputeErrorPtr::use_count, "None");
-	cls_SMESH_ComputeErrorPtr.def("swap", (void (SMESH_ComputeErrorPtr::*)(shared_ptr<SMESH_ComputeError> &)) &SMESH_ComputeErrorPtr::swap, "None", py::arg("other"));
-	cls_SMESH_ComputeErrorPtr.def("_internal_get_deleter", (void * (SMESH_ComputeErrorPtr::*)(const boost::detail::sp_typeinfo &) const ) &SMESH_ComputeErrorPtr::_internal_get_deleter, "None", py::arg("ti"));
-	cls_SMESH_ComputeErrorPtr.def("_internal_get_local_deleter", (void * (SMESH_ComputeErrorPtr::*)(const boost::detail::sp_typeinfo &) const ) &SMESH_ComputeErrorPtr::_internal_get_local_deleter, "None", py::arg("ti"));
-	cls_SMESH_ComputeErrorPtr.def("_internal_get_untyped_deleter", (void * (SMESH_ComputeErrorPtr::*)() const ) &SMESH_ComputeErrorPtr::_internal_get_untyped_deleter, "None");
-	cls_SMESH_ComputeErrorPtr.def("_internal_equiv", (bool (SMESH_ComputeErrorPtr::*)(const shared_ptr<SMESH_ComputeError> &) const ) &SMESH_ComputeErrorPtr::_internal_equiv, "None", py::arg("r"));
-	cls_SMESH_ComputeErrorPtr.def("_internal_count", (boost::detail::shared_count (SMESH_ComputeErrorPtr::*)() const ) &SMESH_ComputeErrorPtr::_internal_count, "None");
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_ComputeError.hxx
+	// FIXME bind_boost::shared_ptr<SMESH_ComputeError>(mod, "SMESH_ComputeErrorPtr");
 
 	*/
 
-	/* FIXME
-	// TElemOfElemListMap
-	*/
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
+	// FIXME bind_std::map<const SMDS_MeshElement *, std::list<const SMDS_MeshElement *, std::allocator<const SMDS_MeshElement *> >, TIDCompare, std::allocator<std::pair<const SMDS_MeshElement *const, std::list<const SMDS_MeshElement *, std::allocator<const SMDS_MeshElement *> > > > >(mod, "TElemOfElemListMap");
 
-	/* FIXME
-	// TElemOfNodeListMap
-	*/
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
+	// FIXME bind_std::map<const SMDS_MeshElement *, std::list<const SMDS_MeshNode *, std::allocator<const SMDS_MeshNode *> >, TIDCompare, std::allocator<std::pair<const SMDS_MeshElement *const, std::list<const SMDS_MeshNode *, std::allocator<const SMDS_MeshNode *> > > > >(mod, "TElemOfNodeListMap");
 
-	/* FIXME
-	// TNodeNodeMap
-	*/
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
+	// FIXME bind_std::map<const SMDS_MeshNode *, const SMDS_MeshNode *, TIDCompare, std::allocator<std::pair<const SMDS_MeshNode *const, const SMDS_MeshNode *> > >(mod, "TNodeNodeMap");
 
-	/* FIXME
-	// TIDSortedElemSet
-	*/
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
+	// FIXME bind_std::set<const SMDS_MeshElement *, TIDCompare, std::allocator<const SMDS_MeshElement *> >(mod, "TIDSortedElemSet");
 
-	/* FIXME
-	// TIDSortedNodeSet
-	*/
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_OctreeNode.hxx
+	// FIXME bind_std::set<const SMDS_MeshNode *, TIDCompare, std::allocator<const SMDS_MeshNode *> >(mod, "TIDSortedNodeSet");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
 	py::class_<SMESH_OrientedLink, std::unique_ptr<SMESH_OrientedLink, Deleter<SMESH_OrientedLink>>, SMESH_TLink> cls_SMESH_OrientedLink(mod, "SMESH_OrientedLink", "SMESH_TLink knowing its orientation");
 	cls_SMESH_OrientedLink.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("n1"), py::arg("n2"));
 
 	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
-	py::class_<TFaceQuadStructPtr, std::unique_ptr<TFaceQuadStructPtr, Deleter<TFaceQuadStructPtr>>> cls_TFaceQuadStructPtr(mod, "TFaceQuadStructPtr", "None");
-	cls_TFaceQuadStructPtr.def(py::init<>());
-	cls_TFaceQuadStructPtr.def(py::init<boost::detail::sp_nullptr_t>(), py::arg(""));
-	cls_TFaceQuadStructPtr.def(py::init<boost::detail::sp_internal_constructor_tag, boost::TFaceQuadStructPtr::element_type *, const boost::detail::shared_count &>(), py::arg(""), py::arg("px_"), py::arg("pn_"));
-	cls_TFaceQuadStructPtr.def(py::init<boost::detail::sp_internal_constructor_tag, boost::TFaceQuadStructPtr::element_type *, boost::detail::shared_count &&>(), py::arg(""), py::arg("px_"), py::arg("pn_"));
-	cls_TFaceQuadStructPtr.def(py::init([] (const shared_ptr<FaceQuadStruct> &other) {return new TFaceQuadStructPtr(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_TFaceQuadStructPtr.def(py::init<shared_ptr<FaceQuadStruct> &&>(), py::arg("r"));
-	cls_TFaceQuadStructPtr.def("assign", (shared_ptr<FaceQuadStruct> & (TFaceQuadStructPtr::*)(const shared_ptr<FaceQuadStruct> &)) &TFaceQuadStructPtr::operator=, py::is_operator(), "None", py::arg("r"));
-	// FIXME cls_TFaceQuadStructPtr.def("assign", (shared_ptr<FaceQuadStruct> & (TFaceQuadStructPtr::*)(shared_ptr<FaceQuadStruct> &&)) &TFaceQuadStructPtr::operator=, py::is_operator(), "None", py::arg("r"));
-	cls_TFaceQuadStructPtr.def("assign", (shared_ptr<FaceQuadStruct> & (TFaceQuadStructPtr::*)(boost::detail::sp_nullptr_t)) &TFaceQuadStructPtr::operator=, py::is_operator(), "None", py::arg(""));
-	cls_TFaceQuadStructPtr.def("reset", (void (TFaceQuadStructPtr::*)()) &TFaceQuadStructPtr::reset, "None");
-	cls_TFaceQuadStructPtr.def("__mul__", (typename boost::detail::sp_dereference<FaceQuadStruct>::type (TFaceQuadStructPtr::*)() const ) &TFaceQuadStructPtr::operator*, py::is_operator(), "None");
-	// FIXME cls_TFaceQuadStructPtr.def("operator->", (typename boost::detail::sp_member_access<FaceQuadStruct>::type (TFaceQuadStructPtr::*)() const ) &TFaceQuadStructPtr::operator->, "None");
-	cls_TFaceQuadStructPtr.def("__getitem__", (typename boost::detail::sp_array_access<FaceQuadStruct>::type (TFaceQuadStructPtr::*)(std::ptrdiff_t) const ) &TFaceQuadStructPtr::operator[], py::is_operator(), "None", py::arg("i"));
-	cls_TFaceQuadStructPtr.def("get", (boost::TFaceQuadStructPtr::element_type * (TFaceQuadStructPtr::*)() const ) &TFaceQuadStructPtr::get, "None");
-	cls_TFaceQuadStructPtr.def("operator!", (bool (TFaceQuadStructPtr::*)() const ) &TFaceQuadStructPtr::operator!, "None");
-	cls_TFaceQuadStructPtr.def("unique", (bool (TFaceQuadStructPtr::*)() const ) &TFaceQuadStructPtr::unique, "None");
-	cls_TFaceQuadStructPtr.def("use_count", (long (TFaceQuadStructPtr::*)() const ) &TFaceQuadStructPtr::use_count, "None");
-	cls_TFaceQuadStructPtr.def("swap", (void (TFaceQuadStructPtr::*)(shared_ptr<FaceQuadStruct> &)) &TFaceQuadStructPtr::swap, "None", py::arg("other"));
-	cls_TFaceQuadStructPtr.def("_internal_get_deleter", (void * (TFaceQuadStructPtr::*)(const boost::detail::sp_typeinfo &) const ) &TFaceQuadStructPtr::_internal_get_deleter, "None", py::arg("ti"));
-	cls_TFaceQuadStructPtr.def("_internal_get_local_deleter", (void * (TFaceQuadStructPtr::*)(const boost::detail::sp_typeinfo &) const ) &TFaceQuadStructPtr::_internal_get_local_deleter, "None", py::arg("ti"));
-	cls_TFaceQuadStructPtr.def("_internal_get_untyped_deleter", (void * (TFaceQuadStructPtr::*)() const ) &TFaceQuadStructPtr::_internal_get_untyped_deleter, "None");
-	cls_TFaceQuadStructPtr.def("_internal_equiv", (bool (TFaceQuadStructPtr::*)(const shared_ptr<FaceQuadStruct> &) const ) &TFaceQuadStructPtr::_internal_equiv, "None", py::arg("r"));
-	cls_TFaceQuadStructPtr.def("_internal_count", (boost::detail::shared_count (TFaceQuadStructPtr::*)() const ) &TFaceQuadStructPtr::_internal_count, "None");
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
+	// FIXME bind_boost::shared_ptr<FaceQuadStruct>(mod, "TFaceQuadStructPtr");
 
 	*/
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
-	/* FIXME
-	// UVPtStructVec
-	*/
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
+	// FIXME bind_std::vector<uvPtStruct, std::allocator<uvPtStruct> >(mod, "UVPtStructVec");
 
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
 	other_mod = py::module::import("OCCT.SMDS");
 	if (py::hasattr(other_mod, "SMDS_pElement")) {
 		mod.attr("SMDS_MeshElementPtr") = other_mod.attr("SMDS_pElement");
 	}
 
 	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<SMESH_SequenceOfElemPtr, std::unique_ptr<SMESH_SequenceOfElemPtr, Deleter<SMESH_SequenceOfElemPtr>>, NCollection_BaseSequence> cls_SMESH_SequenceOfElemPtr(mod, "SMESH_SequenceOfElemPtr", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_SMESH_SequenceOfElemPtr.def(py::init<>());
-	cls_SMESH_SequenceOfElemPtr.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_SMESH_SequenceOfElemPtr.def(py::init([] (const SMESH_SequenceOfElemPtr &other) {return new SMESH_SequenceOfElemPtr(other);}), "Copy constructor", py::arg("other"));
-	cls_SMESH_SequenceOfElemPtr.def("begin", (SMESH_SequenceOfElemPtr::iterator (SMESH_SequenceOfElemPtr::*)() const ) &SMESH_SequenceOfElemPtr::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_SMESH_SequenceOfElemPtr.def("end", (SMESH_SequenceOfElemPtr::iterator (SMESH_SequenceOfElemPtr::*)() const ) &SMESH_SequenceOfElemPtr::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_SMESH_SequenceOfElemPtr.def("cbegin", (SMESH_SequenceOfElemPtr::const_iterator (SMESH_SequenceOfElemPtr::*)() const ) &SMESH_SequenceOfElemPtr::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_SMESH_SequenceOfElemPtr.def("cend", (SMESH_SequenceOfElemPtr::const_iterator (SMESH_SequenceOfElemPtr::*)() const ) &SMESH_SequenceOfElemPtr::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_SMESH_SequenceOfElemPtr.def("Size", (Standard_Integer (SMESH_SequenceOfElemPtr::*)() const ) &SMESH_SequenceOfElemPtr::Size, "Number of items");
-	cls_SMESH_SequenceOfElemPtr.def("Length", (Standard_Integer (SMESH_SequenceOfElemPtr::*)() const ) &SMESH_SequenceOfElemPtr::Length, "Number of items");
-	cls_SMESH_SequenceOfElemPtr.def("Lower", (Standard_Integer (SMESH_SequenceOfElemPtr::*)() const ) &SMESH_SequenceOfElemPtr::Lower, "Method for consistency with other collections.");
-	cls_SMESH_SequenceOfElemPtr.def("Upper", (Standard_Integer (SMESH_SequenceOfElemPtr::*)() const ) &SMESH_SequenceOfElemPtr::Upper, "Method for consistency with other collections.");
-	cls_SMESH_SequenceOfElemPtr.def("IsEmpty", (Standard_Boolean (SMESH_SequenceOfElemPtr::*)() const ) &SMESH_SequenceOfElemPtr::IsEmpty, "Empty query");
-	cls_SMESH_SequenceOfElemPtr.def("Reverse", (void (SMESH_SequenceOfElemPtr::*)()) &SMESH_SequenceOfElemPtr::Reverse, "Reverse sequence");
-	cls_SMESH_SequenceOfElemPtr.def("Exchange", (void (SMESH_SequenceOfElemPtr::*)(const Standard_Integer, const Standard_Integer)) &SMESH_SequenceOfElemPtr::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_SMESH_SequenceOfElemPtr.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &SMESH_SequenceOfElemPtr::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_SMESH_SequenceOfElemPtr.def("Clear", [](SMESH_SequenceOfElemPtr &self) -> void { return self.Clear(); });
-	cls_SMESH_SequenceOfElemPtr.def("Clear", (void (SMESH_SequenceOfElemPtr::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &SMESH_SequenceOfElemPtr::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_SMESH_SequenceOfElemPtr.def("Assign", (SMESH_SequenceOfElemPtr & (SMESH_SequenceOfElemPtr::*)(const SMESH_SequenceOfElemPtr &)) &SMESH_SequenceOfElemPtr::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_SMESH_SequenceOfElemPtr.def("assign", (SMESH_SequenceOfElemPtr & (SMESH_SequenceOfElemPtr::*)(const SMESH_SequenceOfElemPtr &)) &SMESH_SequenceOfElemPtr::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_SMESH_SequenceOfElemPtr.def("Remove", (void (SMESH_SequenceOfElemPtr::*)(SMESH_SequenceOfElemPtr::Iterator &)) &SMESH_SequenceOfElemPtr::Remove, "Remove one item", py::arg("thePosition"));
-	cls_SMESH_SequenceOfElemPtr.def("Remove", (void (SMESH_SequenceOfElemPtr::*)(const Standard_Integer)) &SMESH_SequenceOfElemPtr::Remove, "Remove one item", py::arg("theIndex"));
-	cls_SMESH_SequenceOfElemPtr.def("Remove", (void (SMESH_SequenceOfElemPtr::*)(const Standard_Integer, const Standard_Integer)) &SMESH_SequenceOfElemPtr::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_SMESH_SequenceOfElemPtr.def("Append", (void (SMESH_SequenceOfElemPtr::*)(const SMDS_MeshElementPtr &)) &SMESH_SequenceOfElemPtr::Append, "Append one item", py::arg("theItem"));
-	cls_SMESH_SequenceOfElemPtr.def("Append", (void (SMESH_SequenceOfElemPtr::*)(SMESH_SequenceOfElemPtr &)) &SMESH_SequenceOfElemPtr::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_SMESH_SequenceOfElemPtr.def("Prepend", (void (SMESH_SequenceOfElemPtr::*)(const SMDS_MeshElementPtr &)) &SMESH_SequenceOfElemPtr::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_SMESH_SequenceOfElemPtr.def("Prepend", (void (SMESH_SequenceOfElemPtr::*)(SMESH_SequenceOfElemPtr &)) &SMESH_SequenceOfElemPtr::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_SMESH_SequenceOfElemPtr.def("InsertBefore", (void (SMESH_SequenceOfElemPtr::*)(const Standard_Integer, const SMDS_MeshElementPtr &)) &SMESH_SequenceOfElemPtr::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_SMESH_SequenceOfElemPtr.def("InsertBefore", (void (SMESH_SequenceOfElemPtr::*)(const Standard_Integer, SMESH_SequenceOfElemPtr &)) &SMESH_SequenceOfElemPtr::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SMESH_SequenceOfElemPtr.def("InsertAfter", (void (SMESH_SequenceOfElemPtr::*)(SMESH_SequenceOfElemPtr::Iterator &, const SMDS_MeshElementPtr &)) &SMESH_SequenceOfElemPtr::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_SMESH_SequenceOfElemPtr.def("InsertAfter", (void (SMESH_SequenceOfElemPtr::*)(const Standard_Integer, SMESH_SequenceOfElemPtr &)) &SMESH_SequenceOfElemPtr::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SMESH_SequenceOfElemPtr.def("InsertAfter", (void (SMESH_SequenceOfElemPtr::*)(const Standard_Integer, const SMDS_MeshElementPtr &)) &SMESH_SequenceOfElemPtr::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_SMESH_SequenceOfElemPtr.def("Split", (void (SMESH_SequenceOfElemPtr::*)(const Standard_Integer, SMESH_SequenceOfElemPtr &)) &SMESH_SequenceOfElemPtr::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SMESH_SequenceOfElemPtr.def("First", (const SMDS_MeshElementPtr & (SMESH_SequenceOfElemPtr::*)() const ) &SMESH_SequenceOfElemPtr::First, "First item access");
-	cls_SMESH_SequenceOfElemPtr.def("ChangeFirst", (SMDS_MeshElementPtr & (SMESH_SequenceOfElemPtr::*)()) &SMESH_SequenceOfElemPtr::ChangeFirst, "First item access");
-	cls_SMESH_SequenceOfElemPtr.def("Last", (const SMDS_MeshElementPtr & (SMESH_SequenceOfElemPtr::*)() const ) &SMESH_SequenceOfElemPtr::Last, "Last item access");
-	cls_SMESH_SequenceOfElemPtr.def("ChangeLast", (SMDS_MeshElementPtr & (SMESH_SequenceOfElemPtr::*)()) &SMESH_SequenceOfElemPtr::ChangeLast, "Last item access");
-	cls_SMESH_SequenceOfElemPtr.def("Value", (const SMDS_MeshElementPtr & (SMESH_SequenceOfElemPtr::*)(const Standard_Integer) const ) &SMESH_SequenceOfElemPtr::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_SMESH_SequenceOfElemPtr.def("__call__", (const SMDS_MeshElementPtr & (SMESH_SequenceOfElemPtr::*)(const Standard_Integer) const ) &SMESH_SequenceOfElemPtr::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_SMESH_SequenceOfElemPtr.def("ChangeValue", (SMDS_MeshElementPtr & (SMESH_SequenceOfElemPtr::*)(const Standard_Integer)) &SMESH_SequenceOfElemPtr::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_SMESH_SequenceOfElemPtr.def("__call__", (SMDS_MeshElementPtr & (SMESH_SequenceOfElemPtr::*)(const Standard_Integer)) &SMESH_SequenceOfElemPtr::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_SMESH_SequenceOfElemPtr.def("SetValue", (void (SMESH_SequenceOfElemPtr::*)(const Standard_Integer, const SMDS_MeshElementPtr &)) &SMESH_SequenceOfElemPtr::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_SMESH_SequenceOfElemPtr.def("__iter__", [](const SMESH_SequenceOfElemPtr &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
+	bind_NCollection_Sequence<const SMDS_MeshElement *>(mod, "SMESH_SequenceOfElemPtr");
 
 	*/
 
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
 	other_mod = py::module::import("OCCT.SMDS");
 	if (py::hasattr(other_mod, "SMDS_pNode")) {
 		mod.attr("SMDS_MeshNodePtr") = other_mod.attr("SMDS_pNode");
 	}
 
-	// C:\Miniconda\envs\occt\Library\include\opencascade\NCollection_Sequence.hxx
-	py::class_<SMESH_SequenceOfNode, std::unique_ptr<SMESH_SequenceOfNode, Deleter<SMESH_SequenceOfNode>>, NCollection_BaseSequence> cls_SMESH_SequenceOfNode(mod, "SMESH_SequenceOfNode", "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n");
-	cls_SMESH_SequenceOfNode.def(py::init<>());
-	cls_SMESH_SequenceOfNode.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
-	cls_SMESH_SequenceOfNode.def(py::init([] (const SMESH_SequenceOfNode &other) {return new SMESH_SequenceOfNode(other);}), "Copy constructor", py::arg("other"));
-	cls_SMESH_SequenceOfNode.def("begin", (SMESH_SequenceOfNode::iterator (SMESH_SequenceOfNode::*)() const ) &SMESH_SequenceOfNode::begin, "Returns an iterator pointing to the first element in the sequence.");
-	cls_SMESH_SequenceOfNode.def("end", (SMESH_SequenceOfNode::iterator (SMESH_SequenceOfNode::*)() const ) &SMESH_SequenceOfNode::end, "Returns an iterator referring to the past-the-end element in the sequence.");
-	cls_SMESH_SequenceOfNode.def("cbegin", (SMESH_SequenceOfNode::const_iterator (SMESH_SequenceOfNode::*)() const ) &SMESH_SequenceOfNode::cbegin, "Returns a const iterator pointing to the first element in the sequence.");
-	cls_SMESH_SequenceOfNode.def("cend", (SMESH_SequenceOfNode::const_iterator (SMESH_SequenceOfNode::*)() const ) &SMESH_SequenceOfNode::cend, "Returns a const iterator referring to the past-the-end element in the sequence.");
-	cls_SMESH_SequenceOfNode.def("Size", (Standard_Integer (SMESH_SequenceOfNode::*)() const ) &SMESH_SequenceOfNode::Size, "Number of items");
-	cls_SMESH_SequenceOfNode.def("Length", (Standard_Integer (SMESH_SequenceOfNode::*)() const ) &SMESH_SequenceOfNode::Length, "Number of items");
-	cls_SMESH_SequenceOfNode.def("Lower", (Standard_Integer (SMESH_SequenceOfNode::*)() const ) &SMESH_SequenceOfNode::Lower, "Method for consistency with other collections.");
-	cls_SMESH_SequenceOfNode.def("Upper", (Standard_Integer (SMESH_SequenceOfNode::*)() const ) &SMESH_SequenceOfNode::Upper, "Method for consistency with other collections.");
-	cls_SMESH_SequenceOfNode.def("IsEmpty", (Standard_Boolean (SMESH_SequenceOfNode::*)() const ) &SMESH_SequenceOfNode::IsEmpty, "Empty query");
-	cls_SMESH_SequenceOfNode.def("Reverse", (void (SMESH_SequenceOfNode::*)()) &SMESH_SequenceOfNode::Reverse, "Reverse sequence");
-	cls_SMESH_SequenceOfNode.def("Exchange", (void (SMESH_SequenceOfNode::*)(const Standard_Integer, const Standard_Integer)) &SMESH_SequenceOfNode::Exchange, "Exchange two members", py::arg("I"), py::arg("J"));
-	cls_SMESH_SequenceOfNode.def_static("delNode_", (void (*)(NCollection_SeqNode *, opencascade::handle<NCollection_BaseAllocator> &)) &SMESH_SequenceOfNode::delNode, "Static deleter to be passed to BaseSequence", py::arg("theNode"), py::arg("theAl"));
-	cls_SMESH_SequenceOfNode.def("Clear", [](SMESH_SequenceOfNode &self) -> void { return self.Clear(); });
-	cls_SMESH_SequenceOfNode.def("Clear", (void (SMESH_SequenceOfNode::*)(const opencascade::handle<NCollection_BaseAllocator> &)) &SMESH_SequenceOfNode::Clear, "Clear the items out, take a new allocator if non null", py::arg("theAllocator"));
-	cls_SMESH_SequenceOfNode.def("Assign", (SMESH_SequenceOfNode & (SMESH_SequenceOfNode::*)(const SMESH_SequenceOfNode &)) &SMESH_SequenceOfNode::Assign, "Replace this sequence by the items of theOther. This method does not change the internal allocator.", py::arg("theOther"));
-	cls_SMESH_SequenceOfNode.def("assign", (SMESH_SequenceOfNode & (SMESH_SequenceOfNode::*)(const SMESH_SequenceOfNode &)) &SMESH_SequenceOfNode::operator=, py::is_operator(), "Replacement operator", py::arg("theOther"));
-	cls_SMESH_SequenceOfNode.def("Remove", (void (SMESH_SequenceOfNode::*)(SMESH_SequenceOfNode::Iterator &)) &SMESH_SequenceOfNode::Remove, "Remove one item", py::arg("thePosition"));
-	cls_SMESH_SequenceOfNode.def("Remove", (void (SMESH_SequenceOfNode::*)(const Standard_Integer)) &SMESH_SequenceOfNode::Remove, "Remove one item", py::arg("theIndex"));
-	cls_SMESH_SequenceOfNode.def("Remove", (void (SMESH_SequenceOfNode::*)(const Standard_Integer, const Standard_Integer)) &SMESH_SequenceOfNode::Remove, "Remove range of items", py::arg("theFromIndex"), py::arg("theToIndex"));
-	cls_SMESH_SequenceOfNode.def("Append", (void (SMESH_SequenceOfNode::*)(const SMDS_MeshNodePtr &)) &SMESH_SequenceOfNode::Append, "Append one item", py::arg("theItem"));
-	cls_SMESH_SequenceOfNode.def("Append", (void (SMESH_SequenceOfNode::*)(SMESH_SequenceOfNode &)) &SMESH_SequenceOfNode::Append, "Append another sequence (making it empty)", py::arg("theSeq"));
-	cls_SMESH_SequenceOfNode.def("Prepend", (void (SMESH_SequenceOfNode::*)(const SMDS_MeshNodePtr &)) &SMESH_SequenceOfNode::Prepend, "Prepend one item", py::arg("theItem"));
-	cls_SMESH_SequenceOfNode.def("Prepend", (void (SMESH_SequenceOfNode::*)(SMESH_SequenceOfNode &)) &SMESH_SequenceOfNode::Prepend, "Prepend another sequence (making it empty)", py::arg("theSeq"));
-	cls_SMESH_SequenceOfNode.def("InsertBefore", (void (SMESH_SequenceOfNode::*)(const Standard_Integer, const SMDS_MeshNodePtr &)) &SMESH_SequenceOfNode::InsertBefore, "InsertBefore theIndex theItem", py::arg("theIndex"), py::arg("theItem"));
-	cls_SMESH_SequenceOfNode.def("InsertBefore", (void (SMESH_SequenceOfNode::*)(const Standard_Integer, SMESH_SequenceOfNode &)) &SMESH_SequenceOfNode::InsertBefore, "InsertBefore theIndex another sequence", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SMESH_SequenceOfNode.def("InsertAfter", (void (SMESH_SequenceOfNode::*)(SMESH_SequenceOfNode::Iterator &, const SMDS_MeshNodePtr &)) &SMESH_SequenceOfNode::InsertAfter, "InsertAfter the position of iterator", py::arg("thePosition"), py::arg("theItem"));
-	cls_SMESH_SequenceOfNode.def("InsertAfter", (void (SMESH_SequenceOfNode::*)(const Standard_Integer, SMESH_SequenceOfNode &)) &SMESH_SequenceOfNode::InsertAfter, "InsertAfter theIndex theItem", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SMESH_SequenceOfNode.def("InsertAfter", (void (SMESH_SequenceOfNode::*)(const Standard_Integer, const SMDS_MeshNodePtr &)) &SMESH_SequenceOfNode::InsertAfter, "InsertAfter theIndex another sequence", py::arg("theIndex"), py::arg("theItem"));
-	cls_SMESH_SequenceOfNode.def("Split", (void (SMESH_SequenceOfNode::*)(const Standard_Integer, SMESH_SequenceOfNode &)) &SMESH_SequenceOfNode::Split, "Split in two sequences", py::arg("theIndex"), py::arg("theSeq"));
-	cls_SMESH_SequenceOfNode.def("First", (const SMDS_MeshNodePtr & (SMESH_SequenceOfNode::*)() const ) &SMESH_SequenceOfNode::First, "First item access");
-	cls_SMESH_SequenceOfNode.def("ChangeFirst", (SMDS_MeshNodePtr & (SMESH_SequenceOfNode::*)()) &SMESH_SequenceOfNode::ChangeFirst, "First item access");
-	cls_SMESH_SequenceOfNode.def("Last", (const SMDS_MeshNodePtr & (SMESH_SequenceOfNode::*)() const ) &SMESH_SequenceOfNode::Last, "Last item access");
-	cls_SMESH_SequenceOfNode.def("ChangeLast", (SMDS_MeshNodePtr & (SMESH_SequenceOfNode::*)()) &SMESH_SequenceOfNode::ChangeLast, "Last item access");
-	cls_SMESH_SequenceOfNode.def("Value", (const SMDS_MeshNodePtr & (SMESH_SequenceOfNode::*)(const Standard_Integer) const ) &SMESH_SequenceOfNode::Value, "Constant item access by theIndex", py::arg("theIndex"));
-	cls_SMESH_SequenceOfNode.def("__call__", (const SMDS_MeshNodePtr & (SMESH_SequenceOfNode::*)(const Standard_Integer) const ) &SMESH_SequenceOfNode::operator(), py::is_operator(), "Constant operator()", py::arg("theIndex"));
-	cls_SMESH_SequenceOfNode.def("ChangeValue", (SMDS_MeshNodePtr & (SMESH_SequenceOfNode::*)(const Standard_Integer)) &SMESH_SequenceOfNode::ChangeValue, "Variable item access by theIndex", py::arg("theIndex"));
-	cls_SMESH_SequenceOfNode.def("__call__", (SMDS_MeshNodePtr & (SMESH_SequenceOfNode::*)(const Standard_Integer)) &SMESH_SequenceOfNode::operator(), py::is_operator(), "Variable operator()", py::arg("theIndex"));
-	cls_SMESH_SequenceOfNode.def("SetValue", (void (SMESH_SequenceOfNode::*)(const Standard_Integer, const SMDS_MeshNodePtr &)) &SMESH_SequenceOfNode::SetValue, "Set item value by theIndex", py::arg("theIndex"), py::arg("theItem"));
-	cls_SMESH_SequenceOfNode.def("__iter__", [](const SMESH_SequenceOfNode &s) { return py::make_iterator(s.begin(), s.end()); }, py::keep_alive<0, 1>());
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_TypeDefs.hxx
+	bind_NCollection_Sequence<const SMDS_MeshNode *>(mod, "SMESH_SequenceOfNode");
+
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Algo.hxx
+	// FIXME bind_std::map<SMESH_subMesh *, std::vector<int, std::allocator<int> >, std::less<SMESH_subMesh *>, std::allocator<std::pair<SMESH_subMesh *const, std::vector<int, std::allocator<int> > > > >(mod, "MapShapeNbElems");
 
 	/* FIXME
-	// MapShapeNbElems
-	*/
-
-	/* FIXME
-	// C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtree
-	py::class_<MapShapeNbElemsItr, std::unique_ptr<MapShapeNbElemsItr, Deleter<MapShapeNbElemsItr>>, _Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<SMESH_subMesh *const, std::vector<int, std::allocator<int> > > > >>> cls_MapShapeNbElemsItr(mod, "MapShapeNbElemsItr", "None");
-	cls_MapShapeNbElemsItr.def(py::init<>());
-	cls_MapShapeNbElemsItr.def(py::init<std::MapShapeNbElemsItr::_Nodeptr, const std::_Tree_val<std::_Tree_simple_types<std::pair<SMESH_subMesh *const, std::vector<int, std::allocator<int> > > > > *>(), py::arg("_Pnode"), py::arg("_Plist"));
-	cls_MapShapeNbElemsItr.def("_Rechecked", (std::MapShapeNbElemsItr::_Myiter & (MapShapeNbElemsItr::*)(std::MapShapeNbElemsItr::_Unchecked_type)) &MapShapeNbElemsItr::_Rechecked, "None", py::arg("_Right"));
-	cls_MapShapeNbElemsItr.def("_Unchecked", (std::MapShapeNbElemsItr::_Unchecked_type (MapShapeNbElemsItr::*)() const ) &MapShapeNbElemsItr::_Unchecked, "None");
-	cls_MapShapeNbElemsItr.def("__mul__", (std::MapShapeNbElemsItr::reference (MapShapeNbElemsItr::*)() const ) &MapShapeNbElemsItr::operator*, py::is_operator(), "None");
-	// FIXME cls_MapShapeNbElemsItr.def("operator->", (std::MapShapeNbElemsItr::pointer (MapShapeNbElemsItr::*)() const ) &MapShapeNbElemsItr::operator->, "None");
-	cls_MapShapeNbElemsItr.def("plus_plus", (std::MapShapeNbElemsItr::_Myiter & (MapShapeNbElemsItr::*)()) &MapShapeNbElemsItr::operator++, py::is_operator(), "None");
-	cls_MapShapeNbElemsItr.def("plus_plus", (std::MapShapeNbElemsItr::_Myiter (MapShapeNbElemsItr::*)(int)) &MapShapeNbElemsItr::operator++, py::is_operator(), "None", py::arg(""));
-	cls_MapShapeNbElemsItr.def("minus_minus", (std::MapShapeNbElemsItr::_Myiter & (MapShapeNbElemsItr::*)()) &MapShapeNbElemsItr::operator--, py::is_operator(), "None");
-	cls_MapShapeNbElemsItr.def("minus_minus", (std::MapShapeNbElemsItr::_Myiter (MapShapeNbElemsItr::*)(int)) &MapShapeNbElemsItr::operator--, py::is_operator(), "None", py::arg(""));
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Algo.hxx
+	// FIXME bind_std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<SMESH_subMesh *const, std::vector<int, std::allocator<int> > > > > >(mod, "MapShapeNbElemsItr");
 
 	*/
 
 	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
-	py::class_<SMESH_PredicatePtr, std::unique_ptr<SMESH_PredicatePtr, Deleter<SMESH_PredicatePtr>>> cls_SMESH_PredicatePtr(mod, "SMESH_PredicatePtr", "None");
-	cls_SMESH_PredicatePtr.def(py::init<>());
-	cls_SMESH_PredicatePtr.def(py::init<boost::detail::sp_nullptr_t>(), py::arg(""));
-	cls_SMESH_PredicatePtr.def(py::init<boost::detail::sp_internal_constructor_tag, boost::SMESH_PredicatePtr::element_type *, const boost::detail::shared_count &>(), py::arg(""), py::arg("px_"), py::arg("pn_"));
-	cls_SMESH_PredicatePtr.def(py::init<boost::detail::sp_internal_constructor_tag, boost::SMESH_PredicatePtr::element_type *, boost::detail::shared_count &&>(), py::arg(""), py::arg("px_"), py::arg("pn_"));
-	cls_SMESH_PredicatePtr.def(py::init([] (const shared_ptr<SMESH::Controls::Predicate> &other) {return new SMESH_PredicatePtr(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_SMESH_PredicatePtr.def(py::init<shared_ptr<SMESH::Controls::Predicate> &&>(), py::arg("r"));
-	cls_SMESH_PredicatePtr.def("assign", (shared_ptr<SMESH::Controls::Predicate> & (SMESH_PredicatePtr::*)(const shared_ptr<SMESH::Controls::Predicate> &)) &SMESH_PredicatePtr::operator=, py::is_operator(), "None", py::arg("r"));
-	// FIXME cls_SMESH_PredicatePtr.def("assign", (shared_ptr<SMESH::Controls::Predicate> & (SMESH_PredicatePtr::*)(shared_ptr<SMESH::Controls::Predicate> &&)) &SMESH_PredicatePtr::operator=, py::is_operator(), "None", py::arg("r"));
-	cls_SMESH_PredicatePtr.def("assign", (shared_ptr<SMESH::Controls::Predicate> & (SMESH_PredicatePtr::*)(boost::detail::sp_nullptr_t)) &SMESH_PredicatePtr::operator=, py::is_operator(), "None", py::arg(""));
-	cls_SMESH_PredicatePtr.def("reset", (void (SMESH_PredicatePtr::*)()) &SMESH_PredicatePtr::reset, "None");
-	cls_SMESH_PredicatePtr.def("__mul__", (typename boost::detail::sp_dereference<SMESH::Controls::Predicate>::type (SMESH_PredicatePtr::*)() const ) &SMESH_PredicatePtr::operator*, py::is_operator(), "None");
-	// FIXME cls_SMESH_PredicatePtr.def("operator->", (typename boost::detail::sp_member_access<SMESH::Controls::Predicate>::type (SMESH_PredicatePtr::*)() const ) &SMESH_PredicatePtr::operator->, "None");
-	cls_SMESH_PredicatePtr.def("__getitem__", (typename boost::detail::sp_array_access<SMESH::Controls::Predicate>::type (SMESH_PredicatePtr::*)(std::ptrdiff_t) const ) &SMESH_PredicatePtr::operator[], py::is_operator(), "None", py::arg("i"));
-	cls_SMESH_PredicatePtr.def("get", (boost::SMESH_PredicatePtr::element_type * (SMESH_PredicatePtr::*)() const ) &SMESH_PredicatePtr::get, "None");
-	cls_SMESH_PredicatePtr.def("operator!", (bool (SMESH_PredicatePtr::*)() const ) &SMESH_PredicatePtr::operator!, "None");
-	cls_SMESH_PredicatePtr.def("unique", (bool (SMESH_PredicatePtr::*)() const ) &SMESH_PredicatePtr::unique, "None");
-	cls_SMESH_PredicatePtr.def("use_count", (long (SMESH_PredicatePtr::*)() const ) &SMESH_PredicatePtr::use_count, "None");
-	cls_SMESH_PredicatePtr.def("swap", (void (SMESH_PredicatePtr::*)(shared_ptr<SMESH::Controls::Predicate> &)) &SMESH_PredicatePtr::swap, "None", py::arg("other"));
-	cls_SMESH_PredicatePtr.def("_internal_get_deleter", (void * (SMESH_PredicatePtr::*)(const boost::detail::sp_typeinfo &) const ) &SMESH_PredicatePtr::_internal_get_deleter, "None", py::arg("ti"));
-	cls_SMESH_PredicatePtr.def("_internal_get_local_deleter", (void * (SMESH_PredicatePtr::*)(const boost::detail::sp_typeinfo &) const ) &SMESH_PredicatePtr::_internal_get_local_deleter, "None", py::arg("ti"));
-	cls_SMESH_PredicatePtr.def("_internal_get_untyped_deleter", (void * (SMESH_PredicatePtr::*)() const ) &SMESH_PredicatePtr::_internal_get_untyped_deleter, "None");
-	cls_SMESH_PredicatePtr.def("_internal_equiv", (bool (SMESH_PredicatePtr::*)(const shared_ptr<SMESH::Controls::Predicate> &) const ) &SMESH_PredicatePtr::_internal_equiv, "None", py::arg("r"));
-	cls_SMESH_PredicatePtr.def("_internal_count", (boost::detail::shared_count (SMESH_PredicatePtr::*)() const ) &SMESH_PredicatePtr::_internal_count, "None");
-
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Controls.hxx
 	*/
 
-	/* FIXME
-	// TListOfInt
-	*/
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Mesh.hxx
+	// FIXME bind_std::list<int, std::allocator<int> >(mod, "TListOfInt");
 
-	/* FIXME
-	// TListOfListOfInt
-	*/
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Mesh.hxx
+	// FIXME bind_std::list<std::list<int, std::allocator<int> >, std::allocator<std::list<int, std::allocator<int> > > >(mod, "TListOfListOfInt");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Gen.hxx
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Gen.hxx
-	/* FIXME
-	// TSetOfInt
-	*/
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Gen.hxx
+	// FIXME bind_std::set<int, std::less<int>, std::allocator<int> >(mod, "TSetOfInt");
+
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_MesherHelper.hxx
+	// FIXME bind_std::map<SMESH_TLink, const SMDS_MeshNode *, std::less<SMESH_TLink>, std::allocator<std::pair<const SMESH_TLink, const SMDS_MeshNode *> > >(mod, "TLinkNodeMap");
 
 	/* FIXME
-	// TLinkNodeMap
-	*/
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_MesherHelper.hxx
+	// FIXME bind_std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const SMESH_TLink, const SMDS_MeshNode *> > > >(mod, "ItTLinkNode");
 
-	/* FIXME
-	// C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\xtree
-	py::class_<ItTLinkNode, std::unique_ptr<ItTLinkNode, Deleter<ItTLinkNode>>, _Tree_const_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const SMESH_TLink, const SMDS_MeshNode *> > >>> cls_ItTLinkNode(mod, "ItTLinkNode", "None");
-	cls_ItTLinkNode.def(py::init<>());
-	cls_ItTLinkNode.def(py::init<std::ItTLinkNode::_Nodeptr, const std::_Tree_val<std::_Tree_simple_types<std::pair<const SMESH_TLink, const SMDS_MeshNode *> > > *>(), py::arg("_Pnode"), py::arg("_Plist"));
-	cls_ItTLinkNode.def("_Rechecked", (std::ItTLinkNode::_Myiter & (ItTLinkNode::*)(std::ItTLinkNode::_Unchecked_type)) &ItTLinkNode::_Rechecked, "None", py::arg("_Right"));
-	cls_ItTLinkNode.def("_Unchecked", (std::ItTLinkNode::_Unchecked_type (ItTLinkNode::*)() const ) &ItTLinkNode::_Unchecked, "None");
-	cls_ItTLinkNode.def("__mul__", (std::ItTLinkNode::reference (ItTLinkNode::*)() const ) &ItTLinkNode::operator*, py::is_operator(), "None");
-	// FIXME cls_ItTLinkNode.def("operator->", (std::ItTLinkNode::pointer (ItTLinkNode::*)() const ) &ItTLinkNode::operator->, "None");
-	cls_ItTLinkNode.def("plus_plus", (std::ItTLinkNode::_Myiter & (ItTLinkNode::*)()) &ItTLinkNode::operator++, py::is_operator(), "None");
-	cls_ItTLinkNode.def("plus_plus", (std::ItTLinkNode::_Myiter (ItTLinkNode::*)(int)) &ItTLinkNode::operator++, py::is_operator(), "None", py::arg(""));
-	cls_ItTLinkNode.def("minus_minus", (std::ItTLinkNode::_Myiter & (ItTLinkNode::*)()) &ItTLinkNode::operator--, py::is_operator(), "None");
-	cls_ItTLinkNode.def("minus_minus", (std::ItTLinkNode::_Myiter (ItTLinkNode::*)(int)) &ItTLinkNode::operator--, py::is_operator(), "None", py::arg(""));
-
-	*/
-
-	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Iterator.hxx
-	py::class_<PShapeIterator, std::unique_ptr<PShapeIterator, Deleter<PShapeIterator>>> cls_PShapeIterator(mod, "PShapeIterator", "//////////////////////////////////////////////////////////////////////////// Abstract class for iterators");
-	cls_PShapeIterator.def("more", (bool (PShapeIterator::*)()) &PShapeIterator::more, "Return true if and only if there are other object in this iterator");
-	cls_PShapeIterator.def("next", (const TopoDS_Shape * (PShapeIterator::*)()) &PShapeIterator::next, "Return the current object and step to the next one");
-	cls_PShapeIterator.def("remove", (void (PShapeIterator::*)()) &PShapeIterator::remove, "Delete the current element and step to the next one");
-
-	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
-	py::class_<PShapeIteratorPtr, std::unique_ptr<PShapeIteratorPtr, Deleter<PShapeIteratorPtr>>> cls_PShapeIteratorPtr(mod, "PShapeIteratorPtr", "None");
-	cls_PShapeIteratorPtr.def(py::init<>());
-	cls_PShapeIteratorPtr.def(py::init<boost::detail::sp_nullptr_t>(), py::arg(""));
-	cls_PShapeIteratorPtr.def(py::init<boost::detail::sp_internal_constructor_tag, boost::PShapeIteratorPtr::element_type *, const boost::detail::shared_count &>(), py::arg(""), py::arg("px_"), py::arg("pn_"));
-	cls_PShapeIteratorPtr.def(py::init<boost::detail::sp_internal_constructor_tag, boost::PShapeIteratorPtr::element_type *, boost::detail::shared_count &&>(), py::arg(""), py::arg("px_"), py::arg("pn_"));
-	cls_PShapeIteratorPtr.def(py::init([] (const shared_ptr<PShapeIterator> &other) {return new PShapeIteratorPtr(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_PShapeIteratorPtr.def(py::init<shared_ptr<PShapeIterator> &&>(), py::arg("r"));
-	cls_PShapeIteratorPtr.def("assign", (shared_ptr<PShapeIterator> & (PShapeIteratorPtr::*)(const shared_ptr<PShapeIterator> &)) &PShapeIteratorPtr::operator=, py::is_operator(), "None", py::arg("r"));
-	// FIXME cls_PShapeIteratorPtr.def("assign", (shared_ptr<PShapeIterator> & (PShapeIteratorPtr::*)(shared_ptr<PShapeIterator> &&)) &PShapeIteratorPtr::operator=, py::is_operator(), "None", py::arg("r"));
-	cls_PShapeIteratorPtr.def("assign", (shared_ptr<PShapeIterator> & (PShapeIteratorPtr::*)(boost::detail::sp_nullptr_t)) &PShapeIteratorPtr::operator=, py::is_operator(), "None", py::arg(""));
-	cls_PShapeIteratorPtr.def("reset", (void (PShapeIteratorPtr::*)()) &PShapeIteratorPtr::reset, "None");
-	cls_PShapeIteratorPtr.def("__mul__", (typename boost::detail::sp_dereference<PShapeIterator>::type (PShapeIteratorPtr::*)() const ) &PShapeIteratorPtr::operator*, py::is_operator(), "None");
-	// FIXME cls_PShapeIteratorPtr.def("operator->", (typename boost::detail::sp_member_access<PShapeIterator>::type (PShapeIteratorPtr::*)() const ) &PShapeIteratorPtr::operator->, "None");
-	cls_PShapeIteratorPtr.def("__getitem__", (typename boost::detail::sp_array_access<PShapeIterator>::type (PShapeIteratorPtr::*)(std::ptrdiff_t) const ) &PShapeIteratorPtr::operator[], py::is_operator(), "None", py::arg("i"));
-	cls_PShapeIteratorPtr.def("get", (boost::PShapeIteratorPtr::element_type * (PShapeIteratorPtr::*)() const ) &PShapeIteratorPtr::get, "None");
-	cls_PShapeIteratorPtr.def("operator!", (bool (PShapeIteratorPtr::*)() const ) &PShapeIteratorPtr::operator!, "None");
-	cls_PShapeIteratorPtr.def("unique", (bool (PShapeIteratorPtr::*)() const ) &PShapeIteratorPtr::unique, "None");
-	cls_PShapeIteratorPtr.def("use_count", (long (PShapeIteratorPtr::*)() const ) &PShapeIteratorPtr::use_count, "None");
-	cls_PShapeIteratorPtr.def("swap", (void (PShapeIteratorPtr::*)(shared_ptr<PShapeIterator> &)) &PShapeIteratorPtr::swap, "None", py::arg("other"));
-	cls_PShapeIteratorPtr.def("_internal_get_deleter", (void * (PShapeIteratorPtr::*)(const boost::detail::sp_typeinfo &) const ) &PShapeIteratorPtr::_internal_get_deleter, "None", py::arg("ti"));
-	cls_PShapeIteratorPtr.def("_internal_get_local_deleter", (void * (PShapeIteratorPtr::*)(const boost::detail::sp_typeinfo &) const ) &PShapeIteratorPtr::_internal_get_local_deleter, "None", py::arg("ti"));
-	cls_PShapeIteratorPtr.def("_internal_get_untyped_deleter", (void * (PShapeIteratorPtr::*)() const ) &PShapeIteratorPtr::_internal_get_untyped_deleter, "None");
-	cls_PShapeIteratorPtr.def("_internal_equiv", (bool (PShapeIteratorPtr::*)(const shared_ptr<PShapeIterator> &) const ) &PShapeIteratorPtr::_internal_equiv, "None", py::arg("r"));
-	cls_PShapeIteratorPtr.def("_internal_count", (boost::detail::shared_count (PShapeIteratorPtr::*)() const ) &PShapeIteratorPtr::_internal_count, "None");
-
-	*/
-
-	/* FIXME
-	// TNodeColumn
-	*/
-
-	/* FIXME
-	// TParam2ColumnMap
 	*/
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_MesherHelper.hxx
-	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Iterator.hxx
-	py::class_<SMESH_OctreeNodeIterator, std::unique_ptr<SMESH_OctreeNodeIterator, Deleter<SMESH_OctreeNodeIterator>>> cls_SMESH_OctreeNodeIterator(mod, "SMESH_OctreeNodeIterator", "//////////////////////////////////////////////////////////////////////////// Abstract class for iterators");
-	cls_SMESH_OctreeNodeIterator.def("more", (bool (SMESH_OctreeNodeIterator::*)()) &SMESH_OctreeNodeIterator::more, "Return true if and only if there are other object in this iterator");
-	cls_SMESH_OctreeNodeIterator.def("next", (SMESH_OctreeNode * (SMESH_OctreeNodeIterator::*)()) &SMESH_OctreeNodeIterator::next, "Return the current object and step to the next one");
-	cls_SMESH_OctreeNodeIterator.def("remove", (void (SMESH_OctreeNodeIterator::*)()) &SMESH_OctreeNodeIterator::remove, "Delete the current element and step to the next one");
+	bind_SMDS_Iterator<const TopoDS_Shape *>(mod, "PShapeIterator");
 
 	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
-	py::class_<SMESH_OctreeNodeIteratorPtr, std::unique_ptr<SMESH_OctreeNodeIteratorPtr, Deleter<SMESH_OctreeNodeIteratorPtr>>> cls_SMESH_OctreeNodeIteratorPtr(mod, "SMESH_OctreeNodeIteratorPtr", "None");
-	cls_SMESH_OctreeNodeIteratorPtr.def(py::init<>());
-	cls_SMESH_OctreeNodeIteratorPtr.def(py::init<boost::detail::sp_nullptr_t>(), py::arg(""));
-	cls_SMESH_OctreeNodeIteratorPtr.def(py::init<boost::detail::sp_internal_constructor_tag, boost::SMESH_OctreeNodeIteratorPtr::element_type *, const boost::detail::shared_count &>(), py::arg(""), py::arg("px_"), py::arg("pn_"));
-	cls_SMESH_OctreeNodeIteratorPtr.def(py::init<boost::detail::sp_internal_constructor_tag, boost::SMESH_OctreeNodeIteratorPtr::element_type *, boost::detail::shared_count &&>(), py::arg(""), py::arg("px_"), py::arg("pn_"));
-	cls_SMESH_OctreeNodeIteratorPtr.def(py::init([] (const shared_ptr<SMESH_OctreeNodeIterator> &other) {return new SMESH_OctreeNodeIteratorPtr(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_SMESH_OctreeNodeIteratorPtr.def(py::init<shared_ptr<SMESH_OctreeNodeIterator> &&>(), py::arg("r"));
-	cls_SMESH_OctreeNodeIteratorPtr.def("assign", (shared_ptr<SMESH_OctreeNodeIterator> & (SMESH_OctreeNodeIteratorPtr::*)(const shared_ptr<SMESH_OctreeNodeIterator> &)) &SMESH_OctreeNodeIteratorPtr::operator=, py::is_operator(), "None", py::arg("r"));
-	// FIXME cls_SMESH_OctreeNodeIteratorPtr.def("assign", (shared_ptr<SMESH_OctreeNodeIterator> & (SMESH_OctreeNodeIteratorPtr::*)(shared_ptr<SMESH_OctreeNodeIterator> &&)) &SMESH_OctreeNodeIteratorPtr::operator=, py::is_operator(), "None", py::arg("r"));
-	cls_SMESH_OctreeNodeIteratorPtr.def("assign", (shared_ptr<SMESH_OctreeNodeIterator> & (SMESH_OctreeNodeIteratorPtr::*)(boost::detail::sp_nullptr_t)) &SMESH_OctreeNodeIteratorPtr::operator=, py::is_operator(), "None", py::arg(""));
-	cls_SMESH_OctreeNodeIteratorPtr.def("reset", (void (SMESH_OctreeNodeIteratorPtr::*)()) &SMESH_OctreeNodeIteratorPtr::reset, "None");
-	cls_SMESH_OctreeNodeIteratorPtr.def("__mul__", (typename boost::detail::sp_dereference<SMESH_OctreeNodeIterator>::type (SMESH_OctreeNodeIteratorPtr::*)() const ) &SMESH_OctreeNodeIteratorPtr::operator*, py::is_operator(), "None");
-	// FIXME cls_SMESH_OctreeNodeIteratorPtr.def("operator->", (typename boost::detail::sp_member_access<SMESH_OctreeNodeIterator>::type (SMESH_OctreeNodeIteratorPtr::*)() const ) &SMESH_OctreeNodeIteratorPtr::operator->, "None");
-	cls_SMESH_OctreeNodeIteratorPtr.def("__getitem__", (typename boost::detail::sp_array_access<SMESH_OctreeNodeIterator>::type (SMESH_OctreeNodeIteratorPtr::*)(std::ptrdiff_t) const ) &SMESH_OctreeNodeIteratorPtr::operator[], py::is_operator(), "None", py::arg("i"));
-	cls_SMESH_OctreeNodeIteratorPtr.def("get", (boost::SMESH_OctreeNodeIteratorPtr::element_type * (SMESH_OctreeNodeIteratorPtr::*)() const ) &SMESH_OctreeNodeIteratorPtr::get, "None");
-	cls_SMESH_OctreeNodeIteratorPtr.def("operator!", (bool (SMESH_OctreeNodeIteratorPtr::*)() const ) &SMESH_OctreeNodeIteratorPtr::operator!, "None");
-	cls_SMESH_OctreeNodeIteratorPtr.def("unique", (bool (SMESH_OctreeNodeIteratorPtr::*)() const ) &SMESH_OctreeNodeIteratorPtr::unique, "None");
-	cls_SMESH_OctreeNodeIteratorPtr.def("use_count", (long (SMESH_OctreeNodeIteratorPtr::*)() const ) &SMESH_OctreeNodeIteratorPtr::use_count, "None");
-	cls_SMESH_OctreeNodeIteratorPtr.def("swap", (void (SMESH_OctreeNodeIteratorPtr::*)(shared_ptr<SMESH_OctreeNodeIterator> &)) &SMESH_OctreeNodeIteratorPtr::swap, "None", py::arg("other"));
-	cls_SMESH_OctreeNodeIteratorPtr.def("_internal_get_deleter", (void * (SMESH_OctreeNodeIteratorPtr::*)(const boost::detail::sp_typeinfo &) const ) &SMESH_OctreeNodeIteratorPtr::_internal_get_deleter, "None", py::arg("ti"));
-	cls_SMESH_OctreeNodeIteratorPtr.def("_internal_get_local_deleter", (void * (SMESH_OctreeNodeIteratorPtr::*)(const boost::detail::sp_typeinfo &) const ) &SMESH_OctreeNodeIteratorPtr::_internal_get_local_deleter, "None", py::arg("ti"));
-	cls_SMESH_OctreeNodeIteratorPtr.def("_internal_get_untyped_deleter", (void * (SMESH_OctreeNodeIteratorPtr::*)() const ) &SMESH_OctreeNodeIteratorPtr::_internal_get_untyped_deleter, "None");
-	cls_SMESH_OctreeNodeIteratorPtr.def("_internal_equiv", (bool (SMESH_OctreeNodeIteratorPtr::*)(const shared_ptr<SMESH_OctreeNodeIterator> &) const ) &SMESH_OctreeNodeIteratorPtr::_internal_equiv, "None", py::arg("r"));
-	cls_SMESH_OctreeNodeIteratorPtr.def("_internal_count", (boost::detail::shared_count (SMESH_OctreeNodeIteratorPtr::*)() const ) &SMESH_OctreeNodeIteratorPtr::_internal_count, "None");
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_MesherHelper.hxx
+	// FIXME bind_boost::shared_ptr<SMDS_Iterator<const TopoDS_Shape *> >(mod, "PShapeIteratorPtr");
+
+	*/
+
+	/* FIXME
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_MesherHelper.hxx
+	// FIXME bind_std::vector<const SMDS_MeshNode *, std::allocator<const SMDS_MeshNode *> >(mod, "TNodeColumn");
+
+	*/
+
+	/* FIXME
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_MesherHelper.hxx
+	// FIXME bind_std::map<double, std::vector<const SMDS_MeshNode *, std::allocator<const SMDS_MeshNode *> >, std::less<double>, std::allocator<std::pair<const double, std::vector<const SMDS_MeshNode *, std::allocator<const SMDS_MeshNode *> > > > >(mod, "TParam2ColumnMap");
+
+	*/
+
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_MesherHelper.hxx
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_OctreeNode.hxx
+	bind_SMDS_Iterator<SMESH_OctreeNode *>(mod, "SMESH_OctreeNodeIterator");
+
+	/* FIXME
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_OctreeNode.hxx
+	// FIXME bind_boost::shared_ptr<SMDS_Iterator<SMESH_OctreeNode *> >(mod, "SMESH_OctreeNodeIteratorPtr");
 
 	*/
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_subMesh.hxx
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_subMesh.hxx
 	/* FIXME
-	// C:\Miniconda\envs\occt\Library\include\boost\smart_ptr\shared_ptr.hpp
-	py::class_<SMESH_subMeshIteratorPtr, std::unique_ptr<SMESH_subMeshIteratorPtr, Deleter<SMESH_subMeshIteratorPtr>>> cls_SMESH_subMeshIteratorPtr(mod, "SMESH_subMeshIteratorPtr", "None");
-	cls_SMESH_subMeshIteratorPtr.def(py::init<>());
-	cls_SMESH_subMeshIteratorPtr.def(py::init<boost::detail::sp_nullptr_t>(), py::arg(""));
-	cls_SMESH_subMeshIteratorPtr.def(py::init<boost::detail::sp_internal_constructor_tag, boost::SMESH_subMeshIteratorPtr::element_type *, const boost::detail::shared_count &>(), py::arg(""), py::arg("px_"), py::arg("pn_"));
-	cls_SMESH_subMeshIteratorPtr.def(py::init<boost::detail::sp_internal_constructor_tag, boost::SMESH_subMeshIteratorPtr::element_type *, boost::detail::shared_count &&>(), py::arg(""), py::arg("px_"), py::arg("pn_"));
-	cls_SMESH_subMeshIteratorPtr.def(py::init([] (const shared_ptr<SMDS_Iterator<SMESH_subMesh *>> &other) {return new SMESH_subMeshIteratorPtr(other);}), "Copy constructor", py::arg("other"));
-	// FIXME cls_SMESH_subMeshIteratorPtr.def(py::init<shared_ptr<SMDS_Iterator<SMESH_subMesh *>> &&>(), py::arg("r"));
-	cls_SMESH_subMeshIteratorPtr.def("assign", (shared_ptr<SMDS_Iterator<SMESH_subMesh *>> & (SMESH_subMeshIteratorPtr::*)(const shared_ptr<SMDS_Iterator<SMESH_subMesh *>> &)) &SMESH_subMeshIteratorPtr::operator=, py::is_operator(), "None", py::arg("r"));
-	// FIXME cls_SMESH_subMeshIteratorPtr.def("assign", (shared_ptr<SMDS_Iterator<SMESH_subMesh *>> & (SMESH_subMeshIteratorPtr::*)(shared_ptr<SMDS_Iterator<SMESH_subMesh *>> &&)) &SMESH_subMeshIteratorPtr::operator=, py::is_operator(), "None", py::arg("r"));
-	cls_SMESH_subMeshIteratorPtr.def("assign", (shared_ptr<SMDS_Iterator<SMESH_subMesh *>> & (SMESH_subMeshIteratorPtr::*)(boost::detail::sp_nullptr_t)) &SMESH_subMeshIteratorPtr::operator=, py::is_operator(), "None", py::arg(""));
-	cls_SMESH_subMeshIteratorPtr.def("reset", (void (SMESH_subMeshIteratorPtr::*)()) &SMESH_subMeshIteratorPtr::reset, "None");
-	cls_SMESH_subMeshIteratorPtr.def("__mul__", (typename boost::detail::sp_dereference<SMDS_Iterator<SMESH_subMesh *>>::type (SMESH_subMeshIteratorPtr::*)() const ) &SMESH_subMeshIteratorPtr::operator*, py::is_operator(), "None");
-	// FIXME cls_SMESH_subMeshIteratorPtr.def("operator->", (typename boost::detail::sp_member_access<SMDS_Iterator<SMESH_subMesh *>>::type (SMESH_subMeshIteratorPtr::*)() const ) &SMESH_subMeshIteratorPtr::operator->, "None");
-	cls_SMESH_subMeshIteratorPtr.def("__getitem__", (typename boost::detail::sp_array_access<SMDS_Iterator<SMESH_subMesh *>>::type (SMESH_subMeshIteratorPtr::*)(std::ptrdiff_t) const ) &SMESH_subMeshIteratorPtr::operator[], py::is_operator(), "None", py::arg("i"));
-	cls_SMESH_subMeshIteratorPtr.def("get", (boost::SMESH_subMeshIteratorPtr::element_type * (SMESH_subMeshIteratorPtr::*)() const ) &SMESH_subMeshIteratorPtr::get, "None");
-	cls_SMESH_subMeshIteratorPtr.def("operator!", (bool (SMESH_subMeshIteratorPtr::*)() const ) &SMESH_subMeshIteratorPtr::operator!, "None");
-	cls_SMESH_subMeshIteratorPtr.def("unique", (bool (SMESH_subMeshIteratorPtr::*)() const ) &SMESH_subMeshIteratorPtr::unique, "None");
-	cls_SMESH_subMeshIteratorPtr.def("use_count", (long (SMESH_subMeshIteratorPtr::*)() const ) &SMESH_subMeshIteratorPtr::use_count, "None");
-	cls_SMESH_subMeshIteratorPtr.def("swap", (void (SMESH_subMeshIteratorPtr::*)(shared_ptr<SMDS_Iterator<SMESH_subMesh *>> &)) &SMESH_subMeshIteratorPtr::swap, "None", py::arg("other"));
-	cls_SMESH_subMeshIteratorPtr.def("_internal_get_deleter", (void * (SMESH_subMeshIteratorPtr::*)(const boost::detail::sp_typeinfo &) const ) &SMESH_subMeshIteratorPtr::_internal_get_deleter, "None", py::arg("ti"));
-	cls_SMESH_subMeshIteratorPtr.def("_internal_get_local_deleter", (void * (SMESH_subMeshIteratorPtr::*)(const boost::detail::sp_typeinfo &) const ) &SMESH_subMeshIteratorPtr::_internal_get_local_deleter, "None", py::arg("ti"));
-	cls_SMESH_subMeshIteratorPtr.def("_internal_get_untyped_deleter", (void * (SMESH_subMeshIteratorPtr::*)() const ) &SMESH_subMeshIteratorPtr::_internal_get_untyped_deleter, "None");
-	cls_SMESH_subMeshIteratorPtr.def("_internal_equiv", (bool (SMESH_subMeshIteratorPtr::*)(const shared_ptr<SMDS_Iterator<SMESH_subMesh *>> &) const ) &SMESH_subMeshIteratorPtr::_internal_equiv, "None", py::arg("r"));
-	cls_SMESH_subMeshIteratorPtr.def("_internal_count", (boost::detail::shared_count (SMESH_subMeshIteratorPtr::*)() const ) &SMESH_subMeshIteratorPtr::_internal_count, "None");
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_subMesh.hxx
+	// FIXME bind_boost::shared_ptr<SMDS_Iterator<SMESH_subMesh *> >(mod, "SMESH_subMeshIteratorPtr");
 
 	*/
 
