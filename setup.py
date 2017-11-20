@@ -7,8 +7,7 @@ setup(
         package_data={'OCCT': ['*.pyd', '*.dll']},
         author='Laughlin Research, LLC',
         author_email='info@laughlinresearch.com',
-        dsescription='Python bindings to OpenCASCADE.',
+        description='Python bindings to OpenCASCADE.',
         license='Proprietary',
-        zip_safe=False,
         platforms=['Windows']
 )
