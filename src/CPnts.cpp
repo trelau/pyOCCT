@@ -34,7 +34,7 @@ PYBIND11_MODULE(CPnts, mod) {
 	py::class_<CPnts_MyGaussFunction, std::unique_ptr<CPnts_MyGaussFunction, Deleter<CPnts_MyGaussFunction>>, math_Function> cls_CPnts_MyGaussFunction(mod, "CPnts_MyGaussFunction", "for implementation, compute values for Gauss");
 	cls_CPnts_MyGaussFunction.def(py::init<>());
 	cls_CPnts_MyGaussFunction.def("Init", (void (CPnts_MyGaussFunction::*)(const CPnts_RealFunction &, const Standard_Address)) &CPnts_MyGaussFunction::Init, "F is a pointer on a function D is a client data", py::arg("F"), py::arg("D"));
-	cls_CPnts_MyGaussFunction.def("Value", (Standard_Boolean (CPnts_MyGaussFunction::*)(const Standard_Real, Standard_Real &)) &CPnts_MyGaussFunction::Value, "None", py::arg("X"), py::arg("F"));
+	cls_CPnts_MyGaussFunction.def("Value", [](CPnts_MyGaussFunction &self, const Standard_Real X, Standard_Real & F){ Standard_Boolean rv = self.Value(X, F); return std::tuple<Standard_Boolean, Standard_Real &>(rv, F); }, "None", py::arg("X"), py::arg("F"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\CPnts_MyRootFunction.hxx
 	py::class_<CPnts_MyRootFunction, std::unique_ptr<CPnts_MyRootFunction, Deleter<CPnts_MyRootFunction>>, math_FunctionWithDerivative> cls_CPnts_MyRootFunction(mod, "CPnts_MyRootFunction", "Implements a function for the Newton algorithm to find the solution of Integral(F) = L (compute Length and Derivative of the curve for Newton)");
@@ -42,9 +42,9 @@ PYBIND11_MODULE(CPnts, mod) {
 	cls_CPnts_MyRootFunction.def("Init", (void (CPnts_MyRootFunction::*)(const CPnts_RealFunction &, const Standard_Address, const Standard_Integer)) &CPnts_MyRootFunction::Init, "F is a pointer on a function D is a client data Order is the order of integration to use", py::arg("F"), py::arg("D"), py::arg("Order"));
 	cls_CPnts_MyRootFunction.def("Init", (void (CPnts_MyRootFunction::*)(const Standard_Real, const Standard_Real)) &CPnts_MyRootFunction::Init, "We want to solve Integral(X0,X,F(X,D)) = L", py::arg("X0"), py::arg("L"));
 	cls_CPnts_MyRootFunction.def("Init", (void (CPnts_MyRootFunction::*)(const Standard_Real, const Standard_Real, const Standard_Real)) &CPnts_MyRootFunction::Init, "We want to solve Integral(X0,X,F(X,D)) = L with given tolerance", py::arg("X0"), py::arg("L"), py::arg("Tol"));
-	cls_CPnts_MyRootFunction.def("Value", (Standard_Boolean (CPnts_MyRootFunction::*)(const Standard_Real, Standard_Real &)) &CPnts_MyRootFunction::Value, "This is Integral(X0,X,F(X,D)) - L", py::arg("X"), py::arg("F"));
-	cls_CPnts_MyRootFunction.def("Derivative", (Standard_Boolean (CPnts_MyRootFunction::*)(const Standard_Real, Standard_Real &)) &CPnts_MyRootFunction::Derivative, "This is F(X,D)", py::arg("X"), py::arg("Df"));
-	cls_CPnts_MyRootFunction.def("Values", (Standard_Boolean (CPnts_MyRootFunction::*)(const Standard_Real, Standard_Real &, Standard_Real &)) &CPnts_MyRootFunction::Values, "None", py::arg("X"), py::arg("F"), py::arg("Df"));
+	cls_CPnts_MyRootFunction.def("Value", [](CPnts_MyRootFunction &self, const Standard_Real X, Standard_Real & F){ Standard_Boolean rv = self.Value(X, F); return std::tuple<Standard_Boolean, Standard_Real &>(rv, F); }, "This is Integral(X0,X,F(X,D)) - L", py::arg("X"), py::arg("F"));
+	cls_CPnts_MyRootFunction.def("Derivative", [](CPnts_MyRootFunction &self, const Standard_Real X, Standard_Real & Df){ Standard_Boolean rv = self.Derivative(X, Df); return std::tuple<Standard_Boolean, Standard_Real &>(rv, Df); }, "This is F(X,D)", py::arg("X"), py::arg("Df"));
+	cls_CPnts_MyRootFunction.def("Values", [](CPnts_MyRootFunction &self, const Standard_Real X, Standard_Real & F, Standard_Real & Df){ Standard_Boolean rv = self.Values(X, F, Df); return std::tuple<Standard_Boolean, Standard_Real &, Standard_Real &>(rv, F, Df); }, "None", py::arg("X"), py::arg("F"), py::arg("Df"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\CPnts_AbscissaPoint.hxx
 	py::class_<CPnts_AbscissaPoint, std::unique_ptr<CPnts_AbscissaPoint, Deleter<CPnts_AbscissaPoint>>> cls_CPnts_AbscissaPoint(mod, "CPnts_AbscissaPoint", "the algorithm computes a point on a curve at a given distance from another point on the curve");

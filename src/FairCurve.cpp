@@ -52,7 +52,7 @@ PYBIND11_MODULE(FairCurve, mod) {
 	// FUNCTIONS
 	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\FairCurve_MinimalVariation.lxx
-	mod.def("operator<<", (Standard_OStream & (*)(Standard_OStream &, const FairCurve_MinimalVariation &)) &operator<<, "None", py::arg("o"), py::arg("MVC"));
+	mod.def("bits_left", (Standard_OStream & (*)(Standard_OStream &, const FairCurve_MinimalVariation &)) &operator<<, py::is_operator(), "None", py::arg("o"), py::arg("MVC"));
 	*/
 
 	// CLASSES
@@ -93,7 +93,7 @@ PYBIND11_MODULE(FairCurve, mod) {
 	cls_FairCurve_BattenLaw.def("SetSliding", (void (FairCurve_BattenLaw::*)(const Standard_Real)) &FairCurve_BattenLaw::SetSliding, "Change the value of sliding", py::arg("Sliding"));
 	cls_FairCurve_BattenLaw.def("SetHeigth", (void (FairCurve_BattenLaw::*)(const Standard_Real)) &FairCurve_BattenLaw::SetHeigth, "Change the value of Heigth at the middle point.", py::arg("Heigth"));
 	cls_FairCurve_BattenLaw.def("SetSlope", (void (FairCurve_BattenLaw::*)(const Standard_Real)) &FairCurve_BattenLaw::SetSlope, "Change the value of the geometric slope.", py::arg("Slope"));
-	cls_FairCurve_BattenLaw.def("Value", (Standard_Boolean (FairCurve_BattenLaw::*)(const Standard_Real, Standard_Real &)) &FairCurve_BattenLaw::Value, "computes the value of the heigth for the parameter T on the neutral fibber", py::arg("T"), py::arg("THeigth"));
+	cls_FairCurve_BattenLaw.def("Value", [](FairCurve_BattenLaw &self, const Standard_Real T, Standard_Real & THeigth){ Standard_Boolean rv = self.Value(T, THeigth); return std::tuple<Standard_Boolean, Standard_Real &>(rv, THeigth); }, "computes the value of the heigth for the parameter T on the neutral fibber", py::arg("T"), py::arg("THeigth"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\FairCurve_DistributionOfEnergy.hxx
 	py::class_<FairCurve_DistributionOfEnergy, std::unique_ptr<FairCurve_DistributionOfEnergy, Deleter<FairCurve_DistributionOfEnergy>>, math_FunctionSet> cls_FairCurve_DistributionOfEnergy(mod, "FairCurve_DistributionOfEnergy", "Abstract class to use the Energy of an FairCurve");
@@ -124,10 +124,10 @@ PYBIND11_MODULE(FairCurve, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\FairCurve_Energy.hxx
 	py::class_<FairCurve_Energy, std::unique_ptr<FairCurve_Energy, Deleter<FairCurve_Energy>>, math_MultipleVarFunctionWithHessian> cls_FairCurve_Energy(mod, "FairCurve_Energy", "necessary methodes to compute the energy of an FairCurve.");
 	cls_FairCurve_Energy.def("NbVariables", (Standard_Integer (FairCurve_Energy::*)() const ) &FairCurve_Energy::NbVariables, "returns the number of variables of the energy.");
-	cls_FairCurve_Energy.def("Value", (Standard_Boolean (FairCurve_Energy::*)(const math_Vector &, Standard_Real &)) &FairCurve_Energy::Value, "computes the values of the Energys E for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("E"));
+	cls_FairCurve_Energy.def("Value", [](FairCurve_Energy &self, const math_Vector & X, Standard_Real & E){ Standard_Boolean rv = self.Value(X, E); return std::tuple<Standard_Boolean, Standard_Real &>(rv, E); }, "computes the values of the Energys E for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("E"));
 	cls_FairCurve_Energy.def("Gradient", (Standard_Boolean (FairCurve_Energy::*)(const math_Vector &, math_Vector &)) &FairCurve_Energy::Gradient, "computes the gradient <G> of the energys for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("G"));
-	cls_FairCurve_Energy.def("Values", (Standard_Boolean (FairCurve_Energy::*)(const math_Vector &, Standard_Real &, math_Vector &)) &FairCurve_Energy::Values, "computes the Energy <E> and the gradient <G> of the energy for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("E"), py::arg("G"));
-	cls_FairCurve_Energy.def("Values", (Standard_Boolean (FairCurve_Energy::*)(const math_Vector &, Standard_Real &, math_Vector &, math_Matrix &)) &FairCurve_Energy::Values, "computes the Energy <E>, the gradient <G> and the Hessian <H> of the energy for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("E"), py::arg("G"), py::arg("H"));
+	cls_FairCurve_Energy.def("Values", [](FairCurve_Energy &self, const math_Vector & X, Standard_Real & E, math_Vector & G){ Standard_Boolean rv = self.Values(X, E, G); return std::tuple<Standard_Boolean, Standard_Real &>(rv, E); }, "computes the Energy <E> and the gradient <G> of the energy for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("E"), py::arg("G"));
+	cls_FairCurve_Energy.def("Values", [](FairCurve_Energy &self, const math_Vector & X, Standard_Real & E, math_Vector & G, math_Matrix & H){ Standard_Boolean rv = self.Values(X, E, G, H); return std::tuple<Standard_Boolean, Standard_Real &>(rv, E); }, "computes the Energy <E>, the gradient <G> and the Hessian <H> of the energy for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("E"), py::arg("G"), py::arg("H"));
 	cls_FairCurve_Energy.def("Variable", (Standard_Boolean (FairCurve_Energy::*)(math_Vector &) const ) &FairCurve_Energy::Variable, "compute the variables <X> wich correspond with the field <MyPoles>", py::arg("X"));
 	cls_FairCurve_Energy.def("Poles", (const opencascade::handle<TColgp_HArray1OfPnt2d> & (FairCurve_Energy::*)() const ) &FairCurve_Energy::Poles, "return the poles");
 

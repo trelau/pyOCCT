@@ -135,8 +135,8 @@ PYBIND11_MODULE(ChFiDS, mod) {
 	cls_ChFiDS_CircSection.def(py::init<>());
 	cls_ChFiDS_CircSection.def("Set", (void (ChFiDS_CircSection::*)(const gp_Circ &, const Standard_Real, const Standard_Real)) &ChFiDS_CircSection::Set, "None", py::arg("C"), py::arg("F"), py::arg("L"));
 	cls_ChFiDS_CircSection.def("Set", (void (ChFiDS_CircSection::*)(const gp_Lin &, const Standard_Real, const Standard_Real)) &ChFiDS_CircSection::Set, "None", py::arg("C"), py::arg("F"), py::arg("L"));
-	cls_ChFiDS_CircSection.def("Get", (void (ChFiDS_CircSection::*)(gp_Circ &, Standard_Real &, Standard_Real &) const ) &ChFiDS_CircSection::Get, "None", py::arg("C"), py::arg("F"), py::arg("L"));
-	cls_ChFiDS_CircSection.def("Get", (void (ChFiDS_CircSection::*)(gp_Lin &, Standard_Real &, Standard_Real &) const ) &ChFiDS_CircSection::Get, "None", py::arg("C"), py::arg("F"), py::arg("L"));
+	cls_ChFiDS_CircSection.def("Get", [](ChFiDS_CircSection &self, gp_Circ & C, Standard_Real & F, Standard_Real & L){ self.Get(C, F, L); return std::tuple<Standard_Real &, Standard_Real &>(F, L); }, "None", py::arg("C"), py::arg("F"), py::arg("L"));
+	cls_ChFiDS_CircSection.def("Get", [](ChFiDS_CircSection &self, gp_Lin & C, Standard_Real & F, Standard_Real & L){ self.Get(C, F, L); return std::tuple<Standard_Real &, Standard_Real &>(F, L); }, "None", py::arg("C"), py::arg("F"), py::arg("L"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFiDS_SecArray1.hxx
 	bind_NCollection_Array1<ChFiDS_CircSection>(mod, "ChFiDS_SecArray1");
@@ -287,10 +287,8 @@ PYBIND11_MODULE(ChFiDS, mod) {
 	cls_ChFiDS_Spine.def("Period", (Standard_Real (ChFiDS_Spine::*)() const ) &ChFiDS_Spine::Period, "None");
 	cls_ChFiDS_Spine.def("Absc", (Standard_Real (ChFiDS_Spine::*)(const Standard_Real)) &ChFiDS_Spine::Absc, "None", py::arg("U"));
 	cls_ChFiDS_Spine.def("Absc", (Standard_Real (ChFiDS_Spine::*)(const Standard_Real, const Standard_Integer)) &ChFiDS_Spine::Absc, "None", py::arg("U"), py::arg("I"));
-	cls_ChFiDS_Spine.def("Parameter", [](ChFiDS_Spine &self, const Standard_Real a0, Standard_Real & a1) -> void { return self.Parameter(a0, a1); }, py::arg("AbsC"), py::arg("U"));
-	cls_ChFiDS_Spine.def("Parameter", (void (ChFiDS_Spine::*)(const Standard_Real, Standard_Real &, const Standard_Boolean)) &ChFiDS_Spine::Parameter, "None", py::arg("AbsC"), py::arg("U"), py::arg("Oriented"));
-	cls_ChFiDS_Spine.def("Parameter", [](ChFiDS_Spine &self, const Standard_Integer a0, const Standard_Real a1, Standard_Real & a2) -> void { return self.Parameter(a0, a1, a2); }, py::arg("Index"), py::arg("AbsC"), py::arg("U"));
-	cls_ChFiDS_Spine.def("Parameter", (void (ChFiDS_Spine::*)(const Standard_Integer, const Standard_Real, Standard_Real &, const Standard_Boolean)) &ChFiDS_Spine::Parameter, "None", py::arg("Index"), py::arg("AbsC"), py::arg("U"), py::arg("Oriented"));
+	cls_ChFiDS_Spine.def("Parameter", [](ChFiDS_Spine &self, const Standard_Real AbsC, Standard_Real & U, const Standard_Boolean Oriented){ self.Parameter(AbsC, U, Oriented); return U; }, "None", py::arg("AbsC"), py::arg("U"), py::arg("Oriented"));
+	cls_ChFiDS_Spine.def("Parameter", [](ChFiDS_Spine &self, const Standard_Integer Index, const Standard_Real AbsC, Standard_Real & U, const Standard_Boolean Oriented){ self.Parameter(Index, AbsC, U, Oriented); return U; }, "None", py::arg("Index"), py::arg("AbsC"), py::arg("U"), py::arg("Oriented"));
 	cls_ChFiDS_Spine.def("Value", (gp_Pnt (ChFiDS_Spine::*)(const Standard_Real)) &ChFiDS_Spine::Value, "None", py::arg("AbsC"));
 	cls_ChFiDS_Spine.def("D0", (void (ChFiDS_Spine::*)(const Standard_Real, gp_Pnt &)) &ChFiDS_Spine::D0, "None", py::arg("AbsC"), py::arg("P"));
 	cls_ChFiDS_Spine.def("D1", (void (ChFiDS_Spine::*)(const Standard_Real, gp_Pnt &, gp_Vec &)) &ChFiDS_Spine::D1, "None", py::arg("AbsC"), py::arg("P"), py::arg("V1"));
@@ -340,8 +338,8 @@ PYBIND11_MODULE(ChFiDS, mod) {
 	cls_ChFiDS_Stripe.def("OrientationOnFace1", (void (ChFiDS_Stripe::*)(const TopAbs_Orientation)) &ChFiDS_Stripe::OrientationOnFace1, "None", py::arg("Or1"));
 	cls_ChFiDS_Stripe.def("OrientationOnFace2", (void (ChFiDS_Stripe::*)(const TopAbs_Orientation)) &ChFiDS_Stripe::OrientationOnFace2, "None", py::arg("Or2"));
 	cls_ChFiDS_Stripe.def("Choix", (void (ChFiDS_Stripe::*)(const Standard_Integer)) &ChFiDS_Stripe::Choix, "None", py::arg("C"));
-	cls_ChFiDS_Stripe.def("FirstParameters", (void (ChFiDS_Stripe::*)(Standard_Real &, Standard_Real &) const ) &ChFiDS_Stripe::FirstParameters, "None", py::arg("Pdeb"), py::arg("Pfin"));
-	cls_ChFiDS_Stripe.def("LastParameters", (void (ChFiDS_Stripe::*)(Standard_Real &, Standard_Real &) const ) &ChFiDS_Stripe::LastParameters, "None", py::arg("Pdeb"), py::arg("Pfin"));
+	cls_ChFiDS_Stripe.def("FirstParameters", [](ChFiDS_Stripe &self, Standard_Real & Pdeb, Standard_Real & Pfin){ self.FirstParameters(Pdeb, Pfin); return std::tuple<Standard_Real &, Standard_Real &>(Pdeb, Pfin); }, "None", py::arg("Pdeb"), py::arg("Pfin"));
+	cls_ChFiDS_Stripe.def("LastParameters", [](ChFiDS_Stripe &self, Standard_Real & Pdeb, Standard_Real & Pfin){ self.LastParameters(Pdeb, Pfin); return std::tuple<Standard_Real &, Standard_Real &>(Pdeb, Pfin); }, "None", py::arg("Pdeb"), py::arg("Pfin"));
 	cls_ChFiDS_Stripe.def("ChangeFirstParameters", (void (ChFiDS_Stripe::*)(const Standard_Real, const Standard_Real)) &ChFiDS_Stripe::ChangeFirstParameters, "None", py::arg("Pdeb"), py::arg("Pfin"));
 	cls_ChFiDS_Stripe.def("ChangeLastParameters", (void (ChFiDS_Stripe::*)(const Standard_Real, const Standard_Real)) &ChFiDS_Stripe::ChangeLastParameters, "None", py::arg("Pdeb"), py::arg("Pfin"));
 	cls_ChFiDS_Stripe.def("FirstCurve", (Standard_Integer (ChFiDS_Stripe::*)() const ) &ChFiDS_Stripe::FirstCurve, "None");
@@ -364,7 +362,7 @@ PYBIND11_MODULE(ChFiDS, mod) {
 	cls_ChFiDS_Stripe.def("ChangeIndexFirstPointOnS2", (void (ChFiDS_Stripe::*)(const Standard_Integer)) &ChFiDS_Stripe::ChangeIndexFirstPointOnS2, "None", py::arg("Index"));
 	cls_ChFiDS_Stripe.def("ChangeIndexLastPointOnS1", (void (ChFiDS_Stripe::*)(const Standard_Integer)) &ChFiDS_Stripe::ChangeIndexLastPointOnS1, "None", py::arg("Index"));
 	cls_ChFiDS_Stripe.def("ChangeIndexLastPointOnS2", (void (ChFiDS_Stripe::*)(const Standard_Integer)) &ChFiDS_Stripe::ChangeIndexLastPointOnS2, "None", py::arg("Index"));
-	cls_ChFiDS_Stripe.def("Parameters", (void (ChFiDS_Stripe::*)(const Standard_Boolean, Standard_Real &, Standard_Real &) const ) &ChFiDS_Stripe::Parameters, "None", py::arg("First"), py::arg("Pdeb"), py::arg("Pfin"));
+	cls_ChFiDS_Stripe.def("Parameters", [](ChFiDS_Stripe &self, const Standard_Boolean First, Standard_Real & Pdeb, Standard_Real & Pfin){ self.Parameters(First, Pdeb, Pfin); return std::tuple<Standard_Real &, Standard_Real &>(Pdeb, Pfin); }, "None", py::arg("First"), py::arg("Pdeb"), py::arg("Pfin"));
 	cls_ChFiDS_Stripe.def("SetParameters", (void (ChFiDS_Stripe::*)(const Standard_Boolean, const Standard_Real, const Standard_Real)) &ChFiDS_Stripe::SetParameters, "None", py::arg("First"), py::arg("Pdeb"), py::arg("Pfin"));
 	cls_ChFiDS_Stripe.def("Curve", (Standard_Integer (ChFiDS_Stripe::*)(const Standard_Boolean) const ) &ChFiDS_Stripe::Curve, "None", py::arg("First"));
 	cls_ChFiDS_Stripe.def("SetCurve", (void (ChFiDS_Stripe::*)(const Standard_Integer, const Standard_Boolean)) &ChFiDS_Stripe::SetCurve, "None", py::arg("Index"), py::arg("First"));
@@ -462,10 +460,10 @@ PYBIND11_MODULE(ChFiDS, mod) {
 	cls_ChFiDS_ChamfSpine.def(py::init<>());
 	cls_ChFiDS_ChamfSpine.def(py::init<const Standard_Real>(), py::arg("Tol"));
 	cls_ChFiDS_ChamfSpine.def("SetDist", (void (ChFiDS_ChamfSpine::*)(const Standard_Real)) &ChFiDS_ChamfSpine::SetDist, "None", py::arg("Dis"));
-	cls_ChFiDS_ChamfSpine.def("GetDist", (void (ChFiDS_ChamfSpine::*)(Standard_Real &) const ) &ChFiDS_ChamfSpine::GetDist, "None", py::arg("Dis"));
+	cls_ChFiDS_ChamfSpine.def("GetDist", [](ChFiDS_ChamfSpine &self, Standard_Real & Dis){ self.GetDist(Dis); return Dis; }, "None", py::arg("Dis"));
 	cls_ChFiDS_ChamfSpine.def("SetDists", (void (ChFiDS_ChamfSpine::*)(const Standard_Real, const Standard_Real)) &ChFiDS_ChamfSpine::SetDists, "None", py::arg("Dis1"), py::arg("Dis2"));
-	cls_ChFiDS_ChamfSpine.def("Dists", (void (ChFiDS_ChamfSpine::*)(Standard_Real &, Standard_Real &) const ) &ChFiDS_ChamfSpine::Dists, "None", py::arg("Dis1"), py::arg("Dis2"));
-	cls_ChFiDS_ChamfSpine.def("GetDistAngle", (void (ChFiDS_ChamfSpine::*)(Standard_Real &, Standard_Real &, Standard_Boolean &) const ) &ChFiDS_ChamfSpine::GetDistAngle, "None", py::arg("Dis"), py::arg("Angle"), py::arg("DisOnF1"));
+	cls_ChFiDS_ChamfSpine.def("Dists", [](ChFiDS_ChamfSpine &self, Standard_Real & Dis1, Standard_Real & Dis2){ self.Dists(Dis1, Dis2); return std::tuple<Standard_Real &, Standard_Real &>(Dis1, Dis2); }, "None", py::arg("Dis1"), py::arg("Dis2"));
+	cls_ChFiDS_ChamfSpine.def("GetDistAngle", [](ChFiDS_ChamfSpine &self, Standard_Real & Dis, Standard_Real & Angle, Standard_Boolean & DisOnF1){ self.GetDistAngle(Dis, Angle, DisOnF1); return std::tuple<Standard_Real &, Standard_Real &, Standard_Boolean &>(Dis, Angle, DisOnF1); }, "None", py::arg("Dis"), py::arg("Angle"), py::arg("DisOnF1"));
 	cls_ChFiDS_ChamfSpine.def("SetDistAngle", (void (ChFiDS_ChamfSpine::*)(const Standard_Real, const Standard_Real, const Standard_Boolean)) &ChFiDS_ChamfSpine::SetDistAngle, "None", py::arg("Dis"), py::arg("Angle"), py::arg("DisOnF1"));
 	cls_ChFiDS_ChamfSpine.def("IsChamfer", (ChFiDS_ChamfMethod (ChFiDS_ChamfSpine::*)() const ) &ChFiDS_ChamfSpine::IsChamfer, "Return the method of chamfers used");
 	cls_ChFiDS_ChamfSpine.def_static("get_type_name_", (const char * (*)()) &ChFiDS_ChamfSpine::get_type_name, "None");

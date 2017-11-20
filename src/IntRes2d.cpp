@@ -53,7 +53,7 @@ PYBIND11_MODULE(IntRes2d, mod) {
 	// FUNCTIONS
 	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntRes2d_Transition.lxx
-	mod.def("operator<<", (std::ostream & (*)(std::ostream &, IntRes2d_Transition &)) &operator<<, "None", py::arg(""), py::arg(""));
+	mod.def("bits_left", (std::ostream & (*)(std::ostream &, IntRes2d_Transition &)) &operator<<, py::is_operator(), "None", py::arg(""), py::arg(""));
 	*/
 
 	// CLASSES
@@ -124,7 +124,7 @@ PYBIND11_MODULE(IntRes2d, mod) {
 	cls_IntRes2d_Domain.def("LastPoint", (const gp_Pnt2d & (IntRes2d_Domain::*)() const ) &IntRes2d_Domain::LastPoint, "Returns the last point of the domain. The exception DomainError is raised if HasLastPoint returns False.");
 	cls_IntRes2d_Domain.def("LastTolerance", (Standard_Real (IntRes2d_Domain::*)() const ) &IntRes2d_Domain::LastTolerance, "Returns the tolerance of the last (right) bound. The exception DomainError is raised if HasLastPoint returns False.");
 	cls_IntRes2d_Domain.def("IsClosed", (Standard_Boolean (IntRes2d_Domain::*)() const ) &IntRes2d_Domain::IsClosed, "Returns True if the domain is closed.");
-	cls_IntRes2d_Domain.def("EquivalentParameters", (void (IntRes2d_Domain::*)(Standard_Real &, Standard_Real &) const ) &IntRes2d_Domain::EquivalentParameters, "Returns Equivalent parameters if the domain is closed. Otherwise, the exception DomainError is raised.", py::arg("zero"), py::arg("zeroplusperiod"));
+	cls_IntRes2d_Domain.def("EquivalentParameters", [](IntRes2d_Domain &self, Standard_Real & zero, Standard_Real & zeroplusperiod){ self.EquivalentParameters(zero, zeroplusperiod); return std::tuple<Standard_Real &, Standard_Real &>(zero, zeroplusperiod); }, "Returns Equivalent parameters if the domain is closed. Otherwise, the exception DomainError is raised.", py::arg("zero"), py::arg("zeroplusperiod"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntRes2d_SequenceOfIntersectionPoint.hxx
 	bind_NCollection_Sequence<IntRes2d_IntersectionPoint>(mod, "IntRes2d_SequenceOfIntersectionPoint");

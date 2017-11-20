@@ -206,7 +206,7 @@ PYBIND11_MODULE(Message, mod) {
 	// FUNCTIONS
 	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Message_Messenger.hxx
-	mod.def("operator<<", (const opencascade::handle<Message_Messenger> & (*)(const opencascade::handle<Message_Messenger> &, const opencascade::handle<Message_Messenger> &(*)(const opencascade::handle<Message_Messenger> &))) &operator<<, "None", py::arg("theMessenger"), py::arg("pman"));
+	mod.def("bits_left", (const opencascade::handle<Message_Messenger> & (*)(const opencascade::handle<Message_Messenger> &, const opencascade::handle<Message_Messenger> &(*)(const opencascade::handle<Message_Messenger> &))) &operator<<, py::is_operator(), "None", py::arg("theMessenger"), py::arg("pman"));
 	*/
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Message_Messenger.hxx
 	mod.def("endl", (const opencascade::handle<Message_Messenger> & (*)(const opencascade::handle<Message_Messenger> &)) &endl, "None", py::arg("theMessenger"));
@@ -277,7 +277,7 @@ PYBIND11_MODULE(Message, mod) {
 	cls_Message_ProgressIndicator.def("SetScale", (void (Message_ProgressIndicator::*)(const Standard_CString, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Boolean)) &Message_ProgressIndicator::SetScale, "None", py::arg("name"), py::arg("min"), py::arg("max"), py::arg("step"), py::arg("isInf"));
 	cls_Message_ProgressIndicator.def("SetScale", [](Message_ProgressIndicator &self, const Standard_Real a0, const Standard_Real a1, const Standard_Real a2) -> void { return self.SetScale(a0, a1, a2); }, py::arg("min"), py::arg("max"), py::arg("step"));
 	cls_Message_ProgressIndicator.def("SetScale", (void (Message_ProgressIndicator::*)(const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Boolean)) &Message_ProgressIndicator::SetScale, "Set all parameters for current scale", py::arg("min"), py::arg("max"), py::arg("step"), py::arg("isInf"));
-	cls_Message_ProgressIndicator.def("GetScale", (void (Message_ProgressIndicator::*)(Standard_Real &, Standard_Real &, Standard_Real &, Standard_Boolean &) const ) &Message_ProgressIndicator::GetScale, "Returns all parameters for current scale", py::arg("min"), py::arg("max"), py::arg("step"), py::arg("isInf"));
+	cls_Message_ProgressIndicator.def("GetScale", [](Message_ProgressIndicator &self, Standard_Real & min, Standard_Real & max, Standard_Real & step, Standard_Boolean & isInf){ self.GetScale(min, max, step, isInf); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &, Standard_Boolean &>(min, max, step, isInf); }, "Returns all parameters for current scale", py::arg("min"), py::arg("max"), py::arg("step"), py::arg("isInf"));
 	cls_Message_ProgressIndicator.def("SetValue", (void (Message_ProgressIndicator::*)(const Standard_Real)) &Message_ProgressIndicator::SetValue, "None", py::arg("val"));
 	cls_Message_ProgressIndicator.def("GetValue", (Standard_Real (Message_ProgressIndicator::*)() const ) &Message_ProgressIndicator::GetValue, "Set and get progress value at current scale If the value to be set is more than currently set one, or out of range for the current scale, it is limited by that range");
 	cls_Message_ProgressIndicator.def("Increment", (void (Message_ProgressIndicator::*)()) &Message_ProgressIndicator::Increment, "None");
@@ -336,19 +336,19 @@ PYBIND11_MODULE(Message, mod) {
 	cls_Message_Msg.def("Set", (void (Message_Msg::*)(const Standard_CString)) &Message_Msg::Set, "Set a message body text -- can be used as alternative to using messages from resource file", py::arg("theMsg"));
 	cls_Message_Msg.def("Set", (void (Message_Msg::*)(const TCollection_ExtendedString &)) &Message_Msg::Set, "Set a message body text -- can be used as alternative to using messages from resource file", py::arg("theMsg"));
 	cls_Message_Msg.def("Arg", (Message_Msg & (Message_Msg::*)(const Standard_CString)) &Message_Msg::Arg, "Set a value for %..s conversion", py::arg("theString"));
-	// FIXME cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const Standard_CString)) &Message_Msg::operator<<, "None", py::arg("theString"));
+	// FIXME cls_Message_Msg.def("bits_left", (Message_Msg & (Message_Msg::*)(const Standard_CString)) &Message_Msg::operator<<, py::is_operator(), "None", py::arg("theString"));
 	cls_Message_Msg.def("Arg", (Message_Msg & (Message_Msg::*)(const TCollection_AsciiString &)) &Message_Msg::Arg, "Set a value for %..s conversion", py::arg("theString"));
-	// FIXME cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const TCollection_AsciiString &)) &Message_Msg::operator<<, "None", py::arg("theString"));
+	// FIXME cls_Message_Msg.def("bits_left", (Message_Msg & (Message_Msg::*)(const TCollection_AsciiString &)) &Message_Msg::operator<<, py::is_operator(), "None", py::arg("theString"));
 	cls_Message_Msg.def("Arg", (Message_Msg & (Message_Msg::*)(const opencascade::handle<TCollection_HAsciiString> &)) &Message_Msg::Arg, "Set a value for %..s conversion", py::arg("theString"));
-	// FIXME cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const opencascade::handle<TCollection_HAsciiString> &)) &Message_Msg::operator<<, "None", py::arg("theString"));
+	// FIXME cls_Message_Msg.def("bits_left", (Message_Msg & (Message_Msg::*)(const opencascade::handle<TCollection_HAsciiString> &)) &Message_Msg::operator<<, py::is_operator(), "None", py::arg("theString"));
 	cls_Message_Msg.def("Arg", (Message_Msg & (Message_Msg::*)(const TCollection_ExtendedString &)) &Message_Msg::Arg, "Set a value for %..s conversion", py::arg("theString"));
-	// FIXME cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const TCollection_ExtendedString &)) &Message_Msg::operator<<, "None", py::arg("theString"));
+	// FIXME cls_Message_Msg.def("bits_left", (Message_Msg & (Message_Msg::*)(const TCollection_ExtendedString &)) &Message_Msg::operator<<, py::is_operator(), "None", py::arg("theString"));
 	cls_Message_Msg.def("Arg", (Message_Msg & (Message_Msg::*)(const opencascade::handle<TCollection_HExtendedString> &)) &Message_Msg::Arg, "Set a value for %..s conversion", py::arg("theString"));
-	// FIXME cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const opencascade::handle<TCollection_HExtendedString> &)) &Message_Msg::operator<<, "None", py::arg("theString"));
+	// FIXME cls_Message_Msg.def("bits_left", (Message_Msg & (Message_Msg::*)(const opencascade::handle<TCollection_HExtendedString> &)) &Message_Msg::operator<<, py::is_operator(), "None", py::arg("theString"));
 	cls_Message_Msg.def("Arg", (Message_Msg & (Message_Msg::*)(const Standard_Integer)) &Message_Msg::Arg, "Set a value for %..d, %..i, %..o, %..u, %..x or %..X conversion", py::arg("theInt"));
-	// FIXME cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const Standard_Integer)) &Message_Msg::operator<<, "None", py::arg("theInt"));
+	// FIXME cls_Message_Msg.def("bits_left", (Message_Msg & (Message_Msg::*)(const Standard_Integer)) &Message_Msg::operator<<, py::is_operator(), "None", py::arg("theInt"));
 	cls_Message_Msg.def("Arg", (Message_Msg & (Message_Msg::*)(const Standard_Real)) &Message_Msg::Arg, "Set a value for %..f, %..e, %..E, %..g or %..G conversion", py::arg("theReal"));
-	// FIXME cls_Message_Msg.def("operator<<", (Message_Msg & (Message_Msg::*)(const Standard_Real)) &Message_Msg::operator<<, "None", py::arg("theReal"));
+	// FIXME cls_Message_Msg.def("bits_left", (Message_Msg & (Message_Msg::*)(const Standard_Real)) &Message_Msg::operator<<, py::is_operator(), "None", py::arg("theReal"));
 	cls_Message_Msg.def("Original", (const TCollection_ExtendedString & (Message_Msg::*)() const ) &Message_Msg::Original, "Returns the original message text");
 	cls_Message_Msg.def("Value", (const TCollection_ExtendedString & (Message_Msg::*)() const ) &Message_Msg::Value, "Returns current state of the message text with parameters to the moment");
 	cls_Message_Msg.def("IsEdited", (Standard_Boolean (Message_Msg::*)() const ) &Message_Msg::IsEdited, "Tells if Value differs from Original");

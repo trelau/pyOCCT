@@ -154,11 +154,11 @@ PYBIND11_MODULE(StdPrs, mod) {
 	cls_StdPrs_HLRToolShape.def("InitVisible", (void (StdPrs_HLRToolShape::*)(const Standard_Integer)) &StdPrs_HLRToolShape::InitVisible, "None", py::arg("EdgeNumber"));
 	cls_StdPrs_HLRToolShape.def("MoreVisible", (Standard_Boolean (StdPrs_HLRToolShape::*)() const ) &StdPrs_HLRToolShape::MoreVisible, "None");
 	cls_StdPrs_HLRToolShape.def("NextVisible", (void (StdPrs_HLRToolShape::*)()) &StdPrs_HLRToolShape::NextVisible, "None");
-	cls_StdPrs_HLRToolShape.def("Visible", (void (StdPrs_HLRToolShape::*)(BRepAdaptor_Curve &, Standard_Real &, Standard_Real &)) &StdPrs_HLRToolShape::Visible, "None", py::arg("TheEdge"), py::arg("U1"), py::arg("U2"));
+	cls_StdPrs_HLRToolShape.def("Visible", [](StdPrs_HLRToolShape &self, BRepAdaptor_Curve & TheEdge, Standard_Real & U1, Standard_Real & U2){ self.Visible(TheEdge, U1, U2); return std::tuple<Standard_Real &, Standard_Real &>(U1, U2); }, "None", py::arg("TheEdge"), py::arg("U1"), py::arg("U2"));
 	cls_StdPrs_HLRToolShape.def("InitHidden", (void (StdPrs_HLRToolShape::*)(const Standard_Integer)) &StdPrs_HLRToolShape::InitHidden, "None", py::arg("EdgeNumber"));
 	cls_StdPrs_HLRToolShape.def("MoreHidden", (Standard_Boolean (StdPrs_HLRToolShape::*)() const ) &StdPrs_HLRToolShape::MoreHidden, "None");
 	cls_StdPrs_HLRToolShape.def("NextHidden", (void (StdPrs_HLRToolShape::*)()) &StdPrs_HLRToolShape::NextHidden, "None");
-	cls_StdPrs_HLRToolShape.def("Hidden", (void (StdPrs_HLRToolShape::*)(BRepAdaptor_Curve &, Standard_Real &, Standard_Real &)) &StdPrs_HLRToolShape::Hidden, "None", py::arg("TheEdge"), py::arg("U1"), py::arg("U2"));
+	cls_StdPrs_HLRToolShape.def("Hidden", [](StdPrs_HLRToolShape &self, BRepAdaptor_Curve & TheEdge, Standard_Real & U1, Standard_Real & U2){ self.Hidden(TheEdge, U1, U2); return std::tuple<Standard_Real &, Standard_Real &>(U1, U2); }, "None", py::arg("TheEdge"), py::arg("U1"), py::arg("U2"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdPrs_ToolTriangulatedShape.hxx
 	py::class_<StdPrs_ToolTriangulatedShape, std::unique_ptr<StdPrs_ToolTriangulatedShape, Deleter<StdPrs_ToolTriangulatedShape>>> cls_StdPrs_ToolTriangulatedShape(mod, "StdPrs_ToolTriangulatedShape", "None");
@@ -194,7 +194,7 @@ PYBIND11_MODULE(StdPrs, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdPrs_ToolPoint.hxx
 	py::class_<StdPrs_ToolPoint, std::unique_ptr<StdPrs_ToolPoint, Deleter<StdPrs_ToolPoint>>> cls_StdPrs_ToolPoint(mod, "StdPrs_ToolPoint", "None");
 	cls_StdPrs_ToolPoint.def(py::init<>());
-	cls_StdPrs_ToolPoint.def_static("Coord_", (void (*)(const opencascade::handle<Geom_Point> &, Standard_Real &, Standard_Real &, Standard_Real &)) &StdPrs_ToolPoint::Coord, "None", py::arg("aPoint"), py::arg("X"), py::arg("Y"), py::arg("Z"));
+	cls_StdPrs_ToolPoint.def_static("Coord_", [](const opencascade::handle<Geom_Point> & aPoint, Standard_Real & X, Standard_Real & Y, Standard_Real & Z){ StdPrs_ToolPoint::Coord(aPoint, X, Y, Z); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &>(X, Y, Z); }, "None", py::arg("aPoint"), py::arg("X"), py::arg("Y"), py::arg("Z"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdPrs_PoleCurve.hxx
 	py::class_<StdPrs_PoleCurve, std::unique_ptr<StdPrs_PoleCurve, Deleter<StdPrs_PoleCurve>>, Prs3d_Root> cls_StdPrs_PoleCurve(mod, "StdPrs_PoleCurve", "A framework to provide display of Bezier or BSpline curves (by drawing a broken line linking the poles of the curve).");
@@ -236,7 +236,7 @@ PYBIND11_MODULE(StdPrs, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdPrs_ToolVertex.hxx
 	py::class_<StdPrs_ToolVertex, std::unique_ptr<StdPrs_ToolVertex, Deleter<StdPrs_ToolVertex>>> cls_StdPrs_ToolVertex(mod, "StdPrs_ToolVertex", "None");
 	cls_StdPrs_ToolVertex.def(py::init<>());
-	cls_StdPrs_ToolVertex.def_static("Coord_", (void (*)(const TopoDS_Vertex &, Standard_Real &, Standard_Real &, Standard_Real &)) &StdPrs_ToolVertex::Coord, "None", py::arg("aPoint"), py::arg("X"), py::arg("Y"), py::arg("Z"));
+	cls_StdPrs_ToolVertex.def_static("Coord_", [](const TopoDS_Vertex & aPoint, Standard_Real & X, Standard_Real & Y, Standard_Real & Z){ StdPrs_ToolVertex::Coord(aPoint, X, Y, Z); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &>(X, Y, Z); }, "None", py::arg("aPoint"), py::arg("X"), py::arg("Y"), py::arg("Z"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdPrs_WFDeflectionRestrictedFace.hxx
 	py::class_<StdPrs_WFDeflectionRestrictedFace, std::unique_ptr<StdPrs_WFDeflectionRestrictedFace, Deleter<StdPrs_WFDeflectionRestrictedFace>>, Prs3d_Root> cls_StdPrs_WFDeflectionRestrictedFace(mod, "StdPrs_WFDeflectionRestrictedFace", "A framework to provide display of U and V isoparameters of faces, while allowing you to impose a deflection on them. Computes the wireframe presentation of faces with restrictions by displaying a given number of U and/or V isoparametric curves. The isoparametric curves are drawn with respect to a maximal chordial deviation. The presentation includes the restriction curves.");

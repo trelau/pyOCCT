@@ -38,7 +38,7 @@ PYBIND11_MODULE(LDOMBasicString, mod) {
 	cls_LDOMBasicString.def(py::init<const char *, const opencascade::handle<LDOM_MemManager> &>(), py::arg("aValue"), py::arg("aDoc"), py::call_guard<ImportLDOM>());
 	cls_LDOMBasicString.def(py::init<const char *, const Standard_Integer, const opencascade::handle<LDOM_MemManager> &>(), py::arg("aValue"), py::arg("aLen"), py::arg("aDoc"), py::call_guard<ImportLDOM>());
 	cls_LDOMBasicString.def("Type", (LDOMBasicString::StringType (LDOMBasicString::*)() const ) &LDOMBasicString::Type, "None");
-	cls_LDOMBasicString.def("GetInteger", (Standard_Boolean (LDOMBasicString::*)(Standard_Integer &) const ) &LDOMBasicString::GetInteger, "None", py::arg("aResult"));
+	cls_LDOMBasicString.def("GetInteger", [](LDOMBasicString &self, Standard_Integer & aResult){ Standard_Boolean rv = self.GetInteger(aResult); return std::tuple<Standard_Boolean, Standard_Integer &>(rv, aResult); }, "None", py::arg("aResult"));
 	cls_LDOMBasicString.def("GetString", (const char * (LDOMBasicString::*)() const ) &LDOMBasicString::GetString, "None");
 	cls_LDOMBasicString.def("equals", (Standard_Boolean (LDOMBasicString::*)(const LDOMBasicString &) const ) &LDOMBasicString::equals, "None", py::arg("anOther"));
 	// FIXME cls_LDOMBasicString.def("assign", (LDOMBasicString & (LDOMBasicString::*)(const LDOM_NullPtr *)) &LDOMBasicString::operator=, py::is_operator(), "None", py::arg(""));

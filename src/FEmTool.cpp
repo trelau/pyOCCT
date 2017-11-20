@@ -66,7 +66,7 @@ PYBIND11_MODULE(FEmTool, mod) {
 	cls_FEmTool_Curve.def("D0", (void (FEmTool_Curve::*)(const Standard_Real, TColStd_Array1OfReal &)) &FEmTool_Curve::D0, "None", py::arg("U"), py::arg("Pnt"));
 	cls_FEmTool_Curve.def("D1", (void (FEmTool_Curve::*)(const Standard_Real, TColStd_Array1OfReal &)) &FEmTool_Curve::D1, "None", py::arg("U"), py::arg("Vec"));
 	cls_FEmTool_Curve.def("D2", (void (FEmTool_Curve::*)(const Standard_Real, TColStd_Array1OfReal &)) &FEmTool_Curve::D2, "None", py::arg("U"), py::arg("Vec"));
-	cls_FEmTool_Curve.def("Length", (void (FEmTool_Curve::*)(const Standard_Real, const Standard_Real, Standard_Real &)) &FEmTool_Curve::Length, "None", py::arg("FirstU"), py::arg("LastU"), py::arg("Length"));
+	cls_FEmTool_Curve.def("Length", [](FEmTool_Curve &self, const Standard_Real FirstU, const Standard_Real LastU, Standard_Real & Length){ self.Length(FirstU, LastU, Length); return Length; }, "None", py::arg("FirstU"), py::arg("LastU"), py::arg("Length"));
 	cls_FEmTool_Curve.def("GetElement", (void (FEmTool_Curve::*)(const Standard_Integer, TColStd_Array2OfReal &)) &FEmTool_Curve::GetElement, "None", py::arg("IndexOfElement"), py::arg("Coeffs"));
 	cls_FEmTool_Curve.def("GetPolynom", (void (FEmTool_Curve::*)(TColStd_Array1OfReal &)) &FEmTool_Curve::GetPolynom, "returns coefficients of all elements in canonical base.", py::arg("Coeffs"));
 	cls_FEmTool_Curve.def("NbElements", (Standard_Integer (FEmTool_Curve::*)() const ) &FEmTool_Curve::NbElements, "None");
@@ -74,7 +74,7 @@ PYBIND11_MODULE(FEmTool, mod) {
 	cls_FEmTool_Curve.def("Base", (opencascade::handle<PLib_Base> (FEmTool_Curve::*)() const ) &FEmTool_Curve::Base, "None");
 	cls_FEmTool_Curve.def("Degree", (Standard_Integer (FEmTool_Curve::*)(const Standard_Integer) const ) &FEmTool_Curve::Degree, "None", py::arg("IndexOfElement"));
 	cls_FEmTool_Curve.def("SetDegree", (void (FEmTool_Curve::*)(const Standard_Integer, const Standard_Integer)) &FEmTool_Curve::SetDegree, "None", py::arg("IndexOfElement"), py::arg("Degree"));
-	cls_FEmTool_Curve.def("ReduceDegree", (void (FEmTool_Curve::*)(const Standard_Integer, const Standard_Real, Standard_Integer &, Standard_Real &)) &FEmTool_Curve::ReduceDegree, "None", py::arg("IndexOfElement"), py::arg("Tol"), py::arg("NewDegree"), py::arg("MaxError"));
+	cls_FEmTool_Curve.def("ReduceDegree", [](FEmTool_Curve &self, const Standard_Integer IndexOfElement, const Standard_Real Tol, Standard_Integer & NewDegree, Standard_Real & MaxError){ self.ReduceDegree(IndexOfElement, Tol, NewDegree, MaxError); return std::tuple<Standard_Integer &, Standard_Real &>(NewDegree, MaxError); }, "None", py::arg("IndexOfElement"), py::arg("Tol"), py::arg("NewDegree"), py::arg("MaxError"));
 	cls_FEmTool_Curve.def_static("get_type_name_", (const char * (*)()) &FEmTool_Curve::get_type_name, "None");
 	cls_FEmTool_Curve.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &FEmTool_Curve::get_type_descriptor, "None");
 	cls_FEmTool_Curve.def("DynamicType", (const opencascade::handle<Standard_Type> & (FEmTool_Curve::*)() const ) &FEmTool_Curve::DynamicType, "None");

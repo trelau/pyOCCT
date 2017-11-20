@@ -51,7 +51,7 @@ PYBIND11_MODULE(LDOM, mod) {
 	py::class_<LDOM_MemManager, opencascade::handle<LDOM_MemManager>, Standard_Transient> cls_LDOM_MemManager(mod, "LDOM_MemManager", "None");
 	cls_LDOM_MemManager.def(py::init<const Standard_Integer>(), py::arg("aBlockSize"));
 	cls_LDOM_MemManager.def("Allocate", (void * (LDOM_MemManager::*)(const Standard_Integer)) &LDOM_MemManager::Allocate, "None", py::arg("aSize"));
-	cls_LDOM_MemManager.def("HashedAllocate", (const char * (LDOM_MemManager::*)(const char *, const Standard_Integer, Standard_Integer &)) &LDOM_MemManager::HashedAllocate, "None", py::arg("aString"), py::arg("theLen"), py::arg("theHash"));
+	cls_LDOM_MemManager.def("HashedAllocate", [](LDOM_MemManager &self, const char * aString, const Standard_Integer theLen, Standard_Integer & theHash){ const char * rv = self.HashedAllocate(aString, theLen, theHash); return std::tuple<const char *, Standard_Integer &>(rv, theHash); }, "None", py::arg("aString"), py::arg("theLen"), py::arg("theHash"));
 	cls_LDOM_MemManager.def("HashedAllocate", (void (LDOM_MemManager::*)(const char *, const Standard_Integer, LDOMBasicString &)) &LDOM_MemManager::HashedAllocate, "None", py::arg("aString"), py::arg("theLen"), py::arg("theResult"));
 	cls_LDOM_MemManager.def_static("Hash_", (Standard_Integer (*)(const char *, const Standard_Integer)) &LDOM_MemManager::Hash, "None", py::arg("theString"), py::arg("theLen"));
 	cls_LDOM_MemManager.def_static("CompareStrings_", (Standard_Boolean (*)(const char *, const Standard_Integer, const char *)) &LDOM_MemManager::CompareStrings, "None", py::arg("theString"), py::arg("theHashValue"), py::arg("theHashedStr"));
@@ -269,8 +269,8 @@ PYBIND11_MODULE(LDOM, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LDOM_CharReference.hxx
 	py::class_<LDOM_CharReference, std::unique_ptr<LDOM_CharReference, Deleter<LDOM_CharReference>>> cls_LDOM_CharReference(mod, "LDOM_CharReference", "None");
 	cls_LDOM_CharReference.def(py::init<>());
-	cls_LDOM_CharReference.def_static("Decode_", (char * (*)(char *, Standard_Integer &)) &LDOM_CharReference::Decode, "None", py::arg("theSrc"), py::arg("theLen"));
-	cls_LDOM_CharReference.def_static("Encode_", (char * (*)(const char *, Standard_Integer &, const Standard_Boolean)) &LDOM_CharReference::Encode, "None", py::arg("theSrc"), py::arg("theLen"), py::arg("isAttribute"));
+	cls_LDOM_CharReference.def_static("Decode_", [](char * theSrc, Standard_Integer & theLen){ char * rv = LDOM_CharReference::Decode(theSrc, theLen); return std::tuple<char *, Standard_Integer &>(rv, theLen); }, "None", py::arg("theSrc"), py::arg("theLen"));
+	cls_LDOM_CharReference.def_static("Encode_", [](const char * theSrc, Standard_Integer & theLen, const Standard_Boolean isAttribute){ char * rv = LDOM_CharReference::Encode(theSrc, theLen, isAttribute); return std::tuple<char *, Standard_Integer &>(rv, theLen); }, "None", py::arg("theSrc"), py::arg("theLen"), py::arg("isAttribute"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LDOM_DocumentType.hxx
 	py::class_<LDOM_DocumentType, std::unique_ptr<LDOM_DocumentType, Deleter<LDOM_DocumentType>>> cls_LDOM_DocumentType(mod, "LDOM_DocumentType", "None");

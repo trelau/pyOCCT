@@ -98,7 +98,7 @@ PYBIND11_MODULE(BiTgte, mod) {
 	cls_BiTgte_Blend.def("PCurveOnFace2", (opencascade::handle<Geom2d_Curve> (BiTgte_Blend::*)(const Standard_Integer) const ) &BiTgte_Blend::PCurveOnFace2, "gives the PCurve associated to CurveOnShape2(Index) on the support face Warning: returns a Null Handle if SupportShape2 is not a Face", py::arg("Index"));
 	cls_BiTgte_Blend.def("PCurve2OnFillet", (opencascade::handle<Geom2d_Curve> (BiTgte_Blend::*)(const Standard_Integer) const ) &BiTgte_Blend::PCurve2OnFillet, "gives the PCurve associated to CurveOnShape2(Index) on the fillet", py::arg("Index"));
 	cls_BiTgte_Blend.def("NbBranches", (Standard_Integer (BiTgte_Blend::*)()) &BiTgte_Blend::NbBranches, "None");
-	cls_BiTgte_Blend.def("IndicesOfBranche", (void (BiTgte_Blend::*)(const Standard_Integer, Standard_Integer &, Standard_Integer &) const ) &BiTgte_Blend::IndicesOfBranche, "Set in <From>,<To> the indices of the faces of the branche <Index>.", py::arg("Index"), py::arg("From"), py::arg("To"));
+	cls_BiTgte_Blend.def("IndicesOfBranche", [](BiTgte_Blend &self, const Standard_Integer Index, Standard_Integer & From, Standard_Integer & To){ self.IndicesOfBranche(Index, From, To); return std::tuple<Standard_Integer &, Standard_Integer &>(From, To); }, "Set in <From>,<To> the indices of the faces of the branche <Index>.", py::arg("Index"), py::arg("From"), py::arg("To"));
 	cls_BiTgte_Blend.def("ComputeCenters", (void (BiTgte_Blend::*)()) &BiTgte_Blend::ComputeCenters, "Computes the center lines");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BiTgte_CurveOnEdge.hxx

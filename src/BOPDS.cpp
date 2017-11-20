@@ -169,7 +169,7 @@ PYBIND11_MODULE(BOPDS, mod) {
 	cls_BOPDS_DS.def("SharedEdges", (void (BOPDS_DS::*)(const Standard_Integer, const Standard_Integer, BOPCol_ListOfInteger &, const BOPCol_BaseAllocator &)) &BOPDS_DS::SharedEdges, "Returns the indices of edges that are shared for the faces with indices theF1, theF2", py::arg("theF1"), py::arg("theF2"), py::arg("theLI"), py::arg("theAllocator"));
 	cls_BOPDS_DS.def("ShapesSD", (BOPCol_DataMapOfIntegerInteger & (BOPDS_DS::*)()) &BOPDS_DS::ShapesSD, "Selector Returns the collection same domain shapes");
 	cls_BOPDS_DS.def("AddShapeSD", (void (BOPDS_DS::*)(const Standard_Integer, const Standard_Integer)) &BOPDS_DS::AddShapeSD, "Modifier Adds the information about same domain shapes with indices theIndex, theIndexSD", py::arg("theIndex"), py::arg("theIndexSD"));
-	cls_BOPDS_DS.def("HasShapeSD", (Standard_Boolean (BOPDS_DS::*)(const Standard_Integer, Standard_Integer &) const ) &BOPDS_DS::HasShapeSD, "Query Returns true if the shape with index theIndex has the same domain shape. In this case theIndexSD will contain the index of same domain shape found", py::arg("theIndex"), py::arg("theIndexSD"));
+	cls_BOPDS_DS.def("HasShapeSD", [](BOPDS_DS &self, const Standard_Integer theIndex, Standard_Integer & theIndexSD){ Standard_Boolean rv = self.HasShapeSD(theIndex, theIndexSD); return std::tuple<Standard_Boolean, Standard_Integer &>(rv, theIndexSD); }, "Query Returns true if the shape with index theIndex has the same domain shape. In this case theIndexSD will contain the index of same domain shape found", py::arg("theIndex"), py::arg("theIndexSD"));
 	cls_BOPDS_DS.def("InterfVV", (BOPDS_VectorOfInterfVV & (BOPDS_DS::*)()) &BOPDS_DS::InterfVV, "Selector/Modifier Returns the collection of interferences Vertex/Vertex");
 	cls_BOPDS_DS.def("InterfVE", (BOPDS_VectorOfInterfVE & (BOPDS_DS::*)()) &BOPDS_DS::InterfVE, "Selector/Modifier Returns the collection of interferences Vertex/Edge");
 	cls_BOPDS_DS.def("InterfVF", (BOPDS_VectorOfInterfVF & (BOPDS_DS::*)()) &BOPDS_DS::InterfVF, "Selector/Modifier Returns the collection of interferences Vertex/Face");
@@ -209,7 +209,7 @@ PYBIND11_MODULE(BOPDS, mod) {
 	cls_BOPDS_Iterator.def("Initialize", (void (BOPDS_Iterator::*)(const TopAbs_ShapeEnum, const TopAbs_ShapeEnum)) &BOPDS_Iterator::Initialize, "Initializes the iterator theType1 - the first type of shape theType2 - the second type of shape", py::arg("theType1"), py::arg("theType2"));
 	cls_BOPDS_Iterator.def("More", (Standard_Boolean (BOPDS_Iterator::*)() const ) &BOPDS_Iterator::More, "Returns true if still there are pairs of intersected shapes");
 	cls_BOPDS_Iterator.def("Next", (void (BOPDS_Iterator::*)()) &BOPDS_Iterator::Next, "Moves iterations ahead");
-	cls_BOPDS_Iterator.def("Value", (void (BOPDS_Iterator::*)(Standard_Integer &, Standard_Integer &) const ) &BOPDS_Iterator::Value, "Returns indices (DS) of intersected shapes theIndex1 - the index of the first shape theIndex2 - the index of the second shape", py::arg("theIndex1"), py::arg("theIndex2"));
+	cls_BOPDS_Iterator.def("Value", [](BOPDS_Iterator &self, Standard_Integer & theIndex1, Standard_Integer & theIndex2){ self.Value(theIndex1, theIndex2); return std::tuple<Standard_Integer &, Standard_Integer &>(theIndex1, theIndex2); }, "Returns indices (DS) of intersected shapes theIndex1 - the index of the first shape theIndex2 - the index of the second shape", py::arg("theIndex1"), py::arg("theIndex2"));
 	cls_BOPDS_Iterator.def("Prepare", (void (BOPDS_Iterator::*)()) &BOPDS_Iterator::Prepare, "Perform the intersection algorithm and prepare the results to be used");
 	cls_BOPDS_Iterator.def("ExpectedLength", (Standard_Integer (BOPDS_Iterator::*)() const ) &BOPDS_Iterator::ExpectedLength, "Returns the number of intersections founded");
 	cls_BOPDS_Iterator.def("BlockLength", (Standard_Integer (BOPDS_Iterator::*)() const ) &BOPDS_Iterator::BlockLength, "Returns the block length");
@@ -223,7 +223,7 @@ PYBIND11_MODULE(BOPDS, mod) {
 	cls_BOPDS_Pave.def("Index", (Standard_Integer (BOPDS_Pave::*)() const ) &BOPDS_Pave::Index, "Selector Returns the index of vertex");
 	cls_BOPDS_Pave.def("SetParameter", (void (BOPDS_Pave::*)(const Standard_Real)) &BOPDS_Pave::SetParameter, "Modifier Sets the parameter of vertex <theParameter>", py::arg("theParameter"));
 	cls_BOPDS_Pave.def("Parameter", (Standard_Real (BOPDS_Pave::*)() const ) &BOPDS_Pave::Parameter, "Selector Returns the parameter of vertex");
-	cls_BOPDS_Pave.def("Contents", (void (BOPDS_Pave::*)(Standard_Integer &, Standard_Real &) const ) &BOPDS_Pave::Contents, "Selector Returns the index of vertex <theIndex> Returns the parameter of vertex <theParameter>", py::arg("theIndex"), py::arg("theParameter"));
+	cls_BOPDS_Pave.def("Contents", [](BOPDS_Pave &self, Standard_Integer & theIndex, Standard_Real & theParameter){ self.Contents(theIndex, theParameter); return std::tuple<Standard_Integer &, Standard_Real &>(theIndex, theParameter); }, "Selector Returns the index of vertex <theIndex> Returns the parameter of vertex <theParameter>", py::arg("theIndex"), py::arg("theParameter"));
 	cls_BOPDS_Pave.def("IsLess", (Standard_Boolean (BOPDS_Pave::*)(const BOPDS_Pave &) const ) &BOPDS_Pave::IsLess, "Query Returns true if thr parameter od this is less than the parameter of <theOther>", py::arg("theOther"));
 	cls_BOPDS_Pave.def("__lt__", (Standard_Boolean (BOPDS_Pave::*)(const BOPDS_Pave &) const ) &BOPDS_Pave::operator<, py::is_operator(), "None", py::arg("theOther"));
 	cls_BOPDS_Pave.def("IsEqual", (Standard_Boolean (BOPDS_Pave::*)(const BOPDS_Pave &) const ) &BOPDS_Pave::IsEqual, "Query Returns true if thr parameter od this is equal to the parameter of <theOther>", py::arg("theOther"));
@@ -241,13 +241,13 @@ PYBIND11_MODULE(BOPDS, mod) {
 	cls_BOPDS_PaveBlock.def("SetEdge", (void (BOPDS_PaveBlock::*)(const Standard_Integer)) &BOPDS_PaveBlock::SetEdge, "Modifier Sets the index of edge of pave block <theEdge>", py::arg("theEdge"));
 	cls_BOPDS_PaveBlock.def("Edge", (Standard_Integer (BOPDS_PaveBlock::*)() const ) &BOPDS_PaveBlock::Edge, "Selector Returns the index of edge of pave block");
 	cls_BOPDS_PaveBlock.def("HasEdge", (Standard_Boolean (BOPDS_PaveBlock::*)() const ) &BOPDS_PaveBlock::HasEdge, "Query Returns true if the pave block has edge");
-	cls_BOPDS_PaveBlock.def("HasEdge", (Standard_Boolean (BOPDS_PaveBlock::*)(Standard_Integer &) const ) &BOPDS_PaveBlock::HasEdge, "Query Returns true if the pave block has edge Returns the index of edge <theEdge>", py::arg("theEdge"));
+	cls_BOPDS_PaveBlock.def("HasEdge", [](BOPDS_PaveBlock &self, Standard_Integer & theEdge){ Standard_Boolean rv = self.HasEdge(theEdge); return std::tuple<Standard_Boolean, Standard_Integer &>(rv, theEdge); }, "Query Returns true if the pave block has edge Returns the index of edge <theEdge>", py::arg("theEdge"));
 	cls_BOPDS_PaveBlock.def("SetOriginalEdge", (void (BOPDS_PaveBlock::*)(const Standard_Integer)) &BOPDS_PaveBlock::SetOriginalEdge, "Modifier Sets the index of original edge of the pave block <theEdge>", py::arg("theEdge"));
 	cls_BOPDS_PaveBlock.def("OriginalEdge", (Standard_Integer (BOPDS_PaveBlock::*)() const ) &BOPDS_PaveBlock::OriginalEdge, "Selector Returns the index of original edge of pave block");
 	cls_BOPDS_PaveBlock.def("IsSplitEdge", (Standard_Boolean (BOPDS_PaveBlock::*)() const ) &BOPDS_PaveBlock::IsSplitEdge, "Query Returns true if the edge is equal to the original edge of the pave block");
-	cls_BOPDS_PaveBlock.def("Range", (void (BOPDS_PaveBlock::*)(Standard_Real &, Standard_Real &) const ) &BOPDS_PaveBlock::Range, "Selector Returns the parametric range <theT1,theT2> of the pave block", py::arg("theT1"), py::arg("theT2"));
+	cls_BOPDS_PaveBlock.def("Range", [](BOPDS_PaveBlock &self, Standard_Real & theT1, Standard_Real & theT2){ self.Range(theT1, theT2); return std::tuple<Standard_Real &, Standard_Real &>(theT1, theT2); }, "Selector Returns the parametric range <theT1,theT2> of the pave block", py::arg("theT1"), py::arg("theT2"));
 	cls_BOPDS_PaveBlock.def("HasSameBounds", (Standard_Boolean (BOPDS_PaveBlock::*)(const opencascade::handle<BOPDS_PaveBlock> &) const ) &BOPDS_PaveBlock::HasSameBounds, "Query Returns true if the pave block has pave indices that equal to the pave indices of the pave block <theOther>", py::arg("theOther"));
-	cls_BOPDS_PaveBlock.def("Indices", (void (BOPDS_PaveBlock::*)(Standard_Integer &, Standard_Integer &) const ) &BOPDS_PaveBlock::Indices, "Selector Returns the pave indices <theIndex1,theIndex2> of the pave block", py::arg("theIndex1"), py::arg("theIndex2"));
+	cls_BOPDS_PaveBlock.def("Indices", [](BOPDS_PaveBlock &self, Standard_Integer & theIndex1, Standard_Integer & theIndex2){ self.Indices(theIndex1, theIndex2); return std::tuple<Standard_Integer &, Standard_Integer &>(theIndex1, theIndex2); }, "Selector Returns the pave indices <theIndex1,theIndex2> of the pave block", py::arg("theIndex1"), py::arg("theIndex2"));
 	cls_BOPDS_PaveBlock.def("IsToUpdate", (Standard_Boolean (BOPDS_PaveBlock::*)() const ) &BOPDS_PaveBlock::IsToUpdate, "Query Returns true if the pave block contains extra paves");
 	cls_BOPDS_PaveBlock.def("AppendExtPave", (void (BOPDS_PaveBlock::*)(const BOPDS_Pave &)) &BOPDS_PaveBlock::AppendExtPave, "Modifier Appends extra paves <thePave>", py::arg("thePave"));
 	cls_BOPDS_PaveBlock.def("AppendExtPave1", (void (BOPDS_PaveBlock::*)(const BOPDS_Pave &)) &BOPDS_PaveBlock::AppendExtPave1, "Modifier Appends extra pave <thePave>", py::arg("thePave"));
@@ -256,9 +256,9 @@ PYBIND11_MODULE(BOPDS, mod) {
 	cls_BOPDS_PaveBlock.def("ChangeExtPaves", (BOPDS_ListOfPave & (BOPDS_PaveBlock::*)()) &BOPDS_PaveBlock::ChangeExtPaves, "Selector / Modifier Returns the extra paves");
 	cls_BOPDS_PaveBlock.def("Update", [](BOPDS_PaveBlock &self, BOPDS_ListOfPaveBlock & a0) -> void { return self.Update(a0); }, py::arg("theLPB"));
 	cls_BOPDS_PaveBlock.def("Update", (void (BOPDS_PaveBlock::*)(BOPDS_ListOfPaveBlock &, const Standard_Boolean)) &BOPDS_PaveBlock::Update, "Modifier Updates the pave block. The extra paves are used to create new pave blocks <theLPB>. <theFlag> - if true, the first pave and the second pave are used to produce new pave blocks.", py::arg("theLPB"), py::arg("theFlag"));
-	cls_BOPDS_PaveBlock.def("ContainsParameter", (Standard_Boolean (BOPDS_PaveBlock::*)(const Standard_Real, const Standard_Real, Standard_Integer &) const ) &BOPDS_PaveBlock::ContainsParameter, "Query Returns true if the extra paves contain the pave with given value of the parameter <thePrm> <theTol> - the value of the tolerance to compare <theInd> - index of the found pave", py::arg("thePrm"), py::arg("theTol"), py::arg("theInd"));
+	cls_BOPDS_PaveBlock.def("ContainsParameter", [](BOPDS_PaveBlock &self, const Standard_Real thePrm, const Standard_Real theTol, Standard_Integer & theInd){ Standard_Boolean rv = self.ContainsParameter(thePrm, theTol, theInd); return std::tuple<Standard_Boolean, Standard_Integer &>(rv, theInd); }, "Query Returns true if the extra paves contain the pave with given value of the parameter <thePrm> <theTol> - the value of the tolerance to compare <theInd> - index of the found pave", py::arg("thePrm"), py::arg("theTol"), py::arg("theInd"));
 	cls_BOPDS_PaveBlock.def("SetShrunkData", (void (BOPDS_PaveBlock::*)(const Standard_Real, const Standard_Real, const Bnd_Box &, const Standard_Boolean)) &BOPDS_PaveBlock::SetShrunkData, "Modifier Sets the shrunk data for the pave block <theTS1>, <theTS2> - shrunk range <theBox> - the bounding box <theIsSplittable> - defines whether the edge can be split", py::arg("theTS1"), py::arg("theTS2"), py::arg("theBox"), py::arg("theIsSplittable"));
-	cls_BOPDS_PaveBlock.def("ShrunkData", (void (BOPDS_PaveBlock::*)(Standard_Real &, Standard_Real &, Bnd_Box &, Standard_Boolean &) const ) &BOPDS_PaveBlock::ShrunkData, "Selector Returns the shrunk data for the pave block <theTS1>, <theTS2> - shrunk range <theBox> - the bounding box <theIsSplittable> - defines whether the edge can be split", py::arg("theTS1"), py::arg("theTS2"), py::arg("theBox"), py::arg("theIsSplittable"));
+	cls_BOPDS_PaveBlock.def("ShrunkData", [](BOPDS_PaveBlock &self, Standard_Real & theTS1, Standard_Real & theTS2, Bnd_Box & theBox, Standard_Boolean & theIsSplittable){ self.ShrunkData(theTS1, theTS2, theBox, theIsSplittable); return std::tuple<Standard_Real &, Standard_Real &, Standard_Boolean &>(theTS1, theTS2, theIsSplittable); }, "Selector Returns the shrunk data for the pave block <theTS1>, <theTS2> - shrunk range <theBox> - the bounding box <theIsSplittable> - defines whether the edge can be split", py::arg("theTS1"), py::arg("theTS2"), py::arg("theBox"), py::arg("theIsSplittable"));
 	cls_BOPDS_PaveBlock.def("HasShrunkData", (Standard_Boolean (BOPDS_PaveBlock::*)() const ) &BOPDS_PaveBlock::HasShrunkData, "Query Returns true if the pave block contains the shrunk data");
 	// FIXME cls_BOPDS_PaveBlock.def("Dump", (void (BOPDS_PaveBlock::*)() const ) &BOPDS_PaveBlock::Dump, "None");
 	cls_BOPDS_PaveBlock.def("IsSplittable", (Standard_Boolean (BOPDS_PaveBlock::*)() const ) &BOPDS_PaveBlock::IsSplittable, "Query Returns FALSE if the pave block has a too short shrunk range and cannot be split, otherwise returns TRUE");
@@ -288,7 +288,7 @@ PYBIND11_MODULE(BOPDS, mod) {
 	cls_BOPDS_Pair.def(py::init<>());
 	cls_BOPDS_Pair.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theIndex1"), py::arg("theIndex2"));
 	cls_BOPDS_Pair.def("SetIndices", (void (BOPDS_Pair::*)(const Standard_Integer, const Standard_Integer)) &BOPDS_Pair::SetIndices, "Sets the indices", py::arg("theIndex1"), py::arg("theIndex2"));
-	cls_BOPDS_Pair.def("Indices", (void (BOPDS_Pair::*)(Standard_Integer &, Standard_Integer &) const ) &BOPDS_Pair::Indices, "Gets the indices", py::arg("theIndex1"), py::arg("theIndex2"));
+	cls_BOPDS_Pair.def("Indices", [](BOPDS_Pair &self, Standard_Integer & theIndex1, Standard_Integer & theIndex2){ self.Indices(theIndex1, theIndex2); return std::tuple<Standard_Integer &, Standard_Integer &>(theIndex1, theIndex2); }, "Gets the indices", py::arg("theIndex1"), py::arg("theIndex2"));
 	cls_BOPDS_Pair.def("__lt__", (Standard_Boolean (BOPDS_Pair::*)(const BOPDS_Pair &) const ) &BOPDS_Pair::operator<, py::is_operator(), "Operator less", py::arg("theOther"));
 	cls_BOPDS_Pair.def("IsEqual", (Standard_Boolean (BOPDS_Pair::*)(const BOPDS_Pair &) const ) &BOPDS_Pair::IsEqual, "Returns true if the Pair is equal to <the theOther>", py::arg("theOther"));
 	cls_BOPDS_Pair.def("HashCode", (Standard_Integer (BOPDS_Pair::*)(const Standard_Integer) const ) &BOPDS_Pair::HashCode, "Returns hash code", py::arg("theUpper"));
@@ -360,7 +360,7 @@ PYBIND11_MODULE(BOPDS, mod) {
 	cls_BOPDS_PassKey.def("IsEqual", (Standard_Boolean (BOPDS_PassKey::*)(const BOPDS_PassKey &) const ) &BOPDS_PassKey::IsEqual, "Query Returns true if the PassKey is equal to <the theOther>", py::arg("theOther"));
 	cls_BOPDS_PassKey.def("HashCode", (Standard_Integer (BOPDS_PassKey::*)(const Standard_Integer) const ) &BOPDS_PassKey::HashCode, "Query Returns hash code", py::arg("theUpper"));
 	cls_BOPDS_PassKey.def("Id", (Standard_Integer (BOPDS_PassKey::*)(const Standard_Integer) const ) &BOPDS_PassKey::Id, "Selector Returns Id of index <theIndex>", py::arg("theIndex"));
-	cls_BOPDS_PassKey.def("Ids", (void (BOPDS_PassKey::*)(Standard_Integer &, Standard_Integer &) const ) &BOPDS_PassKey::Ids, "Selector Returns the first two Ids <theI1>,<theI2>", py::arg("theI1"), py::arg("theI2"));
+	cls_BOPDS_PassKey.def("Ids", [](BOPDS_PassKey &self, Standard_Integer & theI1, Standard_Integer & theI2){ self.Ids(theI1, theI2); return std::tuple<Standard_Integer &, Standard_Integer &>(theI1, theI2); }, "Selector Returns the first two Ids <theI1>,<theI2>", py::arg("theI1"), py::arg("theI2"));
 	// FIXME cls_BOPDS_PassKey.def("Dump", [](BOPDS_PassKey &self) -> void { return self.Dump(); });
 	// FIXME cls_BOPDS_PassKey.def("Dump", (void (BOPDS_PassKey::*)(const Standard_Integer) const ) &BOPDS_PassKey::Dump, "None", py::arg("aHex"));
 
@@ -378,7 +378,7 @@ PYBIND11_MODULE(BOPDS, mod) {
 	cls_BOPDS_IndexRange.def("First", (Standard_Integer (BOPDS_IndexRange::*)() const ) &BOPDS_IndexRange::First, "Selector Returns the first index of the range");
 	cls_BOPDS_IndexRange.def("Last", (Standard_Integer (BOPDS_IndexRange::*)() const ) &BOPDS_IndexRange::Last, "Selector Returns the second index of the range");
 	cls_BOPDS_IndexRange.def("SetIndices", (void (BOPDS_IndexRange::*)(const Standard_Integer, const Standard_Integer)) &BOPDS_IndexRange::SetIndices, "Modifier Sets the first index of the range <theI1> Sets the second index of the range <theI2>", py::arg("theI1"), py::arg("theI2"));
-	cls_BOPDS_IndexRange.def("Indices", (void (BOPDS_IndexRange::*)(Standard_Integer &, Standard_Integer &) const ) &BOPDS_IndexRange::Indices, "Selector Returns the first index of the range <theI1> Returns the second index of the range <theI2>", py::arg("theI1"), py::arg("theI2"));
+	cls_BOPDS_IndexRange.def("Indices", [](BOPDS_IndexRange &self, Standard_Integer & theI1, Standard_Integer & theI2){ self.Indices(theI1, theI2); return std::tuple<Standard_Integer &, Standard_Integer &>(theI1, theI2); }, "Selector Returns the first index of the range <theI1> Returns the second index of the range <theI2>", py::arg("theI1"), py::arg("theI2"));
 	cls_BOPDS_IndexRange.def("Contains", (Standard_Boolean (BOPDS_IndexRange::*)(const Standard_Integer) const ) &BOPDS_IndexRange::Contains, "Query Returns true if the range contains <theIndex>", py::arg("theIndex"));
 	// FIXME cls_BOPDS_IndexRange.def("Dump", (void (BOPDS_IndexRange::*)() const ) &BOPDS_IndexRange::Dump, "None");
 
@@ -402,7 +402,7 @@ PYBIND11_MODULE(BOPDS, mod) {
 	cls_BOPDS_ShapeInfo.def("HasBRep", (Standard_Boolean (BOPDS_ShapeInfo::*)() const ) &BOPDS_ShapeInfo::HasBRep, "Query Returns true if the shape has boundary representation");
 	cls_BOPDS_ShapeInfo.def("IsInterfering", (Standard_Boolean (BOPDS_ShapeInfo::*)() const ) &BOPDS_ShapeInfo::IsInterfering, "Returns true if the shape can be participant of an interference");
 	cls_BOPDS_ShapeInfo.def("HasFlag", (Standard_Boolean (BOPDS_ShapeInfo::*)() const ) &BOPDS_ShapeInfo::HasFlag, "Query Returns true if there is flag.");
-	cls_BOPDS_ShapeInfo.def("HasFlag", (Standard_Boolean (BOPDS_ShapeInfo::*)(Standard_Integer &) const ) &BOPDS_ShapeInfo::HasFlag, "Query Returns true if there is flag. Returns the the flag theFlag", py::arg("theFlag"));
+	cls_BOPDS_ShapeInfo.def("HasFlag", [](BOPDS_ShapeInfo &self, Standard_Integer & theFlag){ Standard_Boolean rv = self.HasFlag(theFlag); return std::tuple<Standard_Boolean, Standard_Integer &>(rv, theFlag); }, "Query Returns true if there is flag. Returns the the flag theFlag", py::arg("theFlag"));
 	cls_BOPDS_ShapeInfo.def("SetFlag", (void (BOPDS_ShapeInfo::*)(const Standard_Integer)) &BOPDS_ShapeInfo::SetFlag, "Modifier Sets the flag", py::arg("theI"));
 	cls_BOPDS_ShapeInfo.def("Flag", (Standard_Integer (BOPDS_ShapeInfo::*)() const ) &BOPDS_ShapeInfo::Flag, "Returns the flag");
 	// FIXME cls_BOPDS_ShapeInfo.def("Dump", (void (BOPDS_ShapeInfo::*)() const ) &BOPDS_ShapeInfo::Dump, "None");
@@ -450,7 +450,7 @@ PYBIND11_MODULE(BOPDS, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPDS_Interf.hxx
 	py::class_<BOPDS_Interf, std::unique_ptr<BOPDS_Interf, py::nodelete>> cls_BOPDS_Interf(mod, "BOPDS_Interf", "The class BOPDS_Interf is is to store the information about the interference between two shapes. The class BOPDS_Interf is root class");
 	cls_BOPDS_Interf.def("SetIndices", (void (BOPDS_Interf::*)(const Standard_Integer, const Standard_Integer)) &BOPDS_Interf::SetIndices, "Sets the indices of interferred shapes", py::arg("theIndex1"), py::arg("theIndex2"));
-	cls_BOPDS_Interf.def("Indices", (void (BOPDS_Interf::*)(Standard_Integer &, Standard_Integer &) const ) &BOPDS_Interf::Indices, "Returns the indices of interferred shapes", py::arg("theIndex1"), py::arg("theIndex2"));
+	cls_BOPDS_Interf.def("Indices", [](BOPDS_Interf &self, Standard_Integer & theIndex1, Standard_Integer & theIndex2){ self.Indices(theIndex1, theIndex2); return std::tuple<Standard_Integer &, Standard_Integer &>(theIndex1, theIndex2); }, "Returns the indices of interferred shapes", py::arg("theIndex1"), py::arg("theIndex2"));
 	cls_BOPDS_Interf.def("SetIndex1", (void (BOPDS_Interf::*)(const Standard_Integer)) &BOPDS_Interf::SetIndex1, "Sets the index of the first interferred shape", py::arg("theIndex"));
 	cls_BOPDS_Interf.def("SetIndex2", (void (BOPDS_Interf::*)(const Standard_Integer)) &BOPDS_Interf::SetIndex2, "Sets the index of the second interferred shape", py::arg("theIndex"));
 	cls_BOPDS_Interf.def("Index1", (Standard_Integer (BOPDS_Interf::*)() const ) &BOPDS_Interf::Index1, "Returns the index of the first interferred shape");
@@ -459,7 +459,7 @@ PYBIND11_MODULE(BOPDS, mod) {
 	cls_BOPDS_Interf.def("Contains", (Standard_Boolean (BOPDS_Interf::*)(const Standard_Integer) const ) &BOPDS_Interf::Contains, "Returns true if the interference contains given index", py::arg("theIndex"));
 	cls_BOPDS_Interf.def("SetIndexNew", (void (BOPDS_Interf::*)(const Standard_Integer)) &BOPDS_Interf::SetIndexNew, "Sets the index of new shape", py::arg("theIndex"));
 	cls_BOPDS_Interf.def("IndexNew", (Standard_Integer (BOPDS_Interf::*)() const ) &BOPDS_Interf::IndexNew, "Returns the index of new shape");
-	cls_BOPDS_Interf.def("HasIndexNew", (Standard_Boolean (BOPDS_Interf::*)(Standard_Integer &) const ) &BOPDS_Interf::HasIndexNew, "Returns true if the interference has index of new shape that is equal to the given index", py::arg("theIndex"));
+	cls_BOPDS_Interf.def("HasIndexNew", [](BOPDS_Interf &self, Standard_Integer & theIndex){ Standard_Boolean rv = self.HasIndexNew(theIndex); return std::tuple<Standard_Boolean, Standard_Integer &>(rv, theIndex); }, "Returns true if the interference has index of new shape that is equal to the given index", py::arg("theIndex"));
 	cls_BOPDS_Interf.def("HasIndexNew", (Standard_Boolean (BOPDS_Interf::*)() const ) &BOPDS_Interf::HasIndexNew, "Returns true if the interference has index of new shape the index");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPDS_Interf.hxx
@@ -479,7 +479,7 @@ PYBIND11_MODULE(BOPDS, mod) {
 	cls_BOPDS_InterfVF.def(py::init<>());
 	cls_BOPDS_InterfVF.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAllocator"));
 	cls_BOPDS_InterfVF.def("SetUV", (void (BOPDS_InterfVF::*)(const Standard_Real, const Standard_Real)) &BOPDS_InterfVF::SetUV, "Modifier Sets the value of parameters of the point of the vertex on the surface of of the face", py::arg("theU"), py::arg("theV"));
-	cls_BOPDS_InterfVF.def("UV", (void (BOPDS_InterfVF::*)(Standard_Real &, Standard_Real &) const ) &BOPDS_InterfVF::UV, "Selector Returns the value of parameters of the point of the vertex on the surface of of the face", py::arg("theU"), py::arg("theV"));
+	cls_BOPDS_InterfVF.def("UV", [](BOPDS_InterfVF &self, Standard_Real & theU, Standard_Real & theV){ self.UV(theU, theV); return std::tuple<Standard_Real &, Standard_Real &>(theU, theV); }, "Selector Returns the value of parameters of the point of the vertex on the surface of of the face", py::arg("theU"), py::arg("theV"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BOPDS_Interf.hxx
 	py::class_<BOPDS_InterfEE, std::unique_ptr<BOPDS_InterfEE, Deleter<BOPDS_InterfEE>>, BOPDS_Interf> cls_BOPDS_InterfEE(mod, "BOPDS_InterfEE", "The class BOPDS_InterfEE is is to store the information about the interference of the type edge/edge.");
@@ -560,7 +560,7 @@ PYBIND11_MODULE(BOPDS, mod) {
 	cls_BOPDS_SubIterator.def("Initialize", (void (BOPDS_SubIterator::*)()) &BOPDS_SubIterator::Initialize, "Initializes the iterator");
 	cls_BOPDS_SubIterator.def("More", (Standard_Boolean (BOPDS_SubIterator::*)() const ) &BOPDS_SubIterator::More, "Returns true if there are more pairs of intersected shapes");
 	cls_BOPDS_SubIterator.def("Next", (void (BOPDS_SubIterator::*)()) &BOPDS_SubIterator::Next, "Moves iterations ahead");
-	cls_BOPDS_SubIterator.def("Value", (void (BOPDS_SubIterator::*)(Standard_Integer &, Standard_Integer &) const ) &BOPDS_SubIterator::Value, "Returns indices (DS) of intersected shapes theIndex1 - the index of the first shape theIndex2 - the index of the second shape", py::arg("theIndex1"), py::arg("theIndex2"));
+	cls_BOPDS_SubIterator.def("Value", [](BOPDS_SubIterator &self, Standard_Integer & theIndex1, Standard_Integer & theIndex2){ self.Value(theIndex1, theIndex2); return std::tuple<Standard_Integer &, Standard_Integer &>(theIndex1, theIndex2); }, "Returns indices (DS) of intersected shapes theIndex1 - the index of the first shape theIndex2 - the index of the second shape", py::arg("theIndex1"), py::arg("theIndex2"));
 	cls_BOPDS_SubIterator.def("Prepare", (void (BOPDS_SubIterator::*)()) &BOPDS_SubIterator::Prepare, "Perform the intersection algorithm and prepare the results to be used");
 	cls_BOPDS_SubIterator.def("ExpectedLength", (Standard_Integer (BOPDS_SubIterator::*)() const ) &BOPDS_SubIterator::ExpectedLength, "Returns the number of interfering pairs");
 

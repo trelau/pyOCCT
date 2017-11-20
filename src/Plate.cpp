@@ -173,7 +173,7 @@ PYBIND11_MODULE(Plate, mod) {
 	cls_Plate_Plate.def("SetPolynomialPartOnly", [](Plate_Plate &self) -> void { return self.SetPolynomialPartOnly(); });
 	cls_Plate_Plate.def("SetPolynomialPartOnly", (void (Plate_Plate::*)(const Standard_Boolean)) &Plate_Plate::SetPolynomialPartOnly, "None", py::arg("PPOnly"));
 	cls_Plate_Plate.def("Continuity", (Standard_Integer (Plate_Plate::*)() const ) &Plate_Plate::Continuity, "None");
-	cls_Plate_Plate.def("UVBox", (void (Plate_Plate::*)(Standard_Real &, Standard_Real &, Standard_Real &, Standard_Real &) const ) &Plate_Plate::UVBox, "None", py::arg("UMin"), py::arg("UMax"), py::arg("VMin"), py::arg("VMax"));
+	cls_Plate_Plate.def("UVBox", [](Plate_Plate &self, Standard_Real & UMin, Standard_Real & UMax, Standard_Real & VMin, Standard_Real & VMax){ self.UVBox(UMin, UMax, VMin, VMax); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &, Standard_Real &>(UMin, UMax, VMin, VMax); }, "None", py::arg("UMin"), py::arg("UMax"), py::arg("VMin"), py::arg("VMax"));
 	cls_Plate_Plate.def("UVConstraints", (void (Plate_Plate::*)(TColgp_SequenceOfXY &) const ) &Plate_Plate::UVConstraints, "None", py::arg("Seq"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Plate_D1.hxx

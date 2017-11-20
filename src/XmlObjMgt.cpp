@@ -80,9 +80,9 @@ PYBIND11_MODULE(XmlObjMgt, mod) {
 	cls_XmlObjMgt.def_static("FindChildElement_", (XmlObjMgt_Element (*)(const XmlObjMgt_Element &, const Standard_Integer)) &XmlObjMgt::FindChildElement, "None", py::arg("theSource"), py::arg("theObjId"));
 	cls_XmlObjMgt.def_static("FindChildByRef_", (XmlObjMgt_Element (*)(const XmlObjMgt_Element &, const XmlObjMgt_DOMString &)) &XmlObjMgt::FindChildByRef, "None", py::arg("theSource"), py::arg("theRefName"));
 	cls_XmlObjMgt.def_static("FindChildByName_", (XmlObjMgt_Element (*)(const XmlObjMgt_Element &, const XmlObjMgt_DOMString &)) &XmlObjMgt::FindChildByName, "None", py::arg("theSource"), py::arg("theName"));
-	// FIXME cls_XmlObjMgt.def_static("GetInteger_", (Standard_Boolean (*)(Standard_CString &, Standard_Integer &)) &XmlObjMgt::GetInteger, "None", py::arg("theString"), py::arg("theValue"));
-	// FIXME cls_XmlObjMgt.def_static("GetReal_", (Standard_Boolean (*)(Standard_CString &, Standard_Real &)) &XmlObjMgt::GetReal, "None", py::arg("theString"), py::arg("theValue"));
-	// FIXME cls_XmlObjMgt.def_static("GetReal_", (Standard_Boolean (*)(const XmlObjMgt_DOMString &, Standard_Real &)) &XmlObjMgt::GetReal, "None", py::arg("theString"), py::arg("theValue"));
+	// FIXME 	cls_XmlObjMgt.def_static("GetInteger_", [](Standard_CString & theString, Standard_Integer & theValue){ Standard_Boolean rv = XmlObjMgt::GetInteger(theString, theValue); return std::tuple<Standard_Boolean, Standard_CString &, Standard_Integer &>(rv, theString, theValue); }, "None", py::arg("theString"), py::arg("theValue"));
+	// FIXME 	cls_XmlObjMgt.def_static("GetReal_", [](Standard_CString & theString, Standard_Real & theValue){ Standard_Boolean rv = XmlObjMgt::GetReal(theString, theValue); return std::tuple<Standard_Boolean, Standard_CString &, Standard_Real &>(rv, theString, theValue); }, "None", py::arg("theString"), py::arg("theValue"));
+	// FIXME 	cls_XmlObjMgt.def_static("GetReal_", [](const XmlObjMgt_DOMString & theString, Standard_Real & theValue){ Standard_Boolean rv = XmlObjMgt::GetReal(theString, theValue); return std::tuple<Standard_Boolean, Standard_Real &>(rv, theValue); }, "None", py::arg("theString"), py::arg("theValue"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\XmlObjMgt_RRelocationTable.hxx
 	other_mod = py::module::import("OCCT.BinObjMgt");

@@ -69,7 +69,7 @@ PYBIND11_MODULE(IntImpParGen, mod) {
 	cls_IntImpParGen.def_static("DetermineTransition_", (void (*)(const IntRes2d_Position, gp_Vec2d &, const gp_Vec2d &, IntRes2d_Transition &, const IntRes2d_Position, gp_Vec2d &, const gp_Vec2d &, IntRes2d_Transition &, const Standard_Real)) &IntImpParGen::DetermineTransition, "Template class for an implicit curve. Math function, instantiated inside the Intersector. Tool used by the package IntCurve and IntImpParGen", py::arg("Pos1"), py::arg("Tan1"), py::arg("Norm1"), py::arg("Trans1"), py::arg("Pos2"), py::arg("Tan2"), py::arg("Norm2"), py::arg("Trans2"), py::arg("Tol"));
 	cls_IntImpParGen.def_static("DetermineTransition_", (Standard_Boolean (*)(const IntRes2d_Position, gp_Vec2d &, IntRes2d_Transition &, const IntRes2d_Position, gp_Vec2d &, IntRes2d_Transition &, const Standard_Real)) &IntImpParGen::DetermineTransition, "None", py::arg("Pos1"), py::arg("Tan1"), py::arg("Trans1"), py::arg("Pos2"), py::arg("Tan2"), py::arg("Trans2"), py::arg("Tol"));
 	cls_IntImpParGen.def_static("DeterminePosition_", (void (*)(IntRes2d_Position &, const IntRes2d_Domain &, const gp_Pnt2d &, const Standard_Real)) &IntImpParGen::DeterminePosition, "None", py::arg("Pos1"), py::arg("Dom1"), py::arg("P1"), py::arg("Tol"));
-	cls_IntImpParGen.def_static("NormalizeOnDomain_", (Standard_Real (*)(Standard_Real &, const IntRes2d_Domain &)) &IntImpParGen::NormalizeOnDomain, "None", py::arg("Par1"), py::arg("Dom1"));
+	cls_IntImpParGen.def_static("NormalizeOnDomain_", [](Standard_Real & Par1, const IntRes2d_Domain & Dom1){ Standard_Real rv = IntImpParGen::NormalizeOnDomain(Par1, Dom1); return std::tuple<Standard_Real, Standard_Real &>(rv, Par1); }, "None", py::arg("Par1"), py::arg("Dom1"));
 
 
 }

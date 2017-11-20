@@ -82,7 +82,7 @@ PYBIND11_MODULE(CDM, mod) {
 	cls_CDM_MetaData.def("HasVersion", (Standard_Boolean (CDM_MetaData::*)() const ) &CDM_MetaData::HasVersion, "indicates that the version has to be taken into account when searching the corresponding meta-data.");
 	cls_CDM_MetaData.def("FileName", (TCollection_ExtendedString (CDM_MetaData::*)() const ) &CDM_MetaData::FileName, "None");
 	cls_CDM_MetaData.def("Print", (Standard_OStream & (CDM_MetaData::*)(Standard_OStream &) const ) &CDM_MetaData::Print, "None", py::arg("anOStream"));
-	// FIXME cls_CDM_MetaData.def("operator<<", (Standard_OStream & (CDM_MetaData::*)(Standard_OStream &)) &CDM_MetaData::operator<<, "None", py::arg("anOStream"));
+	// FIXME cls_CDM_MetaData.def("bits_left", (Standard_OStream & (CDM_MetaData::*)(Standard_OStream &)) &CDM_MetaData::operator<<, py::is_operator(), "None", py::arg("anOStream"));
 	cls_CDM_MetaData.def("Path", (TCollection_ExtendedString (CDM_MetaData::*)() const ) &CDM_MetaData::Path, "None");
 	cls_CDM_MetaData.def("UnsetDocument", (void (CDM_MetaData::*)()) &CDM_MetaData::UnsetDocument, "None");
 	cls_CDM_MetaData.def("IsReadOnly", (Standard_Boolean (CDM_MetaData::*)() const ) &CDM_MetaData::IsReadOnly, "None");
@@ -153,7 +153,7 @@ PYBIND11_MODULE(CDM, mod) {
 	cls_CDM_Document.def("Description", (TCollection_ExtendedString (CDM_Document::*)()) &CDM_Document::Description, "gets the `FileFormat`.Description resource.");
 	cls_CDM_Document.def("IsModified", (Standard_Boolean (CDM_Document::*)() const ) &CDM_Document::IsModified, "returns true if the version is greater than the storage version");
 	cls_CDM_Document.def("Print", (Standard_OStream & (CDM_Document::*)(Standard_OStream &) const ) &CDM_Document::Print, "None", py::arg("anOStream"));
-	// FIXME cls_CDM_Document.def("operator<<", (Standard_OStream & (CDM_Document::*)(Standard_OStream &)) &CDM_Document::operator<<, "None", py::arg("anOStream"));
+	// FIXME cls_CDM_Document.def("bits_left", (Standard_OStream & (CDM_Document::*)(Standard_OStream &)) &CDM_Document::operator<<, py::is_operator(), "None", py::arg("anOStream"));
 	cls_CDM_Document.def("IsOpened", (Standard_Boolean (CDM_Document::*)() const ) &CDM_Document::IsOpened, "None");
 	cls_CDM_Document.def("Open", (void (CDM_Document::*)(const opencascade::handle<CDM_Application> &)) &CDM_Document::Open, "None", py::arg("anApplication"));
 	cls_CDM_Document.def("CanClose", (CDM_CanCloseStatus (CDM_Document::*)() const ) &CDM_Document::CanClose, "None");

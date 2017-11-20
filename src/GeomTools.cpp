@@ -111,7 +111,7 @@ PYBIND11_MODULE(GeomTools, mod) {
 	cls_GeomTools.def_static("Read_", (void (*)(opencascade::handle<Geom2d_Curve> &, Standard_IStream &)) &GeomTools::Read, "Reads the Curve from the stream.", py::arg("C"), py::arg("IS"));
 	cls_GeomTools.def_static("SetUndefinedTypeHandler_", (void (*)(const opencascade::handle<GeomTools_UndefinedTypeHandler> &)) &GeomTools::SetUndefinedTypeHandler, "None", py::arg("aHandler"));
 	cls_GeomTools.def_static("GetUndefinedTypeHandler_", (opencascade::handle<GeomTools_UndefinedTypeHandler> (*)()) &GeomTools::GetUndefinedTypeHandler, "None");
-	cls_GeomTools.def_static("GetReal_", (void (*)(Standard_IStream &, Standard_Real &)) &GeomTools::GetReal, "Reads the Standard_Real value from the stream. Zero is read in case of error", py::arg("IS"), py::arg("theValue"));
+	cls_GeomTools.def_static("GetReal_", [](Standard_IStream & IS, Standard_Real & theValue){ GeomTools::GetReal(IS, theValue); return theValue; }, "Reads the Standard_Real value from the stream. Zero is read in case of error", py::arg("IS"), py::arg("theValue"));
 
 
 }

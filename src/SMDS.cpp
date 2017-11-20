@@ -1102,23 +1102,41 @@ PYBIND11_MODULE(SMDS, mod) {
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_SetIterator.hxx
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_SetIterator.hxx
+	/* FIXME
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_SetIterator.hxx
-	// bind_SMDS_SetIterator<const SMDS_MeshElement *, std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<const SMDS_MeshElement *> > >, SMDS::SimpleAccessor<const SMDS_MeshElement *, std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<const SMDS_MeshElement *> > > >, SMDS::PassAllValueFilter<const SMDS_MeshElement *> >(mod, "SMDS_ElementVectorIterator");
+	bind_SMDS_SetIterator<const SMDS_MeshElement *, std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<const SMDS_MeshElement *> > >, SMDS::SimpleAccessor<const SMDS_MeshElement *, std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<const SMDS_MeshElement *> > > >, SMDS::PassAllValueFilter<const SMDS_MeshElement *> >(mod, "SMDS_ElementVectorIterator");
 
-	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_SetIterator.hxx
-	// bind_SMDS_SetIterator<const SMDS_MeshElement *, const SMDS_MeshElement *const *, SMDS::SimpleAccessor<const SMDS_MeshElement *, const SMDS_MeshElement *const *>, SMDS::PassAllValueFilter<const SMDS_MeshElement *> >(mod, "SMDS_ElementArrayIterator");
+	*/
 
+	/* FIXME
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_SetIterator.hxx
-	// bind_SMDS_SetIterator<const SMDS_MeshElement *, std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<const SMDS_MeshNode *> > >, SMDS::SimpleAccessor<const SMDS_MeshElement *, std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<const SMDS_MeshNode *> > > >, SMDS::PassAllValueFilter<const SMDS_MeshElement *> >(mod, "SMDS_NodeVectorElemIterator");
+	bind_SMDS_SetIterator<const SMDS_MeshElement *, const SMDS_MeshElement *const *, SMDS::SimpleAccessor<const SMDS_MeshElement *, const SMDS_MeshElement *const *>, SMDS::PassAllValueFilter<const SMDS_MeshElement *> >(mod, "SMDS_ElementArrayIterator");
 
-	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_SetIterator.hxx
-	// bind_SMDS_SetIterator<const SMDS_MeshElement *, const SMDS_MeshNode *const *, SMDS::SimpleAccessor<const SMDS_MeshElement *, const SMDS_MeshNode *const *>, SMDS::PassAllValueFilter<const SMDS_MeshElement *> >(mod, "SMDS_NodeArrayElemIterator");
+	*/
 
+	/* FIXME
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_SetIterator.hxx
-	// bind_SMDS_SetIterator<const SMDS_MeshNode *, std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<const SMDS_MeshNode *> > >, SMDS::SimpleAccessor<const SMDS_MeshNode *, std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<const SMDS_MeshNode *> > > >, SMDS::PassAllValueFilter<const SMDS_MeshNode *> >(mod, "SMDS_NodeVectorIterator");
+	bind_SMDS_SetIterator<const SMDS_MeshElement *, std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<const SMDS_MeshNode *> > >, SMDS::SimpleAccessor<const SMDS_MeshElement *, std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<const SMDS_MeshNode *> > > >, SMDS::PassAllValueFilter<const SMDS_MeshElement *> >(mod, "SMDS_NodeVectorElemIterator");
 
+	*/
+
+	/* FIXME
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_SetIterator.hxx
-	// bind_SMDS_SetIterator<const SMDS_MeshNode *, const SMDS_MeshNode *const *, SMDS::SimpleAccessor<const SMDS_MeshNode *, const SMDS_MeshNode *const *>, SMDS::PassAllValueFilter<const SMDS_MeshNode *> >(mod, "SMDS_NodeArrayIterator");
+	bind_SMDS_SetIterator<const SMDS_MeshElement *, const SMDS_MeshNode *const *, SMDS::SimpleAccessor<const SMDS_MeshElement *, const SMDS_MeshNode *const *>, SMDS::PassAllValueFilter<const SMDS_MeshElement *> >(mod, "SMDS_NodeArrayElemIterator");
+
+	*/
+
+	/* FIXME
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_SetIterator.hxx
+	bind_SMDS_SetIterator<const SMDS_MeshNode *, std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<const SMDS_MeshNode *> > >, SMDS::SimpleAccessor<const SMDS_MeshNode *, std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<const SMDS_MeshNode *> > > >, SMDS::PassAllValueFilter<const SMDS_MeshNode *> >(mod, "SMDS_NodeVectorIterator");
+
+	*/
+
+	/* FIXME
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_SetIterator.hxx
+	bind_SMDS_SetIterator<const SMDS_MeshNode *, const SMDS_MeshNode *const *, SMDS::SimpleAccessor<const SMDS_MeshNode *, const SMDS_MeshNode *const *>, SMDS::PassAllValueFilter<const SMDS_MeshNode *> >(mod, "SMDS_NodeArrayIterator");
+
+	*/
 
 
 }

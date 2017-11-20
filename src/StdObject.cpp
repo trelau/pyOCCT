@@ -30,11 +30,11 @@ PYBIND11_MODULE(StdObject, mod) {
 	// FUNCTIONS
 	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdObject_gp_Trsfs.hxx
-	mod.def("operator>>", (StdObjMgt_ReadData & (*)(StdObjMgt_ReadData::Object, gp_Trsf &)) &operator>>, "None", py::arg("theReadData"), py::arg("theTrsf"));
+	mod.def("bits_right", (StdObjMgt_ReadData & (*)(StdObjMgt_ReadData::Object, gp_Trsf &)) &operator>>, py::is_operator(), "None", py::arg("theReadData"), py::arg("theTrsf"));
 	*/
 	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdObject_gp_Trsfs.hxx
-	mod.def("operator<<", (StdObjMgt_WriteData & (*)(StdObjMgt_WriteData::Object, const gp_Trsf &)) &operator<<, "None", py::arg("theWriteData"), py::arg("theTrsf"));
+	mod.def("bits_left", (StdObjMgt_WriteData & (*)(StdObjMgt_WriteData::Object, const gp_Trsf &)) &operator<<, py::is_operator(), "None", py::arg("theWriteData"), py::arg("theTrsf"));
 	*/
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdObject_gp_Axes.hxx
 	mod.def("write", (StdObjMgt_WriteData & (*)(StdObjMgt_WriteData::Object, const gp_Ax1 &)) &write, "None", py::arg("theWriteData"), py::arg("theAx"));

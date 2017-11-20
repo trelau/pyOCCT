@@ -23,9 +23,10 @@ PYBIND11_MODULE(IntImp, mod) {
 		.export_values();
 
 	// FUNCTIONS
+	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntImp_ComputeTangence.hxx
 	mod.def("IntImp_ComputeTangence", (Standard_Boolean (*)(const gp_Vec [], const Standard_Real [], Standard_Real [], IntImp_ConstIsoparametric [])) &IntImp_ComputeTangence, "None", py::arg("DPuv"), py::arg("EpsUV"), py::arg("Tgduv"), py::arg("TabIso"));
-
+	*/
 
 	// CLASSES
 

@@ -379,7 +379,7 @@ PYBIND11_MODULE(SMESHDS, mod) {
 	cls_SMESHDS_Command.def("MoveNode", (void (SMESHDS_Command::*)(int, double, double, double)) &SMESHDS_Command::MoveNode, "None", py::arg("NewNodeID"), py::arg("x"), py::arg("y"), py::arg("z"));
 	cls_SMESHDS_Command.def("RemoveNode", (void (SMESHDS_Command::*)(int)) &SMESHDS_Command::RemoveNode, "None", py::arg("NodeID"));
 	cls_SMESHDS_Command.def("RemoveElement", (void (SMESHDS_Command::*)(int)) &SMESHDS_Command::RemoveElement, "None", py::arg("ElementID"));
-	cls_SMESHDS_Command.def("ChangeElementNodes", (void (SMESHDS_Command::*)(int, int [], int)) &SMESHDS_Command::ChangeElementNodes, "None", py::arg("ElementID"), py::arg("nodes"), py::arg("nbnodes"));
+	// FIXME cls_SMESHDS_Command.def("ChangeElementNodes", (void (SMESHDS_Command::*)(int, int [], int)) &SMESHDS_Command::ChangeElementNodes, "None", py::arg("ElementID"), py::arg("nodes"), py::arg("nbnodes"));
 	cls_SMESHDS_Command.def("ChangePolyhedronNodes", (void (SMESHDS_Command::*)(const int, const std::vector<int> &, const std::vector<int> &)) &SMESHDS_Command::ChangePolyhedronNodes, "None", py::arg("ElementID"), py::arg("nodes_ids"), py::arg("quantities"));
 	cls_SMESHDS_Command.def("Renumber", (void (SMESHDS_Command::*)(const bool, const int, const int)) &SMESHDS_Command::Renumber, "None", py::arg("isNodes"), py::arg("startID"), py::arg("deltaID"));
 	cls_SMESHDS_Command.def("GetType", (SMESHDS_CommandType (SMESHDS_Command::*)()) &SMESHDS_Command::GetType, "None");
@@ -425,7 +425,7 @@ PYBIND11_MODULE(SMESHDS, mod) {
 	cls_SMESHDS_Script.def("MoveNode", (void (SMESHDS_Script::*)(int, double, double, double)) &SMESHDS_Script::MoveNode, "None", py::arg("NewNodeID"), py::arg("x"), py::arg("y"), py::arg("z"));
 	cls_SMESHDS_Script.def("RemoveNode", (void (SMESHDS_Script::*)(int)) &SMESHDS_Script::RemoveNode, "None", py::arg("NodeID"));
 	cls_SMESHDS_Script.def("RemoveElement", (void (SMESHDS_Script::*)(int)) &SMESHDS_Script::RemoveElement, "None", py::arg("ElementID"));
-	cls_SMESHDS_Script.def("ChangeElementNodes", (void (SMESHDS_Script::*)(int, int [], int)) &SMESHDS_Script::ChangeElementNodes, "None", py::arg("ElementID"), py::arg("nodes"), py::arg("nbnodes"));
+	// FIXME cls_SMESHDS_Script.def("ChangeElementNodes", (void (SMESHDS_Script::*)(int, int [], int)) &SMESHDS_Script::ChangeElementNodes, "None", py::arg("ElementID"), py::arg("nodes"), py::arg("nbnodes"));
 	cls_SMESHDS_Script.def("ChangePolyhedronNodes", (void (SMESHDS_Script::*)(const int, const std::vector<int> &, const std::vector<int> &)) &SMESHDS_Script::ChangePolyhedronNodes, "None", py::arg("ElementID"), py::arg("nodes_ids"), py::arg("quantities"));
 	cls_SMESHDS_Script.def("Renumber", (void (SMESHDS_Script::*)(const bool, const int, const int)) &SMESHDS_Script::Renumber, "None", py::arg("isNodes"), py::arg("startID"), py::arg("deltaID"));
 	cls_SMESHDS_Script.def("ClearMesh", (void (SMESHDS_Script::*)()) &SMESHDS_Script::ClearMesh, "None");

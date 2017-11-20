@@ -101,7 +101,7 @@ PYBIND11_MODULE(BVH, mod) {
 	cls_BVH_BuildQueue.def(py::init<>());
 	cls_BVH_BuildQueue.def("Size", (Standard_Integer (BVH_BuildQueue::*)()) &BVH_BuildQueue::Size, "Returns current size of BVH build queue.");
 	cls_BVH_BuildQueue.def("Enqueue", (void (BVH_BuildQueue::*)(const Standard_Integer &)) &BVH_BuildQueue::Enqueue, "Enqueues new work-item onto BVH build queue.", py::arg("theNode"));
-	cls_BVH_BuildQueue.def("Fetch", (Standard_Integer (BVH_BuildQueue::*)(Standard_Boolean &)) &BVH_BuildQueue::Fetch, "Fetches first work-item from BVH build queue.", py::arg("wasBusy"));
+	cls_BVH_BuildQueue.def("Fetch", [](BVH_BuildQueue &self, Standard_Boolean & wasBusy){ Standard_Integer rv = self.Fetch(wasBusy); return std::tuple<Standard_Integer, Standard_Boolean &>(rv, wasBusy); }, "Fetches first work-item from BVH build queue.", py::arg("wasBusy"));
 	cls_BVH_BuildQueue.def("HasBusyThreads", (Standard_Boolean (BVH_BuildQueue::*)()) &BVH_BuildQueue::HasBusyThreads, "Checks if there are active build threads.");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BVH_BuildThread.hxx

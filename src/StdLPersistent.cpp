@@ -57,7 +57,7 @@ PYBIND11_MODULE(StdLPersistent, mod) {
 	// FUNCTIONS
 	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdLPersistent_HArray1.hxx
-	mod.def("operator>>", (StdObjMgt_WriteData & (*)(StdObjMgt_WriteData &, const Standard_Byte &)) &operator>>, "None", py::arg("theWriteData"), py::arg("theByte"));
+	mod.def("bits_right", (StdObjMgt_WriteData & (*)(StdObjMgt_WriteData &, const Standard_Byte &)) &operator>>, py::is_operator(), "None", py::arg("theWriteData"), py::arg("theByte"));
 	*/
 
 	// CLASSES

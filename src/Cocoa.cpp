@@ -58,8 +58,8 @@ PYBIND11_MODULE(Cocoa, mod) {
 	cls_Cocoa_Window.def("DoMapping", (Standard_Boolean (Cocoa_Window::*)() const ) &Cocoa_Window::DoMapping, "Apply the mapping change to the window <me>");
 	cls_Cocoa_Window.def("IsMapped", (Standard_Boolean (Cocoa_Window::*)() const ) &Cocoa_Window::IsMapped, "Returns True if the window <me> is opened");
 	cls_Cocoa_Window.def("Ratio", (Standard_Real (Cocoa_Window::*)() const ) &Cocoa_Window::Ratio, "Returns The Window RATIO equal to the physical WIDTH/HEIGHT dimensions");
-	cls_Cocoa_Window.def("Position", (void (Cocoa_Window::*)(Standard_Integer &, Standard_Integer &, Standard_Integer &, Standard_Integer &) const ) &Cocoa_Window::Position, "Returns The Window POSITION in PIXEL", py::arg("X1"), py::arg("Y1"), py::arg("X2"), py::arg("Y2"));
-	cls_Cocoa_Window.def("Size", (void (Cocoa_Window::*)(Standard_Integer &, Standard_Integer &) const ) &Cocoa_Window::Size, "Returns The Window SIZE in PIXEL", py::arg("theWidth"), py::arg("theHeight"));
+	cls_Cocoa_Window.def("Position", [](Cocoa_Window &self, Standard_Integer & X1, Standard_Integer & Y1, Standard_Integer & X2, Standard_Integer & Y2){ self.Position(X1, Y1, X2, Y2); return std::tuple<Standard_Integer &, Standard_Integer &, Standard_Integer &, Standard_Integer &>(X1, Y1, X2, Y2); }, "Returns The Window POSITION in PIXEL", py::arg("X1"), py::arg("Y1"), py::arg("X2"), py::arg("Y2"));
+	cls_Cocoa_Window.def("Size", [](Cocoa_Window &self, Standard_Integer & theWidth, Standard_Integer & theHeight){ self.Size(theWidth, theHeight); return std::tuple<Standard_Integer &, Standard_Integer &>(theWidth, theHeight); }, "Returns The Window SIZE in PIXEL", py::arg("theWidth"), py::arg("theHeight"));
 	cls_Cocoa_Window.def("HView", (NSView * (Cocoa_Window::*)() const ) &Cocoa_Window::HView, "Returns associated NSView");
 	cls_Cocoa_Window.def("SetHView", (void (Cocoa_Window::*)(NSView *)) &Cocoa_Window::SetHView, "Setup new NSView.", py::arg("theView"));
 	cls_Cocoa_Window.def("NativeHandle", (Aspect_Drawable (Cocoa_Window::*)() const ) &Cocoa_Window::NativeHandle, "Returns native Window handle");

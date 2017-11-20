@@ -305,7 +305,7 @@ PYBIND11_MODULE(Standard, mod) {
 
 	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Standard_Failure.hxx
-	mod.def("operator<<", (Standard_OStream & (*)(Standard_OStream &, const Standard_Failure &)) &operator<<, "None", py::arg("AStream"), py::arg("AFailure"));
+	mod.def("bits_left", (Standard_OStream & (*)(Standard_OStream &, const Standard_Failure &)) &operator<<, py::is_operator(), "None", py::arg("AStream"), py::arg("AFailure"));
 	*/
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Standard_Assert.hxx
 	mod.def("Standard_ASSERT_DO_NOTHING", (void (*)()) &Standard_ASSERT_DO_NOTHING, "This header file defines a set of ASSERT macros intended for use in algorithms for debugging purposes and as a tool to organise checks for abnormal situations in the uniform way.");

@@ -132,7 +132,7 @@ PYBIND11_MODULE(NETGENPlugin, mod) {
 	cls_NETGENPlugin_Internals.def("hasInternalEdges", (bool (NETGENPlugin_Internals::*)() const ) &NETGENPlugin_Internals::hasInternalEdges, "None");
 	cls_NETGENPlugin_Internals.def("isInternalEdge", (bool (NETGENPlugin_Internals::*)(int) const ) &NETGENPlugin_Internals::isInternalEdge, "None", py::arg("id"));
 	cls_NETGENPlugin_Internals.def("getEdgesAndVerticesWithFaces", (const std::map<int, int> & (NETGENPlugin_Internals::*)() const ) &NETGENPlugin_Internals::getEdgesAndVerticesWithFaces, "None");
-	cls_NETGENPlugin_Internals.def("getInternalEdges", (void (NETGENPlugin_Internals::*)(TopTools_IndexedMapOfShape &, TopTools_IndexedMapOfShape &, TopTools_IndexedMapOfShape &, std::list<SMESH_subMesh *> [])) &NETGENPlugin_Internals::getInternalEdges, "None", py::arg("fmap"), py::arg("emap"), py::arg("vmap"), py::arg("smToPrecompute"));
+	// FIXME cls_NETGENPlugin_Internals.def("getInternalEdges", (void (NETGENPlugin_Internals::*)(TopTools_IndexedMapOfShape &, TopTools_IndexedMapOfShape &, TopTools_IndexedMapOfShape &, std::list<SMESH_subMesh *> [])) &NETGENPlugin_Internals::getInternalEdges, "None", py::arg("fmap"), py::arg("emap"), py::arg("vmap"), py::arg("smToPrecompute"));
 	cls_NETGENPlugin_Internals.def("hasInternalVertexInFace", (bool (NETGENPlugin_Internals::*)() const ) &NETGENPlugin_Internals::hasInternalVertexInFace, "None");
 	cls_NETGENPlugin_Internals.def("getFacesWithVertices", (const std::map<int, std::list<int> > & (NETGENPlugin_Internals::*)() const ) &NETGENPlugin_Internals::getFacesWithVertices, "None");
 	cls_NETGENPlugin_Internals.def("hasInternalFaces", (bool (NETGENPlugin_Internals::*)() const ) &NETGENPlugin_Internals::hasInternalFaces, "None");
