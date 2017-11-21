@@ -49,20 +49,23 @@ PYBIND11_MODULE(BRepAlgoAPI, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepAlgoAPI_Algo.hxx
 	py::class_<BRepAlgoAPI_Algo, std::unique_ptr<BRepAlgoAPI_Algo, py::nodelete>, BRepBuilderAPI_MakeShape> cls_BRepAlgoAPI_Algo(mod, "BRepAlgoAPI_Algo", "Provides the root interface for the API algorithms");
 	cls_BRepAlgoAPI_Algo.def("Shape", (const TopoDS_Shape & (BRepAlgoAPI_Algo::*)()) &BRepAlgoAPI_Algo::Shape, "None");
-	cls_BRepAlgoAPI_Algo.def("Clear", (void (BRepAlgoAPI_Algo::*)()) &BRepAlgoAPI_Algo::Clear, "Clears all warnings and errors, and any data cached by the algorithm. User defined options are not cleared.");
-	cls_BRepAlgoAPI_Algo.def("SetRunParallel", (void (BRepAlgoAPI_Algo::*)(const Standard_Boolean)) &BRepAlgoAPI_Algo::SetRunParallel, "Set the flag of parallel processing if <theFlag> is true the parallel processing is switched on if <theFlag> is false the parallel processing is switched off", py::arg("theFlag"));
-	cls_BRepAlgoAPI_Algo.def("RunParallel", (Standard_Boolean (BRepAlgoAPI_Algo::*)() const ) &BRepAlgoAPI_Algo::RunParallel, "Returns the flag of parallel processing");
-	cls_BRepAlgoAPI_Algo.def("SetFuzzyValue", (void (BRepAlgoAPI_Algo::*)(const Standard_Real)) &BRepAlgoAPI_Algo::SetFuzzyValue, "Sets the additional tolerance", py::arg("theFuzz"));
-	cls_BRepAlgoAPI_Algo.def("FuzzyValue", (Standard_Real (BRepAlgoAPI_Algo::*)() const ) &BRepAlgoAPI_Algo::FuzzyValue, "Returns the additional tolerance");
-	cls_BRepAlgoAPI_Algo.def("HasErrors", (Standard_Boolean (BRepAlgoAPI_Algo::*)() const ) &BRepAlgoAPI_Algo::HasErrors, "Returns true if algorithm has failed");
-	cls_BRepAlgoAPI_Algo.def("HasWarnings", (Standard_Boolean (BRepAlgoAPI_Algo::*)() const ) &BRepAlgoAPI_Algo::HasWarnings, "Returns true if algorithm has generated some warning alerts");
-	cls_BRepAlgoAPI_Algo.def("HasError", (Standard_Boolean (BRepAlgoAPI_Algo::*)(const opencascade::handle<Standard_Type> &) const ) &BRepAlgoAPI_Algo::HasError, "Returns true if algorithm has generated error of specified type", py::arg("theType"));
-	cls_BRepAlgoAPI_Algo.def("HasWarning", (Standard_Boolean (BRepAlgoAPI_Algo::*)(const opencascade::handle<Standard_Type> &) const ) &BRepAlgoAPI_Algo::HasWarning, "Returns true if algorithm has generated warning of specified type", py::arg("theType"));
-	cls_BRepAlgoAPI_Algo.def("DumpErrors", (void (BRepAlgoAPI_Algo::*)(Standard_OStream &) const ) &BRepAlgoAPI_Algo::DumpErrors, "Dumps the error status into the given stream", py::arg("theOS"));
-	cls_BRepAlgoAPI_Algo.def("DumpWarnings", (void (BRepAlgoAPI_Algo::*)(Standard_OStream &) const ) &BRepAlgoAPI_Algo::DumpWarnings, "Dumps the warning statuses into the given stream", py::arg("theOS"));
-	cls_BRepAlgoAPI_Algo.def("ClearWarnings", (void (BRepAlgoAPI_Algo::*)()) &BRepAlgoAPI_Algo::ClearWarnings, "Clears the warnings of the algorithm");
-	cls_BRepAlgoAPI_Algo.def("GetReport", (const opencascade::handle<Message_Report> & (BRepAlgoAPI_Algo::*)() const ) &BRepAlgoAPI_Algo::GetReport, "Returns report collecting all errors and warnings");
-	cls_BRepAlgoAPI_Algo.def("SetProgressIndicator", (void (BRepAlgoAPI_Algo::*)(const opencascade::handle<Message_ProgressIndicator> &)) &BRepAlgoAPI_Algo::SetProgressIndicator, "Set the Progress Indicator object.", py::arg("theObj"));
+	
+	// FIXME Access protected members of this class that are made available with "using". Need to write as lambdas.
+	cls_BRepAlgoAPI_Algo.def("Clear", [](BRepAlgoAPI_Algo &self) {return self.Clear(); }, "Clears all warnings and errors, and any data cached by the algorithm. User defined options are not cleared.");
+	cls_BRepAlgoAPI_Algo.def("SetRunParallel", [](BRepAlgoAPI_Algo &self, const Standard_Boolean theFlag) { return self.SetRunParallel(theFlag); }, "Set the flag of parallel processing if <theFlag> is true the parallel processing is switched on if <theFlag> is false the parallel processing is switched off", py::arg("theFlag"));
+	cls_BRepAlgoAPI_Algo.def("RunParallel", [](BRepAlgoAPI_Algo &self) {return self.RunParallel(); }, "Returns the flag of parallel processing");
+	cls_BRepAlgoAPI_Algo.def("SetFuzzyValue", [](BRepAlgoAPI_Algo &self, const Standard_Real theFuzz) { return self.SetFuzzyValue(theFuzz); }, "Sets the additional tolerance", py::arg("theFuzz"));
+	cls_BRepAlgoAPI_Algo.def("FuzzyValue", [](BRepAlgoAPI_Algo &self) { return self.FuzzyValue(); }, "Returns the additional tolerance");
+	cls_BRepAlgoAPI_Algo.def("HasErrors", [](BRepAlgoAPI_Algo &self) { return self.HasErrors(); }, "Returns true if algorithm has failed");
+	cls_BRepAlgoAPI_Algo.def("HasWarnings", [](BRepAlgoAPI_Algo &self) { return self.HasWarnings(); }, "Returns true if algorithm has generated some warning alerts");
+	cls_BRepAlgoAPI_Algo.def("HasError", [](BRepAlgoAPI_Algo &self, Handle(Standard_Type) &theType) { return self.HasError(theType); }, "Returns true if algorithm has generated error of specified type", py::arg("theType"));
+	cls_BRepAlgoAPI_Algo.def("HasWarning", [](BRepAlgoAPI_Algo &self, Handle(Standard_Type) &theType) { return self.HasWarning(theType); }, "Returns true if algorithm has generated warning of specified type", py::arg("theType"));
+	// Not sure how to handle std::ostream yet
+	// FIXME cls_BRepAlgoAPI_Algo.def("DumpErrors", (void (BRepAlgoAPI_Algo::*)(Standard_OStream &) const ) &BRepAlgoAPI_Algo::DumpErrors, "Dumps the error status into the given stream", py::arg("theOS"));
+	// FIXME cls_BRepAlgoAPI_Algo.def("DumpWarnings", (void (BRepAlgoAPI_Algo::*)(Standard_OStream &) const ) &BRepAlgoAPI_Algo::DumpWarnings, "Dumps the warning statuses into the given stream", py::arg("theOS"));
+	cls_BRepAlgoAPI_Algo.def("ClearWarnings", [](BRepAlgoAPI_Algo &self) { self.ClearWarnings(); }, "Clears the warnings of the algorithm");
+	cls_BRepAlgoAPI_Algo.def("GetReport", [](BRepAlgoAPI_Algo &self) { const Handle(Message_Report) r = self.GetReport(); return r; }, "Returns report collecting all errors and warnings");
+	cls_BRepAlgoAPI_Algo.def("SetProgressIndicator", [](BRepAlgoAPI_Algo &self, const Handle(Message_ProgressIndicator) &pi) {return self.SetProgressIndicator(pi); }, "Set the Progress Indicator object.", py::arg("theObj"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepAlgoAPI_BuilderAlgo.hxx
 	py::class_<BRepAlgoAPI_BuilderAlgo, std::unique_ptr<BRepAlgoAPI_BuilderAlgo, Deleter<BRepAlgoAPI_BuilderAlgo>>, BRepAlgoAPI_Algo> cls_BRepAlgoAPI_BuilderAlgo(mod, "BRepAlgoAPI_BuilderAlgo", "The class contains API level of the General Fuse algorithm.");
