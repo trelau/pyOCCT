@@ -75,11 +75,11 @@ PYBIND11_MODULE(SMDS, mod) {
 
 	// CLASSES
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_MeshObject.hxx
-	py::class_<SMDS_MeshObject, std::unique_ptr<SMDS_MeshObject, Deleter<SMDS_MeshObject>>> cls_SMDS_MeshObject(mod, "SMDS_MeshObject", "None");
+	py::class_<SMDS_MeshObject, std::unique_ptr<SMDS_MeshObject, py::nodelete>> cls_SMDS_MeshObject(mod, "SMDS_MeshObject", "None");
 	cls_SMDS_MeshObject.def(py::init<>());
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Mesh.hxx
-	py::class_<SMDS_Mesh, std::unique_ptr<SMDS_Mesh, Deleter<SMDS_Mesh>>, SMDS_MeshObject> cls_SMDS_Mesh(mod, "SMDS_Mesh", "None");
+	py::class_<SMDS_Mesh, std::unique_ptr<SMDS_Mesh, py::nodelete>, SMDS_MeshObject> cls_SMDS_Mesh(mod, "SMDS_Mesh", "None");
 	cls_SMDS_Mesh.def(py::init<>());
 	cls_SMDS_Mesh.def("getGrid", (SMDS_UnstructuredGrid * (SMDS_Mesh::*)()) &SMDS_Mesh::getGrid, "actual nodes coordinates, cells definition and reverse connectivity are stored in a vtkUnstructuredGrid");
 	cls_SMDS_Mesh.def("getMeshId", (int (SMDS_Mesh::*)()) &SMDS_Mesh::getMeshId, "None");
@@ -264,7 +264,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_Mesh.def("isCompacted", (bool (SMDS_Mesh::*)()) &SMDS_Mesh::isCompacted, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_MeshElement.hxx
-	py::class_<SMDS_MeshElement, std::unique_ptr<SMDS_MeshElement, Deleter<SMDS_MeshElement>>, SMDS_MeshObject> cls_SMDS_MeshElement(mod, "SMDS_MeshElement", "Base class for elements");
+	py::class_<SMDS_MeshElement, std::unique_ptr<SMDS_MeshElement, py::nodelete>, SMDS_MeshObject> cls_SMDS_MeshElement(mod, "SMDS_MeshElement", "Base class for elements");
 	cls_SMDS_MeshElement.def("nodesIterator", (SMDS_ElemIteratorPtr (SMDS_MeshElement::*)() const ) &SMDS_MeshElement::nodesIterator, "None");
 	cls_SMDS_MeshElement.def("edgesIterator", (SMDS_ElemIteratorPtr (SMDS_MeshElement::*)() const ) &SMDS_MeshElement::edgesIterator, "None");
 	cls_SMDS_MeshElement.def("facesIterator", (SMDS_ElemIteratorPtr (SMDS_MeshElement::*)() const ) &SMDS_MeshElement::facesIterator, "None");
@@ -311,7 +311,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	};
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_MeshCell.hxx
-	py::class_<SMDS_MeshCell, std::unique_ptr<SMDS_MeshCell, Deleter<SMDS_MeshCell>>, PyCallback_SMDS_MeshCell, SMDS_MeshElement> cls_SMDS_MeshCell(mod, "SMDS_MeshCell", "Base class for all cells");
+	py::class_<SMDS_MeshCell, std::unique_ptr<SMDS_MeshCell, py::nodelete>, PyCallback_SMDS_MeshCell, SMDS_MeshElement> cls_SMDS_MeshCell(mod, "SMDS_MeshCell", "Base class for all cells");
 	// FIXME cls_SMDS_MeshCell.def(py::init<>());
 	// FIXME cls_SMDS_MeshCell.def("ChangeNodes", (bool (SMDS_MeshCell::*)(const SMDS_MeshNode *[], const int)) &SMDS_MeshCell::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
 	// FIXME cls_SMDS_MeshCell.def("vtkOrder", (bool (SMDS_MeshCell::*)(const SMDS_MeshNode *[], const int)) &SMDS_MeshCell::vtkOrder, "None", py::arg("nodes"), py::arg("nbNodes"));
@@ -329,23 +329,23 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_MeshCell.def_static("interlacedSmdsOrder_", (const std::vector<int> & (*)(SMDSAbs_EntityType, const size_t)) &SMDS_MeshCell::interlacedSmdsOrder, "None", py::arg("smdsType"), py::arg("nbNodes"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_MeshEdge.hxx
-	py::class_<SMDS_MeshEdge, std::unique_ptr<SMDS_MeshEdge, Deleter<SMDS_MeshEdge>>, SMDS_MeshCell> cls_SMDS_MeshEdge(mod, "SMDS_MeshEdge", "None");
+	py::class_<SMDS_MeshEdge, std::unique_ptr<SMDS_MeshEdge, py::nodelete>, SMDS_MeshCell> cls_SMDS_MeshEdge(mod, "SMDS_MeshEdge", "None");
 	cls_SMDS_MeshEdge.def("GetType", (SMDSAbs_ElementType (SMDS_MeshEdge::*)() const ) &SMDS_MeshEdge::GetType, "None");
 	cls_SMDS_MeshEdge.def("GetVtkType", (vtkIdType (SMDS_MeshEdge::*)() const ) &SMDS_MeshEdge::GetVtkType, "None");
 	cls_SMDS_MeshEdge.def("GetGeomType", (SMDSAbs_GeometryType (SMDS_MeshEdge::*)() const ) &SMDS_MeshEdge::GetGeomType, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_MeshFace.hxx
-	py::class_<SMDS_MeshFace, std::unique_ptr<SMDS_MeshFace, Deleter<SMDS_MeshFace>>, SMDS_MeshCell> cls_SMDS_MeshFace(mod, "SMDS_MeshFace", "None");
+	py::class_<SMDS_MeshFace, std::unique_ptr<SMDS_MeshFace, py::nodelete>, SMDS_MeshCell> cls_SMDS_MeshFace(mod, "SMDS_MeshFace", "None");
 	cls_SMDS_MeshFace.def("GetType", (SMDSAbs_ElementType (SMDS_MeshFace::*)() const ) &SMDS_MeshFace::GetType, "None");
 	cls_SMDS_MeshFace.def("GetVtkType", (vtkIdType (SMDS_MeshFace::*)() const ) &SMDS_MeshFace::GetVtkType, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_MeshVolume.hxx
-	py::class_<SMDS_MeshVolume, std::unique_ptr<SMDS_MeshVolume, Deleter<SMDS_MeshVolume>>, SMDS_MeshCell> cls_SMDS_MeshVolume(mod, "SMDS_MeshVolume", "None");
+	py::class_<SMDS_MeshVolume, std::unique_ptr<SMDS_MeshVolume, py::nodelete>, SMDS_MeshCell> cls_SMDS_MeshVolume(mod, "SMDS_MeshVolume", "None");
 	cls_SMDS_MeshVolume.def("GetType", (SMDSAbs_ElementType (SMDS_MeshVolume::*)() const ) &SMDS_MeshVolume::GetType, "None");
 	cls_SMDS_MeshVolume.def("GetVtkType", (vtkIdType (SMDS_MeshVolume::*)() const ) &SMDS_MeshVolume::GetVtkType, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_MeshGroup.hxx
-	py::class_<SMDS_MeshGroup, std::unique_ptr<SMDS_MeshGroup, Deleter<SMDS_MeshGroup>>, SMDS_MeshObject> cls_SMDS_MeshGroup(mod, "SMDS_MeshGroup", "None");
+	py::class_<SMDS_MeshGroup, std::unique_ptr<SMDS_MeshGroup, py::nodelete>, SMDS_MeshObject> cls_SMDS_MeshGroup(mod, "SMDS_MeshGroup", "None");
 	cls_SMDS_MeshGroup.def(py::init<const SMDS_Mesh *>(), py::arg("theMesh"));
 	cls_SMDS_MeshGroup.def(py::init<const SMDS_Mesh *, const SMDSAbs_ElementType>(), py::arg("theMesh"), py::arg("theType"));
 	cls_SMDS_MeshGroup.def("AddSubGroup", [](SMDS_MeshGroup &self) -> const SMDS_MeshGroup * { return self.AddSubGroup(); });
@@ -391,7 +391,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_MeshNode.def("setXYZ", (void (SMDS_MeshNode::*)(double, double, double)) &SMDS_MeshNode::setXYZ, "None", py::arg("x"), py::arg("y"), py::arg("z"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_MeshIDFactory.hxx
-	py::class_<SMDS_MeshIDFactory, std::unique_ptr<SMDS_MeshIDFactory, Deleter<SMDS_MeshIDFactory>>, SMDS_MeshObject> cls_SMDS_MeshIDFactory(mod, "SMDS_MeshIDFactory", "None");
+	py::class_<SMDS_MeshIDFactory, std::unique_ptr<SMDS_MeshIDFactory, py::nodelete>, SMDS_MeshObject> cls_SMDS_MeshIDFactory(mod, "SMDS_MeshIDFactory", "None");
 	cls_SMDS_MeshIDFactory.def("GetFreeID", (int (SMDS_MeshIDFactory::*)()) &SMDS_MeshIDFactory::GetFreeID, "None");
 	cls_SMDS_MeshIDFactory.def("ReleaseID", [](SMDS_MeshIDFactory &self, int a0) -> void { return self.ReleaseID(a0); }, py::arg("ID"));
 	cls_SMDS_MeshIDFactory.def("ReleaseID", (void (SMDS_MeshIDFactory::*)(int, int)) &SMDS_MeshIDFactory::ReleaseID, "None", py::arg("ID"), py::arg("vtkId"));
@@ -403,7 +403,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_MeshIDFactory.def("adjustMaxId", (void (SMDS_MeshIDFactory::*)(int)) &SMDS_MeshIDFactory::adjustMaxId, "None", py::arg("ID"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_MeshNodeIDFactory.hxx
-	py::class_<SMDS_MeshNodeIDFactory, std::unique_ptr<SMDS_MeshNodeIDFactory, Deleter<SMDS_MeshNodeIDFactory>>, SMDS_MeshIDFactory> cls_SMDS_MeshNodeIDFactory(mod, "SMDS_MeshNodeIDFactory", "None");
+	py::class_<SMDS_MeshNodeIDFactory, std::unique_ptr<SMDS_MeshNodeIDFactory, py::nodelete>, SMDS_MeshIDFactory> cls_SMDS_MeshNodeIDFactory(mod, "SMDS_MeshNodeIDFactory", "None");
 	cls_SMDS_MeshNodeIDFactory.def(py::init<>());
 	cls_SMDS_MeshNodeIDFactory.def("BindID", (bool (SMDS_MeshNodeIDFactory::*)(int, SMDS_MeshElement *)) &SMDS_MeshNodeIDFactory::BindID, "None", py::arg("ID"), py::arg("elem"));
 	cls_SMDS_MeshNodeIDFactory.def("MeshElement", (SMDS_MeshElement * (SMDS_MeshNodeIDFactory::*)(int)) &SMDS_MeshNodeIDFactory::MeshElement, "None", py::arg("ID"));
@@ -417,7 +417,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_MeshNodeIDFactory.def("emptyPool", (void (SMDS_MeshNodeIDFactory::*)(int)) &SMDS_MeshNodeIDFactory::emptyPool, "None", py::arg("maxId"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_MeshElementIDFactory.hxx
-	py::class_<SMDS_MeshElementIDFactory, std::unique_ptr<SMDS_MeshElementIDFactory, Deleter<SMDS_MeshElementIDFactory>>, SMDS_MeshNodeIDFactory> cls_SMDS_MeshElementIDFactory(mod, "SMDS_MeshElementIDFactory", "None");
+	py::class_<SMDS_MeshElementIDFactory, std::unique_ptr<SMDS_MeshElementIDFactory, py::nodelete>, SMDS_MeshNodeIDFactory> cls_SMDS_MeshElementIDFactory(mod, "SMDS_MeshElementIDFactory", "None");
 	cls_SMDS_MeshElementIDFactory.def(py::init<>());
 	cls_SMDS_MeshElementIDFactory.def("BindID", (bool (SMDS_MeshElementIDFactory::*)(int, SMDS_MeshElement *)) &SMDS_MeshElementIDFactory::BindID, "None", py::arg("ID"), py::arg("elem"));
 	cls_SMDS_MeshElementIDFactory.def("SetInVtkGrid", (int (SMDS_MeshElementIDFactory::*)(SMDS_MeshElement *)) &SMDS_MeshElementIDFactory::SetInVtkGrid, "None", py::arg("elem"));
@@ -448,7 +448,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_Position.def("GetDim", (int (SMDS_Position::*)() const ) &SMDS_Position::GetDim, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Mesh0DElement.hxx
-	py::class_<SMDS_Mesh0DElement, std::unique_ptr<SMDS_Mesh0DElement, Deleter<SMDS_Mesh0DElement>>, SMDS_MeshCell> cls_SMDS_Mesh0DElement(mod, "SMDS_Mesh0DElement", "None");
+	py::class_<SMDS_Mesh0DElement, std::unique_ptr<SMDS_Mesh0DElement, py::nodelete>, SMDS_MeshCell> cls_SMDS_Mesh0DElement(mod, "SMDS_Mesh0DElement", "None");
 	cls_SMDS_Mesh0DElement.def(py::init<const SMDS_MeshNode *>(), py::arg("node"));
 	// FIXME cls_SMDS_Mesh0DElement.def("ChangeNodes", (bool (SMDS_Mesh0DElement::*)(const SMDS_MeshNode *[], const int)) &SMDS_Mesh0DElement::ChangeNodes, "None", py::arg("nodes"), py::arg("nbNodes"));
 	cls_SMDS_Mesh0DElement.def("Print", (void (SMDS_Mesh0DElement::*)(std::ostream &) const ) &SMDS_Mesh0DElement::Print, "None", py::arg("OS"));
@@ -502,7 +502,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_MeshInfo.def("NbPolyhedrons", (int (SMDS_MeshInfo::*)() const ) &SMDS_MeshInfo::NbPolyhedrons, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_VolumeOfNodes.hxx
-	py::class_<SMDS_VolumeOfNodes, std::unique_ptr<SMDS_VolumeOfNodes, Deleter<SMDS_VolumeOfNodes>>, SMDS_MeshVolume> cls_SMDS_VolumeOfNodes(mod, "SMDS_VolumeOfNodes", "None");
+	py::class_<SMDS_VolumeOfNodes, std::unique_ptr<SMDS_VolumeOfNodes, py::nodelete>, SMDS_MeshVolume> cls_SMDS_VolumeOfNodes(mod, "SMDS_VolumeOfNodes", "None");
 	cls_SMDS_VolumeOfNodes.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("node1"), py::arg("node2"), py::arg("node3"), py::arg("node4"));
 	cls_SMDS_VolumeOfNodes.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("node1"), py::arg("node2"), py::arg("node3"), py::arg("node4"), py::arg("node5"));
 	cls_SMDS_VolumeOfNodes.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("node1"), py::arg("node2"), py::arg("node3"), py::arg("node4"), py::arg("node5"), py::arg("node6"));
@@ -518,7 +518,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_VolumeOfNodes.def("GetNode", (const SMDS_MeshNode * (SMDS_VolumeOfNodes::*)(const int) const ) &SMDS_VolumeOfNodes::GetNode, "Return node by its index", py::arg("ind"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_VtkEdge.hxx
-	py::class_<SMDS_VtkEdge, std::unique_ptr<SMDS_VtkEdge, Deleter<SMDS_VtkEdge>>, SMDS_MeshEdge> cls_SMDS_VtkEdge(mod, "SMDS_VtkEdge", "None");
+	py::class_<SMDS_VtkEdge, std::unique_ptr<SMDS_VtkEdge, py::nodelete>, SMDS_MeshEdge> cls_SMDS_VtkEdge(mod, "SMDS_VtkEdge", "None");
 	cls_SMDS_VtkEdge.def(py::init<>());
 	cls_SMDS_VtkEdge.def(py::init<std::vector<vtkIdType> &, SMDS_Mesh *>(), py::arg("nodeIds"), py::arg("mesh"));
 	cls_SMDS_VtkEdge.def("init", (void (SMDS_VtkEdge::*)(std::vector<vtkIdType> &, SMDS_Mesh *)) &SMDS_VtkEdge::init, "None", py::arg("nodeIds"), py::arg("mesh"));
@@ -537,7 +537,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_VtkEdge.def("interlacedNodesIterator", (SMDS_NodeIteratorPtr (SMDS_VtkEdge::*)() const ) &SMDS_VtkEdge::interlacedNodesIterator, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_VtkFace.hxx
-	py::class_<SMDS_VtkFace, std::unique_ptr<SMDS_VtkFace, Deleter<SMDS_VtkFace>>, SMDS_MeshFace> cls_SMDS_VtkFace(mod, "SMDS_VtkFace", "None");
+	py::class_<SMDS_VtkFace, std::unique_ptr<SMDS_VtkFace, py::nodelete>, SMDS_MeshFace> cls_SMDS_VtkFace(mod, "SMDS_VtkFace", "None");
 	cls_SMDS_VtkFace.def(py::init<>());
 	cls_SMDS_VtkFace.def(py::init<const std::vector<vtkIdType> &, SMDS_Mesh *>(), py::arg("nodeIds"), py::arg("mesh"));
 	cls_SMDS_VtkFace.def("init", (void (SMDS_VtkFace::*)(const std::vector<vtkIdType> &, SMDS_Mesh *)) &SMDS_VtkFace::init, "None", py::arg("nodeIds"), py::arg("mesh"));
@@ -617,7 +617,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	*/
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_VtkVolume.hxx
-	py::class_<SMDS_VtkVolume, std::unique_ptr<SMDS_VtkVolume, Deleter<SMDS_VtkVolume>>, SMDS_MeshVolume> cls_SMDS_VtkVolume(mod, "SMDS_VtkVolume", "None");
+	py::class_<SMDS_VtkVolume, std::unique_ptr<SMDS_VtkVolume, py::nodelete>, SMDS_MeshVolume> cls_SMDS_VtkVolume(mod, "SMDS_VtkVolume", "None");
 	cls_SMDS_VtkVolume.def(py::init<>());
 	cls_SMDS_VtkVolume.def(py::init<const std::vector<vtkIdType> &, SMDS_Mesh *>(), py::arg("nodeIds"), py::arg("mesh"));
 	cls_SMDS_VtkVolume.def("init", (void (SMDS_VtkVolume::*)(const std::vector<vtkIdType> &, SMDS_Mesh *)) &SMDS_VtkVolume::init, "None", py::arg("nodeIds"), py::arg("mesh"));
@@ -650,7 +650,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_VtkVolume.def("interlacedNodesIterator", (SMDS_NodeIteratorPtr (SMDS_VtkVolume::*)() const ) &SMDS_VtkVolume::interlacedNodesIterator, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_BallElement.hxx
-	py::class_<SMDS_BallElement, std::unique_ptr<SMDS_BallElement, Deleter<SMDS_BallElement>>, SMDS_MeshCell> cls_SMDS_BallElement(mod, "SMDS_BallElement", "None");
+	py::class_<SMDS_BallElement, std::unique_ptr<SMDS_BallElement, py::nodelete>, SMDS_MeshCell> cls_SMDS_BallElement(mod, "SMDS_BallElement", "None");
 	cls_SMDS_BallElement.def(py::init<>());
 	cls_SMDS_BallElement.def(py::init<const SMDS_MeshNode *, double>(), py::arg("node"), py::arg("diameter"));
 	cls_SMDS_BallElement.def(py::init<vtkIdType, double, SMDS_Mesh *>(), py::arg("nodeId"), py::arg("diameter"), py::arg("mesh"));
@@ -765,7 +765,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_EdgePosition.def("GetUParameter", (double (SMDS_EdgePosition::*)() const ) &SMDS_EdgePosition::GetUParameter, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_FaceOfEdges.hxx
-	py::class_<SMDS_FaceOfEdges, std::unique_ptr<SMDS_FaceOfEdges, Deleter<SMDS_FaceOfEdges>>, SMDS_MeshFace> cls_SMDS_FaceOfEdges(mod, "SMDS_FaceOfEdges", "None");
+	py::class_<SMDS_FaceOfEdges, std::unique_ptr<SMDS_FaceOfEdges, py::nodelete>, SMDS_MeshFace> cls_SMDS_FaceOfEdges(mod, "SMDS_FaceOfEdges", "None");
 	cls_SMDS_FaceOfEdges.def(py::init<const SMDS_MeshEdge *, const SMDS_MeshEdge *, const SMDS_MeshEdge *>(), py::arg("edge1"), py::arg("edge2"), py::arg("edge3"));
 	cls_SMDS_FaceOfEdges.def(py::init<const SMDS_MeshEdge *, const SMDS_MeshEdge *, const SMDS_MeshEdge *, const SMDS_MeshEdge *>(), py::arg("edge1"), py::arg("edge2"), py::arg("edge3"), py::arg("edge4"));
 	cls_SMDS_FaceOfEdges.def("Print", (void (SMDS_FaceOfEdges::*)(std::ostream &) const ) &SMDS_FaceOfEdges::Print, "None", py::arg("OS"));
@@ -779,7 +779,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_FaceOfEdges.def("GetNode", (const SMDS_MeshNode * (SMDS_FaceOfEdges::*)(const int) const ) &SMDS_FaceOfEdges::GetNode, "None", py::arg("ind"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_FaceOfNodes.hxx
-	py::class_<SMDS_FaceOfNodes, std::unique_ptr<SMDS_FaceOfNodes, Deleter<SMDS_FaceOfNodes>>, SMDS_MeshFace> cls_SMDS_FaceOfNodes(mod, "SMDS_FaceOfNodes", "None");
+	py::class_<SMDS_FaceOfNodes, std::unique_ptr<SMDS_FaceOfNodes, py::nodelete>, SMDS_MeshFace> cls_SMDS_FaceOfNodes(mod, "SMDS_FaceOfNodes", "None");
 	cls_SMDS_FaceOfNodes.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("node1"), py::arg("node2"), py::arg("node3"));
 	cls_SMDS_FaceOfNodes.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("node1"), py::arg("node2"), py::arg("node3"), py::arg("node4"));
 	cls_SMDS_FaceOfNodes.def("Print", (void (SMDS_FaceOfNodes::*)(std::ostream &) const ) &SMDS_FaceOfNodes::Print, "None", py::arg("OS"));
@@ -807,7 +807,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	bind_SMDS_Iterator<const SMDS_MeshElement *>(mod, "SMDS_ElemIterator");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_LinearEdge.hxx
-	py::class_<SMDS_LinearEdge, std::unique_ptr<SMDS_LinearEdge, Deleter<SMDS_LinearEdge>>, SMDS_MeshEdge> cls_SMDS_LinearEdge(mod, "SMDS_LinearEdge", "None");
+	py::class_<SMDS_LinearEdge, std::unique_ptr<SMDS_LinearEdge, py::nodelete>, SMDS_MeshEdge> cls_SMDS_LinearEdge(mod, "SMDS_LinearEdge", "None");
 	cls_SMDS_LinearEdge.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("node1"), py::arg("node2"));
 	// FIXME cls_SMDS_LinearEdge.def("ChangeNodes", (bool (SMDS_LinearEdge::*)(const SMDS_MeshNode *, const SMDS_MeshNode *)) &SMDS_LinearEdge::ChangeNodes, "None", py::arg("node1"), py::arg("node2"));
 	cls_SMDS_LinearEdge.def("Print", (void (SMDS_LinearEdge::*)(std::ostream &) const ) &SMDS_LinearEdge::Print, "None", py::arg("OS"));
@@ -818,7 +818,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_LinearEdge.def("GetNode", (const SMDS_MeshNode * (SMDS_LinearEdge::*)(const int) const ) &SMDS_LinearEdge::GetNode, "Return node by its index", py::arg("ind"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_PolygonalFaceOfNodes.hxx
-	py::class_<SMDS_PolygonalFaceOfNodes, std::unique_ptr<SMDS_PolygonalFaceOfNodes, Deleter<SMDS_PolygonalFaceOfNodes>>, SMDS_MeshFace> cls_SMDS_PolygonalFaceOfNodes(mod, "SMDS_PolygonalFaceOfNodes", "None");
+	py::class_<SMDS_PolygonalFaceOfNodes, std::unique_ptr<SMDS_PolygonalFaceOfNodes, py::nodelete>, SMDS_MeshFace> cls_SMDS_PolygonalFaceOfNodes(mod, "SMDS_PolygonalFaceOfNodes", "None");
 	cls_SMDS_PolygonalFaceOfNodes.def(py::init<const std::vector<const SMDS_MeshNode *> &>(), py::arg("nodes"));
 	cls_SMDS_PolygonalFaceOfNodes.def("GetType", (SMDSAbs_ElementType (SMDS_PolygonalFaceOfNodes::*)() const ) &SMDS_PolygonalFaceOfNodes::GetType, "None");
 	cls_SMDS_PolygonalFaceOfNodes.def("GetEntityType", (SMDSAbs_EntityType (SMDS_PolygonalFaceOfNodes::*)() const ) &SMDS_PolygonalFaceOfNodes::GetEntityType, "None");
@@ -833,7 +833,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_PolygonalFaceOfNodes.def("GetNode", (const SMDS_MeshNode * (SMDS_PolygonalFaceOfNodes::*)(const int) const ) &SMDS_PolygonalFaceOfNodes::GetNode, "Return node by its index", py::arg("ind"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_PolyhedralVolumeOfNodes.hxx
-	py::class_<SMDS_PolyhedralVolumeOfNodes, std::unique_ptr<SMDS_PolyhedralVolumeOfNodes, Deleter<SMDS_PolyhedralVolumeOfNodes>>, SMDS_VolumeOfNodes> cls_SMDS_PolyhedralVolumeOfNodes(mod, "SMDS_PolyhedralVolumeOfNodes", "None");
+	py::class_<SMDS_PolyhedralVolumeOfNodes, std::unique_ptr<SMDS_PolyhedralVolumeOfNodes, py::nodelete>, SMDS_VolumeOfNodes> cls_SMDS_PolyhedralVolumeOfNodes(mod, "SMDS_PolyhedralVolumeOfNodes", "None");
 	cls_SMDS_PolyhedralVolumeOfNodes.def(py::init<std::vector<const SMDS_MeshNode *>, std::vector<int>>(), py::arg("nodes"), py::arg("quantities"));
 	cls_SMDS_PolyhedralVolumeOfNodes.def("GetType", (SMDSAbs_ElementType (SMDS_PolyhedralVolumeOfNodes::*)() const ) &SMDS_PolyhedralVolumeOfNodes::GetType, "None");
 	cls_SMDS_PolyhedralVolumeOfNodes.def("GetEntityType", (SMDSAbs_EntityType (SMDS_PolyhedralVolumeOfNodes::*)() const ) &SMDS_PolyhedralVolumeOfNodes::GetEntityType, "None");
@@ -851,7 +851,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_PolyhedralVolumeOfNodes.def("NbUniqueNodes", (int (SMDS_PolyhedralVolumeOfNodes::*)() const ) &SMDS_PolyhedralVolumeOfNodes::NbUniqueNodes, "Return nb of unique nodes");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_QuadraticEdge.hxx
-	py::class_<SMDS_QuadraticEdge, std::unique_ptr<SMDS_QuadraticEdge, Deleter<SMDS_QuadraticEdge>>, SMDS_LinearEdge> cls_SMDS_QuadraticEdge(mod, "SMDS_QuadraticEdge", "None");
+	py::class_<SMDS_QuadraticEdge, std::unique_ptr<SMDS_QuadraticEdge, py::nodelete>, SMDS_LinearEdge> cls_SMDS_QuadraticEdge(mod, "SMDS_QuadraticEdge", "None");
 	cls_SMDS_QuadraticEdge.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("node1"), py::arg("node2"), py::arg("node12"));
 	// FIXME cls_SMDS_QuadraticEdge.def("ChangeNodes", (bool (SMDS_QuadraticEdge::*)(const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *)) &SMDS_QuadraticEdge::ChangeNodes, "None", py::arg("node1"), py::arg("node2"), py::arg("node12"));
 	cls_SMDS_QuadraticEdge.def("Print", (void (SMDS_QuadraticEdge::*)(std::ostream &) const ) &SMDS_QuadraticEdge::Print, "None", py::arg("OS"));
@@ -870,7 +870,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	};
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_QuadraticFaceOfNodes.hxx
-	py::class_<SMDS_QuadraticFaceOfNodes, std::unique_ptr<SMDS_QuadraticFaceOfNodes, Deleter<SMDS_QuadraticFaceOfNodes>>, PyCallback_SMDS_QuadraticFaceOfNodes, SMDS_MeshFace> cls_SMDS_QuadraticFaceOfNodes(mod, "SMDS_QuadraticFaceOfNodes", "None");
+	py::class_<SMDS_QuadraticFaceOfNodes, std::unique_ptr<SMDS_QuadraticFaceOfNodes, py::nodelete>, PyCallback_SMDS_QuadraticFaceOfNodes, SMDS_MeshFace> cls_SMDS_QuadraticFaceOfNodes(mod, "SMDS_QuadraticFaceOfNodes", "None");
 	cls_SMDS_QuadraticFaceOfNodes.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("n1"), py::arg("n2"), py::arg("n3"), py::arg("n12"), py::arg("n23"), py::arg("n31"));
 	cls_SMDS_QuadraticFaceOfNodes.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("n1"), py::arg("n2"), py::arg("n3"), py::arg("n4"), py::arg("n12"), py::arg("n23"), py::arg("n34"), py::arg("n41"));
 	cls_SMDS_QuadraticFaceOfNodes.def("GetEntityType", (SMDSAbs_EntityType (SMDS_QuadraticFaceOfNodes::*)() const ) &SMDS_QuadraticFaceOfNodes::GetEntityType, "None");
@@ -893,7 +893,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	};
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_QuadraticVolumeOfNodes.hxx
-	py::class_<SMDS_QuadraticVolumeOfNodes, std::unique_ptr<SMDS_QuadraticVolumeOfNodes, Deleter<SMDS_QuadraticVolumeOfNodes>>, PyCallback_SMDS_QuadraticVolumeOfNodes, SMDS_MeshVolume> cls_SMDS_QuadraticVolumeOfNodes(mod, "SMDS_QuadraticVolumeOfNodes", "None");
+	py::class_<SMDS_QuadraticVolumeOfNodes, std::unique_ptr<SMDS_QuadraticVolumeOfNodes, py::nodelete>, PyCallback_SMDS_QuadraticVolumeOfNodes, SMDS_MeshVolume> cls_SMDS_QuadraticVolumeOfNodes(mod, "SMDS_QuadraticVolumeOfNodes", "None");
 	cls_SMDS_QuadraticVolumeOfNodes.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("n1"), py::arg("n2"), py::arg("n3"), py::arg("n4"), py::arg("n12"), py::arg("n23"), py::arg("n31"), py::arg("n14"), py::arg("n24"), py::arg("n34"));
 	cls_SMDS_QuadraticVolumeOfNodes.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("n1"), py::arg("n2"), py::arg("n3"), py::arg("n4"), py::arg("n5"), py::arg("n12"), py::arg("n23"), py::arg("n34"), py::arg("n41"), py::arg("n15"), py::arg("n25"), py::arg("n35"), py::arg("n45"));
 	cls_SMDS_QuadraticVolumeOfNodes.def(py::init<const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *, const SMDS_MeshNode *>(), py::arg("n1"), py::arg("n2"), py::arg("n3"), py::arg("n4"), py::arg("n5"), py::arg("n6"), py::arg("n12"), py::arg("n23"), py::arg("n31"), py::arg("n45"), py::arg("n56"), py::arg("n64"), py::arg("n14"), py::arg("n25"), py::arg("n36"));
@@ -923,7 +923,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	cls_SMDS_VertexPosition.def("GetTypeOfPosition", (SMDS_TypeOfPosition (SMDS_VertexPosition::*)() const ) &SMDS_VertexPosition::GetTypeOfPosition, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_VolumeOfFaces.hxx
-	py::class_<SMDS_VolumeOfFaces, std::unique_ptr<SMDS_VolumeOfFaces, Deleter<SMDS_VolumeOfFaces>>, SMDS_MeshVolume> cls_SMDS_VolumeOfFaces(mod, "SMDS_VolumeOfFaces", "None");
+	py::class_<SMDS_VolumeOfFaces, std::unique_ptr<SMDS_VolumeOfFaces, py::nodelete>, SMDS_MeshVolume> cls_SMDS_VolumeOfFaces(mod, "SMDS_VolumeOfFaces", "None");
 	cls_SMDS_VolumeOfFaces.def(py::init<const SMDS_MeshFace *, const SMDS_MeshFace *, const SMDS_MeshFace *, const SMDS_MeshFace *>(), py::arg("face1"), py::arg("face2"), py::arg("face3"), py::arg("face4"));
 	cls_SMDS_VolumeOfFaces.def(py::init<const SMDS_MeshFace *, const SMDS_MeshFace *, const SMDS_MeshFace *, const SMDS_MeshFace *, const SMDS_MeshFace *>(), py::arg("face1"), py::arg("face2"), py::arg("face3"), py::arg("face4"), py::arg("face5"));
 	cls_SMDS_VolumeOfFaces.def(py::init<const SMDS_MeshFace *, const SMDS_MeshFace *, const SMDS_MeshFace *, const SMDS_MeshFace *, const SMDS_MeshFace *, const SMDS_MeshFace *>(), py::arg("face1"), py::arg("face2"), py::arg("face3"), py::arg("face4"), py::arg("face5"), py::arg("face6"));

@@ -151,7 +151,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	};
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Hypothesis.hxx
-	py::class_<SMESH_Hypothesis, std::unique_ptr<SMESH_Hypothesis, Deleter<SMESH_Hypothesis>>, PyCallback_SMESH_Hypothesis, SMESHDS_Hypothesis> cls_SMESH_Hypothesis(mod, "SMESH_Hypothesis", "None");
+	py::class_<SMESH_Hypothesis, std::unique_ptr<SMESH_Hypothesis, py::nodelete>, PyCallback_SMESH_Hypothesis, SMESHDS_Hypothesis> cls_SMESH_Hypothesis(mod, "SMESH_Hypothesis", "None");
 	cls_SMESH_Hypothesis.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_SMESH_Hypothesis.def_static("IsStatusFatal_", (bool (*)(SMESH_Hypothesis::Hypothesis_Status)) &SMESH_Hypothesis::IsStatusFatal, "None", py::arg("theStatus"));
 	cls_SMESH_Hypothesis.def("GetDim", (int (SMESH_Hypothesis::*)() const ) &SMESH_Hypothesis::GetDim, "None");
@@ -228,7 +228,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_File.def("writeRaw", (bool (SMESH_File::*)(const void *, size_t)) &SMESH_File::writeRaw, "None", py::arg("data"), py::arg("size"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Gen.hxx
-	py::class_<SMESH_Gen, std::unique_ptr<SMESH_Gen, Deleter<SMESH_Gen>>> cls_SMESH_Gen(mod, "SMESH_Gen", "None");
+	py::class_<SMESH_Gen, std::unique_ptr<SMESH_Gen, py::nodelete>> cls_SMESH_Gen(mod, "SMESH_Gen", "None");
 	cls_SMESH_Gen.def(py::init<>());
 	cls_SMESH_Gen.def("CreateMesh", (SMESH_Mesh * (SMESH_Gen::*)(int, bool)) &SMESH_Gen::CreateMesh, "None", py::arg("theStudyId"), py::arg("theIsEmbeddedMode"));
 	cls_SMESH_Gen.def("Compute", [](SMESH_Gen &self, ::SMESH_Mesh & a0, const TopoDS_Shape & a1) -> bool { return self.Compute(a0, a1); }, py::arg("aMesh"), py::arg("aShape"));
@@ -266,7 +266,7 @@ PYBIND11_MODULE(SMESH, mod) {
 		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Mesh.hxx
-	py::class_<SMESH_Mesh, std::unique_ptr<SMESH_Mesh, Deleter<SMESH_Mesh>>> cls_SMESH_Mesh(mod, "SMESH_Mesh", "None");
+	py::class_<SMESH_Mesh, std::unique_ptr<SMESH_Mesh, py::nodelete>> cls_SMESH_Mesh(mod, "SMESH_Mesh", "None");
 	cls_SMESH_Mesh.def(py::init<int, int, SMESH_Gen *, bool, SMESHDS_Document *>(), py::arg("theLocalId"), py::arg("theStudyId"), py::arg("theGen"), py::arg("theIsEmbeddedMode"), py::arg("theDocument"));
 	cls_SMESH_Mesh.def("ShapeToMesh", (void (SMESH_Mesh::*)(const TopoDS_Shape &)) &SMESH_Mesh::ShapeToMesh, "Set geometry to be meshed", py::arg("aShape"));
 	cls_SMESH_Mesh.def("GetShapeToMesh", (TopoDS_Shape (SMESH_Mesh::*)() const ) &SMESH_Mesh::GetShapeToMesh, "Return geometry to be meshed. (It may be a PseudoShape()!)");
@@ -404,7 +404,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	};
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Algo.hxx
-	py::class_<SMESH_Algo, std::unique_ptr<SMESH_Algo, Deleter<SMESH_Algo>>, PyCallback_SMESH_Algo, SMESH_Hypothesis> cls_SMESH_Algo(mod, "SMESH_Algo", "Root of all algorithms");
+	py::class_<SMESH_Algo, std::unique_ptr<SMESH_Algo, py::nodelete>, PyCallback_SMESH_Algo, SMESH_Hypothesis> cls_SMESH_Algo(mod, "SMESH_Algo", "Root of all algorithms");
 	cls_SMESH_Algo.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_SMESH_Algo.def_static("GetFeatures_", (const SMESH_Algo::Features & (*)(const std::string &)) &SMESH_Algo::GetFeatures, "Returns a structure describing algorithm features", py::arg("algoType"));
 	cls_SMESH_Algo.def("GetFeatures", (const SMESH_Algo::Features & (SMESH_Algo::*)() const ) &SMESH_Algo::GetFeatures, "None");
@@ -668,7 +668,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_HypoPredicate.def("IsOk", (bool (SMESH_HypoPredicate::*)(const SMESH_Hypothesis *, const TopoDS_Shape &) const ) &SMESH_HypoPredicate::IsOk, "None", py::arg("aHyp"), py::arg("aShape"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_subMesh.hxx
-	py::class_<SMESH_subMesh, std::unique_ptr<SMESH_subMesh, Deleter<SMESH_subMesh>>> cls_SMESH_subMesh(mod, "SMESH_subMesh", "None");
+	py::class_<SMESH_subMesh, std::unique_ptr<SMESH_subMesh, py::nodelete>> cls_SMESH_subMesh(mod, "SMESH_subMesh", "None");
 	cls_SMESH_subMesh.def(py::init<int, SMESH_Mesh *, SMESHDS_Mesh *, const TopoDS_Shape &>(), py::arg("Id"), py::arg("father"), py::arg("meshDS"), py::arg("aSubShape"));
 	cls_SMESH_subMesh.def("GetId", (int (SMESH_subMesh::*)() const ) &SMESH_subMesh::GetId, "None");
 	cls_SMESH_subMesh.def("GetFather", (SMESH_Mesh * (SMESH_subMesh::*)()) &SMESH_subMesh::GetFather, "None");
@@ -771,7 +771,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	};
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Algo.hxx
-	py::class_<SMESH_0D_Algo, std::unique_ptr<SMESH_0D_Algo, Deleter<SMESH_0D_Algo>>, PyCallback_SMESH_0D_Algo, SMESH_Algo> cls_SMESH_0D_Algo(mod, "SMESH_0D_Algo", "None");
+	py::class_<SMESH_0D_Algo, std::unique_ptr<SMESH_0D_Algo, py::nodelete>, PyCallback_SMESH_0D_Algo, SMESH_Algo> cls_SMESH_0D_Algo(mod, "SMESH_0D_Algo", "None");
 	cls_SMESH_0D_Algo.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 
 	// Callback for SMESH_1D_Algo.
@@ -785,7 +785,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	};
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Algo.hxx
-	py::class_<SMESH_1D_Algo, std::unique_ptr<SMESH_1D_Algo, Deleter<SMESH_1D_Algo>>, PyCallback_SMESH_1D_Algo, SMESH_Algo> cls_SMESH_1D_Algo(mod, "SMESH_1D_Algo", "None");
+	py::class_<SMESH_1D_Algo, std::unique_ptr<SMESH_1D_Algo, py::nodelete>, PyCallback_SMESH_1D_Algo, SMESH_Algo> cls_SMESH_1D_Algo(mod, "SMESH_1D_Algo", "None");
 	cls_SMESH_1D_Algo.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 
 	// Callback for SMESH_2D_Algo.
@@ -799,7 +799,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	};
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Algo.hxx
-	py::class_<SMESH_2D_Algo, std::unique_ptr<SMESH_2D_Algo, Deleter<SMESH_2D_Algo>>, PyCallback_SMESH_2D_Algo, SMESH_Algo> cls_SMESH_2D_Algo(mod, "SMESH_2D_Algo", "None");
+	py::class_<SMESH_2D_Algo, std::unique_ptr<SMESH_2D_Algo, py::nodelete>, PyCallback_SMESH_2D_Algo, SMESH_Algo> cls_SMESH_2D_Algo(mod, "SMESH_2D_Algo", "None");
 	cls_SMESH_2D_Algo.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_SMESH_2D_Algo.def("FixInternalNodes", (bool (SMESH_2D_Algo::*)(const SMESH_ProxyMesh &, const TopoDS_Face &)) &SMESH_2D_Algo::FixInternalNodes, "Method in which an algorithm generating a structured mesh fixes positions of in-face nodes after there movement due to insertion of viscous layers.", py::arg("mesh"), py::arg("face"));
 
@@ -814,11 +814,11 @@ PYBIND11_MODULE(SMESH, mod) {
 	};
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Algo.hxx
-	py::class_<SMESH_3D_Algo, std::unique_ptr<SMESH_3D_Algo, Deleter<SMESH_3D_Algo>>, PyCallback_SMESH_3D_Algo, SMESH_Algo> cls_SMESH_3D_Algo(mod, "SMESH_3D_Algo", "None");
+	py::class_<SMESH_3D_Algo, std::unique_ptr<SMESH_3D_Algo, py::nodelete>, PyCallback_SMESH_3D_Algo, SMESH_Algo> cls_SMESH_3D_Algo(mod, "SMESH_3D_Algo", "None");
 	cls_SMESH_3D_Algo.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Group.hxx
-	py::class_<SMESH_Group, std::unique_ptr<SMESH_Group, Deleter<SMESH_Group>>> cls_SMESH_Group(mod, "SMESH_Group", "None");
+	py::class_<SMESH_Group, std::unique_ptr<SMESH_Group, py::nodelete>> cls_SMESH_Group(mod, "SMESH_Group", "None");
 	cls_SMESH_Group.def(py::init<int, const SMESH_Mesh *, const SMDSAbs_ElementType, const char *>(), py::arg("theID"), py::arg("theMesh"), py::arg("theType"), py::arg("theName"));
 	cls_SMESH_Group.def(py::init<int, const SMESH_Mesh *, const SMDSAbs_ElementType, const char *, const TopoDS_Shape &>(), py::arg("theID"), py::arg("theMesh"), py::arg("theType"), py::arg("theName"), py::arg("theShape"));
 	cls_SMESH_Group.def(py::init<int, const SMESH_Mesh *, const SMDSAbs_ElementType, const char *, const TopoDS_Shape &, const SMESH_PredicatePtr &>(), py::arg("theID"), py::arg("theMesh"), py::arg("theType"), py::arg("theName"), py::arg("theShape"), py::arg("thePredicate"));

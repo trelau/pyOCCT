@@ -46,7 +46,7 @@ PYBIND11_MODULE(NETGENPlugin, mod) {
 
 	// CLASSES
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\NETGENPlugin_Hypothesis.hxx
-	py::class_<NETGENPlugin_Hypothesis, std::unique_ptr<NETGENPlugin_Hypothesis, Deleter<NETGENPlugin_Hypothesis>>, SMESH_Hypothesis> cls_NETGENPlugin_Hypothesis(mod, "NETGENPlugin_Hypothesis", "None");
+	py::class_<NETGENPlugin_Hypothesis, std::unique_ptr<NETGENPlugin_Hypothesis, py::nodelete>, SMESH_Hypothesis> cls_NETGENPlugin_Hypothesis(mod, "NETGENPlugin_Hypothesis", "None");
 	cls_NETGENPlugin_Hypothesis.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_NETGENPlugin_Hypothesis.def("SetMaxSize", (void (NETGENPlugin_Hypothesis::*)(double)) &NETGENPlugin_Hypothesis::SetMaxSize, "None", py::arg("theSize"));
 	cls_NETGENPlugin_Hypothesis.def("GetMaxSize", (double (NETGENPlugin_Hypothesis::*)() const ) &NETGENPlugin_Hypothesis::GetMaxSize, "None");
@@ -103,11 +103,11 @@ PYBIND11_MODULE(NETGENPlugin, mod) {
 		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\NETGENPlugin_Hypothesis_2D.hxx
-	py::class_<NETGENPlugin_Hypothesis_2D, std::unique_ptr<NETGENPlugin_Hypothesis_2D, Deleter<NETGENPlugin_Hypothesis_2D>>, NETGENPlugin_Hypothesis> cls_NETGENPlugin_Hypothesis_2D(mod, "NETGENPlugin_Hypothesis_2D", "None");
+	py::class_<NETGENPlugin_Hypothesis_2D, std::unique_ptr<NETGENPlugin_Hypothesis_2D, py::nodelete>, NETGENPlugin_Hypothesis> cls_NETGENPlugin_Hypothesis_2D(mod, "NETGENPlugin_Hypothesis_2D", "None");
 	cls_NETGENPlugin_Hypothesis_2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\NETGENPlugin_SimpleHypothesis_2D.hxx
-	py::class_<NETGENPlugin_SimpleHypothesis_2D, std::unique_ptr<NETGENPlugin_SimpleHypothesis_2D, Deleter<NETGENPlugin_SimpleHypothesis_2D>>, SMESH_Hypothesis> cls_NETGENPlugin_SimpleHypothesis_2D(mod, "NETGENPlugin_SimpleHypothesis_2D", "None");
+	py::class_<NETGENPlugin_SimpleHypothesis_2D, std::unique_ptr<NETGENPlugin_SimpleHypothesis_2D, py::nodelete>, SMESH_Hypothesis> cls_NETGENPlugin_SimpleHypothesis_2D(mod, "NETGENPlugin_SimpleHypothesis_2D", "None");
 	cls_NETGENPlugin_SimpleHypothesis_2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_NETGENPlugin_SimpleHypothesis_2D.def("SetNumberOfSegments", (void (NETGENPlugin_SimpleHypothesis_2D::*)(int)) &NETGENPlugin_SimpleHypothesis_2D::SetNumberOfSegments, "Sets <number of segments> value", py::arg("nb"));
 	cls_NETGENPlugin_SimpleHypothesis_2D.def("GetNumberOfSegments", (int (NETGENPlugin_SimpleHypothesis_2D::*)() const ) &NETGENPlugin_SimpleHypothesis_2D::GetNumberOfSegments, "Returns <number of segments> value. Can be zero in case if LocalLength() has been set");
@@ -193,7 +193,7 @@ PYBIND11_MODULE(NETGENPlugin, mod) {
 	// FIXME cls_NETGENPlugin_Mesher.def_static("toPython_", (void (*)(const netgen::Mesh *)) &NETGENPlugin_Mesher::toPython, "None", py::arg("ngMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\NETGENPlugin_NETGEN_2D.hxx
-	py::class_<NETGENPlugin_NETGEN_2D, std::unique_ptr<NETGENPlugin_NETGEN_2D, Deleter<NETGENPlugin_NETGEN_2D>>, SMESH_2D_Algo> cls_NETGENPlugin_NETGEN_2D(mod, "NETGENPlugin_NETGEN_2D", "None");
+	py::class_<NETGENPlugin_NETGEN_2D, std::unique_ptr<NETGENPlugin_NETGEN_2D, py::nodelete>, SMESH_2D_Algo> cls_NETGENPlugin_NETGEN_2D(mod, "NETGENPlugin_NETGEN_2D", "None");
 	cls_NETGENPlugin_NETGEN_2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_NETGENPlugin_NETGEN_2D.def("CheckHypothesis", (bool (NETGENPlugin_NETGEN_2D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &NETGENPlugin_NETGEN_2D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_NETGENPlugin_NETGEN_2D.def("Compute", (bool (NETGENPlugin_NETGEN_2D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &NETGENPlugin_NETGEN_2D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -202,7 +202,7 @@ PYBIND11_MODULE(NETGENPlugin, mod) {
 	cls_NETGENPlugin_NETGEN_2D.def("Evaluate", (bool (NETGENPlugin_NETGEN_2D::*)(SMESH_Mesh &, const TopoDS_Shape &, MapShapeNbElems &)) &NETGENPlugin_NETGEN_2D::Evaluate, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aResMap"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\NETGENPlugin_NETGEN_2D3D.hxx
-	py::class_<NETGENPlugin_NETGEN_2D3D, std::unique_ptr<NETGENPlugin_NETGEN_2D3D, Deleter<NETGENPlugin_NETGEN_2D3D>>, SMESH_3D_Algo> cls_NETGENPlugin_NETGEN_2D3D(mod, "NETGENPlugin_NETGEN_2D3D", "None");
+	py::class_<NETGENPlugin_NETGEN_2D3D, std::unique_ptr<NETGENPlugin_NETGEN_2D3D, py::nodelete>, SMESH_3D_Algo> cls_NETGENPlugin_NETGEN_2D3D(mod, "NETGENPlugin_NETGEN_2D3D", "None");
 	cls_NETGENPlugin_NETGEN_2D3D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_NETGENPlugin_NETGEN_2D3D.def("CheckHypothesis", (bool (NETGENPlugin_NETGEN_2D3D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &NETGENPlugin_NETGEN_2D3D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_NETGENPlugin_NETGEN_2D3D.def("Compute", (bool (NETGENPlugin_NETGEN_2D3D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &NETGENPlugin_NETGEN_2D3D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -211,7 +211,7 @@ PYBIND11_MODULE(NETGENPlugin, mod) {
 	cls_NETGENPlugin_NETGEN_2D3D.def("Evaluate", (bool (NETGENPlugin_NETGEN_2D3D::*)(SMESH_Mesh &, const TopoDS_Shape &, MapShapeNbElems &)) &NETGENPlugin_NETGEN_2D3D::Evaluate, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aResMap"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\NETGENPlugin_NETGEN_2D_ONLY.hxx
-	py::class_<NETGENPlugin_NETGEN_2D_ONLY, std::unique_ptr<NETGENPlugin_NETGEN_2D_ONLY, Deleter<NETGENPlugin_NETGEN_2D_ONLY>>, SMESH_2D_Algo> cls_NETGENPlugin_NETGEN_2D_ONLY(mod, "NETGENPlugin_NETGEN_2D_ONLY", "Mesher generating 2D elements on a geometrical face taking into account pre-existing nodes on face boundaries");
+	py::class_<NETGENPlugin_NETGEN_2D_ONLY, std::unique_ptr<NETGENPlugin_NETGEN_2D_ONLY, py::nodelete>, SMESH_2D_Algo> cls_NETGENPlugin_NETGEN_2D_ONLY(mod, "NETGENPlugin_NETGEN_2D_ONLY", "Mesher generating 2D elements on a geometrical face taking into account pre-existing nodes on face boundaries");
 	cls_NETGENPlugin_NETGEN_2D_ONLY.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_NETGENPlugin_NETGEN_2D_ONLY.def("CheckHypothesis", (bool (NETGENPlugin_NETGEN_2D_ONLY::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &NETGENPlugin_NETGEN_2D_ONLY::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_NETGENPlugin_NETGEN_2D_ONLY.def("Compute", (bool (NETGENPlugin_NETGEN_2D_ONLY::*)(SMESH_Mesh &, const TopoDS_Shape &)) &NETGENPlugin_NETGEN_2D_ONLY::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -220,7 +220,7 @@ PYBIND11_MODULE(NETGENPlugin, mod) {
 	cls_NETGENPlugin_NETGEN_2D_ONLY.def("Evaluate", (bool (NETGENPlugin_NETGEN_2D_ONLY::*)(SMESH_Mesh &, const TopoDS_Shape &, MapShapeNbElems &)) &NETGENPlugin_NETGEN_2D_ONLY::Evaluate, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aResMap"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\NETGENPlugin_NETGEN_3D.hxx
-	py::class_<NETGENPlugin_NETGEN_3D, std::unique_ptr<NETGENPlugin_NETGEN_3D, Deleter<NETGENPlugin_NETGEN_3D>>, SMESH_3D_Algo> cls_NETGENPlugin_NETGEN_3D(mod, "NETGENPlugin_NETGEN_3D", "None");
+	py::class_<NETGENPlugin_NETGEN_3D, std::unique_ptr<NETGENPlugin_NETGEN_3D, py::nodelete>, SMESH_3D_Algo> cls_NETGENPlugin_NETGEN_3D(mod, "NETGENPlugin_NETGEN_3D", "None");
 	cls_NETGENPlugin_NETGEN_3D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_NETGENPlugin_NETGEN_3D.def("CheckHypothesis", (bool (NETGENPlugin_NETGEN_3D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &NETGENPlugin_NETGEN_3D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_NETGENPlugin_NETGEN_3D.def("Compute", (bool (NETGENPlugin_NETGEN_3D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &NETGENPlugin_NETGEN_3D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -230,7 +230,7 @@ PYBIND11_MODULE(NETGENPlugin, mod) {
 	cls_NETGENPlugin_NETGEN_3D.def("Evaluate", (bool (NETGENPlugin_NETGEN_3D::*)(SMESH_Mesh &, const TopoDS_Shape &, MapShapeNbElems &)) &NETGENPlugin_NETGEN_3D::Evaluate, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aResMap"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\NETGENPlugin_SimpleHypothesis_3D.hxx
-	py::class_<NETGENPlugin_SimpleHypothesis_3D, std::unique_ptr<NETGENPlugin_SimpleHypothesis_3D, Deleter<NETGENPlugin_SimpleHypothesis_3D>>, NETGENPlugin_SimpleHypothesis_2D> cls_NETGENPlugin_SimpleHypothesis_3D(mod, "NETGENPlugin_SimpleHypothesis_3D", "None");
+	py::class_<NETGENPlugin_SimpleHypothesis_3D, std::unique_ptr<NETGENPlugin_SimpleHypothesis_3D, py::nodelete>, NETGENPlugin_SimpleHypothesis_2D> cls_NETGENPlugin_SimpleHypothesis_3D(mod, "NETGENPlugin_SimpleHypothesis_3D", "None");
 	cls_NETGENPlugin_SimpleHypothesis_3D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_NETGENPlugin_SimpleHypothesis_3D.def("LengthFromFaces", (void (NETGENPlugin_SimpleHypothesis_3D::*)()) &NETGENPlugin_SimpleHypothesis_3D::LengthFromFaces, "None");
 	cls_NETGENPlugin_SimpleHypothesis_3D.def("SetMaxElementVolume", (void (NETGENPlugin_SimpleHypothesis_3D::*)(double)) &NETGENPlugin_SimpleHypothesis_3D::SetMaxElementVolume, "None", py::arg("value"));

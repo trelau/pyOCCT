@@ -236,7 +236,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_MaxElementArea.hxx
-	py::class_<StdMeshers_MaxElementArea, std::unique_ptr<StdMeshers_MaxElementArea, Deleter<StdMeshers_MaxElementArea>>, SMESH_Hypothesis> cls_StdMeshers_MaxElementArea(mod, "StdMeshers_MaxElementArea", "None");
+	py::class_<StdMeshers_MaxElementArea, std::unique_ptr<StdMeshers_MaxElementArea, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_MaxElementArea(mod, "StdMeshers_MaxElementArea", "None");
 	cls_StdMeshers_MaxElementArea.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_MaxElementArea.def("SetMaxArea", (void (StdMeshers_MaxElementArea::*)(double)) &StdMeshers_MaxElementArea::SetMaxArea, "None", py::arg("maxArea"));
 	cls_StdMeshers_MaxElementArea.def("GetMaxArea", (double (StdMeshers_MaxElementArea::*)() const ) &StdMeshers_MaxElementArea::GetMaxArea, "None");
@@ -247,7 +247,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_MaxElementArea.def("SetParametersByDefaults", (bool (StdMeshers_MaxElementArea::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_MaxElementArea::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_LengthFromEdges.hxx
-	py::class_<StdMeshers_LengthFromEdges, std::unique_ptr<StdMeshers_LengthFromEdges, Deleter<StdMeshers_LengthFromEdges>>, SMESH_Hypothesis> cls_StdMeshers_LengthFromEdges(mod, "StdMeshers_LengthFromEdges", "None");
+	py::class_<StdMeshers_LengthFromEdges, std::unique_ptr<StdMeshers_LengthFromEdges, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_LengthFromEdges(mod, "StdMeshers_LengthFromEdges", "None");
 	cls_StdMeshers_LengthFromEdges.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_LengthFromEdges.def("SetMode", (void (StdMeshers_LengthFromEdges::*)(int)) &StdMeshers_LengthFromEdges::SetMode, "None", py::arg("mode"));
 	cls_StdMeshers_LengthFromEdges.def("GetMode", (int (StdMeshers_LengthFromEdges::*)()) &StdMeshers_LengthFromEdges::GetMode, "None");
@@ -258,7 +258,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_LengthFromEdges.def("SetParametersByDefaults", (bool (StdMeshers_LengthFromEdges::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_LengthFromEdges::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_ViscousLayers.hxx
-	py::class_<StdMeshers_ViscousLayers, std::unique_ptr<StdMeshers_ViscousLayers, Deleter<StdMeshers_ViscousLayers>>, SMESH_Hypothesis> cls_StdMeshers_ViscousLayers(mod, "StdMeshers_ViscousLayers", "Hypothesis defining parameters of viscous layers");
+	py::class_<StdMeshers_ViscousLayers, std::unique_ptr<StdMeshers_ViscousLayers, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_ViscousLayers(mod, "StdMeshers_ViscousLayers", "Hypothesis defining parameters of viscous layers");
 	cls_StdMeshers_ViscousLayers.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_ViscousLayers.def("SetBndShapes", (void (StdMeshers_ViscousLayers::*)(const std::vector<int> &, bool)) &StdMeshers_ViscousLayers::SetBndShapes, "None", py::arg("shapeIds"), py::arg("toIgnore"));
 	cls_StdMeshers_ViscousLayers.def("GetBndShapes", (std::vector<int> (StdMeshers_ViscousLayers::*)() const ) &StdMeshers_ViscousLayers::GetBndShapes, "None");
@@ -289,7 +289,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_MaxElementVolume.hxx
-	py::class_<StdMeshers_MaxElementVolume, std::unique_ptr<StdMeshers_MaxElementVolume, Deleter<StdMeshers_MaxElementVolume>>, SMESH_Hypothesis> cls_StdMeshers_MaxElementVolume(mod, "StdMeshers_MaxElementVolume", "None");
+	py::class_<StdMeshers_MaxElementVolume, std::unique_ptr<StdMeshers_MaxElementVolume, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_MaxElementVolume(mod, "StdMeshers_MaxElementVolume", "None");
 	cls_StdMeshers_MaxElementVolume.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_MaxElementVolume.def("SetMaxVolume", (void (StdMeshers_MaxElementVolume::*)(double)) &StdMeshers_MaxElementVolume::SetMaxVolume, "None", py::arg("maxVolume"));
 	cls_StdMeshers_MaxElementVolume.def("GetMaxVolume", (double (StdMeshers_MaxElementVolume::*)() const ) &StdMeshers_MaxElementVolume::GetMaxVolume, "None");
@@ -300,7 +300,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_MaxElementVolume.def("SetParametersByDefaults", (bool (StdMeshers_MaxElementVolume::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_MaxElementVolume::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Adaptive1D.hxx
-	py::class_<StdMeshers_Adaptive1D, std::unique_ptr<StdMeshers_Adaptive1D, Deleter<StdMeshers_Adaptive1D>>, SMESH_Hypothesis> cls_StdMeshers_Adaptive1D(mod, "StdMeshers_Adaptive1D", "Adaptive 1D hypothesis");
+	py::class_<StdMeshers_Adaptive1D, std::unique_ptr<StdMeshers_Adaptive1D, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_Adaptive1D(mod, "StdMeshers_Adaptive1D", "Adaptive 1D hypothesis");
 	cls_StdMeshers_Adaptive1D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Adaptive1D.def("SetMinSize", (void (StdMeshers_Adaptive1D::*)(double)) &StdMeshers_Adaptive1D::SetMinSize, "Sets minimal allowed segment length", py::arg("minSegLen"));
 	cls_StdMeshers_Adaptive1D.def("GetMinSize", (double (StdMeshers_Adaptive1D::*)() const ) &StdMeshers_Adaptive1D::GetMinSize, "None");
@@ -316,7 +316,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_Adaptive1D.def("GetAlgo", (SMESH_Algo * (StdMeshers_Adaptive1D::*)() const ) &StdMeshers_Adaptive1D::GetAlgo, "Returns an algorithm that works using this hypothesis");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_FixedPoints1D.hxx
-	py::class_<StdMeshers_FixedPoints1D, std::unique_ptr<StdMeshers_FixedPoints1D, Deleter<StdMeshers_FixedPoints1D>>, SMESH_Hypothesis> cls_StdMeshers_FixedPoints1D(mod, "StdMeshers_FixedPoints1D", "None");
+	py::class_<StdMeshers_FixedPoints1D, std::unique_ptr<StdMeshers_FixedPoints1D, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_FixedPoints1D(mod, "StdMeshers_FixedPoints1D", "None");
 	cls_StdMeshers_FixedPoints1D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_FixedPoints1D.def("SetPoints", (void (StdMeshers_FixedPoints1D::*)(std::vector<double> &)) &StdMeshers_FixedPoints1D::SetPoints, "None", py::arg("listParams"));
 	cls_StdMeshers_FixedPoints1D.def("SetNbSegments", (void (StdMeshers_FixedPoints1D::*)(std::vector<int> &)) &StdMeshers_FixedPoints1D::SetNbSegments, "None", py::arg("listNbSeg"));
@@ -333,7 +333,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_FixedPoints1D.def("SetParametersByDefaults", (bool (StdMeshers_FixedPoints1D::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_FixedPoints1D::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_SegmentLengthAroundVertex.hxx
-	py::class_<StdMeshers_SegmentLengthAroundVertex, std::unique_ptr<StdMeshers_SegmentLengthAroundVertex, Deleter<StdMeshers_SegmentLengthAroundVertex>>, SMESH_Hypothesis> cls_StdMeshers_SegmentLengthAroundVertex(mod, "StdMeshers_SegmentLengthAroundVertex", "This hypothesis specifies length of segments adjacent to the vertex the hypothesis is assigned to");
+	py::class_<StdMeshers_SegmentLengthAroundVertex, std::unique_ptr<StdMeshers_SegmentLengthAroundVertex, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_SegmentLengthAroundVertex(mod, "StdMeshers_SegmentLengthAroundVertex", "This hypothesis specifies length of segments adjacent to the vertex the hypothesis is assigned to");
 	cls_StdMeshers_SegmentLengthAroundVertex.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_SegmentLengthAroundVertex.def("SetLength", (void (StdMeshers_SegmentLengthAroundVertex::*)(double)) &StdMeshers_SegmentLengthAroundVertex::SetLength, "None", py::arg("length"));
 	cls_StdMeshers_SegmentLengthAroundVertex.def("GetLength", (double (StdMeshers_SegmentLengthAroundVertex::*)() const ) &StdMeshers_SegmentLengthAroundVertex::GetLength, "None");
@@ -344,7 +344,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_SegmentLengthAroundVertex.def("SetParametersByDefaults", (bool (StdMeshers_SegmentLengthAroundVertex::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_SegmentLengthAroundVertex::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Regular_1D.hxx
-	py::class_<StdMeshers_Regular_1D, std::unique_ptr<StdMeshers_Regular_1D, Deleter<StdMeshers_Regular_1D>>, SMESH_1D_Algo> cls_StdMeshers_Regular_1D(mod, "StdMeshers_Regular_1D", "None");
+	py::class_<StdMeshers_Regular_1D, std::unique_ptr<StdMeshers_Regular_1D, py::nodelete>, SMESH_1D_Algo> cls_StdMeshers_Regular_1D(mod, "StdMeshers_Regular_1D", "None");
 	cls_StdMeshers_Regular_1D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Regular_1D.def("CheckHypothesis", (bool (StdMeshers_Regular_1D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_Regular_1D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_Regular_1D.def("Compute", (bool (StdMeshers_Regular_1D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_Regular_1D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -356,7 +356,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_Regular_1D.def("SubmeshRestored", (void (StdMeshers_Regular_1D::*)(SMESH_subMesh *)) &StdMeshers_Regular_1D::SubmeshRestored, "Allow algo to do something after persistent restoration", py::arg("subMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Arithmetic1D.hxx
-	py::class_<StdMeshers_Arithmetic1D, std::unique_ptr<StdMeshers_Arithmetic1D, Deleter<StdMeshers_Arithmetic1D>>, SMESH_Hypothesis> cls_StdMeshers_Arithmetic1D(mod, "StdMeshers_Arithmetic1D", "None");
+	py::class_<StdMeshers_Arithmetic1D, std::unique_ptr<StdMeshers_Arithmetic1D, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_Arithmetic1D(mod, "StdMeshers_Arithmetic1D", "None");
 	cls_StdMeshers_Arithmetic1D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Arithmetic1D.def("SetLength", (void (StdMeshers_Arithmetic1D::*)(double, bool)) &StdMeshers_Arithmetic1D::SetLength, "None", py::arg("length"), py::arg("isStartLength"));
 	cls_StdMeshers_Arithmetic1D.def("GetLength", (double (StdMeshers_Arithmetic1D::*)(bool) const ) &StdMeshers_Arithmetic1D::GetLength, "None", py::arg("isStartLength"));
@@ -371,7 +371,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_Arithmetic1D.def("SetParametersByDefaults", (bool (StdMeshers_Arithmetic1D::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_Arithmetic1D::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_AutomaticLength.hxx
-	py::class_<StdMeshers_AutomaticLength, std::unique_ptr<StdMeshers_AutomaticLength, Deleter<StdMeshers_AutomaticLength>>, SMESH_Hypothesis> cls_StdMeshers_AutomaticLength(mod, "StdMeshers_AutomaticLength", "1D Hypothesis to compute segment length free of thinking");
+	py::class_<StdMeshers_AutomaticLength, std::unique_ptr<StdMeshers_AutomaticLength, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_AutomaticLength(mod, "StdMeshers_AutomaticLength", "1D Hypothesis to compute segment length free of thinking");
 	cls_StdMeshers_AutomaticLength.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_AutomaticLength.def("GetLength", (double (StdMeshers_AutomaticLength::*)(const SMESH_Mesh *, const TopoDS_Shape &)) &StdMeshers_AutomaticLength::GetLength, "Computes segment for a given edge", py::arg("aMesh"), py::arg("anEdge"));
 	cls_StdMeshers_AutomaticLength.def("GetLength", (double (StdMeshers_AutomaticLength::*)(const SMESH_Mesh *, const double)) &StdMeshers_AutomaticLength::GetLength, "Computes segment length for an edge of given length", py::arg("aMesh"), py::arg("edgeLength"));
@@ -384,7 +384,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_AutomaticLength.def("SetParametersByDefaults", (bool (StdMeshers_AutomaticLength::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_AutomaticLength::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_CartesianParameters3D.hxx
-	py::class_<StdMeshers_CartesianParameters3D, std::unique_ptr<StdMeshers_CartesianParameters3D, Deleter<StdMeshers_CartesianParameters3D>>, SMESH_Hypothesis> cls_StdMeshers_CartesianParameters3D(mod, "StdMeshers_CartesianParameters3D", "This hypothesis specifies - Definition of the Cartesian grid - Size threshold");
+	py::class_<StdMeshers_CartesianParameters3D, std::unique_ptr<StdMeshers_CartesianParameters3D, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_CartesianParameters3D(mod, "StdMeshers_CartesianParameters3D", "This hypothesis specifies - Definition of the Cartesian grid - Size threshold");
 	cls_StdMeshers_CartesianParameters3D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_CartesianParameters3D.def("SetGrid", (void (StdMeshers_CartesianParameters3D::*)(std::vector<double> &, int)) &StdMeshers_CartesianParameters3D::SetGrid, "Sets coordinates of node positions along an axis (countered from 0)", py::arg("xNodes"), py::arg("axis"));
 	cls_StdMeshers_CartesianParameters3D.def("GetGrid", (void (StdMeshers_CartesianParameters3D::*)(std::vector<double> &, int) const ) &StdMeshers_CartesianParameters3D::GetGrid, "Return coordinates of node positions along the three axes", py::arg("xNodes"), py::arg("axis"));
@@ -411,7 +411,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_CartesianParameters3D.def("SetParametersByDefaults", (bool (StdMeshers_CartesianParameters3D::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_CartesianParameters3D::SetParametersByDefaults, "Initialize my parameter values by default parameters.", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Cartesian_3D.hxx
-	py::class_<StdMeshers_Cartesian_3D, std::unique_ptr<StdMeshers_Cartesian_3D, Deleter<StdMeshers_Cartesian_3D>>, SMESH_3D_Algo> cls_StdMeshers_Cartesian_3D(mod, "StdMeshers_Cartesian_3D", "None");
+	py::class_<StdMeshers_Cartesian_3D, std::unique_ptr<StdMeshers_Cartesian_3D, py::nodelete>, SMESH_3D_Algo> cls_StdMeshers_Cartesian_3D(mod, "StdMeshers_Cartesian_3D", "None");
 	cls_StdMeshers_Cartesian_3D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Cartesian_3D.def("CheckHypothesis", (bool (StdMeshers_Cartesian_3D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_Cartesian_3D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_Cartesian_3D.def("Compute", (bool (StdMeshers_Cartesian_3D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_Cartesian_3D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -425,14 +425,14 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	*/
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_CompositeHexa_3D.hxx
-	py::class_<StdMeshers_CompositeHexa_3D, std::unique_ptr<StdMeshers_CompositeHexa_3D, Deleter<StdMeshers_CompositeHexa_3D>>, SMESH_3D_Algo> cls_StdMeshers_CompositeHexa_3D(mod, "StdMeshers_CompositeHexa_3D", "Computes hexahedral mesh on a box with composite sides");
+	py::class_<StdMeshers_CompositeHexa_3D, std::unique_ptr<StdMeshers_CompositeHexa_3D, py::nodelete>, SMESH_3D_Algo> cls_StdMeshers_CompositeHexa_3D(mod, "StdMeshers_CompositeHexa_3D", "Computes hexahedral mesh on a box with composite sides");
 	cls_StdMeshers_CompositeHexa_3D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_CompositeHexa_3D.def("Compute", (bool (StdMeshers_CompositeHexa_3D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_CompositeHexa_3D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
 	cls_StdMeshers_CompositeHexa_3D.def("Evaluate", (bool (StdMeshers_CompositeHexa_3D::*)(SMESH_Mesh &, const TopoDS_Shape &, MapShapeNbElems &)) &StdMeshers_CompositeHexa_3D::Evaluate, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aResMap"));
 	cls_StdMeshers_CompositeHexa_3D.def("CheckHypothesis", (bool (StdMeshers_CompositeHexa_3D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_CompositeHexa_3D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Deflection1D.hxx
-	py::class_<StdMeshers_Deflection1D, std::unique_ptr<StdMeshers_Deflection1D, Deleter<StdMeshers_Deflection1D>>, SMESH_Hypothesis> cls_StdMeshers_Deflection1D(mod, "StdMeshers_Deflection1D", "None");
+	py::class_<StdMeshers_Deflection1D, std::unique_ptr<StdMeshers_Deflection1D, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_Deflection1D(mod, "StdMeshers_Deflection1D", "None");
 	cls_StdMeshers_Deflection1D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Deflection1D.def("SetDeflection", (void (StdMeshers_Deflection1D::*)(double)) &StdMeshers_Deflection1D::SetDeflection, "None", py::arg("value"));
 	cls_StdMeshers_Deflection1D.def("GetDeflection", (double (StdMeshers_Deflection1D::*)() const ) &StdMeshers_Deflection1D::GetDeflection, "None");
@@ -452,7 +452,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	};
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Reversible1D.hxx
-	py::class_<StdMeshers_Reversible1D, std::unique_ptr<StdMeshers_Reversible1D, Deleter<StdMeshers_Reversible1D>>, PyCallback_StdMeshers_Reversible1D, SMESH_Hypothesis> cls_StdMeshers_Reversible1D(mod, "StdMeshers_Reversible1D", "A base of reversible 1D hypotheses");
+	py::class_<StdMeshers_Reversible1D, std::unique_ptr<StdMeshers_Reversible1D, py::nodelete>, PyCallback_StdMeshers_Reversible1D, SMESH_Hypothesis> cls_StdMeshers_Reversible1D(mod, "StdMeshers_Reversible1D", "A base of reversible 1D hypotheses");
 	cls_StdMeshers_Reversible1D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Reversible1D.def("SetReversedEdges", (void (StdMeshers_Reversible1D::*)(const std::vector<int> &)) &StdMeshers_Reversible1D::SetReversedEdges, "None", py::arg("ids"));
 	cls_StdMeshers_Reversible1D.def("SetObjectEntry", (void (StdMeshers_Reversible1D::*)(const char *)) &StdMeshers_Reversible1D::SetObjectEntry, "None", py::arg("entry"));
@@ -462,7 +462,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_Reversible1D.def("LoadFrom", (std::istream & (StdMeshers_Reversible1D::*)(std::istream &)) &StdMeshers_Reversible1D::LoadFrom, "None", py::arg("load"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Geometric1D.hxx
-	py::class_<StdMeshers_Geometric1D, std::unique_ptr<StdMeshers_Geometric1D, Deleter<StdMeshers_Geometric1D>>, StdMeshers_Reversible1D> cls_StdMeshers_Geometric1D(mod, "StdMeshers_Geometric1D", "None");
+	py::class_<StdMeshers_Geometric1D, std::unique_ptr<StdMeshers_Geometric1D, py::nodelete>, StdMeshers_Reversible1D> cls_StdMeshers_Geometric1D(mod, "StdMeshers_Geometric1D", "None");
 	cls_StdMeshers_Geometric1D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Geometric1D.def("SetStartLength", (void (StdMeshers_Geometric1D::*)(double)) &StdMeshers_Geometric1D::SetStartLength, "None", py::arg("length"));
 	cls_StdMeshers_Geometric1D.def("SetCommonRatio", (void (StdMeshers_Geometric1D::*)(double)) &StdMeshers_Geometric1D::SetCommonRatio, "None", py::arg("factor"));
@@ -475,7 +475,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_Geometric1D.def("SetParametersByDefaults", (bool (StdMeshers_Geometric1D::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_Geometric1D::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_HexaFromSkin_3D.hxx
-	py::class_<StdMeshers_HexaFromSkin_3D, std::unique_ptr<StdMeshers_HexaFromSkin_3D, Deleter<StdMeshers_HexaFromSkin_3D>>, SMESH_3D_Algo> cls_StdMeshers_HexaFromSkin_3D(mod, "StdMeshers_HexaFromSkin_3D", "Alorithm generating hexahedral mesh from 2D skin of block");
+	py::class_<StdMeshers_HexaFromSkin_3D, std::unique_ptr<StdMeshers_HexaFromSkin_3D, py::nodelete>, SMESH_3D_Algo> cls_StdMeshers_HexaFromSkin_3D(mod, "StdMeshers_HexaFromSkin_3D", "Alorithm generating hexahedral mesh from 2D skin of block");
 	cls_StdMeshers_HexaFromSkin_3D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_HexaFromSkin_3D.def("Compute", (bool (StdMeshers_HexaFromSkin_3D::*)(SMESH_Mesh &, SMESH_MesherHelper *)) &StdMeshers_HexaFromSkin_3D::Compute, "None", py::arg("aMesh"), py::arg("aHelper"));
 	cls_StdMeshers_HexaFromSkin_3D.def("CheckHypothesis", (bool (StdMeshers_HexaFromSkin_3D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_HexaFromSkin_3D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
@@ -483,7 +483,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_HexaFromSkin_3D.def("Evaluate", (bool (StdMeshers_HexaFromSkin_3D::*)(SMESH_Mesh &, const TopoDS_Shape &, MapShapeNbElems &)) &StdMeshers_HexaFromSkin_3D::Evaluate, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aResMap"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Hexa_3D.hxx
-	py::class_<StdMeshers_Hexa_3D, std::unique_ptr<StdMeshers_Hexa_3D, Deleter<StdMeshers_Hexa_3D>>, SMESH_3D_Algo> cls_StdMeshers_Hexa_3D(mod, "StdMeshers_Hexa_3D", "None");
+	py::class_<StdMeshers_Hexa_3D, std::unique_ptr<StdMeshers_Hexa_3D, py::nodelete>, SMESH_3D_Algo> cls_StdMeshers_Hexa_3D(mod, "StdMeshers_Hexa_3D", "None");
 	cls_StdMeshers_Hexa_3D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Hexa_3D.def("CheckHypothesis", (bool (StdMeshers_Hexa_3D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_Hexa_3D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_Hexa_3D.def("Compute", (bool (StdMeshers_Hexa_3D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_Hexa_3D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -492,7 +492,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_Hexa_3D.def_static("IsApplicable_", (bool (*)(const TopoDS_Shape &, bool)) &StdMeshers_Hexa_3D::IsApplicable, "None", py::arg("aShape"), py::arg("toCheckAll"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_ImportSource.hxx
-	py::class_<StdMeshers_ImportSource1D, std::unique_ptr<StdMeshers_ImportSource1D, Deleter<StdMeshers_ImportSource1D>>, SMESH_Hypothesis> cls_StdMeshers_ImportSource1D(mod, "StdMeshers_ImportSource1D", "Stores groups to import elements from");
+	py::class_<StdMeshers_ImportSource1D, std::unique_ptr<StdMeshers_ImportSource1D, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_ImportSource1D(mod, "StdMeshers_ImportSource1D", "Stores groups to import elements from");
 	cls_StdMeshers_ImportSource1D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_ImportSource1D.def("SetGroups", (void (StdMeshers_ImportSource1D::*)(const std::vector<SMESH_Group *> &)) &StdMeshers_ImportSource1D::SetGroups, "None", py::arg("groups"));
 	cls_StdMeshers_ImportSource1D.def("GetGroups", [](StdMeshers_ImportSource1D &self) -> const std::vector<SMESH_Group *> & { return self.GetGroups(); });
@@ -512,11 +512,11 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_ImportSource1D.def("GetSourceSubMeshes", (std::vector<SMESH_subMesh *> (StdMeshers_ImportSource1D::*)(const SMESH_Mesh *) const ) &StdMeshers_ImportSource1D::GetSourceSubMeshes, "None", py::arg("srcMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_ImportSource.hxx
-	py::class_<StdMeshers_ImportSource2D, std::unique_ptr<StdMeshers_ImportSource2D, Deleter<StdMeshers_ImportSource2D>>, StdMeshers_ImportSource1D> cls_StdMeshers_ImportSource2D(mod, "StdMeshers_ImportSource2D", "Redefines name and dimension of inherited StdMeshers_ImportSource1D");
+	py::class_<StdMeshers_ImportSource2D, std::unique_ptr<StdMeshers_ImportSource2D, py::nodelete>, StdMeshers_ImportSource1D> cls_StdMeshers_ImportSource2D(mod, "StdMeshers_ImportSource2D", "Redefines name and dimension of inherited StdMeshers_ImportSource1D");
 	cls_StdMeshers_ImportSource2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Import_1D.hxx
-	py::class_<StdMeshers_Import_1D, std::unique_ptr<StdMeshers_Import_1D, Deleter<StdMeshers_Import_1D>>, SMESH_1D_Algo> cls_StdMeshers_Import_1D(mod, "StdMeshers_Import_1D", "Copy elements from other the mesh");
+	py::class_<StdMeshers_Import_1D, std::unique_ptr<StdMeshers_Import_1D, py::nodelete>, SMESH_1D_Algo> cls_StdMeshers_Import_1D(mod, "StdMeshers_Import_1D", "Copy elements from other the mesh");
 	cls_StdMeshers_Import_1D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Import_1D.def("CheckHypothesis", (bool (StdMeshers_Import_1D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_Import_1D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_Import_1D.def("Compute", (bool (StdMeshers_Import_1D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_Import_1D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -529,7 +529,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_Import_1D.def_static("getSubMeshOfCopiedMesh_", (SMESH_subMesh * (*)(SMESH_Mesh &, SMESH_Mesh &)) &StdMeshers_Import_1D::getSubMeshOfCopiedMesh, "None", py::arg("tgtMesh"), py::arg("srcMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Import_1D2D.hxx
-	py::class_<StdMeshers_Import_1D2D, std::unique_ptr<StdMeshers_Import_1D2D, Deleter<StdMeshers_Import_1D2D>>, SMESH_2D_Algo> cls_StdMeshers_Import_1D2D(mod, "StdMeshers_Import_1D2D", "Copy elements from other the mesh");
+	py::class_<StdMeshers_Import_1D2D, std::unique_ptr<StdMeshers_Import_1D2D, py::nodelete>, SMESH_2D_Algo> cls_StdMeshers_Import_1D2D(mod, "StdMeshers_Import_1D2D", "Copy elements from other the mesh");
 	cls_StdMeshers_Import_1D2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Import_1D2D.def("CheckHypothesis", (bool (StdMeshers_Import_1D2D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_Import_1D2D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_Import_1D2D.def("Compute", (bool (StdMeshers_Import_1D2D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_Import_1D2D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -538,7 +538,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_Import_1D2D.def("SubmeshRestored", (void (StdMeshers_Import_1D2D::*)(SMESH_subMesh *)) &StdMeshers_Import_1D2D::SubmeshRestored, "None", py::arg("subMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_LayerDistribution.hxx
-	py::class_<StdMeshers_LayerDistribution, std::unique_ptr<StdMeshers_LayerDistribution, Deleter<StdMeshers_LayerDistribution>>, SMESH_Hypothesis> cls_StdMeshers_LayerDistribution(mod, "StdMeshers_LayerDistribution", "This hypothesis is used by 'Radial prism' algorithm. It specifies 1D hypothesis defining distribution of segments between the internal and the external surfaces.");
+	py::class_<StdMeshers_LayerDistribution, std::unique_ptr<StdMeshers_LayerDistribution, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_LayerDistribution(mod, "StdMeshers_LayerDistribution", "This hypothesis is used by 'Radial prism' algorithm. It specifies 1D hypothesis defining distribution of segments between the internal and the external surfaces.");
 	cls_StdMeshers_LayerDistribution.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_LayerDistribution.def("SetLayerDistribution", (void (StdMeshers_LayerDistribution::*)(SMESH_Hypothesis *)) &StdMeshers_LayerDistribution::SetLayerDistribution, "Sets 1D hypothesis specifying distribution of layers", py::arg("hyp1D"));
 	cls_StdMeshers_LayerDistribution.def("GetLayerDistribution", (SMESH_Hypothesis * (StdMeshers_LayerDistribution::*)() const ) &StdMeshers_LayerDistribution::GetLayerDistribution, "Returns 1D hypothesis specifying distribution of layers SMESH::SMESH_Hypothesis_ptr - 1D hypothesis");
@@ -549,11 +549,11 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_LayerDistribution.def("SetParametersByDefaults", (bool (StdMeshers_LayerDistribution::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_LayerDistribution::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_LayerDistribution2D.hxx
-	py::class_<StdMeshers_LayerDistribution2D, std::unique_ptr<StdMeshers_LayerDistribution2D, Deleter<StdMeshers_LayerDistribution2D>>, StdMeshers_LayerDistribution> cls_StdMeshers_LayerDistribution2D(mod, "StdMeshers_LayerDistribution2D", "This hypothesis is used by 'Radial quadrangle' algorithm. It specifies 1D hypothesis defining distribution of segments between the internal and the external surfaces.");
+	py::class_<StdMeshers_LayerDistribution2D, std::unique_ptr<StdMeshers_LayerDistribution2D, py::nodelete>, StdMeshers_LayerDistribution> cls_StdMeshers_LayerDistribution2D(mod, "StdMeshers_LayerDistribution2D", "This hypothesis is used by 'Radial quadrangle' algorithm. It specifies 1D hypothesis defining distribution of segments between the internal and the external surfaces.");
 	cls_StdMeshers_LayerDistribution2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_LocalLength.hxx
-	py::class_<StdMeshers_LocalLength, std::unique_ptr<StdMeshers_LocalLength, Deleter<StdMeshers_LocalLength>>, SMESH_Hypothesis> cls_StdMeshers_LocalLength(mod, "StdMeshers_LocalLength", "None");
+	py::class_<StdMeshers_LocalLength, std::unique_ptr<StdMeshers_LocalLength, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_LocalLength(mod, "StdMeshers_LocalLength", "None");
 	cls_StdMeshers_LocalLength.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_LocalLength.def("SetLength", (void (StdMeshers_LocalLength::*)(double)) &StdMeshers_LocalLength::SetLength, "None", py::arg("length"));
 	cls_StdMeshers_LocalLength.def("SetPrecision", (void (StdMeshers_LocalLength::*)(double)) &StdMeshers_LocalLength::SetPrecision, "None", py::arg("precision"));
@@ -566,7 +566,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_LocalLength.def("SetParametersByDefaults", (bool (StdMeshers_LocalLength::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_LocalLength::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_MaxLength.hxx
-	py::class_<StdMeshers_MaxLength, std::unique_ptr<StdMeshers_MaxLength, Deleter<StdMeshers_MaxLength>>, SMESH_Hypothesis> cls_StdMeshers_MaxLength(mod, "StdMeshers_MaxLength", "None");
+	py::class_<StdMeshers_MaxLength, std::unique_ptr<StdMeshers_MaxLength, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_MaxLength(mod, "StdMeshers_MaxLength", "None");
 	cls_StdMeshers_MaxLength.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_MaxLength.def("SetLength", (void (StdMeshers_MaxLength::*)(double)) &StdMeshers_MaxLength::SetLength, "None", py::arg("length"));
 	cls_StdMeshers_MaxLength.def("GetLength", (double (StdMeshers_MaxLength::*)() const ) &StdMeshers_MaxLength::GetLength, "None");
@@ -582,7 +582,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_MaxLength.def("SetParametersByDefaults", (bool (StdMeshers_MaxLength::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_MaxLength::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_MEFISTO_2D.hxx
-	py::class_<StdMeshers_MEFISTO_2D, std::unique_ptr<StdMeshers_MEFISTO_2D, Deleter<StdMeshers_MEFISTO_2D>>, SMESH_2D_Algo> cls_StdMeshers_MEFISTO_2D(mod, "StdMeshers_MEFISTO_2D", "None");
+	py::class_<StdMeshers_MEFISTO_2D, std::unique_ptr<StdMeshers_MEFISTO_2D, py::nodelete>, SMESH_2D_Algo> cls_StdMeshers_MEFISTO_2D(mod, "StdMeshers_MEFISTO_2D", "None");
 	cls_StdMeshers_MEFISTO_2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_MEFISTO_2D.def("CheckHypothesis", (bool (StdMeshers_MEFISTO_2D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_MEFISTO_2D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_MEFISTO_2D.def("Compute", (bool (StdMeshers_MEFISTO_2D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_MEFISTO_2D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -592,7 +592,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_MEFISTO_2D.def("StoreResult", (void (StdMeshers_MEFISTO_2D::*)(Z, R2 *, Z, Z *, std::vector<const SMDS_MeshNode *> &, double, double)) &StdMeshers_MEFISTO_2D::StoreResult, "None", py::arg("nbst"), py::arg("uvst"), py::arg("nbt"), py::arg("nust"), py::arg("mefistoToDS"), py::arg("scalex"), py::arg("scaley"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_NotConformAllowed.hxx
-	py::class_<StdMeshers_NotConformAllowed, std::unique_ptr<StdMeshers_NotConformAllowed, Deleter<StdMeshers_NotConformAllowed>>, SMESH_Hypothesis> cls_StdMeshers_NotConformAllowed(mod, "StdMeshers_NotConformAllowed", "None");
+	py::class_<StdMeshers_NotConformAllowed, std::unique_ptr<StdMeshers_NotConformAllowed, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_NotConformAllowed(mod, "StdMeshers_NotConformAllowed", "None");
 	cls_StdMeshers_NotConformAllowed.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_NotConformAllowed.def("SaveTo", (std::ostream & (StdMeshers_NotConformAllowed::*)(std::ostream &)) &StdMeshers_NotConformAllowed::SaveTo, "None", py::arg("save"));
 	cls_StdMeshers_NotConformAllowed.def("LoadFrom", (std::istream & (StdMeshers_NotConformAllowed::*)(std::istream &)) &StdMeshers_NotConformAllowed::LoadFrom, "None", py::arg("load"));
@@ -601,7 +601,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_NotConformAllowed.def("SetParametersByDefaults", (bool (StdMeshers_NotConformAllowed::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_NotConformAllowed::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_NumberOfLayers.hxx
-	py::class_<StdMeshers_NumberOfLayers, std::unique_ptr<StdMeshers_NumberOfLayers, Deleter<StdMeshers_NumberOfLayers>>, SMESH_Hypothesis> cls_StdMeshers_NumberOfLayers(mod, "StdMeshers_NumberOfLayers", "This hypothesis is used by 'Radial prism' algorithm. It specifies number of segments between the internal and the external surfaces.");
+	py::class_<StdMeshers_NumberOfLayers, std::unique_ptr<StdMeshers_NumberOfLayers, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_NumberOfLayers(mod, "StdMeshers_NumberOfLayers", "This hypothesis is used by 'Radial prism' algorithm. It specifies number of segments between the internal and the external surfaces.");
 	cls_StdMeshers_NumberOfLayers.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_NumberOfLayers.def("SetNumberOfLayers", (void (StdMeshers_NumberOfLayers::*)(int)) &StdMeshers_NumberOfLayers::SetNumberOfLayers, "None", py::arg("numberOfLayers"));
 	cls_StdMeshers_NumberOfLayers.def("GetNumberOfLayers", (int (StdMeshers_NumberOfLayers::*)() const ) &StdMeshers_NumberOfLayers::GetNumberOfLayers, "None");
@@ -612,11 +612,11 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_NumberOfLayers.def("SetParametersByDefaults", (bool (StdMeshers_NumberOfLayers::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_NumberOfLayers::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_NumberOfLayers2D.hxx
-	py::class_<StdMeshers_NumberOfLayers2D, std::unique_ptr<StdMeshers_NumberOfLayers2D, Deleter<StdMeshers_NumberOfLayers2D>>, StdMeshers_NumberOfLayers> cls_StdMeshers_NumberOfLayers2D(mod, "StdMeshers_NumberOfLayers2D", "This hypothesis is used by 'Radial quadrangle' algorithm. It specifies number of segments between the internal and the external surfaces.");
+	py::class_<StdMeshers_NumberOfLayers2D, std::unique_ptr<StdMeshers_NumberOfLayers2D, py::nodelete>, StdMeshers_NumberOfLayers> cls_StdMeshers_NumberOfLayers2D(mod, "StdMeshers_NumberOfLayers2D", "This hypothesis is used by 'Radial quadrangle' algorithm. It specifies number of segments between the internal and the external surfaces.");
 	cls_StdMeshers_NumberOfLayers2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_NumberOfSegments.hxx
-	py::class_<StdMeshers_NumberOfSegments, std::unique_ptr<StdMeshers_NumberOfSegments, Deleter<StdMeshers_NumberOfSegments>>, SMESH_Hypothesis> cls_StdMeshers_NumberOfSegments(mod, "StdMeshers_NumberOfSegments", "This class represents hypothesis for 1d algorithm");
+	py::class_<StdMeshers_NumberOfSegments, std::unique_ptr<StdMeshers_NumberOfSegments, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_NumberOfSegments(mod, "StdMeshers_NumberOfSegments", "This class represents hypothesis for 1d algorithm");
 	cls_StdMeshers_NumberOfSegments.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_NumberOfSegments.def("BuildDistributionExpr", (const std::vector<double> & (StdMeshers_NumberOfSegments::*)(const char *, int, int)) &StdMeshers_NumberOfSegments::BuildDistributionExpr, "None", py::arg(""), py::arg(""), py::arg(""));
 	cls_StdMeshers_NumberOfSegments.def("BuildDistributionTab", (const std::vector<double> & (StdMeshers_NumberOfSegments::*)(const std::vector<double> &, int, int)) &StdMeshers_NumberOfSegments::BuildDistributionTab, "None", py::arg(""), py::arg(""), py::arg(""));
@@ -691,7 +691,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_Penta_3D.def("Evaluate", (bool (StdMeshers_Penta_3D::*)(SMESH_Mesh &, const TopoDS_Shape &, MapShapeNbElems &)) &StdMeshers_Penta_3D::Evaluate, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aResMap"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_PolygonPerFace_2D.hxx
-	py::class_<StdMeshers_PolygonPerFace_2D, std::unique_ptr<StdMeshers_PolygonPerFace_2D, Deleter<StdMeshers_PolygonPerFace_2D>>, SMESH_2D_Algo> cls_StdMeshers_PolygonPerFace_2D(mod, "StdMeshers_PolygonPerFace_2D", "None");
+	py::class_<StdMeshers_PolygonPerFace_2D, std::unique_ptr<StdMeshers_PolygonPerFace_2D, py::nodelete>, SMESH_2D_Algo> cls_StdMeshers_PolygonPerFace_2D(mod, "StdMeshers_PolygonPerFace_2D", "None");
 	cls_StdMeshers_PolygonPerFace_2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_PolygonPerFace_2D.def("CheckHypothesis", (bool (StdMeshers_PolygonPerFace_2D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_PolygonPerFace_2D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_PolygonPerFace_2D.def("Compute", (bool (StdMeshers_PolygonPerFace_2D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_PolygonPerFace_2D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -723,7 +723,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	// FIXME cls_StdMeshers_Sweeper.def("ComputeNodes", (bool (StdMeshers_Sweeper::*)(SMESH_MesherHelper &, const double, const bool)) &StdMeshers_Sweeper::ComputeNodes, "None", py::arg("helper"), py::arg("tol"), py::arg("allowHighBndError"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Prism_3D.hxx
-	py::class_<StdMeshers_Prism_3D, std::unique_ptr<StdMeshers_Prism_3D, Deleter<StdMeshers_Prism_3D>>, SMESH_3D_Algo> cls_StdMeshers_Prism_3D(mod, "StdMeshers_Prism_3D", "Algo building prisms on a prism shape");
+	py::class_<StdMeshers_Prism_3D, std::unique_ptr<StdMeshers_Prism_3D, py::nodelete>, SMESH_3D_Algo> cls_StdMeshers_Prism_3D(mod, "StdMeshers_Prism_3D", "Algo building prisms on a prism shape");
 	cls_StdMeshers_Prism_3D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Prism_3D.def("CheckHypothesis", (bool (StdMeshers_Prism_3D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_Prism_3D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_Prism_3D.def("Compute", (bool (StdMeshers_Prism_3D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_Prism_3D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -733,7 +733,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_Prism_3D.def_static("IsApplicable_", (bool (*)(const TopoDS_Shape &, bool)) &StdMeshers_Prism_3D::IsApplicable, "None", py::arg("aShape"), py::arg("toCheckAll"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_ProjectionSource1D.hxx
-	py::class_<StdMeshers_ProjectionSource1D, std::unique_ptr<StdMeshers_ProjectionSource1D, Deleter<StdMeshers_ProjectionSource1D>>, SMESH_Hypothesis> cls_StdMeshers_ProjectionSource1D(mod, "StdMeshers_ProjectionSource1D", "This hypothesis specifies a meshed edge to take a mesh pattern from and optionally association of vertices between the source edge and a target one (where a hipothesis is assigned to)");
+	py::class_<StdMeshers_ProjectionSource1D, std::unique_ptr<StdMeshers_ProjectionSource1D, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_ProjectionSource1D(mod, "StdMeshers_ProjectionSource1D", "This hypothesis specifies a meshed edge to take a mesh pattern from and optionally association of vertices between the source edge and a target one (where a hipothesis is assigned to)");
 	cls_StdMeshers_ProjectionSource1D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_ProjectionSource1D.def("SetSourceEdge", (void (StdMeshers_ProjectionSource1D::*)(const TopoDS_Shape &)) &StdMeshers_ProjectionSource1D::SetSourceEdge, "Sets source <edge> to take a mesh pattern from", py::arg("edge"));
 	cls_StdMeshers_ProjectionSource1D.def("GetSourceEdge", (TopoDS_Shape (StdMeshers_ProjectionSource1D::*)() const ) &StdMeshers_ProjectionSource1D::GetSourceEdge, "Returns the source edge or a group containing edges");
@@ -753,7 +753,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_ProjectionSource1D.def("SetParametersByDefaults", (bool (StdMeshers_ProjectionSource1D::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_ProjectionSource1D::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_ProjectionSource2D.hxx
-	py::class_<StdMeshers_ProjectionSource2D, std::unique_ptr<StdMeshers_ProjectionSource2D, Deleter<StdMeshers_ProjectionSource2D>>, SMESH_Hypothesis> cls_StdMeshers_ProjectionSource2D(mod, "StdMeshers_ProjectionSource2D", "This hypothesis specifies a meshed face to take a mesh pattern from and optionally association of vertices between the source face and a target one (where a hipothesis is assigned to)");
+	py::class_<StdMeshers_ProjectionSource2D, std::unique_ptr<StdMeshers_ProjectionSource2D, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_ProjectionSource2D(mod, "StdMeshers_ProjectionSource2D", "This hypothesis specifies a meshed face to take a mesh pattern from and optionally association of vertices between the source face and a target one (where a hipothesis is assigned to)");
 	cls_StdMeshers_ProjectionSource2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_ProjectionSource2D.def("SetSourceFace", (void (StdMeshers_ProjectionSource2D::*)(const TopoDS_Shape &)) &StdMeshers_ProjectionSource2D::SetSourceFace, "Sets a source <face> to take a mesh pattern from", py::arg("face"));
 	cls_StdMeshers_ProjectionSource2D.def("GetSourceFace", (TopoDS_Shape (StdMeshers_ProjectionSource2D::*)() const ) &StdMeshers_ProjectionSource2D::GetSourceFace, "Returns the source face or a group containing faces");
@@ -773,7 +773,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_ProjectionSource2D.def("SetParametersByDefaults", (bool (StdMeshers_ProjectionSource2D::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_ProjectionSource2D::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_ProjectionSource3D.hxx
-	py::class_<StdMeshers_ProjectionSource3D, std::unique_ptr<StdMeshers_ProjectionSource3D, Deleter<StdMeshers_ProjectionSource3D>>, SMESH_Hypothesis> cls_StdMeshers_ProjectionSource3D(mod, "StdMeshers_ProjectionSource3D", "This hypothesis specifies a meshed shell or solid to take a mesh pattern from and optionally association of vertices between the source shape and a target one (where a hipothesis is assigned to)");
+	py::class_<StdMeshers_ProjectionSource3D, std::unique_ptr<StdMeshers_ProjectionSource3D, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_ProjectionSource3D(mod, "StdMeshers_ProjectionSource3D", "This hypothesis specifies a meshed shell or solid to take a mesh pattern from and optionally association of vertices between the source shape and a target one (where a hipothesis is assigned to)");
 	cls_StdMeshers_ProjectionSource3D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_ProjectionSource3D.def("SetSource3DShape", (void (StdMeshers_ProjectionSource3D::*)(const TopoDS_Shape &)) &StdMeshers_ProjectionSource3D::SetSource3DShape, "Sets a source <shape> to take a mesh pattern from", py::arg("shape"));
 	cls_StdMeshers_ProjectionSource3D.def("GetSource3DShape", (TopoDS_Shape (StdMeshers_ProjectionSource3D::*)() const ) &StdMeshers_ProjectionSource3D::GetSource3DShape, "Returns the source shape");
@@ -815,7 +815,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Projection_1D.hxx
-	py::class_<StdMeshers_Projection_1D, std::unique_ptr<StdMeshers_Projection_1D, Deleter<StdMeshers_Projection_1D>>, SMESH_1D_Algo> cls_StdMeshers_Projection_1D(mod, "StdMeshers_Projection_1D", "None");
+	py::class_<StdMeshers_Projection_1D, std::unique_ptr<StdMeshers_Projection_1D, py::nodelete>, SMESH_1D_Algo> cls_StdMeshers_Projection_1D(mod, "StdMeshers_Projection_1D", "None");
 	cls_StdMeshers_Projection_1D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Projection_1D.def("CheckHypothesis", (bool (StdMeshers_Projection_1D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_Projection_1D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_Projection_1D.def("Compute", (bool (StdMeshers_Projection_1D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_Projection_1D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -823,7 +823,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_Projection_1D.def("SetEventListener", (void (StdMeshers_Projection_1D::*)(SMESH_subMesh *)) &StdMeshers_Projection_1D::SetEventListener, "Sets a default event listener to submesh of the source edge", py::arg("whenSetToSubMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Projection_2D.hxx
-	py::class_<StdMeshers_Projection_2D, std::unique_ptr<StdMeshers_Projection_2D, Deleter<StdMeshers_Projection_2D>>, SMESH_2D_Algo> cls_StdMeshers_Projection_2D(mod, "StdMeshers_Projection_2D", "None");
+	py::class_<StdMeshers_Projection_2D, std::unique_ptr<StdMeshers_Projection_2D, py::nodelete>, SMESH_2D_Algo> cls_StdMeshers_Projection_2D(mod, "StdMeshers_Projection_2D", "None");
 	cls_StdMeshers_Projection_2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Projection_2D.def("CheckHypothesis", (bool (StdMeshers_Projection_2D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_Projection_2D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_Projection_2D.def("Compute", (bool (StdMeshers_Projection_2D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_Projection_2D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -831,14 +831,14 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_Projection_2D.def("SetEventListener", (void (StdMeshers_Projection_2D::*)(SMESH_subMesh *)) &StdMeshers_Projection_2D::SetEventListener, "Sets a default event listener to submesh of the source face", py::arg("whenSetToSubMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Projection_1D2D.hxx
-	py::class_<StdMeshers_Projection_1D2D, std::unique_ptr<StdMeshers_Projection_1D2D, Deleter<StdMeshers_Projection_1D2D>>, StdMeshers_Projection_2D> cls_StdMeshers_Projection_1D2D(mod, "StdMeshers_Projection_1D2D", "None");
+	py::class_<StdMeshers_Projection_1D2D, std::unique_ptr<StdMeshers_Projection_1D2D, py::nodelete>, StdMeshers_Projection_2D> cls_StdMeshers_Projection_1D2D(mod, "StdMeshers_Projection_1D2D", "None");
 	cls_StdMeshers_Projection_1D2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Projection_1D2D.def("Compute", (bool (StdMeshers_Projection_1D2D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_Projection_1D2D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
 	cls_StdMeshers_Projection_1D2D.def("Evaluate", (bool (StdMeshers_Projection_1D2D::*)(SMESH_Mesh &, const TopoDS_Shape &, MapShapeNbElems &)) &StdMeshers_Projection_1D2D::Evaluate, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aResMap"));
 	cls_StdMeshers_Projection_1D2D.def("SetEventListener", (void (StdMeshers_Projection_1D2D::*)(SMESH_subMesh *)) &StdMeshers_Projection_1D2D::SetEventListener, "Sets a default event listener to submesh of the source face", py::arg("whenSetToSubMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Projection_3D.hxx
-	py::class_<StdMeshers_Projection_3D, std::unique_ptr<StdMeshers_Projection_3D, Deleter<StdMeshers_Projection_3D>>, SMESH_3D_Algo> cls_StdMeshers_Projection_3D(mod, "StdMeshers_Projection_3D", "None");
+	py::class_<StdMeshers_Projection_3D, std::unique_ptr<StdMeshers_Projection_3D, py::nodelete>, SMESH_3D_Algo> cls_StdMeshers_Projection_3D(mod, "StdMeshers_Projection_3D", "None");
 	cls_StdMeshers_Projection_3D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Projection_3D.def("CheckHypothesis", (bool (StdMeshers_Projection_3D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_Projection_3D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_Projection_3D.def("Compute", (bool (StdMeshers_Projection_3D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_Projection_3D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -847,7 +847,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_Projection_3D.def_static("IsApplicable_", (bool (*)(const TopoDS_Shape &, bool)) &StdMeshers_Projection_3D::IsApplicable, "None", py::arg("aShape"), py::arg("toCheckAll"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Propagation.hxx
-	py::class_<StdMeshers_Propagation, std::unique_ptr<StdMeshers_Propagation, Deleter<StdMeshers_Propagation>>, SMESH_Hypothesis> cls_StdMeshers_Propagation(mod, "StdMeshers_Propagation", "Propagation hypothesis");
+	py::class_<StdMeshers_Propagation, std::unique_ptr<StdMeshers_Propagation, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_Propagation(mod, "StdMeshers_Propagation", "Propagation hypothesis");
 	cls_StdMeshers_Propagation.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Propagation.def("SaveTo", (std::ostream & (StdMeshers_Propagation::*)(std::ostream &)) &StdMeshers_Propagation::SaveTo, "None", py::arg("save"));
 	cls_StdMeshers_Propagation.def("LoadFrom", (std::istream & (StdMeshers_Propagation::*)(std::istream &)) &StdMeshers_Propagation::LoadFrom, "None", py::arg("load"));
@@ -860,12 +860,12 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_Propagation.def("SetParametersByDefaults", (bool (StdMeshers_Propagation::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_Propagation::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Propagation.hxx
-	py::class_<StdMeshers_PropagOfDistribution, std::unique_ptr<StdMeshers_PropagOfDistribution, Deleter<StdMeshers_PropagOfDistribution>>, StdMeshers_Propagation> cls_StdMeshers_PropagOfDistribution(mod, "StdMeshers_PropagOfDistribution", "Propagation Of Distribution hypothesis");
+	py::class_<StdMeshers_PropagOfDistribution, std::unique_ptr<StdMeshers_PropagOfDistribution, py::nodelete>, StdMeshers_Propagation> cls_StdMeshers_PropagOfDistribution(mod, "StdMeshers_PropagOfDistribution", "Propagation Of Distribution hypothesis");
 	cls_StdMeshers_PropagOfDistribution.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_PropagOfDistribution.def_static("GetName_", (std::string (*)()) &StdMeshers_PropagOfDistribution::GetName, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_QuadrangleParams.hxx
-	py::class_<StdMeshers_QuadrangleParams, std::unique_ptr<StdMeshers_QuadrangleParams, Deleter<StdMeshers_QuadrangleParams>>, SMESH_Hypothesis> cls_StdMeshers_QuadrangleParams(mod, "StdMeshers_QuadrangleParams", "None");
+	py::class_<StdMeshers_QuadrangleParams, std::unique_ptr<StdMeshers_QuadrangleParams, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_QuadrangleParams(mod, "StdMeshers_QuadrangleParams", "None");
 	cls_StdMeshers_QuadrangleParams.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_QuadrangleParams.def("SetTriaVertex", (void (StdMeshers_QuadrangleParams::*)(int)) &StdMeshers_QuadrangleParams::SetTriaVertex, "None", py::arg("id"));
 	cls_StdMeshers_QuadrangleParams.def("GetTriaVertex", (int (StdMeshers_QuadrangleParams::*)() const ) &StdMeshers_QuadrangleParams::GetTriaVertex, "None");
@@ -882,7 +882,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_QuadrangleParams.def("SetParametersByDefaults", (bool (StdMeshers_QuadrangleParams::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_QuadrangleParams::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Quadrangle_2D.hxx
-	py::class_<StdMeshers_Quadrangle_2D, std::unique_ptr<StdMeshers_Quadrangle_2D, Deleter<StdMeshers_Quadrangle_2D>>, SMESH_2D_Algo> cls_StdMeshers_Quadrangle_2D(mod, "StdMeshers_Quadrangle_2D", "None");
+	py::class_<StdMeshers_Quadrangle_2D, std::unique_ptr<StdMeshers_Quadrangle_2D, py::nodelete>, SMESH_2D_Algo> cls_StdMeshers_Quadrangle_2D(mod, "StdMeshers_Quadrangle_2D", "None");
 	cls_StdMeshers_Quadrangle_2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_Quadrangle_2D.def("CheckHypothesis", (bool (StdMeshers_Quadrangle_2D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_Quadrangle_2D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_Quadrangle_2D.def("Compute", (bool (StdMeshers_Quadrangle_2D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_Quadrangle_2D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -894,7 +894,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_Quadrangle_2D.def_static("IsApplicable_", (bool (*)(const TopoDS_Shape &, bool)) &StdMeshers_Quadrangle_2D::IsApplicable, "None", py::arg("aShape"), py::arg("toCheckAll"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_QuadFromMedialAxis_1D2D.hxx
-	py::class_<StdMeshers_QuadFromMedialAxis_1D2D, std::unique_ptr<StdMeshers_QuadFromMedialAxis_1D2D, Deleter<StdMeshers_QuadFromMedialAxis_1D2D>>, StdMeshers_Quadrangle_2D> cls_StdMeshers_QuadFromMedialAxis_1D2D(mod, "StdMeshers_QuadFromMedialAxis_1D2D", "Quadrangle mesher using Medial Axis");
+	py::class_<StdMeshers_QuadFromMedialAxis_1D2D, std::unique_ptr<StdMeshers_QuadFromMedialAxis_1D2D, py::nodelete>, StdMeshers_Quadrangle_2D> cls_StdMeshers_QuadFromMedialAxis_1D2D(mod, "StdMeshers_QuadFromMedialAxis_1D2D", "Quadrangle mesher using Medial Axis");
 	cls_StdMeshers_QuadFromMedialAxis_1D2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_QuadFromMedialAxis_1D2D.def("CheckHypothesis", (bool (StdMeshers_QuadFromMedialAxis_1D2D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_QuadFromMedialAxis_1D2D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_QuadFromMedialAxis_1D2D.def("Compute", (bool (StdMeshers_QuadFromMedialAxis_1D2D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_QuadFromMedialAxis_1D2D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -903,7 +903,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_QuadFromMedialAxis_1D2D.def_static("IsApplicable_", (bool (*)(const TopoDS_Shape &, bool)) &StdMeshers_QuadFromMedialAxis_1D2D::IsApplicable, "None", py::arg("aShape"), py::arg("toCheckAll"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_QuadranglePreference.hxx
-	py::class_<StdMeshers_QuadranglePreference, std::unique_ptr<StdMeshers_QuadranglePreference, Deleter<StdMeshers_QuadranglePreference>>, SMESH_Hypothesis> cls_StdMeshers_QuadranglePreference(mod, "StdMeshers_QuadranglePreference", "Hypothesis for StdMeshers_Quadrangle_2D, forcing construction of quadrangles if the number of nodes on opposite edges is not the same. GIBI can do it if the global number of nodes is even (DALL operator). See PAL10467");
+	py::class_<StdMeshers_QuadranglePreference, std::unique_ptr<StdMeshers_QuadranglePreference, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_QuadranglePreference(mod, "StdMeshers_QuadranglePreference", "Hypothesis for StdMeshers_Quadrangle_2D, forcing construction of quadrangles if the number of nodes on opposite edges is not the same. GIBI can do it if the global number of nodes is even (DALL operator). See PAL10467");
 	cls_StdMeshers_QuadranglePreference.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_QuadranglePreference.def("SaveTo", (std::ostream & (StdMeshers_QuadranglePreference::*)(std::ostream &)) &StdMeshers_QuadranglePreference::SaveTo, "None", py::arg("save"));
 	cls_StdMeshers_QuadranglePreference.def("LoadFrom", (std::istream & (StdMeshers_QuadranglePreference::*)(std::istream &)) &StdMeshers_QuadranglePreference::LoadFrom, "None", py::arg("load"));
@@ -912,7 +912,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_QuadranglePreference.def("SetParametersByDefaults", (bool (StdMeshers_QuadranglePreference::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_QuadranglePreference::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_QuadraticMesh.hxx
-	py::class_<StdMeshers_QuadraticMesh, std::unique_ptr<StdMeshers_QuadraticMesh, Deleter<StdMeshers_QuadraticMesh>>, SMESH_Hypothesis> cls_StdMeshers_QuadraticMesh(mod, "StdMeshers_QuadraticMesh", "Hypothesis for StdMeshers_Regular_1D, forcing construction of quadratic edges. If the 2D mesher sees that all boundary edges are quadratic ones, it generates quadratic faces, else it generates linear faces using medium nodes as if they were vertex ones. The 3D mesher generates quadratic volumes only if all boundary faces are quadratic ones, else it fails.");
+	py::class_<StdMeshers_QuadraticMesh, std::unique_ptr<StdMeshers_QuadraticMesh, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_QuadraticMesh(mod, "StdMeshers_QuadraticMesh", "Hypothesis for StdMeshers_Regular_1D, forcing construction of quadratic edges. If the 2D mesher sees that all boundary edges are quadratic ones, it generates quadratic faces, else it generates linear faces using medium nodes as if they were vertex ones. The 3D mesher generates quadratic volumes only if all boundary faces are quadratic ones, else it fails.");
 	cls_StdMeshers_QuadraticMesh.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_QuadraticMesh.def("SaveTo", (std::ostream & (StdMeshers_QuadraticMesh::*)(std::ostream &)) &StdMeshers_QuadraticMesh::SaveTo, "None", py::arg("save"));
 	cls_StdMeshers_QuadraticMesh.def("LoadFrom", (std::istream & (StdMeshers_QuadraticMesh::*)(std::istream &)) &StdMeshers_QuadraticMesh::LoadFrom, "None", py::arg("load"));
@@ -929,7 +929,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_QuadToTriaAdaptor.def("GetShape", (const TopoDS_Shape & (StdMeshers_QuadToTriaAdaptor::*)() const ) &StdMeshers_QuadToTriaAdaptor::GetShape, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_RadialPrism_3D.hxx
-	py::class_<StdMeshers_RadialPrism_3D, std::unique_ptr<StdMeshers_RadialPrism_3D, Deleter<StdMeshers_RadialPrism_3D>>, SMESH_3D_Algo> cls_StdMeshers_RadialPrism_3D(mod, "StdMeshers_RadialPrism_3D", "None");
+	py::class_<StdMeshers_RadialPrism_3D, std::unique_ptr<StdMeshers_RadialPrism_3D, py::nodelete>, SMESH_3D_Algo> cls_StdMeshers_RadialPrism_3D(mod, "StdMeshers_RadialPrism_3D", "None");
 	cls_StdMeshers_RadialPrism_3D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_RadialPrism_3D.def("CheckHypothesis", (bool (StdMeshers_RadialPrism_3D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_RadialPrism_3D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_RadialPrism_3D.def("Compute", (bool (StdMeshers_RadialPrism_3D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_RadialPrism_3D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -937,7 +937,7 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_RadialPrism_3D.def_static("IsApplicable_", (bool (*)(const TopoDS_Shape &, bool)) &StdMeshers_RadialPrism_3D::IsApplicable, "None", py::arg("aShape"), py::arg("toCheckAll"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_RadialQuadrangle_1D2D.hxx
-	py::class_<StdMeshers_RadialQuadrangle_1D2D, std::unique_ptr<StdMeshers_RadialQuadrangle_1D2D, Deleter<StdMeshers_RadialQuadrangle_1D2D>>, StdMeshers_Quadrangle_2D> cls_StdMeshers_RadialQuadrangle_1D2D(mod, "StdMeshers_RadialQuadrangle_1D2D", "Algorithm generating quadrangles on a full or a part of an elliptic face. Elements around an ellipse center are triangles.");
+	py::class_<StdMeshers_RadialQuadrangle_1D2D, std::unique_ptr<StdMeshers_RadialQuadrangle_1D2D, py::nodelete>, StdMeshers_Quadrangle_2D> cls_StdMeshers_RadialQuadrangle_1D2D(mod, "StdMeshers_RadialQuadrangle_1D2D", "Algorithm generating quadrangles on a full or a part of an elliptic face. Elements around an ellipse center are triangles.");
 	cls_StdMeshers_RadialQuadrangle_1D2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_RadialQuadrangle_1D2D.def("CheckHypothesis", (bool (StdMeshers_RadialQuadrangle_1D2D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_RadialQuadrangle_1D2D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_RadialQuadrangle_1D2D.def("Compute", (bool (StdMeshers_RadialQuadrangle_1D2D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_RadialQuadrangle_1D2D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
@@ -946,14 +946,14 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_RadialQuadrangle_1D2D.def_static("IsApplicable_", (bool (*)(const TopoDS_Shape &, bool)) &StdMeshers_RadialQuadrangle_1D2D::IsApplicable, "None", py::arg("aShape"), py::arg("toCheckAll"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_SegmentAroundVertex_0D.hxx
-	py::class_<StdMeshers_SegmentAroundVertex_0D, std::unique_ptr<StdMeshers_SegmentAroundVertex_0D, Deleter<StdMeshers_SegmentAroundVertex_0D>>, SMESH_0D_Algo> cls_StdMeshers_SegmentAroundVertex_0D(mod, "StdMeshers_SegmentAroundVertex_0D", "Algorithm existing in order just to enable assignation of StdMeshers_SegmentLengthAroundVertex hypothesis");
+	py::class_<StdMeshers_SegmentAroundVertex_0D, std::unique_ptr<StdMeshers_SegmentAroundVertex_0D, py::nodelete>, SMESH_0D_Algo> cls_StdMeshers_SegmentAroundVertex_0D(mod, "StdMeshers_SegmentAroundVertex_0D", "Algorithm existing in order just to enable assignation of StdMeshers_SegmentLengthAroundVertex hypothesis");
 	cls_StdMeshers_SegmentAroundVertex_0D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_SegmentAroundVertex_0D.def("CheckHypothesis", (bool (StdMeshers_SegmentAroundVertex_0D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_SegmentAroundVertex_0D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_SegmentAroundVertex_0D.def("Compute", (bool (StdMeshers_SegmentAroundVertex_0D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_SegmentAroundVertex_0D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
 	cls_StdMeshers_SegmentAroundVertex_0D.def("Evaluate", (bool (StdMeshers_SegmentAroundVertex_0D::*)(SMESH_Mesh &, const TopoDS_Shape &, MapShapeNbElems &)) &StdMeshers_SegmentAroundVertex_0D::Evaluate, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aResMap"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_StartEndLength.hxx
-	py::class_<StdMeshers_StartEndLength, std::unique_ptr<StdMeshers_StartEndLength, Deleter<StdMeshers_StartEndLength>>, SMESH_Hypothesis> cls_StdMeshers_StartEndLength(mod, "StdMeshers_StartEndLength", "None");
+	py::class_<StdMeshers_StartEndLength, std::unique_ptr<StdMeshers_StartEndLength, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_StartEndLength(mod, "StdMeshers_StartEndLength", "None");
 	cls_StdMeshers_StartEndLength.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_StartEndLength.def("SetLength", (void (StdMeshers_StartEndLength::*)(double, bool)) &StdMeshers_StartEndLength::SetLength, "None", py::arg("length"), py::arg("isStartLength"));
 	cls_StdMeshers_StartEndLength.def("GetLength", (double (StdMeshers_StartEndLength::*)(bool) const ) &StdMeshers_StartEndLength::GetLength, "None", py::arg("isStartLength"));
@@ -968,21 +968,21 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_StartEndLength.def("SetParametersByDefaults", (bool (StdMeshers_StartEndLength::*)(const SMESH_Hypothesis::TDefaults &, const SMESH_Mesh *)) &StdMeshers_StartEndLength::SetParametersByDefaults, "Initialize my parameter values by default parameters. bool - true if parameter values have been successfully defined", py::arg("dflts"), py::arg("theMesh"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_UseExisting_1D2D.hxx
-	py::class_<StdMeshers_UseExisting_2D, std::unique_ptr<StdMeshers_UseExisting_2D, Deleter<StdMeshers_UseExisting_2D>>, SMESH_2D_Algo> cls_StdMeshers_UseExisting_2D(mod, "StdMeshers_UseExisting_2D", "1D and 2D algorithms doing nothing to allow mesh generation by mesh edition functions in TUI mode");
+	py::class_<StdMeshers_UseExisting_2D, std::unique_ptr<StdMeshers_UseExisting_2D, py::nodelete>, SMESH_2D_Algo> cls_StdMeshers_UseExisting_2D(mod, "StdMeshers_UseExisting_2D", "1D and 2D algorithms doing nothing to allow mesh generation by mesh edition functions in TUI mode");
 	cls_StdMeshers_UseExisting_2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_UseExisting_2D.def("CheckHypothesis", (bool (StdMeshers_UseExisting_2D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_UseExisting_2D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_UseExisting_2D.def("Compute", (bool (StdMeshers_UseExisting_2D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_UseExisting_2D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
 	cls_StdMeshers_UseExisting_2D.def("Evaluate", (bool (StdMeshers_UseExisting_2D::*)(SMESH_Mesh &, const TopoDS_Shape &, MapShapeNbElems &)) &StdMeshers_UseExisting_2D::Evaluate, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aResMap"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_UseExisting_1D2D.hxx
-	py::class_<StdMeshers_UseExisting_1D, std::unique_ptr<StdMeshers_UseExisting_1D, Deleter<StdMeshers_UseExisting_1D>>, SMESH_1D_Algo> cls_StdMeshers_UseExisting_1D(mod, "StdMeshers_UseExisting_1D", "None");
+	py::class_<StdMeshers_UseExisting_1D, std::unique_ptr<StdMeshers_UseExisting_1D, py::nodelete>, SMESH_1D_Algo> cls_StdMeshers_UseExisting_1D(mod, "StdMeshers_UseExisting_1D", "None");
 	cls_StdMeshers_UseExisting_1D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_UseExisting_1D.def("CheckHypothesis", (bool (StdMeshers_UseExisting_1D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_UseExisting_1D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
 	cls_StdMeshers_UseExisting_1D.def("Compute", (bool (StdMeshers_UseExisting_1D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_UseExisting_1D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
 	cls_StdMeshers_UseExisting_1D.def("Evaluate", (bool (StdMeshers_UseExisting_1D::*)(SMESH_Mesh &, const TopoDS_Shape &, MapShapeNbElems &)) &StdMeshers_UseExisting_1D::Evaluate, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aResMap"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_ViscousLayers2D.hxx
-	py::class_<StdMeshers_ViscousLayers2D, std::unique_ptr<StdMeshers_ViscousLayers2D, Deleter<StdMeshers_ViscousLayers2D>>, StdMeshers_ViscousLayers> cls_StdMeshers_ViscousLayers2D(mod, "StdMeshers_ViscousLayers2D", "Hypothesis defining parameters of viscous layers");
+	py::class_<StdMeshers_ViscousLayers2D, std::unique_ptr<StdMeshers_ViscousLayers2D, py::nodelete>, StdMeshers_ViscousLayers> cls_StdMeshers_ViscousLayers2D(mod, "StdMeshers_ViscousLayers2D", "Hypothesis defining parameters of viscous layers");
 	cls_StdMeshers_ViscousLayers2D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
 	cls_StdMeshers_ViscousLayers2D.def_static("Compute_", (SMESH_ProxyMesh::Ptr (*)(SMESH_Mesh &, const TopoDS_Face &)) &StdMeshers_ViscousLayers2D::Compute, "Computes temporary 2D mesh to be used by 2D algorithm. Return SMESH_ProxyMesh for the given FACE, or NULL in case of error", py::arg("theMesh"), py::arg("theShape"));
 	cls_StdMeshers_ViscousLayers2D.def("RestoreListeners", (void (StdMeshers_ViscousLayers2D::*)() const ) &StdMeshers_ViscousLayers2D::RestoreListeners, "At study restoration, restore event listeners used to clear an inferior dim sub-mesh modified by viscous layers");

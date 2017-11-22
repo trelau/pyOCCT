@@ -100,7 +100,7 @@ PYBIND11_MODULE(SMESHDS, mod) {
 
 	// CLASSES
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_Mesh.hxx
-	py::class_<SMESHDS_Mesh, std::unique_ptr<SMESHDS_Mesh, Deleter<SMESHDS_Mesh>>, SMDS_Mesh> cls_SMESHDS_Mesh(mod, "SMESHDS_Mesh", "None");
+	py::class_<SMESHDS_Mesh, std::unique_ptr<SMESHDS_Mesh, py::nodelete>, SMDS_Mesh> cls_SMESHDS_Mesh(mod, "SMESHDS_Mesh", "None");
 	cls_SMESHDS_Mesh.def(py::init<int, bool>(), py::arg("theMeshID"), py::arg("theIsEmbeddedMode"));
 	cls_SMESHDS_Mesh.def("IsEmbeddedMode", (bool (SMESHDS_Mesh::*)()) &SMESHDS_Mesh::IsEmbeddedMode, "None");
 	cls_SMESHDS_Mesh.def("SetPersistentId", (void (SMESHDS_Mesh::*)(int)) &SMESHDS_Mesh::SetPersistentId, "None", py::arg("id"));
@@ -251,7 +251,7 @@ PYBIND11_MODULE(SMESHDS, mod) {
 	};
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_GroupBase.hxx
-	py::class_<SMESHDS_GroupBase, std::unique_ptr<SMESHDS_GroupBase, Deleter<SMESHDS_GroupBase>>, PyCallback_SMESHDS_GroupBase> cls_SMESHDS_GroupBase(mod, "SMESHDS_GroupBase", "None");
+	py::class_<SMESHDS_GroupBase, std::unique_ptr<SMESHDS_GroupBase, py::nodelete>, PyCallback_SMESHDS_GroupBase> cls_SMESHDS_GroupBase(mod, "SMESHDS_GroupBase", "None");
 	cls_SMESHDS_GroupBase.def(py::init<const int, const SMESHDS_Mesh *, const SMDSAbs_ElementType>(), py::arg("theID"), py::arg("theMesh"), py::arg("theType"));
 	cls_SMESHDS_GroupBase.def("GetID", (int (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetID, "None");
 	cls_SMESHDS_GroupBase.def("GetMesh", (const SMESHDS_Mesh * (SMESHDS_GroupBase::*)() const ) &SMESHDS_GroupBase::GetMesh, "None");
@@ -300,7 +300,7 @@ PYBIND11_MODULE(SMESHDS, mod) {
 	};
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_Hypothesis.hxx
-	py::class_<SMESHDS_Hypothesis, std::unique_ptr<SMESHDS_Hypothesis, Deleter<SMESHDS_Hypothesis>>, PyCallback_SMESHDS_Hypothesis> cls_SMESHDS_Hypothesis(mod, "SMESHDS_Hypothesis", "None");
+	py::class_<SMESHDS_Hypothesis, std::unique_ptr<SMESHDS_Hypothesis, py::nodelete>, PyCallback_SMESHDS_Hypothesis> cls_SMESHDS_Hypothesis(mod, "SMESHDS_Hypothesis", "None");
 	cls_SMESHDS_Hypothesis.def(py::init<int>(), py::arg("hypId"));
 	cls_SMESHDS_Hypothesis.def("GetName", (const char * (SMESHDS_Hypothesis::*)() const ) &SMESHDS_Hypothesis::GetName, "None");
 	cls_SMESHDS_Hypothesis.def("GetID", (int (SMESHDS_Hypothesis::*)() const ) &SMESHDS_Hypothesis::GetID, "None");
@@ -320,7 +320,7 @@ PYBIND11_MODULE(SMESHDS, mod) {
 		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_SubMesh.hxx
-	py::class_<SMESHDS_SubMesh, std::unique_ptr<SMESHDS_SubMesh, Deleter<SMESHDS_SubMesh>>> cls_SMESHDS_SubMesh(mod, "SMESHDS_SubMesh", "None");
+	py::class_<SMESHDS_SubMesh, std::unique_ptr<SMESHDS_SubMesh, py::nodelete>> cls_SMESHDS_SubMesh(mod, "SMESHDS_SubMesh", "None");
 	cls_SMESHDS_SubMesh.def(py::init<SMESHDS_Mesh *, int>(), py::arg("parent"), py::arg("index"));
 	cls_SMESHDS_SubMesh.def("IsComplexSubmesh", (bool (SMESHDS_SubMesh::*)() const ) &SMESHDS_SubMesh::IsComplexSubmesh, "None");
 	cls_SMESHDS_SubMesh.def("AddElement", (void (SMESHDS_SubMesh::*)(const SMDS_MeshElement *)) &SMESHDS_SubMesh::AddElement, "None", py::arg("ME"));
@@ -394,7 +394,7 @@ PYBIND11_MODULE(SMESHDS, mod) {
 	cls_SMESHDS_Hasher.def_static("HashCode_", (Standard_Integer (*)(const TopoDS_Shape &, const Standard_Integer)) &SMESHDS_Hasher::HashCode, "None", py::arg("S"), py::arg("Upper"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_Script.hxx
-	py::class_<SMESHDS_Script, std::unique_ptr<SMESHDS_Script, Deleter<SMESHDS_Script>>> cls_SMESHDS_Script(mod, "SMESHDS_Script", "None");
+	py::class_<SMESHDS_Script, std::unique_ptr<SMESHDS_Script, py::nodelete>> cls_SMESHDS_Script(mod, "SMESHDS_Script", "None");
 	cls_SMESHDS_Script.def(py::init<bool>(), py::arg("theIsEmbeddedMode"));
 	cls_SMESHDS_Script.def("SetModified", (void (SMESHDS_Script::*)(bool)) &SMESHDS_Script::SetModified, "None", py::arg("theModified"));
 	cls_SMESHDS_Script.def("IsModified", (bool (SMESHDS_Script::*)()) &SMESHDS_Script::IsModified, "None");
@@ -433,7 +433,7 @@ PYBIND11_MODULE(SMESHDS, mod) {
 	cls_SMESHDS_Script.def("GetCommands", (const std::list<SMESHDS_Command *> & (SMESHDS_Script::*)()) &SMESHDS_Script::GetCommands, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_Group.hxx
-	py::class_<SMESHDS_Group, std::unique_ptr<SMESHDS_Group, Deleter<SMESHDS_Group>>, SMESHDS_GroupBase> cls_SMESHDS_Group(mod, "SMESHDS_Group", "None");
+	py::class_<SMESHDS_Group, std::unique_ptr<SMESHDS_Group, py::nodelete>, SMESHDS_GroupBase> cls_SMESHDS_Group(mod, "SMESHDS_Group", "None");
 	cls_SMESHDS_Group.def(py::init<const int, const SMESHDS_Mesh *, const SMDSAbs_ElementType>(), py::arg("theID"), py::arg("theMesh"), py::arg("theType"));
 	cls_SMESHDS_Group.def("SetType", (void (SMESHDS_Group::*)(SMDSAbs_ElementType)) &SMESHDS_Group::SetType, "None", py::arg("theType"));
 	cls_SMESHDS_Group.def("Extent", (int (SMESHDS_Group::*)() const ) &SMESHDS_Group::Extent, "None");
@@ -449,7 +449,7 @@ PYBIND11_MODULE(SMESHDS, mod) {
 	cls_SMESHDS_Group.def("SMDSGroup", (SMDS_MeshGroup & (SMESHDS_Group::*)()) &SMESHDS_Group::SMDSGroup, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_GroupOnFilter.hxx
-	py::class_<SMESHDS_GroupOnFilter, std::unique_ptr<SMESHDS_GroupOnFilter, Deleter<SMESHDS_GroupOnFilter>>, SMESHDS_GroupBase> cls_SMESHDS_GroupOnFilter(mod, "SMESHDS_GroupOnFilter", "Groups whose contents is dynamically updated using the filter");
+	py::class_<SMESHDS_GroupOnFilter, std::unique_ptr<SMESHDS_GroupOnFilter, py::nodelete>, SMESHDS_GroupBase> cls_SMESHDS_GroupOnFilter(mod, "SMESHDS_GroupOnFilter", "Groups whose contents is dynamically updated using the filter");
 	cls_SMESHDS_GroupOnFilter.def(py::init<const int, const SMESHDS_Mesh *, const SMDSAbs_ElementType, const SMESH_PredicatePtr &>(), py::arg("theID"), py::arg("theMesh"), py::arg("theType"), py::arg("thePredicate"), py::call_guard<ImportSMESH>());
 	cls_SMESHDS_GroupOnFilter.def("SetPredicate", (void (SMESHDS_GroupOnFilter::*)(const SMESH_PredicatePtr &)) &SMESHDS_GroupOnFilter::SetPredicate, "None", py::arg("thePredicate"), py::call_guard<ImportSMESH>());
 	cls_SMESHDS_GroupOnFilter.def("GetPredicate", (SMESH_PredicatePtr (SMESHDS_GroupOnFilter::*)() const ) &SMESHDS_GroupOnFilter::GetPredicate, "None", py::call_guard<ImportSMESH>());
@@ -463,7 +463,7 @@ PYBIND11_MODULE(SMESHDS, mod) {
 	cls_SMESHDS_GroupOnFilter.def("IsUpToDate", (bool (SMESHDS_GroupOnFilter::*)() const ) &SMESHDS_GroupOnFilter::IsUpToDate, "None");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESHDS_GroupOnGeom.hxx
-	py::class_<SMESHDS_GroupOnGeom, std::unique_ptr<SMESHDS_GroupOnGeom, Deleter<SMESHDS_GroupOnGeom>>, SMESHDS_GroupBase> cls_SMESHDS_GroupOnGeom(mod, "SMESHDS_GroupOnGeom", "None");
+	py::class_<SMESHDS_GroupOnGeom, std::unique_ptr<SMESHDS_GroupOnGeom, py::nodelete>, SMESHDS_GroupBase> cls_SMESHDS_GroupOnGeom(mod, "SMESHDS_GroupOnGeom", "None");
 	cls_SMESHDS_GroupOnGeom.def(py::init<const int, const SMESHDS_Mesh *, const SMDSAbs_ElementType, const TopoDS_Shape &>(), py::arg("theID"), py::arg("theMesh"), py::arg("theType"), py::arg("theShape"));
 	cls_SMESHDS_GroupOnGeom.def("SetShape", (void (SMESHDS_GroupOnGeom::*)(const TopoDS_Shape &)) &SMESHDS_GroupOnGeom::SetShape, "None", py::arg("theShape"));
 	cls_SMESHDS_GroupOnGeom.def("GetShape", (TopoDS_Shape (SMESHDS_GroupOnGeom::*)() const ) &SMESHDS_GroupOnGeom::GetShape, "None");
