@@ -362,7 +362,7 @@ PYBIND11_MODULE(Standard, mod) {
 	cls_Standard_ErrorHandler.def_static("IsInTryBlock_", (Standard_Boolean (*)()) &Standard_ErrorHandler::IsInTryBlock, "Test if the code is currently running in a try block");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Standard_Transient.hxx
-	py::class_<Standard_Transient, std::unique_ptr<Standard_Transient, Deleter<Standard_Transient>>> cls_Standard_Transient(mod, "Standard_Transient", "Abstract class which forms the root of the entire Transient class hierarchy.");
+	py::class_<Standard_Transient, opencascade::handle<Standard_Transient>> cls_Standard_Transient(mod, "Standard_Transient", "Abstract class which forms the root of the entire Transient class hierarchy.");
 	cls_Standard_Transient.def(py::init<>());
 	cls_Standard_Transient.def(py::init([] (const Standard_Transient &other) {return new Standard_Transient(other);}), "Copy constructor", py::arg("other"));
 	cls_Standard_Transient.def("assign", (Standard_Transient & (Standard_Transient::*)(const Standard_Transient &)) &Standard_Transient::operator=, py::is_operator(), "Assignment operator, needed to avoid copying reference counter", py::arg(""));
@@ -378,6 +378,7 @@ PYBIND11_MODULE(Standard, mod) {
 	cls_Standard_Transient.def("GetRefCount", (Standard_Integer (Standard_Transient::*)() const ) &Standard_Transient::GetRefCount, "Get the reference counter of this object");
 	cls_Standard_Transient.def("IncrementRefCounter", (void (Standard_Transient::*)() const ) &Standard_Transient::IncrementRefCounter, "Increments the reference counter of this object");
 	cls_Standard_Transient.def("DecrementRefCounter", (Standard_Integer (Standard_Transient::*)() const ) &Standard_Transient::DecrementRefCounter, "Decrements the reference counter of this object; returns the decremented value");
+	cls_Standard_Transient.def("IsNull", [](Handle(Standard_Transient) &self) { return self.IsNull(); });
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Standard_Persistent.hxx
 	py::class_<Standard_Persistent, opencascade::handle<Standard_Persistent>, Standard_Transient> cls_Standard_Persistent(mod, "Standard_Persistent", "Root of 'persistent' classes, a legacy support of object oriented databases, now outdated.");
