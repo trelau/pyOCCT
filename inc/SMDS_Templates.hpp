@@ -13,7 +13,7 @@ template <typename VALUE>
 void bind_SMDS_Iterator(py::object &mod, std::string const &name) {
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_Iterator.hxx
-	py::class_<SMDS_Iterator<VALUE>, std::unique_ptr<SMDS_Iterator<VALUE>, Deleter<SMDS_Iterator<VALUE>>>> cls(mod, name.c_str(), "//////////////////////////////////////////////////////////////////////////// Abstract class for iterators");
+	py::class_<SMDS_Iterator<VALUE>, boost::shared_ptr<SMDS_Iterator<VALUE>>> cls(mod, name.c_str(), "//////////////////////////////////////////////////////////////////////////// Abstract class for iterators");
 	cls.def("more", (bool (SMDS_Iterator<VALUE>::*)()) &SMDS_Iterator<VALUE>::more, "Return true if and only if there are other object in this iterator");
 	cls.def("next", (VALUE (SMDS_Iterator<VALUE>::*)()) &SMDS_Iterator<VALUE>::next, "Return the current object and step to the next one");
 	cls.def("remove", (void (SMDS_Iterator<VALUE>::*)()) &SMDS_Iterator<VALUE>::remove, "Delete the current element and step to the next one");

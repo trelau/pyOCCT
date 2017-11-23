@@ -1,6 +1,6 @@
 #include <pyOCCT_Common.hpp>
 
-#include <pybind11/stl.h>
+#include <SMESH_ControlsDef.hxx>
 
 #include <SMESH_Hypothesis.hxx>
 #include <SMESH_Gen.hxx>
@@ -1368,5 +1368,7 @@ PYBIND11_MODULE(SMESH, mod) {
 
 	*/
 
+	// Group iterator
+	bind_SMDS_Iterator<SMESH_Group *>(mod, "SMESH_GroupIterator");
 
 }
