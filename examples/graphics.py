@@ -1,5 +1,3 @@
-import sys
-
 from OCCT.AIS import AIS_InteractiveContext, AIS_Shaded, AIS_Shape
 from OCCT.Aspect import Aspect_DisplayConnection, Aspect_TOTP_LEFT_LOWER
 from OCCT.MeshVS import (MeshVS_DA_DisplayNodes, MeshVS_DA_EdgeColor,
@@ -9,7 +7,7 @@ from OCCT.Quantity import (Quantity_TOC_RGB, Quantity_NOC_WHITE,
                            Quantity_Color,
                            Quantity_NOC_BLACK)
 from OCCT.SMESH import SMESH_MeshVSLink
-from OCCT.V3d import V3d_Viewer
+from OCCT.V3d import V3d_Viewer, V3d_TypeOfOrientation
 from OCCT.WNT import WNT_Window
 from PySide import QtCore
 from PySide.QtGui import QWidget, QApplication, QPalette, QIcon
@@ -51,6 +49,7 @@ class SimpleViewer(QWidget):
         self.my_context = AIS_InteractiveContext(self.my_viewer)
 
         # Some default settings
+        self.my_context.SetAutomaticHilight(True)
         self._white = Quantity_Color(Quantity_NOC_WHITE)
         self._black = Quantity_Color(Quantity_NOC_BLACK)
         self.my_viewer.SetDefaultLights()
@@ -59,7 +58,7 @@ class SimpleViewer(QWidget):
         self.my_context.SetDisplayMode(AIS_Shaded, True)
         drawer = self.my_context.DefaultDrawer()
         drawer.SetFaceBoundaryDraw(True)
-        self.my_view.TriedronDisplay(Aspect_TOTP_LEFT_LOWER, self._white, 0.08)
+        self.my_view.TriedronDisplay(Aspect_TOTP_LEFT_LOWER, self._black, 0.08)
 
         # Keyboard map
         self._keys = {
@@ -130,15 +129,55 @@ class SimpleViewer(QWidget):
     def fit(self):
         self.my_view.FitAll()
 
+    def set_bg_color(self, r, g, b):
+        self.my_view.SetBackgroundColor(Quantity_TOC_RGB, r, g, b)
 
-def display_shape(shape=None, mesh=None):
-    app = QApplication(sys.argv)
+    def set_white_background(self):
+        self.my_view.SetBackgroundColor(Quantity_TOC_RGB, 1., 1., 1.)
+
+    def view_iso(self):
+        self.my_view.SetProj(V3d_TypeOfOrientation.V3d_XposYnegZpos)
+
+    def view_top(self):
+        self.my_view.SetProj(V3d_TypeOfOrientation.V3d_Zpos)
+
+    def view_bottom(self):
+        self.my_view.SetProj(V3d_TypeOfOrientation.V3d_Zneg)
+
+    def view_front(self):
+        self.my_view.SetProj(V3d_TypeOfOrientation.V3d_Xneg)
+
+    def view_rear(self):
+        self.my_view.SetProj(V3d_TypeOfOrientation.V3d_Xpos)
+
+    def view_left(self):
+        self.my_view.SetProj(V3d_TypeOfOrientation.V3d_Yneg)
+
+    def view_right(self):
+        self.my_view.SetProj(V3d_TypeOfOrientation.V3d_Ypos)
+
+    def capture(self, fn):
+        self.my_view.Dump(fn)
+
+
+def display_shape(shape=None, mesh=None, fit=True, white_bg=False):
+    app = QApplication.instance()
+    if app is None:
+        app = QApplication([])
+
     v = SimpleViewer()
+
     if shape is not None:
         v.display_shape(shape)
+
     if mesh is not None:
         v.display_mesh(mesh)
-    v.fit()
+
+    if fit:
+        v.fit()
+    if white_bg:
+        v.set_white_background()
+
     app.exec_()
 
 
@@ -168,4 +207,5 @@ if __name__ == '__main__':
 
     gen.Compute(the_mesh, the_mesh.GetShapeToMesh())
 
+    display_shape(box)
     display_shape(None, the_mesh)
