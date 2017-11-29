@@ -1,5 +1,6 @@
 from OCCT.AIS import AIS_InteractiveContext, AIS_Shaded, AIS_Shape
 from OCCT.Aspect import Aspect_DisplayConnection, Aspect_TOTP_LEFT_LOWER
+from OCCT.Graphic3d import Graphic3d_MaterialAspect
 from OCCT.MeshVS import (MeshVS_DA_DisplayNodes, MeshVS_DA_EdgeColor,
                          MeshVS_Mesh, MeshVS_MeshPrsBuilder)
 from OCCT.OpenGl import OpenGl_GraphicDriver
@@ -14,6 +15,13 @@ from PySide.QtGui import QWidget, QApplication, QPalette, QIcon
 
 
 class SimpleViewer(QWidget):
+    """
+    Simple widget for viewing OCCT shapes and meshes.
+    """
+    _app = QApplication.instance()
+    if _app is None:
+        _app = QApplication([])
+
     def __init__(self, width=800, height=600, title='pyOCCT'):
         super(SimpleViewer, self).__init__()
 
@@ -68,6 +76,11 @@ class SimpleViewer(QWidget):
         # Values for mouse movement
         self._x0, self._y0 = 0., 0.
 
+    def start(self, fit=True):
+        if fit:
+            self.fit()
+        self._app.exec_()
+
     def resizeEvent(self, *args, **kwargs):
         self.my_view.MustBeResized()
 
@@ -110,9 +123,28 @@ class SimpleViewer(QWidget):
             self._x0, self._y0 = x, y
             self.my_view.Pan(dx, -dy)
 
-    def display_shape(self, shape):
+    def display(self, ais_shape, update=True):
+        self.my_context.Display(ais_shape, update)
+
+    def display_shape(self, shape, rgb=None, transparency=None, material=None):
         ais_shape = AIS_Shape(shape)
+
+        if isinstance(rgb, (tuple, list)):
+            r, g, b = rgb
+            color = Quantity_Color(r, g, b, Quantity_TOC_RGB)
+            ais_shape.SetColor(color)
+        if isinstance(rgb, Quantity_Color):
+            ais_shape.SetColor(rgb)
+
+        if transparency is not None:
+            ais_shape.SetTransparency(transparency)
+
+        if material is not None:
+            ma = Graphic3d_MaterialAspect(material)
+            ais_shape.SetMaterial(ma)
+
         self.my_context.Display(ais_shape, True)
+        return ais_shape
 
     def display_mesh(self, mesh):
         vs_link = SMESH_MeshVSLink(mesh)
@@ -159,26 +191,8 @@ class SimpleViewer(QWidget):
     def capture(self, fn):
         self.my_view.Dump(fn)
 
-
-def display_shape(shape=None, mesh=None, fit=True, white_bg=False):
-    app = QApplication.instance()
-    if app is None:
-        app = QApplication([])
-
-    v = SimpleViewer()
-
-    if shape is not None:
-        v.display_shape(shape)
-
-    if mesh is not None:
-        v.display_mesh(mesh)
-
-    if fit:
-        v.fit()
-    if white_bg:
-        v.set_white_background()
-
-    app.exec_()
+    def remove_all(self):
+        self.my_context.RemoveAll(True)
 
 
 if __name__ == '__main__':
@@ -207,5 +221,16 @@ if __name__ == '__main__':
 
     gen.Compute(the_mesh, the_mesh.GetShapeToMesh())
 
-    display_shape(box)
-    display_shape(None, the_mesh)
+    v = SimpleViewer()
+
+    ais = v.display_shape(box)
+    v.start()
+
+    red = Quantity_Color(1, 0, 0, Quantity_TOC_RGB)
+    ais.SetColor(red)
+    v.start()
+
+    v.remove_all()
+
+    v.display_mesh(the_mesh)
+    v.start()
