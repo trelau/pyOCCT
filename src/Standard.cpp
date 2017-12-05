@@ -847,4 +847,14 @@ PYBIND11_MODULE(Standard, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Standard_ErrorHandler.hxx
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Standard_PByte.hxx
 
+	// Register Standard_Failure as Python RuntimeError.
+	py::register_exception_translator([](std::exception_ptr p) {
+		try {
+			if (p) std::rethrow_exception(p);
+		}
+		catch (const Standard_Failure &e) {
+			PyErr_SetString(PyExc_RuntimeError, e.GetMessageString());
+		}
+	});
+
 }
