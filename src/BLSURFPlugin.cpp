@@ -1,5 +1,7 @@
 #include <pyOCCT_Common.hpp>
 
+#include <SMESH_subMesh.hxx>
+
 #include <TopoDS_Face.hxx>
 #include <TopoDS_Shape.hxx>
 #include <Standard_Handle.hxx>
@@ -325,7 +327,7 @@ PYBIND11_MODULE(BLSURFPlugin, mod) {
 	py::class_<BLSURFPlugin_BLSURF, std::unique_ptr<BLSURFPlugin_BLSURF, py::nodelete>, SMESH_2D_Algo> cls_BLSURFPlugin_BLSURF(mod, "BLSURFPlugin_BLSURF", "None");
 	cls_BLSURFPlugin_BLSURF.def(py::init<int, int, SMESH_Gen *, bool>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"), py::arg("theHasGEOM"));
 	cls_BLSURFPlugin_BLSURF.def("CheckHypothesis", (bool (BLSURFPlugin_BLSURF::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &BLSURFPlugin_BLSURF::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
-	cls_BLSURFPlugin_BLSURF.def("SetParameters", (void (BLSURFPlugin_BLSURF::*)(const BLSURFPlugin_Hypothesis *, meshgems_cadsurf_session_t *, const TopoDS_Shape &)) &BLSURFPlugin_BLSURF::SetParameters, "None", py::arg("hyp"), py::arg("css"), py::arg("shape"));
+	// FIXME cls_BLSURFPlugin_BLSURF.def("SetParameters", (void (BLSURFPlugin_BLSURF::*)(const BLSURFPlugin_Hypothesis *, meshgems_cadsurf_session_t *, const TopoDS_Shape &)) &BLSURFPlugin_BLSURF::SetParameters, "None", py::arg("hyp"), py::arg("css"), py::arg("shape"));
 	cls_BLSURFPlugin_BLSURF.def("Compute", (bool (BLSURFPlugin_BLSURF::*)(SMESH_Mesh &, const TopoDS_Shape &)) &BLSURFPlugin_BLSURF::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
 	cls_BLSURFPlugin_BLSURF.def("Compute", (bool (BLSURFPlugin_BLSURF::*)(SMESH_Mesh &, SMESH_MesherHelper *)) &BLSURFPlugin_BLSURF::Compute, "None", py::arg("aMesh"), py::arg("aHelper"));
 	cls_BLSURFPlugin_BLSURF.def("CancelCompute", (void (BLSURFPlugin_BLSURF::*)()) &BLSURFPlugin_BLSURF::CancelCompute, "None");

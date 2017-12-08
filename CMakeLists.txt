@@ -45,6 +45,10 @@ include_directories(${pthread_INCLUDE_DIRS})
 # set(freetype_INCLUDE_DIR "C:/Miniconda/envs/occt/Library/include/freetype" CACHE PATH "Freetype include directory.")
 # include_directories(${freetype_INCLUDE_DIR})
 
+#BLSURF
+set(MESHGEMS_INCLUDE "" CACHE PATH "MeshGems include directory.")
+include_directories(${MESHGEMS_INCLUDE})
+
 # PYTHON
 find_package(PythonLibs REQUIRED)
 include_directories(${PYTHON_INCLUDE_PATH})
