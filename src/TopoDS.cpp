@@ -113,6 +113,8 @@ PYBIND11_MODULE(TopoDS, mod) {
 	cls_TopoDS_Shape.def("EmptyCopy", (void (TopoDS_Shape::*)()) &TopoDS_Shape::EmptyCopy, "Replace <me> by a new Shape with the same Orientation and Location and a new TShape with the same geometry and no sub-shapes.");
 	cls_TopoDS_Shape.def("EmptyCopied", (TopoDS_Shape (TopoDS_Shape::*)() const ) &TopoDS_Shape::EmptyCopied, "Returns a new Shape with the same Orientation and Location and a new TShape with the same geometry and no sub-shapes.");
 	cls_TopoDS_Shape.def("TShape", (void (TopoDS_Shape::*)(const opencascade::handle<TopoDS_TShape> &)) &TopoDS_Shape::TShape, "None", py::arg("T"));
+	// __hash__
+	cls_TopoDS_Shape.def("__hash__", [](TopoDS_Shape &self) {return self.HashCode(999999); });
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TopoDS_Edge.hxx
 	py::class_<TopoDS_Edge, std::unique_ptr<TopoDS_Edge, Deleter<TopoDS_Edge>>, TopoDS_Shape> cls_TopoDS_Edge(mod, "TopoDS_Edge", "Describes an edge which - references an underlying edge with the potential to be given a location and an orientation - has a location for the underlying edge, giving its placement in the local coordinate system - has an orientation for the underlying edge, in terms of its geometry (as opposed to orientation in relation to other shapes).");
