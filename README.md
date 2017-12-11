@@ -54,6 +54,10 @@ within the pyOCCT root folder. This will provide the "OCCT" package:
 
 Binaries for SMESH and NETGEN are already included in the OCCT distribution.
 
+# Optional MeshGems License
+Optional support for Distene's MeshGems MGCAD-Surf commercial surface meshing
+technology is provided but requires a separate license.
+
 # Notice
 Copyright (c) 2017, Laughlin Research, LLC
 
