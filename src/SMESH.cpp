@@ -228,7 +228,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_File.def("writeRaw", (bool (SMESH_File::*)(const void *, size_t)) &SMESH_File::writeRaw, "None", py::arg("data"), py::arg("size"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_Gen.hxx
-	py::class_<SMESH_Gen, std::unique_ptr<SMESH_Gen, py::nodelete>> cls_SMESH_Gen(mod, "SMESH_Gen", "None");
+	py::class_<SMESH_Gen, std::unique_ptr<SMESH_Gen, Deleter<SMESH_Gen>>> cls_SMESH_Gen(mod, "SMESH_Gen", "None");
 	cls_SMESH_Gen.def(py::init<>());
 	cls_SMESH_Gen.def("CreateMesh", (SMESH_Mesh * (SMESH_Gen::*)(int, bool)) &SMESH_Gen::CreateMesh, "None", py::arg("theStudyId"), py::arg("theIsEmbeddedMode"));
 	cls_SMESH_Gen.def("Compute", [](SMESH_Gen &self, ::SMESH_Mesh & a0, const TopoDS_Shape & a1) -> bool { return self.Compute(a0, a1); }, py::arg("aMesh"), py::arg("aShape"));
