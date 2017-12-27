@@ -82,6 +82,10 @@
 #include <SMESH_subMeshEventListener.hxx>
 #include <NCollection_Templates.hpp>
 #include <SMDS_Templates.hpp>
+#include <STL_Templates.hpp>
+
+PYBIND11_MAKE_OPAQUE(SMESH_MeshEditor::TListOfListOfNodes);
+PYBIND11_MAKE_OPAQUE(SMESH_MeshEditor::TListOfListOfElementsID);
 
 PYBIND11_MODULE(SMESH, mod) {
 
@@ -1370,5 +1374,11 @@ PYBIND11_MODULE(SMESH, mod) {
 
 	// Group iterator
 	bind_SMDS_Iterator<SMESH_Group *>(mod, "SMESH_GroupIterator");
+
+	// SMESH_MeshEditor::TListOfListOfNodes
+	bind_list_of_list<SMESH_MeshEditor::TListOfListOfNodes>(cls_SMESH_MeshEditor, "TListOfListOfNodes");
+
+	// SMESH_MeshEditor::TListOfListOfElementsID
+	bind_list_of_list<SMESH_MeshEditor::TListOfListOfElementsID>(cls_SMESH_MeshEditor, "TListOfListOfElementsID");
 
 }
