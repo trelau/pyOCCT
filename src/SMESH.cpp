@@ -1376,9 +1376,9 @@ PYBIND11_MODULE(SMESH, mod) {
 	bind_SMDS_Iterator<SMESH_Group *>(mod, "SMESH_GroupIterator");
 
 	// SMESH_MeshEditor::TListOfListOfNodes
-	bind_list_of_list<SMESH_MeshEditor::TListOfListOfNodes>(cls_SMESH_MeshEditor, "TListOfListOfNodes");
+	bind_list_of_list<SMESH_MeshEditor::TListOfListOfNodes, const SMDS_MeshNode *>(cls_SMESH_MeshEditor, "TListOfListOfNodes");
 
 	// SMESH_MeshEditor::TListOfListOfElementsID
-	bind_list_of_list<SMESH_MeshEditor::TListOfListOfElementsID>(cls_SMESH_MeshEditor, "TListOfListOfElementsID");
+	bind_list_of_list<SMESH_MeshEditor::TListOfListOfElementsID, int>(cls_SMESH_MeshEditor, "TListOfListOfElementsID");
 
 }
