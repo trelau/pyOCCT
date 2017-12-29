@@ -191,7 +191,7 @@ PYBIND11_MODULE(SMESH, mod) {
 		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMESH_ComputeError.hxx
-	py::class_<SMESH_ComputeError, std::unique_ptr<SMESH_ComputeError, Deleter<SMESH_ComputeError>>> cls_SMESH_ComputeError(mod, "SMESH_ComputeError", "Contains an algorithm and description of an occurred error");
+	py::class_<SMESH_ComputeError, boost::shared_ptr<SMESH_ComputeError>> cls_SMESH_ComputeError(mod, "SMESH_ComputeError", "Contains an algorithm and description of an occurred error");
 	cls_SMESH_ComputeError.def(py::init<>());
 	cls_SMESH_ComputeError.def(py::init<int>(), py::arg("error"));
 	cls_SMESH_ComputeError.def(py::init<int, std::string>(), py::arg("error"), py::arg("comment"));
