@@ -38,6 +38,7 @@
 #include <StdMeshers_CartesianParameters3D.hxx>
 #include <StdMeshers_Cartesian_3D.hxx>
 #include <StdMeshers_CompositeHexa_3D.hxx>
+#include <StdMeshers_CompositeSegment_1D.hxx>
 #include <StdMeshers_Deflection1D.hxx>
 #include <StdMeshers_Reversible1D.hxx>
 #include <StdMeshers_Geometric1D.hxx>
@@ -430,6 +431,14 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	cls_StdMeshers_CompositeHexa_3D.def("Compute", (bool (StdMeshers_CompositeHexa_3D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_CompositeHexa_3D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
 	cls_StdMeshers_CompositeHexa_3D.def("Evaluate", (bool (StdMeshers_CompositeHexa_3D::*)(SMESH_Mesh &, const TopoDS_Shape &, MapShapeNbElems &)) &StdMeshers_CompositeHexa_3D::Evaluate, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aResMap"));
 	cls_StdMeshers_CompositeHexa_3D.def("CheckHypothesis", (bool (StdMeshers_CompositeHexa_3D::*)(SMESH_Mesh &, const TopoDS_Shape &, SMESH_Hypothesis::Hypothesis_Status &)) &StdMeshers_CompositeHexa_3D::CheckHypothesis, "None", py::arg("aMesh"), py::arg("aShape"), py::arg("aStatus"));
+
+	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_CompositeSegment_1D.hxx
+	py::class_<StdMeshers_CompositeSegment_1D, std::unique_ptr<StdMeshers_CompositeSegment_1D, py::nodelete>, StdMeshers_Regular_1D> cls_StdMeshers_CompositeSegment_1D(mod, "StdMeshers_CompositeSegment_1D", "None");
+	cls_StdMeshers_CompositeSegment_1D.def(py::init<int, int, SMESH_Gen *>(), py::arg("hypId"), py::arg("studyId"), py::arg("gen"));
+	cls_StdMeshers_CompositeSegment_1D.def("Compute", (bool (StdMeshers_CompositeSegment_1D::*)(SMESH_Mesh &, const TopoDS_Shape &)) &StdMeshers_CompositeSegment_1D::Compute, "None", py::arg("aMesh"), py::arg("aShape"));
+	cls_StdMeshers_CompositeSegment_1D.def("SetEventListener", (void (StdMeshers_CompositeSegment_1D::*)(SMESH_subMesh *)) &StdMeshers_CompositeSegment_1D::SetEventListener, "Sets event listener to submeshes if necessary", py::arg("subMesh"));
+	cls_StdMeshers_CompositeSegment_1D.def_static("GetFaceSide_", (StdMeshers_FaceSide * (*)(SMESH_Mesh &, const TopoDS_Edge &, const TopoDS_Face &, const bool)) &StdMeshers_CompositeSegment_1D::GetFaceSide, "Return a face side the edge belongs to", py::arg("aMesh"), py::arg("anEdge"), py::arg("aFace"), py::arg("ignoreMeshed"));
+	cls_StdMeshers_CompositeSegment_1D.def_static("AlgoName_", (std::string(*)()) &StdMeshers_CompositeSegment_1D::AlgoName, "Returns algo type name");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Deflection1D.hxx
 	py::class_<StdMeshers_Deflection1D, std::unique_ptr<StdMeshers_Deflection1D, py::nodelete>, SMESH_Hypothesis> cls_StdMeshers_Deflection1D(mod, "StdMeshers_Deflection1D", "None");
