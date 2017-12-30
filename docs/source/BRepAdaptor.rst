@@ -1,0 +1,3 @@
+BRepAdaptor
+===========
+.. automodule:: OCCT.BRepAdaptor

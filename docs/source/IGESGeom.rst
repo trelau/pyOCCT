@@ -1,0 +1,3 @@
+IGESGeom
+========
+.. automodule:: OCCT.IGESGeom

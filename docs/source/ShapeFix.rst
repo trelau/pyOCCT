@@ -1,0 +1,3 @@
+ShapeFix
+========
+.. automodule:: OCCT.ShapeFix

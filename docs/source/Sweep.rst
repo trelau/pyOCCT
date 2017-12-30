@@ -1,0 +1,3 @@
+Sweep
+=====
+.. automodule:: OCCT.Sweep

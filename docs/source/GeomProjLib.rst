@@ -1,0 +1,3 @@
+GeomProjLib
+===========
+.. automodule:: OCCT.GeomProjLib

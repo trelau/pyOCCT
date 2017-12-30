@@ -1,0 +1,3 @@
+GeomTools
+=========
+.. automodule:: OCCT.GeomTools

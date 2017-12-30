@@ -1,0 +1,3 @@
+RWStepGeom
+==========
+.. automodule:: OCCT.RWStepGeom

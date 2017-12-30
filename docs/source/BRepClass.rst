@@ -1,0 +1,3 @@
+BRepClass
+=========
+.. automodule:: OCCT.BRepClass

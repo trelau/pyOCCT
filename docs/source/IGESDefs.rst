@@ -1,0 +1,3 @@
+IGESDefs
+========
+.. automodule:: OCCT.IGESDefs

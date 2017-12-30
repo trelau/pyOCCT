@@ -1,0 +1,3 @@
+RWStepVisual
+============
+.. automodule:: OCCT.RWStepVisual

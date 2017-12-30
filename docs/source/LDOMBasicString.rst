@@ -1,0 +1,3 @@
+LDOMBasicString
+===============
+.. automodule:: OCCT.LDOMBasicString

@@ -1,0 +1,3 @@
+Resource
+========
+.. automodule:: OCCT.Resource

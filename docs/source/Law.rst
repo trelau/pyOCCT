@@ -1,0 +1,3 @@
+Law
+===
+.. automodule:: OCCT.Law

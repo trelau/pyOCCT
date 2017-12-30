@@ -1,0 +1,3 @@
+BndLib
+======
+.. automodule:: OCCT.BndLib

@@ -1,0 +1,3 @@
+BinObjMgt
+=========
+.. automodule:: OCCT.BinObjMgt

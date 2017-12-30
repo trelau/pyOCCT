@@ -1,0 +1,3 @@
+XmlMDataStd
+===========
+.. automodule:: OCCT.XmlMDataStd

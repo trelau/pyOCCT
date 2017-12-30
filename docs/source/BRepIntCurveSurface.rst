@@ -1,0 +1,3 @@
+BRepIntCurveSurface
+===================
+.. automodule:: OCCT.BRepIntCurveSurface

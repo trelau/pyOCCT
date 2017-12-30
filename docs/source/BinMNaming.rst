@@ -1,0 +1,3 @@
+BinMNaming
+==========
+.. automodule:: OCCT.BinMNaming

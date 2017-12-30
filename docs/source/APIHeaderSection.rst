@@ -1,0 +1,3 @@
+APIHeaderSection
+================
+.. automodule:: OCCT.APIHeaderSection

@@ -1,0 +1,3 @@
+BRepAlgoAPI
+===========
+.. automodule:: OCCT.BRepAlgoAPI

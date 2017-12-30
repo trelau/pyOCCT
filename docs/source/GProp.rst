@@ -1,0 +1,3 @@
+GProp
+=====
+.. automodule:: OCCT.GProp

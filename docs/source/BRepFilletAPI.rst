@@ -1,0 +1,3 @@
+BRepFilletAPI
+=============
+.. automodule:: OCCT.BRepFilletAPI

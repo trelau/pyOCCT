@@ -1,0 +1,3 @@
+BRepPrim
+========
+.. automodule:: OCCT.BRepPrim

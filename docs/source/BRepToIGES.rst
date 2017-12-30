@@ -1,0 +1,3 @@
+BRepToIGES
+==========
+.. automodule:: OCCT.BRepToIGES

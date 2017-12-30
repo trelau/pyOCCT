@@ -1,0 +1,3 @@
+RWStepFEA
+=========
+.. automodule:: OCCT.RWStepFEA

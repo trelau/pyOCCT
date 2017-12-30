@@ -1,0 +1,3 @@
+Plugin
+======
+.. automodule:: OCCT.Plugin

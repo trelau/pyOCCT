@@ -1,0 +1,3 @@
+IntPatch
+========
+.. automodule:: OCCT.IntPatch

@@ -1,0 +1,3 @@
+IGESToBRep
+==========
+.. automodule:: OCCT.IGESToBRep

@@ -1,0 +1,3 @@
+IntPolyh
+========
+.. automodule:: OCCT.IntPolyh

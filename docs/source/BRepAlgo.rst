@@ -1,0 +1,3 @@
+BRepAlgo
+========
+.. automodule:: OCCT.BRepAlgo

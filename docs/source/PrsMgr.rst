@@ -1,0 +1,3 @@
+PrsMgr
+======
+.. automodule:: OCCT.PrsMgr

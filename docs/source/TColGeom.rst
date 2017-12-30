@@ -1,0 +1,3 @@
+TColGeom
+========
+.. automodule:: OCCT.TColGeom

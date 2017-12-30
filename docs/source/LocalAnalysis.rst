@@ -1,0 +1,3 @@
+LocalAnalysis
+=============
+.. automodule:: OCCT.LocalAnalysis

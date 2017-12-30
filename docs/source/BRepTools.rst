@@ -1,0 +1,3 @@
+BRepTools
+=========
+.. automodule:: OCCT.BRepTools

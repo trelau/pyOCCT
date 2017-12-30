@@ -1,0 +1,3 @@
+BRepLib
+=======
+.. automodule:: OCCT.BRepLib

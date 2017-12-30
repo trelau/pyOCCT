@@ -1,0 +1,3 @@
+HLRAlgo
+=======
+.. automodule:: OCCT.HLRAlgo

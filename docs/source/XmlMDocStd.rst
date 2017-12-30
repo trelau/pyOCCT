@@ -1,0 +1,3 @@
+XmlMDocStd
+==========
+.. automodule:: OCCT.XmlMDocStd

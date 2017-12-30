@@ -1,0 +1,3 @@
+SelectBasics
+============
+.. automodule:: OCCT.SelectBasics

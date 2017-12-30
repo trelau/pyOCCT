@@ -1,0 +1,3 @@
+SMESH
+=====
+.. automodule:: OCCT.SMESH

@@ -1,0 +1,3 @@
+BinMDataXtd
+===========
+.. automodule:: OCCT.BinMDataXtd

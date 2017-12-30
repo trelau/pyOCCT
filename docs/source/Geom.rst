@@ -1,0 +1,3 @@
+Geom
+====
+.. automodule:: OCCT.Geom

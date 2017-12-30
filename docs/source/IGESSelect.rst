@@ -1,0 +1,3 @@
+IGESSelect
+==========
+.. automodule:: OCCT.IGESSelect

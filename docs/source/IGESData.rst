@@ -1,0 +1,3 @@
+IGESData
+========
+.. automodule:: OCCT.IGESData

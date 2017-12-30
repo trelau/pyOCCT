@@ -1,0 +1,3 @@
+GeomAbs
+=======
+.. automodule:: OCCT.GeomAbs

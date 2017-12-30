@@ -1,0 +1,3 @@
+BaseTraceCollector
+==================
+.. automodule:: OCCT.BaseTraceCollector

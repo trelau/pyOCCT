@@ -1,0 +1,3 @@
+GeomAPI
+=======
+.. automodule:: OCCT.GeomAPI

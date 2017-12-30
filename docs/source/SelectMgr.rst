@@ -1,0 +1,3 @@
+SelectMgr
+=========
+.. automodule:: OCCT.SelectMgr

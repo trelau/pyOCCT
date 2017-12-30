@@ -1,0 +1,3 @@
+BasicsGenericDestructor
+=======================
+.. automodule:: OCCT.BasicsGenericDestructor

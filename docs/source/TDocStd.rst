@@ -1,0 +1,3 @@
+TDocStd
+=======
+.. automodule:: OCCT.TDocStd

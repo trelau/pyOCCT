@@ -1,0 +1,3 @@
+ShapeConstruct
+==============
+.. automodule:: OCCT.ShapeConstruct

@@ -1,0 +1,3 @@
+StepBasic
+=========
+.. automodule:: OCCT.StepBasic

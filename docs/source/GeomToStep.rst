@@ -1,0 +1,3 @@
+GeomToStep
+==========
+.. automodule:: OCCT.GeomToStep

@@ -1,0 +1,3 @@
+BOPTools
+========
+.. automodule:: OCCT.BOPTools

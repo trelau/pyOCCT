@@ -1,0 +1,3 @@
+ShapeAnalysis
+=============
+.. automodule:: OCCT.ShapeAnalysis

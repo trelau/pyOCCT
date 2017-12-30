@@ -1,0 +1,3 @@
+StdMeshers
+==========
+.. automodule:: OCCT.StdMeshers

@@ -1,0 +1,3 @@
+XCAFDimTolObjects
+=================
+.. automodule:: OCCT.XCAFDimTolObjects

@@ -1,0 +1,3 @@
+ShapePersistent
+===============
+.. automodule:: OCCT.ShapePersistent

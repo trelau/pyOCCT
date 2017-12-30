@@ -1,0 +1,3 @@
+IGESSolid
+=========
+.. automodule:: OCCT.IGESSolid

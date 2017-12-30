@@ -1,0 +1,3 @@
+IntTools
+========
+.. automodule:: OCCT.IntTools

@@ -1,0 +1,3 @@
+RWStepDimTol
+============
+.. automodule:: OCCT.RWStepDimTol

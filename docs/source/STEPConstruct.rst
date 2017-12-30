@@ -1,0 +1,3 @@
+STEPConstruct
+=============
+.. automodule:: OCCT.STEPConstruct

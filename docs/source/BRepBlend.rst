@@ -1,0 +1,3 @@
+BRepBlend
+=========
+.. automodule:: OCCT.BRepBlend

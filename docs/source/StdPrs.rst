@@ -1,0 +1,3 @@
+StdPrs
+======
+.. automodule:: OCCT.StdPrs

@@ -1,0 +1,3 @@
+StepGeom
+========
+.. automodule:: OCCT.StepGeom

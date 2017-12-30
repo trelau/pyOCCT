@@ -1,0 +1,3 @@
+TopOpeBRepTool
+==============
+.. automodule:: OCCT.TopOpeBRepTool

@@ -1,0 +1,3 @@
+BOPAlgo
+=======
+.. automodule:: OCCT.BOPAlgo

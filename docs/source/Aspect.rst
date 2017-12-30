@@ -1,0 +1,3 @@
+Aspect
+======
+.. automodule:: OCCT.Aspect

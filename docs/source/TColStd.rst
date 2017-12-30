@@ -1,0 +1,3 @@
+TColStd
+=======
+.. automodule:: OCCT.TColStd

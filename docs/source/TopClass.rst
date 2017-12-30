@@ -1,0 +1,3 @@
+TopClass
+========
+.. automodule:: OCCT.TopClass

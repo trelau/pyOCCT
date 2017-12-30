@@ -1,0 +1,3 @@
+IGESGraph
+=========
+.. automodule:: OCCT.IGESGraph

@@ -1,0 +1,3 @@
+StepData
+========
+.. automodule:: OCCT.StepData

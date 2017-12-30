@@ -1,0 +1,3 @@
+BRepApprox
+==========
+.. automodule:: OCCT.BRepApprox

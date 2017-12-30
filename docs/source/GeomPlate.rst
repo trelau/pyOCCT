@@ -1,0 +1,3 @@
+GeomPlate
+=========
+.. automodule:: OCCT.GeomPlate

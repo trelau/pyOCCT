@@ -1,0 +1,3 @@
+ShapeAlgo
+=========
+.. automodule:: OCCT.ShapeAlgo

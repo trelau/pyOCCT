@@ -1,0 +1,3 @@
+StdObjMgt
+=========
+.. automodule:: OCCT.StdObjMgt

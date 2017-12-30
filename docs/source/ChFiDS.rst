@@ -1,0 +1,3 @@
+ChFiDS
+======
+.. automodule:: OCCT.ChFiDS

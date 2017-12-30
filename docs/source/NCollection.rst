@@ -1,0 +1,3 @@
+NCollection
+===========
+.. automodule:: OCCT.NCollection

@@ -1,0 +1,3 @@
+BinMDF
+======
+.. automodule:: OCCT.BinMDF

@@ -1,0 +1,3 @@
+BSplCLib
+========
+.. automodule:: OCCT.BSplCLib

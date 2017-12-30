@@ -1,0 +1,3 @@
+BRepOffsetAPI
+=============
+.. automodule:: OCCT.BRepOffsetAPI

@@ -1,0 +1,3 @@
+BRepCheck
+=========
+.. automodule:: OCCT.BRepCheck
