@@ -1381,4 +1381,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	// SMESH_MeshEditor::TListOfListOfElementsID
 	bind_list_of_list<SMESH_MeshEditor::TListOfListOfElementsID, int>(cls_SMESH_MeshEditor, "TListOfListOfElementsID");
 
+	// SMESH_MeshEditor::PGroupIDs
+	bind_list<std::list<int>, int>(cls_SMESH_MeshEditor, "PGroupIDs");
+
 }
