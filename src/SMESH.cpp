@@ -86,6 +86,9 @@
 
 PYBIND11_MAKE_OPAQUE(SMESH_MeshEditor::TListOfListOfNodes);
 PYBIND11_MAKE_OPAQUE(SMESH_MeshEditor::TListOfListOfElementsID);
+PYBIND11_MAKE_OPAQUE(std::list<int>);
+PYBIND11_MAKE_OPAQUE(std::list <const SMDS_MeshNode*>);
+PYBIND11_MAKE_OPAQUE(std::list <const SMDS_MeshElement*>);
 
 PYBIND11_MODULE(SMESH, mod) {
 
@@ -1376,12 +1379,12 @@ PYBIND11_MODULE(SMESH, mod) {
 	bind_SMDS_Iterator<SMESH_Group *>(mod, "SMESH_GroupIterator");
 
 	// SMESH_MeshEditor::TListOfListOfNodes
-	bind_list_of_list<SMESH_MeshEditor::TListOfListOfNodes, const SMDS_MeshNode *>(cls_SMESH_MeshEditor, "TListOfListOfNodes");
+	bind_list<std::list<const SMDS_MeshNode *>>(cls_SMESH_MeshEditor, "TListOfListOfNodes");
 
 	// SMESH_MeshEditor::TListOfListOfElementsID
-	bind_list_of_list<SMESH_MeshEditor::TListOfListOfElementsID, int>(cls_SMESH_MeshEditor, "TListOfListOfElementsID");
+	bind_list<std::list<int>>(cls_SMESH_MeshEditor, "TListOfListOfElementsID");
 
 	// SMESH_MeshEditor::PGroupIDs
-	bind_list<std::list<int>, int>(cls_SMESH_MeshEditor, "PGroupIDs");
+	bind_list<int>(cls_SMESH_MeshEditor, "PGroupIDs");
 
 }

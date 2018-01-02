@@ -51,6 +51,7 @@
 #include <SMDS_VolumeTool.hxx>
 #include <SMDS_VtkCellIterator.hxx>
 #include <SMDS_Templates.hpp>
+#include <STL_Templates.hpp>
 
 PYBIND11_MODULE(SMDS, mod) {
 
@@ -1138,5 +1139,10 @@ PYBIND11_MODULE(SMDS, mod) {
 
 	*/
 
+	// List of nodes
+	bind_list<const SMDS_MeshNode*>(mod, "SMDS_ListOfNodes");
+
+	// List of elements
+	bind_list<const SMDS_MeshElement*>(mod, "SMDS_ListOfElements");
 
 }
