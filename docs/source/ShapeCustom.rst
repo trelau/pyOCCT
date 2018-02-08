@@ -1,3 +1,0 @@
-ShapeCustom
-===========
-.. automodule:: OCCT.ShapeCustom

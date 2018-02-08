@@ -1,3 +1,0 @@
-BOPCol
-======
-.. automodule:: OCCT.BOPCol

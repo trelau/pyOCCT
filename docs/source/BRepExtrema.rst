@@ -1,3 +1,0 @@
-BRepExtrema
-===========
-.. automodule:: OCCT.BRepExtrema

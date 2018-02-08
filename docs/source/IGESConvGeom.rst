@@ -1,3 +1,0 @@
-IGESConvGeom
-============
-.. automodule:: OCCT.IGESConvGeom

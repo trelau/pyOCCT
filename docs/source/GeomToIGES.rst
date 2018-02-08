@@ -1,3 +1,0 @@
-GeomToIGES
-==========
-.. automodule:: OCCT.GeomToIGES

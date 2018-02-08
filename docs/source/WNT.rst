@@ -1,3 +1,0 @@
-WNT
-===
-.. automodule:: OCCT.WNT

@@ -1,3 +1,0 @@
-Image
-=====
-.. automodule:: OCCT.Image

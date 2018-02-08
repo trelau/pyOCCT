@@ -1,3 +1,0 @@
-BRepToIGESBRep
-==============
-.. automodule:: OCCT.BRepToIGESBRep

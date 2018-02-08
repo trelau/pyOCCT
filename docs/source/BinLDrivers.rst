@@ -1,3 +1,0 @@
-BinLDrivers
-===========
-.. automodule:: OCCT.BinLDrivers

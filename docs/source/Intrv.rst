@@ -1,3 +1,0 @@
-Intrv
-=====
-.. automodule:: OCCT.Intrv

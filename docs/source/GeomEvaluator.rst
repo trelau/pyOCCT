@@ -1,3 +1,0 @@
-GeomEvaluator
-=============
-.. automodule:: OCCT.GeomEvaluator

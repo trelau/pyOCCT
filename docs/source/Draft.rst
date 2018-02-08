@@ -1,3 +1,0 @@
-Draft
-=====
-.. automodule:: OCCT.Draft

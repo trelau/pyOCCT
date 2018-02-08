@@ -1,3 +1,0 @@
-CDF
-===
-.. automodule:: OCCT.CDF

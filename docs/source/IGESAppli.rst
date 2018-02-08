@@ -1,3 +1,0 @@
-IGESAppli
-=========
-.. automodule:: OCCT.IGESAppli

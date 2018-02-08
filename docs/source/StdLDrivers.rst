@@ -1,3 +1,0 @@
-StdLDrivers
-===========
-.. automodule:: OCCT.StdLDrivers

@@ -1,3 +1,0 @@
-AdvApprox
-=========
-.. automodule:: OCCT.AdvApprox

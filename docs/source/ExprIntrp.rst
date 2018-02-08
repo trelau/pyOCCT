@@ -1,3 +1,0 @@
-ExprIntrp
-=========
-.. automodule:: OCCT.ExprIntrp

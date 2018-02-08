@@ -1,16 +1,26 @@
 # pyOCCT
-The pyOCCT project provides Python bindings to the OpenCASCADE geometry kernel
-and Salome SMESH meshing library.
+The pyOCCT project provides Python bindings to the OpenCASCADE 7.2.0 geometry
+kernel and SMESH 8.3.0 meshing library from the Salome Platform. This project
+began as a way to test the suitability of using the pybind11 technology for a
+large and complex C++ codebase like the OpenCASCADE modeling kernel.For that
+reason, change should be expected and feedback and contributions are welcome.
+The project was made open source to solicit any improvements while the overall
+architecture and approach are still (relatively) easy to adapt. Please see
+the *TODO* section below for a quick introduction to some existing issues and
+needs. The documentation includes more specific design considerations that are
+open for discussion.
 
 # Installation
-pyOCCT is currently only supported for Windows 64-bit Python 3.5. Anaconda
-Python is recommended for package management and since pre-built binaries are
+Prebuilt binaries for pyOCCT are provided for Windows 64-bit Python 3.5.
+Anaconda Python is recommended for package management and since packages are
 available for some of the prerequisites.
 
-The core libraries exposed are available from the following organizations:
+The core libraries exposed and enabling technologies are available from the
+following organizations:
 * [OpenCASCADE](https://www.opencascade.com)
-* [SMESH](http://www.salome-platform.org)
+* [Salome](http://www.salome-platform.org)
 * [NETGEN](https://sourceforge.net/projects/netgen-mesher)
+* [pybind11](https://github.com/pybind/pybind11)
 
 It is recommended that a designated environment be created and used for pyOCCT.
 An example of creating this environment for Anaconda Python within an Anaconda
@@ -30,7 +40,11 @@ installed using specified channels on the Anaconda cloud:
     conda install -c conda-forge occt=7.2.0
 
 This should automatically resolve all dependencies and install all the
-required packages for the OpenCASCADE binaries.
+required packages for the OpenCASCADE binaries. Please note that 7.2.0 vc14
+is required and a later patch (7.2.0.1) that shows up on the conda-forge
+channel will result in package conflicts with the required version of VTK. For
+some users it has been a challenge to force install that exact version (a fix
+would be welcomed).
 
 The SMESH binaries depend on The Visualization Toolkit (VTK) and "pthreads" and
 can be installed with:
@@ -52,29 +66,54 @@ within the pyOCCT root folder. This will provide the "OCCT" package:
 
     from OCCT.TopoDS import TopoDS_Shape
 
-Binaries for SMESH and NETGEN are already included in the OCCT distribution.
+Binaries for SMESH and NETGEN are already included in the prebuilt OCCT
+distribution.
 
-# Optional MeshGems License
-Optional support for Distene's MeshGems MGCAD-Surf commercial surface meshing
-technology is provided but requires a separate license.
+# TODO
+This project is in early development and change should be expected. Eventually,
+the prebuilt binaries in the `OCCT` folder will be removed as CI services like
+AppVeyor, Travis-CI, and Conda are supported. The prebuilt binaries are only to
+give users a quick start.
 
-# Notice
-Copyright (c) 2017, Laughlin Research, LLC
+Some areas that could use contributor support:
 
-Terms of Use:
+* Improve robustness of CMake build process and add support for targeting other
+  platforms and architectures
+* Leverage CI platforms like AppVeyor and Travis-CI
+* Support for building and deploying Conda packages
+* Tests, examples, and benchmarks
+* Fix conda-forge OCCT version issue described in installation instructions
+* Improvement of minimal visualization tool in the *examples/display*
+* There are a number of *unresolved externals* that show up during the build
+  process but are ignored. In some cases, this is due to the OCCT header files
+  providing an interface but there is no implementation in the source. A better
+  way to handle this could be useful.
 
-The pyOCCT Code, including its source code and related software
-documentation (collectively, the "pyOCCT Code"), as distributed herein 
-and as may be subsequently revised, in whole and in part, is for 
-government use only pursuant to development agreements between NASA, 
-Georgia Institute of Technology, and Laughlin Research, LLC. At the 
-time of distribution hereof, none of the pyOCCT Code is believed or 
-intended to be open source. Disclosure of the pyOCCT Code is strictly 
-subject to one or more restrictive covenants, including 
-non-disclosure and non-circumvention covenants, and any use of the 
-whole or a part of the pyOCCT Code constitutes acknowledgement and 
-acceptance of said covenants. Any unauthorized use, disclosure, 
-and/or sale of the pyOCCT Code or any portion thereof may be actionable
-under current law.
+## Contributing
+For now, contributions to the source code will be incorporated manually. There
+is a (mostly) automated tool for generating the source but it needs some
+attention before being made publicly available. As new versions of OpenCASCADE
+are released, it may be better to just patch up the existing bindings rather
+than rerun the binding generation tool anyway. The automated process still
+requires a handful of manual patches to capture edge cases. Although, if the
+header files of new OpenCASCADE releases are significantly different or there
+is an architectural change in pyOCCT, it makes sense to use the automated tool.
+The automated tool will eventually be released, and improvements can be made
+that hopefully automated the process entirely.
 
-Laughlin Research, LLC retains all commercial rights to the pyOCCT Code.
+## Building
+To build pyOCCT from source the following resources are needed:
+
+* [pybind11](https://github.com/pybind/pybind11): You should make a pybind11
+  subdirectory in the pyOCCT source folder for the CMake process to work. Some
+  further testing and work needs to be done to verify the exact version that
+  will work. That is, the local version used to build the binaries is somewhere
+  between the last release and master. The subdirectory used locally is a
+  symbolic link that points to the local pybind11 repo.
+* [NETGEN](https://github.com/LaughlinResearch/NETGEN): This version of NETGEN
+  is for integration into SMESH and pyOCCT.
+* [SMESH](https://github.com/LaughlinResearch/SMESH): This standalone version
+  of the meshing library from the Salome Platform is required.
+  
+As CI services for these prerequisites come online the build process for pyOCCT
+will be updated as needed.

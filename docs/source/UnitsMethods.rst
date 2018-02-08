@@ -1,3 +1,0 @@
-UnitsMethods
-============
-.. automodule:: OCCT.UnitsMethods

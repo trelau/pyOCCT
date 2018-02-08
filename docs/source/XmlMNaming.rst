@@ -1,3 +1,0 @@
-XmlMNaming
-==========
-.. automodule:: OCCT.XmlMNaming

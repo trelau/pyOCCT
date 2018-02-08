@@ -1,3 +1,0 @@
-BinMXCAFDoc
-===========
-.. automodule:: OCCT.BinMXCAFDoc

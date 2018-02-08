@@ -1,3 +1,0 @@
-LocalTraceBufferPool
-====================
-.. automodule:: OCCT.LocalTraceBufferPool

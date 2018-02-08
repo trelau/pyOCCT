@@ -8,6 +8,6 @@ setup(
         author='Laughlin Research, LLC',
         author_email='info@laughlinresearch.com',
         description='Python bindings to OpenCASCADE.',
-        license='Proprietary',
+        license='LGPL v2.1',
         platforms=['Windows']
 )

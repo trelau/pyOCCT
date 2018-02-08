@@ -1,3 +1,0 @@
-IntImpParGen
-============
-.. automodule:: OCCT.IntImpParGen

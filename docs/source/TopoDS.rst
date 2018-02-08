@@ -1,3 +1,0 @@
-TopoDS
-======
-.. automodule:: OCCT.TopoDS

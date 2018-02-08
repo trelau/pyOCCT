@@ -1,3 +1,0 @@
-Bisector
-========
-.. automodule:: OCCT.Bisector

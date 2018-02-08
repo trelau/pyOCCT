@@ -1,3 +1,0 @@
-ElCLib
-======
-.. automodule:: OCCT.ElCLib

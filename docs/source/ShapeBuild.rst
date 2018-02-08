@@ -1,3 +1,0 @@
-ShapeBuild
-==========
-.. automodule:: OCCT.ShapeBuild

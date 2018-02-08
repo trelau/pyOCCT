@@ -1,3 +1,0 @@
-StepToTopoDS
-============
-.. automodule:: OCCT.StepToTopoDS

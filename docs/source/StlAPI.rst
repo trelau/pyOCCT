@@ -1,3 +1,0 @@
-StlAPI
-======
-.. automodule:: OCCT.StlAPI

@@ -1,3 +1,0 @@
-IntImp
-======
-.. automodule:: OCCT.IntImp

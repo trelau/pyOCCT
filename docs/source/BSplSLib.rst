@@ -1,3 +1,0 @@
-BSplSLib
-========
-.. automodule:: OCCT.BSplSLib

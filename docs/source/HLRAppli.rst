@@ -1,3 +1,0 @@
-HLRAppli
-========
-.. automodule:: OCCT.HLRAppli

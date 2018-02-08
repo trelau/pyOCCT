@@ -1,3 +1,0 @@
-StdObject
-=========
-.. automodule:: OCCT.StdObject

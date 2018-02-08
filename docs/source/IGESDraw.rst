@@ -1,3 +1,0 @@
-IGESDraw
-========
-.. automodule:: OCCT.IGESDraw

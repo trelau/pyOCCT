@@ -1,3 +1,0 @@
-LProp
-=====
-.. automodule:: OCCT.LProp

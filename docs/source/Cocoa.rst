@@ -1,3 +1,0 @@
-Cocoa
-=====
-.. automodule:: OCCT.Cocoa

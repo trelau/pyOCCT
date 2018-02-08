@@ -1,3 +1,0 @@
-IGESBasic
-=========
-.. automodule:: OCCT.IGESBasic

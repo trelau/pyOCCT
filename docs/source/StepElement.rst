@@ -1,3 +1,0 @@
-StepElement
-===========
-.. automodule:: OCCT.StepElement

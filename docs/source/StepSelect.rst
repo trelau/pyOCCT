@@ -1,3 +1,0 @@
-StepSelect
-==========
-.. automodule:: OCCT.StepSelect

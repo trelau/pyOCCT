@@ -1,3 +1,0 @@
-XCAFView
-========
-.. automodule:: OCCT.XCAFView

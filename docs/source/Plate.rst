@@ -1,3 +1,0 @@
-Plate
-=====
-.. automodule:: OCCT.Plate

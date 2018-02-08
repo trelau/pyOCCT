@@ -1,3 +1,0 @@
-AppParCurves
-============
-.. automodule:: OCCT.AppParCurves

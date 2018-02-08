@@ -1,3 +1,0 @@
-Quantity
-========
-.. automodule:: OCCT.Quantity

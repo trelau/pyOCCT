@@ -1,3 +1,0 @@
-VrmlData
-========
-.. automodule:: OCCT.VrmlData

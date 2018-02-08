@@ -1,3 +1,0 @@
-RWStepElement
-=============
-.. automodule:: OCCT.RWStepElement

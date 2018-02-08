@@ -1,3 +1,0 @@
-GeomLib
-=======
-.. automodule:: OCCT.GeomLib

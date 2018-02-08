@@ -1,3 +1,0 @@
-BRepSweep
-=========
-.. automodule:: OCCT.BRepSweep

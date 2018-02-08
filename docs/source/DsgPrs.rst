@@ -1,3 +1,0 @@
-DsgPrs
-======
-.. automodule:: OCCT.DsgPrs

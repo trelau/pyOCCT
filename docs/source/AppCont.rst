@@ -1,3 +1,0 @@
-AppCont
-=======
-.. automodule:: OCCT.AppCont

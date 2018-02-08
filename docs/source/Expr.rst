@@ -1,3 +1,0 @@
-Expr
-====
-.. automodule:: OCCT.Expr

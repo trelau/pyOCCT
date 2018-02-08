@@ -1,3 +1,0 @@
-StdFail
-=======
-.. automodule:: OCCT.StdFail

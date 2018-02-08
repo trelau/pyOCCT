@@ -1,3 +1,0 @@
-XmlXCAFDrivers
-==============
-.. automodule:: OCCT.XmlXCAFDrivers

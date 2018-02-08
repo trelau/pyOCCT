@@ -1,3 +1,0 @@
-TopTools
-========
-.. automodule:: OCCT.TopTools

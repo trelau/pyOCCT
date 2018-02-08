@@ -1,3 +1,0 @@
-StdPersistent
-=============
-.. automodule:: OCCT.StdPersistent

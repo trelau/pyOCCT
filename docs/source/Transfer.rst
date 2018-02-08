@@ -1,3 +1,0 @@
-Transfer
-========
-.. automodule:: OCCT.Transfer

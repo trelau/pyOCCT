@@ -1,3 +1,0 @@
-DriverSTL
-=========
-.. automodule:: OCCT.DriverSTL

@@ -1,3 +1,0 @@
-HatchGen
-========
-.. automodule:: OCCT.HatchGen

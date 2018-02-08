@@ -1,3 +1,0 @@
-gce
-===
-.. automodule:: OCCT.gce

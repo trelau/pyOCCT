@@ -1,3 +1,0 @@
-Hermit
-======
-.. automodule:: OCCT.Hermit

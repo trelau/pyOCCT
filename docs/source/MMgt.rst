@@ -1,3 +1,0 @@
-MMgt
-====
-.. automodule:: OCCT.MMgt

@@ -1,3 +1,0 @@
-RWStepShape
-===========
-.. automodule:: OCCT.RWStepShape

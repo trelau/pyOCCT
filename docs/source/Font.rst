@@ -1,3 +1,0 @@
-Font
-====
-.. automodule:: OCCT.Font

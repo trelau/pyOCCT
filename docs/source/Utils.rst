@@ -1,3 +1,0 @@
-Utils
-=====
-.. automodule:: OCCT.Utils

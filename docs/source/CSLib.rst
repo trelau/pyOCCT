@@ -1,3 +1,0 @@
-CSLib
-=====
-.. automodule:: OCCT.CSLib

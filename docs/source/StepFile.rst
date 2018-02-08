@@ -1,3 +1,0 @@
-StepFile
-========
-.. automodule:: OCCT.StepFile

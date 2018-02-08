@@ -1,3 +1,0 @@
-BRepOffset
-==========
-.. automodule:: OCCT.BRepOffset

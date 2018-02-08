@@ -1,3 +1,0 @@
-ShapeProcessAPI
-===============
-.. automodule:: OCCT.ShapeProcessAPI

@@ -1,3 +1,0 @@
-GC
-==
-.. automodule:: OCCT.GC

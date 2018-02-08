@@ -1,3 +1,0 @@
-AppStdL
-=======
-.. automodule:: OCCT.AppStdL

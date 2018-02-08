@@ -1,3 +1,0 @@
-FEmTool
-=======
-.. automodule:: OCCT.FEmTool

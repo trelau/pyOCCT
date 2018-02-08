@@ -1,3 +1,0 @@
-AppStd
-======
-.. automodule:: OCCT.AppStd

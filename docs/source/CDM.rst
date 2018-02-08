@@ -1,3 +1,0 @@
-CDM
-===
-.. automodule:: OCCT.CDM

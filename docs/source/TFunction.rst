@@ -1,3 +1,0 @@
-TFunction
-=========
-.. automodule:: OCCT.TFunction

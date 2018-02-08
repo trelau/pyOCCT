@@ -1,3 +1,0 @@
-BRepFeat
-========
-.. automodule:: OCCT.BRepFeat

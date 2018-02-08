@@ -1,3 +1,0 @@
-BVH
-===
-.. automodule:: OCCT.BVH

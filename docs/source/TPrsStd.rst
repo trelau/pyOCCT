@@ -1,3 +1,0 @@
-TPrsStd
-=======
-.. automodule:: OCCT.TPrsStd

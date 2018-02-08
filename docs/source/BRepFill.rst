@@ -1,3 +1,0 @@
-BRepFill
-========
-.. automodule:: OCCT.BRepFill

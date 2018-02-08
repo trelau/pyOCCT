@@ -52,11 +52,11 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 
 # The master toctree document.
-master_doc = 'pyocct'
+master_doc = 'index'
 
 # General information about the project.
 project = 'pyOCCT'
-copyright = '2017, Laughlin Research, LLC'
+copyright = '2016-2018, Laughlin Research, LLC'
 author = 'Laughlin Research, LLC'
 
 # The version info for the project you're documenting, acts as replacement for

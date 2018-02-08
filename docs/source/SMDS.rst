@@ -1,3 +1,0 @@
-SMDS
-====
-.. automodule:: OCCT.SMDS

@@ -1,3 +1,0 @@
-IGESDimen
-=========
-.. automodule:: OCCT.IGESDimen

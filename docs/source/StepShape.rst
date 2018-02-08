@@ -1,3 +1,0 @@
-StepShape
-=========
-.. automodule:: OCCT.StepShape

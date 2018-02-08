@@ -1,3 +1,0 @@
-RWStepBasic
-===========
-.. automodule:: OCCT.RWStepBasic

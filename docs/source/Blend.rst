@@ -1,3 +1,0 @@
-Blend
-=====
-.. automodule:: OCCT.Blend

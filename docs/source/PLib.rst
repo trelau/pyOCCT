@@ -1,3 +1,0 @@
-PLib
-====
-.. automodule:: OCCT.PLib

@@ -1,3 +1,0 @@
-Bnd
-===
-.. automodule:: OCCT.Bnd

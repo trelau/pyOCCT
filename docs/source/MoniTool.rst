@@ -1,3 +1,0 @@
-MoniTool
-========
-.. automodule:: OCCT.MoniTool

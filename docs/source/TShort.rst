@@ -1,3 +1,0 @@
-TShort
-======
-.. automodule:: OCCT.TShort

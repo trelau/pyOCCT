@@ -1,3 +1,0 @@
-TopOpeBRepBuild
-===============
-.. automodule:: OCCT.TopOpeBRepBuild

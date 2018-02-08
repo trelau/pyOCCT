@@ -1,3 +1,0 @@
-IntAna
-======
-.. automodule:: OCCT.IntAna

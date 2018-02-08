@@ -1,3 +1,0 @@
-StdSelect
-=========
-.. automodule:: OCCT.StdSelect

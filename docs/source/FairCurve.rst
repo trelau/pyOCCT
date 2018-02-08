@@ -1,3 +1,0 @@
-FairCurve
-=========
-.. automodule:: OCCT.FairCurve

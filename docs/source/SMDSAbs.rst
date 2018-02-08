@@ -1,3 +1,0 @@
-SMDSAbs
-=======
-.. automodule:: OCCT.SMDSAbs

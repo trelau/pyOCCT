@@ -1,3 +1,0 @@
-NLPlate
-=======
-.. automodule:: OCCT.NLPlate

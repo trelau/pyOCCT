@@ -1,3 +1,0 @@
-FilletSurf
-==========
-.. automodule:: OCCT.FilletSurf

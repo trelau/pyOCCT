@@ -1,3 +1,0 @@
-STEPEdit
-========
-.. automodule:: OCCT.STEPEdit

@@ -1,3 +1,0 @@
-StepVisual
-==========
-.. automodule:: OCCT.StepVisual

@@ -1,3 +1,0 @@
-TDataStd
-========
-.. automodule:: OCCT.TDataStd

@@ -1,3 +1,0 @@
-TopAbs
-======
-.. automodule:: OCCT.TopAbs

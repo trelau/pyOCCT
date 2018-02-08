@@ -1,3 +1,0 @@
-AIS
-===
-.. automodule:: OCCT.AIS

@@ -1,3 +1,0 @@
-XCAFDoc
-=======
-.. automodule:: OCCT.XCAFDoc

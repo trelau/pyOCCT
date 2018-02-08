@@ -1,3 +1,0 @@
-XmlMFunction
-============
-.. automodule:: OCCT.XmlMFunction

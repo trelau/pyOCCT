@@ -1,3 +1,0 @@
-AppBlend
-========
-.. automodule:: OCCT.AppBlend

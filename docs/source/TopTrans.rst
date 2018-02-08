@@ -1,3 +1,0 @@
-TopTrans
-========
-.. automodule:: OCCT.TopTrans

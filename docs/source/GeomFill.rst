@@ -1,3 +1,0 @@
-GeomFill
-========
-.. automodule:: OCCT.GeomFill

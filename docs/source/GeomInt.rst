@@ -1,3 +1,0 @@
-GeomInt
-=======
-.. automodule:: OCCT.GeomInt

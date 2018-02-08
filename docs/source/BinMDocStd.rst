@@ -1,3 +1,0 @@
-BinMDocStd
-==========
-.. automodule:: OCCT.BinMDocStd

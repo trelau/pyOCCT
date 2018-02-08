@@ -1,3 +1,0 @@
-LDOM
-====
-.. automodule:: OCCT.LDOM

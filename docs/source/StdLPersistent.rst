@@ -1,3 +1,0 @@
-StdLPersistent
-==============
-.. automodule:: OCCT.StdLPersistent

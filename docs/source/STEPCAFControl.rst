@@ -1,3 +1,0 @@
-STEPCAFControl
-==============
-.. automodule:: OCCT.STEPCAFControl

@@ -1,3 +1,0 @@
-FSD
-===
-.. automodule:: OCCT.FSD

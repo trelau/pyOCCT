@@ -1,3 +1,0 @@
-ProjLib
-=======
-.. automodule:: OCCT.ProjLib

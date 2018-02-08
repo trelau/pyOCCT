@@ -1,3 +1,0 @@
-UTL
-===
-.. automodule:: OCCT.UTL

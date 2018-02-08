@@ -1,3 +1,0 @@
-GccAna
-======
-.. automodule:: OCCT.GccAna

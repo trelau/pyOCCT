@@ -1,3 +1,0 @@
-Interface
-=========
-.. automodule:: OCCT.Interface

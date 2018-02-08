@@ -1,3 +1,0 @@
-IntSurf
-=======
-.. automodule:: OCCT.IntSurf

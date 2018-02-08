@@ -1,3 +1,0 @@
-GeomConvert
-===========
-.. automodule:: OCCT.GeomConvert

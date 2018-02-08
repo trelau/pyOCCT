@@ -1,3 +1,0 @@
-XmlObjMgt
-=========
-.. automodule:: OCCT.XmlObjMgt

@@ -1,3 +1,0 @@
-BRepBndLib
-==========
-.. automodule:: OCCT.BRepBndLib

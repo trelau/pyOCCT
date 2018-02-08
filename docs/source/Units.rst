@@ -1,3 +1,0 @@
-Units
-=====
-.. automodule:: OCCT.Units

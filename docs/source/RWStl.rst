@@ -1,3 +1,0 @@
-RWStl
-=====
-.. automodule:: OCCT.RWStl

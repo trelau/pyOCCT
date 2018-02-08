@@ -1,3 +1,0 @@
-XSControl
-=========
-.. automodule:: OCCT.XSControl

@@ -1,3 +1,0 @@
-CPnts
-=====
-.. automodule:: OCCT.CPnts

@@ -1,3 +1,0 @@
-ApproxInt
-=========
-.. automodule:: OCCT.ApproxInt

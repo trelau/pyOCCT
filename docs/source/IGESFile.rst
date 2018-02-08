@@ -1,3 +1,0 @@
-IGESFile
-========
-.. automodule:: OCCT.IGESFile

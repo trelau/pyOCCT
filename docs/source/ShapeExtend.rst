@@ -1,3 +1,0 @@
-ShapeExtend
-===========
-.. automodule:: OCCT.ShapeExtend

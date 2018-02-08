@@ -1,3 +1,0 @@
-TopExp
-======
-.. automodule:: OCCT.TopExp

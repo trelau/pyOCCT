@@ -1,3 +1,0 @@
-Rn
-==
-.. automodule:: OCCT.Rn

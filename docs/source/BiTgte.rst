@@ -1,3 +1,0 @@
-BiTgte
-======
-.. automodule:: OCCT.BiTgte

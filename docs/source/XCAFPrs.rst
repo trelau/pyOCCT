@@ -1,3 +1,0 @@
-XCAFPrs
-=======
-.. automodule:: OCCT.XCAFPrs

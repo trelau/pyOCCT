@@ -1,3 +1,0 @@
-BinTObjDrivers
-==============
-.. automodule:: OCCT.BinTObjDrivers

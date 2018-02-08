@@ -1,3 +1,0 @@
-IGESControl
-===========
-.. automodule:: OCCT.IGESControl

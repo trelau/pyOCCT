@@ -1,3 +1,0 @@
-AppDef
-======
-.. automodule:: OCCT.AppDef

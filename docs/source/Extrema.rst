@@ -1,3 +1,0 @@
-Extrema
-=======
-.. automodule:: OCCT.Extrema

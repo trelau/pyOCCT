@@ -1,3 +1,0 @@
-Driver
-======
-.. automodule:: OCCT.Driver

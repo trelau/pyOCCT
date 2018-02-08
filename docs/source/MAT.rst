@@ -1,3 +1,0 @@
-MAT
-===
-.. automodule:: OCCT.MAT

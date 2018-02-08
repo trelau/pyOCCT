@@ -1,3 +1,0 @@
-Hatch
-=====
-.. automodule:: OCCT.Hatch

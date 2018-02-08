@@ -1,3 +1,0 @@
-StepToGeom
-==========
-.. automodule:: OCCT.StepToGeom

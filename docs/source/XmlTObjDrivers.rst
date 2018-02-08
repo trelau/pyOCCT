@@ -1,3 +1,0 @@
-XmlTObjDrivers
-==============
-.. automodule:: OCCT.XmlTObjDrivers

@@ -1,3 +1,0 @@
-BOPDS
-=====
-.. automodule:: OCCT.BOPDS

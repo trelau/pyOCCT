@@ -1,3 +1,0 @@
-Convert
-=======
-.. automodule:: OCCT.Convert

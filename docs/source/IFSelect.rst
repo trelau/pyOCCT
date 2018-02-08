@@ -1,3 +1,0 @@
-IFSelect
-========
-.. automodule:: OCCT.IFSelect

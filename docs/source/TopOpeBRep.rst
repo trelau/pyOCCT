@@ -1,3 +1,0 @@
-TopOpeBRep
-==========
-.. automodule:: OCCT.TopOpeBRep

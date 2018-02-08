@@ -1,3 +1,0 @@
-BRepMesh
-========
-.. automodule:: OCCT.BRepMesh

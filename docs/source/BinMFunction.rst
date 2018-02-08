@@ -1,3 +1,0 @@
-BinMFunction
-============
-.. automodule:: OCCT.BinMFunction

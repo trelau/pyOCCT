@@ -1,3 +1,0 @@
-IFGraph
-=======
-.. automodule:: OCCT.IFGraph

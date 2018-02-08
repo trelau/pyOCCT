@@ -1,3 +1,0 @@
-Message
-=======
-.. automodule:: OCCT.Message

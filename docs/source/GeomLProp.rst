@@ -1,3 +1,0 @@
-GeomLProp
-=========
-.. automodule:: OCCT.GeomLProp

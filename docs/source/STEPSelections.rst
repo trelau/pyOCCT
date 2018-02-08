@@ -1,3 +1,0 @@
-STEPSelections
-==============
-.. automodule:: OCCT.STEPSelections

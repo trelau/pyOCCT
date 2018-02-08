@@ -1,3 +1,0 @@
-VrmlConverter
-=============
-.. automodule:: OCCT.VrmlConverter

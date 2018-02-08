@@ -1,3 +1,0 @@
-BRepProj
-========
-.. automodule:: OCCT.BRepProj

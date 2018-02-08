@@ -1,3 +1,0 @@
-XmlLDrivers
-===========
-.. automodule:: OCCT.XmlLDrivers

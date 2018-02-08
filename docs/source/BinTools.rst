@@ -1,3 +1,0 @@
-BinTools
-========
-.. automodule:: OCCT.BinTools

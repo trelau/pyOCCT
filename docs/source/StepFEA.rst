@@ -1,3 +1,0 @@
-StepFEA
-=======
-.. automodule:: OCCT.StepFEA

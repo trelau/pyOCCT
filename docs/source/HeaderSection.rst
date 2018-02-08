@@ -1,3 +1,0 @@
-HeaderSection
-=============
-.. automodule:: OCCT.HeaderSection

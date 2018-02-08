@@ -1,3 +1,0 @@
-Precision
-=========
-.. automodule:: OCCT.Precision

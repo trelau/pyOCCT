@@ -1,3 +1,0 @@
-XmlMDF
-======
-.. automodule:: OCCT.XmlMDF

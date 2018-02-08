@@ -1,3 +1,0 @@
-GccEnt
-======
-.. automodule:: OCCT.GccEnt

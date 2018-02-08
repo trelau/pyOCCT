@@ -1,3 +1,0 @@
-math
-====
-.. automodule:: OCCT.math

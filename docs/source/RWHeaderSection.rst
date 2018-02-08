@@ -1,3 +1,0 @@
-RWHeaderSection
-===============
-.. automodule:: OCCT.RWHeaderSection

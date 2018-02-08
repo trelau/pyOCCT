@@ -1,3 +1,0 @@
-ChFiKPart
-=========
-.. automodule:: OCCT.ChFiKPart

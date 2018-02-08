@@ -1,3 +1,0 @@
-XmlMXCAFDoc
-===========
-.. automodule:: OCCT.XmlMXCAFDoc

@@ -1,3 +1,0 @@
-TColgp
-======
-.. automodule:: OCCT.TColgp

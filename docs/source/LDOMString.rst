@@ -1,3 +1,0 @@
-LDOMString
-==========
-.. automodule:: OCCT.LDOMString

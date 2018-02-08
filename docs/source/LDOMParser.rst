@@ -1,3 +1,0 @@
-LDOMParser
-==========
-.. automodule:: OCCT.LDOMParser

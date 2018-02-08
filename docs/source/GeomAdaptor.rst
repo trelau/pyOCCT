@@ -1,3 +1,0 @@
-GeomAdaptor
-===========
-.. automodule:: OCCT.GeomAdaptor

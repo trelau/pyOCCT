@@ -1,3 +1,0 @@
-TopLoc
-======
-.. automodule:: OCCT.TopLoc

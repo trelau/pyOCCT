@@ -1,3 +1,0 @@
-SMESHDS
-=======
-.. automodule:: OCCT.SMESHDS

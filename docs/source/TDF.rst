@@ -1,3 +1,0 @@
-TDF
-===
-.. automodule:: OCCT.TDF

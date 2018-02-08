@@ -1,3 +1,0 @@
-IGESCAFControl
-==============
-.. automodule:: OCCT.IGESCAFControl

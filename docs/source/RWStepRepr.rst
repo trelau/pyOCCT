@@ -1,3 +1,0 @@
-RWStepRepr
-==========
-.. automodule:: OCCT.RWStepRepr

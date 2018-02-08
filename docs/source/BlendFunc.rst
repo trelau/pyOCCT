@@ -1,3 +1,0 @@
-BlendFunc
-=========
-.. automodule:: OCCT.BlendFunc

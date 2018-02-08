@@ -1,3 +1,0 @@
-StepRepr
-========
-.. automodule:: OCCT.StepRepr

@@ -1,3 +1,0 @@
-XBRepMesh
-=========
-.. automodule:: OCCT.XBRepMesh

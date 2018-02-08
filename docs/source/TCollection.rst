@@ -1,3 +1,0 @@
-TCollection
-===========
-.. automodule:: OCCT.TCollection

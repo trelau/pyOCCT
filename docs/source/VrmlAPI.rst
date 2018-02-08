@@ -1,3 +1,0 @@
-VrmlAPI
-=======
-.. automodule:: OCCT.VrmlAPI

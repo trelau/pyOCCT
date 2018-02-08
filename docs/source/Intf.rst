@@ -1,3 +1,0 @@
-Intf
-====
-.. automodule:: OCCT.Intf

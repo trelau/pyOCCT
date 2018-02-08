@@ -1,3 +1,0 @@
-IntCurvesFace
-=============
-.. automodule:: OCCT.IntCurvesFace

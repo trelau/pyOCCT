@@ -1,3 +1,0 @@
-STEPControl
-===========
-.. automodule:: OCCT.STEPControl

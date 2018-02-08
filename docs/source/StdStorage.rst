@@ -1,3 +1,0 @@
-StdStorage
-==========
-.. automodule:: OCCT.StdStorage

@@ -1,3 +1,0 @@
-HLRBRep
-=======
-.. automodule:: OCCT.HLRBRep

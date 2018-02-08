@@ -1,3 +1,0 @@
-UnitsAPI
-========
-.. automodule:: OCCT.UnitsAPI

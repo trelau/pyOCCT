@@ -1,3 +1,0 @@
-gp
-==
-.. automodule:: OCCT.gp

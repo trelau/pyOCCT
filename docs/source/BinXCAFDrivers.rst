@@ -1,3 +1,0 @@
-BinXCAFDrivers
-==============
-.. automodule:: OCCT.BinXCAFDrivers

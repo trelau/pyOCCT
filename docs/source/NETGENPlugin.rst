@@ -1,3 +1,0 @@
-NETGENPlugin
-============
-.. automodule:: OCCT.NETGENPlugin

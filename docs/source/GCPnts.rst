@@ -1,3 +1,0 @@
-GCPnts
-======
-.. automodule:: OCCT.GCPnts

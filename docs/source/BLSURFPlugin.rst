@@ -1,3 +1,0 @@
-BLSURFPlugin
-============
-.. automodule:: OCCT.BLSURFPlugin

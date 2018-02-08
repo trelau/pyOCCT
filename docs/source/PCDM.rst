@@ -1,3 +1,0 @@
-PCDM
-====
-.. automodule:: OCCT.PCDM

@@ -1,3 +1,0 @@
-OpenGl
-======
-.. automodule:: OCCT.OpenGl

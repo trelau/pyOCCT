@@ -1,3 +1,0 @@
-TColQuantity
-============
-.. automodule:: OCCT.TColQuantity

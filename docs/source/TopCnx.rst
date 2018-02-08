@@ -1,3 +1,0 @@
-TopCnx
-======
-.. automodule:: OCCT.TopCnx

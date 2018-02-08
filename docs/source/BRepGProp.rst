@@ -1,3 +1,0 @@
-BRepGProp
-=========
-.. automodule:: OCCT.BRepGProp

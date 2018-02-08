@@ -1,3 +1,0 @@
-DriverDAT
-=========
-.. automodule:: OCCT.DriverDAT

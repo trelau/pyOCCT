@@ -1,3 +1,0 @@
-TObj
-====
-.. automodule:: OCCT.TObj

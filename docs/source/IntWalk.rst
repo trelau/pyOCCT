@@ -1,3 +1,0 @@
-IntWalk
-=======
-.. automodule:: OCCT.IntWalk

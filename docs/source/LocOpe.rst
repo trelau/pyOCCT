@@ -1,3 +1,0 @@
-LocOpe
-======
-.. automodule:: OCCT.LocOpe

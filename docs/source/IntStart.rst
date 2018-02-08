@@ -1,3 +1,0 @@
-IntStart
-========
-.. automodule:: OCCT.IntStart

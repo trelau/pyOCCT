@@ -1,3 +1,0 @@
-XCAFApp
-=======
-.. automodule:: OCCT.XCAFApp

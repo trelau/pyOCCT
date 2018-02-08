@@ -1,3 +1,0 @@
-ShapeProcess
-============
-.. automodule:: OCCT.ShapeProcess

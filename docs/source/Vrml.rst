@@ -1,3 +1,0 @@
-Vrml
-====
-.. automodule:: OCCT.Vrml

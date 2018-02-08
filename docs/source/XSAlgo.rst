@@ -1,3 +1,0 @@
-XSAlgo
-======
-.. automodule:: OCCT.XSAlgo

@@ -1,3 +1,0 @@
-TNaming
-=======
-.. automodule:: OCCT.TNaming

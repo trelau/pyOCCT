@@ -1,3 +1,0 @@
-MeshVS
-======
-.. automodule:: OCCT.MeshVS

@@ -1,3 +1,0 @@
-Storage
-=======
-.. automodule:: OCCT.Storage

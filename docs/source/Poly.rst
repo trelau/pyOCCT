@@ -1,3 +1,0 @@
-Poly
-====
-.. automodule:: OCCT.Poly

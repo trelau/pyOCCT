@@ -1,3 +1,0 @@
-OSD
-===
-.. automodule:: OCCT.OSD

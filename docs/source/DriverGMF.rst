@@ -1,3 +1,0 @@
-DriverGMF
-=========
-.. automodule:: OCCT.DriverGMF

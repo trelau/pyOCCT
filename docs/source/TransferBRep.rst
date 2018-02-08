@@ -1,3 +1,0 @@
-TransferBRep
-============
-.. automodule:: OCCT.TransferBRep

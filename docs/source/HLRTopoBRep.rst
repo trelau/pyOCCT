@@ -1,3 +1,0 @@
-HLRTopoBRep
-===========
-.. automodule:: OCCT.HLRTopoBRep

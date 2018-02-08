@@ -1,3 +1,0 @@
-StepDimTol
-==========
-.. automodule:: OCCT.StepDimTol

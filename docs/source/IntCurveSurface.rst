@@ -1,3 +1,0 @@
-IntCurveSurface
-===============
-.. automodule:: OCCT.IntCurveSurface

@@ -1,3 +1,0 @@
-BRepBuilderAPI
-==============
-.. automodule:: OCCT.BRepBuilderAPI

@@ -1,3 +1,0 @@
-ObjectPool
-==========
-.. automodule:: OCCT.ObjectPool

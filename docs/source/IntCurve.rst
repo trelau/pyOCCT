@@ -1,3 +1,0 @@
-IntCurve
-========
-.. automodule:: OCCT.IntCurve

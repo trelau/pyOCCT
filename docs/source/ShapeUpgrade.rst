@@ -1,3 +1,0 @@
-ShapeUpgrade
-============
-.. automodule:: OCCT.ShapeUpgrade

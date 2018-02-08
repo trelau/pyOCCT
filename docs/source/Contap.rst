@@ -1,3 +1,0 @@
-Contap
-======
-.. automodule:: OCCT.Contap
