@@ -1,7 +1,7 @@
 import time
 
 import exchange
-import graphics
+import display
 from OCCT.BLSURFPlugin import BLSURFPlugin_BLSURF, BLSURFPlugin_Hypothesis
 from OCCT.SMESH import SMESH_Gen, SMESH_Mesh
 
@@ -33,6 +33,6 @@ start = time.time()
 done = gen.Compute(mesh, mesh.GetShapeToMesh())
 print('done in ', time.time() - start, ' seconds.')
 
-v = graphics.SimpleViewer()
-v.display_mesh(mesh)
+v = display.Viewer()
+v.add(mesh)
 v.start()

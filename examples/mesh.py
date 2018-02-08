@@ -1,6 +1,5 @@
+import display
 import exchange
-import graphics
-
 from OCCT.NETGENPlugin import (NETGENPlugin_Hypothesis_2D,
                                NETGENPlugin_NETGEN_2D)
 from OCCT.SMESH import SMESH_Gen, SMESH_Mesh
@@ -36,4 +35,6 @@ done = gen.Compute(mesh, mesh.GetShapeToMesh())
 assert bool
 print('done.')
 
-graphics.display_shape(None, mesh)
+v = display.Viewer()
+v.add(mesh)
+v.start()

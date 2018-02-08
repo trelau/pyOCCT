@@ -38,12 +38,8 @@ find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIR})
 
 # pthread
-set(pthread_INCLUDE_DIRS "C:/Miniconda/envs/occt/Library/include" CACHE PATH "Path to pthread.h")
+set(pthread_INCLUDE_DIRS "" CACHE PATH "Path to pthread.h")
 include_directories(${pthread_INCLUDE_DIRS})
-
-# Freetype
-# set(freetype_INCLUDE_DIR "C:/Miniconda/envs/occt/Library/include/freetype" CACHE PATH "Freetype include directory.")
-# include_directories(${freetype_INCLUDE_DIR})
 
 #BLSURF
 set(MESHGEMS_INCLUDE "" CACHE PATH "MeshGems include directory.")
