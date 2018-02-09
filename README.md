@@ -117,13 +117,13 @@ To build pyOCCT from source the following resources are needed:
   is for integration into SMESH and pyOCCT.
 * [SMESH](https://github.com/LaughlinResearch/SMESH): This standalone version
   of the meshing library from the Salome Platform is required.
-* [MeshGems](http://meshgems.com): Distene SAS products a commercial mesh
-  generation library that has been integration into the Salome Platform. The
+* [MeshGems](http://meshgems.com): Distene SAS provides a commercial mesh
+  generation library that has been integrated into the Salome Platform. The
   binaries are available in the Salome Platform distribution and support for
   the BLSURFPlugin was experimented with at one point and time. The MeshGems
   binaries are not included in this project and require a license from Distene.
-  Continued support for this module is not intended and for now is just left
-  over from previous work.
+  Continued support for the BLSURFPlugin module is not intended and for now is
+  just left over from previous work.
   
 As CI services for these prerequisites come online the build process for pyOCCT
 will be updated as needed.
