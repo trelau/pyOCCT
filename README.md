@@ -1,3 +1,5 @@
+[![Join the chat at https://gitter.im/pyOCCT/Lobby](https://badges.gitter.im/pyOCCT/Lobby.svg)](https://gitter.im/pyOCCT/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 # pyOCCT
 The **pyOCCT** project provides Python bindings to the OpenCASCADE 7.2.0
 geometry kernel and SMESH 8.3.0 meshing library via pybind11. Together, this
@@ -123,6 +125,7 @@ Some areas that could use contributor support:
 * The source code generation tool will comment out known issues and usually add
   a `// FIXME` line to something that is causing compilation problems. Figuring
   out what the root issue is would be helpful.
+* Better exception handling
 
 ## Building
 To build pyOCCT from source the following resources are needed:
