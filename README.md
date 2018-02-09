@@ -88,6 +88,9 @@ Some areas that could use contributor support:
   process but are ignored. In some cases, this is due to the OCCT header files
   providing an interface but there is no implementation in the source. A better
   way to handle this could be useful.
+* The source code generation tool will comment out known issues and usually add
+  a `// FIXME` line to something that is causing compilation problems. Figuring
+  out what the root issue is would be helpful.
 
 ## Contributing
 For now, contributions to the source code will be incorporated manually. There
@@ -114,6 +117,13 @@ To build pyOCCT from source the following resources are needed:
   is for integration into SMESH and pyOCCT.
 * [SMESH](https://github.com/LaughlinResearch/SMESH): This standalone version
   of the meshing library from the Salome Platform is required.
+* [MeshGems](http://meshgems.com): Distene SAS products a commercial mesh
+  generation library that has been integration into the Salome Platform. The
+  binaries are available in the Salome Platform distribution and support for
+  the BLSURFPlugin was experimented with at one point and time. The MeshGems
+  binaries are not included in this project and require a license from Distene.
+  Continued support for this module is not intended and for now is just left
+  over from previous work.
   
 As CI services for these prerequisites come online the build process for pyOCCT
 will be updated as needed.
