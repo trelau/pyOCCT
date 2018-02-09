@@ -6,6 +6,10 @@ geometry kernel and SMESH 8.3.0 meshing library via pybind11. Together, this
 technology stack enables rapid CAD/CAE application development in the popular
 Python programming language.
 
+Are you a pybind11 expert? If so, check out the
+[Design Considerations](http://pyocct.readthedocs.io/en/latest/main.html#design-considerations)
+documentation and share your thoughts and ideas!
+
 ## Technology Stack
 The pyOCCT core technology stack includes:
 
