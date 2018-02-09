@@ -93,6 +93,7 @@ Some areas that could use contributor support:
 * The source code generation tool will comment out known issues and usually add
   a `// FIXME` line to something that is causing compilation problems. Figuring
   out what the root issue is would be helpful.
+* Better exception handling
 
 ## Contributing
 For now, contributions to the source code will be incorporated manually. There
