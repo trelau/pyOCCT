@@ -1,26 +1,46 @@
 # pyOCCT
-The pyOCCT project provides Python bindings to the OpenCASCADE 7.2.0 geometry
-kernel and SMESH 8.3.0 meshing library from the Salome Platform. This project
-began as a way to test the suitability of using the pybind11 technology for a
-large and complex C++ codebase like the OpenCASCADE modeling kernel.For that
-reason, change should be expected and feedback and contributions are welcome.
-The project was made open source to solicit any improvements while the overall
-architecture and approach are still (relatively) easy to adapt. Please see
-the *TODO* section below for a quick introduction to some existing issues and
-needs. The documentation includes more specific design considerations that are
-open for discussion.
+The **pyOCCT** project provides Python bindings to the OpenCASCADE 7.2.0
+geometry kernel and SMESH 8.3.0 meshing library via pybind11. Together, this
+technology stack enables rapid CAD/CAE application development in the popular
+Python programming language.
 
-# Installation
+## Technology Stack
+The pyOCCT core technology stack includes:
+
+* [pybind11](https://github.com/pybind/pybind11): This is a lightweight
+  header-only library that exposes C++ types to Python and proved to be a
+  natural fit for the large and complex OpenCASCADE codebase.
+
+* [OpenCASCADE](https://www.opencascade.com): This mature library provides
+  advanced geometric modeling and CAD functionality and is under active
+  development. Newer versions (i.e., beyond 7.0.0) provide robust and
+  high-performance Boolean operations.
+
+* [NETGEN](https://sourceforge.net/projects/netgen-mesher): This library
+  enables advanced meshing capabilities including 3-D tetrahedral and 2-D
+  unstructured quad-dominated surface meshing. The designated branch for the
+  pyOCCT branch can be found [here](https://github.com/LaughlinResearch/NETGEN).
+
+* [Salome Platform](http://www.salome-platform.org): The core meshing library
+  from this open source application serves as the central component for
+  pyOCCT's mesh generation capabilities. A standalone version of the meshing
+  library can be found [here](https://github.com/LaughlinResearch/SMESH).
+
+## Resources
+More resources for using, developing, and navigating the pyOCCT project will be
+made available, but for now the OpenCASCADE C++ documentation provides the most
+complete set of information. The pyOCCT interface should be very similar to its
+C++ counterpart. More resources will be available soon.
+
+* [OpenCASCADE Technology Overview](https://www.opencascade.com/doc/occt-7.2.0/overview/html/index.html)
+* [OpenCASCADE Reference Manual](https://www.opencascade.com/doc/occt-7.2.0/refman/html/index.html)
+* [Chat on Gitter](https://gitter.im/pyOCCT/Lobby)
+* [Submit issues](https://github.com/LaughlinResearch/pyOCCT/issues)
+
+# Installing Prerequisites
 Prebuilt binaries for pyOCCT are provided for Windows 64-bit Python 3.5.
 Anaconda Python is recommended for package management and since packages are
 available for some of the prerequisites.
-
-The core libraries exposed and enabling technologies are available from the
-following organizations:
-* [OpenCASCADE](https://www.opencascade.com)
-* [Salome](http://www.salome-platform.org)
-* [NETGEN](https://sourceforge.net/projects/netgen-mesher)
-* [pybind11](https://github.com/pybind/pybind11)
 
 It is recommended that a designated environment be created and used for pyOCCT.
 An example of creating this environment for Anaconda Python within an Anaconda
@@ -71,9 +91,21 @@ distribution.
 
 # TODO
 This project is in early development and change should be expected. Eventually,
-the prebuilt binaries in the `OCCT` folder will be removed as CI services like
+the prebuilt binaries in the *OCCT/* folder will be removed as CI services like
 AppVeyor, Travis-CI, and Conda are supported. The prebuilt binaries are only to
 give users a quick start.
+
+## Contributing
+For now, contributions to the source code will be incorporated manually. There
+is a (mostly) automated tool for generating the source but it needs some
+attention before being made publicly available. As new versions of OpenCASCADE
+are released, it may be better to just patch up the existing bindings rather
+than rerun the binding generation tool anyway. The automated process still
+requires a handful of manual patches to capture edge cases. Although, if the
+header files of new OpenCASCADE releases are significantly different or there
+is an architectural change in pyOCCT, it makes sense to use the automated tool.
+The automated tool will eventually be released, and improvements can be made
+that hopefully automated the process entirely.
 
 Some areas that could use contributor support:
 
@@ -91,18 +123,6 @@ Some areas that could use contributor support:
 * The source code generation tool will comment out known issues and usually add
   a `// FIXME` line to something that is causing compilation problems. Figuring
   out what the root issue is would be helpful.
-
-## Contributing
-For now, contributions to the source code will be incorporated manually. There
-is a (mostly) automated tool for generating the source but it needs some
-attention before being made publicly available. As new versions of OpenCASCADE
-are released, it may be better to just patch up the existing bindings rather
-than rerun the binding generation tool anyway. The automated process still
-requires a handful of manual patches to capture edge cases. Although, if the
-header files of new OpenCASCADE releases are significantly different or there
-is an architectural change in pyOCCT, it makes sense to use the automated tool.
-The automated tool will eventually be released, and improvements can be made
-that hopefully automated the process entirely.
 
 ## Building
 To build pyOCCT from source the following resources are needed:
