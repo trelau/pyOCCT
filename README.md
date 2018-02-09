@@ -1,4 +1,6 @@
 # pyOCCT
+
+[![Join the chat at https://gitter.im/pyOCCT/Lobby](https://badges.gitter.im/pyOCCT/Lobby.svg)](https://gitter.im/pyOCCT/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 The pyOCCT project provides Python bindings to the OpenCASCADE 7.2.0 geometry
 kernel and SMESH 8.3.0 meshing library from the Salome Platform. This project
 began as a way to test the suitability of using the pybind11 technology for a
