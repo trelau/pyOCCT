@@ -130,6 +130,9 @@ Some areas that could use contributor support:
   a `// FIXME` line to something that is causing compilation problems. Figuring
   out what the root issue is would be helpful.
 * Better exception handling
+* The example visualization tool in *examples/display.py* could use review.
+  When the program terminates an error message is reported from OpenCASCADE
+  but the root issue has not been resolved.
 
 ## Building
 To build pyOCCT from source the following resources are needed:

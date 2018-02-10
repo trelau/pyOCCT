@@ -246,6 +246,31 @@ still required to be input. The example in Python now becomes something like:
 So far this has proven to be a reliable approach but is dependent on the logic
 and assumptions described above.
 
+Exceptions
+----------
+Exception handling is supported by pybind11 and described `here <http://pybind11.readthedocs.io/en/stable/advanced/exceptions.html>`_
+in the pybind11 documentation. How to best handle exceptions raised by the
+OpenCASCADE library on the Python side has not yet been fully explored. A
+minimal attempt can be found at the bottom of the *Standard.cpp* source file
+and is also shown below.
+
+.. code-block:: cpp
+
+    // Register Standard_Failure as Python RuntimeError.
+    py::register_exception_translator([](std::exception_ptr p) {
+        try {
+            if (p) std::rethrow_exception(p);
+        }
+        catch (const Standard_Failure &e) {
+            PyErr_SetString(PyExc_RuntimeError, e.GetMessageString());
+        }
+    });
+
+This seems to catch and report some errors in Python but not all. Alternative
+approaches are improvements are needed. This small implementation was placed
+in the ``Standard`` module since most, if not all, modules import this module
+at some level.
+
 Known Issues
 ============
 This is a summary of some known issues:
