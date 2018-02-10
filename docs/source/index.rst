@@ -1,15 +1,25 @@
-pyOCCT Documentation
-====================
-Welcome to pyOCCT's documentation! More to come...
+pyOCCT --- Python bindings for OpenCASCADE
+===========================================
 
 .. toctree::
+   :maxdepth: 1
+
+   intro
+
+.. toctree::
+   :caption: Getting Started
    :maxdepth: 2
 
-   main
+   build
 
-Indices and tables
-==================
+.. toctree::
+   :caption: Development
+   :maxdepth: 2
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   dev
+
+.. toctree::
+   :caption: Extra Information
+   :maxdepth: 1
+
+   extra

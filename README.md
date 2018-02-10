@@ -7,7 +7,7 @@ technology stack enables rapid CAD/CAE application development in the popular
 Python programming language.
 
 Are you a pybind11 expert? If so, check out the
-[Design Considerations](http://pyocct.readthedocs.io/en/latest/main.html#design-considerations)
+[Design Considerations](http://pyocct.readthedocs.io/en/latest/dev.html#design-considerations)
 documentation and share your thoughts and ideas!
 
 ## Technology Stack
