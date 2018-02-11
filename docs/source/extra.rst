@@ -1,3 +1,17 @@
+How to Cite pyOCCT
+==================
+The following Bibtex template can be used to cite the pyOCCT project in
+scientific publications:
+
+.. code-block:: bash
+
+    @misc{pyOCCT,
+       author = {Laughlin Research, LLC},
+       year = {2018},
+       note = {https://github.com/LaughlinResearch/pyOCCT},
+       title = {pyOCCT -- Python bindings for OpenCASCADE}
+    }
+
 PythonOCC Comparison
 ====================
 The overall organization between **pyOCCT** and PythonOCC_ is very similar. The

@@ -40,7 +40,6 @@ from OCCT.gp import gp_Pnt
 from PySide import QtCore
 from PySide.QtGui import QApplication, QPalette, QIcon, QMainWindow
 from PySide.QtOpenGL import QGLWidget
-from numpy.random import rand
 
 
 class View(QGLWidget):
@@ -198,9 +197,6 @@ class View(QGLWidget):
             ais_shape.SetColor(color)
         elif isinstance(rgb, Quantity_Color):
             ais_shape.SetColor(rgb)
-        else:
-            r, g, b = rand(1, 3)[0]
-            ais_shape.SetColor(Quantity_Color(r, g, b, Quantity_TOC_RGB))
 
         if transparency is not None:
             ais_shape.SetTransparency(transparency)
@@ -425,6 +421,22 @@ class Viewer(QMainWindow):
             self.view.view_top()
         else:
             print('Key is not mapped to anything.')
+
+    def display(self, shape, rgb=None, transparency=None,
+                material=Graphic3d_NOM_DEFAULT):
+        """
+        Display a shape.
+
+        :param OCCT.TopoDS.TopoDS_Shape shape: The shape.
+        :param rgb: The RGB color (r, g, b).
+        :type rgb: collections.Sequence[float] or OCCT.Quantity.Quantity_Color
+        :param float transparency: The transparency (0 to 1).
+        :param OCCT.Graphic3d.Graphic3d_NameOfMaterial material: The material.
+
+        :return: The AIS_Shape created for the part.
+        :rtype: OCCT.AIS.AIS_Shape
+        """
+        return self.view.display_shape(shape, rgb, transparency, material)
 
     def add(self, entity, rgb=None, transparency=None,
             material=Graphic3d_NOM_DEFAULT, mode=None):

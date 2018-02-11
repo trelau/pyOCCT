@@ -1,6 +1,8 @@
-[![Join the chat at https://gitter.im/pyOCCT/Lobby](https://badges.gitter.im/pyOCCT/Lobby.svg)](https://gitter.im/pyOCCT/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Documentation Status](https://readthedocs.org/projects/pyocct/badge/?version=latest)](http://pyocct.readthedocs.io/en/latest/?badge=latest)
+# pyOCCT — Python bindings for OpenCASCADE
 
-# pyOCCT
+[![Documentation Status](https://readthedocs.org/projects/pyocct/badge/?version=latest)](http://pyocct.readthedocs.io/en/latest/?badge=latest)
+[![Join the chat at https://gitter.im/pyOCCT/Lobby](https://badges.gitter.im/pyOCCT/Lobby.svg)](https://gitter.im/pyOCCT/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 The **pyOCCT** project provides Python bindings to the OpenCASCADE 7.2.0
 geometry kernel and SMESH 8.3.0 meshing library via pybind11. Together, this
 technology stack enables rapid CAD/CAE application development in the popular
@@ -43,10 +45,55 @@ C++ counterpart. More resources will be available soon.
 * [Chat on Gitter](https://gitter.im/pyOCCT/Lobby)
 * [Submit issues](https://github.com/LaughlinResearch/pyOCCT/issues)
 
-# Installing Prerequisites
-Prebuilt binaries for pyOCCT are provided for Windows 64-bit Python 3.5.
-Anaconda Python is recommended for package management and since packages are
-available for some of the prerequisites.
+# Getting Started
+Detailed build instructions and CI services will be available soon so check
+back for more information. Until then, users with access to a Windows 64-bit
+machine and Python 3.5 can use the prebuilt binaries already in the *OCCT*
+folder.
+
+## Requirements
+The following tools and libraries should be available to build, install, or
+use pyOCCT. The links are meant to provide useful references or recommendations
+but are not necessarily the only place to find them.
+
+### Core
+Core components for pyOCCT:
+
+* **C++11 compiler (Required)**: Visual Studio 14 has been used so far.
+
+* **Python 2.X or 3.X (Required)**: So far 3.5 has been tested but support for
+  2.7 and 3.X is anticipated.
+
+* **pybind11 (Required)**: Version 2.3dev0 has been used but latest needs
+  verified. Get it [here](https://github.com/pybind/pybind11).
+
+* **OpenCASCADE 7.2.0 (Required)**: Available from [OPEN CASCADE SAS](https://www.opencascade.com/content/latest-release)
+  or [conda-forge](https://anaconda.org/conda-forge/occt).
+
+* **SMESH 8.3.0 (Optional)**: Standalone version [here](https://github.com/LaughlinResearch/SMESH).
+
+* **Netgen 6.2 (Optional)**: Special SMESH version [here](https://github.com/LaughlinResearch/NETGEN).
+
+* **PySide 1.2.4 (Optional)**: To support minimal visualization in Python.
+
+### Supporting
+Supporting components are listed below along with what core component they
+support:
+
+* **Tk 8.5 (OpenCASCADE)**
+
+* **Freetype 2.7 (OpenCASCADE)**
+
+* **tbb 2018_20170919 (OpenCASCADE)**
+
+* **VTK 7.1.1 (SMESH)**
+
+* **pthreads (SMESH)**
+
+## Using Prebuilt Binaries
+Prebuilt binaries for pyOCCT are provided for Windows 64-bit Python 3.5 in the
+*OCCT* folder. Anaconda Python is recommended for package management and since
+many packages are available for some of the prerequisites.
 
 It is recommended that a designated environment be created and used for pyOCCT.
 An example of creating this environment for Anaconda Python within an Anaconda
@@ -76,13 +123,6 @@ The SMESH binaries depend on The Visualization Toolkit (VTK) and "pthreads" and
 can be installed with:
 
     conda install -c conda-forge vtk=7.1.1 pthreads-win32=2.9.1
-    
-Installation files can be cleaned by:
-
-    conda clean -a
-
-# Installing pyOCCT
-Be sure to activate the designated pyOCCT environment before installation.
 
 pyOCCT can be installed using the command:
 
@@ -95,13 +135,24 @@ within the pyOCCT root folder. This will provide the "OCCT" package:
 Binaries for SMESH and NETGEN are already included in the prebuilt OCCT
 distribution.
 
-# TODO
-This project is in early development and change should be expected. Eventually,
-the prebuilt binaries in the *OCCT/* folder will be removed as CI services like
-AppVeyor, Travis-CI, and Conda are supported. The prebuilt binaries are only to
-give users a quick start.
+Navigate to the *examples* folder and run:
 
-## Contributing
+    python import_step.py
+    
+and you should see the following image in the viewing tool if all the
+requirements are correctly installed.
+
+![compressor](./docs/source/resources/compressor.jpg)
+
+Installation files can be cleaned up by:
+
+    conda clean -a
+    
+Please note that the prebuilt binaries will eventually be removed as CI
+services become available and the build process is better documented. They are
+only there now to provide a quick-start for users.
+
+# Help Wanted
 For now, contributions to the source code will be incorporated manually. There
 is a (mostly) automated tool for generating the source but it needs some
 attention before being made publicly available. As new versions of OpenCASCADE
@@ -113,7 +164,9 @@ is an architectural change in pyOCCT, it makes sense to use the automated tool.
 The automated tool will eventually be released, and improvements can be made
 that hopefully automated the process entirely.
 
-Some areas that could use contributor support:
+In addition to the items in the
+[Design Considerations](http://pyocct.readthedocs.io/en/latest/dev.html#design-considerations)
+section in the documentation, some areas that could use contributor support:
 
 * Improve robustness of CMake build process and add support for targeting other
   platforms and architectures
@@ -121,7 +174,6 @@ Some areas that could use contributor support:
 * Support for building and deploying Conda packages
 * Tests, examples, and benchmarks
 * Fix conda-forge OCCT version issue described in installation instructions
-* Improvement of minimal visualization tool in the *examples/display*
 * There are a number of *unresolved externals* that show up during the build
   process but are ignored. In some cases, this is due to the OCCT header files
   providing an interface but there is no implementation in the source. A better
@@ -133,27 +185,3 @@ Some areas that could use contributor support:
 * The example visualization tool in *examples/display.py* could use review.
   When the program terminates an error message is reported from OpenCASCADE
   but the root issue has not been resolved.
-
-## Building
-To build pyOCCT from source the following resources are needed:
-
-* [pybind11](https://github.com/pybind/pybind11): You should make a pybind11
-  subdirectory in the pyOCCT source folder for the CMake process to work. Some
-  further testing and work needs to be done to verify the exact version that
-  will work. That is, the local version used to build the binaries is somewhere
-  between the last release and master. The subdirectory used locally is a
-  symbolic link that points to the local pybind11 repo.
-* [NETGEN](https://github.com/LaughlinResearch/NETGEN): This version of NETGEN
-  is for integration into SMESH and pyOCCT.
-* [SMESH](https://github.com/LaughlinResearch/SMESH): This standalone version
-  of the meshing library from the Salome Platform is required.
-* [MeshGems](http://meshgems.com): Distene SAS provides a commercial mesh
-  generation library that has been integrated into the Salome Platform. The
-  binaries are available in the Salome Platform distribution and support for
-  the BLSURFPlugin was experimented with at one point and time. The MeshGems
-  binaries are not included in this project and require a license from Distene.
-  Continued support for the BLSURFPlugin module is not intended and for now is
-  just left over from previous work.
-  
-As CI services for these prerequisites come online the build process for pyOCCT
-will be updated as needed.
