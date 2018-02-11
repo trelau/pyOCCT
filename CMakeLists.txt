@@ -16,27 +16,25 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-cmake_minimum_required(VERSION 2.6)
-project(pyOCCT)
+cmake_minimum_required(VERSION 3.0)
+project(pyOCCT VERSION 0.0.1 LANGUAGES CXX)
 
 
 # --------------------------------------------------------------------------- #
 # OPTIONS
 # --------------------------------------------------------------------------- #
-option(ENABLE_NETGEN "Enable Netgen" ON)
+option(ENABLE_SMESH "Enable SMESH" OFF)
+option(ENABLE_NETGEN "Enable Netgen" OFF)
 option(ENABLE_BLSURF "Enable BLSURF" OFF)
 
 
 # --------------------------------------------------------------------------- #
 # SETTINGS
-# Use /FORCE to ignore unresolved externals (known issue)
 # --------------------------------------------------------------------------- #
-set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /FORCE")
-
 set(pyOCCT_MAJOR_VERSION       "0")
 set(pyOCCT_MINOR_VERSION       "0")
 set(pyOCCT_MAINTENANCE_VERSION "1")
-set(PACKAGE_VERSION "${pyOCCT_MAJOR_VERSION}.${pyOCCT_MINOR_VERSION}-${pyOCCT_MAINTENANCE_VERSION}")
+set(PACKAGE_VERSION "${pyOCCT_MAJOR_VERSION}.${pyOCCT_MINOR_VERSION}.${pyOCCT_MAINTENANCE_VERSION}")
 
 if(WIN32)
 	set(EXTENSION ".pyd")
@@ -44,10 +42,13 @@ else(WIN32)
 	set(EXTENSION ".so")
 endif(WIN32)
 
-if(NOT CMAKE_BUILD_TYPE)
-    message(STATUS "Default build type will be Release.")
-    set(CMAKE_BUILD_TYPE "Release" CACHE STRING INTERNAL)
-endif(NOT CMAKE_BUILD_TYPE)
+# Use /FORCE to ignore unresolved externals (known issue)
+set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /FORCE")
+
+# Use Link Time Optimization per pybind11 documentation
+if(MSVC)
+    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /LTCG")
+endif()
 
 
 # --------------------------------------------------------------------------- #
@@ -75,7 +76,7 @@ link_directories(${OpenCASCADE_LIBRARY_DIR})
 # --------------------------------------------------------------------------- #
 # NETGEN
 # --------------------------------------------------------------------------- #
-if(ENABLE_NETGEN)
+if(ENABLE_NETGEN AND ENABLE_SMESH)
     if(NOT DEFINED NETGEN_INCLUDE_DIR)
         message(STATUS "Searching for Netgen...")
         find_package(NETGEN REQUIRED)
@@ -94,24 +95,6 @@ endif()
 # --------------------------------------------------------------------------- #
 # SMESH
 # --------------------------------------------------------------------------- #
-if(NOT DEFINED SMESH_INCLUDE_PATH OR NOT DEFINED SMESH_LIB_PATH)
-    message(STATUS "Searching for SMESH...")
-    find_package(SMESH REQUIRED)
-endif()
-
-if(NOT EXISTS ${SMESH_INCLUDE_PATH})
-    message(FATAL_ERROR "Failed to find SMESH include directory.")
-endif()
-
-if(NOT EXISTS ${SMESH_LIB_PATH})
-    message(FATAL_ERROR "Failed to find SMESH library directory.")
-endif()
-                             
-message(STATUS "SMESH include directory: ${SMESH_INCLUDE_PATH}")
-message(STATUS "SMESH library directory: ${SMESH_LIB_PATH}")                                                                                
-include_directories(${SMESH_INCLUDE_PATH})
-link_directories(${SMESH_LIB_PATH})
-
 set(SMESH_LIBRARIES Driver;
                     DriverDAT;
                     DriverGMF;
@@ -119,6 +102,7 @@ set(SMESH_LIBRARIES Driver;
                     DriverUNV;
                     MEFISTO2;
                     SMDS;
+                    SMDSAbs;
                     SMESH;
                     SMESHBasics;
                     SMESHControls;
@@ -136,16 +120,35 @@ if(ENABLE_BLSURF)
     set(SMESH_LIBRARIES ${SMESH_LIBRARIES}; BLSURFlugin)
 endif()
 
-# Build full library paths since they have the same name as the Python
-# libraries
 set(SMESH_ABS_LIBS)
-foreach(LIB ${SMESH_LIBRARIES})
-    set(FOUND_LIB "FOUND_LIB-NOTFOUND")
-    find_library(FOUND_LIB ${LIB} PATHS ${SMESH_LIB_PATH})
-    list(APPEND SMESH_ABS_LIBS ${FOUND_LIB})
-endforeach(LIB)
-unset(FOUND_LIB CACHE)
+if(ENABLE_SMESH)
+    if(NOT DEFINED SMESH_INCLUDE_PATH OR NOT DEFINED SMESH_LIB_PATH)
+        message(STATUS "Searching for SMESH...")
+        find_package(SMESH REQUIRED)
+    endif()
 
+    if(NOT EXISTS ${SMESH_INCLUDE_PATH})
+        message(FATAL_ERROR "Failed to find SMESH include directory.")
+    endif()
+
+    if(NOT EXISTS ${SMESH_LIB_PATH})
+        message(FATAL_ERROR "Failed to find SMESH library directory.")
+    endif()
+                                 
+    message(STATUS "SMESH include directory: ${SMESH_INCLUDE_PATH}")
+    message(STATUS "SMESH library directory: ${SMESH_LIB_PATH}")                                                                                
+    include_directories(${SMESH_INCLUDE_PATH})
+    link_directories(${SMESH_LIB_PATH})
+
+    # Build full library paths since they have the same name as the Python
+    # libraries
+    foreach(LIB ${SMESH_LIBRARIES})
+        set(FOUND_LIB "FOUND_LIB-NOTFOUND")
+        find_library(FOUND_LIB ${LIB} PATHS ${SMESH_LIB_PATH})
+        list(APPEND SMESH_ABS_LIBS ${FOUND_LIB})
+    endforeach(LIB)
+    unset(FOUND_LIB CACHE)
+endif()
 
 # --------------------------------------------------------------------------- #
 # VTK
@@ -191,7 +194,7 @@ include_directories(${PTHREAD_INCLUDE_DIRS})
 # --------------------------------------------------------------------------- #
 # BLSURF
 # --------------------------------------------------------------------------- #
-if(ENABLE_BLSURF)
+if(ENABLE_BLSURF AND ENABLE_SMESH)
     set(MESHGEMS_INCLUDE "" CACHE PATH "MeshGems include directory.")
     
     if(NOT EXISTS ${MESHGEMS_INCLUDE})
@@ -200,7 +203,7 @@ if(ENABLE_BLSURF)
     
     message(STATUS "MeshGems include directory: ${MESHGEMS_INCLUDE}")
     include_directories(${MESHGEMS_INCLUDE})
-endif(ENABLE_BLSURF)
+endif()
 
 
 # --------------------------------------------------------------------------- #
@@ -228,23 +231,31 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${OUTPUT_PATH}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 
+# Be aware any *.cpp is assumed to be a module!
 file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 set(MAKE_LIB BOOL ON)
 foreach(SRC ${SRCS})
     get_filename_component(MOD ${SRC} NAME_WE)
     
-    # Check Netgen
-    if(${MOD} STREQUAL "NETGENPlugin" AND NOT ENABLE_NETGEN)
+    # Check for SMESH libraries
+    list(FIND SMESH_LIBRARIES ${MOD} _INDEX)
+    if(NOT ENABLE_SMESH AND ${_INDEX} GREATER -1)
+        message(STATUS "Skipping ${MOD}")
         set(MAKE_LIB OFF)
-        message(STATUS "Skipping NETGENPlugin.")
+    endif()
+    
+    # Check Netgen
+    if(NOT ENABLE_NETGEN AND ${MOD} STREQUAL "NETGENPlugin" AND MAKE_LIB)
+        message(STATUS "Skipping ${MOD}")
+        set(MAKE_LIB OFF)
     endif()
     
     # Check BLSURF
-    if(${MOD} STREQUAL "BLSURFPlugin" AND NOT ENABLE_BLSURF)
+    if(NOT ENABLE_BLSURF AND ${MOD} STREQUAL "BLSURFPlugin" AND MAKE_LIB)
+        message(STATUS "Skipping ${MOD}")
         set(MAKE_LIB OFF)
-        message(STATUS "Skipping BLSURFPLugin.")
     endif()
-    
+
     if(MAKE_LIB)
         pybind11_add_module(${MOD} ${SRC})
         target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
