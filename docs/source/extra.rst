@@ -59,17 +59,4 @@ where in pyOCCT it will now look like::
 with ``new_line`` being of type ``Geom_Line``. There are no more ``Handle_*``
 types available to import or use.
 
-Iterators
----------
-Some types support iteration like ``NCollection_List<TheItemType>`` which is
-used as the template for the ``TopoDS_ListOfShape`` type. So now the user can
-do something like::
-
-        slist = TopoDS_ListOfShape()
-        slist.Append(item1)
-        slist.Append(item2)
-
-        for item in slist:
-            do something...
-
 .. _PythonOCC: https://github.com/tpaviot/pythonocc-core
