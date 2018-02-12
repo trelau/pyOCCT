@@ -4,7 +4,7 @@ setup(
         name='OCCT',
         version='0.0.1',
         packages=['OCCT'],
-        package_data={'OCCT': ['*.pyd', '*.dll']},
+        package_data={'OCCT': ['*.pyd', '*.dll', 'resources/icon.png']},
         author='Laughlin Research, LLC',
         author_email='info@laughlinresearch.com',
         description='Python bindings to OpenCASCADE.',

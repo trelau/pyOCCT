@@ -266,6 +266,3 @@ foreach(SRC ${SRCS})
     endif()
     set(MAKE_LIB ON)
 endforeach()
-
-INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/__init__.py
-        DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/OCCT)

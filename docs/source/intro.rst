@@ -18,7 +18,7 @@ The pyOCCT core technology stack includes:
   development. Newer versions (i.e., beyond 7.0.0) provide robust and
   high-performance Boolean operations.
 
-* `NETGEN <https://sourceforge.net/projects/netgen-mesher>`_: This library
+* `Netgen <https://sourceforge.net/projects/netgen-mesher>`_: This library
   enables advanced meshing capabilities to support CAE applications including
   3-D tetrahedral and 2-D unstructured quad-dominated surface meshing.
 

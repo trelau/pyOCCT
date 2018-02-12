@@ -24,15 +24,13 @@ The pyOCCT core technology stack includes:
   development. Newer versions (i.e., beyond 7.0.0) provide robust and
   high-performance Boolean operations.
 
-* [NETGEN](https://sourceforge.net/projects/netgen-mesher): This library
+* [Netgen](https://sourceforge.net/projects/netgen-mesher): This library
   enables advanced meshing capabilities including 3-D tetrahedral and 2-D
-  unstructured quad-dominated surface meshing. The designated branch for the
-  pyOCCT branch can be found [here](https://github.com/LaughlinResearch/NETGEN).
+  unstructured quad-dominated surface meshing.
 
 * [Salome Platform](http://www.salome-platform.org): The core meshing library
   from this open source application serves as the central component for
-  pyOCCT's mesh generation capabilities. A standalone version of the meshing
-  library can be found [here](https://github.com/LaughlinResearch/SMESH).
+  pyOCCT's mesh generation capabilities.
 
 ## Resources
 More resources for using, developing, and navigating the pyOCCT project will be
@@ -132,7 +130,7 @@ within the pyOCCT root folder. This will provide the "OCCT" package:
 
     from OCCT.TopoDS import TopoDS_Shape
 
-Binaries for SMESH and NETGEN are already included in the prebuilt OCCT
+Binaries for SMESH and Netgen are already included in the prebuilt OCCT
 distribution.
 
 Navigate to the *examples* folder and run:
@@ -182,6 +180,6 @@ section in the documentation, some areas that could use contributor support:
   a `// FIXME` line to something that is causing compilation problems. Figuring
   out what the root issue is would be helpful.
 * Better exception handling
-* The example visualization tool in *examples/display.py* could use review.
+* The example visualization tool in ``OCCT.Visualization`` could use review.
   When the program terminates an error message is reported from OpenCASCADE
   but the root issue has not been resolved.

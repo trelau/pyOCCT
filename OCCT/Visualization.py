@@ -16,7 +16,6 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import os
 
 from OCCT.AIS import AIS_InteractiveContext, AIS_Shaded, AIS_Shape
@@ -483,44 +482,3 @@ class Viewer(QMainWindow):
             self.view.fit()
         self.show()
         self._app.exec_()
-
-
-if __name__ == '__main__':
-    from OCCT.BRepPrimAPI import BRepPrimAPI_MakeBox
-    from OCCT.NETGENPlugin import (NETGENPlugin_Hypothesis_2D,
-                                   NETGENPlugin_NETGEN_2D)
-    from OCCT.SMESH import SMESH_Gen
-
-    box = BRepPrimAPI_MakeBox(10, 20, 30).Solid()
-
-    gen = SMESH_Gen()
-
-    the_mesh = gen.CreateMesh(0, True)
-    the_mesh.ShapeToMesh(box)
-
-    hyp2d = NETGENPlugin_Hypothesis_2D(0, 0, gen)
-    hyp2d.SetQuadAllowed(True)
-    hyp2d.SetMaxSize(1)
-    hyp2d.SetMinSize(1)
-    hyp2d.SetSurfaceCurvature(False)
-
-    alg2d = NETGENPlugin_NETGEN_2D(1, 0, gen)
-
-    the_mesh.AddHypothesis(the_mesh.GetShapeToMesh(), 0)
-    the_mesh.AddHypothesis(the_mesh.GetShapeToMesh(), 1)
-
-    gen.Compute(the_mesh, the_mesh.GetShapeToMesh())
-
-    v = Viewer()
-
-    ais = v.add(box)
-    v.start()
-
-    red = Quantity_Color(1, 0, 0, Quantity_TOC_RGB)
-    ais.SetColor(red)
-    v.start()
-
-    v.clear()
-
-    v.add(the_mesh)
-    v.start()

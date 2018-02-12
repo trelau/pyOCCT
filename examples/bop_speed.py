@@ -19,18 +19,18 @@ https://tracker.dev.opencascade.org/view.php?id=22702
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
 import time
 
-import display
-import exchange
 from OCCT.BOPAlgo import BOPAlgo_Options
 from OCCT.BRepAlgoAPI import BRepAlgoAPI_Common
 
-cheese = exchange.read_step('./models/cheese.stp')
-planes = exchange.read_step('./models/planes.stp')
+from OCCT.Exchange import read_step
+from OCCT.Visualization import Viewer
 
-v = display.Viewer()
+cheese = read_step('./models/cheese.stp')
+planes = read_step('./models/planes.stp')
+
+v = Viewer()
 v.add(cheese, planes)
 v.start()
 v.clear()

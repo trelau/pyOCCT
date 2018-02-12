@@ -16,25 +16,13 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-
-import display
 from OCCT.Graphic3d import Graphic3d_NOM_ALUMINIUM
-from OCCT.STEPControl import STEPControl_Reader
 
+from OCCT.Exchange import read_step
+from OCCT.Visualization import Viewer
 
-def read_step(fn):
-    """
-    Read a STEP file and return the shape.
-    """
-    reader = STEPControl_Reader()
-    reader.ReadFile(fn)
-    reader.TransferRoots()
-    return reader.OneShape()
+shape = read_step('./models/compressor.step')
 
-
-if __name__ == '__main__':
-    shape = read_step('./models/compressor.step')
-
-    v = display.Viewer()
-    v.display(shape, rgb=(0.5, 0.5, 0.5), material=Graphic3d_NOM_ALUMINIUM)
-    v.start()
+v = Viewer()
+v.display(shape, rgb=(0.5, 0.5, 0.5), material=Graphic3d_NOM_ALUMINIUM)
+v.start()

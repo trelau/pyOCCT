@@ -16,35 +16,33 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+import time
 
-from OCCT.BRep import BRep_Builder
-from OCCT.BRepTools import BRepTools
-from OCCT.STEPControl import STEPControl_Reader
-from OCCT.TopoDS import TopoDS_Shape
+from OCCT.BRepAlgoAPI import BRepAlgoAPI_Fuse
+from OCCT.TopTools import TopTools_ListOfShape
 
+from OCCT.Exchange import read_brep
+from OCCT.Visualization import Viewer
 
-def write_brep(shape, fn):
-    """
-    Write a BREP file using the shape.
-    """
-    BRepTools.Write_(shape, fn)
+fn = './models/wing_assy.brep'
+wing_assy = read_brep(fn)
 
+fn = './models/fuse_assy.brep'
+fuse_assy = read_brep(fn)
 
-def read_brep(fn):
-    """
-    Read a BREP file and return the shape.
-    """
-    shape = TopoDS_Shape()
-    builder = BRep_Builder()
-    BRepTools.Read_(shape, fn, builder)
-    return shape
+bop = BRepAlgoAPI_Fuse()
+bop.SetRunParallel(True)
+args = TopTools_ListOfShape()
+args.Append(wing_assy)
+bop.SetArguments(args)
+tools = TopTools_ListOfShape()
+tools.Append(fuse_assy)
+bop.SetTools(tools)
+print('Starting fuse...')
+start = time.time()
+bop.Build()
+print('Complete in ', time.time() - start, ' seconds.')
 
-
-def read_step(fn):
-    """
-    Read a STEP file and return the shape.
-    """
-    reader = STEPControl_Reader()
-    reader.ReadFile(fn)
-    reader.TransferRoots()
-    return reader.OneShape()
+v = Viewer()
+v.add(bop.Shape())
+v.start()
