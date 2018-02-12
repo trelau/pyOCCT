@@ -17,6 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 import os
+import warnings
 
 from OCCT.AIS import AIS_InteractiveContext, AIS_Shaded, AIS_Shape
 from OCCT.Aspect import Aspect_DisplayConnection, Aspect_TOTP_LEFT_LOWER
@@ -36,9 +37,17 @@ from OCCT.TopoDS import TopoDS_Shape
 from OCCT.V3d import V3d_Viewer, V3d_TypeOfOrientation
 from OCCT.WNT import WNT_Window
 from OCCT.gp import gp_Pnt
-from PySide import QtCore
-from PySide.QtGui import QApplication, QPalette, QIcon, QMainWindow
-from PySide.QtOpenGL import QGLWidget
+
+try:
+    from PySide import QtCore
+    from PySide.QtGui import QApplication, QPalette, QIcon, QMainWindow
+    from PySide.QtOpenGL import QGLWidget
+
+    has_pyside = True
+except ImportError:
+    has_pyside = False
+    msg = "PySide module was not found. Visualization will not be available."
+    warnings.warn(msg, RuntimeWarning)
 
 
 class View(QGLWidget):
@@ -49,6 +58,8 @@ class View(QGLWidget):
     """
 
     def __init__(self, parent=None):
+        if not has_pyside:
+            raise ModuleNotFoundError("PySide was not found and is required.")
         super(View, self).__init__(parent)
 
         # Qt settings
@@ -390,6 +401,8 @@ class Viewer(QMainWindow):
     """
 
     def __init__(self, width=800, height=600, parent=None):
+        if not has_pyside:
+            raise ModuleNotFoundError("PySide was not found and is required.")
         # Start app
         self._app = QApplication.instance()
         if self._app is None:
