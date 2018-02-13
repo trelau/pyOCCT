@@ -417,7 +417,7 @@ class Viewer(QMainWindow):
 
         # Window settings
         self.setWindowTitle('pyOCCT')
-        _icon = os.path.dirname(__file__) + '/resources/icon.png'
+        _icon = os.path.dirname(__file__) + '/_resources/icon.png'
         _qicon = QIcon(_icon)
         self.setWindowIcon(_qicon)
         self.resize(width, height)
