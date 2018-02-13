@@ -1,3 +1,0 @@
-# Authors
-
-Laughlin Research, LLC
