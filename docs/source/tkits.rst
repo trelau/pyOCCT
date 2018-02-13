@@ -1,3 +1,12 @@
+Overview
+========
+For now, toolkits are relatively small, lightweight modules intended to
+streamline basic OpenCASCADE functionality and make it more *Pythonic*. They
+should be small in scope and provide relatively generic capability to enable
+users to more quickly develop their own applications. Development of
+large-scale, special purpose toolkits or applications is outside the scope
+of native pyOCCT functionality.
+
 Exchange
 ========
 The ``Exchange`` toolkit provides utilities for basic data exchange include
