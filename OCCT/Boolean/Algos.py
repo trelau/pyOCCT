@@ -30,14 +30,14 @@ from OCCT.TopTools import TopTools_SequenceOfShape
 from OCCT.TopoDS import TopoDS_Face, TopoDS, TopoDS_Shape
 
 from OCCT.Exchange import ExchangeBasic
-from OCCT.Topology.Check import Topo_Check
-from OCCT.Topology.Create import Topo_Create
-from OCCT.Topology.Explore import Topo_Explore
-from OCCT.Topology.Utils import Topo_Utils
+from OCCT.Topology.Check import CheckTopology
+from OCCT.Topology.Create import CreateTopology
+from OCCT.Topology.Explore import ExploreTopology
+from OCCT.Topology.Utils import TopologyUtils
 
-__all__ = ['Bop_Core', 'Bop_Algo', 'Bop_Fuse', 'Bop_Cut',
-           'Bop_Common', 'Bop_Intersect', 'Bop_Splitter', 'Bop_Volumes',
-           'Bop_CutCylindricalHole', 'Bop_LocalSplit', 'Bop_SplitShapeByEdges']
+__all__ = ['FuseShapes', 'CutShapes', 'CommonShapes', 'IntersectShapes',
+           'SplitShapes', 'VolumeMaker', 'CutCylindricalHole', 'SplitLocal',
+           'SplitShapeByEdges']
 
 # Turn on parallel Boolean execution by default
 BOPAlgo_Options.SetParallelMode_(True)
@@ -48,7 +48,7 @@ _gravities = [Message_Gravity.Message_Trace, Message_Gravity.Message_Info,
               Message_Gravity.Message_Fail]
 
 
-class Bop_Core(object):
+class BopCore(object):
     """
     Core class for Boolean operations and enabling attributes and methods for
     rebuilding shapes.
@@ -97,7 +97,7 @@ class Bop_Core(object):
         :rtype: list(OCCT.TopoDS.TopoDS_Shape)
         """
         toptools_list = self._bop.Modified(shape)
-        return Topo_Utils.to_list_from_TopTools_ListofShape(toptools_list)
+        return TopologyUtils.to_list_from_TopTools_ListofShape(toptools_list)
 
     def generated(self, shape):
         """
@@ -109,7 +109,7 @@ class Bop_Core(object):
         :rtype: list(OCCT.TopoDS.TopoDS_Shape)
         """
         toptools_list = self._bop.Generated(shape)
-        return Topo_Utils.to_list_from_TopTools_ListofShape(toptools_list)
+        return TopologyUtils.to_list_from_TopTools_ListofShape(toptools_list)
 
     def is_deleted(self, shape):
         """
@@ -123,7 +123,7 @@ class Bop_Core(object):
         return self._bop.IsDeleted(shape)
 
 
-class Bop_Algo(Bop_Core):
+class BopAlgo(BopCore):
     """
     Base class for Boolean operations.
 
@@ -142,7 +142,7 @@ class Bop_Algo(Bop_Core):
     """
 
     def __init__(self, shape1, shape2, fuzzy_val, nondestructive, bop):
-        super(Bop_Algo, self).__init__()
+        super(BopAlgo, self).__init__()
 
         self._bop = bop()
 
@@ -154,7 +154,7 @@ class Bop_Algo(Bop_Core):
         else:
             self._bop.SetNonDestructive(False)
 
-        if Topo_Check.is_shape(shape1) and Topo_Check.is_shape(shape2):
+        if CheckTopology.is_shape(shape1) and CheckTopology.is_shape(shape2):
             self.set_args([shape1])
             self.set_tools([shape2])
             self.build()
@@ -209,14 +209,14 @@ class Bop_Algo(Bop_Core):
         # Arguments
         args = self.arguments
         if args:
-            shape1 = Topo_Create.compound(args)
+            shape1 = CreateTopology.compound(args)
             fn = ''.join([path, '/', op, '.shape1.', timestamp, '.brep'])
             ExchangeBasic.write_brep(shape1, fn)
 
         # Tools
         tools = self.tools
         if tools:
-            shape2 = Topo_Create.compound(tools)
+            shape2 = CreateTopology.compound(tools)
             fn = ''.join([path, '/', op, '.shape2.', timestamp, '.brep'])
             ExchangeBasic.write_brep(shape2, fn)
 
@@ -227,7 +227,7 @@ class Bop_Algo(Bop_Core):
         :rtype: list(OCCT.TopoDS.TopoDS_Shape)
         """
         args = self._bop.Arguments()
-        return Topo_Utils.to_list_from_TopTools_ListofShape(args)
+        return TopologyUtils.to_list_from_TopTools_ListofShape(args)
 
     @property
     def tools(self):
@@ -236,7 +236,7 @@ class Bop_Algo(Bop_Core):
         :rtype: list(OCCT.TopoDS.TopoDS_Shape)
         """
         tools = self._bop.Tools()
-        return Topo_Utils.to_list_from_TopTools_ListofShape(tools)
+        return TopologyUtils.to_list_from_TopTools_ListofShape(tools)
 
     def set_args(self, shapes):
         """
@@ -250,7 +250,7 @@ class Bop_Algo(Bop_Core):
             for shape in shapes:
                 self._bop.AddArgument(shape)
             return None
-        args = Topo_Utils.to_TopTools_ListOfShape(shapes)
+        args = TopologyUtils.to_TopTools_ListOfShape(shapes)
         self._bop.SetArguments(args)
 
     def set_tools(self, shapes):
@@ -265,7 +265,7 @@ class Bop_Algo(Bop_Core):
             warn('Setting tools not available. Doing nothing.', RuntimeWarning)
             return None
 
-        tools = Topo_Utils.to_TopTools_ListOfShape(shapes)
+        tools = TopologyUtils.to_TopTools_ListOfShape(shapes)
         self._bop.SetTools(tools)
 
     @property
@@ -274,7 +274,7 @@ class Bop_Algo(Bop_Core):
         :return: The vertices of the resulting shape.
         :rtype: list(OCCT.TopoDS.TopoDS_Vertex)
         """
-        return Topo_Explore.get_vertices(self.shape)
+        return ExploreTopology.get_vertices(self.shape)
 
     @property
     def edges(self):
@@ -282,7 +282,7 @@ class Bop_Algo(Bop_Core):
         :return: The edges of the resulting shape.
         :rtype: list(OCCT.TopoDS.TopoDS_Edge)
         """
-        return Topo_Explore.get_edges(self.shape)
+        return ExploreTopology.get_edges(self.shape)
 
     def refine_edges(self):
         """
@@ -323,7 +323,7 @@ class Bop_Algo(Bop_Core):
             return []
         else:
             edges = self._bop.SectionEdges()
-            return Topo_Utils.to_list_from_TopTools_ListofShape(edges)
+            return TopologyUtils.to_list_from_TopTools_ListofShape(edges)
 
     @property
     def has_modified(self):
@@ -350,7 +350,7 @@ class Bop_Algo(Bop_Core):
         return self._bop.HasDeleted()
 
 
-class Bop_Fuse(Bop_Algo):
+class FuseShapes(BopAlgo):
     """
     Boolean fuse operation.
 
@@ -374,11 +374,11 @@ class Bop_Fuse(Bop_Algo):
 
     def __init__(self, shape1=None, shape2=None, fuzzy_val=None,
                  nondestructive=False):
-        super(Bop_Fuse, self).__init__(shape1, shape2, fuzzy_val,
-                                       nondestructive, BRepAlgoAPI_Fuse)
+        super(FuseShapes, self).__init__(shape1, shape2, fuzzy_val,
+                                         nondestructive, BRepAlgoAPI_Fuse)
 
 
-class Bop_Cut(Bop_Algo):
+class CutShapes(BopAlgo):
     """
     Boolean cut operation.
 
@@ -402,11 +402,11 @@ class Bop_Cut(Bop_Algo):
 
     def __init__(self, shape1=None, shape2=None, fuzzy_val=None,
                  nondestructive=False):
-        super(Bop_Cut, self).__init__(shape1, shape2, fuzzy_val,
-                                      nondestructive, BRepAlgoAPI_Cut)
+        super(CutShapes, self).__init__(shape1, shape2, fuzzy_val,
+                                        nondestructive, BRepAlgoAPI_Cut)
 
 
-class Bop_Common(Bop_Algo):
+class CommonShapes(BopAlgo):
     """
     Boolean common operation.
 
@@ -430,11 +430,11 @@ class Bop_Common(Bop_Algo):
 
     def __init__(self, shape1=None, shape2=None, fuzzy_val=None,
                  nondestructive=False):
-        super(Bop_Common, self).__init__(shape1, shape2, fuzzy_val,
-                                         nondestructive, BRepAlgoAPI_Common)
+        super(CommonShapes, self).__init__(shape1, shape2, fuzzy_val,
+                                           nondestructive, BRepAlgoAPI_Common)
 
 
-class Bop_Intersect(Bop_Algo):
+class IntersectShapes(BopAlgo):
     """
     Boolean intersect operation.
 
@@ -462,9 +462,9 @@ class Bop_Intersect(Bop_Algo):
     def __init__(self, shape1=None, shape2=None, compute_pcurve1=False,
                  compute_pcurve2=False, approximate=False, fuzzy_val=None,
                  nondestructive=False):
-        super(Bop_Intersect, self).__init__(None, None, fuzzy_val,
-                                            nondestructive,
-                                            BRepAlgoAPI_Section)
+        super(IntersectShapes, self).__init__(None, None, fuzzy_val,
+                                              nondestructive,
+                                              BRepAlgoAPI_Section)
 
         self._bop.ComputePCurveOn1(compute_pcurve1)
         self._bop.ComputePCurveOn2(compute_pcurve2)
@@ -513,7 +513,7 @@ class Bop_Intersect(Bop_Algo):
         return False, None
 
 
-class Bop_Splitter(Bop_Algo):
+class SplitShapes(BopAlgo):
     """
     Split arbitrary shapes. This is a wrapper for the SALOME
     GEOMAlgo_Splitter tool.
@@ -534,12 +534,12 @@ class Bop_Splitter(Bop_Algo):
 
     def __init__(self, shape1=None, shape2=None, fuzzy_val=None,
                  nondestructive=False):
-        super(Bop_Splitter, self).__init__(shape1, shape2, fuzzy_val,
-                                           nondestructive,
-                                           BRepAlgoAPI_Splitter)
+        super(SplitShapes, self).__init__(shape1, shape2, fuzzy_val,
+                                          nondestructive,
+                                          BRepAlgoAPI_Splitter)
 
 
-class Bop_Volumes(Bop_Algo):
+class VolumeMaker(BopAlgo):
     """
     Build solids from a list of shapes.
 
@@ -552,7 +552,7 @@ class Bop_Volumes(Bop_Algo):
 
     def __init__(self, shapes, intersect=False, fuzzy_val=None,
                  nondestructive=False):
-        super(Bop_Volumes, self).__init__(None, None, fuzzy_val,
+        super(VolumeMaker, self).__init__(None, None, fuzzy_val,
                                           nondestructive,
                                           BOPAlgo_MakerVolume)
 
@@ -566,7 +566,7 @@ class Bop_Volumes(Bop_Algo):
         self.build()
 
         self._solids = []
-        for solid in Topo_Explore.get_solids(self.shape):
+        for solid in ExploreTopology.get_solids(self.shape):
             self._solids.append(TopoDS.Solid_(solid))
 
     @property
@@ -594,7 +594,7 @@ class Bop_Volumes(Bop_Algo):
         return self._solids
 
 
-class Bop_CutCylindricalHole(Bop_Algo):
+class CutCylindricalHole(BopAlgo):
     """
     Cut a cylindrical hole on a shape.
 
@@ -608,15 +608,15 @@ class Bop_CutCylindricalHole(Bop_Algo):
 
     def __init__(self, shape, radius, ax1, fuzzy_val=None,
                  nondestructive=False):
-        super(Bop_CutCylindricalHole, self).__init__(None, None, fuzzy_val,
-                                                     nondestructive,
-                                                     BRepFeat_MakeCylindricalHole)
+        super(CutCylindricalHole, self).__init__(None, None, fuzzy_val,
+                                                 nondestructive,
+                                                 BRepFeat_MakeCylindricalHole)
 
         self._bop.Init(shape, ax1)
         self._bop.Perform(radius)
 
 
-class Bop_LocalSplit(Bop_Core):
+class SplitLocal(BopCore):
     """
     Perform a local split of a shape in the context of a basis shape. This tool
     only splits faces.
@@ -633,11 +633,11 @@ class Bop_LocalSplit(Bop_Core):
 
     def __init__(self, shape, tool, basis_shape, approximate=False,
                  fuzzy_val=None, nondestructive=False):
-        super(Bop_LocalSplit, self).__init__()
+        super(SplitLocal, self).__init__()
 
         # Intersect
-        section = Bop_Intersect(shape, tool, True, False, approximate,
-                                fuzzy_val, nondestructive)
+        section = IntersectShapes(shape, tool, True, False, approximate,
+                                  fuzzy_val, nondestructive)
         sec_edges = section.edges
 
         # Split
@@ -649,7 +649,7 @@ class Bop_LocalSplit(Bop_Core):
         self.build()
 
 
-class Bop_SplitShapeByEdges(Bop_Core):
+class SplitShapeByEdges(BopCore):
     """
     Split a shape using edges.
 
@@ -663,7 +663,7 @@ class Bop_SplitShapeByEdges(Bop_Core):
     """
 
     def __init__(self, shape, edges=None, check_interior=True):
-        super(Bop_SplitShapeByEdges, self).__init__()
+        super(SplitShapeByEdges, self).__init__()
 
         self._bop = BRepFeat_SplitShape(shape)
 
@@ -722,7 +722,7 @@ class Bop_SplitShapeByEdges(Bop_Core):
 
         :return: None
         """
-        cmp = Topo_Create.compound(e)
+        cmp = CreateTopology.compound(e)
         self._bop.Add(cmp, f)
 
     def add_edge_on_edge(self, e1, e2):

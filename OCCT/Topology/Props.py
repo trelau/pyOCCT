@@ -19,13 +19,13 @@
 from OCCT.BRepGProp import BRepGProp
 from OCCT.GProp import GProp_GProps
 
-from OCCT.Topology.Check import Topo_Check
+from OCCT.Topology.Check import CheckTopology
 
-__all__ = ['Topo_Props', 'Topo_LinearProps', 'Topo_SurfaceProps',
-           'Topo_VolumeProps', 'Topo_LengthOfShapes', 'Topo_AreaOfShapes']
+__all__ = ['PropsBase', 'LinearProps', 'SurfaceProps', 'VolumeProps',
+           'LengthOfShapes', 'AreaOfShapes']
 
 
-class Topo_Props(object):
+class PropsBase(object):
     """
     Base class for shape properties.
     """
@@ -71,7 +71,7 @@ class Topo_Props(object):
         return self._props.MomentOfInertia(axis)
 
 
-class Topo_LinearProps(Topo_Props):
+class LinearProps(PropsBase):
     """
     Calculate linear properties of a shape.
 
@@ -81,7 +81,7 @@ class Topo_LinearProps(Topo_Props):
     """
 
     def __init__(self, shape, skip_shared=False):
-        super(Topo_LinearProps, self).__init__()
+        super(LinearProps, self).__init__()
         BRepGProp.LinearProperties_(shape, self._props, skip_shared)
 
     @property
@@ -93,7 +93,7 @@ class Topo_LinearProps(Topo_Props):
         return self.mass
 
 
-class Topo_SurfaceProps(Topo_Props):
+class SurfaceProps(PropsBase):
     """
     Calculate surface properties of a shape.
 
@@ -104,7 +104,7 @@ class Topo_SurfaceProps(Topo_Props):
     """
 
     def __init__(self, shape, tol=1.0e-7, skip_shared=False):
-        super(Topo_SurfaceProps, self).__init__()
+        super(SurfaceProps, self).__init__()
         BRepGProp.SurfaceProperties_(shape, self._props, tol, skip_shared)
 
     @property
@@ -116,7 +116,7 @@ class Topo_SurfaceProps(Topo_Props):
         return self.mass
 
 
-class Topo_VolumeProps(Topo_Props):
+class VolumeProps(PropsBase):
     """
     Calculate volume properties of a shape.
 
@@ -130,7 +130,7 @@ class Topo_VolumeProps(Topo_Props):
 
     def __init__(self, shape, tol=1.0e-7, only_closed=False,
                  skip_shared=False):
-        super(Topo_VolumeProps, self).__init__()
+        super(VolumeProps, self).__init__()
         BRepGProp.VolumeProperties_(shape, self._props, tol, only_closed,
                                     skip_shared)
 
@@ -143,7 +143,7 @@ class Topo_VolumeProps(Topo_Props):
         return self.mass
 
 
-class Topo_LengthOfShapes(object):
+class LengthOfShapes(object):
     """
     Calculate the total length of all edges of each shape and sort the results.
 
@@ -153,8 +153,8 @@ class Topo_LengthOfShapes(object):
     def __init__(self, shapes):
         results = []
         for shape in shapes:
-            shape = Topo_Check.to_shape(shape)
-            ls = Topo_LinearProps(shape).length
+            shape = CheckTopology.to_shape(shape)
+            ls = LinearProps(shape).length
             results.append((ls, shape))
 
         results.sort(key=lambda tup: tup[0])
@@ -210,7 +210,7 @@ class Topo_LengthOfShapes(object):
         return self._shapes
 
 
-class Topo_AreaOfShapes(object):
+class AreaOfShapes(object):
     """
     Calculate the total area of each face for each shape and sort the results.
 
@@ -220,8 +220,8 @@ class Topo_AreaOfShapes(object):
     def __init__(self, shapes):
         results = []
         for shape in shapes:
-            shape = Topo_Check.to_shape(shape)
-            a = Topo_SurfaceProps(shape).area
+            shape = CheckTopology.to_shape(shape)
+            a = SurfaceProps(shape).area
             results.append((a, shape))
 
         results.sort(key=lambda tup: tup[0])

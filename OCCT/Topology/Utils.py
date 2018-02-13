@@ -18,10 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 from OCCT.TopTools import TopTools_ListOfShape
 
-__all__ = ['Topo_Utils']
+__all__ = ['TopologyUtils']
 
 
-class Topo_Utils(object):
+class TopologyUtils(object):
     """
     Utilities for topology.
     """
@@ -52,11 +52,4 @@ class Topo_Utils(object):
         :return: A list of shapes.
         :rtype: list(OCCT.TopoDS.TopoDS_Shape)
         """
-        if toptools_list.IsEmpty():
-            return []
-        lst = []
-        while not toptools_list.IsEmpty():
-            shp = toptools_list.First()
-            lst.append(shp)
-            toptools_list.RemoveFirst()
-        return lst
+        return [s for s in toptools_list]

@@ -32,10 +32,10 @@ from OCCT.TopoDS import (TopoDS_CompSolid, TopoDS_Compound, TopoDS_Edge,
                          TopoDS_Vertex, TopoDS_Wire, TopoDS)
 from OCCT.gp import gp_Pnt
 
-__all__ = ['Topo_Check', 'Topo_PointInSolid']
+__all__ = ['CheckTopology', 'Topo_PointInSolid']
 
 
-class Topo_Check(object):
+class CheckTopology(object):
     """
     Check topology.
     """

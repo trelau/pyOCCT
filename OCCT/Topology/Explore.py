@@ -38,12 +38,12 @@ from OCCT.TopoDS import (TopoDS_Compound, TopoDS_Edge, TopoDS_Face,
                          TopoDS_Shell, TopoDS_Solid, TopoDS_Vertex,
                          TopoDS_Wire, TopoDS)
 
-from OCCT.Topology.Props import Topo_AreaOfShapes
+from OCCT.Topology.Props import AreaOfShapes
 
-__all__ = ['Topo_Explore', 'Topo_WireExplorer', 'Topo_ExploreFreeEdges']
+__all__ = ['ExploreTopology', 'ExploreWire', 'ExploreFreeEdges']
 
 
-class Topo_Explore(object):
+class ExploreTopology(object):
     """
     Explore topology.
     """
@@ -233,8 +233,8 @@ class Topo_Explore(object):
         :rtype: List of shared edges.
         :rtype: list[OCCT.TopoDS.TopoDS_Edge]
         """
-        edges1 = Topo_Explore.get_edges(shape1)
-        edges2 = Topo_Explore.get_edges(shape2)
+        edges1 = ExploreTopology.get_edges(shape1)
+        edges2 = ExploreTopology.get_edges(shape2)
         if not edges1 or not edges2:
             return []
 
@@ -314,7 +314,7 @@ class Topo_Explore(object):
         """
         geom_convert = GeomConvert_CompCurveToBSplineCurve()
         exp = BRepTools_WireExplorer(wire)
-        tol = Topo_Explore.global_tolerance(wire, 1)
+        tol = ExploreTopology.global_tolerance(wire, 1)
         while exp.More():
             e = TopoDS.Edge_(exp.Current())
             exp.Next()
@@ -373,7 +373,7 @@ class Topo_Explore(object):
         if not faces:
             return None
 
-        f = Topo_AreaOfShapes(faces).largest_shape
+        f = AreaOfShapes(faces).largest_shape
         return cls.surface_of_face(f)
 
     @staticmethod
@@ -490,7 +490,7 @@ class Topo_Explore(object):
         return BRepBuilderAPI_Copy(shape, copy_geom).Shape()
 
 
-class Topo_WireExplorer(object):
+class ExploreWire(object):
     """
     Explore the edges of a wire.
 
@@ -562,7 +562,7 @@ class Topo_WireExplorer(object):
         return self._ordered_verts
 
 
-class Topo_ExploreFreeEdges(object):
+class ExploreFreeEdges(object):
     """
     Explore the free bounds of a shape.
 
@@ -573,10 +573,10 @@ class Topo_ExploreFreeEdges(object):
         tool = ShapeAnalysis_FreeBounds(shape)
         cmp_closed_wires = tool.GetClosedWires()
         cmp_open_wires = tool.GetOpenWires()
-        self._closed_wires = Topo_Explore.get_wires(cmp_closed_wires)
-        self._open_wires = Topo_Explore.get_wires(cmp_open_wires)
-        self._edges = (Topo_Explore.get_edges(cmp_closed_wires) +
-                       Topo_Explore.get_edges(cmp_open_wires))
+        self._closed_wires = ExploreTopology.get_wires(cmp_closed_wires)
+        self._open_wires = ExploreTopology.get_wires(cmp_open_wires)
+        self._edges = (ExploreTopology.get_edges(cmp_closed_wires) +
+                       ExploreTopology.get_edges(cmp_open_wires))
 
     @property
     def closed_wires(self):
