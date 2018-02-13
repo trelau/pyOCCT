@@ -1,16 +1,25 @@
 Overview
 ========
 For now, toolkits are relatively small, lightweight modules intended to
-streamline basic OpenCASCADE functionality and make it more *Pythonic*. They
+streamline basic OpenCASCADE functionality and make it more *pythonic*. They
 should be small in scope and provide relatively generic capability to enable
 users to more quickly develop their own applications. Development of
 large-scale, special purpose toolkits or applications is outside the scope
 of native pyOCCT functionality.
 
+Boolean
+=======
+The ``Boolean`` toolkit provides helper classes for OpenCASCADE Boolean
+operations which can be safely imported by:
+
+.. code-block:: python
+
+    from OCCT.Boolean import *
+
 Exchange
 ========
-The ``Exchange`` toolkit provides utilities for basic data exchange include
-reading and writing BREP, STEP, and/or IGES files. The utilities can be
+The ``Exchange`` toolkit provides helper classes for basic data exchange
+include reading and writing BREP, STEP, and/or IGES files. The utilities can be
 imported as:
 
 .. code-block:: python
@@ -19,9 +28,8 @@ imported as:
 
     shape = ExchangeBasic.read_step('model.step')
 
-The ``ExchangeBasic`` utility is just a class with simple static methods to
-read and write data. For now it is a minimal set of utilities for only the
-simplest forms of data exchange. See the source code for further information.
+The ``ExchangeBasic`` class uses only simple static methods to
+read and write data.
 
 Topology
 ========
@@ -32,9 +40,6 @@ can be safely imported using:
 .. code-block:: python
 
     from OCCT.Topology import *
-
-The helper classes should start with ``Topo_`` and then a short description of
-what the tool does.
 
 Visualization
 =============
