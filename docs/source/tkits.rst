@@ -1,15 +1,18 @@
 Exchange
 ========
-The ``Exchange`` toolkit provides utilities for data exchange include reading
-and writing BREP, STEP, and/or IGES files. The utilities can be imported as:
+The ``Exchange`` toolkit provides utilities for basic data exchange include
+reading and writing BREP, STEP, and/or IGES files. The utilities can be
+imported as:
 
 .. code-block:: python
 
-    from OCCT.Exchange import (read_brep, read_iges, read_step,
-                               write_brep, write_iges, write_step)
+    from OCCT.Exchange import ExchangeBasic
 
-For now it is a minimal set of utilities for only the simplest forms of data
-exchange. See the source code for further information.
+    shape = ExchangeBasic.read_step('model.step')
+
+The ``ExchangeBasic`` utility is just a class with simple static methods to
+read and write data. For now it is a minimal set of utilities for only the
+simplest forms of data exchange. See the source code for further information.
 
 Visualization
 =============

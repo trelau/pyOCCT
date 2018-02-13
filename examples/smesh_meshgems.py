@@ -19,17 +19,18 @@
 
 import time
 
-import exchange
-import display
 from OCCT.BLSURFPlugin import BLSURFPlugin_BLSURF, BLSURFPlugin_Hypothesis
 from OCCT.SMESH import SMESH_Gen, SMESH_Mesh
+
+from OCCT.Exchange import ExchangeBasic
+from OCCT.Visualization import Viewer
 
 # fn = './models/lhs_wing.brep'
 # fn = './models/wingbox.brep'
 # fn = './models/fuselage_structure.brep'
 fn = './models/wing_body.brep'
 
-shape = exchange.read_brep(fn)
+shape = ExchangeBasic.read_brep(fn)
 
 gen = SMESH_Gen()
 
@@ -52,6 +53,6 @@ start = time.time()
 done = gen.Compute(mesh, mesh.GetShapeToMesh())
 print('done in ', time.time() - start, ' seconds.')
 
-v = display.Viewer()
+v = Viewer()
 v.add(mesh)
 v.start()

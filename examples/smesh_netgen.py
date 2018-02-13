@@ -20,11 +20,11 @@ from OCCT.NETGENPlugin import (NETGENPlugin_Hypothesis_2D,
                                NETGENPlugin_NETGEN_2D)
 from OCCT.SMESH import SMESH_Gen, SMESH_Mesh
 
-from OCCT.Exchange import read_brep
+from OCCT.Exchange import ExchangeBasic
 from OCCT.Visualization import Viewer
 
 fn = './models/wing_body.brep'
-shape = read_brep(fn)
+shape = ExchangeBasic.read_brep(fn)
 
 gen = SMESH_Gen()
 mesh = gen.CreateMesh(0, True)

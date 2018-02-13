@@ -18,10 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 from OCCT.Graphic3d import Graphic3d_NOM_ALUMINIUM
 
-from OCCT.Exchange import read_step
+from OCCT.Exchange import ExchangeBasic
 from OCCT.Visualization import Viewer
 
-shape = read_step('./models/compressor.step')
+shape = ExchangeBasic.read_step('./models/compressor.step')
 
 v = Viewer()
 v.display(shape, rgb=(0.5, 0.5, 0.5), material=Graphic3d_NOM_ALUMINIUM)

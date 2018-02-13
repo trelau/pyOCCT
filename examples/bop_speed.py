@@ -24,11 +24,11 @@ import time
 from OCCT.BOPAlgo import BOPAlgo_Options
 from OCCT.BRepAlgoAPI import BRepAlgoAPI_Common
 
-from OCCT.Exchange import read_step
+from OCCT.Exchange import ExchangeBasic
 from OCCT.Visualization import Viewer
 
-cheese = read_step('./models/cheese.stp')
-planes = read_step('./models/planes.stp')
+cheese = ExchangeBasic.read_step('./models/cheese.stp')
+planes = ExchangeBasic.read_step('./models/planes.stp')
 
 v = Viewer()
 v.add(cheese, planes)

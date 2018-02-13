@@ -49,6 +49,8 @@ except ImportError:
     msg = "PySide module was not found. Visualization will not be available."
     warnings.warn(msg, RuntimeWarning)
 
+__all__ = ['Viewer']
+
 
 class View(QGLWidget):
     """

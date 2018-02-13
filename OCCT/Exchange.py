@@ -23,90 +23,98 @@ from OCCT.STEPControl import (STEPControl_Reader, STEPControl_Writer,
                               STEPControl_AsIs)
 from OCCT.TopoDS import TopoDS_Shape
 
+__all__ = ['ExchangeBasic']
 
-def read_brep(fn):
+
+class ExchangeBasic(object):
     """
-    Read a BREP file and return as a single shape.
-
-    :param str fn: Filename.
-
-    :return: The shape.
-    :rtype: OCCT.TopoDS.TopoDS_Shape
+    Static methods for simple data exchange.
     """
-    shape = TopoDS_Shape()
-    builder = BRep_Builder()
-    BRepTools.Read_(shape, fn, builder)
-    return shape
 
+    @staticmethod
+    def read_brep(fn):
+        """
+        Read a BREP file and return as a single shape.
 
-def write_brep(shape, fn):
-    """
-    Write a BREP file using the shape.
+        :param str fn: Filename.
 
-    :param OCCT.TopoDS.TopoDS_Shape shape: The shape to export.
-    :param str fn: Filename.
+        :return: The shape.
+        :rtype: OCCT.TopoDS.TopoDS_Shape
+        """
+        shape = TopoDS_Shape()
+        builder = BRep_Builder()
+        BRepTools.Read_(shape, fn, builder)
+        return shape
 
-    :return: ``True`` if successful, ``False`` otherwise.
-    :rtype: bool
-    """
-    return BRepTools.Write_(shape, fn)
+    @staticmethod
+    def write_brep(shape, fn):
+        """
+        Write a BREP file using the shape.
 
+        :param OCCT.TopoDS.TopoDS_Shape shape: The shape to export.
+        :param str fn: Filename.
 
-def read_iges(fn):
-    """
-    Read an IGES file and return as a single shape.
+        :return: ``True`` if successful, ``False`` otherwise.
+        :rtype: bool
+        """
+        return BRepTools.Write_(shape, fn)
 
-    :param str fn: Filename.
+    @staticmethod
+    def read_iges(fn):
+        """
+        Read an IGES file and return as a single shape.
 
-    :return: The shape.
-    :rtype: OCCT.TopoDS.TopoDS_Shape
-    """
-    reader = IGESControl_Reader()
-    reader.ReadFile(fn)
-    reader.TransferRoots()
-    return reader.OneShape()
+        :param str fn: Filename.
 
+        :return: The shape.
+        :rtype: OCCT.TopoDS.TopoDS_Shape
+        """
+        reader = IGESControl_Reader()
+        reader.ReadFile(fn)
+        reader.TransferRoots()
+        return reader.OneShape()
 
-def write_iges(shape, fn):
-    """
-    Write an IGES file using the shape.
+    @staticmethod
+    def write_iges(shape, fn):
+        """
+        Write an IGES file using the shape.
 
-    :param OCCT.TopoDS.TopoDS_Shape shape: The shape to export.
-    :param str fn: Filename.
+        :param OCCT.TopoDS.TopoDS_Shape shape: The shape to export.
+        :param str fn: Filename.
 
-    :return: ``True`` if successful, ``False`` otherwise.
-    :rtype: bool
-    """
-    writer = IGESControl_Writer()
-    writer.AddShape(shape)
-    return writer.Write(fn)
+        :return: ``True`` if successful, ``False`` otherwise.
+        :rtype: bool
+        """
+        writer = IGESControl_Writer()
+        writer.AddShape(shape)
+        return writer.Write(fn)
 
+    @staticmethod
+    def read_step(fn):
+        """
+        Read a STEP file and return as a single shape.
 
-def read_step(fn):
-    """
-    Read a STEP file and return as a single shape.
+        :param str fn: Filename.
 
-    :param str fn: Filename.
+        :return: The shape.
+        :rtype: OCCT.TopoDS.TopoDS_Shape
+        """
+        reader = STEPControl_Reader()
+        reader.ReadFile(fn)
+        reader.TransferRoots()
+        return reader.OneShape()
 
-    :return: The shape.
-    :rtype: OCCT.TopoDS.TopoDS_Shape
-    """
-    reader = STEPControl_Reader()
-    reader.ReadFile(fn)
-    reader.TransferRoots()
-    return reader.OneShape()
+    @staticmethod
+    def write_step(shape, fn):
+        """
+        Write a STEP file using the shape using AP203 schema.
 
+        :param OCCT.TopoDS.TopoDS_Shape shape: The shape to export.
+        :param str fn: Filename.
 
-def write_step(shape, fn):
-    """
-    Write a STEP file using the shape using AP203 schema.
-
-    :param OCCT.TopoDS.TopoDS_Shape shape: The shape to export.
-    :param str fn: Filename.
-
-    :return: Write status.
-    :rtype: OCCT.IFSelect.IFSelect_ReturnStatus
-    """
-    writer = STEPControl_Writer()
-    writer.Transfer(shape, STEPControl_AsIs)
-    return writer.Write(fn)
+        :return: Write status.
+        :rtype: OCCT.IFSelect.IFSelect_ReturnStatus
+        """
+        writer = STEPControl_Writer()
+        writer.Transfer(shape, STEPControl_AsIs)
+        return writer.Write(fn)

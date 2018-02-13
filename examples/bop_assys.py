@@ -21,14 +21,14 @@ import time
 from OCCT.BRepAlgoAPI import BRepAlgoAPI_Fuse
 from OCCT.TopTools import TopTools_ListOfShape
 
-from OCCT.Exchange import read_brep
+from OCCT.Exchange import ExchangeBasic
 from OCCT.Visualization import Viewer
 
 fn = './models/wing_assy.brep'
-wing_assy = read_brep(fn)
+wing_assy = ExchangeBasic.read_brep(fn)
 
 fn = './models/fuse_assy.brep'
-fuse_assy = read_brep(fn)
+fuse_assy = ExchangeBasic.read_brep(fn)
 
 bop = BRepAlgoAPI_Fuse()
 bop.SetRunParallel(True)

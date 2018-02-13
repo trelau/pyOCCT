@@ -45,9 +45,9 @@ to contribute:
 
 * [Reporting bugs](https://github.com/LaughlinResearch/pyOCCT/issues) The
   GitHub issues tab will be the primary way of tracking and resolving pyOCCT
-  bugs. Follow the issue template and be a descriptive as possible. If the bug
-  is with the OpenCASCADE C++ library, you may open an issue with a description
-  and test case, but also consider reporting it to 
+  bugs. Follow the issue template and be as descriptive as possible. If the bug
+  is with the OpenCASCADE C++ library, you may open a pyOCCT issue with a test
+   case, but you may also consider reporting it to 
   [OpenCASCADE issue tracker](https://tracker.dev.opencascade.org/).
   
 * [Feature requests](https://github.com/LaughlinResearch/pyOCCT/issues) The
