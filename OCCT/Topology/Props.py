@@ -63,7 +63,7 @@ class PropsBase(object):
         """
         Compute the moment of inertia about the axis.
 
-        :param afem.geometry.entities.Axis1 axis: The axis.
+        :param OCCT.gp.gp_Ax1 axis: The axis.
 
         :return: The moment of inertia.
         :rtype: float

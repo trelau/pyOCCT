@@ -439,9 +439,9 @@ class IntersectShapes(BopAlgo):
     Boolean intersect operation.
 
     :param shape1: The first shape.
-    :type shape1: OCCT.TopoDS.TopoDS_Shape or afem.geometry.entities.Surface
+    :type shape1: OCCT.TopoDS.TopoDS_Shape or OCCT.Geom.Geom_Surface
     :param shape2: The second shape.
-    :type shape2: OCCT.TopoDS.TopoDS_Shape or afem.geometry.entities.Surface
+    :type shape2: OCCT.TopoDS.TopoDS_Shape or OCCT.Geom.Geom_Surface
     :param bool compute_pcurve1: Option to compute p-curves on shape 1.
     :param bool compute_pcurve2: Option to compute p-curves on shape 2.
     :param bool approximate: Option to approximate intersection curves.
@@ -601,7 +601,7 @@ class CutCylindricalHole(BopAlgo):
     :param shape: The shape.
     :type shape: OCCT.TopoDS.TopoDS_Shape
     :param float radius: The radius of the hole.
-    :param afem.geometry.entities.Axis1: The axis for the hole.
+    :param OCCT.gp.gp_Ax1: The axis for the hole.
     :param float fuzzy_val: Fuzzy tolerance value.
     :param bool nondestructive: Option to not modify the input shapes.
     """
@@ -623,7 +623,7 @@ class SplitLocal(BopCore):
 
     :param OCCT.TopoDS.TopoDS_Shape shape: The local shape.
     :param tool: The tool to split with.
-    :type tool: OCCT.TopoDS.TopoDS_Shape or afem.geometry.entities.Surface
+    :type tool: OCCT.TopoDS.TopoDS_Shape or OCCT.Geom.Geom_Surface
     :param OCCT.TopoDS.TopoDS_Shape basis_shape: The basis shape that the local
         shape is part of.
     :param bool approximate: Option to approximate intersection curves.

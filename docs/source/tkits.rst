@@ -56,7 +56,10 @@ The following tools are available:
    Name              Description
    ================= ==========================================================
    ``ExchangeBasic`` Basic read/write static methods.
+   ``ImportVSP``     Special tool for translating OpenVSP models in solids.
    ================= ==========================================================
+
+The NASA OpenVSP tool is available `here <www.openvsp.org/>`_.
 
 Topology
 ========
@@ -81,6 +84,7 @@ The following tools are available:
    ``ExploreTopology``      Basic methods to explore shapes and get sub-shapes.
    ``ExploreWire``          Explore the edges of a wire.
    ``ExploreFreeEdges``     Analyze the free edges of a shape.
+   ``FixTopology``          Attempt to fix a shape or limit tolerance.
    ``LinearProps``          Linear shape properties.
    ``SurfaceProps``         Surface shape properties.
    ``VolumeProps``          Volume shape properties.

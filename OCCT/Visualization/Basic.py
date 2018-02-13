@@ -205,6 +205,12 @@ class View(QGLWidget):
 
         if isinstance(rgb, (tuple, list)):
             r, g, b = rgb
+            if r > 1.:
+                r /= 255.
+            if g > 1.:
+                g /= 255.
+            if b > 1.:
+                b /= 255.
             color = Quantity_Color(r, g, b, Quantity_TOC_RGB)
             ais_shape.SetColor(color)
         elif isinstance(rgb, Quantity_Color):

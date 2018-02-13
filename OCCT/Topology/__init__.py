@@ -19,5 +19,6 @@
 from OCCT.Topology.Check import *
 from OCCT.Topology.Create import *
 from OCCT.Topology.Explore import *
+from OCCT.Topology.Fix import *
 from OCCT.Topology.Props import *
 from OCCT.Topology.Utils import *
