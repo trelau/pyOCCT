@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
         name='OCCT',
         version='0.0.1',
-        packages=['OCCT'],
+        packages=['OCCT', 'OCCT.Topology'],
         package_data={'OCCT': ['*.pyd', '*.dll', 'resources/icon.png']},
         author='Laughlin Research, LLC',
         author_email='info@laughlinresearch.com',

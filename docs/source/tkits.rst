@@ -23,6 +23,19 @@ The ``ExchangeBasic`` utility is just a class with simple static methods to
 read and write data. For now it is a minimal set of utilities for only the
 simplest forms of data exchange. See the source code for further information.
 
+Topology
+========
+The ``topology`` toolkit provides a number of helper classes to streamline
+topology operations including Boolean operations. All of the helper classes
+can be safely imported using:
+
+.. code-block:: python
+
+    from OCCT.Topology import *
+
+The helper classes should start with ``Topo_`` and then a short description of
+what the tool does.
+
 Visualization
 =============
 A minimal viewing utility is provided in the ``Visualization`` toolkit. It can
