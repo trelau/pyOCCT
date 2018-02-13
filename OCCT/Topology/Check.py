@@ -32,7 +32,7 @@ from OCCT.TopoDS import (TopoDS_CompSolid, TopoDS_Compound, TopoDS_Edge,
                          TopoDS_Vertex, TopoDS_Wire, TopoDS)
 from OCCT.gp import gp_Pnt
 
-__all__ = ['CheckTopology', 'Topo_PointInSolid']
+__all__ = ['CheckTopology', 'ClassifyPointInSolid']
 
 
 class CheckTopology(object):
@@ -353,7 +353,7 @@ class CheckTopology(object):
         return BRep_Tool.SameRange_(edge)
 
 
-class Topo_PointInSolid(object):
+class ClassifyPointInSolid(object):
     """
     Classify a point in a solid.
 

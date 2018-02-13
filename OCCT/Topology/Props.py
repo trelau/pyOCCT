@@ -21,7 +21,7 @@ from OCCT.GProp import GProp_GProps
 
 from OCCT.Topology.Check import CheckTopology
 
-__all__ = ['PropsBase', 'LinearProps', 'SurfaceProps', 'VolumeProps',
+__all__ = ['LinearProps', 'SurfaceProps', 'VolumeProps',
            'LengthOfShapes', 'AreaOfShapes']
 
 

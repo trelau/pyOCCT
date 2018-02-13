@@ -9,41 +9,90 @@ of native pyOCCT functionality.
 
 Boolean
 =======
-The ``Boolean`` toolkit provides helper classes for OpenCASCADE Boolean
-operations which can be safely imported by:
+The ``Boolean`` toolkit provides tools for OpenCASCADE Boolean operations which
+can be safely imported by:
 
 .. code-block:: python
 
     from OCCT.Boolean import *
 
+The following tools are available:
+
+.. table:: OCCT.Boolean tools.
+   :widths: auto
+
+   ====================== =====================================================
+   Name                   Description
+   ====================== =====================================================
+   ``FuseShapes``         Fuse operation with BRepAlgoAPI_Fuse.
+   ``CutShapes``          Cut operation with BRepAlgoAPI_Cut.
+   ``CommonShapes``       Common operation with BRepAlgoAPI_Common.
+   ``IntersectShapes``    Section operation with BRepAlgoAPI_Section.
+   ``SplitShapes``        Split operation with BRepAlgoAPI_Splitter.
+   ``VolumeMaker``        Make volumes with BOPAlgo_MakerVolume.
+   ``CutCylindricalHole`` Cut cylindrical hole in a shape using
+                          BRepFeat_MakeCylindricalHole
+   ``SplitLocal``         Split a shape in the context of a basis shape.
+   ``SplitShapeByEdges``  Split a shape using edges.
+   ====================== =====================================================
+
 Exchange
 ========
-The ``Exchange`` toolkit provides helper classes for basic data exchange
-include reading and writing BREP, STEP, and/or IGES files. The utilities can be
-imported as:
+The ``Exchange`` toolkit provides tools for data exchange including reading and
+writing BREP, STEP, and/or IGES files. The tools can be imported as:
 
 .. code-block:: python
 
-    from OCCT.Exchange import ExchangeBasic
+    from OCCT.Exchange import *
 
     shape = ExchangeBasic.read_step('model.step')
 
-The ``ExchangeBasic`` class uses only simple static methods to
-read and write data.
+The following tools are available:
+
+.. table:: OCCT.Exchange tools.
+   :widths: auto
+
+   ================= ==========================================================
+   Name              Description
+   ================= ==========================================================
+   ``ExchangeBasic`` Basic read/write static methods.
+   ================= ==========================================================
 
 Topology
 ========
-The ``topology`` toolkit provides a number of helper classes to streamline
-topology operations including Boolean operations. All of the helper classes
-can be safely imported using:
+The ``topology`` toolkit provides a number of tools to streamline working with
+topology. The tools can be safely imported using:
 
 .. code-block:: python
 
     from OCCT.Topology import *
 
+The following tools are available:
+
+.. table:: OCCT.Topology tools.
+   :widths: auto
+
+   ======================== ===================================================
+   Name                     Description
+   ======================== ===================================================
+   ``CheckTopology``        Methods to check shape basic validity and type.
+   ``ClassifyPointInSolid`` Classify a point in/on/out of a solid.
+   ``CreateTopology``       Methods to create shapes.
+   ``ExploreTopology``      Basic methods to explore shapes and get sub-shapes.
+   ``ExploreWire``          Explore the edges of a wire.
+   ``ExploreFreeEdges``     Analyze the free edges of a shape.
+   ``LinearProps``          Linear shape properties.
+   ``SurfaceProps``         Surface shape properties.
+   ``VolumeProps``          Volume shape properties.
+   ``LengthOfShapes``       Length of all shape edges.
+   ``AreaOfShapes``         Area of all shape faces.
+   ``TopologyUtils``        Utility methods like converting between Python list
+                            and ``TopTools_ListOfShape``.
+   ======================== ===================================================
+
 Visualization
 =============
-A minimal viewing utility is provided in the ``Visualization`` toolkit. It can
+A minimal viewing tool is provided in the ``Visualization`` toolkit. It can
 be imported as:
 
 .. code-block:: python
@@ -57,3 +106,14 @@ be imported as:
 where ``*args`` is a number of ``TopoDS_Shape`` entities to display. This is
 intended to provide only a minimum capability to display shapes to the screen.
 Examine the source further for other methods and properties.
+
+The following tools are available:
+
+.. table:: OCCT.Visualization tools.
+   :widths: auto
+
+   ========== =================================================================
+   Name       Description
+   ========== =================================================================
+   ``Viewer`` Basic shape viewer.
+   ========== =================================================================
