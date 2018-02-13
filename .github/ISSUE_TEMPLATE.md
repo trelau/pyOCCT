@@ -29,3 +29,7 @@
 * Version used:
 * Operating System and version (desktop or mobile):
 * Link to your project:
+
+## OpenCASCADE Bug
+<!--- If a possible bug in OpenCASCADE library, please considering reporting it
+<!--- to OpenCASCADE directory at https://tracker.dev.opencascade.org/

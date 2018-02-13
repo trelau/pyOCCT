@@ -35,5 +35,7 @@ C++ counterpart. More resources will be available soon.
 
 * `OpenCASCADE Technology Overview <https://www.opencascade.com/doc/occt-7.2.0/overview/html/index.html>`_
 * `OpenCASCADE Reference Manual <https://www.opencascade.com/doc/occt-7.2.0/refman/html/index.html>`_
+* `OpenCASCADE forums <https://www.opencascade.com/forums>`_
+* `OpenCASCADE issue tracker <https://tracker.dev.opencascade.org/>`_
 * `Chat on Gitter <https://gitter.im/pyOCCT/Lobby>`_
 * `Submit issues <https://github.com/LaughlinResearch/pyOCCT/issues>`_

@@ -40,6 +40,8 @@ C++ counterpart. More resources will be available soon.
 
 * [OpenCASCADE Technology Overview](https://www.opencascade.com/doc/occt-7.2.0/overview/html/index.html)
 * [OpenCASCADE Reference Manual](https://www.opencascade.com/doc/occt-7.2.0/refman/html/index.html)
+* [OpenCASCADE forums](https://www.opencascade.com/forums)
+* [OpenCASCADE issue tracker](https://tracker.dev.opencascade.org/)
 * [Chat on Gitter](https://gitter.im/pyOCCT/Lobby)
 * [Submit issues](https://github.com/LaughlinResearch/pyOCCT/issues)
 
@@ -70,7 +72,7 @@ Core components for pyOCCT:
 
 * **SMESH 8.3.0 (Optional)**: Standalone version [here](https://github.com/LaughlinResearch/SMESH).
 
-* **Netgen 6.2 (Optional)**: Special SMESH version [here](https://github.com/LaughlinResearch/NETGEN).
+* **Netgen 6.2 (Optional)**: Special SMESH version [here](https://github.com/LaughlinResearch/netgen4smesh).
 
 * **PySide 1.2.4 (Optional)**: To support minimal visualization in Python.
 

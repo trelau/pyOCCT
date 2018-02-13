@@ -181,7 +181,7 @@ include_directories(${Boost_INCLUDE_DIR})
 # --------------------------------------------------------------------------- #
 # PTHREAD
 # --------------------------------------------------------------------------- #
-set(PTHREAD_INCLUDE_DIRS "" CACHE PATH "Path to pthread.h")
+set(PTHREAD_INCLUDE_DIRS "" CACHE PATH "pthread include directory.")
 
 if(NOT EXISTS ${PTHREAD_INCLUDE_DIRS})
     message(FATAL_ERROR "pthread include directory is required.")
