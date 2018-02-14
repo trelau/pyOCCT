@@ -20,7 +20,7 @@ from OCCT.BRep import BRep_Builder, BRep_Tool
 from OCCT.BRepBuilderAPI import (BRepBuilderAPI_MakeFace,
                                  BRepBuilderAPI_MakeWire,
                                  BRepBuilderAPI_Sewing)
-from OCCT.BRepCheck import BRepCheck_Analyzer
+from OCCT.BRepCheck import BRepCheck_Analyzer, BRepCheck_NoError
 from OCCT.BRepGProp import BRepGProp
 from OCCT.GProp import GProp_GProps
 from OCCT.Geom import Geom_Plane
@@ -62,6 +62,7 @@ class ImportVSP(object):
         self._invalid = []
         self._divide = divide_closed
         self._tol = tol
+        self._invalid_shapes = []
 
         if fn is not None:
             if fn.endswith('.step') or fn.endswith('.stp'):
@@ -108,6 +109,14 @@ class ImportVSP(object):
         :rtype: list(OCCT.TopoDS.TopoDS_Solid)
         """
         return self._invalid
+
+    @property
+    def invalid_shapes(self):
+        """
+        :return: List of invalid shapes or sub-shapes.
+        :rtype: list(OCCT.TopoDS.TopoDS_Shape)
+        """
+        return self._invalid_shapes
 
     def clear(self):
         """
@@ -161,13 +170,15 @@ class ImportVSP(object):
                 compound = master_shape
                 more = False
 
-            solid, is_valid = _build_solid(compound, self._divide)
+            solid, is_valid, invalid_shapes = _build_solid(compound,
+                                                           self._divide)
             if is_valid:
                 print('  Successfully built a solid.')
                 self._solids.append(solid)
             else:
                 print('  Failed to build a valid solid.')
                 self._invalid.append(solid)
+                self._invalid_shapes += invalid_shapes
 
             # Next shape
             iterator.Next()
@@ -268,6 +279,28 @@ def _build_solid(compound, divide_closed):
     # Check shape validity
     check_shp = BRepCheck_Analyzer(solid, True)
     if check_shp.IsValid():
-        return solid, True
+        return solid, True, []
     else:
-        return solid, False
+        invalid_shapes = _topods_iterator_check(solid, check_shp)
+        return solid, False, invalid_shapes
+
+
+def _topods_iterator_check(shape, check):
+    """
+    Iterate on the shape and print errors and store invalid shapes.
+    """
+    invalid = []
+    it = TopoDS_Iterator(shape)
+    while it.More():
+        sub_shape = it.Value()
+        result = check.Result(sub_shape)
+        list_of_status = result.Status()
+        for status in list_of_status:
+            if status != BRepCheck_NoError:
+                msg = '    {0}-->{1}'.format(status, sub_shape.ShapeType())
+                print(msg)
+                invalid.append(sub_shape)
+        it.Next()
+        invalid += _topods_iterator_check(sub_shape, check)
+
+    return invalid
