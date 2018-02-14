@@ -19,12 +19,12 @@
 from OCCT.BRep import BRep_Builder
 from OCCT.TopoDS import TopoDS_Compound
 
-__all__ = ['CreateTopology']
+__all__ = ['CreateShape']
 
 
-class CreateTopology(object):
+class CreateShape(object):
     """
-    Topology (shape) creation.
+    Create shapes.
     """
 
     @staticmethod

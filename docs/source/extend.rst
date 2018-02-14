@@ -1,6 +1,6 @@
 Overview
 ========
-For now, toolkits are relatively small, lightweight modules intended to
+For now, extensions are relatively small, lightweight modules intended to
 streamline basic OpenCASCADE functionality and make it more *pythonic*. They
 should be small in scope and provide relatively generic capability to enable
 users to more quickly develop their own applications. Development of
@@ -9,8 +9,8 @@ of native pyOCCT functionality.
 
 Boolean
 =======
-The ``Boolean`` toolkit provides tools for OpenCASCADE Boolean operations which
-can be safely imported by:
+The ``Boolean`` extension provides tools for OpenCASCADE Boolean operations
+which can be safely imported by:
 
 .. code-block:: python
 
@@ -38,8 +38,8 @@ The following tools are available:
 
 Exchange
 ========
-The ``Exchange`` toolkit provides tools for data exchange including reading and
-writing BREP, STEP, and/or IGES files. The tools can be imported as:
+The ``Exchange`` extension provides tools for data exchange including reading
+and writing BREP, STEP, and/or IGES files. The tools can be imported as:
 
 .. code-block:: python
 
@@ -63,8 +63,8 @@ The NASA OpenVSP tool is available `here <www.openvsp.org/>`_.
 
 Topology
 ========
-The ``topology`` toolkit provides a number of tools to streamline working with
-topology. The tools can be safely imported using:
+The ``topology`` extension provides a number of tools to streamline working
+with topology (i.e., shapes). The tools can be safely imported using:
 
 .. code-block:: python
 
@@ -78,13 +78,13 @@ The following tools are available:
    ======================== ===================================================
    Name                     Description
    ======================== ===================================================
-   ``CheckTopology``        Methods to check shape basic validity and type.
+   ``CheckShape``           Methods to check shape basic validity and type.
    ``ClassifyPointInSolid`` Classify a point in/on/out of a solid.
-   ``CreateTopology``       Methods to create shapes.
-   ``ExploreTopology``      Basic methods to explore shapes and get sub-shapes.
+   ``CreateShape``          Methods to create shapes.
+   ``ExploreShape``         Basic methods to explore shapes and get sub-shapes.
    ``ExploreWire``          Explore the edges of a wire.
    ``ExploreFreeEdges``     Analyze the free edges of a shape.
-   ``FixTopology``          Attempt to fix a shape or limit tolerance.
+   ``FixShape``             Attempt to fix a shape or limit tolerance.
    ``LinearProps``          Linear shape properties.
    ``SurfaceProps``         Surface shape properties.
    ``VolumeProps``          Volume shape properties.
@@ -96,7 +96,7 @@ The following tools are available:
 
 Visualization
 =============
-A minimal viewing tool is provided in the ``Visualization`` toolkit. It can
+A minimal viewing tool is provided in the ``Visualization`` extension. It can
 be imported as:
 
 .. code-block:: python

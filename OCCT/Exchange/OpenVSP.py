@@ -36,8 +36,8 @@ from OCCT.TopAbs import TopAbs_COMPOUND, TopAbs_FACE
 from OCCT.TopExp import TopExp_Explorer
 from OCCT.TopoDS import TopoDS_Compound, TopoDS_Iterator, TopoDS_Shell
 
-from OCCT.Topology import (CheckTopology, ExploreTopology, LinearProps,
-                           CreateTopology, FixTopology)
+from OCCT.Topology import (CheckShape, ExploreShape, LinearProps,
+                           CreateShape, FixShape)
 
 __all__ = ["ImportVSP"]
 
@@ -196,7 +196,7 @@ def _build_solid(compound, divide_closed):
     faces = []
     while top_exp.More():
         shape = top_exp.Current()
-        face = CheckTopology.to_face(shape)
+        face = CheckShape.to_face(shape)
         fprop = GProp_GProps()
         BRepGProp.SurfaceProperties_(face, fprop, 1.0e-7)
         a = fprop.Mass()
@@ -218,7 +218,7 @@ def _build_solid(compound, divide_closed):
                 # Fix the wire because they are usually degenerate edges in
                 # the planar end caps.
                 builder = BRepBuilderAPI_MakeWire()
-                for e in ExploreTopology.get_edges(w):
+                for e in ExploreShape.get_edges(w):
                     if LinearProps(e).length > 1.0e-7:
                         builder.Add(e)
                 w = builder.Wire()
@@ -240,7 +240,7 @@ def _build_solid(compound, divide_closed):
             non_planar_faces.append(f)
 
     # Make a compound of the faces
-    shape = CreateTopology.compound(non_planar_faces + planar_faces)
+    shape = CreateShape.compound(non_planar_faces + planar_faces)
 
     # Split closed faces
     if divide_closed:
@@ -270,11 +270,11 @@ def _build_solid(compound, divide_closed):
         shape = sewn_shape
 
     # Make solid
-    shell = ExploreTopology.get_shells(shape)[0]
+    shell = ExploreShape.get_shells(shape)[0]
     solid = ShapeFix_Solid().SolidFromShell(shell)
 
     # Limit tolerance
-    FixTopology.limit_tolerance(solid)
+    FixShape.limit_tolerance(solid)
 
     # Check shape validity
     check_shp = BRepCheck_Analyzer(solid, True)

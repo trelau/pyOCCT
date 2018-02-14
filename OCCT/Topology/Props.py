@@ -19,7 +19,7 @@
 from OCCT.BRepGProp import BRepGProp
 from OCCT.GProp import GProp_GProps
 
-from OCCT.Topology.Check import CheckTopology
+from OCCT.Topology.Check import CheckShape
 
 __all__ = ['LinearProps', 'SurfaceProps', 'VolumeProps',
            'LengthOfShapes', 'AreaOfShapes']
@@ -153,7 +153,7 @@ class LengthOfShapes(object):
     def __init__(self, shapes):
         results = []
         for shape in shapes:
-            shape = CheckTopology.to_shape(shape)
+            shape = CheckShape.to_shape(shape)
             ls = LinearProps(shape).length
             results.append((ls, shape))
 
@@ -220,7 +220,7 @@ class AreaOfShapes(object):
     def __init__(self, shapes):
         results = []
         for shape in shapes:
-            shape = CheckTopology.to_shape(shape)
+            shape = CheckShape.to_shape(shape)
             a = SurfaceProps(shape).area
             results.append((a, shape))
 

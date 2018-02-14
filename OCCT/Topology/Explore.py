@@ -40,12 +40,12 @@ from OCCT.TopoDS import (TopoDS_Compound, TopoDS_Edge, TopoDS_Face,
 
 from OCCT.Topology.Props import AreaOfShapes
 
-__all__ = ['ExploreTopology', 'ExploreWire', 'ExploreFreeEdges']
+__all__ = ['ExploreShape', 'ExploreWire', 'ExploreFreeEdges']
 
 
-class ExploreTopology(object):
+class ExploreShape(object):
     """
-    Explore topology.
+    Explore shapes.
     """
 
     @staticmethod
@@ -233,8 +233,8 @@ class ExploreTopology(object):
         :rtype: List of shared edges.
         :rtype: list[OCCT.TopoDS.TopoDS_Edge]
         """
-        edges1 = ExploreTopology.get_edges(shape1)
-        edges2 = ExploreTopology.get_edges(shape2)
+        edges1 = ExploreShape.get_edges(shape1)
+        edges2 = ExploreShape.get_edges(shape2)
         if not edges1 or not edges2:
             return []
 
@@ -314,7 +314,7 @@ class ExploreTopology(object):
         """
         geom_convert = GeomConvert_CompCurveToBSplineCurve()
         exp = BRepTools_WireExplorer(wire)
-        tol = ExploreTopology.global_tolerance(wire, 1)
+        tol = ExploreShape.global_tolerance(wire, 1)
         while exp.More():
             e = TopoDS.Edge_(exp.Current())
             exp.Next()
@@ -573,10 +573,10 @@ class ExploreFreeEdges(object):
         tool = ShapeAnalysis_FreeBounds(shape)
         cmp_closed_wires = tool.GetClosedWires()
         cmp_open_wires = tool.GetOpenWires()
-        self._closed_wires = ExploreTopology.get_wires(cmp_closed_wires)
-        self._open_wires = ExploreTopology.get_wires(cmp_open_wires)
-        self._edges = (ExploreTopology.get_edges(cmp_closed_wires) +
-                       ExploreTopology.get_edges(cmp_open_wires))
+        self._closed_wires = ExploreShape.get_wires(cmp_closed_wires)
+        self._open_wires = ExploreShape.get_wires(cmp_open_wires)
+        self._edges = (ExploreShape.get_edges(cmp_closed_wires) +
+                       ExploreShape.get_edges(cmp_open_wires))
 
     @property
     def closed_wires(self):

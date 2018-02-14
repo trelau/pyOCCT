@@ -21,12 +21,12 @@ from OCCT.ShapeBuild import ShapeBuild_ReShape
 from OCCT.ShapeFix import ShapeFix_Shape, ShapeFix_ShapeTolerance
 from OCCT.TopAbs import TopAbs_SHAPE
 
-__all__ = ['FixTopology']
+__all__ = ['FixShape']
 
 _fix_tol = ShapeFix_ShapeTolerance()
 
 
-class FixTopology(object):
+class FixShape(object):
     """
     Attempt to fix the shape by applying a number of general fixes.
 

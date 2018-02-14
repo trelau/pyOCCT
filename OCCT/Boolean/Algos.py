@@ -30,9 +30,9 @@ from OCCT.TopTools import TopTools_SequenceOfShape
 from OCCT.TopoDS import TopoDS_Face, TopoDS, TopoDS_Shape
 
 from OCCT.Exchange import ExchangeBasic
-from OCCT.Topology.Check import CheckTopology
-from OCCT.Topology.Create import CreateTopology
-from OCCT.Topology.Explore import ExploreTopology
+from OCCT.Topology.Check import CheckShape
+from OCCT.Topology.Create import CreateShape
+from OCCT.Topology.Explore import ExploreShape
 from OCCT.Topology.Utils import TopologyUtils
 
 __all__ = ['FuseShapes', 'CutShapes', 'CommonShapes', 'IntersectShapes',
@@ -154,7 +154,7 @@ class BopAlgo(BopCore):
         else:
             self._bop.SetNonDestructive(False)
 
-        if CheckTopology.is_shape(shape1) and CheckTopology.is_shape(shape2):
+        if CheckShape.is_shape(shape1) and CheckShape.is_shape(shape2):
             self.set_args([shape1])
             self.set_tools([shape2])
             self.build()
@@ -209,14 +209,14 @@ class BopAlgo(BopCore):
         # Arguments
         args = self.arguments
         if args:
-            shape1 = CreateTopology.compound(args)
+            shape1 = CreateShape.compound(args)
             fn = ''.join([path, '/', op, '.shape1.', timestamp, '.brep'])
             ExchangeBasic.write_brep(shape1, fn)
 
         # Tools
         tools = self.tools
         if tools:
-            shape2 = CreateTopology.compound(tools)
+            shape2 = CreateShape.compound(tools)
             fn = ''.join([path, '/', op, '.shape2.', timestamp, '.brep'])
             ExchangeBasic.write_brep(shape2, fn)
 
@@ -274,7 +274,7 @@ class BopAlgo(BopCore):
         :return: The vertices of the resulting shape.
         :rtype: list(OCCT.TopoDS.TopoDS_Vertex)
         """
-        return ExploreTopology.get_vertices(self.shape)
+        return ExploreShape.get_vertices(self.shape)
 
     @property
     def edges(self):
@@ -282,7 +282,7 @@ class BopAlgo(BopCore):
         :return: The edges of the resulting shape.
         :rtype: list(OCCT.TopoDS.TopoDS_Edge)
         """
-        return ExploreTopology.get_edges(self.shape)
+        return ExploreShape.get_edges(self.shape)
 
     def refine_edges(self):
         """
@@ -566,7 +566,7 @@ class VolumeMaker(BopAlgo):
         self.build()
 
         self._solids = []
-        for solid in ExploreTopology.get_solids(self.shape):
+        for solid in ExploreShape.get_solids(self.shape):
             self._solids.append(TopoDS.Solid_(solid))
 
     @property
@@ -722,7 +722,7 @@ class SplitShapeByEdges(BopCore):
 
         :return: None
         """
-        cmp = CreateTopology.compound(e)
+        cmp = CreateShape.compound(e)
         self._bop.Add(cmp, f)
 
     def add_edge_on_edge(self, e1, e2):
