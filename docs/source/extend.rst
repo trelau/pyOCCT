@@ -63,7 +63,7 @@ The NASA OpenVSP tool is available `here <www.openvsp.org/>`_.
 
 Topology
 ========
-The ``topology`` extension provides a number of tools to streamline working
+The ``Topology`` extension provides a number of tools to streamline working
 with topology (i.e., shapes). The tools can be safely imported using:
 
 .. code-block:: python

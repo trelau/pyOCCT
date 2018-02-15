@@ -237,7 +237,7 @@ PYBIND11_MODULE(BRepOffset, mod) {
 	cls_BRepOffset.def(py::init<>());
 	cls_BRepOffset.def_static("Surface_", [](const opencascade::handle<Geom_Surface> & a0, const Standard_Real a1, BRepOffset_Status & a2) -> opencascade::handle<Geom_Surface> { return BRepOffset::Surface(a0, a1, a2); }, py::arg("Surface"), py::arg("Offset"), py::arg("theStatus"));
 	cls_BRepOffset.def_static("Surface_", (opencascade::handle<Geom_Surface> (*)(const opencascade::handle<Geom_Surface> &, const Standard_Real, BRepOffset_Status &, Standard_Boolean)) &BRepOffset::Surface, "returns the Offset surface computed from the surface <Surface> at an OffsetDistance <Offset>.", py::arg("Surface"), py::arg("Offset"), py::arg("theStatus"), py::arg("allowC0"));
-	cls_BRepOffset.def_static("CollapseSingularities_", (opencascade::handle<Geom_Surface> (*)(const opencascade::handle<Geom_Surface> &, const TopoDS_Face &, Standard_Real)) &BRepOffset::CollapseSingularities, "Preprocess surface to be offset (bspline, bezier, or revolution based on bspline or bezier curve), by collapsing each singular side to single point.", py::arg("theSurface"), py::arg("theFace"), py::arg("thePrecision"));
+	// cls_BRepOffset.def_static("CollapseSingularities_", (opencascade::handle<Geom_Surface> (*)(const opencascade::handle<Geom_Surface> &, const TopoDS_Face &, Standard_Real)) &BRepOffset::CollapseSingularities, "Preprocess surface to be offset (bspline, bezier, or revolution based on bspline or bezier curve), by collapsing each singular side to single point.", py::arg("theSurface"), py::arg("theFace"), py::arg("thePrecision"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepOffset_MakeLoops.hxx
 	py::class_<BRepOffset_MakeLoops, std::unique_ptr<BRepOffset_MakeLoops, Deleter<BRepOffset_MakeLoops>>> cls_BRepOffset_MakeLoops(mod, "BRepOffset_MakeLoops", "None");
@@ -291,8 +291,8 @@ PYBIND11_MODULE(BRepOffset, mod) {
 	cls_BRepOffset_MakeSimpleOffset.def("SetBuildSolidFlag", (void (BRepOffset_MakeSimpleOffset::*)(const Standard_Boolean)) &BRepOffset_MakeSimpleOffset::SetBuildSolidFlag, "Sets solid building flag.", py::arg("theBuildFlag"));
 	cls_BRepOffset_MakeSimpleOffset.def("GetOffsetValue", (Standard_Real (BRepOffset_MakeSimpleOffset::*)() const ) &BRepOffset_MakeSimpleOffset::GetOffsetValue, "Gets offset value.");
 	cls_BRepOffset_MakeSimpleOffset.def("SetOffsetValue", (void (BRepOffset_MakeSimpleOffset::*)(const Standard_Real)) &BRepOffset_MakeSimpleOffset::SetOffsetValue, "Sets offset value.", py::arg("theOffsetValue"));
-	cls_BRepOffset_MakeSimpleOffset.def("GetTolerance", (Standard_Real (BRepOffset_MakeSimpleOffset::*)() const ) &BRepOffset_MakeSimpleOffset::GetTolerance, "Gets tolerance (used for handling singularities).");
-	cls_BRepOffset_MakeSimpleOffset.def("SetTolerance", (void (BRepOffset_MakeSimpleOffset::*)(const Standard_Real)) &BRepOffset_MakeSimpleOffset::SetTolerance, "Sets tolerance (used for handling singularities).", py::arg("theValue"));
+	// cls_BRepOffset_MakeSimpleOffset.def("GetTolerance", (Standard_Real (BRepOffset_MakeSimpleOffset::*)() const ) &BRepOffset_MakeSimpleOffset::GetTolerance, "Gets tolerance (used for handling singularities).");
+	// cls_BRepOffset_MakeSimpleOffset.def("SetTolerance", (void (BRepOffset_MakeSimpleOffset::*)(const Standard_Real)) &BRepOffset_MakeSimpleOffset::SetTolerance, "Sets tolerance (used for handling singularities).", py::arg("theValue"));
 	cls_BRepOffset_MakeSimpleOffset.def("IsDone", (Standard_Boolean (BRepOffset_MakeSimpleOffset::*)() const ) &BRepOffset_MakeSimpleOffset::IsDone, "Gets done state.");
 	cls_BRepOffset_MakeSimpleOffset.def("GetResultShape", (const TopoDS_Shape & (BRepOffset_MakeSimpleOffset::*)() const ) &BRepOffset_MakeSimpleOffset::GetResultShape, "Returns result shape.");
 	cls_BRepOffset_MakeSimpleOffset.def("GetSafeOffset", (Standard_Real (BRepOffset_MakeSimpleOffset::*)(const Standard_Real)) &BRepOffset_MakeSimpleOffset::GetSafeOffset, "Computes max safe offset value for the given tolerance.", py::arg("theExpectedToler"));
@@ -310,7 +310,7 @@ PYBIND11_MODULE(BRepOffset, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepOffset_SimpleOffset.hxx
 	py::class_<BRepOffset_SimpleOffset, opencascade::handle<BRepOffset_SimpleOffset>, BRepTools_Modification> cls_BRepOffset_SimpleOffset(mod, "BRepOffset_SimpleOffset", "This class represents mechanism of simple offset algorithm i. e. topology-preserve offset construction without intersection.");
-	cls_BRepOffset_SimpleOffset.def(py::init<const TopoDS_Shape &, const Standard_Real, const Standard_Real>(), py::arg("theInputShape"), py::arg("theOffsetValue"), py::arg("theTolerance"));
+	cls_BRepOffset_SimpleOffset.def(py::init<const TopoDS_Shape &, const Standard_Real>(), py::arg("theInputShape"), py::arg("theOffsetValue"));
 	cls_BRepOffset_SimpleOffset.def_static("get_type_name_", (const char * (*)()) &BRepOffset_SimpleOffset::get_type_name, "None");
 	cls_BRepOffset_SimpleOffset.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRepOffset_SimpleOffset::get_type_descriptor, "None");
 	cls_BRepOffset_SimpleOffset.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepOffset_SimpleOffset::*)() const ) &BRepOffset_SimpleOffset::DynamicType, "None");

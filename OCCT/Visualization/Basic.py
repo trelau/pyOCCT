@@ -32,7 +32,6 @@ from OCCT.OpenGl import OpenGl_GraphicDriver
 from OCCT.Quantity import (Quantity_TOC_RGB, Quantity_NOC_WHITE,
                            Quantity_Color,
                            Quantity_NOC_BLACK)
-from OCCT.SMESH import SMESH_MeshVSLink, SMESH_Mesh
 from OCCT.TopoDS import TopoDS_Shape
 from OCCT.V3d import V3d_Viewer, V3d_TypeOfOrientation
 from OCCT.WNT import WNT_Window
@@ -46,7 +45,16 @@ try:
     has_pyside = True
 except ImportError:
     has_pyside = False
-    msg = "PySide module was not found. Visualization will not be available."
+    msg = "PySide module was not found for visualization."
+    warnings.warn(msg, RuntimeWarning)
+
+try:
+    from OCCT.SMESH import SMESH_MeshVSLink, SMESH_Mesh
+
+    has_smesh = True
+except ImportError:
+    has_smesh = False
+    msg = "SMESH module was not found for visualization."
     warnings.warn(msg, RuntimeWarning)
 
 __all__ = ['Viewer']

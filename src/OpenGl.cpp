@@ -1543,7 +1543,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_TextureBufferArb.def("Init", (bool (OpenGl_TextureBufferArb::*)(const opencascade::handle<OpenGl_Context> &, const GLuint, const GLsizei, const GLubyte *)) &OpenGl_TextureBufferArb::Init, "Perform TBO initialization with specified data. Existing data will be deleted.", py::arg("theGlCtx"), py::arg("theComponentsNb"), py::arg("theElemsNb"), py::arg("theData"));
 	cls_OpenGl_TextureBufferArb.def("BindTexture", (void (OpenGl_TextureBufferArb::*)(const opencascade::handle<OpenGl_Context> &, const Graphic3d_TextureUnit) const ) &OpenGl_TextureBufferArb::BindTexture, "Bind TBO to specified Texture Unit.", py::arg("theGlCtx"), py::arg("theTextureUnit"));
 	cls_OpenGl_TextureBufferArb.def("UnbindTexture", (void (OpenGl_TextureBufferArb::*)(const opencascade::handle<OpenGl_Context> &, const Graphic3d_TextureUnit) const ) &OpenGl_TextureBufferArb::UnbindTexture, "Unbind TBO.", py::arg("theGlCtx"), py::arg("theTextureUnit"));
-	cls_OpenGl_TextureBufferArb.def("TextureId", (GLuint (OpenGl_TextureBufferArb::*)() const ) &OpenGl_TextureBufferArb::TextureId, "Returns name of TBO.");
+	// cls_OpenGl_TextureBufferArb.def("TextureId", (GLuint (OpenGl_TextureBufferArb::*)() const ) &OpenGl_TextureBufferArb::TextureId, "Returns name of TBO.");
 	cls_OpenGl_TextureBufferArb.def_static("get_type_name_", (const char * (*)()) &OpenGl_TextureBufferArb::get_type_name, "None");
 	cls_OpenGl_TextureBufferArb.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &OpenGl_TextureBufferArb::get_type_descriptor, "None");
 	cls_OpenGl_TextureBufferArb.def("DynamicType", (const opencascade::handle<Standard_Type> & (OpenGl_TextureBufferArb::*)() const ) &OpenGl_TextureBufferArb::DynamicType, "None");

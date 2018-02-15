@@ -181,14 +181,16 @@ include_directories(${Boost_INCLUDE_DIR})
 # --------------------------------------------------------------------------- #
 # PTHREAD
 # --------------------------------------------------------------------------- #
-set(PTHREAD_INCLUDE_DIRS "" CACHE PATH "pthread include directory.")
+if(ENABLE_SMESH)
+    set(PTHREAD_INCLUDE_DIRS "" CACHE PATH "pthread include directory.")
 
-if(NOT EXISTS ${PTHREAD_INCLUDE_DIRS})
-    message(FATAL_ERROR "pthread include directory is required.")
+    if(NOT EXISTS ${PTHREAD_INCLUDE_DIRS})
+        message(FATAL_ERROR "pthread include directory is required.")
+    endif()
+
+    message(STATUS "pthread include directory: ${PTHREAD_INCLUDE_DIRS}")
+    include_directories(${PTHREAD_INCLUDE_DIRS})
 endif()
-
-message(STATUS "pthread include directory: ${PTHREAD_INCLUDE_DIRS}")
-include_directories(${PTHREAD_INCLUDE_DIRS})
 
 
 # --------------------------------------------------------------------------- #
