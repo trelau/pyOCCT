@@ -95,30 +95,29 @@ endif()
 # --------------------------------------------------------------------------- #
 # SMESH
 # --------------------------------------------------------------------------- #
-set(SMESH_LIBRARIES Driver;
-                    DriverDAT;
-                    DriverGMF;
-                    DriverSTL;
-                    DriverUNV;
-                    MEFISTO2;
-                    SMDS;
-                    SMDSAbs;
-                    SMESH;
-                    SMESHBasics;
-                    SMESHControls;
-                    SMESHDS;
-                    SMESHMisc;
-                    SMESHTrace;
-                    SMESHUtils;
-                    StdMeshers)
-                    
-if(ENABLE_NETGEN)
-    set(SMESH_LIBRARIES ${SMESH_LIBRARIES}; NETGENPlugin)
-endif()
-
-if(ENABLE_BLSURF)
-    set(SMESH_LIBRARIES ${SMESH_LIBRARIES}; BLSURFlugin)
-endif()
+# Manually provide the SMESH modules since the library names may not match up
+# exactly with the module names based on the header file names. The
+# SMESH_LIBRARIES should be found by find_package(SMESH).
+set(SMESH_MODULES Driver;
+                  DriverDAT;
+                  DriverGMF;
+                  DriverSTL;
+                  DriverUNV;
+                  MEFISTO2;
+                  SMDS;
+                  SMESH;
+                  SMESHBasics;
+                  SMESHControls;
+                  SMESHDS;
+                  SMESHMisc;
+                  SMESHTrace;
+                  SMESHUtils;
+                  StdMeshers;
+                  SMDSAbs;
+                  BasicsGenericDestructor;
+                  BaseTraceCollector;
+                  LocalTraceBufferPool;
+                  Utils)
 
 set(SMESH_ABS_LIBS)
 if(ENABLE_SMESH)
@@ -133,6 +132,12 @@ if(ENABLE_SMESH)
 
     if(NOT EXISTS ${SMESH_LIB_PATH})
         message(FATAL_ERROR "Failed to find SMESH library directory.")
+    endif()
+
+    if(NOT DEFINED SMESH_LIBRARIES)
+        message(FATAL_ERROR "SMESH libraries were not found.")
+    else()
+        message(STATUS "SMESH libraries: ${SMESH_LIBRARIES}")
     endif()
                                  
     message(STATUS "SMESH include directory: ${SMESH_INCLUDE_PATH}")
@@ -239,8 +244,8 @@ set(MAKE_LIB BOOL ON)
 foreach(SRC ${SRCS})
     get_filename_component(MOD ${SRC} NAME_WE)
     
-    # Check for SMESH libraries
-    list(FIND SMESH_LIBRARIES ${MOD} _INDEX)
+    # Check for SMESH modules
+    list(FIND SMESH_MODULES ${MOD} _INDEX)
     if(NOT ENABLE_SMESH AND ${_INDEX} GREATER -1)
         message(STATUS "Skipping ${MOD}")
         set(MAKE_LIB OFF)
