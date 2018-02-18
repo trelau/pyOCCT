@@ -116,16 +116,16 @@ PYBIND11_MODULE(math, mod) {
 	mod.def("bits_left", (Standard_OStream & (*)(Standard_OStream &, const math_Uzawa &)) &operator<<, py::is_operator(), "None", py::arg("o"), py::arg("U"));
 	*/
 	// C:\Miniconda\envs\occt\Library\include\opencascade\math_Matrix.lxx
-	mod.def("__mul__", (math_Matrix (*)(const Standard_Real, const math_Matrix &)) &operator*, py::is_operator(), "None", py::arg("Left"), py::arg("Right"));
+	// mod.def("__mul__", (math_Matrix (*)(const Standard_Real, const math_Matrix &)) &operator*, py::is_operator(), "None", py::arg("Left"), py::arg("Right"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\math_ValueAndWeight.hxx
-	mod.def("__lt__", (bool (*)(const math_ValueAndWeight &, const math_ValueAndWeight &)) &operator<, py::is_operator(), "Comparison operator for math_ValueAndWeight, needed for sorting algorithms", py::arg("theLeft"), py::arg("theRight"));
+	// mod.def("__lt__", (bool (*)(const math_ValueAndWeight &, const math_ValueAndWeight &)) &operator<, py::is_operator(), "Comparison operator for math_ValueAndWeight, needed for sorting algorithms", py::arg("theLeft"), py::arg("theRight"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\math_GaussPoints.hxx
-	mod.def("GPoints", (math_Vector (*)(const Standard_Integer)) &GPoints, "None", py::arg("Index"));
+	// mod.def("GPoints", (math_Vector (*)(const Standard_Integer)) &GPoints, "None", py::arg("Index"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\math_GaussPoints.hxx
-	mod.def("GWeights", (math_Vector (*)(const Standard_Integer)) &GWeights, "None", py::arg("Index"));
+	// mod.def("GWeights", (math_Vector (*)(const Standard_Integer)) &GWeights, "None", py::arg("Index"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\math_Recipes.hxx
 	mod.def("LU_Decompose", (Standard_Integer (*)(math_Matrix &, math_IntegerVector &, Standard_Real &, math_Vector &, Standard_Real)) &LU_Decompose, "None", py::arg("a"), py::arg("indx"), py::arg("d"), py::arg("vv"), py::arg("TINY") = 1.0e-30);
@@ -430,7 +430,7 @@ PYBIND11_MODULE(math, mod) {
 	cls_math_NewtonMinimum.def("Perform", (void (math_NewtonMinimum::*)(math_MultipleVarFunctionWithHessian &, const math_Vector &)) &math_NewtonMinimum::Perform, "Search the solution.", py::arg("theFunction"), py::arg("theStartingPoint"));
 	cls_math_NewtonMinimum.def("IsConverged", (Standard_Boolean (math_NewtonMinimum::*)() const ) &math_NewtonMinimum::IsConverged, "This method is called at the end of each iteration to check the convergence: || Xi+1 - Xi || < Tolerance or || F(Xi+1) - F(Xi)|| < Tolerance * || F(Xi) || It can be redefined in a sub-class to implement a specific test.");
 	cls_math_NewtonMinimum.def("IsDone", (Standard_Boolean (math_NewtonMinimum::*)() const ) &math_NewtonMinimum::IsDone, "Tests if an error has occured.");
-	cls_math_NewtonMinimum.def("IsConvex", (Standard_Boolean (math_NewtonMinimum::*)() const ) &math_NewtonMinimum::IsConvex, "Tests if the Function is convexe during optimization.");
+	// cls_math_NewtonMinimum.def("IsConvex", (Standard_Boolean (math_NewtonMinimum::*)() const ) &math_NewtonMinimum::IsConvex, "Tests if the Function is convexe during optimization.");
 	cls_math_NewtonMinimum.def("Location", (const math_Vector & (math_NewtonMinimum::*)() const ) &math_NewtonMinimum::Location, "returns the location vector of the minimum. Exception NotDone is raised if an error has occured.");
 	cls_math_NewtonMinimum.def("Location", (void (math_NewtonMinimum::*)(math_Vector &) const ) &math_NewtonMinimum::Location, "outputs the location vector of the minimum in Loc. Exception NotDone is raised if an error has occured. Exception DimensionError is raised if the range of Loc is not equal to the range of the StartingPoint.", py::arg("Loc"));
 	cls_math_NewtonMinimum.def("SetBoundary", (void (math_NewtonMinimum::*)(const math_Vector &, const math_Vector &)) &math_NewtonMinimum::SetBoundary, "Set boundaries.", py::arg("theLeftBorder"), py::arg("theRightBorder"));
@@ -579,7 +579,7 @@ PYBIND11_MODULE(math, mod) {
 	cls_math_NewtonFunctionSetRoot.def("IsDone", (Standard_Boolean (math_NewtonFunctionSetRoot::*)() const ) &math_NewtonFunctionSetRoot::IsDone, "Returns true if the computations are successful, otherwise returns false.");
 	cls_math_NewtonFunctionSetRoot.def("Root", (const math_Vector & (math_NewtonFunctionSetRoot::*)() const ) &math_NewtonFunctionSetRoot::Root, "Returns the value of the root of function F. Exceptions StdFail_NotDone if the algorithm fails (and IsDone returns false).");
 	cls_math_NewtonFunctionSetRoot.def("Root", (void (math_NewtonFunctionSetRoot::*)(math_Vector &) const ) &math_NewtonFunctionSetRoot::Root, "outputs the root vector in Root. Exception NotDone is raised if the root was not found. Exception DimensionError is raised if the range of Root is not equal to the range of the StartingPoint.", py::arg("Root"));
-	cls_math_NewtonFunctionSetRoot.def("StateNumber", (Standard_Integer (math_NewtonFunctionSetRoot::*)() const ) &math_NewtonFunctionSetRoot::StateNumber, "Outputs the state number associated with the solution vector root.");
+	// cls_math_NewtonFunctionSetRoot.def("StateNumber", (Standard_Integer (math_NewtonFunctionSetRoot::*)() const ) &math_NewtonFunctionSetRoot::StateNumber, "Outputs the state number associated with the solution vector root.");
 	cls_math_NewtonFunctionSetRoot.def("Derivative", (const math_Matrix & (math_NewtonFunctionSetRoot::*)() const ) &math_NewtonFunctionSetRoot::Derivative, "Returns the matrix value of the derivative at the root. Exception NotDone is raised if the root was not found.");
 	cls_math_NewtonFunctionSetRoot.def("Derivative", (void (math_NewtonFunctionSetRoot::*)(math_Matrix &) const ) &math_NewtonFunctionSetRoot::Derivative, "Outputs the matrix value of the derivative at the root in Der. Exception NotDone is raised if the root was not found. Exception DimensionError is raised if the range of Der is not equal to the range of the StartingPoint.", py::arg("Der"));
 	cls_math_NewtonFunctionSetRoot.def("FunctionSetErrors", (const math_Vector & (math_NewtonFunctionSetRoot::*)() const ) &math_NewtonFunctionSetRoot::FunctionSetErrors, "Returns the vector value of the error done on the functions at the root. Exception NotDone is raised if the root was not found.");

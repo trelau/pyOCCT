@@ -75,6 +75,7 @@ PYBIND11_MODULE(Units, mod) {
 
 	// FUNCTIONS
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Units_Operators.hxx
+	/* FIXME Don't bind these
 	mod.def("__eq__", (Standard_Boolean (*)(const opencascade::handle<Units_Unit> &, const Standard_CString)) &operator==, py::is_operator(), "None", py::arg(""), py::arg(""));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Units_Operators.hxx
@@ -103,6 +104,7 @@ PYBIND11_MODULE(Units, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Units_Operators.hxx
 	mod.def("__ge__", (Standard_Boolean (*)(const opencascade::handle<Units_Token> &, const opencascade::handle<Units_Token> &)) &operator>=, py::is_operator(), "None", py::arg(""), py::arg(""));
+	*/
 
 
 	// CLASSES

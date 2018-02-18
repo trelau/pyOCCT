@@ -124,8 +124,8 @@ PYBIND11_MODULE(STEPSelections, mod) {
 	cls_STEPSelections_Counter.def("Count", (void (STEPSelections_Counter::*)(const Interface_Graph &, const opencascade::handle<Standard_Transient> &)) &STEPSelections_Counter::Count, "None", py::arg("graph"), py::arg("start"));
 	cls_STEPSelections_Counter.def("Clear", (void (STEPSelections_Counter::*)()) &STEPSelections_Counter::Clear, "None");
 	cls_STEPSelections_Counter.def("NbInstancesOfFaces", (Standard_Integer (STEPSelections_Counter::*)() const ) &STEPSelections_Counter::NbInstancesOfFaces, "None");
-	cls_STEPSelections_Counter.def("POP", (Standard_Integer (STEPSelections_Counter::*)() const ) &STEPSelections_Counter::POP, "None");
-	cls_STEPSelections_Counter.def("POP2", (Standard_Integer (STEPSelections_Counter::*)() const ) &STEPSelections_Counter::POP2, "None");
+	// cls_STEPSelections_Counter.def("POP", (Standard_Integer (STEPSelections_Counter::*)() const ) &STEPSelections_Counter::POP, "None");
+	// cls_STEPSelections_Counter.def("POP2", (Standard_Integer (STEPSelections_Counter::*)() const ) &STEPSelections_Counter::POP2, "None");
 	cls_STEPSelections_Counter.def("NbInstancesOfShells", (Standard_Integer (STEPSelections_Counter::*)() const ) &STEPSelections_Counter::NbInstancesOfShells, "None");
 	cls_STEPSelections_Counter.def("NbInstancesOfSolids", (Standard_Integer (STEPSelections_Counter::*)() const ) &STEPSelections_Counter::NbInstancesOfSolids, "None");
 	cls_STEPSelections_Counter.def("NbInstancesOfEdges", (Standard_Integer (STEPSelections_Counter::*)() const ) &STEPSelections_Counter::NbInstancesOfEdges, "None");

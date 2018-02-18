@@ -215,8 +215,8 @@ PYBIND11_MODULE(PCDM, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\PCDM_DOMHeaderParser.hxx
 	py::class_<PCDM_DOMHeaderParser, std::unique_ptr<PCDM_DOMHeaderParser, Deleter<PCDM_DOMHeaderParser>>, LDOMParser> cls_PCDM_DOMHeaderParser(mod, "PCDM_DOMHeaderParser", "None");
-	cls_PCDM_DOMHeaderParser.def("SetStartElementName", (void (PCDM_DOMHeaderParser::*)(const TCollection_AsciiString &)) &PCDM_DOMHeaderParser::SetStartElementName, "None", py::arg("aStartElementName"));
-	cls_PCDM_DOMHeaderParser.def("SetEndElementName", (void (PCDM_DOMHeaderParser::*)(const TCollection_AsciiString &)) &PCDM_DOMHeaderParser::SetEndElementName, "None", py::arg("anEndElementName"));
+	// cls_PCDM_DOMHeaderParser.def("SetStartElementName", (void (PCDM_DOMHeaderParser::*)(const TCollection_AsciiString &)) &PCDM_DOMHeaderParser::SetStartElementName, "None", py::arg("aStartElementName"));
+	// cls_PCDM_DOMHeaderParser.def("SetEndElementName", (void (PCDM_DOMHeaderParser::*)(const TCollection_AsciiString &)) &PCDM_DOMHeaderParser::SetEndElementName, "None", py::arg("anEndElementName"));
 	cls_PCDM_DOMHeaderParser.def("startElement", (Standard_Boolean (PCDM_DOMHeaderParser::*)()) &PCDM_DOMHeaderParser::startElement, "None");
 	cls_PCDM_DOMHeaderParser.def("endElement", (Standard_Boolean (PCDM_DOMHeaderParser::*)()) &PCDM_DOMHeaderParser::endElement, "None");
 	cls_PCDM_DOMHeaderParser.def("GetElement", (const LDOM_Element & (PCDM_DOMHeaderParser::*)() const ) &PCDM_DOMHeaderParser::GetElement, "None");

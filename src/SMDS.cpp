@@ -1023,19 +1023,23 @@ PYBIND11_MODULE(SMDS, mod) {
 		.export_values();
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_VtkCellIterator.hxx
+	/*
 	py::class_<SMDS_VtkCellIterator, std::unique_ptr<SMDS_VtkCellIterator, Deleter<SMDS_VtkCellIterator>>, SMDS_ElemIterator> cls_SMDS_VtkCellIterator(mod, "SMDS_VtkCellIterator", "None");
 	cls_SMDS_VtkCellIterator.def(py::init<SMDS_Mesh *, int, SMDSAbs_EntityType>(), py::arg("mesh"), py::arg("vtkCellId"), py::arg("aType"));
 	cls_SMDS_VtkCellIterator.def("more", (bool (SMDS_VtkCellIterator::*)()) &SMDS_VtkCellIterator::more, "None");
 	cls_SMDS_VtkCellIterator.def("next", (const SMDS_MeshElement * (SMDS_VtkCellIterator::*)()) &SMDS_VtkCellIterator::next, "None");
 	cls_SMDS_VtkCellIterator.def("exchange", (void (SMDS_VtkCellIterator::*)(vtkIdType, vtkIdType)) &SMDS_VtkCellIterator::exchange, "None", py::arg("a"), py::arg("b"));
+	*/
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_ElemIterator.hxx
 	bind_SMDS_Iterator<const SMDS_MeshNode *>(mod, "SMDS_NodeIterator");
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_VtkCellIterator.hxx
+	/*
 	py::class_<SMDS_VtkCellIteratorPolyH, std::unique_ptr<SMDS_VtkCellIteratorPolyH, Deleter<SMDS_VtkCellIteratorPolyH>>, SMDS_VtkCellIterator> cls_SMDS_VtkCellIteratorPolyH(mod, "SMDS_VtkCellIteratorPolyH", "None");
 	cls_SMDS_VtkCellIteratorPolyH.def(py::init<SMDS_Mesh *, int, SMDSAbs_EntityType>(), py::arg("mesh"), py::arg("vtkCellId"), py::arg("aType"));
 	cls_SMDS_VtkCellIteratorPolyH.def("more", (bool (SMDS_VtkCellIteratorPolyH::*)()) &SMDS_VtkCellIteratorPolyH::more, "None");
+	*/
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_IteratorOfElements.hxx
 	py::class_<SMDS_IteratorOfElements, std::unique_ptr<SMDS_IteratorOfElements, Deleter<SMDS_IteratorOfElements>>, SMDS_ElemIterator> cls_SMDS_IteratorOfElements(mod, "SMDS_IteratorOfElements", "None");
@@ -1050,10 +1054,12 @@ PYBIND11_MODULE(SMDS, mod) {
 	*/
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_VtkCellIterator.hxx
+	/*
 	py::class_<SMDS_VtkCellIteratorToUNV, std::unique_ptr<SMDS_VtkCellIteratorToUNV, Deleter<SMDS_VtkCellIteratorToUNV>>, SMDS_NodeIterator> cls_SMDS_VtkCellIteratorToUNV(mod, "SMDS_VtkCellIteratorToUNV", "None");
 	cls_SMDS_VtkCellIteratorToUNV.def(py::init<SMDS_Mesh *, int, SMDSAbs_EntityType>(), py::arg("mesh"), py::arg("vtkCellId"), py::arg("aType"));
 	cls_SMDS_VtkCellIteratorToUNV.def("next", (const SMDS_MeshNode * (SMDS_VtkCellIteratorToUNV::*)()) &SMDS_VtkCellIteratorToUNV::next, "None");
 	cls_SMDS_VtkCellIteratorToUNV.def("more", (bool (SMDS_VtkCellIteratorToUNV::*)()) &SMDS_VtkCellIteratorToUNV::more, "None");
+	*/
 
 	/* FIXME
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_ElemIterator.hxx

@@ -416,15 +416,15 @@ PYBIND11_MODULE(BRepMesh, mod) {
 	cls_BRepMesh_Delaun.def("AddVertices", (void (BRepMesh_Delaun::*)(BRepMesh::Array1OfVertexOfDelaun &)) &BRepMesh_Delaun::AddVertices, "Adds some vertices into the triangulation.", py::arg("theVertices"));
 	cls_BRepMesh_Delaun.def("UseEdge", (Standard_Boolean (BRepMesh_Delaun::*)(const Standard_Integer)) &BRepMesh_Delaun::UseEdge, "Modify mesh to use the edge.", py::arg("theEdge"));
 	cls_BRepMesh_Delaun.def("Result", (const opencascade::handle<BRepMesh_DataStructureOfDelaun> & (BRepMesh_Delaun::*)() const ) &BRepMesh_Delaun::Result, "Gives the Mesh data structure.");
-	cls_BRepMesh_Delaun.def("Frontier", (BRepMesh::HMapOfInteger (BRepMesh_Delaun::*)() const ) &BRepMesh_Delaun::Frontier, "Gives the list of frontier edges.");
-	cls_BRepMesh_Delaun.def("InternalEdges", (BRepMesh::HMapOfInteger (BRepMesh_Delaun::*)() const ) &BRepMesh_Delaun::InternalEdges, "Gives the list of internal edges.");
-	cls_BRepMesh_Delaun.def("FreeEdges", (BRepMesh::HMapOfInteger (BRepMesh_Delaun::*)() const ) &BRepMesh_Delaun::FreeEdges, "Gives the list of free edges used only one time");
+	// cls_BRepMesh_Delaun.def("Frontier", (BRepMesh::HMapOfInteger (BRepMesh_Delaun::*)() const ) &BRepMesh_Delaun::Frontier, "Gives the list of frontier edges.");
+	// cls_BRepMesh_Delaun.def("InternalEdges", (BRepMesh::HMapOfInteger (BRepMesh_Delaun::*)() const ) &BRepMesh_Delaun::InternalEdges, "Gives the list of internal edges.");
+	// cls_BRepMesh_Delaun.def("FreeEdges", (BRepMesh::HMapOfInteger (BRepMesh_Delaun::*)() const ) &BRepMesh_Delaun::FreeEdges, "Gives the list of free edges used only one time");
 	cls_BRepMesh_Delaun.def("GetVertex", (const BRepMesh_Vertex & (BRepMesh_Delaun::*)(const Standard_Integer) const ) &BRepMesh_Delaun::GetVertex, "Gives vertex with the given index", py::arg("theIndex"));
 	cls_BRepMesh_Delaun.def("GetEdge", (const BRepMesh_Edge & (BRepMesh_Delaun::*)(const Standard_Integer) const ) &BRepMesh_Delaun::GetEdge, "Gives edge with the given index", py::arg("theIndex"));
 	cls_BRepMesh_Delaun.def("GetTriangle", (const BRepMesh_Triangle & (BRepMesh_Delaun::*)(const Standard_Integer) const ) &BRepMesh_Delaun::GetTriangle, "Gives triangle with the given index", py::arg("theIndex"));
 	cls_BRepMesh_Delaun.def("Circles", (const BRepMesh_CircleTool & (BRepMesh_Delaun::*)() const ) &BRepMesh_Delaun::Circles, "Returns tool used to build mesh consistent to Delaunay criteria.");
 	cls_BRepMesh_Delaun.def("Contains", [](BRepMesh_Delaun &self, const Standard_Integer theTriangleId, const BRepMesh_Vertex & theVertex, const Standard_Real theSqTolerance, Standard_Integer & theEdgeOn){ Standard_Boolean rv = self.Contains(theTriangleId, theVertex, theSqTolerance, theEdgeOn); return std::tuple<Standard_Boolean, Standard_Integer &>(rv, theEdgeOn); }, "Test is the given triangle contains the given vertex.", py::arg("theTriangleId"), py::arg("theVertex"), py::arg("theSqTolerance"), py::arg("theEdgeOn"));
-
+	
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepMesh_DiscretRoot.hxx
 	py::class_<BRepMesh_DiscretRoot, opencascade::handle<BRepMesh_DiscretRoot>, Standard_Transient> cls_BRepMesh_DiscretRoot(mod, "BRepMesh_DiscretRoot", "This is a common interface for meshing algorithms instantiated by Mesh Factory and implemented by plugins.");
 	cls_BRepMesh_DiscretRoot.def("SetShape", (void (BRepMesh_DiscretRoot::*)(const TopoDS_Shape &)) &BRepMesh_DiscretRoot::SetShape, "Set the shape to triangulate.", py::arg("theShape"));
@@ -450,8 +450,8 @@ PYBIND11_MODULE(BRepMesh, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepMesh_EdgeParameterProvider.hxx
 	py::class_<BRepMesh_EdgeParameterProvider, std::unique_ptr<BRepMesh_EdgeParameterProvider, Deleter<BRepMesh_EdgeParameterProvider>>> cls_BRepMesh_EdgeParameterProvider(mod, "BRepMesh_EdgeParameterProvider", "Auxiliary class provides correct parameters on curve regarding SameParameter flag.");
-	cls_BRepMesh_EdgeParameterProvider.def(py::init<const TopoDS_Edge &, const TopoDS_Face &, const opencascade::handle<TColStd_HArray1OfReal> &>(), py::arg("theEdge"), py::arg("theFace"), py::arg("theParameters"));
-	cls_BRepMesh_EdgeParameterProvider.def("Parameter", (Standard_Real (BRepMesh_EdgeParameterProvider::*)(const Standard_Integer, const gp_Pnt &)) &BRepMesh_EdgeParameterProvider::Parameter, "Returns parameter according to SameParameter flag of the edge. If SameParameter is TRUE returns value from parameters w/o changes, elsewhere scales initial parameter and tries to determine resulting value using projection of the corresponded 3D point on PCurve.", py::arg("theIndex"), py::arg("thePoint3d"));
+	// cls_BRepMesh_EdgeParameterProvider.def(py::init<const TopoDS_Edge &, const TopoDS_Face &, const opencascade::handle<TColStd_HArray1OfReal> &>(), py::arg("theEdge"), py::arg("theFace"), py::arg("theParameters"));
+	// cls_BRepMesh_EdgeParameterProvider.def("Parameter", (Standard_Real (BRepMesh_EdgeParameterProvider::*)(const Standard_Integer, const gp_Pnt &)) &BRepMesh_EdgeParameterProvider::Parameter, "Returns parameter according to SameParameter flag of the edge. If SameParameter is TRUE returns value from parameters w/o changes, elsewhere scales initial parameter and tries to determine resulting value using projection of the corresponded 3D point on PCurve.", py::arg("theIndex"), py::arg("thePoint3d"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepMesh_IEdgeTool.hxx
 	py::class_<BRepMesh_IEdgeTool, opencascade::handle<BRepMesh_IEdgeTool>, Standard_Transient> cls_BRepMesh_IEdgeTool(mod, "BRepMesh_IEdgeTool", "Interface class providing API for edge tessellation tools.");
@@ -463,7 +463,7 @@ PYBIND11_MODULE(BRepMesh, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepMesh_EdgeTessellationExtractor.hxx
 	py::class_<BRepMesh_EdgeTessellationExtractor, opencascade::handle<BRepMesh_EdgeTessellationExtractor>, BRepMesh_IEdgeTool> cls_BRepMesh_EdgeTessellationExtractor(mod, "BRepMesh_EdgeTessellationExtractor", "Auxiliary class implements functionality retrieving tessellated representation of an edge stored in polygon.");
-	cls_BRepMesh_EdgeTessellationExtractor.def(py::init<const TopoDS_Edge &, const opencascade::handle<Geom2dAdaptor_HCurve> &, const TopoDS_Face &, const opencascade::handle<Poly_Triangulation> &, const opencascade::handle<Poly_PolygonOnTriangulation> &, const TopLoc_Location &>(), py::arg("theEdge"), py::arg("thePCurve"), py::arg("theFace"), py::arg("theTriangulation"), py::arg("thePolygon"), py::arg("theLocation"));
+	// cls_BRepMesh_EdgeTessellationExtractor.def(py::init<const TopoDS_Edge &, const opencascade::handle<Geom2dAdaptor_HCurve> &, const TopoDS_Face &, const opencascade::handle<Poly_Triangulation> &, const opencascade::handle<Poly_PolygonOnTriangulation> &, const TopLoc_Location &>(), py::arg("theEdge"), py::arg("thePCurve"), py::arg("theFace"), py::arg("theTriangulation"), py::arg("thePolygon"), py::arg("theLocation"));
 	cls_BRepMesh_EdgeTessellationExtractor.def("NbPoints", (Standard_Integer (BRepMesh_EdgeTessellationExtractor::*)() const ) &BRepMesh_EdgeTessellationExtractor::NbPoints, "Returns number of dicretization points.");
 	cls_BRepMesh_EdgeTessellationExtractor.def("Value", [](BRepMesh_EdgeTessellationExtractor &self, const Standard_Integer theIndex, Standard_Real & theParameter, gp_Pnt & thePoint, gp_Pnt2d & theUV){ Standard_Boolean rv = self.Value(theIndex, theParameter, thePoint, theUV); return std::tuple<Standard_Boolean, Standard_Real &>(rv, theParameter); }, "Returns parameters of solution with the given index.", py::arg("theIndex"), py::arg("theParameter"), py::arg("thePoint"), py::arg("theUV"));
 	cls_BRepMesh_EdgeTessellationExtractor.def_static("get_type_name_", (const char * (*)()) &BRepMesh_EdgeTessellationExtractor::get_type_name, "None");
@@ -472,7 +472,7 @@ PYBIND11_MODULE(BRepMesh, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepMesh_EdgeTessellator.hxx
 	py::class_<BRepMesh_EdgeTessellator, opencascade::handle<BRepMesh_EdgeTessellator>, BRepMesh_IEdgeTool> cls_BRepMesh_EdgeTessellator(mod, "BRepMesh_EdgeTessellator", "Auxiliary class implements functionality producing tessellated representation of an edge based on edge geometry.");
-	cls_BRepMesh_EdgeTessellator.def(py::init<const TopoDS_Edge &, const opencascade::handle<BRepMesh_FaceAttribute> &, const TopTools_IndexedDataMapOfShapeListOfShape &, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("theEdge"), py::arg("theFaceAttribute"), py::arg("theMapOfSharedFaces"), py::arg("theLinDeflection"), py::arg("theAngDeflection"), py::arg("theMinSize"));
+	// cls_BRepMesh_EdgeTessellator.def(py::init<const TopoDS_Edge &, const opencascade::handle<BRepMesh_FaceAttribute> &, const TopTools_IndexedDataMapOfShapeListOfShape &, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("theEdge"), py::arg("theFaceAttribute"), py::arg("theMapOfSharedFaces"), py::arg("theLinDeflection"), py::arg("theAngDeflection"), py::arg("theMinSize"));
 	cls_BRepMesh_EdgeTessellator.def("NbPoints", (Standard_Integer (BRepMesh_EdgeTessellator::*)() const ) &BRepMesh_EdgeTessellator::NbPoints, "Returns number of dicretization points.");
 	cls_BRepMesh_EdgeTessellator.def("Value", [](BRepMesh_EdgeTessellator &self, const Standard_Integer theIndex, Standard_Real & theParameter, gp_Pnt & thePoint, gp_Pnt2d & theUV){ Standard_Boolean rv = self.Value(theIndex, theParameter, thePoint, theUV); return std::tuple<Standard_Boolean, Standard_Real &>(rv, theParameter); }, "Returns parameters of solution with the given index.", py::arg("theIndex"), py::arg("theParameter"), py::arg("thePoint"), py::arg("theUV"));
 	cls_BRepMesh_EdgeTessellator.def_static("get_type_name_", (const char * (*)()) &BRepMesh_EdgeTessellator::get_type_name, "None");
@@ -569,9 +569,10 @@ PYBIND11_MODULE(BRepMesh, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepMesh_WireInterferenceChecker.hxx
 	py::class_<BRepMesh_WireInterferenceChecker, std::unique_ptr<BRepMesh_WireInterferenceChecker, Deleter<BRepMesh_WireInterferenceChecker>>> cls_BRepMesh_WireInterferenceChecker(mod, "BRepMesh_WireInterferenceChecker", "Auxilary class implementing functionality for checking interference between two discretized wires.");
-	cls_BRepMesh_WireInterferenceChecker.def(py::init<const BRepMesh::Array1OfSegmentsTree &, BRepMesh_Status *>(), py::arg("theWires"), py::arg("theStatus"));
-	cls_BRepMesh_WireInterferenceChecker.def(py::init<const BRepMesh::Array1OfSegmentsTree &, BRepMesh_Status *, Standard_Mutex *>(), py::arg("theWires"), py::arg("theStatus"), py::arg("theMutex"));
-	cls_BRepMesh_WireInterferenceChecker.def("__call__", (void (BRepMesh_WireInterferenceChecker::*)(const Standard_Integer &) const ) &BRepMesh_WireInterferenceChecker::operator(), py::is_operator(), "Checker's body.", py::arg("theWireId"));
+	// cls_BRepMesh_WireInterferenceChecker.def(py::init<const BRepMesh::Array1OfSegmentsTree &, BRepMesh_Status *>(), py::arg("theWires"), py::arg("theStatus"));
+	// cls_BRepMesh_WireInterferenceChecker.def(py::init<const BRepMesh::Array1OfSegmentsTree &, BRepMesh_Status *, Standard_Mutex *>(), py::arg("theWires"), py::arg("theStatus"), py::arg("theMutex"));
+	// cls_BRepMesh_WireInterferenceChecker.def("__call__", (void (BRepMesh_WireInterferenceChecker::*)(const Standard_Integer &) const ) &BRepMesh_WireInterferenceChecker::operator(), py::is_operator(), "Checker's body.", py::arg("theWireId"));
+
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepMesh_WireInterferenceChecker.hxx
 	py::enum_<BRepMesh_WireInterferenceChecker::IntFlag>(cls_BRepMesh_WireInterferenceChecker, "IntFlag", "Enumerates states of segments intersection check.")
 		.value("NoIntersection", BRepMesh_WireInterferenceChecker::IntFlag::NoIntersection)

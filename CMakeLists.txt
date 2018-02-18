@@ -26,6 +26,8 @@ project(pyOCCT VERSION 0.0.1 LANGUAGES CXX)
 option(ENABLE_SMESH "Enable SMESH" OFF)
 option(ENABLE_NETGEN "Enable Netgen" OFF)
 option(ENABLE_BLSURF "Enable BLSURF" OFF)
+option(ENABLE_FORCE "Force build even if unresolved externals are found" OFF)
+option(ENABLE_WARNINGS "Disable warning output." OFF)
 
 
 # --------------------------------------------------------------------------- #
@@ -43,12 +45,22 @@ else(WIN32)
 endif(WIN32)
 
 # Use /FORCE to ignore unresolved externals (known issue)
-set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /FORCE")
+if(ENABLE_FORCE)
+    message(STATUS "Using /FORCE linker option.")
+    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /FORCE")
+endif(ENABLE_FORCE)
 
 # Use Link Time Optimization per pybind11 documentation
 if(MSVC)
     set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /LTCG")
-endif()
+endif(MSVC)
+
+# Known warnings
+if(NOT ENABLE_WARNINGS)
+    set(WARNINGS "/wd4996 /wd4800 /wd4267 /wd4275 /wd4251 /wd4805 /wd4290 /wd4005 /wd4180 /wd4244 /wd4146 /wd4172")
+else(NOT ENABLE_WARNINGS)
+    set(WARNINGS)
+endif(NOT ENABLE_WARNINGS)
 
 
 # --------------------------------------------------------------------------- #
@@ -267,7 +279,7 @@ foreach(SRC ${SRCS})
         pybind11_add_module(${MOD} ${SRC})
         target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
                                             ${SMESH_ABS_LIBS})
-        set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION})
+        set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
         install(FILES ${OUTPUT_PATH}/${MOD}${EXTENSION}
                 DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/OCCT)
     endif()

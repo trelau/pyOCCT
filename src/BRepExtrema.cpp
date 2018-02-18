@@ -261,11 +261,11 @@ PYBIND11_MODULE(BRepExtrema, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepExtrema_OverlapTool.hxx
 	py::class_<BRepExtrema_OverlapTool, std::unique_ptr<BRepExtrema_OverlapTool, Deleter<BRepExtrema_OverlapTool>>> cls_BRepExtrema_OverlapTool(mod, "BRepExtrema_OverlapTool", "Tool class for for detection of overlapping of two BVH primitive sets. This tool is not intended to be used independently, and is integrated in other classes, implementing algorithms based on shape tessellation (BRepExtrema_ShapeProximity and BRepExtrema_SelfIntersection).");
-	cls_BRepExtrema_OverlapTool.def(py::init<>());
-	cls_BRepExtrema_OverlapTool.def(py::init<const opencascade::handle<BRepExtrema_TriangleSet> &, const opencascade::handle<BRepExtrema_TriangleSet> &>(), py::arg("theSet1"), py::arg("theSet2"));
-	cls_BRepExtrema_OverlapTool.def("LoadTriangleSets", (void (BRepExtrema_OverlapTool::*)(const opencascade::handle<BRepExtrema_TriangleSet> &, const opencascade::handle<BRepExtrema_TriangleSet> &)) &BRepExtrema_OverlapTool::LoadTriangleSets, "Loads the given element sets into the overlap tool.", py::arg("theSet1"), py::arg("theSet2"));
-	cls_BRepExtrema_OverlapTool.def("Perform", [](BRepExtrema_OverlapTool &self) -> void { return self.Perform(); });
-	cls_BRepExtrema_OverlapTool.def("Perform", (void (BRepExtrema_OverlapTool::*)(const Standard_Real)) &BRepExtrema_OverlapTool::Perform, "Performs searching of overlapped mesh elements.", py::arg("theTolerance"));
+	// cls_BRepExtrema_OverlapTool.def(py::init<>());
+	// cls_BRepExtrema_OverlapTool.def(py::init<const opencascade::handle<BRepExtrema_TriangleSet> &, const opencascade::handle<BRepExtrema_TriangleSet> &>(), py::arg("theSet1"), py::arg("theSet2"));
+	// cls_BRepExtrema_OverlapTool.def("LoadTriangleSets", (void (BRepExtrema_OverlapTool::*)(const opencascade::handle<BRepExtrema_TriangleSet> &, const opencascade::handle<BRepExtrema_TriangleSet> &)) &BRepExtrema_OverlapTool::LoadTriangleSets, "Loads the given element sets into the overlap tool.", py::arg("theSet1"), py::arg("theSet2"));
+	// cls_BRepExtrema_OverlapTool.def("Perform", [](BRepExtrema_OverlapTool &self) -> void { return self.Perform(); });
+	// cls_BRepExtrema_OverlapTool.def("Perform", (void (BRepExtrema_OverlapTool::*)(const Standard_Real)) &BRepExtrema_OverlapTool::Perform, "Performs searching of overlapped mesh elements.", py::arg("theTolerance"));
 	cls_BRepExtrema_OverlapTool.def("IsDone", (Standard_Boolean (BRepExtrema_OverlapTool::*)() const ) &BRepExtrema_OverlapTool::IsDone, "Is overlap test completed?");
 	cls_BRepExtrema_OverlapTool.def("MarkDirty", (void (BRepExtrema_OverlapTool::*)()) &BRepExtrema_OverlapTool::MarkDirty, "Marks test results as outdated.");
 	cls_BRepExtrema_OverlapTool.def("OverlapSubShapes1", (const BRepExtrema_MapOfIntegerPackedMapOfInteger & (BRepExtrema_OverlapTool::*)() const ) &BRepExtrema_OverlapTool::OverlapSubShapes1, "Returns set of overlapped sub-shapes of 1st shape (currently only faces are detected).");

@@ -370,7 +370,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_Workspace.def("GetGlContext", (const opencascade::handle<OpenGl_Context> & (OpenGl_Workspace::*)()) &OpenGl_Workspace::GetGlContext, "None");
 	cls_OpenGl_Workspace.def("FBOCreate", (opencascade::handle<OpenGl_FrameBuffer> (OpenGl_Workspace::*)(const Standard_Integer, const Standard_Integer)) &OpenGl_Workspace::FBOCreate, "None", py::arg("theWidth"), py::arg("theHeight"));
 	cls_OpenGl_Workspace.def("FBORelease", (void (OpenGl_Workspace::*)(opencascade::handle<OpenGl_FrameBuffer> &)) &OpenGl_Workspace::FBORelease, "None", py::arg("theFbo"));
-	cls_OpenGl_Workspace.def("BufferDump", (Standard_Boolean (OpenGl_Workspace::*)(const opencascade::handle<OpenGl_FrameBuffer> &, Image_PixMap &, const Graphic3d_BufferType &)) &OpenGl_Workspace::BufferDump, "None", py::arg("theFbo"), py::arg("theImage"), py::arg("theBufferType"));
+	// cls_OpenGl_Workspace.def("BufferDump", (Standard_Boolean (OpenGl_Workspace::*)(const opencascade::handle<OpenGl_FrameBuffer> &, Image_PixMap &, const Graphic3d_BufferType &)) &OpenGl_Workspace::BufferDump, "None", py::arg("theFbo"), py::arg("theImage"), py::arg("theBufferType"));
 	cls_OpenGl_Workspace.def("Width", (Standard_Integer (OpenGl_Workspace::*)() const ) &OpenGl_Workspace::Width, "None");
 	cls_OpenGl_Workspace.def("Height", (Standard_Integer (OpenGl_Workspace::*)() const ) &OpenGl_Workspace::Height, "None");
 	cls_OpenGl_Workspace.def("SetUseZBuffer", (Standard_Boolean (OpenGl_Workspace::*)(const Standard_Boolean)) &OpenGl_Workspace::SetUseZBuffer, "Setup Z-buffer usage flag (without affecting GL state!). Returns previously set flag.", py::arg("theToUse"));
@@ -400,14 +400,14 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_Workspace.def("ApplyAspectFace", (const OpenGl_AspectFace * (OpenGl_Workspace::*)()) &OpenGl_Workspace::ApplyAspectFace, "Apply face aspect.");
 	cls_OpenGl_Workspace.def("ApplyAspectMarker", (const OpenGl_AspectMarker * (OpenGl_Workspace::*)()) &OpenGl_Workspace::ApplyAspectMarker, "Apply marker aspect.");
 	cls_OpenGl_Workspace.def("ApplyAspectText", (const OpenGl_AspectText * (OpenGl_Workspace::*)()) &OpenGl_Workspace::ApplyAspectText, "Apply text aspect.");
-	cls_OpenGl_Workspace.def("ResetAppliedAspect", (void (OpenGl_Workspace::*)()) &OpenGl_Workspace::ResetAppliedAspect, "Clear the applied aspect state to default values.");
+	// cls_OpenGl_Workspace.def("ResetAppliedAspect", (void (OpenGl_Workspace::*)()) &OpenGl_Workspace::ResetAppliedAspect, "Clear the applied aspect state to default values.");
 	cls_OpenGl_Workspace.def("SetRenderFilter", (void (OpenGl_Workspace::*)(const opencascade::handle<OpenGl_RenderFilter> &)) &OpenGl_Workspace::SetRenderFilter, "Set filter for restricting rendering of particular elements. Filter can be applied for rendering passes used by recursive rendering algorithms for rendering elements of groups.", py::arg("theFilter"));
 	cls_OpenGl_Workspace.def("GetRenderFilter", (const opencascade::handle<OpenGl_RenderFilter> & (OpenGl_Workspace::*)() const ) &OpenGl_Workspace::GetRenderFilter, "Get rendering filter.");
 	cls_OpenGl_Workspace.def("ViewMatrix", (const OpenGl_Matrix * (OpenGl_Workspace::*)() const ) &OpenGl_Workspace::ViewMatrix, "Returns applied view matrix.");
 	cls_OpenGl_Workspace.def("ModelMatrix", (const OpenGl_Matrix * (OpenGl_Workspace::*)() const ) &OpenGl_Workspace::ModelMatrix, "Returns applied model structure matrix.");
-	cls_OpenGl_Workspace.def("SetPolygonOffset", (void (OpenGl_Workspace::*)(const Graphic3d_PolygonOffset &)) &OpenGl_Workspace::SetPolygonOffset, "Sets and applies current polygon offset.", py::arg("theParams"));
+	// cls_OpenGl_Workspace.def("SetPolygonOffset", (void (OpenGl_Workspace::*)(const Graphic3d_PolygonOffset &)) &OpenGl_Workspace::SetPolygonOffset, "Sets and applies current polygon offset.", py::arg("theParams"));
 	cls_OpenGl_Workspace.def("AppliedPolygonOffset", (const Graphic3d_PolygonOffset & (OpenGl_Workspace::*)()) &OpenGl_Workspace::AppliedPolygonOffset, "Returns currently applied polygon offset parameters.");
-	cls_OpenGl_Workspace.def("DefaultCappingAlgoFilter", (const opencascade::handle<OpenGl_CappingAlgoFilter> & (OpenGl_Workspace::*)() const ) &OpenGl_Workspace::DefaultCappingAlgoFilter, "Returns capping algorithm rendering filter.");
+	// cls_OpenGl_Workspace.def("DefaultCappingAlgoFilter", (const opencascade::handle<OpenGl_CappingAlgoFilter> & (OpenGl_Workspace::*)() const ) &OpenGl_Workspace::DefaultCappingAlgoFilter, "Returns capping algorithm rendering filter.");
 	cls_OpenGl_Workspace.def("NoneCulling", (const OpenGl_AspectFace & (OpenGl_Workspace::*)() const ) &OpenGl_Workspace::NoneCulling, "Returns face aspect for none culling mode.");
 	cls_OpenGl_Workspace.def("FrontCulling", (const OpenGl_AspectFace & (OpenGl_Workspace::*)() const ) &OpenGl_Workspace::FrontCulling, "Returns face aspect for front face culling mode.");
 	cls_OpenGl_Workspace.def("SetEnvironmentTexture", (void (OpenGl_Workspace::*)(const opencascade::handle<OpenGl_TextureSet> &)) &OpenGl_Workspace::SetEnvironmentTexture, "Sets a new environment texture.", py::arg("theTexture"));
@@ -1006,12 +1006,12 @@ PYBIND11_MODULE(OpenGl, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_LineAttributes.hxx
 	py::class_<OpenGl_LineAttributes, opencascade::handle<OpenGl_LineAttributes>, OpenGl_Resource> cls_OpenGl_LineAttributes(mod, "OpenGl_LineAttributes", "Utility class to manage OpenGL state of polygon hatching rasterization and keeping its cached state. The hatching rasterization is implemented using glPolygonStipple function of OpenGL. State of hatching is controlled by two parameters - type of hatching and IsEnabled parameter. The hatching rasterization is enabled only if non-zero index pattern type is selected (zero by default is reserved for solid filling) and if IsEnabled flag is set to true. The IsEnabled parameter is useful for temporarily turning on/off the hatching rasterization without making any costly GL calls for changing the hatch pattern. This is a sharable resource class - it creates OpenGL context objects for each hatch pattern to achieve quicker switching between them, thesse GL objects are freed when the resource is released by owner context.");
-	cls_OpenGl_LineAttributes.def(py::init<>());
+	// cls_OpenGl_LineAttributes.def(py::init<>());
 	cls_OpenGl_LineAttributes.def("Release", (void (OpenGl_LineAttributes::*)(OpenGl_Context *)) &OpenGl_LineAttributes::Release, "Release GL resources.", py::arg("theGlCtx"));
 	cls_OpenGl_LineAttributes.def("TypeOfHatch", (int (OpenGl_LineAttributes::*)() const ) &OpenGl_LineAttributes::TypeOfHatch, "Index of currently selected type of hatch.");
-	cls_OpenGl_LineAttributes.def("SetTypeOfHatch", (int (OpenGl_LineAttributes::*)(const OpenGl_Context *, const opencascade::handle<Graphic3d_HatchStyle> &)) &OpenGl_LineAttributes::SetTypeOfHatch, "Sets type of the hatch.", py::arg("theGlCtx"), py::arg("theStyle"));
+	// cls_OpenGl_LineAttributes.def("SetTypeOfHatch", (int (OpenGl_LineAttributes::*)(const OpenGl_Context *, const opencascade::handle<Graphic3d_HatchStyle> &)) &OpenGl_LineAttributes::SetTypeOfHatch, "Sets type of the hatch.", py::arg("theGlCtx"), py::arg("theStyle"));
 	cls_OpenGl_LineAttributes.def("IsEnabled", (bool (OpenGl_LineAttributes::*)() const ) &OpenGl_LineAttributes::IsEnabled, "Current enabled state of the hatching rasterization.");
-	cls_OpenGl_LineAttributes.def("SetEnabled", (bool (OpenGl_LineAttributes::*)(const OpenGl_Context *, const bool)) &OpenGl_LineAttributes::SetEnabled, "Turns on/off the hatching rasterization rasterization.", py::arg("theGlCtx"), py::arg("theToEnable"));
+	// cls_OpenGl_LineAttributes.def("SetEnabled", (bool (OpenGl_LineAttributes::*)(const OpenGl_Context *, const bool)) &OpenGl_LineAttributes::SetEnabled, "Turns on/off the hatching rasterization rasterization.", py::arg("theGlCtx"), py::arg("theToEnable"));
 	cls_OpenGl_LineAttributes.def_static("get_type_name_", (const char * (*)()) &OpenGl_LineAttributes::get_type_name, "None");
 	cls_OpenGl_LineAttributes.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &OpenGl_LineAttributes::get_type_descriptor, "None");
 	cls_OpenGl_LineAttributes.def("DynamicType", (const opencascade::handle<Standard_Type> & (OpenGl_LineAttributes::*)() const ) &OpenGl_LineAttributes::DynamicType, "None");
@@ -1024,7 +1024,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_Material.def("Transparency", (float (OpenGl_Material::*)() const ) &OpenGl_Material::Transparency, "None");
 	cls_OpenGl_Material.def("ChangeTransparency", (float & (OpenGl_Material::*)()) &OpenGl_Material::ChangeTransparency, "None");
 	cls_OpenGl_Material.def("SetColor", (void (OpenGl_Material::*)(const OpenGl_Vec4 &)) &OpenGl_Material::SetColor, "Set material color.", py::arg("theColor"));
-	cls_OpenGl_Material.def("Init", (void (OpenGl_Material::*)(const Graphic3d_MaterialAspect &, const Quantity_Color &)) &OpenGl_Material::Init, "Initialize material", py::arg("theProp"), py::arg("theInteriorColor"));
+	// cls_OpenGl_Material.def("Init", (void (OpenGl_Material::*)(const Graphic3d_MaterialAspect &, const Quantity_Color &)) &OpenGl_Material::Init, "Initialize material", py::arg("theProp"), py::arg("theInteriorColor"));
 	cls_OpenGl_Material.def("Packed", (const OpenGl_Vec4 * (OpenGl_Material::*)() const ) &OpenGl_Material::Packed, "Returns packed (serialized) representation of material properties");
 	cls_OpenGl_Material.def_static("NbOfVec4_", (Standard_Integer (*)()) &OpenGl_Material::NbOfVec4, "None");
 	cls_OpenGl_Material.def("IsEqual", (bool (OpenGl_Material::*)(const OpenGl_Material &) const ) &OpenGl_Material::IsEqual, "Check this material for equality with another material (without tolerance!).", py::arg("theOther"));
@@ -1169,7 +1169,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_ShaderManager.def("MaterialState", (const OpenGl_MaterialState & (OpenGl_ShaderManager::*)() const ) &OpenGl_ShaderManager::MaterialState, "Returns current state of material.");
 	cls_OpenGl_ShaderManager.def("UpdateMaterialStateTo", (void (OpenGl_ShaderManager::*)(const OpenGl_Material &, const OpenGl_Material &, const bool, const bool)) &OpenGl_ShaderManager::UpdateMaterialStateTo, "Updates state of material.", py::arg("theFrontMat"), py::arg("theBackMat"), py::arg("theToDistinguish"), py::arg("theToMapTexture"));
 	cls_OpenGl_ShaderManager.def("UpdateMaterialState", (void (OpenGl_ShaderManager::*)()) &OpenGl_ShaderManager::UpdateMaterialState, "Updates state of material.");
-	cls_OpenGl_ShaderManager.def("PushMaterialState", (void (OpenGl_ShaderManager::*)(const opencascade::handle<OpenGl_ShaderProgram> &) const ) &OpenGl_ShaderManager::PushMaterialState, "Pushes current state of material to specified program.", py::arg("theProgram"));
+	// cls_OpenGl_ShaderManager.def("PushMaterialState", (void (OpenGl_ShaderManager::*)(const opencascade::handle<OpenGl_ShaderProgram> &) const ) &OpenGl_ShaderManager::PushMaterialState, "Pushes current state of material to specified program.", py::arg("theProgram"));
 	cls_OpenGl_ShaderManager.def("SetOitState", (void (OpenGl_ShaderManager::*)(const bool, const float)) &OpenGl_ShaderManager::SetOitState, "Set the state of OIT rendering pass.", py::arg("theToEnableOitWrite"), py::arg("theDepthFactor"));
 	cls_OpenGl_ShaderManager.def("PushOitState", (void (OpenGl_ShaderManager::*)(const opencascade::handle<OpenGl_ShaderProgram> &) const ) &OpenGl_ShaderManager::PushOitState, "Pushes state of OIT uniforms to the specified program.", py::arg("theProgram"));
 	cls_OpenGl_ShaderManager.def("PushState", (void (OpenGl_ShaderManager::*)(const opencascade::handle<OpenGl_ShaderProgram> &) const ) &OpenGl_ShaderManager::PushState, "Pushes current state of OCCT graphics parameters to specified program.", py::arg("theProgram"));
@@ -1277,9 +1277,11 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_SetterInterface.def("Set", (void (OpenGl_SetterInterface::*)(const opencascade::handle<OpenGl_Context> &, const opencascade::handle<Graphic3d_ShaderVariable> &, OpenGl_ShaderProgram *)) &OpenGl_SetterInterface::Set, "Sets user-defined uniform variable to specified program.", py::arg("theCtx"), py::arg("theVariable"), py::arg("theProgram"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_ShaderProgram.hxx
+	/* FIXME
 	py::class_<OpenGl_VariableSetterSelector, std::unique_ptr<OpenGl_VariableSetterSelector, Deleter<OpenGl_VariableSetterSelector>>> cls_OpenGl_VariableSetterSelector(mod, "OpenGl_VariableSetterSelector", "Support tool for setting user-defined uniform variables.");
 	cls_OpenGl_VariableSetterSelector.def(py::init<>());
 	cls_OpenGl_VariableSetterSelector.def("Set", (void (OpenGl_VariableSetterSelector::*)(const opencascade::handle<OpenGl_Context> &, const opencascade::handle<Graphic3d_ShaderVariable> &, OpenGl_ShaderProgram *) const ) &OpenGl_VariableSetterSelector::Set, "Sets user-defined uniform variable to specified program.", py::arg("theCtx"), py::arg("theVariable"), py::arg("theProgram"));
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_VertexBuffer.hxx
 	py::class_<OpenGl_VertexBuffer, opencascade::handle<OpenGl_VertexBuffer>, OpenGl_Resource> cls_OpenGl_VertexBuffer(mod, "OpenGl_VertexBuffer", "Vertex Buffer Object - is a general storage object for vertex attributes (position, normal, color). Notice that you should use OpenGl_IndexBuffer specialization for array of indices.");
@@ -1403,7 +1405,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_Group.def("Text", (void (OpenGl_Group::*)(const Standard_CString, const gp_Ax2 &, const Standard_Real, const Standard_Real, const Graphic3d_TextPath, const Graphic3d_HorizontalTextAlignment, const Graphic3d_VerticalTextAlignment, const Standard_Boolean, const Standard_Boolean)) &OpenGl_Group::Text, "Add text element in 3D space.", py::arg("theTextUtf"), py::arg("theOrientation"), py::arg("theHeight"), py::arg("theAngle"), py::arg("theTp"), py::arg("theHTA"), py::arg("theVTA"), py::arg("theToEvalMinMax"), py::arg("theHasOwnAnchor"));
 	cls_OpenGl_Group.def("SetFlippingOptions", (void (OpenGl_Group::*)(const Standard_Boolean, const gp_Ax2 &)) &OpenGl_Group::SetFlippingOptions, "Add flipping element", py::arg("theIsEnabled"), py::arg("theRefPlane"));
 	cls_OpenGl_Group.def("SetStencilTestOptions", (void (OpenGl_Group::*)(const Standard_Boolean)) &OpenGl_Group::SetStencilTestOptions, "Add stencil test element", py::arg("theIsEnabled"));
-	cls_OpenGl_Group.def("GlStruct", (OpenGl_Structure * (OpenGl_Group::*)() const ) &OpenGl_Group::GlStruct, "None");
+	// cls_OpenGl_Group.def("GlStruct", (OpenGl_Structure * (OpenGl_Group::*)() const ) &OpenGl_Group::GlStruct, "None");
 	cls_OpenGl_Group.def("AddElement", (void (OpenGl_Group::*)(OpenGl_Element *)) &OpenGl_Group::AddElement, "None", py::arg("theElem"));
 	cls_OpenGl_Group.def("Render", (void (OpenGl_Group::*)(const opencascade::handle<OpenGl_Workspace> &) const ) &OpenGl_Group::Render, "None", py::arg("theWorkspace"));
 	cls_OpenGl_Group.def("Release", (void (OpenGl_Group::*)(const opencascade::handle<OpenGl_Context> &)) &OpenGl_Group::Release, "None", py::arg("theGlCtx"));
@@ -1415,6 +1417,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_Group.def("DynamicType", (const opencascade::handle<Standard_Type> & (OpenGl_Group::*)() const ) &OpenGl_Group::DynamicType, "None");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Structure.hxx
+	/*
 	py::class_<OpenGl_Structure, opencascade::handle<OpenGl_Structure>, Graphic3d_CStructure> cls_OpenGl_Structure(mod, "OpenGl_Structure", "Implementation of low-level graphic structure.");
 	cls_OpenGl_Structure.def(py::init<const opencascade::handle<Graphic3d_StructureManager> &>(), py::arg("theManager"));
 	cls_OpenGl_Structure.def("OnVisibilityChanged", (void (OpenGl_Structure::*)()) &OpenGl_Structure::OnVisibilityChanged, "Setup structure graphic state");
@@ -1446,12 +1449,14 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_Structure.def_static("get_type_name_", (const char * (*)()) &OpenGl_Structure::get_type_name, "None");
 	cls_OpenGl_Structure.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &OpenGl_Structure::get_type_descriptor, "None");
 	cls_OpenGl_Structure.def("DynamicType", (const opencascade::handle<Standard_Type> & (OpenGl_Structure::*)() const ) &OpenGl_Structure::DynamicType, "None");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Group.hxx
 	py::class_<OpenGl_ElementNode, std::unique_ptr<OpenGl_ElementNode, Deleter<OpenGl_ElementNode>>> cls_OpenGl_ElementNode(mod, "OpenGl_ElementNode", "None");
 	cls_OpenGl_ElementNode.def(py::init<>());
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_CappingAlgo.hxx
+	/*
 	py::class_<OpenGl_CappingAlgoFilter, opencascade::handle<OpenGl_CappingAlgoFilter>, OpenGl_RenderFilter> cls_OpenGl_CappingAlgoFilter(mod, "OpenGl_CappingAlgoFilter", "Graphical capping rendering algorithm filter. Filters out everything except shaded primitives.");
 	cls_OpenGl_CappingAlgoFilter.def(py::init<>());
 	cls_OpenGl_CappingAlgoFilter.def("SetPreviousFilter", (void (OpenGl_CappingAlgoFilter::*)(const opencascade::handle<OpenGl_RenderFilter> &)) &OpenGl_CappingAlgoFilter::SetPreviousFilter, "Sets the current active filter in workspace.", py::arg("thePrevFitler"));
@@ -1459,6 +1464,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_CappingAlgoFilter.def_static("get_type_name_", (const char * (*)()) &OpenGl_CappingAlgoFilter::get_type_name, "None");
 	cls_OpenGl_CappingAlgoFilter.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &OpenGl_CappingAlgoFilter::get_type_descriptor, "None");
 	cls_OpenGl_CappingAlgoFilter.def("DynamicType", (const opencascade::handle<Standard_Type> & (OpenGl_CappingAlgoFilter::*)() const ) &OpenGl_CappingAlgoFilter::DynamicType, "None");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_CappingPlaneResource.hxx
 	py::class_<OpenGl_CappingPlaneResource, opencascade::handle<OpenGl_CappingPlaneResource>, OpenGl_Resource> cls_OpenGl_CappingPlaneResource(mod, "OpenGl_CappingPlaneResource", "Container of graphical resources for rendering capping plane associated to graphical clipping plane. This resource holds data necessary for OpenGl_CappingAlgo. This object is implemented as OpenGl resource for the following reasons: - one instance should be shared between contexts. - instance associated to Graphic3d_ClipPlane data by id. - should created and released within context (owns OpenGl elements and resources).");
@@ -1476,7 +1482,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_CappingAlgo.hxx
 	py::class_<OpenGl_CappingAlgo, std::unique_ptr<OpenGl_CappingAlgo, Deleter<OpenGl_CappingAlgo>>> cls_OpenGl_CappingAlgo(mod, "OpenGl_CappingAlgo", "Capping surface rendering algorithm.");
 	cls_OpenGl_CappingAlgo.def(py::init<>());
-	cls_OpenGl_CappingAlgo.def_static("RenderCapping_", (void (*)(const opencascade::handle<OpenGl_Workspace> &, const OpenGl_Structure &)) &OpenGl_CappingAlgo::RenderCapping, "Draw capping surfaces by OpenGl for the clipping planes enabled in current context state. Depth buffer must be generated for the passed groups.", py::arg("theWorkspace"), py::arg("theStructure"));
+	// cls_OpenGl_CappingAlgo.def_static("RenderCapping_", (void (*)(const opencascade::handle<OpenGl_Workspace> &, const OpenGl_Structure &)) &OpenGl_CappingAlgo::RenderCapping, "Draw capping surfaces by OpenGl for the clipping planes enabled in current context state. Depth buffer must be generated for the passed groups.", py::arg("theWorkspace"), py::arg("theStructure"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Texture.hxx
 	py::class_<OpenGl_TextureFormatSelector<GLubyte>, std::unique_ptr<OpenGl_TextureFormatSelector<GLubyte>, Deleter<OpenGl_TextureFormatSelector<GLubyte>>>> cls_OpenGl_TextureFormatSelector_GLubyte(mod, "OpenGl_TextureFormatSelector_GLubyte", "None");
@@ -1623,12 +1629,12 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_View.def("SetClipPlanes", (void (OpenGl_View::*)(const opencascade::handle<Graphic3d_SequenceOfHClipPlane> &)) &OpenGl_View::SetClipPlanes, "Sets list of clip planes for the view.", py::arg("thePlanes"));
 	cls_OpenGl_View.def("DiagnosticInformation", (void (OpenGl_View::*)(TColStd_IndexedDataMapOfStringString &, Graphic3d_DiagnosticInfo) const ) &OpenGl_View::DiagnosticInformation, "Fill in the dictionary with diagnostic info. Should be called within rendering thread.", py::arg("theDict"), py::arg("theFlags"));
 	cls_OpenGl_View.def("BackgroundColor", (const Quantity_ColorRGBA & (OpenGl_View::*)() const ) &OpenGl_View::BackgroundColor, "Returns background color.");
-	cls_OpenGl_View.def("ChangeGraduatedTrihedron", (OpenGl_GraduatedTrihedron & (OpenGl_View::*)()) &OpenGl_View::ChangeGraduatedTrihedron, "Change graduated trihedron.");
-	cls_OpenGl_View.def("SetTextureEnv", (void (OpenGl_View::*)(const opencascade::handle<OpenGl_Context> &, const opencascade::handle<Graphic3d_TextureEnv> &)) &OpenGl_View::SetTextureEnv, "None", py::arg("theCtx"), py::arg("theTexture"));
-	cls_OpenGl_View.def("SetBackgroundTextureStyle", (void (OpenGl_View::*)(const Aspect_FillMethod)) &OpenGl_View::SetBackgroundTextureStyle, "None", py::arg("FillStyle"));
-	cls_OpenGl_View.def("SetBackgroundGradient", (void (OpenGl_View::*)(const Quantity_Color &, const Quantity_Color &, const Aspect_GradientFillMethod)) &OpenGl_View::SetBackgroundGradient, "None", py::arg("AColor1"), py::arg("AColor2"), py::arg("AType"));
-	cls_OpenGl_View.def("SetBackgroundGradientType", (void (OpenGl_View::*)(const Aspect_GradientFillMethod)) &OpenGl_View::SetBackgroundGradientType, "None", py::arg("AType"));
-	cls_OpenGl_View.def("LayerList", (const OpenGl_LayerList & (OpenGl_View::*)() const ) &OpenGl_View::LayerList, "Returns list of OpenGL Z-layers.");
+	// cls_OpenGl_View.def("ChangeGraduatedTrihedron", (OpenGl_GraduatedTrihedron & (OpenGl_View::*)()) &OpenGl_View::ChangeGraduatedTrihedron, "Change graduated trihedron.");
+	// cls_OpenGl_View.def("SetTextureEnv", (void (OpenGl_View::*)(const opencascade::handle<OpenGl_Context> &, const opencascade::handle<Graphic3d_TextureEnv> &)) &OpenGl_View::SetTextureEnv, "None", py::arg("theCtx"), py::arg("theTexture"));
+	// cls_OpenGl_View.def("SetBackgroundTextureStyle", (void (OpenGl_View::*)(const Aspect_FillMethod)) &OpenGl_View::SetBackgroundTextureStyle, "None", py::arg("FillStyle"));
+	// cls_OpenGl_View.def("SetBackgroundGradient", (void (OpenGl_View::*)(const Quantity_Color &, const Quantity_Color &, const Aspect_GradientFillMethod)) &OpenGl_View::SetBackgroundGradient, "None", py::arg("AColor1"), py::arg("AColor2"), py::arg("AType"));
+	// cls_OpenGl_View.def("SetBackgroundGradientType", (void (OpenGl_View::*)(const Aspect_GradientFillMethod)) &OpenGl_View::SetBackgroundGradientType, "None", py::arg("AType"));
+	// cls_OpenGl_View.def("LayerList", (const OpenGl_LayerList & (OpenGl_View::*)() const ) &OpenGl_View::LayerList, "Returns list of OpenGL Z-layers.");
 	cls_OpenGl_View.def("LightList", (const OpenGl_ListOfLight & (OpenGl_View::*)() const ) &OpenGl_View::LightList, "Returns list of openGL light sources.");
 	cls_OpenGl_View.def("GlWindow", (const opencascade::handle<OpenGl_Window> (OpenGl_View::*)() const ) &OpenGl_View::GlWindow, "Returns OpenGL window implementation.");
 	cls_OpenGl_View.def("GlTextureEnv", (const opencascade::handle<OpenGl_TextureSet> & (OpenGl_View::*)() const ) &OpenGl_View::GlTextureEnv, "Returns OpenGL environment map.");
@@ -1639,6 +1645,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_View.def("DynamicType", (const opencascade::handle<Standard_Type> & (OpenGl_View::*)() const ) &OpenGl_View::DynamicType, "None");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Workspace.hxx
+	/*
 	py::class_<OpenGl_RaytraceFilter, opencascade::handle<OpenGl_RaytraceFilter>, OpenGl_RenderFilter> cls_OpenGl_RaytraceFilter(mod, "OpenGl_RaytraceFilter", "Graphical ray-tracing filter. Filters out all raytracable structures.");
 	cls_OpenGl_RaytraceFilter.def(py::init<>());
 	cls_OpenGl_RaytraceFilter.def("PrevRenderFilter", (const opencascade::handle<OpenGl_RenderFilter> & (OpenGl_RaytraceFilter::*)()) &OpenGl_RaytraceFilter::PrevRenderFilter, "Returns the previously set filter.");
@@ -1647,6 +1654,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_RaytraceFilter.def_static("get_type_name_", (const char * (*)()) &OpenGl_RaytraceFilter::get_type_name, "None");
 	cls_OpenGl_RaytraceFilter.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &OpenGl_RaytraceFilter::get_type_descriptor, "None");
 	cls_OpenGl_RaytraceFilter.def("DynamicType", (const opencascade::handle<Standard_Type> & (OpenGl_RaytraceFilter::*)() const ) &OpenGl_RaytraceFilter::DynamicType, "None");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_BackgroundArray.hxx
 	py::class_<OpenGl_BackgroundArray, std::unique_ptr<OpenGl_BackgroundArray, Deleter<OpenGl_BackgroundArray>>, OpenGl_PrimitiveArray> cls_OpenGl_BackgroundArray(mod, "OpenGl_BackgroundArray", "Tool class for generating reusable data for gradient or texture background rendering.");
@@ -1765,12 +1773,14 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_TextBuilder.def("Perform", (void (OpenGl_TextBuilder::*)(const Font_TextFormatter &, const opencascade::handle<OpenGl_Context> &, OpenGl_Font &, NCollection_Vector<GLuint> &, NCollection_Vector<opencascade::handle<OpenGl_VertexBuffer> > &, NCollection_Vector<opencascade::handle<OpenGl_VertexBuffer> > &)) &OpenGl_TextBuilder::Perform, "Creates texture quads for the given text.", py::arg("theFormatter"), py::arg("theContext"), py::arg("theFont"), py::arg("theTextures"), py::arg("theVertsPerTexture"), py::arg("theTCrdsPerTexture"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_GraduatedTrihedron.hxx
+	/*
 	py::class_<OpenGl_GraduatedTrihedron, std::unique_ptr<OpenGl_GraduatedTrihedron, Deleter<OpenGl_GraduatedTrihedron>>, OpenGl_Element> cls_OpenGl_GraduatedTrihedron(mod, "OpenGl_GraduatedTrihedron", "This class allows to render Graduated Trihedron, i.e. trihedron with grid. it is based on Graphic3d_GraduatedTrihedron parameters and support its customization on construction level only.");
 	cls_OpenGl_GraduatedTrihedron.def(py::init<>());
 	cls_OpenGl_GraduatedTrihedron.def("Render", (void (OpenGl_GraduatedTrihedron::*)(const opencascade::handle<OpenGl_Workspace> &) const ) &OpenGl_GraduatedTrihedron::Render, "Draw the element.", py::arg("theWorkspace"));
 	cls_OpenGl_GraduatedTrihedron.def("Release", (void (OpenGl_GraduatedTrihedron::*)(OpenGl_Context *)) &OpenGl_GraduatedTrihedron::Release, "Release OpenGL resources.", py::arg("theCtx"));
 	cls_OpenGl_GraduatedTrihedron.def("SetValues", (void (OpenGl_GraduatedTrihedron::*)(const Graphic3d_GraduatedTrihedron &)) &OpenGl_GraduatedTrihedron::SetValues, "Setup configuration.", py::arg("theData"));
 	cls_OpenGl_GraduatedTrihedron.def("SetMinMax", (void (OpenGl_GraduatedTrihedron::*)(const OpenGl_Vec3 &, const OpenGl_Vec3 &)) &OpenGl_GraduatedTrihedron::SetMinMax, "Sets up-to-date values of scene bounding box. Can be used in callback mechanism to get up-to-date values.", py::arg("theMin"), py::arg("theMax"));
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_HaltonSampler.hxx
 	py::class_<OpenGl_HaltonSampler, std::unique_ptr<OpenGl_HaltonSampler, Deleter<OpenGl_HaltonSampler>>> cls_OpenGl_HaltonSampler(mod, "OpenGl_HaltonSampler", "Compute points of the Halton sequence with with digit-permutations for different bases.");
@@ -1784,6 +1794,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_GlobalLayerSettings.def(py::init<>());
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Layer.hxx
+	/*
 	py::class_<OpenGl_Layer, opencascade::handle<OpenGl_Layer>, Standard_Transient> cls_OpenGl_Layer(mod, "OpenGl_Layer", "Presentations list sorted within priorities.");
 	cls_OpenGl_Layer.def(py::init<const Standard_Integer, const opencascade::handle<Select3D_BVHBuilder3d> &>(), py::arg("theNbPriorities"), py::arg("theBuilder"));
 	cls_OpenGl_Layer.def_static("get_type_name_", (const char * (*)()) &OpenGl_Layer::get_type_name, "None");
@@ -1807,8 +1818,10 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_Layer.def("considerZoomPersistenceObjects", (Standard_Real (OpenGl_Layer::*)(const Standard_Integer, const opencascade::handle<Graphic3d_Camera> &, const Standard_Integer, const Standard_Integer) const ) &OpenGl_Layer::considerZoomPersistenceObjects, "Returns zoom-scale factor.", py::arg("theViewId"), py::arg("theCamera"), py::arg("theWindowWidth"), py::arg("theWindowHeight"));
 	cls_OpenGl_Layer.def("Render", (void (OpenGl_Layer::*)(const opencascade::handle<OpenGl_Workspace> &, const OpenGl_GlobalLayerSettings &) const ) &OpenGl_Layer::Render, "None", py::arg("theWorkspace"), py::arg("theDefaultSettings"));
 	cls_OpenGl_Layer.def("NbOfTransformPersistenceObjects", (Standard_Integer (OpenGl_Layer::*)() const ) &OpenGl_Layer::NbOfTransformPersistenceObjects, "Returns number of transform persistence objects.");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_LayerList.hxx
+	/*
 	py::class_<OpenGl_LayerList, std::unique_ptr<OpenGl_LayerList, Deleter<OpenGl_LayerList>>> cls_OpenGl_LayerList(mod, "OpenGl_LayerList", "Class defining the list of layers.");
 	cls_OpenGl_LayerList.def(py::init<const Standard_Integer>(), py::arg("theNbPriorities"));
 	cls_OpenGl_LayerList.def("NbPriorities", (Standard_Integer (OpenGl_LayerList::*)() const ) &OpenGl_LayerList::NbPriorities, "Method returns the number of available priorities");
@@ -1831,6 +1844,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_LayerList.def("ModificationStateOfRaytracable", (Standard_Size (OpenGl_LayerList::*)() const ) &OpenGl_LayerList::ModificationStateOfRaytracable, "Returns structure modification state (for ray-tracing).");
 	cls_OpenGl_LayerList.def("FrustumCullingBVHBuilder", (const opencascade::handle<Select3D_BVHBuilder3d> & (OpenGl_LayerList::*)() const ) &OpenGl_LayerList::FrustumCullingBVHBuilder, "Returns BVH tree builder for frustom culling.");
 	cls_OpenGl_LayerList.def("SetFrustumCullingBVHBuilder", (void (OpenGl_LayerList::*)(const opencascade::handle<Select3D_BVHBuilder3d> &)) &OpenGl_LayerList::SetFrustumCullingBVHBuilder, "Assigns BVH tree builder for frustom culling.", py::arg("theBuilder"));
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_ShaderStates.hxx
 	py::class_<OpenGl_StateInterface, std::unique_ptr<OpenGl_StateInterface, Deleter<OpenGl_StateInterface>>> cls_OpenGl_StateInterface(mod, "OpenGl_StateInterface", "Defines interface for OpenGL state.");
@@ -1890,16 +1904,16 @@ PYBIND11_MODULE(OpenGl, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_SceneGeometry.hxx
 	py::class_<OpenGl_RaytraceMaterial, std::unique_ptr<OpenGl_RaytraceMaterial, Deleter<OpenGl_RaytraceMaterial>>> cls_OpenGl_RaytraceMaterial(mod, "OpenGl_RaytraceMaterial", "Stores properties of surface material.");
-	cls_OpenGl_RaytraceMaterial.def(py::init<>());
-	cls_OpenGl_RaytraceMaterial.def(py::init<const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &>(), py::arg("theAmbient"), py::arg("theDiffuse"), py::arg("theSpecular"));
-	cls_OpenGl_RaytraceMaterial.def(py::init<const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &>(), py::arg("theAmbient"), py::arg("theDiffuse"), py::arg("theSpecular"), py::arg("theEmission"), py::arg("theTranspar"));
-	cls_OpenGl_RaytraceMaterial.def(py::init<const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &>(), py::arg("theAmbient"), py::arg("theDiffuse"), py::arg("theSpecular"), py::arg("theEmission"), py::arg("theTranspar"), py::arg("theReflection"), py::arg("theRefraction"));
+	// cls_OpenGl_RaytraceMaterial.def(py::init<>());
+	// cls_OpenGl_RaytraceMaterial.def(py::init<const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &>(), py::arg("theAmbient"), py::arg("theDiffuse"), py::arg("theSpecular"));
+	// cls_OpenGl_RaytraceMaterial.def(py::init<const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &>(), py::arg("theAmbient"), py::arg("theDiffuse"), py::arg("theSpecular"), py::arg("theEmission"), py::arg("theTranspar"));
+	// cls_OpenGl_RaytraceMaterial.def(py::init<const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &>(), py::arg("theAmbient"), py::arg("theDiffuse"), py::arg("theSpecular"), py::arg("theEmission"), py::arg("theTranspar"), py::arg("theReflection"), py::arg("theRefraction"));
 	cls_OpenGl_RaytraceMaterial.def("Packed", (const Standard_ShortReal * (OpenGl_RaytraceMaterial::*)()) &OpenGl_RaytraceMaterial::Packed, "Returns packed (serialized) representation of material.");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_SceneGeometry.hxx
 	py::class_<OpenGl_RaytraceLight, std::unique_ptr<OpenGl_RaytraceLight, Deleter<OpenGl_RaytraceLight>>> cls_OpenGl_RaytraceLight(mod, "OpenGl_RaytraceLight", "Stores properties of OpenGL light source.");
 	cls_OpenGl_RaytraceLight.def(py::init<>());
-	cls_OpenGl_RaytraceLight.def(py::init<const BVH_Vec4f &, const BVH_Vec4f &>(), py::arg("theEmission"), py::arg("thePosition"));
+	// cls_OpenGl_RaytraceLight.def(py::init<const BVH_Vec4f &, const BVH_Vec4f &>(), py::arg("theEmission"), py::arg("thePosition"));
 	cls_OpenGl_RaytraceLight.def("Packed", (const Standard_ShortReal * (OpenGl_RaytraceLight::*)()) &OpenGl_RaytraceLight::Packed, "Returns packed (serialized) representation of light source.");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_SceneGeometry.hxx
@@ -1938,12 +1952,13 @@ PYBIND11_MODULE(OpenGl, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_StencilTest.hxx
 	py::class_<OpenGl_StencilTest, std::unique_ptr<OpenGl_StencilTest, py::nodelete>, OpenGl_Element> cls_OpenGl_StencilTest(mod, "OpenGl_StencilTest", "None");
-	cls_OpenGl_StencilTest.def(py::init<>());
+	// cls_OpenGl_StencilTest.def(py::init<>());
 	cls_OpenGl_StencilTest.def("Render", (void (OpenGl_StencilTest::*)(const opencascade::handle<OpenGl_Workspace> &) const ) &OpenGl_StencilTest::Render, "Render primitives to the window", py::arg("theWorkspace"));
 	cls_OpenGl_StencilTest.def("Release", (void (OpenGl_StencilTest::*)(OpenGl_Context *)) &OpenGl_StencilTest::Release, "None", py::arg("theContext"));
-	cls_OpenGl_StencilTest.def("SetOptions", (void (OpenGl_StencilTest::*)(const Standard_Boolean)) &OpenGl_StencilTest::SetOptions, "None", py::arg("theIsEnabled"));
+	// cls_OpenGl_StencilTest.def("SetOptions", (void (OpenGl_StencilTest::*)(const Standard_Boolean)) &OpenGl_StencilTest::SetOptions, "None", py::arg("theIsEnabled"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_StructureShadow.hxx
+	/*
 	py::class_<OpenGl_StructureShadow, opencascade::handle<OpenGl_StructureShadow>, OpenGl_Structure> cls_OpenGl_StructureShadow(mod, "OpenGl_StructureShadow", "Dummy structure which just redirects to groups of another structure.");
 	cls_OpenGl_StructureShadow.def(py::init<const opencascade::handle<Graphic3d_StructureManager> &, const opencascade::handle<OpenGl_Structure> &>(), py::arg("theManager"), py::arg("theStructure"));
 	cls_OpenGl_StructureShadow.def("Connect", (void (OpenGl_StructureShadow::*)(Graphic3d_CStructure &)) &OpenGl_StructureShadow::Connect, "Raise exception on API misuse.", py::arg(""));
@@ -1951,6 +1966,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_StructureShadow.def_static("get_type_name_", (const char * (*)()) &OpenGl_StructureShadow::get_type_name, "None");
 	cls_OpenGl_StructureShadow.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &OpenGl_StructureShadow::get_type_descriptor, "None");
 	cls_OpenGl_StructureShadow.def("DynamicType", (const opencascade::handle<Standard_Type> & (OpenGl_StructureShadow::*)() const ) &OpenGl_StructureShadow::DynamicType, "None");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_TileSampler.hxx
 	py::class_<OpenGl_TileSampler, std::unique_ptr<OpenGl_TileSampler, Deleter<OpenGl_TileSampler>>> cls_OpenGl_TileSampler(mod, "OpenGl_TileSampler", "Tool object used for sampling screen tiles according to estimated pixel variance (used in path tracing engine). To improve GPU thread coherency, rendering window is split into pixel blocks or tiles. The important feature of this approach is that it is possible to keep the same number of tiles for any screen resolution (e.g. 256 tiles can be used for both 512 x 512 window and 1920 x 1080 window). So, a smaller number of tiles allows to increase interactivity (FPS), but at the cost of higher per-frame variance ('noise'). On the contrary a larger number of tiles decrease interactivity, but leads to lower per-frame variance. Note that the total time needed to produce final final image is the same for both cases.");
@@ -2210,10 +2226,10 @@ PYBIND11_MODULE(OpenGl, mod) {
 	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Layer.hxx
-	bind_NCollection_IndexedMap<const OpenGl_Structure *, NCollection_DefaultHasher<const OpenGl_Structure *> >(mod, "OpenGl_IndexedMapOfStructure");
+	// bind_NCollection_IndexedMap<const OpenGl_Structure *, NCollection_DefaultHasher<const OpenGl_Structure *> >(mod, "OpenGl_IndexedMapOfStructure");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_Layer.hxx
-	bind_NCollection_Array1<NCollection_IndexedMap<const OpenGl_Structure *, NCollection_DefaultHasher<const OpenGl_Structure *> > >(mod, "OpenGl_ArrayOfIndexedMapOfStructure");
+	// bind_NCollection_Array1<NCollection_IndexedMap<const OpenGl_Structure *, NCollection_DefaultHasher<const OpenGl_Structure *> > >(mod, "OpenGl_ArrayOfIndexedMapOfStructure");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_LayerList.hxx
 	bind_NCollection_Sequence<opencascade::handle<OpenGl_Layer> >(mod, "OpenGl_SequenceOfLayers");

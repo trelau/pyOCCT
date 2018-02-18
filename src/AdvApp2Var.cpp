@@ -220,7 +220,7 @@ PYBIND11_MODULE(AdvApp2Var, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\AdvApp2Var_Iso.hxx
 	py::class_<AdvApp2Var_Iso, std::unique_ptr<AdvApp2Var_Iso, Deleter<AdvApp2Var_Iso>>> cls_AdvApp2Var_Iso(mod, "AdvApp2Var_Iso", "used to store constraints on a line U = Ui or V = Vj");
 	cls_AdvApp2Var_Iso.def(py::init<>());
-	cls_AdvApp2Var_Iso.def(py::init<const GeomAbs_IsoType, const Standard_Integer, const Standard_Integer>(), py::arg("type"), py::arg("iu"), py::arg("iv"));
+	// cls_AdvApp2Var_Iso.def(py::init<const GeomAbs_IsoType, const Standard_Integer, const Standard_Integer>(), py::arg("type"), py::arg("iu"), py::arg("iv"));
 	cls_AdvApp2Var_Iso.def(py::init<const GeomAbs_IsoType, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("type"), py::arg("cte"), py::arg("Ufirst"), py::arg("Ulast"), py::arg("Vfirst"), py::arg("Vlast"), py::arg("pos"), py::arg("iu"), py::arg("iv"));
 	cls_AdvApp2Var_Iso.def("IsApproximated", (Standard_Boolean (AdvApp2Var_Iso::*)() const ) &AdvApp2Var_Iso::IsApproximated, "None");
 	cls_AdvApp2Var_Iso.def("HasResult", (Standard_Boolean (AdvApp2Var_Iso::*)() const ) &AdvApp2Var_Iso::HasResult, "None");

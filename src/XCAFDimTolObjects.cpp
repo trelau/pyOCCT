@@ -427,7 +427,7 @@ PYBIND11_MODULE(XCAFDimTolObjects, mod) {
 	cls_XCAFDimTolObjects_DimensionObject.def("SetPath", (void (XCAFDimTolObjects_DimensionObject::*)(const TopoDS_Edge &)) &XCAFDimTolObjects_DimensionObject::SetPath, "None", py::arg("thePath"));
 	cls_XCAFDimTolObjects_DimensionObject.def("GetDirection", (Standard_Boolean (XCAFDimTolObjects_DimensionObject::*)(gp_Dir &) const ) &XCAFDimTolObjects_DimensionObject::GetDirection, "None", py::arg("theDir"));
 	cls_XCAFDimTolObjects_DimensionObject.def("SetDirection", (Standard_Boolean (XCAFDimTolObjects_DimensionObject::*)(const gp_Dir &)) &XCAFDimTolObjects_DimensionObject::SetDirection, "None", py::arg("theDir"));
-	cls_XCAFDimTolObjects_DimensionObject.def("GetPoints", (opencascade::handle<TColgp_HArray1OfPnt> (XCAFDimTolObjects_DimensionObject::*)() const ) &XCAFDimTolObjects_DimensionObject::GetPoints, "None");
+	// cls_XCAFDimTolObjects_DimensionObject.def("GetPoints", (opencascade::handle<TColgp_HArray1OfPnt> (XCAFDimTolObjects_DimensionObject::*)() const ) &XCAFDimTolObjects_DimensionObject::GetPoints, "None");
 	cls_XCAFDimTolObjects_DimensionObject.def("SetPointTextAttach", (void (XCAFDimTolObjects_DimensionObject::*)(const gp_Pnt &)) &XCAFDimTolObjects_DimensionObject::SetPointTextAttach, "None", py::arg("thePntText"));
 	cls_XCAFDimTolObjects_DimensionObject.def("GetPointTextAttach", (const gp_Pnt & (XCAFDimTolObjects_DimensionObject::*)() const ) &XCAFDimTolObjects_DimensionObject::GetPointTextAttach, "None");
 	cls_XCAFDimTolObjects_DimensionObject.def("HasTextPoint", (Standard_Boolean (XCAFDimTolObjects_DimensionObject::*)() const ) &XCAFDimTolObjects_DimensionObject::HasTextPoint, "None");

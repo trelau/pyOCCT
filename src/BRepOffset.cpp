@@ -268,7 +268,7 @@ PYBIND11_MODULE(BRepOffset, mod) {
 	cls_BRepOffset_MakeOffset.def("SetOffsetOnFace", (void (BRepOffset_MakeOffset::*)(const TopoDS_Face &, const Standard_Real)) &BRepOffset_MakeOffset::SetOffsetOnFace, "set the offset <Off> on the Face <F>", py::arg("F"), py::arg("Off"));
 	cls_BRepOffset_MakeOffset.def("MakeOffsetShape", (void (BRepOffset_MakeOffset::*)()) &BRepOffset_MakeOffset::MakeOffsetShape, "None");
 	cls_BRepOffset_MakeOffset.def("MakeThickSolid", (void (BRepOffset_MakeOffset::*)()) &BRepOffset_MakeOffset::MakeThickSolid, "None");
-	cls_BRepOffset_MakeOffset.def("GetAnalyse", (const BRepOffset_Analyse & (BRepOffset_MakeOffset::*)() const ) &BRepOffset_MakeOffset::GetAnalyse, "None");
+	// cls_BRepOffset_MakeOffset.def("GetAnalyse", (const BRepOffset_Analyse & (BRepOffset_MakeOffset::*)() const ) &BRepOffset_MakeOffset::GetAnalyse, "None");
 	cls_BRepOffset_MakeOffset.def("IsDone", (Standard_Boolean (BRepOffset_MakeOffset::*)() const ) &BRepOffset_MakeOffset::IsDone, "None");
 	cls_BRepOffset_MakeOffset.def("Shape", (const TopoDS_Shape & (BRepOffset_MakeOffset::*)() const ) &BRepOffset_MakeOffset::Shape, "None");
 	cls_BRepOffset_MakeOffset.def("Error", (BRepOffset_Error (BRepOffset_MakeOffset::*)() const ) &BRepOffset_MakeOffset::Error, "returns information about offset state.");
@@ -295,7 +295,7 @@ PYBIND11_MODULE(BRepOffset, mod) {
 	// cls_BRepOffset_MakeSimpleOffset.def("SetTolerance", (void (BRepOffset_MakeSimpleOffset::*)(const Standard_Real)) &BRepOffset_MakeSimpleOffset::SetTolerance, "Sets tolerance (used for handling singularities).", py::arg("theValue"));
 	cls_BRepOffset_MakeSimpleOffset.def("IsDone", (Standard_Boolean (BRepOffset_MakeSimpleOffset::*)() const ) &BRepOffset_MakeSimpleOffset::IsDone, "Gets done state.");
 	cls_BRepOffset_MakeSimpleOffset.def("GetResultShape", (const TopoDS_Shape & (BRepOffset_MakeSimpleOffset::*)() const ) &BRepOffset_MakeSimpleOffset::GetResultShape, "Returns result shape.");
-	cls_BRepOffset_MakeSimpleOffset.def("GetSafeOffset", (Standard_Real (BRepOffset_MakeSimpleOffset::*)(const Standard_Real)) &BRepOffset_MakeSimpleOffset::GetSafeOffset, "Computes max safe offset value for the given tolerance.", py::arg("theExpectedToler"));
+	// cls_BRepOffset_MakeSimpleOffset.def("GetSafeOffset", (Standard_Real (BRepOffset_MakeSimpleOffset::*)(const Standard_Real)) &BRepOffset_MakeSimpleOffset::GetSafeOffset, "Computes max safe offset value for the given tolerance.", py::arg("theExpectedToler"));
 	cls_BRepOffset_MakeSimpleOffset.def("Generated", (const TopoDS_Shape (BRepOffset_MakeSimpleOffset::*)(const TopoDS_Shape &) const ) &BRepOffset_MakeSimpleOffset::Generated, "Returnes result shape for the given one (if exists).", py::arg("theShape"));
 	cls_BRepOffset_MakeSimpleOffset.def("Modified", (const TopoDS_Shape (BRepOffset_MakeSimpleOffset::*)(const TopoDS_Shape &) const ) &BRepOffset_MakeSimpleOffset::Modified, "Returnes modified shape for the given one (if exists).", py::arg("theShape"));
 

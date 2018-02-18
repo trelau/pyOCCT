@@ -48,13 +48,13 @@ PYBIND11_MODULE(IntAna2d, mod) {
 
 	// FUNCTIONS
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntAna2d_Outils.hxx
-	mod.def("Points_Confondus", (Standard_Boolean (*)(const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real)) &Points_Confondus, "None", py::arg("xa"), py::arg("ya"), py::arg("xb"), py::arg("yb"));
+	// mod.def("Points_Confondus", (Standard_Boolean (*)(const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real)) &Points_Confondus, "None", py::arg("xa"), py::arg("ya"), py::arg("xb"), py::arg("yb"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntAna2d_Outils.hxx
-	mod.def("Traitement_Points_Confondus", (void (*)(Standard_Integer &, IntAna2d_IntPoint *)) &Traitement_Points_Confondus, "None", py::arg("nb_pts"), py::arg("pts"));
+	// mod.def("Traitement_Points_Confondus", (void (*)(Standard_Integer &, IntAna2d_IntPoint *)) &Traitement_Points_Confondus, "None", py::arg("nb_pts"), py::arg("pts"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntAna2d_Outils.hxx
-	mod.def("Coord_Ancien_Repere", (void (*)(Standard_Real &, Standard_Real &, const gp_Ax2d)) &Coord_Ancien_Repere, "None", py::arg("Ancien_X"), py::arg("Ancien_Y"), py::arg("Axe_Nouveau_Repere"));
+	// mod.def("Coord_Ancien_Repere", (void (*)(Standard_Real &, Standard_Real &, const gp_Ax2d)) &Coord_Ancien_Repere, "None", py::arg("Ancien_X"), py::arg("Ancien_Y"), py::arg("Axe_Nouveau_Repere"));
 
 
 	// CLASSES
@@ -111,8 +111,8 @@ PYBIND11_MODULE(IntAna2d, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntAna2d_Outils.hxx
 	py::class_<MyDirectPolynomialRoots, std::unique_ptr<MyDirectPolynomialRoots, Deleter<MyDirectPolynomialRoots>>> cls_MyDirectPolynomialRoots(mod, "MyDirectPolynomialRoots", "None");
-	cls_MyDirectPolynomialRoots.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("A4"), py::arg("A3"), py::arg("A2"), py::arg("A1"), py::arg("A0"));
-	cls_MyDirectPolynomialRoots.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("A2"), py::arg("A1"), py::arg("A0"));
+	// cls_MyDirectPolynomialRoots.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("A4"), py::arg("A3"), py::arg("A2"), py::arg("A1"), py::arg("A0"));
+	// cls_MyDirectPolynomialRoots.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("A2"), py::arg("A1"), py::arg("A0"));
 	cls_MyDirectPolynomialRoots.def("NbSolutions", (Standard_Integer (MyDirectPolynomialRoots::*)() const ) &MyDirectPolynomialRoots::NbSolutions, "None");
 	cls_MyDirectPolynomialRoots.def("Value", (Standard_Real (MyDirectPolynomialRoots::*)(const Standard_Integer) const ) &MyDirectPolynomialRoots::Value, "None", py::arg("i"));
 	cls_MyDirectPolynomialRoots.def("IsDone", (Standard_Real (MyDirectPolynomialRoots::*)() const ) &MyDirectPolynomialRoots::IsDone, "None");

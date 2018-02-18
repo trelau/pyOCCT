@@ -52,8 +52,8 @@ PYBIND11_MODULE(Cocoa, mod) {
 	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Cocoa_LocalPool.hxx
-	py::class_<Cocoa_LocalPool, std::unique_ptr<Cocoa_LocalPool, Deleter<Cocoa_LocalPool>>> cls_Cocoa_LocalPool(mod, "Cocoa_LocalPool", "Auxiliary class to create local pool.");
-	cls_Cocoa_LocalPool.def(py::init<>());
+	// py::class_<Cocoa_LocalPool, std::unique_ptr<Cocoa_LocalPool, Deleter<Cocoa_LocalPool>>> cls_Cocoa_LocalPool(mod, "Cocoa_LocalPool", "Auxiliary class to create local pool.");
+	// cls_Cocoa_LocalPool.def(py::init<>());
 
 	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Cocoa_Window.hxx

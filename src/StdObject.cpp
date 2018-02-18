@@ -65,7 +65,7 @@ PYBIND11_MODULE(StdObject, mod) {
 	py::class_<StdObject_Location, std::unique_ptr<StdObject_Location, Deleter<StdObject_Location>>> cls_StdObject_Location(mod, "StdObject_Location", "None");
 	cls_StdObject_Location.def(py::init<>());
 	cls_StdObject_Location.def("PChildren", (void (StdObject_Location::*)(StdObjMgt_Persistent::SequenceOfPersistent &) const ) &StdObject_Location::PChildren, "Gets persistent child objects", py::arg("theChildren"));
-	cls_StdObject_Location.def("Import", (TopLoc_Location (StdObject_Location::*)() const ) &StdObject_Location::Import, "Import transient object from the persistent data.");
+	// cls_StdObject_Location.def("Import", (TopLoc_Location (StdObject_Location::*)() const ) &StdObject_Location::Import, "Import transient object from the persistent data.");
 	cls_StdObject_Location.def_static("Translate_", (StdObject_Location (*)(const TopLoc_Location &, StdObjMgt_TransientPersistentMap &)) &StdObject_Location::Translate, "Creates a persistent wrapper object for a location", py::arg("theLoc"), py::arg("theMap"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdObject_Shape.hxx

@@ -225,8 +225,8 @@ PYBIND11_MODULE(LocOpe, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LocOpe_Revol.hxx
 	py::class_<LocOpe_Revol, std::unique_ptr<LocOpe_Revol, Deleter<LocOpe_Revol>>> cls_LocOpe_Revol(mod, "LocOpe_Revol", "Defines a prism (using Prism from BRepSweep) with modifications provided for the Prism feature.");
 	cls_LocOpe_Revol.def(py::init<>());
-	cls_LocOpe_Revol.def(py::init<const TopoDS_Shape &, const gp_Ax1 &, const Standard_Real, const Standard_Real>(), py::arg("Base"), py::arg("Axis"), py::arg("Angle"), py::arg("angledec"));
-	cls_LocOpe_Revol.def(py::init<const TopoDS_Shape &, const gp_Ax1 &, const Standard_Real>(), py::arg("Base"), py::arg("Axis"), py::arg("Angle"));
+	// cls_LocOpe_Revol.def(py::init<const TopoDS_Shape &, const gp_Ax1 &, const Standard_Real, const Standard_Real>(), py::arg("Base"), py::arg("Axis"), py::arg("Angle"), py::arg("angledec"));
+	// cls_LocOpe_Revol.def(py::init<const TopoDS_Shape &, const gp_Ax1 &, const Standard_Real>(), py::arg("Base"), py::arg("Axis"), py::arg("Angle"));
 	cls_LocOpe_Revol.def("Perform", (void (LocOpe_Revol::*)(const TopoDS_Shape &, const gp_Ax1 &, const Standard_Real, const Standard_Real)) &LocOpe_Revol::Perform, "None", py::arg("Base"), py::arg("Axis"), py::arg("Angle"), py::arg("angledec"));
 	cls_LocOpe_Revol.def("Perform", (void (LocOpe_Revol::*)(const TopoDS_Shape &, const gp_Ax1 &, const Standard_Real)) &LocOpe_Revol::Perform, "None", py::arg("Base"), py::arg("Axis"), py::arg("Angle"));
 	cls_LocOpe_Revol.def("FirstShape", (const TopoDS_Shape & (LocOpe_Revol::*)() const ) &LocOpe_Revol::FirstShape, "None");
@@ -277,7 +277,7 @@ PYBIND11_MODULE(LocOpe, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LocOpe_RevolutionForm.hxx
 	py::class_<LocOpe_RevolutionForm, std::unique_ptr<LocOpe_RevolutionForm, Deleter<LocOpe_RevolutionForm>>> cls_LocOpe_RevolutionForm(mod, "LocOpe_RevolutionForm", "Defines a revolution form (using Revol from BRepSweep) with modifications provided for the RevolutionForm feature.");
 	cls_LocOpe_RevolutionForm.def(py::init<>());
-	cls_LocOpe_RevolutionForm.def(py::init<const TopoDS_Shape &, const gp_Ax1 &, const Standard_Real>(), py::arg("Base"), py::arg("Axe"), py::arg("Angle"));
+	// cls_LocOpe_RevolutionForm.def(py::init<const TopoDS_Shape &, const gp_Ax1 &, const Standard_Real>(), py::arg("Base"), py::arg("Axe"), py::arg("Angle"));
 	cls_LocOpe_RevolutionForm.def("Perform", (void (LocOpe_RevolutionForm::*)(const TopoDS_Shape &, const gp_Ax1 &, const Standard_Real)) &LocOpe_RevolutionForm::Perform, "None", py::arg("Base"), py::arg("Axe"), py::arg("Angle"));
 	cls_LocOpe_RevolutionForm.def("FirstShape", (const TopoDS_Shape & (LocOpe_RevolutionForm::*)() const ) &LocOpe_RevolutionForm::FirstShape, "None");
 	cls_LocOpe_RevolutionForm.def("LastShape", (const TopoDS_Shape & (LocOpe_RevolutionForm::*)() const ) &LocOpe_RevolutionForm::LastShape, "None");

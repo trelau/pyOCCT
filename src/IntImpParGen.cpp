@@ -45,17 +45,18 @@ PYBIND11_MODULE(IntImpParGen, mod) {
 
 	// FUNCTIONS
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntImpParGen_Tool.hxx
-	mod.def("NormalizeOnDomain", (Standard_Real (*)(Standard_Real &, const IntRes2d_Domain &)) &NormalizeOnDomain, "None", py::arg(""), py::arg(""));
+	// mod.def("NormalizeOnDomain", (Standard_Real (*)(Standard_Real &, const IntRes2d_Domain &)) &NormalizeOnDomain, "None", py::arg(""), py::arg(""));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntImpParGen_Tool.hxx
-	mod.def("Determine_Position", (void (*)(IntRes2d_Position &, const IntRes2d_Domain &, const gp_Pnt2d &, const Standard_Real)) &Determine_Position, "None", py::arg(""), py::arg(""), py::arg(""), py::arg(""));
+	// mod.def("Determine_Position", (void (*)(IntRes2d_Position &, const IntRes2d_Domain &, const gp_Pnt2d &, const Standard_Real)) &Determine_Position, "None", py::arg(""), py::arg(""), py::arg(""), py::arg(""));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntImpParGen_Tool.hxx
-	mod.def("Determine_Transition", (void (*)(const IntRes2d_Position, gp_Vec2d &, const gp_Vec2d &, IntRes2d_Transition &, const IntRes2d_Position, gp_Vec2d &, const gp_Vec2d &, IntRes2d_Transition &, const Standard_Real)) &Determine_Transition, "None", py::arg("Pos1"), py::arg("Tan1"), py::arg("Norm1"), py::arg("Trans1"), py::arg("Pos2"), py::arg("Tan2"), py::arg("Norm2"), py::arg("Trans2"), py::arg("ToleranceAng"));
+	// mod.def("Determine_Transition", (void (*)(const IntRes2d_Position, gp_Vec2d &, const gp_Vec2d &, IntRes2d_Transition &, const IntRes2d_Position, gp_Vec2d &, const gp_Vec2d &, IntRes2d_Transition &, const Standard_Real)) &Determine_Transition, "None", py::arg("Pos1"), py::arg("Tan1"), py::arg("Norm1"), py::arg("Trans1"), py::arg("Pos2"), py::arg("Tan2"), py::arg("Norm2"), py::arg("Trans2"), py::arg("ToleranceAng"));
 
 
 	// CLASSES
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntImpParGen_ImpTool.hxx
+	/* FIXME
 	py::class_<IntImpParGen_ImpTool, std::unique_ptr<IntImpParGen_ImpTool, Deleter<IntImpParGen_ImpTool>>> cls_IntImpParGen_ImpTool(mod, "IntImpParGen_ImpTool", "Template class for an implicit curve.");
 	cls_IntImpParGen_ImpTool.def(py::init<>());
 	cls_IntImpParGen_ImpTool.def("Value", (gp_Pnt2d (IntImpParGen_ImpTool::*)(const Standard_Real) const ) &IntImpParGen_ImpTool::Value, "None", py::arg("U"));
@@ -64,6 +65,7 @@ PYBIND11_MODULE(IntImpParGen, mod) {
 	cls_IntImpParGen_ImpTool.def("Distance", (Standard_Real (IntImpParGen_ImpTool::*)(const gp_Pnt2d &) const ) &IntImpParGen_ImpTool::Distance, "Computes the value of the signed distance between the point P and the implicit curve.", py::arg("P"));
 	cls_IntImpParGen_ImpTool.def("GradDistance", (gp_Vec2d (IntImpParGen_ImpTool::*)(const gp_Pnt2d &) const ) &IntImpParGen_ImpTool::GradDistance, "Computes the Gradient of the Signed Distance between a point and the implicit curve, at the point P.", py::arg("P"));
 	cls_IntImpParGen_ImpTool.def("FindParameter", (Standard_Real (IntImpParGen_ImpTool::*)(const gp_Pnt2d &) const ) &IntImpParGen_ImpTool::FindParameter, "Returns the parameter U of the point on the implicit curve corresponding to the point P. The correspondance between P and the point P(U) on the implicit curve must be coherent with the way of determination of the signed distance.", py::arg("P"));
+	*/
 
 	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntImpParGen.hxx

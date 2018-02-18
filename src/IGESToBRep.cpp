@@ -252,7 +252,7 @@ PYBIND11_MODULE(IGESToBRep, mod) {
 	cls_IGESToBRep_TopoSurface.def("TransferTrimmedSurface", (TopoDS_Shape (IGESToBRep_TopoSurface::*)(const opencascade::handle<IGESGeom_TrimmedSurface> &)) &IGESToBRep_TopoSurface::TransferTrimmedSurface, "None", py::arg("start"));
 	cls_IGESToBRep_TopoSurface.def("TransferBoundedSurface", (TopoDS_Shape (IGESToBRep_TopoSurface::*)(const opencascade::handle<IGESGeom_BoundedSurface> &)) &IGESToBRep_TopoSurface::TransferBoundedSurface, "None", py::arg("start"));
 	cls_IGESToBRep_TopoSurface.def("TransferPlane", (TopoDS_Shape (IGESToBRep_TopoSurface::*)(const opencascade::handle<IGESGeom_Plane> &)) &IGESToBRep_TopoSurface::TransferPlane, "None", py::arg("start"));
-	cls_IGESToBRep_TopoSurface.def("TransferPlaneSurface", (TopoDS_Shape (IGESToBRep_TopoSurface::*)(const opencascade::handle<IGESSolid_PlaneSurface> &)) &IGESToBRep_TopoSurface::TransferPlaneSurface, "None", py::arg("start"));
+	// cls_IGESToBRep_TopoSurface.def("TransferPlaneSurface", (TopoDS_Shape (IGESToBRep_TopoSurface::*)(const opencascade::handle<IGESSolid_PlaneSurface> &)) &IGESToBRep_TopoSurface::TransferPlaneSurface, "None", py::arg("start"));
 	cls_IGESToBRep_TopoSurface.def("TransferPerforate", (TopoDS_Shape (IGESToBRep_TopoSurface::*)(const opencascade::handle<IGESBasic_SingleParent> &)) &IGESToBRep_TopoSurface::TransferPerforate, "None", py::arg("start"));
 	cls_IGESToBRep_TopoSurface.def("ParamSurface", [](IGESToBRep_TopoSurface &self, const opencascade::handle<IGESData_IGESEntity> & start, gp_Trsf2d & trans, Standard_Real & uFact){ TopoDS_Shape rv = self.ParamSurface(start, trans, uFact); return std::tuple<TopoDS_Shape, Standard_Real &>(rv, uFact); }, "None", py::arg("start"), py::arg("trans"), py::arg("uFact"));
 

@@ -94,7 +94,7 @@ PYBIND11_MODULE(Convert, mod) {
 
 	// FUNCTIONS
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Convert_PolynomialCosAndSin.hxx
-	mod.def("BuildPolynomialCosAndSin", (void (*)(const Standard_Real, const Standard_Real, const Standard_Integer, opencascade::handle<TColStd_HArray1OfReal> &, opencascade::handle<TColStd_HArray1OfReal> &, opencascade::handle<TColStd_HArray1OfReal> &)) &BuildPolynomialCosAndSin, "None", py::arg(""), py::arg(""), py::arg(""), py::arg(""), py::arg(""), py::arg(""));
+	// mod.def("BuildPolynomialCosAndSin", (void (*)(const Standard_Real, const Standard_Real, const Standard_Integer, opencascade::handle<TColStd_HArray1OfReal> &, opencascade::handle<TColStd_HArray1OfReal> &, opencascade::handle<TColStd_HArray1OfReal> &)) &BuildPolynomialCosAndSin, "None", py::arg(""), py::arg(""), py::arg(""), py::arg(""), py::arg(""), py::arg(""));
 
 
 	// CLASSES

@@ -162,6 +162,7 @@ PYBIND11_MODULE(BRepClass3d, mod) {
 	cls_BRepClass3d.def_static("OuterShell_", (TopoDS_Shell (*)(const TopoDS_Solid &)) &BRepClass3d::OuterShell, "Returns the outer most shell of <S>. Returns a Null shell if <S> has no outer shell. If <S> has only one shell, then it will return, without checking orientation.", py::arg("S"));
 
 	// Callback for BRepClass3d_BndBoxTreeSelectorPoint.
+	/*
 	class PyCallback_BRepClass3d_BndBoxTreeSelectorPoint : public BRepClass3d_BndBoxTreeSelectorPoint {
 	public:
 		using BRepClass3d_BndBoxTreeSelectorPoint::BRepClass3d_BndBoxTreeSelectorPoint;
@@ -175,26 +176,29 @@ PYBIND11_MODULE(BRepClass3d, mod) {
 	cls_BRepClass3d_BndBoxTreeSelectorPoint.def("Reject", (Standard_Boolean (BRepClass3d_BndBoxTreeSelectorPoint::*)(const Bnd_Box &) const ) &BRepClass3d_BndBoxTreeSelectorPoint::Reject, "None", py::arg("theBox"));
 	cls_BRepClass3d_BndBoxTreeSelectorPoint.def("Accept", (Standard_Boolean (BRepClass3d_BndBoxTreeSelectorPoint::*)(const Standard_Integer &)) &BRepClass3d_BndBoxTreeSelectorPoint::Accept, "None", py::arg("theObj"));
 	cls_BRepClass3d_BndBoxTreeSelectorPoint.def("SetCurrentPoint", (void (BRepClass3d_BndBoxTreeSelectorPoint::*)(const gp_Pnt &)) &BRepClass3d_BndBoxTreeSelectorPoint::SetCurrentPoint, "None", py::arg("theP"));
+	*/
 
 	// Callback for BRepClass3d_BndBoxTreeSelectorLine.
+	/*
 	class PyCallback_BRepClass3d_BndBoxTreeSelectorLine : public BRepClass3d_BndBoxTreeSelectorLine {
 	public:
 		using BRepClass3d_BndBoxTreeSelectorLine::BRepClass3d_BndBoxTreeSelectorLine;
 
-		Standard_Boolean Accept(const int & a0) override { PYBIND11_OVERLOAD_PURE(Standard_Boolean, BRepClass3d_BndBoxTreeSelectorLine, Accept, a0); }
+		// Standard_Boolean Accept(const int & a0) override { PYBIND11_OVERLOAD_PURE(Standard_Boolean, BRepClass3d_BndBoxTreeSelectorLine, Accept, a0); }
 	};
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepClass3d_BndBoxTree.hxx
 	py::class_<BRepClass3d_BndBoxTreeSelectorLine, std::unique_ptr<BRepClass3d_BndBoxTreeSelectorLine, Deleter<BRepClass3d_BndBoxTreeSelectorLine>>, PyCallback_BRepClass3d_BndBoxTreeSelectorLine> cls_BRepClass3d_BndBoxTreeSelectorLine(mod, "BRepClass3d_BndBoxTreeSelectorLine", "None");
 	cls_BRepClass3d_BndBoxTreeSelectorLine.def(py::init<const TopTools_IndexedMapOfShape &>(), py::arg("theMapOfShape"));
 	cls_BRepClass3d_BndBoxTreeSelectorLine.def("Reject", (Standard_Boolean (BRepClass3d_BndBoxTreeSelectorLine::*)(const Bnd_Box &) const ) &BRepClass3d_BndBoxTreeSelectorLine::Reject, "None", py::arg("theBox"));
-	cls_BRepClass3d_BndBoxTreeSelectorLine.def("Accept", (Standard_Boolean (BRepClass3d_BndBoxTreeSelectorLine::*)(const Standard_Integer &)) &BRepClass3d_BndBoxTreeSelectorLine::Accept, "None", py::arg("theObj"));
+	// cls_BRepClass3d_BndBoxTreeSelectorLine.def("Accept", (Standard_Boolean (BRepClass3d_BndBoxTreeSelectorLine::*)(const Standard_Integer &)) &BRepClass3d_BndBoxTreeSelectorLine::Accept, "None", py::arg("theObj"));
 	cls_BRepClass3d_BndBoxTreeSelectorLine.def("SetCurrentLine", (void (BRepClass3d_BndBoxTreeSelectorLine::*)(const gp_Lin &, const Standard_Real)) &BRepClass3d_BndBoxTreeSelectorLine::SetCurrentLine, "None", py::arg("theL"), py::arg("theMaxParam"));
 	cls_BRepClass3d_BndBoxTreeSelectorLine.def("GetEdgeParam", [](BRepClass3d_BndBoxTreeSelectorLine &self, const Standard_Integer i, TopoDS_Edge & theOutE, Standard_Real & theOutParam, Standard_Real & outLParam){ self.GetEdgeParam(i, theOutE, theOutParam, outLParam); return std::tuple<Standard_Real &, Standard_Real &>(theOutParam, outLParam); }, "None", py::arg("i"), py::arg("theOutE"), py::arg("theOutParam"), py::arg("outLParam"));
 	cls_BRepClass3d_BndBoxTreeSelectorLine.def("GetVertParam", [](BRepClass3d_BndBoxTreeSelectorLine &self, const Standard_Integer i, TopoDS_Vertex & theOutV, Standard_Real & outLParam){ self.GetVertParam(i, theOutV, outLParam); return outLParam; }, "None", py::arg("i"), py::arg("theOutV"), py::arg("outLParam"));
 	cls_BRepClass3d_BndBoxTreeSelectorLine.def("GetNbEdgeParam", (Standard_Integer (BRepClass3d_BndBoxTreeSelectorLine::*)() const ) &BRepClass3d_BndBoxTreeSelectorLine::GetNbEdgeParam, "None");
 	cls_BRepClass3d_BndBoxTreeSelectorLine.def("GetNbVertParam", (Standard_Integer (BRepClass3d_BndBoxTreeSelectorLine::*)() const ) &BRepClass3d_BndBoxTreeSelectorLine::GetNbVertParam, "None");
 	cls_BRepClass3d_BndBoxTreeSelectorLine.def("ClearResults", (void (BRepClass3d_BndBoxTreeSelectorLine::*)()) &BRepClass3d_BndBoxTreeSelectorLine::ClearResults, "None");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepClass3d_BndBoxTree.hxx
 	other_mod = py::module::import("OCCT.BOPCol");

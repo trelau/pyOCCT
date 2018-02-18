@@ -71,10 +71,10 @@ PYBIND11_MODULE(LDOM, mod) {
 	py::class_<LDOM_MemManager, opencascade::handle<LDOM_MemManager>, Standard_Transient> cls_LDOM_MemManager(mod, "LDOM_MemManager", "None");
 	cls_LDOM_MemManager.def(py::init<const Standard_Integer>(), py::arg("aBlockSize"));
 	cls_LDOM_MemManager.def("Allocate", (void * (LDOM_MemManager::*)(const Standard_Integer)) &LDOM_MemManager::Allocate, "None", py::arg("aSize"));
-	cls_LDOM_MemManager.def("HashedAllocate", [](LDOM_MemManager &self, const char * aString, const Standard_Integer theLen, Standard_Integer & theHash){ const char * rv = self.HashedAllocate(aString, theLen, theHash); return std::tuple<const char *, Standard_Integer &>(rv, theHash); }, "None", py::arg("aString"), py::arg("theLen"), py::arg("theHash"));
-	cls_LDOM_MemManager.def("HashedAllocate", (void (LDOM_MemManager::*)(const char *, const Standard_Integer, LDOMBasicString &)) &LDOM_MemManager::HashedAllocate, "None", py::arg("aString"), py::arg("theLen"), py::arg("theResult"));
-	cls_LDOM_MemManager.def_static("Hash_", (Standard_Integer (*)(const char *, const Standard_Integer)) &LDOM_MemManager::Hash, "None", py::arg("theString"), py::arg("theLen"));
-	cls_LDOM_MemManager.def_static("CompareStrings_", (Standard_Boolean (*)(const char *, const Standard_Integer, const char *)) &LDOM_MemManager::CompareStrings, "None", py::arg("theString"), py::arg("theHashValue"), py::arg("theHashedStr"));
+	// cls_LDOM_MemManager.def("HashedAllocate", [](LDOM_MemManager &self, const char * aString, const Standard_Integer theLen, Standard_Integer & theHash){ const char * rv = self.HashedAllocate(aString, theLen, theHash); return std::tuple<const char *, Standard_Integer &>(rv, theHash); }, "None", py::arg("aString"), py::arg("theLen"), py::arg("theHash"));
+	// cls_LDOM_MemManager.def("HashedAllocate", (void (LDOM_MemManager::*)(const char *, const Standard_Integer, LDOMBasicString &)) &LDOM_MemManager::HashedAllocate, "None", py::arg("aString"), py::arg("theLen"), py::arg("theResult"));
+	// cls_LDOM_MemManager.def_static("Hash_", (Standard_Integer (*)(const char *, const Standard_Integer)) &LDOM_MemManager::Hash, "None", py::arg("theString"), py::arg("theLen"));
+	// cls_LDOM_MemManager.def_static("CompareStrings_", (Standard_Boolean (*)(const char *, const Standard_Integer, const char *)) &LDOM_MemManager::CompareStrings, "None", py::arg("theString"), py::arg("theHashValue"), py::arg("theHashedStr"));
 	cls_LDOM_MemManager.def("Self", (const LDOM_MemManager & (LDOM_MemManager::*)() const ) &LDOM_MemManager::Self, "None");
 	cls_LDOM_MemManager.def("RootElement", (const LDOM_BasicElement * (LDOM_MemManager::*)() const ) &LDOM_MemManager::RootElement, "None");
 	cls_LDOM_MemManager.def_static("get_type_name_", (const char * (*)()) &LDOM_MemManager::get_type_name, "None");
@@ -108,12 +108,12 @@ PYBIND11_MODULE(LDOM, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LDOM_BasicElement.hxx
 	py::class_<LDOM_BasicElement, std::unique_ptr<LDOM_BasicElement, Deleter<LDOM_BasicElement>>, LDOM_BasicNode> cls_LDOM_BasicElement(mod, "LDOM_BasicElement", "None");
 	cls_LDOM_BasicElement.def(py::init<>());
-	cls_LDOM_BasicElement.def_static("Create_", (LDOM_BasicElement & (*)(const char *, const Standard_Integer, const opencascade::handle<LDOM_MemManager> &)) &LDOM_BasicElement::Create, "None", py::arg("aName"), py::arg("aLength"), py::arg("aDoc"));
+	// cls_LDOM_BasicElement.def_static("Create_", (LDOM_BasicElement & (*)(const char *, const Standard_Integer, const opencascade::handle<LDOM_MemManager> &)) &LDOM_BasicElement::Create, "None", py::arg("aName"), py::arg("aLength"), py::arg("aDoc"));
 	// FIXME cls_LDOM_BasicElement.def("assign", (LDOM_BasicElement & (LDOM_BasicElement::*)(const LDOM_NullPtr *)) &LDOM_BasicElement::operator=, py::is_operator(), "None", py::arg("aNull"));
 	cls_LDOM_BasicElement.def("GetTagName", (const char * (LDOM_BasicElement::*)() const ) &LDOM_BasicElement::GetTagName, "None");
 	cls_LDOM_BasicElement.def("GetFirstChild", (const LDOM_BasicNode * (LDOM_BasicElement::*)() const ) &LDOM_BasicElement::GetFirstChild, "None");
 	cls_LDOM_BasicElement.def("GetLastChild", (const LDOM_BasicNode * (LDOM_BasicElement::*)() const ) &LDOM_BasicElement::GetLastChild, "None");
-	cls_LDOM_BasicElement.def("GetAttribute", (const LDOM_BasicAttribute & (LDOM_BasicElement::*)(const LDOMBasicString &, const LDOM_BasicNode *) const ) &LDOM_BasicElement::GetAttribute, "None", py::arg("aName"), py::arg("aLastCh"));
+	// cls_LDOM_BasicElement.def("GetAttribute", (const LDOM_BasicAttribute & (LDOM_BasicElement::*)(const LDOMBasicString &, const LDOM_BasicNode *) const ) &LDOM_BasicElement::GetAttribute, "None", py::arg("aName"), py::arg("aLastCh"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LDOM_Node.hxx
 	py::class_<LDOM_Node, std::unique_ptr<LDOM_Node, Deleter<LDOM_Node>>> cls_LDOM_Node(mod, "LDOM_Node", "None");
@@ -152,8 +152,8 @@ PYBIND11_MODULE(LDOM, mod) {
 	cls_LDOM_BasicAttribute.def(py::init<>());
 	// FIXME cls_LDOM_BasicAttribute.def("assign", (LDOM_BasicAttribute & (LDOM_BasicAttribute::*)(const LDOM_NullPtr *)) &LDOM_BasicAttribute::operator=, py::is_operator(), "None", py::arg("aNull"));
 	cls_LDOM_BasicAttribute.def("GetName", (const char * (LDOM_BasicAttribute::*)() const ) &LDOM_BasicAttribute::GetName, "None");
-	cls_LDOM_BasicAttribute.def("GetValue", (const LDOMBasicString & (LDOM_BasicAttribute::*)() const ) &LDOM_BasicAttribute::GetValue, "None");
-	cls_LDOM_BasicAttribute.def("SetValue", (void (LDOM_BasicAttribute::*)(const LDOMBasicString &, const opencascade::handle<LDOM_MemManager> &)) &LDOM_BasicAttribute::SetValue, "None", py::arg("aValue"), py::arg("aDoc"));
+	// cls_LDOM_BasicAttribute.def("GetValue", (const LDOMBasicString & (LDOM_BasicAttribute::*)() const ) &LDOM_BasicAttribute::GetValue, "None");
+	// cls_LDOM_BasicAttribute.def("SetValue", (void (LDOM_BasicAttribute::*)(const LDOMBasicString &, const opencascade::handle<LDOM_MemManager> &)) &LDOM_BasicAttribute::SetValue, "None", py::arg("aValue"), py::arg("aDoc"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LDOM_Element.hxx
 	py::class_<LDOM_Element, std::unique_ptr<LDOM_Element, Deleter<LDOM_Element>>, LDOM_Node> cls_LDOM_Element(mod, "LDOM_Element", "None");
@@ -204,8 +204,8 @@ PYBIND11_MODULE(LDOM, mod) {
 	py::class_<LDOM_BasicText, std::unique_ptr<LDOM_BasicText, Deleter<LDOM_BasicText>>, LDOM_BasicNode> cls_LDOM_BasicText(mod, "LDOM_BasicText", "None");
 	cls_LDOM_BasicText.def(py::init<>());
 	// FIXME cls_LDOM_BasicText.def("assign", (LDOM_BasicText & (LDOM_BasicText::*)(const LDOM_NullPtr *)) &LDOM_BasicText::operator=, py::is_operator(), "None", py::arg("aNull"));
-	cls_LDOM_BasicText.def("GetData", (const LDOMBasicString & (LDOM_BasicText::*)() const ) &LDOM_BasicText::GetData, "None");
-	cls_LDOM_BasicText.def("SetData", (void (LDOM_BasicText::*)(const LDOMBasicString &, const opencascade::handle<LDOM_MemManager> &)) &LDOM_BasicText::SetData, "None", py::arg("aValue"), py::arg("aDoc"));
+	// cls_LDOM_BasicText.def("GetData", (const LDOMBasicString & (LDOM_BasicText::*)() const ) &LDOM_BasicText::GetData, "None");
+	// cls_LDOM_BasicText.def("SetData", (void (LDOM_BasicText::*)(const LDOMBasicString &, const opencascade::handle<LDOM_MemManager> &)) &LDOM_BasicText::SetData, "None", py::arg("aValue"), py::arg("aDoc"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LDOM_CharacterData.hxx
 	py::class_<LDOM_CharacterData, std::unique_ptr<LDOM_CharacterData, Deleter<LDOM_CharacterData>>, LDOM_Node> cls_LDOM_CharacterData(mod, "LDOM_CharacterData", "None");
@@ -260,12 +260,13 @@ PYBIND11_MODULE(LDOM, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LDOM_XmlReader.hxx
 	py::class_<LDOM_XmlReader, std::unique_ptr<LDOM_XmlReader, Deleter<LDOM_XmlReader>>> cls_LDOM_XmlReader(mod, "LDOM_XmlReader", "None");
-	cls_LDOM_XmlReader.def(py::init<const opencascade::handle<LDOM_MemManager> &, TCollection_AsciiString &>(), py::arg("aDocument"), py::arg("anErrorString"));
-	cls_LDOM_XmlReader.def(py::init<const opencascade::handle<LDOM_MemManager> &, TCollection_AsciiString &, const Standard_Boolean>(), py::arg("aDocument"), py::arg("anErrorString"), py::arg("theTagPerStep"));
-	cls_LDOM_XmlReader.def("ReadRecord", (LDOM_XmlReader::RecordType (LDOM_XmlReader::*)(Standard_IStream &, LDOM_OSStream &)) &LDOM_XmlReader::ReadRecord, "None", py::arg("theIStream"), py::arg("theData"));
+	// cls_LDOM_XmlReader.def(py::init<const opencascade::handle<LDOM_MemManager> &, TCollection_AsciiString &>(), py::arg("aDocument"), py::arg("anErrorString"));
+	// cls_LDOM_XmlReader.def(py::init<const opencascade::handle<LDOM_MemManager> &, TCollection_AsciiString &, const Standard_Boolean>(), py::arg("aDocument"), py::arg("anErrorString"), py::arg("theTagPerStep"));
+	// cls_LDOM_XmlReader.def("ReadRecord", (LDOM_XmlReader::RecordType (LDOM_XmlReader::*)(Standard_IStream &, LDOM_OSStream &)) &LDOM_XmlReader::ReadRecord, "None", py::arg("theIStream"), py::arg("theData"));
 	cls_LDOM_XmlReader.def("GetElement", (LDOM_BasicElement & (LDOM_XmlReader::*)() const ) &LDOM_XmlReader::GetElement, "None");
-	cls_LDOM_XmlReader.def("CreateElement", (void (LDOM_XmlReader::*)(const char *, const Standard_Integer)) &LDOM_XmlReader::CreateElement, "None", py::arg("theName"), py::arg("theLen"));
-	cls_LDOM_XmlReader.def_static("getInteger_", (Standard_Boolean (*)(LDOMBasicString &, const char *, const char *)) &LDOM_XmlReader::getInteger, "None", py::arg("theValue"), py::arg("theStart"), py::arg("theEnd"));
+	// cls_LDOM_XmlReader.def("CreateElement", (void (LDOM_XmlReader::*)(const char *, const Standard_Integer)) &LDOM_XmlReader::CreateElement, "None", py::arg("theName"), py::arg("theLen"));
+	// cls_LDOM_XmlReader.def_static("getInteger_", (Standard_Boolean (*)(LDOMBasicString &, const char *, const char *)) &LDOM_XmlReader::getInteger, "None", py::arg("theValue"), py::arg("theStart"), py::arg("theEnd"));
+
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LDOM_XmlReader.hxx
 	py::enum_<LDOM_XmlReader::RecordType>(cls_LDOM_XmlReader, "RecordType", "None")
 		.value("XML_UNKNOWN", LDOM_XmlReader::RecordType::XML_UNKNOWN)
@@ -289,8 +290,8 @@ PYBIND11_MODULE(LDOM, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LDOM_CharReference.hxx
 	py::class_<LDOM_CharReference, std::unique_ptr<LDOM_CharReference, Deleter<LDOM_CharReference>>> cls_LDOM_CharReference(mod, "LDOM_CharReference", "None");
 	cls_LDOM_CharReference.def(py::init<>());
-	cls_LDOM_CharReference.def_static("Decode_", [](char * theSrc, Standard_Integer & theLen){ char * rv = LDOM_CharReference::Decode(theSrc, theLen); return std::tuple<char *, Standard_Integer &>(rv, theLen); }, "None", py::arg("theSrc"), py::arg("theLen"));
-	cls_LDOM_CharReference.def_static("Encode_", [](const char * theSrc, Standard_Integer & theLen, const Standard_Boolean isAttribute){ char * rv = LDOM_CharReference::Encode(theSrc, theLen, isAttribute); return std::tuple<char *, Standard_Integer &>(rv, theLen); }, "None", py::arg("theSrc"), py::arg("theLen"), py::arg("isAttribute"));
+	// cls_LDOM_CharReference.def_static("Decode_", [](char * theSrc, Standard_Integer & theLen){ char * rv = LDOM_CharReference::Decode(theSrc, theLen); return std::tuple<char *, Standard_Integer &>(rv, theLen); }, "None", py::arg("theSrc"), py::arg("theLen"));
+	// cls_LDOM_CharReference.def_static("Encode_", [](const char * theSrc, Standard_Integer & theLen, const Standard_Boolean isAttribute){ char * rv = LDOM_CharReference::Encode(theSrc, theLen, isAttribute); return std::tuple<char *, Standard_Integer &>(rv, theLen); }, "None", py::arg("theSrc"), py::arg("theLen"), py::arg("isAttribute"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\LDOM_DocumentType.hxx
 	py::class_<LDOM_DocumentType, std::unique_ptr<LDOM_DocumentType, Deleter<LDOM_DocumentType>>> cls_LDOM_DocumentType(mod, "LDOM_DocumentType", "None");

@@ -68,10 +68,10 @@ PYBIND11_MODULE(ExprIntrp, mod) {
 
 	// FUNCTIONS
 	// C:\Miniconda\envs\occt\Library\include\opencascade\ExprIntrp_yaccintrf.hxx
-	mod.def("ExprIntrp_GetResult", (const TCollection_AsciiString & (*)()) &ExprIntrp_GetResult, "None");
+	// mod.def("ExprIntrp_GetResult", (const TCollection_AsciiString & (*)()) &ExprIntrp_GetResult, "None");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\ExprIntrp_yaccintrf.hxx
-	mod.def("ExprIntrp_GetDegree", (int (*)()) &ExprIntrp_GetDegree, "None");
+	// mod.def("ExprIntrp_GetDegree", (int (*)()) &ExprIntrp_GetDegree, "None");
 
 
 	// CLASSES

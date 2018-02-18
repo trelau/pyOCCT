@@ -188,9 +188,9 @@ PYBIND11_MODULE(MAT2d, mod) {
 	py::class_<MAT2d_CutCurve, std::unique_ptr<MAT2d_CutCurve, Deleter<MAT2d_CutCurve>>> cls_MAT2d_CutCurve(mod, "MAT2d_CutCurve", "Cuts a curve at the extremas of curvature and at the inflections. Constructs a trimmed Curve for each interval.");
 	cls_MAT2d_CutCurve.def(py::init<>());
 	cls_MAT2d_CutCurve.def(py::init<const opencascade::handle<Geom2d_Curve> &>(), py::arg("C"));
-	cls_MAT2d_CutCurve.def("Perform", (void (MAT2d_CutCurve::*)(const opencascade::handle<Geom2d_Curve> &)) &MAT2d_CutCurve::Perform, "Cuts a curve at the extremas of curvature and at the inflections.", py::arg("C"));
-	cls_MAT2d_CutCurve.def("Perform", (void (MAT2d_CutCurve::*)(const opencascade::handle<Geom2d_Curve> &, const MAT_Side)) &MAT2d_CutCurve::Perform, "Cuts a curve at the inflections, and at the extremas of curvature where the concavity is on <aSide>.", py::arg("C"), py::arg("aSide"));
-	cls_MAT2d_CutCurve.def("PerformInf", (void (MAT2d_CutCurve::*)(const opencascade::handle<Geom2d_Curve> &)) &MAT2d_CutCurve::PerformInf, "Cuts a curve at the inflections.", py::arg("C"));
+	// cls_MAT2d_CutCurve.def("Perform", (void (MAT2d_CutCurve::*)(const opencascade::handle<Geom2d_Curve> &)) &MAT2d_CutCurve::Perform, "Cuts a curve at the extremas of curvature and at the inflections.", py::arg("C"));
+	// cls_MAT2d_CutCurve.def("Perform", (void (MAT2d_CutCurve::*)(const opencascade::handle<Geom2d_Curve> &, const MAT_Side)) &MAT2d_CutCurve::Perform, "Cuts a curve at the inflections, and at the extremas of curvature where the concavity is on <aSide>.", py::arg("C"), py::arg("aSide"));
+	// cls_MAT2d_CutCurve.def("PerformInf", (void (MAT2d_CutCurve::*)(const opencascade::handle<Geom2d_Curve> &)) &MAT2d_CutCurve::PerformInf, "Cuts a curve at the inflections.", py::arg("C"));
 	cls_MAT2d_CutCurve.def("UnModified", (Standard_Boolean (MAT2d_CutCurve::*)() const ) &MAT2d_CutCurve::UnModified, "Returns True if the curve is not cut.");
 	cls_MAT2d_CutCurve.def("NbCurves", (Standard_Integer (MAT2d_CutCurve::*)() const ) &MAT2d_CutCurve::NbCurves, "Returns the number of curves. it's allways greatest than 2.");
 	cls_MAT2d_CutCurve.def("Value", (opencascade::handle<Geom2d_TrimmedCurve> (MAT2d_CutCurve::*)(const Standard_Integer) const ) &MAT2d_CutCurve::Value, "Returns the Indexth curve. raises if Index not in the range [1,NbCurves()]", py::arg("Index"));
@@ -210,6 +210,8 @@ PYBIND11_MODULE(MAT2d, mod) {
 	cls_MAT2d_Mat2d.def("NumberOfBisectors", (Standard_Integer (MAT2d_Mat2d::*)() const ) &MAT2d_Mat2d::NumberOfBisectors, "Returns the total number of bisectors.");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MAT2d_SketchExplorer.hxx
+	// FIXME
+	/*
 	py::class_<MAT2d_SketchExplorer, std::unique_ptr<MAT2d_SketchExplorer, Deleter<MAT2d_SketchExplorer>>> cls_MAT2d_SketchExplorer(mod, "MAT2d_SketchExplorer", "SketchExplorer is an iterator on a sketch. A sketch is a set of contours, each contour is a set of curves from Geom2d. It's use by BisectingLocus.");
 	cls_MAT2d_SketchExplorer.def(py::init<>());
 	cls_MAT2d_SketchExplorer.def("NumberOfContours", (Standard_Integer (MAT2d_SketchExplorer::*)() const ) &MAT2d_SketchExplorer::NumberOfContours, "Returns the number of contours in the figure.");
@@ -217,6 +219,7 @@ PYBIND11_MODULE(MAT2d, mod) {
 	cls_MAT2d_SketchExplorer.def("More", (Standard_Boolean (MAT2d_SketchExplorer::*)() const ) &MAT2d_SketchExplorer::More, "Returns False if there is no more curves on the current contour.");
 	cls_MAT2d_SketchExplorer.def("Next", (void (MAT2d_SketchExplorer::*)()) &MAT2d_SketchExplorer::Next, "Moves to the next curve of the current contour.");
 	cls_MAT2d_SketchExplorer.def("Value", (opencascade::handle<Geom2d_Curve> (MAT2d_SketchExplorer::*)() const ) &MAT2d_SketchExplorer::Value, "Returns the current curve on the current contour.");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MAT2d_DataMapOfIntegerBisec.hxx
 	bind_NCollection_DataMap<int, Bisector_Bisec, NCollection_DefaultHasher<int> >(mod, "MAT2d_DataMapOfIntegerBisec");

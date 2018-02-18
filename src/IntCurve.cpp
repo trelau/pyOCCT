@@ -64,31 +64,31 @@ PYBIND11_MODULE(IntCurve, mod) {
 
 	// FUNCTIONS
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntCurve_IntConicConic_Tool.hxx
-	mod.def("Determine_Transition_LC", (void (*)(const IntRes2d_Position, gp_Vec2d &, const gp_Vec2d &, IntRes2d_Transition &, const IntRes2d_Position, gp_Vec2d &, const gp_Vec2d &, IntRes2d_Transition &, const Standard_Real)) &Determine_Transition_LC, "None", py::arg(""), py::arg(""), py::arg(""), py::arg(""), py::arg(""), py::arg(""), py::arg(""), py::arg(""), py::arg(""));
+	// mod.def("Determine_Transition_LC", (void (*)(const IntRes2d_Position, gp_Vec2d &, const gp_Vec2d &, IntRes2d_Transition &, const IntRes2d_Position, gp_Vec2d &, const gp_Vec2d &, IntRes2d_Transition &, const Standard_Real)) &Determine_Transition_LC, "None", py::arg(""), py::arg(""), py::arg(""), py::arg(""), py::arg(""), py::arg(""), py::arg(""), py::arg(""), py::arg(""));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntCurve_IntConicConic_Tool.hxx
-	mod.def("NormalizeOnCircleDomain", (Standard_Real (*)(const Standard_Real, const IntRes2d_Domain &)) &NormalizeOnCircleDomain, "None", py::arg("Param"), py::arg("Domain"));
+	// mod.def("NormalizeOnCircleDomain", (Standard_Real (*)(const Standard_Real, const IntRes2d_Domain &)) &NormalizeOnCircleDomain, "None", py::arg("Param"), py::arg("Domain"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntCurve_IntConicConic_1.hxx
-	mod.def("CircleCircleGeometricIntersection", (void (*)(const gp_Circ2d &, const gp_Circ2d &, const Standard_Real, PeriodicInterval &, PeriodicInterval &, Standard_Integer &)) &CircleCircleGeometricIntersection, "None", py::arg("C1"), py::arg("C2"), py::arg("Tol"), py::arg("C1_Res1"), py::arg("C1_Res2"), py::arg("nbsol"));
+	// mod.def("CircleCircleGeometricIntersection", (void (*)(const gp_Circ2d &, const gp_Circ2d &, const Standard_Real, PeriodicInterval &, PeriodicInterval &, Standard_Integer &)) &CircleCircleGeometricIntersection, "None", py::arg("C1"), py::arg("C2"), py::arg("Tol"), py::arg("C1_Res1"), py::arg("C1_Res2"), py::arg("nbsol"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntCurve_IntConicConic_1.hxx
-	mod.def("CircleCircleDomainIntersection", (void (*)(const gp_Circ2d &, const gp_Circ2d &, const Standard_Real, PeriodicInterval &, PeriodicInterval &, Standard_Integer &)) &CircleCircleDomainIntersection, "None", py::arg("C1"), py::arg("C2"), py::arg("Tol"), py::arg("Res1"), py::arg("C1_Res2"), py::arg("nbsol"));
+	// mod.def("CircleCircleDomainIntersection", (void (*)(const gp_Circ2d &, const gp_Circ2d &, const Standard_Real, PeriodicInterval &, PeriodicInterval &, Standard_Integer &)) &CircleCircleDomainIntersection, "None", py::arg("C1"), py::arg("C2"), py::arg("Tol"), py::arg("Res1"), py::arg("C1_Res2"), py::arg("nbsol"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntCurve_IntConicConic_1.hxx
-	mod.def("ProjectOnC2AndIntersectWithC2Domain", (void (*)(const gp_Circ2d &, const gp_Circ2d &, PeriodicInterval &, PeriodicInterval &, PeriodicInterval *, PeriodicInterval *, Standard_Integer &, const Standard_Boolean)) &ProjectOnC2AndIntersectWithC2Domain, "None", py::arg("Circle1"), py::arg("Circle2"), py::arg("C1DomainAndRes"), py::arg("C2Domain"), py::arg("SolutionC1"), py::arg("SolutionC2"), py::arg("NbSolTotal"), py::arg("IdentCircles"));
+	// mod.def("ProjectOnC2AndIntersectWithC2Domain", (void (*)(const gp_Circ2d &, const gp_Circ2d &, PeriodicInterval &, PeriodicInterval &, PeriodicInterval *, PeriodicInterval *, Standard_Integer &, const Standard_Boolean)) &ProjectOnC2AndIntersectWithC2Domain, "None", py::arg("Circle1"), py::arg("Circle2"), py::arg("C1DomainAndRes"), py::arg("C2Domain"), py::arg("SolutionC1"), py::arg("SolutionC2"), py::arg("NbSolTotal"), py::arg("IdentCircles"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntCurve_IntConicConic_1.hxx
-	mod.def("LineCircleGeometricIntersection", (void (*)(const gp_Lin2d &, const gp_Circ2d &, const Standard_Real, PeriodicInterval &, PeriodicInterval &, Standard_Integer &)) &LineCircleGeometricIntersection, "None", py::arg("Line"), py::arg("Circle"), py::arg("Tol"), py::arg("C1Int"), py::arg("C2Int"), py::arg("nbsol"));
+	// mod.def("LineCircleGeometricIntersection", (void (*)(const gp_Lin2d &, const gp_Circ2d &, const Standard_Real, PeriodicInterval &, PeriodicInterval &, Standard_Integer &)) &LineCircleGeometricIntersection, "None", py::arg("Line"), py::arg("Circle"), py::arg("Tol"), py::arg("C1Int"), py::arg("C2Int"), py::arg("nbsol"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntCurve_IntConicConic_1.hxx
-	mod.def("ProjectOnLAndIntersectWithLDomain", (void (*)(const gp_Circ2d &, const gp_Lin2d &, PeriodicInterval &, Interval &, PeriodicInterval *, Interval *, Standard_Integer &)) &ProjectOnLAndIntersectWithLDomain, "None", py::arg("Circle"), py::arg("Line"), py::arg("CDomainAndRes"), py::arg("LDomain"), py::arg("CircleSolution"), py::arg("LineSolution"), py::arg("NbSolTotal"));
+	// mod.def("ProjectOnLAndIntersectWithLDomain", (void (*)(const gp_Circ2d &, const gp_Lin2d &, PeriodicInterval &, Interval &, PeriodicInterval *, Interval *, Standard_Integer &)) &ProjectOnLAndIntersectWithLDomain, "None", py::arg("Circle"), py::arg("Line"), py::arg("CDomainAndRes"), py::arg("LDomain"), py::arg("CircleSolution"), py::arg("LineSolution"), py::arg("NbSolTotal"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntCurve_IntConicConic_1.hxx
-	mod.def("DomainIntersection", (void (*)(const IntRes2d_Domain &, const Standard_Real, const Standard_Real, Standard_Real &, Standard_Real &)) &DomainIntersection, "None", py::arg("Domain"), py::arg("U1inf"), py::arg("U1sup"), py::arg("Res1inf"), py::arg("Res1sup"));
+	// mod.def("DomainIntersection", (void (*)(const IntRes2d_Domain &, const Standard_Real, const Standard_Real, Standard_Real &, Standard_Real &)) &DomainIntersection, "None", py::arg("Domain"), py::arg("U1inf"), py::arg("U1sup"), py::arg("Res1inf"), py::arg("Res1sup"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntCurve_IntConicConic_1.hxx
-	mod.def("LineLineGeometricIntersection", (void (*)(const gp_Lin2d &, const gp_Lin2d &, const Standard_Real, Standard_Real &, Standard_Real &, Standard_Real &, Standard_Integer &)) &LineLineGeometricIntersection, "None", py::arg("L1"), py::arg("L2"), py::arg("Tol"), py::arg("U1"), py::arg("U2"), py::arg("SinDemiAngle"), py::arg("nbsol"));
+	// mod.def("LineLineGeometricIntersection", (void (*)(const gp_Lin2d &, const gp_Lin2d &, const Standard_Real, Standard_Real &, Standard_Real &, Standard_Real &, Standard_Integer &)) &LineLineGeometricIntersection, "None", py::arg("L1"), py::arg("L2"), py::arg("Tol"), py::arg("U1"), py::arg("U2"), py::arg("SinDemiAngle"), py::arg("nbsol"));
 
 
 	// CLASSES
@@ -192,6 +192,7 @@ PYBIND11_MODULE(IntCurve, mod) {
 	cls_IntCurve_IntConicConic.def("Perform", (void (IntCurve_IntConicConic::*)(const gp_Hypr2d &, const IntRes2d_Domain &, const gp_Hypr2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real)) &IntCurve_IntConicConic::Perform, "Intersection between 2 hyperbolas.", py::arg("H1"), py::arg("D1"), py::arg("H2"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntCurve_IntConicConic_Tool.hxx
+	/* FIXME
 	py::class_<Interval, std::unique_ptr<Interval, Deleter<Interval>>> cls_Interval(mod, "Interval", "None");
 	cls_Interval.def(py::init<>());
 	cls_Interval.def(py::init<const Standard_Real, const Standard_Real>(), py::arg("a"), py::arg("b"));
@@ -199,6 +200,7 @@ PYBIND11_MODULE(IntCurve, mod) {
 	cls_Interval.def(py::init<const Standard_Real, const Standard_Boolean, const Standard_Real, const Standard_Boolean>(), py::arg("a"), py::arg("hf"), py::arg("b"), py::arg("hl"));
 	cls_Interval.def("Length", (Standard_Real (Interval::*)()) &Interval::Length, "None");
 	cls_Interval.def("IntersectionWithBounded", (Interval (Interval::*)(const Interval &)) &Interval::IntersectionWithBounded, "None", py::arg("Inter"));
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntCurve_IntConicConic_Tool.hxx
 	py::class_<PeriodicInterval, std::unique_ptr<PeriodicInterval, Deleter<PeriodicInterval>>> cls_PeriodicInterval(mod, "PeriodicInterval", "None");
@@ -211,8 +213,8 @@ PYBIND11_MODULE(IntCurve, mod) {
 	cls_PeriodicInterval.def("Length", (Standard_Real (PeriodicInterval::*)()) &PeriodicInterval::Length, "None");
 	cls_PeriodicInterval.def("SetValues", (void (PeriodicInterval::*)(const Standard_Real, const Standard_Real)) &PeriodicInterval::SetValues, "None", py::arg("a"), py::arg("b"));
 	cls_PeriodicInterval.def("Normalize", (void (PeriodicInterval::*)()) &PeriodicInterval::Normalize, "None");
-	cls_PeriodicInterval.def("FirstIntersection", (PeriodicInterval (PeriodicInterval::*)(PeriodicInterval &)) &PeriodicInterval::FirstIntersection, "None", py::arg("I1"));
-	cls_PeriodicInterval.def("SecondIntersection", (PeriodicInterval (PeriodicInterval::*)(PeriodicInterval &)) &PeriodicInterval::SecondIntersection, "None", py::arg("I2"));
+	// cls_PeriodicInterval.def("FirstIntersection", (PeriodicInterval (PeriodicInterval::*)(PeriodicInterval &)) &PeriodicInterval::FirstIntersection, "None", py::arg("I1"));
+	// cls_PeriodicInterval.def("SecondIntersection", (PeriodicInterval (PeriodicInterval::*)(PeriodicInterval &)) &PeriodicInterval::SecondIntersection, "None", py::arg("I2"));
 
 
 }

@@ -353,7 +353,7 @@ PYBIND11_MODULE(BOPAlgo, mod) {
 	cls_BOPAlgo_PaveFiller.def(py::init<const BOPCol_BaseAllocator &>(), py::arg("theAllocator"));
 	cls_BOPAlgo_PaveFiller.def("DS", (const BOPDS_DS & (BOPAlgo_PaveFiller::*)()) &BOPAlgo_PaveFiller::DS, "None");
 	cls_BOPAlgo_PaveFiller.def("PDS", (BOPDS_PDS (BOPAlgo_PaveFiller::*)()) &BOPAlgo_PaveFiller::PDS, "None");
-	cls_BOPAlgo_PaveFiller.def("Iterator", (const BOPDS_PIterator & (BOPAlgo_PaveFiller::*)()) &BOPAlgo_PaveFiller::Iterator, "None");
+	// cls_BOPAlgo_PaveFiller.def("Iterator", (const BOPDS_PIterator & (BOPAlgo_PaveFiller::*)()) &BOPAlgo_PaveFiller::Iterator, "None");
 	cls_BOPAlgo_PaveFiller.def("SetArguments", (void (BOPAlgo_PaveFiller::*)(const BOPCol_ListOfShape &)) &BOPAlgo_PaveFiller::SetArguments, "None", py::arg("theLS"));
 	cls_BOPAlgo_PaveFiller.def("Arguments", (const BOPCol_ListOfShape & (BOPAlgo_PaveFiller::*)() const ) &BOPAlgo_PaveFiller::Arguments, "None");
 	cls_BOPAlgo_PaveFiller.def("Context", (const opencascade::handle<IntTools_Context> & (BOPAlgo_PaveFiller::*)()) &BOPAlgo_PaveFiller::Context, "None");

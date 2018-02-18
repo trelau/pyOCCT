@@ -286,7 +286,7 @@ PYBIND11_MODULE(StepToTopoDS, mod) {
 	cls_StepToTopoDS_Builder.def(py::init<const opencascade::handle<StepShape_FacetedBrep> &, const opencascade::handle<Transfer_TransientProcess> &>(), py::arg("S"), py::arg("TP"));
 	cls_StepToTopoDS_Builder.def(py::init<const opencascade::handle<StepShape_FacetedBrepAndBrepWithVoids> &, const opencascade::handle<Transfer_TransientProcess> &>(), py::arg("S"), py::arg("TP"));
 	cls_StepToTopoDS_Builder.def(py::init<const opencascade::handle<StepShape_ShellBasedSurfaceModel> &, const opencascade::handle<Transfer_TransientProcess> &, StepToTopoDS_NMTool &>(), py::arg("S"), py::arg("TP"), py::arg("NMTool"));
-	cls_StepToTopoDS_Builder.def(py::init<const opencascade::handle<StepShape_GeometricSet> &, const opencascade::handle<Transfer_TransientProcess> &>(), py::arg("S"), py::arg("TP"));
+	// cls_StepToTopoDS_Builder.def(py::init<const opencascade::handle<StepShape_GeometricSet> &, const opencascade::handle<Transfer_TransientProcess> &>(), py::arg("S"), py::arg("TP"));
 	cls_StepToTopoDS_Builder.def("Init", (void (StepToTopoDS_Builder::*)(const opencascade::handle<StepShape_ManifoldSolidBrep> &, const opencascade::handle<Transfer_TransientProcess> &)) &StepToTopoDS_Builder::Init, "None", py::arg("S"), py::arg("TP"));
 	cls_StepToTopoDS_Builder.def("Init", (void (StepToTopoDS_Builder::*)(const opencascade::handle<StepShape_BrepWithVoids> &, const opencascade::handle<Transfer_TransientProcess> &)) &StepToTopoDS_Builder::Init, "None", py::arg("S"), py::arg("TP"));
 	cls_StepToTopoDS_Builder.def("Init", (void (StepToTopoDS_Builder::*)(const opencascade::handle<StepShape_FacetedBrep> &, const opencascade::handle<Transfer_TransientProcess> &)) &StepToTopoDS_Builder::Init, "None", py::arg("S"), py::arg("TP"));

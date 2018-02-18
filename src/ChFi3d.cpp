@@ -123,6 +123,7 @@ PYBIND11_MODULE(ChFi3d, mod) {
 		.export_values();
 
 	// FUNCTIONS
+	/*
 	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFi3d_Builder_0.hxx
 	mod.def("ChFi3d_InPeriod", (Standard_Real (*)(const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real)) &ChFi3d_InPeriod, "None", py::arg("U"), py::arg("UFirst"), py::arg("ULast"), py::arg("Eps"));
 
@@ -246,10 +247,9 @@ PYBIND11_MODULE(ChFi3d, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFi3d_Builder_0.hxx
 	mod.def("ChFi3d_BoundSurf", (opencascade::handle<GeomAdaptor_HSurface> (*)(TopOpeBRepDS_DataStructure &, const opencascade::handle<ChFiDS_SurfData> &, const Standard_Integer &, const Standard_Integer &)) &ChFi3d_BoundSurf, "None", py::arg("DStr"), py::arg("Fd1"), py::arg("IFaCo1"), py::arg("IFaArc1"));
 
-	/* FIXME
 	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFi3d_Builder_0.hxx
 	mod.def("ChFi3d_SearchPivot", (Standard_Integer (*)(Standard_Integer *, Standard_Real [3][3], const Standard_Real)) &ChFi3d_SearchPivot, "None", py::arg("s"), py::arg("u"), py::arg("t"));
-	*/
+	
 	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFi3d_Builder_0.hxx
 	mod.def("ChFi3d_SearchFD", (Standard_Boolean (*)(TopOpeBRepDS_DataStructure &, const opencascade::handle<ChFiDS_Stripe> &, const opencascade::handle<ChFiDS_Stripe> &, const Standard_Integer, const Standard_Integer, Standard_Integer &, Standard_Integer &, Standard_Real &, Standard_Real &, const Standard_Integer, const Standard_Integer, TopoDS_Face &, Standard_Boolean &, Standard_Integer &, Standard_Integer &)) &ChFi3d_SearchFD, "None", py::arg("DStr"), py::arg("cd1"), py::arg("cd2"), py::arg("sens1"), py::arg("sens2"), py::arg("i1"), py::arg("i2"), py::arg("p1"), py::arg("p2"), py::arg("ind1"), py::arg("ind2"), py::arg("face"), py::arg("sameside"), py::arg("jf1"), py::arg("jf2"));
 
@@ -318,6 +318,7 @@ PYBIND11_MODULE(ChFi3d, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\ChFi3d_Builder_0.hxx
 	mod.def("ChFi3d_IsSmooth", (Standard_Boolean (*)(const opencascade::handle<Geom_Curve> &)) &ChFi3d_IsSmooth, "None", py::arg("C"));
+	*/
 
 
 	// CLASSES

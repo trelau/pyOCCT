@@ -198,7 +198,7 @@ PYBIND11_MODULE(TopOpeBRepDS, mod) {
 	mod.def("FDSCNX_DumpIndex", (void (*)(const opencascade::handle<TopOpeBRepDS_HDataStructure> &, const Standard_Integer)) &FDSCNX_DumpIndex, "None", py::arg("HDS"), py::arg("I"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRepDS_EXPORT.hxx
-	mod.def("FUN_scanloi", (void (*)(const TopOpeBRepDS_ListOfInterference &, TopOpeBRepDS_ListOfInterference &, Standard_Integer &, TopOpeBRepDS_ListOfInterference &, Standard_Integer &, TopOpeBRepDS_ListOfInterference &, Standard_Integer &)) &FUN_scanloi, "None", py::arg("lII"), py::arg("lFOR"), py::arg("FOR"), py::arg("lREV"), py::arg("REV"), py::arg("lINT"), py::arg("INT"));
+	// mod.def("FUN_scanloi", (void (*)(const TopOpeBRepDS_ListOfInterference &, TopOpeBRepDS_ListOfInterference &, Standard_Integer &, TopOpeBRepDS_ListOfInterference &, Standard_Integer &, TopOpeBRepDS_ListOfInterference &, Standard_Integer &)) &FUN_scanloi, "None", py::arg("lII"), py::arg("lFOR"), py::arg("FOR"), py::arg("lREV"), py::arg("REV"), py::arg("lINT"), py::arg("INT"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRepDS_EXPORT.hxx
 	mod.def("FUN_ds_redu2d1d", (Standard_Boolean (*)(const TopOpeBRepDS_DataStructure &, const Standard_Integer, const opencascade::handle<TopOpeBRepDS_Interference> &, const TopOpeBRepDS_ListOfInterference &, TopOpeBRepDS_Transition &)) &FUN_ds_redu2d1d, "None", py::arg("BDS"), py::arg("ISE"), py::arg("I2d"), py::arg("l1d"), py::arg("newT2d"));
@@ -420,7 +420,7 @@ PYBIND11_MODULE(TopOpeBRepDS, mod) {
 	mod.def("FDSSDM_makes1s2", (void (*)(const TopoDS_Shape &, TopTools_ListOfShape &, TopTools_ListOfShape &)) &FDSSDM_makes1s2, "None", py::arg("S"), py::arg("L1"), py::arg("L2"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRepDS_samdom.hxx
-	mod.def("FDSSDM_s1s2makesordor", (void (*)(const TopTools_ListOfShape &, const TopTools_ListOfShape &, const TopoDS_Shape &, TopTools_ListOfShape &, TopTools_ListOfShape &)) &FDSSDM_s1s2makesordor, "None", py::arg("L1"), py::arg("L2"), py::arg("S"), py::arg("LSO"), py::arg("LDO"));
+	// mod.def("FDSSDM_s1s2makesordor", (void (*)(const TopTools_ListOfShape &, const TopTools_ListOfShape &, const TopoDS_Shape &, TopTools_ListOfShape &, TopTools_ListOfShape &)) &FDSSDM_s1s2makesordor, "None", py::arg("L1"), py::arg("L2"), py::arg("S"), py::arg("LSO"), py::arg("LDO"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TopOpeBRepDS_samdom.hxx
 	mod.def("FDSSDM_s1s2", (void (*)(const TopoDS_Shape &, TopTools_ListOfShape &, TopTools_ListOfShape &)) &FDSSDM_s1s2, "None", py::arg("S"), py::arg("LS1"), py::arg("LS2"));

@@ -119,7 +119,7 @@ PYBIND11_MODULE(ProjLib, mod) {
 	cls_ProjLib_ProjectedCurve.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &>(), py::arg("S"));
 	cls_ProjLib_ProjectedCurve.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S"), py::arg("C"));
 	cls_ProjLib_ProjectedCurve.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &, const Standard_Real>(), py::arg("S"), py::arg("C"), py::arg("Tol"));
-	cls_ProjLib_ProjectedCurve.def("Load", (void (ProjLib_ProjectedCurve::*)(const Standard_Real)) &ProjLib_ProjectedCurve::Load, "Changes the tolerance used to project the curve on the surface", py::arg("Tolerance"));
+	// cls_ProjLib_ProjectedCurve.def("Load", (void (ProjLib_ProjectedCurve::*)(const Standard_Real)) &ProjLib_ProjectedCurve::Load, "Changes the tolerance used to project the curve on the surface", py::arg("Tolerance"));
 	cls_ProjLib_ProjectedCurve.def("Load", (void (ProjLib_ProjectedCurve::*)(const opencascade::handle<Adaptor3d_HSurface> &)) &ProjLib_ProjectedCurve::Load, "Changes the Surface.", py::arg("S"));
 	cls_ProjLib_ProjectedCurve.def("Load", (void (ProjLib_ProjectedCurve::*)(const opencascade::handle<Adaptor3d_HCurve> &)) &ProjLib_ProjectedCurve::Load, "Changes the Curve.", py::arg("C"));
 	cls_ProjLib_ProjectedCurve.def("GetSurface", (const opencascade::handle<Adaptor3d_HSurface> & (ProjLib_ProjectedCurve::*)() const ) &ProjLib_ProjectedCurve::GetSurface, "None");
@@ -198,7 +198,7 @@ PYBIND11_MODULE(ProjLib, mod) {
 	py::class_<ProjLib_ProjectOnSurface, std::unique_ptr<ProjLib_ProjectOnSurface, Deleter<ProjLib_ProjectOnSurface>>> cls_ProjLib_ProjectOnSurface(mod, "ProjLib_ProjectOnSurface", "Project a curve on a surface. The result ( a 3D Curve) will be an approximation");
 	cls_ProjLib_ProjectOnSurface.def(py::init<>());
 	cls_ProjLib_ProjectOnSurface.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &>(), py::arg("S"));
-	cls_ProjLib_ProjectOnSurface.def("Load", (void (ProjLib_ProjectOnSurface::*)(const opencascade::handle<Adaptor3d_HSurface> &)) &ProjLib_ProjectOnSurface::Load, "Set the Surface to <S>. To compute the projection, you have to Load the Curve.", py::arg("S"));
+	// cls_ProjLib_ProjectOnSurface.def("Load", (void (ProjLib_ProjectOnSurface::*)(const opencascade::handle<Adaptor3d_HSurface> &)) &ProjLib_ProjectOnSurface::Load, "Set the Surface to <S>. To compute the projection, you have to Load the Curve.", py::arg("S"));
 	cls_ProjLib_ProjectOnSurface.def("Load", (void (ProjLib_ProjectOnSurface::*)(const opencascade::handle<Adaptor3d_HCurve> &, const Standard_Real)) &ProjLib_ProjectOnSurface::Load, "Compute the projection of the curve <C> on the Surface.", py::arg("C"), py::arg("Tolerance"));
 	cls_ProjLib_ProjectOnSurface.def("IsDone", (Standard_Boolean (ProjLib_ProjectOnSurface::*)() const ) &ProjLib_ProjectOnSurface::IsDone, "None");
 	cls_ProjLib_ProjectOnSurface.def("BSpline", (opencascade::handle<Geom_BSplineCurve> (ProjLib_ProjectOnSurface::*)() const ) &ProjLib_ProjectOnSurface::BSpline, "None");

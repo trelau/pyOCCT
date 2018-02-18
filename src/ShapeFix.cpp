@@ -544,8 +544,8 @@ PYBIND11_MODULE(ShapeFix, mod) {
 	cls_ShapeFix_WireSegment.def(py::init<>());
 	cls_ShapeFix_WireSegment.def(py::init<const opencascade::handle<ShapeExtend_WireData> &>(), py::arg("wire"));
 	cls_ShapeFix_WireSegment.def(py::init<const opencascade::handle<ShapeExtend_WireData> &, const TopAbs_Orientation>(), py::arg("wire"), py::arg("ori"));
-	cls_ShapeFix_WireSegment.def(py::init<const TopoDS_Wire &>(), py::arg("wire"));
-	cls_ShapeFix_WireSegment.def(py::init<const TopoDS_Wire &, const TopAbs_Orientation>(), py::arg("wire"), py::arg("ori"));
+	// cls_ShapeFix_WireSegment.def(py::init<const TopoDS_Wire &>(), py::arg("wire"));
+	// cls_ShapeFix_WireSegment.def(py::init<const TopoDS_Wire &, const TopAbs_Orientation>(), py::arg("wire"), py::arg("ori"));
 	cls_ShapeFix_WireSegment.def("Clear", (void (ShapeFix_WireSegment::*)()) &ShapeFix_WireSegment::Clear, "Clears all fields.");
 	cls_ShapeFix_WireSegment.def("Load", (void (ShapeFix_WireSegment::*)(const opencascade::handle<ShapeExtend_WireData> &)) &ShapeFix_WireSegment::Load, "Loads wire.", py::arg("wire"));
 	cls_ShapeFix_WireSegment.def("WireData", (const opencascade::handle<ShapeExtend_WireData> & (ShapeFix_WireSegment::*)() const ) &ShapeFix_WireSegment::WireData, "Returns wire.");

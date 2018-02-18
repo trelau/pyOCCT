@@ -493,7 +493,7 @@ PYBIND11_MODULE(IntTools, mod) {
 	cls_IntTools_PntOnFace.def("Face", (const TopoDS_Face & (IntTools_PntOnFace::*)() const ) &IntTools_PntOnFace::Face, "Selector");
 	cls_IntTools_PntOnFace.def("Pnt", (const gp_Pnt & (IntTools_PntOnFace::*)() const ) &IntTools_PntOnFace::Pnt, "Selector");
 	cls_IntTools_PntOnFace.def("Parameters", [](IntTools_PntOnFace &self, Standard_Real & U, Standard_Real & V){ self.Parameters(U, V); return std::tuple<Standard_Real &, Standard_Real &>(U, V); }, "Selector", py::arg("U"), py::arg("V"));
-	cls_IntTools_PntOnFace.def("IsValid", (Standard_Boolean (IntTools_PntOnFace::*)() const ) &IntTools_PntOnFace::IsValid, "Selector");
+	// cls_IntTools_PntOnFace.def("IsValid", (Standard_Boolean (IntTools_PntOnFace::*)() const ) &IntTools_PntOnFace::IsValid, "Selector");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\IntTools_PntOn2Faces.hxx
 	py::class_<IntTools_PntOn2Faces, std::unique_ptr<IntTools_PntOn2Faces, Deleter<IntTools_PntOn2Faces>>> cls_IntTools_PntOn2Faces(mod, "IntTools_PntOn2Faces", "Contains two points PntOnFace from IntTools and a flag");

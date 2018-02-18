@@ -540,7 +540,7 @@ PYBIND11_MODULE(HLRBRep, mod) {
 	cls_HLRBRep_BSurfaceTool.def_static("AxeOfRevolution_", (gp_Ax1 (*)(const BRepAdaptor_Surface &)) &HLRBRep_BSurfaceTool::AxeOfRevolution, "None", py::arg("S"));
 	cls_HLRBRep_BSurfaceTool.def_static("Direction_", (gp_Dir (*)(const BRepAdaptor_Surface &)) &HLRBRep_BSurfaceTool::Direction, "None", py::arg("S"));
 	cls_HLRBRep_BSurfaceTool.def_static("BasisCurve_", (opencascade::handle<Adaptor3d_HCurve> (*)(const BRepAdaptor_Surface &)) &HLRBRep_BSurfaceTool::BasisCurve, "None", py::arg("S"));
-	cls_HLRBRep_BSurfaceTool.def_static("Axis_", (gp_Ax1 (*)(const BRepAdaptor_Surface &)) &HLRBRep_BSurfaceTool::Axis, "None", py::arg("S"));
+	// cls_HLRBRep_BSurfaceTool.def_static("Axis_", (gp_Ax1 (*)(const BRepAdaptor_Surface &)) &HLRBRep_BSurfaceTool::Axis, "None", py::arg("S"));
 	cls_HLRBRep_BSurfaceTool.def_static("NbSamplesU_", (Standard_Integer (*)(const BRepAdaptor_Surface &)) &HLRBRep_BSurfaceTool::NbSamplesU, "None", py::arg("S"));
 	cls_HLRBRep_BSurfaceTool.def_static("NbSamplesV_", (Standard_Integer (*)(const BRepAdaptor_Surface &)) &HLRBRep_BSurfaceTool::NbSamplesV, "None", py::arg("S"));
 	cls_HLRBRep_BSurfaceTool.def_static("NbSamplesU_", (Standard_Integer (*)(const BRepAdaptor_Surface &, const Standard_Real, const Standard_Real)) &HLRBRep_BSurfaceTool::NbSamplesU, "None", py::arg("S"), py::arg("u1"), py::arg("u2"));
@@ -562,8 +562,8 @@ PYBIND11_MODULE(HLRBRep, mod) {
 	cls_HLRBRep_Surface.def("VContinuity", (GeomAbs_Shape (HLRBRep_Surface::*)() const ) &HLRBRep_Surface::VContinuity, "None");
 	cls_HLRBRep_Surface.def("NbUIntervals", (Standard_Integer (HLRBRep_Surface::*)(const GeomAbs_Shape)) &HLRBRep_Surface::NbUIntervals, "If necessary, breaks the surface in U intervals of continuity <S>. And returns the number of intervals.", py::arg("S"));
 	cls_HLRBRep_Surface.def("NbVIntervals", (Standard_Integer (HLRBRep_Surface::*)(const GeomAbs_Shape)) &HLRBRep_Surface::NbVIntervals, "If necessary, breaks the surface in V intervals of continuity <S>. And returns the number of intervals.", py::arg("S"));
-	cls_HLRBRep_Surface.def("UIntervalContinuity", (GeomAbs_Shape (HLRBRep_Surface::*)() const ) &HLRBRep_Surface::UIntervalContinuity, "None");
-	cls_HLRBRep_Surface.def("VIntervalContinuity", (GeomAbs_Shape (HLRBRep_Surface::*)() const ) &HLRBRep_Surface::VIntervalContinuity, "None");
+	// cls_HLRBRep_Surface.def("UIntervalContinuity", (GeomAbs_Shape (HLRBRep_Surface::*)() const ) &HLRBRep_Surface::UIntervalContinuity, "None");
+	// cls_HLRBRep_Surface.def("VIntervalContinuity", (GeomAbs_Shape (HLRBRep_Surface::*)() const ) &HLRBRep_Surface::VIntervalContinuity, "None");
 	cls_HLRBRep_Surface.def("IsUClosed", (Standard_Boolean (HLRBRep_Surface::*)() const ) &HLRBRep_Surface::IsUClosed, "None");
 	cls_HLRBRep_Surface.def("IsVClosed", (Standard_Boolean (HLRBRep_Surface::*)() const ) &HLRBRep_Surface::IsVClosed, "None");
 	cls_HLRBRep_Surface.def("IsUPeriodic", (Standard_Boolean (HLRBRep_Surface::*)() const ) &HLRBRep_Surface::IsUPeriodic, "None");
@@ -1060,11 +1060,13 @@ PYBIND11_MODULE(HLRBRep, mod) {
 	cls_HLRBRep_PolyHLRToShape.def("OutLineHCompound", (TopoDS_Shape (HLRBRep_PolyHLRToShape::*)(const TopoDS_Shape &)) &HLRBRep_PolyHLRToShape::OutLineHCompound, "Sets the extraction filter for hidden outlines. Hidden outlines occur, for instance, in tori. In this case, the inner outlines of the torus seen on its side are hidden.", py::arg("S"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter.hxx
+	/* FIXME
 	py::class_<HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter, std::unique_ptr<HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter, Deleter<HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter>>> cls_HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter(mod, "HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter", "None");
 	cls_HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter.def(py::init<>());
 	cls_HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter.def_static("Locate_", (void (*)(const gp_Pnt2d &, const Standard_Address &, const Standard_Integer, Extrema_POnCurv2d &)) &HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter::Locate, "Among a set of points {C(ui),i=1,NbU}, locate the point P=C(uj) such that: distance(P,C) = Min{distance(P,C(ui))}", py::arg("P"), py::arg("C"), py::arg("NbU"), py::arg("Papp"));
 	cls_HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter.def_static("Locate_", (void (*)(const gp_Pnt2d &, const Standard_Address &, const Standard_Integer, const Standard_Real, const Standard_Real, Extrema_POnCurv2d &)) &HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter::Locate, "Among a set of points {C(ui),i=1,NbU}, locate the point P=C(uj) such that: distance(P,C) = Min{distance(P,C(ui))} The research is done between umin and usup.", py::arg("P"), py::arg("C"), py::arg("NbU"), py::arg("Umin"), py::arg("Usup"), py::arg("Papp"));
 	cls_HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter.def_static("Locate_", (void (*)(const Standard_Address &, const Standard_Address &, const Standard_Integer, const Standard_Integer, Extrema_POnCurv2d &, Extrema_POnCurv2d &)) &HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter::Locate, "Among two sets of points {C1(ui),i=1,NbU} and {C2(vj),j=1,NbV}, locate the two points P1=C1(uk) and P2=C2(vl) such that: distance(P1,P2) = Min {distance(C1(ui),C2(vj))}.", py::arg("C1"), py::arg("C2"), py::arg("NbU"), py::arg("NbV"), py::arg("Papp1"), py::arg("Papp2"));
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\HLRBRep_PCLocFOfTheLocateExtPCOfTheProjPCurOfCInter.hxx
 	py::class_<HLRBRep_PCLocFOfTheLocateExtPCOfTheProjPCurOfCInter, std::unique_ptr<HLRBRep_PCLocFOfTheLocateExtPCOfTheProjPCurOfCInter, Deleter<HLRBRep_PCLocFOfTheLocateExtPCOfTheProjPCurOfCInter>>, math_FunctionWithDerivative> cls_HLRBRep_PCLocFOfTheLocateExtPCOfTheProjPCurOfCInter(mod, "HLRBRep_PCLocFOfTheLocateExtPCOfTheProjPCurOfCInter", "None");
@@ -1224,10 +1226,10 @@ PYBIND11_MODULE(HLRBRep, mod) {
 	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("Destroy", (void (HLRBRep_ThePolyhedronOfInterCSurf::*)()) &HLRBRep_ThePolyhedronOfInterCSurf::Destroy, "None");
 	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("DeflectionOverEstimation", (void (HLRBRep_ThePolyhedronOfInterCSurf::*)(const Standard_Real)) &HLRBRep_ThePolyhedronOfInterCSurf::DeflectionOverEstimation, "None", py::arg("flec"));
 	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("DeflectionOnTriangle", (Standard_Real (HLRBRep_ThePolyhedronOfInterCSurf::*)(const Standard_Address &, const Standard_Integer) const ) &HLRBRep_ThePolyhedronOfInterCSurf::DeflectionOnTriangle, "None", py::arg("Surface"), py::arg("Index"));
-	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("UMinSingularity", (void (HLRBRep_ThePolyhedronOfInterCSurf::*)(const Standard_Boolean)) &HLRBRep_ThePolyhedronOfInterCSurf::UMinSingularity, "None", py::arg("Sing"));
-	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("UMaxSingularity", (void (HLRBRep_ThePolyhedronOfInterCSurf::*)(const Standard_Boolean)) &HLRBRep_ThePolyhedronOfInterCSurf::UMaxSingularity, "None", py::arg("Sing"));
-	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("VMinSingularity", (void (HLRBRep_ThePolyhedronOfInterCSurf::*)(const Standard_Boolean)) &HLRBRep_ThePolyhedronOfInterCSurf::VMinSingularity, "None", py::arg("Sing"));
-	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("VMaxSingularity", (void (HLRBRep_ThePolyhedronOfInterCSurf::*)(const Standard_Boolean)) &HLRBRep_ThePolyhedronOfInterCSurf::VMaxSingularity, "None", py::arg("Sing"));
+	// cls_HLRBRep_ThePolyhedronOfInterCSurf.def("UMinSingularity", (void (HLRBRep_ThePolyhedronOfInterCSurf::*)(const Standard_Boolean)) &HLRBRep_ThePolyhedronOfInterCSurf::UMinSingularity, "None", py::arg("Sing"));
+	// cls_HLRBRep_ThePolyhedronOfInterCSurf.def("UMaxSingularity", (void (HLRBRep_ThePolyhedronOfInterCSurf::*)(const Standard_Boolean)) &HLRBRep_ThePolyhedronOfInterCSurf::UMaxSingularity, "None", py::arg("Sing"));
+	// cls_HLRBRep_ThePolyhedronOfInterCSurf.def("VMinSingularity", (void (HLRBRep_ThePolyhedronOfInterCSurf::*)(const Standard_Boolean)) &HLRBRep_ThePolyhedronOfInterCSurf::VMinSingularity, "None", py::arg("Sing"));
+	// cls_HLRBRep_ThePolyhedronOfInterCSurf.def("VMaxSingularity", (void (HLRBRep_ThePolyhedronOfInterCSurf::*)(const Standard_Boolean)) &HLRBRep_ThePolyhedronOfInterCSurf::VMaxSingularity, "None", py::arg("Sing"));
 	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("Size", [](HLRBRep_ThePolyhedronOfInterCSurf &self, Standard_Integer & nbdu, Standard_Integer & nbdv){ self.Size(nbdu, nbdv); return std::tuple<Standard_Integer &, Standard_Integer &>(nbdu, nbdv); }, "get the size of the discretization.", py::arg("nbdu"), py::arg("nbdv"));
 	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("NbTriangles", (Standard_Integer (HLRBRep_ThePolyhedronOfInterCSurf::*)() const ) &HLRBRep_ThePolyhedronOfInterCSurf::NbTriangles, "Give the number of triangles in this double array of");
 	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("Triangle", [](HLRBRep_ThePolyhedronOfInterCSurf &self, const Standard_Integer Index, Standard_Integer & P1, Standard_Integer & P2, Standard_Integer & P3){ self.Triangle(Index, P1, P2, P3); return std::tuple<Standard_Integer &, Standard_Integer &, Standard_Integer &>(P1, P2, P3); }, "Give the 3 points of the triangle of addresse Index in the double array of triangles.", py::arg("Index"), py::arg("P1"), py::arg("P2"), py::arg("P3"));
@@ -1241,10 +1243,10 @@ PYBIND11_MODULE(HLRBRep, mod) {
 	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("FillBounding", (void (HLRBRep_ThePolyhedronOfInterCSurf::*)()) &HLRBRep_ThePolyhedronOfInterCSurf::FillBounding, "Compute the array of boxes. The box <n> corresponding to the triangle <n>.");
 	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("ComponentsBounding", (const opencascade::handle<Bnd_HArray1OfBox> & (HLRBRep_ThePolyhedronOfInterCSurf::*)() const ) &HLRBRep_ThePolyhedronOfInterCSurf::ComponentsBounding, "Give the array of boxes. The box <n> corresponding to the triangle <n>.");
 	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("DeflectionOverEstimation", (Standard_Real (HLRBRep_ThePolyhedronOfInterCSurf::*)() const ) &HLRBRep_ThePolyhedronOfInterCSurf::DeflectionOverEstimation, "None");
-	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("HasUMinSingularity", (Standard_Boolean (HLRBRep_ThePolyhedronOfInterCSurf::*)() const ) &HLRBRep_ThePolyhedronOfInterCSurf::HasUMinSingularity, "None");
-	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("HasUMaxSingularity", (Standard_Boolean (HLRBRep_ThePolyhedronOfInterCSurf::*)() const ) &HLRBRep_ThePolyhedronOfInterCSurf::HasUMaxSingularity, "None");
-	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("HasVMinSingularity", (Standard_Boolean (HLRBRep_ThePolyhedronOfInterCSurf::*)() const ) &HLRBRep_ThePolyhedronOfInterCSurf::HasVMinSingularity, "None");
-	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("HasVMaxSingularity", (Standard_Boolean (HLRBRep_ThePolyhedronOfInterCSurf::*)() const ) &HLRBRep_ThePolyhedronOfInterCSurf::HasVMaxSingularity, "None");
+	// cls_HLRBRep_ThePolyhedronOfInterCSurf.def("HasUMinSingularity", (Standard_Boolean (HLRBRep_ThePolyhedronOfInterCSurf::*)() const ) &HLRBRep_ThePolyhedronOfInterCSurf::HasUMinSingularity, "None");
+	// cls_HLRBRep_ThePolyhedronOfInterCSurf.def("HasUMaxSingularity", (Standard_Boolean (HLRBRep_ThePolyhedronOfInterCSurf::*)() const ) &HLRBRep_ThePolyhedronOfInterCSurf::HasUMaxSingularity, "None");
+	// cls_HLRBRep_ThePolyhedronOfInterCSurf.def("HasVMinSingularity", (Standard_Boolean (HLRBRep_ThePolyhedronOfInterCSurf::*)() const ) &HLRBRep_ThePolyhedronOfInterCSurf::HasVMinSingularity, "None");
+	// cls_HLRBRep_ThePolyhedronOfInterCSurf.def("HasVMaxSingularity", (Standard_Boolean (HLRBRep_ThePolyhedronOfInterCSurf::*)() const ) &HLRBRep_ThePolyhedronOfInterCSurf::HasVMaxSingularity, "None");
 	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("PlaneEquation", [](HLRBRep_ThePolyhedronOfInterCSurf &self, const Standard_Integer Triang, gp_XYZ & NormalVector, Standard_Real & PolarDistance){ self.PlaneEquation(Triang, NormalVector, PolarDistance); return PolarDistance; }, "Give the plane equation of the triangle of addresse Triang.", py::arg("Triang"), py::arg("NormalVector"), py::arg("PolarDistance"));
 	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("Contain", (Standard_Boolean (HLRBRep_ThePolyhedronOfInterCSurf::*)(const Standard_Integer, const gp_Pnt &) const ) &HLRBRep_ThePolyhedronOfInterCSurf::Contain, "Give the plane equation of the triangle of addresse Triang.", py::arg("Triang"), py::arg("ThePnt"));
 	cls_HLRBRep_ThePolyhedronOfInterCSurf.def("Parameters", [](HLRBRep_ThePolyhedronOfInterCSurf &self, const Standard_Integer Index, Standard_Real & U, Standard_Real & V){ self.Parameters(Index, U, V); return std::tuple<Standard_Real &, Standard_Real &>(U, V); }, "None", py::arg("Index"), py::arg("U"), py::arg("V"));

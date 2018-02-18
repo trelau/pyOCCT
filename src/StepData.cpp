@@ -642,7 +642,7 @@ PYBIND11_MODULE(StepData, mod) {
 	cls_StepData_UndefinedEntity.def(py::init<const Standard_Boolean>(), py::arg("issub"));
 	cls_StepData_UndefinedEntity.def("UndefinedContent", (opencascade::handle<Interface_UndefinedContent> (StepData_UndefinedEntity::*)() const ) &StepData_UndefinedEntity::UndefinedContent, "Returns the UndefinedContent which brings the Parameters");
 	cls_StepData_UndefinedEntity.def("IsSub", (Standard_Boolean (StepData_UndefinedEntity::*)() const ) &StepData_UndefinedEntity::IsSub, "Returns True if an Unndefined Entity is SubPart of another one");
-	cls_StepData_UndefinedEntity.def("Super", (opencascade::handle<StepData_UndefinedEntity> (StepData_UndefinedEntity::*)() const ) &StepData_UndefinedEntity::Super, "Returns the 'super-entity' of a sub-part");
+	// cls_StepData_UndefinedEntity.def("Super", (opencascade::handle<StepData_UndefinedEntity> (StepData_UndefinedEntity::*)() const ) &StepData_UndefinedEntity::Super, "Returns the 'super-entity' of a sub-part");
 	cls_StepData_UndefinedEntity.def("IsComplex", (Standard_Boolean (StepData_UndefinedEntity::*)() const ) &StepData_UndefinedEntity::IsComplex, "Returns True if <me> defines a Multiple Type Entity (see ANDOR)");
 	cls_StepData_UndefinedEntity.def("Next", (opencascade::handle<StepData_UndefinedEntity> (StepData_UndefinedEntity::*)() const ) &StepData_UndefinedEntity::Next, "For a Multiple Type Entity, returns the Next 'Componant' For more than two Types, iterative definition (Next->Next...) Returns a Null Handle for the end of the List");
 	cls_StepData_UndefinedEntity.def("StepType", (Standard_CString (StepData_UndefinedEntity::*)() const ) &StepData_UndefinedEntity::StepType, "gives entity type, read from file For a Complex Type Entity, gives the first Type read, each 'Next' gives its 'partial' type was C++ : return const");
@@ -765,7 +765,7 @@ PYBIND11_MODULE(StepData, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StepData_FreeFormEntity.hxx
 	py::class_<StepData_FreeFormEntity, opencascade::handle<StepData_FreeFormEntity>, Standard_Transient> cls_StepData_FreeFormEntity(mod, "StepData_FreeFormEntity", "A Free Form Entity allows to record any kind of STEP parameters, in any way of typing It is implemented with an array of fields A Complex entity can be defined, as a chain of FreeFormEntity (see Next and As)");
-	cls_StepData_FreeFormEntity.def(py::init<>());
+	// cls_StepData_FreeFormEntity.def(py::init<>());
 	cls_StepData_FreeFormEntity.def("SetStepType", (void (StepData_FreeFormEntity::*)(const Standard_CString)) &StepData_FreeFormEntity::SetStepType, "Sets the type of an entity For a complex one, the type of this member", py::arg("typenam"));
 	cls_StepData_FreeFormEntity.def("StepType", (Standard_CString (StepData_FreeFormEntity::*)() const ) &StepData_FreeFormEntity::StepType, "Returns the recorded StepType For a complex one, the type of this member");
 	cls_StepData_FreeFormEntity.def("SetNext", [](StepData_FreeFormEntity &self, const opencascade::handle<StepData_FreeFormEntity> & a0) -> void { return self.SetNext(a0); }, py::arg("next"));

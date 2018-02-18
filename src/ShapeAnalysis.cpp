@@ -624,6 +624,7 @@ PYBIND11_MODULE(ShapeAnalysis, mod) {
 	cls_ShapeAnalysis.def_static("GetFaceUVBounds_", [](const TopoDS_Face & F, Standard_Real & Umin, Standard_Real & Umax, Standard_Real & Vmin, Standard_Real & Vmax){ ShapeAnalysis::GetFaceUVBounds(F, Umin, Umax, Vmin, Vmax); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &, Standard_Real &>(Umin, Umax, Vmin, Vmax); }, "Computes exact UV bounds of all wires on the face", py::arg("F"), py::arg("Umin"), py::arg("Umax"), py::arg("Vmin"), py::arg("Vmax"));
 
 	// Callback for ShapeAnalysis_BoxBndTreeSelector.
+	/*
 	class PyCallback_ShapeAnalysis_BoxBndTreeSelector : public ShapeAnalysis_BoxBndTreeSelector {
 	public:
 		using ShapeAnalysis_BoxBndTreeSelector::ShapeAnalysis_BoxBndTreeSelector;
@@ -646,6 +647,7 @@ PYBIND11_MODULE(ShapeAnalysis, mod) {
 	cls_ShapeAnalysis_BoxBndTreeSelector.def("LastCheckStatus", (Standard_Boolean (ShapeAnalysis_BoxBndTreeSelector::*)(const ShapeExtend_Status) const ) &ShapeAnalysis_BoxBndTreeSelector::LastCheckStatus, "None", py::arg("theStatus"));
 	cls_ShapeAnalysis_BoxBndTreeSelector.def("Reject", (Standard_Boolean (ShapeAnalysis_BoxBndTreeSelector::*)(const Bnd_Box &) const ) &ShapeAnalysis_BoxBndTreeSelector::Reject, "None", py::arg("theBnd"));
 	cls_ShapeAnalysis_BoxBndTreeSelector.def("Accept", (Standard_Boolean (ShapeAnalysis_BoxBndTreeSelector::*)(const Standard_Integer &)) &ShapeAnalysis_BoxBndTreeSelector::Accept, "None", py::arg(""));
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\ShapeAnalysis_SequenceOfFreeBounds.hxx
 	bind_NCollection_Sequence<opencascade::handle<ShapeAnalysis_FreeBoundData> >(mod, "ShapeAnalysis_SequenceOfFreeBounds");

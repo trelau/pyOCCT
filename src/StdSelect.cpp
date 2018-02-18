@@ -170,8 +170,8 @@ PYBIND11_MODULE(StdSelect, mod) {
 	cls_StdSelect_BRepOwner.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StdSelect_BRepOwner::get_type_descriptor, "None");
 	cls_StdSelect_BRepOwner.def("DynamicType", (const opencascade::handle<Standard_Type> & (StdSelect_BRepOwner::*)() const ) &StdSelect_BRepOwner::DynamicType, "None");
 	cls_StdSelect_BRepOwner.def("HasShape", (Standard_Boolean (StdSelect_BRepOwner::*)() const ) &StdSelect_BRepOwner::HasShape, "returns False if no shape was set");
-	cls_StdSelect_BRepOwner.def("Set", [](StdSelect_BRepOwner &self, const TopoDS_Shape & a0) -> void { return self.Set(a0); }, py::arg("aShape"));
-	cls_StdSelect_BRepOwner.def("Set", (void (StdSelect_BRepOwner::*)(const TopoDS_Shape &, const Standard_Boolean)) &StdSelect_BRepOwner::Set, "<FromDecomposition> indicates whether <aShape> comes from decomposition of a bigger shape.", py::arg("aShape"), py::arg("FromDecomposition"));
+	// cls_StdSelect_BRepOwner.def("Set", [](StdSelect_BRepOwner &self, const TopoDS_Shape & a0) -> void { return self.Set(a0); }, py::arg("aShape"));
+	// cls_StdSelect_BRepOwner.def("Set", (void (StdSelect_BRepOwner::*)(const TopoDS_Shape &, const Standard_Boolean)) &StdSelect_BRepOwner::Set, "<FromDecomposition> indicates whether <aShape> comes from decomposition of a bigger shape.", py::arg("aShape"), py::arg("FromDecomposition"));
 	cls_StdSelect_BRepOwner.def("Shape", (const TopoDS_Shape & (StdSelect_BRepOwner::*)() const ) &StdSelect_BRepOwner::Shape, "None");
 	cls_StdSelect_BRepOwner.def("HasHilightMode", (Standard_Boolean (StdSelect_BRepOwner::*)() const ) &StdSelect_BRepOwner::HasHilightMode, "Returns true if this framework has a highlight mode defined for it.");
 	cls_StdSelect_BRepOwner.def("SetHilightMode", (void (StdSelect_BRepOwner::*)(const Standard_Integer)) &StdSelect_BRepOwner::SetHilightMode, "Sets the highlight mode for this framework. This defines the type of display used to highlight the owner of the shape when it is detected by the selector. The default type of display is wireframe, defined by the index 0.", py::arg("theMode"));

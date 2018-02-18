@@ -152,21 +152,21 @@ PYBIND11_MODULE(StdMeshers, mod) {
 	// CLASSES
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_Quadrangle_2D.hxx
 	py::class_<FaceQuadStruct, std::unique_ptr<FaceQuadStruct, Deleter<FaceQuadStruct>>> cls_FaceQuadStruct(mod, "FaceQuadStruct", "None");
-	cls_FaceQuadStruct.def(py::init<>());
-	cls_FaceQuadStruct.def(py::init<const TopoDS_Face &>(), py::arg("F"));
-	cls_FaceQuadStruct.def(py::init<const TopoDS_Face &, const std::string &>(), py::arg("F"), py::arg("nm"));
+	// cls_FaceQuadStruct.def(py::init<>());
+	// cls_FaceQuadStruct.def(py::init<const TopoDS_Face &>(), py::arg("F"));
+	// cls_FaceQuadStruct.def(py::init<const TopoDS_Face &, const std::string &>(), py::arg("F"), py::arg("nm"));
 	cls_FaceQuadStruct.def("UVPt", (UVPtStruct & (FaceQuadStruct::*)(int, int)) &FaceQuadStruct::UVPt, "None", py::arg("i"), py::arg("j"));
 	cls_FaceQuadStruct.def("U", (double & (FaceQuadStruct::*)(int, int)) &FaceQuadStruct::U, "None", py::arg("i"), py::arg("j"));
 	cls_FaceQuadStruct.def("V", (double & (FaceQuadStruct::*)(int, int)) &FaceQuadStruct::V, "None", py::arg("i"), py::arg("j"));
-	cls_FaceQuadStruct.def("shift", [](FaceQuadStruct &self, size_t a0, bool a1) -> void { return self.shift(a0, a1); }, py::arg("nb"), py::arg("keepUnitOri"));
-	cls_FaceQuadStruct.def("shift", (void (FaceQuadStruct::*)(size_t, bool, bool)) &FaceQuadStruct::shift, "None", py::arg("nb"), py::arg("keepUnitOri"), py::arg("keepGrid"));
+	// cls_FaceQuadStruct.def("shift", [](FaceQuadStruct &self, size_t a0, bool a1) -> void { return self.shift(a0, a1); }, py::arg("nb"), py::arg("keepUnitOri"));
+	// cls_FaceQuadStruct.def("shift", (void (FaceQuadStruct::*)(size_t, bool, bool)) &FaceQuadStruct::shift, "None", py::arg("nb"), py::arg("keepUnitOri"), py::arg("keepGrid"));
 	cls_FaceQuadStruct.def("nbNodeOut", (int & (FaceQuadStruct::*)(int)) &FaceQuadStruct::nbNodeOut, "None", py::arg("iSide"));
-	cls_FaceQuadStruct.def("findCell", (bool (FaceQuadStruct::*)(const gp_XY &, int &, int &)) &FaceQuadStruct::findCell, "None", py::arg("uv"), py::arg("i"), py::arg("j"));
-	cls_FaceQuadStruct.def("isNear", [](FaceQuadStruct &self, const gp_XY & a0, int & a1, int & a2) -> bool { return self.isNear(a0, a1, a2); }, py::arg("uv"), py::arg("i"), py::arg("j"));
-	cls_FaceQuadStruct.def("isNear", (bool (FaceQuadStruct::*)(const gp_XY &, int &, int &, int)) &FaceQuadStruct::isNear, "None", py::arg("uv"), py::arg("i"), py::arg("j"), py::arg("nbLoops"));
-	cls_FaceQuadStruct.def("isEqual", (bool (FaceQuadStruct::*)(const gp_XY &, int, int)) &FaceQuadStruct::isEqual, "None", py::arg("uv"), py::arg("i"), py::arg("j"));
-	cls_FaceQuadStruct.def("normPa2IJ", (void (FaceQuadStruct::*)(double, double, int &, int &)) &FaceQuadStruct::normPa2IJ, "None", py::arg("x"), py::arg("y"), py::arg("i"), py::arg("j"));
-	cls_FaceQuadStruct.def("updateUV", (void (FaceQuadStruct::*)(const gp_XY &, int, int, bool)) &FaceQuadStruct::updateUV, "None", py::arg("uv"), py::arg("i"), py::arg("j"), py::arg("isVertical"));
+	// cls_FaceQuadStruct.def("findCell", (bool (FaceQuadStruct::*)(const gp_XY &, int &, int &)) &FaceQuadStruct::findCell, "None", py::arg("uv"), py::arg("i"), py::arg("j"));
+	// cls_FaceQuadStruct.def("isNear", [](FaceQuadStruct &self, const gp_XY & a0, int & a1, int & a2) -> bool { return self.isNear(a0, a1, a2); }, py::arg("uv"), py::arg("i"), py::arg("j"));
+	// cls_FaceQuadStruct.def("isNear", (bool (FaceQuadStruct::*)(const gp_XY &, int &, int &, int)) &FaceQuadStruct::isNear, "None", py::arg("uv"), py::arg("i"), py::arg("j"), py::arg("nbLoops"));
+	// cls_FaceQuadStruct.def("isEqual", (bool (FaceQuadStruct::*)(const gp_XY &, int, int)) &FaceQuadStruct::isEqual, "None", py::arg("uv"), py::arg("i"), py::arg("j"));
+	// cls_FaceQuadStruct.def("normPa2IJ", (void (FaceQuadStruct::*)(double, double, int &, int &)) &FaceQuadStruct::normPa2IJ, "None", py::arg("x"), py::arg("y"), py::arg("i"), py::arg("j"));
+	// cls_FaceQuadStruct.def("updateUV", (void (FaceQuadStruct::*)(const gp_XY &, int, int, bool)) &FaceQuadStruct::updateUV, "None", py::arg("uv"), py::arg("i"), py::arg("j"), py::arg("isVertical"));
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\StdMeshers_FaceSide.hxx
 	py::class_<StdMeshers_FaceSide, std::unique_ptr<StdMeshers_FaceSide, Deleter<StdMeshers_FaceSide>>> cls_StdMeshers_FaceSide(mod, "StdMeshers_FaceSide", "Represents a side of a quasi quadrilateral face. It can be composed of several edges. Gives access to geometry and 1D mesh of a side.");

@@ -332,7 +332,7 @@ PYBIND11_MODULE(SelectMgr, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\SelectMgr_FrustumBuilder.hxx
 	py::class_<SelectMgr_FrustumBuilder, opencascade::handle<SelectMgr_FrustumBuilder>, Standard_Transient> cls_SelectMgr_FrustumBuilder(mod, "SelectMgr_FrustumBuilder", "The purpose of this class is to provide unified interface for building selecting frustum depending on current camera projection and orientation matrices, window size and viewport parameters.");
-	cls_SelectMgr_FrustumBuilder.def(py::init<>());
+	// cls_SelectMgr_FrustumBuilder.def(py::init<>());
 	cls_SelectMgr_FrustumBuilder.def("SetWorldViewMatrix", (void (SelectMgr_FrustumBuilder::*)(const Graphic3d_Mat4d &)) &SelectMgr_FrustumBuilder::SetWorldViewMatrix, "Stores current world view transformation matrix", py::arg("theWorldViewMatrix"));
 	cls_SelectMgr_FrustumBuilder.def("WorldViewMatrix", (const Graphic3d_Mat4d & (SelectMgr_FrustumBuilder::*)() const ) &SelectMgr_FrustumBuilder::WorldViewMatrix, "Returns current world view transformation matrix");
 	cls_SelectMgr_FrustumBuilder.def("SetProjectionMatrix", (void (SelectMgr_FrustumBuilder::*)(const Graphic3d_Mat4d &)) &SelectMgr_FrustumBuilder::SetProjectionMatrix, "Stores current projection matrix", py::arg("theProjection"));

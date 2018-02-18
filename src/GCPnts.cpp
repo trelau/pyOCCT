@@ -138,7 +138,7 @@ PYBIND11_MODULE(GCPnts, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\GCPnts_DistFunction.hxx
 	py::class_<GCPnts_DistFunction, std::unique_ptr<GCPnts_DistFunction, Deleter<GCPnts_DistFunction>>, math_Function> cls_GCPnts_DistFunction(mod, "GCPnts_DistFunction", "Class to define function, which calculates square distance between point on curve C(u), U1 <= u <= U2 and line passing through points C(U1) and C(U2) This function is used in any minimisation algorithm to define maximal deviation between curve and line, which required one variable function without derivative (for ex. math_BrentMinimum)");
 	cls_GCPnts_DistFunction.def(py::init<const Adaptor3d_Curve &, const Standard_Real, const Standard_Real>(), py::arg("theCurve"), py::arg("U1"), py::arg("U2"));
-	cls_GCPnts_DistFunction.def(py::init([] (const GCPnts_DistFunction &other) {return new GCPnts_DistFunction(other);}), "Copy constructor", py::arg("other"));
+	// cls_GCPnts_DistFunction.def(py::init([] (const GCPnts_DistFunction &other) {return new GCPnts_DistFunction(other);}), "Copy constructor", py::arg("other"));
 	cls_GCPnts_DistFunction.def("Value", [](GCPnts_DistFunction &self, const Standard_Real X, Standard_Real & F){ Standard_Boolean rv = self.Value(X, F); return std::tuple<Standard_Boolean, Standard_Real &>(rv, F); }, "None", py::arg("X"), py::arg("F"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\GCPnts_DistFunction.hxx
@@ -150,7 +150,7 @@ PYBIND11_MODULE(GCPnts, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\GCPnts_DistFunction2d.hxx
 	py::class_<GCPnts_DistFunction2d, std::unique_ptr<GCPnts_DistFunction2d, Deleter<GCPnts_DistFunction2d>>, math_Function> cls_GCPnts_DistFunction2d(mod, "GCPnts_DistFunction2d", "Class to define function, which calculates square distance between point on curve C(u), U1 <= u <= U2 and line passing through points C(U1) and C(U2) This function is used in any minimisation algorithm to define maximal deviation between curve and line, which required one variable function without derivative (for ex. math_BrentMinimum)");
 	cls_GCPnts_DistFunction2d.def(py::init<const Adaptor2d_Curve2d &, const Standard_Real, const Standard_Real>(), py::arg("theCurve"), py::arg("U1"), py::arg("U2"));
-	cls_GCPnts_DistFunction2d.def(py::init([] (const GCPnts_DistFunction2d &other) {return new GCPnts_DistFunction2d(other);}), "Copy constructor", py::arg("other"));
+	// cls_GCPnts_DistFunction2d.def(py::init([] (const GCPnts_DistFunction2d &other) {return new GCPnts_DistFunction2d(other);}), "Copy constructor", py::arg("other"));
 	cls_GCPnts_DistFunction2d.def("Value", [](GCPnts_DistFunction2d &self, const Standard_Real X, Standard_Real & F){ Standard_Boolean rv = self.Value(X, F); return std::tuple<Standard_Boolean, Standard_Real &>(rv, F); }, "None", py::arg("X"), py::arg("F"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\GCPnts_DistFunction2d.hxx

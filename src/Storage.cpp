@@ -464,6 +464,7 @@ PYBIND11_MODULE(Storage, mod) {
 	cls_Storage.def_static("Version_", (TCollection_AsciiString (*)()) &Storage::Version, "returns the version of Storage's read/write routines");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Storage_BucketOfPersistent.hxx
+	/* FIXME
 	py::class_<Storage_BucketOfPersistent, std::unique_ptr<Storage_BucketOfPersistent, Deleter<Storage_BucketOfPersistent>>> cls_Storage_BucketOfPersistent(mod, "Storage_BucketOfPersistent", "None");
 	cls_Storage_BucketOfPersistent.def(py::init<>());
 	cls_Storage_BucketOfPersistent.def(py::init<const Standard_Integer>(), py::arg("theBucketSize"));
@@ -472,21 +473,24 @@ PYBIND11_MODULE(Storage, mod) {
 	cls_Storage_BucketOfPersistent.def("Append", (void (Storage_BucketOfPersistent::*)(const opencascade::handle<Standard_Persistent> &)) &Storage_BucketOfPersistent::Append, "None", py::arg("sp"));
 	cls_Storage_BucketOfPersistent.def("Value", (Standard_Persistent * (Storage_BucketOfPersistent::*)(const Standard_Integer)) &Storage_BucketOfPersistent::Value, "None", py::arg("theIndex"));
 	cls_Storage_BucketOfPersistent.def("Clear", (void (Storage_BucketOfPersistent::*)()) &Storage_BucketOfPersistent::Clear, "None");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Storage_BucketOfPersistent.hxx
 	py::class_<Storage_BucketIterator, std::unique_ptr<Storage_BucketIterator, Deleter<Storage_BucketIterator>>> cls_Storage_BucketIterator(mod, "Storage_BucketIterator", "None");
-	cls_Storage_BucketIterator.def(py::init<Storage_BucketOfPersistent *>(), py::arg(""));
-	cls_Storage_BucketIterator.def("Init", (void (Storage_BucketIterator::*)(Storage_BucketOfPersistent *)) &Storage_BucketIterator::Init, "None", py::arg(""));
-	cls_Storage_BucketIterator.def("Reset", (void (Storage_BucketIterator::*)()) &Storage_BucketIterator::Reset, "None");
+	// cls_Storage_BucketIterator.def(py::init<Storage_BucketOfPersistent *>(), py::arg(""));
+	// cls_Storage_BucketIterator.def("Init", (void (Storage_BucketIterator::*)(Storage_BucketOfPersistent *)) &Storage_BucketIterator::Init, "None", py::arg(""));
+	// cls_Storage_BucketIterator.def("Reset", (void (Storage_BucketIterator::*)()) &Storage_BucketIterator::Reset, "None");
 	cls_Storage_BucketIterator.def("Value", (Standard_Persistent * (Storage_BucketIterator::*)() const ) &Storage_BucketIterator::Value, "None");
 	cls_Storage_BucketIterator.def("More", (Standard_Boolean (Storage_BucketIterator::*)() const ) &Storage_BucketIterator::More, "None");
-	cls_Storage_BucketIterator.def("Next", (void (Storage_BucketIterator::*)()) &Storage_BucketIterator::Next, "None");
+	// cls_Storage_BucketIterator.def("Next", (void (Storage_BucketIterator::*)()) &Storage_BucketIterator::Next, "None");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Storage_BucketOfPersistent.hxx
+	/* FIXME
 	py::class_<Storage_Bucket, std::unique_ptr<Storage_Bucket, Deleter<Storage_Bucket>>> cls_Storage_Bucket(mod, "Storage_Bucket", "None");
 	cls_Storage_Bucket.def(py::init<>());
 	cls_Storage_Bucket.def(py::init<const Standard_Integer>(), py::arg("theSpaceSize"));
 	cls_Storage_Bucket.def("Clear", (void (Storage_Bucket::*)()) &Storage_Bucket::Clear, "None");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Storage_ArrayOfCallBack.hxx
 	bind_NCollection_Array1<opencascade::handle<Storage_CallBack> >(mod, "Storage_ArrayOfCallBack");

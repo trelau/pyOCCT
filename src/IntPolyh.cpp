@@ -261,8 +261,8 @@ PYBIND11_MODULE(IntPolyh, mod) {
 	cls_IntPolyh_MaillageAffinage.def("GetArrayOfPoints", (const IntPolyh_ArrayOfPoints & (IntPolyh_MaillageAffinage::*)(const Standard_Integer) const ) &IntPolyh_MaillageAffinage::GetArrayOfPoints, "None", py::arg("SurfID"));
 	cls_IntPolyh_MaillageAffinage.def("GetArrayOfEdges", (const IntPolyh_ArrayOfEdges & (IntPolyh_MaillageAffinage::*)(const Standard_Integer) const ) &IntPolyh_MaillageAffinage::GetArrayOfEdges, "None", py::arg("SurfID"));
 	cls_IntPolyh_MaillageAffinage.def("GetArrayOfTriangles", (const IntPolyh_ArrayOfTriangles & (IntPolyh_MaillageAffinage::*)(const Standard_Integer) const ) &IntPolyh_MaillageAffinage::GetArrayOfTriangles, "None", py::arg("SurfID"));
-	cls_IntPolyh_MaillageAffinage.def("GetFinTE", (Standard_Integer (IntPolyh_MaillageAffinage::*)(const Standard_Integer) const ) &IntPolyh_MaillageAffinage::GetFinTE, "None", py::arg("SurfID"));
-	cls_IntPolyh_MaillageAffinage.def("GetFinTT", (Standard_Integer (IntPolyh_MaillageAffinage::*)(const Standard_Integer) const ) &IntPolyh_MaillageAffinage::GetFinTT, "None", py::arg("SurfID"));
+	// cls_IntPolyh_MaillageAffinage.def("GetFinTE", (Standard_Integer (IntPolyh_MaillageAffinage::*)(const Standard_Integer) const ) &IntPolyh_MaillageAffinage::GetFinTE, "None", py::arg("SurfID"));
+	// cls_IntPolyh_MaillageAffinage.def("GetFinTT", (Standard_Integer (IntPolyh_MaillageAffinage::*)(const Standard_Integer) const ) &IntPolyh_MaillageAffinage::GetFinTT, "None", py::arg("SurfID"));
 	cls_IntPolyh_MaillageAffinage.def("GetBox", (Bnd_Box (IntPolyh_MaillageAffinage::*)(const Standard_Integer) const ) &IntPolyh_MaillageAffinage::GetBox, "None", py::arg("SurfID"));
 	cls_IntPolyh_MaillageAffinage.def("GetCouples", (IntPolyh_ListOfCouples & (IntPolyh_MaillageAffinage::*)()) &IntPolyh_MaillageAffinage::GetCouples, "This method returns list of couples of contact triangles.");
 	cls_IntPolyh_MaillageAffinage.def("SetEnlargeZone", [](IntPolyh_MaillageAffinage &self, Standard_Boolean & EnlargeZone){ self.SetEnlargeZone(EnlargeZone); return EnlargeZone; }, "None", py::arg("EnlargeZone"));

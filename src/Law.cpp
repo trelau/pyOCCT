@@ -218,7 +218,7 @@ PYBIND11_MODULE(Law, mod) {
 	cls_Law_Interpolate.def(py::init<const opencascade::handle<TColStd_HArray1OfReal> &, const opencascade::handle<TColStd_HArray1OfReal> &, const Standard_Boolean, const Standard_Real>(), py::arg("Points"), py::arg("Parameters"), py::arg("PeriodicFlag"), py::arg("Tolerance"));
 	cls_Law_Interpolate.def("Load", (void (Law_Interpolate::*)(const Standard_Real, const Standard_Real)) &Law_Interpolate::Load, "loads initial and final tangents if any.", py::arg("InitialTangent"), py::arg("FinalTangent"));
 	cls_Law_Interpolate.def("Load", (void (Law_Interpolate::*)(const TColStd_Array1OfReal &, const opencascade::handle<TColStd_HArray1OfBoolean> &)) &Law_Interpolate::Load, "loads the tangents. We should have as many tangents as they are points in the array if TangentFlags.Value(i) is Standard_True use the tangent Tangents.Value(i) otherwise the tangent is not constrained.", py::arg("Tangents"), py::arg("TangentFlags"));
-	cls_Law_Interpolate.def("ClearTangents", (void (Law_Interpolate::*)()) &Law_Interpolate::ClearTangents, "Clears the tangents if any");
+	// cls_Law_Interpolate.def("ClearTangents", (void (Law_Interpolate::*)()) &Law_Interpolate::ClearTangents, "Clears the tangents if any");
 	cls_Law_Interpolate.def("Perform", (void (Law_Interpolate::*)()) &Law_Interpolate::Perform, "Makes the interpolation");
 	cls_Law_Interpolate.def("Curve", (const opencascade::handle<Law_BSpline> & (Law_Interpolate::*)() const ) &Law_Interpolate::Curve, "None");
 	cls_Law_Interpolate.def("IsDone", (Standard_Boolean (Law_Interpolate::*)() const ) &Law_Interpolate::IsDone, "None");

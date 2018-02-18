@@ -87,6 +87,7 @@ PYBIND11_MODULE(StdStorage, mod) {
 	cls_StdStorage.def_static("Write_", (Storage_Error (*)(Storage_BaseDriver &, const opencascade::handle<StdStorage_Data> &)) &StdStorage::Write, "Writes the data aggregated in theData object into the container defined by theDriver. The storage format is compartible with legacy persistent one. Note: - theData may aggregate several root objects to be stored together. - createion date specified in the srorage header will be overwritten.", py::arg("theDriver"), py::arg("theData"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdStorage_BacketOfPersistent.hxx
+	/* FIXME
 	py::class_<StdStorage_BucketOfPersistent, std::unique_ptr<StdStorage_BucketOfPersistent, Deleter<StdStorage_BucketOfPersistent>>> cls_StdStorage_BucketOfPersistent(mod, "StdStorage_BucketOfPersistent", "None");
 	cls_StdStorage_BucketOfPersistent.def(py::init<>());
 	cls_StdStorage_BucketOfPersistent.def(py::init<const Standard_Integer>(), py::arg("theBucketSize"));
@@ -95,21 +96,24 @@ PYBIND11_MODULE(StdStorage, mod) {
 	cls_StdStorage_BucketOfPersistent.def("Append", (void (StdStorage_BucketOfPersistent::*)(const opencascade::handle<StdObjMgt_Persistent> &)) &StdStorage_BucketOfPersistent::Append, "None", py::arg("sp"));
 	cls_StdStorage_BucketOfPersistent.def("Value", (StdObjMgt_Persistent * (StdStorage_BucketOfPersistent::*)(const Standard_Integer)) &StdStorage_BucketOfPersistent::Value, "None", py::arg("theIndex"));
 	cls_StdStorage_BucketOfPersistent.def("Clear", (void (StdStorage_BucketOfPersistent::*)()) &StdStorage_BucketOfPersistent::Clear, "None");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdStorage_BacketOfPersistent.hxx
 	py::class_<StdStorage_BucketIterator, std::unique_ptr<StdStorage_BucketIterator, Deleter<StdStorage_BucketIterator>>> cls_StdStorage_BucketIterator(mod, "StdStorage_BucketIterator", "None");
-	cls_StdStorage_BucketIterator.def(py::init<StdStorage_BucketOfPersistent *>(), py::arg(""));
-	cls_StdStorage_BucketIterator.def("Init", (void (StdStorage_BucketIterator::*)(StdStorage_BucketOfPersistent *)) &StdStorage_BucketIterator::Init, "None", py::arg(""));
-	cls_StdStorage_BucketIterator.def("Reset", (void (StdStorage_BucketIterator::*)()) &StdStorage_BucketIterator::Reset, "None");
+	// cls_StdStorage_BucketIterator.def(py::init<StdStorage_BucketOfPersistent *>(), py::arg(""));
+	// cls_StdStorage_BucketIterator.def("Init", (void (StdStorage_BucketIterator::*)(StdStorage_BucketOfPersistent *)) &StdStorage_BucketIterator::Init, "None", py::arg(""));
+	// cls_StdStorage_BucketIterator.def("Reset", (void (StdStorage_BucketIterator::*)()) &StdStorage_BucketIterator::Reset, "None");
 	cls_StdStorage_BucketIterator.def("Value", (StdObjMgt_Persistent * (StdStorage_BucketIterator::*)() const ) &StdStorage_BucketIterator::Value, "None");
 	cls_StdStorage_BucketIterator.def("More", (Standard_Boolean (StdStorage_BucketIterator::*)() const ) &StdStorage_BucketIterator::More, "None");
-	cls_StdStorage_BucketIterator.def("Next", (void (StdStorage_BucketIterator::*)()) &StdStorage_BucketIterator::Next, "None");
+	// cls_StdStorage_BucketIterator.def("Next", (void (StdStorage_BucketIterator::*)()) &StdStorage_BucketIterator::Next, "None");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdStorage_BacketOfPersistent.hxx
+	/* FIXME
 	py::class_<StdStorage_Bucket, std::unique_ptr<StdStorage_Bucket, Deleter<StdStorage_Bucket>>> cls_StdStorage_Bucket(mod, "StdStorage_Bucket", "None");
 	cls_StdStorage_Bucket.def(py::init<>());
 	cls_StdStorage_Bucket.def(py::init<const Standard_Integer>(), py::arg("theSpaceSize"));
 	cls_StdStorage_Bucket.def("Clear", (void (StdStorage_Bucket::*)()) &StdStorage_Bucket::Clear, "None");
+	*/
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\StdStorage_HeaderData.hxx
 	py::class_<StdStorage_HeaderData, opencascade::handle<StdStorage_HeaderData>, Standard_Transient> cls_StdStorage_HeaderData(mod, "StdStorage_HeaderData", "Storage header data section that contains some auxiliary information (application name, schema version, creation date, comments and so on...)");
