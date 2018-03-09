@@ -53,7 +53,7 @@ PYBIND11_MODULE(TopClass, mod) {
 	cls_TopClass_Intersection3d.def("IsDone", (Standard_Boolean (TopClass_Intersection3d::*)() const ) &TopClass_Intersection3d::IsDone, "True is returned when the intersection have been computed.");
 	cls_TopClass_Intersection3d.def("HasAPoint", (Standard_Boolean (TopClass_Intersection3d::*)() const ) &TopClass_Intersection3d::HasAPoint, "True is returned if a point has been found.");
 	cls_TopClass_Intersection3d.def("Point", (const IntCurveSurface_IntersectionPoint & (TopClass_Intersection3d::*)() const ) &TopClass_Intersection3d::Point, "Returns the Intersection Point.");
-	cls_TopClass_Intersection3d.def("State", (TopAbs_State (TopClass_Intersection3d::*)() const ) &TopClass_Intersection3d::State, "Returns the state of the point on the face. The values can be either TopAbs_IN ( the point is in the face) or TopAbs_ON ( the point is on a boudary of the face).");
+	cls_TopClass_Intersection3d.def("State", (TopAbs_State (TopClass_Intersection3d::*)() const ) &TopClass_Intersection3d::State, "Returns the state of the point on the face. The values can be either TopAbs_IN ( the point is in the face) or TopAbs_ON ( the point is on a boundary of the face).");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TopClass_SolidExplorer.hxx
 	py::class_<TopClass_SolidExplorer, std::unique_ptr<TopClass_SolidExplorer, Deleter<TopClass_SolidExplorer>>> cls_TopClass_SolidExplorer(mod, "TopClass_SolidExplorer", "Provide an exploration of a BRep Shape for the classification. Defines the description of a solid for the SolidClassifier.");

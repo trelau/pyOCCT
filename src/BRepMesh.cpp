@@ -190,7 +190,7 @@ PYBIND11_MODULE(BRepMesh, mod) {
 	cls_BRepMesh_PairOfIndex.def("Append", (void (BRepMesh_PairOfIndex::*)(const Standard_Integer)) &BRepMesh_PairOfIndex::Append, "Appends index to the pair.", py::arg("theIndex"));
 	cls_BRepMesh_PairOfIndex.def("Prepend", (void (BRepMesh_PairOfIndex::*)(const Standard_Integer)) &BRepMesh_PairOfIndex::Prepend, "Prepends index to the pair.", py::arg("theIndex"));
 	cls_BRepMesh_PairOfIndex.def("IsEmpty", (Standard_Boolean (BRepMesh_PairOfIndex::*)() const ) &BRepMesh_PairOfIndex::IsEmpty, "Returns is pair is empty.");
-	cls_BRepMesh_PairOfIndex.def("Extent", (Standard_Integer (BRepMesh_PairOfIndex::*)() const ) &BRepMesh_PairOfIndex::Extent, "Returns number of initialized indeces.");
+	cls_BRepMesh_PairOfIndex.def("Extent", (Standard_Integer (BRepMesh_PairOfIndex::*)() const ) &BRepMesh_PairOfIndex::Extent, "Returns number of initialized indices.");
 	cls_BRepMesh_PairOfIndex.def("FirstIndex", (Standard_Integer (BRepMesh_PairOfIndex::*)() const ) &BRepMesh_PairOfIndex::FirstIndex, "Returns first index of pair.");
 	cls_BRepMesh_PairOfIndex.def("LastIndex", (Standard_Integer (BRepMesh_PairOfIndex::*)() const ) &BRepMesh_PairOfIndex::LastIndex, "Returns last index of pair");
 	cls_BRepMesh_PairOfIndex.def("Index", (Standard_Integer (BRepMesh_PairOfIndex::*)(const Standard_Integer) const ) &BRepMesh_PairOfIndex::Index, "Returns index corresponding to the given position in the pair.", py::arg("thePairPos"));

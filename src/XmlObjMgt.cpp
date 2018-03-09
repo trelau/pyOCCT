@@ -75,7 +75,7 @@ PYBIND11_MODULE(XmlObjMgt, mod) {
 	cls_XmlObjMgt_GP.def_static("Translate_", (Standard_Boolean (*)(const XmlObjMgt_DOMString &, gp_XYZ &)) &XmlObjMgt_GP::Translate, "None", py::arg("aStr"), py::arg("T"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\XmlObjMgt_Array1.hxx
-	py::class_<XmlObjMgt_Array1, std::unique_ptr<XmlObjMgt_Array1, Deleter<XmlObjMgt_Array1>>> cls_XmlObjMgt_Array1(mod, "XmlObjMgt_Array1", "The class Array1 represents unidimensionnal array of fixed size known at run time. The range of the index is user defined. Warning: Programs clients of such class must be independant of the range of the first element. Then, a C++ for loop must be written like this for (i = A->Lower(); i <= A->Upper(); i++)");
+	py::class_<XmlObjMgt_Array1, std::unique_ptr<XmlObjMgt_Array1, Deleter<XmlObjMgt_Array1>>> cls_XmlObjMgt_Array1(mod, "XmlObjMgt_Array1", "The class Array1 represents unidimensionnal array of fixed size known at run time. The range of the index is user defined. Warning: Programs clients of such class must be independent of the range of the first element. Then, a C++ for loop must be written like this for (i = A->Lower(); i <= A->Upper(); i++)");
 	cls_XmlObjMgt_Array1.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("Low"), py::arg("Up"));
 	cls_XmlObjMgt_Array1.def(py::init<const XmlObjMgt_Element &, const XmlObjMgt_DOMString &>(), py::arg("theParent"), py::arg("theName"));
 	cls_XmlObjMgt_Array1.def("CreateArrayElement", (void (XmlObjMgt_Array1::*)(XmlObjMgt_Element &, const XmlObjMgt_DOMString &)) &XmlObjMgt_Array1::CreateArrayElement, "Create DOM_Element representing the array, under 'theParent'", py::arg("theParent"), py::arg("theName"));

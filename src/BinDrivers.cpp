@@ -66,7 +66,7 @@ PYBIND11_MODULE(BinDrivers, mod) {
 
 	// CLASSES
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BinDrivers_DocumentStorageDriver.hxx
-	py::class_<BinDrivers_DocumentStorageDriver, opencascade::handle<BinDrivers_DocumentStorageDriver>, BinLDrivers_DocumentStorageDriver> cls_BinDrivers_DocumentStorageDriver(mod, "BinDrivers_DocumentStorageDriver", "persistent implemention of storage a document in a binary file");
+	py::class_<BinDrivers_DocumentStorageDriver, opencascade::handle<BinDrivers_DocumentStorageDriver>, BinLDrivers_DocumentStorageDriver> cls_BinDrivers_DocumentStorageDriver(mod, "BinDrivers_DocumentStorageDriver", "persistent implementation of storing a document in a binary file");
 	cls_BinDrivers_DocumentStorageDriver.def(py::init<>());
 	cls_BinDrivers_DocumentStorageDriver.def("AttributeDrivers", (opencascade::handle<BinMDF_ADriverTable> (BinDrivers_DocumentStorageDriver::*)(const opencascade::handle<CDM_MessageDriver> &)) &BinDrivers_DocumentStorageDriver::AttributeDrivers, "None", py::arg("theMsgDriver"));
 	cls_BinDrivers_DocumentStorageDriver.def("WriteShapeSection", (void (BinDrivers_DocumentStorageDriver::*)(BinLDrivers_DocumentSection &, Standard_OStream &)) &BinDrivers_DocumentStorageDriver::WriteShapeSection, "implements the procedure of writing a shape section to file", py::arg("theDocSection"), py::arg("theOS"));

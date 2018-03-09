@@ -208,7 +208,7 @@ PYBIND11_MODULE(BRepAlgo, mod) {
 	cls_BRepAlgo_FaceRestrictor.def(py::init<>());
 	cls_BRepAlgo_FaceRestrictor.def("Init", [](BRepAlgo_FaceRestrictor &self, const TopoDS_Face & a0) -> void { return self.Init(a0); }, py::arg("F"));
 	cls_BRepAlgo_FaceRestrictor.def("Init", [](BRepAlgo_FaceRestrictor &self, const TopoDS_Face & a0, const Standard_Boolean a1) -> void { return self.Init(a0, a1); }, py::arg("F"), py::arg("Proj"));
-	cls_BRepAlgo_FaceRestrictor.def("Init", (void (BRepAlgo_FaceRestrictor::*)(const TopoDS_Face &, const Standard_Boolean, const Standard_Boolean)) &BRepAlgo_FaceRestrictor::Init, "the surface of <F> will be the the surface of each new faces built. <Proj> is used to update pcurves on edges if necessary. See Add().", py::arg("F"), py::arg("Proj"), py::arg("ControlOrientation"));
+	cls_BRepAlgo_FaceRestrictor.def("Init", (void (BRepAlgo_FaceRestrictor::*)(const TopoDS_Face &, const Standard_Boolean, const Standard_Boolean)) &BRepAlgo_FaceRestrictor::Init, "the surface of <F> will be the surface of each new faces built. <Proj> is used to update pcurves on edges if necessary. See Add().", py::arg("F"), py::arg("Proj"), py::arg("ControlOrientation"));
 	cls_BRepAlgo_FaceRestrictor.def("Add", (void (BRepAlgo_FaceRestrictor::*)(TopoDS_Wire &)) &BRepAlgo_FaceRestrictor::Add, "Add the wire <W> to the set of wires.", py::arg("W"));
 	cls_BRepAlgo_FaceRestrictor.def("Clear", (void (BRepAlgo_FaceRestrictor::*)()) &BRepAlgo_FaceRestrictor::Clear, "Removes all the Wires");
 	cls_BRepAlgo_FaceRestrictor.def("Perform", (void (BRepAlgo_FaceRestrictor::*)()) &BRepAlgo_FaceRestrictor::Perform, "Evaluate all the faces limited by the set of Wires.");

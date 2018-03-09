@@ -166,7 +166,7 @@ PYBIND11_MODULE(TPrsStd, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TPrsStd_AxisDriver.hxx
 	py::class_<TPrsStd_AxisDriver, opencascade::handle<TPrsStd_AxisDriver>, TPrsStd_Driver> cls_TPrsStd_AxisDriver(mod, "TPrsStd_AxisDriver", "An implementation of TPrsStd_Driver for axes.");
 	cls_TPrsStd_AxisDriver.def(py::init<>());
-	cls_TPrsStd_AxisDriver.def("Update", (Standard_Boolean (TPrsStd_AxisDriver::*)(const TDF_Label &, opencascade::handle<AIS_InteractiveObject> &)) &TPrsStd_AxisDriver::Update, "Build the AISObject (if null) or update it. No compute is done. Returns <True> if informations was found and AISObject updated.", py::arg("aLabel"), py::arg("anAISObject"));
+	cls_TPrsStd_AxisDriver.def("Update", (Standard_Boolean (TPrsStd_AxisDriver::*)(const TDF_Label &, opencascade::handle<AIS_InteractiveObject> &)) &TPrsStd_AxisDriver::Update, "Build the AISObject (if null) or update it. No compute is done. Returns <True> if information was found and AISObject updated.", py::arg("aLabel"), py::arg("anAISObject"));
 	cls_TPrsStd_AxisDriver.def_static("get_type_name_", (const char * (*)()) &TPrsStd_AxisDriver::get_type_name, "None");
 	cls_TPrsStd_AxisDriver.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TPrsStd_AxisDriver::get_type_descriptor, "None");
 	cls_TPrsStd_AxisDriver.def("DynamicType", (const opencascade::handle<Standard_Type> & (TPrsStd_AxisDriver::*)() const ) &TPrsStd_AxisDriver::DynamicType, "None");
@@ -174,7 +174,7 @@ PYBIND11_MODULE(TPrsStd, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TPrsStd_ConstraintDriver.hxx
 	py::class_<TPrsStd_ConstraintDriver, opencascade::handle<TPrsStd_ConstraintDriver>, TPrsStd_Driver> cls_TPrsStd_ConstraintDriver(mod, "TPrsStd_ConstraintDriver", "An implementation of TPrsStd_Driver for constraints.");
 	cls_TPrsStd_ConstraintDriver.def(py::init<>());
-	cls_TPrsStd_ConstraintDriver.def("Update", (Standard_Boolean (TPrsStd_ConstraintDriver::*)(const TDF_Label &, opencascade::handle<AIS_InteractiveObject> &)) &TPrsStd_ConstraintDriver::Update, "Build the AISObject (if null) or update it. No compute is done. Returns <True> if informations was found and AISObject updated.", py::arg("aLabel"), py::arg("anAISObject"));
+	cls_TPrsStd_ConstraintDriver.def("Update", (Standard_Boolean (TPrsStd_ConstraintDriver::*)(const TDF_Label &, opencascade::handle<AIS_InteractiveObject> &)) &TPrsStd_ConstraintDriver::Update, "Build the AISObject (if null) or update it. No compute is done. Returns <True> if information was found and AISObject updated.", py::arg("aLabel"), py::arg("anAISObject"));
 	cls_TPrsStd_ConstraintDriver.def_static("get_type_name_", (const char * (*)()) &TPrsStd_ConstraintDriver::get_type_name, "None");
 	cls_TPrsStd_ConstraintDriver.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TPrsStd_ConstraintDriver::get_type_descriptor, "None");
 	cls_TPrsStd_ConstraintDriver.def("DynamicType", (const opencascade::handle<Standard_Type> & (TPrsStd_ConstraintDriver::*)() const ) &TPrsStd_ConstraintDriver::DynamicType, "None");
@@ -222,7 +222,7 @@ PYBIND11_MODULE(TPrsStd, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TPrsStd_GeometryDriver.hxx
 	py::class_<TPrsStd_GeometryDriver, opencascade::handle<TPrsStd_GeometryDriver>, TPrsStd_Driver> cls_TPrsStd_GeometryDriver(mod, "TPrsStd_GeometryDriver", "This method is an implementation of TPrsStd_Driver for geometries.");
 	cls_TPrsStd_GeometryDriver.def(py::init<>());
-	cls_TPrsStd_GeometryDriver.def("Update", (Standard_Boolean (TPrsStd_GeometryDriver::*)(const TDF_Label &, opencascade::handle<AIS_InteractiveObject> &)) &TPrsStd_GeometryDriver::Update, "Build the AISObject (if null) or update it. No compute is done. Returns <True> if informations was found and AISObject updated.", py::arg("aLabel"), py::arg("anAISObject"));
+	cls_TPrsStd_GeometryDriver.def("Update", (Standard_Boolean (TPrsStd_GeometryDriver::*)(const TDF_Label &, opencascade::handle<AIS_InteractiveObject> &)) &TPrsStd_GeometryDriver::Update, "Build the AISObject (if null) or update it. No compute is done. Returns <True> if information was found and AISObject updated.", py::arg("aLabel"), py::arg("anAISObject"));
 	cls_TPrsStd_GeometryDriver.def_static("get_type_name_", (const char * (*)()) &TPrsStd_GeometryDriver::get_type_name, "None");
 	cls_TPrsStd_GeometryDriver.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TPrsStd_GeometryDriver::get_type_descriptor, "None");
 	cls_TPrsStd_GeometryDriver.def("DynamicType", (const opencascade::handle<Standard_Type> & (TPrsStd_GeometryDriver::*)() const ) &TPrsStd_GeometryDriver::DynamicType, "None");
@@ -230,7 +230,7 @@ PYBIND11_MODULE(TPrsStd, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TPrsStd_NamedShapeDriver.hxx
 	py::class_<TPrsStd_NamedShapeDriver, opencascade::handle<TPrsStd_NamedShapeDriver>, TPrsStd_Driver> cls_TPrsStd_NamedShapeDriver(mod, "TPrsStd_NamedShapeDriver", "An implementation of TPrsStd_Driver for named shapes.");
 	cls_TPrsStd_NamedShapeDriver.def(py::init<>());
-	cls_TPrsStd_NamedShapeDriver.def("Update", (Standard_Boolean (TPrsStd_NamedShapeDriver::*)(const TDF_Label &, opencascade::handle<AIS_InteractiveObject> &)) &TPrsStd_NamedShapeDriver::Update, "Build the AISObject (if null) or update it. No compute is done. Returns <True> if informations was found and AISObject updated.", py::arg("aLabel"), py::arg("anAISObject"));
+	cls_TPrsStd_NamedShapeDriver.def("Update", (Standard_Boolean (TPrsStd_NamedShapeDriver::*)(const TDF_Label &, opencascade::handle<AIS_InteractiveObject> &)) &TPrsStd_NamedShapeDriver::Update, "Build the AISObject (if null) or update it. No compute is done. Returns <True> if information was found and AISObject updated.", py::arg("aLabel"), py::arg("anAISObject"));
 	cls_TPrsStd_NamedShapeDriver.def_static("get_type_name_", (const char * (*)()) &TPrsStd_NamedShapeDriver::get_type_name, "None");
 	cls_TPrsStd_NamedShapeDriver.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TPrsStd_NamedShapeDriver::get_type_descriptor, "None");
 	cls_TPrsStd_NamedShapeDriver.def("DynamicType", (const opencascade::handle<Standard_Type> & (TPrsStd_NamedShapeDriver::*)() const ) &TPrsStd_NamedShapeDriver::DynamicType, "None");
@@ -238,7 +238,7 @@ PYBIND11_MODULE(TPrsStd, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TPrsStd_PlaneDriver.hxx
 	py::class_<TPrsStd_PlaneDriver, opencascade::handle<TPrsStd_PlaneDriver>, TPrsStd_Driver> cls_TPrsStd_PlaneDriver(mod, "TPrsStd_PlaneDriver", "An implementation of TPrsStd_Driver for planes.");
 	cls_TPrsStd_PlaneDriver.def(py::init<>());
-	cls_TPrsStd_PlaneDriver.def("Update", (Standard_Boolean (TPrsStd_PlaneDriver::*)(const TDF_Label &, opencascade::handle<AIS_InteractiveObject> &)) &TPrsStd_PlaneDriver::Update, "Build the AISObject (if null) or update it. No compute is done. Returns <True> if informations was found and AISObject updated.", py::arg("aLabel"), py::arg("anAISObject"));
+	cls_TPrsStd_PlaneDriver.def("Update", (Standard_Boolean (TPrsStd_PlaneDriver::*)(const TDF_Label &, opencascade::handle<AIS_InteractiveObject> &)) &TPrsStd_PlaneDriver::Update, "Build the AISObject (if null) or update it. No compute is done. Returns <True> if information was found and AISObject updated.", py::arg("aLabel"), py::arg("anAISObject"));
 	cls_TPrsStd_PlaneDriver.def_static("get_type_name_", (const char * (*)()) &TPrsStd_PlaneDriver::get_type_name, "None");
 	cls_TPrsStd_PlaneDriver.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TPrsStd_PlaneDriver::get_type_descriptor, "None");
 	cls_TPrsStd_PlaneDriver.def("DynamicType", (const opencascade::handle<Standard_Type> & (TPrsStd_PlaneDriver::*)() const ) &TPrsStd_PlaneDriver::DynamicType, "None");
@@ -246,7 +246,7 @@ PYBIND11_MODULE(TPrsStd, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\TPrsStd_PointDriver.hxx
 	py::class_<TPrsStd_PointDriver, opencascade::handle<TPrsStd_PointDriver>, TPrsStd_Driver> cls_TPrsStd_PointDriver(mod, "TPrsStd_PointDriver", "An implementation of TPrsStd_Driver for points.");
 	cls_TPrsStd_PointDriver.def(py::init<>());
-	cls_TPrsStd_PointDriver.def("Update", (Standard_Boolean (TPrsStd_PointDriver::*)(const TDF_Label &, opencascade::handle<AIS_InteractiveObject> &)) &TPrsStd_PointDriver::Update, "Build the AISObject (if null) or update it. No compute is done. Returns <True> if informations was found and AISObject updated.", py::arg("aLabel"), py::arg("anAISObject"));
+	cls_TPrsStd_PointDriver.def("Update", (Standard_Boolean (TPrsStd_PointDriver::*)(const TDF_Label &, opencascade::handle<AIS_InteractiveObject> &)) &TPrsStd_PointDriver::Update, "Build the AISObject (if null) or update it. No compute is done. Returns <True> if information was found and AISObject updated.", py::arg("aLabel"), py::arg("anAISObject"));
 	cls_TPrsStd_PointDriver.def_static("get_type_name_", (const char * (*)()) &TPrsStd_PointDriver::get_type_name, "None");
 	cls_TPrsStd_PointDriver.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TPrsStd_PointDriver::get_type_descriptor, "None");
 	cls_TPrsStd_PointDriver.def("DynamicType", (const opencascade::handle<Standard_Type> & (TPrsStd_PointDriver::*)() const ) &TPrsStd_PointDriver::DynamicType, "None");
