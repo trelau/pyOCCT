@@ -45,12 +45,6 @@ C++ counterpart. More resources will be available soon.
 * [Chat on Gitter](https://gitter.im/pyOCCT/Lobby)
 * [Submit issues](https://github.com/LaughlinResearch/pyOCCT/issues)
 
-# Getting Started
-Detailed build instructions and CI services will be available soon so check
-back for more information. Until then, users with access to a Windows 64-bit
-machine and Python 3.5 can use the prebuilt binaries already in the *OCCT*
-folder.
-
 ## Requirements
 The following tools and libraries should be available to build, install, or
 use pyOCCT. The links are meant to provide useful references or recommendations
@@ -80,19 +74,25 @@ Core components for pyOCCT:
 Supporting components are listed below along with what core component they
 support:
 
-* **Tk 8.5 (OpenCASCADE)**
+* **Freetype 2.8.1 (OpenCASCADE)**
 
-* **Freetype 2.7 (OpenCASCADE)**
+* **tbb 2018_20171205 (OpenCASCADE)**
 
-* **tbb 2018_20170919 (OpenCASCADE)**
-
-* **VTK 7.1.1 (SMESH)**
+* **VTK 8.1.0 (SMESH)**
 
 * **pthreads (SMESH)**
 
-## Using Prebuilt Binaries
-Prebuilt binaries for pyOCCT are provided for Windows 64-bit Python 3.5 in the
-*OCCT* folder. Anaconda Python is recommended for package management and since
+# Getting Started
+Detailed build instructions and CI services will be available soon so check
+back for more information. Until then, a
+[prebuilt Python wheel](http://bit.ly/2IcMtR5) is available for Windows 64-bit
+Python 3.5 to give users a quick start. This contains the Python bindings as
+well as all required dependencies including OCCT and VTK. This wheel can be
+installed using [pip](https://pypi.python.org/pypi/pip/):
+
+    pip install OCCT-0.0.1-cp35-none-win_amd64.whl
+
+Anaconda Python is recommended for package management and since
 many packages are available for some of the prerequisites.
 
 It is recommended that a designated environment be created and used for pyOCCT.
@@ -106,34 +106,15 @@ environment is active when using pyOCCT. For Anaconda Python, activating this
 environment may look like:
 
     activate occt
+    
+To support minimal visualization the PySide package is required and can be
+installed via conda by:
 
-within an Anaconda command prompt. At this point the prerequisites can be
-installed using specified channels on the Anaconda cloud:
-
-    conda install -c conda-forge occt=7.2.0
-
-This should automatically resolve all dependencies and install all the
-required packages for the OpenCASCADE binaries. Please note that 7.2.0 vc14
-is required and a later patch (7.2.0.1) that shows up on the conda-forge
-channel will result in package conflicts with the required version of VTK. For
-some users it has been a challenge to force install that exact version (a fix
-would be welcomed).
-
-The SMESH binaries depend on The Visualization Toolkit (VTK) and "pthreads" and
-can be installed with:
-
-    conda install -c conda-forge vtk=7.1.1 pthreads-win32=2.9.1
-
-pyOCCT can be installed using the command:
-
-    python setup.py install
-
-within the pyOCCT root folder. This will provide the "OCCT" package:
+    conda install -c conda-forge pyside=1.2.4
+    
+At this point the ``OCCT`` package should be available:
 
     from OCCT.TopoDS import TopoDS_Shape
-
-Binaries for SMESH and Netgen are already included in the prebuilt OCCT
-distribution.
 
 Navigate to the *examples* folder and run:
 
@@ -147,10 +128,6 @@ requirements are correctly installed.
 Installation files can be cleaned up by:
 
     conda clean -a
-    
-Please note that the prebuilt binaries will eventually be removed as CI
-services become available and the build process is better documented. They are
-only there now to provide a quick-start for users.
 
 # Help Wanted
 For now, contributions to the source code will be incorporated manually. There
