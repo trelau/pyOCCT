@@ -10,5 +10,6 @@ setup(
     author_email='info@laughlinresearch.com',
     description='Python bindings to OpenCASCADE.',
     license='LGPL v2.1',
-    platforms=['Windows']
+    platforms=['Windows'],
+    zip_safe=False
 )
