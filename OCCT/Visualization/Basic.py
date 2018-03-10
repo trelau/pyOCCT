@@ -176,7 +176,6 @@ class BasicViewer(wx.Frame):
         self._my_viewer = None
         self.Destroy()
         self._app.ExitMainLoop()
-        exit(0)
 
     def _continue(self, *args):
         self._app.ExitMainLoop()
