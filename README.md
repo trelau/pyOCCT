@@ -84,11 +84,10 @@ support:
 
 # Getting Started
 Detailed build instructions and CI services will be available soon so check
-back for more information. Until then, a
-[prebuilt Python wheel](http://bit.ly/2IcMtR5) is available for Windows 64-bit
-Python 3.5 to give users a quick start. This contains the Python bindings as
-well as all required dependencies including OCCT and VTK. This wheel can be
-installed using [pip](https://pypi.python.org/pypi/pip/):
+back for more information. Until then, a prebuilt Python wheel is available for
+Windows 64-bit Python 3.5 to give users a quick start. This contains the Python
+bindings as well as all required dependencies including OCCT and VTK. This
+wheel can be installed using [pip](https://pypi.python.org/pypi/pip/):
 
     pip install OCCT-0.0.1-cp35-none-win_amd64.whl
 
