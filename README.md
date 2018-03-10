@@ -83,14 +83,6 @@ support:
 * **pthreads (SMESH)**
 
 # Getting Started
-Detailed build instructions and CI services will be available soon so check
-back for more information. Until then, a prebuilt Python wheel is available for
-Windows 64-bit Python 3.5 to give users a quick start. This contains the Python
-bindings as well as all required dependencies including OCCT and VTK. This
-wheel can be installed using [pip](https://pypi.python.org/pypi/pip/):
-
-    pip install OCCT-0.0.1-cp35-none-win_amd64.whl
-
 Anaconda Python is recommended for package management and since
 many packages are available for some of the prerequisites. It is recommended
 that a designated environment be created and used for pyOCCT. An example of
@@ -104,6 +96,14 @@ environment is active when using pyOCCT. For Anaconda Python, activating this
 environment may look like:
 
     activate occt
+
+Detailed build instructions and CI services will be available soon so check
+back for more information. Until then, a prebuilt Python wheel is available for
+Windows 64-bit Python 3.5 to give users a quick start. This contains the Python
+bindings as well as all required dependencies including OCCT and VTK. This
+wheel can be installed using [pip](https://pypi.python.org/pypi/pip/):
+
+    pip install OCCT-0.0.1-cp35-none-win_amd64.whl
     
 To support minimal visualization the wxPython package is required and can be
 installed via conda by:
