@@ -61,6 +61,11 @@ class BasicViewer(wx.Frame):
         super(BasicViewer, self).__init__(None, title='pyOCCT',
                                           size=(width, height))
 
+        self._init()
+        self.Center()
+
+    def _init(self):
+
         # Icon
         ico = wx.Icon(_icon, wx.BITMAP_TYPE_PNG)
         self.SetIcon(ico)
@@ -131,6 +136,8 @@ class BasicViewer(wx.Frame):
             self._my_view.SetProj(V3d_TypeOfOrientation.V3d_XposYposZpos)
         elif e.GetKeyCode() == ord('t'):
             self._my_view.SetProj(V3d_TypeOfOrientation.V3d_Zpos)
+        elif e.GetKeyCode() == ord('c'):
+            self._continue()
         else:
             print('Key is not mapped to anything.')
 
@@ -162,12 +169,16 @@ class BasicViewer(wx.Frame):
             self._my_view.Pan(dx, -dy)
 
     def _evt_close(self, *args):
-        # self.clear()
-        # self._my_drawer = None
-        # self._my_context = None
-        # self._my_view = None
-        # self._my_viewer = None
-        # self.Destroy()
+        self.clear()
+        self._my_drawer = None
+        self._my_context = None
+        self._my_view = None
+        self._my_viewer = None
+        self.Destroy()
+        self._app.ExitMainLoop()
+        exit(0)
+
+    def _continue(self, *args):
         self._app.ExitMainLoop()
 
     def fit(self):
