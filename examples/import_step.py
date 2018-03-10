@@ -19,10 +19,10 @@
 from OCCT.Graphic3d import Graphic3d_NOM_ALUMINIUM
 
 from OCCT.Exchange import ExchangeBasic
-from OCCT.Visualization import Viewer
+from OCCT.Visualization import BasicViewer
 
 shape = ExchangeBasic.read_step('./models/compressor.step')
 
-v = Viewer()
-v.display(shape, rgb=(0.5, 0.5, 0.5), material=Graphic3d_NOM_ALUMINIUM)
+v = BasicViewer()
+v.display_shape(shape, rgb=(0.5, 0.5, 0.5), material=Graphic3d_NOM_ALUMINIUM)
 v.start()

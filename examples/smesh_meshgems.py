@@ -23,7 +23,7 @@ from OCCT.BLSURFPlugin import BLSURFPlugin_BLSURF, BLSURFPlugin_Hypothesis
 from OCCT.SMESH import SMESH_Gen, SMESH_Mesh
 
 from OCCT.Exchange import ExchangeBasic
-from OCCT.Visualization import Viewer
+from OCCT.Visualization import BasicViewer
 
 # fn = './models/lhs_wing.brep'
 # fn = './models/wingbox.brep'
@@ -53,6 +53,6 @@ start = time.time()
 done = gen.Compute(mesh, mesh.GetShapeToMesh())
 print('done in ', time.time() - start, ' seconds.')
 
-v = Viewer()
+v = BasicViewer()
 v.add(mesh)
 v.start()

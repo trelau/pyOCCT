@@ -63,12 +63,12 @@ Core components for pyOCCT:
 
 * **OpenCASCADE 7.2.0 (Required)**: Available from [OPEN CASCADE SAS](https://www.opencascade.com/content/latest-release)
   or [conda-forge](https://anaconda.org/conda-forge/occt).
+  
+* **wxPython (Required)**: To support minimal visualization in Python.
 
 * **SMESH 8.3.0 (Optional)**: Standalone version [here](https://github.com/LaughlinResearch/SMESH).
 
 * **Netgen 6.2 (Optional)**: Special SMESH version [here](https://github.com/LaughlinResearch/netgen4smesh).
-
-* **PySide 1.2.4 (Optional)**: To support minimal visualization in Python.
 
 ### Supporting
 Supporting components are listed below along with what core component they
@@ -93,11 +93,10 @@ installed using [pip](https://pypi.python.org/pypi/pip/):
     pip install OCCT-0.0.1-cp35-none-win_amd64.whl
 
 Anaconda Python is recommended for package management and since
-many packages are available for some of the prerequisites.
-
-It is recommended that a designated environment be created and used for pyOCCT.
-An example of creating this environment for Anaconda Python within an Anaconda
-command prompt is:
+many packages are available for some of the prerequisites. It is recommended
+that a designated environment be created and used for pyOCCT. An example of
+creating this environment for Anaconda Python within an Anaconda command prompt
+is:
 
     conda create -n occt python=3.5
 
@@ -107,16 +106,16 @@ environment may look like:
 
     activate occt
     
-To support minimal visualization the PySide package is required and can be
+To support minimal visualization the wxPython package is required and can be
 installed via conda by:
 
-    conda install -c conda-forge pyside=1.2.4
+    conda install -c conda-forge wxpython
     
 At this point the ``OCCT`` package should be available:
 
     from OCCT.TopoDS import TopoDS_Shape
 
-Navigate to the *examples* folder and run:
+Navigate to the *examples/* folder and run:
 
     python import_step.py
     
@@ -131,34 +130,20 @@ Installation files can be cleaned up by:
 
 # Help Wanted
 For now, contributions to the source code will be incorporated manually. There
-is a (mostly) automated tool for generating the source but it needs some
-attention before being made publicly available. As new versions of OpenCASCADE
-are released, it may be better to just patch up the existing bindings rather
-than rerun the binding generation tool anyway. The automated process still
-requires a handful of manual patches to capture edge cases. Although, if the
-header files of new OpenCASCADE releases are significantly different or there
-is an architectural change in pyOCCT, it makes sense to use the automated tool.
-The automated tool will eventually be released, and improvements can be made
-that hopefully automated the process entirely.
+is a (mostly) automated tool for generating the source but it is not yet
+available. As new versions of OpenCASCADE are released, it may be better to
+patch up the existing bindings rather than rerun the binding generation tool.
+The automated process still requires a handful of manual patches to capture
+edge cases. Although, if the header files of new OpenCASCADE releases are
+significantly different or there is an architectural change in pyOCCT, it makes
+sense to use the automated tool.
 
 In addition to the items in the
 [Design Considerations](http://pyocct.readthedocs.io/en/latest/dev.html#design-considerations)
 section in the documentation, some areas that could use contributor support:
 
-* Improve robustness of CMake build process and add support for targeting other
-  platforms and architectures
-* Leverage CI platforms like AppVeyor and Travis-CI
-* Support for building and deploying Conda packages
+* Cross-platform support
+* Leverage CI tools like AppVeyor and Travis-CI
+* Conda packages
 * Tests, examples, and benchmarks
-* Fix conda-forge OCCT version issue described in installation instructions
-* There are a number of *unresolved externals* that show up during the build
-  process but are ignored. In some cases, this is due to the OCCT header files
-  providing an interface but there is no implementation in the source. A better
-  way to handle this could be useful.
-* The source code generation tool will comment out known issues and usually add
-  a `// FIXME` line to something that is causing compilation problems. Figuring
-  out what the root issue is would be helpful.
 * Better exception handling
-* The example visualization tool in ``OCCT.Visualization`` could use review.
-  When the program terminates an error message is reported from OpenCASCADE
-  but the root issue has not been resolved.

@@ -101,23 +101,22 @@ be imported as:
 
 .. code-block:: python
 
-    from OCCT.Visualization import Viewer
+    from OCCT.Visualization import BasicViewer
 
-    v = Viewer()
+    v = BasicViewer()
     v.add(*args)
     v.start()
 
-where ``*args`` is a number of ``TopoDS_Shape`` entities to display. This is
-intended to provide only a minimum capability to display shapes to the screen.
-Examine the source further for other methods and properties.
+This is intended to provide only a minimum capability to display shapes to the
+screen. Examine the source further for other methods and properties.
 
 The following tools are available:
 
 .. table:: OCCT.Visualization tools.
    :widths: auto
 
-   ========== =================================================================
-   Name       Description
-   ========== =================================================================
-   ``Viewer`` Basic shape viewer.
-   ========== =================================================================
+   =============== ============================================================
+   Name            Description
+   =============== ============================================================
+   ``BasicViewer`` Basic viewing tool for shapes, geometry, and meshes.
+   =============== ============================================================

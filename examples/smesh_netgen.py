@@ -21,7 +21,7 @@ from OCCT.NETGENPlugin import (NETGENPlugin_Hypothesis_2D,
 from OCCT.SMESH import SMESH_Gen, SMESH_Mesh
 
 from OCCT.Exchange import ExchangeBasic
-from OCCT.Visualization import Viewer
+from OCCT.Visualization import BasicViewer
 
 fn = './models/wing_body.brep'
 shape = ExchangeBasic.read_brep(fn)
@@ -45,9 +45,9 @@ mesh.AddHypothesis(mesh.GetShapeToMesh(), 1)
 
 print('Computing mesh...')
 done = gen.Compute(mesh, mesh.GetShapeToMesh())
-assert bool
+assert done
 print('done.')
 
-v = Viewer()
+v = BasicViewer()
 v.add(mesh)
 v.start()

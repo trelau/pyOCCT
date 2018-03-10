@@ -16,163 +16,159 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+import ctypes
 import os
-import warnings
 
-from OCCT.AIS import AIS_InteractiveContext, AIS_Shaded, AIS_Shape
+import wx
+from OCCT.AIS import (AIS_InteractiveContext, AIS_Shape, AIS_Shaded,
+                      AIS_WireFrame)
 from OCCT.Aspect import Aspect_DisplayConnection, Aspect_TOTP_LEFT_LOWER
 from OCCT.BRepBuilderAPI import (BRepBuilderAPI_MakeVertex,
                                  BRepBuilderAPI_MakeEdge,
                                  BRepBuilderAPI_MakeFace)
 from OCCT.Geom import Geom_Curve, Geom_Surface
-from OCCT.Graphic3d import (Graphic3d_MaterialAspect, Graphic3d_NOM_DEFAULT)
+from OCCT.Graphic3d import Graphic3d_MaterialAspect
 from OCCT.MeshVS import (MeshVS_DA_DisplayNodes, MeshVS_DA_EdgeColor,
                          MeshVS_Mesh, MeshVS_MeshPrsBuilder)
 from OCCT.OpenGl import OpenGl_GraphicDriver
-from OCCT.Quantity import (Quantity_TOC_RGB, Quantity_NOC_WHITE,
-                           Quantity_Color,
-                           Quantity_NOC_BLACK)
+from OCCT.Quantity import *
+from OCCT.SMESH import SMESH_MeshVSLink, SMESH_Mesh, SMESH_subMesh
 from OCCT.TopoDS import TopoDS_Shape
 from OCCT.V3d import V3d_Viewer, V3d_TypeOfOrientation
 from OCCT.WNT import WNT_Window
 from OCCT.gp import gp_Pnt
 
-try:
-    from PySide import QtCore
-    from PySide.QtGui import QApplication, QPalette, QIcon, QMainWindow
-    from PySide.QtOpenGL import QGLWidget
+__all__ = ['BasicViewer']
 
-    has_pyside = True
-except ImportError:
-    has_pyside = False
-    msg = "PySide module was not found for visualization."
-    warnings.warn(msg, RuntimeWarning)
+ctypes.pythonapi.PyCapsule_New.restype = ctypes.py_object
+ctypes.pythonapi.PyCapsule_New.argtypes = [ctypes.c_int, ctypes.c_void_p,
+                                           ctypes.c_void_p]
 
-try:
-    from OCCT.SMESH import SMESH_MeshVSLink, SMESH_Mesh
-
-    has_smesh = True
-except ImportError:
-    has_smesh = False
-    msg = "SMESH module was not found for visualization."
-    warnings.warn(msg, RuntimeWarning)
-
-__all__ = ['Viewer']
+_icon = os.path.dirname(__file__) + '/_resources/icon.png'
 
 
-class View(QGLWidget):
+class BasicViewer(wx.Frame):
     """
-    View for displaying shapes.
+    Basic tool for viewing shapes.
 
-    :param PySide.QtGui.QWidget parent: The parent widget.
+    :param int height: Window height.
+    :param int width: Window width.
     """
 
-    def __init__(self, parent=None):
-        if not has_pyside:
-            raise ModuleNotFoundError("PySide was not found and is required.")
-        super(View, self).__init__(parent)
+    def __init__(self, width=800, height=600):
+        # Launch an app before initializing any wx types
+        self._app = wx.App()
+        super(BasicViewer, self).__init__(None, title='pyOCCT',
+                                          size=(width, height))
 
-        # Qt settings
-        self.setBackgroundRole(QPalette.NoRole)
-        self.setMouseTracking(True)
+        # Icon
+        ico = wx.Icon(_icon, wx.BITMAP_TYPE_PNG)
+        self.SetIcon(ico)
 
-        # Create viewer and view
-        self.my_viewer = None
-        self.my_view = None
-
-        # AIS interactive context
-        self.my_context = None
-
-        # Some default settings
-        self._white = Quantity_Color(Quantity_NOC_WHITE)
-        self._black = Quantity_Color(Quantity_NOC_BLACK)
-        self.my_drawer = None
-        self.graphic3d_cview = None
-
-        # Values for mouse movement
+        # Store some defaults
         self._x0, self._y0 = 0., 0.
+        self._black = Quantity_Color(Quantity_NOC_BLACK)
 
         # Display connection
-        self.display_connect = Aspect_DisplayConnection()
+        display_connect = Aspect_DisplayConnection()
 
         # Graphics driver
-        self._graphics_driver = OpenGl_GraphicDriver(self.display_connect)
+        graphics_driver = OpenGl_GraphicDriver(display_connect)
 
         # Window handle
-        self.window_handle = self.winId()
+        hwnd = self.GetHandle()
+        capsule = ctypes.pythonapi.PyCapsule_New(hwnd, None, None)
 
-        # Windows window
-        self.wind = WNT_Window(self.window_handle)
+        # WNT window
+        wind = WNT_Window(capsule)
 
         # Create viewer and view
-        self.my_viewer = V3d_Viewer(self._graphics_driver)
-        self.my_view = self.my_viewer.CreateView()
-        self.my_view.SetWindow(self.wind)
+        self._my_viewer = V3d_Viewer(graphics_driver)
+        self._my_view = self._my_viewer.CreateView()
+        self._my_view.SetWindow(wind)
 
         # Map window
-        if not self.wind.IsMapped():
-            self.wind.Map()
+        if not wind.IsMapped():
+            wind.Map()
 
         # AIS interactive context
-        self.my_context = AIS_InteractiveContext(self.my_viewer)
+        self._my_context = AIS_InteractiveContext(self._my_viewer)
 
-        # Some default settings
-        self._white = Quantity_Color(Quantity_NOC_WHITE)
-        self._black = Quantity_Color(Quantity_NOC_BLACK)
+        # Initial settings
+        self._my_viewer.SetDefaultLights()
+        self._my_viewer.SetLightOn()
+        self._my_view.SetBackgroundColor(Quantity_TOC_RGB, 0.5, 0.5, 0.5)
+        self._my_context.SetDisplayMode(AIS_Shaded, True)
+        self._my_drawer = self._my_context.DefaultDrawer()
+        self._my_drawer.SetFaceBoundaryDraw(True)
 
-        self.my_context.SetAutomaticHilight(True)
+        self._my_view.TriedronDisplay(Aspect_TOTP_LEFT_LOWER, self._black,
+                                      0.08)
+        self._my_view.SetProj(V3d_TypeOfOrientation.V3d_XposYposZpos)
 
-        self.my_viewer.SetDefaultLights()
-        self.my_viewer.SetLightOn()
+        # Events
+        self.Bind(wx.EVT_PAINT, self._evt_paint)
+        self.Bind(wx.EVT_SIZE, self._evt_size)
+        self.Bind(wx.EVT_CHAR, self._evt_char)
+        self.Bind(wx.EVT_CLOSE, self._evt_close)
+        self.Bind(wx.EVT_MOUSE_EVENTS, self._evt_mouse_events)
+        self.Bind(wx.EVT_MOUSEWHEEL, self._evt_mousewheel)
 
-        self.my_view.SetBackgroundColor(Quantity_TOC_RGB, 0.5, 0.5, 0.5)
-        self.my_view.MustBeResized()
+    def _evt_paint(self, *args):
+        self._my_view.Redraw()
 
-        self.my_context.SetDisplayMode(AIS_Shaded, True)
+    def _evt_size(self, *args):
+        self._my_view.MustBeResized()
 
-        self.my_drawer = self.my_context.DefaultDrawer()
-        self.my_drawer.SetFaceBoundaryDraw(True)
+    def _evt_char(self, e):
+        if e.GetKeyCode() == ord('f'):
+            self.fit()
+        elif e.GetKeyCode() == ord('s'):
+            self._my_context.SetDisplayMode(AIS_Shaded, True)
+        elif e.GetKeyCode() == ord('w'):
+            self._my_context.SetDisplayMode(AIS_WireFrame, True)
+        elif e.GetKeyCode() == ord('i'):
+            self._my_view.SetProj(V3d_TypeOfOrientation.V3d_XposYposZpos)
+        elif e.GetKeyCode() == ord('t'):
+            self._my_view.SetProj(V3d_TypeOfOrientation.V3d_Zpos)
+        else:
+            print('Key is not mapped to anything.')
 
-        self.my_view.TriedronDisplay(Aspect_TOTP_LEFT_LOWER, self._black, 0.08)
-        self.my_view.SetProj(V3d_TypeOfOrientation.V3d_XposYposZpos)
-
-        self.graphic3d_cview = self.my_view.View()
-
-        # Mesh display mode
-        self._mesh_mode = 1
-
-    def paintEvent(self, *args, **kwargs):
-        self.my_view.Redraw()
-
-    def resizeEvent(self, *args, **kwargs):
-        self.my_view.MustBeResized()
-
-    def wheelEvent(self, e):
-        if e.delta() > 0:
+    def _evt_mousewheel(self, e):
+        if e.GetWheelRotation() > 0:
             zoom = 1.5
         else:
             zoom = 0.75
-        self.my_view.SetZoom(zoom)
+        self._my_view.SetZoom(zoom)
 
-    def mousePressEvent(self, e):
-        pos = e.pos()
-        x, y = pos.x(), pos.y()
-        self._x0, self._y0 = x, y
-        self.my_view.StartRotation(x, y)
+    def _evt_mouse_events(self, e):
+        if e.Moving():
+            return None
 
-    def mouseMoveEvent(self, e):
-        pos = e.pos()
-        x, y = pos.x(), pos.y()
-        button = e.buttons()
+        pos = e.GetPosition()
+        x, y = pos.x, pos.y
 
-        # Rotate
-        if button == QtCore.Qt.LeftButton:
-            self.my_view.Rotation(x, y)
-        # Pan
-        elif button in [QtCore.Qt.MidButton, QtCore.Qt.RightButton]:
+        if e.LeftDown():
+            self._x0, self._y0 = x, y
+            self._my_view.StartRotation(x, y)
+        if e.RightDown():
+            self._x0, self._y0 = x, y
+
+        if e.LeftIsDown():
+            self._my_view.Rotation(x, y)
+        elif e.RightIsDown():
             dx, dy = x - self._x0, y - self._y0
             self._x0, self._y0 = x, y
-            self.my_view.Pan(dx, -dy)
+            self._my_view.Pan(dx, -dy)
+
+    def _evt_close(self, *args):
+        # self.clear()
+        # self._my_drawer = None
+        # self._my_context = None
+        # self._my_view = None
+        # self._my_viewer = None
+        # self.Destroy()
+        self._app.ExitMainLoop()
 
     def fit(self):
         """
@@ -180,11 +176,11 @@ class View(QGLWidget):
 
         :return: None.
         """
-        self.my_view.FitAll()
-        self.my_view.ZFitAll()
-        self.my_view.Redraw()
+        self._my_view.FitAll()
+        self._my_view.ZFitAll()
+        self._my_view.Redraw()
 
-    def display(self, ais_shape, update=True):
+    def display_ais(self, ais_shape, update=True):
         """
         Display an AIS_Shape.
 
@@ -193,16 +189,15 @@ class View(QGLWidget):
 
         :return: None.
         """
-        self.my_context.Display(ais_shape, update)
+        self._my_context.Display(ais_shape, update)
 
-    def display_shape(self, shape, rgb=None, transparency=None,
-                      material=Graphic3d_NOM_DEFAULT):
+    def display_shape(self, shape, rgb=None, transparency=None, material=None):
         """
         Display a shape.
 
         :param OCCT.TopoDS.TopoDS_Shape shape: The shape.
         :param rgb: The RGB color (r, g, b).
-        :type rgb: collections.Sequence[float] or OCCT.Quantity.Quantity_Color
+        :type rgb: collections.Sequence(float) or OCCT.Quantity.Quantity_Color
         :param float transparency: The transparency (0 to 1).
         :param OCCT.Graphic3d.Graphic3d_NameOfMaterial material: The material.
 
@@ -227,14 +222,14 @@ class View(QGLWidget):
         if transparency is not None:
             ais_shape.SetTransparency(transparency)
 
-        ma = Graphic3d_MaterialAspect(material)
-        ais_shape.SetMaterial(ma)
+        if material is not None:
+            ma = Graphic3d_MaterialAspect(material)
+            ais_shape.SetMaterial(ma)
 
-        self.my_context.Display(ais_shape, True)
+        self._my_context.Display(ais_shape, True)
         return ais_shape
 
-    def display_geom(self, geom, rgb=None, transparency=None,
-                     material=Graphic3d_NOM_DEFAULT):
+    def display_geom(self, geom, rgb=None, transparency=None, material=None):
         """
         Display a geometric entity.
 
@@ -242,7 +237,7 @@ class View(QGLWidget):
         :type geom: OCCT.gp.gp_Pnt or OCCT.Geom.Geom_Curve or
             OCCT.Geom.Geom_Surface
         :param rgb: The RGB color (r, g, b).
-        :type rgb: collections.Sequence[float] or OCCT.Quantity.Quantity_Color
+        :type rgb: collections.Sequence(float) or OCCT.Quantity.Quantity_Color
         :param float transparency: The transparency (0 to 1).
         :param OCCT.Graphic3d.Graphic3d_NameOfMaterial material: The material.
 
@@ -261,19 +256,17 @@ class View(QGLWidget):
 
         return self.display_shape(shape, rgb, transparency, material)
 
-    def display_mesh(self, mesh, mode=None):
+    def display_mesh(self, mesh, mode=2):
         """
         Display a mesh.
 
-        :param OCCT.SMESH.SMESH_Mesh mesh: The mesh.
+        :param mesh: The mesh.
+        :type mesh: OCCT.SMESH_SMESH_Mesh or OCCT.SMESH_SMESH_subMesh
         :param int mode: Display mode for mesh elements (1=wireframe, 2=solid).
 
         :return: The MeshVS_Mesh created for the mesh.
         :rtype: OCCT.MeshVS.MeshVS_Mesh
         """
-        if mode is None:
-            mode = self._mesh_mode
-
         vs_link = SMESH_MeshVSLink(mesh)
         mesh_vs = MeshVS_Mesh()
         mesh_vs.SetDataSource(vs_link)
@@ -283,10 +276,34 @@ class View(QGLWidget):
         mesh_vs_drawer.SetBoolean(MeshVS_DA_DisplayNodes, False)
         mesh_vs_drawer.SetColor(MeshVS_DA_EdgeColor, self._black)
         mesh_vs.SetDisplayMode(mode)
-        self.my_context.Display(mesh_vs, True)
+        self._my_context.Display(mesh_vs, True)
         return mesh_vs
 
-    def set_bg_color(self, r, g, b):
+    def add(self, entity, rgb=None, transparency=None, material=None, mode=2):
+        """
+        Add an entity to the view.
+
+        :param entity: The entity.
+        :param rgb: The RGB color (r, g, b).
+        :type rgb: collections.Sequence(float) or OCCT.Quantity.Quantity_Color
+        :param float transparency: The transparency (0 to 1).
+        :param OCCT.Graphic3d.Graphic3d_NameOfMaterial material: The material.
+        :param int mode: Display mode for mesh elements (1=wireframe, 2=solid).
+
+        :return: The AIS_Shape created for the entity. Returns *None* if the
+            entity cannot be converted to a shape.
+        :rtype: OCCT.AIS.AIS_Shape or None
+        """
+        if isinstance(entity, TopoDS_Shape):
+            return self.display_shape(entity, rgb, transparency, material)
+        elif isinstance(entity, (gp_Pnt, Geom_Curve, Geom_Surface)):
+            return self.display_geom(entity, rgb, transparency, material)
+        elif isinstance(entity, (SMESH_Mesh, SMESH_subMesh)):
+            return self.display_mesh(entity, mode)
+        else:
+            return None
+
+    def set_background_color(self, r, g, b):
         """
         Set the background color.
 
@@ -296,7 +313,7 @@ class View(QGLWidget):
 
         :return: None.
         """
-        self.my_view.SetBackgroundColor(Quantity_TOC_RGB, r, g, b)
+        self._my_view.SetBackgroundColor(Quantity_TOC_RGB, r, g, b)
 
     def set_white_background(self):
         """
@@ -304,23 +321,7 @@ class View(QGLWidget):
 
         :return: None.
         """
-        self.my_view.SetBackgroundColor(Quantity_TOC_RGB, 1., 1., 1.)
-
-    def set_mesh_wireframe(self):
-        """
-        Set the default mesh view to wireframe.
-
-        :return: None.
-        """
-        self._mesh_mode = 1
-
-    def set_mesh_shaded(self):
-        """
-        Set the default mesh view to shaded.
-
-        :return: None.
-        """
-        self._mesh_mode = 2
+        self._my_view.SetBackgroundColor(Quantity_TOC_RGB, 1., 1., 1.)
 
     def view_iso(self):
         """
@@ -328,7 +329,7 @@ class View(QGLWidget):
 
         :return: None.
         """
-        self.my_view.SetProj(V3d_TypeOfOrientation.V3d_XposYposZpos)
+        self._my_view.SetProj(V3d_TypeOfOrientation.V3d_XposYposZpos)
 
     def view_top(self):
         """
@@ -336,7 +337,7 @@ class View(QGLWidget):
 
         :return: None.
         """
-        self.my_view.SetProj(V3d_TypeOfOrientation.V3d_Zpos)
+        self._my_view.SetProj(V3d_TypeOfOrientation.V3d_Zpos)
 
     def view_bottom(self):
         """
@@ -344,7 +345,7 @@ class View(QGLWidget):
 
         :return: None.
         """
-        self.my_view.SetProj(V3d_TypeOfOrientation.V3d_Zneg)
+        self._my_view.SetProj(V3d_TypeOfOrientation.V3d_Zneg)
 
     def view_front(self):
         """
@@ -352,7 +353,7 @@ class View(QGLWidget):
 
         :return: None.
         """
-        self.my_view.SetProj(V3d_TypeOfOrientation.V3d_Xneg)
+        self._my_view.SetProj(V3d_TypeOfOrientation.V3d_Xneg)
 
     def view_rear(self):
         """
@@ -360,7 +361,7 @@ class View(QGLWidget):
 
         :return: None.
         """
-        self.my_view.SetProj(V3d_TypeOfOrientation.V3d_Xpos)
+        self._my_view.SetProj(V3d_TypeOfOrientation.V3d_Xpos)
 
     def view_left(self):
         """
@@ -368,7 +369,7 @@ class View(QGLWidget):
 
         :return: None.
         """
-        self.my_view.SetProj(V3d_TypeOfOrientation.V3d_Yneg)
+        self._my_view.SetProj(V3d_TypeOfOrientation.V3d_Yneg)
 
     def view_right(self):
         """
@@ -376,7 +377,7 @@ class View(QGLWidget):
 
         :return: None.
         """
-        self.my_view.SetProj(V3d_TypeOfOrientation.V3d_Ypos)
+        self._my_view.SetProj(V3d_TypeOfOrientation.V3d_Ypos)
 
     def capture(self, fn):
         """
@@ -387,127 +388,36 @@ class View(QGLWidget):
 
         :return: None.
         """
-        self.my_view.Dump(fn)
-
-    def remove_all(self):
-        """
-        Remove all items from the context.
-
-        :return: None.
-        """
-        self.my_context.RemoveAll(True)
-
-    def export_pdf(self, fn):
-        """
-        Export the screen contents to PDF.
-        :param str fn: The filename.
-
-        :return: None.
-        """
-        raise NotImplemented('Need gl2ps library.')
-
-
-class Viewer(QMainWindow):
-    """
-    Simple class for viewing items.
-
-    :param int width: Window width.
-    :param int height: Window height.
-    :param PySide.QtGui.QWidget parent: The parent widget.
-    """
-
-    def __init__(self, width=800, height=600, parent=None):
-        if not has_pyside:
-            raise ModuleNotFoundError("PySide was not found and is required.")
-        # Start app
-        self._app = QApplication.instance()
-        if self._app is None:
-            self._app = QApplication([])
-        super(Viewer, self).__init__(parent)
-
-        # Create the OCCT view
-        self._the_view = View(self)
-        self.setCentralWidget(self._the_view)
-
-        # Window settings
-        self.setWindowTitle('pyOCCT')
-        _icon = os.path.dirname(__file__) + '/_resources/icon.png'
-        _qicon = QIcon(_icon)
-        self.setWindowIcon(_qicon)
-        self.resize(width, height)
-
-    @property
-    def view(self):
-        return self._the_view
-
-    def keyPressEvent(self, e):
-        if e.key() == ord('F'):
-            self.view.fit()
-        elif e.key() == ord('I'):
-            self.view.view_iso()
-        elif e.key() == ord('T'):
-            self.view.view_top()
-        else:
-            print('Key is not mapped to anything.')
-
-    def display(self, shape, rgb=None, transparency=None,
-                material=Graphic3d_NOM_DEFAULT):
-        """
-        Display a shape.
-
-        :param OCCT.TopoDS.TopoDS_Shape shape: The shape.
-        :param rgb: The RGB color (r, g, b).
-        :type rgb: collections.Sequence[float] or OCCT.Quantity.Quantity_Color
-        :param float transparency: The transparency (0 to 1).
-        :param OCCT.Graphic3d.Graphic3d_NameOfMaterial material: The material.
-
-        :return: The AIS_Shape created for the part.
-        :rtype: OCCT.AIS.AIS_Shape
-        """
-        return self.view.display_shape(shape, rgb, transparency, material)
-
-    def add(self, entity, rgb=None, transparency=None,
-            material=Graphic3d_NOM_DEFAULT, mode=None):
-        """
-        Add an entity to the view.
-
-        :param entity: The entity.
-        :param rgb: The RGB color (r, g, b).
-        :type rgb: collections.Sequence[float] or OCCT.Quantity.Quantity_Color
-        :param float transparency: The transparency (0 to 1).
-        :param OCCT.Graphic3d.Graphic3d_NameOfMaterial material: The material.
-        :param int mode: Display mode for mesh elements (1=wireframe, 2=solid).
-
-        :return: The AIS_Shape created for the entity. Returns *None* if the
-            entity cannot be converted to a shape.
-        :rtype: OCCT.AIS.AIS_Shape or None
-        """
-        if isinstance(entity, TopoDS_Shape):
-            return self.view.display_shape(entity, rgb, transparency, material)
-        elif isinstance(entity, (gp_Pnt, Geom_Curve, Geom_Surface)):
-            return self.view.display_geom(entity, rgb, transparency, material)
-        elif isinstance(entity, SMESH_Mesh):
-            return self.view.display_mesh(entity, mode)
-        else:
-            return None
+        self._my_view.Dump(fn)
 
     def clear(self):
         """
-        Clear contents of the view.
+        Clear all items from the context.
 
         :return: None.
         """
-        self.view.remove_all()
+        self._my_context.RemoveAll(True)
+
+    def show(self, show=True):
+        """
+        Show or hide the window.
+
+        :param bool show: Option to show or hide.
+
+        :return: None.
+        """
+        self.Show(show)
 
     def start(self, fit=True):
         """
-        Start the viewer.
+        Start the application.
 
         :param bool fit: Option to fit contents.
 
-        :return: None.
+        :return: None
         """
         if fit:
-            self.view.fit()
+            self.fit()
         self.show()
-        self._app.exec_()
+        self.fit()
+        self._app.MainLoop()

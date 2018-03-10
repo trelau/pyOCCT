@@ -21,7 +21,7 @@ import time
 
 from OCCT.Boolean import FuseShapes
 from OCCT.Exchange import ImportVSP
-from OCCT.Visualization import Viewer
+from OCCT.Visualization import BasicViewer
 
 # Select version of OpenVSP used to export the model. Versions greater than
 # 3.5.0 seem to decrease OpenCASCADE performance. Surface parameterization was
@@ -30,12 +30,12 @@ fn = './models/F-16_OpenVSP3.5.0.stp'
 # fn = './models/F-16_OpenVSP3.15.0.stp'
 vsp = ImportVSP(fn)
 
-v = Viewer()
+v = BasicViewer()
 for s in vsp.solids:
     r = random.randint(0, 256)
     g = random.randint(0, 256)
     b = random.randint(0, 256)
-    v.display(s, (r, g, b))
+    v.display_shape(s, (r, g, b))
 v.start()
 v.clear()
 
@@ -53,5 +53,5 @@ start = time.time()
 fuse.build()
 print('Complete in ', time.time() - start, ' seconds.')
 
-v.display(fuse.shape, (0.5, 0.5, 0.5), transparency=0.5)
+v.display_shape(fuse.shape, (0.5, 0.5, 0.5), transparency=0.5)
 v.start()
