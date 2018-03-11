@@ -915,8 +915,8 @@ PYBIND11_MODULE(AIS, mod) {
 	cls_AIS_LocalContext.def("SelectionModes", (const TColStd_ListOfInteger & (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &) const ) &AIS_LocalContext::SelectionModes, "None", py::arg("anObject"));
 	cls_AIS_LocalContext.def("SubIntensityOn", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_LocalContext::SubIntensityOn, "None", py::arg("anObject"));
 	cls_AIS_LocalContext.def("SubIntensityOff", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_LocalContext::SubIntensityOff, "None", py::arg("anObject"));
-	cls_AIS_LocalContext.def("Highlight", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_LocalContext::Highlight, "None", py::arg("anObject"));
-	cls_AIS_LocalContext.def("Highlight", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const opencascade::handle<Prs3d_Drawer> &)) &AIS_LocalContext::Highlight, "None", py::arg("theObj"), py::arg("theStyle"));
+	cls_AIS_LocalContext.def("Hilight", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_LocalContext::Highlight, "None", py::arg("anObject"));
+	cls_AIS_LocalContext.def("Hilight", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const opencascade::handle<Prs3d_Drawer> &)) &AIS_LocalContext::Highlight, "None", py::arg("theObj"), py::arg("theStyle"));
 	cls_AIS_LocalContext.def("Unhilight", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_LocalContext::Unhilight, "None", py::arg("anObject"));
 	cls_AIS_LocalContext.def("IsHilighted", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &) const ) &AIS_LocalContext::IsHilighted, "None", py::arg("anObject"));
 	cls_AIS_LocalContext.def("HighlightStyle", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, opencascade::handle<Prs3d_Drawer> &) const ) &AIS_LocalContext::HighlightStyle, "None", py::arg("theObject"), py::arg("theStyle"));
