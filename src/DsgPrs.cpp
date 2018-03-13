@@ -268,7 +268,7 @@ PYBIND11_MODULE(DsgPrs, mod) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\DsgPrs_DatumPrs.hxx
 	py::class_<DsgPrs_DatumPrs, std::unique_ptr<DsgPrs_DatumPrs, Deleter<DsgPrs_DatumPrs>>, Prs3d_Root> cls_DsgPrs_DatumPrs(mod, "DsgPrs_DatumPrs", "A framework for displaying an XYZ trihedron.");
 	cls_DsgPrs_DatumPrs.def(py::init<>());
-	cls_DsgPrs_DatumPrs.def_static("Add_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const gp_Ax2 &, const opencascade::handle<Prs3d_Drawer> &)) &DsgPrs_DatumPrs::Add, "Draw XYZ axes at specified location with attributes defined by the attribute manager theDrawer: - Prs3d_DatumAspect defines arrow, line and lenght trihedron axis parameters, - Prs3d_TextAspect defines displayed text. The thihedron origin and axis directions are defined by theDatum coordinate system. DsgPrs_XYZAxisPresentation framework is used to create graphical primitives for each axis. Axes are marked with 'X', 'Y', 'Z' text.", py::arg("thePresentation"), py::arg("theDatum"), py::arg("theDrawer"));
+	cls_DsgPrs_DatumPrs.def_static("Add_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const gp_Ax2 &, const opencascade::handle<Prs3d_Drawer> &)) &DsgPrs_DatumPrs::Add, "Draw XYZ axes at specified location with attributes defined by the attribute manager theDrawer: - Prs3d_DatumAspect defines arrow, line and length trihedron axis parameters, - Prs3d_TextAspect defines displayed text. The thihedron origin and axis directions are defined by theDatum coordinate system. DsgPrs_XYZAxisPresentation framework is used to create graphical primitives for each axis. Axes are marked with 'X', 'Y', 'Z' text.", py::arg("thePresentation"), py::arg("theDatum"), py::arg("theDrawer"));
 
 
 }

@@ -188,7 +188,7 @@ PYBIND11_MODULE(ChFiDS, mod) {
 	cls_ChFiDS_CommonPoint.def("Arc", (const TopoDS_Edge & (ChFiDS_CommonPoint::*)() const ) &ChFiDS_CommonPoint::Arc, "Returns the arc of restriction containing the vertex.");
 	cls_ChFiDS_CommonPoint.def("TransitionOnArc", (TopAbs_Orientation (ChFiDS_CommonPoint::*)() const ) &ChFiDS_CommonPoint::TransitionOnArc, "Returns the transition of the point on the arc returned by Arc().");
 	cls_ChFiDS_CommonPoint.def("ParameterOnArc", (Standard_Real (ChFiDS_CommonPoint::*)() const ) &ChFiDS_CommonPoint::ParameterOnArc, "Returns the parameter of the point on the arc returned by the method Arc().");
-	cls_ChFiDS_CommonPoint.def("Parameter", (Standard_Real (ChFiDS_CommonPoint::*)() const ) &ChFiDS_CommonPoint::Parameter, "Returns the parameter the paramter on the spine");
+	cls_ChFiDS_CommonPoint.def("Parameter", (Standard_Real (ChFiDS_CommonPoint::*)() const ) &ChFiDS_CommonPoint::Parameter, "Returns the parameter on the spine");
 	cls_ChFiDS_CommonPoint.def("Point", (const gp_Pnt & (ChFiDS_CommonPoint::*)() const ) &ChFiDS_CommonPoint::Point, "Returns the 3d point");
 	cls_ChFiDS_CommonPoint.def("HasVector", (Standard_Boolean (ChFiDS_CommonPoint::*)() const ) &ChFiDS_CommonPoint::HasVector, "Returns TRUE if the output vector is stored.");
 	cls_ChFiDS_CommonPoint.def("Vector", (const gp_Vec & (ChFiDS_CommonPoint::*)() const ) &ChFiDS_CommonPoint::Vector, "Returns the output 3d vector");
