@@ -108,12 +108,12 @@ PYBIND11_MODULE(FairCurve, mod) {
 	// FIXME cls_FairCurve_Batten.def("Dump", (void (FairCurve_Batten::*)(Standard_OStream &) const ) &FairCurve_Batten::Dump, "Prints on the stream o information on the current state of the object.", py::arg("o"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\FairCurve_BattenLaw.hxx
-	py::class_<FairCurve_BattenLaw, std::unique_ptr<FairCurve_BattenLaw, Deleter<FairCurve_BattenLaw>>, math_Function> cls_FairCurve_BattenLaw(mod, "FairCurve_BattenLaw", "This class compute the Height of an batten");
-	cls_FairCurve_BattenLaw.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("Height"), py::arg("Slope"), py::arg("Sliding"));
+	py::class_<FairCurve_BattenLaw, std::unique_ptr<FairCurve_BattenLaw, Deleter<FairCurve_BattenLaw>>, math_Function> cls_FairCurve_BattenLaw(mod, "FairCurve_BattenLaw", "This class computes the Height of a batten");
+	cls_FairCurve_BattenLaw.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("Heigth"), py::arg("Slope"), py::arg("Sliding"));
 	cls_FairCurve_BattenLaw.def("SetSliding", (void (FairCurve_BattenLaw::*)(const Standard_Real)) &FairCurve_BattenLaw::SetSliding, "Change the value of sliding", py::arg("Sliding"));
-	cls_FairCurve_BattenLaw.def("SetHeight", (void (FairCurve_BattenLaw::*)(const Standard_Real)) &FairCurve_BattenLaw::SetHeight, "Change the value of Height at the middle point.", py::arg("Height"));
+	cls_FairCurve_BattenLaw.def("SetHeigth", (void (FairCurve_BattenLaw::*)(const Standard_Real)) &FairCurve_BattenLaw::SetHeigth, "Change the value of Height at the middle point.", py::arg("Heigth"));
 	cls_FairCurve_BattenLaw.def("SetSlope", (void (FairCurve_BattenLaw::*)(const Standard_Real)) &FairCurve_BattenLaw::SetSlope, "Change the value of the geometric slope.", py::arg("Slope"));
-	cls_FairCurve_BattenLaw.def("Value", [](FairCurve_BattenLaw &self, const Standard_Real T, Standard_Real & THeight){ Standard_Boolean rv = self.Value(T, THeight); return std::tuple<Standard_Boolean, Standard_Real &>(rv, THeight); }, "computes the value of the height for the parameter T on the neutral fibber", py::arg("T"), py::arg("THeight"));
+	cls_FairCurve_BattenLaw.def("Value", [](FairCurve_BattenLaw &self, const Standard_Real T, Standard_Real & THeigth){ Standard_Boolean rv = self.Value(T, THeigth); return std::tuple<Standard_Boolean, Standard_Real &>(rv, THeigth); }, "computes the value of the height for the parameter T on the neutral fibber", py::arg("T"), py::arg("THeigth"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\FairCurve_DistributionOfEnergy.hxx
 	py::class_<FairCurve_DistributionOfEnergy, std::unique_ptr<FairCurve_DistributionOfEnergy, Deleter<FairCurve_DistributionOfEnergy>>, math_FunctionSet> cls_FairCurve_DistributionOfEnergy(mod, "FairCurve_DistributionOfEnergy", "Abstract class to use the Energy of an FairCurve");
@@ -175,9 +175,9 @@ PYBIND11_MODULE(FairCurve, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\FairCurve_MinimalVariation.hxx
 	py::class_<FairCurve_MinimalVariation, std::unique_ptr<FairCurve_MinimalVariation, Deleter<FairCurve_MinimalVariation>>, FairCurve_Batten> cls_FairCurve_MinimalVariation(mod, "FairCurve_MinimalVariation", "Computes a 2D curve using an algorithm which minimizes tension, sagging, and jerk energy. As in FairCurve_Batten, two reference points are used. Unlike that class, FairCurve_MinimalVariation requires curvature settings at the first and second reference points. These are defined by the rays of curvature desired at each point.");
-	cls_FairCurve_MinimalVariation.def(py::init<const gp_Pnt2d &, const gp_Pnt2d &, const Standard_Real>(), py::arg("P1"), py::arg("P2"), py::arg("Height"));
-	cls_FairCurve_MinimalVariation.def(py::init<const gp_Pnt2d &, const gp_Pnt2d &, const Standard_Real, const Standard_Real>(), py::arg("P1"), py::arg("P2"), py::arg("Height"), py::arg("Slope"));
-	cls_FairCurve_MinimalVariation.def(py::init<const gp_Pnt2d &, const gp_Pnt2d &, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("P1"), py::arg("P2"), py::arg("Height"), py::arg("Slope"), py::arg("PhysicalRatio"));
+	cls_FairCurve_MinimalVariation.def(py::init<const gp_Pnt2d &, const gp_Pnt2d &, const Standard_Real>(), py::arg("P1"), py::arg("P2"), py::arg("Heigth"));
+	cls_FairCurve_MinimalVariation.def(py::init<const gp_Pnt2d &, const gp_Pnt2d &, const Standard_Real, const Standard_Real>(), py::arg("P1"), py::arg("P2"), py::arg("Heigth"), py::arg("Slope"));
+	cls_FairCurve_MinimalVariation.def(py::init<const gp_Pnt2d &, const gp_Pnt2d &, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("P1"), py::arg("P2"), py::arg("Heigth"), py::arg("Slope"), py::arg("PhysicalRatio"));
 	cls_FairCurve_MinimalVariation.def("SetCurvature1", (void (FairCurve_MinimalVariation::*)(const Standard_Real)) &FairCurve_MinimalVariation::SetCurvature1, "Allows you to set a new constraint on curvature at the first point.", py::arg("Curvature"));
 	cls_FairCurve_MinimalVariation.def("SetCurvature2", (void (FairCurve_MinimalVariation::*)(const Standard_Real)) &FairCurve_MinimalVariation::SetCurvature2, "Allows you to set a new constraint on curvature at the second point.", py::arg("Curvature"));
 	cls_FairCurve_MinimalVariation.def("SetPhysicalRatio", (void (FairCurve_MinimalVariation::*)(const Standard_Real)) &FairCurve_MinimalVariation::SetPhysicalRatio, "Allows you to set the physical ratio Ratio. The kinds of energy which you can specify include: 0 is only 'Jerk' Energy 1 is only 'Sagging' Energy like batten Warning: if Ratio is 1 it is impossible to impose curvature constraints. Raises DomainError if Ratio < 0 or Ratio > 1", py::arg("Ratio"));
