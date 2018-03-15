@@ -152,10 +152,10 @@ PYBIND11_MODULE(BRepAdaptor, mod) {
 	cls_BRepAdaptor_Surface.def("IsURational", (Standard_Boolean (BRepAdaptor_Surface::*)() const ) &BRepAdaptor_Surface::IsURational, "None");
 	cls_BRepAdaptor_Surface.def("IsVRational", (Standard_Boolean (BRepAdaptor_Surface::*)() const ) &BRepAdaptor_Surface::IsVRational, "None");
 	cls_BRepAdaptor_Surface.def("Bezier", (opencascade::handle<Geom_BezierSurface> (BRepAdaptor_Surface::*)() const ) &BRepAdaptor_Surface::Bezier, "None");
-	cls_BRepAdaptor_Surface.def("BSpline", (opencascade::handle<Geom_BSplineSurface> (BRepAdaptor_Surface::*)() const ) &BRepAdaptor_Surface::BSpline, "Warning : this will make a copy of the BSpline Surface since it applies to it the myTsrf transformation Be Carefull when using this method");
+	cls_BRepAdaptor_Surface.def("BSpline", (opencascade::handle<Geom_BSplineSurface> (BRepAdaptor_Surface::*)() const ) &BRepAdaptor_Surface::BSpline, "Warning : this will make a copy of the BSpline Surface since it applies to it the myTsrf transformation. Be careful when using this method.");
 	cls_BRepAdaptor_Surface.def("AxeOfRevolution", (gp_Ax1 (BRepAdaptor_Surface::*)() const ) &BRepAdaptor_Surface::AxeOfRevolution, "None");
 	cls_BRepAdaptor_Surface.def("Direction", (gp_Dir (BRepAdaptor_Surface::*)() const ) &BRepAdaptor_Surface::Direction, "None");
-	cls_BRepAdaptor_Surface.def("BasisCurve", (opencascade::handle<Adaptor3d_HCurve> (BRepAdaptor_Surface::*)() const ) &BRepAdaptor_Surface::BasisCurve, "only for SurfaceOfExtrusion and SurfaceOfRevolution Warning: this will make a copy of the underlying curve since it applies to it the transformation myTrsf. Be carefull when using this method.");
+	cls_BRepAdaptor_Surface.def("BasisCurve", (opencascade::handle<Adaptor3d_HCurve> (BRepAdaptor_Surface::*)() const ) &BRepAdaptor_Surface::BasisCurve, "only for SurfaceOfExtrusion and SurfaceOfRevolution Warning: this will make a copy of the underlying curve since it applies to it the transformation myTrsf. Be careful when using this method.");
 	cls_BRepAdaptor_Surface.def("BasisSurface", (opencascade::handle<Adaptor3d_HSurface> (BRepAdaptor_Surface::*)() const ) &BRepAdaptor_Surface::BasisSurface, "None");
 	cls_BRepAdaptor_Surface.def("OffsetValue", (Standard_Real (BRepAdaptor_Surface::*)() const ) &BRepAdaptor_Surface::OffsetValue, "None");
 
@@ -199,8 +199,8 @@ PYBIND11_MODULE(BRepAdaptor, mod) {
 	cls_BRepAdaptor_Curve.def("IsRational", (Standard_Boolean (BRepAdaptor_Curve::*)() const ) &BRepAdaptor_Curve::IsRational, "None");
 	cls_BRepAdaptor_Curve.def("NbPoles", (Standard_Integer (BRepAdaptor_Curve::*)() const ) &BRepAdaptor_Curve::NbPoles, "None");
 	cls_BRepAdaptor_Curve.def("NbKnots", (Standard_Integer (BRepAdaptor_Curve::*)() const ) &BRepAdaptor_Curve::NbKnots, "None");
-	cls_BRepAdaptor_Curve.def("Bezier", (opencascade::handle<Geom_BezierCurve> (BRepAdaptor_Curve::*)() const ) &BRepAdaptor_Curve::Bezier, "Warning : This will make a copy of the Bezier Curve since it applies to it myTsrf . Be carefull when using this method");
-	cls_BRepAdaptor_Curve.def("BSpline", (opencascade::handle<Geom_BSplineCurve> (BRepAdaptor_Curve::*)() const ) &BRepAdaptor_Curve::BSpline, "Warning : This will make a copy of the BSpline Curve since it applies to it myTsrf . Be carefull when using this method");
+	cls_BRepAdaptor_Curve.def("Bezier", (opencascade::handle<Geom_BezierCurve> (BRepAdaptor_Curve::*)() const ) &BRepAdaptor_Curve::Bezier, "Warning : This will make a copy of the Bezier Curve since it applies to it myTsrf. Be careful when using this method.");
+	cls_BRepAdaptor_Curve.def("BSpline", (opencascade::handle<Geom_BSplineCurve> (BRepAdaptor_Curve::*)() const ) &BRepAdaptor_Curve::BSpline, "Warning : This will make a copy of the BSpline Curve since it applies to it myTsrf. Be careful when using this method.");
 	cls_BRepAdaptor_Curve.def("OffsetCurve", (opencascade::handle<Geom_OffsetCurve> (BRepAdaptor_Curve::*)() const ) &BRepAdaptor_Curve::OffsetCurve, "None");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepAdaptor_Array1OfCurve.hxx

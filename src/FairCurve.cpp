@@ -108,12 +108,12 @@ PYBIND11_MODULE(FairCurve, mod) {
 	// FIXME cls_FairCurve_Batten.def("Dump", (void (FairCurve_Batten::*)(Standard_OStream &) const ) &FairCurve_Batten::Dump, "Prints on the stream o information on the current state of the object.", py::arg("o"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\FairCurve_BattenLaw.hxx
-	py::class_<FairCurve_BattenLaw, std::unique_ptr<FairCurve_BattenLaw, Deleter<FairCurve_BattenLaw>>, math_Function> cls_FairCurve_BattenLaw(mod, "FairCurve_BattenLaw", "This class compute the Heigth of an batten");
+	py::class_<FairCurve_BattenLaw, std::unique_ptr<FairCurve_BattenLaw, Deleter<FairCurve_BattenLaw>>, math_Function> cls_FairCurve_BattenLaw(mod, "FairCurve_BattenLaw", "This class computes the Height of a batten");
 	cls_FairCurve_BattenLaw.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("Heigth"), py::arg("Slope"), py::arg("Sliding"));
 	cls_FairCurve_BattenLaw.def("SetSliding", (void (FairCurve_BattenLaw::*)(const Standard_Real)) &FairCurve_BattenLaw::SetSliding, "Change the value of sliding", py::arg("Sliding"));
-	cls_FairCurve_BattenLaw.def("SetHeigth", (void (FairCurve_BattenLaw::*)(const Standard_Real)) &FairCurve_BattenLaw::SetHeigth, "Change the value of Heigth at the middle point.", py::arg("Heigth"));
+	cls_FairCurve_BattenLaw.def("SetHeigth", (void (FairCurve_BattenLaw::*)(const Standard_Real)) &FairCurve_BattenLaw::SetHeigth, "Change the value of Height at the middle point.", py::arg("Heigth"));
 	cls_FairCurve_BattenLaw.def("SetSlope", (void (FairCurve_BattenLaw::*)(const Standard_Real)) &FairCurve_BattenLaw::SetSlope, "Change the value of the geometric slope.", py::arg("Slope"));
-	cls_FairCurve_BattenLaw.def("Value", [](FairCurve_BattenLaw &self, const Standard_Real T, Standard_Real & THeigth){ Standard_Boolean rv = self.Value(T, THeigth); return std::tuple<Standard_Boolean, Standard_Real &>(rv, THeigth); }, "computes the value of the heigth for the parameter T on the neutral fibber", py::arg("T"), py::arg("THeigth"));
+	cls_FairCurve_BattenLaw.def("Value", [](FairCurve_BattenLaw &self, const Standard_Real T, Standard_Real & THeigth){ Standard_Boolean rv = self.Value(T, THeigth); return std::tuple<Standard_Boolean, Standard_Real &>(rv, THeigth); }, "computes the value of the height for the parameter T on the neutral fibber", py::arg("T"), py::arg("THeigth"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\FairCurve_DistributionOfEnergy.hxx
 	py::class_<FairCurve_DistributionOfEnergy, std::unique_ptr<FairCurve_DistributionOfEnergy, Deleter<FairCurve_DistributionOfEnergy>>, math_FunctionSet> cls_FairCurve_DistributionOfEnergy(mod, "FairCurve_DistributionOfEnergy", "Abstract class to use the Energy of an FairCurve");

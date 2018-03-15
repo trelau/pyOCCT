@@ -70,7 +70,7 @@ PYBIND11_MODULE(MAT, mod) {
 
 	// CLASSES
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MAT_BasicElt.hxx
-	py::class_<MAT_BasicElt, opencascade::handle<MAT_BasicElt>, Standard_Transient> cls_MAT_BasicElt(mod, "MAT_BasicElt", "A BasicELt is associated to each elemtary constituant of the figure.");
+	py::class_<MAT_BasicElt, opencascade::handle<MAT_BasicElt>, Standard_Transient> cls_MAT_BasicElt(mod, "MAT_BasicElt", "A BasicELt is associated to each elemtary constituent of the figure.");
 	cls_MAT_BasicElt.def(py::init<const Standard_Integer>(), py::arg("anInteger"));
 	cls_MAT_BasicElt.def("StartArc", (opencascade::handle<MAT_Arc> (MAT_BasicElt::*)() const ) &MAT_BasicElt::StartArc, "Return <startArcLeft> or <startArcRight> corresponding to <aSide>.");
 	cls_MAT_BasicElt.def("EndArc", (opencascade::handle<MAT_Arc> (MAT_BasicElt::*)() const ) &MAT_BasicElt::EndArc, "Return <endArcLeft> or <endArcRight> corresponding to <aSide>.");

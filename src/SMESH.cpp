@@ -198,7 +198,7 @@ PYBIND11_MODULE(SMESH, mod) {
 	py::enum_<SMESH_Hypothesis::Hypothesis_Status>(cls_SMESH_Hypothesis, "Hypothesis_Status", "None")
 		.value("HYP_OK", SMESH_Hypothesis::Hypothesis_Status::HYP_OK)
 		.value("HYP_MISSING", SMESH_Hypothesis::Hypothesis_Status::HYP_MISSING)
-		.value("HYP_CONCURENT", SMESH_Hypothesis::Hypothesis_Status::HYP_CONCURENT)
+		.value("HYP_CONCURRENT", SMESH_Hypothesis::Hypothesis_Status::HYP_CONCURRENT)
 		.value("HYP_BAD_PARAMETER", SMESH_Hypothesis::Hypothesis_Status::HYP_BAD_PARAMETER)
 		.value("HYP_HIDDEN_ALGO", SMESH_Hypothesis::Hypothesis_Status::HYP_HIDDEN_ALGO)
 		.value("HYP_HIDING_ALGO", SMESH_Hypothesis::Hypothesis_Status::HYP_HIDING_ALGO)
@@ -731,9 +731,9 @@ PYBIND11_MODULE(SMESH, mod) {
 	cls_SMESH_subMesh.def("Evaluate", (bool (SMESH_subMesh::*)(MapShapeNbElems &)) &SMESH_subMesh::Evaluate, "None", py::arg("aResMap"));
 	cls_SMESH_subMesh.def("IsConform", (bool (SMESH_subMesh::*)(const SMESH_Algo *)) &SMESH_subMesh::IsConform, "None", py::arg("theAlgo"));
 	cls_SMESH_subMesh.def("CanAddHypothesis", (bool (SMESH_subMesh::*)(const SMESH_Hypothesis *) const ) &SMESH_subMesh::CanAddHypothesis, "None", py::arg("theHypothesis"));
-	cls_SMESH_subMesh.def_static("IsApplicableHypotesis_", (bool (*)(const SMESH_Hypothesis *, const TopAbs_ShapeEnum)) &SMESH_subMesh::IsApplicableHypotesis, "None", py::arg("theHypothesis"), py::arg("theShapeType"));
-	cls_SMESH_subMesh.def("IsApplicableHypotesis", (bool (SMESH_subMesh::*)(const SMESH_Hypothesis *) const ) &SMESH_subMesh::IsApplicableHypotesis, "None", py::arg("theHypothesis"));
-	cls_SMESH_subMesh.def("CheckConcurentHypothesis", (SMESH_Hypothesis::Hypothesis_Status (SMESH_subMesh::*)(const int)) &SMESH_subMesh::CheckConcurentHypothesis, "None", py::arg("theHypType"));
+	cls_SMESH_subMesh.def_static("IsApplicableHypothesis_", (bool (*)(const SMESH_Hypothesis *, const TopAbs_ShapeEnum)) &SMESH_subMesh::IsApplicableHypothesis, "None", py::arg("theHypothesis"), py::arg("theShapeType"));
+	cls_SMESH_subMesh.def("IsApplicableHypothesis", (bool (SMESH_subMesh::*)(const SMESH_Hypothesis *) const ) &SMESH_subMesh::IsApplicableHypothesis, "None", py::arg("theHypothesis"));
+	cls_SMESH_subMesh.def("CheckConcurrentHypothesis", (SMESH_Hypothesis::Hypothesis_Status (SMESH_subMesh::*)(const int)) &SMESH_subMesh::CheckConcurrentHypothesis, "None", py::arg("theHypType"));
 	cls_SMESH_subMesh.def("IsEmpty", (bool (SMESH_subMesh::*)() const ) &SMESH_subMesh::IsEmpty, "Return true if no mesh entities is bound to the submesh");
 	cls_SMESH_subMesh.def("IsMeshComputed", (bool (SMESH_subMesh::*)() const ) &SMESH_subMesh::IsMeshComputed, "None");
 	cls_SMESH_subMesh.def("SetIsAlwaysComputed", (void (SMESH_subMesh::*)(bool)) &SMESH_subMesh::SetIsAlwaysComputed, "Allow algo->Compute() if a subshape of lower dim is meshed but none mesh entity is bound to it", py::arg("isAlCo"));

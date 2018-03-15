@@ -97,7 +97,7 @@ PYBIND11_MODULE(BRepClass3d, mod) {
 	cls_BRepClass3d_Intersector3d.def("WParameter", (Standard_Real (BRepClass3d_Intersector3d::*)() const ) &BRepClass3d_Intersector3d::WParameter, "Returns the parameter of the intersection point on the line.");
 	cls_BRepClass3d_Intersector3d.def("Pnt", (const gp_Pnt & (BRepClass3d_Intersector3d::*)() const ) &BRepClass3d_Intersector3d::Pnt, "Returns the geometric point of the intersection between the line and the surface.");
 	cls_BRepClass3d_Intersector3d.def("Transition", (IntCurveSurface_TransitionOnCurve (BRepClass3d_Intersector3d::*)() const ) &BRepClass3d_Intersector3d::Transition, "Returns the transition of the line on the surface.");
-	cls_BRepClass3d_Intersector3d.def("State", (TopAbs_State (BRepClass3d_Intersector3d::*)() const ) &BRepClass3d_Intersector3d::State, "Returns the state of the point on the face. The values can be either TopAbs_IN ( the point is in the face) or TopAbs_ON ( the point is on a boudary of the face).");
+	cls_BRepClass3d_Intersector3d.def("State", (TopAbs_State (BRepClass3d_Intersector3d::*)() const ) &BRepClass3d_Intersector3d::State, "Returns the state of the point on the face. The values can be either TopAbs_IN ( the point is in the face) or TopAbs_ON ( the point is on a boundary of the face).");
 	cls_BRepClass3d_Intersector3d.def("Face", (const TopoDS_Face & (BRepClass3d_Intersector3d::*)() const ) &BRepClass3d_Intersector3d::Face, "Returns the significant face used to determine the intersection.");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepClass3d_SolidExplorer.hxx

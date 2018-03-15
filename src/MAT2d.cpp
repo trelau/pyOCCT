@@ -117,7 +117,7 @@ PYBIND11_MODULE(MAT2d, mod) {
 	cls_MAT2d_Tool2d.def("TrimBisector", (Standard_Boolean (MAT2d_Tool2d::*)(const opencascade::handle<MAT_Bisector> &, const Standard_Integer)) &MAT2d_Tool2d::TrimBisector, "Trims the geometric bisector by the point of index <apoint> in <theGeomPnts>. If the point is out of the bisector, Return FALSE. else Return True.", py::arg("abisector"), py::arg("apoint"));
 	cls_MAT2d_Tool2d.def("IntersectBisector", [](MAT2d_Tool2d &self, const opencascade::handle<MAT_Bisector> & bisectorone, const opencascade::handle<MAT_Bisector> & bisectortwo, Standard_Integer & intpnt){ Standard_Real rv = self.IntersectBisector(bisectorone, bisectortwo, intpnt); return std::tuple<Standard_Real, Standard_Integer &>(rv, intpnt); }, "Computes the point of intersection between the bisectors defined by <bisectorone> and <bisectortwo> . If this point exists, <intpnt> is its index in <theGeomPnts> and Return the distance of the point from the bisector else Return <RealLast>.", py::arg("bisectorone"), py::arg("bisectortwo"), py::arg("intpnt"));
 	cls_MAT2d_Tool2d.def("Distance", (Standard_Real (MAT2d_Tool2d::*)(const opencascade::handle<MAT_Bisector> &, const Standard_Real, const Standard_Real) const ) &MAT2d_Tool2d::Distance, "Returns the distance between the two points designed by their parameters on <abisector>.", py::arg("abisector"), py::arg("param1"), py::arg("param2"));
-	// FIXME cls_MAT2d_Tool2d.def("Dump", (void (MAT2d_Tool2d::*)(const Standard_Integer, const Standard_Integer) const ) &MAT2d_Tool2d::Dump, "displays informations about the bisector defined by <bisector>.", py::arg("bisector"), py::arg("erease"));
+	// FIXME cls_MAT2d_Tool2d.def("Dump", (void (MAT2d_Tool2d::*)(const Standard_Integer, const Standard_Integer) const ) &MAT2d_Tool2d::Dump, "displays information about the bisector defined by <bisector>.", py::arg("bisector"), py::arg("erease"));
 	cls_MAT2d_Tool2d.def("GeomBis", (const Bisector_Bisec & (MAT2d_Tool2d::*)(const Standard_Integer) const ) &MAT2d_Tool2d::GeomBis, "Returns the <Bisec> of index <Index> in <theGeomBisectors>.", py::arg("Index"));
 	cls_MAT2d_Tool2d.def("GeomElt", (opencascade::handle<Geom2d_Geometry> (MAT2d_Tool2d::*)(const Standard_Integer) const ) &MAT2d_Tool2d::GeomElt, "Returns the Geometry of index <Index> in <theGeomElts>.", py::arg("Index"));
 	cls_MAT2d_Tool2d.def("GeomPnt", (const gp_Pnt2d & (MAT2d_Tool2d::*)(const Standard_Integer) const ) &MAT2d_Tool2d::GeomPnt, "Returns the point of index <Index> in the <theGeomPnts>.", py::arg("Index"));
@@ -192,15 +192,15 @@ PYBIND11_MODULE(MAT2d, mod) {
 	// cls_MAT2d_CutCurve.def("Perform", (void (MAT2d_CutCurve::*)(const opencascade::handle<Geom2d_Curve> &, const MAT_Side)) &MAT2d_CutCurve::Perform, "Cuts a curve at the inflections, and at the extremas of curvature where the concavity is on <aSide>.", py::arg("C"), py::arg("aSide"));
 	// cls_MAT2d_CutCurve.def("PerformInf", (void (MAT2d_CutCurve::*)(const opencascade::handle<Geom2d_Curve> &)) &MAT2d_CutCurve::PerformInf, "Cuts a curve at the inflections.", py::arg("C"));
 	cls_MAT2d_CutCurve.def("UnModified", (Standard_Boolean (MAT2d_CutCurve::*)() const ) &MAT2d_CutCurve::UnModified, "Returns True if the curve is not cut.");
-	cls_MAT2d_CutCurve.def("NbCurves", (Standard_Integer (MAT2d_CutCurve::*)() const ) &MAT2d_CutCurve::NbCurves, "Returns the number of curves. it's allways greatest than 2.");
+	cls_MAT2d_CutCurve.def("NbCurves", (Standard_Integer (MAT2d_CutCurve::*)() const ) &MAT2d_CutCurve::NbCurves, "Returns the number of curves. it's always greatest than 2.");
 	cls_MAT2d_CutCurve.def("Value", (opencascade::handle<Geom2d_TrimmedCurve> (MAT2d_CutCurve::*)(const Standard_Integer) const ) &MAT2d_CutCurve::Value, "Returns the Indexth curve. raises if Index not in the range [1,NbCurves()]", py::arg("Index"));
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\MAT2d_Mat2d.hxx
-	py::class_<MAT2d_Mat2d, std::unique_ptr<MAT2d_Mat2d, Deleter<MAT2d_Mat2d>>> cls_MAT2d_Mat2d(mod, "MAT2d_Mat2d", "this class contains the generic algoritm of computation of the bisecting locus.");
+	py::class_<MAT2d_Mat2d, std::unique_ptr<MAT2d_Mat2d, Deleter<MAT2d_Mat2d>>> cls_MAT2d_Mat2d(mod, "MAT2d_Mat2d", "this class contains the generic algorithm of computation of the bisecting locus.");
 	cls_MAT2d_Mat2d.def(py::init<>());
 	cls_MAT2d_Mat2d.def(py::init<const Standard_Boolean>(), py::arg("IsOpenResult"));
-	cls_MAT2d_Mat2d.def("CreateMat", (void (MAT2d_Mat2d::*)(MAT2d_Tool2d &)) &MAT2d_Mat2d::CreateMat, "Algoritm of computation of the bisecting locus.", py::arg("aTool"));
-	cls_MAT2d_Mat2d.def("CreateMatOpen", (void (MAT2d_Mat2d::*)(MAT2d_Tool2d &)) &MAT2d_Mat2d::CreateMatOpen, "Algoritm of computation of the bisecting locus for open wire.", py::arg("aTool"));
+	cls_MAT2d_Mat2d.def("CreateMat", (void (MAT2d_Mat2d::*)(MAT2d_Tool2d &)) &MAT2d_Mat2d::CreateMat, "Algorithm of computation of the bisecting locus.", py::arg("aTool"));
+	cls_MAT2d_Mat2d.def("CreateMatOpen", (void (MAT2d_Mat2d::*)(MAT2d_Tool2d &)) &MAT2d_Mat2d::CreateMatOpen, "Algorithm of computation of the bisecting locus for open wire.", py::arg("aTool"));
 	cls_MAT2d_Mat2d.def("IsDone", (Standard_Boolean (MAT2d_Mat2d::*)() const ) &MAT2d_Mat2d::IsDone, "Returns <TRUE> if CreateMat has succeeded.");
 	cls_MAT2d_Mat2d.def("Init", (void (MAT2d_Mat2d::*)()) &MAT2d_Mat2d::Init, "Initialize an iterator on the set of the roots of the trees of bisectors.");
 	cls_MAT2d_Mat2d.def("More", (Standard_Boolean (MAT2d_Mat2d::*)() const ) &MAT2d_Mat2d::More, "Return False if there is no more roots.");

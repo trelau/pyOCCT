@@ -84,7 +84,7 @@ PYBIND11_MODULE(XCAFView, mod) {
 	cls_XCAFView_Object.def("BackPlaneDistance", (Standard_Real (XCAFView_Object::*)()) &XCAFView_Object::BackPlaneDistance, "None");
 	cls_XCAFView_Object.def("SetViewVolumeSidesClipping", (void (XCAFView_Object::*)(Standard_Boolean)) &XCAFView_Object::SetViewVolumeSidesClipping, "None", py::arg("theViewVolumeSidesClipping"));
 	cls_XCAFView_Object.def("HasViewVolumeSidesClipping", (Standard_Boolean (XCAFView_Object::*)()) &XCAFView_Object::HasViewVolumeSidesClipping, "None");
-	cls_XCAFView_Object.def("CreateGDTPoints", (void (XCAFView_Object::*)(const Standard_Integer)) &XCAFView_Object::CreateGDTPoints, "None", py::arg("theLenght"));
+	cls_XCAFView_Object.def("CreateGDTPoints", (void (XCAFView_Object::*)(const Standard_Integer)) &XCAFView_Object::CreateGDTPoints, "None", py::arg("theLength"));
 	cls_XCAFView_Object.def("HasGDTPoints", (Standard_Boolean (XCAFView_Object::*)()) &XCAFView_Object::HasGDTPoints, "None");
 	cls_XCAFView_Object.def("NbGDTPoints", (Standard_Integer (XCAFView_Object::*)()) &XCAFView_Object::NbGDTPoints, "None");
 	cls_XCAFView_Object.def("SetGDTPoint", (void (XCAFView_Object::*)(const Standard_Integer, const gp_Pnt)) &XCAFView_Object::SetGDTPoint, "None", py::arg("theIndex"), py::arg("thePoint"));
