@@ -354,7 +354,8 @@ PYBIND11_MODULE(ShapeFix, mod) {
 	cls_ShapeFix_Edge.def("FixSameParameter", (Standard_Boolean (ShapeFix_Edge::*)(const TopoDS_Edge &, const TopoDS_Face &, const Standard_Real)) &ShapeFix_Edge::FixSameParameter, "Tries to make edge SameParameter and sets corresponding tolerance and SameParameter flag. First, it makes edge same range if SameRange flag is not set.", py::arg("edge"), py::arg("face"), py::arg("tolerance"));
 	cls_ShapeFix_Edge.def("Status", (Standard_Boolean (ShapeFix_Edge::*)(const ShapeExtend_Status) const ) &ShapeFix_Edge::Status, "Returns the status (in the form of True/False) of last Fix", py::arg("status"));
 	cls_ShapeFix_Edge.def("SetContext", (void (ShapeFix_Edge::*)(const opencascade::handle<ShapeBuild_ReShape> &)) &ShapeFix_Edge::SetContext, "Sets context", py::arg("context"));
-	cls_ShapeFix_Edge.def("Context", (opencascade::handle<ShapeBuild_ReShape> (ShapeFix_Edge::*)() const ) &ShapeFix_Edge::Context, "Returns context");
+	// FIXME Mismatch between signature here and in OCCT .h file
+        //cls_ShapeFix_Edge.def("Context", (opencascade::handle<ShapeBuild_ReShape> (ShapeFix_Edge::*)() const ) &ShapeFix_Edge::Context, "Returns context");
 	cls_ShapeFix_Edge.def_static("get_type_name_", (const char * (*)()) &ShapeFix_Edge::get_type_name, "None");
 	cls_ShapeFix_Edge.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ShapeFix_Edge::get_type_descriptor, "None");
 	cls_ShapeFix_Edge.def("DynamicType", (const opencascade::handle<Standard_Type> & (ShapeFix_Edge::*)() const ) &ShapeFix_Edge::DynamicType, "None");

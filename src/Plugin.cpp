@@ -68,7 +68,7 @@ PYBIND11_MODULE(Plugin, mod) {
 	cls_Plugin_Failure.def("DynamicType", (const opencascade::handle<Standard_Type> & (Plugin_Failure::*)() const ) &Plugin_Failure::DynamicType, "None");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Plugin_MapOfFunctions.hxx
-	bind_NCollection_DataMap<TCollection_AsciiString, int (*)(...), TCollection_AsciiString>(mod, "Plugin_MapOfFunctions");
+	// FIXME bind_NCollection_DataMap<TCollection_AsciiString, int (*)(...), TCollection_AsciiString>(mod, "Plugin_MapOfFunctions");
 
 	/* FIXME
 

@@ -151,10 +151,10 @@ PYBIND11_MODULE(FSD, mod) {
 	cls_FSD_BinaryFile.def("PutShortReal", (Storage_BaseDriver & (FSD_BinaryFile::*)(const Standard_ShortReal)) &FSD_BinaryFile::PutShortReal, "None", py::arg("aValue"));
 	// FIXME cls_FSD_BinaryFile.def("bits_left", (Storage_BaseDriver & (FSD_BinaryFile::*)(const Standard_ShortReal)) &FSD_BinaryFile::operator<<, py::is_operator(), "None", py::arg("aValue"));
 	cls_FSD_BinaryFile.def("GetReference", [](FSD_BinaryFile &self, Standard_Integer & aValue){ Storage_BaseDriver & rv = self.GetReference(aValue); return std::tuple<Storage_BaseDriver &, Standard_Integer &>(rv, aValue); }, "None", py::arg("aValue"));
-	cls_FSD_BinaryFile.def("GetCharacter", (Storage_BaseDriver & (FSD_BinaryFile::*)(Standard_Character &)) &FSD_BinaryFile::GetCharacter, "None", py::arg("aValue"));
+	// FIXME cls_FSD_BinaryFile.def("GetCharacter", (Storage_BaseDriver & (FSD_BinaryFile::*)(Standard_Character &)) &FSD_BinaryFile::GetCharacter, "None", py::arg("aValue"));
 	// FIXME cls_FSD_BinaryFile.def("bits_right", (Storage_BaseDriver & (FSD_BinaryFile::*)(Standard_Character &)) &FSD_BinaryFile::operator>>, py::is_operator(), "None", py::arg("aValue"));
 	cls_FSD_BinaryFile.def_static("GetReference_", [](Standard_IStream & theIStream, Standard_Integer & aValue){ FSD_BinaryFile::GetReference(theIStream, aValue); return aValue; }, "None", py::arg("theIStream"), py::arg("aValue"));
-	cls_FSD_BinaryFile.def("GetExtCharacter", (Storage_BaseDriver & (FSD_BinaryFile::*)(Standard_ExtCharacter &)) &FSD_BinaryFile::GetExtCharacter, "None", py::arg("aValue"));
+	// FIXME cls_FSD_BinaryFile.def("GetExtCharacter", (Storage_BaseDriver & (FSD_BinaryFile::*)(Standard_ExtCharacter &)) &FSD_BinaryFile::GetExtCharacter, "None", py::arg("aValue"));
 	// FIXME cls_FSD_BinaryFile.def("bits_right", (Storage_BaseDriver & (FSD_BinaryFile::*)(Standard_ExtCharacter &)) &FSD_BinaryFile::operator>>, py::is_operator(), "None", py::arg("aValue"));
 	cls_FSD_BinaryFile.def("GetInteger", [](FSD_BinaryFile &self, Standard_Integer & aValue){ Storage_BaseDriver & rv = self.GetInteger(aValue); return std::tuple<Storage_BaseDriver &, Standard_Integer &>(rv, aValue); }, "None", py::arg("aValue"));
 	// FIXME cls_FSD_BinaryFile.def("bits_right", (Storage_BaseDriver & (FSD_BinaryFile::*)(Standard_Integer &)) &FSD_BinaryFile::operator>>, py::is_operator(), "None", py::arg("aValue"));
@@ -254,9 +254,9 @@ PYBIND11_MODULE(FSD, mod) {
 	cls_FSD_CmpFile.def("PutShortReal", (Storage_BaseDriver & (FSD_CmpFile::*)(const Standard_ShortReal)) &FSD_CmpFile::PutShortReal, "None", py::arg("aValue"));
 	// FIXME cls_FSD_CmpFile.def("bits_left", (Storage_BaseDriver & (FSD_CmpFile::*)(const Standard_ShortReal)) &FSD_CmpFile::operator<<, py::is_operator(), "None", py::arg("aValue"));
 	cls_FSD_CmpFile.def("GetReference", [](FSD_CmpFile &self, Standard_Integer & aValue){ Storage_BaseDriver & rv = self.GetReference(aValue); return std::tuple<Storage_BaseDriver &, Standard_Integer &>(rv, aValue); }, "None", py::arg("aValue"));
-	cls_FSD_CmpFile.def("GetCharacter", (Storage_BaseDriver & (FSD_CmpFile::*)(Standard_Character &)) &FSD_CmpFile::GetCharacter, "None", py::arg("aValue"));
+	// FIXME cls_FSD_CmpFile.def("GetCharacter", (Storage_BaseDriver & (FSD_CmpFile::*)(Standard_Character &)) &FSD_CmpFile::GetCharacter, "None", py::arg("aValue"));
 	// FIXME cls_FSD_CmpFile.def("bits_right", (Storage_BaseDriver & (FSD_CmpFile::*)(Standard_Character &)) &FSD_CmpFile::operator>>, py::is_operator(), "None", py::arg("aValue"));
-	cls_FSD_CmpFile.def("GetExtCharacter", (Storage_BaseDriver & (FSD_CmpFile::*)(Standard_ExtCharacter &)) &FSD_CmpFile::GetExtCharacter, "None", py::arg("aValue"));
+	// FIXME cls_FSD_CmpFile.def("GetExtCharacter", (Storage_BaseDriver & (FSD_CmpFile::*)(Standard_ExtCharacter &)) &FSD_CmpFile::GetExtCharacter, "None", py::arg("aValue"));
 	// FIXME cls_FSD_CmpFile.def("bits_right", (Storage_BaseDriver & (FSD_CmpFile::*)(Standard_ExtCharacter &)) &FSD_CmpFile::operator>>, py::is_operator(), "None", py::arg("aValue"));
 	cls_FSD_CmpFile.def("GetInteger", [](FSD_CmpFile &self, Standard_Integer & aValue){ Storage_BaseDriver & rv = self.GetInteger(aValue); return std::tuple<Storage_BaseDriver &, Standard_Integer &>(rv, aValue); }, "None", py::arg("aValue"));
 	// FIXME cls_FSD_CmpFile.def("bits_right", (Storage_BaseDriver & (FSD_CmpFile::*)(Standard_Integer &)) &FSD_CmpFile::operator>>, py::is_operator(), "None", py::arg("aValue"));
@@ -343,9 +343,9 @@ PYBIND11_MODULE(FSD, mod) {
 	cls_FSD_File.def("PutShortReal", (Storage_BaseDriver & (FSD_File::*)(const Standard_ShortReal)) &FSD_File::PutShortReal, "None", py::arg("aValue"));
 	// FIXME cls_FSD_File.def("bits_left", (Storage_BaseDriver & (FSD_File::*)(const Standard_ShortReal)) &FSD_File::operator<<, py::is_operator(), "None", py::arg("aValue"));
 	cls_FSD_File.def("GetReference", [](FSD_File &self, Standard_Integer & aValue){ Storage_BaseDriver & rv = self.GetReference(aValue); return std::tuple<Storage_BaseDriver &, Standard_Integer &>(rv, aValue); }, "None", py::arg("aValue"));
-	cls_FSD_File.def("GetCharacter", (Storage_BaseDriver & (FSD_File::*)(Standard_Character &)) &FSD_File::GetCharacter, "None", py::arg("aValue"));
+	// FIXME cls_FSD_File.def("GetCharacter", (Storage_BaseDriver & (FSD_File::*)(Standard_Character &)) &FSD_File::GetCharacter, "None", py::arg("aValue"));
 	// FIXME cls_FSD_File.def("bits_right", (Storage_BaseDriver & (FSD_File::*)(Standard_Character &)) &FSD_File::operator>>, py::is_operator(), "None", py::arg("aValue"));
-	cls_FSD_File.def("GetExtCharacter", (Storage_BaseDriver & (FSD_File::*)(Standard_ExtCharacter &)) &FSD_File::GetExtCharacter, "None", py::arg("aValue"));
+	// FIXME cls_FSD_File.def("GetExtCharacter", (Storage_BaseDriver & (FSD_File::*)(Standard_ExtCharacter &)) &FSD_File::GetExtCharacter, "None", py::arg("aValue"));
 	// FIXME cls_FSD_File.def("bits_right", (Storage_BaseDriver & (FSD_File::*)(Standard_ExtCharacter &)) &FSD_File::operator>>, py::is_operator(), "None", py::arg("aValue"));
 	cls_FSD_File.def("GetInteger", [](FSD_File &self, Standard_Integer & aValue){ Storage_BaseDriver & rv = self.GetInteger(aValue); return std::tuple<Storage_BaseDriver &, Standard_Integer &>(rv, aValue); }, "None", py::arg("aValue"));
 	// FIXME cls_FSD_File.def("bits_right", (Storage_BaseDriver & (FSD_File::*)(Standard_Integer &)) &FSD_File::operator>>, py::is_operator(), "None", py::arg("aValue"));
