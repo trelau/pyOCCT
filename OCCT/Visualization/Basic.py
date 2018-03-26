@@ -16,8 +16,9 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
-import ctypes
+
 import os
+import platform
 
 import wx
 from OCCT.AIS import (AIS_InteractiveContext, AIS_Shape, AIS_Shaded,
@@ -32,17 +33,20 @@ from OCCT.MeshVS import (MeshVS_DA_DisplayNodes, MeshVS_DA_EdgeColor,
                          MeshVS_Mesh, MeshVS_MeshPrsBuilder)
 from OCCT.OpenGl import OpenGl_GraphicDriver
 from OCCT.Quantity import *
-from OCCT.SMESH import SMESH_MeshVSLink, SMESH_Mesh, SMESH_subMesh
+
+try:
+    from OCCT.SMESH import SMESH_MeshVSLink, SMESH_Mesh, SMESH_subMesh
+except ImportError:
+    print('Warning: SMESH functions are not available')
+
 from OCCT.TopoDS import TopoDS_Shape
 from OCCT.V3d import V3d_Viewer, V3d_TypeOfOrientation
-from OCCT.WNT import WNT_Window
+
 from OCCT.gp import gp_Pnt
 
 __all__ = ['BasicViewer']
 
-ctypes.pythonapi.PyCapsule_New.restype = ctypes.py_object
-ctypes.pythonapi.PyCapsule_New.argtypes = [ctypes.c_int, ctypes.c_void_p,
-                                           ctypes.c_void_p]
+
 
 _icon = os.path.dirname(__file__) + '/_resources/icon.png'
 
@@ -55,7 +59,7 @@ class BasicViewer(wx.Frame):
     :param int width: Window width.
     """
 
-    def __init__(self, width=800, height=600):
+    def __init__(self, width=800, height=600, style=wx.WANTS_CHARS):
         # Launch an app before initializing any wx types
         self._app = wx.App()
         super(BasicViewer, self).__init__(None, title='pyOCCT',
@@ -75,26 +79,14 @@ class BasicViewer(wx.Frame):
         self._black = Quantity_Color(Quantity_NOC_BLACK)
 
         # Display connection
-        display_connect = Aspect_DisplayConnection()
+        self.display_connect = Aspect_DisplayConnection()
 
         # Graphics driver
-        graphics_driver = OpenGl_GraphicDriver(display_connect)
-
-        # Window handle
-        hwnd = self.GetHandle()
-        capsule = ctypes.pythonapi.PyCapsule_New(hwnd, None, None)
-
-        # WNT window
-        wind = WNT_Window(capsule)
+        graphics_driver = OpenGl_GraphicDriver(self.display_connect)
 
         # Create viewer and view
         self._my_viewer = V3d_Viewer(graphics_driver)
         self._my_view = self._my_viewer.CreateView()
-        self._my_view.SetWindow(wind)
-
-        # Map window
-        if not wind.IsMapped():
-            wind.Map()
 
         # AIS interactive context
         self._my_context = AIS_InteractiveContext(self._my_viewer)
@@ -119,6 +111,43 @@ class BasicViewer(wx.Frame):
         self.Bind(wx.EVT_MOUSE_EVENTS, self._evt_mouse_events)
         self.Bind(wx.EVT_MOUSEWHEEL, self._evt_mousewheel)
 
+    def _init_wind(self):
+
+        # Under Linux, wxPython's GetHandle() only returns a valid handle
+        # if called after the MainLoop has started. This function completes
+        # the parts of the initialisation which require the window handle.
+        # It is called from start() using wx.CallAfter()
+
+        # Suitable handle to window. Returns a HWND in Windows and an X Window
+        # identifier in Linux
+        hwnd = self.GetHandle()
+
+        #print("display_connect: {}".format(self.display_connect))
+        #print("hwnd: {}".format(hwnd))
+
+        if platform.system() == 'Windows':
+            import ctypes
+            ctypes.pythonapi.PyCapsule_New.restype = ctypes.py_object
+            ctypes.pythonapi.PyCapsule_New.argtypes = [ctypes.c_int,
+                                        ctypes.c_void_p, ctypes.c_void_p]
+            capsule = ctypes.pythonapi.PyCapsule_New(hwnd, None, None)
+
+            from OCCT.WNT import WNT_Window
+
+            # WNT window
+            wind = WNT_Window(capsule)
+        else:
+            from OCCT.XwWindow import Xw_Window
+            # Xw window
+            wind = Xw_Window(self.display_connect, hwnd)
+            #wind = Xw_Window(display_connect, "the title", 0, 0, 100, 100)
+
+        # Map window
+        if not wind.IsMapped():
+            wind.Map()
+
+        self._my_view.SetWindow(wind)
+
     def _evt_paint(self, *args):
         self._my_view.Redraw()
 
@@ -126,6 +155,7 @@ class BasicViewer(wx.Frame):
         self._my_view.MustBeResized()
 
     def _evt_char(self, e):
+        print("evt_char: {}".format(e))
         if e.GetKeyCode() == ord('f'):
             self.fit()
         elif e.GetKeyCode() == ord('s'):
@@ -427,7 +457,12 @@ class BasicViewer(wx.Frame):
         :return: None
         """
         if fit:
-            self.fit()
+           self.fit()
         self.show()
         self.fit()
+
+        # Complete the initialisation of the OCCT window as soon as
+        # the MainLoop has started.
+        wx.CallAfter(self._init_wind)
+
         self._app.MainLoop()

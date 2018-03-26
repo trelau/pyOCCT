@@ -405,9 +405,9 @@ PYBIND11_MODULE(Storage, mod) {
 	cls_Storage_BaseDriver.def("PutShortReal", (Storage_BaseDriver & (Storage_BaseDriver::*)(const Standard_ShortReal)) &Storage_BaseDriver::PutShortReal, "None", py::arg("aValue"));
 	// FIXME cls_Storage_BaseDriver.def("bits_left", (Storage_BaseDriver & (Storage_BaseDriver::*)(const Standard_ShortReal)) &Storage_BaseDriver::operator<<, py::is_operator(), "None", py::arg("aValue"));
 	cls_Storage_BaseDriver.def("GetReference", [](Storage_BaseDriver &self, Standard_Integer & aValue){ Storage_BaseDriver & rv = self.GetReference(aValue); return std::tuple<Storage_BaseDriver &, Standard_Integer &>(rv, aValue); }, "None", py::arg("aValue"));
-	cls_Storage_BaseDriver.def("GetCharacter", (Storage_BaseDriver & (Storage_BaseDriver::*)(Standard_Character &)) &Storage_BaseDriver::GetCharacter, "None", py::arg("aValue"));
+	// FIXME cls_Storage_BaseDriver.def("GetCharacter", (Storage_BaseDriver & (Storage_BaseDriver::*)(Standard_Character &)) &Storage_BaseDriver::GetCharacter, "None", py::arg("aValue"));
 	// FIXME cls_Storage_BaseDriver.def("bits_right", (Storage_BaseDriver & (Storage_BaseDriver::*)(Standard_Character &)) &Storage_BaseDriver::operator>>, py::is_operator(), "None", py::arg("aValue"));
-	cls_Storage_BaseDriver.def("GetExtCharacter", (Storage_BaseDriver & (Storage_BaseDriver::*)(Standard_ExtCharacter &)) &Storage_BaseDriver::GetExtCharacter, "None", py::arg("aValue"));
+	// FIXME cls_Storage_BaseDriver.def("GetExtCharacter", (Storage_BaseDriver & (Storage_BaseDriver::*)(Standard_ExtCharacter &)) &Storage_BaseDriver::GetExtCharacter, "None", py::arg("aValue"));
 	// FIXME cls_Storage_BaseDriver.def("bits_right", (Storage_BaseDriver & (Storage_BaseDriver::*)(Standard_ExtCharacter &)) &Storage_BaseDriver::operator>>, py::is_operator(), "None", py::arg("aValue"));
 	cls_Storage_BaseDriver.def("GetInteger", [](Storage_BaseDriver &self, Standard_Integer & aValue){ Storage_BaseDriver & rv = self.GetInteger(aValue); return std::tuple<Storage_BaseDriver &, Standard_Integer &>(rv, aValue); }, "None", py::arg("aValue"));
 	// FIXME cls_Storage_BaseDriver.def("bits_right", (Storage_BaseDriver & (Storage_BaseDriver::*)(Standard_Integer &)) &Storage_BaseDriver::operator>>, py::is_operator(), "None", py::arg("aValue"));

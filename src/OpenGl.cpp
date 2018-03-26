@@ -429,8 +429,8 @@ PYBIND11_MODULE(OpenGl, mod) {
 	cls_OpenGl_Context.def("Init", [](OpenGl_Context &self) -> Standard_Boolean { return self.Init(); });
 	cls_OpenGl_Context.def("Init", (Standard_Boolean (OpenGl_Context::*)(const Standard_Boolean)) &OpenGl_Context::Init, "Initialize class from currently bound OpenGL context. Method should be called only once.", py::arg("theIsCoreProfile"));
 	cls_OpenGl_Context.def("IsValid", (Standard_Boolean (OpenGl_Context::*)() const ) &OpenGl_Context::IsValid, "Returns true if this context is valid (has been initialized)");
-	cls_OpenGl_Context.def("Init", [](OpenGl_Context &self, const Aspect_Handle a0, const Aspect_Handle a1, const Aspect_RenderingContext a2) -> Standard_Boolean { return self.Init(a0, a1, a2); }, py::arg("theWindow"), py::arg("theWindowDC"), py::arg("theGContext"));
-	cls_OpenGl_Context.def("Init", (Standard_Boolean (OpenGl_Context::*)(const Aspect_Handle, const Aspect_Handle, const Aspect_RenderingContext, const Standard_Boolean)) &OpenGl_Context::Init, "Initialize class from specified window and rendering context. Method should be called only once.", py::arg("theWindow"), py::arg("theWindowDC"), py::arg("theGContext"), py::arg("theIsCoreProfile"));
+	// FIXME cls_OpenGl_Context.def("Init", [](OpenGl_Context &self, const Aspect_Handle a0, const Aspect_Handle a1, const Aspect_RenderingContext a2) -> Standard_Boolean { return self.Init(a0, a1, a2); }, py::arg("theWindow"), py::arg("theWindowDC"), py::arg("theGContext"));
+	// FIXME cls_OpenGl_Context.def("Init", (Standard_Boolean (OpenGl_Context::*)(const Aspect_Handle, const Aspect_Handle, const Aspect_RenderingContext, const Standard_Boolean)) &OpenGl_Context::Init, "Initialize class from specified window and rendering context. Method should be called only once.", py::arg("theWindow"), py::arg("theWindowDC"), py::arg("theGContext"), py::arg("theIsCoreProfile"));
 	cls_OpenGl_Context.def("Window", (Aspect_Handle (OpenGl_Context::*)() const ) &OpenGl_Context::Window, "Returns the window handle (HWND) currently bound to this OpenGL context");
 	cls_OpenGl_Context.def_static("ReadGlVersion_", [](Standard_Integer & theGlVerMajor, Standard_Integer & theGlVerMinor){ OpenGl_Context::ReadGlVersion(theGlVerMajor, theGlVerMinor); return std::tuple<Standard_Integer &, Standard_Integer &>(theGlVerMajor, theGlVerMinor); }, "Read OpenGL version information from active context.", py::arg("theGlVerMajor"), py::arg("theGlVerMinor"));
 	cls_OpenGl_Context.def("CheckExtension", (Standard_Boolean (OpenGl_Context::*)(const char *) const ) &OpenGl_Context::CheckExtension, "Check if theExtName extension is supported by active GL context.", py::arg("theExtName"));
@@ -2211,7 +2211,7 @@ PYBIND11_MODULE(OpenGl, mod) {
 	bind_NCollection_Sequence<opencascade::handle<OpenGl_ShaderObject> >(mod, "OpenGl_ShaderList");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_ShaderProgram.hxx
-	bind_NCollection_DataMap<unsigned long long, OpenGl_SetterInterface *, NCollection_DefaultHasher<unsigned long long> >(mod, "OpenGl_SetterList");
+	// FIXME bind_NCollection_DataMap<unsigned long long, OpenGl_SetterInterface *, NCollection_DefaultHasher<unsigned long long> >(mod, "OpenGl_SetterList");
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\OpenGl_FrameBuffer.hxx
 	bind_NCollection_Vector<int>(mod, "OpenGl_ColorFormats");

@@ -310,7 +310,7 @@ PYBIND11_MODULE(BRepOffset, mod) {
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BRepOffset_SimpleOffset.hxx
 	py::class_<BRepOffset_SimpleOffset, opencascade::handle<BRepOffset_SimpleOffset>, BRepTools_Modification> cls_BRepOffset_SimpleOffset(mod, "BRepOffset_SimpleOffset", "This class represents mechanism of simple offset algorithm i. e. topology-preserve offset construction without intersection.");
-	cls_BRepOffset_SimpleOffset.def(py::init<const TopoDS_Shape &, const Standard_Real, const Standard_Real>(), py::arg("theInputShape"), py::arg("theOffsetValue"), py::arg("theTolerance"));
+	// FIXME cls_BRepOffset_SimpleOffset.def(py::init<const TopoDS_Shape &, const Standard_Real, const Standard_Real>(), py::arg("theInputShape"), py::arg("theOffsetValue"), py::arg("theTolerance"));
 	cls_BRepOffset_SimpleOffset.def_static("get_type_name_", (const char * (*)()) &BRepOffset_SimpleOffset::get_type_name, "None");
 	cls_BRepOffset_SimpleOffset.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRepOffset_SimpleOffset::get_type_descriptor, "None");
 	cls_BRepOffset_SimpleOffset.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepOffset_SimpleOffset::*)() const ) &BRepOffset_SimpleOffset::DynamicType, "None");

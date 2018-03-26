@@ -1,18 +1,18 @@
 # This file is part of pyOCCT which provides Python bindings to the OpenCASCADE
 # geometry kernel.
-# 
+#
 # Copyright (C) 2016-2018  Laughlin Research, LLC (info@laughlinresearch.com)
-# 
+#
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
 # License as published by the Free Software Foundation; either
 # version 2.1 of the License, or (at your option) any later version.
-# 
+#
 # This library is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 # Lesser General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
@@ -56,12 +56,15 @@ if(MSVC)
 endif(MSVC)
 
 # Known warnings
+if(WIN32)
 if(NOT ENABLE_WARNINGS)
     set(WARNINGS "/wd4996 /wd4800 /wd4267 /wd4275 /wd4251 /wd4805 /wd4290 /wd4005 /wd4180 /wd4244 /wd4146 /wd4172")
 else(NOT ENABLE_WARNINGS)
     set(WARNINGS)
 endif(NOT ENABLE_WARNINGS)
-
+else(WIN32)
+    set(WARNINGS "-Wall")
+endif(WIN32)
 
 # --------------------------------------------------------------------------- #
 # OpenCASCADE
@@ -78,9 +81,9 @@ endif()
 if(NOT EXISTS ${OpenCASCADE_LIBRARY_DIR})
     message(FATAL_ERROR "Failed to find OpenCASCADE library directory.")
 endif()
-                             
+
 message(STATUS "OpenCASCADE include directory: ${OpenCASCADE_INCLUDE_DIR}")
-message(STATUS "OpenCASCADE library directory: ${OpenCASCADE_LIBRARY_DIR}")                                                                                
+message(STATUS "OpenCASCADE library directory: ${OpenCASCADE_LIBRARY_DIR}")
 include_directories(${OpenCASCADE_INCLUDE_DIR})
 link_directories(${OpenCASCADE_LIBRARY_DIR})
 
@@ -97,10 +100,10 @@ if(ENABLE_NETGEN AND ENABLE_SMESH)
     if(NOT EXISTS ${NETGEN_INCLUDE_DIR})
         message(FATAL_ERROR "Failed to find Netgen include directory.")
     endif()
-    
+
     message(STATUS "Netgen include directory: ${NETGEN_INCLUDE_DIR}")
     include_directories(${NETGEN_INCLUDE_DIR})
-    
+
 endif()
 
 
@@ -151,9 +154,9 @@ if(ENABLE_SMESH)
     else()
         message(STATUS "SMESH libraries: ${SMESH_LIBRARIES}")
     endif()
-                                 
+
     message(STATUS "SMESH include directory: ${SMESH_INCLUDE_PATH}")
-    message(STATUS "SMESH library directory: ${SMESH_LIB_PATH}")                                                                                
+    message(STATUS "SMESH library directory: ${SMESH_LIB_PATH}")
     include_directories(${SMESH_INCLUDE_PATH})
     link_directories(${SMESH_LIB_PATH})
 
@@ -174,7 +177,7 @@ if(NOT DEFINED VTK_INCLUDE_DIRS)
     message(STATUS "Searching for VTK...")
     find_package(VTK REQUIRED)
 endif()
-    
+
 message(STATUS "VTK include directory: ${VTK_INCLUDE_DIRS}")
 include_directories(${VTK_INCLUDE_DIRS})
 
@@ -189,7 +192,7 @@ endif()
 
 if(NOT EXISTS ${Boost_INCLUDE_DIR})
     message(FATAL_ERROR "Failed to find Boost include directory.")
-endif()    
+endif()
 
 message(STATUS "Boost include directory: ${Boost_INCLUDE_DIR}")
 include_directories(${Boost_INCLUDE_DIR})
@@ -215,11 +218,11 @@ endif()
 # --------------------------------------------------------------------------- #
 if(ENABLE_BLSURF AND ENABLE_SMESH)
     set(MESHGEMS_INCLUDE "" CACHE PATH "MeshGems include directory.")
-    
+
     if(NOT EXISTS ${MESHGEMS_INCLUDE})
         message(FATAL_ERROR "MeshGems include directory is required.")
     endif()
-    
+
     message(STATUS "MeshGems include directory: ${MESHGEMS_INCLUDE}")
     include_directories(${MESHGEMS_INCLUDE})
 endif()
@@ -255,20 +258,20 @@ file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 set(MAKE_LIB BOOL ON)
 foreach(SRC ${SRCS})
     get_filename_component(MOD ${SRC} NAME_WE)
-    
+
     # Check for SMESH modules
     list(FIND SMESH_MODULES ${MOD} _INDEX)
     if(NOT ENABLE_SMESH AND ${_INDEX} GREATER -1)
         message(STATUS "Skipping ${MOD}")
         set(MAKE_LIB OFF)
     endif()
-    
+
     # Check Netgen
     if(NOT ENABLE_NETGEN AND ${MOD} STREQUAL "NETGENPlugin" AND MAKE_LIB)
         message(STATUS "Skipping ${MOD}")
         set(MAKE_LIB OFF)
     endif()
-    
+
     # Check BLSURF
     if(NOT ENABLE_BLSURF AND ${MOD} STREQUAL "BLSURFPlugin" AND MAKE_LIB)
         message(STATUS "Skipping ${MOD}")

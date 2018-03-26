@@ -78,20 +78,20 @@ void bind_BVH_Box(py::object &mod, std::string const &name) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BVH_Box.hxx
 	py::class_<BVH_Box<T, N>, std::unique_ptr<BVH_Box<T, N>, Deleter<BVH_Box<T, N>>>> cls(mod, name.c_str(), "Defines axis aligned bounding box (AABB) based on BVH vectors.");
 	cls.def(py::init<>());
-	cls.def(py::init<const BVH_Box<T, N>::BVH_VecNt &>(), py::arg("thePoint"));
+	cls.def(py::init<const typename BVH_Box<T, N>::BVH_VecNt &>(), py::arg("thePoint"));
 	cls.def(py::init([] (const BVH_Box<T, N> &other) {return new BVH_Box<T, N>(other);}), "Copy constructor", py::arg("other"));
-	cls.def(py::init<const BVH_Box<T, N>::BVH_VecNt &, const BVH_Box<T, N>::BVH_VecNt &>(), py::arg("theMinPoint"), py::arg("theMaxPoint"));
+	cls.def(py::init<const typename BVH_Box<T, N>::BVH_VecNt &, const typename BVH_Box<T, N>::BVH_VecNt &>(), py::arg("theMinPoint"), py::arg("theMaxPoint"));
 	cls.def("Clear", (void (BVH_Box<T, N>::*)()) &BVH_Box<T, N>::Clear, "Clears bounding box.");
 	cls.def("IsValid", (Standard_Boolean (BVH_Box<T, N>::*)() const ) &BVH_Box<T, N>::IsValid, "Is bounding box valid?");
-	cls.def("Add", (void (BVH_Box<T, N>::*)(const BVH_Box<T, N>::BVH_VecNt &)) &BVH_Box<T, N>::Add, "Appends new point to the bounding box.", py::arg("thePoint"));
+	cls.def("Add", (void (BVH_Box<T, N>::*)(const typename BVH_Box<T, N>::BVH_VecNt &)) &BVH_Box<T, N>::Add, "Appends new point to the bounding box.", py::arg("thePoint"));
 	cls.def("Combine", (void (BVH_Box<T, N>::*)(const BVH_Box<T, N> &)) &BVH_Box<T, N>::Combine, "Combines bounding box with another one.", py::arg("theBox"));
-	cls.def("CornerMin", (const BVH_Box<T, N>::BVH_VecNt & (BVH_Box<T, N>::*)() const ) &BVH_Box<T, N>::CornerMin, "Returns minimum point of bounding box.");
-	cls.def("CornerMax", (const BVH_Box<T, N>::BVH_VecNt & (BVH_Box<T, N>::*)() const ) &BVH_Box<T, N>::CornerMax, "Returns maximum point of bounding box.");
-	cls.def("CornerMin", (BVH_Box<T, N>::BVH_VecNt & (BVH_Box<T, N>::*)()) &BVH_Box<T, N>::CornerMin, "Returns minimum point of bounding box.");
-	cls.def("CornerMax", (BVH_Box<T, N>::BVH_VecNt & (BVH_Box<T, N>::*)()) &BVH_Box<T, N>::CornerMax, "Returns maximum point of bounding box.");
+	cls.def("CornerMin", (const typename BVH_Box<T, N>::BVH_VecNt & (BVH_Box<T, N>::*)() const ) &BVH_Box<T, N>::CornerMin, "Returns minimum point of bounding box.");
+	cls.def("CornerMax", (const typename BVH_Box<T, N>::BVH_VecNt & (BVH_Box<T, N>::*)() const ) &BVH_Box<T, N>::CornerMax, "Returns maximum point of bounding box.");
+	cls.def("CornerMin", (typename BVH_Box<T, N>::BVH_VecNt & (BVH_Box<T, N>::*)()) &BVH_Box<T, N>::CornerMin, "Returns minimum point of bounding box.");
+	cls.def("CornerMax", (typename BVH_Box<T, N>::BVH_VecNt & (BVH_Box<T, N>::*)()) &BVH_Box<T, N>::CornerMax, "Returns maximum point of bounding box.");
 	cls.def("Area", (T (BVH_Box<T, N>::*)() const ) &BVH_Box<T, N>::Area, "Returns surface area of bounding box. If the box is degenerated into line, returns the perimeter instead.");
-	cls.def("Size", (BVH_Box<T, N>::BVH_VecNt (BVH_Box<T, N>::*)() const ) &BVH_Box<T, N>::Size, "Returns diagonal of bounding box.");
-	cls.def("Center", (BVH_Box<T, N>::BVH_VecNt (BVH_Box<T, N>::*)() const ) &BVH_Box<T, N>::Center, "Returns center of bounding box.");
+	cls.def("Size", (typename BVH_Box<T, N>::BVH_VecNt (BVH_Box<T, N>::*)() const ) &BVH_Box<T, N>::Size, "Returns diagonal of bounding box.");
+	cls.def("Center", (typename BVH_Box<T, N>::BVH_VecNt (BVH_Box<T, N>::*)() const ) &BVH_Box<T, N>::Center, "Returns center of bounding box.");
 	cls.def("Center", (T (BVH_Box<T, N>::*)(const Standard_Integer) const ) &BVH_Box<T, N>::Center, "Returns center of bounding box along the given axis.", py::arg("theAxis"));
 
 };
@@ -120,9 +120,9 @@ void bind_BVH_DistanceField(py::object &mod, std::string const &name) {
 	cls.def("DimensionX", (Standard_Integer (BVH_DistanceField<T, N>::*)() const ) &BVH_DistanceField<T, N>::DimensionX, "Returns size of voxel grid in X dimension.");
 	cls.def("DimensionY", (Standard_Integer (BVH_DistanceField<T, N>::*)() const ) &BVH_DistanceField<T, N>::DimensionY, "Returns size of voxel grid in Y dimension.");
 	cls.def("DimensionZ", (Standard_Integer (BVH_DistanceField<T, N>::*)() const ) &BVH_DistanceField<T, N>::DimensionZ, "Returns size of voxel grid in Z dimension.");
-	cls.def("VoxelSize", (const BVH_DistanceField<T, N>::BVH_VecNt & (BVH_DistanceField<T, N>::*)() const ) &BVH_DistanceField<T, N>::VoxelSize, "Returns size of single voxel.");
-	cls.def("CornerMin", (const BVH_DistanceField<T, N>::BVH_VecNt & (BVH_DistanceField<T, N>::*)() const ) &BVH_DistanceField<T, N>::CornerMin, "Returns minimum corner of voxel grid.");
-	cls.def("CornerMax", (const BVH_DistanceField<T, N>::BVH_VecNt & (BVH_DistanceField<T, N>::*)() const ) &BVH_DistanceField<T, N>::CornerMax, "Returns maximum corner of voxel grid.");
+	cls.def("VoxelSize", (const typename BVH_DistanceField<T, N>::BVH_VecNt & (BVH_DistanceField<T, N>::*)() const ) &BVH_DistanceField<T, N>::VoxelSize, "Returns size of single voxel.");
+	cls.def("CornerMin", (const typename BVH_DistanceField<T, N>::BVH_VecNt & (BVH_DistanceField<T, N>::*)() const ) &BVH_DistanceField<T, N>::CornerMin, "Returns minimum corner of voxel grid.");
+	cls.def("CornerMax", (const typename BVH_DistanceField<T, N>::BVH_VecNt & (BVH_DistanceField<T, N>::*)() const ) &BVH_DistanceField<T, N>::CornerMax, "Returns maximum corner of voxel grid.");
 
 };
 
@@ -175,8 +175,8 @@ void bind_BVH_ObjectSet(py::object &mod, std::string const &name) {
 	py::class_<BVH_ObjectSet<T, N>, std::unique_ptr<BVH_ObjectSet<T, N>, Deleter<BVH_ObjectSet<T, N>>>, BVH_Set<T, N>> cls(mod, name.c_str(), "Array of abstract entities (bounded by BVH boxes) to built BVH.");
 	cls.def(py::init<>());
 	cls.def("Clear", (void (BVH_ObjectSet<T, N>::*)()) &BVH_ObjectSet<T, N>::Clear, "Removes all geometric objects.");
-	cls.def("Objects", (BVH_ObjectSet<T, N>::BVH_ObjectList & (BVH_ObjectSet<T, N>::*)()) &BVH_ObjectSet<T, N>::Objects, "Returns reference to the array of geometric objects.");
-	cls.def("Objects", (const BVH_ObjectSet<T, N>::BVH_ObjectList & (BVH_ObjectSet<T, N>::*)() const ) &BVH_ObjectSet<T, N>::Objects, "Returns reference to the array of geometric objects.");
+	cls.def("Objects", (typename BVH_ObjectSet<T, N>::BVH_ObjectList & (BVH_ObjectSet<T, N>::*)()) &BVH_ObjectSet<T, N>::Objects, "Returns reference to the array of geometric objects.");
+	cls.def("Objects", (const typename BVH_ObjectSet<T, N>::BVH_ObjectList & (BVH_ObjectSet<T, N>::*)() const ) &BVH_ObjectSet<T, N>::Objects, "Returns reference to the array of geometric objects.");
 	cls.def("Size", (Standard_Integer (BVH_ObjectSet<T, N>::*)() const ) &BVH_ObjectSet<T, N>::Size, "Return total number of objects.");
 	cls.def("Box", (BVH_Box<T, N> (BVH_ObjectSet<T, N>::*)(const Standard_Integer) const ) &BVH_ObjectSet<T, N>::Box, "Returns AABB of the given object.", py::arg("theIndex"));
 	cls.def("Center", (T (BVH_ObjectSet<T, N>::*)(const Standard_Integer, const Standard_Integer) const ) &BVH_ObjectSet<T, N>::Center, "Returns centroid position along the given axis.", py::arg("theIndex"), py::arg("theAxis"));
@@ -308,10 +308,10 @@ void bind_BVH_Transform(py::object &mod, std::string const &name) {
 	// C:\Miniconda\envs\occt\Library\include\opencascade\BVH_Properties.hxx
 	py::class_<BVH_Transform<T, N>, opencascade::handle<BVH_Transform<T, N>>, BVH_Properties> cls(mod, name.c_str(), "Stores transform properties of geometric object.");
 	cls.def(py::init<>());
-	cls.def(py::init<const BVH_Transform<T, N>::BVH_MatNt &>(), py::arg("theTransform"));
-	cls.def("Transform", (const BVH_Transform<T, N>::BVH_MatNt & (BVH_Transform<T, N>::*)() const ) &BVH_Transform<T, N>::Transform, "Returns transformation matrix.");
-	cls.def("SetTransform", (void (BVH_Transform<T, N>::*)(const BVH_Transform<T, N>::BVH_MatNt &)) &BVH_Transform<T, N>::SetTransform, "Sets new transformation matrix.", py::arg("theTransform"));
-	cls.def("Inversed", (const BVH_Transform<T, N>::BVH_MatNt & (BVH_Transform<T, N>::*)() const ) &BVH_Transform<T, N>::Inversed, "Returns inversed transformation matrix.");
+	cls.def(py::init<const typename BVH_Transform<T, N>::BVH_MatNt &>(), py::arg("theTransform"));
+	cls.def("Transform", (const typename BVH_Transform<T, N>::BVH_MatNt & (BVH_Transform<T, N>::*)() const ) &BVH_Transform<T, N>::Transform, "Returns transformation matrix.");
+	cls.def("SetTransform", (void (BVH_Transform<T, N>::*)(const typename BVH_Transform<T, N>::BVH_MatNt &)) &BVH_Transform<T, N>::SetTransform, "Sets new transformation matrix.", py::arg("theTransform"));
+	cls.def("Inversed", (const typename BVH_Transform<T, N>::BVH_MatNt & (BVH_Transform<T, N>::*)() const ) &BVH_Transform<T, N>::Inversed, "Returns inversed transformation matrix.");
 	cls.def("Apply", (BVH_Box<T, N> (BVH_Transform<T, N>::*)(const BVH_Box<T, N> &) const ) &BVH_Transform<T, N>::Apply, "Applies transformation matrix to bounding box.", py::arg("theBox"));
 
 };
@@ -335,10 +335,10 @@ void bind_BVH_TreeBase(py::object &mod, std::string const &name) {
 	cls.def(py::init<>());
 	cls.def("Depth", (int (BVH_TreeBase<T, N>::*)() const ) &BVH_TreeBase<T, N>::Depth, "Returns depth (height) of BVH tree.");
 	cls.def("Length", (int (BVH_TreeBase<T, N>::*)() const ) &BVH_TreeBase<T, N>::Length, "Returns total number of BVH tree nodes.");
-	cls.def("MinPoint", (BVH_TreeBase<T, N>::BVH_VecNt & (BVH_TreeBase<T, N>::*)(const int)) &BVH_TreeBase<T, N>::MinPoint, "Returns minimum point of the given node.", py::arg("theNodeIndex"));
-	cls.def("MaxPoint", (BVH_TreeBase<T, N>::BVH_VecNt & (BVH_TreeBase<T, N>::*)(const int)) &BVH_TreeBase<T, N>::MaxPoint, "Returns maximum point of the given node.", py::arg("theNodeIndex"));
-	cls.def("MinPoint", (const BVH_TreeBase<T, N>::BVH_VecNt & (BVH_TreeBase<T, N>::*)(const int) const ) &BVH_TreeBase<T, N>::MinPoint, "Returns minimum point of the given node.", py::arg("theNodeIndex"));
-	cls.def("MaxPoint", (const BVH_TreeBase<T, N>::BVH_VecNt & (BVH_TreeBase<T, N>::*)(const int) const ) &BVH_TreeBase<T, N>::MaxPoint, "Returns maximum point of the given node.", py::arg("theNodeIndex"));
+	cls.def("MinPoint", (typename BVH_TreeBase<T, N>::BVH_VecNt & (BVH_TreeBase<T, N>::*)(const int)) &BVH_TreeBase<T, N>::MinPoint, "Returns minimum point of the given node.", py::arg("theNodeIndex"));
+	cls.def("MaxPoint", (typename BVH_TreeBase<T, N>::BVH_VecNt & (BVH_TreeBase<T, N>::*)(const int)) &BVH_TreeBase<T, N>::MaxPoint, "Returns maximum point of the given node.", py::arg("theNodeIndex"));
+	cls.def("MinPoint", (const typename BVH_TreeBase<T, N>::BVH_VecNt & (BVH_TreeBase<T, N>::*)(const int) const ) &BVH_TreeBase<T, N>::MinPoint, "Returns minimum point of the given node.", py::arg("theNodeIndex"));
+	cls.def("MaxPoint", (const typename BVH_TreeBase<T, N>::BVH_VecNt & (BVH_TreeBase<T, N>::*)(const int) const ) &BVH_TreeBase<T, N>::MaxPoint, "Returns maximum point of the given node.", py::arg("theNodeIndex"));
 	cls.def("BegPrimitive", (int & (BVH_TreeBase<T, N>::*)(const int)) &BVH_TreeBase<T, N>::BegPrimitive, "Returns index of first primitive of the given leaf node.", py::arg("theNodeIndex"));
 	cls.def("EndPrimitive", (int & (BVH_TreeBase<T, N>::*)(const int)) &BVH_TreeBase<T, N>::EndPrimitive, "Returns index of last primitive of the given leaf node.", py::arg("theNodeIndex"));
 	cls.def("BegPrimitive", (int (BVH_TreeBase<T, N>::*)(const int) const ) &BVH_TreeBase<T, N>::BegPrimitive, "Returns index of first primitive of the given leaf node.", py::arg("theNodeIndex"));
