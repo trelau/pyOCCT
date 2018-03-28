@@ -467,7 +467,8 @@ class BasicViewer(wx.Frame):
         Start the application.
 
         :param bool fit: Option to fit contents.
-        :param bool background:
+        :param bool background: Start the application but keep the window
+            hidden. This would be used to take screen captures in the script.
 
         :return: None
         """

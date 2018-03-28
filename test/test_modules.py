@@ -2768,3 +2768,7 @@ class TestModuleImport(unittest.TestCase):
         except ImportError:
             mod_ok = False
         self.assertTrue(mod_ok)
+
+
+if __name__ == '__main__':
+    unittest.main()

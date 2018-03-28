@@ -40,3 +40,7 @@ class TestNCollectionList(unittest.TestCase):
         self.assertEqual(shape_list.Size(), 3)
         for s in shape_list:
             self.assertIsInstance(s, TopoDS_Shape)
+
+
+if __name__ == '__main__':
+    unittest.main()
