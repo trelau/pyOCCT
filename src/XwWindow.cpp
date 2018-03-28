@@ -19,8 +19,6 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _WIN32
-
 #include <pyOCCT_Common.hpp>
 
 #include <xTypes.h>
@@ -30,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Xw_Window.hxx>
 
 PYBIND11_MODULE(XwWindow, mod) {
-    
+
     // IMPORT
     py::module::import("OCCT.Aspect");
 
@@ -64,5 +62,3 @@ PYBIND11_MODULE(XwWindow, mod) {
             py::arg("theFBConfig") = (Aspect_FBConfig) nullptr);
 
 }
-
-#endif // _WIN32
