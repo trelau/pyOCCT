@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 PYBIND11_MODULE(XwWindow, mod) {
 
     // IMPORT
+    py::module::import("OCCT.Standard");
     py::module::import("OCCT.Aspect");
 
     // Class definition to avoid "type not registered yet?" error.
