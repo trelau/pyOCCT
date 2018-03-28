@@ -30,6 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Xw_Window.hxx>
 
 PYBIND11_MODULE(XwWindow, mod) {
+    
+    // IMPORT
+    py::module::import("OCCT.Aspect");
 
     // Class definition to avoid "type not registered yet?" error.
     // (Aspect_FBConfig is a typedef of__GLXFBConfigRec)
