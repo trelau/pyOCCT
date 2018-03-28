@@ -259,6 +259,14 @@ set(MAKE_LIB BOOL ON)
 foreach(SRC ${SRCS})
     get_filename_component(MOD ${SRC} NAME_WE)
 
+    # Check for system-specific modules
+    # message(STATUS "Mod: ${MOD}")
+    if((WIN32 AND (${MOD} STREQUAL "XwWindow"))
+        OR ((NOT WIN32) AND (${MOD} STREQUAL "WNT")))
+            message(STATUS "Skipping system-specific module ${MOD}")
+            continue()
+    endif()
+
     # Check for SMESH modules
     list(FIND SMESH_MODULES ${MOD} _INDEX)
     if(NOT ENABLE_SMESH AND ${_INDEX} GREATER -1)
