@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include <Aspect_DisplayConnection.hxx>
 #include <Aspect_FBConfig.hxx>
+#include <Aspect_Window.hxx>
 #include <Xw_Window.hxx>
 
 PYBIND11_MODULE(XwWindow, mod) {
