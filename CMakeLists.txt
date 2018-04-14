@@ -238,7 +238,13 @@ include_directories(${PYTHON_INCLUDE_PATH})
 # --------------------------------------------------------------------------- #
 # PYBIND11
 # --------------------------------------------------------------------------- #
-add_subdirectory(pybind11)
+IF(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/pybind11")
+    message(STATUS "Adding pybind11 subdirectory.")
+    add_subdirectory(pybind11)
+ELSE()
+    message(STATUS "Searching for pybind11...")
+    find_package(pybind11 REQUIRED)
+ENDIF()
 
 
 # --------------------------------------------------------------------------- #
