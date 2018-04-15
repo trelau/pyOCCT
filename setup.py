@@ -13,8 +13,7 @@ setup(
     url='https://github.com/LaughlinResearch/pyOCCT',
     license='LGPL v2.1',
     platforms=['Windows', 'Linux'],
-    zip_safe=False,
     classifiers=['Development Status :: 3 - Alpha',
                  'Intended Audience :: Developers',
-                 'Programming Language :: Python :: 3.5']
+                 'Programming Language :: Python']
 )

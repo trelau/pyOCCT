@@ -48,47 +48,10 @@ C++ counterpart. More resources will be available soon.
 * [Chat on Gitter](https://gitter.im/pyOCCT/Lobby)
 * [Submit issues](https://github.com/LaughlinResearch/pyOCCT/issues)
 
-## Requirements
-The following tools and libraries should be available to build, install, or
-use pyOCCT. The links are meant to provide useful references or recommendations
-but are not necessarily the only place to find them.
-
-### Core
-Core components for pyOCCT:
-
-* **C++11 compiler (Required)**: Visual Studio 14 has been used so far.
-
-* **Python 2.X or 3.X (Required)**: So far 3.5 has been tested but support for
-  2.7 and 3.X is anticipated.
-
-* **pybind11 (Required)**: Version 2.3dev0 has been used but latest needs
-  verified. Get it [here](https://github.com/pybind/pybind11).
-
-* **OpenCASCADE 7.2.0 (Required)**: Available from [OPEN CASCADE SAS](https://www.opencascade.com/content/latest-release)
-  or [conda-forge](https://anaconda.org/conda-forge/occt).
-  
-* **wxPython (Required)**: To support minimal visualization in Python.
-
-* **SMESH 8.3.0 (Optional)**: Standalone version [here](https://github.com/LaughlinResearch/SMESH).
-
-* **Netgen 6.2 (Optional)**: Special SMESH version [here](https://github.com/LaughlinResearch/netgen4smesh).
-
-### Supporting
-Supporting components are listed below along with what core component they
-support:
-
-* **Freetype 2.8.1 (OpenCASCADE)**
-
-* **tbb 2018_20171205 (OpenCASCADE)**
-
-* **VTK 8.1.0 (SMESH)**
-
-* **pthreads (SMESH)**
-
 # Getting Started
-Anaconda Python is recommended for package management and since
-many packages are available for some of the prerequisites. It is recommended
-that a designated environment be created and used for pyOCCT. An example of
+[Anaconda Python](https://www.anaconda.com/) (or [Miniconda](https://conda.io/miniconda.html))
+is recommended for package management and installation. It is recommended that
+a designated environment be created and used for pyOCCT. An example of
 creating this environment for Anaconda Python within an Anaconda command prompt
 is:
 
@@ -100,13 +63,10 @@ environment may look like:
 
     activate occt
 
-Detailed build instructions and CI services will be available soon so check
-back for more information. Until then, a prebuilt Python wheel is available for
-Windows 64-bit Python 3.5 to give users a quick start. This contains the Python
-bindings as well as all required dependencies including OCCT and VTK. This
-wheel can be installed using [pip](https://pypi.python.org/pypi/pip/):
+The easiest and fastest way to get started is using the conda build from the
+Anaconda cloud:
 
-    pip install OCCT-0.0.1-cp35-none-win_amd64.whl
+    conda install -c trelau pyocct
     
 To support minimal visualization the wxPython package is required and can be
 installed via conda by:
