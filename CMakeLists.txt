@@ -229,13 +229,6 @@ endif()
 
 
 # --------------------------------------------------------------------------- #
-# PYTHON
-# --------------------------------------------------------------------------- #
-find_package(PythonLibs REQUIRED)
-include_directories(${PYTHON_INCLUDE_PATH})
-
-
-# --------------------------------------------------------------------------- #
 # PYBIND11
 # --------------------------------------------------------------------------- #
 IF(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/pybind11")
@@ -245,6 +238,13 @@ ELSE()
     message(STATUS "Searching for pybind11...")
     find_package(pybind11 REQUIRED)
 ENDIF()
+
+
+# --------------------------------------------------------------------------- #
+# PYTHON
+# --------------------------------------------------------------------------- #
+find_package(PythonLibs REQUIRED)
+include_directories(${PYTHON_INCLUDE_PATH})
 
 
 # --------------------------------------------------------------------------- #
@@ -265,14 +265,6 @@ set(MAKE_LIB BOOL ON)
 foreach(SRC ${SRCS})
     get_filename_component(MOD ${SRC} NAME_WE)
 
-    # Check for system-specific modules
-    # message(STATUS "Mod: ${MOD}")
-    if((WIN32 AND (${MOD} STREQUAL "XwWindow"))
-        OR ((NOT WIN32) AND (${MOD} STREQUAL "WNT")))
-            message(STATUS "Skipping system-specific module ${MOD}")
-            continue()
-    endif()
-
     # Check for SMESH modules
     list(FIND SMESH_MODULES ${MOD} _INDEX)
     if(NOT ENABLE_SMESH AND ${_INDEX} GREATER -1)
@@ -290,6 +282,13 @@ foreach(SRC ${SRCS})
     if(NOT ENABLE_BLSURF AND ${MOD} STREQUAL "BLSURFPlugin" AND MAKE_LIB)
         message(STATUS "Skipping ${MOD}")
         set(MAKE_LIB OFF)
+    endif()
+
+    # Check for platform-specific modules
+    if((WIN32 AND (${MOD} STREQUAL "XwWindow"))
+        OR ((NOT WIN32) AND (${MOD} STREQUAL "WNT")))
+            message(STATUS "Skipping platform-specific module ${MOD}")
+            set(MAKE_LIB OFF)
     endif()
 
     if(MAKE_LIB)
