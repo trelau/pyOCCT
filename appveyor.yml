@@ -4,7 +4,7 @@ image: Visual Studio 2015
 
 environment:
   matrix:
-  - CONDA_INSTALL_LOCN: C:\Miniconda35-x64
+    - CONDA_INSTALL_LOCN: C:\Miniconda35-x64
       TARGET_ARCH: x64
       ARCH: 64
     - CONDA_INSTALL_LOCN: C:\Miniconda36-x64
