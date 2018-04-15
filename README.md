@@ -2,7 +2,9 @@
 
 [![Documentation Status](https://readthedocs.org/projects/pyocct/badge/?version=latest)](http://pyocct.readthedocs.io/en/latest/?badge=latest)
 [![Join the chat at https://gitter.im/pyOCCT/Lobby](https://badges.gitter.im/pyOCCT/Lobby.svg)](https://gitter.im/pyOCCT/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Anaconda-Server Badge](https://anaconda.org/trelau/pyocct/badges/installer/conda.svg)](https://conda.anaconda.org/trelau)
+
+[![Anaconda-Server Badge](https://anaconda.org/trelau/pyocct/badges/installer/conda.svg)](https://conda.anaconda.org/trelau/pyocct)
+[![Anaconda-Server Badge](https://anaconda.org/trelau/pyocct/badges/platforms.svg)](https://anaconda.org/trelau/pyocct)
 [![Anaconda-Server Badge](https://anaconda.org/trelau/pyocct/badges/downloads.svg)](https://anaconda.org/trelau/pyocct)
 [![Anaconda-Server Badge](https://anaconda.org/trelau/pyocct/badges/latest_release_date.svg)](https://anaconda.org/trelau/pyocct)
 
