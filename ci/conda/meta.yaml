@@ -24,6 +24,7 @@ requirements:
 
   run:
     - python
+    - wxpython
     - vc 14 [win]
     - occt 7.2.0
     - smesh 8.3.0
