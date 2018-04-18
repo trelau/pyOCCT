@@ -12,7 +12,7 @@ cmake .. -G "Ninja" \
 
 export NINJA_STATUS="[%f/%t(%r)] "
 
-ninja install
+ninja -j2 install
 
 cd ..
 $PYTHON setup.py install
