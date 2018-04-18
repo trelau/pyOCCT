@@ -21,7 +21,7 @@ requirements:
     - occt ==7.2.0
     - vtk ==8.1.0
     - smesh ==8.3.0 # [win]
-   - netgen4smesh ==6.2.0 # [win]
+    - netgen4smesh ==6.2.0 # [win]
 
   run:
     - python
