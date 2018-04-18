@@ -1,8 +1,6 @@
 mkdir build
 cd build
 
-#    -DPTHREAD_INCLUDE_DIRS:FILEPATH="%LIBRARY_PREFIX%/include" \
-
 cmake .. -G "Ninja" \
     -DCMAKE_BUILD_TYPE="Release" \
     -DENABLE_SMESH=OFF \
@@ -18,5 +16,3 @@ ninja install
 
 cd ..
 $PYTHON setup.py install
-
-
