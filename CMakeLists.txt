@@ -28,7 +28,7 @@ option(ENABLE_NETGEN "Enable Netgen" OFF)
 option(ENABLE_BLSURF "Enable BLSURF" OFF)
 option(ENABLE_FORCE "Force build even if unresolved externals are found" OFF)
 option(ENABLE_WARNINGS "Disable warning output." OFF)
-
+option(TEST_BUILD "Build a subset of modules for testing." OFF)
 
 # --------------------------------------------------------------------------- #
 # SETTINGS
@@ -56,15 +56,15 @@ if(MSVC)
 endif(MSVC)
 
 # Known warnings
-if(WIN32)
 if(NOT ENABLE_WARNINGS)
-    set(WARNINGS "/wd4996 /wd4800 /wd4267 /wd4275 /wd4251 /wd4805 /wd4290 /wd4005 /wd4180 /wd4244 /wd4146 /wd4172")
+    if(WIN32)
+        set(WARNINGS "/wd4996 /wd4800 /wd4267 /wd4275 /wd4251 /wd4805 /wd4290 /wd4005 /wd4180 /wd4244 /wd4146 /wd4172")
+    else(WIN32)
+        set(WARNINGS "-Wall -Wno-deprecated-declarations -Wno-strict-aliasing")
+    endif(WIN32)
 else(NOT ENABLE_WARNINGS)
     set(WARNINGS)
 endif(NOT ENABLE_WARNINGS)
-else(WIN32)
-    set(WARNINGS "-Wall")
-endif(WIN32)
 
 # --------------------------------------------------------------------------- #
 # OpenCASCADE
@@ -252,11 +252,41 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${OUTPUT_PATH}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 
+# Subset of modules to build when TEST_BUILD is ON
+set(TEST_MODULES AIS;
+                 Aspect;
+                 BRep;
+                 BRepBuilderAPI;
+                 BRepTools;
+                 Geom;
+                 gp;
+                 Graphic3d;
+                 IGESControl;
+                 MeshVS;
+                 OpenGl;
+                 Quantity;
+                 SMESH;
+                 STEPControl;
+                 TopoDS;
+                 V3d;
+                 XwWindow)
+
+# Issue warning if TEST_BUILD is ON
+if(TEST_BUILD)
+    message(WARNING "WARNING: TEST_BUILD mode. Not all modules will be generated.")
+endif()
+
 # Be aware any *.cpp is assumed to be a module!
 file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 set(MAKE_LIB BOOL ON)
 foreach(SRC ${SRCS})
     get_filename_component(MOD ${SRC} NAME_WE)
+
+    # Check for test modules
+    list(FIND TEST_MODULES ${MOD} _INDEX)
+    if(TEST_BUILD AND NOT ${_INDEX} GREATER -1)
+        set(MAKE_LIB OFF)
+    endif()
 
     # Check for SMESH modules
     list(FIND SMESH_MODULES ${MOD} _INDEX)

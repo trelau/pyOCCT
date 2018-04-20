@@ -8,27 +8,29 @@ source:
 build:
   number: 0
   features:
-    - vc14 [win and py35]
-    - vc14 [win and py36]
+    - vc14 # [win and py35]
+    - vc14 # [win and py36]
 
 requirements:
   build:
     - python
-    - vc 14 [win]
+    - vc 14 # [win]
     - cmake
     - ninja
     - pybind11
-    - occt 7.2.0
-    - smesh 8.3.0
-    - netgen4smesh 6.2.0
+    - occt ==7.2.0
+    - vtk ==8.1.0
+    - smesh ==8.3.0 # [win]
+    - netgen4smesh ==6.2.0 # [win]
 
   run:
     - python
     - wxpython
-    - vc 14 [win]
-    - occt 7.2.0
-    - smesh 8.3.0
-    - netgen4smesh 6.2.0
+    - vc 14 # [win]
+    - occt ==7.2.0
+    - vtk ==8.1.0
+    - smesh ==8.3.0 # [win]
+    - netgen4smesh ==6.2.0 # [win]
 
 about:
   home: https://github.com/LaughlinResearch/pyOCCT
