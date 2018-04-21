@@ -11,7 +11,7 @@ cmake .. -G "Ninja" \
     -DENABLE_BLSURF=OFF \
     -DENABLE_FORCE=OFF \
     -DENABLE_WARNINGS=OFF \
-    -DTEST_BUILD=ON
+    -DTEST_BUILD=OFF
 
 export NINJA_STATUS="[%f/%t(%r)] "
 

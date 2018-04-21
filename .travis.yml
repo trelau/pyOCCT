@@ -15,9 +15,9 @@ addons:
 
 matrix:
   include:
-  #  - env: PYTHON="3.5" CONDA_PY=35 ARCH="x86_64"
-  #    os: linux
-  #    dist: trusty
+    - env: PYTHON="3.5" CONDA_PY=35 ARCH="x86_64"
+      os: linux
+      dist: trusty
     - env: PYTHON="3.6" CONDA_PY=36 ARCH="x86_64"
       os: linux
       dist: trusty
@@ -35,5 +35,3 @@ before_install:
 
 script:
   - conda build ci/conda
-
-
