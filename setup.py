@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='OCCT',
-    version='0.0.1',
+    version='7.2.0.1',
     packages=['OCCT', 'OCCT.Boolean', 'OCCT.Exchange', 'OCCT.Topology',
               'OCCT.Visualization'],
     package_data={'OCCT': ['*.so', '*.pyd', '*.dll',

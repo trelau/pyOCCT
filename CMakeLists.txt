@@ -17,7 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 cmake_minimum_required(VERSION 3.0)
-project(pyOCCT VERSION 0.0.1 LANGUAGES CXX)
+project(pyOCCT VERSION 7.2.0.1 LANGUAGES CXX)
 
 
 # --------------------------------------------------------------------------- #
@@ -33,10 +33,10 @@ option(TEST_BUILD "Build a subset of modules for testing." OFF)
 # --------------------------------------------------------------------------- #
 # SETTINGS
 # --------------------------------------------------------------------------- #
-set(pyOCCT_MAJOR_VERSION       "0")
-set(pyOCCT_MINOR_VERSION       "0")
-set(pyOCCT_MAINTENANCE_VERSION "1")
-set(PACKAGE_VERSION "${pyOCCT_MAJOR_VERSION}.${pyOCCT_MINOR_VERSION}.${pyOCCT_MAINTENANCE_VERSION}")
+set(pyOCCT_MAJOR_VERSION 7)
+set(pyOCCT_MINOR_VERSION 2)
+set(pyOCCT_PATCH_VERSION 0)
+set(pyOCCT_TWEAK_VERSION 1)
 
 if(WIN32)
 	set(EXTENSION ".pyd")
