@@ -76,10 +76,10 @@ void bind_SMDS_StdIterator(py::object &mod, std::string const &name) {
 	cls.def(py::init<PtrSMDSIterator>(), py::arg("pItr"));
 	cls.def(py::init<>());
 	cls.def("__mul__", (VALUE (SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::*)() const ) &SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::operator*, py::is_operator(), "Return the current object");
-	cls.def("plus_plus", (SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::_Self & (SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::*)()) &SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::operator++, py::is_operator(), "None");
-	cls.def("plus_plus", (SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::_Self (SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::*)(int)) &SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::operator++, py::is_operator(), "None", py::arg(""));
-	cls.def("__ne__", (bool (SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::*)(const SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::_Self &) const ) &SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::operator!=, py::is_operator(), "None", py::arg("__x"));
-	cls.def("__eq__", (bool (SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::*)(const SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::_Self &) const ) &SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::operator==, py::is_operator(), "None", py::arg("__x"));
+	cls.def("plus_plus", (typename SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::_Self & (SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::*)()) &SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::operator++, py::is_operator(), "None");
+	cls.def("plus_plus", (typename SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::_Self (SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::*)(int)) &SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::operator++, py::is_operator(), "None", py::arg(""));
+	cls.def("__ne__", (bool (SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::*)(const typename SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::_Self &) const ) &SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::operator!=, py::is_operator(), "None", py::arg("__x"));
+	cls.def("__eq__", (bool (SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::*)(const typename SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::_Self &) const ) &SMDS_StdIterator<VALUE, PtrSMDSIterator, EqualVALUE>::operator==, py::is_operator(), "None", py::arg("__x"));
 
 };
 
