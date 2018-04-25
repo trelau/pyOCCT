@@ -94,7 +94,7 @@ link_directories(${OpenCASCADE_LIBRARY_DIR})
 if(ENABLE_NETGEN AND ENABLE_SMESH)
     if(NOT DEFINED NETGEN_INCLUDE_DIR)
         message(STATUS "Searching for Netgen...")
-        find_package(NETGEN REQUIRED)
+        find_package(Netgen REQUIRED)
     endif()
 
     if(NOT EXISTS ${NETGEN_INCLUDE_DIR})
