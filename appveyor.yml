@@ -1,4 +1,4 @@
-version: 0.0.1.{build}
+version: 7.2.0.1.{build}
 
 image: Visual Studio 2015
 
@@ -25,7 +25,6 @@ install:
   - cmd: conda.exe config --remove channels defaults
   - cmd: conda.exe config --add channels defaults
   - cmd: conda.exe config --add channels conda-forge
-  - cmd: conda.exe config --add channels trelau
 
 build: off
 
