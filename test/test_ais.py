@@ -31,8 +31,8 @@ class TestAIS(unittest.TestCase):
         """
         Test AIS_Line::Points method.
         """
-        p1 = Geom_CartesianPoint(1., 0., 0.)
-        p2 = Geom_CartesianPoint(10., 0., 0.)
+        p1 = Geom_CartesianPoint(1., 2., 3.)
+        p2 = Geom_CartesianPoint(10., 20., 30.)
         line = AIS_Line(p1, p2)
 
         p3 = Geom_CartesianPoint(0., 0., 0.)
@@ -40,12 +40,12 @@ class TestAIS(unittest.TestCase):
         p3, p4 = line.Points(p3, p4)
 
         self.assertAlmostEqual(p3.X(), 1.)
-        self.assertAlmostEqual(p3.Y(), 0.)
-        self.assertAlmostEqual(p3.Z(), 0.)
+        self.assertAlmostEqual(p3.Y(), 2.)
+        self.assertAlmostEqual(p3.Z(), 3.)
 
         self.assertAlmostEqual(p4.X(), 10.)
-        self.assertAlmostEqual(p4.Y(), 0.)
-        self.assertAlmostEqual(p4.Z(), 0.)
+        self.assertAlmostEqual(p4.Y(), 20.)
+        self.assertAlmostEqual(p4.Z(), 30.)
 
 
 if __name__ == '__main__':
