@@ -26,7 +26,7 @@ from OCCT.Graphic3d import (Graphic3d_RenderingParams,
         Graphic3d_ToneMappingMethod_Filmic)
 
 
-class TestGraphic3dRenderingParamsDataFields(unittest.TestCase):
+class TestGraphic3dRenderingParams(unittest.TestCase):
     """
     Test for Data Fields of Graphic3d_RenderingParams
     """
