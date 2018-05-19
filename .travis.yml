@@ -35,3 +35,6 @@ before_install:
 
 script:
   - conda build ci/conda
+
+after_success:
+  - anaconda -t $CONDA_UPLOAD_TOKEN upload $HOME/travis/miniconda/conda-bld/linux-64/*.bz2 -l master --force
