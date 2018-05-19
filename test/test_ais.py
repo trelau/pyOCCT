@@ -22,12 +22,12 @@ from OCCT.AIS import AIS_Line
 from OCCT.Geom import Geom_CartesianPoint
 
 
-class TestAIS(unittest.TestCase):
+class TestAISLine(unittest.TestCase):
     """
-    Test for AIS module
+    Test for AIS_Line class
     """
 
-    def test_ais_line_points(self):
+    def test_Points(self):
         """
         Test AIS_Line::Points method.
         """

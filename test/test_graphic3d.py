@@ -19,16 +19,16 @@
 import unittest
 
 from OCCT.Graphic3d import (Graphic3d_RenderingParams,
-        Graphic3d_RM_RASTERIZATION, Graphic3d_RM_RAYTRACING,
-        Graphic3d_RTM_BLEND_UNORDERED, Graphic3d_RTM_BLEND_OIT,
-        Graphic3d_StereoMode_QuadBuffer, Graphic3d_StereoMode_SideBySide,
-        Graphic3d_ToneMappingMethod_Disabled,
-        Graphic3d_ToneMappingMethod_Filmic)
+                            Graphic3d_RM_RASTERIZATION, Graphic3d_RM_RAYTRACING,
+                            Graphic3d_RTM_BLEND_UNORDERED, Graphic3d_RTM_BLEND_OIT,
+                            Graphic3d_StereoMode_QuadBuffer, Graphic3d_StereoMode_SideBySide,
+                            Graphic3d_ToneMappingMethod_Disabled,
+                            Graphic3d_ToneMappingMethod_Filmic)
 
 
 class TestGraphic3dRenderingParams(unittest.TestCase):
     """
-    Test for Data Fields of Graphic3d_RenderingParams
+    Tests for Graphic3d_RenderingParams class.
     """
 
     def test_AdaptiveScreenSampling(self):
@@ -51,11 +51,13 @@ class TestGraphic3dRenderingParams(unittest.TestCase):
         p = Graphic3d_RenderingParams()
 
         val = p.AnaglyphFilter
-        self.assertEqual(val, Graphic3d_RenderingParams.Anaglyph.Anaglyph_RedCyan_Optimized, 'incorrect default')
+        self.assertEqual(val, Graphic3d_RenderingParams.Anaglyph.Anaglyph_RedCyan_Optimized,
+                         'incorrect default')
 
         p.Method = Graphic3d_RenderingParams.Anaglyph.Anaglyph_GreenMagenta_Simple
         val = p.AnaglyphFilter
-        self.assertEqual(val, Graphic3d_RenderingParams.Anaglyph.Anaglyph_GreenMagenta_Simple, 'set/get error')
+        self.assertEqual(val, Graphic3d_RenderingParams.Anaglyph.Anaglyph_GreenMagenta_Simple,
+                         'set/get error')
 
     def test_CameraApertureRadius(self):
         """
@@ -433,6 +435,7 @@ class TestGraphic3dRenderingParams(unittest.TestCase):
         p.Method = 2.0
         val = p.WhitePoint
         self.assertAlmostEqual(val, 2.0, 'set/get error')
+
 
 if __name__ == '__main__':
     unittest.main()
