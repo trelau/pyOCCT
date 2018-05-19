@@ -277,7 +277,7 @@ foreach(MOD ${OCCT_MODULES})
     endif()
 
     if(MAKE_LIB)
-        file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/${MOD}.*)
+        file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/${MOD}.* ${CMAKE_CURRENT_SOURCE_DIR}/src/${MOD}_*)
         pybind11_add_module(${MOD} ${SRCS})
         target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES})
         set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
@@ -311,7 +311,7 @@ if(ENABLE_SMESH)
         endif()
 
         if(MAKE_LIB)
-            file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/${MOD}.*)
+            file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/${MOD}.* ${CMAKE_CURRENT_SOURCE_DIR}/src/${MOD}_*)
             pybind11_add_module(${MOD} ${SRCS})
             target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
                                                 ${SMESH_ABS_LIBS})
