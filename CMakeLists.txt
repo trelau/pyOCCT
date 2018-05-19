@@ -69,6 +69,9 @@ endif(NOT ENABLE_WARNINGS)
 # --------------------------------------------------------------------------- #
 # OpenCASCADE
 # --------------------------------------------------------------------------- #
+# Include cmake list of modules
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/OCCT_Mods.cmake)
+
 if(NOT DEFINED OpenCASCADE_INCLUDE_DIR OR NOT DEFINED OpenCASCADE_LIBRARY_DIR)
     message(STATUS "Searching for OpenCASCADE...")
     find_package(OpenCASCADE 7.2.0 REQUIRED)
@@ -110,29 +113,8 @@ endif()
 # --------------------------------------------------------------------------- #
 # SMESH
 # --------------------------------------------------------------------------- #
-# Manually provide the SMESH modules since the library names may not match up
-# exactly with the module names based on the header file names. The
-# SMESH_LIBRARIES should be found by find_package(SMESH).
-set(SMESH_MODULES Driver;
-                  DriverDAT;
-                  DriverGMF;
-                  DriverSTL;
-                  DriverUNV;
-                  MEFISTO2;
-                  SMDS;
-                  SMESH;
-                  SMESHBasics;
-                  SMESHControls;
-                  SMESHDS;
-                  SMESHMisc;
-                  SMESHTrace;
-                  SMESHUtils;
-                  StdMeshers;
-                  SMDSAbs;
-                  BasicsGenericDestructor;
-                  BaseTraceCollector;
-                  LocalTraceBufferPool;
-                  Utils)
+# Include cmake list of modules
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/SMESH_Mods.cmake)
 
 set(SMESH_ABS_LIBS)
 if(ENABLE_SMESH)
@@ -277,34 +259,13 @@ if(TEST_BUILD)
     message(WARNING "WARNING: TEST_BUILD mode. Not all modules will be generated.")
 endif()
 
-# Be aware any *.cpp is assumed to be a module!
-file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
+# OCCT modules
 set(MAKE_LIB BOOL ON)
-foreach(SRC ${SRCS})
-    get_filename_component(MOD ${SRC} NAME_WE)
+foreach(MOD ${OCCT_MODULES})
 
     # Check for test modules
     list(FIND TEST_MODULES ${MOD} _INDEX)
     if(TEST_BUILD AND NOT ${_INDEX} GREATER -1)
-        set(MAKE_LIB OFF)
-    endif()
-
-    # Check for SMESH modules
-    list(FIND SMESH_MODULES ${MOD} _INDEX)
-    if(NOT ENABLE_SMESH AND ${_INDEX} GREATER -1)
-        message(STATUS "Skipping ${MOD}")
-        set(MAKE_LIB OFF)
-    endif()
-
-    # Check Netgen
-    if(NOT ENABLE_NETGEN AND ${MOD} STREQUAL "NETGENPlugin" AND MAKE_LIB)
-        message(STATUS "Skipping ${MOD}")
-        set(MAKE_LIB OFF)
-    endif()
-
-    # Check BLSURF
-    if(NOT ENABLE_BLSURF AND ${MOD} STREQUAL "BLSURFPlugin" AND MAKE_LIB)
-        message(STATUS "Skipping ${MOD}")
         set(MAKE_LIB OFF)
     endif()
 
@@ -316,12 +277,48 @@ foreach(SRC ${SRCS})
     endif()
 
     if(MAKE_LIB)
-        pybind11_add_module(${MOD} ${SRC})
-        target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
-                                            ${SMESH_ABS_LIBS})
+        file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/${MOD}.*)
+        pybind11_add_module(${MOD} ${SRCS})
+        target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES})
         set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
         install(FILES ${OUTPUT_PATH}/${MOD}${EXTENSION}
                 DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/OCCT)
     endif()
     set(MAKE_LIB ON)
 endforeach()
+
+# SMESH modules
+if(ENABLE_SMESH)
+    set(MAKE_LIB BOOL ON)
+    foreach(MOD ${SMESH_MODULES})
+    
+        # Check for test modules
+        list(FIND TEST_MODULES ${MOD} _INDEX)
+        if(TEST_BUILD AND NOT ${_INDEX} GREATER -1)
+            set(MAKE_LIB OFF)
+        endif()
+
+        # Check Netgen
+        if(NOT ENABLE_NETGEN AND ${MOD} STREQUAL "NETGENPlugin" AND MAKE_LIB)
+            message(STATUS "Skipping ${MOD}")
+            set(MAKE_LIB OFF)
+        endif()
+
+        # Check BLSURF
+        if(NOT ENABLE_BLSURF AND ${MOD} STREQUAL "BLSURFPlugin" AND MAKE_LIB)
+            message(STATUS "Skipping ${MOD}")
+            set(MAKE_LIB OFF)
+        endif()
+
+        if(MAKE_LIB)
+            file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/${MOD}.*)
+            pybind11_add_module(${MOD} ${SRCS})
+            target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
+                                                ${SMESH_ABS_LIBS})
+            set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
+            install(FILES ${OUTPUT_PATH}/${MOD}${EXTENSION}
+                    DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/OCCT)
+        endif()
+        set(MAKE_LIB ON)
+    endforeach()
+endif()
