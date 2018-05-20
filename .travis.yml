@@ -38,4 +38,4 @@ script:
   - conda build ci/conda
 
 after_success:
-  - anaconda -t $CONDA_UPLOAD_TOKEN upload $HOME/miniconda/conda-bld/linux-64/*.bz2 -l $TRAVIS_BRANCH --force
+  - anaconda -t $CONDA_UPLOAD_TOKEN upload $HOME/miniconda/conda-bld/linux-64/pyocct*.bz2 -l $TRAVIS_BRANCH --force
