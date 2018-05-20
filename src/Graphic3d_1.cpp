@@ -879,6 +879,41 @@ void init_Graphic3d_1(py::module &mod) {
 		.value("Anaglyph_UserDefined", Graphic3d_RenderingParams::Anaglyph::Anaglyph_UserDefined)
 		.export_values();
 
+	// Data fields
+	cls_Graphic3d_RenderingParams.def_readwrite("Method", &Graphic3d_RenderingParams::Method);
+	cls_Graphic3d_RenderingParams.def_readwrite("TransparencyMethod", &Graphic3d_RenderingParams::TransparencyMethod);
+	cls_Graphic3d_RenderingParams.def_readwrite("OitDepthFactor", &Graphic3d_RenderingParams::OitDepthFactor);
+	cls_Graphic3d_RenderingParams.def_readwrite("NbMsaaSamples", &Graphic3d_RenderingParams::NbMsaaSamples);
+	cls_Graphic3d_RenderingParams.def_readwrite("RenderResolutionScale", &Graphic3d_RenderingParams::RenderResolutionScale);
+	cls_Graphic3d_RenderingParams.def_readwrite("IsGlobalIlluminationEnabled", &Graphic3d_RenderingParams::IsGlobalIlluminationEnabled);
+	cls_Graphic3d_RenderingParams.def_readwrite("SamplesPerPixel", &Graphic3d_RenderingParams::SamplesPerPixel);
+	cls_Graphic3d_RenderingParams.def_readwrite("RaytracingDepth", &Graphic3d_RenderingParams::RaytracingDepth);
+	cls_Graphic3d_RenderingParams.def_readwrite("IsShadowEnabled", &Graphic3d_RenderingParams::IsShadowEnabled);
+	cls_Graphic3d_RenderingParams.def_readwrite("IsReflectionEnabled", &Graphic3d_RenderingParams::IsReflectionEnabled);
+	cls_Graphic3d_RenderingParams.def_readwrite("IsAntialiasingEnabled", &Graphic3d_RenderingParams::IsAntialiasingEnabled);
+	cls_Graphic3d_RenderingParams.def_readwrite("IsTransparentShadowEnabled", &Graphic3d_RenderingParams::IsTransparentShadowEnabled);
+	cls_Graphic3d_RenderingParams.def_readwrite("UseEnvironmentMapBackground", &Graphic3d_RenderingParams::UseEnvironmentMapBackground);
+	cls_Graphic3d_RenderingParams.def_readwrite("CoherentPathTracingMode", &Graphic3d_RenderingParams::CoherentPathTracingMode);
+	cls_Graphic3d_RenderingParams.def_readwrite("AdaptiveScreenSampling", &Graphic3d_RenderingParams::AdaptiveScreenSampling);
+	cls_Graphic3d_RenderingParams.def_readwrite("ShowSamplingTiles", &Graphic3d_RenderingParams::ShowSamplingTiles);
+	cls_Graphic3d_RenderingParams.def_readwrite("TwoSidedBsdfModels", &Graphic3d_RenderingParams::TwoSidedBsdfModels);
+	cls_Graphic3d_RenderingParams.def_readwrite("RadianceClampingValue", &Graphic3d_RenderingParams::RadianceClampingValue);
+	cls_Graphic3d_RenderingParams.def_readwrite("RebuildRayTracingShaders", &Graphic3d_RenderingParams::RebuildRayTracingShaders);
+	cls_Graphic3d_RenderingParams.def_readwrite("NbRayTracingTiles", &Graphic3d_RenderingParams::NbRayTracingTiles);
+	cls_Graphic3d_RenderingParams.def_readwrite("CameraApertureRadius", &Graphic3d_RenderingParams::CameraApertureRadius);
+	cls_Graphic3d_RenderingParams.def_readwrite("CameraFocalPlaneDist", &Graphic3d_RenderingParams::CameraFocalPlaneDist);
+	cls_Graphic3d_RenderingParams.def_readwrite("ToneMappingMethod", &Graphic3d_RenderingParams::ToneMappingMethod);
+	cls_Graphic3d_RenderingParams.def_readwrite("Exposure", &Graphic3d_RenderingParams::Exposure);
+	cls_Graphic3d_RenderingParams.def_readwrite("WhitePoint", &Graphic3d_RenderingParams::WhitePoint);
+	cls_Graphic3d_RenderingParams.def_readwrite("StereoMode", &Graphic3d_RenderingParams::StereoMode);
+	cls_Graphic3d_RenderingParams.def_readwrite("AnaglyphFilter", &Graphic3d_RenderingParams::AnaglyphFilter);
+	cls_Graphic3d_RenderingParams.def_readwrite("AnaglyphLeft", &Graphic3d_RenderingParams::AnaglyphLeft);
+	cls_Graphic3d_RenderingParams.def_readwrite("AnaglyphRight", &Graphic3d_RenderingParams::AnaglyphRight);
+	cls_Graphic3d_RenderingParams.def_readwrite("ToReverseStereo", &Graphic3d_RenderingParams::ToReverseStereo);
+	cls_Graphic3d_RenderingParams.def_readwrite("Resolution", &Graphic3d_RenderingParams::Resolution);
+	cls_Graphic3d_RenderingParams.def_readonly_static("THE_DEFAULT_RESOLUTION", &Graphic3d_RenderingParams::THE_DEFAULT_RESOLUTION);
+	cls_Graphic3d_RenderingParams.def_readonly_static("THE_DEFAULT_DEPTH", &Graphic3d_RenderingParams::THE_DEFAULT_DEPTH);
+
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_PriorityDefinitionError.hxx
 	py::class_<Graphic3d_PriorityDefinitionError, opencascade::handle<Graphic3d_PriorityDefinitionError>, Standard_OutOfRange> cls_Graphic3d_PriorityDefinitionError(mod, "Graphic3d_PriorityDefinitionError", "None");
 	cls_Graphic3d_PriorityDefinitionError.def(py::init<>());

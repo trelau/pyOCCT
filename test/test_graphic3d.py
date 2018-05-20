@@ -18,12 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 import unittest
 
-from OCCT.Graphic3d import (Graphic3d_RenderingParams,
-                            Graphic3d_RM_RASTERIZATION, Graphic3d_RM_RAYTRACING,
-                            Graphic3d_RTM_BLEND_UNORDERED, Graphic3d_RTM_BLEND_OIT,
-                            Graphic3d_StereoMode_QuadBuffer, Graphic3d_StereoMode_SideBySide,
-                            Graphic3d_ToneMappingMethod_Disabled,
-                            Graphic3d_ToneMappingMethod_Filmic)
+from OCCT.BVH import BVH_Mat4f
+from OCCT.Graphic3d import (Graphic3d_RenderingParams, Graphic3d_RenderingMode,
+                            Graphic3d_RenderTransparentMethod, Graphic3d_ToneMappingMethod,
+                            Graphic3d_StereoMode)
 
 
 class TestGraphic3dRenderingParams(unittest.TestCase):
@@ -31,410 +29,116 @@ class TestGraphic3dRenderingParams(unittest.TestCase):
     Tests for Graphic3d_RenderingParams class.
     """
 
-    def test_AdaptiveScreenSampling(self):
-        """
-        Test AdaptiveScreenSampling data field.
-        """
-        p = Graphic3d_RenderingParams()
+    @classmethod
+    def setUpClass(cls):
+        cls.p = Graphic3d_RenderingParams()
 
-        val = p.AdaptiveScreenSampling
-        self.assertEqual(val, False, 'incorrect default')
-
-        p.Method = True
-        val = p.AdaptiveScreenSampling
-        self.assertEqual(val, True, 'set/get error')
-
-    def test_AnaglyphFilter(self):
-        """
-        Test AnaglyphFilter data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.AnaglyphFilter
-        self.assertEqual(val, Graphic3d_RenderingParams.Anaglyph.Anaglyph_RedCyan_Optimized,
-                         'incorrect default')
-
-        p.Method = Graphic3d_RenderingParams.Anaglyph.Anaglyph_GreenMagenta_Simple
-        val = p.AnaglyphFilter
-        self.assertEqual(val, Graphic3d_RenderingParams.Anaglyph.Anaglyph_GreenMagenta_Simple,
-                         'set/get error')
-
-    def test_CameraApertureRadius(self):
-        """
-        Test CameraApertureRadius data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.CameraApertureRadius
-        self.assertAlmostEqual(val, 0.0, 'incorrect default')
-
-        p.Method = 1.0
-        val = p.CameraApertureRadius
-        self.assertAlmostEqual(val, 1.0, 'set/get error')
-
-    def test_CameraFocalPlaneDist(self):
-        """
-        Test CameraFocalPlaneDist data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.CameraFocalPlaneDist
-        self.assertAlmostEqual(val, 1.0, 'incorrect default')
-
-        p.Method = 2.0
-        val = p.CameraFocalPlaneDist
-        self.assertAlmostEqual(val, 2.0, 'set/get error')
-
-    def test_CoherentPathTracingMode(self):
-        """
-        Test CoherentPathTracingMode data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.CoherentPathTracingMode
-        self.assertEqual(val, False, 'incorrect default')
-
-        p.Method = True
-        val = p.CoherentPathTracingMode
-        self.assertEqual(val, True, 'set/get error')
-
-    def test_Exposure(self):
-        """
-        Test Exposure data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.Exposure
-        self.assertAlmostEqual(val, 0.0, 'incorrect default')
-
-        p.Method = 1.0
-        val = p.Exposure
-        self.assertAlmostEqual(val, 1.0, 'set/get error')
-
-    def test_IsAntialiasingEnabled(self):
-        """
-        Test IsAntialiasingEnabled data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.IsAntialiasingEnabled
-        self.assertEqual(val, False, 'incorrect default')
-
-        p.Method = True
-        val = p.IsAntialiasingEnabled
-        self.assertEqual(val, True, 'set/get error')
-
-    def test_IsGlobalIlluminationEnabled(self):
-        """
-        Test IsGlobalIlluminationEnabled data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.IsGlobalIlluminationEnabled
-        self.assertEqual(val, False, 'incorrect default')
-
-        p.Method = True
-        val = p.IsGlobalIlluminationEnabled
-        self.assertEqual(val, True, 'set/get error')
-
-    def test_IsReflectionEnabled(self):
-        """
-        Test IsReflectionEnabled data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.IsReflectionEnabled
-        self.assertEqual(val, False, 'incorrect default')
-
-        p.Method = True
-        val = p.IsReflectionEnabled
-        self.assertEqual(val, True, 'set/get error')
-
-    def test_IsShadowEnabled(self):
-        """
-        Test IsShadowEnabled data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.IsShadowEnabled
-        self.assertEqual(val, True, 'incorrect default')
-
-        p.Method = False
-        val = p.IsShadowEnabled
-        self.assertEqual(val, False, 'set/get error')
-
-    def test_IsTransparentShadowEnabled(self):
-        """
-        Test IsTransparentShadowEnabled data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.IsTransparentShadowEnabled
-        self.assertEqual(val, False, 'incorrect default')
-
-        p.Method = True
-        val = p.IsTransparentShadowEnabled
-        self.assertEqual(val, True, 'set/get error')
+    def test_ResolutionRatio(self):
+        self.assertAlmostEqual(self.p.ResolutionRatio(), 1.)
 
     def test_Method(self):
-        """
-        Test Method data field.
-        """
-        p = Graphic3d_RenderingParams()
+        self.assertEqual(self.p.Method, Graphic3d_RenderingMode.Graphic3d_RM_RASTERIZATION)
+        self.p.Method = Graphic3d_RenderingMode.Graphic3d_RM_RAYTRACING
+        self.assertEqual(self.p.Method, Graphic3d_RenderingMode.Graphic3d_RM_RAYTRACING)
 
-        val = p.Method
-        self.assertEqual(val, Graphic3d_RM_RASTERIZATION, 'incorrect default')
-
-        p.Method = Graphic3d_RM_RAYTRACING
-        val = p.Method
-        self.assertEqual(val, Graphic3d_RM_RAYTRACING, 'set/get error')
-
-    def test_NbMsaaSamples(self):
-        """
-        Test NbMsaaSamples data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.NbMsaaSamples
-        self.assertEqual(val, 0, 'incorrect default')
-
-        p.Method = 2
-        val = p.NbMsaaSamples
-        self.assertEqual(val, 2, 'set/get error')
-
-    def test_NbRayTracingTiles(self):
-        """
-        Test NbRayTracingTiles data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.NbRayTracingTiles
-        self.assertEqual(val, 0, 'incorrect default')
-
-        p.Method = 2
-        val = p.NbRayTracingTiles
-        self.assertEqual(val, 2, 'set/get error')
+    def test_TransparencyField(self):
+        self.assertEqual(self.p.TransparencyMethod,
+                         Graphic3d_RenderTransparentMethod.Graphic3d_RTM_BLEND_UNORDERED)
+        self.p.TransparencyMethod = Graphic3d_RenderTransparentMethod.Graphic3d_RTM_BLEND_OIT
+        self.assertEqual(self.p.TransparencyMethod,
+                         Graphic3d_RenderTransparentMethod.Graphic3d_RTM_BLEND_OIT)
 
     def test_OitDepthFactor(self):
-        """
-        Test OitDepthFactor data field.
-        """
-        p = Graphic3d_RenderingParams()
+        self.assertAlmostEqual(self.p.OitDepthFactor, 0.)
+        self.p.OitDepthFactor = 1.
+        self.assertAlmostEqual(self.p.OitDepthFactor, 1.)
 
-        val = p.OitDepthFactor
-        self.assertAlmostEqual(val, 0.0, 'incorrect default')
-
-        p.Method = 0.5
-        val = p.OitDepthFactor
-        self.assertAlmostEqual(val, 0.5, 'set/get error')
-
-    def test_RadianceClampingValue(self):
-        """
-        Test RadianceClampingValue data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.RadianceClampingValue
-        self.assertAlmostEqual(val, 0.0, 'incorrect default')
-
-        p.Method = 0.5
-        val = p.RadianceClampingValue
-        self.assertAlmostEqual(val, 0.5, 'set/get error')
-
-    def test_RaytracingDepth(self):
-        """
-        Test RaytracingDepth data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.RaytracingDepth
-        self.assertEqual(val, 3, 'incorrect default')
-
-        p.Method = 4
-        val = p.RaytracingDepth
-        self.assertEqual(val, 4, 'set/get error')
-
-    def test_RebuildRayTracingShaders(self):
-        """
-        Test RebuildRayTracingShaders data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.RebuildRayTracingShaders
-        self.assertEqual(val, False, 'incorrect default')
-
-        p.Method = True
-        val = p.RebuildRayTracingShaders
-        self.assertEqual(val, True, 'set/get error')
+    def test_NbMsaaSamples(self):
+        self.assertEqual(self.p.NbMsaaSamples, 0)
 
     def test_RenderResolutionScale(self):
-        """
-        Test RenderResolutionScale data field.
-        """
-        p = Graphic3d_RenderingParams()
+        self.assertAlmostEqual(self.p.RenderResolutionScale, 1.)
 
-        val = p.RenderResolutionScale
-        self.assertAlmostEqual(val, 1.0, 'incorrect default')
+    def test_IsGlobalIlluminationEnabled(self):
+        self.assertEqual(self.p.IsGlobalIlluminationEnabled, False)
+        self.p.IsGlobalIlluminationEnabled = True
+        self.assertEqual(self.p.IsGlobalIlluminationEnabled, True)
 
-        p.Method = 2.0
-        val = p.RenderResolutionScale
-        self.assertAlmostEqual(val, 2.0, 'set/get error')
+    def test_RaytracingDepth(self):
+        self.assertEqual(self.p.RaytracingDepth, 3)
 
-    def test_Resolution(self):
-        """
-        Test Resolution data field.
-        """
-        p = Graphic3d_RenderingParams()
+    def test_IsShadowEnabled(self):
+        self.assertEqual(self.p.IsShadowEnabled, True)
 
-        val = p.Resolution
-        self.assertEqual(val, 72, 'incorrect default')
+    def test_IsReflectionEnabled(self):
+        self.assertEqual(self.p.IsReflectionEnabled, False)
 
-        p.Method = 96
-        val = p.Resolution
-        self.assertEqual(val, 96, 'set/get error')
+    def test_IsAntialiasingEnabled(self):
+        self.assertEqual(self.p.IsAntialiasingEnabled, False)
 
-    def test_SamplesPerPixel(self):
-        """
-        Test SamplesPerPixel data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.SamplesPerPixel
-        self.assertEqual(val, 1, 'incorrect default')
-
-        p.Method = 2
-        val = p.SamplesPerPixel
-        self.assertEqual(val, 2, 'set/get error')
-
-    def test_ShowSamplingTiles(self):
-        """
-        Test ShowSamplingTiles data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.ShowSamplingTiles
-        self.assertEqual(val, False, 'incorrect default')
-
-        p.Method = True
-        val = p.ShowSamplingTiles
-        self.assertEqual(val, True, 'set/get error')
-
-    def test_StereoMode(self):
-        """
-        Test StereoMode data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.StereoMode
-        self.assertEqual(val, Graphic3d_StereoMode_QuadBuffer, 'incorrect default')
-
-        p.Method = Graphic3d_StereoMode_SideBySide
-        val = p.StereoMode
-        self.assertEqual(val, Graphic3d_StereoMode_SideBySide, 'set/get error')
-
-    def test_THE_DEFAULT_DEPTH(self):
-        """
-        Test THE_DEFAULT_DEPTH data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.THE_DEFAULT_DEPTH
-        self.assertEqual(val, 3, 'incorrect default')
-
-        p.Method = 4
-        val = p.THE_DEFAULT_DEPTH
-        self.assertEqual(val, 4, 'set/get error')
-
-    def test_THE_DEFAULT_RESOLUTION(self):
-        """
-        Test THE_DEFAULT_RESOLUTION data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.THE_DEFAULT_RESOLUTION
-        self.assertEqual(val, 72, 'incorrect default')
-
-        p.Method = 96
-        val = p.THE_DEFAULT_RESOLUTION
-        self.assertEqual(val, 96, 'set/get error')
-
-    def test_ToneMappingMethod(self):
-        """
-        Test ToneMappingMethod data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.ToneMappingMethod
-        self.assertEqual(val, Graphic3d_ToneMappingMethod_Disabled, 'incorrect default')
-
-        p.Method = Graphic3d_ToneMappingMethod_Filmic
-        val = p.ToneMappingMethod
-        self.assertEqual(val, Graphic3d_ToneMappingMethod_Filmic, 'set/get error')
-
-    def test_ToReverseStereo(self):
-        """
-        Test ToReverseStereo data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.ToReverseStereo
-        self.assertEqual(val, False, 'incorrect default')
-
-        p.Method = True
-        val = p.ToReverseStereo
-        self.assertEqual(val, True, 'set/get error')
-
-    def test_TransparencyMethod(self):
-        """
-        Test TransparencyMethod data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.TransparencyMethod
-        self.assertEqual(val, Graphic3d_RTM_BLEND_UNORDERED, 'incorrect default')
-
-        p.Method = Graphic3d_RTM_BLEND_OIT
-        val = p.TransparencyMethod
-        self.assertEqual(val, Graphic3d_RTM_BLEND_OIT, 'set/get error')
-
-    def test_TwoSidedBsdfModels(self):
-        """
-        Test TwoSidedBsdfModels data field.
-        """
-        p = Graphic3d_RenderingParams()
-
-        val = p.TwoSidedBsdfModels
-        self.assertEqual(val, False, 'incorrect default')
-
-        p.Method = True
-        val = p.TwoSidedBsdfModels
-        self.assertEqual(val, True, 'set/get error')
+    def test_TransparentShadowEnabled(self):
+        self.assertEqual(self.p.IsTransparentShadowEnabled, False)
 
     def test_UseEnvironmentMapBackground(self):
-        """
-        Test UseEnvironmentMapBackground data field.
-        """
-        p = Graphic3d_RenderingParams()
+        self.assertEqual(self.p.UseEnvironmentMapBackground, False)
 
-        val = p.UseEnvironmentMapBackground
-        self.assertEqual(val, False, 'incorrect default')
+    def test_CoherentPathTracingMode(self):
+        self.assertEqual(self.p.CoherentPathTracingMode, False)
 
-        p.Method = True
-        val = p.UseEnvironmentMapBackground
-        self.assertEqual(val, True, 'set/get error')
+    def test_AdaptiveScreenSampling(self):
+        self.assertEqual(self.p.AdaptiveScreenSampling, False)
+
+    def test_ShowSamplingTiles(self):
+        self.assertEqual(self.p.ShowSamplingTiles, False)
+
+    def test_TwoSidedBsdfModels(self):
+        self.assertEqual(self.p.TwoSidedBsdfModels, False)
+
+    def test_RadianceClampingValue(self):
+        self.assertAlmostEqual(self.p.RadianceClampingValue, 30.)
+
+    def test_NbRayTracingTiles(self):
+        self.assertEqual(self.p.NbRayTracingTiles, 256)
+
+    def test_CameraApertureRadius(self):
+        self.assertAlmostEqual(self.p.CameraApertureRadius, 0.)
+
+    def test_CameraFocalPlaneDist(self):
+        self.assertAlmostEqual(self.p.CameraFocalPlaneDist, 1.)
+
+    def test_ToneMappingMethod(self):
+        self.assertEqual(self.p.ToneMappingMethod,
+                         Graphic3d_ToneMappingMethod.Graphic3d_ToneMappingMethod_Disabled)
+
+    def test_Exposure(self):
+        self.assertAlmostEqual(self.p.Exposure, 0.)
 
     def test_WhitePoint(self):
-        """
-        Test WhitePoint data field.
-        """
-        p = Graphic3d_RenderingParams()
+        self.assertAlmostEqual(self.p.WhitePoint, 1.)
 
-        val = p.WhitePoint
-        self.assertAlmostEqual(val, 1.0, 'incorrect default')
+    def test_StereoMode(self):
+        self.assertEqual(self.p.StereoMode, Graphic3d_StereoMode.Graphic3d_StereoMode_QuadBuffer)
 
-        p.Method = 2.0
-        val = p.WhitePoint
-        self.assertAlmostEqual(val, 2.0, 'set/get error')
+    def test_AnaglyphFilter(self):
+        self.assertEqual(self.p.AnaglyphFilter, self.p.Anaglyph_RedCyan_Optimized)
+
+    def test_AnaglyphLeft(self):
+        self.assertIsInstance(self.p.AnaglyphLeft, BVH_Mat4f)
+
+    def test_AnaglyphRight(self):
+        self.assertIsInstance(self.p.AnaglyphRight, BVH_Mat4f)
+
+    def test_ToReverseStereo(self):
+        self.assertEqual(self.p.ToReverseStereo, False)
+
+    def test_Resolution(self):
+        self.assertEqual(self.p.Resolution, 72)
+
+    def test_THE_DEFAULT_RESOUTION(self):
+        self.assertEqual(Graphic3d_RenderingParams.THE_DEFAULT_RESOLUTION, 72)
+
+    def test_THE_DEFAULT_DEPTH(self):
+        self.assertEqual(Graphic3d_RenderingParams.THE_DEFAULT_DEPTH, 3)
 
 
 if __name__ == '__main__':
