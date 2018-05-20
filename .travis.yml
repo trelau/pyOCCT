@@ -30,6 +30,7 @@ before_install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   - conda install conda-build
+  - conda install anaconda-client
   - conda config --add channels conda-forge
   - conda config --add channels trelau
 
@@ -37,4 +38,4 @@ script:
   - conda build ci/conda
 
 after_success:
-  - anaconda -t $CONDA_UPLOAD_TOKEN upload $HOME/travis/miniconda/conda-bld/linux-64/*.bz2 -l master --force
+  - anaconda -t $CONDA_UPLOAD_TOKEN upload $HOME/travis/miniconda/conda-bld/linux-64/*.bz2 -l $TRAVIS_BRANCH --force
