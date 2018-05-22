@@ -134,11 +134,11 @@ class TestGraphic3dRenderingParams(unittest.TestCase):
     def test_Resolution(self):
         self.assertEqual(self.p.Resolution, 72)
 
-    def test_THE_DEFAULT_RESOUTION(self):
-        self.assertEqual(Graphic3d_RenderingParams.THE_DEFAULT_RESOLUTION, 72)
-
-    def test_THE_DEFAULT_DEPTH(self):
-        self.assertEqual(Graphic3d_RenderingParams.THE_DEFAULT_DEPTH, 3)
+    # def test_THE_DEFAULT_RESOUTION(self):
+    #     self.assertEqual(Graphic3d_RenderingParams.THE_DEFAULT_RESOLUTION, 72)
+    #
+    # def test_THE_DEFAULT_DEPTH(self):
+    #     self.assertEqual(Graphic3d_RenderingParams.THE_DEFAULT_DEPTH, 3)
 
 
 if __name__ == '__main__':

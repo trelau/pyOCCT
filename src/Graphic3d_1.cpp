@@ -911,8 +911,9 @@ void init_Graphic3d_1(py::module &mod) {
 	cls_Graphic3d_RenderingParams.def_readwrite("AnaglyphRight", &Graphic3d_RenderingParams::AnaglyphRight);
 	cls_Graphic3d_RenderingParams.def_readwrite("ToReverseStereo", &Graphic3d_RenderingParams::ToReverseStereo);
 	cls_Graphic3d_RenderingParams.def_readwrite("Resolution", &Graphic3d_RenderingParams::Resolution);
-	cls_Graphic3d_RenderingParams.def_readonly_static("THE_DEFAULT_RESOLUTION", &Graphic3d_RenderingParams::THE_DEFAULT_RESOLUTION);
-	cls_Graphic3d_RenderingParams.def_readonly_static("THE_DEFAULT_DEPTH", &Graphic3d_RenderingParams::THE_DEFAULT_DEPTH);
+	// FIXME Not visible in gcc?
+	// cls_Graphic3d_RenderingParams.def_readonly_static("THE_DEFAULT_RESOLUTION", &Graphic3d_RenderingParams::THE_DEFAULT_RESOLUTION);
+	// cls_Graphic3d_RenderingParams.def_readonly_static("THE_DEFAULT_DEPTH", &Graphic3d_RenderingParams::THE_DEFAULT_DEPTH);
 
 	// C:\Miniconda\envs\occt\Library\include\opencascade\Graphic3d_PriorityDefinitionError.hxx
 	py::class_<Graphic3d_PriorityDefinitionError, opencascade::handle<Graphic3d_PriorityDefinitionError>, Standard_OutOfRange> cls_Graphic3d_PriorityDefinitionError(mod, "Graphic3d_PriorityDefinitionError", "None");
