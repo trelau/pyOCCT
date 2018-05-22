@@ -33,9 +33,8 @@ requirements:
     - netgen ==6.2.1802
 
 test:
-  imports:
-    - OCCT
-    - OCCT.TopoDS
+  source_files:
+    - test
 
 about:
   home: https://github.com/LaughlinResearch/pyOCCT
