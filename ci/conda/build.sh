@@ -6,8 +6,8 @@ export CXX=g++-4.9
 
 cmake .. -G "Ninja" \
     -DCMAKE_BUILD_TYPE="Release" \
-    -DENABLE_SMESH=OFF \
-    -DENABLE_NETGEN=OFF \
+    -DENABLE_SMESH=ON \
+    -DENABLE_NETGEN=ON \
     -DENABLE_BLSURF=OFF \
     -DENABLE_FORCE=OFF \
     -DENABLE_WARNINGS=OFF \
