@@ -33,6 +33,13 @@ requirements:
     - netgen ==6.2.1804
 
 test:
+  imports:
+    - OCCT
+    - OCCT.gp
+    - OCCT.TopoDS
+    - OCCT.SMESH
+    - OCCT.StdMeshers
+    - OCCT.NETGENPlugin
   source_files:
     - test
 
