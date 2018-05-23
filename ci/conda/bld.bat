@@ -6,13 +6,11 @@ cmake .. -G "Ninja" ^
     -DPTHREAD_INCLUDE_DIRS:FILEPATH="%LIBRARY_PREFIX%/include" ^
     -DENABLE_SMESH=ON ^
     -DENABLE_NETGEN=ON ^
-    -DENABLE_BLSURF=OFF ^
-    -DENABLE_FORCE=ON ^
-    -DENABLE_WARNINGS=OFF
+    -DENABLE_FORCE=ON
 
 if errorlevel 1 exit 1
 ninja install
 if errorlevel 1 exit 1
 
 cd ..
-%PYTHON% setup.py install
+python setup.py install

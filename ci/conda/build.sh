@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 mkdir build
 cd build
 
@@ -6,15 +7,11 @@ cd build
 
 cmake .. -G "Ninja" \
     -DCMAKE_BUILD_TYPE="Release" \
-    -DPTHREAD_INCLUDE_DIRS=${PREFIX} \
+    -DPTHREAD_INCLUDE_DIRS=$PREFIX \
     -DENABLE_SMESH=ON \
-    -DENABLE_NETGEN=ON \
-    -DENABLE_BLSURF=OFF \
-    -DENABLE_FORCE=OFF \
-    -DENABLE_WARNINGS=OFF \
-    -DTEST_BUILD=OFF
+    -DENABLE_NETGEN=ON
 
 ninja install
 
 cd ..
-${PYTHON} setup.py install
+python setup.py install
