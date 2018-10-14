@@ -17,7 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 cmake_minimum_required(VERSION 3.0)
-project(pyOCCT VERSION 7.2.0.1 LANGUAGES CXX)
+project(pyOCCT VERSION 7.3.0.1 LANGUAGES CXX)
 
 
 # --------------------------------------------------------------------------- #
@@ -25,7 +25,6 @@ project(pyOCCT VERSION 7.2.0.1 LANGUAGES CXX)
 # --------------------------------------------------------------------------- #
 option(ENABLE_SMESH "Enable SMESH" OFF)
 option(ENABLE_NETGEN "Enable Netgen" OFF)
-option(ENABLE_BLSURF "Enable BLSURF" OFF)
 option(ENABLE_FORCE "Force build even if unresolved externals are found" OFF)
 option(ENABLE_WARNINGS "Disable warning output." OFF)
 option(TEST_BUILD "Build a subset of modules for testing." OFF)
@@ -34,7 +33,7 @@ option(TEST_BUILD "Build a subset of modules for testing." OFF)
 # SETTINGS
 # --------------------------------------------------------------------------- #
 set(pyOCCT_MAJOR_VERSION 7)
-set(pyOCCT_MINOR_VERSION 2)
+set(pyOCCT_MINOR_VERSION 3)
 set(pyOCCT_PATCH_VERSION 0)
 set(pyOCCT_TWEAK_VERSION 1)
 
@@ -74,7 +73,7 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/OCCT_Mods.cmake)
 
 if(NOT DEFINED OpenCASCADE_INCLUDE_DIR OR NOT DEFINED OpenCASCADE_LIBRARY_DIR)
     message(STATUS "Searching for OpenCASCADE...")
-    find_package(OpenCASCADE 7.2.0 REQUIRED)
+    find_package(OpenCASCADE 7.3.0 REQUIRED)
 endif()
 
 if(NOT EXISTS ${OpenCASCADE_INCLUDE_DIR})
@@ -92,32 +91,13 @@ link_directories(${OpenCASCADE_LIBRARY_DIR})
 
 
 # --------------------------------------------------------------------------- #
-# NETGEN
-# --------------------------------------------------------------------------- #
-if(ENABLE_NETGEN AND ENABLE_SMESH)
-    if(NOT DEFINED NETGEN_INCLUDE_DIR)
-        message(STATUS "Searching for Netgen...")
-        find_package(Netgen REQUIRED)
-    endif()
-
-    if(NOT EXISTS ${NETGEN_INCLUDE_DIR})
-        message(FATAL_ERROR "Failed to find Netgen include directory.")
-    endif()
-
-    message(STATUS "Netgen include directory: ${NETGEN_INCLUDE_DIR}")
-    include_directories(${NETGEN_INCLUDE_DIR})
-
-endif()
-
-
-# --------------------------------------------------------------------------- #
 # SMESH
 # --------------------------------------------------------------------------- #
 # Include cmake list of modules
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/SMESH_Mods.cmake)
-
+# include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/SMESH_Mods.cmake)
 set(SMESH_ABS_LIBS)
 if(ENABLE_SMESH)
+
     if(NOT DEFINED SMESH_INCLUDE_PATH OR NOT DEFINED SMESH_LIB_PATH)
         message(STATUS "Searching for SMESH...")
         find_package(SMESH REQUIRED)
@@ -150,41 +130,39 @@ if(ENABLE_SMESH)
         list(APPEND SMESH_ABS_LIBS ${FOUND_LIB})
     endforeach(LIB)
     unset(FOUND_LIB CACHE)
-endif()
 
 
-# --------------------------------------------------------------------------- #
-# VTK
-# --------------------------------------------------------------------------- #
-if(NOT DEFINED VTK_INCLUDE_DIRS)
-    message(STATUS "Searching for VTK...")
-    find_package(VTK REQUIRED)
-endif()
+    # ----------------------------------------------------------------------- #
+    # VTK
+    # ----------------------------------------------------------------------- #
+    if(NOT DEFINED VTK_INCLUDE_DIRS)
+        message(STATUS "Searching for VTK...")
+        find_package(VTK REQUIRED)
+    endif()
 
-message(STATUS "VTK include directory: ${VTK_INCLUDE_DIRS}")
-include_directories(${VTK_INCLUDE_DIRS})
-
-
-# --------------------------------------------------------------------------- #
-# BOOST
-# --------------------------------------------------------------------------- #
-if(NOT DEFINED Boost_INCLUDE_DIR)
-    message(STATUS "Searching for Boost...")
-    find_package(Boost REQUIRED)
-endif()
-
-if(NOT EXISTS ${Boost_INCLUDE_DIR})
-    message(FATAL_ERROR "Failed to find Boost include directory.")
-endif()
-
-message(STATUS "Boost include directory: ${Boost_INCLUDE_DIR}")
-include_directories(${Boost_INCLUDE_DIR})
+    message(STATUS "VTK include directory: ${VTK_INCLUDE_DIRS}")
+    include_directories(${VTK_INCLUDE_DIRS})
 
 
-# --------------------------------------------------------------------------- #
-# PTHREAD
-# --------------------------------------------------------------------------- #
-if(ENABLE_SMESH)
+    # ----------------------------------------------------------------------- #
+    # BOOST
+    # ----------------------------------------------------------------------- #
+    if(NOT DEFINED Boost_INCLUDE_DIR)
+        message(STATUS "Searching for Boost...")
+        find_package(Boost REQUIRED)
+    endif()
+
+    if(NOT EXISTS ${Boost_INCLUDE_DIR})
+        message(FATAL_ERROR "Failed to find Boost include directory.")
+    endif()
+
+    message(STATUS "Boost include directory: ${Boost_INCLUDE_DIR}")
+    include_directories(${Boost_INCLUDE_DIR})
+
+
+    # ----------------------------------------------------------------------- #
+    # PTHREAD
+    # ----------------------------------------------------------------------- #
     set(PTHREAD_INCLUDE_DIRS "" CACHE PATH "pthread include directory.")
 
     if(NOT EXISTS ${PTHREAD_INCLUDE_DIRS})
@@ -193,22 +171,27 @@ if(ENABLE_SMESH)
 
     message(STATUS "pthread include directory: ${PTHREAD_INCLUDE_DIRS}")
     include_directories(${PTHREAD_INCLUDE_DIRS})
-endif()
 
 
-# --------------------------------------------------------------------------- #
-# BLSURF
-# --------------------------------------------------------------------------- #
-if(ENABLE_BLSURF AND ENABLE_SMESH)
-    set(MESHGEMS_INCLUDE "" CACHE PATH "MeshGems include directory.")
+    # ----------------------------------------------------------------------- #
+    # NETGEN
+    # ----------------------------------------------------------------------- #
+    if(ENABLE_NETGEN AND ENABLE_SMESH)
+        if(NOT DEFINED NETGEN_INCLUDE_DIR)
+            message(STATUS "Searching for Netgen...")
+            find_package(Netgen REQUIRED)
+        endif()
 
-    if(NOT EXISTS ${MESHGEMS_INCLUDE})
-        message(FATAL_ERROR "MeshGems include directory is required.")
+        if(NOT EXISTS ${NETGEN_INCLUDE_DIR})
+            message(FATAL_ERROR "Failed to find Netgen include directory.")
+        endif()
+
+        message(STATUS "Netgen include directory: ${NETGEN_INCLUDE_DIR}")
+        include_directories(${NETGEN_INCLUDE_DIR})
+
     endif()
 
-    message(STATUS "MeshGems include directory: ${MESHGEMS_INCLUDE}")
-    include_directories(${MESHGEMS_INCLUDE})
-endif()
+endif(ENABLE_SMESH)
 
 
 # --------------------------------------------------------------------------- #
@@ -263,6 +246,11 @@ endif()
 set(MAKE_LIB BOOL ON)
 foreach(MOD ${OCCT_MODULES})
 
+    # Check if module exists in src
+    if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src/modules/${MOD})
+      set(MAKE_LIB OFF)
+    endif()
+
     # Check for test modules
     list(FIND TEST_MODULES ${MOD} _INDEX)
     if(TEST_BUILD AND NOT ${_INDEX} GREATER -1)
@@ -277,10 +265,11 @@ foreach(MOD ${OCCT_MODULES})
     endif()
 
     if(MAKE_LIB)
-        file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/${MOD}.* ${CMAKE_CURRENT_SOURCE_DIR}/src/${MOD}_*)
+        file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/modules/${MOD}/*.cxx)
         pybind11_add_module(${MOD} ${SRCS})
         target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES})
         set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
+        target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/include)
         install(FILES ${OUTPUT_PATH}/${MOD}${EXTENSION}
                 DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/OCCT)
     endif()
@@ -300,12 +289,6 @@ if(ENABLE_SMESH)
 
         # Check Netgen
         if(NOT ENABLE_NETGEN AND ${MOD} STREQUAL "NETGENPlugin" AND MAKE_LIB)
-            message(STATUS "Skipping ${MOD}")
-            set(MAKE_LIB OFF)
-        endif()
-
-        # Check BLSURF
-        if(NOT ENABLE_BLSURF AND ${MOD} STREQUAL "BLSURFPlugin" AND MAKE_LIB)
             message(STATUS "Skipping ${MOD}")
             set(MAKE_LIB OFF)
         endif()
