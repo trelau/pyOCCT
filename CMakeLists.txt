@@ -16,8 +16,8 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-cmake_minimum_required(VERSION 3.0)
-project(pyOCCT VERSION 7.3.0.1 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.14)
+project(pyOCCT VERSION 7.3.0.0 LANGUAGES CXX)
 
 
 # --------------------------------------------------------------------------- #
@@ -25,9 +25,7 @@ project(pyOCCT VERSION 7.3.0.1 LANGUAGES CXX)
 # --------------------------------------------------------------------------- #
 option(ENABLE_SMESH "Enable SMESH" OFF)
 option(ENABLE_NETGEN "Enable Netgen" OFF)
-option(ENABLE_FORCE "Force build even if unresolved externals are found" OFF)
 option(ENABLE_WARNINGS "Disable warning output." OFF)
-option(TEST_BUILD "Build a subset of modules for testing." OFF)
 
 # --------------------------------------------------------------------------- #
 # SETTINGS
@@ -35,19 +33,13 @@ option(TEST_BUILD "Build a subset of modules for testing." OFF)
 set(pyOCCT_MAJOR_VERSION 7)
 set(pyOCCT_MINOR_VERSION 3)
 set(pyOCCT_PATCH_VERSION 0)
-set(pyOCCT_TWEAK_VERSION 1)
+set(pyOCCT_TWEAK_VERSION 0)
 
 if(WIN32)
-	set(EXTENSION ".pyd")
+    set(EXTENSION ".pyd")
 else(WIN32)
-	set(EXTENSION ".so")
+    set(EXTENSION ".so")
 endif(WIN32)
-
-# Use /FORCE to ignore unresolved externals (known issue)
-if(ENABLE_FORCE)
-    message(STATUS "Using /FORCE linker option.")
-    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /FORCE")
-endif(ENABLE_FORCE)
 
 # Use Link Time Optimization per pybind11 documentation
 if(MSVC)
@@ -218,30 +210,6 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${OUTPUT_PATH}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 
-# Subset of modules to build when TEST_BUILD is ON
-set(TEST_MODULES AIS;
-                 Aspect;
-                 BRep;
-                 BRepBuilderAPI;
-                 BRepTools;
-                 Geom;
-                 gp;
-                 Graphic3d;
-                 IGESControl;
-                 MeshVS;
-                 OpenGl;
-                 Quantity;
-                 SMESH;
-                 STEPControl;
-                 TopoDS;
-                 V3d;
-                 XwWindow)
-
-# Issue warning if TEST_BUILD is ON
-if(TEST_BUILD)
-    message(WARNING "WARNING: TEST_BUILD mode. Not all modules will be generated.")
-endif()
-
 # OCCT modules
 set(MAKE_LIB BOOL ON)
 foreach(MOD ${OCCT_MODULES})
@@ -249,12 +217,6 @@ foreach(MOD ${OCCT_MODULES})
     # Check if module exists in src
     if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src/modules/${MOD})
       set(MAKE_LIB OFF)
-    endif()
-
-    # Check for test modules
-    list(FIND TEST_MODULES ${MOD} _INDEX)
-    if(TEST_BUILD AND NOT ${_INDEX} GREATER -1)
-        set(MAKE_LIB OFF)
     endif()
 
     # Check for platform-specific modules
@@ -280,12 +242,6 @@ endforeach()
 if(ENABLE_SMESH)
     set(MAKE_LIB BOOL ON)
     foreach(MOD ${SMESH_MODULES})
-    
-        # Check for test modules
-        list(FIND TEST_MODULES ${MOD} _INDEX)
-        if(TEST_BUILD AND NOT ${_INDEX} GREATER -1)
-            set(MAKE_LIB OFF)
-        endif()
 
         # Check Netgen
         if(NOT ENABLE_NETGEN AND ${MOD} STREQUAL "NETGENPlugin" AND MAKE_LIB)

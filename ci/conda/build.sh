@@ -8,8 +8,8 @@ cd build
 cmake .. -G "Ninja" \
     -DCMAKE_BUILD_TYPE="Release" \
     -DPTHREAD_INCLUDE_DIRS=$PREFIX \
-    -DENABLE_SMESH=ON \
-    -DENABLE_NETGEN=ON
+    -DENABLE_SMESH=OFF \
+    -DENABLE_NETGEN=OFF
 
 ninja install
 

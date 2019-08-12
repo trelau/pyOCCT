@@ -1,0 +1,49 @@
+/*
+This file is part of pyOCCT which provides Python bindings to the OpenCASCADE
+geometry kernel.
+
+Copyright (C) 2016-2018  Laughlin Research, LLC
+Copyright (C) 2019 Trevor Laughlin and the pyOCCT contributors
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+#include <pyOCCT_Common.hxx>
+#include <IGESData_Protocol.hxx>
+#include <Standard_TypeDef.hxx>
+#include <Standard_Handle.hxx>
+#include <Interface_Protocol.hxx>
+#include <Standard_Type.hxx>
+#include <IGESDimen_Protocol.hxx>
+
+void bind_IGESDimen_Protocol(py::module &mod){
+
+py::class_<IGESDimen_Protocol, opencascade::handle<IGESDimen_Protocol>, IGESData_Protocol> cls_IGESDimen_Protocol(mod, "IGESDimen_Protocol", "Description of Protocol for IGESDimen");
+
+// Constructors
+cls_IGESDimen_Protocol.def(py::init<>());
+
+// Fields
+
+// Methods
+cls_IGESDimen_Protocol.def("NbResources", (Standard_Integer (IGESDimen_Protocol::*)() const) &IGESDimen_Protocol::NbResources, "Gives the count of Resource Protocol. Here, two (Protocols from IGESGraph and IGESGeom)");
+cls_IGESDimen_Protocol.def("Resource", (opencascade::handle<Interface_Protocol> (IGESDimen_Protocol::*)(const Standard_Integer) const) &IGESDimen_Protocol::Resource, "Returns a Resource, given a rank.", py::arg("num"));
+cls_IGESDimen_Protocol.def("TypeNumber", (Standard_Integer (IGESDimen_Protocol::*)(const opencascade::handle<Standard_Type> &) const) &IGESDimen_Protocol::TypeNumber, "Returns a Case Number, specific of each recognized Type This Case Number is then used in Libraries : the various Modules attached to this class of Protocol must use them in accordance (for a given value of TypeNumber, they must consider the same Type as the Protocol defines)", py::arg("atype"));
+cls_IGESDimen_Protocol.def_static("get_type_name_", (const char * (*)()) &IGESDimen_Protocol::get_type_name, "None");
+cls_IGESDimen_Protocol.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESDimen_Protocol::get_type_descriptor, "None");
+cls_IGESDimen_Protocol.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESDimen_Protocol::*)() const) &IGESDimen_Protocol::DynamicType, "None");
+
+// Enums
+
+}

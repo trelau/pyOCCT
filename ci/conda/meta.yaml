@@ -1,6 +1,6 @@
 package:
   name: pyocct
-  version: "7.2.0.1"
+  version: "7.3.0.0"
 
 source:
   path: ../..
@@ -18,28 +18,20 @@ requirements:
     - cmake
     - ninja
     - pybind11
-    - occt ==7.2.0
-    - vtk ==8.1.0
-    - smesh ==8.3.0b0
-    - netgen ==6.2.1804
+    - occt ==7.3.0
 
   run:
     - python
     - wxpython
     - vc 14 # [win]
-    - occt ==7.2.0
-    - vtk ==8.1.0
-    - smesh ==8.3.0b0
-    - netgen ==6.2.1804
+    - occt ==7.3.0
 
 test:
   imports:
     - OCCT
     - OCCT.gp
     - OCCT.TopoDS
-    - OCCT.SMESH
-    - OCCT.StdMeshers
-    - OCCT.NETGENPlugin
+    - OCCT.AIS
   source_files:
     - test
 
