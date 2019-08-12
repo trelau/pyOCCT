@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #define __BVH_Triangulation__
 
 #include <pyOCCT_Common.hxx>
+#include <bind_BVH_PrimitiveSet.hxx>
 #include <BVH_PrimitiveSet.hxx>
 #include <BVH_Triangulation.hxx>
 #include <BVH_Types.hxx>
@@ -33,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 template <typename T, int N>
 void bind_BVH_Triangulation(py::module &mod, std::string const &name, py::module_local const &local){
+
+bind_BVH_PrimitiveSet<T, N>(mod, "BVH_Triangulation_Base", py::module_local());
 
 py::class_<BVH_Triangulation<T, N>, opencascade::handle<BVH_Triangulation<T, N>>, BVH_PrimitiveSet<T, N>> cls_BVH_Triangulation(mod, name.c_str(), "Triangulation as an example of BVH primitive set.", local);
 
