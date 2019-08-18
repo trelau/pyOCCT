@@ -31,9 +31,7 @@ py::module::import("OCCT.StdObjMgt");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.TopLoc");
 py::module::import("OCCT.Standard");
-py::module::import("OCCT.ShapePersistent");
 py::module::import("OCCT.TopoDS");
-py::module::import("OCCT.StdPersistent");
 
 bind_write(mod);
 bind_StdObject_Location(mod);

@@ -21,9 +21,9 @@ import unittest
 from OCCT.TopoDS import TopoDS_Shape, TopoDS_ListOfShape
 
 
-class TestNCollectionList(unittest.TestCase):
+class TestTopoDSListOfShape(unittest.TestCase):
     """
-    Test for NCollection_List template
+    Test for TopoDS_ListOfShape.
     """
 
     def test_iter(self):

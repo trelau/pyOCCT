@@ -18,10 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 import unittest
 
-from OCCT.BVH import BVH_Mat4f
 from OCCT.Graphic3d import (Graphic3d_RenderingParams, Graphic3d_RenderingMode,
-                            Graphic3d_RenderTransparentMethod, Graphic3d_ToneMappingMethod,
-                            Graphic3d_StereoMode)
+                            Graphic3d_RenderTransparentMethod,
+                            Graphic3d_ToneMappingMethod, Graphic3d_StereoMode,
+                            Graphic3d_Mat4)
 
 
 class TestGraphic3dRenderingParams(unittest.TestCase):
@@ -37,9 +37,11 @@ class TestGraphic3dRenderingParams(unittest.TestCase):
         self.assertAlmostEqual(self.p.ResolutionRatio(), 1.)
 
     def test_Method(self):
-        self.assertEqual(self.p.Method, Graphic3d_RenderingMode.Graphic3d_RM_RASTERIZATION)
+        self.assertEqual(self.p.Method,
+                         Graphic3d_RenderingMode.Graphic3d_RM_RASTERIZATION)
         self.p.Method = Graphic3d_RenderingMode.Graphic3d_RM_RAYTRACING
-        self.assertEqual(self.p.Method, Graphic3d_RenderingMode.Graphic3d_RM_RAYTRACING)
+        self.assertEqual(self.p.Method,
+                         Graphic3d_RenderingMode.Graphic3d_RM_RAYTRACING)
 
     def test_TransparencyField(self):
         self.assertEqual(self.p.TransparencyMethod,
@@ -117,28 +119,24 @@ class TestGraphic3dRenderingParams(unittest.TestCase):
         self.assertAlmostEqual(self.p.WhitePoint, 1.)
 
     def test_StereoMode(self):
-        self.assertEqual(self.p.StereoMode, Graphic3d_StereoMode.Graphic3d_StereoMode_QuadBuffer)
+        self.assertEqual(self.p.StereoMode,
+                         Graphic3d_StereoMode.Graphic3d_StereoMode_QuadBuffer)
 
     def test_AnaglyphFilter(self):
-        self.assertEqual(self.p.AnaglyphFilter, self.p.Anaglyph_RedCyan_Optimized)
+        self.assertEqual(self.p.AnaglyphFilter,
+                         self.p.Anaglyph_RedCyan_Optimized)
 
     def test_AnaglyphLeft(self):
-        self.assertIsInstance(self.p.AnaglyphLeft, BVH_Mat4f)
+        self.assertIsInstance(self.p.AnaglyphLeft, Graphic3d_Mat4)
 
     def test_AnaglyphRight(self):
-        self.assertIsInstance(self.p.AnaglyphRight, BVH_Mat4f)
+        self.assertIsInstance(self.p.AnaglyphRight, Graphic3d_Mat4)
 
     def test_ToReverseStereo(self):
         self.assertEqual(self.p.ToReverseStereo, False)
 
     def test_Resolution(self):
         self.assertEqual(self.p.Resolution, 72)
-
-    # def test_THE_DEFAULT_RESOUTION(self):
-    #     self.assertEqual(Graphic3d_RenderingParams.THE_DEFAULT_RESOLUTION, 72)
-    #
-    # def test_THE_DEFAULT_DEPTH(self):
-    #     self.assertEqual(Graphic3d_RenderingParams.THE_DEFAULT_DEPTH, 3)
 
 
 if __name__ == '__main__':

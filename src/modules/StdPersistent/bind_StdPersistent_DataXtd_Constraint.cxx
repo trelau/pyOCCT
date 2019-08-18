@@ -20,6 +20,7 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include <pyOCCT_Common.hxx>
+#include <bind_StdObjMgt_Attribute.hxx>
 #include <StdObjMgt_Attribute.hxx>
 #include <TDataXtd_Constraint.hxx>
 #include <StdObjMgt_ReadData.hxx>
@@ -31,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StdPersistent_DataXtd_Constraint.hxx>
 
 void bind_StdPersistent_DataXtd_Constraint(py::module &mod){
+
+bind_StdObjMgt_Attribute<TDataXtd_Constraint>(mod, "StdObjMgt_Attribute_TDataXtd_Constraint", py::module_local());
 
 py::class_<StdPersistent_DataXtd_Constraint, opencascade::handle<StdPersistent_DataXtd_Constraint>, StdObjMgt_Attribute<TDataXtd_Constraint>> cls_StdPersistent_DataXtd_Constraint(mod, "StdPersistent_DataXtd_Constraint", "None");
 
