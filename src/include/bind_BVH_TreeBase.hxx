@@ -45,10 +45,10 @@ cls_BVH_TreeBase.def_readwrite("myDepth", &BVH_TreeBase<T, N>::myDepth, "Current
 // Methods
 cls_BVH_TreeBase.def("Depth", (int (BVH_TreeBase<T, N>::*)() const) &BVH_TreeBase<T, N>::Depth, "Returns depth (height) of BVH tree.");
 cls_BVH_TreeBase.def("Length", (int (BVH_TreeBase<T, N>::*)() const) &BVH_TreeBase<T, N>::Length, "Returns total number of BVH tree nodes.");
-cls_BVH_TreeBase.def("MinPoint", (BVH_TreeBase<T, N>::BVH_VecNt & (BVH_TreeBase<T, N>::*)(const int)) &BVH_TreeBase<T, N>::MinPoint, "Returns minimum point of the given node.", py::arg("theNodeIndex"));
-cls_BVH_TreeBase.def("MaxPoint", (BVH_TreeBase<T, N>::BVH_VecNt & (BVH_TreeBase<T, N>::*)(const int)) &BVH_TreeBase<T, N>::MaxPoint, "Returns maximum point of the given node.", py::arg("theNodeIndex"));
-cls_BVH_TreeBase.def("MinPoint", (const BVH_TreeBase<T, N>::BVH_VecNt & (BVH_TreeBase<T, N>::*)(const int) const) &BVH_TreeBase<T, N>::MinPoint, "Returns minimum point of the given node.", py::arg("theNodeIndex"));
-cls_BVH_TreeBase.def("MaxPoint", (const BVH_TreeBase<T, N>::BVH_VecNt & (BVH_TreeBase<T, N>::*)(const int) const) &BVH_TreeBase<T, N>::MaxPoint, "Returns maximum point of the given node.", py::arg("theNodeIndex"));
+cls_BVH_TreeBase.def("MinPoint", (typename BVH_TreeBase<T, N>::BVH_VecNt & (BVH_TreeBase<T, N>::*)(const int)) &BVH_TreeBase<T, N>::MinPoint, "Returns minimum point of the given node.", py::arg("theNodeIndex"));
+cls_BVH_TreeBase.def("MaxPoint", (typename BVH_TreeBase<T, N>::BVH_VecNt & (BVH_TreeBase<T, N>::*)(const int)) &BVH_TreeBase<T, N>::MaxPoint, "Returns maximum point of the given node.", py::arg("theNodeIndex"));
+cls_BVH_TreeBase.def("MinPoint", (const typename BVH_TreeBase<T, N>::BVH_VecNt & (BVH_TreeBase<T, N>::*)(const int) const) &BVH_TreeBase<T, N>::MinPoint, "Returns minimum point of the given node.", py::arg("theNodeIndex"));
+cls_BVH_TreeBase.def("MaxPoint", (const typename BVH_TreeBase<T, N>::BVH_VecNt & (BVH_TreeBase<T, N>::*)(const int) const) &BVH_TreeBase<T, N>::MaxPoint, "Returns maximum point of the given node.", py::arg("theNodeIndex"));
 cls_BVH_TreeBase.def("BegPrimitive", (int & (BVH_TreeBase<T, N>::*)(const int)) &BVH_TreeBase<T, N>::BegPrimitive, "Returns index of first primitive of the given leaf node.", py::arg("theNodeIndex"));
 cls_BVH_TreeBase.def("EndPrimitive", (int & (BVH_TreeBase<T, N>::*)(const int)) &BVH_TreeBase<T, N>::EndPrimitive, "Returns index of last primitive of the given leaf node.", py::arg("theNodeIndex"));
 cls_BVH_TreeBase.def("BegPrimitive", (int (BVH_TreeBase<T, N>::*)(const int) const) &BVH_TreeBase<T, N>::BegPrimitive, "Returns index of first primitive of the given leaf node.", py::arg("theNodeIndex"));

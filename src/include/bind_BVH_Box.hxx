@@ -34,24 +34,24 @@ py::class_<BVH_Box<T, N>, std::unique_ptr<BVH_Box<T, N>, Deleter<BVH_Box<T, N>>>
 
 // Constructors
 cls_BVH_Box.def(py::init<>());
-cls_BVH_Box.def(py::init<const BVH_Box<T, N>::BVH_VecNt &>(), py::arg("thePoint"));
+cls_BVH_Box.def(py::init<const typename BVH_Box<T, N>::BVH_VecNt &>(), py::arg("thePoint"));
 cls_BVH_Box.def(py::init<const BVH_Box<T, N> &>(), py::arg("theBox"));
-cls_BVH_Box.def(py::init<const BVH_Box<T, N>::BVH_VecNt &, const BVH_Box<T, N>::BVH_VecNt &>(), py::arg("theMinPoint"), py::arg("theMaxPoint"));
+cls_BVH_Box.def(py::init<const typename BVH_Box<T, N>::BVH_VecNt &, const typename BVH_Box<T, N>::BVH_VecNt &>(), py::arg("theMinPoint"), py::arg("theMaxPoint"));
 
 // Fields
 
 // Methods
 cls_BVH_Box.def("Clear", (void (BVH_Box<T, N>::*)()) &BVH_Box<T, N>::Clear, "Clears bounding box.");
 cls_BVH_Box.def("IsValid", (Standard_Boolean (BVH_Box<T, N>::*)() const) &BVH_Box<T, N>::IsValid, "Is bounding box valid?");
-cls_BVH_Box.def("Add", (void (BVH_Box<T, N>::*)(const BVH_Box<T, N>::BVH_VecNt &)) &BVH_Box<T, N>::Add, "Appends new point to the bounding box.", py::arg("thePoint"));
+cls_BVH_Box.def("Add", (void (BVH_Box<T, N>::*)(const typename BVH_Box<T, N>::BVH_VecNt &)) &BVH_Box<T, N>::Add, "Appends new point to the bounding box.", py::arg("thePoint"));
 cls_BVH_Box.def("Combine", (void (BVH_Box<T, N>::*)(const BVH_Box<T, N> &)) &BVH_Box<T, N>::Combine, "Combines bounding box with another one.", py::arg("theBox"));
-cls_BVH_Box.def("CornerMin", (const BVH_Box<T, N>::BVH_VecNt & (BVH_Box<T, N>::*)() const) &BVH_Box<T, N>::CornerMin, "Returns minimum point of bounding box.");
-cls_BVH_Box.def("CornerMax", (const BVH_Box<T, N>::BVH_VecNt & (BVH_Box<T, N>::*)() const) &BVH_Box<T, N>::CornerMax, "Returns maximum point of bounding box.");
-cls_BVH_Box.def("CornerMin", (BVH_Box<T, N>::BVH_VecNt & (BVH_Box<T, N>::*)()) &BVH_Box<T, N>::CornerMin, "Returns minimum point of bounding box.");
-cls_BVH_Box.def("CornerMax", (BVH_Box<T, N>::BVH_VecNt & (BVH_Box<T, N>::*)()) &BVH_Box<T, N>::CornerMax, "Returns maximum point of bounding box.");
+cls_BVH_Box.def("CornerMin", (const typename BVH_Box<T, N>::BVH_VecNt & (BVH_Box<T, N>::*)() const) &BVH_Box<T, N>::CornerMin, "Returns minimum point of bounding box.");
+cls_BVH_Box.def("CornerMax", (const typename BVH_Box<T, N>::BVH_VecNt & (BVH_Box<T, N>::*)() const) &BVH_Box<T, N>::CornerMax, "Returns maximum point of bounding box.");
+cls_BVH_Box.def("CornerMin", (typename BVH_Box<T, N>::BVH_VecNt & (BVH_Box<T, N>::*)()) &BVH_Box<T, N>::CornerMin, "Returns minimum point of bounding box.");
+cls_BVH_Box.def("CornerMax", (typename BVH_Box<T, N>::BVH_VecNt & (BVH_Box<T, N>::*)()) &BVH_Box<T, N>::CornerMax, "Returns maximum point of bounding box.");
 cls_BVH_Box.def("Area", (T (BVH_Box<T, N>::*)() const) &BVH_Box<T, N>::Area, "Returns surface area of bounding box. If the box is degenerated into line, returns the perimeter instead.");
-cls_BVH_Box.def("Size", (BVH_Box<T, N>::BVH_VecNt (BVH_Box<T, N>::*)() const) &BVH_Box<T, N>::Size, "Returns diagonal of bounding box.");
-cls_BVH_Box.def("Center", (BVH_Box<T, N>::BVH_VecNt (BVH_Box<T, N>::*)() const) &BVH_Box<T, N>::Center, "Returns center of bounding box.");
+cls_BVH_Box.def("Size", (typename BVH_Box<T, N>::BVH_VecNt (BVH_Box<T, N>::*)() const) &BVH_Box<T, N>::Size, "Returns diagonal of bounding box.");
+cls_BVH_Box.def("Center", (typename BVH_Box<T, N>::BVH_VecNt (BVH_Box<T, N>::*)() const) &BVH_Box<T, N>::Center, "Returns center of bounding box.");
 cls_BVH_Box.def("Center", (T (BVH_Box<T, N>::*)(const Standard_Integer) const) &BVH_Box<T, N>::Center, "Returns center of bounding box along the given axis.", py::arg("theAxis"));
 
 // Enums

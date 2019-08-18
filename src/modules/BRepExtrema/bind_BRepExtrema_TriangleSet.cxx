@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepExtrema_TriangleSet(py::module &mod){
 
-py::class_<BRepExtrema_TriangleSet, opencascade::handle<BRepExtrema_TriangleSet>, BVH_PrimitiveSet3d> cls_BRepExtrema_TriangleSet(mod, "BRepExtrema_TriangleSet", "Triangle set corresponding to specific face.");
+py::class_<BRepExtrema_TriangleSet, std::unique_ptr<BRepExtrema_TriangleSet, Deleter<BRepExtrema_TriangleSet>>, BVH_PrimitiveSet3d> cls_BRepExtrema_TriangleSet(mod, "BRepExtrema_TriangleSet", "Triangle set corresponding to specific face.");
 
 // Constructors
 cls_BRepExtrema_TriangleSet.def(py::init<>());

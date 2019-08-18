@@ -42,10 +42,10 @@ cls_NCollection_Array1.def(py::init<const TheItemType &, const Standard_Integer,
 // Fields
 
 // Methods
-cls_NCollection_Array1.def("begin", (NCollection_Array1<TheItemType>::iterator (NCollection_Array1<TheItemType>::*)() const) &NCollection_Array1<TheItemType>::begin, "Returns an iterator pointing to the first element in the array.");
-cls_NCollection_Array1.def("end", (NCollection_Array1<TheItemType>::iterator (NCollection_Array1<TheItemType>::*)() const) &NCollection_Array1<TheItemType>::end, "Returns an iterator referring to the past-the-end element in the array.");
-cls_NCollection_Array1.def("cbegin", (NCollection_Array1<TheItemType>::const_iterator (NCollection_Array1<TheItemType>::*)() const) &NCollection_Array1<TheItemType>::cbegin, "Returns a const iterator pointing to the first element in the array.");
-cls_NCollection_Array1.def("cend", (NCollection_Array1<TheItemType>::const_iterator (NCollection_Array1<TheItemType>::*)() const) &NCollection_Array1<TheItemType>::cend, "Returns a const iterator referring to the past-the-end element in the array.");
+cls_NCollection_Array1.def("begin", (typename NCollection_Array1<TheItemType>::iterator (NCollection_Array1<TheItemType>::*)() const) &NCollection_Array1<TheItemType>::begin, "Returns an iterator pointing to the first element in the array.");
+cls_NCollection_Array1.def("end", (typename NCollection_Array1<TheItemType>::iterator (NCollection_Array1<TheItemType>::*)() const) &NCollection_Array1<TheItemType>::end, "Returns an iterator referring to the past-the-end element in the array.");
+cls_NCollection_Array1.def("cbegin", (typename NCollection_Array1<TheItemType>::const_iterator (NCollection_Array1<TheItemType>::*)() const) &NCollection_Array1<TheItemType>::cbegin, "Returns a const iterator pointing to the first element in the array.");
+cls_NCollection_Array1.def("cend", (typename NCollection_Array1<TheItemType>::const_iterator (NCollection_Array1<TheItemType>::*)() const) &NCollection_Array1<TheItemType>::cend, "Returns a const iterator referring to the past-the-end element in the array.");
 cls_NCollection_Array1.def("Init", (void (NCollection_Array1<TheItemType>::*)(const TheItemType &)) &NCollection_Array1<TheItemType>::Init, "Initialise the items with theValue", py::arg("theValue"));
 cls_NCollection_Array1.def("Size", (Standard_Integer (NCollection_Array1<TheItemType>::*)() const) &NCollection_Array1<TheItemType>::Size, "Size query");
 cls_NCollection_Array1.def("Length", (Standard_Integer (NCollection_Array1<TheItemType>::*)() const) &NCollection_Array1<TheItemType>::Length, "Length query (the same)");

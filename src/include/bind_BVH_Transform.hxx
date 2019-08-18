@@ -34,14 +34,14 @@ py::class_<BVH_Transform<T, N>, opencascade::handle<BVH_Transform<T, N>>, BVH_Pr
 
 // Constructors
 cls_BVH_Transform.def(py::init<>());
-cls_BVH_Transform.def(py::init<const BVH_Transform<T, N>::BVH_MatNt &>(), py::arg("theTransform"));
+cls_BVH_Transform.def(py::init<const typename BVH_Transform<T, N>::BVH_MatNt &>(), py::arg("theTransform"));
 
 // Fields
 
 // Methods
-cls_BVH_Transform.def("Transform", (const BVH_Transform<T, N>::BVH_MatNt & (BVH_Transform<T, N>::*)() const) &BVH_Transform<T, N>::Transform, "Returns transformation matrix.");
-cls_BVH_Transform.def("SetTransform", (void (BVH_Transform<T, N>::*)(const BVH_Transform<T, N>::BVH_MatNt &)) &BVH_Transform<T, N>::SetTransform, "Sets new transformation matrix.", py::arg("theTransform"));
-cls_BVH_Transform.def("Inversed", (const BVH_Transform<T, N>::BVH_MatNt & (BVH_Transform<T, N>::*)() const) &BVH_Transform<T, N>::Inversed, "Returns inversed transformation matrix.");
+cls_BVH_Transform.def("Transform", (const typename BVH_Transform<T, N>::BVH_MatNt & (BVH_Transform<T, N>::*)() const) &BVH_Transform<T, N>::Transform, "Returns transformation matrix.");
+cls_BVH_Transform.def("SetTransform", (void (BVH_Transform<T, N>::*)(const typename BVH_Transform<T, N>::BVH_MatNt &)) &BVH_Transform<T, N>::SetTransform, "Sets new transformation matrix.", py::arg("theTransform"));
+cls_BVH_Transform.def("Inversed", (const typename BVH_Transform<T, N>::BVH_MatNt & (BVH_Transform<T, N>::*)() const) &BVH_Transform<T, N>::Inversed, "Returns inversed transformation matrix.");
 cls_BVH_Transform.def("Apply", (BVH_Box<T, N> (BVH_Transform<T, N>::*)(const BVH_Box<T, N> &) const) &BVH_Transform<T, N>::Apply, "Applies transformation matrix to bounding box.", py::arg("theBox"));
 
 // Enums

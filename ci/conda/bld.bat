@@ -3,7 +3,6 @@ cd build
 
 cmake .. -G "Ninja" ^
     -DCMAKE_BUILD_TYPE="Release" ^
-    -DPTHREAD_INCLUDE_DIRS:FILEPATH="%LIBRARY_PREFIX%/include" ^
     -DENABLE_SMESH=OFF ^
     -DENABLE_NETGEN=OFF
 

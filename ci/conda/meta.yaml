@@ -17,14 +17,15 @@ requirements:
     - vc 14 # [win]
     - cmake
     - ninja
-    - pybind11
     - occt ==7.3.0
+    - tbb-devel
 
   run:
     - python
     - wxpython
     - vc 14 # [win]
     - occt ==7.3.0
+    - tbb-devel
 
 test:
   imports:

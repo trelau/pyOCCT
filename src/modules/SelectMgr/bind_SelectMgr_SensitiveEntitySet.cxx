@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_SelectMgr_SensitiveEntitySet(py::module &mod){
 
-py::class_<SelectMgr_SensitiveEntitySet, opencascade::handle<SelectMgr_SensitiveEntitySet>, BVH_PrimitiveSet3d> cls_SelectMgr_SensitiveEntitySet(mod, "SelectMgr_SensitiveEntitySet", "This class is used to store all calculated sensitive entites of one selectable object. It provides an interface for building BVH tree which is used to speed-up the performance of searching for overlap among sensitives of one selectable object");
+py::class_<SelectMgr_SensitiveEntitySet, std::unique_ptr<SelectMgr_SensitiveEntitySet, Deleter<SelectMgr_SensitiveEntitySet>>, BVH_PrimitiveSet3d> cls_SelectMgr_SensitiveEntitySet(mod, "SelectMgr_SensitiveEntitySet", "This class is used to store all calculated sensitive entites of one selectable object. It provides an interface for building BVH tree which is used to speed-up the performance of searching for overlap among sensitives of one selectable object");
 
 // Constructors
 cls_SelectMgr_SensitiveEntitySet.def(py::init<const opencascade::handle<Select3D_BVHBuilder3d> &>(), py::arg("theBuilder"));

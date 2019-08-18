@@ -7,7 +7,6 @@ cd build
 
 cmake .. -G "Ninja" \
     -DCMAKE_BUILD_TYPE="Release" \
-    -DPTHREAD_INCLUDE_DIRS=$PREFIX \
     -DENABLE_SMESH=OFF \
     -DENABLE_NETGEN=OFF
 

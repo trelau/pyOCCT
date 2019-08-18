@@ -37,9 +37,9 @@ void bind_NCollection_UBTreeFiller(py::module &mod, std::string const &name, py:
 py::class_<NCollection_UBTreeFiller<TheObjType, TheBndType>, std::unique_ptr<NCollection_UBTreeFiller<TheObjType, TheBndType>, Deleter<NCollection_UBTreeFiller<TheObjType, TheBndType>>>> cls_NCollection_UBTreeFiller(mod, name.c_str(), "This class is used to fill an UBTree in a random order. The quality of a tree is much better (from the point of view of the search time) if objects are added to it in a random order to avoid adding a chain of neerby objects one following each other.", local);
 
 // Constructors
-cls_NCollection_UBTreeFiller.def(py::init<NCollection_UBTreeFiller<TheObjType, TheBndType>::UBTree &>(), py::arg("theTree"));
-cls_NCollection_UBTreeFiller.def(py::init<NCollection_UBTreeFiller<TheObjType, TheBndType>::UBTree &, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theTree"), py::arg("theAlloc"));
-cls_NCollection_UBTreeFiller.def(py::init<NCollection_UBTreeFiller<TheObjType, TheBndType>::UBTree &, const opencascade::handle<NCollection_BaseAllocator> &, const Standard_Boolean>(), py::arg("theTree"), py::arg("theAlloc"), py::arg("isFullRandom"));
+cls_NCollection_UBTreeFiller.def(py::init<typename NCollection_UBTreeFiller<TheObjType, TheBndType>::UBTree &>(), py::arg("theTree"));
+cls_NCollection_UBTreeFiller.def(py::init<typename NCollection_UBTreeFiller<TheObjType, TheBndType>::UBTree &, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theTree"), py::arg("theAlloc"));
+cls_NCollection_UBTreeFiller.def(py::init<typename NCollection_UBTreeFiller<TheObjType, TheBndType>::UBTree &, const opencascade::handle<NCollection_BaseAllocator> &, const Standard_Boolean>(), py::arg("theTree"), py::arg("theAlloc"), py::arg("isFullRandom"));
 
 // Fields
 

@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T, int N>
 void bind_BVH_PrimitiveSet(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BVH_PrimitiveSet<T, N>, opencascade::handle<BVH_PrimitiveSet<T, N>>> cls_BVH_PrimitiveSet(mod, name.c_str(), "Set of abstract geometric primitives organized with bounding volume hierarchy (BVH). Unlike an object set, this collection is designed for storing structural elements of a single object (such as triangles in the object triangulation). Because there may be a large number of such elements, the implementations of this interface should be sufficiently optimized.", py::multiple_inheritance(), local);
+py::class_<BVH_PrimitiveSet<T, N>, opencascade::handle<BVH_PrimitiveSet<T, N>>, BVH_Object<T, N>> cls_BVH_PrimitiveSet(mod, name.c_str(), "Set of abstract geometric primitives organized with bounding volume hierarchy (BVH). Unlike an object set, this collection is designed for storing structural elements of a single object (such as triangles in the object triangulation). Because there may be a large number of such elements, the implementations of this interface should be sufficiently optimized.", py::multiple_inheritance(), local);
 
 // Constructors
 // cls_BVH_PrimitiveSet.def(py::init<>());

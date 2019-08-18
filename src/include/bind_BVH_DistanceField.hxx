@@ -46,9 +46,9 @@ cls_BVH_DistanceField.def("Voxel", (T (BVH_DistanceField<T, N>::*)(const Standar
 cls_BVH_DistanceField.def("DimensionX", (Standard_Integer (BVH_DistanceField<T, N>::*)() const) &BVH_DistanceField<T, N>::DimensionX, "Returns size of voxel grid in X dimension.");
 cls_BVH_DistanceField.def("DimensionY", (Standard_Integer (BVH_DistanceField<T, N>::*)() const) &BVH_DistanceField<T, N>::DimensionY, "Returns size of voxel grid in Y dimension.");
 cls_BVH_DistanceField.def("DimensionZ", (Standard_Integer (BVH_DistanceField<T, N>::*)() const) &BVH_DistanceField<T, N>::DimensionZ, "Returns size of voxel grid in Z dimension.");
-cls_BVH_DistanceField.def("VoxelSize", (const BVH_DistanceField<T, N>::BVH_VecNt & (BVH_DistanceField<T, N>::*)() const) &BVH_DistanceField<T, N>::VoxelSize, "Returns size of single voxel.");
-cls_BVH_DistanceField.def("CornerMin", (const BVH_DistanceField<T, N>::BVH_VecNt & (BVH_DistanceField<T, N>::*)() const) &BVH_DistanceField<T, N>::CornerMin, "Returns minimum corner of voxel grid.");
-cls_BVH_DistanceField.def("CornerMax", (const BVH_DistanceField<T, N>::BVH_VecNt & (BVH_DistanceField<T, N>::*)() const) &BVH_DistanceField<T, N>::CornerMax, "Returns maximum corner of voxel grid.");
+cls_BVH_DistanceField.def("VoxelSize", (const typename BVH_DistanceField<T, N>::BVH_VecNt & (BVH_DistanceField<T, N>::*)() const) &BVH_DistanceField<T, N>::VoxelSize, "Returns size of single voxel.");
+cls_BVH_DistanceField.def("CornerMin", (const typename BVH_DistanceField<T, N>::BVH_VecNt & (BVH_DistanceField<T, N>::*)() const) &BVH_DistanceField<T, N>::CornerMin, "Returns minimum corner of voxel grid.");
+cls_BVH_DistanceField.def("CornerMax", (const typename BVH_DistanceField<T, N>::BVH_VecNt & (BVH_DistanceField<T, N>::*)() const) &BVH_DistanceField<T, N>::CornerMax, "Returns maximum corner of voxel grid.");
 
 // Enums
 

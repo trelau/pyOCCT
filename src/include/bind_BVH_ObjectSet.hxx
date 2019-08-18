@@ -43,8 +43,8 @@ cls_BVH_ObjectSet.def(py::init<>());
 
 // Methods
 cls_BVH_ObjectSet.def("Clear", (void (BVH_ObjectSet<T, N>::*)()) &BVH_ObjectSet<T, N>::Clear, "Removes all geometric objects.");
-cls_BVH_ObjectSet.def("Objects", (BVH_ObjectSet<T, N>::BVH_ObjectList & (BVH_ObjectSet<T, N>::*)()) &BVH_ObjectSet<T, N>::Objects, "Returns reference to the array of geometric objects.");
-cls_BVH_ObjectSet.def("Objects", (const BVH_ObjectSet<T, N>::BVH_ObjectList & (BVH_ObjectSet<T, N>::*)() const) &BVH_ObjectSet<T, N>::Objects, "Returns reference to the array of geometric objects.");
+cls_BVH_ObjectSet.def("Objects", (typename BVH_ObjectSet<T, N>::BVH_ObjectList & (BVH_ObjectSet<T, N>::*)()) &BVH_ObjectSet<T, N>::Objects, "Returns reference to the array of geometric objects.");
+cls_BVH_ObjectSet.def("Objects", (const typename BVH_ObjectSet<T, N>::BVH_ObjectList & (BVH_ObjectSet<T, N>::*)() const) &BVH_ObjectSet<T, N>::Objects, "Returns reference to the array of geometric objects.");
 cls_BVH_ObjectSet.def("Size", (Standard_Integer (BVH_ObjectSet<T, N>::*)() const) &BVH_ObjectSet<T, N>::Size, "Return total number of objects.");
 cls_BVH_ObjectSet.def("Box", (BVH_Box<T, N> (BVH_ObjectSet<T, N>::*)(const Standard_Integer) const) &BVH_ObjectSet<T, N>::Box, "Returns AABB of the given object.", py::arg("theIndex"));
 cls_BVH_ObjectSet.def("Center", (T (BVH_ObjectSet<T, N>::*)(const Standard_Integer, const Standard_Integer) const) &BVH_ObjectSet<T, N>::Center, "Returns centroid position along the given axis.", py::arg("theIndex"), py::arg("theAxis"));
