@@ -32,7 +32,7 @@ void bind_BVH_Object(py::module &mod, std::string const &name, py::module_local 
 py::class_<BVH_Object<T, N>, opencascade::handle<BVH_Object<T, N>>, BVH_ObjectTransient> cls_BVH_Object(mod, name.c_str(), "Abstract geometric object bounded by BVH box.", local);
 
 // Constructors
-cls_BVH_Object.def(py::init<>());
+// cls_BVH_Object.def(py::init<>());
 
 // Fields
 

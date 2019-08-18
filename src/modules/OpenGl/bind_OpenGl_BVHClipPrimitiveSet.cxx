@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_OpenGl_BVHClipPrimitiveSet(py::module &mod){
 
 /*
-py::class_<OpenGl_BVHClipPrimitiveSet, std::unique_ptr<OpenGl_BVHClipPrimitiveSet, Deleter<OpenGl_BVHClipPrimitiveSet>>, BVH_PrimitiveSet3d> cls_OpenGl_BVHClipPrimitiveSet(mod, "OpenGl_BVHClipPrimitiveSet", "Set of OpenGl_Structures for building BVH tree.");
+py::class_<OpenGl_BVHClipPrimitiveSet, opencascade::handle<OpenGl_BVHClipPrimitiveSet>, BVH_PrimitiveSet3d> cls_OpenGl_BVHClipPrimitiveSet(mod, "OpenGl_BVHClipPrimitiveSet", "Set of OpenGl_Structures for building BVH tree.");
 
 // Constructors
 cls_OpenGl_BVHClipPrimitiveSet.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_TriangleSet(py::module &mod){
 
-py::class_<OpenGl_TriangleSet, std::unique_ptr<OpenGl_TriangleSet, Deleter<OpenGl_TriangleSet>>> cls_OpenGl_TriangleSet(mod, "OpenGl_TriangleSet", "Triangulation of single OpenGL primitive array.");
+py::class_<OpenGl_TriangleSet, opencascade::handle<OpenGl_TriangleSet>> cls_OpenGl_TriangleSet(mod, "OpenGl_TriangleSet", "Triangulation of single OpenGL primitive array.");
 
 // Constructors
 // cls_OpenGl_TriangleSet.def(py::init<const Standard_Size, const opencascade::handle<BVH_Builder<Standard_ShortReal, 3> > &>(), py::arg("theArrayID"), py::arg("theBuilder"));
