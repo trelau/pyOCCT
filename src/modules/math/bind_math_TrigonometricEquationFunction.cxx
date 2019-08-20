@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_TrigonometricEquationFunction(py::module &mod){
 
-py::class_<math_TrigonometricEquationFunction, std::unique_ptr<math_TrigonometricEquationFunction, Deleter<math_TrigonometricEquationFunction>>, math_FunctionWithDerivative> cls_math_TrigonometricEquationFunction(mod, "math_TrigonometricEquationFunction", "This is function, which corresponds trigonometric equation a*Cos(x)*Cos(x) + 2*b*Cos(x)*Sin(x) + c*Cos(x) + d*Sin(x) + e = 0 See class math_TrigonometricFunctionRoots");
+py::class_<math_TrigonometricEquationFunction, std::unique_ptr<math_TrigonometricEquationFunction>, math_FunctionWithDerivative> cls_math_TrigonometricEquationFunction(mod, "math_TrigonometricEquationFunction", "This is function, which corresponds trigonometric equation a*Cos(x)*Cos(x) + 2*b*Cos(x)*Sin(x) + c*Cos(x) + d*Sin(x) + e = 0 See class math_TrigonometricFunctionRoots");
 
 // Constructors
 cls_math_TrigonometricEquationFunction.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("A"), py::arg("B"), py::arg("C"), py::arg("D"), py::arg("E"));

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_ShapeListOfShape(py::module &mod){
 
-py::class_<TopOpeBRepBuild_ShapeListOfShape, std::unique_ptr<TopOpeBRepBuild_ShapeListOfShape, Deleter<TopOpeBRepBuild_ShapeListOfShape>>> cls_TopOpeBRepBuild_ShapeListOfShape(mod, "TopOpeBRepBuild_ShapeListOfShape", "represent shape + a list of shape");
+py::class_<TopOpeBRepBuild_ShapeListOfShape, std::unique_ptr<TopOpeBRepBuild_ShapeListOfShape>> cls_TopOpeBRepBuild_ShapeListOfShape(mod, "TopOpeBRepBuild_ShapeListOfShape", "represent shape + a list of shape");
 
 // Constructors
 cls_TopOpeBRepBuild_ShapeListOfShape.def(py::init<>());

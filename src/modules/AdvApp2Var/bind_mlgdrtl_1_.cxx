@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_mlgdrtl_1_(py::module &mod){
 
-py::class_<mlgdrtl_1_, std::unique_ptr<mlgdrtl_1_, Deleter<mlgdrtl_1_>>> cls_mlgdrtl_1_(mod, "mlgdrtl_1_", "None");
+py::class_<mlgdrtl_1_, std::unique_ptr<mlgdrtl_1_>> cls_mlgdrtl_1_(mod, "mlgdrtl_1_", "None");
 
 // Constructors
 

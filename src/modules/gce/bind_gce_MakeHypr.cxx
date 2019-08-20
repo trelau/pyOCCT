@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gce_MakeHypr(py::module &mod){
 
-py::class_<gce_MakeHypr, std::unique_ptr<gce_MakeHypr, Deleter<gce_MakeHypr>>, gce_Root> cls_gce_MakeHypr(mod, "gce_MakeHypr", "This class implements the following algorithms used to create Hyperbola from gp. * Create an Hyperbola from its center, and two points: one on its axis of symmetry giving the major radius, the other giving the value of the small radius. The three points give the plane of the hyperbola. * Create an hyperbola from its axisplacement and its MajorRadius and its MinorRadius.");
+py::class_<gce_MakeHypr, std::unique_ptr<gce_MakeHypr>, gce_Root> cls_gce_MakeHypr(mod, "gce_MakeHypr", "This class implements the following algorithms used to create Hyperbola from gp. * Create an Hyperbola from its center, and two points: one on its axis of symmetry giving the major radius, the other giving the value of the small radius. The three points give the plane of the hyperbola. * Create an hyperbola from its axisplacement and its MajorRadius and its MinorRadius.");
 
 // Constructors
 cls_gce_MakeHypr.def(py::init<const gp_Ax2 &, const Standard_Real, const Standard_Real>(), py::arg("A2"), py::arg("MajorRadius"), py::arg("MinorRadius"));

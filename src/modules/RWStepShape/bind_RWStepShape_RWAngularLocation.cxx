@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWAngularLocation(py::module &mod){
 
-py::class_<RWStepShape_RWAngularLocation, std::unique_ptr<RWStepShape_RWAngularLocation, Deleter<RWStepShape_RWAngularLocation>>> cls_RWStepShape_RWAngularLocation(mod, "RWStepShape_RWAngularLocation", "Read & Write tool for AngularLocation");
+py::class_<RWStepShape_RWAngularLocation, std::unique_ptr<RWStepShape_RWAngularLocation>> cls_RWStepShape_RWAngularLocation(mod, "RWStepShape_RWAngularLocation", "Read & Write tool for AngularLocation");
 
 // Constructors
 cls_RWStepShape_RWAngularLocation.def(py::init<>());

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFSelect_SessionFile(py::module &mod){
 
-py::class_<IFSelect_SessionFile, std::unique_ptr<IFSelect_SessionFile, Deleter<IFSelect_SessionFile>>> cls_IFSelect_SessionFile(mod, "IFSelect_SessionFile", "A SessionFile is intended to manage access between a WorkSession and an Ascii Form, to be considered as a Dump. It allows to write the File from the WorkSession, and later read the File to the WorkSession, by keeping required descriptions (such as dependances).");
+py::class_<IFSelect_SessionFile, std::unique_ptr<IFSelect_SessionFile>> cls_IFSelect_SessionFile(mod, "IFSelect_SessionFile", "A SessionFile is intended to manage access between a WorkSession and an Ascii Form, to be considered as a Dump. It allows to write the File from the WorkSession, and later read the File to the WorkSession, by keeping required descriptions (such as dependances).");
 
 // Constructors
 cls_IFSelect_SessionFile.def(py::init<const opencascade::handle<IFSelect_WorkSession> &>(), py::arg("WS"));

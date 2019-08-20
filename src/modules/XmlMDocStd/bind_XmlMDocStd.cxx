@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlMDocStd(py::module &mod){
 
-py::class_<XmlMDocStd, std::unique_ptr<XmlMDocStd, Deleter<XmlMDocStd>>> cls_XmlMDocStd(mod, "XmlMDocStd", "Driver for TDocStd_XLink");
+py::class_<XmlMDocStd, std::unique_ptr<XmlMDocStd>> cls_XmlMDocStd(mod, "XmlMDocStd", "Driver for TDocStd_XLink");
 
 // Constructors
 

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWMassUnit(py::module &mod){
 
-py::class_<RWStepBasic_RWMassUnit, std::unique_ptr<RWStepBasic_RWMassUnit, Deleter<RWStepBasic_RWMassUnit>>> cls_RWStepBasic_RWMassUnit(mod, "RWStepBasic_RWMassUnit", "Read & Write tool for MassUnit");
+py::class_<RWStepBasic_RWMassUnit, std::unique_ptr<RWStepBasic_RWMassUnit>> cls_RWStepBasic_RWMassUnit(mod, "RWStepBasic_RWMassUnit", "Read & Write tool for MassUnit");
 
 // Constructors
 cls_RWStepBasic_RWMassUnit.def(py::init<>());

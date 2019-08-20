@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlMDF(py::module &mod){
 
-py::class_<XmlMDF, std::unique_ptr<XmlMDF, Deleter<XmlMDF>>> cls_XmlMDF(mod, "XmlMDF", "This package provides classes and methods to translate a transient DF into a persistent one and vice versa.");
+py::class_<XmlMDF, std::unique_ptr<XmlMDF>> cls_XmlMDF(mod, "XmlMDF", "This package provides classes and methods to translate a transient DF into a persistent one and vice versa.");
 
 // Constructors
 

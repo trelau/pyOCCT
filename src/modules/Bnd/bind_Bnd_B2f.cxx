@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Bnd_B2f(py::module &mod){
 
-py::class_<Bnd_B2f, std::unique_ptr<Bnd_B2f, Deleter<Bnd_B2f>>> cls_Bnd_B2f(mod, "Bnd_B2f", "None");
+py::class_<Bnd_B2f, std::unique_ptr<Bnd_B2f>> cls_Bnd_B2f(mod, "Bnd_B2f", "None");
 
 // Constructors
 cls_Bnd_B2f.def(py::init<>());

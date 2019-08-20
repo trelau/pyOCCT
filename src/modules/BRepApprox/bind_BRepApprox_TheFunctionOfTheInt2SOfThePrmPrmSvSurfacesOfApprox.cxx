@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox(py::module &mod){
 
-py::class_<BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox, std::unique_ptr<BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox, Deleter<BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox>>, math_FunctionSetWithDerivatives> cls_BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox(mod, "BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox", "None");
+py::class_<BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox, std::unique_ptr<BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox>, math_FunctionSetWithDerivatives> cls_BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox(mod, "BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox", "None");
 
 // Constructors
 cls_BRepApprox_TheFunctionOfTheInt2SOfThePrmPrmSvSurfacesOfApprox.def(py::init<const BRepAdaptor_Surface &, const BRepAdaptor_Surface &>(), py::arg("S1"), py::arg("S2"));

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_PrsMgr_ModedPresentation(py::module &mod){
 
-py::class_<PrsMgr_ModedPresentation, std::unique_ptr<PrsMgr_ModedPresentation, Deleter<PrsMgr_ModedPresentation>>> cls_PrsMgr_ModedPresentation(mod, "PrsMgr_ModedPresentation", "None");
+py::class_<PrsMgr_ModedPresentation, std::unique_ptr<PrsMgr_ModedPresentation>> cls_PrsMgr_ModedPresentation(mod, "PrsMgr_ModedPresentation", "None");
 
 // Constructors
 cls_PrsMgr_ModedPresentation.def(py::init<>());

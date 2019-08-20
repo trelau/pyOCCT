@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP203_DateTimeItem(py::module &mod){
 
-py::class_<StepAP203_DateTimeItem, std::unique_ptr<StepAP203_DateTimeItem, Deleter<StepAP203_DateTimeItem>>, StepData_SelectType> cls_StepAP203_DateTimeItem(mod, "StepAP203_DateTimeItem", "Representation of STEP SELECT type DateTimeItem");
+py::class_<StepAP203_DateTimeItem, std::unique_ptr<StepAP203_DateTimeItem>, StepData_SelectType> cls_StepAP203_DateTimeItem(mod, "StepAP203_DateTimeItem", "Representation of STEP SELECT type DateTimeItem");
 
 // Constructors
 cls_StepAP203_DateTimeItem.def(py::init<>());

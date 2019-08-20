@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ProjLib_Cone(py::module &mod){
 
-py::class_<ProjLib_Cone, std::unique_ptr<ProjLib_Cone, Deleter<ProjLib_Cone>>, ProjLib_Projector> cls_ProjLib_Cone(mod, "ProjLib_Cone", "Projects elementary curves on a cone.");
+py::class_<ProjLib_Cone, std::unique_ptr<ProjLib_Cone>, ProjLib_Projector> cls_ProjLib_Cone(mod, "ProjLib_Cone", "Projects elementary curves on a cone.");
 
 // Constructors
 cls_ProjLib_Cone.def(py::init<>());

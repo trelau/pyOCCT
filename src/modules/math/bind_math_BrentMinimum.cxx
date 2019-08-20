@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_BrentMinimum(py::module &mod){
 
-py::class_<math_BrentMinimum, std::unique_ptr<math_BrentMinimum, Deleter<math_BrentMinimum>>> cls_math_BrentMinimum(mod, "math_BrentMinimum", "This class implements the Brent's method to find the minimum of a function of a single variable. No knowledge of the derivative is required.");
+py::class_<math_BrentMinimum, std::unique_ptr<math_BrentMinimum>> cls_math_BrentMinimum(mod, "math_BrentMinimum", "This class implements the Brent's method to find the minimum of a function of a single variable. No knowledge of the derivative is required.");
 
 // Constructors
 cls_math_BrentMinimum.def(py::init<const Standard_Real>(), py::arg("TolX"));

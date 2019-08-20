@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_Builder1(py::module &mod){
 
-py::class_<TopOpeBRepBuild_Builder1, std::unique_ptr<TopOpeBRepBuild_Builder1, Deleter<TopOpeBRepBuild_Builder1>>, TopOpeBRepBuild_Builder> cls_TopOpeBRepBuild_Builder1(mod, "TopOpeBRepBuild_Builder1", "extension of the class TopOpeBRepBuild_Builder dedicated to avoid bugs in 'Rebuilding Result' algorithm for the case of SOLID/SOLID Boolean Operations");
+py::class_<TopOpeBRepBuild_Builder1, std::unique_ptr<TopOpeBRepBuild_Builder1>, TopOpeBRepBuild_Builder> cls_TopOpeBRepBuild_Builder1(mod, "TopOpeBRepBuild_Builder1", "extension of the class TopOpeBRepBuild_Builder dedicated to avoid bugs in 'Rebuilding Result' algorithm for the case of SOLID/SOLID Boolean Operations");
 
 // Constructors
 cls_TopOpeBRepBuild_Builder1.def(py::init<const TopOpeBRepDS_BuildTool &>(), py::arg("BT"));

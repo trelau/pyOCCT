@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFGraph_Compare(py::module &mod){
 
-py::class_<IFGraph_Compare, std::unique_ptr<IFGraph_Compare, Deleter<IFGraph_Compare>>, Interface_GraphContent> cls_IFGraph_Compare(mod, "IFGraph_Compare", "this class evaluates effect of two compared sub-parts : cumulation (union), common part (intersection-overlapping) part specific to first sub-part or to the second one Results are kept in a Graph, several question can be set Basic Iteration gives Cumulation (union)");
+py::class_<IFGraph_Compare, std::unique_ptr<IFGraph_Compare>, Interface_GraphContent> cls_IFGraph_Compare(mod, "IFGraph_Compare", "this class evaluates effect of two compared sub-parts : cumulation (union), common part (intersection-overlapping) part specific to first sub-part or to the second one Results are kept in a Graph, several question can be set Basic Iteration gives Cumulation (union)");
 
 // Constructors
 cls_IFGraph_Compare.def(py::init<const Interface_Graph &>(), py::arg("agraph"));

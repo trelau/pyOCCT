@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWCurveElementIntervalLinearlyVarying(py::module &mod){
 
-py::class_<RWStepFEA_RWCurveElementIntervalLinearlyVarying, std::unique_ptr<RWStepFEA_RWCurveElementIntervalLinearlyVarying, Deleter<RWStepFEA_RWCurveElementIntervalLinearlyVarying>>> cls_RWStepFEA_RWCurveElementIntervalLinearlyVarying(mod, "RWStepFEA_RWCurveElementIntervalLinearlyVarying", "Read & Write tool for CurveElementIntervalLinearlyVarying");
+py::class_<RWStepFEA_RWCurveElementIntervalLinearlyVarying, std::unique_ptr<RWStepFEA_RWCurveElementIntervalLinearlyVarying>> cls_RWStepFEA_RWCurveElementIntervalLinearlyVarying(mod, "RWStepFEA_RWCurveElementIntervalLinearlyVarying", "Read & Write tool for CurveElementIntervalLinearlyVarying");
 
 // Constructors
 cls_RWStepFEA_RWCurveElementIntervalLinearlyVarying.def(py::init<>());

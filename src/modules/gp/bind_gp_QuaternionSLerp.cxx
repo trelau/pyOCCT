@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_QuaternionSLerp(py::module &mod){
 
-py::class_<gp_QuaternionSLerp, std::unique_ptr<gp_QuaternionSLerp, Deleter<gp_QuaternionSLerp>>> cls_gp_QuaternionSLerp(mod, "gp_QuaternionSLerp", "Perform Spherical Linear Interpolation of the quaternions, return unit length quaternion.");
+py::class_<gp_QuaternionSLerp, std::unique_ptr<gp_QuaternionSLerp>> cls_gp_QuaternionSLerp(mod, "gp_QuaternionSLerp", "Perform Spherical Linear Interpolation of the quaternions, return unit length quaternion.");
 
 // Constructors
 cls_gp_QuaternionSLerp.def(py::init<>());

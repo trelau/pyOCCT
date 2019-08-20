@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinObjMgt_RRelocationTable(py::module &mod){
 
-py::class_<BinObjMgt_RRelocationTable, std::unique_ptr<BinObjMgt_RRelocationTable, Deleter<BinObjMgt_RRelocationTable>>, TColStd_DataMapOfIntegerTransient> cls_BinObjMgt_RRelocationTable(mod, "BinObjMgt_RRelocationTable", "Retrieval relocation table is modeled as a child class of TColStd_DataMapOfIntegerTransient that stores a handle to the file header section. With that attribute drivers have access to the file header section.");
+py::class_<BinObjMgt_RRelocationTable, std::unique_ptr<BinObjMgt_RRelocationTable>, TColStd_DataMapOfIntegerTransient> cls_BinObjMgt_RRelocationTable(mod, "BinObjMgt_RRelocationTable", "Retrieval relocation table is modeled as a child class of TColStd_DataMapOfIntegerTransient that stores a handle to the file header section. With that attribute drivers have access to the file header section.");
 
 // Constructors
 

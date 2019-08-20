@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_Protection(py::module &mod){
 
-py::class_<OSD_Protection, std::unique_ptr<OSD_Protection, Deleter<OSD_Protection>>> cls_OSD_Protection(mod, "OSD_Protection", "This class provides data to manage file protection Example:These rights are treated in a system dependent manner : On UNIX you have User,Group and Other rights On VMS you have Owner,Group,World and System rights An automatic conversion is done between OSD and UNIX/VMS.");
+py::class_<OSD_Protection, std::unique_ptr<OSD_Protection>> cls_OSD_Protection(mod, "OSD_Protection", "This class provides data to manage file protection Example:These rights are treated in a system dependent manner : On UNIX you have User,Group and Other rights On VMS you have Owner,Group,World and System rights An automatic conversion is done between OSD and UNIX/VMS.");
 
 // Constructors
 cls_OSD_Protection.def(py::init<>());

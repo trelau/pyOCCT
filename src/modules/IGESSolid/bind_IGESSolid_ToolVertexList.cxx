@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolVertexList(py::module &mod){
 
-py::class_<IGESSolid_ToolVertexList, std::unique_ptr<IGESSolid_ToolVertexList, Deleter<IGESSolid_ToolVertexList>>> cls_IGESSolid_ToolVertexList(mod, "IGESSolid_ToolVertexList", "Tool to work on a VertexList. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolVertexList, std::unique_ptr<IGESSolid_ToolVertexList>> cls_IGESSolid_ToolVertexList(mod, "IGESSolid_ToolVertexList", "Tool to work on a VertexList. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolVertexList.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWUnequallyDisposedGeometricTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWUnequallyDisposedGeometricTolerance, std::unique_ptr<RWStepDimTol_RWUnequallyDisposedGeometricTolerance, Deleter<RWStepDimTol_RWUnequallyDisposedGeometricTolerance>>> cls_RWStepDimTol_RWUnequallyDisposedGeometricTolerance(mod, "RWStepDimTol_RWUnequallyDisposedGeometricTolerance", "Read & Write tool for UnequallyDisposedGeometricTolerance");
+py::class_<RWStepDimTol_RWUnequallyDisposedGeometricTolerance, std::unique_ptr<RWStepDimTol_RWUnequallyDisposedGeometricTolerance>> cls_RWStepDimTol_RWUnequallyDisposedGeometricTolerance(mod, "RWStepDimTol_RWUnequallyDisposedGeometricTolerance", "Read & Write tool for UnequallyDisposedGeometricTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWUnequallyDisposedGeometricTolerance.def(py::init<>());

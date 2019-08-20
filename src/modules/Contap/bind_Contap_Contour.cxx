@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Contap_Contour(py::module &mod){
 
-py::class_<Contap_Contour, std::unique_ptr<Contap_Contour, Deleter<Contap_Contour>>> cls_Contap_Contour(mod, "Contap_Contour", "None");
+py::class_<Contap_Contour, std::unique_ptr<Contap_Contour>> cls_Contap_Contour(mod, "Contap_Contour", "None");
 
 // Constructors
 cls_Contap_Contour.def(py::init<>());

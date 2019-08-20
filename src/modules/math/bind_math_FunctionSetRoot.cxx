@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_FunctionSetRoot(py::module &mod){
 
-py::class_<math_FunctionSetRoot, std::unique_ptr<math_FunctionSetRoot, Deleter<math_FunctionSetRoot>>> cls_math_FunctionSetRoot(mod, "math_FunctionSetRoot", "The math_FunctionSetRoot class calculates the root of a set of N functions of M variables (N<M, N=M or N>M). Knowing an initial guess of the solution and using a minimization algorithm, a search is made in the Newton direction and then in the Gradient direction if there is no success in the Newton direction. This algorithm can also be used for functions minimization. Knowledge of all the partial derivatives (the Jacobian) is required.");
+py::class_<math_FunctionSetRoot, std::unique_ptr<math_FunctionSetRoot>> cls_math_FunctionSetRoot(mod, "math_FunctionSetRoot", "The math_FunctionSetRoot class calculates the root of a set of N functions of M variables (N<M, N=M or N>M). Knowing an initial guess of the solution and using a minimization algorithm, a search is made in the Newton direction and then in the Gradient direction if there is no success in the Newton direction. This algorithm can also be used for functions minimization. Knowledge of all the partial derivatives (the Jacobian) is required.");
 
 // Constructors
 cls_math_FunctionSetRoot.def(py::init<math_FunctionSetWithDerivatives &, const math_Vector &>(), py::arg("F"), py::arg("Tolerance"));

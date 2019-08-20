@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_EqualRadiusPresentation(py::module &mod){
 
-py::class_<DsgPrs_EqualRadiusPresentation, std::unique_ptr<DsgPrs_EqualRadiusPresentation, Deleter<DsgPrs_EqualRadiusPresentation>>> cls_DsgPrs_EqualRadiusPresentation(mod, "DsgPrs_EqualRadiusPresentation", "A framework to define display of equality in radii.");
+py::class_<DsgPrs_EqualRadiusPresentation, std::unique_ptr<DsgPrs_EqualRadiusPresentation>> cls_DsgPrs_EqualRadiusPresentation(mod, "DsgPrs_EqualRadiusPresentation", "A framework to define display of equality in radii.");
 
 // Constructors
 

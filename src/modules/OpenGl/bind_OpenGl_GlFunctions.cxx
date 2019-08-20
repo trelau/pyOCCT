@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_GlFunctions(py::module &mod){
 
-py::class_<OpenGl_GlFunctions, std::unique_ptr<OpenGl_GlFunctions, Deleter<OpenGl_GlFunctions>>> cls_OpenGl_GlFunctions(mod, "OpenGl_GlFunctions", "Mega structure defines the complete list of OpenGL functions.");
+py::class_<OpenGl_GlFunctions, std::unique_ptr<OpenGl_GlFunctions>> cls_OpenGl_GlFunctions(mod, "OpenGl_GlFunctions", "Mega structure defines the complete list of OpenGL functions.");
 
 // Constructors
 

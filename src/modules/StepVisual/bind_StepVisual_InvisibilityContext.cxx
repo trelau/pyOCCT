@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_InvisibilityContext(py::module &mod){
 
-py::class_<StepVisual_InvisibilityContext, std::unique_ptr<StepVisual_InvisibilityContext, Deleter<StepVisual_InvisibilityContext>>, StepData_SelectType> cls_StepVisual_InvisibilityContext(mod, "StepVisual_InvisibilityContext", "None");
+py::class_<StepVisual_InvisibilityContext, std::unique_ptr<StepVisual_InvisibilityContext>, StepData_SelectType> cls_StepVisual_InvisibilityContext(mod, "StepVisual_InvisibilityContext", "None");
 
 // Constructors
 cls_StepVisual_InvisibilityContext.def(py::init<>());

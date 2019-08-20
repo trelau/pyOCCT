@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_HLRShape(py::module &mod){
 
-py::class_<StdPrs_HLRShape, std::unique_ptr<StdPrs_HLRShape, Deleter<StdPrs_HLRShape>>, Prs3d_Root> cls_StdPrs_HLRShape(mod, "StdPrs_HLRShape", "None");
+py::class_<StdPrs_HLRShape, std::unique_ptr<StdPrs_HLRShape>, Prs3d_Root> cls_StdPrs_HLRShape(mod, "StdPrs_HLRShape", "None");
 
 // Constructors
 

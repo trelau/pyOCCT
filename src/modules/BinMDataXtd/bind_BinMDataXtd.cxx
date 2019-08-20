@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinMDataXtd(py::module &mod){
 
-py::class_<BinMDataXtd, std::unique_ptr<BinMDataXtd, Deleter<BinMDataXtd>>> cls_BinMDataXtd(mod, "BinMDataXtd", "Storage and Retrieval drivers for modelling attributes.");
+py::class_<BinMDataXtd, std::unique_ptr<BinMDataXtd>> cls_BinMDataXtd(mod, "BinMDataXtd", "Storage and Retrieval drivers for modelling attributes.");
 
 // Constructors
 

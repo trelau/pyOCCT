@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_GeneralLib(py::module &mod){
 
-py::class_<Interface_GeneralLib, std::unique_ptr<Interface_GeneralLib, Deleter<Interface_GeneralLib>>> cls_Interface_GeneralLib(mod, "Interface_GeneralLib", "None");
+py::class_<Interface_GeneralLib, std::unique_ptr<Interface_GeneralLib>> cls_Interface_GeneralLib(mod, "Interface_GeneralLib", "None");
 
 // Constructors
 cls_Interface_GeneralLib.def(py::init<const opencascade::handle<Interface_Protocol> &>(), py::arg("aprotocol"));

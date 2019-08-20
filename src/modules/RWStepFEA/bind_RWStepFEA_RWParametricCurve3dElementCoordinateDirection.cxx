@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWParametricCurve3dElementCoordinateDirection(py::module &mod){
 
-py::class_<RWStepFEA_RWParametricCurve3dElementCoordinateDirection, std::unique_ptr<RWStepFEA_RWParametricCurve3dElementCoordinateDirection, Deleter<RWStepFEA_RWParametricCurve3dElementCoordinateDirection>>> cls_RWStepFEA_RWParametricCurve3dElementCoordinateDirection(mod, "RWStepFEA_RWParametricCurve3dElementCoordinateDirection", "Read & Write tool for ParametricCurve3dElementCoordinateDirection");
+py::class_<RWStepFEA_RWParametricCurve3dElementCoordinateDirection, std::unique_ptr<RWStepFEA_RWParametricCurve3dElementCoordinateDirection>> cls_RWStepFEA_RWParametricCurve3dElementCoordinateDirection(mod, "RWStepFEA_RWParametricCurve3dElementCoordinateDirection", "Read & Write tool for ParametricCurve3dElementCoordinateDirection");
 
 // Constructors
 cls_RWStepFEA_RWParametricCurve3dElementCoordinateDirection.def(py::init<>());

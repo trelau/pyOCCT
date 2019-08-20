@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWStructuralResponseProperty(py::module &mod){
 
-py::class_<RWStepRepr_RWStructuralResponseProperty, std::unique_ptr<RWStepRepr_RWStructuralResponseProperty, Deleter<RWStepRepr_RWStructuralResponseProperty>>> cls_RWStepRepr_RWStructuralResponseProperty(mod, "RWStepRepr_RWStructuralResponseProperty", "Read & Write tool for StructuralResponseProperty");
+py::class_<RWStepRepr_RWStructuralResponseProperty, std::unique_ptr<RWStepRepr_RWStructuralResponseProperty>> cls_RWStepRepr_RWStructuralResponseProperty(mod, "RWStepRepr_RWStructuralResponseProperty", "Read & Write tool for StructuralResponseProperty");
 
 // Constructors
 cls_RWStepRepr_RWStructuralResponseProperty.def(py::init<>());

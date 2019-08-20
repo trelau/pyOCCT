@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_NewtonMinimum(py::module &mod){
 
-py::class_<math_NewtonMinimum, std::unique_ptr<math_NewtonMinimum, Deleter<math_NewtonMinimum>>> cls_math_NewtonMinimum(mod, "math_NewtonMinimum", "None");
+py::class_<math_NewtonMinimum, std::unique_ptr<math_NewtonMinimum>> cls_math_NewtonMinimum(mod, "math_NewtonMinimum", "None");
 
 // Constructors
 cls_math_NewtonMinimum.def(py::init<const math_MultipleVarFunctionWithHessian &>(), py::arg("theFunction"));

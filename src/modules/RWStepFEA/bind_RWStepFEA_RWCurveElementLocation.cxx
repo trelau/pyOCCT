@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWCurveElementLocation(py::module &mod){
 
-py::class_<RWStepFEA_RWCurveElementLocation, std::unique_ptr<RWStepFEA_RWCurveElementLocation, Deleter<RWStepFEA_RWCurveElementLocation>>> cls_RWStepFEA_RWCurveElementLocation(mod, "RWStepFEA_RWCurveElementLocation", "Read & Write tool for CurveElementLocation");
+py::class_<RWStepFEA_RWCurveElementLocation, std::unique_ptr<RWStepFEA_RWCurveElementLocation>> cls_RWStepFEA_RWCurveElementLocation(mod, "RWStepFEA_RWCurveElementLocation", "Read & Write tool for CurveElementLocation");
 
 // Constructors
 cls_RWStepFEA_RWCurveElementLocation.def(py::init<>());

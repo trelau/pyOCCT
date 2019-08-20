@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_WireChecker(py::module &mod){
 
-py::class_<BRepMesh_WireChecker, std::unique_ptr<BRepMesh_WireChecker, Deleter<BRepMesh_WireChecker>>> cls_BRepMesh_WireChecker(mod, "BRepMesh_WireChecker", "Auxilary class intended to check correctness of discretized face. In particular, checks boundaries of discretized face for self intersections and gaps.");
+py::class_<BRepMesh_WireChecker, std::unique_ptr<BRepMesh_WireChecker>> cls_BRepMesh_WireChecker(mod, "BRepMesh_WireChecker", "Auxilary class intended to check correctness of discretized face. In particular, checks boundaries of discretized face for self intersections and gaps.");
 
 // Constructors
 cls_BRepMesh_WireChecker.def(py::init<const TopoDS_Face &, const Standard_Real, const BRepMesh::HDMapOfShapePairOfPolygon &, const BRepMesh::HIMapOfInteger &, const opencascade::handle<BRepMesh_DataStructureOfDelaun> &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Boolean>(), py::arg("theFace"), py::arg("theTolUV"), py::arg("theEdges"), py::arg("theVertexMap"), py::arg("theStructure"), py::arg("theUmin"), py::arg("theUmax"), py::arg("theVmin"), py::arg("theVmax"), py::arg("isInParallel"));

@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Law(py::module &mod){
 
-py::class_<Law, std::unique_ptr<Law, Deleter<Law>>> cls_Law(mod, "Law", "Multiple services concerning 1d functions.");
+py::class_<Law, std::unique_ptr<Law>> cls_Law(mod, "Law", "Multiple services concerning 1d functions.");
 
 // Constructors
 

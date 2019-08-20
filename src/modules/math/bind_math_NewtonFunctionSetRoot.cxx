@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_NewtonFunctionSetRoot(py::module &mod){
 
-py::class_<math_NewtonFunctionSetRoot, std::unique_ptr<math_NewtonFunctionSetRoot, Deleter<math_NewtonFunctionSetRoot>>> cls_math_NewtonFunctionSetRoot(mod, "math_NewtonFunctionSetRoot", "This class computes the root of a set of N functions of N variables, knowing an initial guess at the solution and using the Newton Raphson algorithm. Knowledge of all the partial derivatives (Jacobian) is required.");
+py::class_<math_NewtonFunctionSetRoot, std::unique_ptr<math_NewtonFunctionSetRoot>> cls_math_NewtonFunctionSetRoot(mod, "math_NewtonFunctionSetRoot", "This class computes the root of a set of N functions of N variables, knowing an initial guess at the solution and using the Newton Raphson algorithm. Knowledge of all the partial derivatives (Jacobian) is required.");
 
 // Constructors
 cls_math_NewtonFunctionSetRoot.def(py::init<math_FunctionSetWithDerivatives &, const math_Vector &, const Standard_Real>(), py::arg("theFunction"), py::arg("theXTolerance"), py::arg("theFTolerance"));

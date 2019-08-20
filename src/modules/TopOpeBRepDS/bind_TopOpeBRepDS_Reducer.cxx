@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_Reducer(py::module &mod){
 
-py::class_<TopOpeBRepDS_Reducer, std::unique_ptr<TopOpeBRepDS_Reducer, Deleter<TopOpeBRepDS_Reducer>>> cls_TopOpeBRepDS_Reducer(mod, "TopOpeBRepDS_Reducer", "reduce interferences of a data structure (HDS) used in topological operations.");
+py::class_<TopOpeBRepDS_Reducer, std::unique_ptr<TopOpeBRepDS_Reducer>> cls_TopOpeBRepDS_Reducer(mod, "TopOpeBRepDS_Reducer", "reduce interferences of a data structure (HDS) used in topological operations.");
 
 // Constructors
 cls_TopOpeBRepDS_Reducer.def(py::init<const opencascade::handle<TopOpeBRepDS_HDataStructure> &>(), py::arg("HDS"));

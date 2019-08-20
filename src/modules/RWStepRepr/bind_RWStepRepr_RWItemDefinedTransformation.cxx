@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWItemDefinedTransformation(py::module &mod){
 
-py::class_<RWStepRepr_RWItemDefinedTransformation, std::unique_ptr<RWStepRepr_RWItemDefinedTransformation, Deleter<RWStepRepr_RWItemDefinedTransformation>>> cls_RWStepRepr_RWItemDefinedTransformation(mod, "RWStepRepr_RWItemDefinedTransformation", "Read & Write Module for ItemDefinedTransformation");
+py::class_<RWStepRepr_RWItemDefinedTransformation, std::unique_ptr<RWStepRepr_RWItemDefinedTransformation>> cls_RWStepRepr_RWItemDefinedTransformation(mod, "RWStepRepr_RWItemDefinedTransformation", "Read & Write Module for ItemDefinedTransformation");
 
 // Constructors
 cls_RWStepRepr_RWItemDefinedTransformation.def(py::init<>());

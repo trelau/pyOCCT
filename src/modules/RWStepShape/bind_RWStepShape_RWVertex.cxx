@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWVertex(py::module &mod){
 
-py::class_<RWStepShape_RWVertex, std::unique_ptr<RWStepShape_RWVertex, Deleter<RWStepShape_RWVertex>>> cls_RWStepShape_RWVertex(mod, "RWStepShape_RWVertex", "Read & Write Module for Vertex");
+py::class_<RWStepShape_RWVertex, std::unique_ptr<RWStepShape_RWVertex>> cls_RWStepShape_RWVertex(mod, "RWStepShape_RWVertex", "Read & Write Module for Vertex");
 
 // Constructors
 cls_RWStepShape_RWVertex.def(py::init<>());

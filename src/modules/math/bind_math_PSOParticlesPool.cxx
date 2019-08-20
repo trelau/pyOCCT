@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_PSOParticlesPool(py::module &mod){
 
-py::class_<math_PSOParticlesPool, std::unique_ptr<math_PSOParticlesPool, Deleter<math_PSOParticlesPool>>> cls_math_PSOParticlesPool(mod, "math_PSOParticlesPool", "None");
+py::class_<math_PSOParticlesPool, std::unique_ptr<math_PSOParticlesPool>> cls_math_PSOParticlesPool(mod, "math_PSOParticlesPool", "None");
 
 // Constructors
 cls_math_PSOParticlesPool.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theParticlesCount"), py::arg("theDimensionCount"));

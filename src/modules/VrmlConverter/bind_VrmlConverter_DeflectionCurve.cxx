@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_VrmlConverter_DeflectionCurve(py::module &mod){
 
-py::class_<VrmlConverter_DeflectionCurve, std::unique_ptr<VrmlConverter_DeflectionCurve, Deleter<VrmlConverter_DeflectionCurve>>> cls_VrmlConverter_DeflectionCurve(mod, "VrmlConverter_DeflectionCurve", "DeflectionCurve - computes the presentation of objects to be seen as curves, converts this one into VRML objects and writes (adds) into anOStream. All requested properties of the representation are specify in aDrawer. This kind of the presentation is converted into IndexedLineSet ( VRML ). The computation will be made according to a maximal chordial deviation.");
+py::class_<VrmlConverter_DeflectionCurve, std::unique_ptr<VrmlConverter_DeflectionCurve>> cls_VrmlConverter_DeflectionCurve(mod, "VrmlConverter_DeflectionCurve", "DeflectionCurve - computes the presentation of objects to be seen as curves, converts this one into VRML objects and writes (adds) into anOStream. All requested properties of the representation are specify in aDrawer. This kind of the presentation is converted into IndexedLineSet ( VRML ). The computation will be made according to a maximal chordial deviation.");
 
 // Constructors
 

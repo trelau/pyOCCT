@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWQuasiUniformSurfaceAndRationalBSplineSurface(py::module &mod){
 
-py::class_<RWStepGeom_RWQuasiUniformSurfaceAndRationalBSplineSurface, std::unique_ptr<RWStepGeom_RWQuasiUniformSurfaceAndRationalBSplineSurface, Deleter<RWStepGeom_RWQuasiUniformSurfaceAndRationalBSplineSurface>>> cls_RWStepGeom_RWQuasiUniformSurfaceAndRationalBSplineSurface(mod, "RWStepGeom_RWQuasiUniformSurfaceAndRationalBSplineSurface", "Read & Write Module for QuasiUniformSurfaceAndRationalBSplineSurface");
+py::class_<RWStepGeom_RWQuasiUniformSurfaceAndRationalBSplineSurface, std::unique_ptr<RWStepGeom_RWQuasiUniformSurfaceAndRationalBSplineSurface>> cls_RWStepGeom_RWQuasiUniformSurfaceAndRationalBSplineSurface(mod, "RWStepGeom_RWQuasiUniformSurfaceAndRationalBSplineSurface", "Read & Write Module for QuasiUniformSurfaceAndRationalBSplineSurface");
 
 // Constructors
 cls_RWStepGeom_RWQuasiUniformSurfaceAndRationalBSplineSurface.def(py::init<>());

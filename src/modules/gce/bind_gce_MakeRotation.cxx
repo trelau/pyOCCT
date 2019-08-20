@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gce_MakeRotation(py::module &mod){
 
-py::class_<gce_MakeRotation, std::unique_ptr<gce_MakeRotation, Deleter<gce_MakeRotation>>> cls_gce_MakeRotation(mod, "gce_MakeRotation", "This class implements elementary construction algorithms for a rotation in 3D space. The result is a gp_Trsf transformation. A MakeRotation object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.");
+py::class_<gce_MakeRotation, std::unique_ptr<gce_MakeRotation>> cls_gce_MakeRotation(mod, "gce_MakeRotation", "This class implements elementary construction algorithms for a rotation in 3D space. The result is a gp_Trsf transformation. A MakeRotation object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_gce_MakeRotation.def(py::init<const gp_Lin &, const Standard_Real>(), py::arg("Line"), py::arg("Angle"));

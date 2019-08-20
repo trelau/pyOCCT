@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepTools_Substitution(py::module &mod){
 
-py::class_<BRepTools_Substitution, std::unique_ptr<BRepTools_Substitution, Deleter<BRepTools_Substitution>>> cls_BRepTools_Substitution(mod, "BRepTools_Substitution", "A tool to substitute subshapes by other shapes.");
+py::class_<BRepTools_Substitution, std::unique_ptr<BRepTools_Substitution>> cls_BRepTools_Substitution(mod, "BRepTools_Substitution", "A tool to substitute subshapes by other shapes.");
 
 // Constructors
 cls_BRepTools_Substitution.def(py::init<>());

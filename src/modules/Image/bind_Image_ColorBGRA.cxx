@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Image_ColorBGRA(py::module &mod){
 
-py::class_<Image_ColorBGRA, std::unique_ptr<Image_ColorBGRA, Deleter<Image_ColorBGRA>>> cls_Image_ColorBGRA(mod, "Image_ColorBGRA", "POD structure for packed BGRA color value (4 bytes)");
+py::class_<Image_ColorBGRA, std::unique_ptr<Image_ColorBGRA>> cls_Image_ColorBGRA(mod, "Image_ColorBGRA", "POD structure for packed BGRA color value (4 bytes)");
 
 // Constructors
 

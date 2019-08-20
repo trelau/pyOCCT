@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWFeaTangentialCoefficientOfLinearThermalExpansion(py::module &mod){
 
-py::class_<RWStepFEA_RWFeaTangentialCoefficientOfLinearThermalExpansion, std::unique_ptr<RWStepFEA_RWFeaTangentialCoefficientOfLinearThermalExpansion, Deleter<RWStepFEA_RWFeaTangentialCoefficientOfLinearThermalExpansion>>> cls_RWStepFEA_RWFeaTangentialCoefficientOfLinearThermalExpansion(mod, "RWStepFEA_RWFeaTangentialCoefficientOfLinearThermalExpansion", "Read & Write tool for FeaTangentialCoefficientOfLinearThermalExpansion");
+py::class_<RWStepFEA_RWFeaTangentialCoefficientOfLinearThermalExpansion, std::unique_ptr<RWStepFEA_RWFeaTangentialCoefficientOfLinearThermalExpansion>> cls_RWStepFEA_RWFeaTangentialCoefficientOfLinearThermalExpansion(mod, "RWStepFEA_RWFeaTangentialCoefficientOfLinearThermalExpansion", "Read & Write tool for FeaTangentialCoefficientOfLinearThermalExpansion");
 
 // Constructors
 cls_RWStepFEA_RWFeaTangentialCoefficientOfLinearThermalExpansion.def(py::init<>());

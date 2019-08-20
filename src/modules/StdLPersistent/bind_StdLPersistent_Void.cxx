@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdLPersistent_Void(py::module &mod){
 
-py::class_<StdLPersistent_Void, std::unique_ptr<StdLPersistent_Void, Deleter<StdLPersistent_Void>>> cls_StdLPersistent_Void(mod, "StdLPersistent_Void", "None");
+py::class_<StdLPersistent_Void, std::unique_ptr<StdLPersistent_Void>> cls_StdLPersistent_Void(mod, "StdLPersistent_Void", "None");
 
 // Constructors
 

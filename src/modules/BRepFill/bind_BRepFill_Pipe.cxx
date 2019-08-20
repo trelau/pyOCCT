@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_Pipe(py::module &mod){
 
-py::class_<BRepFill_Pipe, std::unique_ptr<BRepFill_Pipe, Deleter<BRepFill_Pipe>>> cls_BRepFill_Pipe(mod, "BRepFill_Pipe", "Create a shape by sweeping a shape (the profile) along a wire (the spine).");
+py::class_<BRepFill_Pipe, std::unique_ptr<BRepFill_Pipe>> cls_BRepFill_Pipe(mod, "BRepFill_Pipe", "Create a shape by sweeping a shape (the profile) along a wire (the spine).");
 
 // Constructors
 cls_BRepFill_Pipe.def(py::init<>());

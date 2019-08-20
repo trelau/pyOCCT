@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_AnglePresentation(py::module &mod){
 
-py::class_<DsgPrs_AnglePresentation, std::unique_ptr<DsgPrs_AnglePresentation, Deleter<DsgPrs_AnglePresentation>>> cls_DsgPrs_AnglePresentation(mod, "DsgPrs_AnglePresentation", "A framework for displaying angles.");
+py::class_<DsgPrs_AnglePresentation, std::unique_ptr<DsgPrs_AnglePresentation>> cls_DsgPrs_AnglePresentation(mod, "DsgPrs_AnglePresentation", "A framework for displaying angles.");
 
 // Constructors
 

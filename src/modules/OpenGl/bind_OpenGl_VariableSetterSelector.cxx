@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_OpenGl_VariableSetterSelector(py::module &mod){
 
 /*
-py::class_<OpenGl_VariableSetterSelector, std::unique_ptr<OpenGl_VariableSetterSelector, Deleter<OpenGl_VariableSetterSelector>>> cls_OpenGl_VariableSetterSelector(mod, "OpenGl_VariableSetterSelector", "Support tool for setting user-defined uniform variables.");
+py::class_<OpenGl_VariableSetterSelector, std::unique_ptr<OpenGl_VariableSetterSelector>> cls_OpenGl_VariableSetterSelector(mod, "OpenGl_VariableSetterSelector", "Support tool for setting user-defined uniform variables.");
 
 // Constructors
 cls_OpenGl_VariableSetterSelector.def(py::init<>());

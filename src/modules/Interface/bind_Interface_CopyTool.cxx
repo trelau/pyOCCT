@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_CopyTool(py::module &mod){
 
-py::class_<Interface_CopyTool, std::unique_ptr<Interface_CopyTool, Deleter<Interface_CopyTool>>> cls_Interface_CopyTool(mod, "Interface_CopyTool", "Performs Deep Copies of sets of Entities Allows to perform Copy of Interface Entities from a Model to another one. Works by calling general services GetFromAnother and GetImplied. Uses a CopyMap to bind a unique Result to each Copied Entity");
+py::class_<Interface_CopyTool, std::unique_ptr<Interface_CopyTool>> cls_Interface_CopyTool(mod, "Interface_CopyTool", "Performs Deep Copies of sets of Entities Allows to perform Copy of Interface Entities from a Model to another one. Works by calling general services GetFromAnother and GetImplied. Uses a CopyMap to bind a unique Result to each Copied Entity");
 
 // Constructors
 cls_Interface_CopyTool.def(py::init<const opencascade::handle<Interface_InterfaceModel> &, const Interface_GeneralLib &>(), py::arg("amodel"), py::arg("lib"));

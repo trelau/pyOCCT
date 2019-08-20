@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDSToStep_MakeFacetedBrep(py::module &mod){
 
-py::class_<TopoDSToStep_MakeFacetedBrep, std::unique_ptr<TopoDSToStep_MakeFacetedBrep, Deleter<TopoDSToStep_MakeFacetedBrep>>, TopoDSToStep_Root> cls_TopoDSToStep_MakeFacetedBrep(mod, "TopoDSToStep_MakeFacetedBrep", "This class implements the mapping between classes Shell or Solid from TopoDS and FacetedBrep from StepShape. All the topology and geometry comprised into the shell or the solid are taken into account and translated.");
+py::class_<TopoDSToStep_MakeFacetedBrep, std::unique_ptr<TopoDSToStep_MakeFacetedBrep>, TopoDSToStep_Root> cls_TopoDSToStep_MakeFacetedBrep(mod, "TopoDSToStep_MakeFacetedBrep", "This class implements the mapping between classes Shell or Solid from TopoDS and FacetedBrep from StepShape. All the topology and geometry comprised into the shell or the solid are taken into account and translated.");
 
 // Constructors
 cls_TopoDSToStep_MakeFacetedBrep.def(py::init<const TopoDS_Shell &, const opencascade::handle<Transfer_FinderProcess> &>(), py::arg("S"), py::arg("FP"));

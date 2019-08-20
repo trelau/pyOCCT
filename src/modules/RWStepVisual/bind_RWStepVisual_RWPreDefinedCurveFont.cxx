@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWPreDefinedCurveFont(py::module &mod){
 
-py::class_<RWStepVisual_RWPreDefinedCurveFont, std::unique_ptr<RWStepVisual_RWPreDefinedCurveFont, Deleter<RWStepVisual_RWPreDefinedCurveFont>>> cls_RWStepVisual_RWPreDefinedCurveFont(mod, "RWStepVisual_RWPreDefinedCurveFont", "Read & Write Module for PreDefinedCurveFont");
+py::class_<RWStepVisual_RWPreDefinedCurveFont, std::unique_ptr<RWStepVisual_RWPreDefinedCurveFont>> cls_RWStepVisual_RWPreDefinedCurveFont(mod, "RWStepVisual_RWPreDefinedCurveFont", "Read & Write Module for PreDefinedCurveFont");
 
 // Constructors
 cls_RWStepVisual_RWPreDefinedCurveFont.def(py::init<>());

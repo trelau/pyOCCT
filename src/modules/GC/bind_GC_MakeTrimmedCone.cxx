@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GC_MakeTrimmedCone(py::module &mod){
 
-py::class_<GC_MakeTrimmedCone, std::unique_ptr<GC_MakeTrimmedCone, Deleter<GC_MakeTrimmedCone>>, GC_Root> cls_GC_MakeTrimmedCone(mod, "GC_MakeTrimmedCone", "Implements construction algorithms for a trimmed cone limited by two planes orthogonal to its axis. The result is a Geom_RectangularTrimmedSurface surface. A MakeTrimmedCone provides a framework for: - defining the construction of the trimmed cone, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed trimmed cone.");
+py::class_<GC_MakeTrimmedCone, std::unique_ptr<GC_MakeTrimmedCone>, GC_Root> cls_GC_MakeTrimmedCone(mod, "GC_MakeTrimmedCone", "Implements construction algorithms for a trimmed cone limited by two planes orthogonal to its axis. The result is a Geom_RectangularTrimmedSurface surface. A MakeTrimmedCone provides a framework for: - defining the construction of the trimmed cone, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed trimmed cone.");
 
 // Constructors
 cls_GC_MakeTrimmedCone.def(py::init<const gp_Pnt &, const gp_Pnt &, const gp_Pnt &, const gp_Pnt &>(), py::arg("P1"), py::arg("P2"), py::arg("P3"), py::arg("P4"));

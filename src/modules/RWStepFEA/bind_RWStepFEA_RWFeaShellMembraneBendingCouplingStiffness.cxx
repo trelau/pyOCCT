@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWFeaShellMembraneBendingCouplingStiffness(py::module &mod){
 
-py::class_<RWStepFEA_RWFeaShellMembraneBendingCouplingStiffness, std::unique_ptr<RWStepFEA_RWFeaShellMembraneBendingCouplingStiffness, Deleter<RWStepFEA_RWFeaShellMembraneBendingCouplingStiffness>>> cls_RWStepFEA_RWFeaShellMembraneBendingCouplingStiffness(mod, "RWStepFEA_RWFeaShellMembraneBendingCouplingStiffness", "Read & Write tool for FeaShellMembraneBendingCouplingStiffness");
+py::class_<RWStepFEA_RWFeaShellMembraneBendingCouplingStiffness, std::unique_ptr<RWStepFEA_RWFeaShellMembraneBendingCouplingStiffness>> cls_RWStepFEA_RWFeaShellMembraneBendingCouplingStiffness(mod, "RWStepFEA_RWFeaShellMembraneBendingCouplingStiffness", "Read & Write tool for FeaShellMembraneBendingCouplingStiffness");
 
 // Constructors
 cls_RWStepFEA_RWFeaShellMembraneBendingCouplingStiffness.def(py::init<>());

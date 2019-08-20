@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWElementGeometricRelationship(py::module &mod){
 
-py::class_<RWStepFEA_RWElementGeometricRelationship, std::unique_ptr<RWStepFEA_RWElementGeometricRelationship, Deleter<RWStepFEA_RWElementGeometricRelationship>>> cls_RWStepFEA_RWElementGeometricRelationship(mod, "RWStepFEA_RWElementGeometricRelationship", "Read & Write tool for ElementGeometricRelationship");
+py::class_<RWStepFEA_RWElementGeometricRelationship, std::unique_ptr<RWStepFEA_RWElementGeometricRelationship>> cls_RWStepFEA_RWElementGeometricRelationship(mod, "RWStepFEA_RWElementGeometricRelationship", "Read & Write tool for ElementGeometricRelationship");
 
 // Constructors
 cls_RWStepFEA_RWElementGeometricRelationship.def(py::init<>());

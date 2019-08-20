@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TNaming_RefShape(py::module &mod){
 
-py::class_<TNaming_RefShape, std::unique_ptr<TNaming_RefShape, Deleter<TNaming_RefShape>>> cls_TNaming_RefShape(mod, "TNaming_RefShape", "None");
+py::class_<TNaming_RefShape, std::unique_ptr<TNaming_RefShape>> cls_TNaming_RefShape(mod, "TNaming_RefShape", "None");
 
 // Constructors
 cls_TNaming_RefShape.def(py::init<>());

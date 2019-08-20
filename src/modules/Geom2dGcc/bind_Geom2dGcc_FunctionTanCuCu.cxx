@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dGcc_FunctionTanCuCu(py::module &mod){
 
-py::class_<Geom2dGcc_FunctionTanCuCu, std::unique_ptr<Geom2dGcc_FunctionTanCuCu, Deleter<Geom2dGcc_FunctionTanCuCu>>, math_FunctionSetWithDerivatives> cls_Geom2dGcc_FunctionTanCuCu(mod, "Geom2dGcc_FunctionTanCuCu", "This abstract class describes a Function of 1 Variable used to find a line tangent to two curves.");
+py::class_<Geom2dGcc_FunctionTanCuCu, std::unique_ptr<Geom2dGcc_FunctionTanCuCu>, math_FunctionSetWithDerivatives> cls_Geom2dGcc_FunctionTanCuCu(mod, "Geom2dGcc_FunctionTanCuCu", "This abstract class describes a Function of 1 Variable used to find a line tangent to two curves.");
 
 // Constructors
 cls_Geom2dGcc_FunctionTanCuCu.def(py::init<const Geom2dAdaptor_Curve &, const Geom2dAdaptor_Curve &>(), py::arg("Curv1"), py::arg("Curv2"));

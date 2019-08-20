@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BiTgte_CurveOnEdge(py::module &mod){
 
-py::class_<BiTgte_CurveOnEdge, std::unique_ptr<BiTgte_CurveOnEdge, Deleter<BiTgte_CurveOnEdge>>, Adaptor3d_Curve> cls_BiTgte_CurveOnEdge(mod, "BiTgte_CurveOnEdge", "private class used to create a filler rolling on an edge.");
+py::class_<BiTgte_CurveOnEdge, std::unique_ptr<BiTgte_CurveOnEdge>, Adaptor3d_Curve> cls_BiTgte_CurveOnEdge(mod, "BiTgte_CurveOnEdge", "private class used to create a filler rolling on an edge.");
 
 // Constructors
 cls_BiTgte_CurveOnEdge.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepElement_ElementAspect(py::module &mod){
 
-py::class_<StepElement_ElementAspect, std::unique_ptr<StepElement_ElementAspect, Deleter<StepElement_ElementAspect>>, StepData_SelectType> cls_StepElement_ElementAspect(mod, "StepElement_ElementAspect", "Representation of STEP SELECT type ElementAspect");
+py::class_<StepElement_ElementAspect, std::unique_ptr<StepElement_ElementAspect>, StepData_SelectType> cls_StepElement_ElementAspect(mod, "StepElement_ElementAspect", "Representation of STEP SELECT type ElementAspect");
 
 // Constructors
 cls_StepElement_ElementAspect.def(py::init<>());

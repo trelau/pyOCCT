@@ -82,7 +82,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep(py::module &mod){
 
-py::class_<HLRBRep, std::unique_ptr<HLRBRep, Deleter<HLRBRep>>> cls_HLRBRep(mod, "HLRBRep", "Hidden Lines Removal algorithms on the BRep DataStructure.");
+py::class_<HLRBRep, std::unique_ptr<HLRBRep>> cls_HLRBRep(mod, "HLRBRep", "Hidden Lines Removal algorithms on the BRep DataStructure.");
 
 // Constructors
 

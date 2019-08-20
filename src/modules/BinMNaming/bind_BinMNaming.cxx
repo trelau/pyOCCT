@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinMNaming(py::module &mod){
 
-py::class_<BinMNaming, std::unique_ptr<BinMNaming, Deleter<BinMNaming>>> cls_BinMNaming(mod, "BinMNaming", "Storage/Retrieval drivers for TNaming attributes");
+py::class_<BinMNaming, std::unique_ptr<BinMNaming>> cls_BinMNaming(mod, "BinMNaming", "Storage/Retrieval drivers for TNaming attributes");
 
 // Constructors
 

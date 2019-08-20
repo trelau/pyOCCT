@@ -57,7 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPCAFControl_Writer(py::module &mod){
 
-py::class_<STEPCAFControl_Writer, std::unique_ptr<STEPCAFControl_Writer, Deleter<STEPCAFControl_Writer>>> cls_STEPCAFControl_Writer(mod, "STEPCAFControl_Writer", "Provides a tool to write DECAF document to the STEP file. Besides transfer of shapes (including assemblies) provided by STEPControl, supports also colors and part names");
+py::class_<STEPCAFControl_Writer, std::unique_ptr<STEPCAFControl_Writer>> cls_STEPCAFControl_Writer(mod, "STEPCAFControl_Writer", "Provides a tool to write DECAF document to the STEP file. Besides transfer of shapes (including assemblies) provided by STEPControl, supports also colors and part names");
 
 // Constructors
 cls_STEPCAFControl_Writer.def(py::init<>());

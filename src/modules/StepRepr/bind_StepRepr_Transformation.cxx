@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepRepr_Transformation(py::module &mod){
 
-py::class_<StepRepr_Transformation, std::unique_ptr<StepRepr_Transformation, Deleter<StepRepr_Transformation>>, StepData_SelectType> cls_StepRepr_Transformation(mod, "StepRepr_Transformation", "None");
+py::class_<StepRepr_Transformation, std::unique_ptr<StepRepr_Transformation>, StepData_SelectType> cls_StepRepr_Transformation(mod, "StepRepr_Transformation", "None");
 
 // Constructors
 cls_StepRepr_Transformation.def(py::init<>());

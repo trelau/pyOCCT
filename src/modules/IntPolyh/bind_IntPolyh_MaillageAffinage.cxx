@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPolyh_MaillageAffinage(py::module &mod){
 
-py::class_<IntPolyh_MaillageAffinage, std::unique_ptr<IntPolyh_MaillageAffinage, Deleter<IntPolyh_MaillageAffinage>>> cls_IntPolyh_MaillageAffinage(mod, "IntPolyh_MaillageAffinage", "Low-level algorithm to compute intersection of the surfaces by computing the intersection of their triangulations.");
+py::class_<IntPolyh_MaillageAffinage, std::unique_ptr<IntPolyh_MaillageAffinage>> cls_IntPolyh_MaillageAffinage(mod, "IntPolyh_MaillageAffinage", "Low-level algorithm to compute intersection of the surfaces by computing the intersection of their triangulations.");
 
 // Constructors
 cls_IntPolyh_MaillageAffinage.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const Standard_Integer, const Standard_Integer, const opencascade::handle<Adaptor3d_HSurface> &, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("S1"), py::arg("NbSU1"), py::arg("NbSV1"), py::arg("S2"), py::arg("NbSU2"), py::arg("NbSV2"), py::arg("PRINT"));

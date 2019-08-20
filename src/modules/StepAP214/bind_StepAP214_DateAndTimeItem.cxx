@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP214_DateAndTimeItem(py::module &mod){
 
-py::class_<StepAP214_DateAndTimeItem, std::unique_ptr<StepAP214_DateAndTimeItem, Deleter<StepAP214_DateAndTimeItem>>, StepAP214_ApprovalItem> cls_StepAP214_DateAndTimeItem(mod, "StepAP214_DateAndTimeItem", "None");
+py::class_<StepAP214_DateAndTimeItem, std::unique_ptr<StepAP214_DateAndTimeItem>, StepAP214_ApprovalItem> cls_StepAP214_DateAndTimeItem(mod, "StepAP214_DateAndTimeItem", "None");
 
 // Constructors
 cls_StepAP214_DateAndTimeItem.def(py::init<>());

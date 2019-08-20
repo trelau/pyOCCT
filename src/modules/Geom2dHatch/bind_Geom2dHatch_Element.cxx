@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dHatch_Element(py::module &mod){
 
-py::class_<Geom2dHatch_Element, std::unique_ptr<Geom2dHatch_Element, Deleter<Geom2dHatch_Element>>> cls_Geom2dHatch_Element(mod, "Geom2dHatch_Element", "None");
+py::class_<Geom2dHatch_Element, std::unique_ptr<Geom2dHatch_Element>> cls_Geom2dHatch_Element(mod, "Geom2dHatch_Element", "None");
 
 // Constructors
 cls_Geom2dHatch_Element.def(py::init<>());

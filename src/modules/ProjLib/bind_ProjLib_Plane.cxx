@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ProjLib_Plane(py::module &mod){
 
-py::class_<ProjLib_Plane, std::unique_ptr<ProjLib_Plane, Deleter<ProjLib_Plane>>, ProjLib_Projector> cls_ProjLib_Plane(mod, "ProjLib_Plane", "Projects elementary curves on a plane.");
+py::class_<ProjLib_Plane, std::unique_ptr<ProjLib_Plane>, ProjLib_Projector> cls_ProjLib_Plane(mod, "ProjLib_Plane", "Projects elementary curves on a plane.");
 
 // Constructors
 cls_ProjLib_Plane.def(py::init<>());

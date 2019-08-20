@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDataXtd(py::module &mod){
 
-py::class_<TDataXtd, std::unique_ptr<TDataXtd, Deleter<TDataXtd>>> cls_TDataXtd(mod, "TDataXtd", "This package defines extension of standard attributes for modelling (mainly for work with geometry).");
+py::class_<TDataXtd, std::unique_ptr<TDataXtd>> cls_TDataXtd(mod, "TDataXtd", "This package defines extension of standard attributes for modelling (mainly for work with geometry).");
 
 // Constructors
 

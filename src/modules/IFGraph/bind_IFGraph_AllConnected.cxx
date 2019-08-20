@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFGraph_AllConnected(py::module &mod){
 
-py::class_<IFGraph_AllConnected, std::unique_ptr<IFGraph_AllConnected, Deleter<IFGraph_AllConnected>>, Interface_GraphContent> cls_IFGraph_AllConnected(mod, "IFGraph_AllConnected", "this class gives content of the CONNECTED COMPONANT(S) which include specific Entity(ies)");
+py::class_<IFGraph_AllConnected, std::unique_ptr<IFGraph_AllConnected>, Interface_GraphContent> cls_IFGraph_AllConnected(mod, "IFGraph_AllConnected", "this class gives content of the CONNECTED COMPONANT(S) which include specific Entity(ies)");
 
 // Constructors
 cls_IFGraph_AllConnected.def(py::init<const Interface_Graph &>(), py::arg("agraph"));

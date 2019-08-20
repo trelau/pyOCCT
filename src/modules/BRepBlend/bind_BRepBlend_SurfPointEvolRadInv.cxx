@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBlend_SurfPointEvolRadInv(py::module &mod){
 
-py::class_<BRepBlend_SurfPointEvolRadInv, std::unique_ptr<BRepBlend_SurfPointEvolRadInv, Deleter<BRepBlend_SurfPointEvolRadInv>>, Blend_SurfPointFuncInv> cls_BRepBlend_SurfPointEvolRadInv(mod, "BRepBlend_SurfPointEvolRadInv", "Function of reframing between a point and a surface. This function is used to find a solution on a done point of the curve when using SurfRstConsRad or CSConstRad... The vector <X> used in Value, Values and Derivatives methods has to be the vector of the parametric coordinates w, U, V where w is the parameter on the guide line, U,V are the parametric coordinates of a point on the partner surface.");
+py::class_<BRepBlend_SurfPointEvolRadInv, std::unique_ptr<BRepBlend_SurfPointEvolRadInv>, Blend_SurfPointFuncInv> cls_BRepBlend_SurfPointEvolRadInv(mod, "BRepBlend_SurfPointEvolRadInv", "Function of reframing between a point and a surface. This function is used to find a solution on a done point of the curve when using SurfRstConsRad or CSConstRad... The vector <X> used in Value, Values and Derivatives methods has to be the vector of the parametric coordinates w, U, V where w is the parameter on the guide line, U,V are the parametric coordinates of a point on the partner surface.");
 
 // Constructors
 cls_BRepBlend_SurfPointEvolRadInv.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &, const opencascade::handle<Law_Function> &>(), py::arg("S"), py::arg("C"), py::arg("Evol"));

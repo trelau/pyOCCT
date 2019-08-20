@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XCAFDoc_AssemblyItemId(py::module &mod){
 
-py::class_<XCAFDoc_AssemblyItemId, std::unique_ptr<XCAFDoc_AssemblyItemId, Deleter<XCAFDoc_AssemblyItemId>>> cls_XCAFDoc_AssemblyItemId(mod, "XCAFDoc_AssemblyItemId", "Unique item identifier in the hierarchical product structure. A full path to an assembly component in the 'part-of' graph starting from the root node.");
+py::class_<XCAFDoc_AssemblyItemId, std::unique_ptr<XCAFDoc_AssemblyItemId>> cls_XCAFDoc_AssemblyItemId(mod, "XCAFDoc_AssemblyItemId", "Unique item identifier in the hierarchical product structure. A full path to an assembly component in the 'part-of' graph starting from the root node.");
 
 // Constructors
 cls_XCAFDoc_AssemblyItemId.def(py::init<>());

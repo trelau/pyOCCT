@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename Type>
 void bind_NCollection_UtfIterator(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_UtfIterator<Type>, std::unique_ptr<NCollection_UtfIterator<Type>, Deleter<NCollection_UtfIterator<Type>>>> cls_NCollection_UtfIterator(mod, name.c_str(), "Template class for Unicode strings support.", local);
+py::class_<NCollection_UtfIterator<Type>, std::unique_ptr<NCollection_UtfIterator<Type>>> cls_NCollection_UtfIterator(mod, name.c_str(), "Template class for Unicode strings support.", local);
 
 // Constructors
 cls_NCollection_UtfIterator.def(py::init<const Type *>(), py::arg("theString"));

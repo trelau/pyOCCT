@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool_ShapeExplorer(py::module &mod){
 
-py::class_<TopOpeBRepTool_ShapeExplorer, std::unique_ptr<TopOpeBRepTool_ShapeExplorer, Deleter<TopOpeBRepTool_ShapeExplorer>>, TopExp_Explorer> cls_TopOpeBRepTool_ShapeExplorer(mod, "TopOpeBRepTool_ShapeExplorer", "Extends TopExp_Explorer by counting index of current item (for tracing and debug)");
+py::class_<TopOpeBRepTool_ShapeExplorer, std::unique_ptr<TopOpeBRepTool_ShapeExplorer>, TopExp_Explorer> cls_TopOpeBRepTool_ShapeExplorer(mod, "TopOpeBRepTool_ShapeExplorer", "Extends TopExp_Explorer by counting index of current item (for tracing and debug)");
 
 // Constructors
 cls_TopOpeBRepTool_ShapeExplorer.def(py::init<>());

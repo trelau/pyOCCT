@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeBSplineSurfaceWithKnotsAndRationalBSplineSurface(py::module &mod){
 
-py::class_<GeomToStep_MakeBSplineSurfaceWithKnotsAndRationalBSplineSurface, std::unique_ptr<GeomToStep_MakeBSplineSurfaceWithKnotsAndRationalBSplineSurface, Deleter<GeomToStep_MakeBSplineSurfaceWithKnotsAndRationalBSplineSurface>>, GeomToStep_Root> cls_GeomToStep_MakeBSplineSurfaceWithKnotsAndRationalBSplineSurface(mod, "GeomToStep_MakeBSplineSurfaceWithKnotsAndRationalBSplineSurface", "This class implements the mapping between class BSplineSurface from Geom and the class BSplineSurfaceWithKnotsAndRationalBSplineSurface from StepGeom which describes a rational_bspline_Surface_with_knots from Prostep");
+py::class_<GeomToStep_MakeBSplineSurfaceWithKnotsAndRationalBSplineSurface, std::unique_ptr<GeomToStep_MakeBSplineSurfaceWithKnotsAndRationalBSplineSurface>, GeomToStep_Root> cls_GeomToStep_MakeBSplineSurfaceWithKnotsAndRationalBSplineSurface(mod, "GeomToStep_MakeBSplineSurfaceWithKnotsAndRationalBSplineSurface", "This class implements the mapping between class BSplineSurface from Geom and the class BSplineSurfaceWithKnotsAndRationalBSplineSurface from StepGeom which describes a rational_bspline_Surface_with_knots from Prostep");
 
 // Constructors
 cls_GeomToStep_MakeBSplineSurfaceWithKnotsAndRationalBSplineSurface.def(py::init<const opencascade::handle<Geom_BSplineSurface> &>(), py::arg("Bsplin"));

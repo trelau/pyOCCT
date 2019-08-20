@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFilletAPI_MakeFillet(py::module &mod){
 
-py::class_<BRepFilletAPI_MakeFillet, std::unique_ptr<BRepFilletAPI_MakeFillet, Deleter<BRepFilletAPI_MakeFillet>>, BRepFilletAPI_LocalOperation> cls_BRepFilletAPI_MakeFillet(mod, "BRepFilletAPI_MakeFillet", "Describes functions to build fillets on the broken edges of a shell or solid. A MakeFillet object provides a framework for: - initializing the construction algorithm with a given shape, - acquiring the data characterizing the fillets, - building the fillets and constructing the resulting shape, and - consulting the result.");
+py::class_<BRepFilletAPI_MakeFillet, std::unique_ptr<BRepFilletAPI_MakeFillet>, BRepFilletAPI_LocalOperation> cls_BRepFilletAPI_MakeFillet(mod, "BRepFilletAPI_MakeFillet", "Describes functions to build fillets on the broken edges of a shell or solid. A MakeFillet object provides a framework for: - initializing the construction algorithm with a given shape, - acquiring the data characterizing the fillets, - building the fillets and constructing the resulting shape, and - consulting the result.");
 
 // Constructors
 cls_BRepFilletAPI_MakeFillet.def(py::init<const TopoDS_Shape &>(), py::arg("S"));

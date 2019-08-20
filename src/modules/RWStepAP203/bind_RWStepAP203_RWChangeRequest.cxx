@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP203_RWChangeRequest(py::module &mod){
 
-py::class_<RWStepAP203_RWChangeRequest, std::unique_ptr<RWStepAP203_RWChangeRequest, Deleter<RWStepAP203_RWChangeRequest>>> cls_RWStepAP203_RWChangeRequest(mod, "RWStepAP203_RWChangeRequest", "Read & Write tool for ChangeRequest");
+py::class_<RWStepAP203_RWChangeRequest, std::unique_ptr<RWStepAP203_RWChangeRequest>> cls_RWStepAP203_RWChangeRequest(mod, "RWStepAP203_RWChangeRequest", "Read & Write tool for ChangeRequest");
 
 // Constructors
 cls_RWStepAP203_RWChangeRequest.def(py::init<>());

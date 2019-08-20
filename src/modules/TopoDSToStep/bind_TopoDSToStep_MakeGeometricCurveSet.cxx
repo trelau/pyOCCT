@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDSToStep_MakeGeometricCurveSet(py::module &mod){
 
-py::class_<TopoDSToStep_MakeGeometricCurveSet, std::unique_ptr<TopoDSToStep_MakeGeometricCurveSet, Deleter<TopoDSToStep_MakeGeometricCurveSet>>, TopoDSToStep_Root> cls_TopoDSToStep_MakeGeometricCurveSet(mod, "TopoDSToStep_MakeGeometricCurveSet", "This class implements the mapping between a Shape from TopoDS and a GeometricCurveSet from StepShape in order to create a GeometricallyBoundedWireframeRepresentation.");
+py::class_<TopoDSToStep_MakeGeometricCurveSet, std::unique_ptr<TopoDSToStep_MakeGeometricCurveSet>, TopoDSToStep_Root> cls_TopoDSToStep_MakeGeometricCurveSet(mod, "TopoDSToStep_MakeGeometricCurveSet", "This class implements the mapping between a Shape from TopoDS and a GeometricCurveSet from StepShape in order to create a GeometricallyBoundedWireframeRepresentation.");
 
 // Constructors
 cls_TopoDSToStep_MakeGeometricCurveSet.def(py::init<const TopoDS_Shape &, const opencascade::handle<Transfer_FinderProcess> &>(), py::arg("SH"), py::arg("FP"));

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_XYZ(py::module &mod){
 
-py::class_<gp_XYZ, std::unique_ptr<gp_XYZ, Deleter<gp_XYZ>>> cls_gp_XYZ(mod, "gp_XYZ", "This class describes a cartesian coordinate entity in 3D space {X,Y,Z}. This entity is used for algebraic calculation. This entity can be transformed with a 'Trsf' or a 'GTrsf' from package 'gp'. It is used in vectorial computations or for holding this type of information in data structures.");
+py::class_<gp_XYZ, std::unique_ptr<gp_XYZ>> cls_gp_XYZ(mod, "gp_XYZ", "This class describes a cartesian coordinate entity in 3D space {X,Y,Z}. This entity is used for algebraic calculation. This entity can be transformed with a 'Trsf' or a 'GTrsf' from package 'gp'. It is used in vectorial computations or for holding this type of information in data structures.");
 
 // Constructors
 cls_gp_XYZ.def(py::init<>());

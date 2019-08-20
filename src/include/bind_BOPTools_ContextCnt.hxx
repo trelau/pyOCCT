@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TypeFunctor, typename TypeSolverVector, typename TypeContext>
 void bind_BOPTools_ContextCnt(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BOPTools_ContextCnt<TypeFunctor, TypeSolverVector, TypeContext>, std::unique_ptr<BOPTools_ContextCnt<TypeFunctor, TypeSolverVector, TypeContext>, Deleter<BOPTools_ContextCnt<TypeFunctor, TypeSolverVector, TypeContext>>>> cls_BOPTools_ContextCnt(mod, name.c_str(), "None", local);
+py::class_<BOPTools_ContextCnt<TypeFunctor, TypeSolverVector, TypeContext>, std::unique_ptr<BOPTools_ContextCnt<TypeFunctor, TypeSolverVector, TypeContext>>> cls_BOPTools_ContextCnt(mod, name.c_str(), "None", local);
 
 // Constructors
 

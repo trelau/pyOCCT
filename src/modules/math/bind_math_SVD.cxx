@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_SVD(py::module &mod){
 
-py::class_<math_SVD, std::unique_ptr<math_SVD, Deleter<math_SVD>>> cls_math_SVD(mod, "math_SVD", "SVD implements the solution of a set of N linear equations of M unknowns without condition on N or M. The Singular Value Decomposition algorithm is used. For singular or nearly singular matrices SVD is a better choice than Gauss or GaussLeastSquare.");
+py::class_<math_SVD, std::unique_ptr<math_SVD>> cls_math_SVD(mod, "math_SVD", "SVD implements the solution of a set of N linear equations of M unknowns without condition on N or M. The Singular Value Decomposition algorithm is used. For singular or nearly singular matrices SVD is a better choice than Gauss or GaussLeastSquare.");
 
 // Constructors
 cls_math_SVD.def(py::init<const math_Matrix &>(), py::arg("A"));

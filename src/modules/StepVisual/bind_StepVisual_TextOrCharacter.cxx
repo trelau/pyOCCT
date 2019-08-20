@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_TextOrCharacter(py::module &mod){
 
-py::class_<StepVisual_TextOrCharacter, std::unique_ptr<StepVisual_TextOrCharacter, Deleter<StepVisual_TextOrCharacter>>, StepData_SelectType> cls_StepVisual_TextOrCharacter(mod, "StepVisual_TextOrCharacter", "None");
+py::class_<StepVisual_TextOrCharacter, std::unique_ptr<StepVisual_TextOrCharacter>, StepData_SelectType> cls_StepVisual_TextOrCharacter(mod, "StepVisual_TextOrCharacter", "None");
 
 // Constructors
 cls_StepVisual_TextOrCharacter.def(py::init<>());

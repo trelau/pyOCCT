@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOM_CDATASection(py::module &mod){
 
-py::class_<LDOM_CDATASection, std::unique_ptr<LDOM_CDATASection, Deleter<LDOM_CDATASection>>, LDOM_Text> cls_LDOM_CDATASection(mod, "LDOM_CDATASection", "None");
+py::class_<LDOM_CDATASection, std::unique_ptr<LDOM_CDATASection>, LDOM_Text> cls_LDOM_CDATASection(mod, "LDOM_CDATASection", "None");
 
 // Constructors
 cls_LDOM_CDATASection.def(py::init<>());

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_Pnt2d(py::module &mod){
 
-py::class_<gp_Pnt2d, std::unique_ptr<gp_Pnt2d, Deleter<gp_Pnt2d>>> cls_gp_Pnt2d(mod, "gp_Pnt2d", "Defines a non-persistent 2D cartesian point.");
+py::class_<gp_Pnt2d, std::unique_ptr<gp_Pnt2d>> cls_gp_Pnt2d(mod, "gp_Pnt2d", "Defines a non-persistent 2D cartesian point.");
 
 // Constructors
 cls_gp_Pnt2d.def(py::init<>());

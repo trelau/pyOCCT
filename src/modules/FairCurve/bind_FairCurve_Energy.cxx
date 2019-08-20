@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FairCurve_Energy(py::module &mod){
 
-py::class_<FairCurve_Energy, std::unique_ptr<FairCurve_Energy, Deleter<FairCurve_Energy>>, math_MultipleVarFunctionWithHessian> cls_FairCurve_Energy(mod, "FairCurve_Energy", "necessary methodes to compute the energy of an FairCurve.");
+py::class_<FairCurve_Energy, std::unique_ptr<FairCurve_Energy>, math_MultipleVarFunctionWithHessian> cls_FairCurve_Energy(mod, "FairCurve_Energy", "necessary methodes to compute the energy of an FairCurve.");
 
 // Fields
 

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWCurveStyleFontPattern(py::module &mod){
 
-py::class_<RWStepVisual_RWCurveStyleFontPattern, std::unique_ptr<RWStepVisual_RWCurveStyleFontPattern, Deleter<RWStepVisual_RWCurveStyleFontPattern>>> cls_RWStepVisual_RWCurveStyleFontPattern(mod, "RWStepVisual_RWCurveStyleFontPattern", "Read & Write Module for CurveStyleFontPattern");
+py::class_<RWStepVisual_RWCurveStyleFontPattern, std::unique_ptr<RWStepVisual_RWCurveStyleFontPattern>> cls_RWStepVisual_RWCurveStyleFontPattern(mod, "RWStepVisual_RWCurveStyleFontPattern", "Read & Write Module for CurveStyleFontPattern");
 
 // Constructors
 cls_RWStepVisual_RWCurveStyleFontPattern.def(py::init<>());

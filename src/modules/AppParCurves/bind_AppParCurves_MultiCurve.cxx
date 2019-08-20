@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppParCurves_MultiCurve(py::module &mod){
 
-py::class_<AppParCurves_MultiCurve, std::unique_ptr<AppParCurves_MultiCurve, Deleter<AppParCurves_MultiCurve>>> cls_AppParCurves_MultiCurve(mod, "AppParCurves_MultiCurve", "This class describes a MultiCurve approximating a Multiline. As a Multiline is a set of n lines, a MultiCurve is a set of n curves. These curves are Bezier curves. A MultiCurve is composed of m MultiPoint. The approximating degree of these n curves is the same for each one.");
+py::class_<AppParCurves_MultiCurve, std::unique_ptr<AppParCurves_MultiCurve>> cls_AppParCurves_MultiCurve(mod, "AppParCurves_MultiCurve", "This class describes a MultiCurve approximating a Multiline. As a Multiline is a set of n lines, a MultiCurve is a set of n curves. These curves are Bezier curves. A MultiCurve is composed of m MultiPoint. The approximating degree of these n curves is the same for each one.");
 
 // Constructors
 cls_AppParCurves_MultiCurve.def(py::init<>());

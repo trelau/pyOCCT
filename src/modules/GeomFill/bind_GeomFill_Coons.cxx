@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_Coons(py::module &mod){
 
-py::class_<GeomFill_Coons, std::unique_ptr<GeomFill_Coons, Deleter<GeomFill_Coons>>, GeomFill_Filling> cls_GeomFill_Coons(mod, "GeomFill_Coons", "None");
+py::class_<GeomFill_Coons, std::unique_ptr<GeomFill_Coons>, GeomFill_Filling> cls_GeomFill_Coons(mod, "GeomFill_Coons", "None");
 
 // Constructors
 cls_GeomFill_Coons.def(py::init<>());

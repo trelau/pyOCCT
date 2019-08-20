@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_DoubleTab(py::module &mod){
 
-py::class_<math_DoubleTab, std::unique_ptr<math_DoubleTab, Deleter<math_DoubleTab>>> cls_math_DoubleTab(mod, "math_DoubleTab", "None");
+py::class_<math_DoubleTab, std::unique_ptr<math_DoubleTab>> cls_math_DoubleTab(mod, "math_DoubleTab", "None");
 
 // Constructors
 cls_math_DoubleTab.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("LowerRow"), py::arg("UpperRow"), py::arg("LowerCol"), py::arg("UpperCol"));

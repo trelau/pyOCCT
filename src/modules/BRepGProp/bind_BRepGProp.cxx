@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepGProp(py::module &mod){
 
-py::class_<BRepGProp, std::unique_ptr<BRepGProp, Deleter<BRepGProp>>> cls_BRepGProp(mod, "BRepGProp", "Provides global functions to compute a shape's global properties for lines, surfaces or volumes, and bring them together with the global properties already computed for a geometric system. The global properties computed for a system are : - its mass, - its center of mass, - its matrix of inertia, - its moment about an axis, - its radius of gyration about an axis, - and its principal properties of inertia such as principal axis, principal moments, principal radius of gyration.");
+py::class_<BRepGProp, std::unique_ptr<BRepGProp>> cls_BRepGProp(mod, "BRepGProp", "Provides global functions to compute a shape's global properties for lines, surfaces or volumes, and bring them together with the global properties already computed for a geometric system. The global properties computed for a system are : - its mass, - its center of mass, - its matrix of inertia, - its moment about an axis, - its radius of gyration about an axis, - and its principal properties of inertia such as principal axis, principal moments, principal radius of gyration.");
 
 // Constructors
 

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWVector(py::module &mod){
 
-py::class_<RWStepGeom_RWVector, std::unique_ptr<RWStepGeom_RWVector, Deleter<RWStepGeom_RWVector>>> cls_RWStepGeom_RWVector(mod, "RWStepGeom_RWVector", "Read & Write Module for Vector Check added by CKY , 7-OCT-1996");
+py::class_<RWStepGeom_RWVector, std::unique_ptr<RWStepGeom_RWVector>> cls_RWStepGeom_RWVector(mod, "RWStepGeom_RWVector", "Read & Write Module for Vector Check added by CKY , 7-OCT-1996");
 
 // Constructors
 cls_RWStepGeom_RWVector.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeAnalysis_Shell(py::module &mod){
 
-py::class_<ShapeAnalysis_Shell, std::unique_ptr<ShapeAnalysis_Shell, Deleter<ShapeAnalysis_Shell>>> cls_ShapeAnalysis_Shell(mod, "ShapeAnalysis_Shell", "This class provides operators to analyze edges orientation in the shell.");
+py::class_<ShapeAnalysis_Shell, std::unique_ptr<ShapeAnalysis_Shell>> cls_ShapeAnalysis_Shell(mod, "ShapeAnalysis_Shell", "This class provides operators to analyze edges orientation in the shell.");
 
 // Constructors
 

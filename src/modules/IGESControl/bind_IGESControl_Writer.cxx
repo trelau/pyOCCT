@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESControl_Writer(py::module &mod){
 
-py::class_<IGESControl_Writer, std::unique_ptr<IGESControl_Writer, Deleter<IGESControl_Writer>>> cls_IGESControl_Writer(mod, "IGESControl_Writer", "This class creates and writes IGES files from CAS.CADE models. An IGES file can be written to an existing IGES file or to a new one. The translation can be performed in one or several operations. Each translation operation outputs a distinct root entity in the IGES file. To write an IGES file it is possible to use the following sequence: To modify the IGES file header or to change translation parameters it is necessary to use class Interface_Static (see IGESParameters and GeneralParameters).");
+py::class_<IGESControl_Writer, std::unique_ptr<IGESControl_Writer>> cls_IGESControl_Writer(mod, "IGESControl_Writer", "This class creates and writes IGES files from CAS.CADE models. An IGES file can be written to an existing IGES file or to a new one. The translation can be performed in one or several operations. Each translation operation outputs a distinct root entity in the IGES file. To write an IGES file it is possible to use the following sequence: To modify the IGES file header or to change translation parameters it is necessary to use class Interface_Static (see IGESParameters and GeneralParameters).");
 
 // Constructors
 cls_IGESControl_Writer.def(py::init<>());

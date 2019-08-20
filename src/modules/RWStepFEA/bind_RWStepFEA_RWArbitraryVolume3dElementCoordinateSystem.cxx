@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWArbitraryVolume3dElementCoordinateSystem(py::module &mod){
 
-py::class_<RWStepFEA_RWArbitraryVolume3dElementCoordinateSystem, std::unique_ptr<RWStepFEA_RWArbitraryVolume3dElementCoordinateSystem, Deleter<RWStepFEA_RWArbitraryVolume3dElementCoordinateSystem>>> cls_RWStepFEA_RWArbitraryVolume3dElementCoordinateSystem(mod, "RWStepFEA_RWArbitraryVolume3dElementCoordinateSystem", "Read & Write tool for ArbitraryVolume3dElementCoordinateSystem");
+py::class_<RWStepFEA_RWArbitraryVolume3dElementCoordinateSystem, std::unique_ptr<RWStepFEA_RWArbitraryVolume3dElementCoordinateSystem>> cls_RWStepFEA_RWArbitraryVolume3dElementCoordinateSystem(mod, "RWStepFEA_RWArbitraryVolume3dElementCoordinateSystem", "Read & Write tool for ArbitraryVolume3dElementCoordinateSystem");
 
 // Constructors
 cls_RWStepFEA_RWArbitraryVolume3dElementCoordinateSystem.def(py::init<>());

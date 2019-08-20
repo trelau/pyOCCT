@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWTypeQualifier(py::module &mod){
 
-py::class_<RWStepShape_RWTypeQualifier, std::unique_ptr<RWStepShape_RWTypeQualifier, Deleter<RWStepShape_RWTypeQualifier>>> cls_RWStepShape_RWTypeQualifier(mod, "RWStepShape_RWTypeQualifier", "Read & Write Module for TypeQualifier");
+py::class_<RWStepShape_RWTypeQualifier, std::unique_ptr<RWStepShape_RWTypeQualifier>> cls_RWStepShape_RWTypeQualifier(mod, "RWStepShape_RWTypeQualifier", "Read & Write Module for TypeQualifier");
 
 // Constructors
 cls_RWStepShape_RWTypeQualifier.def(py::init<>());

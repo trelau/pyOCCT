@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_OpenGl_GraduatedTrihedron(py::module &mod){
 
 /*
-py::class_<OpenGl_GraduatedTrihedron, std::unique_ptr<OpenGl_GraduatedTrihedron, Deleter<OpenGl_GraduatedTrihedron>>, OpenGl_Element> cls_OpenGl_GraduatedTrihedron(mod, "OpenGl_GraduatedTrihedron", "This class allows to render Graduated Trihedron, i.e. trihedron with grid. it is based on Graphic3d_GraduatedTrihedron parameters and support its customization on construction level only.");
+py::class_<OpenGl_GraduatedTrihedron, std::unique_ptr<OpenGl_GraduatedTrihedron>, OpenGl_Element> cls_OpenGl_GraduatedTrihedron(mod, "OpenGl_GraduatedTrihedron", "This class allows to render Graduated Trihedron, i.e. trihedron with grid. it is based on Graphic3d_GraduatedTrihedron parameters and support its customization on construction level only.");
 
 // Constructors
 cls_OpenGl_GraduatedTrihedron.def(py::init<>());

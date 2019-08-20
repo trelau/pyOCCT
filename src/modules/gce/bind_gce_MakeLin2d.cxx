@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gce_MakeLin2d(py::module &mod){
 
-py::class_<gce_MakeLin2d, std::unique_ptr<gce_MakeLin2d, Deleter<gce_MakeLin2d>>, gce_Root> cls_gce_MakeLin2d(mod, "gce_MakeLin2d", "This class implements the following algorithms used to create Lin2d from gp.");
+py::class_<gce_MakeLin2d, std::unique_ptr<gce_MakeLin2d>, gce_Root> cls_gce_MakeLin2d(mod, "gce_MakeLin2d", "This class implements the following algorithms used to create Lin2d from gp.");
 
 // Constructors
 cls_gce_MakeLin2d.def(py::init<const gp_Ax2d &>(), py::arg("A"));

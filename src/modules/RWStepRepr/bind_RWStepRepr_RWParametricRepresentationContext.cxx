@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWParametricRepresentationContext(py::module &mod){
 
-py::class_<RWStepRepr_RWParametricRepresentationContext, std::unique_ptr<RWStepRepr_RWParametricRepresentationContext, Deleter<RWStepRepr_RWParametricRepresentationContext>>> cls_RWStepRepr_RWParametricRepresentationContext(mod, "RWStepRepr_RWParametricRepresentationContext", "Read & Write Module for ParametricRepresentationContext");
+py::class_<RWStepRepr_RWParametricRepresentationContext, std::unique_ptr<RWStepRepr_RWParametricRepresentationContext>> cls_RWStepRepr_RWParametricRepresentationContext(mod, "RWStepRepr_RWParametricRepresentationContext", "Read & Write Module for ParametricRepresentationContext");
 
 // Constructors
 cls_RWStepRepr_RWParametricRepresentationContext.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWContextDependentShapeRepresentation(py::module &mod){
 
-py::class_<RWStepShape_RWContextDependentShapeRepresentation, std::unique_ptr<RWStepShape_RWContextDependentShapeRepresentation, Deleter<RWStepShape_RWContextDependentShapeRepresentation>>> cls_RWStepShape_RWContextDependentShapeRepresentation(mod, "RWStepShape_RWContextDependentShapeRepresentation", "Read & Write Module for ContextDependentShapeRepresentation");
+py::class_<RWStepShape_RWContextDependentShapeRepresentation, std::unique_ptr<RWStepShape_RWContextDependentShapeRepresentation>> cls_RWStepShape_RWContextDependentShapeRepresentation(mod, "RWStepShape_RWContextDependentShapeRepresentation", "Read & Write Module for ContextDependentShapeRepresentation");
 
 // Constructors
 cls_RWStepShape_RWContextDependentShapeRepresentation.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute(py::module &mod){
 
-py::class_<AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute, std::unique_ptr<AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute, Deleter<AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute>>, math_BFGS> cls_AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute(mod, "AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute", "None");
+py::class_<AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute, std::unique_ptr<AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute>, math_BFGS> cls_AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute(mod, "AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute", "None");
 
 // Constructors
 cls_AppDef_BSpGradient_BFGSOfMyBSplGradientOfBSplineCompute.def(py::init<math_MultipleVarFunctionWithGradient &, const math_Vector &, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("F"), py::arg("StartingPoint"), py::arg("Tolerance3d"), py::arg("Tolerance2d"), py::arg("Eps"));

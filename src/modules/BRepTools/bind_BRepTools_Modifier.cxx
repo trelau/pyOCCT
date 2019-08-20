@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepTools_Modifier(py::module &mod){
 
-py::class_<BRepTools_Modifier, std::unique_ptr<BRepTools_Modifier, Deleter<BRepTools_Modifier>>> cls_BRepTools_Modifier(mod, "BRepTools_Modifier", "Performs geometric modifications on a shape.");
+py::class_<BRepTools_Modifier, std::unique_ptr<BRepTools_Modifier>> cls_BRepTools_Modifier(mod, "BRepTools_Modifier", "Performs geometric modifications on a shape.");
 
 // Constructors
 cls_BRepTools_Modifier.def(py::init<>());

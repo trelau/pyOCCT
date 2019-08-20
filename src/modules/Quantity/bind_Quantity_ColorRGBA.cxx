@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Quantity_ColorRGBA(py::module &mod){
 
-py::class_<Quantity_ColorRGBA, std::unique_ptr<Quantity_ColorRGBA, Deleter<Quantity_ColorRGBA>>> cls_Quantity_ColorRGBA(mod, "Quantity_ColorRGBA", "The pair of Quantity_Color and Alpha component (1.0 opaque, 0.0 transparent).");
+py::class_<Quantity_ColorRGBA, std::unique_ptr<Quantity_ColorRGBA>> cls_Quantity_ColorRGBA(mod, "Quantity_ColorRGBA", "The pair of Quantity_Color and Alpha component (1.0 opaque, 0.0 transparent).");
 
 // Constructors
 cls_Quantity_ColorRGBA.def(py::init<>());

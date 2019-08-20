@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolBooleanTree(py::module &mod){
 
-py::class_<IGESSolid_ToolBooleanTree, std::unique_ptr<IGESSolid_ToolBooleanTree, Deleter<IGESSolid_ToolBooleanTree>>> cls_IGESSolid_ToolBooleanTree(mod, "IGESSolid_ToolBooleanTree", "Tool to work on a BooleanTree. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolBooleanTree, std::unique_ptr<IGESSolid_ToolBooleanTree>> cls_IGESSolid_ToolBooleanTree(mod, "IGESSolid_ToolBooleanTree", "Tool to work on a BooleanTree. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolBooleanTree.def(py::init<>());

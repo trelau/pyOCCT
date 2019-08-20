@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP203_RWCcDesignCertification(py::module &mod){
 
-py::class_<RWStepAP203_RWCcDesignCertification, std::unique_ptr<RWStepAP203_RWCcDesignCertification, Deleter<RWStepAP203_RWCcDesignCertification>>> cls_RWStepAP203_RWCcDesignCertification(mod, "RWStepAP203_RWCcDesignCertification", "Read & Write tool for CcDesignCertification");
+py::class_<RWStepAP203_RWCcDesignCertification, std::unique_ptr<RWStepAP203_RWCcDesignCertification>> cls_RWStepAP203_RWCcDesignCertification(mod, "RWStepAP203_RWCcDesignCertification", "Read & Write tool for CcDesignCertification");
 
 // Constructors
 cls_RWStepAP203_RWCcDesignCertification.def(py::init<>());

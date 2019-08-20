@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GProp(py::module &mod){
 
-py::class_<GProp, std::unique_ptr<GProp, Deleter<GProp>>> cls_GProp(mod, "GProp", "This package defines algorithmes to compute the global properties of a set of points, a curve, a surface, a solid (non infinite region of space delimited with geometric entities), a compound geometric system (heterogeneous composition of the previous entities).");
+py::class_<GProp, std::unique_ptr<GProp>> cls_GProp(mod, "GProp", "This package defines algorithmes to compute the global properties of a set of points, a curve, a surface, a solid (non infinite region of space delimited with geometric entities), a compound geometric system (heterogeneous composition of the previous entities).");
 
 // Constructors
 

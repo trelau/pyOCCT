@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFGraph_ExternalSources(py::module &mod){
 
-py::class_<IFGraph_ExternalSources, std::unique_ptr<IFGraph_ExternalSources, Deleter<IFGraph_ExternalSources>>, Interface_GraphContent> cls_IFGraph_ExternalSources(mod, "IFGraph_ExternalSources", "this class gives entities which are Source of entities of a sub-part, but are not contained by this sub-part");
+py::class_<IFGraph_ExternalSources, std::unique_ptr<IFGraph_ExternalSources>, Interface_GraphContent> cls_IFGraph_ExternalSources(mod, "IFGraph_ExternalSources", "this class gives entities which are Source of entities of a sub-part, but are not contained by this sub-part");
 
 // Constructors
 cls_IFGraph_ExternalSources.def(py::init<const Interface_Graph &>(), py::arg("agraph"));

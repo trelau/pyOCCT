@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWPositionTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWPositionTolerance, std::unique_ptr<RWStepDimTol_RWPositionTolerance, Deleter<RWStepDimTol_RWPositionTolerance>>> cls_RWStepDimTol_RWPositionTolerance(mod, "RWStepDimTol_RWPositionTolerance", "Read & Write tool for PositionTolerance");
+py::class_<RWStepDimTol_RWPositionTolerance, std::unique_ptr<RWStepDimTol_RWPositionTolerance>> cls_RWStepDimTol_RWPositionTolerance(mod, "RWStepDimTol_RWPositionTolerance", "Read & Write tool for PositionTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWPositionTolerance.def(py::init<>());

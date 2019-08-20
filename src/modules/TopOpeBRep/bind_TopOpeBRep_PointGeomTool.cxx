@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRep_PointGeomTool(py::module &mod){
 
-py::class_<TopOpeBRep_PointGeomTool, std::unique_ptr<TopOpeBRep_PointGeomTool, Deleter<TopOpeBRep_PointGeomTool>>> cls_TopOpeBRep_PointGeomTool(mod, "TopOpeBRep_PointGeomTool", "Provide services needed by the Fillers");
+py::class_<TopOpeBRep_PointGeomTool, std::unique_ptr<TopOpeBRep_PointGeomTool>> cls_TopOpeBRep_PointGeomTool(mod, "TopOpeBRep_PointGeomTool", "Provide services needed by the Fillers");
 
 // Constructors
 

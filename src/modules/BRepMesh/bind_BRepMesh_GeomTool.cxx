@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_GeomTool(py::module &mod){
 
-py::class_<BRepMesh_GeomTool, std::unique_ptr<BRepMesh_GeomTool, Deleter<BRepMesh_GeomTool>>> cls_BRepMesh_GeomTool(mod, "BRepMesh_GeomTool", "Tool class accumulating common geometrical functions as well as functionality using shape geometry to produce data necessary for tessellation. General aim is to calculate discretization points for the given curve or iso curve of surface according to the specified parameters.");
+py::class_<BRepMesh_GeomTool, std::unique_ptr<BRepMesh_GeomTool>> cls_BRepMesh_GeomTool(mod, "BRepMesh_GeomTool", "Tool class accumulating common geometrical functions as well as functionality using shape geometry to produce data necessary for tessellation. General aim is to calculate discretization points for the given curve or iso curve of surface according to the specified parameters.");
 
 // Constructors
 cls_BRepMesh_GeomTool.def(py::init<const BRepAdaptor_Curve &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("theCurve"), py::arg("theFirstParam"), py::arg("theLastParam"), py::arg("theLinDeflection"), py::arg("theAngDeflection"));

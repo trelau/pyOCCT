@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_Instancing(py::module &mod){
 
-py::class_<Vrml_Instancing, std::unique_ptr<Vrml_Instancing, Deleter<Vrml_Instancing>>> cls_Vrml_Instancing(mod, "Vrml_Instancing", "defines 'instancing' - using the same instance of a node multiple times. It is accomplished by using the 'DEF' and 'USE' keywords. The DEF keyword both defines a named node, and creates a single instance of it. The USE keyword indicates that the most recently defined instance should be used again. If several nades were given the same name, then the last DEF encountered during parsing 'wins'. DEF/USE is limited to a single file.");
+py::class_<Vrml_Instancing, std::unique_ptr<Vrml_Instancing>> cls_Vrml_Instancing(mod, "Vrml_Instancing", "defines 'instancing' - using the same instance of a node multiple times. It is accomplished by using the 'DEF' and 'USE' keywords. The DEF keyword both defines a named node, and creates a single instance of it. The USE keyword indicates that the most recently defined instance should be used again. If several nades were given the same name, then the last DEF encountered during parsing 'wins'. DEF/USE is limited to a single file.");
 
 // Constructors
 cls_Vrml_Instancing.def(py::init<const TCollection_AsciiString &>(), py::arg("aString"));

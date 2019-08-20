@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppDef_MultiLine(py::module &mod){
 
-py::class_<AppDef_MultiLine, std::unique_ptr<AppDef_MultiLine, Deleter<AppDef_MultiLine>>> cls_AppDef_MultiLine(mod, "AppDef_MultiLine", "This class describes the organized set of points used in the approximations. A MultiLine is composed of n MultiPointConstraints. The approximation of the MultiLine will be done in the order of the given n MultiPointConstraints.");
+py::class_<AppDef_MultiLine, std::unique_ptr<AppDef_MultiLine>> cls_AppDef_MultiLine(mod, "AppDef_MultiLine", "This class describes the organized set of points used in the approximations. A MultiLine is composed of n MultiPointConstraints. The approximation of the MultiLine will be done in the order of the given n MultiPointConstraints.");
 
 // Constructors
 cls_AppDef_MultiLine.def(py::init<>());

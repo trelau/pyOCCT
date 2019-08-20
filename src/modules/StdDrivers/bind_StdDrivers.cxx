@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdDrivers(py::module &mod){
 
-py::class_<StdDrivers, std::unique_ptr<StdDrivers, Deleter<StdDrivers>>> cls_StdDrivers(mod, "StdDrivers", "None");
+py::class_<StdDrivers, std::unique_ptr<StdDrivers>> cls_StdDrivers(mod, "StdDrivers", "None");
 
 // Constructors
 

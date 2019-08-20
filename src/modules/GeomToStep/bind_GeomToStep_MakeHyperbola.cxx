@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeHyperbola(py::module &mod){
 
-py::class_<GeomToStep_MakeHyperbola, std::unique_ptr<GeomToStep_MakeHyperbola, Deleter<GeomToStep_MakeHyperbola>>, GeomToStep_Root> cls_GeomToStep_MakeHyperbola(mod, "GeomToStep_MakeHyperbola", "This class implements the mapping between the class Hyperbola from Geom and the class Hyperbola from StepGeom which describes a Hyperbola from ProSTEP");
+py::class_<GeomToStep_MakeHyperbola, std::unique_ptr<GeomToStep_MakeHyperbola>, GeomToStep_Root> cls_GeomToStep_MakeHyperbola(mod, "GeomToStep_MakeHyperbola", "This class implements the mapping between the class Hyperbola from Geom and the class Hyperbola from StepGeom which describes a Hyperbola from ProSTEP");
 
 // Constructors
 cls_GeomToStep_MakeHyperbola.def(py::init<const opencascade::handle<Geom2d_Hyperbola> &>(), py::arg("C"));

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS_TranslateCurveBoundedSurface(py::module &mod){
 
-py::class_<StepToTopoDS_TranslateCurveBoundedSurface, std::unique_ptr<StepToTopoDS_TranslateCurveBoundedSurface, Deleter<StepToTopoDS_TranslateCurveBoundedSurface>>, StepToTopoDS_Root> cls_StepToTopoDS_TranslateCurveBoundedSurface(mod, "StepToTopoDS_TranslateCurveBoundedSurface", "Translate curve_bounded_surface into TopoDS_Face");
+py::class_<StepToTopoDS_TranslateCurveBoundedSurface, std::unique_ptr<StepToTopoDS_TranslateCurveBoundedSurface>, StepToTopoDS_Root> cls_StepToTopoDS_TranslateCurveBoundedSurface(mod, "StepToTopoDS_TranslateCurveBoundedSurface", "Translate curve_bounded_surface into TopoDS_Face");
 
 // Constructors
 cls_StepToTopoDS_TranslateCurveBoundedSurface.def(py::init<>());

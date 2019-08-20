@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Graphic3d_MaterialAspect(py::module &mod){
 
-py::class_<Graphic3d_MaterialAspect, std::unique_ptr<Graphic3d_MaterialAspect, Deleter<Graphic3d_MaterialAspect>>> cls_Graphic3d_MaterialAspect(mod, "Graphic3d_MaterialAspect", "This class allows the definition of the type of a surface. Aspect attributes of a 3d face. Keywords: Material, FillArea, Shininess, Ambient, Color, Diffuse, Specular, Transparency, Emissive, ReflectionMode, BackFace, FrontFace, Reflection, Absorbtion");
+py::class_<Graphic3d_MaterialAspect, std::unique_ptr<Graphic3d_MaterialAspect>> cls_Graphic3d_MaterialAspect(mod, "Graphic3d_MaterialAspect", "This class allows the definition of the type of a surface. Aspect attributes of a 3d face. Keywords: Material, FillArea, Shininess, Ambient, Color, Diffuse, Specular, Transparency, Emissive, ReflectionMode, BackFace, FrontFace, Reflection, Absorbtion");
 
 // Constructors
 cls_Graphic3d_MaterialAspect.def(py::init<>());

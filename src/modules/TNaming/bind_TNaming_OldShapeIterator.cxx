@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TNaming_OldShapeIterator(py::module &mod){
 
-py::class_<TNaming_OldShapeIterator, std::unique_ptr<TNaming_OldShapeIterator, Deleter<TNaming_OldShapeIterator>>> cls_TNaming_OldShapeIterator(mod, "TNaming_OldShapeIterator", "Iterates on all the ascendants of a shape");
+py::class_<TNaming_OldShapeIterator, std::unique_ptr<TNaming_OldShapeIterator>> cls_TNaming_OldShapeIterator(mod, "TNaming_OldShapeIterator", "Iterates on all the ascendants of a shape");
 
 // Constructors
 cls_TNaming_OldShapeIterator.def(py::init<const TopoDS_Shape &, const Standard_Integer, const TDF_Label &>(), py::arg("aShape"), py::arg("Transaction"), py::arg("access"));

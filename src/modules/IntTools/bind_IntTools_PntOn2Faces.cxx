@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_PntOn2Faces(py::module &mod){
 
-py::class_<IntTools_PntOn2Faces, std::unique_ptr<IntTools_PntOn2Faces, Deleter<IntTools_PntOn2Faces>>> cls_IntTools_PntOn2Faces(mod, "IntTools_PntOn2Faces", "Contains two points PntOnFace from IntTools and a flag");
+py::class_<IntTools_PntOn2Faces, std::unique_ptr<IntTools_PntOn2Faces>> cls_IntTools_PntOn2Faces(mod, "IntTools_PntOn2Faces", "Contains two points PntOnFace from IntTools and a flag");
 
 // Constructors
 cls_IntTools_PntOn2Faces.def(py::init<>());

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GC_MakeArcOfEllipse(py::module &mod){
 
-py::class_<GC_MakeArcOfEllipse, std::unique_ptr<GC_MakeArcOfEllipse, Deleter<GC_MakeArcOfEllipse>>, GC_Root> cls_GC_MakeArcOfEllipse(mod, "GC_MakeArcOfEllipse", "Implements construction algorithms for an arc of ellipse in 3D space. The result is a Geom_TrimmedCurve curve. A MakeArcOfEllipse object provides a framework for: - defining the construction of the arc of ellipse, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed arc of ellipse.");
+py::class_<GC_MakeArcOfEllipse, std::unique_ptr<GC_MakeArcOfEllipse>, GC_Root> cls_GC_MakeArcOfEllipse(mod, "GC_MakeArcOfEllipse", "Implements construction algorithms for an arc of ellipse in 3D space. The result is a Geom_TrimmedCurve curve. A MakeArcOfEllipse object provides a framework for: - defining the construction of the arc of ellipse, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed arc of ellipse.");
 
 // Constructors
 cls_GC_MakeArcOfEllipse.def(py::init<const gp_Elips &, const Standard_Real, const Standard_Real, const Standard_Boolean>(), py::arg("Elips"), py::arg("Alpha1"), py::arg("Alpha2"), py::arg("Sense"));

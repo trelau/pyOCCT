@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndUneqDisGeoTol(py::module &mod){
 
-py::class_<RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndUneqDisGeoTol, std::unique_ptr<RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndUneqDisGeoTol, Deleter<RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndUneqDisGeoTol>>> cls_RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndUneqDisGeoTol(mod, "RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndUneqDisGeoTol", "Read & Write Module for GeoTolAndGeoTolWthDatRefAndUneqDisGeoTol");
+py::class_<RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndUneqDisGeoTol, std::unique_ptr<RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndUneqDisGeoTol>> cls_RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndUneqDisGeoTol(mod, "RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndUneqDisGeoTol", "Read & Write Module for GeoTolAndGeoTolWthDatRefAndUneqDisGeoTol");
 
 // Constructors
 cls_RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndUneqDisGeoTol.def(py::init<>());

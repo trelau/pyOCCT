@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MAT2d_MapBiIntHasher(py::module &mod){
 
-py::class_<MAT2d_MapBiIntHasher, std::unique_ptr<MAT2d_MapBiIntHasher, Deleter<MAT2d_MapBiIntHasher>>> cls_MAT2d_MapBiIntHasher(mod, "MAT2d_MapBiIntHasher", "None");
+py::class_<MAT2d_MapBiIntHasher, std::unique_ptr<MAT2d_MapBiIntHasher>> cls_MAT2d_MapBiIntHasher(mod, "MAT2d_MapBiIntHasher", "None");
 
 // Constructors
 

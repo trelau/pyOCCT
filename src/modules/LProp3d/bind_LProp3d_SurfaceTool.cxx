@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LProp3d_SurfaceTool(py::module &mod){
 
-py::class_<LProp3d_SurfaceTool, std::unique_ptr<LProp3d_SurfaceTool, Deleter<LProp3d_SurfaceTool>>> cls_LProp3d_SurfaceTool(mod, "LProp3d_SurfaceTool", "None");
+py::class_<LProp3d_SurfaceTool, std::unique_ptr<LProp3d_SurfaceTool>> cls_LProp3d_SurfaceTool(mod, "LProp3d_SurfaceTool", "None");
 
 // Constructors
 

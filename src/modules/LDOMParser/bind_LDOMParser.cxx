@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOMParser(py::module &mod){
 
-py::class_<LDOMParser, std::unique_ptr<LDOMParser, Deleter<LDOMParser>>> cls_LDOMParser(mod, "LDOMParser", "None");
+py::class_<LDOMParser, std::unique_ptr<LDOMParser>> cls_LDOMParser(mod, "LDOMParser", "None");
 
 // Constructors
 cls_LDOMParser.def(py::init<>());

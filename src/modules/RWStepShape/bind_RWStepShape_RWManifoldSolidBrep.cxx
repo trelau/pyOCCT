@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWManifoldSolidBrep(py::module &mod){
 
-py::class_<RWStepShape_RWManifoldSolidBrep, std::unique_ptr<RWStepShape_RWManifoldSolidBrep, Deleter<RWStepShape_RWManifoldSolidBrep>>> cls_RWStepShape_RWManifoldSolidBrep(mod, "RWStepShape_RWManifoldSolidBrep", "Read & Write Module for ManifoldSolidBrep");
+py::class_<RWStepShape_RWManifoldSolidBrep, std::unique_ptr<RWStepShape_RWManifoldSolidBrep>> cls_RWStepShape_RWManifoldSolidBrep(mod, "RWStepShape_RWManifoldSolidBrep", "Read & Write Module for ManifoldSolidBrep");
 
 // Constructors
 cls_RWStepShape_RWManifoldSolidBrep.def(py::init<>());

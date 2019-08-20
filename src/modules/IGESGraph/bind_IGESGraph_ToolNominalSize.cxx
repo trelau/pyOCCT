@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGraph_ToolNominalSize(py::module &mod){
 
-py::class_<IGESGraph_ToolNominalSize, std::unique_ptr<IGESGraph_ToolNominalSize, Deleter<IGESGraph_ToolNominalSize>>> cls_IGESGraph_ToolNominalSize(mod, "IGESGraph_ToolNominalSize", "Tool to work on a NominalSize. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGraph_ToolNominalSize, std::unique_ptr<IGESGraph_ToolNominalSize>> cls_IGESGraph_ToolNominalSize(mod, "IGESGraph_ToolNominalSize", "Tool to work on a NominalSize. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGraph_ToolNominalSize.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntSurf_InteriorPoint(py::module &mod){
 
-py::class_<IntSurf_InteriorPoint, std::unique_ptr<IntSurf_InteriorPoint, Deleter<IntSurf_InteriorPoint>>> cls_IntSurf_InteriorPoint(mod, "IntSurf_InteriorPoint", "Definition of a point solution of the intersection between an implicit an a parametrised surface. These points are passing points on the intersection lines, or starting points for the closed lines on the parametrised surface.");
+py::class_<IntSurf_InteriorPoint, std::unique_ptr<IntSurf_InteriorPoint>> cls_IntSurf_InteriorPoint(mod, "IntSurf_InteriorPoint", "Definition of a point solution of the intersection between an implicit an a parametrised surface. These points are passing points on the intersection lines, or starting points for the closed lines on the parametrised surface.");
 
 // Constructors
 cls_IntSurf_InteriorPoint.def(py::init<>());

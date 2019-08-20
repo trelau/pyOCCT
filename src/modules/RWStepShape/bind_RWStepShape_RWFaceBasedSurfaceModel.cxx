@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWFaceBasedSurfaceModel(py::module &mod){
 
-py::class_<RWStepShape_RWFaceBasedSurfaceModel, std::unique_ptr<RWStepShape_RWFaceBasedSurfaceModel, Deleter<RWStepShape_RWFaceBasedSurfaceModel>>> cls_RWStepShape_RWFaceBasedSurfaceModel(mod, "RWStepShape_RWFaceBasedSurfaceModel", "Read & Write tool for FaceBasedSurfaceModel");
+py::class_<RWStepShape_RWFaceBasedSurfaceModel, std::unique_ptr<RWStepShape_RWFaceBasedSurfaceModel>> cls_RWStepShape_RWFaceBasedSurfaceModel(mod, "RWStepShape_RWFaceBasedSurfaceModel", "Read & Write tool for FaceBasedSurfaceModel");
 
 // Constructors
 cls_RWStepShape_RWFaceBasedSurfaceModel.def(py::init<>());

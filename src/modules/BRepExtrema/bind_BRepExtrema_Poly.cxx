@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepExtrema_Poly(py::module &mod){
 
-py::class_<BRepExtrema_Poly, std::unique_ptr<BRepExtrema_Poly, Deleter<BRepExtrema_Poly>>> cls_BRepExtrema_Poly(mod, "BRepExtrema_Poly", "None");
+py::class_<BRepExtrema_Poly, std::unique_ptr<BRepExtrema_Poly>> cls_BRepExtrema_Poly(mod, "BRepExtrema_Poly", "None");
 
 // Constructors
 

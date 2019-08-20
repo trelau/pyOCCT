@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWPlaneAngleUnit(py::module &mod){
 
-py::class_<RWStepBasic_RWPlaneAngleUnit, std::unique_ptr<RWStepBasic_RWPlaneAngleUnit, Deleter<RWStepBasic_RWPlaneAngleUnit>>> cls_RWStepBasic_RWPlaneAngleUnit(mod, "RWStepBasic_RWPlaneAngleUnit", "Read & Write Module for PlaneAngleUnit");
+py::class_<RWStepBasic_RWPlaneAngleUnit, std::unique_ptr<RWStepBasic_RWPlaneAngleUnit>> cls_RWStepBasic_RWPlaneAngleUnit(mod, "RWStepBasic_RWPlaneAngleUnit", "Read & Write Module for PlaneAngleUnit");
 
 // Constructors
 cls_RWStepBasic_RWPlaneAngleUnit.def(py::init<>());

@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPersistent_DataXtd(py::module &mod){
 
-py::class_<StdPersistent_DataXtd, std::unique_ptr<StdPersistent_DataXtd, Deleter<StdPersistent_DataXtd>>> cls_StdPersistent_DataXtd(mod, "StdPersistent_DataXtd", "None");
+py::class_<StdPersistent_DataXtd, std::unique_ptr<StdPersistent_DataXtd>> cls_StdPersistent_DataXtd(mod, "StdPersistent_DataXtd", "None");
 
 // Constructors
 

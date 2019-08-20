@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESData_IGESDumper(py::module &mod){
 
-py::class_<IGESData_IGESDumper, std::unique_ptr<IGESData_IGESDumper, Deleter<IGESData_IGESDumper>>> cls_IGESData_IGESDumper(mod, "IGESData_IGESDumper", "Provides a way to obtain a clear Dump of an IGESEntity (distinct from normalized output). It works with tools attached to Entities, as for normalized Reade and Write");
+py::class_<IGESData_IGESDumper, std::unique_ptr<IGESData_IGESDumper>> cls_IGESData_IGESDumper(mod, "IGESData_IGESDumper", "Provides a way to obtain a clear Dump of an IGESEntity (distinct from normalized output). It works with tools attached to Entities, as for normalized Reade and Write");
 
 // Constructors
 cls_IGESData_IGESDumper.def(py::init<const opencascade::handle<IGESData_IGESModel> &, const opencascade::handle<IGESData_Protocol> &>(), py::arg("model"), py::arg("protocol"));

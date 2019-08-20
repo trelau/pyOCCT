@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPDS_CoupleOfPaveBlocks(py::module &mod){
 
-py::class_<BOPDS_CoupleOfPaveBlocks, std::unique_ptr<BOPDS_CoupleOfPaveBlocks, Deleter<BOPDS_CoupleOfPaveBlocks>>> cls_BOPDS_CoupleOfPaveBlocks(mod, "BOPDS_CoupleOfPaveBlocks", "The Class BOPDS_CoupleOfPaveBlocks is to store the information about two pave blocks and some satellite information");
+py::class_<BOPDS_CoupleOfPaveBlocks, std::unique_ptr<BOPDS_CoupleOfPaveBlocks>> cls_BOPDS_CoupleOfPaveBlocks(mod, "BOPDS_CoupleOfPaveBlocks", "The Class BOPDS_CoupleOfPaveBlocks is to store the information about two pave blocks and some satellite information");
 
 // Constructors
 cls_BOPDS_CoupleOfPaveBlocks.def(py::init<>());

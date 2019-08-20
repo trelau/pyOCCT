@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlMFunction(py::module &mod){
 
-py::class_<XmlMFunction, std::unique_ptr<XmlMFunction, Deleter<XmlMFunction>>> cls_XmlMFunction(mod, "XmlMFunction", "None");
+py::class_<XmlMFunction, std::unique_ptr<XmlMFunction>> cls_XmlMFunction(mod, "XmlMFunction", "None");
 
 // Constructors
 

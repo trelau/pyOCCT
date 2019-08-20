@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWElementGroup(py::module &mod){
 
-py::class_<RWStepFEA_RWElementGroup, std::unique_ptr<RWStepFEA_RWElementGroup, Deleter<RWStepFEA_RWElementGroup>>> cls_RWStepFEA_RWElementGroup(mod, "RWStepFEA_RWElementGroup", "Read & Write tool for ElementGroup");
+py::class_<RWStepFEA_RWElementGroup, std::unique_ptr<RWStepFEA_RWElementGroup>> cls_RWStepFEA_RWElementGroup(mod, "RWStepFEA_RWElementGroup", "Read & Write tool for ElementGroup");
 
 // Constructors
 cls_RWStepFEA_RWElementGroup.def(py::init<>());

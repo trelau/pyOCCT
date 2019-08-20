@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Graphic3d_GraduatedTrihedron(py::module &mod){
 
-py::class_<Graphic3d_GraduatedTrihedron, std::unique_ptr<Graphic3d_GraduatedTrihedron, Deleter<Graphic3d_GraduatedTrihedron>>> cls_Graphic3d_GraduatedTrihedron(mod, "Graphic3d_GraduatedTrihedron", "Defines the class of a graduated trihedron. It contains main style parameters for implementation of graduated trihedron");
+py::class_<Graphic3d_GraduatedTrihedron, std::unique_ptr<Graphic3d_GraduatedTrihedron>> cls_Graphic3d_GraduatedTrihedron(mod, "Graphic3d_GraduatedTrihedron", "Defines the class of a graduated trihedron. It contains main style parameters for implementation of graduated trihedron");
 
 // Constructors
 cls_Graphic3d_GraduatedTrihedron.def(py::init<>());

@@ -67,7 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESBasic(py::module &mod){
 
-py::class_<IGESBasic, std::unique_ptr<IGESBasic, Deleter<IGESBasic>>> cls_IGESBasic(mod, "IGESBasic", "This package represents basic entities from IGES");
+py::class_<IGESBasic, std::unique_ptr<IGESBasic>> cls_IGESBasic(mod, "IGESBasic", "This package represents basic entities from IGES");
 
 // Constructors
 

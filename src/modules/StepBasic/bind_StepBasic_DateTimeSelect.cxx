@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepBasic_DateTimeSelect(py::module &mod){
 
-py::class_<StepBasic_DateTimeSelect, std::unique_ptr<StepBasic_DateTimeSelect, Deleter<StepBasic_DateTimeSelect>>, StepData_SelectType> cls_StepBasic_DateTimeSelect(mod, "StepBasic_DateTimeSelect", "None");
+py::class_<StepBasic_DateTimeSelect, std::unique_ptr<StepBasic_DateTimeSelect>, StepData_SelectType> cls_StepBasic_DateTimeSelect(mod, "StepBasic_DateTimeSelect", "None");
 
 // Constructors
 cls_StepBasic_DateTimeSelect.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocOpe_RevolutionForm(py::module &mod){
 
-py::class_<LocOpe_RevolutionForm, std::unique_ptr<LocOpe_RevolutionForm, Deleter<LocOpe_RevolutionForm>>> cls_LocOpe_RevolutionForm(mod, "LocOpe_RevolutionForm", "Defines a revolution form (using Revol from BRepSweep) with modifications provided for the RevolutionForm feature.");
+py::class_<LocOpe_RevolutionForm, std::unique_ptr<LocOpe_RevolutionForm>> cls_LocOpe_RevolutionForm(mod, "LocOpe_RevolutionForm", "Defines a revolution form (using Revol from BRepSweep) with modifications provided for the RevolutionForm feature.");
 
 // Constructors
 cls_LocOpe_RevolutionForm.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FilletPoint(py::module &mod){
 
-py::class_<FilletPoint, std::unique_ptr<FilletPoint, Deleter<FilletPoint>>> cls_FilletPoint(mod, "FilletPoint", "Private class. Corresponds to the point on the first curve, computed fillet function and derivative on it.");
+py::class_<FilletPoint, std::unique_ptr<FilletPoint>> cls_FilletPoint(mod, "FilletPoint", "Private class. Corresponds to the point on the first curve, computed fillet function and derivative on it.");
 
 // Constructors
 // cls_FilletPoint.def(py::init<const Standard_Real>(), py::arg("theParam"));

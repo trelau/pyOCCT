@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepLProp_SLProps(py::module &mod){
 
-py::class_<BRepLProp_SLProps, std::unique_ptr<BRepLProp_SLProps, Deleter<BRepLProp_SLProps>>> cls_BRepLProp_SLProps(mod, "BRepLProp_SLProps", "None");
+py::class_<BRepLProp_SLProps, std::unique_ptr<BRepLProp_SLProps>> cls_BRepLProp_SLProps(mod, "BRepLProp_SLProps", "None");
 
 // Constructors
 cls_BRepLProp_SLProps.def(py::init<const BRepAdaptor_Surface &, const Standard_Real, const Standard_Real, const Standard_Integer, const Standard_Real>(), py::arg("S"), py::arg("U"), py::arg("V"), py::arg("N"), py::arg("Resolution"));

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWDateRole(py::module &mod){
 
-py::class_<RWStepBasic_RWDateRole, std::unique_ptr<RWStepBasic_RWDateRole, Deleter<RWStepBasic_RWDateRole>>> cls_RWStepBasic_RWDateRole(mod, "RWStepBasic_RWDateRole", "Read & Write Module for DateRole");
+py::class_<RWStepBasic_RWDateRole, std::unique_ptr<RWStepBasic_RWDateRole>> cls_RWStepBasic_RWDateRole(mod, "RWStepBasic_RWDateRole", "Read & Write Module for DateRole");
 
 // Constructors
 cls_RWStepBasic_RWDateRole.def(py::init<>());

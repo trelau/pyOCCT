@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurve_IntConicConic(py::module &mod){
 
-py::class_<IntCurve_IntConicConic, std::unique_ptr<IntCurve_IntConicConic, Deleter<IntCurve_IntConicConic>>, IntRes2d_Intersection> cls_IntCurve_IntConicConic(mod, "IntCurve_IntConicConic", "Provides methods to intersect two conics. The exception ConstructionError is raised in constructors or in Perform methods when a domain (Domain from IntRes2d) is not correct, i-e when a Circle (Circ2d from gp) or an Ellipse (i-e Elips2d from gp) do not have a closed domain (use the SetEquivalentParameters method for a domain on a circle or an ellipse).");
+py::class_<IntCurve_IntConicConic, std::unique_ptr<IntCurve_IntConicConic>, IntRes2d_Intersection> cls_IntCurve_IntConicConic(mod, "IntCurve_IntConicConic", "Provides methods to intersect two conics. The exception ConstructionError is raised in constructors or in Perform methods when a domain (Domain from IntRes2d) is not correct, i-e when a Circle (Circ2d from gp) or an Ellipse (i-e Elips2d from gp) do not have a closed domain (use the SetEquivalentParameters method for a domain on a circle or an ellipse).");
 
 // Constructors
 cls_IntCurve_IntConicConic.def(py::init<>());

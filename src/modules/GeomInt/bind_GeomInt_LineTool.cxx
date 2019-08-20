@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_LineTool(py::module &mod){
 
-py::class_<GeomInt_LineTool, std::unique_ptr<GeomInt_LineTool, Deleter<GeomInt_LineTool>>> cls_GeomInt_LineTool(mod, "GeomInt_LineTool", "None");
+py::class_<GeomInt_LineTool, std::unique_ptr<GeomInt_LineTool>> cls_GeomInt_LineTool(mod, "GeomInt_LineTool", "None");
 
 // Constructors
 

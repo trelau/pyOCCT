@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_PresentationSizeAssignmentSelect(py::module &mod){
 
-py::class_<StepVisual_PresentationSizeAssignmentSelect, std::unique_ptr<StepVisual_PresentationSizeAssignmentSelect, Deleter<StepVisual_PresentationSizeAssignmentSelect>>, StepData_SelectType> cls_StepVisual_PresentationSizeAssignmentSelect(mod, "StepVisual_PresentationSizeAssignmentSelect", "None");
+py::class_<StepVisual_PresentationSizeAssignmentSelect, std::unique_ptr<StepVisual_PresentationSizeAssignmentSelect>, StepData_SelectType> cls_StepVisual_PresentationSizeAssignmentSelect(mod, "StepVisual_PresentationSizeAssignmentSelect", "None");
 
 // Constructors
 cls_StepVisual_PresentationSizeAssignmentSelect.def(py::init<>());

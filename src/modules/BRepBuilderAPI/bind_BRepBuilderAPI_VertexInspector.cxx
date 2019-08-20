@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBuilderAPI_VertexInspector(py::module &mod){
 
-py::class_<BRepBuilderAPI_VertexInspector, std::unique_ptr<BRepBuilderAPI_VertexInspector, Deleter<BRepBuilderAPI_VertexInspector>>, NCollection_CellFilter_InspectorXYZ> cls_BRepBuilderAPI_VertexInspector(mod, "BRepBuilderAPI_VertexInspector", "Class BRepBuilderAPI_VertexInspector derived from NCollection_CellFilter_InspectorXYZ This class define the Inspector interface for CellFilter algorithm, working with gp_XYZ points in 3d space. Used in search of coincidence points with a certain tolerance.");
+py::class_<BRepBuilderAPI_VertexInspector, std::unique_ptr<BRepBuilderAPI_VertexInspector>, NCollection_CellFilter_InspectorXYZ> cls_BRepBuilderAPI_VertexInspector(mod, "BRepBuilderAPI_VertexInspector", "Class BRepBuilderAPI_VertexInspector derived from NCollection_CellFilter_InspectorXYZ This class define the Inspector interface for CellFilter algorithm, working with gp_XYZ points in 3d space. Used in search of coincidence points with a certain tolerance.");
 
 // Constructors
 cls_BRepBuilderAPI_VertexInspector.def(py::init<const Standard_Real>(), py::arg("theTol"));

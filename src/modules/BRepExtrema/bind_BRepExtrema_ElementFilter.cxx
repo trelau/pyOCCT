@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepExtrema_ElementFilter(py::module &mod){
 
-py::class_<BRepExtrema_ElementFilter, std::unique_ptr<BRepExtrema_ElementFilter, Deleter<BRepExtrema_ElementFilter>>> cls_BRepExtrema_ElementFilter(mod, "BRepExtrema_ElementFilter", "Filtering tool used to detect if two given mesh elements should be tested for overlapping/intersection or not.");
+py::class_<BRepExtrema_ElementFilter, std::unique_ptr<BRepExtrema_ElementFilter>> cls_BRepExtrema_ElementFilter(mod, "BRepExtrema_ElementFilter", "Filtering tool used to detect if two given mesh elements should be tested for overlapping/intersection or not.");
 
 // Constructors
 

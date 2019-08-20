@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfWLApprox(py::module &mod){
 
-py::class_<GeomInt_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfWLApprox, std::unique_ptr<GeomInt_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfWLApprox, Deleter<GeomInt_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfWLApprox>>, math_MultipleVarFunctionWithGradient> cls_GeomInt_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfWLApprox(mod, "GeomInt_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfWLApprox", "None");
+py::class_<GeomInt_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfWLApprox, std::unique_ptr<GeomInt_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfWLApprox>, math_MultipleVarFunctionWithGradient> cls_GeomInt_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfWLApprox(mod, "GeomInt_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfWLApprox", "None");
 
 // Constructors
 cls_GeomInt_BSpParFunctionOfMyBSplGradientOfTheComputeLineOfWLApprox.def(py::init<const GeomInt_TheMultiLineOfWLApprox &, const Standard_Integer, const Standard_Integer, const opencascade::handle<AppParCurves_HArray1OfConstraintCouple> &, const math_Vector &, const TColStd_Array1OfReal &, const TColStd_Array1OfInteger &, const Standard_Integer>(), py::arg("SSP"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("TheConstraints"), py::arg("Parameters"), py::arg("Knots"), py::arg("Mults"), py::arg("NbPol"));

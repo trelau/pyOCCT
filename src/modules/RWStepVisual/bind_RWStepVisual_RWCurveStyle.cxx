@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWCurveStyle(py::module &mod){
 
-py::class_<RWStepVisual_RWCurveStyle, std::unique_ptr<RWStepVisual_RWCurveStyle, Deleter<RWStepVisual_RWCurveStyle>>> cls_RWStepVisual_RWCurveStyle(mod, "RWStepVisual_RWCurveStyle", "Read & Write Module for CurveStyle");
+py::class_<RWStepVisual_RWCurveStyle, std::unique_ptr<RWStepVisual_RWCurveStyle>> cls_RWStepVisual_RWCurveStyle(mod, "RWStepVisual_RWCurveStyle", "Read & Write Module for CurveStyle");
 
 // Constructors
 cls_RWStepVisual_RWCurveStyle.def(py::init<>());

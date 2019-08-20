@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_PrimitiveArray(py::module &mod){
 
-py::class_<OpenGl_PrimitiveArray, std::unique_ptr<OpenGl_PrimitiveArray, Deleter<OpenGl_PrimitiveArray>>, OpenGl_Element> cls_OpenGl_PrimitiveArray(mod, "OpenGl_PrimitiveArray", "Class for rendering of arbitrary primitive array.");
+py::class_<OpenGl_PrimitiveArray, std::unique_ptr<OpenGl_PrimitiveArray>, OpenGl_Element> cls_OpenGl_PrimitiveArray(mod, "OpenGl_PrimitiveArray", "Class for rendering of arbitrary primitive array.");
 
 // Constructors
 cls_OpenGl_PrimitiveArray.def(py::init<const OpenGl_GraphicDriver *>(), py::arg("theDriver"));

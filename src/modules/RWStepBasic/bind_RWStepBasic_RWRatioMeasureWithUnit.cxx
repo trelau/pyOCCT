@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWRatioMeasureWithUnit(py::module &mod){
 
-py::class_<RWStepBasic_RWRatioMeasureWithUnit, std::unique_ptr<RWStepBasic_RWRatioMeasureWithUnit, Deleter<RWStepBasic_RWRatioMeasureWithUnit>>> cls_RWStepBasic_RWRatioMeasureWithUnit(mod, "RWStepBasic_RWRatioMeasureWithUnit", "Read & Write Module for RatioMeasureWithUnit");
+py::class_<RWStepBasic_RWRatioMeasureWithUnit, std::unique_ptr<RWStepBasic_RWRatioMeasureWithUnit>> cls_RWStepBasic_RWRatioMeasureWithUnit(mod, "RWStepBasic_RWRatioMeasureWithUnit", "Read & Write Module for RatioMeasureWithUnit");
 
 // Constructors
 cls_RWStepBasic_RWRatioMeasureWithUnit.def(py::init<>());

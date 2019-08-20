@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_PCLocFOfLocEPCOfLocateExtPC2d(py::module &mod){
 
-py::class_<Extrema_PCLocFOfLocEPCOfLocateExtPC2d, std::unique_ptr<Extrema_PCLocFOfLocEPCOfLocateExtPC2d, Deleter<Extrema_PCLocFOfLocEPCOfLocateExtPC2d>>, math_FunctionWithDerivative> cls_Extrema_PCLocFOfLocEPCOfLocateExtPC2d(mod, "Extrema_PCLocFOfLocEPCOfLocateExtPC2d", "None");
+py::class_<Extrema_PCLocFOfLocEPCOfLocateExtPC2d, std::unique_ptr<Extrema_PCLocFOfLocEPCOfLocateExtPC2d>, math_FunctionWithDerivative> cls_Extrema_PCLocFOfLocEPCOfLocateExtPC2d(mod, "Extrema_PCLocFOfLocEPCOfLocateExtPC2d", "None");
 
 // Constructors
 cls_Extrema_PCLocFOfLocEPCOfLocateExtPC2d.def(py::init<>());

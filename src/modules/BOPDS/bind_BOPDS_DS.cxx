@@ -62,7 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPDS_DS(py::module &mod){
 
-py::class_<BOPDS_DS, std::unique_ptr<BOPDS_DS, Deleter<BOPDS_DS>>> cls_BOPDS_DS(mod, "BOPDS_DS", "The class BOPDS_DS provides the control of data structure for the algorithms in the Boolean Component such as General Fuse, Boolean operations, Section, Maker Volume, Splitter and Cells Builder.");
+py::class_<BOPDS_DS, std::unique_ptr<BOPDS_DS>> cls_BOPDS_DS(mod, "BOPDS_DS", "The class BOPDS_DS provides the control of data structure for the algorithms in the Boolean Component such as General Fuse, Boolean operations, Section, Maker Volume, Splitter and Cells Builder.");
 
 // Constructors
 cls_BOPDS_DS.def(py::init<>());

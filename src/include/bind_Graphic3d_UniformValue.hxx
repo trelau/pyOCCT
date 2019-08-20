@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T>
 void bind_Graphic3d_UniformValue(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<Graphic3d_UniformValue<T>, std::unique_ptr<Graphic3d_UniformValue<T>, Deleter<Graphic3d_UniformValue<T>>>, Graphic3d_ValueInterface> cls_Graphic3d_UniformValue(mod, name.c_str(), "Describes specific value of custom uniform variable.", local);
+py::class_<Graphic3d_UniformValue<T>, std::unique_ptr<Graphic3d_UniformValue<T>>, Graphic3d_ValueInterface> cls_Graphic3d_UniformValue(mod, name.c_str(), "Describes specific value of custom uniform variable.", local);
 
 // Constructors
 cls_Graphic3d_UniformValue.def(py::init<const T &>(), py::arg("theValue"));

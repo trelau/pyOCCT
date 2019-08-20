@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWBoxDomain(py::module &mod){
 
-py::class_<RWStepShape_RWBoxDomain, std::unique_ptr<RWStepShape_RWBoxDomain, Deleter<RWStepShape_RWBoxDomain>>> cls_RWStepShape_RWBoxDomain(mod, "RWStepShape_RWBoxDomain", "Read & Write Module for BoxDomain");
+py::class_<RWStepShape_RWBoxDomain, std::unique_ptr<RWStepShape_RWBoxDomain>> cls_RWStepShape_RWBoxDomain(mod, "RWStepShape_RWBoxDomain", "Read & Write Module for BoxDomain");
 
 // Constructors
 cls_RWStepShape_RWBoxDomain.def(py::init<>());

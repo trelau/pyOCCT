@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HeaderSection(py::module &mod){
 
-py::class_<HeaderSection, std::unique_ptr<HeaderSection, Deleter<HeaderSection>>> cls_HeaderSection(mod, "HeaderSection", "None");
+py::class_<HeaderSection, std::unique_ptr<HeaderSection>> cls_HeaderSection(mod, "HeaderSection", "None");
 
 // Constructors
 

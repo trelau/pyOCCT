@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Standard(py::module &mod){
 
-py::class_<Standard, std::unique_ptr<Standard, Deleter<Standard>>> cls_Standard(mod, "Standard", "The package Standard provides global memory allocator and other basic services used by other OCCT components.");
+py::class_<Standard, std::unique_ptr<Standard>> cls_Standard(mod, "Standard", "The package Standard provides global memory allocator and other basic services used by other OCCT components.");
 
 // Constructors
 

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GC_MakeTrimmedCylinder(py::module &mod){
 
-py::class_<GC_MakeTrimmedCylinder, std::unique_ptr<GC_MakeTrimmedCylinder, Deleter<GC_MakeTrimmedCylinder>>, GC_Root> cls_GC_MakeTrimmedCylinder(mod, "GC_MakeTrimmedCylinder", "Implements construction algorithms for a trimmed cylinder limited by two planes orthogonal to its axis. The result is a Geom_RectangularTrimmedSurface surface. A MakeTrimmedCylinder provides a framework for: - defining the construction of the trimmed cylinder, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed trimmed cylinder.");
+py::class_<GC_MakeTrimmedCylinder, std::unique_ptr<GC_MakeTrimmedCylinder>, GC_Root> cls_GC_MakeTrimmedCylinder(mod, "GC_MakeTrimmedCylinder", "Implements construction algorithms for a trimmed cylinder limited by two planes orthogonal to its axis. The result is a Geom_RectangularTrimmedSurface surface. A MakeTrimmedCylinder provides a framework for: - defining the construction of the trimmed cylinder, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed trimmed cylinder.");
 
 // Constructors
 cls_GC_MakeTrimmedCylinder.def(py::init<const gp_Pnt &, const gp_Pnt &, const gp_Pnt &>(), py::arg("P1"), py::arg("P2"), py::arg("P3"));

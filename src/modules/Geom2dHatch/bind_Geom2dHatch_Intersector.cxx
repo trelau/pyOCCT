@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dHatch_Intersector(py::module &mod){
 
-py::class_<Geom2dHatch_Intersector, std::unique_ptr<Geom2dHatch_Intersector, Deleter<Geom2dHatch_Intersector>>, Geom2dInt_GInter> cls_Geom2dHatch_Intersector(mod, "Geom2dHatch_Intersector", "None");
+py::class_<Geom2dHatch_Intersector, std::unique_ptr<Geom2dHatch_Intersector>, Geom2dInt_GInter> cls_Geom2dHatch_Intersector(mod, "Geom2dHatch_Intersector", "None");
 
 // Constructors
 cls_Geom2dHatch_Intersector.def(py::init<const Standard_Real, const Standard_Real>(), py::arg("Confusion"), py::arg("Tangency"));

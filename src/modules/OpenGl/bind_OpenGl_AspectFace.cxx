@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_AspectFace(py::module &mod){
 
-py::class_<OpenGl_AspectFace, std::unique_ptr<OpenGl_AspectFace, Deleter<OpenGl_AspectFace>>, OpenGl_Element> cls_OpenGl_AspectFace(mod, "OpenGl_AspectFace", "The element holding Graphic3d_AspectFillArea3d.");
+py::class_<OpenGl_AspectFace, std::unique_ptr<OpenGl_AspectFace>, OpenGl_Element> cls_OpenGl_AspectFace(mod, "OpenGl_AspectFace", "The element holding Graphic3d_AspectFillArea3d.");
 
 // Constructors
 cls_OpenGl_AspectFace.def(py::init<>());

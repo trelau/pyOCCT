@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeBoundedCurve(py::module &mod){
 
-py::class_<GeomToStep_MakeBoundedCurve, std::unique_ptr<GeomToStep_MakeBoundedCurve, Deleter<GeomToStep_MakeBoundedCurve>>, GeomToStep_Root> cls_GeomToStep_MakeBoundedCurve(mod, "GeomToStep_MakeBoundedCurve", "This class implements the mapping between classes BoundedCurve from Geom, Geom2d and the class BoundedCurve from StepGeom which describes a BoundedCurve from prostep. As BoundedCurve is an abstract BoundedCurve this class is an access to the sub-class required.");
+py::class_<GeomToStep_MakeBoundedCurve, std::unique_ptr<GeomToStep_MakeBoundedCurve>, GeomToStep_Root> cls_GeomToStep_MakeBoundedCurve(mod, "GeomToStep_MakeBoundedCurve", "This class implements the mapping between classes BoundedCurve from Geom, Geom2d and the class BoundedCurve from StepGeom which describes a BoundedCurve from prostep. As BoundedCurve is an abstract BoundedCurve this class is an access to the sub-class required.");
 
 // Constructors
 cls_GeomToStep_MakeBoundedCurve.def(py::init<const opencascade::handle<Geom_BoundedCurve> &>(), py::arg("C"));

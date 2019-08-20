@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWCompositeCurveSegment(py::module &mod){
 
-py::class_<RWStepGeom_RWCompositeCurveSegment, std::unique_ptr<RWStepGeom_RWCompositeCurveSegment, Deleter<RWStepGeom_RWCompositeCurveSegment>>> cls_RWStepGeom_RWCompositeCurveSegment(mod, "RWStepGeom_RWCompositeCurveSegment", "Read & Write Module for CompositeCurveSegment");
+py::class_<RWStepGeom_RWCompositeCurveSegment, std::unique_ptr<RWStepGeom_RWCompositeCurveSegment>> cls_RWStepGeom_RWCompositeCurveSegment(mod, "RWStepGeom_RWCompositeCurveSegment", "Read & Write Module for CompositeCurveSegment");
 
 // Constructors
 cls_RWStepGeom_RWCompositeCurveSegment.def(py::init<>());

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepLib_CheckCurveOnSurface(py::module &mod){
 
-py::class_<BRepLib_CheckCurveOnSurface, std::unique_ptr<BRepLib_CheckCurveOnSurface, Deleter<BRepLib_CheckCurveOnSurface>>> cls_BRepLib_CheckCurveOnSurface(mod, "BRepLib_CheckCurveOnSurface", "Computes the max distance between edge and its 2d representation on the face.");
+py::class_<BRepLib_CheckCurveOnSurface, std::unique_ptr<BRepLib_CheckCurveOnSurface>> cls_BRepLib_CheckCurveOnSurface(mod, "BRepLib_CheckCurveOnSurface", "Computes the max distance between edge and its 2d representation on the face.");
 
 // Constructors
 cls_BRepLib_CheckCurveOnSurface.def(py::init<>());

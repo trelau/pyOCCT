@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurveSurface_TheHCurveTool(py::module &mod){
 
-py::class_<IntCurveSurface_TheHCurveTool, std::unique_ptr<IntCurveSurface_TheHCurveTool, Deleter<IntCurveSurface_TheHCurveTool>>> cls_IntCurveSurface_TheHCurveTool(mod, "IntCurveSurface_TheHCurveTool", "None");
+py::class_<IntCurveSurface_TheHCurveTool, std::unique_ptr<IntCurveSurface_TheHCurveTool>> cls_IntCurveSurface_TheHCurveTool(mod, "IntCurveSurface_TheHCurveTool", "None");
 
 // Constructors
 

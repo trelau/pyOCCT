@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox(py::module &mod){
 
-py::class_<GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox, std::unique_ptr<GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox, Deleter<GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox>>> cls_GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox(mod, "GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox", "None");
+py::class_<GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox, std::unique_ptr<GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox>> cls_GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox(mod, "GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox", "None");
 
 // Constructors
 cls_GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox.def(py::init<const TColStd_Array1OfReal &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &, const Standard_Real>(), py::arg("Param"), py::arg("S1"), py::arg("S2"), py::arg("TolTangency"));

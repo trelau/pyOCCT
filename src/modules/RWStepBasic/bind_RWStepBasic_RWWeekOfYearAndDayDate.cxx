@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWWeekOfYearAndDayDate(py::module &mod){
 
-py::class_<RWStepBasic_RWWeekOfYearAndDayDate, std::unique_ptr<RWStepBasic_RWWeekOfYearAndDayDate, Deleter<RWStepBasic_RWWeekOfYearAndDayDate>>> cls_RWStepBasic_RWWeekOfYearAndDayDate(mod, "RWStepBasic_RWWeekOfYearAndDayDate", "Read & Write Module for WeekOfYearAndDayDate");
+py::class_<RWStepBasic_RWWeekOfYearAndDayDate, std::unique_ptr<RWStepBasic_RWWeekOfYearAndDayDate>> cls_RWStepBasic_RWWeekOfYearAndDayDate(mod, "RWStepBasic_RWWeekOfYearAndDayDate", "Read & Write Module for WeekOfYearAndDayDate");
 
 // Constructors
 cls_RWStepBasic_RWWeekOfYearAndDayDate.def(py::init<>());

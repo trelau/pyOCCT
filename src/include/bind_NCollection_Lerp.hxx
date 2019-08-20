@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T>
 void bind_NCollection_Lerp(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_Lerp<T>, std::unique_ptr<NCollection_Lerp<T>, Deleter<NCollection_Lerp<T>>>> cls_NCollection_Lerp(mod, name.c_str(), "Simple linear interpolation tool (also known as mix() in GLSL). The main purpose of this template class is making interpolation routines more readable.", local);
+py::class_<NCollection_Lerp<T>, std::unique_ptr<NCollection_Lerp<T>>> cls_NCollection_Lerp(mod, name.c_str(), "Simple linear interpolation tool (also known as mix() in GLSL). The main purpose of this template class is making interpolation routines more readable.", local);
 
 // Constructors
 cls_NCollection_Lerp.def(py::init<>());

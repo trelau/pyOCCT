@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_SelectBasics_SelectingVolumeManager(py::module &mod){
 
-py::class_<SelectBasics_SelectingVolumeManager, std::unique_ptr<SelectBasics_SelectingVolumeManager, Deleter<SelectBasics_SelectingVolumeManager>>> cls_SelectBasics_SelectingVolumeManager(mod, "SelectBasics_SelectingVolumeManager", "This class provides an interface for selecting volume manager, which is responsible for all overlap detection methods and calculation of minimum depth, distance to center of geometry and detected closest point on entity.");
+py::class_<SelectBasics_SelectingVolumeManager, std::unique_ptr<SelectBasics_SelectingVolumeManager>> cls_SelectBasics_SelectingVolumeManager(mod, "SelectBasics_SelectingVolumeManager", "This class provides an interface for selecting volume manager, which is responsible for all overlap detection methods and calculation of minimum depth, distance to center of geometry and detected closest point on entity.");
 
 // Fields
 

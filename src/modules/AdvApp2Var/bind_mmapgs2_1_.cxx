@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_mmapgs2_1_(py::module &mod){
 
-py::class_<mmapgs2_1_, std::unique_ptr<mmapgs2_1_, Deleter<mmapgs2_1_>>> cls_mmapgs2_1_(mod, "mmapgs2_1_", "None");
+py::class_<mmapgs2_1_, std::unique_ptr<mmapgs2_1_>> cls_mmapgs2_1_(mod, "mmapgs2_1_", "None");
 
 // Constructors
 

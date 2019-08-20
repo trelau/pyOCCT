@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_ShapeWithState(py::module &mod){
 
-py::class_<TopOpeBRepDS_ShapeWithState, std::unique_ptr<TopOpeBRepDS_ShapeWithState, Deleter<TopOpeBRepDS_ShapeWithState>>> cls_TopOpeBRepDS_ShapeWithState(mod, "TopOpeBRepDS_ShapeWithState", "None");
+py::class_<TopOpeBRepDS_ShapeWithState, std::unique_ptr<TopOpeBRepDS_ShapeWithState>> cls_TopOpeBRepDS_ShapeWithState(mod, "TopOpeBRepDS_ShapeWithState", "None");
 
 // Constructors
 cls_TopOpeBRepDS_ShapeWithState.def(py::init<>());

@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPSelections_AssemblyExplorer(py::module &mod){
 
-py::class_<STEPSelections_AssemblyExplorer, std::unique_ptr<STEPSelections_AssemblyExplorer, Deleter<STEPSelections_AssemblyExplorer>>> cls_STEPSelections_AssemblyExplorer(mod, "STEPSelections_AssemblyExplorer", "None");
+py::class_<STEPSelections_AssemblyExplorer, std::unique_ptr<STEPSelections_AssemblyExplorer>> cls_STEPSelections_AssemblyExplorer(mod, "STEPSelections_AssemblyExplorer", "None");
 
 // Constructors
 cls_STEPSelections_AssemblyExplorer.def(py::init<const Interface_Graph &>(), py::arg("G"));

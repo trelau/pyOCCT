@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntWalk_PWalking(py::module &mod){
 
-py::class_<IntWalk_PWalking, std::unique_ptr<IntWalk_PWalking, Deleter<IntWalk_PWalking>>> cls_IntWalk_PWalking(mod, "IntWalk_PWalking", "This class implements an algorithm to determine the intersection between 2 parametrized surfaces, marching from a starting point. The intersection line starts and ends on the natural surface's boundaries .");
+py::class_<IntWalk_PWalking, std::unique_ptr<IntWalk_PWalking>> cls_IntWalk_PWalking(mod, "IntWalk_PWalking", "This class implements an algorithm to determine the intersection between 2 parametrized surfaces, marching from a starting point. The intersection line starts and ends on the natural surface's boundaries .");
 
 // Constructors
 cls_IntWalk_PWalking.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("Caro1"), py::arg("Caro2"), py::arg("TolTangency"), py::arg("Epsilon"), py::arg("Deflection"), py::arg("Increment"));

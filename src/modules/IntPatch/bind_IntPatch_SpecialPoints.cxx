@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_SpecialPoints(py::module &mod){
 
-py::class_<IntPatch_SpecialPoints, std::unique_ptr<IntPatch_SpecialPoints, Deleter<IntPatch_SpecialPoints>>> cls_IntPatch_SpecialPoints(mod, "IntPatch_SpecialPoints", "None");
+py::class_<IntPatch_SpecialPoints, std::unique_ptr<IntPatch_SpecialPoints>> cls_IntPatch_SpecialPoints(mod, "IntPatch_SpecialPoints", "None");
 
 // Constructors
 

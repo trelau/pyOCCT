@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TNaming_Scope(py::module &mod){
 
-py::class_<TNaming_Scope, std::unique_ptr<TNaming_Scope, Deleter<TNaming_Scope>>> cls_TNaming_Scope(mod, "TNaming_Scope", "this class manage a scope of labels ===================================");
+py::class_<TNaming_Scope, std::unique_ptr<TNaming_Scope>> cls_TNaming_Scope(mod, "TNaming_Scope", "this class manage a scope of labels ===================================");
 
 // Constructors
 cls_TNaming_Scope.def(py::init<>());

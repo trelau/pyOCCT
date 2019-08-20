@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli_ToolNode(py::module &mod){
 
-py::class_<IGESAppli_ToolNode, std::unique_ptr<IGESAppli_ToolNode, Deleter<IGESAppli_ToolNode>>> cls_IGESAppli_ToolNode(mod, "IGESAppli_ToolNode", "Tool to work on a Node. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESAppli_ToolNode, std::unique_ptr<IGESAppli_ToolNode>> cls_IGESAppli_ToolNode(mod, "IGESAppli_ToolNode", "Tool to work on a Node. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESAppli_ToolNode.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWParabola(py::module &mod){
 
-py::class_<RWStepGeom_RWParabola, std::unique_ptr<RWStepGeom_RWParabola, Deleter<RWStepGeom_RWParabola>>> cls_RWStepGeom_RWParabola(mod, "RWStepGeom_RWParabola", "Read & Write Module for Parabola");
+py::class_<RWStepGeom_RWParabola, std::unique_ptr<RWStepGeom_RWParabola>> cls_RWStepGeom_RWParabola(mod, "RWStepGeom_RWParabola", "Read & Write Module for Parabola");
 
 // Constructors
 cls_RWStepGeom_RWParabola.def(py::init<>());

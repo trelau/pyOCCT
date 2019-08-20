@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDraw_ToolConnectPoint(py::module &mod){
 
-py::class_<IGESDraw_ToolConnectPoint, std::unique_ptr<IGESDraw_ToolConnectPoint, Deleter<IGESDraw_ToolConnectPoint>>> cls_IGESDraw_ToolConnectPoint(mod, "IGESDraw_ToolConnectPoint", "Tool to work on a ConnectPoint. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDraw_ToolConnectPoint, std::unique_ptr<IGESDraw_ToolConnectPoint>> cls_IGESDraw_ToolConnectPoint(mod, "IGESDraw_ToolConnectPoint", "Tool to work on a ConnectPoint. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDraw_ToolConnectPoint.def(py::init<>());

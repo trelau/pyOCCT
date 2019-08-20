@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolCylinder(py::module &mod){
 
-py::class_<IGESSolid_ToolCylinder, std::unique_ptr<IGESSolid_ToolCylinder, Deleter<IGESSolid_ToolCylinder>>> cls_IGESSolid_ToolCylinder(mod, "IGESSolid_ToolCylinder", "Tool to work on a Cylinder. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolCylinder, std::unique_ptr<IGESSolid_ToolCylinder>> cls_IGESSolid_ToolCylinder(mod, "IGESSolid_ToolCylinder", "Tool to work on a Cylinder. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolCylinder.def(py::init<>());

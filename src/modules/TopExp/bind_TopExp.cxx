@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopExp(py::module &mod){
 
-py::class_<TopExp, std::unique_ptr<TopExp, Deleter<TopExp>>> cls_TopExp(mod, "TopExp", "This package provides basic tools to explore the topological data structures.");
+py::class_<TopExp, std::unique_ptr<TopExp>> cls_TopExp(mod, "TopExp", "This package provides basic tools to explore the topological data structures.");
 
 // Constructors
 

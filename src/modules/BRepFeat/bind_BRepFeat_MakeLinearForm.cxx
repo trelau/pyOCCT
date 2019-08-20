@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFeat_MakeLinearForm(py::module &mod){
 
-py::class_<BRepFeat_MakeLinearForm, std::unique_ptr<BRepFeat_MakeLinearForm, Deleter<BRepFeat_MakeLinearForm>>, BRepFeat_RibSlot> cls_BRepFeat_MakeLinearForm(mod, "BRepFeat_MakeLinearForm", "Builds a rib or a groove along a developable, planar surface. The semantics of mechanical features is built around giving thickness to a contour. This thickness can either be symmetrical - on one side of the contour - or dissymmetrical - on both sides. As in the semantics of form features, the thickness is defined by construction of shapes in specific contexts. The development contexts differ, however, in case of mechanical features. Here they include extrusion: - to a limiting face of the basis shape - to or from a limiting plane - to a height.");
+py::class_<BRepFeat_MakeLinearForm, std::unique_ptr<BRepFeat_MakeLinearForm>, BRepFeat_RibSlot> cls_BRepFeat_MakeLinearForm(mod, "BRepFeat_MakeLinearForm", "Builds a rib or a groove along a developable, planar surface. The semantics of mechanical features is built around giving thickness to a contour. This thickness can either be symmetrical - on one side of the contour - or dissymmetrical - on both sides. As in the semantics of form features, the thickness is defined by construction of shapes in specific contexts. The development contexts differ, however, in case of mechanical features. Here they include extrusion: - to a limiting face of the basis shape - to or from a limiting plane - to a height.");
 
 // Constructors
 cls_BRepFeat_MakeLinearForm.def(py::init<>());

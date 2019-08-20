@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWAppliedSecurityClassificationAssignment(py::module &mod){
 
-py::class_<RWStepAP214_RWAppliedSecurityClassificationAssignment, std::unique_ptr<RWStepAP214_RWAppliedSecurityClassificationAssignment, Deleter<RWStepAP214_RWAppliedSecurityClassificationAssignment>>> cls_RWStepAP214_RWAppliedSecurityClassificationAssignment(mod, "RWStepAP214_RWAppliedSecurityClassificationAssignment", "None");
+py::class_<RWStepAP214_RWAppliedSecurityClassificationAssignment, std::unique_ptr<RWStepAP214_RWAppliedSecurityClassificationAssignment>> cls_RWStepAP214_RWAppliedSecurityClassificationAssignment(mod, "RWStepAP214_RWAppliedSecurityClassificationAssignment", "None");
 
 // Constructors
 cls_RWStepAP214_RWAppliedSecurityClassificationAssignment.def(py::init<>());

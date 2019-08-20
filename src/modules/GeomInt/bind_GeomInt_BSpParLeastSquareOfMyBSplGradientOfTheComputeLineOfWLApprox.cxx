@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox(py::module &mod){
 
-py::class_<GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox, std::unique_ptr<GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox, Deleter<GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox>>> cls_GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox(mod, "GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox", "None");
+py::class_<GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox, std::unique_ptr<GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox>> cls_GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox(mod, "GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox", "None");
 
 // Constructors
 cls_GeomInt_BSpParLeastSquareOfMyBSplGradientOfTheComputeLineOfWLApprox.def(py::init<const GeomInt_TheMultiLineOfWLApprox &, const Standard_Integer, const Standard_Integer, const AppParCurves_Constraint, const AppParCurves_Constraint, const math_Vector &, const Standard_Integer>(), py::arg("SSP"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("FirstCons"), py::arg("LastCons"), py::arg("Parameters"), py::arg("NbPol"));

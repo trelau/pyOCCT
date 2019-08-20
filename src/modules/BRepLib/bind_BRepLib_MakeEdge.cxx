@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepLib_MakeEdge(py::module &mod){
 
-py::class_<BRepLib_MakeEdge, std::unique_ptr<BRepLib_MakeEdge, Deleter<BRepLib_MakeEdge>>, BRepLib_MakeShape> cls_BRepLib_MakeEdge(mod, "BRepLib_MakeEdge", "Provides methods to build edges.");
+py::class_<BRepLib_MakeEdge, std::unique_ptr<BRepLib_MakeEdge>, BRepLib_MakeShape> cls_BRepLib_MakeEdge(mod, "BRepLib_MakeEdge", "Provides methods to build edges.");
 
 // Constructors
 cls_BRepLib_MakeEdge.def(py::init<>());

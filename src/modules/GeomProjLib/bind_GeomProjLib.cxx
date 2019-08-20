@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomProjLib(py::module &mod){
 
-py::class_<GeomProjLib, std::unique_ptr<GeomProjLib, Deleter<GeomProjLib>>> cls_GeomProjLib(mod, "GeomProjLib", "Projection of a curve on a surface.");
+py::class_<GeomProjLib, std::unique_ptr<GeomProjLib>> cls_GeomProjLib(mod, "GeomProjLib", "Projection of a curve on a surface.");
 
 // Constructors
 

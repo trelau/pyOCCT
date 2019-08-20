@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWDraughtingCallout(py::module &mod){
 
-py::class_<RWStepVisual_RWDraughtingCallout, std::unique_ptr<RWStepVisual_RWDraughtingCallout, Deleter<RWStepVisual_RWDraughtingCallout>>> cls_RWStepVisual_RWDraughtingCallout(mod, "RWStepVisual_RWDraughtingCallout", "Read & Write Module for DraughtingCallout");
+py::class_<RWStepVisual_RWDraughtingCallout, std::unique_ptr<RWStepVisual_RWDraughtingCallout>> cls_RWStepVisual_RWDraughtingCallout(mod, "RWStepVisual_RWDraughtingCallout", "Read & Write Module for DraughtingCallout");
 
 // Constructors
 cls_RWStepVisual_RWDraughtingCallout.def(py::init<>());

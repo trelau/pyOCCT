@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRAlgo_Intersection(py::module &mod){
 
-py::class_<HLRAlgo_Intersection, std::unique_ptr<HLRAlgo_Intersection, Deleter<HLRAlgo_Intersection>>> cls_HLRAlgo_Intersection(mod, "HLRAlgo_Intersection", "Describes an intersection on an edge to hide. Contains a parameter and a state (ON = on the face, OUT = above the face, IN = under the Face)");
+py::class_<HLRAlgo_Intersection, std::unique_ptr<HLRAlgo_Intersection>> cls_HLRAlgo_Intersection(mod, "HLRAlgo_Intersection", "Describes an intersection on an edge to hide. Contains a parameter and a state (ON = on the face, OUT = above the face, IN = under the Face)");
 
 // Constructors
 cls_HLRAlgo_Intersection.def(py::init<>());

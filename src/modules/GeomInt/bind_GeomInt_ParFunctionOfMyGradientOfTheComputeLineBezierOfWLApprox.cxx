@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_ParFunctionOfMyGradientOfTheComputeLineBezierOfWLApprox(py::module &mod){
 
-py::class_<GeomInt_ParFunctionOfMyGradientOfTheComputeLineBezierOfWLApprox, std::unique_ptr<GeomInt_ParFunctionOfMyGradientOfTheComputeLineBezierOfWLApprox, Deleter<GeomInt_ParFunctionOfMyGradientOfTheComputeLineBezierOfWLApprox>>, math_MultipleVarFunctionWithGradient> cls_GeomInt_ParFunctionOfMyGradientOfTheComputeLineBezierOfWLApprox(mod, "GeomInt_ParFunctionOfMyGradientOfTheComputeLineBezierOfWLApprox", "None");
+py::class_<GeomInt_ParFunctionOfMyGradientOfTheComputeLineBezierOfWLApprox, std::unique_ptr<GeomInt_ParFunctionOfMyGradientOfTheComputeLineBezierOfWLApprox>, math_MultipleVarFunctionWithGradient> cls_GeomInt_ParFunctionOfMyGradientOfTheComputeLineBezierOfWLApprox(mod, "GeomInt_ParFunctionOfMyGradientOfTheComputeLineBezierOfWLApprox", "None");
 
 // Constructors
 cls_GeomInt_ParFunctionOfMyGradientOfTheComputeLineBezierOfWLApprox.def(py::init<const GeomInt_TheMultiLineOfWLApprox &, const Standard_Integer, const Standard_Integer, const opencascade::handle<AppParCurves_HArray1OfConstraintCouple> &, const math_Vector &, const Standard_Integer>(), py::arg("SSP"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("TheConstraints"), py::arg("Parameters"), py::arg("Deg"));

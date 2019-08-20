@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Poly_CoherentTriPtr(py::module &mod){
 
-py::class_<Poly_CoherentTriPtr, std::unique_ptr<Poly_CoherentTriPtr, Deleter<Poly_CoherentTriPtr>>> cls_Poly_CoherentTriPtr(mod, "Poly_CoherentTriPtr", "Implementation of both list node for Poly_CoherentTriangle type and round double-linked list of these nodes.");
+py::class_<Poly_CoherentTriPtr, std::unique_ptr<Poly_CoherentTriPtr>> cls_Poly_CoherentTriPtr(mod, "Poly_CoherentTriPtr", "Implementation of both list node for Poly_CoherentTriangle type and round double-linked list of these nodes.");
 
 // Constructors
 // cls_Poly_CoherentTriPtr.def(py::init<const Poly_CoherentTriangle &>(), py::arg("theTri"));

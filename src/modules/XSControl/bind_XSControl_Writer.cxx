@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XSControl_Writer(py::module &mod){
 
-py::class_<XSControl_Writer, std::unique_ptr<XSControl_Writer, Deleter<XSControl_Writer>>> cls_XSControl_Writer(mod, "XSControl_Writer", "This class gives a simple way to create then write a Model compliant to a given norm, from a Shape The model can then be edited by tools by other appropriate tools");
+py::class_<XSControl_Writer, std::unique_ptr<XSControl_Writer>> cls_XSControl_Writer(mod, "XSControl_Writer", "This class gives a simple way to create then write a Model compliant to a given norm, from a Shape The model can then be edited by tools by other appropriate tools");
 
 // Constructors
 cls_XSControl_Writer.def(py::init<>());

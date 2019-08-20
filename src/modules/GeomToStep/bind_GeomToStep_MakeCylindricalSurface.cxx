@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeCylindricalSurface(py::module &mod){
 
-py::class_<GeomToStep_MakeCylindricalSurface, std::unique_ptr<GeomToStep_MakeCylindricalSurface, Deleter<GeomToStep_MakeCylindricalSurface>>, GeomToStep_Root> cls_GeomToStep_MakeCylindricalSurface(mod, "GeomToStep_MakeCylindricalSurface", "This class implements the mapping between class CylindricalSurface from Geom and the class CylindricalSurface from StepGeom which describes a cylindrical_surface from Prostep");
+py::class_<GeomToStep_MakeCylindricalSurface, std::unique_ptr<GeomToStep_MakeCylindricalSurface>, GeomToStep_Root> cls_GeomToStep_MakeCylindricalSurface(mod, "GeomToStep_MakeCylindricalSurface", "This class implements the mapping between class CylindricalSurface from Geom and the class CylindricalSurface from StepGeom which describes a cylindrical_surface from Prostep");
 
 // Constructors
 cls_GeomToStep_MakeCylindricalSurface.def(py::init<const opencascade::handle<Geom_CylindricalSurface> &>(), py::arg("CSurf"));

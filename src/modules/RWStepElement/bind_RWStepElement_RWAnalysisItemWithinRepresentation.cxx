@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepElement_RWAnalysisItemWithinRepresentation(py::module &mod){
 
-py::class_<RWStepElement_RWAnalysisItemWithinRepresentation, std::unique_ptr<RWStepElement_RWAnalysisItemWithinRepresentation, Deleter<RWStepElement_RWAnalysisItemWithinRepresentation>>> cls_RWStepElement_RWAnalysisItemWithinRepresentation(mod, "RWStepElement_RWAnalysisItemWithinRepresentation", "Read & Write tool for AnalysisItemWithinRepresentation");
+py::class_<RWStepElement_RWAnalysisItemWithinRepresentation, std::unique_ptr<RWStepElement_RWAnalysisItemWithinRepresentation>> cls_RWStepElement_RWAnalysisItemWithinRepresentation(mod, "RWStepElement_RWAnalysisItemWithinRepresentation", "Read & Write tool for AnalysisItemWithinRepresentation");
 
 // Constructors
 cls_RWStepElement_RWAnalysisItemWithinRepresentation.def(py::init<>());

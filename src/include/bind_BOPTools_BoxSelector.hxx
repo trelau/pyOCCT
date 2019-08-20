@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename BoxType>
 void bind_BOPTools_BoxSelector(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BOPTools_BoxSelector<BoxType>, std::unique_ptr<BOPTools_BoxSelector<BoxType>, Deleter<BOPTools_BoxSelector<BoxType>>>, NCollection_UBTree<Standard_Integer, BoxType>::Selector> cls_BOPTools_BoxSelector(mod, name.c_str(), "Template Selector for the unbalanced binary tree of overlapped bounding boxes.", local);
+py::class_<BOPTools_BoxSelector<BoxType>, std::unique_ptr<BOPTools_BoxSelector<BoxType>>, NCollection_UBTree<Standard_Integer, BoxType>::Selector> cls_BOPTools_BoxSelector(mod, name.c_str(), "Template Selector for the unbalanced binary tree of overlapped bounding boxes.", local);
 
 // Constructors
 cls_BOPTools_BoxSelector.def(py::init<>());

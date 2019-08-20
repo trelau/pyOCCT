@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_File(py::module &mod){
 
-py::class_<OSD_File, std::unique_ptr<OSD_File, Deleter<OSD_File>>, OSD_FileNode> cls_OSD_File(mod, "OSD_File", "Basic tools to manage files Warning: 'ProgramError' is raised when somebody wants to use the methods Read, Write, Seek, Close when File is not open.");
+py::class_<OSD_File, std::unique_ptr<OSD_File>, OSD_FileNode> cls_OSD_File(mod, "OSD_File", "Basic tools to manage files Warning: 'ProgramError' is raised when somebody wants to use the methods Read, Write, Seek, Close when File is not open.");
 
 // Constructors
 cls_OSD_File.def(py::init<>());

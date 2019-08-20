@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeAxis2Placement2d(py::module &mod){
 
-py::class_<GeomToStep_MakeAxis2Placement2d, std::unique_ptr<GeomToStep_MakeAxis2Placement2d, Deleter<GeomToStep_MakeAxis2Placement2d>>, GeomToStep_Root> cls_GeomToStep_MakeAxis2Placement2d(mod, "GeomToStep_MakeAxis2Placement2d", "This class implements the mapping between classes Axis2Placement from Geom and Ax2, Ax22d from gp, and the class Axis2Placement2d from StepGeom which describes an axis2_placement_2d from Prostep.");
+py::class_<GeomToStep_MakeAxis2Placement2d, std::unique_ptr<GeomToStep_MakeAxis2Placement2d>, GeomToStep_Root> cls_GeomToStep_MakeAxis2Placement2d(mod, "GeomToStep_MakeAxis2Placement2d", "This class implements the mapping between classes Axis2Placement from Geom and Ax2, Ax22d from gp, and the class Axis2Placement2d from StepGeom which describes an axis2_placement_2d from Prostep.");
 
 // Constructors
 cls_GeomToStep_MakeAxis2Placement2d.def(py::init<const gp_Ax2 &>(), py::arg("A"));

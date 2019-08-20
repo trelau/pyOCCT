@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_LoopClassifier(py::module &mod){
 
-py::class_<TopOpeBRepBuild_LoopClassifier, std::unique_ptr<TopOpeBRepBuild_LoopClassifier, Deleter<TopOpeBRepBuild_LoopClassifier>>> cls_TopOpeBRepBuild_LoopClassifier(mod, "TopOpeBRepBuild_LoopClassifier", "classify loops in order to build Areas");
+py::class_<TopOpeBRepBuild_LoopClassifier, std::unique_ptr<TopOpeBRepBuild_LoopClassifier>> cls_TopOpeBRepBuild_LoopClassifier(mod, "TopOpeBRepBuild_LoopClassifier", "classify loops in order to build Areas");
 
 // Fields
 

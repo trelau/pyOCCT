@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP242_ItemIdentifiedRepresentationUsageDefinition(py::module &mod){
 
-py::class_<StepAP242_ItemIdentifiedRepresentationUsageDefinition, std::unique_ptr<StepAP242_ItemIdentifiedRepresentationUsageDefinition, Deleter<StepAP242_ItemIdentifiedRepresentationUsageDefinition>>, StepData_SelectType> cls_StepAP242_ItemIdentifiedRepresentationUsageDefinition(mod, "StepAP242_ItemIdentifiedRepresentationUsageDefinition", "None");
+py::class_<StepAP242_ItemIdentifiedRepresentationUsageDefinition, std::unique_ptr<StepAP242_ItemIdentifiedRepresentationUsageDefinition>, StepData_SelectType> cls_StepAP242_ItemIdentifiedRepresentationUsageDefinition(mod, "StepAP242_ItemIdentifiedRepresentationUsageDefinition", "None");
 
 // Constructors
 cls_StepAP242_ItemIdentifiedRepresentationUsageDefinition.def(py::init<>());

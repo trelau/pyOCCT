@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T, int N>
 void bind_BVH_Sorter(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BVH_Sorter<T, N>, std::unique_ptr<BVH_Sorter<T, N>, Deleter<BVH_Sorter<T, N>>>> cls_BVH_Sorter(mod, name.c_str(), "Tool object to sort abstract primitive set.", local);
+py::class_<BVH_Sorter<T, N>, std::unique_ptr<BVH_Sorter<T, N>>> cls_BVH_Sorter(mod, name.c_str(), "Tool object to sort abstract primitive set.", local);
 
 // Constructors
 

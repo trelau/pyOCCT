@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool_face(py::module &mod){
 
-py::class_<TopOpeBRepTool_face, std::unique_ptr<TopOpeBRepTool_face, Deleter<TopOpeBRepTool_face>>> cls_TopOpeBRepTool_face(mod, "TopOpeBRepTool_face", "None");
+py::class_<TopOpeBRepTool_face, std::unique_ptr<TopOpeBRepTool_face>> cls_TopOpeBRepTool_face(mod, "TopOpeBRepTool_face", "None");
 
 // Constructors
 cls_TopOpeBRepTool_face.def(py::init<>());

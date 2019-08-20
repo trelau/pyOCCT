@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWRoundnessTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWRoundnessTolerance, std::unique_ptr<RWStepDimTol_RWRoundnessTolerance, Deleter<RWStepDimTol_RWRoundnessTolerance>>> cls_RWStepDimTol_RWRoundnessTolerance(mod, "RWStepDimTol_RWRoundnessTolerance", "Read & Write tool for RoundnessTolerance");
+py::class_<RWStepDimTol_RWRoundnessTolerance, std::unique_ptr<RWStepDimTol_RWRoundnessTolerance>> cls_RWStepDimTol_RWRoundnessTolerance(mod, "RWStepDimTol_RWRoundnessTolerance", "Read & Write tool for RoundnessTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWRoundnessTolerance.def(py::init<>());

@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepIntCurveSurface_Inter(py::module &mod){
 
-py::class_<BRepIntCurveSurface_Inter, std::unique_ptr<BRepIntCurveSurface_Inter, Deleter<BRepIntCurveSurface_Inter>>> cls_BRepIntCurveSurface_Inter(mod, "BRepIntCurveSurface_Inter", "Computes the intersection between a face and a curve. To intersect one curve with shape method Init(Shape, curve, tTol) should be used. To intersect a few curves with specified shape it is necessary to load shape one time using method Load(shape, tol) and find intersection points for each curve using method Init(curve). For iteration by intersection points method More() and Next() should be used.");
+py::class_<BRepIntCurveSurface_Inter, std::unique_ptr<BRepIntCurveSurface_Inter>> cls_BRepIntCurveSurface_Inter(mod, "BRepIntCurveSurface_Inter", "Computes the intersection between a face and a curve. To intersect one curve with shape method Init(Shape, curve, tTol) should be used. To intersect a few curves with specified shape it is necessary to load shape one time using method Load(shape, tol) and find intersection points for each curve using method Init(curve). For iteration by intersection points method More() and Next() should be used.");
 
 // Constructors
 cls_BRepIntCurveSurface_Inter.def(py::init<>());

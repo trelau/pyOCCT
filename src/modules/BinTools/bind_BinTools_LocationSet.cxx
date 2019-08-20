@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinTools_LocationSet(py::module &mod){
 
-py::class_<BinTools_LocationSet, std::unique_ptr<BinTools_LocationSet, Deleter<BinTools_LocationSet>>> cls_BinTools_LocationSet(mod, "BinTools_LocationSet", "The class LocationSet stores a set of location in a relocatable state.");
+py::class_<BinTools_LocationSet, std::unique_ptr<BinTools_LocationSet>> cls_BinTools_LocationSet(mod, "BinTools_LocationSet", "The class LocationSet stores a set of location in a relocatable state.");
 
 // Constructors
 cls_BinTools_LocationSet.def(py::init<>());

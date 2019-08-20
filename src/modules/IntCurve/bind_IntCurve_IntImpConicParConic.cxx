@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurve_IntImpConicParConic(py::module &mod){
 
-py::class_<IntCurve_IntImpConicParConic, std::unique_ptr<IntCurve_IntImpConicParConic, Deleter<IntCurve_IntImpConicParConic>>, IntRes2d_Intersection> cls_IntCurve_IntImpConicParConic(mod, "IntCurve_IntImpConicParConic", "None");
+py::class_<IntCurve_IntImpConicParConic, std::unique_ptr<IntCurve_IntImpConicParConic>, IntRes2d_Intersection> cls_IntCurve_IntImpConicParConic(mod, "IntCurve_IntImpConicParConic", "None");
 
 // Constructors
 cls_IntCurve_IntImpConicParConic.def(py::init<>());

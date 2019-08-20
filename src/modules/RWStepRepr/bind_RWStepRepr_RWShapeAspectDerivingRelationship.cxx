@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWShapeAspectDerivingRelationship(py::module &mod){
 
-py::class_<RWStepRepr_RWShapeAspectDerivingRelationship, std::unique_ptr<RWStepRepr_RWShapeAspectDerivingRelationship, Deleter<RWStepRepr_RWShapeAspectDerivingRelationship>>> cls_RWStepRepr_RWShapeAspectDerivingRelationship(mod, "RWStepRepr_RWShapeAspectDerivingRelationship", "Read & Write tool for ShapeAspectDerivingRelationship");
+py::class_<RWStepRepr_RWShapeAspectDerivingRelationship, std::unique_ptr<RWStepRepr_RWShapeAspectDerivingRelationship>> cls_RWStepRepr_RWShapeAspectDerivingRelationship(mod, "RWStepRepr_RWShapeAspectDerivingRelationship", "Read & Write tool for ShapeAspectDerivingRelationship");
 
 // Constructors
 cls_RWStepRepr_RWShapeAspectDerivingRelationship.def(py::init<>());

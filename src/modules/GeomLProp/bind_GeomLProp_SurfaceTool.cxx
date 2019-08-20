@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomLProp_SurfaceTool(py::module &mod){
 
-py::class_<GeomLProp_SurfaceTool, std::unique_ptr<GeomLProp_SurfaceTool, Deleter<GeomLProp_SurfaceTool>>> cls_GeomLProp_SurfaceTool(mod, "GeomLProp_SurfaceTool", "None");
+py::class_<GeomLProp_SurfaceTool, std::unique_ptr<GeomLProp_SurfaceTool>> cls_GeomLProp_SurfaceTool(mod, "GeomLProp_SurfaceTool", "None");
 
 // Constructors
 

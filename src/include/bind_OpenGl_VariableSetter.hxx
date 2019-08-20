@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T>
 void bind_OpenGl_VariableSetter(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<OpenGl_VariableSetter<T>, std::unique_ptr<OpenGl_VariableSetter<T>, Deleter<OpenGl_VariableSetter<T>>>, OpenGl_SetterInterface> cls_OpenGl_VariableSetter(mod, name.c_str(), "None", local);
+py::class_<OpenGl_VariableSetter<T>, std::unique_ptr<OpenGl_VariableSetter<T>>, OpenGl_SetterInterface> cls_OpenGl_VariableSetter(mod, name.c_str(), "None", local);
 
 // Constructors
 

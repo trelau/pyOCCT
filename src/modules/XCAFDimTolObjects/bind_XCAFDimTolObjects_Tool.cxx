@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XCAFDimTolObjects_Tool(py::module &mod){
 
-py::class_<XCAFDimTolObjects_Tool, std::unique_ptr<XCAFDimTolObjects_Tool, Deleter<XCAFDimTolObjects_Tool>>> cls_XCAFDimTolObjects_Tool(mod, "XCAFDimTolObjects_Tool", "None");
+py::class_<XCAFDimTolObjects_Tool, std::unique_ptr<XCAFDimTolObjects_Tool>> cls_XCAFDimTolObjects_Tool(mod, "XCAFDimTolObjects_Tool", "None");
 
 // Constructors
 cls_XCAFDimTolObjects_Tool.def(py::init<const opencascade::handle<TDocStd_Document> &>(), py::arg("theDoc"));

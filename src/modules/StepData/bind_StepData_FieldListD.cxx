@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepData_FieldListD(py::module &mod){
 
-py::class_<StepData_FieldListD, std::unique_ptr<StepData_FieldListD, Deleter<StepData_FieldListD>>, StepData_FieldList> cls_StepData_FieldListD(mod, "StepData_FieldListD", "Describes a list of fields, in a general way This basic class is for a null size list Subclasses are for 1, N (fixed) or Dynamic sizes");
+py::class_<StepData_FieldListD, std::unique_ptr<StepData_FieldListD>, StepData_FieldList> cls_StepData_FieldListD(mod, "StepData_FieldListD", "Describes a list of fields, in a general way This basic class is for a null size list Subclasses are for 1, N (fixed) or Dynamic sizes");
 
 // Constructors
 cls_StepData_FieldListD.def(py::init<const Standard_Integer>(), py::arg("nb"));

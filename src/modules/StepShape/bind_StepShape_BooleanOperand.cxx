@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepShape_BooleanOperand(py::module &mod){
 
-py::class_<StepShape_BooleanOperand, std::unique_ptr<StepShape_BooleanOperand, Deleter<StepShape_BooleanOperand>>> cls_StepShape_BooleanOperand(mod, "StepShape_BooleanOperand", "None");
+py::class_<StepShape_BooleanOperand, std::unique_ptr<StepShape_BooleanOperand>> cls_StepShape_BooleanOperand(mod, "StepShape_BooleanOperand", "None");
 
 // Constructors
 cls_StepShape_BooleanOperand.def(py::init<>());

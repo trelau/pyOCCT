@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeConstruct_MakeTriangulation(py::module &mod){
 
-py::class_<ShapeConstruct_MakeTriangulation, std::unique_ptr<ShapeConstruct_MakeTriangulation, Deleter<ShapeConstruct_MakeTriangulation>>, BRepBuilderAPI_MakeShape> cls_ShapeConstruct_MakeTriangulation(mod, "ShapeConstruct_MakeTriangulation", "None");
+py::class_<ShapeConstruct_MakeTriangulation, std::unique_ptr<ShapeConstruct_MakeTriangulation>, BRepBuilderAPI_MakeShape> cls_ShapeConstruct_MakeTriangulation(mod, "ShapeConstruct_MakeTriangulation", "None");
 
 // Constructors
 cls_ShapeConstruct_MakeTriangulation.def(py::init<const TColgp_Array1OfPnt &>(), py::arg("pnts"));

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOM_SBuffer(py::module &mod){
 
-py::class_<LDOM_SBuffer, std::unique_ptr<LDOM_SBuffer, Deleter<LDOM_SBuffer>>> cls_LDOM_SBuffer(mod, "LDOM_SBuffer", "Class LDOM_SBuffer inherits streambuf and redefines some virtual methods of it (overflow() and xsputn()). This class contains pointers on first and current element of sequence, also it has methods for the sequence management.");
+py::class_<LDOM_SBuffer, std::unique_ptr<LDOM_SBuffer>> cls_LDOM_SBuffer(mod, "LDOM_SBuffer", "Class LDOM_SBuffer inherits streambuf and redefines some virtual methods of it (overflow() and xsputn()). This class contains pointers on first and current element of sequence, also it has methods for the sequence management.");
 
 // Constructors
 cls_LDOM_SBuffer.def(py::init<const Standard_Integer>(), py::arg("theMaxBuf"));

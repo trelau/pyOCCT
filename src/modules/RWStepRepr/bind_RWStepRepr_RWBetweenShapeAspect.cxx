@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWBetweenShapeAspect(py::module &mod){
 
-py::class_<RWStepRepr_RWBetweenShapeAspect, std::unique_ptr<RWStepRepr_RWBetweenShapeAspect, Deleter<RWStepRepr_RWBetweenShapeAspect>>> cls_RWStepRepr_RWBetweenShapeAspect(mod, "RWStepRepr_RWBetweenShapeAspect", "Read & Write tool for BetweenShapeAspect");
+py::class_<RWStepRepr_RWBetweenShapeAspect, std::unique_ptr<RWStepRepr_RWBetweenShapeAspect>> cls_RWStepRepr_RWBetweenShapeAspect(mod, "RWStepRepr_RWBetweenShapeAspect", "Read & Write tool for BetweenShapeAspect");
 
 // Constructors
 cls_RWStepRepr_RWBetweenShapeAspect.def(py::init<>());

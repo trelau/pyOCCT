@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepClass_FClass2dOfFClassifier(py::module &mod){
 
-py::class_<BRepClass_FClass2dOfFClassifier, std::unique_ptr<BRepClass_FClass2dOfFClassifier, Deleter<BRepClass_FClass2dOfFClassifier>>> cls_BRepClass_FClass2dOfFClassifier(mod, "BRepClass_FClass2dOfFClassifier", "None");
+py::class_<BRepClass_FClass2dOfFClassifier, std::unique_ptr<BRepClass_FClass2dOfFClassifier>> cls_BRepClass_FClass2dOfFClassifier(mod, "BRepClass_FClass2dOfFClassifier", "None");
 
 // Constructors
 cls_BRepClass_FClass2dOfFClassifier.def(py::init<>());

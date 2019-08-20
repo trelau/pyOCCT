@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGraph(py::module &mod){
 
-py::class_<IGESGraph, std::unique_ptr<IGESGraph, Deleter<IGESGraph>>> cls_IGESGraph(mod, "IGESGraph", "This package contains the group of classes necessary to define Graphic data among Structure Entities. (e.g., Fonts, Colors, Screen management ...)");
+py::class_<IGESGraph, std::unique_ptr<IGESGraph>> cls_IGESGraph(mod, "IGESGraph", "This package contains the group of classes necessary to define Graphic data among Structure Entities. (e.g., Fonts, Colors, Screen management ...)");
 
 // Constructors
 

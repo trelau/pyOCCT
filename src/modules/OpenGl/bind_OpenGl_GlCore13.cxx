@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_GlCore13(py::module &mod){
 
-py::class_<OpenGl_GlCore13, std::unique_ptr<OpenGl_GlCore13, Deleter<OpenGl_GlCore13>>> cls_OpenGl_GlCore13(mod, "OpenGl_GlCore13", "OpenGL 1.3 core based on 1.2 version.");
+py::class_<OpenGl_GlCore13, std::unique_ptr<OpenGl_GlCore13>> cls_OpenGl_GlCore13(mod, "OpenGl_GlCore13", "OpenGL 1.3 core based on 1.2 version.");
 
 // Constructors
 

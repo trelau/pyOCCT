@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GProp_CelGProps(py::module &mod){
 
-py::class_<GProp_CelGProps, std::unique_ptr<GProp_CelGProps, Deleter<GProp_CelGProps>>, GProp_GProps> cls_GProp_CelGProps(mod, "GProp_CelGProps", "Computes the global properties of bounded curves in 3D space. It can be an elementary curve from package gp such as Lin, Circ, Elips, Parab .");
+py::class_<GProp_CelGProps, std::unique_ptr<GProp_CelGProps>, GProp_GProps> cls_GProp_CelGProps(mod, "GProp_CelGProps", "Computes the global properties of bounded curves in 3D space. It can be an elementary curve from package gp such as Lin, Circ, Elips, Parab .");
 
 // Constructors
 cls_GProp_CelGProps.def(py::init<>());

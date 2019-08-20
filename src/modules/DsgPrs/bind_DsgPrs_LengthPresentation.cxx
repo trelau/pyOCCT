@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_LengthPresentation(py::module &mod){
 
-py::class_<DsgPrs_LengthPresentation, std::unique_ptr<DsgPrs_LengthPresentation, Deleter<DsgPrs_LengthPresentation>>> cls_DsgPrs_LengthPresentation(mod, "DsgPrs_LengthPresentation", "Framework for displaying lengths. The length displayed is indicated by line segments and text alone or by a combination of line segment, text and arrows at either or both of its ends.");
+py::class_<DsgPrs_LengthPresentation, std::unique_ptr<DsgPrs_LengthPresentation>> cls_DsgPrs_LengthPresentation(mod, "DsgPrs_LengthPresentation", "Framework for displaying lengths. The length displayed is indicated by line segments and text alone or by a combination of line segment, text and arrows at either or both of its ends.");
 
 // Constructors
 

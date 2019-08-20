@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_SurfaceRangeSample(py::module &mod){
 
-py::class_<IntTools_SurfaceRangeSample, std::unique_ptr<IntTools_SurfaceRangeSample, Deleter<IntTools_SurfaceRangeSample>>> cls_IntTools_SurfaceRangeSample(mod, "IntTools_SurfaceRangeSample", "class for range index management of surface");
+py::class_<IntTools_SurfaceRangeSample, std::unique_ptr<IntTools_SurfaceRangeSample>> cls_IntTools_SurfaceRangeSample(mod, "IntTools_SurfaceRangeSample", "class for range index management of surface");
 
 // Constructors
 cls_IntTools_SurfaceRangeSample.def(py::init<>());

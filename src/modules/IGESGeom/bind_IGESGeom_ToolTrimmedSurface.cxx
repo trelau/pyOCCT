@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGeom_ToolTrimmedSurface(py::module &mod){
 
-py::class_<IGESGeom_ToolTrimmedSurface, std::unique_ptr<IGESGeom_ToolTrimmedSurface, Deleter<IGESGeom_ToolTrimmedSurface>>> cls_IGESGeom_ToolTrimmedSurface(mod, "IGESGeom_ToolTrimmedSurface", "Tool to work on a TrimmedSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGeom_ToolTrimmedSurface, std::unique_ptr<IGESGeom_ToolTrimmedSurface>> cls_IGESGeom_ToolTrimmedSurface(mod, "IGESGeom_ToolTrimmedSurface", "Tool to work on a TrimmedSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGeom_ToolTrimmedSurface.def(py::init<>());

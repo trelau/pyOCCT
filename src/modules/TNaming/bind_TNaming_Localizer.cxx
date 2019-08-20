@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TNaming_Localizer(py::module &mod){
 
-py::class_<TNaming_Localizer, std::unique_ptr<TNaming_Localizer, Deleter<TNaming_Localizer>>> cls_TNaming_Localizer(mod, "TNaming_Localizer", "None");
+py::class_<TNaming_Localizer, std::unique_ptr<TNaming_Localizer>> cls_TNaming_Localizer(mod, "TNaming_Localizer", "None");
 
 // Constructors
 cls_TNaming_Localizer.def(py::init<>());

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeBSplineCurveWithKnotsAndRationalBSplineCurve(py::module &mod){
 
-py::class_<GeomToStep_MakeBSplineCurveWithKnotsAndRationalBSplineCurve, std::unique_ptr<GeomToStep_MakeBSplineCurveWithKnotsAndRationalBSplineCurve, Deleter<GeomToStep_MakeBSplineCurveWithKnotsAndRationalBSplineCurve>>, GeomToStep_Root> cls_GeomToStep_MakeBSplineCurveWithKnotsAndRationalBSplineCurve(mod, "GeomToStep_MakeBSplineCurveWithKnotsAndRationalBSplineCurve", "This class implements the mapping between classes BSplineCurve from Geom, Geom2d and the class BSplineCurveWithKnotsAndRationalBSplineCurve from StepGeom which describes a rational_bspline_curve_with_knots from Prostep");
+py::class_<GeomToStep_MakeBSplineCurveWithKnotsAndRationalBSplineCurve, std::unique_ptr<GeomToStep_MakeBSplineCurveWithKnotsAndRationalBSplineCurve>, GeomToStep_Root> cls_GeomToStep_MakeBSplineCurveWithKnotsAndRationalBSplineCurve(mod, "GeomToStep_MakeBSplineCurveWithKnotsAndRationalBSplineCurve", "This class implements the mapping between classes BSplineCurve from Geom, Geom2d and the class BSplineCurveWithKnotsAndRationalBSplineCurve from StepGeom which describes a rational_bspline_curve_with_knots from Prostep");
 
 // Constructors
 cls_GeomToStep_MakeBSplineCurveWithKnotsAndRationalBSplineCurve.def(py::init<const opencascade::handle<Geom_BSplineCurve> &>(), py::arg("Bsplin"));

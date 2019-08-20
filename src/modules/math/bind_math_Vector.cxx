@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_Vector(py::module &mod){
 
-py::class_<math_Vector, std::unique_ptr<math_Vector, Deleter<math_Vector>>> cls_math_Vector(mod, "math_Vector", "This class implements the real vector abstract data type. Vectors can have an arbitrary range which must be defined at the declaration and cannot be changed after this declaration.");
+py::class_<math_Vector, std::unique_ptr<math_Vector>> cls_math_Vector(mod, "math_Vector", "This class implements the real vector abstract data type. Vectors can have an arbitrary range which must be defined at the declaration and cannot be changed after this declaration.");
 
 // Constructors
 cls_math_Vector.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));

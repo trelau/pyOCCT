@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_Filling(py::module &mod){
 
-py::class_<GeomFill_Filling, std::unique_ptr<GeomFill_Filling, Deleter<GeomFill_Filling>>> cls_GeomFill_Filling(mod, "GeomFill_Filling", "Root class for Filling;");
+py::class_<GeomFill_Filling, std::unique_ptr<GeomFill_Filling>> cls_GeomFill_Filling(mod, "GeomFill_Filling", "Root class for Filling;");
 
 // Constructors
 cls_GeomFill_Filling.def(py::init<>());

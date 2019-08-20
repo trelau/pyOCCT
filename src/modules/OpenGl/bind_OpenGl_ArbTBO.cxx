@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_ArbTBO(py::module &mod){
 
-py::class_<OpenGl_ArbTBO, std::unique_ptr<OpenGl_ArbTBO, Deleter<OpenGl_ArbTBO>>> cls_OpenGl_ArbTBO(mod, "OpenGl_ArbTBO", "TBO is available on OpenGL 3.0+ and OpenGL ES 3.2+ hardware");
+py::class_<OpenGl_ArbTBO, std::unique_ptr<OpenGl_ArbTBO>> cls_OpenGl_ArbTBO(mod, "OpenGl_ArbTBO", "TBO is available on OpenGL 3.0+ and OpenGL ES 3.2+ hardware");
 
 // Constructors
 

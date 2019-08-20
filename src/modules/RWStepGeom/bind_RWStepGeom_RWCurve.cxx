@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWCurve(py::module &mod){
 
-py::class_<RWStepGeom_RWCurve, std::unique_ptr<RWStepGeom_RWCurve, Deleter<RWStepGeom_RWCurve>>> cls_RWStepGeom_RWCurve(mod, "RWStepGeom_RWCurve", "Read & Write Module for Curve");
+py::class_<RWStepGeom_RWCurve, std::unique_ptr<RWStepGeom_RWCurve>> cls_RWStepGeom_RWCurve(mod, "RWStepGeom_RWCurve", "Read & Write Module for Curve");
 
 // Constructors
 cls_RWStepGeom_RWCurve.def(py::init<>());

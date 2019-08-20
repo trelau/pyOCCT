@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGraph_ToolDrawingUnits(py::module &mod){
 
-py::class_<IGESGraph_ToolDrawingUnits, std::unique_ptr<IGESGraph_ToolDrawingUnits, Deleter<IGESGraph_ToolDrawingUnits>>> cls_IGESGraph_ToolDrawingUnits(mod, "IGESGraph_ToolDrawingUnits", "Tool to work on a DrawingUnits. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGraph_ToolDrawingUnits, std::unique_ptr<IGESGraph_ToolDrawingUnits>> cls_IGESGraph_ToolDrawingUnits(mod, "IGESGraph_ToolDrawingUnits", "Tool to work on a DrawingUnits. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGraph_ToolDrawingUnits.def(py::init<>());

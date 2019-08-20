@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TNaming_Builder(py::module &mod){
 
-py::class_<TNaming_Builder, std::unique_ptr<TNaming_Builder, Deleter<TNaming_Builder>>> cls_TNaming_Builder(mod, "TNaming_Builder", "A tool to create and maintain topological attributes. Constructor creates an empty TNaming_NamedShape attribute at the given label. It allows adding 'old shape' and 'new shape' pairs with the specified evolution to this named shape. One evolution type per one builder must be used.");
+py::class_<TNaming_Builder, std::unique_ptr<TNaming_Builder>> cls_TNaming_Builder(mod, "TNaming_Builder", "A tool to create and maintain topological attributes. Constructor creates an empty TNaming_NamedShape attribute at the given label. It allows adding 'old shape' and 'new shape' pairs with the specified evolution to this named shape. One evolution type per one builder must be used.");
 
 // Constructors
 cls_TNaming_Builder.def(py::init<const TDF_Label &>(), py::arg("aLabel"));

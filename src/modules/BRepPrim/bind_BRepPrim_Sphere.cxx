@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrim_Sphere(py::module &mod){
 
-py::class_<BRepPrim_Sphere, std::unique_ptr<BRepPrim_Sphere, Deleter<BRepPrim_Sphere>>, BRepPrim_Revolution> cls_BRepPrim_Sphere(mod, "BRepPrim_Sphere", "Implements the sphere primitive");
+py::class_<BRepPrim_Sphere, std::unique_ptr<BRepPrim_Sphere>, BRepPrim_Revolution> cls_BRepPrim_Sphere(mod, "BRepPrim_Sphere", "Implements the sphere primitive");
 
 // Constructors
 cls_BRepPrim_Sphere.def(py::init<const Standard_Real>(), py::arg("Radius"));

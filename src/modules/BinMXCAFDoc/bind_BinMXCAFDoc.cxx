@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinMXCAFDoc(py::module &mod){
 
-py::class_<BinMXCAFDoc, std::unique_ptr<BinMXCAFDoc, Deleter<BinMXCAFDoc>>> cls_BinMXCAFDoc(mod, "BinMXCAFDoc", "None");
+py::class_<BinMXCAFDoc, std::unique_ptr<BinMXCAFDoc>> cls_BinMXCAFDoc(mod, "BinMXCAFDoc", "None");
 
 // Constructors
 

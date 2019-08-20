@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_TheSearchInside(py::module &mod){
 
-py::class_<IntPatch_TheSearchInside, std::unique_ptr<IntPatch_TheSearchInside, Deleter<IntPatch_TheSearchInside>>> cls_IntPatch_TheSearchInside(mod, "IntPatch_TheSearchInside", "None");
+py::class_<IntPatch_TheSearchInside, std::unique_ptr<IntPatch_TheSearchInside>> cls_IntPatch_TheSearchInside(mod, "IntPatch_TheSearchInside", "None");
 
 // Constructors
 cls_IntPatch_TheSearchInside.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWIdentificationRole(py::module &mod){
 
-py::class_<RWStepBasic_RWIdentificationRole, std::unique_ptr<RWStepBasic_RWIdentificationRole, Deleter<RWStepBasic_RWIdentificationRole>>> cls_RWStepBasic_RWIdentificationRole(mod, "RWStepBasic_RWIdentificationRole", "Read & Write tool for IdentificationRole");
+py::class_<RWStepBasic_RWIdentificationRole, std::unique_ptr<RWStepBasic_RWIdentificationRole>> cls_RWStepBasic_RWIdentificationRole(mod, "RWStepBasic_RWIdentificationRole", "Read & Write tool for IdentificationRole");
 
 // Constructors
 cls_RWStepBasic_RWIdentificationRole.def(py::init<>());

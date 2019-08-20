@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dGcc_QualifiedCurve(py::module &mod){
 
-py::class_<Geom2dGcc_QualifiedCurve, std::unique_ptr<Geom2dGcc_QualifiedCurve, Deleter<Geom2dGcc_QualifiedCurve>>> cls_Geom2dGcc_QualifiedCurve(mod, "Geom2dGcc_QualifiedCurve", "Describes functions for building a qualified 2D curve. A qualified 2D curve is a curve with a qualifier which specifies whether the solution of a construction algorithm using the qualified curve (as an argument): - encloses the curve, or - is enclosed by the curve, or - is built so that both the curve and it are external to one another, or - is undefined (all solutions apply).");
+py::class_<Geom2dGcc_QualifiedCurve, std::unique_ptr<Geom2dGcc_QualifiedCurve>> cls_Geom2dGcc_QualifiedCurve(mod, "Geom2dGcc_QualifiedCurve", "Describes functions for building a qualified 2D curve. A qualified 2D curve is a curve with a qualifier which specifies whether the solution of a construction algorithm using the qualified curve (as an argument): - encloses the curve, or - is enclosed by the curve, or - is built so that both the curve and it are external to one another, or - is undefined (all solutions apply).");
 
 // Constructors
 cls_Geom2dGcc_QualifiedCurve.def(py::init<const Geom2dAdaptor_Curve &, const GccEnt_Position>(), py::arg("Curve"), py::arg("Qualifier"));

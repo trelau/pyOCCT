@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dGcc(py::module &mod){
 
-py::class_<Geom2dGcc, std::unique_ptr<Geom2dGcc, Deleter<Geom2dGcc>>> cls_Geom2dGcc(mod, "Geom2dGcc", "The Geom2dGcc package describes qualified 2D curves used in the construction of constrained geometric objects by an algorithm provided by the Geom2dGcc package. A qualified 2D curve is a curve with a qualifier which specifies whether the solution of a construction algorithm using the qualified curve (as an argument): - encloses the curve, or - is enclosed by the curve, or - is built so that both the curve and this solution are external to one another, or - is undefined (all solutions apply). These package methods provide simpler functions to construct a qualified curve. Note: the interior of a curve is defined as the left-hand side of the curve in relation to its orientation.");
+py::class_<Geom2dGcc, std::unique_ptr<Geom2dGcc>> cls_Geom2dGcc(mod, "Geom2dGcc", "The Geom2dGcc package describes qualified 2D curves used in the construction of constrained geometric objects by an algorithm provided by the Geom2dGcc package. A qualified 2D curve is a curve with a qualifier which specifies whether the solution of a construction algorithm using the qualified curve (as an argument): - encloses the curve, or - is enclosed by the curve, or - is built so that both the curve and this solution are external to one another, or - is undefined (all solutions apply). These package methods provide simpler functions to construct a qualified curve. Note: the interior of a curve is defined as the left-hand side of the curve in relation to its orientation.");
 
 // Constructors
 

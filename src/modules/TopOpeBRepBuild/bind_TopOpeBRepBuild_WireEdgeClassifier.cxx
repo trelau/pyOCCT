@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_WireEdgeClassifier(py::module &mod){
 
-py::class_<TopOpeBRepBuild_WireEdgeClassifier, std::unique_ptr<TopOpeBRepBuild_WireEdgeClassifier, Deleter<TopOpeBRepBuild_WireEdgeClassifier>>, TopOpeBRepBuild_CompositeClassifier> cls_TopOpeBRepBuild_WireEdgeClassifier(mod, "TopOpeBRepBuild_WireEdgeClassifier", "Classify edges and wires. shapes are Wires, Element are Edge.");
+py::class_<TopOpeBRepBuild_WireEdgeClassifier, std::unique_ptr<TopOpeBRepBuild_WireEdgeClassifier>, TopOpeBRepBuild_CompositeClassifier> cls_TopOpeBRepBuild_WireEdgeClassifier(mod, "TopOpeBRepBuild_WireEdgeClassifier", "Classify edges and wires. shapes are Wires, Element are Edge.");
 
 // Constructors
 cls_TopOpeBRepBuild_WireEdgeClassifier.def(py::init<const TopoDS_Shape &, const TopOpeBRepBuild_BlockBuilder &>(), py::arg("F"), py::arg("BB"));

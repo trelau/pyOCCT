@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomLib_Interpolate(py::module &mod){
 
-py::class_<GeomLib_Interpolate, std::unique_ptr<GeomLib_Interpolate, Deleter<GeomLib_Interpolate>>> cls_GeomLib_Interpolate(mod, "GeomLib_Interpolate", "this class is used to construct a BSpline curve by interpolation of points at given parameters The continuity of the curve is degree - 1 and the method used when boundary condition are not given is to use odd degrees and null the derivatives on both sides from degree -1 down to (degree+1) / 2 When even degree is given the returned curve is of degree - 1 so that the degree of the curve is odd");
+py::class_<GeomLib_Interpolate, std::unique_ptr<GeomLib_Interpolate>> cls_GeomLib_Interpolate(mod, "GeomLib_Interpolate", "this class is used to construct a BSpline curve by interpolation of points at given parameters The continuity of the curve is degree - 1 and the method used when boundary condition are not given is to use odd degrees and null the derivatives on both sides from degree -1 down to (degree+1) / 2 When even degree is given the returned curve is of degree - 1 so that the degree of the curve is odd");
 
 // Constructors
 cls_GeomLib_Interpolate.def(py::init<const Standard_Integer, const Standard_Integer, const TColgp_Array1OfPnt &, const TColStd_Array1OfReal &>(), py::arg("Degree"), py::arg("NumPoints"), py::arg("Points"), py::arg("Parameters"));

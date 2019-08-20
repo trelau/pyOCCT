@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BndLib_AddSurface(py::module &mod){
 
-py::class_<BndLib_AddSurface, std::unique_ptr<BndLib_AddSurface, Deleter<BndLib_AddSurface>>> cls_BndLib_AddSurface(mod, "BndLib_AddSurface", "computes the box from a surface Functions to add a surface to a bounding box. The surface is defined from a Geom surface.");
+py::class_<BndLib_AddSurface, std::unique_ptr<BndLib_AddSurface>> cls_BndLib_AddSurface(mod, "BndLib_AddSurface", "computes the box from a surface Functions to add a surface to a bounding box. The surface is defined from a Geom surface.");
 
 // Constructors
 

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_KronrodSingleIntegration(py::module &mod){
 
-py::class_<math_KronrodSingleIntegration, std::unique_ptr<math_KronrodSingleIntegration, Deleter<math_KronrodSingleIntegration>>> cls_math_KronrodSingleIntegration(mod, "math_KronrodSingleIntegration", "This class implements the Gauss-Kronrod method of integral computation.");
+py::class_<math_KronrodSingleIntegration, std::unique_ptr<math_KronrodSingleIntegration>> cls_math_KronrodSingleIntegration(mod, "math_KronrodSingleIntegration", "This class implements the Gauss-Kronrod method of integral computation.");
 
 // Constructors
 cls_math_KronrodSingleIntegration.def(py::init<>());

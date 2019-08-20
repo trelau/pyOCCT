@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESToBRep_BasicSurface(py::module &mod){
 
-py::class_<IGESToBRep_BasicSurface, std::unique_ptr<IGESToBRep_BasicSurface, Deleter<IGESToBRep_BasicSurface>>, IGESToBRep_CurveAndSurface> cls_IGESToBRep_BasicSurface(mod, "IGESToBRep_BasicSurface", "Provides methods to transfer basic geometric surface entities from IGES to CASCADE. These can be : * Spline surface * BSpline surface");
+py::class_<IGESToBRep_BasicSurface, std::unique_ptr<IGESToBRep_BasicSurface>, IGESToBRep_CurveAndSurface> cls_IGESToBRep_BasicSurface(mod, "IGESToBRep_BasicSurface", "Provides methods to transfer basic geometric surface entities from IGES to CASCADE. These can be : * Spline surface * BSpline surface");
 
 // Constructors
 cls_IGESToBRep_BasicSurface.def(py::init<>());

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepGProp_Sinert(py::module &mod){
 
-py::class_<BRepGProp_Sinert, std::unique_ptr<BRepGProp_Sinert, Deleter<BRepGProp_Sinert>>, GProp_GProps> cls_BRepGProp_Sinert(mod, "BRepGProp_Sinert", "Computes the global properties of a face in 3D space. The face 's requirements to evaluate the global properties are defined in the template FaceTool from package GProp.");
+py::class_<BRepGProp_Sinert, std::unique_ptr<BRepGProp_Sinert>, GProp_GProps> cls_BRepGProp_Sinert(mod, "BRepGProp_Sinert", "Computes the global properties of a face in 3D space. The face 's requirements to evaluate the global properties are defined in the template FaceTool from package GProp.");
 
 // Constructors
 cls_BRepGProp_Sinert.def(py::init<>());

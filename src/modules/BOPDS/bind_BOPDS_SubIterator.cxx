@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPDS_SubIterator(py::module &mod){
 
-py::class_<BOPDS_SubIterator, std::unique_ptr<BOPDS_SubIterator, Deleter<BOPDS_SubIterator>>> cls_BOPDS_SubIterator(mod, "BOPDS_SubIterator", "The class BOPDS_SubIterator is used to compute intersections between bounding boxes of two sub-sets of BRep sub-shapes of arguments of an operation (see the class BOPDS_DS). The class provides interface to iterate the pairs of intersected sub-shapes.");
+py::class_<BOPDS_SubIterator, std::unique_ptr<BOPDS_SubIterator>> cls_BOPDS_SubIterator(mod, "BOPDS_SubIterator", "The class BOPDS_SubIterator is used to compute intersections between bounding boxes of two sub-sets of BRep sub-shapes of arguments of an operation (see the class BOPDS_DS). The class provides interface to iterate the pairs of intersected sub-shapes.");
 
 // Constructors
 cls_BOPDS_SubIterator.def(py::init<>());

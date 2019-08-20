@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD(py::module &mod){
 
-py::class_<OSD, std::unique_ptr<OSD, Deleter<OSD>>> cls_OSD(mod, "OSD", "Set of Operating Sytem Dependent Tools (O)perating (S)ystem (D)ependent");
+py::class_<OSD, std::unique_ptr<OSD>> cls_OSD(mod, "OSD", "Set of Operating Sytem Dependent Tools (O)perating (S)ystem (D)ependent");
 
 // Constructors
 

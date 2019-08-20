@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepElement_RWCurve3dElementDescriptor(py::module &mod){
 
-py::class_<RWStepElement_RWCurve3dElementDescriptor, std::unique_ptr<RWStepElement_RWCurve3dElementDescriptor, Deleter<RWStepElement_RWCurve3dElementDescriptor>>> cls_RWStepElement_RWCurve3dElementDescriptor(mod, "RWStepElement_RWCurve3dElementDescriptor", "Read & Write tool for Curve3dElementDescriptor");
+py::class_<RWStepElement_RWCurve3dElementDescriptor, std::unique_ptr<RWStepElement_RWCurve3dElementDescriptor>> cls_RWStepElement_RWCurve3dElementDescriptor(mod, "RWStepElement_RWCurve3dElementDescriptor", "Read & Write tool for Curve3dElementDescriptor");
 
 // Constructors
 cls_RWStepElement_RWCurve3dElementDescriptor.def(py::init<>());

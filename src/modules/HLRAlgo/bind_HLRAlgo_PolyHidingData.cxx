@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRAlgo_PolyHidingData(py::module &mod){
 
-py::class_<HLRAlgo_PolyHidingData, std::unique_ptr<HLRAlgo_PolyHidingData, Deleter<HLRAlgo_PolyHidingData>>> cls_HLRAlgo_PolyHidingData(mod, "HLRAlgo_PolyHidingData", "Data structure of a set of Hiding Triangles.");
+py::class_<HLRAlgo_PolyHidingData, std::unique_ptr<HLRAlgo_PolyHidingData>> cls_HLRAlgo_PolyHidingData(mod, "HLRAlgo_PolyHidingData", "Data structure of a set of Hiding Triangles.");
 
 // Constructors
 cls_HLRAlgo_PolyHidingData.def(py::init<>());

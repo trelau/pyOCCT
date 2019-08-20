@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPTools_AlgoTools2D(py::module &mod){
 
-py::class_<BOPTools_AlgoTools2D, std::unique_ptr<BOPTools_AlgoTools2D, Deleter<BOPTools_AlgoTools2D>>> cls_BOPTools_AlgoTools2D(mod, "BOPTools_AlgoTools2D", "The class contains handy static functions dealing with the topology This is the copy of the BOPTools_AlgoTools2D.cdl");
+py::class_<BOPTools_AlgoTools2D, std::unique_ptr<BOPTools_AlgoTools2D>> cls_BOPTools_AlgoTools2D(mod, "BOPTools_AlgoTools2D", "The class contains handy static functions dealing with the topology This is the copy of the BOPTools_AlgoTools2D.cdl");
 
 // Constructors
 

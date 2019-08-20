@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_Environment(py::module &mod){
 
-py::class_<OSD_Environment, std::unique_ptr<OSD_Environment, Deleter<OSD_Environment>>> cls_OSD_Environment(mod, "OSD_Environment", "Management of system environment variables An environment variable is composed of a variable name and its value.");
+py::class_<OSD_Environment, std::unique_ptr<OSD_Environment>> cls_OSD_Environment(mod, "OSD_Environment", "Management of system environment variables An environment variable is composed of a variable name and its value.");
 
 // Constructors
 cls_OSD_Environment.def(py::init<>());

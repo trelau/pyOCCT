@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDF_ChildIterator(py::module &mod){
 
-py::class_<TDF_ChildIterator, std::unique_ptr<TDF_ChildIterator, Deleter<TDF_ChildIterator>>> cls_TDF_ChildIterator(mod, "TDF_ChildIterator", "Iterates on the children of a label, at the first level only. It is possible to ask the iterator to explore all the sub label levels of the given one, with the option 'allLevels'.");
+py::class_<TDF_ChildIterator, std::unique_ptr<TDF_ChildIterator>> cls_TDF_ChildIterator(mod, "TDF_ChildIterator", "Iterates on the children of a label, at the first level only. It is possible to ask the iterator to explore all the sub label levels of the given one, with the option 'allLevels'.");
 
 // Constructors
 cls_TDF_ChildIterator.def(py::init<>());

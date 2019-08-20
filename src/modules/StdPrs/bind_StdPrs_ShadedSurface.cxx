@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_ShadedSurface(py::module &mod){
 
-py::class_<StdPrs_ShadedSurface, std::unique_ptr<StdPrs_ShadedSurface, Deleter<StdPrs_ShadedSurface>>, Prs3d_Root> cls_StdPrs_ShadedSurface(mod, "StdPrs_ShadedSurface", "Computes the shading presentation of surfaces. Draws a surface by drawing the isoparametric curves with respect to a maximal chordial deviation. The number of isoparametric curves to be drawn and their color are controlled by the furnished Drawer.");
+py::class_<StdPrs_ShadedSurface, std::unique_ptr<StdPrs_ShadedSurface>, Prs3d_Root> cls_StdPrs_ShadedSurface(mod, "StdPrs_ShadedSurface", "Computes the shading presentation of surfaces. Draws a surface by drawing the isoparametric curves with respect to a maximal chordial deviation. The number of isoparametric curves to be drawn and their color are controlled by the furnished Drawer.");
 
 // Constructors
 

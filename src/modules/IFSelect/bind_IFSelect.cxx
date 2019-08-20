@@ -103,7 +103,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFSelect(py::module &mod){
 
-py::class_<IFSelect, std::unique_ptr<IFSelect, Deleter<IFSelect>>> cls_IFSelect(mod, "IFSelect", "Gives tools to manage Selecting a group of Entities processed by an Interface, for instance to divide up an original Model (from a File) to several smaller ones They use description of an Interface Model as a graph");
+py::class_<IFSelect, std::unique_ptr<IFSelect>> cls_IFSelect(mod, "IFSelect", "Gives tools to manage Selecting a group of Entities processed by an Interface, for instance to divide up an original Model (from a File) to several smaller ones They use description of an Interface Model as a graph");
 
 // Constructors
 

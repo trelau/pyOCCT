@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP203_RWCcDesignSecurityClassification(py::module &mod){
 
-py::class_<RWStepAP203_RWCcDesignSecurityClassification, std::unique_ptr<RWStepAP203_RWCcDesignSecurityClassification, Deleter<RWStepAP203_RWCcDesignSecurityClassification>>> cls_RWStepAP203_RWCcDesignSecurityClassification(mod, "RWStepAP203_RWCcDesignSecurityClassification", "Read & Write tool for CcDesignSecurityClassification");
+py::class_<RWStepAP203_RWCcDesignSecurityClassification, std::unique_ptr<RWStepAP203_RWCcDesignSecurityClassification>> cls_RWStepAP203_RWCcDesignSecurityClassification(mod, "RWStepAP203_RWCcDesignSecurityClassification", "Read & Write tool for CcDesignSecurityClassification");
 
 // Constructors
 cls_RWStepAP203_RWCcDesignSecurityClassification.def(py::init<>());

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_Standard_ErrorHandlerCallback(py::module &mod){
 
 /*
-py::class_<Standard_ErrorHandler::Callback, std::unique_ptr<Standard_ErrorHandler::Callback, Deleter<Standard_ErrorHandler::Callback>>> cls_Standard_ErrorHandlerCallback(mod, "Standard_ErrorHandlerCallback", "Defines a base class for callback objects that can be registered in the OCC error handler (the class simulating C++ exceptions) so as to be correctly destroyed when error handler is activated.");
+py::class_<Standard_ErrorHandler::Callback, std::unique_ptr<Standard_ErrorHandler::Callback>> cls_Standard_ErrorHandlerCallback(mod, "Standard_ErrorHandlerCallback", "Defines a base class for callback objects that can be registered in the OCC error handler (the class simulating C++ exceptions) so as to be correctly destroyed when error handler is activated.");
 
 // Fields
 

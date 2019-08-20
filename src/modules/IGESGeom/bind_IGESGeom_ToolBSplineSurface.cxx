@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGeom_ToolBSplineSurface(py::module &mod){
 
-py::class_<IGESGeom_ToolBSplineSurface, std::unique_ptr<IGESGeom_ToolBSplineSurface, Deleter<IGESGeom_ToolBSplineSurface>>> cls_IGESGeom_ToolBSplineSurface(mod, "IGESGeom_ToolBSplineSurface", "Tool to work on a BSplineSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGeom_ToolBSplineSurface, std::unique_ptr<IGESGeom_ToolBSplineSurface>> cls_IGESGeom_ToolBSplineSurface(mod, "IGESGeom_ToolBSplineSurface", "Tool to work on a BSplineSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGeom_ToolBSplineSurface.def(py::init<>());

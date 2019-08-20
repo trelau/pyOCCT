@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Blend_CurvPointFuncInv(py::module &mod){
 
-py::class_<Blend_CurvPointFuncInv, std::unique_ptr<Blend_CurvPointFuncInv, Deleter<Blend_CurvPointFuncInv>>, math_FunctionSetWithDerivatives> cls_Blend_CurvPointFuncInv(mod, "Blend_CurvPointFuncInv", "Deferred class for a function used to compute a blending surface between a surface and a curve, using a guide line. This function is used to find a solution on a done point of the curve. The vector <X> used in Value, Values and Derivatives methods has to be the vector of the parametric coordinates w, U, V where w is the parameter on the guide line, U,V are the parametric coordinates of a point on the partner surface.");
+py::class_<Blend_CurvPointFuncInv, std::unique_ptr<Blend_CurvPointFuncInv>, math_FunctionSetWithDerivatives> cls_Blend_CurvPointFuncInv(mod, "Blend_CurvPointFuncInv", "Deferred class for a function used to compute a blending surface between a surface and a curve, using a guide line. This function is used to find a solution on a done point of the curve. The vector <X> used in Value, Values and Derivatives methods has to be the vector of the parametric coordinates w, U, V where w is the parameter on the guide line, U,V are the parametric coordinates of a point on the partner surface.");
 
 // Fields
 

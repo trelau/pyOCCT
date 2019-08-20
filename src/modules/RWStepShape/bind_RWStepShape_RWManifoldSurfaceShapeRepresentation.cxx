@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWManifoldSurfaceShapeRepresentation(py::module &mod){
 
-py::class_<RWStepShape_RWManifoldSurfaceShapeRepresentation, std::unique_ptr<RWStepShape_RWManifoldSurfaceShapeRepresentation, Deleter<RWStepShape_RWManifoldSurfaceShapeRepresentation>>> cls_RWStepShape_RWManifoldSurfaceShapeRepresentation(mod, "RWStepShape_RWManifoldSurfaceShapeRepresentation", "Read & Write Module for ManifoldSurfaceShapeRepresentation");
+py::class_<RWStepShape_RWManifoldSurfaceShapeRepresentation, std::unique_ptr<RWStepShape_RWManifoldSurfaceShapeRepresentation>> cls_RWStepShape_RWManifoldSurfaceShapeRepresentation(mod, "RWStepShape_RWManifoldSurfaceShapeRepresentation", "Read & Write Module for ManifoldSurfaceShapeRepresentation");
 
 // Constructors
 cls_RWStepShape_RWManifoldSurfaceShapeRepresentation.def(py::init<>());

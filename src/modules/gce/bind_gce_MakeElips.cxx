@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gce_MakeElips(py::module &mod){
 
-py::class_<gce_MakeElips, std::unique_ptr<gce_MakeElips, Deleter<gce_MakeElips>>, gce_Root> cls_gce_MakeElips(mod, "gce_MakeElips", "This class implements the following algorithms used to create an ellipse from gp.");
+py::class_<gce_MakeElips, std::unique_ptr<gce_MakeElips>, gce_Root> cls_gce_MakeElips(mod, "gce_MakeElips", "This class implements the following algorithms used to create an ellipse from gp.");
 
 // Constructors
 cls_gce_MakeElips.def(py::init<const gp_Ax2 &, const Standard_Real, const Standard_Real>(), py::arg("A2"), py::arg("MajorRadius"), py::arg("MinorRadius"));

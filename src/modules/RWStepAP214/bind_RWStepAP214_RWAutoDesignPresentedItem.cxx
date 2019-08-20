@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWAutoDesignPresentedItem(py::module &mod){
 
-py::class_<RWStepAP214_RWAutoDesignPresentedItem, std::unique_ptr<RWStepAP214_RWAutoDesignPresentedItem, Deleter<RWStepAP214_RWAutoDesignPresentedItem>>> cls_RWStepAP214_RWAutoDesignPresentedItem(mod, "RWStepAP214_RWAutoDesignPresentedItem", "Read & Write Module for AutoDesignPresentedItem");
+py::class_<RWStepAP214_RWAutoDesignPresentedItem, std::unique_ptr<RWStepAP214_RWAutoDesignPresentedItem>> cls_RWStepAP214_RWAutoDesignPresentedItem(mod, "RWStepAP214_RWAutoDesignPresentedItem", "Read & Write Module for AutoDesignPresentedItem");
 
 // Constructors
 cls_RWStepAP214_RWAutoDesignPresentedItem.def(py::init<>());

@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_CurveTool(py::module &mod){
 
-py::class_<HLRBRep_CurveTool, std::unique_ptr<HLRBRep_CurveTool, Deleter<HLRBRep_CurveTool>>> cls_HLRBRep_CurveTool(mod, "HLRBRep_CurveTool", "None");
+py::class_<HLRBRep_CurveTool, std::unique_ptr<HLRBRep_CurveTool>> cls_HLRBRep_CurveTool(mod, "HLRBRep_CurveTool", "None");
 
 // Constructors
 

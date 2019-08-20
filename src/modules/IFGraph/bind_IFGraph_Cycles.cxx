@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFGraph_Cycles(py::module &mod){
 
-py::class_<IFGraph_Cycles, std::unique_ptr<IFGraph_Cycles, Deleter<IFGraph_Cycles>>, IFGraph_SubPartsIterator> cls_IFGraph_Cycles(mod, "IFGraph_Cycles", "determines strong componants in a graph which are Cycles");
+py::class_<IFGraph_Cycles, std::unique_ptr<IFGraph_Cycles>, IFGraph_SubPartsIterator> cls_IFGraph_Cycles(mod, "IFGraph_Cycles", "determines strong componants in a graph which are Cycles");
 
 // Constructors
 cls_IFGraph_Cycles.def(py::init<const Interface_Graph &, const Standard_Boolean>(), py::arg("agraph"), py::arg("whole"));

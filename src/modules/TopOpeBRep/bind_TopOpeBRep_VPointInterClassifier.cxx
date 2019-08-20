@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRep_VPointInterClassifier(py::module &mod){
 
-py::class_<TopOpeBRep_VPointInterClassifier, std::unique_ptr<TopOpeBRep_VPointInterClassifier, Deleter<TopOpeBRep_VPointInterClassifier>>> cls_TopOpeBRep_VPointInterClassifier(mod, "TopOpeBRep_VPointInterClassifier", "None");
+py::class_<TopOpeBRep_VPointInterClassifier, std::unique_ptr<TopOpeBRep_VPointInterClassifier>> cls_TopOpeBRep_VPointInterClassifier(mod, "TopOpeBRep_VPointInterClassifier", "None");
 
 // Constructors
 cls_TopOpeBRep_VPointInterClassifier.def(py::init<>());

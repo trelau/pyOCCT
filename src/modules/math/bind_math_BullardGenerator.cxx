@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_BullardGenerator(py::module &mod){
 
-py::class_<math_BullardGenerator, std::unique_ptr<math_BullardGenerator, Deleter<math_BullardGenerator>>> cls_math_BullardGenerator(mod, "math_BullardGenerator", "Fast random number generator (the algorithm proposed by Ian C. Bullard).");
+py::class_<math_BullardGenerator, std::unique_ptr<math_BullardGenerator>> cls_math_BullardGenerator(mod, "math_BullardGenerator", "Fast random number generator (the algorithm proposed by Ian C. Bullard).");
 
 // Constructors
 cls_math_BullardGenerator.def(py::init<>());

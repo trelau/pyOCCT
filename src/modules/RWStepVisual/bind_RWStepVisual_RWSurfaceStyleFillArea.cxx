@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWSurfaceStyleFillArea(py::module &mod){
 
-py::class_<RWStepVisual_RWSurfaceStyleFillArea, std::unique_ptr<RWStepVisual_RWSurfaceStyleFillArea, Deleter<RWStepVisual_RWSurfaceStyleFillArea>>> cls_RWStepVisual_RWSurfaceStyleFillArea(mod, "RWStepVisual_RWSurfaceStyleFillArea", "Read & Write Module for SurfaceStyleFillArea");
+py::class_<RWStepVisual_RWSurfaceStyleFillArea, std::unique_ptr<RWStepVisual_RWSurfaceStyleFillArea>> cls_RWStepVisual_RWSurfaceStyleFillArea(mod, "RWStepVisual_RWSurfaceStyleFillArea", "Read & Write Module for SurfaceStyleFillArea");
 
 // Constructors
 cls_RWStepVisual_RWSurfaceStyleFillArea.def(py::init<>());

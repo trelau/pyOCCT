@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Contap_TheIWalking(py::module &mod){
 
-py::class_<Contap_TheIWalking, std::unique_ptr<Contap_TheIWalking, Deleter<Contap_TheIWalking>>> cls_Contap_TheIWalking(mod, "Contap_TheIWalking", "None");
+py::class_<Contap_TheIWalking, std::unique_ptr<Contap_TheIWalking>> cls_Contap_TheIWalking(mod, "Contap_TheIWalking", "None");
 
 // Constructors
 cls_Contap_TheIWalking.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("Epsilon"), py::arg("Deflection"), py::arg("Step"));

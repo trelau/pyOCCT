@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToIGES_GeomPoint(py::module &mod){
 
-py::class_<GeomToIGES_GeomPoint, std::unique_ptr<GeomToIGES_GeomPoint, Deleter<GeomToIGES_GeomPoint>>, GeomToIGES_GeomEntity> cls_GeomToIGES_GeomPoint(mod, "GeomToIGES_GeomPoint", "This class implements the transfer of the Point Entity from Geom to IGES . These are : . Point * CartesianPoint");
+py::class_<GeomToIGES_GeomPoint, std::unique_ptr<GeomToIGES_GeomPoint>, GeomToIGES_GeomEntity> cls_GeomToIGES_GeomPoint(mod, "GeomToIGES_GeomPoint", "This class implements the transfer of the Point Entity from Geom to IGES . These are : . Point * CartesianPoint");
 
 // Constructors
 cls_GeomToIGES_GeomPoint.def(py::init<>());

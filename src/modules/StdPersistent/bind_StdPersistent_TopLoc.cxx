@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPersistent_TopLoc(py::module &mod){
 
-py::class_<StdPersistent_TopLoc, std::unique_ptr<StdPersistent_TopLoc, Deleter<StdPersistent_TopLoc>>> cls_StdPersistent_TopLoc(mod, "StdPersistent_TopLoc", "None");
+py::class_<StdPersistent_TopLoc, std::unique_ptr<StdPersistent_TopLoc>> cls_StdPersistent_TopLoc(mod, "StdPersistent_TopLoc", "None");
 
 // Constructors
 

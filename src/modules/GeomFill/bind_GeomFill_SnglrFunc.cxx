@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_SnglrFunc(py::module &mod){
 
-py::class_<GeomFill_SnglrFunc, std::unique_ptr<GeomFill_SnglrFunc, Deleter<GeomFill_SnglrFunc>>, Adaptor3d_Curve> cls_GeomFill_SnglrFunc(mod, "GeomFill_SnglrFunc", "to represent function C'(t)^C''(t)");
+py::class_<GeomFill_SnglrFunc, std::unique_ptr<GeomFill_SnglrFunc>, Adaptor3d_Curve> cls_GeomFill_SnglrFunc(mod, "GeomFill_SnglrFunc", "to represent function C'(t)^C''(t)");
 
 // Constructors
 cls_GeomFill_SnglrFunc.def(py::init<const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("HC"));

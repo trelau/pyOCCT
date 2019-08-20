@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRep_GeomTool(py::module &mod){
 
-py::class_<TopOpeBRep_GeomTool, std::unique_ptr<TopOpeBRep_GeomTool, Deleter<TopOpeBRep_GeomTool>>> cls_TopOpeBRep_GeomTool(mod, "TopOpeBRep_GeomTool", "Provide services needed by the DSFiller");
+py::class_<TopOpeBRep_GeomTool, std::unique_ptr<TopOpeBRep_GeomTool>> cls_TopOpeBRep_GeomTool(mod, "TopOpeBRep_GeomTool", "Provide services needed by the DSFiller");
 
 // Constructors
 

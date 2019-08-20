@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_PntOnFace(py::module &mod){
 
-py::class_<IntTools_PntOnFace, std::unique_ptr<IntTools_PntOnFace, Deleter<IntTools_PntOnFace>>> cls_IntTools_PntOnFace(mod, "IntTools_PntOnFace", "Contains a Face, a 3d point, corresponded UV parameters and a flag");
+py::class_<IntTools_PntOnFace, std::unique_ptr<IntTools_PntOnFace>> cls_IntTools_PntOnFace(mod, "IntTools_PntOnFace", "Contains a Face, a 3d point, corresponded UV parameters and a flag");
 
 // Constructors
 cls_IntTools_PntOnFace.def(py::init<>());

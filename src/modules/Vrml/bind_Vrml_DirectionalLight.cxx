@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_DirectionalLight(py::module &mod){
 
-py::class_<Vrml_DirectionalLight, std::unique_ptr<Vrml_DirectionalLight, Deleter<Vrml_DirectionalLight>>> cls_Vrml_DirectionalLight(mod, "Vrml_DirectionalLight", "defines a directional light node of VRML specifying properties of lights. This node defines a directional light source that illuminates along rays parallel to a given 3-dimentional vector Color is written as an RGB triple. Light intensity must be in the range 0.0 to 1.0, inclusive.");
+py::class_<Vrml_DirectionalLight, std::unique_ptr<Vrml_DirectionalLight>> cls_Vrml_DirectionalLight(mod, "Vrml_DirectionalLight", "defines a directional light node of VRML specifying properties of lights. This node defines a directional light source that illuminates along rays parallel to a given 3-dimentional vector Color is written as an RGB triple. Light intensity must be in the range 0.0 to 1.0, inclusive.");
 
 // Constructors
 cls_Vrml_DirectionalLight.def(py::init<>());

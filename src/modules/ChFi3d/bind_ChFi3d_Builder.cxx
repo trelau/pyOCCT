@@ -68,7 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFi3d_Builder(py::module &mod){
 
-py::class_<ChFi3d_Builder, std::unique_ptr<ChFi3d_Builder, Deleter<ChFi3d_Builder>>> cls_ChFi3d_Builder(mod, "ChFi3d_Builder", "Root class for calculation of surfaces (fillets, chamfers) destined to smooth edges of a gap on a Shape and the reconstruction of the Shape.");
+py::class_<ChFi3d_Builder, std::unique_ptr<ChFi3d_Builder>> cls_ChFi3d_Builder(mod, "ChFi3d_Builder", "Root class for calculation of surfaces (fillets, chamfers) destined to smooth edges of a gap on a Shape and the reconstruction of the Shape.");
 
 // Fields
 

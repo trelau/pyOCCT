@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeAnalysis_Geom(py::module &mod){
 
-py::class_<ShapeAnalysis_Geom, std::unique_ptr<ShapeAnalysis_Geom, Deleter<ShapeAnalysis_Geom>>> cls_ShapeAnalysis_Geom(mod, "ShapeAnalysis_Geom", "Analyzing tool aimed to work on primitive geometrical objects");
+py::class_<ShapeAnalysis_Geom, std::unique_ptr<ShapeAnalysis_Geom>> cls_ShapeAnalysis_Geom(mod, "ShapeAnalysis_Geom", "Analyzing tool aimed to work on primitive geometrical objects");
 
 // Constructors
 

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_Explorer(py::module &mod){
 
-py::class_<TopOpeBRepDS_Explorer, std::unique_ptr<TopOpeBRepDS_Explorer, Deleter<TopOpeBRepDS_Explorer>>> cls_TopOpeBRepDS_Explorer(mod, "TopOpeBRepDS_Explorer", "None");
+py::class_<TopOpeBRepDS_Explorer, std::unique_ptr<TopOpeBRepDS_Explorer>> cls_TopOpeBRepDS_Explorer(mod, "TopOpeBRepDS_Explorer", "None");
 
 // Constructors
 cls_TopOpeBRepDS_Explorer.def(py::init<>());

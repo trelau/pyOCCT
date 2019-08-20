@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_DirectPolynomialRoots(py::module &mod){
 
-py::class_<math_DirectPolynomialRoots, std::unique_ptr<math_DirectPolynomialRoots, Deleter<math_DirectPolynomialRoots>>> cls_math_DirectPolynomialRoots(mod, "math_DirectPolynomialRoots", "This class implements the calculation of all the real roots of a real polynomial of degree <= 4 using a direct method. Once found, the roots are polished using the Newton method.");
+py::class_<math_DirectPolynomialRoots, std::unique_ptr<math_DirectPolynomialRoots>> cls_math_DirectPolynomialRoots(mod, "math_DirectPolynomialRoots", "This class implements the calculation of all the real roots of a real polynomial of degree <= 4 using a direct method. Once found, the roots are polished using the Newton method.");
 
 // Constructors
 cls_math_DirectPolynomialRoots.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("A"), py::arg("B"), py::arg("C"), py::arg("D"), py::arg("E"));

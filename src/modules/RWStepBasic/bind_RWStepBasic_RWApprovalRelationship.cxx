@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWApprovalRelationship(py::module &mod){
 
-py::class_<RWStepBasic_RWApprovalRelationship, std::unique_ptr<RWStepBasic_RWApprovalRelationship, Deleter<RWStepBasic_RWApprovalRelationship>>> cls_RWStepBasic_RWApprovalRelationship(mod, "RWStepBasic_RWApprovalRelationship", "Read & Write Module for ApprovalRelationship");
+py::class_<RWStepBasic_RWApprovalRelationship, std::unique_ptr<RWStepBasic_RWApprovalRelationship>> cls_RWStepBasic_RWApprovalRelationship(mod, "RWStepBasic_RWApprovalRelationship", "Read & Write Module for ApprovalRelationship");
 
 // Constructors
 cls_RWStepBasic_RWApprovalRelationship.def(py::init<>());

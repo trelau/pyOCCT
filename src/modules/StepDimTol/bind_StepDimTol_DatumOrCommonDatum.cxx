@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepDimTol_DatumOrCommonDatum(py::module &mod){
 
-py::class_<StepDimTol_DatumOrCommonDatum, std::unique_ptr<StepDimTol_DatumOrCommonDatum, Deleter<StepDimTol_DatumOrCommonDatum>>, StepData_SelectType> cls_StepDimTol_DatumOrCommonDatum(mod, "StepDimTol_DatumOrCommonDatum", "None");
+py::class_<StepDimTol_DatumOrCommonDatum, std::unique_ptr<StepDimTol_DatumOrCommonDatum>, StepData_SelectType> cls_StepDimTol_DatumOrCommonDatum(mod, "StepDimTol_DatumOrCommonDatum", "None");
 
 // Constructors
 cls_StepDimTol_DatumOrCommonDatum.def(py::init<>());

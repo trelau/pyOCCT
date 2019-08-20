@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HatchGen_Domain(py::module &mod){
 
-py::class_<HatchGen_Domain, std::unique_ptr<HatchGen_Domain, Deleter<HatchGen_Domain>>> cls_HatchGen_Domain(mod, "HatchGen_Domain", "None");
+py::class_<HatchGen_Domain, std::unique_ptr<HatchGen_Domain>> cls_HatchGen_Domain(mod, "HatchGen_Domain", "None");
 
 // Constructors
 cls_HatchGen_Domain.def(py::init<>());

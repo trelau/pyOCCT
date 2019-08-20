@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_Hider(py::module &mod){
 
-py::class_<HLRBRep_Hider, std::unique_ptr<HLRBRep_Hider, Deleter<HLRBRep_Hider>>> cls_HLRBRep_Hider(mod, "HLRBRep_Hider", "None");
+py::class_<HLRBRep_Hider, std::unique_ptr<HLRBRep_Hider>> cls_HLRBRep_Hider(mod, "HLRBRep_Hider", "None");
 
 // Constructors
 cls_HLRBRep_Hider.def(py::init<const opencascade::handle<HLRBRep_Data> &>(), py::arg("DS"));

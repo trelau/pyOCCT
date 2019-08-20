@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_Profiler(py::module &mod){
 
-py::class_<GeomFill_Profiler, std::unique_ptr<GeomFill_Profiler, Deleter<GeomFill_Profiler>>> cls_GeomFill_Profiler(mod, "GeomFill_Profiler", "Evaluation of the common BSplineProfile of a group of curves from Geom. All the curves will have the same degree, the same knot-vector, so the same number of poles.");
+py::class_<GeomFill_Profiler, std::unique_ptr<GeomFill_Profiler>> cls_GeomFill_Profiler(mod, "GeomFill_Profiler", "Evaluation of the common BSplineProfile of a group of curves from Geom. All the curves will have the same degree, the same knot-vector, so the same number of poles.");
 
 // Constructors
 cls_GeomFill_Profiler.def(py::init<>());

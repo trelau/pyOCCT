@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomAPI_PointsToBSplineSurface(py::module &mod){
 
-py::class_<GeomAPI_PointsToBSplineSurface, std::unique_ptr<GeomAPI_PointsToBSplineSurface, Deleter<GeomAPI_PointsToBSplineSurface>>> cls_GeomAPI_PointsToBSplineSurface(mod, "GeomAPI_PointsToBSplineSurface", "This class is used to approximate or interpolate a BSplineSurface passing through an Array2 of points, with a given continuity. Describes functions for building a BSpline surface which approximates or interpolates a set of points. A PointsToBSplineSurface object provides a framework for: - defining the data of the BSpline surface to be built, - implementing the approximation algorithm or the interpolation algorithm, and consulting the results.");
+py::class_<GeomAPI_PointsToBSplineSurface, std::unique_ptr<GeomAPI_PointsToBSplineSurface>> cls_GeomAPI_PointsToBSplineSurface(mod, "GeomAPI_PointsToBSplineSurface", "This class is used to approximate or interpolate a BSplineSurface passing through an Array2 of points, with a given continuity. Describes functions for building a BSpline surface which approximates or interpolates a set of points. A PointsToBSplineSurface object provides a framework for: - defining the data of the BSpline surface to be built, - implementing the approximation algorithm or the interpolation algorithm, and consulting the results.");
 
 // Constructors
 cls_GeomAPI_PointsToBSplineSurface.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Adaptor3d_InterFunc(py::module &mod){
 
-py::class_<Adaptor3d_InterFunc, std::unique_ptr<Adaptor3d_InterFunc, Deleter<Adaptor3d_InterFunc>>, math_FunctionWithDerivative> cls_Adaptor3d_InterFunc(mod, "Adaptor3d_InterFunc", "Used to find the points U(t) = U0 or V(t) = V0 in order to determine the Cn discontinuities of an Adpator_CurveOnSurface relativly to the discontinuities of the surface. Used to find the roots of the functions");
+py::class_<Adaptor3d_InterFunc, std::unique_ptr<Adaptor3d_InterFunc>, math_FunctionWithDerivative> cls_Adaptor3d_InterFunc(mod, "Adaptor3d_InterFunc", "Used to find the points U(t) = U0 or V(t) = V0 in order to determine the Cn discontinuities of an Adpator_CurveOnSurface relativly to the discontinuities of the surface. Used to find the roots of the functions");
 
 // Constructors
 cls_Adaptor3d_InterFunc.def(py::init<const opencascade::handle<Adaptor2d_HCurve2d> &, const Standard_Real, const Standard_Integer>(), py::arg("C"), py::arg("FixVal"), py::arg("Fix"));

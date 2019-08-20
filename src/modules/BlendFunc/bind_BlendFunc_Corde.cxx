@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BlendFunc_Corde(py::module &mod){
 
-py::class_<BlendFunc_Corde, std::unique_ptr<BlendFunc_Corde, Deleter<BlendFunc_Corde>>> cls_BlendFunc_Corde(mod, "BlendFunc_Corde", "This function calculates point (pts) on the curve of intersection between the normal to a curve (guide) in a chosen parameter and a surface (surf), so that pts was at a given distance from the guide. X(1),X(2) are the parameters U,V of pts on surf.");
+py::class_<BlendFunc_Corde, std::unique_ptr<BlendFunc_Corde>> cls_BlendFunc_Corde(mod, "BlendFunc_Corde", "This function calculates point (pts) on the curve of intersection between the normal to a curve (guide) in a chosen parameter and a surface (surf), so that pts was at a given distance from the guide. X(1),X(2) are the parameters U,V of pts on surf.");
 
 // Constructors
 cls_BlendFunc_Corde.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S"), py::arg("CGuide"));

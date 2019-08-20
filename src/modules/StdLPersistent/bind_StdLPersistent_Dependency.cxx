@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdLPersistent_Dependency(py::module &mod){
 
-py::class_<StdLPersistent_Dependency, std::unique_ptr<StdLPersistent_Dependency, Deleter<StdLPersistent_Dependency>>> cls_StdLPersistent_Dependency(mod, "StdLPersistent_Dependency", "None");
+py::class_<StdLPersistent_Dependency, std::unique_ptr<StdLPersistent_Dependency>> cls_StdLPersistent_Dependency(mod, "StdLPersistent_Dependency", "None");
 
 // Constructors
 

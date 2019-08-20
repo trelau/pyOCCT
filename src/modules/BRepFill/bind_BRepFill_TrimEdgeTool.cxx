@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_TrimEdgeTool(py::module &mod){
 
-py::class_<BRepFill_TrimEdgeTool, std::unique_ptr<BRepFill_TrimEdgeTool, Deleter<BRepFill_TrimEdgeTool>>> cls_BRepFill_TrimEdgeTool(mod, "BRepFill_TrimEdgeTool", "Geometric Tool using to construct Offset Wires.");
+py::class_<BRepFill_TrimEdgeTool, std::unique_ptr<BRepFill_TrimEdgeTool>> cls_BRepFill_TrimEdgeTool(mod, "BRepFill_TrimEdgeTool", "Geometric Tool using to construct Offset Wires.");
 
 // Constructors
 cls_BRepFill_TrimEdgeTool.def(py::init<>());

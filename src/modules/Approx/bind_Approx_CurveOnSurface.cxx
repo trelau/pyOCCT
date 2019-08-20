@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Approx_CurveOnSurface(py::module &mod){
 
-py::class_<Approx_CurveOnSurface, std::unique_ptr<Approx_CurveOnSurface, Deleter<Approx_CurveOnSurface>>> cls_Approx_CurveOnSurface(mod, "Approx_CurveOnSurface", "Approximation of curve on surface");
+py::class_<Approx_CurveOnSurface, std::unique_ptr<Approx_CurveOnSurface>> cls_Approx_CurveOnSurface(mod, "Approx_CurveOnSurface", "Approximation of curve on surface");
 
 // Constructors
 cls_Approx_CurveOnSurface.def(py::init<const opencascade::handle<Adaptor2d_HCurve2d> &, const opencascade::handle<Adaptor3d_HSurface> &, const Standard_Real, const Standard_Real, const Standard_Real, const GeomAbs_Shape, const Standard_Integer, const Standard_Integer>(), py::arg("C2D"), py::arg("Surf"), py::arg("First"), py::arg("Last"), py::arg("Tol"), py::arg("Continuity"), py::arg("MaxDegree"), py::arg("MaxSegments"));

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_XY(py::module &mod){
 
-py::class_<gp_XY, std::unique_ptr<gp_XY, Deleter<gp_XY>>> cls_gp_XY(mod, "gp_XY", "This class describes a cartesian coordinate entity in 2D space {X,Y}. This class is non persistent. This entity used for algebraic calculation. An XY can be transformed with a Trsf2d or a GTrsf2d from package gp. It is used in vectorial computations or for holding this type of information in data structures.");
+py::class_<gp_XY, std::unique_ptr<gp_XY>> cls_gp_XY(mod, "gp_XY", "This class describes a cartesian coordinate entity in 2D space {X,Y}. This class is non persistent. This entity used for algebraic calculation. An XY can be transformed with a Trsf2d or a GTrsf2d from package gp. It is used in vectorial computations or for holding this type of information in data structures.");
 
 // Constructors
 cls_gp_XY.def(py::init<>());

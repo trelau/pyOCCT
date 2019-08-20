@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWAllAroundShapeAspect(py::module &mod){
 
-py::class_<RWStepRepr_RWAllAroundShapeAspect, std::unique_ptr<RWStepRepr_RWAllAroundShapeAspect, Deleter<RWStepRepr_RWAllAroundShapeAspect>>> cls_RWStepRepr_RWAllAroundShapeAspect(mod, "RWStepRepr_RWAllAroundShapeAspect", "Read & Write tool for AllAroundShapeAspect");
+py::class_<RWStepRepr_RWAllAroundShapeAspect, std::unique_ptr<RWStepRepr_RWAllAroundShapeAspect>> cls_RWStepRepr_RWAllAroundShapeAspect(mod, "RWStepRepr_RWAllAroundShapeAspect", "Read & Write tool for AllAroundShapeAspect");
 
 // Constructors
 cls_RWStepRepr_RWAllAroundShapeAspect.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool_mkTondgE(py::module &mod){
 
-py::class_<TopOpeBRepTool_mkTondgE, std::unique_ptr<TopOpeBRepTool_mkTondgE, Deleter<TopOpeBRepTool_mkTondgE>>> cls_TopOpeBRepTool_mkTondgE(mod, "TopOpeBRepTool_mkTondgE", "None");
+py::class_<TopOpeBRepTool_mkTondgE, std::unique_ptr<TopOpeBRepTool_mkTondgE>> cls_TopOpeBRepTool_mkTondgE(mod, "TopOpeBRepTool_mkTondgE", "None");
 
 // Constructors
 cls_TopOpeBRepTool_mkTondgE.def(py::init<>());

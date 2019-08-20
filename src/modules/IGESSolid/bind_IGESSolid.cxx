@@ -79,7 +79,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid(py::module &mod){
 
-py::class_<IGESSolid, std::unique_ptr<IGESSolid, Deleter<IGESSolid>>> cls_IGESSolid(mod, "IGESSolid", "This package consists of B-Rep and CSG Solid entities");
+py::class_<IGESSolid, std::unique_ptr<IGESSolid>> cls_IGESSolid(mod, "IGESSolid", "This package consists of B-Rep and CSG Solid entities");
 
 // Constructors
 

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDS_CompSolid(py::module &mod){
 
-py::class_<TopoDS_CompSolid, std::unique_ptr<TopoDS_CompSolid, Deleter<TopoDS_CompSolid>>, TopoDS_Shape> cls_TopoDS_CompSolid(mod, "TopoDS_CompSolid", "Describes a composite solid which - references an underlying composite solid with the potential to be given a location and an orientation - has a location for the underlying composite solid, giving its placement in the local coordinate system - has an orientation for the underlying composite solid, in terms of its geometry (as opposed to orientation in relation to other shapes). Casts shape S to the more specialized return type, CompSolid.");
+py::class_<TopoDS_CompSolid, std::unique_ptr<TopoDS_CompSolid>, TopoDS_Shape> cls_TopoDS_CompSolid(mod, "TopoDS_CompSolid", "Describes a composite solid which - references an underlying composite solid with the potential to be given a location and an orientation - has a location for the underlying composite solid, giving its placement in the local coordinate system - has an orientation for the underlying composite solid, in terms of its geometry (as opposed to orientation in relation to other shapes). Casts shape S to the more specialized return type, CompSolid.");
 
 // Constructors
 cls_TopoDS_CompSolid.def(py::init<>());

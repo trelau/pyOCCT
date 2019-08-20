@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWFlatnessTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWFlatnessTolerance, std::unique_ptr<RWStepDimTol_RWFlatnessTolerance, Deleter<RWStepDimTol_RWFlatnessTolerance>>> cls_RWStepDimTol_RWFlatnessTolerance(mod, "RWStepDimTol_RWFlatnessTolerance", "Read & Write tool for FlatnessTolerance");
+py::class_<RWStepDimTol_RWFlatnessTolerance, std::unique_ptr<RWStepDimTol_RWFlatnessTolerance>> cls_RWStepDimTol_RWFlatnessTolerance(mod, "RWStepDimTol_RWFlatnessTolerance", "Read & Write tool for FlatnessTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWFlatnessTolerance.def(py::init<>());

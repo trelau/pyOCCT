@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP203_RWCcDesignContract(py::module &mod){
 
-py::class_<RWStepAP203_RWCcDesignContract, std::unique_ptr<RWStepAP203_RWCcDesignContract, Deleter<RWStepAP203_RWCcDesignContract>>> cls_RWStepAP203_RWCcDesignContract(mod, "RWStepAP203_RWCcDesignContract", "Read & Write tool for CcDesignContract");
+py::class_<RWStepAP203_RWCcDesignContract, std::unique_ptr<RWStepAP203_RWCcDesignContract>> cls_RWStepAP203_RWCcDesignContract(mod, "RWStepAP203_RWCcDesignContract", "Read & Write tool for CcDesignContract");
 
 // Constructors
 cls_RWStepAP203_RWCcDesignContract.def(py::init<>());

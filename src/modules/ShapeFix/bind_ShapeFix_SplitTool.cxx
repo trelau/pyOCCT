@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeFix_SplitTool(py::module &mod){
 
-py::class_<ShapeFix_SplitTool, std::unique_ptr<ShapeFix_SplitTool, Deleter<ShapeFix_SplitTool>>> cls_ShapeFix_SplitTool(mod, "ShapeFix_SplitTool", "Tool for splitting and cutting edges; includes methods used in OverlappingTool and IntersectionTool");
+py::class_<ShapeFix_SplitTool, std::unique_ptr<ShapeFix_SplitTool>> cls_ShapeFix_SplitTool(mod, "ShapeFix_SplitTool", "Tool for splitting and cutting edges; includes methods used in OverlappingTool and IntersectionTool");
 
 // Constructors
 cls_ShapeFix_SplitTool.def(py::init<>());

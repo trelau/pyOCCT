@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWDraughtingPreDefinedColour(py::module &mod){
 
-py::class_<RWStepVisual_RWDraughtingPreDefinedColour, std::unique_ptr<RWStepVisual_RWDraughtingPreDefinedColour, Deleter<RWStepVisual_RWDraughtingPreDefinedColour>>> cls_RWStepVisual_RWDraughtingPreDefinedColour(mod, "RWStepVisual_RWDraughtingPreDefinedColour", "Read & Write Module for DraughtingPreDefinedColour");
+py::class_<RWStepVisual_RWDraughtingPreDefinedColour, std::unique_ptr<RWStepVisual_RWDraughtingPreDefinedColour>> cls_RWStepVisual_RWDraughtingPreDefinedColour(mod, "RWStepVisual_RWDraughtingPreDefinedColour", "Read & Write Module for DraughtingPreDefinedColour");
 
 // Constructors
 cls_RWStepVisual_RWDraughtingPreDefinedColour.def(py::init<>());

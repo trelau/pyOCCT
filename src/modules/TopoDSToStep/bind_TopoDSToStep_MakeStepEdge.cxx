@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDSToStep_MakeStepEdge(py::module &mod){
 
-py::class_<TopoDSToStep_MakeStepEdge, std::unique_ptr<TopoDSToStep_MakeStepEdge, Deleter<TopoDSToStep_MakeStepEdge>>, TopoDSToStep_Root> cls_TopoDSToStep_MakeStepEdge(mod, "TopoDSToStep_MakeStepEdge", "This class implements the mapping between classes Edge from TopoDS and TopologicalRepresentationItem from StepShape.");
+py::class_<TopoDSToStep_MakeStepEdge, std::unique_ptr<TopoDSToStep_MakeStepEdge>, TopoDSToStep_Root> cls_TopoDSToStep_MakeStepEdge(mod, "TopoDSToStep_MakeStepEdge", "This class implements the mapping between classes Edge from TopoDS and TopologicalRepresentationItem from StepShape.");
 
 // Constructors
 cls_TopoDSToStep_MakeStepEdge.def(py::init<>());

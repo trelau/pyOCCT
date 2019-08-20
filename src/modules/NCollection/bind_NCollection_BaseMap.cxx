@@ -54,7 +54,7 @@ cls_NCollection_BaseMap.def("Allocator", (const opencascade::handle<NCollection_
 // Enums
 
 // Nested classes
-py::class_<NCollection_BaseMap::Iterator, std::unique_ptr<NCollection_BaseMap::Iterator, Deleter<NCollection_BaseMap::Iterator>>> cls_Iterator(cls_NCollection_BaseMap, "Iterator", "Memory allocation");
+py::class_<NCollection_BaseMap::Iterator, std::unique_ptr<NCollection_BaseMap::Iterator>> cls_Iterator(cls_NCollection_BaseMap, "Iterator", "Memory allocation");
 
 // Constructors
 

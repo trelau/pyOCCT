@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepElement_RWElementMaterial(py::module &mod){
 
-py::class_<RWStepElement_RWElementMaterial, std::unique_ptr<RWStepElement_RWElementMaterial, Deleter<RWStepElement_RWElementMaterial>>> cls_RWStepElement_RWElementMaterial(mod, "RWStepElement_RWElementMaterial", "Read & Write tool for ElementMaterial");
+py::class_<RWStepElement_RWElementMaterial, std::unique_ptr<RWStepElement_RWElementMaterial>> cls_RWStepElement_RWElementMaterial(mod, "RWStepElement_RWElementMaterial", "Read & Write tool for ElementMaterial");
 
 // Constructors
 cls_RWStepElement_RWElementMaterial.def(py::init<>());

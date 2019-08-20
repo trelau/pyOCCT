@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_FaceData(py::module &mod){
 
-py::class_<HLRBRep_FaceData, std::unique_ptr<HLRBRep_FaceData, Deleter<HLRBRep_FaceData>>> cls_HLRBRep_FaceData(mod, "HLRBRep_FaceData", "None");
+py::class_<HLRBRep_FaceData, std::unique_ptr<HLRBRep_FaceData>> cls_HLRBRep_FaceData(mod, "HLRBRep_FaceData", "None");
 
 // Constructors
 cls_HLRBRep_FaceData.def(py::init<>());

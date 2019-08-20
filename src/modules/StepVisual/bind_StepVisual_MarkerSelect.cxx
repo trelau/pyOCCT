@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_MarkerSelect(py::module &mod){
 
-py::class_<StepVisual_MarkerSelect, std::unique_ptr<StepVisual_MarkerSelect, Deleter<StepVisual_MarkerSelect>>, StepData_SelectType> cls_StepVisual_MarkerSelect(mod, "StepVisual_MarkerSelect", "None");
+py::class_<StepVisual_MarkerSelect, std::unique_ptr<StepVisual_MarkerSelect>, StepData_SelectType> cls_StepVisual_MarkerSelect(mod, "StepVisual_MarkerSelect", "None");
 
 // Constructors
 cls_StepVisual_MarkerSelect.def(py::init<>());

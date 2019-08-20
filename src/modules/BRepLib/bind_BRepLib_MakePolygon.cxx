@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepLib_MakePolygon(py::module &mod){
 
-py::class_<BRepLib_MakePolygon, std::unique_ptr<BRepLib_MakePolygon, Deleter<BRepLib_MakePolygon>>, BRepLib_MakeShape> cls_BRepLib_MakePolygon(mod, "BRepLib_MakePolygon", "Class to build polygonal wires.");
+py::class_<BRepLib_MakePolygon, std::unique_ptr<BRepLib_MakePolygon>, BRepLib_MakeShape> cls_BRepLib_MakePolygon(mod, "BRepLib_MakePolygon", "Class to build polygonal wires.");
 
 // Constructors
 cls_BRepLib_MakePolygon.def(py::init<>());

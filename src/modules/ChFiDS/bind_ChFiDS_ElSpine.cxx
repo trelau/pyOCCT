@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFiDS_ElSpine(py::module &mod){
 
-py::class_<ChFiDS_ElSpine, std::unique_ptr<ChFiDS_ElSpine, Deleter<ChFiDS_ElSpine>>, Adaptor3d_Curve> cls_ChFiDS_ElSpine(mod, "ChFiDS_ElSpine", "Elementary Spine for cheminements and approximations.");
+py::class_<ChFiDS_ElSpine, std::unique_ptr<ChFiDS_ElSpine>, Adaptor3d_Curve> cls_ChFiDS_ElSpine(mod, "ChFiDS_ElSpine", "Elementary Spine for cheminements and approximations.");
 
 // Constructors
 cls_ChFiDS_ElSpine.def(py::init<>());

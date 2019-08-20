@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP242_IdAttributeSelect(py::module &mod){
 
-py::class_<StepAP242_IdAttributeSelect, std::unique_ptr<StepAP242_IdAttributeSelect, Deleter<StepAP242_IdAttributeSelect>>, StepData_SelectType> cls_StepAP242_IdAttributeSelect(mod, "StepAP242_IdAttributeSelect", "None");
+py::class_<StepAP242_IdAttributeSelect, std::unique_ptr<StepAP242_IdAttributeSelect>, StepData_SelectType> cls_StepAP242_IdAttributeSelect(mod, "StepAP242_IdAttributeSelect", "None");
 
 // Constructors
 cls_StepAP242_IdAttributeSelect.def(py::init<>());

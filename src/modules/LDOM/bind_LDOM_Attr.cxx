@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOM_Attr(py::module &mod){
 
-py::class_<LDOM_Attr, std::unique_ptr<LDOM_Attr, Deleter<LDOM_Attr>>, LDOM_Node> cls_LDOM_Attr(mod, "LDOM_Attr", "None");
+py::class_<LDOM_Attr, std::unique_ptr<LDOM_Attr>, LDOM_Node> cls_LDOM_Attr(mod, "LDOM_Attr", "None");
 
 // Constructors
 cls_LDOM_Attr.def(py::init<>());

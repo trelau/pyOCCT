@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_LayeredItem(py::module &mod){
 
-py::class_<StepVisual_LayeredItem, std::unique_ptr<StepVisual_LayeredItem, Deleter<StepVisual_LayeredItem>>, StepData_SelectType> cls_StepVisual_LayeredItem(mod, "StepVisual_LayeredItem", "None");
+py::class_<StepVisual_LayeredItem, std::unique_ptr<StepVisual_LayeredItem>, StepData_SelectType> cls_StepVisual_LayeredItem(mod, "StepVisual_LayeredItem", "None");
 
 // Constructors
 cls_StepVisual_LayeredItem.def(py::init<>());

@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Adaptor3d_Surface(py::module &mod){
 
-py::class_<Adaptor3d_Surface, std::unique_ptr<Adaptor3d_Surface, Deleter<Adaptor3d_Surface>>> cls_Adaptor3d_Surface(mod, "Adaptor3d_Surface", "Root class for surfaces on which geometric algorithms work. An adapted surface is an interface between the services provided by a surface and those required of the surface by algorithms which use it. A derived concrete class is provided: GeomAdaptor_Surface for a surface from the Geom package. The Surface class describes the standard behaviour of a surface for generic algorithms.");
+py::class_<Adaptor3d_Surface, std::unique_ptr<Adaptor3d_Surface>> cls_Adaptor3d_Surface(mod, "Adaptor3d_Surface", "Root class for surfaces on which geometric algorithms work. An adapted surface is an interface between the services provided by a surface and those required of the surface by algorithms which use it. A derived concrete class is provided: GeomAdaptor_Surface for a surface from the Geom package. The Surface class describes the standard behaviour of a surface for generic algorithms.");
 
 // Constructors
 

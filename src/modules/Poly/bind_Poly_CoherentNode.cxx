@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Poly_CoherentNode(py::module &mod){
 
-py::class_<Poly_CoherentNode, std::unique_ptr<Poly_CoherentNode, Deleter<Poly_CoherentNode>>, gp_XYZ> cls_Poly_CoherentNode(mod, "Poly_CoherentNode", "Node of coherent triangulation. Contains: Coordinates of a 3D point defining the node location 2D point coordinates List of triangles that use this Node Integer index, normally the index of the node in the original triangulation");
+py::class_<Poly_CoherentNode, std::unique_ptr<Poly_CoherentNode>, gp_XYZ> cls_Poly_CoherentNode(mod, "Poly_CoherentNode", "Node of coherent triangulation. Contains: Coordinates of a 3D point defining the node location 2D point coordinates List of triangles that use this Node Integer index, normally the index of the node in the original triangulation");
 
 // Constructors
 cls_Poly_CoherentNode.def(py::init<>());

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepFEA_ElementOrElementGroup(py::module &mod){
 
-py::class_<StepFEA_ElementOrElementGroup, std::unique_ptr<StepFEA_ElementOrElementGroup, Deleter<StepFEA_ElementOrElementGroup>>, StepData_SelectType> cls_StepFEA_ElementOrElementGroup(mod, "StepFEA_ElementOrElementGroup", "Representation of STEP SELECT type ElementOrElementGroup");
+py::class_<StepFEA_ElementOrElementGroup, std::unique_ptr<StepFEA_ElementOrElementGroup>, StepData_SelectType> cls_StepFEA_ElementOrElementGroup(mod, "StepFEA_ElementOrElementGroup", "Representation of STEP SELECT type ElementOrElementGroup");
 
 // Constructors
 cls_StepFEA_ElementOrElementGroup.def(py::init<>());

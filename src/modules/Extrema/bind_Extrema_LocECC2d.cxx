@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_LocECC2d(py::module &mod){
 
-py::class_<Extrema_LocECC2d, std::unique_ptr<Extrema_LocECC2d, Deleter<Extrema_LocECC2d>>> cls_Extrema_LocECC2d(mod, "Extrema_LocECC2d", "None");
+py::class_<Extrema_LocECC2d, std::unique_ptr<Extrema_LocECC2d>> cls_Extrema_LocECC2d(mod, "Extrema_LocECC2d", "None");
 
 // Constructors
 cls_Extrema_LocECC2d.def(py::init<const Adaptor2d_Curve2d &, const Adaptor2d_Curve2d &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("C1"), py::arg("C2"), py::arg("U0"), py::arg("V0"), py::arg("TolU"), py::arg("TolV"));

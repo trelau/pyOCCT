@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Intf_SectionLine(py::module &mod){
 
-py::class_<Intf_SectionLine, std::unique_ptr<Intf_SectionLine, Deleter<Intf_SectionLine>>> cls_Intf_SectionLine(mod, "Intf_SectionLine", "Describe a polyline of intersection between two polyhedra as a sequence of points of intersection.");
+py::class_<Intf_SectionLine, std::unique_ptr<Intf_SectionLine>> cls_Intf_SectionLine(mod, "Intf_SectionLine", "Describe a polyline of intersection between two polyhedra as a sequence of points of intersection.");
 
 // Constructors
 cls_Intf_SectionLine.def(py::init<>());

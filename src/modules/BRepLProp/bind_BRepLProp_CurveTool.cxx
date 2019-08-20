@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepLProp_CurveTool(py::module &mod){
 
-py::class_<BRepLProp_CurveTool, std::unique_ptr<BRepLProp_CurveTool, Deleter<BRepLProp_CurveTool>>> cls_BRepLProp_CurveTool(mod, "BRepLProp_CurveTool", "None");
+py::class_<BRepLProp_CurveTool, std::unique_ptr<BRepLProp_CurveTool>> cls_BRepLProp_CurveTool(mod, "BRepLProp_CurveTool", "None");
 
 // Constructors
 

@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolFlagNote(py::module &mod){
 
-py::class_<IGESDimen_ToolFlagNote, std::unique_ptr<IGESDimen_ToolFlagNote, Deleter<IGESDimen_ToolFlagNote>>> cls_IGESDimen_ToolFlagNote(mod, "IGESDimen_ToolFlagNote", "Tool to work on a FlagNote. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolFlagNote, std::unique_ptr<IGESDimen_ToolFlagNote>> cls_IGESDimen_ToolFlagNote(mod, "IGESDimen_ToolFlagNote", "Tool to work on a FlagNote. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolFlagNote.def(py::init<>());

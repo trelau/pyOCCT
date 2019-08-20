@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWPlanarBox(py::module &mod){
 
-py::class_<RWStepVisual_RWPlanarBox, std::unique_ptr<RWStepVisual_RWPlanarBox, Deleter<RWStepVisual_RWPlanarBox>>> cls_RWStepVisual_RWPlanarBox(mod, "RWStepVisual_RWPlanarBox", "Read & Write Module for PlanarBox");
+py::class_<RWStepVisual_RWPlanarBox, std::unique_ptr<RWStepVisual_RWPlanarBox>> cls_RWStepVisual_RWPlanarBox(mod, "RWStepVisual_RWPlanarBox", "Read & Write Module for PlanarBox");
 
 // Constructors
 cls_RWStepVisual_RWPlanarBox.def(py::init<>());

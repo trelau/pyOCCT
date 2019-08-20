@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWAxis2Placement3d(py::module &mod){
 
-py::class_<RWStepGeom_RWAxis2Placement3d, std::unique_ptr<RWStepGeom_RWAxis2Placement3d, Deleter<RWStepGeom_RWAxis2Placement3d>>> cls_RWStepGeom_RWAxis2Placement3d(mod, "RWStepGeom_RWAxis2Placement3d", "Read & Write Module for Axis2Placement3d");
+py::class_<RWStepGeom_RWAxis2Placement3d, std::unique_ptr<RWStepGeom_RWAxis2Placement3d>> cls_RWStepGeom_RWAxis2Placement3d(mod, "RWStepGeom_RWAxis2Placement3d", "Read & Write Module for Axis2Placement3d");
 
 // Constructors
 cls_RWStepGeom_RWAxis2Placement3d.def(py::init<>());

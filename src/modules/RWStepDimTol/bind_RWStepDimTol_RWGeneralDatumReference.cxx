@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWGeneralDatumReference(py::module &mod){
 
-py::class_<RWStepDimTol_RWGeneralDatumReference, std::unique_ptr<RWStepDimTol_RWGeneralDatumReference, Deleter<RWStepDimTol_RWGeneralDatumReference>>> cls_RWStepDimTol_RWGeneralDatumReference(mod, "RWStepDimTol_RWGeneralDatumReference", "Read & Write tool for GeneralDatumReference");
+py::class_<RWStepDimTol_RWGeneralDatumReference, std::unique_ptr<RWStepDimTol_RWGeneralDatumReference>> cls_RWStepDimTol_RWGeneralDatumReference(mod, "RWStepDimTol_RWGeneralDatumReference", "Read & Write tool for GeneralDatumReference");
 
 // Constructors
 cls_RWStepDimTol_RWGeneralDatumReference.def(py::init<>());

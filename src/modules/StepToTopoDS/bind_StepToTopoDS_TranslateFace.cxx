@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS_TranslateFace(py::module &mod){
 
-py::class_<StepToTopoDS_TranslateFace, std::unique_ptr<StepToTopoDS_TranslateFace, Deleter<StepToTopoDS_TranslateFace>>, StepToTopoDS_Root> cls_StepToTopoDS_TranslateFace(mod, "StepToTopoDS_TranslateFace", "None");
+py::class_<StepToTopoDS_TranslateFace, std::unique_ptr<StepToTopoDS_TranslateFace>, StepToTopoDS_Root> cls_StepToTopoDS_TranslateFace(mod, "StepToTopoDS_TranslateFace", "None");
 
 // Constructors
 cls_StepToTopoDS_TranslateFace.def(py::init<>());

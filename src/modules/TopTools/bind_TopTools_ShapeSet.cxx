@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopTools_ShapeSet(py::module &mod){
 
-py::class_<TopTools_ShapeSet, std::unique_ptr<TopTools_ShapeSet, Deleter<TopTools_ShapeSet>>> cls_TopTools_ShapeSet(mod, "TopTools_ShapeSet", "A ShapeSets contains a Shape and all its sub-shapes and locations. It can be dump, write and read.");
+py::class_<TopTools_ShapeSet, std::unique_ptr<TopTools_ShapeSet>> cls_TopTools_ShapeSet(mod, "TopTools_ShapeSet", "A ShapeSets contains a Shape and all its sub-shapes and locations. It can be dump, write and read.");
 
 // Constructors
 cls_TopTools_ShapeSet.def(py::init<>());

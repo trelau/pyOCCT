@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_ProjectionState(py::module &mod){
 
-py::class_<OpenGl_ProjectionState, std::unique_ptr<OpenGl_ProjectionState, Deleter<OpenGl_ProjectionState>>, OpenGl_StateInterface> cls_OpenGl_ProjectionState(mod, "OpenGl_ProjectionState", "Defines state of OCCT projection transformation.");
+py::class_<OpenGl_ProjectionState, std::unique_ptr<OpenGl_ProjectionState>, OpenGl_StateInterface> cls_OpenGl_ProjectionState(mod, "OpenGl_ProjectionState", "Defines state of OCCT projection transformation.");
 
 // Constructors
 cls_OpenGl_ProjectionState.def(py::init<>());

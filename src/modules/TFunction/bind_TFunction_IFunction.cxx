@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TFunction_IFunction(py::module &mod){
 
-py::class_<TFunction_IFunction, std::unique_ptr<TFunction_IFunction, Deleter<TFunction_IFunction>>> cls_TFunction_IFunction(mod, "TFunction_IFunction", "Interface class for usage of Function Mechanism");
+py::class_<TFunction_IFunction, std::unique_ptr<TFunction_IFunction>> cls_TFunction_IFunction(mod, "TFunction_IFunction", "Interface class for usage of Function Mechanism");
 
 // Constructors
 cls_TFunction_IFunction.def(py::init<>());

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MeshVS_ColorHasher(py::module &mod){
 
-py::class_<Quantity_ColorHasher, std::unique_ptr<Quantity_ColorHasher, Deleter<Quantity_ColorHasher>>> cls_MeshVS_ColorHasher(mod, "MeshVS_ColorHasher", "Hasher of Quantity_Color.", py::module_local());
+py::class_<Quantity_ColorHasher, std::unique_ptr<Quantity_ColorHasher>> cls_MeshVS_ColorHasher(mod, "MeshVS_ColorHasher", "Hasher of Quantity_Color.", py::module_local());
 
 // Constructors
 

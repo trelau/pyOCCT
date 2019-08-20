@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApp2Var_SysBase(py::module &mod){
 
-py::class_<AdvApp2Var_SysBase, std::unique_ptr<AdvApp2Var_SysBase, Deleter<AdvApp2Var_SysBase>>> cls_AdvApp2Var_SysBase(mod, "AdvApp2Var_SysBase", "None");
+py::class_<AdvApp2Var_SysBase, std::unique_ptr<AdvApp2Var_SysBase>> cls_AdvApp2Var_SysBase(mod, "AdvApp2Var_SysBase", "None");
 
 // Constructors
 cls_AdvApp2Var_SysBase.def(py::init<>());

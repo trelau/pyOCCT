@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdLPersistent_HArray2(py::module &mod){
 
-py::class_<StdLPersistent_HArray2, std::unique_ptr<StdLPersistent_HArray2, Deleter<StdLPersistent_HArray2>>> cls_StdLPersistent_HArray2(mod, "StdLPersistent_HArray2", "None");
+py::class_<StdLPersistent_HArray2, std::unique_ptr<StdLPersistent_HArray2>> cls_StdLPersistent_HArray2(mod, "StdLPersistent_HArray2", "None");
 
 // Constructors
 

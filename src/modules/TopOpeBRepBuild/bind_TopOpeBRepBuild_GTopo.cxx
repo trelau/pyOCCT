@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_GTopo(py::module &mod){
 
-py::class_<TopOpeBRepBuild_GTopo, std::unique_ptr<TopOpeBRepBuild_GTopo, Deleter<TopOpeBRepBuild_GTopo>>> cls_TopOpeBRepBuild_GTopo(mod, "TopOpeBRepBuild_GTopo", "None");
+py::class_<TopOpeBRepBuild_GTopo, std::unique_ptr<TopOpeBRepBuild_GTopo>> cls_TopOpeBRepBuild_GTopo(mod, "TopOpeBRepBuild_GTopo", "None");
 
 // Constructors
 cls_TopOpeBRepBuild_GTopo.def(py::init<>());

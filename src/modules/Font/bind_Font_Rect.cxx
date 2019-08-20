@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Font_Rect(py::module &mod){
 
-py::class_<Font_Rect, std::unique_ptr<Font_Rect, Deleter<Font_Rect>>> cls_Font_Rect(mod, "Font_Rect", "Auxiliary POD structure - 2D rectangle definition.");
+py::class_<Font_Rect, std::unique_ptr<Font_Rect>> cls_Font_Rect(mod, "Font_Rect", "Auxiliary POD structure - 2D rectangle definition.");
 
 // Constructors
 

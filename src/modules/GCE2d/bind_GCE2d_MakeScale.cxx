@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCE2d_MakeScale(py::module &mod){
 
-py::class_<GCE2d_MakeScale, std::unique_ptr<GCE2d_MakeScale, Deleter<GCE2d_MakeScale>>> cls_GCE2d_MakeScale(mod, "GCE2d_MakeScale", "This class implements an elementary construction algorithm for a scaling transformation in 2D space. The result is a Geom2d_Transformation transformation. A MakeScale object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.");
+py::class_<GCE2d_MakeScale, std::unique_ptr<GCE2d_MakeScale>> cls_GCE2d_MakeScale(mod, "GCE2d_MakeScale", "This class implements an elementary construction algorithm for a scaling transformation in 2D space. The result is a Geom2d_Transformation transformation. A MakeScale object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_GCE2d_MakeScale.def(py::init<const gp_Pnt2d &, const Standard_Real>(), py::arg("Point"), py::arg("Scale"));

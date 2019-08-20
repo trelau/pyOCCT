@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWAnnotationFillArea(py::module &mod){
 
-py::class_<RWStepVisual_RWAnnotationFillArea, std::unique_ptr<RWStepVisual_RWAnnotationFillArea, Deleter<RWStepVisual_RWAnnotationFillArea>>> cls_RWStepVisual_RWAnnotationFillArea(mod, "RWStepVisual_RWAnnotationFillArea", "Read & Write Module for AnnotationFillArea");
+py::class_<RWStepVisual_RWAnnotationFillArea, std::unique_ptr<RWStepVisual_RWAnnotationFillArea>> cls_RWStepVisual_RWAnnotationFillArea(mod, "RWStepVisual_RWAnnotationFillArea", "Read & Write Module for AnnotationFillArea");
 
 // Constructors
 cls_RWStepVisual_RWAnnotationFillArea.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWEdgeBasedWireframeModel(py::module &mod){
 
-py::class_<RWStepShape_RWEdgeBasedWireframeModel, std::unique_ptr<RWStepShape_RWEdgeBasedWireframeModel, Deleter<RWStepShape_RWEdgeBasedWireframeModel>>> cls_RWStepShape_RWEdgeBasedWireframeModel(mod, "RWStepShape_RWEdgeBasedWireframeModel", "Read & Write tool for EdgeBasedWireframeModel");
+py::class_<RWStepShape_RWEdgeBasedWireframeModel, std::unique_ptr<RWStepShape_RWEdgeBasedWireframeModel>> cls_RWStepShape_RWEdgeBasedWireframeModel(mod, "RWStepShape_RWEdgeBasedWireframeModel", "Read & Write tool for EdgeBasedWireframeModel");
 
 // Constructors
 cls_RWStepShape_RWEdgeBasedWireframeModel.def(py::init<>());

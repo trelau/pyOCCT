@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurveSurface_TheExactHInter(py::module &mod){
 
-py::class_<IntCurveSurface_TheExactHInter, std::unique_ptr<IntCurveSurface_TheExactHInter, Deleter<IntCurveSurface_TheExactHInter>>> cls_IntCurveSurface_TheExactHInter(mod, "IntCurveSurface_TheExactHInter", "None");
+py::class_<IntCurveSurface_TheExactHInter, std::unique_ptr<IntCurveSurface_TheExactHInter>> cls_IntCurveSurface_TheExactHInter(mod, "IntCurveSurface_TheExactHInter", "None");
 
 // Constructors
 cls_IntCurveSurface_TheExactHInter.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real, const IntCurveSurface_TheCSFunctionOfHInter &, const Standard_Real>(), py::arg("U"), py::arg("V"), py::arg("W"), py::arg("F"), py::arg("TolTangency"));

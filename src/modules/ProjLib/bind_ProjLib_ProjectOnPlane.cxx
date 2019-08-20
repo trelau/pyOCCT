@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ProjLib_ProjectOnPlane(py::module &mod){
 
-py::class_<ProjLib_ProjectOnPlane, std::unique_ptr<ProjLib_ProjectOnPlane, Deleter<ProjLib_ProjectOnPlane>>, Adaptor3d_Curve> cls_ProjLib_ProjectOnPlane(mod, "ProjLib_ProjectOnPlane", "Class used to project a 3d curve on a plane. The result will be a 3d curve.");
+py::class_<ProjLib_ProjectOnPlane, std::unique_ptr<ProjLib_ProjectOnPlane>, Adaptor3d_Curve> cls_ProjLib_ProjectOnPlane(mod, "ProjLib_ProjectOnPlane", "Class used to project a 3d curve on a plane. The result will be a 3d curve.");
 
 // Constructors
 cls_ProjLib_ProjectOnPlane.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter(py::module &mod){
 
-py::class_<Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter, std::unique_ptr<Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter, Deleter<Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter>>> cls_Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter(mod, "Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter", "None");
+py::class_<Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter, std::unique_ptr<Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter>> cls_Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter(mod, "Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter", "None");
 
 // Constructors
 

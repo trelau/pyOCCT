@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool_connexity(py::module &mod){
 
-py::class_<TopOpeBRepTool_connexity, std::unique_ptr<TopOpeBRepTool_connexity, Deleter<TopOpeBRepTool_connexity>>> cls_TopOpeBRepTool_connexity(mod, "TopOpeBRepTool_connexity", "None");
+py::class_<TopOpeBRepTool_connexity, std::unique_ptr<TopOpeBRepTool_connexity>> cls_TopOpeBRepTool_connexity(mod, "TopOpeBRepTool_connexity", "None");
 
 // Constructors
 cls_TopOpeBRepTool_connexity.def(py::init<>());

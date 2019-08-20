@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWShapeRepresentationRelationshipWithTransformation(py::module &mod){
 
-py::class_<RWStepRepr_RWShapeRepresentationRelationshipWithTransformation, std::unique_ptr<RWStepRepr_RWShapeRepresentationRelationshipWithTransformation, Deleter<RWStepRepr_RWShapeRepresentationRelationshipWithTransformation>>> cls_RWStepRepr_RWShapeRepresentationRelationshipWithTransformation(mod, "RWStepRepr_RWShapeRepresentationRelationshipWithTransformation", "Read & Write Module for ShapeRepresentationRelationshipWithTransformation");
+py::class_<RWStepRepr_RWShapeRepresentationRelationshipWithTransformation, std::unique_ptr<RWStepRepr_RWShapeRepresentationRelationshipWithTransformation>> cls_RWStepRepr_RWShapeRepresentationRelationshipWithTransformation(mod, "RWStepRepr_RWShapeRepresentationRelationshipWithTransformation", "Read & Write Module for ShapeRepresentationRelationshipWithTransformation");
 
 // Constructors
 cls_RWStepRepr_RWShapeRepresentationRelationshipWithTransformation.def(py::init<>());

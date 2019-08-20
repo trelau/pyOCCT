@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppDef_ParLeastSquareOfMyGradientOfCompute(py::module &mod){
 
-py::class_<AppDef_ParLeastSquareOfMyGradientOfCompute, std::unique_ptr<AppDef_ParLeastSquareOfMyGradientOfCompute, Deleter<AppDef_ParLeastSquareOfMyGradientOfCompute>>> cls_AppDef_ParLeastSquareOfMyGradientOfCompute(mod, "AppDef_ParLeastSquareOfMyGradientOfCompute", "None");
+py::class_<AppDef_ParLeastSquareOfMyGradientOfCompute, std::unique_ptr<AppDef_ParLeastSquareOfMyGradientOfCompute>> cls_AppDef_ParLeastSquareOfMyGradientOfCompute(mod, "AppDef_ParLeastSquareOfMyGradientOfCompute", "None");
 
 // Constructors
 cls_AppDef_ParLeastSquareOfMyGradientOfCompute.def(py::init<const AppDef_MultiLine &, const Standard_Integer, const Standard_Integer, const AppParCurves_Constraint, const AppParCurves_Constraint, const math_Vector &, const Standard_Integer>(), py::arg("SSP"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("FirstCons"), py::arg("LastCons"), py::arg("Parameters"), py::arg("NbPol"));

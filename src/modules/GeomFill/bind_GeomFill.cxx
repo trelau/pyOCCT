@@ -90,7 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill(py::module &mod){
 
-py::class_<GeomFill, std::unique_ptr<GeomFill, Deleter<GeomFill>>> cls_GeomFill(mod, "GeomFill", "Tools and Data to filling Surface and Sweep Surfaces");
+py::class_<GeomFill, std::unique_ptr<GeomFill>> cls_GeomFill(mod, "GeomFill", "Tools and Data to filling Surface and Sweep Surfaces");
 
 // Constructors
 

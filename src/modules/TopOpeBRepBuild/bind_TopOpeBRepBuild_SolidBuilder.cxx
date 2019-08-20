@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_SolidBuilder(py::module &mod){
 
-py::class_<TopOpeBRepBuild_SolidBuilder, std::unique_ptr<TopOpeBRepBuild_SolidBuilder, Deleter<TopOpeBRepBuild_SolidBuilder>>> cls_TopOpeBRepBuild_SolidBuilder(mod, "TopOpeBRepBuild_SolidBuilder", "None");
+py::class_<TopOpeBRepBuild_SolidBuilder, std::unique_ptr<TopOpeBRepBuild_SolidBuilder>> cls_TopOpeBRepBuild_SolidBuilder(mod, "TopOpeBRepBuild_SolidBuilder", "None");
 
 // Constructors
 cls_TopOpeBRepBuild_SolidBuilder.def(py::init<>());

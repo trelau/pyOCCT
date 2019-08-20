@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeCircle(py::module &mod){
 
-py::class_<GeomToStep_MakeCircle, std::unique_ptr<GeomToStep_MakeCircle, Deleter<GeomToStep_MakeCircle>>, GeomToStep_Root> cls_GeomToStep_MakeCircle(mod, "GeomToStep_MakeCircle", "This class implements the mapping between classes Circle from Geom, and Circ from gp, and the class Circle from StepGeom which describes a circle from Prostep.");
+py::class_<GeomToStep_MakeCircle, std::unique_ptr<GeomToStep_MakeCircle>, GeomToStep_Root> cls_GeomToStep_MakeCircle(mod, "GeomToStep_MakeCircle", "This class implements the mapping between classes Circle from Geom, and Circ from gp, and the class Circle from StepGeom which describes a circle from Prostep.");
 
 // Constructors
 cls_GeomToStep_MakeCircle.def(py::init<const gp_Circ &>(), py::arg("C"));

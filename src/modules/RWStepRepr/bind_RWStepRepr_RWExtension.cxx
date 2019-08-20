@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWExtension(py::module &mod){
 
-py::class_<RWStepRepr_RWExtension, std::unique_ptr<RWStepRepr_RWExtension, Deleter<RWStepRepr_RWExtension>>> cls_RWStepRepr_RWExtension(mod, "RWStepRepr_RWExtension", "Read & Write tool for Extension");
+py::class_<RWStepRepr_RWExtension, std::unique_ptr<RWStepRepr_RWExtension>> cls_RWStepRepr_RWExtension(mod, "RWStepRepr_RWExtension", "Read & Write tool for Extension");
 
 // Constructors
 cls_RWStepRepr_RWExtension.def(py::init<>());

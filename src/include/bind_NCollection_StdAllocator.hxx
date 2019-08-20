@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T>
 void bind_NCollection_StdAllocator(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_StdAllocator<T>, std::unique_ptr<NCollection_StdAllocator<T>, Deleter<NCollection_StdAllocator<T>>>> cls_NCollection_StdAllocator(mod, name.c_str(), "Implements allocator requirements as defined in ISO C++ Standard 2003, section 20.1.5. The allocator uses instance of the NCollection_BaseAllocator (sub)class for memory allocation/deallocation. The allocator can be used with standard containers (std::vector, std::map, etc) to take advantage of NCollection_IncAllocator which implements memory region concept, and hence to increase performance in specific cases.", local);
+py::class_<NCollection_StdAllocator<T>, std::unique_ptr<NCollection_StdAllocator<T>>> cls_NCollection_StdAllocator(mod, name.c_str(), "Implements allocator requirements as defined in ISO C++ Standard 2003, section 20.1.5. The allocator uses instance of the NCollection_BaseAllocator (sub)class for memory allocation/deallocation. The allocator can be used with standard containers (std::vector, std::map, etc) to take advantage of NCollection_IncAllocator which implements memory region concept, and hence to increase performance in specific cases.", local);
 
 // Constructors
 cls_NCollection_StdAllocator.def(py::init<>());

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeUpgrade_ShapeDivideClosedEdges(py::module &mod){
 
-py::class_<ShapeUpgrade_ShapeDivideClosedEdges, std::unique_ptr<ShapeUpgrade_ShapeDivideClosedEdges, Deleter<ShapeUpgrade_ShapeDivideClosedEdges>>, ShapeUpgrade_ShapeDivide> cls_ShapeUpgrade_ShapeDivideClosedEdges(mod, "ShapeUpgrade_ShapeDivideClosedEdges", "None");
+py::class_<ShapeUpgrade_ShapeDivideClosedEdges, std::unique_ptr<ShapeUpgrade_ShapeDivideClosedEdges>, ShapeUpgrade_ShapeDivide> cls_ShapeUpgrade_ShapeDivideClosedEdges(mod, "ShapeUpgrade_ShapeDivideClosedEdges", "None");
 
 // Constructors
 cls_ShapeUpgrade_ShapeDivideClosedEdges.def(py::init<const TopoDS_Shape &>(), py::arg("S"));

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HatchGen_PointOnElement(py::module &mod){
 
-py::class_<HatchGen_PointOnElement, std::unique_ptr<HatchGen_PointOnElement, Deleter<HatchGen_PointOnElement>>, HatchGen_IntersectionPoint> cls_HatchGen_PointOnElement(mod, "HatchGen_PointOnElement", "None");
+py::class_<HatchGen_PointOnElement, std::unique_ptr<HatchGen_PointOnElement>, HatchGen_IntersectionPoint> cls_HatchGen_PointOnElement(mod, "HatchGen_PointOnElement", "None");
 
 // Constructors
 cls_HatchGen_PointOnElement.def(py::init<>());

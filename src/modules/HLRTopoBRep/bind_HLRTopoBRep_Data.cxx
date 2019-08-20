@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRTopoBRep_Data(py::module &mod){
 
-py::class_<HLRTopoBRep_Data, std::unique_ptr<HLRTopoBRep_Data, Deleter<HLRTopoBRep_Data>>> cls_HLRTopoBRep_Data(mod, "HLRTopoBRep_Data", "Stores the results of the OutLine and IsoLine processes.");
+py::class_<HLRTopoBRep_Data, std::unique_ptr<HLRTopoBRep_Data>> cls_HLRTopoBRep_Data(mod, "HLRTopoBRep_Data", "Stores the results of the OutLine and IsoLine processes.");
 
 // Constructors
 cls_HLRTopoBRep_Data.def(py::init<>());

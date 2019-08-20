@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocOpe_SplitDrafts(py::module &mod){
 
-py::class_<LocOpe_SplitDrafts, std::unique_ptr<LocOpe_SplitDrafts, Deleter<LocOpe_SplitDrafts>>> cls_LocOpe_SplitDrafts(mod, "LocOpe_SplitDrafts", "This class provides a tool to realize the following operations on a shape : - split a face of the shape with a wire, - put draft angle on both side of the wire. For each side, the draft angle may be different.");
+py::class_<LocOpe_SplitDrafts, std::unique_ptr<LocOpe_SplitDrafts>> cls_LocOpe_SplitDrafts(mod, "LocOpe_SplitDrafts", "This class provides a tool to realize the following operations on a shape : - split a face of the shape with a wire, - put draft angle on both side of the wire. For each side, the draft angle may be different.");
 
 // Constructors
 cls_LocOpe_SplitDrafts.def(py::init<>());

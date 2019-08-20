@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_Cube(py::module &mod){
 
-py::class_<Vrml_Cube, std::unique_ptr<Vrml_Cube, Deleter<Vrml_Cube>>> cls_Vrml_Cube(mod, "Vrml_Cube", "defines a Cube node of VRML specifying geometry shapes. This node represents a cuboid aligned with the coordinate axes. By default , the cube is centred at (0,0,0) and measures 2 units in each dimension, from -1 to +1. A cube's width is its extent along its object-space X axis, its height is its extent along the object-space Y axis, and its depth is its extent along its object-space Z axis.");
+py::class_<Vrml_Cube, std::unique_ptr<Vrml_Cube>> cls_Vrml_Cube(mod, "Vrml_Cube", "defines a Cube node of VRML specifying geometry shapes. This node represents a cuboid aligned with the coordinate axes. By default , the cube is centred at (0,0,0) and measures 2 units in each dimension, from -1 to +1. A cube's width is its extent along its object-space X axis, its height is its extent along the object-space Y axis, and its depth is its extent along its object-space Z axis.");
 
 // Constructors
 cls_Vrml_Cube.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_Disk(py::module &mod){
 
-py::class_<OSD_Disk, std::unique_ptr<OSD_Disk, Deleter<OSD_Disk>>> cls_OSD_Disk(mod, "OSD_Disk", "Disk management (a set of disk oriented tools)");
+py::class_<OSD_Disk, std::unique_ptr<OSD_Disk>> cls_OSD_Disk(mod, "OSD_Disk", "Disk management (a set of disk oriented tools)");
 
 // Constructors
 cls_OSD_Disk.def(py::init<>());

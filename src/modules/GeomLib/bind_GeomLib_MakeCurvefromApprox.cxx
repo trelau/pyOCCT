@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomLib_MakeCurvefromApprox(py::module &mod){
 
-py::class_<GeomLib_MakeCurvefromApprox, std::unique_ptr<GeomLib_MakeCurvefromApprox, Deleter<GeomLib_MakeCurvefromApprox>>> cls_GeomLib_MakeCurvefromApprox(mod, "GeomLib_MakeCurvefromApprox", "this class is used to construct the BSpline curve from an Approximation ( ApproxAFunction from AdvApprox).");
+py::class_<GeomLib_MakeCurvefromApprox, std::unique_ptr<GeomLib_MakeCurvefromApprox>> cls_GeomLib_MakeCurvefromApprox(mod, "GeomLib_MakeCurvefromApprox", "this class is used to construct the BSpline curve from an Approximation ( ApproxAFunction from AdvApprox).");
 
 // Constructors
 cls_GeomLib_MakeCurvefromApprox.def(py::init<const AdvApprox_ApproxAFunction &>(), py::arg("Approx"));

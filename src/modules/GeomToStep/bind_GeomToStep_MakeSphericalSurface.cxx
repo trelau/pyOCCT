@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeSphericalSurface(py::module &mod){
 
-py::class_<GeomToStep_MakeSphericalSurface, std::unique_ptr<GeomToStep_MakeSphericalSurface, Deleter<GeomToStep_MakeSphericalSurface>>, GeomToStep_Root> cls_GeomToStep_MakeSphericalSurface(mod, "GeomToStep_MakeSphericalSurface", "This class implements the mapping between class SphericalSurface from Geom and the class SphericalSurface from StepGeom which describes a spherical_surface from Prostep");
+py::class_<GeomToStep_MakeSphericalSurface, std::unique_ptr<GeomToStep_MakeSphericalSurface>, GeomToStep_Root> cls_GeomToStep_MakeSphericalSurface(mod, "GeomToStep_MakeSphericalSurface", "This class implements the mapping between class SphericalSurface from Geom and the class SphericalSurface from StepGeom which describes a spherical_surface from Prostep");
 
 // Constructors
 cls_GeomToStep_MakeSphericalSurface.def(py::init<const opencascade::handle<Geom_SphericalSurface> &>(), py::arg("CSurf"));

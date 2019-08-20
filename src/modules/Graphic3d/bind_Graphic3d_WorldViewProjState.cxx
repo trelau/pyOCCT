@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Graphic3d_WorldViewProjState(py::module &mod){
 
-py::class_<Graphic3d_WorldViewProjState, std::unique_ptr<Graphic3d_WorldViewProjState, Deleter<Graphic3d_WorldViewProjState>>> cls_Graphic3d_WorldViewProjState(mod, "Graphic3d_WorldViewProjState", "Helper class for keeping reference on world-view-projection state. Helpful for synchronizing state of WVP dependent data structures.");
+py::class_<Graphic3d_WorldViewProjState, std::unique_ptr<Graphic3d_WorldViewProjState>> cls_Graphic3d_WorldViewProjState(mod, "Graphic3d_WorldViewProjState", "Helper class for keeping reference on world-view-projection state. Helpful for synchronizing state of WVP dependent data structures.");
 
 // Constructors
 cls_Graphic3d_WorldViewProjState.def(py::init<>());

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BVH_BuildTool(py::module &mod){
 
-py::class_<BVH_BuildTool, std::unique_ptr<BVH_BuildTool, Deleter<BVH_BuildTool>>> cls_BVH_BuildTool(mod, "BVH_BuildTool", "Tool object to call BVH builder subroutines.");
+py::class_<BVH_BuildTool, std::unique_ptr<BVH_BuildTool>> cls_BVH_BuildTool(mod, "BVH_BuildTool", "Tool object to call BVH builder subroutines.");
 
 // Fields
 

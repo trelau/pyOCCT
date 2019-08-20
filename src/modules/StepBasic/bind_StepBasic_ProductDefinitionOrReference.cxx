@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepBasic_ProductDefinitionOrReference(py::module &mod){
 
-py::class_<StepBasic_ProductDefinitionOrReference, std::unique_ptr<StepBasic_ProductDefinitionOrReference, Deleter<StepBasic_ProductDefinitionOrReference>>, StepData_SelectType> cls_StepBasic_ProductDefinitionOrReference(mod, "StepBasic_ProductDefinitionOrReference", "None");
+py::class_<StepBasic_ProductDefinitionOrReference, std::unique_ptr<StepBasic_ProductDefinitionOrReference>, StepData_SelectType> cls_StepBasic_ProductDefinitionOrReference(mod, "StepBasic_ProductDefinitionOrReference", "None");
 
 // Constructors
 cls_StepBasic_ProductDefinitionOrReference.def(py::init<>());

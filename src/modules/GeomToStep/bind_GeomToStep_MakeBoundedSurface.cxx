@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeBoundedSurface(py::module &mod){
 
-py::class_<GeomToStep_MakeBoundedSurface, std::unique_ptr<GeomToStep_MakeBoundedSurface, Deleter<GeomToStep_MakeBoundedSurface>>, GeomToStep_Root> cls_GeomToStep_MakeBoundedSurface(mod, "GeomToStep_MakeBoundedSurface", "This class implements the mapping between classes BoundedSurface from Geom and the class BoundedSurface from StepGeom which describes a BoundedSurface from prostep. As BoundedSurface is an abstract BoundedSurface this class is an access to the sub-class required.");
+py::class_<GeomToStep_MakeBoundedSurface, std::unique_ptr<GeomToStep_MakeBoundedSurface>, GeomToStep_Root> cls_GeomToStep_MakeBoundedSurface(mod, "GeomToStep_MakeBoundedSurface", "This class implements the mapping between classes BoundedSurface from Geom and the class BoundedSurface from StepGeom which describes a BoundedSurface from prostep. As BoundedSurface is an abstract BoundedSurface this class is an access to the sub-class required.");
 
 // Constructors
 cls_GeomToStep_MakeBoundedSurface.def(py::init<const opencascade::handle<Geom_BoundedSurface> &>(), py::arg("C"));

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFi2d(py::module &mod){
 
-py::class_<ChFi2d, std::unique_ptr<ChFi2d, Deleter<ChFi2d>>> cls_ChFi2d(mod, "ChFi2d", "This package contains the algorithms used to build fillets or chamfers on planar wire.");
+py::class_<ChFi2d, std::unique_ptr<ChFi2d>> cls_ChFi2d(mod, "ChFi2d", "This package contains the algorithms used to build fillets or chamfers on planar wire.");
 
 // Constructors
 

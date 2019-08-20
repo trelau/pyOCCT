@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dGcc_Lin2d2TanIter(py::module &mod){
 
-py::class_<Geom2dGcc_Lin2d2TanIter, std::unique_ptr<Geom2dGcc_Lin2d2TanIter, Deleter<Geom2dGcc_Lin2d2TanIter>>> cls_Geom2dGcc_Lin2d2TanIter(mod, "Geom2dGcc_Lin2d2TanIter", "This class implements the algorithms used to create 2d lines tangent to 2 other elements which can be circles, curves or points. More than one argument must be a curve.");
+py::class_<Geom2dGcc_Lin2d2TanIter, std::unique_ptr<Geom2dGcc_Lin2d2TanIter>> cls_Geom2dGcc_Lin2d2TanIter(mod, "Geom2dGcc_Lin2d2TanIter", "This class implements the algorithms used to create 2d lines tangent to 2 other elements which can be circles, curves or points. More than one argument must be a curve.");
 
 // Constructors
 cls_Geom2dGcc_Lin2d2TanIter.def(py::init<const Geom2dGcc_QCurve &, const gp_Pnt2d &, const Standard_Real, const Standard_Real>(), py::arg("Qualified1"), py::arg("ThePoint"), py::arg("Param1"), py::arg("Tolang"));

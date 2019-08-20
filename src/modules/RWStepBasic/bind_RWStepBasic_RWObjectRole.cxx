@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWObjectRole(py::module &mod){
 
-py::class_<RWStepBasic_RWObjectRole, std::unique_ptr<RWStepBasic_RWObjectRole, Deleter<RWStepBasic_RWObjectRole>>> cls_RWStepBasic_RWObjectRole(mod, "RWStepBasic_RWObjectRole", "Read & Write tool for ObjectRole");
+py::class_<RWStepBasic_RWObjectRole, std::unique_ptr<RWStepBasic_RWObjectRole>> cls_RWStepBasic_RWObjectRole(mod, "RWStepBasic_RWObjectRole", "Read & Write tool for ObjectRole");
 
 // Constructors
 cls_RWStepBasic_RWObjectRole.def(py::init<>());

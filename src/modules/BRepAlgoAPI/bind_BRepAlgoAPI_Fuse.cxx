@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgoAPI_Fuse(py::module &mod){
 
-py::class_<BRepAlgoAPI_Fuse, std::unique_ptr<BRepAlgoAPI_Fuse, Deleter<BRepAlgoAPI_Fuse>>, BRepAlgoAPI_BooleanOperation> cls_BRepAlgoAPI_Fuse(mod, "BRepAlgoAPI_Fuse", "The class provides Boolean fusion operation between arguments and tools (Boolean Union).");
+py::class_<BRepAlgoAPI_Fuse, std::unique_ptr<BRepAlgoAPI_Fuse>, BRepAlgoAPI_BooleanOperation> cls_BRepAlgoAPI_Fuse(mod, "BRepAlgoAPI_Fuse", "The class provides Boolean fusion operation between arguments and tools (Boolean Union).");
 
 // Constructors
 cls_BRepAlgoAPI_Fuse.def(py::init<>());

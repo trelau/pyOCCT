@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCE2d_MakeArcOfCircle(py::module &mod){
 
-py::class_<GCE2d_MakeArcOfCircle, std::unique_ptr<GCE2d_MakeArcOfCircle, Deleter<GCE2d_MakeArcOfCircle>>, GCE2d_Root> cls_GCE2d_MakeArcOfCircle(mod, "GCE2d_MakeArcOfCircle", "Implements construction algorithms for an arc of circle in the plane. The result is a Geom2d_TrimmedCurve curve. A MakeArcOfCircle object provides a framework for: - defining the construction of the arc of circle, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed arc of circle.");
+py::class_<GCE2d_MakeArcOfCircle, std::unique_ptr<GCE2d_MakeArcOfCircle>, GCE2d_Root> cls_GCE2d_MakeArcOfCircle(mod, "GCE2d_MakeArcOfCircle", "Implements construction algorithms for an arc of circle in the plane. The result is a Geom2d_TrimmedCurve curve. A MakeArcOfCircle object provides a framework for: - defining the construction of the arc of circle, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed arc of circle.");
 
 // Constructors
 cls_GCE2d_MakeArcOfCircle.def(py::init<const gp_Circ2d &, const Standard_Real, const Standard_Real>(), py::arg("Circ"), py::arg("Alpha1"), py::arg("Alpha2"));

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApp2Var_MathBase(py::module &mod){
 
-py::class_<AdvApp2Var_MathBase, std::unique_ptr<AdvApp2Var_MathBase, Deleter<AdvApp2Var_MathBase>>> cls_AdvApp2Var_MathBase(mod, "AdvApp2Var_MathBase", "None");
+py::class_<AdvApp2Var_MathBase, std::unique_ptr<AdvApp2Var_MathBase>> cls_AdvApp2Var_MathBase(mod, "AdvApp2Var_MathBase", "None");
 
 // Constructors
 

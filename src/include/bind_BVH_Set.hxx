@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T, int N>
 void bind_BVH_Set(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BVH_Set<T, N>, std::unique_ptr<BVH_Set<T, N>, Deleter<BVH_Set<T, N>>>> cls_BVH_Set(mod, name.c_str(), "Set of abstract entities (bounded by BVH boxes). This is the minimal geometry interface needed to construct BVH.", local);
+py::class_<BVH_Set<T, N>, std::unique_ptr<BVH_Set<T, N>>> cls_BVH_Set(mod, name.c_str(), "Set of abstract entities (bounded by BVH boxes). This is the minimal geometry interface needed to construct BVH.", local);
 
 // Constructors
 cls_BVH_Set.def(py::init<>());

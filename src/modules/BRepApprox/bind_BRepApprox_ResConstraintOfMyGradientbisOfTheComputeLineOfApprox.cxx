@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox(py::module &mod){
 
-py::class_<BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox, std::unique_ptr<BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox, Deleter<BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox>>> cls_BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox(mod, "BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox", "None");
+py::class_<BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox, std::unique_ptr<BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox>> cls_BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox(mod, "BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox", "None");
 
 // Constructors
 cls_BRepApprox_ResConstraintOfMyGradientbisOfTheComputeLineOfApprox.def(py::init<const BRepApprox_TheMultiLineOfApprox &, AppParCurves_MultiCurve &, const Standard_Integer, const Standard_Integer, const opencascade::handle<AppParCurves_HArray1OfConstraintCouple> &, const math_Matrix &, const math_Matrix &>(), py::arg("SSP"), py::arg("SCurv"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("Constraints"), py::arg("Bern"), py::arg("DerivativeBern"));

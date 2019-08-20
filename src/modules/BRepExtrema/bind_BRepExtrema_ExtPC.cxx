@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepExtrema_ExtPC(py::module &mod){
 
-py::class_<BRepExtrema_ExtPC, std::unique_ptr<BRepExtrema_ExtPC, Deleter<BRepExtrema_ExtPC>>> cls_BRepExtrema_ExtPC(mod, "BRepExtrema_ExtPC", "None");
+py::class_<BRepExtrema_ExtPC, std::unique_ptr<BRepExtrema_ExtPC>> cls_BRepExtrema_ExtPC(mod, "BRepExtrema_ExtPC", "None");
 
 // Constructors
 cls_BRepExtrema_ExtPC.def(py::init<>());

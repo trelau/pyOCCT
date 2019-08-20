@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeUpgrade_ShapeDivideAngle(py::module &mod){
 
-py::class_<ShapeUpgrade_ShapeDivideAngle, std::unique_ptr<ShapeUpgrade_ShapeDivideAngle, Deleter<ShapeUpgrade_ShapeDivideAngle>>, ShapeUpgrade_ShapeDivide> cls_ShapeUpgrade_ShapeDivideAngle(mod, "ShapeUpgrade_ShapeDivideAngle", "Splits all surfaces of revolution, cylindrical, toroidal, conical, spherical surfaces in the given shape so that each resulting segment covers not more than defined number of degrees (to segments less than 90).");
+py::class_<ShapeUpgrade_ShapeDivideAngle, std::unique_ptr<ShapeUpgrade_ShapeDivideAngle>, ShapeUpgrade_ShapeDivide> cls_ShapeUpgrade_ShapeDivideAngle(mod, "ShapeUpgrade_ShapeDivideAngle", "Splits all surfaces of revolution, cylindrical, toroidal, conical, spherical surfaces in the given shape so that each resulting segment covers not more than defined number of degrees (to segments less than 90).");
 
 // Constructors
 cls_ShapeUpgrade_ShapeDivideAngle.def(py::init<const Standard_Real>(), py::arg("MaxAngle"));

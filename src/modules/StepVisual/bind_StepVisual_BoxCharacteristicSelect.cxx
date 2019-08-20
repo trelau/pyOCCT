@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_BoxCharacteristicSelect(py::module &mod){
 
-py::class_<StepVisual_BoxCharacteristicSelect, std::unique_ptr<StepVisual_BoxCharacteristicSelect, Deleter<StepVisual_BoxCharacteristicSelect>>> cls_StepVisual_BoxCharacteristicSelect(mod, "StepVisual_BoxCharacteristicSelect", "None");
+py::class_<StepVisual_BoxCharacteristicSelect, std::unique_ptr<StepVisual_BoxCharacteristicSelect>> cls_StepVisual_BoxCharacteristicSelect(mod, "StepVisual_BoxCharacteristicSelect", "None");
 
 // Constructors
 cls_StepVisual_BoxCharacteristicSelect.def(py::init<>());

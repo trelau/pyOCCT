@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlMNaming_Shape1(py::module &mod){
 
-py::class_<XmlMNaming_Shape1, std::unique_ptr<XmlMNaming_Shape1, Deleter<XmlMNaming_Shape1>>> cls_XmlMNaming_Shape1(mod, "XmlMNaming_Shape1", "The XmlMNaming_Shape1 is the Persistent view of a TopoDS_Shape.");
+py::class_<XmlMNaming_Shape1, std::unique_ptr<XmlMNaming_Shape1>> cls_XmlMNaming_Shape1(mod, "XmlMNaming_Shape1", "The XmlMNaming_Shape1 is the Persistent view of a TopoDS_Shape.");
 
 // Constructors
 cls_XmlMNaming_Shape1.def(py::init<XmlObjMgt_Document &>(), py::arg("Doc"));

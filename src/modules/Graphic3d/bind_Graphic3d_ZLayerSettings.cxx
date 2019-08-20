@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Graphic3d_ZLayerSettings(py::module &mod){
 
-py::class_<Graphic3d_ZLayerSettings, std::unique_ptr<Graphic3d_ZLayerSettings, Deleter<Graphic3d_ZLayerSettings>>> cls_Graphic3d_ZLayerSettings(mod, "Graphic3d_ZLayerSettings", "Structure defines list of ZLayer properties.");
+py::class_<Graphic3d_ZLayerSettings, std::unique_ptr<Graphic3d_ZLayerSettings>> cls_Graphic3d_ZLayerSettings(mod, "Graphic3d_ZLayerSettings", "Structure defines list of ZLayer properties.");
 
 // Constructors
 cls_Graphic3d_ZLayerSettings.def(py::init<>());

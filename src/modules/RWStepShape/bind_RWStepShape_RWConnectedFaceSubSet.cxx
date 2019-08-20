@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWConnectedFaceSubSet(py::module &mod){
 
-py::class_<RWStepShape_RWConnectedFaceSubSet, std::unique_ptr<RWStepShape_RWConnectedFaceSubSet, Deleter<RWStepShape_RWConnectedFaceSubSet>>> cls_RWStepShape_RWConnectedFaceSubSet(mod, "RWStepShape_RWConnectedFaceSubSet", "Read & Write tool for ConnectedFaceSubSet");
+py::class_<RWStepShape_RWConnectedFaceSubSet, std::unique_ptr<RWStepShape_RWConnectedFaceSubSet>> cls_RWStepShape_RWConnectedFaceSubSet(mod, "RWStepShape_RWConnectedFaceSubSet", "Read & Write tool for ConnectedFaceSubSet");
 
 // Constructors
 cls_RWStepShape_RWConnectedFaceSubSet.def(py::init<>());

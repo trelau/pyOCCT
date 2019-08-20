@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppParCurves_MultiPoint(py::module &mod){
 
-py::class_<AppParCurves_MultiPoint, std::unique_ptr<AppParCurves_MultiPoint, Deleter<AppParCurves_MultiPoint>>> cls_AppParCurves_MultiPoint(mod, "AppParCurves_MultiPoint", "This class describes Points composing a MultiPoint. These points can be 2D or 3D. The user must first give the 3D Points and then the 2D Points. They are Poles of a Bezier Curve. This class is used either to define data input or results when performing the approximation of several lines in parallel.");
+py::class_<AppParCurves_MultiPoint, std::unique_ptr<AppParCurves_MultiPoint>> cls_AppParCurves_MultiPoint(mod, "AppParCurves_MultiPoint", "This class describes Points composing a MultiPoint. These points can be 2D or 3D. The user must first give the 3D Points and then the 2D Points. They are Poles of a Bezier Curve. This class is used either to define data input or results when performing the approximation of several lines in parallel.");
 
 // Constructors
 cls_AppParCurves_MultiPoint.def(py::init<>());

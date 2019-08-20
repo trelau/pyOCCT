@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPDS_IndexRange(py::module &mod){
 
-py::class_<BOPDS_IndexRange, std::unique_ptr<BOPDS_IndexRange, Deleter<BOPDS_IndexRange>>> cls_BOPDS_IndexRange(mod, "BOPDS_IndexRange", "The class BOPDS_IndexRange is to store the information about range of two indices");
+py::class_<BOPDS_IndexRange, std::unique_ptr<BOPDS_IndexRange>> cls_BOPDS_IndexRange(mod, "BOPDS_IndexRange", "The class BOPDS_IndexRange is to store the information about range of two indices");
 
 // Constructors
 cls_BOPDS_IndexRange.def(py::init<>());

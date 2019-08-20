@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeExtend_Explorer(py::module &mod){
 
-py::class_<ShapeExtend_Explorer, std::unique_ptr<ShapeExtend_Explorer, Deleter<ShapeExtend_Explorer>>> cls_ShapeExtend_Explorer(mod, "ShapeExtend_Explorer", "This class is intended to explore shapes and convert different representations (list, sequence, compound) of complex shapes. It provides tools for: - obtaining type of the shapes in context of TopoDS_Compound, - exploring shapes in context of TopoDS_Compound, - converting different representations of shapes (list, sequence, compound).");
+py::class_<ShapeExtend_Explorer, std::unique_ptr<ShapeExtend_Explorer>> cls_ShapeExtend_Explorer(mod, "ShapeExtend_Explorer", "This class is intended to explore shapes and convert different representations (list, sequence, compound) of complex shapes. It provides tools for: - obtaining type of the shapes in context of TopoDS_Compound, - exploring shapes in context of TopoDS_Compound, - converting different representations of shapes (list, sequence, compound).");
 
 // Constructors
 cls_ShapeExtend_Explorer.def(py::init<>());

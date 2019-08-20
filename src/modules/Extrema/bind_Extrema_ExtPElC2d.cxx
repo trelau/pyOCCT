@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_ExtPElC2d(py::module &mod){
 
-py::class_<Extrema_ExtPElC2d, std::unique_ptr<Extrema_ExtPElC2d, Deleter<Extrema_ExtPElC2d>>> cls_Extrema_ExtPElC2d(mod, "Extrema_ExtPElC2d", "It calculates all the distances between a point and an elementary curve. These distances can be minimum or maximum.");
+py::class_<Extrema_ExtPElC2d, std::unique_ptr<Extrema_ExtPElC2d>> cls_Extrema_ExtPElC2d(mod, "Extrema_ExtPElC2d", "It calculates all the distances between a point and an elementary curve. These distances can be minimum or maximum.");
 
 // Constructors
 cls_Extrema_ExtPElC2d.def(py::init<>());

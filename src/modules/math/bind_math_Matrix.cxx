@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_Matrix(py::module &mod){
 
-py::class_<math_Matrix, std::unique_ptr<math_Matrix, Deleter<math_Matrix>>> cls_math_Matrix(mod, "math_Matrix", "This class implements the real matrix abstract data type. Matrixes can have an arbitrary range which must be defined at the declaration and cannot be changed after this declaration math_Matrix(-3,5,2,4); //a vector with range [-3..5, 2..4] Matrix values may be initialized and retrieved using indexes which must lie within the range of definition of the matrix. Matrix objects follow 'value semantics', that is, they cannot be shared and are copied through assignment Matrices are copied through assignement: math_Matrix M2(1, 9, 1, 3); ... M2 = M1; M1(1) = 2.0;//the matrix M2 will not be modified.");
+py::class_<math_Matrix, std::unique_ptr<math_Matrix>> cls_math_Matrix(mod, "math_Matrix", "This class implements the real matrix abstract data type. Matrixes can have an arbitrary range which must be defined at the declaration and cannot be changed after this declaration math_Matrix(-3,5,2,4); //a vector with range [-3..5, 2..4] Matrix values may be initialized and retrieved using indexes which must lie within the range of definition of the matrix. Matrix objects follow 'value semantics', that is, they cannot be shared and are copied through assignment Matrices are copied through assignement: math_Matrix M2(1, 9, 1, 3); ... M2 = M1; M1(1) = 2.0;//the matrix M2 will not be modified.");
 
 // Constructors
 cls_math_Matrix.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("LowerRow"), py::arg("UpperRow"), py::arg("LowerCol"), py::arg("UpperCol"));

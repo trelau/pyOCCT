@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_PSO(py::module &mod){
 
-py::class_<math_PSO, std::unique_ptr<math_PSO, Deleter<math_PSO>>> cls_math_PSO(mod, "math_PSO", "In this class implemented variation of Particle Swarm Optimization (PSO) method. A. Ismael F. Vaz, L. N. Vicente 'A particle swarm pattern search method for bound constrained global optimization'");
+py::class_<math_PSO, std::unique_ptr<math_PSO>> cls_math_PSO(mod, "math_PSO", "In this class implemented variation of Particle Swarm Optimization (PSO) method. A. Ismael F. Vaz, L. N. Vicente 'A particle swarm pattern search method for bound constrained global optimization'");
 
 // Constructors
 cls_math_PSO.def(py::init<math_MultipleVarFunction *, const math_Vector &, const math_Vector &, const math_Vector &>(), py::arg("theFunc"), py::arg("theLowBorder"), py::arg("theUppBorder"), py::arg("theSteps"));

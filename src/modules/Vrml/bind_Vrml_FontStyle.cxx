@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_FontStyle(py::module &mod){
 
-py::class_<Vrml_FontStyle, std::unique_ptr<Vrml_FontStyle, Deleter<Vrml_FontStyle>>> cls_Vrml_FontStyle(mod, "Vrml_FontStyle", "defines a FontStyle node of VRML of properties of geometry and its appearance. The size field specifies the height (in object space units) of glyphs rendered and determines the vertical spacing of adjacent lines of text.");
+py::class_<Vrml_FontStyle, std::unique_ptr<Vrml_FontStyle>> cls_Vrml_FontStyle(mod, "Vrml_FontStyle", "defines a FontStyle node of VRML of properties of geometry and its appearance. The size field specifies the height (in object space units) of glyphs rendered and determines the vertical spacing of adjacent lines of text.");
 
 // Constructors
 cls_Vrml_FontStyle.def(py::init<>());

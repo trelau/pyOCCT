@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdObjMgt_WriteData(py::module &mod){
 
-py::class_<StdObjMgt_WriteData, std::unique_ptr<StdObjMgt_WriteData, Deleter<StdObjMgt_WriteData>>> cls_StdObjMgt_WriteData(mod, "StdObjMgt_WriteData", "Auxiliary data used to write persistent objects to a file.");
+py::class_<StdObjMgt_WriteData, std::unique_ptr<StdObjMgt_WriteData>> cls_StdObjMgt_WriteData(mod, "StdObjMgt_WriteData", "Auxiliary data used to write persistent objects to a file.");
 
 // Constructors
 cls_StdObjMgt_WriteData.def(py::init<Storage_BaseDriver &>(), py::arg("theDriver"));

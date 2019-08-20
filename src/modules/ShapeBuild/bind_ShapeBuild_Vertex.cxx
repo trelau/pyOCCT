@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeBuild_Vertex(py::module &mod){
 
-py::class_<ShapeBuild_Vertex, std::unique_ptr<ShapeBuild_Vertex, Deleter<ShapeBuild_Vertex>>> cls_ShapeBuild_Vertex(mod, "ShapeBuild_Vertex", "Provides low-level functions used for constructing vertices");
+py::class_<ShapeBuild_Vertex, std::unique_ptr<ShapeBuild_Vertex>> cls_ShapeBuild_Vertex(mod, "ShapeBuild_Vertex", "Provides low-level functions used for constructing vertices");
 
 // Constructors
 

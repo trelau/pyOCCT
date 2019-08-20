@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_OpenGl_RaytraceMaterial(py::module &mod){
 
 /*
-py::class_<OpenGl_RaytraceMaterial, std::unique_ptr<OpenGl_RaytraceMaterial, Deleter<OpenGl_RaytraceMaterial>>> cls_OpenGl_RaytraceMaterial(mod, "OpenGl_RaytraceMaterial", "Stores properties of surface material.");
+py::class_<OpenGl_RaytraceMaterial, std::unique_ptr<OpenGl_RaytraceMaterial>> cls_OpenGl_RaytraceMaterial(mod, "OpenGl_RaytraceMaterial", "Stores properties of surface material.");
 
 // Constructors
 cls_OpenGl_RaytraceMaterial.def(py::init<>());

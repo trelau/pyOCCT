@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_VrmlConverter_WFRestrictedFace(py::module &mod){
 
-py::class_<VrmlConverter_WFRestrictedFace, std::unique_ptr<VrmlConverter_WFRestrictedFace, Deleter<VrmlConverter_WFRestrictedFace>>> cls_VrmlConverter_WFRestrictedFace(mod, "VrmlConverter_WFRestrictedFace", "WFRestrictedFace - computes the wireframe presentation of faces with restrictions by displaying a given number of U and/or V isoparametric curves, converts this one into VRML objects and writes (adds) into anOStream. All requested properties of the representation are specify in aDrawer. This kind of the presentation is converted into IndexedLineSet ( VRML ).");
+py::class_<VrmlConverter_WFRestrictedFace, std::unique_ptr<VrmlConverter_WFRestrictedFace>> cls_VrmlConverter_WFRestrictedFace(mod, "VrmlConverter_WFRestrictedFace", "WFRestrictedFace - computes the wireframe presentation of faces with restrictions by displaying a given number of U and/or V isoparametric curves, converts this one into VRML objects and writes (adds) into anOStream. All requested properties of the representation are specify in aDrawer. This kind of the presentation is converted into IndexedLineSet ( VRML ).");
 
 // Constructors
 

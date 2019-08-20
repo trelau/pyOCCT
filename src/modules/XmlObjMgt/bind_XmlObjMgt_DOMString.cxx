@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlObjMgt_DOMString(py::module &mod){
 
-py::class_<LDOMString, std::unique_ptr<LDOMString, Deleter<LDOMString>>, LDOMBasicString> cls_XmlObjMgt_DOMString(mod, "XmlObjMgt_DOMString", "None", py::module_local());
+py::class_<LDOMString, std::unique_ptr<LDOMString>, LDOMBasicString> cls_XmlObjMgt_DOMString(mod, "XmlObjMgt_DOMString", "None", py::module_local());
 
 // Constructors
 cls_XmlObjMgt_DOMString.def(py::init<>());

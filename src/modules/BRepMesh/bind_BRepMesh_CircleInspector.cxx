@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_CircleInspector(py::module &mod){
 
-py::class_<BRepMesh_CircleInspector, std::unique_ptr<BRepMesh_CircleInspector, Deleter<BRepMesh_CircleInspector>>, NCollection_CellFilter_InspectorXY> cls_BRepMesh_CircleInspector(mod, "BRepMesh_CircleInspector", "Auxilary class to find circles shot by the given point.");
+py::class_<BRepMesh_CircleInspector, std::unique_ptr<BRepMesh_CircleInspector>, NCollection_CellFilter_InspectorXY> cls_BRepMesh_CircleInspector(mod, "BRepMesh_CircleInspector", "Auxilary class to find circles shot by the given point.");
 
 // Constructors
 cls_BRepMesh_CircleInspector.def(py::init<const Standard_Real, const Standard_Integer, const opencascade::handle<NCollection_IncAllocator> &>(), py::arg("theTolerance"), py::arg("theReservedSize"), py::arg("theAllocator"));

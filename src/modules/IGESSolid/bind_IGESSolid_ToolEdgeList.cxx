@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolEdgeList(py::module &mod){
 
-py::class_<IGESSolid_ToolEdgeList, std::unique_ptr<IGESSolid_ToolEdgeList, Deleter<IGESSolid_ToolEdgeList>>> cls_IGESSolid_ToolEdgeList(mod, "IGESSolid_ToolEdgeList", "Tool to work on a EdgeList. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolEdgeList, std::unique_ptr<IGESSolid_ToolEdgeList>> cls_IGESSolid_ToolEdgeList(mod, "IGESSolid_ToolEdgeList", "Tool to work on a EdgeList. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolEdgeList.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomLProp_CLProps(py::module &mod){
 
-py::class_<GeomLProp_CLProps, std::unique_ptr<GeomLProp_CLProps, Deleter<GeomLProp_CLProps>>> cls_GeomLProp_CLProps(mod, "GeomLProp_CLProps", "None");
+py::class_<GeomLProp_CLProps, std::unique_ptr<GeomLProp_CLProps>> cls_GeomLProp_CLProps(mod, "GeomLProp_CLProps", "None");
 
 // Constructors
 cls_GeomLProp_CLProps.def(py::init<const opencascade::handle<Geom_Curve> &, const Standard_Integer, const Standard_Real>(), py::arg("C"), py::arg("N"), py::arg("Resolution"));

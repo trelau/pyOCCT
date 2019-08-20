@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFi2d_ChamferAPI(py::module &mod){
 
-py::class_<ChFi2d_ChamferAPI, std::unique_ptr<ChFi2d_ChamferAPI, Deleter<ChFi2d_ChamferAPI>>> cls_ChFi2d_ChamferAPI(mod, "ChFi2d_ChamferAPI", "A class making a chamfer between two linear edges.");
+py::class_<ChFi2d_ChamferAPI, std::unique_ptr<ChFi2d_ChamferAPI>> cls_ChFi2d_ChamferAPI(mod, "ChFi2d_ChamferAPI", "A class making a chamfer between two linear edges.");
 
 // Constructors
 cls_ChFi2d_ChamferAPI.def(py::init<>());

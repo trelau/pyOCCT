@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_GaussMultipleIntegration(py::module &mod){
 
-py::class_<math_GaussMultipleIntegration, std::unique_ptr<math_GaussMultipleIntegration, Deleter<math_GaussMultipleIntegration>>> cls_math_GaussMultipleIntegration(mod, "math_GaussMultipleIntegration", "This class implements the integration of a function of multiple variables between the parameter bounds Lower[a..b] and Upper[a..b]. Warning: Each element of Order must be inferior or equal to 61.");
+py::class_<math_GaussMultipleIntegration, std::unique_ptr<math_GaussMultipleIntegration>> cls_math_GaussMultipleIntegration(mod, "math_GaussMultipleIntegration", "This class implements the integration of a function of multiple variables between the parameter bounds Lower[a..b] and Upper[a..b]. Warning: Each element of Order must be inferior or equal to 61.");
 
 // Constructors
 cls_math_GaussMultipleIntegration.def(py::init<math_MultipleVarFunction &, const math_Vector &, const math_Vector &, const math_IntegerVector &>(), py::arg("F"), py::arg("Lower"), py::arg("Upper"), py::arg("Order"));

@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBlend_AppSurface(py::module &mod){
 
-py::class_<BRepBlend_AppSurface, std::unique_ptr<BRepBlend_AppSurface, Deleter<BRepBlend_AppSurface>>, AppBlend_Approx> cls_BRepBlend_AppSurface(mod, "BRepBlend_AppSurface", "Used to Approximate the blending surfaces.");
+py::class_<BRepBlend_AppSurface, std::unique_ptr<BRepBlend_AppSurface>, AppBlend_Approx> cls_BRepBlend_AppSurface(mod, "BRepBlend_AppSurface", "Used to Approximate the blending surfaces.");
 
 // Constructors
 cls_BRepBlend_AppSurface.def(py::init<const opencascade::handle<Approx_SweepFunction> &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("Funct"), py::arg("First"), py::arg("Last"), py::arg("Tol3d"), py::arg("Tol2d"), py::arg("TolAngular"));

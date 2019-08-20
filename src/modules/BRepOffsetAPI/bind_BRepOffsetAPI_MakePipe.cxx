@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffsetAPI_MakePipe(py::module &mod){
 
-py::class_<BRepOffsetAPI_MakePipe, std::unique_ptr<BRepOffsetAPI_MakePipe, Deleter<BRepOffsetAPI_MakePipe>>, BRepPrimAPI_MakeSweep> cls_BRepOffsetAPI_MakePipe(mod, "BRepOffsetAPI_MakePipe", "Describes functions to build pipes. A pipe is built a basis shape (called the profile) along a wire (called the spine) by sweeping. The profile must not contain solids. A MakePipe object provides a framework for: - defining the construction of a pipe, - implementing the construction algorithm, and - consulting the result. Warning The MakePipe class implements pipe constructions with G1 continuous spines only.");
+py::class_<BRepOffsetAPI_MakePipe, std::unique_ptr<BRepOffsetAPI_MakePipe>, BRepPrimAPI_MakeSweep> cls_BRepOffsetAPI_MakePipe(mod, "BRepOffsetAPI_MakePipe", "Describes functions to build pipes. A pipe is built a basis shape (called the profile) along a wire (called the spine) by sweeping. The profile must not contain solids. A MakePipe object provides a framework for: - defining the construction of a pipe, - implementing the construction algorithm, and - consulting the result. Warning The MakePipe class implements pipe constructions with G1 continuous spines only.");
 
 // Constructors
 cls_BRepOffsetAPI_MakePipe.def(py::init<const TopoDS_Wire &, const TopoDS_Shape &>(), py::arg("Spine"), py::arg("Profile"));

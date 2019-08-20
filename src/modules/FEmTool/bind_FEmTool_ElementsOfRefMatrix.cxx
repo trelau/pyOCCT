@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FEmTool_ElementsOfRefMatrix(py::module &mod){
 
-py::class_<FEmTool_ElementsOfRefMatrix, std::unique_ptr<FEmTool_ElementsOfRefMatrix, Deleter<FEmTool_ElementsOfRefMatrix>>, math_FunctionSet> cls_FEmTool_ElementsOfRefMatrix(mod, "FEmTool_ElementsOfRefMatrix", "this class describes the functions needed for calculating matrix elements of RefMatrix for linear criteriums (Tension, Flexsion and Jerk) by Gauss integration. Each function from set gives value Pi(u)'*Pj(u)' or Pi(u)''*Pj(u)'' or Pi(u)'''*Pj(u)''' for each i and j, where Pi(u) is i-th basis function of expansion and (') means derivative.");
+py::class_<FEmTool_ElementsOfRefMatrix, std::unique_ptr<FEmTool_ElementsOfRefMatrix>, math_FunctionSet> cls_FEmTool_ElementsOfRefMatrix(mod, "FEmTool_ElementsOfRefMatrix", "this class describes the functions needed for calculating matrix elements of RefMatrix for linear criteriums (Tension, Flexsion and Jerk) by Gauss integration. Each function from set gives value Pi(u)'*Pj(u)' or Pi(u)''*Pj(u)'' or Pi(u)'''*Pj(u)''' for each i and j, where Pi(u) is i-th basis function of expansion and (') means derivative.");
 
 // Constructors
 cls_FEmTool_ElementsOfRefMatrix.def(py::init<const opencascade::handle<PLib_Base> &, const Standard_Integer>(), py::arg("TheBase"), py::arg("DerOrder"));

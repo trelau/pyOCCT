@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TCollection_BaseSequence(py::module &mod){
 
-py::class_<TCollection_BaseSequence, std::unique_ptr<TCollection_BaseSequence, Deleter<TCollection_BaseSequence>>> cls_TCollection_BaseSequence(mod, "TCollection_BaseSequence", "Definition of a base class for all instanciations of sequence.");
+py::class_<TCollection_BaseSequence, std::unique_ptr<TCollection_BaseSequence>> cls_TCollection_BaseSequence(mod, "TCollection_BaseSequence", "Definition of a base class for all instanciations of sequence.");
 
 // Constructors
 

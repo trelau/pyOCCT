@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BiTgte_CurveOnVertex(py::module &mod){
 
-py::class_<BiTgte_CurveOnVertex, std::unique_ptr<BiTgte_CurveOnVertex, Deleter<BiTgte_CurveOnVertex>>, Adaptor3d_Curve> cls_BiTgte_CurveOnVertex(mod, "BiTgte_CurveOnVertex", "private class used to create a filler rolling on an edge.");
+py::class_<BiTgte_CurveOnVertex, std::unique_ptr<BiTgte_CurveOnVertex>, Adaptor3d_Curve> cls_BiTgte_CurveOnVertex(mod, "BiTgte_CurveOnVertex", "private class used to create a filler rolling on an edge.");
 
 // Constructors
 cls_BiTgte_CurveOnVertex.def(py::init<>());

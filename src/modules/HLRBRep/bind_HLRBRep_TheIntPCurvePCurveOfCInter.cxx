@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_TheIntPCurvePCurveOfCInter(py::module &mod){
 
-py::class_<HLRBRep_TheIntPCurvePCurveOfCInter, std::unique_ptr<HLRBRep_TheIntPCurvePCurveOfCInter, Deleter<HLRBRep_TheIntPCurvePCurveOfCInter>>, IntRes2d_Intersection> cls_HLRBRep_TheIntPCurvePCurveOfCInter(mod, "HLRBRep_TheIntPCurvePCurveOfCInter", "None");
+py::class_<HLRBRep_TheIntPCurvePCurveOfCInter, std::unique_ptr<HLRBRep_TheIntPCurvePCurveOfCInter>, IntRes2d_Intersection> cls_HLRBRep_TheIntPCurvePCurveOfCInter(mod, "HLRBRep_TheIntPCurvePCurveOfCInter", "None");
 
 // Constructors
 cls_HLRBRep_TheIntPCurvePCurveOfCInter.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepRepr_ShapeDefinition(py::module &mod){
 
-py::class_<StepRepr_ShapeDefinition, std::unique_ptr<StepRepr_ShapeDefinition, Deleter<StepRepr_ShapeDefinition>>, StepData_SelectType> cls_StepRepr_ShapeDefinition(mod, "StepRepr_ShapeDefinition", "None");
+py::class_<StepRepr_ShapeDefinition, std::unique_ptr<StepRepr_ShapeDefinition>, StepData_SelectType> cls_StepRepr_ShapeDefinition(mod, "StepRepr_ShapeDefinition", "None");
 
 // Constructors
 cls_StepRepr_ShapeDefinition.def(py::init<>());

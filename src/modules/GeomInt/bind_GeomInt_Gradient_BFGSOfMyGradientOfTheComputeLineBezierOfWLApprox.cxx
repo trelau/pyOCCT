@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox(py::module &mod){
 
-py::class_<GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox, std::unique_ptr<GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox, Deleter<GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox>>, math_BFGS> cls_GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox(mod, "GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox", "None");
+py::class_<GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox, std::unique_ptr<GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox>, math_BFGS> cls_GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox(mod, "GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox", "None");
 
 // Constructors
 cls_GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox.def(py::init<math_MultipleVarFunctionWithGradient &, const math_Vector &, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("F"), py::arg("StartingPoint"), py::arg("Tolerance3d"), py::arg("Tolerance2d"), py::arg("Eps"));

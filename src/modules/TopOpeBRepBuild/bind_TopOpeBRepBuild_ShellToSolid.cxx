@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_ShellToSolid(py::module &mod){
 
-py::class_<TopOpeBRepBuild_ShellToSolid, std::unique_ptr<TopOpeBRepBuild_ShellToSolid, Deleter<TopOpeBRepBuild_ShellToSolid>>> cls_TopOpeBRepBuild_ShellToSolid(mod, "TopOpeBRepBuild_ShellToSolid", "This class builds solids from a set of shells SSh and a solid F.");
+py::class_<TopOpeBRepBuild_ShellToSolid, std::unique_ptr<TopOpeBRepBuild_ShellToSolid>> cls_TopOpeBRepBuild_ShellToSolid(mod, "TopOpeBRepBuild_ShellToSolid", "This class builds solids from a set of shells SSh and a solid F.");
 
 // Constructors
 cls_TopOpeBRepBuild_ShellToSolid.def(py::init<>());

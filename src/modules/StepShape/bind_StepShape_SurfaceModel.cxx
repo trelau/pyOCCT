@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepShape_SurfaceModel(py::module &mod){
 
-py::class_<StepShape_SurfaceModel, std::unique_ptr<StepShape_SurfaceModel, Deleter<StepShape_SurfaceModel>>, StepData_SelectType> cls_StepShape_SurfaceModel(mod, "StepShape_SurfaceModel", "None");
+py::class_<StepShape_SurfaceModel, std::unique_ptr<StepShape_SurfaceModel>, StepData_SelectType> cls_StepShape_SurfaceModel(mod, "StepShape_SurfaceModel", "None");
 
 // Constructors
 cls_StepShape_SurfaceModel.def(py::init<>());

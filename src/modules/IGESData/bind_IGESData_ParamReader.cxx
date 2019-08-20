@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESData_ParamReader(py::module &mod){
 
-py::class_<IGESData_ParamReader, std::unique_ptr<IGESData_ParamReader, Deleter<IGESData_ParamReader>>> cls_IGESData_ParamReader(mod, "IGESData_ParamReader", "access to a list of parameters, with management of read stage (owned parameters, properties, associativities) and current parameter number, read errors (which feed a Check), plus convenient facilities to read parameters, in particular : - first parameter is ignored (it repeats entity type), hence number 1 gives 2nd parameter, etc... - lists are not explicit, list-reading methods are provided which manage a current param. number - interpretation is made as possible (texts, reals, entities ...) (in particular, Reading a Real accepts an Integer)");
+py::class_<IGESData_ParamReader, std::unique_ptr<IGESData_ParamReader>> cls_IGESData_ParamReader(mod, "IGESData_ParamReader", "access to a list of parameters, with management of read stage (owned parameters, properties, associativities) and current parameter number, read errors (which feed a Check), plus convenient facilities to read parameters, in particular : - first parameter is ignored (it repeats entity type), hence number 1 gives 2nd parameter, etc... - lists are not explicit, list-reading methods are provided which manage a current param. number - interpretation is made as possible (texts, reals, entities ...) (in particular, Reading a Real accepts an Integer)");
 
 // Constructors
 cls_IGESData_ParamReader.def(py::init<const opencascade::handle<Interface_ParamList> &, const opencascade::handle<Interface_Check> &>(), py::arg("list"), py::arg("ach"));

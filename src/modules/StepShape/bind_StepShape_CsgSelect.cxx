@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepShape_CsgSelect(py::module &mod){
 
-py::class_<StepShape_CsgSelect, std::unique_ptr<StepShape_CsgSelect, Deleter<StepShape_CsgSelect>>> cls_StepShape_CsgSelect(mod, "StepShape_CsgSelect", "None");
+py::class_<StepShape_CsgSelect, std::unique_ptr<StepShape_CsgSelect>> cls_StepShape_CsgSelect(mod, "StepShape_CsgSelect", "None");
 
 // Constructors
 cls_StepShape_CsgSelect.def(py::init<>());

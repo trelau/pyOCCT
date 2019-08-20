@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_ShadedPlanePresentation(py::module &mod){
 
-py::class_<DsgPrs_ShadedPlanePresentation, std::unique_ptr<DsgPrs_ShadedPlanePresentation, Deleter<DsgPrs_ShadedPlanePresentation>>> cls_DsgPrs_ShadedPlanePresentation(mod, "DsgPrs_ShadedPlanePresentation", "A framework to define display of shaded planes.");
+py::class_<DsgPrs_ShadedPlanePresentation, std::unique_ptr<DsgPrs_ShadedPlanePresentation>> cls_DsgPrs_ShadedPlanePresentation(mod, "DsgPrs_ShadedPlanePresentation", "A framework to define display of shaded planes.");
 
 // Constructors
 

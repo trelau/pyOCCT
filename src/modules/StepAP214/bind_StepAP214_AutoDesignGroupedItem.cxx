@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP214_AutoDesignGroupedItem(py::module &mod){
 
-py::class_<StepAP214_AutoDesignGroupedItem, std::unique_ptr<StepAP214_AutoDesignGroupedItem, Deleter<StepAP214_AutoDesignGroupedItem>>, StepData_SelectType> cls_StepAP214_AutoDesignGroupedItem(mod, "StepAP214_AutoDesignGroupedItem", "None");
+py::class_<StepAP214_AutoDesignGroupedItem, std::unique_ptr<StepAP214_AutoDesignGroupedItem>, StepData_SelectType> cls_StepAP214_AutoDesignGroupedItem(mod, "StepAP214_AutoDesignGroupedItem", "None");
 
 // Constructors
 cls_StepAP214_AutoDesignGroupedItem.def(py::init<>());

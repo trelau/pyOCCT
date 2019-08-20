@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_WFShape(py::module &mod){
 
-py::class_<StdPrs_WFShape, std::unique_ptr<StdPrs_WFShape, Deleter<StdPrs_WFShape>>, Prs3d_Root> cls_StdPrs_WFShape(mod, "StdPrs_WFShape", "Tool for computing wireframe presentation of a TopoDS_Shape.");
+py::class_<StdPrs_WFShape, std::unique_ptr<StdPrs_WFShape>, Prs3d_Root> cls_StdPrs_WFShape(mod, "StdPrs_WFShape", "Tool for computing wireframe presentation of a TopoDS_Shape.");
 
 // Constructors
 

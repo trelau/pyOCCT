@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWProductDefinitionEffectivity(py::module &mod){
 
-py::class_<RWStepBasic_RWProductDefinitionEffectivity, std::unique_ptr<RWStepBasic_RWProductDefinitionEffectivity, Deleter<RWStepBasic_RWProductDefinitionEffectivity>>> cls_RWStepBasic_RWProductDefinitionEffectivity(mod, "RWStepBasic_RWProductDefinitionEffectivity", "Read & Write Module for ProductDefinitionEffectivity");
+py::class_<RWStepBasic_RWProductDefinitionEffectivity, std::unique_ptr<RWStepBasic_RWProductDefinitionEffectivity>> cls_RWStepBasic_RWProductDefinitionEffectivity(mod, "RWStepBasic_RWProductDefinitionEffectivity", "Read & Write Module for ProductDefinitionEffectivity");
 
 // Constructors
 cls_RWStepBasic_RWProductDefinitionEffectivity.def(py::init<>());

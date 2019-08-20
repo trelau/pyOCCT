@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_FilletRadiusPresentation(py::module &mod){
 
-py::class_<DsgPrs_FilletRadiusPresentation, std::unique_ptr<DsgPrs_FilletRadiusPresentation, Deleter<DsgPrs_FilletRadiusPresentation>>> cls_DsgPrs_FilletRadiusPresentation(mod, "DsgPrs_FilletRadiusPresentation", "A framework for displaying radii of fillets.");
+py::class_<DsgPrs_FilletRadiusPresentation, std::unique_ptr<DsgPrs_FilletRadiusPresentation>> cls_DsgPrs_FilletRadiusPresentation(mod, "DsgPrs_FilletRadiusPresentation", "A framework for displaying radii of fillets.");
 
 // Constructors
 

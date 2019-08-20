@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWSphericalSurface(py::module &mod){
 
-py::class_<RWStepGeom_RWSphericalSurface, std::unique_ptr<RWStepGeom_RWSphericalSurface, Deleter<RWStepGeom_RWSphericalSurface>>> cls_RWStepGeom_RWSphericalSurface(mod, "RWStepGeom_RWSphericalSurface", "Read & Write Module for SphericalSurface");
+py::class_<RWStepGeom_RWSphericalSurface, std::unique_ptr<RWStepGeom_RWSphericalSurface>> cls_RWStepGeom_RWSphericalSurface(mod, "RWStepGeom_RWSphericalSurface", "Read & Write Module for SphericalSurface");
 
 // Constructors
 cls_RWStepGeom_RWSphericalSurface.def(py::init<>());

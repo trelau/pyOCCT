@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWPerson(py::module &mod){
 
-py::class_<RWStepBasic_RWPerson, std::unique_ptr<RWStepBasic_RWPerson, Deleter<RWStepBasic_RWPerson>>> cls_RWStepBasic_RWPerson(mod, "RWStepBasic_RWPerson", "Read & Write Module for Person");
+py::class_<RWStepBasic_RWPerson, std::unique_ptr<RWStepBasic_RWPerson>> cls_RWStepBasic_RWPerson(mod, "RWStepBasic_RWPerson", "Read & Write Module for Person");
 
 // Constructors
 cls_RWStepBasic_RWPerson.def(py::init<>());

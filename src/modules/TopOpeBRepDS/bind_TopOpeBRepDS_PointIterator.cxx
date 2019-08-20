@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_PointIterator(py::module &mod){
 
-py::class_<TopOpeBRepDS_PointIterator, std::unique_ptr<TopOpeBRepDS_PointIterator, Deleter<TopOpeBRepDS_PointIterator>>, TopOpeBRepDS_InterferenceIterator> cls_TopOpeBRepDS_PointIterator(mod, "TopOpeBRepDS_PointIterator", "None");
+py::class_<TopOpeBRepDS_PointIterator, std::unique_ptr<TopOpeBRepDS_PointIterator>, TopOpeBRepDS_InterferenceIterator> cls_TopOpeBRepDS_PointIterator(mod, "TopOpeBRepDS_PointIterator", "None");
 
 // Constructors
 cls_TopOpeBRepDS_PointIterator.def(py::init<const TopOpeBRepDS_ListOfInterference &>(), py::arg("L"));

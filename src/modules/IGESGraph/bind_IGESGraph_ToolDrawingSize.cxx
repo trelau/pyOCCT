@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGraph_ToolDrawingSize(py::module &mod){
 
-py::class_<IGESGraph_ToolDrawingSize, std::unique_ptr<IGESGraph_ToolDrawingSize, Deleter<IGESGraph_ToolDrawingSize>>> cls_IGESGraph_ToolDrawingSize(mod, "IGESGraph_ToolDrawingSize", "Tool to work on a DrawingSize. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGraph_ToolDrawingSize, std::unique_ptr<IGESGraph_ToolDrawingSize>> cls_IGESGraph_ToolDrawingSize(mod, "IGESGraph_ToolDrawingSize", "Tool to work on a DrawingSize. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGraph_ToolDrawingSize.def(py::init<>());

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_CameraModelD3MultiClippingUnionSelect(py::module &mod){
 
-py::class_<StepVisual_CameraModelD3MultiClippingUnionSelect, std::unique_ptr<StepVisual_CameraModelD3MultiClippingUnionSelect, Deleter<StepVisual_CameraModelD3MultiClippingUnionSelect>>, StepData_SelectType> cls_StepVisual_CameraModelD3MultiClippingUnionSelect(mod, "StepVisual_CameraModelD3MultiClippingUnionSelect", "None");
+py::class_<StepVisual_CameraModelD3MultiClippingUnionSelect, std::unique_ptr<StepVisual_CameraModelD3MultiClippingUnionSelect>, StepData_SelectType> cls_StepVisual_CameraModelD3MultiClippingUnionSelect(mod, "StepVisual_CameraModelD3MultiClippingUnionSelect", "None");
 
 // Constructors
 cls_StepVisual_CameraModelD3MultiClippingUnionSelect.def(py::init<>());

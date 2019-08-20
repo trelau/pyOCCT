@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_BlockIterator(py::module &mod){
 
-py::class_<TopOpeBRepBuild_BlockIterator, std::unique_ptr<TopOpeBRepBuild_BlockIterator, Deleter<TopOpeBRepBuild_BlockIterator>>> cls_TopOpeBRepBuild_BlockIterator(mod, "TopOpeBRepBuild_BlockIterator", "Iterator on the elements of a block.");
+py::class_<TopOpeBRepBuild_BlockIterator, std::unique_ptr<TopOpeBRepBuild_BlockIterator>> cls_TopOpeBRepBuild_BlockIterator(mod, "TopOpeBRepBuild_BlockIterator", "Iterator on the elements of a block.");
 
 // Constructors
 cls_TopOpeBRepBuild_BlockIterator.def(py::init<>());

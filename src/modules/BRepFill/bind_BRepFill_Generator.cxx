@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_Generator(py::module &mod){
 
-py::class_<BRepFill_Generator, std::unique_ptr<BRepFill_Generator, Deleter<BRepFill_Generator>>> cls_BRepFill_Generator(mod, "BRepFill_Generator", "Compute a topological surface ( a shell) using generating wires. The face of the shell will be ruled surfaces passing by the wires. The wires must have the same number of edges.");
+py::class_<BRepFill_Generator, std::unique_ptr<BRepFill_Generator>> cls_BRepFill_Generator(mod, "BRepFill_Generator", "Compute a topological surface ( a shell) using generating wires. The face of the shell will be ruled surfaces passing by the wires. The wires must have the same number of edges.");
 
 // Constructors
 cls_BRepFill_Generator.def(py::init<>());

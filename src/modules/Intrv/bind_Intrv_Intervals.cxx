@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Intrv_Intervals(py::module &mod){
 
-py::class_<Intrv_Intervals, std::unique_ptr<Intrv_Intervals, Deleter<Intrv_Intervals>>> cls_Intrv_Intervals(mod, "Intrv_Intervals", "The class Intervals is a sorted sequence of non overlapping Real Intervals.");
+py::class_<Intrv_Intervals, std::unique_ptr<Intrv_Intervals>> cls_Intrv_Intervals(mod, "Intrv_Intervals", "The class Intervals is a sorted sequence of non overlapping Real Intervals.");
 
 // Constructors
 cls_Intrv_Intervals.def(py::init<>());

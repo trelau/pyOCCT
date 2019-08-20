@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolCylindricalSurface(py::module &mod){
 
-py::class_<IGESSolid_ToolCylindricalSurface, std::unique_ptr<IGESSolid_ToolCylindricalSurface, Deleter<IGESSolid_ToolCylindricalSurface>>> cls_IGESSolid_ToolCylindricalSurface(mod, "IGESSolid_ToolCylindricalSurface", "Tool to work on a CylindricalSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolCylindricalSurface, std::unique_ptr<IGESSolid_ToolCylindricalSurface>> cls_IGESSolid_ToolCylindricalSurface(mod, "IGESSolid_ToolCylindricalSurface", "Tool to work on a CylindricalSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolCylindricalSurface.def(py::init<>());

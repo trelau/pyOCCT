@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolWitnessLine(py::module &mod){
 
-py::class_<IGESDimen_ToolWitnessLine, std::unique_ptr<IGESDimen_ToolWitnessLine, Deleter<IGESDimen_ToolWitnessLine>>> cls_IGESDimen_ToolWitnessLine(mod, "IGESDimen_ToolWitnessLine", "Tool to work on a WitnessLine. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolWitnessLine, std::unique_ptr<IGESDimen_ToolWitnessLine>> cls_IGESDimen_ToolWitnessLine(mod, "IGESDimen_ToolWitnessLine", "Tool to work on a WitnessLine. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolWitnessLine.def(py::init<>());

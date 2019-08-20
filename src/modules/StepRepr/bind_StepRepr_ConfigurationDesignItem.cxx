@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepRepr_ConfigurationDesignItem(py::module &mod){
 
-py::class_<StepRepr_ConfigurationDesignItem, std::unique_ptr<StepRepr_ConfigurationDesignItem, Deleter<StepRepr_ConfigurationDesignItem>>, StepData_SelectType> cls_StepRepr_ConfigurationDesignItem(mod, "StepRepr_ConfigurationDesignItem", "Representation of STEP SELECT type ConfigurationDesignItem");
+py::class_<StepRepr_ConfigurationDesignItem, std::unique_ptr<StepRepr_ConfigurationDesignItem>, StepData_SelectType> cls_StepRepr_ConfigurationDesignItem(mod, "StepRepr_ConfigurationDesignItem", "Representation of STEP SELECT type ConfigurationDesignItem");
 
 // Constructors
 cls_StepRepr_ConfigurationDesignItem.def(py::init<>());

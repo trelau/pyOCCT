@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_maovpar_1_(py::module &mod){
 
-py::class_<maovpar_1_, std::unique_ptr<maovpar_1_, Deleter<maovpar_1_>>> cls_maovpar_1_(mod, "maovpar_1_", "None");
+py::class_<maovpar_1_, std::unique_ptr<maovpar_1_>> cls_maovpar_1_(mod, "maovpar_1_", "None");
 
 // Constructors
 

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepSweep_Iterator(py::module &mod){
 
-py::class_<BRepSweep_Iterator, std::unique_ptr<BRepSweep_Iterator, Deleter<BRepSweep_Iterator>>> cls_BRepSweep_Iterator(mod, "BRepSweep_Iterator", "This class provides iteration services required by the Generating Line (TopoDS Shape) of a BRepSweep. This tool is used to iterate on the direct sub-shapes of a Shape.");
+py::class_<BRepSweep_Iterator, std::unique_ptr<BRepSweep_Iterator>> cls_BRepSweep_Iterator(mod, "BRepSweep_Iterator", "This class provides iteration services required by the Generating Line (TopoDS Shape) of a BRepSweep. This tool is used to iterate on the direct sub-shapes of a Shape.");
 
 // Constructors
 cls_BRepSweep_Iterator.def(py::init<>());

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_SelectorOfDataStructureOfDelaun(py::module &mod){
 
-py::class_<BRepMesh_SelectorOfDataStructureOfDelaun, std::unique_ptr<BRepMesh_SelectorOfDataStructureOfDelaun, Deleter<BRepMesh_SelectorOfDataStructureOfDelaun>>> cls_BRepMesh_SelectorOfDataStructureOfDelaun(mod, "BRepMesh_SelectorOfDataStructureOfDelaun", "Describes a selector and an iterator on a selector of components of a mesh.");
+py::class_<BRepMesh_SelectorOfDataStructureOfDelaun, std::unique_ptr<BRepMesh_SelectorOfDataStructureOfDelaun>> cls_BRepMesh_SelectorOfDataStructureOfDelaun(mod, "BRepMesh_SelectorOfDataStructureOfDelaun", "Describes a selector and an iterator on a selector of components of a mesh.");
 
 // Constructors
 cls_BRepMesh_SelectorOfDataStructureOfDelaun.def(py::init<>());

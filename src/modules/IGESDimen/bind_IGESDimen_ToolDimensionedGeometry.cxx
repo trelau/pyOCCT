@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolDimensionedGeometry(py::module &mod){
 
-py::class_<IGESDimen_ToolDimensionedGeometry, std::unique_ptr<IGESDimen_ToolDimensionedGeometry, Deleter<IGESDimen_ToolDimensionedGeometry>>> cls_IGESDimen_ToolDimensionedGeometry(mod, "IGESDimen_ToolDimensionedGeometry", "Tool to work on a DimensionedGeometry. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolDimensionedGeometry, std::unique_ptr<IGESDimen_ToolDimensionedGeometry>> cls_IGESDimen_ToolDimensionedGeometry(mod, "IGESDimen_ToolDimensionedGeometry", "Tool to work on a DimensionedGeometry. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolDimensionedGeometry.def(py::init<>());

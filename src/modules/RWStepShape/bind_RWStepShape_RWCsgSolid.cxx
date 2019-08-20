@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWCsgSolid(py::module &mod){
 
-py::class_<RWStepShape_RWCsgSolid, std::unique_ptr<RWStepShape_RWCsgSolid, Deleter<RWStepShape_RWCsgSolid>>> cls_RWStepShape_RWCsgSolid(mod, "RWStepShape_RWCsgSolid", "Read & Write Module for CsgSolid");
+py::class_<RWStepShape_RWCsgSolid, std::unique_ptr<RWStepShape_RWCsgSolid>> cls_RWStepShape_RWCsgSolid(mod, "RWStepShape_RWCsgSolid", "Read & Write Module for CsgSolid");
 
 // Constructors
 cls_RWStepShape_RWCsgSolid.def(py::init<>());

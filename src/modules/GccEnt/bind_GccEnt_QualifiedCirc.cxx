@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GccEnt_QualifiedCirc(py::module &mod){
 
-py::class_<GccEnt_QualifiedCirc, std::unique_ptr<GccEnt_QualifiedCirc, Deleter<GccEnt_QualifiedCirc>>> cls_GccEnt_QualifiedCirc(mod, "GccEnt_QualifiedCirc", "Creates a qualified 2d Circle. A qualified 2D circle is a circle (gp_Circ2d circle) with a qualifier which specifies whether the solution of a construction algorithm using the qualified circle (as an argument): - encloses the circle, or - is enclosed by the circle, or - is built so that both the circle and it are external to one another, or - is undefined (all solutions apply).");
+py::class_<GccEnt_QualifiedCirc, std::unique_ptr<GccEnt_QualifiedCirc>> cls_GccEnt_QualifiedCirc(mod, "GccEnt_QualifiedCirc", "Creates a qualified 2d Circle. A qualified 2D circle is a circle (gp_Circ2d circle) with a qualifier which specifies whether the solution of a construction algorithm using the qualified circle (as an argument): - encloses the circle, or - is enclosed by the circle, or - is built so that both the circle and it are external to one another, or - is undefined (all solutions apply).");
 
 // Constructors
 cls_GccEnt_QualifiedCirc.def(py::init<const gp_Circ2d &, const GccEnt_Position>(), py::arg("Qualified"), py::arg("Qualifier"));

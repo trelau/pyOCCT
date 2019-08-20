@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWConic(py::module &mod){
 
-py::class_<RWStepGeom_RWConic, std::unique_ptr<RWStepGeom_RWConic, Deleter<RWStepGeom_RWConic>>> cls_RWStepGeom_RWConic(mod, "RWStepGeom_RWConic", "Read & Write Module for Conic");
+py::class_<RWStepGeom_RWConic, std::unique_ptr<RWStepGeom_RWConic>> cls_RWStepGeom_RWConic(mod, "RWStepGeom_RWConic", "Read & Write Module for Conic");
 
 // Constructors
 cls_RWStepGeom_RWConic.def(py::init<>());

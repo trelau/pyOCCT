@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGraph_ToolIntercharacterSpacing(py::module &mod){
 
-py::class_<IGESGraph_ToolIntercharacterSpacing, std::unique_ptr<IGESGraph_ToolIntercharacterSpacing, Deleter<IGESGraph_ToolIntercharacterSpacing>>> cls_IGESGraph_ToolIntercharacterSpacing(mod, "IGESGraph_ToolIntercharacterSpacing", "Tool to work on a IntercharacterSpacing. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGraph_ToolIntercharacterSpacing, std::unique_ptr<IGESGraph_ToolIntercharacterSpacing>> cls_IGESGraph_ToolIntercharacterSpacing(mod, "IGESGraph_ToolIntercharacterSpacing", "Tool to work on a IntercharacterSpacing. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGraph_ToolIntercharacterSpacing.def(py::init<>());

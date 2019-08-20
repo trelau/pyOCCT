@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdObject_Shape(py::module &mod){
 
-py::class_<StdObject_Shape, std::unique_ptr<StdObject_Shape, Deleter<StdObject_Shape>>> cls_StdObject_Shape(mod, "StdObject_Shape", "None");
+py::class_<StdObject_Shape, std::unique_ptr<StdObject_Shape>> cls_StdObject_Shape(mod, "StdObject_Shape", "None");
 
 // Constructors
 

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPolyh_Edge(py::module &mod){
 
-py::class_<IntPolyh_Edge, std::unique_ptr<IntPolyh_Edge, Deleter<IntPolyh_Edge>>> cls_IntPolyh_Edge(mod, "IntPolyh_Edge", "The class represents the edge built between the two IntPolyh points. It is linked to two IntPolyh triangles.");
+py::class_<IntPolyh_Edge, std::unique_ptr<IntPolyh_Edge>> cls_IntPolyh_Edge(mod, "IntPolyh_Edge", "The class represents the edge built between the two IntPolyh points. It is linked to two IntPolyh triangles.");
 
 // Constructors
 cls_IntPolyh_Edge.def(py::init<>());

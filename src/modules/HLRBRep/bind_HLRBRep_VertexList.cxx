@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_VertexList(py::module &mod){
 
-py::class_<HLRBRep_VertexList, std::unique_ptr<HLRBRep_VertexList, Deleter<HLRBRep_VertexList>>> cls_HLRBRep_VertexList(mod, "HLRBRep_VertexList", "None");
+py::class_<HLRBRep_VertexList, std::unique_ptr<HLRBRep_VertexList>> cls_HLRBRep_VertexList(mod, "HLRBRep_VertexList", "None");
 
 // Constructors
 cls_HLRBRep_VertexList.def(py::init<const HLRBRep_EdgeInterferenceTool &, const HLRAlgo_ListIteratorOfInterferenceList &>(), py::arg("T"), py::arg("I"));

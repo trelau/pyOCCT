@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepData_FieldList1(py::module &mod){
 
-py::class_<StepData_FieldList1, std::unique_ptr<StepData_FieldList1, Deleter<StepData_FieldList1>>, StepData_FieldList> cls_StepData_FieldList1(mod, "StepData_FieldList1", "Describes a list of ONE field");
+py::class_<StepData_FieldList1, std::unique_ptr<StepData_FieldList1>, StepData_FieldList> cls_StepData_FieldList1(mod, "StepData_FieldList1", "Describes a list of ONE field");
 
 // Constructors
 cls_StepData_FieldList1.def(py::init<>());

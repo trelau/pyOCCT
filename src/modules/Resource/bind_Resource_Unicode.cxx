@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Resource_Unicode(py::module &mod){
 
-py::class_<Resource_Unicode, std::unique_ptr<Resource_Unicode, Deleter<Resource_Unicode>>> cls_Resource_Unicode(mod, "Resource_Unicode", "This class provides functions used to convert a non-ASCII C string given in ANSI, EUC, GB or SJIS format, to a Unicode string of extended characters, and vice versa.");
+py::class_<Resource_Unicode, std::unique_ptr<Resource_Unicode>> cls_Resource_Unicode(mod, "Resource_Unicode", "This class provides functions used to convert a non-ASCII C string given in ANSI, EUC, GB or SJIS format, to a Unicode string of extended characters, and vice versa.");
 
 // Constructors
 

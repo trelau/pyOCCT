@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeVector(py::module &mod){
 
-py::class_<GeomToStep_MakeVector, std::unique_ptr<GeomToStep_MakeVector, Deleter<GeomToStep_MakeVector>>, GeomToStep_Root> cls_GeomToStep_MakeVector(mod, "GeomToStep_MakeVector", "This class implements the mapping between classes Vector from Geom, Geom2d and Vec, Vec2d from gp, and the class Vector from StepGeom which describes a Vector from Prostep.");
+py::class_<GeomToStep_MakeVector, std::unique_ptr<GeomToStep_MakeVector>, GeomToStep_Root> cls_GeomToStep_MakeVector(mod, "GeomToStep_MakeVector", "This class implements the mapping between classes Vector from Geom, Geom2d and Vec, Vec2d from gp, and the class Vector from StepGeom which describes a Vector from Prostep.");
 
 // Constructors
 cls_GeomToStep_MakeVector.def(py::init<const gp_Vec &>(), py::arg("V"));

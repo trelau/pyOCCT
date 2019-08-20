@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurve_MyImpParToolOfIntImpConicParConic(py::module &mod){
 
-py::class_<IntCurve_MyImpParToolOfIntImpConicParConic, std::unique_ptr<IntCurve_MyImpParToolOfIntImpConicParConic, Deleter<IntCurve_MyImpParToolOfIntImpConicParConic>>, math_FunctionWithDerivative> cls_IntCurve_MyImpParToolOfIntImpConicParConic(mod, "IntCurve_MyImpParToolOfIntImpConicParConic", "None");
+py::class_<IntCurve_MyImpParToolOfIntImpConicParConic, std::unique_ptr<IntCurve_MyImpParToolOfIntImpConicParConic>, math_FunctionWithDerivative> cls_IntCurve_MyImpParToolOfIntImpConicParConic(mod, "IntCurve_MyImpParToolOfIntImpConicParConic", "None");
 
 // Constructors
 cls_IntCurve_MyImpParToolOfIntImpConicParConic.def(py::init<const IntCurve_IConicTool &, const IntCurve_PConic &>(), py::arg("IT"), py::arg("PC"));

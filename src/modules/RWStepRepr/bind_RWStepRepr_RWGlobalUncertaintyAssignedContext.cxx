@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWGlobalUncertaintyAssignedContext(py::module &mod){
 
-py::class_<RWStepRepr_RWGlobalUncertaintyAssignedContext, std::unique_ptr<RWStepRepr_RWGlobalUncertaintyAssignedContext, Deleter<RWStepRepr_RWGlobalUncertaintyAssignedContext>>> cls_RWStepRepr_RWGlobalUncertaintyAssignedContext(mod, "RWStepRepr_RWGlobalUncertaintyAssignedContext", "Read & Write Module for GlobalUncertaintyAssignedContext");
+py::class_<RWStepRepr_RWGlobalUncertaintyAssignedContext, std::unique_ptr<RWStepRepr_RWGlobalUncertaintyAssignedContext>> cls_RWStepRepr_RWGlobalUncertaintyAssignedContext(mod, "RWStepRepr_RWGlobalUncertaintyAssignedContext", "Read & Write Module for GlobalUncertaintyAssignedContext");
 
 // Constructors
 cls_RWStepRepr_RWGlobalUncertaintyAssignedContext.def(py::init<>());

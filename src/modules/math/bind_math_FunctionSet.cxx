@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_FunctionSet(py::module &mod){
 
-py::class_<math_FunctionSet, std::unique_ptr<math_FunctionSet, Deleter<math_FunctionSet>>> cls_math_FunctionSet(mod, "math_FunctionSet", "This abstract class describes the virtual functions associated to a set on N Functions of M independant variables.");
+py::class_<math_FunctionSet, std::unique_ptr<math_FunctionSet>> cls_math_FunctionSet(mod, "math_FunctionSet", "This abstract class describes the virtual functions associated to a set on N Functions of M independant variables.");
 
 // Fields
 

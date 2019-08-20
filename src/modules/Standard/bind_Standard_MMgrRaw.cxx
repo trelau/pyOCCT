@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Standard_MMgrRaw(py::module &mod){
 
-py::class_<Standard_MMgrRaw, std::unique_ptr<Standard_MMgrRaw, Deleter<Standard_MMgrRaw>>, Standard_MMgrRoot> cls_Standard_MMgrRaw(mod, "Standard_MMgrRaw", "Implementation of raw OCC memory manager which uses standard C functions: malloc (or calloc), free and realloc without any optimization");
+py::class_<Standard_MMgrRaw, std::unique_ptr<Standard_MMgrRaw>, Standard_MMgrRoot> cls_Standard_MMgrRaw(mod, "Standard_MMgrRaw", "Implementation of raw OCC memory manager which uses standard C functions: malloc (or calloc), free and realloc without any optimization");
 
 // Constructors
 cls_Standard_MMgrRaw.def(py::init<>());

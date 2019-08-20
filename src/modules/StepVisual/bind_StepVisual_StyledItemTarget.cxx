@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_StyledItemTarget(py::module &mod){
 
-py::class_<StepVisual_StyledItemTarget, std::unique_ptr<StepVisual_StyledItemTarget, Deleter<StepVisual_StyledItemTarget>>, StepData_SelectType> cls_StepVisual_StyledItemTarget(mod, "StepVisual_StyledItemTarget", "None");
+py::class_<StepVisual_StyledItemTarget, std::unique_ptr<StepVisual_StyledItemTarget>, StepData_SelectType> cls_StepVisual_StyledItemTarget(mod, "StepVisual_StyledItemTarget", "None");
 
 // Constructors
 cls_StepVisual_StyledItemTarget.def(py::init<>());

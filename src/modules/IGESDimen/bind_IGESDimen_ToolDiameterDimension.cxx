@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolDiameterDimension(py::module &mod){
 
-py::class_<IGESDimen_ToolDiameterDimension, std::unique_ptr<IGESDimen_ToolDiameterDimension, Deleter<IGESDimen_ToolDiameterDimension>>> cls_IGESDimen_ToolDiameterDimension(mod, "IGESDimen_ToolDiameterDimension", "Tool to work on a DiameterDimension. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolDiameterDimension, std::unique_ptr<IGESDimen_ToolDiameterDimension>> cls_IGESDimen_ToolDiameterDimension(mod, "IGESDimen_ToolDiameterDimension", "Tool to work on a DiameterDimension. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolDiameterDimension.def(py::init<>());

@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FSD_File(py::module &mod){
 
-py::class_<FSD_File, std::unique_ptr<FSD_File, Deleter<FSD_File>>, Storage_BaseDriver> cls_FSD_File(mod, "FSD_File", "A general driver which defines as a file, the physical container for data to be stored or retrieved.");
+py::class_<FSD_File, std::unique_ptr<FSD_File>, Storage_BaseDriver> cls_FSD_File(mod, "FSD_File", "A general driver which defines as a file, the physical container for data to be stored or retrieved.");
 
 // Constructors
 cls_FSD_File.def(py::init<>());

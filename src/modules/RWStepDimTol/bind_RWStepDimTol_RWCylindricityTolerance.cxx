@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWCylindricityTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWCylindricityTolerance, std::unique_ptr<RWStepDimTol_RWCylindricityTolerance, Deleter<RWStepDimTol_RWCylindricityTolerance>>> cls_RWStepDimTol_RWCylindricityTolerance(mod, "RWStepDimTol_RWCylindricityTolerance", "Read & Write tool for CylindricityTolerance");
+py::class_<RWStepDimTol_RWCylindricityTolerance, std::unique_ptr<RWStepDimTol_RWCylindricityTolerance>> cls_RWStepDimTol_RWCylindricityTolerance(mod, "RWStepDimTol_RWCylindricityTolerance", "Read & Write tool for CylindricityTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWCylindricityTolerance.def(py::init<>());

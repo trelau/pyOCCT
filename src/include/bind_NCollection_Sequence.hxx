@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheItemType>
 void bind_NCollection_Sequence(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_Sequence<TheItemType>, std::unique_ptr<NCollection_Sequence<TheItemType>, Deleter<NCollection_Sequence<TheItemType>>>, NCollection_BaseSequence> cls_NCollection_Sequence(mod, name.c_str(), "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n", local);
+py::class_<NCollection_Sequence<TheItemType>, std::unique_ptr<NCollection_Sequence<TheItemType>>, NCollection_BaseSequence> cls_NCollection_Sequence(mod, name.c_str(), "Purpose: Definition of a sequence of elements indexed by an Integer in range of 1..n", local);
 
 // Constructors
 cls_NCollection_Sequence.def(py::init<>());

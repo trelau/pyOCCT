@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_ReaderLib(py::module &mod){
 
-py::class_<Interface_ReaderLib, std::unique_ptr<Interface_ReaderLib, Deleter<Interface_ReaderLib>>> cls_Interface_ReaderLib(mod, "Interface_ReaderLib", "None");
+py::class_<Interface_ReaderLib, std::unique_ptr<Interface_ReaderLib>> cls_Interface_ReaderLib(mod, "Interface_ReaderLib", "None");
 
 // Constructors
 cls_Interface_ReaderLib.def(py::init<const opencascade::handle<Interface_Protocol> &>(), py::arg("aprotocol"));

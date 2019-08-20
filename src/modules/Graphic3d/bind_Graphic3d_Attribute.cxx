@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Graphic3d_Attribute(py::module &mod){
 
-py::class_<Graphic3d_Attribute, std::unique_ptr<Graphic3d_Attribute, Deleter<Graphic3d_Attribute>>> cls_Graphic3d_Attribute(mod, "Graphic3d_Attribute", "Vertex attribute definition.");
+py::class_<Graphic3d_Attribute, std::unique_ptr<Graphic3d_Attribute>> cls_Graphic3d_Attribute(mod, "Graphic3d_Attribute", "Vertex attribute definition.");
 
 // Constructors
 

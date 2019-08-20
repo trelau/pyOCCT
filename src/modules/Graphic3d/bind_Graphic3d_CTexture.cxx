@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Graphic3d_CTexture(py::module &mod){
 
-py::class_<Graphic3d_CTexture, std::unique_ptr<Graphic3d_CTexture, Deleter<Graphic3d_CTexture>>> cls_Graphic3d_CTexture(mod, "Graphic3d_CTexture", "None");
+py::class_<Graphic3d_CTexture, std::unique_ptr<Graphic3d_CTexture>> cls_Graphic3d_CTexture(mod, "Graphic3d_CTexture", "None");
 
 // Constructors
 cls_Graphic3d_CTexture.def(py::init<>());

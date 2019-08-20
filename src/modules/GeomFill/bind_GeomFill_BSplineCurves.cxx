@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_BSplineCurves(py::module &mod){
 
-py::class_<GeomFill_BSplineCurves, std::unique_ptr<GeomFill_BSplineCurves, Deleter<GeomFill_BSplineCurves>>> cls_GeomFill_BSplineCurves(mod, "GeomFill_BSplineCurves", "An algorithm for constructing a BSpline surface filled from contiguous BSpline curves which form its boundaries. The algorithm accepts two, three or four BSpline curves as the boundaries of the target surface. A range of filling styles - more or less rounded, more or less flat - is available. A BSplineCurves object provides a framework for: - defining the boundaries, and the filling style of the surface - implementing the construction algorithm - consulting the result. Warning Some problems may show up with rational curves.");
+py::class_<GeomFill_BSplineCurves, std::unique_ptr<GeomFill_BSplineCurves>> cls_GeomFill_BSplineCurves(mod, "GeomFill_BSplineCurves", "An algorithm for constructing a BSpline surface filled from contiguous BSpline curves which form its boundaries. The algorithm accepts two, three or four BSpline curves as the boundaries of the target surface. A range of filling styles - more or less rounded, more or less flat - is available. A BSplineCurves object provides a framework for: - defining the boundaries, and the filling style of the surface - implementing the construction algorithm - consulting the result. Warning Some problems may show up with rational curves.");
 
 // Constructors
 cls_GeomFill_BSplineCurves.def(py::init<>());

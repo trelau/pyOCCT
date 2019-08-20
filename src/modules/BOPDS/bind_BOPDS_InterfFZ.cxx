@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPDS_InterfFZ(py::module &mod){
 
-py::class_<BOPDS_InterfFZ, std::unique_ptr<BOPDS_InterfFZ, Deleter<BOPDS_InterfFZ>>, BOPDS_Interf> cls_BOPDS_InterfFZ(mod, "BOPDS_InterfFZ", "The class BOPDS_InterfFZ is is to store the information about the interference of the type face/solid.");
+py::class_<BOPDS_InterfFZ, std::unique_ptr<BOPDS_InterfFZ>, BOPDS_Interf> cls_BOPDS_InterfFZ(mod, "BOPDS_InterfFZ", "The class BOPDS_InterfFZ is is to store the information about the interference of the type face/solid.");
 
 // Constructors
 cls_BOPDS_InterfFZ.def(py::init<>());

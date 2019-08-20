@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_Tools(py::module &mod){
 
-py::class_<TopOpeBRepBuild_Tools, std::unique_ptr<TopOpeBRepBuild_Tools, Deleter<TopOpeBRepBuild_Tools>>> cls_TopOpeBRepBuild_Tools(mod, "TopOpeBRepBuild_Tools", "Auxiliary methods used in TopOpeBRepBuild_Builder1 class");
+py::class_<TopOpeBRepBuild_Tools, std::unique_ptr<TopOpeBRepBuild_Tools>> cls_TopOpeBRepBuild_Tools(mod, "TopOpeBRepBuild_Tools", "Auxiliary methods used in TopOpeBRepBuild_Builder1 class");
 
 // Constructors
 

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Bisector_PointOnBis(py::module &mod){
 
-py::class_<Bisector_PointOnBis, std::unique_ptr<Bisector_PointOnBis, Deleter<Bisector_PointOnBis>>> cls_Bisector_PointOnBis(mod, "Bisector_PointOnBis", "None");
+py::class_<Bisector_PointOnBis, std::unique_ptr<Bisector_PointOnBis>> cls_Bisector_PointOnBis(mod, "Bisector_PointOnBis", "None");
 
 // Constructors
 cls_Bisector_PointOnBis.def(py::init<>());

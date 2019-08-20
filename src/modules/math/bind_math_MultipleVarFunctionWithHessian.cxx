@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_MultipleVarFunctionWithHessian(py::module &mod){
 
-py::class_<math_MultipleVarFunctionWithHessian, std::unique_ptr<math_MultipleVarFunctionWithHessian, Deleter<math_MultipleVarFunctionWithHessian>>, math_MultipleVarFunctionWithGradient> cls_math_MultipleVarFunctionWithHessian(mod, "math_MultipleVarFunctionWithHessian", "None");
+py::class_<math_MultipleVarFunctionWithHessian, std::unique_ptr<math_MultipleVarFunctionWithHessian>, math_MultipleVarFunctionWithGradient> cls_math_MultipleVarFunctionWithHessian(mod, "math_MultipleVarFunctionWithHessian", "None");
 
 // Fields
 

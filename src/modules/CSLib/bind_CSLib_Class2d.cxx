@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_CSLib_Class2d(py::module &mod){
 
-py::class_<CSLib_Class2d, std::unique_ptr<CSLib_Class2d, Deleter<CSLib_Class2d>>> cls_CSLib_Class2d(mod, "CSLib_Class2d", "*** Class2d : Low level algorithm for 2d classification this class was moved from package BRepTopAdaptor");
+py::class_<CSLib_Class2d, std::unique_ptr<CSLib_Class2d>> cls_CSLib_Class2d(mod, "CSLib_Class2d", "*** Class2d : Low level algorithm for 2d classification this class was moved from package BRepTopAdaptor");
 
 // Constructors
 cls_CSLib_Class2d.def(py::init<const TColgp_Array1OfPnt2d &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("TP"), py::arg("aTolu"), py::arg("aTolv"), py::arg("umin"), py::arg("vmin"), py::arg("umax"), py::arg("vmax"));

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRAlgo_PolyInternalSegment(py::module &mod){
 
-py::class_<HLRAlgo_PolyInternalSegment, std::unique_ptr<HLRAlgo_PolyInternalSegment, Deleter<HLRAlgo_PolyInternalSegment>>> cls_HLRAlgo_PolyInternalSegment(mod, "HLRAlgo_PolyInternalSegment", "to Update OutLines.");
+py::class_<HLRAlgo_PolyInternalSegment, std::unique_ptr<HLRAlgo_PolyInternalSegment>> cls_HLRAlgo_PolyInternalSegment(mod, "HLRAlgo_PolyInternalSegment", "to Update OutLines.");
 
 // Constructors
 

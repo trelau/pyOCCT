@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dHatch_FClass2dOfClassifier(py::module &mod){
 
-py::class_<Geom2dHatch_FClass2dOfClassifier, std::unique_ptr<Geom2dHatch_FClass2dOfClassifier, Deleter<Geom2dHatch_FClass2dOfClassifier>>> cls_Geom2dHatch_FClass2dOfClassifier(mod, "Geom2dHatch_FClass2dOfClassifier", "None");
+py::class_<Geom2dHatch_FClass2dOfClassifier, std::unique_ptr<Geom2dHatch_FClass2dOfClassifier>> cls_Geom2dHatch_FClass2dOfClassifier(mod, "Geom2dHatch_FClass2dOfClassifier", "None");
 
 // Constructors
 cls_Geom2dHatch_FClass2dOfClassifier.def(py::init<>());

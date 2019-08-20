@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Contap_Point(py::module &mod){
 
-py::class_<Contap_Point, std::unique_ptr<Contap_Point, Deleter<Contap_Point>>> cls_Contap_Point(mod, "Contap_Point", "Definition of a vertex on the contour line. Most of the time, such a point is an intersection between the contour and a restriction of the surface. When it is not tyhe method IsOnArc return False. Such a point is contains geometrical informations (see the Value method) and logical informations.");
+py::class_<Contap_Point, std::unique_ptr<Contap_Point>> cls_Contap_Point(mod, "Contap_Point", "Definition of a vertex on the contour line. Most of the time, such a point is an intersection between the contour and a restriction of the surface. When it is not tyhe method IsOnArc return False. Such a point is contains geometrical informations (see the Value method) and logical informations.");
 
 // Constructors
 cls_Contap_Point.def(py::init<>());

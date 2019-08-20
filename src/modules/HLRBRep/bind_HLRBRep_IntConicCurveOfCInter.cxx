@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_IntConicCurveOfCInter(py::module &mod){
 
-py::class_<HLRBRep_IntConicCurveOfCInter, std::unique_ptr<HLRBRep_IntConicCurveOfCInter, Deleter<HLRBRep_IntConicCurveOfCInter>>, IntRes2d_Intersection> cls_HLRBRep_IntConicCurveOfCInter(mod, "HLRBRep_IntConicCurveOfCInter", "None");
+py::class_<HLRBRep_IntConicCurveOfCInter, std::unique_ptr<HLRBRep_IntConicCurveOfCInter>, IntRes2d_Intersection> cls_HLRBRep_IntConicCurveOfCInter(mod, "HLRBRep_IntConicCurveOfCInter", "None");
 
 // Constructors
 cls_HLRBRep_IntConicCurveOfCInter.def(py::init<>());

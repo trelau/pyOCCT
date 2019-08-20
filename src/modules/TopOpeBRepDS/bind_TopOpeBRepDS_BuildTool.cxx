@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_BuildTool(py::module &mod){
 
-py::class_<TopOpeBRepDS_BuildTool, std::unique_ptr<TopOpeBRepDS_BuildTool, Deleter<TopOpeBRepDS_BuildTool>>> cls_TopOpeBRepDS_BuildTool(mod, "TopOpeBRepDS_BuildTool", "Provides a Tool to build topologies. Used to instantiate the Builder algorithm.");
+py::class_<TopOpeBRepDS_BuildTool, std::unique_ptr<TopOpeBRepDS_BuildTool>> cls_TopOpeBRepDS_BuildTool(mod, "TopOpeBRepDS_BuildTool", "Provides a Tool to build topologies. Used to instantiate the Builder algorithm.");
 
 // Constructors
 cls_TopOpeBRepDS_BuildTool.def(py::init<>());

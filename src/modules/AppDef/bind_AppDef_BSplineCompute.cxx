@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppDef_BSplineCompute(py::module &mod){
 
-py::class_<AppDef_BSplineCompute, std::unique_ptr<AppDef_BSplineCompute, Deleter<AppDef_BSplineCompute>>> cls_AppDef_BSplineCompute(mod, "AppDef_BSplineCompute", "None");
+py::class_<AppDef_BSplineCompute, std::unique_ptr<AppDef_BSplineCompute>> cls_AppDef_BSplineCompute(mod, "AppDef_BSplineCompute", "None");
 
 // Constructors
 cls_AppDef_BSplineCompute.def(py::init<const AppDef_MultiLine &>(), py::arg("Line"));

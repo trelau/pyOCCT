@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWGeometricRepresentationItem(py::module &mod){
 
-py::class_<RWStepGeom_RWGeometricRepresentationItem, std::unique_ptr<RWStepGeom_RWGeometricRepresentationItem, Deleter<RWStepGeom_RWGeometricRepresentationItem>>> cls_RWStepGeom_RWGeometricRepresentationItem(mod, "RWStepGeom_RWGeometricRepresentationItem", "Read & Write Module for GeometricRepresentationItem");
+py::class_<RWStepGeom_RWGeometricRepresentationItem, std::unique_ptr<RWStepGeom_RWGeometricRepresentationItem>> cls_RWStepGeom_RWGeometricRepresentationItem(mod, "RWStepGeom_RWGeometricRepresentationItem", "Read & Write Module for GeometricRepresentationItem");
 
 // Constructors
 cls_RWStepGeom_RWGeometricRepresentationItem.def(py::init<>());

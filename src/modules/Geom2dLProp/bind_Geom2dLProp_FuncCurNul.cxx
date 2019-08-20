@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dLProp_FuncCurNul(py::module &mod){
 
-py::class_<Geom2dLProp_FuncCurNul, std::unique_ptr<Geom2dLProp_FuncCurNul, Deleter<Geom2dLProp_FuncCurNul>>, math_FunctionWithDerivative> cls_Geom2dLProp_FuncCurNul(mod, "Geom2dLProp_FuncCurNul", "Function used to find the inflections in 2d.");
+py::class_<Geom2dLProp_FuncCurNul, std::unique_ptr<Geom2dLProp_FuncCurNul>, math_FunctionWithDerivative> cls_Geom2dLProp_FuncCurNul(mod, "Geom2dLProp_FuncCurNul", "Function used to find the inflections in 2d.");
 
 // Constructors
 cls_Geom2dLProp_FuncCurNul.def(py::init<const opencascade::handle<Geom2d_Curve> &>(), py::arg("C"));

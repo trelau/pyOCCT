@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBuilderAPI_MakeEdge(py::module &mod){
 
-py::class_<BRepBuilderAPI_MakeEdge, std::unique_ptr<BRepBuilderAPI_MakeEdge, Deleter<BRepBuilderAPI_MakeEdge>>, BRepBuilderAPI_MakeShape> cls_BRepBuilderAPI_MakeEdge(mod, "BRepBuilderAPI_MakeEdge", "Provides methods to build edges.");
+py::class_<BRepBuilderAPI_MakeEdge, std::unique_ptr<BRepBuilderAPI_MakeEdge>, BRepBuilderAPI_MakeShape> cls_BRepBuilderAPI_MakeEdge(mod, "BRepBuilderAPI_MakeEdge", "Provides methods to build edges.");
 
 // Constructors
 cls_BRepBuilderAPI_MakeEdge.def(py::init<>());

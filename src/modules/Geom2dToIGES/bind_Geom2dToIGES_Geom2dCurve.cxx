@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dToIGES_Geom2dCurve(py::module &mod){
 
-py::class_<Geom2dToIGES_Geom2dCurve, std::unique_ptr<Geom2dToIGES_Geom2dCurve, Deleter<Geom2dToIGES_Geom2dCurve>>, Geom2dToIGES_Geom2dEntity> cls_Geom2dToIGES_Geom2dCurve(mod, "Geom2dToIGES_Geom2dCurve", "This class implements the transfer of the Curve Entity from Geom2d To IGES. These can be : Curve . BoundedCurve * BSplineCurve * BezierCurve * TrimmedCurve . Conic * Circle * Ellipse * Hyperbloa * Line * Parabola . OffsetCurve");
+py::class_<Geom2dToIGES_Geom2dCurve, std::unique_ptr<Geom2dToIGES_Geom2dCurve>, Geom2dToIGES_Geom2dEntity> cls_Geom2dToIGES_Geom2dCurve(mod, "Geom2dToIGES_Geom2dCurve", "This class implements the transfer of the Curve Entity from Geom2d To IGES. These can be : Curve . BoundedCurve * BSplineCurve * BezierCurve * TrimmedCurve . Conic * Circle * Ellipse * Hyperbloa * Line * Parabola . OffsetCurve");
 
 // Constructors
 cls_Geom2dToIGES_Geom2dCurve.def(py::init<>());

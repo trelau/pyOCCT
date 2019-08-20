@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeSurfaceOfRevolution(py::module &mod){
 
-py::class_<GeomToStep_MakeSurfaceOfRevolution, std::unique_ptr<GeomToStep_MakeSurfaceOfRevolution, Deleter<GeomToStep_MakeSurfaceOfRevolution>>, GeomToStep_Root> cls_GeomToStep_MakeSurfaceOfRevolution(mod, "GeomToStep_MakeSurfaceOfRevolution", "This class implements the mapping between class SurfaceOfRevolution from Geom and the class SurfaceOfRevolution from StepGeom which describes a surface_of_revolution from Prostep");
+py::class_<GeomToStep_MakeSurfaceOfRevolution, std::unique_ptr<GeomToStep_MakeSurfaceOfRevolution>, GeomToStep_Root> cls_GeomToStep_MakeSurfaceOfRevolution(mod, "GeomToStep_MakeSurfaceOfRevolution", "This class implements the mapping between class SurfaceOfRevolution from Geom and the class SurfaceOfRevolution from StepGeom which describes a surface_of_revolution from Prostep");
 
 // Constructors
 cls_GeomToStep_MakeSurfaceOfRevolution.def(py::init<const opencascade::handle<Geom_SurfaceOfRevolution> &>(), py::arg("RevSurf"));

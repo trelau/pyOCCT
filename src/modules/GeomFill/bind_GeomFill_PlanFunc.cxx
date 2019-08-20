@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_PlanFunc(py::module &mod){
 
-py::class_<GeomFill_PlanFunc, std::unique_ptr<GeomFill_PlanFunc, Deleter<GeomFill_PlanFunc>>, math_FunctionWithDerivative> cls_GeomFill_PlanFunc(mod, "GeomFill_PlanFunc", "None");
+py::class_<GeomFill_PlanFunc, std::unique_ptr<GeomFill_PlanFunc>, math_FunctionWithDerivative> cls_GeomFill_PlanFunc(mod, "GeomFill_PlanFunc", "None");
 
 // Constructors
 cls_GeomFill_PlanFunc.def(py::init<const gp_Pnt &, const gp_Vec &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("P"), py::arg("V"), py::arg("C"));

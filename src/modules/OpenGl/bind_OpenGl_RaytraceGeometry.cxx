@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_OpenGl_RaytraceGeometry(py::module &mod){
 
 /*
-py::class_<OpenGl_RaytraceGeometry, std::unique_ptr<OpenGl_RaytraceGeometry, Deleter<OpenGl_RaytraceGeometry>>, BVH_Geometry<Standard_ShortReal, 3>> cls_OpenGl_RaytraceGeometry(mod, "OpenGl_RaytraceGeometry", "Stores geometry of ray-tracing scene.");
+py::class_<OpenGl_RaytraceGeometry, std::unique_ptr<OpenGl_RaytraceGeometry>, BVH_Geometry<Standard_ShortReal, 3>> cls_OpenGl_RaytraceGeometry(mod, "OpenGl_RaytraceGeometry", "Stores geometry of ray-tracing scene.");
 
 // Constructors
 cls_OpenGl_RaytraceGeometry.def(py::init<>());

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCPnts_TangentialDeflection(py::module &mod){
 
-py::class_<GCPnts_TangentialDeflection, std::unique_ptr<GCPnts_TangentialDeflection, Deleter<GCPnts_TangentialDeflection>>> cls_GCPnts_TangentialDeflection(mod, "GCPnts_TangentialDeflection", "Computes a set of points on a curve from package Adaptor3d such as between two successive points P1(u1)and P2(u2) :");
+py::class_<GCPnts_TangentialDeflection, std::unique_ptr<GCPnts_TangentialDeflection>> cls_GCPnts_TangentialDeflection(mod, "GCPnts_TangentialDeflection", "Computes a set of points on a curve from package Adaptor3d such as between two successive points P1(u1)and P2(u2) :");
 
 // Constructors
 cls_GCPnts_TangentialDeflection.def(py::init<>());

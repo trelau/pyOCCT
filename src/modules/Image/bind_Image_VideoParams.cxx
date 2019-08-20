@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Image_VideoParams(py::module &mod){
 
-py::class_<Image_VideoParams, std::unique_ptr<Image_VideoParams, Deleter<Image_VideoParams>>> cls_Image_VideoParams(mod, "Image_VideoParams", "Auxiliary structure defining video parameters. Please refer to FFmpeg documentation for defining text values.");
+py::class_<Image_VideoParams, std::unique_ptr<Image_VideoParams>> cls_Image_VideoParams(mod, "Image_VideoParams", "Auxiliary structure defining video parameters. Please refer to FFmpeg documentation for defining text values.");
 
 // Constructors
 cls_Image_VideoParams.def(py::init<>());

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppDef_TheResol(py::module &mod){
 
-py::class_<AppDef_TheResol, std::unique_ptr<AppDef_TheResol, Deleter<AppDef_TheResol>>> cls_AppDef_TheResol(mod, "AppDef_TheResol", "None");
+py::class_<AppDef_TheResol, std::unique_ptr<AppDef_TheResol>> cls_AppDef_TheResol(mod, "AppDef_TheResol", "None");
 
 // Constructors
 cls_AppDef_TheResol.def(py::init<const AppDef_MultiLine &, AppParCurves_MultiCurve &, const Standard_Integer, const Standard_Integer, const opencascade::handle<AppParCurves_HArray1OfConstraintCouple> &, const math_Matrix &, const math_Matrix &>(), py::arg("SSP"), py::arg("SCurv"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("Constraints"), py::arg("Bern"), py::arg("DerivativeBern"));

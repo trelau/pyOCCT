@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Poly_Triangle(py::module &mod){
 
-py::class_<Poly_Triangle, std::unique_ptr<Poly_Triangle, Deleter<Poly_Triangle>>> cls_Poly_Triangle(mod, "Poly_Triangle", "Describes a component triangle of a triangulation (Poly_Triangulation object). A Triangle is defined by a triplet of nodes. Each node is an index in the table of nodes specific to an existing triangulation of a shape, and represents a point on the surface.");
+py::class_<Poly_Triangle, std::unique_ptr<Poly_Triangle>> cls_Poly_Triangle(mod, "Poly_Triangle", "Describes a component triangle of a triangulation (Poly_Triangulation object). A Triangle is defined by a triplet of nodes. Each node is an index in the table of nodes specific to an existing triangulation of a shape, and represents a point on the surface.");
 
 // Constructors
 cls_Poly_Triangle.def(py::init<>());

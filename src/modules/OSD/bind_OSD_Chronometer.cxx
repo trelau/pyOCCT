@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_Chronometer(py::module &mod){
 
-py::class_<OSD_Chronometer, std::unique_ptr<OSD_Chronometer, Deleter<OSD_Chronometer>>> cls_OSD_Chronometer(mod, "OSD_Chronometer", "This class measures CPU time (both user and system) consumed by current process or thread. The chronometer can be started and stopped multiple times, and measures cumulative time.");
+py::class_<OSD_Chronometer, std::unique_ptr<OSD_Chronometer>> cls_OSD_Chronometer(mod, "OSD_Chronometer", "This class measures CPU time (both user and system) consumed by current process or thread. The chronometer can be started and stopped multiple times, and measures cumulative time.");
 
 // Constructors
 cls_OSD_Chronometer.def(py::init<>());

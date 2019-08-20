@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWSeamEdge(py::module &mod){
 
-py::class_<RWStepShape_RWSeamEdge, std::unique_ptr<RWStepShape_RWSeamEdge, Deleter<RWStepShape_RWSeamEdge>>> cls_RWStepShape_RWSeamEdge(mod, "RWStepShape_RWSeamEdge", "Read & Write tool for SeamEdge");
+py::class_<RWStepShape_RWSeamEdge, std::unique_ptr<RWStepShape_RWSeamEdge>> cls_RWStepShape_RWSeamEdge(mod, "RWStepShape_RWSeamEdge", "Read & Write tool for SeamEdge");
 
 // Constructors
 cls_RWStepShape_RWSeamEdge.def(py::init<>());

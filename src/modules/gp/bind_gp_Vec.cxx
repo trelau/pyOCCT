@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_Vec(py::module &mod){
 
-py::class_<gp_Vec, std::unique_ptr<gp_Vec, Deleter<gp_Vec>>> cls_gp_Vec(mod, "gp_Vec", "Defines a non-persistent vector in 3D space.");
+py::class_<gp_Vec, std::unique_ptr<gp_Vec>> cls_gp_Vec(mod, "gp_Vec", "Defines a non-persistent vector in 3D space.");
 
 // Constructors
 cls_gp_Vec.def(py::init<>());

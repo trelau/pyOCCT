@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_FClass2d(py::module &mod){
 
-py::class_<IntTools_FClass2d, std::unique_ptr<IntTools_FClass2d, Deleter<IntTools_FClass2d>>> cls_IntTools_FClass2d(mod, "IntTools_FClass2d", "Class provides an algorithm to classify a 2d Point in 2d space of face using boundaries of the face.");
+py::class_<IntTools_FClass2d, std::unique_ptr<IntTools_FClass2d>> cls_IntTools_FClass2d(mod, "IntTools_FClass2d", "Class provides an algorithm to classify a 2d Point in 2d space of face using boundaries of the face.");
 
 // Constructors
 cls_IntTools_FClass2d.def(py::init<>());

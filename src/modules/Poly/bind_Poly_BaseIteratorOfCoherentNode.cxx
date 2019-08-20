@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Poly_BaseIteratorOfCoherentNode(py::module &mod){
 
-py::class_<NCollection_Vector<Poly_CoherentNode>::Iterator, std::unique_ptr<NCollection_Vector<Poly_CoherentNode>::Iterator, Deleter<NCollection_Vector<Poly_CoherentNode>::Iterator>>> cls_Poly_BaseIteratorOfCoherentNode(mod, "Poly_BaseIteratorOfCoherentNode", "Nested class Iterator");
+py::class_<NCollection_Vector<Poly_CoherentNode>::Iterator, std::unique_ptr<NCollection_Vector<Poly_CoherentNode>::Iterator>> cls_Poly_BaseIteratorOfCoherentNode(mod, "Poly_BaseIteratorOfCoherentNode", "Nested class Iterator");
 
 // Constructors
 cls_Poly_BaseIteratorOfCoherentNode.def(py::init<>());

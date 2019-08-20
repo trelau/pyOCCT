@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWProductDefinition(py::module &mod){
 
-py::class_<RWStepBasic_RWProductDefinition, std::unique_ptr<RWStepBasic_RWProductDefinition, Deleter<RWStepBasic_RWProductDefinition>>> cls_RWStepBasic_RWProductDefinition(mod, "RWStepBasic_RWProductDefinition", "Read & Write Module for ProductDefinition");
+py::class_<RWStepBasic_RWProductDefinition, std::unique_ptr<RWStepBasic_RWProductDefinition>> cls_RWStepBasic_RWProductDefinition(mod, "RWStepBasic_RWProductDefinition", "Read & Write Module for ProductDefinition");
 
 // Constructors
 cls_RWStepBasic_RWProductDefinition.def(py::init<>());

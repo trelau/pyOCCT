@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Approx_FitAndDivide2d(py::module &mod){
 
-py::class_<Approx_FitAndDivide2d, std::unique_ptr<Approx_FitAndDivide2d, Deleter<Approx_FitAndDivide2d>>> cls_Approx_FitAndDivide2d(mod, "Approx_FitAndDivide2d", "None");
+py::class_<Approx_FitAndDivide2d, std::unique_ptr<Approx_FitAndDivide2d>> cls_Approx_FitAndDivide2d(mod, "Approx_FitAndDivide2d", "None");
 
 // Constructors
 cls_Approx_FitAndDivide2d.def(py::init<const AppCont_Function &>(), py::arg("Line"));

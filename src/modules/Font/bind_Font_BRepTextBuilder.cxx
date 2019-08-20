@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Font_BRepTextBuilder(py::module &mod){
 
-py::class_<Font_BRepTextBuilder, std::unique_ptr<Font_BRepTextBuilder, Deleter<Font_BRepTextBuilder>>> cls_Font_BRepTextBuilder(mod, "Font_BRepTextBuilder", "Represents class for applying text formatting.");
+py::class_<Font_BRepTextBuilder, std::unique_ptr<Font_BRepTextBuilder>> cls_Font_BRepTextBuilder(mod, "Font_BRepTextBuilder", "Represents class for applying text formatting.");
 
 // Constructors
 

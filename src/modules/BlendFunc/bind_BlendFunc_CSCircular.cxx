@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BlendFunc_CSCircular(py::module &mod){
 
-py::class_<BlendFunc_CSCircular, std::unique_ptr<BlendFunc_CSCircular, Deleter<BlendFunc_CSCircular>>, Blend_CSFunction> cls_BlendFunc_CSCircular(mod, "BlendFunc_CSCircular", "None");
+py::class_<BlendFunc_CSCircular, std::unique_ptr<BlendFunc_CSCircular>, Blend_CSFunction> cls_BlendFunc_CSCircular(mod, "BlendFunc_CSCircular", "None");
 
 // Constructors
 cls_BlendFunc_CSCircular.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &, const opencascade::handle<Adaptor3d_HCurve> &, const opencascade::handle<Law_Function> &>(), py::arg("S"), py::arg("C"), py::arg("CGuide"), py::arg("L"));

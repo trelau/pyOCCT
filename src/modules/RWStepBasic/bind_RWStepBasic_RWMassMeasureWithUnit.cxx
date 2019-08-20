@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWMassMeasureWithUnit(py::module &mod){
 
-py::class_<RWStepBasic_RWMassMeasureWithUnit, std::unique_ptr<RWStepBasic_RWMassMeasureWithUnit, Deleter<RWStepBasic_RWMassMeasureWithUnit>>> cls_RWStepBasic_RWMassMeasureWithUnit(mod, "RWStepBasic_RWMassMeasureWithUnit", "Read & Write Module for MassMeasureWithUnit");
+py::class_<RWStepBasic_RWMassMeasureWithUnit, std::unique_ptr<RWStepBasic_RWMassMeasureWithUnit>> cls_RWStepBasic_RWMassMeasureWithUnit(mod, "RWStepBasic_RWMassMeasureWithUnit", "Read & Write Module for MassMeasureWithUnit");
 
 // Constructors
 cls_RWStepBasic_RWMassMeasureWithUnit.def(py::init<>());

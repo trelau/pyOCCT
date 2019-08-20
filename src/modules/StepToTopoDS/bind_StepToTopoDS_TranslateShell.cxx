@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS_TranslateShell(py::module &mod){
 
-py::class_<StepToTopoDS_TranslateShell, std::unique_ptr<StepToTopoDS_TranslateShell, Deleter<StepToTopoDS_TranslateShell>>, StepToTopoDS_Root> cls_StepToTopoDS_TranslateShell(mod, "StepToTopoDS_TranslateShell", "None");
+py::class_<StepToTopoDS_TranslateShell, std::unique_ptr<StepToTopoDS_TranslateShell>, StepToTopoDS_Root> cls_StepToTopoDS_TranslateShell(mod, "StepToTopoDS_TranslateShell", "None");
 
 // Constructors
 cls_StepToTopoDS_TranslateShell.def(py::init<>());

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_WWWInline(py::module &mod){
 
-py::class_<Vrml_WWWInline, std::unique_ptr<Vrml_WWWInline, Deleter<Vrml_WWWInline>>> cls_Vrml_WWWInline(mod, "Vrml_WWWInline", "defines a WWWInline node of VRML specifying group properties. The WWWInline group node reads its children from anywhere in the World Wide Web. Exactly when its children are read is not defined; reading the children may be delayed until the WWWInline is actually displayed. WWWInline with an empty ('') name does nothing. WWWInline behaves like a Separator, pushing the traversal state before traversing its children and popping it afterwards. By defaults: myName ('') myBboxSize (0,0,0) myBboxCenter (0,0,0)");
+py::class_<Vrml_WWWInline, std::unique_ptr<Vrml_WWWInline>> cls_Vrml_WWWInline(mod, "Vrml_WWWInline", "defines a WWWInline node of VRML specifying group properties. The WWWInline group node reads its children from anywhere in the World Wide Web. Exactly when its children are read is not defined; reading the children may be delayed until the WWWInline is actually displayed. WWWInline with an empty ('') name does nothing. WWWInline behaves like a Separator, pushing the traversal state before traversing its children and popping it afterwards. By defaults: myName ('') myBboxSize (0,0,0) myBboxCenter (0,0,0)");
 
 // Constructors
 cls_Vrml_WWWInline.def(py::init<>());

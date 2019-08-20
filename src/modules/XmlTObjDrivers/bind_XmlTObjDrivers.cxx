@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlTObjDrivers(py::module &mod){
 
-py::class_<XmlTObjDrivers, std::unique_ptr<XmlTObjDrivers, Deleter<XmlTObjDrivers>>> cls_XmlTObjDrivers(mod, "XmlTObjDrivers", "Class for registering storage/retrieval drivers for TObj XML persistence");
+py::class_<XmlTObjDrivers, std::unique_ptr<XmlTObjDrivers>> cls_XmlTObjDrivers(mod, "XmlTObjDrivers", "Class for registering storage/retrieval drivers for TObj XML persistence");
 
 // Constructors
 

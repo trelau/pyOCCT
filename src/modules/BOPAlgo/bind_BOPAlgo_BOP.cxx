@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_BOP(py::module &mod){
 
-py::class_<BOPAlgo_BOP, std::unique_ptr<BOPAlgo_BOP, Deleter<BOPAlgo_BOP>>, BOPAlgo_ToolsProvider> cls_BOPAlgo_BOP(mod, "BOPAlgo_BOP", "The class represents the Building part of the Boolean Operations algorithm. The arguments of the algorithms are divided in two groups - *Objects* and *Tools*. The algorithm builds the splits of the given arguments using the intersection results and combines the result of Boolean Operation of given type: - *FUSE* - union of two groups of objects; - *COMMON* - intersection of two groups of objects; - *CUT* - subtraction of one group from the other.");
+py::class_<BOPAlgo_BOP, std::unique_ptr<BOPAlgo_BOP>, BOPAlgo_ToolsProvider> cls_BOPAlgo_BOP(mod, "BOPAlgo_BOP", "The class represents the Building part of the Boolean Operations algorithm. The arguments of the algorithms are divided in two groups - *Objects* and *Tools*. The algorithm builds the splits of the given arguments using the intersection results and combines the result of Boolean Operation of given type: - *FUSE* - union of two groups of objects; - *COMMON* - intersection of two groups of objects; - *CUT* - subtraction of one group from the other.");
 
 // Constructors
 cls_BOPAlgo_BOP.def(py::init<>());

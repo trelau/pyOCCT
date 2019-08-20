@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWNodeDefinition(py::module &mod){
 
-py::class_<RWStepFEA_RWNodeDefinition, std::unique_ptr<RWStepFEA_RWNodeDefinition, Deleter<RWStepFEA_RWNodeDefinition>>> cls_RWStepFEA_RWNodeDefinition(mod, "RWStepFEA_RWNodeDefinition", "Read & Write tool for NodeDefinition");
+py::class_<RWStepFEA_RWNodeDefinition, std::unique_ptr<RWStepFEA_RWNodeDefinition>> cls_RWStepFEA_RWNodeDefinition(mod, "RWStepFEA_RWNodeDefinition", "Read & Write tool for NodeDefinition");
 
 // Constructors
 cls_RWStepFEA_RWNodeDefinition.def(py::init<>());

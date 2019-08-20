@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolDimensionDisplayData(py::module &mod){
 
-py::class_<IGESDimen_ToolDimensionDisplayData, std::unique_ptr<IGESDimen_ToolDimensionDisplayData, Deleter<IGESDimen_ToolDimensionDisplayData>>> cls_IGESDimen_ToolDimensionDisplayData(mod, "IGESDimen_ToolDimensionDisplayData", "Tool to work on a DimensionDisplayData. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolDimensionDisplayData, std::unique_ptr<IGESDimen_ToolDimensionDisplayData>> cls_IGESDimen_ToolDimensionDisplayData(mod, "IGESDimen_ToolDimensionDisplayData", "Tool to work on a DimensionDisplayData. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolDimensionDisplayData.def(py::init<>());

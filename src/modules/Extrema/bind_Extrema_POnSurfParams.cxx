@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_POnSurfParams(py::module &mod){
 
-py::class_<Extrema_POnSurfParams, std::unique_ptr<Extrema_POnSurfParams, Deleter<Extrema_POnSurfParams>>, Extrema_POnSurf> cls_Extrema_POnSurfParams(mod, "Extrema_POnSurfParams", "Data container for point on surface parameters. These parameters are required to compute an initial approximation for extrema computation.");
+py::class_<Extrema_POnSurfParams, std::unique_ptr<Extrema_POnSurfParams>, Extrema_POnSurf> cls_Extrema_POnSurfParams(mod, "Extrema_POnSurfParams", "Data container for point on surface parameters. These parameters are required to compute an initial approximation for extrema computation.");
 
 // Constructors
 cls_Extrema_POnSurfParams.def(py::init<>());

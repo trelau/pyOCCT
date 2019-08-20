@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_CDM_ReferenceIterator(py::module &mod){
 
-py::class_<CDM_ReferenceIterator, std::unique_ptr<CDM_ReferenceIterator, Deleter<CDM_ReferenceIterator>>> cls_CDM_ReferenceIterator(mod, "CDM_ReferenceIterator", "None");
+py::class_<CDM_ReferenceIterator, std::unique_ptr<CDM_ReferenceIterator>> cls_CDM_ReferenceIterator(mod, "CDM_ReferenceIterator", "None");
 
 // Constructors
 cls_CDM_ReferenceIterator.def(py::init<const opencascade::handle<CDM_Document> &>(), py::arg("aDocument"));

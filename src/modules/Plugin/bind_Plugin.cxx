@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Plugin(py::module &mod){
 
-py::class_<Plugin, std::unique_ptr<Plugin, Deleter<Plugin>>> cls_Plugin(mod, "Plugin", "None");
+py::class_<Plugin, std::unique_ptr<Plugin>> cls_Plugin(mod, "Plugin", "None");
 
 // Constructors
 

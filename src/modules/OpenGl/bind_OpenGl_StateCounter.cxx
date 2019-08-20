@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_StateCounter(py::module &mod){
 
-py::class_<OpenGl_StateCounter, std::unique_ptr<OpenGl_StateCounter, Deleter<OpenGl_StateCounter>>> cls_OpenGl_StateCounter(mod, "OpenGl_StateCounter", "Tool class to implement consistent state counter for objects inside the same driver instance.");
+py::class_<OpenGl_StateCounter, std::unique_ptr<OpenGl_StateCounter>> cls_OpenGl_StateCounter(mod, "OpenGl_StateCounter", "Tool class to implement consistent state counter for objects inside the same driver instance.");
 
 // Constructors
 cls_OpenGl_StateCounter.def(py::init<>());

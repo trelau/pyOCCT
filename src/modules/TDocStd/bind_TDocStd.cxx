@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDocStd(py::module &mod){
 
-py::class_<TDocStd, std::unique_ptr<TDocStd, Deleter<TDocStd>>> cls_TDocStd(mod, "TDocStd", "This package define CAF main classes.");
+py::class_<TDocStd, std::unique_ptr<TDocStd>> cls_TDocStd(mod, "TDocStd", "This package define CAF main classes.");
 
 // Constructors
 

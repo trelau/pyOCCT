@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBndLib(py::module &mod){
 
-py::class_<BRepBndLib, std::unique_ptr<BRepBndLib, Deleter<BRepBndLib>>> cls_BRepBndLib(mod, "BRepBndLib", "This package provides the bounding boxes for curves and surfaces from BRepAdaptor. Functions to add a topological shape to a bounding box");
+py::class_<BRepBndLib, std::unique_ptr<BRepBndLib>> cls_BRepBndLib(mod, "BRepBndLib", "This package provides the bounding boxes for curves and surfaces from BRepAdaptor. Functions to add a topological shape to a bounding box");
 
 // Constructors
 

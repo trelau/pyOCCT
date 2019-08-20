@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocOpe_Revol(py::module &mod){
 
-py::class_<LocOpe_Revol, std::unique_ptr<LocOpe_Revol, Deleter<LocOpe_Revol>>> cls_LocOpe_Revol(mod, "LocOpe_Revol", "Defines a prism (using Prism from BRepSweep) with modifications provided for the Prism feature.");
+py::class_<LocOpe_Revol, std::unique_ptr<LocOpe_Revol>> cls_LocOpe_Revol(mod, "LocOpe_Revol", "Defines a prism (using Prism from BRepSweep) with modifications provided for the Prism feature.");
 
 // Constructors
 cls_LocOpe_Revol.def(py::init<>());

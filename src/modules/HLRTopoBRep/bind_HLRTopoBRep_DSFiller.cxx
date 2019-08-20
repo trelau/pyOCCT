@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRTopoBRep_DSFiller(py::module &mod){
 
-py::class_<HLRTopoBRep_DSFiller, std::unique_ptr<HLRTopoBRep_DSFiller, Deleter<HLRTopoBRep_DSFiller>>> cls_HLRTopoBRep_DSFiller(mod, "HLRTopoBRep_DSFiller", "Provides methods to fill a HLRTopoBRep_Data.");
+py::class_<HLRTopoBRep_DSFiller, std::unique_ptr<HLRTopoBRep_DSFiller>> cls_HLRTopoBRep_DSFiller(mod, "HLRTopoBRep_DSFiller", "Provides methods to fill a HLRTopoBRep_Data.");
 
 // Constructors
 

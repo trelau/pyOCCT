@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntRes2d_Domain(py::module &mod){
 
-py::class_<IntRes2d_Domain, std::unique_ptr<IntRes2d_Domain, Deleter<IntRes2d_Domain>>> cls_IntRes2d_Domain(mod, "IntRes2d_Domain", "Definition of the domain of parameter on a 2d-curve. Most of the time, a domain is defined by two extremities. An extremity is made of : - a point in 2d-space (Pnt2d from gp), - a parameter on the curve, - a tolerance in the 2d-space. Sometimes, it can be made of 0 or 1 point ( for an infinite or semi-infinite line for example).");
+py::class_<IntRes2d_Domain, std::unique_ptr<IntRes2d_Domain>> cls_IntRes2d_Domain(mod, "IntRes2d_Domain", "Definition of the domain of parameter on a 2d-curve. Most of the time, a domain is defined by two extremities. An extremity is made of : - a point in 2d-space (Pnt2d from gp), - a parameter on the curve, - a tolerance in the 2d-space. Sometimes, it can be made of 0 or 1 point ( for an infinite or semi-infinite line for example).");
 
 // Constructors
 cls_IntRes2d_Domain.def(py::init<>());

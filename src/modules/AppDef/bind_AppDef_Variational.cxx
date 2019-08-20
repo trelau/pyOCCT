@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppDef_Variational(py::module &mod){
 
-py::class_<AppDef_Variational, std::unique_ptr<AppDef_Variational, Deleter<AppDef_Variational>>> cls_AppDef_Variational(mod, "AppDef_Variational", "This class is used to smooth N points with constraints by minimization of quadratic criterium but also variational criterium in order to obtain ' fair Curve ' Computes the approximation of a Multiline by Variational optimization.");
+py::class_<AppDef_Variational, std::unique_ptr<AppDef_Variational>> cls_AppDef_Variational(mod, "AppDef_Variational", "This class is used to smooth N points with constraints by minimization of quadratic criterium but also variational criterium in order to obtain ' fair Curve ' Computes the approximation of a Multiline by Variational optimization.");
 
 // Constructors
 cls_AppDef_Variational.def(py::init<const AppDef_MultiLine &, const Standard_Integer, const Standard_Integer, const opencascade::handle<AppParCurves_HArray1OfConstraintCouple> &>(), py::arg("SSP"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("TheConstraints"));

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_FunctionWithDerivative(py::module &mod){
 
-py::class_<math_FunctionWithDerivative, std::unique_ptr<math_FunctionWithDerivative, Deleter<math_FunctionWithDerivative>>, math_Function> cls_math_FunctionWithDerivative(mod, "math_FunctionWithDerivative", "This abstract class describes the virtual functions associated with a function of a single variable for which the first derivative is available.");
+py::class_<math_FunctionWithDerivative, std::unique_ptr<math_FunctionWithDerivative>, math_Function> cls_math_FunctionWithDerivative(mod, "math_FunctionWithDerivative", "This abstract class describes the virtual functions associated with a function of a single variable for which the first derivative is available.");
 
 // Fields
 

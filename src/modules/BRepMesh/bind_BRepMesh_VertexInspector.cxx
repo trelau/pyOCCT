@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_VertexInspector(py::module &mod){
 
-py::class_<BRepMesh_VertexInspector, std::unique_ptr<BRepMesh_VertexInspector, Deleter<BRepMesh_VertexInspector>>, NCollection_CellFilter_InspectorXY> cls_BRepMesh_VertexInspector(mod, "BRepMesh_VertexInspector", "Class intended for fast searching of the coincidence points.");
+py::class_<BRepMesh_VertexInspector, std::unique_ptr<BRepMesh_VertexInspector>, NCollection_CellFilter_InspectorXY> cls_BRepMesh_VertexInspector(mod, "BRepMesh_VertexInspector", "Class intended for fast searching of the coincidence points.");
 
 // Constructors
 cls_BRepMesh_VertexInspector.def(py::init<const opencascade::handle<NCollection_IncAllocator> &>(), py::arg("theAllocator"));

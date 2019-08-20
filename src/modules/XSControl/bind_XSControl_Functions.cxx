@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XSControl_Functions(py::module &mod){
 
-py::class_<XSControl_Functions, std::unique_ptr<XSControl_Functions, Deleter<XSControl_Functions>>> cls_XSControl_Functions(mod, "XSControl_Functions", "Functions from XSControl gives access to actions which can be commanded with the resources provided by XSControl: especially Controller and Transfer");
+py::class_<XSControl_Functions, std::unique_ptr<XSControl_Functions>> cls_XSControl_Functions(mod, "XSControl_Functions", "Functions from XSControl gives access to actions which can be commanded with the resources provided by XSControl: especially Controller and Transfer");
 
 // Constructors
 

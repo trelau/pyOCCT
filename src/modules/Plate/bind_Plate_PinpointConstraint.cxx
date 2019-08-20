@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Plate_PinpointConstraint(py::module &mod){
 
-py::class_<Plate_PinpointConstraint, std::unique_ptr<Plate_PinpointConstraint, Deleter<Plate_PinpointConstraint>>> cls_Plate_PinpointConstraint(mod, "Plate_PinpointConstraint", "define a constraint on the Plate");
+py::class_<Plate_PinpointConstraint, std::unique_ptr<Plate_PinpointConstraint>> cls_Plate_PinpointConstraint(mod, "Plate_PinpointConstraint", "define a constraint on the Plate");
 
 // Constructors
 cls_Plate_PinpointConstraint.def(py::init<>());

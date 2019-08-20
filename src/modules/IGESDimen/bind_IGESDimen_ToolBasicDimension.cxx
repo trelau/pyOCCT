@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolBasicDimension(py::module &mod){
 
-py::class_<IGESDimen_ToolBasicDimension, std::unique_ptr<IGESDimen_ToolBasicDimension, Deleter<IGESDimen_ToolBasicDimension>>> cls_IGESDimen_ToolBasicDimension(mod, "IGESDimen_ToolBasicDimension", "Tool to work on a BasicDimension. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolBasicDimension, std::unique_ptr<IGESDimen_ToolBasicDimension>> cls_IGESDimen_ToolBasicDimension(mod, "IGESDimen_ToolBasicDimension", "Tool to work on a BasicDimension. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolBasicDimension.def(py::init<>());

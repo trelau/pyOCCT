@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinTools(py::module &mod){
 
-py::class_<BinTools, std::unique_ptr<BinTools, Deleter<BinTools>>> cls_BinTools(mod, "BinTools", "Tool to keep shapes in binary format");
+py::class_<BinTools, std::unique_ptr<BinTools>> cls_BinTools(mod, "BinTools", "Tool to keep shapes in binary format");
 
 // Constructors
 

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_Stretch(py::module &mod){
 
-py::class_<GeomFill_Stretch, std::unique_ptr<GeomFill_Stretch, Deleter<GeomFill_Stretch>>, GeomFill_Filling> cls_GeomFill_Stretch(mod, "GeomFill_Stretch", "None");
+py::class_<GeomFill_Stretch, std::unique_ptr<GeomFill_Stretch>, GeomFill_Filling> cls_GeomFill_Stretch(mod, "GeomFill_Stretch", "None");
 
 // Constructors
 cls_GeomFill_Stretch.def(py::init<>());

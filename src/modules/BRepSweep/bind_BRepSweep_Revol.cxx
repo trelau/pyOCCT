@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepSweep_Revol(py::module &mod){
 
-py::class_<BRepSweep_Revol, std::unique_ptr<BRepSweep_Revol, Deleter<BRepSweep_Revol>>> cls_BRepSweep_Revol(mod, "BRepSweep_Revol", "Provides natural constructors to build BRepSweep rotated swept Primitives.");
+py::class_<BRepSweep_Revol, std::unique_ptr<BRepSweep_Revol>> cls_BRepSweep_Revol(mod, "BRepSweep_Revol", "Provides natural constructors to build BRepSweep rotated swept Primitives.");
 
 // Constructors
 cls_BRepSweep_Revol.def(py::init<const TopoDS_Shape &, const gp_Ax1 &, const Standard_Real>(), py::arg("S"), py::arg("A"), py::arg("D"));

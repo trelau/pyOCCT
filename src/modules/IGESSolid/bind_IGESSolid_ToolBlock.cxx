@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolBlock(py::module &mod){
 
-py::class_<IGESSolid_ToolBlock, std::unique_ptr<IGESSolid_ToolBlock, Deleter<IGESSolid_ToolBlock>>> cls_IGESSolid_ToolBlock(mod, "IGESSolid_ToolBlock", "Tool to work on a Block. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolBlock, std::unique_ptr<IGESSolid_ToolBlock>> cls_IGESSolid_ToolBlock(mod, "IGESSolid_ToolBlock", "Tool to work on a Block. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolBlock.def(py::init<>());

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Plate_SampledCurveConstraint(py::module &mod){
 
-py::class_<Plate_SampledCurveConstraint, std::unique_ptr<Plate_SampledCurveConstraint, Deleter<Plate_SampledCurveConstraint>>> cls_Plate_SampledCurveConstraint(mod, "Plate_SampledCurveConstraint", "define m PinPointConstraint driven by m unknown");
+py::class_<Plate_SampledCurveConstraint, std::unique_ptr<Plate_SampledCurveConstraint>> cls_Plate_SampledCurveConstraint(mod, "Plate_SampledCurveConstraint", "define m PinPointConstraint driven by m unknown");
 
 // Constructors
 cls_Plate_SampledCurveConstraint.def(py::init<const Plate_SequenceOfPinpointConstraint &, const Standard_Integer>(), py::arg("SOPPC"), py::arg("n"));

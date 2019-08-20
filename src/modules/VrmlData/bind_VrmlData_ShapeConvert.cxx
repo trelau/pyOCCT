@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_VrmlData_ShapeConvert(py::module &mod){
 
-py::class_<VrmlData_ShapeConvert, std::unique_ptr<VrmlData_ShapeConvert, Deleter<VrmlData_ShapeConvert>>> cls_VrmlData_ShapeConvert(mod, "VrmlData_ShapeConvert", "Algorithm converting one shape or a set of shapes to VrmlData_Scene.");
+py::class_<VrmlData_ShapeConvert, std::unique_ptr<VrmlData_ShapeConvert>> cls_VrmlData_ShapeConvert(mod, "VrmlData_ShapeConvert", "Algorithm converting one shape or a set of shapes to VrmlData_Scene.");
 
 // Constructors
 cls_VrmlData_ShapeConvert.def(py::init<VrmlData_Scene &>(), py::arg("theScene"));

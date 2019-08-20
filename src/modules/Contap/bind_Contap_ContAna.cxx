@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Contap_ContAna(py::module &mod){
 
-py::class_<Contap_ContAna, std::unique_ptr<Contap_ContAna, Deleter<Contap_ContAna>>> cls_Contap_ContAna(mod, "Contap_ContAna", "This class provides the computation of the contours for quadric surfaces.");
+py::class_<Contap_ContAna, std::unique_ptr<Contap_ContAna>> cls_Contap_ContAna(mod, "Contap_ContAna", "This class provides the computation of the contours for quadric surfaces.");
 
 // Constructors
 cls_Contap_ContAna.def(py::init<>());

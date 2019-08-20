@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_PoleCurve(py::module &mod){
 
-py::class_<StdPrs_PoleCurve, std::unique_ptr<StdPrs_PoleCurve, Deleter<StdPrs_PoleCurve>>, Prs3d_Root> cls_StdPrs_PoleCurve(mod, "StdPrs_PoleCurve", "A framework to provide display of Bezier or BSpline curves (by drawing a broken line linking the poles of the curve).");
+py::class_<StdPrs_PoleCurve, std::unique_ptr<StdPrs_PoleCurve>, Prs3d_Root> cls_StdPrs_PoleCurve(mod, "StdPrs_PoleCurve", "A framework to provide display of Bezier or BSpline curves (by drawing a broken line linking the poles of the curve).");
 
 // Constructors
 

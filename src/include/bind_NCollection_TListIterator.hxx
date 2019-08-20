@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheItemType>
 void bind_NCollection_TListIterator(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_TListIterator<TheItemType>, std::unique_ptr<NCollection_TListIterator<TheItemType>, Deleter<NCollection_TListIterator<TheItemType>>>, NCollection_BaseList::Iterator> cls_NCollection_TListIterator(mod, name.c_str(), "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class", local);
+py::class_<NCollection_TListIterator<TheItemType>, std::unique_ptr<NCollection_TListIterator<TheItemType>>, NCollection_BaseList::Iterator> cls_NCollection_TListIterator(mod, name.c_str(), "Purpose: This Iterator class iterates on BaseList of TListNode and is instantiated in List/Set/Queue/Stack Remark: TListIterator is internal class", local);
 
 // Constructors
 cls_NCollection_TListIterator.def(py::init<>());

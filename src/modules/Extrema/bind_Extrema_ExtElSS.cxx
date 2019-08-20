@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_ExtElSS(py::module &mod){
 
-py::class_<Extrema_ExtElSS, std::unique_ptr<Extrema_ExtElSS, Deleter<Extrema_ExtElSS>>> cls_Extrema_ExtElSS(mod, "Extrema_ExtElSS", "It calculates all the distances between 2 elementary surfaces. These distances can be maximum or minimum.");
+py::class_<Extrema_ExtElSS, std::unique_ptr<Extrema_ExtElSS>> cls_Extrema_ExtElSS(mod, "Extrema_ExtElSS", "It calculates all the distances between 2 elementary surfaces. These distances can be maximum or minimum.");
 
 // Constructors
 cls_Extrema_ExtElSS.def(py::init<>());

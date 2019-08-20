@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_CheckerSI(py::module &mod){
 
-py::class_<BOPAlgo_CheckerSI, std::unique_ptr<BOPAlgo_CheckerSI, Deleter<BOPAlgo_CheckerSI>>, BOPAlgo_PaveFiller> cls_BOPAlgo_CheckerSI(mod, "BOPAlgo_CheckerSI", "Checks the shape on self-interference.");
+py::class_<BOPAlgo_CheckerSI, std::unique_ptr<BOPAlgo_CheckerSI>, BOPAlgo_PaveFiller> cls_BOPAlgo_CheckerSI(mod, "BOPAlgo_CheckerSI", "Checks the shape on self-interference.");
 
 // Constructors
 cls_BOPAlgo_CheckerSI.def(py::init<>());

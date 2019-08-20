@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdSelect(py::module &mod){
 
-py::class_<StdSelect, std::unique_ptr<StdSelect, Deleter<StdSelect>>> cls_StdSelect(mod, "StdSelect", "The StdSelect package provides the following services - the definition of selection modes for topological shapes - the definition of several concrete filtertandard Selection2d.ap classes - 2D and 3D viewer selectors. Note that each new Interactive Object must have all its selection modes defined. Standard Classes is useful to build 3D Selectable Objects, and to process 3D Selections:");
+py::class_<StdSelect, std::unique_ptr<StdSelect>> cls_StdSelect(mod, "StdSelect", "The StdSelect package provides the following services - the definition of selection modes for topological shapes - the definition of several concrete filtertandard Selection2d.ap classes - 2D and 3D viewer selectors. Note that each new Interactive Object must have all its selection modes defined. Standard Classes is useful to build 3D Selectable Objects, and to process 3D Selections:");
 
 // Constructors
 

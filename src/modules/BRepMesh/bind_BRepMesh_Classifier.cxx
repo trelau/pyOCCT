@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_Classifier(py::module &mod){
 
-py::class_<BRepMesh_Classifier, std::unique_ptr<BRepMesh_Classifier, Deleter<BRepMesh_Classifier>>> cls_BRepMesh_Classifier(mod, "BRepMesh_Classifier", "Auxilary class contains information about correctness of discretized face and used for classification of points regarding face internals.");
+py::class_<BRepMesh_Classifier, std::unique_ptr<BRepMesh_Classifier>> cls_BRepMesh_Classifier(mod, "BRepMesh_Classifier", "Auxilary class contains information about correctness of discretized face and used for classification of points regarding face internals.");
 
 // Constructors
 cls_BRepMesh_Classifier.def(py::init<>());

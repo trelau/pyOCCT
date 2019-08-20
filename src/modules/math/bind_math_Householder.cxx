@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_Householder(py::module &mod){
 
-py::class_<math_Householder, std::unique_ptr<math_Householder, Deleter<math_Householder>>> cls_math_Householder(mod, "math_Householder", "This class implements the least square solution of a set of linear equations of m unknowns (n >= m) using the Householder method. It solves A.X = B. This algorithm has more numerical stability than GaussLeastSquare but is longer. It must be used if the matrix is singular or nearly singular. It is about 16% longer than GaussLeastSquare if there is only one member B to solve. It is about 30% longer if there are twenty B members to solve.");
+py::class_<math_Householder, std::unique_ptr<math_Householder>> cls_math_Householder(mod, "math_Householder", "This class implements the least square solution of a set of linear equations of m unknowns (n >= m) using the Householder method. It solves A.X = B. This algorithm has more numerical stability than GaussLeastSquare but is longer. It must be used if the matrix is singular or nearly singular. It is about 16% longer than GaussLeastSquare if there is only one member B to solve. It is about 30% longer if there are twenty B members to solve.");
 
 // Constructors
 cls_math_Householder.def(py::init<const math_Matrix &, const math_Matrix &>(), py::arg("A"), py::arg("B"));

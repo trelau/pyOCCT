@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_FunctionRoots(py::module &mod){
 
-py::class_<math_FunctionRoots, std::unique_ptr<math_FunctionRoots, Deleter<math_FunctionRoots>>> cls_math_FunctionRoots(mod, "math_FunctionRoots", "This class implements an algorithm which finds all the real roots of a function with derivative within a given range. Knowledge of the derivative is required.");
+py::class_<math_FunctionRoots, std::unique_ptr<math_FunctionRoots>> cls_math_FunctionRoots(mod, "math_FunctionRoots", "This class implements an algorithm which finds all the real roots of a function with derivative within a given range. Knowledge of the derivative is required.");
 
 // Constructors
 cls_math_FunctionRoots.def(py::init<math_FunctionWithDerivative &, const Standard_Real, const Standard_Real, const Standard_Integer>(), py::arg("F"), py::arg("A"), py::arg("B"), py::arg("NbSample"));

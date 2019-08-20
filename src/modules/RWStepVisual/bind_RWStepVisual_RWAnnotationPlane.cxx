@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWAnnotationPlane(py::module &mod){
 
-py::class_<RWStepVisual_RWAnnotationPlane, std::unique_ptr<RWStepVisual_RWAnnotationPlane, Deleter<RWStepVisual_RWAnnotationPlane>>> cls_RWStepVisual_RWAnnotationPlane(mod, "RWStepVisual_RWAnnotationPlane", "Read & Write Module for AnnotationPlane");
+py::class_<RWStepVisual_RWAnnotationPlane, std::unique_ptr<RWStepVisual_RWAnnotationPlane>> cls_RWStepVisual_RWAnnotationPlane(mod, "RWStepVisual_RWAnnotationPlane", "Read & Write Module for AnnotationPlane");
 
 // Constructors
 cls_RWStepVisual_RWAnnotationPlane.def(py::init<>());

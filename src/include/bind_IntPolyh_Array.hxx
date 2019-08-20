@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename Type>
 void bind_IntPolyh_Array(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<IntPolyh_Array<Type>, std::unique_ptr<IntPolyh_Array<Type>, Deleter<IntPolyh_Array<Type>>>> cls_IntPolyh_Array(mod, name.c_str(), "Class IntPolyh_Array (dynamic array of objects)", local);
+py::class_<IntPolyh_Array<Type>, std::unique_ptr<IntPolyh_Array<Type>>> cls_IntPolyh_Array(mod, name.c_str(), "Class IntPolyh_Array (dynamic array of objects)", local);
 
 // Constructors
 // cls_IntPolyh_Array.def(py::init<>());

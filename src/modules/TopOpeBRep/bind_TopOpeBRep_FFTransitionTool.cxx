@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRep_FFTransitionTool(py::module &mod){
 
-py::class_<TopOpeBRep_FFTransitionTool, std::unique_ptr<TopOpeBRep_FFTransitionTool, Deleter<TopOpeBRep_FFTransitionTool>>> cls_TopOpeBRep_FFTransitionTool(mod, "TopOpeBRep_FFTransitionTool", "None");
+py::class_<TopOpeBRep_FFTransitionTool, std::unique_ptr<TopOpeBRep_FFTransitionTool>> cls_TopOpeBRep_FFTransitionTool(mod, "TopOpeBRep_FFTransitionTool", "None");
 
 // Constructors
 

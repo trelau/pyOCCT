@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_Circle(py::module &mod){
 
-py::class_<BRepMesh_Circle, std::unique_ptr<BRepMesh_Circle, Deleter<BRepMesh_Circle>>> cls_BRepMesh_Circle(mod, "BRepMesh_Circle", "Describes a 2d circle with a size of only 3 Standard_Real numbers instead of gp who needs 7 Standard_Real numbers.");
+py::class_<BRepMesh_Circle, std::unique_ptr<BRepMesh_Circle>> cls_BRepMesh_Circle(mod, "BRepMesh_Circle", "Describes a 2d circle with a size of only 3 Standard_Real numbers instead of gp who needs 7 Standard_Real numbers.");
 
 // Constructors
 cls_BRepMesh_Circle.def(py::init<>());

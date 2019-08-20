@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_ShapePersistent_Geom2d(py::module &mod){
 
 /*
-py::class_<ShapePersistent_Geom2d, std::unique_ptr<ShapePersistent_Geom2d, Deleter<ShapePersistent_Geom2d>>> cls_ShapePersistent_Geom2d(mod, "ShapePersistent_Geom2d", "None");
+py::class_<ShapePersistent_Geom2d, std::unique_ptr<ShapePersistent_Geom2d>> cls_ShapePersistent_Geom2d(mod, "ShapePersistent_Geom2d", "None");
 
 // Constructors
 

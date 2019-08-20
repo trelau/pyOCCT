@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli_ToolPipingFlow(py::module &mod){
 
-py::class_<IGESAppli_ToolPipingFlow, std::unique_ptr<IGESAppli_ToolPipingFlow, Deleter<IGESAppli_ToolPipingFlow>>> cls_IGESAppli_ToolPipingFlow(mod, "IGESAppli_ToolPipingFlow", "Tool to work on a PipingFlow. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESAppli_ToolPipingFlow, std::unique_ptr<IGESAppli_ToolPipingFlow>> cls_IGESAppli_ToolPipingFlow(mod, "IGESAppli_ToolPipingFlow", "Tool to work on a PipingFlow. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESAppli_ToolPipingFlow.def(py::init<>());

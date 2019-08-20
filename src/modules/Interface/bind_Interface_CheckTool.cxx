@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_CheckTool(py::module &mod){
 
-py::class_<Interface_CheckTool, std::unique_ptr<Interface_CheckTool, Deleter<Interface_CheckTool>>> cls_Interface_CheckTool(mod, "Interface_CheckTool", "Performs Checks on Entities, using General Service Library and Modules to work. Works on one Entity or on a complete Model");
+py::class_<Interface_CheckTool, std::unique_ptr<Interface_CheckTool>> cls_Interface_CheckTool(mod, "Interface_CheckTool", "Performs Checks on Entities, using General Service Library and Modules to work. Works on one Entity or on a complete Model");
 
 // Constructors
 cls_Interface_CheckTool.def(py::init<const opencascade::handle<Interface_InterfaceModel> &, const opencascade::handle<Interface_Protocol> &>(), py::arg("model"), py::arg("protocol"));

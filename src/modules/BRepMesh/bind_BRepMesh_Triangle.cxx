@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_Triangle(py::module &mod){
 
-py::class_<BRepMesh_Triangle, std::unique_ptr<BRepMesh_Triangle, Deleter<BRepMesh_Triangle>>> cls_BRepMesh_Triangle(mod, "BRepMesh_Triangle", "Light weighted structure representing triangle of mesh consisting of oriented links.");
+py::class_<BRepMesh_Triangle, std::unique_ptr<BRepMesh_Triangle>> cls_BRepMesh_Triangle(mod, "BRepMesh_Triangle", "Light weighted structure representing triangle of mesh consisting of oriented links.");
 
 // Constructors
 cls_BRepMesh_Triangle.def(py::init<>());

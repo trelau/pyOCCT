@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP214_AutoDesignOrganizationItem(py::module &mod){
 
-py::class_<StepAP214_AutoDesignOrganizationItem, std::unique_ptr<StepAP214_AutoDesignOrganizationItem, Deleter<StepAP214_AutoDesignOrganizationItem>>, StepAP214_AutoDesignGeneralOrgItem> cls_StepAP214_AutoDesignOrganizationItem(mod, "StepAP214_AutoDesignOrganizationItem", "None");
+py::class_<StepAP214_AutoDesignOrganizationItem, std::unique_ptr<StepAP214_AutoDesignOrganizationItem>, StepAP214_AutoDesignGeneralOrgItem> cls_StepAP214_AutoDesignOrganizationItem(mod, "StepAP214_AutoDesignOrganizationItem", "None");
 
 // Constructors
 cls_StepAP214_AutoDesignOrganizationItem.def(py::init<>());

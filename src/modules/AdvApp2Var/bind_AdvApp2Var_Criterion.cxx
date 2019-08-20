@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApp2Var_Criterion(py::module &mod){
 
-py::class_<AdvApp2Var_Criterion, std::unique_ptr<AdvApp2Var_Criterion, Deleter<AdvApp2Var_Criterion>>> cls_AdvApp2Var_Criterion(mod, "AdvApp2Var_Criterion", "this class contains a given criterion to be satisfied");
+py::class_<AdvApp2Var_Criterion, std::unique_ptr<AdvApp2Var_Criterion>> cls_AdvApp2Var_Criterion(mod, "AdvApp2Var_Criterion", "this class contains a given criterion to be satisfied");
 
 // Fields
 

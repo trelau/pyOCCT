@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP203_ChangeRequestItem(py::module &mod){
 
-py::class_<StepAP203_ChangeRequestItem, std::unique_ptr<StepAP203_ChangeRequestItem, Deleter<StepAP203_ChangeRequestItem>>, StepData_SelectType> cls_StepAP203_ChangeRequestItem(mod, "StepAP203_ChangeRequestItem", "Representation of STEP SELECT type ChangeRequestItem");
+py::class_<StepAP203_ChangeRequestItem, std::unique_ptr<StepAP203_ChangeRequestItem>, StepData_SelectType> cls_StepAP203_ChangeRequestItem(mod, "StepAP203_ChangeRequestItem", "Representation of STEP SELECT type ChangeRequestItem");
 
 // Constructors
 cls_StepAP203_ChangeRequestItem.def(py::init<>());

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepShape_ShapeDimensionRepresentationItem(py::module &mod){
 
-py::class_<StepShape_ShapeDimensionRepresentationItem, std::unique_ptr<StepShape_ShapeDimensionRepresentationItem, Deleter<StepShape_ShapeDimensionRepresentationItem>>, StepData_SelectType> cls_StepShape_ShapeDimensionRepresentationItem(mod, "StepShape_ShapeDimensionRepresentationItem", "None");
+py::class_<StepShape_ShapeDimensionRepresentationItem, std::unique_ptr<StepShape_ShapeDimensionRepresentationItem>, StepData_SelectType> cls_StepShape_ShapeDimensionRepresentationItem(mod, "StepShape_ShapeDimensionRepresentationItem", "None");
 
 // Constructors
 cls_StepShape_ShapeDimensionRepresentationItem.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWPresentationArea(py::module &mod){
 
-py::class_<RWStepVisual_RWPresentationArea, std::unique_ptr<RWStepVisual_RWPresentationArea, Deleter<RWStepVisual_RWPresentationArea>>> cls_RWStepVisual_RWPresentationArea(mod, "RWStepVisual_RWPresentationArea", "Read & Write Module for PresentationArea");
+py::class_<RWStepVisual_RWPresentationArea, std::unique_ptr<RWStepVisual_RWPresentationArea>> cls_RWStepVisual_RWPresentationArea(mod, "RWStepVisual_RWPresentationArea", "Read & Write Module for PresentationArea");
 
 // Constructors
 cls_RWStepVisual_RWPresentationArea.def(py::init<>());

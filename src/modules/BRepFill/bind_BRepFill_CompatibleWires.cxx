@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_CompatibleWires(py::module &mod){
 
-py::class_<BRepFill_CompatibleWires, std::unique_ptr<BRepFill_CompatibleWires, Deleter<BRepFill_CompatibleWires>>> cls_BRepFill_CompatibleWires(mod, "BRepFill_CompatibleWires", "Constructs a sequence of Wires (with good orientation and origin) agreed each other so that the surface passing through these sections is not twisted");
+py::class_<BRepFill_CompatibleWires, std::unique_ptr<BRepFill_CompatibleWires>> cls_BRepFill_CompatibleWires(mod, "BRepFill_CompatibleWires", "Constructs a sequence of Wires (with good orientation and origin) agreed each other so that the surface passing through these sections is not twisted");
 
 // Constructors
 cls_BRepFill_CompatibleWires.def(py::init<>());

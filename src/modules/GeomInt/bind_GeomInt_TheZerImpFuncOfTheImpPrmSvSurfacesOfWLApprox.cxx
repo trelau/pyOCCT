@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox(py::module &mod){
 
-py::class_<GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox, std::unique_ptr<GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox, Deleter<GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox>>, math_FunctionSetWithDerivatives> cls_GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox(mod, "GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox", "None");
+py::class_<GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox, std::unique_ptr<GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox>, math_FunctionSetWithDerivatives> cls_GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox(mod, "GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox", "None");
 
 // Constructors
 cls_GeomInt_TheZerImpFuncOfTheImpPrmSvSurfacesOfWLApprox.def(py::init<>());

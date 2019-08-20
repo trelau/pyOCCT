@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_BiPoint(py::module &mod){
 
-py::class_<HLRBRep_BiPoint, std::unique_ptr<HLRBRep_BiPoint, Deleter<HLRBRep_BiPoint>>> cls_HLRBRep_BiPoint(mod, "HLRBRep_BiPoint", "Contains the colors of a shape.");
+py::class_<HLRBRep_BiPoint, std::unique_ptr<HLRBRep_BiPoint>> cls_HLRBRep_BiPoint(mod, "HLRBRep_BiPoint", "Contains the colors of a shape.");
 
 // Constructors
 cls_HLRBRep_BiPoint.def(py::init<>());

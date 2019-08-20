@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_CSFunction(py::module &mod){
 
-py::class_<IntPatch_CSFunction, std::unique_ptr<IntPatch_CSFunction, Deleter<IntPatch_CSFunction>>, math_FunctionSetWithDerivatives> cls_IntPatch_CSFunction(mod, "IntPatch_CSFunction", "this function is associated to the intersection between a curve on surface and a surface .");
+py::class_<IntPatch_CSFunction, std::unique_ptr<IntPatch_CSFunction>, math_FunctionSetWithDerivatives> cls_IntPatch_CSFunction(mod, "IntPatch_CSFunction", "this function is associated to the intersection between a curve on surface and a surface .");
 
 // Constructors
 cls_IntPatch_CSFunction.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor2d_HCurve2d> &, const opencascade::handle<Adaptor3d_HSurface> &>(), py::arg("S1"), py::arg("C"), py::arg("S2"));

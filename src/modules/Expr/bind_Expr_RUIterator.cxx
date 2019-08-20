@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Expr_RUIterator(py::module &mod){
 
-py::class_<Expr_RUIterator, std::unique_ptr<Expr_RUIterator, Deleter<Expr_RUIterator>>> cls_Expr_RUIterator(mod, "Expr_RUIterator", "Iterates on NamedUnknowns in a GeneralRelation.");
+py::class_<Expr_RUIterator, std::unique_ptr<Expr_RUIterator>> cls_Expr_RUIterator(mod, "Expr_RUIterator", "Iterates on NamedUnknowns in a GeneralRelation.");
 
 // Constructors
 cls_Expr_RUIterator.def(py::init<const opencascade::handle<Expr_GeneralRelation> &>(), py::arg("rel"));

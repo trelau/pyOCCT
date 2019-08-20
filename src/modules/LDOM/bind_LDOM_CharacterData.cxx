@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOM_CharacterData(py::module &mod){
 
-py::class_<LDOM_CharacterData, std::unique_ptr<LDOM_CharacterData, Deleter<LDOM_CharacterData>>, LDOM_Node> cls_LDOM_CharacterData(mod, "LDOM_CharacterData", "None");
+py::class_<LDOM_CharacterData, std::unique_ptr<LDOM_CharacterData>, LDOM_Node> cls_LDOM_CharacterData(mod, "LDOM_CharacterData", "None");
 
 // Constructors
 cls_LDOM_CharacterData.def(py::init<>());

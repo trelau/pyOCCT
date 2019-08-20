@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Sweep_NumShapeTool(py::module &mod){
 
-py::class_<Sweep_NumShapeTool, std::unique_ptr<Sweep_NumShapeTool, Deleter<Sweep_NumShapeTool>>> cls_Sweep_NumShapeTool(mod, "Sweep_NumShapeTool", "This class provides the indexation and type analysis services required by the NumShape Directing Shapes of Swept Primitives.");
+py::class_<Sweep_NumShapeTool, std::unique_ptr<Sweep_NumShapeTool>> cls_Sweep_NumShapeTool(mod, "Sweep_NumShapeTool", "This class provides the indexation and type analysis services required by the NumShape Directing Shapes of Swept Primitives.");
 
 // Constructors
 cls_Sweep_NumShapeTool.def(py::init<const Sweep_NumShape &>(), py::arg("aShape"));

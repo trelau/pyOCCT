@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWOuterBoundaryCurve(py::module &mod){
 
-py::class_<RWStepGeom_RWOuterBoundaryCurve, std::unique_ptr<RWStepGeom_RWOuterBoundaryCurve, Deleter<RWStepGeom_RWOuterBoundaryCurve>>> cls_RWStepGeom_RWOuterBoundaryCurve(mod, "RWStepGeom_RWOuterBoundaryCurve", "Read & Write Module for OuterBoundaryCurve");
+py::class_<RWStepGeom_RWOuterBoundaryCurve, std::unique_ptr<RWStepGeom_RWOuterBoundaryCurve>> cls_RWStepGeom_RWOuterBoundaryCurve(mod, "RWStepGeom_RWOuterBoundaryCurve", "Read & Write Module for OuterBoundaryCurve");
 
 // Constructors
 cls_RWStepGeom_RWOuterBoundaryCurve.def(py::init<>());

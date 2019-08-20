@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Message_ProgressScale(py::module &mod){
 
-py::class_<Message_ProgressScale, std::unique_ptr<Message_ProgressScale, Deleter<Message_ProgressScale>>> cls_Message_ProgressScale(mod, "Message_ProgressScale", "Internal data structure for scale in ProgressIndicator");
+py::class_<Message_ProgressScale, std::unique_ptr<Message_ProgressScale>> cls_Message_ProgressScale(mod, "Message_ProgressScale", "Internal data structure for scale in ProgressIndicator");
 
 // Constructors
 cls_Message_ProgressScale.def(py::init<>());

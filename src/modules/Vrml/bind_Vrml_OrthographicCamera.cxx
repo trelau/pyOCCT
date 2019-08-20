@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_OrthographicCamera(py::module &mod){
 
-py::class_<Vrml_OrthographicCamera, std::unique_ptr<Vrml_OrthographicCamera, Deleter<Vrml_OrthographicCamera>>> cls_Vrml_OrthographicCamera(mod, "Vrml_OrthographicCamera", "specifies a OrthographicCamera node of VRML specifying properties of cameras. An orthographic camera defines a parallel projection from a viewpoint. This camera does not diminish objects with distance, as a PerspectiveCamera does. The viewing volume for an orthographic camera is a rectangular parallelepiped (a box).");
+py::class_<Vrml_OrthographicCamera, std::unique_ptr<Vrml_OrthographicCamera>> cls_Vrml_OrthographicCamera(mod, "Vrml_OrthographicCamera", "specifies a OrthographicCamera node of VRML specifying properties of cameras. An orthographic camera defines a parallel projection from a viewpoint. This camera does not diminish objects with distance, as a PerspectiveCamera does. The viewing volume for an orthographic camera is a rectangular parallelepiped (a box).");
 
 // Constructors
 cls_Vrml_OrthographicCamera.def(py::init<>());

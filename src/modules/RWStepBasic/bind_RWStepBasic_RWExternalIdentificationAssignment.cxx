@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWExternalIdentificationAssignment(py::module &mod){
 
-py::class_<RWStepBasic_RWExternalIdentificationAssignment, std::unique_ptr<RWStepBasic_RWExternalIdentificationAssignment, Deleter<RWStepBasic_RWExternalIdentificationAssignment>>> cls_RWStepBasic_RWExternalIdentificationAssignment(mod, "RWStepBasic_RWExternalIdentificationAssignment", "Read & Write tool for ExternalIdentificationAssignment");
+py::class_<RWStepBasic_RWExternalIdentificationAssignment, std::unique_ptr<RWStepBasic_RWExternalIdentificationAssignment>> cls_RWStepBasic_RWExternalIdentificationAssignment(mod, "RWStepBasic_RWExternalIdentificationAssignment", "Read & Write tool for ExternalIdentificationAssignment");
 
 // Constructors
 cls_RWStepBasic_RWExternalIdentificationAssignment.def(py::init<>());

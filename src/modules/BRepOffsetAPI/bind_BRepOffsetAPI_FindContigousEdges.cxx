@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffsetAPI_FindContigousEdges(py::module &mod){
 
-py::class_<BRepOffsetAPI_FindContigousEdges, std::unique_ptr<BRepOffsetAPI_FindContigousEdges, Deleter<BRepOffsetAPI_FindContigousEdges>>> cls_BRepOffsetAPI_FindContigousEdges(mod, "BRepOffsetAPI_FindContigousEdges", "Provides methods to identify contigous boundaries for continuity control (C0, C1, ...)");
+py::class_<BRepOffsetAPI_FindContigousEdges, std::unique_ptr<BRepOffsetAPI_FindContigousEdges>> cls_BRepOffsetAPI_FindContigousEdges(mod, "BRepOffsetAPI_FindContigousEdges", "Provides methods to identify contigous boundaries for continuity control (C0, C1, ...)");
 
 // Constructors
 cls_BRepOffsetAPI_FindContigousEdges.def(py::init<>());

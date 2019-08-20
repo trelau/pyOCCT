@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepData_WriterLib(py::module &mod){
 
-py::class_<StepData_WriterLib, std::unique_ptr<StepData_WriterLib, Deleter<StepData_WriterLib>>> cls_StepData_WriterLib(mod, "StepData_WriterLib", "None");
+py::class_<StepData_WriterLib, std::unique_ptr<StepData_WriterLib>> cls_StepData_WriterLib(mod, "StepData_WriterLib", "None");
 
 // Constructors
 cls_StepData_WriterLib.def(py::init<const opencascade::handle<StepData_Protocol> &>(), py::arg("aprotocol"));

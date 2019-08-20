@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeAnalysis_CheckSmallFace(py::module &mod){
 
-py::class_<ShapeAnalysis_CheckSmallFace, std::unique_ptr<ShapeAnalysis_CheckSmallFace, Deleter<ShapeAnalysis_CheckSmallFace>>> cls_ShapeAnalysis_CheckSmallFace(mod, "ShapeAnalysis_CheckSmallFace", "Analysis of the face size");
+py::class_<ShapeAnalysis_CheckSmallFace, std::unique_ptr<ShapeAnalysis_CheckSmallFace>> cls_ShapeAnalysis_CheckSmallFace(mod, "ShapeAnalysis_CheckSmallFace", "Analysis of the face size");
 
 // Constructors
 cls_ShapeAnalysis_CheckSmallFace.def(py::init<>());

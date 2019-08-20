@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_ShellSplitter(py::module &mod){
 
-py::class_<BOPAlgo_ShellSplitter, std::unique_ptr<BOPAlgo_ShellSplitter, Deleter<BOPAlgo_ShellSplitter>>, BOPAlgo_Algo> cls_BOPAlgo_ShellSplitter(mod, "BOPAlgo_ShellSplitter", "The class provides the splitting of the set of connected faces on separate loops");
+py::class_<BOPAlgo_ShellSplitter, std::unique_ptr<BOPAlgo_ShellSplitter>, BOPAlgo_Algo> cls_BOPAlgo_ShellSplitter(mod, "BOPAlgo_ShellSplitter", "The class provides the splitting of the set of connected faces on separate loops");
 
 // Constructors
 cls_BOPAlgo_ShellSplitter.def(py::init<>());

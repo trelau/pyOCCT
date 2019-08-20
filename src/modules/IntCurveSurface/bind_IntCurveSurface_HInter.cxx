@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurveSurface_HInter(py::module &mod){
 
-py::class_<IntCurveSurface_HInter, std::unique_ptr<IntCurveSurface_HInter, Deleter<IntCurveSurface_HInter>>, IntCurveSurface_Intersection> cls_IntCurveSurface_HInter(mod, "IntCurveSurface_HInter", "None");
+py::class_<IntCurveSurface_HInter, std::unique_ptr<IntCurveSurface_HInter>, IntCurveSurface_Intersection> cls_IntCurveSurface_HInter(mod, "IntCurveSurface_HInter", "None");
 
 // Constructors
 cls_IntCurveSurface_HInter.def(py::init<>());

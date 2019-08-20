@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWGeometricRepresentationContext(py::module &mod){
 
-py::class_<RWStepGeom_RWGeometricRepresentationContext, std::unique_ptr<RWStepGeom_RWGeometricRepresentationContext, Deleter<RWStepGeom_RWGeometricRepresentationContext>>> cls_RWStepGeom_RWGeometricRepresentationContext(mod, "RWStepGeom_RWGeometricRepresentationContext", "Read & Write Module for GeometricRepresentationContext");
+py::class_<RWStepGeom_RWGeometricRepresentationContext, std::unique_ptr<RWStepGeom_RWGeometricRepresentationContext>> cls_RWStepGeom_RWGeometricRepresentationContext(mod, "RWStepGeom_RWGeometricRepresentationContext", "Read & Write Module for GeometricRepresentationContext");
 
 // Constructors
 cls_RWStepGeom_RWGeometricRepresentationContext.def(py::init<>());

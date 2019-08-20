@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeAnalysis(py::module &mod){
 
-py::class_<ShapeAnalysis, std::unique_ptr<ShapeAnalysis, Deleter<ShapeAnalysis>>> cls_ShapeAnalysis(mod, "ShapeAnalysis", "This package is intended to analyze geometrical objects and topological shapes. Analysis domain includes both exploring geometrical and topological properties of shapes and checking their conformance to Open CASCADE requirements. The directions of analysis provided by tools of this package are: computing quantities of subshapes, computing parameters of points on curve and surface, computing surface singularities, checking edge and wire consistency, checking edges order in the wire, checking face bounds orientation, checking small faces, analyzing shape tolerances, analyzing of free bounds of the shape.");
+py::class_<ShapeAnalysis, std::unique_ptr<ShapeAnalysis>> cls_ShapeAnalysis(mod, "ShapeAnalysis", "This package is intended to analyze geometrical objects and topological shapes. Analysis domain includes both exploring geometrical and topological properties of shapes and checking their conformance to Open CASCADE requirements. The directions of analysis provided by tools of this package are: computing quantities of subshapes, computing parameters of points on curve and surface, computing surface singularities, checking edge and wire consistency, checking edges order in the wire, checking face bounds orientation, checking small faces, analyzing shape tolerances, analyzing of free bounds of the shape.");
 
 // Constructors
 

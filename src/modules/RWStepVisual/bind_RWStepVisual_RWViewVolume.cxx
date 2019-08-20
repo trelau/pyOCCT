@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWViewVolume(py::module &mod){
 
-py::class_<RWStepVisual_RWViewVolume, std::unique_ptr<RWStepVisual_RWViewVolume, Deleter<RWStepVisual_RWViewVolume>>> cls_RWStepVisual_RWViewVolume(mod, "RWStepVisual_RWViewVolume", "Read & Write Module for ViewVolume");
+py::class_<RWStepVisual_RWViewVolume, std::unique_ptr<RWStepVisual_RWViewVolume>> cls_RWStepVisual_RWViewVolume(mod, "RWStepVisual_RWViewVolume", "Read & Write Module for ViewVolume");
 
 // Constructors
 cls_RWStepVisual_RWViewVolume.def(py::init<>());

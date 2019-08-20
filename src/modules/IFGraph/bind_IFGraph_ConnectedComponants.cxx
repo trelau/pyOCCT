@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFGraph_ConnectedComponants(py::module &mod){
 
-py::class_<IFGraph_ConnectedComponants, std::unique_ptr<IFGraph_ConnectedComponants, Deleter<IFGraph_ConnectedComponants>>, IFGraph_SubPartsIterator> cls_IFGraph_ConnectedComponants(mod, "IFGraph_ConnectedComponants", "determines Connected Componants in a Graph. They define disjoined sets of Entities");
+py::class_<IFGraph_ConnectedComponants, std::unique_ptr<IFGraph_ConnectedComponants>, IFGraph_SubPartsIterator> cls_IFGraph_ConnectedComponants(mod, "IFGraph_ConnectedComponants", "determines Connected Componants in a Graph. They define disjoined sets of Entities");
 
 // Constructors
 cls_IFGraph_ConnectedComponants.def(py::init<const Interface_Graph &, const Standard_Boolean>(), py::arg("agraph"), py::arg("whole"));

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_PCDM_DOMHeaderParser(py::module &mod){
 
-py::class_<PCDM_DOMHeaderParser, std::unique_ptr<PCDM_DOMHeaderParser, Deleter<PCDM_DOMHeaderParser>>, LDOMParser> cls_PCDM_DOMHeaderParser(mod, "PCDM_DOMHeaderParser", "None");
+py::class_<PCDM_DOMHeaderParser, std::unique_ptr<PCDM_DOMHeaderParser>, LDOMParser> cls_PCDM_DOMHeaderParser(mod, "PCDM_DOMHeaderParser", "None");
 
 // Constructors
 

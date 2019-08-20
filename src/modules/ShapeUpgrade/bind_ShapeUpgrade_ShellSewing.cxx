@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeUpgrade_ShellSewing(py::module &mod){
 
-py::class_<ShapeUpgrade_ShellSewing, std::unique_ptr<ShapeUpgrade_ShellSewing, Deleter<ShapeUpgrade_ShellSewing>>> cls_ShapeUpgrade_ShellSewing(mod, "ShapeUpgrade_ShellSewing", "This class provides a tool for applying sewing algorithm from BRepBuilderAPI: it takes a shape, calls sewing for each shell, and then replaces sewed shells with use of ShapeBuild_ReShape");
+py::class_<ShapeUpgrade_ShellSewing, std::unique_ptr<ShapeUpgrade_ShellSewing>> cls_ShapeUpgrade_ShellSewing(mod, "ShapeUpgrade_ShellSewing", "This class provides a tool for applying sewing algorithm from BRepBuilderAPI: it takes a shape, calls sewing for each shell, and then replaces sewed shells with use of ShapeBuild_ReShape");
 
 // Constructors
 cls_ShapeUpgrade_ShellSewing.def(py::init<>());

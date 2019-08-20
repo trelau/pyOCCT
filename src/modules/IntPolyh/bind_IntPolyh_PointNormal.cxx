@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPolyh_PointNormal(py::module &mod){
 
-py::class_<IntPolyh_PointNormal, std::unique_ptr<IntPolyh_PointNormal, Deleter<IntPolyh_PointNormal>>> cls_IntPolyh_PointNormal(mod, "IntPolyh_PointNormal", "Auxiliary structure to represent pair of point and normal vector in this point on the surface.");
+py::class_<IntPolyh_PointNormal, std::unique_ptr<IntPolyh_PointNormal>> cls_IntPolyh_PointNormal(mod, "IntPolyh_PointNormal", "Auxiliary structure to represent pair of point and normal vector in this point on the surface.");
 
 // Constructors
 

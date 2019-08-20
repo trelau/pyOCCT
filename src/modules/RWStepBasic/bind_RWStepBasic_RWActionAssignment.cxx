@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWActionAssignment(py::module &mod){
 
-py::class_<RWStepBasic_RWActionAssignment, std::unique_ptr<RWStepBasic_RWActionAssignment, Deleter<RWStepBasic_RWActionAssignment>>> cls_RWStepBasic_RWActionAssignment(mod, "RWStepBasic_RWActionAssignment", "Read & Write tool for ActionAssignment");
+py::class_<RWStepBasic_RWActionAssignment, std::unique_ptr<RWStepBasic_RWActionAssignment>> cls_RWStepBasic_RWActionAssignment(mod, "RWStepBasic_RWActionAssignment", "Read & Write tool for ActionAssignment");
 
 // Constructors
 cls_RWStepBasic_RWActionAssignment.def(py::init<>());

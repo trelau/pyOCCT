@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_HInterTool(py::module &mod){
 
-py::class_<IntPatch_HInterTool, std::unique_ptr<IntPatch_HInterTool, Deleter<IntPatch_HInterTool>>> cls_IntPatch_HInterTool(mod, "IntPatch_HInterTool", "Tool for the intersection between 2 surfaces. Regroupe pour l instant les methodes hors Adaptor3d...");
+py::class_<IntPatch_HInterTool, std::unique_ptr<IntPatch_HInterTool>> cls_IntPatch_HInterTool(mod, "IntPatch_HInterTool", "Tool for the intersection between 2 surfaces. Regroupe pour l instant les methodes hors Adaptor3d...");
 
 // Constructors
 cls_IntPatch_HInterTool.def(py::init<>());

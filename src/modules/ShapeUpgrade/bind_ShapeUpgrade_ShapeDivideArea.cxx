@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeUpgrade_ShapeDivideArea(py::module &mod){
 
-py::class_<ShapeUpgrade_ShapeDivideArea, std::unique_ptr<ShapeUpgrade_ShapeDivideArea, Deleter<ShapeUpgrade_ShapeDivideArea>>, ShapeUpgrade_ShapeDivide> cls_ShapeUpgrade_ShapeDivideArea(mod, "ShapeUpgrade_ShapeDivideArea", "Divides faces from sprcified shape by max area criterium.");
+py::class_<ShapeUpgrade_ShapeDivideArea, std::unique_ptr<ShapeUpgrade_ShapeDivideArea>, ShapeUpgrade_ShapeDivide> cls_ShapeUpgrade_ShapeDivideArea(mod, "ShapeUpgrade_ShapeDivideArea", "Divides faces from sprcified shape by max area criterium.");
 
 // Constructors
 cls_ShapeUpgrade_ShapeDivideArea.def(py::init<>());

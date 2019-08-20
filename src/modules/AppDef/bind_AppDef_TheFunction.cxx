@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppDef_TheFunction(py::module &mod){
 
-py::class_<AppDef_TheFunction, std::unique_ptr<AppDef_TheFunction, Deleter<AppDef_TheFunction>>, math_MultipleVarFunctionWithGradient> cls_AppDef_TheFunction(mod, "AppDef_TheFunction", "None");
+py::class_<AppDef_TheFunction, std::unique_ptr<AppDef_TheFunction>, math_MultipleVarFunctionWithGradient> cls_AppDef_TheFunction(mod, "AppDef_TheFunction", "None");
 
 // Constructors
 cls_AppDef_TheFunction.def(py::init<const AppDef_MultiLine &, const Standard_Integer, const Standard_Integer, const opencascade::handle<AppParCurves_HArray1OfConstraintCouple> &, const math_Vector &, const Standard_Integer>(), py::arg("SSP"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("TheConstraints"), py::arg("Parameters"), py::arg("Deg"));

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GccAna_Pnt2dBisec(py::module &mod){
 
-py::class_<GccAna_Pnt2dBisec, std::unique_ptr<GccAna_Pnt2dBisec, Deleter<GccAna_Pnt2dBisec>>> cls_GccAna_Pnt2dBisec(mod, "GccAna_Pnt2dBisec", "This class implements the algorithms used to create the bisecting line between two 2d points Describes functions for building a bisecting line between two 2D points. The bisecting line between two points is the bisector of the segment which joins the two points, if these are not coincident. The algorithm does not find a solution if the two points are coincident. A Pnt2dBisec object provides a framework for: - defining the construction of the bisecting line, - implementing the construction algorithm, and consulting the result.");
+py::class_<GccAna_Pnt2dBisec, std::unique_ptr<GccAna_Pnt2dBisec>> cls_GccAna_Pnt2dBisec(mod, "GccAna_Pnt2dBisec", "This class implements the algorithms used to create the bisecting line between two 2d points Describes functions for building a bisecting line between two 2D points. The bisecting line between two points is the bisector of the segment which joins the two points, if these are not coincident. The algorithm does not find a solution if the two points are coincident. A Pnt2dBisec object provides a framework for: - defining the construction of the bisecting line, - implementing the construction algorithm, and consulting the result.");
 
 // Constructors
 cls_GccAna_Pnt2dBisec.def(py::init<const gp_Pnt2d &, const gp_Pnt2d &>(), py::arg("Point1"), py::arg("Point2"));

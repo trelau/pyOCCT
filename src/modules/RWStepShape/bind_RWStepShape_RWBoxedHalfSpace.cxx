@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWBoxedHalfSpace(py::module &mod){
 
-py::class_<RWStepShape_RWBoxedHalfSpace, std::unique_ptr<RWStepShape_RWBoxedHalfSpace, Deleter<RWStepShape_RWBoxedHalfSpace>>> cls_RWStepShape_RWBoxedHalfSpace(mod, "RWStepShape_RWBoxedHalfSpace", "Read & Write Module for BoxedHalfSpace");
+py::class_<RWStepShape_RWBoxedHalfSpace, std::unique_ptr<RWStepShape_RWBoxedHalfSpace>> cls_RWStepShape_RWBoxedHalfSpace(mod, "RWStepShape_RWBoxedHalfSpace", "Read & Write Module for BoxedHalfSpace");
 
 // Constructors
 cls_RWStepShape_RWBoxedHalfSpace.def(py::init<>());

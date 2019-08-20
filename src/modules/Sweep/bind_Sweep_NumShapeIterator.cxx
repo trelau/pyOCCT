@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Sweep_NumShapeIterator(py::module &mod){
 
-py::class_<Sweep_NumShapeIterator, std::unique_ptr<Sweep_NumShapeIterator, Deleter<Sweep_NumShapeIterator>>> cls_Sweep_NumShapeIterator(mod, "Sweep_NumShapeIterator", "This class provides iteration services required by the Swept Primitives for a Directing NumShape Line.");
+py::class_<Sweep_NumShapeIterator, std::unique_ptr<Sweep_NumShapeIterator>> cls_Sweep_NumShapeIterator(mod, "Sweep_NumShapeIterator", "This class provides iteration services required by the Swept Primitives for a Directing NumShape Line.");
 
 // Constructors
 cls_Sweep_NumShapeIterator.def(py::init<>());

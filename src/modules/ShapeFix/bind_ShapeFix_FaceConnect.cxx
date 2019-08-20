@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeFix_FaceConnect(py::module &mod){
 
-py::class_<ShapeFix_FaceConnect, std::unique_ptr<ShapeFix_FaceConnect, Deleter<ShapeFix_FaceConnect>>> cls_ShapeFix_FaceConnect(mod, "ShapeFix_FaceConnect", "Rebuilds connectivity between faces in shell");
+py::class_<ShapeFix_FaceConnect, std::unique_ptr<ShapeFix_FaceConnect>> cls_ShapeFix_FaceConnect(mod, "ShapeFix_FaceConnect", "Rebuilds connectivity between faces in shell");
 
 // Constructors
 cls_ShapeFix_FaceConnect.def(py::init<>());

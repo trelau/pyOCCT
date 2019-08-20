@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApprox_SimpleApprox(py::module &mod){
 
-py::class_<AdvApprox_SimpleApprox, std::unique_ptr<AdvApprox_SimpleApprox, Deleter<AdvApprox_SimpleApprox>>> cls_AdvApprox_SimpleApprox(mod, "AdvApprox_SimpleApprox", "Approximate a function on an intervall [First,Last] The result is a simple polynomial whose degree is as low as possible to satisfy the required tolerance and the maximum degree. The maximum error and the averrage error resulting from approximating the function by the polynomial are computed");
+py::class_<AdvApprox_SimpleApprox, std::unique_ptr<AdvApprox_SimpleApprox>> cls_AdvApprox_SimpleApprox(mod, "AdvApprox_SimpleApprox", "Approximate a function on an intervall [First,Last] The result is a simple polynomial whose degree is as low as possible to satisfy the required tolerance and the maximum degree. The maximum error and the averrage error resulting from approximating the function by the polynomial are computed");
 
 // Constructors
 cls_AdvApprox_SimpleApprox.def(py::init<const Standard_Integer, const Standard_Integer, const GeomAbs_Shape, const Standard_Integer, const Standard_Integer, const opencascade::handle<PLib_JacobiPolynomial> &, const AdvApprox_EvaluatorFunction &>(), py::arg("TotalDimension"), py::arg("TotalNumSS"), py::arg("Continuity"), py::arg("WorkDegree"), py::arg("NbGaussPoints"), py::arg("JacobiBase"), py::arg("Func"));

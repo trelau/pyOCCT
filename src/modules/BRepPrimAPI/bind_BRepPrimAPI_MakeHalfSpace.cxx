@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrimAPI_MakeHalfSpace(py::module &mod){
 
-py::class_<BRepPrimAPI_MakeHalfSpace, std::unique_ptr<BRepPrimAPI_MakeHalfSpace, Deleter<BRepPrimAPI_MakeHalfSpace>>, BRepBuilderAPI_MakeShape> cls_BRepPrimAPI_MakeHalfSpace(mod, "BRepPrimAPI_MakeHalfSpace", "Describes functions to build half-spaces. A half-space is an infinite solid, limited by a surface. It is built from a face or a shell, which bounds it, and with a reference point, which specifies the side of the surface where the matter of the half-space is located. A half-space is a tool commonly used in topological operations to cut another shape. A MakeHalfSpace object provides a framework for: - defining and implementing the construction of a half-space, and - consulting the result.");
+py::class_<BRepPrimAPI_MakeHalfSpace, std::unique_ptr<BRepPrimAPI_MakeHalfSpace>, BRepBuilderAPI_MakeShape> cls_BRepPrimAPI_MakeHalfSpace(mod, "BRepPrimAPI_MakeHalfSpace", "Describes functions to build half-spaces. A half-space is an infinite solid, limited by a surface. It is built from a face or a shell, which bounds it, and with a reference point, which specifies the side of the surface where the matter of the half-space is located. A half-space is a tool commonly used in topological operations to cut another shape. A MakeHalfSpace object provides a framework for: - defining and implementing the construction of a half-space, and - consulting the result.");
 
 // Constructors
 cls_BRepPrimAPI_MakeHalfSpace.def(py::init<const TopoDS_Face &, const gp_Pnt &>(), py::arg("Face"), py::arg("RefPnt"));

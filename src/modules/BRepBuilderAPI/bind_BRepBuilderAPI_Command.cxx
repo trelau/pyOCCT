@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBuilderAPI_Command(py::module &mod){
 
-py::class_<BRepBuilderAPI_Command, std::unique_ptr<BRepBuilderAPI_Command, Deleter<BRepBuilderAPI_Command>>> cls_BRepBuilderAPI_Command(mod, "BRepBuilderAPI_Command", "Root class for all commands in BRepBuilderAPI.");
+py::class_<BRepBuilderAPI_Command, std::unique_ptr<BRepBuilderAPI_Command>> cls_BRepBuilderAPI_Command(mod, "BRepBuilderAPI_Command", "Root class for all commands in BRepBuilderAPI.");
 
 // Constructors
 

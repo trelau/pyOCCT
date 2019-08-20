@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWGeometricToleranceWithMaximumTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWGeometricToleranceWithMaximumTolerance, std::unique_ptr<RWStepDimTol_RWGeometricToleranceWithMaximumTolerance, Deleter<RWStepDimTol_RWGeometricToleranceWithMaximumTolerance>>> cls_RWStepDimTol_RWGeometricToleranceWithMaximumTolerance(mod, "RWStepDimTol_RWGeometricToleranceWithMaximumTolerance", "Read & Write tool for GeometricToleranceWithMaximumTolerance");
+py::class_<RWStepDimTol_RWGeometricToleranceWithMaximumTolerance, std::unique_ptr<RWStepDimTol_RWGeometricToleranceWithMaximumTolerance>> cls_RWStepDimTol_RWGeometricToleranceWithMaximumTolerance(mod, "RWStepDimTol_RWGeometricToleranceWithMaximumTolerance", "Read & Write tool for GeometricToleranceWithMaximumTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWGeometricToleranceWithMaximumTolerance.def(py::init<>());

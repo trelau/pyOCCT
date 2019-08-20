@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocOpe_FindEdgesInFace(py::module &mod){
 
-py::class_<LocOpe_FindEdgesInFace, std::unique_ptr<LocOpe_FindEdgesInFace, Deleter<LocOpe_FindEdgesInFace>>> cls_LocOpe_FindEdgesInFace(mod, "LocOpe_FindEdgesInFace", "None");
+py::class_<LocOpe_FindEdgesInFace, std::unique_ptr<LocOpe_FindEdgesInFace>> cls_LocOpe_FindEdgesInFace(mod, "LocOpe_FindEdgesInFace", "None");
 
 // Constructors
 cls_LocOpe_FindEdgesInFace.def(py::init<>());

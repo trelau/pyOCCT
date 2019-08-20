@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntAna2d_Conic(py::module &mod){
 
-py::class_<IntAna2d_Conic, std::unique_ptr<IntAna2d_Conic, Deleter<IntAna2d_Conic>>> cls_IntAna2d_Conic(mod, "IntAna2d_Conic", "Definition of a conic by its implicit quadaratic equation: A.X**2 + B.Y**2 + 2.C.X*Y + 2.D.X + 2.E.Y + F = 0.");
+py::class_<IntAna2d_Conic, std::unique_ptr<IntAna2d_Conic>> cls_IntAna2d_Conic(mod, "IntAna2d_Conic", "Definition of a conic by its implicit quadaratic equation: A.X**2 + B.Y**2 + 2.C.X*Y + 2.D.X + 2.E.Y + F = 0.");
 
 // Constructors
 cls_IntAna2d_Conic.def(py::init<const gp_Circ2d &>(), py::arg("C"));

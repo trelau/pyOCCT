@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWFreedomsList(py::module &mod){
 
-py::class_<RWStepFEA_RWFreedomsList, std::unique_ptr<RWStepFEA_RWFreedomsList, Deleter<RWStepFEA_RWFreedomsList>>> cls_RWStepFEA_RWFreedomsList(mod, "RWStepFEA_RWFreedomsList", "Read & Write tool for FreedomsList");
+py::class_<RWStepFEA_RWFreedomsList, std::unique_ptr<RWStepFEA_RWFreedomsList>> cls_RWStepFEA_RWFreedomsList(mod, "RWStepFEA_RWFreedomsList", "Read & Write tool for FreedomsList");
 
 // Constructors
 cls_RWStepFEA_RWFreedomsList.def(py::init<>());

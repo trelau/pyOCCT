@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWHeaderSection_RWFileSchema(py::module &mod){
 
-py::class_<RWHeaderSection_RWFileSchema, std::unique_ptr<RWHeaderSection_RWFileSchema, Deleter<RWHeaderSection_RWFileSchema>>> cls_RWHeaderSection_RWFileSchema(mod, "RWHeaderSection_RWFileSchema", "Read & Write Module for FileSchema");
+py::class_<RWHeaderSection_RWFileSchema, std::unique_ptr<RWHeaderSection_RWFileSchema>> cls_RWHeaderSection_RWFileSchema(mod, "RWHeaderSection_RWFileSchema", "Read & Write Module for FileSchema");
 
 // Constructors
 cls_RWHeaderSection_RWFileSchema.def(py::init<>());

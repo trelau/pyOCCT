@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_Graph(py::module &mod){
 
-py::class_<Interface_Graph, std::unique_ptr<Interface_Graph, Deleter<Interface_Graph>>> cls_Interface_Graph(mod, "Interface_Graph", "Gives basic data structure for operating and storing graph results (usage is normally internal) Entities are Mapped according their Number in the Model");
+py::class_<Interface_Graph, std::unique_ptr<Interface_Graph>> cls_Interface_Graph(mod, "Interface_Graph", "Gives basic data structure for operating and storing graph results (usage is normally internal) Entities are Mapped according their Number in the Model");
 
 // Constructors
 cls_Interface_Graph.def(py::init<const opencascade::handle<Interface_InterfaceModel> &, const Interface_GeneralLib &>(), py::arg("amodel"), py::arg("lib"));

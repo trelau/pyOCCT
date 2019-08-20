@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDS_Iterator(py::module &mod){
 
-py::class_<TopoDS_Iterator, std::unique_ptr<TopoDS_Iterator, Deleter<TopoDS_Iterator>>> cls_TopoDS_Iterator(mod, "TopoDS_Iterator", "Iterates on the underlying shape underlying a given TopoDS_Shape object, providing access to its component sub-shapes. Each component shape is returned as a TopoDS_Shape with an orientation, and a compound of the original values and the relative values.");
+py::class_<TopoDS_Iterator, std::unique_ptr<TopoDS_Iterator>> cls_TopoDS_Iterator(mod, "TopoDS_Iterator", "Iterates on the underlying shape underlying a given TopoDS_Shape object, providing access to its component sub-shapes. Each component shape is returned as a TopoDS_Shape with an orientation, and a compound of the original values and the relative values.");
 
 // Constructors
 cls_TopoDS_Iterator.def(py::init<>());

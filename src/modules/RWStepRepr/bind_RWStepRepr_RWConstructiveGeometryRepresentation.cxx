@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWConstructiveGeometryRepresentation(py::module &mod){
 
-py::class_<RWStepRepr_RWConstructiveGeometryRepresentation, std::unique_ptr<RWStepRepr_RWConstructiveGeometryRepresentation, Deleter<RWStepRepr_RWConstructiveGeometryRepresentation>>> cls_RWStepRepr_RWConstructiveGeometryRepresentation(mod, "RWStepRepr_RWConstructiveGeometryRepresentation", "Read & Write Module for ConstructiveGeometryRepresentation");
+py::class_<RWStepRepr_RWConstructiveGeometryRepresentation, std::unique_ptr<RWStepRepr_RWConstructiveGeometryRepresentation>> cls_RWStepRepr_RWConstructiveGeometryRepresentation(mod, "RWStepRepr_RWConstructiveGeometryRepresentation", "Read & Write Module for ConstructiveGeometryRepresentation");
 
 // Constructors
 cls_RWStepRepr_RWConstructiveGeometryRepresentation.def(py::init<>());

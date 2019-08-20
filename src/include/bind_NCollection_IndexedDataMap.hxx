@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheKeyType, typename TheItemType, typename Hasher>
 void bind_NCollection_IndexedDataMap(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>, std::unique_ptr<NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>, Deleter<NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>>>, NCollection_BaseMap> cls_NCollection_IndexedDataMap(mod, name.c_str(), "Purpose: An indexed map is used to store keys and to bind an index to them. Each new key stored in the map gets an index. Index are incremented as keys are stored in the map. A key can be found by the index and an index by the key. No key but the last can be removed so the indices are in the range 1.. Extent. An Item is stored with each key.", local);
+py::class_<NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>, std::unique_ptr<NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>>, NCollection_BaseMap> cls_NCollection_IndexedDataMap(mod, name.c_str(), "Purpose: An indexed map is used to store keys and to bind an index to them. Each new key stored in the map gets an index. Index are incremented as keys are stored in the map. A key can be found by the index and an index by the key. No key but the last can be removed so the indices are in the range 1.. Extent. An Item is stored with each key.", local);
 
 // Constructors
 cls_NCollection_IndexedDataMap.def(py::init<>());

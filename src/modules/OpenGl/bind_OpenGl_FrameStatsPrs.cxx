@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_FrameStatsPrs(py::module &mod){
 
-py::class_<OpenGl_FrameStatsPrs, std::unique_ptr<OpenGl_FrameStatsPrs, Deleter<OpenGl_FrameStatsPrs>>, OpenGl_Text> cls_OpenGl_FrameStatsPrs(mod, "OpenGl_FrameStatsPrs", "Element rendering frame statistics.");
+py::class_<OpenGl_FrameStatsPrs, std::unique_ptr<OpenGl_FrameStatsPrs>, OpenGl_Text> cls_OpenGl_FrameStatsPrs(mod, "OpenGl_FrameStatsPrs", "Element rendering frame statistics.");
 
 // Constructors
 cls_OpenGl_FrameStatsPrs.def(py::init<>());

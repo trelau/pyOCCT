@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_WireEdgeSet(py::module &mod){
 
-py::class_<TopOpeBRepBuild_WireEdgeSet, std::unique_ptr<TopOpeBRepBuild_WireEdgeSet, Deleter<TopOpeBRepBuild_WireEdgeSet>>, TopOpeBRepBuild_ShapeSet> cls_TopOpeBRepBuild_WireEdgeSet(mod, "TopOpeBRepBuild_WireEdgeSet", "a bound is a wire, a boundelement is an edge. The ShapeSet stores : - a list of wire (bounds), - a list of edge (boundelements) to start reconstructions, - a map of vertex giving the list of edge incident to a vertex.");
+py::class_<TopOpeBRepBuild_WireEdgeSet, std::unique_ptr<TopOpeBRepBuild_WireEdgeSet>, TopOpeBRepBuild_ShapeSet> cls_TopOpeBRepBuild_WireEdgeSet(mod, "TopOpeBRepBuild_WireEdgeSet", "a bound is a wire, a boundelement is an edge. The ShapeSet stores : - a list of wire (bounds), - a list of edge (boundelements) to start reconstructions, - a map of vertex giving the list of edge incident to a vertex.");
 
 // Constructors
 cls_TopOpeBRepBuild_WireEdgeSet.def(py::init<const TopoDS_Shape &>(), py::arg("F"));

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPDS_InterfVV(py::module &mod){
 
-py::class_<BOPDS_InterfVV, std::unique_ptr<BOPDS_InterfVV, Deleter<BOPDS_InterfVV>>, BOPDS_Interf> cls_BOPDS_InterfVV(mod, "BOPDS_InterfVV", "The class BOPDS_InterfVV is is to store the information about the interference of the type vertex/vertex.");
+py::class_<BOPDS_InterfVV, std::unique_ptr<BOPDS_InterfVV>, BOPDS_Interf> cls_BOPDS_InterfVV(mod, "BOPDS_InterfVV", "The class BOPDS_InterfVV is is to store the information about the interference of the type vertex/vertex.");
 
 // Constructors
 cls_BOPDS_InterfVV.def(py::init<>());

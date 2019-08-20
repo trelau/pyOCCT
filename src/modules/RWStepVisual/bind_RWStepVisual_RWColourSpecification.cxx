@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWColourSpecification(py::module &mod){
 
-py::class_<RWStepVisual_RWColourSpecification, std::unique_ptr<RWStepVisual_RWColourSpecification, Deleter<RWStepVisual_RWColourSpecification>>> cls_RWStepVisual_RWColourSpecification(mod, "RWStepVisual_RWColourSpecification", "Read & Write Module for ColourSpecification");
+py::class_<RWStepVisual_RWColourSpecification, std::unique_ptr<RWStepVisual_RWColourSpecification>> cls_RWStepVisual_RWColourSpecification(mod, "RWStepVisual_RWColourSpecification", "Read & Write Module for ColourSpecification");
 
 // Constructors
 cls_RWStepVisual_RWColourSpecification.def(py::init<>());

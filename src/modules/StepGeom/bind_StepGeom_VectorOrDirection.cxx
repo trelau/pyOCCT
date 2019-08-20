@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepGeom_VectorOrDirection(py::module &mod){
 
-py::class_<StepGeom_VectorOrDirection, std::unique_ptr<StepGeom_VectorOrDirection, Deleter<StepGeom_VectorOrDirection>>, StepData_SelectType> cls_StepGeom_VectorOrDirection(mod, "StepGeom_VectorOrDirection", "None");
+py::class_<StepGeom_VectorOrDirection, std::unique_ptr<StepGeom_VectorOrDirection>, StepData_SelectType> cls_StepGeom_VectorOrDirection(mod, "StepGeom_VectorOrDirection", "None");
 
 // Constructors
 cls_StepGeom_VectorOrDirection.def(py::init<>());

@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBlend_Extremity(py::module &mod){
 
-py::class_<BRepBlend_Extremity, std::unique_ptr<BRepBlend_Extremity, Deleter<BRepBlend_Extremity>>> cls_BRepBlend_Extremity(mod, "BRepBlend_Extremity", "None");
+py::class_<BRepBlend_Extremity, std::unique_ptr<BRepBlend_Extremity>> cls_BRepBlend_Extremity(mod, "BRepBlend_Extremity", "None");
 
 // Constructors
 cls_BRepBlend_Extremity.def(py::init<>());

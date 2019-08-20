@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolRadiusDimension(py::module &mod){
 
-py::class_<IGESDimen_ToolRadiusDimension, std::unique_ptr<IGESDimen_ToolRadiusDimension, Deleter<IGESDimen_ToolRadiusDimension>>> cls_IGESDimen_ToolRadiusDimension(mod, "IGESDimen_ToolRadiusDimension", "Tool to work on a RadiusDimension. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolRadiusDimension, std::unique_ptr<IGESDimen_ToolRadiusDimension>> cls_IGESDimen_ToolRadiusDimension(mod, "IGESDimen_ToolRadiusDimension", "Tool to work on a RadiusDimension. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolRadiusDimension.def(py::init<>());

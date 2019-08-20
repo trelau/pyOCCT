@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDS_Vertex(py::module &mod){
 
-py::class_<TopoDS_Vertex, std::unique_ptr<TopoDS_Vertex, Deleter<TopoDS_Vertex>>, TopoDS_Shape> cls_TopoDS_Vertex(mod, "TopoDS_Vertex", "Describes a vertex which - references an underlying vertex with the potential to be given a location and an orientation - has a location for the underlying vertex, giving its placement in the local coordinate system - has an orientation for the underlying vertex, in terms of its geometry (as opposed to orientation in relation to other shapes).");
+py::class_<TopoDS_Vertex, std::unique_ptr<TopoDS_Vertex>, TopoDS_Shape> cls_TopoDS_Vertex(mod, "TopoDS_Vertex", "Describes a vertex which - references an underlying vertex with the potential to be given a location and an orientation - has a location for the underlying vertex, giving its placement in the local coordinate system - has an orientation for the underlying vertex, in terms of its geometry (as opposed to orientation in relation to other shapes).");
 
 // Constructors
 cls_TopoDS_Vertex.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_BissecNewton(py::module &mod){
 
-py::class_<math_BissecNewton, std::unique_ptr<math_BissecNewton, Deleter<math_BissecNewton>>> cls_math_BissecNewton(mod, "math_BissecNewton", "This class implements a combination of Newton-Raphson and bissection methods to find the root of the function between two bounds. Knowledge of the derivative is required.");
+py::class_<math_BissecNewton, std::unique_ptr<math_BissecNewton>> cls_math_BissecNewton(mod, "math_BissecNewton", "This class implements a combination of Newton-Raphson and bissection methods to find the root of the function between two bounds. Knowledge of the derivative is required.");
 
 // Constructors
 cls_math_BissecNewton.def(py::init<const Standard_Real>(), py::arg("theXTolerance"));

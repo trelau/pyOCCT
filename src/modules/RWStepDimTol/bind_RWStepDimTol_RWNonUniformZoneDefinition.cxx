@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWNonUniformZoneDefinition(py::module &mod){
 
-py::class_<RWStepDimTol_RWNonUniformZoneDefinition, std::unique_ptr<RWStepDimTol_RWNonUniformZoneDefinition, Deleter<RWStepDimTol_RWNonUniformZoneDefinition>>> cls_RWStepDimTol_RWNonUniformZoneDefinition(mod, "RWStepDimTol_RWNonUniformZoneDefinition", "Read & Write tool for NonUniformZoneDefinition");
+py::class_<RWStepDimTol_RWNonUniformZoneDefinition, std::unique_ptr<RWStepDimTol_RWNonUniformZoneDefinition>> cls_RWStepDimTol_RWNonUniformZoneDefinition(mod, "RWStepDimTol_RWNonUniformZoneDefinition", "Read & Write tool for NonUniformZoneDefinition");
 
 // Constructors
 cls_RWStepDimTol_RWNonUniformZoneDefinition.def(py::init<>());

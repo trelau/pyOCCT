@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepData_Field(py::module &mod){
 
-py::class_<StepData_Field, std::unique_ptr<StepData_Field, Deleter<StepData_Field>>> cls_StepData_Field(mod, "StepData_Field", "Defines a generally defined Field for STEP data : can be used either in any kind of entity to implement it or in free format entities in a 'late-binding' mode A field can have : no value (or derived), a single value of any kind, a list of value : single or double list");
+py::class_<StepData_Field, std::unique_ptr<StepData_Field>> cls_StepData_Field(mod, "StepData_Field", "Defines a generally defined Field for STEP data : can be used either in any kind of entity to implement it or in free format entities in a 'late-binding' mode A field can have : no value (or derived), a single value of any kind, a list of value : single or double list");
 
 // Constructors
 cls_StepData_Field.def(py::init<>());

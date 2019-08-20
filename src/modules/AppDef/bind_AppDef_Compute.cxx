@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppDef_Compute(py::module &mod){
 
-py::class_<AppDef_Compute, std::unique_ptr<AppDef_Compute, Deleter<AppDef_Compute>>> cls_AppDef_Compute(mod, "AppDef_Compute", "None");
+py::class_<AppDef_Compute, std::unique_ptr<AppDef_Compute>> cls_AppDef_Compute(mod, "AppDef_Compute", "None");
 
 // Constructors
 cls_AppDef_Compute.def(py::init<const AppDef_MultiLine &>(), py::arg("Line"));

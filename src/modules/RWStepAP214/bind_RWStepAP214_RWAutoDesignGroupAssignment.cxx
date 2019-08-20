@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWAutoDesignGroupAssignment(py::module &mod){
 
-py::class_<RWStepAP214_RWAutoDesignGroupAssignment, std::unique_ptr<RWStepAP214_RWAutoDesignGroupAssignment, Deleter<RWStepAP214_RWAutoDesignGroupAssignment>>> cls_RWStepAP214_RWAutoDesignGroupAssignment(mod, "RWStepAP214_RWAutoDesignGroupAssignment", "Read & Write Module for AutoDesignGroupAssignment");
+py::class_<RWStepAP214_RWAutoDesignGroupAssignment, std::unique_ptr<RWStepAP214_RWAutoDesignGroupAssignment>> cls_RWStepAP214_RWAutoDesignGroupAssignment(mod, "RWStepAP214_RWAutoDesignGroupAssignment", "Read & Write Module for AutoDesignGroupAssignment");
 
 // Constructors
 cls_RWStepAP214_RWAutoDesignGroupAssignment.def(py::init<>());

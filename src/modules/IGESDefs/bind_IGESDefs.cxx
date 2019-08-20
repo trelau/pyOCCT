@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDefs(py::module &mod){
 
-py::class_<IGESDefs, std::unique_ptr<IGESDefs, Deleter<IGESDefs>>> cls_IGESDefs(mod, "IGESDefs", "To embody general definitions of Entities (Parameters, Tables ...)");
+py::class_<IGESDefs, std::unique_ptr<IGESDefs>> cls_IGESDefs(mod, "IGESDefs", "To embody general definitions of Entities (Parameters, Tables ...)");
 
 // Constructors
 

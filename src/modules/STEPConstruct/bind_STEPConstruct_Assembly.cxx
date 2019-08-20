@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPConstruct_Assembly(py::module &mod){
 
-py::class_<STEPConstruct_Assembly, std::unique_ptr<STEPConstruct_Assembly, Deleter<STEPConstruct_Assembly>>> cls_STEPConstruct_Assembly(mod, "STEPConstruct_Assembly", "This operator creates and checks an item of an assembly, from its basic data : a ShapeRepresentation, a Location ...");
+py::class_<STEPConstruct_Assembly, std::unique_ptr<STEPConstruct_Assembly>> cls_STEPConstruct_Assembly(mod, "STEPConstruct_Assembly", "This operator creates and checks an item of an assembly, from its basic data : a ShapeRepresentation, a Location ...");
 
 // Constructors
 cls_STEPConstruct_Assembly.def(py::init<>());

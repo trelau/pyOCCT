@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrimAPI_MakeTorus(py::module &mod){
 
-py::class_<BRepPrimAPI_MakeTorus, std::unique_ptr<BRepPrimAPI_MakeTorus, Deleter<BRepPrimAPI_MakeTorus>>, BRepPrimAPI_MakeOneAxis> cls_BRepPrimAPI_MakeTorus(mod, "BRepPrimAPI_MakeTorus", "Describes functions to build tori or portions of tori. A MakeTorus object provides a framework for: - defining the construction of a torus, - implementing the construction algorithm, and - consulting the result.");
+py::class_<BRepPrimAPI_MakeTorus, std::unique_ptr<BRepPrimAPI_MakeTorus>, BRepPrimAPI_MakeOneAxis> cls_BRepPrimAPI_MakeTorus(mod, "BRepPrimAPI_MakeTorus", "Describes functions to build tori or portions of tori. A MakeTorus object provides a framework for: - defining the construction of a torus, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_BRepPrimAPI_MakeTorus.def(py::init<const Standard_Real, const Standard_Real>(), py::arg("R1"), py::arg("R2"));

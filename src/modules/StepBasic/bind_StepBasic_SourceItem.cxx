@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepBasic_SourceItem(py::module &mod){
 
-py::class_<StepBasic_SourceItem, std::unique_ptr<StepBasic_SourceItem, Deleter<StepBasic_SourceItem>>, StepData_SelectType> cls_StepBasic_SourceItem(mod, "StepBasic_SourceItem", "Representation of STEP SELECT type SourceItem");
+py::class_<StepBasic_SourceItem, std::unique_ptr<StepBasic_SourceItem>, StepData_SelectType> cls_StepBasic_SourceItem(mod, "StepBasic_SourceItem", "Representation of STEP SELECT type SourceItem");
 
 // Constructors
 cls_StepBasic_SourceItem.def(py::init<>());

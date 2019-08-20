@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Intf_TangentZone(py::module &mod){
 
-py::class_<Intf_TangentZone, std::unique_ptr<Intf_TangentZone, Deleter<Intf_TangentZone>>> cls_Intf_TangentZone(mod, "Intf_TangentZone", "Describes a zone of tangence between polygons or polyhedra as a sequence of points of intersection.");
+py::class_<Intf_TangentZone, std::unique_ptr<Intf_TangentZone>> cls_Intf_TangentZone(mod, "Intf_TangentZone", "Describes a zone of tangence between polygons or polyhedra as a sequence of points of intersection.");
 
 // Constructors
 cls_Intf_TangentZone.def(py::init<>());

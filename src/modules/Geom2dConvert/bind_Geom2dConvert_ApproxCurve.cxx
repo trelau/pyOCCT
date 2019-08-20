@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dConvert_ApproxCurve(py::module &mod){
 
-py::class_<Geom2dConvert_ApproxCurve, std::unique_ptr<Geom2dConvert_ApproxCurve, Deleter<Geom2dConvert_ApproxCurve>>> cls_Geom2dConvert_ApproxCurve(mod, "Geom2dConvert_ApproxCurve", "A framework to convert a 2D curve to a BSpline. This is done by approximation within a given tolerance.");
+py::class_<Geom2dConvert_ApproxCurve, std::unique_ptr<Geom2dConvert_ApproxCurve>> cls_Geom2dConvert_ApproxCurve(mod, "Geom2dConvert_ApproxCurve", "A framework to convert a 2D curve to a BSpline. This is done by approximation within a given tolerance.");
 
 // Constructors
 cls_Geom2dConvert_ApproxCurve.def(py::init<const opencascade::handle<Geom2d_Curve> &, const Standard_Real, const GeomAbs_Shape, const Standard_Integer, const Standard_Integer>(), py::arg("Curve"), py::arg("Tol2d"), py::arg("Order"), py::arg("MaxSegments"), py::arg("MaxDegree"));

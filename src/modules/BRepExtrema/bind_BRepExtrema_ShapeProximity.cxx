@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepExtrema_ShapeProximity(py::module &mod){
 
-py::class_<BRepExtrema_ShapeProximity, std::unique_ptr<BRepExtrema_ShapeProximity, Deleter<BRepExtrema_ShapeProximity>>> cls_BRepExtrema_ShapeProximity(mod, "BRepExtrema_ShapeProximity", "Tool class for shape proximity detection. For two given shapes and given tolerance (offset from the mesh) the algorithm allows to determine whether or not they are overlapped. The algorithm input consists of any shapes which can be decomposed into individual faces (used as basic shape elements). High performance is achieved through the use of existing triangulation of faces. So poly triangulation (with the desired deflection) should already be built. Note that solution is approximate (and corresponds to the deflection used for triangulation).");
+py::class_<BRepExtrema_ShapeProximity, std::unique_ptr<BRepExtrema_ShapeProximity>> cls_BRepExtrema_ShapeProximity(mod, "BRepExtrema_ShapeProximity", "Tool class for shape proximity detection. For two given shapes and given tolerance (offset from the mesh) the algorithm allows to determine whether or not they are overlapped. The algorithm input consists of any shapes which can be decomposed into individual faces (used as basic shape elements). High performance is achieved through the use of existing triangulation of faces. So poly triangulation (with the desired deflection) should already be built. Note that solution is approximate (and corresponds to the deflection used for triangulation).");
 
 // Constructors
 cls_BRepExtrema_ShapeProximity.def(py::init<>());

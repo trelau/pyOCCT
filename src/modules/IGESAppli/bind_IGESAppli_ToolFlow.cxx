@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli_ToolFlow(py::module &mod){
 
-py::class_<IGESAppli_ToolFlow, std::unique_ptr<IGESAppli_ToolFlow, Deleter<IGESAppli_ToolFlow>>> cls_IGESAppli_ToolFlow(mod, "IGESAppli_ToolFlow", "Tool to work on a Flow. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESAppli_ToolFlow, std::unique_ptr<IGESAppli_ToolFlow>> cls_IGESAppli_ToolFlow(mod, "IGESAppli_ToolFlow", "Tool to work on a Flow. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESAppli_ToolFlow.def(py::init<>());

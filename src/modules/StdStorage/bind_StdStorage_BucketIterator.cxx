@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_StdStorage_BucketIterator(py::module &mod){
 
 /*
-py::class_<StdStorage_BucketIterator, std::unique_ptr<StdStorage_BucketIterator, Deleter<StdStorage_BucketIterator>>> cls_StdStorage_BucketIterator(mod, "StdStorage_BucketIterator", "None");
+py::class_<StdStorage_BucketIterator, std::unique_ptr<StdStorage_BucketIterator>> cls_StdStorage_BucketIterator(mod, "StdStorage_BucketIterator", "None");
 
 // Constructors
 cls_StdStorage_BucketIterator.def(py::init<StdStorage_BucketOfPersistent *>(), py::arg(""));

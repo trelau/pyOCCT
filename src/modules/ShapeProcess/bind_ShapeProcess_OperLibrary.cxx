@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeProcess_OperLibrary(py::module &mod){
 
-py::class_<ShapeProcess_OperLibrary, std::unique_ptr<ShapeProcess_OperLibrary, Deleter<ShapeProcess_OperLibrary>>> cls_ShapeProcess_OperLibrary(mod, "ShapeProcess_OperLibrary", "Provides a set of following operators");
+py::class_<ShapeProcess_OperLibrary, std::unique_ptr<ShapeProcess_OperLibrary>> cls_ShapeProcess_OperLibrary(mod, "ShapeProcess_OperLibrary", "Provides a set of following operators");
 
 // Constructors
 

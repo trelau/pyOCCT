@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_Sweep(py::module &mod){
 
-py::class_<GeomFill_Sweep, std::unique_ptr<GeomFill_Sweep, Deleter<GeomFill_Sweep>>> cls_GeomFill_Sweep(mod, "GeomFill_Sweep", "Geometrical Sweep Algorithm");
+py::class_<GeomFill_Sweep, std::unique_ptr<GeomFill_Sweep>> cls_GeomFill_Sweep(mod, "GeomFill_Sweep", "Geometrical Sweep Algorithm");
 
 // Constructors
 cls_GeomFill_Sweep.def(py::init<const opencascade::handle<GeomFill_LocationLaw> &>(), py::arg("Location"));

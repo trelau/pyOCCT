@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntImpParGen_ImpTool(py::module &mod){
 
-py::class_<IntImpParGen_ImpTool, std::unique_ptr<IntImpParGen_ImpTool, Deleter<IntImpParGen_ImpTool>>> cls_IntImpParGen_ImpTool(mod, "IntImpParGen_ImpTool", "Template class for an implicit curve.");
+py::class_<IntImpParGen_ImpTool, std::unique_ptr<IntImpParGen_ImpTool>> cls_IntImpParGen_ImpTool(mod, "IntImpParGen_ImpTool", "Template class for an implicit curve.");
 
 // Constructors
 

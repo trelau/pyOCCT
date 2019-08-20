@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWCircularRunoutTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWCircularRunoutTolerance, std::unique_ptr<RWStepDimTol_RWCircularRunoutTolerance, Deleter<RWStepDimTol_RWCircularRunoutTolerance>>> cls_RWStepDimTol_RWCircularRunoutTolerance(mod, "RWStepDimTol_RWCircularRunoutTolerance", "Read & Write tool for CircularRunoutTolerance");
+py::class_<RWStepDimTol_RWCircularRunoutTolerance, std::unique_ptr<RWStepDimTol_RWCircularRunoutTolerance>> cls_RWStepDimTol_RWCircularRunoutTolerance(mod, "RWStepDimTol_RWCircularRunoutTolerance", "Read & Write tool for CircularRunoutTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWCircularRunoutTolerance.def(py::init<>());

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWHeaderSection(py::module &mod){
 
-py::class_<RWHeaderSection, std::unique_ptr<RWHeaderSection, Deleter<RWHeaderSection>>> cls_RWHeaderSection(mod, "RWHeaderSection", "None");
+py::class_<RWHeaderSection, std::unique_ptr<RWHeaderSection>> cls_RWHeaderSection(mod, "RWHeaderSection", "None");
 
 // Constructors
 

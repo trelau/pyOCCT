@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWMaterialPropertyRepresentation(py::module &mod){
 
-py::class_<RWStepRepr_RWMaterialPropertyRepresentation, std::unique_ptr<RWStepRepr_RWMaterialPropertyRepresentation, Deleter<RWStepRepr_RWMaterialPropertyRepresentation>>> cls_RWStepRepr_RWMaterialPropertyRepresentation(mod, "RWStepRepr_RWMaterialPropertyRepresentation", "Read & Write tool for MaterialPropertyRepresentation");
+py::class_<RWStepRepr_RWMaterialPropertyRepresentation, std::unique_ptr<RWStepRepr_RWMaterialPropertyRepresentation>> cls_RWStepRepr_RWMaterialPropertyRepresentation(mod, "RWStepRepr_RWMaterialPropertyRepresentation", "Read & Write tool for MaterialPropertyRepresentation");
 
 // Constructors
 cls_RWStepRepr_RWMaterialPropertyRepresentation.def(py::init<>());

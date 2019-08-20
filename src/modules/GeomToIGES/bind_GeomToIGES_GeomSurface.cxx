@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToIGES_GeomSurface(py::module &mod){
 
-py::class_<GeomToIGES_GeomSurface, std::unique_ptr<GeomToIGES_GeomSurface, Deleter<GeomToIGES_GeomSurface>>, GeomToIGES_GeomEntity> cls_GeomToIGES_GeomSurface(mod, "GeomToIGES_GeomSurface", "This class implements the transfer of the Surface Entity from Geom To IGES. These can be : . BoundedSurface * BSplineSurface * BezierSurface * RectangularTrimmedSurface . ElementarySurface * Plane * CylindricalSurface * ConicalSurface * SphericalSurface * ToroidalSurface . SweptSurface * SurfaceOfLinearExtrusion * SurfaceOfRevolution . OffsetSurface");
+py::class_<GeomToIGES_GeomSurface, std::unique_ptr<GeomToIGES_GeomSurface>, GeomToIGES_GeomEntity> cls_GeomToIGES_GeomSurface(mod, "GeomToIGES_GeomSurface", "This class implements the transfer of the Surface Entity from Geom To IGES. These can be : . BoundedSurface * BSplineSurface * BezierSurface * RectangularTrimmedSurface . ElementarySurface * Plane * CylindricalSurface * ConicalSurface * SphericalSurface * ToroidalSurface . SweptSurface * SurfaceOfLinearExtrusion * SurfaceOfRevolution . OffsetSurface");
 
 // Constructors
 cls_GeomToIGES_GeomSurface.def(py::init<>());

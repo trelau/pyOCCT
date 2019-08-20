@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPDS_PairMapHasher(py::module &mod){
 
-py::class_<BOPDS_PairMapHasher, std::unique_ptr<BOPDS_PairMapHasher, Deleter<BOPDS_PairMapHasher>>> cls_BOPDS_PairMapHasher(mod, "BOPDS_PairMapHasher", "None");
+py::class_<BOPDS_PairMapHasher, std::unique_ptr<BOPDS_PairMapHasher>> cls_BOPDS_PairMapHasher(mod, "BOPDS_PairMapHasher", "None");
 
 // Constructors
 

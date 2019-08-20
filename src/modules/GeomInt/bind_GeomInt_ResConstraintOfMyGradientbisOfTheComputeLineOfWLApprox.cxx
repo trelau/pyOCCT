@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox(py::module &mod){
 
-py::class_<GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox, std::unique_ptr<GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox, Deleter<GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox>>> cls_GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox(mod, "GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox", "None");
+py::class_<GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox, std::unique_ptr<GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox>> cls_GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox(mod, "GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox", "None");
 
 // Constructors
 cls_GeomInt_ResConstraintOfMyGradientbisOfTheComputeLineOfWLApprox.def(py::init<const GeomInt_TheMultiLineOfWLApprox &, AppParCurves_MultiCurve &, const Standard_Integer, const Standard_Integer, const opencascade::handle<AppParCurves_HArray1OfConstraintCouple> &, const math_Matrix &, const math_Matrix &>(), py::arg("SSP"), py::arg("SCurv"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("Constraints"), py::arg("Bern"), py::arg("DerivativeBern"));

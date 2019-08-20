@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomLib_DenominatorMultiplier(py::module &mod){
 
-py::class_<GeomLib_DenominatorMultiplier, std::unique_ptr<GeomLib_DenominatorMultiplier, Deleter<GeomLib_DenominatorMultiplier>>> cls_GeomLib_DenominatorMultiplier(mod, "GeomLib_DenominatorMultiplier", "this defines an evaluator for a function of 2 variables that will be used by CancelDenominatorDerivative in one direction.");
+py::class_<GeomLib_DenominatorMultiplier, std::unique_ptr<GeomLib_DenominatorMultiplier>> cls_GeomLib_DenominatorMultiplier(mod, "GeomLib_DenominatorMultiplier", "this defines an evaluator for a function of 2 variables that will be used by CancelDenominatorDerivative in one direction.");
 
 // Constructors
 cls_GeomLib_DenominatorMultiplier.def(py::init<const opencascade::handle<Geom_BSplineSurface> &, const TColStd_Array1OfReal &>(), py::arg("Surface"), py::arg("KnotVector"));

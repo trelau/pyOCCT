@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_Generator(py::module &mod){
 
-py::class_<GeomFill_Generator, std::unique_ptr<GeomFill_Generator, Deleter<GeomFill_Generator>>, GeomFill_Profiler> cls_GeomFill_Generator(mod, "GeomFill_Generator", "Create a surface using generating lines. Inherits profiler. The surface will be a BSplineSurface passing by all the curves described in the generator. The VDegree of the resulting surface is 1.");
+py::class_<GeomFill_Generator, std::unique_ptr<GeomFill_Generator>, GeomFill_Profiler> cls_GeomFill_Generator(mod, "GeomFill_Generator", "Create a surface using generating lines. Inherits profiler. The surface will be a BSplineSurface passing by all the curves described in the generator. The VDegree of the resulting surface is 1.");
 
 // Constructors
 cls_GeomFill_Generator.def(py::init<>());

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FairCurve_DistributionOfEnergy(py::module &mod){
 
-py::class_<FairCurve_DistributionOfEnergy, std::unique_ptr<FairCurve_DistributionOfEnergy, Deleter<FairCurve_DistributionOfEnergy>>, math_FunctionSet> cls_FairCurve_DistributionOfEnergy(mod, "FairCurve_DistributionOfEnergy", "Abstract class to use the Energy of an FairCurve");
+py::class_<FairCurve_DistributionOfEnergy, std::unique_ptr<FairCurve_DistributionOfEnergy>, math_FunctionSet> cls_FairCurve_DistributionOfEnergy(mod, "FairCurve_DistributionOfEnergy", "Abstract class to use the Energy of an FairCurve");
 
 // Fields
 

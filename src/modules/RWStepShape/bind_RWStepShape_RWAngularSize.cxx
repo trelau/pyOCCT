@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWAngularSize(py::module &mod){
 
-py::class_<RWStepShape_RWAngularSize, std::unique_ptr<RWStepShape_RWAngularSize, Deleter<RWStepShape_RWAngularSize>>> cls_RWStepShape_RWAngularSize(mod, "RWStepShape_RWAngularSize", "Read & Write tool for AngularSize");
+py::class_<RWStepShape_RWAngularSize, std::unique_ptr<RWStepShape_RWAngularSize>> cls_RWStepShape_RWAngularSize(mod, "RWStepShape_RWAngularSize", "Read & Write tool for AngularSize");
 
 // Constructors
 cls_RWStepShape_RWAngularSize.def(py::init<>());

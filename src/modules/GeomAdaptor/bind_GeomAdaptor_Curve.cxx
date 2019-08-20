@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomAdaptor_Curve(py::module &mod){
 
-py::class_<GeomAdaptor_Curve, std::unique_ptr<GeomAdaptor_Curve, Deleter<GeomAdaptor_Curve>>, Adaptor3d_Curve> cls_GeomAdaptor_Curve(mod, "GeomAdaptor_Curve", "This class provides an interface between the services provided by any curve from the package Geom and those required of the curve by algorithms which use it. Creation of the loaded curve the curve is C1 by piece.");
+py::class_<GeomAdaptor_Curve, std::unique_ptr<GeomAdaptor_Curve>, Adaptor3d_Curve> cls_GeomAdaptor_Curve(mod, "GeomAdaptor_Curve", "This class provides an interface between the services provided by any curve from the package Geom and those required of the curve by algorithms which use it. Creation of the loaded curve the curve is C1 by piece.");
 
 // Constructors
 cls_GeomAdaptor_Curve.def(py::init<>());

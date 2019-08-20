@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_AspectMarker(py::module &mod){
 
-py::class_<OpenGl_AspectMarker, std::unique_ptr<OpenGl_AspectMarker, Deleter<OpenGl_AspectMarker>>, OpenGl_Element> cls_OpenGl_AspectMarker(mod, "OpenGl_AspectMarker", "The element holding Graphic3d_AspectMarker3d.");
+py::class_<OpenGl_AspectMarker, std::unique_ptr<OpenGl_AspectMarker>, OpenGl_Element> cls_OpenGl_AspectMarker(mod, "OpenGl_AspectMarker", "The element holding Graphic3d_AspectMarker3d.");
 
 // Constructors
 cls_OpenGl_AspectMarker.def(py::init<>());

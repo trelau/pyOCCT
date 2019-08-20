@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XSControl_FuncShape(py::module &mod){
 
-py::class_<XSControl_FuncShape, std::unique_ptr<XSControl_FuncShape, Deleter<XSControl_FuncShape>>> cls_XSControl_FuncShape(mod, "XSControl_FuncShape", "Defines additionnal commands for XSControl to : - control of initialisation (xinit, xnorm, newmodel) - analyse of the result of a transfer (recorded in a TransientProcess for Read, FinderProcess for Write) : statistics, various lists (roots,complete,abnormal), what about one specific entity, producing a model with the abnormal result");
+py::class_<XSControl_FuncShape, std::unique_ptr<XSControl_FuncShape>> cls_XSControl_FuncShape(mod, "XSControl_FuncShape", "Defines additionnal commands for XSControl to : - control of initialisation (xinit, xnorm, newmodel) - analyse of the result of a transfer (recorded in a TransientProcess for Read, FinderProcess for Write) : statistics, various lists (roots,complete,abnormal), what about one specific entity, producing a model with the abnormal result");
 
 // Constructors
 

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Approx_FitAndDivide(py::module &mod){
 
-py::class_<Approx_FitAndDivide, std::unique_ptr<Approx_FitAndDivide, Deleter<Approx_FitAndDivide>>> cls_Approx_FitAndDivide(mod, "Approx_FitAndDivide", "None");
+py::class_<Approx_FitAndDivide, std::unique_ptr<Approx_FitAndDivide>> cls_Approx_FitAndDivide(mod, "Approx_FitAndDivide", "None");
 
 // Constructors
 cls_Approx_FitAndDivide.def(py::init<const AppCont_Function &>(), py::arg("Line"));

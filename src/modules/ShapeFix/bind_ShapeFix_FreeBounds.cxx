@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeFix_FreeBounds(py::module &mod){
 
-py::class_<ShapeFix_FreeBounds, std::unique_ptr<ShapeFix_FreeBounds, Deleter<ShapeFix_FreeBounds>>> cls_ShapeFix_FreeBounds(mod, "ShapeFix_FreeBounds", "This class is intended to output free bounds of the shape (free bounds are the wires consisting of edges referenced by the only face). For building free bounds it uses ShapeAnalysis_FreeBounds class. This class complements it with the feature to reduce the number of open wires. This reduction is performed with help of connecting several adjacent open wires one to another what can lead to: 1. making an open wire with greater length out of several open wires 2. making closed wire out of several open wires");
+py::class_<ShapeFix_FreeBounds, std::unique_ptr<ShapeFix_FreeBounds>> cls_ShapeFix_FreeBounds(mod, "ShapeFix_FreeBounds", "This class is intended to output free bounds of the shape (free bounds are the wires consisting of edges referenced by the only face). For building free bounds it uses ShapeAnalysis_FreeBounds class. This class complements it with the feature to reduce the number of open wires. This reduction is performed with help of connecting several adjacent open wires one to another what can lead to: 1. making an open wire with greater length out of several open wires 2. making closed wire out of several open wires");
 
 // Constructors
 cls_ShapeFix_FreeBounds.def(py::init<>());

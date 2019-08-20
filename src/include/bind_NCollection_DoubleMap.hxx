@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheKey1Type, typename TheKey2Type, typename Hasher1, typename Hasher2>
 void bind_NCollection_DoubleMap(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_DoubleMap<TheKey1Type, TheKey2Type, Hasher1, Hasher2>, std::unique_ptr<NCollection_DoubleMap<TheKey1Type, TheKey2Type, Hasher1, Hasher2>, Deleter<NCollection_DoubleMap<TheKey1Type, TheKey2Type, Hasher1, Hasher2>>>, NCollection_BaseMap> cls_NCollection_DoubleMap(mod, name.c_str(), "Purpose: The DoubleMap is used to bind pairs (Key1,Key2) and retrieve them in linear time.", local);
+py::class_<NCollection_DoubleMap<TheKey1Type, TheKey2Type, Hasher1, Hasher2>, std::unique_ptr<NCollection_DoubleMap<TheKey1Type, TheKey2Type, Hasher1, Hasher2>>, NCollection_BaseMap> cls_NCollection_DoubleMap(mod, name.c_str(), "Purpose: The DoubleMap is used to bind pairs (Key1,Key2) and retrieve them in linear time.", local);
 
 // Constructors
 cls_NCollection_DoubleMap.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWPresentationStyleByContext(py::module &mod){
 
-py::class_<RWStepVisual_RWPresentationStyleByContext, std::unique_ptr<RWStepVisual_RWPresentationStyleByContext, Deleter<RWStepVisual_RWPresentationStyleByContext>>> cls_RWStepVisual_RWPresentationStyleByContext(mod, "RWStepVisual_RWPresentationStyleByContext", "Read & Write Module for PresentationStyleByContext");
+py::class_<RWStepVisual_RWPresentationStyleByContext, std::unique_ptr<RWStepVisual_RWPresentationStyleByContext>> cls_RWStepVisual_RWPresentationStyleByContext(mod, "RWStepVisual_RWPresentationStyleByContext", "Read & Write Module for PresentationStyleByContext");
 
 // Constructors
 cls_RWStepVisual_RWPresentationStyleByContext.def(py::init<>());

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDS_Shell(py::module &mod){
 
-py::class_<TopoDS_Shell, std::unique_ptr<TopoDS_Shell, Deleter<TopoDS_Shell>>, TopoDS_Shape> cls_TopoDS_Shell(mod, "TopoDS_Shell", "Describes a shell which - references an underlying shell with the potential to be given a location and an orientation - has a location for the underlying shell, giving its placement in the local coordinate system - has an orientation for the underlying shell, in terms of its geometry (as opposed to orientation in relation to other shapes).");
+py::class_<TopoDS_Shell, std::unique_ptr<TopoDS_Shell>, TopoDS_Shape> cls_TopoDS_Shell(mod, "TopoDS_Shell", "Describes a shell which - references an underlying shell with the potential to be given a location and an orientation - has a location for the underlying shell, giving its placement in the local coordinate system - has an orientation for the underlying shell, in terms of its geometry (as opposed to orientation in relation to other shapes).");
 
 // Constructors
 cls_TopoDS_Shell.def(py::init<>());

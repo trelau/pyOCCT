@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_ToolRFace(py::module &mod){
 
-py::class_<StdPrs_ToolRFace, std::unique_ptr<StdPrs_ToolRFace, Deleter<StdPrs_ToolRFace>>> cls_StdPrs_ToolRFace(mod, "StdPrs_ToolRFace", "None");
+py::class_<StdPrs_ToolRFace, std::unique_ptr<StdPrs_ToolRFace>> cls_StdPrs_ToolRFace(mod, "StdPrs_ToolRFace", "None");
 
 // Constructors
 cls_StdPrs_ToolRFace.def(py::init<>());

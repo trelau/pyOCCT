@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgoAPI_Common(py::module &mod){
 
-py::class_<BRepAlgoAPI_Common, std::unique_ptr<BRepAlgoAPI_Common, Deleter<BRepAlgoAPI_Common>>, BRepAlgoAPI_BooleanOperation> cls_BRepAlgoAPI_Common(mod, "BRepAlgoAPI_Common", "The class provides Boolean common operation between arguments and tools (Boolean Intersection).");
+py::class_<BRepAlgoAPI_Common, std::unique_ptr<BRepAlgoAPI_Common>, BRepAlgoAPI_BooleanOperation> cls_BRepAlgoAPI_Common(mod, "BRepAlgoAPI_Common", "The class provides Boolean common operation between arguments and tools (Boolean Intersection).");
 
 // Constructors
 cls_BRepAlgoAPI_Common.def(py::init<>());

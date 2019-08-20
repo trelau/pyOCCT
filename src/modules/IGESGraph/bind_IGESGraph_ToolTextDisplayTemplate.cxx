@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGraph_ToolTextDisplayTemplate(py::module &mod){
 
-py::class_<IGESGraph_ToolTextDisplayTemplate, std::unique_ptr<IGESGraph_ToolTextDisplayTemplate, Deleter<IGESGraph_ToolTextDisplayTemplate>>> cls_IGESGraph_ToolTextDisplayTemplate(mod, "IGESGraph_ToolTextDisplayTemplate", "Tool to work on a TextDisplayTemplate. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGraph_ToolTextDisplayTemplate, std::unique_ptr<IGESGraph_ToolTextDisplayTemplate>> cls_IGESGraph_ToolTextDisplayTemplate(mod, "IGESGraph_ToolTextDisplayTemplate", "Tool to work on a TextDisplayTemplate. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGraph_ToolTextDisplayTemplate.def(py::init<>());

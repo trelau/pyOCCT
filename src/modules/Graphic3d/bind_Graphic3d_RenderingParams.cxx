@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Graphic3d_RenderingParams(py::module &mod){
 
-py::class_<Graphic3d_RenderingParams, std::unique_ptr<Graphic3d_RenderingParams, Deleter<Graphic3d_RenderingParams>>> cls_Graphic3d_RenderingParams(mod, "Graphic3d_RenderingParams", "Helper class to store rendering parameters.");
+py::class_<Graphic3d_RenderingParams, std::unique_ptr<Graphic3d_RenderingParams>> cls_Graphic3d_RenderingParams(mod, "Graphic3d_RenderingParams", "Helper class to store rendering parameters.");
 
 // Constructors
 cls_Graphic3d_RenderingParams.def(py::init<>());

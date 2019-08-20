@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppParCurves_ConstraintCouple(py::module &mod){
 
-py::class_<AppParCurves_ConstraintCouple, std::unique_ptr<AppParCurves_ConstraintCouple, Deleter<AppParCurves_ConstraintCouple>>> cls_AppParCurves_ConstraintCouple(mod, "AppParCurves_ConstraintCouple", "associates an index and a constraint for an object. This couple is used by AppDef_TheVariational when performing approximations.");
+py::class_<AppParCurves_ConstraintCouple, std::unique_ptr<AppParCurves_ConstraintCouple>> cls_AppParCurves_ConstraintCouple(mod, "AppParCurves_ConstraintCouple", "associates an index and a constraint for an object. This couple is used by AppDef_TheVariational when performing approximations.");
 
 // Constructors
 cls_AppParCurves_ConstraintCouple.def(py::init<>());

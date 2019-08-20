@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_Powell(py::module &mod){
 
-py::class_<math_Powell, std::unique_ptr<math_Powell, Deleter<math_Powell>>> cls_math_Powell(mod, "math_Powell", "This class implements the Powell method to find the minimum of function of multiple variables (the gradient does not have to be known).");
+py::class_<math_Powell, std::unique_ptr<math_Powell>> cls_math_Powell(mod, "math_Powell", "This class implements the Powell method to find the minimum of function of multiple variables (the gradient does not have to be known).");
 
 // Constructors
 cls_math_Powell.def(py::init<const math_MultipleVarFunction &, const Standard_Real>(), py::arg("theFunction"), py::arg("theTolerance"));

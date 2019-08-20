@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomAdaptor(py::module &mod){
 
-py::class_<GeomAdaptor, std::unique_ptr<GeomAdaptor, Deleter<GeomAdaptor>>> cls_GeomAdaptor(mod, "GeomAdaptor", "this package contains the geometric definition of curve and surface necessary to use algorithmes.");
+py::class_<GeomAdaptor, std::unique_ptr<GeomAdaptor>> cls_GeomAdaptor(mod, "GeomAdaptor", "this package contains the geometric definition of curve and surface necessary to use algorithmes.");
 
 // Constructors
 

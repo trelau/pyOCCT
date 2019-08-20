@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_PSO_Particle(py::module &mod){
 
-py::class_<PSO_Particle, std::unique_ptr<PSO_Particle, Deleter<PSO_Particle>>> cls_PSO_Particle(mod, "PSO_Particle", "Describes particle pool for using in PSO algorithm. Indexes: 0 <= aDimidx <= myDimensionCount - 1");
+py::class_<PSO_Particle, std::unique_ptr<PSO_Particle>> cls_PSO_Particle(mod, "PSO_Particle", "Describes particle pool for using in PSO algorithm. Indexes: 0 <= aDimidx <= myDimensionCount - 1");
 
 // Constructors
 cls_PSO_Particle.def(py::init<>());

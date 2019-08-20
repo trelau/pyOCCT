@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_APIHeaderSection_MakeHeader(py::module &mod){
 
-py::class_<APIHeaderSection_MakeHeader, std::unique_ptr<APIHeaderSection_MakeHeader, Deleter<APIHeaderSection_MakeHeader>>> cls_APIHeaderSection_MakeHeader(mod, "APIHeaderSection_MakeHeader", "This class allows to consult and prepare/edit data stored in a Step Model Header");
+py::class_<APIHeaderSection_MakeHeader, std::unique_ptr<APIHeaderSection_MakeHeader>> cls_APIHeaderSection_MakeHeader(mod, "APIHeaderSection_MakeHeader", "This class allows to consult and prepare/edit data stored in a Step Model Header");
 
 // Constructors
 cls_APIHeaderSection_MakeHeader.def(py::init<>());

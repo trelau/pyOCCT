@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Poly_BaseIteratorOfCoherentLink(py::module &mod){
 
-py::class_<NCollection_Vector<Poly_CoherentLink>::Iterator, std::unique_ptr<NCollection_Vector<Poly_CoherentLink>::Iterator, Deleter<NCollection_Vector<Poly_CoherentLink>::Iterator>>> cls_Poly_BaseIteratorOfCoherentLink(mod, "Poly_BaseIteratorOfCoherentLink", "Nested class Iterator");
+py::class_<NCollection_Vector<Poly_CoherentLink>::Iterator, std::unique_ptr<NCollection_Vector<Poly_CoherentLink>::Iterator>> cls_Poly_BaseIteratorOfCoherentLink(mod, "Poly_BaseIteratorOfCoherentLink", "Nested class Iterator");
 
 // Constructors
 cls_Poly_BaseIteratorOfCoherentLink.def(py::init<>());

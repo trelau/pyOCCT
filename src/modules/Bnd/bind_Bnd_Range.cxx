@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Bnd_Range(py::module &mod){
 
-py::class_<Bnd_Range, std::unique_ptr<Bnd_Range, Deleter<Bnd_Range>>> cls_Bnd_Range(mod, "Bnd_Range", "This class describes a range in 1D space restricted by two real values. A range can be void indicating there is no point included in the range.");
+py::class_<Bnd_Range, std::unique_ptr<Bnd_Range>> cls_Bnd_Range(mod, "Bnd_Range", "This class describes a range in 1D space restricted by two real values. A range can be void indicating there is no point included in the range.");
 
 // Constructors
 cls_Bnd_Range.def(py::init<>());

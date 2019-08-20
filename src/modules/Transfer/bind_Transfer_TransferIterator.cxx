@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Transfer_TransferIterator(py::module &mod){
 
-py::class_<Transfer_TransferIterator, std::unique_ptr<Transfer_TransferIterator, Deleter<Transfer_TransferIterator>>> cls_Transfer_TransferIterator(mod, "Transfer_TransferIterator", "Defines an Iterator on the result of a Transfer Available for Normal Results or not (Erroneous Transfer) It gives several kinds of Informations, and allows to consider various criteria (criteria are cumulative)");
+py::class_<Transfer_TransferIterator, std::unique_ptr<Transfer_TransferIterator>> cls_Transfer_TransferIterator(mod, "Transfer_TransferIterator", "Defines an Iterator on the result of a Transfer Available for Normal Results or not (Erroneous Transfer) It gives several kinds of Informations, and allows to consider various criteria (criteria are cumulative)");
 
 // Constructors
 cls_Transfer_TransferIterator.def(py::init<>());

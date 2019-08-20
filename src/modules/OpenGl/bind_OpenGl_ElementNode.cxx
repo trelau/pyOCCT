@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_ElementNode(py::module &mod){
 
-py::class_<OpenGl_ElementNode, std::unique_ptr<OpenGl_ElementNode, Deleter<OpenGl_ElementNode>>> cls_OpenGl_ElementNode(mod, "OpenGl_ElementNode", "None");
+py::class_<OpenGl_ElementNode, std::unique_ptr<OpenGl_ElementNode>> cls_OpenGl_ElementNode(mod, "OpenGl_ElementNode", "None");
 
 // Constructors
 

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopTools_MutexForShapeProvider(py::module &mod){
 
-py::class_<TopTools_MutexForShapeProvider, std::unique_ptr<TopTools_MutexForShapeProvider, Deleter<TopTools_MutexForShapeProvider>>> cls_TopTools_MutexForShapeProvider(mod, "TopTools_MutexForShapeProvider", "Class TopTools_MutexForShapeProvider This class is used to create and store mutexes associated with shapes.");
+py::class_<TopTools_MutexForShapeProvider, std::unique_ptr<TopTools_MutexForShapeProvider>> cls_TopTools_MutexForShapeProvider(mod, "TopTools_MutexForShapeProvider", "Class TopTools_MutexForShapeProvider This class is used to create and store mutexes associated with shapes.");
 
 // Constructors
 cls_TopTools_MutexForShapeProvider.def(py::init<>());

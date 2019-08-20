@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdObjMgt_ReadData(py::module &mod){
 
-py::class_<StdObjMgt_ReadData, std::unique_ptr<StdObjMgt_ReadData, Deleter<StdObjMgt_ReadData>>> cls_StdObjMgt_ReadData(mod, "StdObjMgt_ReadData", "Auxiliary data used to read persistent objects from a file.");
+py::class_<StdObjMgt_ReadData, std::unique_ptr<StdObjMgt_ReadData>> cls_StdObjMgt_ReadData(mod, "StdObjMgt_ReadData", "Auxiliary data used to read persistent objects from a file.");
 
 // Constructors
 cls_StdObjMgt_ReadData.def(py::init<Storage_BaseDriver &, const Standard_Integer>(), py::arg("theDriver"), py::arg("theNumberOfObjects"));

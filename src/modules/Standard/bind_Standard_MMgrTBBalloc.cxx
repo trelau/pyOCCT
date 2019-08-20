@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Standard_MMgrTBBalloc(py::module &mod){
 
-py::class_<Standard_MMgrTBBalloc, std::unique_ptr<Standard_MMgrTBBalloc, Deleter<Standard_MMgrTBBalloc>>, Standard_MMgrRoot> cls_Standard_MMgrTBBalloc(mod, "Standard_MMgrTBBalloc", "Implementation of OCC memory manager which uses Intel TBB scalable allocator.");
+py::class_<Standard_MMgrTBBalloc, std::unique_ptr<Standard_MMgrTBBalloc>, Standard_MMgrRoot> cls_Standard_MMgrTBBalloc(mod, "Standard_MMgrTBBalloc", "Implementation of OCC memory manager which uses Intel TBB scalable allocator.");
 
 // Constructors
 cls_Standard_MMgrTBBalloc.def(py::init<>());

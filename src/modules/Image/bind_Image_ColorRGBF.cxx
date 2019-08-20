@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Image_ColorRGBF(py::module &mod){
 
-py::class_<Image_ColorRGBF, std::unique_ptr<Image_ColorRGBF, Deleter<Image_ColorRGBF>>> cls_Image_ColorRGBF(mod, "Image_ColorRGBF", "POD structure for packed float RGB color value (3 floats)");
+py::class_<Image_ColorRGBF, std::unique_ptr<Image_ColorRGBF>> cls_Image_ColorRGBF(mod, "Image_ColorRGBF", "POD structure for packed float RGB color value (3 floats)");
 
 // Constructors
 

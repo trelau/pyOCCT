@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepTools_ShapeSet(py::module &mod){
 
-py::class_<BRepTools_ShapeSet, std::unique_ptr<BRepTools_ShapeSet, Deleter<BRepTools_ShapeSet>>, TopTools_ShapeSet> cls_BRepTools_ShapeSet(mod, "BRepTools_ShapeSet", "Contains a Shape and all its subshapes, locations and geometries.");
+py::class_<BRepTools_ShapeSet, std::unique_ptr<BRepTools_ShapeSet>, TopTools_ShapeSet> cls_BRepTools_ShapeSet(mod, "BRepTools_ShapeSet", "Contains a Shape and all its subshapes, locations and geometries.");
 
 // Constructors
 cls_BRepTools_ShapeSet.def(py::init<>());

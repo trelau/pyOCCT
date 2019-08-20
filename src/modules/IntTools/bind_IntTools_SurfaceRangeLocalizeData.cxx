@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_SurfaceRangeLocalizeData(py::module &mod){
 
-py::class_<IntTools_SurfaceRangeLocalizeData, std::unique_ptr<IntTools_SurfaceRangeLocalizeData, Deleter<IntTools_SurfaceRangeLocalizeData>>> cls_IntTools_SurfaceRangeLocalizeData(mod, "IntTools_SurfaceRangeLocalizeData", "None");
+py::class_<IntTools_SurfaceRangeLocalizeData, std::unique_ptr<IntTools_SurfaceRangeLocalizeData>> cls_IntTools_SurfaceRangeLocalizeData(mod, "IntTools_SurfaceRangeLocalizeData", "None");
 
 // Constructors
 cls_IntTools_SurfaceRangeLocalizeData.def(py::init<>());

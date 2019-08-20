@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_Section(py::module &mod){
 
-py::class_<BRepFill_Section, std::unique_ptr<BRepFill_Section, Deleter<BRepFill_Section>>> cls_BRepFill_Section(mod, "BRepFill_Section", "To store section definition");
+py::class_<BRepFill_Section, std::unique_ptr<BRepFill_Section>> cls_BRepFill_Section(mod, "BRepFill_Section", "To store section definition");
 
 // Constructors
 cls_BRepFill_Section.def(py::init<>());

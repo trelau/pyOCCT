@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_PairOfIndex(py::module &mod){
 
-py::class_<BRepMesh_PairOfIndex, std::unique_ptr<BRepMesh_PairOfIndex, Deleter<BRepMesh_PairOfIndex>>> cls_BRepMesh_PairOfIndex(mod, "BRepMesh_PairOfIndex", "This class represents a pair of integer indices to store element indices connected to link. It is restricted to store more than two indices in it.");
+py::class_<BRepMesh_PairOfIndex, std::unique_ptr<BRepMesh_PairOfIndex>> cls_BRepMesh_PairOfIndex(mod, "BRepMesh_PairOfIndex", "This class represents a pair of integer indices to store element indices connected to link. It is restricted to store more than two indices in it.");
 
 // Constructors
 cls_BRepMesh_PairOfIndex.def(py::init<>());

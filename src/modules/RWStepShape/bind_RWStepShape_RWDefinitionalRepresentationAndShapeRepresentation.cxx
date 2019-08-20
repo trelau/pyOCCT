@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWDefinitionalRepresentationAndShapeRepresentation(py::module &mod){
 
-py::class_<RWStepShape_RWDefinitionalRepresentationAndShapeRepresentation, std::unique_ptr<RWStepShape_RWDefinitionalRepresentationAndShapeRepresentation, Deleter<RWStepShape_RWDefinitionalRepresentationAndShapeRepresentation>>> cls_RWStepShape_RWDefinitionalRepresentationAndShapeRepresentation(mod, "RWStepShape_RWDefinitionalRepresentationAndShapeRepresentation", "Read & Write Module for ConversionBasedUnitAndLengthUnit");
+py::class_<RWStepShape_RWDefinitionalRepresentationAndShapeRepresentation, std::unique_ptr<RWStepShape_RWDefinitionalRepresentationAndShapeRepresentation>> cls_RWStepShape_RWDefinitionalRepresentationAndShapeRepresentation(mod, "RWStepShape_RWDefinitionalRepresentationAndShapeRepresentation", "Read & Write Module for ConversionBasedUnitAndLengthUnit");
 
 // Constructors
 cls_RWStepShape_RWDefinitionalRepresentationAndShapeRepresentation.def(py::init<>());

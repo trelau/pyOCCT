@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFeat_Builder(py::module &mod){
 
-py::class_<BRepFeat_Builder, std::unique_ptr<BRepFeat_Builder, Deleter<BRepFeat_Builder>>, BOPAlgo_BOP> cls_BRepFeat_Builder(mod, "BRepFeat_Builder", "Provides a basic tool to implement features topological operations. The main goal of the algorithm is to perform the result of the operation according to the kept parts of the tool. Input data: a) DS; b) The kept parts of the tool; If the map of the kept parts of the tool is not filled boolean operation of the given type will be performed; c) Operation required. Steps: a) Fill myShapes, myRemoved maps; b) Rebuild edges and faces; c) Build images of the object; d) Build the result of the operation. Result: Result shape of the operation required.");
+py::class_<BRepFeat_Builder, std::unique_ptr<BRepFeat_Builder>, BOPAlgo_BOP> cls_BRepFeat_Builder(mod, "BRepFeat_Builder", "Provides a basic tool to implement features topological operations. The main goal of the algorithm is to perform the result of the operation according to the kept parts of the tool. Input data: a) DS; b) The kept parts of the tool; If the map of the kept parts of the tool is not filled boolean operation of the given type will be performed; c) Operation required. Steps: a) Fill myShapes, myRemoved maps; b) Rebuild edges and faces; c) Build images of the object; d) Build the result of the operation. Result: Result shape of the operation required.");
 
 // Constructors
 cls_BRepFeat_Builder.def(py::init<>());

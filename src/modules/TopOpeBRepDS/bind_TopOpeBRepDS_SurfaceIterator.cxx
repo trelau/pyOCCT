@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_SurfaceIterator(py::module &mod){
 
-py::class_<TopOpeBRepDS_SurfaceIterator, std::unique_ptr<TopOpeBRepDS_SurfaceIterator, Deleter<TopOpeBRepDS_SurfaceIterator>>, TopOpeBRepDS_InterferenceIterator> cls_TopOpeBRepDS_SurfaceIterator(mod, "TopOpeBRepDS_SurfaceIterator", "None");
+py::class_<TopOpeBRepDS_SurfaceIterator, std::unique_ptr<TopOpeBRepDS_SurfaceIterator>, TopOpeBRepDS_InterferenceIterator> cls_TopOpeBRepDS_SurfaceIterator(mod, "TopOpeBRepDS_SurfaceIterator", "None");
 
 // Constructors
 cls_TopOpeBRepDS_SurfaceIterator.def(py::init<const TopOpeBRepDS_ListOfInterference &>(), py::arg("L"));

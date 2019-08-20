@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Convert_HyperbolaToBSplineCurve(py::module &mod){
 
-py::class_<Convert_HyperbolaToBSplineCurve, std::unique_ptr<Convert_HyperbolaToBSplineCurve, Deleter<Convert_HyperbolaToBSplineCurve>>, Convert_ConicToBSplineCurve> cls_Convert_HyperbolaToBSplineCurve(mod, "Convert_HyperbolaToBSplineCurve", "This algorithm converts a hyperbola into a rational B-spline curve. The hyperbola is an Hypr2d from package gp with the parametrization : P (U) = Loc + (MajorRadius * Cosh(U) * Xdir + MinorRadius * Sinh(U) * Ydir) where Loc is the location point of the hyperbola, Xdir and Ydir are the normalized directions of the local cartesian coordinate system of the hyperbola. KeyWords : Convert, Hyperbola, BSplineCurve, 2D .");
+py::class_<Convert_HyperbolaToBSplineCurve, std::unique_ptr<Convert_HyperbolaToBSplineCurve>, Convert_ConicToBSplineCurve> cls_Convert_HyperbolaToBSplineCurve(mod, "Convert_HyperbolaToBSplineCurve", "This algorithm converts a hyperbola into a rational B-spline curve. The hyperbola is an Hypr2d from package gp with the parametrization : P (U) = Loc + (MajorRadius * Cosh(U) * Xdir + MinorRadius * Sinh(U) * Ydir) where Loc is the location point of the hyperbola, Xdir and Ydir are the normalized directions of the local cartesian coordinate system of the hyperbola. KeyWords : Convert, Hyperbola, BSplineCurve, 2D .");
 
 // Constructors
 cls_Convert_HyperbolaToBSplineCurve.def(py::init<const gp_Hypr2d &, const Standard_Real, const Standard_Real>(), py::arg("H"), py::arg("U1"), py::arg("U2"));

@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_ShapePersistent_Poly(py::module &mod){
 
 /*
-py::class_<ShapePersistent_Poly, std::unique_ptr<ShapePersistent_Poly, Deleter<ShapePersistent_Poly>>> cls_ShapePersistent_Poly(mod, "ShapePersistent_Poly", "None");
+py::class_<ShapePersistent_Poly, std::unique_ptr<ShapePersistent_Poly>> cls_ShapePersistent_Poly(mod, "ShapePersistent_Poly", "None");
 
 // Constructors
 

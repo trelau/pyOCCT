@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_NCollection_StdAllocator(py::module &mod){
 
-py::class_<NCollection_StdAllocator<void>, std::unique_ptr<NCollection_StdAllocator<void>, Deleter<NCollection_StdAllocator<void>>>> cls_NCollection_StdAllocator(mod, "NCollection_StdAllocator", "Implements specialization NCollection_StdAllocator<void>. Specialization is of low value and should normally be avoided in favor of a typed specialization.");
+py::class_<NCollection_StdAllocator<void>, std::unique_ptr<NCollection_StdAllocator<void>>> cls_NCollection_StdAllocator(mod, "NCollection_StdAllocator", "Implements specialization NCollection_StdAllocator<void>. Specialization is of low value and should normally be avoided in favor of a typed specialization.");
 
 // Constructors
 cls_NCollection_StdAllocator.def(py::init<>());

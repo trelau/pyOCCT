@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDraw_ToolViewsVisibleWithAttr(py::module &mod){
 
-py::class_<IGESDraw_ToolViewsVisibleWithAttr, std::unique_ptr<IGESDraw_ToolViewsVisibleWithAttr, Deleter<IGESDraw_ToolViewsVisibleWithAttr>>> cls_IGESDraw_ToolViewsVisibleWithAttr(mod, "IGESDraw_ToolViewsVisibleWithAttr", "Tool to work on a ViewsVisibleWithAttr. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDraw_ToolViewsVisibleWithAttr, std::unique_ptr<IGESDraw_ToolViewsVisibleWithAttr>> cls_IGESDraw_ToolViewsVisibleWithAttr(mod, "IGESDraw_ToolViewsVisibleWithAttr", "Tool to work on a ViewsVisibleWithAttr. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDraw_ToolViewsVisibleWithAttr.def(py::init<>());

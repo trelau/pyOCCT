@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli_ToolNodalDisplAndRot(py::module &mod){
 
-py::class_<IGESAppli_ToolNodalDisplAndRot, std::unique_ptr<IGESAppli_ToolNodalDisplAndRot, Deleter<IGESAppli_ToolNodalDisplAndRot>>> cls_IGESAppli_ToolNodalDisplAndRot(mod, "IGESAppli_ToolNodalDisplAndRot", "Tool to work on a NodalDisplAndRot. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESAppli_ToolNodalDisplAndRot, std::unique_ptr<IGESAppli_ToolNodalDisplAndRot>> cls_IGESAppli_ToolNodalDisplAndRot(mod, "IGESAppli_ToolNodalDisplAndRot", "Tool to work on a NodalDisplAndRot. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESAppli_ToolNodalDisplAndRot.def(py::init<>());

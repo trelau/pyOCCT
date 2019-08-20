@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_ArbFBO(py::module &mod){
 
-py::class_<OpenGl_ArbFBO, std::unique_ptr<OpenGl_ArbFBO, Deleter<OpenGl_ArbFBO>>> cls_OpenGl_ArbFBO(mod, "OpenGl_ArbFBO", "FBO is available on OpenGL 2.0+ hardware");
+py::class_<OpenGl_ArbFBO, std::unique_ptr<OpenGl_ArbFBO>> cls_OpenGl_ArbFBO(mod, "OpenGl_ArbFBO", "FBO is available on OpenGL 2.0+ hardware");
 
 // Constructors
 

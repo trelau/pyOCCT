@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWBrepWithVoids(py::module &mod){
 
-py::class_<RWStepShape_RWBrepWithVoids, std::unique_ptr<RWStepShape_RWBrepWithVoids, Deleter<RWStepShape_RWBrepWithVoids>>> cls_RWStepShape_RWBrepWithVoids(mod, "RWStepShape_RWBrepWithVoids", "Read & Write Module for BrepWithVoids");
+py::class_<RWStepShape_RWBrepWithVoids, std::unique_ptr<RWStepShape_RWBrepWithVoids>> cls_RWStepShape_RWBrepWithVoids(mod, "RWStepShape_RWBrepWithVoids", "Read & Write Module for BrepWithVoids");
 
 // Constructors
 cls_RWStepShape_RWBrepWithVoids.def(py::init<>());

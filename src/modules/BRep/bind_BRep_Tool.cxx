@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRep_Tool(py::module &mod){
 
-py::class_<BRep_Tool, std::unique_ptr<BRep_Tool, Deleter<BRep_Tool>>> cls_BRep_Tool(mod, "BRep_Tool", "Provides class methods to access to the geometry of BRep shapes.");
+py::class_<BRep_Tool, std::unique_ptr<BRep_Tool>> cls_BRep_Tool(mod, "BRep_Tool", "Provides class methods to access to the geometry of BRep shapes.");
 
 // Constructors
 

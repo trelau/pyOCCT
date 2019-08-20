@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESToBRep_TopoSurface(py::module &mod){
 
-py::class_<IGESToBRep_TopoSurface, std::unique_ptr<IGESToBRep_TopoSurface, Deleter<IGESToBRep_TopoSurface>>, IGESToBRep_CurveAndSurface> cls_IGESToBRep_TopoSurface(mod, "IGESToBRep_TopoSurface", "Provides methods to transfer topologic surfaces entities from IGES to CASCADE.");
+py::class_<IGESToBRep_TopoSurface, std::unique_ptr<IGESToBRep_TopoSurface>, IGESToBRep_CurveAndSurface> cls_IGESToBRep_TopoSurface(mod, "IGESToBRep_TopoSurface", "Provides methods to transfer topologic surfaces entities from IGES to CASCADE.");
 
 // Constructors
 cls_IGESToBRep_TopoSurface.def(py::init<>());

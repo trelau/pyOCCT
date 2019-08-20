@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_Texture2(py::module &mod){
 
-py::class_<Vrml_Texture2, std::unique_ptr<Vrml_Texture2, Deleter<Vrml_Texture2>>> cls_Vrml_Texture2(mod, "Vrml_Texture2", "defines a Texture2 node of VRML specifying properties of geometry and its appearance. This property node defines a texture map and parameters for that map The texture can be read from the URL specified by the filename field. To turn off texturing, set the filename field to an empty string (''). Textures can alsobe specified inline by setting the image field to contain the texture data. By default : myFilename ('') myImage (0 0 0) myWrapS (Vrml_REPEAT) myWrapT (Vrml_REPEAT)");
+py::class_<Vrml_Texture2, std::unique_ptr<Vrml_Texture2>> cls_Vrml_Texture2(mod, "Vrml_Texture2", "defines a Texture2 node of VRML specifying properties of geometry and its appearance. This property node defines a texture map and parameters for that map The texture can be read from the URL specified by the filename field. To turn off texturing, set the filename field to an empty string (''). Textures can alsobe specified inline by setting the image field to contain the texture data. By default : myFilename ('') myImage (0 0 0) myWrapS (Vrml_REPEAT) myWrapT (Vrml_REPEAT)");
 
 // Constructors
 cls_Vrml_Texture2.def(py::init<>());

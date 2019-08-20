@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrim_Torus(py::module &mod){
 
-py::class_<BRepPrim_Torus, std::unique_ptr<BRepPrim_Torus, Deleter<BRepPrim_Torus>>, BRepPrim_Revolution> cls_BRepPrim_Torus(mod, "BRepPrim_Torus", "Implements the torus primitive");
+py::class_<BRepPrim_Torus, std::unique_ptr<BRepPrim_Torus>, BRepPrim_Revolution> cls_BRepPrim_Torus(mod, "BRepPrim_Torus", "Implements the torus primitive");
 
 // Constructors
 cls_BRepPrim_Torus.def(py::init<const gp_Ax2 &, const Standard_Real, const Standard_Real>(), py::arg("Position"), py::arg("Major"), py::arg("Minor"));

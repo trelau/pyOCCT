@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCE2d_MakeArcOfParabola(py::module &mod){
 
-py::class_<GCE2d_MakeArcOfParabola, std::unique_ptr<GCE2d_MakeArcOfParabola, Deleter<GCE2d_MakeArcOfParabola>>, GCE2d_Root> cls_GCE2d_MakeArcOfParabola(mod, "GCE2d_MakeArcOfParabola", "Implements construction algorithms for an arc of parabola in the plane. The result is a Geom2d_TrimmedCurve curve. A MakeArcOfParabola object provides a framework for: - defining the construction of the arc of parabola, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed arc of parabola.");
+py::class_<GCE2d_MakeArcOfParabola, std::unique_ptr<GCE2d_MakeArcOfParabola>, GCE2d_Root> cls_GCE2d_MakeArcOfParabola(mod, "GCE2d_MakeArcOfParabola", "Implements construction algorithms for an arc of parabola in the plane. The result is a Geom2d_TrimmedCurve curve. A MakeArcOfParabola object provides a framework for: - defining the construction of the arc of parabola, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed arc of parabola.");
 
 // Constructors
 cls_GCE2d_MakeArcOfParabola.def(py::init<const gp_Parab2d &, const Standard_Real, const Standard_Real>(), py::arg("Parab"), py::arg("Alpha1"), py::arg("Alpha2"));

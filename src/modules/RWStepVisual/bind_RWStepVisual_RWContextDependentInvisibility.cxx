@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWContextDependentInvisibility(py::module &mod){
 
-py::class_<RWStepVisual_RWContextDependentInvisibility, std::unique_ptr<RWStepVisual_RWContextDependentInvisibility, Deleter<RWStepVisual_RWContextDependentInvisibility>>> cls_RWStepVisual_RWContextDependentInvisibility(mod, "RWStepVisual_RWContextDependentInvisibility", "Read & Write Module for ContextDependentInvisibility");
+py::class_<RWStepVisual_RWContextDependentInvisibility, std::unique_ptr<RWStepVisual_RWContextDependentInvisibility>> cls_RWStepVisual_RWContextDependentInvisibility(mod, "RWStepVisual_RWContextDependentInvisibility", "Read & Write Module for ContextDependentInvisibility");
 
 // Constructors
 cls_RWStepVisual_RWContextDependentInvisibility.def(py::init<>());

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Bisector_Inter(py::module &mod){
 
-py::class_<Bisector_Inter, std::unique_ptr<Bisector_Inter, Deleter<Bisector_Inter>>, IntRes2d_Intersection> cls_Bisector_Inter(mod, "Bisector_Inter", "Intersection between two <Bisec> from Bisector.");
+py::class_<Bisector_Inter, std::unique_ptr<Bisector_Inter>, IntRes2d_Intersection> cls_Bisector_Inter(mod, "Bisector_Inter", "Intersection between two <Bisec> from Bisector.");
 
 // Constructors
 cls_Bisector_Inter.def(py::init<>());

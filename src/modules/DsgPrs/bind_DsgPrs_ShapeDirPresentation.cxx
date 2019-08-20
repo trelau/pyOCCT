@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_ShapeDirPresentation(py::module &mod){
 
-py::class_<DsgPrs_ShapeDirPresentation, std::unique_ptr<DsgPrs_ShapeDirPresentation, Deleter<DsgPrs_ShapeDirPresentation>>> cls_DsgPrs_ShapeDirPresentation(mod, "DsgPrs_ShapeDirPresentation", "A framework to define display of the normal to the surface of a shape.");
+py::class_<DsgPrs_ShapeDirPresentation, std::unique_ptr<DsgPrs_ShapeDirPresentation>> cls_DsgPrs_ShapeDirPresentation(mod, "DsgPrs_ShapeDirPresentation", "A framework to define display of the normal to the surface of a shape.");
 
 // Constructors
 

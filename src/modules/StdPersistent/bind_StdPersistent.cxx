@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPersistent(py::module &mod){
 
-py::class_<StdPersistent, std::unique_ptr<StdPersistent, Deleter<StdPersistent>>> cls_StdPersistent(mod, "StdPersistent", "None");
+py::class_<StdPersistent, std::unique_ptr<StdPersistent>> cls_StdPersistent(mod, "StdPersistent", "None");
 
 // Constructors
 

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFiKPart_ComputeData(py::module &mod){
 
-py::class_<ChFiKPart_ComputeData, std::unique_ptr<ChFiKPart_ComputeData, Deleter<ChFiKPart_ComputeData>>> cls_ChFiKPart_ComputeData(mod, "ChFiKPart_ComputeData", "Methodes de classe permettant de remplir une SurfData dans les cas particuliers de conges suivants: - cylindre entre 2 surfaces planes, - tore/sphere entre un plan et un cylindre othogonal, - tore/sphere entre un plan et un cone othogonal,");
+py::class_<ChFiKPart_ComputeData, std::unique_ptr<ChFiKPart_ComputeData>> cls_ChFiKPart_ComputeData(mod, "ChFiKPart_ComputeData", "Methodes de classe permettant de remplir une SurfData dans les cas particuliers de conges suivants: - cylindre entre 2 surfaces planes, - tore/sphere entre un plan et un cylindre othogonal, - tore/sphere entre un plan et un cone othogonal,");
 
 // Constructors
 

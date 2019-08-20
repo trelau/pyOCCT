@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_FunctionSample(py::module &mod){
 
-py::class_<math_FunctionSample, std::unique_ptr<math_FunctionSample, Deleter<math_FunctionSample>>> cls_math_FunctionSample(mod, "math_FunctionSample", "This class gives a default sample (constant difference of parameter) for a function defined between two bound A,B.");
+py::class_<math_FunctionSample, std::unique_ptr<math_FunctionSample>> cls_math_FunctionSample(mod, "math_FunctionSample", "This class gives a default sample (constant difference of parameter) for a function defined between two bound A,B.");
 
 // Constructors
 cls_math_FunctionSample.def(py::init<const Standard_Real, const Standard_Real, const Standard_Integer>(), py::arg("A"), py::arg("B"), py::arg("N"));

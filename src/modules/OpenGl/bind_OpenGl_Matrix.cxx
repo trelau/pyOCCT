@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_Matrix(py::module &mod){
 
-py::class_<OpenGl_Matrix, std::unique_ptr<OpenGl_Matrix, Deleter<OpenGl_Matrix>>> cls_OpenGl_Matrix(mod, "OpenGl_Matrix", "None");
+py::class_<OpenGl_Matrix, std::unique_ptr<OpenGl_Matrix>> cls_OpenGl_Matrix(mod, "OpenGl_Matrix", "None");
 
 // Constructors
 

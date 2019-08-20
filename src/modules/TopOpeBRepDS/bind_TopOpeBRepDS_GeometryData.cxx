@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_GeometryData(py::module &mod){
 
-py::class_<TopOpeBRepDS_GeometryData, std::unique_ptr<TopOpeBRepDS_GeometryData, Deleter<TopOpeBRepDS_GeometryData>>> cls_TopOpeBRepDS_GeometryData(mod, "TopOpeBRepDS_GeometryData", "mother-class of SurfaceData, CurveData, PointData");
+py::class_<TopOpeBRepDS_GeometryData, std::unique_ptr<TopOpeBRepDS_GeometryData>> cls_TopOpeBRepDS_GeometryData(mod, "TopOpeBRepDS_GeometryData", "mother-class of SurfaceData, CurveData, PointData");
 
 // Constructors
 cls_TopOpeBRepDS_GeometryData.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESData_WriterLib(py::module &mod){
 
-py::class_<IGESData_WriterLib, std::unique_ptr<IGESData_WriterLib, Deleter<IGESData_WriterLib>>> cls_IGESData_WriterLib(mod, "IGESData_WriterLib", "None");
+py::class_<IGESData_WriterLib, std::unique_ptr<IGESData_WriterLib>> cls_IGESData_WriterLib(mod, "IGESData_WriterLib", "None");
 
 // Constructors
 cls_IGESData_WriterLib.def(py::init<const opencascade::handle<IGESData_Protocol> &>(), py::arg("aprotocol"));

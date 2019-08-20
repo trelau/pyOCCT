@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_WWWAnchor(py::module &mod){
 
-py::class_<Vrml_WWWAnchor, std::unique_ptr<Vrml_WWWAnchor, Deleter<Vrml_WWWAnchor>>> cls_Vrml_WWWAnchor(mod, "Vrml_WWWAnchor", "defines a WWWAnchor node of VRML specifying group properties. The WWWAnchor group node loads a new scene into a VRML browser when one of its children is closen. Exactly how a user 'chooses' a child of the WWWAnchor is up to the VRML browser. WWWAnchor with an empty ('') name does nothing when its children are chosen. WWWAnchor behaves like a Separator, pushing the traversal state before traversing its children and popping it afterwards.");
+py::class_<Vrml_WWWAnchor, std::unique_ptr<Vrml_WWWAnchor>> cls_Vrml_WWWAnchor(mod, "Vrml_WWWAnchor", "defines a WWWAnchor node of VRML specifying group properties. The WWWAnchor group node loads a new scene into a VRML browser when one of its children is closen. Exactly how a user 'chooses' a child of the WWWAnchor is up to the VRML browser. WWWAnchor with an empty ('') name does nothing when its children are chosen. WWWAnchor behaves like a Separator, pushing the traversal state before traversing its children and popping it afterwards.");
 
 // Constructors
 cls_Vrml_WWWAnchor.def(py::init<>());

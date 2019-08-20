@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWFeaParametricPoint(py::module &mod){
 
-py::class_<RWStepFEA_RWFeaParametricPoint, std::unique_ptr<RWStepFEA_RWFeaParametricPoint, Deleter<RWStepFEA_RWFeaParametricPoint>>> cls_RWStepFEA_RWFeaParametricPoint(mod, "RWStepFEA_RWFeaParametricPoint", "Read & Write tool for FeaParametricPoint");
+py::class_<RWStepFEA_RWFeaParametricPoint, std::unique_ptr<RWStepFEA_RWFeaParametricPoint>> cls_RWStepFEA_RWFeaParametricPoint(mod, "RWStepFEA_RWFeaParametricPoint", "Read & Write tool for FeaParametricPoint");
 
 // Constructors
 cls_RWStepFEA_RWFeaParametricPoint.def(py::init<>());

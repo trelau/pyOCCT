@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_PointSet(py::module &mod){
 
-py::class_<Vrml_PointSet, std::unique_ptr<Vrml_PointSet, Deleter<Vrml_PointSet>>> cls_Vrml_PointSet(mod, "Vrml_PointSet", "defines a PointSet node of VRML specifying geometry shapes.");
+py::class_<Vrml_PointSet, std::unique_ptr<Vrml_PointSet>> cls_Vrml_PointSet(mod, "Vrml_PointSet", "defines a PointSet node of VRML specifying geometry shapes.");
 
 // Constructors
 cls_Vrml_PointSet.def(py::init<>());

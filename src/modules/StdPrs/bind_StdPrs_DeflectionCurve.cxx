@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_DeflectionCurve(py::module &mod){
 
-py::class_<StdPrs_DeflectionCurve, std::unique_ptr<StdPrs_DeflectionCurve, Deleter<StdPrs_DeflectionCurve>>, Prs3d_Root> cls_StdPrs_DeflectionCurve(mod, "StdPrs_DeflectionCurve", "A framework to provide display of any curve with respect to the maximal chordal deviation defined in the Prs3d_Drawer attributes manager.");
+py::class_<StdPrs_DeflectionCurve, std::unique_ptr<StdPrs_DeflectionCurve>, Prs3d_Root> cls_StdPrs_DeflectionCurve(mod, "StdPrs_DeflectionCurve", "A framework to provide display of any curve with respect to the maximal chordal deviation defined in the Prs3d_Drawer attributes manager.");
 
 // Constructors
 

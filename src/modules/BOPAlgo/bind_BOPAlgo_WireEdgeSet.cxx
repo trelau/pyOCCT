@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_WireEdgeSet(py::module &mod){
 
-py::class_<BOPAlgo_WireEdgeSet, std::unique_ptr<BOPAlgo_WireEdgeSet, Deleter<BOPAlgo_WireEdgeSet>>> cls_BOPAlgo_WireEdgeSet(mod, "BOPAlgo_WireEdgeSet", "None");
+py::class_<BOPAlgo_WireEdgeSet, std::unique_ptr<BOPAlgo_WireEdgeSet>> cls_BOPAlgo_WireEdgeSet(mod, "BOPAlgo_WireEdgeSet", "None");
 
 // Constructors
 cls_BOPAlgo_WireEdgeSet.def(py::init<>());

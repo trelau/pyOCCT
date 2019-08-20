@@ -78,7 +78,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS(py::module &mod){
 
-py::class_<TopOpeBRepDS, std::unique_ptr<TopOpeBRepDS, Deleter<TopOpeBRepDS>>> cls_TopOpeBRepDS(mod, "TopOpeBRepDS", "This package provides services used by the TopOpeBRepBuild package performing topological operations on the BRep data structure.");
+py::class_<TopOpeBRepDS, std::unique_ptr<TopOpeBRepDS>> cls_TopOpeBRepDS(mod, "TopOpeBRepDS", "This package provides services used by the TopOpeBRepBuild package performing topological operations on the BRep data structure.");
 
 // Constructors
 

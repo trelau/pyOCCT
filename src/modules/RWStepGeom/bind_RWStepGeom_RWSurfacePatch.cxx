@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWSurfacePatch(py::module &mod){
 
-py::class_<RWStepGeom_RWSurfacePatch, std::unique_ptr<RWStepGeom_RWSurfacePatch, Deleter<RWStepGeom_RWSurfacePatch>>> cls_RWStepGeom_RWSurfacePatch(mod, "RWStepGeom_RWSurfacePatch", "Read & Write Module for SurfacePatch");
+py::class_<RWStepGeom_RWSurfacePatch, std::unique_ptr<RWStepGeom_RWSurfacePatch>> cls_RWStepGeom_RWSurfacePatch(mod, "RWStepGeom_RWSurfacePatch", "Read & Write Module for SurfacePatch");
 
 // Constructors
 cls_RWStepGeom_RWSurfacePatch.def(py::init<>());

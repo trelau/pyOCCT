@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP214_PresentedItemSelect(py::module &mod){
 
-py::class_<StepAP214_PresentedItemSelect, std::unique_ptr<StepAP214_PresentedItemSelect, Deleter<StepAP214_PresentedItemSelect>>, StepData_SelectType> cls_StepAP214_PresentedItemSelect(mod, "StepAP214_PresentedItemSelect", "None");
+py::class_<StepAP214_PresentedItemSelect, std::unique_ptr<StepAP214_PresentedItemSelect>, StepData_SelectType> cls_StepAP214_PresentedItemSelect(mod, "StepAP214_PresentedItemSelect", "None");
 
 // Constructors
 cls_StepAP214_PresentedItemSelect.def(py::init<>());

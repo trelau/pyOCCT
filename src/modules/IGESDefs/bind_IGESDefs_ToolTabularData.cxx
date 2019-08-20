@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDefs_ToolTabularData(py::module &mod){
 
-py::class_<IGESDefs_ToolTabularData, std::unique_ptr<IGESDefs_ToolTabularData, Deleter<IGESDefs_ToolTabularData>>> cls_IGESDefs_ToolTabularData(mod, "IGESDefs_ToolTabularData", "Tool to work on a TabularData. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDefs_ToolTabularData, std::unique_ptr<IGESDefs_ToolTabularData>> cls_IGESDefs_ToolTabularData(mod, "IGESDefs_ToolTabularData", "Tool to work on a TabularData. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDefs_ToolTabularData.def(py::init<>());

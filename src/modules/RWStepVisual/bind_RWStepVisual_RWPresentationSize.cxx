@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWPresentationSize(py::module &mod){
 
-py::class_<RWStepVisual_RWPresentationSize, std::unique_ptr<RWStepVisual_RWPresentationSize, Deleter<RWStepVisual_RWPresentationSize>>> cls_RWStepVisual_RWPresentationSize(mod, "RWStepVisual_RWPresentationSize", "Read & Write Module for PresentationSize");
+py::class_<RWStepVisual_RWPresentationSize, std::unique_ptr<RWStepVisual_RWPresentationSize>> cls_RWStepVisual_RWPresentationSize(mod, "RWStepVisual_RWPresentationSize", "Read & Write Module for PresentationSize");
 
 // Constructors
 cls_RWStepVisual_RWPresentationSize.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWSurfaceStyleParameterLine(py::module &mod){
 
-py::class_<RWStepVisual_RWSurfaceStyleParameterLine, std::unique_ptr<RWStepVisual_RWSurfaceStyleParameterLine, Deleter<RWStepVisual_RWSurfaceStyleParameterLine>>> cls_RWStepVisual_RWSurfaceStyleParameterLine(mod, "RWStepVisual_RWSurfaceStyleParameterLine", "Read & Write Module for SurfaceStyleParameterLine");
+py::class_<RWStepVisual_RWSurfaceStyleParameterLine, std::unique_ptr<RWStepVisual_RWSurfaceStyleParameterLine>> cls_RWStepVisual_RWSurfaceStyleParameterLine(mod, "RWStepVisual_RWSurfaceStyleParameterLine", "Read & Write Module for SurfaceStyleParameterLine");
 
 // Constructors
 cls_RWStepVisual_RWSurfaceStyleParameterLine.def(py::init<>());

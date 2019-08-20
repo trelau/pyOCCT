@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XCAFPrs_Style(py::module &mod){
 
-py::class_<XCAFPrs_Style, std::unique_ptr<XCAFPrs_Style, Deleter<XCAFPrs_Style>>> cls_XCAFPrs_Style(mod, "XCAFPrs_Style", "Represents a set of styling settings applicable to a (sub)shape");
+py::class_<XCAFPrs_Style, std::unique_ptr<XCAFPrs_Style>> cls_XCAFPrs_Style(mod, "XCAFPrs_Style", "Represents a set of styling settings applicable to a (sub)shape");
 
 // Constructors
 cls_XCAFPrs_Style.def(py::init<>());

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_Pnt(py::module &mod){
 
-py::class_<gp_Pnt, std::unique_ptr<gp_Pnt, Deleter<gp_Pnt>>> cls_gp_Pnt(mod, "gp_Pnt", "Defines a 3D cartesian point.");
+py::class_<gp_Pnt, std::unique_ptr<gp_Pnt>> cls_gp_Pnt(mod, "gp_Pnt", "Defines a 3D cartesian point.");
 
 // Constructors
 cls_gp_Pnt.def(py::init<>());

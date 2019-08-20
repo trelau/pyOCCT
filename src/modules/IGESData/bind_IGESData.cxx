@@ -65,7 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESData(py::module &mod){
 
-py::class_<IGESData, std::unique_ptr<IGESData, Deleter<IGESData>>> cls_IGESData(mod, "IGESData", "basic description of an IGES Interface");
+py::class_<IGESData, std::unique_ptr<IGESData>> cls_IGESData(mod, "IGESData", "basic description of an IGES Interface");
 
 // Constructors
 

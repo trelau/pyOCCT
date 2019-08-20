@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dToIGES_Geom2dPoint(py::module &mod){
 
-py::class_<Geom2dToIGES_Geom2dPoint, std::unique_ptr<Geom2dToIGES_Geom2dPoint, Deleter<Geom2dToIGES_Geom2dPoint>>, Geom2dToIGES_Geom2dEntity> cls_Geom2dToIGES_Geom2dPoint(mod, "Geom2dToIGES_Geom2dPoint", "This class implements the transfer of the Point Entity from Geom2d to IGES . These are : . 2dPoint * 2dCartesianPoint");
+py::class_<Geom2dToIGES_Geom2dPoint, std::unique_ptr<Geom2dToIGES_Geom2dPoint>, Geom2dToIGES_Geom2dEntity> cls_Geom2dToIGES_Geom2dPoint(mod, "Geom2dToIGES_Geom2dPoint", "This class implements the transfer of the Point Entity from Geom2d to IGES . These are : . 2dPoint * 2dCartesianPoint");
 
 // Constructors
 cls_Geom2dToIGES_Geom2dPoint.def(py::init<>());

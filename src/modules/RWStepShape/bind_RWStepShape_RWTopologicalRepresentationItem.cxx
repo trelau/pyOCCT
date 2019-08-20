@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWTopologicalRepresentationItem(py::module &mod){
 
-py::class_<RWStepShape_RWTopologicalRepresentationItem, std::unique_ptr<RWStepShape_RWTopologicalRepresentationItem, Deleter<RWStepShape_RWTopologicalRepresentationItem>>> cls_RWStepShape_RWTopologicalRepresentationItem(mod, "RWStepShape_RWTopologicalRepresentationItem", "Read & Write Module for TopologicalRepresentationItem");
+py::class_<RWStepShape_RWTopologicalRepresentationItem, std::unique_ptr<RWStepShape_RWTopologicalRepresentationItem>> cls_RWStepShape_RWTopologicalRepresentationItem(mod, "RWStepShape_RWTopologicalRepresentationItem", "Read & Write Module for TopologicalRepresentationItem");
 
 // Constructors
 cls_RWStepShape_RWTopologicalRepresentationItem.def(py::init<>());

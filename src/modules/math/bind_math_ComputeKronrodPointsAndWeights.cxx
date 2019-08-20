@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_ComputeKronrodPointsAndWeights(py::module &mod){
 
-py::class_<math_ComputeKronrodPointsAndWeights, std::unique_ptr<math_ComputeKronrodPointsAndWeights, Deleter<math_ComputeKronrodPointsAndWeights>>> cls_math_ComputeKronrodPointsAndWeights(mod, "math_ComputeKronrodPointsAndWeights", "None");
+py::class_<math_ComputeKronrodPointsAndWeights, std::unique_ptr<math_ComputeKronrodPointsAndWeights>> cls_math_ComputeKronrodPointsAndWeights(mod, "math_ComputeKronrodPointsAndWeights", "None");
 
 // Constructors
 cls_math_ComputeKronrodPointsAndWeights.def(py::init<const Standard_Integer>(), py::arg("Number"));

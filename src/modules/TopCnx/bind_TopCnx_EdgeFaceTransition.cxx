@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopCnx_EdgeFaceTransition(py::module &mod){
 
-py::class_<TopCnx_EdgeFaceTransition, std::unique_ptr<TopCnx_EdgeFaceTransition, Deleter<TopCnx_EdgeFaceTransition>>> cls_TopCnx_EdgeFaceTransition(mod, "TopCnx_EdgeFaceTransition", "TheEdgeFaceTransition is an algorithm to compute the cumulated transition for interferences on an edge.");
+py::class_<TopCnx_EdgeFaceTransition, std::unique_ptr<TopCnx_EdgeFaceTransition>> cls_TopCnx_EdgeFaceTransition(mod, "TopCnx_EdgeFaceTransition", "TheEdgeFaceTransition is an algorithm to compute the cumulated transition for interferences on an edge.");
 
 // Constructors
 cls_TopCnx_EdgeFaceTransition.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWCartesianTransformationOperator3d(py::module &mod){
 
-py::class_<RWStepGeom_RWCartesianTransformationOperator3d, std::unique_ptr<RWStepGeom_RWCartesianTransformationOperator3d, Deleter<RWStepGeom_RWCartesianTransformationOperator3d>>> cls_RWStepGeom_RWCartesianTransformationOperator3d(mod, "RWStepGeom_RWCartesianTransformationOperator3d", "Read & Write Module for CartesianTransformationOperator3d");
+py::class_<RWStepGeom_RWCartesianTransformationOperator3d, std::unique_ptr<RWStepGeom_RWCartesianTransformationOperator3d>> cls_RWStepGeom_RWCartesianTransformationOperator3d(mod, "RWStepGeom_RWCartesianTransformationOperator3d", "Read & Write Module for CartesianTransformationOperator3d");
 
 // Constructors
 cls_RWStepGeom_RWCartesianTransformationOperator3d.def(py::init<>());

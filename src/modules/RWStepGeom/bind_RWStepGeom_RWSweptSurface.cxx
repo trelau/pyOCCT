@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWSweptSurface(py::module &mod){
 
-py::class_<RWStepGeom_RWSweptSurface, std::unique_ptr<RWStepGeom_RWSweptSurface, Deleter<RWStepGeom_RWSweptSurface>>> cls_RWStepGeom_RWSweptSurface(mod, "RWStepGeom_RWSweptSurface", "Read & Write Module for SweptSurface");
+py::class_<RWStepGeom_RWSweptSurface, std::unique_ptr<RWStepGeom_RWSweptSurface>> cls_RWStepGeom_RWSweptSurface(mod, "RWStepGeom_RWSweptSurface", "Read & Write Module for SweptSurface");
 
 // Constructors
 cls_RWStepGeom_RWSweptSurface.def(py::init<>());

@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepExtrema_DistShapeShape(py::module &mod){
 
-py::class_<BRepExtrema_DistShapeShape, std::unique_ptr<BRepExtrema_DistShapeShape, Deleter<BRepExtrema_DistShapeShape>>> cls_BRepExtrema_DistShapeShape(mod, "BRepExtrema_DistShapeShape", "This class provides tools to compute minimum distance between two Shapes (Compound,CompSolid, Solid, Shell, Face, Wire, Edge, Vertex).");
+py::class_<BRepExtrema_DistShapeShape, std::unique_ptr<BRepExtrema_DistShapeShape>> cls_BRepExtrema_DistShapeShape(mod, "BRepExtrema_DistShapeShape", "This class provides tools to compute minimum distance between two Shapes (Compound,CompSolid, Solid, Shell, Face, Wire, Edge, Vertex).");
 
 // Constructors
 cls_BRepExtrema_DistShapeShape.def(py::init<>());

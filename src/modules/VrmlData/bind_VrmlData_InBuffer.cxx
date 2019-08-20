@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_VrmlData_InBuffer(py::module &mod){
 
-py::class_<VrmlData_InBuffer, std::unique_ptr<VrmlData_InBuffer, Deleter<VrmlData_InBuffer>>> cls_VrmlData_InBuffer(mod, "VrmlData_InBuffer", "Structure passed to the methods dealing with input stream.");
+py::class_<VrmlData_InBuffer, std::unique_ptr<VrmlData_InBuffer>> cls_VrmlData_InBuffer(mod, "VrmlData_InBuffer", "Structure passed to the methods dealing with input stream.");
 
 // Constructors
 cls_VrmlData_InBuffer.def(py::init<Standard_IStream &>(), py::arg("theStream"));

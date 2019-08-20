@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESConvGeom_GeomBuilder(py::module &mod){
 
-py::class_<IGESConvGeom_GeomBuilder, std::unique_ptr<IGESConvGeom_GeomBuilder, Deleter<IGESConvGeom_GeomBuilder>>> cls_IGESConvGeom_GeomBuilder(mod, "IGESConvGeom_GeomBuilder", "This class provides some useful basic tools to build IGESGeom curves, especially : define a curve in a plane in 3D space (ex. Circular or Conic arc, or Copious Data defined in 2D) make a CopiousData from a list of points/vectors");
+py::class_<IGESConvGeom_GeomBuilder, std::unique_ptr<IGESConvGeom_GeomBuilder>> cls_IGESConvGeom_GeomBuilder(mod, "IGESConvGeom_GeomBuilder", "This class provides some useful basic tools to build IGESGeom curves, especially : define a curve in a plane in 3D space (ex. Circular or Conic arc, or Copious Data defined in 2D) make a CopiousData from a list of points/vectors");
 
 // Constructors
 cls_IGESConvGeom_GeomBuilder.def(py::init<>());

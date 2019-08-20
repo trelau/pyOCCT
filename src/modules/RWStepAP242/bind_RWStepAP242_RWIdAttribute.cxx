@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP242_RWIdAttribute(py::module &mod){
 
-py::class_<RWStepAP242_RWIdAttribute, std::unique_ptr<RWStepAP242_RWIdAttribute, Deleter<RWStepAP242_RWIdAttribute>>> cls_RWStepAP242_RWIdAttribute(mod, "RWStepAP242_RWIdAttribute", "Read & Write Module for IdAttribute");
+py::class_<RWStepAP242_RWIdAttribute, std::unique_ptr<RWStepAP242_RWIdAttribute>> cls_RWStepAP242_RWIdAttribute(mod, "RWStepAP242_RWIdAttribute", "Read & Write Module for IdAttribute");
 
 // Constructors
 cls_RWStepAP242_RWIdAttribute.def(py::init<>());

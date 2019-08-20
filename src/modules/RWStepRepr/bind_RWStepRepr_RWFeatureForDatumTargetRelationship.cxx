@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWFeatureForDatumTargetRelationship(py::module &mod){
 
-py::class_<RWStepRepr_RWFeatureForDatumTargetRelationship, std::unique_ptr<RWStepRepr_RWFeatureForDatumTargetRelationship, Deleter<RWStepRepr_RWFeatureForDatumTargetRelationship>>> cls_RWStepRepr_RWFeatureForDatumTargetRelationship(mod, "RWStepRepr_RWFeatureForDatumTargetRelationship", "Read & Write tool for FeatureForDatumTargetRelationship");
+py::class_<RWStepRepr_RWFeatureForDatumTargetRelationship, std::unique_ptr<RWStepRepr_RWFeatureForDatumTargetRelationship>> cls_RWStepRepr_RWFeatureForDatumTargetRelationship(mod, "RWStepRepr_RWFeatureForDatumTargetRelationship", "Read & Write tool for FeatureForDatumTargetRelationship");
 
 // Constructors
 cls_RWStepRepr_RWFeatureForDatumTargetRelationship.def(py::init<>());

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPDS_InterfFF(py::module &mod){
 
-py::class_<BOPDS_InterfFF, std::unique_ptr<BOPDS_InterfFF, Deleter<BOPDS_InterfFF>>, BOPDS_Interf> cls_BOPDS_InterfFF(mod, "BOPDS_InterfFF", "None");
+py::class_<BOPDS_InterfFF, std::unique_ptr<BOPDS_InterfFF>, BOPDS_Interf> cls_BOPDS_InterfFF(mod, "BOPDS_InterfFF", "None");
 
 // Constructors
 cls_BOPDS_InterfFF.def(py::init<>());

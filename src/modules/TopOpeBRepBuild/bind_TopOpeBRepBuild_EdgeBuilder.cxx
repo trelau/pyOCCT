@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_EdgeBuilder(py::module &mod){
 
-py::class_<TopOpeBRepBuild_EdgeBuilder, std::unique_ptr<TopOpeBRepBuild_EdgeBuilder, Deleter<TopOpeBRepBuild_EdgeBuilder>>, TopOpeBRepBuild_Area1dBuilder> cls_TopOpeBRepBuild_EdgeBuilder(mod, "TopOpeBRepBuild_EdgeBuilder", "None");
+py::class_<TopOpeBRepBuild_EdgeBuilder, std::unique_ptr<TopOpeBRepBuild_EdgeBuilder>, TopOpeBRepBuild_Area1dBuilder> cls_TopOpeBRepBuild_EdgeBuilder(mod, "TopOpeBRepBuild_EdgeBuilder", "None");
 
 // Constructors
 cls_TopOpeBRepBuild_EdgeBuilder.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomLib_IsPlanarSurface(py::module &mod){
 
-py::class_<GeomLib_IsPlanarSurface, std::unique_ptr<GeomLib_IsPlanarSurface, Deleter<GeomLib_IsPlanarSurface>>> cls_GeomLib_IsPlanarSurface(mod, "GeomLib_IsPlanarSurface", "Find if a surface is a planar surface.");
+py::class_<GeomLib_IsPlanarSurface, std::unique_ptr<GeomLib_IsPlanarSurface>> cls_GeomLib_IsPlanarSurface(mod, "GeomLib_IsPlanarSurface", "Find if a surface is a planar surface.");
 
 // Constructors
 cls_GeomLib_IsPlanarSurface.def(py::init<const opencascade::handle<Geom_Surface> &>(), py::arg("S"));

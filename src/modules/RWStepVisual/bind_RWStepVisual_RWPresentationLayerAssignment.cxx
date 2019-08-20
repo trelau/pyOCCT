@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWPresentationLayerAssignment(py::module &mod){
 
-py::class_<RWStepVisual_RWPresentationLayerAssignment, std::unique_ptr<RWStepVisual_RWPresentationLayerAssignment, Deleter<RWStepVisual_RWPresentationLayerAssignment>>> cls_RWStepVisual_RWPresentationLayerAssignment(mod, "RWStepVisual_RWPresentationLayerAssignment", "Read & Write Module for PresentationLayerAssignment");
+py::class_<RWStepVisual_RWPresentationLayerAssignment, std::unique_ptr<RWStepVisual_RWPresentationLayerAssignment>> cls_RWStepVisual_RWPresentationLayerAssignment(mod, "RWStepVisual_RWPresentationLayerAssignment", "Read & Write Module for PresentationLayerAssignment");
 
 // Constructors
 cls_RWStepVisual_RWPresentationLayerAssignment.def(py::init<>());

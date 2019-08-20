@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDSToStep(py::module &mod){
 
-py::class_<TopoDSToStep, std::unique_ptr<TopoDSToStep, Deleter<TopoDSToStep>>> cls_TopoDSToStep(mod, "TopoDSToStep", "This package implements the mapping between CAS.CAD Shape representation and AP214 Shape Representation. The target schema is pms_c4 (a subset of AP214)");
+py::class_<TopoDSToStep, std::unique_ptr<TopoDSToStep>> cls_TopoDSToStep(mod, "TopoDSToStep", "This package implements the mapping between CAS.CAD Shape representation and AP214 Shape Representation. The target schema is pms_c4 (a subset of AP214)");
 
 // Constructors
 

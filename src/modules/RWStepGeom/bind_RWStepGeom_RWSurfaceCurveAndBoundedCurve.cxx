@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWSurfaceCurveAndBoundedCurve(py::module &mod){
 
-py::class_<RWStepGeom_RWSurfaceCurveAndBoundedCurve, std::unique_ptr<RWStepGeom_RWSurfaceCurveAndBoundedCurve, Deleter<RWStepGeom_RWSurfaceCurveAndBoundedCurve>>> cls_RWStepGeom_RWSurfaceCurveAndBoundedCurve(mod, "RWStepGeom_RWSurfaceCurveAndBoundedCurve", "Read StepGeom_SurfaceCurveAndBoundedCurve");
+py::class_<RWStepGeom_RWSurfaceCurveAndBoundedCurve, std::unique_ptr<RWStepGeom_RWSurfaceCurveAndBoundedCurve>> cls_RWStepGeom_RWSurfaceCurveAndBoundedCurve(mod, "RWStepGeom_RWSurfaceCurveAndBoundedCurve", "Read StepGeom_SurfaceCurveAndBoundedCurve");
 
 // Constructors
 cls_RWStepGeom_RWSurfaceCurveAndBoundedCurve.def(py::init<>());

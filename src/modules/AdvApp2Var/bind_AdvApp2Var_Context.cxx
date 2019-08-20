@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApp2Var_Context(py::module &mod){
 
-py::class_<AdvApp2Var_Context, std::unique_ptr<AdvApp2Var_Context, Deleter<AdvApp2Var_Context>>> cls_AdvApp2Var_Context(mod, "AdvApp2Var_Context", "contains all the parameters for approximation ( tolerancy, computing option, ...)");
+py::class_<AdvApp2Var_Context, std::unique_ptr<AdvApp2Var_Context>> cls_AdvApp2Var_Context(mod, "AdvApp2Var_Context", "contains all the parameters for approximation ( tolerancy, computing option, ...)");
 
 // Constructors
 cls_AdvApp2Var_Context.def(py::init<>());

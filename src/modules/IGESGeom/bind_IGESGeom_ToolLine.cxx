@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGeom_ToolLine(py::module &mod){
 
-py::class_<IGESGeom_ToolLine, std::unique_ptr<IGESGeom_ToolLine, Deleter<IGESGeom_ToolLine>>> cls_IGESGeom_ToolLine(mod, "IGESGeom_ToolLine", "Tool to work on a Line. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGeom_ToolLine, std::unique_ptr<IGESGeom_ToolLine>> cls_IGESGeom_ToolLine(mod, "IGESGeom_ToolLine", "Tool to work on a Line. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGeom_ToolLine.def(py::init<>());

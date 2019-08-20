@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinTools_Curve2dSet(py::module &mod){
 
-py::class_<BinTools_Curve2dSet, std::unique_ptr<BinTools_Curve2dSet, Deleter<BinTools_Curve2dSet>>> cls_BinTools_Curve2dSet(mod, "BinTools_Curve2dSet", "Stores a set of Curves from Geom2d in binary format");
+py::class_<BinTools_Curve2dSet, std::unique_ptr<BinTools_Curve2dSet>> cls_BinTools_Curve2dSet(mod, "BinTools_Curve2dSet", "Stores a set of Curves from Geom2d in binary format");
 
 // Constructors
 cls_BinTools_Curve2dSet.def(py::init<>());

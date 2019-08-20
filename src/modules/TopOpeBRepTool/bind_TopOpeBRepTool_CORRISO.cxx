@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool_CORRISO(py::module &mod){
 
-py::class_<TopOpeBRepTool_CORRISO, std::unique_ptr<TopOpeBRepTool_CORRISO, Deleter<TopOpeBRepTool_CORRISO>>> cls_TopOpeBRepTool_CORRISO(mod, "TopOpeBRepTool_CORRISO", "Fref is built on x-periodic surface (x=u,v). S built on Fref's geometry, should be UVClosed.");
+py::class_<TopOpeBRepTool_CORRISO, std::unique_ptr<TopOpeBRepTool_CORRISO>> cls_TopOpeBRepTool_CORRISO(mod, "TopOpeBRepTool_CORRISO", "Fref is built on x-periodic surface (x=u,v). S built on Fref's geometry, should be UVClosed.");
 
 // Constructors
 cls_TopOpeBRepTool_CORRISO.def(py::init<>());

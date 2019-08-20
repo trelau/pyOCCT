@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWRightCircularCylinder(py::module &mod){
 
-py::class_<RWStepShape_RWRightCircularCylinder, std::unique_ptr<RWStepShape_RWRightCircularCylinder, Deleter<RWStepShape_RWRightCircularCylinder>>> cls_RWStepShape_RWRightCircularCylinder(mod, "RWStepShape_RWRightCircularCylinder", "Read & Write Module for RightCircularCylinder");
+py::class_<RWStepShape_RWRightCircularCylinder, std::unique_ptr<RWStepShape_RWRightCircularCylinder>> cls_RWStepShape_RWRightCircularCylinder(mod, "RWStepShape_RWRightCircularCylinder", "Read & Write Module for RightCircularCylinder");
 
 // Constructors
 cls_RWStepShape_RWRightCircularCylinder.def(py::init<>());

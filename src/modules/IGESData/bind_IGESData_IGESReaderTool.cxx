@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESData_IGESReaderTool(py::module &mod){
 
-py::class_<IGESData_IGESReaderTool, std::unique_ptr<IGESData_IGESReaderTool, Deleter<IGESData_IGESReaderTool>>, Interface_FileReaderTool> cls_IGESData_IGESReaderTool(mod, "IGESData_IGESReaderTool", "specific FileReaderTool for IGES Parameters are accessed through specific objects, ParamReaders");
+py::class_<IGESData_IGESReaderTool, std::unique_ptr<IGESData_IGESReaderTool>, Interface_FileReaderTool> cls_IGESData_IGESReaderTool(mod, "IGESData_IGESReaderTool", "specific FileReaderTool for IGES Parameters are accessed through specific objects, ParamReaders");
 
 // Constructors
 cls_IGESData_IGESReaderTool.def(py::init<const opencascade::handle<IGESData_IGESReaderData> &, const opencascade::handle<IGESData_Protocol> &>(), py::arg("reader"), py::arg("protocol"));

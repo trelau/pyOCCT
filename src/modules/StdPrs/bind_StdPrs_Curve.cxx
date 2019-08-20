@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_Curve(py::module &mod){
 
-py::class_<StdPrs_Curve, std::unique_ptr<StdPrs_Curve, Deleter<StdPrs_Curve>>, Prs3d_Root> cls_StdPrs_Curve(mod, "StdPrs_Curve", "A framework to define display of lines, arcs of circles and conic sections. This is done with a fixed number of points, which can be modified.");
+py::class_<StdPrs_Curve, std::unique_ptr<StdPrs_Curve>, Prs3d_Root> cls_StdPrs_Curve(mod, "StdPrs_Curve", "A framework to define display of lines, arcs of circles and conic sections. This is done with a fixed number of points, which can be modified.");
 
 // Constructors
 

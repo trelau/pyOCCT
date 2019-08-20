@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_SurfaceStyleElementSelect(py::module &mod){
 
-py::class_<StepVisual_SurfaceStyleElementSelect, std::unique_ptr<StepVisual_SurfaceStyleElementSelect, Deleter<StepVisual_SurfaceStyleElementSelect>>, StepData_SelectType> cls_StepVisual_SurfaceStyleElementSelect(mod, "StepVisual_SurfaceStyleElementSelect", "None");
+py::class_<StepVisual_SurfaceStyleElementSelect, std::unique_ptr<StepVisual_SurfaceStyleElementSelect>, StepData_SelectType> cls_StepVisual_SurfaceStyleElementSelect(mod, "StepVisual_SurfaceStyleElementSelect", "None");
 
 // Constructors
 cls_StepVisual_SurfaceStyleElementSelect.def(py::init<>());

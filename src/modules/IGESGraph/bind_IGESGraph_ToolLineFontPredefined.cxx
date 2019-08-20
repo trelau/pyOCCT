@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGraph_ToolLineFontPredefined(py::module &mod){
 
-py::class_<IGESGraph_ToolLineFontPredefined, std::unique_ptr<IGESGraph_ToolLineFontPredefined, Deleter<IGESGraph_ToolLineFontPredefined>>> cls_IGESGraph_ToolLineFontPredefined(mod, "IGESGraph_ToolLineFontPredefined", "Tool to work on a LineFontPredefined. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGraph_ToolLineFontPredefined, std::unique_ptr<IGESGraph_ToolLineFontPredefined>> cls_IGESGraph_ToolLineFontPredefined(mod, "IGESGraph_ToolLineFontPredefined", "Tool to work on a LineFontPredefined. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGraph_ToolLineFontPredefined.def(py::init<>());

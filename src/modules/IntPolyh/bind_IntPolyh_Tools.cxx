@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPolyh_Tools(py::module &mod){
 
-py::class_<IntPolyh_Tools, std::unique_ptr<IntPolyh_Tools, Deleter<IntPolyh_Tools>>> cls_IntPolyh_Tools(mod, "IntPolyh_Tools", "The class provides tools for surface sampling.");
+py::class_<IntPolyh_Tools, std::unique_ptr<IntPolyh_Tools>> cls_IntPolyh_Tools(mod, "IntPolyh_Tools", "The class provides tools for surface sampling.");
 
 // Constructors
 

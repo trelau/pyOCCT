@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_OrientedEdge(py::module &mod){
 
-py::class_<BRepMesh_OrientedEdge, std::unique_ptr<BRepMesh_OrientedEdge, Deleter<BRepMesh_OrientedEdge>>> cls_BRepMesh_OrientedEdge(mod, "BRepMesh_OrientedEdge", "Light weighted structure representing simple link.");
+py::class_<BRepMesh_OrientedEdge, std::unique_ptr<BRepMesh_OrientedEdge>> cls_BRepMesh_OrientedEdge(mod, "BRepMesh_OrientedEdge", "Light weighted structure representing simple link.");
 
 // Constructors
 cls_BRepMesh_OrientedEdge.def(py::init<>());

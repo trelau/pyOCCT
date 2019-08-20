@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BlendFunc_Ruled(py::module &mod){
 
-py::class_<BlendFunc_Ruled, std::unique_ptr<BlendFunc_Ruled, Deleter<BlendFunc_Ruled>>, Blend_Function> cls_BlendFunc_Ruled(mod, "BlendFunc_Ruled", "None");
+py::class_<BlendFunc_Ruled, std::unique_ptr<BlendFunc_Ruled>, Blend_Function> cls_BlendFunc_Ruled(mod, "BlendFunc_Ruled", "None");
 
 // Constructors
 cls_BlendFunc_Ruled.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S1"), py::arg("S2"), py::arg("C"));

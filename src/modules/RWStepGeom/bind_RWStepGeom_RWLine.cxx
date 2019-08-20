@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWLine(py::module &mod){
 
-py::class_<RWStepGeom_RWLine, std::unique_ptr<RWStepGeom_RWLine, Deleter<RWStepGeom_RWLine>>> cls_RWStepGeom_RWLine(mod, "RWStepGeom_RWLine", "Read & Write Module for Line");
+py::class_<RWStepGeom_RWLine, std::unique_ptr<RWStepGeom_RWLine>> cls_RWStepGeom_RWLine(mod, "RWStepGeom_RWLine", "Read & Write Module for Line");
 
 // Constructors
 cls_RWStepGeom_RWLine.def(py::init<>());

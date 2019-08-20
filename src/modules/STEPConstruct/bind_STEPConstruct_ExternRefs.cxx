@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPConstruct_ExternRefs(py::module &mod){
 
-py::class_<STEPConstruct_ExternRefs, std::unique_ptr<STEPConstruct_ExternRefs, Deleter<STEPConstruct_ExternRefs>>, STEPConstruct_Tool> cls_STEPConstruct_ExternRefs(mod, "STEPConstruct_ExternRefs", "Provides a tool for analyzing (reading) and creating (writing) references to external files in STEP");
+py::class_<STEPConstruct_ExternRefs, std::unique_ptr<STEPConstruct_ExternRefs>, STEPConstruct_Tool> cls_STEPConstruct_ExternRefs(mod, "STEPConstruct_ExternRefs", "Provides a tool for analyzing (reading) and creating (writing) references to external files in STEP");
 
 // Constructors
 cls_STEPConstruct_ExternRefs.def(py::init<>());

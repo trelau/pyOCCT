@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolAngularDimension(py::module &mod){
 
-py::class_<IGESDimen_ToolAngularDimension, std::unique_ptr<IGESDimen_ToolAngularDimension, Deleter<IGESDimen_ToolAngularDimension>>> cls_IGESDimen_ToolAngularDimension(mod, "IGESDimen_ToolAngularDimension", "Tool to work on a AngularDimension. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolAngularDimension, std::unique_ptr<IGESDimen_ToolAngularDimension>> cls_IGESDimen_ToolAngularDimension(mod, "IGESDimen_ToolAngularDimension", "Tool to work on a AngularDimension. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolAngularDimension.def(py::init<>());

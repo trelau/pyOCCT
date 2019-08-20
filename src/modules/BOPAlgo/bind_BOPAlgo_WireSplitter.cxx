@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_WireSplitter(py::module &mod){
 
-py::class_<BOPAlgo_WireSplitter, std::unique_ptr<BOPAlgo_WireSplitter, Deleter<BOPAlgo_WireSplitter>>, BOPAlgo_Algo> cls_BOPAlgo_WireSplitter(mod, "BOPAlgo_WireSplitter", "The class is to build loops from the given set of edges.");
+py::class_<BOPAlgo_WireSplitter, std::unique_ptr<BOPAlgo_WireSplitter>, BOPAlgo_Algo> cls_BOPAlgo_WireSplitter(mod, "BOPAlgo_WireSplitter", "The class is to build loops from the given set of edges.");
 
 // Constructors
 cls_BOPAlgo_WireSplitter.def(py::init<>());

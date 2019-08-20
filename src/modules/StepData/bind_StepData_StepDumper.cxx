@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepData_StepDumper(py::module &mod){
 
-py::class_<StepData_StepDumper, std::unique_ptr<StepData_StepDumper, Deleter<StepData_StepDumper>>> cls_StepData_StepDumper(mod, "StepData_StepDumper", "Provides a way to dump entities processed through STEP, with these features : - same form as for writing a STEP File (because it is clear and compact enough, even if the names of the fields do not appear) : thus, no additionnal resource is required - possibility to look for an entity itself (only its Type or with its content), an entity and it shared items (one level) or all the entities its refers to, directly or recursively.");
+py::class_<StepData_StepDumper, std::unique_ptr<StepData_StepDumper>> cls_StepData_StepDumper(mod, "StepData_StepDumper", "Provides a way to dump entities processed through STEP, with these features : - same form as for writing a STEP File (because it is clear and compact enough, even if the names of the fields do not appear) : thus, no additionnal resource is required - possibility to look for an entity itself (only its Type or with its content), an entity and it shared items (one level) or all the entities its refers to, directly or recursively.");
 
 // Constructors
 cls_StepData_StepDumper.def(py::init<const opencascade::handle<StepData_StepModel> &, const opencascade::handle<StepData_Protocol> &>(), py::arg("amodel"), py::arg("protocol"));

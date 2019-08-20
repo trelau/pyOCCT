@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopTools_MapIteratorOfMapOfShape(py::module &mod){
 
-py::class_<NCollection_Map<TopoDS_Shape, TopTools_ShapeMapHasher>::Iterator, std::unique_ptr<NCollection_Map<TopoDS_Shape, TopTools_ShapeMapHasher>::Iterator, Deleter<NCollection_Map<TopoDS_Shape, TopTools_ShapeMapHasher>::Iterator>>, NCollection_BaseMap::Iterator> cls_TopTools_MapIteratorOfMapOfShape(mod, "TopTools_MapIteratorOfMapOfShape", "Implementation of the Iterator interface.");
+py::class_<NCollection_Map<TopoDS_Shape, TopTools_ShapeMapHasher>::Iterator, std::unique_ptr<NCollection_Map<TopoDS_Shape, TopTools_ShapeMapHasher>::Iterator>, NCollection_BaseMap::Iterator> cls_TopTools_MapIteratorOfMapOfShape(mod, "TopTools_MapIteratorOfMapOfShape", "Implementation of the Iterator interface.");
 
 // Constructors
 cls_TopTools_MapIteratorOfMapOfShape.def(py::init<>());

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool_SolidClassifier(py::module &mod){
 
-py::class_<TopOpeBRepTool_SolidClassifier, std::unique_ptr<TopOpeBRepTool_SolidClassifier, Deleter<TopOpeBRepTool_SolidClassifier>>> cls_TopOpeBRepTool_SolidClassifier(mod, "TopOpeBRepTool_SolidClassifier", "None");
+py::class_<TopOpeBRepTool_SolidClassifier, std::unique_ptr<TopOpeBRepTool_SolidClassifier>> cls_TopOpeBRepTool_SolidClassifier(mod, "TopOpeBRepTool_SolidClassifier", "None");
 
 // Constructors
 cls_TopOpeBRepTool_SolidClassifier.def(py::init<>());

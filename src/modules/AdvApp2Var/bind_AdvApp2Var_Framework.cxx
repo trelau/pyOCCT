@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApp2Var_Framework(py::module &mod){
 
-py::class_<AdvApp2Var_Framework, std::unique_ptr<AdvApp2Var_Framework, Deleter<AdvApp2Var_Framework>>> cls_AdvApp2Var_Framework(mod, "AdvApp2Var_Framework", "None");
+py::class_<AdvApp2Var_Framework, std::unique_ptr<AdvApp2Var_Framework>> cls_AdvApp2Var_Framework(mod, "AdvApp2Var_Framework", "None");
 
 // Constructors
 cls_AdvApp2Var_Framework.def(py::init<>());

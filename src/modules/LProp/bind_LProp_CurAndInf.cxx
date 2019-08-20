@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LProp_CurAndInf(py::module &mod){
 
-py::class_<LProp_CurAndInf, std::unique_ptr<LProp_CurAndInf, Deleter<LProp_CurAndInf>>> cls_LProp_CurAndInf(mod, "LProp_CurAndInf", "Stores the parameters of a curve 2d or 3d corresponding to the curvature's extremas and the Inflection's Points.");
+py::class_<LProp_CurAndInf, std::unique_ptr<LProp_CurAndInf>> cls_LProp_CurAndInf(mod, "LProp_CurAndInf", "Stores the parameters of a curve 2d or 3d corresponding to the curvature's extremas and the Inflection's Points.");
 
 // Constructors
 cls_LProp_CurAndInf.def(py::init<>());

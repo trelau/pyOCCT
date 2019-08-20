@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrimAPI_MakeBox(py::module &mod){
 
-py::class_<BRepPrimAPI_MakeBox, std::unique_ptr<BRepPrimAPI_MakeBox, Deleter<BRepPrimAPI_MakeBox>>, BRepBuilderAPI_MakeShape> cls_BRepPrimAPI_MakeBox(mod, "BRepPrimAPI_MakeBox", "Describes functions to build parallelepiped boxes. A MakeBox object provides a framework for: - defining the construction of a box, - implementing the construction algorithm, and - consulting the result.");
+py::class_<BRepPrimAPI_MakeBox, std::unique_ptr<BRepPrimAPI_MakeBox>, BRepBuilderAPI_MakeShape> cls_BRepPrimAPI_MakeBox(mod, "BRepPrimAPI_MakeBox", "Describes functions to build parallelepiped boxes. A MakeBox object provides a framework for: - defining the construction of a box, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_BRepPrimAPI_MakeBox.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("dx"), py::arg("dy"), py::arg("dz"));

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWVertexPoint(py::module &mod){
 
-py::class_<RWStepShape_RWVertexPoint, std::unique_ptr<RWStepShape_RWVertexPoint, Deleter<RWStepShape_RWVertexPoint>>> cls_RWStepShape_RWVertexPoint(mod, "RWStepShape_RWVertexPoint", "Read & Write Module for VertexPoint");
+py::class_<RWStepShape_RWVertexPoint, std::unique_ptr<RWStepShape_RWVertexPoint>> cls_RWStepShape_RWVertexPoint(mod, "RWStepShape_RWVertexPoint", "Read & Write Module for VertexPoint");
 
 // Constructors
 cls_RWStepShape_RWVertexPoint.def(py::init<>());

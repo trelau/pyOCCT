@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESBasic_ToolGroupWithoutBackP(py::module &mod){
 
-py::class_<IGESBasic_ToolGroupWithoutBackP, std::unique_ptr<IGESBasic_ToolGroupWithoutBackP, Deleter<IGESBasic_ToolGroupWithoutBackP>>> cls_IGESBasic_ToolGroupWithoutBackP(mod, "IGESBasic_ToolGroupWithoutBackP", "Tool to work on a GroupWithoutBackP. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESBasic_ToolGroupWithoutBackP, std::unique_ptr<IGESBasic_ToolGroupWithoutBackP>> cls_IGESBasic_ToolGroupWithoutBackP(mod, "IGESBasic_ToolGroupWithoutBackP", "Tool to work on a GroupWithoutBackP. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESBasic_ToolGroupWithoutBackP.def(py::init<>());

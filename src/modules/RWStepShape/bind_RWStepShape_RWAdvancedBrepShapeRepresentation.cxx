@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWAdvancedBrepShapeRepresentation(py::module &mod){
 
-py::class_<RWStepShape_RWAdvancedBrepShapeRepresentation, std::unique_ptr<RWStepShape_RWAdvancedBrepShapeRepresentation, Deleter<RWStepShape_RWAdvancedBrepShapeRepresentation>>> cls_RWStepShape_RWAdvancedBrepShapeRepresentation(mod, "RWStepShape_RWAdvancedBrepShapeRepresentation", "Read & Write Module for AdvancedBrepShapeRepresentation");
+py::class_<RWStepShape_RWAdvancedBrepShapeRepresentation, std::unique_ptr<RWStepShape_RWAdvancedBrepShapeRepresentation>> cls_RWStepShape_RWAdvancedBrepShapeRepresentation(mod, "RWStepShape_RWAdvancedBrepShapeRepresentation", "Read & Write Module for AdvancedBrepShapeRepresentation");
 
 // Constructors
 cls_RWStepShape_RWAdvancedBrepShapeRepresentation.def(py::init<>());

@@ -52,7 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_ShapePersistent_Geom2d_Curve(py::module &mod){
 
 /*
-py::class_<ShapePersistent_Geom2d_Curve, std::unique_ptr<ShapePersistent_Geom2d_Curve, Deleter<ShapePersistent_Geom2d_Curve>>> cls_ShapePersistent_Geom2d_Curve(mod, "ShapePersistent_Geom2d_Curve", "None");
+py::class_<ShapePersistent_Geom2d_Curve, std::unique_ptr<ShapePersistent_Geom2d_Curve>> cls_ShapePersistent_Geom2d_Curve(mod, "ShapePersistent_Geom2d_Curve", "None");
 
 // Constructors
 

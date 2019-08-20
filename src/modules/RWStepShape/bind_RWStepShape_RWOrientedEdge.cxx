@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWOrientedEdge(py::module &mod){
 
-py::class_<RWStepShape_RWOrientedEdge, std::unique_ptr<RWStepShape_RWOrientedEdge, Deleter<RWStepShape_RWOrientedEdge>>> cls_RWStepShape_RWOrientedEdge(mod, "RWStepShape_RWOrientedEdge", "Read & Write Module for OrientedEdge");
+py::class_<RWStepShape_RWOrientedEdge, std::unique_ptr<RWStepShape_RWOrientedEdge>> cls_RWStepShape_RWOrientedEdge(mod, "RWStepShape_RWOrientedEdge", "Read & Write Module for OrientedEdge");
 
 // Constructors
 cls_RWStepShape_RWOrientedEdge.def(py::init<>());

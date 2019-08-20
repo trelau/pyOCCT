@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GProp_PEquation(py::module &mod){
 
-py::class_<GProp_PEquation, std::unique_ptr<GProp_PEquation, Deleter<GProp_PEquation>>> cls_GProp_PEquation(mod, "GProp_PEquation", "A framework to analyze a collection - or cloud - of points and to verify if they are coincident, collinear or coplanar within a given precision. If so, it also computes the mean point, the mean line or the mean plane of the points. If not, it computes the minimal box which includes all the points.");
+py::class_<GProp_PEquation, std::unique_ptr<GProp_PEquation>> cls_GProp_PEquation(mod, "GProp_PEquation", "A framework to analyze a collection - or cloud - of points and to verify if they are coincident, collinear or coplanar within a given precision. If so, it also computes the mean point, the mean line or the mean plane of the points. If not, it computes the minimal box which includes all the points.");
 
 // Constructors
 cls_GProp_PEquation.def(py::init<const TColgp_Array1OfPnt &, const Standard_Real>(), py::arg("Pnts"), py::arg("Tol"));

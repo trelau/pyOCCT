@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGeom_ToolPoint(py::module &mod){
 
-py::class_<IGESGeom_ToolPoint, std::unique_ptr<IGESGeom_ToolPoint, Deleter<IGESGeom_ToolPoint>>> cls_IGESGeom_ToolPoint(mod, "IGESGeom_ToolPoint", "Tool to work on a Point. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGeom_ToolPoint, std::unique_ptr<IGESGeom_ToolPoint>> cls_IGESGeom_ToolPoint(mod, "IGESGeom_ToolPoint", "Tool to work on a Point. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGeom_ToolPoint.def(py::init<>());

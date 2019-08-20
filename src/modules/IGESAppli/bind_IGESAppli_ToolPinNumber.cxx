@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli_ToolPinNumber(py::module &mod){
 
-py::class_<IGESAppli_ToolPinNumber, std::unique_ptr<IGESAppli_ToolPinNumber, Deleter<IGESAppli_ToolPinNumber>>> cls_IGESAppli_ToolPinNumber(mod, "IGESAppli_ToolPinNumber", "Tool to work on a PinNumber. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESAppli_ToolPinNumber, std::unique_ptr<IGESAppli_ToolPinNumber>> cls_IGESAppli_ToolPinNumber(mod, "IGESAppli_ToolPinNumber", "Tool to work on a PinNumber. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESAppli_ToolPinNumber.def(py::init<>());

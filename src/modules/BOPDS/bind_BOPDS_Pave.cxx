@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPDS_Pave(py::module &mod){
 
-py::class_<BOPDS_Pave, std::unique_ptr<BOPDS_Pave, Deleter<BOPDS_Pave>>> cls_BOPDS_Pave(mod, "BOPDS_Pave", "The class BOPDS_Pave is to store information about vertex on an edge");
+py::class_<BOPDS_Pave, std::unique_ptr<BOPDS_Pave>> cls_BOPDS_Pave(mod, "BOPDS_Pave", "The class BOPDS_Pave is to store information about vertex on an edge");
 
 // Constructors
 cls_BOPDS_Pave.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWCameraModelD3MultiClipping(py::module &mod){
 
-py::class_<RWStepVisual_RWCameraModelD3MultiClipping, std::unique_ptr<RWStepVisual_RWCameraModelD3MultiClipping, Deleter<RWStepVisual_RWCameraModelD3MultiClipping>>> cls_RWStepVisual_RWCameraModelD3MultiClipping(mod, "RWStepVisual_RWCameraModelD3MultiClipping", "Read & Write Module for CameraModelD3MultiClipping");
+py::class_<RWStepVisual_RWCameraModelD3MultiClipping, std::unique_ptr<RWStepVisual_RWCameraModelD3MultiClipping>> cls_RWStepVisual_RWCameraModelD3MultiClipping(mod, "RWStepVisual_RWCameraModelD3MultiClipping", "Read & Write Module for CameraModelD3MultiClipping");
 
 // Constructors
 cls_RWStepVisual_RWCameraModelD3MultiClipping.def(py::init<>());

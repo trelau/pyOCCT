@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheObjType, typename TheBndType>
 void bind_NCollection_UBTree(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_UBTree<TheObjType, TheBndType>, std::unique_ptr<NCollection_UBTree<TheObjType, TheBndType>, Deleter<NCollection_UBTree<TheObjType, TheBndType>>>> cls_NCollection_UBTree(mod, name.c_str(), "The algorithm of unbalanced binary tree of overlapped bounding boxes.", local);
+py::class_<NCollection_UBTree<TheObjType, TheBndType>, std::unique_ptr<NCollection_UBTree<TheObjType, TheBndType>>> cls_NCollection_UBTree(mod, name.c_str(), "The algorithm of unbalanced binary tree of overlapped bounding boxes.", local);
 
 // Constructors
 cls_NCollection_UBTree.def(py::init<>());
@@ -59,7 +59,7 @@ cls_NCollection_UBTree.def("Allocator", (const opencascade::handle<NCollection_B
 // Enums
 
 // Nested classes
-py::class_<NCollection_UBTree<TheObjType, TheBndType>::Selector, std::unique_ptr<NCollection_UBTree<TheObjType, TheBndType>::Selector, Deleter<NCollection_UBTree<TheObjType, TheBndType>::Selector>>> cls_Selector(cls_NCollection_UBTree, "Selector", "Class defining the minimal interface of selector.", local);
+py::class_<NCollection_UBTree<TheObjType, TheBndType>::Selector, std::unique_ptr<NCollection_UBTree<TheObjType, TheBndType>::Selector>> cls_Selector(cls_NCollection_UBTree, "Selector", "Class defining the minimal interface of selector.", local);
 
 // Fields
 

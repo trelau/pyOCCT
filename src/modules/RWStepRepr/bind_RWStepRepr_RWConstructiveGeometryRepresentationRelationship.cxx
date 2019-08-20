@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWConstructiveGeometryRepresentationRelationship(py::module &mod){
 
-py::class_<RWStepRepr_RWConstructiveGeometryRepresentationRelationship, std::unique_ptr<RWStepRepr_RWConstructiveGeometryRepresentationRelationship, Deleter<RWStepRepr_RWConstructiveGeometryRepresentationRelationship>>> cls_RWStepRepr_RWConstructiveGeometryRepresentationRelationship(mod, "RWStepRepr_RWConstructiveGeometryRepresentationRelationship", "Read & Write Module for ConstructiveGeometryRepresentationRelationship");
+py::class_<RWStepRepr_RWConstructiveGeometryRepresentationRelationship, std::unique_ptr<RWStepRepr_RWConstructiveGeometryRepresentationRelationship>> cls_RWStepRepr_RWConstructiveGeometryRepresentationRelationship(mod, "RWStepRepr_RWConstructiveGeometryRepresentationRelationship", "Read & Write Module for ConstructiveGeometryRepresentationRelationship");
 
 // Constructors
 cls_RWStepRepr_RWConstructiveGeometryRepresentationRelationship.def(py::init<>());

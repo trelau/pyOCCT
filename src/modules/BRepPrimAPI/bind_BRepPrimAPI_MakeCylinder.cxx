@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrimAPI_MakeCylinder(py::module &mod){
 
-py::class_<BRepPrimAPI_MakeCylinder, std::unique_ptr<BRepPrimAPI_MakeCylinder, Deleter<BRepPrimAPI_MakeCylinder>>, BRepPrimAPI_MakeOneAxis> cls_BRepPrimAPI_MakeCylinder(mod, "BRepPrimAPI_MakeCylinder", "Describes functions to build cylinders or portions of cylinders. A MakeCylinder object provides a framework for: - defining the construction of a cylinder, - implementing the construction algorithm, and - consulting the result.");
+py::class_<BRepPrimAPI_MakeCylinder, std::unique_ptr<BRepPrimAPI_MakeCylinder>, BRepPrimAPI_MakeOneAxis> cls_BRepPrimAPI_MakeCylinder(mod, "BRepPrimAPI_MakeCylinder", "Describes functions to build cylinders or portions of cylinders. A MakeCylinder object provides a framework for: - defining the construction of a cylinder, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_BRepPrimAPI_MakeCylinder.def(py::init<const Standard_Real, const Standard_Real>(), py::arg("R"), py::arg("H"));

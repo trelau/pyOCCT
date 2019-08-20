@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_CheckIterator(py::module &mod){
 
-py::class_<Interface_CheckIterator, std::unique_ptr<Interface_CheckIterator, Deleter<Interface_CheckIterator>>> cls_Interface_CheckIterator(mod, "Interface_CheckIterator", "Result of a Check operation (especially from InterfaceModel)");
+py::class_<Interface_CheckIterator, std::unique_ptr<Interface_CheckIterator>> cls_Interface_CheckIterator(mod, "Interface_CheckIterator", "Result of a Check operation (especially from InterfaceModel)");
 
 // Constructors
 cls_Interface_CheckIterator.def(py::init<>());

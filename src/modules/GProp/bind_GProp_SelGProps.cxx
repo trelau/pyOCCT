@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GProp_SelGProps(py::module &mod){
 
-py::class_<GProp_SelGProps, std::unique_ptr<GProp_SelGProps, Deleter<GProp_SelGProps>>, GProp_GProps> cls_GProp_SelGProps(mod, "GProp_SelGProps", "Computes the global properties of a bounded elementary surface in 3d (surface of the gp package)");
+py::class_<GProp_SelGProps, std::unique_ptr<GProp_SelGProps>, GProp_GProps> cls_GProp_SelGProps(mod, "GProp_SelGProps", "Computes the global properties of a bounded elementary surface in 3d (surface of the gp package)");
 
 // Constructors
 cls_GProp_SelGProps.def(py::init<>());

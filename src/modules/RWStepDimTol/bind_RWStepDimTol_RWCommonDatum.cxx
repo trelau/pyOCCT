@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWCommonDatum(py::module &mod){
 
-py::class_<RWStepDimTol_RWCommonDatum, std::unique_ptr<RWStepDimTol_RWCommonDatum, Deleter<RWStepDimTol_RWCommonDatum>>> cls_RWStepDimTol_RWCommonDatum(mod, "RWStepDimTol_RWCommonDatum", "Read & Write tool for CommonDatum");
+py::class_<RWStepDimTol_RWCommonDatum, std::unique_ptr<RWStepDimTol_RWCommonDatum>> cls_RWStepDimTol_RWCommonDatum(mod, "RWStepDimTol_RWCommonDatum", "Read & Write tool for CommonDatum");
 
 // Constructors
 cls_RWStepDimTol_RWCommonDatum.def(py::init<>());

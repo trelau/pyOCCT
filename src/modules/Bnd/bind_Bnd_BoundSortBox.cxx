@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Bnd_BoundSortBox(py::module &mod){
 
-py::class_<Bnd_BoundSortBox, std::unique_ptr<Bnd_BoundSortBox, Deleter<Bnd_BoundSortBox>>> cls_Bnd_BoundSortBox(mod, "Bnd_BoundSortBox", "A tool to compare a bounding box or a plane with a set of bounding boxes. It sorts the set of bounding boxes to give the list of boxes which intersect the element being compared. The boxes being sorted generally bound a set of shapes, while the box being compared bounds a shape to be compared. The resulting list of intersecting boxes therefore gives the list of items which potentially intersect the shape to be compared.");
+py::class_<Bnd_BoundSortBox, std::unique_ptr<Bnd_BoundSortBox>> cls_Bnd_BoundSortBox(mod, "Bnd_BoundSortBox", "A tool to compare a bounding box or a plane with a set of bounding boxes. It sorts the set of bounding boxes to give the list of boxes which intersect the element being compared. The boxes being sorted generally bound a set of shapes, while the box being compared bounds a shape to be compared. The resulting list of intersecting boxes therefore gives the list of items which potentially intersect the shape to be compared.");
 
 // Constructors
 cls_Bnd_BoundSortBox.def(py::init<>());

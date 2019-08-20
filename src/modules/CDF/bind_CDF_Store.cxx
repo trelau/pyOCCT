@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_CDF_Store(py::module &mod){
 
-py::class_<CDF_Store, std::unique_ptr<CDF_Store, Deleter<CDF_Store>>> cls_CDF_Store(mod, "CDF_Store", "None");
+py::class_<CDF_Store, std::unique_ptr<CDF_Store>> cls_CDF_Store(mod, "CDF_Store", "None");
 
 // Constructors
 cls_CDF_Store.def(py::init<const opencascade::handle<CDM_Document> &>(), py::arg("aDocument"));

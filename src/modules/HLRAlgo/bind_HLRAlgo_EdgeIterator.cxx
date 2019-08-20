@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRAlgo_EdgeIterator(py::module &mod){
 
-py::class_<HLRAlgo_EdgeIterator, std::unique_ptr<HLRAlgo_EdgeIterator, Deleter<HLRAlgo_EdgeIterator>>> cls_HLRAlgo_EdgeIterator(mod, "HLRAlgo_EdgeIterator", "None");
+py::class_<HLRAlgo_EdgeIterator, std::unique_ptr<HLRAlgo_EdgeIterator>> cls_HLRAlgo_EdgeIterator(mod, "HLRAlgo_EdgeIterator", "None");
 
 // Constructors
 cls_HLRAlgo_EdgeIterator.def(py::init<>());

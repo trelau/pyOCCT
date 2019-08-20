@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWPointRepresentation(py::module &mod){
 
-py::class_<RWStepShape_RWPointRepresentation, std::unique_ptr<RWStepShape_RWPointRepresentation, Deleter<RWStepShape_RWPointRepresentation>>> cls_RWStepShape_RWPointRepresentation(mod, "RWStepShape_RWPointRepresentation", "Read & Write tool for PointRepresentation");
+py::class_<RWStepShape_RWPointRepresentation, std::unique_ptr<RWStepShape_RWPointRepresentation>> cls_RWStepShape_RWPointRepresentation(mod, "RWStepShape_RWPointRepresentation", "Read & Write tool for PointRepresentation");
 
 // Constructors
 cls_RWStepShape_RWPointRepresentation.def(py::init<>());

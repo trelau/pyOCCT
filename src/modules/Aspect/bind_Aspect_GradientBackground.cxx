@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Aspect_GradientBackground(py::module &mod){
 
-py::class_<Aspect_GradientBackground, std::unique_ptr<Aspect_GradientBackground, Deleter<Aspect_GradientBackground>>, Aspect_Background> cls_Aspect_GradientBackground(mod, "Aspect_GradientBackground", "This class allows the definition of a window gradient background.");
+py::class_<Aspect_GradientBackground, std::unique_ptr<Aspect_GradientBackground>, Aspect_Background> cls_Aspect_GradientBackground(mod, "Aspect_GradientBackground", "This class allows the definition of a window gradient background.");
 
 // Constructors
 cls_Aspect_GradientBackground.def(py::init<>());

@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGraph_ToolLineFontDefTemplate(py::module &mod){
 
-py::class_<IGESGraph_ToolLineFontDefTemplate, std::unique_ptr<IGESGraph_ToolLineFontDefTemplate, Deleter<IGESGraph_ToolLineFontDefTemplate>>> cls_IGESGraph_ToolLineFontDefTemplate(mod, "IGESGraph_ToolLineFontDefTemplate", "Tool to work on a LineFontDefTemplate. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGraph_ToolLineFontDefTemplate, std::unique_ptr<IGESGraph_ToolLineFontDefTemplate>> cls_IGESGraph_ToolLineFontDefTemplate(mod, "IGESGraph_ToolLineFontDefTemplate", "Tool to work on a LineFontDefTemplate. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGraph_ToolLineFontDefTemplate.def(py::init<>());

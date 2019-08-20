@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToIGES_GeomVector(py::module &mod){
 
-py::class_<GeomToIGES_GeomVector, std::unique_ptr<GeomToIGES_GeomVector, Deleter<GeomToIGES_GeomVector>>, GeomToIGES_GeomEntity> cls_GeomToIGES_GeomVector(mod, "GeomToIGES_GeomVector", "This class implements the transfer of the Vector from Geom to IGES . These can be : . Vector * Direction * VectorWithMagnitude");
+py::class_<GeomToIGES_GeomVector, std::unique_ptr<GeomToIGES_GeomVector>, GeomToIGES_GeomEntity> cls_GeomToIGES_GeomVector(mod, "GeomToIGES_GeomVector", "This class implements the transfer of the Vector from Geom to IGES . These can be : . Vector * Direction * VectorWithMagnitude");
 
 // Constructors
 cls_GeomToIGES_GeomVector.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TPrsStd_ConstraintTools(py::module &mod){
 
-py::class_<TPrsStd_ConstraintTools, std::unique_ptr<TPrsStd_ConstraintTools, Deleter<TPrsStd_ConstraintTools>>> cls_TPrsStd_ConstraintTools(mod, "TPrsStd_ConstraintTools", "None");
+py::class_<TPrsStd_ConstraintTools, std::unique_ptr<TPrsStd_ConstraintTools>> cls_TPrsStd_ConstraintTools(mod, "TPrsStd_ConstraintTools", "None");
 
 // Constructors
 

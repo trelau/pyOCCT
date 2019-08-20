@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Bnd_B3d(py::module &mod){
 
-py::class_<Bnd_B3d, std::unique_ptr<Bnd_B3d, Deleter<Bnd_B3d>>> cls_Bnd_B3d(mod, "Bnd_B3d", "None");
+py::class_<Bnd_B3d, std::unique_ptr<Bnd_B3d>> cls_Bnd_B3d(mod, "Bnd_B3d", "None");
 
 // Constructors
 cls_Bnd_B3d.def(py::init<>());

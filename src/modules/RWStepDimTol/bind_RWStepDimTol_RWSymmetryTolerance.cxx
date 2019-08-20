@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWSymmetryTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWSymmetryTolerance, std::unique_ptr<RWStepDimTol_RWSymmetryTolerance, Deleter<RWStepDimTol_RWSymmetryTolerance>>> cls_RWStepDimTol_RWSymmetryTolerance(mod, "RWStepDimTol_RWSymmetryTolerance", "Read & Write tool for SymmetryTolerance");
+py::class_<RWStepDimTol_RWSymmetryTolerance, std::unique_ptr<RWStepDimTol_RWSymmetryTolerance>> cls_RWStepDimTol_RWSymmetryTolerance(mod, "RWStepDimTol_RWSymmetryTolerance", "Read & Write tool for SymmetryTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWSymmetryTolerance.def(py::init<>());

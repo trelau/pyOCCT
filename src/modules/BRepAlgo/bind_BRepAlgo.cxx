@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgo(py::module &mod){
 
-py::class_<BRepAlgo, std::unique_ptr<BRepAlgo, Deleter<BRepAlgo>>> cls_BRepAlgo(mod, "BRepAlgo", "The BRepAlgo package provides a full range of services to perform Old Boolean Operations in Open CASCADE. Attention: The New Boolean Operation has replaced the Old Boolean Operations algorithm in the BrepAlgoAPI package in Open CASCADE.");
+py::class_<BRepAlgo, std::unique_ptr<BRepAlgo>> cls_BRepAlgo(mod, "BRepAlgo", "The BRepAlgo package provides a full range of services to perform Old Boolean Operations in Open CASCADE. Attention: The New Boolean Operation has replaced the Old Boolean Operations algorithm in the BrepAlgoAPI package in Open CASCADE.");
 
 // Constructors
 

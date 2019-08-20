@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWEvaluatedDegeneratePcurve(py::module &mod){
 
-py::class_<RWStepGeom_RWEvaluatedDegeneratePcurve, std::unique_ptr<RWStepGeom_RWEvaluatedDegeneratePcurve, Deleter<RWStepGeom_RWEvaluatedDegeneratePcurve>>> cls_RWStepGeom_RWEvaluatedDegeneratePcurve(mod, "RWStepGeom_RWEvaluatedDegeneratePcurve", "Read & Write Module for EvaluatedDegeneratePcurve");
+py::class_<RWStepGeom_RWEvaluatedDegeneratePcurve, std::unique_ptr<RWStepGeom_RWEvaluatedDegeneratePcurve>> cls_RWStepGeom_RWEvaluatedDegeneratePcurve(mod, "RWStepGeom_RWEvaluatedDegeneratePcurve", "Read & Write Module for EvaluatedDegeneratePcurve");
 
 // Constructors
 cls_RWStepGeom_RWEvaluatedDegeneratePcurve.def(py::init<>());

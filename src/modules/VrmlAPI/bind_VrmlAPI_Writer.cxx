@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_VrmlAPI_Writer(py::module &mod){
 
-py::class_<VrmlAPI_Writer, std::unique_ptr<VrmlAPI_Writer, Deleter<VrmlAPI_Writer>>> cls_VrmlAPI_Writer(mod, "VrmlAPI_Writer", "Creates and writes VRML files from Open CASCADE shapes. A VRML file can be written to an existing VRML file or to a new one.");
+py::class_<VrmlAPI_Writer, std::unique_ptr<VrmlAPI_Writer>> cls_VrmlAPI_Writer(mod, "VrmlAPI_Writer", "Creates and writes VRML files from Open CASCADE shapes. A VRML file can be written to an existing VRML file or to a new one.");
 
 // Constructors
 cls_VrmlAPI_Writer.def(py::init<>());

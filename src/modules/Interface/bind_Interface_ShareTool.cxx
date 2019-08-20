@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_ShareTool(py::module &mod){
 
-py::class_<Interface_ShareTool, std::unique_ptr<Interface_ShareTool, Deleter<Interface_ShareTool>>> cls_Interface_ShareTool(mod, "Interface_ShareTool", "Builds the Graph of Dependancies, from the General Service 'Shared' -> builds for each Entity of a Model, the Shared and Sharing Lists, and gives access to them. Allows to complete with Implied References (which are not regarded as Shared Entities, but are nevertheless Referenced), this can be usefull for Reference Checking");
+py::class_<Interface_ShareTool, std::unique_ptr<Interface_ShareTool>> cls_Interface_ShareTool(mod, "Interface_ShareTool", "Builds the Graph of Dependancies, from the General Service 'Shared' -> builds for each Entity of a Model, the Shared and Sharing Lists, and gives access to them. Allows to complete with Implied References (which are not regarded as Shared Entities, but are nevertheless Referenced), this can be usefull for Reference Checking");
 
 // Constructors
 cls_Interface_ShareTool.def(py::init<const opencascade::handle<Interface_InterfaceModel> &, const Interface_GeneralLib &>(), py::arg("amodel"), py::arg("lib"));

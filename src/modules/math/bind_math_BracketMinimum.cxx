@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_BracketMinimum(py::module &mod){
 
-py::class_<math_BracketMinimum, std::unique_ptr<math_BracketMinimum, Deleter<math_BracketMinimum>>> cls_math_BracketMinimum(mod, "math_BracketMinimum", "Given two distinct initial points, BracketMinimum implements the computation of three points (a, b, c) which bracket the minimum of the function and verify A less than B, B less than C and F(B) less than F(A), F(B) less than F(C).");
+py::class_<math_BracketMinimum, std::unique_ptr<math_BracketMinimum>> cls_math_BracketMinimum(mod, "math_BracketMinimum", "Given two distinct initial points, BracketMinimum implements the computation of three points (a, b, c) which bracket the minimum of the function and verify A less than B, B less than C and F(B) less than F(A), F(B) less than F(C).");
 
 // Constructors
 cls_math_BracketMinimum.def(py::init<const Standard_Real, const Standard_Real>(), py::arg("A"), py::arg("B"));

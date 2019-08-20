@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_V3d(py::module &mod){
 
-py::class_<V3d, std::unique_ptr<V3d, Deleter<V3d>>> cls_V3d(mod, "V3d", "This package contains the set of commands and services of the 3D Viewer. It provides a set of high level commands to control the views and viewing modes.");
+py::class_<V3d, std::unique_ptr<V3d>> cls_V3d(mod, "V3d", "This package contains the set of commands and services of the 3D Viewer. It provides a set of high level commands to control the views and viewing modes.");
 
 // Constructors
 

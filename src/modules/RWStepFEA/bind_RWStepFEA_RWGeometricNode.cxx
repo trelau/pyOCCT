@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWGeometricNode(py::module &mod){
 
-py::class_<RWStepFEA_RWGeometricNode, std::unique_ptr<RWStepFEA_RWGeometricNode, Deleter<RWStepFEA_RWGeometricNode>>> cls_RWStepFEA_RWGeometricNode(mod, "RWStepFEA_RWGeometricNode", "Read & Write tool for GeometricNode");
+py::class_<RWStepFEA_RWGeometricNode, std::unique_ptr<RWStepFEA_RWGeometricNode>> cls_RWStepFEA_RWGeometricNode(mod, "RWStepFEA_RWGeometricNode", "Read & Write tool for GeometricNode");
 
 // Constructors
 cls_RWStepFEA_RWGeometricNode.def(py::init<>());

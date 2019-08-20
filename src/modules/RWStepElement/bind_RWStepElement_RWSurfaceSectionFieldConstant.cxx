@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepElement_RWSurfaceSectionFieldConstant(py::module &mod){
 
-py::class_<RWStepElement_RWSurfaceSectionFieldConstant, std::unique_ptr<RWStepElement_RWSurfaceSectionFieldConstant, Deleter<RWStepElement_RWSurfaceSectionFieldConstant>>> cls_RWStepElement_RWSurfaceSectionFieldConstant(mod, "RWStepElement_RWSurfaceSectionFieldConstant", "Read & Write tool for SurfaceSectionFieldConstant");
+py::class_<RWStepElement_RWSurfaceSectionFieldConstant, std::unique_ptr<RWStepElement_RWSurfaceSectionFieldConstant>> cls_RWStepElement_RWSurfaceSectionFieldConstant(mod, "RWStepElement_RWSurfaceSectionFieldConstant", "Read & Write tool for SurfaceSectionFieldConstant");
 
 // Constructors
 cls_RWStepElement_RWSurfaceSectionFieldConstant.def(py::init<>());

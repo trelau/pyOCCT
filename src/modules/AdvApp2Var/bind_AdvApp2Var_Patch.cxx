@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApp2Var_Patch(py::module &mod){
 
-py::class_<AdvApp2Var_Patch, std::unique_ptr<AdvApp2Var_Patch, Deleter<AdvApp2Var_Patch>>> cls_AdvApp2Var_Patch(mod, "AdvApp2Var_Patch", "used to store results on a domain [Ui,Ui+1]x[Vj,Vj+1]");
+py::class_<AdvApp2Var_Patch, std::unique_ptr<AdvApp2Var_Patch>> cls_AdvApp2Var_Patch(mod, "AdvApp2Var_Patch", "used to store results on a domain [Ui,Ui+1]x[Vj,Vj+1]");
 
 // Constructors
 cls_AdvApp2Var_Patch.def(py::init<>());

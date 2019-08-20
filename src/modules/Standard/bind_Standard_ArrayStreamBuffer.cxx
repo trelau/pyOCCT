@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Standard_ArrayStreamBuffer(py::module &mod){
 
-py::class_<Standard_ArrayStreamBuffer, std::unique_ptr<Standard_ArrayStreamBuffer, Deleter<Standard_ArrayStreamBuffer>>> cls_Standard_ArrayStreamBuffer(mod, "Standard_ArrayStreamBuffer", "Custom buffer object implementing STL interface std::streambuf for streamed reading from allocated memory block. Implements minimal sub-set of methods for passing buffer to std::istream, including seek support.");
+py::class_<Standard_ArrayStreamBuffer, std::unique_ptr<Standard_ArrayStreamBuffer>> cls_Standard_ArrayStreamBuffer(mod, "Standard_ArrayStreamBuffer", "Custom buffer object implementing STL interface std::streambuf for streamed reading from allocated memory block. Implements minimal sub-set of methods for passing buffer to std::istream, including seek support.");
 
 // Constructors
 cls_Standard_ArrayStreamBuffer.def(py::init<const char *, const size_t>(), py::arg("theBegin"), py::arg("theSize"));

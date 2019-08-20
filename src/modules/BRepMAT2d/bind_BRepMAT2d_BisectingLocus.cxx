@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMAT2d_BisectingLocus(py::module &mod){
 
-py::class_<BRepMAT2d_BisectingLocus, std::unique_ptr<BRepMAT2d_BisectingLocus, Deleter<BRepMAT2d_BisectingLocus>>> cls_BRepMAT2d_BisectingLocus(mod, "BRepMAT2d_BisectingLocus", "BisectingLocus generates and contains the Bisecting_Locus of a set of lines from Geom2d, defined by <ExploSet>.");
+py::class_<BRepMAT2d_BisectingLocus, std::unique_ptr<BRepMAT2d_BisectingLocus>> cls_BRepMAT2d_BisectingLocus(mod, "BRepMAT2d_BisectingLocus", "BisectingLocus generates and contains the Bisecting_Locus of a set of lines from Geom2d, defined by <ExploSet>.");
 
 // Constructors
 cls_BRepMAT2d_BisectingLocus.def(py::init<>());

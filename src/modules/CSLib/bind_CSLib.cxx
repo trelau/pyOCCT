@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_CSLib(py::module &mod){
 
-py::class_<CSLib, std::unique_ptr<CSLib, Deleter<CSLib>>> cls_CSLib(mod, "CSLib", "This package implements functions for basis geometric computation on curves and surfaces. The tolerance criterions used in this package are Resolution from package gp and RealEpsilon from class Real of package Standard.");
+py::class_<CSLib, std::unique_ptr<CSLib>> cls_CSLib(mod, "CSLib", "This package implements functions for basis geometric computation on curves and surfaces. The tolerance criterions used in this package are Resolution from package gp and RealEpsilon from class Real of package Standard.");
 
 // Constructors
 

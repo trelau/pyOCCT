@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntAna2d_IntPoint(py::module &mod){
 
-py::class_<IntAna2d_IntPoint, std::unique_ptr<IntAna2d_IntPoint, Deleter<IntAna2d_IntPoint>>> cls_IntAna2d_IntPoint(mod, "IntAna2d_IntPoint", "Geometrical intersection between two 2d elements.");
+py::class_<IntAna2d_IntPoint, std::unique_ptr<IntAna2d_IntPoint>> cls_IntAna2d_IntPoint(mod, "IntAna2d_IntPoint", "Geometrical intersection between two 2d elements.");
 
 // Constructors
 cls_IntAna2d_IntPoint.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("X"), py::arg("Y"), py::arg("U1"), py::arg("U2"));

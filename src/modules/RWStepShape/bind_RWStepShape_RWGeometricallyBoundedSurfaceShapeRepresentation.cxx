@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWGeometricallyBoundedSurfaceShapeRepresentation(py::module &mod){
 
-py::class_<RWStepShape_RWGeometricallyBoundedSurfaceShapeRepresentation, std::unique_ptr<RWStepShape_RWGeometricallyBoundedSurfaceShapeRepresentation, Deleter<RWStepShape_RWGeometricallyBoundedSurfaceShapeRepresentation>>> cls_RWStepShape_RWGeometricallyBoundedSurfaceShapeRepresentation(mod, "RWStepShape_RWGeometricallyBoundedSurfaceShapeRepresentation", "Read & Write Module for GeometricallyBoundedSurfaceShapeRepresentation");
+py::class_<RWStepShape_RWGeometricallyBoundedSurfaceShapeRepresentation, std::unique_ptr<RWStepShape_RWGeometricallyBoundedSurfaceShapeRepresentation>> cls_RWStepShape_RWGeometricallyBoundedSurfaceShapeRepresentation(mod, "RWStepShape_RWGeometricallyBoundedSurfaceShapeRepresentation", "Read & Write Module for GeometricallyBoundedSurfaceShapeRepresentation");
 
 // Constructors
 cls_RWStepShape_RWGeometricallyBoundedSurfaceShapeRepresentation.def(py::init<>());

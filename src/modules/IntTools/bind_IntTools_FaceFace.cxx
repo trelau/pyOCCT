@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_FaceFace(py::module &mod){
 
-py::class_<IntTools_FaceFace, std::unique_ptr<IntTools_FaceFace, Deleter<IntTools_FaceFace>>> cls_IntTools_FaceFace(mod, "IntTools_FaceFace", "This class provides the intersection of face's underlying surfaces.");
+py::class_<IntTools_FaceFace, std::unique_ptr<IntTools_FaceFace>> cls_IntTools_FaceFace(mod, "IntTools_FaceFace", "This class provides the intersection of face's underlying surfaces.");
 
 // Constructors
 cls_IntTools_FaceFace.def(py::init<>());

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRAlgo_Projector(py::module &mod){
 
-py::class_<HLRAlgo_Projector, std::unique_ptr<HLRAlgo_Projector, Deleter<HLRAlgo_Projector>>> cls_HLRAlgo_Projector(mod, "HLRAlgo_Projector", "Implements a projector object. To transform and project Points and Planes. This object is designed to be used in the removal of hidden lines and is returned by the Prs3d_Projector::Projector function. You define the projection of the selected shape by calling one of the following functions: - HLRBRep_Algo::Projector, or - HLRBRep_PolyAlgo::Projector The choice depends on the algorithm, which you are using. The parameters of the view are defined at the time of construction of a Prs3d_Projector object.");
+py::class_<HLRAlgo_Projector, std::unique_ptr<HLRAlgo_Projector>> cls_HLRAlgo_Projector(mod, "HLRAlgo_Projector", "Implements a projector object. To transform and project Points and Planes. This object is designed to be used in the removal of hidden lines and is returned by the Prs3d_Projector::Projector function. You define the projection of the selected shape by calling one of the following functions: - HLRBRep_Algo::Projector, or - HLRBRep_PolyAlgo::Projector The choice depends on the algorithm, which you are using. The parameters of the view are defined at the time of construction of a Prs3d_Projector object.");
 
 // Constructors
 cls_HLRAlgo_Projector.def(py::init<>());

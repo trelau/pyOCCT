@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFi3d_SearchSing(py::module &mod){
 
-py::class_<ChFi3d_SearchSing, std::unique_ptr<ChFi3d_SearchSing, Deleter<ChFi3d_SearchSing>>, math_FunctionWithDerivative> cls_ChFi3d_SearchSing(mod, "ChFi3d_SearchSing", "Searches singularities on fillet. F(t) = (C1(t) - C2(t)).(C1'(t) - C2'(t));");
+py::class_<ChFi3d_SearchSing, std::unique_ptr<ChFi3d_SearchSing>, math_FunctionWithDerivative> cls_ChFi3d_SearchSing(mod, "ChFi3d_SearchSing", "Searches singularities on fillet. F(t) = (C1(t) - C2(t)).(C1'(t) - C2'(t));");
 
 // Constructors
 cls_ChFi3d_SearchSing.def(py::init<const opencascade::handle<Geom_Curve> &, const opencascade::handle<Geom_Curve> &>(), py::arg("C1"), py::arg("C2"));

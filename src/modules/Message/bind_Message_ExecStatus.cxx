@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Message_ExecStatus(py::module &mod){
 
-py::class_<Message_ExecStatus, std::unique_ptr<Message_ExecStatus, Deleter<Message_ExecStatus>>> cls_Message_ExecStatus(mod, "Message_ExecStatus", "Tiny class for extended handling of error / execution status of algorithm in universal way.");
+py::class_<Message_ExecStatus, std::unique_ptr<Message_ExecStatus>> cls_Message_ExecStatus(mod, "Message_ExecStatus", "Tiny class for extended handling of error / execution status of algorithm in universal way.");
 
 // Constructors
 cls_Message_ExecStatus.def(py::init<>());

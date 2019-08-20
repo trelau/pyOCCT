@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XSControl_Utils(py::module &mod){
 
-py::class_<XSControl_Utils, std::unique_ptr<XSControl_Utils, Deleter<XSControl_Utils>>> cls_XSControl_Utils(mod, "XSControl_Utils", "This class provides various useful utility routines, to facilitate handling of most common data structures : transients (type, type name ...), strings (ascii or extended, pointed or handled or ...), shapes (reading, writing, testing ...), sequences & arrays (of strings, of transients, of shapes ...), ...");
+py::class_<XSControl_Utils, std::unique_ptr<XSControl_Utils>> cls_XSControl_Utils(mod, "XSControl_Utils", "This class provides various useful utility routines, to facilitate handling of most common data structures : transients (type, type name ...), strings (ascii or extended, pointed or handled or ...), shapes (reading, writing, testing ...), sequences & arrays (of strings, of transients, of shapes ...), ...");
 
 // Constructors
 cls_XSControl_Utils.def(py::init<>());

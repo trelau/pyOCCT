@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_ClippingState(py::module &mod){
 
-py::class_<OpenGl_ClippingState, std::unique_ptr<OpenGl_ClippingState, Deleter<OpenGl_ClippingState>>> cls_OpenGl_ClippingState(mod, "OpenGl_ClippingState", "Defines generic state of OCCT clipping state.");
+py::class_<OpenGl_ClippingState, std::unique_ptr<OpenGl_ClippingState>> cls_OpenGl_ClippingState(mod, "OpenGl_ClippingState", "Defines generic state of OCCT clipping state.");
 
 // Constructors
 cls_OpenGl_ClippingState.def(py::init<>());

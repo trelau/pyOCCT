@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurveSurface_TheInterferenceOfHInter(py::module &mod){
 
-py::class_<IntCurveSurface_TheInterferenceOfHInter, std::unique_ptr<IntCurveSurface_TheInterferenceOfHInter, Deleter<IntCurveSurface_TheInterferenceOfHInter>>, Intf_Interference> cls_IntCurveSurface_TheInterferenceOfHInter(mod, "IntCurveSurface_TheInterferenceOfHInter", "None");
+py::class_<IntCurveSurface_TheInterferenceOfHInter, std::unique_ptr<IntCurveSurface_TheInterferenceOfHInter>, Intf_Interference> cls_IntCurveSurface_TheInterferenceOfHInter(mod, "IntCurveSurface_TheInterferenceOfHInter", "None");
 
 // Constructors
 cls_IntCurveSurface_TheInterferenceOfHInter.def(py::init<>());

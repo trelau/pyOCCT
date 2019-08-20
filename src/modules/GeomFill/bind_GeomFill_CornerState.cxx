@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_CornerState(py::module &mod){
 
-py::class_<GeomFill_CornerState, std::unique_ptr<GeomFill_CornerState, Deleter<GeomFill_CornerState>>> cls_GeomFill_CornerState(mod, "GeomFill_CornerState", "Class (should be a structure) storing the informations about continuity, normals parallelism, coons conditions and bounds tangents angle on the corner of contour to be filled.");
+py::class_<GeomFill_CornerState, std::unique_ptr<GeomFill_CornerState>> cls_GeomFill_CornerState(mod, "GeomFill_CornerState", "Class (should be a structure) storing the informations about continuity, normals parallelism, coons conditions and bounds tangents angle on the corner of contour to be filled.");
 
 // Constructors
 cls_GeomFill_CornerState.def(py::init<>());

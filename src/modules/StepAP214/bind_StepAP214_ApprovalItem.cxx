@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP214_ApprovalItem(py::module &mod){
 
-py::class_<StepAP214_ApprovalItem, std::unique_ptr<StepAP214_ApprovalItem, Deleter<StepAP214_ApprovalItem>>, StepData_SelectType> cls_StepAP214_ApprovalItem(mod, "StepAP214_ApprovalItem", "None");
+py::class_<StepAP214_ApprovalItem, std::unique_ptr<StepAP214_ApprovalItem>, StepData_SelectType> cls_StepAP214_ApprovalItem(mod, "StepAP214_ApprovalItem", "None");
 
 // Constructors
 cls_StepAP214_ApprovalItem.def(py::init<>());

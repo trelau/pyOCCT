@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWPersonalAddress(py::module &mod){
 
-py::class_<RWStepBasic_RWPersonalAddress, std::unique_ptr<RWStepBasic_RWPersonalAddress, Deleter<RWStepBasic_RWPersonalAddress>>> cls_RWStepBasic_RWPersonalAddress(mod, "RWStepBasic_RWPersonalAddress", "Read & Write Module for PersonalAddress");
+py::class_<RWStepBasic_RWPersonalAddress, std::unique_ptr<RWStepBasic_RWPersonalAddress>> cls_RWStepBasic_RWPersonalAddress(mod, "RWStepBasic_RWPersonalAddress", "Read & Write Module for PersonalAddress");
 
 // Constructors
 cls_RWStepBasic_RWPersonalAddress.def(py::init<>());

@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_FuncPSNorm(py::module &mod){
 
-py::class_<Extrema_FuncPSNorm, std::unique_ptr<Extrema_FuncPSNorm, Deleter<Extrema_FuncPSNorm>>, math_FunctionSetWithDerivatives> cls_Extrema_FuncPSNorm(mod, "Extrema_FuncPSNorm", "Functional for search of extremum of the distance between point P and surface S, starting from approximate solution (u0, v0).");
+py::class_<Extrema_FuncPSNorm, std::unique_ptr<Extrema_FuncPSNorm>, math_FunctionSetWithDerivatives> cls_Extrema_FuncPSNorm(mod, "Extrema_FuncPSNorm", "Functional for search of extremum of the distance between point P and surface S, starting from approximate solution (u0, v0).");
 
 // Constructors
 cls_Extrema_FuncPSNorm.def(py::init<>());

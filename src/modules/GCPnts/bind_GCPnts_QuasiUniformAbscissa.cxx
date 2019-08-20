@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCPnts_QuasiUniformAbscissa(py::module &mod){
 
-py::class_<GCPnts_QuasiUniformAbscissa, std::unique_ptr<GCPnts_QuasiUniformAbscissa, Deleter<GCPnts_QuasiUniformAbscissa>>> cls_GCPnts_QuasiUniformAbscissa(mod, "GCPnts_QuasiUniformAbscissa", "This class provides an algorithm to compute a uniform abscissa distribution of points on a curve, i.e. a sequence of equidistant points. The distance between two consecutive points is measured along the curve. The distribution is defined: - either by the curvilinear distance between two consecutive points - or by a number of points.");
+py::class_<GCPnts_QuasiUniformAbscissa, std::unique_ptr<GCPnts_QuasiUniformAbscissa>> cls_GCPnts_QuasiUniformAbscissa(mod, "GCPnts_QuasiUniformAbscissa", "This class provides an algorithm to compute a uniform abscissa distribution of points on a curve, i.e. a sequence of equidistant points. The distance between two consecutive points is measured along the curve. The distribution is defined: - either by the curvilinear distance between two consecutive points - or by a number of points.");
 
 // Constructors
 cls_GCPnts_QuasiUniformAbscissa.def(py::init<>());

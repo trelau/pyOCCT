@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dGcc_Circ2d3TanIter(py::module &mod){
 
-py::class_<Geom2dGcc_Circ2d3TanIter, std::unique_ptr<Geom2dGcc_Circ2d3TanIter, Deleter<Geom2dGcc_Circ2d3TanIter>>> cls_Geom2dGcc_Circ2d3TanIter(mod, "Geom2dGcc_Circ2d3TanIter", "This class implements the algorithms used to create 2d circles tangent to 3 points/lines/circles/ curves with one curve or more. The arguments of all construction methods are : - The three qualifiied elements for the tangency constrains (QualifiedCirc, QualifiedLine, Qualifiedcurv, Points). - A parameter for each QualifiedCurv.");
+py::class_<Geom2dGcc_Circ2d3TanIter, std::unique_ptr<Geom2dGcc_Circ2d3TanIter>> cls_Geom2dGcc_Circ2d3TanIter(mod, "Geom2dGcc_Circ2d3TanIter", "This class implements the algorithms used to create 2d circles tangent to 3 points/lines/circles/ curves with one curve or more. The arguments of all construction methods are : - The three qualifiied elements for the tangency constrains (QualifiedCirc, QualifiedLine, Qualifiedcurv, Points). - A parameter for each QualifiedCurv.");
 
 // Constructors
 cls_Geom2dGcc_Circ2d3TanIter.def(py::init<const GccEnt_QualifiedCirc &, const GccEnt_QualifiedCirc &, const Geom2dGcc_QCurve &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("Qualified1"), py::arg("Qualified2"), py::arg("Qualified3"), py::arg("Param1"), py::arg("Param2"), py::arg("Param3"), py::arg("Tolerance"));

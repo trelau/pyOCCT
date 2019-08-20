@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_IntSS(py::module &mod){
 
-py::class_<GeomInt_IntSS, std::unique_ptr<GeomInt_IntSS, Deleter<GeomInt_IntSS>>> cls_GeomInt_IntSS(mod, "GeomInt_IntSS", "None");
+py::class_<GeomInt_IntSS, std::unique_ptr<GeomInt_IntSS>> cls_GeomInt_IntSS(mod, "GeomInt_IntSS", "None");
 
 // Constructors
 cls_GeomInt_IntSS.def(py::init<>());

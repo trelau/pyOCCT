@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_GaussSingleIntegration(py::module &mod){
 
-py::class_<math_GaussSingleIntegration, std::unique_ptr<math_GaussSingleIntegration, Deleter<math_GaussSingleIntegration>>> cls_math_GaussSingleIntegration(mod, "math_GaussSingleIntegration", "This class implements the integration of a function of a single variable between the parameter bounds Lower and Upper. Warning: Order must be inferior or equal to 61.");
+py::class_<math_GaussSingleIntegration, std::unique_ptr<math_GaussSingleIntegration>> cls_math_GaussSingleIntegration(mod, "math_GaussSingleIntegration", "This class implements the integration of a function of a single variable between the parameter bounds Lower and Upper. Warning: Order must be inferior or equal to 61.");
 
 // Constructors
 cls_math_GaussSingleIntegration.def(py::init<>());

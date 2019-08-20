@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWShapeDimensionRepresentation(py::module &mod){
 
-py::class_<RWStepShape_RWShapeDimensionRepresentation, std::unique_ptr<RWStepShape_RWShapeDimensionRepresentation, Deleter<RWStepShape_RWShapeDimensionRepresentation>>> cls_RWStepShape_RWShapeDimensionRepresentation(mod, "RWStepShape_RWShapeDimensionRepresentation", "Read & Write tool for ShapeDimensionRepresentation");
+py::class_<RWStepShape_RWShapeDimensionRepresentation, std::unique_ptr<RWStepShape_RWShapeDimensionRepresentation>> cls_RWStepShape_RWShapeDimensionRepresentation(mod, "RWStepShape_RWShapeDimensionRepresentation", "Read & Write tool for ShapeDimensionRepresentation");
 
 // Constructors
 cls_RWStepShape_RWShapeDimensionRepresentation.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWDummyNode(py::module &mod){
 
-py::class_<RWStepFEA_RWDummyNode, std::unique_ptr<RWStepFEA_RWDummyNode, Deleter<RWStepFEA_RWDummyNode>>> cls_RWStepFEA_RWDummyNode(mod, "RWStepFEA_RWDummyNode", "Read & Write tool for DummyNode");
+py::class_<RWStepFEA_RWDummyNode, std::unique_ptr<RWStepFEA_RWDummyNode>> cls_RWStepFEA_RWDummyNode(mod, "RWStepFEA_RWDummyNode", "Read & Write tool for DummyNode");
 
 // Constructors
 cls_RWStepFEA_RWDummyNode.def(py::init<>());

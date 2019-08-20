@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWFeaMaterialPropertyRepresentation(py::module &mod){
 
-py::class_<RWStepFEA_RWFeaMaterialPropertyRepresentation, std::unique_ptr<RWStepFEA_RWFeaMaterialPropertyRepresentation, Deleter<RWStepFEA_RWFeaMaterialPropertyRepresentation>>> cls_RWStepFEA_RWFeaMaterialPropertyRepresentation(mod, "RWStepFEA_RWFeaMaterialPropertyRepresentation", "Read & Write tool for FeaMaterialPropertyRepresentation");
+py::class_<RWStepFEA_RWFeaMaterialPropertyRepresentation, std::unique_ptr<RWStepFEA_RWFeaMaterialPropertyRepresentation>> cls_RWStepFEA_RWFeaMaterialPropertyRepresentation(mod, "RWStepFEA_RWFeaMaterialPropertyRepresentation", "Read & Write tool for FeaMaterialPropertyRepresentation");
 
 // Constructors
 cls_RWStepFEA_RWFeaMaterialPropertyRepresentation.def(py::init<>());

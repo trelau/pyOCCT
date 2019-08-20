@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOM_NodeList(py::module &mod){
 
-py::class_<LDOM_NodeList, std::unique_ptr<LDOM_NodeList, Deleter<LDOM_NodeList>>> cls_LDOM_NodeList(mod, "LDOM_NodeList", "None");
+py::class_<LDOM_NodeList, std::unique_ptr<LDOM_NodeList>> cls_LDOM_NodeList(mod, "LDOM_NodeList", "None");
 
 // Constructors
 cls_LDOM_NodeList.def(py::init<>());

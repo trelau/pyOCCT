@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StlAPI_Reader(py::module &mod){
 
-py::class_<StlAPI_Reader, std::unique_ptr<StlAPI_Reader, Deleter<StlAPI_Reader>>> cls_StlAPI_Reader(mod, "StlAPI_Reader", "Reading from stereolithography format.");
+py::class_<StlAPI_Reader, std::unique_ptr<StlAPI_Reader>> cls_StlAPI_Reader(mod, "StlAPI_Reader", "Reading from stereolithography format.");
 
 // Constructors
 

@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntSurf_Quadric(py::module &mod){
 
-py::class_<IntSurf_Quadric, std::unique_ptr<IntSurf_Quadric, Deleter<IntSurf_Quadric>>> cls_IntSurf_Quadric(mod, "IntSurf_Quadric", "None");
+py::class_<IntSurf_Quadric, std::unique_ptr<IntSurf_Quadric>> cls_IntSurf_Quadric(mod, "IntSurf_Quadric", "None");
 
 // Constructors
 cls_IntSurf_Quadric.def(py::init<>());

@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToIGES_GeomCurve(py::module &mod){
 
-py::class_<GeomToIGES_GeomCurve, std::unique_ptr<GeomToIGES_GeomCurve, Deleter<GeomToIGES_GeomCurve>>, GeomToIGES_GeomEntity> cls_GeomToIGES_GeomCurve(mod, "GeomToIGES_GeomCurve", "This class implements the transfer of the Curve Entity from Geom To IGES. These can be : Curve . BoundedCurve * BSplineCurve * BezierCurve * TrimmedCurve . Conic * Circle * Ellipse * Hyperbloa * Line * Parabola . OffsetCurve");
+py::class_<GeomToIGES_GeomCurve, std::unique_ptr<GeomToIGES_GeomCurve>, GeomToIGES_GeomEntity> cls_GeomToIGES_GeomCurve(mod, "GeomToIGES_GeomCurve", "This class implements the transfer of the Curve Entity from Geom To IGES. These can be : Curve . BoundedCurve * BSplineCurve * BezierCurve * TrimmedCurve . Conic * Circle * Ellipse * Hyperbloa * Line * Parabola . OffsetCurve");
 
 // Constructors
 cls_GeomToIGES_GeomCurve.def(py::init<>());

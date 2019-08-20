@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeAxis1Placement(py::module &mod){
 
-py::class_<GeomToStep_MakeAxis1Placement, std::unique_ptr<GeomToStep_MakeAxis1Placement, Deleter<GeomToStep_MakeAxis1Placement>>, GeomToStep_Root> cls_GeomToStep_MakeAxis1Placement(mod, "GeomToStep_MakeAxis1Placement", "This class implements the mapping between classes Axis1Placement from Geom and Ax1 from gp, and the class Axis1Placement from StepGeom which describes an Axis1Placement from Prostep.");
+py::class_<GeomToStep_MakeAxis1Placement, std::unique_ptr<GeomToStep_MakeAxis1Placement>, GeomToStep_Root> cls_GeomToStep_MakeAxis1Placement(mod, "GeomToStep_MakeAxis1Placement", "This class implements the mapping between classes Axis1Placement from Geom and Ax1 from gp, and the class Axis1Placement from StepGeom which describes an Axis1Placement from Prostep.");
 
 // Constructors
 cls_GeomToStep_MakeAxis1Placement.def(py::init<const gp_Ax1 &>(), py::arg("A"));

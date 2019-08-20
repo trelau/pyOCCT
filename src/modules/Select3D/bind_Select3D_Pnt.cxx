@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Select3D_Pnt(py::module &mod){
 
-py::class_<Select3D_Pnt, std::unique_ptr<Select3D_Pnt, Deleter<Select3D_Pnt>>> cls_Select3D_Pnt(mod, "Select3D_Pnt", "None");
+py::class_<Select3D_Pnt, std::unique_ptr<Select3D_Pnt>> cls_Select3D_Pnt(mod, "Select3D_Pnt", "None");
 
 // Constructors
 

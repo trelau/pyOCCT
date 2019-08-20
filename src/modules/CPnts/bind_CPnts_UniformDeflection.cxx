@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_CPnts_UniformDeflection(py::module &mod){
 
-py::class_<CPnts_UniformDeflection, std::unique_ptr<CPnts_UniformDeflection, Deleter<CPnts_UniformDeflection>>> cls_CPnts_UniformDeflection(mod, "CPnts_UniformDeflection", "This class defines an algorithm to create a set of points (with a given chordal deviation) at the positions of constant deflection of a given parametrized curve or a trimmed circle. The continuity of the curve must be at least C2.");
+py::class_<CPnts_UniformDeflection, std::unique_ptr<CPnts_UniformDeflection>> cls_CPnts_UniformDeflection(mod, "CPnts_UniformDeflection", "This class defines an algorithm to create a set of points (with a given chordal deviation) at the positions of constant deflection of a given parametrized curve or a trimmed circle. The continuity of the curve must be at least C2.");
 
 // Constructors
 cls_CPnts_UniformDeflection.def(py::init<>());

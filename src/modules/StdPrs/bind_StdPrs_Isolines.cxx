@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_Isolines(py::module &mod){
 
-py::class_<StdPrs_Isolines, std::unique_ptr<StdPrs_Isolines, Deleter<StdPrs_Isolines>>, Prs3d_Root> cls_StdPrs_Isolines(mod, "StdPrs_Isolines", "Tool for computing isoline representation for a face or surface. Depending on a flags set to the given Prs3d_Drawer instance, on-surface (is used by default) or on-triangulation isoline builder algorithm will be used. If the given shape is not triangulated, on-surface isoline builder will be applied regardless of Prs3d_Drawer flags.");
+py::class_<StdPrs_Isolines, std::unique_ptr<StdPrs_Isolines>, Prs3d_Root> cls_StdPrs_Isolines(mod, "StdPrs_Isolines", "Tool for computing isoline representation for a face or surface. Depending on a flags set to the given Prs3d_Drawer instance, on-surface (is used by default) or on-triangulation isoline builder algorithm will be used. If the given shape is not triangulated, on-surface isoline builder will be applied regardless of Prs3d_Drawer flags.");
 
 // Constructors
 

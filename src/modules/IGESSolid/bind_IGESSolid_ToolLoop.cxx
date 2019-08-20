@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolLoop(py::module &mod){
 
-py::class_<IGESSolid_ToolLoop, std::unique_ptr<IGESSolid_ToolLoop, Deleter<IGESSolid_ToolLoop>>> cls_IGESSolid_ToolLoop(mod, "IGESSolid_ToolLoop", "Tool to work on a Loop. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolLoop, std::unique_ptr<IGESSolid_ToolLoop>> cls_IGESSolid_ToolLoop(mod, "IGESSolid_ToolLoop", "Tool to work on a Loop. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolLoop.def(py::init<>());

@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPTools_AlgoTools(py::module &mod){
 
-py::class_<BOPTools_AlgoTools, std::unique_ptr<BOPTools_AlgoTools, Deleter<BOPTools_AlgoTools>>> cls_BOPTools_AlgoTools(mod, "BOPTools_AlgoTools", "Provides tools used in Boolean Operations algorithm: - Vertices intersection; - Vertex construction; - Edge construction; - Classification algorithms; - Making connexity blocks; - Shape validation.");
+py::class_<BOPTools_AlgoTools, std::unique_ptr<BOPTools_AlgoTools>> cls_BOPTools_AlgoTools(mod, "BOPTools_AlgoTools", "Provides tools used in Boolean Operations algorithm: - Vertices intersection; - Vertex construction; - Edge construction; - Classification algorithms; - Making connexity blocks; - Shape validation.");
 
 // Constructors
 

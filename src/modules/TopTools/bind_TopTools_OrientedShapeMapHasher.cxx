@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopTools_OrientedShapeMapHasher(py::module &mod){
 
-py::class_<TopTools_OrientedShapeMapHasher, std::unique_ptr<TopTools_OrientedShapeMapHasher, Deleter<TopTools_OrientedShapeMapHasher>>> cls_TopTools_OrientedShapeMapHasher(mod, "TopTools_OrientedShapeMapHasher", "None");
+py::class_<TopTools_OrientedShapeMapHasher, std::unique_ptr<TopTools_OrientedShapeMapHasher>> cls_TopTools_OrientedShapeMapHasher(mod, "TopTools_OrientedShapeMapHasher", "None");
 
 // Constructors
 

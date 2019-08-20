@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomLProp(py::module &mod){
 
-py::class_<GeomLProp, std::unique_ptr<GeomLProp, Deleter<GeomLProp>>> cls_GeomLProp(mod, "GeomLProp", "These global functions compute the degree of continuity of a 3D curve built by concatenation of two other curves (or portions of curves) at their junction point.");
+py::class_<GeomLProp, std::unique_ptr<GeomLProp>> cls_GeomLProp(mod, "GeomLProp", "These global functions compute the degree of continuity of a 3D curve built by concatenation of two other curves (or portions of curves) at their junction point.");
 
 // Constructors
 

@@ -57,7 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools(py::module &mod){
 
-py::class_<IntTools, std::unique_ptr<IntTools, Deleter<IntTools>>> cls_IntTools(mod, "IntTools", "Contains classes for intersection and classification purposes and accompanying classes");
+py::class_<IntTools, std::unique_ptr<IntTools>> cls_IntTools(mod, "IntTools", "Contains classes for intersection and classification purposes and accompanying classes");
 
 // Constructors
 

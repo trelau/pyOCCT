@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinTools_ShapeSet(py::module &mod){
 
-py::class_<BinTools_ShapeSet, std::unique_ptr<BinTools_ShapeSet, Deleter<BinTools_ShapeSet>>> cls_BinTools_ShapeSet(mod, "BinTools_ShapeSet", "Writes topology in OStream in binary format");
+py::class_<BinTools_ShapeSet, std::unique_ptr<BinTools_ShapeSet>> cls_BinTools_ShapeSet(mod, "BinTools_ShapeSet", "Writes topology in OStream in binary format");
 
 // Constructors
 cls_BinTools_ShapeSet.def(py::init<>());

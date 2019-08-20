@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_WFDeflectionSurface(py::module &mod){
 
-py::class_<StdPrs_WFDeflectionSurface, std::unique_ptr<StdPrs_WFDeflectionSurface, Deleter<StdPrs_WFDeflectionSurface>>, Prs3d_Root> cls_StdPrs_WFDeflectionSurface(mod, "StdPrs_WFDeflectionSurface", "Draws a surface by drawing the isoparametric curves with respect to a maximal chordial deviation. The number of isoparametric curves to be drawn and their color are controlled by the furnished Drawer.");
+py::class_<StdPrs_WFDeflectionSurface, std::unique_ptr<StdPrs_WFDeflectionSurface>, Prs3d_Root> cls_StdPrs_WFDeflectionSurface(mod, "StdPrs_WFDeflectionSurface", "Draws a surface by drawing the isoparametric curves with respect to a maximal chordial deviation. The number of isoparametric curves to be drawn and their color are controlled by the furnished Drawer.");
 
 // Constructors
 

@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Contap_HCurve2dTool(py::module &mod){
 
-py::class_<Contap_HCurve2dTool, std::unique_ptr<Contap_HCurve2dTool, Deleter<Contap_HCurve2dTool>>> cls_Contap_HCurve2dTool(mod, "Contap_HCurve2dTool", "None");
+py::class_<Contap_HCurve2dTool, std::unique_ptr<Contap_HCurve2dTool>> cls_Contap_HCurve2dTool(mod, "Contap_HCurve2dTool", "None");
 
 // Constructors
 

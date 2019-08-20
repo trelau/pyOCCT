@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MoniTool_ElemHasher(py::module &mod){
 
-py::class_<MoniTool_ElemHasher, std::unique_ptr<MoniTool_ElemHasher, Deleter<MoniTool_ElemHasher>>> cls_MoniTool_ElemHasher(mod, "MoniTool_ElemHasher", "ElemHasher defines HashCode for Element, which is : ask a Element its HashCode ! Because this is the Element itself which brings the HashCode for its Key");
+py::class_<MoniTool_ElemHasher, std::unique_ptr<MoniTool_ElemHasher>> cls_MoniTool_ElemHasher(mod, "MoniTool_ElemHasher", "ElemHasher defines HashCode for Element, which is : ask a Element its HashCode ! Because this is the Element itself which brings the HashCode for its Key");
 
 // Constructors
 

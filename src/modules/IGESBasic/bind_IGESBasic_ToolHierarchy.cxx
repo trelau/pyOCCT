@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESBasic_ToolHierarchy(py::module &mod){
 
-py::class_<IGESBasic_ToolHierarchy, std::unique_ptr<IGESBasic_ToolHierarchy, Deleter<IGESBasic_ToolHierarchy>>> cls_IGESBasic_ToolHierarchy(mod, "IGESBasic_ToolHierarchy", "Tool to work on a Hierarchy. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESBasic_ToolHierarchy, std::unique_ptr<IGESBasic_ToolHierarchy>> cls_IGESBasic_ToolHierarchy(mod, "IGESBasic_ToolHierarchy", "Tool to work on a Hierarchy. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESBasic_ToolHierarchy.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWBooleanResult(py::module &mod){
 
-py::class_<RWStepShape_RWBooleanResult, std::unique_ptr<RWStepShape_RWBooleanResult, Deleter<RWStepShape_RWBooleanResult>>> cls_RWStepShape_RWBooleanResult(mod, "RWStepShape_RWBooleanResult", "Read & Write Module for BooleanResult");
+py::class_<RWStepShape_RWBooleanResult, std::unique_ptr<RWStepShape_RWBooleanResult>> cls_RWStepShape_RWBooleanResult(mod, "RWStepShape_RWBooleanResult", "Read & Write Module for BooleanResult");
 
 // Constructors
 cls_RWStepShape_RWBooleanResult.def(py::init<>());

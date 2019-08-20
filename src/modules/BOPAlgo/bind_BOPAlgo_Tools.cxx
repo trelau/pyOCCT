@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_Tools(py::module &mod){
 
-py::class_<BOPAlgo_Tools, std::unique_ptr<BOPAlgo_Tools, Deleter<BOPAlgo_Tools>>> cls_BOPAlgo_Tools(mod, "BOPAlgo_Tools", "Provides tools used in the intersection part of Boolean operations");
+py::class_<BOPAlgo_Tools, std::unique_ptr<BOPAlgo_Tools>> cls_BOPAlgo_Tools(mod, "BOPAlgo_Tools", "Provides tools used in the intersection part of Boolean operations");
 
 // Constructors
 

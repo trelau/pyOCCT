@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_ImpImpIntersection(py::module &mod){
 
-py::class_<IntPatch_ImpImpIntersection, std::unique_ptr<IntPatch_ImpImpIntersection, Deleter<IntPatch_ImpImpIntersection>>> cls_IntPatch_ImpImpIntersection(mod, "IntPatch_ImpImpIntersection", "Implementation of the intersection between two quadric patches : Plane, Cone, Cylinder or Sphere.");
+py::class_<IntPatch_ImpImpIntersection, std::unique_ptr<IntPatch_ImpImpIntersection>> cls_IntPatch_ImpImpIntersection(mod, "IntPatch_ImpImpIntersection", "Implementation of the intersection between two quadric patches : Plane, Cone, Cylinder or Sphere.");
 
 // Constructors
 cls_IntPatch_ImpImpIntersection.def(py::init<>());

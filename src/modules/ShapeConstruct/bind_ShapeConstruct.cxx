@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeConstruct(py::module &mod){
 
-py::class_<ShapeConstruct, std::unique_ptr<ShapeConstruct, Deleter<ShapeConstruct>>> cls_ShapeConstruct(mod, "ShapeConstruct", "This package provides new algorithms for constructing new geometrical objects and topological shapes. It complements and extends algorithms available in Open CASCADE topological and geometrical toolkist. The functionality provided by this package are the following: projecting curves on surface, adjusting curve to have given start and end points. P");
+py::class_<ShapeConstruct, std::unique_ptr<ShapeConstruct>> cls_ShapeConstruct(mod, "ShapeConstruct", "This package provides new algorithms for constructing new geometrical objects and topological shapes. It complements and extends algorithms available in Open CASCADE topological and geometrical toolkist. The functionality provided by this package are the following: projecting curves on surface, adjusting curve to have given start and end points. P");
 
 // Constructors
 

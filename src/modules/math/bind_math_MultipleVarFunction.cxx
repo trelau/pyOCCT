@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_MultipleVarFunction(py::module &mod){
 
-py::class_<math_MultipleVarFunction, std::unique_ptr<math_MultipleVarFunction, Deleter<math_MultipleVarFunction>>> cls_math_MultipleVarFunction(mod, "math_MultipleVarFunction", "Describes the virtual functions associated with a multiple variable function.");
+py::class_<math_MultipleVarFunction, std::unique_ptr<math_MultipleVarFunction>> cls_math_MultipleVarFunction(mod, "math_MultipleVarFunction", "Describes the virtual functions associated with a multiple variable function.");
 
 // Fields
 

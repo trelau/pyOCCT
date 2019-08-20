@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWFacetedBrepAndBrepWithVoids(py::module &mod){
 
-py::class_<RWStepShape_RWFacetedBrepAndBrepWithVoids, std::unique_ptr<RWStepShape_RWFacetedBrepAndBrepWithVoids, Deleter<RWStepShape_RWFacetedBrepAndBrepWithVoids>>> cls_RWStepShape_RWFacetedBrepAndBrepWithVoids(mod, "RWStepShape_RWFacetedBrepAndBrepWithVoids", "Read & Write Module for FacetedBrepAndBrepWithVoids");
+py::class_<RWStepShape_RWFacetedBrepAndBrepWithVoids, std::unique_ptr<RWStepShape_RWFacetedBrepAndBrepWithVoids>> cls_RWStepShape_RWFacetedBrepAndBrepWithVoids(mod, "RWStepShape_RWFacetedBrepAndBrepWithVoids", "Read & Write Module for FacetedBrepAndBrepWithVoids");
 
 // Constructors
 cls_RWStepShape_RWFacetedBrepAndBrepWithVoids.def(py::init<>());

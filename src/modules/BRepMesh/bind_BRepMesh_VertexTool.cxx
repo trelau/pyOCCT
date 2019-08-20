@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_VertexTool(py::module &mod){
 
-py::class_<BRepMesh_VertexTool, std::unique_ptr<BRepMesh_VertexTool, Deleter<BRepMesh_VertexTool>>> cls_BRepMesh_VertexTool(mod, "BRepMesh_VertexTool", "Describes data structure intended to keep mesh nodes defined in UV space and implements functionality providing their uniqueness regarding thir position.");
+py::class_<BRepMesh_VertexTool, std::unique_ptr<BRepMesh_VertexTool>> cls_BRepMesh_VertexTool(mod, "BRepMesh_VertexTool", "Describes data structure intended to keep mesh nodes defined in UV space and implements functionality providing their uniqueness regarding thir position.");
 
 // Constructors
 cls_BRepMesh_VertexTool.def(py::init<const opencascade::handle<NCollection_IncAllocator> &>(), py::arg("theAllocator"));

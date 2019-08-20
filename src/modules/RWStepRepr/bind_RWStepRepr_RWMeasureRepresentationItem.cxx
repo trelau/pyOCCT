@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWMeasureRepresentationItem(py::module &mod){
 
-py::class_<RWStepRepr_RWMeasureRepresentationItem, std::unique_ptr<RWStepRepr_RWMeasureRepresentationItem, Deleter<RWStepRepr_RWMeasureRepresentationItem>>> cls_RWStepRepr_RWMeasureRepresentationItem(mod, "RWStepRepr_RWMeasureRepresentationItem", "Read & Write Module for MeasureRepresentationItem");
+py::class_<RWStepRepr_RWMeasureRepresentationItem, std::unique_ptr<RWStepRepr_RWMeasureRepresentationItem>> cls_RWStepRepr_RWMeasureRepresentationItem(mod, "RWStepRepr_RWMeasureRepresentationItem", "Read & Write Module for MeasureRepresentationItem");
 
 // Constructors
 cls_RWStepRepr_RWMeasureRepresentationItem.def(py::init<>());

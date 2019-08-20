@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_Quaternion(py::module &mod){
 
-py::class_<gp_Quaternion, std::unique_ptr<gp_Quaternion, Deleter<gp_Quaternion>>> cls_gp_Quaternion(mod, "gp_Quaternion", "Represents operation of rotation in 3d space as queternion and implements operations with rotations basing on quaternion mathematics.");
+py::class_<gp_Quaternion, std::unique_ptr<gp_Quaternion>> cls_gp_Quaternion(mod, "gp_Quaternion", "Represents operation of rotation in 3d space as queternion and implements operations with rotations basing on quaternion mathematics.");
 
 // Constructors
 cls_gp_Quaternion.def(py::init<>());

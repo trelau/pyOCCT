@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeAnalysis_Edge(py::module &mod){
 
-py::class_<ShapeAnalysis_Edge, std::unique_ptr<ShapeAnalysis_Edge, Deleter<ShapeAnalysis_Edge>>> cls_ShapeAnalysis_Edge(mod, "ShapeAnalysis_Edge", "Tool for analyzing the edge. Queries geometrical representations of the edge (3d curve, pcurve on the given face or surface) and topological sub-shapes (bounding vertices). Provides methods for analyzing geometry and topology consistency (3d and pcurve(s) consistency, their adjacency to the vertices).");
+py::class_<ShapeAnalysis_Edge, std::unique_ptr<ShapeAnalysis_Edge>> cls_ShapeAnalysis_Edge(mod, "ShapeAnalysis_Edge", "Tool for analyzing the edge. Queries geometrical representations of the edge (3d curve, pcurve on the given face or surface) and topological sub-shapes (bounding vertices). Provides methods for analyzing geometry and topology consistency (3d and pcurve(s) consistency, their adjacency to the vertices).");
 
 // Constructors
 cls_ShapeAnalysis_Edge.def(py::init<>());

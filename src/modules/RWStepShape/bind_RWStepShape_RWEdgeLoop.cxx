@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWEdgeLoop(py::module &mod){
 
-py::class_<RWStepShape_RWEdgeLoop, std::unique_ptr<RWStepShape_RWEdgeLoop, Deleter<RWStepShape_RWEdgeLoop>>> cls_RWStepShape_RWEdgeLoop(mod, "RWStepShape_RWEdgeLoop", "Read & Write Module for EdgeLoop Check added by CKY , 7-OCT-1996");
+py::class_<RWStepShape_RWEdgeLoop, std::unique_ptr<RWStepShape_RWEdgeLoop>> cls_RWStepShape_RWEdgeLoop(mod, "RWStepShape_RWEdgeLoop", "Read & Write Module for EdgeLoop Check added by CKY , 7-OCT-1996");
 
 // Constructors
 cls_RWStepShape_RWEdgeLoop.def(py::init<>());

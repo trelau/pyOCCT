@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepGProp_Vinert(py::module &mod){
 
-py::class_<BRepGProp_Vinert, std::unique_ptr<BRepGProp_Vinert, Deleter<BRepGProp_Vinert>>, GProp_GProps> cls_BRepGProp_Vinert(mod, "BRepGProp_Vinert", "Computes the global properties of a geometric solid (3D closed region of space) delimited with : . a surface . a point and a surface . a plane and a surface");
+py::class_<BRepGProp_Vinert, std::unique_ptr<BRepGProp_Vinert>, GProp_GProps> cls_BRepGProp_Vinert(mod, "BRepGProp_Vinert", "Computes the global properties of a geometric solid (3D closed region of space) delimited with : . a surface . a point and a surface . a plane and a surface");
 
 // Constructors
 cls_BRepGProp_Vinert.def(py::init<>());

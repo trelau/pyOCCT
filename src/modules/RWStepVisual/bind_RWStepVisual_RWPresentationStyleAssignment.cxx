@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWPresentationStyleAssignment(py::module &mod){
 
-py::class_<RWStepVisual_RWPresentationStyleAssignment, std::unique_ptr<RWStepVisual_RWPresentationStyleAssignment, Deleter<RWStepVisual_RWPresentationStyleAssignment>>> cls_RWStepVisual_RWPresentationStyleAssignment(mod, "RWStepVisual_RWPresentationStyleAssignment", "Read & Write Module for PresentationStyleAssignment");
+py::class_<RWStepVisual_RWPresentationStyleAssignment, std::unique_ptr<RWStepVisual_RWPresentationStyleAssignment>> cls_RWStepVisual_RWPresentationStyleAssignment(mod, "RWStepVisual_RWPresentationStyleAssignment", "Read & Write Module for PresentationStyleAssignment");
 
 // Constructors
 cls_RWStepVisual_RWPresentationStyleAssignment.def(py::init<>());

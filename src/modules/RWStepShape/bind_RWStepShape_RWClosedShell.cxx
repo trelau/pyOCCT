@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWClosedShell(py::module &mod){
 
-py::class_<RWStepShape_RWClosedShell, std::unique_ptr<RWStepShape_RWClosedShell, Deleter<RWStepShape_RWClosedShell>>> cls_RWStepShape_RWClosedShell(mod, "RWStepShape_RWClosedShell", "Read & Write Module for ClosedShell");
+py::class_<RWStepShape_RWClosedShell, std::unique_ptr<RWStepShape_RWClosedShell>> cls_RWStepShape_RWClosedShell(mod, "RWStepShape_RWClosedShell", "Read & Write Module for ClosedShell");
 
 // Constructors
 cls_RWStepShape_RWClosedShell.def(py::init<>());

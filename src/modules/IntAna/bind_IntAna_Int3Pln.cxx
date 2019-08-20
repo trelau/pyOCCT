@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntAna_Int3Pln(py::module &mod){
 
-py::class_<IntAna_Int3Pln, std::unique_ptr<IntAna_Int3Pln, Deleter<IntAna_Int3Pln>>> cls_IntAna_Int3Pln(mod, "IntAna_Int3Pln", "Intersection between 3 planes. The algorithm searches for an intersection point. If two of the planes are parallel or identical, IsEmpty returns TRUE.");
+py::class_<IntAna_Int3Pln, std::unique_ptr<IntAna_Int3Pln>> cls_IntAna_Int3Pln(mod, "IntAna_Int3Pln", "Intersection between 3 planes. The algorithm searches for an intersection point. If two of the planes are parallel or identical, IsEmpty returns TRUE.");
 
 // Constructors
 cls_IntAna_Int3Pln.def(py::init<>());

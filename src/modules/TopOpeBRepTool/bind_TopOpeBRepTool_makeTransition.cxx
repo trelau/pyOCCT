@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool_makeTransition(py::module &mod){
 
-py::class_<TopOpeBRepTool_makeTransition, std::unique_ptr<TopOpeBRepTool_makeTransition, Deleter<TopOpeBRepTool_makeTransition>>> cls_TopOpeBRepTool_makeTransition(mod, "TopOpeBRepTool_makeTransition", "None");
+py::class_<TopOpeBRepTool_makeTransition, std::unique_ptr<TopOpeBRepTool_makeTransition>> cls_TopOpeBRepTool_makeTransition(mod, "TopOpeBRepTool_makeTransition", "None");
 
 // Constructors
 cls_TopOpeBRepTool_makeTransition.def(py::init<>());

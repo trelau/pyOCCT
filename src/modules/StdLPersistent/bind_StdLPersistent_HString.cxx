@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdLPersistent_HString(py::module &mod){
 
-py::class_<StdLPersistent_HString, std::unique_ptr<StdLPersistent_HString, Deleter<StdLPersistent_HString>>> cls_StdLPersistent_HString(mod, "StdLPersistent_HString", "None");
+py::class_<StdLPersistent_HString, std::unique_ptr<StdLPersistent_HString>> cls_StdLPersistent_HString(mod, "StdLPersistent_HString", "None");
 
 // Constructors
 

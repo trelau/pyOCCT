@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_ExtElC(py::module &mod){
 
-py::class_<Extrema_ExtElC, std::unique_ptr<Extrema_ExtElC, Deleter<Extrema_ExtElC>>> cls_Extrema_ExtElC(mod, "Extrema_ExtElC", "It calculates all the distance between two elementary curves. These distances can be maximum or minimum.");
+py::class_<Extrema_ExtElC, std::unique_ptr<Extrema_ExtElC>> cls_Extrema_ExtElC(mod, "Extrema_ExtElC", "It calculates all the distance between two elementary curves. These distances can be maximum or minimum.");
 
 // Constructors
 cls_Extrema_ExtElC.def(py::init<>());

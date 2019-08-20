@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Prs3d_Root(py::module &mod){
 
-py::class_<Prs3d_Root, std::unique_ptr<Prs3d_Root, Deleter<Prs3d_Root>>> cls_Prs3d_Root(mod, "Prs3d_Root", "A root class for the standard presentation algorithms of the StdPrs package.");
+py::class_<Prs3d_Root, std::unique_ptr<Prs3d_Root>> cls_Prs3d_Root(mod, "Prs3d_Root", "A root class for the standard presentation algorithms of the StdPrs package.");
 
 // Constructors
 

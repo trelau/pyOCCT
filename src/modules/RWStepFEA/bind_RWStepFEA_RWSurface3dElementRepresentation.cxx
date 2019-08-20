@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWSurface3dElementRepresentation(py::module &mod){
 
-py::class_<RWStepFEA_RWSurface3dElementRepresentation, std::unique_ptr<RWStepFEA_RWSurface3dElementRepresentation, Deleter<RWStepFEA_RWSurface3dElementRepresentation>>> cls_RWStepFEA_RWSurface3dElementRepresentation(mod, "RWStepFEA_RWSurface3dElementRepresentation", "Read & Write tool for Surface3dElementRepresentation");
+py::class_<RWStepFEA_RWSurface3dElementRepresentation, std::unique_ptr<RWStepFEA_RWSurface3dElementRepresentation>> cls_RWStepFEA_RWSurface3dElementRepresentation(mod, "RWStepFEA_RWSurface3dElementRepresentation", "Read & Write tool for Surface3dElementRepresentation");
 
 // Constructors
 cls_RWStepFEA_RWSurface3dElementRepresentation.def(py::init<>());

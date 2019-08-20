@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename theBaseClass_t>
 void bind_OpenGl_TmplCore20(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<OpenGl_TmplCore20<theBaseClass_t>, std::unique_ptr<OpenGl_TmplCore20<theBaseClass_t>, Deleter<OpenGl_TmplCore20<theBaseClass_t>>>, theBaseClass_t> cls_OpenGl_TmplCore20(mod, name.c_str(), "OpenGL 2.0 core based on 1.5 version.", local);
+py::class_<OpenGl_TmplCore20<theBaseClass_t>, std::unique_ptr<OpenGl_TmplCore20<theBaseClass_t>>, theBaseClass_t> cls_OpenGl_TmplCore20(mod, name.c_str(), "OpenGL 2.0 core based on 1.5 version.", local);
 
 // Constructors
 

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurve_ProjectOnPConicTool(py::module &mod){
 
-py::class_<IntCurve_ProjectOnPConicTool, std::unique_ptr<IntCurve_ProjectOnPConicTool, Deleter<IntCurve_ProjectOnPConicTool>>> cls_IntCurve_ProjectOnPConicTool(mod, "IntCurve_ProjectOnPConicTool", "This class provides a tool which computes the parameter of a point near a parametric conic.");
+py::class_<IntCurve_ProjectOnPConicTool, std::unique_ptr<IntCurve_ProjectOnPConicTool>> cls_IntCurve_ProjectOnPConicTool(mod, "IntCurve_ProjectOnPConicTool", "This class provides a tool which computes the parameter of a point near a parametric conic.");
 
 // Constructors
 

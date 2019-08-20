@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgo_Loop(py::module &mod){
 
-py::class_<BRepAlgo_Loop, std::unique_ptr<BRepAlgo_Loop, Deleter<BRepAlgo_Loop>>> cls_BRepAlgo_Loop(mod, "BRepAlgo_Loop", "Builds the loops from a set of edges on a face.");
+py::class_<BRepAlgo_Loop, std::unique_ptr<BRepAlgo_Loop>> cls_BRepAlgo_Loop(mod, "BRepAlgo_Loop", "Builds the loops from a set of edges on a face.");
 
 // Constructors
 cls_BRepAlgo_Loop.def(py::init<>());

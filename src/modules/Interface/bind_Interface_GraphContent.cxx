@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_GraphContent(py::module &mod){
 
-py::class_<Interface_GraphContent, std::unique_ptr<Interface_GraphContent, Deleter<Interface_GraphContent>>, Interface_EntityIterator> cls_Interface_GraphContent(mod, "Interface_GraphContent", "Defines general form for classes of graph algorithms on Interfaces, this form is that of EntityIterator Each sub-class fills it according to its own algorithm This also allows to combine any graph result to others, all being given under one unique form");
+py::class_<Interface_GraphContent, std::unique_ptr<Interface_GraphContent>, Interface_EntityIterator> cls_Interface_GraphContent(mod, "Interface_GraphContent", "Defines general form for classes of graph algorithms on Interfaces, this form is that of EntityIterator Each sub-class fills it according to its own algorithm This also allows to combine any graph result to others, all being given under one unique form");
 
 // Constructors
 cls_Interface_GraphContent.def(py::init<>());

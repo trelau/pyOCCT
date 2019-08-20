@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWLineProfileTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWLineProfileTolerance, std::unique_ptr<RWStepDimTol_RWLineProfileTolerance, Deleter<RWStepDimTol_RWLineProfileTolerance>>> cls_RWStepDimTol_RWLineProfileTolerance(mod, "RWStepDimTol_RWLineProfileTolerance", "Read & Write tool for LineProfileTolerance");
+py::class_<RWStepDimTol_RWLineProfileTolerance, std::unique_ptr<RWStepDimTol_RWLineProfileTolerance>> cls_RWStepDimTol_RWLineProfileTolerance(mod, "RWStepDimTol_RWLineProfileTolerance", "Read & Write tool for LineProfileTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWLineProfileTolerance.def(py::init<>());

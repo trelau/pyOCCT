@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESToBRep_CurveAndSurface(py::module &mod){
 
-py::class_<IGESToBRep_CurveAndSurface, std::unique_ptr<IGESToBRep_CurveAndSurface, Deleter<IGESToBRep_CurveAndSurface>>> cls_IGESToBRep_CurveAndSurface(mod, "IGESToBRep_CurveAndSurface", "Provides methods to transfer CurveAndSurface from IGES to CASCADE.");
+py::class_<IGESToBRep_CurveAndSurface, std::unique_ptr<IGESToBRep_CurveAndSurface>> cls_IGESToBRep_CurveAndSurface(mod, "IGESToBRep_CurveAndSurface", "Provides methods to transfer CurveAndSurface from IGES to CASCADE.");
 
 // Constructors
 cls_IGESToBRep_CurveAndSurface.def(py::init<>());

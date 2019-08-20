@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GC_MakeLine(py::module &mod){
 
-py::class_<GC_MakeLine, std::unique_ptr<GC_MakeLine, Deleter<GC_MakeLine>>, GC_Root> cls_GC_MakeLine(mod, "GC_MakeLine", "This class implements the following algorithms used to create a Line from Geom. * Create a Line parallel to another and passing through a point. * Create a Line passing through 2 points. A MakeLine object provides a framework for: - defining the construction of the line, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed line.");
+py::class_<GC_MakeLine, std::unique_ptr<GC_MakeLine>, GC_Root> cls_GC_MakeLine(mod, "GC_MakeLine", "This class implements the following algorithms used to create a Line from Geom. * Create a Line parallel to another and passing through a point. * Create a Line passing through 2 points. A MakeLine object provides a framework for: - defining the construction of the line, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed line.");
 
 // Constructors
 cls_GC_MakeLine.def(py::init<const gp_Ax1 &>(), py::arg("A1"));

@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TCollection(py::module &mod){
 
-py::class_<TCollection, std::unique_ptr<TCollection, Deleter<TCollection>>> cls_TCollection(mod, "TCollection", "The package <TCollection> provides the services for the transient basic data structures.");
+py::class_<TCollection, std::unique_ptr<TCollection>> cls_TCollection(mod, "TCollection", "The package <TCollection> provides the services for the transient basic data structures.");
 
 // Constructors
 

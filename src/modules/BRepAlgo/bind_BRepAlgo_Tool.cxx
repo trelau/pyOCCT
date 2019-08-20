@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgo_Tool(py::module &mod){
 
-py::class_<BRepAlgo_Tool, std::unique_ptr<BRepAlgo_Tool, Deleter<BRepAlgo_Tool>>> cls_BRepAlgo_Tool(mod, "BRepAlgo_Tool", "None");
+py::class_<BRepAlgo_Tool, std::unique_ptr<BRepAlgo_Tool>> cls_BRepAlgo_Tool(mod, "BRepAlgo_Tool", "None");
 
 // Constructors
 

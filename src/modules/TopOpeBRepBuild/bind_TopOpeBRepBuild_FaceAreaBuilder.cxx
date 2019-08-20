@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_FaceAreaBuilder(py::module &mod){
 
-py::class_<TopOpeBRepBuild_FaceAreaBuilder, std::unique_ptr<TopOpeBRepBuild_FaceAreaBuilder, Deleter<TopOpeBRepBuild_FaceAreaBuilder>>, TopOpeBRepBuild_Area2dBuilder> cls_TopOpeBRepBuild_FaceAreaBuilder(mod, "TopOpeBRepBuild_FaceAreaBuilder", "The FaceAreaBuilder algorithm is used to construct Faces from a LoopSet, where the Loop is the composite topological object of the boundary, here wire or block of edges. The LoopSet gives an iteration on Loops. For each Loop it indicates if it is on the boundary (wire) or if it results from an interference (block of edges). The result of the FaceAreaBuilder is an iteration on areas. An area is described by a set of Loops.");
+py::class_<TopOpeBRepBuild_FaceAreaBuilder, std::unique_ptr<TopOpeBRepBuild_FaceAreaBuilder>, TopOpeBRepBuild_Area2dBuilder> cls_TopOpeBRepBuild_FaceAreaBuilder(mod, "TopOpeBRepBuild_FaceAreaBuilder", "The FaceAreaBuilder algorithm is used to construct Faces from a LoopSet, where the Loop is the composite topological object of the boundary, here wire or block of edges. The LoopSet gives an iteration on Loops. For each Loop it indicates if it is on the boundary (wire) or if it results from an interference (block of edges). The result of the FaceAreaBuilder is an iteration on areas. An area is described by a set of Loops.");
 
 // Constructors
 cls_TopOpeBRepBuild_FaceAreaBuilder.def(py::init<>());

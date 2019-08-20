@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf(py::module &mod){
 
-py::class_<HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf, std::unique_ptr<HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf, Deleter<HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf>>, math_FunctionWithDerivative> cls_HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf(mod, "HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf", "None");
+py::class_<HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf, std::unique_ptr<HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf>, math_FunctionWithDerivative> cls_HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf(mod, "HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf", "None");
 
 // Constructors
 cls_HLRBRep_TheQuadCurvFuncOfTheQuadCurvExactInterCSurf.def(py::init<const IntSurf_Quadric &, const gp_Lin &>(), py::arg("Q"), py::arg("C"));

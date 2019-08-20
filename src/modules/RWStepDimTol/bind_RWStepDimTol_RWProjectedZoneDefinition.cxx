@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWProjectedZoneDefinition(py::module &mod){
 
-py::class_<RWStepDimTol_RWProjectedZoneDefinition, std::unique_ptr<RWStepDimTol_RWProjectedZoneDefinition, Deleter<RWStepDimTol_RWProjectedZoneDefinition>>> cls_RWStepDimTol_RWProjectedZoneDefinition(mod, "RWStepDimTol_RWProjectedZoneDefinition", "Read & Write tool for ProjectedZoneDefinition");
+py::class_<RWStepDimTol_RWProjectedZoneDefinition, std::unique_ptr<RWStepDimTol_RWProjectedZoneDefinition>> cls_RWStepDimTol_RWProjectedZoneDefinition(mod, "RWStepDimTol_RWProjectedZoneDefinition", "Read & Write tool for ProjectedZoneDefinition");
 
 // Constructors
 cls_RWStepDimTol_RWProjectedZoneDefinition.def(py::init<>());

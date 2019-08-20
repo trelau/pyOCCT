@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheObjType, typename TheBndType>
 void bind_NCollection_UBTreeFiller(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_UBTreeFiller<TheObjType, TheBndType>, std::unique_ptr<NCollection_UBTreeFiller<TheObjType, TheBndType>, Deleter<NCollection_UBTreeFiller<TheObjType, TheBndType>>>> cls_NCollection_UBTreeFiller(mod, name.c_str(), "This class is used to fill an UBTree in a random order. The quality of a tree is much better (from the point of view of the search time) if objects are added to it in a random order to avoid adding a chain of neerby objects one following each other.", local);
+py::class_<NCollection_UBTreeFiller<TheObjType, TheBndType>, std::unique_ptr<NCollection_UBTreeFiller<TheObjType, TheBndType>>> cls_NCollection_UBTreeFiller(mod, name.c_str(), "This class is used to fill an UBTree in a random order. The quality of a tree is much better (from the point of view of the search time) if objects are added to it in a random order to avoid adding a chain of neerby objects one following each other.", local);
 
 // Constructors
 cls_NCollection_UBTreeFiller.def(py::init<typename NCollection_UBTreeFiller<TheObjType, TheBndType>::UBTree &>(), py::arg("theTree"));

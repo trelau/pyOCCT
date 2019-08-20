@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepClass_FaceClassifier(py::module &mod){
 
-py::class_<BRepClass_FaceClassifier, std::unique_ptr<BRepClass_FaceClassifier, Deleter<BRepClass_FaceClassifier>>, BRepClass_FClassifier> cls_BRepClass_FaceClassifier(mod, "BRepClass_FaceClassifier", "Provides Constructors with a Face.");
+py::class_<BRepClass_FaceClassifier, std::unique_ptr<BRepClass_FaceClassifier>, BRepClass_FClassifier> cls_BRepClass_FaceClassifier(mod, "BRepClass_FaceClassifier", "Provides Constructors with a Face.");
 
 // Constructors
 cls_BRepClass_FaceClassifier.def(py::init<>());

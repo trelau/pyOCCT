@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBuilderAPI_MakeVertex(py::module &mod){
 
-py::class_<BRepBuilderAPI_MakeVertex, std::unique_ptr<BRepBuilderAPI_MakeVertex, Deleter<BRepBuilderAPI_MakeVertex>>, BRepBuilderAPI_MakeShape> cls_BRepBuilderAPI_MakeVertex(mod, "BRepBuilderAPI_MakeVertex", "Describes functions to build BRepBuilder vertices directly from 3D geometric points. A vertex built using a MakeVertex object is only composed of a 3D point and a default precision value (Precision::Confusion()). Later on, 2D representations can be added, for example, when inserting a vertex in an edge. A MakeVertex object provides a framework for: - defining and implementing the construction of a vertex, and - consulting the result.");
+py::class_<BRepBuilderAPI_MakeVertex, std::unique_ptr<BRepBuilderAPI_MakeVertex>, BRepBuilderAPI_MakeShape> cls_BRepBuilderAPI_MakeVertex(mod, "BRepBuilderAPI_MakeVertex", "Describes functions to build BRepBuilder vertices directly from 3D geometric points. A vertex built using a MakeVertex object is only composed of a 3D point and a default precision value (Precision::Confusion()). Later on, 2D representations can be added, for example, when inserting a vertex in an edge. A MakeVertex object provides a framework for: - defining and implementing the construction of a vertex, and - consulting the result.");
 
 // Constructors
 cls_BRepBuilderAPI_MakeVertex.def(py::init<const gp_Pnt &>(), py::arg("P"));

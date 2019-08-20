@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_Point(py::module &mod){
 
-py::class_<IntPatch_Point, std::unique_ptr<IntPatch_Point, Deleter<IntPatch_Point>>> cls_IntPatch_Point(mod, "IntPatch_Point", "Definition of an intersection point between two surfaces. Such a point is contains geometrical informations (see the Value method) and logical informations.");
+py::class_<IntPatch_Point, std::unique_ptr<IntPatch_Point>> cls_IntPatch_Point(mod, "IntPatch_Point", "Definition of an intersection point between two surfaces. Such a point is contains geometrical informations (see the Value method) and logical informations.");
 
 // Constructors
 cls_IntPatch_Point.def(py::init<>());

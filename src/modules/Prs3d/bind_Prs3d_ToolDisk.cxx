@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Prs3d_ToolDisk(py::module &mod){
 
-py::class_<Prs3d_ToolDisk, std::unique_ptr<Prs3d_ToolDisk, Deleter<Prs3d_ToolDisk>>, Prs3d_ToolQuadric> cls_Prs3d_ToolDisk(mod, "Prs3d_ToolDisk", "Standard presentation algorithm that outputs graphical primitives for disk surface.");
+py::class_<Prs3d_ToolDisk, std::unique_ptr<Prs3d_ToolDisk>, Prs3d_ToolQuadric> cls_Prs3d_ToolDisk(mod, "Prs3d_ToolDisk", "Standard presentation algorithm that outputs graphical primitives for disk surface.");
 
 // Constructors
 cls_Prs3d_ToolDisk.def(py::init<const Standard_Real, const Standard_Real, const Standard_Integer, const Standard_Integer>(), py::arg("theInnerRadius"), py::arg("theOuterRadius"), py::arg("theNbSlices"), py::arg("theNbStacks"));

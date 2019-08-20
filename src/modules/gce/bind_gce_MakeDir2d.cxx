@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gce_MakeDir2d(py::module &mod){
 
-py::class_<gce_MakeDir2d, std::unique_ptr<gce_MakeDir2d, Deleter<gce_MakeDir2d>>, gce_Root> cls_gce_MakeDir2d(mod, "gce_MakeDir2d", "This class implements the following algorithms used to create a Dir2d from gp. * Create a Dir2d with 2 points. * Create a Dir2d with a Vec2d. * Create a Dir2d with a XY from gp. * Create a Dir2d with a 2 Reals (Coordinates).");
+py::class_<gce_MakeDir2d, std::unique_ptr<gce_MakeDir2d>, gce_Root> cls_gce_MakeDir2d(mod, "gce_MakeDir2d", "This class implements the following algorithms used to create a Dir2d from gp. * Create a Dir2d with 2 points. * Create a Dir2d with a Vec2d. * Create a Dir2d with a XY from gp. * Create a Dir2d with a 2 Reals (Coordinates).");
 
 // Constructors
 cls_gce_MakeDir2d.def(py::init<const gp_Vec2d &>(), py::arg("V"));

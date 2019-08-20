@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Approx_MCurvesToBSpCurve(py::module &mod){
 
-py::class_<Approx_MCurvesToBSpCurve, std::unique_ptr<Approx_MCurvesToBSpCurve, Deleter<Approx_MCurvesToBSpCurve>>> cls_Approx_MCurvesToBSpCurve(mod, "Approx_MCurvesToBSpCurve", "None");
+py::class_<Approx_MCurvesToBSpCurve, std::unique_ptr<Approx_MCurvesToBSpCurve>> cls_Approx_MCurvesToBSpCurve(mod, "Approx_MCurvesToBSpCurve", "None");
 
 // Constructors
 cls_Approx_MCurvesToBSpCurve.def(py::init<>());

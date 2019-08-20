@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_Root(py::module &mod){
 
-py::class_<GeomToStep_Root, std::unique_ptr<GeomToStep_Root, Deleter<GeomToStep_Root>>> cls_GeomToStep_Root(mod, "GeomToStep_Root", "This class implements the common services for all classes of GeomToStep which report error.");
+py::class_<GeomToStep_Root, std::unique_ptr<GeomToStep_Root>> cls_GeomToStep_Root(mod, "GeomToStep_Root", "This class implements the common services for all classes of GeomToStep which report error.");
 
 // Constructors
 

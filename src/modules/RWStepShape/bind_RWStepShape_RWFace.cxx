@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWFace(py::module &mod){
 
-py::class_<RWStepShape_RWFace, std::unique_ptr<RWStepShape_RWFace, Deleter<RWStepShape_RWFace>>> cls_RWStepShape_RWFace(mod, "RWStepShape_RWFace", "Read & Write Module for Face");
+py::class_<RWStepShape_RWFace, std::unique_ptr<RWStepShape_RWFace>> cls_RWStepShape_RWFace(mod, "RWStepShape_RWFace", "Read & Write Module for Face");
 
 // Constructors
 cls_RWStepShape_RWFace.def(py::init<>());

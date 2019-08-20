@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgo_Cut(py::module &mod){
 
-py::class_<BRepAlgo_Cut, std::unique_ptr<BRepAlgo_Cut, Deleter<BRepAlgo_Cut>>, BRepAlgo_BooleanOperation> cls_BRepAlgo_Cut(mod, "BRepAlgo_Cut", "Describes functions for performing a topological cut operation (Boolean subtraction). A Cut object provides the framework for: - defining the construction of a cut shape, - implementing the construction algorithm, and - consulting the result.");
+py::class_<BRepAlgo_Cut, std::unique_ptr<BRepAlgo_Cut>, BRepAlgo_BooleanOperation> cls_BRepAlgo_Cut(mod, "BRepAlgo_Cut", "Describes functions for performing a topological cut operation (Boolean subtraction). A Cut object provides the framework for: - defining the construction of a cut shape, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_BRepAlgo_Cut.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &>(), py::arg("S1"), py::arg("S2"));

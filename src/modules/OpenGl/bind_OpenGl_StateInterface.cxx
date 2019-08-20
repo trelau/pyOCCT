@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_StateInterface(py::module &mod){
 
-py::class_<OpenGl_StateInterface, std::unique_ptr<OpenGl_StateInterface, Deleter<OpenGl_StateInterface>>> cls_OpenGl_StateInterface(mod, "OpenGl_StateInterface", "Defines interface for OpenGL state.");
+py::class_<OpenGl_StateInterface, std::unique_ptr<OpenGl_StateInterface>> cls_OpenGl_StateInterface(mod, "OpenGl_StateInterface", "Defines interface for OpenGL state.");
 
 // Constructors
 cls_OpenGl_StateInterface.def(py::init<>());

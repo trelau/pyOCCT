@@ -67,7 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math(py::module &mod){
 
-py::class_<math, std::unique_ptr<math, Deleter<math>>> cls_math(mod, "math", "None");
+py::class_<math, std::unique_ptr<math>> cls_math(mod, "math", "None");
 
 // Constructors
 

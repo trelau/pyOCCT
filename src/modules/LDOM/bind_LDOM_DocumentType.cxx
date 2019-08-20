@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOM_DocumentType(py::module &mod){
 
-py::class_<LDOM_DocumentType, std::unique_ptr<LDOM_DocumentType, Deleter<LDOM_DocumentType>>> cls_LDOM_DocumentType(mod, "LDOM_DocumentType", "None");
+py::class_<LDOM_DocumentType, std::unique_ptr<LDOM_DocumentType>> cls_LDOM_DocumentType(mod, "LDOM_DocumentType", "None");
 
 // Constructors
 cls_LDOM_DocumentType.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_Dumper(py::module &mod){
 
-py::class_<TopOpeBRepDS_Dumper, std::unique_ptr<TopOpeBRepDS_Dumper, Deleter<TopOpeBRepDS_Dumper>>> cls_TopOpeBRepDS_Dumper(mod, "TopOpeBRepDS_Dumper", "None");
+py::class_<TopOpeBRepDS_Dumper, std::unique_ptr<TopOpeBRepDS_Dumper>> cls_TopOpeBRepDS_Dumper(mod, "TopOpeBRepDS_Dumper", "None");
 
 // Constructors
 cls_TopOpeBRepDS_Dumper.def(py::init<const opencascade::handle<TopOpeBRepDS_HDataStructure> &>(), py::arg("HDS"));

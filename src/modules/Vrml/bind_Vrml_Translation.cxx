@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_Translation(py::module &mod){
 
-py::class_<Vrml_Translation, std::unique_ptr<Vrml_Translation, Deleter<Vrml_Translation>>> cls_Vrml_Translation(mod, "Vrml_Translation", "defines a Translation of VRML specifying transform properties. This node defines a translation by 3D vector. By default : myTranslation (0,0,0)");
+py::class_<Vrml_Translation, std::unique_ptr<Vrml_Translation>> cls_Vrml_Translation(mod, "Vrml_Translation", "defines a Translation of VRML specifying transform properties. This node defines a translation by 3D vector. By default : myTranslation (0,0,0)");
 
 // Constructors
 cls_Vrml_Translation.def(py::init<>());

@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Approx_SweepApproximation(py::module &mod){
 
-py::class_<Approx_SweepApproximation, std::unique_ptr<Approx_SweepApproximation, Deleter<Approx_SweepApproximation>>> cls_Approx_SweepApproximation(mod, "Approx_SweepApproximation", "Approximation of an Surface S(u,v) (and eventually associate 2d Curves) defined by section's law.");
+py::class_<Approx_SweepApproximation, std::unique_ptr<Approx_SweepApproximation>> cls_Approx_SweepApproximation(mod, "Approx_SweepApproximation", "Approximation of an Surface S(u,v) (and eventually associate 2d Curves) defined by section's law.");
 
 // Constructors
 cls_Approx_SweepApproximation.def(py::init<const opencascade::handle<Approx_SweepFunction> &>(), py::arg("Func"));

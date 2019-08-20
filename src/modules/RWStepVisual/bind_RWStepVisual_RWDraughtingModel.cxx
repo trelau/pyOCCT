@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWDraughtingModel(py::module &mod){
 
-py::class_<RWStepVisual_RWDraughtingModel, std::unique_ptr<RWStepVisual_RWDraughtingModel, Deleter<RWStepVisual_RWDraughtingModel>>> cls_RWStepVisual_RWDraughtingModel(mod, "RWStepVisual_RWDraughtingModel", "Read & Write tool for DraughtingModel");
+py::class_<RWStepVisual_RWDraughtingModel, std::unique_ptr<RWStepVisual_RWDraughtingModel>> cls_RWStepVisual_RWDraughtingModel(mod, "RWStepVisual_RWDraughtingModel", "Read & Write tool for DraughtingModel");
 
 // Constructors
 cls_RWStepVisual_RWDraughtingModel.def(py::init<>());

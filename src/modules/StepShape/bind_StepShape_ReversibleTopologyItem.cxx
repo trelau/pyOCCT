@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepShape_ReversibleTopologyItem(py::module &mod){
 
-py::class_<StepShape_ReversibleTopologyItem, std::unique_ptr<StepShape_ReversibleTopologyItem, Deleter<StepShape_ReversibleTopologyItem>>, StepData_SelectType> cls_StepShape_ReversibleTopologyItem(mod, "StepShape_ReversibleTopologyItem", "None");
+py::class_<StepShape_ReversibleTopologyItem, std::unique_ptr<StepShape_ReversibleTopologyItem>, StepData_SelectType> cls_StepShape_ReversibleTopologyItem(mod, "StepShape_ReversibleTopologyItem", "None");
 
 // Constructors
 cls_StepShape_ReversibleTopologyItem.def(py::init<>());

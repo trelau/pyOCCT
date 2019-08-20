@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Approx_CurvilinearParameter(py::module &mod){
 
-py::class_<Approx_CurvilinearParameter, std::unique_ptr<Approx_CurvilinearParameter, Deleter<Approx_CurvilinearParameter>>> cls_Approx_CurvilinearParameter(mod, "Approx_CurvilinearParameter", "Approximation of a Curve to make its parameter be its curvilinear abscissa If the curve is a curve on a surface S, C2D is the corresponding Pcurve, we considere the curve is given by its representation S(C2D(u)) If the curve is a curve on 2 surfaces S1 and S2 and C2D1 C2D2 are the two corresponding Pcurve, we considere the curve is given by its representation 1/2(S1(C2D1(u) + S2 (C2D2(u)))");
+py::class_<Approx_CurvilinearParameter, std::unique_ptr<Approx_CurvilinearParameter>> cls_Approx_CurvilinearParameter(mod, "Approx_CurvilinearParameter", "Approximation of a Curve to make its parameter be its curvilinear abscissa If the curve is a curve on a surface S, C2D is the corresponding Pcurve, we considere the curve is given by its representation S(C2D(u)) If the curve is a curve on 2 surfaces S1 and S2 and C2D1 C2D2 are the two corresponding Pcurve, we considere the curve is given by its representation 1/2(S1(C2D1(u) + S2 (C2D2(u)))");
 
 // Constructors
 cls_Approx_CurvilinearParameter.def(py::init<const opencascade::handle<Adaptor3d_HCurve> &, const Standard_Real, const GeomAbs_Shape, const Standard_Integer, const Standard_Integer>(), py::arg("C3D"), py::arg("Tol"), py::arg("Order"), py::arg("MaxDegree"), py::arg("MaxSegments"));

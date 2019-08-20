@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffsetAPI_MakeFilling(py::module &mod){
 
-py::class_<BRepOffsetAPI_MakeFilling, std::unique_ptr<BRepOffsetAPI_MakeFilling, Deleter<BRepOffsetAPI_MakeFilling>>, BRepBuilderAPI_MakeShape> cls_BRepOffsetAPI_MakeFilling(mod, "BRepOffsetAPI_MakeFilling", "N-Side Filling This algorithm avoids to build a face from: * a set of edges defining the bounds of the face and some constraints the surface of the face has to satisfy * a set of edges and points defining some constraints the support surface has to satisfy * an initial surface to deform for satisfying the constraints * a set of parameters to control the constraints.");
+py::class_<BRepOffsetAPI_MakeFilling, std::unique_ptr<BRepOffsetAPI_MakeFilling>, BRepBuilderAPI_MakeShape> cls_BRepOffsetAPI_MakeFilling(mod, "BRepOffsetAPI_MakeFilling", "N-Side Filling This algorithm avoids to build a face from: * a set of edges defining the bounds of the face and some constraints the surface of the face has to satisfy * a set of edges and points defining some constraints the support surface has to satisfy * an initial surface to deform for satisfying the constraints * a set of parameters to control the constraints.");
 
 // Constructors
 cls_BRepOffsetAPI_MakeFilling.def(py::init<>());

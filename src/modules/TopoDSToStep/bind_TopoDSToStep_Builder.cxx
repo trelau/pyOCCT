@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDSToStep_Builder(py::module &mod){
 
-py::class_<TopoDSToStep_Builder, std::unique_ptr<TopoDSToStep_Builder, Deleter<TopoDSToStep_Builder>>, TopoDSToStep_Root> cls_TopoDSToStep_Builder(mod, "TopoDSToStep_Builder", "This builder Class provides services to build a ProSTEP Shape model from a Cas.Cad BRep.");
+py::class_<TopoDSToStep_Builder, std::unique_ptr<TopoDSToStep_Builder>, TopoDSToStep_Root> cls_TopoDSToStep_Builder(mod, "TopoDSToStep_Builder", "This builder Class provides services to build a ProSTEP Shape model from a Cas.Cad BRep.");
 
 // Constructors
 cls_TopoDSToStep_Builder.def(py::init<>());

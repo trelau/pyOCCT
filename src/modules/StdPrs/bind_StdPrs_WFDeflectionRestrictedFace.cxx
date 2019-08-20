@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_WFDeflectionRestrictedFace(py::module &mod){
 
-py::class_<StdPrs_WFDeflectionRestrictedFace, std::unique_ptr<StdPrs_WFDeflectionRestrictedFace, Deleter<StdPrs_WFDeflectionRestrictedFace>>, Prs3d_Root> cls_StdPrs_WFDeflectionRestrictedFace(mod, "StdPrs_WFDeflectionRestrictedFace", "A framework to provide display of U and V isoparameters of faces, while allowing you to impose a deflection on them. Computes the wireframe presentation of faces with restrictions by displaying a given number of U and/or V isoparametric curves. The isoparametric curves are drawn with respect to a maximal chordial deviation. The presentation includes the restriction curves.");
+py::class_<StdPrs_WFDeflectionRestrictedFace, std::unique_ptr<StdPrs_WFDeflectionRestrictedFace>, Prs3d_Root> cls_StdPrs_WFDeflectionRestrictedFace(mod, "StdPrs_WFDeflectionRestrictedFace", "A framework to provide display of U and V isoparameters of faces, while allowing you to impose a deflection on them. Computes the wireframe presentation of faces with restrictions by displaying a given number of U and/or V isoparametric curves. The isoparametric curves are drawn with respect to a maximal chordial deviation. The presentation includes the restriction curves.");
 
 // Constructors
 

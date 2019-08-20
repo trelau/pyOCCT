@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_CorrectFace2d(py::module &mod){
 
-py::class_<TopOpeBRepBuild_CorrectFace2d, std::unique_ptr<TopOpeBRepBuild_CorrectFace2d, Deleter<TopOpeBRepBuild_CorrectFace2d>>> cls_TopOpeBRepBuild_CorrectFace2d(mod, "TopOpeBRepBuild_CorrectFace2d", "None");
+py::class_<TopOpeBRepBuild_CorrectFace2d, std::unique_ptr<TopOpeBRepBuild_CorrectFace2d>> cls_TopOpeBRepBuild_CorrectFace2d(mod, "TopOpeBRepBuild_CorrectFace2d", "None");
 
 // Constructors
 cls_TopOpeBRepBuild_CorrectFace2d.def(py::init<>());

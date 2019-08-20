@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWAutoDesignActualDateAssignment(py::module &mod){
 
-py::class_<RWStepAP214_RWAutoDesignActualDateAssignment, std::unique_ptr<RWStepAP214_RWAutoDesignActualDateAssignment, Deleter<RWStepAP214_RWAutoDesignActualDateAssignment>>> cls_RWStepAP214_RWAutoDesignActualDateAssignment(mod, "RWStepAP214_RWAutoDesignActualDateAssignment", "Read & Write Module for AutoDesignActualDateAssignment");
+py::class_<RWStepAP214_RWAutoDesignActualDateAssignment, std::unique_ptr<RWStepAP214_RWAutoDesignActualDateAssignment>> cls_RWStepAP214_RWAutoDesignActualDateAssignment(mod, "RWStepAP214_RWAutoDesignActualDateAssignment", "Read & Write Module for AutoDesignActualDateAssignment");
 
 // Constructors
 cls_RWStepAP214_RWAutoDesignActualDateAssignment.def(py::init<>());

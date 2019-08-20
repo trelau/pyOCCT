@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgoAPI_Check(py::module &mod){
 
-py::class_<BRepAlgoAPI_Check, std::unique_ptr<BRepAlgoAPI_Check, Deleter<BRepAlgoAPI_Check>>, BOPAlgo_Options> cls_BRepAlgoAPI_Check(mod, "BRepAlgoAPI_Check", "The class Check provides a diagnostic tool for checking the validity of the single shape or couple of shapes. The shapes are checked on: - Topological validity; - Small edges; - Self-interference; - Validity for Boolean operation of certain type (for couple of shapes only).");
+py::class_<BRepAlgoAPI_Check, std::unique_ptr<BRepAlgoAPI_Check>, BOPAlgo_Options> cls_BRepAlgoAPI_Check(mod, "BRepAlgoAPI_Check", "The class Check provides a diagnostic tool for checking the validity of the single shape or couple of shapes. The shapes are checked on: - Topological validity; - Small edges; - Self-interference; - Validity for Boolean operation of certain type (for couple of shapes only).");
 
 // Constructors
 cls_BRepAlgoAPI_Check.def(py::init<>());

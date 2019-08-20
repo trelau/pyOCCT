@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeCurve(py::module &mod){
 
-py::class_<GeomToStep_MakeCurve, std::unique_ptr<GeomToStep_MakeCurve, Deleter<GeomToStep_MakeCurve>>, GeomToStep_Root> cls_GeomToStep_MakeCurve(mod, "GeomToStep_MakeCurve", "This class implements the mapping between classes Curve from Geom and the class Curve from StepGeom which describes a Curve from prostep. As Curve is an abstract curve this class an access to the sub-class required.");
+py::class_<GeomToStep_MakeCurve, std::unique_ptr<GeomToStep_MakeCurve>, GeomToStep_Root> cls_GeomToStep_MakeCurve(mod, "GeomToStep_MakeCurve", "This class implements the mapping between classes Curve from Geom and the class Curve from StepGeom which describes a Curve from prostep. As Curve is an abstract curve this class an access to the sub-class required.");
 
 // Constructors
 cls_GeomToStep_MakeCurve.def(py::init<const opencascade::handle<Geom_Curve> &>(), py::arg("C"));

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Font_TextFormatter(py::module &mod){
 
-py::class_<Font_TextFormatter, std::unique_ptr<Font_TextFormatter, Deleter<Font_TextFormatter>>> cls_Font_TextFormatter(mod, "Font_TextFormatter", "This class intended to prepare formatted text.");
+py::class_<Font_TextFormatter, std::unique_ptr<Font_TextFormatter>> cls_Font_TextFormatter(mod, "Font_TextFormatter", "This class intended to prepare formatted text.");
 
 // Constructors
 cls_Font_TextFormatter.def(py::init<>());

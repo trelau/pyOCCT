@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWEffectivityAssignment(py::module &mod){
 
-py::class_<RWStepBasic_RWEffectivityAssignment, std::unique_ptr<RWStepBasic_RWEffectivityAssignment, Deleter<RWStepBasic_RWEffectivityAssignment>>> cls_RWStepBasic_RWEffectivityAssignment(mod, "RWStepBasic_RWEffectivityAssignment", "Read & Write tool for EffectivityAssignment");
+py::class_<RWStepBasic_RWEffectivityAssignment, std::unique_ptr<RWStepBasic_RWEffectivityAssignment>> cls_RWStepBasic_RWEffectivityAssignment(mod, "RWStepBasic_RWEffectivityAssignment", "Read & Write tool for EffectivityAssignment");
 
 // Constructors
 cls_RWStepBasic_RWEffectivityAssignment.def(py::init<>());

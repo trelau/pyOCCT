@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopTools(py::module &mod){
 
-py::class_<TopTools, std::unique_ptr<TopTools, Deleter<TopTools>>> cls_TopTools(mod, "TopTools", "The TopTools package provides utilities for the topological data structure.");
+py::class_<TopTools, std::unique_ptr<TopTools>> cls_TopTools(mod, "TopTools", "The TopTools package provides utilities for the topological data structure.");
 
 // Constructors
 

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWFeaAxis2Placement3d(py::module &mod){
 
-py::class_<RWStepFEA_RWFeaAxis2Placement3d, std::unique_ptr<RWStepFEA_RWFeaAxis2Placement3d, Deleter<RWStepFEA_RWFeaAxis2Placement3d>>> cls_RWStepFEA_RWFeaAxis2Placement3d(mod, "RWStepFEA_RWFeaAxis2Placement3d", "Read & Write tool for FeaAxis2Placement3d");
+py::class_<RWStepFEA_RWFeaAxis2Placement3d, std::unique_ptr<RWStepFEA_RWFeaAxis2Placement3d>> cls_RWStepFEA_RWFeaAxis2Placement3d(mod, "RWStepFEA_RWFeaAxis2Placement3d", "Read & Write tool for FeaAxis2Placement3d");
 
 // Constructors
 cls_RWStepFEA_RWFeaAxis2Placement3d.def(py::init<>());

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurve_PConic(py::module &mod){
 
-py::class_<IntCurve_PConic, std::unique_ptr<IntCurve_PConic, Deleter<IntCurve_PConic>>> cls_IntCurve_PConic(mod, "IntCurve_PConic", "This class represents a conic from gp as a parametric curve ( in order to be used by the class PConicTool from IntCurve).");
+py::class_<IntCurve_PConic, std::unique_ptr<IntCurve_PConic>> cls_IntCurve_PConic(mod, "IntCurve_PConic", "This class represents a conic from gp as a parametric curve ( in order to be used by the class PConicTool from IntCurve).");
 
 // Constructors
 cls_IntCurve_PConic.def(py::init<const IntCurve_PConic &>(), py::arg("PC"));

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdObjMgt_MapOfInstantiators(py::module &mod){
 
-py::class_<StdObjMgt_MapOfInstantiators, std::unique_ptr<StdObjMgt_MapOfInstantiators, Deleter<StdObjMgt_MapOfInstantiators>>> cls_StdObjMgt_MapOfInstantiators(mod, "StdObjMgt_MapOfInstantiators", "None");
+py::class_<StdObjMgt_MapOfInstantiators, std::unique_ptr<StdObjMgt_MapOfInstantiators>> cls_StdObjMgt_MapOfInstantiators(mod, "StdObjMgt_MapOfInstantiators", "None");
 
 // Constructors
 

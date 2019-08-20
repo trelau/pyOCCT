@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWTransitionalShapeRepresentation(py::module &mod){
 
-py::class_<RWStepShape_RWTransitionalShapeRepresentation, std::unique_ptr<RWStepShape_RWTransitionalShapeRepresentation, Deleter<RWStepShape_RWTransitionalShapeRepresentation>>> cls_RWStepShape_RWTransitionalShapeRepresentation(mod, "RWStepShape_RWTransitionalShapeRepresentation", "Read & Write Module for TransitionalShapeRepresentation");
+py::class_<RWStepShape_RWTransitionalShapeRepresentation, std::unique_ptr<RWStepShape_RWTransitionalShapeRepresentation>> cls_RWStepShape_RWTransitionalShapeRepresentation(mod, "RWStepShape_RWTransitionalShapeRepresentation", "Read & Write Module for TransitionalShapeRepresentation");
 
 // Constructors
 cls_RWStepShape_RWTransitionalShapeRepresentation.def(py::init<>());

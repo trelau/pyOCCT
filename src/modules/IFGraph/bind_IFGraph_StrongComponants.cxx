@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFGraph_StrongComponants(py::module &mod){
 
-py::class_<IFGraph_StrongComponants, std::unique_ptr<IFGraph_StrongComponants, Deleter<IFGraph_StrongComponants>>, IFGraph_SubPartsIterator> cls_IFGraph_StrongComponants(mod, "IFGraph_StrongComponants", "determines strong componants of a graph, that is isolated entities (single componants) or loops");
+py::class_<IFGraph_StrongComponants, std::unique_ptr<IFGraph_StrongComponants>, IFGraph_SubPartsIterator> cls_IFGraph_StrongComponants(mod, "IFGraph_StrongComponants", "determines strong componants of a graph, that is isolated entities (single componants) or loops");
 
 // Constructors
 cls_IFGraph_StrongComponants.def(py::init<const Interface_Graph &, const Standard_Boolean>(), py::arg("agraph"), py::arg("whole"));

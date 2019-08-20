@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWSurfaceStyleSegmentationCurve(py::module &mod){
 
-py::class_<RWStepVisual_RWSurfaceStyleSegmentationCurve, std::unique_ptr<RWStepVisual_RWSurfaceStyleSegmentationCurve, Deleter<RWStepVisual_RWSurfaceStyleSegmentationCurve>>> cls_RWStepVisual_RWSurfaceStyleSegmentationCurve(mod, "RWStepVisual_RWSurfaceStyleSegmentationCurve", "Read & Write Module for SurfaceStyleSegmentationCurve");
+py::class_<RWStepVisual_RWSurfaceStyleSegmentationCurve, std::unique_ptr<RWStepVisual_RWSurfaceStyleSegmentationCurve>> cls_RWStepVisual_RWSurfaceStyleSegmentationCurve(mod, "RWStepVisual_RWSurfaceStyleSegmentationCurve", "Read & Write Module for SurfaceStyleSegmentationCurve");
 
 // Constructors
 cls_RWStepVisual_RWSurfaceStyleSegmentationCurve.def(py::init<>());

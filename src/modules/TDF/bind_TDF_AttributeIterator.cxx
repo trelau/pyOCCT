@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDF_AttributeIterator(py::module &mod){
 
-py::class_<TDF_AttributeIterator, std::unique_ptr<TDF_AttributeIterator, Deleter<TDF_AttributeIterator>>> cls_TDF_AttributeIterator(mod, "TDF_AttributeIterator", "None");
+py::class_<TDF_AttributeIterator, std::unique_ptr<TDF_AttributeIterator>> cls_TDF_AttributeIterator(mod, "TDF_AttributeIterator", "None");
 
 // Constructors
 cls_TDF_AttributeIterator.def(py::init<>());

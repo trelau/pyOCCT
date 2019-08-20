@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepBasic_SizeSelect(py::module &mod){
 
-py::class_<StepBasic_SizeSelect, std::unique_ptr<StepBasic_SizeSelect, Deleter<StepBasic_SizeSelect>>, StepData_SelectType> cls_StepBasic_SizeSelect(mod, "StepBasic_SizeSelect", "None");
+py::class_<StepBasic_SizeSelect, std::unique_ptr<StepBasic_SizeSelect>, StepData_SelectType> cls_StepBasic_SizeSelect(mod, "StepBasic_SizeSelect", "None");
 
 // Constructors
 cls_StepBasic_SizeSelect.def(py::init<>());

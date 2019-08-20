@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_ParameterAndOrientation(py::module &mod){
 
-py::class_<GeomInt_ParameterAndOrientation, std::unique_ptr<GeomInt_ParameterAndOrientation, Deleter<GeomInt_ParameterAndOrientation>>> cls_GeomInt_ParameterAndOrientation(mod, "GeomInt_ParameterAndOrientation", "None");
+py::class_<GeomInt_ParameterAndOrientation, std::unique_ptr<GeomInt_ParameterAndOrientation>> cls_GeomInt_ParameterAndOrientation(mod, "GeomInt_ParameterAndOrientation", "None");
 
 // Constructors
 cls_GeomInt_ParameterAndOrientation.def(py::init<>());

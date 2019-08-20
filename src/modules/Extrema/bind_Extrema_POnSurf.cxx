@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_POnSurf(py::module &mod){
 
-py::class_<Extrema_POnSurf, std::unique_ptr<Extrema_POnSurf, Deleter<Extrema_POnSurf>>> cls_Extrema_POnSurf(mod, "Extrema_POnSurf", "Definition of a point on surface.");
+py::class_<Extrema_POnSurf, std::unique_ptr<Extrema_POnSurf>> cls_Extrema_POnSurf(mod, "Extrema_POnSurf", "Definition of a point on surface.");
 
 // Constructors
 cls_Extrema_POnSurf.def(py::init<>());

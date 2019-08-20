@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_Trsf(py::module &mod){
 
-py::class_<gp_Trsf, std::unique_ptr<gp_Trsf, Deleter<gp_Trsf>>> cls_gp_Trsf(mod, "gp_Trsf", "Defines a non-persistent transformation in 3D space. The following transformations are implemented : . Translation, Rotation, Scale . Symmetry with respect to a point, a line, a plane. Complex transformations can be obtained by combining the previous elementary transformations using the method Multiply. The transformations can be represented as follow :");
+py::class_<gp_Trsf, std::unique_ptr<gp_Trsf>> cls_gp_Trsf(mod, "gp_Trsf", "Defines a non-persistent transformation in 3D space. The following transformations are implemented : . Translation, Rotation, Scale . Symmetry with respect to a point, a line, a plane. Complex transformations can be obtained by combining the previous elementary transformations using the method Multiply. The transformations can be represented as follow :");
 
 // Constructors
 cls_gp_Trsf.def(py::init<>());

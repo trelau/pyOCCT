@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPDS_Tools(py::module &mod){
 
-py::class_<BOPDS_Tools, std::unique_ptr<BOPDS_Tools, Deleter<BOPDS_Tools>>> cls_BOPDS_Tools(mod, "BOPDS_Tools", "The class BOPDS_Tools contains a set auxiliary static functions of the package BOPDS");
+py::class_<BOPDS_Tools, std::unique_ptr<BOPDS_Tools>> cls_BOPDS_Tools(mod, "BOPDS_Tools", "The class BOPDS_Tools contains a set auxiliary static functions of the package BOPDS");
 
 // Constructors
 

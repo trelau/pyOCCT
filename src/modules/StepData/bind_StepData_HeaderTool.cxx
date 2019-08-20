@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepData_HeaderTool(py::module &mod){
 
-py::class_<StepData_HeaderTool, std::unique_ptr<StepData_HeaderTool, Deleter<StepData_HeaderTool>>> cls_StepData_HeaderTool(mod, "StepData_HeaderTool", "HeaderTool exploits data from Header to build a Protocol : it uses the Header Entity FileSchema to do this. It builds a Protocol from the Global List of Protocols stored in the Library ReaderLib");
+py::class_<StepData_HeaderTool, std::unique_ptr<StepData_HeaderTool>> cls_StepData_HeaderTool(mod, "StepData_HeaderTool", "HeaderTool exploits data from Header to build a Protocol : it uses the Header Entity FileSchema to do this. It builds a Protocol from the Global List of Protocols stored in the Library ReaderLib");
 
 // Constructors
 cls_StepData_HeaderTool.def(py::init<const opencascade::handle<StepData_StepReaderData> &>(), py::arg("data"));

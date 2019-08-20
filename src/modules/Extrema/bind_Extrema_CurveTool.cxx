@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_CurveTool(py::module &mod){
 
-py::class_<Extrema_CurveTool, std::unique_ptr<Extrema_CurveTool, Deleter<Extrema_CurveTool>>> cls_Extrema_CurveTool(mod, "Extrema_CurveTool", "None");
+py::class_<Extrema_CurveTool, std::unique_ptr<Extrema_CurveTool>> cls_Extrema_CurveTool(mod, "Extrema_CurveTool", "None");
 
 // Constructors
 

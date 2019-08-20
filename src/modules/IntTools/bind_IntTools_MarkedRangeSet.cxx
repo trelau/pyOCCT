@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_MarkedRangeSet(py::module &mod){
 
-py::class_<IntTools_MarkedRangeSet, std::unique_ptr<IntTools_MarkedRangeSet, Deleter<IntTools_MarkedRangeSet>>> cls_IntTools_MarkedRangeSet(mod, "IntTools_MarkedRangeSet", "class MarkedRangeSet provides continuous set of ranges marked with flags");
+py::class_<IntTools_MarkedRangeSet, std::unique_ptr<IntTools_MarkedRangeSet>> cls_IntTools_MarkedRangeSet(mod, "IntTools_MarkedRangeSet", "class MarkedRangeSet provides continuous set of ranges marked with flags");
 
 // Constructors
 cls_IntTools_MarkedRangeSet.def(py::init<>());

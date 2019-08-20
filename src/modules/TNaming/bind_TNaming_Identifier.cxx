@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TNaming_Identifier(py::module &mod){
 
-py::class_<TNaming_Identifier, std::unique_ptr<TNaming_Identifier, Deleter<TNaming_Identifier>>> cls_TNaming_Identifier(mod, "TNaming_Identifier", "None");
+py::class_<TNaming_Identifier, std::unique_ptr<TNaming_Identifier>> cls_TNaming_Identifier(mod, "TNaming_Identifier", "None");
 
 // Constructors
 cls_TNaming_Identifier.def(py::init<const TDF_Label &, const TopoDS_Shape &, const TopoDS_Shape &, const Standard_Boolean>(), py::arg("Lab"), py::arg("S"), py::arg("Context"), py::arg("Geom"));

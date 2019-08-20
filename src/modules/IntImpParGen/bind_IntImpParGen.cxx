@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntImpParGen(py::module &mod){
 
-py::class_<IntImpParGen, std::unique_ptr<IntImpParGen, Deleter<IntImpParGen>>> cls_IntImpParGen(mod, "IntImpParGen", "Gives a generic algorithm to intersect Implicit Curves and Bounded Parametric Curves.");
+py::class_<IntImpParGen, std::unique_ptr<IntImpParGen>> cls_IntImpParGen(mod, "IntImpParGen", "Gives a generic algorithm to intersect Implicit Curves and Bounded Parametric Curves.");
 
 // Constructors
 

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakePlane(py::module &mod){
 
-py::class_<GeomToStep_MakePlane, std::unique_ptr<GeomToStep_MakePlane, Deleter<GeomToStep_MakePlane>>, GeomToStep_Root> cls_GeomToStep_MakePlane(mod, "GeomToStep_MakePlane", "This class implements the mapping between classes Plane from Geom and Pln from gp, and the class Plane from StepGeom which describes a plane from Prostep.");
+py::class_<GeomToStep_MakePlane, std::unique_ptr<GeomToStep_MakePlane>, GeomToStep_Root> cls_GeomToStep_MakePlane(mod, "GeomToStep_MakePlane", "This class implements the mapping between classes Plane from Geom and Pln from gp, and the class Plane from StepGeom which describes a plane from Prostep.");
 
 // Constructors
 cls_GeomToStep_MakePlane.def(py::init<const gp_Pln &>(), py::arg("P"));

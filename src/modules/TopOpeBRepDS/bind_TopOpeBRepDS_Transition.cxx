@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_Transition(py::module &mod){
 
-py::class_<TopOpeBRepDS_Transition, std::unique_ptr<TopOpeBRepDS_Transition, Deleter<TopOpeBRepDS_Transition>>> cls_TopOpeBRepDS_Transition(mod, "TopOpeBRepDS_Transition", "None");
+py::class_<TopOpeBRepDS_Transition, std::unique_ptr<TopOpeBRepDS_Transition>> cls_TopOpeBRepDS_Transition(mod, "TopOpeBRepDS_Transition", "None");
 
 // Constructors
 cls_TopOpeBRepDS_Transition.def(py::init<>());

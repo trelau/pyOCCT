@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dGcc_FunctionTanObl(py::module &mod){
 
-py::class_<Geom2dGcc_FunctionTanObl, std::unique_ptr<Geom2dGcc_FunctionTanObl, Deleter<Geom2dGcc_FunctionTanObl>>, math_FunctionWithDerivative> cls_Geom2dGcc_FunctionTanObl(mod, "Geom2dGcc_FunctionTanObl", "This class describe a function of a single variable.");
+py::class_<Geom2dGcc_FunctionTanObl, std::unique_ptr<Geom2dGcc_FunctionTanObl>, math_FunctionWithDerivative> cls_Geom2dGcc_FunctionTanObl(mod, "Geom2dGcc_FunctionTanObl", "This class describe a function of a single variable.");
 
 // Constructors
 cls_Geom2dGcc_FunctionTanObl.def(py::init<const Geom2dAdaptor_Curve &, const gp_Dir2d &>(), py::arg("Curve"), py::arg("Dir"));

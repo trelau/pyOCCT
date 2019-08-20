@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWAdvancedFace(py::module &mod){
 
-py::class_<RWStepShape_RWAdvancedFace, std::unique_ptr<RWStepShape_RWAdvancedFace, Deleter<RWStepShape_RWAdvancedFace>>> cls_RWStepShape_RWAdvancedFace(mod, "RWStepShape_RWAdvancedFace", "Read & Write Module for AdvancedFace");
+py::class_<RWStepShape_RWAdvancedFace, std::unique_ptr<RWStepShape_RWAdvancedFace>> cls_RWStepShape_RWAdvancedFace(mod, "RWStepShape_RWAdvancedFace", "Read & Write Module for AdvancedFace");
 
 // Constructors
 cls_RWStepShape_RWAdvancedFace.def(py::init<>());

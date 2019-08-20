@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolCenterLine(py::module &mod){
 
-py::class_<IGESDimen_ToolCenterLine, std::unique_ptr<IGESDimen_ToolCenterLine, Deleter<IGESDimen_ToolCenterLine>>> cls_IGESDimen_ToolCenterLine(mod, "IGESDimen_ToolCenterLine", "Tool to work on a CenterLine. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolCenterLine, std::unique_ptr<IGESDimen_ToolCenterLine>> cls_IGESDimen_ToolCenterLine(mod, "IGESDimen_ToolCenterLine", "Tool to work on a CenterLine. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolCenterLine.def(py::init<>());

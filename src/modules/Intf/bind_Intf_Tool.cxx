@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Intf_Tool(py::module &mod){
 
-py::class_<Intf_Tool, std::unique_ptr<Intf_Tool, Deleter<Intf_Tool>>> cls_Intf_Tool(mod, "Intf_Tool", "Provides services to create box for infinites lines in a given contexte.");
+py::class_<Intf_Tool, std::unique_ptr<Intf_Tool>> cls_Intf_Tool(mod, "Intf_Tool", "Provides services to create box for infinites lines in a given contexte.");
 
 // Constructors
 cls_Intf_Tool.def(py::init<>());

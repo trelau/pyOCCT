@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWFeaMoistureAbsorption(py::module &mod){
 
-py::class_<RWStepFEA_RWFeaMoistureAbsorption, std::unique_ptr<RWStepFEA_RWFeaMoistureAbsorption, Deleter<RWStepFEA_RWFeaMoistureAbsorption>>> cls_RWStepFEA_RWFeaMoistureAbsorption(mod, "RWStepFEA_RWFeaMoistureAbsorption", "Read & Write tool for FeaMoistureAbsorption");
+py::class_<RWStepFEA_RWFeaMoistureAbsorption, std::unique_ptr<RWStepFEA_RWFeaMoistureAbsorption>> cls_RWStepFEA_RWFeaMoistureAbsorption(mod, "RWStepFEA_RWFeaMoistureAbsorption", "Read & Write tool for FeaMoistureAbsorption");
 
 // Constructors
 cls_RWStepFEA_RWFeaMoistureAbsorption.def(py::init<>());

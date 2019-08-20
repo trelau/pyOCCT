@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_LocateExtCC(py::module &mod){
 
-py::class_<Extrema_LocateExtCC, std::unique_ptr<Extrema_LocateExtCC, Deleter<Extrema_LocateExtCC>>> cls_Extrema_LocateExtCC(mod, "Extrema_LocateExtCC", "It calculates the distance between two curves with a close point; these distances can be maximum or minimum.");
+py::class_<Extrema_LocateExtCC, std::unique_ptr<Extrema_LocateExtCC>> cls_Extrema_LocateExtCC(mod, "Extrema_LocateExtCC", "It calculates the distance between two curves with a close point; these distances can be maximum or minimum.");
 
 // Constructors
 cls_Extrema_LocateExtCC.def(py::init<const Adaptor3d_Curve &, const Adaptor3d_Curve &, const Standard_Real, const Standard_Real>(), py::arg("C1"), py::arg("C2"), py::arg("U0"), py::arg("V0"));

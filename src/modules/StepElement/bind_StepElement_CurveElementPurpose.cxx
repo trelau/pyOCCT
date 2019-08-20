@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepElement_CurveElementPurpose(py::module &mod){
 
-py::class_<StepElement_CurveElementPurpose, std::unique_ptr<StepElement_CurveElementPurpose, Deleter<StepElement_CurveElementPurpose>>, StepData_SelectType> cls_StepElement_CurveElementPurpose(mod, "StepElement_CurveElementPurpose", "Representation of STEP SELECT type CurveElementPurpose");
+py::class_<StepElement_CurveElementPurpose, std::unique_ptr<StepElement_CurveElementPurpose>, StepData_SelectType> cls_StepElement_CurveElementPurpose(mod, "StepElement_CurveElementPurpose", "Representation of STEP SELECT type CurveElementPurpose");
 
 // Constructors
 cls_StepElement_CurveElementPurpose.def(py::init<>());

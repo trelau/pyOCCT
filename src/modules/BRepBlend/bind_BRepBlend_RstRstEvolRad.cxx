@@ -51,7 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBlend_RstRstEvolRad(py::module &mod){
 
-py::class_<BRepBlend_RstRstEvolRad, std::unique_ptr<BRepBlend_RstRstEvolRad, Deleter<BRepBlend_RstRstEvolRad>>, Blend_RstRstFunction> cls_BRepBlend_RstRstEvolRad(mod, "BRepBlend_RstRstEvolRad", "Function to approximate by AppSurface for Edge/Edge and evolutif radius");
+py::class_<BRepBlend_RstRstEvolRad, std::unique_ptr<BRepBlend_RstRstEvolRad>, Blend_RstRstFunction> cls_BRepBlend_RstRstEvolRad(mod, "BRepBlend_RstRstEvolRad", "Function to approximate by AppSurface for Edge/Edge and evolutif radius");
 
 // Constructors
 cls_BRepBlend_RstRstEvolRad.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor2d_HCurve2d> &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor2d_HCurve2d> &, const opencascade::handle<Adaptor3d_HCurve> &, const opencascade::handle<Law_Function> &>(), py::arg("Surf1"), py::arg("Rst1"), py::arg("Surf2"), py::arg("Rst2"), py::arg("CGuide"), py::arg("Evol"));

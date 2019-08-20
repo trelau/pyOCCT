@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWGeneralProperty(py::module &mod){
 
-py::class_<RWStepBasic_RWGeneralProperty, std::unique_ptr<RWStepBasic_RWGeneralProperty, Deleter<RWStepBasic_RWGeneralProperty>>> cls_RWStepBasic_RWGeneralProperty(mod, "RWStepBasic_RWGeneralProperty", "Read & Write tool for GeneralProperty");
+py::class_<RWStepBasic_RWGeneralProperty, std::unique_ptr<RWStepBasic_RWGeneralProperty>> cls_RWStepBasic_RWGeneralProperty(mod, "RWStepBasic_RWGeneralProperty", "Read & Write tool for GeneralProperty");
 
 // Constructors
 cls_RWStepBasic_RWGeneralProperty.def(py::init<>());

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESData_GlobalSection(py::module &mod){
 
-py::class_<IGESData_GlobalSection, std::unique_ptr<IGESData_GlobalSection, Deleter<IGESData_GlobalSection>>> cls_IGESData_GlobalSection(mod, "IGESData_GlobalSection", "Description of a global section (corresponds to file header) used as well in IGESModel, IGESReader and IGESWriter Warning : From IGES-5.1, a parameter is added : LastChangeDate (concerns transferred set of data, not the file itself) Of course, it can be absent if read from earlier versions (a default is then to be set to current date) From 5.3, one more : ApplicationProtocol (optional)");
+py::class_<IGESData_GlobalSection, std::unique_ptr<IGESData_GlobalSection>> cls_IGESData_GlobalSection(mod, "IGESData_GlobalSection", "Description of a global section (corresponds to file header) used as well in IGESModel, IGESReader and IGESWriter Warning : From IGES-5.1, a parameter is added : LastChangeDate (concerns transferred set of data, not the file itself) Of course, it can be absent if read from earlier versions (a default is then to be set to current date) From 5.3, one more : ApplicationProtocol (optional)");
 
 // Constructors
 cls_IGESData_GlobalSection.def(py::init<>());

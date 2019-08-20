@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_Vec2d(py::module &mod){
 
-py::class_<gp_Vec2d, std::unique_ptr<gp_Vec2d, Deleter<gp_Vec2d>>> cls_gp_Vec2d(mod, "gp_Vec2d", "Defines a non-persistent vector in 2D space.");
+py::class_<gp_Vec2d, std::unique_ptr<gp_Vec2d>> cls_gp_Vec2d(mod, "gp_Vec2d", "Defines a non-persistent vector in 2D space.");
 
 // Constructors
 cls_gp_Vec2d.def(py::init<>());

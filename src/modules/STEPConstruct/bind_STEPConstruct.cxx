@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPConstruct(py::module &mod){
 
-py::class_<STEPConstruct, std::unique_ptr<STEPConstruct, Deleter<STEPConstruct>>> cls_STEPConstruct(mod, "STEPConstruct", "Defines tools for creation and investigation STEP constructs used for representing various kinds of data, such as product and assembly structure, unit contexts, associated information The creation of these structures is made according to currently active schema (AP203 or AP214 CD2 or DIS) This is taken from parameter write.step.schema");
+py::class_<STEPConstruct, std::unique_ptr<STEPConstruct>> cls_STEPConstruct(mod, "STEPConstruct", "Defines tools for creation and investigation STEP constructs used for representing various kinds of data, such as product and assembly structure, unit contexts, associated information The creation of these structures is made according to currently active schema (AP203 or AP214 CD2 or DIS) This is taken from parameter write.step.schema");
 
 // Constructors
 

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFGraph_SCRoots(py::module &mod){
 
-py::class_<IFGraph_SCRoots, std::unique_ptr<IFGraph_SCRoots, Deleter<IFGraph_SCRoots>>, IFGraph_StrongComponants> cls_IFGraph_SCRoots(mod, "IFGraph_SCRoots", "determines strong componants in a graph which are Roots");
+py::class_<IFGraph_SCRoots, std::unique_ptr<IFGraph_SCRoots>, IFGraph_StrongComponants> cls_IFGraph_SCRoots(mod, "IFGraph_SCRoots", "determines strong componants in a graph which are Roots");
 
 // Constructors
 cls_IFGraph_SCRoots.def(py::init<const Interface_Graph &, const Standard_Boolean>(), py::arg("agraph"), py::arg("whole"));

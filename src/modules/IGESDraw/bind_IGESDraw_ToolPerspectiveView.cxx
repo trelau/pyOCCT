@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDraw_ToolPerspectiveView(py::module &mod){
 
-py::class_<IGESDraw_ToolPerspectiveView, std::unique_ptr<IGESDraw_ToolPerspectiveView, Deleter<IGESDraw_ToolPerspectiveView>>> cls_IGESDraw_ToolPerspectiveView(mod, "IGESDraw_ToolPerspectiveView", "Tool to work on a PerspectiveView. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDraw_ToolPerspectiveView, std::unique_ptr<IGESDraw_ToolPerspectiveView>> cls_IGESDraw_ToolPerspectiveView(mod, "IGESDraw_ToolPerspectiveView", "Tool to work on a PerspectiveView. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDraw_ToolPerspectiveView.def(py::init<>());

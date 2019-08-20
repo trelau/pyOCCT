@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute(py::module &mod){
 
-py::class_<AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute, std::unique_ptr<AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute, Deleter<AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute>>> cls_AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute(mod, "AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute", "None");
+py::class_<AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute, std::unique_ptr<AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute>> cls_AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute(mod, "AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute", "None");
 
 // Constructors
 cls_AppDef_BSpParLeastSquareOfMyBSplGradientOfBSplineCompute.def(py::init<const AppDef_MultiLine &, const Standard_Integer, const Standard_Integer, const AppParCurves_Constraint, const AppParCurves_Constraint, const math_Vector &, const Standard_Integer>(), py::arg("SSP"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("FirstCons"), py::arg("LastCons"), py::arg("Parameters"), py::arg("NbPol"));

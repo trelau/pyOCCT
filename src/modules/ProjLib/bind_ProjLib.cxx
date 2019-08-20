@@ -62,7 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ProjLib(py::module &mod){
 
-py::class_<ProjLib, std::unique_ptr<ProjLib, Deleter<ProjLib>>> cls_ProjLib(mod, "ProjLib", "The projLib package first provides projection of curves on a plane along a given Direction. The result will be a 3D curve. The ProjLib package provides projection of curves on surfaces to compute the curve in the parametric space.");
+py::class_<ProjLib, std::unique_ptr<ProjLib>> cls_ProjLib(mod, "ProjLib", "The projLib package first provides projection of curves on a plane along a given Direction. The result will be a 3D curve. The ProjLib package provides projection of curves on surfaces to compute the curve in the parametric space.");
 
 // Constructors
 

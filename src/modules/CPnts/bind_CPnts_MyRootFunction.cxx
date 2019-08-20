@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_CPnts_MyRootFunction(py::module &mod){
 
-py::class_<CPnts_MyRootFunction, std::unique_ptr<CPnts_MyRootFunction, Deleter<CPnts_MyRootFunction>>, math_FunctionWithDerivative> cls_CPnts_MyRootFunction(mod, "CPnts_MyRootFunction", "Implements a function for the Newton algorithm to find the solution of Integral(F) = L (compute Length and Derivative of the curve for Newton)");
+py::class_<CPnts_MyRootFunction, std::unique_ptr<CPnts_MyRootFunction>, math_FunctionWithDerivative> cls_CPnts_MyRootFunction(mod, "CPnts_MyRootFunction", "Implements a function for the Newton algorithm to find the solution of Integral(F) = L (compute Length and Derivative of the curve for Newton)");
 
 // Constructors
 cls_CPnts_MyRootFunction.def(py::init<>());

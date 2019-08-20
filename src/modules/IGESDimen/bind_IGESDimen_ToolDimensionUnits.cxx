@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolDimensionUnits(py::module &mod){
 
-py::class_<IGESDimen_ToolDimensionUnits, std::unique_ptr<IGESDimen_ToolDimensionUnits, Deleter<IGESDimen_ToolDimensionUnits>>> cls_IGESDimen_ToolDimensionUnits(mod, "IGESDimen_ToolDimensionUnits", "Tool to work on a DimensionUnits. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolDimensionUnits, std::unique_ptr<IGESDimen_ToolDimensionUnits>> cls_IGESDimen_ToolDimensionUnits(mod, "IGESDimen_ToolDimensionUnits", "Tool to work on a DimensionUnits. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolDimensionUnits.def(py::init<>());

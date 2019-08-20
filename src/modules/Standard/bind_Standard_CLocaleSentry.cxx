@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Standard_CLocaleSentry(py::module &mod){
 
-py::class_<Standard_CLocaleSentry, std::unique_ptr<Standard_CLocaleSentry, Deleter<Standard_CLocaleSentry>>> cls_Standard_CLocaleSentry(mod, "Standard_CLocaleSentry", "This class intended to temporary switch C locale and logically equivalent to setlocale(LC_ALL, 'C'). It is intended to format text regardless of user locale settings (for import/export functionality). Thus following calls to sprintf, atoi and other functions will use 'C' locale. Destructor of this class will return original locale.");
+py::class_<Standard_CLocaleSentry, std::unique_ptr<Standard_CLocaleSentry>> cls_Standard_CLocaleSentry(mod, "Standard_CLocaleSentry", "This class intended to temporary switch C locale and logically equivalent to setlocale(LC_ALL, 'C'). It is intended to format text regardless of user locale settings (for import/export functionality). Thus following calls to sprintf, atoi and other functions will use 'C' locale. Destructor of this class will return original locale.");
 
 // Constructors
 cls_Standard_CLocaleSentry.def(py::init<>());

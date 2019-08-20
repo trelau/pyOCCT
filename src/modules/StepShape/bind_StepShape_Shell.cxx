@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepShape_Shell(py::module &mod){
 
-py::class_<StepShape_Shell, std::unique_ptr<StepShape_Shell, Deleter<StepShape_Shell>>, StepData_SelectType> cls_StepShape_Shell(mod, "StepShape_Shell", "None");
+py::class_<StepShape_Shell, std::unique_ptr<StepShape_Shell>, StepData_SelectType> cls_StepShape_Shell(mod, "StepShape_Shell", "None");
 
 // Constructors
 cls_StepShape_Shell.def(py::init<>());

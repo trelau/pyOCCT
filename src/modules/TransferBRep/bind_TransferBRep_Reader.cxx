@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TransferBRep_Reader(py::module &mod){
 
-py::class_<TransferBRep_Reader, std::unique_ptr<TransferBRep_Reader, Deleter<TransferBRep_Reader>>> cls_TransferBRep_Reader(mod, "TransferBRep_Reader", "This class offers a simple, easy to call, way of transferring data from interface files to Shapes from CasCade It must be specialized according to each norm/protocol, by : - defining how to read a file (specific method with protocol) - definig transfer, by providing an Actor");
+py::class_<TransferBRep_Reader, std::unique_ptr<TransferBRep_Reader>> cls_TransferBRep_Reader(mod, "TransferBRep_Reader", "This class offers a simple, easy to call, way of transferring data from interface files to Shapes from CasCade It must be specialized according to each norm/protocol, by : - defining how to read a file (specific method with protocol) - definig transfer, by providing an Actor");
 
 // Constructors
 cls_TransferBRep_Reader.def(py::init<>());

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T, int N>
 void bind_BVH_Bin(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BVH_Bin<T, N>, std::unique_ptr<BVH_Bin<T, N>, Deleter<BVH_Bin<T, N>>>> cls_BVH_Bin(mod, name.c_str(), "Stores parameters of single bin (slice of AABB).", local);
+py::class_<BVH_Bin<T, N>, std::unique_ptr<BVH_Bin<T, N>>> cls_BVH_Bin(mod, name.c_str(), "Stores parameters of single bin (slice of AABB).", local);
 
 // Constructors
 cls_BVH_Bin.def(py::init<>());

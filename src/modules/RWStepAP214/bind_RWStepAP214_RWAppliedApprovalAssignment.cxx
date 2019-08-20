@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWAppliedApprovalAssignment(py::module &mod){
 
-py::class_<RWStepAP214_RWAppliedApprovalAssignment, std::unique_ptr<RWStepAP214_RWAppliedApprovalAssignment, Deleter<RWStepAP214_RWAppliedApprovalAssignment>>> cls_RWStepAP214_RWAppliedApprovalAssignment(mod, "RWStepAP214_RWAppliedApprovalAssignment", "Read & Write Module for AppliedApprovalAssignment");
+py::class_<RWStepAP214_RWAppliedApprovalAssignment, std::unique_ptr<RWStepAP214_RWAppliedApprovalAssignment>> cls_RWStepAP214_RWAppliedApprovalAssignment(mod, "RWStepAP214_RWAppliedApprovalAssignment", "Read & Write Module for AppliedApprovalAssignment");
 
 // Constructors
 cls_RWStepAP214_RWAppliedApprovalAssignment.def(py::init<>());

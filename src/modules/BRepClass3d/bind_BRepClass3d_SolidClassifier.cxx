@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepClass3d_SolidClassifier(py::module &mod){
 
-py::class_<BRepClass3d_SolidClassifier, std::unique_ptr<BRepClass3d_SolidClassifier, Deleter<BRepClass3d_SolidClassifier>>, BRepClass3d_SClassifier> cls_BRepClass3d_SolidClassifier(mod, "BRepClass3d_SolidClassifier", "Provides an algorithm to classify a point in a solid.");
+py::class_<BRepClass3d_SolidClassifier, std::unique_ptr<BRepClass3d_SolidClassifier>, BRepClass3d_SClassifier> cls_BRepClass3d_SolidClassifier(mod, "BRepClass3d_SolidClassifier", "Provides an algorithm to classify a point in a solid.");
 
 // Constructors
 cls_BRepClass3d_SolidClassifier.def(py::init<>());

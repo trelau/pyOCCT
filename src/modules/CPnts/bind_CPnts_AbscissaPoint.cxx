@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_CPnts_AbscissaPoint(py::module &mod){
 
-py::class_<CPnts_AbscissaPoint, std::unique_ptr<CPnts_AbscissaPoint, Deleter<CPnts_AbscissaPoint>>> cls_CPnts_AbscissaPoint(mod, "CPnts_AbscissaPoint", "the algorithm computes a point on a curve at a given distance from another point on the curve");
+py::class_<CPnts_AbscissaPoint, std::unique_ptr<CPnts_AbscissaPoint>> cls_CPnts_AbscissaPoint(mod, "CPnts_AbscissaPoint", "the algorithm computes a point on a curve at a given distance from another point on the curve");
 
 // Constructors
 cls_CPnts_AbscissaPoint.def(py::init<>());

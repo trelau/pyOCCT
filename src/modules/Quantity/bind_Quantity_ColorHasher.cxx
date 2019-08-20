@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Quantity_ColorHasher(py::module &mod){
 
-py::class_<Quantity_ColorHasher, std::unique_ptr<Quantity_ColorHasher, Deleter<Quantity_ColorHasher>>> cls_Quantity_ColorHasher(mod, "Quantity_ColorHasher", "Hasher of Quantity_Color.");
+py::class_<Quantity_ColorHasher, std::unique_ptr<Quantity_ColorHasher>> cls_Quantity_ColorHasher(mod, "Quantity_ColorHasher", "Hasher of Quantity_Color.");
 
 // Constructors
 

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWRectangularTrimmedSurface(py::module &mod){
 
-py::class_<RWStepGeom_RWRectangularTrimmedSurface, std::unique_ptr<RWStepGeom_RWRectangularTrimmedSurface, Deleter<RWStepGeom_RWRectangularTrimmedSurface>>> cls_RWStepGeom_RWRectangularTrimmedSurface(mod, "RWStepGeom_RWRectangularTrimmedSurface", "Read & Write Module for RectangularTrimmedSurface");
+py::class_<RWStepGeom_RWRectangularTrimmedSurface, std::unique_ptr<RWStepGeom_RWRectangularTrimmedSurface>> cls_RWStepGeom_RWRectangularTrimmedSurface(mod, "RWStepGeom_RWRectangularTrimmedSurface", "Read & Write Module for RectangularTrimmedSurface");
 
 // Constructors
 cls_RWStepGeom_RWRectangularTrimmedSurface.def(py::init<>());

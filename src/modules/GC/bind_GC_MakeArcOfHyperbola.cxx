@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GC_MakeArcOfHyperbola(py::module &mod){
 
-py::class_<GC_MakeArcOfHyperbola, std::unique_ptr<GC_MakeArcOfHyperbola, Deleter<GC_MakeArcOfHyperbola>>, GC_Root> cls_GC_MakeArcOfHyperbola(mod, "GC_MakeArcOfHyperbola", "Implements construction algorithms for an arc of hyperbola in 3D space. The result is a Geom_TrimmedCurve curve. A MakeArcOfHyperbola object provides a framework for: - defining the construction of the arc of hyperbola, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed arc of hyperbola.");
+py::class_<GC_MakeArcOfHyperbola, std::unique_ptr<GC_MakeArcOfHyperbola>, GC_Root> cls_GC_MakeArcOfHyperbola(mod, "GC_MakeArcOfHyperbola", "Implements construction algorithms for an arc of hyperbola in 3D space. The result is a Geom_TrimmedCurve curve. A MakeArcOfHyperbola object provides a framework for: - defining the construction of the arc of hyperbola, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed arc of hyperbola.");
 
 // Constructors
 cls_GC_MakeArcOfHyperbola.def(py::init<const gp_Hypr &, const Standard_Real, const Standard_Real, const Standard_Boolean>(), py::arg("Hypr"), py::arg("Alpha1"), py::arg("Alpha2"), py::arg("Sense"));

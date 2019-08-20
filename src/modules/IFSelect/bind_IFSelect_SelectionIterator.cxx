@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFSelect_SelectionIterator(py::module &mod){
 
-py::class_<IFSelect_SelectionIterator, std::unique_ptr<IFSelect_SelectionIterator, Deleter<IFSelect_SelectionIterator>>> cls_IFSelect_SelectionIterator(mod, "IFSelect_SelectionIterator", "Defines an Iterator on a list of Selections");
+py::class_<IFSelect_SelectionIterator, std::unique_ptr<IFSelect_SelectionIterator>> cls_IFSelect_SelectionIterator(mod, "IFSelect_SelectionIterator", "Defines an Iterator on a list of Selections");
 
 // Constructors
 cls_IFSelect_SelectionIterator.def(py::init<>());

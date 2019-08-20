@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWExternallyDefinedClass(py::module &mod){
 
-py::class_<RWStepAP214_RWExternallyDefinedClass, std::unique_ptr<RWStepAP214_RWExternallyDefinedClass, Deleter<RWStepAP214_RWExternallyDefinedClass>>> cls_RWStepAP214_RWExternallyDefinedClass(mod, "RWStepAP214_RWExternallyDefinedClass", "Read & Write tool for ExternallyDefinedClass");
+py::class_<RWStepAP214_RWExternallyDefinedClass, std::unique_ptr<RWStepAP214_RWExternallyDefinedClass>> cls_RWStepAP214_RWExternallyDefinedClass(mod, "RWStepAP214_RWExternallyDefinedClass", "Read & Write tool for ExternallyDefinedClass");
 
 // Constructors
 cls_RWStepAP214_RWExternallyDefinedClass.def(py::init<>());

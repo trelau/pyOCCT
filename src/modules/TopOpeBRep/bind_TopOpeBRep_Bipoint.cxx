@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRep_Bipoint(py::module &mod){
 
-py::class_<TopOpeBRep_Bipoint, std::unique_ptr<TopOpeBRep_Bipoint, Deleter<TopOpeBRep_Bipoint>>> cls_TopOpeBRep_Bipoint(mod, "TopOpeBRep_Bipoint", "None");
+py::class_<TopOpeBRep_Bipoint, std::unique_ptr<TopOpeBRep_Bipoint>> cls_TopOpeBRep_Bipoint(mod, "TopOpeBRep_Bipoint", "None");
 
 // Constructors
 cls_TopOpeBRep_Bipoint.def(py::init<>());

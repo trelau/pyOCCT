@@ -76,7 +76,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGeom(py::module &mod){
 
-py::class_<IGESGeom, std::unique_ptr<IGESGeom, Deleter<IGESGeom>>> cls_IGESGeom(mod, "IGESGeom", "This package consists of B-Rep and CSG Solid entities");
+py::class_<IGESGeom, std::unique_ptr<IGESGeom>> cls_IGESGeom(mod, "IGESGeom", "This package consists of B-Rep and CSG Solid entities");
 
 // Constructors
 

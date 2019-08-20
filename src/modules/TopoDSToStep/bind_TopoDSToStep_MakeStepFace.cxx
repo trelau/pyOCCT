@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDSToStep_MakeStepFace(py::module &mod){
 
-py::class_<TopoDSToStep_MakeStepFace, std::unique_ptr<TopoDSToStep_MakeStepFace, Deleter<TopoDSToStep_MakeStepFace>>, TopoDSToStep_Root> cls_TopoDSToStep_MakeStepFace(mod, "TopoDSToStep_MakeStepFace", "This class implements the mapping between classes Face from TopoDS and TopologicalRepresentationItem from StepShape.");
+py::class_<TopoDSToStep_MakeStepFace, std::unique_ptr<TopoDSToStep_MakeStepFace>, TopoDSToStep_Root> cls_TopoDSToStep_MakeStepFace(mod, "TopoDSToStep_MakeStepFace", "This class implements the mapping between classes Face from TopoDS and TopologicalRepresentationItem from StepShape.");
 
 // Constructors
 cls_TopoDSToStep_MakeStepFace.def(py::init<>());

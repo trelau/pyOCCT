@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDS_Wire(py::module &mod){
 
-py::class_<TopoDS_Wire, std::unique_ptr<TopoDS_Wire, Deleter<TopoDS_Wire>>, TopoDS_Shape> cls_TopoDS_Wire(mod, "TopoDS_Wire", "Describes a wire which - references an underlying wire with the potential to be given a location and an orientation - has a location for the underlying wire, giving its placement in the local coordinate system - has an orientation for the underlying wire, in terms of its geometry (as opposed to orientation in relation to other shapes).");
+py::class_<TopoDS_Wire, std::unique_ptr<TopoDS_Wire>, TopoDS_Shape> cls_TopoDS_Wire(mod, "TopoDS_Wire", "Describes a wire which - references an underlying wire with the potential to be given a location and an orientation - has a location for the underlying wire, giving its placement in the local coordinate system - has an orientation for the underlying wire, in terms of its geometry (as opposed to orientation in relation to other shapes).");
 
 // Constructors
 cls_TopoDS_Wire.def(py::init<>());

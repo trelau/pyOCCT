@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDF_ChildIDIterator(py::module &mod){
 
-py::class_<TDF_ChildIDIterator, std::unique_ptr<TDF_ChildIDIterator, Deleter<TDF_ChildIDIterator>>> cls_TDF_ChildIDIterator(mod, "TDF_ChildIDIterator", "Iterates on the children of a label, to find attributes having ID as Attribute ID.");
+py::class_<TDF_ChildIDIterator, std::unique_ptr<TDF_ChildIDIterator>> cls_TDF_ChildIDIterator(mod, "TDF_ChildIDIterator", "Iterates on the children of a label, to find attributes having ID as Attribute ID.");
 
 // Constructors
 cls_TDF_ChildIDIterator.def(py::init<>());

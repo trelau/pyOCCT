@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWQuasiUniformSurface(py::module &mod){
 
-py::class_<RWStepGeom_RWQuasiUniformSurface, std::unique_ptr<RWStepGeom_RWQuasiUniformSurface, Deleter<RWStepGeom_RWQuasiUniformSurface>>> cls_RWStepGeom_RWQuasiUniformSurface(mod, "RWStepGeom_RWQuasiUniformSurface", "Read & Write Module for QuasiUniformSurface");
+py::class_<RWStepGeom_RWQuasiUniformSurface, std::unique_ptr<RWStepGeom_RWQuasiUniformSurface>> cls_RWStepGeom_RWQuasiUniformSurface(mod, "RWStepGeom_RWQuasiUniformSurface", "Read & Write Module for QuasiUniformSurface");
 
 // Constructors
 cls_RWStepGeom_RWQuasiUniformSurface.def(py::init<>());

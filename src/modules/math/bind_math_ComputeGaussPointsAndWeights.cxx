@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_ComputeGaussPointsAndWeights(py::module &mod){
 
-py::class_<math_ComputeGaussPointsAndWeights, std::unique_ptr<math_ComputeGaussPointsAndWeights, Deleter<math_ComputeGaussPointsAndWeights>>> cls_math_ComputeGaussPointsAndWeights(mod, "math_ComputeGaussPointsAndWeights", "None");
+py::class_<math_ComputeGaussPointsAndWeights, std::unique_ptr<math_ComputeGaussPointsAndWeights>> cls_math_ComputeGaussPointsAndWeights(mod, "math_ComputeGaussPointsAndWeights", "None");
 
 // Constructors
 cls_math_ComputeGaussPointsAndWeights.def(py::init<const Standard_Integer>(), py::arg("Number"));

@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BSplSLib(py::module &mod){
 
-py::class_<BSplSLib, std::unique_ptr<BSplSLib, Deleter<BSplSLib>>> cls_BSplSLib(mod, "BSplSLib", "BSplSLib B-spline surface Library This package provides an implementation of geometric functions for rational and non rational, periodic and non periodic B-spline surface computation.");
+py::class_<BSplSLib, std::unique_ptr<BSplSLib>> cls_BSplSLib(mod, "BSplSLib", "BSplSLib B-spline surface Library This package provides an implementation of geometric functions for rational and non rational, periodic and non periodic B-spline surface computation.");
 
 // Constructors
 

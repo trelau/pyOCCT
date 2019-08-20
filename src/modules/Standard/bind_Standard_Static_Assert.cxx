@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Standard_Static_Assert(py::module &mod){
 
-py::class_<Standard_Static_Assert<true>, std::unique_ptr<Standard_Static_Assert<true>, Deleter<Standard_Static_Assert<true>>>> cls_Standard_Static_Assert(mod, "Standard_Static_Assert", "Static assert -- specialization for condition being true");
+py::class_<Standard_Static_Assert<true>, std::unique_ptr<Standard_Static_Assert<true>>> cls_Standard_Static_Assert(mod, "Standard_Static_Assert", "Static assert -- specialization for condition being true");
 
 // Constructors
 

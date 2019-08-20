@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_NCollection_ListNode(py::module &mod){
 
-py::class_<NCollection_ListNode, std::unique_ptr<NCollection_ListNode, Deleter<NCollection_ListNode>>> cls_NCollection_ListNode(mod, "NCollection_ListNode", "Purpose: This class is used to represent a node in the BaseList and BaseMap.");
+py::class_<NCollection_ListNode, std::unique_ptr<NCollection_ListNode>> cls_NCollection_ListNode(mod, "NCollection_ListNode", "Purpose: This class is used to represent a node in the BaseList and BaseMap.");
 
 // Constructors
 // cls_NCollection_ListNode.def(py::init<NCollection_ListNode *>(), py::arg("theNext"));

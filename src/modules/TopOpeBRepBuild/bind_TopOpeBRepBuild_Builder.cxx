@@ -67,7 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_Builder(py::module &mod){
 
-py::class_<TopOpeBRepBuild_Builder, std::unique_ptr<TopOpeBRepBuild_Builder, Deleter<TopOpeBRepBuild_Builder>>> cls_TopOpeBRepBuild_Builder(mod, "TopOpeBRepBuild_Builder", "The Builder algorithm constructs topological objects from an existing topology and new geometries attached to the topology. It is used to construct the result of a topological operation; the existing topologies are the parts involved in the topological operation and the new geometries are the intersection lines and points.");
+py::class_<TopOpeBRepBuild_Builder, std::unique_ptr<TopOpeBRepBuild_Builder>> cls_TopOpeBRepBuild_Builder(mod, "TopOpeBRepBuild_Builder", "The Builder algorithm constructs topological objects from an existing topology and new geometries attached to the topology. It is used to construct the result of a topological operation; the existing topologies are the parts involved in the topological operation and the new geometries are the intersection lines and points.");
 
 // Constructors
 cls_TopOpeBRepBuild_Builder.def(py::init<const TopOpeBRepDS_BuildTool &>(), py::arg("BT"));

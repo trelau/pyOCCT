@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWCompositeGroupShapeAspect(py::module &mod){
 
-py::class_<RWStepRepr_RWCompositeGroupShapeAspect, std::unique_ptr<RWStepRepr_RWCompositeGroupShapeAspect, Deleter<RWStepRepr_RWCompositeGroupShapeAspect>>> cls_RWStepRepr_RWCompositeGroupShapeAspect(mod, "RWStepRepr_RWCompositeGroupShapeAspect", "Read & Write tool for CompositeGroupShapeAspect");
+py::class_<RWStepRepr_RWCompositeGroupShapeAspect, std::unique_ptr<RWStepRepr_RWCompositeGroupShapeAspect>> cls_RWStepRepr_RWCompositeGroupShapeAspect(mod, "RWStepRepr_RWCompositeGroupShapeAspect", "Read & Write tool for CompositeGroupShapeAspect");
 
 // Constructors
 cls_RWStepRepr_RWCompositeGroupShapeAspect.def(py::init<>());

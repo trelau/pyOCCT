@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP214_ExternalIdentificationItem(py::module &mod){
 
-py::class_<StepAP214_ExternalIdentificationItem, std::unique_ptr<StepAP214_ExternalIdentificationItem, Deleter<StepAP214_ExternalIdentificationItem>>, StepData_SelectType> cls_StepAP214_ExternalIdentificationItem(mod, "StepAP214_ExternalIdentificationItem", "Representation of STEP SELECT type ExternalIdentificationItem");
+py::class_<StepAP214_ExternalIdentificationItem, std::unique_ptr<StepAP214_ExternalIdentificationItem>, StepData_SelectType> cls_StepAP214_ExternalIdentificationItem(mod, "StepAP214_ExternalIdentificationItem", "Representation of STEP SELECT type ExternalIdentificationItem");
 
 // Constructors
 cls_StepAP214_ExternalIdentificationItem.def(py::init<>());

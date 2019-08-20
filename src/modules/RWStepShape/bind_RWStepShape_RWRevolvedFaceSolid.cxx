@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWRevolvedFaceSolid(py::module &mod){
 
-py::class_<RWStepShape_RWRevolvedFaceSolid, std::unique_ptr<RWStepShape_RWRevolvedFaceSolid, Deleter<RWStepShape_RWRevolvedFaceSolid>>> cls_RWStepShape_RWRevolvedFaceSolid(mod, "RWStepShape_RWRevolvedFaceSolid", "None");
+py::class_<RWStepShape_RWRevolvedFaceSolid, std::unique_ptr<RWStepShape_RWRevolvedFaceSolid>> cls_RWStepShape_RWRevolvedFaceSolid(mod, "RWStepShape_RWRevolvedFaceSolid", "None");
 
 // Constructors
 cls_RWStepShape_RWRevolvedFaceSolid.def(py::init<>());

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename Element_t>
 void bind_NCollection_Vec4(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_Vec4<Element_t>, std::unique_ptr<NCollection_Vec4<Element_t>, Deleter<NCollection_Vec4<Element_t>>>> cls_NCollection_Vec4(mod, name.c_str(), "Generic 4-components vector. To be used as RGBA color vector or XYZW 3D-point with special W-component for operations with projection / model view matrices. Use this class for 3D-points carefully because declared W-component may results in incorrect results if used without matrices.", local);
+py::class_<NCollection_Vec4<Element_t>, std::unique_ptr<NCollection_Vec4<Element_t>>> cls_NCollection_Vec4(mod, name.c_str(), "Generic 4-components vector. To be used as RGBA color vector or XYZW 3D-point with special W-component for operations with projection / model view matrices. Use this class for 3D-points carefully because declared W-component may results in incorrect results if used without matrices.", local);
 
 // Constructors
 cls_NCollection_Vec4.def(py::init<>());

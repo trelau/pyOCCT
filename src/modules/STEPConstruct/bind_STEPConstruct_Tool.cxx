@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPConstruct_Tool(py::module &mod){
 
-py::class_<STEPConstruct_Tool, std::unique_ptr<STEPConstruct_Tool, Deleter<STEPConstruct_Tool>>> cls_STEPConstruct_Tool(mod, "STEPConstruct_Tool", "Provides basic functionalities for tools which are intended for encoding/decoding specific STEP constructs");
+py::class_<STEPConstruct_Tool, std::unique_ptr<STEPConstruct_Tool>> cls_STEPConstruct_Tool(mod, "STEPConstruct_Tool", "Provides basic functionalities for tools which are intended for encoding/decoding specific STEP constructs");
 
 // Constructors
 cls_STEPConstruct_Tool.def(py::init<>());

@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool_BoxSort(py::module &mod){
 
-py::class_<TopOpeBRepTool_BoxSort, std::unique_ptr<TopOpeBRepTool_BoxSort, Deleter<TopOpeBRepTool_BoxSort>>> cls_TopOpeBRepTool_BoxSort(mod, "TopOpeBRepTool_BoxSort", "None");
+py::class_<TopOpeBRepTool_BoxSort, std::unique_ptr<TopOpeBRepTool_BoxSort>> cls_TopOpeBRepTool_BoxSort(mod, "TopOpeBRepTool_BoxSort", "None");
 
 // Constructors
 cls_TopOpeBRepTool_BoxSort.def(py::init<>());

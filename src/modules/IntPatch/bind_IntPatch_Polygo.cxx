@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_Polygo(py::module &mod){
 
-py::class_<IntPatch_Polygo, std::unique_ptr<IntPatch_Polygo, Deleter<IntPatch_Polygo>>, Intf_Polygon2d> cls_IntPatch_Polygo(mod, "IntPatch_Polygo", "None");
+py::class_<IntPatch_Polygo, std::unique_ptr<IntPatch_Polygo>, Intf_Polygon2d> cls_IntPatch_Polygo(mod, "IntPatch_Polygo", "None");
 
 // Fields
 

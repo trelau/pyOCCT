@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlObjMgt_Document(py::module &mod){
 
-py::class_<LDOM_Document, std::unique_ptr<LDOM_Document, Deleter<LDOM_Document>>> cls_XmlObjMgt_Document(mod, "XmlObjMgt_Document", "None", py::module_local());
+py::class_<LDOM_Document, std::unique_ptr<LDOM_Document>> cls_XmlObjMgt_Document(mod, "XmlObjMgt_Document", "None", py::module_local());
 
 // Constructors
 cls_XmlObjMgt_Document.def(py::init<>());

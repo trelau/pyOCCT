@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepBasic_PersonOrganizationSelect(py::module &mod){
 
-py::class_<StepBasic_PersonOrganizationSelect, std::unique_ptr<StepBasic_PersonOrganizationSelect, Deleter<StepBasic_PersonOrganizationSelect>>, StepData_SelectType> cls_StepBasic_PersonOrganizationSelect(mod, "StepBasic_PersonOrganizationSelect", "None");
+py::class_<StepBasic_PersonOrganizationSelect, std::unique_ptr<StepBasic_PersonOrganizationSelect>, StepData_SelectType> cls_StepBasic_PersonOrganizationSelect(mod, "StepBasic_PersonOrganizationSelect", "None");
 
 // Constructors
 cls_StepBasic_PersonOrganizationSelect.def(py::init<>());

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Convert_CompBezierCurvesToBSplineCurve(py::module &mod){
 
-py::class_<Convert_CompBezierCurvesToBSplineCurve, std::unique_ptr<Convert_CompBezierCurvesToBSplineCurve, Deleter<Convert_CompBezierCurvesToBSplineCurve>>> cls_Convert_CompBezierCurvesToBSplineCurve(mod, "Convert_CompBezierCurvesToBSplineCurve", "An algorithm to convert a sequence of adjacent non-rational Bezier curves into a BSpline curve. A CompBezierCurvesToBSplineCurve object provides a framework for: - defining the sequence of adjacent non-rational Bezier curves to be converted into a BSpline curve, - implementing the computation algorithm, and - consulting the results. Warning Do not attempt to convert rational Bezier curves using this type of algorithm.");
+py::class_<Convert_CompBezierCurvesToBSplineCurve, std::unique_ptr<Convert_CompBezierCurvesToBSplineCurve>> cls_Convert_CompBezierCurvesToBSplineCurve(mod, "Convert_CompBezierCurvesToBSplineCurve", "An algorithm to convert a sequence of adjacent non-rational Bezier curves into a BSpline curve. A CompBezierCurvesToBSplineCurve object provides a framework for: - defining the sequence of adjacent non-rational Bezier curves to be converted into a BSpline curve, - implementing the computation algorithm, and - consulting the results. Warning Do not attempt to convert rational Bezier curves using this type of algorithm.");
 
 // Constructors
 cls_Convert_CompBezierCurvesToBSplineCurve.def(py::init<>());

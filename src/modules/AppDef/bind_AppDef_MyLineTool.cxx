@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppDef_MyLineTool(py::module &mod){
 
-py::class_<AppDef_MyLineTool, std::unique_ptr<AppDef_MyLineTool, Deleter<AppDef_MyLineTool>>> cls_AppDef_MyLineTool(mod, "AppDef_MyLineTool", "example of MultiLine tool corresponding to the tools of the packages AppParCurves and Approx. For Approx, the tool will not addd points if the algorithms want some.");
+py::class_<AppDef_MyLineTool, std::unique_ptr<AppDef_MyLineTool>> cls_AppDef_MyLineTool(mod, "AppDef_MyLineTool", "example of MultiLine tool corresponding to the tools of the packages AppParCurves and Approx. For Approx, the tool will not addd points if the algorithms want some.");
 
 // Constructors
 

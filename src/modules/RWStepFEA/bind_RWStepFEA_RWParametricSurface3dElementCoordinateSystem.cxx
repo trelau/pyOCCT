@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWParametricSurface3dElementCoordinateSystem(py::module &mod){
 
-py::class_<RWStepFEA_RWParametricSurface3dElementCoordinateSystem, std::unique_ptr<RWStepFEA_RWParametricSurface3dElementCoordinateSystem, Deleter<RWStepFEA_RWParametricSurface3dElementCoordinateSystem>>> cls_RWStepFEA_RWParametricSurface3dElementCoordinateSystem(mod, "RWStepFEA_RWParametricSurface3dElementCoordinateSystem", "Read & Write tool for ParametricSurface3dElementCoordinateSystem");
+py::class_<RWStepFEA_RWParametricSurface3dElementCoordinateSystem, std::unique_ptr<RWStepFEA_RWParametricSurface3dElementCoordinateSystem>> cls_RWStepFEA_RWParametricSurface3dElementCoordinateSystem(mod, "RWStepFEA_RWParametricSurface3dElementCoordinateSystem", "Read & Write tool for ParametricSurface3dElementCoordinateSystem");
 
 // Constructors
 cls_RWStepFEA_RWParametricSurface3dElementCoordinateSystem.def(py::init<>());

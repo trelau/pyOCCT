@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Poly_CoherentTriangle(py::module &mod){
 
-py::class_<Poly_CoherentTriangle, std::unique_ptr<Poly_CoherentTriangle, Deleter<Poly_CoherentTriangle>>> cls_Poly_CoherentTriangle(mod, "Poly_CoherentTriangle", "Data class used in Poly_CoherentTriangultion. Implements a triangle with references to its neighbours.");
+py::class_<Poly_CoherentTriangle, std::unique_ptr<Poly_CoherentTriangle>> cls_Poly_CoherentTriangle(mod, "Poly_CoherentTriangle", "Data class used in Poly_CoherentTriangultion. Implements a triangle with references to its neighbours.");
 
 // Constructors
 cls_Poly_CoherentTriangle.def(py::init<>());

@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GccAna_Lin2dTanPar(py::module &mod){
 
-py::class_<GccAna_Lin2dTanPar, std::unique_ptr<GccAna_Lin2dTanPar, Deleter<GccAna_Lin2dTanPar>>> cls_GccAna_Lin2dTanPar(mod, "GccAna_Lin2dTanPar", "This class implements the algorithms used to create 2d line tangent to a circle or a point and parallel to another line. The solution has the same orientation as the second argument. Describes functions for building a 2D line parallel to a line and: - tangential to a circle, or - passing through a point. A Lin2dTanPar object provides a framework for: - defining the construction of 2D line(s), - implementing the construction algorithm, and consulting the result(s).");
+py::class_<GccAna_Lin2dTanPar, std::unique_ptr<GccAna_Lin2dTanPar>> cls_GccAna_Lin2dTanPar(mod, "GccAna_Lin2dTanPar", "This class implements the algorithms used to create 2d line tangent to a circle or a point and parallel to another line. The solution has the same orientation as the second argument. Describes functions for building a 2D line parallel to a line and: - tangential to a circle, or - passing through a point. A Lin2dTanPar object provides a framework for: - defining the construction of 2D line(s), - implementing the construction algorithm, and consulting the result(s).");
 
 // Constructors
 cls_GccAna_Lin2dTanPar.def(py::init<const gp_Pnt2d &, const gp_Lin2d &>(), py::arg("ThePoint"), py::arg("Lin1"));

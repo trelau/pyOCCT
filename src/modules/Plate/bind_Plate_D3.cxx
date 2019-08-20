@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Plate_D3(py::module &mod){
 
-py::class_<Plate_D3, std::unique_ptr<Plate_D3, Deleter<Plate_D3>>> cls_Plate_D3(mod, "Plate_D3", "define an order 3 derivatives of a 3d valued function of a 2d variable");
+py::class_<Plate_D3, std::unique_ptr<Plate_D3>> cls_Plate_D3(mod, "Plate_D3", "define an order 3 derivatives of a 3d valued function of a 2d variable");
 
 // Constructors
 cls_Plate_D3.def(py::init<const gp_XYZ &, const gp_XYZ &, const gp_XYZ &, const gp_XYZ &>(), py::arg("duuu"), py::arg("duuv"), py::arg("duvv"), py::arg("dvvv"));

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWAutoDesignSecurityClassificationAssignment(py::module &mod){
 
-py::class_<RWStepAP214_RWAutoDesignSecurityClassificationAssignment, std::unique_ptr<RWStepAP214_RWAutoDesignSecurityClassificationAssignment, Deleter<RWStepAP214_RWAutoDesignSecurityClassificationAssignment>>> cls_RWStepAP214_RWAutoDesignSecurityClassificationAssignment(mod, "RWStepAP214_RWAutoDesignSecurityClassificationAssignment", "Read & Write Module for AutoDesignSecurityClassificationAssignment");
+py::class_<RWStepAP214_RWAutoDesignSecurityClassificationAssignment, std::unique_ptr<RWStepAP214_RWAutoDesignSecurityClassificationAssignment>> cls_RWStepAP214_RWAutoDesignSecurityClassificationAssignment(mod, "RWStepAP214_RWAutoDesignSecurityClassificationAssignment", "Read & Write Module for AutoDesignSecurityClassificationAssignment");
 
 // Constructors
 cls_RWStepAP214_RWAutoDesignSecurityClassificationAssignment.def(py::init<>());

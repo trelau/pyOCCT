@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Bnd_BoundSortBox2d(py::module &mod){
 
-py::class_<Bnd_BoundSortBox2d, std::unique_ptr<Bnd_BoundSortBox2d, Deleter<Bnd_BoundSortBox2d>>> cls_Bnd_BoundSortBox2d(mod, "Bnd_BoundSortBox2d", "A tool to compare a 2D bounding box with a set of 2D bounding boxes. It sorts the set of bounding boxes to give the list of boxes which intersect the element being compared. The boxes being sorted generally bound a set of shapes, while the box being compared bounds a shape to be compared. The resulting list of intersecting boxes therefore gives the list of items which potentially intersect the shape to be compared.");
+py::class_<Bnd_BoundSortBox2d, std::unique_ptr<Bnd_BoundSortBox2d>> cls_Bnd_BoundSortBox2d(mod, "Bnd_BoundSortBox2d", "A tool to compare a 2D bounding box with a set of 2D bounding boxes. It sorts the set of bounding boxes to give the list of boxes which intersect the element being compared. The boxes being sorted generally bound a set of shapes, while the box being compared bounds a shape to be compared. The resulting list of intersecting boxes therefore gives the list of items which potentially intersect the shape to be compared.");
 
 // Constructors
 cls_Bnd_BoundSortBox2d.def(py::init<>());

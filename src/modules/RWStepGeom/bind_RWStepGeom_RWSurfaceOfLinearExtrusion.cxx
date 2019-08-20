@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWSurfaceOfLinearExtrusion(py::module &mod){
 
-py::class_<RWStepGeom_RWSurfaceOfLinearExtrusion, std::unique_ptr<RWStepGeom_RWSurfaceOfLinearExtrusion, Deleter<RWStepGeom_RWSurfaceOfLinearExtrusion>>> cls_RWStepGeom_RWSurfaceOfLinearExtrusion(mod, "RWStepGeom_RWSurfaceOfLinearExtrusion", "Read & Write Module for SurfaceOfLinearExtrusion");
+py::class_<RWStepGeom_RWSurfaceOfLinearExtrusion, std::unique_ptr<RWStepGeom_RWSurfaceOfLinearExtrusion>> cls_RWStepGeom_RWSurfaceOfLinearExtrusion(mod, "RWStepGeom_RWSurfaceOfLinearExtrusion", "Read & Write Module for SurfaceOfLinearExtrusion");
 
 // Constructors
 cls_RWStepGeom_RWSurfaceOfLinearExtrusion.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_Section(py::module &mod){
 
-py::class_<BOPAlgo_Section, std::unique_ptr<BOPAlgo_Section, Deleter<BOPAlgo_Section>>, BOPAlgo_Builder> cls_BOPAlgo_Section(mod, "BOPAlgo_Section", "The algorithm to build a Section between the arguments. The Section consists of vertices and edges. The Section contains: 1. new vertices that are subjects of V/V, E/E, E/F, F/F interferences 2. vertices that are subjects of V/E, V/F interferences 3. new edges that are subjects of F/F interferences 4. edges that are Common Blocks");
+py::class_<BOPAlgo_Section, std::unique_ptr<BOPAlgo_Section>, BOPAlgo_Builder> cls_BOPAlgo_Section(mod, "BOPAlgo_Section", "The algorithm to build a Section between the arguments. The Section consists of vertices and edges. The Section contains: 1. new vertices that are subjects of V/V, E/E, E/F, F/F interferences 2. vertices that are subjects of V/E, V/F interferences 3. new edges that are subjects of F/F interferences 4. edges that are Common Blocks");
 
 // Constructors
 cls_BOPAlgo_Section.def(py::init<>());

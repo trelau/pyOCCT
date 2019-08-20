@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGraph_ToolPick(py::module &mod){
 
-py::class_<IGESGraph_ToolPick, std::unique_ptr<IGESGraph_ToolPick, Deleter<IGESGraph_ToolPick>>> cls_IGESGraph_ToolPick(mod, "IGESGraph_ToolPick", "Tool to work on a Pick. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGraph_ToolPick, std::unique_ptr<IGESGraph_ToolPick>> cls_IGESGraph_ToolPick(mod, "IGESGraph_ToolPick", "Tool to work on a Pick. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGraph_ToolPick.def(py::init<>());

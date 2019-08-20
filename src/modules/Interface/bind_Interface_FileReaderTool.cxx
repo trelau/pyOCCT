@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_FileReaderTool(py::module &mod){
 
-py::class_<Interface_FileReaderTool, std::unique_ptr<Interface_FileReaderTool, Deleter<Interface_FileReaderTool>>> cls_Interface_FileReaderTool(mod, "Interface_FileReaderTool", "Defines services which are required to load an InterfaceModel from a File. Typically, it may firstly transform a system file into a FileReaderData object, then work on it, not longer considering file contents, to load an Interface Model. It may also work on a FileReaderData already loaded.");
+py::class_<Interface_FileReaderTool, std::unique_ptr<Interface_FileReaderTool>> cls_Interface_FileReaderTool(mod, "Interface_FileReaderTool", "Defines services which are required to load an InterfaceModel from a File. Typically, it may firstly transform a system file into a FileReaderData object, then work on it, not longer considering file contents, to load an Interface Model. It may also work on a FileReaderData already loaded.");
 
 // Fields
 

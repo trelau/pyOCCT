@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolSphere(py::module &mod){
 
-py::class_<IGESSolid_ToolSphere, std::unique_ptr<IGESSolid_ToolSphere, Deleter<IGESSolid_ToolSphere>>> cls_IGESSolid_ToolSphere(mod, "IGESSolid_ToolSphere", "Tool to work on a Sphere. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolSphere, std::unique_ptr<IGESSolid_ToolSphere>> cls_IGESSolid_ToolSphere(mod, "IGESSolid_ToolSphere", "Tool to work on a Sphere. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolSphere.def(py::init<>());

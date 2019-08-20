@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWSurfaceSideStyle(py::module &mod){
 
-py::class_<RWStepVisual_RWSurfaceSideStyle, std::unique_ptr<RWStepVisual_RWSurfaceSideStyle, Deleter<RWStepVisual_RWSurfaceSideStyle>>> cls_RWStepVisual_RWSurfaceSideStyle(mod, "RWStepVisual_RWSurfaceSideStyle", "Read & Write Module for SurfaceSideStyle");
+py::class_<RWStepVisual_RWSurfaceSideStyle, std::unique_ptr<RWStepVisual_RWSurfaceSideStyle>> cls_RWStepVisual_RWSurfaceSideStyle(mod, "RWStepVisual_RWSurfaceSideStyle", "Read & Write Module for SurfaceSideStyle");
 
 // Constructors
 cls_RWStepVisual_RWSurfaceSideStyle.def(py::init<>());

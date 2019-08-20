@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepToIGES_BREntity(py::module &mod){
 
-py::class_<BRepToIGES_BREntity, std::unique_ptr<BRepToIGES_BREntity, Deleter<BRepToIGES_BREntity>>> cls_BRepToIGES_BREntity(mod, "BRepToIGES_BREntity", "provides methods to transfer BRep entity from CASCADE to IGES.");
+py::class_<BRepToIGES_BREntity, std::unique_ptr<BRepToIGES_BREntity>> cls_BRepToIGES_BREntity(mod, "BRepToIGES_BREntity", "provides methods to transfer BRep entity from CASCADE to IGES.");
 
 // Constructors
 cls_BRepToIGES_BREntity.def(py::init<>());

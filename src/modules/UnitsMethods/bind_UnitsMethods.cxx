@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_UnitsMethods(py::module &mod){
 
-py::class_<UnitsMethods, std::unique_ptr<UnitsMethods, Deleter<UnitsMethods>>> cls_UnitsMethods(mod, "UnitsMethods", "None");
+py::class_<UnitsMethods, std::unique_ptr<UnitsMethods>> cls_UnitsMethods(mod, "UnitsMethods", "None");
 
 // Constructors
 

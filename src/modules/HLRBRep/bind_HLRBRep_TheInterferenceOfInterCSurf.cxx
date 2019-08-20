@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_TheInterferenceOfInterCSurf(py::module &mod){
 
-py::class_<HLRBRep_TheInterferenceOfInterCSurf, std::unique_ptr<HLRBRep_TheInterferenceOfInterCSurf, Deleter<HLRBRep_TheInterferenceOfInterCSurf>>, Intf_Interference> cls_HLRBRep_TheInterferenceOfInterCSurf(mod, "HLRBRep_TheInterferenceOfInterCSurf", "None");
+py::class_<HLRBRep_TheInterferenceOfInterCSurf, std::unique_ptr<HLRBRep_TheInterferenceOfInterCSurf>, Intf_Interference> cls_HLRBRep_TheInterferenceOfInterCSurf(mod, "HLRBRep_TheInterferenceOfInterCSurf", "None");
 
 // Constructors
 cls_HLRBRep_TheInterferenceOfInterCSurf.def(py::init<>());

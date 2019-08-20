@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dLProp_NumericCurInf2d(py::module &mod){
 
-py::class_<Geom2dLProp_NumericCurInf2d, std::unique_ptr<Geom2dLProp_NumericCurInf2d, Deleter<Geom2dLProp_NumericCurInf2d>>> cls_Geom2dLProp_NumericCurInf2d(mod, "Geom2dLProp_NumericCurInf2d", "Computes the locals extremas of curvature and the inflections of a bounded curve in 2d.");
+py::class_<Geom2dLProp_NumericCurInf2d, std::unique_ptr<Geom2dLProp_NumericCurInf2d>> cls_Geom2dLProp_NumericCurInf2d(mod, "Geom2dLProp_NumericCurInf2d", "Computes the locals extremas of curvature and the inflections of a bounded curve in 2d.");
 
 // Constructors
 cls_Geom2dLProp_NumericCurInf2d.def(py::init<>());

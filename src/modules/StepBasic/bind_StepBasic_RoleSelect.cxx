@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepBasic_RoleSelect(py::module &mod){
 
-py::class_<StepBasic_RoleSelect, std::unique_ptr<StepBasic_RoleSelect, Deleter<StepBasic_RoleSelect>>, StepData_SelectType> cls_StepBasic_RoleSelect(mod, "StepBasic_RoleSelect", "Representation of STEP SELECT type RoleSelect");
+py::class_<StepBasic_RoleSelect, std::unique_ptr<StepBasic_RoleSelect>, StepData_SelectType> cls_StepBasic_RoleSelect(mod, "StepBasic_RoleSelect", "Representation of STEP SELECT type RoleSelect");
 
 // Constructors
 cls_StepBasic_RoleSelect.def(py::init<>());

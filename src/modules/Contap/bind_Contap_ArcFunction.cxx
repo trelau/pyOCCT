@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Contap_ArcFunction(py::module &mod){
 
-py::class_<Contap_ArcFunction, std::unique_ptr<Contap_ArcFunction, Deleter<Contap_ArcFunction>>, math_FunctionWithDerivative> cls_Contap_ArcFunction(mod, "Contap_ArcFunction", "None");
+py::class_<Contap_ArcFunction, std::unique_ptr<Contap_ArcFunction>, math_FunctionWithDerivative> cls_Contap_ArcFunction(mod, "Contap_ArcFunction", "None");
 
 // Constructors
 cls_Contap_ArcFunction.def(py::init<>());

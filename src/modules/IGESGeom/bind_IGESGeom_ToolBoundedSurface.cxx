@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGeom_ToolBoundedSurface(py::module &mod){
 
-py::class_<IGESGeom_ToolBoundedSurface, std::unique_ptr<IGESGeom_ToolBoundedSurface, Deleter<IGESGeom_ToolBoundedSurface>>> cls_IGESGeom_ToolBoundedSurface(mod, "IGESGeom_ToolBoundedSurface", "Tool to work on a BoundedSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGeom_ToolBoundedSurface, std::unique_ptr<IGESGeom_ToolBoundedSurface>> cls_IGESGeom_ToolBoundedSurface(mod, "IGESGeom_ToolBoundedSurface", "Tool to work on a BoundedSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGeom_ToolBoundedSurface.def(py::init<>());

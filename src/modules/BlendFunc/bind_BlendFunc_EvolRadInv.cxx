@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BlendFunc_EvolRadInv(py::module &mod){
 
-py::class_<BlendFunc_EvolRadInv, std::unique_ptr<BlendFunc_EvolRadInv, Deleter<BlendFunc_EvolRadInv>>, Blend_FuncInv> cls_BlendFunc_EvolRadInv(mod, "BlendFunc_EvolRadInv", "None");
+py::class_<BlendFunc_EvolRadInv, std::unique_ptr<BlendFunc_EvolRadInv>, Blend_FuncInv> cls_BlendFunc_EvolRadInv(mod, "BlendFunc_EvolRadInv", "None");
 
 // Constructors
 cls_BlendFunc_EvolRadInv.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &, const opencascade::handle<Law_Function> &>(), py::arg("S1"), py::arg("S2"), py::arg("C"), py::arg("Law"));

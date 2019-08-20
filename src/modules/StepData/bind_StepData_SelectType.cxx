@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepData_SelectType(py::module &mod){
 
-py::class_<StepData_SelectType, std::unique_ptr<StepData_SelectType, Deleter<StepData_SelectType>>> cls_StepData_SelectType(mod, "StepData_SelectType", "SelectType is the basis used for SELECT_TYPE definitions from the EXPRESS form. A SELECT_TYPE in EXPRESS is an enumeration of Types, it corresponds in a way to a Super-Type, but with no specific Methods, and no exclusivity (a given Type can be member of several SELECT_TYPES, plus be itself a SUB_TYPE).");
+py::class_<StepData_SelectType, std::unique_ptr<StepData_SelectType>> cls_StepData_SelectType(mod, "StepData_SelectType", "SelectType is the basis used for SELECT_TYPE definitions from the EXPRESS form. A SELECT_TYPE in EXPRESS is an enumeration of Types, it corresponds in a way to a Super-Type, but with no specific Methods, and no exclusivity (a given Type can be member of several SELECT_TYPES, plus be itself a SUB_TYPE).");
 
 // Fields
 

@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepApprox_SurfaceTool(py::module &mod){
 
-py::class_<BRepApprox_SurfaceTool, std::unique_ptr<BRepApprox_SurfaceTool, Deleter<BRepApprox_SurfaceTool>>> cls_BRepApprox_SurfaceTool(mod, "BRepApprox_SurfaceTool", "None");
+py::class_<BRepApprox_SurfaceTool, std::unique_ptr<BRepApprox_SurfaceTool>> cls_BRepApprox_SurfaceTool(mod, "BRepApprox_SurfaceTool", "None");
 
 // Constructors
 

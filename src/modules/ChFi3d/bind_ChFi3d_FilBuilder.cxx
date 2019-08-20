@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFi3d_FilBuilder(py::module &mod){
 
-py::class_<ChFi3d_FilBuilder, std::unique_ptr<ChFi3d_FilBuilder, Deleter<ChFi3d_FilBuilder>>, ChFi3d_Builder> cls_ChFi3d_FilBuilder(mod, "ChFi3d_FilBuilder", "Tool of construction of fillets 3d on edges (on a solid).");
+py::class_<ChFi3d_FilBuilder, std::unique_ptr<ChFi3d_FilBuilder>, ChFi3d_Builder> cls_ChFi3d_FilBuilder(mod, "ChFi3d_FilBuilder", "Tool of construction of fillets 3d on edges (on a solid).");
 
 // Constructors
 cls_ChFi3d_FilBuilder.def(py::init<const TopoDS_Shape &>(), py::arg("S"));

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFiDS_Map(py::module &mod){
 
-py::class_<ChFiDS_Map, std::unique_ptr<ChFiDS_Map, Deleter<ChFiDS_Map>>> cls_ChFiDS_Map(mod, "ChFiDS_Map", "Encapsulation of IndexedDataMapOfShapeListOfShape.");
+py::class_<ChFiDS_Map, std::unique_ptr<ChFiDS_Map>> cls_ChFiDS_Map(mod, "ChFiDS_Map", "Encapsulation of IndexedDataMapOfShapeListOfShape.");
 
 // Constructors
 cls_ChFiDS_Map.def(py::init<>());

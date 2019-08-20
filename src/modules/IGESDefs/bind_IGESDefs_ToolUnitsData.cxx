@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDefs_ToolUnitsData(py::module &mod){
 
-py::class_<IGESDefs_ToolUnitsData, std::unique_ptr<IGESDefs_ToolUnitsData, Deleter<IGESDefs_ToolUnitsData>>> cls_IGESDefs_ToolUnitsData(mod, "IGESDefs_ToolUnitsData", "Tool to work on a UnitsData. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDefs_ToolUnitsData, std::unique_ptr<IGESDefs_ToolUnitsData>> cls_IGESDefs_ToolUnitsData(mod, "IGESDefs_ToolUnitsData", "Tool to work on a UnitsData. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDefs_ToolUnitsData.def(py::init<>());

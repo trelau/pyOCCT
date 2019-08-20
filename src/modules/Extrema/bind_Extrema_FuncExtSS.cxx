@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_FuncExtSS(py::module &mod){
 
-py::class_<Extrema_FuncExtSS, std::unique_ptr<Extrema_FuncExtSS, Deleter<Extrema_FuncExtSS>>, math_FunctionSetWithDerivatives> cls_Extrema_FuncExtSS(mod, "Extrema_FuncExtSS", "Function to find extrema of the distance between two surfaces.");
+py::class_<Extrema_FuncExtSS, std::unique_ptr<Extrema_FuncExtSS>, math_FunctionSetWithDerivatives> cls_Extrema_FuncExtSS(mod, "Extrema_FuncExtSS", "Function to find extrema of the distance between two surfaces.");
 
 // Constructors
 cls_Extrema_FuncExtSS.def(py::init<>());

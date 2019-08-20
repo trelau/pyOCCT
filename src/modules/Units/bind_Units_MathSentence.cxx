@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Units_MathSentence(py::module &mod){
 
-py::class_<Units_MathSentence, std::unique_ptr<Units_MathSentence, Deleter<Units_MathSentence>>, Units_Sentence> cls_Units_MathSentence(mod, "Units_MathSentence", "This class defines all the methods to create and compute an algebraic formula.");
+py::class_<Units_MathSentence, std::unique_ptr<Units_MathSentence>, Units_Sentence> cls_Units_MathSentence(mod, "Units_MathSentence", "This class defines all the methods to create and compute an algebraic formula.");
 
 // Constructors
 cls_Units_MathSentence.def(py::init<const Standard_CString>(), py::arg("astring"));

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MAT2d_CutCurve(py::module &mod){
 
-py::class_<MAT2d_CutCurve, std::unique_ptr<MAT2d_CutCurve, Deleter<MAT2d_CutCurve>>> cls_MAT2d_CutCurve(mod, "MAT2d_CutCurve", "Cuts a curve at the extremas of curvature and at the inflections. Constructs a trimmed Curve for each interval.");
+py::class_<MAT2d_CutCurve, std::unique_ptr<MAT2d_CutCurve>> cls_MAT2d_CutCurve(mod, "MAT2d_CutCurve", "Cuts a curve at the extremas of curvature and at the inflections. Constructs a trimmed Curve for each interval.");
 
 // Constructors
 cls_MAT2d_CutCurve.def(py::init<>());

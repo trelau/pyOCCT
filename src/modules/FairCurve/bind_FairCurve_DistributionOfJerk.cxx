@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FairCurve_DistributionOfJerk(py::module &mod){
 
-py::class_<FairCurve_DistributionOfJerk, std::unique_ptr<FairCurve_DistributionOfJerk, Deleter<FairCurve_DistributionOfJerk>>, FairCurve_DistributionOfEnergy> cls_FairCurve_DistributionOfJerk(mod, "FairCurve_DistributionOfJerk", "Compute the 'Jerk' distribution.");
+py::class_<FairCurve_DistributionOfJerk, std::unique_ptr<FairCurve_DistributionOfJerk>, FairCurve_DistributionOfEnergy> cls_FairCurve_DistributionOfJerk(mod, "FairCurve_DistributionOfJerk", "Compute the 'Jerk' distribution.");
 
 // Constructors
 cls_FairCurve_DistributionOfJerk.def(py::init<const Standard_Integer, const opencascade::handle<TColStd_HArray1OfReal> &, const opencascade::handle<TColgp_HArray1OfPnt2d> &, const Standard_Integer, const FairCurve_BattenLaw &>(), py::arg("BSplOrder"), py::arg("FlatKnots"), py::arg("Poles"), py::arg("DerivativeOrder"), py::arg("Law"));

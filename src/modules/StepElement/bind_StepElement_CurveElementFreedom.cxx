@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepElement_CurveElementFreedom(py::module &mod){
 
-py::class_<StepElement_CurveElementFreedom, std::unique_ptr<StepElement_CurveElementFreedom, Deleter<StepElement_CurveElementFreedom>>, StepData_SelectType> cls_StepElement_CurveElementFreedom(mod, "StepElement_CurveElementFreedom", "Representation of STEP SELECT type CurveElementFreedom");
+py::class_<StepElement_CurveElementFreedom, std::unique_ptr<StepElement_CurveElementFreedom>, StepData_SelectType> cls_StepElement_CurveElementFreedom(mod, "StepElement_CurveElementFreedom", "Representation of STEP SELECT type CurveElementFreedom");
 
 // Constructors
 cls_StepElement_CurveElementFreedom.def(py::init<>());

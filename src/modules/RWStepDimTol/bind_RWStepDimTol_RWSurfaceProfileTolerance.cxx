@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWSurfaceProfileTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWSurfaceProfileTolerance, std::unique_ptr<RWStepDimTol_RWSurfaceProfileTolerance, Deleter<RWStepDimTol_RWSurfaceProfileTolerance>>> cls_RWStepDimTol_RWSurfaceProfileTolerance(mod, "RWStepDimTol_RWSurfaceProfileTolerance", "Read & Write tool for SurfaceProfileTolerance");
+py::class_<RWStepDimTol_RWSurfaceProfileTolerance, std::unique_ptr<RWStepDimTol_RWSurfaceProfileTolerance>> cls_RWStepDimTol_RWSurfaceProfileTolerance(mod, "RWStepDimTol_RWSurfaceProfileTolerance", "Read & Write tool for SurfaceProfileTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWSurfaceProfileTolerance.def(py::init<>());

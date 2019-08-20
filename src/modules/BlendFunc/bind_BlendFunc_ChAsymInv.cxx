@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BlendFunc_ChAsymInv(py::module &mod){
 
-py::class_<BlendFunc_ChAsymInv, std::unique_ptr<BlendFunc_ChAsymInv, Deleter<BlendFunc_ChAsymInv>>, Blend_FuncInv> cls_BlendFunc_ChAsymInv(mod, "BlendFunc_ChAsymInv", "None");
+py::class_<BlendFunc_ChAsymInv, std::unique_ptr<BlendFunc_ChAsymInv>, Blend_FuncInv> cls_BlendFunc_ChAsymInv(mod, "BlendFunc_ChAsymInv", "None");
 
 // Constructors
 cls_BlendFunc_ChAsymInv.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S1"), py::arg("S2"), py::arg("C"));

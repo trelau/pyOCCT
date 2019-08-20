@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOMString(py::module &mod){
 
-py::class_<LDOMString, std::unique_ptr<LDOMString, Deleter<LDOMString>>, LDOMBasicString> cls_LDOMString(mod, "LDOMString", "None");
+py::class_<LDOMString, std::unique_ptr<LDOMString>, LDOMBasicString> cls_LDOMString(mod, "LDOMString", "None");
 
 // Constructors
 cls_LDOMString.def(py::init<>());

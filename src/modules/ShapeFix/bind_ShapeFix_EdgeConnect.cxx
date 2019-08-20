@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeFix_EdgeConnect(py::module &mod){
 
-py::class_<ShapeFix_EdgeConnect, std::unique_ptr<ShapeFix_EdgeConnect, Deleter<ShapeFix_EdgeConnect>>> cls_ShapeFix_EdgeConnect(mod, "ShapeFix_EdgeConnect", "Rebuilds edges to connect with new vertices, was moved from ShapeBuild. Makes vertices to be shared to connect edges, updates positions and tolerances for shared vertices. Accepts edges bounded by two vertices each.");
+py::class_<ShapeFix_EdgeConnect, std::unique_ptr<ShapeFix_EdgeConnect>> cls_ShapeFix_EdgeConnect(mod, "ShapeFix_EdgeConnect", "Rebuilds edges to connect with new vertices, was moved from ShapeBuild. Makes vertices to be shared to connect edges, updates positions and tolerances for shared vertices. Accepts edges bounded by two vertices each.");
 
 // Constructors
 cls_ShapeFix_EdgeConnect.def(py::init<>());

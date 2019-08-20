@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPTools_Set(py::module &mod){
 
-py::class_<BOPTools_Set, std::unique_ptr<BOPTools_Set, Deleter<BOPTools_Set>>> cls_BOPTools_Set(mod, "BOPTools_Set", "None");
+py::class_<BOPTools_Set, std::unique_ptr<BOPTools_Set>> cls_BOPTools_Set(mod, "BOPTools_Set", "None");
 
 // Constructors
 cls_BOPTools_Set.def(py::init<>());

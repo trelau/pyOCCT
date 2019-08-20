@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_CCLocFOfLocECC(py::module &mod){
 
-py::class_<Extrema_CCLocFOfLocECC, std::unique_ptr<Extrema_CCLocFOfLocECC, Deleter<Extrema_CCLocFOfLocECC>>, math_FunctionSetWithDerivatives> cls_Extrema_CCLocFOfLocECC(mod, "Extrema_CCLocFOfLocECC", "None");
+py::class_<Extrema_CCLocFOfLocECC, std::unique_ptr<Extrema_CCLocFOfLocECC>, math_FunctionSetWithDerivatives> cls_Extrema_CCLocFOfLocECC(mod, "Extrema_CCLocFOfLocECC", "None");
 
 // Constructors
 cls_Extrema_CCLocFOfLocECC.def(py::init<>());

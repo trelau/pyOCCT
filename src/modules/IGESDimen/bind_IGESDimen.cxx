@@ -76,7 +76,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen(py::module &mod){
 
-py::class_<IGESDimen, std::unique_ptr<IGESDimen, Deleter<IGESDimen>>> cls_IGESDimen(mod, "IGESDimen", "This package represents Entities applied to Dimensions ie. Annotation Entities and attached Properties and Associativities.");
+py::class_<IGESDimen, std::unique_ptr<IGESDimen>> cls_IGESDimen(mod, "IGESDimen", "This package represents Entities applied to Dimensions ie. Annotation Entities and attached Properties and Associativities.");
 
 // Constructors
 

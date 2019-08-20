@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWBoundedSurface(py::module &mod){
 
-py::class_<RWStepGeom_RWBoundedSurface, std::unique_ptr<RWStepGeom_RWBoundedSurface, Deleter<RWStepGeom_RWBoundedSurface>>> cls_RWStepGeom_RWBoundedSurface(mod, "RWStepGeom_RWBoundedSurface", "Read & Write Module for BoundedSurface");
+py::class_<RWStepGeom_RWBoundedSurface, std::unique_ptr<RWStepGeom_RWBoundedSurface>> cls_RWStepGeom_RWBoundedSurface(mod, "RWStepGeom_RWBoundedSurface", "Read & Write Module for BoundedSurface");
 
 // Constructors
 cls_RWStepGeom_RWBoundedSurface.def(py::init<>());

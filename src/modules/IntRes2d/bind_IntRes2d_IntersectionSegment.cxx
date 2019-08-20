@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntRes2d_IntersectionSegment(py::module &mod){
 
-py::class_<IntRes2d_IntersectionSegment, std::unique_ptr<IntRes2d_IntersectionSegment, Deleter<IntRes2d_IntersectionSegment>>> cls_IntRes2d_IntersectionSegment(mod, "IntRes2d_IntersectionSegment", "Definition of an intersection curve between two 2D curves.");
+py::class_<IntRes2d_IntersectionSegment, std::unique_ptr<IntRes2d_IntersectionSegment>> cls_IntRes2d_IntersectionSegment(mod, "IntRes2d_IntersectionSegment", "Definition of an intersection curve between two 2D curves.");
 
 // Constructors
 cls_IntRes2d_IntersectionSegment.def(py::init<>());

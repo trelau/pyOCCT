@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepGProp_EdgeTool(py::module &mod){
 
-py::class_<BRepGProp_EdgeTool, std::unique_ptr<BRepGProp_EdgeTool, Deleter<BRepGProp_EdgeTool>>> cls_BRepGProp_EdgeTool(mod, "BRepGProp_EdgeTool", "Provides the required methods to instantiate CGProps from GProp with a Curve from BRepAdaptor.");
+py::class_<BRepGProp_EdgeTool, std::unique_ptr<BRepGProp_EdgeTool>> cls_BRepGProp_EdgeTool(mod, "BRepGProp_EdgeTool", "Provides the required methods to instantiate CGProps from GProp with a Curve from BRepAdaptor.");
 
 // Constructors
 

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_InterferenceTool(py::module &mod){
 
-py::class_<TopOpeBRepDS_InterferenceTool, std::unique_ptr<TopOpeBRepDS_InterferenceTool, Deleter<TopOpeBRepDS_InterferenceTool>>> cls_TopOpeBRepDS_InterferenceTool(mod, "TopOpeBRepDS_InterferenceTool", "None");
+py::class_<TopOpeBRepDS_InterferenceTool, std::unique_ptr<TopOpeBRepDS_InterferenceTool>> cls_TopOpeBRepDS_InterferenceTool(mod, "TopOpeBRepDS_InterferenceTool", "None");
 
 // Constructors
 

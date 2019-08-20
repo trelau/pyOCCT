@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWApplicationProtocolDefinition(py::module &mod){
 
-py::class_<RWStepBasic_RWApplicationProtocolDefinition, std::unique_ptr<RWStepBasic_RWApplicationProtocolDefinition, Deleter<RWStepBasic_RWApplicationProtocolDefinition>>> cls_RWStepBasic_RWApplicationProtocolDefinition(mod, "RWStepBasic_RWApplicationProtocolDefinition", "Read & Write Module for ApplicationProtocolDefinition");
+py::class_<RWStepBasic_RWApplicationProtocolDefinition, std::unique_ptr<RWStepBasic_RWApplicationProtocolDefinition>> cls_RWStepBasic_RWApplicationProtocolDefinition(mod, "RWStepBasic_RWApplicationProtocolDefinition", "Read & Write Module for ApplicationProtocolDefinition");
 
 // Constructors
 cls_RWStepBasic_RWApplicationProtocolDefinition.def(py::init<>());

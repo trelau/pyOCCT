@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli_ToolRegionRestriction(py::module &mod){
 
-py::class_<IGESAppli_ToolRegionRestriction, std::unique_ptr<IGESAppli_ToolRegionRestriction, Deleter<IGESAppli_ToolRegionRestriction>>> cls_IGESAppli_ToolRegionRestriction(mod, "IGESAppli_ToolRegionRestriction", "Tool to work on a RegionRestriction. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESAppli_ToolRegionRestriction, std::unique_ptr<IGESAppli_ToolRegionRestriction>> cls_IGESAppli_ToolRegionRestriction(mod, "IGESAppli_ToolRegionRestriction", "Tool to work on a RegionRestriction. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESAppli_ToolRegionRestriction.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWAnnotationCurveOccurrence(py::module &mod){
 
-py::class_<RWStepVisual_RWAnnotationCurveOccurrence, std::unique_ptr<RWStepVisual_RWAnnotationCurveOccurrence, Deleter<RWStepVisual_RWAnnotationCurveOccurrence>>> cls_RWStepVisual_RWAnnotationCurveOccurrence(mod, "RWStepVisual_RWAnnotationCurveOccurrence", "Read & Write Module for AnnotationCurveOccurrence");
+py::class_<RWStepVisual_RWAnnotationCurveOccurrence, std::unique_ptr<RWStepVisual_RWAnnotationCurveOccurrence>> cls_RWStepVisual_RWAnnotationCurveOccurrence(mod, "RWStepVisual_RWAnnotationCurveOccurrence", "Read & Write Module for AnnotationCurveOccurrence");
 
 // Constructors
 cls_RWStepVisual_RWAnnotationCurveOccurrence.def(py::init<>());

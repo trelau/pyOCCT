@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_TheComputeLineBezierOfWLApprox(py::module &mod){
 
-py::class_<GeomInt_TheComputeLineBezierOfWLApprox, std::unique_ptr<GeomInt_TheComputeLineBezierOfWLApprox, Deleter<GeomInt_TheComputeLineBezierOfWLApprox>>> cls_GeomInt_TheComputeLineBezierOfWLApprox(mod, "GeomInt_TheComputeLineBezierOfWLApprox", "None");
+py::class_<GeomInt_TheComputeLineBezierOfWLApprox, std::unique_ptr<GeomInt_TheComputeLineBezierOfWLApprox>> cls_GeomInt_TheComputeLineBezierOfWLApprox(mod, "GeomInt_TheComputeLineBezierOfWLApprox", "None");
 
 // Constructors
 cls_GeomInt_TheComputeLineBezierOfWLApprox.def(py::init<const GeomInt_TheMultiLineOfWLApprox &>(), py::arg("Line"));

@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP214_GroupItem(py::module &mod){
 
-py::class_<StepAP214_GroupItem, std::unique_ptr<StepAP214_GroupItem, Deleter<StepAP214_GroupItem>>, StepData_SelectType> cls_StepAP214_GroupItem(mod, "StepAP214_GroupItem", "None");
+py::class_<StepAP214_GroupItem, std::unique_ptr<StepAP214_GroupItem>, StepData_SelectType> cls_StepAP214_GroupItem(mod, "StepAP214_GroupItem", "None");
 
 // Constructors
 cls_StepAP214_GroupItem.def(py::init<>());

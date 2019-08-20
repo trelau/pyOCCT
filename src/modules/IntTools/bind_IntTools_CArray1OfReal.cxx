@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_CArray1OfReal(py::module &mod){
 
-py::class_<IntTools_CArray1OfReal, std::unique_ptr<IntTools_CArray1OfReal, Deleter<IntTools_CArray1OfReal>>> cls_IntTools_CArray1OfReal(mod, "IntTools_CArray1OfReal", "None");
+py::class_<IntTools_CArray1OfReal, std::unique_ptr<IntTools_CArray1OfReal>> cls_IntTools_CArray1OfReal(mod, "IntTools_CArray1OfReal", "None");
 
 // Constructors
 cls_IntTools_CArray1OfReal.def(py::init<>());

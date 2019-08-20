@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWDocumentRepresentationType(py::module &mod){
 
-py::class_<RWStepBasic_RWDocumentRepresentationType, std::unique_ptr<RWStepBasic_RWDocumentRepresentationType, Deleter<RWStepBasic_RWDocumentRepresentationType>>> cls_RWStepBasic_RWDocumentRepresentationType(mod, "RWStepBasic_RWDocumentRepresentationType", "Read & Write tool for DocumentRepresentationType");
+py::class_<RWStepBasic_RWDocumentRepresentationType, std::unique_ptr<RWStepBasic_RWDocumentRepresentationType>> cls_RWStepBasic_RWDocumentRepresentationType(mod, "RWStepBasic_RWDocumentRepresentationType", "Read & Write tool for DocumentRepresentationType");
 
 // Constructors
 cls_RWStepBasic_RWDocumentRepresentationType.def(py::init<>());

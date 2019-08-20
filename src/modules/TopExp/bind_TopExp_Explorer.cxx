@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopExp_Explorer(py::module &mod){
 
-py::class_<TopExp_Explorer, std::unique_ptr<TopExp_Explorer, Deleter<TopExp_Explorer>>> cls_TopExp_Explorer(mod, "TopExp_Explorer", "An Explorer is a Tool to visit a Topological Data Structure form the TopoDS package.");
+py::class_<TopExp_Explorer, std::unique_ptr<TopExp_Explorer>> cls_TopExp_Explorer(mod, "TopExp_Explorer", "An Explorer is a Tool to visit a Topological Data Structure form the TopoDS package.");
 
 // Constructors
 cls_TopExp_Explorer.def(py::init<>());

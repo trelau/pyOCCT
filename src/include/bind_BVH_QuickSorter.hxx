@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T, int N>
 void bind_BVH_QuickSorter(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BVH_QuickSorter<T, N>, std::unique_ptr<BVH_QuickSorter<T, N>, Deleter<BVH_QuickSorter<T, N>>>, BVH_Sorter<T, N>> cls_BVH_QuickSorter(mod, name.c_str(), "Performs centroid-based sorting of abstract set along the given axis (X - 0, Y - 1, Z - 2) using quick sort.", local);
+py::class_<BVH_QuickSorter<T, N>, std::unique_ptr<BVH_QuickSorter<T, N>>, BVH_Sorter<T, N>> cls_BVH_QuickSorter(mod, name.c_str(), "Performs centroid-based sorting of abstract set along the given axis (X - 0, Y - 1, Z - 2) using quick sort.", local);
 
 // Constructors
 cls_BVH_QuickSorter.def(py::init<>());

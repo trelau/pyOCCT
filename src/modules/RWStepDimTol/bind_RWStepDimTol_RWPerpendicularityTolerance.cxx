@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWPerpendicularityTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWPerpendicularityTolerance, std::unique_ptr<RWStepDimTol_RWPerpendicularityTolerance, Deleter<RWStepDimTol_RWPerpendicularityTolerance>>> cls_RWStepDimTol_RWPerpendicularityTolerance(mod, "RWStepDimTol_RWPerpendicularityTolerance", "Read & Write tool for PerpendicularityTolerance");
+py::class_<RWStepDimTol_RWPerpendicularityTolerance, std::unique_ptr<RWStepDimTol_RWPerpendicularityTolerance>> cls_RWStepDimTol_RWPerpendicularityTolerance(mod, "RWStepDimTol_RWPerpendicularityTolerance", "Read & Write tool for PerpendicularityTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWPerpendicularityTolerance.def(py::init<>());

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_ValueAndWeight(py::module &mod){
 
-py::class_<math_ValueAndWeight, std::unique_ptr<math_ValueAndWeight, Deleter<math_ValueAndWeight>>> cls_math_ValueAndWeight(mod, "math_ValueAndWeight", "Simple container storing two reals: value and weight");
+py::class_<math_ValueAndWeight, std::unique_ptr<math_ValueAndWeight>> cls_math_ValueAndWeight(mod, "math_ValueAndWeight", "Simple container storing two reals: value and weight");
 
 // Constructors
 cls_math_ValueAndWeight.def(py::init<>());

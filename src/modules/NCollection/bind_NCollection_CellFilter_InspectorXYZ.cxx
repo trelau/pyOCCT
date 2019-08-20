@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_NCollection_CellFilter_InspectorXYZ(py::module &mod){
 
-py::class_<NCollection_CellFilter_InspectorXYZ, std::unique_ptr<NCollection_CellFilter_InspectorXYZ, Deleter<NCollection_CellFilter_InspectorXYZ>>> cls_NCollection_CellFilter_InspectorXYZ(mod, "NCollection_CellFilter_InspectorXYZ", "None");
+py::class_<NCollection_CellFilter_InspectorXYZ, std::unique_ptr<NCollection_CellFilter_InspectorXYZ>> cls_NCollection_CellFilter_InspectorXYZ(mod, "NCollection_CellFilter_InspectorXYZ", "None");
 
 // Constructors
 

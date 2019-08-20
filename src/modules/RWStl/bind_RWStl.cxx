@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStl(py::module &mod){
 
-py::class_<RWStl, std::unique_ptr<RWStl, Deleter<RWStl>>> cls_RWStl(mod, "RWStl", "This class provides methods to read and write triangulation from / to the STL files.");
+py::class_<RWStl, std::unique_ptr<RWStl>> cls_RWStl(mod, "RWStl", "This class provides methods to read and write triangulation from / to the STL files.");
 
 // Constructors
 

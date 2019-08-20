@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheItemType>
 void bind_NCollection_Array1(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_Array1<TheItemType>, std::unique_ptr<NCollection_Array1<TheItemType>, Deleter<NCollection_Array1<TheItemType>>>> cls_NCollection_Array1(mod, name.c_str(), "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.", local);
+py::class_<NCollection_Array1<TheItemType>, std::unique_ptr<NCollection_Array1<TheItemType>>> cls_NCollection_Array1(mod, name.c_str(), "Purpose: The class Array1 represents unidimensional arrays of fixed size known at run time. The range of the index is user defined. An array1 can be constructed with a 'C array'. This functionality is useful to call methods expecting an Array1. It allows to carry the bounds inside the arrays.", local);
 
 // Constructors
 cls_NCollection_Array1.def(py::init<>());

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepClass_Edge(py::module &mod){
 
-py::class_<BRepClass_Edge, std::unique_ptr<BRepClass_Edge, Deleter<BRepClass_Edge>>> cls_BRepClass_Edge(mod, "BRepClass_Edge", "This class is used to send the description of an Edge to the classifier. It contains an Edge and a Face. So the PCurve of the Edge can be found.");
+py::class_<BRepClass_Edge, std::unique_ptr<BRepClass_Edge>> cls_BRepClass_Edge(mod, "BRepClass_Edge", "This class is used to send the description of an Edge to the classifier. It contains an Edge and a Face. So the PCurve of the Edge can be found.");
 
 // Constructors
 cls_BRepClass_Edge.def(py::init<>());

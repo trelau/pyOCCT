@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Bisector_FunctionInter(py::module &mod){
 
-py::class_<Bisector_FunctionInter, std::unique_ptr<Bisector_FunctionInter, Deleter<Bisector_FunctionInter>>, math_FunctionWithDerivative> cls_Bisector_FunctionInter(mod, "Bisector_FunctionInter", "2 2 F(u) = (PC(u) - PBis1(u)) + (PC(u) - PBis2(u))");
+py::class_<Bisector_FunctionInter, std::unique_ptr<Bisector_FunctionInter>, math_FunctionWithDerivative> cls_Bisector_FunctionInter(mod, "Bisector_FunctionInter", "2 2 F(u) = (PC(u) - PBis1(u)) + (PC(u) - PBis2(u))");
 
 // Constructors
 cls_Bisector_FunctionInter.def(py::init<>());

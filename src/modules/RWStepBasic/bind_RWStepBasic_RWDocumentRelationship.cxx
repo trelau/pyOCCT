@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWDocumentRelationship(py::module &mod){
 
-py::class_<RWStepBasic_RWDocumentRelationship, std::unique_ptr<RWStepBasic_RWDocumentRelationship, Deleter<RWStepBasic_RWDocumentRelationship>>> cls_RWStepBasic_RWDocumentRelationship(mod, "RWStepBasic_RWDocumentRelationship", "Read & Write Module for DocumentRelationship");
+py::class_<RWStepBasic_RWDocumentRelationship, std::unique_ptr<RWStepBasic_RWDocumentRelationship>> cls_RWStepBasic_RWDocumentRelationship(mod, "RWStepBasic_RWDocumentRelationship", "Read & Write Module for DocumentRelationship");
 
 // Constructors
 cls_RWStepBasic_RWDocumentRelationship.def(py::init<>());

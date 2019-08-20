@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomLib_CheckCurveOnSurface(py::module &mod){
 
-py::class_<GeomLib_CheckCurveOnSurface, std::unique_ptr<GeomLib_CheckCurveOnSurface, Deleter<GeomLib_CheckCurveOnSurface>>> cls_GeomLib_CheckCurveOnSurface(mod, "GeomLib_CheckCurveOnSurface", "Computes the max distance between 3D-curve and 2D-curve in some surface.");
+py::class_<GeomLib_CheckCurveOnSurface, std::unique_ptr<GeomLib_CheckCurveOnSurface>> cls_GeomLib_CheckCurveOnSurface(mod, "GeomLib_CheckCurveOnSurface", "Computes the max distance between 3D-curve and 2D-curve in some surface.");
 
 // Constructors
 cls_GeomLib_CheckCurveOnSurface.def(py::init<>());

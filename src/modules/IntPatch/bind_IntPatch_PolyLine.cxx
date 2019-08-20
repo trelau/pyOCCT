@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_PolyLine(py::module &mod){
 
-py::class_<IntPatch_PolyLine, std::unique_ptr<IntPatch_PolyLine, Deleter<IntPatch_PolyLine>>, IntPatch_Polygo> cls_IntPatch_PolyLine(mod, "IntPatch_PolyLine", "None");
+py::class_<IntPatch_PolyLine, std::unique_ptr<IntPatch_PolyLine>, IntPatch_Polygo> cls_IntPatch_PolyLine(mod, "IntPatch_PolyLine", "None");
 
 // Constructors
 cls_IntPatch_PolyLine.def(py::init<>());

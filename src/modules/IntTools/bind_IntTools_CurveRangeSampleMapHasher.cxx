@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_CurveRangeSampleMapHasher(py::module &mod){
 
-py::class_<IntTools_CurveRangeSampleMapHasher, std::unique_ptr<IntTools_CurveRangeSampleMapHasher, Deleter<IntTools_CurveRangeSampleMapHasher>>> cls_IntTools_CurveRangeSampleMapHasher(mod, "IntTools_CurveRangeSampleMapHasher", "class for range index management of curve");
+py::class_<IntTools_CurveRangeSampleMapHasher, std::unique_ptr<IntTools_CurveRangeSampleMapHasher>> cls_IntTools_CurveRangeSampleMapHasher(mod, "IntTools_CurveRangeSampleMapHasher", "class for range index management of curve");
 
 // Constructors
 

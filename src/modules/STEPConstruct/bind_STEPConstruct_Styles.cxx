@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPConstruct_Styles(py::module &mod){
 
-py::class_<STEPConstruct_Styles, std::unique_ptr<STEPConstruct_Styles, Deleter<STEPConstruct_Styles>>, STEPConstruct_Tool> cls_STEPConstruct_Styles(mod, "STEPConstruct_Styles", "Provides a mechanism for reading and writing shape styles (such as color) to and from the STEP file This tool maintains a list of styles, either taking them from STEP model (reading), or filling it by calls to AddStyle or directly (writing). Some methods deal with general structures of styles and presentations in STEP, but there are methods which deal with particular implementation of colors (as described in RP)");
+py::class_<STEPConstruct_Styles, std::unique_ptr<STEPConstruct_Styles>, STEPConstruct_Tool> cls_STEPConstruct_Styles(mod, "STEPConstruct_Styles", "Provides a mechanism for reading and writing shape styles (such as color) to and from the STEP file This tool maintains a list of styles, either taking them from STEP model (reading), or filling it by calls to AddStyle or directly (writing). Some methods deal with general structures of styles and presentations in STEP, but there are methods which deal with particular implementation of colors (as described in RP)");
 
 // Constructors
 cls_STEPConstruct_Styles.def(py::init<>());

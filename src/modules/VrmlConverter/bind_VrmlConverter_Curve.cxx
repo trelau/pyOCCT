@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_VrmlConverter_Curve(py::module &mod){
 
-py::class_<VrmlConverter_Curve, std::unique_ptr<VrmlConverter_Curve, Deleter<VrmlConverter_Curve>>> cls_VrmlConverter_Curve(mod, "VrmlConverter_Curve", "Curve - computes the presentation of objects to be seen as curves (the computation will be made with a constant number of points), converts this one into VRML objects and writes (adds) them into anOStream. All requested properties of the representation are specify in aDrawer of Drawer class (VrmlConverter). This kind of the presentation is converted into IndexedLineSet ( VRML ).");
+py::class_<VrmlConverter_Curve, std::unique_ptr<VrmlConverter_Curve>> cls_VrmlConverter_Curve(mod, "VrmlConverter_Curve", "Curve - computes the presentation of objects to be seen as curves (the computation will be made with a constant number of points), converts this one into VRML objects and writes (adds) them into anOStream. All requested properties of the representation are specify in aDrawer of Drawer class (VrmlConverter). This kind of the presentation is converted into IndexedLineSet ( VRML ).");
 
 // Constructors
 

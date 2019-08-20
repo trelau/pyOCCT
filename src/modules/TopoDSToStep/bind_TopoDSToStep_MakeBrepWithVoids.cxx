@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDSToStep_MakeBrepWithVoids(py::module &mod){
 
-py::class_<TopoDSToStep_MakeBrepWithVoids, std::unique_ptr<TopoDSToStep_MakeBrepWithVoids, Deleter<TopoDSToStep_MakeBrepWithVoids>>, TopoDSToStep_Root> cls_TopoDSToStep_MakeBrepWithVoids(mod, "TopoDSToStep_MakeBrepWithVoids", "This class implements the mapping between classes Solid from TopoDS and BrepWithVoids from StepShape. All the topology and geometry comprised into the shell or the solid are taken into account and translated.");
+py::class_<TopoDSToStep_MakeBrepWithVoids, std::unique_ptr<TopoDSToStep_MakeBrepWithVoids>, TopoDSToStep_Root> cls_TopoDSToStep_MakeBrepWithVoids(mod, "TopoDSToStep_MakeBrepWithVoids", "This class implements the mapping between classes Solid from TopoDS and BrepWithVoids from StepShape. All the topology and geometry comprised into the shell or the solid are taken into account and translated.");
 
 // Constructors
 cls_TopoDSToStep_MakeBrepWithVoids.def(py::init<const TopoDS_Solid &, const opencascade::handle<Transfer_FinderProcess> &>(), py::arg("S"), py::arg("FP"));

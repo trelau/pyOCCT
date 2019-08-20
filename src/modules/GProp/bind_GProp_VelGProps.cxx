@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GProp_VelGProps(py::module &mod){
 
-py::class_<GProp_VelGProps, std::unique_ptr<GProp_VelGProps, Deleter<GProp_VelGProps>>, GProp_GProps> cls_GProp_VelGProps(mod, "GProp_VelGProps", "Computes the global properties and the volume of a geometric solid (3D closed region of space) The solid can be elementary(definition in the gp package)");
+py::class_<GProp_VelGProps, std::unique_ptr<GProp_VelGProps>, GProp_GProps> cls_GProp_VelGProps(mod, "GProp_VelGProps", "Computes the global properties and the volume of a geometric solid (3D closed region of space) The solid can be elementary(definition in the gp package)");
 
 // Constructors
 cls_GProp_VelGProps.def(py::init<>());

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS_CartesianPointHasher(py::module &mod){
 
-py::class_<StepToTopoDS_CartesianPointHasher, std::unique_ptr<StepToTopoDS_CartesianPointHasher, Deleter<StepToTopoDS_CartesianPointHasher>>> cls_StepToTopoDS_CartesianPointHasher(mod, "StepToTopoDS_CartesianPointHasher", "None");
+py::class_<StepToTopoDS_CartesianPointHasher, std::unique_ptr<StepToTopoDS_CartesianPointHasher>> cls_StepToTopoDS_CartesianPointHasher(mod, "StepToTopoDS_CartesianPointHasher", "None");
 
 // Constructors
 

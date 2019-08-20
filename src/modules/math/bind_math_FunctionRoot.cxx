@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_FunctionRoot(py::module &mod){
 
-py::class_<math_FunctionRoot, std::unique_ptr<math_FunctionRoot, Deleter<math_FunctionRoot>>> cls_math_FunctionRoot(mod, "math_FunctionRoot", "This class implements the computation of a root of a function of a single variable which is near an initial guess using a minimization algorithm.Knowledge of the derivative is required. The algorithm used is the same as in");
+py::class_<math_FunctionRoot, std::unique_ptr<math_FunctionRoot>> cls_math_FunctionRoot(mod, "math_FunctionRoot", "This class implements the computation of a root of a function of a single variable which is near an initial guess using a minimization algorithm.Knowledge of the derivative is required. The algorithm used is the same as in");
 
 // Constructors
 cls_math_FunctionRoot.def(py::init<math_FunctionWithDerivative &, const Standard_Real, const Standard_Real>(), py::arg("F"), py::arg("Guess"), py::arg("Tolerance"));

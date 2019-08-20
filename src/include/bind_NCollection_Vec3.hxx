@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename Element_t>
 void bind_NCollection_Vec3(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_Vec3<Element_t>, std::unique_ptr<NCollection_Vec3<Element_t>, Deleter<NCollection_Vec3<Element_t>>>> cls_NCollection_Vec3(mod, name.c_str(), "Generic 3-components vector. To be used as RGB color pixel or XYZ 3D-point. The main target for this class - to handle raw low-level arrays (from/to graphic driver etc.).", local);
+py::class_<NCollection_Vec3<Element_t>, std::unique_ptr<NCollection_Vec3<Element_t>>> cls_NCollection_Vec3(mod, name.c_str(), "Generic 3-components vector. To be used as RGB color pixel or XYZ 3D-point. The main target for this class - to handle raw low-level arrays (from/to graphic driver etc.).", local);
 
 // Constructors
 cls_NCollection_Vec3.def(py::init<>());

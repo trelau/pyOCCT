@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESData_DefSwitch(py::module &mod){
 
-py::class_<IGESData_DefSwitch, std::unique_ptr<IGESData_DefSwitch, Deleter<IGESData_DefSwitch>>> cls_IGESData_DefSwitch(mod, "IGESData_DefSwitch", "description of a directory componant which can be either undefined (let Void), defined as a Reference to an entity, or as a Rank, integer value adressing a builtin table The entity reference is not included here, only reference status is kept (because entity type must be adapted)");
+py::class_<IGESData_DefSwitch, std::unique_ptr<IGESData_DefSwitch>> cls_IGESData_DefSwitch(mod, "IGESData_DefSwitch", "description of a directory componant which can be either undefined (let Void), defined as a Reference to an entity, or as a Rank, integer value adressing a builtin table The entity reference is not included here, only reference status is kept (because entity type must be adapted)");
 
 // Constructors
 cls_IGESData_DefSwitch.def(py::init<>());

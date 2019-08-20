@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Expr_UnknownIterator(py::module &mod){
 
-py::class_<Expr_UnknownIterator, std::unique_ptr<Expr_UnknownIterator, Deleter<Expr_UnknownIterator>>> cls_Expr_UnknownIterator(mod, "Expr_UnknownIterator", "Describes an iterator on NamedUnknowns contained in any GeneralExpression.");
+py::class_<Expr_UnknownIterator, std::unique_ptr<Expr_UnknownIterator>> cls_Expr_UnknownIterator(mod, "Expr_UnknownIterator", "Describes an iterator on NamedUnknowns contained in any GeneralExpression.");
 
 // Constructors
 cls_Expr_UnknownIterator.def(py::init<const opencascade::handle<Expr_GeneralExpression> &>(), py::arg("exp"));

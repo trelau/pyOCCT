@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWAutoDesignDocumentReference(py::module &mod){
 
-py::class_<RWStepAP214_RWAutoDesignDocumentReference, std::unique_ptr<RWStepAP214_RWAutoDesignDocumentReference, Deleter<RWStepAP214_RWAutoDesignDocumentReference>>> cls_RWStepAP214_RWAutoDesignDocumentReference(mod, "RWStepAP214_RWAutoDesignDocumentReference", "Read & Write Module for AutoDesignDocumentReference");
+py::class_<RWStepAP214_RWAutoDesignDocumentReference, std::unique_ptr<RWStepAP214_RWAutoDesignDocumentReference>> cls_RWStepAP214_RWAutoDesignDocumentReference(mod, "RWStepAP214_RWAutoDesignDocumentReference", "Read & Write Module for AutoDesignDocumentReference");
 
 // Constructors
 cls_RWStepAP214_RWAutoDesignDocumentReference.def(py::init<>());

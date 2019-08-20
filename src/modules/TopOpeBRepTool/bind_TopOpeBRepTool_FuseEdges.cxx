@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool_FuseEdges(py::module &mod){
 
-py::class_<TopOpeBRepTool_FuseEdges, std::unique_ptr<TopOpeBRepTool_FuseEdges, Deleter<TopOpeBRepTool_FuseEdges>>> cls_TopOpeBRepTool_FuseEdges(mod, "TopOpeBRepTool_FuseEdges", "This class can detect vertices in a face that can be considered useless and then perform the fuse of the edges and remove the useless vertices. By useles vertices, we mean : * vertices that have exactly two connex edges * the edges connex to the vertex must have exactly the same 2 connex faces . * The edges connex to the vertex must have the same geometric support.");
+py::class_<TopOpeBRepTool_FuseEdges, std::unique_ptr<TopOpeBRepTool_FuseEdges>> cls_TopOpeBRepTool_FuseEdges(mod, "TopOpeBRepTool_FuseEdges", "This class can detect vertices in a face that can be considered useless and then perform the fuse of the edges and remove the useless vertices. By useles vertices, we mean : * vertices that have exactly two connex edges * the edges connex to the vertex must have exactly the same 2 connex faces . * The edges connex to the vertex must have the same geometric support.");
 
 // Constructors
 cls_TopOpeBRepTool_FuseEdges.def(py::init<const TopoDS_Shape &>(), py::arg("theShape"));

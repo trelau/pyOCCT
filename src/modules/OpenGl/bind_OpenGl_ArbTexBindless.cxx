@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_ArbTexBindless(py::module &mod){
 
-py::class_<OpenGl_ArbTexBindless, std::unique_ptr<OpenGl_ArbTexBindless, Deleter<OpenGl_ArbTexBindless>>> cls_OpenGl_ArbTexBindless(mod, "OpenGl_ArbTexBindless", "Provides bindless textures. This extension allows OpenGL applications to access texture objects in shaders without first binding each texture to one of a limited number of texture image units.");
+py::class_<OpenGl_ArbTexBindless, std::unique_ptr<OpenGl_ArbTexBindless>> cls_OpenGl_ArbTexBindless(mod, "OpenGl_ArbTexBindless", "Provides bindless textures. This extension allows OpenGL applications to access texture objects in shaders without first binding each texture to one of a limited number of texture image units.");
 
 // Constructors
 

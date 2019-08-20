@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_GTool(py::module &mod){
 
-py::class_<TopOpeBRepBuild_GTool, std::unique_ptr<TopOpeBRepBuild_GTool, Deleter<TopOpeBRepBuild_GTool>>> cls_TopOpeBRepBuild_GTool(mod, "TopOpeBRepBuild_GTool", "None");
+py::class_<TopOpeBRepBuild_GTool, std::unique_ptr<TopOpeBRepBuild_GTool>> cls_TopOpeBRepBuild_GTool(mod, "TopOpeBRepBuild_GTool", "None");
 
 // Constructors
 

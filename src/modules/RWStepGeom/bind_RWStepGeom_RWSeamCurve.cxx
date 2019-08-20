@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWSeamCurve(py::module &mod){
 
-py::class_<RWStepGeom_RWSeamCurve, std::unique_ptr<RWStepGeom_RWSeamCurve, Deleter<RWStepGeom_RWSeamCurve>>> cls_RWStepGeom_RWSeamCurve(mod, "RWStepGeom_RWSeamCurve", "Read & Write Module for SeamCurve");
+py::class_<RWStepGeom_RWSeamCurve, std::unique_ptr<RWStepGeom_RWSeamCurve>> cls_RWStepGeom_RWSeamCurve(mod, "RWStepGeom_RWSeamCurve", "Read & Write Module for SeamCurve");
 
 // Constructors
 cls_RWStepGeom_RWSeamCurve.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWNameAssignment(py::module &mod){
 
-py::class_<RWStepBasic_RWNameAssignment, std::unique_ptr<RWStepBasic_RWNameAssignment, Deleter<RWStepBasic_RWNameAssignment>>> cls_RWStepBasic_RWNameAssignment(mod, "RWStepBasic_RWNameAssignment", "Read & Write tool for NameAssignment");
+py::class_<RWStepBasic_RWNameAssignment, std::unique_ptr<RWStepBasic_RWNameAssignment>> cls_RWStepBasic_RWNameAssignment(mod, "RWStepBasic_RWNameAssignment", "Read & Write tool for NameAssignment");
 
 // Constructors
 cls_RWStepBasic_RWNameAssignment.def(py::init<>());

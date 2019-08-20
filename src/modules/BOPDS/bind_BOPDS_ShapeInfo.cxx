@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPDS_ShapeInfo(py::module &mod){
 
-py::class_<BOPDS_ShapeInfo, std::unique_ptr<BOPDS_ShapeInfo, Deleter<BOPDS_ShapeInfo>>> cls_BOPDS_ShapeInfo(mod, "BOPDS_ShapeInfo", "The class BOPDS_ShapeInfo is to store handy information about shape");
+py::class_<BOPDS_ShapeInfo, std::unique_ptr<BOPDS_ShapeInfo>> cls_BOPDS_ShapeInfo(mod, "BOPDS_ShapeInfo", "The class BOPDS_ShapeInfo is to store handy information about shape");
 
 // Constructors
 cls_BOPDS_ShapeInfo.def(py::init<>());

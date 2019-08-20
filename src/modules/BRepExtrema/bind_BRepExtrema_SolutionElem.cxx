@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepExtrema_SolutionElem(py::module &mod){
 
-py::class_<BRepExtrema_SolutionElem, std::unique_ptr<BRepExtrema_SolutionElem, Deleter<BRepExtrema_SolutionElem>>> cls_BRepExtrema_SolutionElem(mod, "BRepExtrema_SolutionElem", "This class is used to store information relative to the minimum distance between two shapes.");
+py::class_<BRepExtrema_SolutionElem, std::unique_ptr<BRepExtrema_SolutionElem>> cls_BRepExtrema_SolutionElem(mod, "BRepExtrema_SolutionElem", "This class is used to store information relative to the minimum distance between two shapes.");
 
 // Constructors
 cls_BRepExtrema_SolutionElem.def(py::init<>());

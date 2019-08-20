@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_DraughtingCalloutElement(py::module &mod){
 
-py::class_<StepVisual_DraughtingCalloutElement, std::unique_ptr<StepVisual_DraughtingCalloutElement, Deleter<StepVisual_DraughtingCalloutElement>>, StepData_SelectType> cls_StepVisual_DraughtingCalloutElement(mod, "StepVisual_DraughtingCalloutElement", "None");
+py::class_<StepVisual_DraughtingCalloutElement, std::unique_ptr<StepVisual_DraughtingCalloutElement>, StepData_SelectType> cls_StepVisual_DraughtingCalloutElement(mod, "StepVisual_DraughtingCalloutElement", "None");
 
 // Constructors
 cls_StepVisual_DraughtingCalloutElement.def(py::init<>());

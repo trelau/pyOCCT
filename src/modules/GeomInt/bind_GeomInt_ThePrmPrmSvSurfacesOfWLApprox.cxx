@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_ThePrmPrmSvSurfacesOfWLApprox(py::module &mod){
 
-py::class_<GeomInt_ThePrmPrmSvSurfacesOfWLApprox, std::unique_ptr<GeomInt_ThePrmPrmSvSurfacesOfWLApprox, Deleter<GeomInt_ThePrmPrmSvSurfacesOfWLApprox>>, ApproxInt_SvSurfaces> cls_GeomInt_ThePrmPrmSvSurfacesOfWLApprox(mod, "GeomInt_ThePrmPrmSvSurfacesOfWLApprox", "None");
+py::class_<GeomInt_ThePrmPrmSvSurfacesOfWLApprox, std::unique_ptr<GeomInt_ThePrmPrmSvSurfacesOfWLApprox>, ApproxInt_SvSurfaces> cls_GeomInt_ThePrmPrmSvSurfacesOfWLApprox(mod, "GeomInt_ThePrmPrmSvSurfacesOfWLApprox", "None");
 
 // Constructors
 cls_GeomInt_ThePrmPrmSvSurfacesOfWLApprox.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &>(), py::arg("Surf1"), py::arg("Surf2"));

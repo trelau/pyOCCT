@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheKeyType, typename TheItemType, typename Hasher>
 void bind_NCollection_DataMap(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_DataMap<TheKeyType, TheItemType, Hasher>, std::unique_ptr<NCollection_DataMap<TheKeyType, TheItemType, Hasher>, Deleter<NCollection_DataMap<TheKeyType, TheItemType, Hasher>>>, NCollection_BaseMap> cls_NCollection_DataMap(mod, name.c_str(), "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.", local);
+py::class_<NCollection_DataMap<TheKeyType, TheItemType, Hasher>, std::unique_ptr<NCollection_DataMap<TheKeyType, TheItemType, Hasher>>, NCollection_BaseMap> cls_NCollection_DataMap(mod, name.c_str(), "Purpose: The DataMap is a Map to store keys with associated Items. See Map from NCollection for a discussion about the number of buckets.", local);
 
 // Constructors
 cls_NCollection_DataMap.def(py::init<>());

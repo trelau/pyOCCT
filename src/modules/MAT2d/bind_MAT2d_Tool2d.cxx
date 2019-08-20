@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MAT2d_Tool2d(py::module &mod){
 
-py::class_<MAT2d_Tool2d, std::unique_ptr<MAT2d_Tool2d, Deleter<MAT2d_Tool2d>>> cls_MAT2d_Tool2d(mod, "MAT2d_Tool2d", "Set of the methods useful for the MAT's computation. Tool2d contains the geometry of the bisecting locus.");
+py::class_<MAT2d_Tool2d, std::unique_ptr<MAT2d_Tool2d>> cls_MAT2d_Tool2d(mod, "MAT2d_Tool2d", "Set of the methods useful for the MAT's computation. Tool2d contains the geometry of the bisecting locus.");
 
 // Constructors
 cls_MAT2d_Tool2d.def(py::init<>());

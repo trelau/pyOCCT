@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Message_ProgressSentry(py::module &mod){
 
-py::class_<Message_ProgressSentry, std::unique_ptr<Message_ProgressSentry, Deleter<Message_ProgressSentry>>> cls_Message_ProgressSentry(mod, "Message_ProgressSentry", "This class is a tool allowing to manage opening/closing scopes in the ProgressIndicator in convenient and safe way.");
+py::class_<Message_ProgressSentry, std::unique_ptr<Message_ProgressSentry>> cls_Message_ProgressSentry(mod, "Message_ProgressSentry", "This class is a tool allowing to manage opening/closing scopes in the ProgressIndicator in convenient and safe way.");
 
 // Constructors
 cls_Message_ProgressSentry.def(py::init<const opencascade::handle<Message_ProgressIndicator> &, const Standard_CString, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("PI"), py::arg("name"), py::arg("min"), py::arg("max"), py::arg("step"));

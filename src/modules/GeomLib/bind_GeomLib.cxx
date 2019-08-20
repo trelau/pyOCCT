@@ -56,7 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomLib(py::module &mod){
 
-py::class_<GeomLib, std::unique_ptr<GeomLib, Deleter<GeomLib>>> cls_GeomLib(mod, "GeomLib", "Geom Library. This package provides an implementation of functions for basic computation on geometric entity from packages Geom and Geom2d.");
+py::class_<GeomLib, std::unique_ptr<GeomLib>> cls_GeomLib(mod, "GeomLib", "Geom Library. This package provides an implementation of functions for basic computation on geometric entity from packages Geom and Geom2d.");
 
 // Constructors
 

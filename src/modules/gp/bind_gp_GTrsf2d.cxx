@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_GTrsf2d(py::module &mod){
 
-py::class_<gp_GTrsf2d, std::unique_ptr<gp_GTrsf2d, Deleter<gp_GTrsf2d>>> cls_gp_GTrsf2d(mod, "gp_GTrsf2d", "Defines a non persistent transformation in 2D space. This transformation is a general transformation. It can be a Trsf2d from package gp, an affinity, or you can define your own transformation giving the corresponding matrix of transformation.");
+py::class_<gp_GTrsf2d, std::unique_ptr<gp_GTrsf2d>> cls_gp_GTrsf2d(mod, "gp_GTrsf2d", "Defines a non persistent transformation in 2D space. This transformation is a general transformation. It can be a Trsf2d from package gp, an affinity, or you can define your own transformation giving the corresponding matrix of transformation.");
 
 // Constructors
 cls_gp_GTrsf2d.def(py::init<>());

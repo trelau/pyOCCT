@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dHatch_DataMapIteratorOfMapOfElements(py::module &mod){
 
-py::class_<NCollection_DataMap<int, Geom2dHatch_Element, NCollection_DefaultHasher<int> >::Iterator, std::unique_ptr<NCollection_DataMap<int, Geom2dHatch_Element, NCollection_DefaultHasher<int> >::Iterator, Deleter<NCollection_DataMap<int, Geom2dHatch_Element, NCollection_DefaultHasher<int> >::Iterator>>, NCollection_BaseMap::Iterator> cls_Geom2dHatch_DataMapIteratorOfMapOfElements(mod, "Geom2dHatch_DataMapIteratorOfMapOfElements", "None");
+py::class_<NCollection_DataMap<int, Geom2dHatch_Element, NCollection_DefaultHasher<int> >::Iterator, std::unique_ptr<NCollection_DataMap<int, Geom2dHatch_Element, NCollection_DefaultHasher<int> >::Iterator>, NCollection_BaseMap::Iterator> cls_Geom2dHatch_DataMapIteratorOfMapOfElements(mod, "Geom2dHatch_DataMapIteratorOfMapOfElements", "None");
 
 // Constructors
 cls_Geom2dHatch_DataMapIteratorOfMapOfElements.def(py::init<>());

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBuilderAPI_Copy(py::module &mod){
 
-py::class_<BRepBuilderAPI_Copy, std::unique_ptr<BRepBuilderAPI_Copy, Deleter<BRepBuilderAPI_Copy>>, BRepBuilderAPI_ModifyShape> cls_BRepBuilderAPI_Copy(mod, "BRepBuilderAPI_Copy", "Duplication of a shape. A Copy object provides a framework for: - defining the construction of a duplicate shape, - implementing the construction algorithm, and - consulting the result.");
+py::class_<BRepBuilderAPI_Copy, std::unique_ptr<BRepBuilderAPI_Copy>, BRepBuilderAPI_ModifyShape> cls_BRepBuilderAPI_Copy(mod, "BRepBuilderAPI_Copy", "Duplication of a shape. A Copy object provides a framework for: - defining the construction of a duplicate shape, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_BRepBuilderAPI_Copy.def(py::init<>());

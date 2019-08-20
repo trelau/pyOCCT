@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWBSplineSurface(py::module &mod){
 
-py::class_<RWStepGeom_RWBSplineSurface, std::unique_ptr<RWStepGeom_RWBSplineSurface, Deleter<RWStepGeom_RWBSplineSurface>>> cls_RWStepGeom_RWBSplineSurface(mod, "RWStepGeom_RWBSplineSurface", "Read & Write Module for BSplineSurface");
+py::class_<RWStepGeom_RWBSplineSurface, std::unique_ptr<RWStepGeom_RWBSplineSurface>> cls_RWStepGeom_RWBSplineSurface(mod, "RWStepGeom_RWBSplineSurface", "Read & Write Module for BSplineSurface");
 
 // Constructors
 cls_RWStepGeom_RWBSplineSurface.def(py::init<>());

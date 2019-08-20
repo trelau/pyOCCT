@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GC_MakeHyperbola(py::module &mod){
 
-py::class_<GC_MakeHyperbola, std::unique_ptr<GC_MakeHyperbola, Deleter<GC_MakeHyperbola>>, GC_Root> cls_GC_MakeHyperbola(mod, "GC_MakeHyperbola", "This class implements construction algorithms for a hyperbola in 3D space. The result is a Geom_Hyperbola hyperbola. A MakeHyperbola object provides a framework for: - defining the construction of the hyperbola, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed hyperbola. To define the main branch of an hyperbola. The parameterization range is ]-infinite,+infinite[ It is possible to get the other branch and the two conjugate branches of the main branch.");
+py::class_<GC_MakeHyperbola, std::unique_ptr<GC_MakeHyperbola>, GC_Root> cls_GC_MakeHyperbola(mod, "GC_MakeHyperbola", "This class implements construction algorithms for a hyperbola in 3D space. The result is a Geom_Hyperbola hyperbola. A MakeHyperbola object provides a framework for: - defining the construction of the hyperbola, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed hyperbola. To define the main branch of an hyperbola. The parameterization range is ]-infinite,+infinite[ It is possible to get the other branch and the two conjugate branches of the main branch.");
 
 // Constructors
 cls_GC_MakeHyperbola.def(py::init<const gp_Hypr &>(), py::arg("H"));

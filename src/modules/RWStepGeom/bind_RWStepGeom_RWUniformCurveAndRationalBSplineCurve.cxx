@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWUniformCurveAndRationalBSplineCurve(py::module &mod){
 
-py::class_<RWStepGeom_RWUniformCurveAndRationalBSplineCurve, std::unique_ptr<RWStepGeom_RWUniformCurveAndRationalBSplineCurve, Deleter<RWStepGeom_RWUniformCurveAndRationalBSplineCurve>>> cls_RWStepGeom_RWUniformCurveAndRationalBSplineCurve(mod, "RWStepGeom_RWUniformCurveAndRationalBSplineCurve", "Read & Write Module for UniformCurveAndRationalBSplineCurve");
+py::class_<RWStepGeom_RWUniformCurveAndRationalBSplineCurve, std::unique_ptr<RWStepGeom_RWUniformCurveAndRationalBSplineCurve>> cls_RWStepGeom_RWUniformCurveAndRationalBSplineCurve(mod, "RWStepGeom_RWUniformCurveAndRationalBSplineCurve", "Read & Write Module for UniformCurveAndRationalBSplineCurve");
 
 // Constructors
 cls_RWStepGeom_RWUniformCurveAndRationalBSplineCurve.def(py::init<>());

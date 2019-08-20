@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TCollection_BasicMapIterator(py::module &mod){
 
-py::class_<TCollection_BasicMapIterator, std::unique_ptr<TCollection_BasicMapIterator, Deleter<TCollection_BasicMapIterator>>> cls_TCollection_BasicMapIterator(mod, "TCollection_BasicMapIterator", "This class provides basic services for the iterators on Maps. The iterators are inherited from this one.");
+py::class_<TCollection_BasicMapIterator, std::unique_ptr<TCollection_BasicMapIterator>> cls_TCollection_BasicMapIterator(mod, "TCollection_BasicMapIterator", "This class provides basic services for the iterators on Maps. The iterators are inherited from this one.");
 
 // Constructors
 

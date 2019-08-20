@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeLine(py::module &mod){
 
-py::class_<GeomToStep_MakeLine, std::unique_ptr<GeomToStep_MakeLine, Deleter<GeomToStep_MakeLine>>, GeomToStep_Root> cls_GeomToStep_MakeLine(mod, "GeomToStep_MakeLine", "This class implements the mapping between classes Line from Geom and Lin from gp, and the class Line from StepGeom which describes a line from Prostep.");
+py::class_<GeomToStep_MakeLine, std::unique_ptr<GeomToStep_MakeLine>, GeomToStep_Root> cls_GeomToStep_MakeLine(mod, "GeomToStep_MakeLine", "This class implements the mapping between classes Line from Geom and Lin from gp, and the class Line from StepGeom which describes a line from Prostep.");
 
 // Constructors
 cls_GeomToStep_MakeLine.def(py::init<const gp_Lin &>(), py::arg("L"));

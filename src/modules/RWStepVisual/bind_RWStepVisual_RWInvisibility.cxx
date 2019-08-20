@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWInvisibility(py::module &mod){
 
-py::class_<RWStepVisual_RWInvisibility, std::unique_ptr<RWStepVisual_RWInvisibility, Deleter<RWStepVisual_RWInvisibility>>> cls_RWStepVisual_RWInvisibility(mod, "RWStepVisual_RWInvisibility", "Read & Write Module for Invisibility");
+py::class_<RWStepVisual_RWInvisibility, std::unique_ptr<RWStepVisual_RWInvisibility>> cls_RWStepVisual_RWInvisibility(mod, "RWStepVisual_RWInvisibility", "Read & Write Module for Invisibility");
 
 // Constructors
 cls_RWStepVisual_RWInvisibility.def(py::init<>());

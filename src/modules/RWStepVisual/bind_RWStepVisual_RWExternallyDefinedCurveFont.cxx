@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWExternallyDefinedCurveFont(py::module &mod){
 
-py::class_<RWStepVisual_RWExternallyDefinedCurveFont, std::unique_ptr<RWStepVisual_RWExternallyDefinedCurveFont, Deleter<RWStepVisual_RWExternallyDefinedCurveFont>>> cls_RWStepVisual_RWExternallyDefinedCurveFont(mod, "RWStepVisual_RWExternallyDefinedCurveFont", "Read & Write tool for ExternallyDefinedCurveFont");
+py::class_<RWStepVisual_RWExternallyDefinedCurveFont, std::unique_ptr<RWStepVisual_RWExternallyDefinedCurveFont>> cls_RWStepVisual_RWExternallyDefinedCurveFont(mod, "RWStepVisual_RWExternallyDefinedCurveFont", "Read & Write tool for ExternallyDefinedCurveFont");
 
 // Constructors
 cls_RWStepVisual_RWExternallyDefinedCurveFont.def(py::init<>());

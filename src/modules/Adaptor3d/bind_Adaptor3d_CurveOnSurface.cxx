@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Adaptor3d_CurveOnSurface(py::module &mod){
 
-py::class_<Adaptor3d_CurveOnSurface, std::unique_ptr<Adaptor3d_CurveOnSurface, Deleter<Adaptor3d_CurveOnSurface>>, Adaptor3d_Curve> cls_Adaptor3d_CurveOnSurface(mod, "Adaptor3d_CurveOnSurface", "An interface between the services provided by a curve lying on a surface from the package Geom and those required of the curve by algorithms which use it. The curve is defined as a 2D curve from the Geom2d package, in the parametric space of the surface.");
+py::class_<Adaptor3d_CurveOnSurface, std::unique_ptr<Adaptor3d_CurveOnSurface>, Adaptor3d_Curve> cls_Adaptor3d_CurveOnSurface(mod, "Adaptor3d_CurveOnSurface", "An interface between the services provided by a curve lying on a surface from the package Geom and those required of the curve by algorithms which use it. The curve is defined as a 2D curve from the Geom2d package, in the parametric space of the surface.");
 
 // Constructors
 cls_Adaptor3d_CurveOnSurface.def(py::init<>());

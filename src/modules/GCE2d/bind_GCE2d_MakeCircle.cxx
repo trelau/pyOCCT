@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCE2d_MakeCircle(py::module &mod){
 
-py::class_<GCE2d_MakeCircle, std::unique_ptr<GCE2d_MakeCircle, Deleter<GCE2d_MakeCircle>>, GCE2d_Root> cls_GCE2d_MakeCircle(mod, "GCE2d_MakeCircle", "This class implements the following algorithms used to create Circle from Geom2d.");
+py::class_<GCE2d_MakeCircle, std::unique_ptr<GCE2d_MakeCircle>, GCE2d_Root> cls_GCE2d_MakeCircle(mod, "GCE2d_MakeCircle", "This class implements the following algorithms used to create Circle from Geom2d.");
 
 // Constructors
 cls_GCE2d_MakeCircle.def(py::init<const gp_Circ2d &>(), py::arg("C"));

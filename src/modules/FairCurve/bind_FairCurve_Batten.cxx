@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FairCurve_Batten(py::module &mod){
 
-py::class_<FairCurve_Batten, std::unique_ptr<FairCurve_Batten, Deleter<FairCurve_Batten>>> cls_FairCurve_Batten(mod, "FairCurve_Batten", "Constructs curves with a constant or linearly increasing section to be used in the design of wooden or plastic battens. These curves are two-dimensional, and simulate physical splines or battens.");
+py::class_<FairCurve_Batten, std::unique_ptr<FairCurve_Batten>> cls_FairCurve_Batten(mod, "FairCurve_Batten", "Constructs curves with a constant or linearly increasing section to be used in the design of wooden or plastic battens. These curves are two-dimensional, and simulate physical splines or battens.");
 
 // Constructors
 cls_FairCurve_Batten.def(py::init<const gp_Pnt2d &, const gp_Pnt2d &, const Standard_Real>(), py::arg("P1"), py::arg("P2"), py::arg("Height"));

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_Storage_BucketOfPersistent(py::module &mod){
 
 /*
-py::class_<Storage_BucketOfPersistent, std::unique_ptr<Storage_BucketOfPersistent, Deleter<Storage_BucketOfPersistent>>> cls_Storage_BucketOfPersistent(mod, "Storage_BucketOfPersistent", "None");
+py::class_<Storage_BucketOfPersistent, std::unique_ptr<Storage_BucketOfPersistent>> cls_Storage_BucketOfPersistent(mod, "Storage_BucketOfPersistent", "None");
 
 // Constructors
 cls_Storage_BucketOfPersistent.def(py::init<>());

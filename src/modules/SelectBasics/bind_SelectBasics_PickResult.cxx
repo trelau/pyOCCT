@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_SelectBasics_PickResult(py::module &mod){
 
-py::class_<SelectBasics_PickResult, std::unique_ptr<SelectBasics_PickResult, Deleter<SelectBasics_PickResult>>> cls_SelectBasics_PickResult(mod, "SelectBasics_PickResult", "This structure provides unified access to the results of Matches() method in all sensitive entities.");
+py::class_<SelectBasics_PickResult, std::unique_ptr<SelectBasics_PickResult>> cls_SelectBasics_PickResult(mod, "SelectBasics_PickResult", "This structure provides unified access to the results of Matches() method in all sensitive entities.");
 
 // Constructors
 cls_SelectBasics_PickResult.def(py::init<>());

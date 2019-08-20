@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_InvisibleItem(py::module &mod){
 
-py::class_<StepVisual_InvisibleItem, std::unique_ptr<StepVisual_InvisibleItem, Deleter<StepVisual_InvisibleItem>>, StepData_SelectType> cls_StepVisual_InvisibleItem(mod, "StepVisual_InvisibleItem", "None");
+py::class_<StepVisual_InvisibleItem, std::unique_ptr<StepVisual_InvisibleItem>, StepData_SelectType> cls_StepVisual_InvisibleItem(mod, "StepVisual_InvisibleItem", "None");
 
 // Constructors
 cls_StepVisual_InvisibleItem.def(py::init<>());

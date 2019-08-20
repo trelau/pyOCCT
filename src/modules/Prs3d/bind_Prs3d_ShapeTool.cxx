@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Prs3d_ShapeTool(py::module &mod){
 
-py::class_<Prs3d_ShapeTool, std::unique_ptr<Prs3d_ShapeTool, Deleter<Prs3d_ShapeTool>>> cls_Prs3d_ShapeTool(mod, "Prs3d_ShapeTool", "describes the behaviour requested for a wireframe shape presentation.");
+py::class_<Prs3d_ShapeTool, std::unique_ptr<Prs3d_ShapeTool>> cls_Prs3d_ShapeTool(mod, "Prs3d_ShapeTool", "describes the behaviour requested for a wireframe shape presentation.");
 
 // Constructors
 cls_Prs3d_ShapeTool.def(py::init<const TopoDS_Shape &>(), py::arg("theShape"));

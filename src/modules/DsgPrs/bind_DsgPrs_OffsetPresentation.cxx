@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_OffsetPresentation(py::module &mod){
 
-py::class_<DsgPrs_OffsetPresentation, std::unique_ptr<DsgPrs_OffsetPresentation, Deleter<DsgPrs_OffsetPresentation>>> cls_DsgPrs_OffsetPresentation(mod, "DsgPrs_OffsetPresentation", "A framework to define display of offsets.");
+py::class_<DsgPrs_OffsetPresentation, std::unique_ptr<DsgPrs_OffsetPresentation>> cls_DsgPrs_OffsetPresentation(mod, "DsgPrs_OffsetPresentation", "A framework to define display of offsets.");
 
 // Constructors
 

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWDimensionalCharacteristicRepresentation(py::module &mod){
 
-py::class_<RWStepShape_RWDimensionalCharacteristicRepresentation, std::unique_ptr<RWStepShape_RWDimensionalCharacteristicRepresentation, Deleter<RWStepShape_RWDimensionalCharacteristicRepresentation>>> cls_RWStepShape_RWDimensionalCharacteristicRepresentation(mod, "RWStepShape_RWDimensionalCharacteristicRepresentation", "Read & Write tool for DimensionalCharacteristicRepresentation");
+py::class_<RWStepShape_RWDimensionalCharacteristicRepresentation, std::unique_ptr<RWStepShape_RWDimensionalCharacteristicRepresentation>> cls_RWStepShape_RWDimensionalCharacteristicRepresentation(mod, "RWStepShape_RWDimensionalCharacteristicRepresentation", "Read & Write tool for DimensionalCharacteristicRepresentation");
 
 // Constructors
 cls_RWStepShape_RWDimensionalCharacteristicRepresentation.def(py::init<>());

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_MapAsciiStringHasher(py::module &mod){
 
-py::class_<Interface_MapAsciiStringHasher, std::unique_ptr<Interface_MapAsciiStringHasher, Deleter<Interface_MapAsciiStringHasher>>> cls_Interface_MapAsciiStringHasher(mod, "Interface_MapAsciiStringHasher", "None");
+py::class_<Interface_MapAsciiStringHasher, std::unique_ptr<Interface_MapAsciiStringHasher>> cls_Interface_MapAsciiStringHasher(mod, "Interface_MapAsciiStringHasher", "None");
 
 // Constructors
 

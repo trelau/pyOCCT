@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWOrientedFace(py::module &mod){
 
-py::class_<RWStepShape_RWOrientedFace, std::unique_ptr<RWStepShape_RWOrientedFace, Deleter<RWStepShape_RWOrientedFace>>> cls_RWStepShape_RWOrientedFace(mod, "RWStepShape_RWOrientedFace", "Read & Write Module for OrientedFace");
+py::class_<RWStepShape_RWOrientedFace, std::unique_ptr<RWStepShape_RWOrientedFace>> cls_RWStepShape_RWOrientedFace(mod, "RWStepShape_RWOrientedFace", "Read & Write Module for OrientedFace");
 
 // Constructors
 cls_RWStepShape_RWOrientedFace.def(py::init<>());

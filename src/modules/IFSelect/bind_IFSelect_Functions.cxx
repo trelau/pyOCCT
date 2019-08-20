@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFSelect_Functions(py::module &mod){
 
-py::class_<IFSelect_Functions, std::unique_ptr<IFSelect_Functions, Deleter<IFSelect_Functions>>> cls_IFSelect_Functions(mod, "IFSelect_Functions", "Functions gives access to all the actions which can be commanded with the resources provided by IFSelect : especially WorkSession and various types of Selections and Dispatches");
+py::class_<IFSelect_Functions, std::unique_ptr<IFSelect_Functions>> cls_IFSelect_Functions(mod, "IFSelect_Functions", "Functions gives access to all the actions which can be commanded with the resources provided by IFSelect : especially WorkSession and various types of Selections and Dispatches");
 
 // Constructors
 

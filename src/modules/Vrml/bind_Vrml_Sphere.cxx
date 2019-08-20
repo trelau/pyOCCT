@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_Sphere(py::module &mod){
 
-py::class_<Vrml_Sphere, std::unique_ptr<Vrml_Sphere, Deleter<Vrml_Sphere>>> cls_Vrml_Sphere(mod, "Vrml_Sphere", "defines a Sphere node of VRML specifying geometry shapes. This node represents a sphere. By default , the sphere is centred at (0,0,0) and has a radius of 1.");
+py::class_<Vrml_Sphere, std::unique_ptr<Vrml_Sphere>> cls_Vrml_Sphere(mod, "Vrml_Sphere", "defines a Sphere node of VRML specifying geometry shapes. This node represents a sphere. By default , the sphere is centred at (0,0,0) and has a radius of 1.");
 
 // Constructors
 cls_Vrml_Sphere.def(py::init<>());

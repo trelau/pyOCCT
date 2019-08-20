@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOM_Comment(py::module &mod){
 
-py::class_<LDOM_Comment, std::unique_ptr<LDOM_Comment, Deleter<LDOM_Comment>>, LDOM_CharacterData> cls_LDOM_Comment(mod, "LDOM_Comment", "None");
+py::class_<LDOM_Comment, std::unique_ptr<LDOM_Comment>, LDOM_CharacterData> cls_LDOM_Comment(mod, "LDOM_Comment", "None");
 
 // Constructors
 cls_LDOM_Comment.def(py::init<>());

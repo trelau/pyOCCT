@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESBasic_ToolGroup(py::module &mod){
 
-py::class_<IGESBasic_ToolGroup, std::unique_ptr<IGESBasic_ToolGroup, Deleter<IGESBasic_ToolGroup>>> cls_IGESBasic_ToolGroup(mod, "IGESBasic_ToolGroup", "Tool to work on a Group. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESBasic_ToolGroup, std::unique_ptr<IGESBasic_ToolGroup>> cls_IGESBasic_ToolGroup(mod, "IGESBasic_ToolGroup", "Tool to work on a Group. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESBasic_ToolGroup.def(py::init<>());

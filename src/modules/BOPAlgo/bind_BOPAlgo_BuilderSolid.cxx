@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_BuilderSolid(py::module &mod){
 
-py::class_<BOPAlgo_BuilderSolid, std::unique_ptr<BOPAlgo_BuilderSolid, Deleter<BOPAlgo_BuilderSolid>>, BOPAlgo_BuilderArea> cls_BOPAlgo_BuilderSolid(mod, "BOPAlgo_BuilderSolid", "Solid Builder is the algorithm for building solids from set of faces. The given faces should be non-intersecting, i.e. all coinciding parts of the faces should be shared among them.");
+py::class_<BOPAlgo_BuilderSolid, std::unique_ptr<BOPAlgo_BuilderSolid>, BOPAlgo_BuilderArea> cls_BOPAlgo_BuilderSolid(mod, "BOPAlgo_BuilderSolid", "Solid Builder is the algorithm for building solids from set of faces. The given faces should be non-intersecting, i.e. all coinciding parts of the faces should be shared among them.");
 
 // Constructors
 cls_BOPAlgo_BuilderSolid.def(py::init<>());

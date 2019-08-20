@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBuilderAPI(py::module &mod){
 
-py::class_<BRepBuilderAPI, std::unique_ptr<BRepBuilderAPI, Deleter<BRepBuilderAPI>>> cls_BRepBuilderAPI(mod, "BRepBuilderAPI", "The BRepBuilderAPI package provides an Application Programming Interface for the BRep topology data structure.");
+py::class_<BRepBuilderAPI, std::unique_ptr<BRepBuilderAPI>> cls_BRepBuilderAPI(mod, "BRepBuilderAPI", "The BRepBuilderAPI package provides an Application Programming Interface for the BRep topology data structure.");
 
 // Constructors
 

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Bnd_Sphere(py::module &mod){
 
-py::class_<Bnd_Sphere, std::unique_ptr<Bnd_Sphere, Deleter<Bnd_Sphere>>> cls_Bnd_Sphere(mod, "Bnd_Sphere", "This class represents a bounding sphere of a geometric entity (triangle, segment of line or whatever else).");
+py::class_<Bnd_Sphere, std::unique_ptr<Bnd_Sphere>> cls_Bnd_Sphere(mod, "Bnd_Sphere", "This class represents a bounding sphere of a geometric entity (triangle, segment of line or whatever else).");
 
 // Constructors
 cls_Bnd_Sphere.def(py::init<>());

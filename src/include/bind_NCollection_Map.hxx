@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheKeyType, typename Hasher>
 void bind_NCollection_Map(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_Map<TheKeyType, Hasher>, std::unique_ptr<NCollection_Map<TheKeyType, Hasher>, Deleter<NCollection_Map<TheKeyType, Hasher>>>, NCollection_BaseMap> cls_NCollection_Map(mod, name.c_str(), "Purpose: Single hashed Map. This Map is used to store and retrieve keys in linear time.", local);
+py::class_<NCollection_Map<TheKeyType, Hasher>, std::unique_ptr<NCollection_Map<TheKeyType, Hasher>>, NCollection_BaseMap> cls_NCollection_Map(mod, name.c_str(), "Purpose: Single hashed Map. This Map is used to store and retrieve keys in linear time.", local);
 
 // Constructors
 cls_NCollection_Map.def(py::init<>());

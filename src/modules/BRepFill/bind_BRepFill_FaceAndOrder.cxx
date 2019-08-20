@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_FaceAndOrder(py::module &mod){
 
-py::class_<BRepFill_FaceAndOrder, std::unique_ptr<BRepFill_FaceAndOrder, Deleter<BRepFill_FaceAndOrder>>> cls_BRepFill_FaceAndOrder(mod, "BRepFill_FaceAndOrder", "A structure containing Face and Order of constraint");
+py::class_<BRepFill_FaceAndOrder, std::unique_ptr<BRepFill_FaceAndOrder>> cls_BRepFill_FaceAndOrder(mod, "BRepFill_FaceAndOrder", "A structure containing Face and Order of constraint");
 
 // Constructors
 cls_BRepFill_FaceAndOrder.def(py::init<>());

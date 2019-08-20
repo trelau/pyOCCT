@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWPropertyDefinitionRepresentation(py::module &mod){
 
-py::class_<RWStepRepr_RWPropertyDefinitionRepresentation, std::unique_ptr<RWStepRepr_RWPropertyDefinitionRepresentation, Deleter<RWStepRepr_RWPropertyDefinitionRepresentation>>> cls_RWStepRepr_RWPropertyDefinitionRepresentation(mod, "RWStepRepr_RWPropertyDefinitionRepresentation", "Read & Write tool for PropertyDefinitionRepresentation");
+py::class_<RWStepRepr_RWPropertyDefinitionRepresentation, std::unique_ptr<RWStepRepr_RWPropertyDefinitionRepresentation>> cls_RWStepRepr_RWPropertyDefinitionRepresentation(mod, "RWStepRepr_RWPropertyDefinitionRepresentation", "Read & Write tool for PropertyDefinitionRepresentation");
 
 // Constructors
 cls_RWStepRepr_RWPropertyDefinitionRepresentation.def(py::init<>());

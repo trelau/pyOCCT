@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gce_MakeMirror(py::module &mod){
 
-py::class_<gce_MakeMirror, std::unique_ptr<gce_MakeMirror, Deleter<gce_MakeMirror>>> cls_gce_MakeMirror(mod, "gce_MakeMirror", "This class mplements elementary construction algorithms for a symmetrical transformation in 3D space about a point, axis or plane. The result is a gp_Trsf transformation. A MakeMirror object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.");
+py::class_<gce_MakeMirror, std::unique_ptr<gce_MakeMirror>> cls_gce_MakeMirror(mod, "gce_MakeMirror", "This class mplements elementary construction algorithms for a symmetrical transformation in 3D space about a point, axis or plane. The result is a gp_Trsf transformation. A MakeMirror object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_gce_MakeMirror.def(py::init<const gp_Pnt &>(), py::arg("Point"));

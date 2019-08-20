@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBlend_SurfCurvConstRadInv(py::module &mod){
 
-py::class_<BRepBlend_SurfCurvConstRadInv, std::unique_ptr<BRepBlend_SurfCurvConstRadInv, Deleter<BRepBlend_SurfCurvConstRadInv>>, Blend_SurfCurvFuncInv> cls_BRepBlend_SurfCurvConstRadInv(mod, "BRepBlend_SurfCurvConstRadInv", "Function of reframing between a restriction surface of the surface and a curve. Class used to compute a solution of the surfRstConstRad problem on a done restriction of the surface. The vector <X> used in Value, Values and Derivatives methods has to be the vector of the parametric coordinates wguide, wcurv, wrst where wguide is the parameter on the guide line, wcurv is the parameter on the curve, wrst is the parameter on the restriction on the surface.");
+py::class_<BRepBlend_SurfCurvConstRadInv, std::unique_ptr<BRepBlend_SurfCurvConstRadInv>, Blend_SurfCurvFuncInv> cls_BRepBlend_SurfCurvConstRadInv(mod, "BRepBlend_SurfCurvConstRadInv", "Function of reframing between a restriction surface of the surface and a curve. Class used to compute a solution of the surfRstConstRad problem on a done restriction of the surface. The vector <X> used in Value, Values and Derivatives methods has to be the vector of the parametric coordinates wguide, wcurv, wrst where wguide is the parameter on the guide line, wcurv is the parameter on the curve, wrst is the parameter on the restriction on the surface.");
 
 // Constructors
 cls_BRepBlend_SurfCurvConstRadInv.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S"), py::arg("C"), py::arg("Cg"));

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dAPI_InterCurveCurve(py::module &mod){
 
-py::class_<Geom2dAPI_InterCurveCurve, std::unique_ptr<Geom2dAPI_InterCurveCurve, Deleter<Geom2dAPI_InterCurveCurve>>> cls_Geom2dAPI_InterCurveCurve(mod, "Geom2dAPI_InterCurveCurve", "This class implements methods for computing - the intersections between two 2D curves, - the self-intersections of a 2D curve. Using the InterCurveCurve algorithm allows to get the following results: - intersection points in the case of cross intersections, - intersection segments in the case of tangential intersections, - nothing in the case of no intersections.");
+py::class_<Geom2dAPI_InterCurveCurve, std::unique_ptr<Geom2dAPI_InterCurveCurve>> cls_Geom2dAPI_InterCurveCurve(mod, "Geom2dAPI_InterCurveCurve", "This class implements methods for computing - the intersections between two 2D curves, - the self-intersections of a 2D curve. Using the InterCurveCurve algorithm allows to get the following results: - intersection points in the case of cross intersections, - intersection segments in the case of tangential intersections, - nothing in the case of no intersections.");
 
 // Constructors
 cls_Geom2dAPI_InterCurveCurve.def(py::init<>());

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_InterferenceIterator(py::module &mod){
 
-py::class_<TopOpeBRepDS_InterferenceIterator, std::unique_ptr<TopOpeBRepDS_InterferenceIterator, Deleter<TopOpeBRepDS_InterferenceIterator>>> cls_TopOpeBRepDS_InterferenceIterator(mod, "TopOpeBRepDS_InterferenceIterator", "Iterate on interferences of a list, matching conditions on interferences. Nota : inheritance of ListIteratorOfListOfInterference from TopOpeBRepDS has not been done because of the impossibility of naming the classical More, Next methods which are declared as static in TCollection_ListIteratorOfList ... . ListIteratorOfList has benn placed as a field of InterferenceIterator.");
+py::class_<TopOpeBRepDS_InterferenceIterator, std::unique_ptr<TopOpeBRepDS_InterferenceIterator>> cls_TopOpeBRepDS_InterferenceIterator(mod, "TopOpeBRepDS_InterferenceIterator", "Iterate on interferences of a list, matching conditions on interferences. Nota : inheritance of ListIteratorOfListOfInterference from TopOpeBRepDS has not been done because of the impossibility of naming the classical More, Next methods which are declared as static in TCollection_ListIteratorOfList ... . ListIteratorOfList has benn placed as a field of InterferenceIterator.");
 
 // Constructors
 cls_TopOpeBRepDS_InterferenceIterator.def(py::init<>());

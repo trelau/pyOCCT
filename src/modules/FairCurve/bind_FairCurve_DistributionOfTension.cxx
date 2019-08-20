@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FairCurve_DistributionOfTension(py::module &mod){
 
-py::class_<FairCurve_DistributionOfTension, std::unique_ptr<FairCurve_DistributionOfTension, Deleter<FairCurve_DistributionOfTension>>, FairCurve_DistributionOfEnergy> cls_FairCurve_DistributionOfTension(mod, "FairCurve_DistributionOfTension", "Compute the Tension Distribution");
+py::class_<FairCurve_DistributionOfTension, std::unique_ptr<FairCurve_DistributionOfTension>, FairCurve_DistributionOfEnergy> cls_FairCurve_DistributionOfTension(mod, "FairCurve_DistributionOfTension", "Compute the Tension Distribution");
 
 // Constructors
 cls_FairCurve_DistributionOfTension.def(py::init<const Standard_Integer, const opencascade::handle<TColStd_HArray1OfReal> &, const opencascade::handle<TColgp_HArray1OfPnt2d> &, const Standard_Integer, const Standard_Real, const FairCurve_BattenLaw &>(), py::arg("BSplOrder"), py::arg("FlatKnots"), py::arg("Poles"), py::arg("DerivativeOrder"), py::arg("LengthSliding"), py::arg("Law"));

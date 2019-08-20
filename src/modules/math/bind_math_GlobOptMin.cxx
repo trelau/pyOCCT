@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_GlobOptMin(py::module &mod){
 
-py::class_<math_GlobOptMin, std::unique_ptr<math_GlobOptMin, Deleter<math_GlobOptMin>>> cls_math_GlobOptMin(mod, "math_GlobOptMin", "This class represents Evtushenko's algorithm of global optimization based on non-uniform mesh. Article: Yu. Evtushenko. Numerical methods for finding global extreme (case of a non-uniform mesh). U.S.S.R. Comput. Maths. Math. Phys., Vol. 11, N 6, pp. 38-54.");
+py::class_<math_GlobOptMin, std::unique_ptr<math_GlobOptMin>> cls_math_GlobOptMin(mod, "math_GlobOptMin", "This class represents Evtushenko's algorithm of global optimization based on non-uniform mesh. Article: Yu. Evtushenko. Numerical methods for finding global extreme (case of a non-uniform mesh). U.S.S.R. Comput. Maths. Math. Phys., Vol. 11, N 6, pp. 38-54.");
 
 // Constructors
 cls_math_GlobOptMin.def(py::init<math_MultipleVarFunction *, const math_Vector &, const math_Vector &>(), py::arg("theFunc"), py::arg("theLowerBorder"), py::arg("theUpperBorder"));

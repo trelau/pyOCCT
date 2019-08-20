@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrim_Revolution(py::module &mod){
 
-py::class_<BRepPrim_Revolution, std::unique_ptr<BRepPrim_Revolution, Deleter<BRepPrim_Revolution>>, BRepPrim_OneAxis> cls_BRepPrim_Revolution(mod, "BRepPrim_Revolution", "Implement the OneAxis algoritm for a revolution surface.");
+py::class_<BRepPrim_Revolution, std::unique_ptr<BRepPrim_Revolution>, BRepPrim_OneAxis> cls_BRepPrim_Revolution(mod, "BRepPrim_Revolution", "Implement the OneAxis algoritm for a revolution surface.");
 
 // Constructors
 cls_BRepPrim_Revolution.def(py::init<const gp_Ax2 &, const Standard_Real, const Standard_Real, const opencascade::handle<Geom_Curve> &, const opencascade::handle<Geom2d_Curve> &>(), py::arg("A"), py::arg("VMin"), py::arg("VMax"), py::arg("M"), py::arg("PM"));

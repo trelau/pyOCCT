@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TNaming_ShapesSet(py::module &mod){
 
-py::class_<TNaming_ShapesSet, std::unique_ptr<TNaming_ShapesSet, Deleter<TNaming_ShapesSet>>> cls_TNaming_ShapesSet(mod, "TNaming_ShapesSet", "None");
+py::class_<TNaming_ShapesSet, std::unique_ptr<TNaming_ShapesSet>> cls_TNaming_ShapesSet(mod, "TNaming_ShapesSet", "None");
 
 // Constructors
 cls_TNaming_ShapesSet.def(py::init<>());

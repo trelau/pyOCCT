@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinXCAFDrivers(py::module &mod){
 
-py::class_<BinXCAFDrivers, std::unique_ptr<BinXCAFDrivers, Deleter<BinXCAFDrivers>>> cls_BinXCAFDrivers(mod, "BinXCAFDrivers", "None");
+py::class_<BinXCAFDrivers, std::unique_ptr<BinXCAFDrivers>> cls_BinXCAFDrivers(mod, "BinXCAFDrivers", "None");
 
 // Constructors
 

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_BitMap(py::module &mod){
 
-py::class_<Interface_BitMap, std::unique_ptr<Interface_BitMap, Deleter<Interface_BitMap>>> cls_Interface_BitMap(mod, "Interface_BitMap", "A bit map simply allows to associate a boolean flag to each item of a list, such as a list of entities, etc... numbered between 1 and a positive count nbitems");
+py::class_<Interface_BitMap, std::unique_ptr<Interface_BitMap>> cls_Interface_BitMap(mod, "Interface_BitMap", "A bit map simply allows to associate a boolean flag to each item of a list, such as a list of entities, etc... numbered between 1 and a positive count nbitems");
 
 // Constructors
 cls_Interface_BitMap.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWDerivedShapeAspect(py::module &mod){
 
-py::class_<RWStepRepr_RWDerivedShapeAspect, std::unique_ptr<RWStepRepr_RWDerivedShapeAspect, Deleter<RWStepRepr_RWDerivedShapeAspect>>> cls_RWStepRepr_RWDerivedShapeAspect(mod, "RWStepRepr_RWDerivedShapeAspect", "Read & Write tool for DerivedShapeAspect");
+py::class_<RWStepRepr_RWDerivedShapeAspect, std::unique_ptr<RWStepRepr_RWDerivedShapeAspect>> cls_RWStepRepr_RWDerivedShapeAspect(mod, "RWStepRepr_RWDerivedShapeAspect", "Read & Write tool for DerivedShapeAspect");
 
 // Constructors
 cls_RWStepRepr_RWDerivedShapeAspect.def(py::init<>());

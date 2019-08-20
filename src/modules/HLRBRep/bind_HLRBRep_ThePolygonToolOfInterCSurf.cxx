@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_ThePolygonToolOfInterCSurf(py::module &mod){
 
-py::class_<HLRBRep_ThePolygonToolOfInterCSurf, std::unique_ptr<HLRBRep_ThePolygonToolOfInterCSurf, Deleter<HLRBRep_ThePolygonToolOfInterCSurf>>> cls_HLRBRep_ThePolygonToolOfInterCSurf(mod, "HLRBRep_ThePolygonToolOfInterCSurf", "None");
+py::class_<HLRBRep_ThePolygonToolOfInterCSurf, std::unique_ptr<HLRBRep_ThePolygonToolOfInterCSurf>> cls_HLRBRep_ThePolygonToolOfInterCSurf(mod, "HLRBRep_ThePolygonToolOfInterCSurf", "None");
 
 // Constructors
 

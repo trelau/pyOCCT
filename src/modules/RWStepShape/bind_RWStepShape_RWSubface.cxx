@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWSubface(py::module &mod){
 
-py::class_<RWStepShape_RWSubface, std::unique_ptr<RWStepShape_RWSubface, Deleter<RWStepShape_RWSubface>>> cls_RWStepShape_RWSubface(mod, "RWStepShape_RWSubface", "Read & Write tool for Subface");
+py::class_<RWStepShape_RWSubface, std::unique_ptr<RWStepShape_RWSubface>> cls_RWStepShape_RWSubface(mod, "RWStepShape_RWSubface", "Read & Write tool for Subface");
 
 // Constructors
 cls_RWStepShape_RWSubface.def(py::init<>());

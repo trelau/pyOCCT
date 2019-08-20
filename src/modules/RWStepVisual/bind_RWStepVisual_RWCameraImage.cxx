@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWCameraImage(py::module &mod){
 
-py::class_<RWStepVisual_RWCameraImage, std::unique_ptr<RWStepVisual_RWCameraImage, Deleter<RWStepVisual_RWCameraImage>>> cls_RWStepVisual_RWCameraImage(mod, "RWStepVisual_RWCameraImage", "Read & Write Module for CameraImage");
+py::class_<RWStepVisual_RWCameraImage, std::unique_ptr<RWStepVisual_RWCameraImage>> cls_RWStepVisual_RWCameraImage(mod, "RWStepVisual_RWCameraImage", "Read & Write Module for CameraImage");
 
 // Constructors
 cls_RWStepVisual_RWCameraImage.def(py::init<>());

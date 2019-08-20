@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolConicalSurface(py::module &mod){
 
-py::class_<IGESSolid_ToolConicalSurface, std::unique_ptr<IGESSolid_ToolConicalSurface, Deleter<IGESSolid_ToolConicalSurface>>> cls_IGESSolid_ToolConicalSurface(mod, "IGESSolid_ToolConicalSurface", "Tool to work on a ConicalSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolConicalSurface, std::unique_ptr<IGESSolid_ToolConicalSurface>> cls_IGESSolid_ToolConicalSurface(mod, "IGESSolid_ToolConicalSurface", "Tool to work on a ConicalSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolConicalSurface.def(py::init<>());

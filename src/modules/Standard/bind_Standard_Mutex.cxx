@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Standard_Mutex(py::module &mod){
 
-py::class_<Standard_Mutex, std::unique_ptr<Standard_Mutex, Deleter<Standard_Mutex>>> cls_Standard_Mutex(mod, "Standard_Mutex", "Mutex: a class to synchronize access to shared data.");
+py::class_<Standard_Mutex, std::unique_ptr<Standard_Mutex>> cls_Standard_Mutex(mod, "Standard_Mutex", "Mutex: a class to synchronize access to shared data.");
 
 // Constructors
 cls_Standard_Mutex.def(py::init<>());

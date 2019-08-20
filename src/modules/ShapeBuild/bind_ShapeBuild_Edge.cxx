@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeBuild_Edge(py::module &mod){
 
-py::class_<ShapeBuild_Edge, std::unique_ptr<ShapeBuild_Edge, Deleter<ShapeBuild_Edge>>> cls_ShapeBuild_Edge(mod, "ShapeBuild_Edge", "This class provides low-level operators for building an edge 3d curve, copying edge with replaced vertices etc.");
+py::class_<ShapeBuild_Edge, std::unique_ptr<ShapeBuild_Edge>> cls_ShapeBuild_Edge(mod, "ShapeBuild_Edge", "This class provides low-level operators for building an edge 3d curve, copying edge with replaced vertices etc.");
 
 // Constructors
 

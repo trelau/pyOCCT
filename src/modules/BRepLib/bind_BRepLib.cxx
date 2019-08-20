@@ -52,7 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepLib(py::module &mod){
 
-py::class_<BRepLib, std::unique_ptr<BRepLib, Deleter<BRepLib>>> cls_BRepLib(mod, "BRepLib", "The BRepLib package provides general utilities for BRep.");
+py::class_<BRepLib, std::unique_ptr<BRepLib>> cls_BRepLib(mod, "BRepLib", "The BRepLib package provides general utilities for BRep.");
 
 // Constructors
 

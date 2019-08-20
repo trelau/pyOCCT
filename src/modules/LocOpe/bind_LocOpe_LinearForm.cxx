@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocOpe_LinearForm(py::module &mod){
 
-py::class_<LocOpe_LinearForm, std::unique_ptr<LocOpe_LinearForm, Deleter<LocOpe_LinearForm>>> cls_LocOpe_LinearForm(mod, "LocOpe_LinearForm", "Defines a linear form (using Prism from BRepSweep) with modifications provided for the LinearForm feature.");
+py::class_<LocOpe_LinearForm, std::unique_ptr<LocOpe_LinearForm>> cls_LocOpe_LinearForm(mod, "LocOpe_LinearForm", "Defines a linear form (using Prism from BRepSweep) with modifications provided for the LinearForm feature.");
 
 // Constructors
 cls_LocOpe_LinearForm.def(py::init<>());

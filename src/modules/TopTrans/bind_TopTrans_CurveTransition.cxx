@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopTrans_CurveTransition(py::module &mod){
 
-py::class_<TopTrans_CurveTransition, std::unique_ptr<TopTrans_CurveTransition, Deleter<TopTrans_CurveTransition>>> cls_TopTrans_CurveTransition(mod, "TopTrans_CurveTransition", "This algorithm is used to compute the transition of a Curve intersecting a curvilinear boundary.");
+py::class_<TopTrans_CurveTransition, std::unique_ptr<TopTrans_CurveTransition>> cls_TopTrans_CurveTransition(mod, "TopTrans_CurveTransition", "This algorithm is used to compute the transition of a Curve intersecting a curvilinear boundary.");
 
 // Constructors
 cls_TopTrans_CurveTransition.def(py::init<>());

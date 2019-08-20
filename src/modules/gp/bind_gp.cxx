@@ -61,7 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp(py::module &mod){
 
-py::class_<gp, std::unique_ptr<gp, Deleter<gp>>> cls_gp(mod, "gp", "The geometric processor package, called gp, provides an implementation of entities used : . for algebraic calculation such as 'XYZ' coordinates, 'Mat' matrix . for basis analytic geometry such as Transformations, point, vector, line, plane, axis placement, conics, and elementary surfaces. These entities are defined in 2d and 3d space. All the classes of this package are non-persistent.");
+py::class_<gp, std::unique_ptr<gp>> cls_gp(mod, "gp", "The geometric processor package, called gp, provides an implementation of entities used : . for algebraic calculation such as 'XYZ' coordinates, 'Mat' matrix . for basis analytic geometry such as Transformations, point, vector, line, plane, axis placement, conics, and elementary surfaces. These entities are defined in 2d and 3d space. All the classes of this package are non-persistent.");
 
 // Constructors
 

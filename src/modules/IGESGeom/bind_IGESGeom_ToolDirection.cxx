@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGeom_ToolDirection(py::module &mod){
 
-py::class_<IGESGeom_ToolDirection, std::unique_ptr<IGESGeom_ToolDirection, Deleter<IGESGeom_ToolDirection>>> cls_IGESGeom_ToolDirection(mod, "IGESGeom_ToolDirection", "Tool to work on a Direction. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGeom_ToolDirection, std::unique_ptr<IGESGeom_ToolDirection>> cls_IGESGeom_ToolDirection(mod, "IGESGeom_ToolDirection", "Tool to work on a Direction. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGeom_ToolDirection.def(py::init<>());

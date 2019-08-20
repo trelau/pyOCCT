@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppBlend_Approx(py::module &mod){
 
-py::class_<AppBlend_Approx, std::unique_ptr<AppBlend_Approx, Deleter<AppBlend_Approx>>> cls_AppBlend_Approx(mod, "AppBlend_Approx", "Bspline approximation of a surface.");
+py::class_<AppBlend_Approx, std::unique_ptr<AppBlend_Approx>> cls_AppBlend_Approx(mod, "AppBlend_Approx", "Bspline approximation of a surface.");
 
 // Fields
 

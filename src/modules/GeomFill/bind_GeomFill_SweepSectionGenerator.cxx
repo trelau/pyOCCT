@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_SweepSectionGenerator(py::module &mod){
 
-py::class_<GeomFill_SweepSectionGenerator, std::unique_ptr<GeomFill_SweepSectionGenerator, Deleter<GeomFill_SweepSectionGenerator>>> cls_GeomFill_SweepSectionGenerator(mod, "GeomFill_SweepSectionGenerator", "class for instantiation of AppBlend. evaluate the sections of a sweep surface.");
+py::class_<GeomFill_SweepSectionGenerator, std::unique_ptr<GeomFill_SweepSectionGenerator>> cls_GeomFill_SweepSectionGenerator(mod, "GeomFill_SweepSectionGenerator", "class for instantiation of AppBlend. evaluate the sections of a sweep surface.");
 
 // Constructors
 cls_GeomFill_SweepSectionGenerator.def(py::init<>());

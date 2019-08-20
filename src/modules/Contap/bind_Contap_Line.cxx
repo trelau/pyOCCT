@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Contap_Line(py::module &mod){
 
-py::class_<Contap_Line, std::unique_ptr<Contap_Line, Deleter<Contap_Line>>> cls_Contap_Line(mod, "Contap_Line", "None");
+py::class_<Contap_Line, std::unique_ptr<Contap_Line>> cls_Contap_Line(mod, "Contap_Line", "None");
 
 // Constructors
 cls_Contap_Line.def(py::init<>());

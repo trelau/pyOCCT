@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_DiameterPresentation(py::module &mod){
 
-py::class_<DsgPrs_DiameterPresentation, std::unique_ptr<DsgPrs_DiameterPresentation, Deleter<DsgPrs_DiameterPresentation>>> cls_DsgPrs_DiameterPresentation(mod, "DsgPrs_DiameterPresentation", "A framework for displaying diameters in shapes.");
+py::class_<DsgPrs_DiameterPresentation, std::unique_ptr<DsgPrs_DiameterPresentation>> cls_DsgPrs_DiameterPresentation(mod, "DsgPrs_DiameterPresentation", "A framework for displaying diameters in shapes.");
 
 // Constructors
 

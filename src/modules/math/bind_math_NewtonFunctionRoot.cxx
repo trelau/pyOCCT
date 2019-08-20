@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_NewtonFunctionRoot(py::module &mod){
 
-py::class_<math_NewtonFunctionRoot, std::unique_ptr<math_NewtonFunctionRoot, Deleter<math_NewtonFunctionRoot>>> cls_math_NewtonFunctionRoot(mod, "math_NewtonFunctionRoot", "This class implements the calculation of a root of a function of a single variable starting from an initial near guess using the Newton algorithm. Knowledge of the derivative is required.");
+py::class_<math_NewtonFunctionRoot, std::unique_ptr<math_NewtonFunctionRoot>> cls_math_NewtonFunctionRoot(mod, "math_NewtonFunctionRoot", "This class implements the calculation of a root of a function of a single variable starting from an initial near guess using the Newton algorithm. Knowledge of the derivative is required.");
 
 // Constructors
 cls_math_NewtonFunctionRoot.def(py::init<math_FunctionWithDerivative &, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("F"), py::arg("Guess"), py::arg("EpsX"), py::arg("EpsF"));

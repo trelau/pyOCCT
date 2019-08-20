@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_SharedLibrary(py::module &mod){
 
-py::class_<OSD_SharedLibrary, std::unique_ptr<OSD_SharedLibrary, Deleter<OSD_SharedLibrary>>> cls_OSD_SharedLibrary(mod, "OSD_SharedLibrary", "Interface to dynamic library loader. Provides tools to load a shared library and retrieve the address of an entry point.");
+py::class_<OSD_SharedLibrary, std::unique_ptr<OSD_SharedLibrary>> cls_OSD_SharedLibrary(mod, "OSD_SharedLibrary", "Interface to dynamic library loader. Provides tools to load a shared library and retrieve the address of an entry point.");
 
 // Constructors
 cls_OSD_SharedLibrary.def(py::init<>());

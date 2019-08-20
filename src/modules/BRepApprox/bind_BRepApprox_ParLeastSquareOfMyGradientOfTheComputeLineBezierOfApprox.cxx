@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox(py::module &mod){
 
-py::class_<BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox, std::unique_ptr<BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox, Deleter<BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox>>> cls_BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox(mod, "BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox", "None");
+py::class_<BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox, std::unique_ptr<BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox>> cls_BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox(mod, "BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox", "None");
 
 // Constructors
 cls_BRepApprox_ParLeastSquareOfMyGradientOfTheComputeLineBezierOfApprox.def(py::init<const BRepApprox_TheMultiLineOfApprox &, const Standard_Integer, const Standard_Integer, const AppParCurves_Constraint, const AppParCurves_Constraint, const math_Vector &, const Standard_Integer>(), py::arg("SSP"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("FirstCons"), py::arg("LastCons"), py::arg("Parameters"), py::arg("NbPol"));

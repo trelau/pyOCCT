@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_RadiusPresentation(py::module &mod){
 
-py::class_<DsgPrs_RadiusPresentation, std::unique_ptr<DsgPrs_RadiusPresentation, Deleter<DsgPrs_RadiusPresentation>>> cls_DsgPrs_RadiusPresentation(mod, "DsgPrs_RadiusPresentation", "A framework to define display of radii.");
+py::class_<DsgPrs_RadiusPresentation, std::unique_ptr<DsgPrs_RadiusPresentation>> cls_DsgPrs_RadiusPresentation(mod, "DsgPrs_RadiusPresentation", "A framework to define display of radii.");
 
 // Constructors
 

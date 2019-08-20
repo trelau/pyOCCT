@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntRes2d_IntersectionPoint(py::module &mod){
 
-py::class_<IntRes2d_IntersectionPoint, std::unique_ptr<IntRes2d_IntersectionPoint, Deleter<IntRes2d_IntersectionPoint>>> cls_IntRes2d_IntersectionPoint(mod, "IntRes2d_IntersectionPoint", "Definition of an intersection point between two 2D curves.");
+py::class_<IntRes2d_IntersectionPoint, std::unique_ptr<IntRes2d_IntersectionPoint>> cls_IntRes2d_IntersectionPoint(mod, "IntRes2d_IntersectionPoint", "Definition of an intersection point between two 2D curves.");
 
 // Constructors
 cls_IntRes2d_IntersectionPoint.def(py::init<>());

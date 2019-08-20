@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_CurvIntSurf(py::module &mod){
 
-py::class_<IntPatch_CurvIntSurf, std::unique_ptr<IntPatch_CurvIntSurf, Deleter<IntPatch_CurvIntSurf>>> cls_IntPatch_CurvIntSurf(mod, "IntPatch_CurvIntSurf", "None");
+py::class_<IntPatch_CurvIntSurf, std::unique_ptr<IntPatch_CurvIntSurf>> cls_IntPatch_CurvIntSurf(mod, "IntPatch_CurvIntSurf", "None");
 
 // Constructors
 cls_IntPatch_CurvIntSurf.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real, const IntPatch_CSFunction &, const Standard_Real>(), py::arg("U"), py::arg("V"), py::arg("W"), py::arg("F"), py::arg("TolTangency"));

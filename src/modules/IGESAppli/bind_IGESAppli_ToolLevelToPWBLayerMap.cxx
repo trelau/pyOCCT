@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli_ToolLevelToPWBLayerMap(py::module &mod){
 
-py::class_<IGESAppli_ToolLevelToPWBLayerMap, std::unique_ptr<IGESAppli_ToolLevelToPWBLayerMap, Deleter<IGESAppli_ToolLevelToPWBLayerMap>>> cls_IGESAppli_ToolLevelToPWBLayerMap(mod, "IGESAppli_ToolLevelToPWBLayerMap", "Tool to work on a LevelToPWBLayerMap. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESAppli_ToolLevelToPWBLayerMap, std::unique_ptr<IGESAppli_ToolLevelToPWBLayerMap>> cls_IGESAppli_ToolLevelToPWBLayerMap(mod, "IGESAppli_ToolLevelToPWBLayerMap", "Tool to work on a LevelToPWBLayerMap. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESAppli_ToolLevelToPWBLayerMap.def(py::init<>());

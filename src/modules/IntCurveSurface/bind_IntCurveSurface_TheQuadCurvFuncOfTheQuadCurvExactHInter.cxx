@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter(py::module &mod){
 
-py::class_<IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter, std::unique_ptr<IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter, Deleter<IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter>>, math_FunctionWithDerivative> cls_IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter(mod, "IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter", "None");
+py::class_<IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter, std::unique_ptr<IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter>, math_FunctionWithDerivative> cls_IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter(mod, "IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter", "None");
 
 // Constructors
 cls_IntCurveSurface_TheQuadCurvFuncOfTheQuadCurvExactHInter.def(py::init<const IntSurf_Quadric &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("Q"), py::arg("C"));

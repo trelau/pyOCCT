@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCE2d_MakeHyperbola(py::module &mod){
 
-py::class_<GCE2d_MakeHyperbola, std::unique_ptr<GCE2d_MakeHyperbola, Deleter<GCE2d_MakeHyperbola>>, GCE2d_Root> cls_GCE2d_MakeHyperbola(mod, "GCE2d_MakeHyperbola", "This class implements the following algorithms used to create Hyperbola from Geom2d. * Create an Hyperbola from two apex and the center. Defines the main branch of an hyperbola. The parameterization range is ]-infinite,+infinite[ It is possible to get the other branch and the two conjugate branches of the main branch.");
+py::class_<GCE2d_MakeHyperbola, std::unique_ptr<GCE2d_MakeHyperbola>, GCE2d_Root> cls_GCE2d_MakeHyperbola(mod, "GCE2d_MakeHyperbola", "This class implements the following algorithms used to create Hyperbola from Geom2d. * Create an Hyperbola from two apex and the center. Defines the main branch of an hyperbola. The parameterization range is ]-infinite,+infinite[ It is possible to get the other branch and the two conjugate branches of the main branch.");
 
 // Constructors
 cls_GCE2d_MakeHyperbola.def(py::init<const gp_Hypr2d &>(), py::arg("H"));

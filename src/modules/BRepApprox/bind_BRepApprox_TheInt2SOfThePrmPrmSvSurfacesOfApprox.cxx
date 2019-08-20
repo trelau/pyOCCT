@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepApprox_TheInt2SOfThePrmPrmSvSurfacesOfApprox(py::module &mod){
 
-py::class_<BRepApprox_TheInt2SOfThePrmPrmSvSurfacesOfApprox, std::unique_ptr<BRepApprox_TheInt2SOfThePrmPrmSvSurfacesOfApprox, Deleter<BRepApprox_TheInt2SOfThePrmPrmSvSurfacesOfApprox>>> cls_BRepApprox_TheInt2SOfThePrmPrmSvSurfacesOfApprox(mod, "BRepApprox_TheInt2SOfThePrmPrmSvSurfacesOfApprox", "None");
+py::class_<BRepApprox_TheInt2SOfThePrmPrmSvSurfacesOfApprox, std::unique_ptr<BRepApprox_TheInt2SOfThePrmPrmSvSurfacesOfApprox>> cls_BRepApprox_TheInt2SOfThePrmPrmSvSurfacesOfApprox(mod, "BRepApprox_TheInt2SOfThePrmPrmSvSurfacesOfApprox", "None");
 
 // Constructors
 cls_BRepApprox_TheInt2SOfThePrmPrmSvSurfacesOfApprox.def(py::init<const TColStd_Array1OfReal &, const BRepAdaptor_Surface &, const BRepAdaptor_Surface &, const Standard_Real>(), py::arg("Param"), py::arg("S1"), py::arg("S2"), py::arg("TolTangency"));

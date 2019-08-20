@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWFreedomAndCoefficient(py::module &mod){
 
-py::class_<RWStepFEA_RWFreedomAndCoefficient, std::unique_ptr<RWStepFEA_RWFreedomAndCoefficient, Deleter<RWStepFEA_RWFreedomAndCoefficient>>> cls_RWStepFEA_RWFreedomAndCoefficient(mod, "RWStepFEA_RWFreedomAndCoefficient", "Read & Write tool for FreedomAndCoefficient");
+py::class_<RWStepFEA_RWFreedomAndCoefficient, std::unique_ptr<RWStepFEA_RWFreedomAndCoefficient>> cls_RWStepFEA_RWFreedomAndCoefficient(mod, "RWStepFEA_RWFreedomAndCoefficient", "Read & Write tool for FreedomAndCoefficient");
 
 // Constructors
 cls_RWStepFEA_RWFreedomAndCoefficient.def(py::init<>());

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDF_LabelMapHasher(py::module &mod){
 
-py::class_<TDF_LabelMapHasher, std::unique_ptr<TDF_LabelMapHasher, Deleter<TDF_LabelMapHasher>>> cls_TDF_LabelMapHasher(mod, "TDF_LabelMapHasher", "A label hasher for label maps.");
+py::class_<TDF_LabelMapHasher, std::unique_ptr<TDF_LabelMapHasher>> cls_TDF_LabelMapHasher(mod, "TDF_LabelMapHasher", "A label hasher for label maps.");
 
 // Constructors
 

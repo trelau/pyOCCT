@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_Jacobi(py::module &mod){
 
-py::class_<math_Jacobi, std::unique_ptr<math_Jacobi, Deleter<math_Jacobi>>> cls_math_Jacobi(mod, "math_Jacobi", "This class implements the Jacobi method to find the eigenvalues and the eigenvectors of a real symmetric square matrix. A sort of eigenvalues is done.");
+py::class_<math_Jacobi, std::unique_ptr<math_Jacobi>> cls_math_Jacobi(mod, "math_Jacobi", "This class implements the Jacobi method to find the eigenvalues and the eigenvectors of a real symmetric square matrix. A sort of eigenvalues is done.");
 
 // Constructors
 cls_math_Jacobi.def(py::init<const math_Matrix &>(), py::arg("A"));

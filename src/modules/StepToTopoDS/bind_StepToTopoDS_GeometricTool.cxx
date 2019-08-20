@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS_GeometricTool(py::module &mod){
 
-py::class_<StepToTopoDS_GeometricTool, std::unique_ptr<StepToTopoDS_GeometricTool, Deleter<StepToTopoDS_GeometricTool>>> cls_StepToTopoDS_GeometricTool(mod, "StepToTopoDS_GeometricTool", "This class contains some algorithmic services specific to the mapping STEP to CAS.CADE");
+py::class_<StepToTopoDS_GeometricTool, std::unique_ptr<StepToTopoDS_GeometricTool>> cls_StepToTopoDS_GeometricTool(mod, "StepToTopoDS_GeometricTool", "This class contains some algorithmic services specific to the mapping STEP to CAS.CADE");
 
 // Constructors
 

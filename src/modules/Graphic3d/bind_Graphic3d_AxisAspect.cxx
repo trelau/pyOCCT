@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Graphic3d_AxisAspect(py::module &mod){
 
-py::class_<Graphic3d_AxisAspect, std::unique_ptr<Graphic3d_AxisAspect, Deleter<Graphic3d_AxisAspect>>> cls_Graphic3d_AxisAspect(mod, "Graphic3d_AxisAspect", "Class that stores style for one graduated trihedron axis such as colors, lengths and customization flags. It is used in Graphic3d_GraduatedTrihedron.");
+py::class_<Graphic3d_AxisAspect, std::unique_ptr<Graphic3d_AxisAspect>> cls_Graphic3d_AxisAspect(mod, "Graphic3d_AxisAspect", "Class that stores style for one graduated trihedron axis such as colors, lengths and customization flags. It is used in Graphic3d_GraduatedTrihedron.");
 
 // Constructors
 cls_Graphic3d_AxisAspect.def(py::init<>());

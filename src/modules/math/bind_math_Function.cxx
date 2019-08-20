@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_Function(py::module &mod){
 
-py::class_<math_Function, std::unique_ptr<math_Function, Deleter<math_Function>>> cls_math_Function(mod, "math_Function", "This abstract class describes the virtual functions associated with a Function of a single variable.");
+py::class_<math_Function, std::unique_ptr<math_Function>> cls_math_Function(mod, "math_Function", "This abstract class describes the virtual functions associated with a Function of a single variable.");
 
 // Fields
 

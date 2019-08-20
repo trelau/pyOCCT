@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeConstruct_Curve(py::module &mod){
 
-py::class_<ShapeConstruct_Curve, std::unique_ptr<ShapeConstruct_Curve, Deleter<ShapeConstruct_Curve>>> cls_ShapeConstruct_Curve(mod, "ShapeConstruct_Curve", "Adjusts curve to have start and end points at the given points (currently works on lines and B-Splines only)");
+py::class_<ShapeConstruct_Curve, std::unique_ptr<ShapeConstruct_Curve>> cls_ShapeConstruct_Curve(mod, "ShapeConstruct_Curve", "Adjusts curve to have start and end points at the given points (currently works on lines and B-Splines only)");
 
 // Constructors
 

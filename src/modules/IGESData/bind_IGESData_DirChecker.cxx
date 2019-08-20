@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESData_DirChecker(py::module &mod){
 
-py::class_<IGESData_DirChecker, std::unique_ptr<IGESData_DirChecker, Deleter<IGESData_DirChecker>>> cls_IGESData_DirChecker(mod, "IGESData_DirChecker", "This class centralizes general Checks upon an IGES Entity's Directory Part. That is : such field Ignored or Required, or Required with a given Value (for an Integer field) More precise checks can be performed as necessary, by each Entity (method OwnCheck).");
+py::class_<IGESData_DirChecker, std::unique_ptr<IGESData_DirChecker>> cls_IGESData_DirChecker(mod, "IGESData_DirChecker", "This class centralizes general Checks upon an IGES Entity's Directory Part. That is : such field Ignored or Required, or Required with a given Value (for an Integer field) More precise checks can be performed as necessary, by each Entity (method OwnCheck).");
 
 // Constructors
 cls_IGESData_DirChecker.def(py::init<>());

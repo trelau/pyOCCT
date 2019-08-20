@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_Point(py::module &mod){
 
-py::class_<TopOpeBRepDS_Point, std::unique_ptr<TopOpeBRepDS_Point, Deleter<TopOpeBRepDS_Point>>> cls_TopOpeBRepDS_Point(mod, "TopOpeBRepDS_Point", "A Geom point and a tolerance.");
+py::class_<TopOpeBRepDS_Point, std::unique_ptr<TopOpeBRepDS_Point>> cls_TopOpeBRepDS_Point(mod, "TopOpeBRepDS_Point", "A Geom point and a tolerance.");
 
 // Constructors
 cls_TopOpeBRepDS_Point.def(py::init<>());

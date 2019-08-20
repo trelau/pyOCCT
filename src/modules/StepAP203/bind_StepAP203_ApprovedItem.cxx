@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP203_ApprovedItem(py::module &mod){
 
-py::class_<StepAP203_ApprovedItem, std::unique_ptr<StepAP203_ApprovedItem, Deleter<StepAP203_ApprovedItem>>, StepData_SelectType> cls_StepAP203_ApprovedItem(mod, "StepAP203_ApprovedItem", "Representation of STEP SELECT type ApprovedItem");
+py::class_<StepAP203_ApprovedItem, std::unique_ptr<StepAP203_ApprovedItem>, StepData_SelectType> cls_StepAP203_ApprovedItem(mod, "StepAP203_ApprovedItem", "Representation of STEP SELECT type ApprovedItem");
 
 // Constructors
 cls_StepAP203_ApprovedItem.def(py::init<>());

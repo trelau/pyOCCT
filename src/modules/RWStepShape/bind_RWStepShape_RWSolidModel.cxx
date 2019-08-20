@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWSolidModel(py::module &mod){
 
-py::class_<RWStepShape_RWSolidModel, std::unique_ptr<RWStepShape_RWSolidModel, Deleter<RWStepShape_RWSolidModel>>> cls_RWStepShape_RWSolidModel(mod, "RWStepShape_RWSolidModel", "Read & Write Module for SolidModel");
+py::class_<RWStepShape_RWSolidModel, std::unique_ptr<RWStepShape_RWSolidModel>> cls_RWStepShape_RWSolidModel(mod, "RWStepShape_RWSolidModel", "Read & Write Module for SolidModel");
 
 // Constructors
 cls_RWStepShape_RWSolidModel.def(py::init<>());

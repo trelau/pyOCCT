@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWBezierSurface(py::module &mod){
 
-py::class_<RWStepGeom_RWBezierSurface, std::unique_ptr<RWStepGeom_RWBezierSurface, Deleter<RWStepGeom_RWBezierSurface>>> cls_RWStepGeom_RWBezierSurface(mod, "RWStepGeom_RWBezierSurface", "Read & Write Module for BezierSurface");
+py::class_<RWStepGeom_RWBezierSurface, std::unique_ptr<RWStepGeom_RWBezierSurface>> cls_RWStepGeom_RWBezierSurface(mod, "RWStepGeom_RWBezierSurface", "Read & Write Module for BezierSurface");
 
 // Constructors
 cls_RWStepGeom_RWBezierSurface.def(py::init<>());

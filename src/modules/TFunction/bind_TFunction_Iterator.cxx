@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TFunction_Iterator(py::module &mod){
 
-py::class_<TFunction_Iterator, std::unique_ptr<TFunction_Iterator, Deleter<TFunction_Iterator>>> cls_TFunction_Iterator(mod, "TFunction_Iterator", "Iterator of the graph of functions");
+py::class_<TFunction_Iterator, std::unique_ptr<TFunction_Iterator>> cls_TFunction_Iterator(mod, "TFunction_Iterator", "Iterator of the graph of functions");
 
 // Constructors
 cls_TFunction_Iterator.def(py::init<>());

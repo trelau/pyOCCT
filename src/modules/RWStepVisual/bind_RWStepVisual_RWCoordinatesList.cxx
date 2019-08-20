@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWCoordinatesList(py::module &mod){
 
-py::class_<RWStepVisual_RWCoordinatesList, std::unique_ptr<RWStepVisual_RWCoordinatesList, Deleter<RWStepVisual_RWCoordinatesList>>> cls_RWStepVisual_RWCoordinatesList(mod, "RWStepVisual_RWCoordinatesList", "Read & Write Module for AnnotationOccurrence");
+py::class_<RWStepVisual_RWCoordinatesList, std::unique_ptr<RWStepVisual_RWCoordinatesList>> cls_RWStepVisual_RWCoordinatesList(mod, "RWStepVisual_RWCoordinatesList", "Read & Write Module for AnnotationOccurrence");
 
 // Constructors
 cls_RWStepVisual_RWCoordinatesList.def(py::init<>());

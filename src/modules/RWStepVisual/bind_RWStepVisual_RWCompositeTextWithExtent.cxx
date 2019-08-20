@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWCompositeTextWithExtent(py::module &mod){
 
-py::class_<RWStepVisual_RWCompositeTextWithExtent, std::unique_ptr<RWStepVisual_RWCompositeTextWithExtent, Deleter<RWStepVisual_RWCompositeTextWithExtent>>> cls_RWStepVisual_RWCompositeTextWithExtent(mod, "RWStepVisual_RWCompositeTextWithExtent", "Read & Write Module for CompositeTextWithExtent");
+py::class_<RWStepVisual_RWCompositeTextWithExtent, std::unique_ptr<RWStepVisual_RWCompositeTextWithExtent>> cls_RWStepVisual_RWCompositeTextWithExtent(mod, "RWStepVisual_RWCompositeTextWithExtent", "Read & Write Module for CompositeTextWithExtent");
 
 // Constructors
 cls_RWStepVisual_RWCompositeTextWithExtent.def(py::init<>());

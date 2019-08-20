@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCPnts_UniformAbscissa(py::module &mod){
 
-py::class_<GCPnts_UniformAbscissa, std::unique_ptr<GCPnts_UniformAbscissa, Deleter<GCPnts_UniformAbscissa>>> cls_GCPnts_UniformAbscissa(mod, "GCPnts_UniformAbscissa", "This class allows to compute a uniform distribution of points on a curve (ie the points will all be equally distant).");
+py::class_<GCPnts_UniformAbscissa, std::unique_ptr<GCPnts_UniformAbscissa>> cls_GCPnts_UniformAbscissa(mod, "GCPnts_UniformAbscissa", "This class allows to compute a uniform distribution of points on a curve (ie the points will all be equally distant).");
 
 // Constructors
 cls_GCPnts_UniformAbscissa.def(py::init<>());

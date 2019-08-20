@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWCertification(py::module &mod){
 
-py::class_<RWStepBasic_RWCertification, std::unique_ptr<RWStepBasic_RWCertification, Deleter<RWStepBasic_RWCertification>>> cls_RWStepBasic_RWCertification(mod, "RWStepBasic_RWCertification", "Read & Write tool for Certification");
+py::class_<RWStepBasic_RWCertification, std::unique_ptr<RWStepBasic_RWCertification>> cls_RWStepBasic_RWCertification(mod, "RWStepBasic_RWCertification", "Read & Write tool for Certification");
 
 // Constructors
 cls_RWStepBasic_RWCertification.def(py::init<>());

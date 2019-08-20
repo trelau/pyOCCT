@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_mmjcobi_1_(py::module &mod){
 
-py::class_<mmjcobi_1_, std::unique_ptr<mmjcobi_1_, Deleter<mmjcobi_1_>>> cls_mmjcobi_1_(mod, "mmjcobi_1_", "None");
+py::class_<mmjcobi_1_, std::unique_ptr<mmjcobi_1_>> cls_mmjcobi_1_(mod, "mmjcobi_1_", "None");
 
 // Constructors
 

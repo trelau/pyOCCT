@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWPointReplica(py::module &mod){
 
-py::class_<RWStepGeom_RWPointReplica, std::unique_ptr<RWStepGeom_RWPointReplica, Deleter<RWStepGeom_RWPointReplica>>> cls_RWStepGeom_RWPointReplica(mod, "RWStepGeom_RWPointReplica", "Read & Write Module for PointReplica");
+py::class_<RWStepGeom_RWPointReplica, std::unique_ptr<RWStepGeom_RWPointReplica>> cls_RWStepGeom_RWPointReplica(mod, "RWStepGeom_RWPointReplica", "Read & Write Module for PointReplica");
 
 // Constructors
 cls_RWStepGeom_RWPointReplica.def(py::init<>());

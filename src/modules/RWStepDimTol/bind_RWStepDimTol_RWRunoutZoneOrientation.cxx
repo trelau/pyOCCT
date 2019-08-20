@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWRunoutZoneOrientation(py::module &mod){
 
-py::class_<RWStepDimTol_RWRunoutZoneOrientation, std::unique_ptr<RWStepDimTol_RWRunoutZoneOrientation, Deleter<RWStepDimTol_RWRunoutZoneOrientation>>> cls_RWStepDimTol_RWRunoutZoneOrientation(mod, "RWStepDimTol_RWRunoutZoneOrientation", "Read & Write tool for RunoutZoneOrientation");
+py::class_<RWStepDimTol_RWRunoutZoneOrientation, std::unique_ptr<RWStepDimTol_RWRunoutZoneOrientation>> cls_RWStepDimTol_RWRunoutZoneOrientation(mod, "RWStepDimTol_RWRunoutZoneOrientation", "Read & Write tool for RunoutZoneOrientation");
 
 // Constructors
 cls_RWStepDimTol_RWRunoutZoneOrientation.def(py::init<>());

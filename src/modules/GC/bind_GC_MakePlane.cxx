@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GC_MakePlane(py::module &mod){
 
-py::class_<GC_MakePlane, std::unique_ptr<GC_MakePlane, Deleter<GC_MakePlane>>, GC_Root> cls_GC_MakePlane(mod, "GC_MakePlane", "This class implements the following algorithms used to create a Plane from gp. * Create a Plane parallel to another and passing through a point. * Create a Plane passing through 3 points. * Create a Plane by its normal A MakePlane object provides a framework for: - defining the construction of the plane, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed plane.");
+py::class_<GC_MakePlane, std::unique_ptr<GC_MakePlane>, GC_Root> cls_GC_MakePlane(mod, "GC_MakePlane", "This class implements the following algorithms used to create a Plane from gp. * Create a Plane parallel to another and passing through a point. * Create a Plane passing through 3 points. * Create a Plane by its normal A MakePlane object provides a framework for: - defining the construction of the plane, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed plane.");
 
 // Constructors
 cls_GC_MakePlane.def(py::init<const gp_Pln &>(), py::arg("Pl"));

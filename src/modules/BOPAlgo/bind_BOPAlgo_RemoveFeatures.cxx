@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_RemoveFeatures(py::module &mod){
 
-py::class_<BOPAlgo_RemoveFeatures, std::unique_ptr<BOPAlgo_RemoveFeatures, Deleter<BOPAlgo_RemoveFeatures>>, BOPAlgo_Options> cls_BOPAlgo_RemoveFeatures(mod, "BOPAlgo_RemoveFeatures", "The RemoveFeatures algorithm is intended for reconstruction of the shape by removal of the unwanted parts from it. These parts can be holes, protrusions, spikes, fillets etc. The shape itself is not modified, the new shape is built in the result.");
+py::class_<BOPAlgo_RemoveFeatures, std::unique_ptr<BOPAlgo_RemoveFeatures>, BOPAlgo_Options> cls_BOPAlgo_RemoveFeatures(mod, "BOPAlgo_RemoveFeatures", "The RemoveFeatures algorithm is intended for reconstruction of the shape by removal of the unwanted parts from it. These parts can be holes, protrusions, spikes, fillets etc. The shape itself is not modified, the new shape is built in the result.");
 
 // Constructors
 cls_BOPAlgo_RemoveFeatures.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocOpe_PntFace(py::module &mod){
 
-py::class_<LocOpe_PntFace, std::unique_ptr<LocOpe_PntFace, Deleter<LocOpe_PntFace>>> cls_LocOpe_PntFace(mod, "LocOpe_PntFace", "None");
+py::class_<LocOpe_PntFace, std::unique_ptr<LocOpe_PntFace>> cls_LocOpe_PntFace(mod, "LocOpe_PntFace", "None");
 
 // Constructors
 cls_LocOpe_PntFace.def(py::init<>());

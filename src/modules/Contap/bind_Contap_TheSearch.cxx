@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Contap_TheSearch(py::module &mod){
 
-py::class_<Contap_TheSearch, std::unique_ptr<Contap_TheSearch, Deleter<Contap_TheSearch>>> cls_Contap_TheSearch(mod, "Contap_TheSearch", "None");
+py::class_<Contap_TheSearch, std::unique_ptr<Contap_TheSearch>> cls_Contap_TheSearch(mod, "Contap_TheSearch", "None");
 
 // Constructors
 cls_Contap_TheSearch.def(py::init<>());

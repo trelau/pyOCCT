@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_OffsetAncestors(py::module &mod){
 
-py::class_<BRepFill_OffsetAncestors, std::unique_ptr<BRepFill_OffsetAncestors, Deleter<BRepFill_OffsetAncestors>>> cls_BRepFill_OffsetAncestors(mod, "BRepFill_OffsetAncestors", "this class is used to find the generating shapes of an OffsetWire.");
+py::class_<BRepFill_OffsetAncestors, std::unique_ptr<BRepFill_OffsetAncestors>> cls_BRepFill_OffsetAncestors(mod, "BRepFill_OffsetAncestors", "this class is used to find the generating shapes of an OffsetWire.");
 
 // Constructors
 cls_BRepFill_OffsetAncestors.def(py::init<>());

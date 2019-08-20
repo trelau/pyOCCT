@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPConstruct_ContextTool(py::module &mod){
 
-py::class_<STEPConstruct_ContextTool, std::unique_ptr<STEPConstruct_ContextTool, Deleter<STEPConstruct_ContextTool>>> cls_STEPConstruct_ContextTool(mod, "STEPConstruct_ContextTool", "Maintains global context tool for writing. Gives access to Product Definition Context (one per Model) Maintains ApplicationProtocolDefinition entity (common for all products) Also maintains context specific for AP203 and provides set of methods to work with various STEP constructs as required by Actor");
+py::class_<STEPConstruct_ContextTool, std::unique_ptr<STEPConstruct_ContextTool>> cls_STEPConstruct_ContextTool(mod, "STEPConstruct_ContextTool", "Maintains global context tool for writing. Gives access to Product Definition Context (one per Model) Maintains ApplicationProtocolDefinition entity (common for all products) Also maintains context specific for AP203 and provides set of methods to work with various STEP constructs as required by Actor");
 
 // Constructors
 cls_STEPConstruct_ContextTool.def(py::init<>());

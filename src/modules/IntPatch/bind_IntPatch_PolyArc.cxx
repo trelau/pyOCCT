@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_PolyArc(py::module &mod){
 
-py::class_<IntPatch_PolyArc, std::unique_ptr<IntPatch_PolyArc, Deleter<IntPatch_PolyArc>>, IntPatch_Polygo> cls_IntPatch_PolyArc(mod, "IntPatch_PolyArc", "None");
+py::class_<IntPatch_PolyArc, std::unique_ptr<IntPatch_PolyArc>, IntPatch_Polygo> cls_IntPatch_PolyArc(mod, "IntPatch_PolyArc", "None");
 
 // Constructors
 cls_IntPatch_PolyArc.def(py::init<const opencascade::handle<Adaptor2d_HCurve2d> &, const Standard_Integer, const Standard_Real, const Standard_Real, const Bnd_Box2d &>(), py::arg("A"), py::arg("NbSample"), py::arg("Pfirst"), py::arg("Plast"), py::arg("BoxOtherPolygon"));

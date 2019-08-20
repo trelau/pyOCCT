@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_FuseFace(py::module &mod){
 
-py::class_<TopOpeBRepBuild_FuseFace, std::unique_ptr<TopOpeBRepBuild_FuseFace, Deleter<TopOpeBRepBuild_FuseFace>>> cls_TopOpeBRepBuild_FuseFace(mod, "TopOpeBRepBuild_FuseFace", "None");
+py::class_<TopOpeBRepBuild_FuseFace, std::unique_ptr<TopOpeBRepBuild_FuseFace>> cls_TopOpeBRepBuild_FuseFace(mod, "TopOpeBRepBuild_FuseFace", "None");
 
 // Constructors
 cls_TopOpeBRepBuild_FuseFace.def(py::init<>());

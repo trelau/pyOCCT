@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlObjMgt_Array1(py::module &mod){
 
-py::class_<XmlObjMgt_Array1, std::unique_ptr<XmlObjMgt_Array1, Deleter<XmlObjMgt_Array1>>> cls_XmlObjMgt_Array1(mod, "XmlObjMgt_Array1", "The class Array1 represents unidimensionnal array of fixed size known at run time. The range of the index is user defined. Warning: Programs clients of such class must be independant of the range of the first element. Then, a C++ for loop must be written like this for (i = A->Lower(); i <= A->Upper(); i++)");
+py::class_<XmlObjMgt_Array1, std::unique_ptr<XmlObjMgt_Array1>> cls_XmlObjMgt_Array1(mod, "XmlObjMgt_Array1", "The class Array1 represents unidimensionnal array of fixed size known at run time. The range of the index is user defined. Warning: Programs clients of such class must be independant of the range of the first element. Then, a C++ for loop must be written like this for (i = A->Lower(); i <= A->Upper(); i++)");
 
 // Constructors
 cls_XmlObjMgt_Array1.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("Low"), py::arg("Up"));

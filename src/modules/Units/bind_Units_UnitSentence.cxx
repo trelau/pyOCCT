@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Units_UnitSentence(py::module &mod){
 
-py::class_<Units_UnitSentence, std::unique_ptr<Units_UnitSentence, Deleter<Units_UnitSentence>>, Units_Sentence> cls_Units_UnitSentence(mod, "Units_UnitSentence", "This class describes all the facilities to manipulate and compute units contained in a string expression.");
+py::class_<Units_UnitSentence, std::unique_ptr<Units_UnitSentence>, Units_Sentence> cls_Units_UnitSentence(mod, "Units_UnitSentence", "This class describes all the facilities to manipulate and compute units contained in a string expression.");
 
 // Constructors
 cls_Units_UnitSentence.def(py::init<const Standard_CString>(), py::arg("astring"));

@@ -63,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeUpgrade(py::module &mod){
 
-py::class_<ShapeUpgrade, std::unique_ptr<ShapeUpgrade, Deleter<ShapeUpgrade>>> cls_ShapeUpgrade(mod, "ShapeUpgrade", "This package provides tools for splitting and converting shapes by some criteria. It provides modifications of the kind when one topological object can be converted or splitted to several ones. In particular this package contains high level API classes which perform: converting geometry of shapes up to given continuity, splitting revolutions by U to segments less than given value, converting to beziers, splitting closed faces.");
+py::class_<ShapeUpgrade, std::unique_ptr<ShapeUpgrade>> cls_ShapeUpgrade(mod, "ShapeUpgrade", "This package provides tools for splitting and converting shapes by some criteria. It provides modifications of the kind when one topological object can be converted or splitted to several ones. In particular this package contains high level API classes which perform: converting geometry of shapes up to given continuity, splitting revolutions by U to segments less than given value, converting to beziers, splitting closed faces.");
 
 // Constructors
 

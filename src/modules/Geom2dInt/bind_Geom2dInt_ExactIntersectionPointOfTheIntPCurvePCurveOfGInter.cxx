@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dInt_ExactIntersectionPointOfTheIntPCurvePCurveOfGInter(py::module &mod){
 
-py::class_<Geom2dInt_ExactIntersectionPointOfTheIntPCurvePCurveOfGInter, std::unique_ptr<Geom2dInt_ExactIntersectionPointOfTheIntPCurvePCurveOfGInter, Deleter<Geom2dInt_ExactIntersectionPointOfTheIntPCurvePCurveOfGInter>>> cls_Geom2dInt_ExactIntersectionPointOfTheIntPCurvePCurveOfGInter(mod, "Geom2dInt_ExactIntersectionPointOfTheIntPCurvePCurveOfGInter", "None");
+py::class_<Geom2dInt_ExactIntersectionPointOfTheIntPCurvePCurveOfGInter, std::unique_ptr<Geom2dInt_ExactIntersectionPointOfTheIntPCurvePCurveOfGInter>> cls_Geom2dInt_ExactIntersectionPointOfTheIntPCurvePCurveOfGInter(mod, "Geom2dInt_ExactIntersectionPointOfTheIntPCurvePCurveOfGInter", "None");
 
 // Constructors
 cls_Geom2dInt_ExactIntersectionPointOfTheIntPCurvePCurveOfGInter.def(py::init<const Adaptor2d_Curve2d &, const Adaptor2d_Curve2d &, const Standard_Real>(), py::arg("C1"), py::arg("C2"), py::arg("Tol"));

@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRep_EdgesFiller(py::module &mod){
 
-py::class_<TopOpeBRep_EdgesFiller, std::unique_ptr<TopOpeBRep_EdgesFiller, Deleter<TopOpeBRep_EdgesFiller>>> cls_TopOpeBRep_EdgesFiller(mod, "TopOpeBRep_EdgesFiller", "Fills a TopOpeBRepDS_DataStructure with Edge/Edge instersection data described by TopOpeBRep_EdgesIntersector.");
+py::class_<TopOpeBRep_EdgesFiller, std::unique_ptr<TopOpeBRep_EdgesFiller>> cls_TopOpeBRep_EdgesFiller(mod, "TopOpeBRep_EdgesFiller", "Fills a TopOpeBRepDS_DataStructure with Edge/Edge instersection data described by TopOpeBRep_EdgesIntersector.");
 
 // Constructors
 cls_TopOpeBRep_EdgesFiller.def(py::init<>());

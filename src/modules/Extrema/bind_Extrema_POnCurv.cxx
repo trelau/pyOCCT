@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_POnCurv(py::module &mod){
 
-py::class_<Extrema_POnCurv, std::unique_ptr<Extrema_POnCurv, Deleter<Extrema_POnCurv>>> cls_Extrema_POnCurv(mod, "Extrema_POnCurv", "None");
+py::class_<Extrema_POnCurv, std::unique_ptr<Extrema_POnCurv>> cls_Extrema_POnCurv(mod, "Extrema_POnCurv", "None");
 
 // Constructors
 cls_Extrema_POnCurv.def(py::init<>());

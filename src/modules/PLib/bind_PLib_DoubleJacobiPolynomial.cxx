@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_PLib_DoubleJacobiPolynomial(py::module &mod){
 
-py::class_<PLib_DoubleJacobiPolynomial, std::unique_ptr<PLib_DoubleJacobiPolynomial, Deleter<PLib_DoubleJacobiPolynomial>>> cls_PLib_DoubleJacobiPolynomial(mod, "PLib_DoubleJacobiPolynomial", "None");
+py::class_<PLib_DoubleJacobiPolynomial, std::unique_ptr<PLib_DoubleJacobiPolynomial>> cls_PLib_DoubleJacobiPolynomial(mod, "PLib_DoubleJacobiPolynomial", "None");
 
 // Constructors
 cls_PLib_DoubleJacobiPolynomial.def(py::init<>());

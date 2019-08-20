@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_Curve(py::module &mod){
 
-py::class_<HLRBRep_Curve, std::unique_ptr<HLRBRep_Curve, Deleter<HLRBRep_Curve>>> cls_HLRBRep_Curve(mod, "HLRBRep_Curve", "Defines a 2d curve by projection of a 3D curve on a plane with an optional perspective transformation.");
+py::class_<HLRBRep_Curve, std::unique_ptr<HLRBRep_Curve>> cls_HLRBRep_Curve(mod, "HLRBRep_Curve", "Defines a 2d curve by projection of a 3D curve on a plane with an optional perspective transformation.");
 
 // Constructors
 cls_HLRBRep_Curve.def(py::init<>());

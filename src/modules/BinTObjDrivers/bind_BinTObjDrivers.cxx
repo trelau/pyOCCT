@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinTObjDrivers(py::module &mod){
 
-py::class_<BinTObjDrivers, std::unique_ptr<BinTObjDrivers, Deleter<BinTObjDrivers>>> cls_BinTObjDrivers(mod, "BinTObjDrivers", "Class for registering storage/retrieval drivers for TObj Bin persistence");
+py::class_<BinTObjDrivers, std::unique_ptr<BinTObjDrivers>> cls_BinTObjDrivers(mod, "BinTObjDrivers", "Class for registering storage/retrieval drivers for TObj Bin persistence");
 
 // Constructors
 

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWDatumTarget(py::module &mod){
 
-py::class_<RWStepDimTol_RWDatumTarget, std::unique_ptr<RWStepDimTol_RWDatumTarget, Deleter<RWStepDimTol_RWDatumTarget>>> cls_RWStepDimTol_RWDatumTarget(mod, "RWStepDimTol_RWDatumTarget", "Read & Write tool for DatumTarget");
+py::class_<RWStepDimTol_RWDatumTarget, std::unique_ptr<RWStepDimTol_RWDatumTarget>> cls_RWStepDimTol_RWDatumTarget(mod, "RWStepDimTol_RWDatumTarget", "Read & Write tool for DatumTarget");
 
 // Constructors
 cls_RWStepDimTol_RWDatumTarget.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomLProp_SLProps(py::module &mod){
 
-py::class_<GeomLProp_SLProps, std::unique_ptr<GeomLProp_SLProps, Deleter<GeomLProp_SLProps>>> cls_GeomLProp_SLProps(mod, "GeomLProp_SLProps", "None");
+py::class_<GeomLProp_SLProps, std::unique_ptr<GeomLProp_SLProps>> cls_GeomLProp_SLProps(mod, "GeomLProp_SLProps", "None");
 
 // Constructors
 cls_GeomLProp_SLProps.def(py::init<const opencascade::handle<Geom_Surface> &, const Standard_Real, const Standard_Real, const Standard_Integer, const Standard_Real>(), py::arg("S"), py::arg("U"), py::arg("V"), py::arg("N"), py::arg("Resolution"));

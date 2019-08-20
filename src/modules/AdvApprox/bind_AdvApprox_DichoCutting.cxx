@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApprox_DichoCutting(py::module &mod){
 
-py::class_<AdvApprox_DichoCutting, std::unique_ptr<AdvApprox_DichoCutting, Deleter<AdvApprox_DichoCutting>>, AdvApprox_Cutting> cls_AdvApprox_DichoCutting(mod, "AdvApprox_DichoCutting", "if Cutting is necessary in [a,b], we cut at (a+b) / 2.");
+py::class_<AdvApprox_DichoCutting, std::unique_ptr<AdvApprox_DichoCutting>, AdvApprox_Cutting> cls_AdvApprox_DichoCutting(mod, "AdvApprox_DichoCutting", "if Cutting is necessary in [a,b], we cut at (a+b) / 2.");
 
 // Constructors
 cls_AdvApprox_DichoCutting.def(py::init<>());

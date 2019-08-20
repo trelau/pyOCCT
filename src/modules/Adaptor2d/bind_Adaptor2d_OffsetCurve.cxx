@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Adaptor2d_OffsetCurve(py::module &mod){
 
-py::class_<Adaptor2d_OffsetCurve, std::unique_ptr<Adaptor2d_OffsetCurve, Deleter<Adaptor2d_OffsetCurve>>, Adaptor2d_Curve2d> cls_Adaptor2d_OffsetCurve(mod, "Adaptor2d_OffsetCurve", "Defines an Offset curve (algorithmic 2d curve).");
+py::class_<Adaptor2d_OffsetCurve, std::unique_ptr<Adaptor2d_OffsetCurve>, Adaptor2d_Curve2d> cls_Adaptor2d_OffsetCurve(mod, "Adaptor2d_OffsetCurve", "Defines an Offset curve (algorithmic 2d curve).");
 
 // Constructors
 cls_Adaptor2d_OffsetCurve.def(py::init<>());

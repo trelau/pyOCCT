@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_OffsetWire(py::module &mod){
 
-py::class_<BRepFill_OffsetWire, std::unique_ptr<BRepFill_OffsetWire, Deleter<BRepFill_OffsetWire>>> cls_BRepFill_OffsetWire(mod, "BRepFill_OffsetWire", "Constructs a Offset Wire to a spine (wire or face). Offset direction will be to outer region in case of positive offset value and to inner region in case of negative offset value. Inner/Outer region for open wire is defined by the following rule: when we go along the wire (taking into account of edges orientation) then outer region will be on the right side, inner region will be on the left side. In case of closed wire, inner region will always be inside the wire (at that, edges orientation is not taken into account). The Wire or the Face must be planar and oriented correctly.");
+py::class_<BRepFill_OffsetWire, std::unique_ptr<BRepFill_OffsetWire>> cls_BRepFill_OffsetWire(mod, "BRepFill_OffsetWire", "Constructs a Offset Wire to a spine (wire or face). Offset direction will be to outer region in case of positive offset value and to inner region in case of negative offset value. Inner/Outer region for open wire is defined by the following rule: when we go along the wire (taking into account of edges orientation) then outer region will be on the right side, inner region will be on the left side. In case of closed wire, inner region will always be inside the wire (at that, edges orientation is not taken into account). The Wire or the Face must be planar and oriented correctly.");
 
 // Constructors
 cls_BRepFill_OffsetWire.def(py::init<>());

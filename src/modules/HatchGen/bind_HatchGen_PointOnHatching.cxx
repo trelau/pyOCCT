@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HatchGen_PointOnHatching(py::module &mod){
 
-py::class_<HatchGen_PointOnHatching, std::unique_ptr<HatchGen_PointOnHatching, Deleter<HatchGen_PointOnHatching>>, HatchGen_IntersectionPoint> cls_HatchGen_PointOnHatching(mod, "HatchGen_PointOnHatching", "None");
+py::class_<HatchGen_PointOnHatching, std::unique_ptr<HatchGen_PointOnHatching>, HatchGen_IntersectionPoint> cls_HatchGen_PointOnHatching(mod, "HatchGen_PointOnHatching", "None");
 
 // Constructors
 cls_HatchGen_PointOnHatching.def(py::init<>());

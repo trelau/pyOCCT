@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_FunctionGuide(py::module &mod){
 
-py::class_<GeomFill_FunctionGuide, std::unique_ptr<GeomFill_FunctionGuide, Deleter<GeomFill_FunctionGuide>>, math_FunctionSetWithDerivatives> cls_GeomFill_FunctionGuide(mod, "GeomFill_FunctionGuide", "None");
+py::class_<GeomFill_FunctionGuide, std::unique_ptr<GeomFill_FunctionGuide>, math_FunctionSetWithDerivatives> cls_GeomFill_FunctionGuide(mod, "GeomFill_FunctionGuide", "None");
 
 // Constructors
 cls_GeomFill_FunctionGuide.def(py::init<const opencascade::handle<GeomFill_SectionLaw> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S"), py::arg("Guide"));

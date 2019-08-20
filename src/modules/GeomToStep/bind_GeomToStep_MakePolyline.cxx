@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakePolyline(py::module &mod){
 
-py::class_<GeomToStep_MakePolyline, std::unique_ptr<GeomToStep_MakePolyline, Deleter<GeomToStep_MakePolyline>>, GeomToStep_Root> cls_GeomToStep_MakePolyline(mod, "GeomToStep_MakePolyline", "This class implements the mapping between an Array1 of points from gp and a Polyline from StepGeom.");
+py::class_<GeomToStep_MakePolyline, std::unique_ptr<GeomToStep_MakePolyline>, GeomToStep_Root> cls_GeomToStep_MakePolyline(mod, "GeomToStep_MakePolyline", "This class implements the mapping between an Array1 of points from gp and a Polyline from StepGeom.");
 
 // Constructors
 cls_GeomToStep_MakePolyline.def(py::init<const TColgp_Array1OfPnt &>(), py::arg("P"));

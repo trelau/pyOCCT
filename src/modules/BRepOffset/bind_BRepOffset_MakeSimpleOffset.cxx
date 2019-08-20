@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffset_MakeSimpleOffset(py::module &mod){
 
-py::class_<BRepOffset_MakeSimpleOffset, std::unique_ptr<BRepOffset_MakeSimpleOffset, Deleter<BRepOffset_MakeSimpleOffset>>> cls_BRepOffset_MakeSimpleOffset(mod, "BRepOffset_MakeSimpleOffset", "Limitations: According to the algorithm nature result depends on the smoothness of input data. Smooth (G1-continuity) input shape will lead to the good result.");
+py::class_<BRepOffset_MakeSimpleOffset, std::unique_ptr<BRepOffset_MakeSimpleOffset>> cls_BRepOffset_MakeSimpleOffset(mod, "BRepOffset_MakeSimpleOffset", "Limitations: According to the algorithm nature result depends on the smoothness of input data. Smooth (G1-continuity) input shape will lead to the good result.");
 
 // Constructors
 cls_BRepOffset_MakeSimpleOffset.def(py::init<>());

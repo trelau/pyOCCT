@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Graphic3d_BSDF(py::module &mod){
 
-py::class_<Graphic3d_BSDF, std::unique_ptr<Graphic3d_BSDF, Deleter<Graphic3d_BSDF>>> cls_Graphic3d_BSDF(mod, "Graphic3d_BSDF", "Describes material's BSDF (Bidirectional Scattering Distribution Function) used for physically-based rendering (in path tracing engine). BSDF is represented as weighted mixture of basic BRDFs/BTDFs (Bidirectional Reflectance (Transmittance) Distribution Functions).");
+py::class_<Graphic3d_BSDF, std::unique_ptr<Graphic3d_BSDF>> cls_Graphic3d_BSDF(mod, "Graphic3d_BSDF", "Describes material's BSDF (Bidirectional Scattering Distribution Function) used for physically-based rendering (in path tracing engine). BSDF is represented as weighted mixture of basic BRDFs/BTDFs (Bidirectional Reflectance (Transmittance) Distribution Functions).");
 
 // Constructors
 cls_Graphic3d_BSDF.def(py::init<>());

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_TangentPresentation(py::module &mod){
 
-py::class_<DsgPrs_TangentPresentation, std::unique_ptr<DsgPrs_TangentPresentation, Deleter<DsgPrs_TangentPresentation>>> cls_DsgPrs_TangentPresentation(mod, "DsgPrs_TangentPresentation", "A framework to define display of tangents.");
+py::class_<DsgPrs_TangentPresentation, std::unique_ptr<DsgPrs_TangentPresentation>> cls_DsgPrs_TangentPresentation(mod, "DsgPrs_TangentPresentation", "A framework to define display of tangents.");
 
 // Constructors
 

@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Bisector(py::module &mod){
 
-py::class_<Bisector, std::unique_ptr<Bisector, Deleter<Bisector>>> cls_Bisector(mod, "Bisector", "This package provides the bisecting line between two geometric elements.");
+py::class_<Bisector, std::unique_ptr<Bisector>> cls_Bisector(mod, "Bisector", "This package provides the bisecting line between two geometric elements.");
 
 // Constructors
 

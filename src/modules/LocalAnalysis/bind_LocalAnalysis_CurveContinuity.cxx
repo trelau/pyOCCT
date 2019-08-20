@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocalAnalysis_CurveContinuity(py::module &mod){
 
-py::class_<LocalAnalysis_CurveContinuity, std::unique_ptr<LocalAnalysis_CurveContinuity, Deleter<LocalAnalysis_CurveContinuity>>> cls_LocalAnalysis_CurveContinuity(mod, "LocalAnalysis_CurveContinuity", "This class gives tools to check local continuity C0 C1 C2 G1 G2 between two points situated on two curves");
+py::class_<LocalAnalysis_CurveContinuity, std::unique_ptr<LocalAnalysis_CurveContinuity>> cls_LocalAnalysis_CurveContinuity(mod, "LocalAnalysis_CurveContinuity", "This class gives tools to check local continuity C0 C1 C2 G1 G2 between two points situated on two curves");
 
 // Constructors
 cls_LocalAnalysis_CurveContinuity.def(py::init<const opencascade::handle<Geom_Curve> &, const Standard_Real, const opencascade::handle<Geom_Curve> &, const Standard_Real, const GeomAbs_Shape>(), py::arg("Curv1"), py::arg("u1"), py::arg("Curv2"), py::arg("u2"), py::arg("Order"));

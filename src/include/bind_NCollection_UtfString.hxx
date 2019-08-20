@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename Type>
 void bind_NCollection_UtfString(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_UtfString<Type>, std::unique_ptr<NCollection_UtfString<Type>, Deleter<NCollection_UtfString<Type>>>> cls_NCollection_UtfString(mod, name.c_str(), "This template class represent constant UTF-* string. String stored in memory continuously, always NULL-terminated and can be used as standard C-string using ToCString() method.", local);
+py::class_<NCollection_UtfString<Type>, std::unique_ptr<NCollection_UtfString<Type>>> cls_NCollection_UtfString(mod, name.c_str(), "This template class represent constant UTF-* string. String stored in memory continuously, always NULL-terminated and can be used as standard C-string using ToCString() method.", local);
 
 // Constructors
 cls_NCollection_UtfString.def(py::init<>());

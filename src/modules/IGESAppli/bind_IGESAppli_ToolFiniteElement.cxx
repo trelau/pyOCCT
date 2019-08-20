@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli_ToolFiniteElement(py::module &mod){
 
-py::class_<IGESAppli_ToolFiniteElement, std::unique_ptr<IGESAppli_ToolFiniteElement, Deleter<IGESAppli_ToolFiniteElement>>> cls_IGESAppli_ToolFiniteElement(mod, "IGESAppli_ToolFiniteElement", "Tool to work on a FiniteElement. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESAppli_ToolFiniteElement, std::unique_ptr<IGESAppli_ToolFiniteElement>> cls_IGESAppli_ToolFiniteElement(mod, "IGESAppli_ToolFiniteElement", "Tool to work on a FiniteElement. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESAppli_ToolFiniteElement.def(py::init<>());

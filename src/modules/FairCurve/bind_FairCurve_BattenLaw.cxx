@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FairCurve_BattenLaw(py::module &mod){
 
-py::class_<FairCurve_BattenLaw, std::unique_ptr<FairCurve_BattenLaw, Deleter<FairCurve_BattenLaw>>, math_Function> cls_FairCurve_BattenLaw(mod, "FairCurve_BattenLaw", "This class compute the Heigth of an batten");
+py::class_<FairCurve_BattenLaw, std::unique_ptr<FairCurve_BattenLaw>, math_Function> cls_FairCurve_BattenLaw(mod, "FairCurve_BattenLaw", "This class compute the Heigth of an batten");
 
 // Constructors
 cls_FairCurve_BattenLaw.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("Heigth"), py::arg("Slope"), py::arg("Sliding"));

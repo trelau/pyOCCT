@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T>
 void bind_OpenGl_MatrixState(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<OpenGl_MatrixState<T>, std::unique_ptr<OpenGl_MatrixState<T>, Deleter<OpenGl_MatrixState<T>>>> cls_OpenGl_MatrixState(mod, name.c_str(), "Software implementation for OpenGL matrix stack.", local);
+py::class_<OpenGl_MatrixState<T>, std::unique_ptr<OpenGl_MatrixState<T>>> cls_OpenGl_MatrixState(mod, name.c_str(), "Software implementation for OpenGL matrix stack.", local);
 
 // Constructors
 cls_OpenGl_MatrixState.def(py::init<>());

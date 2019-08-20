@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Graphic3d_ValueInterface(py::module &mod){
 
-py::class_<Graphic3d_ValueInterface, std::unique_ptr<Graphic3d_ValueInterface, Deleter<Graphic3d_ValueInterface>>> cls_Graphic3d_ValueInterface(mod, "Graphic3d_ValueInterface", "Interface for generic variable value.");
+py::class_<Graphic3d_ValueInterface, std::unique_ptr<Graphic3d_ValueInterface>> cls_Graphic3d_ValueInterface(mod, "Graphic3d_ValueInterface", "Interface for generic variable value.");
 
 // Fields
 

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepLProp_SurfaceTool(py::module &mod){
 
-py::class_<BRepLProp_SurfaceTool, std::unique_ptr<BRepLProp_SurfaceTool, Deleter<BRepLProp_SurfaceTool>>> cls_BRepLProp_SurfaceTool(mod, "BRepLProp_SurfaceTool", "None");
+py::class_<BRepLProp_SurfaceTool, std::unique_ptr<BRepLProp_SurfaceTool>> cls_BRepLProp_SurfaceTool(mod, "BRepLProp_SurfaceTool", "None");
 
 // Constructors
 

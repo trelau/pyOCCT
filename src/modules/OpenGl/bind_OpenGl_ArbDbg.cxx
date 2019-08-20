@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_ArbDbg(py::module &mod){
 
-py::class_<OpenGl_ArbDbg, std::unique_ptr<OpenGl_ArbDbg, Deleter<OpenGl_ArbDbg>>> cls_OpenGl_ArbDbg(mod, "OpenGl_ArbDbg", "Debug context routines");
+py::class_<OpenGl_ArbDbg, std::unique_ptr<OpenGl_ArbDbg>> cls_OpenGl_ArbDbg(mod, "OpenGl_ArbDbg", "Debug context routines");
 
 // Constructors
 

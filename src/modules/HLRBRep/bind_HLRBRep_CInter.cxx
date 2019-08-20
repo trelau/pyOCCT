@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_CInter(py::module &mod){
 
-py::class_<HLRBRep_CInter, std::unique_ptr<HLRBRep_CInter, Deleter<HLRBRep_CInter>>, IntRes2d_Intersection> cls_HLRBRep_CInter(mod, "HLRBRep_CInter", "None");
+py::class_<HLRBRep_CInter, std::unique_ptr<HLRBRep_CInter>, IntRes2d_Intersection> cls_HLRBRep_CInter(mod, "HLRBRep_CInter", "None");
 
 // Constructors
 cls_HLRBRep_CInter.def(py::init<>());

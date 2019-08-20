@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRAppli_ReflectLines(py::module &mod){
 
-py::class_<HLRAppli_ReflectLines, std::unique_ptr<HLRAppli_ReflectLines, Deleter<HLRAppli_ReflectLines>>> cls_HLRAppli_ReflectLines(mod, "HLRAppli_ReflectLines", "This class builds reflect lines on a shape according to the axes of view defined by user. Reflect lines are represented by edges in 3d.");
+py::class_<HLRAppli_ReflectLines, std::unique_ptr<HLRAppli_ReflectLines>> cls_HLRAppli_ReflectLines(mod, "HLRAppli_ReflectLines", "This class builds reflect lines on a shape according to the axes of view defined by user. Reflect lines are represented by edges in 3d.");
 
 // Constructors
 cls_HLRAppli_ReflectLines.def(py::init<const TopoDS_Shape &>(), py::arg("aShape"));

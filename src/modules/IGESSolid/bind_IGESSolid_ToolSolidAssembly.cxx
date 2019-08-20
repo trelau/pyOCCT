@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolSolidAssembly(py::module &mod){
 
-py::class_<IGESSolid_ToolSolidAssembly, std::unique_ptr<IGESSolid_ToolSolidAssembly, Deleter<IGESSolid_ToolSolidAssembly>>> cls_IGESSolid_ToolSolidAssembly(mod, "IGESSolid_ToolSolidAssembly", "Tool to work on a SolidAssembly. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolSolidAssembly, std::unique_ptr<IGESSolid_ToolSolidAssembly>> cls_IGESSolid_ToolSolidAssembly(mod, "IGESSolid_ToolSolidAssembly", "Tool to work on a SolidAssembly. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolSolidAssembly.def(py::init<>());

@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_Evolved(py::module &mod){
 
-py::class_<BRepFill_Evolved, std::unique_ptr<BRepFill_Evolved, Deleter<BRepFill_Evolved>>> cls_BRepFill_Evolved(mod, "BRepFill_Evolved", "Constructs an evolved volume from a spine (wire or face) and a profile ( wire).");
+py::class_<BRepFill_Evolved, std::unique_ptr<BRepFill_Evolved>> cls_BRepFill_Evolved(mod, "BRepFill_Evolved", "Constructs an evolved volume from a spine (wire or face) and a profile ( wire).");
 
 // Constructors
 cls_BRepFill_Evolved.def(py::init<>());

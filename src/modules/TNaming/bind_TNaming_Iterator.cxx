@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TNaming_Iterator(py::module &mod){
 
-py::class_<TNaming_Iterator, std::unique_ptr<TNaming_Iterator, Deleter<TNaming_Iterator>>> cls_TNaming_Iterator(mod, "TNaming_Iterator", "A tool to visit the contents of a named shape attribute. Pairs of shapes in the attribute are iterated, one being the pre-modification or the old shape, and the other the post-modification or the new shape. This allows you to have a full access to all contents of an attribute. If, on the other hand, you are only interested in topological entities stored in the attribute, you can use the functions GetShape and CurrentShape in TNaming_Tool.");
+py::class_<TNaming_Iterator, std::unique_ptr<TNaming_Iterator>> cls_TNaming_Iterator(mod, "TNaming_Iterator", "A tool to visit the contents of a named shape attribute. Pairs of shapes in the attribute are iterated, one being the pre-modification or the old shape, and the other the post-modification or the new shape. This allows you to have a full access to all contents of an attribute. If, on the other hand, you are only interested in topological entities stored in the attribute, you can use the functions GetShape and CurrentShape in TNaming_Tool.");
 
 // Constructors
 cls_TNaming_Iterator.def(py::init<const opencascade::handle<TNaming_NamedShape> &>(), py::arg("anAtt"));

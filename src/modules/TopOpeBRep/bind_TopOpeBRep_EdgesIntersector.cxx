@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRep_EdgesIntersector(py::module &mod){
 
-py::class_<TopOpeBRep_EdgesIntersector, std::unique_ptr<TopOpeBRep_EdgesIntersector, Deleter<TopOpeBRep_EdgesIntersector>>> cls_TopOpeBRep_EdgesIntersector(mod, "TopOpeBRep_EdgesIntersector", "Describes the intersection of two edges on the same surface");
+py::class_<TopOpeBRep_EdgesIntersector, std::unique_ptr<TopOpeBRep_EdgesIntersector>> cls_TopOpeBRep_EdgesIntersector(mod, "TopOpeBRep_EdgesIntersector", "Describes the intersection of two edges on the same surface");
 
 // Constructors
 cls_TopOpeBRep_EdgesIntersector.def(py::init<>());

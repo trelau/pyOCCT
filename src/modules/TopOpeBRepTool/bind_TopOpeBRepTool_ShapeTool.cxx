@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool_ShapeTool(py::module &mod){
 
-py::class_<TopOpeBRepTool_ShapeTool, std::unique_ptr<TopOpeBRepTool_ShapeTool, Deleter<TopOpeBRepTool_ShapeTool>>> cls_TopOpeBRepTool_ShapeTool(mod, "TopOpeBRepTool_ShapeTool", "None");
+py::class_<TopOpeBRepTool_ShapeTool, std::unique_ptr<TopOpeBRepTool_ShapeTool>> cls_TopOpeBRepTool_ShapeTool(mod, "TopOpeBRepTool_ShapeTool", "None");
 
 // Constructors
 

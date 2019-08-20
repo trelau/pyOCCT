@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPDS_InterfEF(py::module &mod){
 
-py::class_<BOPDS_InterfEF, std::unique_ptr<BOPDS_InterfEF, Deleter<BOPDS_InterfEF>>, BOPDS_Interf> cls_BOPDS_InterfEF(mod, "BOPDS_InterfEF", "The class BOPDS_InterfEF is is to store the information about the interference of the type edge/face.");
+py::class_<BOPDS_InterfEF, std::unique_ptr<BOPDS_InterfEF>, BOPDS_Interf> cls_BOPDS_InterfEF(mod, "BOPDS_InterfEF", "The class BOPDS_InterfEF is is to store the information about the interference of the type edge/face.");
 
 // Constructors
 cls_BOPDS_InterfEF.def(py::init<>());

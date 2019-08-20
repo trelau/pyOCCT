@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBuilderAPI_BndBoxTreeSelector(py::module &mod){
 
-py::class_<BRepBuilderAPI_BndBoxTreeSelector, std::unique_ptr<BRepBuilderAPI_BndBoxTreeSelector, Deleter<BRepBuilderAPI_BndBoxTreeSelector>>, BRepBuilderAPI_BndBoxTree::Selector> cls_BRepBuilderAPI_BndBoxTreeSelector(mod, "BRepBuilderAPI_BndBoxTreeSelector", "Class BRepBuilderAPI_BndBoxTreeSelector derived from UBTree::Selector This class is used to select overlapping boxes, stored in NCollection::UBTree; contains methods to maintain the selection condition and to retrieve selected objects after search.");
+py::class_<BRepBuilderAPI_BndBoxTreeSelector, std::unique_ptr<BRepBuilderAPI_BndBoxTreeSelector>, BRepBuilderAPI_BndBoxTree::Selector> cls_BRepBuilderAPI_BndBoxTreeSelector(mod, "BRepBuilderAPI_BndBoxTreeSelector", "Class BRepBuilderAPI_BndBoxTreeSelector derived from UBTree::Selector This class is used to select overlapping boxes, stored in NCollection::UBTree; contains methods to maintain the selection condition and to retrieve selected objects after search.");
 
 // Constructors
 cls_BRepBuilderAPI_BndBoxTreeSelector.def(py::init<>());

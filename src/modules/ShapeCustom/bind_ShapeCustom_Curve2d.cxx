@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeCustom_Curve2d(py::module &mod){
 
-py::class_<ShapeCustom_Curve2d, std::unique_ptr<ShapeCustom_Curve2d, Deleter<ShapeCustom_Curve2d>>> cls_ShapeCustom_Curve2d(mod, "ShapeCustom_Curve2d", "Converts curve2d to analytical form with given precision or simpify curve2d.");
+py::class_<ShapeCustom_Curve2d, std::unique_ptr<ShapeCustom_Curve2d>> cls_ShapeCustom_Curve2d(mod, "ShapeCustom_Curve2d", "Converts curve2d to analytical form with given precision or simpify curve2d.");
 
 // Constructors
 

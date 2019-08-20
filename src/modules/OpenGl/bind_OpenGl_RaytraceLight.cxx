@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_RaytraceLight(py::module &mod){
 
-py::class_<OpenGl_RaytraceLight, std::unique_ptr<OpenGl_RaytraceLight, Deleter<OpenGl_RaytraceLight>>> cls_OpenGl_RaytraceLight(mod, "OpenGl_RaytraceLight", "Stores properties of OpenGL light source.");
+py::class_<OpenGl_RaytraceLight, std::unique_ptr<OpenGl_RaytraceLight>> cls_OpenGl_RaytraceLight(mod, "OpenGl_RaytraceLight", "Stores properties of OpenGL light source.");
 
 // Constructors
 // cls_OpenGl_RaytraceLight.def(py::init<>());

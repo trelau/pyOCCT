@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename theVec_t>
 void bind_OpenGl_VertexBufferEditor(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<OpenGl_VertexBufferEditor<theVec_t>, std::unique_ptr<OpenGl_VertexBufferEditor<theVec_t>, Deleter<OpenGl_VertexBufferEditor<theVec_t>>>> cls_OpenGl_VertexBufferEditor(mod, name.c_str(), "Auxiliary class to iteratively modify data of existing VBO. It provides iteration interface with delayed CPU->GPU memory transfer to avoid slow per-element data transfer. User should explicitly call Flush() method to ensure that all data is transferred to VBO. Temporary buffer on CPU side can be initialized with lesser capacity than VBO to allow re-usage of shared buffer with fixed size between VBOs.", local);
+py::class_<OpenGl_VertexBufferEditor<theVec_t>, std::unique_ptr<OpenGl_VertexBufferEditor<theVec_t>>> cls_OpenGl_VertexBufferEditor(mod, name.c_str(), "Auxiliary class to iteratively modify data of existing VBO. It provides iteration interface with delayed CPU->GPU memory transfer to avoid slow per-element data transfer. User should explicitly call Flush() method to ensure that all data is transferred to VBO. Temporary buffer on CPU side can be initialized with lesser capacity than VBO to allow re-usage of shared buffer with fixed size between VBOs.", local);
 
 // Constructors
 cls_OpenGl_VertexBufferEditor.def(py::init<>());

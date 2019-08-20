@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPConstruct_Part(py::module &mod){
 
-py::class_<STEPConstruct_Part, std::unique_ptr<STEPConstruct_Part, Deleter<STEPConstruct_Part>>> cls_STEPConstruct_Part(mod, "STEPConstruct_Part", "Provides tools for creating STEP structures associated with part (SDR), such as PRODUCT, PDF etc., as requied by current schema Also allows to investigate and modify this data");
+py::class_<STEPConstruct_Part, std::unique_ptr<STEPConstruct_Part>> cls_STEPConstruct_Part(mod, "STEPConstruct_Part", "Provides tools for creating STEP structures associated with part (SDR), such as PRODUCT, PDF etc., as requied by current schema Also allows to investigate and modify this data");
 
 // Constructors
 cls_STEPConstruct_Part.def(py::init<>());

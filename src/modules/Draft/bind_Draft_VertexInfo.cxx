@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Draft_VertexInfo(py::module &mod){
 
-py::class_<Draft_VertexInfo, std::unique_ptr<Draft_VertexInfo, Deleter<Draft_VertexInfo>>> cls_Draft_VertexInfo(mod, "Draft_VertexInfo", "None");
+py::class_<Draft_VertexInfo, std::unique_ptr<Draft_VertexInfo>> cls_Draft_VertexInfo(mod, "Draft_VertexInfo", "None");
 
 // Constructors
 cls_Draft_VertexInfo.def(py::init<>());

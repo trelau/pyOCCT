@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter(py::module &mod){
 
-py::class_<Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter, std::unique_ptr<Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter, Deleter<Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter>>, Intf_Polygon2d> cls_Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter(mod, "Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter", "None");
+py::class_<Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter, std::unique_ptr<Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter>, Intf_Polygon2d> cls_Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter(mod, "Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter", "None");
 
 // Constructors
 cls_Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter.def(py::init<const Adaptor2d_Curve2d &, const Standard_Integer, const IntRes2d_Domain &, const Standard_Real>(), py::arg("Curve"), py::arg("NbPnt"), py::arg("Domain"), py::arg("Tol"));

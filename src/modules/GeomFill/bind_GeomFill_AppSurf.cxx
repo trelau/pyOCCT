@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_AppSurf(py::module &mod){
 
-py::class_<GeomFill_AppSurf, std::unique_ptr<GeomFill_AppSurf, Deleter<GeomFill_AppSurf>>, AppBlend_Approx> cls_GeomFill_AppSurf(mod, "GeomFill_AppSurf", "Approximate a BSplineSurface passing by all the curves described in the SectionGenerator");
+py::class_<GeomFill_AppSurf, std::unique_ptr<GeomFill_AppSurf>, AppBlend_Approx> cls_GeomFill_AppSurf(mod, "GeomFill_AppSurf", "Approximate a BSplineSurface passing by all the curves described in the SectionGenerator");
 
 // Constructors
 cls_GeomFill_AppSurf.def(py::init<>());

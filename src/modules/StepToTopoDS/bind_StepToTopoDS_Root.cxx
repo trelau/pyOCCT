@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS_Root(py::module &mod){
 
-py::class_<StepToTopoDS_Root, std::unique_ptr<StepToTopoDS_Root, Deleter<StepToTopoDS_Root>>> cls_StepToTopoDS_Root(mod, "StepToTopoDS_Root", "This class implements the common services for all classes of StepToTopoDS which report error and sets and returns precision.");
+py::class_<StepToTopoDS_Root, std::unique_ptr<StepToTopoDS_Root>> cls_StepToTopoDS_Root(mod, "StepToTopoDS_Root", "This class implements the common services for all classes of StepToTopoDS which report error and sets and returns precision.");
 
 // Constructors
 

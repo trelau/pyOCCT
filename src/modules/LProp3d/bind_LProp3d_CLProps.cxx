@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LProp3d_CLProps(py::module &mod){
 
-py::class_<LProp3d_CLProps, std::unique_ptr<LProp3d_CLProps, Deleter<LProp3d_CLProps>>> cls_LProp3d_CLProps(mod, "LProp3d_CLProps", "None");
+py::class_<LProp3d_CLProps, std::unique_ptr<LProp3d_CLProps>> cls_LProp3d_CLProps(mod, "LProp3d_CLProps", "None");
 
 // Constructors
 cls_LProp3d_CLProps.def(py::init<const opencascade::handle<Adaptor3d_HCurve> &, const Standard_Integer, const Standard_Real>(), py::arg("C"), py::arg("N"), py::arg("Resolution"));

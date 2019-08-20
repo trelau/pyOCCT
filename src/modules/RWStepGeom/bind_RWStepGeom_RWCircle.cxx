@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWCircle(py::module &mod){
 
-py::class_<RWStepGeom_RWCircle, std::unique_ptr<RWStepGeom_RWCircle, Deleter<RWStepGeom_RWCircle>>> cls_RWStepGeom_RWCircle(mod, "RWStepGeom_RWCircle", "Read & Write Module for Circle");
+py::class_<RWStepGeom_RWCircle, std::unique_ptr<RWStepGeom_RWCircle>> cls_RWStepGeom_RWCircle(mod, "RWStepGeom_RWCircle", "Read & Write Module for Circle");
 
 // Constructors
 cls_RWStepGeom_RWCircle.def(py::init<>());

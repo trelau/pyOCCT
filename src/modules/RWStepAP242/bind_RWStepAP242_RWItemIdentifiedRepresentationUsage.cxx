@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP242_RWItemIdentifiedRepresentationUsage(py::module &mod){
 
-py::class_<RWStepAP242_RWItemIdentifiedRepresentationUsage, std::unique_ptr<RWStepAP242_RWItemIdentifiedRepresentationUsage, Deleter<RWStepAP242_RWItemIdentifiedRepresentationUsage>>> cls_RWStepAP242_RWItemIdentifiedRepresentationUsage(mod, "RWStepAP242_RWItemIdentifiedRepresentationUsage", "Read & Write Module for ItemIdentifiedRepresentationUsage");
+py::class_<RWStepAP242_RWItemIdentifiedRepresentationUsage, std::unique_ptr<RWStepAP242_RWItemIdentifiedRepresentationUsage>> cls_RWStepAP242_RWItemIdentifiedRepresentationUsage(mod, "RWStepAP242_RWItemIdentifiedRepresentationUsage", "Read & Write Module for ItemIdentifiedRepresentationUsage");
 
 // Constructors
 cls_RWStepAP242_RWItemIdentifiedRepresentationUsage.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWMappedItem(py::module &mod){
 
-py::class_<RWStepRepr_RWMappedItem, std::unique_ptr<RWStepRepr_RWMappedItem, Deleter<RWStepRepr_RWMappedItem>>> cls_RWStepRepr_RWMappedItem(mod, "RWStepRepr_RWMappedItem", "Read & Write Module for MappedItem");
+py::class_<RWStepRepr_RWMappedItem, std::unique_ptr<RWStepRepr_RWMappedItem>> cls_RWStepRepr_RWMappedItem(mod, "RWStepRepr_RWMappedItem", "Read & Write Module for MappedItem");
 
 // Constructors
 cls_RWStepRepr_RWMappedItem.def(py::init<>());

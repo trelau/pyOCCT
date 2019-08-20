@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBuilderAPI_MakeFace(py::module &mod){
 
-py::class_<BRepBuilderAPI_MakeFace, std::unique_ptr<BRepBuilderAPI_MakeFace, Deleter<BRepBuilderAPI_MakeFace>>, BRepBuilderAPI_MakeShape> cls_BRepBuilderAPI_MakeFace(mod, "BRepBuilderAPI_MakeFace", "Provides methods to build faces.");
+py::class_<BRepBuilderAPI_MakeFace, std::unique_ptr<BRepBuilderAPI_MakeFace>, BRepBuilderAPI_MakeShape> cls_BRepBuilderAPI_MakeFace(mod, "BRepBuilderAPI_MakeFace", "Provides methods to build faces.");
 
 // Constructors
 cls_BRepBuilderAPI_MakeFace.def(py::init<>());

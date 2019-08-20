@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dInt_GInter(py::module &mod){
 
-py::class_<Geom2dInt_GInter, std::unique_ptr<Geom2dInt_GInter, Deleter<Geom2dInt_GInter>>, IntRes2d_Intersection> cls_Geom2dInt_GInter(mod, "Geom2dInt_GInter", "None");
+py::class_<Geom2dInt_GInter, std::unique_ptr<Geom2dInt_GInter>, IntRes2d_Intersection> cls_Geom2dInt_GInter(mod, "Geom2dInt_GInter", "None");
 
 // Constructors
 cls_Geom2dInt_GInter.def(py::init<>());

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntSurf_Transition(py::module &mod){
 
-py::class_<IntSurf_Transition, std::unique_ptr<IntSurf_Transition, Deleter<IntSurf_Transition>>> cls_IntSurf_Transition(mod, "IntSurf_Transition", "Definition of the transition at the intersection between an intersection line and a restriction curve on a surface.");
+py::class_<IntSurf_Transition, std::unique_ptr<IntSurf_Transition>> cls_IntSurf_Transition(mod, "IntSurf_Transition", "Definition of the transition at the intersection between an intersection line and a restriction curve on a surface.");
 
 // Constructors
 cls_IntSurf_Transition.def(py::init<>());

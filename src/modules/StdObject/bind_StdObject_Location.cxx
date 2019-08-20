@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdObject_Location(py::module &mod){
 
-py::class_<StdObject_Location, std::unique_ptr<StdObject_Location, Deleter<StdObject_Location>>> cls_StdObject_Location(mod, "StdObject_Location", "None");
+py::class_<StdObject_Location, std::unique_ptr<StdObject_Location>> cls_StdObject_Location(mod, "StdObject_Location", "None");
 
 // Constructors
 

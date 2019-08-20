@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Prs3d_Text(py::module &mod){
 
-py::class_<Prs3d_Text, std::unique_ptr<Prs3d_Text, Deleter<Prs3d_Text>>, Prs3d_Root> cls_Prs3d_Text(mod, "Prs3d_Text", "A framework to define the display of texts.");
+py::class_<Prs3d_Text, std::unique_ptr<Prs3d_Text>, Prs3d_Root> cls_Prs3d_Text(mod, "Prs3d_Text", "A framework to define the display of texts.");
 
 // Constructors
 

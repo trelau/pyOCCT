@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWShapeAspectTransition(py::module &mod){
 
-py::class_<RWStepRepr_RWShapeAspectTransition, std::unique_ptr<RWStepRepr_RWShapeAspectTransition, Deleter<RWStepRepr_RWShapeAspectTransition>>> cls_RWStepRepr_RWShapeAspectTransition(mod, "RWStepRepr_RWShapeAspectTransition", "Read & Write tool for ShapeAspectTransition");
+py::class_<RWStepRepr_RWShapeAspectTransition, std::unique_ptr<RWStepRepr_RWShapeAspectTransition>> cls_RWStepRepr_RWShapeAspectTransition(mod, "RWStepRepr_RWShapeAspectTransition", "Read & Write tool for ShapeAspectTransition");
 
 // Constructors
 cls_RWStepRepr_RWShapeAspectTransition.def(py::init<>());

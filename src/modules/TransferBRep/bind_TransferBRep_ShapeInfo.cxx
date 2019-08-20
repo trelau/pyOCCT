@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TransferBRep_ShapeInfo(py::module &mod){
 
-py::class_<TransferBRep_ShapeInfo, std::unique_ptr<TransferBRep_ShapeInfo, Deleter<TransferBRep_ShapeInfo>>> cls_TransferBRep_ShapeInfo(mod, "TransferBRep_ShapeInfo", "Gives informations on an object, see template DataInfo This class is for Shape");
+py::class_<TransferBRep_ShapeInfo, std::unique_ptr<TransferBRep_ShapeInfo>> cls_TransferBRep_ShapeInfo(mod, "TransferBRep_ShapeInfo", "Gives informations on an object, see template DataInfo This class is for Shape");
 
 // Constructors
 

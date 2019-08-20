@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWFeaShellBendingStiffness(py::module &mod){
 
-py::class_<RWStepFEA_RWFeaShellBendingStiffness, std::unique_ptr<RWStepFEA_RWFeaShellBendingStiffness, Deleter<RWStepFEA_RWFeaShellBendingStiffness>>> cls_RWStepFEA_RWFeaShellBendingStiffness(mod, "RWStepFEA_RWFeaShellBendingStiffness", "Read & Write tool for FeaShellBendingStiffness");
+py::class_<RWStepFEA_RWFeaShellBendingStiffness, std::unique_ptr<RWStepFEA_RWFeaShellBendingStiffness>> cls_RWStepFEA_RWFeaShellBendingStiffness(mod, "RWStepFEA_RWFeaShellBendingStiffness", "Read & Write tool for FeaShellBendingStiffness");
 
 // Constructors
 cls_RWStepFEA_RWFeaShellBendingStiffness.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWShapeAspectRelationship(py::module &mod){
 
-py::class_<RWStepRepr_RWShapeAspectRelationship, std::unique_ptr<RWStepRepr_RWShapeAspectRelationship, Deleter<RWStepRepr_RWShapeAspectRelationship>>> cls_RWStepRepr_RWShapeAspectRelationship(mod, "RWStepRepr_RWShapeAspectRelationship", "Read & Write tool for ShapeAspectRelationship");
+py::class_<RWStepRepr_RWShapeAspectRelationship, std::unique_ptr<RWStepRepr_RWShapeAspectRelationship>> cls_RWStepRepr_RWShapeAspectRelationship(mod, "RWStepRepr_RWShapeAspectRelationship", "Read & Write tool for ShapeAspectRelationship");
 
 // Constructors
 cls_RWStepRepr_RWShapeAspectRelationship.def(py::init<>());

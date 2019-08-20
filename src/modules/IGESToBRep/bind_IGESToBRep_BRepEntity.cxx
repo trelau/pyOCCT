@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESToBRep_BRepEntity(py::module &mod){
 
-py::class_<IGESToBRep_BRepEntity, std::unique_ptr<IGESToBRep_BRepEntity, Deleter<IGESToBRep_BRepEntity>>, IGESToBRep_CurveAndSurface> cls_IGESToBRep_BRepEntity(mod, "IGESToBRep_BRepEntity", "Provides methods to transfer BRep entities ( VertexList 502, EdgeList 504, Loop 508, Face 510, Shell 514, ManifoldSolid 186) from IGES to CASCADE.");
+py::class_<IGESToBRep_BRepEntity, std::unique_ptr<IGESToBRep_BRepEntity>, IGESToBRep_CurveAndSurface> cls_IGESToBRep_BRepEntity(mod, "IGESToBRep_BRepEntity", "Provides methods to transfer BRep entities ( VertexList 502, EdgeList 504, Loop 508, Face 510, Shell 514, ManifoldSolid 186) from IGES to CASCADE.");
 
 // Constructors
 cls_IGESToBRep_BRepEntity.def(py::init<>());

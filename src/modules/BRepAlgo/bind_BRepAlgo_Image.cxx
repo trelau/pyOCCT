@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgo_Image(py::module &mod){
 
-py::class_<BRepAlgo_Image, std::unique_ptr<BRepAlgo_Image, Deleter<BRepAlgo_Image>>> cls_BRepAlgo_Image(mod, "BRepAlgo_Image", "Stores link between a shape <S> and a shape <NewS> obtained from <S>. <NewS> is an image of <S>.");
+py::class_<BRepAlgo_Image, std::unique_ptr<BRepAlgo_Image>> cls_BRepAlgo_Image(mod, "BRepAlgo_Image", "Stores link between a shape <S> and a shape <NewS> obtained from <S>. <NewS> is an image of <S>.");
 
 // Constructors
 cls_BRepAlgo_Image.def(py::init<>());

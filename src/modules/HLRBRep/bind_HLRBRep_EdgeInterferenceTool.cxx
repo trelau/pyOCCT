@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_EdgeInterferenceTool(py::module &mod){
 
-py::class_<HLRBRep_EdgeInterferenceTool, std::unique_ptr<HLRBRep_EdgeInterferenceTool, Deleter<HLRBRep_EdgeInterferenceTool>>> cls_HLRBRep_EdgeInterferenceTool(mod, "HLRBRep_EdgeInterferenceTool", "Implements the methods required to instantiates the EdgeInterferenceList from HLRAlgo.");
+py::class_<HLRBRep_EdgeInterferenceTool, std::unique_ptr<HLRBRep_EdgeInterferenceTool>> cls_HLRBRep_EdgeInterferenceTool(mod, "HLRBRep_EdgeInterferenceTool", "Implements the methods required to instantiates the EdgeInterferenceList from HLRAlgo.");
 
 // Constructors
 cls_HLRBRep_EdgeInterferenceTool.def(py::init<const opencascade::handle<HLRBRep_Data> &>(), py::arg("DS"));

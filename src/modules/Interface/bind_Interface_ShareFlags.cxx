@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_ShareFlags(py::module &mod){
 
-py::class_<Interface_ShareFlags, std::unique_ptr<Interface_ShareFlags, Deleter<Interface_ShareFlags>>> cls_Interface_ShareFlags(mod, "Interface_ShareFlags", "This class only says for each Entity of a Model, if it is Shared or not by one or more other(s) of this Model It uses the General Service 'Shared'.");
+py::class_<Interface_ShareFlags, std::unique_ptr<Interface_ShareFlags>> cls_Interface_ShareFlags(mod, "Interface_ShareFlags", "This class only says for each Entity of a Model, if it is Shared or not by one or more other(s) of this Model It uses the General Service 'Shared'.");
 
 // Constructors
 cls_Interface_ShareFlags.def(py::init<const opencascade::handle<Interface_InterfaceModel> &, const Interface_GeneralLib &>(), py::arg("amodel"), py::arg("lib"));

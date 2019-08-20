@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_WFSurface(py::module &mod){
 
-py::class_<StdPrs_WFSurface, std::unique_ptr<StdPrs_WFSurface, Deleter<StdPrs_WFSurface>>, Prs3d_Root> cls_StdPrs_WFSurface(mod, "StdPrs_WFSurface", "Computes the wireframe presentation of surfaces by displaying a given number of U and/or V isoparametric curves. The isoparametric curves are drawn with respect to a given number of points.");
+py::class_<StdPrs_WFSurface, std::unique_ptr<StdPrs_WFSurface>, Prs3d_Root> cls_StdPrs_WFSurface(mod, "StdPrs_WFSurface", "Computes the wireframe presentation of surfaces by displaying a given number of U and/or V isoparametric curves. The isoparametric curves are drawn with respect to a given number of points.");
 
 // Constructors
 

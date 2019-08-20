@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_MeshVS_TwoColors(py::module &mod){
 
 /*
-py::class_<, std::unique_ptr<, Deleter<>>> cls_MeshVS_TwoColors(mod, "MeshVS_TwoColors", "None");
+py::class_<, std::unique_ptr<>> cls_MeshVS_TwoColors(mod, "MeshVS_TwoColors", "None");
 
 // Constructors
 

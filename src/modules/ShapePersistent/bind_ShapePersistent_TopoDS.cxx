@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_ShapePersistent_TopoDS(py::module &mod){
 
 /*
-py::class_<ShapePersistent_TopoDS, std::unique_ptr<ShapePersistent_TopoDS, Deleter<ShapePersistent_TopoDS>>, StdPersistent_TopoDS> cls_ShapePersistent_TopoDS(mod, "ShapePersistent_TopoDS", "None");
+py::class_<ShapePersistent_TopoDS, std::unique_ptr<ShapePersistent_TopoDS>, StdPersistent_TopoDS> cls_ShapePersistent_TopoDS(mod, "ShapePersistent_TopoDS", "None");
 
 // Constructors
 

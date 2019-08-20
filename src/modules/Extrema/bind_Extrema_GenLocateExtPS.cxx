@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_GenLocateExtPS(py::module &mod){
 
-py::class_<Extrema_GenLocateExtPS, std::unique_ptr<Extrema_GenLocateExtPS, Deleter<Extrema_GenLocateExtPS>>> cls_Extrema_GenLocateExtPS(mod, "Extrema_GenLocateExtPS", "With a close point, it calculates the distance between a point and a surface. Criteria type is defined in 'Perform' method.");
+py::class_<Extrema_GenLocateExtPS, std::unique_ptr<Extrema_GenLocateExtPS>> cls_Extrema_GenLocateExtPS(mod, "Extrema_GenLocateExtPS", "With a close point, it calculates the distance between a point and a surface. Criteria type is defined in 'Perform' method.");
 
 // Constructors
 cls_Extrema_GenLocateExtPS.def(py::init<const Adaptor3d_Surface &>(), py::arg("theS"));

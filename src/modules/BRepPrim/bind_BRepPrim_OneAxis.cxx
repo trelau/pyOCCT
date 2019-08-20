@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrim_OneAxis(py::module &mod){
 
-py::class_<BRepPrim_OneAxis, std::unique_ptr<BRepPrim_OneAxis, Deleter<BRepPrim_OneAxis>>> cls_BRepPrim_OneAxis(mod, "BRepPrim_OneAxis", "Algorithm to build primitives with one axis of revolution.");
+py::class_<BRepPrim_OneAxis, std::unique_ptr<BRepPrim_OneAxis>> cls_BRepPrim_OneAxis(mod, "BRepPrim_OneAxis", "Algorithm to build primitives with one axis of revolution.");
 
 // Fields
 

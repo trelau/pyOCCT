@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDS_Edge(py::module &mod){
 
-py::class_<TopoDS_Edge, std::unique_ptr<TopoDS_Edge, Deleter<TopoDS_Edge>>, TopoDS_Shape> cls_TopoDS_Edge(mod, "TopoDS_Edge", "Describes an edge which - references an underlying edge with the potential to be given a location and an orientation - has a location for the underlying edge, giving its placement in the local coordinate system - has an orientation for the underlying edge, in terms of its geometry (as opposed to orientation in relation to other shapes).");
+py::class_<TopoDS_Edge, std::unique_ptr<TopoDS_Edge>, TopoDS_Shape> cls_TopoDS_Edge(mod, "TopoDS_Edge", "Describes an edge which - references an underlying edge with the potential to be given a location and an orientation - has a location for the underlying edge, giving its placement in the local coordinate system - has an orientation for the underlying edge, in terms of its geometry (as opposed to orientation in relation to other shapes).");
 
 // Constructors
 cls_TopoDS_Edge.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_SymmetricPresentation(py::module &mod){
 
-py::class_<DsgPrs_SymmetricPresentation, std::unique_ptr<DsgPrs_SymmetricPresentation, Deleter<DsgPrs_SymmetricPresentation>>> cls_DsgPrs_SymmetricPresentation(mod, "DsgPrs_SymmetricPresentation", "A framework to define display of symmetry between shapes.");
+py::class_<DsgPrs_SymmetricPresentation, std::unique_ptr<DsgPrs_SymmetricPresentation>> cls_DsgPrs_SymmetricPresentation(mod, "DsgPrs_SymmetricPresentation", "A framework to define display of symmetry between shapes.");
 
 // Constructors
 

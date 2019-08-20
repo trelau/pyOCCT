@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_EdgeFace(py::module &mod){
 
-py::class_<IntTools_EdgeFace, std::unique_ptr<IntTools_EdgeFace, Deleter<IntTools_EdgeFace>>> cls_IntTools_EdgeFace(mod, "IntTools_EdgeFace", "The class provides Edge/Face intersection algorithm to determine common parts between edge and face in 3-d space. Common parts between Edge and Face can be: - Vertices - in case of intersection or touching; - Edge - in case of full coincidence of the edge with the face.");
+py::class_<IntTools_EdgeFace, std::unique_ptr<IntTools_EdgeFace>> cls_IntTools_EdgeFace(mod, "IntTools_EdgeFace", "The class provides Edge/Face intersection algorithm to determine common parts between edge and face in 3-d space. Common parts between Edge and Face can be: - Vertices - in case of intersection or touching; - Edge - in case of full coincidence of the edge with the face.");
 
 // Constructors
 cls_IntTools_EdgeFace.def(py::init<>());

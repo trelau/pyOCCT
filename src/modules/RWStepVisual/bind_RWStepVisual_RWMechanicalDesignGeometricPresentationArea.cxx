@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWMechanicalDesignGeometricPresentationArea(py::module &mod){
 
-py::class_<RWStepVisual_RWMechanicalDesignGeometricPresentationArea, std::unique_ptr<RWStepVisual_RWMechanicalDesignGeometricPresentationArea, Deleter<RWStepVisual_RWMechanicalDesignGeometricPresentationArea>>> cls_RWStepVisual_RWMechanicalDesignGeometricPresentationArea(mod, "RWStepVisual_RWMechanicalDesignGeometricPresentationArea", "Read & Write Module for MechanicalDesignGeometricPresentationArea");
+py::class_<RWStepVisual_RWMechanicalDesignGeometricPresentationArea, std::unique_ptr<RWStepVisual_RWMechanicalDesignGeometricPresentationArea>> cls_RWStepVisual_RWMechanicalDesignGeometricPresentationArea(mod, "RWStepVisual_RWMechanicalDesignGeometricPresentationArea", "Read & Write Module for MechanicalDesignGeometricPresentationArea");
 
 // Constructors
 cls_RWStepVisual_RWMechanicalDesignGeometricPresentationArea.def(py::init<>());

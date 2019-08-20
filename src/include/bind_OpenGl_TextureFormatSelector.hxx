@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T>
 void bind_OpenGl_TextureFormatSelector(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<OpenGl_TextureFormatSelector<T>, std::unique_ptr<OpenGl_TextureFormatSelector<T>, Deleter<OpenGl_TextureFormatSelector<T>>>> cls_OpenGl_TextureFormatSelector(mod, name.c_str(), "Selects preferable texture format for specified parameters.", local);
+py::class_<OpenGl_TextureFormatSelector<T>, std::unique_ptr<OpenGl_TextureFormatSelector<T>>> cls_OpenGl_TextureFormatSelector(mod, name.c_str(), "Selects preferable texture format for specified parameters.", local);
 
 // Constructors
 

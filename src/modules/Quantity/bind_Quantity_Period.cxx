@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Quantity_Period(py::module &mod){
 
-py::class_<Quantity_Period, std::unique_ptr<Quantity_Period, Deleter<Quantity_Period>>> cls_Quantity_Period(mod, "Quantity_Period", "Manages date intervals. For example, a Period object gives the interval between two dates. A period is expressed in seconds and microseconds.");
+py::class_<Quantity_Period, std::unique_ptr<Quantity_Period>> cls_Quantity_Period(mod, "Quantity_Period", "Manages date intervals. For example, a Period object gives the interval between two dates. A period is expressed in seconds and microseconds.");
 
 // Constructors
 cls_Quantity_Period.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("dd"), py::arg("hh"), py::arg("mn"), py::arg("ss"));

@@ -47,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAdaptor_Surface(py::module &mod){
 
-py::class_<BRepAdaptor_Surface, std::unique_ptr<BRepAdaptor_Surface, Deleter<BRepAdaptor_Surface>>, Adaptor3d_Surface> cls_BRepAdaptor_Surface(mod, "BRepAdaptor_Surface", "The Surface from BRepAdaptor allows to use a Face of the BRep topology look like a 3D surface.");
+py::class_<BRepAdaptor_Surface, std::unique_ptr<BRepAdaptor_Surface>, Adaptor3d_Surface> cls_BRepAdaptor_Surface(mod, "BRepAdaptor_Surface", "The Surface from BRepAdaptor allows to use a Face of the BRep topology look like a 3D surface.");
 
 // Constructors
 cls_BRepAdaptor_Surface.def(py::init<>());

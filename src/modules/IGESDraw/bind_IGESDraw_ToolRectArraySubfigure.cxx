@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDraw_ToolRectArraySubfigure(py::module &mod){
 
-py::class_<IGESDraw_ToolRectArraySubfigure, std::unique_ptr<IGESDraw_ToolRectArraySubfigure, Deleter<IGESDraw_ToolRectArraySubfigure>>> cls_IGESDraw_ToolRectArraySubfigure(mod, "IGESDraw_ToolRectArraySubfigure", "Tool to work on a RectArraySubfigure. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDraw_ToolRectArraySubfigure, std::unique_ptr<IGESDraw_ToolRectArraySubfigure>> cls_IGESDraw_ToolRectArraySubfigure(mod, "IGESDraw_ToolRectArraySubfigure", "Tool to work on a RectArraySubfigure. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDraw_ToolRectArraySubfigure.def(py::init<>());

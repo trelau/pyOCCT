@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeCustom_Surface(py::module &mod){
 
-py::class_<ShapeCustom_Surface, std::unique_ptr<ShapeCustom_Surface, Deleter<ShapeCustom_Surface>>> cls_ShapeCustom_Surface(mod, "ShapeCustom_Surface", "Converts a surface to the analitical form with given precision. Conversion is done only the surface is bspline of bezier and this can be approximed by some analytical surface with that precision.");
+py::class_<ShapeCustom_Surface, std::unique_ptr<ShapeCustom_Surface>> cls_ShapeCustom_Surface(mod, "ShapeCustom_Surface", "Converts a surface to the analitical form with given precision. Conversion is done only the surface is bspline of bezier and this can be approximed by some analytical surface with that precision.");
 
 // Constructors
 cls_ShapeCustom_Surface.def(py::init<>());

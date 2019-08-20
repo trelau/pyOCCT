@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWSiUnitAndThermodynamicTemperatureUnit(py::module &mod){
 
-py::class_<RWStepBasic_RWSiUnitAndThermodynamicTemperatureUnit, std::unique_ptr<RWStepBasic_RWSiUnitAndThermodynamicTemperatureUnit, Deleter<RWStepBasic_RWSiUnitAndThermodynamicTemperatureUnit>>> cls_RWStepBasic_RWSiUnitAndThermodynamicTemperatureUnit(mod, "RWStepBasic_RWSiUnitAndThermodynamicTemperatureUnit", "Read & Write Module for SiUnitAndThermodynamicTemperatureUnit");
+py::class_<RWStepBasic_RWSiUnitAndThermodynamicTemperatureUnit, std::unique_ptr<RWStepBasic_RWSiUnitAndThermodynamicTemperatureUnit>> cls_RWStepBasic_RWSiUnitAndThermodynamicTemperatureUnit(mod, "RWStepBasic_RWSiUnitAndThermodynamicTemperatureUnit", "Read & Write Module for SiUnitAndThermodynamicTemperatureUnit");
 
 // Constructors
 cls_RWStepBasic_RWSiUnitAndThermodynamicTemperatureUnit.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWMaterialDesignation(py::module &mod){
 
-py::class_<RWStepRepr_RWMaterialDesignation, std::unique_ptr<RWStepRepr_RWMaterialDesignation, Deleter<RWStepRepr_RWMaterialDesignation>>> cls_RWStepRepr_RWMaterialDesignation(mod, "RWStepRepr_RWMaterialDesignation", "Read & Write Module for MaterialDesignation");
+py::class_<RWStepRepr_RWMaterialDesignation, std::unique_ptr<RWStepRepr_RWMaterialDesignation>> cls_RWStepRepr_RWMaterialDesignation(mod, "RWStepRepr_RWMaterialDesignation", "Read & Write Module for MaterialDesignation");
 
 // Constructors
 cls_RWStepRepr_RWMaterialDesignation.def(py::init<>());

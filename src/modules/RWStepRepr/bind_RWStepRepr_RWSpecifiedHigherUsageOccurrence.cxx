@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWSpecifiedHigherUsageOccurrence(py::module &mod){
 
-py::class_<RWStepRepr_RWSpecifiedHigherUsageOccurrence, std::unique_ptr<RWStepRepr_RWSpecifiedHigherUsageOccurrence, Deleter<RWStepRepr_RWSpecifiedHigherUsageOccurrence>>> cls_RWStepRepr_RWSpecifiedHigherUsageOccurrence(mod, "RWStepRepr_RWSpecifiedHigherUsageOccurrence", "Read & Write tool for SpecifiedHigherUsageOccurrence");
+py::class_<RWStepRepr_RWSpecifiedHigherUsageOccurrence, std::unique_ptr<RWStepRepr_RWSpecifiedHigherUsageOccurrence>> cls_RWStepRepr_RWSpecifiedHigherUsageOccurrence(mod, "RWStepRepr_RWSpecifiedHigherUsageOccurrence", "Read & Write tool for SpecifiedHigherUsageOccurrence");
 
 // Constructors
 cls_RWStepRepr_RWSpecifiedHigherUsageOccurrence.def(py::init<>());

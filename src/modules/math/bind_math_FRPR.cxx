@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_FRPR(py::module &mod){
 
-py::class_<math_FRPR, std::unique_ptr<math_FRPR, Deleter<math_FRPR>>> cls_math_FRPR(mod, "math_FRPR", "this class implements the Fletcher-Reeves-Polak_Ribiere minimization algorithm of a function of multiple variables. Knowledge of the function's gradient is required.");
+py::class_<math_FRPR, std::unique_ptr<math_FRPR>> cls_math_FRPR(mod, "math_FRPR", "this class implements the Fletcher-Reeves-Polak_Ribiere minimization algorithm of a function of multiple variables. Knowledge of the function's gradient is required.");
 
 // Constructors
 cls_math_FRPR.def(py::init<const math_MultipleVarFunctionWithGradient &, const Standard_Real>(), py::arg("theFunction"), py::arg("theTolerance"));

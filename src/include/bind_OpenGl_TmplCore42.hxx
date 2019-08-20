@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename theBaseClass_t>
 void bind_OpenGl_TmplCore42(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<OpenGl_TmplCore42<theBaseClass_t>, std::unique_ptr<OpenGl_TmplCore42<theBaseClass_t>, Deleter<OpenGl_TmplCore42<theBaseClass_t>>>, theBaseClass_t> cls_OpenGl_TmplCore42(mod, name.c_str(), "OpenGL 4.2 definition.", local);
+py::class_<OpenGl_TmplCore42<theBaseClass_t>, std::unique_ptr<OpenGl_TmplCore42<theBaseClass_t>>, theBaseClass_t> cls_OpenGl_TmplCore42(mod, name.c_str(), "OpenGL 4.2 definition.", local);
 
 // Constructors
 

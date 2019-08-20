@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFiDS_Regul(py::module &mod){
 
-py::class_<ChFiDS_Regul, std::unique_ptr<ChFiDS_Regul, Deleter<ChFiDS_Regul>>> cls_ChFiDS_Regul(mod, "ChFiDS_Regul", "Storage of a curve and its 2 faces or surfaces of support.");
+py::class_<ChFiDS_Regul, std::unique_ptr<ChFiDS_Regul>> cls_ChFiDS_Regul(mod, "ChFiDS_Regul", "Storage of a curve and its 2 faces or surfaces of support.");
 
 // Constructors
 cls_ChFiDS_Regul.def(py::init<>());

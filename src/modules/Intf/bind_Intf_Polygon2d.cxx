@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Intf_Polygon2d(py::module &mod){
 
-py::class_<Intf_Polygon2d, std::unique_ptr<Intf_Polygon2d, Deleter<Intf_Polygon2d>>> cls_Intf_Polygon2d(mod, "Intf_Polygon2d", "Describes the necessary polygon information to compute the interferences.");
+py::class_<Intf_Polygon2d, std::unique_ptr<Intf_Polygon2d>> cls_Intf_Polygon2d(mod, "Intf_Polygon2d", "Describes the necessary polygon information to compute the interferences.");
 
 // Fields
 

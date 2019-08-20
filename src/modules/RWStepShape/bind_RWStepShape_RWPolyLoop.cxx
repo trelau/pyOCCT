@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWPolyLoop(py::module &mod){
 
-py::class_<RWStepShape_RWPolyLoop, std::unique_ptr<RWStepShape_RWPolyLoop, Deleter<RWStepShape_RWPolyLoop>>> cls_RWStepShape_RWPolyLoop(mod, "RWStepShape_RWPolyLoop", "Read & Write Module for PolyLoop");
+py::class_<RWStepShape_RWPolyLoop, std::unique_ptr<RWStepShape_RWPolyLoop>> cls_RWStepShape_RWPolyLoop(mod, "RWStepShape_RWPolyLoop", "Read & Write Module for PolyLoop");
 
 // Constructors
 cls_RWStepShape_RWPolyLoop.def(py::init<>());
