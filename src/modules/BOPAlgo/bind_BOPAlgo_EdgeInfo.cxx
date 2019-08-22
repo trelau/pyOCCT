@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_EdgeInfo(py::module &mod){
 
-py::class_<BOPAlgo_EdgeInfo, std::unique_ptr<BOPAlgo_EdgeInfo>> cls_BOPAlgo_EdgeInfo(mod, "BOPAlgo_EdgeInfo", "None");
+py::class_<BOPAlgo_EdgeInfo> cls_BOPAlgo_EdgeInfo(mod, "BOPAlgo_EdgeInfo", "None");
 
 // Constructors
 cls_BOPAlgo_EdgeInfo.def(py::init<>());

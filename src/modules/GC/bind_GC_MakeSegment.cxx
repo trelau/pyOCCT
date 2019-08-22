@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GC_MakeSegment(py::module &mod){
 
-py::class_<GC_MakeSegment, std::unique_ptr<GC_MakeSegment>, GC_Root> cls_GC_MakeSegment(mod, "GC_MakeSegment", "Implements construction algorithms for a line segment in 3D space. Makes a segment of Line from the 2 points <P1> and <P2>. The result is a Geom_TrimmedCurve curve. A MakeSegment object provides a framework for: - defining the construction of the line segment, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed line segment.");
+py::class_<GC_MakeSegment, GC_Root> cls_GC_MakeSegment(mod, "GC_MakeSegment", "Implements construction algorithms for a line segment in 3D space. Makes a segment of Line from the 2 points <P1> and <P2>. The result is a Geom_TrimmedCurve curve. A MakeSegment object provides a framework for: - defining the construction of the line segment, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed line segment.");
 
 // Constructors
 cls_GC_MakeSegment.def(py::init<const gp_Pnt &, const gp_Pnt &>(), py::arg("P1"), py::arg("P2"));

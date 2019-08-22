@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_TheCSFunctionOfInterCSurf(py::module &mod){
 
-py::class_<HLRBRep_TheCSFunctionOfInterCSurf, std::unique_ptr<HLRBRep_TheCSFunctionOfInterCSurf>, math_FunctionSetWithDerivatives> cls_HLRBRep_TheCSFunctionOfInterCSurf(mod, "HLRBRep_TheCSFunctionOfInterCSurf", "None");
+py::class_<HLRBRep_TheCSFunctionOfInterCSurf, math_FunctionSetWithDerivatives> cls_HLRBRep_TheCSFunctionOfInterCSurf(mod, "HLRBRep_TheCSFunctionOfInterCSurf", "None");
 
 // Constructors
 cls_HLRBRep_TheCSFunctionOfInterCSurf.def(py::init<const Standard_Address &, const gp_Lin &>(), py::arg("S"), py::arg("C"));

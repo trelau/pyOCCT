@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_QuasiAngularConvertor(py::module &mod){
 
-py::class_<GeomFill_QuasiAngularConvertor, std::unique_ptr<GeomFill_QuasiAngularConvertor>> cls_GeomFill_QuasiAngularConvertor(mod, "GeomFill_QuasiAngularConvertor", "To convert circular section in QuasiAngular Bezier form");
+py::class_<GeomFill_QuasiAngularConvertor> cls_GeomFill_QuasiAngularConvertor(mod, "GeomFill_QuasiAngularConvertor", "To convert circular section in QuasiAngular Bezier form");
 
 // Constructors
 cls_GeomFill_QuasiAngularConvertor.def(py::init<>());

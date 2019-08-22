@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_CSLib_NormalPolyDef(py::module &mod){
 
-py::class_<CSLib_NormalPolyDef, std::unique_ptr<CSLib_NormalPolyDef>, math_FunctionWithDerivative> cls_CSLib_NormalPolyDef(mod, "CSLib_NormalPolyDef", "None");
+py::class_<CSLib_NormalPolyDef, math_FunctionWithDerivative> cls_CSLib_NormalPolyDef(mod, "CSLib_NormalPolyDef", "None");
 
 // Constructors
 cls_CSLib_NormalPolyDef.def(py::init<const Standard_Integer, const TColStd_Array1OfReal &>(), py::arg("k0"), py::arg("li"));

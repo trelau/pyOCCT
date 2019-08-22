@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ProjLib_CompProjectedCurve(py::module &mod){
 
-py::class_<ProjLib_CompProjectedCurve, std::unique_ptr<ProjLib_CompProjectedCurve>, Adaptor2d_Curve2d> cls_ProjLib_CompProjectedCurve(mod, "ProjLib_CompProjectedCurve", "None");
+py::class_<ProjLib_CompProjectedCurve, Adaptor2d_Curve2d> cls_ProjLib_CompProjectedCurve(mod, "ProjLib_CompProjectedCurve", "None");
 
 // Constructors
 cls_ProjLib_CompProjectedCurve.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GC_MakeArcOfCircle(py::module &mod){
 
-py::class_<GC_MakeArcOfCircle, std::unique_ptr<GC_MakeArcOfCircle>, GC_Root> cls_GC_MakeArcOfCircle(mod, "GC_MakeArcOfCircle", "Implements construction algorithms for an arc of circle in 3D space. The result is a Geom_TrimmedCurve curve. A MakeArcOfCircle object provides a framework for: - defining the construction of the arc of circle, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed arc of circle.");
+py::class_<GC_MakeArcOfCircle, GC_Root> cls_GC_MakeArcOfCircle(mod, "GC_MakeArcOfCircle", "Implements construction algorithms for an arc of circle in 3D space. The result is a Geom_TrimmedCurve curve. A MakeArcOfCircle object provides a framework for: - defining the construction of the arc of circle, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed arc of circle.");
 
 // Constructors
 cls_GC_MakeArcOfCircle.def(py::init<const gp_Circ &, const Standard_Real, const Standard_Real, const Standard_Boolean>(), py::arg("Circ"), py::arg("Alpha1"), py::arg("Alpha2"), py::arg("Sense"));

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdObjMgt_SharedObject(py::module &mod){
 
-py::class_<StdObjMgt_SharedObject, std::unique_ptr<StdObjMgt_SharedObject>> cls_StdObjMgt_SharedObject(mod, "StdObjMgt_SharedObject", "None");
+py::class_<StdObjMgt_SharedObject> cls_StdObjMgt_SharedObject(mod, "StdObjMgt_SharedObject", "None");
 
 // Constructors
 

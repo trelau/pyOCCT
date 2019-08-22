@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_VrmlConverter_HLRShape(py::module &mod){
 
-py::class_<VrmlConverter_HLRShape, std::unique_ptr<VrmlConverter_HLRShape>> cls_VrmlConverter_HLRShape(mod, "VrmlConverter_HLRShape", "HLRShape - computes the presentation of objects with removal of their hidden lines for a specific projector, converts them into VRML objects and writes (adds) them into anOStream. All requested properties of the representation are specify in aDrawer of Drawer class. This kind of the presentation is converted into IndexedLineSet and if they are defined in Projector into : PerspectiveCamera, OrthographicCamera, DirectionLight, PointLight, SpotLight from Vrml package.");
+py::class_<VrmlConverter_HLRShape> cls_VrmlConverter_HLRShape(mod, "VrmlConverter_HLRShape", "HLRShape - computes the presentation of objects with removal of their hidden lines for a specific projector, converts them into VRML objects and writes (adds) them into anOStream. All requested properties of the representation are specify in aDrawer of Drawer class. This kind of the presentation is converted into IndexedLineSet and if they are defined in Projector into : PerspectiveCamera, OrthographicCamera, DirectionLight, PointLight, SpotLight from Vrml package.");
 
 // Constructors
 

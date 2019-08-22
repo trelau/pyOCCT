@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_PerspectiveCamera(py::module &mod){
 
-py::class_<Vrml_PerspectiveCamera, std::unique_ptr<Vrml_PerspectiveCamera>> cls_Vrml_PerspectiveCamera(mod, "Vrml_PerspectiveCamera", "specifies a PerspectiveCamera node of VRML specifying properties of cameras. A perspective camera defines a perspective projection from a viewpoint. The viewing volume for a perspective camera is a truncated right pyramid.");
+py::class_<Vrml_PerspectiveCamera> cls_Vrml_PerspectiveCamera(mod, "Vrml_PerspectiveCamera", "specifies a PerspectiveCamera node of VRML specifying properties of cameras. A perspective camera defines a perspective projection from a viewpoint. The viewing volume for a perspective camera is a truncated right pyramid.");
 
 // Constructors
 cls_Vrml_PerspectiveCamera.def(py::init<>());

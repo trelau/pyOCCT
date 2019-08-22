@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWQuantifiedAssemblyComponentUsage(py::module &mod){
 
-py::class_<RWStepRepr_RWQuantifiedAssemblyComponentUsage, std::unique_ptr<RWStepRepr_RWQuantifiedAssemblyComponentUsage>> cls_RWStepRepr_RWQuantifiedAssemblyComponentUsage(mod, "RWStepRepr_RWQuantifiedAssemblyComponentUsage", "Read & Write tool for QuantifiedAssemblyComponentUsage");
+py::class_<RWStepRepr_RWQuantifiedAssemblyComponentUsage> cls_RWStepRepr_RWQuantifiedAssemblyComponentUsage(mod, "RWStepRepr_RWQuantifiedAssemblyComponentUsage", "Read & Write tool for QuantifiedAssemblyComponentUsage");
 
 // Constructors
 cls_RWStepRepr_RWQuantifiedAssemblyComponentUsage.def(py::init<>());

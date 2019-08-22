@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinTools_SurfaceSet(py::module &mod){
 
-py::class_<BinTools_SurfaceSet, std::unique_ptr<BinTools_SurfaceSet>> cls_BinTools_SurfaceSet(mod, "BinTools_SurfaceSet", "Stores a set of Surfaces from Geom in binary format.");
+py::class_<BinTools_SurfaceSet> cls_BinTools_SurfaceSet(mod, "BinTools_SurfaceSet", "Stores a set of Surfaces from Geom in binary format.");
 
 // Constructors
 cls_BinTools_SurfaceSet.def(py::init<>());

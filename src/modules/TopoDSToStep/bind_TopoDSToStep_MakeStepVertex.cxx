@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDSToStep_MakeStepVertex(py::module &mod){
 
-py::class_<TopoDSToStep_MakeStepVertex, std::unique_ptr<TopoDSToStep_MakeStepVertex>, TopoDSToStep_Root> cls_TopoDSToStep_MakeStepVertex(mod, "TopoDSToStep_MakeStepVertex", "This class implements the mapping between classes Vertex from TopoDS and TopologicalRepresentationItem from StepShape.");
+py::class_<TopoDSToStep_MakeStepVertex, TopoDSToStep_Root> cls_TopoDSToStep_MakeStepVertex(mod, "TopoDSToStep_MakeStepVertex", "This class implements the mapping between classes Vertex from TopoDS and TopologicalRepresentationItem from StepShape.");
 
 // Constructors
 cls_TopoDSToStep_MakeStepVertex.def(py::init<>());

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_mmcmcnp_1_(py::module &mod){
 
-py::class_<mmcmcnp_1_, std::unique_ptr<mmcmcnp_1_>> cls_mmcmcnp_1_(mod, "mmcmcnp_1_", "None");
+py::class_<mmcmcnp_1_> cls_mmcmcnp_1_(mod, "mmcmcnp_1_", "None");
 
 // Constructors
 

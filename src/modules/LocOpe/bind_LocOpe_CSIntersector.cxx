@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocOpe_CSIntersector(py::module &mod){
 
-py::class_<LocOpe_CSIntersector, std::unique_ptr<LocOpe_CSIntersector>> cls_LocOpe_CSIntersector(mod, "LocOpe_CSIntersector", "This class provides the intersection between a set of axis or a circle and the faces of a shape. The intersection points are sorted in increasing parameter along each axis or circle.");
+py::class_<LocOpe_CSIntersector> cls_LocOpe_CSIntersector(mod, "LocOpe_CSIntersector", "This class provides the intersection between a set of axis or a circle and the faces of a shape. The intersection points are sorted in increasing parameter along each axis or circle.");
 
 // Constructors
 cls_LocOpe_CSIntersector.def(py::init<>());

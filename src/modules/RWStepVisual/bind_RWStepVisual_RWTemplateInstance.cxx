@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWTemplateInstance(py::module &mod){
 
-py::class_<RWStepVisual_RWTemplateInstance, std::unique_ptr<RWStepVisual_RWTemplateInstance>> cls_RWStepVisual_RWTemplateInstance(mod, "RWStepVisual_RWTemplateInstance", "Read & Write Module for TemplateInstance");
+py::class_<RWStepVisual_RWTemplateInstance> cls_RWStepVisual_RWTemplateInstance(mod, "RWStepVisual_RWTemplateInstance", "Read & Write Module for TemplateInstance");
 
 // Constructors
 cls_RWStepVisual_RWTemplateInstance.def(py::init<>());

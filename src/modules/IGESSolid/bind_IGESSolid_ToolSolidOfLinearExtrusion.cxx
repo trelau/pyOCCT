@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolSolidOfLinearExtrusion(py::module &mod){
 
-py::class_<IGESSolid_ToolSolidOfLinearExtrusion, std::unique_ptr<IGESSolid_ToolSolidOfLinearExtrusion>> cls_IGESSolid_ToolSolidOfLinearExtrusion(mod, "IGESSolid_ToolSolidOfLinearExtrusion", "Tool to work on a SolidOfLinearExtrusion. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolSolidOfLinearExtrusion> cls_IGESSolid_ToolSolidOfLinearExtrusion(mod, "IGESSolid_ToolSolidOfLinearExtrusion", "Tool to work on a SolidOfLinearExtrusion. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolSolidOfLinearExtrusion.def(py::init<>());

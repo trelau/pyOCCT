@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Sweep_NumShape(py::module &mod){
 
-py::class_<Sweep_NumShape, std::unique_ptr<Sweep_NumShape>> cls_Sweep_NumShape(mod, "Sweep_NumShape", "Gives a simple indexed representation of a Directing Edge topology.");
+py::class_<Sweep_NumShape> cls_Sweep_NumShape(mod, "Sweep_NumShape", "Gives a simple indexed representation of a Directing Edge topology.");
 
 // Constructors
 cls_Sweep_NumShape.def(py::init<>());

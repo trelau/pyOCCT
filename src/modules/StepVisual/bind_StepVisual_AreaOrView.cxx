@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_AreaOrView(py::module &mod){
 
-py::class_<StepVisual_AreaOrView, std::unique_ptr<StepVisual_AreaOrView>, StepData_SelectType> cls_StepVisual_AreaOrView(mod, "StepVisual_AreaOrView", "None");
+py::class_<StepVisual_AreaOrView, StepData_SelectType> cls_StepVisual_AreaOrView(mod, "StepVisual_AreaOrView", "None");
 
 // Constructors
 cls_StepVisual_AreaOrView.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepApprox_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfApprox(py::module &mod){
 
-py::class_<BRepApprox_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfApprox, std::unique_ptr<BRepApprox_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfApprox>, math_BFGS> cls_BRepApprox_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfApprox(mod, "BRepApprox_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfApprox", "None");
+py::class_<BRepApprox_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfApprox, math_BFGS> cls_BRepApprox_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfApprox(mod, "BRepApprox_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfApprox", "None");
 
 // Constructors
 cls_BRepApprox_Gradient_BFGSOfMyGradientbisOfTheComputeLineOfApprox.def(py::init<math_MultipleVarFunctionWithGradient &, const math_Vector &, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("F"), py::arg("StartingPoint"), py::arg("Tolerance3d"), py::arg("Tolerance2d"), py::arg("Eps"));

@@ -75,7 +75,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSelect(py::module &mod){
 
-py::class_<IGESSelect, std::unique_ptr<IGESSelect>> cls_IGESSelect(mod, "IGESSelect", "This package defines the library of the most used tools for IGES Files : Selections & Modifiers specific to the IGES norm, and the most needed converters");
+py::class_<IGESSelect> cls_IGESSelect(mod, "IGESSelect", "This package defines the library of the most used tools for IGES Files : Selections & Modifiers specific to the IGES norm, and the most needed converters");
 
 // Constructors
 

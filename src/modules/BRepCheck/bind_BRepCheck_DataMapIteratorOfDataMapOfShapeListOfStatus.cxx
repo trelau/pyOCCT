@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepCheck_DataMapIteratorOfDataMapOfShapeListOfStatus(py::module &mod){
 
-py::class_<NCollection_DataMap<TopoDS_Shape, NCollection_List<BRepCheck_Status>, TopTools_ShapeMapHasher>::Iterator, std::unique_ptr<NCollection_DataMap<TopoDS_Shape, NCollection_List<BRepCheck_Status>, TopTools_ShapeMapHasher>::Iterator>, NCollection_BaseMap::Iterator> cls_BRepCheck_DataMapIteratorOfDataMapOfShapeListOfStatus(mod, "BRepCheck_DataMapIteratorOfDataMapOfShapeListOfStatus", "None");
+py::class_<NCollection_DataMap<TopoDS_Shape, NCollection_List<BRepCheck_Status>, TopTools_ShapeMapHasher>::Iterator, NCollection_BaseMap::Iterator> cls_BRepCheck_DataMapIteratorOfDataMapOfShapeListOfStatus(mod, "BRepCheck_DataMapIteratorOfDataMapOfShapeListOfStatus", "None");
 
 // Constructors
 cls_BRepCheck_DataMapIteratorOfDataMapOfShapeListOfStatus.def(py::init<>());

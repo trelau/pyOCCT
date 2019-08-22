@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWFeaModel(py::module &mod){
 
-py::class_<RWStepFEA_RWFeaModel, std::unique_ptr<RWStepFEA_RWFeaModel>> cls_RWStepFEA_RWFeaModel(mod, "RWStepFEA_RWFeaModel", "Read & Write tool for FeaModel");
+py::class_<RWStepFEA_RWFeaModel> cls_RWStepFEA_RWFeaModel(mod, "RWStepFEA_RWFeaModel", "Read & Write tool for FeaModel");
 
 // Constructors
 cls_RWStepFEA_RWFeaModel.def(py::init<>());

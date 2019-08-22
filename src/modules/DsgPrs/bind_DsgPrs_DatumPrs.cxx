@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_DatumPrs(py::module &mod){
 
-py::class_<DsgPrs_DatumPrs, std::unique_ptr<DsgPrs_DatumPrs>, Prs3d_Root> cls_DsgPrs_DatumPrs(mod, "DsgPrs_DatumPrs", "A framework for displaying an XYZ trihedron.");
+py::class_<DsgPrs_DatumPrs, Prs3d_Root> cls_DsgPrs_DatumPrs(mod, "DsgPrs_DatumPrs", "A framework for displaying an XYZ trihedron.");
 
 // Constructors
 

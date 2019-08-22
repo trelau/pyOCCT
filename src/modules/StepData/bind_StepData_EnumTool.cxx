@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepData_EnumTool(py::module &mod){
 
-py::class_<StepData_EnumTool, std::unique_ptr<StepData_EnumTool>> cls_StepData_EnumTool(mod, "StepData_EnumTool", "This class gives a way of conversion between the value of an enumeration and its representation in STEP An enumeration corresponds to an integer with reserved values, which begin to 0 In STEP, it is represented by a name in capital letter and limited by two dots, e.g. .UNKNOWN.");
+py::class_<StepData_EnumTool> cls_StepData_EnumTool(mod, "StepData_EnumTool", "This class gives a way of conversion between the value of an enumeration and its representation in STEP An enumeration corresponds to an integer with reserved values, which begin to 0 In STEP, it is represented by a name in capital letter and limited by two dots, e.g. .UNKNOWN.");
 
 // Constructors
 cls_StepData_EnumTool.def(py::init<>());

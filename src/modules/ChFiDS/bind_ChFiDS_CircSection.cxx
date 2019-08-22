@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFiDS_CircSection(py::module &mod){
 
-py::class_<ChFiDS_CircSection, std::unique_ptr<ChFiDS_CircSection>> cls_ChFiDS_CircSection(mod, "ChFiDS_CircSection", "A Section of fillet.");
+py::class_<ChFiDS_CircSection> cls_ChFiDS_CircSection(mod, "ChFiDS_CircSection", "A Section of fillet.");
 
 // Constructors
 cls_ChFiDS_CircSection.def(py::init<>());

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepTools_WireExplorer(py::module &mod){
 
-py::class_<BRepTools_WireExplorer, std::unique_ptr<BRepTools_WireExplorer>> cls_BRepTools_WireExplorer(mod, "BRepTools_WireExplorer", "The WireExplorer is a tool to explore the edges of a wire in a connection order.");
+py::class_<BRepTools_WireExplorer> cls_BRepTools_WireExplorer(mod, "BRepTools_WireExplorer", "The WireExplorer is a tool to explore the edges of a wire in a connection order.");
 
 // Constructors
 cls_BRepTools_WireExplorer.def(py::init<>());

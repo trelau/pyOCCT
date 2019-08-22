@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Message(py::module &mod){
 
-py::class_<Message, std::unique_ptr<Message>> cls_Message(mod, "Message", "Defines - tools to work with messages - basic tools intended for progress indication");
+py::class_<Message> cls_Message(mod, "Message", "Defines - tools to work with messages - basic tools intended for progress indication");
 
 // Constructors
 

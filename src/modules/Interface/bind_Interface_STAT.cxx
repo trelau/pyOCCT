@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_STAT(py::module &mod){
 
-py::class_<Interface_STAT, std::unique_ptr<Interface_STAT>> cls_Interface_STAT(mod, "Interface_STAT", "This class manages statistics to be queried asynchronously. Way of use : An operator describes a STAT form then fills it according to its progression. This produces a state of advancement of the process. This state can then be queried asynchronously : typically it is summarised as a percentage. There are also an identification of the current state, and informations on processed volume.");
+py::class_<Interface_STAT> cls_Interface_STAT(mod, "Interface_STAT", "This class manages statistics to be queried asynchronously. Way of use : An operator describes a STAT form then fills it according to its progression. This produces a state of advancement of the process. This state can then be queried asynchronously : typically it is summarised as a percentage. There are also an identification of the current state, and informations on processed volume.");
 
 // Constructors
 cls_Interface_STAT.def(py::init<>());

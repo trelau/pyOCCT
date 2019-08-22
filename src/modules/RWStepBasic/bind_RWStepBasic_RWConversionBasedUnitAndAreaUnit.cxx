@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWConversionBasedUnitAndAreaUnit(py::module &mod){
 
-py::class_<RWStepBasic_RWConversionBasedUnitAndAreaUnit, std::unique_ptr<RWStepBasic_RWConversionBasedUnitAndAreaUnit>> cls_RWStepBasic_RWConversionBasedUnitAndAreaUnit(mod, "RWStepBasic_RWConversionBasedUnitAndAreaUnit", "Read & Write Module for RWConversionBasedUnitAndAreaUnit");
+py::class_<RWStepBasic_RWConversionBasedUnitAndAreaUnit> cls_RWStepBasic_RWConversionBasedUnitAndAreaUnit(mod, "RWStepBasic_RWConversionBasedUnitAndAreaUnit", "Read & Write Module for RWConversionBasedUnitAndAreaUnit");
 
 // Constructors
 cls_RWStepBasic_RWConversionBasedUnitAndAreaUnit.def(py::init<>());

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_Parallel(py::module &mod){
 
-py::class_<OSD_Parallel, std::unique_ptr<OSD_Parallel>> cls_OSD_Parallel(mod, "OSD_Parallel", "Simple tool for code parallelization.");
+py::class_<OSD_Parallel> cls_OSD_Parallel(mod, "OSD_Parallel", "Simple tool for code parallelization.");
 
 // Constructors
 

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dHatch_Hatching(py::module &mod){
 
-py::class_<Geom2dHatch_Hatching, std::unique_ptr<Geom2dHatch_Hatching>> cls_Geom2dHatch_Hatching(mod, "Geom2dHatch_Hatching", "None");
+py::class_<Geom2dHatch_Hatching> cls_Geom2dHatch_Hatching(mod, "Geom2dHatch_Hatching", "None");
 
 // Constructors
 cls_Geom2dHatch_Hatching.def(py::init<>());

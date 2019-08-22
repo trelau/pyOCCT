@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dConvert_BSplineCurveToBezierCurve(py::module &mod){
 
-py::class_<Geom2dConvert_BSplineCurveToBezierCurve, std::unique_ptr<Geom2dConvert_BSplineCurveToBezierCurve>> cls_Geom2dConvert_BSplineCurveToBezierCurve(mod, "Geom2dConvert_BSplineCurveToBezierCurve", "An algorithm to convert a BSpline curve into a series of adjacent Bezier curves. A BSplineCurveToBezierCurve object provides a framework for: - defining the BSpline curve to be converted - implementing the construction algorithm, and - consulting the results. References : Generating the Bezier points of B-spline curves and surfaces (Wolfgang Bohm) CAD volume 13 number 6 november 1981");
+py::class_<Geom2dConvert_BSplineCurveToBezierCurve> cls_Geom2dConvert_BSplineCurveToBezierCurve(mod, "Geom2dConvert_BSplineCurveToBezierCurve", "An algorithm to convert a BSpline curve into a series of adjacent Bezier curves. A BSplineCurveToBezierCurve object provides a framework for: - defining the BSpline curve to be converted - implementing the construction algorithm, and - consulting the results. References : Generating the Bezier points of B-spline curves and surfaces (Wolfgang Bohm) CAD volume 13 number 6 november 1981");
 
 // Constructors
 cls_Geom2dConvert_BSplineCurveToBezierCurve.def(py::init<const opencascade::handle<Geom2d_BSplineCurve> &>(), py::arg("BasisCurve"));

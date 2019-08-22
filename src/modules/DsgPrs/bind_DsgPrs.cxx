@@ -61,7 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs(py::module &mod){
 
-py::class_<DsgPrs, std::unique_ptr<DsgPrs>> cls_DsgPrs(mod, "DsgPrs", "Describes Standard Presentations for DsgIHM objects");
+py::class_<DsgPrs> cls_DsgPrs(mod, "DsgPrs", "Describes Standard Presentations for DsgIHM objects");
 
 // Constructors
 

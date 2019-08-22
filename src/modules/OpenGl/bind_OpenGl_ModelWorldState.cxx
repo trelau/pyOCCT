@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_ModelWorldState(py::module &mod){
 
-py::class_<OpenGl_ModelWorldState, std::unique_ptr<OpenGl_ModelWorldState>, OpenGl_StateInterface> cls_OpenGl_ModelWorldState(mod, "OpenGl_ModelWorldState", "Defines state of OCCT model-world transformation.");
+py::class_<OpenGl_ModelWorldState, OpenGl_StateInterface> cls_OpenGl_ModelWorldState(mod, "OpenGl_ModelWorldState", "Defines state of OCCT model-world transformation.");
 
 // Constructors
 cls_OpenGl_ModelWorldState.def(py::init<>());

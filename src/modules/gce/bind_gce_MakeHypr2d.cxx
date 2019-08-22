@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gce_MakeHypr2d(py::module &mod){
 
-py::class_<gce_MakeHypr2d, std::unique_ptr<gce_MakeHypr2d>, gce_Root> cls_gce_MakeHypr2d(mod, "gce_MakeHypr2d", "This class implements the following algorithms used to create a 2d Hyperbola from gp. * Create a 2d Hyperbola from its center and two points: one on its axis of symmetry giving the major radius, the other giving the value of the small radius. * Create a 2d Hyperbola from its major axis and its major radius and its minor radius.");
+py::class_<gce_MakeHypr2d, gce_Root> cls_gce_MakeHypr2d(mod, "gce_MakeHypr2d", "This class implements the following algorithms used to create a 2d Hyperbola from gp. * Create a 2d Hyperbola from its center and two points: one on its axis of symmetry giving the major radius, the other giving the value of the small radius. * Create a 2d Hyperbola from its major axis and its major radius and its minor radius.");
 
 // Constructors
 cls_gce_MakeHypr2d.def(py::init<const gp_Pnt2d &, const gp_Pnt2d &, const gp_Pnt2d &>(), py::arg("S1"), py::arg("S2"), py::arg("Center"));

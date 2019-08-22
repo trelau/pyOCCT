@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_Category(py::module &mod){
 
-py::class_<Interface_Category, std::unique_ptr<Interface_Category>> cls_Interface_Category(mod, "Interface_Category", "This class manages categories A category is defined by a name and a number, and can be seen as a way of rough classification, i.e. less precise than a cdl type. Hence, it is possible to dispatch every entity in about a dozen of categories, twenty is a reasonable maximum.");
+py::class_<Interface_Category> cls_Interface_Category(mod, "Interface_Category", "This class manages categories A category is defined by a name and a number, and can be seen as a way of rough classification, i.e. less precise than a cdl type. Hence, it is possible to dispatch every entity in about a dozen of categories, twenty is a reasonable maximum.");
 
 // Constructors
 cls_Interface_Category.def(py::init<>());

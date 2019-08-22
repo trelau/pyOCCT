@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBuilderAPI_Transform(py::module &mod){
 
-py::class_<BRepBuilderAPI_Transform, std::unique_ptr<BRepBuilderAPI_Transform>, BRepBuilderAPI_ModifyShape> cls_BRepBuilderAPI_Transform(mod, "BRepBuilderAPI_Transform", "Geometric transformation on a shape. The transformation to be applied is defined as a gp_Trsf transformation, i.e. a transformation which does not modify the underlying geometry of shapes. The transformation is applied to: - all curves which support edges of a shape, and - all surfaces which support its faces. A Transform object provides a framework for: - defining the geometric transformation to be applied, - implementing the transformation algorithm, and - consulting the results.");
+py::class_<BRepBuilderAPI_Transform, BRepBuilderAPI_ModifyShape> cls_BRepBuilderAPI_Transform(mod, "BRepBuilderAPI_Transform", "Geometric transformation on a shape. The transformation to be applied is defined as a gp_Trsf transformation, i.e. a transformation which does not modify the underlying geometry of shapes. The transformation is applied to: - all curves which support edges of a shape, and - all surfaces which support its faces. A Transform object provides a framework for: - defining the geometric transformation to be applied, - implementing the transformation algorithm, and - consulting the results.");
 
 // Constructors
 cls_BRepBuilderAPI_Transform.def(py::init<const gp_Trsf &>(), py::arg("T"));

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBlend_Ruled(py::module &mod){
 
-py::class_<BlendFunc_Ruled, std::unique_ptr<BlendFunc_Ruled>, Blend_Function> cls_BRepBlend_Ruled(mod, "BRepBlend_Ruled", "None", py::module_local());
+py::class_<BlendFunc_Ruled, Blend_Function> cls_BRepBlend_Ruled(mod, "BRepBlend_Ruled", "None", py::module_local());
 
 // Constructors
 cls_BRepBlend_Ruled.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S1"), py::arg("S2"), py::arg("C"));

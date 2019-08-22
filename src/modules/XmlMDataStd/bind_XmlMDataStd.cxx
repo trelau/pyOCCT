@@ -55,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlMDataStd(py::module &mod){
 
-py::class_<XmlMDataStd, std::unique_ptr<XmlMDataStd>> cls_XmlMDataStd(mod, "XmlMDataStd", "Storage and Retrieval drivers for modelling attributes. Transient attributes are defined in package TDataStd.");
+py::class_<XmlMDataStd> cls_XmlMDataStd(mod, "XmlMDataStd", "Storage and Retrieval drivers for modelling attributes. Transient attributes are defined in package TDataStd.");
 
 // Constructors
 

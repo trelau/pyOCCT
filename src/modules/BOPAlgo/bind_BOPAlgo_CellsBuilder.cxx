@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_CellsBuilder(py::module &mod){
 
-py::class_<BOPAlgo_CellsBuilder, std::unique_ptr<BOPAlgo_CellsBuilder>, BOPAlgo_Builder> cls_BOPAlgo_CellsBuilder(mod, "BOPAlgo_CellsBuilder", "The algorithm is based on the General Fuse algorithm (GFA). The result of GFA is all split parts of the Arguments.");
+py::class_<BOPAlgo_CellsBuilder, BOPAlgo_Builder> cls_BOPAlgo_CellsBuilder(mod, "BOPAlgo_CellsBuilder", "The algorithm is based on the General Fuse algorithm (GFA). The result of GFA is all split parts of the Arguments.");
 
 // Constructors
 cls_BOPAlgo_CellsBuilder.def(py::init<>());

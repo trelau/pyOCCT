@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BiTgte_Blend(py::module &mod){
 
-py::class_<BiTgte_Blend, std::unique_ptr<BiTgte_Blend>> cls_BiTgte_Blend(mod, "BiTgte_Blend", "Root class");
+py::class_<BiTgte_Blend> cls_BiTgte_Blend(mod, "BiTgte_Blend", "Root class");
 
 // Constructors
 cls_BiTgte_Blend.def(py::init<>());

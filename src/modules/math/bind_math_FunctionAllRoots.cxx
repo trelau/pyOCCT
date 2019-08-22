@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_FunctionAllRoots(py::module &mod){
 
-py::class_<math_FunctionAllRoots, std::unique_ptr<math_FunctionAllRoots>> cls_math_FunctionAllRoots(mod, "math_FunctionAllRoots", "This algorithm uses a sample of the function to find all intervals on which the function is null, and afterwards uses the FunctionRoots algorithm to find the points where the function is null outside the 'null intervals'. Knowledge of the derivative is required.");
+py::class_<math_FunctionAllRoots> cls_math_FunctionAllRoots(mod, "math_FunctionAllRoots", "This algorithm uses a sample of the function to find all intervals on which the function is null, and afterwards uses the FunctionRoots algorithm to find the points where the function is null outside the 'null intervals'. Knowledge of the derivative is required.");
 
 // Constructors
 cls_math_FunctionAllRoots.def(py::init<math_FunctionWithDerivative &, const math_FunctionSample &, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("F"), py::arg("S"), py::arg("EpsX"), py::arg("EpsF"), py::arg("EpsNul"));

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Draft_EdgeInfo(py::module &mod){
 
-py::class_<Draft_EdgeInfo, std::unique_ptr<Draft_EdgeInfo>> cls_Draft_EdgeInfo(mod, "Draft_EdgeInfo", "None");
+py::class_<Draft_EdgeInfo> cls_Draft_EdgeInfo(mod, "Draft_EdgeInfo", "None");
 
 // Constructors
 cls_Draft_EdgeInfo.def(py::init<>());

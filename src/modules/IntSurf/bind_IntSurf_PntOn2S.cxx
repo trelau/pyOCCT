@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntSurf_PntOn2S(py::module &mod){
 
-py::class_<IntSurf_PntOn2S, std::unique_ptr<IntSurf_PntOn2S>> cls_IntSurf_PntOn2S(mod, "IntSurf_PntOn2S", "This class defines the geometric informations for an intersection point between 2 surfaces : The coordinates ( Pnt from gp ), and two parametric coordinates.");
+py::class_<IntSurf_PntOn2S> cls_IntSurf_PntOn2S(mod, "IntSurf_PntOn2S", "This class defines the geometric informations for an intersection point between 2 surfaces : The coordinates ( Pnt from gp ), and two parametric coordinates.");
 
 // Constructors
 cls_IntSurf_PntOn2S.def(py::init<>());

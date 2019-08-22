@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepApprox_ParFunctionOfMyGradientbisOfTheComputeLineOfApprox(py::module &mod){
 
-py::class_<BRepApprox_ParFunctionOfMyGradientbisOfTheComputeLineOfApprox, std::unique_ptr<BRepApprox_ParFunctionOfMyGradientbisOfTheComputeLineOfApprox>, math_MultipleVarFunctionWithGradient> cls_BRepApprox_ParFunctionOfMyGradientbisOfTheComputeLineOfApprox(mod, "BRepApprox_ParFunctionOfMyGradientbisOfTheComputeLineOfApprox", "None");
+py::class_<BRepApprox_ParFunctionOfMyGradientbisOfTheComputeLineOfApprox, math_MultipleVarFunctionWithGradient> cls_BRepApprox_ParFunctionOfMyGradientbisOfTheComputeLineOfApprox(mod, "BRepApprox_ParFunctionOfMyGradientbisOfTheComputeLineOfApprox", "None");
 
 // Constructors
 cls_BRepApprox_ParFunctionOfMyGradientbisOfTheComputeLineOfApprox.def(py::init<const BRepApprox_TheMultiLineOfApprox &, const Standard_Integer, const Standard_Integer, const opencascade::handle<AppParCurves_HArray1OfConstraintCouple> &, const math_Vector &, const Standard_Integer>(), py::arg("SSP"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("TheConstraints"), py::arg("Parameters"), py::arg("Deg"));

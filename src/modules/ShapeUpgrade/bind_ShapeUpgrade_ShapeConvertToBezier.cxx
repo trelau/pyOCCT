@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeUpgrade_ShapeConvertToBezier(py::module &mod){
 
-py::class_<ShapeUpgrade_ShapeConvertToBezier, std::unique_ptr<ShapeUpgrade_ShapeConvertToBezier>, ShapeUpgrade_ShapeDivide> cls_ShapeUpgrade_ShapeConvertToBezier(mod, "ShapeUpgrade_ShapeConvertToBezier", "API class for performing conversion of 3D, 2D curves to bezier curves and surfaces to bezier based surfaces ( bezier surface, surface of revolution based on bezier curve, offset surface based on any previous type).");
+py::class_<ShapeUpgrade_ShapeConvertToBezier, ShapeUpgrade_ShapeDivide> cls_ShapeUpgrade_ShapeConvertToBezier(mod, "ShapeUpgrade_ShapeConvertToBezier", "API class for performing conversion of 3D, 2D curves to bezier curves and surfaces to bezier based surfaces ( bezier surface, surface of revolution based on bezier curve, offset surface based on any previous type).");
 
 // Constructors
 cls_ShapeUpgrade_ShapeConvertToBezier.def(py::init<>());

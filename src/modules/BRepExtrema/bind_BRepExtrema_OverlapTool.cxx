@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepExtrema_OverlapTool(py::module &mod){
 
-py::class_<BRepExtrema_OverlapTool, std::unique_ptr<BRepExtrema_OverlapTool>> cls_BRepExtrema_OverlapTool(mod, "BRepExtrema_OverlapTool", "Tool class for for detection of overlapping of two BVH primitive sets. This tool is not intended to be used independently, and is integrated in other classes, implementing algorithms based on shape tessellation (BRepExtrema_ShapeProximity and BRepExtrema_SelfIntersection).");
+py::class_<BRepExtrema_OverlapTool> cls_BRepExtrema_OverlapTool(mod, "BRepExtrema_OverlapTool", "Tool class for for detection of overlapping of two BVH primitive sets. This tool is not intended to be used independently, and is integrated in other classes, implementing algorithms based on shape tessellation (BRepExtrema_ShapeProximity and BRepExtrema_SelfIntersection).");
 
 // Constructors
 // cls_BRepExtrema_OverlapTool.def(py::init<>());

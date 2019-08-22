@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDF_Label(py::module &mod){
 
-py::class_<TDF_Label, std::unique_ptr<TDF_Label>> cls_TDF_Label(mod, "TDF_Label", "This class provides basic operations to define a label in a data structure. A label is a feature in the feature hierarchy. A label is always connected to a Data from TDF. To a label is attached attributes containing the software components information.");
+py::class_<TDF_Label> cls_TDF_Label(mod, "TDF_Label", "This class provides basic operations to define a label in a data structure. A label is a feature in the feature hierarchy. A label is always connected to a Data from TDF. To a label is attached attributes containing the software components information.");
 
 // Constructors
 cls_TDF_Label.def(py::init<>());

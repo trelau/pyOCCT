@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_TopoBuilder(py::module &mod){
 
-py::class_<IGESSolid_TopoBuilder, std::unique_ptr<IGESSolid_TopoBuilder>> cls_IGESSolid_TopoBuilder(mod, "IGESSolid_TopoBuilder", "This class manages the creation of an IGES Topologic entity (BREP : ManifoldSolid, Shell, Face) This includes definiting of Vertex and Edge Lists, building of Edges and Loops");
+py::class_<IGESSolid_TopoBuilder> cls_IGESSolid_TopoBuilder(mod, "IGESSolid_TopoBuilder", "This class manages the creation of an IGES Topologic entity (BREP : ManifoldSolid, Shell, Face) This includes definiting of Vertex and Edge Lists, building of Edges and Loops");
 
 // Constructors
 cls_IGESSolid_TopoBuilder.def(py::init<>());

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BndLib_Add3dCurve(py::module &mod){
 
-py::class_<BndLib_Add3dCurve, std::unique_ptr<BndLib_Add3dCurve>> cls_BndLib_Add3dCurve(mod, "BndLib_Add3dCurve", "Computes the bounding box for a curve in 3d. Functions to add a 3D curve to a bounding box. The 3D curve is defined from a Geom curve.");
+py::class_<BndLib_Add3dCurve> cls_BndLib_Add3dCurve(mod, "BndLib_Add3dCurve", "Computes the bounding box for a curve in 3d. Functions to add a 3D curve to a bounding box. The 3D curve is defined from a Geom curve.");
 
 // Constructors
 

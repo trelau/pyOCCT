@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dGcc_FunctionTanCuCuCu(py::module &mod){
 
-py::class_<Geom2dGcc_FunctionTanCuCuCu, std::unique_ptr<Geom2dGcc_FunctionTanCuCuCu>, math_FunctionSetWithDerivatives> cls_Geom2dGcc_FunctionTanCuCuCu(mod, "Geom2dGcc_FunctionTanCuCuCu", "This abstract class describes a set on N Functions of M independant variables.");
+py::class_<Geom2dGcc_FunctionTanCuCuCu, math_FunctionSetWithDerivatives> cls_Geom2dGcc_FunctionTanCuCuCu(mod, "Geom2dGcc_FunctionTanCuCuCu", "This abstract class describes a set on N Functions of M independant variables.");
 
 // Constructors
 cls_Geom2dGcc_FunctionTanCuCuCu.def(py::init<const Geom2dAdaptor_Curve &, const Geom2dAdaptor_Curve &, const Geom2dAdaptor_Curve &>(), py::arg("C1"), py::arg("C2"), py::arg("C3"));

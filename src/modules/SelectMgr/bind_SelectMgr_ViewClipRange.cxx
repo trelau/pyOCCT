@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_SelectMgr_ViewClipRange(py::module &mod){
 
-py::class_<SelectMgr_ViewClipRange, std::unique_ptr<SelectMgr_ViewClipRange>> cls_SelectMgr_ViewClipRange(mod, "SelectMgr_ViewClipRange", "Class for handling depth clipping range. It is used to perform checks in case if global (for the whole view) clipping planes are defined inside of SelectMgr_RectangularFrustum class methods.");
+py::class_<SelectMgr_ViewClipRange> cls_SelectMgr_ViewClipRange(mod, "SelectMgr_ViewClipRange", "Class for handling depth clipping range. It is used to perform checks in case if global (for the whole view) clipping planes are defined inside of SelectMgr_RectangularFrustum class methods.");
 
 // Constructors
 cls_SelectMgr_ViewClipRange.def(py::init<>());

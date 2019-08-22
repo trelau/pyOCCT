@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gce_MakeCylinder(py::module &mod){
 
-py::class_<gce_MakeCylinder, std::unique_ptr<gce_MakeCylinder>, gce_Root> cls_gce_MakeCylinder(mod, "gce_MakeCylinder", "This class implements the following algorithms used to create a Cylinder from gp. * Create a Cylinder coaxial to another and passing through a point. * Create a Cylinder coaxial to another at a distance <Dist>. * Create a Cylinder with 3 points. * Create a Cylinder by its axis and radius. * Create a cylinder by its circular base.");
+py::class_<gce_MakeCylinder, gce_Root> cls_gce_MakeCylinder(mod, "gce_MakeCylinder", "This class implements the following algorithms used to create a Cylinder from gp. * Create a Cylinder coaxial to another and passing through a point. * Create a Cylinder coaxial to another at a distance <Dist>. * Create a Cylinder with 3 points. * Create a Cylinder by its axis and radius. * Create a cylinder by its circular base.");
 
 // Constructors
 cls_gce_MakeCylinder.def(py::init<const gp_Ax2 &, const Standard_Real>(), py::arg("A2"), py::arg("Radius"));

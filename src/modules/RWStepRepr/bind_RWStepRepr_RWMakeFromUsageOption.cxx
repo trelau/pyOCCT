@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWMakeFromUsageOption(py::module &mod){
 
-py::class_<RWStepRepr_RWMakeFromUsageOption, std::unique_ptr<RWStepRepr_RWMakeFromUsageOption>> cls_RWStepRepr_RWMakeFromUsageOption(mod, "RWStepRepr_RWMakeFromUsageOption", "Read & Write tool for MakeFromUsageOption");
+py::class_<RWStepRepr_RWMakeFromUsageOption> cls_RWStepRepr_RWMakeFromUsageOption(mod, "RWStepRepr_RWMakeFromUsageOption", "Read & Write tool for MakeFromUsageOption");
 
 // Constructors
 cls_RWStepRepr_RWMakeFromUsageOption.def(py::init<>());

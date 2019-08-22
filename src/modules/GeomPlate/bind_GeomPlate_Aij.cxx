@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomPlate_Aij(py::module &mod){
 
-py::class_<GeomPlate_Aij, std::unique_ptr<GeomPlate_Aij>> cls_GeomPlate_Aij(mod, "GeomPlate_Aij", "A structure containing indexes of two normals and its cross product");
+py::class_<GeomPlate_Aij> cls_GeomPlate_Aij(mod, "GeomPlate_Aij", "A structure containing indexes of two normals and its cross product");
 
 // Constructors
 cls_GeomPlate_Aij.def(py::init<>());

@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS_TranslateEdgeLoop(py::module &mod){
 
-py::class_<StepToTopoDS_TranslateEdgeLoop, std::unique_ptr<StepToTopoDS_TranslateEdgeLoop>, StepToTopoDS_Root> cls_StepToTopoDS_TranslateEdgeLoop(mod, "StepToTopoDS_TranslateEdgeLoop", "None");
+py::class_<StepToTopoDS_TranslateEdgeLoop, StepToTopoDS_Root> cls_StepToTopoDS_TranslateEdgeLoop(mod, "StepToTopoDS_TranslateEdgeLoop", "None");
 
 // Constructors
 cls_StepToTopoDS_TranslateEdgeLoop.def(py::init<>());

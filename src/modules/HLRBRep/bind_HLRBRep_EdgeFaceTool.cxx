@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_EdgeFaceTool(py::module &mod){
 
-py::class_<HLRBRep_EdgeFaceTool, std::unique_ptr<HLRBRep_EdgeFaceTool>> cls_HLRBRep_EdgeFaceTool(mod, "HLRBRep_EdgeFaceTool", "The EdgeFaceTool computes the UV coordinates at a given parameter on a Curve and a Surface. It also compute the signed curvature value in a direction at a given u,v point on a surface.");
+py::class_<HLRBRep_EdgeFaceTool> cls_HLRBRep_EdgeFaceTool(mod, "HLRBRep_EdgeFaceTool", "The EdgeFaceTool computes the UV coordinates at a given parameter on a Curve and a Surface. It also compute the signed curvature value in a direction at a given u,v point on a surface.");
 
 // Constructors
 

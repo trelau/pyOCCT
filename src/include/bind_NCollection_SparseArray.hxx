@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheItemType>
 void bind_NCollection_SparseArray(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_SparseArray<TheItemType>, std::unique_ptr<NCollection_SparseArray<TheItemType>>, NCollection_SparseArrayBase> cls_NCollection_SparseArray(mod, name.c_str(), "Dynamically resizable sparse array of objects", local);
+py::class_<NCollection_SparseArray<TheItemType>, NCollection_SparseArrayBase> cls_NCollection_SparseArray(mod, name.c_str(), "Dynamically resizable sparse array of objects", local);
 
 // Constructors
 cls_NCollection_SparseArray.def(py::init<Standard_Size>(), py::arg("theIncrement"));

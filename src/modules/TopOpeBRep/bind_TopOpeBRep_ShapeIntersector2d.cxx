@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRep_ShapeIntersector2d(py::module &mod){
 
-py::class_<TopOpeBRep_ShapeIntersector2d, std::unique_ptr<TopOpeBRep_ShapeIntersector2d>> cls_TopOpeBRep_ShapeIntersector2d(mod, "TopOpeBRep_ShapeIntersector2d", "Intersect two shapes.");
+py::class_<TopOpeBRep_ShapeIntersector2d> cls_TopOpeBRep_ShapeIntersector2d(mod, "TopOpeBRep_ShapeIntersector2d", "Intersect two shapes.");
 
 // Constructors
 cls_TopOpeBRep_ShapeIntersector2d.def(py::init<>());

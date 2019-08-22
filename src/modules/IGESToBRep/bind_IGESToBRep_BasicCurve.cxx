@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESToBRep_BasicCurve(py::module &mod){
 
-py::class_<IGESToBRep_BasicCurve, std::unique_ptr<IGESToBRep_BasicCurve>, IGESToBRep_CurveAndSurface> cls_IGESToBRep_BasicCurve(mod, "IGESToBRep_BasicCurve", "Provides methods to transfer basic geometric curves entities from IGES to CASCADE. These can be : * Circular arc * Conic arc * Spline curve * BSpline curve * Line * Copious data * Point * Transformation matrix");
+py::class_<IGESToBRep_BasicCurve, IGESToBRep_CurveAndSurface> cls_IGESToBRep_BasicCurve(mod, "IGESToBRep_BasicCurve", "Provides methods to transfer basic geometric curves entities from IGES to CASCADE. These can be : * Circular arc * Conic arc * Spline curve * BSpline curve * Line * Copious data * Point * Transformation matrix");
 
 // Constructors
 cls_IGESToBRep_BasicCurve.def(py::init<>());

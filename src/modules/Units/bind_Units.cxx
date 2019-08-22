@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Units(py::module &mod){
 
-py::class_<Units, std::unique_ptr<Units>> cls_Units(mod, "Units", "This package provides all the facilities to create and question a dictionary of units, and also to manipulate measurements which are real values with units.");
+py::class_<Units> cls_Units(mod, "Units", "This package provides all the facilities to create and question a dictionary of units, and also to manipulate measurements which are real values with units.");
 
 // Constructors
 

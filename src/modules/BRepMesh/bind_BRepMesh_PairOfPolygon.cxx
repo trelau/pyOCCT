@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_PairOfPolygon(py::module &mod){
 
-py::class_<BRepMesh_PairOfPolygon, std::unique_ptr<BRepMesh_PairOfPolygon>> cls_BRepMesh_PairOfPolygon(mod, "BRepMesh_PairOfPolygon", "None");
+py::class_<BRepMesh_PairOfPolygon> cls_BRepMesh_PairOfPolygon(mod, "BRepMesh_PairOfPolygon", "None");
 
 // Constructors
 cls_BRepMesh_PairOfPolygon.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWUncertaintyMeasureWithUnit(py::module &mod){
 
-py::class_<RWStepBasic_RWUncertaintyMeasureWithUnit, std::unique_ptr<RWStepBasic_RWUncertaintyMeasureWithUnit>> cls_RWStepBasic_RWUncertaintyMeasureWithUnit(mod, "RWStepBasic_RWUncertaintyMeasureWithUnit", "Read & Write Module for UncertaintyMeasureWithUnit");
+py::class_<RWStepBasic_RWUncertaintyMeasureWithUnit> cls_RWStepBasic_RWUncertaintyMeasureWithUnit(mod, "RWStepBasic_RWUncertaintyMeasureWithUnit", "Read & Write Module for UncertaintyMeasureWithUnit");
 
 // Constructors
 cls_RWStepBasic_RWUncertaintyMeasureWithUnit.def(py::init<>());

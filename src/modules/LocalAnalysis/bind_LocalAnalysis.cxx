@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocalAnalysis(py::module &mod){
 
-py::class_<LocalAnalysis, std::unique_ptr<LocalAnalysis>> cls_LocalAnalysis(mod, "LocalAnalysis", "This package gives tools to check the local continuity between two points situated on two curves or two surfaces.");
+py::class_<LocalAnalysis> cls_LocalAnalysis(mod, "LocalAnalysis", "This package gives tools to check the local continuity between two points situated on two curves or two surfaces.");
 
 // Constructors
 

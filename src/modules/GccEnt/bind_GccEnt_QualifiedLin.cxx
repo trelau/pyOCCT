@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GccEnt_QualifiedLin(py::module &mod){
 
-py::class_<GccEnt_QualifiedLin, std::unique_ptr<GccEnt_QualifiedLin>> cls_GccEnt_QualifiedLin(mod, "GccEnt_QualifiedLin", "Describes a qualified 2D line. A qualified 2D line is a line (gp_Lin2d line) with a qualifier which specifies whether the solution of a construction algorithm using the qualified line (as an argument): - is 'enclosed' by the line, or - is built so that both the line and it are external to one another, or - is undefined (all solutions apply). Note: the interior of a line is defined as the left-hand side of the line in relation to its orientation (i.e. when moving from the start to the end of the curve).");
+py::class_<GccEnt_QualifiedLin> cls_GccEnt_QualifiedLin(mod, "GccEnt_QualifiedLin", "Describes a qualified 2D line. A qualified 2D line is a line (gp_Lin2d line) with a qualifier which specifies whether the solution of a construction algorithm using the qualified line (as an argument): - is 'enclosed' by the line, or - is built so that both the line and it are external to one another, or - is undefined (all solutions apply). Note: the interior of a line is defined as the left-hand side of the line in relation to its orientation (i.e. when moving from the start to the end of the curve).");
 
 // Constructors
 cls_GccEnt_QualifiedLin.def(py::init<const gp_Lin2d &, const GccEnt_Position>(), py::arg("Qualified"), py::arg("Qualifier"));

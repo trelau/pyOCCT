@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MoniTool_TimerSentry(py::module &mod){
 
-py::class_<MoniTool_TimerSentry, std::unique_ptr<MoniTool_TimerSentry>> cls_MoniTool_TimerSentry(mod, "MoniTool_TimerSentry", "A tool to facilitate using MoniTool_Timer functionality by automatically ensuring consistency of start/stop actions");
+py::class_<MoniTool_TimerSentry> cls_MoniTool_TimerSentry(mod, "MoniTool_TimerSentry", "A tool to facilitate using MoniTool_Timer functionality by automatically ensuring consistency of start/stop actions");
 
 // Constructors
 cls_MoniTool_TimerSentry.def(py::init<const Standard_CString>(), py::arg("cname"));

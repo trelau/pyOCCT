@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_GaussSetIntegration(py::module &mod){
 
-py::class_<math_GaussSetIntegration, std::unique_ptr<math_GaussSetIntegration>> cls_math_GaussSetIntegration(mod, "math_GaussSetIntegration", "-- This class implements the integration of a set of N functions of M variables variables between the parameter bounds Lower[a..b] and Upper[a..b]. Warning: - The case M>1 is not implemented.");
+py::class_<math_GaussSetIntegration> cls_math_GaussSetIntegration(mod, "math_GaussSetIntegration", "-- This class implements the integration of a set of N functions of M variables variables between the parameter bounds Lower[a..b] and Upper[a..b]. Warning: - The case M>1 is not implemented.");
 
 // Constructors
 cls_math_GaussSetIntegration.def(py::init<math_FunctionSet &, const math_Vector &, const math_Vector &, const math_IntegerVector &>(), py::arg("F"), py::arg("Lower"), py::arg("Upper"), py::arg("Order"));

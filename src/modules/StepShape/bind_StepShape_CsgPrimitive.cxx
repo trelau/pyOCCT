@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepShape_CsgPrimitive(py::module &mod){
 
-py::class_<StepShape_CsgPrimitive, std::unique_ptr<StepShape_CsgPrimitive>, StepData_SelectType> cls_StepShape_CsgPrimitive(mod, "StepShape_CsgPrimitive", "None");
+py::class_<StepShape_CsgPrimitive, StepData_SelectType> cls_StepShape_CsgPrimitive(mod, "StepShape_CsgPrimitive", "None");
 
 // Constructors
 cls_StepShape_CsgPrimitive.def(py::init<>());

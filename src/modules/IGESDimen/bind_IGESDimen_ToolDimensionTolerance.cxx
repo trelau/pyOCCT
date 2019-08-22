@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolDimensionTolerance(py::module &mod){
 
-py::class_<IGESDimen_ToolDimensionTolerance, std::unique_ptr<IGESDimen_ToolDimensionTolerance>> cls_IGESDimen_ToolDimensionTolerance(mod, "IGESDimen_ToolDimensionTolerance", "Tool to work on a DimensionTolerance. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolDimensionTolerance> cls_IGESDimen_ToolDimensionTolerance(mod, "IGESDimen_ToolDimensionTolerance", "Tool to work on a DimensionTolerance. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolDimensionTolerance.def(py::init<>());

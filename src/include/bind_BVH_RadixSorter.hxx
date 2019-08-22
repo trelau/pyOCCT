@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T, int N>
 void bind_BVH_RadixSorter(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BVH_RadixSorter<T, N>, std::unique_ptr<BVH_RadixSorter<T, N>>, BVH_Sorter<T, N>> cls_BVH_RadixSorter(mod, name.c_str(), "Performs radix sort of a BVH primitive set using 10-bit Morton codes (or 1024 x 1024 x 1024 grid).", local);
+py::class_<BVH_RadixSorter<T, N>, BVH_Sorter<T, N>> cls_BVH_RadixSorter(mod, name.c_str(), "Performs radix sort of a BVH primitive set using 10-bit Morton codes (or 1024 x 1024 x 1024 grid).", local);
 
 // Constructors
 cls_BVH_RadixSorter.def(py::init<const BVH_Box<T, N> &>(), py::arg("theBox"));

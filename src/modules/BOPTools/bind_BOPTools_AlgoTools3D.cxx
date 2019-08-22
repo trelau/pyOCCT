@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPTools_AlgoTools3D(py::module &mod){
 
-py::class_<BOPTools_AlgoTools3D, std::unique_ptr<BOPTools_AlgoTools3D>> cls_BOPTools_AlgoTools3D(mod, "BOPTools_AlgoTools3D", "The class contains handy static functions dealing with the topology This is the copy of BOPTools_AlgoTools3D.cdl file");
+py::class_<BOPTools_AlgoTools3D> cls_BOPTools_AlgoTools3D(mod, "BOPTools_AlgoTools3D", "The class contains handy static functions dealing with the topology This is the copy of BOPTools_AlgoTools3D.cdl file");
 
 // Constructors
 

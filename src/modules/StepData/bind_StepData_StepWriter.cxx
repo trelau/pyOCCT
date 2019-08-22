@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepData_StepWriter(py::module &mod){
 
-py::class_<StepData_StepWriter, std::unique_ptr<StepData_StepWriter>> cls_StepData_StepWriter(mod, "StepData_StepWriter", "manages atomic file writing, under control of StepModel (for general organisation of file) and each class of Transient (for its own parameters) : prepares text to be written then writes it A stream cannot be used because Step limits line length at 72 In more, a specific object offers more appropriate functions");
+py::class_<StepData_StepWriter> cls_StepData_StepWriter(mod, "StepData_StepWriter", "manages atomic file writing, under control of StepModel (for general organisation of file) and each class of Transient (for its own parameters) : prepares text to be written then writes it A stream cannot be used because Step limits line length at 72 In more, a specific object offers more appropriate functions");
 
 // Constructors
 cls_StepData_StepWriter.def(py::init<const opencascade::handle<StepData_StepModel> &>(), py::arg("amodel"));

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_ClippingIterator(py::module &mod){
 
-py::class_<OpenGl_ClippingIterator, std::unique_ptr<OpenGl_ClippingIterator>> cls_OpenGl_ClippingIterator(mod, "OpenGl_ClippingIterator", "The iterator through clipping planes.");
+py::class_<OpenGl_ClippingIterator> cls_OpenGl_ClippingIterator(mod, "OpenGl_ClippingIterator", "The iterator through clipping planes.");
 
 // Constructors
 cls_OpenGl_ClippingIterator.def(py::init<const OpenGl_Clipping &>(), py::arg("theClipping"));

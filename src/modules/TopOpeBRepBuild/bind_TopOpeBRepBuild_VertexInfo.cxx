@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_VertexInfo(py::module &mod){
 
-py::class_<TopOpeBRepBuild_VertexInfo, std::unique_ptr<TopOpeBRepBuild_VertexInfo>> cls_TopOpeBRepBuild_VertexInfo(mod, "TopOpeBRepBuild_VertexInfo", "None");
+py::class_<TopOpeBRepBuild_VertexInfo> cls_TopOpeBRepBuild_VertexInfo(mod, "TopOpeBRepBuild_VertexInfo", "None");
 
 // Constructors
 cls_TopOpeBRepBuild_VertexInfo.def(py::init<>());

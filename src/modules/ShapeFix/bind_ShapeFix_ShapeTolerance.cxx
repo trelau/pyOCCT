@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeFix_ShapeTolerance(py::module &mod){
 
-py::class_<ShapeFix_ShapeTolerance, std::unique_ptr<ShapeFix_ShapeTolerance>> cls_ShapeFix_ShapeTolerance(mod, "ShapeFix_ShapeTolerance", "Modifies tolerances of sub-shapes (vertices, edges, faces)");
+py::class_<ShapeFix_ShapeTolerance> cls_ShapeFix_ShapeTolerance(mod, "ShapeFix_ShapeTolerance", "Modifies tolerances of sub-shapes (vertices, edges, faces)");
 
 // Constructors
 cls_ShapeFix_ShapeTolerance.def(py::init<>());

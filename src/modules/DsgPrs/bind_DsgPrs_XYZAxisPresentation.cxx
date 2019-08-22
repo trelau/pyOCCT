@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_XYZAxisPresentation(py::module &mod){
 
-py::class_<DsgPrs_XYZAxisPresentation, std::unique_ptr<DsgPrs_XYZAxisPresentation>> cls_DsgPrs_XYZAxisPresentation(mod, "DsgPrs_XYZAxisPresentation", "A framework for displaying the axes of an XYZ trihedron.");
+py::class_<DsgPrs_XYZAxisPresentation> cls_DsgPrs_XYZAxisPresentation(mod, "DsgPrs_XYZAxisPresentation", "A framework for displaying the axes of an XYZ trihedron.");
 
 // Constructors
 

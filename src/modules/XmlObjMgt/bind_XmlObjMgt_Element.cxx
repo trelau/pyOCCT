@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlObjMgt_Element(py::module &mod){
 
-py::class_<LDOM_Element, std::unique_ptr<LDOM_Element>, LDOM_Node> cls_XmlObjMgt_Element(mod, "XmlObjMgt_Element", "None", py::module_local());
+py::class_<LDOM_Element, LDOM_Node> cls_XmlObjMgt_Element(mod, "XmlObjMgt_Element", "None", py::module_local());
 
 // Constructors
 cls_XmlObjMgt_Element.def(py::init<>());

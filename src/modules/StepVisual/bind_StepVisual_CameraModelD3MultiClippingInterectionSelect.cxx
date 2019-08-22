@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_CameraModelD3MultiClippingInterectionSelect(py::module &mod){
 
-py::class_<StepVisual_CameraModelD3MultiClippingInterectionSelect, std::unique_ptr<StepVisual_CameraModelD3MultiClippingInterectionSelect>, StepData_SelectType> cls_StepVisual_CameraModelD3MultiClippingInterectionSelect(mod, "StepVisual_CameraModelD3MultiClippingInterectionSelect", "None");
+py::class_<StepVisual_CameraModelD3MultiClippingInterectionSelect, StepData_SelectType> cls_StepVisual_CameraModelD3MultiClippingInterectionSelect(mod, "StepVisual_CameraModelD3MultiClippingInterectionSelect", "None");
 
 // Constructors
 cls_StepVisual_CameraModelD3MultiClippingInterectionSelect.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrim_FaceBuilder(py::module &mod){
 
-py::class_<BRepPrim_FaceBuilder, std::unique_ptr<BRepPrim_FaceBuilder>> cls_BRepPrim_FaceBuilder(mod, "BRepPrim_FaceBuilder", "The FaceBuilder is an algorithm to build a BRep Face from a Geom Surface.");
+py::class_<BRepPrim_FaceBuilder> cls_BRepPrim_FaceBuilder(mod, "BRepPrim_FaceBuilder", "The FaceBuilder is an algorithm to build a BRep Face from a Geom Surface.");
 
 // Constructors
 cls_BRepPrim_FaceBuilder.def(py::init<>());

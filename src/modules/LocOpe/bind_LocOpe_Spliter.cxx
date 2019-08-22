@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocOpe_Spliter(py::module &mod){
 
-py::class_<LocOpe_Spliter, std::unique_ptr<LocOpe_Spliter>> cls_LocOpe_Spliter(mod, "LocOpe_Spliter", "None");
+py::class_<LocOpe_Spliter> cls_LocOpe_Spliter(mod, "LocOpe_Spliter", "None");
 
 // Constructors
 cls_LocOpe_Spliter.def(py::init<>());

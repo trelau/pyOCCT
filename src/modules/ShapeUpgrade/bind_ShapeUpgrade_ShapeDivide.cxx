@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeUpgrade_ShapeDivide(py::module &mod){
 
-py::class_<ShapeUpgrade_ShapeDivide, std::unique_ptr<ShapeUpgrade_ShapeDivide>> cls_ShapeUpgrade_ShapeDivide(mod, "ShapeUpgrade_ShapeDivide", "Divides a all faces in shell with given criteria Shell.");
+py::class_<ShapeUpgrade_ShapeDivide> cls_ShapeUpgrade_ShapeDivide(mod, "ShapeUpgrade_ShapeDivide", "Divides a all faces in shell with given criteria Shell.");
 
 // Constructors
 cls_ShapeUpgrade_ShapeDivide.def(py::init<>());

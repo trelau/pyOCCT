@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_CPnts_MyGaussFunction(py::module &mod){
 
-py::class_<CPnts_MyGaussFunction, std::unique_ptr<CPnts_MyGaussFunction>, math_Function> cls_CPnts_MyGaussFunction(mod, "CPnts_MyGaussFunction", "for implementation, compute values for Gauss");
+py::class_<CPnts_MyGaussFunction, math_Function> cls_CPnts_MyGaussFunction(mod, "CPnts_MyGaussFunction", "for implementation, compute values for Gauss");
 
 // Constructors
 cls_CPnts_MyGaussFunction.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_Clipping(py::module &mod){
 
-py::class_<OpenGl_Clipping, std::unique_ptr<OpenGl_Clipping>> cls_OpenGl_Clipping(mod, "OpenGl_Clipping", "This class contains logics related to tracking and modification of clipping plane state for particular OpenGl context. It contains information about enabled clipping planes and provides method to change clippings in context. The methods should be executed within OpenGl context associated with instance of this class.");
+py::class_<OpenGl_Clipping> cls_OpenGl_Clipping(mod, "OpenGl_Clipping", "This class contains logics related to tracking and modification of clipping plane state for particular OpenGl context. It contains information about enabled clipping planes and provides method to change clippings in context. The methods should be executed within OpenGl context associated with instance of this class.");
 
 // Constructors
 cls_OpenGl_Clipping.def(py::init<>());

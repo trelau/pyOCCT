@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomAPI_ProjectPointOnCurve(py::module &mod){
 
-py::class_<GeomAPI_ProjectPointOnCurve, std::unique_ptr<GeomAPI_ProjectPointOnCurve>> cls_GeomAPI_ProjectPointOnCurve(mod, "GeomAPI_ProjectPointOnCurve", "This class implements methods for computing all the orthogonal projections of a 3D point onto a 3D curve.");
+py::class_<GeomAPI_ProjectPointOnCurve> cls_GeomAPI_ProjectPointOnCurve(mod, "GeomAPI_ProjectPointOnCurve", "This class implements methods for computing all the orthogonal projections of a 3D point onto a 3D curve.");
 
 // Constructors
 cls_GeomAPI_ProjectPointOnCurve.def(py::init<>());

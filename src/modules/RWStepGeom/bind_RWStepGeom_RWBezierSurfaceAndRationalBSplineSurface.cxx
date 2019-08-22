@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWBezierSurfaceAndRationalBSplineSurface(py::module &mod){
 
-py::class_<RWStepGeom_RWBezierSurfaceAndRationalBSplineSurface, std::unique_ptr<RWStepGeom_RWBezierSurfaceAndRationalBSplineSurface>> cls_RWStepGeom_RWBezierSurfaceAndRationalBSplineSurface(mod, "RWStepGeom_RWBezierSurfaceAndRationalBSplineSurface", "Read & Write Module for BezierSurfaceAndRationalBSplineSurface");
+py::class_<RWStepGeom_RWBezierSurfaceAndRationalBSplineSurface> cls_RWStepGeom_RWBezierSurfaceAndRationalBSplineSurface(mod, "RWStepGeom_RWBezierSurfaceAndRationalBSplineSurface", "Read & Write Module for BezierSurfaceAndRationalBSplineSurface");
 
 // Constructors
 cls_RWStepGeom_RWBezierSurfaceAndRationalBSplineSurface.def(py::init<>());

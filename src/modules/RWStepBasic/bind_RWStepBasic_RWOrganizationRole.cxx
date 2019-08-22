@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWOrganizationRole(py::module &mod){
 
-py::class_<RWStepBasic_RWOrganizationRole, std::unique_ptr<RWStepBasic_RWOrganizationRole>> cls_RWStepBasic_RWOrganizationRole(mod, "RWStepBasic_RWOrganizationRole", "Read & Write Module for OrganizationRole");
+py::class_<RWStepBasic_RWOrganizationRole> cls_RWStepBasic_RWOrganizationRole(mod, "RWStepBasic_RWOrganizationRole", "Read & Write Module for OrganizationRole");
 
 // Constructors
 cls_RWStepBasic_RWOrganizationRole.def(py::init<>());

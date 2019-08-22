@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWFillAreaStyleColour(py::module &mod){
 
-py::class_<RWStepVisual_RWFillAreaStyleColour, std::unique_ptr<RWStepVisual_RWFillAreaStyleColour>> cls_RWStepVisual_RWFillAreaStyleColour(mod, "RWStepVisual_RWFillAreaStyleColour", "Read & Write Module for FillAreaStyleColour");
+py::class_<RWStepVisual_RWFillAreaStyleColour> cls_RWStepVisual_RWFillAreaStyleColour(mod, "RWStepVisual_RWFillAreaStyleColour", "Read & Write Module for FillAreaStyleColour");
 
 // Constructors
 cls_RWStepVisual_RWFillAreaStyleColour.def(py::init<>());

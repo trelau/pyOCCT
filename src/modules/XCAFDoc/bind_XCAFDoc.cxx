@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XCAFDoc(py::module &mod){
 
-py::class_<XCAFDoc, std::unique_ptr<XCAFDoc>> cls_XCAFDoc(mod, "XCAFDoc", "Definition of general structure of DECAF document and tools to work with it");
+py::class_<XCAFDoc> cls_XCAFDoc(mod, "XCAFDoc", "Definition of general structure of DECAF document and tools to work with it");
 
 // Constructors
 

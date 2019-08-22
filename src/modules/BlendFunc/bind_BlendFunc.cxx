@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BlendFunc(py::module &mod){
 
-py::class_<BlendFunc, std::unique_ptr<BlendFunc>> cls_BlendFunc(mod, "BlendFunc", "This package provides a set of generic functions, that can instantiated to compute blendings between two surfaces (Constant radius, Evolutive radius, Ruled surface).");
+py::class_<BlendFunc> cls_BlendFunc(mod, "BlendFunc", "This package provides a set of generic functions, that can instantiated to compute blendings between two surfaces (Constant radius, Evolutive radius, Ruled surface).");
 
 // Constructors
 

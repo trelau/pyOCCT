@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDS_Builder(py::module &mod){
 
-py::class_<TopoDS_Builder, std::unique_ptr<TopoDS_Builder>> cls_TopoDS_Builder(mod, "TopoDS_Builder", "A Builder is used to create Topological Data Structures.It is the root of the Builder class hierarchy.");
+py::class_<TopoDS_Builder> cls_TopoDS_Builder(mod, "TopoDS_Builder", "A Builder is used to create Topological Data Structures.It is the root of the Builder class hierarchy.");
 
 // Constructors
 

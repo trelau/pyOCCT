@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomLib_Check2dBSplineCurve(py::module &mod){
 
-py::class_<GeomLib_Check2dBSplineCurve, std::unique_ptr<GeomLib_Check2dBSplineCurve>> cls_GeomLib_Check2dBSplineCurve(mod, "GeomLib_Check2dBSplineCurve", "Checks for the end tangents : wether or not those are reversed");
+py::class_<GeomLib_Check2dBSplineCurve> cls_GeomLib_Check2dBSplineCurve(mod, "GeomLib_Check2dBSplineCurve", "Checks for the end tangents : wether or not those are reversed");
 
 // Constructors
 cls_GeomLib_Check2dBSplineCurve.def(py::init<const opencascade::handle<Geom2d_BSplineCurve> &, const Standard_Real, const Standard_Real>(), py::arg("Curve"), py::arg("Tolerance"), py::arg("AngularTolerance"));

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCPnts_AbscissaPoint(py::module &mod){
 
-py::class_<GCPnts_AbscissaPoint, std::unique_ptr<GCPnts_AbscissaPoint>> cls_GCPnts_AbscissaPoint(mod, "GCPnts_AbscissaPoint", "Provides an algorithm to compute a point on a curve situated at a given distance from another point on the curve, the distance being measured along the curve (curvilinear abscissa on the curve). This algorithm is also used to compute the length of a curve. An AbscissaPoint object provides a framework for: - defining the point to compute - implementing the construction algorithm - consulting the result.");
+py::class_<GCPnts_AbscissaPoint> cls_GCPnts_AbscissaPoint(mod, "GCPnts_AbscissaPoint", "Provides an algorithm to compute a point on a curve situated at a given distance from another point on the curve, the distance being measured along the curve (curvilinear abscissa on the curve). This algorithm is also used to compute the length of a curve. An AbscissaPoint object provides a framework for: - defining the point to compute - implementing the construction algorithm - consulting the result.");
 
 // Constructors
 cls_GCPnts_AbscissaPoint.def(py::init<>());

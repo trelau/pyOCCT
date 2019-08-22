@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFilletAPI_LocalOperation(py::module &mod){
 
-py::class_<BRepFilletAPI_LocalOperation, std::unique_ptr<BRepFilletAPI_LocalOperation>, BRepBuilderAPI_MakeShape> cls_BRepFilletAPI_LocalOperation(mod, "BRepFilletAPI_LocalOperation", "Construction of fillets on the edges of a Shell.");
+py::class_<BRepFilletAPI_LocalOperation, BRepBuilderAPI_MakeShape> cls_BRepFilletAPI_LocalOperation(mod, "BRepFilletAPI_LocalOperation", "Construction of fillets on the edges of a Shell.");
 
 // Fields
 

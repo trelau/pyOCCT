@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDraw_ToolPlanar(py::module &mod){
 
-py::class_<IGESDraw_ToolPlanar, std::unique_ptr<IGESDraw_ToolPlanar>> cls_IGESDraw_ToolPlanar(mod, "IGESDraw_ToolPlanar", "Tool to work on a Planar. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDraw_ToolPlanar> cls_IGESDraw_ToolPlanar(mod, "IGESDraw_ToolPlanar", "Tool to work on a Planar. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDraw_ToolPlanar.def(py::init<>());

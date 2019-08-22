@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_MAllocHook(py::module &mod){
 
-py::class_<OSD_MAllocHook, std::unique_ptr<OSD_MAllocHook>> cls_OSD_MAllocHook(mod, "OSD_MAllocHook", "This class provides the possibility to set callback for memory allocation/deallocation. On MS Windows, it works only in Debug builds. It relies on the debug CRT function _CrtSetAllocHook (see MSDN for help).");
+py::class_<OSD_MAllocHook> cls_OSD_MAllocHook(mod, "OSD_MAllocHook", "This class provides the possibility to set callback for memory allocation/deallocation. On MS Windows, it works only in Debug builds. It relies on the debug CRT function _CrtSetAllocHook (see MSDN for help).");
 
 // Constructors
 

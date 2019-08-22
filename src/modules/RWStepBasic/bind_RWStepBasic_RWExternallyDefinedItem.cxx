@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWExternallyDefinedItem(py::module &mod){
 
-py::class_<RWStepBasic_RWExternallyDefinedItem, std::unique_ptr<RWStepBasic_RWExternallyDefinedItem>> cls_RWStepBasic_RWExternallyDefinedItem(mod, "RWStepBasic_RWExternallyDefinedItem", "Read & Write tool for ExternallyDefinedItem");
+py::class_<RWStepBasic_RWExternallyDefinedItem> cls_RWStepBasic_RWExternallyDefinedItem(mod, "RWStepBasic_RWExternallyDefinedItem", "Read & Write tool for ExternallyDefinedItem");
 
 // Constructors
 cls_RWStepBasic_RWExternallyDefinedItem.def(py::init<>());

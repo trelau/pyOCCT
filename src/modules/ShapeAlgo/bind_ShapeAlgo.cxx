@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeAlgo(py::module &mod){
 
-py::class_<ShapeAlgo, std::unique_ptr<ShapeAlgo>> cls_ShapeAlgo(mod, "ShapeAlgo", "None");
+py::class_<ShapeAlgo> cls_ShapeAlgo(mod, "ShapeAlgo", "None");
 
 // Constructors
 

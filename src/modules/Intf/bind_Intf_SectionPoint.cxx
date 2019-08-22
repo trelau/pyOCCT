@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Intf_SectionPoint(py::module &mod){
 
-py::class_<Intf_SectionPoint, std::unique_ptr<Intf_SectionPoint>> cls_Intf_SectionPoint(mod, "Intf_SectionPoint", "Describes an intersection point between polygons and polyedra.");
+py::class_<Intf_SectionPoint> cls_Intf_SectionPoint(mod, "Intf_SectionPoint", "Describes an intersection point between polygons and polyedra.");
 
 // Constructors
 cls_Intf_SectionPoint.def(py::init<>());

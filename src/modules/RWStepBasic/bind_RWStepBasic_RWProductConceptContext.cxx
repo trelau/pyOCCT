@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWProductConceptContext(py::module &mod){
 
-py::class_<RWStepBasic_RWProductConceptContext, std::unique_ptr<RWStepBasic_RWProductConceptContext>> cls_RWStepBasic_RWProductConceptContext(mod, "RWStepBasic_RWProductConceptContext", "Read & Write tool for ProductConceptContext");
+py::class_<RWStepBasic_RWProductConceptContext> cls_RWStepBasic_RWProductConceptContext(mod, "RWStepBasic_RWProductConceptContext", "Read & Write tool for ProductConceptContext");
 
 // Constructors
 cls_RWStepBasic_RWProductConceptContext.def(py::init<>());

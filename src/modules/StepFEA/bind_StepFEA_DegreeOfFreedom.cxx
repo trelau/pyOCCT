@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepFEA_DegreeOfFreedom(py::module &mod){
 
-py::class_<StepFEA_DegreeOfFreedom, std::unique_ptr<StepFEA_DegreeOfFreedom>, StepData_SelectType> cls_StepFEA_DegreeOfFreedom(mod, "StepFEA_DegreeOfFreedom", "Representation of STEP SELECT type DegreeOfFreedom");
+py::class_<StepFEA_DegreeOfFreedom, StepData_SelectType> cls_StepFEA_DegreeOfFreedom(mod, "StepFEA_DegreeOfFreedom", "Representation of STEP SELECT type DegreeOfFreedom");
 
 // Constructors
 cls_StepFEA_DegreeOfFreedom.def(py::init<>());

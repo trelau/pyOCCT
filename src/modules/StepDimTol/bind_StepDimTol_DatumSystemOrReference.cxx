@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepDimTol_DatumSystemOrReference(py::module &mod){
 
-py::class_<StepDimTol_DatumSystemOrReference, std::unique_ptr<StepDimTol_DatumSystemOrReference>, StepData_SelectType> cls_StepDimTol_DatumSystemOrReference(mod, "StepDimTol_DatumSystemOrReference", "None");
+py::class_<StepDimTol_DatumSystemOrReference, StepData_SelectType> cls_StepDimTol_DatumSystemOrReference(mod, "StepDimTol_DatumSystemOrReference", "None");
 
 // Constructors
 cls_StepDimTol_DatumSystemOrReference.def(py::init<>());

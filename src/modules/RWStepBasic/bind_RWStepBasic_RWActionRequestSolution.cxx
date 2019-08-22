@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWActionRequestSolution(py::module &mod){
 
-py::class_<RWStepBasic_RWActionRequestSolution, std::unique_ptr<RWStepBasic_RWActionRequestSolution>> cls_RWStepBasic_RWActionRequestSolution(mod, "RWStepBasic_RWActionRequestSolution", "Read & Write tool for ActionRequestSolution");
+py::class_<RWStepBasic_RWActionRequestSolution> cls_RWStepBasic_RWActionRequestSolution(mod, "RWStepBasic_RWActionRequestSolution", "Read & Write tool for ActionRequestSolution");
 
 // Constructors
 cls_RWStepBasic_RWActionRequestSolution.def(py::init<>());

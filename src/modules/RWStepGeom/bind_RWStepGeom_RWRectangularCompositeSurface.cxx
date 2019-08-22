@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWRectangularCompositeSurface(py::module &mod){
 
-py::class_<RWStepGeom_RWRectangularCompositeSurface, std::unique_ptr<RWStepGeom_RWRectangularCompositeSurface>> cls_RWStepGeom_RWRectangularCompositeSurface(mod, "RWStepGeom_RWRectangularCompositeSurface", "Read & Write Module for RectangularCompositeSurface");
+py::class_<RWStepGeom_RWRectangularCompositeSurface> cls_RWStepGeom_RWRectangularCompositeSurface(mod, "RWStepGeom_RWRectangularCompositeSurface", "Read & Write Module for RectangularCompositeSurface");
 
 // Constructors
 cls_RWStepGeom_RWRectangularCompositeSurface.def(py::init<>());

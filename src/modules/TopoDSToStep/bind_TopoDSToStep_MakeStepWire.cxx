@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDSToStep_MakeStepWire(py::module &mod){
 
-py::class_<TopoDSToStep_MakeStepWire, std::unique_ptr<TopoDSToStep_MakeStepWire>, TopoDSToStep_Root> cls_TopoDSToStep_MakeStepWire(mod, "TopoDSToStep_MakeStepWire", "This class implements the mapping between classes Wire from TopoDS and TopologicalRepresentationItem from StepShape.");
+py::class_<TopoDSToStep_MakeStepWire, TopoDSToStep_Root> cls_TopoDSToStep_MakeStepWire(mod, "TopoDSToStep_MakeStepWire", "This class implements the mapping between classes Wire from TopoDS and TopologicalRepresentationItem from StepShape.");
 
 // Constructors
 cls_TopoDSToStep_MakeStepWire.def(py::init<>());

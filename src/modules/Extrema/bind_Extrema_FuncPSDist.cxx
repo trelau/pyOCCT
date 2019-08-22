@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_FuncPSDist(py::module &mod){
 
-py::class_<Extrema_FuncPSDist, std::unique_ptr<Extrema_FuncPSDist>, math_MultipleVarFunctionWithGradient> cls_Extrema_FuncPSDist(mod, "Extrema_FuncPSDist", "Functional for search of extremum of the square Euclidean distance between point P and surface S, starting from approximate solution (u0, v0).");
+py::class_<Extrema_FuncPSDist, math_MultipleVarFunctionWithGradient> cls_Extrema_FuncPSDist(mod, "Extrema_FuncPSDist", "Functional for search of extremum of the square Euclidean distance between point P and surface S, starting from approximate solution (u0, v0).");
 
 // Constructors
 cls_Extrema_FuncPSDist.def(py::init<const Adaptor3d_Surface &, const gp_Pnt &>(), py::arg("theS"), py::arg("theP"));

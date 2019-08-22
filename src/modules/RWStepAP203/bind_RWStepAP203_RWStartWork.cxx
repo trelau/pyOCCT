@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP203_RWStartWork(py::module &mod){
 
-py::class_<RWStepAP203_RWStartWork, std::unique_ptr<RWStepAP203_RWStartWork>> cls_RWStepAP203_RWStartWork(mod, "RWStepAP203_RWStartWork", "Read & Write tool for StartWork");
+py::class_<RWStepAP203_RWStartWork> cls_RWStepAP203_RWStartWork(mod, "RWStepAP203_RWStartWork", "Read & Write tool for StartWork");
 
 // Constructors
 cls_RWStepAP203_RWStartWork.def(py::init<>());

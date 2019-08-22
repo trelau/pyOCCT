@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrim_Cylinder(py::module &mod){
 
-py::class_<BRepPrim_Cylinder, std::unique_ptr<BRepPrim_Cylinder>, BRepPrim_Revolution> cls_BRepPrim_Cylinder(mod, "BRepPrim_Cylinder", "Cylinder primitive.");
+py::class_<BRepPrim_Cylinder, BRepPrim_Revolution> cls_BRepPrim_Cylinder(mod, "BRepPrim_Cylinder", "Cylinder primitive.");
 
 // Constructors
 cls_BRepPrim_Cylinder.def(py::init<const gp_Ax2 &, const Standard_Real, const Standard_Real>(), py::arg("Position"), py::arg("Radius"), py::arg("Height"));

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Message_MsgFile(py::module &mod){
 
-py::class_<Message_MsgFile, std::unique_ptr<Message_MsgFile>> cls_Message_MsgFile(mod, "Message_MsgFile", "A tool providing facility to load definitions of message strings from resource file(s).");
+py::class_<Message_MsgFile> cls_Message_MsgFile(mod, "Message_MsgFile", "A tool providing facility to load definitions of message strings from resource file(s).");
 
 // Constructors
 

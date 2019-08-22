@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffset_Offset(py::module &mod){
 
-py::class_<BRepOffset_Offset, std::unique_ptr<BRepOffset_Offset>> cls_BRepOffset_Offset(mod, "BRepOffset_Offset", "This class compute elemenary offset surface. Evaluate the offset generated : 1 - from a face. 2 - from an edge. 3 - from a vertex.");
+py::class_<BRepOffset_Offset> cls_BRepOffset_Offset(mod, "BRepOffset_Offset", "This class compute elemenary offset surface. Evaluate the offset generated : 1 - from a face. 2 - from an edge. 3 - from a vertex.");
 
 // Constructors
 cls_BRepOffset_Offset.def(py::init<>());

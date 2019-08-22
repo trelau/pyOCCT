@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Graphic3d_Fresnel(py::module &mod){
 
-py::class_<Graphic3d_Fresnel, std::unique_ptr<Graphic3d_Fresnel>> cls_Graphic3d_Fresnel(mod, "Graphic3d_Fresnel", "Describes Fresnel reflectance parameters.");
+py::class_<Graphic3d_Fresnel> cls_Graphic3d_Fresnel(mod, "Graphic3d_Fresnel", "Describes Fresnel reflectance parameters.");
 
 // Constructors
 cls_Graphic3d_Fresnel.def(py::init<>());

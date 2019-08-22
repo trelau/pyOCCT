@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomLProp_CurveTool(py::module &mod){
 
-py::class_<GeomLProp_CurveTool, std::unique_ptr<GeomLProp_CurveTool>> cls_GeomLProp_CurveTool(mod, "GeomLProp_CurveTool", "None");
+py::class_<GeomLProp_CurveTool> cls_GeomLProp_CurveTool(mod, "GeomLProp_CurveTool", "None");
 
 // Constructors
 

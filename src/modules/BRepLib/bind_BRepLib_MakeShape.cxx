@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepLib_MakeShape(py::module &mod){
 
-py::class_<BRepLib_MakeShape, std::unique_ptr<BRepLib_MakeShape>, BRepLib_Command> cls_BRepLib_MakeShape(mod, "BRepLib_MakeShape", "This is the root class for all shape constructions. It stores the result.");
+py::class_<BRepLib_MakeShape, BRepLib_Command> cls_BRepLib_MakeShape(mod, "BRepLib_MakeShape", "This is the root class for all shape constructions. It stores the result.");
 
 // Constructors
 

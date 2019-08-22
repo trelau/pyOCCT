@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Prs3d_ToolQuadric(py::module &mod){
 
-py::class_<Prs3d_ToolQuadric, std::unique_ptr<Prs3d_ToolQuadric>> cls_Prs3d_ToolQuadric(mod, "Prs3d_ToolQuadric", "Base class to build 3D surfaces presentation of quadric surfaces.");
+py::class_<Prs3d_ToolQuadric> cls_Prs3d_ToolQuadric(mod, "Prs3d_ToolQuadric", "Base class to build 3D surfaces presentation of quadric surfaces.");
 
 // Fields
 

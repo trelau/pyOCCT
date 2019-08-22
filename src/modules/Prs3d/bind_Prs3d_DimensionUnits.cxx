@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Prs3d_DimensionUnits(py::module &mod){
 
-py::class_<Prs3d_DimensionUnits, std::unique_ptr<Prs3d_DimensionUnits>> cls_Prs3d_DimensionUnits(mod, "Prs3d_DimensionUnits", "This class provides units for two dimension groups: - lengthes (length, radius, diameter) - angles");
+py::class_<Prs3d_DimensionUnits> cls_Prs3d_DimensionUnits(mod, "Prs3d_DimensionUnits", "This class provides units for two dimension groups: - lengthes (length, radius, diameter) - angles");
 
 // Constructors
 cls_Prs3d_DimensionUnits.def(py::init<>());

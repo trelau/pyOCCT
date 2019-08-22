@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFeat_RibSlot(py::module &mod){
 
-py::class_<BRepFeat_RibSlot, std::unique_ptr<BRepFeat_RibSlot>, BRepBuilderAPI_MakeShape> cls_BRepFeat_RibSlot(mod, "BRepFeat_RibSlot", "Provides functions to build mechanical features. Mechanical features include ribs - protrusions and grooves (or slots) - depressions along planar (linear) surfaces or revolution surfaces. The semantics of mechanical features is built around giving thickness to a contour. This thickness can either be unilateral - on one side of the contour - or bilateral - on both sides. As in the semantics of form features, the thickness is defined by construction of shapes in specific contexts. The development contexts differ, however,in case of mechanical features. Here they include extrusion: - to a limiting face of the basis shape - to or from a limiting plane - to a height.");
+py::class_<BRepFeat_RibSlot, BRepBuilderAPI_MakeShape> cls_BRepFeat_RibSlot(mod, "BRepFeat_RibSlot", "Provides functions to build mechanical features. Mechanical features include ribs - protrusions and grooves (or slots) - depressions along planar (linear) surfaces or revolution surfaces. The semantics of mechanical features is built around giving thickness to a contour. This thickness can either be unilateral - on one side of the contour - or bilateral - on both sides. As in the semantics of form features, the thickness is defined by construction of shapes in specific contexts. The development contexts differ, however,in case of mechanical features. Here they include extrusion: - to a limiting face of the basis shape - to or from a limiting plane - to a height.");
 
 // Constructors
 

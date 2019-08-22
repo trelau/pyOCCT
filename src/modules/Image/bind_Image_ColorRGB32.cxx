@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Image_ColorRGB32(py::module &mod){
 
-py::class_<Image_ColorRGB32, std::unique_ptr<Image_ColorRGB32>> cls_Image_ColorRGB32(mod, "Image_ColorRGB32", "POD structure for packed RGB color value (4 bytes with extra byte for alignment)");
+py::class_<Image_ColorRGB32> cls_Image_ColorRGB32(mod, "Image_ColorRGB32", "POD structure for packed RGB color value (4 bytes with extra byte for alignment)");
 
 // Constructors
 

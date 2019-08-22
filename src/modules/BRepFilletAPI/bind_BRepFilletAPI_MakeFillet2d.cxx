@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFilletAPI_MakeFillet2d(py::module &mod){
 
-py::class_<BRepFilletAPI_MakeFillet2d, std::unique_ptr<BRepFilletAPI_MakeFillet2d>, BRepBuilderAPI_MakeShape> cls_BRepFilletAPI_MakeFillet2d(mod, "BRepFilletAPI_MakeFillet2d", "Describes functions to build fillets and chamfers on the vertices of a planar face. Fillets and Chamfers on the Vertices of a Planar Face A MakeFillet2d object provides a framework for: - initializing the construction algorithm with a given face, - acquiring the data characterizing the fillets and chamfers, - building the fillets and chamfers, and constructing the resulting shape, and - consulting the result. Warning Only segments of straight lines and arcs of circles are treated. BSplines are not processed.");
+py::class_<BRepFilletAPI_MakeFillet2d, BRepBuilderAPI_MakeShape> cls_BRepFilletAPI_MakeFillet2d(mod, "BRepFilletAPI_MakeFillet2d", "Describes functions to build fillets and chamfers on the vertices of a planar face. Fillets and Chamfers on the Vertices of a Planar Face A MakeFillet2d object provides a framework for: - initializing the construction algorithm with a given face, - acquiring the data characterizing the fillets and chamfers, - building the fillets and chamfers, and constructing the resulting shape, and - consulting the result. Warning Only segments of straight lines and arcs of circles are treated. BSplines are not processed.");
 
 // Constructors
 cls_BRepFilletAPI_MakeFillet2d.def(py::init<>());

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_GlCore11(py::module &mod){
 
-py::class_<OpenGl_GlCore11, std::unique_ptr<OpenGl_GlCore11>> cls_OpenGl_GlCore11(mod, "OpenGl_GlCore11", "OpenGL 1.1 core. Notice that all functions within this structure are actually exported by system GL library. The main purpose for these hint - to control visibility of functions per GL version (global functions should not be used directly to achieve this effect!).");
+py::class_<OpenGl_GlCore11> cls_OpenGl_GlCore11(mod, "OpenGl_GlCore11", "OpenGL 1.1 core. Notice that all functions within this structure are actually exported by system GL library. The main purpose for these hint - to control visibility of functions per GL version (global functions should not be used directly to achieve this effect!).");
 
 // Constructors
 

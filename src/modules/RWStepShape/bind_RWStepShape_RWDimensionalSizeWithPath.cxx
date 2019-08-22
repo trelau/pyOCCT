@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWDimensionalSizeWithPath(py::module &mod){
 
-py::class_<RWStepShape_RWDimensionalSizeWithPath, std::unique_ptr<RWStepShape_RWDimensionalSizeWithPath>> cls_RWStepShape_RWDimensionalSizeWithPath(mod, "RWStepShape_RWDimensionalSizeWithPath", "Read & Write tool for DimensionalSizeWithPath");
+py::class_<RWStepShape_RWDimensionalSizeWithPath> cls_RWStepShape_RWDimensionalSizeWithPath(mod, "RWStepShape_RWDimensionalSizeWithPath", "Read & Write tool for DimensionalSizeWithPath");
 
 // Constructors
 cls_RWStepShape_RWDimensionalSizeWithPath.def(py::init<>());

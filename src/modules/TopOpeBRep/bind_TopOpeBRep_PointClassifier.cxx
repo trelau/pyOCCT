@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRep_PointClassifier(py::module &mod){
 
-py::class_<TopOpeBRep_PointClassifier, std::unique_ptr<TopOpeBRep_PointClassifier>> cls_TopOpeBRep_PointClassifier(mod, "TopOpeBRep_PointClassifier", "None");
+py::class_<TopOpeBRep_PointClassifier> cls_TopOpeBRep_PointClassifier(mod, "TopOpeBRep_PointClassifier", "None");
 
 // Constructors
 cls_TopOpeBRep_PointClassifier.def(py::init<>());

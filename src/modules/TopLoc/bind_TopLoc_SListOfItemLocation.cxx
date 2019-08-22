@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopLoc_SListOfItemLocation(py::module &mod){
 
-py::class_<TopLoc_SListOfItemLocation, std::unique_ptr<TopLoc_SListOfItemLocation>> cls_TopLoc_SListOfItemLocation(mod, "TopLoc_SListOfItemLocation", "An SListOfItemLocation is a LISP like list of Items. An SListOfItemLocation is : . Empty. . Or it has a Value and a Tail which is an other SListOfItemLocation.");
+py::class_<TopLoc_SListOfItemLocation> cls_TopLoc_SListOfItemLocation(mod, "TopLoc_SListOfItemLocation", "An SListOfItemLocation is a LISP like list of Items. An SListOfItemLocation is : . Empty. . Or it has a Value and a Tail which is an other SListOfItemLocation.");
 
 // Constructors
 cls_TopLoc_SListOfItemLocation.def(py::init<>());

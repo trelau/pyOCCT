@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRTopoBRep_VData(py::module &mod){
 
-py::class_<HLRTopoBRep_VData, std::unique_ptr<HLRTopoBRep_VData>> cls_HLRTopoBRep_VData(mod, "HLRTopoBRep_VData", "None");
+py::class_<HLRTopoBRep_VData> cls_HLRTopoBRep_VData(mod, "HLRTopoBRep_VData", "None");
 
 // Constructors
 cls_HLRTopoBRep_VData.def(py::init<>());

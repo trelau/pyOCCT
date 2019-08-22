@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepProj_Projection(py::module &mod){
 
-py::class_<BRepProj_Projection, std::unique_ptr<BRepProj_Projection>> cls_BRepProj_Projection(mod, "BRepProj_Projection", "The Projection class provides conical and cylindrical projections of Edge or Wire on a Shape from TopoDS. The result will be a Edge or Wire from TopoDS.");
+py::class_<BRepProj_Projection> cls_BRepProj_Projection(mod, "BRepProj_Projection", "The Projection class provides conical and cylindrical projections of Edge or Wire on a Shape from TopoDS. The result will be a Edge or Wire from TopoDS.");
 
 // Constructors
 cls_BRepProj_Projection.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &, const gp_Dir &>(), py::arg("Wire"), py::arg("Shape"), py::arg("D"));

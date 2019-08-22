@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBuilderAPI_MakeSolid(py::module &mod){
 
-py::class_<BRepBuilderAPI_MakeSolid, std::unique_ptr<BRepBuilderAPI_MakeSolid>, BRepBuilderAPI_MakeShape> cls_BRepBuilderAPI_MakeSolid(mod, "BRepBuilderAPI_MakeSolid", "Describes functions to build a solid from shells. A solid is made of one shell, or a series of shells, which do not intersect each other. One of these shells constitutes the outside skin of the solid. It may be closed (a finite solid) or open (an infinite solid). Other shells form hollows (cavities) in these previous ones. Each must bound a closed volume. A MakeSolid object provides a framework for: - defining and implementing the construction of a solid, and - consulting the result.");
+py::class_<BRepBuilderAPI_MakeSolid, BRepBuilderAPI_MakeShape> cls_BRepBuilderAPI_MakeSolid(mod, "BRepBuilderAPI_MakeSolid", "Describes functions to build a solid from shells. A solid is made of one shell, or a series of shells, which do not intersect each other. One of these shells constitutes the outside skin of the solid. It may be closed (a finite solid) or open (an infinite solid). Other shells form hollows (cavities) in these previous ones. Each must bound a closed volume. A MakeSolid object provides a framework for: - defining and implementing the construction of a solid, and - consulting the result.");
 
 // Constructors
 cls_BRepBuilderAPI_MakeSolid.def(py::init<>());

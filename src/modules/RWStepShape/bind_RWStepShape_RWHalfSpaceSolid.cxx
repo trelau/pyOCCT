@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWHalfSpaceSolid(py::module &mod){
 
-py::class_<RWStepShape_RWHalfSpaceSolid, std::unique_ptr<RWStepShape_RWHalfSpaceSolid>> cls_RWStepShape_RWHalfSpaceSolid(mod, "RWStepShape_RWHalfSpaceSolid", "Read & Write Module for HalfSpaceSolid");
+py::class_<RWStepShape_RWHalfSpaceSolid> cls_RWStepShape_RWHalfSpaceSolid(mod, "RWStepShape_RWHalfSpaceSolid", "Read & Write Module for HalfSpaceSolid");
 
 // Constructors
 cls_RWStepShape_RWHalfSpaceSolid.def(py::init<>());

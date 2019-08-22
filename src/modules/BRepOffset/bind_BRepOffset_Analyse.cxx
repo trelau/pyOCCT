@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffset_Analyse(py::module &mod){
 
-py::class_<BRepOffset_Analyse, std::unique_ptr<BRepOffset_Analyse>> cls_BRepOffset_Analyse(mod, "BRepOffset_Analyse", "Analyse of a shape consit to Find the part of edges convex concave tangent.");
+py::class_<BRepOffset_Analyse> cls_BRepOffset_Analyse(mod, "BRepOffset_Analyse", "Analyse of a shape consit to Find the part of edges convex concave tangent.");
 
 // Constructors
 cls_BRepOffset_Analyse.def(py::init<>());

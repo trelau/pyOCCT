@@ -47,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomAdaptor_Surface(py::module &mod){
 
-py::class_<GeomAdaptor_Surface, std::unique_ptr<GeomAdaptor_Surface>, Adaptor3d_Surface> cls_GeomAdaptor_Surface(mod, "GeomAdaptor_Surface", "An interface between the services provided by any surface from the package Geom and those required of the surface by algorithms which use it. Creation of the loaded surface the surface is C1 by piece");
+py::class_<GeomAdaptor_Surface, Adaptor3d_Surface> cls_GeomAdaptor_Surface(mod, "GeomAdaptor_Surface", "An interface between the services provided by any surface from the package Geom and those required of the surface by algorithms which use it. Creation of the loaded surface the surface is C1 by piece");
 
 // Constructors
 cls_GeomAdaptor_Surface.def(py::init<>());

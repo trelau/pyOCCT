@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_Delaun(py::module &mod){
 
-py::class_<BRepMesh_Delaun, std::unique_ptr<BRepMesh_Delaun>> cls_BRepMesh_Delaun(mod, "BRepMesh_Delaun", "Compute the Delaunay's triangulation with the algorithm of Watson.");
+py::class_<BRepMesh_Delaun> cls_BRepMesh_Delaun(mod, "BRepMesh_Delaun", "Compute the Delaunay's triangulation with the algorithm of Watson.");
 
 // Constructors
 cls_BRepMesh_Delaun.def(py::init<BRepMesh::Array1OfVertexOfDelaun &>(), py::arg("theVertices"));

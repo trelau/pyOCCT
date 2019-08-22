@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApp2Var_Iso(py::module &mod){
 
-py::class_<AdvApp2Var_Iso, std::unique_ptr<AdvApp2Var_Iso>> cls_AdvApp2Var_Iso(mod, "AdvApp2Var_Iso", "used to store constraints on a line U = Ui or V = Vj");
+py::class_<AdvApp2Var_Iso> cls_AdvApp2Var_Iso(mod, "AdvApp2Var_Iso", "used to store constraints on a line U = Ui or V = Vj");
 
 // Constructors
 cls_AdvApp2Var_Iso.def(py::init<>());

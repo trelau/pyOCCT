@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeElementarySurface(py::module &mod){
 
-py::class_<GeomToStep_MakeElementarySurface, std::unique_ptr<GeomToStep_MakeElementarySurface>, GeomToStep_Root> cls_GeomToStep_MakeElementarySurface(mod, "GeomToStep_MakeElementarySurface", "This class implements the mapping between classes ElementarySurface from Geom and the class ElementarySurface from StepGeom which describes a ElementarySurface from prostep. As ElementarySurface is an abstract Surface this class is an access to the sub-class required.");
+py::class_<GeomToStep_MakeElementarySurface, GeomToStep_Root> cls_GeomToStep_MakeElementarySurface(mod, "GeomToStep_MakeElementarySurface", "This class implements the mapping between classes ElementarySurface from Geom and the class ElementarySurface from StepGeom which describes a ElementarySurface from prostep. As ElementarySurface is an abstract Surface this class is an access to the sub-class required.");
 
 // Constructors
 cls_GeomToStep_MakeElementarySurface.def(py::init<const opencascade::handle<Geom_ElementarySurface> &>(), py::arg("S"));

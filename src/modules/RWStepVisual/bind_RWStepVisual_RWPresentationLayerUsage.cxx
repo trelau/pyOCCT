@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWPresentationLayerUsage(py::module &mod){
 
-py::class_<RWStepVisual_RWPresentationLayerUsage, std::unique_ptr<RWStepVisual_RWPresentationLayerUsage>> cls_RWStepVisual_RWPresentationLayerUsage(mod, "RWStepVisual_RWPresentationLayerUsage", "Read & Write Module for PresentationLayerUsage");
+py::class_<RWStepVisual_RWPresentationLayerUsage> cls_RWStepVisual_RWPresentationLayerUsage(mod, "RWStepVisual_RWPresentationLayerUsage", "Read & Write Module for PresentationLayerUsage");
 
 // Constructors
 cls_RWStepVisual_RWPresentationLayerUsage.def(py::init<>());

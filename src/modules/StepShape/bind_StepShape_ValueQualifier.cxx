@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepShape_ValueQualifier(py::module &mod){
 
-py::class_<StepShape_ValueQualifier, std::unique_ptr<StepShape_ValueQualifier>, StepData_SelectType> cls_StepShape_ValueQualifier(mod, "StepShape_ValueQualifier", "Added for Dimensional Tolerances");
+py::class_<StepShape_ValueQualifier, StepData_SelectType> cls_StepShape_ValueQualifier(mod, "StepShape_ValueQualifier", "Added for Dimensional Tolerances");
 
 // Constructors
 cls_StepShape_ValueQualifier.def(py::init<>());

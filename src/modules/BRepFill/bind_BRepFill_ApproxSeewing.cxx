@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_ApproxSeewing(py::module &mod){
 
-py::class_<BRepFill_ApproxSeewing, std::unique_ptr<BRepFill_ApproxSeewing>> cls_BRepFill_ApproxSeewing(mod, "BRepFill_ApproxSeewing", "Evaluate the 3dCurve and the PCurves described in a MultiLine from BRepFill. The parametrization of those curves is not imposed by the Bissectrice. The parametrization is given approximatively by the abscissa of the curve3d.");
+py::class_<BRepFill_ApproxSeewing> cls_BRepFill_ApproxSeewing(mod, "BRepFill_ApproxSeewing", "Evaluate the 3dCurve and the PCurves described in a MultiLine from BRepFill. The parametrization of those curves is not imposed by the Bissectrice. The parametrization is given approximatively by the abscissa of the curve3d.");
 
 // Constructors
 cls_BRepFill_ApproxSeewing.def(py::init<>());

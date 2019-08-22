@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffset_Inter2d(py::module &mod){
 
-py::class_<BRepOffset_Inter2d, std::unique_ptr<BRepOffset_Inter2d>> cls_BRepOffset_Inter2d(mod, "BRepOffset_Inter2d", "Computes the intersections betwwen edges on a face stores result is SD as AsDes from BRepOffset.");
+py::class_<BRepOffset_Inter2d> cls_BRepOffset_Inter2d(mod, "BRepOffset_Inter2d", "Computes the intersections betwwen edges on a face stores result is SD as AsDes from BRepOffset.");
 
 // Constructors
 

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomConvert_ApproxSurface(py::module &mod){
 
-py::class_<GeomConvert_ApproxSurface, std::unique_ptr<GeomConvert_ApproxSurface>> cls_GeomConvert_ApproxSurface(mod, "GeomConvert_ApproxSurface", "A framework to convert a surface to a BSpline surface. This is done by approximation to a BSpline surface within a given tolerance.");
+py::class_<GeomConvert_ApproxSurface> cls_GeomConvert_ApproxSurface(mod, "GeomConvert_ApproxSurface", "A framework to convert a surface to a BSpline surface. This is done by approximation to a BSpline surface within a given tolerance.");
 
 // Constructors
 cls_GeomConvert_ApproxSurface.def(py::init<const opencascade::handle<Geom_Surface> &, const Standard_Real, const GeomAbs_Shape, const GeomAbs_Shape, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("Surf"), py::arg("Tol3d"), py::arg("UContinuity"), py::arg("VContinuity"), py::arg("MaxDegU"), py::arg("MaxDegV"), py::arg("MaxSegments"), py::arg("PrecisCode"));

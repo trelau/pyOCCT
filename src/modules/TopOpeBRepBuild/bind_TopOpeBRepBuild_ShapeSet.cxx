@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_ShapeSet(py::module &mod){
 
-py::class_<TopOpeBRepBuild_ShapeSet, std::unique_ptr<TopOpeBRepBuild_ShapeSet>> cls_TopOpeBRepBuild_ShapeSet(mod, "TopOpeBRepBuild_ShapeSet", "Auxiliary class providing an exploration of a set of shapes to build faces or solids. To build faces : shapes are wires, elements are edges. To build solids : shapes are shells, elements are faces. The ShapeSet stores a list of shapes, a list of elements to start reconstructions, and a map to search neighbours. The map stores the connection between elements through subshapes of type <SubShapeType> given in constructor. <SubShapeType> is : - TopAbs_VERTEX to connect edges - TopAbs_EDGE to connect faces");
+py::class_<TopOpeBRepBuild_ShapeSet> cls_TopOpeBRepBuild_ShapeSet(mod, "TopOpeBRepBuild_ShapeSet", "Auxiliary class providing an exploration of a set of shapes to build faces or solids. To build faces : shapes are wires, elements are edges. To build solids : shapes are shells, elements are faces. The ShapeSet stores a list of shapes, a list of elements to start reconstructions, and a map to search neighbours. The map stores the connection between elements through subshapes of type <SubShapeType> given in constructor. <SubShapeType> is : - TopAbs_VERTEX to connect edges - TopAbs_EDGE to connect faces");
 
 // Constructors
 cls_TopOpeBRepBuild_ShapeSet.def(py::init<const TopAbs_ShapeEnum>(), py::arg("SubShapeType"));

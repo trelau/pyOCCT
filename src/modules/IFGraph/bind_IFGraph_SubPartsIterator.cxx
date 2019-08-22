@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFGraph_SubPartsIterator(py::module &mod){
 
-py::class_<IFGraph_SubPartsIterator, std::unique_ptr<IFGraph_SubPartsIterator>> cls_IFGraph_SubPartsIterator(mod, "IFGraph_SubPartsIterator", "defines general form for graph classes of which result is not a single iteration on Entities, but a nested one : External iteration works on sub-parts, identified by each class (according to its algorithm) Internal Iteration concerns Entities of a sub-part Sub-Parts are assumed to be disjoined; if they are not, the first one has priority");
+py::class_<IFGraph_SubPartsIterator> cls_IFGraph_SubPartsIterator(mod, "IFGraph_SubPartsIterator", "defines general form for graph classes of which result is not a single iteration on Entities, but a nested one : External iteration works on sub-parts, identified by each class (according to its algorithm) Internal Iteration concerns Entities of a sub-part Sub-Parts are assumed to be disjoined; if they are not, the first one has priority");
 
 // Constructors
 cls_IFGraph_SubPartsIterator.def(py::init<const Interface_Graph &, const Standard_Boolean>(), py::arg("agraph"), py::arg("whole"));

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCE2d_MakeLine(py::module &mod){
 
-py::class_<GCE2d_MakeLine, std::unique_ptr<GCE2d_MakeLine>, GCE2d_Root> cls_GCE2d_MakeLine(mod, "GCE2d_MakeLine", "This class implements the following algorithms used to create a Line from Geom2d. * Create a Line parallel to another and passing through a point. * Create a Line passing through 2 points.");
+py::class_<GCE2d_MakeLine, GCE2d_Root> cls_GCE2d_MakeLine(mod, "GCE2d_MakeLine", "This class implements the following algorithms used to create a Line from Geom2d. * Create a Line parallel to another and passing through a point. * Create a Line passing through 2 points.");
 
 // Constructors
 cls_GCE2d_MakeLine.def(py::init<const gp_Ax2d &>(), py::arg("A"));

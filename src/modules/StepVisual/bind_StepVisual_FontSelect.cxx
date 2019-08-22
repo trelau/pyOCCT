@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_FontSelect(py::module &mod){
 
-py::class_<StepVisual_FontSelect, std::unique_ptr<StepVisual_FontSelect>, StepData_SelectType> cls_StepVisual_FontSelect(mod, "StepVisual_FontSelect", "None");
+py::class_<StepVisual_FontSelect, StepData_SelectType> cls_StepVisual_FontSelect(mod, "StepVisual_FontSelect", "None");
 
 // Constructors
 cls_StepVisual_FontSelect.def(py::init<>());

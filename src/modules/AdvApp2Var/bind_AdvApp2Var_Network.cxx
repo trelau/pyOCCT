@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApp2Var_Network(py::module &mod){
 
-py::class_<AdvApp2Var_Network, std::unique_ptr<AdvApp2Var_Network>> cls_AdvApp2Var_Network(mod, "AdvApp2Var_Network", "None");
+py::class_<AdvApp2Var_Network> cls_AdvApp2Var_Network(mod, "AdvApp2Var_Network", "None");
 
 // Constructors
 cls_AdvApp2Var_Network.def(py::init<>());

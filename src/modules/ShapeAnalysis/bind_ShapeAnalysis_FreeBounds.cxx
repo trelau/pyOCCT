@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeAnalysis_FreeBounds(py::module &mod){
 
-py::class_<ShapeAnalysis_FreeBounds, std::unique_ptr<ShapeAnalysis_FreeBounds>> cls_ShapeAnalysis_FreeBounds(mod, "ShapeAnalysis_FreeBounds", "This class is intended to output free bounds of the shape (free bounds are the wires consisting of edges referenced by the only face). This class works on two distinct types of shapes when analyzing their free bounds: 1. compound of faces. Analyzer of sewing algorithm (BRepAlgo_Sewing) is used for for forecasting free bounds that would be obtained after performing sewing 2. compound of shells. Actual free bounds (edges shared by the only face in the shell) are output in this case. ShapeAnalysis_Shell is used for that.");
+py::class_<ShapeAnalysis_FreeBounds> cls_ShapeAnalysis_FreeBounds(mod, "ShapeAnalysis_FreeBounds", "This class is intended to output free bounds of the shape (free bounds are the wires consisting of edges referenced by the only face). This class works on two distinct types of shapes when analyzing their free bounds: 1. compound of faces. Analyzer of sewing algorithm (BRepAlgo_Sewing) is used for for forecasting free bounds that would be obtained after performing sewing 2. compound of shells. Actual free bounds (edges shared by the only face in the shell) are output in this case. ShapeAnalysis_Shell is used for that.");
 
 // Constructors
 cls_ShapeAnalysis_FreeBounds.def(py::init<>());

@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Contap_SurfFunction(py::module &mod){
 
-py::class_<Contap_SurfFunction, std::unique_ptr<Contap_SurfFunction>, math_FunctionSetWithDerivatives> cls_Contap_SurfFunction(mod, "Contap_SurfFunction", "This class describes the function on a parametric surface. the form of the function is F(u,v) = 0 where u and v are the parameteric coordinates of a point on the surface, to compute the contours of the surface.");
+py::class_<Contap_SurfFunction, math_FunctionSetWithDerivatives> cls_Contap_SurfFunction(mod, "Contap_SurfFunction", "This class describes the function on a parametric surface. the form of the function is F(u,v) = 0 where u and v are the parameteric coordinates of a point on the surface, to compute the contours of the surface.");
 
 // Constructors
 cls_Contap_SurfFunction.def(py::init<>());

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LProp_AnalyticCurInf(py::module &mod){
 
-py::class_<LProp_AnalyticCurInf, std::unique_ptr<LProp_AnalyticCurInf>> cls_LProp_AnalyticCurInf(mod, "LProp_AnalyticCurInf", "Computes the locals extremas of curvature of a gp curve Remark : a gp curve has not inflection.");
+py::class_<LProp_AnalyticCurInf> cls_LProp_AnalyticCurInf(mod, "LProp_AnalyticCurInf", "Computes the locals extremas of curvature of a gp curve Remark : a gp curve has not inflection.");
 
 // Constructors
 cls_LProp_AnalyticCurInf.def(py::init<>());

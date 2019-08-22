@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_PaveClassifier(py::module &mod){
 
-py::class_<TopOpeBRepBuild_PaveClassifier, std::unique_ptr<TopOpeBRepBuild_PaveClassifier>, TopOpeBRepBuild_LoopClassifier> cls_TopOpeBRepBuild_PaveClassifier(mod, "TopOpeBRepBuild_PaveClassifier", "This class compares vertices on an edge.");
+py::class_<TopOpeBRepBuild_PaveClassifier, TopOpeBRepBuild_LoopClassifier> cls_TopOpeBRepBuild_PaveClassifier(mod, "TopOpeBRepBuild_PaveClassifier", "This class compares vertices on an edge.");
 
 // Constructors
 cls_TopOpeBRepBuild_PaveClassifier.def(py::init<const TopoDS_Shape &>(), py::arg("E"));

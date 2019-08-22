@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWAppliedGroupAssignment(py::module &mod){
 
-py::class_<RWStepAP214_RWAppliedGroupAssignment, std::unique_ptr<RWStepAP214_RWAppliedGroupAssignment>> cls_RWStepAP214_RWAppliedGroupAssignment(mod, "RWStepAP214_RWAppliedGroupAssignment", "Read & Write tool for AppliedGroupAssignment");
+py::class_<RWStepAP214_RWAppliedGroupAssignment> cls_RWStepAP214_RWAppliedGroupAssignment(mod, "RWStepAP214_RWAppliedGroupAssignment", "Read & Write tool for AppliedGroupAssignment");
 
 // Constructors
 cls_RWStepAP214_RWAppliedGroupAssignment.def(py::init<>());

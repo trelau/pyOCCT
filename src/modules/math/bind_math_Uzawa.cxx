@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_Uzawa(py::module &mod){
 
-py::class_<math_Uzawa, std::unique_ptr<math_Uzawa>> cls_math_Uzawa(mod, "math_Uzawa", "This class implements a system resolution C*X = B with an approach solution X0. There are no conditions on the number of equations. The algorithm used is the Uzawa algorithm. It is possible to have equal or inequal (<) equations to solve. The resolution is done with a minimization of Norm(X-X0). If there are only equal equations, the resolution is directly done and is similar to Gauss resolution with an optimisation because the matrix is a symmetric matrix. (The resolution is done with Crout algorithm)");
+py::class_<math_Uzawa> cls_math_Uzawa(mod, "math_Uzawa", "This class implements a system resolution C*X = B with an approach solution X0. There are no conditions on the number of equations. The algorithm used is the Uzawa algorithm. It is possible to have equal or inequal (<) equations to solve. The resolution is done with a minimization of Norm(X-X0). If there are only equal equations, the resolution is directly done and is similar to Gauss resolution with an optimisation because the matrix is a symmetric matrix. (The resolution is done with Crout algorithm)");
 
 // Constructors
 cls_math_Uzawa.def(py::init<const math_Matrix &, const math_Vector &, const math_Vector &>(), py::arg("Cont"), py::arg("Secont"), py::arg("StartingPoint"));

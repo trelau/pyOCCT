@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWAutoDesignApprovalAssignment(py::module &mod){
 
-py::class_<RWStepAP214_RWAutoDesignApprovalAssignment, std::unique_ptr<RWStepAP214_RWAutoDesignApprovalAssignment>> cls_RWStepAP214_RWAutoDesignApprovalAssignment(mod, "RWStepAP214_RWAutoDesignApprovalAssignment", "Read & Write Module for AutoDesignApprovalAssignment");
+py::class_<RWStepAP214_RWAutoDesignApprovalAssignment> cls_RWStepAP214_RWAutoDesignApprovalAssignment(mod, "RWStepAP214_RWAutoDesignApprovalAssignment", "Read & Write Module for AutoDesignApprovalAssignment");
 
 // Constructors
 cls_RWStepAP214_RWAutoDesignApprovalAssignment.def(py::init<>());

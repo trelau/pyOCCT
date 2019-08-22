@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ExprIntrp(py::module &mod){
 
-py::class_<ExprIntrp, std::unique_ptr<ExprIntrp>> cls_ExprIntrp(mod, "ExprIntrp", "Describes an interpreter for GeneralExpressions, GeneralFunctions, and GeneralRelations defined in package Expr.");
+py::class_<ExprIntrp> cls_ExprIntrp(mod, "ExprIntrp", "Describes an interpreter for GeneralExpressions, GeneralFunctions, and GeneralRelations defined in package Expr.");
 
 // Constructors
 

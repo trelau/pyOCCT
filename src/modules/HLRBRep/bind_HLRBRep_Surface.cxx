@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_Surface(py::module &mod){
 
-py::class_<HLRBRep_Surface, std::unique_ptr<HLRBRep_Surface>> cls_HLRBRep_Surface(mod, "HLRBRep_Surface", "None");
+py::class_<HLRBRep_Surface> cls_HLRBRep_Surface(mod, "HLRBRep_Surface", "None");
 
 // Constructors
 cls_HLRBRep_Surface.def(py::init<>());

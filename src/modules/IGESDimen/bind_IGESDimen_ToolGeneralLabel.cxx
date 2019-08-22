@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolGeneralLabel(py::module &mod){
 
-py::class_<IGESDimen_ToolGeneralLabel, std::unique_ptr<IGESDimen_ToolGeneralLabel>> cls_IGESDimen_ToolGeneralLabel(mod, "IGESDimen_ToolGeneralLabel", "Tool to work on a GeneralLabel. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolGeneralLabel> cls_IGESDimen_ToolGeneralLabel(mod, "IGESDimen_ToolGeneralLabel", "Tool to work on a GeneralLabel. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolGeneralLabel.def(py::init<>());

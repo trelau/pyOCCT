@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gce_MakeParab(py::module &mod){
 
-py::class_<gce_MakeParab, std::unique_ptr<gce_MakeParab>, gce_Root> cls_gce_MakeParab(mod, "gce_MakeParab", "This class implements the following algorithms used to create Parab from gp. Defines the parabola in the parameterization range : ]-infinite, +infinite[ The vertex of the parabola is the 'Location' point of the local coordinate system (axis placement) of the parabola.");
+py::class_<gce_MakeParab, gce_Root> cls_gce_MakeParab(mod, "gce_MakeParab", "This class implements the following algorithms used to create Parab from gp. Defines the parabola in the parameterization range : ]-infinite, +infinite[ The vertex of the parabola is the 'Location' point of the local coordinate system (axis placement) of the parabola.");
 
 // Constructors
 cls_gce_MakeParab.def(py::init<const gp_Ax2 &, const Standard_Real>(), py::arg("A2"), py::arg("Focal"));

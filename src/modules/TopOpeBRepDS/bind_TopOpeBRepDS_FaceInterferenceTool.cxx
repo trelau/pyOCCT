@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_FaceInterferenceTool(py::module &mod){
 
-py::class_<TopOpeBRepDS_FaceInterferenceTool, std::unique_ptr<TopOpeBRepDS_FaceInterferenceTool>> cls_TopOpeBRepDS_FaceInterferenceTool(mod, "TopOpeBRepDS_FaceInterferenceTool", "a tool computing complex transition on Face.");
+py::class_<TopOpeBRepDS_FaceInterferenceTool> cls_TopOpeBRepDS_FaceInterferenceTool(mod, "TopOpeBRepDS_FaceInterferenceTool", "a tool computing complex transition on Face.");
 
 // Constructors
 cls_TopOpeBRepDS_FaceInterferenceTool.def(py::init<const TopOpeBRepDS_PDataStructure &>(), py::arg("P"));

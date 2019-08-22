@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ApproxInt_SvSurfaces(py::module &mod){
 
-py::class_<ApproxInt_SvSurfaces, std::unique_ptr<ApproxInt_SvSurfaces>> cls_ApproxInt_SvSurfaces(mod, "ApproxInt_SvSurfaces", "None");
+py::class_<ApproxInt_SvSurfaces> cls_ApproxInt_SvSurfaces(mod, "ApproxInt_SvSurfaces", "None");
 
 // Fields
 

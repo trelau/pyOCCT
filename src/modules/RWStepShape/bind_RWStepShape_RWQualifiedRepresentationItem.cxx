@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWQualifiedRepresentationItem(py::module &mod){
 
-py::class_<RWStepShape_RWQualifiedRepresentationItem, std::unique_ptr<RWStepShape_RWQualifiedRepresentationItem>> cls_RWStepShape_RWQualifiedRepresentationItem(mod, "RWStepShape_RWQualifiedRepresentationItem", "Read & Write Module for QualifiedRepresentationItem");
+py::class_<RWStepShape_RWQualifiedRepresentationItem> cls_RWStepShape_RWQualifiedRepresentationItem(mod, "RWStepShape_RWQualifiedRepresentationItem", "Read & Write Module for QualifiedRepresentationItem");
 
 // Constructors
 cls_RWStepShape_RWQualifiedRepresentationItem.def(py::init<>());

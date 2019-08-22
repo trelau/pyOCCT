@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeFix_IntersectionTool(py::module &mod){
 
-py::class_<ShapeFix_IntersectionTool, std::unique_ptr<ShapeFix_IntersectionTool>> cls_ShapeFix_IntersectionTool(mod, "ShapeFix_IntersectionTool", "Tool for fixing selfintersecting wire and intersecting wires");
+py::class_<ShapeFix_IntersectionTool> cls_ShapeFix_IntersectionTool(mod, "ShapeFix_IntersectionTool", "Tool for fixing selfintersecting wire and intersecting wires");
 
 // Constructors
 cls_ShapeFix_IntersectionTool.def(py::init<const opencascade::handle<ShapeBuild_ReShape> &, const Standard_Real>(), py::arg("context"), py::arg("preci"));

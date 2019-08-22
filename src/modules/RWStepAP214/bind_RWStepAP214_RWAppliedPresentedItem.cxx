@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWAppliedPresentedItem(py::module &mod){
 
-py::class_<RWStepAP214_RWAppliedPresentedItem, std::unique_ptr<RWStepAP214_RWAppliedPresentedItem>> cls_RWStepAP214_RWAppliedPresentedItem(mod, "RWStepAP214_RWAppliedPresentedItem", "Read & Write Module for AppliedPresentedItem");
+py::class_<RWStepAP214_RWAppliedPresentedItem> cls_RWStepAP214_RWAppliedPresentedItem(mod, "RWStepAP214_RWAppliedPresentedItem", "Read & Write Module for AppliedPresentedItem");
 
 // Constructors
 cls_RWStepAP214_RWAppliedPresentedItem.def(py::init<>());

@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dAdaptor_Curve(py::module &mod){
 
-py::class_<Geom2dAdaptor_Curve, std::unique_ptr<Geom2dAdaptor_Curve>, Adaptor2d_Curve2d> cls_Geom2dAdaptor_Curve(mod, "Geom2dAdaptor_Curve", "An interface between the services provided by any curve from the package Geom2d and those required of the curve by algorithms which use it.");
+py::class_<Geom2dAdaptor_Curve, Adaptor2d_Curve2d> cls_Geom2dAdaptor_Curve(mod, "Geom2dAdaptor_Curve", "An interface between the services provided by any curve from the package Geom2d and those required of the curve by algorithms which use it.");
 
 // Constructors
 cls_Geom2dAdaptor_Curve.def(py::init<>());

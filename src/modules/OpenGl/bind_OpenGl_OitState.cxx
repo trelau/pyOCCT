@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_OitState(py::module &mod){
 
-py::class_<OpenGl_OitState, std::unique_ptr<OpenGl_OitState>, OpenGl_StateInterface> cls_OpenGl_OitState(mod, "OpenGl_OitState", "Defines generic state of order-independent transparency rendering properties.");
+py::class_<OpenGl_OitState, OpenGl_StateInterface> cls_OpenGl_OitState(mod, "OpenGl_OitState", "Defines generic state of order-independent transparency rendering properties.");
 
 // Constructors
 cls_OpenGl_OitState.def(py::init<>());

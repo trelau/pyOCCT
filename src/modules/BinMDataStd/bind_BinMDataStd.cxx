@@ -56,7 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinMDataStd(py::module &mod){
 
-py::class_<BinMDataStd, std::unique_ptr<BinMDataStd>> cls_BinMDataStd(mod, "BinMDataStd", "Storage and Retrieval drivers for modelling attributes.");
+py::class_<BinMDataStd> cls_BinMDataStd(mod, "BinMDataStd", "Storage and Retrieval drivers for modelling attributes.");
 
 // Constructors
 

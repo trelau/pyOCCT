@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDefs_ToolMacroDef(py::module &mod){
 
-py::class_<IGESDefs_ToolMacroDef, std::unique_ptr<IGESDefs_ToolMacroDef>> cls_IGESDefs_ToolMacroDef(mod, "IGESDefs_ToolMacroDef", "Tool to work on a MacroDef. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDefs_ToolMacroDef> cls_IGESDefs_ToolMacroDef(mod, "IGESDefs_ToolMacroDef", "Tool to work on a MacroDef. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDefs_ToolMacroDef.def(py::init<>());

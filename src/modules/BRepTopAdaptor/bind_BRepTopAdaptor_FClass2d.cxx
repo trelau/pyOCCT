@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepTopAdaptor_FClass2d(py::module &mod){
 
-py::class_<BRepTopAdaptor_FClass2d, std::unique_ptr<BRepTopAdaptor_FClass2d>> cls_BRepTopAdaptor_FClass2d(mod, "BRepTopAdaptor_FClass2d", "None");
+py::class_<BRepTopAdaptor_FClass2d> cls_BRepTopAdaptor_FClass2d(mod, "BRepTopAdaptor_FClass2d", "None");
 
 // Constructors
 cls_BRepTopAdaptor_FClass2d.def(py::init<const TopoDS_Face &, const Standard_Real>(), py::arg("F"), py::arg("Tol"));

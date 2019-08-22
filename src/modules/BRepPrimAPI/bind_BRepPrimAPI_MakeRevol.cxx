@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrimAPI_MakeRevol(py::module &mod){
 
-py::class_<BRepPrimAPI_MakeRevol, std::unique_ptr<BRepPrimAPI_MakeRevol>, BRepPrimAPI_MakeSweep> cls_BRepPrimAPI_MakeRevol(mod, "BRepPrimAPI_MakeRevol", "Class to make revolved sweep topologies.");
+py::class_<BRepPrimAPI_MakeRevol, BRepPrimAPI_MakeSweep> cls_BRepPrimAPI_MakeRevol(mod, "BRepPrimAPI_MakeRevol", "Class to make revolved sweep topologies.");
 
 // Constructors
 cls_BRepPrimAPI_MakeRevol.def(py::init<const TopoDS_Shape &, const gp_Ax1 &, const Standard_Real>(), py::arg("S"), py::arg("A"), py::arg("D"));

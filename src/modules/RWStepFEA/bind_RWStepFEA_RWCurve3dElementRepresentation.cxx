@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWCurve3dElementRepresentation(py::module &mod){
 
-py::class_<RWStepFEA_RWCurve3dElementRepresentation, std::unique_ptr<RWStepFEA_RWCurve3dElementRepresentation>> cls_RWStepFEA_RWCurve3dElementRepresentation(mod, "RWStepFEA_RWCurve3dElementRepresentation", "Read & Write tool for Curve3dElementRepresentation");
+py::class_<RWStepFEA_RWCurve3dElementRepresentation> cls_RWStepFEA_RWCurve3dElementRepresentation(mod, "RWStepFEA_RWCurve3dElementRepresentation", "Read & Write tool for Curve3dElementRepresentation");
 
 // Constructors
 cls_RWStepFEA_RWCurve3dElementRepresentation.def(py::init<>());

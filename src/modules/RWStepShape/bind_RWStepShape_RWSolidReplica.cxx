@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWSolidReplica(py::module &mod){
 
-py::class_<RWStepShape_RWSolidReplica, std::unique_ptr<RWStepShape_RWSolidReplica>> cls_RWStepShape_RWSolidReplica(mod, "RWStepShape_RWSolidReplica", "Read & Write Module for SolidReplica");
+py::class_<RWStepShape_RWSolidReplica> cls_RWStepShape_RWSolidReplica(mod, "RWStepShape_RWSolidReplica", "Read & Write Module for SolidReplica");
 
 // Constructors
 cls_RWStepShape_RWSolidReplica.def(py::init<>());

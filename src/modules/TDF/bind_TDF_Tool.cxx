@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDF_Tool(py::module &mod){
 
-py::class_<TDF_Tool, std::unique_ptr<TDF_Tool>> cls_TDF_Tool(mod, "TDF_Tool", "This class provides general services for a data framework.");
+py::class_<TDF_Tool> cls_TDF_Tool(mod, "TDF_Tool", "This class provides general services for a data framework.");
 
 // Constructors
 

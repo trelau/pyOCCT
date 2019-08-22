@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeAnalysis_ShapeContents(py::module &mod){
 
-py::class_<ShapeAnalysis_ShapeContents, std::unique_ptr<ShapeAnalysis_ShapeContents>> cls_ShapeAnalysis_ShapeContents(mod, "ShapeAnalysis_ShapeContents", "Dumps shape contents");
+py::class_<ShapeAnalysis_ShapeContents> cls_ShapeAnalysis_ShapeContents(mod, "ShapeAnalysis_ShapeContents", "Dumps shape contents");
 
 // Constructors
 cls_ShapeAnalysis_ShapeContents.def(py::init<>());

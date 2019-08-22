@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeFix_WireSegment(py::module &mod){
 
-py::class_<ShapeFix_WireSegment, std::unique_ptr<ShapeFix_WireSegment>> cls_ShapeFix_WireSegment(mod, "ShapeFix_WireSegment", "This class is auxiliary class (data storage) used in ComposeShell. It is intended for representing segment of the wire (or whole wire). The segment itself is represented by ShapeExtend_WireData. In addition, some associated data necessary for computations are stored:");
+py::class_<ShapeFix_WireSegment> cls_ShapeFix_WireSegment(mod, "ShapeFix_WireSegment", "This class is auxiliary class (data storage) used in ComposeShell. It is intended for representing segment of the wire (or whole wire). The segment itself is represented by ShapeExtend_WireData. In addition, some associated data necessary for computations are stored:");
 
 // Constructors
 cls_ShapeFix_WireSegment.def(py::init<>());

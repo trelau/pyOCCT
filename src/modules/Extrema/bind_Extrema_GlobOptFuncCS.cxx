@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_GlobOptFuncCS(py::module &mod){
 
-py::class_<Extrema_GlobOptFuncCS, std::unique_ptr<Extrema_GlobOptFuncCS>, math_MultipleVarFunctionWithHessian> cls_Extrema_GlobOptFuncCS(mod, "Extrema_GlobOptFuncCS", "This class implements function which calculate square Eucluidean distance between point on curve and point on surface in case of continuity is C2.");
+py::class_<Extrema_GlobOptFuncCS, math_MultipleVarFunctionWithHessian> cls_Extrema_GlobOptFuncCS(mod, "Extrema_GlobOptFuncCS", "This class implements function which calculate square Eucluidean distance between point on curve and point on surface in case of continuity is C2.");
 
 // Constructors
 cls_Extrema_GlobOptFuncCS.def(py::init<const Adaptor3d_Curve *, const Adaptor3d_Surface *>(), py::arg("C"), py::arg("S"));

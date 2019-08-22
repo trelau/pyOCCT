@@ -63,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill(py::module &mod){
 
-py::class_<BRepFill, std::unique_ptr<BRepFill>> cls_BRepFill(mod, "BRepFill", "None");
+py::class_<BRepFill> cls_BRepFill(mod, "BRepFill", "None");
 
 // Constructors
 

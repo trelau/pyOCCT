@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepSweep_Translation(py::module &mod){
 
-py::class_<BRepSweep_Translation, std::unique_ptr<BRepSweep_Translation>, BRepSweep_Trsf> cls_BRepSweep_Translation(mod, "BRepSweep_Translation", "Provides an algorithm to build object by translation sweep.");
+py::class_<BRepSweep_Translation, BRepSweep_Trsf> cls_BRepSweep_Translation(mod, "BRepSweep_Translation", "Provides an algorithm to build object by translation sweep.");
 
 // Constructors
 cls_BRepSweep_Translation.def(py::init<const TopoDS_Shape &, const Sweep_NumShape &, const TopLoc_Location &, const gp_Vec &, const Standard_Boolean>(), py::arg("S"), py::arg("N"), py::arg("L"), py::arg("V"), py::arg("C"));

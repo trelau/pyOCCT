@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrimAPI_MakeCone(py::module &mod){
 
-py::class_<BRepPrimAPI_MakeCone, std::unique_ptr<BRepPrimAPI_MakeCone>, BRepPrimAPI_MakeOneAxis> cls_BRepPrimAPI_MakeCone(mod, "BRepPrimAPI_MakeCone", "Describes functions to build cones or portions of cones. A MakeCone object provides a framework for: - defining the construction of a cone, - implementing the construction algorithm, and - consulting the result.");
+py::class_<BRepPrimAPI_MakeCone, BRepPrimAPI_MakeOneAxis> cls_BRepPrimAPI_MakeCone(mod, "BRepPrimAPI_MakeCone", "Describes functions to build cones or portions of cones. A MakeCone object provides a framework for: - defining the construction of a cone, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_BRepPrimAPI_MakeCone.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("R1"), py::arg("R2"), py::arg("H"));

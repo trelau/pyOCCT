@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWEulerAngles(py::module &mod){
 
-py::class_<RWStepBasic_RWEulerAngles, std::unique_ptr<RWStepBasic_RWEulerAngles>> cls_RWStepBasic_RWEulerAngles(mod, "RWStepBasic_RWEulerAngles", "Read & Write tool for EulerAngles");
+py::class_<RWStepBasic_RWEulerAngles> cls_RWStepBasic_RWEulerAngles(mod, "RWStepBasic_RWEulerAngles", "Read & Write tool for EulerAngles");
 
 // Constructors
 cls_RWStepBasic_RWEulerAngles.def(py::init<>());

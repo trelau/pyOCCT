@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPDS_Pair(py::module &mod){
 
-py::class_<BOPDS_Pair, std::unique_ptr<BOPDS_Pair>> cls_BOPDS_Pair(mod, "BOPDS_Pair", "The class is to provide the pair of indices of interfering shapes.");
+py::class_<BOPDS_Pair> cls_BOPDS_Pair(mod, "BOPDS_Pair", "The class is to provide the pair of indices of interfering shapes.");
 
 // Constructors
 cls_BOPDS_Pair.def(py::init<>());

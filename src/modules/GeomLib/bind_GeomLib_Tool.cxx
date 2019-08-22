@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomLib_Tool(py::module &mod){
 
-py::class_<GeomLib_Tool, std::unique_ptr<GeomLib_Tool>> cls_GeomLib_Tool(mod, "GeomLib_Tool", "Provides various methods with Geom2d and Geom curves and surfaces. The methods of this class compute the parameter(s) of a given point on a curve or a surface. To get the valid result the point must be located rather close to the curve (surface) or at least to allow getting unambiguous result (do not put point at center of circle...), but choice of 'trust' distance between curve/surface and point is responcibility of user (parameter MaxDist). Return FALSE if the point is beyond the MaxDist limit or if computation fails.");
+py::class_<GeomLib_Tool> cls_GeomLib_Tool(mod, "GeomLib_Tool", "Provides various methods with Geom2d and Geom curves and surfaces. The methods of this class compute the parameter(s) of a given point on a curve or a surface. To get the valid result the point must be located rather close to the curve (surface) or at least to allow getting unambiguous result (do not put point at center of circle...), but choice of 'trust' distance between curve/surface and point is responcibility of user (parameter MaxDist). Return FALSE if the point is beyond the MaxDist limit or if computation fails.");
 
 // Constructors
 

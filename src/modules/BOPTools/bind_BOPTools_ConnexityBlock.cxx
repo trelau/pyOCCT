@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPTools_ConnexityBlock(py::module &mod){
 
-py::class_<BOPTools_ConnexityBlock, std::unique_ptr<BOPTools_ConnexityBlock>> cls_BOPTools_ConnexityBlock(mod, "BOPTools_ConnexityBlock", "None");
+py::class_<BOPTools_ConnexityBlock> cls_BOPTools_ConnexityBlock(mod, "BOPTools_ConnexityBlock", "None");
 
 // Constructors
 cls_BOPTools_ConnexityBlock.def(py::init<>());

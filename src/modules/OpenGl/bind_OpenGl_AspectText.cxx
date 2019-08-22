@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_AspectText(py::module &mod){
 
-py::class_<OpenGl_AspectText, std::unique_ptr<OpenGl_AspectText>, OpenGl_Element> cls_OpenGl_AspectText(mod, "OpenGl_AspectText", "Text representation parameters");
+py::class_<OpenGl_AspectText, OpenGl_Element> cls_OpenGl_AspectText(mod, "OpenGl_AspectText", "Text representation parameters");
 
 // Constructors
 cls_OpenGl_AspectText.def(py::init<>());

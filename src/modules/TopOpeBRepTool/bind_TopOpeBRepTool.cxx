@@ -55,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool(py::module &mod){
 
-py::class_<TopOpeBRepTool, std::unique_ptr<TopOpeBRepTool>> cls_TopOpeBRepTool(mod, "TopOpeBRepTool", "This package provides services used by the TopOpeBRep package performing topological operations on the BRep data structure.");
+py::class_<TopOpeBRepTool> cls_TopOpeBRepTool(mod, "TopOpeBRepTool", "This package provides services used by the TopOpeBRep package performing topological operations on the BRep data structure.");
 
 // Constructors
 

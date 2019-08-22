@@ -55,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDF(py::module &mod){
 
-py::class_<TDF, std::unique_ptr<TDF>> cls_TDF(mod, "TDF", "This package provides data framework for binding features and data structures.");
+py::class_<TDF> cls_TDF(mod, "TDF", "This package provides data framework for binding features and data structures.");
 
 // Constructors
 

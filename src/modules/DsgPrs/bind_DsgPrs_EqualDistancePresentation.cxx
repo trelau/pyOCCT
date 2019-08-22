@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_EqualDistancePresentation(py::module &mod){
 
-py::class_<DsgPrs_EqualDistancePresentation, std::unique_ptr<DsgPrs_EqualDistancePresentation>> cls_DsgPrs_EqualDistancePresentation(mod, "DsgPrs_EqualDistancePresentation", "A framework to display equal distances between shapes and a given plane. The distance is the length of a projection from the shape to the plane. These distances are used to compare two shapes by this vector alone.");
+py::class_<DsgPrs_EqualDistancePresentation> cls_DsgPrs_EqualDistancePresentation(mod, "DsgPrs_EqualDistancePresentation", "A framework to display equal distances between shapes and a given plane. The distance is the length of a projection from the shape to the plane. These distances are used to compare two shapes by this vector alone.");
 
 // Constructors
 

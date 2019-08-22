@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Graphic3d_Vertex(py::module &mod){
 
-py::class_<Graphic3d_Vertex, std::unique_ptr<Graphic3d_Vertex>> cls_Graphic3d_Vertex(mod, "Graphic3d_Vertex", "This class represents a graphical 3D point.");
+py::class_<Graphic3d_Vertex> cls_Graphic3d_Vertex(mod, "Graphic3d_Vertex", "This class represents a graphical 3D point.");
 
 // Constructors
 cls_Graphic3d_Vertex.def(py::init<>());

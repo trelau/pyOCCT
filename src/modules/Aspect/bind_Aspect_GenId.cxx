@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Aspect_GenId(py::module &mod){
 
-py::class_<Aspect_GenId, std::unique_ptr<Aspect_GenId>> cls_Aspect_GenId(mod, "Aspect_GenId", "This class permits the creation and control of integer identifiers.");
+py::class_<Aspect_GenId> cls_Aspect_GenId(mod, "Aspect_GenId", "This class permits the creation and control of integer identifiers.");
 
 // Constructors
 cls_Aspect_GenId.def(py::init<>());

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_WireInterferenceChecker(py::module &mod){
 
-py::class_<BRepMesh_WireInterferenceChecker, std::unique_ptr<BRepMesh_WireInterferenceChecker>> cls_BRepMesh_WireInterferenceChecker(mod, "BRepMesh_WireInterferenceChecker", "Auxilary class implementing functionality for checking interference between two discretized wires.");
+py::class_<BRepMesh_WireInterferenceChecker> cls_BRepMesh_WireInterferenceChecker(mod, "BRepMesh_WireInterferenceChecker", "Auxilary class implementing functionality for checking interference between two discretized wires.");
 
 // Constructors
 // cls_BRepMesh_WireInterferenceChecker.def(py::init<const BRepMesh::Array1OfSegmentsTree &, BRepMesh_Status *>(), py::arg("theWires"), py::arg("theStatus"));

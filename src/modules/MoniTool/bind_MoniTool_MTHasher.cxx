@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MoniTool_MTHasher(py::module &mod){
 
-py::class_<MoniTool_MTHasher, std::unique_ptr<MoniTool_MTHasher>> cls_MoniTool_MTHasher(mod, "MoniTool_MTHasher", "The auxiliary class provides hash code for mapping objects");
+py::class_<MoniTool_MTHasher> cls_MoniTool_MTHasher(mod, "MoniTool_MTHasher", "The auxiliary class provides hash code for mapping objects");
 
 // Constructors
 

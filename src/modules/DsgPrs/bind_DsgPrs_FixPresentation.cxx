@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_FixPresentation(py::module &mod){
 
-py::class_<DsgPrs_FixPresentation, std::unique_ptr<DsgPrs_FixPresentation>> cls_DsgPrs_FixPresentation(mod, "DsgPrs_FixPresentation", "class which draws the presentation of Fixed objects");
+py::class_<DsgPrs_FixPresentation> cls_DsgPrs_FixPresentation(mod, "DsgPrs_FixPresentation", "class which draws the presentation of Fixed objects");
 
 // Constructors
 

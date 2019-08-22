@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWApprovalRole(py::module &mod){
 
-py::class_<RWStepBasic_RWApprovalRole, std::unique_ptr<RWStepBasic_RWApprovalRole>> cls_RWStepBasic_RWApprovalRole(mod, "RWStepBasic_RWApprovalRole", "Read & Write Module for ApprovalRole");
+py::class_<RWStepBasic_RWApprovalRole> cls_RWStepBasic_RWApprovalRole(mod, "RWStepBasic_RWApprovalRole", "Read & Write Module for ApprovalRole");
 
 // Constructors
 cls_RWStepBasic_RWApprovalRole.def(py::init<>());

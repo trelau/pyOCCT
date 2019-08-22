@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWAppliedExternalIdentificationAssignment(py::module &mod){
 
-py::class_<RWStepAP214_RWAppliedExternalIdentificationAssignment, std::unique_ptr<RWStepAP214_RWAppliedExternalIdentificationAssignment>> cls_RWStepAP214_RWAppliedExternalIdentificationAssignment(mod, "RWStepAP214_RWAppliedExternalIdentificationAssignment", "Read & Write tool for AppliedExternalIdentificationAssignment");
+py::class_<RWStepAP214_RWAppliedExternalIdentificationAssignment> cls_RWStepAP214_RWAppliedExternalIdentificationAssignment(mod, "RWStepAP214_RWAppliedExternalIdentificationAssignment", "Read & Write tool for AppliedExternalIdentificationAssignment");
 
 // Constructors
 cls_RWStepAP214_RWAppliedExternalIdentificationAssignment.def(py::init<>());

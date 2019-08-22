@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdLPersistent(py::module &mod){
 
-py::class_<StdLPersistent, std::unique_ptr<StdLPersistent>> cls_StdLPersistent(mod, "StdLPersistent", "None");
+py::class_<StdLPersistent> cls_StdLPersistent(mod, "StdLPersistent", "None");
 
 // Constructors
 

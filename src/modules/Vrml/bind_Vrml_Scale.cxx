@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_Scale(py::module &mod){
 
-py::class_<Vrml_Scale, std::unique_ptr<Vrml_Scale>> cls_Vrml_Scale(mod, "Vrml_Scale", "defines a Scale node of VRML specifying transform properties. This node defines a 3D scaling about the origin. By default : myRotation = (1 1 1)");
+py::class_<Vrml_Scale> cls_Vrml_Scale(mod, "Vrml_Scale", "defines a Scale node of VRML specifying transform properties. This node defines a 3D scaling about the origin. By default : myRotation = (1 1 1)");
 
 // Constructors
 cls_Vrml_Scale.def(py::init<>());

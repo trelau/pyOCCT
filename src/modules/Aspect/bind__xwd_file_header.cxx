@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind__xwd_file_header(py::module &mod){
 
-py::class_<_xwd_file_header, std::unique_ptr<_xwd_file_header>> cls__xwd_file_header(mod, "_xwd_file_header", "None");
+py::class_<_xwd_file_header> cls__xwd_file_header(mod, "_xwd_file_header", "None");
 
 // Constructors
 

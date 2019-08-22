@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWModifiedGeometricTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWModifiedGeometricTolerance, std::unique_ptr<RWStepDimTol_RWModifiedGeometricTolerance>> cls_RWStepDimTol_RWModifiedGeometricTolerance(mod, "RWStepDimTol_RWModifiedGeometricTolerance", "Read & Write tool for ModifiedGeometricTolerance");
+py::class_<RWStepDimTol_RWModifiedGeometricTolerance> cls_RWStepDimTol_RWModifiedGeometricTolerance(mod, "RWStepDimTol_RWModifiedGeometricTolerance", "Read & Write tool for ModifiedGeometricTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWModifiedGeometricTolerance.def(py::init<>());

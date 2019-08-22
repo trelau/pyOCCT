@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TNaming_Name(py::module &mod){
 
-py::class_<TNaming_Name, std::unique_ptr<TNaming_Name>> cls_TNaming_Name(mod, "TNaming_Name", "store the arguments of Naming.");
+py::class_<TNaming_Name> cls_TNaming_Name(mod, "TNaming_Name", "store the arguments of Naming.");
 
 // Constructors
 cls_TNaming_Name.def(py::init<>());

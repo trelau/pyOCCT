@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWPointStyle(py::module &mod){
 
-py::class_<RWStepVisual_RWPointStyle, std::unique_ptr<RWStepVisual_RWPointStyle>> cls_RWStepVisual_RWPointStyle(mod, "RWStepVisual_RWPointStyle", "Read & Write Module for PointStyle");
+py::class_<RWStepVisual_RWPointStyle> cls_RWStepVisual_RWPointStyle(mod, "RWStepVisual_RWPointStyle", "Read & Write Module for PointStyle");
 
 // Constructors
 cls_RWStepVisual_RWPointStyle.def(py::init<>());

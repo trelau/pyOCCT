@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWTextLiteral(py::module &mod){
 
-py::class_<RWStepVisual_RWTextLiteral, std::unique_ptr<RWStepVisual_RWTextLiteral>> cls_RWStepVisual_RWTextLiteral(mod, "RWStepVisual_RWTextLiteral", "Read & Write Module for TextLiteral");
+py::class_<RWStepVisual_RWTextLiteral> cls_RWStepVisual_RWTextLiteral(mod, "RWStepVisual_RWTextLiteral", "Read & Write Module for TextLiteral");
 
 // Constructors
 cls_RWStepVisual_RWTextLiteral.def(py::init<>());

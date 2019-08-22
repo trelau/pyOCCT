@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomLib_LogSample(py::module &mod){
 
-py::class_<GeomLib_LogSample, std::unique_ptr<GeomLib_LogSample>, math_FunctionSample> cls_GeomLib_LogSample(mod, "GeomLib_LogSample", "None");
+py::class_<GeomLib_LogSample, math_FunctionSample> cls_GeomLib_LogSample(mod, "GeomLib_LogSample", "None");
 
 // Constructors
 cls_GeomLib_LogSample.def(py::init<const Standard_Real, const Standard_Real, const Standard_Integer>(), py::arg("A"), py::arg("B"), py::arg("N"));

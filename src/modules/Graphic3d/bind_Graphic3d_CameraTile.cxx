@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Graphic3d_CameraTile(py::module &mod){
 
-py::class_<Graphic3d_CameraTile, std::unique_ptr<Graphic3d_CameraTile>> cls_Graphic3d_CameraTile(mod, "Graphic3d_CameraTile", "Class defines the area (Tile) inside a view.");
+py::class_<Graphic3d_CameraTile> cls_Graphic3d_CameraTile(mod, "Graphic3d_CameraTile", "Class defines the area (Tile) inside a view.");
 
 // Constructors
 cls_Graphic3d_CameraTile.def(py::init<>());

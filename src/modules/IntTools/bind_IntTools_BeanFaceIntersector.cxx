@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_BeanFaceIntersector(py::module &mod){
 
-py::class_<IntTools_BeanFaceIntersector, std::unique_ptr<IntTools_BeanFaceIntersector>> cls_IntTools_BeanFaceIntersector(mod, "IntTools_BeanFaceIntersector", "The class BeanFaceIntersector computes ranges of parameters on the curve of a bean(part of edge) that bound the parts of bean which are on the surface of a face according to edge and face tolerances. Warning: The real boundaries of the face are not taken into account, Most of the result parts of the bean lays only inside the region of the surface, which includes the inside of the face. And the parts which are out of this region can be excluded from the result.");
+py::class_<IntTools_BeanFaceIntersector> cls_IntTools_BeanFaceIntersector(mod, "IntTools_BeanFaceIntersector", "The class BeanFaceIntersector computes ranges of parameters on the curve of a bean(part of edge) that bound the parts of bean which are on the surface of a face according to edge and face tolerances. Warning: The real boundaries of the face are not taken into account, Most of the result parts of the bean lays only inside the region of the surface, which includes the inside of the face. And the parts which are out of this region can be excluded from the result.");
 
 // Constructors
 cls_IntTools_BeanFaceIntersector.def(py::init<>());

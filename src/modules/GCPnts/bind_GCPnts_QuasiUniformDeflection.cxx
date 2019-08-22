@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCPnts_QuasiUniformDeflection(py::module &mod){
 
-py::class_<GCPnts_QuasiUniformDeflection, std::unique_ptr<GCPnts_QuasiUniformDeflection>> cls_GCPnts_QuasiUniformDeflection(mod, "GCPnts_QuasiUniformDeflection", "This class computes a distribution of points on a curve. The points may respect the deflection. The algorithm is not based on the classical prediction (with second derivative of curve), but either on the evaluation of the distance between the mid point and the point of mid parameter of the two points, or the distance between the mid point and the point at parameter 0.5 on the cubic interpolation of the two points and their tangents. Note: this algorithm is faster than a GCPnts_UniformDeflection algorithm, and is able to work with non-'C2' continuous curves. However, it generates more points in the distribution.");
+py::class_<GCPnts_QuasiUniformDeflection> cls_GCPnts_QuasiUniformDeflection(mod, "GCPnts_QuasiUniformDeflection", "This class computes a distribution of points on a curve. The points may respect the deflection. The algorithm is not based on the classical prediction (with second derivative of curve), but either on the evaluation of the distance between the mid point and the point of mid parameter of the two points, or the distance between the mid point and the point at parameter 0.5 on the cubic interpolation of the two points and their tangents. Note: this algorithm is faster than a GCPnts_UniformDeflection algorithm, and is able to work with non-'C2' continuous curves. However, it generates more points in the distribution.");
 
 // Constructors
 cls_GCPnts_QuasiUniformDeflection.def(py::init<>());

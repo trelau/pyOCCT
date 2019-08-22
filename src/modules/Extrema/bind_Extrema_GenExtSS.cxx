@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_GenExtSS(py::module &mod){
 
-py::class_<Extrema_GenExtSS, std::unique_ptr<Extrema_GenExtSS>> cls_Extrema_GenExtSS(mod, "Extrema_GenExtSS", "It calculates all the extremum distances between two surfaces. These distances can be minimum or maximum.");
+py::class_<Extrema_GenExtSS> cls_Extrema_GenExtSS(mod, "Extrema_GenExtSS", "It calculates all the extremum distances between two surfaces. These distances can be minimum or maximum.");
 
 // Constructors
 cls_Extrema_GenExtSS.def(py::init<>());

@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDraw_ToolNetworkSubfigureDef(py::module &mod){
 
-py::class_<IGESDraw_ToolNetworkSubfigureDef, std::unique_ptr<IGESDraw_ToolNetworkSubfigureDef>> cls_IGESDraw_ToolNetworkSubfigureDef(mod, "IGESDraw_ToolNetworkSubfigureDef", "Tool to work on a NetworkSubfigureDef. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDraw_ToolNetworkSubfigureDef> cls_IGESDraw_ToolNetworkSubfigureDef(mod, "IGESDraw_ToolNetworkSubfigureDef", "Tool to work on a NetworkSubfigureDef. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDraw_ToolNetworkSubfigureDef.def(py::init<>());

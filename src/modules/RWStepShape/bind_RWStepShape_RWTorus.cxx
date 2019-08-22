@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWTorus(py::module &mod){
 
-py::class_<RWStepShape_RWTorus, std::unique_ptr<RWStepShape_RWTorus>> cls_RWStepShape_RWTorus(mod, "RWStepShape_RWTorus", "Read & Write Module for Torus");
+py::class_<RWStepShape_RWTorus> cls_RWStepShape_RWTorus(mod, "RWStepShape_RWTorus", "Read & Write Module for Torus");
 
 // Constructors
 cls_RWStepShape_RWTorus.def(py::init<>());

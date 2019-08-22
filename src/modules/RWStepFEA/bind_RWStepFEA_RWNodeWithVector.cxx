@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWNodeWithVector(py::module &mod){
 
-py::class_<RWStepFEA_RWNodeWithVector, std::unique_ptr<RWStepFEA_RWNodeWithVector>> cls_RWStepFEA_RWNodeWithVector(mod, "RWStepFEA_RWNodeWithVector", "Read & Write tool for NodeWithVector");
+py::class_<RWStepFEA_RWNodeWithVector> cls_RWStepFEA_RWNodeWithVector(mod, "RWStepFEA_RWNodeWithVector", "Read & Write tool for NodeWithVector");
 
 // Constructors
 cls_RWStepFEA_RWNodeWithVector.def(py::init<>());

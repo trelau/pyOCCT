@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrimAPI_MakeSphere(py::module &mod){
 
-py::class_<BRepPrimAPI_MakeSphere, std::unique_ptr<BRepPrimAPI_MakeSphere>, BRepPrimAPI_MakeOneAxis> cls_BRepPrimAPI_MakeSphere(mod, "BRepPrimAPI_MakeSphere", "Describes functions to build spheres or portions of spheres. A MakeSphere object provides a framework for: - defining the construction of a sphere, - implementing the construction algorithm, and - consulting the result.");
+py::class_<BRepPrimAPI_MakeSphere, BRepPrimAPI_MakeOneAxis> cls_BRepPrimAPI_MakeSphere(mod, "BRepPrimAPI_MakeSphere", "Describes functions to build spheres or portions of spheres. A MakeSphere object provides a framework for: - defining the construction of a sphere, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_BRepPrimAPI_MakeSphere.def(py::init<const Standard_Real>(), py::arg("R"));

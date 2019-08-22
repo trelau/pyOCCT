@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFi2d_FilletAlgo(py::module &mod){
 
-py::class_<ChFi2d_FilletAlgo, std::unique_ptr<ChFi2d_FilletAlgo>> cls_ChFi2d_FilletAlgo(mod, "ChFi2d_FilletAlgo", "Algorithm that creates fillet edge: arc tangent to two edges in the start and in the end vertices. Initial edges must be located on the plane and must be connected by the end or start points (shared vertices are not obligatory). Created fillet arc is created with the given radius, that is useful in sketcher applications.");
+py::class_<ChFi2d_FilletAlgo> cls_ChFi2d_FilletAlgo(mod, "ChFi2d_FilletAlgo", "Algorithm that creates fillet edge: arc tangent to two edges in the start and in the end vertices. Initial edges must be located on the plane and must be connected by the end or start points (shared vertices are not obligatory). Created fillet arc is created with the given radius, that is useful in sketcher applications.");
 
 // Constructors
 cls_ChFi2d_FilletAlgo.def(py::init<>());

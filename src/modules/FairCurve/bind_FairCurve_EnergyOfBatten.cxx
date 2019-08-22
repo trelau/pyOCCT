@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FairCurve_EnergyOfBatten(py::module &mod){
 
-py::class_<FairCurve_EnergyOfBatten, std::unique_ptr<FairCurve_EnergyOfBatten>, FairCurve_Energy> cls_FairCurve_EnergyOfBatten(mod, "FairCurve_EnergyOfBatten", "Energy Criterium to minimize in Batten.");
+py::class_<FairCurve_EnergyOfBatten, FairCurve_Energy> cls_FairCurve_EnergyOfBatten(mod, "FairCurve_EnergyOfBatten", "Energy Criterium to minimize in Batten.");
 
 // Constructors
 cls_FairCurve_EnergyOfBatten.def(py::init<const Standard_Integer, const opencascade::handle<TColStd_HArray1OfReal> &, const opencascade::handle<TColgp_HArray1OfPnt2d> &, const Standard_Integer, const Standard_Integer, const FairCurve_BattenLaw &, const Standard_Real>(), py::arg("BSplOrder"), py::arg("FlatKnots"), py::arg("Poles"), py::arg("ContrOrder1"), py::arg("ContrOrder2"), py::arg("Law"), py::arg("LengthSliding"));

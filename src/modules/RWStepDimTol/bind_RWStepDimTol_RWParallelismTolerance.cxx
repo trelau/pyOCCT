@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWParallelismTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWParallelismTolerance, std::unique_ptr<RWStepDimTol_RWParallelismTolerance>> cls_RWStepDimTol_RWParallelismTolerance(mod, "RWStepDimTol_RWParallelismTolerance", "Read & Write tool for ParallelismTolerance");
+py::class_<RWStepDimTol_RWParallelismTolerance> cls_RWStepDimTol_RWParallelismTolerance(mod, "RWStepDimTol_RWParallelismTolerance", "Read & Write tool for ParallelismTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWParallelismTolerance.def(py::init<>());

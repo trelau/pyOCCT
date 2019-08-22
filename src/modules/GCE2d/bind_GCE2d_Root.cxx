@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCE2d_Root(py::module &mod){
 
-py::class_<GCE2d_Root, std::unique_ptr<GCE2d_Root>> cls_GCE2d_Root(mod, "GCE2d_Root", "This class implements the common services for all classes of gce which report error.");
+py::class_<GCE2d_Root> cls_GCE2d_Root(mod, "GCE2d_Root", "This class implements the common services for all classes of gce which report error.");
 
 // Constructors
 

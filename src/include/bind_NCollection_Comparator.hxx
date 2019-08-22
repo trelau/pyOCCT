@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheItemType>
 void bind_NCollection_Comparator(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_Comparator<TheItemType>, std::unique_ptr<NCollection_Comparator<TheItemType>>> cls_NCollection_Comparator(mod, name.c_str(), "Class to define basic compare operations. Basic implementation use redirection to standard C++ operators. You can use standard C++ templates mechanisms to redefine these methods or to inherit basic implementation to create multiple comparators for same type with different rules.", local);
+py::class_<NCollection_Comparator<TheItemType>> cls_NCollection_Comparator(mod, name.c_str(), "Class to define basic compare operations. Basic implementation use redirection to standard C++ operators. You can use standard C++ templates mechanisms to redefine these methods or to inherit basic implementation to create multiple comparators for same type with different rules.", local);
 
 // Constructors
 cls_NCollection_Comparator.def(py::init<>());

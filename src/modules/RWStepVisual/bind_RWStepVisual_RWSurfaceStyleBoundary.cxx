@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWSurfaceStyleBoundary(py::module &mod){
 
-py::class_<RWStepVisual_RWSurfaceStyleBoundary, std::unique_ptr<RWStepVisual_RWSurfaceStyleBoundary>> cls_RWStepVisual_RWSurfaceStyleBoundary(mod, "RWStepVisual_RWSurfaceStyleBoundary", "Read & Write Module for SurfaceStyleBoundary");
+py::class_<RWStepVisual_RWSurfaceStyleBoundary> cls_RWStepVisual_RWSurfaceStyleBoundary(mod, "RWStepVisual_RWSurfaceStyleBoundary", "Read & Write Module for SurfaceStyleBoundary");
 
 // Constructors
 cls_RWStepVisual_RWSurfaceStyleBoundary.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWCurveElementEndOffset(py::module &mod){
 
-py::class_<RWStepFEA_RWCurveElementEndOffset, std::unique_ptr<RWStepFEA_RWCurveElementEndOffset>> cls_RWStepFEA_RWCurveElementEndOffset(mod, "RWStepFEA_RWCurveElementEndOffset", "Read & Write tool for CurveElementEndOffset");
+py::class_<RWStepFEA_RWCurveElementEndOffset> cls_RWStepFEA_RWCurveElementEndOffset(mod, "RWStepFEA_RWCurveElementEndOffset", "Read & Write tool for CurveElementEndOffset");
 
 // Constructors
 cls_RWStepFEA_RWCurveElementEndOffset.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_GlobOptFuncCCC0(py::module &mod){
 
-py::class_<Extrema_GlobOptFuncCCC0, std::unique_ptr<Extrema_GlobOptFuncCCC0>, math_MultipleVarFunction> cls_Extrema_GlobOptFuncCCC0(mod, "Extrema_GlobOptFuncCCC0", "This class implements function which calculate Eucluidean distance between point on curve and point on other curve in case of C1 and C2 continuity is C0.");
+py::class_<Extrema_GlobOptFuncCCC0, math_MultipleVarFunction> cls_Extrema_GlobOptFuncCCC0(mod, "Extrema_GlobOptFuncCCC0", "This class implements function which calculate Eucluidean distance between point on curve and point on other curve in case of C1 and C2 continuity is C0.");
 
 // Constructors
 cls_Extrema_GlobOptFuncCCC0.def(py::init<const Adaptor3d_Curve &, const Adaptor3d_Curve &>(), py::arg("C1"), py::arg("C2"));

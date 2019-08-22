@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurveSurface_TheCSFunctionOfHInter(py::module &mod){
 
-py::class_<IntCurveSurface_TheCSFunctionOfHInter, std::unique_ptr<IntCurveSurface_TheCSFunctionOfHInter>, math_FunctionSetWithDerivatives> cls_IntCurveSurface_TheCSFunctionOfHInter(mod, "IntCurveSurface_TheCSFunctionOfHInter", "None");
+py::class_<IntCurveSurface_TheCSFunctionOfHInter, math_FunctionSetWithDerivatives> cls_IntCurveSurface_TheCSFunctionOfHInter(mod, "IntCurveSurface_TheCSFunctionOfHInter", "None");
 
 // Constructors
 cls_IntCurveSurface_TheCSFunctionOfHInter.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S"), py::arg("C"));

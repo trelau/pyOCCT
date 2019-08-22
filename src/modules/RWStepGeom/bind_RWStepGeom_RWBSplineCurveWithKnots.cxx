@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWBSplineCurveWithKnots(py::module &mod){
 
-py::class_<RWStepGeom_RWBSplineCurveWithKnots, std::unique_ptr<RWStepGeom_RWBSplineCurveWithKnots>> cls_RWStepGeom_RWBSplineCurveWithKnots(mod, "RWStepGeom_RWBSplineCurveWithKnots", "Read & Write Module for BSplineCurveWithKnots Check added by CKY , 7-OCT-1996");
+py::class_<RWStepGeom_RWBSplineCurveWithKnots> cls_RWStepGeom_RWBSplineCurveWithKnots(mod, "RWStepGeom_RWBSplineCurveWithKnots", "Read & Write Module for BSplineCurveWithKnots Check added by CKY , 7-OCT-1996");
 
 // Constructors
 cls_RWStepGeom_RWBSplineCurveWithKnots.def(py::init<>());

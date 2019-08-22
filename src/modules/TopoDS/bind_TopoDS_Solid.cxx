@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDS_Solid(py::module &mod){
 
-py::class_<TopoDS_Solid, std::unique_ptr<TopoDS_Solid>, TopoDS_Shape> cls_TopoDS_Solid(mod, "TopoDS_Solid", "Describes a solid shape which - references an underlying solid shape with the potential to be given a location and an orientation - has a location for the underlying shape, giving its placement in the local coordinate system - has an orientation for the underlying shape, in terms of its geometry (as opposed to orientation in relation to other shapes).");
+py::class_<TopoDS_Solid, TopoDS_Shape> cls_TopoDS_Solid(mod, "TopoDS_Solid", "Describes a solid shape which - references an underlying solid shape with the potential to be given a location and an orientation - has a location for the underlying shape, giving its placement in the local coordinate system - has an orientation for the underlying shape, in terms of its geometry (as opposed to orientation in relation to other shapes).");
 
 // Constructors
 cls_TopoDS_Solid.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_Mat(py::module &mod){
 
-py::class_<gp_Mat, std::unique_ptr<gp_Mat>> cls_gp_Mat(mod, "gp_Mat", "Describes a three column, three row matrix. This sort of object is used in various vectorial or matrix computations.");
+py::class_<gp_Mat> cls_gp_Mat(mod, "gp_Mat", "Describes a three column, three row matrix. This sort of object is used in various vectorial or matrix computations.");
 
 // Constructors
 cls_gp_Mat.def(py::init<>());

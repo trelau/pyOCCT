@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_TrigonometricFunctionRoots(py::module &mod){
 
-py::class_<math_TrigonometricFunctionRoots, std::unique_ptr<math_TrigonometricFunctionRoots>> cls_math_TrigonometricFunctionRoots(mod, "math_TrigonometricFunctionRoots", "This class implements the solutions of the equation a*Cos(x)*Cos(x) + 2*b*Cos(x)*Sin(x) + c*Cos(x) + d*Sin(x) + e The degree of this equation can be 4, 3 or 2.");
+py::class_<math_TrigonometricFunctionRoots> cls_math_TrigonometricFunctionRoots(mod, "math_TrigonometricFunctionRoots", "This class implements the solutions of the equation a*Cos(x)*Cos(x) + 2*b*Cos(x)*Sin(x) + c*Cos(x) + d*Sin(x) + e The degree of this equation can be 4, 3 or 2.");
 
 // Constructors
 cls_math_TrigonometricFunctionRoots.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("A"), py::arg("B"), py::arg("C"), py::arg("D"), py::arg("E"), py::arg("InfBound"), py::arg("SupBound"));

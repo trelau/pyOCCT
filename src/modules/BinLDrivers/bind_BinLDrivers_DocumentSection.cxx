@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinLDrivers_DocumentSection(py::module &mod){
 
-py::class_<BinLDrivers_DocumentSection, std::unique_ptr<BinLDrivers_DocumentSection>> cls_BinLDrivers_DocumentSection(mod, "BinLDrivers_DocumentSection", "More or less independent part of the saved/restored document that is distinct from OCAF data themselves but may be referred by them.");
+py::class_<BinLDrivers_DocumentSection> cls_BinLDrivers_DocumentSection(mod, "BinLDrivers_DocumentSection", "More or less independent part of the saved/restored document that is distinct from OCAF data themselves but may be referred by them.");
 
 // Constructors
 cls_BinLDrivers_DocumentSection.def(py::init<>());

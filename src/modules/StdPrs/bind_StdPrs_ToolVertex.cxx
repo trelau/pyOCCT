@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_ToolVertex(py::module &mod){
 
-py::class_<StdPrs_ToolVertex, std::unique_ptr<StdPrs_ToolVertex>> cls_StdPrs_ToolVertex(mod, "StdPrs_ToolVertex", "None");
+py::class_<StdPrs_ToolVertex> cls_StdPrs_ToolVertex(mod, "StdPrs_ToolVertex", "None");
 
 // Constructors
 

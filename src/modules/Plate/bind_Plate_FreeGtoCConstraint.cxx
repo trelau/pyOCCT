@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Plate_FreeGtoCConstraint(py::module &mod){
 
-py::class_<Plate_FreeGtoCConstraint, std::unique_ptr<Plate_FreeGtoCConstraint>> cls_Plate_FreeGtoCConstraint(mod, "Plate_FreeGtoCConstraint", "define a G1, G2 or G3 constraint on the Plate using weaker constraint than GtoCConstraint");
+py::class_<Plate_FreeGtoCConstraint> cls_Plate_FreeGtoCConstraint(mod, "Plate_FreeGtoCConstraint", "define a G1, G2 or G3 constraint on the Plate using weaker constraint than GtoCConstraint");
 
 // Constructors
 cls_Plate_FreeGtoCConstraint.def(py::init<const gp_XY &, const Plate_D1 &, const Plate_D1 &>(), py::arg("point2d"), py::arg("D1S"), py::arg("D1T"));

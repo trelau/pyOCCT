@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepShape_GeometricSetSelect(py::module &mod){
 
-py::class_<StepShape_GeometricSetSelect, std::unique_ptr<StepShape_GeometricSetSelect>, StepData_SelectType> cls_StepShape_GeometricSetSelect(mod, "StepShape_GeometricSetSelect", "None");
+py::class_<StepShape_GeometricSetSelect, StepData_SelectType> cls_StepShape_GeometricSetSelect(mod, "StepShape_GeometricSetSelect", "None");
 
 // Constructors
 cls_StepShape_GeometricSetSelect.def(py::init<>());

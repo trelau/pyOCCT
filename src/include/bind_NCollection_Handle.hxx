@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T>
 void bind_NCollection_Handle(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_Handle<T>, std::unique_ptr<NCollection_Handle<T>>> cls_NCollection_Handle(mod, name.c_str(), "Purpose: This template class is used to define Handle adaptor for allocated dynamically objects of arbitrary type.", local);
+py::class_<NCollection_Handle<T>> cls_NCollection_Handle(mod, name.c_str(), "Purpose: This template class is used to define Handle adaptor for allocated dynamically objects of arbitrary type.", local);
 
 // Constructors
 cls_NCollection_Handle.def(py::init<>());

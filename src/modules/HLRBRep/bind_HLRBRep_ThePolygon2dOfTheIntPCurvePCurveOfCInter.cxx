@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter(py::module &mod){
 
-py::class_<HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter, std::unique_ptr<HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter>, Intf_Polygon2d> cls_HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter(mod, "HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter", "None");
+py::class_<HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter, Intf_Polygon2d> cls_HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter(mod, "HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter", "None");
 
 // Constructors
 cls_HLRBRep_ThePolygon2dOfTheIntPCurvePCurveOfCInter.def(py::init<const Standard_Address &, const Standard_Integer, const IntRes2d_Domain &, const Standard_Real>(), py::arg("Curve"), py::arg("NbPnt"), py::arg("Domain"), py::arg("Tol"));

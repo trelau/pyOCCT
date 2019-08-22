@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGeom_ToolConicArc(py::module &mod){
 
-py::class_<IGESGeom_ToolConicArc, std::unique_ptr<IGESGeom_ToolConicArc>> cls_IGESGeom_ToolConicArc(mod, "IGESGeom_ToolConicArc", "Tool to work on a ConicArc. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGeom_ToolConicArc> cls_IGESGeom_ToolConicArc(mod, "IGESGeom_ToolConicArc", "Tool to work on a ConicArc. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGeom_ToolConicArc.def(py::init<>());

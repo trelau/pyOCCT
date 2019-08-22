@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gce_MakeCirc2d(py::module &mod){
 
-py::class_<gce_MakeCirc2d, std::unique_ptr<gce_MakeCirc2d>, gce_Root> cls_gce_MakeCirc2d(mod, "gce_MakeCirc2d", "This class implements the following algorithms used to create Circ2d from gp.");
+py::class_<gce_MakeCirc2d, gce_Root> cls_gce_MakeCirc2d(mod, "gce_MakeCirc2d", "This class implements the following algorithms used to create Circ2d from gp.");
 
 // Constructors
 cls_gce_MakeCirc2d.def(py::init<const gp_Ax2d &, const Standard_Real>(), py::arg("XAxis"), py::arg("Radius"));

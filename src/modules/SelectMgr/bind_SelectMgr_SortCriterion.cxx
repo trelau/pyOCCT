@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_SelectMgr_SortCriterion(py::module &mod){
 
-py::class_<SelectMgr_SortCriterion, std::unique_ptr<SelectMgr_SortCriterion>> cls_SelectMgr_SortCriterion(mod, "SelectMgr_SortCriterion", "This class provides data and criterion for sorting candidate entities in the process of interactive selection by mouse click");
+py::class_<SelectMgr_SortCriterion> cls_SelectMgr_SortCriterion(mod, "SelectMgr_SortCriterion", "This class provides data and criterion for sorting candidate entities in the process of interactive selection by mouse click");
 
 // Constructors
 cls_SelectMgr_SortCriterion.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBuilderAPI_Collect(py::module &mod){
 
-py::class_<BRepBuilderAPI_Collect, std::unique_ptr<BRepBuilderAPI_Collect>> cls_BRepBuilderAPI_Collect(mod, "BRepBuilderAPI_Collect", "None");
+py::class_<BRepBuilderAPI_Collect> cls_BRepBuilderAPI_Collect(mod, "BRepBuilderAPI_Collect", "None");
 
 // Constructors
 cls_BRepBuilderAPI_Collect.def(py::init<>());

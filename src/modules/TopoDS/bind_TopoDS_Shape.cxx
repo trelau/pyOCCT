@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDS_Shape(py::module &mod){
 
-py::class_<TopoDS_Shape, std::unique_ptr<TopoDS_Shape>> cls_TopoDS_Shape(mod, "TopoDS_Shape", "Describes a shape which - references an underlying shape with the potential to be given a location and an orientation - has a location for the underlying shape, giving its placement in the local coordinate system - has an orientation for the underlying shape, in terms of its geometry (as opposed to orientation in relation to other shapes). Note: A Shape is empty if it references an underlying shape which has an empty list of shapes.");
+py::class_<TopoDS_Shape> cls_TopoDS_Shape(mod, "TopoDS_Shape", "Describes a shape which - references an underlying shape with the potential to be given a location and an orientation - has a location for the underlying shape, giving its placement in the local coordinate system - has an orientation for the underlying shape, in terms of its geometry (as opposed to orientation in relation to other shapes). Note: A Shape is empty if it references an underlying shape which has an empty list of shapes.");
 
 // Constructors
 cls_TopoDS_Shape.def(py::init<>());

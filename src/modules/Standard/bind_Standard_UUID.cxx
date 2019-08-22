@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Standard_UUID(py::module &mod){
 
-py::class_<_GUID, std::unique_ptr<_GUID>> cls_Standard_UUID(mod, "Standard_UUID", "None");
+py::class_<_GUID> cls_Standard_UUID(mod, "Standard_UUID", "None");
 
 // Constructors
 

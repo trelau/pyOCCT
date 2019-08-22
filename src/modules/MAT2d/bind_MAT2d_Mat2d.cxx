@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MAT2d_Mat2d(py::module &mod){
 
-py::class_<MAT2d_Mat2d, std::unique_ptr<MAT2d_Mat2d>> cls_MAT2d_Mat2d(mod, "MAT2d_Mat2d", "this class contains the generic algoritm of computation of the bisecting locus.");
+py::class_<MAT2d_Mat2d> cls_MAT2d_Mat2d(mod, "MAT2d_Mat2d", "this class contains the generic algoritm of computation of the bisecting locus.");
 
 // Constructors
 cls_MAT2d_Mat2d.def(py::init<>());

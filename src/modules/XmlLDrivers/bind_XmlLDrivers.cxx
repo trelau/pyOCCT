@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlLDrivers(py::module &mod){
 
-py::class_<XmlLDrivers, std::unique_ptr<XmlLDrivers>> cls_XmlLDrivers(mod, "XmlLDrivers", "None");
+py::class_<XmlLDrivers> cls_XmlLDrivers(mod, "XmlLDrivers", "None");
 
 // Constructors
 

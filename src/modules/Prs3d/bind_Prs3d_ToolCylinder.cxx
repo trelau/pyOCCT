@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Prs3d_ToolCylinder(py::module &mod){
 
-py::class_<Prs3d_ToolCylinder, std::unique_ptr<Prs3d_ToolCylinder>, Prs3d_ToolQuadric> cls_Prs3d_ToolCylinder(mod, "Prs3d_ToolCylinder", "Standard presentation algorithm that outputs graphical primitives for cylindrical surface.");
+py::class_<Prs3d_ToolCylinder, Prs3d_ToolQuadric> cls_Prs3d_ToolCylinder(mod, "Prs3d_ToolCylinder", "Standard presentation algorithm that outputs graphical primitives for cylindrical surface.");
 
 // Constructors
 cls_Prs3d_ToolCylinder.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Integer, const Standard_Integer>(), py::arg("theBottomRad"), py::arg("theTopRad"), py::arg("theHeight"), py::arg("theNbSlices"), py::arg("theNbStacks"));

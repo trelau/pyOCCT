@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGraph_ToolHighLight(py::module &mod){
 
-py::class_<IGESGraph_ToolHighLight, std::unique_ptr<IGESGraph_ToolHighLight>> cls_IGESGraph_ToolHighLight(mod, "IGESGraph_ToolHighLight", "Tool to work on a HighLight. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGraph_ToolHighLight> cls_IGESGraph_ToolHighLight(mod, "IGESGraph_ToolHighLight", "Tool to work on a HighLight. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGraph_ToolHighLight.def(py::init<>());

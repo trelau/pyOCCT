@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XSControl(py::module &mod){
 
-py::class_<XSControl, std::unique_ptr<XSControl>> cls_XSControl(mod, "XSControl", "This package provides complements to IFSelect & Co for control of a session");
+py::class_<XSControl> cls_XSControl(mod, "XSControl", "This package provides complements to IFSelect & Co for control of a session");
 
 // Constructors
 

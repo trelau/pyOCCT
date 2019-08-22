@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_LocateExtCC2d(py::module &mod){
 
-py::class_<Extrema_LocateExtCC2d, std::unique_ptr<Extrema_LocateExtCC2d>> cls_Extrema_LocateExtCC2d(mod, "Extrema_LocateExtCC2d", "It calculates the distance between two curves with a close point; these distances can be maximum or minimum.");
+py::class_<Extrema_LocateExtCC2d> cls_Extrema_LocateExtCC2d(mod, "Extrema_LocateExtCC2d", "It calculates the distance between two curves with a close point; these distances can be maximum or minimum.");
 
 // Constructors
 cls_Extrema_LocateExtCC2d.def(py::init<const Adaptor2d_Curve2d &, const Adaptor2d_Curve2d &, const Standard_Real, const Standard_Real>(), py::arg("C1"), py::arg("C2"), py::arg("U0"), py::arg("V0"));

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_IntegerVector(py::module &mod){
 
-py::class_<math_IntegerVector, std::unique_ptr<math_IntegerVector>> cls_math_IntegerVector(mod, "math_IntegerVector", "This class implements the real IntegerVector abstract data type. IntegerVectors can have an arbitrary range which must be define at the declaration and cannot be changed after this declaration. Example:");
+py::class_<math_IntegerVector> cls_math_IntegerVector(mod, "math_IntegerVector", "This class implements the real IntegerVector abstract data type. IntegerVectors can have an arbitrary range which must be define at the declaration and cannot be changed after this declaration. Example:");
 
 // Constructors
 cls_math_IntegerVector.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theFirst"), py::arg("theLast"));

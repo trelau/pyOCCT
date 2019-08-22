@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocOpe_Pipe(py::module &mod){
 
-py::class_<LocOpe_Pipe, std::unique_ptr<LocOpe_Pipe>> cls_LocOpe_Pipe(mod, "LocOpe_Pipe", "Defines a pipe (near from Pipe from BRepFill), with modifications provided for the Pipe feature.");
+py::class_<LocOpe_Pipe> cls_LocOpe_Pipe(mod, "LocOpe_Pipe", "Defines a pipe (near from Pipe from BRepFill), with modifications provided for the Pipe feature.");
 
 // Constructors
 cls_LocOpe_Pipe.def(py::init<const TopoDS_Wire &, const TopoDS_Shape &>(), py::arg("Spine"), py::arg("Profile"));

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_ComputeCLine(py::module &mod){
 
-py::class_<BRepFill_ComputeCLine, std::unique_ptr<BRepFill_ComputeCLine>> cls_BRepFill_ComputeCLine(mod, "BRepFill_ComputeCLine", "None");
+py::class_<BRepFill_ComputeCLine> cls_BRepFill_ComputeCLine(mod, "BRepFill_ComputeCLine", "None");
 
 // Constructors
 cls_BRepFill_ComputeCLine.def(py::init<const BRepFill_MultiLine &>(), py::arg("Line"));

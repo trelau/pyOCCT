@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_LightSourceState(py::module &mod){
 
-py::class_<OpenGl_LightSourceState, std::unique_ptr<OpenGl_LightSourceState>, OpenGl_StateInterface> cls_OpenGl_LightSourceState(mod, "OpenGl_LightSourceState", "Defines state of OCCT light sources.");
+py::class_<OpenGl_LightSourceState, OpenGl_StateInterface> cls_OpenGl_LightSourceState(mod, "OpenGl_LightSourceState", "Defines state of OCCT light sources.");
 
 // Constructors
 cls_OpenGl_LightSourceState.def(py::init<>());

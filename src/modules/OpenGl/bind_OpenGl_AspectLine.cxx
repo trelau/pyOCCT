@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_AspectLine(py::module &mod){
 
-py::class_<OpenGl_AspectLine, std::unique_ptr<OpenGl_AspectLine>, OpenGl_Element> cls_OpenGl_AspectLine(mod, "OpenGl_AspectLine", "The element holding Graphic3d_AspectLine3d.");
+py::class_<OpenGl_AspectLine, OpenGl_Element> cls_OpenGl_AspectLine(mod, "OpenGl_AspectLine", "The element holding Graphic3d_AspectLine3d.");
 
 // Constructors
 cls_OpenGl_AspectLine.def(py::init<>());

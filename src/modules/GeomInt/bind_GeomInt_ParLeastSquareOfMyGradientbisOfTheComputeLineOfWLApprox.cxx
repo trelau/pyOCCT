@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox(py::module &mod){
 
-py::class_<GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox, std::unique_ptr<GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox>> cls_GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox(mod, "GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox", "None");
+py::class_<GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox> cls_GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox(mod, "GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox", "None");
 
 // Constructors
 cls_GeomInt_ParLeastSquareOfMyGradientbisOfTheComputeLineOfWLApprox.def(py::init<const GeomInt_TheMultiLineOfWLApprox &, const Standard_Integer, const Standard_Integer, const AppParCurves_Constraint, const AppParCurves_Constraint, const math_Vector &, const Standard_Integer>(), py::arg("SSP"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("FirstCons"), py::arg("LastCons"), py::arg("Parameters"), py::arg("NbPol"));

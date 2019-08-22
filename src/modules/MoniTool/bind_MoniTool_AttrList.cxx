@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MoniTool_AttrList(py::module &mod){
 
-py::class_<MoniTool_AttrList, std::unique_ptr<MoniTool_AttrList>> cls_MoniTool_AttrList(mod, "MoniTool_AttrList", "a AttrList allows to record a list of attributes as Transients which can be edited, changed ... Each one is identified by a name");
+py::class_<MoniTool_AttrList> cls_MoniTool_AttrList(mod, "MoniTool_AttrList", "a AttrList allows to record a list of attributes as Transients which can be edited, changed ... Each one is identified by a name");
 
 // Constructors
 cls_MoniTool_AttrList.def(py::init<>());

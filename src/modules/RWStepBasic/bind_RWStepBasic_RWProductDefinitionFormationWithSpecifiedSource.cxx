@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWProductDefinitionFormationWithSpecifiedSource(py::module &mod){
 
-py::class_<RWStepBasic_RWProductDefinitionFormationWithSpecifiedSource, std::unique_ptr<RWStepBasic_RWProductDefinitionFormationWithSpecifiedSource>> cls_RWStepBasic_RWProductDefinitionFormationWithSpecifiedSource(mod, "RWStepBasic_RWProductDefinitionFormationWithSpecifiedSource", "Read & Write Module for ProductDefinitionFormationWithSpecifiedSource");
+py::class_<RWStepBasic_RWProductDefinitionFormationWithSpecifiedSource> cls_RWStepBasic_RWProductDefinitionFormationWithSpecifiedSource(mod, "RWStepBasic_RWProductDefinitionFormationWithSpecifiedSource", "Read & Write Module for ProductDefinitionFormationWithSpecifiedSource");
 
 // Constructors
 cls_RWStepBasic_RWProductDefinitionFormationWithSpecifiedSource.def(py::init<>());

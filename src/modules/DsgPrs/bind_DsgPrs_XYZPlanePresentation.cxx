@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_XYZPlanePresentation(py::module &mod){
 
-py::class_<DsgPrs_XYZPlanePresentation, std::unique_ptr<DsgPrs_XYZPlanePresentation>> cls_DsgPrs_XYZPlanePresentation(mod, "DsgPrs_XYZPlanePresentation", "A framework for displaying the planes of an XYZ trihedron.");
+py::class_<DsgPrs_XYZPlanePresentation> cls_DsgPrs_XYZPlanePresentation(mod, "DsgPrs_XYZPlanePresentation", "A framework for displaying the planes of an XYZ trihedron.");
 
 // Constructors
 

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPolyh_CoupleMapHasher(py::module &mod){
 
-py::class_<IntPolyh_CoupleMapHasher, std::unique_ptr<IntPolyh_CoupleMapHasher>> cls_IntPolyh_CoupleMapHasher(mod, "IntPolyh_CoupleMapHasher", "None");
+py::class_<IntPolyh_CoupleMapHasher> cls_IntPolyh_CoupleMapHasher(mod, "IntPolyh_CoupleMapHasher", "None");
 
 // Constructors
 

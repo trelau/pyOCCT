@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolPlaneSurface(py::module &mod){
 
-py::class_<IGESSolid_ToolPlaneSurface, std::unique_ptr<IGESSolid_ToolPlaneSurface>> cls_IGESSolid_ToolPlaneSurface(mod, "IGESSolid_ToolPlaneSurface", "Tool to work on a PlaneSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolPlaneSurface> cls_IGESSolid_ToolPlaneSurface(mod, "IGESSolid_ToolPlaneSurface", "Tool to work on a PlaneSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolPlaneSurface.def(py::init<>());

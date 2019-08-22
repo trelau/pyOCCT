@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFSelect_ContextWrite(py::module &mod){
 
-py::class_<IFSelect_ContextWrite, std::unique_ptr<IFSelect_ContextWrite>> cls_IFSelect_ContextWrite(mod, "IFSelect_ContextWrite", "This class gathers various informations used by File Modifiers apart from the writer object, which is specific of the norm and of the physical format");
+py::class_<IFSelect_ContextWrite> cls_IFSelect_ContextWrite(mod, "IFSelect_ContextWrite", "This class gathers various informations used by File Modifiers apart from the writer object, which is specific of the norm and of the physical format");
 
 // Constructors
 cls_IFSelect_ContextWrite.def(py::init<const opencascade::handle<Interface_InterfaceModel> &, const opencascade::handle<Interface_Protocol> &, const opencascade::handle<IFSelect_AppliedModifiers> &, const Standard_CString>(), py::arg("model"), py::arg("proto"), py::arg("applieds"), py::arg("filename"));

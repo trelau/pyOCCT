@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP203_PersonOrganizationItem(py::module &mod){
 
-py::class_<StepAP203_PersonOrganizationItem, std::unique_ptr<StepAP203_PersonOrganizationItem>, StepData_SelectType> cls_StepAP203_PersonOrganizationItem(mod, "StepAP203_PersonOrganizationItem", "Representation of STEP SELECT type PersonOrganizationItem");
+py::class_<StepAP203_PersonOrganizationItem, StepData_SelectType> cls_StepAP203_PersonOrganizationItem(mod, "StepAP203_PersonOrganizationItem", "Representation of STEP SELECT type PersonOrganizationItem");
 
 // Constructors
 cls_StepAP203_PersonOrganizationItem.def(py::init<>());

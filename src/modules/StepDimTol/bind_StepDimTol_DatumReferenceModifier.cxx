@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepDimTol_DatumReferenceModifier(py::module &mod){
 
-py::class_<StepDimTol_DatumReferenceModifier, std::unique_ptr<StepDimTol_DatumReferenceModifier>, StepData_SelectType> cls_StepDimTol_DatumReferenceModifier(mod, "StepDimTol_DatumReferenceModifier", "None");
+py::class_<StepDimTol_DatumReferenceModifier, StepData_SelectType> cls_StepDimTol_DatumReferenceModifier(mod, "StepDimTol_DatumReferenceModifier", "None");
 
 // Constructors
 cls_StepDimTol_DatumReferenceModifier.def(py::init<>());

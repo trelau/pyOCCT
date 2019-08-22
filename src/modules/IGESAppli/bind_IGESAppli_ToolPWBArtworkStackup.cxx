@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli_ToolPWBArtworkStackup(py::module &mod){
 
-py::class_<IGESAppli_ToolPWBArtworkStackup, std::unique_ptr<IGESAppli_ToolPWBArtworkStackup>> cls_IGESAppli_ToolPWBArtworkStackup(mod, "IGESAppli_ToolPWBArtworkStackup", "Tool to work on a PWBArtworkStackup. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESAppli_ToolPWBArtworkStackup> cls_IGESAppli_ToolPWBArtworkStackup(mod, "IGESAppli_ToolPWBArtworkStackup", "Tool to work on a PWBArtworkStackup. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESAppli_ToolPWBArtworkStackup.def(py::init<>());

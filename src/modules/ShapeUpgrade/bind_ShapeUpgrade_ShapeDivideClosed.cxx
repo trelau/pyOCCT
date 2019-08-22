@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeUpgrade_ShapeDivideClosed(py::module &mod){
 
-py::class_<ShapeUpgrade_ShapeDivideClosed, std::unique_ptr<ShapeUpgrade_ShapeDivideClosed>, ShapeUpgrade_ShapeDivide> cls_ShapeUpgrade_ShapeDivideClosed(mod, "ShapeUpgrade_ShapeDivideClosed", "Divides all closed faces in the shape. Class ShapeUpgrade_ClosedFaceDivide is used as divide tool.");
+py::class_<ShapeUpgrade_ShapeDivideClosed, ShapeUpgrade_ShapeDivide> cls_ShapeUpgrade_ShapeDivideClosed(mod, "ShapeUpgrade_ShapeDivideClosed", "Divides all closed faces in the shape. Class ShapeUpgrade_ClosedFaceDivide is used as divide tool.");
 
 // Constructors
 cls_ShapeUpgrade_ShapeDivideClosed.def(py::init<const TopoDS_Shape &>(), py::arg("S"));

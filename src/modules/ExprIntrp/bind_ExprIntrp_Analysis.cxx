@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ExprIntrp_Analysis(py::module &mod){
 
-py::class_<ExprIntrp_Analysis, std::unique_ptr<ExprIntrp_Analysis>> cls_ExprIntrp_Analysis(mod, "ExprIntrp_Analysis", "None");
+py::class_<ExprIntrp_Analysis> cls_ExprIntrp_Analysis(mod, "ExprIntrp_Analysis", "None");
 
 // Constructors
 cls_ExprIntrp_Analysis.def(py::init<>());

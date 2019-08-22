@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeAnalysis_Curve(py::module &mod){
 
-py::class_<ShapeAnalysis_Curve, std::unique_ptr<ShapeAnalysis_Curve>> cls_ShapeAnalysis_Curve(mod, "ShapeAnalysis_Curve", "Analyzing tool for 2d or 3d curve. Computes parameters of projected point onto a curve.");
+py::class_<ShapeAnalysis_Curve> cls_ShapeAnalysis_Curve(mod, "ShapeAnalysis_Curve", "Analyzing tool for 2d or 3d curve. Computes parameters of projected point onto a curve.");
 
 // Constructors
 

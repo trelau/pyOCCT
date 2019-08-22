@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeEllipse(py::module &mod){
 
-py::class_<GeomToStep_MakeEllipse, std::unique_ptr<GeomToStep_MakeEllipse>, GeomToStep_Root> cls_GeomToStep_MakeEllipse(mod, "GeomToStep_MakeEllipse", "This class implements the mapping between classes Ellipse from Geom, and Circ from gp, and the class Ellipse from StepGeom which describes a Ellipse from Prostep.");
+py::class_<GeomToStep_MakeEllipse, GeomToStep_Root> cls_GeomToStep_MakeEllipse(mod, "GeomToStep_MakeEllipse", "This class implements the mapping between classes Ellipse from Geom, and Circ from gp, and the class Ellipse from StepGeom which describes a Ellipse from Prostep.");
 
 // Constructors
 cls_GeomToStep_MakeEllipse.def(py::init<const gp_Elips &>(), py::arg("C"));

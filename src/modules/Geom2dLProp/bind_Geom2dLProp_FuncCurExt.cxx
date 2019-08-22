@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dLProp_FuncCurExt(py::module &mod){
 
-py::class_<Geom2dLProp_FuncCurExt, std::unique_ptr<Geom2dLProp_FuncCurExt>, math_FunctionWithDerivative> cls_Geom2dLProp_FuncCurExt(mod, "Geom2dLProp_FuncCurExt", "Function used to find the extremas of curvature in 2d.");
+py::class_<Geom2dLProp_FuncCurExt, math_FunctionWithDerivative> cls_Geom2dLProp_FuncCurExt(mod, "Geom2dLProp_FuncCurExt", "Function used to find the extremas of curvature in 2d.");
 
 // Constructors
 cls_Geom2dLProp_FuncCurExt.def(py::init<const opencascade::handle<Geom2d_Curve> &, const Standard_Real>(), py::arg("C"), py::arg("Tol"));

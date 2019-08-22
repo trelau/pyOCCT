@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeProcessAPI_ApplySequence(py::module &mod){
 
-py::class_<ShapeProcessAPI_ApplySequence, std::unique_ptr<ShapeProcessAPI_ApplySequence>> cls_ShapeProcessAPI_ApplySequence(mod, "ShapeProcessAPI_ApplySequence", "Applies one of the sequence read from resource file.");
+py::class_<ShapeProcessAPI_ApplySequence> cls_ShapeProcessAPI_ApplySequence(mod, "ShapeProcessAPI_ApplySequence", "Applies one of the sequence read from resource file.");
 
 // Constructors
 cls_ShapeProcessAPI_ApplySequence.def(py::init<const Standard_CString>(), py::arg("rscName"));

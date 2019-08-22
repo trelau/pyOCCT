@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESBasic_ToolExternalRefFile(py::module &mod){
 
-py::class_<IGESBasic_ToolExternalRefFile, std::unique_ptr<IGESBasic_ToolExternalRefFile>> cls_IGESBasic_ToolExternalRefFile(mod, "IGESBasic_ToolExternalRefFile", "Tool to work on a ExternalRefFile. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESBasic_ToolExternalRefFile> cls_IGESBasic_ToolExternalRefFile(mod, "IGESBasic_ToolExternalRefFile", "Tool to work on a ExternalRefFile. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESBasic_ToolExternalRefFile.def(py::init<>());

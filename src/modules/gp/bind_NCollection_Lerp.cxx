@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_NCollection_Lerp(py::module &mod){
 
-py::class_<NCollection_Lerp<gp_Trsf>, std::unique_ptr<NCollection_Lerp<gp_Trsf>>> cls_NCollection_Lerp(mod, "gp_TrsfNLerp", "Linear interpolation tool for transformation defined by gp_Trsf.");
+py::class_<NCollection_Lerp<gp_Trsf>> cls_NCollection_Lerp(mod, "gp_TrsfNLerp", "Linear interpolation tool for transformation defined by gp_Trsf.");
 
 // Constructors
 cls_NCollection_Lerp.def(py::init<>());

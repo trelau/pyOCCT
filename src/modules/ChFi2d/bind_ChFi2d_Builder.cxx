@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFi2d_Builder(py::module &mod){
 
-py::class_<ChFi2d_Builder, std::unique_ptr<ChFi2d_Builder>> cls_ChFi2d_Builder(mod, "ChFi2d_Builder", "This class contains the algorithm used to build fillet on planar wire.");
+py::class_<ChFi2d_Builder> cls_ChFi2d_Builder(mod, "ChFi2d_Builder", "This class contains the algorithm used to build fillet on planar wire.");
 
 // Constructors
 cls_ChFi2d_Builder.def(py::init<>());

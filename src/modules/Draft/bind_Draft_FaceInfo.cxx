@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Draft_FaceInfo(py::module &mod){
 
-py::class_<Draft_FaceInfo, std::unique_ptr<Draft_FaceInfo>> cls_Draft_FaceInfo(mod, "Draft_FaceInfo", "None");
+py::class_<Draft_FaceInfo> cls_Draft_FaceInfo(mod, "Draft_FaceInfo", "None");
 
 // Constructors
 cls_Draft_FaceInfo.def(py::init<>());

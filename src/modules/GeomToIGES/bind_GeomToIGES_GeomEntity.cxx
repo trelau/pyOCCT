@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToIGES_GeomEntity(py::module &mod){
 
-py::class_<GeomToIGES_GeomEntity, std::unique_ptr<GeomToIGES_GeomEntity>> cls_GeomToIGES_GeomEntity(mod, "GeomToIGES_GeomEntity", "provides methods to transfer Geom entity from CASCADE to IGES.");
+py::class_<GeomToIGES_GeomEntity> cls_GeomToIGES_GeomEntity(mod, "GeomToIGES_GeomEntity", "provides methods to transfer Geom entity from CASCADE to IGES.");
 
 // Constructors
 cls_GeomToIGES_GeomEntity.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeProcess(py::module &mod){
 
-py::class_<ShapeProcess, std::unique_ptr<ShapeProcess>> cls_ShapeProcess(mod, "ShapeProcess", "Shape Processing module allows to define and apply general Shape Processing as a customizable sequence of Shape Healing operators. The customization is implemented via user-editable resource file which defines sequence of operators to be executed and their parameters.");
+py::class_<ShapeProcess> cls_ShapeProcess(mod, "ShapeProcess", "Shape Processing module allows to define and apply general Shape Processing as a customizable sequence of Shape Healing operators. The customization is implemented via user-editable resource file which defines sequence of operators to be executed and their parameters.");
 
 // Constructors
 

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_TheSOnBounds(py::module &mod){
 
-py::class_<IntPatch_TheSOnBounds, std::unique_ptr<IntPatch_TheSOnBounds>> cls_IntPatch_TheSOnBounds(mod, "IntPatch_TheSOnBounds", "None");
+py::class_<IntPatch_TheSOnBounds> cls_IntPatch_TheSOnBounds(mod, "IntPatch_TheSOnBounds", "None");
 
 // Constructors
 cls_IntPatch_TheSOnBounds.def(py::init<>());

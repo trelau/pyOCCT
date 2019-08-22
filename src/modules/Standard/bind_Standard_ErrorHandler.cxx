@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Standard_ErrorHandler(py::module &mod){
 
-py::class_<Standard_ErrorHandler, std::unique_ptr<Standard_ErrorHandler>> cls_Standard_ErrorHandler(mod, "Standard_ErrorHandler", "Class implementing mechanics of conversion of signals to exceptions.");
+py::class_<Standard_ErrorHandler> cls_Standard_ErrorHandler(mod, "Standard_ErrorHandler", "Class implementing mechanics of conversion of signals to exceptions.");
 
 // Constructors
 cls_Standard_ErrorHandler.def(py::init<>());

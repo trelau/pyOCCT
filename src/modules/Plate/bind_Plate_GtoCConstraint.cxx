@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Plate_GtoCConstraint(py::module &mod){
 
-py::class_<Plate_GtoCConstraint, std::unique_ptr<Plate_GtoCConstraint>> cls_Plate_GtoCConstraint(mod, "Plate_GtoCConstraint", "define a G1, G2 or G3 constraint on the Plate");
+py::class_<Plate_GtoCConstraint> cls_Plate_GtoCConstraint(mod, "Plate_GtoCConstraint", "define a G1, G2 or G3 constraint on the Plate");
 
 // Constructors
 cls_Plate_GtoCConstraint.def(py::init<const Plate_GtoCConstraint &>(), py::arg("ref"));

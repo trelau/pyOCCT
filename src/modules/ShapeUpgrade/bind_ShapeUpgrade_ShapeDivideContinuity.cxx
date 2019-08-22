@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeUpgrade_ShapeDivideContinuity(py::module &mod){
 
-py::class_<ShapeUpgrade_ShapeDivideContinuity, std::unique_ptr<ShapeUpgrade_ShapeDivideContinuity>, ShapeUpgrade_ShapeDivide> cls_ShapeUpgrade_ShapeDivideContinuity(mod, "ShapeUpgrade_ShapeDivideContinuity", "API Tool for converting shapes with C0 geometry into C1 ones");
+py::class_<ShapeUpgrade_ShapeDivideContinuity, ShapeUpgrade_ShapeDivide> cls_ShapeUpgrade_ShapeDivideContinuity(mod, "ShapeUpgrade_ShapeDivideContinuity", "API Tool for converting shapes with C0 geometry into C1 ones");
 
 // Constructors
 cls_ShapeUpgrade_ShapeDivideContinuity.def(py::init<>());

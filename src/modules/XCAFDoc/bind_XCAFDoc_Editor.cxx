@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XCAFDoc_Editor(py::module &mod){
 
-py::class_<XCAFDoc_Editor, std::unique_ptr<XCAFDoc_Editor>> cls_XCAFDoc_Editor(mod, "XCAFDoc_Editor", "Tool for edit structure of document.");
+py::class_<XCAFDoc_Editor> cls_XCAFDoc_Editor(mod, "XCAFDoc_Editor", "Tool for edit structure of document.");
 
 // Constructors
 

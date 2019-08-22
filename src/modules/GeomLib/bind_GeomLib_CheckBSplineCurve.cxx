@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomLib_CheckBSplineCurve(py::module &mod){
 
-py::class_<GeomLib_CheckBSplineCurve, std::unique_ptr<GeomLib_CheckBSplineCurve>> cls_GeomLib_CheckBSplineCurve(mod, "GeomLib_CheckBSplineCurve", "Checks for the end tangents : wether or not those are reversed regarding the third or n-3rd control");
+py::class_<GeomLib_CheckBSplineCurve> cls_GeomLib_CheckBSplineCurve(mod, "GeomLib_CheckBSplineCurve", "Checks for the end tangents : wether or not those are reversed regarding the third or n-3rd control");
 
 // Constructors
 cls_GeomLib_CheckBSplineCurve.def(py::init<const opencascade::handle<Geom_BSplineCurve> &, const Standard_Real, const Standard_Real>(), py::arg("Curve"), py::arg("Tolerance"), py::arg("AngularTolerance"));

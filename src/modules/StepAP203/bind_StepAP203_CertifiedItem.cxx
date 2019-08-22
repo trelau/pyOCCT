@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP203_CertifiedItem(py::module &mod){
 
-py::class_<StepAP203_CertifiedItem, std::unique_ptr<StepAP203_CertifiedItem>, StepData_SelectType> cls_StepAP203_CertifiedItem(mod, "StepAP203_CertifiedItem", "Representation of STEP SELECT type CertifiedItem");
+py::class_<StepAP203_CertifiedItem, StepData_SelectType> cls_StepAP203_CertifiedItem(mod, "StepAP203_CertifiedItem", "Representation of STEP SELECT type CertifiedItem");
 
 // Constructors
 cls_StepAP203_CertifiedItem.def(py::init<>());

@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepRepr_CharacterizedDefinition(py::module &mod){
 
-py::class_<StepRepr_CharacterizedDefinition, std::unique_ptr<StepRepr_CharacterizedDefinition>, StepData_SelectType> cls_StepRepr_CharacterizedDefinition(mod, "StepRepr_CharacterizedDefinition", "Representation of STEP SELECT type CharacterizedDefinition");
+py::class_<StepRepr_CharacterizedDefinition, StepData_SelectType> cls_StepRepr_CharacterizedDefinition(mod, "StepRepr_CharacterizedDefinition", "Representation of STEP SELECT type CharacterizedDefinition");
 
 // Constructors
 cls_StepRepr_CharacterizedDefinition.def(py::init<>());

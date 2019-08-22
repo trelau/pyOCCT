@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntSurf_Couple(py::module &mod){
 
-py::class_<IntSurf_Couple, std::unique_ptr<IntSurf_Couple>> cls_IntSurf_Couple(mod, "IntSurf_Couple", "creation d 'un couple de 2 entiers");
+py::class_<IntSurf_Couple> cls_IntSurf_Couple(mod, "IntSurf_Couple", "creation d 'un couple de 2 entiers");
 
 // Constructors
 cls_IntSurf_Couple.def(py::init<>());

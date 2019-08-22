@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Standard_GUID(py::module &mod){
 
-py::class_<Standard_GUID, std::unique_ptr<Standard_GUID>> cls_Standard_GUID(mod, "Standard_GUID", "None");
+py::class_<Standard_GUID> cls_Standard_GUID(mod, "Standard_GUID", "None");
 
 // Constructors
 cls_Standard_GUID.def(py::init<>());

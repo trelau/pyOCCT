@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurveSurface_IntersectionPoint(py::module &mod){
 
-py::class_<IntCurveSurface_IntersectionPoint, std::unique_ptr<IntCurveSurface_IntersectionPoint>> cls_IntCurveSurface_IntersectionPoint(mod, "IntCurveSurface_IntersectionPoint", "Definition of an interserction point between a curve and a surface.");
+py::class_<IntCurveSurface_IntersectionPoint> cls_IntCurveSurface_IntersectionPoint(mod, "IntCurveSurface_IntersectionPoint", "Definition of an interserction point between a curve and a surface.");
 
 // Constructors
 cls_IntCurveSurface_IntersectionPoint.def(py::init<>());

@@ -67,7 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDataStd(py::module &mod){
 
-py::class_<TDataStd, std::unique_ptr<TDataStd>> cls_TDataStd(mod, "TDataStd", "This package defines standard attributes for modelling. These allow you to create and modify labels and attributes for many basic data types. Standard topological and visualization attributes have also been created. To find an attribute attached to a specific label, you use the GUID of the type of attribute you are looking for. To do this, first find this information using the method GetID as follows: Standard_GUID anID = MyAttributeClass::GetID(); Then, use the method Find for the label as follows: Standard_Boolean HasAttribute = aLabel.Find(anID,anAttribute); Note For information on the relations between this component of OCAF and the others, refer to the OCAF User's Guide.");
+py::class_<TDataStd> cls_TDataStd(mod, "TDataStd", "This package defines standard attributes for modelling. These allow you to create and modify labels and attributes for many basic data types. Standard topological and visualization attributes have also been created. To find an attribute attached to a specific label, you use the GUID of the type of attribute you are looking for. To do this, first find this information using the method GetID as follows: Standard_GUID anID = MyAttributeClass::GetID(); Then, use the method Find for the label as follows: Standard_Boolean HasAttribute = aLabel.Find(anID,anAttribute); Note For information on the relations between this component of OCAF and the others, refer to the OCAF User's Guide.");
 
 // Constructors
 

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWMechanicalDesignGeometricPresentationRepresentation(py::module &mod){
 
-py::class_<RWStepVisual_RWMechanicalDesignGeometricPresentationRepresentation, std::unique_ptr<RWStepVisual_RWMechanicalDesignGeometricPresentationRepresentation>> cls_RWStepVisual_RWMechanicalDesignGeometricPresentationRepresentation(mod, "RWStepVisual_RWMechanicalDesignGeometricPresentationRepresentation", "Read & Write Module for MechanicalDesignGeometricPresentationRepresentation");
+py::class_<RWStepVisual_RWMechanicalDesignGeometricPresentationRepresentation> cls_RWStepVisual_RWMechanicalDesignGeometricPresentationRepresentation(mod, "RWStepVisual_RWMechanicalDesignGeometricPresentationRepresentation", "Read & Write Module for MechanicalDesignGeometricPresentationRepresentation");
 
 // Constructors
 cls_RWStepVisual_RWMechanicalDesignGeometricPresentationRepresentation.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS_TranslateVertexLoop(py::module &mod){
 
-py::class_<StepToTopoDS_TranslateVertexLoop, std::unique_ptr<StepToTopoDS_TranslateVertexLoop>, StepToTopoDS_Root> cls_StepToTopoDS_TranslateVertexLoop(mod, "StepToTopoDS_TranslateVertexLoop", "None");
+py::class_<StepToTopoDS_TranslateVertexLoop, StepToTopoDS_Root> cls_StepToTopoDS_TranslateVertexLoop(mod, "StepToTopoDS_TranslateVertexLoop", "None");
 
 // Constructors
 cls_StepToTopoDS_TranslateVertexLoop.def(py::init<>());

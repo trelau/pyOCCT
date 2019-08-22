@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepApprox_TheComputeLineBezierOfApprox(py::module &mod){
 
-py::class_<BRepApprox_TheComputeLineBezierOfApprox, std::unique_ptr<BRepApprox_TheComputeLineBezierOfApprox>> cls_BRepApprox_TheComputeLineBezierOfApprox(mod, "BRepApprox_TheComputeLineBezierOfApprox", "None");
+py::class_<BRepApprox_TheComputeLineBezierOfApprox> cls_BRepApprox_TheComputeLineBezierOfApprox(mod, "BRepApprox_TheComputeLineBezierOfApprox", "None");
 
 // Constructors
 cls_BRepApprox_TheComputeLineBezierOfApprox.def(py::init<const BRepApprox_TheMultiLineOfApprox &>(), py::arg("Line"));

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_Cylinder(py::module &mod){
 
-py::class_<Vrml_Cylinder, std::unique_ptr<Vrml_Cylinder>> cls_Vrml_Cylinder(mod, "Vrml_Cylinder", "defines a Cylinder node of VRML specifying geometry shapes. This node represents a simple capped cylinder centred around the y-axis. By default , the cylinder is centred at (0,0,0) and has size of -1 to +1 in the all three dimensions. The cylinder has three parts: the sides, the top (y=+1) and the bottom (y=-1)");
+py::class_<Vrml_Cylinder> cls_Vrml_Cylinder(mod, "Vrml_Cylinder", "defines a Cylinder node of VRML specifying geometry shapes. This node represents a simple capped cylinder centred around the y-axis. By default , the cylinder is centred at (0,0,0) and has size of -1 to +1 in the all three dimensions. The cylinder has three parts: the sides, the top (y=+1) and the bottom (y=-1)");
 
 // Constructors
 cls_Vrml_Cylinder.def(py::init<>());

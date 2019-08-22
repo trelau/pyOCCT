@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StlAPI(py::module &mod){
 
-py::class_<StlAPI, std::unique_ptr<StlAPI>> cls_StlAPI(mod, "StlAPI", "Offers the API for STL data manipulation.");
+py::class_<StlAPI> cls_StlAPI(mod, "StlAPI", "Offers the API for STL data manipulation.");
 
 // Constructors
 

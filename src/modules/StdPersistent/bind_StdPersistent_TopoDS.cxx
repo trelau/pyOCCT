@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPersistent_TopoDS(py::module &mod){
 
-py::class_<StdPersistent_TopoDS, std::unique_ptr<StdPersistent_TopoDS>> cls_StdPersistent_TopoDS(mod, "StdPersistent_TopoDS", "None");
+py::class_<StdPersistent_TopoDS> cls_StdPersistent_TopoDS(mod, "StdPersistent_TopoDS", "None");
 
 // Constructors
 

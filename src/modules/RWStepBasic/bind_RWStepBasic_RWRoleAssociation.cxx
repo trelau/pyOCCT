@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWRoleAssociation(py::module &mod){
 
-py::class_<RWStepBasic_RWRoleAssociation, std::unique_ptr<RWStepBasic_RWRoleAssociation>> cls_RWStepBasic_RWRoleAssociation(mod, "RWStepBasic_RWRoleAssociation", "Read & Write tool for RoleAssociation");
+py::class_<RWStepBasic_RWRoleAssociation> cls_RWStepBasic_RWRoleAssociation(mod, "RWStepBasic_RWRoleAssociation", "Read & Write tool for RoleAssociation");
 
 // Constructors
 cls_RWStepBasic_RWRoleAssociation.def(py::init<>());

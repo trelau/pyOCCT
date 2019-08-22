@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Poly_CoherentLink(py::module &mod){
 
-py::class_<Poly_CoherentLink, std::unique_ptr<Poly_CoherentLink>> cls_Poly_CoherentLink(mod, "Poly_CoherentLink", "Link between two mesh nodes that is created by existing triangle(s). Keeps reference to the opposite node of each incident triangle. The referred node with index '0' is always on the left side of the link, the one with the index '1' is always on the right side. It is possible to find both incident triangles using the method Poly_CoherentTriangulation::FindTriangle(). Any Link can store an arbitrary pointer that is called Attribute.");
+py::class_<Poly_CoherentLink> cls_Poly_CoherentLink(mod, "Poly_CoherentLink", "Link between two mesh nodes that is created by existing triangle(s). Keeps reference to the opposite node of each incident triangle. The referred node with index '0' is always on the left side of the link, the one with the index '1' is always on the right side. It is possible to find both incident triangles using the method Poly_CoherentTriangulation::FindTriangle(). Any Link can store an arbitrary pointer that is called Attribute.");
 
 // Constructors
 cls_Poly_CoherentLink.def(py::init<>());

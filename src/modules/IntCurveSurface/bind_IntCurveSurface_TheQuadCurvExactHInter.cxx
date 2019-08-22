@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurveSurface_TheQuadCurvExactHInter(py::module &mod){
 
-py::class_<IntCurveSurface_TheQuadCurvExactHInter, std::unique_ptr<IntCurveSurface_TheQuadCurvExactHInter>> cls_IntCurveSurface_TheQuadCurvExactHInter(mod, "IntCurveSurface_TheQuadCurvExactHInter", "None");
+py::class_<IntCurveSurface_TheQuadCurvExactHInter> cls_IntCurveSurface_TheQuadCurvExactHInter(mod, "IntCurveSurface_TheQuadCurvExactHInter", "None");
 
 // Constructors
 cls_IntCurveSurface_TheQuadCurvExactHInter.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S"), py::arg("C"));

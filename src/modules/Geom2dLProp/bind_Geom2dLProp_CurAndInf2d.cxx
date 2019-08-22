@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dLProp_CurAndInf2d(py::module &mod){
 
-py::class_<Geom2dLProp_CurAndInf2d, std::unique_ptr<Geom2dLProp_CurAndInf2d>, LProp_CurAndInf> cls_Geom2dLProp_CurAndInf2d(mod, "Geom2dLProp_CurAndInf2d", "An algorithm for computing local properties of a curve. These properties include: - the maximum and minimum curvatures - the inflection points. A CurAndInf2d object provides the framework for: - defining the curve to be analyzed - implementing the computation algorithms - consulting the results.");
+py::class_<Geom2dLProp_CurAndInf2d, LProp_CurAndInf> cls_Geom2dLProp_CurAndInf2d(mod, "Geom2dLProp_CurAndInf2d", "An algorithm for computing local properties of a curve. These properties include: - the maximum and minimum curvatures - the inflection points. A CurAndInf2d object provides the framework for: - defining the curve to be analyzed - implementing the computation algorithms - consulting the results.");
 
 // Constructors
 cls_Geom2dLProp_CurAndInf2d.def(py::init<>());

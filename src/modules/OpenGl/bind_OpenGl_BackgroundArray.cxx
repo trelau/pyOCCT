@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_BackgroundArray(py::module &mod){
 
-py::class_<OpenGl_BackgroundArray, std::unique_ptr<OpenGl_BackgroundArray>, OpenGl_PrimitiveArray> cls_OpenGl_BackgroundArray(mod, "OpenGl_BackgroundArray", "Tool class for generating reusable data for gradient or texture background rendering.");
+py::class_<OpenGl_BackgroundArray, OpenGl_PrimitiveArray> cls_OpenGl_BackgroundArray(mod, "OpenGl_BackgroundArray", "Tool class for generating reusable data for gradient or texture background rendering.");
 
 // Constructors
 cls_OpenGl_BackgroundArray.def(py::init<const Graphic3d_TypeOfBackground>(), py::arg("theType"));

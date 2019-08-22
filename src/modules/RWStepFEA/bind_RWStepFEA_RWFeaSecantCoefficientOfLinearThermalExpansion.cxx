@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWFeaSecantCoefficientOfLinearThermalExpansion(py::module &mod){
 
-py::class_<RWStepFEA_RWFeaSecantCoefficientOfLinearThermalExpansion, std::unique_ptr<RWStepFEA_RWFeaSecantCoefficientOfLinearThermalExpansion>> cls_RWStepFEA_RWFeaSecantCoefficientOfLinearThermalExpansion(mod, "RWStepFEA_RWFeaSecantCoefficientOfLinearThermalExpansion", "Read & Write tool for FeaSecantCoefficientOfLinearThermalExpansion");
+py::class_<RWStepFEA_RWFeaSecantCoefficientOfLinearThermalExpansion> cls_RWStepFEA_RWFeaSecantCoefficientOfLinearThermalExpansion(mod, "RWStepFEA_RWFeaSecantCoefficientOfLinearThermalExpansion", "Read & Write tool for FeaSecantCoefficientOfLinearThermalExpansion");
 
 // Constructors
 cls_RWStepFEA_RWFeaSecantCoefficientOfLinearThermalExpansion.def(py::init<>());

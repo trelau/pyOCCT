@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlXCAFDrivers(py::module &mod){
 
-py::class_<XmlXCAFDrivers, std::unique_ptr<XmlXCAFDrivers>> cls_XmlXCAFDrivers(mod, "XmlXCAFDrivers", "None");
+py::class_<XmlXCAFDrivers> cls_XmlXCAFDrivers(mod, "XmlXCAFDrivers", "None");
 
 // Constructors
 

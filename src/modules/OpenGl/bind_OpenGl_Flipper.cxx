@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_Flipper(py::module &mod){
 
-py::class_<OpenGl_Flipper, std::unique_ptr<OpenGl_Flipper>, OpenGl_Element> cls_OpenGl_Flipper(mod, "OpenGl_Flipper", "Being rendered, the elements modifies current model-view matrix such that the axes of the specified reference system (in model space) become oriented in the following way: - X - heads to the right side of view. - Y - heads to the up side of view. - N(Z) - heads towards the screen. Originally, this element serves for need of flipping the 3D text of dimension presentations.");
+py::class_<OpenGl_Flipper, OpenGl_Element> cls_OpenGl_Flipper(mod, "OpenGl_Flipper", "Being rendered, the elements modifies current model-view matrix such that the axes of the specified reference system (in model space) become oriented in the following way: - X - heads to the right side of view. - Y - heads to the up side of view. - N(Z) - heads towards the screen. Originally, this element serves for need of flipping the 3D text of dimension presentations.");
 
 // Constructors
 cls_OpenGl_Flipper.def(py::init<const gp_Ax2 &>(), py::arg("theReferenceSystem"));

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_FunctionSetWithDerivatives(py::module &mod){
 
-py::class_<math_FunctionSetWithDerivatives, std::unique_ptr<math_FunctionSetWithDerivatives>, math_FunctionSet> cls_math_FunctionSetWithDerivatives(mod, "math_FunctionSetWithDerivatives", "This abstract class describes the virtual functions associated with a set of N Functions each of M independant variables.");
+py::class_<math_FunctionSetWithDerivatives, math_FunctionSet> cls_math_FunctionSetWithDerivatives(mod, "math_FunctionSetWithDerivatives", "This abstract class describes the virtual functions associated with a set of N Functions each of M independant variables.");
 
 // Fields
 

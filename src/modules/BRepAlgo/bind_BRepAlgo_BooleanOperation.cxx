@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgo_BooleanOperation(py::module &mod){
 
-py::class_<BRepAlgo_BooleanOperation, std::unique_ptr<BRepAlgo_BooleanOperation>, BRepBuilderAPI_MakeShape> cls_BRepAlgo_BooleanOperation(mod, "BRepAlgo_BooleanOperation", "The abstract class BooleanOperation is the root class of Boolean operations. A BooleanOperation object stores the two shapes in preparation for the Boolean operation specified in one of the classes inheriting from this one. These include: - Common - Cut - Fuse - Section.");
+py::class_<BRepAlgo_BooleanOperation, BRepBuilderAPI_MakeShape> cls_BRepAlgo_BooleanOperation(mod, "BRepAlgo_BooleanOperation", "The abstract class BooleanOperation is the root class of Boolean operations. A BooleanOperation object stores the two shapes in preparation for the Boolean operation specified in one of the classes inheriting from this one. These include: - Common - Cut - Fuse - Section.");
 
 // Constructors
 

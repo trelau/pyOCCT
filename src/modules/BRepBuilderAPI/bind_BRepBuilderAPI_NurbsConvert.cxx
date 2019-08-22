@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBuilderAPI_NurbsConvert(py::module &mod){
 
-py::class_<BRepBuilderAPI_NurbsConvert, std::unique_ptr<BRepBuilderAPI_NurbsConvert>, BRepBuilderAPI_ModifyShape> cls_BRepBuilderAPI_NurbsConvert(mod, "BRepBuilderAPI_NurbsConvert", "Conversion of the complete geometry of a shape (all 3D analytical representation of surfaces and curves) into NURBS geometry (execpt for Planes). For example, all curves supporting edges of the basis shape are converted into BSpline curves, and all surfaces supporting its faces are converted into BSpline surfaces.");
+py::class_<BRepBuilderAPI_NurbsConvert, BRepBuilderAPI_ModifyShape> cls_BRepBuilderAPI_NurbsConvert(mod, "BRepBuilderAPI_NurbsConvert", "Conversion of the complete geometry of a shape (all 3D analytical representation of surfaces and curves) into NURBS geometry (execpt for Planes). For example, all curves supporting edges of the basis shape are converted into BSpline curves, and all surfaces supporting its faces are converted into BSpline surfaces.");
 
 // Constructors
 cls_BRepBuilderAPI_NurbsConvert.def(py::init<>());

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepGProp_Cinert(py::module &mod){
 
-py::class_<BRepGProp_Cinert, std::unique_ptr<BRepGProp_Cinert>, GProp_GProps> cls_BRepGProp_Cinert(mod, "BRepGProp_Cinert", "Computes the global properties of bounded curves in 3D space. The curve must have at least a continuity C1. It can be a curve as defined in the template CurveTool from package GProp. This template gives the minimum of methods required to evaluate the global properties of a curve 3D with the algorithmes of GProp.");
+py::class_<BRepGProp_Cinert, GProp_GProps> cls_BRepGProp_Cinert(mod, "BRepGProp_Cinert", "Computes the global properties of bounded curves in 3D space. The curve must have at least a continuity C1. It can be a curve as defined in the template CurveTool from package GProp. This template gives the minimum of methods required to evaluate the global properties of a curve 3D with the algorithmes of GProp.");
 
 // Constructors
 cls_BRepGProp_Cinert.def(py::init<>());

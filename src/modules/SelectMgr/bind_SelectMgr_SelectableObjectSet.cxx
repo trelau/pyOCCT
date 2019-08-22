@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_SelectMgr_SelectableObjectSet(py::module &mod){
 
-py::class_<SelectMgr_SelectableObjectSet, std::unique_ptr<SelectMgr_SelectableObjectSet>> cls_SelectMgr_SelectableObjectSet(mod, "SelectMgr_SelectableObjectSet", "The purpose of this class is to organize all selectable objects into data structure, allowing to build set of BVH trees for each transformation persistence subclass of selectable objects. This allow to minify number of updates for BVH trees - for example 2D persistent object subclass depends only on camera's projection and the corresponding BVH tree needs to be updated when camera's projection parameters change, while another tree for non-persistent objects can be left unchanged in this case.");
+py::class_<SelectMgr_SelectableObjectSet> cls_SelectMgr_SelectableObjectSet(mod, "SelectMgr_SelectableObjectSet", "The purpose of this class is to organize all selectable objects into data structure, allowing to build set of BVH trees for each transformation persistence subclass of selectable objects. This allow to minify number of updates for BVH trees - for example 2D persistent object subclass depends only on camera's projection and the corresponding BVH tree needs to be updated when camera's projection parameters change, while another tree for non-persistent objects can be left unchanged in this case.");
 
 // Constructors
 cls_SelectMgr_SelectableObjectSet.def(py::init<>());

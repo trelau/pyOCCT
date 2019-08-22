@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_TheExactInterCSurf(py::module &mod){
 
-py::class_<HLRBRep_TheExactInterCSurf, std::unique_ptr<HLRBRep_TheExactInterCSurf>> cls_HLRBRep_TheExactInterCSurf(mod, "HLRBRep_TheExactInterCSurf", "None");
+py::class_<HLRBRep_TheExactInterCSurf> cls_HLRBRep_TheExactInterCSurf(mod, "HLRBRep_TheExactInterCSurf", "None");
 
 // Constructors
 cls_HLRBRep_TheExactInterCSurf.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real, const HLRBRep_TheCSFunctionOfInterCSurf &, const Standard_Real>(), py::arg("U"), py::arg("V"), py::arg("W"), py::arg("F"), py::arg("TolTangency"));

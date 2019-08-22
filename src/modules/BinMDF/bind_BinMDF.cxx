@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinMDF(py::module &mod){
 
-py::class_<BinMDF, std::unique_ptr<BinMDF>> cls_BinMDF(mod, "BinMDF", "This package provides classes and methods to translate a transient DF into a persistent one and vice versa.");
+py::class_<BinMDF> cls_BinMDF(mod, "BinMDF", "This package provides classes and methods to translate a transient DF into a persistent one and vice versa.");
 
 // Constructors
 

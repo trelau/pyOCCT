@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool_REGUW(py::module &mod){
 
-py::class_<TopOpeBRepTool_REGUW, std::unique_ptr<TopOpeBRepTool_REGUW>> cls_TopOpeBRepTool_REGUW(mod, "TopOpeBRepTool_REGUW", "None");
+py::class_<TopOpeBRepTool_REGUW> cls_TopOpeBRepTool_REGUW(mod, "TopOpeBRepTool_REGUW", "None");
 
 // Constructors
 cls_TopOpeBRepTool_REGUW.def(py::init<const TopoDS_Face &>(), py::arg("FRef"));

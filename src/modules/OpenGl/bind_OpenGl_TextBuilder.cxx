@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_TextBuilder(py::module &mod){
 
-py::class_<OpenGl_TextBuilder, std::unique_ptr<OpenGl_TextBuilder>> cls_OpenGl_TextBuilder(mod, "OpenGl_TextBuilder", "This class generates primitive array required for rendering textured text using OpenGl_Font instance.");
+py::class_<OpenGl_TextBuilder> cls_OpenGl_TextBuilder(mod, "OpenGl_TextBuilder", "This class generates primitive array required for rendering textured text using OpenGl_Font instance.");
 
 // Constructors
 cls_OpenGl_TextBuilder.def(py::init<>());

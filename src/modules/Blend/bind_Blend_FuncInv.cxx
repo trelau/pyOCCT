@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Blend_FuncInv(py::module &mod){
 
-py::class_<Blend_FuncInv, std::unique_ptr<Blend_FuncInv>, math_FunctionSetWithDerivatives> cls_Blend_FuncInv(mod, "Blend_FuncInv", "Deferred class for a function used to compute a blending surface between two surfaces, using a guide line. This function is used to find a solution on a restriction of one of the surface. The vector <X> used in Value, Values and Derivatives methods has to be the vector of the parametric coordinates t,w,U,V where t is the parameter on the curve on surface, w is the parameter on the guide line, U,V are the parametric coordinates of a point on the partner surface.");
+py::class_<Blend_FuncInv, math_FunctionSetWithDerivatives> cls_Blend_FuncInv(mod, "Blend_FuncInv", "Deferred class for a function used to compute a blending surface between two surfaces, using a guide line. This function is used to find a solution on a restriction of one of the surface. The vector <X> used in Value, Values and Derivatives methods has to be the vector of the parametric coordinates t,w,U,V where t is the parameter on the curve on surface, w is the parameter on the guide line, U,V are the parametric coordinates of a point on the partner surface.");
 
 // Fields
 

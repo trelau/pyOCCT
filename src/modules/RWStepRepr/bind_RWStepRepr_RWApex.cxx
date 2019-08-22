@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWApex(py::module &mod){
 
-py::class_<RWStepRepr_RWApex, std::unique_ptr<RWStepRepr_RWApex>> cls_RWStepRepr_RWApex(mod, "RWStepRepr_RWApex", "Read & Write tool for Apex");
+py::class_<RWStepRepr_RWApex> cls_RWStepRepr_RWApex(mod, "RWStepRepr_RWApex", "Read & Write tool for Apex");
 
 // Constructors
 cls_RWStepRepr_RWApex.def(py::init<>());

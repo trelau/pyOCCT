@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T, int N>
 void bind_BVH_Box(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BVH_Box<T, N>, std::unique_ptr<BVH_Box<T, N>>> cls_BVH_Box(mod, name.c_str(), "Defines axis aligned bounding box (AABB) based on BVH vectors.", local);
+py::class_<BVH_Box<T, N>> cls_BVH_Box(mod, name.c_str(), "Defines axis aligned bounding box (AABB) based on BVH vectors.", local);
 
 // Constructors
 cls_BVH_Box.def(py::init<>());

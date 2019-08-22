@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWStyledItem(py::module &mod){
 
-py::class_<RWStepVisual_RWStyledItem, std::unique_ptr<RWStepVisual_RWStyledItem>> cls_RWStepVisual_RWStyledItem(mod, "RWStepVisual_RWStyledItem", "Read & Write Module for StyledItem");
+py::class_<RWStepVisual_RWStyledItem> cls_RWStepVisual_RWStyledItem(mod, "RWStepVisual_RWStyledItem", "Read & Write Module for StyledItem");
 
 // Constructors
 cls_RWStepVisual_RWStyledItem.def(py::init<>());

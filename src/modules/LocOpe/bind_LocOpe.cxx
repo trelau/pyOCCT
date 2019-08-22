@@ -52,7 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocOpe(py::module &mod){
 
-py::class_<LocOpe, std::unique_ptr<LocOpe>> cls_LocOpe(mod, "LocOpe", "Provides tools to implement local topological operations on a shape.");
+py::class_<LocOpe> cls_LocOpe(mod, "LocOpe", "Provides tools to implement local topological operations on a shape.");
 
 // Constructors
 

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntRes2d_Transition(py::module &mod){
 
-py::class_<IntRes2d_Transition, std::unique_ptr<IntRes2d_Transition>> cls_IntRes2d_Transition(mod, "IntRes2d_Transition", "Definition of the type of transition near an intersection point between two curves. The transition is either a 'true transition', which means that one of the curves goes inside or outside the area defined by the other curve near the intersection, or a 'touch transition' which means that the first curve does not cross the other one, or an 'undecided' transition, which means that the curves are superposed.");
+py::class_<IntRes2d_Transition> cls_IntRes2d_Transition(mod, "IntRes2d_Transition", "Definition of the type of transition near an intersection point between two curves. The transition is either a 'true transition', which means that one of the curves goes inside or outside the area defined by the other curve near the intersection, or a 'touch transition' which means that the first curve does not cross the other one, or an 'undecided' transition, which means that the curves are superposed.");
 
 // Constructors
 cls_IntRes2d_Transition.def(py::init<>());

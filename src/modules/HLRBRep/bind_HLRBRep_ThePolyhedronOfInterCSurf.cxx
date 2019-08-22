@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_ThePolyhedronOfInterCSurf(py::module &mod){
 
-py::class_<HLRBRep_ThePolyhedronOfInterCSurf, std::unique_ptr<HLRBRep_ThePolyhedronOfInterCSurf>> cls_HLRBRep_ThePolyhedronOfInterCSurf(mod, "HLRBRep_ThePolyhedronOfInterCSurf", "None");
+py::class_<HLRBRep_ThePolyhedronOfInterCSurf> cls_HLRBRep_ThePolyhedronOfInterCSurf(mod, "HLRBRep_ThePolyhedronOfInterCSurf", "None");
 
 // Constructors
 cls_HLRBRep_ThePolyhedronOfInterCSurf.def(py::init<const Standard_Address &, const Standard_Integer, const Standard_Integer, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("Surface"), py::arg("nbdU"), py::arg("nbdV"), py::arg("U1"), py::arg("V1"), py::arg("U2"), py::arg("V2"));

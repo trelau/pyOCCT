@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDF_CopyLabel(py::module &mod){
 
-py::class_<TDF_CopyLabel, std::unique_ptr<TDF_CopyLabel>> cls_TDF_CopyLabel(mod, "TDF_CopyLabel", "This class gives copy of source label hierarchy");
+py::class_<TDF_CopyLabel> cls_TDF_CopyLabel(mod, "TDF_CopyLabel", "This class gives copy of source label hierarchy");
 
 // Constructors
 cls_TDF_CopyLabel.def(py::init<>());

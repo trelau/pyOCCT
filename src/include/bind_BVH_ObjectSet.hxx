@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T, int N>
 void bind_BVH_ObjectSet(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BVH_ObjectSet<T, N>, std::unique_ptr<BVH_ObjectSet<T, N>>, BVH_Set<T, N>> cls_BVH_ObjectSet(mod, name.c_str(), "Array of abstract entities (bounded by BVH boxes) to built BVH.", local);
+py::class_<BVH_ObjectSet<T, N>, BVH_Set<T, N>> cls_BVH_ObjectSet(mod, name.c_str(), "Array of abstract entities (bounded by BVH boxes) to built BVH.", local);
 
 // Constructors
 cls_BVH_ObjectSet.def(py::init<>());

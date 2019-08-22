@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gce_MakeScale(py::module &mod){
 
-py::class_<gce_MakeScale, std::unique_ptr<gce_MakeScale>> cls_gce_MakeScale(mod, "gce_MakeScale", "Implements an elementary construction algorithm for a scaling transformation in 3D space. The result is a gp_Trsf transformation. A MakeScale object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.");
+py::class_<gce_MakeScale> cls_gce_MakeScale(mod, "gce_MakeScale", "Implements an elementary construction algorithm for a scaling transformation in 3D space. The result is a gp_Trsf transformation. A MakeScale object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_gce_MakeScale.def(py::init<const gp_Pnt &, const Standard_Real>(), py::arg("Point"), py::arg("Scale"));

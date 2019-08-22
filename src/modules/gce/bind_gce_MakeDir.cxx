@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gce_MakeDir(py::module &mod){
 
-py::class_<gce_MakeDir, std::unique_ptr<gce_MakeDir>, gce_Root> cls_gce_MakeDir(mod, "gce_MakeDir", "This class implements the following algorithms used to create a Dir from gp. * Create a Dir parallel to another and passing through a point. * Create a Dir passing through 2 points. * Create a Dir from its axis (Ax1 from gp). * Create a Dir from a point and a direction.");
+py::class_<gce_MakeDir, gce_Root> cls_gce_MakeDir(mod, "gce_MakeDir", "This class implements the following algorithms used to create a Dir from gp. * Create a Dir parallel to another and passing through a point. * Create a Dir passing through 2 points. * Create a Dir from its axis (Ax1 from gp). * Create a Dir from a point and a direction.");
 
 // Constructors
 cls_gce_MakeDir.def(py::init<const gp_Vec &>(), py::arg("V"));

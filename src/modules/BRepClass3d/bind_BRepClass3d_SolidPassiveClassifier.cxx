@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepClass3d_SolidPassiveClassifier(py::module &mod){
 
-py::class_<BRepClass3d_SolidPassiveClassifier, std::unique_ptr<BRepClass3d_SolidPassiveClassifier>> cls_BRepClass3d_SolidPassiveClassifier(mod, "BRepClass3d_SolidPassiveClassifier", "None");
+py::class_<BRepClass3d_SolidPassiveClassifier> cls_BRepClass3d_SolidPassiveClassifier(mod, "BRepClass3d_SolidPassiveClassifier", "None");
 
 // Constructors
 cls_BRepClass3d_SolidPassiveClassifier.def(py::init<>());

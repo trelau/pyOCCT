@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_Chamf2dPresentation(py::module &mod){
 
-py::class_<DsgPrs_Chamf2dPresentation, std::unique_ptr<DsgPrs_Chamf2dPresentation>> cls_DsgPrs_Chamf2dPresentation(mod, "DsgPrs_Chamf2dPresentation", "Framework for display of 2D chamfers.");
+py::class_<DsgPrs_Chamf2dPresentation> cls_DsgPrs_Chamf2dPresentation(mod, "DsgPrs_Chamf2dPresentation", "Framework for display of 2D chamfers.");
 
 // Constructors
 

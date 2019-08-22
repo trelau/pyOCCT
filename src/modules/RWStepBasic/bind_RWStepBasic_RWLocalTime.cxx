@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWLocalTime(py::module &mod){
 
-py::class_<RWStepBasic_RWLocalTime, std::unique_ptr<RWStepBasic_RWLocalTime>> cls_RWStepBasic_RWLocalTime(mod, "RWStepBasic_RWLocalTime", "Read & Write Module for LocalTime");
+py::class_<RWStepBasic_RWLocalTime> cls_RWStepBasic_RWLocalTime(mod, "RWStepBasic_RWLocalTime", "Read & Write Module for LocalTime");
 
 // Constructors
 cls_RWStepBasic_RWLocalTime.def(py::init<>());

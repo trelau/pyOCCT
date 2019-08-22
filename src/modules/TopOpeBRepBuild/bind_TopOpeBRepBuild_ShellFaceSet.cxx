@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_ShellFaceSet(py::module &mod){
 
-py::class_<TopOpeBRepBuild_ShellFaceSet, std::unique_ptr<TopOpeBRepBuild_ShellFaceSet>, TopOpeBRepBuild_ShapeSet> cls_TopOpeBRepBuild_ShellFaceSet(mod, "TopOpeBRepBuild_ShellFaceSet", "a bound is a shell, a boundelement is a face. The ShapeSet stores : - a list of shell (bounds), - a list of face (boundelements) to start reconstructions, - a map of edge giving the list of face incident to an edge.");
+py::class_<TopOpeBRepBuild_ShellFaceSet, TopOpeBRepBuild_ShapeSet> cls_TopOpeBRepBuild_ShellFaceSet(mod, "TopOpeBRepBuild_ShellFaceSet", "a bound is a shell, a boundelement is a face. The ShapeSet stores : - a list of shell (bounds), - a list of face (boundelements) to start reconstructions, - a map of edge giving the list of face incident to an edge.");
 
 // Constructors
 cls_TopOpeBRepBuild_ShellFaceSet.def(py::init<>());

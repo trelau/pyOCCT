@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWDataEnvironment(py::module &mod){
 
-py::class_<RWStepRepr_RWDataEnvironment, std::unique_ptr<RWStepRepr_RWDataEnvironment>> cls_RWStepRepr_RWDataEnvironment(mod, "RWStepRepr_RWDataEnvironment", "Read & Write tool for DataEnvironment");
+py::class_<RWStepRepr_RWDataEnvironment> cls_RWStepRepr_RWDataEnvironment(mod, "RWStepRepr_RWDataEnvironment", "Read & Write tool for DataEnvironment");
 
 // Constructors
 cls_RWStepRepr_RWDataEnvironment.def(py::init<>());

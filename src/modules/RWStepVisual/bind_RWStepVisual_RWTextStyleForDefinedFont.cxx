@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWTextStyleForDefinedFont(py::module &mod){
 
-py::class_<RWStepVisual_RWTextStyleForDefinedFont, std::unique_ptr<RWStepVisual_RWTextStyleForDefinedFont>> cls_RWStepVisual_RWTextStyleForDefinedFont(mod, "RWStepVisual_RWTextStyleForDefinedFont", "Read & Write Module for TextStyleForDefinedFont");
+py::class_<RWStepVisual_RWTextStyleForDefinedFont> cls_RWStepVisual_RWTextStyleForDefinedFont(mod, "RWStepVisual_RWTextStyleForDefinedFont", "Read & Write Module for TextStyleForDefinedFont");
 
 // Constructors
 cls_RWStepVisual_RWTextStyleForDefinedFont.def(py::init<>());

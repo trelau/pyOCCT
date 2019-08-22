@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_ECC(py::module &mod){
 
-py::class_<Extrema_ECC, std::unique_ptr<Extrema_ECC>> cls_Extrema_ECC(mod, "Extrema_ECC", "None");
+py::class_<Extrema_ECC> cls_Extrema_ECC(mod, "Extrema_ECC", "None");
 
 // Constructors
 cls_Extrema_ECC.def(py::init<>());

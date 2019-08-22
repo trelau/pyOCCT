@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepLib_MakeWire(py::module &mod){
 
-py::class_<BRepLib_MakeWire, std::unique_ptr<BRepLib_MakeWire>, BRepLib_MakeShape> cls_BRepLib_MakeWire(mod, "BRepLib_MakeWire", "Provides methods to build wires.");
+py::class_<BRepLib_MakeWire, BRepLib_MakeShape> cls_BRepLib_MakeWire(mod, "BRepLib_MakeWire", "Provides methods to build wires.");
 
 // Constructors
 cls_BRepLib_MakeWire.def(py::init<>());

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApprox_Cutting(py::module &mod){
 
-py::class_<AdvApprox_Cutting, std::unique_ptr<AdvApprox_Cutting>> cls_AdvApprox_Cutting(mod, "AdvApprox_Cutting", "to choose the way of cutting in approximation");
+py::class_<AdvApprox_Cutting> cls_AdvApprox_Cutting(mod, "AdvApprox_Cutting", "to choose the way of cutting in approximation");
 
 // Fields
 

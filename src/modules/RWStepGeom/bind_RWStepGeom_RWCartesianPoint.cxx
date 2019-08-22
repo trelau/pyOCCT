@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWCartesianPoint(py::module &mod){
 
-py::class_<RWStepGeom_RWCartesianPoint, std::unique_ptr<RWStepGeom_RWCartesianPoint>> cls_RWStepGeom_RWCartesianPoint(mod, "RWStepGeom_RWCartesianPoint", "Read & Write Module for CartesianPoint");
+py::class_<RWStepGeom_RWCartesianPoint> cls_RWStepGeom_RWCartesianPoint(mod, "RWStepGeom_RWCartesianPoint", "Read & Write Module for CartesianPoint");
 
 // Constructors
 cls_RWStepGeom_RWCartesianPoint.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWNode(py::module &mod){
 
-py::class_<RWStepFEA_RWNode, std::unique_ptr<RWStepFEA_RWNode>> cls_RWStepFEA_RWNode(mod, "RWStepFEA_RWNode", "Read & Write tool for Node");
+py::class_<RWStepFEA_RWNode> cls_RWStepFEA_RWNode(mod, "RWStepFEA_RWNode", "Read & Write tool for Node");
 
 // Constructors
 cls_RWStepFEA_RWNode.def(py::init<>());

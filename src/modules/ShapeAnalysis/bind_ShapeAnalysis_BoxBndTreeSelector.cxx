@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeAnalysis_BoxBndTreeSelector(py::module &mod){
 
-py::class_<ShapeAnalysis_BoxBndTreeSelector, std::unique_ptr<ShapeAnalysis_BoxBndTreeSelector>, ShapeAnalysis_BoxBndTree::Selector> cls_ShapeAnalysis_BoxBndTreeSelector(mod, "ShapeAnalysis_BoxBndTreeSelector", "None");
+py::class_<ShapeAnalysis_BoxBndTreeSelector, ShapeAnalysis_BoxBndTree::Selector> cls_ShapeAnalysis_BoxBndTreeSelector(mod, "ShapeAnalysis_BoxBndTreeSelector", "None");
 
 // Constructors
 // cls_ShapeAnalysis_BoxBndTreeSelector.def(py::init<opencascade::handle<TopTools_HArray1OfShape>, Standard_Boolean>(), py::arg("theSeq"), py::arg("theShared"));

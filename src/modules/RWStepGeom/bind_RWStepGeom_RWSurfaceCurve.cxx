@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWSurfaceCurve(py::module &mod){
 
-py::class_<RWStepGeom_RWSurfaceCurve, std::unique_ptr<RWStepGeom_RWSurfaceCurve>> cls_RWStepGeom_RWSurfaceCurve(mod, "RWStepGeom_RWSurfaceCurve", "Read & Write Module for SurfaceCurve");
+py::class_<RWStepGeom_RWSurfaceCurve> cls_RWStepGeom_RWSurfaceCurve(mod, "RWStepGeom_RWSurfaceCurve", "Read & Write Module for SurfaceCurve");
 
 // Constructors
 cls_RWStepGeom_RWSurfaceCurve.def(py::init<>());

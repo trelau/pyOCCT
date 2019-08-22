@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWSweptFaceSolid(py::module &mod){
 
-py::class_<RWStepShape_RWSweptFaceSolid, std::unique_ptr<RWStepShape_RWSweptFaceSolid>> cls_RWStepShape_RWSweptFaceSolid(mod, "RWStepShape_RWSweptFaceSolid", "Read & Write Module for SweptFaceSolid");
+py::class_<RWStepShape_RWSweptFaceSolid> cls_RWStepShape_RWSweptFaceSolid(mod, "RWStepShape_RWSweptFaceSolid", "Read & Write Module for SweptFaceSolid");
 
 // Constructors
 cls_RWStepShape_RWSweptFaceSolid.def(py::init<>());

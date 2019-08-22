@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBlend_BlendTool(py::module &mod){
 
-py::class_<BRepBlend_BlendTool, std::unique_ptr<BRepBlend_BlendTool>> cls_BRepBlend_BlendTool(mod, "BRepBlend_BlendTool", "None");
+py::class_<BRepBlend_BlendTool> cls_BRepBlend_BlendTool(mod, "BRepBlend_BlendTool", "None");
 
 // Constructors
 

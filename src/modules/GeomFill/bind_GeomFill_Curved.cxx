@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_Curved(py::module &mod){
 
-py::class_<GeomFill_Curved, std::unique_ptr<GeomFill_Curved>, GeomFill_Filling> cls_GeomFill_Curved(mod, "GeomFill_Curved", "None");
+py::class_<GeomFill_Curved, GeomFill_Filling> cls_GeomFill_Curved(mod, "GeomFill_Curved", "None");
 
 // Constructors
 cls_GeomFill_Curved.def(py::init<>());

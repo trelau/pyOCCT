@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_UTL(py::module &mod){
 
-py::class_<UTL, std::unique_ptr<UTL>> cls_UTL(mod, "UTL", "None");
+py::class_<UTL> cls_UTL(mod, "UTL", "None");
 
 // Constructors
 

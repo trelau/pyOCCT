@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Standard_MMgrOpt(py::module &mod){
 
-py::class_<Standard_MMgrOpt, std::unique_ptr<Standard_MMgrOpt>, Standard_MMgrRoot> cls_Standard_MMgrOpt(mod, "Standard_MMgrOpt", "Open CASCADE memory manager optimized for speed.");
+py::class_<Standard_MMgrOpt, Standard_MMgrRoot> cls_Standard_MMgrOpt(mod, "Standard_MMgrOpt", "Open CASCADE memory manager optimized for speed.");
 
 // Constructors
 cls_Standard_MMgrOpt.def(py::init<>());

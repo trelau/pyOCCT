@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeAnalysis_FreeBoundsProperties(py::module &mod){
 
-py::class_<ShapeAnalysis_FreeBoundsProperties, std::unique_ptr<ShapeAnalysis_FreeBoundsProperties>> cls_ShapeAnalysis_FreeBoundsProperties(mod, "ShapeAnalysis_FreeBoundsProperties", "This class is intended to calculate shape free bounds properties. This class provides the following functionalities: - calculates area of the contour, - calculates perimeter of the contour, - calculates ratio of average length to average width of the contour, - estimates average width of contour, - finds the notches (narrow 'V'-like sub-contour) on the contour.");
+py::class_<ShapeAnalysis_FreeBoundsProperties> cls_ShapeAnalysis_FreeBoundsProperties(mod, "ShapeAnalysis_FreeBoundsProperties", "This class is intended to calculate shape free bounds properties. This class provides the following functionalities: - calculates area of the contour, - calculates perimeter of the contour, - calculates ratio of average length to average width of the contour, - estimates average width of contour, - finds the notches (narrow 'V'-like sub-contour) on the contour.");
 
 // Constructors
 cls_ShapeAnalysis_FreeBoundsProperties.def(py::init<>());

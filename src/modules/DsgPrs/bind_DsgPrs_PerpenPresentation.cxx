@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_PerpenPresentation(py::module &mod){
 
-py::class_<DsgPrs_PerpenPresentation, std::unique_ptr<DsgPrs_PerpenPresentation>> cls_DsgPrs_PerpenPresentation(mod, "DsgPrs_PerpenPresentation", "A framework to define display of perpendicular constraints between shapes.");
+py::class_<DsgPrs_PerpenPresentation> cls_DsgPrs_PerpenPresentation(mod, "DsgPrs_PerpenPresentation", "A framework to define display of perpendicular constraints between shapes.");
 
 // Constructors
 

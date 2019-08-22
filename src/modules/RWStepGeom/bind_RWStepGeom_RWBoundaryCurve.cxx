@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWBoundaryCurve(py::module &mod){
 
-py::class_<RWStepGeom_RWBoundaryCurve, std::unique_ptr<RWStepGeom_RWBoundaryCurve>> cls_RWStepGeom_RWBoundaryCurve(mod, "RWStepGeom_RWBoundaryCurve", "Read & Write Module for BoundaryCurve");
+py::class_<RWStepGeom_RWBoundaryCurve> cls_RWStepGeom_RWBoundaryCurve(mod, "RWStepGeom_RWBoundaryCurve", "Read & Write Module for BoundaryCurve");
 
 // Constructors
 cls_RWStepGeom_RWBoundaryCurve.def(py::init<>());

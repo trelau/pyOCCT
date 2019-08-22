@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPDS_Curve(py::module &mod){
 
-py::class_<BOPDS_Curve, std::unique_ptr<BOPDS_Curve>> cls_BOPDS_Curve(mod, "BOPDS_Curve", "The class BOPDS_Curve is to store the information about intersection curve");
+py::class_<BOPDS_Curve> cls_BOPDS_Curve(mod, "BOPDS_Curve", "The class BOPDS_Curve is to store the information about intersection curve");
 
 // Constructors
 cls_BOPDS_Curve.def(py::init<>());

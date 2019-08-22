@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeToroidalSurface(py::module &mod){
 
-py::class_<GeomToStep_MakeToroidalSurface, std::unique_ptr<GeomToStep_MakeToroidalSurface>, GeomToStep_Root> cls_GeomToStep_MakeToroidalSurface(mod, "GeomToStep_MakeToroidalSurface", "This class implements the mapping between class ToroidalSurface from Geom and the class ToroidalSurface from StepGeom which describes a toroidal_surface from Prostep");
+py::class_<GeomToStep_MakeToroidalSurface, GeomToStep_Root> cls_GeomToStep_MakeToroidalSurface(mod, "GeomToStep_MakeToroidalSurface", "This class implements the mapping between class ToroidalSurface from Geom and the class ToroidalSurface from StepGeom which describes a toroidal_surface from Prostep");
 
 // Constructors
 cls_GeomToStep_MakeToroidalSurface.def(py::init<const opencascade::handle<Geom_ToroidalSurface> &>(), py::arg("TorSurf"));

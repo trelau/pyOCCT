@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP203_RWCcDesignDateAndTimeAssignment(py::module &mod){
 
-py::class_<RWStepAP203_RWCcDesignDateAndTimeAssignment, std::unique_ptr<RWStepAP203_RWCcDesignDateAndTimeAssignment>> cls_RWStepAP203_RWCcDesignDateAndTimeAssignment(mod, "RWStepAP203_RWCcDesignDateAndTimeAssignment", "Read & Write tool for CcDesignDateAndTimeAssignment");
+py::class_<RWStepAP203_RWCcDesignDateAndTimeAssignment> cls_RWStepAP203_RWCcDesignDateAndTimeAssignment(mod, "RWStepAP203_RWCcDesignDateAndTimeAssignment", "Read & Write tool for CcDesignDateAndTimeAssignment");
 
 // Constructors
 cls_RWStepAP203_RWCcDesignDateAndTimeAssignment.def(py::init<>());

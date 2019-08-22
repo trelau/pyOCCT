@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gce_MakePln(py::module &mod){
 
-py::class_<gce_MakePln, std::unique_ptr<gce_MakePln>, gce_Root> cls_gce_MakePln(mod, "gce_MakePln", "This class implements the following algorithms used to create a Plane from gp. * Create a Pln parallel to another and passing through a point. * Create a Pln passing through 3 points. * Create a Pln by its normal. Defines a non-persistent plane. The plane is located in 3D space with an axis placement two axis. It is the local coordinate system of the plane.");
+py::class_<gce_MakePln, gce_Root> cls_gce_MakePln(mod, "gce_MakePln", "This class implements the following algorithms used to create a Plane from gp. * Create a Pln parallel to another and passing through a point. * Create a Pln passing through 3 points. * Create a Pln by its normal. Defines a non-persistent plane. The plane is located in 3D space with an axis placement two axis. It is the local coordinate system of the plane.");
 
 // Constructors
 cls_gce_MakePln.def(py::init<const gp_Ax2 &>(), py::arg("A2"));

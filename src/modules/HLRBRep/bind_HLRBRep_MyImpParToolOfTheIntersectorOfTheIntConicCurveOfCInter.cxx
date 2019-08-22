@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter(py::module &mod){
 
-py::class_<HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter, std::unique_ptr<HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter>, math_FunctionWithDerivative> cls_HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter(mod, "HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter", "None");
+py::class_<HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter, math_FunctionWithDerivative> cls_HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter(mod, "HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter", "None");
 
 // Constructors
 cls_HLRBRep_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfCInter.def(py::init<const IntCurve_IConicTool &, const Standard_Address &>(), py::arg("IT"), py::arg("PC"));

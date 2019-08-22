@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWValueFormatTypeQualifier(py::module &mod){
 
-py::class_<RWStepShape_RWValueFormatTypeQualifier, std::unique_ptr<RWStepShape_RWValueFormatTypeQualifier>> cls_RWStepShape_RWValueFormatTypeQualifier(mod, "RWStepShape_RWValueFormatTypeQualifier", "Read & Write tool for ValueFormatTypeQualifier");
+py::class_<RWStepShape_RWValueFormatTypeQualifier> cls_RWStepShape_RWValueFormatTypeQualifier(mod, "RWStepShape_RWValueFormatTypeQualifier", "Read & Write tool for ValueFormatTypeQualifier");
 
 // Constructors
 cls_RWStepShape_RWValueFormatTypeQualifier.def(py::init<>());

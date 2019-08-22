@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolGeneralSymbol(py::module &mod){
 
-py::class_<IGESDimen_ToolGeneralSymbol, std::unique_ptr<IGESDimen_ToolGeneralSymbol>> cls_IGESDimen_ToolGeneralSymbol(mod, "IGESDimen_ToolGeneralSymbol", "Tool to work on a GeneralSymbol. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolGeneralSymbol> cls_IGESDimen_ToolGeneralSymbol(mod, "IGESDimen_ToolGeneralSymbol", "Tool to work on a GeneralSymbol. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolGeneralSymbol.def(py::init<>());

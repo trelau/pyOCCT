@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApp2Var_Node(py::module &mod){
 
-py::class_<AdvApp2Var_Node, std::unique_ptr<AdvApp2Var_Node>> cls_AdvApp2Var_Node(mod, "AdvApp2Var_Node", "used to store constraints on a (Ui,Vj) point");
+py::class_<AdvApp2Var_Node> cls_AdvApp2Var_Node(mod, "AdvApp2Var_Node", "used to store constraints on a (Ui,Vj) point");
 
 // Constructors
 cls_AdvApp2Var_Node.def(py::init<>());

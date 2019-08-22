@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomAPI_ProjectPointOnSurf(py::module &mod){
 
-py::class_<GeomAPI_ProjectPointOnSurf, std::unique_ptr<GeomAPI_ProjectPointOnSurf>> cls_GeomAPI_ProjectPointOnSurf(mod, "GeomAPI_ProjectPointOnSurf", "This class implements methods for computing all the orthogonal projections of a point onto a surface.");
+py::class_<GeomAPI_ProjectPointOnSurf> cls_GeomAPI_ProjectPointOnSurf(mod, "GeomAPI_ProjectPointOnSurf", "This class implements methods for computing all the orthogonal projections of a point onto a surface.");
 
 // Constructors
 cls_GeomAPI_ProjectPointOnSurf.def(py::init<>());

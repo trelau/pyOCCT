@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_CheckResult(py::module &mod){
 
-py::class_<BOPAlgo_CheckResult, std::unique_ptr<BOPAlgo_CheckResult>> cls_BOPAlgo_CheckResult(mod, "BOPAlgo_CheckResult", "contains information about faulty shapes and faulty types can't be processed by Boolean Operations");
+py::class_<BOPAlgo_CheckResult> cls_BOPAlgo_CheckResult(mod, "BOPAlgo_CheckResult", "contains information about faulty shapes and faulty types can't be processed by Boolean Operations");
 
 // Constructors
 cls_BOPAlgo_CheckResult.def(py::init<>());

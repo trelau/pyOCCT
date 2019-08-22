@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Transfer_TransferOutput(py::module &mod){
 
-py::class_<Transfer_TransferOutput, std::unique_ptr<Transfer_TransferOutput>> cls_Transfer_TransferOutput(mod, "Transfer_TransferOutput", "A TransferOutput is a Tool which manages the transfer of entities created by an Interface, stored in an InterfaceModel, into a set of Objects suitable for an Application Objects to be transferred are given, by method Transfer (which calls Transfer from TransientProcess) A default action is available to get all roots of the Model Result is given as a TransferIterator (see TransferProcess) Also, it is possible to pilot directly the TransientProcess");
+py::class_<Transfer_TransferOutput> cls_Transfer_TransferOutput(mod, "Transfer_TransferOutput", "A TransferOutput is a Tool which manages the transfer of entities created by an Interface, stored in an InterfaceModel, into a set of Objects suitable for an Application Objects to be transferred are given, by method Transfer (which calls Transfer from TransientProcess) A default action is available to get all roots of the Model Result is given as a TransferIterator (see TransferProcess) Also, it is possible to pilot directly the TransientProcess");
 
 // Constructors
 cls_Transfer_TransferOutput.def(py::init<const opencascade::handle<Transfer_ActorOfTransientProcess> &, const opencascade::handle<Interface_InterfaceModel> &>(), py::arg("actor"), py::arg("amodel"));

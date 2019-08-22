@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepDimTol_ShapeToleranceSelect(py::module &mod){
 
-py::class_<StepDimTol_ShapeToleranceSelect, std::unique_ptr<StepDimTol_ShapeToleranceSelect>, StepData_SelectType> cls_StepDimTol_ShapeToleranceSelect(mod, "StepDimTol_ShapeToleranceSelect", "Representation of STEP SELECT type ShapeToleranceSelect");
+py::class_<StepDimTol_ShapeToleranceSelect, StepData_SelectType> cls_StepDimTol_ShapeToleranceSelect(mod, "StepDimTol_ShapeToleranceSelect", "Representation of STEP SELECT type ShapeToleranceSelect");
 
 // Constructors
 cls_StepDimTol_ShapeToleranceSelect.def(py::init<>());

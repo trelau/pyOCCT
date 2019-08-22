@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWApprovalDateTime(py::module &mod){
 
-py::class_<RWStepBasic_RWApprovalDateTime, std::unique_ptr<RWStepBasic_RWApprovalDateTime>> cls_RWStepBasic_RWApprovalDateTime(mod, "RWStepBasic_RWApprovalDateTime", "Read & Write Module for ApprovalDateTime");
+py::class_<RWStepBasic_RWApprovalDateTime> cls_RWStepBasic_RWApprovalDateTime(mod, "RWStepBasic_RWApprovalDateTime", "Read & Write Module for ApprovalDateTime");
 
 // Constructors
 cls_RWStepBasic_RWApprovalDateTime.def(py::init<>());

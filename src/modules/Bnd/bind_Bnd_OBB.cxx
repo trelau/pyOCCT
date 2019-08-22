@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Bnd_OBB(py::module &mod){
 
-py::class_<Bnd_OBB, std::unique_ptr<Bnd_OBB>> cls_Bnd_OBB(mod, "Bnd_OBB", "The class describes the Oriented Bounding Box (OBB), much tighter enclosing volume for the shape than the Axis Aligned Bounding Box (AABB). The OBB is defined by a center of the box, the axes and the halves of its three dimensions. The OBB can be used more effectively than AABB as a rejection mechanism for non-interfering objects.");
+py::class_<Bnd_OBB> cls_Bnd_OBB(mod, "Bnd_OBB", "The class describes the Oriented Bounding Box (OBB), much tighter enclosing volume for the shape than the Axis Aligned Bounding Box (AABB). The OBB is defined by a center of the box, the axes and the halves of its three dimensions. The OBB can be used more effectively than AABB as a rejection mechanism for non-interfering objects.");
 
 // Constructors
 cls_Bnd_OBB.def(py::init<>());

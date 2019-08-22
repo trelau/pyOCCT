@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_Plane(py::module &mod){
 
-py::class_<StdPrs_Plane, std::unique_ptr<StdPrs_Plane>, Prs3d_Root> cls_StdPrs_Plane(mod, "StdPrs_Plane", "A framework to display infinite planes.");
+py::class_<StdPrs_Plane, Prs3d_Root> cls_StdPrs_Plane(mod, "StdPrs_Plane", "A framework to display infinite planes.");
 
 // Constructors
 

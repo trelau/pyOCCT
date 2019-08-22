@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gce_MakeCone(py::module &mod){
 
-py::class_<gce_MakeCone, std::unique_ptr<gce_MakeCone>, gce_Root> cls_gce_MakeCone(mod, "gce_MakeCone", "This class implements the following algorithms used to create a Cone from gp. * Create a Cone coaxial to another and passing through a point. * Create a Cone coaxial to another at a distance <Dist>. * Create a Cone by 4 points. * Create a Cone by its axis and 2 points. * Create a Cone by 2 points and 2 radius. * Create a Cone by an Ax2 an angle and the radius of its reference section.");
+py::class_<gce_MakeCone, gce_Root> cls_gce_MakeCone(mod, "gce_MakeCone", "This class implements the following algorithms used to create a Cone from gp. * Create a Cone coaxial to another and passing through a point. * Create a Cone coaxial to another at a distance <Dist>. * Create a Cone by 4 points. * Create a Cone by its axis and 2 points. * Create a Cone by 2 points and 2 radius. * Create a Cone by an Ax2 an angle and the radius of its reference section.");
 
 // Constructors
 cls_gce_MakeCone.def(py::init<const gp_Ax2 &, const Standard_Real, const Standard_Real>(), py::arg("A2"), py::arg("Ang"), py::arg("Radius"));

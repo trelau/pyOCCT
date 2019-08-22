@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepDimTol_ToleranceZoneTarget(py::module &mod){
 
-py::class_<StepDimTol_ToleranceZoneTarget, std::unique_ptr<StepDimTol_ToleranceZoneTarget>, StepData_SelectType> cls_StepDimTol_ToleranceZoneTarget(mod, "StepDimTol_ToleranceZoneTarget", "None");
+py::class_<StepDimTol_ToleranceZoneTarget, StepData_SelectType> cls_StepDimTol_ToleranceZoneTarget(mod, "StepDimTol_ToleranceZoneTarget", "None");
 
 // Constructors
 cls_StepDimTol_ToleranceZoneTarget.def(py::init<>());

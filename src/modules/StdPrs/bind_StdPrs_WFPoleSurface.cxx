@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_WFPoleSurface(py::module &mod){
 
-py::class_<StdPrs_WFPoleSurface, std::unique_ptr<StdPrs_WFPoleSurface>, Prs3d_Root> cls_StdPrs_WFPoleSurface(mod, "StdPrs_WFPoleSurface", "Computes the presentation of surfaces by drawing a double network of lines linking the poles of the surface in the two parametric direction. The number of lines to be drawn is controlled by the NetworkNumber of the given Drawer.");
+py::class_<StdPrs_WFPoleSurface, Prs3d_Root> cls_StdPrs_WFPoleSurface(mod, "StdPrs_WFPoleSurface", "Computes the presentation of surfaces by drawing a double network of lines linking the poles of the surface in the two parametric direction. The number of lines to be drawn is controlled by the NetworkNumber of the given Drawer.");
 
 // Constructors
 

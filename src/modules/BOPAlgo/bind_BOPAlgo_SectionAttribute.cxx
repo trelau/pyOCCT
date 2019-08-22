@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_SectionAttribute(py::module &mod){
 
-py::class_<BOPAlgo_SectionAttribute, std::unique_ptr<BOPAlgo_SectionAttribute>> cls_BOPAlgo_SectionAttribute(mod, "BOPAlgo_SectionAttribute", "Class is a container of the flags used by intersection algorithm");
+py::class_<BOPAlgo_SectionAttribute> cls_BOPAlgo_SectionAttribute(mod, "BOPAlgo_SectionAttribute", "Class is a container of the flags used by intersection algorithm");
 
 // Constructors
 cls_BOPAlgo_SectionAttribute.def(py::init<>());

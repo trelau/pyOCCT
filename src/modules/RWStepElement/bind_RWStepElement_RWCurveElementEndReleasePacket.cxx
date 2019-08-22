@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepElement_RWCurveElementEndReleasePacket(py::module &mod){
 
-py::class_<RWStepElement_RWCurveElementEndReleasePacket, std::unique_ptr<RWStepElement_RWCurveElementEndReleasePacket>> cls_RWStepElement_RWCurveElementEndReleasePacket(mod, "RWStepElement_RWCurveElementEndReleasePacket", "Read & Write tool for CurveElementEndReleasePacket");
+py::class_<RWStepElement_RWCurveElementEndReleasePacket> cls_RWStepElement_RWCurveElementEndReleasePacket(mod, "RWStepElement_RWCurveElementEndReleasePacket", "Read & Write tool for CurveElementEndReleasePacket");
 
 // Constructors
 cls_RWStepElement_RWCurveElementEndReleasePacket.def(py::init<>());

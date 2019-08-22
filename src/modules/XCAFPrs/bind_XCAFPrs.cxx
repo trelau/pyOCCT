@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XCAFPrs(py::module &mod){
 
-py::class_<XCAFPrs, std::unique_ptr<XCAFPrs>> cls_XCAFPrs(mod, "XCAFPrs", "Presentation (visualiation, selection etc.) tools for DECAF documents");
+py::class_<XCAFPrs> cls_XCAFPrs(mod, "XCAFPrs", "Presentation (visualiation, selection etc.) tools for DECAF documents");
 
 // Constructors
 

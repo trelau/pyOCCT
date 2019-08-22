@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrimAPI_MakeRevolution(py::module &mod){
 
-py::class_<BRepPrimAPI_MakeRevolution, std::unique_ptr<BRepPrimAPI_MakeRevolution>, BRepPrimAPI_MakeOneAxis> cls_BRepPrimAPI_MakeRevolution(mod, "BRepPrimAPI_MakeRevolution", "Describes functions to build revolved shapes. A MakeRevolution object provides a framework for: - defining the construction of a revolved shape, - implementing the construction algorithm, and - consulting the result.");
+py::class_<BRepPrimAPI_MakeRevolution, BRepPrimAPI_MakeOneAxis> cls_BRepPrimAPI_MakeRevolution(mod, "BRepPrimAPI_MakeRevolution", "Describes functions to build revolved shapes. A MakeRevolution object provides a framework for: - defining the construction of a revolved shape, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_BRepPrimAPI_MakeRevolution.def(py::init<const opencascade::handle<Geom_Curve> &>(), py::arg("Meridian"));

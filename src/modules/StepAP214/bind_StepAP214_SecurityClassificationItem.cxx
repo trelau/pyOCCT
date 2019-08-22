@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP214_SecurityClassificationItem(py::module &mod){
 
-py::class_<StepAP214_SecurityClassificationItem, std::unique_ptr<StepAP214_SecurityClassificationItem>, StepAP214_ApprovalItem> cls_StepAP214_SecurityClassificationItem(mod, "StepAP214_SecurityClassificationItem", "None");
+py::class_<StepAP214_SecurityClassificationItem, StepAP214_ApprovalItem> cls_StepAP214_SecurityClassificationItem(mod, "StepAP214_SecurityClassificationItem", "None");
 
 // Constructors
 cls_StepAP214_SecurityClassificationItem.def(py::init<>());

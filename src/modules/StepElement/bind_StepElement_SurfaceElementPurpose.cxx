@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepElement_SurfaceElementPurpose(py::module &mod){
 
-py::class_<StepElement_SurfaceElementPurpose, std::unique_ptr<StepElement_SurfaceElementPurpose>, StepData_SelectType> cls_StepElement_SurfaceElementPurpose(mod, "StepElement_SurfaceElementPurpose", "Representation of STEP SELECT type SurfaceElementPurpose");
+py::class_<StepElement_SurfaceElementPurpose, StepData_SelectType> cls_StepElement_SurfaceElementPurpose(mod, "StepElement_SurfaceElementPurpose", "Representation of STEP SELECT type SurfaceElementPurpose");
 
 // Constructors
 cls_StepElement_SurfaceElementPurpose.def(py::init<>());

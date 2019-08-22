@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRAlgo_Coincidence(py::module &mod){
 
-py::class_<HLRAlgo_Coincidence, std::unique_ptr<HLRAlgo_Coincidence>> cls_HLRAlgo_Coincidence(mod, "HLRAlgo_Coincidence", "The Coincidence class is used in an Inteference to store informations on the 'hiding' edge.");
+py::class_<HLRAlgo_Coincidence> cls_HLRAlgo_Coincidence(mod, "HLRAlgo_Coincidence", "The Coincidence class is used in an Inteference to store informations on the 'hiding' edge.");
 
 // Constructors
 cls_HLRAlgo_Coincidence.def(py::init<>());

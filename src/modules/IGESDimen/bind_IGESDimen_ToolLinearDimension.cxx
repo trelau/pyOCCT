@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolLinearDimension(py::module &mod){
 
-py::class_<IGESDimen_ToolLinearDimension, std::unique_ptr<IGESDimen_ToolLinearDimension>> cls_IGESDimen_ToolLinearDimension(mod, "IGESDimen_ToolLinearDimension", "Tool to work on a LinearDimension. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolLinearDimension> cls_IGESDimen_ToolLinearDimension(mod, "IGESDimen_ToolLinearDimension", "Tool to work on a LinearDimension. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolLinearDimension.def(py::init<>());

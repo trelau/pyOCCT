@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWAppliedPersonAndOrganizationAssignment(py::module &mod){
 
-py::class_<RWStepAP214_RWAppliedPersonAndOrganizationAssignment, std::unique_ptr<RWStepAP214_RWAppliedPersonAndOrganizationAssignment>> cls_RWStepAP214_RWAppliedPersonAndOrganizationAssignment(mod, "RWStepAP214_RWAppliedPersonAndOrganizationAssignment", "Read & Write Module for AppliedPersonAndOrganizationAssignment");
+py::class_<RWStepAP214_RWAppliedPersonAndOrganizationAssignment> cls_RWStepAP214_RWAppliedPersonAndOrganizationAssignment(mod, "RWStepAP214_RWAppliedPersonAndOrganizationAssignment", "Read & Write Module for AppliedPersonAndOrganizationAssignment");
 
 // Constructors
 cls_RWStepAP214_RWAppliedPersonAndOrganizationAssignment.def(py::init<>());

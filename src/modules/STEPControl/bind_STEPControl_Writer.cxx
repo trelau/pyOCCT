@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPControl_Writer(py::module &mod){
 
-py::class_<STEPControl_Writer, std::unique_ptr<STEPControl_Writer>> cls_STEPControl_Writer(mod, "STEPControl_Writer", "This class creates and writes STEP files from Open CASCADE models. A STEP file can be written to an existing STEP file or to a new one. Translation can be performed in one or several operations. Each translation operation outputs a distinct root entity in the STEP file.");
+py::class_<STEPControl_Writer> cls_STEPControl_Writer(mod, "STEPControl_Writer", "This class creates and writes STEP files from Open CASCADE models. A STEP file can be written to an existing STEP file or to a new one. Translation can be performed in one or several operations. Each translation operation outputs a distinct root entity in the STEP file.");
 
 // Constructors
 cls_STEPControl_Writer.def(py::init<>());

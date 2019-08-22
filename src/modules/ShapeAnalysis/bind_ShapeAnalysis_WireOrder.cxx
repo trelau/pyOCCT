@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeAnalysis_WireOrder(py::module &mod){
 
-py::class_<ShapeAnalysis_WireOrder, std::unique_ptr<ShapeAnalysis_WireOrder>> cls_ShapeAnalysis_WireOrder(mod, "ShapeAnalysis_WireOrder", "This class is intended to control and, if possible, redefine the order of a list of edges which define a wire Edges are not given directly, but as their bounds (start,end)");
+py::class_<ShapeAnalysis_WireOrder> cls_ShapeAnalysis_WireOrder(mod, "ShapeAnalysis_WireOrder", "This class is intended to control and, if possible, redefine the order of a list of edges which define a wire Edges are not given directly, but as their bounds (start,end)");
 
 // Constructors
 cls_ShapeAnalysis_WireOrder.def(py::init<>());

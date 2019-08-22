@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffsetAPI_NormalProjection(py::module &mod){
 
-py::class_<BRepOffsetAPI_NormalProjection, std::unique_ptr<BRepOffsetAPI_NormalProjection>, BRepBuilderAPI_MakeShape> cls_BRepOffsetAPI_NormalProjection(mod, "BRepOffsetAPI_NormalProjection", "A framework to define projection onto a shape according to the normal from each point to be projected. The target shape is a face, and the source shape is an edge or a wire.");
+py::class_<BRepOffsetAPI_NormalProjection, BRepBuilderAPI_MakeShape> cls_BRepOffsetAPI_NormalProjection(mod, "BRepOffsetAPI_NormalProjection", "A framework to define projection onto a shape according to the normal from each point to be projected. The target shape is a face, and the source shape is an edge or a wire.");
 
 // Constructors
 cls_BRepOffsetAPI_NormalProjection.def(py::init<>());

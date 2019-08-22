@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOM_LDOMImplementation(py::module &mod){
 
-py::class_<LDOM_LDOMImplementation, std::unique_ptr<LDOM_LDOMImplementation>> cls_LDOM_LDOMImplementation(mod, "LDOM_LDOMImplementation", "None");
+py::class_<LDOM_LDOMImplementation> cls_LDOM_LDOMImplementation(mod, "LDOM_LDOMImplementation", "None");
 
 // Constructors
 

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_NLPlate_NLPlate(py::module &mod){
 
-py::class_<NLPlate_NLPlate, std::unique_ptr<NLPlate_NLPlate>> cls_NLPlate_NLPlate(mod, "NLPlate_NLPlate", "None");
+py::class_<NLPlate_NLPlate> cls_NLPlate_NLPlate(mod, "NLPlate_NLPlate", "None");
 
 // Constructors
 cls_NLPlate_NLPlate.def(py::init<const opencascade::handle<Geom_Surface> &>(), py::arg("InitialSurface"));

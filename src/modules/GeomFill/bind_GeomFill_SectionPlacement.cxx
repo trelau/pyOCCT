@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_SectionPlacement(py::module &mod){
 
-py::class_<GeomFill_SectionPlacement, std::unique_ptr<GeomFill_SectionPlacement>> cls_GeomFill_SectionPlacement(mod, "GeomFill_SectionPlacement", "To place section in sweep Function");
+py::class_<GeomFill_SectionPlacement> cls_GeomFill_SectionPlacement(mod, "GeomFill_SectionPlacement", "To place section in sweep Function");
 
 // Constructors
 cls_GeomFill_SectionPlacement.def(py::init<const opencascade::handle<GeomFill_LocationLaw> &, const opencascade::handle<Geom_Geometry> &>(), py::arg("L"), py::arg("Section"));

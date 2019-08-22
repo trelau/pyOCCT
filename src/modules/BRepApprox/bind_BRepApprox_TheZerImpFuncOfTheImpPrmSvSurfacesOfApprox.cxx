@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox(py::module &mod){
 
-py::class_<BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox, std::unique_ptr<BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox>, math_FunctionSetWithDerivatives> cls_BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox(mod, "BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox", "None");
+py::class_<BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox, math_FunctionSetWithDerivatives> cls_BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox(mod, "BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox", "None");
 
 // Constructors
 cls_BRepApprox_TheZerImpFuncOfTheImpPrmSvSurfacesOfApprox.def(py::init<>());

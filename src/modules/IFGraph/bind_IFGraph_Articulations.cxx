@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFGraph_Articulations(py::module &mod){
 
-py::class_<IFGraph_Articulations, std::unique_ptr<IFGraph_Articulations>, Interface_GraphContent> cls_IFGraph_Articulations(mod, "IFGraph_Articulations", "this class gives entities which are Articulation points in a whole Model or in a sub-part An Articulation Point divides the graph in two (or more) disconnected sub-graphs Identifying Articulation Points allows improving efficiency of spliting a set of Entities into sub-sets");
+py::class_<IFGraph_Articulations, Interface_GraphContent> cls_IFGraph_Articulations(mod, "IFGraph_Articulations", "this class gives entities which are Articulation points in a whole Model or in a sub-part An Articulation Point divides the graph in two (or more) disconnected sub-graphs Identifying Articulation Points allows improving efficiency of spliting a set of Entities into sub-sets");
 
 // Constructors
 cls_IFGraph_Articulations.def(py::init<const Interface_Graph &, const Standard_Boolean>(), py::arg("agraph"), py::arg("whole"));

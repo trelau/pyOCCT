@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepElement_RWElementDescriptor(py::module &mod){
 
-py::class_<RWStepElement_RWElementDescriptor, std::unique_ptr<RWStepElement_RWElementDescriptor>> cls_RWStepElement_RWElementDescriptor(mod, "RWStepElement_RWElementDescriptor", "Read & Write tool for ElementDescriptor");
+py::class_<RWStepElement_RWElementDescriptor> cls_RWStepElement_RWElementDescriptor(mod, "RWStepElement_RWElementDescriptor", "Read & Write tool for ElementDescriptor");
 
 // Constructors
 cls_RWStepElement_RWElementDescriptor.def(py::init<>());

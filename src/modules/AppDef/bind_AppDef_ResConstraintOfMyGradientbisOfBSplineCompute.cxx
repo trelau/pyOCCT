@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppDef_ResConstraintOfMyGradientbisOfBSplineCompute(py::module &mod){
 
-py::class_<AppDef_ResConstraintOfMyGradientbisOfBSplineCompute, std::unique_ptr<AppDef_ResConstraintOfMyGradientbisOfBSplineCompute>> cls_AppDef_ResConstraintOfMyGradientbisOfBSplineCompute(mod, "AppDef_ResConstraintOfMyGradientbisOfBSplineCompute", "None");
+py::class_<AppDef_ResConstraintOfMyGradientbisOfBSplineCompute> cls_AppDef_ResConstraintOfMyGradientbisOfBSplineCompute(mod, "AppDef_ResConstraintOfMyGradientbisOfBSplineCompute", "None");
 
 // Constructors
 cls_AppDef_ResConstraintOfMyGradientbisOfBSplineCompute.def(py::init<const AppDef_MultiLine &, AppParCurves_MultiCurve &, const Standard_Integer, const Standard_Integer, const opencascade::handle<AppParCurves_HArray1OfConstraintCouple> &, const math_Matrix &, const math_Matrix &>(), py::arg("SSP"), py::arg("SCurv"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("Constraints"), py::arg("Bern"), py::arg("DerivativeBern"));

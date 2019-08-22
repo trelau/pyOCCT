@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Units_Explorer(py::module &mod){
 
-py::class_<Units_Explorer, std::unique_ptr<Units_Explorer>> cls_Units_Explorer(mod, "Units_Explorer", "This class provides all the services to explore UnitsSystem or UnitsDictionary.");
+py::class_<Units_Explorer> cls_Units_Explorer(mod, "Units_Explorer", "This class provides all the services to explore UnitsSystem or UnitsDictionary.");
 
 // Constructors
 cls_Units_Explorer.def(py::init<>());

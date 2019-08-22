@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRep_FacesIntersector(py::module &mod){
 
-py::class_<TopOpeBRep_FacesIntersector, std::unique_ptr<TopOpeBRep_FacesIntersector>> cls_TopOpeBRep_FacesIntersector(mod, "TopOpeBRep_FacesIntersector", "Describes the intersection of two faces.");
+py::class_<TopOpeBRep_FacesIntersector> cls_TopOpeBRep_FacesIntersector(mod, "TopOpeBRep_FacesIntersector", "Describes the intersection of two faces.");
 
 // Constructors
 cls_TopOpeBRep_FacesIntersector.def(py::init<>());

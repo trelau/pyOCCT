@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCPnts_UniformDeflection(py::module &mod){
 
-py::class_<GCPnts_UniformDeflection, std::unique_ptr<GCPnts_UniformDeflection>> cls_GCPnts_UniformDeflection(mod, "GCPnts_UniformDeflection", "Provides an algorithm to compute a distribution of points on a 'C2' continuous curve. The algorithm respects a criterion of maximum deflection between the curve and the polygon that results from the computed points. Note: This algorithm is relatively time consuming. A GCPnts_QuasiUniformDeflection algorithm is quicker; it can also work with non-'C2' continuous curves, but it generates more points in the distribution.");
+py::class_<GCPnts_UniformDeflection> cls_GCPnts_UniformDeflection(mod, "GCPnts_UniformDeflection", "Provides an algorithm to compute a distribution of points on a 'C2' continuous curve. The algorithm respects a criterion of maximum deflection between the curve and the polygon that results from the computed points. Note: This algorithm is relatively time consuming. A GCPnts_QuasiUniformDeflection algorithm is quicker; it can also work with non-'C2' continuous curves, but it generates more points in the distribution.");
 
 // Constructors
 cls_GCPnts_UniformDeflection.def(py::init<>());

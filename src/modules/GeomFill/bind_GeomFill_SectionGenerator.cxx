@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_SectionGenerator(py::module &mod){
 
-py::class_<GeomFill_SectionGenerator, std::unique_ptr<GeomFill_SectionGenerator>, GeomFill_Profiler> cls_GeomFill_SectionGenerator(mod, "GeomFill_SectionGenerator", "gives the functions needed for instantiation from AppSurf in AppBlend. Allow to evaluate a surface passing by all the curves if the Profiler.");
+py::class_<GeomFill_SectionGenerator, GeomFill_Profiler> cls_GeomFill_SectionGenerator(mod, "GeomFill_SectionGenerator", "gives the functions needed for instantiation from AppSurf in AppBlend. Allow to evaluate a surface passing by all the curves if the Profiler.");
 
 // Constructors
 cls_GeomFill_SectionGenerator.def(py::init<>());

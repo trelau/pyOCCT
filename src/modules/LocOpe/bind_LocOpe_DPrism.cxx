@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocOpe_DPrism(py::module &mod){
 
-py::class_<LocOpe_DPrism, std::unique_ptr<LocOpe_DPrism>> cls_LocOpe_DPrism(mod, "LocOpe_DPrism", "Defines a pipe (near from Pipe from BRepFill), with modifications provided for the Pipe feature.");
+py::class_<LocOpe_DPrism> cls_LocOpe_DPrism(mod, "LocOpe_DPrism", "Defines a pipe (near from Pipe from BRepFill), with modifications provided for the Pipe feature.");
 
 // Constructors
 cls_LocOpe_DPrism.def(py::init<const TopoDS_Face &, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("Spine"), py::arg("Height1"), py::arg("Height2"), py::arg("Angle"));

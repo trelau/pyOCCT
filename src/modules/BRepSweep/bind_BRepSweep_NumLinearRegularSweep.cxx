@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepSweep_NumLinearRegularSweep(py::module &mod){
 
-py::class_<BRepSweep_NumLinearRegularSweep, std::unique_ptr<BRepSweep_NumLinearRegularSweep>> cls_BRepSweep_NumLinearRegularSweep(mod, "BRepSweep_NumLinearRegularSweep", "This a generic class is used to build Sweept primitives with a generating 'shape' and a directing 'line'.");
+py::class_<BRepSweep_NumLinearRegularSweep> cls_BRepSweep_NumLinearRegularSweep(mod, "BRepSweep_NumLinearRegularSweep", "This a generic class is used to build Sweept primitives with a generating 'shape' and a directing 'line'.");
 
 // Fields
 

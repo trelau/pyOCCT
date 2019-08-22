@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox(py::module &mod){
 
-py::class_<BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox, std::unique_ptr<BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox>> cls_BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox(mod, "BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox", "None");
+py::class_<BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox> cls_BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox(mod, "BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox", "None");
 
 // Constructors
 cls_BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox.def(py::init<const BRepApprox_TheMultiLineOfApprox &, AppParCurves_MultiCurve &, const Standard_Integer, const Standard_Integer, const opencascade::handle<AppParCurves_HArray1OfConstraintCouple> &, const math_Matrix &, const math_Matrix &>(), py::arg("SSP"), py::arg("SCurv"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("Constraints"), py::arg("Bern"), py::arg("DerivativeBern"));

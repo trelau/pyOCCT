@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MeshVS_TwoNodes(py::module &mod){
 
-py::class_<MeshVS_TwoNodes, std::unique_ptr<MeshVS_TwoNodes>> cls_MeshVS_TwoNodes(mod, "MeshVS_TwoNodes", "Structure containing two IDs (of nodes) for using as a key in a map (as representation of a mesh link)");
+py::class_<MeshVS_TwoNodes> cls_MeshVS_TwoNodes(mod, "MeshVS_TwoNodes", "Structure containing two IDs (of nodes) for using as a key in a map (as representation of a mesh link)");
 
 // Constructors
 cls_MeshVS_TwoNodes.def(py::init<>());

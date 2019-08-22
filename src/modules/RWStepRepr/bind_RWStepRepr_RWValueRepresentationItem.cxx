@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWValueRepresentationItem(py::module &mod){
 
-py::class_<RWStepRepr_RWValueRepresentationItem, std::unique_ptr<RWStepRepr_RWValueRepresentationItem>> cls_RWStepRepr_RWValueRepresentationItem(mod, "RWStepRepr_RWValueRepresentationItem", "Read & Write Module for ValueRepresentationItem");
+py::class_<RWStepRepr_RWValueRepresentationItem> cls_RWStepRepr_RWValueRepresentationItem(mod, "RWStepRepr_RWValueRepresentationItem", "Read & Write Module for ValueRepresentationItem");
 
 // Constructors
 cls_RWStepRepr_RWValueRepresentationItem.def(py::init<>());

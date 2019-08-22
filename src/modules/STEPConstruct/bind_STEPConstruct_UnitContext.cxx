@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPConstruct_UnitContext(py::module &mod){
 
-py::class_<STEPConstruct_UnitContext, std::unique_ptr<STEPConstruct_UnitContext>> cls_STEPConstruct_UnitContext(mod, "STEPConstruct_UnitContext", "Tool for creation (encoding) and decoding (for writing and reading accordingly) context defining units and tolerances (uncerntanties)");
+py::class_<STEPConstruct_UnitContext> cls_STEPConstruct_UnitContext(mod, "STEPConstruct_UnitContext", "Tool for creation (encoding) and decoding (for writing and reading accordingly) context defining units and tolerances (uncerntanties)");
 
 // Constructors
 cls_STEPConstruct_UnitContext.def(py::init<>());

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TNaming_NamingTool(py::module &mod){
 
-py::class_<TNaming_NamingTool, std::unique_ptr<TNaming_NamingTool>> cls_TNaming_NamingTool(mod, "TNaming_NamingTool", "None");
+py::class_<TNaming_NamingTool> cls_TNaming_NamingTool(mod, "TNaming_NamingTool", "None");
 
 // Constructors
 

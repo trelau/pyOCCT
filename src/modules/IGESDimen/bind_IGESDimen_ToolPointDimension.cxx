@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolPointDimension(py::module &mod){
 
-py::class_<IGESDimen_ToolPointDimension, std::unique_ptr<IGESDimen_ToolPointDimension>> cls_IGESDimen_ToolPointDimension(mod, "IGESDimen_ToolPointDimension", "Tool to work on a PointDimension. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolPointDimension> cls_IGESDimen_ToolPointDimension(mod, "IGESDimen_ToolPointDimension", "Tool to work on a PointDimension. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolPointDimension.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWRunoutZoneDefinition(py::module &mod){
 
-py::class_<RWStepDimTol_RWRunoutZoneDefinition, std::unique_ptr<RWStepDimTol_RWRunoutZoneDefinition>> cls_RWStepDimTol_RWRunoutZoneDefinition(mod, "RWStepDimTol_RWRunoutZoneDefinition", "Read & Write tool for RunoutZoneDefinition");
+py::class_<RWStepDimTol_RWRunoutZoneDefinition> cls_RWStepDimTol_RWRunoutZoneDefinition(mod, "RWStepDimTol_RWRunoutZoneDefinition", "Read & Write tool for RunoutZoneDefinition");
 
 // Constructors
 cls_RWStepDimTol_RWRunoutZoneDefinition.def(py::init<>());

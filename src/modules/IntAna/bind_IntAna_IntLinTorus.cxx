@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntAna_IntLinTorus(py::module &mod){
 
-py::class_<IntAna_IntLinTorus, std::unique_ptr<IntAna_IntLinTorus>> cls_IntAna_IntLinTorus(mod, "IntAna_IntLinTorus", "Intersection between a line and a torus.");
+py::class_<IntAna_IntLinTorus> cls_IntAna_IntLinTorus(mod, "IntAna_IntLinTorus", "Intersection between a line and a torus.");
 
 // Constructors
 cls_IntAna_IntLinTorus.def(py::init<>());

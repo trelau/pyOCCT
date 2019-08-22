@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWProductConcept(py::module &mod){
 
-py::class_<RWStepRepr_RWProductConcept, std::unique_ptr<RWStepRepr_RWProductConcept>> cls_RWStepRepr_RWProductConcept(mod, "RWStepRepr_RWProductConcept", "Read & Write tool for ProductConcept");
+py::class_<RWStepRepr_RWProductConcept> cls_RWStepRepr_RWProductConcept(mod, "RWStepRepr_RWProductConcept", "Read & Write tool for ProductConcept");
 
 // Constructors
 cls_RWStepRepr_RWProductConcept.def(py::init<>());

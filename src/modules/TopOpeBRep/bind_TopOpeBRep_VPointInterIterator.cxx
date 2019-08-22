@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRep_VPointInterIterator(py::module &mod){
 
-py::class_<TopOpeBRep_VPointInterIterator, std::unique_ptr<TopOpeBRep_VPointInterIterator>> cls_TopOpeBRep_VPointInterIterator(mod, "TopOpeBRep_VPointInterIterator", "None");
+py::class_<TopOpeBRep_VPointInterIterator> cls_TopOpeBRep_VPointInterIterator(mod, "TopOpeBRep_VPointInterIterator", "None");
 
 // Constructors
 cls_TopOpeBRep_VPointInterIterator.def(py::init<>());

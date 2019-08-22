@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MeshVS_SymmetricPairHasher(py::module &mod){
 
-py::class_<MeshVS_SymmetricPairHasher, std::unique_ptr<MeshVS_SymmetricPairHasher>> cls_MeshVS_SymmetricPairHasher(mod, "MeshVS_SymmetricPairHasher", "Provides symmetric hash methods pair of integers.");
+py::class_<MeshVS_SymmetricPairHasher> cls_MeshVS_SymmetricPairHasher(mod, "MeshVS_SymmetricPairHasher", "Provides symmetric hash methods pair of integers.");
 
 // Constructors
 

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopLoc_Location(py::module &mod){
 
-py::class_<TopLoc_Location, std::unique_ptr<TopLoc_Location>> cls_TopLoc_Location(mod, "TopLoc_Location", "A Location is a composite transition. It comprises a series of elementary reference coordinates, i.e. objects of type TopLoc_Datum3D, and the powers to which these objects are raised.");
+py::class_<TopLoc_Location> cls_TopLoc_Location(mod, "TopLoc_Location", "A Location is a composite transition. It comprises a series of elementary reference coordinates, i.e. objects of type TopLoc_Datum3D, and the powers to which these objects are raised.");
 
 // Constructors
 cls_TopLoc_Location.def(py::init<>());

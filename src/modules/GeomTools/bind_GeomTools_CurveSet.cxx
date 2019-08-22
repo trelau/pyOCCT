@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomTools_CurveSet(py::module &mod){
 
-py::class_<GeomTools_CurveSet, std::unique_ptr<GeomTools_CurveSet>> cls_GeomTools_CurveSet(mod, "GeomTools_CurveSet", "Stores a set of Curves from Geom.");
+py::class_<GeomTools_CurveSet> cls_GeomTools_CurveSet(mod, "GeomTools_CurveSet", "Stores a set of Curves from Geom.");
 
 // Constructors
 cls_GeomTools_CurveSet.def(py::init<>());

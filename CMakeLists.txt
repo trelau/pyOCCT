@@ -81,6 +81,8 @@ message(STATUS "OpenCASCADE library directory: ${OpenCASCADE_LIBRARY_DIR}")
 include_directories(${OpenCASCADE_INCLUDE_DIR})
 link_directories(${OpenCASCADE_LIBRARY_DIR})
 
+# Remove HAVE_TBB definition
+remove_definitions(-DHAVE_TBB)
 
 # --------------------------------------------------------------------------- #
 # SMESH

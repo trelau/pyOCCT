@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_Range(py::module &mod){
 
-py::class_<IntTools_Range, std::unique_ptr<IntTools_Range>> cls_IntTools_Range(mod, "IntTools_Range", "The class describes the 1-d range [myFirst, myLast].");
+py::class_<IntTools_Range> cls_IntTools_Range(mod, "IntTools_Range", "The class describes the 1-d range [myFirst, myLast].");
 
 // Constructors
 cls_IntTools_Range.def(py::init<>());

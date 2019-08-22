@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Convert_ParabolaToBSplineCurve(py::module &mod){
 
-py::class_<Convert_ParabolaToBSplineCurve, std::unique_ptr<Convert_ParabolaToBSplineCurve>, Convert_ConicToBSplineCurve> cls_Convert_ParabolaToBSplineCurve(mod, "Convert_ParabolaToBSplineCurve", "This algorithm converts a parabola into a non rational B-spline curve. The parabola is a Parab2d from package gp with the parametrization P (U) = Loc + F * (U*U * Xdir + 2 * U * Ydir) where Loc is the apex of the parabola, Xdir is the normalized direction of the symmetry axis of the parabola, Ydir is the normalized direction of the directrix and F is the focal length. KeyWords : Convert, Parabola, BSplineCurve, 2D .");
+py::class_<Convert_ParabolaToBSplineCurve, Convert_ConicToBSplineCurve> cls_Convert_ParabolaToBSplineCurve(mod, "Convert_ParabolaToBSplineCurve", "This algorithm converts a parabola into a non rational B-spline curve. The parabola is a Parab2d from package gp with the parametrization P (U) = Loc + F * (U*U * Xdir + 2 * U * Ydir) where Loc is the apex of the parabola, Xdir is the normalized direction of the symmetry axis of the parabola, Ydir is the normalized direction of the directrix and F is the focal length. KeyWords : Convert, Parabola, BSplineCurve, 2D .");
 
 // Constructors
 cls_Convert_ParabolaToBSplineCurve.def(py::init<const gp_Parab2d &, const Standard_Real, const Standard_Real>(), py::arg("Prb"), py::arg("U1"), py::arg("U2"));

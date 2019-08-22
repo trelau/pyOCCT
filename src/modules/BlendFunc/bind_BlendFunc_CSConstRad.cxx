@@ -47,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BlendFunc_CSConstRad(py::module &mod){
 
-py::class_<BlendFunc_CSConstRad, std::unique_ptr<BlendFunc_CSConstRad>, Blend_CSFunction> cls_BlendFunc_CSConstRad(mod, "BlendFunc_CSConstRad", "None");
+py::class_<BlendFunc_CSConstRad, Blend_CSFunction> cls_BlendFunc_CSConstRad(mod, "BlendFunc_CSConstRad", "None");
 
 // Constructors
 cls_BlendFunc_CSConstRad.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S"), py::arg("C"), py::arg("CGuide"));

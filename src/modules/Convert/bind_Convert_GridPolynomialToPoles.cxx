@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Convert_GridPolynomialToPoles(py::module &mod){
 
-py::class_<Convert_GridPolynomialToPoles, std::unique_ptr<Convert_GridPolynomialToPoles>> cls_Convert_GridPolynomialToPoles(mod, "Convert_GridPolynomialToPoles", "Convert a grid of Polynomial Surfaces that are have continuity CM to an Bspline Surface that has continuity CM");
+py::class_<Convert_GridPolynomialToPoles> cls_Convert_GridPolynomialToPoles(mod, "Convert_GridPolynomialToPoles", "Convert a grid of Polynomial Surfaces that are have continuity CM to an Bspline Surface that has continuity CM");
 
 // Constructors
 cls_Convert_GridPolynomialToPoles.def(py::init<const Standard_Integer, const Standard_Integer, const opencascade::handle<TColStd_HArray1OfInteger> &, const opencascade::handle<TColStd_HArray1OfReal> &, const opencascade::handle<TColStd_HArray1OfReal> &, const opencascade::handle<TColStd_HArray1OfReal> &>(), py::arg("MaxUDegree"), py::arg("MaxVDegree"), py::arg("NumCoeff"), py::arg("Coefficients"), py::arg("PolynomialUIntervals"), py::arg("PolynomialVIntervals"));

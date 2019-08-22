@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWSurfaceStyleControlGrid(py::module &mod){
 
-py::class_<RWStepVisual_RWSurfaceStyleControlGrid, std::unique_ptr<RWStepVisual_RWSurfaceStyleControlGrid>> cls_RWStepVisual_RWSurfaceStyleControlGrid(mod, "RWStepVisual_RWSurfaceStyleControlGrid", "Read & Write Module for SurfaceStyleControlGrid");
+py::class_<RWStepVisual_RWSurfaceStyleControlGrid> cls_RWStepVisual_RWSurfaceStyleControlGrid(mod, "RWStepVisual_RWSurfaceStyleControlGrid", "Read & Write Module for SurfaceStyleControlGrid");
 
 // Constructors
 cls_RWStepVisual_RWSurfaceStyleControlGrid.def(py::init<>());

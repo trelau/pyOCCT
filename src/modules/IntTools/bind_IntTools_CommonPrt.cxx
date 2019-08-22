@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_CommonPrt(py::module &mod){
 
-py::class_<IntTools_CommonPrt, std::unique_ptr<IntTools_CommonPrt>> cls_IntTools_CommonPrt(mod, "IntTools_CommonPrt", "The class is to describe a common part between two edges in 3-d space.");
+py::class_<IntTools_CommonPrt> cls_IntTools_CommonPrt(mod, "IntTools_CommonPrt", "The class is to describe a common part between two edges in 3-d space.");
 
 // Constructors
 cls_IntTools_CommonPrt.def(py::init<>());

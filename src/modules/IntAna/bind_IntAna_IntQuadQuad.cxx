@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntAna_IntQuadQuad(py::module &mod){
 
-py::class_<IntAna_IntQuadQuad, std::unique_ptr<IntAna_IntQuadQuad>> cls_IntAna_IntQuadQuad(mod, "IntAna_IntQuadQuad", "This class provides the analytic intersection between a cylinder or a cone from gp and another quadric, as defined in the class Quadric from IntAna. This algorithm is used when the geometric intersection (class QuadQuadGeo from IntAna) returns no geometric solution. The result of the intersection may be - Curves as defined in the class Curve from IntAna - Points (Pnt from gp)");
+py::class_<IntAna_IntQuadQuad> cls_IntAna_IntQuadQuad(mod, "IntAna_IntQuadQuad", "This class provides the analytic intersection between a cylinder or a cone from gp and another quadric, as defined in the class Quadric from IntAna. This algorithm is used when the geometric intersection (class QuadQuadGeo from IntAna) returns no geometric solution. The result of the intersection may be - Curves as defined in the class Curve from IntAna - Points (Pnt from gp)");
 
 // Constructors
 cls_IntAna_IntQuadQuad.def(py::init<>());

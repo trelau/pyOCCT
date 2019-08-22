@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffsetAPI_MakeDraft(py::module &mod){
 
-py::class_<BRepOffsetAPI_MakeDraft, std::unique_ptr<BRepOffsetAPI_MakeDraft>, BRepBuilderAPI_MakeShape> cls_BRepOffsetAPI_MakeDraft(mod, "BRepOffsetAPI_MakeDraft", "Build a draft surface along a wire");
+py::class_<BRepOffsetAPI_MakeDraft, BRepBuilderAPI_MakeShape> cls_BRepOffsetAPI_MakeDraft(mod, "BRepOffsetAPI_MakeDraft", "Build a draft surface along a wire");
 
 // Constructors
 cls_BRepOffsetAPI_MakeDraft.def(py::init<const TopoDS_Shape &, const gp_Dir &, const Standard_Real>(), py::arg("Shape"), py::arg("Dir"), py::arg("Angle"));

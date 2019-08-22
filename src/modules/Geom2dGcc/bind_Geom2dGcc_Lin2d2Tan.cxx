@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dGcc_Lin2d2Tan(py::module &mod){
 
-py::class_<Geom2dGcc_Lin2d2Tan, std::unique_ptr<Geom2dGcc_Lin2d2Tan>> cls_Geom2dGcc_Lin2d2Tan(mod, "Geom2dGcc_Lin2d2Tan", "This class implements the algorithms used to create 2d lines tangent to 2 other elements which can be circles, curves or points. More than one argument must be a curve. Describes functions for building a 2D line: - tangential to 2 curves, or - tangential to a curve and passing through a point. A Lin2d2Tan object provides a framework for: - defining the construction of 2D line(s), - implementing the construction algorithm, and - consulting the result(s).");
+py::class_<Geom2dGcc_Lin2d2Tan> cls_Geom2dGcc_Lin2d2Tan(mod, "Geom2dGcc_Lin2d2Tan", "This class implements the algorithms used to create 2d lines tangent to 2 other elements which can be circles, curves or points. More than one argument must be a curve. Describes functions for building a 2D line: - tangential to 2 curves, or - tangential to a curve and passing through a point. A Lin2d2Tan object provides a framework for: - defining the construction of 2D line(s), - implementing the construction algorithm, and - consulting the result(s).");
 
 // Constructors
 cls_Geom2dGcc_Lin2d2Tan.def(py::init<const Geom2dGcc_QualifiedCurve &, const Geom2dGcc_QualifiedCurve &, const Standard_Real>(), py::arg("Qualified1"), py::arg("Qualified2"), py::arg("Tolang"));

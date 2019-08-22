@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_VrmlConverter_ShadedShape(py::module &mod){
 
-py::class_<VrmlConverter_ShadedShape, std::unique_ptr<VrmlConverter_ShadedShape>> cls_VrmlConverter_ShadedShape(mod, "VrmlConverter_ShadedShape", "ShadedShape - computes the shading presentation of shapes by triangulation algorithms, converts this one into VRML objects and writes (adds) into anOStream. All requested properties of the representation including the maximal chordial deviation are specify in aDrawer. This kind of the presentation is converted into IndexedFaceSet ( VRML ).");
+py::class_<VrmlConverter_ShadedShape> cls_VrmlConverter_ShadedShape(mod, "VrmlConverter_ShadedShape", "ShadedShape - computes the shading presentation of shapes by triangulation algorithms, converts this one into VRML objects and writes (adds) into anOStream. All requested properties of the representation including the maximal chordial deviation are specify in aDrawer. This kind of the presentation is converted into IndexedFaceSet ( VRML ).");
 
 // Constructors
 

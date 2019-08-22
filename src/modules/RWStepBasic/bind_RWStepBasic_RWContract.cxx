@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWContract(py::module &mod){
 
-py::class_<RWStepBasic_RWContract, std::unique_ptr<RWStepBasic_RWContract>> cls_RWStepBasic_RWContract(mod, "RWStepBasic_RWContract", "Read & Write tool for Contract");
+py::class_<RWStepBasic_RWContract> cls_RWStepBasic_RWContract(mod, "RWStepBasic_RWContract", "Read & Write tool for Contract");
 
 // Constructors
 cls_RWStepBasic_RWContract.def(py::init<>());

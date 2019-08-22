@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomTools_SurfaceSet(py::module &mod){
 
-py::class_<GeomTools_SurfaceSet, std::unique_ptr<GeomTools_SurfaceSet>> cls_GeomTools_SurfaceSet(mod, "GeomTools_SurfaceSet", "Stores a set of Surfaces from Geom.");
+py::class_<GeomTools_SurfaceSet> cls_GeomTools_SurfaceSet(mod, "GeomTools_SurfaceSet", "Stores a set of Surfaces from Geom.");
 
 // Constructors
 cls_GeomTools_SurfaceSet.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter(py::module &mod){
 
-py::class_<HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter, std::unique_ptr<HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter>, math_FunctionSetWithDerivatives> cls_HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter(mod, "HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter", "None");
+py::class_<HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter, math_FunctionSetWithDerivatives> cls_HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter(mod, "HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter", "None");
 
 // Constructors
 cls_HLRBRep_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfCInter.def(py::init<const Standard_Address &, const Standard_Address &>(), py::arg("curve1"), py::arg("curve2"));

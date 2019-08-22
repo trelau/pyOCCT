@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS_TranslatePolyLoop(py::module &mod){
 
-py::class_<StepToTopoDS_TranslatePolyLoop, std::unique_ptr<StepToTopoDS_TranslatePolyLoop>, StepToTopoDS_Root> cls_StepToTopoDS_TranslatePolyLoop(mod, "StepToTopoDS_TranslatePolyLoop", "None");
+py::class_<StepToTopoDS_TranslatePolyLoop, StepToTopoDS_Root> cls_StepToTopoDS_TranslatePolyLoop(mod, "StepToTopoDS_TranslatePolyLoop", "None");
 
 // Constructors
 cls_StepToTopoDS_TranslatePolyLoop.def(py::init<>());

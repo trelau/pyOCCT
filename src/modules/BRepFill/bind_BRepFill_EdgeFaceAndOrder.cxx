@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_EdgeFaceAndOrder(py::module &mod){
 
-py::class_<BRepFill_EdgeFaceAndOrder, std::unique_ptr<BRepFill_EdgeFaceAndOrder>> cls_BRepFill_EdgeFaceAndOrder(mod, "BRepFill_EdgeFaceAndOrder", "None");
+py::class_<BRepFill_EdgeFaceAndOrder> cls_BRepFill_EdgeFaceAndOrder(mod, "BRepFill_EdgeFaceAndOrder", "None");
 
 // Constructors
 cls_BRepFill_EdgeFaceAndOrder.def(py::init<>());

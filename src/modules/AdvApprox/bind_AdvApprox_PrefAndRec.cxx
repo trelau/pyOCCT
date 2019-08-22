@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApprox_PrefAndRec(py::module &mod){
 
-py::class_<AdvApprox_PrefAndRec, std::unique_ptr<AdvApprox_PrefAndRec>, AdvApprox_Cutting> cls_AdvApprox_PrefAndRec(mod, "AdvApprox_PrefAndRec", "inherits class Cutting; contains a list of preferential points (pi)i and a list of Recommended points used in cutting management. if Cutting is necessary in [a,b], we cut at the di nearest from (a+b)/2");
+py::class_<AdvApprox_PrefAndRec, AdvApprox_Cutting> cls_AdvApprox_PrefAndRec(mod, "AdvApprox_PrefAndRec", "inherits class Cutting; contains a list of preferential points (pi)i and a list of Recommended points used in cutting management. if Cutting is necessary in [a,b], we cut at the di nearest from (a+b)/2");
 
 // Constructors
 cls_AdvApprox_PrefAndRec.def(py::init<const TColStd_Array1OfReal &, const TColStd_Array1OfReal &>(), py::arg("RecomendedCut"), py::arg("PrefferedCut"));

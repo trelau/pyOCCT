@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Blend_RstRstFunction(py::module &mod){
 
-py::class_<Blend_RstRstFunction, std::unique_ptr<Blend_RstRstFunction>, Blend_AppFunction> cls_Blend_RstRstFunction(mod, "Blend_RstRstFunction", "Deferred class for a function used to compute a blending surface between a surface and a pcurve on an other Surface, using a guide line. The vector <X> used in Value, Values and Derivatives methods may be the vector of the parametric coordinates U,V, W of the extremities of a section on the surface and the curve.");
+py::class_<Blend_RstRstFunction, Blend_AppFunction> cls_Blend_RstRstFunction(mod, "Blend_RstRstFunction", "Deferred class for a function used to compute a blending surface between a surface and a pcurve on an other Surface, using a guide line. The vector <X> used in Value, Values and Derivatives methods may be the vector of the parametric coordinates U,V, W of the extremities of a section on the surface and the curve.");
 
 // Fields
 

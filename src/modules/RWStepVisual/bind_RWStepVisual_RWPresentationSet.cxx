@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWPresentationSet(py::module &mod){
 
-py::class_<RWStepVisual_RWPresentationSet, std::unique_ptr<RWStepVisual_RWPresentationSet>> cls_RWStepVisual_RWPresentationSet(mod, "RWStepVisual_RWPresentationSet", "Read & Write Module for PresentationSet");
+py::class_<RWStepVisual_RWPresentationSet> cls_RWStepVisual_RWPresentationSet(mod, "RWStepVisual_RWPresentationSet", "Read & Write Module for PresentationSet");
 
 // Constructors
 cls_RWStepVisual_RWPresentationSet.def(py::init<>());

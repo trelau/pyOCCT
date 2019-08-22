@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Standard_MMgrRoot(py::module &mod){
 
-py::class_<Standard_MMgrRoot, std::unique_ptr<Standard_MMgrRoot>> cls_Standard_MMgrRoot(mod, "Standard_MMgrRoot", "Root class for Open CASCADE mmemory managers. Defines only abstract interface functions.");
+py::class_<Standard_MMgrRoot> cls_Standard_MMgrRoot(mod, "Standard_MMgrRoot", "Root class for Open CASCADE mmemory managers. Defines only abstract interface functions.");
 
 // Fields
 

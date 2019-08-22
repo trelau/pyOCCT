@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDSToStep_Tool(py::module &mod){
 
-py::class_<TopoDSToStep_Tool, std::unique_ptr<TopoDSToStep_Tool>> cls_TopoDSToStep_Tool(mod, "TopoDSToStep_Tool", "This Tool Class provides Information to build a ProSTEP Shape model from a Cas.Cad BRep.");
+py::class_<TopoDSToStep_Tool> cls_TopoDSToStep_Tool(mod, "TopoDSToStep_Tool", "This Tool Class provides Information to build a ProSTEP Shape model from a Cas.Cad BRep.");
 
 // Constructors
 cls_TopoDSToStep_Tool.def(py::init<>());

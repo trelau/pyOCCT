@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_ConstrainedFilling(py::module &mod){
 
-py::class_<GeomFill_ConstrainedFilling, std::unique_ptr<GeomFill_ConstrainedFilling>> cls_GeomFill_ConstrainedFilling(mod, "GeomFill_ConstrainedFilling", "An algorithm for constructing a BSpline surface filled from a series of boundaries which serve as path constraints and optionally, as tangency constraints. The algorithm accepts three or four curves as the boundaries of the target surface. The only FillingStyle used is Coons. A ConstrainedFilling object provides a framework for: - defining the boundaries of the surface - implementing the construction algorithm - consulting the result. Warning This surface filling algorithm is specifically designed to be used in connection with fillets. Satisfactory results cannot be guaranteed for other uses.");
+py::class_<GeomFill_ConstrainedFilling> cls_GeomFill_ConstrainedFilling(mod, "GeomFill_ConstrainedFilling", "An algorithm for constructing a BSpline surface filled from a series of boundaries which serve as path constraints and optionally, as tangency constraints. The algorithm accepts three or four curves as the boundaries of the target surface. The only FillingStyle used is Coons. A ConstrainedFilling object provides a framework for: - defining the boundaries of the surface - implementing the construction algorithm - consulting the result. Warning This surface filling algorithm is specifically designed to be used in connection with fillets. Satisfactory results cannot be guaranteed for other uses.");
 
 // Constructors
 cls_GeomFill_ConstrainedFilling.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("MaxDeg"), py::arg("MaxSeg"));

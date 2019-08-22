@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_TheSurfFunction(py::module &mod){
 
-py::class_<IntPatch_TheSurfFunction, std::unique_ptr<IntPatch_TheSurfFunction>, math_FunctionSetWithDerivatives> cls_IntPatch_TheSurfFunction(mod, "IntPatch_TheSurfFunction", "None");
+py::class_<IntPatch_TheSurfFunction, math_FunctionSetWithDerivatives> cls_IntPatch_TheSurfFunction(mod, "IntPatch_TheSurfFunction", "None");
 
 // Constructors
 cls_IntPatch_TheSurfFunction.def(py::init<>());

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepBasic_Unit(py::module &mod){
 
-py::class_<StepBasic_Unit, std::unique_ptr<StepBasic_Unit>, StepData_SelectType> cls_StepBasic_Unit(mod, "StepBasic_Unit", "Implements a select type unit (NamedUnit or DerivedUnit)");
+py::class_<StepBasic_Unit, StepData_SelectType> cls_StepBasic_Unit(mod, "StepBasic_Unit", "Implements a select type unit (NamedUnit or DerivedUnit)");
 
 // Constructors
 cls_StepBasic_Unit.def(py::init<>());

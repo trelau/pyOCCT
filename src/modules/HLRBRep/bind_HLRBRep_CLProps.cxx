@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_CLProps(py::module &mod){
 
-py::class_<HLRBRep_CLProps, std::unique_ptr<HLRBRep_CLProps>> cls_HLRBRep_CLProps(mod, "HLRBRep_CLProps", "None");
+py::class_<HLRBRep_CLProps> cls_HLRBRep_CLProps(mod, "HLRBRep_CLProps", "None");
 
 // Constructors
 // cls_HLRBRep_CLProps.def(py::init<const HLRBRep_Curve *&, const Standard_Integer, const Standard_Real>(), py::arg("C"), py::arg("N"), py::arg("Resolution"));

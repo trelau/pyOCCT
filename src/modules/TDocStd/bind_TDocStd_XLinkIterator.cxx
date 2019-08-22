@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDocStd_XLinkIterator(py::module &mod){
 
-py::class_<TDocStd_XLinkIterator, std::unique_ptr<TDocStd_XLinkIterator>> cls_TDocStd_XLinkIterator(mod, "TDocStd_XLinkIterator", "Iterates on Reference attributes. This is an iterator giving all the external references of a Document.");
+py::class_<TDocStd_XLinkIterator> cls_TDocStd_XLinkIterator(mod, "TDocStd_XLinkIterator", "Iterates on Reference attributes. This is an iterator giving all the external references of a Document.");
 
 // Constructors
 cls_TDocStd_XLinkIterator.def(py::init<>());

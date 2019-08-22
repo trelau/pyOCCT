@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP209_Construct(py::module &mod){
 
-py::class_<StepAP209_Construct, std::unique_ptr<StepAP209_Construct>, STEPConstruct_Tool> cls_StepAP209_Construct(mod, "StepAP209_Construct", "Basic tool for working with AP209 model");
+py::class_<StepAP209_Construct, STEPConstruct_Tool> cls_StepAP209_Construct(mod, "StepAP209_Construct", "Basic tool for working with AP209 model");
 
 // Constructors
 cls_StepAP209_Construct.def(py::init<>());

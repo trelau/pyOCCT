@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWDimensionalLocation(py::module &mod){
 
-py::class_<RWStepShape_RWDimensionalLocation, std::unique_ptr<RWStepShape_RWDimensionalLocation>> cls_RWStepShape_RWDimensionalLocation(mod, "RWStepShape_RWDimensionalLocation", "Read & Write tool for DimensionalLocation");
+py::class_<RWStepShape_RWDimensionalLocation> cls_RWStepShape_RWDimensionalLocation(mod, "RWStepShape_RWDimensionalLocation", "Read & Write tool for DimensionalLocation");
 
 // Constructors
 cls_RWStepShape_RWDimensionalLocation.def(py::init<>());

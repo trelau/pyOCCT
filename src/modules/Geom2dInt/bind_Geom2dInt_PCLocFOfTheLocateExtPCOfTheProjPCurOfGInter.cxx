@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dInt_PCLocFOfTheLocateExtPCOfTheProjPCurOfGInter(py::module &mod){
 
-py::class_<Geom2dInt_PCLocFOfTheLocateExtPCOfTheProjPCurOfGInter, std::unique_ptr<Geom2dInt_PCLocFOfTheLocateExtPCOfTheProjPCurOfGInter>, math_FunctionWithDerivative> cls_Geom2dInt_PCLocFOfTheLocateExtPCOfTheProjPCurOfGInter(mod, "Geom2dInt_PCLocFOfTheLocateExtPCOfTheProjPCurOfGInter", "None");
+py::class_<Geom2dInt_PCLocFOfTheLocateExtPCOfTheProjPCurOfGInter, math_FunctionWithDerivative> cls_Geom2dInt_PCLocFOfTheLocateExtPCOfTheProjPCurOfGInter(mod, "Geom2dInt_PCLocFOfTheLocateExtPCOfTheProjPCurOfGInter", "None");
 
 // Constructors
 cls_Geom2dInt_PCLocFOfTheLocateExtPCOfTheProjPCurOfGInter.def(py::init<>());

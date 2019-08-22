@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFilletAPI_MakeChamfer(py::module &mod){
 
-py::class_<BRepFilletAPI_MakeChamfer, std::unique_ptr<BRepFilletAPI_MakeChamfer>, BRepFilletAPI_LocalOperation> cls_BRepFilletAPI_MakeChamfer(mod, "BRepFilletAPI_MakeChamfer", "Describes functions to build chamfers on edges of a shell or solid. Chamfered Edge of a Shell or Solid A MakeChamfer object provides a framework for: - initializing the construction algorithm with a given shape, - acquiring the data characterizing the chamfers, - building the chamfers and constructing the resulting shape, and - consulting the result.");
+py::class_<BRepFilletAPI_MakeChamfer, BRepFilletAPI_LocalOperation> cls_BRepFilletAPI_MakeChamfer(mod, "BRepFilletAPI_MakeChamfer", "Describes functions to build chamfers on edges of a shell or solid. Chamfered Edge of a Shell or Solid A MakeChamfer object provides a framework for: - initializing the construction algorithm with a given shape, - acquiring the data characterizing the chamfers, - building the chamfers and constructing the resulting shape, and - consulting the result.");
 
 // Constructors
 cls_BRepFilletAPI_MakeChamfer.def(py::init<const TopoDS_Shape &>(), py::arg("S"));

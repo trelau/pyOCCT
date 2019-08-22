@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_VrmlAPI(py::module &mod){
 
-py::class_<VrmlAPI, std::unique_ptr<VrmlAPI>> cls_VrmlAPI(mod, "VrmlAPI", "API for writing to VRML 1.0");
+py::class_<VrmlAPI> cls_VrmlAPI(mod, "VrmlAPI", "API for writing to VRML 1.0");
 
 // Constructors
 

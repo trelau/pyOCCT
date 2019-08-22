@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MyDirectPolynomialRoots(py::module &mod){
 
-py::class_<MyDirectPolynomialRoots, std::unique_ptr<MyDirectPolynomialRoots>> cls_MyDirectPolynomialRoots(mod, "MyDirectPolynomialRoots", "None");
+py::class_<MyDirectPolynomialRoots> cls_MyDirectPolynomialRoots(mod, "MyDirectPolynomialRoots", "None");
 
 // Constructors
 // cls_MyDirectPolynomialRoots.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("A4"), py::arg("A3"), py::arg("A2"), py::arg("A1"), py::arg("A0"));

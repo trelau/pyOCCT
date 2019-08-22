@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepGeom_SurfaceBoundary(py::module &mod){
 
-py::class_<StepGeom_SurfaceBoundary, std::unique_ptr<StepGeom_SurfaceBoundary>, StepData_SelectType> cls_StepGeom_SurfaceBoundary(mod, "StepGeom_SurfaceBoundary", "Representation of STEP SELECT type SurfaceBoundary");
+py::class_<StepGeom_SurfaceBoundary, StepData_SelectType> cls_StepGeom_SurfaceBoundary(mod, "StepGeom_SurfaceBoundary", "Representation of STEP SELECT type SurfaceBoundary");
 
 // Constructors
 cls_StepGeom_SurfaceBoundary.def(py::init<>());

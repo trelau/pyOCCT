@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ProjLib_PrjResolve(py::module &mod){
 
-py::class_<ProjLib_PrjResolve, std::unique_ptr<ProjLib_PrjResolve>> cls_ProjLib_PrjResolve(mod, "ProjLib_PrjResolve", "None");
+py::class_<ProjLib_PrjResolve> cls_ProjLib_PrjResolve(mod, "ProjLib_PrjResolve", "None");
 
 // Constructors
 cls_ProjLib_PrjResolve.def(py::init<const Adaptor3d_Curve &, const Adaptor3d_Surface &, const Standard_Integer>(), py::arg("C"), py::arg("S"), py::arg("Fix"));

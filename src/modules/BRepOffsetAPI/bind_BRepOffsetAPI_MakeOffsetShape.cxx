@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffsetAPI_MakeOffsetShape(py::module &mod){
 
-py::class_<BRepOffsetAPI_MakeOffsetShape, std::unique_ptr<BRepOffsetAPI_MakeOffsetShape>, BRepBuilderAPI_MakeShape> cls_BRepOffsetAPI_MakeOffsetShape(mod, "BRepOffsetAPI_MakeOffsetShape", "Describes functions to build a shell out of a shape. The result is an unlooped shape parallel to the source shape. A MakeOffsetShape object provides a framework for: - defining the construction of a shell - implementing the construction algorithm - consulting the result.");
+py::class_<BRepOffsetAPI_MakeOffsetShape, BRepBuilderAPI_MakeShape> cls_BRepOffsetAPI_MakeOffsetShape(mod, "BRepOffsetAPI_MakeOffsetShape", "Describes functions to build a shell out of a shape. The result is an unlooped shape parallel to the source shape. A MakeOffsetShape object provides a framework for: - defining the construction of a shell - implementing the construction algorithm - consulting the result.");
 
 // Constructors
 cls_BRepOffsetAPI_MakeOffsetShape.def(py::init<>());

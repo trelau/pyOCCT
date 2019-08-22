@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffsetAPI_ThruSections(py::module &mod){
 
-py::class_<BRepOffsetAPI_ThruSections, std::unique_ptr<BRepOffsetAPI_ThruSections>, BRepBuilderAPI_MakeShape> cls_BRepOffsetAPI_ThruSections(mod, "BRepOffsetAPI_ThruSections", "Describes functions to build a loft. This is a shell or a solid passing through a set of sections in a given sequence. Usually sections are wires, but the first and the last sections may be vertices (punctual sections).");
+py::class_<BRepOffsetAPI_ThruSections, BRepBuilderAPI_MakeShape> cls_BRepOffsetAPI_ThruSections(mod, "BRepOffsetAPI_ThruSections", "Describes functions to build a loft. This is a shell or a solid passing through a set of sections in a given sequence. Usually sections are wires, but the first and the last sections may be vertices (punctual sections).");
 
 // Constructors
 cls_BRepOffsetAPI_ThruSections.def(py::init<>());

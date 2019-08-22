@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_AnnotationPlaneElement(py::module &mod){
 
-py::class_<StepVisual_AnnotationPlaneElement, std::unique_ptr<StepVisual_AnnotationPlaneElement>, StepData_SelectType> cls_StepVisual_AnnotationPlaneElement(mod, "StepVisual_AnnotationPlaneElement", "None");
+py::class_<StepVisual_AnnotationPlaneElement, StepData_SelectType> cls_StepVisual_AnnotationPlaneElement(mod, "StepVisual_AnnotationPlaneElement", "None");
 
 // Constructors
 cls_StepVisual_AnnotationPlaneElement.def(py::init<>());

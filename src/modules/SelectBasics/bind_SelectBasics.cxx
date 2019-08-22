@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_SelectBasics(py::module &mod){
 
-py::class_<SelectBasics, std::unique_ptr<SelectBasics>> cls_SelectBasics(mod, "SelectBasics", "interface class for dynamic selection");
+py::class_<SelectBasics> cls_SelectBasics(mod, "SelectBasics", "interface class for dynamic selection");
 
 // Constructors
 

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TypeSolver, typename TypeSolverVector, typename TypeContext, typename TN>
 void bind_BOPTools_ContextFunctor(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BOPTools_ContextFunctor<TypeSolver, TypeSolverVector, TypeContext, TN>, std::unique_ptr<BOPTools_ContextFunctor<TypeSolver, TypeSolverVector, TypeContext, TN>>> cls_BOPTools_ContextFunctor(mod, name.c_str(), "None", local);
+py::class_<BOPTools_ContextFunctor<TypeSolver, TypeSolverVector, TypeContext, TN>> cls_BOPTools_ContextFunctor(mod, name.c_str(), "None", local);
 
 // Constructors
 cls_BOPTools_ContextFunctor.def(py::init<TypeSolverVector &>(), py::arg("theVector"));

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDF_IDFilter(py::module &mod){
 
-py::class_<TDF_IDFilter, std::unique_ptr<TDF_IDFilter>> cls_TDF_IDFilter(mod, "TDF_IDFilter", "This class offers filtering services around an ID list.");
+py::class_<TDF_IDFilter> cls_TDF_IDFilter(mod, "TDF_IDFilter", "This class offers filtering services around an ID list.");
 
 // Constructors
 cls_TDF_IDFilter.def(py::init<>());

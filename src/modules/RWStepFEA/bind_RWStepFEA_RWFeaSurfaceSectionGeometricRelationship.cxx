@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWFeaSurfaceSectionGeometricRelationship(py::module &mod){
 
-py::class_<RWStepFEA_RWFeaSurfaceSectionGeometricRelationship, std::unique_ptr<RWStepFEA_RWFeaSurfaceSectionGeometricRelationship>> cls_RWStepFEA_RWFeaSurfaceSectionGeometricRelationship(mod, "RWStepFEA_RWFeaSurfaceSectionGeometricRelationship", "Read & Write tool for FeaSurfaceSectionGeometricRelationship");
+py::class_<RWStepFEA_RWFeaSurfaceSectionGeometricRelationship> cls_RWStepFEA_RWFeaSurfaceSectionGeometricRelationship(mod, "RWStepFEA_RWFeaSurfaceSectionGeometricRelationship", "Read & Write tool for FeaSurfaceSectionGeometricRelationship");
 
 // Constructors
 cls_RWStepFEA_RWFeaSurfaceSectionGeometricRelationship.def(py::init<>());

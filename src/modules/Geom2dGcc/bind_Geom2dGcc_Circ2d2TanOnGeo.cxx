@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dGcc_Circ2d2TanOnGeo(py::module &mod){
 
-py::class_<Geom2dGcc_Circ2d2TanOnGeo, std::unique_ptr<Geom2dGcc_Circ2d2TanOnGeo>> cls_Geom2dGcc_Circ2d2TanOnGeo(mod, "Geom2dGcc_Circ2d2TanOnGeo", "This class implements the algorithms used to create 2d circles TANgent to 2 entities and having the center ON a curve. The order of the tangency argument is always QualifiedCirc, QualifiedLin, QualifiedCurv, Pnt2d. the arguments are : - The two tangency arguments (lines, circles or points). - The center line (a curve). - The parameter for each tangency argument which is a curve. - The tolerance.");
+py::class_<Geom2dGcc_Circ2d2TanOnGeo> cls_Geom2dGcc_Circ2d2TanOnGeo(mod, "Geom2dGcc_Circ2d2TanOnGeo", "This class implements the algorithms used to create 2d circles TANgent to 2 entities and having the center ON a curve. The order of the tangency argument is always QualifiedCirc, QualifiedLin, QualifiedCurv, Pnt2d. the arguments are : - The two tangency arguments (lines, circles or points). - The center line (a curve). - The parameter for each tangency argument which is a curve. - The tolerance.");
 
 // Constructors
 cls_Geom2dGcc_Circ2d2TanOnGeo.def(py::init<const GccEnt_QualifiedCirc &, const GccEnt_QualifiedCirc &, const Geom2dAdaptor_Curve &, const Standard_Real>(), py::arg("Qualified1"), py::arg("Qualified2"), py::arg("OnCurv"), py::arg("Tolerance"));

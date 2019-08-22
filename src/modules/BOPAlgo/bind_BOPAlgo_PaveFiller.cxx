@@ -65,7 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_PaveFiller(py::module &mod){
 
-py::class_<BOPAlgo_PaveFiller, std::unique_ptr<BOPAlgo_PaveFiller>, BOPAlgo_Algo> cls_BOPAlgo_PaveFiller(mod, "BOPAlgo_PaveFiller", "The class represents the Intersection phase of the Boolean Operations algorithm. It performs the pairwise intersection of the sub-shapes of the arguments in the following order: 1. Vertex/Vertex; 2. Vertex/Edge; 3. Edge/Edge; 4. Vertex/Face; 5. Edge/Face; 6. Face/Face.");
+py::class_<BOPAlgo_PaveFiller, BOPAlgo_Algo> cls_BOPAlgo_PaveFiller(mod, "BOPAlgo_PaveFiller", "The class represents the Intersection phase of the Boolean Operations algorithm. It performs the pairwise intersection of the sub-shapes of the arguments in the following order: 1. Vertex/Vertex; 2. Vertex/Edge; 3. Edge/Edge; 4. Vertex/Face; 5. Edge/Face; 6. Face/Face.");
 
 // Constructors
 cls_BOPAlgo_PaveFiller.def(py::init<>());

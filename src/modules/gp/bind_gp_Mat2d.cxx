@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_Mat2d(py::module &mod){
 
-py::class_<gp_Mat2d, std::unique_ptr<gp_Mat2d>> cls_gp_Mat2d(mod, "gp_Mat2d", "Describes a two column, two row matrix. This sort of object is used in various vectorial or matrix computations.");
+py::class_<gp_Mat2d> cls_gp_Mat2d(mod, "gp_Mat2d", "Describes a two column, two row matrix. This sort of object is used in various vectorial or matrix computations.");
 
 // Constructors
 cls_gp_Mat2d.def(py::init<>());

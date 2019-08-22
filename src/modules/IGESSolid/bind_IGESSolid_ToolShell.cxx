@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolShell(py::module &mod){
 
-py::class_<IGESSolid_ToolShell, std::unique_ptr<IGESSolid_ToolShell>> cls_IGESSolid_ToolShell(mod, "IGESSolid_ToolShell", "Tool to work on a Shell. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolShell> cls_IGESSolid_ToolShell(mod, "IGESSolid_ToolShell", "Tool to work on a Shell. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolShell.def(py::init<>());

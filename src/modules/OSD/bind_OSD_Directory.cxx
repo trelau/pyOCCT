@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_Directory(py::module &mod){
 
-py::class_<OSD_Directory, std::unique_ptr<OSD_Directory>, OSD_FileNode> cls_OSD_Directory(mod, "OSD_Directory", "Management of directories (a set of directory oriented tools)");
+py::class_<OSD_Directory, OSD_FileNode> cls_OSD_Directory(mod, "OSD_Directory", "Management of directories (a set of directory oriented tools)");
 
 // Constructors
 cls_OSD_Directory.def(py::init<>());

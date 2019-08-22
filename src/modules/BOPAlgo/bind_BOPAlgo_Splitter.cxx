@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_Splitter(py::module &mod){
 
-py::class_<BOPAlgo_Splitter, std::unique_ptr<BOPAlgo_Splitter>, BOPAlgo_ToolsProvider> cls_BOPAlgo_Splitter(mod, "BOPAlgo_Splitter", "The **Splitter algorithm** is the algorithm for splitting a group of arbitrary shapes by the other group of arbitrary shapes. The arguments of the operation are divided on two groups: *Objects* - shapes that will be split; *Tools* - shapes by which the *Objects* will be split. The result of the operation contains only the split parts of the shapes from the group of *Objects*. The split parts of the shapes from the group of *Tools* are excluded from the result. The shapes can be split by the other shapes from the same group (in case these shapes are interfering).");
+py::class_<BOPAlgo_Splitter, BOPAlgo_ToolsProvider> cls_BOPAlgo_Splitter(mod, "BOPAlgo_Splitter", "The **Splitter algorithm** is the algorithm for splitting a group of arbitrary shapes by the other group of arbitrary shapes. The arguments of the operation are divided on two groups: *Objects* - shapes that will be split; *Tools* - shapes by which the *Objects* will be split. The result of the operation contains only the split parts of the shapes from the group of *Objects*. The split parts of the shapes from the group of *Tools* are excluded from the result. The shapes can be split by the other shapes from the same group (in case these shapes are interfering).");
 
 // Constructors
 cls_BOPAlgo_Splitter.def(py::init<>());

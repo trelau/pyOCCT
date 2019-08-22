@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli_ToolDrilledHole(py::module &mod){
 
-py::class_<IGESAppli_ToolDrilledHole, std::unique_ptr<IGESAppli_ToolDrilledHole>> cls_IGESAppli_ToolDrilledHole(mod, "IGESAppli_ToolDrilledHole", "Tool to work on a DrilledHole. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESAppli_ToolDrilledHole> cls_IGESAppli_ToolDrilledHole(mod, "IGESAppli_ToolDrilledHole", "Tool to work on a DrilledHole. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESAppli_ToolDrilledHole.def(py::init<>());

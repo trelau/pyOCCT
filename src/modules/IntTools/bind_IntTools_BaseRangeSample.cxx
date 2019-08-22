@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_BaseRangeSample(py::module &mod){
 
-py::class_<IntTools_BaseRangeSample, std::unique_ptr<IntTools_BaseRangeSample>> cls_IntTools_BaseRangeSample(mod, "IntTools_BaseRangeSample", "base class for range index management");
+py::class_<IntTools_BaseRangeSample> cls_IntTools_BaseRangeSample(mod, "IntTools_BaseRangeSample", "base class for range index management");
 
 // Constructors
 cls_IntTools_BaseRangeSample.def(py::init<>());

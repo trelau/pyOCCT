@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWAppliedDocumentReference(py::module &mod){
 
-py::class_<RWStepAP214_RWAppliedDocumentReference, std::unique_ptr<RWStepAP214_RWAppliedDocumentReference>> cls_RWStepAP214_RWAppliedDocumentReference(mod, "RWStepAP214_RWAppliedDocumentReference", "Read & Write Module for AppliedDocumentReference");
+py::class_<RWStepAP214_RWAppliedDocumentReference> cls_RWStepAP214_RWAppliedDocumentReference(mod, "RWStepAP214_RWAppliedDocumentReference", "Read & Write Module for AppliedDocumentReference");
 
 // Constructors
 cls_RWStepAP214_RWAppliedDocumentReference.def(py::init<>());

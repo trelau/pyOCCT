@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_PCDM(py::module &mod){
 
-py::class_<PCDM, std::unique_ptr<PCDM>> cls_PCDM(mod, "PCDM", "None");
+py::class_<PCDM> cls_PCDM(mod, "PCDM", "None");
 
 // Constructors
 

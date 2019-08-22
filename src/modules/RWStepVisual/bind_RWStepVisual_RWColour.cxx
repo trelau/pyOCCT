@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWColour(py::module &mod){
 
-py::class_<RWStepVisual_RWColour, std::unique_ptr<RWStepVisual_RWColour>> cls_RWStepVisual_RWColour(mod, "RWStepVisual_RWColour", "Read & Write Module for Colour");
+py::class_<RWStepVisual_RWColour> cls_RWStepVisual_RWColour(mod, "RWStepVisual_RWColour", "Read & Write Module for Colour");
 
 // Constructors
 cls_RWStepVisual_RWColour.def(py::init<>());

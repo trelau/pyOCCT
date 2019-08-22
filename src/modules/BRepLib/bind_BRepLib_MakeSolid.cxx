@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepLib_MakeSolid(py::module &mod){
 
-py::class_<BRepLib_MakeSolid, std::unique_ptr<BRepLib_MakeSolid>, BRepLib_MakeShape> cls_BRepLib_MakeSolid(mod, "BRepLib_MakeSolid", "Makes a solid from compsolid or shells.");
+py::class_<BRepLib_MakeSolid, BRepLib_MakeShape> cls_BRepLib_MakeSolid(mod, "BRepLib_MakeSolid", "Makes a solid from compsolid or shells.");
 
 // Constructors
 cls_BRepLib_MakeSolid.def(py::init<>());

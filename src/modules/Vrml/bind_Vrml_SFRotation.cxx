@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_SFRotation(py::module &mod){
 
-py::class_<Vrml_SFRotation, std::unique_ptr<Vrml_SFRotation>> cls_Vrml_SFRotation(mod, "Vrml_SFRotation", "defines SFRotation type of VRML field types. The 4 values represent an axis of rotation followed by amount of right-handed rotation about the that axis, in radians.");
+py::class_<Vrml_SFRotation> cls_Vrml_SFRotation(mod, "Vrml_SFRotation", "defines SFRotation type of VRML field types. The 4 values represent an axis of rotation followed by amount of right-handed rotation about the that axis, in radians.");
 
 // Constructors
 cls_Vrml_SFRotation.def(py::init<>());

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_FloatWriter(py::module &mod){
 
-py::class_<Interface_FloatWriter, std::unique_ptr<Interface_FloatWriter>> cls_Interface_FloatWriter(mod, "Interface_FloatWriter", "This class converts a floting number (Real) to a string It can be used if the standard C-C++ output functions (sprintf or cout<<) are not convenient. That is to say : - to suppress trailing '0' and 'E+00' (if desired) - to control exponant output and floating point output");
+py::class_<Interface_FloatWriter> cls_Interface_FloatWriter(mod, "Interface_FloatWriter", "This class converts a floting number (Real) to a string It can be used if the standard C-C++ output functions (sprintf or cout<<) are not convenient. That is to say : - to suppress trailing '0' and 'E+00' (if desired) - to control exponant output and floating point output");
 
 // Constructors
 cls_Interface_FloatWriter.def(py::init<>());

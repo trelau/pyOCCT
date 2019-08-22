@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRep_ShapeScanner(py::module &mod){
 
-py::class_<TopOpeBRep_ShapeScanner, std::unique_ptr<TopOpeBRep_ShapeScanner>> cls_TopOpeBRep_ShapeScanner(mod, "TopOpeBRep_ShapeScanner", "Find, among the subshapes SS of a reference shape RS, the ones which 3D box interfers with the box of a shape S (SS and S are of the same type).");
+py::class_<TopOpeBRep_ShapeScanner> cls_TopOpeBRep_ShapeScanner(mod, "TopOpeBRep_ShapeScanner", "Find, among the subshapes SS of a reference shape RS, the ones which 3D box interfers with the box of a shape S (SS and S are of the same type).");
 
 // Constructors
 cls_TopOpeBRep_ShapeScanner.def(py::init<>());

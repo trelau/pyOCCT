@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESData_IGESWriter(py::module &mod){
 
-py::class_<IGESData_IGESWriter, std::unique_ptr<IGESData_IGESWriter>> cls_IGESData_IGESWriter(mod, "IGESData_IGESWriter", "manages atomic file writing, under control of IGESModel : prepare text to be sent then sends it takes into account distinction between successive Sections");
+py::class_<IGESData_IGESWriter> cls_IGESData_IGESWriter(mod, "IGESData_IGESWriter", "manages atomic file writing, under control of IGESModel : prepare text to be sent then sends it takes into account distinction between successive Sections");
 
 // Constructors
 cls_IGESData_IGESWriter.def(py::init<const opencascade::handle<IGESData_IGESModel> &>(), py::arg("amodel"));

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XSAlgo(py::module &mod){
 
-py::class_<XSAlgo, std::unique_ptr<XSAlgo>> cls_XSAlgo(mod, "XSAlgo", "None");
+py::class_<XSAlgo> cls_XSAlgo(mod, "XSAlgo", "None");
 
 // Constructors
 

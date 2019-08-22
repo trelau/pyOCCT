@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApp2Var_Data(py::module &mod){
 
-py::class_<AdvApp2Var_Data, std::unique_ptr<AdvApp2Var_Data>> cls_AdvApp2Var_Data(mod, "AdvApp2Var_Data", "/");
+py::class_<AdvApp2Var_Data> cls_AdvApp2Var_Data(mod, "AdvApp2Var_Data", "/");
 
 // Constructors
 

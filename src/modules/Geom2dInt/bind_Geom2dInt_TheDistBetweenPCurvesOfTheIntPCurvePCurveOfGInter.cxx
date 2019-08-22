@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter(py::module &mod){
 
-py::class_<Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter, std::unique_ptr<Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter>, math_FunctionSetWithDerivatives> cls_Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter(mod, "Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter", "None");
+py::class_<Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter, math_FunctionSetWithDerivatives> cls_Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter(mod, "Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter", "None");
 
 // Constructors
 cls_Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter.def(py::init<const Adaptor2d_Curve2d &, const Adaptor2d_Curve2d &>(), py::arg("curve1"), py::arg("curve2"));

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocOpe_BuildShape(py::module &mod){
 
-py::class_<LocOpe_BuildShape, std::unique_ptr<LocOpe_BuildShape>> cls_LocOpe_BuildShape(mod, "LocOpe_BuildShape", "None");
+py::class_<LocOpe_BuildShape> cls_LocOpe_BuildShape(mod, "LocOpe_BuildShape", "None");
 
 // Constructors
 cls_LocOpe_BuildShape.def(py::init<>());

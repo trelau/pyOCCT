@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWThermodynamicTemperatureUnit(py::module &mod){
 
-py::class_<RWStepBasic_RWThermodynamicTemperatureUnit, std::unique_ptr<RWStepBasic_RWThermodynamicTemperatureUnit>> cls_RWStepBasic_RWThermodynamicTemperatureUnit(mod, "RWStepBasic_RWThermodynamicTemperatureUnit", "Read & Write tool for ThermodynamicTemperatureUnit");
+py::class_<RWStepBasic_RWThermodynamicTemperatureUnit> cls_RWStepBasic_RWThermodynamicTemperatureUnit(mod, "RWStepBasic_RWThermodynamicTemperatureUnit", "Read & Write tool for ThermodynamicTemperatureUnit");
 
 // Constructors
 cls_RWStepBasic_RWThermodynamicTemperatureUnit.def(py::init<>());

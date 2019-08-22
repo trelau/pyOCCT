@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntWalk_WalkingData(py::module &mod){
 
-py::class_<IntWalk_WalkingData, std::unique_ptr<IntWalk_WalkingData>> cls_IntWalk_WalkingData(mod, "IntWalk_WalkingData", "None");
+py::class_<IntWalk_WalkingData> cls_IntWalk_WalkingData(mod, "IntWalk_WalkingData", "None");
 
 // Constructors
 

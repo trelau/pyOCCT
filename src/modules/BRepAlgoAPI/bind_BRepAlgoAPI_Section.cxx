@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgoAPI_Section(py::module &mod){
 
-py::class_<BRepAlgoAPI_Section, std::unique_ptr<BRepAlgoAPI_Section>, BRepAlgoAPI_BooleanOperation> cls_BRepAlgoAPI_Section(mod, "BRepAlgoAPI_Section", "The algorithm is to build a Secton operation between arguments and tools. The result of Section operation consists of vertices and edges. The result of Section operation contains: 1. new vertices that are subjects of V/V, E/E, E/F, F/F interferences 2. vertices that are subjects of V/E, V/F interferences 3. new edges that are subjects of F/F interferences 4. edges that are Common Blocks");
+py::class_<BRepAlgoAPI_Section, BRepAlgoAPI_BooleanOperation> cls_BRepAlgoAPI_Section(mod, "BRepAlgoAPI_Section", "The algorithm is to build a Secton operation between arguments and tools. The result of Section operation consists of vertices and edges. The result of Section operation contains: 1. new vertices that are subjects of V/V, E/E, E/F, F/F interferences 2. vertices that are subjects of V/E, V/F interferences 3. new edges that are subjects of F/F interferences 4. edges that are Common Blocks");
 
 // Constructors
 cls_BRepAlgoAPI_Section.def(py::init<>());

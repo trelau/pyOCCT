@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlObjMgt_Persistent(py::module &mod){
 
-py::class_<XmlObjMgt_Persistent, std::unique_ptr<XmlObjMgt_Persistent>> cls_XmlObjMgt_Persistent(mod, "XmlObjMgt_Persistent", "root for XML-persistence");
+py::class_<XmlObjMgt_Persistent> cls_XmlObjMgt_Persistent(mod, "XmlObjMgt_Persistent", "root for XML-persistence");
 
 // Constructors
 cls_XmlObjMgt_Persistent.def(py::init<>());

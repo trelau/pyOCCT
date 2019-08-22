@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Poly_MakeLoops2D(py::module &mod){
 
-py::class_<Poly_MakeLoops2D, std::unique_ptr<Poly_MakeLoops2D>, Poly_MakeLoops> cls_Poly_MakeLoops2D(mod, "Poly_MakeLoops2D", "None");
+py::class_<Poly_MakeLoops2D, Poly_MakeLoops> cls_Poly_MakeLoops2D(mod, "Poly_MakeLoops2D", "None");
 
 // Constructors
 cls_Poly_MakeLoops2D.def(py::init<const Standard_Boolean, const Poly_MakeLoops2D::Helper *, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theLeftWay"), py::arg("theHelper"), py::arg("theAlloc"));

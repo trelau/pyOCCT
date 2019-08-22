@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GccAna_Lin2dTanObl(py::module &mod){
 
-py::class_<GccAna_Lin2dTanObl, std::unique_ptr<GccAna_Lin2dTanObl>> cls_GccAna_Lin2dTanObl(mod, "GccAna_Lin2dTanObl", "This class implements the algorithms used to create 2d line tangent to a circle or a point and making an angle with a line. The angle is in radians. The origin of the solution is the tangency point with the first argument. Its direction is making an angle Angle with the second argument.");
+py::class_<GccAna_Lin2dTanObl> cls_GccAna_Lin2dTanObl(mod, "GccAna_Lin2dTanObl", "This class implements the algorithms used to create 2d line tangent to a circle or a point and making an angle with a line. The angle is in radians. The origin of the solution is the tangency point with the first argument. Its direction is making an angle Angle with the second argument.");
 
 // Constructors
 cls_GccAna_Lin2dTanObl.def(py::init<const gp_Pnt2d &, const gp_Lin2d &, const Standard_Real>(), py::arg("ThePoint"), py::arg("TheLine"), py::arg("TheAngle"));

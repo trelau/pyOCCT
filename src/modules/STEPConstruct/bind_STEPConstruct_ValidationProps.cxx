@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPConstruct_ValidationProps(py::module &mod){
 
-py::class_<STEPConstruct_ValidationProps, std::unique_ptr<STEPConstruct_ValidationProps>, STEPConstruct_Tool> cls_STEPConstruct_ValidationProps(mod, "STEPConstruct_ValidationProps", "This class provides tools for access (write and read) the validation properties on shapes in the STEP file. These are surface area, solid volume and centroid.");
+py::class_<STEPConstruct_ValidationProps, STEPConstruct_Tool> cls_STEPConstruct_ValidationProps(mod, "STEPConstruct_ValidationProps", "This class provides tools for access (write and read) the validation properties on shapes in the STEP file. These are surface area, solid volume and centroid.");
 
 // Constructors
 cls_STEPConstruct_ValidationProps.def(py::init<>());

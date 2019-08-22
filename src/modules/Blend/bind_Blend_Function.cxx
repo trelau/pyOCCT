@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Blend_Function(py::module &mod){
 
-py::class_<Blend_Function, std::unique_ptr<Blend_Function>, Blend_AppFunction> cls_Blend_Function(mod, "Blend_Function", "Deferred class for a function used to compute a blending surface between two surfaces, using a guide line. The vector <X> used in Value, Values and Derivatives methods has to be the vector of the parametric coordinates U1,V1, U2,V2, of the extremities of a section on the first and second surface.");
+py::class_<Blend_Function, Blend_AppFunction> cls_Blend_Function(mod, "Blend_Function", "Deferred class for a function used to compute a blending surface between two surfaces, using a guide line. The vector <X> used in Value, Values and Derivatives methods has to be the vector of the parametric coordinates U1,V1, U2,V2, of the extremities of a section on the first and second surface.");
 
 // Fields
 

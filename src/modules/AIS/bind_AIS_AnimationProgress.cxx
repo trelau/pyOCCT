@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AIS_AnimationProgress(py::module &mod){
 
-py::class_<AIS_AnimationProgress, std::unique_ptr<AIS_AnimationProgress>> cls_AIS_AnimationProgress(mod, "AIS_AnimationProgress", "Structure defining current animation progress.");
+py::class_<AIS_AnimationProgress> cls_AIS_AnimationProgress(mod, "AIS_AnimationProgress", "Structure defining current animation progress.");
 
 // Constructors
 cls_AIS_AnimationProgress.def(py::init<>());

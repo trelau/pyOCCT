@@ -78,7 +78,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Expr(py::module &mod){
 
-py::class_<Expr, std::unique_ptr<Expr>> cls_Expr(mod, "Expr", "This package describes the data structure of any expression, relation or function used in mathematics. It also describes the assignment of variables. Standard mathematical functions are implemented such as trigonometrics, hyperbolics, and log functions.");
+py::class_<Expr> cls_Expr(mod, "Expr", "This package describes the data structure of any expression, relation or function used in mathematics. It also describes the assignment of variables. Standard mathematical functions are implemented such as trigonometrics, hyperbolics, and log functions.");
 
 // Constructors
 

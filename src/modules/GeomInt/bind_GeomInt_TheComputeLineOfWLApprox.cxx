@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_TheComputeLineOfWLApprox(py::module &mod){
 
-py::class_<GeomInt_TheComputeLineOfWLApprox, std::unique_ptr<GeomInt_TheComputeLineOfWLApprox>> cls_GeomInt_TheComputeLineOfWLApprox(mod, "GeomInt_TheComputeLineOfWLApprox", "None");
+py::class_<GeomInt_TheComputeLineOfWLApprox> cls_GeomInt_TheComputeLineOfWLApprox(mod, "GeomInt_TheComputeLineOfWLApprox", "None");
 
 // Constructors
 cls_GeomInt_TheComputeLineOfWLApprox.def(py::init<const GeomInt_TheMultiLineOfWLApprox &>(), py::arg("Line"));

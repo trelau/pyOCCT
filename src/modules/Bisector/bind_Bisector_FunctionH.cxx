@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Bisector_FunctionH(py::module &mod){
 
-py::class_<Bisector_FunctionH, std::unique_ptr<Bisector_FunctionH>, math_FunctionWithDerivative> cls_Bisector_FunctionH(mod, "Bisector_FunctionH", "H(v) = (T1 .P2(v) - P1) * ||T(v)|| - 2 2 (T(v).P2(v) - P1) * ||T1||");
+py::class_<Bisector_FunctionH, math_FunctionWithDerivative> cls_Bisector_FunctionH(mod, "Bisector_FunctionH", "H(v) = (T1 .P2(v) - P1) * ||T(v)|| - 2 2 (T(v).P2(v) - P1) * ||T1||");
 
 // Constructors
 cls_Bisector_FunctionH.def(py::init<const opencascade::handle<Geom2d_Curve> &, const gp_Pnt2d &, const gp_Vec2d &>(), py::arg("C2"), py::arg("P1"), py::arg("T1"));

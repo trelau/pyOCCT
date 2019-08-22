@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Transfer_IteratorOfProcessForFinder(py::module &mod){
 
-py::class_<Transfer_IteratorOfProcessForFinder, std::unique_ptr<Transfer_IteratorOfProcessForFinder>, Transfer_TransferIterator> cls_Transfer_IteratorOfProcessForFinder(mod, "Transfer_IteratorOfProcessForFinder", "None");
+py::class_<Transfer_IteratorOfProcessForFinder, Transfer_TransferIterator> cls_Transfer_IteratorOfProcessForFinder(mod, "Transfer_IteratorOfProcessForFinder", "None");
 
 // Constructors
 cls_Transfer_IteratorOfProcessForFinder.def(py::init<const Standard_Boolean>(), py::arg("withstarts"));

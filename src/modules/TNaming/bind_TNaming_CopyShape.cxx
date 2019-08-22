@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TNaming_CopyShape(py::module &mod){
 
-py::class_<TNaming_CopyShape, std::unique_ptr<TNaming_CopyShape>> cls_TNaming_CopyShape(mod, "TNaming_CopyShape", "None");
+py::class_<TNaming_CopyShape> cls_TNaming_CopyShape(mod, "TNaming_CopyShape", "None");
 
 // Constructors
 

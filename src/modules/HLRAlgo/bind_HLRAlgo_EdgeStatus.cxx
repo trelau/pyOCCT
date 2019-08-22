@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRAlgo_EdgeStatus(py::module &mod){
 
-py::class_<HLRAlgo_EdgeStatus, std::unique_ptr<HLRAlgo_EdgeStatus>> cls_HLRAlgo_EdgeStatus(mod, "HLRAlgo_EdgeStatus", "This class describes the Hidden Line status of an Edge. It contains :");
+py::class_<HLRAlgo_EdgeStatus> cls_HLRAlgo_EdgeStatus(mod, "HLRAlgo_EdgeStatus", "This class describes the Hidden Line status of an Edge. It contains :");
 
 // Constructors
 cls_HLRAlgo_EdgeStatus.def(py::init<>());

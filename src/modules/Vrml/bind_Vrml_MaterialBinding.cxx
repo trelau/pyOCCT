@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_MaterialBinding(py::module &mod){
 
-py::class_<Vrml_MaterialBinding, std::unique_ptr<Vrml_MaterialBinding>> cls_Vrml_MaterialBinding(mod, "Vrml_MaterialBinding", "defines a MaterialBinding node of VRML specifying properties of geometry and its appearance. Material nodes may contain more than one material. This node specifies how the current materials are bound to shapes that follow in the scene graph. Each shape node may interpret bindings differently. For example, a Sphere node is always drawn using the first material in the material node, no matter what the current MaterialBinding, while a Cube node may use six different materials to draw each of its six faces, depending on the MaterialBinding.");
+py::class_<Vrml_MaterialBinding> cls_Vrml_MaterialBinding(mod, "Vrml_MaterialBinding", "defines a MaterialBinding node of VRML specifying properties of geometry and its appearance. Material nodes may contain more than one material. This node specifies how the current materials are bound to shapes that follow in the scene graph. Each shape node may interpret bindings differently. For example, a Sphere node is always drawn using the first material in the material node, no matter what the current MaterialBinding, while a Cube node may use six different materials to draw each of its six faces, depending on the MaterialBinding.");
 
 // Constructors
 cls_Vrml_MaterialBinding.def(py::init<const Vrml_MaterialBindingAndNormalBinding>(), py::arg("aValue"));

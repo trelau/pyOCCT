@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ProjLib_ProjectOnSurface(py::module &mod){
 
-py::class_<ProjLib_ProjectOnSurface, std::unique_ptr<ProjLib_ProjectOnSurface>> cls_ProjLib_ProjectOnSurface(mod, "ProjLib_ProjectOnSurface", "Project a curve on a surface. The result ( a 3D Curve) will be an approximation");
+py::class_<ProjLib_ProjectOnSurface> cls_ProjLib_ProjectOnSurface(mod, "ProjLib_ProjectOnSurface", "Project a curve on a surface. The result ( a 3D Curve) will be an approximation");
 
 // Constructors
 cls_ProjLib_ProjectOnSurface.def(py::init<>());

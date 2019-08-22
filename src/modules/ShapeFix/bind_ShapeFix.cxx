@@ -52,7 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeFix(py::module &mod){
 
-py::class_<ShapeFix, std::unique_ptr<ShapeFix>> cls_ShapeFix(mod, "ShapeFix", "This package provides algorithms for fixing problematic (violating Open CASCADE requirements) shapes. Tools from package ShapeAnalysis are used for detecting the problems. The detecting and fixing is done taking in account various criteria implemented in BRepCheck package. Each class of package ShapeFix deals with one certain type of shapes or with some family of problems.");
+py::class_<ShapeFix> cls_ShapeFix(mod, "ShapeFix", "This package provides algorithms for fixing problematic (violating Open CASCADE requirements) shapes. Tools from package ShapeAnalysis are used for detecting the problems. The detecting and fixing is done taking in account various criteria implemented in BRepCheck package. Each class of package ShapeFix deals with one certain type of shapes or with some family of problems.");
 
 // Constructors
 

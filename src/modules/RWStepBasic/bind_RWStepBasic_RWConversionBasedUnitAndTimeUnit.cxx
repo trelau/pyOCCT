@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWConversionBasedUnitAndTimeUnit(py::module &mod){
 
-py::class_<RWStepBasic_RWConversionBasedUnitAndTimeUnit, std::unique_ptr<RWStepBasic_RWConversionBasedUnitAndTimeUnit>> cls_RWStepBasic_RWConversionBasedUnitAndTimeUnit(mod, "RWStepBasic_RWConversionBasedUnitAndTimeUnit", "Read & Write Module for ConversionBasedUnitAndTimeUnit");
+py::class_<RWStepBasic_RWConversionBasedUnitAndTimeUnit> cls_RWStepBasic_RWConversionBasedUnitAndTimeUnit(mod, "RWStepBasic_RWConversionBasedUnitAndTimeUnit", "Read & Write Module for ConversionBasedUnitAndTimeUnit");
 
 // Constructors
 cls_RWStepBasic_RWConversionBasedUnitAndTimeUnit.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename theItem, Standard_Integer MAX_ARRAY_SIZE>
 void bind_NCollection_LocalArray(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_LocalArray<theItem, MAX_ARRAY_SIZE>, std::unique_ptr<NCollection_LocalArray<theItem, MAX_ARRAY_SIZE>>> cls_NCollection_LocalArray(mod, name.c_str(), "Auxiliary class optimizing creation of array buffer (using stack allocation for small arrays).", local);
+py::class_<NCollection_LocalArray<theItem, MAX_ARRAY_SIZE>> cls_NCollection_LocalArray(mod, name.c_str(), "Auxiliary class optimizing creation of array buffer (using stack allocation for small arrays).", local);
 
 // Constructors
 cls_NCollection_LocalArray.def(py::init<const size_t>(), py::arg("theSize"));

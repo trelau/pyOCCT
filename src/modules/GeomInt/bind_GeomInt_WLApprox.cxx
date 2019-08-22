@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_WLApprox(py::module &mod){
 
-py::class_<GeomInt_WLApprox, std::unique_ptr<GeomInt_WLApprox>> cls_GeomInt_WLApprox(mod, "GeomInt_WLApprox", "None");
+py::class_<GeomInt_WLApprox> cls_GeomInt_WLApprox(mod, "GeomInt_WLApprox", "None");
 
 // Constructors
 cls_GeomInt_WLApprox.def(py::init<>());

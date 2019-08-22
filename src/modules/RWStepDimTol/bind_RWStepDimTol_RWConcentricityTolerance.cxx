@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWConcentricityTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWConcentricityTolerance, std::unique_ptr<RWStepDimTol_RWConcentricityTolerance>> cls_RWStepDimTol_RWConcentricityTolerance(mod, "RWStepDimTol_RWConcentricityTolerance", "Read & Write tool for ConcentricityTolerance");
+py::class_<RWStepDimTol_RWConcentricityTolerance> cls_RWStepDimTol_RWConcentricityTolerance(mod, "RWStepDimTol_RWConcentricityTolerance", "Read & Write tool for ConcentricityTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWConcentricityTolerance.def(py::init<>());

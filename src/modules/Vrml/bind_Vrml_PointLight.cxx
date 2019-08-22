@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_PointLight(py::module &mod){
 
-py::class_<Vrml_PointLight, std::unique_ptr<Vrml_PointLight>> cls_Vrml_PointLight(mod, "Vrml_PointLight", "defines a point light node of VRML specifying properties of lights. This node defines a point light source at a fixed 3D location A point source illuminates equally in all directions; that is omni-directional. Color is written as an RGB triple. Light intensity must be in the range 0.0 to 1.0, inclusive.");
+py::class_<Vrml_PointLight> cls_Vrml_PointLight(mod, "Vrml_PointLight", "defines a point light node of VRML specifying properties of lights. This node defines a point light source at a fixed 3D location A point source illuminates equally in all directions; that is omni-directional. Color is written as an RGB triple. Light intensity must be in the range 0.0 to 1.0, inclusive.");
 
 // Constructors
 cls_Vrml_PointLight.def(py::init<>());

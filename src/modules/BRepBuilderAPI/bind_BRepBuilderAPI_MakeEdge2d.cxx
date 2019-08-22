@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBuilderAPI_MakeEdge2d(py::module &mod){
 
-py::class_<BRepBuilderAPI_MakeEdge2d, std::unique_ptr<BRepBuilderAPI_MakeEdge2d>, BRepBuilderAPI_MakeShape> cls_BRepBuilderAPI_MakeEdge2d(mod, "BRepBuilderAPI_MakeEdge2d", "Provides methods to build edges.");
+py::class_<BRepBuilderAPI_MakeEdge2d, BRepBuilderAPI_MakeShape> cls_BRepBuilderAPI_MakeEdge2d(mod, "BRepBuilderAPI_MakeEdge2d", "Provides methods to build edges.");
 
 // Constructors
 cls_BRepBuilderAPI_MakeEdge2d.def(py::init<const TopoDS_Vertex &, const TopoDS_Vertex &>(), py::arg("V1"), py::arg("V2"));

@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool_CurveTool(py::module &mod){
 
-py::class_<TopOpeBRepTool_CurveTool, std::unique_ptr<TopOpeBRepTool_CurveTool>> cls_TopOpeBRepTool_CurveTool(mod, "TopOpeBRepTool_CurveTool", "None");
+py::class_<TopOpeBRepTool_CurveTool> cls_TopOpeBRepTool_CurveTool(mod, "TopOpeBRepTool_CurveTool", "None");
 
 // Constructors
 cls_TopOpeBRepTool_CurveTool.def(py::init<>());

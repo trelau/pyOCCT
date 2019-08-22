@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_MultiLine(py::module &mod){
 
-py::class_<BRepFill_MultiLine, std::unique_ptr<BRepFill_MultiLine>, AppCont_Function> cls_BRepFill_MultiLine(mod, "BRepFill_MultiLine", "Class used to compute the 3d curve and the two 2d curves resulting from the intersection of a surface of linear extrusion( Bissec, Dz) and the 2 faces. This 3 curves will have the same parametrization as the Bissectrice. This class is to be send to an approximation routine.");
+py::class_<BRepFill_MultiLine, AppCont_Function> cls_BRepFill_MultiLine(mod, "BRepFill_MultiLine", "Class used to compute the 3d curve and the two 2d curves resulting from the intersection of a surface of linear extrusion( Bissec, Dz) and the 2 faces. This 3 curves will have the same parametrization as the Bissectrice. This class is to be send to an approximation routine.");
 
 // Constructors
 cls_BRepFill_MultiLine.def(py::init<>());

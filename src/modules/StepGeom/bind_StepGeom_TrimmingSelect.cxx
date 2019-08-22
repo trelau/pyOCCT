@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepGeom_TrimmingSelect(py::module &mod){
 
-py::class_<StepGeom_TrimmingSelect, std::unique_ptr<StepGeom_TrimmingSelect>, StepData_SelectType> cls_StepGeom_TrimmingSelect(mod, "StepGeom_TrimmingSelect", "None");
+py::class_<StepGeom_TrimmingSelect, StepData_SelectType> cls_StepGeom_TrimmingSelect(mod, "StepGeom_TrimmingSelect", "None");
 
 // Constructors
 cls_StepGeom_TrimmingSelect.def(py::init<>());

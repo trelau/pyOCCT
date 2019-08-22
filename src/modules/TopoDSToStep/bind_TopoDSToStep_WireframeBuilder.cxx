@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDSToStep_WireframeBuilder(py::module &mod){
 
-py::class_<TopoDSToStep_WireframeBuilder, std::unique_ptr<TopoDSToStep_WireframeBuilder>, TopoDSToStep_Root> cls_TopoDSToStep_WireframeBuilder(mod, "TopoDSToStep_WireframeBuilder", "This builder Class provides services to build a ProSTEP Wireframemodel from a Cas.Cad BRep.");
+py::class_<TopoDSToStep_WireframeBuilder, TopoDSToStep_Root> cls_TopoDSToStep_WireframeBuilder(mod, "TopoDSToStep_WireframeBuilder", "This builder Class provides services to build a ProSTEP Wireframemodel from a Cas.Cad BRep.");
 
 // Constructors
 cls_TopoDSToStep_WireframeBuilder.def(py::init<>());

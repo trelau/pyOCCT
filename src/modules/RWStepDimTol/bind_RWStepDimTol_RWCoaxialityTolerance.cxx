@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWCoaxialityTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWCoaxialityTolerance, std::unique_ptr<RWStepDimTol_RWCoaxialityTolerance>> cls_RWStepDimTol_RWCoaxialityTolerance(mod, "RWStepDimTol_RWCoaxialityTolerance", "Read & Write tool for CoaxialityTolerance");
+py::class_<RWStepDimTol_RWCoaxialityTolerance> cls_RWStepDimTol_RWCoaxialityTolerance(mod, "RWStepDimTol_RWCoaxialityTolerance", "Read & Write tool for CoaxialityTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWCoaxialityTolerance.def(py::init<>());

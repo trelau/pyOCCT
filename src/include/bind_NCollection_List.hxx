@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheItemType>
 void bind_NCollection_List(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_List<TheItemType>, std::unique_ptr<NCollection_List<TheItemType>>, NCollection_BaseList> cls_NCollection_List(mod, name.c_str(), "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.", local);
+py::class_<NCollection_List<TheItemType>, NCollection_BaseList> cls_NCollection_List(mod, name.c_str(), "Purpose: Simple list to link items together keeping the first and the last one. Inherits BaseList, adding the data item to each node.", local);
 
 // Constructors
 cls_NCollection_List.def(py::init<>());

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDSToStep_FacetedTool(py::module &mod){
 
-py::class_<TopoDSToStep_FacetedTool, std::unique_ptr<TopoDSToStep_FacetedTool>> cls_TopoDSToStep_FacetedTool(mod, "TopoDSToStep_FacetedTool", "This Tool Class provides Information about Faceted Shapes to be mapped to STEP.");
+py::class_<TopoDSToStep_FacetedTool> cls_TopoDSToStep_FacetedTool(mod, "TopoDSToStep_FacetedTool", "This Tool Class provides Information about Faceted Shapes to be mapped to STEP.");
 
 // Constructors
 

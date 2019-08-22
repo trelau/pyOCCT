@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDraw_ToolLabelDisplay(py::module &mod){
 
-py::class_<IGESDraw_ToolLabelDisplay, std::unique_ptr<IGESDraw_ToolLabelDisplay>> cls_IGESDraw_ToolLabelDisplay(mod, "IGESDraw_ToolLabelDisplay", "Tool to work on a LabelDisplay. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDraw_ToolLabelDisplay> cls_IGESDraw_ToolLabelDisplay(mod, "IGESDraw_ToolLabelDisplay", "Tool to work on a LabelDisplay. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDraw_ToolLabelDisplay.def(py::init<>());

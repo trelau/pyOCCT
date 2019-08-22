@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_OpenGl_BVHClipPrimitiveTrsfPersSet(py::module &mod){
 
 /*
-py::class_<OpenGl_BVHClipPrimitiveTrsfPersSet, std::unique_ptr<OpenGl_BVHClipPrimitiveTrsfPersSet>, BVH_Set<Standard_Real, 3>> cls_OpenGl_BVHClipPrimitiveTrsfPersSet(mod, "OpenGl_BVHClipPrimitiveTrsfPersSet", "Set of transformation persistent OpenGl_Structure for building BVH tree. Provides built-in mechanism to invalidate tree when world view projection state changes. Due to frequent invalidation of BVH tree the choice of BVH tree builder is made in favor of BVH linear builder (quick rebuild).");
+py::class_<OpenGl_BVHClipPrimitiveTrsfPersSet, BVH_Set<Standard_Real, 3>> cls_OpenGl_BVHClipPrimitiveTrsfPersSet(mod, "OpenGl_BVHClipPrimitiveTrsfPersSet", "Set of transformation persistent OpenGl_Structure for building BVH tree. Provides built-in mechanism to invalidate tree when world view projection state changes. Due to frequent invalidation of BVH tree the choice of BVH tree builder is made in favor of BVH linear builder (quick rebuild).");
 
 // Constructors
 cls_OpenGl_BVHClipPrimitiveTrsfPersSet.def(py::init<const opencascade::handle<Select3D_BVHBuilder3d> &>(), py::arg("theBuilder"));

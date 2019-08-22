@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWGeometricAlignment(py::module &mod){
 
-py::class_<RWStepRepr_RWGeometricAlignment, std::unique_ptr<RWStepRepr_RWGeometricAlignment>> cls_RWStepRepr_RWGeometricAlignment(mod, "RWStepRepr_RWGeometricAlignment", "Read & Write tool for GeometricAlignment");
+py::class_<RWStepRepr_RWGeometricAlignment> cls_RWStepRepr_RWGeometricAlignment(mod, "RWStepRepr_RWGeometricAlignment", "Read & Write tool for GeometricAlignment");
 
 // Constructors
 cls_RWStepRepr_RWGeometricAlignment.def(py::init<>());

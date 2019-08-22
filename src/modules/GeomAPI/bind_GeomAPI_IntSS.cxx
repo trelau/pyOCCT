@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomAPI_IntSS(py::module &mod){
 
-py::class_<GeomAPI_IntSS, std::unique_ptr<GeomAPI_IntSS>> cls_GeomAPI_IntSS(mod, "GeomAPI_IntSS", "This class implements methods for computing the intersection curves between two surfaces. The result is curves from Geom. The 'domain' used for a surface is the natural parametric domain unless the surface is a RectangularTrimmedSurface from Geom.");
+py::class_<GeomAPI_IntSS> cls_GeomAPI_IntSS(mod, "GeomAPI_IntSS", "This class implements methods for computing the intersection curves between two surfaces. The result is curves from Geom. The 'domain' used for a surface is the natural parametric domain unless the surface is a RectangularTrimmedSurface from Geom.");
 
 // Constructors
 cls_GeomAPI_IntSS.def(py::init<>());

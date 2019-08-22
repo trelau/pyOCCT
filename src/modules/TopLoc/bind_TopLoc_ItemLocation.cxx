@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopLoc_ItemLocation(py::module &mod){
 
-py::class_<TopLoc_ItemLocation, std::unique_ptr<TopLoc_ItemLocation>> cls_TopLoc_ItemLocation(mod, "TopLoc_ItemLocation", "An ItemLocation is an elementary coordinate system in a Location.");
+py::class_<TopLoc_ItemLocation> cls_TopLoc_ItemLocation(mod, "TopLoc_ItemLocation", "An ItemLocation is an elementary coordinate system in a Location.");
 
 // Constructors
 cls_TopLoc_ItemLocation.def(py::init<const opencascade::handle<TopLoc_Datum3D> &, const Standard_Integer>(), py::arg("D"), py::arg("P"));

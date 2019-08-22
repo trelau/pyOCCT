@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_EntityList(py::module &mod){
 
-py::class_<Interface_EntityList, std::unique_ptr<Interface_EntityList>> cls_Interface_EntityList(mod, "Interface_EntityList", "This class defines a list of Entities (Transient Objects), it can be used as a field of other Transient classes, with these features : - oriented to define a little list, that is, slower than an Array or a Map of Entities for a big count (about 100 and over), but faster than a Sequence - allows to work as a Sequence, limited to Clear, Append, Remove, Access to an Item identified by its rank in the list - space saving, compared to a Sequence, especially for little amounts; better than an Array for a very little amount (less than 10) but less good for a greater amount");
+py::class_<Interface_EntityList> cls_Interface_EntityList(mod, "Interface_EntityList", "This class defines a list of Entities (Transient Objects), it can be used as a field of other Transient classes, with these features : - oriented to define a little list, that is, slower than an Array or a Map of Entities for a big count (about 100 and over), but faster than a Sequence - allows to work as a Sequence, limited to Clear, Append, Remove, Access to an Item identified by its rank in the list - space saving, compared to a Sequence, especially for little amounts; better than an Array for a very little amount (less than 10) but less good for a greater amount");
 
 // Constructors
 cls_Interface_EntityList.def(py::init<>());

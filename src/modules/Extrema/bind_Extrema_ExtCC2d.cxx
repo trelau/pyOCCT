@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_ExtCC2d(py::module &mod){
 
-py::class_<Extrema_ExtCC2d, std::unique_ptr<Extrema_ExtCC2d>> cls_Extrema_ExtCC2d(mod, "Extrema_ExtCC2d", "It calculates all the distance between two curves. These distances can be maximum or minimum.");
+py::class_<Extrema_ExtCC2d> cls_Extrema_ExtCC2d(mod, "Extrema_ExtCC2d", "It calculates all the distance between two curves. These distances can be maximum or minimum.");
 
 // Constructors
 cls_Extrema_ExtCC2d.def(py::init<>());

@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_Area1dBuilder(py::module &mod){
 
-py::class_<TopOpeBRepBuild_Area1dBuilder, std::unique_ptr<TopOpeBRepBuild_Area1dBuilder>, TopOpeBRepBuild_AreaBuilder> cls_TopOpeBRepBuild_Area1dBuilder(mod, "TopOpeBRepBuild_Area1dBuilder", "None");
+py::class_<TopOpeBRepBuild_Area1dBuilder, TopOpeBRepBuild_AreaBuilder> cls_TopOpeBRepBuild_Area1dBuilder(mod, "TopOpeBRepBuild_Area1dBuilder", "None");
 
 // Constructors
 cls_TopOpeBRepBuild_Area1dBuilder.def(py::init<>());

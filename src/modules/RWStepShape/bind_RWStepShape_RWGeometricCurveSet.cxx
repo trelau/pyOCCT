@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWGeometricCurveSet(py::module &mod){
 
-py::class_<RWStepShape_RWGeometricCurveSet, std::unique_ptr<RWStepShape_RWGeometricCurveSet>> cls_RWStepShape_RWGeometricCurveSet(mod, "RWStepShape_RWGeometricCurveSet", "Read & Write Module for GeometricCurveSet");
+py::class_<RWStepShape_RWGeometricCurveSet> cls_RWStepShape_RWGeometricCurveSet(mod, "RWStepShape_RWGeometricCurveSet", "Read & Write Module for GeometricCurveSet");
 
 // Constructors
 cls_RWStepShape_RWGeometricCurveSet.def(py::init<>());

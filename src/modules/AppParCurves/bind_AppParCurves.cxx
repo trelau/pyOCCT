@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppParCurves(py::module &mod){
 
-py::class_<AppParCurves, std::unique_ptr<AppParCurves>> cls_AppParCurves(mod, "AppParCurves", "Parallel Approximation in n curves. This package gives all the algorithms used to approximate a MultiLine described by the tool MLineTool. The result of the approximation will be a MultiCurve.");
+py::class_<AppParCurves> cls_AppParCurves(mod, "AppParCurves", "Parallel Approximation in n curves. This package gives all the algorithms used to approximate a MultiLine described by the tool MLineTool. The result of the approximation will be a MultiCurve.");
 
 // Constructors
 

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_MidPointPresentation(py::module &mod){
 
-py::class_<DsgPrs_MidPointPresentation, std::unique_ptr<DsgPrs_MidPointPresentation>> cls_DsgPrs_MidPointPresentation(mod, "DsgPrs_MidPointPresentation", "None");
+py::class_<DsgPrs_MidPointPresentation> cls_DsgPrs_MidPointPresentation(mod, "DsgPrs_MidPointPresentation", "None");
 
 // Constructors
 

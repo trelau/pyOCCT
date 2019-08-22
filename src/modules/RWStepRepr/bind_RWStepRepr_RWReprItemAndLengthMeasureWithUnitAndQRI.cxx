@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWReprItemAndLengthMeasureWithUnitAndQRI(py::module &mod){
 
-py::class_<RWStepRepr_RWReprItemAndLengthMeasureWithUnitAndQRI, std::unique_ptr<RWStepRepr_RWReprItemAndLengthMeasureWithUnitAndQRI>> cls_RWStepRepr_RWReprItemAndLengthMeasureWithUnitAndQRI(mod, "RWStepRepr_RWReprItemAndLengthMeasureWithUnitAndQRI", "Read & Write Module for ReprItemAndLengthMeasureWithUnitAndQRI");
+py::class_<RWStepRepr_RWReprItemAndLengthMeasureWithUnitAndQRI> cls_RWStepRepr_RWReprItemAndLengthMeasureWithUnitAndQRI(mod, "RWStepRepr_RWReprItemAndLengthMeasureWithUnitAndQRI", "Read & Write Module for ReprItemAndLengthMeasureWithUnitAndQRI");
 
 // Constructors
 cls_RWStepRepr_RWReprItemAndLengthMeasureWithUnitAndQRI.def(py::init<>());

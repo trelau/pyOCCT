@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWRepItemGroup(py::module &mod){
 
-py::class_<RWStepAP214_RWRepItemGroup, std::unique_ptr<RWStepAP214_RWRepItemGroup>> cls_RWStepAP214_RWRepItemGroup(mod, "RWStepAP214_RWRepItemGroup", "Read & Write tool for RepItemGroup");
+py::class_<RWStepAP214_RWRepItemGroup> cls_RWStepAP214_RWRepItemGroup(mod, "RWStepAP214_RWRepItemGroup", "Read & Write tool for RepItemGroup");
 
 // Constructors
 cls_RWStepAP214_RWRepItemGroup.def(py::init<>());

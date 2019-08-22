@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWParallelOffset(py::module &mod){
 
-py::class_<RWStepRepr_RWParallelOffset, std::unique_ptr<RWStepRepr_RWParallelOffset>> cls_RWStepRepr_RWParallelOffset(mod, "RWStepRepr_RWParallelOffset", "Read & Write tool for ParallelOffset");
+py::class_<RWStepRepr_RWParallelOffset> cls_RWStepRepr_RWParallelOffset(mod, "RWStepRepr_RWParallelOffset", "Read & Write tool for ParallelOffset");
 
 // Constructors
 cls_RWStepRepr_RWParallelOffset.def(py::init<>());

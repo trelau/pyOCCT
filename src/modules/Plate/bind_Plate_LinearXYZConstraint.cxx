@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Plate_LinearXYZConstraint(py::module &mod){
 
-py::class_<Plate_LinearXYZConstraint, std::unique_ptr<Plate_LinearXYZConstraint>> cls_Plate_LinearXYZConstraint(mod, "Plate_LinearXYZConstraint", "define on or several constraints as linear combination of PinPointConstraint unlike the LinearScalarConstraint, usage of this kind of constraint preserve the X,Y and Z uncoupling.");
+py::class_<Plate_LinearXYZConstraint> cls_Plate_LinearXYZConstraint(mod, "Plate_LinearXYZConstraint", "define on or several constraints as linear combination of PinPointConstraint unlike the LinearScalarConstraint, usage of this kind of constraint preserve the X,Y and Z uncoupling.");
 
 // Constructors
 cls_Plate_LinearXYZConstraint.def(py::init<>());

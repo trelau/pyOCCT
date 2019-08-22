@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWEllipse(py::module &mod){
 
-py::class_<RWStepGeom_RWEllipse, std::unique_ptr<RWStepGeom_RWEllipse>> cls_RWStepGeom_RWEllipse(mod, "RWStepGeom_RWEllipse", "Read & Write Module for Ellipse Check added by CKY , 7-OCT-1996");
+py::class_<RWStepGeom_RWEllipse> cls_RWStepGeom_RWEllipse(mod, "RWStepGeom_RWEllipse", "Read & Write Module for Ellipse Check added by CKY , 7-OCT-1996");
 
 // Constructors
 cls_RWStepGeom_RWEllipse.def(py::init<>());

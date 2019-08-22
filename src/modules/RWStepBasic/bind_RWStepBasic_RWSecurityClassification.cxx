@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWSecurityClassification(py::module &mod){
 
-py::class_<RWStepBasic_RWSecurityClassification, std::unique_ptr<RWStepBasic_RWSecurityClassification>> cls_RWStepBasic_RWSecurityClassification(mod, "RWStepBasic_RWSecurityClassification", "Read & Write Module for SecurityClassification");
+py::class_<RWStepBasic_RWSecurityClassification> cls_RWStepBasic_RWSecurityClassification(mod, "RWStepBasic_RWSecurityClassification", "Read & Write Module for SecurityClassification");
 
 // Constructors
 cls_RWStepBasic_RWSecurityClassification.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP242_RWGeometricItemSpecificUsage(py::module &mod){
 
-py::class_<RWStepAP242_RWGeometricItemSpecificUsage, std::unique_ptr<RWStepAP242_RWGeometricItemSpecificUsage>> cls_RWStepAP242_RWGeometricItemSpecificUsage(mod, "RWStepAP242_RWGeometricItemSpecificUsage", "Read & Write Module for GeometricItemSpecificUsage");
+py::class_<RWStepAP242_RWGeometricItemSpecificUsage> cls_RWStepAP242_RWGeometricItemSpecificUsage(mod, "RWStepAP242_RWGeometricItemSpecificUsage", "Read & Write Module for GeometricItemSpecificUsage");
 
 // Constructors
 cls_RWStepAP242_RWGeometricItemSpecificUsage.def(py::init<>());

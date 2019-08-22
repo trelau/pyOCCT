@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Contap_ThePathPointOfTheSearch(py::module &mod){
 
-py::class_<Contap_ThePathPointOfTheSearch, std::unique_ptr<Contap_ThePathPointOfTheSearch>> cls_Contap_ThePathPointOfTheSearch(mod, "Contap_ThePathPointOfTheSearch", "None");
+py::class_<Contap_ThePathPointOfTheSearch> cls_Contap_ThePathPointOfTheSearch(mod, "Contap_ThePathPointOfTheSearch", "None");
 
 // Constructors
 cls_Contap_ThePathPointOfTheSearch.def(py::init<>());

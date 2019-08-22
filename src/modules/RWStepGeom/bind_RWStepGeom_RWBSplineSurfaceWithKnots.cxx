@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWBSplineSurfaceWithKnots(py::module &mod){
 
-py::class_<RWStepGeom_RWBSplineSurfaceWithKnots, std::unique_ptr<RWStepGeom_RWBSplineSurfaceWithKnots>> cls_RWStepGeom_RWBSplineSurfaceWithKnots(mod, "RWStepGeom_RWBSplineSurfaceWithKnots", "Read & Write Module for BSplineSurfaceWithKnots Check added by CKY , 7-OCT-1996");
+py::class_<RWStepGeom_RWBSplineSurfaceWithKnots> cls_RWStepGeom_RWBSplineSurfaceWithKnots(mod, "RWStepGeom_RWBSplineSurfaceWithKnots", "Read & Write Module for BSplineSurfaceWithKnots Check added by CKY , 7-OCT-1996");
 
 // Constructors
 cls_RWStepGeom_RWBSplineSurfaceWithKnots.def(py::init<>());

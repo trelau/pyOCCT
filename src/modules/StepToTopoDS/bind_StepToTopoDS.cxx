@@ -54,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS(py::module &mod){
 
-py::class_<StepToTopoDS, std::unique_ptr<StepToTopoDS>> cls_StepToTopoDS(mod, "StepToTopoDS", "This package implements the mapping between AP214 Shape representation and CAS.CAD Shape Representation. The source schema is Part42 (which is included in AP214)");
+py::class_<StepToTopoDS> cls_StepToTopoDS(mod, "StepToTopoDS", "This package implements the mapping between AP214 Shape representation and CAS.CAD Shape Representation. The source schema is Part42 (which is included in AP214)");
 
 // Constructors
 

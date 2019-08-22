@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Expr_RelationIterator(py::module &mod){
 
-py::class_<Expr_RelationIterator, std::unique_ptr<Expr_RelationIterator>> cls_Expr_RelationIterator(mod, "Expr_RelationIterator", "Iterates on every basic relation contained in a GeneralRelation.");
+py::class_<Expr_RelationIterator> cls_Expr_RelationIterator(mod, "Expr_RelationIterator", "Iterates on every basic relation contained in a GeneralRelation.");
 
 // Constructors
 cls_Expr_RelationIterator.def(py::init<const opencascade::handle<Expr_GeneralRelation> &>(), py::arg("rel"));

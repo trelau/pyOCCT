@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepLib_MakeVertex(py::module &mod){
 
-py::class_<BRepLib_MakeVertex, std::unique_ptr<BRepLib_MakeVertex>, BRepLib_MakeShape> cls_BRepLib_MakeVertex(mod, "BRepLib_MakeVertex", "Provides methods to build vertices.");
+py::class_<BRepLib_MakeVertex, BRepLib_MakeShape> cls_BRepLib_MakeVertex(mod, "BRepLib_MakeVertex", "Provides methods to build vertices.");
 
 // Constructors
 cls_BRepLib_MakeVertex.def(py::init<const gp_Pnt &>(), py::arg("P"));

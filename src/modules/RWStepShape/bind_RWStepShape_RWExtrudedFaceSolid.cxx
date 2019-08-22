@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWExtrudedFaceSolid(py::module &mod){
 
-py::class_<RWStepShape_RWExtrudedFaceSolid, std::unique_ptr<RWStepShape_RWExtrudedFaceSolid>> cls_RWStepShape_RWExtrudedFaceSolid(mod, "RWStepShape_RWExtrudedFaceSolid", "Read & Write Module for ExtrudedFaceSolid");
+py::class_<RWStepShape_RWExtrudedFaceSolid> cls_RWStepShape_RWExtrudedFaceSolid(mod, "RWStepShape_RWExtrudedFaceSolid", "Read & Write Module for ExtrudedFaceSolid");
 
 // Constructors
 cls_RWStepShape_RWExtrudedFaceSolid.def(py::init<>());

@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPCAFControl_GDTProperty(py::module &mod){
 
-py::class_<STEPCAFControl_GDTProperty, std::unique_ptr<STEPCAFControl_GDTProperty>> cls_STEPCAFControl_GDTProperty(mod, "STEPCAFControl_GDTProperty", "This class provides tools for access (read) the GDT properties.");
+py::class_<STEPCAFControl_GDTProperty> cls_STEPCAFControl_GDTProperty(mod, "STEPCAFControl_GDTProperty", "This class provides tools for access (read) the GDT properties.");
 
 // Constructors
 cls_STEPCAFControl_GDTProperty.def(py::init<>());

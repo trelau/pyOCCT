@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPTools_SetMapHasher(py::module &mod){
 
-py::class_<BOPTools_SetMapHasher, std::unique_ptr<BOPTools_SetMapHasher>> cls_BOPTools_SetMapHasher(mod, "BOPTools_SetMapHasher", "None");
+py::class_<BOPTools_SetMapHasher> cls_BOPTools_SetMapHasher(mod, "BOPTools_SetMapHasher", "None");
 
 // Constructors
 

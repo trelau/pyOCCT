@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWFeaAreaDensity(py::module &mod){
 
-py::class_<RWStepFEA_RWFeaAreaDensity, std::unique_ptr<RWStepFEA_RWFeaAreaDensity>> cls_RWStepFEA_RWFeaAreaDensity(mod, "RWStepFEA_RWFeaAreaDensity", "Read & Write tool for FeaAreaDensity");
+py::class_<RWStepFEA_RWFeaAreaDensity> cls_RWStepFEA_RWFeaAreaDensity(mod, "RWStepFEA_RWFeaAreaDensity", "Read & Write tool for FeaAreaDensity");
 
 // Constructors
 cls_RWStepFEA_RWFeaAreaDensity.def(py::init<>());

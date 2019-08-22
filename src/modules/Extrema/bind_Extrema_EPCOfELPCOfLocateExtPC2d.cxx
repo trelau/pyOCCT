@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_EPCOfELPCOfLocateExtPC2d(py::module &mod){
 
-py::class_<Extrema_EPCOfELPCOfLocateExtPC2d, std::unique_ptr<Extrema_EPCOfELPCOfLocateExtPC2d>> cls_Extrema_EPCOfELPCOfLocateExtPC2d(mod, "Extrema_EPCOfELPCOfLocateExtPC2d", "None");
+py::class_<Extrema_EPCOfELPCOfLocateExtPC2d> cls_Extrema_EPCOfELPCOfLocateExtPC2d(mod, "Extrema_EPCOfELPCOfLocateExtPC2d", "None");
 
 // Constructors
 cls_Extrema_EPCOfELPCOfLocateExtPC2d.def(py::init<>());

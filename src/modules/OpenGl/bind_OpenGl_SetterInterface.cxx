@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_SetterInterface(py::module &mod){
 
-py::class_<OpenGl_SetterInterface, std::unique_ptr<OpenGl_SetterInterface>> cls_OpenGl_SetterInterface(mod, "OpenGl_SetterInterface", "Interface for generic setter of user-defined uniform variables.");
+py::class_<OpenGl_SetterInterface> cls_OpenGl_SetterInterface(mod, "OpenGl_SetterInterface", "Interface for generic setter of user-defined uniform variables.");
 
 // Fields
 

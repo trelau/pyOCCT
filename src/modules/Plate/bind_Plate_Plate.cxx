@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Plate_Plate(py::module &mod){
 
-py::class_<Plate_Plate, std::unique_ptr<Plate_Plate>> cls_Plate_Plate(mod, "Plate_Plate", "This class implement a variationnal spline algorithm able to define a two variable function satisfying some constraints and minimizing an energy like criterion.");
+py::class_<Plate_Plate> cls_Plate_Plate(mod, "Plate_Plate", "This class implement a variationnal spline algorithm able to define a two variable function satisfying some constraints and minimizing an energy like criterion.");
 
 // Constructors
 cls_Plate_Plate.def(py::init<>());

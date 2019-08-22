@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDraw_ToolCircArraySubfigure(py::module &mod){
 
-py::class_<IGESDraw_ToolCircArraySubfigure, std::unique_ptr<IGESDraw_ToolCircArraySubfigure>> cls_IGESDraw_ToolCircArraySubfigure(mod, "IGESDraw_ToolCircArraySubfigure", "Tool to work on a CircArraySubfigure. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDraw_ToolCircArraySubfigure> cls_IGESDraw_ToolCircArraySubfigure(mod, "IGESDraw_ToolCircArraySubfigure", "Tool to work on a CircArraySubfigure. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDraw_ToolCircArraySubfigure.def(py::init<>());

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TObj_Assistant(py::module &mod){
 
-py::class_<TObj_Assistant, std::unique_ptr<TObj_Assistant>> cls_TObj_Assistant(mod, "TObj_Assistant", "This class provides interface to the static data to be used during save or load models.");
+py::class_<TObj_Assistant> cls_TObj_Assistant(mod, "TObj_Assistant", "This class provides interface to the static data to be used during save or load models.");
 
 // Constructors
 

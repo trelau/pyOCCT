@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomLib_PolyFunc(py::module &mod){
 
-py::class_<GeomLib_PolyFunc, std::unique_ptr<GeomLib_PolyFunc>, math_FunctionWithDerivative> cls_GeomLib_PolyFunc(mod, "GeomLib_PolyFunc", "Polynomial Function");
+py::class_<GeomLib_PolyFunc, math_FunctionWithDerivative> cls_GeomLib_PolyFunc(mod, "GeomLib_PolyFunc", "Polynomial Function");
 
 // Constructors
 cls_GeomLib_PolyFunc.def(py::init<const math_Vector &>(), py::arg("Coeffs"));

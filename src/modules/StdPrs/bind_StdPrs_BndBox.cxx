@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_BndBox(py::module &mod){
 
-py::class_<StdPrs_BndBox, std::unique_ptr<StdPrs_BndBox>, Prs3d_Root> cls_StdPrs_BndBox(mod, "StdPrs_BndBox", "Tool for computing bounding box presentation.");
+py::class_<StdPrs_BndBox, Prs3d_Root> cls_StdPrs_BndBox(mod, "StdPrs_BndBox", "Tool for computing bounding box presentation.");
 
 // Constructors
 

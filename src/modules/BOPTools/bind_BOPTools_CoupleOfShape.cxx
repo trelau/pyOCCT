@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPTools_CoupleOfShape(py::module &mod){
 
-py::class_<BOPTools_CoupleOfShape, std::unique_ptr<BOPTools_CoupleOfShape>> cls_BOPTools_CoupleOfShape(mod, "BOPTools_CoupleOfShape", "None");
+py::class_<BOPTools_CoupleOfShape> cls_BOPTools_CoupleOfShape(mod, "BOPTools_CoupleOfShape", "None");
 
 // Constructors
 cls_BOPTools_CoupleOfShape.def(py::init<>());

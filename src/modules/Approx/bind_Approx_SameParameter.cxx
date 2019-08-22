@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Approx_SameParameter(py::module &mod){
 
-py::class_<Approx_SameParameter, std::unique_ptr<Approx_SameParameter>> cls_Approx_SameParameter(mod, "Approx_SameParameter", "Approximation of a PCurve on a surface to make its parameter be the same that the parameter of a given 3d reference curve.");
+py::class_<Approx_SameParameter> cls_Approx_SameParameter(mod, "Approx_SameParameter", "Approximation of a PCurve on a surface to make its parameter be the same that the parameter of a given 3d reference curve.");
 
 // Constructors
 cls_Approx_SameParameter.def(py::init<const opencascade::handle<Geom_Curve> &, const opencascade::handle<Geom2d_Curve> &, const opencascade::handle<Geom_Surface> &, const Standard_Real>(), py::arg("C3D"), py::arg("C2D"), py::arg("S"), py::arg("Tol"));

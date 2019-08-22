@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGraph_ToolUniformRectGrid(py::module &mod){
 
-py::class_<IGESGraph_ToolUniformRectGrid, std::unique_ptr<IGESGraph_ToolUniformRectGrid>> cls_IGESGraph_ToolUniformRectGrid(mod, "IGESGraph_ToolUniformRectGrid", "Tool to work on a UniformRectGrid. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGraph_ToolUniformRectGrid> cls_IGESGraph_ToolUniformRectGrid(mod, "IGESGraph_ToolUniformRectGrid", "Tool to work on a UniformRectGrid. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGraph_ToolUniformRectGrid.def(py::init<>());

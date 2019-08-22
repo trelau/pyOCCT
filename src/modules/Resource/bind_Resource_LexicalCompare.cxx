@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Resource_LexicalCompare(py::module &mod){
 
-py::class_<Resource_LexicalCompare, std::unique_ptr<Resource_LexicalCompare>> cls_Resource_LexicalCompare(mod, "Resource_LexicalCompare", "None");
+py::class_<Resource_LexicalCompare> cls_Resource_LexicalCompare(mod, "Resource_LexicalCompare", "None");
 
 // Constructors
 cls_Resource_LexicalCompare.def(py::init<>());

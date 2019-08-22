@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_PrmPrmIntersection_T3Bits(py::module &mod){
 
-py::class_<IntPatch_PrmPrmIntersection_T3Bits, std::unique_ptr<IntPatch_PrmPrmIntersection_T3Bits>> cls_IntPatch_PrmPrmIntersection_T3Bits(mod, "IntPatch_PrmPrmIntersection_T3Bits", "None");
+py::class_<IntPatch_PrmPrmIntersection_T3Bits> cls_IntPatch_PrmPrmIntersection_T3Bits(mod, "IntPatch_PrmPrmIntersection_T3Bits", "None");
 
 // Constructors
 cls_IntPatch_PrmPrmIntersection_T3Bits.def(py::init<const Standard_Integer>(), py::arg("size"));

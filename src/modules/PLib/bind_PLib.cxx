@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_PLib(py::module &mod){
 
-py::class_<PLib, std::unique_ptr<PLib>> cls_PLib(mod, "PLib", "PLib means Polynomial functions library. This pk provides basic computation functions for polynomial functions. Note: weight arrays can be passed by pointer for some functions so that NULL pointer is valid. That means no weights passed.");
+py::class_<PLib> cls_PLib(mod, "PLib", "PLib means Polynomial functions library. This pk provides basic computation functions for polynomial functions. Note: weight arrays can be passed by pointer for some functions so that NULL pointer is valid. That means no weights passed.");
 
 // Constructors
 

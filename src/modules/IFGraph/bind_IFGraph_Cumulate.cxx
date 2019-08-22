@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFGraph_Cumulate(py::module &mod){
 
-py::class_<IFGraph_Cumulate, std::unique_ptr<IFGraph_Cumulate>, Interface_GraphContent> cls_IFGraph_Cumulate(mod, "IFGraph_Cumulate", "this class evaluates effect of cumulated sub-parts : overlapping, forgotten entities Results are kept in a Graph, several question can be set Basic Iteration gives entities which are part of Cumulation");
+py::class_<IFGraph_Cumulate, Interface_GraphContent> cls_IFGraph_Cumulate(mod, "IFGraph_Cumulate", "this class evaluates effect of cumulated sub-parts : overlapping, forgotten entities Results are kept in a Graph, several question can be set Basic Iteration gives entities which are part of Cumulation");
 
 // Constructors
 cls_IFGraph_Cumulate.def(py::init<const Interface_Graph &>(), py::arg("agraph"));

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T, int N>
 void bind_BVH_DistanceField(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BVH_DistanceField<T, N>, std::unique_ptr<BVH_DistanceField<T, N>>> cls_BVH_DistanceField(mod, name.c_str(), "Tool object for building 3D distance field from the set of BVH triangulations. Distance field is a scalar field that measures the distance from a given point to some object, including optional information about the inside and outside of the structure. Distance fields are used as alternative surface representations (like polygons or NURBS).", local);
+py::class_<BVH_DistanceField<T, N>> cls_BVH_DistanceField(mod, name.c_str(), "Tool object for building 3D distance field from the set of BVH triangulations. Distance field is a scalar field that measures the distance from a given point to some object, including optional information about the inside and outside of the structure. Distance fields are used as alternative surface representations (like polygons or NURBS).", local);
 
 // Constructors
 cls_BVH_DistanceField.def(py::init<const Standard_Integer, const Standard_Boolean>(), py::arg("theMaximumSize"), py::arg("theComputeSign"));

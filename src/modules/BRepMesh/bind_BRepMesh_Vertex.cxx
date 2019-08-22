@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_Vertex(py::module &mod){
 
-py::class_<BRepMesh_Vertex, std::unique_ptr<BRepMesh_Vertex>> cls_BRepMesh_Vertex(mod, "BRepMesh_Vertex", "Light weighted structure representing vertex of the mesh in parametric space. Vertex could be associated with 3d point stored in external map.");
+py::class_<BRepMesh_Vertex> cls_BRepMesh_Vertex(mod, "BRepMesh_Vertex", "Light weighted structure representing vertex of the mesh in parametric space. Vertex could be associated with 3d point stored in external map.");
 
 // Constructors
 cls_BRepMesh_Vertex.def(py::init<>());

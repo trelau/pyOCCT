@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dGcc_Lin2dTanObl(py::module &mod){
 
-py::class_<Geom2dGcc_Lin2dTanObl, std::unique_ptr<Geom2dGcc_Lin2dTanObl>> cls_Geom2dGcc_Lin2dTanObl(mod, "Geom2dGcc_Lin2dTanObl", "This class implements the algorithms used to create 2d line tangent to a curve QualifiedCurv and doing an angle Angle with a line TheLin. The angle must be in Radian. Describes functions for building a 2D line making a given angle with a line and tangential to a curve. A Lin2dTanObl object provides a framework for: - defining the construction of 2D line(s), - implementing the construction algorithm, and - consulting the result(s).");
+py::class_<Geom2dGcc_Lin2dTanObl> cls_Geom2dGcc_Lin2dTanObl(mod, "Geom2dGcc_Lin2dTanObl", "This class implements the algorithms used to create 2d line tangent to a curve QualifiedCurv and doing an angle Angle with a line TheLin. The angle must be in Radian. Describes functions for building a 2D line making a given angle with a line and tangential to a curve. A Lin2dTanObl object provides a framework for: - defining the construction of 2D line(s), - implementing the construction algorithm, and - consulting the result(s).");
 
 // Constructors
 cls_Geom2dGcc_Lin2dTanObl.def(py::init<const Geom2dGcc_QualifiedCurve &, const gp_Lin2d &, const Standard_Real, const Standard_Real>(), py::arg("Qualified1"), py::arg("TheLin"), py::arg("TolAng"), py::arg("Angle"));

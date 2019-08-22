@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_ParalPresentation(py::module &mod){
 
-py::class_<DsgPrs_ParalPresentation, std::unique_ptr<DsgPrs_ParalPresentation>> cls_DsgPrs_ParalPresentation(mod, "DsgPrs_ParalPresentation", "A framework to define display of relations of parallelism between shapes.");
+py::class_<DsgPrs_ParalPresentation> cls_DsgPrs_ParalPresentation(mod, "DsgPrs_ParalPresentation", "A framework to define display of relations of parallelism between shapes.");
 
 // Constructors
 

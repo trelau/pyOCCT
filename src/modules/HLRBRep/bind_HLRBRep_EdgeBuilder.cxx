@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_EdgeBuilder(py::module &mod){
 
-py::class_<HLRBRep_EdgeBuilder, std::unique_ptr<HLRBRep_EdgeBuilder>> cls_HLRBRep_EdgeBuilder(mod, "HLRBRep_EdgeBuilder", "None");
+py::class_<HLRBRep_EdgeBuilder> cls_HLRBRep_EdgeBuilder(mod, "HLRBRep_EdgeBuilder", "None");
 
 // Constructors
 cls_HLRBRep_EdgeBuilder.def(py::init<HLRBRep_VertexList &>(), py::arg("VList"));

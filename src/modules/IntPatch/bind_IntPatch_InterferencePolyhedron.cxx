@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_InterferencePolyhedron(py::module &mod){
 
-py::class_<IntPatch_InterferencePolyhedron, std::unique_ptr<IntPatch_InterferencePolyhedron>, Intf_Interference> cls_IntPatch_InterferencePolyhedron(mod, "IntPatch_InterferencePolyhedron", "Computes the interference between two polyhedra or the self interference of a polyhedron. Points of intersection, polylines of intersection and zones of tangence.");
+py::class_<IntPatch_InterferencePolyhedron, Intf_Interference> cls_IntPatch_InterferencePolyhedron(mod, "IntPatch_InterferencePolyhedron", "Computes the interference between two polyhedra or the self interference of a polyhedron. Points of intersection, polylines of intersection and zones of tangence.");
 
 // Constructors
 cls_IntPatch_InterferencePolyhedron.def(py::init<>());

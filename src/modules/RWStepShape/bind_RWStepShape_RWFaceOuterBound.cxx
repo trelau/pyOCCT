@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWFaceOuterBound(py::module &mod){
 
-py::class_<RWStepShape_RWFaceOuterBound, std::unique_ptr<RWStepShape_RWFaceOuterBound>> cls_RWStepShape_RWFaceOuterBound(mod, "RWStepShape_RWFaceOuterBound", "Read & Write Module for FaceOuterBound");
+py::class_<RWStepShape_RWFaceOuterBound> cls_RWStepShape_RWFaceOuterBound(mod, "RWStepShape_RWFaceOuterBound", "Read & Write Module for FaceOuterBound");
 
 // Constructors
 cls_RWStepShape_RWFaceOuterBound.def(py::init<>());

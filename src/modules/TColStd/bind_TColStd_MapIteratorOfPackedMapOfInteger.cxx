@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TColStd_MapIteratorOfPackedMapOfInteger(py::module &mod){
 
-py::class_<TColStd_PackedMapOfInteger::Iterator, std::unique_ptr<TColStd_PackedMapOfInteger::Iterator>, TCollection_BasicMapIterator> cls_TColStd_MapIteratorOfPackedMapOfInteger(mod, "TColStd_MapIteratorOfPackedMapOfInteger", "Iterator of class TColStd_PackedMapOfInteger.");
+py::class_<TColStd_PackedMapOfInteger::Iterator, TCollection_BasicMapIterator> cls_TColStd_MapIteratorOfPackedMapOfInteger(mod, "TColStd_MapIteratorOfPackedMapOfInteger", "Iterator of class TColStd_PackedMapOfInteger.");
 
 // Constructors
 cls_TColStd_MapIteratorOfPackedMapOfInteger.def(py::init<>());

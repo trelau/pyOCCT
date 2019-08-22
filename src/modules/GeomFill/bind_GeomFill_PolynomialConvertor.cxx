@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_PolynomialConvertor(py::module &mod){
 
-py::class_<GeomFill_PolynomialConvertor, std::unique_ptr<GeomFill_PolynomialConvertor>> cls_GeomFill_PolynomialConvertor(mod, "GeomFill_PolynomialConvertor", "To convert circular section in polynome");
+py::class_<GeomFill_PolynomialConvertor> cls_GeomFill_PolynomialConvertor(mod, "GeomFill_PolynomialConvertor", "To convert circular section in polynome");
 
 // Constructors
 cls_GeomFill_PolynomialConvertor.def(py::init<>());

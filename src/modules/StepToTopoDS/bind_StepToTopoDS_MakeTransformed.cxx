@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS_MakeTransformed(py::module &mod){
 
-py::class_<StepToTopoDS_MakeTransformed, std::unique_ptr<StepToTopoDS_MakeTransformed>, StepToTopoDS_Root> cls_StepToTopoDS_MakeTransformed(mod, "StepToTopoDS_MakeTransformed", "Produces instances by Transformation of a basic item");
+py::class_<StepToTopoDS_MakeTransformed, StepToTopoDS_Root> cls_StepToTopoDS_MakeTransformed(mod, "StepToTopoDS_MakeTransformed", "Produces instances by Transformation of a basic item");
 
 // Constructors
 cls_StepToTopoDS_MakeTransformed.def(py::init<>());

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopTools_ShapeMapHasher(py::module &mod){
 
-py::class_<TopTools_ShapeMapHasher, std::unique_ptr<TopTools_ShapeMapHasher>> cls_TopTools_ShapeMapHasher(mod, "TopTools_ShapeMapHasher", "Hash tool, used for generating maps of shapes in topology.");
+py::class_<TopTools_ShapeMapHasher> cls_TopTools_ShapeMapHasher(mod, "TopTools_ShapeMapHasher", "Hash tool, used for generating maps of shapes in topology.");
 
 // Constructors
 

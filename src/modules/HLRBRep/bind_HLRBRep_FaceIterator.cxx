@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_FaceIterator(py::module &mod){
 
-py::class_<HLRBRep_FaceIterator, std::unique_ptr<HLRBRep_FaceIterator>> cls_HLRBRep_FaceIterator(mod, "HLRBRep_FaceIterator", "None");
+py::class_<HLRBRep_FaceIterator> cls_HLRBRep_FaceIterator(mod, "HLRBRep_FaceIterator", "None");
 
 // Constructors
 cls_HLRBRep_FaceIterator.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWAppliedDateAssignment(py::module &mod){
 
-py::class_<RWStepAP214_RWAppliedDateAssignment, std::unique_ptr<RWStepAP214_RWAppliedDateAssignment>> cls_RWStepAP214_RWAppliedDateAssignment(mod, "RWStepAP214_RWAppliedDateAssignment", "Read & Write Module for AppliedDateAssignment");
+py::class_<RWStepAP214_RWAppliedDateAssignment> cls_RWStepAP214_RWAppliedDateAssignment(mod, "RWStepAP214_RWAppliedDateAssignment", "Read & Write Module for AppliedDateAssignment");
 
 // Constructors
 cls_RWStepAP214_RWAppliedDateAssignment.def(py::init<>());

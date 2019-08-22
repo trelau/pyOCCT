@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Poly_MakeLoops(py::module &mod){
 
-py::class_<Poly_MakeLoops, std::unique_ptr<Poly_MakeLoops>> cls_Poly_MakeLoops(mod, "Poly_MakeLoops", "Make loops from a set of connected links. A link is represented by a pair of integer indices of nodes.");
+py::class_<Poly_MakeLoops> cls_Poly_MakeLoops(mod, "Poly_MakeLoops", "Make loops from a set of connected links. A link is represented by a pair of integer indices of nodes.");
 
 // Fields
 

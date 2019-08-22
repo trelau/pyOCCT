@@ -68,7 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli(py::module &mod){
 
-py::class_<IGESAppli, std::unique_ptr<IGESAppli>> cls_IGESAppli(mod, "IGESAppli", "This package represents collection of miscellaneous entities from IGES");
+py::class_<IGESAppli> cls_IGESAppli(mod, "IGESAppli", "This package represents collection of miscellaneous entities from IGES");
 
 // Constructors
 

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheItemType>
 void bind_NCollection_Array2(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_Array2<TheItemType>, std::unique_ptr<NCollection_Array2<TheItemType>>> cls_NCollection_Array2(mod, name.c_str(), "Purpose: The class Array2 represents bi-dimensional arrays of fixed size known at run time. The ranges of indices are user defined.", local);
+py::class_<NCollection_Array2<TheItemType>> cls_NCollection_Array2(mod, name.c_str(), "Purpose: The class Array2 represents bi-dimensional arrays of fixed size known at run time. The ranges of indices are user defined.", local);
 
 // Constructors
 cls_NCollection_Array2.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));

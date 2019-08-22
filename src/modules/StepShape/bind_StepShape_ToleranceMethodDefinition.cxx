@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepShape_ToleranceMethodDefinition(py::module &mod){
 
-py::class_<StepShape_ToleranceMethodDefinition, std::unique_ptr<StepShape_ToleranceMethodDefinition>, StepData_SelectType> cls_StepShape_ToleranceMethodDefinition(mod, "StepShape_ToleranceMethodDefinition", "Added for Dimensional Tolerances");
+py::class_<StepShape_ToleranceMethodDefinition, StepData_SelectType> cls_StepShape_ToleranceMethodDefinition(mod, "StepShape_ToleranceMethodDefinition", "Added for Dimensional Tolerances");
 
 // Constructors
 cls_StepShape_ToleranceMethodDefinition.def(py::init<>());

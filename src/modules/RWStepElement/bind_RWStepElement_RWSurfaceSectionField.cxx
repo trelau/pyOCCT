@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepElement_RWSurfaceSectionField(py::module &mod){
 
-py::class_<RWStepElement_RWSurfaceSectionField, std::unique_ptr<RWStepElement_RWSurfaceSectionField>> cls_RWStepElement_RWSurfaceSectionField(mod, "RWStepElement_RWSurfaceSectionField", "Read & Write tool for SurfaceSectionField");
+py::class_<RWStepElement_RWSurfaceSectionField> cls_RWStepElement_RWSurfaceSectionField(mod, "RWStepElement_RWSurfaceSectionField", "Read & Write tool for SurfaceSectionField");
 
 // Constructors
 cls_RWStepElement_RWSurfaceSectionField.def(py::init<>());

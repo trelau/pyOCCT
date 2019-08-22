@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MoniTool_Stat(py::module &mod){
 
-py::class_<MoniTool_Stat, std::unique_ptr<MoniTool_Stat>> cls_MoniTool_Stat(mod, "MoniTool_Stat", "This class manages Statistics to be queried asynchronously.");
+py::class_<MoniTool_Stat> cls_MoniTool_Stat(mod, "MoniTool_Stat", "This class manages Statistics to be queried asynchronously.");
 
 // Constructors
 cls_MoniTool_Stat.def(py::init<>());

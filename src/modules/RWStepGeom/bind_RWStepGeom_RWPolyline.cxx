@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWPolyline(py::module &mod){
 
-py::class_<RWStepGeom_RWPolyline, std::unique_ptr<RWStepGeom_RWPolyline>> cls_RWStepGeom_RWPolyline(mod, "RWStepGeom_RWPolyline", "Read & Write Module for Polyline");
+py::class_<RWStepGeom_RWPolyline> cls_RWStepGeom_RWPolyline(mod, "RWStepGeom_RWPolyline", "Read & Write Module for Polyline");
 
 // Constructors
 cls_RWStepGeom_RWPolyline.def(py::init<>());

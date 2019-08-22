@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS_PointPair(py::module &mod){
 
-py::class_<StepToTopoDS_PointPair, std::unique_ptr<StepToTopoDS_PointPair>> cls_StepToTopoDS_PointPair(mod, "StepToTopoDS_PointPair", "Stores a pair of Points from step");
+py::class_<StepToTopoDS_PointPair> cls_StepToTopoDS_PointPair(mod, "StepToTopoDS_PointPair", "Stores a pair of Points from step");
 
 // Constructors
 cls_StepToTopoDS_PointPair.def(py::init<const opencascade::handle<StepGeom_CartesianPoint> &, const opencascade::handle<StepGeom_CartesianPoint> &>(), py::arg("P1"), py::arg("P2"));

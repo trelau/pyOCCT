@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeExtend(py::module &mod){
 
-py::class_<ShapeExtend, std::unique_ptr<ShapeExtend>> cls_ShapeExtend(mod, "ShapeExtend", "This package provides general tools and data structures common for other packages in SHAPEWORKS and extending CAS.CADE structures. The following items are provided by this package: - enumeration Status used for coding status flags in methods inside the SHAPEWORKS - enumeration Parametrisation used for setting global parametrisation on the composite surface - class CompositeSurface representing a composite surface made of a grid of surface patches - class WireData representing a wire in the form of ordered list of edges - class MsgRegistrator for attaching messages to the objects - tools for exploring the shapes - tools for creating new shapes.");
+py::class_<ShapeExtend> cls_ShapeExtend(mod, "ShapeExtend", "This package provides general tools and data structures common for other packages in SHAPEWORKS and extending CAS.CADE structures. The following items are provided by this package: - enumeration Status used for coding status flags in methods inside the SHAPEWORKS - enumeration Parametrisation used for setting global parametrisation on the composite surface - class CompositeSurface representing a composite surface made of a grid of surface patches - class WireData representing a wire in the form of ordered list of edges - class MsgRegistrator for attaching messages to the objects - tools for exploring the shapes - tools for creating new shapes.");
 
 // Constructors
 

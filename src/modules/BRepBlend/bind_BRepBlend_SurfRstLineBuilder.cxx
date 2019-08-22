@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBlend_SurfRstLineBuilder(py::module &mod){
 
-py::class_<BRepBlend_SurfRstLineBuilder, std::unique_ptr<BRepBlend_SurfRstLineBuilder>> cls_BRepBlend_SurfRstLineBuilder(mod, "BRepBlend_SurfRstLineBuilder", "This class processes data resulting from Blend_CSWalking taking in consideration the Surface supporting the curve to detect the breakpoint.");
+py::class_<BRepBlend_SurfRstLineBuilder> cls_BRepBlend_SurfRstLineBuilder(mod, "BRepBlend_SurfRstLineBuilder", "This class processes data resulting from Blend_CSWalking taking in consideration the Surface supporting the curve to detect the breakpoint.");
 
 // Constructors
 cls_BRepBlend_SurfRstLineBuilder.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_TopolTool> &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor2d_HCurve2d> &, const opencascade::handle<Adaptor3d_TopolTool> &>(), py::arg("Surf1"), py::arg("Domain1"), py::arg("Surf2"), py::arg("Rst"), py::arg("Domain2"));

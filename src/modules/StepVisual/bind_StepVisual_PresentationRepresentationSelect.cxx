@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_PresentationRepresentationSelect(py::module &mod){
 
-py::class_<StepVisual_PresentationRepresentationSelect, std::unique_ptr<StepVisual_PresentationRepresentationSelect>, StepData_SelectType> cls_StepVisual_PresentationRepresentationSelect(mod, "StepVisual_PresentationRepresentationSelect", "None");
+py::class_<StepVisual_PresentationRepresentationSelect, StepData_SelectType> cls_StepVisual_PresentationRepresentationSelect(mod, "StepVisual_PresentationRepresentationSelect", "None");
 
 // Constructors
 cls_StepVisual_PresentationRepresentationSelect.def(py::init<>());

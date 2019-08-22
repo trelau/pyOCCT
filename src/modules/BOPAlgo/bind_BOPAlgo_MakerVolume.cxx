@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_MakerVolume(py::module &mod){
 
-py::class_<BOPAlgo_MakerVolume, std::unique_ptr<BOPAlgo_MakerVolume>, BOPAlgo_Builder> cls_BOPAlgo_MakerVolume(mod, "BOPAlgo_MakerVolume", "The algorithm is to build solids from set of shapes. It uses the BOPAlgo_Builder algorithm to intersect the given shapes and build the images of faces (if needed) and BOPAlgo_BuilderSolid algorithm to build the solids.");
+py::class_<BOPAlgo_MakerVolume, BOPAlgo_Builder> cls_BOPAlgo_MakerVolume(mod, "BOPAlgo_MakerVolume", "The algorithm is to build solids from set of shapes. It uses the BOPAlgo_Builder algorithm to intersect the given shapes and build the images of faces (if needed) and BOPAlgo_BuilderSolid algorithm to build the solids.");
 
 // Constructors
 cls_BOPAlgo_MakerVolume.def(py::init<>());

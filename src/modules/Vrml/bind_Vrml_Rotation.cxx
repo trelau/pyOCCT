@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_Rotation(py::module &mod){
 
-py::class_<Vrml_Rotation, std::unique_ptr<Vrml_Rotation>> cls_Vrml_Rotation(mod, "Vrml_Rotation", "defines a Rotation node of VRML specifying matrix and transform properties. This node defines a 3D rotation about an arbitrary axis through the origin. By default : myRotation = (0 0 1 0)");
+py::class_<Vrml_Rotation> cls_Vrml_Rotation(mod, "Vrml_Rotation", "defines a Rotation node of VRML specifying matrix and transform properties. This node defines a 3D rotation about an arbitrary axis through the origin. By default : myRotation = (0 0 1 0)");
 
 // Constructors
 cls_Vrml_Rotation.def(py::init<>());

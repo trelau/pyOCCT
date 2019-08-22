@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MeshVS_Tool(py::module &mod){
 
-py::class_<MeshVS_Tool, std::unique_ptr<MeshVS_Tool>> cls_MeshVS_Tool(mod, "MeshVS_Tool", "This class provides auxiliary methods to create differents aspects");
+py::class_<MeshVS_Tool> cls_MeshVS_Tool(mod, "MeshVS_Tool", "This class provides auxiliary methods to create differents aspects");
 
 // Constructors
 

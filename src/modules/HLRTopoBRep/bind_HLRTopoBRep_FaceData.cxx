@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRTopoBRep_FaceData(py::module &mod){
 
-py::class_<HLRTopoBRep_FaceData, std::unique_ptr<HLRTopoBRep_FaceData>> cls_HLRTopoBRep_FaceData(mod, "HLRTopoBRep_FaceData", "Contains the 3 ListOfShape of a Face ( Internal OutLines, OutLines on restriction and IsoLines ).");
+py::class_<HLRTopoBRep_FaceData> cls_HLRTopoBRep_FaceData(mod, "HLRTopoBRep_FaceData", "Contains the 3 ListOfShape of a Face ( Internal OutLines, OutLines on restriction and IsoLines ).");
 
 // Constructors
 cls_HLRTopoBRep_FaceData.def(py::init<>());

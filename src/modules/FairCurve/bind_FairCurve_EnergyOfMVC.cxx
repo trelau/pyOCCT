@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FairCurve_EnergyOfMVC(py::module &mod){
 
-py::class_<FairCurve_EnergyOfMVC, std::unique_ptr<FairCurve_EnergyOfMVC>, FairCurve_Energy> cls_FairCurve_EnergyOfMVC(mod, "FairCurve_EnergyOfMVC", "Energy Criterium to minimize in MinimalVariationCurve.");
+py::class_<FairCurve_EnergyOfMVC, FairCurve_Energy> cls_FairCurve_EnergyOfMVC(mod, "FairCurve_EnergyOfMVC", "Energy Criterium to minimize in MinimalVariationCurve.");
 
 // Constructors
 cls_FairCurve_EnergyOfMVC.def(py::init<const Standard_Integer, const opencascade::handle<TColStd_HArray1OfReal> &, const opencascade::handle<TColgp_HArray1OfPnt2d> &, const Standard_Integer, const Standard_Integer, const FairCurve_BattenLaw &, const Standard_Real, const Standard_Real>(), py::arg("BSplOrder"), py::arg("FlatKnots"), py::arg("Poles"), py::arg("ContrOrder1"), py::arg("ContrOrder2"), py::arg("Law"), py::arg("PhysicalRatio"), py::arg("LengthSliding"));

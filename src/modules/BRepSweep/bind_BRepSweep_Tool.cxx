@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepSweep_Tool(py::module &mod){
 
-py::class_<BRepSweep_Tool, std::unique_ptr<BRepSweep_Tool>> cls_BRepSweep_Tool(mod, "BRepSweep_Tool", "Provides the indexation and type analysis services required by the TopoDS generating Shape of BRepSweep.");
+py::class_<BRepSweep_Tool> cls_BRepSweep_Tool(mod, "BRepSweep_Tool", "Provides the indexation and type analysis services required by the TopoDS generating Shape of BRepSweep.");
 
 // Constructors
 cls_BRepSweep_Tool.def(py::init<const TopoDS_Shape &>(), py::arg("aShape"));

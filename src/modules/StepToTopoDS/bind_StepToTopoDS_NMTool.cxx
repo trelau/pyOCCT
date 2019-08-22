@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS_NMTool(py::module &mod){
 
-py::class_<StepToTopoDS_NMTool, std::unique_ptr<StepToTopoDS_NMTool>> cls_StepToTopoDS_NMTool(mod, "StepToTopoDS_NMTool", "Provides data to process non-manifold topology when reading from STEP.");
+py::class_<StepToTopoDS_NMTool> cls_StepToTopoDS_NMTool(mod, "StepToTopoDS_NMTool", "Provides data to process non-manifold topology when reading from STEP.");
 
 // Constructors
 cls_StepToTopoDS_NMTool.def(py::init<>());

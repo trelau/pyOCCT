@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinMDocStd(py::module &mod){
 
-py::class_<BinMDocStd, std::unique_ptr<BinMDocStd>> cls_BinMDocStd(mod, "BinMDocStd", "Storage and Retrieval drivers for TDocStd modelling attributes.");
+py::class_<BinMDocStd> cls_BinMDocStd(mod, "BinMDocStd", "Storage and Retrieval drivers for TDocStd modelling attributes.");
 
 // Constructors
 

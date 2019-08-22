@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomPlate_MakeApprox(py::module &mod){
 
-py::class_<GeomPlate_MakeApprox, std::unique_ptr<GeomPlate_MakeApprox>> cls_GeomPlate_MakeApprox(mod, "GeomPlate_MakeApprox", "Allows you to convert a GeomPlate surface into a BSpline.");
+py::class_<GeomPlate_MakeApprox> cls_GeomPlate_MakeApprox(mod, "GeomPlate_MakeApprox", "Allows you to convert a GeomPlate surface into a BSpline.");
 
 // Constructors
 cls_GeomPlate_MakeApprox.def(py::init<const opencascade::handle<GeomPlate_Surface> &, const AdvApp2Var_Criterion &, const Standard_Real, const Standard_Integer, const Standard_Integer>(), py::arg("SurfPlate"), py::arg("PlateCrit"), py::arg("Tol3d"), py::arg("Nbmax"), py::arg("dgmax"));

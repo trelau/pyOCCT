@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LProp3d_CurveTool(py::module &mod){
 
-py::class_<LProp3d_CurveTool, std::unique_ptr<LProp3d_CurveTool>> cls_LProp3d_CurveTool(mod, "LProp3d_CurveTool", "None");
+py::class_<LProp3d_CurveTool> cls_LProp3d_CurveTool(mod, "LProp3d_CurveTool", "None");
 
 // Constructors
 

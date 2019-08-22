@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWDatumReferenceElement(py::module &mod){
 
-py::class_<RWStepDimTol_RWDatumReferenceElement, std::unique_ptr<RWStepDimTol_RWDatumReferenceElement>> cls_RWStepDimTol_RWDatumReferenceElement(mod, "RWStepDimTol_RWDatumReferenceElement", "Read & Write tool for DatumReferenceElement");
+py::class_<RWStepDimTol_RWDatumReferenceElement> cls_RWStepDimTol_RWDatumReferenceElement(mod, "RWStepDimTol_RWDatumReferenceElement", "Read & Write tool for DatumReferenceElement");
 
 // Constructors
 cls_RWStepDimTol_RWDatumReferenceElement.def(py::init<>());

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_GenLocateExtCS(py::module &mod){
 
-py::class_<Extrema_GenLocateExtCS, std::unique_ptr<Extrema_GenLocateExtCS>> cls_Extrema_GenLocateExtCS(mod, "Extrema_GenLocateExtCS", "With two close points it calculates the distance between two surfaces. This distance can be a minimum or a maximum.");
+py::class_<Extrema_GenLocateExtCS> cls_Extrema_GenLocateExtCS(mod, "Extrema_GenLocateExtCS", "With two close points it calculates the distance between two surfaces. This distance can be a minimum or a maximum.");
 
 // Constructors
 cls_Extrema_GenLocateExtCS.def(py::init<>());

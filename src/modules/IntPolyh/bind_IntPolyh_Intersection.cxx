@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPolyh_Intersection(py::module &mod){
 
-py::class_<IntPolyh_Intersection, std::unique_ptr<IntPolyh_Intersection>> cls_IntPolyh_Intersection(mod, "IntPolyh_Intersection", "API algorithm for intersection of two surfaces by intersection of their triangulations.");
+py::class_<IntPolyh_Intersection> cls_IntPolyh_Intersection(mod, "IntPolyh_Intersection", "API algorithm for intersection of two surfaces by intersection of their triangulations.");
 
 // Constructors
 cls_IntPolyh_Intersection.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &>(), py::arg("theS1"), py::arg("theS2"));

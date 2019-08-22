@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Quantity_ColorRGBAHasher(py::module &mod){
 
-py::class_<Quantity_ColorRGBAHasher, std::unique_ptr<Quantity_ColorRGBAHasher>> cls_Quantity_ColorRGBAHasher(mod, "Quantity_ColorRGBAHasher", "Hasher of Quantity_ColorRGBA.");
+py::class_<Quantity_ColorRGBAHasher> cls_Quantity_ColorRGBAHasher(mod, "Quantity_ColorRGBAHasher", "Hasher of Quantity_ColorRGBA.");
 
 // Constructors
 

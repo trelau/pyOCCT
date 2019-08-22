@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWLimitsAndFits(py::module &mod){
 
-py::class_<RWStepShape_RWLimitsAndFits, std::unique_ptr<RWStepShape_RWLimitsAndFits>> cls_RWStepShape_RWLimitsAndFits(mod, "RWStepShape_RWLimitsAndFits", "Read & Write Module for LimitsAndFits");
+py::class_<RWStepShape_RWLimitsAndFits> cls_RWStepShape_RWLimitsAndFits(mod, "RWStepShape_RWLimitsAndFits", "Read & Write Module for LimitsAndFits");
 
 // Constructors
 cls_RWStepShape_RWLimitsAndFits.def(py::init<>());

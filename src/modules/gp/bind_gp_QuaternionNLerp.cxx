@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_QuaternionNLerp(py::module &mod){
 
-py::class_<gp_QuaternionNLerp, std::unique_ptr<gp_QuaternionNLerp>> cls_gp_QuaternionNLerp(mod, "gp_QuaternionNLerp", "Class perform linear interpolation (approximate rotation interpolation), result quaternion nonunit, its length lay between. sqrt(2)/2 and 1.0");
+py::class_<gp_QuaternionNLerp> cls_gp_QuaternionNLerp(mod, "gp_QuaternionNLerp", "Class perform linear interpolation (approximate rotation interpolation), result quaternion nonunit, its length lay between. sqrt(2)/2 and 1.0");
 
 // Constructors
 cls_gp_QuaternionNLerp.def(py::init<>());

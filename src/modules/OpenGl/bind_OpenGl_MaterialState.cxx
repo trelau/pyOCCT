@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_MaterialState(py::module &mod){
 
-py::class_<OpenGl_MaterialState, std::unique_ptr<OpenGl_MaterialState>, OpenGl_StateInterface> cls_OpenGl_MaterialState(mod, "OpenGl_MaterialState", "Defines generic state of material properties.");
+py::class_<OpenGl_MaterialState, OpenGl_StateInterface> cls_OpenGl_MaterialState(mod, "OpenGl_MaterialState", "Defines generic state of material properties.");
 
 // Constructors
 cls_OpenGl_MaterialState.def(py::init<>());

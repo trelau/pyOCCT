@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli_ToolLineWidening(py::module &mod){
 
-py::class_<IGESAppli_ToolLineWidening, std::unique_ptr<IGESAppli_ToolLineWidening>> cls_IGESAppli_ToolLineWidening(mod, "IGESAppli_ToolLineWidening", "Tool to work on a LineWidening. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESAppli_ToolLineWidening> cls_IGESAppli_ToolLineWidening(mod, "IGESAppli_ToolLineWidening", "Tool to work on a LineWidening. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESAppli_ToolLineWidening.def(py::init<>());

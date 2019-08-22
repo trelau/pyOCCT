@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FilletSurf_Builder(py::module &mod){
 
-py::class_<FilletSurf_Builder, std::unique_ptr<FilletSurf_Builder>> cls_FilletSurf_Builder(mod, "FilletSurf_Builder", "API giving the following geometric information about fillets list of corresponding NUBS surfaces for each surface: the 2 support faces on each face: the 3d curve and the corresponding 2d curve the 2d curves on the fillet status of start and end section of the fillet first and last parameter on edge of the fillet.");
+py::class_<FilletSurf_Builder> cls_FilletSurf_Builder(mod, "FilletSurf_Builder", "API giving the following geometric information about fillets list of corresponding NUBS surfaces for each surface: the 2 support faces on each face: the 3d curve and the corresponding 2d curve the 2d curves on the fillet status of start and end section of the fillet first and last parameter on edge of the fillet.");
 
 // Constructors
 cls_FilletSurf_Builder.def(py::init<const TopoDS_Shape &, const TopTools_ListOfShape &, const Standard_Real>(), py::arg("S"), py::arg("E"), py::arg("R"));

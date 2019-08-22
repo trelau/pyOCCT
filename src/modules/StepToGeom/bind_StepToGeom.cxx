@@ -101,7 +101,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToGeom(py::module &mod){
 
-py::class_<StepToGeom, std::unique_ptr<StepToGeom>> cls_StepToGeom(mod, "StepToGeom", "This class provides static methods to convert STEP geometric entities to OCCT. The methods returning handles will return null handle in case of error. The methods returning boolean will return True if succeeded and False if error.");
+py::class_<StepToGeom> cls_StepToGeom(mod, "StepToGeom", "This class provides static methods to convert STEP geometric entities to OCCT. The methods returning handles will return null handle in case of error. The methods returning boolean will return True if succeeded and False if error.");
 
 // Constructors
 

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWGeoTolAndGeoTolWthMod(py::module &mod){
 
-py::class_<RWStepDimTol_RWGeoTolAndGeoTolWthMod, std::unique_ptr<RWStepDimTol_RWGeoTolAndGeoTolWthMod>> cls_RWStepDimTol_RWGeoTolAndGeoTolWthMod(mod, "RWStepDimTol_RWGeoTolAndGeoTolWthMod", "Read & Write Module for GeoTolAndGeoTolWthMod");
+py::class_<RWStepDimTol_RWGeoTolAndGeoTolWthMod> cls_RWStepDimTol_RWGeoTolAndGeoTolWthMod(mod, "RWStepDimTol_RWGeoTolAndGeoTolWthMod", "Read & Write Module for GeoTolAndGeoTolWthMod");
 
 // Constructors
 cls_RWStepDimTol_RWGeoTolAndGeoTolWthMod.def(py::init<>());

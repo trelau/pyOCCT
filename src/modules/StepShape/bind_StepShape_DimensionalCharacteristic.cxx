@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepShape_DimensionalCharacteristic(py::module &mod){
 
-py::class_<StepShape_DimensionalCharacteristic, std::unique_ptr<StepShape_DimensionalCharacteristic>, StepData_SelectType> cls_StepShape_DimensionalCharacteristic(mod, "StepShape_DimensionalCharacteristic", "Representation of STEP SELECT type DimensionalCharacteristic");
+py::class_<StepShape_DimensionalCharacteristic, StepData_SelectType> cls_StepShape_DimensionalCharacteristic(mod, "StepShape_DimensionalCharacteristic", "Representation of STEP SELECT type DimensionalCharacteristic");
 
 // Constructors
 cls_StepShape_DimensionalCharacteristic.def(py::init<>());

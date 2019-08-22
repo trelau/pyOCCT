@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_EdgeIList(py::module &mod){
 
-py::class_<HLRBRep_EdgeIList, std::unique_ptr<HLRBRep_EdgeIList>> cls_HLRBRep_EdgeIList(mod, "HLRBRep_EdgeIList", "None");
+py::class_<HLRBRep_EdgeIList> cls_HLRBRep_EdgeIList(mod, "HLRBRep_EdgeIList", "None");
 
 // Constructors
 

@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FEmTool_Assembly(py::module &mod){
 
-py::class_<FEmTool_Assembly, std::unique_ptr<FEmTool_Assembly>> cls_FEmTool_Assembly(mod, "FEmTool_Assembly", "Assemble and solve system from (one dimensional) Finite Elements");
+py::class_<FEmTool_Assembly> cls_FEmTool_Assembly(mod, "FEmTool_Assembly", "Assemble and solve system from (one dimensional) Finite Elements");
 
 // Constructors
 cls_FEmTool_Assembly.def(py::init<const TColStd_Array2OfInteger &, const opencascade::handle<FEmTool_HAssemblyTable> &>(), py::arg("Dependence"), py::arg("Table"));

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWPcurve(py::module &mod){
 
-py::class_<RWStepGeom_RWPcurve, std::unique_ptr<RWStepGeom_RWPcurve>> cls_RWStepGeom_RWPcurve(mod, "RWStepGeom_RWPcurve", "Read & Write Module for Pcurve");
+py::class_<RWStepGeom_RWPcurve> cls_RWStepGeom_RWPcurve(mod, "RWStepGeom_RWPcurve", "Read & Write Module for Pcurve");
 
 // Constructors
 cls_RWStepGeom_RWPcurve.def(py::init<>());

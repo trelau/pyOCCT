@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Convert_EllipseToBSplineCurve(py::module &mod){
 
-py::class_<Convert_EllipseToBSplineCurve, std::unique_ptr<Convert_EllipseToBSplineCurve>, Convert_ConicToBSplineCurve> cls_Convert_EllipseToBSplineCurve(mod, "Convert_EllipseToBSplineCurve", "This algorithm converts a ellipse into a rational B-spline curve. The ellipse is represented an Elips2d from package gp with the parametrization : P (U) = Loc + (MajorRadius * Cos(U) * Xdir + MinorRadius * Sin(U) * Ydir) where Loc is the center of the ellipse, Xdir and Ydir are the normalized directions of the local cartesian coordinate system of the ellipse. The parametrization range is U [0, 2PI]. KeyWords : Convert, Ellipse, BSplineCurve, 2D .");
+py::class_<Convert_EllipseToBSplineCurve, Convert_ConicToBSplineCurve> cls_Convert_EllipseToBSplineCurve(mod, "Convert_EllipseToBSplineCurve", "This algorithm converts a ellipse into a rational B-spline curve. The ellipse is represented an Elips2d from package gp with the parametrization : P (U) = Loc + (MajorRadius * Cos(U) * Xdir + MinorRadius * Sin(U) * Ydir) where Loc is the center of the ellipse, Xdir and Ydir are the normalized directions of the local cartesian coordinate system of the ellipse. The parametrization range is U [0, 2PI]. KeyWords : Convert, Ellipse, BSplineCurve, 2D .");
 
 // Constructors
 cls_Convert_EllipseToBSplineCurve.def(py::init<const gp_Elips2d &>(), py::arg("E"));

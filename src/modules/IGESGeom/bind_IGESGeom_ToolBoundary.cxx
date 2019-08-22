@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGeom_ToolBoundary(py::module &mod){
 
-py::class_<IGESGeom_ToolBoundary, std::unique_ptr<IGESGeom_ToolBoundary>> cls_IGESGeom_ToolBoundary(mod, "IGESGeom_ToolBoundary", "Tool to work on a Boundary. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGeom_ToolBoundary> cls_IGESGeom_ToolBoundary(mod, "IGESGeom_ToolBoundary", "Tool to work on a Boundary. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGeom_ToolBoundary.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepClass3d_BndBoxTreeSelectorPoint(py::module &mod){
 
-py::class_<BRepClass3d_BndBoxTreeSelectorPoint, std::unique_ptr<BRepClass3d_BndBoxTreeSelectorPoint>, BRepClass3d_BndBoxTree::Selector> cls_BRepClass3d_BndBoxTreeSelectorPoint(mod, "BRepClass3d_BndBoxTreeSelectorPoint", "None");
+py::class_<BRepClass3d_BndBoxTreeSelectorPoint, BRepClass3d_BndBoxTree::Selector> cls_BRepClass3d_BndBoxTreeSelectorPoint(mod, "BRepClass3d_BndBoxTreeSelectorPoint", "None");
 
 // Constructors
 // cls_BRepClass3d_BndBoxTreeSelectorPoint.def(py::init<const TopTools_IndexedMapOfShape &>(), py::arg("theMapOfShape"));

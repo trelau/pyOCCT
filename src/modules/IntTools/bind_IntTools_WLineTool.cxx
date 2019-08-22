@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_WLineTool(py::module &mod){
 
-py::class_<IntTools_WLineTool, std::unique_ptr<IntTools_WLineTool>> cls_IntTools_WLineTool(mod, "IntTools_WLineTool", "IntTools_WLineTool provides set of static methods related to walking lines.");
+py::class_<IntTools_WLineTool> cls_IntTools_WLineTool(mod, "IntTools_WLineTool", "IntTools_WLineTool provides set of static methods related to walking lines.");
 
 // Constructors
 

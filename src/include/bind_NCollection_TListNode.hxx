@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheItemType>
 void bind_NCollection_TListNode(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_TListNode<TheItemType>, std::unique_ptr<NCollection_TListNode<TheItemType>>, NCollection_ListNode> cls_NCollection_TListNode(mod, name.c_str(), "Purpose: Abstract list node class. Used by BaseList Remark: Internal class", local);
+py::class_<NCollection_TListNode<TheItemType>, NCollection_ListNode> cls_NCollection_TListNode(mod, name.c_str(), "Purpose: Abstract list node class. Used by BaseList Remark: Internal class", local);
 
 // Constructors
 cls_NCollection_TListNode.def(py::init<const TheItemType &>(), py::arg("theItem"));

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgoAPI_Cut(py::module &mod){
 
-py::class_<BRepAlgoAPI_Cut, std::unique_ptr<BRepAlgoAPI_Cut>, BRepAlgoAPI_BooleanOperation> cls_BRepAlgoAPI_Cut(mod, "BRepAlgoAPI_Cut", "The class Cut provides Boolean cut operation between arguments and tools (Boolean Subtraction).");
+py::class_<BRepAlgoAPI_Cut, BRepAlgoAPI_BooleanOperation> cls_BRepAlgoAPI_Cut(mod, "BRepAlgoAPI_Cut", "The class Cut provides Boolean cut operation between arguments and tools (Boolean Subtraction).");
 
 // Constructors
 cls_BRepAlgoAPI_Cut.def(py::init<>());

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinMFunction(py::module &mod){
 
-py::class_<BinMFunction, std::unique_ptr<BinMFunction>> cls_BinMFunction(mod, "BinMFunction", "Storage and Retrieval drivers for TFunction modelling attributes.");
+py::class_<BinMFunction> cls_BinMFunction(mod, "BinMFunction", "Storage and Retrieval drivers for TFunction modelling attributes.");
 
 // Constructors
 

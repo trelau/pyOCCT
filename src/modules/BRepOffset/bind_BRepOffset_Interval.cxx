@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffset_Interval(py::module &mod){
 
-py::class_<BRepOffset_Interval, std::unique_ptr<BRepOffset_Interval>> cls_BRepOffset_Interval(mod, "BRepOffset_Interval", "None");
+py::class_<BRepOffset_Interval> cls_BRepOffset_Interval(mod, "BRepOffset_Interval", "None");
 
 // Constructors
 cls_BRepOffset_Interval.def(py::init<>());

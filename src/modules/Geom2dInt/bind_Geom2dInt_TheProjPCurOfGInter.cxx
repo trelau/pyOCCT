@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dInt_TheProjPCurOfGInter(py::module &mod){
 
-py::class_<Geom2dInt_TheProjPCurOfGInter, std::unique_ptr<Geom2dInt_TheProjPCurOfGInter>> cls_Geom2dInt_TheProjPCurOfGInter(mod, "Geom2dInt_TheProjPCurOfGInter", "None");
+py::class_<Geom2dInt_TheProjPCurOfGInter> cls_Geom2dInt_TheProjPCurOfGInter(mod, "Geom2dInt_TheProjPCurOfGInter", "None");
 
 // Constructors
 

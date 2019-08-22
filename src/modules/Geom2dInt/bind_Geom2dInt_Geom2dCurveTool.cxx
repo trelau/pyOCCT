@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dInt_Geom2dCurveTool(py::module &mod){
 
-py::class_<Geom2dInt_Geom2dCurveTool, std::unique_ptr<Geom2dInt_Geom2dCurveTool>> cls_Geom2dInt_Geom2dCurveTool(mod, "Geom2dInt_Geom2dCurveTool", "This class provides a Geom2dCurveTool as < Geom2dCurveTool from IntCurve > from a Tool as < Geom2dCurveTool from Adaptor3d > .");
+py::class_<Geom2dInt_Geom2dCurveTool> cls_Geom2dInt_Geom2dCurveTool(mod, "Geom2dInt_Geom2dCurveTool", "This class provides a Geom2dCurveTool as < Geom2dCurveTool from IntCurve > from a Tool as < Geom2dCurveTool from Adaptor3d > .");
 
 // Constructors
 

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_Polyhedron(py::module &mod){
 
-py::class_<IntPatch_Polyhedron, std::unique_ptr<IntPatch_Polyhedron>> cls_IntPatch_Polyhedron(mod, "IntPatch_Polyhedron", "This class provides a linear approximation of the PSurface. preview a constructor on a zone of a surface");
+py::class_<IntPatch_Polyhedron> cls_IntPatch_Polyhedron(mod, "IntPatch_Polyhedron", "This class provides a linear approximation of the PSurface. preview a constructor on a zone of a surface");
 
 // Constructors
 cls_IntPatch_Polyhedron.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const Standard_Integer, const Standard_Integer>(), py::arg("Surface"), py::arg("nbdU"), py::arg("nbdV"));

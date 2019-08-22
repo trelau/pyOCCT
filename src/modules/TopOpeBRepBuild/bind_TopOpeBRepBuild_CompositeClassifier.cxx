@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_CompositeClassifier(py::module &mod){
 
-py::class_<TopOpeBRepBuild_CompositeClassifier, std::unique_ptr<TopOpeBRepBuild_CompositeClassifier>, TopOpeBRepBuild_LoopClassifier> cls_TopOpeBRepBuild_CompositeClassifier(mod, "TopOpeBRepBuild_CompositeClassifier", "classify composite Loops, i.e, loops that can be either a Shape, or a block of Elements.");
+py::class_<TopOpeBRepBuild_CompositeClassifier, TopOpeBRepBuild_LoopClassifier> cls_TopOpeBRepBuild_CompositeClassifier(mod, "TopOpeBRepBuild_CompositeClassifier", "classify composite Loops, i.e, loops that can be either a Shape, or a block of Elements.");
 
 // Fields
 

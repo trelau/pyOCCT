@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntAna_Quadric(py::module &mod){
 
-py::class_<IntAna_Quadric, std::unique_ptr<IntAna_Quadric>> cls_IntAna_Quadric(mod, "IntAna_Quadric", "This class provides a description of Quadrics by their Coefficients in natural coordinate system.");
+py::class_<IntAna_Quadric> cls_IntAna_Quadric(mod, "IntAna_Quadric", "This class provides a description of Quadrics by their Coefficients in natural coordinate system.");
 
 // Constructors
 cls_IntAna_Quadric.def(py::init<>());

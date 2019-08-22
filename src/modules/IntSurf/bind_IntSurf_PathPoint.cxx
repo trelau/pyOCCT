@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntSurf_PathPoint(py::module &mod){
 
-py::class_<IntSurf_PathPoint, std::unique_ptr<IntSurf_PathPoint>> cls_IntSurf_PathPoint(mod, "IntSurf_PathPoint", "None");
+py::class_<IntSurf_PathPoint> cls_IntSurf_PathPoint(mod, "IntSurf_PathPoint", "None");
 
 // Constructors
 cls_IntSurf_PathPoint.def(py::init<>());

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntSurf_InteriorPointTool(py::module &mod){
 
-py::class_<IntSurf_InteriorPointTool, std::unique_ptr<IntSurf_InteriorPointTool>> cls_IntSurf_InteriorPointTool(mod, "IntSurf_InteriorPointTool", "This class provides a tool on the 'interior point' that can be used to instantiates the Walking algorithmes (see package IntWalk).");
+py::class_<IntSurf_InteriorPointTool> cls_IntSurf_InteriorPointTool(mod, "IntSurf_InteriorPointTool", "This class provides a tool on the 'interior point' that can be used to instantiates the Walking algorithmes (see package IntWalk).");
 
 // Constructors
 

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_Switch(py::module &mod){
 
-py::class_<Vrml_Switch, std::unique_ptr<Vrml_Switch>> cls_Vrml_Switch(mod, "Vrml_Switch", "defines a Switch node of VRML specifying group properties. This group node traverses one, none, or all of its children. One can use this node to switch on and off the effects of some properties or to switch between different properties. The whichChild field specifies the index of the child to traverse, where the first child has index 0. A value of -1 (the default) means do not traverse any children. A value of -3 traverses all children, making the switch behave exactly like a regular Group.");
+py::class_<Vrml_Switch> cls_Vrml_Switch(mod, "Vrml_Switch", "defines a Switch node of VRML specifying group properties. This group node traverses one, none, or all of its children. One can use this node to switch on and off the effects of some properties or to switch between different properties. The whichChild field specifies the index of the child to traverse, where the first child has index 0. A value of -1 (the default) means do not traverse any children. A value of -3 traverses all children, making the switch behave exactly like a regular Group.");
 
 // Constructors
 cls_Vrml_Switch.def(py::init<>());

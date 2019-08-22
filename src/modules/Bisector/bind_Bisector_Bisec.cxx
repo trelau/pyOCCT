@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Bisector_Bisec(py::module &mod){
 
-py::class_<Bisector_Bisec, std::unique_ptr<Bisector_Bisec>> cls_Bisector_Bisec(mod, "Bisector_Bisec", "Bisec provides the bisecting line between two elements This line is trimed by a point <P> and it's contained in the domain defined by the two vectors <V1>, <V2> and <Sense>.");
+py::class_<Bisector_Bisec> cls_Bisector_Bisec(mod, "Bisector_Bisec", "Bisec provides the bisecting line between two elements This line is trimed by a point <P> and it's contained in the domain defined by the two vectors <V1>, <V2> and <Sense>.");
 
 // Constructors
 cls_Bisector_Bisec.def(py::init<>());

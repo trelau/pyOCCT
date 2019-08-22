@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool_PurgeInternalEdges(py::module &mod){
 
-py::class_<TopOpeBRepTool_PurgeInternalEdges, std::unique_ptr<TopOpeBRepTool_PurgeInternalEdges>> cls_TopOpeBRepTool_PurgeInternalEdges(mod, "TopOpeBRepTool_PurgeInternalEdges", "remove from a shape, the internal edges that are not connected to any face in the shape. We can get the list of the edges as a DataMapOfShapeListOfShape with a Face of the Shape as the key and a list of internal edges as the value. The list of internal edges means edges that are not connected to any face in the shape.");
+py::class_<TopOpeBRepTool_PurgeInternalEdges> cls_TopOpeBRepTool_PurgeInternalEdges(mod, "TopOpeBRepTool_PurgeInternalEdges", "remove from a shape, the internal edges that are not connected to any face in the shape. We can get the list of the edges as a DataMapOfShapeListOfShape with a Face of the Shape as the key and a list of internal edges as the value. The list of internal edges means edges that are not connected to any face in the shape.");
 
 // Constructors
 cls_TopOpeBRepTool_PurgeInternalEdges.def(py::init<const TopoDS_Shape &>(), py::arg("theShape"));

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ProjLib_Torus(py::module &mod){
 
-py::class_<ProjLib_Torus, std::unique_ptr<ProjLib_Torus>, ProjLib_Projector> cls_ProjLib_Torus(mod, "ProjLib_Torus", "Projects elementary curves on a torus.");
+py::class_<ProjLib_Torus, ProjLib_Projector> cls_ProjLib_Torus(mod, "ProjLib_Torus", "Projects elementary curves on a torus.");
 
 // Constructors
 cls_ProjLib_Torus.def(py::init<>());

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepElement_MeasureOrUnspecifiedValue(py::module &mod){
 
-py::class_<StepElement_MeasureOrUnspecifiedValue, std::unique_ptr<StepElement_MeasureOrUnspecifiedValue>, StepData_SelectType> cls_StepElement_MeasureOrUnspecifiedValue(mod, "StepElement_MeasureOrUnspecifiedValue", "Representation of STEP SELECT type MeasureOrUnspecifiedValue");
+py::class_<StepElement_MeasureOrUnspecifiedValue, StepData_SelectType> cls_StepElement_MeasureOrUnspecifiedValue(mod, "StepElement_MeasureOrUnspecifiedValue", "Representation of STEP SELECT type MeasureOrUnspecifiedValue");
 
 // Constructors
 cls_StepElement_MeasureOrUnspecifiedValue.def(py::init<>());

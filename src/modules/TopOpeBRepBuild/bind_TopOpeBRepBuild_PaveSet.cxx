@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_PaveSet(py::module &mod){
 
-py::class_<TopOpeBRepBuild_PaveSet, std::unique_ptr<TopOpeBRepBuild_PaveSet>, TopOpeBRepBuild_LoopSet> cls_TopOpeBRepBuild_PaveSet(mod, "TopOpeBRepBuild_PaveSet", "class providing an exploration of a set of vertices to build edges. It is similar to LoopSet from TopOpeBRepBuild where Loop is Pave.");
+py::class_<TopOpeBRepBuild_PaveSet, TopOpeBRepBuild_LoopSet> cls_TopOpeBRepBuild_PaveSet(mod, "TopOpeBRepBuild_PaveSet", "class providing an exploration of a set of vertices to build edges. It is similar to LoopSet from TopOpeBRepBuild where Loop is Pave.");
 
 // Constructors
 cls_TopOpeBRepBuild_PaveSet.def(py::init<const TopoDS_Shape &>(), py::arg("E"));

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlObjMgt_GP(py::module &mod){
 
-py::class_<XmlObjMgt_GP, std::unique_ptr<XmlObjMgt_GP>> cls_XmlObjMgt_GP(mod, "XmlObjMgt_GP", "Translation of gp (simple geometry) objects");
+py::class_<XmlObjMgt_GP> cls_XmlObjMgt_GP(mod, "XmlObjMgt_GP", "Translation of gp (simple geometry) objects");
 
 // Constructors
 

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Hatch_Hatcher(py::module &mod){
 
-py::class_<Hatch_Hatcher, std::unique_ptr<Hatch_Hatcher>> cls_Hatch_Hatcher(mod, "Hatch_Hatcher", "The Hatcher is an algorithm to compute cross hatchings in a 2d plane. It is mainly dedicated to display purpose.");
+py::class_<Hatch_Hatcher> cls_Hatch_Hatcher(mod, "Hatch_Hatcher", "The Hatcher is an algorithm to compute cross hatchings in a 2d plane. It is mainly dedicated to display purpose.");
 
 // Constructors
 cls_Hatch_Hatcher.def(py::init<const Standard_Real>(), py::arg("Tol"));

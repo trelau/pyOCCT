@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FairCurve_MinimalVariation(py::module &mod){
 
-py::class_<FairCurve_MinimalVariation, std::unique_ptr<FairCurve_MinimalVariation>, FairCurve_Batten> cls_FairCurve_MinimalVariation(mod, "FairCurve_MinimalVariation", "Computes a 2D curve using an algorithm which minimizes tension, sagging, and jerk energy. As in FairCurve_Batten, two reference points are used. Unlike that class, FairCurve_MinimalVariation requires curvature settings at the first and second reference points. These are defined by the rays of curvature desired at each point.");
+py::class_<FairCurve_MinimalVariation, FairCurve_Batten> cls_FairCurve_MinimalVariation(mod, "FairCurve_MinimalVariation", "Computes a 2D curve using an algorithm which minimizes tension, sagging, and jerk energy. As in FairCurve_Batten, two reference points are used. Unlike that class, FairCurve_MinimalVariation requires curvature settings at the first and second reference points. These are defined by the rays of curvature desired at each point.");
 
 // Constructors
 cls_FairCurve_MinimalVariation.def(py::init<const gp_Pnt2d &, const gp_Pnt2d &, const Standard_Real>(), py::arg("P1"), py::arg("P2"), py::arg("Heigth"));

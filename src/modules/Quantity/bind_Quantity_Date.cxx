@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Quantity_Date(py::module &mod){
 
-py::class_<Quantity_Date, std::unique_ptr<Quantity_Date>> cls_Quantity_Date(mod, "Quantity_Date", "This class provides services to manage date information. A date represents the following time intervals: year, month, day, hour, minute, second, millisecond and microsecond. Current time is expressed in elapsed seconds and microseconds beginning from 00:00 GMT, January 1, 1979 (zero hour). The valid date can only be later than this one. Note: a Period object gives the interval between two dates.");
+py::class_<Quantity_Date> cls_Quantity_Date(mod, "Quantity_Date", "This class provides services to manage date information. A date represents the following time intervals: year, month, day, hour, minute, second, millisecond and microsecond. Current time is expressed in elapsed seconds and microseconds beginning from 00:00 GMT, January 1, 1979 (zero hour). The valid date can only be later than this one. Note: a Period object gives the interval between two dates.");
 
 // Constructors
 cls_Quantity_Date.def(py::init<>());

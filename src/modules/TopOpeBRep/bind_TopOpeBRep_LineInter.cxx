@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRep_LineInter(py::module &mod){
 
-py::class_<TopOpeBRep_LineInter, std::unique_ptr<TopOpeBRep_LineInter>> cls_TopOpeBRep_LineInter(mod, "TopOpeBRep_LineInter", "None");
+py::class_<TopOpeBRep_LineInter> cls_TopOpeBRep_LineInter(mod, "TopOpeBRep_LineInter", "None");
 
 // Constructors
 cls_TopOpeBRep_LineInter.def(py::init<>());

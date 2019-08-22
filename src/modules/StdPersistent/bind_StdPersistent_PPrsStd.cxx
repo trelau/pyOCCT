@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPersistent_PPrsStd(py::module &mod){
 
-py::class_<StdPersistent_PPrsStd, std::unique_ptr<StdPersistent_PPrsStd>> cls_StdPersistent_PPrsStd(mod, "StdPersistent_PPrsStd", "None");
+py::class_<StdPersistent_PPrsStd> cls_StdPersistent_PPrsStd(mod, "StdPersistent_PPrsStd", "None");
 
 // Constructors
 

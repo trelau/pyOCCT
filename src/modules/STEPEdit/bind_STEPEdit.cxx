@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPEdit(py::module &mod){
 
-py::class_<STEPEdit, std::unique_ptr<STEPEdit>> cls_STEPEdit(mod, "STEPEdit", "Provides tools to exploit and edit a set of STEP data : editors, selections ..");
+py::class_<STEPEdit> cls_STEPEdit(mod, "STEPEdit", "Provides tools to exploit and edit a set of STEP data : editors, selections ..");
 
 // Constructors
 

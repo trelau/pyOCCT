@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocOpe_FindEdges(py::module &mod){
 
-py::class_<LocOpe_FindEdges, std::unique_ptr<LocOpe_FindEdges>> cls_LocOpe_FindEdges(mod, "LocOpe_FindEdges", "None");
+py::class_<LocOpe_FindEdges> cls_LocOpe_FindEdges(mod, "LocOpe_FindEdges", "None");
 
 // Constructors
 cls_LocOpe_FindEdges.def(py::init<>());

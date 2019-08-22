@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP214_AutoDesignReferencingItem(py::module &mod){
 
-py::class_<StepAP214_AutoDesignReferencingItem, std::unique_ptr<StepAP214_AutoDesignReferencingItem>, StepData_SelectType> cls_StepAP214_AutoDesignReferencingItem(mod, "StepAP214_AutoDesignReferencingItem", "None");
+py::class_<StepAP214_AutoDesignReferencingItem, StepData_SelectType> cls_StepAP214_AutoDesignReferencingItem(mod, "StepAP214_AutoDesignReferencingItem", "None");
 
 // Constructors
 cls_StepAP214_AutoDesignReferencingItem.def(py::init<>());

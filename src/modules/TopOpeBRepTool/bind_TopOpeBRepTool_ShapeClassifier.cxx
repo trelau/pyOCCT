@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool_ShapeClassifier(py::module &mod){
 
-py::class_<TopOpeBRepTool_ShapeClassifier, std::unique_ptr<TopOpeBRepTool_ShapeClassifier>> cls_TopOpeBRepTool_ShapeClassifier(mod, "TopOpeBRepTool_ShapeClassifier", "None");
+py::class_<TopOpeBRepTool_ShapeClassifier> cls_TopOpeBRepTool_ShapeClassifier(mod, "TopOpeBRepTool_ShapeClassifier", "None");
 
 // Constructors
 cls_TopOpeBRepTool_ShapeClassifier.def(py::init<>());

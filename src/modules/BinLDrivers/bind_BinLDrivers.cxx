@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinLDrivers(py::module &mod){
 
-py::class_<BinLDrivers, std::unique_ptr<BinLDrivers>> cls_BinLDrivers(mod, "BinLDrivers", "None");
+py::class_<BinLDrivers> cls_BinLDrivers(mod, "BinLDrivers", "None");
 
 // Constructors
 

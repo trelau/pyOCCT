@@ -53,7 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRep_FacesFiller(py::module &mod){
 
-py::class_<TopOpeBRep_FacesFiller, std::unique_ptr<TopOpeBRep_FacesFiller>> cls_TopOpeBRep_FacesFiller(mod, "TopOpeBRep_FacesFiller", "Fills a DataStructure from TopOpeBRepDS with the result of Face/Face instersection described by FacesIntersector from TopOpeBRep. if the faces have same Domain, record it in the DS. else record lines and points and attach list of interferences to the faces, the lines and the edges.");
+py::class_<TopOpeBRep_FacesFiller> cls_TopOpeBRep_FacesFiller(mod, "TopOpeBRep_FacesFiller", "Fills a DataStructure from TopOpeBRepDS with the result of Face/Face instersection described by FacesIntersector from TopOpeBRep. if the faces have same Domain, record it in the DS. else record lines and points and attach list of interferences to the faces, the lines and the edges.");
 
 // Constructors
 cls_TopOpeBRep_FacesFiller.def(py::init<>());

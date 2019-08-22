@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolLeaderArrow(py::module &mod){
 
-py::class_<IGESDimen_ToolLeaderArrow, std::unique_ptr<IGESDimen_ToolLeaderArrow>> cls_IGESDimen_ToolLeaderArrow(mod, "IGESDimen_ToolLeaderArrow", "Tool to work on a LeaderArrow. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolLeaderArrow> cls_IGESDimen_ToolLeaderArrow(mod, "IGESDimen_ToolLeaderArrow", "Tool to work on a LeaderArrow. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolLeaderArrow.def(py::init<>());

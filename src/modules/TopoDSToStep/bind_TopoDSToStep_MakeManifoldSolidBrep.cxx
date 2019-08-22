@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDSToStep_MakeManifoldSolidBrep(py::module &mod){
 
-py::class_<TopoDSToStep_MakeManifoldSolidBrep, std::unique_ptr<TopoDSToStep_MakeManifoldSolidBrep>, TopoDSToStep_Root> cls_TopoDSToStep_MakeManifoldSolidBrep(mod, "TopoDSToStep_MakeManifoldSolidBrep", "This class implements the mapping between classes Shell or Solid from TopoDS and ManifoldSolidBrep from StepShape. All the topology and geometry comprised into the shell or the solid are taken into account and translated.");
+py::class_<TopoDSToStep_MakeManifoldSolidBrep, TopoDSToStep_Root> cls_TopoDSToStep_MakeManifoldSolidBrep(mod, "TopoDSToStep_MakeManifoldSolidBrep", "This class implements the mapping between classes Shell or Solid from TopoDS and ManifoldSolidBrep from StepShape. All the topology and geometry comprised into the shell or the solid are taken into account and translated.");
 
 // Constructors
 cls_TopoDSToStep_MakeManifoldSolidBrep.def(py::init<const TopoDS_Shell &, const opencascade::handle<Transfer_FinderProcess> &>(), py::arg("S"), py::arg("FP"));

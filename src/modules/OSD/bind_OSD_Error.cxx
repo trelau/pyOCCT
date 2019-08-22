@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_Error(py::module &mod){
 
-py::class_<OSD_Error, std::unique_ptr<OSD_Error>> cls_OSD_Error(mod, "OSD_Error", "Accurate management of OSD specific errors.");
+py::class_<OSD_Error> cls_OSD_Error(mod, "OSD_Error", "Accurate management of OSD specific errors.");
 
 // Constructors
 cls_OSD_Error.def(py::init<>());

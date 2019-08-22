@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_SelectMgr_ToleranceMap(py::module &mod){
 
-py::class_<SelectMgr_ToleranceMap, std::unique_ptr<SelectMgr_ToleranceMap>> cls_SelectMgr_ToleranceMap(mod, "SelectMgr_ToleranceMap", "An internal class for calculation of current largest tolerance value which will be applied for creation of selecting frustum by default. Each time the selection set is deactivated, maximum tolerance value will be recalculated. If a user enables custom precision using StdSelect_ViewerSelector3d::SetPixelTolerance, it will be applied to all sensitive entities without any checks.");
+py::class_<SelectMgr_ToleranceMap> cls_SelectMgr_ToleranceMap(mod, "SelectMgr_ToleranceMap", "An internal class for calculation of current largest tolerance value which will be applied for creation of selecting frustum by default. Each time the selection set is deactivated, maximum tolerance value will be recalculated. If a user enables custom precision using StdSelect_ViewerSelector3d::SetPixelTolerance, it will be applied to all sensitive entities without any checks.");
 
 // Constructors
 cls_SelectMgr_ToleranceMap.def(py::init<>());

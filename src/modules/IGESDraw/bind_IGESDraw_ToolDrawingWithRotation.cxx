@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDraw_ToolDrawingWithRotation(py::module &mod){
 
-py::class_<IGESDraw_ToolDrawingWithRotation, std::unique_ptr<IGESDraw_ToolDrawingWithRotation>> cls_IGESDraw_ToolDrawingWithRotation(mod, "IGESDraw_ToolDrawingWithRotation", "Tool to work on a DrawingWithRotation. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDraw_ToolDrawingWithRotation> cls_IGESDraw_ToolDrawingWithRotation(mod, "IGESDraw_ToolDrawingWithRotation", "Tool to work on a DrawingWithRotation. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDraw_ToolDrawingWithRotation.def(py::init<>());

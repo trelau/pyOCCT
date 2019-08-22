@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWOrientedSurface(py::module &mod){
 
-py::class_<RWStepGeom_RWOrientedSurface, std::unique_ptr<RWStepGeom_RWOrientedSurface>> cls_RWStepGeom_RWOrientedSurface(mod, "RWStepGeom_RWOrientedSurface", "Read & Write tool for OrientedSurface");
+py::class_<RWStepGeom_RWOrientedSurface> cls_RWStepGeom_RWOrientedSurface(mod, "RWStepGeom_RWOrientedSurface", "Read & Write tool for OrientedSurface");
 
 // Constructors
 cls_RWStepGeom_RWOrientedSurface.def(py::init<>());

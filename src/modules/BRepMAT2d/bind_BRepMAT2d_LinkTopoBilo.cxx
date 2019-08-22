@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMAT2d_LinkTopoBilo(py::module &mod){
 
-py::class_<BRepMAT2d_LinkTopoBilo, std::unique_ptr<BRepMAT2d_LinkTopoBilo>> cls_BRepMAT2d_LinkTopoBilo(mod, "BRepMAT2d_LinkTopoBilo", "Constucts links between the Wire or the Face of the explorer and the BasicElts contained in the bisecting locus.");
+py::class_<BRepMAT2d_LinkTopoBilo> cls_BRepMAT2d_LinkTopoBilo(mod, "BRepMAT2d_LinkTopoBilo", "Constucts links between the Wire or the Face of the explorer and the BasicElts contained in the bisecting locus.");
 
 // Constructors
 cls_BRepMAT2d_LinkTopoBilo.def(py::init<>());

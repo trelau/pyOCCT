@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlMXCAFDoc(py::module &mod){
 
-py::class_<XmlMXCAFDoc, std::unique_ptr<XmlMXCAFDoc>> cls_XmlMXCAFDoc(mod, "XmlMXCAFDoc", "Storage and Retrieval drivers for modelling attributes. Transient attributes are defined in package XCAFDoc");
+py::class_<XmlMXCAFDoc> cls_XmlMXCAFDoc(mod, "XmlMXCAFDoc", "Storage and Retrieval drivers for modelling attributes. Transient attributes are defined in package XCAFDoc");
 
 // Constructors
 

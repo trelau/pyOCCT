@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntWalk_TheInt2S(py::module &mod){
 
-py::class_<IntWalk_TheInt2S, std::unique_ptr<IntWalk_TheInt2S>> cls_IntWalk_TheInt2S(mod, "IntWalk_TheInt2S", "None");
+py::class_<IntWalk_TheInt2S> cls_IntWalk_TheInt2S(mod, "IntWalk_TheInt2S", "None");
 
 // Constructors
 cls_IntWalk_TheInt2S.def(py::init<const TColStd_Array1OfReal &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &, const Standard_Real>(), py::arg("Param"), py::arg("S1"), py::arg("S2"), py::arg("TolTangency"));

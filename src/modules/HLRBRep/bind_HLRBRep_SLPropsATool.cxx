@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_SLPropsATool(py::module &mod){
 
-py::class_<HLRBRep_SLPropsATool, std::unique_ptr<HLRBRep_SLPropsATool>> cls_HLRBRep_SLPropsATool(mod, "HLRBRep_SLPropsATool", "None");
+py::class_<HLRBRep_SLPropsATool> cls_HLRBRep_SLPropsATool(mod, "HLRBRep_SLPropsATool", "None");
 
 // Constructors
 

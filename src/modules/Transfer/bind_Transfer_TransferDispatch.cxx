@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Transfer_TransferDispatch(py::module &mod){
 
-py::class_<Transfer_TransferDispatch, std::unique_ptr<Transfer_TransferDispatch>, Interface_CopyTool> cls_Transfer_TransferDispatch(mod, "Transfer_TransferDispatch", "A TransferDispatch is aimed to dispatch Entities between two Interface Models, by default by copying them, as CopyTool, but with more capabilities of adapting : Copy is redefined to firstly pass the hand to a TransferProcess. If this gives no result, standard Copy is called.");
+py::class_<Transfer_TransferDispatch, Interface_CopyTool> cls_Transfer_TransferDispatch(mod, "Transfer_TransferDispatch", "A TransferDispatch is aimed to dispatch Entities between two Interface Models, by default by copying them, as CopyTool, but with more capabilities of adapting : Copy is redefined to firstly pass the hand to a TransferProcess. If this gives no result, standard Copy is called.");
 
 // Constructors
 cls_Transfer_TransferDispatch.def(py::init<const opencascade::handle<Interface_InterfaceModel> &, const Interface_GeneralLib &>(), py::arg("amodel"), py::arg("lib"));

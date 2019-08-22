@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOM_BasicAttribute(py::module &mod){
 
-py::class_<LDOM_BasicAttribute, std::unique_ptr<LDOM_BasicAttribute>, LDOM_BasicNode> cls_LDOM_BasicAttribute(mod, "LDOM_BasicAttribute", "None");
+py::class_<LDOM_BasicAttribute, LDOM_BasicNode> cls_LDOM_BasicAttribute(mod, "LDOM_BasicAttribute", "None");
 
 // Constructors
 cls_LDOM_BasicAttribute.def(py::init<>());

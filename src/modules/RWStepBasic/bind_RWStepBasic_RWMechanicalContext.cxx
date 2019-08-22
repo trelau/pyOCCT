@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWMechanicalContext(py::module &mod){
 
-py::class_<RWStepBasic_RWMechanicalContext, std::unique_ptr<RWStepBasic_RWMechanicalContext>> cls_RWStepBasic_RWMechanicalContext(mod, "RWStepBasic_RWMechanicalContext", "Read & Write Module for MechanicalContext");
+py::class_<RWStepBasic_RWMechanicalContext> cls_RWStepBasic_RWMechanicalContext(mod, "RWStepBasic_RWMechanicalContext", "Read & Write Module for MechanicalContext");
 
 // Constructors
 cls_RWStepBasic_RWMechanicalContext.def(py::init<>());

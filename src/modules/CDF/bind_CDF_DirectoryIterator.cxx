@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_CDF_DirectoryIterator(py::module &mod){
 
-py::class_<CDF_DirectoryIterator, std::unique_ptr<CDF_DirectoryIterator>> cls_CDF_DirectoryIterator(mod, "CDF_DirectoryIterator", "None");
+py::class_<CDF_DirectoryIterator> cls_CDF_DirectoryIterator(mod, "CDF_DirectoryIterator", "None");
 
 // Constructors
 cls_CDF_DirectoryIterator.def(py::init<>());

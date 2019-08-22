@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWPlanarExtent(py::module &mod){
 
-py::class_<RWStepVisual_RWPlanarExtent, std::unique_ptr<RWStepVisual_RWPlanarExtent>> cls_RWStepVisual_RWPlanarExtent(mod, "RWStepVisual_RWPlanarExtent", "Read & Write Module for PlanarExtent");
+py::class_<RWStepVisual_RWPlanarExtent> cls_RWStepVisual_RWPlanarExtent(mod, "RWStepVisual_RWPlanarExtent", "Read & Write Module for PlanarExtent");
 
 // Constructors
 cls_RWStepVisual_RWPlanarExtent.def(py::init<>());

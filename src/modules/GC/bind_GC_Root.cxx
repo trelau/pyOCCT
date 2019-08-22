@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GC_Root(py::module &mod){
 
-py::class_<GC_Root, std::unique_ptr<GC_Root>> cls_GC_Root(mod, "GC_Root", "This class implements the common services for all classes of gce which report error.");
+py::class_<GC_Root> cls_GC_Root(mod, "GC_Root", "This class implements the common services for all classes of gce which report error.");
 
 // Constructors
 

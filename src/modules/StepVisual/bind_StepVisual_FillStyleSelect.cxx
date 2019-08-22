@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_FillStyleSelect(py::module &mod){
 
-py::class_<StepVisual_FillStyleSelect, std::unique_ptr<StepVisual_FillStyleSelect>, StepData_SelectType> cls_StepVisual_FillStyleSelect(mod, "StepVisual_FillStyleSelect", "None");
+py::class_<StepVisual_FillStyleSelect, StepData_SelectType> cls_StepVisual_FillStyleSelect(mod, "StepVisual_FillStyleSelect", "None");
 
 // Constructors
 cls_StepVisual_FillStyleSelect.def(py::init<>());

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_ShapeBounds(py::module &mod){
 
-py::class_<HLRBRep_ShapeBounds, std::unique_ptr<HLRBRep_ShapeBounds>> cls_HLRBRep_ShapeBounds(mod, "HLRBRep_ShapeBounds", "Contains a Shape and the bounds of its vertices, edges and faces in the DataStructure.");
+py::class_<HLRBRep_ShapeBounds> cls_HLRBRep_ShapeBounds(mod, "HLRBRep_ShapeBounds", "Contains a Shape and the bounds of its vertices, edges and faces in the DataStructure.");
 
 // Constructors
 cls_HLRBRep_ShapeBounds.def(py::init<>());

@@ -56,7 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_ShapePersistent_BRep(py::module &mod){
 
 /*
-py::class_<ShapePersistent_BRep, std::unique_ptr<ShapePersistent_BRep>> cls_ShapePersistent_BRep(mod, "ShapePersistent_BRep", "None");
+py::class_<ShapePersistent_BRep> cls_ShapePersistent_BRep(mod, "ShapePersistent_BRep", "None");
 
 // Constructors
 

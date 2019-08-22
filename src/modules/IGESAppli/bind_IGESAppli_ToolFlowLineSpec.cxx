@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli_ToolFlowLineSpec(py::module &mod){
 
-py::class_<IGESAppli_ToolFlowLineSpec, std::unique_ptr<IGESAppli_ToolFlowLineSpec>> cls_IGESAppli_ToolFlowLineSpec(mod, "IGESAppli_ToolFlowLineSpec", "Tool to work on a FlowLineSpec. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESAppli_ToolFlowLineSpec> cls_IGESAppli_ToolFlowLineSpec(mod, "IGESAppli_ToolFlowLineSpec", "Tool to work on a FlowLineSpec. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESAppli_ToolFlowLineSpec.def(py::init<>());

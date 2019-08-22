@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepLib_Command(py::module &mod){
 
-py::class_<BRepLib_Command, std::unique_ptr<BRepLib_Command>> cls_BRepLib_Command(mod, "BRepLib_Command", "Root class for all commands in BRepLib.");
+py::class_<BRepLib_Command> cls_BRepLib_Command(mod, "BRepLib_Command", "Root class for all commands in BRepLib.");
 
 // Constructors
 

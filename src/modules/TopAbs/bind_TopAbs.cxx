@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopAbs(py::module &mod){
 
-py::class_<TopAbs, std::unique_ptr<TopAbs>> cls_TopAbs(mod, "TopAbs", "This package gives resources for Topology oriented applications such as : Topological Data Structure, Topological Algorithms.");
+py::class_<TopAbs> cls_TopAbs(mod, "TopAbs", "This package gives resources for Topology oriented applications such as : Topological Data Structure, Topological Algorithms.");
 
 // Constructors
 

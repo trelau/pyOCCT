@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_Filling(py::module &mod){
 
-py::class_<BRepFill_Filling, std::unique_ptr<BRepFill_Filling>> cls_BRepFill_Filling(mod, "BRepFill_Filling", "N-Side Filling This algorithm avoids to build a face from: * a set of edges defining the bounds of the face and some constraints the surface support has to satisfy * a set of edges and points defining some constraints the support surface has to satisfy * an initial surface to deform for satisfying the constraints * a set of parameters to control the constraints.");
+py::class_<BRepFill_Filling> cls_BRepFill_Filling(mod, "BRepFill_Filling", "N-Side Filling This algorithm avoids to build a face from: * a set of edges defining the bounds of the face and some constraints the surface support has to satisfy * a set of edges and points defining some constraints the support surface has to satisfy * an initial surface to deform for satisfying the constraints * a set of parameters to control the constraints.");
 
 // Constructors
 cls_BRepFill_Filling.def(py::init<>());

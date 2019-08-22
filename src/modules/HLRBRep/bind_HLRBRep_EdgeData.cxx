@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_EdgeData(py::module &mod){
 
-py::class_<HLRBRep_EdgeData, std::unique_ptr<HLRBRep_EdgeData>> cls_HLRBRep_EdgeData(mod, "HLRBRep_EdgeData", "None");
+py::class_<HLRBRep_EdgeData> cls_HLRBRep_EdgeData(mod, "HLRBRep_EdgeData", "None");
 
 // Constructors
 cls_HLRBRep_EdgeData.def(py::init<>());

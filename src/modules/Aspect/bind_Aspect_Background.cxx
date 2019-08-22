@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Aspect_Background(py::module &mod){
 
-py::class_<Aspect_Background, std::unique_ptr<Aspect_Background>> cls_Aspect_Background(mod, "Aspect_Background", "This class allows the definition of a window background.");
+py::class_<Aspect_Background> cls_Aspect_Background(mod, "Aspect_Background", "This class allows the definition of a window background.");
 
 // Constructors
 cls_Aspect_Background.def(py::init<>());

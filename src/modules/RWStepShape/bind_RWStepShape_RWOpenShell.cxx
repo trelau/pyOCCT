@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWOpenShell(py::module &mod){
 
-py::class_<RWStepShape_RWOpenShell, std::unique_ptr<RWStepShape_RWOpenShell>> cls_RWStepShape_RWOpenShell(mod, "RWStepShape_RWOpenShell", "Read & Write Module for OpenShell");
+py::class_<RWStepShape_RWOpenShell> cls_RWStepShape_RWOpenShell(mod, "RWStepShape_RWOpenShell", "Read & Write Module for OpenShell");
 
 // Constructors
 cls_RWStepShape_RWOpenShell.def(py::init<>());

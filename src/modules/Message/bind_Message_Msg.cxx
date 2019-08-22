@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Message_Msg(py::module &mod){
 
-py::class_<Message_Msg, std::unique_ptr<Message_Msg>> cls_Message_Msg(mod, "Message_Msg", "This class provides a tool for constructing the parametrized message basing on resources loaded by Message_MsgFile tool.");
+py::class_<Message_Msg> cls_Message_Msg(mod, "Message_Msg", "This class provides a tool for constructing the parametrized message basing on resources loaded by Message_MsgFile tool.");
 
 // Constructors
 cls_Message_Msg.def(py::init<>());

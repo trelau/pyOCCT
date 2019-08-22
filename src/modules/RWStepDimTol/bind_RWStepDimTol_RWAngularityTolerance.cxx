@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWAngularityTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWAngularityTolerance, std::unique_ptr<RWStepDimTol_RWAngularityTolerance>> cls_RWStepDimTol_RWAngularityTolerance(mod, "RWStepDimTol_RWAngularityTolerance", "Read & Write tool for AngularityTolerance");
+py::class_<RWStepDimTol_RWAngularityTolerance> cls_RWStepDimTol_RWAngularityTolerance(mod, "RWStepDimTol_RWAngularityTolerance", "Read & Write tool for AngularityTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWAngularityTolerance.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_GIter(py::module &mod){
 
-py::class_<TopOpeBRepBuild_GIter, std::unique_ptr<TopOpeBRepBuild_GIter>> cls_TopOpeBRepBuild_GIter(mod, "TopOpeBRepBuild_GIter", "None");
+py::class_<TopOpeBRepBuild_GIter> cls_TopOpeBRepBuild_GIter(mod, "TopOpeBRepBuild_GIter", "None");
 
 // Constructors
 cls_TopOpeBRepBuild_GIter.def(py::init<>());

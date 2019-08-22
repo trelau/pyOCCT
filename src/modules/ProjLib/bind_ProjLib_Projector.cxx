@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ProjLib_Projector(py::module &mod){
 
-py::class_<ProjLib_Projector, std::unique_ptr<ProjLib_Projector>> cls_ProjLib_Projector(mod, "ProjLib_Projector", "Root class for projection algorithms, stores the result.");
+py::class_<ProjLib_Projector> cls_ProjLib_Projector(mod, "ProjLib_Projector", "Root class for projection algorithms, stores the result.");
 
 // Constructors
 cls_ProjLib_Projector.def(py::init<>());

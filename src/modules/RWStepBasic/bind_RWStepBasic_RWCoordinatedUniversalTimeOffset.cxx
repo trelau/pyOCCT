@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWCoordinatedUniversalTimeOffset(py::module &mod){
 
-py::class_<RWStepBasic_RWCoordinatedUniversalTimeOffset, std::unique_ptr<RWStepBasic_RWCoordinatedUniversalTimeOffset>> cls_RWStepBasic_RWCoordinatedUniversalTimeOffset(mod, "RWStepBasic_RWCoordinatedUniversalTimeOffset", "Read & Write Module for CoordinatedUniversalTimeOffset");
+py::class_<RWStepBasic_RWCoordinatedUniversalTimeOffset> cls_RWStepBasic_RWCoordinatedUniversalTimeOffset(mod, "RWStepBasic_RWCoordinatedUniversalTimeOffset", "Read & Write Module for CoordinatedUniversalTimeOffset");
 
 // Constructors
 cls_RWStepBasic_RWCoordinatedUniversalTimeOffset.def(py::init<>());

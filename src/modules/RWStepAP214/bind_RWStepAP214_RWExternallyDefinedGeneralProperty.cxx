@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWExternallyDefinedGeneralProperty(py::module &mod){
 
-py::class_<RWStepAP214_RWExternallyDefinedGeneralProperty, std::unique_ptr<RWStepAP214_RWExternallyDefinedGeneralProperty>> cls_RWStepAP214_RWExternallyDefinedGeneralProperty(mod, "RWStepAP214_RWExternallyDefinedGeneralProperty", "Read & Write tool for ExternallyDefinedGeneralProperty");
+py::class_<RWStepAP214_RWExternallyDefinedGeneralProperty> cls_RWStepAP214_RWExternallyDefinedGeneralProperty(mod, "RWStepAP214_RWExternallyDefinedGeneralProperty", "Read & Write tool for ExternallyDefinedGeneralProperty");
 
 // Constructors
 cls_RWStepAP214_RWExternallyDefinedGeneralProperty.def(py::init<>());

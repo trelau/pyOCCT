@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_BSpGradient_BFGSOfMyBSplGradientOfTheComputeLineOfWLApprox(py::module &mod){
 
-py::class_<GeomInt_BSpGradient_BFGSOfMyBSplGradientOfTheComputeLineOfWLApprox, std::unique_ptr<GeomInt_BSpGradient_BFGSOfMyBSplGradientOfTheComputeLineOfWLApprox>, math_BFGS> cls_GeomInt_BSpGradient_BFGSOfMyBSplGradientOfTheComputeLineOfWLApprox(mod, "GeomInt_BSpGradient_BFGSOfMyBSplGradientOfTheComputeLineOfWLApprox", "None");
+py::class_<GeomInt_BSpGradient_BFGSOfMyBSplGradientOfTheComputeLineOfWLApprox, math_BFGS> cls_GeomInt_BSpGradient_BFGSOfMyBSplGradientOfTheComputeLineOfWLApprox(mod, "GeomInt_BSpGradient_BFGSOfMyBSplGradientOfTheComputeLineOfWLApprox", "None");
 
 // Constructors
 cls_GeomInt_BSpGradient_BFGSOfMyBSplGradientOfTheComputeLineOfWLApprox.def(py::init<math_MultipleVarFunctionWithGradient &, const math_Vector &, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("F"), py::arg("StartingPoint"), py::arg("Tolerance3d"), py::arg("Tolerance2d"), py::arg("Eps"));

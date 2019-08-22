@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_CArray1OfInteger(py::module &mod){
 
-py::class_<IntTools_CArray1OfInteger, std::unique_ptr<IntTools_CArray1OfInteger>> cls_IntTools_CArray1OfInteger(mod, "IntTools_CArray1OfInteger", "None");
+py::class_<IntTools_CArray1OfInteger> cls_IntTools_CArray1OfInteger(mod, "IntTools_CArray1OfInteger", "None");
 
 // Constructors
 cls_IntTools_CArray1OfInteger.def(py::init<>());

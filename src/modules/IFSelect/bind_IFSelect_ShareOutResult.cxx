@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFSelect_ShareOutResult(py::module &mod){
 
-py::class_<IFSelect_ShareOutResult, std::unique_ptr<IFSelect_ShareOutResult>> cls_IFSelect_ShareOutResult(mod, "IFSelect_ShareOutResult", "This class gives results computed from a ShareOut : simulation before transfer, helps to list entities ... Transfer itself will later be performed, either by a TransferCopy to simply divide up a file, or a TransferDispatch which can be parametred with more details");
+py::class_<IFSelect_ShareOutResult> cls_IFSelect_ShareOutResult(mod, "IFSelect_ShareOutResult", "This class gives results computed from a ShareOut : simulation before transfer, helps to list entities ... Transfer itself will later be performed, either by a TransferCopy to simply divide up a file, or a TransferDispatch which can be parametred with more details");
 
 // Constructors
 cls_IFSelect_ShareOutResult.def(py::init<const opencascade::handle<IFSelect_ShareOut> &, const opencascade::handle<Interface_InterfaceModel> &>(), py::arg("sho"), py::arg("mod"));

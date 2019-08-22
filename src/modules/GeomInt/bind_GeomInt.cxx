@@ -54,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt(py::module &mod){
 
-py::class_<GeomInt, std::unique_ptr<GeomInt>> cls_GeomInt(mod, "GeomInt", "Provides intersections on between two surfaces of Geom. The result are curves from Geom.");
+py::class_<GeomInt> cls_GeomInt(mod, "GeomInt", "Provides intersections on between two surfaces of Geom. The result are curves from Geom.");
 
 // Constructors
 

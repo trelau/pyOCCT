@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BndLib_Add2dCurve(py::module &mod){
 
-py::class_<BndLib_Add2dCurve, std::unique_ptr<BndLib_Add2dCurve>> cls_BndLib_Add2dCurve(mod, "BndLib_Add2dCurve", "Computes the bounding box for a curve in 2d . Functions to add a 2D curve to a bounding box. The 2D curve is defined from a Geom2d curve.");
+py::class_<BndLib_Add2dCurve> cls_BndLib_Add2dCurve(mod, "BndLib_Add2dCurve", "Computes the bounding box for a curve in 2d . Functions to add a 2D curve to a bounding box. The 2D curve is defined from a Geom2d curve.");
 
 // Constructors
 

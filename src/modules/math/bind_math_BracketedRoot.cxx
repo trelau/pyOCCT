@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_BracketedRoot(py::module &mod){
 
-py::class_<math_BracketedRoot, std::unique_ptr<math_BracketedRoot>> cls_math_BracketedRoot(mod, "math_BracketedRoot", "This class implements the Brent method to find the root of a function located within two bounds. No knowledge of the derivative is required.");
+py::class_<math_BracketedRoot> cls_math_BracketedRoot(mod, "math_BracketedRoot", "This class implements the Brent method to find the root of a function located within two bounds. No knowledge of the derivative is required.");
 
 // Constructors
 cls_math_BracketedRoot.def(py::init<math_Function &, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("F"), py::arg("Bound1"), py::arg("Bound2"), py::arg("Tolerance"));

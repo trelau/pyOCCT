@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntAna2d_AnaIntersection(py::module &mod){
 
-py::class_<IntAna2d_AnaIntersection, std::unique_ptr<IntAna2d_AnaIntersection>> cls_IntAna2d_AnaIntersection(mod, "IntAna2d_AnaIntersection", "Implementation of the analytical intersection between: - two Lin2d, - two Circ2d, - a Lin2d and a Circ2d, - an element of gp (Lin2d, Circ2d, Elips2d, Parab2d, Hypr2d) and another conic. No tolerance is given for all the intersections: the tolerance will be the 'precision machine'.");
+py::class_<IntAna2d_AnaIntersection> cls_IntAna2d_AnaIntersection(mod, "IntAna2d_AnaIntersection", "Implementation of the analytical intersection between: - two Lin2d, - two Circ2d, - a Lin2d and a Circ2d, - an element of gp (Lin2d, Circ2d, Elips2d, Parab2d, Hypr2d) and another conic. No tolerance is given for all the intersections: the tolerance will be the 'precision machine'.");
 
 // Constructors
 cls_IntAna2d_AnaIntersection.def(py::init<>());

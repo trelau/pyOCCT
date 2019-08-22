@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TColStd_PackedMapOfInteger(py::module &mod){
 
-py::class_<TColStd_PackedMapOfInteger, std::unique_ptr<TColStd_PackedMapOfInteger>> cls_TColStd_PackedMapOfInteger(mod, "TColStd_PackedMapOfInteger", "Optimized Map of integer values. Each block of 32 integers is stored in 8 bytes in memory.");
+py::class_<TColStd_PackedMapOfInteger> cls_TColStd_PackedMapOfInteger(mod, "TColStd_PackedMapOfInteger", "Optimized Map of integer values. Each block of 32 integers is stored in 8 bytes in memory.");
 
 // Constructors
 cls_TColStd_PackedMapOfInteger.def(py::init<>());

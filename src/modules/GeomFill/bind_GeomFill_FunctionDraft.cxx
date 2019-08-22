@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_FunctionDraft(py::module &mod){
 
-py::class_<GeomFill_FunctionDraft, std::unique_ptr<GeomFill_FunctionDraft>, math_FunctionSetWithDerivatives> cls_GeomFill_FunctionDraft(mod, "GeomFill_FunctionDraft", "None");
+py::class_<GeomFill_FunctionDraft, math_FunctionSetWithDerivatives> cls_GeomFill_FunctionDraft(mod, "GeomFill_FunctionDraft", "None");
 
 // Constructors
 cls_GeomFill_FunctionDraft.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S"), py::arg("C"));

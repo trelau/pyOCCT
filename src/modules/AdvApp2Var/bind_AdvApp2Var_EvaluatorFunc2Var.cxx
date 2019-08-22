@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApp2Var_EvaluatorFunc2Var(py::module &mod){
 
-py::class_<AdvApp2Var_EvaluatorFunc2Var, std::unique_ptr<AdvApp2Var_EvaluatorFunc2Var>> cls_AdvApp2Var_EvaluatorFunc2Var(mod, "AdvApp2Var_EvaluatorFunc2Var", "None");
+py::class_<AdvApp2Var_EvaluatorFunc2Var> cls_AdvApp2Var_EvaluatorFunc2Var(mod, "AdvApp2Var_EvaluatorFunc2Var", "None");
 
 // Fields
 

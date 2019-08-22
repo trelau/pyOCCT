@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepClass3d_Intersector3d(py::module &mod){
 
-py::class_<BRepClass3d_Intersector3d, std::unique_ptr<BRepClass3d_Intersector3d>> cls_BRepClass3d_Intersector3d(mod, "BRepClass3d_Intersector3d", "None");
+py::class_<BRepClass3d_Intersector3d> cls_BRepClass3d_Intersector3d(mod, "BRepClass3d_Intersector3d", "None");
 
 // Constructors
 cls_BRepClass3d_Intersector3d.def(py::init<>());

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_ShapeToHLR(py::module &mod){
 
-py::class_<HLRBRep_ShapeToHLR, std::unique_ptr<HLRBRep_ShapeToHLR>> cls_HLRBRep_ShapeToHLR(mod, "HLRBRep_ShapeToHLR", "compute the OutLinedShape of a Shape with an OutLiner, a Projector and create the Data Structure of a Shape.");
+py::class_<HLRBRep_ShapeToHLR> cls_HLRBRep_ShapeToHLR(mod, "HLRBRep_ShapeToHLR", "compute the OutLinedShape of a Shape with an OutLiner, a Projector and create the Data Structure of a Shape.");
 
 // Constructors
 

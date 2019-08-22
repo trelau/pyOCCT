@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeSweptSurface(py::module &mod){
 
-py::class_<GeomToStep_MakeSweptSurface, std::unique_ptr<GeomToStep_MakeSweptSurface>, GeomToStep_Root> cls_GeomToStep_MakeSweptSurface(mod, "GeomToStep_MakeSweptSurface", "This class implements the mapping between classes SweptSurface from Geom and the class SweptSurface from StepGeom which describes a SweptSurface from prostep. As SweptSurface is an abstract SweptSurface this class is an access to the sub-class required.");
+py::class_<GeomToStep_MakeSweptSurface, GeomToStep_Root> cls_GeomToStep_MakeSweptSurface(mod, "GeomToStep_MakeSweptSurface", "This class implements the mapping between classes SweptSurface from Geom and the class SweptSurface from StepGeom which describes a SweptSurface from prostep. As SweptSurface is an abstract SweptSurface this class is an access to the sub-class required.");
 
 // Constructors
 cls_GeomToStep_MakeSweptSurface.def(py::init<const opencascade::handle<Geom_SweptSurface> &>(), py::arg("S"));

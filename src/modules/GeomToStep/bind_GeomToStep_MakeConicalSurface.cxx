@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeConicalSurface(py::module &mod){
 
-py::class_<GeomToStep_MakeConicalSurface, std::unique_ptr<GeomToStep_MakeConicalSurface>, GeomToStep_Root> cls_GeomToStep_MakeConicalSurface(mod, "GeomToStep_MakeConicalSurface", "This class implements the mapping between class ConicalSurface from Geom and the class ConicalSurface from StepGeom which describes a conical_surface from Prostep");
+py::class_<GeomToStep_MakeConicalSurface, GeomToStep_Root> cls_GeomToStep_MakeConicalSurface(mod, "GeomToStep_MakeConicalSurface", "This class implements the mapping between class ConicalSurface from Geom and the class ConicalSurface from StepGeom which describes a conical_surface from Prostep");
 
 // Constructors
 cls_GeomToStep_MakeConicalSurface.def(py::init<const opencascade::handle<Geom_ConicalSurface> &>(), py::arg("CSurf"));

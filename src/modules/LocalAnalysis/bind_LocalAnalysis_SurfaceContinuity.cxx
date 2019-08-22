@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocalAnalysis_SurfaceContinuity(py::module &mod){
 
-py::class_<LocalAnalysis_SurfaceContinuity, std::unique_ptr<LocalAnalysis_SurfaceContinuity>> cls_LocalAnalysis_SurfaceContinuity(mod, "LocalAnalysis_SurfaceContinuity", "This class gives tools to check local continuity C0 C1 C2 G1 G2 between two points situated on two surfaces");
+py::class_<LocalAnalysis_SurfaceContinuity> cls_LocalAnalysis_SurfaceContinuity(mod, "LocalAnalysis_SurfaceContinuity", "This class gives tools to check local continuity C0 C1 C2 G1 G2 between two points situated on two surfaces");
 
 // Constructors
 cls_LocalAnalysis_SurfaceContinuity.def(py::init<const opencascade::handle<Geom_Surface> &, const Standard_Real, const Standard_Real, const opencascade::handle<Geom_Surface> &, const Standard_Real, const Standard_Real, const GeomAbs_Shape>(), py::arg("Surf1"), py::arg("u1"), py::arg("v1"), py::arg("Surf2"), py::arg("u2"), py::arg("v2"), py::arg("Order"));

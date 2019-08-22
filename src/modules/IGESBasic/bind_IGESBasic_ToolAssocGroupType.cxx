@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESBasic_ToolAssocGroupType(py::module &mod){
 
-py::class_<IGESBasic_ToolAssocGroupType, std::unique_ptr<IGESBasic_ToolAssocGroupType>> cls_IGESBasic_ToolAssocGroupType(mod, "IGESBasic_ToolAssocGroupType", "Tool to work on a AssocGroupType. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESBasic_ToolAssocGroupType> cls_IGESBasic_ToolAssocGroupType(mod, "IGESBasic_ToolAssocGroupType", "Tool to work on a AssocGroupType. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESBasic_ToolAssocGroupType.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWEdge(py::module &mod){
 
-py::class_<RWStepShape_RWEdge, std::unique_ptr<RWStepShape_RWEdge>> cls_RWStepShape_RWEdge(mod, "RWStepShape_RWEdge", "Read & Write Module for Edge");
+py::class_<RWStepShape_RWEdge> cls_RWStepShape_RWEdge(mod, "RWStepShape_RWEdge", "Read & Write Module for Edge");
 
 // Constructors
 cls_RWStepShape_RWEdge.def(py::init<>());

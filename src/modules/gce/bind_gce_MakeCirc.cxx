@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gce_MakeCirc(py::module &mod){
 
-py::class_<gce_MakeCirc, std::unique_ptr<gce_MakeCirc>, gce_Root> cls_gce_MakeCirc(mod, "gce_MakeCirc", "This class implements the following algorithms used to create Circ from gp.");
+py::class_<gce_MakeCirc, gce_Root> cls_gce_MakeCirc(mod, "gce_MakeCirc", "This class implements the following algorithms used to create Circ from gp.");
 
 // Constructors
 cls_gce_MakeCirc.def(py::init<const gp_Ax2 &, const Standard_Real>(), py::arg("A2"), py::arg("Radius"));

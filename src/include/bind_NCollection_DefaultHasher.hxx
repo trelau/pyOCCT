@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheKeyType>
 void bind_NCollection_DefaultHasher(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_DefaultHasher<TheKeyType>, std::unique_ptr<NCollection_DefaultHasher<TheKeyType>>> cls_NCollection_DefaultHasher(mod, name.c_str(), "Purpose: The DefaultHasher is a Hasher that is used by default in NCollection maps. To compute the hash code of the key is used the global function HashCode. To compare two keys is used the global function IsEqual.", local);
+py::class_<NCollection_DefaultHasher<TheKeyType>> cls_NCollection_DefaultHasher(mod, name.c_str(), "Purpose: The DefaultHasher is a Hasher that is used by default in NCollection maps. To compute the hash code of the key is used the global function HashCode. To compare two keys is used the global function IsEqual.", local);
 
 // Constructors
 

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Transfer_DataInfo(py::module &mod){
 
-py::class_<Transfer_DataInfo, std::unique_ptr<Transfer_DataInfo>> cls_Transfer_DataInfo(mod, "Transfer_DataInfo", "Gives informations on an object Used as template to instantiate Mapper and SimpleBinder This class is for Transient");
+py::class_<Transfer_DataInfo> cls_Transfer_DataInfo(mod, "Transfer_DataInfo", "Gives informations on an object Used as template to instantiate Mapper and SimpleBinder This class is for Transient");
 
 // Constructors
 

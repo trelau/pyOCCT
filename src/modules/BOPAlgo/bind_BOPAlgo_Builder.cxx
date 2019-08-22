@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_Builder(py::module &mod){
 
-py::class_<BOPAlgo_Builder, std::unique_ptr<BOPAlgo_Builder>, BOPAlgo_BuilderShape> cls_BOPAlgo_Builder(mod, "BOPAlgo_Builder", "The class is a General Fuse algorithm - base algorithm for the algorithms in the Boolean Component. Its main purpose is to build the split parts of the argument shapes from which the result of the operations is combined. The result of the General Fuse algorithm itself is a compound containing all split parts of the arguments.");
+py::class_<BOPAlgo_Builder, BOPAlgo_BuilderShape> cls_BOPAlgo_Builder(mod, "BOPAlgo_Builder", "The class is a General Fuse algorithm - base algorithm for the algorithms in the Boolean Component. Its main purpose is to build the split parts of the argument shapes from which the result of the operations is combined. The result of the General Fuse algorithm itself is a compound containing all split parts of the arguments.");
 
 // Constructors
 cls_BOPAlgo_Builder.def(py::init<>());

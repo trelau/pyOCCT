@@ -53,7 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214(py::module &mod){
 
-py::class_<RWStepAP214, std::unique_ptr<RWStepAP214>> cls_RWStepAP214(mod, "RWStepAP214", "None");
+py::class_<RWStepAP214> cls_RWStepAP214(mod, "RWStepAP214", "None");
 
 // Constructors
 

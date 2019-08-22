@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeCartesianPoint(py::module &mod){
 
-py::class_<GeomToStep_MakeCartesianPoint, std::unique_ptr<GeomToStep_MakeCartesianPoint>, GeomToStep_Root> cls_GeomToStep_MakeCartesianPoint(mod, "GeomToStep_MakeCartesianPoint", "This class implements the mapping between classes CartesianPoint from Geom and Pnt from gp, and the class CartesianPoint from StepGeom which describes a point from Prostep.");
+py::class_<GeomToStep_MakeCartesianPoint, GeomToStep_Root> cls_GeomToStep_MakeCartesianPoint(mod, "GeomToStep_MakeCartesianPoint", "This class implements the mapping between classes CartesianPoint from Geom and Pnt from gp, and the class CartesianPoint from StepGeom which describes a point from Prostep.");
 
 // Constructors
 cls_GeomToStep_MakeCartesianPoint.def(py::init<const gp_Pnt &>(), py::arg("P"));

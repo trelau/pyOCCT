@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWOrganizationalAddress(py::module &mod){
 
-py::class_<RWStepBasic_RWOrganizationalAddress, std::unique_ptr<RWStepBasic_RWOrganizationalAddress>> cls_RWStepBasic_RWOrganizationalAddress(mod, "RWStepBasic_RWOrganizationalAddress", "Read & Write Module for OrganizationalAddress");
+py::class_<RWStepBasic_RWOrganizationalAddress> cls_RWStepBasic_RWOrganizationalAddress(mod, "RWStepBasic_RWOrganizationalAddress", "Read & Write Module for OrganizationalAddress");
 
 // Constructors
 cls_RWStepBasic_RWOrganizationalAddress.def(py::init<>());

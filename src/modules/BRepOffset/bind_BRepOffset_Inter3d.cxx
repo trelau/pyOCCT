@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffset_Inter3d(py::module &mod){
 
-py::class_<BRepOffset_Inter3d, std::unique_ptr<BRepOffset_Inter3d>> cls_BRepOffset_Inter3d(mod, "BRepOffset_Inter3d", "Computes the intersection face face in a set of faces Store the result in a SD as AsDes.");
+py::class_<BRepOffset_Inter3d> cls_BRepOffset_Inter3d(mod, "BRepOffset_Inter3d", "Computes the intersection face face in a set of faces Store the result in a SD as AsDes.");
 
 // Constructors
 cls_BRepOffset_Inter3d.def(py::init<const opencascade::handle<BRepAlgo_AsDes> &, const TopAbs_State, const Standard_Real>(), py::arg("AsDes"), py::arg("Side"), py::arg("Tol"));

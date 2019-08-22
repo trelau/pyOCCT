@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolSolidOfRevolution(py::module &mod){
 
-py::class_<IGESSolid_ToolSolidOfRevolution, std::unique_ptr<IGESSolid_ToolSolidOfRevolution>> cls_IGESSolid_ToolSolidOfRevolution(mod, "IGESSolid_ToolSolidOfRevolution", "Tool to work on a SolidOfRevolution. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolSolidOfRevolution> cls_IGESSolid_ToolSolidOfRevolution(mod, "IGESSolid_ToolSolidOfRevolution", "Tool to work on a SolidOfRevolution. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolSolidOfRevolution.def(py::init<>());

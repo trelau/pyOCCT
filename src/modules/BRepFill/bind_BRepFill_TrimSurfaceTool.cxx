@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_TrimSurfaceTool(py::module &mod){
 
-py::class_<BRepFill_TrimSurfaceTool, std::unique_ptr<BRepFill_TrimSurfaceTool>> cls_BRepFill_TrimSurfaceTool(mod, "BRepFill_TrimSurfaceTool", "Compute the Pcurves and the 3d curves resulting of the trimming of a face by an extruded surface.");
+py::class_<BRepFill_TrimSurfaceTool> cls_BRepFill_TrimSurfaceTool(mod, "BRepFill_TrimSurfaceTool", "Compute the Pcurves and the 3d curves resulting of the trimming of a face by an extruded surface.");
 
 // Constructors
 cls_BRepFill_TrimSurfaceTool.def(py::init<const opencascade::handle<Geom2d_Curve> &, const TopoDS_Face &, const TopoDS_Face &, const TopoDS_Edge &, const TopoDS_Edge &, const Standard_Boolean, const Standard_Boolean>(), py::arg("Bis"), py::arg("Face1"), py::arg("Face2"), py::arg("Edge1"), py::arg("Edge2"), py::arg("Inv1"), py::arg("Inv2"));

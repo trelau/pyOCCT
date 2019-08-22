@@ -47,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomPlate_BuildPlateSurface(py::module &mod){
 
-py::class_<GeomPlate_BuildPlateSurface, std::unique_ptr<GeomPlate_BuildPlateSurface>> cls_GeomPlate_BuildPlateSurface(mod, "GeomPlate_BuildPlateSurface", "This class provides an algorithm for constructing such a plate surface that it conforms to given curve and/or point constraints. The algorithm accepts or constructs an initial surface and looks for a deformation of it satisfying the constraints and minimizing energy input. A BuildPlateSurface object provides a framework for: - defining or setting constraints - implementing the construction algorithm - consulting the result.");
+py::class_<GeomPlate_BuildPlateSurface> cls_GeomPlate_BuildPlateSurface(mod, "GeomPlate_BuildPlateSurface", "This class provides an algorithm for constructing such a plate surface that it conforms to given curve and/or point constraints. The algorithm accepts or constructs an initial surface and looks for a deformation of it satisfying the constraints and minimizing energy input. A BuildPlateSurface object provides a framework for: - defining or setting constraints - implementing the construction algorithm - consulting the result.");
 
 // Constructors
 cls_GeomPlate_BuildPlateSurface.def(py::init<const opencascade::handle<TColStd_HArray1OfInteger> &, const opencascade::handle<GeomPlate_HArray1OfHCurve> &, const opencascade::handle<TColStd_HArray1OfInteger> &, const Standard_Integer>(), py::arg("NPoints"), py::arg("TabCurve"), py::arg("Tang"), py::arg("Degree"));

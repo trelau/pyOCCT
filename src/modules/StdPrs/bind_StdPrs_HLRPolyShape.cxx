@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_HLRPolyShape(py::module &mod){
 
-py::class_<StdPrs_HLRPolyShape, std::unique_ptr<StdPrs_HLRPolyShape>, Prs3d_Root> cls_StdPrs_HLRPolyShape(mod, "StdPrs_HLRPolyShape", "Instantiates Prs3d_PolyHLRShape to define a display of a shape where hidden and visible lines are identified with respect to a given projection. StdPrs_HLRPolyShape works with a polyhedral simplification of the shape whereas StdPrs_HLRShape takes the shape itself into account. When you use StdPrs_HLRShape, you obtain an exact result, whereas, when you use StdPrs_HLRPolyShape, you reduce computation time but obtain polygonal segments. The polygonal algorithm is used.");
+py::class_<StdPrs_HLRPolyShape, Prs3d_Root> cls_StdPrs_HLRPolyShape(mod, "StdPrs_HLRPolyShape", "Instantiates Prs3d_PolyHLRShape to define a display of a shape where hidden and visible lines are identified with respect to a given projection. StdPrs_HLRPolyShape works with a polyhedral simplification of the shape whereas StdPrs_HLRShape takes the shape itself into account. When you use StdPrs_HLRShape, you obtain an exact result, whereas, when you use StdPrs_HLRPolyShape, you reduce computation time but obtain polygonal segments. The polygonal algorithm is used.");
 
 // Constructors
 

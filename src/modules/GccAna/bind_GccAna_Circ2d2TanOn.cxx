@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GccAna_Circ2d2TanOn(py::module &mod){
 
-py::class_<GccAna_Circ2d2TanOn, std::unique_ptr<GccAna_Circ2d2TanOn>> cls_GccAna_Circ2d2TanOn(mod, "GccAna_Circ2d2TanOn", "Describes functions for building a 2D circle - tangential to 2 curves, or - tangential to a curve and passing through a point, or - passing through 2 points, and with its center on a curve. For these analytic algorithms, curves are circles or lines. A Circ2d2TanOn object provides a framework for: - defining the construction of 2D circles(s), - implementing the construction algorithm, and - consulting the result(s).");
+py::class_<GccAna_Circ2d2TanOn> cls_GccAna_Circ2d2TanOn(mod, "GccAna_Circ2d2TanOn", "Describes functions for building a 2D circle - tangential to 2 curves, or - tangential to a curve and passing through a point, or - passing through 2 points, and with its center on a curve. For these analytic algorithms, curves are circles or lines. A Circ2d2TanOn object provides a framework for: - defining the construction of 2D circles(s), - implementing the construction algorithm, and - consulting the result(s).");
 
 // Constructors
 cls_GccAna_Circ2d2TanOn.def(py::init<const GccEnt_QualifiedCirc &, const GccEnt_QualifiedCirc &, const gp_Lin2d &, const Standard_Real>(), py::arg("Qualified1"), py::arg("Qualified2"), py::arg("OnLine"), py::arg("Tolerance"));

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeBuild(py::module &mod){
 
-py::class_<ShapeBuild, std::unique_ptr<ShapeBuild>> cls_ShapeBuild(mod, "ShapeBuild", "This package provides basic building tools for other packages in ShapeHealing. These tools are rather internal for ShapeHealing .");
+py::class_<ShapeBuild> cls_ShapeBuild(mod, "ShapeBuild", "This package provides basic building tools for other packages in ShapeHealing. These tools are rather internal for ShapeHealing .");
 
 // Constructors
 

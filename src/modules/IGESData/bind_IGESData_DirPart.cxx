@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESData_DirPart(py::module &mod){
 
-py::class_<IGESData_DirPart, std::unique_ptr<IGESData_DirPart>> cls_IGESData_DirPart(mod, "IGESData_DirPart", "litteral/numeric description of an entity's directory section, taken from file");
+py::class_<IGESData_DirPart> cls_IGESData_DirPart(mod, "IGESData_DirPart", "litteral/numeric description of an entity's directory section, taken from file");
 
 // Constructors
 cls_IGESData_DirPart.def(py::init<>());

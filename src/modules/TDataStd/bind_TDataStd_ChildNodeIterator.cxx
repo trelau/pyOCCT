@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDataStd_ChildNodeIterator(py::module &mod){
 
-py::class_<TDataStd_ChildNodeIterator, std::unique_ptr<TDataStd_ChildNodeIterator>> cls_TDataStd_ChildNodeIterator(mod, "TDataStd_ChildNodeIterator", "Iterates on the ChildStepren step of a step, at the first level only. It is possible to ask the iterator to explore all the sub step levels of the given one, with the option 'allLevels'.");
+py::class_<TDataStd_ChildNodeIterator> cls_TDataStd_ChildNodeIterator(mod, "TDataStd_ChildNodeIterator", "Iterates on the ChildStepren step of a step, at the first level only. It is possible to ask the iterator to explore all the sub step levels of the given one, with the option 'allLevels'.");
 
 // Constructors
 cls_TDataStd_ChildNodeIterator.def(py::init<>());

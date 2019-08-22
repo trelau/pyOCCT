@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_Tools(py::module &mod){
 
-py::class_<IntTools_Tools, std::unique_ptr<IntTools_Tools>> cls_IntTools_Tools(mod, "IntTools_Tools", "The class contains handy static functions dealing with the geometry and topology.");
+py::class_<IntTools_Tools> cls_IntTools_Tools(mod, "IntTools_Tools", "The class contains handy static functions dealing with the geometry and topology.");
 
 // Constructors
 

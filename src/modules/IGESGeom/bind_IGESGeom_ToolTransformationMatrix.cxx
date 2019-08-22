@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGeom_ToolTransformationMatrix(py::module &mod){
 
-py::class_<IGESGeom_ToolTransformationMatrix, std::unique_ptr<IGESGeom_ToolTransformationMatrix>> cls_IGESGeom_ToolTransformationMatrix(mod, "IGESGeom_ToolTransformationMatrix", "Tool to work on a TransformationMatrix. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGeom_ToolTransformationMatrix> cls_IGESGeom_ToolTransformationMatrix(mod, "IGESGeom_ToolTransformationMatrix", "Tool to work on a TransformationMatrix. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGeom_ToolTransformationMatrix.def(py::init<>());

@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dInt_IntConicCurveOfGInter(py::module &mod){
 
-py::class_<Geom2dInt_IntConicCurveOfGInter, std::unique_ptr<Geom2dInt_IntConicCurveOfGInter>, IntRes2d_Intersection> cls_Geom2dInt_IntConicCurveOfGInter(mod, "Geom2dInt_IntConicCurveOfGInter", "None");
+py::class_<Geom2dInt_IntConicCurveOfGInter, IntRes2d_Intersection> cls_Geom2dInt_IntConicCurveOfGInter(mod, "Geom2dInt_IntConicCurveOfGInter", "None");
 
 // Constructors
 cls_Geom2dInt_IntConicCurveOfGInter.def(py::init<>());

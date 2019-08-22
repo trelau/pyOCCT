@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dGcc_Lin2dTanOblIter(py::module &mod){
 
-py::class_<Geom2dGcc_Lin2dTanOblIter, std::unique_ptr<Geom2dGcc_Lin2dTanOblIter>> cls_Geom2dGcc_Lin2dTanOblIter(mod, "Geom2dGcc_Lin2dTanOblIter", "This class implements the algorithms used to create 2d line tangent to a curve QualifiedCurv and doing an angle Angle with a line TheLin. The angle must be in Radian.");
+py::class_<Geom2dGcc_Lin2dTanOblIter> cls_Geom2dGcc_Lin2dTanOblIter(mod, "Geom2dGcc_Lin2dTanOblIter", "This class implements the algorithms used to create 2d line tangent to a curve QualifiedCurv and doing an angle Angle with a line TheLin. The angle must be in Radian.");
 
 // Constructors
 cls_Geom2dGcc_Lin2dTanOblIter.def(py::init<const Geom2dGcc_QCurve &, const gp_Lin2d &, const Standard_Real, const Standard_Real>(), py::arg("Qualified1"), py::arg("TheLin"), py::arg("Param1"), py::arg("TolAng"));

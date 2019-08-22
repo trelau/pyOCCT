@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgoAPI_Defeaturing(py::module &mod){
 
-py::class_<BRepAlgoAPI_Defeaturing, std::unique_ptr<BRepAlgoAPI_Defeaturing>, BRepAlgoAPI_Algo> cls_BRepAlgoAPI_Defeaturing(mod, "BRepAlgoAPI_Defeaturing", "The BRepAlgoAPI_Defeaturing algorithm is the API algorithm intended for removal of the unwanted parts from the shape. The unwanted parts (or features) can be holes, protrusions, gaps, chamfers, fillets etc. The shape itself is not modified, the new shape is built as the result.");
+py::class_<BRepAlgoAPI_Defeaturing, BRepAlgoAPI_Algo> cls_BRepAlgoAPI_Defeaturing(mod, "BRepAlgoAPI_Defeaturing", "The BRepAlgoAPI_Defeaturing algorithm is the API algorithm intended for removal of the unwanted parts from the shape. The unwanted parts (or features) can be holes, protrusions, gaps, chamfers, fillets etc. The shape itself is not modified, the new shape is built as the result.");
 
 // Constructors
 cls_BRepAlgoAPI_Defeaturing.def(py::init<>());

@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_Sweep(py::module &mod){
 
-py::class_<BRepFill_Sweep, std::unique_ptr<BRepFill_Sweep>> cls_BRepFill_Sweep(mod, "BRepFill_Sweep", "Topological Sweep Algorithm Computes an Sweep shell using a generating wire, an SectionLaw and an LocationLaw.");
+py::class_<BRepFill_Sweep> cls_BRepFill_Sweep(mod, "BRepFill_Sweep", "Topological Sweep Algorithm Computes an Sweep shell using a generating wire, an SectionLaw and an LocationLaw.");
 
 // Constructors
 cls_BRepFill_Sweep.def(py::init<const opencascade::handle<BRepFill_SectionLaw> &, const opencascade::handle<BRepFill_LocationLaw> &, const Standard_Boolean>(), py::arg("Section"), py::arg("Location"), py::arg("WithKPart"));

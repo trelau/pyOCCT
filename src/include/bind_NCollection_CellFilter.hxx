@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename Inspector>
 void bind_NCollection_CellFilter(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_CellFilter<Inspector>, std::unique_ptr<NCollection_CellFilter<Inspector>>> cls_NCollection_CellFilter(mod, name.c_str(), "A data structure for sorting geometric objects (called targets) in n-dimensional space into cells, with associated algorithm for fast checking of coincidence (overlapping, intersection, etc.) with other objects (called here bullets).", local);
+py::class_<NCollection_CellFilter<Inspector>> cls_NCollection_CellFilter(mod, name.c_str(), "A data structure for sorting geometric objects (called targets) in n-dimensional space into cells, with associated algorithm for fast checking of coincidence (overlapping, intersection, etc.) with other objects (called here bullets).", local);
 
 // Constructors
 cls_NCollection_CellFilter.def(py::init<const Standard_Integer>(), py::arg("theDim"));

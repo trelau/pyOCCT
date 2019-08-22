@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter(py::module &mod){
 
-py::class_<HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter, std::unique_ptr<HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter>> cls_HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter(mod, "HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter", "None");
+py::class_<HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter> cls_HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter(mod, "HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter", "None");
 
 // Constructors
 cls_HLRBRep_TheLocateExtPCOfTheProjPCurOfCInter.def(py::init<>());

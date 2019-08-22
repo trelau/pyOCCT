@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Intf(py::module &mod){
 
-py::class_<Intf, std::unique_ptr<Intf>> cls_Intf(mod, "Intf", "Interference computation between polygons, lines and polyhedra with only triangular facets. These objects are polygonal representations of complex curves and triangulated representations of complex surfaces.");
+py::class_<Intf> cls_Intf(mod, "Intf", "Interference computation between polygons, lines and polyhedra with only triangular facets. These objects are polygonal representations of complex curves and triangulated representations of complex surfaces.");
 
 // Constructors
 

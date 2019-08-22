@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRep_WPointInter(py::module &mod){
 
-py::class_<TopOpeBRep_WPointInter, std::unique_ptr<TopOpeBRep_WPointInter>> cls_TopOpeBRep_WPointInter(mod, "TopOpeBRep_WPointInter", "None");
+py::class_<TopOpeBRep_WPointInter> cls_TopOpeBRep_WPointInter(mod, "TopOpeBRep_WPointInter", "None");
 
 // Constructors
 cls_TopOpeBRep_WPointInter.def(py::init<>());

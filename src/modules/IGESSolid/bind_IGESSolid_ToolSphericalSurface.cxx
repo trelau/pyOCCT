@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolSphericalSurface(py::module &mod){
 
-py::class_<IGESSolid_ToolSphericalSurface, std::unique_ptr<IGESSolid_ToolSphericalSurface>> cls_IGESSolid_ToolSphericalSurface(mod, "IGESSolid_ToolSphericalSurface", "Tool to work on a SphericalSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolSphericalSurface> cls_IGESSolid_ToolSphericalSurface(mod, "IGESSolid_ToolSphericalSurface", "Tool to work on a SphericalSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolSphericalSurface.def(py::init<>());

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepClass_Intersector(py::module &mod){
 
-py::class_<BRepClass_Intersector, std::unique_ptr<BRepClass_Intersector>, Geom2dInt_IntConicCurveOfGInter> cls_BRepClass_Intersector(mod, "BRepClass_Intersector", "Intersect an Edge with a segment. Implement the Intersector2d required by the classifier.");
+py::class_<BRepClass_Intersector, Geom2dInt_IntConicCurveOfGInter> cls_BRepClass_Intersector(mod, "BRepClass_Intersector", "Intersect an Edge with a segment. Implement the Intersector2d required by the classifier.");
 
 // Constructors
 cls_BRepClass_Intersector.def(py::init<>());

@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_ImpPrmIntersection(py::module &mod){
 
-py::class_<IntPatch_ImpPrmIntersection, std::unique_ptr<IntPatch_ImpPrmIntersection>> cls_IntPatch_ImpPrmIntersection(mod, "IntPatch_ImpPrmIntersection", "Implementation of the intersection between a natural quadric patch : Plane, Cone, Cylinder or Sphere and a bi-parametrised surface.");
+py::class_<IntPatch_ImpPrmIntersection> cls_IntPatch_ImpPrmIntersection(mod, "IntPatch_ImpPrmIntersection", "Implementation of the intersection between a natural quadric patch : Plane, Cone, Cylinder or Sphere and a bi-parametrised surface.");
 
 // Constructors
 cls_IntPatch_ImpPrmIntersection.def(py::init<>());

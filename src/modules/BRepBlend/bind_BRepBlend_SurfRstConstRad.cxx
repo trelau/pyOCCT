@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBlend_SurfRstConstRad(py::module &mod){
 
-py::class_<BRepBlend_SurfRstConstRad, std::unique_ptr<BRepBlend_SurfRstConstRad>, Blend_SurfRstFunction> cls_BRepBlend_SurfRstConstRad(mod, "BRepBlend_SurfRstConstRad", "Copy of CSConstRad with pcurve on surface as support.");
+py::class_<BRepBlend_SurfRstConstRad, Blend_SurfRstFunction> cls_BRepBlend_SurfRstConstRad(mod, "BRepBlend_SurfRstConstRad", "Copy of CSConstRad with pcurve on surface as support.");
 
 // Constructors
 cls_BRepBlend_SurfRstConstRad.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor2d_HCurve2d> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("Surf"), py::arg("SurfRst"), py::arg("Rst"), py::arg("CGuide"));

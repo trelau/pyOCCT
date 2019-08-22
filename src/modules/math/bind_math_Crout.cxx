@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_Crout(py::module &mod){
 
-py::class_<math_Crout, std::unique_ptr<math_Crout>> cls_math_Crout(mod, "math_Crout", "This class implements the Crout algorithm used to solve a system A*X = B where A is a symmetric matrix. It can be used to invert a symmetric matrix. This algorithm is similar to Gauss but is faster than Gauss. Only the inferior triangle of A and the diagonal can be given.");
+py::class_<math_Crout> cls_math_Crout(mod, "math_Crout", "This class implements the Crout algorithm used to solve a system A*X = B where A is a symmetric matrix. It can be used to invert a symmetric matrix. This algorithm is similar to Gauss but is faster than Gauss. Only the inferior triangle of A and the diagonal can be given.");
 
 // Constructors
 cls_math_Crout.def(py::init<const math_Matrix &>(), py::arg("A"));

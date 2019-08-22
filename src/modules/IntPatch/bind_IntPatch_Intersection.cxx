@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_Intersection(py::module &mod){
 
-py::class_<IntPatch_Intersection, std::unique_ptr<IntPatch_Intersection>> cls_IntPatch_Intersection(mod, "IntPatch_Intersection", "This class provides a generic algorithm to intersect 2 surfaces.");
+py::class_<IntPatch_Intersection> cls_IntPatch_Intersection(mod, "IntPatch_Intersection", "This class provides a generic algorithm to intersect 2 surfaces.");
 
 // Constructors
 cls_IntPatch_Intersection.def(py::init<>());

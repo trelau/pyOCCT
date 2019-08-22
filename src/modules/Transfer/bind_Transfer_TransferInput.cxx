@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Transfer_TransferInput(py::module &mod){
 
-py::class_<Transfer_TransferInput, std::unique_ptr<Transfer_TransferInput>> cls_Transfer_TransferInput(mod, "Transfer_TransferInput", "A TransferInput is a Tool which fills an InterfaceModel with the result of the Transfer of CasCade Objects, once determined The Result comes from a TransferProcess, either from Transient (the Complete Result is considered, it must contain only Transient Objects)");
+py::class_<Transfer_TransferInput> cls_Transfer_TransferInput(mod, "Transfer_TransferInput", "A TransferInput is a Tool which fills an InterfaceModel with the result of the Transfer of CasCade Objects, once determined The Result comes from a TransferProcess, either from Transient (the Complete Result is considered, it must contain only Transient Objects)");
 
 // Constructors
 cls_Transfer_TransferInput.def(py::init<>());

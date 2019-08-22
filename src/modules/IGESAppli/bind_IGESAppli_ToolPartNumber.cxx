@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli_ToolPartNumber(py::module &mod){
 
-py::class_<IGESAppli_ToolPartNumber, std::unique_ptr<IGESAppli_ToolPartNumber>> cls_IGESAppli_ToolPartNumber(mod, "IGESAppli_ToolPartNumber", "Tool to work on a PartNumber. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESAppli_ToolPartNumber> cls_IGESAppli_ToolPartNumber(mod, "IGESAppli_ToolPartNumber", "Tool to work on a PartNumber. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESAppli_ToolPartNumber.def(py::init<>());

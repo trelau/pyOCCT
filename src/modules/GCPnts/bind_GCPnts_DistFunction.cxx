@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCPnts_DistFunction(py::module &mod){
 
-py::class_<GCPnts_DistFunction, std::unique_ptr<GCPnts_DistFunction>, math_Function> cls_GCPnts_DistFunction(mod, "GCPnts_DistFunction", "Class to define function, which calculates square distance between point on curve C(u), U1 <= u <= U2 and line passing through points C(U1) and C(U2) This function is used in any minimisation algorithm to define maximal deviation between curve and line, which required one variable function without derivative (for ex. math_BrentMinimum)");
+py::class_<GCPnts_DistFunction, math_Function> cls_GCPnts_DistFunction(mod, "GCPnts_DistFunction", "Class to define function, which calculates square distance between point on curve C(u), U1 <= u <= U2 and line passing through points C(U1) and C(U2) This function is used in any minimisation algorithm to define maximal deviation between curve and line, which required one variable function without derivative (for ex. math_BrentMinimum)");
 
 // Constructors
 cls_GCPnts_DistFunction.def(py::init<const Adaptor3d_Curve &, const Standard_Real, const Standard_Real>(), py::arg("theCurve"), py::arg("U1"), py::arg("U2"));

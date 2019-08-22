@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlMNaming(py::module &mod){
 
-py::class_<XmlMNaming, std::unique_ptr<XmlMNaming>> cls_XmlMNaming(mod, "XmlMNaming", "None");
+py::class_<XmlMNaming> cls_XmlMNaming(mod, "XmlMNaming", "None");
 
 // Constructors
 

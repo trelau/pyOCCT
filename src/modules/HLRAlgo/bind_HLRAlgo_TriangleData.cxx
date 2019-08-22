@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRAlgo_TriangleData(py::module &mod){
 
-py::class_<HLRAlgo_TriangleData, std::unique_ptr<HLRAlgo_TriangleData>> cls_HLRAlgo_TriangleData(mod, "HLRAlgo_TriangleData", "Data structure of a triangle.");
+py::class_<HLRAlgo_TriangleData> cls_HLRAlgo_TriangleData(mod, "HLRAlgo_TriangleData", "Data structure of a triangle.");
 
 // Constructors
 

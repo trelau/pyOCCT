@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Plate_GlobalTranslationConstraint(py::module &mod){
 
-py::class_<Plate_GlobalTranslationConstraint, std::unique_ptr<Plate_GlobalTranslationConstraint>> cls_Plate_GlobalTranslationConstraint(mod, "Plate_GlobalTranslationConstraint", "force a set of UV points to translate without deformation");
+py::class_<Plate_GlobalTranslationConstraint> cls_Plate_GlobalTranslationConstraint(mod, "Plate_GlobalTranslationConstraint", "force a set of UV points to translate without deformation");
 
 // Constructors
 cls_Plate_GlobalTranslationConstraint.def(py::init<const TColgp_SequenceOfXY &>(), py::arg("SOfXY"));

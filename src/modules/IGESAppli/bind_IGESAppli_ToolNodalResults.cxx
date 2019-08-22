@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli_ToolNodalResults(py::module &mod){
 
-py::class_<IGESAppli_ToolNodalResults, std::unique_ptr<IGESAppli_ToolNodalResults>> cls_IGESAppli_ToolNodalResults(mod, "IGESAppli_ToolNodalResults", "Tool to work on a NodalResults. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESAppli_ToolNodalResults> cls_IGESAppli_ToolNodalResults(mod, "IGESAppli_ToolNodalResults", "Tool to work on a NodalResults. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESAppli_ToolNodalResults.def(py::init<>());

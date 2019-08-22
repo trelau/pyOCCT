@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BSplCLib(py::module &mod){
 
-py::class_<BSplCLib, std::unique_ptr<BSplCLib>> cls_BSplCLib(mod, "BSplCLib", "BSplCLib B-spline curve Library.");
+py::class_<BSplCLib> cls_BSplCLib(mod, "BSplCLib", "BSplCLib B-spline curve Library.");
 
 // Constructors
 

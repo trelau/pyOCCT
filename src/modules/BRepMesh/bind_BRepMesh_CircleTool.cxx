@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_CircleTool(py::module &mod){
 
-py::class_<BRepMesh_CircleTool, std::unique_ptr<BRepMesh_CircleTool>> cls_BRepMesh_CircleTool(mod, "BRepMesh_CircleTool", "Create sort and destroy the circles used in triangulation.");
+py::class_<BRepMesh_CircleTool> cls_BRepMesh_CircleTool(mod, "BRepMesh_CircleTool", "Create sort and destroy the circles used in triangulation.");
 
 // Constructors
 cls_BRepMesh_CircleTool.def(py::init<const opencascade::handle<NCollection_IncAllocator> &>(), py::arg("theAllocator"));

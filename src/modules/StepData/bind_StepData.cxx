@@ -65,7 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepData(py::module &mod){
 
-py::class_<StepData, std::unique_ptr<StepData>> cls_StepData(mod, "StepData", "Gives basic data definition for Step Interface. Any class of a data model described in EXPRESS Language is candidate to be managed by a Step Interface");
+py::class_<StepData> cls_StepData(mod, "StepData", "Gives basic data definition for Step Interface. Any class of a data model described in EXPRESS Language is candidate to be managed by a Step Interface");
 
 // Constructors
 

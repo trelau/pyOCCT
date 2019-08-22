@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_Trsf2d(py::module &mod){
 
-py::class_<gp_Trsf2d, std::unique_ptr<gp_Trsf2d>> cls_gp_Trsf2d(mod, "gp_Trsf2d", "Defines a non-persistent transformation in 2D space. The following transformations are implemented : . Translation, Rotation, Scale . Symmetry with respect to a point and a line. Complex transformations can be obtained by combining the previous elementary transformations using the method Multiply. The transformations can be represented as follow :");
+py::class_<gp_Trsf2d> cls_gp_Trsf2d(mod, "gp_Trsf2d", "Defines a non-persistent transformation in 2D space. The following transformations are implemented : . Translation, Rotation, Scale . Symmetry with respect to a point and a line. Complex transformations can be obtained by combining the previous elementary transformations using the method Multiply. The transformations can be represented as follow :");
 
 // Constructors
 cls_gp_Trsf2d.def(py::init<>());

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDS_Compound(py::module &mod){
 
-py::class_<TopoDS_Compound, std::unique_ptr<TopoDS_Compound>, TopoDS_Shape> cls_TopoDS_Compound(mod, "TopoDS_Compound", "Describes a compound which - references an underlying compound with the potential to be given a location and an orientation - has a location for the underlying compound, giving its placement in the local coordinate system - has an orientation for the underlying compound, in terms of its geometry (as opposed to orientation in relation to other shapes). Casts shape S to the more specialized return type, Compound.");
+py::class_<TopoDS_Compound, TopoDS_Shape> cls_TopoDS_Compound(mod, "TopoDS_Compound", "Describes a compound which - references an underlying compound with the potential to be given a location and an orientation - has a location for the underlying compound, giving its placement in the local coordinate system - has an orientation for the underlying compound, in terms of its geometry (as opposed to orientation in relation to other shapes). Casts shape S to the more specialized return type, Compound.");
 
 // Constructors
 cls_TopoDS_Compound.def(py::init<>());

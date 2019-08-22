@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBlend_PointOnRst(py::module &mod){
 
-py::class_<BRepBlend_PointOnRst, std::unique_ptr<BRepBlend_PointOnRst>> cls_BRepBlend_PointOnRst(mod, "BRepBlend_PointOnRst", "Definition of an intersection point between a line and a restriction on a surface. Such a point is contains geometrical informations (see the Value method) and logical informations.");
+py::class_<BRepBlend_PointOnRst> cls_BRepBlend_PointOnRst(mod, "BRepBlend_PointOnRst", "Definition of an intersection point between a line and a restriction on a surface. Such a point is contains geometrical informations (see the Value method) and logical informations.");
 
 // Constructors
 cls_BRepBlend_PointOnRst.def(py::init<>());

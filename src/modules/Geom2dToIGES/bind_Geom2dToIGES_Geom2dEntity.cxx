@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dToIGES_Geom2dEntity(py::module &mod){
 
-py::class_<Geom2dToIGES_Geom2dEntity, std::unique_ptr<Geom2dToIGES_Geom2dEntity>> cls_Geom2dToIGES_Geom2dEntity(mod, "Geom2dToIGES_Geom2dEntity", "provides methods to transfer Geom2d entity from CASCADE to IGES.");
+py::class_<Geom2dToIGES_Geom2dEntity> cls_Geom2dToIGES_Geom2dEntity(mod, "Geom2dToIGES_Geom2dEntity", "provides methods to transfer Geom2d entity from CASCADE to IGES.");
 
 // Constructors
 cls_Geom2dToIGES_Geom2dEntity.def(py::init<>());

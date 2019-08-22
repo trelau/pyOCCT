@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeDirection(py::module &mod){
 
-py::class_<GeomToStep_MakeDirection, std::unique_ptr<GeomToStep_MakeDirection>, GeomToStep_Root> cls_GeomToStep_MakeDirection(mod, "GeomToStep_MakeDirection", "This class implements the mapping between classes Direction from Geom, Geom2d and Dir, Dir2d from gp, and the class Direction from StepGeom which describes a direction from Prostep.");
+py::class_<GeomToStep_MakeDirection, GeomToStep_Root> cls_GeomToStep_MakeDirection(mod, "GeomToStep_MakeDirection", "This class implements the mapping between classes Direction from Geom, Geom2d and Dir, Dir2d from gp, and the class Direction from StepGeom which describes a direction from Prostep.");
 
 // Constructors
 cls_GeomToStep_MakeDirection.def(py::init<const gp_Dir &>(), py::arg("D"));

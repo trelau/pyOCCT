@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDF_ClosureTool(py::module &mod){
 
-py::class_<TDF_ClosureTool, std::unique_ptr<TDF_ClosureTool>> cls_TDF_ClosureTool(mod, "TDF_ClosureTool", "This class provides services to build the closure of an information set. This class gives services around the transitive enclosure of a set of information, starting from a list of label. You can set closure options by using IDFilter (to select or exclude specific attribute IDs) and CopyOption objects and by giving to Closure method.");
+py::class_<TDF_ClosureTool> cls_TDF_ClosureTool(mod, "TDF_ClosureTool", "This class provides services to build the closure of an information set. This class gives services around the transitive enclosure of a set of information, starting from a list of label. You can set closure options by using IDFilter (to select or exclude specific attribute IDs) and CopyOption objects and by giving to Closure method.");
 
 // Constructors
 

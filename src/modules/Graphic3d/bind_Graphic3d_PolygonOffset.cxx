@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Graphic3d_PolygonOffset(py::module &mod){
 
-py::class_<Graphic3d_PolygonOffset, std::unique_ptr<Graphic3d_PolygonOffset>> cls_Graphic3d_PolygonOffset(mod, "Graphic3d_PolygonOffset", "Polygon offset parameters.");
+py::class_<Graphic3d_PolygonOffset> cls_Graphic3d_PolygonOffset(mod, "Graphic3d_PolygonOffset", "Polygon offset parameters.");
 
 // Constructors
 cls_Graphic3d_PolygonOffset.def(py::init<>());

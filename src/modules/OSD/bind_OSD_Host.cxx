@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_Host(py::module &mod){
 
-py::class_<OSD_Host, std::unique_ptr<OSD_Host>> cls_OSD_Host(mod, "OSD_Host", "Carries information about a Host System version ,host name, nodename ...");
+py::class_<OSD_Host> cls_OSD_Host(mod, "OSD_Host", "Carries information about a Host System version ,host name, nodename ...");
 
 // Constructors
 cls_OSD_Host.def(py::init<>());

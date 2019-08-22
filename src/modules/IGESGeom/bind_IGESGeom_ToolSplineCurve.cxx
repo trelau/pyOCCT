@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGeom_ToolSplineCurve(py::module &mod){
 
-py::class_<IGESGeom_ToolSplineCurve, std::unique_ptr<IGESGeom_ToolSplineCurve>> cls_IGESGeom_ToolSplineCurve(mod, "IGESGeom_ToolSplineCurve", "Tool to work on a SplineCurve. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGeom_ToolSplineCurve> cls_IGESGeom_ToolSplineCurve(mod, "IGESGeom_ToolSplineCurve", "Tool to work on a SplineCurve. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGeom_ToolSplineCurve.def(py::init<>());

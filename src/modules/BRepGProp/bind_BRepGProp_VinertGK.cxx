@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepGProp_VinertGK(py::module &mod){
 
-py::class_<BRepGProp_VinertGK, std::unique_ptr<BRepGProp_VinertGK>, GProp_GProps> cls_BRepGProp_VinertGK(mod, "BRepGProp_VinertGK", "Computes the global properties of a geometric solid (3D closed region of space) delimited with : - a point and a surface - a plane and a surface");
+py::class_<BRepGProp_VinertGK, GProp_GProps> cls_BRepGProp_VinertGK(mod, "BRepGProp_VinertGK", "Computes the global properties of a geometric solid (3D closed region of space) delimited with : - a point and a surface - a plane and a surface");
 
 // Constructors
 cls_BRepGProp_VinertGK.def(py::init<>());

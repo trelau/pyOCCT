@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGeom_ToolRuledSurface(py::module &mod){
 
-py::class_<IGESGeom_ToolRuledSurface, std::unique_ptr<IGESGeom_ToolRuledSurface>> cls_IGESGeom_ToolRuledSurface(mod, "IGESGeom_ToolRuledSurface", "Tool to work on a RuledSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGeom_ToolRuledSurface> cls_IGESGeom_ToolRuledSurface(mod, "IGESGeom_ToolRuledSurface", "Tool to work on a RuledSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGeom_ToolRuledSurface.def(py::init<>());

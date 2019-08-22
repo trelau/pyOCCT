@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_RstInt(py::module &mod){
 
-py::class_<IntPatch_RstInt, std::unique_ptr<IntPatch_RstInt>> cls_IntPatch_RstInt(mod, "IntPatch_RstInt", "trouver les points d intersection entre la ligne de cheminement et les arcs de restriction");
+py::class_<IntPatch_RstInt> cls_IntPatch_RstInt(mod, "IntPatch_RstInt", "trouver les points d intersection entre la ligne de cheminement et les arcs de restriction");
 
 // Constructors
 

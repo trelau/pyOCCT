@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWTotalRunoutTolerance(py::module &mod){
 
-py::class_<RWStepDimTol_RWTotalRunoutTolerance, std::unique_ptr<RWStepDimTol_RWTotalRunoutTolerance>> cls_RWStepDimTol_RWTotalRunoutTolerance(mod, "RWStepDimTol_RWTotalRunoutTolerance", "Read & Write tool for TotalRunoutTolerance");
+py::class_<RWStepDimTol_RWTotalRunoutTolerance> cls_RWStepDimTol_RWTotalRunoutTolerance(mod, "RWStepDimTol_RWTotalRunoutTolerance", "Read & Write tool for TotalRunoutTolerance");
 
 // Constructors
 cls_RWStepDimTol_RWTotalRunoutTolerance.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWVolume3dElementRepresentation(py::module &mod){
 
-py::class_<RWStepFEA_RWVolume3dElementRepresentation, std::unique_ptr<RWStepFEA_RWVolume3dElementRepresentation>> cls_RWStepFEA_RWVolume3dElementRepresentation(mod, "RWStepFEA_RWVolume3dElementRepresentation", "Read & Write tool for Volume3dElementRepresentation");
+py::class_<RWStepFEA_RWVolume3dElementRepresentation> cls_RWStepFEA_RWVolume3dElementRepresentation(mod, "RWStepFEA_RWVolume3dElementRepresentation", "Read & Write tool for Volume3dElementRepresentation");
 
 // Constructors
 cls_RWStepFEA_RWVolume3dElementRepresentation.def(py::init<>());

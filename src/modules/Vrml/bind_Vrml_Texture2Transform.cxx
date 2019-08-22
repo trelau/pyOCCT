@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_Texture2Transform(py::module &mod){
 
-py::class_<Vrml_Texture2Transform, std::unique_ptr<Vrml_Texture2Transform>> cls_Vrml_Texture2Transform(mod, "Vrml_Texture2Transform", "defines a Texture2Transform node of VRML specifying properties of geometry and its appearance. This node defines a 2D transformation applied to texture coordinates. This affect the way textures are applied to the surfaces of subsequent shapes. Transformation consisits of(in order) a non-uniform scale about an arbitrary center point, a rotation about that same point, and a translation. This allows a user to change the size and position of the textures on the shape. By default : myTranslation (0 0) myRotation (0) myScaleFactor (1 1) myCenter (0 0)");
+py::class_<Vrml_Texture2Transform> cls_Vrml_Texture2Transform(mod, "Vrml_Texture2Transform", "defines a Texture2Transform node of VRML specifying properties of geometry and its appearance. This node defines a 2D transformation applied to texture coordinates. This affect the way textures are applied to the surfaces of subsequent shapes. Transformation consisits of(in order) a non-uniform scale about an arbitrary center point, a rotation about that same point, and a translation. This allows a user to change the size and position of the textures on the shape. By default : myTranslation (0 0) myRotation (0) myScaleFactor (1 1) myCenter (0 0)");
 
 // Constructors
 cls_Vrml_Texture2Transform.def(py::init<>());

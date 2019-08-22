@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GC_MakeCircle(py::module &mod){
 
-py::class_<GC_MakeCircle, std::unique_ptr<GC_MakeCircle>, GC_Root> cls_GC_MakeCircle(mod, "GC_MakeCircle", "This class implements the following algorithms used to create Cirlec from Geom.");
+py::class_<GC_MakeCircle, GC_Root> cls_GC_MakeCircle(mod, "GC_MakeCircle", "This class implements the following algorithms used to create Cirlec from Geom.");
 
 // Constructors
 cls_GC_MakeCircle.def(py::init<const gp_Circ &>(), py::arg("C"));

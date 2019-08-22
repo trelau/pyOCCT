@@ -55,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepTools(py::module &mod){
 
-py::class_<BRepTools, std::unique_ptr<BRepTools>> cls_BRepTools(mod, "BRepTools", "The BRepTools package provides utilities for BRep data structures.");
+py::class_<BRepTools> cls_BRepTools(mod, "BRepTools", "The BRepTools package provides utilities for BRep data structures.");
 
 // Constructors
 

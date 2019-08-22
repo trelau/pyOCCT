@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWEffectivity(py::module &mod){
 
-py::class_<RWStepBasic_RWEffectivity, std::unique_ptr<RWStepBasic_RWEffectivity>> cls_RWStepBasic_RWEffectivity(mod, "RWStepBasic_RWEffectivity", "Read & Write Module for Effectivity");
+py::class_<RWStepBasic_RWEffectivity> cls_RWStepBasic_RWEffectivity(mod, "RWStepBasic_RWEffectivity", "Read & Write Module for Effectivity");
 
 // Constructors
 cls_RWStepBasic_RWEffectivity.def(py::init<>());

@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Adaptor2d_Line2d(py::module &mod){
 
-py::class_<Adaptor2d_Line2d, std::unique_ptr<Adaptor2d_Line2d>, Adaptor2d_Curve2d> cls_Adaptor2d_Line2d(mod, "Adaptor2d_Line2d", "Use by the TopolTool to trim a surface.");
+py::class_<Adaptor2d_Line2d, Adaptor2d_Curve2d> cls_Adaptor2d_Line2d(mod, "Adaptor2d_Line2d", "Use by the TopolTool to trim a surface.");
 
 // Constructors
 cls_Adaptor2d_Line2d.def(py::init<>());

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Bnd_B3f(py::module &mod){
 
-py::class_<Bnd_B3f, std::unique_ptr<Bnd_B3f>> cls_Bnd_B3f(mod, "Bnd_B3f", "None");
+py::class_<Bnd_B3f> cls_Bnd_B3f(mod, "Bnd_B3f", "None");
 
 // Constructors
 cls_Bnd_B3f.def(py::init<>());

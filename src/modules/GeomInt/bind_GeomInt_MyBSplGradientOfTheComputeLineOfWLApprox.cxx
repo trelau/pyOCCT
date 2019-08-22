@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_MyBSplGradientOfTheComputeLineOfWLApprox(py::module &mod){
 
-py::class_<GeomInt_MyBSplGradientOfTheComputeLineOfWLApprox, std::unique_ptr<GeomInt_MyBSplGradientOfTheComputeLineOfWLApprox>> cls_GeomInt_MyBSplGradientOfTheComputeLineOfWLApprox(mod, "GeomInt_MyBSplGradientOfTheComputeLineOfWLApprox", "None");
+py::class_<GeomInt_MyBSplGradientOfTheComputeLineOfWLApprox> cls_GeomInt_MyBSplGradientOfTheComputeLineOfWLApprox(mod, "GeomInt_MyBSplGradientOfTheComputeLineOfWLApprox", "None");
 
 // Constructors
 cls_GeomInt_MyBSplGradientOfTheComputeLineOfWLApprox.def(py::init<const GeomInt_TheMultiLineOfWLApprox &, const Standard_Integer, const Standard_Integer, const opencascade::handle<AppParCurves_HArray1OfConstraintCouple> &, math_Vector &, const TColStd_Array1OfReal &, const TColStd_Array1OfInteger &, const Standard_Integer, const Standard_Real, const Standard_Real>(), py::arg("SSP"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("TheConstraints"), py::arg("Parameters"), py::arg("Knots"), py::arg("Mults"), py::arg("Deg"), py::arg("Tol3d"), py::arg("Tol2d"));

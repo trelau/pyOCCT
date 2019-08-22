@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_Root(py::module &mod){
 
-py::class_<IntTools_Root, std::unique_ptr<IntTools_Root>> cls_IntTools_Root(mod, "IntTools_Root", "The class is to describe the root of function of one variable for Edge/Edge and Edge/Surface algorithms.");
+py::class_<IntTools_Root> cls_IntTools_Root(mod, "IntTools_Root", "The class is to describe the root of function of one variable for Edge/Edge and Edge/Surface algorithms.");
 
 // Constructors
 cls_IntTools_Root.def(py::init<>());

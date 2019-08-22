@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRep_Point2d(py::module &mod){
 
-py::class_<TopOpeBRep_Point2d, std::unique_ptr<TopOpeBRep_Point2d>> cls_TopOpeBRep_Point2d(mod, "TopOpeBRep_Point2d", "None");
+py::class_<TopOpeBRep_Point2d> cls_TopOpeBRep_Point2d(mod, "TopOpeBRep_Point2d", "None");
 
 // Constructors
 cls_TopOpeBRep_Point2d.def(py::init<>());

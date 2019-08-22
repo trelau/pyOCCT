@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Blend_SurfPointFuncInv(py::module &mod){
 
-py::class_<Blend_SurfPointFuncInv, std::unique_ptr<Blend_SurfPointFuncInv>, math_FunctionSetWithDerivatives> cls_Blend_SurfPointFuncInv(mod, "Blend_SurfPointFuncInv", "Deferred class for a function used to compute a blending surface between a surface and a curve, using a guide line. This function is used to find a solution on a done point of the curve.");
+py::class_<Blend_SurfPointFuncInv, math_FunctionSetWithDerivatives> cls_Blend_SurfPointFuncInv(mod, "Blend_SurfPointFuncInv", "Deferred class for a function used to compute a blending surface between a surface and a curve, using a guide line. This function is used to find a solution on a done point of the curve.");
 
 // Fields
 

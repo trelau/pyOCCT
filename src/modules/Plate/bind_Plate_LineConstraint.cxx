@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Plate_LineConstraint(py::module &mod){
 
-py::class_<Plate_LineConstraint, std::unique_ptr<Plate_LineConstraint>> cls_Plate_LineConstraint(mod, "Plate_LineConstraint", "constraint a point to belong to a straight line");
+py::class_<Plate_LineConstraint> cls_Plate_LineConstraint(mod, "Plate_LineConstraint", "constraint a point to belong to a straight line");
 
 // Constructors
 cls_Plate_LineConstraint.def(py::init<const gp_XY &, const gp_Lin &>(), py::arg("point2d"), py::arg("lin"));

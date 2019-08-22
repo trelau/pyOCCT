@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GC_MakeTranslation(py::module &mod){
 
-py::class_<GC_MakeTranslation, std::unique_ptr<GC_MakeTranslation>> cls_GC_MakeTranslation(mod, "GC_MakeTranslation", "This class implements elementary construction algorithms for a translation in 3D space. The result is a Geom_Transformation transformation. A MakeTranslation object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.");
+py::class_<GC_MakeTranslation> cls_GC_MakeTranslation(mod, "GC_MakeTranslation", "This class implements elementary construction algorithms for a translation in 3D space. The result is a Geom_Transformation transformation. A MakeTranslation object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_GC_MakeTranslation.def(py::init<const gp_Vec &>(), py::arg("Vect"));

@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBlend_CSWalking(py::module &mod){
 
-py::class_<BRepBlend_CSWalking, std::unique_ptr<BRepBlend_CSWalking>> cls_BRepBlend_CSWalking(mod, "BRepBlend_CSWalking", "None");
+py::class_<BRepBlend_CSWalking> cls_BRepBlend_CSWalking(mod, "BRepBlend_CSWalking", "None");
 
 // Constructors
 cls_BRepBlend_CSWalking.def(py::init<const opencascade::handle<Adaptor3d_HCurve> &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_TopolTool> &>(), py::arg("Curv"), py::arg("Surf"), py::arg("Domain"));

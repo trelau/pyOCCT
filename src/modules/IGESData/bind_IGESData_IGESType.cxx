@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESData_IGESType(py::module &mod){
 
-py::class_<IGESData_IGESType, std::unique_ptr<IGESData_IGESType>> cls_IGESData_IGESType(mod, "IGESData_IGESType", "taken from directory part of an entity (from file or model), gives 'type' and 'form' data, used to recognize entity's type");
+py::class_<IGESData_IGESType> cls_IGESData_IGESType(mod, "IGESData_IGESType", "taken from directory part of an entity (from file or model), gives 'type' and 'form' data, used to recognize entity's type");
 
 // Constructors
 cls_IGESData_IGESType.def(py::init<>());

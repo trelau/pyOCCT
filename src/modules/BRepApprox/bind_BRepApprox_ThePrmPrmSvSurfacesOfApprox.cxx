@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepApprox_ThePrmPrmSvSurfacesOfApprox(py::module &mod){
 
-py::class_<BRepApprox_ThePrmPrmSvSurfacesOfApprox, std::unique_ptr<BRepApprox_ThePrmPrmSvSurfacesOfApprox>, ApproxInt_SvSurfaces> cls_BRepApprox_ThePrmPrmSvSurfacesOfApprox(mod, "BRepApprox_ThePrmPrmSvSurfacesOfApprox", "None");
+py::class_<BRepApprox_ThePrmPrmSvSurfacesOfApprox, ApproxInt_SvSurfaces> cls_BRepApprox_ThePrmPrmSvSurfacesOfApprox(mod, "BRepApprox_ThePrmPrmSvSurfacesOfApprox", "None");
 
 // Constructors
 cls_BRepApprox_ThePrmPrmSvSurfacesOfApprox.def(py::init<const BRepAdaptor_Surface &, const BRepAdaptor_Surface &>(), py::arg("Surf1"), py::arg("Surf2"));

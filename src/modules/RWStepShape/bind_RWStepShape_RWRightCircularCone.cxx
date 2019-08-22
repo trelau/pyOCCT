@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWRightCircularCone(py::module &mod){
 
-py::class_<RWStepShape_RWRightCircularCone, std::unique_ptr<RWStepShape_RWRightCircularCone>> cls_RWStepShape_RWRightCircularCone(mod, "RWStepShape_RWRightCircularCone", "Read & Write Module for RightCircularCone");
+py::class_<RWStepShape_RWRightCircularCone> cls_RWStepShape_RWRightCircularCone(mod, "RWStepShape_RWRightCircularCone", "Read & Write Module for RightCircularCone");
 
 // Constructors
 cls_RWStepShape_RWRightCircularCone.def(py::init<>());

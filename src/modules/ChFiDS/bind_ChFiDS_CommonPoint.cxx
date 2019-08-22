@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFiDS_CommonPoint(py::module &mod){
 
-py::class_<ChFiDS_CommonPoint, std::unique_ptr<ChFiDS_CommonPoint>> cls_ChFiDS_CommonPoint(mod, "ChFiDS_CommonPoint", "point start/end of fillet common to 2 adjacent filets and to an edge on one of 2 faces participating in the construction of the fillet");
+py::class_<ChFiDS_CommonPoint> cls_ChFiDS_CommonPoint(mod, "ChFiDS_CommonPoint", "point start/end of fillet common to 2 adjacent filets and to an edge on one of 2 faces participating in the construction of the fillet");
 
 // Constructors
 cls_ChFiDS_CommonPoint.def(py::init<>());

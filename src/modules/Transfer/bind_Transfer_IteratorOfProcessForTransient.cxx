@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Transfer_IteratorOfProcessForTransient(py::module &mod){
 
-py::class_<Transfer_IteratorOfProcessForTransient, std::unique_ptr<Transfer_IteratorOfProcessForTransient>, Transfer_TransferIterator> cls_Transfer_IteratorOfProcessForTransient(mod, "Transfer_IteratorOfProcessForTransient", "None");
+py::class_<Transfer_IteratorOfProcessForTransient, Transfer_TransferIterator> cls_Transfer_IteratorOfProcessForTransient(mod, "Transfer_IteratorOfProcessForTransient", "None");
 
 // Constructors
 cls_Transfer_IteratorOfProcessForTransient.def(py::init<const Standard_Boolean>(), py::arg("withstarts"));

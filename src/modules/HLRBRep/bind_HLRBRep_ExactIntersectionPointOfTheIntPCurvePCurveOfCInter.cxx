@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_ExactIntersectionPointOfTheIntPCurvePCurveOfCInter(py::module &mod){
 
-py::class_<HLRBRep_ExactIntersectionPointOfTheIntPCurvePCurveOfCInter, std::unique_ptr<HLRBRep_ExactIntersectionPointOfTheIntPCurvePCurveOfCInter>> cls_HLRBRep_ExactIntersectionPointOfTheIntPCurvePCurveOfCInter(mod, "HLRBRep_ExactIntersectionPointOfTheIntPCurvePCurveOfCInter", "None");
+py::class_<HLRBRep_ExactIntersectionPointOfTheIntPCurvePCurveOfCInter> cls_HLRBRep_ExactIntersectionPointOfTheIntPCurvePCurveOfCInter(mod, "HLRBRep_ExactIntersectionPointOfTheIntPCurvePCurveOfCInter", "None");
 
 // Constructors
 cls_HLRBRep_ExactIntersectionPointOfTheIntPCurvePCurveOfCInter.def(py::init<const Standard_Address &, const Standard_Address &, const Standard_Real>(), py::arg("C1"), py::arg("C2"), py::arg("Tol"));

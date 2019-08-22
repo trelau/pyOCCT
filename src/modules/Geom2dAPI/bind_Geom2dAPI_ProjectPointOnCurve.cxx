@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dAPI_ProjectPointOnCurve(py::module &mod){
 
-py::class_<Geom2dAPI_ProjectPointOnCurve, std::unique_ptr<Geom2dAPI_ProjectPointOnCurve>> cls_Geom2dAPI_ProjectPointOnCurve(mod, "Geom2dAPI_ProjectPointOnCurve", "This class implements methods for computing all the orthogonal projections of a 2D point onto a 2D curve.");
+py::class_<Geom2dAPI_ProjectPointOnCurve> cls_Geom2dAPI_ProjectPointOnCurve(mod, "Geom2dAPI_ProjectPointOnCurve", "This class implements methods for computing all the orthogonal projections of a 2D point onto a 2D curve.");
 
 // Constructors
 cls_Geom2dAPI_ProjectPointOnCurve.def(py::init<>());

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeParabola(py::module &mod){
 
-py::class_<GeomToStep_MakeParabola, std::unique_ptr<GeomToStep_MakeParabola>, GeomToStep_Root> cls_GeomToStep_MakeParabola(mod, "GeomToStep_MakeParabola", "This class implements the mapping between the class Parabola from Geom and the class Parabola from StepGeom which describes a Parabola from ProSTEP");
+py::class_<GeomToStep_MakeParabola, GeomToStep_Root> cls_GeomToStep_MakeParabola(mod, "GeomToStep_MakeParabola", "This class implements the mapping between the class Parabola from Geom and the class Parabola from StepGeom which describes a Parabola from ProSTEP");
 
 // Constructors
 cls_GeomToStep_MakeParabola.def(py::init<const opencascade::handle<Geom2d_Parabola> &>(), py::arg("C"));

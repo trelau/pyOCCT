@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopTools_LocationSet(py::module &mod){
 
-py::class_<TopTools_LocationSet, std::unique_ptr<TopTools_LocationSet>> cls_TopTools_LocationSet(mod, "TopTools_LocationSet", "The class LocationSet stores a set of location in a relocatable state.");
+py::class_<TopTools_LocationSet> cls_TopTools_LocationSet(mod, "TopTools_LocationSet", "The class LocationSet stores a set of location in a relocatable state.");
 
 // Constructors
 cls_TopTools_LocationSet.def(py::init<>());

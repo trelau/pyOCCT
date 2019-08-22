@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Convert_CircleToBSplineCurve(py::module &mod){
 
-py::class_<Convert_CircleToBSplineCurve, std::unique_ptr<Convert_CircleToBSplineCurve>, Convert_ConicToBSplineCurve> cls_Convert_CircleToBSplineCurve(mod, "Convert_CircleToBSplineCurve", "This algorithm converts a circle into a rational B-spline curve. The circle is a Circ2d from package gp and its parametrization is : P (U) = Loc + R * (Cos(U) * Xdir + Sin(U) * YDir) where Loc is the center of the circle Xdir and Ydir are the normalized directions of the local cartesian coordinate system of the circle. The parametrization range for the circle is U [0, 2Pi].");
+py::class_<Convert_CircleToBSplineCurve, Convert_ConicToBSplineCurve> cls_Convert_CircleToBSplineCurve(mod, "Convert_CircleToBSplineCurve", "This algorithm converts a circle into a rational B-spline curve. The circle is a Circ2d from package gp and its parametrization is : P (U) = Loc + R * (Cos(U) * Xdir + Sin(U) * YDir) where Loc is the center of the circle Xdir and Ydir are the normalized directions of the local cartesian coordinate system of the circle. The parametrization range for the circle is U [0, 2Pi].");
 
 // Constructors
 cls_Convert_CircleToBSplineCurve.def(py::init<const gp_Circ2d &>(), py::arg("C"));

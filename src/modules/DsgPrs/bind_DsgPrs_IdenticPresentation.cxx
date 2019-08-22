@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_IdenticPresentation(py::module &mod){
 
-py::class_<DsgPrs_IdenticPresentation, std::unique_ptr<DsgPrs_IdenticPresentation>> cls_DsgPrs_IdenticPresentation(mod, "DsgPrs_IdenticPresentation", "None");
+py::class_<DsgPrs_IdenticPresentation> cls_DsgPrs_IdenticPresentation(mod, "DsgPrs_IdenticPresentation", "None");
 
 // Constructors
 

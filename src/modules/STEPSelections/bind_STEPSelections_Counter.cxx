@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPSelections_Counter(py::module &mod){
 
-py::class_<STEPSelections_Counter, std::unique_ptr<STEPSelections_Counter>> cls_STEPSelections_Counter(mod, "STEPSelections_Counter", "None");
+py::class_<STEPSelections_Counter> cls_STEPSelections_Counter(mod, "STEPSelections_Counter", "None");
 
 // Constructors
 cls_STEPSelections_Counter.def(py::init<>());

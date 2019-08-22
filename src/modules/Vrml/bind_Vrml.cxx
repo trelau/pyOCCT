@@ -66,7 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml(py::module &mod){
 
-py::class_<Vrml, std::unique_ptr<Vrml>> cls_Vrml(mod, "Vrml", "Vrml package implements the specification of the VRML ( Virtual Reality Modeling Language ). VRML is a standard language for describing interactive 3-D objects and worlds delivered across Internet. Actual version of Vrml package have made for objects of VRML version 1.0. This package is used by VrmlConverter package. The developer should already be familiar with VRML specification before using this package.");
+py::class_<Vrml> cls_Vrml(mod, "Vrml", "Vrml package implements the specification of the VRML ( Virtual Reality Modeling Language ). VRML is a standard language for describing interactive 3-D objects and worlds delivered across Internet. Actual version of Vrml package have made for objects of VRML version 1.0. This package is used by VrmlConverter package. The developer should already be familiar with VRML specification before using this package.");
 
 // Constructors
 

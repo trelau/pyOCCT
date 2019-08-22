@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolEllipsoid(py::module &mod){
 
-py::class_<IGESSolid_ToolEllipsoid, std::unique_ptr<IGESSolid_ToolEllipsoid>> cls_IGESSolid_ToolEllipsoid(mod, "IGESSolid_ToolEllipsoid", "Tool to work on a Ellipsoid. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolEllipsoid> cls_IGESSolid_ToolEllipsoid(mod, "IGESSolid_ToolEllipsoid", "Tool to work on a Ellipsoid. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolEllipsoid.def(py::init<>());

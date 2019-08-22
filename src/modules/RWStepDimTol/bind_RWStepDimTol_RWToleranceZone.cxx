@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWToleranceZone(py::module &mod){
 
-py::class_<RWStepDimTol_RWToleranceZone, std::unique_ptr<RWStepDimTol_RWToleranceZone>> cls_RWStepDimTol_RWToleranceZone(mod, "RWStepDimTol_RWToleranceZone", "Read & Write tool for ToleranceZone");
+py::class_<RWStepDimTol_RWToleranceZone> cls_RWStepDimTol_RWToleranceZone(mod, "RWStepDimTol_RWToleranceZone", "Read & Write tool for ToleranceZone");
 
 // Constructors
 cls_RWStepDimTol_RWToleranceZone.def(py::init<>());

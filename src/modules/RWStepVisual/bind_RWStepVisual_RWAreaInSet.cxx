@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWAreaInSet(py::module &mod){
 
-py::class_<RWStepVisual_RWAreaInSet, std::unique_ptr<RWStepVisual_RWAreaInSet>> cls_RWStepVisual_RWAreaInSet(mod, "RWStepVisual_RWAreaInSet", "Read & Write Module for AreaInSet");
+py::class_<RWStepVisual_RWAreaInSet> cls_RWStepVisual_RWAreaInSet(mod, "RWStepVisual_RWAreaInSet", "Read & Write Module for AreaInSet");
 
 // Constructors
 cls_RWStepVisual_RWAreaInSet.def(py::init<>());

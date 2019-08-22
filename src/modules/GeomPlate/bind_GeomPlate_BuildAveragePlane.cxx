@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomPlate_BuildAveragePlane(py::module &mod){
 
-py::class_<GeomPlate_BuildAveragePlane, std::unique_ptr<GeomPlate_BuildAveragePlane>> cls_GeomPlate_BuildAveragePlane(mod, "GeomPlate_BuildAveragePlane", "This class computes an average inertial plane with an array of points. Computes the initial surface (average plane) in the cases when the initial surface is not given.");
+py::class_<GeomPlate_BuildAveragePlane> cls_GeomPlate_BuildAveragePlane(mod, "GeomPlate_BuildAveragePlane", "This class computes an average inertial plane with an array of points. Computes the initial surface (average plane) in the cases when the initial surface is not given.");
 
 // Constructors
 cls_GeomPlate_BuildAveragePlane.def(py::init<const opencascade::handle<TColgp_HArray1OfPnt> &, const Standard_Integer, const Standard_Real, const Standard_Integer, const Standard_Integer>(), py::arg("Pts"), py::arg("NbBoundPoints"), py::arg("Tol"), py::arg("POption"), py::arg("NOption"));

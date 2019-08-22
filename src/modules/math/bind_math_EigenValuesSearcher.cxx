@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_EigenValuesSearcher(py::module &mod){
 
-py::class_<math_EigenValuesSearcher, std::unique_ptr<math_EigenValuesSearcher>> cls_math_EigenValuesSearcher(mod, "math_EigenValuesSearcher", "This class finds eigen values and vectors of real symmetric tridiagonal matrix");
+py::class_<math_EigenValuesSearcher> cls_math_EigenValuesSearcher(mod, "math_EigenValuesSearcher", "This class finds eigen values and vectors of real symmetric tridiagonal matrix");
 
 // Constructors
 cls_math_EigenValuesSearcher.def(py::init<const TColStd_Array1OfReal &, const TColStd_Array1OfReal &>(), py::arg("Diagonal"), py::arg("Subdiagonal"));

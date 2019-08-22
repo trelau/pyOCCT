@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_Edge3dInterferenceTool(py::module &mod){
 
-py::class_<TopOpeBRepDS_Edge3dInterferenceTool, std::unique_ptr<TopOpeBRepDS_Edge3dInterferenceTool>> cls_TopOpeBRepDS_Edge3dInterferenceTool(mod, "TopOpeBRepDS_Edge3dInterferenceTool", "a tool computing edge / face complex transition, Interferences of edge reference are given by I = (T on face, G = point or vertex, S = edge)");
+py::class_<TopOpeBRepDS_Edge3dInterferenceTool> cls_TopOpeBRepDS_Edge3dInterferenceTool(mod, "TopOpeBRepDS_Edge3dInterferenceTool", "a tool computing edge / face complex transition, Interferences of edge reference are given by I = (T on face, G = point or vertex, S = edge)");
 
 // Constructors
 cls_TopOpeBRepDS_Edge3dInterferenceTool.def(py::init<>());

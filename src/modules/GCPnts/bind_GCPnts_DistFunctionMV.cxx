@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCPnts_DistFunctionMV(py::module &mod){
 
-py::class_<GCPnts_DistFunctionMV, std::unique_ptr<GCPnts_DistFunctionMV>, math_MultipleVarFunction> cls_GCPnts_DistFunctionMV(mod, "GCPnts_DistFunctionMV", "The same as class GCPnts_DistFunction, but it can be used in minimization algorithms that requires multi variable function");
+py::class_<GCPnts_DistFunctionMV, math_MultipleVarFunction> cls_GCPnts_DistFunctionMV(mod, "GCPnts_DistFunctionMV", "The same as class GCPnts_DistFunction, but it can be used in minimization algorithms that requires multi variable function");
 
 // Constructors
 cls_GCPnts_DistFunctionMV.def(py::init<GCPnts_DistFunction &>(), py::arg("theCurvLinDist"));

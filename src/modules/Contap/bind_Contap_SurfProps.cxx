@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Contap_SurfProps(py::module &mod){
 
-py::class_<Contap_SurfProps, std::unique_ptr<Contap_SurfProps>> cls_Contap_SurfProps(mod, "Contap_SurfProps", "Internal tool used to compute the normal and its derivatives.");
+py::class_<Contap_SurfProps> cls_Contap_SurfProps(mod, "Contap_SurfProps", "Internal tool used to compute the normal and its derivatives.");
 
 // Constructors
 

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GC_MakeEllipse(py::module &mod){
 
-py::class_<GC_MakeEllipse, std::unique_ptr<GC_MakeEllipse>, GC_Root> cls_GC_MakeEllipse(mod, "GC_MakeEllipse", "This class implements construction algorithms for an ellipse in 3D space. The result is a Geom_Ellipse ellipse. A MakeEllipse object provides a framework for: - defining the construction of the ellipse, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed ellipse.");
+py::class_<GC_MakeEllipse, GC_Root> cls_GC_MakeEllipse(mod, "GC_MakeEllipse", "This class implements construction algorithms for an ellipse in 3D space. The result is a Geom_Ellipse ellipse. A MakeEllipse object provides a framework for: - defining the construction of the ellipse, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed ellipse.");
 
 // Constructors
 cls_GC_MakeEllipse.def(py::init<const gp_Elips &>(), py::arg("E"));

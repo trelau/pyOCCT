@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWEdgeBasedWireframeShapeRepresentation(py::module &mod){
 
-py::class_<RWStepShape_RWEdgeBasedWireframeShapeRepresentation, std::unique_ptr<RWStepShape_RWEdgeBasedWireframeShapeRepresentation>> cls_RWStepShape_RWEdgeBasedWireframeShapeRepresentation(mod, "RWStepShape_RWEdgeBasedWireframeShapeRepresentation", "Read & Write tool for EdgeBasedWireframeShapeRepresentation");
+py::class_<RWStepShape_RWEdgeBasedWireframeShapeRepresentation> cls_RWStepShape_RWEdgeBasedWireframeShapeRepresentation(mod, "RWStepShape_RWEdgeBasedWireframeShapeRepresentation", "Read & Write tool for EdgeBasedWireframeShapeRepresentation");
 
 // Constructors
 cls_RWStepShape_RWEdgeBasedWireframeShapeRepresentation.def(py::init<>());

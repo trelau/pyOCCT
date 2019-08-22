@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESBasic_ToolSingleParent(py::module &mod){
 
-py::class_<IGESBasic_ToolSingleParent, std::unique_ptr<IGESBasic_ToolSingleParent>> cls_IGESBasic_ToolSingleParent(mod, "IGESBasic_ToolSingleParent", "Tool to work on a SingleParent. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESBasic_ToolSingleParent> cls_IGESBasic_ToolSingleParent(mod, "IGESBasic_ToolSingleParent", "Tool to work on a SingleParent. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESBasic_ToolSingleParent.def(py::init<>());

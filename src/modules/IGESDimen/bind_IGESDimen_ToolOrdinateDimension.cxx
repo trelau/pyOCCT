@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolOrdinateDimension(py::module &mod){
 
-py::class_<IGESDimen_ToolOrdinateDimension, std::unique_ptr<IGESDimen_ToolOrdinateDimension>> cls_IGESDimen_ToolOrdinateDimension(mod, "IGESDimen_ToolOrdinateDimension", "Tool to work on a OrdinateDimension. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolOrdinateDimension> cls_IGESDimen_ToolOrdinateDimension(mod, "IGESDimen_ToolOrdinateDimension", "Tool to work on a OrdinateDimension. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolOrdinateDimension.def(py::init<>());

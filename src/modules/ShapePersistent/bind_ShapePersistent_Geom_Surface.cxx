@@ -55,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_ShapePersistent_Geom_Surface(py::module &mod){
 
 /*
-py::class_<ShapePersistent_Geom_Surface, std::unique_ptr<ShapePersistent_Geom_Surface>> cls_ShapePersistent_Geom_Surface(mod, "ShapePersistent_Geom_Surface", "None");
+py::class_<ShapePersistent_Geom_Surface> cls_ShapePersistent_Geom_Surface(mod, "ShapePersistent_Geom_Surface", "None");
 
 // Constructors
 

@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGraph_ToolDefinitionLevel(py::module &mod){
 
-py::class_<IGESGraph_ToolDefinitionLevel, std::unique_ptr<IGESGraph_ToolDefinitionLevel>> cls_IGESGraph_ToolDefinitionLevel(mod, "IGESGraph_ToolDefinitionLevel", "Tool to work on a DefinitionLevel. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGraph_ToolDefinitionLevel> cls_IGESGraph_ToolDefinitionLevel(mod, "IGESGraph_ToolDefinitionLevel", "Tool to work on a DefinitionLevel. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGraph_ToolDefinitionLevel.def(py::init<>());

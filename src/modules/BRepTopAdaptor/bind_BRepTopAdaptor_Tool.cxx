@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepTopAdaptor_Tool(py::module &mod){
 
-py::class_<BRepTopAdaptor_Tool, std::unique_ptr<BRepTopAdaptor_Tool>> cls_BRepTopAdaptor_Tool(mod, "BRepTopAdaptor_Tool", "None");
+py::class_<BRepTopAdaptor_Tool> cls_BRepTopAdaptor_Tool(mod, "BRepTopAdaptor_Tool", "None");
 
 // Constructors
 cls_BRepTopAdaptor_Tool.def(py::init<>());

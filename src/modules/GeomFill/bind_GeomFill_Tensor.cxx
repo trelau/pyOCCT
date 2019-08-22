@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_Tensor(py::module &mod){
 
-py::class_<GeomFill_Tensor, std::unique_ptr<GeomFill_Tensor>> cls_GeomFill_Tensor(mod, "GeomFill_Tensor", "used to store the 'gradient of gradient'");
+py::class_<GeomFill_Tensor> cls_GeomFill_Tensor(mod, "GeomFill_Tensor", "used to store the 'gradient of gradient'");
 
 // Constructors
 cls_GeomFill_Tensor.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("NbRow"), py::arg("NbCol"), py::arg("NbMat"));

@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_InterCSurf(py::module &mod){
 
-py::class_<HLRBRep_InterCSurf, std::unique_ptr<HLRBRep_InterCSurf>, IntCurveSurface_Intersection> cls_HLRBRep_InterCSurf(mod, "HLRBRep_InterCSurf", "None");
+py::class_<HLRBRep_InterCSurf, IntCurveSurface_Intersection> cls_HLRBRep_InterCSurf(mod, "HLRBRep_InterCSurf", "None");
 
 // Constructors
 cls_HLRBRep_InterCSurf.def(py::init<>());

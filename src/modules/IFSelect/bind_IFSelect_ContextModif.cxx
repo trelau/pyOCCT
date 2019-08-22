@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFSelect_ContextModif(py::module &mod){
 
-py::class_<IFSelect_ContextModif, std::unique_ptr<IFSelect_ContextModif>> cls_IFSelect_ContextModif(mod, "IFSelect_ContextModif", "This class gathers various informations used by Model Modifiers apart from the target model itself, and the CopyTool which must be passed directly.");
+py::class_<IFSelect_ContextModif> cls_IFSelect_ContextModif(mod, "IFSelect_ContextModif", "This class gathers various informations used by Model Modifiers apart from the target model itself, and the CopyTool which must be passed directly.");
 
 // Constructors
 cls_IFSelect_ContextModif.def(py::init<const Interface_Graph &, const Interface_CopyTool &>(), py::arg("graph"), py::arg("TC"));

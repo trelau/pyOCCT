@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeAnalysis_WireVertex(py::module &mod){
 
-py::class_<ShapeAnalysis_WireVertex, std::unique_ptr<ShapeAnalysis_WireVertex>> cls_ShapeAnalysis_WireVertex(mod, "ShapeAnalysis_WireVertex", "Analyzes and records status of vertices in a Wire");
+py::class_<ShapeAnalysis_WireVertex> cls_ShapeAnalysis_WireVertex(mod, "ShapeAnalysis_WireVertex", "Analyzes and records status of vertices in a Wire");
 
 // Constructors
 cls_ShapeAnalysis_WireVertex.def(py::init<>());

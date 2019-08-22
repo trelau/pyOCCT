@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWGeometricToleranceWithDatumReference(py::module &mod){
 
-py::class_<RWStepDimTol_RWGeometricToleranceWithDatumReference, std::unique_ptr<RWStepDimTol_RWGeometricToleranceWithDatumReference>> cls_RWStepDimTol_RWGeometricToleranceWithDatumReference(mod, "RWStepDimTol_RWGeometricToleranceWithDatumReference", "Read & Write tool for GeometricToleranceWithDatumReference");
+py::class_<RWStepDimTol_RWGeometricToleranceWithDatumReference> cls_RWStepDimTol_RWGeometricToleranceWithDatumReference(mod, "RWStepDimTol_RWGeometricToleranceWithDatumReference", "Read & Write tool for GeometricToleranceWithDatumReference");
 
 // Constructors
 cls_RWStepDimTol_RWGeometricToleranceWithDatumReference.def(py::init<>());

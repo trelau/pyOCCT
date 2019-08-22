@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrim_Wedge(py::module &mod){
 
-py::class_<BRepPrim_Wedge, std::unique_ptr<BRepPrim_Wedge>, BRepPrim_GWedge> cls_BRepPrim_Wedge(mod, "BRepPrim_Wedge", "Provides constructors without Builders.");
+py::class_<BRepPrim_Wedge, BRepPrim_GWedge> cls_BRepPrim_Wedge(mod, "BRepPrim_Wedge", "Provides constructors without Builders.");
 
 // Constructors
 cls_BRepPrim_Wedge.def(py::init<const gp_Ax2 &, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("Axes"), py::arg("dx"), py::arg("dy"), py::arg("dz"));

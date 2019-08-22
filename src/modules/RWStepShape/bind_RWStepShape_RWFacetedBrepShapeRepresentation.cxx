@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWFacetedBrepShapeRepresentation(py::module &mod){
 
-py::class_<RWStepShape_RWFacetedBrepShapeRepresentation, std::unique_ptr<RWStepShape_RWFacetedBrepShapeRepresentation>> cls_RWStepShape_RWFacetedBrepShapeRepresentation(mod, "RWStepShape_RWFacetedBrepShapeRepresentation", "Read & Write Module for FacetedBrepShapeRepresentation");
+py::class_<RWStepShape_RWFacetedBrepShapeRepresentation> cls_RWStepShape_RWFacetedBrepShapeRepresentation(mod, "RWStepShape_RWFacetedBrepShapeRepresentation", "Read & Write Module for FacetedBrepShapeRepresentation");
 
 // Constructors
 cls_RWStepShape_RWFacetedBrepShapeRepresentation.def(py::init<>());

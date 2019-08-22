@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_TextParam(py::module &mod){
 
-py::class_<OpenGl_TextParam, std::unique_ptr<OpenGl_TextParam>> cls_OpenGl_TextParam(mod, "OpenGl_TextParam", "None");
+py::class_<OpenGl_TextParam> cls_OpenGl_TextParam(mod, "OpenGl_TextParam", "None");
 
 // Constructors
 

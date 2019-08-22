@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocOpe_SplitShape(py::module &mod){
 
-py::class_<LocOpe_SplitShape, std::unique_ptr<LocOpe_SplitShape>> cls_LocOpe_SplitShape(mod, "LocOpe_SplitShape", "Provides a tool to cut : - edges with a vertices, - faces with wires, and rebuilds the shape containing the edges and the faces.");
+py::class_<LocOpe_SplitShape> cls_LocOpe_SplitShape(mod, "LocOpe_SplitShape", "Provides a tool to cut : - edges with a vertices, - faces with wires, and rebuilds the shape containing the edges and the faces.");
 
 // Constructors
 cls_LocOpe_SplitShape.def(py::init<>());

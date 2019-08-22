@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWFeaShellMembraneStiffness(py::module &mod){
 
-py::class_<RWStepFEA_RWFeaShellMembraneStiffness, std::unique_ptr<RWStepFEA_RWFeaShellMembraneStiffness>> cls_RWStepFEA_RWFeaShellMembraneStiffness(mod, "RWStepFEA_RWFeaShellMembraneStiffness", "Read & Write tool for FeaShellMembraneStiffness");
+py::class_<RWStepFEA_RWFeaShellMembraneStiffness> cls_RWStepFEA_RWFeaShellMembraneStiffness(mod, "RWStepFEA_RWFeaShellMembraneStiffness", "Read & Write tool for FeaShellMembraneStiffness");
 
 // Constructors
 cls_RWStepFEA_RWFeaShellMembraneStiffness.def(py::init<>());

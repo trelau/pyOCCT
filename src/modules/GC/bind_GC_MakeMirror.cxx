@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GC_MakeMirror(py::module &mod){
 
-py::class_<GC_MakeMirror, std::unique_ptr<GC_MakeMirror>> cls_GC_MakeMirror(mod, "GC_MakeMirror", "This class implements elementary construction algorithms for a symmetrical transformation in 3D space about a point, axis or plane. The result is a Geom_Transformation transformation. A MakeMirror object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.");
+py::class_<GC_MakeMirror> cls_GC_MakeMirror(mod, "GC_MakeMirror", "This class implements elementary construction algorithms for a symmetrical transformation in 3D space about a point, axis or plane. The result is a Geom_Transformation transformation. A MakeMirror object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_GC_MakeMirror.def(py::init<const gp_Pnt &>(), py::arg("Point"));

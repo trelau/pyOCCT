@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_DirectoryIterator(py::module &mod){
 
-py::class_<OSD_DirectoryIterator, std::unique_ptr<OSD_DirectoryIterator>> cls_OSD_DirectoryIterator(mod, "OSD_DirectoryIterator", "Manages a breadth-only search for sub-directories in the specified Path. There is no specific order of results.");
+py::class_<OSD_DirectoryIterator> cls_OSD_DirectoryIterator(mod, "OSD_DirectoryIterator", "Manages a breadth-only search for sub-directories in the specified Path. There is no specific order of results.");
 
 // Constructors
 cls_OSD_DirectoryIterator.def(py::init<>());

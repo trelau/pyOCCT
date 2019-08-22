@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDraw_ToolSegmentedViewsVisible(py::module &mod){
 
-py::class_<IGESDraw_ToolSegmentedViewsVisible, std::unique_ptr<IGESDraw_ToolSegmentedViewsVisible>> cls_IGESDraw_ToolSegmentedViewsVisible(mod, "IGESDraw_ToolSegmentedViewsVisible", "Tool to work on a SegmentedViewsVisible. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDraw_ToolSegmentedViewsVisible> cls_IGESDraw_ToolSegmentedViewsVisible(mod, "IGESDraw_ToolSegmentedViewsVisible", "Tool to work on a SegmentedViewsVisible. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDraw_ToolSegmentedViewsVisible.def(py::init<>());

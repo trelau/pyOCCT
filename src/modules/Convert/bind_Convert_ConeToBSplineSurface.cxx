@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Convert_ConeToBSplineSurface(py::module &mod){
 
-py::class_<Convert_ConeToBSplineSurface, std::unique_ptr<Convert_ConeToBSplineSurface>, Convert_ElementarySurfaceToBSplineSurface> cls_Convert_ConeToBSplineSurface(mod, "Convert_ConeToBSplineSurface", "This algorithm converts a bounded Cone into a rational B-spline surface. The cone a Cone from package gp. Its parametrization is : P (U, V) = Loc + V * Zdir + (R + V*Tan(Ang)) * (Cos(U)*Xdir + Sin(U)*Ydir) where Loc is the location point of the cone, Xdir, Ydir and Zdir are the normalized directions of the local cartesian coordinate system of the cone (Zdir is the direction of the Cone's axis) , Ang is the cone semi-angle. The U parametrization range is [0, 2PI]. KeyWords : Convert, Cone, BSplineSurface.");
+py::class_<Convert_ConeToBSplineSurface, Convert_ElementarySurfaceToBSplineSurface> cls_Convert_ConeToBSplineSurface(mod, "Convert_ConeToBSplineSurface", "This algorithm converts a bounded Cone into a rational B-spline surface. The cone a Cone from package gp. Its parametrization is : P (U, V) = Loc + V * Zdir + (R + V*Tan(Ang)) * (Cos(U)*Xdir + Sin(U)*Ydir) where Loc is the location point of the cone, Xdir, Ydir and Zdir are the normalized directions of the local cartesian coordinate system of the cone (Zdir is the direction of the Cone's axis) , Ang is the cone semi-angle. The U parametrization range is [0, 2PI]. KeyWords : Convert, Cone, BSplineSurface.");
 
 // Constructors
 cls_Convert_ConeToBSplineSurface.def(py::init<const gp_Cone &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("C"), py::arg("U1"), py::arg("U2"), py::arg("V1"), py::arg("V2"));

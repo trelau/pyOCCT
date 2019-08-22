@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_SearchPnt(py::module &mod){
 
-py::class_<Intf_InterferencePolygon2d, std::unique_ptr<Intf_InterferencePolygon2d>, Intf_Interference> cls_IntPatch_SearchPnt(mod, "IntPatch_SearchPnt", "Computes the interference between two polygons or the self intersection of a polygon in two dimensions.", py::module_local());
+py::class_<Intf_InterferencePolygon2d, Intf_Interference> cls_IntPatch_SearchPnt(mod, "IntPatch_SearchPnt", "Computes the interference between two polygons or the self intersection of a polygon in two dimensions.", py::module_local());
 
 // Constructors
 cls_IntPatch_SearchPnt.def(py::init<>());

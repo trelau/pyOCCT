@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWIntegerRepresentationItem(py::module &mod){
 
-py::class_<RWStepRepr_RWIntegerRepresentationItem, std::unique_ptr<RWStepRepr_RWIntegerRepresentationItem>> cls_RWStepRepr_RWIntegerRepresentationItem(mod, "RWStepRepr_RWIntegerRepresentationItem", "Read & Write Module for IntegerRepresentationItem");
+py::class_<RWStepRepr_RWIntegerRepresentationItem> cls_RWStepRepr_RWIntegerRepresentationItem(mod, "RWStepRepr_RWIntegerRepresentationItem", "Read & Write Module for IntegerRepresentationItem");
 
 // Constructors
 cls_RWStepRepr_RWIntegerRepresentationItem.def(py::init<>());

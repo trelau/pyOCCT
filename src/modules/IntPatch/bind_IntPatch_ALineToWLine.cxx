@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_ALineToWLine(py::module &mod){
 
-py::class_<IntPatch_ALineToWLine, std::unique_ptr<IntPatch_ALineToWLine>> cls_IntPatch_ALineToWLine(mod, "IntPatch_ALineToWLine", "None");
+py::class_<IntPatch_ALineToWLine> cls_IntPatch_ALineToWLine(mod, "IntPatch_ALineToWLine", "None");
 
 // Constructors
 cls_IntPatch_ALineToWLine.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &>(), py::arg("theS1"), py::arg("theS2"));

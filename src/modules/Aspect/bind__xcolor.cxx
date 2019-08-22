@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind__xcolor(py::module &mod){
 
-py::class_<_xcolor, std::unique_ptr<_xcolor>> cls__xcolor(mod, "_xcolor", "None");
+py::class_<_xcolor> cls__xcolor(mod, "_xcolor", "None");
 
 // Constructors
 

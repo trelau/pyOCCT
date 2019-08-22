@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_ThePathPointOfTheSOnBounds(py::module &mod){
 
-py::class_<IntPatch_ThePathPointOfTheSOnBounds, std::unique_ptr<IntPatch_ThePathPointOfTheSOnBounds>> cls_IntPatch_ThePathPointOfTheSOnBounds(mod, "IntPatch_ThePathPointOfTheSOnBounds", "None");
+py::class_<IntPatch_ThePathPointOfTheSOnBounds> cls_IntPatch_ThePathPointOfTheSOnBounds(mod, "IntPatch_ThePathPointOfTheSOnBounds", "None");
 
 // Constructors
 cls_IntPatch_ThePathPointOfTheSOnBounds.def(py::init<>());

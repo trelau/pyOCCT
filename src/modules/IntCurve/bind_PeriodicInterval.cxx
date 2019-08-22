@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_PeriodicInterval(py::module &mod){
 
-py::class_<PeriodicInterval, std::unique_ptr<PeriodicInterval>> cls_PeriodicInterval(mod, "PeriodicInterval", "None");
+py::class_<PeriodicInterval> cls_PeriodicInterval(mod, "PeriodicInterval", "None");
 
 // Constructors
 cls_PeriodicInterval.def(py::init<const IntRes2d_Domain &>(), py::arg("Domain"));

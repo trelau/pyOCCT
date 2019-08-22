@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolConeFrustum(py::module &mod){
 
-py::class_<IGESSolid_ToolConeFrustum, std::unique_ptr<IGESSolid_ToolConeFrustum>> cls_IGESSolid_ToolConeFrustum(mod, "IGESSolid_ToolConeFrustum", "Tool to work on a ConeFrustum. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolConeFrustum> cls_IGESSolid_ToolConeFrustum(mod, "IGESSolid_ToolConeFrustum", "Tool to work on a ConeFrustum. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolConeFrustum.def(py::init<>());

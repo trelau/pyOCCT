@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDefs_ToolAssociativityDef(py::module &mod){
 
-py::class_<IGESDefs_ToolAssociativityDef, std::unique_ptr<IGESDefs_ToolAssociativityDef>> cls_IGESDefs_ToolAssociativityDef(mod, "IGESDefs_ToolAssociativityDef", "Tool to work on a AssociativityDef. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDefs_ToolAssociativityDef> cls_IGESDefs_ToolAssociativityDef(mod, "IGESDefs_ToolAssociativityDef", "Tool to work on a AssociativityDef. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDefs_ToolAssociativityDef.def(py::init<>());

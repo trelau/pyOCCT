@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dGcc_FunctionTanCuPnt(py::module &mod){
 
-py::class_<Geom2dGcc_FunctionTanCuPnt, std::unique_ptr<Geom2dGcc_FunctionTanCuPnt>, math_FunctionWithDerivative> cls_Geom2dGcc_FunctionTanCuPnt(mod, "Geom2dGcc_FunctionTanCuPnt", "This abstract class describes a Function of 1 Variable used to find a line tangent to a curve and passing through a point.");
+py::class_<Geom2dGcc_FunctionTanCuPnt, math_FunctionWithDerivative> cls_Geom2dGcc_FunctionTanCuPnt(mod, "Geom2dGcc_FunctionTanCuPnt", "This abstract class describes a Function of 1 Variable used to find a line tangent to a curve and passing through a point.");
 
 // Constructors
 cls_Geom2dGcc_FunctionTanCuPnt.def(py::init<const Geom2dAdaptor_Curve &, const gp_Pnt2d &>(), py::arg("C"), py::arg("Point"));

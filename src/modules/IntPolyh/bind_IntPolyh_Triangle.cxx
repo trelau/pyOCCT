@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPolyh_Triangle(py::module &mod){
 
-py::class_<IntPolyh_Triangle, std::unique_ptr<IntPolyh_Triangle>> cls_IntPolyh_Triangle(mod, "IntPolyh_Triangle", "The class represents the triangle built from three IntPolyh points and three IntPolyh edges.");
+py::class_<IntPolyh_Triangle> cls_IntPolyh_Triangle(mod, "IntPolyh_Triangle", "The class represents the triangle built from three IntPolyh points and three IntPolyh edges.");
 
 // Constructors
 cls_IntPolyh_Triangle.def(py::init<>());

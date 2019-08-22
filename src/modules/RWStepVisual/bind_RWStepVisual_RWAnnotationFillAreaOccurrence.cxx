@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWAnnotationFillAreaOccurrence(py::module &mod){
 
-py::class_<RWStepVisual_RWAnnotationFillAreaOccurrence, std::unique_ptr<RWStepVisual_RWAnnotationFillAreaOccurrence>> cls_RWStepVisual_RWAnnotationFillAreaOccurrence(mod, "RWStepVisual_RWAnnotationFillAreaOccurrence", "Read & Write Module for AnnotationFillAreaOccurrence");
+py::class_<RWStepVisual_RWAnnotationFillAreaOccurrence> cls_RWStepVisual_RWAnnotationFillAreaOccurrence(mod, "RWStepVisual_RWAnnotationFillAreaOccurrence", "Read & Write Module for AnnotationFillAreaOccurrence");
 
 // Constructors
 cls_RWStepVisual_RWAnnotationFillAreaOccurrence.def(py::init<>());

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPolyh_Point(py::module &mod){
 
-py::class_<IntPolyh_Point, std::unique_ptr<IntPolyh_Point>> cls_IntPolyh_Point(mod, "IntPolyh_Point", "The class represents the point on the surface with both 3D and 2D points.");
+py::class_<IntPolyh_Point> cls_IntPolyh_Point(mod, "IntPolyh_Point", "The class represents the point on the surface with both 3D and 2D points.");
 
 // Constructors
 cls_IntPolyh_Point.def(py::init<>());

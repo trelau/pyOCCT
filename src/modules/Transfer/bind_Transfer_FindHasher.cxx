@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Transfer_FindHasher(py::module &mod){
 
-py::class_<Transfer_FindHasher, std::unique_ptr<Transfer_FindHasher>> cls_Transfer_FindHasher(mod, "Transfer_FindHasher", "FindHasher defines HashCode for Finder, which is : ask a Finder its HashCode ! Because this is the Finder itself which brings the HashCode for its Key");
+py::class_<Transfer_FindHasher> cls_Transfer_FindHasher(mod, "Transfer_FindHasher", "FindHasher defines HashCode for Finder, which is : ask a Finder its HashCode ! Because this is the Finder itself which brings the HashCode for its Key");
 
 // Constructors
 

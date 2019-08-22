@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFi3d(py::module &mod){
 
-py::class_<ChFi3d, std::unique_ptr<ChFi3d>> cls_ChFi3d(mod, "ChFi3d", "creation of spatial fillets on a solid.");
+py::class_<ChFi3d> cls_ChFi3d(mod, "ChFi3d", "creation of spatial fillets on a solid.");
 
 // Constructors
 

@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Adaptor3d_IsoCurve(py::module &mod){
 
-py::class_<Adaptor3d_IsoCurve, std::unique_ptr<Adaptor3d_IsoCurve>, Adaptor3d_Curve> cls_Adaptor3d_IsoCurve(mod, "Adaptor3d_IsoCurve", "Defines an isoparametric curve on a surface. The type of isoparametric curve (U or V) is defined with the enumeration IsoType from GeomAbs if NoneIso is given an error is raised.");
+py::class_<Adaptor3d_IsoCurve, Adaptor3d_Curve> cls_Adaptor3d_IsoCurve(mod, "Adaptor3d_IsoCurve", "Defines an isoparametric curve on a surface. The type of isoparametric curve (U or V) is defined with the enumeration IsoType from GeomAbs if NoneIso is given an error is raised.");
 
 // Constructors
 cls_Adaptor3d_IsoCurve.def(py::init<>());

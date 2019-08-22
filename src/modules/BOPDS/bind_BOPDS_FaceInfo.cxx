@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPDS_FaceInfo(py::module &mod){
 
-py::class_<BOPDS_FaceInfo, std::unique_ptr<BOPDS_FaceInfo>> cls_BOPDS_FaceInfo(mod, "BOPDS_FaceInfo", "The class BOPDS_FaceInfo is to store handy information about state of face");
+py::class_<BOPDS_FaceInfo> cls_BOPDS_FaceInfo(mod, "BOPDS_FaceInfo", "The class BOPDS_FaceInfo is to store handy information about state of face");
 
 // Constructors
 cls_BOPDS_FaceInfo.def(py::init<>());

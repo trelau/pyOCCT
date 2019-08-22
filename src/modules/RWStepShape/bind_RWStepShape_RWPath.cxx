@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWPath(py::module &mod){
 
-py::class_<RWStepShape_RWPath, std::unique_ptr<RWStepShape_RWPath>> cls_RWStepShape_RWPath(mod, "RWStepShape_RWPath", "Read & Write Module for Path");
+py::class_<RWStepShape_RWPath> cls_RWStepShape_RWPath(mod, "RWStepShape_RWPath", "Read & Write Module for Path");
 
 // Constructors
 cls_RWStepShape_RWPath.def(py::init<>());

@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPersistent_Naming(py::module &mod){
 
-py::class_<StdPersistent_Naming, std::unique_ptr<StdPersistent_Naming>> cls_StdPersistent_Naming(mod, "StdPersistent_Naming", "None");
+py::class_<StdPersistent_Naming> cls_StdPersistent_Naming(mod, "StdPersistent_Naming", "None");
 
 // Constructors
 

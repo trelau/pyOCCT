@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepCheck(py::module &mod){
 
-py::class_<BRepCheck, std::unique_ptr<BRepCheck>> cls_BRepCheck(mod, "BRepCheck", "This package provides tools to check the validity of the BRep.");
+py::class_<BRepCheck> cls_BRepCheck(mod, "BRepCheck", "This package provides tools to check the validity of the BRep.");
 
 // Constructors
 

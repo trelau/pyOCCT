@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GccAna_CircPnt2dBisec(py::module &mod){
 
-py::class_<GccAna_CircPnt2dBisec, std::unique_ptr<GccAna_CircPnt2dBisec>> cls_GccAna_CircPnt2dBisec(mod, "GccAna_CircPnt2dBisec", "Describes functions for building a bisecting curve between a 2D circle and a point. A bisecting curve between a circle and a point is such a curve that each of its points is at the same distance from the circle and the point. It can be an ellipse, hyperbola, circle or line, depending on the relative position of the point and the circle. The algorithm computes all the elementary curves which are solutions. A CircPnt2dBisec object provides a framework for: - defining the construction of the bisecting curves, - implementing the construction algorithm, and - consulting the result.");
+py::class_<GccAna_CircPnt2dBisec> cls_GccAna_CircPnt2dBisec(mod, "GccAna_CircPnt2dBisec", "Describes functions for building a bisecting curve between a 2D circle and a point. A bisecting curve between a circle and a point is such a curve that each of its points is at the same distance from the circle and the point. It can be an ellipse, hyperbola, circle or line, depending on the relative position of the point and the circle. The algorithm computes all the elementary curves which are solutions. A CircPnt2dBisec object provides a framework for: - defining the construction of the bisecting curves, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_GccAna_CircPnt2dBisec.def(py::init<const gp_Circ2d &, const gp_Pnt2d &>(), py::arg("Circle1"), py::arg("Point2"));

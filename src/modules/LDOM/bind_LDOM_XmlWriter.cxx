@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOM_XmlWriter(py::module &mod){
 
-py::class_<LDOM_XmlWriter, std::unique_ptr<LDOM_XmlWriter>> cls_LDOM_XmlWriter(mod, "LDOM_XmlWriter", "None");
+py::class_<LDOM_XmlWriter> cls_LDOM_XmlWriter(mod, "LDOM_XmlWriter", "None");
 
 // Constructors
 cls_LDOM_XmlWriter.def(py::init<>());

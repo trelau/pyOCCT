@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepApprox_TheMultiLineToolOfApprox(py::module &mod){
 
-py::class_<BRepApprox_TheMultiLineToolOfApprox, std::unique_ptr<BRepApprox_TheMultiLineToolOfApprox>> cls_BRepApprox_TheMultiLineToolOfApprox(mod, "BRepApprox_TheMultiLineToolOfApprox", "None");
+py::class_<BRepApprox_TheMultiLineToolOfApprox> cls_BRepApprox_TheMultiLineToolOfApprox(mod, "BRepApprox_TheMultiLineToolOfApprox", "None");
 
 // Constructors
 

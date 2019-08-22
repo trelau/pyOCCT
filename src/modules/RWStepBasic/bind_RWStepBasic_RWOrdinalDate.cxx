@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWOrdinalDate(py::module &mod){
 
-py::class_<RWStepBasic_RWOrdinalDate, std::unique_ptr<RWStepBasic_RWOrdinalDate>> cls_RWStepBasic_RWOrdinalDate(mod, "RWStepBasic_RWOrdinalDate", "Read & Write Module for OrdinalDate");
+py::class_<RWStepBasic_RWOrdinalDate> cls_RWStepBasic_RWOrdinalDate(mod, "RWStepBasic_RWOrdinalDate", "Read & Write Module for OrdinalDate");
 
 // Constructors
 cls_RWStepBasic_RWOrdinalDate.def(py::init<>());

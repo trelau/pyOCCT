@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPolyh_SectionLine(py::module &mod){
 
-py::class_<IntPolyh_SectionLine, std::unique_ptr<IntPolyh_SectionLine>> cls_IntPolyh_SectionLine(mod, "IntPolyh_SectionLine", "None");
+py::class_<IntPolyh_SectionLine> cls_IntPolyh_SectionLine(mod, "IntPolyh_SectionLine", "None");
 
 // Constructors
 cls_IntPolyh_SectionLine.def(py::init<>());

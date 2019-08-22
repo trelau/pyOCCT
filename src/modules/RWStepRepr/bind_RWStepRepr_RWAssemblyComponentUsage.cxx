@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWAssemblyComponentUsage(py::module &mod){
 
-py::class_<RWStepRepr_RWAssemblyComponentUsage, std::unique_ptr<RWStepRepr_RWAssemblyComponentUsage>> cls_RWStepRepr_RWAssemblyComponentUsage(mod, "RWStepRepr_RWAssemblyComponentUsage", "Read & Write tool for AssemblyComponentUsage");
+py::class_<RWStepRepr_RWAssemblyComponentUsage> cls_RWStepRepr_RWAssemblyComponentUsage(mod, "RWStepRepr_RWAssemblyComponentUsage", "Read & Write tool for AssemblyComponentUsage");
 
 // Constructors
 cls_RWStepRepr_RWAssemblyComponentUsage.def(py::init<>());

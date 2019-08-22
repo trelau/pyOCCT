@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeAnalysis_ShapeTolerance(py::module &mod){
 
-py::class_<ShapeAnalysis_ShapeTolerance, std::unique_ptr<ShapeAnalysis_ShapeTolerance>> cls_ShapeAnalysis_ShapeTolerance(mod, "ShapeAnalysis_ShapeTolerance", "Tool for computing shape tolerances (minimal, maximal, average), finding shape with tolerance matching given criteria, setting or limitating tolerances.");
+py::class_<ShapeAnalysis_ShapeTolerance> cls_ShapeAnalysis_ShapeTolerance(mod, "ShapeAnalysis_ShapeTolerance", "Tool for computing shape tolerances (minimal, maximal, average), finding shape with tolerance matching given criteria, setting or limitating tolerances.");
 
 // Constructors
 cls_ShapeAnalysis_ShapeTolerance.def(py::init<>());

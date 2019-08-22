@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWAutoDesignDateAndPersonAssignment(py::module &mod){
 
-py::class_<RWStepAP214_RWAutoDesignDateAndPersonAssignment, std::unique_ptr<RWStepAP214_RWAutoDesignDateAndPersonAssignment>> cls_RWStepAP214_RWAutoDesignDateAndPersonAssignment(mod, "RWStepAP214_RWAutoDesignDateAndPersonAssignment", "Read & Write Module for AutoDesignDateAndPersonAssignment");
+py::class_<RWStepAP214_RWAutoDesignDateAndPersonAssignment> cls_RWStepAP214_RWAutoDesignDateAndPersonAssignment(mod, "RWStepAP214_RWAutoDesignDateAndPersonAssignment", "Read & Write Module for AutoDesignDateAndPersonAssignment");
 
 // Constructors
 cls_RWStepAP214_RWAutoDesignDateAndPersonAssignment.def(py::init<>());

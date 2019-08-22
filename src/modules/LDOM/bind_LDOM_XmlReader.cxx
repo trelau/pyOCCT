@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOM_XmlReader(py::module &mod){
 
-py::class_<LDOM_XmlReader, std::unique_ptr<LDOM_XmlReader>> cls_LDOM_XmlReader(mod, "LDOM_XmlReader", "None");
+py::class_<LDOM_XmlReader> cls_LDOM_XmlReader(mod, "LDOM_XmlReader", "None");
 
 // Constructors
 // cls_LDOM_XmlReader.def(py::init<const opencascade::handle<LDOM_MemManager> &, TCollection_AsciiString &>(), py::arg("aDocument"), py::arg("anErrorString"));

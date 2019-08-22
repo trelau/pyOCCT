@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TNaming_Selector(py::module &mod){
 
-py::class_<TNaming_Selector, std::unique_ptr<TNaming_Selector>> cls_TNaming_Selector(mod, "TNaming_Selector", "This class provides a single API for selection of shapes. This involves both identification and selection of shapes in the data framework. If the selected shape is modified, this selector will solve its identifications. This class is the user interface for topological naming resources. * The <IsIdentified> method returns (if exists) the NamedShape which contains a given shape. The definition of an identified shape is : a Shape handled by a NamedShape (this shape is the only one stored) , which has the TNaming_PRImITIVE evolution");
+py::class_<TNaming_Selector> cls_TNaming_Selector(mod, "TNaming_Selector", "This class provides a single API for selection of shapes. This involves both identification and selection of shapes in the data framework. If the selected shape is modified, this selector will solve its identifications. This class is the user interface for topological naming resources. * The <IsIdentified> method returns (if exists) the NamedShape which contains a given shape. The definition of an identified shape is : a Shape handled by a NamedShape (this shape is the only one stored) , which has the TNaming_PRImITIVE evolution");
 
 // Constructors
 cls_TNaming_Selector.def(py::init<const TDF_Label &>(), py::arg("aLabel"));

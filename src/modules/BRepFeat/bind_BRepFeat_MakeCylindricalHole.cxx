@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFeat_MakeCylindricalHole(py::module &mod){
 
-py::class_<BRepFeat_MakeCylindricalHole, std::unique_ptr<BRepFeat_MakeCylindricalHole>, BRepFeat_Builder> cls_BRepFeat_MakeCylindricalHole(mod, "BRepFeat_MakeCylindricalHole", "Provides a tool to make cylindrical holes on a shape.");
+py::class_<BRepFeat_MakeCylindricalHole, BRepFeat_Builder> cls_BRepFeat_MakeCylindricalHole(mod, "BRepFeat_MakeCylindricalHole", "Provides a tool to make cylindrical holes on a shape.");
 
 // Constructors
 cls_BRepFeat_MakeCylindricalHole.def(py::init<>());

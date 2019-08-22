@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ProjLib_Sphere(py::module &mod){
 
-py::class_<ProjLib_Sphere, std::unique_ptr<ProjLib_Sphere>, ProjLib_Projector> cls_ProjLib_Sphere(mod, "ProjLib_Sphere", "Projects elementary curves on a sphere.");
+py::class_<ProjLib_Sphere, ProjLib_Projector> cls_ProjLib_Sphere(mod, "ProjLib_Sphere", "Projects elementary curves on a sphere.");
 
 // Constructors
 cls_ProjLib_Sphere.def(py::init<>());

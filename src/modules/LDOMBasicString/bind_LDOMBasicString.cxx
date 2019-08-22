@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOMBasicString(py::module &mod){
 
-py::class_<LDOMBasicString, std::unique_ptr<LDOMBasicString>> cls_LDOMBasicString(mod, "LDOMBasicString", "None");
+py::class_<LDOMBasicString> cls_LDOMBasicString(mod, "LDOMBasicString", "None");
 
 // Constructors
 cls_LDOMBasicString.def(py::init<>());

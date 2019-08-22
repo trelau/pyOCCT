@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_ExtPS(py::module &mod){
 
-py::class_<Extrema_ExtPS, std::unique_ptr<Extrema_ExtPS>> cls_Extrema_ExtPS(mod, "Extrema_ExtPS", "It calculates all the extremum distances between a point and a surface. These distances can be minimum or maximum.");
+py::class_<Extrema_ExtPS> cls_Extrema_ExtPS(mod, "Extrema_ExtPS", "It calculates all the extremum distances between a point and a surface. These distances can be minimum or maximum.");
 
 // Constructors
 cls_Extrema_ExtPS.def(py::init<>());

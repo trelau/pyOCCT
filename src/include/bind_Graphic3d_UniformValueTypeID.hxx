@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T>
 void bind_Graphic3d_UniformValueTypeID(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<Graphic3d_UniformValueTypeID<T>, std::unique_ptr<Graphic3d_UniformValueTypeID<T>>> cls_Graphic3d_UniformValueTypeID(mod, name.c_str(), "Generates unique type identifier for variable value.", local);
+py::class_<Graphic3d_UniformValueTypeID<T>> cls_Graphic3d_UniformValueTypeID(mod, name.c_str(), "Generates unique type identifier for variable value.", local);
 
 // Constructors
 

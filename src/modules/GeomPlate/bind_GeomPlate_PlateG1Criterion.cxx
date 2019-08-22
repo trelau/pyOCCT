@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomPlate_PlateG1Criterion(py::module &mod){
 
-py::class_<GeomPlate_PlateG1Criterion, std::unique_ptr<GeomPlate_PlateG1Criterion>, AdvApp2Var_Criterion> cls_GeomPlate_PlateG1Criterion(mod, "GeomPlate_PlateG1Criterion", "this class contains a specific G1 criterion for GeomPlate_MakeApprox");
+py::class_<GeomPlate_PlateG1Criterion, AdvApp2Var_Criterion> cls_GeomPlate_PlateG1Criterion(mod, "GeomPlate_PlateG1Criterion", "this class contains a specific G1 criterion for GeomPlate_MakeApprox");
 
 // Constructors
 cls_GeomPlate_PlateG1Criterion.def(py::init<const TColgp_SequenceOfXY &, const TColgp_SequenceOfXYZ &, const Standard_Real>(), py::arg("Data"), py::arg("G1Data"), py::arg("Maximum"));

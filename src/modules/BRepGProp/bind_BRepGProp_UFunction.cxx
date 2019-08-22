@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepGProp_UFunction(py::module &mod){
 
-py::class_<BRepGProp_UFunction, std::unique_ptr<BRepGProp_UFunction>, math_Function> cls_BRepGProp_UFunction(mod, "BRepGProp_UFunction", "This class represents the integrand function for computation of an inner integral. The returned value depends on the value type and the flag IsByPoint.");
+py::class_<BRepGProp_UFunction, math_Function> cls_BRepGProp_UFunction(mod, "BRepGProp_UFunction", "This class represents the integrand function for computation of an inner integral. The returned value depends on the value type and the flag IsByPoint.");
 
 // Constructors
 cls_BRepGProp_UFunction.def(py::init<const BRepGProp_Face &, const gp_Pnt &, const Standard_Boolean, const Standard_Address>(), py::arg("theSurface"), py::arg("theVertex"), py::arg("IsByPoint"), py::arg("theCoeffs"));

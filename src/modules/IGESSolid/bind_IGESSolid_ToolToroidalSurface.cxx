@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolToroidalSurface(py::module &mod){
 
-py::class_<IGESSolid_ToolToroidalSurface, std::unique_ptr<IGESSolid_ToolToroidalSurface>> cls_IGESSolid_ToolToroidalSurface(mod, "IGESSolid_ToolToroidalSurface", "Tool to work on a ToroidalSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolToroidalSurface> cls_IGESSolid_ToolToroidalSurface(mod, "IGESSolid_ToolToroidalSurface", "Tool to work on a ToroidalSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolToroidalSurface.def(py::init<>());

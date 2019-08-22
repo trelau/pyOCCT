@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_LocFunction(py::module &mod){
 
-py::class_<GeomFill_LocFunction, std::unique_ptr<GeomFill_LocFunction>> cls_GeomFill_LocFunction(mod, "GeomFill_LocFunction", "None");
+py::class_<GeomFill_LocFunction> cls_GeomFill_LocFunction(mod, "GeomFill_LocFunction", "None");
 
 // Constructors
 cls_GeomFill_LocFunction.def(py::init<const opencascade::handle<GeomFill_LocationLaw> &>(), py::arg("Law"));

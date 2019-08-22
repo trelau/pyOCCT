@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <bool condition>
 void bind_Standard_Static_Assert(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<Standard_Static_Assert<condition>, std::unique_ptr<Standard_Static_Assert<condition>>> cls_Standard_Static_Assert(mod, name.c_str(), "Static assert -- empty default template", local);
+py::class_<Standard_Static_Assert<condition>> cls_Standard_Static_Assert(mod, name.c_str(), "Static assert -- empty default template", local);
 
 // Constructors
 

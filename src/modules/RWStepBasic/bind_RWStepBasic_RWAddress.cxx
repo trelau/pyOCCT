@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWAddress(py::module &mod){
 
-py::class_<RWStepBasic_RWAddress, std::unique_ptr<RWStepBasic_RWAddress>> cls_RWStepBasic_RWAddress(mod, "RWStepBasic_RWAddress", "Read & Write Module for Address");
+py::class_<RWStepBasic_RWAddress> cls_RWStepBasic_RWAddress(mod, "RWStepBasic_RWAddress", "Read & Write Module for Address");
 
 // Constructors
 cls_RWStepBasic_RWAddress.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWProductDefinitionShape(py::module &mod){
 
-py::class_<RWStepRepr_RWProductDefinitionShape, std::unique_ptr<RWStepRepr_RWProductDefinitionShape>> cls_RWStepRepr_RWProductDefinitionShape(mod, "RWStepRepr_RWProductDefinitionShape", "Read & Write tool for ProductDefinitionShape");
+py::class_<RWStepRepr_RWProductDefinitionShape> cls_RWStepRepr_RWProductDefinitionShape(mod, "RWStepRepr_RWProductDefinitionShape", "Read & Write tool for ProductDefinitionShape");
 
 // Constructors
 cls_RWStepRepr_RWProductDefinitionShape.def(py::init<>());

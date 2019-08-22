@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeConic(py::module &mod){
 
-py::class_<GeomToStep_MakeConic, std::unique_ptr<GeomToStep_MakeConic>, GeomToStep_Root> cls_GeomToStep_MakeConic(mod, "GeomToStep_MakeConic", "This class implements the mapping between classes Conic from Geom and the class Conic from StepGeom which describes a Conic from prostep. As Conic is an abstract Conic this class is an access to the sub-class required.");
+py::class_<GeomToStep_MakeConic, GeomToStep_Root> cls_GeomToStep_MakeConic(mod, "GeomToStep_MakeConic", "This class implements the mapping between classes Conic from Geom and the class Conic from StepGeom which describes a Conic from prostep. As Conic is an abstract Conic this class is an access to the sub-class required.");
 
 // Constructors
 cls_GeomToStep_MakeConic.def(py::init<const opencascade::handle<Geom_Conic> &>(), py::arg("C"));

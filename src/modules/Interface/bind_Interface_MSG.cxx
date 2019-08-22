@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_MSG(py::module &mod){
 
-py::class_<Interface_MSG, std::unique_ptr<Interface_MSG>> cls_Interface_MSG(mod, "Interface_MSG", "This class gives a set of functions to manage and use a list of translated messages (messagery)");
+py::class_<Interface_MSG> cls_Interface_MSG(mod, "Interface_MSG", "This class gives a set of functions to manage and use a list of translated messages (messagery)");
 
 // Constructors
 cls_Interface_MSG.def(py::init<const Standard_CString>(), py::arg("key"));

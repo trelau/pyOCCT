@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_Group(py::module &mod){
 
-py::class_<Vrml_Group, std::unique_ptr<Vrml_Group>> cls_Vrml_Group(mod, "Vrml_Group", "defines a Group node of VRML specifying group properties. This node defines the base class for all group nodes. Group is a node that contains an ordered list of child nodes. This node is simply a container for the child nodes and does not alter the traversal state in any way. During traversal, state accumulated for a child is passed on to each successive child and then to the parents of the group (Group does not push or pop traversal state as separator does).");
+py::class_<Vrml_Group> cls_Vrml_Group(mod, "Vrml_Group", "defines a Group node of VRML specifying group properties. This node defines the base class for all group nodes. Group is a node that contains an ordered list of child nodes. This node is simply a container for the child nodes and does not alter the traversal state in any way. During traversal, state accumulated for a child is passed on to each successive child and then to the parents of the group (Group does not push or pop traversal state as separator does).");
 
 // Constructors
 cls_Vrml_Group.def(py::init<>());

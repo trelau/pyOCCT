@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWEdgeCurve(py::module &mod){
 
-py::class_<RWStepShape_RWEdgeCurve, std::unique_ptr<RWStepShape_RWEdgeCurve>> cls_RWStepShape_RWEdgeCurve(mod, "RWStepShape_RWEdgeCurve", "Read & Write Module for EdgeCurve Check added by CKY , 7-OCT-1996");
+py::class_<RWStepShape_RWEdgeCurve> cls_RWStepShape_RWEdgeCurve(mod, "RWStepShape_RWEdgeCurve", "Read & Write Module for EdgeCurve Check added by CKY , 7-OCT-1996");
 
 // Constructors
 cls_RWStepShape_RWEdgeCurve.def(py::init<>());

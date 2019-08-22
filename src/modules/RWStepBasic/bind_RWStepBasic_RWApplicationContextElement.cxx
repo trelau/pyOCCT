@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWApplicationContextElement(py::module &mod){
 
-py::class_<RWStepBasic_RWApplicationContextElement, std::unique_ptr<RWStepBasic_RWApplicationContextElement>> cls_RWStepBasic_RWApplicationContextElement(mod, "RWStepBasic_RWApplicationContextElement", "Read & Write Module for ApplicationContextElement");
+py::class_<RWStepBasic_RWApplicationContextElement> cls_RWStepBasic_RWApplicationContextElement(mod, "RWStepBasic_RWApplicationContextElement", "Read & Write Module for ApplicationContextElement");
 
 // Constructors
 cls_RWStepBasic_RWApplicationContextElement.def(py::init<>());

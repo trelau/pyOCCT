@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ApproxInt_KnotTools(py::module &mod){
 
-py::class_<ApproxInt_KnotTools, std::unique_ptr<ApproxInt_KnotTools>> cls_ApproxInt_KnotTools(mod, "ApproxInt_KnotTools", "This class intended to build knots sequence on discrete set of points for further approximation into bspline curve.");
+py::class_<ApproxInt_KnotTools> cls_ApproxInt_KnotTools(mod, "ApproxInt_KnotTools", "This class intended to build knots sequence on discrete set of points for further approximation into bspline curve.");
 
 // Constructors
 

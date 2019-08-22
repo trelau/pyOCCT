@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_ExtElCS(py::module &mod){
 
-py::class_<Extrema_ExtElCS, std::unique_ptr<Extrema_ExtElCS>> cls_Extrema_ExtElCS(mod, "Extrema_ExtElCS", "It calculates all the distances between a curve and a surface. These distances can be maximum or minimum.");
+py::class_<Extrema_ExtElCS> cls_Extrema_ExtElCS(mod, "Extrema_ExtElCS", "It calculates all the distances between a curve and a surface. These distances can be maximum or minimum.");
 
 // Constructors
 cls_Extrema_ExtElCS.def(py::init<>());

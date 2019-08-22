@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgoAPI_BooleanOperation(py::module &mod){
 
-py::class_<BRepAlgoAPI_BooleanOperation, std::unique_ptr<BRepAlgoAPI_BooleanOperation>, BRepAlgoAPI_BuilderAlgo> cls_BRepAlgoAPI_BooleanOperation(mod, "BRepAlgoAPI_BooleanOperation", "The abstract class BooleanOperation is the root class of Boolean Operations (see Overview). Boolean Operations algorithm is divided onto two parts: - The first one is computing interference between arguments; - The second one is building the result of operation; The class BooleanOperation provides API level of both parts.");
+py::class_<BRepAlgoAPI_BooleanOperation, BRepAlgoAPI_BuilderAlgo> cls_BRepAlgoAPI_BooleanOperation(mod, "BRepAlgoAPI_BooleanOperation", "The abstract class BooleanOperation is the root class of Boolean Operations (see Overview). Boolean Operations algorithm is divided onto two parts: - The first one is computing interference between arguments; - The second one is building the result of operation; The class BooleanOperation provides API level of both parts.");
 
 // Constructors
 

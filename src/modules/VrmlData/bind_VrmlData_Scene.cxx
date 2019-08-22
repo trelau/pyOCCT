@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_VrmlData_Scene(py::module &mod){
 
-py::class_<VrmlData_Scene, std::unique_ptr<VrmlData_Scene>> cls_VrmlData_Scene(mod, "VrmlData_Scene", "Block of comments describing class VrmlData_Scene");
+py::class_<VrmlData_Scene> cls_VrmlData_Scene(mod, "VrmlData_Scene", "Block of comments describing class VrmlData_Scene");
 
 // Constructors
 cls_VrmlData_Scene.def(py::init<>());

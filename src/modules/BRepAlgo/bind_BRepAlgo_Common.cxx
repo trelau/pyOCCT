@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgo_Common(py::module &mod){
 
-py::class_<BRepAlgo_Common, std::unique_ptr<BRepAlgo_Common>, BRepAlgo_BooleanOperation> cls_BRepAlgo_Common(mod, "BRepAlgo_Common", "Describes functions for performing a topological common operation (Boolean intersection). A Common object provides the framework for: - defining the construction of a common shape, - implementing the construction algorithm, and - consulting the result.");
+py::class_<BRepAlgo_Common, BRepAlgo_BooleanOperation> cls_BRepAlgo_Common(mod, "BRepAlgo_Common", "Describes functions for performing a topological common operation (Boolean intersection). A Common object provides the framework for: - defining the construction of a common shape, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_BRepAlgo_Common.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &>(), py::arg("S1"), py::arg("S2"));

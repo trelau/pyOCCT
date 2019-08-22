@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurveSurface_ThePolyhedronToolOfHInter(py::module &mod){
 
-py::class_<IntCurveSurface_ThePolyhedronToolOfHInter, std::unique_ptr<IntCurveSurface_ThePolyhedronToolOfHInter>> cls_IntCurveSurface_ThePolyhedronToolOfHInter(mod, "IntCurveSurface_ThePolyhedronToolOfHInter", "None");
+py::class_<IntCurveSurface_ThePolyhedronToolOfHInter> cls_IntCurveSurface_ThePolyhedronToolOfHInter(mod, "IntCurveSurface_ThePolyhedronToolOfHInter", "None");
 
 // Constructors
 

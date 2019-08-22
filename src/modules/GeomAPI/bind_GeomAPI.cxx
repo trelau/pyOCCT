@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomAPI(py::module &mod){
 
-py::class_<GeomAPI, std::unique_ptr<GeomAPI>> cls_GeomAPI(mod, "GeomAPI", "The GeomAPI package provides an Application Programming Interface for the Geometry.");
+py::class_<GeomAPI> cls_GeomAPI(mod, "GeomAPI", "The GeomAPI package provides an Application Programming Interface for the Geometry.");
 
 // Constructors
 

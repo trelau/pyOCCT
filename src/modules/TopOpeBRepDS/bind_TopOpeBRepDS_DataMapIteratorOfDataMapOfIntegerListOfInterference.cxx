@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_DataMapIteratorOfDataMapOfIntegerListOfInterference(py::module &mod){
 
-py::class_<NCollection_DataMap<int, NCollection_List<opencascade::handle<TopOpeBRepDS_Interference> >, NCollection_DefaultHasher<int> >::Iterator, std::unique_ptr<NCollection_DataMap<int, NCollection_List<opencascade::handle<TopOpeBRepDS_Interference> >, NCollection_DefaultHasher<int> >::Iterator>, NCollection_BaseMap::Iterator> cls_TopOpeBRepDS_DataMapIteratorOfDataMapOfIntegerListOfInterference(mod, "TopOpeBRepDS_DataMapIteratorOfDataMapOfIntegerListOfInterference", "None");
+py::class_<NCollection_DataMap<int, NCollection_List<opencascade::handle<TopOpeBRepDS_Interference> >, NCollection_DefaultHasher<int> >::Iterator, NCollection_BaseMap::Iterator> cls_TopOpeBRepDS_DataMapIteratorOfDataMapOfIntegerListOfInterference(mod, "TopOpeBRepDS_DataMapIteratorOfDataMapOfIntegerListOfInterference", "None");
 
 // Constructors
 cls_TopOpeBRepDS_DataMapIteratorOfDataMapOfIntegerListOfInterference.def(py::init<>());

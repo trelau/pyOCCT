@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP214_DocumentReferenceItem(py::module &mod){
 
-py::class_<StepAP214_DocumentReferenceItem, std::unique_ptr<StepAP214_DocumentReferenceItem>, StepData_SelectType> cls_StepAP214_DocumentReferenceItem(mod, "StepAP214_DocumentReferenceItem", "None");
+py::class_<StepAP214_DocumentReferenceItem, StepData_SelectType> cls_StepAP214_DocumentReferenceItem(mod, "StepAP214_DocumentReferenceItem", "None");
 
 // Constructors
 cls_StepAP214_DocumentReferenceItem.def(py::init<>());

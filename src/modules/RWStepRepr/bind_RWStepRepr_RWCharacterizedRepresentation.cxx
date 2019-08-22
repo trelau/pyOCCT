@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWCharacterizedRepresentation(py::module &mod){
 
-py::class_<RWStepRepr_RWCharacterizedRepresentation, std::unique_ptr<RWStepRepr_RWCharacterizedRepresentation>> cls_RWStepRepr_RWCharacterizedRepresentation(mod, "RWStepRepr_RWCharacterizedRepresentation", "Read & Write Module for CharacterizedRepresentation");
+py::class_<RWStepRepr_RWCharacterizedRepresentation> cls_RWStepRepr_RWCharacterizedRepresentation(mod, "RWStepRepr_RWCharacterizedRepresentation", "Read & Write Module for CharacterizedRepresentation");
 
 // Constructors
 cls_RWStepRepr_RWCharacterizedRepresentation.def(py::init<>());

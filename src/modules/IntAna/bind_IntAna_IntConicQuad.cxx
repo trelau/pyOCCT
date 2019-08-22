@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntAna_IntConicQuad(py::module &mod){
 
-py::class_<IntAna_IntConicQuad, std::unique_ptr<IntAna_IntConicQuad>> cls_IntAna_IntConicQuad(mod, "IntAna_IntConicQuad", "This class provides the analytic intersection between a conic defined as an element of gp (Lin,Circ,Elips, Parab,Hypr) and a quadric as defined in the class Quadric from IntAna. The intersection between a conic and a plane is treated as a special case.");
+py::class_<IntAna_IntConicQuad> cls_IntAna_IntConicQuad(mod, "IntAna_IntConicQuad", "This class provides the analytic intersection between a conic defined as an element of gp (Lin,Circ,Elips, Parab,Hypr) and a quadric as defined in the class Quadric from IntAna. The intersection between a conic and a plane is treated as a special case.");
 
 // Constructors
 cls_IntAna_IntConicQuad.def(py::init<>());

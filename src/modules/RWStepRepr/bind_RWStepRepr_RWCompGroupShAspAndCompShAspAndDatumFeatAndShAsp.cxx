@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWCompGroupShAspAndCompShAspAndDatumFeatAndShAsp(py::module &mod){
 
-py::class_<RWStepRepr_RWCompGroupShAspAndCompShAspAndDatumFeatAndShAsp, std::unique_ptr<RWStepRepr_RWCompGroupShAspAndCompShAspAndDatumFeatAndShAsp>> cls_RWStepRepr_RWCompGroupShAspAndCompShAspAndDatumFeatAndShAsp(mod, "RWStepRepr_RWCompGroupShAspAndCompShAspAndDatumFeatAndShAsp", "Read & Write Module for CompGroupShAspAndCompShAspAndDatumFeatAndShAsp");
+py::class_<RWStepRepr_RWCompGroupShAspAndCompShAspAndDatumFeatAndShAsp> cls_RWStepRepr_RWCompGroupShAspAndCompShAspAndDatumFeatAndShAsp(mod, "RWStepRepr_RWCompGroupShAspAndCompShAspAndDatumFeatAndShAsp", "Read & Write Module for CompGroupShAspAndCompShAspAndDatumFeatAndShAsp");
 
 // Constructors
 cls_RWStepRepr_RWCompGroupShAspAndCompShAspAndDatumFeatAndShAsp.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWConnectedFaceShapeRepresentation(py::module &mod){
 
-py::class_<RWStepShape_RWConnectedFaceShapeRepresentation, std::unique_ptr<RWStepShape_RWConnectedFaceShapeRepresentation>> cls_RWStepShape_RWConnectedFaceShapeRepresentation(mod, "RWStepShape_RWConnectedFaceShapeRepresentation", "Read & Write tool for ConnectedFaceShapeRepresentation");
+py::class_<RWStepShape_RWConnectedFaceShapeRepresentation> cls_RWStepShape_RWConnectedFaceShapeRepresentation(mod, "RWStepShape_RWConnectedFaceShapeRepresentation", "Read & Write tool for ConnectedFaceShapeRepresentation");
 
 // Constructors
 cls_RWStepShape_RWConnectedFaceShapeRepresentation.def(py::init<>());

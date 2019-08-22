@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_HLRToolShape(py::module &mod){
 
-py::class_<StdPrs_HLRToolShape, std::unique_ptr<StdPrs_HLRToolShape>> cls_StdPrs_HLRToolShape(mod, "StdPrs_HLRToolShape", "None");
+py::class_<StdPrs_HLRToolShape> cls_StdPrs_HLRToolShape(mod, "StdPrs_HLRToolShape", "None");
 
 // Constructors
 cls_StdPrs_HLRToolShape.def(py::init<const TopoDS_Shape &, const HLRAlgo_Projector &>(), py::arg("TheShape"), py::arg("TheProjector"));

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dInt_TheIntPCurvePCurveOfGInter(py::module &mod){
 
-py::class_<Geom2dInt_TheIntPCurvePCurveOfGInter, std::unique_ptr<Geom2dInt_TheIntPCurvePCurveOfGInter>, IntRes2d_Intersection> cls_Geom2dInt_TheIntPCurvePCurveOfGInter(mod, "Geom2dInt_TheIntPCurvePCurveOfGInter", "None");
+py::class_<Geom2dInt_TheIntPCurvePCurveOfGInter, IntRes2d_Intersection> cls_Geom2dInt_TheIntPCurvePCurveOfGInter(mod, "Geom2dInt_TheIntPCurvePCurveOfGInter", "None");
 
 // Constructors
 cls_Geom2dInt_TheIntPCurvePCurveOfGInter.def(py::init<>());

@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGeom_ToolFlash(py::module &mod){
 
-py::class_<IGESGeom_ToolFlash, std::unique_ptr<IGESGeom_ToolFlash>> cls_IGESGeom_ToolFlash(mod, "IGESGeom_ToolFlash", "Tool to work on a Flash. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGeom_ToolFlash> cls_IGESGeom_ToolFlash(mod, "IGESGeom_ToolFlash", "Tool to work on a Flash. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGeom_ToolFlash.def(py::init<>());

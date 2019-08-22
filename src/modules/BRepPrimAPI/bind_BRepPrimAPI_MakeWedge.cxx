@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrimAPI_MakeWedge(py::module &mod){
 
-py::class_<BRepPrimAPI_MakeWedge, std::unique_ptr<BRepPrimAPI_MakeWedge>, BRepBuilderAPI_MakeShape> cls_BRepPrimAPI_MakeWedge(mod, "BRepPrimAPI_MakeWedge", "Describes functions to build wedges, i.e. boxes with inclined faces. A MakeWedge object provides a framework for: - defining the construction of a wedge, - implementing the construction algorithm, and - consulting the result.");
+py::class_<BRepPrimAPI_MakeWedge, BRepBuilderAPI_MakeShape> cls_BRepPrimAPI_MakeWedge(mod, "BRepPrimAPI_MakeWedge", "Describes functions to build wedges, i.e. boxes with inclined faces. A MakeWedge object provides a framework for: - defining the construction of a wedge, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_BRepPrimAPI_MakeWedge.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("dx"), py::arg("dy"), py::arg("dz"), py::arg("ltx"));

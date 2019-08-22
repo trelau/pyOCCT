@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWFeaLinearElasticity(py::module &mod){
 
-py::class_<RWStepFEA_RWFeaLinearElasticity, std::unique_ptr<RWStepFEA_RWFeaLinearElasticity>> cls_RWStepFEA_RWFeaLinearElasticity(mod, "RWStepFEA_RWFeaLinearElasticity", "Read & Write tool for FeaLinearElasticity");
+py::class_<RWStepFEA_RWFeaLinearElasticity> cls_RWStepFEA_RWFeaLinearElasticity(mod, "RWStepFEA_RWFeaLinearElasticity", "Read & Write tool for FeaLinearElasticity");
 
 // Constructors
 cls_RWStepFEA_RWFeaLinearElasticity.def(py::init<>());

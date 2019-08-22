@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_FileParameter(py::module &mod){
 
-py::class_<Interface_FileParameter, std::unique_ptr<Interface_FileParameter>> cls_Interface_FileParameter(mod, "Interface_FileParameter", "Auxiliary class to store a litteral parameter in a file intermediate directory or in an UndefinedContent : a reference type Parameter detains an Integer which is used to address a record in the directory. FileParameter is intended to be stored in a ParamSet : hence memory management is performed by ParamSet, which calls Clear to work, while the Destructor (see Destroy) does nothing. Also a FileParameter can be read for consultation only, not to be read from a Structure to be included into another one.");
+py::class_<Interface_FileParameter> cls_Interface_FileParameter(mod, "Interface_FileParameter", "Auxiliary class to store a litteral parameter in a file intermediate directory or in an UndefinedContent : a reference type Parameter detains an Integer which is used to address a record in the directory. FileParameter is intended to be stored in a ParamSet : hence memory management is performed by ParamSet, which calls Clear to work, while the Destructor (see Destroy) does nothing. Also a FileParameter can be read for consultation only, not to be read from a Structure to be included into another one.");
 
 // Constructors
 cls_Interface_FileParameter.def(py::init<>());

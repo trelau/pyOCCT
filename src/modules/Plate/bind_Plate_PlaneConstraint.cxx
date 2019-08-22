@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Plate_PlaneConstraint(py::module &mod){
 
-py::class_<Plate_PlaneConstraint, std::unique_ptr<Plate_PlaneConstraint>> cls_Plate_PlaneConstraint(mod, "Plate_PlaneConstraint", "constraint a point to belong to a Plane");
+py::class_<Plate_PlaneConstraint> cls_Plate_PlaneConstraint(mod, "Plate_PlaneConstraint", "constraint a point to belong to a Plane");
 
 // Constructors
 cls_Plate_PlaneConstraint.def(py::init<const gp_XY &, const gp_Pln &>(), py::arg("point2d"), py::arg("pln"));

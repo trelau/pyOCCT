@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOM_CharReference(py::module &mod){
 
-py::class_<LDOM_CharReference, std::unique_ptr<LDOM_CharReference>> cls_LDOM_CharReference(mod, "LDOM_CharReference", "None");
+py::class_<LDOM_CharReference> cls_LDOM_CharReference(mod, "LDOM_CharReference", "None");
 
 // Constructors
 

@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDS(py::module &mod){
 
-py::class_<TopoDS, std::unique_ptr<TopoDS>> cls_TopoDS(mod, "TopoDS", "Provides methods to cast objects of class TopoDS_Shape to be onjects of more specialized sub-classes. Types are verified, thus in the example below, the first two blocks are correct but the third is rejected by the compiler.");
+py::class_<TopoDS> cls_TopoDS(mod, "TopoDS", "Provides methods to cast objects of class TopoDS_Shape to be onjects of more specialized sub-classes. Types are verified, thus in the example below, the first two blocks are correct but the third is rejected by the compiler.");
 
 // Constructors
 

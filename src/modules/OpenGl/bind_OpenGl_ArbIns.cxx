@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_ArbIns(py::module &mod){
 
-py::class_<OpenGl_ArbIns, std::unique_ptr<OpenGl_ArbIns>> cls_OpenGl_ArbIns(mod, "OpenGl_ArbIns", "Instancing is available on OpenGL 3.0+ hardware");
+py::class_<OpenGl_ArbIns> cls_OpenGl_ArbIns(mod, "OpenGl_ArbIns", "Instancing is available on OpenGL 3.0+ hardware");
 
 // Constructors
 

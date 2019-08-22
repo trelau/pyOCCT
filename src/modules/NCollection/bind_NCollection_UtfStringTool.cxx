@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_NCollection_UtfStringTool(py::module &mod){
 
-py::class_<NCollection_UtfStringTool, std::unique_ptr<NCollection_UtfStringTool>> cls_NCollection_UtfStringTool(mod, "NCollection_UtfStringTool", "Auxiliary convertion tool.");
+py::class_<NCollection_UtfStringTool> cls_NCollection_UtfStringTool(mod, "NCollection_UtfStringTool", "Auxiliary convertion tool.");
 
 // Constructors
 cls_NCollection_UtfStringTool.def(py::init<>());

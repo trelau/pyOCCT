@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWGeoTolAndGeoTolWthMaxTol(py::module &mod){
 
-py::class_<RWStepDimTol_RWGeoTolAndGeoTolWthMaxTol, std::unique_ptr<RWStepDimTol_RWGeoTolAndGeoTolWthMaxTol>> cls_RWStepDimTol_RWGeoTolAndGeoTolWthMaxTol(mod, "RWStepDimTol_RWGeoTolAndGeoTolWthMaxTol", "Read & Write Module for GeoTolAndGeoTolWthMaxTol");
+py::class_<RWStepDimTol_RWGeoTolAndGeoTolWthMaxTol> cls_RWStepDimTol_RWGeoTolAndGeoTolWthMaxTol(mod, "RWStepDimTol_RWGeoTolAndGeoTolWthMaxTol", "Read & Write Module for GeoTolAndGeoTolWthMaxTol");
 
 // Constructors
 cls_RWStepDimTol_RWGeoTolAndGeoTolWthMaxTol.def(py::init<>());

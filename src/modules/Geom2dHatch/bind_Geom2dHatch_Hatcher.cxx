@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dHatch_Hatcher(py::module &mod){
 
-py::class_<Geom2dHatch_Hatcher, std::unique_ptr<Geom2dHatch_Hatcher>> cls_Geom2dHatch_Hatcher(mod, "Geom2dHatch_Hatcher", "None");
+py::class_<Geom2dHatch_Hatcher> cls_Geom2dHatch_Hatcher(mod, "Geom2dHatch_Hatcher", "None");
 
 // Constructors
 cls_Geom2dHatch_Hatcher.def(py::init<const Geom2dHatch_Intersector &, const Standard_Real, const Standard_Real>(), py::arg("Intersector"), py::arg("Confusion2d"), py::arg("Confusion3d"));

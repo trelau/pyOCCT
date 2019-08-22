@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBlend_CSCircular(py::module &mod){
 
-py::class_<BlendFunc_CSCircular, std::unique_ptr<BlendFunc_CSCircular>, Blend_CSFunction> cls_BRepBlend_CSCircular(mod, "BRepBlend_CSCircular", "None", py::module_local());
+py::class_<BlendFunc_CSCircular, Blend_CSFunction> cls_BRepBlend_CSCircular(mod, "BRepBlend_CSCircular", "None", py::module_local());
 
 // Constructors
 cls_BRepBlend_CSCircular.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &, const opencascade::handle<Adaptor3d_HCurve> &, const opencascade::handle<Law_Function> &>(), py::arg("S"), py::arg("C"), py::arg("CGuide"), py::arg("L"));

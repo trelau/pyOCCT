@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_EdgeParameterProvider(py::module &mod){
 
-py::class_<BRepMesh_EdgeParameterProvider, std::unique_ptr<BRepMesh_EdgeParameterProvider>> cls_BRepMesh_EdgeParameterProvider(mod, "BRepMesh_EdgeParameterProvider", "Auxiliary class provides correct parameters on curve regarding SameParameter flag.");
+py::class_<BRepMesh_EdgeParameterProvider> cls_BRepMesh_EdgeParameterProvider(mod, "BRepMesh_EdgeParameterProvider", "Auxiliary class provides correct parameters on curve regarding SameParameter flag.");
 
 // Constructors
 // cls_BRepMesh_EdgeParameterProvider.def(py::init<const TopoDS_Edge &, const TopoDS_Face &, const opencascade::handle<TColStd_HArray1OfReal> &>(), py::arg("theEdge"), py::arg("theFace"), py::arg("theParameters"));

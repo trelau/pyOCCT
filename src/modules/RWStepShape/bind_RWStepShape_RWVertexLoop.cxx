@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWVertexLoop(py::module &mod){
 
-py::class_<RWStepShape_RWVertexLoop, std::unique_ptr<RWStepShape_RWVertexLoop>> cls_RWStepShape_RWVertexLoop(mod, "RWStepShape_RWVertexLoop", "Read & Write Module for VertexLoop");
+py::class_<RWStepShape_RWVertexLoop> cls_RWStepShape_RWVertexLoop(mod, "RWStepShape_RWVertexLoop", "Read & Write Module for VertexLoop");
 
 // Constructors
 cls_RWStepShape_RWVertexLoop.def(py::init<>());

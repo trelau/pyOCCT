@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApprox_ApproxAFunction(py::module &mod){
 
-py::class_<AdvApprox_ApproxAFunction, std::unique_ptr<AdvApprox_ApproxAFunction>> cls_AdvApprox_ApproxAFunction(mod, "AdvApprox_ApproxAFunction", "this approximate a given function");
+py::class_<AdvApprox_ApproxAFunction> cls_AdvApprox_ApproxAFunction(mod, "AdvApprox_ApproxAFunction", "this approximate a given function");
 
 // Constructors
 cls_AdvApprox_ApproxAFunction.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const opencascade::handle<TColStd_HArray1OfReal> &, const opencascade::handle<TColStd_HArray1OfReal> &, const opencascade::handle<TColStd_HArray1OfReal> &, const Standard_Real, const Standard_Real, const GeomAbs_Shape, const Standard_Integer, const Standard_Integer, const AdvApprox_EvaluatorFunction &>(), py::arg("Num1DSS"), py::arg("Num2DSS"), py::arg("Num3DSS"), py::arg("OneDTol"), py::arg("TwoDTol"), py::arg("ThreeDTol"), py::arg("First"), py::arg("Last"), py::arg("Continuity"), py::arg("MaxDeg"), py::arg("MaxSeg"), py::arg("Func"));

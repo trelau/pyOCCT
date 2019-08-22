@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCE2d_MakeTranslation(py::module &mod){
 
-py::class_<GCE2d_MakeTranslation, std::unique_ptr<GCE2d_MakeTranslation>> cls_GCE2d_MakeTranslation(mod, "GCE2d_MakeTranslation", "This class implements elementary construction algorithms for a translation in 2D space. The result is a Geom2d_Transformation transformation. A MakeTranslation object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.");
+py::class_<GCE2d_MakeTranslation> cls_GCE2d_MakeTranslation(mod, "GCE2d_MakeTranslation", "This class implements elementary construction algorithms for a translation in 2D space. The result is a Geom2d_Transformation transformation. A MakeTranslation object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_GCE2d_MakeTranslation.def(py::init<const gp_Vec2d &>(), py::arg("Vect"));

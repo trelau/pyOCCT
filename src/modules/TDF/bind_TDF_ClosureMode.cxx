@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDF_ClosureMode(py::module &mod){
 
-py::class_<TDF_ClosureMode, std::unique_ptr<TDF_ClosureMode>> cls_TDF_ClosureMode(mod, "TDF_ClosureMode", "This class provides options closure management.");
+py::class_<TDF_ClosureMode> cls_TDF_ClosureMode(mod, "TDF_ClosureMode", "This class provides options closure management.");
 
 // Constructors
 cls_TDF_ClosureMode.def(py::init<>());

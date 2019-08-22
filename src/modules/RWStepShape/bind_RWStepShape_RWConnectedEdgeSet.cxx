@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWConnectedEdgeSet(py::module &mod){
 
-py::class_<RWStepShape_RWConnectedEdgeSet, std::unique_ptr<RWStepShape_RWConnectedEdgeSet>> cls_RWStepShape_RWConnectedEdgeSet(mod, "RWStepShape_RWConnectedEdgeSet", "Read & Write tool for ConnectedEdgeSet");
+py::class_<RWStepShape_RWConnectedEdgeSet> cls_RWStepShape_RWConnectedEdgeSet(mod, "RWStepShape_RWConnectedEdgeSet", "Read & Write tool for ConnectedEdgeSet");
 
 // Constructors
 cls_RWStepShape_RWConnectedEdgeSet.def(py::init<>());

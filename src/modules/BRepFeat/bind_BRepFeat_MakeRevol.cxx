@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFeat_MakeRevol(py::module &mod){
 
-py::class_<BRepFeat_MakeRevol, std::unique_ptr<BRepFeat_MakeRevol>, BRepFeat_Form> cls_BRepFeat_MakeRevol(mod, "BRepFeat_MakeRevol", "Describes functions to build revolved shells from basis shapes.");
+py::class_<BRepFeat_MakeRevol, BRepFeat_Form> cls_BRepFeat_MakeRevol(mod, "BRepFeat_MakeRevol", "Describes functions to build revolved shells from basis shapes.");
 
 // Constructors
 cls_BRepFeat_MakeRevol.def(py::init<>());

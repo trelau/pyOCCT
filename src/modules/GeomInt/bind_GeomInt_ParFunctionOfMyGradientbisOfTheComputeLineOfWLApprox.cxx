@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox(py::module &mod){
 
-py::class_<GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox, std::unique_ptr<GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox>, math_MultipleVarFunctionWithGradient> cls_GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox(mod, "GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox", "None");
+py::class_<GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox, math_MultipleVarFunctionWithGradient> cls_GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox(mod, "GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox", "None");
 
 // Constructors
 cls_GeomInt_ParFunctionOfMyGradientbisOfTheComputeLineOfWLApprox.def(py::init<const GeomInt_TheMultiLineOfWLApprox &, const Standard_Integer, const Standard_Integer, const opencascade::handle<AppParCurves_HArray1OfConstraintCouple> &, const math_Vector &, const Standard_Integer>(), py::arg("SSP"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("TheConstraints"), py::arg("Parameters"), py::arg("Deg"));

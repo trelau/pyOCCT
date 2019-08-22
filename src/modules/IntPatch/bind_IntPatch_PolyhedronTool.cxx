@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_PolyhedronTool(py::module &mod){
 
-py::class_<IntPatch_PolyhedronTool, std::unique_ptr<IntPatch_PolyhedronTool>> cls_IntPatch_PolyhedronTool(mod, "IntPatch_PolyhedronTool", "Describe the signature of a polyedral surface with only triangular facets and the necessary informations to compute the interferences.");
+py::class_<IntPatch_PolyhedronTool> cls_IntPatch_PolyhedronTool(mod, "IntPatch_PolyhedronTool", "Describe the signature of a polyedral surface with only triangular facets and the necessary informations to compute the interferences.");
 
 // Constructors
 

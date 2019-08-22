@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Contap_HContTool(py::module &mod){
 
-py::class_<Contap_HContTool, std::unique_ptr<Contap_HContTool>> cls_Contap_HContTool(mod, "Contap_HContTool", "Tool for the intersection between 2 surfaces. Regroupe pour l instant les methodes hors Adaptor3d...");
+py::class_<Contap_HContTool> cls_Contap_HContTool(mod, "Contap_HContTool", "Tool for the intersection between 2 surfaces. Regroupe pour l instant les methodes hors Adaptor3d...");
 
 // Constructors
 

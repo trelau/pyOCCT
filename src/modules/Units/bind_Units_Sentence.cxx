@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Units_Sentence(py::module &mod){
 
-py::class_<Units_Sentence, std::unique_ptr<Units_Sentence>> cls_Units_Sentence(mod, "Units_Sentence", "This class describes all the methods to create and compute an expression contained in a string.");
+py::class_<Units_Sentence> cls_Units_Sentence(mod, "Units_Sentence", "This class describes all the methods to create and compute an expression contained in a string.");
 
 // Constructors
 cls_Units_Sentence.def(py::init<const opencascade::handle<Units_Lexicon> &, const Standard_CString>(), py::arg("alexicon"), py::arg("astring"));

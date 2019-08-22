@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_HCurve2dTool(py::module &mod){
 
-py::class_<IntPatch_HCurve2dTool, std::unique_ptr<IntPatch_HCurve2dTool>> cls_IntPatch_HCurve2dTool(mod, "IntPatch_HCurve2dTool", "None");
+py::class_<IntPatch_HCurve2dTool> cls_IntPatch_HCurve2dTool(mod, "IntPatch_HCurve2dTool", "None");
 
 // Constructors
 

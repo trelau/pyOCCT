@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GC_MakeArcOfParabola(py::module &mod){
 
-py::class_<GC_MakeArcOfParabola, std::unique_ptr<GC_MakeArcOfParabola>, GC_Root> cls_GC_MakeArcOfParabola(mod, "GC_MakeArcOfParabola", "Implements construction algorithms for an arc of parabola in 3D space. The result is a Geom_TrimmedCurve curve. A MakeArcOfParabola object provides a framework for: - defining the construction of the arc of parabola, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed arc of parabola.");
+py::class_<GC_MakeArcOfParabola, GC_Root> cls_GC_MakeArcOfParabola(mod, "GC_MakeArcOfParabola", "Implements construction algorithms for an arc of parabola in 3D space. The result is a Geom_TrimmedCurve curve. A MakeArcOfParabola object provides a framework for: - defining the construction of the arc of parabola, - implementing the construction algorithm, and - consulting the results. In particular, the Value function returns the constructed arc of parabola.");
 
 // Constructors
 cls_GC_MakeArcOfParabola.def(py::init<const gp_Parab &, const Standard_Real, const Standard_Real, const Standard_Boolean>(), py::arg("Parab"), py::arg("Alpha1"), py::arg("Alpha2"), py::arg("Sense"));

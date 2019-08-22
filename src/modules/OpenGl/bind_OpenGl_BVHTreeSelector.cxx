@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_BVHTreeSelector(py::module &mod){
 
-py::class_<OpenGl_BVHTreeSelector, std::unique_ptr<OpenGl_BVHTreeSelector>> cls_OpenGl_BVHTreeSelector(mod, "OpenGl_BVHTreeSelector", "BVHTreeSelector class provides a possibility to store parameters of view volume, such as its vertices and equations, and contains methods detecting if given AABB overlaps view volume.");
+py::class_<OpenGl_BVHTreeSelector> cls_OpenGl_BVHTreeSelector(mod, "OpenGl_BVHTreeSelector", "BVHTreeSelector class provides a possibility to store parameters of view volume, such as its vertices and equations, and contains methods detecting if given AABB overlaps view volume.");
 
 // Constructors
 cls_OpenGl_BVHTreeSelector.def(py::init<>());

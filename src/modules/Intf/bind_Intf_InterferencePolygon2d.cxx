@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Intf_InterferencePolygon2d(py::module &mod){
 
-py::class_<Intf_InterferencePolygon2d, std::unique_ptr<Intf_InterferencePolygon2d>, Intf_Interference> cls_Intf_InterferencePolygon2d(mod, "Intf_InterferencePolygon2d", "Computes the interference between two polygons or the self intersection of a polygon in two dimensions.");
+py::class_<Intf_InterferencePolygon2d, Intf_Interference> cls_Intf_InterferencePolygon2d(mod, "Intf_InterferencePolygon2d", "Computes the interference between two polygons or the self intersection of a polygon in two dimensions.");
 
 // Constructors
 cls_Intf_InterferencePolygon2d.def(py::init<>());

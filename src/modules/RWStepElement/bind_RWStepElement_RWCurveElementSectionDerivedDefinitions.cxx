@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepElement_RWCurveElementSectionDerivedDefinitions(py::module &mod){
 
-py::class_<RWStepElement_RWCurveElementSectionDerivedDefinitions, std::unique_ptr<RWStepElement_RWCurveElementSectionDerivedDefinitions>> cls_RWStepElement_RWCurveElementSectionDerivedDefinitions(mod, "RWStepElement_RWCurveElementSectionDerivedDefinitions", "Read & Write tool for CurveElementSectionDerivedDefinitions");
+py::class_<RWStepElement_RWCurveElementSectionDerivedDefinitions> cls_RWStepElement_RWCurveElementSectionDerivedDefinitions(mod, "RWStepElement_RWCurveElementSectionDerivedDefinitions", "Read & Write tool for CurveElementSectionDerivedDefinitions");
 
 // Constructors
 cls_RWStepElement_RWCurveElementSectionDerivedDefinitions.def(py::init<>());

@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDefs_ToolAttributeTable(py::module &mod){
 
-py::class_<IGESDefs_ToolAttributeTable, std::unique_ptr<IGESDefs_ToolAttributeTable>> cls_IGESDefs_ToolAttributeTable(mod, "IGESDefs_ToolAttributeTable", "Tool to work on a AttributeTable. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDefs_ToolAttributeTable> cls_IGESDefs_ToolAttributeTable(mod, "IGESDefs_ToolAttributeTable", "Tool to work on a AttributeTable. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDefs_ToolAttributeTable.def(py::init<>());

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_ExtGS(py::module &mod){
 
-py::class_<OpenGl_ExtGS, std::unique_ptr<OpenGl_ExtGS>> cls_OpenGl_ExtGS(mod, "OpenGl_ExtGS", "Geometry shader as extension is available on OpenGL 2.0+");
+py::class_<OpenGl_ExtGS> cls_OpenGl_ExtGS(mod, "OpenGl_ExtGS", "Geometry shader as extension is available on OpenGL 2.0+");
 
 // Constructors
 

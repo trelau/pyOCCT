@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename Element_t>
 void bind_NCollection_Mat4(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_Mat4<Element_t>, std::unique_ptr<NCollection_Mat4<Element_t>>> cls_NCollection_Mat4(mod, name.c_str(), "Generic matrix of 4 x 4 elements. To be used in conjunction with NCollection_Vec4 entities. Originally introduced for 3D space projection and orientation operations.", local);
+py::class_<NCollection_Mat4<Element_t>> cls_NCollection_Mat4(mod, name.c_str(), "Generic matrix of 4 x 4 elements. To be used in conjunction with NCollection_Vec4 entities. Originally introduced for 3D space projection and orientation operations.", local);
 
 // Constructors
 cls_NCollection_Mat4.def(py::init<>());

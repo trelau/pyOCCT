@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppCont_Function(py::module &mod){
 
-py::class_<AppCont_Function, std::unique_ptr<AppCont_Function>> cls_AppCont_Function(mod, "AppCont_Function", "Class describing a continous 3d and/or function f(u). This class must be provided by the user to use the approximation algorithm FittingCurve.");
+py::class_<AppCont_Function> cls_AppCont_Function(mod, "AppCont_Function", "Class describing a continous 3d and/or function f(u). This class must be provided by the user to use the approximation algorithm FittingCurve.");
 
 // Fields
 

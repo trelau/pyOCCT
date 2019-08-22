@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApprox_EvaluatorFunction(py::module &mod){
 
-py::class_<AdvApprox_EvaluatorFunction, std::unique_ptr<AdvApprox_EvaluatorFunction>> cls_AdvApprox_EvaluatorFunction(mod, "AdvApprox_EvaluatorFunction", "Interface for a class implementing a function to be approximated by AdvApprox_ApproxAFunction");
+py::class_<AdvApprox_EvaluatorFunction> cls_AdvApprox_EvaluatorFunction(mod, "AdvApprox_EvaluatorFunction", "Interface for a class implementing a function to be approximated by AdvApprox_ApproxAFunction");
 
 // Fields
 

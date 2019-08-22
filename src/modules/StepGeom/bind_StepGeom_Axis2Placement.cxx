@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepGeom_Axis2Placement(py::module &mod){
 
-py::class_<StepGeom_Axis2Placement, std::unique_ptr<StepGeom_Axis2Placement>, StepData_SelectType> cls_StepGeom_Axis2Placement(mod, "StepGeom_Axis2Placement", "None");
+py::class_<StepGeom_Axis2Placement, StepData_SelectType> cls_StepGeom_Axis2Placement(mod, "StepGeom_Axis2Placement", "None");
 
 // Constructors
 cls_StepGeom_Axis2Placement.def(py::init<>());

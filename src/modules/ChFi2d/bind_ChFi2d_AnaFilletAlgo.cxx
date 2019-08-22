@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFi2d_AnaFilletAlgo(py::module &mod){
 
-py::class_<ChFi2d_AnaFilletAlgo, std::unique_ptr<ChFi2d_AnaFilletAlgo>> cls_ChFi2d_AnaFilletAlgo(mod, "ChFi2d_AnaFilletAlgo", "An analytical algorithm for calculation of the fillets. It is implemented for segments and arcs of circle only.");
+py::class_<ChFi2d_AnaFilletAlgo> cls_ChFi2d_AnaFilletAlgo(mod, "ChFi2d_AnaFilletAlgo", "An analytical algorithm for calculation of the fillets. It is implemented for segments and arcs of circle only.");
 
 // Constructors
 cls_ChFi2d_AnaFilletAlgo.def(py::init<>());

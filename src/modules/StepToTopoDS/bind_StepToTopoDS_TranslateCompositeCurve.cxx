@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS_TranslateCompositeCurve(py::module &mod){
 
-py::class_<StepToTopoDS_TranslateCompositeCurve, std::unique_ptr<StepToTopoDS_TranslateCompositeCurve>, StepToTopoDS_Root> cls_StepToTopoDS_TranslateCompositeCurve(mod, "StepToTopoDS_TranslateCompositeCurve", "Translate STEP entity composite_curve to TopoDS_Wire If surface is given, the curve is assumed to lie on that surface and in case if any segment of it is a curve_on_surface, the pcurve for that segment will be taken. Note: a segment of composite_curve may be itself composite_curve. Only one-level protection against cyclic references is implemented.");
+py::class_<StepToTopoDS_TranslateCompositeCurve, StepToTopoDS_Root> cls_StepToTopoDS_TranslateCompositeCurve(mod, "StepToTopoDS_TranslateCompositeCurve", "Translate STEP entity composite_curve to TopoDS_Wire If surface is given, the curve is assumed to lie on that surface and in case if any segment of it is a curve_on_surface, the pcurve for that segment will be taken. Note: a segment of composite_curve may be itself composite_curve. Only one-level protection against cyclic references is implemented.");
 
 // Constructors
 cls_StepToTopoDS_TranslateCompositeCurve.def(py::init<>());

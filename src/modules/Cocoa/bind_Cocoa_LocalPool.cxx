@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_Cocoa_LocalPool(py::module &mod){
 
 /*
-py::class_<Cocoa_LocalPool, std::unique_ptr<Cocoa_LocalPool>> cls_Cocoa_LocalPool(mod, "Cocoa_LocalPool", "Auxiliary class to create local pool.");
+py::class_<Cocoa_LocalPool> cls_Cocoa_LocalPool(mod, "Cocoa_LocalPool", "Auxiliary class to create local pool.");
 
 // Constructors
 cls_Cocoa_LocalPool.def(py::init<>());

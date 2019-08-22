@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWRightAngularWedge(py::module &mod){
 
-py::class_<RWStepShape_RWRightAngularWedge, std::unique_ptr<RWStepShape_RWRightAngularWedge>> cls_RWStepShape_RWRightAngularWedge(mod, "RWStepShape_RWRightAngularWedge", "Read & Write Module for RightAngularWedge");
+py::class_<RWStepShape_RWRightAngularWedge> cls_RWStepShape_RWRightAngularWedge(mod, "RWStepShape_RWRightAngularWedge", "Read & Write Module for RightAngularWedge");
 
 // Constructors
 cls_RWStepShape_RWRightAngularWedge.def(py::init<>());

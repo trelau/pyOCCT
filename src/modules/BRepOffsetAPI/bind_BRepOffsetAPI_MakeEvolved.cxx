@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffsetAPI_MakeEvolved(py::module &mod){
 
-py::class_<BRepOffsetAPI_MakeEvolved, std::unique_ptr<BRepOffsetAPI_MakeEvolved>, BRepBuilderAPI_MakeShape> cls_BRepOffsetAPI_MakeEvolved(mod, "BRepOffsetAPI_MakeEvolved", "Describes functions to build evolved shapes. An evolved shape is built from a planar spine (face or wire) and a profile (wire). The evolved shape is the unlooped sweep (pipe) of the profile along the spine. Self-intersections are removed. A MakeEvolved object provides a framework for: - defining the construction of an evolved shape, - implementing the construction algorithm, and - consulting the result. Computes an Evolved by 1 - sweeping a profil along a spine. 2 - removing the self-intersections.");
+py::class_<BRepOffsetAPI_MakeEvolved, BRepBuilderAPI_MakeShape> cls_BRepOffsetAPI_MakeEvolved(mod, "BRepOffsetAPI_MakeEvolved", "Describes functions to build evolved shapes. An evolved shape is built from a planar spine (face or wire) and a profile (wire). The evolved shape is the unlooped sweep (pipe) of the profile along the spine. Self-intersections are removed. A MakeEvolved object provides a framework for: - defining the construction of an evolved shape, - implementing the construction algorithm, and - consulting the result. Computes an Evolved by 1 - sweeping a profil along a spine. 2 - removing the self-intersections.");
 
 // Constructors
 cls_BRepOffsetAPI_MakeEvolved.def(py::init<>());

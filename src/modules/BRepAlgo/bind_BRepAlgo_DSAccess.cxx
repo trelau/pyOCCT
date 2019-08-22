@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgo_DSAccess(py::module &mod){
 
-py::class_<BRepAlgo_DSAccess, std::unique_ptr<BRepAlgo_DSAccess>> cls_BRepAlgo_DSAccess(mod, "BRepAlgo_DSAccess", "None");
+py::class_<BRepAlgo_DSAccess> cls_BRepAlgo_DSAccess(mod, "BRepAlgo_DSAccess", "None");
 
 // Constructors
 cls_BRepAlgo_DSAccess.def(py::init<>());

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheItemType>
 void bind_NCollection_Vector(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_Vector<TheItemType>, std::unique_ptr<NCollection_Vector<TheItemType>>, NCollection_BaseVector> cls_NCollection_Vector(mod, name.c_str(), "Class NCollection_Vector (dynamic array of objects)", local);
+py::class_<NCollection_Vector<TheItemType>, NCollection_BaseVector> cls_NCollection_Vector(mod, name.c_str(), "Class NCollection_Vector (dynamic array of objects)", local);
 
 // Constructors
 cls_NCollection_Vector.def(py::init<>());

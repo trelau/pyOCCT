@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWGroup(py::module &mod){
 
-py::class_<RWStepBasic_RWGroup, std::unique_ptr<RWStepBasic_RWGroup>> cls_RWStepBasic_RWGroup(mod, "RWStepBasic_RWGroup", "Read & Write tool for Group");
+py::class_<RWStepBasic_RWGroup> cls_RWStepBasic_RWGroup(mod, "RWStepBasic_RWGroup", "Read & Write tool for Group");
 
 // Constructors
 cls_RWStepBasic_RWGroup.def(py::init<>());

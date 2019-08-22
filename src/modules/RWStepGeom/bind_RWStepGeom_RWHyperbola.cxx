@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWHyperbola(py::module &mod){
 
-py::class_<RWStepGeom_RWHyperbola, std::unique_ptr<RWStepGeom_RWHyperbola>> cls_RWStepGeom_RWHyperbola(mod, "RWStepGeom_RWHyperbola", "Read & Write Module for Hyperbola");
+py::class_<RWStepGeom_RWHyperbola> cls_RWStepGeom_RWHyperbola(mod, "RWStepGeom_RWHyperbola", "Read & Write Module for Hyperbola");
 
 // Constructors
 cls_RWStepGeom_RWHyperbola.def(py::init<>());

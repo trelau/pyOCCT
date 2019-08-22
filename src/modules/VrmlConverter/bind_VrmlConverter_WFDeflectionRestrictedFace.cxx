@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_VrmlConverter_WFDeflectionRestrictedFace(py::module &mod){
 
-py::class_<VrmlConverter_WFDeflectionRestrictedFace, std::unique_ptr<VrmlConverter_WFDeflectionRestrictedFace>> cls_VrmlConverter_WFDeflectionRestrictedFace(mod, "VrmlConverter_WFDeflectionRestrictedFace", "WFDeflectionRestrictedFace - computes the wireframe presentation of faces with restrictions by displaying a given number of U and/or V isoparametric curves, converts his into VRML objects and writes (adds) them into anOStream. All requested properties of the representation are specify in aDrawer of Drawer class (Prs3d). This kind of the presentation is converted into IndexedFaceSet and IndexedLineSet ( VRML ).");
+py::class_<VrmlConverter_WFDeflectionRestrictedFace> cls_VrmlConverter_WFDeflectionRestrictedFace(mod, "VrmlConverter_WFDeflectionRestrictedFace", "WFDeflectionRestrictedFace - computes the wireframe presentation of faces with restrictions by displaying a given number of U and/or V isoparametric curves, converts his into VRML objects and writes (adds) them into anOStream. All requested properties of the representation are specify in aDrawer of Drawer class (Prs3d). This kind of the presentation is converted into IndexedFaceSet and IndexedLineSet ( VRML ).");
 
 // Constructors
 

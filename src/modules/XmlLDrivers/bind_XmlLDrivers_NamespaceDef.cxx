@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlLDrivers_NamespaceDef(py::module &mod){
 
-py::class_<XmlLDrivers_NamespaceDef, std::unique_ptr<XmlLDrivers_NamespaceDef>> cls_XmlLDrivers_NamespaceDef(mod, "XmlLDrivers_NamespaceDef", "None");
+py::class_<XmlLDrivers_NamespaceDef> cls_XmlLDrivers_NamespaceDef(mod, "XmlLDrivers_NamespaceDef", "None");
 
 // Constructors
 cls_XmlLDrivers_NamespaceDef.def(py::init<>());

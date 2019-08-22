@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAdaptor_CompCurve(py::module &mod){
 
-py::class_<BRepAdaptor_CompCurve, std::unique_ptr<BRepAdaptor_CompCurve>, Adaptor3d_Curve> cls_BRepAdaptor_CompCurve(mod, "BRepAdaptor_CompCurve", "The Curve from BRepAdaptor allows to use a Wire of the BRep topology like a 3D curve. Warning: With this class of curve, C0 and C1 continuities are not assumed. So be careful with some algorithm! Please note that BRepAdaptor_CompCurve cannot be periodic curve at all (even if it contains single periodic edge).");
+py::class_<BRepAdaptor_CompCurve, Adaptor3d_Curve> cls_BRepAdaptor_CompCurve(mod, "BRepAdaptor_CompCurve", "The Curve from BRepAdaptor allows to use a Wire of the BRep topology like a 3D curve. Warning: With this class of curve, C0 and C1 continuities are not assumed. So be careful with some algorithm! Please note that BRepAdaptor_CompCurve cannot be periodic curve at all (even if it contains single periodic edge).");
 
 // Constructors
 cls_BRepAdaptor_CompCurve.def(py::init<>());

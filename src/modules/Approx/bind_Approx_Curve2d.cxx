@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Approx_Curve2d(py::module &mod){
 
-py::class_<Approx_Curve2d, std::unique_ptr<Approx_Curve2d>> cls_Approx_Curve2d(mod, "Approx_Curve2d", "Makes an approximation for HCurve2d from Adaptor3d");
+py::class_<Approx_Curve2d> cls_Approx_Curve2d(mod, "Approx_Curve2d", "Makes an approximation for HCurve2d from Adaptor3d");
 
 // Constructors
 cls_Approx_Curve2d.def(py::init<const opencascade::handle<Adaptor2d_HCurve2d> &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const GeomAbs_Shape, const Standard_Integer, const Standard_Integer>(), py::arg("C2D"), py::arg("First"), py::arg("Last"), py::arg("TolU"), py::arg("TolV"), py::arg("Continuity"), py::arg("MaxDegree"), py::arg("MaxSegments"));

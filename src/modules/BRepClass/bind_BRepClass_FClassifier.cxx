@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepClass_FClassifier(py::module &mod){
 
-py::class_<BRepClass_FClassifier, std::unique_ptr<BRepClass_FClassifier>> cls_BRepClass_FClassifier(mod, "BRepClass_FClassifier", "None");
+py::class_<BRepClass_FClassifier> cls_BRepClass_FClassifier(mod, "BRepClass_FClassifier", "None");
 
 // Constructors
 cls_BRepClass_FClassifier.def(py::init<>());

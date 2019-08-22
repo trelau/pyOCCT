@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocOpe_BuildWires(py::module &mod){
 
-py::class_<LocOpe_BuildWires, std::unique_ptr<LocOpe_BuildWires>> cls_LocOpe_BuildWires(mod, "LocOpe_BuildWires", "None");
+py::class_<LocOpe_BuildWires> cls_LocOpe_BuildWires(mod, "LocOpe_BuildWires", "None");
 
 // Constructors
 cls_LocOpe_BuildWires.def(py::init<>());

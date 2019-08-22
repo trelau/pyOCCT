@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGeom_ToolSplineSurface(py::module &mod){
 
-py::class_<IGESGeom_ToolSplineSurface, std::unique_ptr<IGESGeom_ToolSplineSurface>> cls_IGESGeom_ToolSplineSurface(mod, "IGESGeom_ToolSplineSurface", "Tool to work on a SplineSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGeom_ToolSplineSurface> cls_IGESGeom_ToolSplineSurface(mod, "IGESGeom_ToolSplineSurface", "Tool to work on a SplineSurface. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGeom_ToolSplineSurface.def(py::init<>());

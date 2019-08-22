@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_GTrsf(py::module &mod){
 
-py::class_<gp_GTrsf, std::unique_ptr<gp_GTrsf>> cls_gp_GTrsf(mod, "gp_GTrsf", "Defines a non-persistent transformation in 3D space. This transformation is a general transformation. It can be a Trsf from gp, an affinity, or you can define your own transformation giving the matrix of transformation.");
+py::class_<gp_GTrsf> cls_gp_GTrsf(mod, "gp_GTrsf", "Defines a non-persistent transformation in 3D space. This transformation is a general transformation. It can be a Trsf from gp, an affinity, or you can define your own transformation giving the matrix of transformation.");
 
 // Constructors
 cls_gp_GTrsf.def(py::init<>());

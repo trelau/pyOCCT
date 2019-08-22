@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOM_BasicNode(py::module &mod){
 
-py::class_<LDOM_BasicNode, std::unique_ptr<LDOM_BasicNode>> cls_LDOM_BasicNode(mod, "LDOM_BasicNode", "None");
+py::class_<LDOM_BasicNode> cls_LDOM_BasicNode(mod, "LDOM_BasicNode", "None");
 
 // Constructors
 

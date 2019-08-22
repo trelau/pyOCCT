@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepGProp_Domain(py::module &mod){
 
-py::class_<BRepGProp_Domain, std::unique_ptr<BRepGProp_Domain>> cls_BRepGProp_Domain(mod, "BRepGProp_Domain", "Arc iterator. Returns only Forward and Reversed edges from the face in an undigested order.");
+py::class_<BRepGProp_Domain> cls_BRepGProp_Domain(mod, "BRepGProp_Domain", "Arc iterator. Returns only Forward and Reversed edges from the face in an undigested order.");
 
 // Constructors
 cls_BRepGProp_Domain.def(py::init<>());

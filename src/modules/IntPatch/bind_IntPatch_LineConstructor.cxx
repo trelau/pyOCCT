@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_LineConstructor(py::module &mod){
 
-py::class_<IntPatch_LineConstructor, std::unique_ptr<IntPatch_LineConstructor>> cls_IntPatch_LineConstructor(mod, "IntPatch_LineConstructor", "The intersections algorithms compute the intersection on two surfaces and return the intersections lines as IntPatch_Line.");
+py::class_<IntPatch_LineConstructor> cls_IntPatch_LineConstructor(mod, "IntPatch_LineConstructor", "The intersections algorithms compute the intersection on two surfaces and return the intersections lines as IntPatch_Line.");
 
 // Constructors
 cls_IntPatch_LineConstructor.def(py::init<const Standard_Integer>(), py::arg("mode"));

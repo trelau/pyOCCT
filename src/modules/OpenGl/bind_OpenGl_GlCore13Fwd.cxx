@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_GlCore13Fwd(py::module &mod){
 
-py::class_<OpenGl_GlCore13Fwd, std::unique_ptr<OpenGl_GlCore13Fwd>> cls_OpenGl_GlCore13Fwd(mod, "OpenGl_GlCore13Fwd", "OpenGL 1.3 without deprecated entry points.");
+py::class_<OpenGl_GlCore13Fwd> cls_OpenGl_GlCore13Fwd(mod, "OpenGl_GlCore13Fwd", "OpenGL 1.3 without deprecated entry points.");
 
 // Constructors
 

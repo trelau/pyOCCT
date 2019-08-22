@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepGeom_PcurveOrSurface(py::module &mod){
 
-py::class_<StepGeom_PcurveOrSurface, std::unique_ptr<StepGeom_PcurveOrSurface>, StepData_SelectType> cls_StepGeom_PcurveOrSurface(mod, "StepGeom_PcurveOrSurface", "None");
+py::class_<StepGeom_PcurveOrSurface, StepData_SelectType> cls_StepGeom_PcurveOrSurface(mod, "StepGeom_PcurveOrSurface", "None");
 
 // Constructors
 cls_StepGeom_PcurveOrSurface.def(py::init<>());

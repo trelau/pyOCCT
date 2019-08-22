@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPolyh_StartPoint(py::module &mod){
 
-py::class_<IntPolyh_StartPoint, std::unique_ptr<IntPolyh_StartPoint>> cls_IntPolyh_StartPoint(mod, "IntPolyh_StartPoint", "None");
+py::class_<IntPolyh_StartPoint> cls_IntPolyh_StartPoint(mod, "IntPolyh_StartPoint", "None");
 
 // Constructors
 cls_IntPolyh_StartPoint.def(py::init<>());

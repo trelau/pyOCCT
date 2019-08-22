@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_CurveRangeLocalizeData(py::module &mod){
 
-py::class_<IntTools_CurveRangeLocalizeData, std::unique_ptr<IntTools_CurveRangeLocalizeData>> cls_IntTools_CurveRangeLocalizeData(mod, "IntTools_CurveRangeLocalizeData", "None");
+py::class_<IntTools_CurveRangeLocalizeData> cls_IntTools_CurveRangeLocalizeData(mod, "IntTools_CurveRangeLocalizeData", "None");
 
 // Constructors
 cls_IntTools_CurveRangeLocalizeData.def(py::init<const Standard_Integer, const Standard_Real>(), py::arg("theNbSample"), py::arg("theMinRange"));

@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepApprox_Approx(py::module &mod){
 
-py::class_<BRepApprox_Approx, std::unique_ptr<BRepApprox_Approx>> cls_BRepApprox_Approx(mod, "BRepApprox_Approx", "None");
+py::class_<BRepApprox_Approx> cls_BRepApprox_Approx(mod, "BRepApprox_Approx", "None");
 
 // Constructors
 cls_BRepApprox_Approx.def(py::init<>());

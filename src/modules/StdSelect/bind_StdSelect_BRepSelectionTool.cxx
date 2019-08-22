@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdSelect_BRepSelectionTool(py::module &mod){
 
-py::class_<StdSelect_BRepSelectionTool, std::unique_ptr<StdSelect_BRepSelectionTool>> cls_StdSelect_BRepSelectionTool(mod, "StdSelect_BRepSelectionTool", "Tool to create specific selections (sets of primitives) for Shapes from Topology. These Selections may be used in dynamic selection Mechanism Given a Shape and a mode of selection (selection of vertices, edges,faces ...) , This Tool Computes corresponding sensitive primitives, puts them in an entity called Selection (see package SelectMgr) and returns it.");
+py::class_<StdSelect_BRepSelectionTool> cls_StdSelect_BRepSelectionTool(mod, "StdSelect_BRepSelectionTool", "Tool to create specific selections (sets of primitives) for Shapes from Topology. These Selections may be used in dynamic selection Mechanism Given a Shape and a mode of selection (selection of vertices, edges,faces ...) , This Tool Computes corresponding sensitive primitives, puts them in an entity called Selection (see package SelectMgr) and returns it.");
 
 // Constructors
 

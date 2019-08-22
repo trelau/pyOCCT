@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_LineBuffer(py::module &mod){
 
-py::class_<Interface_LineBuffer, std::unique_ptr<Interface_LineBuffer>> cls_Interface_LineBuffer(mod, "Interface_LineBuffer", "Simple Management of a Line Buffer, to be used by Interface File Writers. While a String is suitable to do that, this class ensures an optimised Memory Management, because this is a hard point of File Writing.");
+py::class_<Interface_LineBuffer> cls_Interface_LineBuffer(mod, "Interface_LineBuffer", "Simple Management of a Line Buffer, to be used by Interface File Writers. While a String is suitable to do that, this class ensures an optimised Memory Management, because this is a hard point of File Writing.");
 
 // Constructors
 cls_Interface_LineBuffer.def(py::init<>());

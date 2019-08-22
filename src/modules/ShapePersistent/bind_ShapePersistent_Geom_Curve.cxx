@@ -52,7 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_ShapePersistent_Geom_Curve(py::module &mod){
 
 /*
-py::class_<ShapePersistent_Geom_Curve, std::unique_ptr<ShapePersistent_Geom_Curve>> cls_ShapePersistent_Geom_Curve(mod, "ShapePersistent_Geom_Curve", "None");
+py::class_<ShapePersistent_Geom_Curve> cls_ShapePersistent_Geom_Curve(mod, "ShapePersistent_Geom_Curve", "None");
 
 // Constructors
 

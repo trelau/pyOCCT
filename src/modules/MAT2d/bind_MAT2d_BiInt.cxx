@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MAT2d_BiInt(py::module &mod){
 
-py::class_<MAT2d_BiInt, std::unique_ptr<MAT2d_BiInt>> cls_MAT2d_BiInt(mod, "MAT2d_BiInt", "BiInt is a set of two integers.");
+py::class_<MAT2d_BiInt> cls_MAT2d_BiInt(mod, "MAT2d_BiInt", "BiInt is a set of two integers.");
 
 // Constructors
 cls_MAT2d_BiInt.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("I1"), py::arg("I2"));

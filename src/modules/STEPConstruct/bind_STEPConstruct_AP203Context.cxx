@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPConstruct_AP203Context(py::module &mod){
 
-py::class_<STEPConstruct_AP203Context, std::unique_ptr<STEPConstruct_AP203Context>> cls_STEPConstruct_AP203Context(mod, "STEPConstruct_AP203Context", "Maintains context specific for AP203 (required data and management information such as persons, dates, approvals etc.) It contains static entities (which can be shared), default values for person and organisation, and also provides tool for creating management entities around specific part (SDR).");
+py::class_<STEPConstruct_AP203Context> cls_STEPConstruct_AP203Context(mod, "STEPConstruct_AP203Context", "Maintains context specific for AP203 (required data and management information such as persons, dates, approvals etc.) It contains static entities (which can be shared), default values for person and organisation, and also provides tool for creating management entities around specific part (SDR).");
 
 // Constructors
 cls_STEPConstruct_AP203Context.def(py::init<>());

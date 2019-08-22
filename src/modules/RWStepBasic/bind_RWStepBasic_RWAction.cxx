@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWAction(py::module &mod){
 
-py::class_<RWStepBasic_RWAction, std::unique_ptr<RWStepBasic_RWAction>> cls_RWStepBasic_RWAction(mod, "RWStepBasic_RWAction", "Read & Write tool for Action");
+py::class_<RWStepBasic_RWAction> cls_RWStepBasic_RWAction(mod, "RWStepBasic_RWAction", "Read & Write tool for Action");
 
 // Constructors
 cls_RWStepBasic_RWAction.def(py::init<>());

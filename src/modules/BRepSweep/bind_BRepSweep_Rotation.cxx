@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepSweep_Rotation(py::module &mod){
 
-py::class_<BRepSweep_Rotation, std::unique_ptr<BRepSweep_Rotation>, BRepSweep_Trsf> cls_BRepSweep_Rotation(mod, "BRepSweep_Rotation", "Provides an algorithm to build object by Rotation sweep.");
+py::class_<BRepSweep_Rotation, BRepSweep_Trsf> cls_BRepSweep_Rotation(mod, "BRepSweep_Rotation", "Provides an algorithm to build object by Rotation sweep.");
 
 // Constructors
 cls_BRepSweep_Rotation.def(py::init<const TopoDS_Shape &, const Sweep_NumShape &, const TopLoc_Location &, const gp_Ax1 &, const Standard_Real, const Standard_Boolean>(), py::arg("S"), py::arg("N"), py::arg("L"), py::arg("A"), py::arg("D"), py::arg("C"));

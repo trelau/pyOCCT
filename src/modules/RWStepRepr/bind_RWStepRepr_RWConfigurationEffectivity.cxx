@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWConfigurationEffectivity(py::module &mod){
 
-py::class_<RWStepRepr_RWConfigurationEffectivity, std::unique_ptr<RWStepRepr_RWConfigurationEffectivity>> cls_RWStepRepr_RWConfigurationEffectivity(mod, "RWStepRepr_RWConfigurationEffectivity", "Read & Write tool for ConfigurationEffectivity");
+py::class_<RWStepRepr_RWConfigurationEffectivity> cls_RWStepRepr_RWConfigurationEffectivity(mod, "RWStepRepr_RWConfigurationEffectivity", "Read & Write tool for ConfigurationEffectivity");
 
 // Constructors
 cls_RWStepRepr_RWConfigurationEffectivity.def(py::init<>());

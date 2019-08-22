@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffset(py::module &mod){
 
-py::class_<BRepOffset, std::unique_ptr<BRepOffset>> cls_BRepOffset(mod, "BRepOffset", "Auxiliary tools for offset algorithms");
+py::class_<BRepOffset> cls_BRepOffset(mod, "BRepOffset", "Auxiliary tools for offset algorithms");
 
 // Constructors
 

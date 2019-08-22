@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FilletSurf_InternalBuilder(py::module &mod){
 
-py::class_<FilletSurf_InternalBuilder, std::unique_ptr<FilletSurf_InternalBuilder>, ChFi3d_FilBuilder> cls_FilletSurf_InternalBuilder(mod, "FilletSurf_InternalBuilder", "This class is private. It is used by the class Builder from FilletSurf. It computes geometric information about fillets.");
+py::class_<FilletSurf_InternalBuilder, ChFi3d_FilBuilder> cls_FilletSurf_InternalBuilder(mod, "FilletSurf_InternalBuilder", "This class is private. It is used by the class Builder from FilletSurf. It computes geometric information about fillets.");
 
 // Constructors
 cls_FilletSurf_InternalBuilder.def(py::init<const TopoDS_Shape &>(), py::arg("S"));

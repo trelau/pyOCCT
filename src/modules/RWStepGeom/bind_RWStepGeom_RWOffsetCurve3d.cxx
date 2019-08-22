@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWOffsetCurve3d(py::module &mod){
 
-py::class_<RWStepGeom_RWOffsetCurve3d, std::unique_ptr<RWStepGeom_RWOffsetCurve3d>> cls_RWStepGeom_RWOffsetCurve3d(mod, "RWStepGeom_RWOffsetCurve3d", "Read & Write Module for OffsetCurve3d");
+py::class_<RWStepGeom_RWOffsetCurve3d> cls_RWStepGeom_RWOffsetCurve3d(mod, "RWStepGeom_RWOffsetCurve3d", "Read & Write Module for OffsetCurve3d");
 
 // Constructors
 cls_RWStepGeom_RWOffsetCurve3d.def(py::init<>());

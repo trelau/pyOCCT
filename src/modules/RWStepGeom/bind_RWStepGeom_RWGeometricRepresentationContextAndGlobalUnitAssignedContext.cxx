@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWGeometricRepresentationContextAndGlobalUnitAssignedContext(py::module &mod){
 
-py::class_<RWStepGeom_RWGeometricRepresentationContextAndGlobalUnitAssignedContext, std::unique_ptr<RWStepGeom_RWGeometricRepresentationContextAndGlobalUnitAssignedContext>> cls_RWStepGeom_RWGeometricRepresentationContextAndGlobalUnitAssignedContext(mod, "RWStepGeom_RWGeometricRepresentationContextAndGlobalUnitAssignedContext", "Read & Write Module for GeometricRepresentationContextAndGlobalUnitAssignedContext");
+py::class_<RWStepGeom_RWGeometricRepresentationContextAndGlobalUnitAssignedContext> cls_RWStepGeom_RWGeometricRepresentationContextAndGlobalUnitAssignedContext(mod, "RWStepGeom_RWGeometricRepresentationContextAndGlobalUnitAssignedContext", "Read & Write Module for GeometricRepresentationContextAndGlobalUnitAssignedContext");
 
 // Constructors
 cls_RWStepGeom_RWGeometricRepresentationContextAndGlobalUnitAssignedContext.def(py::init<>());

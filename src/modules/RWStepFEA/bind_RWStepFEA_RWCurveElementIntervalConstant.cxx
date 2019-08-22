@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWCurveElementIntervalConstant(py::module &mod){
 
-py::class_<RWStepFEA_RWCurveElementIntervalConstant, std::unique_ptr<RWStepFEA_RWCurveElementIntervalConstant>> cls_RWStepFEA_RWCurveElementIntervalConstant(mod, "RWStepFEA_RWCurveElementIntervalConstant", "Read & Write tool for CurveElementIntervalConstant");
+py::class_<RWStepFEA_RWCurveElementIntervalConstant> cls_RWStepFEA_RWCurveElementIntervalConstant(mod, "RWStepFEA_RWCurveElementIntervalConstant", "Read & Write tool for CurveElementIntervalConstant");
 
 // Constructors
 cls_RWStepFEA_RWCurveElementIntervalConstant.def(py::init<>());

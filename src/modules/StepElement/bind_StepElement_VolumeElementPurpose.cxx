@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepElement_VolumeElementPurpose(py::module &mod){
 
-py::class_<StepElement_VolumeElementPurpose, std::unique_ptr<StepElement_VolumeElementPurpose>, StepData_SelectType> cls_StepElement_VolumeElementPurpose(mod, "StepElement_VolumeElementPurpose", "Representation of STEP SELECT type VolumeElementPurpose");
+py::class_<StepElement_VolumeElementPurpose, StepData_SelectType> cls_StepElement_VolumeElementPurpose(mod, "StepElement_VolumeElementPurpose", "Representation of STEP SELECT type VolumeElementPurpose");
 
 // Constructors
 cls_StepElement_VolumeElementPurpose.def(py::init<>());

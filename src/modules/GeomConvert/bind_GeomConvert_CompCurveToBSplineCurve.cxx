@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomConvert_CompCurveToBSplineCurve(py::module &mod){
 
-py::class_<GeomConvert_CompCurveToBSplineCurve, std::unique_ptr<GeomConvert_CompCurveToBSplineCurve>> cls_GeomConvert_CompCurveToBSplineCurve(mod, "GeomConvert_CompCurveToBSplineCurve", "Algorithm converts and concat several curve in an BSplineCurve");
+py::class_<GeomConvert_CompCurveToBSplineCurve> cls_GeomConvert_CompCurveToBSplineCurve(mod, "GeomConvert_CompCurveToBSplineCurve", "Algorithm converts and concat several curve in an BSplineCurve");
 
 // Constructors
 cls_GeomConvert_CompCurveToBSplineCurve.def(py::init<>());

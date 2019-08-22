@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_PointExplorer(py::module &mod){
 
-py::class_<TopOpeBRepDS_PointExplorer, std::unique_ptr<TopOpeBRepDS_PointExplorer>> cls_TopOpeBRepDS_PointExplorer(mod, "TopOpeBRepDS_PointExplorer", "None");
+py::class_<TopOpeBRepDS_PointExplorer> cls_TopOpeBRepDS_PointExplorer(mod, "TopOpeBRepDS_PointExplorer", "None");
 
 // Constructors
 cls_TopOpeBRepDS_PointExplorer.def(py::init<>());

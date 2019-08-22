@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBlend_HCurveTool(py::module &mod){
 
-py::class_<BRepBlend_HCurveTool, std::unique_ptr<BRepBlend_HCurveTool>> cls_BRepBlend_HCurveTool(mod, "BRepBlend_HCurveTool", "None");
+py::class_<BRepBlend_HCurveTool> cls_BRepBlend_HCurveTool(mod, "BRepBlend_HCurveTool", "None");
 
 // Constructors
 

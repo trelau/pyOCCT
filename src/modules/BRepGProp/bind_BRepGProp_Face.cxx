@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepGProp_Face(py::module &mod){
 
-py::class_<BRepGProp_Face, std::unique_ptr<BRepGProp_Face>> cls_BRepGProp_Face(mod, "BRepGProp_Face", "None");
+py::class_<BRepGProp_Face> cls_BRepGProp_Face(mod, "BRepGProp_Face", "None");
 
 // Constructors
 cls_BRepGProp_Face.def(py::init<>());

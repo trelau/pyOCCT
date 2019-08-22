@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Prs3d_ToolSphere(py::module &mod){
 
-py::class_<Prs3d_ToolSphere, std::unique_ptr<Prs3d_ToolSphere>, Prs3d_ToolQuadric> cls_Prs3d_ToolSphere(mod, "Prs3d_ToolSphere", "Standard presentation algorithm that outputs graphical primitives for spherical surface.");
+py::class_<Prs3d_ToolSphere, Prs3d_ToolQuadric> cls_Prs3d_ToolSphere(mod, "Prs3d_ToolSphere", "Standard presentation algorithm that outputs graphical primitives for spherical surface.");
 
 // Constructors
 cls_Prs3d_ToolSphere.def(py::init<const Standard_Real, const Standard_Integer, const Standard_Integer>(), py::arg("theRadius"), py::arg("theNbSlices"), py::arg("theNbStacks"));

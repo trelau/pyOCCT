@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMesh_ShapeTool(py::module &mod){
 
-py::class_<BRepMesh_ShapeTool, std::unique_ptr<BRepMesh_ShapeTool>> cls_BRepMesh_ShapeTool(mod, "BRepMesh_ShapeTool", "None");
+py::class_<BRepMesh_ShapeTool> cls_BRepMesh_ShapeTool(mod, "BRepMesh_ShapeTool", "None");
 
 // Constructors
 

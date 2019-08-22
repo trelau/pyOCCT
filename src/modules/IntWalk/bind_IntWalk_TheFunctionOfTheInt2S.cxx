@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntWalk_TheFunctionOfTheInt2S(py::module &mod){
 
-py::class_<IntWalk_TheFunctionOfTheInt2S, std::unique_ptr<IntWalk_TheFunctionOfTheInt2S>, math_FunctionSetWithDerivatives> cls_IntWalk_TheFunctionOfTheInt2S(mod, "IntWalk_TheFunctionOfTheInt2S", "None");
+py::class_<IntWalk_TheFunctionOfTheInt2S, math_FunctionSetWithDerivatives> cls_IntWalk_TheFunctionOfTheInt2S(mod, "IntWalk_TheFunctionOfTheInt2S", "None");
 
 // Constructors
 cls_IntWalk_TheFunctionOfTheInt2S.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &>(), py::arg("S1"), py::arg("S2"));

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MAT2d_MiniPath(py::module &mod){
 
-py::class_<MAT2d_MiniPath, std::unique_ptr<MAT2d_MiniPath>> cls_MAT2d_MiniPath(mod, "MAT2d_MiniPath", "MiniPath computes a path to link all the lines in a set of lines. The path is described as a set of connexions.");
+py::class_<MAT2d_MiniPath> cls_MAT2d_MiniPath(mod, "MAT2d_MiniPath", "MiniPath computes a path to link all the lines in a set of lines. The path is described as a set of connexions.");
 
 // Constructors
 cls_MAT2d_MiniPath.def(py::init<>());

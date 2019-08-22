@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESBasic_ToolSubfigureDef(py::module &mod){
 
-py::class_<IGESBasic_ToolSubfigureDef, std::unique_ptr<IGESBasic_ToolSubfigureDef>> cls_IGESBasic_ToolSubfigureDef(mod, "IGESBasic_ToolSubfigureDef", "Tool to work on a SubfigureDef. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESBasic_ToolSubfigureDef> cls_IGESBasic_ToolSubfigureDef(mod, "IGESBasic_ToolSubfigureDef", "Tool to work on a SubfigureDef. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESBasic_ToolSubfigureDef.def(py::init<>());

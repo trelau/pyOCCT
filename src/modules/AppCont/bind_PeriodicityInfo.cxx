@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_PeriodicityInfo(py::module &mod){
 
-py::class_<PeriodicityInfo, std::unique_ptr<PeriodicityInfo>> cls_PeriodicityInfo(mod, "PeriodicityInfo", "None");
+py::class_<PeriodicityInfo> cls_PeriodicityInfo(mod, "PeriodicityInfo", "None");
 
 // Constructors
 

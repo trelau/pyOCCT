@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Storage_BaseDriver(py::module &mod){
 
-py::class_<Storage_BaseDriver, std::unique_ptr<Storage_BaseDriver>> cls_Storage_BaseDriver(mod, "Storage_BaseDriver", "Root class for drivers. A driver assigns a physical container to data to be stored or retrieved, for instance a file. The FSD package provides two derived concrete classes : - FSD_File is a general driver which defines a file as the container of data.");
+py::class_<Storage_BaseDriver> cls_Storage_BaseDriver(mod, "Storage_BaseDriver", "Root class for drivers. A driver assigns a physical container to data to be stored or retrieved, for instance a file. The FSD package provides two derived concrete classes : - FSD_File is a general driver which defines a file as the container of data.");
 
 // Fields
 

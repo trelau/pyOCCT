@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWToleranceValue(py::module &mod){
 
-py::class_<RWStepShape_RWToleranceValue, std::unique_ptr<RWStepShape_RWToleranceValue>> cls_RWStepShape_RWToleranceValue(mod, "RWStepShape_RWToleranceValue", "Read & Write Module for ToleranceValue");
+py::class_<RWStepShape_RWToleranceValue> cls_RWStepShape_RWToleranceValue(mod, "RWStepShape_RWToleranceValue", "Read & Write Module for ToleranceValue");
 
 // Constructors
 cls_RWStepShape_RWToleranceValue.def(py::init<>());

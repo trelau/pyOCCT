@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeCustom_Curve(py::module &mod){
 
-py::class_<ShapeCustom_Curve, std::unique_ptr<ShapeCustom_Curve>> cls_ShapeCustom_Curve(mod, "ShapeCustom_Curve", "Converts BSpline curve to periodic");
+py::class_<ShapeCustom_Curve> cls_ShapeCustom_Curve(mod, "ShapeCustom_Curve", "Converts BSpline curve to periodic");
 
 // Constructors
 cls_ShapeCustom_Curve.def(py::init<>());

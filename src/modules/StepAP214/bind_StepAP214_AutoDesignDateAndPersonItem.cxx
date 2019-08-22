@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP214_AutoDesignDateAndPersonItem(py::module &mod){
 
-py::class_<StepAP214_AutoDesignDateAndPersonItem, std::unique_ptr<StepAP214_AutoDesignDateAndPersonItem>, StepData_SelectType> cls_StepAP214_AutoDesignDateAndPersonItem(mod, "StepAP214_AutoDesignDateAndPersonItem", "None");
+py::class_<StepAP214_AutoDesignDateAndPersonItem, StepData_SelectType> cls_StepAP214_AutoDesignDateAndPersonItem(mod, "StepAP214_AutoDesignDateAndPersonItem", "None");
 
 // Constructors
 cls_StepAP214_AutoDesignDateAndPersonItem.def(py::init<>());

@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGraph_ToolColor(py::module &mod){
 
-py::class_<IGESGraph_ToolColor, std::unique_ptr<IGESGraph_ToolColor>> cls_IGESGraph_ToolColor(mod, "IGESGraph_ToolColor", "Tool to work on a Color. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGraph_ToolColor> cls_IGESGraph_ToolColor(mod, "IGESGraph_ToolColor", "Tool to work on a Color. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGraph_ToolColor.def(py::init<>());

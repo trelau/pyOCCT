@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDraw_ToolView(py::module &mod){
 
-py::class_<IGESDraw_ToolView, std::unique_ptr<IGESDraw_ToolView>> cls_IGESDraw_ToolView(mod, "IGESDraw_ToolView", "Tool to work on a View. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDraw_ToolView> cls_IGESDraw_ToolView(mod, "IGESDraw_ToolView", "Tool to work on a View. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDraw_ToolView.def(py::init<>());

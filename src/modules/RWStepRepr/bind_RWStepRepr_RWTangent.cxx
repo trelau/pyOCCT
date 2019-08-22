@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWTangent(py::module &mod){
 
-py::class_<RWStepRepr_RWTangent, std::unique_ptr<RWStepRepr_RWTangent>> cls_RWStepRepr_RWTangent(mod, "RWStepRepr_RWTangent", "Read & Write tool for Tangent");
+py::class_<RWStepRepr_RWTangent> cls_RWStepRepr_RWTangent(mod, "RWStepRepr_RWTangent", "Read & Write tool for Tangent");
 
 // Constructors
 cls_RWStepRepr_RWTangent.def(py::init<>());

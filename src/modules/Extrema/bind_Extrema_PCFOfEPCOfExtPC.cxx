@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_PCFOfEPCOfExtPC(py::module &mod){
 
-py::class_<Extrema_PCFOfEPCOfExtPC, std::unique_ptr<Extrema_PCFOfEPCOfExtPC>, math_FunctionWithDerivative> cls_Extrema_PCFOfEPCOfExtPC(mod, "Extrema_PCFOfEPCOfExtPC", "None");
+py::class_<Extrema_PCFOfEPCOfExtPC, math_FunctionWithDerivative> cls_Extrema_PCFOfEPCOfExtPC(mod, "Extrema_PCFOfEPCOfExtPC", "None");
 
 // Constructors
 cls_Extrema_PCFOfEPCOfExtPC.def(py::init<>());

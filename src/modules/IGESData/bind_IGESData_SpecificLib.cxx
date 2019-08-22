@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESData_SpecificLib(py::module &mod){
 
-py::class_<IGESData_SpecificLib, std::unique_ptr<IGESData_SpecificLib>> cls_IGESData_SpecificLib(mod, "IGESData_SpecificLib", "None");
+py::class_<IGESData_SpecificLib> cls_IGESData_SpecificLib(mod, "IGESData_SpecificLib", "None");
 
 // Constructors
 cls_IGESData_SpecificLib.def(py::init<const opencascade::handle<IGESData_Protocol> &>(), py::arg("aprotocol"));

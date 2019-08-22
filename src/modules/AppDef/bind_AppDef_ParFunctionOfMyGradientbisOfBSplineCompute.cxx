@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppDef_ParFunctionOfMyGradientbisOfBSplineCompute(py::module &mod){
 
-py::class_<AppDef_ParFunctionOfMyGradientbisOfBSplineCompute, std::unique_ptr<AppDef_ParFunctionOfMyGradientbisOfBSplineCompute>, math_MultipleVarFunctionWithGradient> cls_AppDef_ParFunctionOfMyGradientbisOfBSplineCompute(mod, "AppDef_ParFunctionOfMyGradientbisOfBSplineCompute", "None");
+py::class_<AppDef_ParFunctionOfMyGradientbisOfBSplineCompute, math_MultipleVarFunctionWithGradient> cls_AppDef_ParFunctionOfMyGradientbisOfBSplineCompute(mod, "AppDef_ParFunctionOfMyGradientbisOfBSplineCompute", "None");
 
 // Constructors
 cls_AppDef_ParFunctionOfMyGradientbisOfBSplineCompute.def(py::init<const AppDef_MultiLine &, const Standard_Integer, const Standard_Integer, const opencascade::handle<AppParCurves_HArray1OfConstraintCouple> &, const math_Vector &, const Standard_Integer>(), py::arg("SSP"), py::arg("FirstPoint"), py::arg("LastPoint"), py::arg("TheConstraints"), py::arg("Parameters"), py::arg("Deg"));

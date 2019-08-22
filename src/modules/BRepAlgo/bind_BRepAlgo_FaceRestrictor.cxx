@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgo_FaceRestrictor(py::module &mod){
 
-py::class_<BRepAlgo_FaceRestrictor, std::unique_ptr<BRepAlgo_FaceRestrictor>> cls_BRepAlgo_FaceRestrictor(mod, "BRepAlgo_FaceRestrictor", "Builds all the faces limited with a set of non jointing and planars wires. if <ControlOrientation> is false The Wires must have correct orientations. Sinon orientation des wires de telle sorte que les faces ne soient pas infinies et qu'elles soient disjointes.");
+py::class_<BRepAlgo_FaceRestrictor> cls_BRepAlgo_FaceRestrictor(mod, "BRepAlgo_FaceRestrictor", "Builds all the faces limited with a set of non jointing and planars wires. if <ControlOrientation> is false The Wires must have correct orientations. Sinon orientation des wires de telle sorte que les faces ne soient pas infinies et qu'elles soient disjointes.");
 
 // Constructors
 cls_BRepAlgo_FaceRestrictor.def(py::init<>());

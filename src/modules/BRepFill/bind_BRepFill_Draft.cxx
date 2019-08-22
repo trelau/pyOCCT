@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_Draft(py::module &mod){
 
-py::class_<BRepFill_Draft, std::unique_ptr<BRepFill_Draft>> cls_BRepFill_Draft(mod, "BRepFill_Draft", "None");
+py::class_<BRepFill_Draft> cls_BRepFill_Draft(mod, "BRepFill_Draft", "None");
 
 // Constructors
 cls_BRepFill_Draft.def(py::init<const TopoDS_Shape &, const gp_Dir &, const Standard_Real>(), py::arg("Shape"), py::arg("Dir"), py::arg("Angle"));

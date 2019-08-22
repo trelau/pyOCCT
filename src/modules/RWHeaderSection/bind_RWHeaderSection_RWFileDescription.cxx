@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWHeaderSection_RWFileDescription(py::module &mod){
 
-py::class_<RWHeaderSection_RWFileDescription, std::unique_ptr<RWHeaderSection_RWFileDescription>> cls_RWHeaderSection_RWFileDescription(mod, "RWHeaderSection_RWFileDescription", "Read & Write Module for FileDescription");
+py::class_<RWHeaderSection_RWFileDescription> cls_RWHeaderSection_RWFileDescription(mod, "RWHeaderSection_RWFileDescription", "Read & Write Module for FileDescription");
 
 // Constructors
 cls_RWHeaderSection_RWFileDescription.def(py::init<>());

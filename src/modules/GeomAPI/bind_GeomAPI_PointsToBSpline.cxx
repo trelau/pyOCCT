@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomAPI_PointsToBSpline(py::module &mod){
 
-py::class_<GeomAPI_PointsToBSpline, std::unique_ptr<GeomAPI_PointsToBSpline>> cls_GeomAPI_PointsToBSpline(mod, "GeomAPI_PointsToBSpline", "This class is used to approximate a BsplineCurve passing through an array of points, with a given Continuity. Describes functions for building a 3D BSpline curve which approximates a set of points. A PointsToBSpline object provides a framework for: - defining the data of the BSpline curve to be built, - implementing the approximation algorithm, and consulting the results.");
+py::class_<GeomAPI_PointsToBSpline> cls_GeomAPI_PointsToBSpline(mod, "GeomAPI_PointsToBSpline", "This class is used to approximate a BsplineCurve passing through an array of points, with a given Continuity. Describes functions for building a 3D BSpline curve which approximates a set of points. A PointsToBSpline object provides a framework for: - defining the data of the BSpline curve to be built, - implementing the approximation algorithm, and consulting the results.");
 
 // Constructors
 cls_GeomAPI_PointsToBSpline.def(py::init<>());

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_ArbSamplerObject(py::module &mod){
 
-py::class_<OpenGl_ArbSamplerObject, std::unique_ptr<OpenGl_ArbSamplerObject>> cls_OpenGl_ArbSamplerObject(mod, "OpenGl_ArbSamplerObject", "Provide Sampler Object functionality (texture parameters stored independently from texture itself). Available since OpenGL 3.3+ (GL_ARB_sampler_objects extension) and OpenGL ES 3.0+.");
+py::class_<OpenGl_ArbSamplerObject> cls_OpenGl_ArbSamplerObject(mod, "OpenGl_ArbSamplerObject", "Provide Sampler Object functionality (texture parameters stored independently from texture itself). Available since OpenGL 3.3+ (GL_ARB_sampler_objects extension) and OpenGL ES 3.0+.");
 
 // Constructors
 

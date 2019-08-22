@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWOrientedOpenShell(py::module &mod){
 
-py::class_<RWStepShape_RWOrientedOpenShell, std::unique_ptr<RWStepShape_RWOrientedOpenShell>> cls_RWStepShape_RWOrientedOpenShell(mod, "RWStepShape_RWOrientedOpenShell", "Read & Write Module for OrientedOpenShell");
+py::class_<RWStepShape_RWOrientedOpenShell> cls_RWStepShape_RWOrientedOpenShell(mod, "RWStepShape_RWOrientedOpenShell", "Read & Write Module for OrientedOpenShell");
 
 // Constructors
 cls_RWStepShape_RWOrientedOpenShell.def(py::init<>());

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Select3D_PointData(py::module &mod){
 
-py::class_<Select3D_PointData, std::unique_ptr<Select3D_PointData>> cls_Select3D_PointData(mod, "Select3D_PointData", "None");
+py::class_<Select3D_PointData> cls_Select3D_PointData(mod, "Select3D_PointData", "None");
 
 // Constructors
 cls_Select3D_PointData.def(py::init<const Standard_Integer>(), py::arg("theNbPoints"));

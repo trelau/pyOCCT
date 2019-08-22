@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Extrema_GenExtCS(py::module &mod){
 
-py::class_<Extrema_GenExtCS, std::unique_ptr<Extrema_GenExtCS>> cls_Extrema_GenExtCS(mod, "Extrema_GenExtCS", "It calculates all the extremum distances between acurve and a surface. These distances can be minimum or maximum.");
+py::class_<Extrema_GenExtCS> cls_Extrema_GenExtCS(mod, "Extrema_GenExtCS", "It calculates all the extremum distances between acurve and a surface. These distances can be minimum or maximum.");
 
 // Constructors
 cls_Extrema_GenExtCS.def(py::init<>());

@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TNaming_Tool(py::module &mod){
 
-py::class_<TNaming_Tool, std::unique_ptr<TNaming_Tool>> cls_TNaming_Tool(mod, "TNaming_Tool", "A tool to get information on the topology of a named shape attribute. This information is typically a TopoDS_Shape object. Using this tool, relations between named shapes are also accessible.");
+py::class_<TNaming_Tool> cls_TNaming_Tool(mod, "TNaming_Tool", "A tool to get information on the topology of a named shape attribute. This information is typically a TopoDS_Shape object. Using this tool, relations between named shapes are also accessible.");
 
 // Constructors
 

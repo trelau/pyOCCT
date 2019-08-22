@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomInt_LineConstructor(py::module &mod){
 
-py::class_<GeomInt_LineConstructor, std::unique_ptr<GeomInt_LineConstructor>> cls_GeomInt_LineConstructor(mod, "GeomInt_LineConstructor", "Splits given Line.");
+py::class_<GeomInt_LineConstructor> cls_GeomInt_LineConstructor(mod, "GeomInt_LineConstructor", "Splits given Line.");
 
 // Constructors
 cls_GeomInt_LineConstructor.def(py::init<>());

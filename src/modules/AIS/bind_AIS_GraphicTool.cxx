@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AIS_GraphicTool(py::module &mod){
 
-py::class_<AIS_GraphicTool, std::unique_ptr<AIS_GraphicTool>> cls_AIS_GraphicTool(mod, "AIS_GraphicTool", "None");
+py::class_<AIS_GraphicTool> cls_AIS_GraphicTool(mod, "AIS_GraphicTool", "None");
 
 // Constructors
 

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWDerivedUnit(py::module &mod){
 
-py::class_<RWStepBasic_RWDerivedUnit, std::unique_ptr<RWStepBasic_RWDerivedUnit>> cls_RWStepBasic_RWDerivedUnit(mod, "RWStepBasic_RWDerivedUnit", "Read & Write Module for DerivedUnit");
+py::class_<RWStepBasic_RWDerivedUnit> cls_RWStepBasic_RWDerivedUnit(mod, "RWStepBasic_RWDerivedUnit", "Read & Write Module for DerivedUnit");
 
 // Constructors
 cls_RWStepBasic_RWDerivedUnit.def(py::init<>());

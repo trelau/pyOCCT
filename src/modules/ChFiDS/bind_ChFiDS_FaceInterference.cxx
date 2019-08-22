@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFiDS_FaceInterference(py::module &mod){
 
-py::class_<ChFiDS_FaceInterference, std::unique_ptr<ChFiDS_FaceInterference>> cls_ChFiDS_FaceInterference(mod, "ChFiDS_FaceInterference", "interference face/fillet");
+py::class_<ChFiDS_FaceInterference> cls_ChFiDS_FaceInterference(mod, "ChFiDS_FaceInterference", "interference face/fillet");
 
 // Constructors
 cls_ChFiDS_FaceInterference.def(py::init<>());

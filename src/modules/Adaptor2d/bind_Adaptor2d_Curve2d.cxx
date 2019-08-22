@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Adaptor2d_Curve2d(py::module &mod){
 
-py::class_<Adaptor2d_Curve2d, std::unique_ptr<Adaptor2d_Curve2d>> cls_Adaptor2d_Curve2d(mod, "Adaptor2d_Curve2d", "Root class for 2D curves on which geometric algorithms work. An adapted curve is an interface between the services provided by a curve, and those required of the curve by algorithms, which use it. A derived concrete class is provided: Geom2dAdaptor_Curve for a curve from the Geom2d package.");
+py::class_<Adaptor2d_Curve2d> cls_Adaptor2d_Curve2d(mod, "Adaptor2d_Curve2d", "Root class for 2D curves on which geometric algorithms work. An adapted curve is an interface between the services provided by a curve, and those required of the curve by algorithms, which use it. A derived concrete class is provided: Geom2dAdaptor_Curve for a curve from the Geom2d package.");
 
 // Constructors
 

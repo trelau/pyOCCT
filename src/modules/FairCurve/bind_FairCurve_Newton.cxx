@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FairCurve_Newton(py::module &mod){
 
-py::class_<FairCurve_Newton, std::unique_ptr<FairCurve_Newton>, math_NewtonMinimum> cls_FairCurve_Newton(mod, "FairCurve_Newton", "Algorithme of Optimization used to make 'FairCurve'");
+py::class_<FairCurve_Newton, math_NewtonMinimum> cls_FairCurve_Newton(mod, "FairCurve_Newton", "Algorithme of Optimization used to make 'FairCurve'");
 
 // Constructors
 cls_FairCurve_Newton.def(py::init<const math_MultipleVarFunctionWithHessian &>(), py::arg("theFunction"));

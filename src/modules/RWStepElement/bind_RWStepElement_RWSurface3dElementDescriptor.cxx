@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepElement_RWSurface3dElementDescriptor(py::module &mod){
 
-py::class_<RWStepElement_RWSurface3dElementDescriptor, std::unique_ptr<RWStepElement_RWSurface3dElementDescriptor>> cls_RWStepElement_RWSurface3dElementDescriptor(mod, "RWStepElement_RWSurface3dElementDescriptor", "Read & Write tool for Surface3dElementDescriptor");
+py::class_<RWStepElement_RWSurface3dElementDescriptor> cls_RWStepElement_RWSurface3dElementDescriptor(mod, "RWStepElement_RWSurface3dElementDescriptor", "Read & Write tool for Surface3dElementDescriptor");
 
 // Constructors
 cls_RWStepElement_RWSurface3dElementDescriptor.def(py::init<>());

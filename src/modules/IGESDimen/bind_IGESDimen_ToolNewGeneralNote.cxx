@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolNewGeneralNote(py::module &mod){
 
-py::class_<IGESDimen_ToolNewGeneralNote, std::unique_ptr<IGESDimen_ToolNewGeneralNote>> cls_IGESDimen_ToolNewGeneralNote(mod, "IGESDimen_ToolNewGeneralNote", "Tool to work on a NewGeneralNote. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolNewGeneralNote> cls_IGESDimen_ToolNewGeneralNote(mod, "IGESDimen_ToolNewGeneralNote", "Tool to work on a NewGeneralNote. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolNewGeneralNote.def(py::init<>());

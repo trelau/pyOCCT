@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TNaming_Translator(py::module &mod){
 
-py::class_<TNaming_Translator, std::unique_ptr<TNaming_Translator>> cls_TNaming_Translator(mod, "TNaming_Translator", "only for Shape Copy test - to move in DNaming");
+py::class_<TNaming_Translator> cls_TNaming_Translator(mod, "TNaming_Translator", "only for Shape Copy test - to move in DNaming");
 
 // Constructors
 cls_TNaming_Translator.def(py::init<>());

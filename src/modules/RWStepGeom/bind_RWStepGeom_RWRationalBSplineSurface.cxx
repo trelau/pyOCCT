@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWRationalBSplineSurface(py::module &mod){
 
-py::class_<RWStepGeom_RWRationalBSplineSurface, std::unique_ptr<RWStepGeom_RWRationalBSplineSurface>> cls_RWStepGeom_RWRationalBSplineSurface(mod, "RWStepGeom_RWRationalBSplineSurface", "Read & Write Module for RationalBSplineSurface Check added by CKY , 7-OCT-1996");
+py::class_<RWStepGeom_RWRationalBSplineSurface> cls_RWStepGeom_RWRationalBSplineSurface(mod, "RWStepGeom_RWRationalBSplineSurface", "Read & Write Module for RationalBSplineSurface Check added by CKY , 7-OCT-1996");
 
 // Constructors
 cls_RWStepGeom_RWRationalBSplineSurface.def(py::init<>());

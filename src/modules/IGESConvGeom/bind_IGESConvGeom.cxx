@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESConvGeom(py::module &mod){
 
-py::class_<IGESConvGeom, std::unique_ptr<IGESConvGeom>> cls_IGESConvGeom(mod, "IGESConvGeom", "This package is intended to gather geometric conversion which are not immediate but can be used for several purposes : mainly, standard conversion to and from CasCade geometric and topologic data, and adaptations of IGES files as required (as replacing Spline entities to BSpline equivalents).");
+py::class_<IGESConvGeom> cls_IGESConvGeom(mod, "IGESConvGeom", "This package is intended to gather geometric conversion which are not immediate but can be used for several purposes : mainly, standard conversion to and from CasCade geometric and topologic data, and adaptations of IGES files as required (as replacing Spline entities to BSpline equivalents).");
 
 // Constructors
 

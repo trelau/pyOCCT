@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_WorldViewState(py::module &mod){
 
-py::class_<OpenGl_WorldViewState, std::unique_ptr<OpenGl_WorldViewState>, OpenGl_StateInterface> cls_OpenGl_WorldViewState(mod, "OpenGl_WorldViewState", "Defines state of OCCT world-view transformation.");
+py::class_<OpenGl_WorldViewState, OpenGl_StateInterface> cls_OpenGl_WorldViewState(mod, "OpenGl_WorldViewState", "Defines state of OCCT world-view transformation.");
 
 // Constructors
 cls_OpenGl_WorldViewState.def(py::init<>());

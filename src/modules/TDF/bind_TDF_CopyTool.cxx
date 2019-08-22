@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDF_CopyTool(py::module &mod){
 
-py::class_<TDF_CopyTool, std::unique_ptr<TDF_CopyTool>> cls_TDF_CopyTool(mod, "TDF_CopyTool", "This class provides services to build, copy or paste a set of information.");
+py::class_<TDF_CopyTool> cls_TDF_CopyTool(mod, "TDF_CopyTool", "This class provides services to build, copy or paste a set of information.");
 
 // Constructors
 

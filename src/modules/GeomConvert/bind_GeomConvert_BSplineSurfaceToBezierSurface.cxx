@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomConvert_BSplineSurfaceToBezierSurface(py::module &mod){
 
-py::class_<GeomConvert_BSplineSurfaceToBezierSurface, std::unique_ptr<GeomConvert_BSplineSurfaceToBezierSurface>> cls_GeomConvert_BSplineSurfaceToBezierSurface(mod, "GeomConvert_BSplineSurfaceToBezierSurface", "This algorithm converts a B-spline surface into several Bezier surfaces. It uses an algorithm of knot insertion. A BSplineSurfaceToBezierSurface object provides a framework for: - defining the BSpline surface to be converted, - implementing the construction algorithm, and - consulting the results. References : Generating the Bezier points of B-spline curves and surfaces (Wolfgang Bohm) CAD volume 13 number 6 november 1981");
+py::class_<GeomConvert_BSplineSurfaceToBezierSurface> cls_GeomConvert_BSplineSurfaceToBezierSurface(mod, "GeomConvert_BSplineSurfaceToBezierSurface", "This algorithm converts a B-spline surface into several Bezier surfaces. It uses an algorithm of knot insertion. A BSplineSurfaceToBezierSurface object provides a framework for: - defining the BSpline surface to be converted, - implementing the construction algorithm, and - consulting the results. References : Generating the Bezier points of B-spline curves and surfaces (Wolfgang Bohm) CAD volume 13 number 6 november 1981");
 
 // Constructors
 cls_GeomConvert_BSplineSurfaceToBezierSurface.def(py::init<const opencascade::handle<Geom_BSplineSurface> &>(), py::arg("BasisSurface"));

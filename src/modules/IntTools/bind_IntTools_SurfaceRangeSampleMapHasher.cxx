@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_SurfaceRangeSampleMapHasher(py::module &mod){
 
-py::class_<IntTools_SurfaceRangeSampleMapHasher, std::unique_ptr<IntTools_SurfaceRangeSampleMapHasher>> cls_IntTools_SurfaceRangeSampleMapHasher(mod, "IntTools_SurfaceRangeSampleMapHasher", "None");
+py::class_<IntTools_SurfaceRangeSampleMapHasher> cls_IntTools_SurfaceRangeSampleMapHasher(mod, "IntTools_SurfaceRangeSampleMapHasher", "None");
 
 // Constructors
 

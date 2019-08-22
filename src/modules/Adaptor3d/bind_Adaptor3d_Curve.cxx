@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Adaptor3d_Curve(py::module &mod){
 
-py::class_<Adaptor3d_Curve, std::unique_ptr<Adaptor3d_Curve>> cls_Adaptor3d_Curve(mod, "Adaptor3d_Curve", "Root class for 3D curves on which geometric algorithms work. An adapted curve is an interface between the services provided by a curve and those required of the curve by algorithms which use it. Two derived concrete classes are provided: - GeomAdaptor_Curve for a curve from the Geom package - Adaptor3d_CurveOnSurface for a curve lying on a surface from the Geom package.");
+py::class_<Adaptor3d_Curve> cls_Adaptor3d_Curve(mod, "Adaptor3d_Curve", "Root class for 3D curves on which geometric algorithms work. An adapted curve is an interface between the services provided by a curve and those required of the curve by algorithms which use it. Two derived concrete classes are provided: - GeomAdaptor_Curve for a curve from the Geom package - Adaptor3d_CurveOnSurface for a curve lying on a surface from the Geom package.");
 
 // Constructors
 

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRTopoBRep_FaceIsoLiner(py::module &mod){
 
-py::class_<HLRTopoBRep_FaceIsoLiner, std::unique_ptr<HLRTopoBRep_FaceIsoLiner>> cls_HLRTopoBRep_FaceIsoLiner(mod, "HLRTopoBRep_FaceIsoLiner", "None");
+py::class_<HLRTopoBRep_FaceIsoLiner> cls_HLRTopoBRep_FaceIsoLiner(mod, "HLRTopoBRep_FaceIsoLiner", "None");
 
 // Constructors
 

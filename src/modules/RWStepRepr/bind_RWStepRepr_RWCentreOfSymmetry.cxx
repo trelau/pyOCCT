@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWCentreOfSymmetry(py::module &mod){
 
-py::class_<RWStepRepr_RWCentreOfSymmetry, std::unique_ptr<RWStepRepr_RWCentreOfSymmetry>> cls_RWStepRepr_RWCentreOfSymmetry(mod, "RWStepRepr_RWCentreOfSymmetry", "Read & Write tool for CentreOfSymmetry");
+py::class_<RWStepRepr_RWCentreOfSymmetry> cls_RWStepRepr_RWCentreOfSymmetry(mod, "RWStepRepr_RWCentreOfSymmetry", "Read & Write tool for CentreOfSymmetry");
 
 // Constructors
 cls_RWStepRepr_RWCentreOfSymmetry.def(py::init<>());

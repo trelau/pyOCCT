@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDocStd_PathParser(py::module &mod){
 
-py::class_<TDocStd_PathParser, std::unique_ptr<TDocStd_PathParser>> cls_TDocStd_PathParser(mod, "TDocStd_PathParser", "parse an OS path");
+py::class_<TDocStd_PathParser> cls_TDocStd_PathParser(mod, "TDocStd_PathParser", "parse an OS path");
 
 // Constructors
 cls_TDocStd_PathParser.def(py::init<const TCollection_ExtendedString &>(), py::arg("path"));

@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolFace(py::module &mod){
 
-py::class_<IGESSolid_ToolFace, std::unique_ptr<IGESSolid_ToolFace>> cls_IGESSolid_ToolFace(mod, "IGESSolid_ToolFace", "Tool to work on a Face. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolFace> cls_IGESSolid_ToolFace(mod, "IGESSolid_ToolFace", "Tool to work on a Face. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolFace.def(py::init<>());

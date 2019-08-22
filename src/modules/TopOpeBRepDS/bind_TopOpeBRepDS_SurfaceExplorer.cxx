@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_SurfaceExplorer(py::module &mod){
 
-py::class_<TopOpeBRepDS_SurfaceExplorer, std::unique_ptr<TopOpeBRepDS_SurfaceExplorer>> cls_TopOpeBRepDS_SurfaceExplorer(mod, "TopOpeBRepDS_SurfaceExplorer", "None");
+py::class_<TopOpeBRepDS_SurfaceExplorer> cls_TopOpeBRepDS_SurfaceExplorer(mod, "TopOpeBRepDS_SurfaceExplorer", "None");
 
 // Constructors
 cls_TopOpeBRepDS_SurfaceExplorer.def(py::init<>());

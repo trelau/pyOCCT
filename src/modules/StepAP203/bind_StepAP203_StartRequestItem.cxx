@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP203_StartRequestItem(py::module &mod){
 
-py::class_<StepAP203_StartRequestItem, std::unique_ptr<StepAP203_StartRequestItem>, StepData_SelectType> cls_StepAP203_StartRequestItem(mod, "StepAP203_StartRequestItem", "Representation of STEP SELECT type StartRequestItem");
+py::class_<StepAP203_StartRequestItem, StepData_SelectType> cls_StepAP203_StartRequestItem(mod, "StepAP203_StartRequestItem", "Representation of STEP SELECT type StartRequestItem");
 
 // Constructors
 cls_StepAP203_StartRequestItem.def(py::init<>());

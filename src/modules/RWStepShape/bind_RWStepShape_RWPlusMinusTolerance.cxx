@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWPlusMinusTolerance(py::module &mod){
 
-py::class_<RWStepShape_RWPlusMinusTolerance, std::unique_ptr<RWStepShape_RWPlusMinusTolerance>> cls_RWStepShape_RWPlusMinusTolerance(mod, "RWStepShape_RWPlusMinusTolerance", "Read & Write Module for PlusMinusTolerance");
+py::class_<RWStepShape_RWPlusMinusTolerance> cls_RWStepShape_RWPlusMinusTolerance(mod, "RWStepShape_RWPlusMinusTolerance", "Read & Write Module for PlusMinusTolerance");
 
 // Constructors
 cls_RWStepShape_RWPlusMinusTolerance.def(py::init<>());

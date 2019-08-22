@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP203_WorkItem(py::module &mod){
 
-py::class_<StepAP203_WorkItem, std::unique_ptr<StepAP203_WorkItem>, StepData_SelectType> cls_StepAP203_WorkItem(mod, "StepAP203_WorkItem", "Representation of STEP SELECT type WorkItem");
+py::class_<StepAP203_WorkItem, StepData_SelectType> cls_StepAP203_WorkItem(mod, "StepAP203_WorkItem", "Representation of STEP SELECT type WorkItem");
 
 // Constructors
 cls_StepAP203_WorkItem.def(py::init<>());

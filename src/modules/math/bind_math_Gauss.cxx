@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_Gauss(py::module &mod){
 
-py::class_<math_Gauss, std::unique_ptr<math_Gauss>> cls_math_Gauss(mod, "math_Gauss", "This class implements the Gauss LU decomposition (Crout algorithm) with partial pivoting (rows interchange) of a square matrix and the different possible derived calculation : - solution of a set of linear equations. - inverse of a matrix. - determinant of a matrix.");
+py::class_<math_Gauss> cls_math_Gauss(mod, "math_Gauss", "This class implements the Gauss LU decomposition (Crout algorithm) with partial pivoting (rows interchange) of a square matrix and the different possible derived calculation : - solution of a set of linear equations. - inverse of a matrix. - determinant of a matrix.");
 
 // Constructors
 cls_math_Gauss.def(py::init<const math_Matrix &>(), py::arg("A"));

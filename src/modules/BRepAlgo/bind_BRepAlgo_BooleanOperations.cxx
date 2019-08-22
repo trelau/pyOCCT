@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgo_BooleanOperations(py::module &mod){
 
-py::class_<BRepAlgo_BooleanOperations, std::unique_ptr<BRepAlgo_BooleanOperations>> cls_BRepAlgo_BooleanOperations(mod, "BRepAlgo_BooleanOperations", "None");
+py::class_<BRepAlgo_BooleanOperations> cls_BRepAlgo_BooleanOperations(mod, "BRepAlgo_BooleanOperations", "None");
 
 // Constructors
 cls_BRepAlgo_BooleanOperations.def(py::init<>());

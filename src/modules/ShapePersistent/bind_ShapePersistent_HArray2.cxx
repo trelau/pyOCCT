@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapePersistent_HArray2(py::module &mod){
 
-py::class_<ShapePersistent_HArray2, std::unique_ptr<ShapePersistent_HArray2>> cls_ShapePersistent_HArray2(mod, "ShapePersistent_HArray2", "None");
+py::class_<ShapePersistent_HArray2> cls_ShapePersistent_HArray2(mod, "ShapePersistent_HArray2", "None");
 
 // Constructors
 

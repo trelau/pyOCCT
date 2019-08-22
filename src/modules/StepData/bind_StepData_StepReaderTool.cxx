@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepData_StepReaderTool(py::module &mod){
 
-py::class_<StepData_StepReaderTool, std::unique_ptr<StepData_StepReaderTool>, Interface_FileReaderTool> cls_StepData_StepReaderTool(mod, "StepData_StepReaderTool", "Specific FileReaderTool for Step; works with FileReaderData provides references evaluation, plus access to litteral data and specific methods defined by FileReaderTool Remarks : works with a ReaderLib to load Entities");
+py::class_<StepData_StepReaderTool, Interface_FileReaderTool> cls_StepData_StepReaderTool(mod, "StepData_StepReaderTool", "Specific FileReaderTool for Step; works with FileReaderData provides references evaluation, plus access to litteral data and specific methods defined by FileReaderTool Remarks : works with a ReaderLib to load Entities");
 
 // Constructors
 cls_StepData_StepReaderTool.def(py::init<const opencascade::handle<StepData_StepReaderData> &, const opencascade::handle<StepData_Protocol> &>(), py::arg("reader"), py::arg("protocol"));

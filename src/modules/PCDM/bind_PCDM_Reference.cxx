@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_PCDM_Reference(py::module &mod){
 
-py::class_<PCDM_Reference, std::unique_ptr<PCDM_Reference>> cls_PCDM_Reference(mod, "PCDM_Reference", "None");
+py::class_<PCDM_Reference> cls_PCDM_Reference(mod, "PCDM_Reference", "None");
 
 // Constructors
 cls_PCDM_Reference.def(py::init<>());

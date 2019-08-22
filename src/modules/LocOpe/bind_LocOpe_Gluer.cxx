@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LocOpe_Gluer(py::module &mod){
 
-py::class_<LocOpe_Gluer, std::unique_ptr<LocOpe_Gluer>> cls_LocOpe_Gluer(mod, "LocOpe_Gluer", "None");
+py::class_<LocOpe_Gluer> cls_LocOpe_Gluer(mod, "LocOpe_Gluer", "None");
 
 // Constructors
 cls_LocOpe_Gluer.def(py::init<>());

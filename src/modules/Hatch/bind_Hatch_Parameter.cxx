@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Hatch_Parameter(py::module &mod){
 
-py::class_<Hatch_Parameter, std::unique_ptr<Hatch_Parameter>> cls_Hatch_Parameter(mod, "Hatch_Parameter", "Stores an intersection on a line represented by :");
+py::class_<Hatch_Parameter> cls_Hatch_Parameter(mod, "Hatch_Parameter", "Stores an intersection on a line represented by :");
 
 // Constructors
 cls_Hatch_Parameter.def(py::init<>());

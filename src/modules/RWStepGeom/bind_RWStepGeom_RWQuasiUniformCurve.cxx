@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWQuasiUniformCurve(py::module &mod){
 
-py::class_<RWStepGeom_RWQuasiUniformCurve, std::unique_ptr<RWStepGeom_RWQuasiUniformCurve>> cls_RWStepGeom_RWQuasiUniformCurve(mod, "RWStepGeom_RWQuasiUniformCurve", "Read & Write Module for QuasiUniformCurve");
+py::class_<RWStepGeom_RWQuasiUniformCurve> cls_RWStepGeom_RWQuasiUniformCurve(mod, "RWStepGeom_RWQuasiUniformCurve", "Read & Write Module for QuasiUniformCurve");
 
 // Constructors
 cls_RWStepGeom_RWQuasiUniformCurve.def(py::init<>());

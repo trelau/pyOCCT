@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRAlgo_BiPoint(py::module &mod){
 
-py::class_<HLRAlgo_BiPoint, std::unique_ptr<HLRAlgo_BiPoint>> cls_HLRAlgo_BiPoint(mod, "HLRAlgo_BiPoint", "None");
+py::class_<HLRAlgo_BiPoint> cls_HLRAlgo_BiPoint(mod, "HLRAlgo_BiPoint", "None");
 
 // Constructors
 cls_HLRAlgo_BiPoint.def(py::init<>());

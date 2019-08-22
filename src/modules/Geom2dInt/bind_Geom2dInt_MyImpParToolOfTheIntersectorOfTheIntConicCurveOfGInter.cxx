@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter(py::module &mod){
 
-py::class_<Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter, std::unique_ptr<Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter>, math_FunctionWithDerivative> cls_Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter(mod, "Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter", "None");
+py::class_<Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter, math_FunctionWithDerivative> cls_Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter(mod, "Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter", "None");
 
 // Constructors
 cls_Geom2dInt_MyImpParToolOfTheIntersectorOfTheIntConicCurveOfGInter.def(py::init<const IntCurve_IConicTool &, const Adaptor2d_Curve2d &>(), py::arg("IT"), py::arg("PC"));

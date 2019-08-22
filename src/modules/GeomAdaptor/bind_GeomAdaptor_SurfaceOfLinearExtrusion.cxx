@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomAdaptor_SurfaceOfLinearExtrusion(py::module &mod){
 
-py::class_<GeomAdaptor_SurfaceOfLinearExtrusion, std::unique_ptr<GeomAdaptor_SurfaceOfLinearExtrusion>, GeomAdaptor_Surface> cls_GeomAdaptor_SurfaceOfLinearExtrusion(mod, "GeomAdaptor_SurfaceOfLinearExtrusion", "Generalised cylinder. This surface is obtained by sweeping a curve in a given direction. The parametrization range for the parameter U is defined with referenced the curve. The parametrization range for the parameter V is ]-infinite,+infinite[ The position of the curve gives the origin for the parameter V. The continuity of the surface is CN in the V direction.");
+py::class_<GeomAdaptor_SurfaceOfLinearExtrusion, GeomAdaptor_Surface> cls_GeomAdaptor_SurfaceOfLinearExtrusion(mod, "GeomAdaptor_SurfaceOfLinearExtrusion", "Generalised cylinder. This surface is obtained by sweeping a curve in a given direction. The parametrization range for the parameter U is defined with referenced the curve. The parametrization range for the parameter V is ]-infinite,+infinite[ The position of the curve gives the origin for the parameter V. The continuity of the surface is CN in the V direction.");
 
 // Constructors
 cls_GeomAdaptor_SurfaceOfLinearExtrusion.def(py::init<>());

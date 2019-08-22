@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_TrimShellCorner(py::module &mod){
 
-py::class_<BRepFill_TrimShellCorner, std::unique_ptr<BRepFill_TrimShellCorner>> cls_BRepFill_TrimShellCorner(mod, "BRepFill_TrimShellCorner", "Trims sets of faces in the corner to make proper parts of pipe");
+py::class_<BRepFill_TrimShellCorner> cls_BRepFill_TrimShellCorner(mod, "BRepFill_TrimShellCorner", "Trims sets of faces in the corner to make proper parts of pipe");
 
 // Constructors
 cls_BRepFill_TrimShellCorner.def(py::init<const opencascade::handle<TopTools_HArray2OfShape> &, const BRepFill_TransitionStyle, const gp_Ax2 &>(), py::arg("theFaces"), py::arg("theTransition"), py::arg("theAxeOfBisPlane"));

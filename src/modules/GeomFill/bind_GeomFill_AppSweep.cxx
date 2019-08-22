@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomFill_AppSweep(py::module &mod){
 
-py::class_<GeomFill_AppSweep, std::unique_ptr<GeomFill_AppSweep>, AppBlend_Approx> cls_GeomFill_AppSweep(mod, "GeomFill_AppSweep", "Approximate a sweep surface passing by all the curves described in the SweepSectionGenerator.");
+py::class_<GeomFill_AppSweep, AppBlend_Approx> cls_GeomFill_AppSweep(mod, "GeomFill_AppSweep", "Approximate a sweep surface passing by all the curves described in the SweepSectionGenerator.");
 
 // Constructors
 cls_GeomFill_AppSweep.def(py::init<>());

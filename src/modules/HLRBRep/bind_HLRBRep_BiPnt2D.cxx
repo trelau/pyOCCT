@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_BiPnt2D(py::module &mod){
 
-py::class_<HLRBRep_BiPnt2D, std::unique_ptr<HLRBRep_BiPnt2D>> cls_HLRBRep_BiPnt2D(mod, "HLRBRep_BiPnt2D", "Contains the colors of a shape.");
+py::class_<HLRBRep_BiPnt2D> cls_HLRBRep_BiPnt2D(mod, "HLRBRep_BiPnt2D", "Contains the colors of a shape.");
 
 // Constructors
 cls_HLRBRep_BiPnt2D.def(py::init<>());

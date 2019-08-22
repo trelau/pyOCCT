@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TCollection_ExtendedString(py::module &mod){
 
-py::class_<TCollection_ExtendedString, std::unique_ptr<TCollection_ExtendedString>> cls_TCollection_ExtendedString(mod, "TCollection_ExtendedString", "A variable-length sequence of 'extended' (UNICODE) characters (16-bit character type). It provides editing operations with built-in memory management to make ExtendedString objects easier to use than ordinary extended character arrays. ExtendedString objects follow 'value semantics', that is, they are the actual strings, not handles to strings, and are copied through assignment. You may use HExtendedString objects to get handles to strings.");
+py::class_<TCollection_ExtendedString> cls_TCollection_ExtendedString(mod, "TCollection_ExtendedString", "A variable-length sequence of 'extended' (UNICODE) characters (16-bit character type). It provides editing operations with built-in memory management to make ExtendedString objects easier to use than ordinary extended character arrays. ExtendedString objects follow 'value semantics', that is, they are the actual strings, not handles to strings, and are copied through assignment. You may use HExtendedString objects to get handles to strings.");
 
 // Constructors
 cls_TCollection_ExtendedString.def(py::init<>());

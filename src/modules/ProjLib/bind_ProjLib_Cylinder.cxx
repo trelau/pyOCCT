@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ProjLib_Cylinder(py::module &mod){
 
-py::class_<ProjLib_Cylinder, std::unique_ptr<ProjLib_Cylinder>, ProjLib_Projector> cls_ProjLib_Cylinder(mod, "ProjLib_Cylinder", "Projects elementary curves on a cylinder.");
+py::class_<ProjLib_Cylinder, ProjLib_Projector> cls_ProjLib_Cylinder(mod, "ProjLib_Cylinder", "Projects elementary curves on a cylinder.");
 
 // Constructors
 cls_ProjLib_Cylinder.def(py::init<>());

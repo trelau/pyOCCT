@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TNaming_SameShapeIterator(py::module &mod){
 
-py::class_<TNaming_SameShapeIterator, std::unique_ptr<TNaming_SameShapeIterator>> cls_TNaming_SameShapeIterator(mod, "TNaming_SameShapeIterator", "To iterate on all the label which contained a given shape.");
+py::class_<TNaming_SameShapeIterator> cls_TNaming_SameShapeIterator(mod, "TNaming_SameShapeIterator", "To iterate on all the label which contained a given shape.");
 
 // Constructors
 cls_TNaming_SameShapeIterator.def(py::init<const TopoDS_Shape &, const TDF_Label &>(), py::arg("aShape"), py::arg("access"));

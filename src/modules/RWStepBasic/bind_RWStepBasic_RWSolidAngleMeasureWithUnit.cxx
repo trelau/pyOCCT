@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWSolidAngleMeasureWithUnit(py::module &mod){
 
-py::class_<RWStepBasic_RWSolidAngleMeasureWithUnit, std::unique_ptr<RWStepBasic_RWSolidAngleMeasureWithUnit>> cls_RWStepBasic_RWSolidAngleMeasureWithUnit(mod, "RWStepBasic_RWSolidAngleMeasureWithUnit", "Read & Write Module for SolidAngleMeasureWithUnit");
+py::class_<RWStepBasic_RWSolidAngleMeasureWithUnit> cls_RWStepBasic_RWSolidAngleMeasureWithUnit(mod, "RWStepBasic_RWSolidAngleMeasureWithUnit", "Read & Write Module for SolidAngleMeasureWithUnit");
 
 // Constructors
 cls_RWStepBasic_RWSolidAngleMeasureWithUnit.def(py::init<>());

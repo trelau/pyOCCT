@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWDocumentProductAssociation(py::module &mod){
 
-py::class_<RWStepBasic_RWDocumentProductAssociation, std::unique_ptr<RWStepBasic_RWDocumentProductAssociation>> cls_RWStepBasic_RWDocumentProductAssociation(mod, "RWStepBasic_RWDocumentProductAssociation", "Read & Write tool for DocumentProductAssociation");
+py::class_<RWStepBasic_RWDocumentProductAssociation> cls_RWStepBasic_RWDocumentProductAssociation(mod, "RWStepBasic_RWDocumentProductAssociation", "Read & Write tool for DocumentProductAssociation");
 
 // Constructors
 cls_RWStepBasic_RWDocumentProductAssociation.def(py::init<>());

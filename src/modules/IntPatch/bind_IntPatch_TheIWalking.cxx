@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPatch_TheIWalking(py::module &mod){
 
-py::class_<IntPatch_TheIWalking, std::unique_ptr<IntPatch_TheIWalking>> cls_IntPatch_TheIWalking(mod, "IntPatch_TheIWalking", "None");
+py::class_<IntPatch_TheIWalking> cls_IntPatch_TheIWalking(mod, "IntPatch_TheIWalking", "None");
 
 // Constructors
 cls_IntPatch_TheIWalking.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("Epsilon"), py::arg("Deflection"), py::arg("Step"));

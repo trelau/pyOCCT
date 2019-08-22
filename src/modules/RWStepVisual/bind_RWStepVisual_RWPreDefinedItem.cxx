@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWPreDefinedItem(py::module &mod){
 
-py::class_<RWStepVisual_RWPreDefinedItem, std::unique_ptr<RWStepVisual_RWPreDefinedItem>> cls_RWStepVisual_RWPreDefinedItem(mod, "RWStepVisual_RWPreDefinedItem", "Read & Write Module for PreDefinedItem");
+py::class_<RWStepVisual_RWPreDefinedItem> cls_RWStepVisual_RWPreDefinedItem(mod, "RWStepVisual_RWPreDefinedItem", "Read & Write Module for PreDefinedItem");
 
 // Constructors
 cls_RWStepVisual_RWPreDefinedItem.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBlend_CurvPointRadInv(py::module &mod){
 
-py::class_<BRepBlend_CurvPointRadInv, std::unique_ptr<BRepBlend_CurvPointRadInv>, Blend_CurvPointFuncInv> cls_BRepBlend_CurvPointRadInv(mod, "BRepBlend_CurvPointRadInv", "Function of reframing between a point and a curve. valid in cases of constant and progressive radius. This function is used to find a solution on a done point of the curve 1 when using RstRstConsRad or CSConstRad... The vector <X> used in Value, Values and Derivatives methods has to be the vector of the parametric coordinates w, U where w is the parameter on the guide line, U are the parametric coordinates of a point on the partner curve 2.");
+py::class_<BRepBlend_CurvPointRadInv, Blend_CurvPointFuncInv> cls_BRepBlend_CurvPointRadInv(mod, "BRepBlend_CurvPointRadInv", "Function of reframing between a point and a curve. valid in cases of constant and progressive radius. This function is used to find a solution on a done point of the curve 1 when using RstRstConsRad or CSConstRad... The vector <X> used in Value, Values and Derivatives methods has to be the vector of the parametric coordinates w, U where w is the parameter on the guide line, U are the parametric coordinates of a point on the partner curve 2.");
 
 // Constructors
 cls_BRepBlend_CurvPointRadInv.def(py::init<const opencascade::handle<Adaptor3d_HCurve> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("C1"), py::arg("C2"));

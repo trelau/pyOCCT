@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurve_IConicTool(py::module &mod){
 
-py::class_<IntCurve_IConicTool, std::unique_ptr<IntCurve_IConicTool>> cls_IntCurve_IConicTool(mod, "IntCurve_IConicTool", "Implementation of the ImpTool from IntImpParGen for conics of gp.");
+py::class_<IntCurve_IConicTool> cls_IntCurve_IConicTool(mod, "IntCurve_IConicTool", "Implementation of the ImpTool from IntImpParGen for conics of gp.");
 
 // Constructors
 cls_IntCurve_IConicTool.def(py::init<>());

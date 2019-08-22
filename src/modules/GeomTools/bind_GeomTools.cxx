@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomTools(py::module &mod){
 
-py::class_<GeomTools, std::unique_ptr<GeomTools>> cls_GeomTools(mod, "GeomTools", "The GeomTools package provides utilities for Geometry.");
+py::class_<GeomTools> cls_GeomTools(mod, "GeomTools", "The GeomTools package provides utilities for Geometry.");
 
 // Constructors
 

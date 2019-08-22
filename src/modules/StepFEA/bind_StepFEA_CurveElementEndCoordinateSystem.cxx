@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepFEA_CurveElementEndCoordinateSystem(py::module &mod){
 
-py::class_<StepFEA_CurveElementEndCoordinateSystem, std::unique_ptr<StepFEA_CurveElementEndCoordinateSystem>, StepData_SelectType> cls_StepFEA_CurveElementEndCoordinateSystem(mod, "StepFEA_CurveElementEndCoordinateSystem", "Representation of STEP SELECT type CurveElementEndCoordinateSystem");
+py::class_<StepFEA_CurveElementEndCoordinateSystem, StepData_SelectType> cls_StepFEA_CurveElementEndCoordinateSystem(mod, "StepFEA_CurveElementEndCoordinateSystem", "Representation of STEP SELECT type CurveElementEndCoordinateSystem");
 
 // Constructors
 cls_StepFEA_CurveElementEndCoordinateSystem.def(py::init<>());

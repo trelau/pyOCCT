@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_WFRestrictedFace(py::module &mod){
 
-py::class_<StdPrs_WFRestrictedFace, std::unique_ptr<StdPrs_WFRestrictedFace>, Prs3d_Root> cls_StdPrs_WFRestrictedFace(mod, "StdPrs_WFRestrictedFace", "None");
+py::class_<StdPrs_WFRestrictedFace, Prs3d_Root> cls_StdPrs_WFRestrictedFace(mod, "StdPrs_WFRestrictedFace", "None");
 
 // Constructors
 

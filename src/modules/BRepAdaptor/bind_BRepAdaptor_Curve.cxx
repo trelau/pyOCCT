@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAdaptor_Curve(py::module &mod){
 
-py::class_<BRepAdaptor_Curve, std::unique_ptr<BRepAdaptor_Curve>, Adaptor3d_Curve> cls_BRepAdaptor_Curve(mod, "BRepAdaptor_Curve", "The Curve from BRepAdaptor allows to use an Edge of the BRep topology like a 3D curve.");
+py::class_<BRepAdaptor_Curve, Adaptor3d_Curve> cls_BRepAdaptor_Curve(mod, "BRepAdaptor_Curve", "The Curve from BRepAdaptor allows to use an Edge of the BRep topology like a 3D curve.");
 
 // Constructors
 cls_BRepAdaptor_Curve.def(py::init<>());

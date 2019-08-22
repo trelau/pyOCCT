@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCE2d_MakeEllipse(py::module &mod){
 
-py::class_<GCE2d_MakeEllipse, std::unique_ptr<GCE2d_MakeEllipse>, GCE2d_Root> cls_GCE2d_MakeEllipse(mod, "GCE2d_MakeEllipse", "This class implements the following algorithms used to create Ellipse from Geom2d. * Create an Ellipse from two apex and the center. Defines an ellipse in 2D space. The parametrization range is [0,2*PI]. The ellipse is a closed and periodic curve. The center of the ellipse is the 'Location' point of its axis placement 'XAxis'. The 'XAxis' of the ellipse defines the origin of the parametrization, it is the major axis of the ellipse. The YAxis is the minor axis of the ellipse.");
+py::class_<GCE2d_MakeEllipse, GCE2d_Root> cls_GCE2d_MakeEllipse(mod, "GCE2d_MakeEllipse", "This class implements the following algorithms used to create Ellipse from Geom2d. * Create an Ellipse from two apex and the center. Defines an ellipse in 2D space. The parametrization range is [0,2*PI]. The ellipse is a closed and periodic curve. The center of the ellipse is the 'Location' point of its axis placement 'XAxis'. The 'XAxis' of the ellipse defines the origin of the parametrization, it is the major axis of the ellipse. The YAxis is the minor axis of the ellipse.");
 
 // Constructors
 cls_GCE2d_MakeEllipse.def(py::init<const gp_Elips2d &>(), py::arg("E"));

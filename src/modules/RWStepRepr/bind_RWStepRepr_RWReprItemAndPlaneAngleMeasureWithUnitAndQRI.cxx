@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWReprItemAndPlaneAngleMeasureWithUnitAndQRI(py::module &mod){
 
-py::class_<RWStepRepr_RWReprItemAndPlaneAngleMeasureWithUnitAndQRI, std::unique_ptr<RWStepRepr_RWReprItemAndPlaneAngleMeasureWithUnitAndQRI>> cls_RWStepRepr_RWReprItemAndPlaneAngleMeasureWithUnitAndQRI(mod, "RWStepRepr_RWReprItemAndPlaneAngleMeasureWithUnitAndQRI", "Read & Write Module for ReprItemAndPlaneAngleMeasureWithUnitAndQRI");
+py::class_<RWStepRepr_RWReprItemAndPlaneAngleMeasureWithUnitAndQRI> cls_RWStepRepr_RWReprItemAndPlaneAngleMeasureWithUnitAndQRI(mod, "RWStepRepr_RWReprItemAndPlaneAngleMeasureWithUnitAndQRI", "Read & Write Module for ReprItemAndPlaneAngleMeasureWithUnitAndQRI");
 
 // Constructors
 cls_RWStepRepr_RWReprItemAndPlaneAngleMeasureWithUnitAndQRI.def(py::init<>());

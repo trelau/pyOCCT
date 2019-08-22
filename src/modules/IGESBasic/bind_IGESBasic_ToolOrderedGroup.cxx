@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESBasic_ToolOrderedGroup(py::module &mod){
 
-py::class_<IGESBasic_ToolOrderedGroup, std::unique_ptr<IGESBasic_ToolOrderedGroup>> cls_IGESBasic_ToolOrderedGroup(mod, "IGESBasic_ToolOrderedGroup", "Tool to work on a OrderedGroup. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESBasic_ToolOrderedGroup> cls_IGESBasic_ToolOrderedGroup(mod, "IGESBasic_ToolOrderedGroup", "Tool to work on a OrderedGroup. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESBasic_ToolOrderedGroup.def(py::init<>());

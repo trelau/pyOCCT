@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli_ToolNodalConstraint(py::module &mod){
 
-py::class_<IGESAppli_ToolNodalConstraint, std::unique_ptr<IGESAppli_ToolNodalConstraint>> cls_IGESAppli_ToolNodalConstraint(mod, "IGESAppli_ToolNodalConstraint", "Tool to work on a NodalConstraint. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESAppli_ToolNodalConstraint> cls_IGESAppli_ToolNodalConstraint(mod, "IGESAppli_ToolNodalConstraint", "Tool to work on a NodalConstraint. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESAppli_ToolNodalConstraint.def(py::init<>());

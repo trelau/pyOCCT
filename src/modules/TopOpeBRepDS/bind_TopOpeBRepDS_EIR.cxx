@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_EIR(py::module &mod){
 
-py::class_<TopOpeBRepDS_EIR, std::unique_ptr<TopOpeBRepDS_EIR>> cls_TopOpeBRepDS_EIR(mod, "TopOpeBRepDS_EIR", "EdgeInterferenceReducer");
+py::class_<TopOpeBRepDS_EIR> cls_TopOpeBRepDS_EIR(mod, "TopOpeBRepDS_EIR", "EdgeInterferenceReducer");
 
 // Constructors
 cls_TopOpeBRepDS_EIR.def(py::init<const opencascade::handle<TopOpeBRepDS_HDataStructure> &>(), py::arg("HDS"));

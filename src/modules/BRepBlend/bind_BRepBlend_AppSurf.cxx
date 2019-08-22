@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBlend_AppSurf(py::module &mod){
 
-py::class_<BRepBlend_AppSurf, std::unique_ptr<BRepBlend_AppSurf>, AppBlend_Approx> cls_BRepBlend_AppSurf(mod, "BRepBlend_AppSurf", "None");
+py::class_<BRepBlend_AppSurf, AppBlend_Approx> cls_BRepBlend_AppSurf(mod, "BRepBlend_AppSurf", "None");
 
 // Constructors
 cls_BRepBlend_AppSurf.def(py::init<>());

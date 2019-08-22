@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS_TranslateEdge(py::module &mod){
 
-py::class_<StepToTopoDS_TranslateEdge, std::unique_ptr<StepToTopoDS_TranslateEdge>, StepToTopoDS_Root> cls_StepToTopoDS_TranslateEdge(mod, "StepToTopoDS_TranslateEdge", "None");
+py::class_<StepToTopoDS_TranslateEdge, StepToTopoDS_Root> cls_StepToTopoDS_TranslateEdge(mod, "StepToTopoDS_TranslateEdge", "None");
 
 // Constructors
 cls_StepToTopoDS_TranslateEdge.def(py::init<>());

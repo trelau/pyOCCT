@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_OpenGl_LayerList(py::module &mod){
 
 /*
-py::class_<OpenGl_LayerList, std::unique_ptr<OpenGl_LayerList>> cls_OpenGl_LayerList(mod, "OpenGl_LayerList", "Class defining the list of layers.");
+py::class_<OpenGl_LayerList> cls_OpenGl_LayerList(mod, "OpenGl_LayerList", "Class defining the list of layers.");
 
 // Constructors
 cls_OpenGl_LayerList.def(py::init<const Standard_Integer>(), py::arg("theNbPriorities"));

@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomConvert(py::module &mod){
 
-py::class_<GeomConvert, std::unique_ptr<GeomConvert>> cls_GeomConvert(mod, "GeomConvert", "The GeomConvert package provides some global functions as follows - converting classical Geom curves into BSpline curves, - segmenting BSpline curves, particularly at knots values: this function may be used in conjunction with the GeomConvert_BSplineCurveKnotSplitting class to segment a BSpline curve into arcs which comply with required continuity levels, - converting classical Geom surfaces into BSpline surfaces, and - segmenting BSpline surfaces, particularly at knots values: this function may be used in conjunction with the GeomConvert_BSplineSurfaceKnotSplitting class to segment a BSpline surface into patches which comply with required continuity levels. All geometric entities used in this package are bounded.");
+py::class_<GeomConvert> cls_GeomConvert(mod, "GeomConvert", "The GeomConvert package provides some global functions as follows - converting classical Geom curves into BSpline curves, - segmenting BSpline curves, particularly at knots values: this function may be used in conjunction with the GeomConvert_BSplineCurveKnotSplitting class to segment a BSpline curve into arcs which comply with required continuity levels, - converting classical Geom surfaces into BSpline surfaces, and - segmenting BSpline surfaces, particularly at knots values: this function may be used in conjunction with the GeomConvert_BSplineSurfaceKnotSplitting class to segment a BSpline surface into patches which comply with required continuity levels. All geometric entities used in this package are bounded.");
 
 // Constructors
 

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_Info(py::module &mod){
 
-py::class_<Vrml_Info, std::unique_ptr<Vrml_Info>> cls_Vrml_Info(mod, "Vrml_Info", "defines a Info node of VRML specifying properties of geometry and its appearance. It is used to store information in the scene graph, Typically for application-specific purposes, copyright messages, or other strings.");
+py::class_<Vrml_Info> cls_Vrml_Info(mod, "Vrml_Info", "defines a Info node of VRML specifying properties of geometry and its appearance. It is used to store information in the scene graph, Typically for application-specific purposes, copyright messages, or other strings.");
 
 // Constructors
 cls_Vrml_Info.def(py::init<>());

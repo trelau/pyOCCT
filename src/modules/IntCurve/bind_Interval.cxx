@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interval(py::module &mod){
 
-py::class_<Interval, std::unique_ptr<Interval>> cls_Interval(mod, "Interval", "None");
+py::class_<Interval> cls_Interval(mod, "Interval", "None");
 
 // Constructors
 // cls_Interval.def(py::init<>());

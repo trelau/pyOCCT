@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESCAFControl(py::module &mod){
 
-py::class_<IGESCAFControl, std::unique_ptr<IGESCAFControl>> cls_IGESCAFControl(mod, "IGESCAFControl", "Provides high-level API to translate IGES file to and from DECAF document");
+py::class_<IGESCAFControl> cls_IGESCAFControl(mod, "IGESCAFControl", "Provides high-level API to translate IGES file to and from DECAF document");
 
 // Constructors
 

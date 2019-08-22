@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWCameraModelD3MultiClippingIntersection(py::module &mod){
 
-py::class_<RWStepVisual_RWCameraModelD3MultiClippingIntersection, std::unique_ptr<RWStepVisual_RWCameraModelD3MultiClippingIntersection>> cls_RWStepVisual_RWCameraModelD3MultiClippingIntersection(mod, "RWStepVisual_RWCameraModelD3MultiClippingIntersection", "Read & Write Module for CameraModelD3MultiClippingIntersection");
+py::class_<RWStepVisual_RWCameraModelD3MultiClippingIntersection> cls_RWStepVisual_RWCameraModelD3MultiClippingIntersection(mod, "RWStepVisual_RWCameraModelD3MultiClippingIntersection", "Read & Write Module for CameraModelD3MultiClippingIntersection");
 
 // Constructors
 cls_RWStepVisual_RWCameraModelD3MultiClippingIntersection.def(py::init<>());

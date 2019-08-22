@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_LineTool(py::module &mod){
 
-py::class_<HLRBRep_LineTool, std::unique_ptr<HLRBRep_LineTool>> cls_HLRBRep_LineTool(mod, "HLRBRep_LineTool", "The LineTool class provides class methods to access the methodes of the Line.");
+py::class_<HLRBRep_LineTool> cls_HLRBRep_LineTool(mod, "HLRBRep_LineTool", "The LineTool class provides class methods to access the methodes of the Line.");
 
 // Constructors
 

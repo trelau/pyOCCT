@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeSurfaceOfLinearExtrusion(py::module &mod){
 
-py::class_<GeomToStep_MakeSurfaceOfLinearExtrusion, std::unique_ptr<GeomToStep_MakeSurfaceOfLinearExtrusion>, GeomToStep_Root> cls_GeomToStep_MakeSurfaceOfLinearExtrusion(mod, "GeomToStep_MakeSurfaceOfLinearExtrusion", "This class implements the mapping between class SurfaceOfLinearExtrusion from Geom and the class SurfaceOfLinearExtrusion from StepGeom which describes a surface_of_linear_extrusion from Prostep");
+py::class_<GeomToStep_MakeSurfaceOfLinearExtrusion, GeomToStep_Root> cls_GeomToStep_MakeSurfaceOfLinearExtrusion(mod, "GeomToStep_MakeSurfaceOfLinearExtrusion", "This class implements the mapping between class SurfaceOfLinearExtrusion from Geom and the class SurfaceOfLinearExtrusion from StepGeom which describes a surface_of_linear_extrusion from Prostep");
 
 // Constructors
 cls_GeomToStep_MakeSurfaceOfLinearExtrusion.def(py::init<const opencascade::handle<Geom_SurfaceOfLinearExtrusion> &>(), py::arg("CSurf"));

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AdvApp2Var_ApproxF2var(py::module &mod){
 
-py::class_<AdvApp2Var_ApproxF2var, std::unique_ptr<AdvApp2Var_ApproxF2var>> cls_AdvApp2Var_ApproxF2var(mod, "AdvApp2Var_ApproxF2var", "None");
+py::class_<AdvApp2Var_ApproxF2var> cls_AdvApp2Var_ApproxF2var(mod, "AdvApp2Var_ApproxF2var", "None");
 
 // Constructors
 

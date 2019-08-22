@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndModGeoTolAndPosTol(py::module &mod){
 
-py::class_<RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndModGeoTolAndPosTol, std::unique_ptr<RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndModGeoTolAndPosTol>> cls_RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndModGeoTolAndPosTol(mod, "RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndModGeoTolAndPosTol", "Read & Write Module for ReprItemAndLengthMeasureWithUni");
+py::class_<RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndModGeoTolAndPosTol> cls_RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndModGeoTolAndPosTol(mod, "RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndModGeoTolAndPosTol", "Read & Write Module for ReprItemAndLengthMeasureWithUni");
 
 // Constructors
 cls_RWStepDimTol_RWGeoTolAndGeoTolWthDatRefAndModGeoTolAndPosTol.def(py::init<>());

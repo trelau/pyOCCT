@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T, int N, typename Arity>
 void bind_BVH_Tree(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BVH_Tree<T, N, Arity>, std::unique_ptr<BVH_Tree<T, N, Arity>>> cls_BVH_Tree(mod, name.c_str(), "BVH tree with given arity (2 or 4).", local);
+py::class_<BVH_Tree<T, N, Arity>> cls_BVH_Tree(mod, name.c_str(), "BVH tree with given arity (2 or 4).", local);
 
 // Constructors
 

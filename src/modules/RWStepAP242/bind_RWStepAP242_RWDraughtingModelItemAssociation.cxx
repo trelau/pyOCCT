@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP242_RWDraughtingModelItemAssociation(py::module &mod){
 
-py::class_<RWStepAP242_RWDraughtingModelItemAssociation, std::unique_ptr<RWStepAP242_RWDraughtingModelItemAssociation>> cls_RWStepAP242_RWDraughtingModelItemAssociation(mod, "RWStepAP242_RWDraughtingModelItemAssociation", "Read & Write Module for DraughtingModelItemAssociation");
+py::class_<RWStepAP242_RWDraughtingModelItemAssociation> cls_RWStepAP242_RWDraughtingModelItemAssociation(mod, "RWStepAP242_RWDraughtingModelItemAssociation", "Read & Write Module for DraughtingModelItemAssociation");
 
 // Constructors
 cls_RWStepAP242_RWDraughtingModelItemAssociation.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWNodeWithSolutionCoordinateSystem(py::module &mod){
 
-py::class_<RWStepFEA_RWNodeWithSolutionCoordinateSystem, std::unique_ptr<RWStepFEA_RWNodeWithSolutionCoordinateSystem>> cls_RWStepFEA_RWNodeWithSolutionCoordinateSystem(mod, "RWStepFEA_RWNodeWithSolutionCoordinateSystem", "Read & Write tool for NodeWithSolutionCoordinateSystem");
+py::class_<RWStepFEA_RWNodeWithSolutionCoordinateSystem> cls_RWStepFEA_RWNodeWithSolutionCoordinateSystem(mod, "RWStepFEA_RWNodeWithSolutionCoordinateSystem", "Read & Write tool for NodeWithSolutionCoordinateSystem");
 
 // Constructors
 cls_RWStepFEA_RWNodeWithSolutionCoordinateSystem.def(py::init<>());

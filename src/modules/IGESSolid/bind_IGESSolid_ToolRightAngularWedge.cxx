@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolRightAngularWedge(py::module &mod){
 
-py::class_<IGESSolid_ToolRightAngularWedge, std::unique_ptr<IGESSolid_ToolRightAngularWedge>> cls_IGESSolid_ToolRightAngularWedge(mod, "IGESSolid_ToolRightAngularWedge", "Tool to work on a RightAngularWedge. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolRightAngularWedge> cls_IGESSolid_ToolRightAngularWedge(mod, "IGESSolid_ToolRightAngularWedge", "Tool to work on a RightAngularWedge. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolRightAngularWedge.def(py::init<>());

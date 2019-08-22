@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinObjMgt_Persistent(py::module &mod){
 
-py::class_<BinObjMgt_Persistent, std::unique_ptr<BinObjMgt_Persistent>> cls_BinObjMgt_Persistent(mod, "BinObjMgt_Persistent", "Binary persistent representation of an object. Really it is used as a buffer for read/write an object.");
+py::class_<BinObjMgt_Persistent> cls_BinObjMgt_Persistent(mod, "BinObjMgt_Persistent", "Binary persistent representation of an object. Really it is used as a buffer for read/write an object.");
 
 // Constructors
 cls_BinObjMgt_Persistent.def(py::init<>());

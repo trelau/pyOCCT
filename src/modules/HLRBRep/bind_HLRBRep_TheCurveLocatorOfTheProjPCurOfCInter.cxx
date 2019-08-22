@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter(py::module &mod){
 
-py::class_<HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter, std::unique_ptr<HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter>> cls_HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter(mod, "HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter", "None");
+py::class_<HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter> cls_HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter(mod, "HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter", "None");
 
 // Constructors
 

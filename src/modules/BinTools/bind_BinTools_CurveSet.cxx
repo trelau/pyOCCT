@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BinTools_CurveSet(py::module &mod){
 
-py::class_<BinTools_CurveSet, std::unique_ptr<BinTools_CurveSet>> cls_BinTools_CurveSet(mod, "BinTools_CurveSet", "Stores a set of Curves from Geom in binary format.");
+py::class_<BinTools_CurveSet> cls_BinTools_CurveSet(mod, "BinTools_CurveSet", "Stores a set of Curves from Geom in binary format.");
 
 // Constructors
 cls_BinTools_CurveSet.def(py::init<>());

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFiDS_StripeMap(py::module &mod){
 
-py::class_<ChFiDS_StripeMap, std::unique_ptr<ChFiDS_StripeMap>> cls_ChFiDS_StripeMap(mod, "ChFiDS_StripeMap", "encapsulation of IndexedDataMapOfVertexListOfStripe");
+py::class_<ChFiDS_StripeMap> cls_ChFiDS_StripeMap(mod, "ChFiDS_StripeMap", "encapsulation of IndexedDataMapOfVertexListOfStripe");
 
 // Constructors
 cls_ChFiDS_StripeMap.def(py::init<>());

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TheObjType, typename TheBndType>
 void bind_NCollection_EBTree(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<NCollection_EBTree<TheObjType, TheBndType>, std::unique_ptr<NCollection_EBTree<TheObjType, TheBndType>>, NCollection_UBTree<TheObjType, TheBndType>> cls_NCollection_EBTree(mod, name.c_str(), "The algorithm of unbalanced binary tree of overlapped bounding boxes with the possibility of deleting objects from the tree.", local);
+py::class_<NCollection_EBTree<TheObjType, TheBndType>, NCollection_UBTree<TheObjType, TheBndType>> cls_NCollection_EBTree(mod, name.c_str(), "The algorithm of unbalanced binary tree of overlapped bounding boxes with the possibility of deleting objects from the tree.", local);
 
 // Constructors
 cls_NCollection_EBTree.def(py::init<>());

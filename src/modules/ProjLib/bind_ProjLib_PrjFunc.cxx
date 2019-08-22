@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ProjLib_PrjFunc(py::module &mod){
 
-py::class_<ProjLib_PrjFunc, std::unique_ptr<ProjLib_PrjFunc>, math_FunctionSetWithDerivatives> cls_ProjLib_PrjFunc(mod, "ProjLib_PrjFunc", "None");
+py::class_<ProjLib_PrjFunc, math_FunctionSetWithDerivatives> cls_ProjLib_PrjFunc(mod, "ProjLib_PrjFunc", "None");
 
 // Constructors
 cls_ProjLib_PrjFunc.def(py::init<const Adaptor3d_CurvePtr &, const Standard_Real, const Adaptor3d_SurfacePtr &, const Standard_Integer>(), py::arg("C"), py::arg("FixVal"), py::arg("S"), py::arg("Fix"));

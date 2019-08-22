@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESSolid_ToolSelectedComponent(py::module &mod){
 
-py::class_<IGESSolid_ToolSelectedComponent, std::unique_ptr<IGESSolid_ToolSelectedComponent>> cls_IGESSolid_ToolSelectedComponent(mod, "IGESSolid_ToolSelectedComponent", "Tool to work on a SelectedComponent. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESSolid_ToolSelectedComponent> cls_IGESSolid_ToolSelectedComponent(mod, "IGESSolid_ToolSelectedComponent", "Tool to work on a SelectedComponent. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESSolid_ToolSelectedComponent.def(py::init<>());

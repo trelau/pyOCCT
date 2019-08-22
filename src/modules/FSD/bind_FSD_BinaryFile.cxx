@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FSD_BinaryFile(py::module &mod){
 
-py::class_<FSD_BinaryFile, std::unique_ptr<FSD_BinaryFile>, Storage_BaseDriver> cls_FSD_BinaryFile(mod, "FSD_BinaryFile", "None");
+py::class_<FSD_BinaryFile, Storage_BaseDriver> cls_FSD_BinaryFile(mod, "FSD_BinaryFile", "None");
 
 // Constructors
 cls_FSD_BinaryFile.def(py::init<>());

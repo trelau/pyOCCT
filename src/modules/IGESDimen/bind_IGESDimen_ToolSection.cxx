@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolSection(py::module &mod){
 
-py::class_<IGESDimen_ToolSection, std::unique_ptr<IGESDimen_ToolSection>> cls_IGESDimen_ToolSection(mod, "IGESDimen_ToolSection", "Tool to work on a Section. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolSection> cls_IGESDimen_ToolSection(mod, "IGESDimen_ToolSection", "Tool to work on a Section. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolSection.def(py::init<>());

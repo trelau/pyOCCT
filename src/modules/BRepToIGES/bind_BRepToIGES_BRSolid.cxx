@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepToIGES_BRSolid(py::module &mod){
 
-py::class_<BRepToIGES_BRSolid, std::unique_ptr<BRepToIGES_BRSolid>, BRepToIGES_BREntity> cls_BRepToIGES_BRSolid(mod, "BRepToIGES_BRSolid", "This class implements the transfer of Shape Entities from Geom To IGES. These can be : . Vertex . Edge . Wire");
+py::class_<BRepToIGES_BRSolid, BRepToIGES_BREntity> cls_BRepToIGES_BRSolid(mod, "BRepToIGES_BRSolid", "This class implements the transfer of Shape Entities from Geom To IGES. These can be : . Vertex . Edge . Wire");
 
 // Constructors
 cls_BRepToIGES_BRSolid.def(py::init<>());

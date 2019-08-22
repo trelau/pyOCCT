@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BVH_BuildQueue(py::module &mod){
 
-py::class_<BVH_BuildQueue, std::unique_ptr<BVH_BuildQueue>> cls_BVH_BuildQueue(mod, "BVH_BuildQueue", "Command-queue for parallel building of BVH nodes.");
+py::class_<BVH_BuildQueue> cls_BVH_BuildQueue(mod, "BVH_BuildQueue", "Command-queue for parallel building of BVH nodes.");
 
 // Constructors
 cls_BVH_BuildQueue.def(py::init<>());

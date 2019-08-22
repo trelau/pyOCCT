@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWExtrudedAreaSolid(py::module &mod){
 
-py::class_<RWStepShape_RWExtrudedAreaSolid, std::unique_ptr<RWStepShape_RWExtrudedAreaSolid>> cls_RWStepShape_RWExtrudedAreaSolid(mod, "RWStepShape_RWExtrudedAreaSolid", "Read & Write Module for ExtrudedAreaSolid");
+py::class_<RWStepShape_RWExtrudedAreaSolid> cls_RWStepShape_RWExtrudedAreaSolid(mod, "RWStepShape_RWExtrudedAreaSolid", "Read & Write Module for ExtrudedAreaSolid");
 
 // Constructors
 cls_RWStepShape_RWExtrudedAreaSolid.def(py::init<>());

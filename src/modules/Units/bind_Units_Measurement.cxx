@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Units_Measurement(py::module &mod){
 
-py::class_<Units_Measurement, std::unique_ptr<Units_Measurement>> cls_Units_Measurement(mod, "Units_Measurement", "This class defines a measurement which is the association of a real value and a unit.");
+py::class_<Units_Measurement> cls_Units_Measurement(mod, "Units_Measurement", "This class defines a measurement which is the association of a real value and a unit.");
 
 // Constructors
 cls_Units_Measurement.def(py::init<>());

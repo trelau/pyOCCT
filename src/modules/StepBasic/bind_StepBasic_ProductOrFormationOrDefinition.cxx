@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepBasic_ProductOrFormationOrDefinition(py::module &mod){
 
-py::class_<StepBasic_ProductOrFormationOrDefinition, std::unique_ptr<StepBasic_ProductOrFormationOrDefinition>, StepData_SelectType> cls_StepBasic_ProductOrFormationOrDefinition(mod, "StepBasic_ProductOrFormationOrDefinition", "Representation of STEP SELECT type ProductOrFormationOrDefinition");
+py::class_<StepBasic_ProductOrFormationOrDefinition, StepData_SelectType> cls_StepBasic_ProductOrFormationOrDefinition(mod, "StepBasic_ProductOrFormationOrDefinition", "Representation of STEP SELECT type ProductOrFormationOrDefinition");
 
 // Constructors
 cls_StepBasic_ProductOrFormationOrDefinition.def(py::init<>());

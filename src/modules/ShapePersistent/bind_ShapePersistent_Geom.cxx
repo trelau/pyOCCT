@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_ShapePersistent_Geom(py::module &mod){
 
 /*
-py::class_<ShapePersistent_Geom, std::unique_ptr<ShapePersistent_Geom>, StdObjMgt_SharedObject> cls_ShapePersistent_Geom(mod, "ShapePersistent_Geom", "None");
+py::class_<ShapePersistent_Geom, StdObjMgt_SharedObject> cls_ShapePersistent_Geom(mod, "ShapePersistent_Geom", "None");
 
 // Constructors
 

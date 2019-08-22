@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP203_RWCcDesignPersonAndOrganizationAssignment(py::module &mod){
 
-py::class_<RWStepAP203_RWCcDesignPersonAndOrganizationAssignment, std::unique_ptr<RWStepAP203_RWCcDesignPersonAndOrganizationAssignment>> cls_RWStepAP203_RWCcDesignPersonAndOrganizationAssignment(mod, "RWStepAP203_RWCcDesignPersonAndOrganizationAssignment", "Read & Write tool for CcDesignPersonAndOrganizationAssignment");
+py::class_<RWStepAP203_RWCcDesignPersonAndOrganizationAssignment> cls_RWStepAP203_RWCcDesignPersonAndOrganizationAssignment(mod, "RWStepAP203_RWCcDesignPersonAndOrganizationAssignment", "Read & Write tool for CcDesignPersonAndOrganizationAssignment");
 
 // Constructors
 cls_RWStepAP203_RWCcDesignPersonAndOrganizationAssignment.def(py::init<>());

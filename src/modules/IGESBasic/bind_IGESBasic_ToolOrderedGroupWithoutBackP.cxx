@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESBasic_ToolOrderedGroupWithoutBackP(py::module &mod){
 
-py::class_<IGESBasic_ToolOrderedGroupWithoutBackP, std::unique_ptr<IGESBasic_ToolOrderedGroupWithoutBackP>> cls_IGESBasic_ToolOrderedGroupWithoutBackP(mod, "IGESBasic_ToolOrderedGroupWithoutBackP", "Tool to work on a OrderedGroupWithoutBackP. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESBasic_ToolOrderedGroupWithoutBackP> cls_IGESBasic_ToolOrderedGroupWithoutBackP(mod, "IGESBasic_ToolOrderedGroupWithoutBackP", "Tool to work on a OrderedGroupWithoutBackP. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESBasic_ToolOrderedGroupWithoutBackP.def(py::init<>());

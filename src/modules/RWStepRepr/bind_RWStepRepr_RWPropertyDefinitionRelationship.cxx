@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWPropertyDefinitionRelationship(py::module &mod){
 
-py::class_<RWStepRepr_RWPropertyDefinitionRelationship, std::unique_ptr<RWStepRepr_RWPropertyDefinitionRelationship>> cls_RWStepRepr_RWPropertyDefinitionRelationship(mod, "RWStepRepr_RWPropertyDefinitionRelationship", "Read & Write tool for PropertyDefinitionRelationship");
+py::class_<RWStepRepr_RWPropertyDefinitionRelationship> cls_RWStepRepr_RWPropertyDefinitionRelationship(mod, "RWStepRepr_RWPropertyDefinitionRelationship", "Read & Write tool for PropertyDefinitionRelationship");
 
 // Constructors
 cls_RWStepRepr_RWPropertyDefinitionRelationship.def(py::init<>());

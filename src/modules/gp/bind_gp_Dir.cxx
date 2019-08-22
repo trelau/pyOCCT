@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_Dir(py::module &mod){
 
-py::class_<gp_Dir, std::unique_ptr<gp_Dir>> cls_gp_Dir(mod, "gp_Dir", "Describes a unit vector in 3D space. This unit vector is also called 'Direction'. See Also gce_MakeDir which provides functions for more complex unit vector constructions Geom_Direction which provides additional functions for constructing unit vectors and works, in particular, with the parametric equations of unit vectors.");
+py::class_<gp_Dir> cls_gp_Dir(mod, "gp_Dir", "Describes a unit vector in 3D space. This unit vector is also called 'Direction'. See Also gce_MakeDir which provides functions for more complex unit vector constructions Geom_Direction which provides additional functions for constructing unit vectors and works, in particular, with the parametric equations of unit vectors.");
 
 // Constructors
 cls_gp_Dir.def(py::init<>());

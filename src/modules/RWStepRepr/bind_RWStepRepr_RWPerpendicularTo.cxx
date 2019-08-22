@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWPerpendicularTo(py::module &mod){
 
-py::class_<RWStepRepr_RWPerpendicularTo, std::unique_ptr<RWStepRepr_RWPerpendicularTo>> cls_RWStepRepr_RWPerpendicularTo(mod, "RWStepRepr_RWPerpendicularTo", "Read & Write tool for PerpendicularTo");
+py::class_<RWStepRepr_RWPerpendicularTo> cls_RWStepRepr_RWPerpendicularTo(mod, "RWStepRepr_RWPerpendicularTo", "Read & Write tool for PerpendicularTo");
 
 // Constructors
 cls_RWStepRepr_RWPerpendicularTo.def(py::init<>());

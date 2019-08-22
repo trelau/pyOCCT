@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XBRepMesh(py::module &mod){
 
-py::class_<XBRepMesh, std::unique_ptr<XBRepMesh>> cls_XBRepMesh(mod, "XBRepMesh", "None");
+py::class_<XBRepMesh> cls_XBRepMesh(mod, "XBRepMesh", "None");
 
 // Constructors
 

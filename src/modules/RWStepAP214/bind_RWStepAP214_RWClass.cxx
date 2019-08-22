@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWClass(py::module &mod){
 
-py::class_<RWStepAP214_RWClass, std::unique_ptr<RWStepAP214_RWClass>> cls_RWStepAP214_RWClass(mod, "RWStepAP214_RWClass", "Read & Write tool for Class");
+py::class_<RWStepAP214_RWClass> cls_RWStepAP214_RWClass(mod, "RWStepAP214_RWClass", "Read & Write tool for Class");
 
 // Constructors
 cls_RWStepAP214_RWClass.def(py::init<>());

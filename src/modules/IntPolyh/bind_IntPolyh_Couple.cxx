@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntPolyh_Couple(py::module &mod){
 
-py::class_<IntPolyh_Couple, std::unique_ptr<IntPolyh_Couple>> cls_IntPolyh_Couple(mod, "IntPolyh_Couple", "The class represents the couple of indices with additional characteristics such as analyzed flag and an angle. In IntPolyh_MaillageAffinage algorithm the class is used as a couple of interfering triangles with the intersection angle.");
+py::class_<IntPolyh_Couple> cls_IntPolyh_Couple(mod, "IntPolyh_Couple", "The class represents the couple of indices with additional characteristics such as analyzed flag and an angle. In IntPolyh_MaillageAffinage algorithm the class is used as a couple of interfering triangles with the intersection angle.");
 
 // Constructors
 cls_IntPolyh_Couple.def(py::init<>());

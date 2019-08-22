@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurvesFace_ShapeIntersector(py::module &mod){
 
-py::class_<IntCurvesFace_ShapeIntersector, std::unique_ptr<IntCurvesFace_ShapeIntersector>> cls_IntCurvesFace_ShapeIntersector(mod, "IntCurvesFace_ShapeIntersector", "None");
+py::class_<IntCurvesFace_ShapeIntersector> cls_IntCurvesFace_ShapeIntersector(mod, "IntCurvesFace_ShapeIntersector", "None");
 
 // Constructors
 cls_IntCurvesFace_ShapeIntersector.def(py::init<>());

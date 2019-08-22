@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 void bind_StdStorage_Bucket(py::module &mod){
 
 /*
-py::class_<StdStorage_Bucket, std::unique_ptr<StdStorage_Bucket>> cls_StdStorage_Bucket(mod, "StdStorage_Bucket", "None");
+py::class_<StdStorage_Bucket> cls_StdStorage_Bucket(mod, "StdStorage_Bucket", "None");
 
 // Constructors
 cls_StdStorage_Bucket.def(py::init<>());

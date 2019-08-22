@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWShapeDefinitionRepresentation(py::module &mod){
 
-py::class_<RWStepShape_RWShapeDefinitionRepresentation, std::unique_ptr<RWStepShape_RWShapeDefinitionRepresentation>> cls_RWStepShape_RWShapeDefinitionRepresentation(mod, "RWStepShape_RWShapeDefinitionRepresentation", "Read & Write tool for ShapeDefinitionRepresentation");
+py::class_<RWStepShape_RWShapeDefinitionRepresentation> cls_RWStepShape_RWShapeDefinitionRepresentation(mod, "RWStepShape_RWShapeDefinitionRepresentation", "Read & Write tool for ShapeDefinitionRepresentation");
 
 // Constructors
 cls_RWStepShape_RWShapeDefinitionRepresentation.def(py::init<>());

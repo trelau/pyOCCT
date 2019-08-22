@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_TKI(py::module &mod){
 
-py::class_<TopOpeBRepDS_TKI, std::unique_ptr<TopOpeBRepDS_TKI>> cls_TopOpeBRepDS_TKI(mod, "TopOpeBRepDS_TKI", "None");
+py::class_<TopOpeBRepDS_TKI> cls_TopOpeBRepDS_TKI(mod, "TopOpeBRepDS_TKI", "None");
 
 // Constructors
 cls_TopOpeBRepDS_TKI.def(py::init<>());

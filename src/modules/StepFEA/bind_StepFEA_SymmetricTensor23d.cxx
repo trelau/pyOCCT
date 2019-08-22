@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepFEA_SymmetricTensor23d(py::module &mod){
 
-py::class_<StepFEA_SymmetricTensor23d, std::unique_ptr<StepFEA_SymmetricTensor23d>, StepData_SelectType> cls_StepFEA_SymmetricTensor23d(mod, "StepFEA_SymmetricTensor23d", "Representation of STEP SELECT type SymmetricTensor23d");
+py::class_<StepFEA_SymmetricTensor23d, StepData_SelectType> cls_StepFEA_SymmetricTensor23d(mod, "StepFEA_SymmetricTensor23d", "Representation of STEP SELECT type SymmetricTensor23d");
 
 // Constructors
 cls_StepFEA_SymmetricTensor23d.def(py::init<>());

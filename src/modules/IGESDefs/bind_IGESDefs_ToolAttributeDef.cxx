@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDefs_ToolAttributeDef(py::module &mod){
 
-py::class_<IGESDefs_ToolAttributeDef, std::unique_ptr<IGESDefs_ToolAttributeDef>> cls_IGESDefs_ToolAttributeDef(mod, "IGESDefs_ToolAttributeDef", "Tool to work on a AttributeDef. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDefs_ToolAttributeDef> cls_IGESDefs_ToolAttributeDef(mod, "IGESDefs_ToolAttributeDef", "Tool to work on a AttributeDef. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDefs_ToolAttributeDef.def(py::init<>());

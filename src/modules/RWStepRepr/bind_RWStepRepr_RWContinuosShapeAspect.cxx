@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWContinuosShapeAspect(py::module &mod){
 
-py::class_<RWStepRepr_RWContinuosShapeAspect, std::unique_ptr<RWStepRepr_RWContinuosShapeAspect>> cls_RWStepRepr_RWContinuosShapeAspect(mod, "RWStepRepr_RWContinuosShapeAspect", "Read & Write tool for ContinuosShapeAspect");
+py::class_<RWStepRepr_RWContinuosShapeAspect> cls_RWStepRepr_RWContinuosShapeAspect(mod, "RWStepRepr_RWContinuosShapeAspect", "Read & Write tool for ContinuosShapeAspect");
 
 // Constructors
 cls_RWStepRepr_RWContinuosShapeAspect.def(py::init<>());

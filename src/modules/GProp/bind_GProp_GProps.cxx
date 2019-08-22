@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GProp_GProps(py::module &mod){
 
-py::class_<GProp_GProps, std::unique_ptr<GProp_GProps>> cls_GProp_GProps(mod, "GProp_GProps", "Implements a general mechanism to compute the global properties of a 'compound geometric system' in 3d space by composition of the global properties of 'elementary geometric entities' such as (curve, surface, solid, set of points). It is possible to compose the properties of several 'compound geometric systems' too.");
+py::class_<GProp_GProps> cls_GProp_GProps(mod, "GProp_GProps", "Implements a general mechanism to compute the global properties of a 'compound geometric system' in 3d space by composition of the global properties of 'elementary geometric entities' such as (curve, surface, solid, set of points). It is possible to compose the properties of several 'compound geometric systems' too.");
 
 // Constructors
 cls_GProp_GProps.def(py::init<>());

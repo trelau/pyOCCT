@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWTextStyleWithBoxCharacteristics(py::module &mod){
 
-py::class_<RWStepVisual_RWTextStyleWithBoxCharacteristics, std::unique_ptr<RWStepVisual_RWTextStyleWithBoxCharacteristics>> cls_RWStepVisual_RWTextStyleWithBoxCharacteristics(mod, "RWStepVisual_RWTextStyleWithBoxCharacteristics", "Read & Write Module for TextStyleWithBoxCharacteristics");
+py::class_<RWStepVisual_RWTextStyleWithBoxCharacteristics> cls_RWStepVisual_RWTextStyleWithBoxCharacteristics(mod, "RWStepVisual_RWTextStyleWithBoxCharacteristics", "Read & Write Module for TextStyleWithBoxCharacteristics");
 
 // Constructors
 cls_RWStepVisual_RWTextStyleWithBoxCharacteristics.def(py::init<>());

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWFunctionallyDefinedTransformation(py::module &mod){
 
-py::class_<RWStepRepr_RWFunctionallyDefinedTransformation, std::unique_ptr<RWStepRepr_RWFunctionallyDefinedTransformation>> cls_RWStepRepr_RWFunctionallyDefinedTransformation(mod, "RWStepRepr_RWFunctionallyDefinedTransformation", "Read & Write Module for FunctionallyDefinedTransformation");
+py::class_<RWStepRepr_RWFunctionallyDefinedTransformation> cls_RWStepRepr_RWFunctionallyDefinedTransformation(mod, "RWStepRepr_RWFunctionallyDefinedTransformation", "Read & Write Module for FunctionallyDefinedTransformation");
 
 // Constructors
 cls_RWStepRepr_RWFunctionallyDefinedTransformation.def(py::init<>());

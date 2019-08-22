@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffsetAPI_MakeOffset(py::module &mod){
 
-py::class_<BRepOffsetAPI_MakeOffset, std::unique_ptr<BRepOffsetAPI_MakeOffset>, BRepBuilderAPI_MakeShape> cls_BRepOffsetAPI_MakeOffset(mod, "BRepOffsetAPI_MakeOffset", "Describes algorithms for offsetting wires from a set of wires contained in a planar face. A MakeOffset object provides a framework for: - defining the construction of an offset, - implementing the construction algorithm, and - consulting the result.");
+py::class_<BRepOffsetAPI_MakeOffset, BRepBuilderAPI_MakeShape> cls_BRepOffsetAPI_MakeOffset(mod, "BRepOffsetAPI_MakeOffset", "Describes algorithms for offsetting wires from a set of wires contained in a planar face. A MakeOffset object provides a framework for: - defining the construction of an offset, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_BRepOffsetAPI_MakeOffset.def(py::init<>());

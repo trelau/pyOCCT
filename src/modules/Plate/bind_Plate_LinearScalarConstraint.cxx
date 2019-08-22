@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Plate_LinearScalarConstraint(py::module &mod){
 
-py::class_<Plate_LinearScalarConstraint, std::unique_ptr<Plate_LinearScalarConstraint>> cls_Plate_LinearScalarConstraint(mod, "Plate_LinearScalarConstraint", "define on or several constraints as linear combination of the X,Y and Z components of a set of PinPointConstraint");
+py::class_<Plate_LinearScalarConstraint> cls_Plate_LinearScalarConstraint(mod, "Plate_LinearScalarConstraint", "define on or several constraints as linear combination of the X,Y and Z components of a set of PinPointConstraint");
 
 // Constructors
 cls_Plate_LinearScalarConstraint.def(py::init<>());

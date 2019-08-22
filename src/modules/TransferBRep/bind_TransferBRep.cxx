@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TransferBRep(py::module &mod){
 
-py::class_<TransferBRep, std::unique_ptr<TransferBRep>> cls_TransferBRep(mod, "TransferBRep", "This package gathers services to simply read files and convert them to Shapes from CasCade. IE. it can be used in conjunction with purely CasCade software");
+py::class_<TransferBRep> cls_TransferBRep(mod, "TransferBRep", "This package gathers services to simply read files and convert them to Shapes from CasCade. IE. it can be used in conjunction with purely CasCade software");
 
 // Constructors
 

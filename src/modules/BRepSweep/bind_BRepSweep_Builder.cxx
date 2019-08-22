@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepSweep_Builder(py::module &mod){
 
-py::class_<BRepSweep_Builder, std::unique_ptr<BRepSweep_Builder>> cls_BRepSweep_Builder(mod, "BRepSweep_Builder", "implements the abstract Builder with the BRep Builder");
+py::class_<BRepSweep_Builder> cls_BRepSweep_Builder(mod, "BRepSweep_Builder", "implements the abstract Builder with the BRep Builder");
 
 // Constructors
 cls_BRepSweep_Builder.def(py::init<const BRep_Builder &>(), py::arg("aBuilder"));

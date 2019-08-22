@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWSubedge(py::module &mod){
 
-py::class_<RWStepShape_RWSubedge, std::unique_ptr<RWStepShape_RWSubedge>> cls_RWStepShape_RWSubedge(mod, "RWStepShape_RWSubedge", "Read & Write tool for Subedge");
+py::class_<RWStepShape_RWSubedge> cls_RWStepShape_RWSubedge(mod, "RWStepShape_RWSubedge", "Read & Write tool for Subedge");
 
 // Constructors
 cls_RWStepShape_RWSubedge.def(py::init<>());

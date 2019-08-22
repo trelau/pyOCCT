@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDSToStep_MakeShellBasedSurfaceModel(py::module &mod){
 
-py::class_<TopoDSToStep_MakeShellBasedSurfaceModel, std::unique_ptr<TopoDSToStep_MakeShellBasedSurfaceModel>, TopoDSToStep_Root> cls_TopoDSToStep_MakeShellBasedSurfaceModel(mod, "TopoDSToStep_MakeShellBasedSurfaceModel", "This class implements the mapping between classes Face, Shell or Solid from TopoDS and ShellBasedSurfaceModel from StepShape. All the topology and geometry comprised into the shape are taken into account and translated.");
+py::class_<TopoDSToStep_MakeShellBasedSurfaceModel, TopoDSToStep_Root> cls_TopoDSToStep_MakeShellBasedSurfaceModel(mod, "TopoDSToStep_MakeShellBasedSurfaceModel", "This class implements the mapping between classes Face, Shell or Solid from TopoDS and ShellBasedSurfaceModel from StepShape. All the topology and geometry comprised into the shape are taken into account and translated.");
 
 // Constructors
 cls_TopoDSToStep_MakeShellBasedSurfaceModel.def(py::init<const TopoDS_Face &, const opencascade::handle<Transfer_FinderProcess> &>(), py::arg("F"), py::arg("FP"));

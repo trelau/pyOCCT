@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESToBRep_Reader(py::module &mod){
 
-py::class_<IGESToBRep_Reader, std::unique_ptr<IGESToBRep_Reader>> cls_IGESToBRep_Reader(mod, "IGESToBRep_Reader", "A simple way to read geometric IGES data. Encapsulates reading file and calling transfer tools");
+py::class_<IGESToBRep_Reader> cls_IGESToBRep_Reader(mod, "IGESToBRep_Reader", "A simple way to read geometric IGES data. Encapsulates reading file and calling transfer tools");
 
 // Constructors
 cls_IGESToBRep_Reader.def(py::init<>());

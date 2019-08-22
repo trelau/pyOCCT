@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dLProp_Curve2dTool(py::module &mod){
 
-py::class_<Geom2dLProp_Curve2dTool, std::unique_ptr<Geom2dLProp_Curve2dTool>> cls_Geom2dLProp_Curve2dTool(mod, "Geom2dLProp_Curve2dTool", "None");
+py::class_<Geom2dLProp_Curve2dTool> cls_Geom2dLProp_Curve2dTool(mod, "Geom2dLProp_Curve2dTool", "None");
 
 // Constructors
 

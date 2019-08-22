@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GC_MakeCylindricalSurface(py::module &mod){
 
-py::class_<GC_MakeCylindricalSurface, std::unique_ptr<GC_MakeCylindricalSurface>, GC_Root> cls_GC_MakeCylindricalSurface(mod, "GC_MakeCylindricalSurface", "This class implements the following algorithms used to create a CylindricalSurface from Geom. * Create a CylindricalSurface parallel to another and passing through a point. * Create a CylindricalSurface parallel to another at a distance <Dist>. * Create a CylindricalSurface passing through 3 points. * Create a CylindricalSurface by its axis and radius. * Create a cylindricalSurface by its circular base. The local coordinate system of the CylindricalSurface is defined with an axis placement (see class ElementarySurface).");
+py::class_<GC_MakeCylindricalSurface, GC_Root> cls_GC_MakeCylindricalSurface(mod, "GC_MakeCylindricalSurface", "This class implements the following algorithms used to create a CylindricalSurface from Geom. * Create a CylindricalSurface parallel to another and passing through a point. * Create a CylindricalSurface parallel to another at a distance <Dist>. * Create a CylindricalSurface passing through 3 points. * Create a CylindricalSurface by its axis and radius. * Create a cylindricalSurface by its circular base. The local coordinate system of the CylindricalSurface is defined with an axis placement (see class ElementarySurface).");
 
 // Constructors
 cls_GC_MakeCylindricalSurface.def(py::init<const gp_Ax2 &, const Standard_Real>(), py::arg("A2"), py::arg("Radius"));

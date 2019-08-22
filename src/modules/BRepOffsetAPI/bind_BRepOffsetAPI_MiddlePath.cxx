@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffsetAPI_MiddlePath(py::module &mod){
 
-py::class_<BRepOffsetAPI_MiddlePath, std::unique_ptr<BRepOffsetAPI_MiddlePath>, BRepBuilderAPI_MakeShape> cls_BRepOffsetAPI_MiddlePath(mod, "BRepOffsetAPI_MiddlePath", "Describes functions to build a middle path of a pipe-like shape");
+py::class_<BRepOffsetAPI_MiddlePath, BRepBuilderAPI_MakeShape> cls_BRepOffsetAPI_MiddlePath(mod, "BRepOffsetAPI_MiddlePath", "Describes functions to build a middle path of a pipe-like shape");
 
 // Constructors
 cls_BRepOffsetAPI_MiddlePath.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &, const TopoDS_Shape &>(), py::arg("aShape"), py::arg("StartShape"), py::arg("EndShape"));

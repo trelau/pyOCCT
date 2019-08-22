@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDocStd_XLinkTool(py::module &mod){
 
-py::class_<TDocStd_XLinkTool, std::unique_ptr<TDocStd_XLinkTool>> cls_TDocStd_XLinkTool(mod, "TDocStd_XLinkTool", "This tool class is used to copy the content of source label under target label. Only child labels and attributes of source are copied. attributes located out of source scope are not copied by this algorithm. Depending of the called method an external reference is set in the the target document to registred the externallink. Provide services to set, update and perform external references. Warning1: Nothing is provided in this class about the opportunity to copy, set a link or update it. Such decisions must be under application control. Warning2: If the document manages shapes, use after copy TNaming::ChangeShapes(target,M) to make copy of shapes.");
+py::class_<TDocStd_XLinkTool> cls_TDocStd_XLinkTool(mod, "TDocStd_XLinkTool", "This tool class is used to copy the content of source label under target label. Only child labels and attributes of source are copied. attributes located out of source scope are not copied by this algorithm. Depending of the called method an external reference is set in the the target document to registred the externallink. Provide services to set, update and perform external references. Warning1: Nothing is provided in this class about the opportunity to copy, set a link or update it. Such decisions must be under application control. Warning2: If the document manages shapes, use after copy TNaming::ChangeShapes(target,M) to make copy of shapes.");
 
 // Constructors
 cls_TDocStd_XLinkTool.def(py::init<>());

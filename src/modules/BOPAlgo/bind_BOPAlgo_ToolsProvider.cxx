@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_ToolsProvider(py::module &mod){
 
-py::class_<BOPAlgo_ToolsProvider, std::unique_ptr<BOPAlgo_ToolsProvider>, BOPAlgo_Builder> cls_BOPAlgo_ToolsProvider(mod, "BOPAlgo_ToolsProvider", "Auxiliary class providing API to operate tool arguments.");
+py::class_<BOPAlgo_ToolsProvider, BOPAlgo_Builder> cls_BOPAlgo_ToolsProvider(mod, "BOPAlgo_ToolsProvider", "Auxiliary class providing API to operate tool arguments.");
 
 // Constructors
 cls_BOPAlgo_ToolsProvider.def(py::init<>());

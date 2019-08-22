@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_NCollection_SeqNode(py::module &mod){
 
-py::class_<NCollection_SeqNode, std::unique_ptr<NCollection_SeqNode>> cls_NCollection_SeqNode(mod, "NCollection_SeqNode", "None");
+py::class_<NCollection_SeqNode> cls_NCollection_SeqNode(mod, "NCollection_SeqNode", "None");
 
 // Constructors
 // cls_NCollection_SeqNode.def(py::init<>());

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_PerfMeter(py::module &mod){
 
-py::class_<OSD_PerfMeter, std::unique_ptr<OSD_PerfMeter>> cls_OSD_PerfMeter(mod, "OSD_PerfMeter", "This class enables measuring the CPU time between two points of code execution, regardless of the scope of these points of code. A meter is identified by its name (string). So multiple objects in various places of user code may point to the same meter. The results will be printed on stdout upon finish of the program. For details see OSD_PerfMeter.h");
+py::class_<OSD_PerfMeter> cls_OSD_PerfMeter(mod, "OSD_PerfMeter", "This class enables measuring the CPU time between two points of code execution, regardless of the scope of these points of code. A meter is identified by its name (string). So multiple objects in various places of user code may point to the same meter. The results will be printed on stdout upon finish of the program. For details see OSD_PerfMeter.h");
 
 // Constructors
 cls_OSD_PerfMeter.def(py::init<>());

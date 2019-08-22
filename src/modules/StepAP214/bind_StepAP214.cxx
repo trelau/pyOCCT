@@ -71,7 +71,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP214(py::module &mod){
 
-py::class_<StepAP214, std::unique_ptr<StepAP214>> cls_StepAP214(mod, "StepAP214", "Complete AP214 CC1 , Revision 4 Upgrading from Revision 2 to Revision 4 : 26 Mar 1997 Splitting in sub-schemas : 5 Nov 1997");
+py::class_<StepAP214> cls_StepAP214(mod, "StepAP214", "Complete AP214 CC1 , Revision 4 Upgrading from Revision 2 to Revision 4 : 26 Mar 1997 Splitting in sub-schemas : 5 Nov 1997");
 
 // Constructors
 

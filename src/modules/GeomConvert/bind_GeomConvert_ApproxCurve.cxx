@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomConvert_ApproxCurve(py::module &mod){
 
-py::class_<GeomConvert_ApproxCurve, std::unique_ptr<GeomConvert_ApproxCurve>> cls_GeomConvert_ApproxCurve(mod, "GeomConvert_ApproxCurve", "A framework to convert a 3D curve to a 3D BSpline. This is done by approximation to a BSpline curve within a given tolerance.");
+py::class_<GeomConvert_ApproxCurve> cls_GeomConvert_ApproxCurve(mod, "GeomConvert_ApproxCurve", "A framework to convert a 3D curve to a 3D BSpline. This is done by approximation to a BSpline curve within a given tolerance.");
 
 // Constructors
 cls_GeomConvert_ApproxCurve.def(py::init<const opencascade::handle<Geom_Curve> &, const Standard_Real, const GeomAbs_Shape, const Standard_Integer, const Standard_Integer>(), py::arg("Curve"), py::arg("Tol3d"), py::arg("Order"), py::arg("MaxSegments"), py::arg("MaxDegree"));

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_BuilderFace(py::module &mod){
 
-py::class_<BOPAlgo_BuilderFace, std::unique_ptr<BOPAlgo_BuilderFace>, BOPAlgo_BuilderArea> cls_BOPAlgo_BuilderFace(mod, "BOPAlgo_BuilderFace", "The algorithm to build new faces from the given faces and set of edges lying on this face.");
+py::class_<BOPAlgo_BuilderFace, BOPAlgo_BuilderArea> cls_BOPAlgo_BuilderFace(mod, "BOPAlgo_BuilderFace", "The algorithm to build new faces from the given faces and set of edges lying on this face.");
 
 // Constructors
 cls_BOPAlgo_BuilderFace.def(py::init<>());

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StlAPI_Writer(py::module &mod){
 
-py::class_<StlAPI_Writer, std::unique_ptr<StlAPI_Writer>> cls_StlAPI_Writer(mod, "StlAPI_Writer", "This class creates and writes STL files from Open CASCADE shapes. An STL file can be written to an existing STL file or to a new one.");
+py::class_<StlAPI_Writer> cls_StlAPI_Writer(mod, "StlAPI_Writer", "This class creates and writes STL files from Open CASCADE shapes. An STL file can be written to an existing STL file or to a new one.");
 
 // Constructors
 cls_StlAPI_Writer.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepAP214_PersonAndOrganizationItem(py::module &mod){
 
-py::class_<StepAP214_PersonAndOrganizationItem, std::unique_ptr<StepAP214_PersonAndOrganizationItem>, StepAP214_ApprovalItem> cls_StepAP214_PersonAndOrganizationItem(mod, "StepAP214_PersonAndOrganizationItem", "None");
+py::class_<StepAP214_PersonAndOrganizationItem, StepAP214_ApprovalItem> cls_StepAP214_PersonAndOrganizationItem(mod, "StepAP214_PersonAndOrganizationItem", "None");
 
 // Constructors
 cls_StepAP214_PersonAndOrganizationItem.def(py::init<>());

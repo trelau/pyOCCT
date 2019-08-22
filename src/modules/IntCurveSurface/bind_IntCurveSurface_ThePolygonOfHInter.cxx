@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurveSurface_ThePolygonOfHInter(py::module &mod){
 
-py::class_<IntCurveSurface_ThePolygonOfHInter, std::unique_ptr<IntCurveSurface_ThePolygonOfHInter>> cls_IntCurveSurface_ThePolygonOfHInter(mod, "IntCurveSurface_ThePolygonOfHInter", "None");
+py::class_<IntCurveSurface_ThePolygonOfHInter> cls_IntCurveSurface_ThePolygonOfHInter(mod, "IntCurveSurface_ThePolygonOfHInter", "None");
 
 // Constructors
 cls_IntCurveSurface_ThePolygonOfHInter.def(py::init<const opencascade::handle<Adaptor3d_HCurve> &, const Standard_Integer>(), py::arg("Curve"), py::arg("NbPnt"));

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_CDM_MapIteratorOfMapOfDocument(py::module &mod){
 
-py::class_<NCollection_Map<opencascade::handle<CDM_Document>, NCollection_DefaultHasher<opencascade::handle<CDM_Document> > >::Iterator, std::unique_ptr<NCollection_Map<opencascade::handle<CDM_Document>, NCollection_DefaultHasher<opencascade::handle<CDM_Document> > >::Iterator>, NCollection_BaseMap::Iterator> cls_CDM_MapIteratorOfMapOfDocument(mod, "CDM_MapIteratorOfMapOfDocument", "Implementation of the Iterator interface.");
+py::class_<NCollection_Map<opencascade::handle<CDM_Document>, NCollection_DefaultHasher<opencascade::handle<CDM_Document> > >::Iterator, NCollection_BaseMap::Iterator> cls_CDM_MapIteratorOfMapOfDocument(mod, "CDM_MapIteratorOfMapOfDocument", "Implementation of the Iterator interface.");
 
 // Constructors
 cls_CDM_MapIteratorOfMapOfDocument.def(py::init<>());

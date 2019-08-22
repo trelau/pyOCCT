@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Blend_Point(py::module &mod){
 
-py::class_<Blend_Point, std::unique_ptr<Blend_Point>> cls_Blend_Point(mod, "Blend_Point", "None");
+py::class_<Blend_Point> cls_Blend_Point(mod, "Blend_Point", "None");
 
 // Constructors
 cls_Blend_Point.def(py::init<>());

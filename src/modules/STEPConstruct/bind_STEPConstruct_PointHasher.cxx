@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPConstruct_PointHasher(py::module &mod){
 
-py::class_<STEPConstruct_PointHasher, std::unique_ptr<STEPConstruct_PointHasher>> cls_STEPConstruct_PointHasher(mod, "STEPConstruct_PointHasher", "None");
+py::class_<STEPConstruct_PointHasher> cls_STEPConstruct_PointHasher(mod, "STEPConstruct_PointHasher", "None");
 
 // Constructors
 

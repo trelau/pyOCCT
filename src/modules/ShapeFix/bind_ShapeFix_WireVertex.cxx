@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ShapeFix_WireVertex(py::module &mod){
 
-py::class_<ShapeFix_WireVertex, std::unique_ptr<ShapeFix_WireVertex>> cls_ShapeFix_WireVertex(mod, "ShapeFix_WireVertex", "Fixing disconnected edges in the wire Fixes vertices in the wire on the basis of pre-analysis made by ShapeAnalysis_WireVertex (given as argument). The Wire has formerly been loaded in a ShapeExtend_WireData.");
+py::class_<ShapeFix_WireVertex> cls_ShapeFix_WireVertex(mod, "ShapeFix_WireVertex", "Fixing disconnected edges in the wire Fixes vertices in the wire on the basis of pre-analysis made by ShapeAnalysis_WireVertex (given as argument). The Wire has formerly been loaded in a ShapeExtend_WireData.");
 
 // Constructors
 cls_ShapeFix_WireVertex.def(py::init<>());

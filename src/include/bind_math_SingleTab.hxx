@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T>
 void bind_math_SingleTab(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<math_SingleTab<T>, std::unique_ptr<math_SingleTab<T>>> cls_math_SingleTab(mod, name.c_str(), "None", local);
+py::class_<math_SingleTab<T>> cls_math_SingleTab(mod, name.c_str(), "None", local);
 
 // Constructors
 cls_math_SingleTab.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("LowerIndex"), py::arg("UpperIndex"));

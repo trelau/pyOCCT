@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepLib_MakeShell(py::module &mod){
 
-py::class_<BRepLib_MakeShell, std::unique_ptr<BRepLib_MakeShell>, BRepLib_MakeShape> cls_BRepLib_MakeShell(mod, "BRepLib_MakeShell", "Provides methos to build shells.");
+py::class_<BRepLib_MakeShell, BRepLib_MakeShape> cls_BRepLib_MakeShell(mod, "BRepLib_MakeShell", "Provides methos to build shells.");
 
 // Constructors
 cls_BRepLib_MakeShell.def(py::init<>());

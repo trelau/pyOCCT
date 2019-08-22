@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepFill_SectionPlacement(py::module &mod){
 
-py::class_<BRepFill_SectionPlacement, std::unique_ptr<BRepFill_SectionPlacement>> cls_BRepFill_SectionPlacement(mod, "BRepFill_SectionPlacement", "Place a shape in a local axis coordinate");
+py::class_<BRepFill_SectionPlacement> cls_BRepFill_SectionPlacement(mod, "BRepFill_SectionPlacement", "Place a shape in a local axis coordinate");
 
 // Constructors
 cls_BRepFill_SectionPlacement.def(py::init<const opencascade::handle<BRepFill_LocationLaw> &, const TopoDS_Shape &>(), py::arg("Law"), py::arg("Section"));

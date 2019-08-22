@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepClass_FaceExplorer(py::module &mod){
 
-py::class_<BRepClass_FaceExplorer, std::unique_ptr<BRepClass_FaceExplorer>> cls_BRepClass_FaceExplorer(mod, "BRepClass_FaceExplorer", "Provide an exploration of a BRep Face for the classification. Return UV edges.");
+py::class_<BRepClass_FaceExplorer> cls_BRepClass_FaceExplorer(mod, "BRepClass_FaceExplorer", "Provide an exploration of a BRep Face for the classification. Return UV edges.");
 
 // Constructors
 cls_BRepClass_FaceExplorer.def(py::init<const TopoDS_Face &>(), py::arg("F"));

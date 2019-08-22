@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWApprovalPersonOrganization(py::module &mod){
 
-py::class_<RWStepBasic_RWApprovalPersonOrganization, std::unique_ptr<RWStepBasic_RWApprovalPersonOrganization>> cls_RWStepBasic_RWApprovalPersonOrganization(mod, "RWStepBasic_RWApprovalPersonOrganization", "Read & Write Module for ApprovalPersonOrganization");
+py::class_<RWStepBasic_RWApprovalPersonOrganization> cls_RWStepBasic_RWApprovalPersonOrganization(mod, "RWStepBasic_RWApprovalPersonOrganization", "Read & Write Module for ApprovalPersonOrganization");
 
 // Constructors
 cls_RWStepBasic_RWApprovalPersonOrganization.def(py::init<>());

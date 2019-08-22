@@ -34,6 +34,9 @@ namespace py = pybind11;
 // Use opencascade::handle as holder type for Standard_Transient types
 PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
 
+// Deleter template for mixed holder types with public/hidden destructors
+template<typename T> struct Deleter { void operator() (T *o) const { delete o; } };
+
 // Call guards
 struct ImportGraphic3d{
 	ImportGraphic3d() { py::module::import("OCCT.Graphic3d"); }

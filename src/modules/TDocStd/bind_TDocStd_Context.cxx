@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDocStd_Context(py::module &mod){
 
-py::class_<TDocStd_Context, std::unique_ptr<TDocStd_Context>> cls_TDocStd_Context(mod, "TDocStd_Context", "None");
+py::class_<TDocStd_Context> cls_TDocStd_Context(mod, "TDocStd_Context", "None");
 
 // Constructors
 cls_TDocStd_Context.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWDocumentProductEquivalence(py::module &mod){
 
-py::class_<RWStepBasic_RWDocumentProductEquivalence, std::unique_ptr<RWStepBasic_RWDocumentProductEquivalence>> cls_RWStepBasic_RWDocumentProductEquivalence(mod, "RWStepBasic_RWDocumentProductEquivalence", "Read & Write tool for DocumentProductEquivalence");
+py::class_<RWStepBasic_RWDocumentProductEquivalence> cls_RWStepBasic_RWDocumentProductEquivalence(mod, "RWStepBasic_RWDocumentProductEquivalence", "Read & Write tool for DocumentProductEquivalence");
 
 // Constructors
 cls_RWStepBasic_RWDocumentProductEquivalence.def(py::init<>());

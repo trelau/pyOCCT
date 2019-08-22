@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntAna_Curve(py::module &mod){
 
-py::class_<IntAna_Curve, std::unique_ptr<IntAna_Curve>> cls_IntAna_Curve(mod, "IntAna_Curve", "Definition of a parametric Curve which is the result of the intersection between two quadrics.");
+py::class_<IntAna_Curve> cls_IntAna_Curve(mod, "IntAna_Curve", "Definition of a parametric Curve which is the result of the intersection between two quadrics.");
 
 // Constructors
 cls_IntAna_Curve.def(py::init<>());

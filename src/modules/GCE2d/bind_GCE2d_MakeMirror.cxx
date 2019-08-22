@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GCE2d_MakeMirror(py::module &mod){
 
-py::class_<GCE2d_MakeMirror, std::unique_ptr<GCE2d_MakeMirror>> cls_GCE2d_MakeMirror(mod, "GCE2d_MakeMirror", "This class implements elementary construction algorithms for a symmetrical transformation in 2D space about a point or axis. The result is a Geom2d_Transformation transformation. A MakeMirror object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.");
+py::class_<GCE2d_MakeMirror> cls_GCE2d_MakeMirror(mod, "GCE2d_MakeMirror", "This class implements elementary construction algorithms for a symmetrical transformation in 2D space about a point or axis. The result is a Geom2d_Transformation transformation. A MakeMirror object provides a framework for: - defining the construction of the transformation, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_GCE2d_MakeMirror.def(py::init<const gp_Pnt2d &>(), py::arg("Point"));

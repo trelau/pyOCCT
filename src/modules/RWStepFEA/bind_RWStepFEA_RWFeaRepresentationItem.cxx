@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepFEA_RWFeaRepresentationItem(py::module &mod){
 
-py::class_<RWStepFEA_RWFeaRepresentationItem, std::unique_ptr<RWStepFEA_RWFeaRepresentationItem>> cls_RWStepFEA_RWFeaRepresentationItem(mod, "RWStepFEA_RWFeaRepresentationItem", "Read & Write tool for FeaRepresentationItem");
+py::class_<RWStepFEA_RWFeaRepresentationItem> cls_RWStepFEA_RWFeaRepresentationItem(mod, "RWStepFEA_RWFeaRepresentationItem", "Read & Write tool for FeaRepresentationItem");
 
 // Constructors
 cls_RWStepFEA_RWFeaRepresentationItem.def(py::init<>());

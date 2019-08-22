@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomAPI_IntCS(py::module &mod){
 
-py::class_<GeomAPI_IntCS, std::unique_ptr<GeomAPI_IntCS>> cls_GeomAPI_IntCS(mod, "GeomAPI_IntCS", "This class implements methods for computing intersection points and segments between a");
+py::class_<GeomAPI_IntCS> cls_GeomAPI_IntCS(mod, "GeomAPI_IntCS", "This class implements methods for computing intersection points and segments between a");
 
 // Constructors
 cls_GeomAPI_IntCS.def(py::init<>());

@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_EllipseRadiusPresentation(py::module &mod){
 
-py::class_<DsgPrs_EllipseRadiusPresentation, std::unique_ptr<DsgPrs_EllipseRadiusPresentation>> cls_DsgPrs_EllipseRadiusPresentation(mod, "DsgPrs_EllipseRadiusPresentation", "None");
+py::class_<DsgPrs_EllipseRadiusPresentation> cls_DsgPrs_EllipseRadiusPresentation(mod, "DsgPrs_EllipseRadiusPresentation", "None");
 
 // Constructors
 

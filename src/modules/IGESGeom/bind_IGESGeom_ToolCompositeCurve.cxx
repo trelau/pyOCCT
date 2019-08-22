@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGeom_ToolCompositeCurve(py::module &mod){
 
-py::class_<IGESGeom_ToolCompositeCurve, std::unique_ptr<IGESGeom_ToolCompositeCurve>> cls_IGESGeom_ToolCompositeCurve(mod, "IGESGeom_ToolCompositeCurve", "Tool to work on a CompositeCurve. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGeom_ToolCompositeCurve> cls_IGESGeom_ToolCompositeCurve(mod, "IGESGeom_ToolCompositeCurve", "Tool to work on a CompositeCurve. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGeom_ToolCompositeCurve.def(py::init<>());

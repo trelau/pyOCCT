@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Bisector_PolyBis(py::module &mod){
 
-py::class_<Bisector_PolyBis, std::unique_ptr<Bisector_PolyBis>> cls_Bisector_PolyBis(mod, "Bisector_PolyBis", "Polygon of PointOnBis");
+py::class_<Bisector_PolyBis> cls_Bisector_PolyBis(mod, "Bisector_PolyBis", "Polygon of PointOnBis");
 
 // Constructors
 cls_Bisector_PolyBis.def(py::init<>());

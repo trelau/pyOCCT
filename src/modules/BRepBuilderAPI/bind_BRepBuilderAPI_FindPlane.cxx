@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBuilderAPI_FindPlane(py::module &mod){
 
-py::class_<BRepBuilderAPI_FindPlane, std::unique_ptr<BRepBuilderAPI_FindPlane>> cls_BRepBuilderAPI_FindPlane(mod, "BRepBuilderAPI_FindPlane", "Describes functions to find the plane in which the edges of a given shape are located. A FindPlane object provides a framework for: - extracting the edges of a given shape, - implementing the construction algorithm, and - consulting the result.");
+py::class_<BRepBuilderAPI_FindPlane> cls_BRepBuilderAPI_FindPlane(mod, "BRepBuilderAPI_FindPlane", "Describes functions to find the plane in which the edges of a given shape are located. A FindPlane object provides a framework for: - extracting the edges of a given shape, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_BRepBuilderAPI_FindPlane.def(py::init<>());

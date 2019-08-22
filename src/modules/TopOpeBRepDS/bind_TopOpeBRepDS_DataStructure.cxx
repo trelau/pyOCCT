@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_DataStructure(py::module &mod){
 
-py::class_<TopOpeBRepDS_DataStructure, std::unique_ptr<TopOpeBRepDS_DataStructure>> cls_TopOpeBRepDS_DataStructure(mod, "TopOpeBRepDS_DataStructure", "The DataStructure stores :");
+py::class_<TopOpeBRepDS_DataStructure> cls_TopOpeBRepDS_DataStructure(mod, "TopOpeBRepDS_DataStructure", "The DataStructure stores :");
 
 // Constructors
 cls_TopOpeBRepDS_DataStructure.def(py::init<>());

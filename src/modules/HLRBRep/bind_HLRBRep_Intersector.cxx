@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_Intersector(py::module &mod){
 
-py::class_<HLRBRep_Intersector, std::unique_ptr<HLRBRep_Intersector>> cls_HLRBRep_Intersector(mod, "HLRBRep_Intersector", "The Intersector computes 2D intersections of the projections of 3D curves.");
+py::class_<HLRBRep_Intersector> cls_HLRBRep_Intersector(mod, "HLRBRep_Intersector", "The Intersector computes 2D intersections of the projections of 3D curves.");
 
 // Constructors
 cls_HLRBRep_Intersector.def(py::init<>());

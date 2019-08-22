@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWPresentationView(py::module &mod){
 
-py::class_<RWStepVisual_RWPresentationView, std::unique_ptr<RWStepVisual_RWPresentationView>> cls_RWStepVisual_RWPresentationView(mod, "RWStepVisual_RWPresentationView", "Read & Write Module for PresentationView");
+py::class_<RWStepVisual_RWPresentationView> cls_RWStepVisual_RWPresentationView(mod, "RWStepVisual_RWPresentationView", "Read & Write Module for PresentationView");
 
 // Constructors
 cls_RWStepVisual_RWPresentationView.def(py::init<>());

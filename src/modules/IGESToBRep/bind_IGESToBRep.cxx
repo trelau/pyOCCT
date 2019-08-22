@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESToBRep(py::module &mod){
 
-py::class_<IGESToBRep, std::unique_ptr<IGESToBRep>> cls_IGESToBRep(mod, "IGESToBRep", "Provides tools in order to transfer IGES entities to CAS.CADE.");
+py::class_<IGESToBRep> cls_IGESToBRep(mod, "IGESToBRep", "Provides tools in order to transfer IGES entities to CAS.CADE.");
 
 // Constructors
 

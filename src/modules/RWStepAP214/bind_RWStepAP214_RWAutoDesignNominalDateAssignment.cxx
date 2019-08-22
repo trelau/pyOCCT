@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepAP214_RWAutoDesignNominalDateAssignment(py::module &mod){
 
-py::class_<RWStepAP214_RWAutoDesignNominalDateAssignment, std::unique_ptr<RWStepAP214_RWAutoDesignNominalDateAssignment>> cls_RWStepAP214_RWAutoDesignNominalDateAssignment(mod, "RWStepAP214_RWAutoDesignNominalDateAssignment", "Read & Write Module for AutoDesignNominalDateAssignment");
+py::class_<RWStepAP214_RWAutoDesignNominalDateAssignment> cls_RWStepAP214_RWAutoDesignNominalDateAssignment(mod, "RWStepAP214_RWAutoDesignNominalDateAssignment", "Read & Write Module for AutoDesignNominalDateAssignment");
 
 // Constructors
 cls_RWStepAP214_RWAutoDesignNominalDateAssignment.def(py::init<>());

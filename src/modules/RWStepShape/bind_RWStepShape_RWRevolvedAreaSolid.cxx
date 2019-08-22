@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWRevolvedAreaSolid(py::module &mod){
 
-py::class_<RWStepShape_RWRevolvedAreaSolid, std::unique_ptr<RWStepShape_RWRevolvedAreaSolid>> cls_RWStepShape_RWRevolvedAreaSolid(mod, "RWStepShape_RWRevolvedAreaSolid", "Read & Write Module for RevolvedAreaSolid");
+py::class_<RWStepShape_RWRevolvedAreaSolid> cls_RWStepShape_RWRevolvedAreaSolid(mod, "RWStepShape_RWRevolvedAreaSolid", "Read & Write Module for RevolvedAreaSolid");
 
 // Constructors
 cls_RWStepShape_RWRevolvedAreaSolid.def(py::init<>());

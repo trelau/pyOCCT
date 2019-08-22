@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gce_MakeLin(py::module &mod){
 
-py::class_<gce_MakeLin, std::unique_ptr<gce_MakeLin>, gce_Root> cls_gce_MakeLin(mod, "gce_MakeLin", "This class implements the following algorithms used to create a Lin from gp. * Create a Lin parallel to another and passing through a point. * Create a Lin passing through 2 points. * Create a lin from its axis (Ax1 from gp). * Create a lin from a point and a direction.");
+py::class_<gce_MakeLin, gce_Root> cls_gce_MakeLin(mod, "gce_MakeLin", "This class implements the following algorithms used to create a Lin from gp. * Create a Lin parallel to another and passing through a point. * Create a Lin passing through 2 points. * Create a lin from its axis (Ax1 from gp). * Create a lin from a point and a direction.");
 
 // Constructors
 cls_gce_MakeLin.def(py::init<const gp_Ax1 &>(), py::arg("A1"));

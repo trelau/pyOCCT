@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GccAna_CircLin2dBisec(py::module &mod){
 
-py::class_<GccAna_CircLin2dBisec, std::unique_ptr<GccAna_CircLin2dBisec>> cls_GccAna_CircLin2dBisec(mod, "GccAna_CircLin2dBisec", "Describes functions for building bisecting curves between a 2D line and a 2D circle. A bisecting curve between a circle and a line is a curve such that each of its points is at the same distance from the circle and the line. It can be a parabola or a line, depending of the relative position of the line and the circle. The algorithm computes all the elementary curves which are solutions. A CircLin2dBisec object provides a framework for: - defining the construction of the bisecting curves, - implementing the construction algorithm, and - consulting the result.");
+py::class_<GccAna_CircLin2dBisec> cls_GccAna_CircLin2dBisec(mod, "GccAna_CircLin2dBisec", "Describes functions for building bisecting curves between a 2D line and a 2D circle. A bisecting curve between a circle and a line is a curve such that each of its points is at the same distance from the circle and the line. It can be a parabola or a line, depending of the relative position of the line and the circle. The algorithm computes all the elementary curves which are solutions. A CircLin2dBisec object provides a framework for: - defining the construction of the bisecting curves, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_GccAna_CircLin2dBisec.def(py::init<const gp_Circ2d &, const gp_Lin2d &>(), py::arg("Circle"), py::arg("Line"));

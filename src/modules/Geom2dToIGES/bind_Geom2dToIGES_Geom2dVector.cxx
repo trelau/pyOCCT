@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dToIGES_Geom2dVector(py::module &mod){
 
-py::class_<Geom2dToIGES_Geom2dVector, std::unique_ptr<Geom2dToIGES_Geom2dVector>, Geom2dToIGES_Geom2dEntity> cls_Geom2dToIGES_Geom2dVector(mod, "Geom2dToIGES_Geom2dVector", "This class implements the transfer of the Vector from Geom2d to IGES . These can be : . Vector * Direction * VectorWithMagnitude");
+py::class_<Geom2dToIGES_Geom2dVector, Geom2dToIGES_Geom2dEntity> cls_Geom2dToIGES_Geom2dVector(mod, "Geom2dToIGES_Geom2dVector", "This class implements the transfer of the Vector from Geom2d to IGES . These can be : . Vector * Direction * VectorWithMagnitude");
 
 // Constructors
 cls_Geom2dToIGES_Geom2dVector.def(py::init<>());

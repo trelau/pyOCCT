@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRBRep_TheQuadCurvExactInterCSurf(py::module &mod){
 
-py::class_<HLRBRep_TheQuadCurvExactInterCSurf, std::unique_ptr<HLRBRep_TheQuadCurvExactInterCSurf>> cls_HLRBRep_TheQuadCurvExactInterCSurf(mod, "HLRBRep_TheQuadCurvExactInterCSurf", "None");
+py::class_<HLRBRep_TheQuadCurvExactInterCSurf> cls_HLRBRep_TheQuadCurvExactInterCSurf(mod, "HLRBRep_TheQuadCurvExactInterCSurf", "None");
 
 // Constructors
 cls_HLRBRep_TheQuadCurvExactInterCSurf.def(py::init<const Standard_Address &, const gp_Lin &>(), py::arg("S"), py::arg("C"));

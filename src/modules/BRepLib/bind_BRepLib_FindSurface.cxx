@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepLib_FindSurface(py::module &mod){
 
-py::class_<BRepLib_FindSurface, std::unique_ptr<BRepLib_FindSurface>> cls_BRepLib_FindSurface(mod, "BRepLib_FindSurface", "Provides an algorithm to find a Surface through a set of edges.");
+py::class_<BRepLib_FindSurface> cls_BRepLib_FindSurface(mod, "BRepLib_FindSurface", "Provides an algorithm to find a Surface through a set of edges.");
 
 // Constructors
 cls_BRepLib_FindSurface.def(py::init<>());

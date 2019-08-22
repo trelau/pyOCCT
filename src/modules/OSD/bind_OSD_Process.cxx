@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_Process(py::module &mod){
 
-py::class_<OSD_Process, std::unique_ptr<OSD_Process>> cls_OSD_Process(mod, "OSD_Process", "A set of system process tools");
+py::class_<OSD_Process> cls_OSD_Process(mod, "OSD_Process", "A set of system process tools");
 
 // Constructors
 cls_OSD_Process.def(py::init<>());

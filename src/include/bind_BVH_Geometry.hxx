@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename T, int N>
 void bind_BVH_Geometry(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BVH_Geometry<T, N>, std::unique_ptr<BVH_Geometry<T, N>>, BVH_ObjectSet<T, N>> cls_BVH_Geometry(mod, name.c_str(), "BVH geometry as a set of abstract geometric objects organized with bounding volume hierarchy (BVH).", local);
+py::class_<BVH_Geometry<T, N>, BVH_ObjectSet<T, N>> cls_BVH_Geometry(mod, name.c_str(), "BVH geometry as a set of abstract geometric objects organized with bounding volume hierarchy (BVH).", local);
 
 // Constructors
 cls_BVH_Geometry.def(py::init<>());

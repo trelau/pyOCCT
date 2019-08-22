@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BndLib(py::module &mod){
 
-py::class_<BndLib, std::unique_ptr<BndLib>> cls_BndLib(mod, "BndLib", "The BndLib package provides functions to add a geometric primitive to a bounding box. Note: these functions work with gp objects, optionally limited by parameter values. If the curves and surfaces provided by the gp package are not explicitly parameterized, they still have an implicit parameterization, similar to that which they infer for the equivalent Geom or Geom2d objects. Add : Package to compute the bounding boxes for elementary objects from gp in 2d and 3d .");
+py::class_<BndLib> cls_BndLib(mod, "BndLib", "The BndLib package provides functions to add a geometric primitive to a bounding box. Note: these functions work with gp objects, optionally limited by parameter values. If the curves and surfaces provided by the gp package are not explicitly parameterized, they still have an implicit parameterization, similar to that which they infer for the equivalent Geom or Geom2d objects. Add : Package to compute the bounding boxes for elementary objects from gp in 2d and 3d .");
 
 // Constructors
 

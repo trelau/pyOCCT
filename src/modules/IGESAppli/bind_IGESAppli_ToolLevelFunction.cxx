@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESAppli_ToolLevelFunction(py::module &mod){
 
-py::class_<IGESAppli_ToolLevelFunction, std::unique_ptr<IGESAppli_ToolLevelFunction>> cls_IGESAppli_ToolLevelFunction(mod, "IGESAppli_ToolLevelFunction", "Tool to work on a LevelFunction. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESAppli_ToolLevelFunction> cls_IGESAppli_ToolLevelFunction(mod, "IGESAppli_ToolLevelFunction", "Tool to work on a LevelFunction. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESAppli_ToolLevelFunction.def(py::init<>());

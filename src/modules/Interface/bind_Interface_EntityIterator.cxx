@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_EntityIterator(py::module &mod){
 
-py::class_<Interface_EntityIterator, std::unique_ptr<Interface_EntityIterator>> cls_Interface_EntityIterator(mod, "Interface_EntityIterator", "Defines an Iterator on Entities. Allows considering of various criteria");
+py::class_<Interface_EntityIterator> cls_Interface_EntityIterator(mod, "Interface_EntityIterator", "Defines an Iterator on Entities. Allows considering of various criteria");
 
 // Constructors
 cls_Interface_EntityIterator.def(py::init<>());

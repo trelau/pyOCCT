@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_MultipleVarFunctionWithGradient(py::module &mod){
 
-py::class_<math_MultipleVarFunctionWithGradient, std::unique_ptr<math_MultipleVarFunctionWithGradient>, math_MultipleVarFunction> cls_math_MultipleVarFunctionWithGradient(mod, "math_MultipleVarFunctionWithGradient", "The abstract class MultipleVarFunctionWithGradient describes the virtual functions associated with a multiple variable function.");
+py::class_<math_MultipleVarFunctionWithGradient, math_MultipleVarFunction> cls_math_MultipleVarFunctionWithGradient(mod, "math_MultipleVarFunctionWithGradient", "The abstract class MultipleVarFunctionWithGradient describes the virtual functions associated with a multiple variable function.");
 
 // Fields
 

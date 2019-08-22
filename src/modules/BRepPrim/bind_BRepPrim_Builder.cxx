@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrim_Builder(py::module &mod){
 
-py::class_<BRepPrim_Builder, std::unique_ptr<BRepPrim_Builder>> cls_BRepPrim_Builder(mod, "BRepPrim_Builder", "implements the abstract Builder with the BRep Builder");
+py::class_<BRepPrim_Builder> cls_BRepPrim_Builder(mod, "BRepPrim_Builder", "implements the abstract Builder with the BRep Builder");
 
 // Constructors
 cls_BRepPrim_Builder.def(py::init<>());

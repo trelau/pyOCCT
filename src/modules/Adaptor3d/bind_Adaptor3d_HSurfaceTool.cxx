@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Adaptor3d_HSurfaceTool(py::module &mod){
 
-py::class_<Adaptor3d_HSurfaceTool, std::unique_ptr<Adaptor3d_HSurfaceTool>> cls_Adaptor3d_HSurfaceTool(mod, "Adaptor3d_HSurfaceTool", "None");
+py::class_<Adaptor3d_HSurfaceTool> cls_Adaptor3d_HSurfaceTool(mod, "Adaptor3d_HSurfaceTool", "None");
 
 // Constructors
 

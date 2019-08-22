@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_LoopSet(py::module &mod){
 
-py::class_<TopOpeBRepBuild_LoopSet, std::unique_ptr<TopOpeBRepBuild_LoopSet>> cls_TopOpeBRepBuild_LoopSet(mod, "TopOpeBRepBuild_LoopSet", "None");
+py::class_<TopOpeBRepBuild_LoopSet> cls_TopOpeBRepBuild_LoopSet(mod, "TopOpeBRepBuild_LoopSet", "None");
 
 // Constructors
 cls_TopOpeBRepBuild_LoopSet.def(py::init<>());

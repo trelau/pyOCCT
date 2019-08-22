@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWIdentificationAssignment(py::module &mod){
 
-py::class_<RWStepBasic_RWIdentificationAssignment, std::unique_ptr<RWStepBasic_RWIdentificationAssignment>> cls_RWStepBasic_RWIdentificationAssignment(mod, "RWStepBasic_RWIdentificationAssignment", "Read & Write tool for IdentificationAssignment");
+py::class_<RWStepBasic_RWIdentificationAssignment> cls_RWStepBasic_RWIdentificationAssignment(mod, "RWStepBasic_RWIdentificationAssignment", "Read & Write tool for IdentificationAssignment");
 
 // Constructors
 cls_RWStepBasic_RWIdentificationAssignment.def(py::init<>());

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GccAna_LinPnt2dBisec(py::module &mod){
 
-py::class_<GccAna_LinPnt2dBisec, std::unique_ptr<GccAna_LinPnt2dBisec>> cls_GccAna_LinPnt2dBisec(mod, "GccAna_LinPnt2dBisec", "Describes functions for building bisecting curves between a 2D line and a point. A bisecting curve between a line and a point is such a curve that each of its points is at the same distance from the circle and the point. It can be a parabola or a line, depending on the relative position of the line and the circle. There is always one unique solution. A LinPnt2dBisec object provides a framework for: - defining the construction of the bisecting curve, - implementing the construction algorithm, and - consulting the result.");
+py::class_<GccAna_LinPnt2dBisec> cls_GccAna_LinPnt2dBisec(mod, "GccAna_LinPnt2dBisec", "Describes functions for building bisecting curves between a 2D line and a point. A bisecting curve between a line and a point is such a curve that each of its points is at the same distance from the circle and the point. It can be a parabola or a line, depending on the relative position of the line and the circle. There is always one unique solution. A LinPnt2dBisec object provides a framework for: - defining the construction of the bisecting curve, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_GccAna_LinPnt2dBisec.def(py::init<const gp_Lin2d &, const gp_Pnt2d &>(), py::arg("Line1"), py::arg("Point2"));

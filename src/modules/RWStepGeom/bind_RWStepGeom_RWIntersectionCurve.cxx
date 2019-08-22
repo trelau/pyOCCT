@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWIntersectionCurve(py::module &mod){
 
-py::class_<RWStepGeom_RWIntersectionCurve, std::unique_ptr<RWStepGeom_RWIntersectionCurve>> cls_RWStepGeom_RWIntersectionCurve(mod, "RWStepGeom_RWIntersectionCurve", "Read & Write Module for IntersectionCurve");
+py::class_<RWStepGeom_RWIntersectionCurve> cls_RWStepGeom_RWIntersectionCurve(mod, "RWStepGeom_RWIntersectionCurve", "Read & Write Module for IntersectionCurve");
 
 // Constructors
 cls_RWStepGeom_RWIntersectionCurve.def(py::init<>());

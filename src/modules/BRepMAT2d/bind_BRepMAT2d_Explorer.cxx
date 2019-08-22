@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepMAT2d_Explorer(py::module &mod){
 
-py::class_<BRepMAT2d_Explorer, std::unique_ptr<BRepMAT2d_Explorer>> cls_BRepMAT2d_Explorer(mod, "BRepMAT2d_Explorer", "Construct an explorer from wires, face, set of curves from Geom2d to compute the bisecting Locus.");
+py::class_<BRepMAT2d_Explorer> cls_BRepMAT2d_Explorer(mod, "BRepMAT2d_Explorer", "Construct an explorer from wires, face, set of curves from Geom2d to compute the bisecting Locus.");
 
 // Constructors
 cls_BRepMAT2d_Explorer.def(py::init<>());

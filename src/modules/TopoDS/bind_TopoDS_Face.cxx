@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopoDS_Face(py::module &mod){
 
-py::class_<TopoDS_Face, std::unique_ptr<TopoDS_Face>, TopoDS_Shape> cls_TopoDS_Face(mod, "TopoDS_Face", "Describes a face which - references an underlying face with the potential to be given a location and an orientation - has a location for the underlying face, giving its placement in the local coordinate system - has an orientation for the underlying face, in terms of its geometry (as opposed to orientation in relation to other shapes).");
+py::class_<TopoDS_Face, TopoDS_Shape> cls_TopoDS_Face(mod, "TopoDS_Face", "Describes a face which - references an underlying face with the potential to be given a location and an orientation - has a location for the underlying face, giving its placement in the local coordinate system - has an orientation for the underlying face, in terms of its geometry (as opposed to orientation in relation to other shapes).");
 
 // Constructors
 cls_TopoDS_Face.def(py::init<>());

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppCont_LeastSquare(py::module &mod){
 
-py::class_<AppCont_LeastSquare, std::unique_ptr<AppCont_LeastSquare>> cls_AppCont_LeastSquare(mod, "AppCont_LeastSquare", "None");
+py::class_<AppCont_LeastSquare> cls_AppCont_LeastSquare(mod, "AppCont_LeastSquare", "None");
 
 // Constructors
 cls_AppCont_LeastSquare.def(py::init<const AppCont_Function &, const Standard_Real, const Standard_Real, const AppParCurves_Constraint, const AppParCurves_Constraint, const Standard_Integer, const Standard_Integer>(), py::arg("SSP"), py::arg("U0"), py::arg("U1"), py::arg("FirstCons"), py::arg("LastCons"), py::arg("Deg"), py::arg("NbPoints"));

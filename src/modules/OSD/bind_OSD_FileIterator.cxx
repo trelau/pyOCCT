@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_FileIterator(py::module &mod){
 
-py::class_<OSD_FileIterator, std::unique_ptr<OSD_FileIterator>> cls_OSD_FileIterator(mod, "OSD_FileIterator", "Manages a breadth-only search for files in the specified Path. There is no specific order of results.");
+py::class_<OSD_FileIterator> cls_OSD_FileIterator(mod, "OSD_FileIterator", "Manages a breadth-only search for files in the specified Path. There is no specific order of results.");
 
 // Constructors
 cls_OSD_FileIterator.def(py::init<>());

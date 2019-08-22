@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepLProp(py::module &mod){
 
-py::class_<BRepLProp, std::unique_ptr<BRepLProp>> cls_BRepLProp(mod, "BRepLProp", "These global functions compute the degree of continuity of a curve built by concatenation of two edges at their junction point.");
+py::class_<BRepLProp> cls_BRepLProp(mod, "BRepLProp", "These global functions compute the degree of continuity of a curve built by concatenation of two edges at their junction point.");
 
 // Constructors
 

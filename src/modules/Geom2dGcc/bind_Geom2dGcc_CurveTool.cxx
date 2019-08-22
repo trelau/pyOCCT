@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dGcc_CurveTool(py::module &mod){
 
-py::class_<Geom2dGcc_CurveTool, std::unique_ptr<Geom2dGcc_CurveTool>> cls_Geom2dGcc_CurveTool(mod, "Geom2dGcc_CurveTool", "None");
+py::class_<Geom2dGcc_CurveTool> cls_Geom2dGcc_CurveTool(mod, "Geom2dGcc_CurveTool", "None");
 
 // Constructors
 

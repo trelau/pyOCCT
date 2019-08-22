@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWDegenerateToroidalSurface(py::module &mod){
 
-py::class_<RWStepGeom_RWDegenerateToroidalSurface, std::unique_ptr<RWStepGeom_RWDegenerateToroidalSurface>> cls_RWStepGeom_RWDegenerateToroidalSurface(mod, "RWStepGeom_RWDegenerateToroidalSurface", "Read & Write Module for DegenerateToroidalSurface");
+py::class_<RWStepGeom_RWDegenerateToroidalSurface> cls_RWStepGeom_RWDegenerateToroidalSurface(mod, "RWStepGeom_RWDegenerateToroidalSurface", "Read & Write Module for DegenerateToroidalSurface");
 
 // Constructors
 cls_RWStepGeom_RWDegenerateToroidalSurface.def(py::init<>());

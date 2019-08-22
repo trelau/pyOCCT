@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWTessellatedAnnotationOccurrence(py::module &mod){
 
-py::class_<RWStepVisual_RWTessellatedAnnotationOccurrence, std::unique_ptr<RWStepVisual_RWTessellatedAnnotationOccurrence>> cls_RWStepVisual_RWTessellatedAnnotationOccurrence(mod, "RWStepVisual_RWTessellatedAnnotationOccurrence", "Read & Write Module for AnnotationOccurrence");
+py::class_<RWStepVisual_RWTessellatedAnnotationOccurrence> cls_RWStepVisual_RWTessellatedAnnotationOccurrence(mod, "RWStepVisual_RWTessellatedAnnotationOccurrence", "Read & Write Module for AnnotationOccurrence");
 
 // Constructors
 cls_RWStepVisual_RWTessellatedAnnotationOccurrence.def(py::init<>());

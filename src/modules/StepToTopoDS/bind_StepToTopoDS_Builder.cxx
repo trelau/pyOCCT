@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS_Builder(py::module &mod){
 
-py::class_<StepToTopoDS_Builder, std::unique_ptr<StepToTopoDS_Builder>, StepToTopoDS_Root> cls_StepToTopoDS_Builder(mod, "StepToTopoDS_Builder", "None");
+py::class_<StepToTopoDS_Builder, StepToTopoDS_Root> cls_StepToTopoDS_Builder(mod, "StepToTopoDS_Builder", "None");
 
 // Constructors
 cls_StepToTopoDS_Builder.def(py::init<>());

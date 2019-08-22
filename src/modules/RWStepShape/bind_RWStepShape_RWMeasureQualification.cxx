@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWMeasureQualification(py::module &mod){
 
-py::class_<RWStepShape_RWMeasureQualification, std::unique_ptr<RWStepShape_RWMeasureQualification>> cls_RWStepShape_RWMeasureQualification(mod, "RWStepShape_RWMeasureQualification", "Read & Write Module for MeasureQualification");
+py::class_<RWStepShape_RWMeasureQualification> cls_RWStepShape_RWMeasureQualification(mod, "RWStepShape_RWMeasureQualification", "Read & Write Module for MeasureQualification");
 
 // Constructors
 cls_RWStepShape_RWMeasureQualification.def(py::init<>());

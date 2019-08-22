@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRTopoBRep_DataMapIteratorOfMapOfShapeListOfVData(py::module &mod){
 
-py::class_<NCollection_DataMap<TopoDS_Shape, NCollection_List<HLRTopoBRep_VData>, TopTools_ShapeMapHasher>::Iterator, std::unique_ptr<NCollection_DataMap<TopoDS_Shape, NCollection_List<HLRTopoBRep_VData>, TopTools_ShapeMapHasher>::Iterator>, NCollection_BaseMap::Iterator> cls_HLRTopoBRep_DataMapIteratorOfMapOfShapeListOfVData(mod, "HLRTopoBRep_DataMapIteratorOfMapOfShapeListOfVData", "None");
+py::class_<NCollection_DataMap<TopoDS_Shape, NCollection_List<HLRTopoBRep_VData>, TopTools_ShapeMapHasher>::Iterator, NCollection_BaseMap::Iterator> cls_HLRTopoBRep_DataMapIteratorOfMapOfShapeListOfVData(mod, "HLRTopoBRep_DataMapIteratorOfMapOfShapeListOfVData", "None");
 
 // Constructors
 cls_HLRTopoBRep_DataMapIteratorOfMapOfShapeListOfVData.def(py::init<>());

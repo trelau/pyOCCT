@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWContextDependentOverRidingStyledItem(py::module &mod){
 
-py::class_<RWStepVisual_RWContextDependentOverRidingStyledItem, std::unique_ptr<RWStepVisual_RWContextDependentOverRidingStyledItem>> cls_RWStepVisual_RWContextDependentOverRidingStyledItem(mod, "RWStepVisual_RWContextDependentOverRidingStyledItem", "Read & Write Module for ContextDependentOverRidingStyledItem");
+py::class_<RWStepVisual_RWContextDependentOverRidingStyledItem> cls_RWStepVisual_RWContextDependentOverRidingStyledItem(mod, "RWStepVisual_RWContextDependentOverRidingStyledItem", "Read & Write Module for ContextDependentOverRidingStyledItem");
 
 // Constructors
 cls_RWStepVisual_RWContextDependentOverRidingStyledItem.def(py::init<>());

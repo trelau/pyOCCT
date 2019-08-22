@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopBas_TestInterference(py::module &mod){
 
-py::class_<TopBas_TestInterference, std::unique_ptr<TopBas_TestInterference>> cls_TopBas_TestInterference(mod, "TopBas_TestInterference", "None");
+py::class_<TopBas_TestInterference> cls_TopBas_TestInterference(mod, "TopBas_TestInterference", "None");
 
 // Constructors
 cls_TopBas_TestInterference.def(py::init<>());

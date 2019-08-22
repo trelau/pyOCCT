@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BlendFunc_Tensor(py::module &mod){
 
-py::class_<BlendFunc_Tensor, std::unique_ptr<BlendFunc_Tensor>> cls_BlendFunc_Tensor(mod, "BlendFunc_Tensor", "used to store the 'gradient of gradient'");
+py::class_<BlendFunc_Tensor> cls_BlendFunc_Tensor(mod, "BlendFunc_Tensor", "used to store the 'gradient of gradient'");
 
 // Constructors
 cls_BlendFunc_Tensor.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("NbRow"), py::arg("NbCol"), py::arg("NbMat"));

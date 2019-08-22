@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWCameraModelD3(py::module &mod){
 
-py::class_<RWStepVisual_RWCameraModelD3, std::unique_ptr<RWStepVisual_RWCameraModelD3>> cls_RWStepVisual_RWCameraModelD3(mod, "RWStepVisual_RWCameraModelD3", "Read & Write Module for CameraModelD3");
+py::class_<RWStepVisual_RWCameraModelD3> cls_RWStepVisual_RWCameraModelD3(mod, "RWStepVisual_RWCameraModelD3", "Read & Write Module for CameraModelD3");
 
 // Constructors
 cls_RWStepVisual_RWCameraModelD3.def(py::init<>());

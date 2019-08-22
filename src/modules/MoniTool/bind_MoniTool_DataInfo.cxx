@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MoniTool_DataInfo(py::module &mod){
 
-py::class_<MoniTool_DataInfo, std::unique_ptr<MoniTool_DataInfo>> cls_MoniTool_DataInfo(mod, "MoniTool_DataInfo", "Gives informations on an object Used as template to instantiate Elem, etc This class is for Transient");
+py::class_<MoniTool_DataInfo> cls_MoniTool_DataInfo(mod, "MoniTool_DataInfo", "Gives informations on an object Used as template to instantiate Elem, etc This class is for Transient");
 
 // Constructors
 

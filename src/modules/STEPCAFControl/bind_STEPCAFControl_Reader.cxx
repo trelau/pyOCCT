@@ -52,7 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_STEPCAFControl_Reader(py::module &mod){
 
-py::class_<STEPCAFControl_Reader, std::unique_ptr<STEPCAFControl_Reader>> cls_STEPCAFControl_Reader(mod, "STEPCAFControl_Reader", "Provides a tool to read STEP file and put it into DECAF document. Besides transfer of shapes (including assemblies) provided by STEPControl, supports also colors and part names");
+py::class_<STEPCAFControl_Reader> cls_STEPCAFControl_Reader(mod, "STEPCAFControl_Reader", "Provides a tool to read STEP file and put it into DECAF document. Besides transfer of shapes (including assemblies) provided by STEPControl, supports also colors and part names");
 
 // Constructors
 cls_STEPCAFControl_Reader.def(py::init<>());

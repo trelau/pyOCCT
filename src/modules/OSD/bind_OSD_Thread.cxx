@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_Thread(py::module &mod){
 
-py::class_<OSD_Thread, std::unique_ptr<OSD_Thread>> cls_OSD_Thread(mod, "OSD_Thread", "A simple platform-intependent interface to execute and control threads.");
+py::class_<OSD_Thread> cls_OSD_Thread(mod, "OSD_Thread", "A simple platform-intependent interface to execute and control threads.");
 
 // Constructors
 cls_OSD_Thread.def(py::init<>());

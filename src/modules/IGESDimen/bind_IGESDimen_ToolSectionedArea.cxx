@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDimen_ToolSectionedArea(py::module &mod){
 
-py::class_<IGESDimen_ToolSectionedArea, std::unique_ptr<IGESDimen_ToolSectionedArea>> cls_IGESDimen_ToolSectionedArea(mod, "IGESDimen_ToolSectionedArea", "Tool to work on a SectionedArea. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESDimen_ToolSectionedArea> cls_IGESDimen_ToolSectionedArea(mod, "IGESDimen_ToolSectionedArea", "Tool to work on a SectionedArea. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESDimen_ToolSectionedArea.def(py::init<>());

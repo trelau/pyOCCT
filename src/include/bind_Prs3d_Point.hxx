@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename AnyPoint, typename PointTool>
 void bind_Prs3d_Point(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<Prs3d_Point<AnyPoint, PointTool>, std::unique_ptr<Prs3d_Point<AnyPoint, PointTool>>> cls_Prs3d_Point(mod, name.c_str(), "None", local);
+py::class_<Prs3d_Point<AnyPoint, PointTool>> cls_Prs3d_Point(mod, name.c_str(), "None", local);
 
 // Constructors
 

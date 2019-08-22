@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWDocumentType(py::module &mod){
 
-py::class_<RWStepBasic_RWDocumentType, std::unique_ptr<RWStepBasic_RWDocumentType>> cls_RWStepBasic_RWDocumentType(mod, "RWStepBasic_RWDocumentType", "Read & Write Module for DocumentType");
+py::class_<RWStepBasic_RWDocumentType> cls_RWStepBasic_RWDocumentType(mod, "RWStepBasic_RWDocumentType", "Read & Write Module for DocumentType");
 
 // Constructors
 cls_RWStepBasic_RWDocumentType.def(py::init<>());

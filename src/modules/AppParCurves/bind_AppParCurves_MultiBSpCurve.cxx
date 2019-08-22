@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_AppParCurves_MultiBSpCurve(py::module &mod){
 
-py::class_<AppParCurves_MultiBSpCurve, std::unique_ptr<AppParCurves_MultiBSpCurve>, AppParCurves_MultiCurve> cls_AppParCurves_MultiBSpCurve(mod, "AppParCurves_MultiBSpCurve", "This class describes a MultiBSpCurve approximating a Multiline. Just as a Multiline is a set of a given number of lines, a MultiBSpCurve is a set of a specified number of bsplines defined by: - A specified number of MultiPoints - the poles of a specified number of curves - The degree of approximation identical for each of the specified number of curves.");
+py::class_<AppParCurves_MultiBSpCurve, AppParCurves_MultiCurve> cls_AppParCurves_MultiBSpCurve(mod, "AppParCurves_MultiBSpCurve", "This class describes a MultiBSpCurve approximating a Multiline. Just as a Multiline is a set of a given number of lines, a MultiBSpCurve is a set of a specified number of bsplines defined by: - A specified number of MultiPoints - the poles of a specified number of curves - The degree of approximation identical for each of the specified number of curves.");
 
 // Constructors
 cls_AppParCurves_MultiBSpCurve.def(py::init<>());

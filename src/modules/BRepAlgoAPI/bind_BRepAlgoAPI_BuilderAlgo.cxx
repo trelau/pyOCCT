@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgoAPI_BuilderAlgo(py::module &mod){
 
-py::class_<BRepAlgoAPI_BuilderAlgo, std::unique_ptr<BRepAlgoAPI_BuilderAlgo>, BRepAlgoAPI_Algo> cls_BRepAlgoAPI_BuilderAlgo(mod, "BRepAlgoAPI_BuilderAlgo", "The class contains API level of the General Fuse algorithm.");
+py::class_<BRepAlgoAPI_BuilderAlgo, BRepAlgoAPI_Algo> cls_BRepAlgoAPI_BuilderAlgo(mod, "BRepAlgoAPI_BuilderAlgo", "The class contains API level of the General Fuse algorithm.");
 
 // Constructors
 cls_BRepAlgoAPI_BuilderAlgo.def(py::init<>());

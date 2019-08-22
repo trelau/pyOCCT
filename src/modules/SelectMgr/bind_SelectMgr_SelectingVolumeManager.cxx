@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_SelectMgr_SelectingVolumeManager(py::module &mod){
 
-py::class_<SelectMgr_SelectingVolumeManager, std::unique_ptr<SelectMgr_SelectingVolumeManager>, SelectBasics_SelectingVolumeManager> cls_SelectMgr_SelectingVolumeManager(mod, "SelectMgr_SelectingVolumeManager", "This class is used to switch between active selecting volumes depending on selection type chosen by the user");
+py::class_<SelectMgr_SelectingVolumeManager, SelectBasics_SelectingVolumeManager> cls_SelectMgr_SelectingVolumeManager(mod, "SelectMgr_SelectingVolumeManager", "This class is used to switch between active selecting volumes depending on selection type chosen by the user");
 
 // Constructors
 cls_SelectMgr_SelectingVolumeManager.def(py::init<>());

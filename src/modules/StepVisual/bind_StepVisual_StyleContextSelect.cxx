@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepVisual_StyleContextSelect(py::module &mod){
 
-py::class_<StepVisual_StyleContextSelect, std::unique_ptr<StepVisual_StyleContextSelect>, StepData_SelectType> cls_StepVisual_StyleContextSelect(mod, "StepVisual_StyleContextSelect", "None");
+py::class_<StepVisual_StyleContextSelect, StepData_SelectType> cls_StepVisual_StyleContextSelect(mod, "StepVisual_StyleContextSelect", "None");
 
 // Constructors
 cls_StepVisual_StyleContextSelect.def(py::init<>());

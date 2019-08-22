@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Approx_Curve3d(py::module &mod){
 
-py::class_<Approx_Curve3d, std::unique_ptr<Approx_Curve3d>> cls_Approx_Curve3d(mod, "Approx_Curve3d", "None");
+py::class_<Approx_Curve3d> cls_Approx_Curve3d(mod, "Approx_Curve3d", "None");
 
 // Constructors
 cls_Approx_Curve3d.def(py::init<const opencascade::handle<Adaptor3d_HCurve> &, const Standard_Real, const GeomAbs_Shape, const Standard_Integer, const Standard_Integer>(), py::arg("Curve"), py::arg("Tol3d"), py::arg("Order"), py::arg("MaxSegments"), py::arg("MaxDegree"));

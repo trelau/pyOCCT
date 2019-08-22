@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDF_ComparisonTool(py::module &mod){
 
-py::class_<TDF_ComparisonTool, std::unique_ptr<TDF_ComparisonTool>> cls_TDF_ComparisonTool(mod, "TDF_ComparisonTool", "This class provides services to compare sets of information. The use of this tool can works after a copy, acted by a CopyTool.");
+py::class_<TDF_ComparisonTool> cls_TDF_ComparisonTool(mod, "TDF_ComparisonTool", "This class provides services to compare sets of information. The use of this tool can works after a copy, acted by a CopyTool.");
 
 // Constructors
 

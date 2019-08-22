@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_BuilderON(py::module &mod){
 
-py::class_<TopOpeBRepBuild_BuilderON, std::unique_ptr<TopOpeBRepBuild_BuilderON>> cls_TopOpeBRepBuild_BuilderON(mod, "TopOpeBRepBuild_BuilderON", "None");
+py::class_<TopOpeBRepBuild_BuilderON> cls_TopOpeBRepBuild_BuilderON(mod, "TopOpeBRepBuild_BuilderON", "None");
 
 // Constructors
 cls_TopOpeBRepBuild_BuilderON.def(py::init<>());

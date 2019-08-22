@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_TextureFormat(py::module &mod){
 
-py::class_<OpenGl_TextureFormat, std::unique_ptr<OpenGl_TextureFormat>> cls_OpenGl_TextureFormat(mod, "OpenGl_TextureFormat", "Stores parameters of OpenGL texture format.");
+py::class_<OpenGl_TextureFormat> cls_OpenGl_TextureFormat(mod, "OpenGl_TextureFormat", "Stores parameters of OpenGL texture format.");
 
 // Constructors
 

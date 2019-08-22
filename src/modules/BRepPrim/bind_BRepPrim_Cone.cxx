@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrim_Cone(py::module &mod){
 
-py::class_<BRepPrim_Cone, std::unique_ptr<BRepPrim_Cone>, BRepPrim_Revolution> cls_BRepPrim_Cone(mod, "BRepPrim_Cone", "Implement the cone primitive.");
+py::class_<BRepPrim_Cone, BRepPrim_Revolution> cls_BRepPrim_Cone(mod, "BRepPrim_Cone", "Implement the cone primitive.");
 
 // Constructors
 cls_BRepPrim_Cone.def(py::init<const Standard_Real, const gp_Ax2 &, const Standard_Real>(), py::arg("Angle"), py::arg("Position"), py::arg("Height"));

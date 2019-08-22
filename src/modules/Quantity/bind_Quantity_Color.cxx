@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Quantity_Color(py::module &mod){
 
-py::class_<Quantity_Color, std::unique_ptr<Quantity_Color>> cls_Quantity_Color(mod, "Quantity_Color", "This class allows the definition of a colour. The names of the colours are from the X11 specification. color object may be used for numerous applicative purposes. A color is defined by: - its respective quantities of red, green and blue (R-G-B values), or - its hue angle and its values of lightness and saturation (H-L-S values). These two color definition systems are equivalent. Use this class in conjunction with: - the Quantity_TypeOfColor enumeration which identifies the color definition system you are using, - the Quantity_NameOfColor enumeration which lists numerous predefined colors and identifies them by their name.");
+py::class_<Quantity_Color> cls_Quantity_Color(mod, "Quantity_Color", "This class allows the definition of a colour. The names of the colours are from the X11 specification. color object may be used for numerous applicative purposes. A color is defined by: - its respective quantities of red, green and blue (R-G-B values), or - its hue angle and its values of lightness and saturation (H-L-S values). These two color definition systems are equivalent. Use this class in conjunction with: - the Quantity_TypeOfColor enumeration which identifies the color definition system you are using, - the Quantity_NameOfColor enumeration which lists numerous predefined colors and identifies them by their name.");
 
 // Constructors
 cls_Quantity_Color.def(py::init<>());

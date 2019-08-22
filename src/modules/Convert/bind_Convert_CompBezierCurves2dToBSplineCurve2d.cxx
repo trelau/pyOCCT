@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Convert_CompBezierCurves2dToBSplineCurve2d(py::module &mod){
 
-py::class_<Convert_CompBezierCurves2dToBSplineCurve2d, std::unique_ptr<Convert_CompBezierCurves2dToBSplineCurve2d>> cls_Convert_CompBezierCurves2dToBSplineCurve2d(mod, "Convert_CompBezierCurves2dToBSplineCurve2d", "Converts a list of connecting Bezier Curves 2d to a BSplineCurve 2d. if possible, the continuity of the BSpline will be increased to more than C0.");
+py::class_<Convert_CompBezierCurves2dToBSplineCurve2d> cls_Convert_CompBezierCurves2dToBSplineCurve2d(mod, "Convert_CompBezierCurves2dToBSplineCurve2d", "Converts a list of connecting Bezier Curves 2d to a BSplineCurve 2d. if possible, the continuity of the BSpline will be increased to more than C0.");
 
 // Constructors
 cls_Convert_CompBezierCurves2dToBSplineCurve2d.def(py::init<>());

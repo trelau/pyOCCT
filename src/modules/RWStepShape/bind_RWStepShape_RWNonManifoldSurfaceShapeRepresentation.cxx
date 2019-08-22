@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWNonManifoldSurfaceShapeRepresentation(py::module &mod){
 
-py::class_<RWStepShape_RWNonManifoldSurfaceShapeRepresentation, std::unique_ptr<RWStepShape_RWNonManifoldSurfaceShapeRepresentation>> cls_RWStepShape_RWNonManifoldSurfaceShapeRepresentation(mod, "RWStepShape_RWNonManifoldSurfaceShapeRepresentation", "Read & Write tool for NonManifoldSurfaceShapeRepresentation");
+py::class_<RWStepShape_RWNonManifoldSurfaceShapeRepresentation> cls_RWStepShape_RWNonManifoldSurfaceShapeRepresentation(mod, "RWStepShape_RWNonManifoldSurfaceShapeRepresentation", "Read & Write tool for NonManifoldSurfaceShapeRepresentation");
 
 // Constructors
 cls_RWStepShape_RWNonManifoldSurfaceShapeRepresentation.def(py::init<>());

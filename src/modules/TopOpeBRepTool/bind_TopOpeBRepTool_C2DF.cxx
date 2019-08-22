@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool_C2DF(py::module &mod){
 
-py::class_<TopOpeBRepTool_C2DF, std::unique_ptr<TopOpeBRepTool_C2DF>> cls_TopOpeBRepTool_C2DF(mod, "TopOpeBRepTool_C2DF", "None");
+py::class_<TopOpeBRepTool_C2DF> cls_TopOpeBRepTool_C2DF(mod, "TopOpeBRepTool_C2DF", "None");
 
 // Constructors
 cls_TopOpeBRepTool_C2DF.def(py::init<>());

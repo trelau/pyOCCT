@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWShapeAspect(py::module &mod){
 
-py::class_<RWStepRepr_RWShapeAspect, std::unique_ptr<RWStepRepr_RWShapeAspect>> cls_RWStepRepr_RWShapeAspect(mod, "RWStepRepr_RWShapeAspect", "Read & Write Module for ShapeAspect");
+py::class_<RWStepRepr_RWShapeAspect> cls_RWStepRepr_RWShapeAspect(mod, "RWStepRepr_RWShapeAspect", "Read & Write Module for ShapeAspect");
 
 // Constructors
 cls_RWStepRepr_RWShapeAspect.def(py::init<>());

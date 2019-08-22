@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESDraw(py::module &mod){
 
-py::class_<IGESDraw, std::unique_ptr<IGESDraw>> cls_IGESDraw(mod, "IGESDraw", "This package contains the group of classes necessary for Structure Entities implied in Drawings and Structured Graphics (Sets for drawing, Drawings and Views).");
+py::class_<IGESDraw> cls_IGESDraw(mod, "IGESDraw", "This package contains the group of classes necessary for Structure Entities implied in Drawings and Structured Graphics (Sets for drawing, Drawings and Views).");
 
 // Constructors
 

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrimAPI_MakeOneAxis(py::module &mod){
 
-py::class_<BRepPrimAPI_MakeOneAxis, std::unique_ptr<BRepPrimAPI_MakeOneAxis>, BRepBuilderAPI_MakeShape> cls_BRepPrimAPI_MakeOneAxis(mod, "BRepPrimAPI_MakeOneAxis", "The abstract class MakeOneAxis is the root class of algorithms used to construct rotational primitives.");
+py::class_<BRepPrimAPI_MakeOneAxis, BRepBuilderAPI_MakeShape> cls_BRepPrimAPI_MakeOneAxis(mod, "BRepPrimAPI_MakeOneAxis", "The abstract class MakeOneAxis is the root class of algorithms used to construct rotational primitives.");
 
 // Fields
 

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_BFGS(py::module &mod){
 
-py::class_<math_BFGS, std::unique_ptr<math_BFGS>> cls_math_BFGS(mod, "math_BFGS", "This class implements the Broyden-Fletcher-Goldfarb-Shanno variant of Davidson-Fletcher-Powell minimization algorithm of a function of multiple variables.Knowledge of the function's gradient is required.");
+py::class_<math_BFGS> cls_math_BFGS(mod, "math_BFGS", "This class implements the Broyden-Fletcher-Goldfarb-Shanno variant of Davidson-Fletcher-Powell minimization algorithm of a function of multiple variables.Knowledge of the function's gradient is required.");
 
 // Constructors
 cls_math_BFGS.def(py::init<const Standard_Integer>(), py::arg("NbVariables"));

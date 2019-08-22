@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_ShrunkRange(py::module &mod){
 
-py::class_<IntTools_ShrunkRange, std::unique_ptr<IntTools_ShrunkRange>> cls_IntTools_ShrunkRange(mod, "IntTools_ShrunkRange", "The class provides the computation of a working (shrunk) range [t1, t2] for the 3D-curve of the edge.");
+py::class_<IntTools_ShrunkRange> cls_IntTools_ShrunkRange(mod, "IntTools_ShrunkRange", "The class provides the computation of a working (shrunk) range [t1, t2] for the 3D-curve of the edge.");
 
 // Constructors
 cls_IntTools_ShrunkRange.def(py::init<>());

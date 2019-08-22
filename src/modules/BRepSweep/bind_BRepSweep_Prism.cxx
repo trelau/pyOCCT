@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepSweep_Prism(py::module &mod){
 
-py::class_<BRepSweep_Prism, std::unique_ptr<BRepSweep_Prism>> cls_BRepSweep_Prism(mod, "BRepSweep_Prism", "Provides natural constructors to build BRepSweep translated swept Primitives.");
+py::class_<BRepSweep_Prism> cls_BRepSweep_Prism(mod, "BRepSweep_Prism", "Provides natural constructors to build BRepSweep translated swept Primitives.");
 
 // Constructors
 cls_BRepSweep_Prism.def(py::init<const TopoDS_Shape &, const gp_Vec &>(), py::arg("S"), py::arg("V"));

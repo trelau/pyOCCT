@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntCurveSurface_IntersectionSegment(py::module &mod){
 
-py::class_<IntCurveSurface_IntersectionSegment, std::unique_ptr<IntCurveSurface_IntersectionSegment>> cls_IntCurveSurface_IntersectionSegment(mod, "IntCurveSurface_IntersectionSegment", "A IntersectionSegment describes a segment of curve (w1,w2) where distance(C(w),Surface) is less than a given tolerances.");
+py::class_<IntCurveSurface_IntersectionSegment> cls_IntCurveSurface_IntersectionSegment(mod, "IntCurveSurface_IntersectionSegment", "A IntersectionSegment describes a segment of curve (w1,w2) where distance(C(w),Surface) is less than a given tolerances.");
 
 // Constructors
 cls_IntCurveSurface_IntersectionSegment.def(py::init<>());

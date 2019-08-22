@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepCheck_Analyzer(py::module &mod){
 
-py::class_<BRepCheck_Analyzer, std::unique_ptr<BRepCheck_Analyzer>> cls_BRepCheck_Analyzer(mod, "BRepCheck_Analyzer", "A framework to check the overall validity of a shape. For a shape to be valid in Open CASCADE, it - or its component subshapes - must respect certain criteria. These criteria are checked by the function IsValid. Once you have determined whether a shape is valid or not, you can diagnose its specific anomalies and correct them using the services of the ShapeAnalysis, ShapeUpgrade, and ShapeFix packages.");
+py::class_<BRepCheck_Analyzer> cls_BRepCheck_Analyzer(mod, "BRepCheck_Analyzer", "A framework to check the overall validity of a shape. For a shape to be valid in Open CASCADE, it - or its component subshapes - must respect certain criteria. These criteria are checked by the function IsValid. Once you have determined whether a shape is valid or not, you can diagnose its specific anomalies and correct them using the services of the ShapeAnalysis, ShapeUpgrade, and ShapeFix packages.");
 
 // Constructors
 cls_BRepCheck_Analyzer.def(py::init<const TopoDS_Shape &>(), py::arg("S"));

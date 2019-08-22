@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepExtrema_DistanceSS(py::module &mod){
 
-py::class_<BRepExtrema_DistanceSS, std::unique_ptr<BRepExtrema_DistanceSS>> cls_BRepExtrema_DistanceSS(mod, "BRepExtrema_DistanceSS", "This class allows to compute minimum distance between two shapes (face edge vertex) and is used in DistShapeShape class.");
+py::class_<BRepExtrema_DistanceSS> cls_BRepExtrema_DistanceSS(mod, "BRepExtrema_DistanceSS", "This class allows to compute minimum distance between two shapes (face edge vertex) and is used in DistShapeShape class.");
 
 // Constructors
 cls_BRepExtrema_DistanceSS.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &, const Bnd_Box &, const Bnd_Box &, const Standard_Real>(), py::arg("S1"), py::arg("S2"), py::arg("B1"), py::arg("B2"), py::arg("DstRef"));

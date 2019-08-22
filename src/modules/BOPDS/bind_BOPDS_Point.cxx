@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPDS_Point(py::module &mod){
 
-py::class_<BOPDS_Point, std::unique_ptr<BOPDS_Point>> cls_BOPDS_Point(mod, "BOPDS_Point", "The class BOPDS_Point is to store the information about intersection point");
+py::class_<BOPDS_Point> cls_BOPDS_Point(mod, "BOPDS_Point", "The class BOPDS_Point is to store the information about intersection point");
 
 // Constructors
 cls_BOPDS_Point.def(py::init<>());

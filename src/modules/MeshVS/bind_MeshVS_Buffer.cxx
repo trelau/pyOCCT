@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_MeshVS_Buffer(py::module &mod){
 
-py::class_<MeshVS_Buffer, std::unique_ptr<MeshVS_Buffer>> cls_MeshVS_Buffer(mod, "MeshVS_Buffer", "None");
+py::class_<MeshVS_Buffer> cls_MeshVS_Buffer(mod, "MeshVS_Buffer", "None");
 
 // Constructors
 cls_MeshVS_Buffer.def(py::init<const Standard_Size>(), py::arg("theSize"));

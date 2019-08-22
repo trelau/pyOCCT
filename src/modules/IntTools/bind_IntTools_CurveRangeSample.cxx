@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_CurveRangeSample(py::module &mod){
 
-py::class_<IntTools_CurveRangeSample, std::unique_ptr<IntTools_CurveRangeSample>, IntTools_BaseRangeSample> cls_IntTools_CurveRangeSample(mod, "IntTools_CurveRangeSample", "class for range index management of curve");
+py::class_<IntTools_CurveRangeSample, IntTools_BaseRangeSample> cls_IntTools_CurveRangeSample(mod, "IntTools_CurveRangeSample", "class for range index management of curve");
 
 // Constructors
 cls_IntTools_CurveRangeSample.def(py::init<>());

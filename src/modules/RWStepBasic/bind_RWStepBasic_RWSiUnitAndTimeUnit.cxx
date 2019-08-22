@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWSiUnitAndTimeUnit(py::module &mod){
 
-py::class_<RWStepBasic_RWSiUnitAndTimeUnit, std::unique_ptr<RWStepBasic_RWSiUnitAndTimeUnit>> cls_RWStepBasic_RWSiUnitAndTimeUnit(mod, "RWStepBasic_RWSiUnitAndTimeUnit", "Read & Write Module for SiUnitAndTimeUnit");
+py::class_<RWStepBasic_RWSiUnitAndTimeUnit> cls_RWStepBasic_RWSiUnitAndTimeUnit(mod, "RWStepBasic_RWSiUnitAndTimeUnit", "Read & Write Module for SiUnitAndTimeUnit");
 
 // Constructors
 cls_RWStepBasic_RWSiUnitAndTimeUnit.def(py::init<>());

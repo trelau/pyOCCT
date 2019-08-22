@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWSurfaceStyleSilhouette(py::module &mod){
 
-py::class_<RWStepVisual_RWSurfaceStyleSilhouette, std::unique_ptr<RWStepVisual_RWSurfaceStyleSilhouette>> cls_RWStepVisual_RWSurfaceStyleSilhouette(mod, "RWStepVisual_RWSurfaceStyleSilhouette", "Read & Write Module for SurfaceStyleSilhouette");
+py::class_<RWStepVisual_RWSurfaceStyleSilhouette> cls_RWStepVisual_RWSurfaceStyleSilhouette(mod, "RWStepVisual_RWSurfaceStyleSilhouette", "Read & Write Module for SurfaceStyleSilhouette");
 
 // Constructors
 cls_RWStepVisual_RWSurfaceStyleSilhouette.def(py::init<>());

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWSiUnitAndMassUnit(py::module &mod){
 
-py::class_<RWStepBasic_RWSiUnitAndMassUnit, std::unique_ptr<RWStepBasic_RWSiUnitAndMassUnit>> cls_RWStepBasic_RWSiUnitAndMassUnit(mod, "RWStepBasic_RWSiUnitAndMassUnit", "Read & Write Module for SiUnitAndMassUnit");
+py::class_<RWStepBasic_RWSiUnitAndMassUnit> cls_RWStepBasic_RWSiUnitAndMassUnit(mod, "RWStepBasic_RWSiUnitAndMassUnit", "Read & Write Module for SiUnitAndMassUnit");
 
 // Constructors
 cls_RWStepBasic_RWSiUnitAndMassUnit.def(py::init<>());

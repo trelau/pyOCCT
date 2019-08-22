@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_CurveIterator(py::module &mod){
 
-py::class_<TopOpeBRepDS_CurveIterator, std::unique_ptr<TopOpeBRepDS_CurveIterator>, TopOpeBRepDS_InterferenceIterator> cls_TopOpeBRepDS_CurveIterator(mod, "TopOpeBRepDS_CurveIterator", "None");
+py::class_<TopOpeBRepDS_CurveIterator, TopOpeBRepDS_InterferenceIterator> cls_TopOpeBRepDS_CurveIterator(mod, "TopOpeBRepDS_CurveIterator", "None");
 
 // Constructors
 cls_TopOpeBRepDS_CurveIterator.def(py::init<const TopOpeBRepDS_ListOfInterference &>(), py::arg("L"));

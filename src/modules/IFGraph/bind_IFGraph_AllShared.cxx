@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IFGraph_AllShared(py::module &mod){
 
-py::class_<IFGraph_AllShared, std::unique_ptr<IFGraph_AllShared>, Interface_GraphContent> cls_IFGraph_AllShared(mod, "IFGraph_AllShared", "this class determines all Entities shared by some specific ones, at any level (those which will be lead in a Transfer for instance)");
+py::class_<IFGraph_AllShared, Interface_GraphContent> cls_IFGraph_AllShared(mod, "IFGraph_AllShared", "this class determines all Entities shared by some specific ones, at any level (those which will be lead in a Transfer for instance)");
 
 // Constructors
 cls_IFGraph_AllShared.def(py::init<const Interface_Graph &>(), py::arg("agraph"));

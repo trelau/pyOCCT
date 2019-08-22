@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_ChFi3d_ChBuilder(py::module &mod){
 
-py::class_<ChFi3d_ChBuilder, std::unique_ptr<ChFi3d_ChBuilder>, ChFi3d_Builder> cls_ChFi3d_ChBuilder(mod, "ChFi3d_ChBuilder", "construction tool for 3D chamfers on edges (on a solid).");
+py::class_<ChFi3d_ChBuilder, ChFi3d_Builder> cls_ChFi3d_ChBuilder(mod, "ChFi3d_ChBuilder", "construction tool for 3D chamfers on edges (on a solid).");
 
 // Constructors
 cls_ChFi3d_ChBuilder.def(py::init<const TopoDS_Shape &>(), py::arg("S"));

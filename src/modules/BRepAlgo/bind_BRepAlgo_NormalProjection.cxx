@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgo_NormalProjection(py::module &mod){
 
-py::class_<BRepAlgo_NormalProjection, std::unique_ptr<BRepAlgo_NormalProjection>> cls_BRepAlgo_NormalProjection(mod, "BRepAlgo_NormalProjection", "This class makes the projection of a wire on a shape.");
+py::class_<BRepAlgo_NormalProjection> cls_BRepAlgo_NormalProjection(mod, "BRepAlgo_NormalProjection", "This class makes the projection of a wire on a shape.");
 
 // Constructors
 cls_BRepAlgo_NormalProjection.def(py::init<>());

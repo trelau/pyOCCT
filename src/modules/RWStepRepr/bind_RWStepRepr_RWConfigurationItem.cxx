@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepRepr_RWConfigurationItem(py::module &mod){
 
-py::class_<RWStepRepr_RWConfigurationItem, std::unique_ptr<RWStepRepr_RWConfigurationItem>> cls_RWStepRepr_RWConfigurationItem(mod, "RWStepRepr_RWConfigurationItem", "Read & Write tool for ConfigurationItem");
+py::class_<RWStepRepr_RWConfigurationItem> cls_RWStepRepr_RWConfigurationItem(mod, "RWStepRepr_RWConfigurationItem", "Read & Write tool for ConfigurationItem");
 
 // Constructors
 cls_RWStepRepr_RWConfigurationItem.def(py::init<>());

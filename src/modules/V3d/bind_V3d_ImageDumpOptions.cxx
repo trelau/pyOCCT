@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_V3d_ImageDumpOptions(py::module &mod){
 
-py::class_<V3d_ImageDumpOptions, std::unique_ptr<V3d_ImageDumpOptions>> cls_V3d_ImageDumpOptions(mod, "V3d_ImageDumpOptions", "The structure defines options for image dump functionality.");
+py::class_<V3d_ImageDumpOptions> cls_V3d_ImageDumpOptions(mod, "V3d_ImageDumpOptions", "The structure defines options for image dump functionality.");
 
 // Constructors
 cls_V3d_ImageDumpOptions.def(py::init<>());

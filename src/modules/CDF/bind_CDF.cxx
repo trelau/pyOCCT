@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_CDF(py::module &mod){
 
-py::class_<CDF, std::unique_ptr<CDF>> cls_CDF(mod, "CDF", "None");
+py::class_<CDF> cls_CDF(mod, "CDF", "None");
 
 // Constructors
 

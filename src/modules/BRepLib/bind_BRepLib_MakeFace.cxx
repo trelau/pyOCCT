@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepLib_MakeFace(py::module &mod){
 
-py::class_<BRepLib_MakeFace, std::unique_ptr<BRepLib_MakeFace>, BRepLib_MakeShape> cls_BRepLib_MakeFace(mod, "BRepLib_MakeFace", "Provides methods to build faces.");
+py::class_<BRepLib_MakeFace, BRepLib_MakeShape> cls_BRepLib_MakeFace(mod, "BRepLib_MakeFace", "Provides methods to build faces.");
 
 // Constructors
 cls_BRepLib_MakeFace.def(py::init<>());

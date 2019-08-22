@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomTools_Curve2dSet(py::module &mod){
 
-py::class_<GeomTools_Curve2dSet, std::unique_ptr<GeomTools_Curve2dSet>> cls_GeomTools_Curve2dSet(mod, "GeomTools_Curve2dSet", "Stores a set of Curves from Geom2d.");
+py::class_<GeomTools_Curve2dSet> cls_GeomTools_Curve2dSet(mod, "GeomTools_Curve2dSet", "Stores a set of Curves from Geom2d.");
 
 // Constructors
 cls_GeomTools_Curve2dSet.def(py::init<>());

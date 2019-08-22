@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntSurf_QuadricTool(py::module &mod){
 
-py::class_<IntSurf_QuadricTool, std::unique_ptr<IntSurf_QuadricTool>> cls_IntSurf_QuadricTool(mod, "IntSurf_QuadricTool", "This class provides a tool on a quadric that can be used to instantiates the Walking algorithmes (see package IntWalk) with a Quadric from IntSurf as implicit surface.");
+py::class_<IntSurf_QuadricTool> cls_IntSurf_QuadricTool(mod, "IntSurf_QuadricTool", "This class provides a tool on a quadric that can be used to instantiates the Walking algorithmes (see package IntWalk) with a Quadric from IntSurf as implicit surface.");
 
 // Constructors
 

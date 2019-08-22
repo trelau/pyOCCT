@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepBuilderAPI_MakeShape(py::module &mod){
 
-py::class_<BRepBuilderAPI_MakeShape, std::unique_ptr<BRepBuilderAPI_MakeShape>, BRepBuilderAPI_Command> cls_BRepBuilderAPI_MakeShape(mod, "BRepBuilderAPI_MakeShape", "This is the root class for all shape constructions. It stores the result.");
+py::class_<BRepBuilderAPI_MakeShape, BRepBuilderAPI_Command> cls_BRepBuilderAPI_MakeShape(mod, "BRepBuilderAPI_MakeShape", "This is the root class for all shape constructions. It stores the result.");
 
 // Constructors
 

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepClass_FacePassiveClassifier(py::module &mod){
 
-py::class_<BRepClass_FacePassiveClassifier, std::unique_ptr<BRepClass_FacePassiveClassifier>> cls_BRepClass_FacePassiveClassifier(mod, "BRepClass_FacePassiveClassifier", "None");
+py::class_<BRepClass_FacePassiveClassifier> cls_BRepClass_FacePassiveClassifier(mod, "BRepClass_FacePassiveClassifier", "None");
 
 // Constructors
 cls_BRepClass_FacePassiveClassifier.def(py::init<>());

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_math_GaussLeastSquare(py::module &mod){
 
-py::class_<math_GaussLeastSquare, std::unique_ptr<math_GaussLeastSquare>> cls_math_GaussLeastSquare(mod, "math_GaussLeastSquare", "This class implements the least square solution of a set of n linear equations of m unknowns (n >= m) using the gauss LU decomposition algorithm. This algorithm is more likely subject to numerical instability than math_SVD.");
+py::class_<math_GaussLeastSquare> cls_math_GaussLeastSquare(mod, "math_GaussLeastSquare", "This class implements the least square solution of a set of n linear equations of m unknowns (n >= m) using the gauss LU decomposition algorithm. This algorithm is more likely subject to numerical instability than math_SVD.");
 
 // Constructors
 cls_math_GaussLeastSquare.def(py::init<const math_Matrix &>(), py::arg("A"));

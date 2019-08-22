@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepGProp_Gauss(py::module &mod){
 
-py::class_<BRepGProp_Gauss, std::unique_ptr<BRepGProp_Gauss>> cls_BRepGProp_Gauss(mod, "BRepGProp_Gauss", "Class performs computing of the global inertia properties of geometric object in 3D space by adaptive and non-adaptive 2D Gauss integration algorithms.");
+py::class_<BRepGProp_Gauss> cls_BRepGProp_Gauss(mod, "BRepGProp_Gauss", "Class performs computing of the global inertia properties of geometric object in 3D space by adaptive and non-adaptive 2D Gauss integration algorithms.");
 
 // Constructors
 cls_BRepGProp_Gauss.def(py::init<const BRepGProp_Gauss::BRepGProp_GaussType>(), py::arg("theType"));

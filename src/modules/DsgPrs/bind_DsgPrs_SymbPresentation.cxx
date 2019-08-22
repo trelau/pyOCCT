@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_DsgPrs_SymbPresentation(py::module &mod){
 
-py::class_<DsgPrs_SymbPresentation, std::unique_ptr<DsgPrs_SymbPresentation>> cls_DsgPrs_SymbPresentation(mod, "DsgPrs_SymbPresentation", "A framework to define display of symbols.");
+py::class_<DsgPrs_SymbPresentation> cls_DsgPrs_SymbPresentation(mod, "DsgPrs_SymbPresentation", "A framework to define display of symbols.");
 
 // Constructors
 

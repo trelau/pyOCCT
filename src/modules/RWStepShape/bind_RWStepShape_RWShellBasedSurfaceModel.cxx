@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWShellBasedSurfaceModel(py::module &mod){
 
-py::class_<RWStepShape_RWShellBasedSurfaceModel, std::unique_ptr<RWStepShape_RWShellBasedSurfaceModel>> cls_RWStepShape_RWShellBasedSurfaceModel(mod, "RWStepShape_RWShellBasedSurfaceModel", "Read & Write Module for ShellBasedSurfaceModel");
+py::class_<RWStepShape_RWShellBasedSurfaceModel> cls_RWStepShape_RWShellBasedSurfaceModel(mod, "RWStepShape_RWShellBasedSurfaceModel", "Read & Write Module for ShellBasedSurfaceModel");
 
 // Constructors
 cls_RWStepShape_RWShellBasedSurfaceModel.def(py::init<>());

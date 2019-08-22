@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BOPAlgo_ArgumentAnalyzer(py::module &mod){
 
-py::class_<BOPAlgo_ArgumentAnalyzer, std::unique_ptr<BOPAlgo_ArgumentAnalyzer>, BOPAlgo_Algo> cls_BOPAlgo_ArgumentAnalyzer(mod, "BOPAlgo_ArgumentAnalyzer", "check the validity of argument(s) for Boolean Operations");
+py::class_<BOPAlgo_ArgumentAnalyzer, BOPAlgo_Algo> cls_BOPAlgo_ArgumentAnalyzer(mod, "BOPAlgo_ArgumentAnalyzer", "check the validity of argument(s) for Boolean Operations");
 
 // Constructors
 cls_BOPAlgo_ArgumentAnalyzer.def(py::init<>());

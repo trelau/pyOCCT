@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepTools_Quilt(py::module &mod){
 
-py::class_<BRepTools_Quilt, std::unique_ptr<BRepTools_Quilt>> cls_BRepTools_Quilt(mod, "BRepTools_Quilt", "A Tool to glue faces at common edges and reconstruct shells.");
+py::class_<BRepTools_Quilt> cls_BRepTools_Quilt(mod, "BRepTools_Quilt", "A Tool to glue faces at common edges and reconstruct shells.");
 
 // Constructors
 cls_BRepTools_Quilt.def(py::init<>());

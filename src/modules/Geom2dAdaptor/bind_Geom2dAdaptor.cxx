@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dAdaptor(py::module &mod){
 
-py::class_<Geom2dAdaptor, std::unique_ptr<Geom2dAdaptor>> cls_Geom2dAdaptor(mod, "Geom2dAdaptor", "this package contains the geometric definition of 2d curves compatible with the Adaptor package templates.");
+py::class_<Geom2dAdaptor> cls_Geom2dAdaptor(mod, "Geom2dAdaptor", "this package contains the geometric definition of 2d curves compatible with the Adaptor package templates.");
 
 // Constructors
 

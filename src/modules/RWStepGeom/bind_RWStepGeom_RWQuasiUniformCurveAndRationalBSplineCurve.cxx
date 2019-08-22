@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWQuasiUniformCurveAndRationalBSplineCurve(py::module &mod){
 
-py::class_<RWStepGeom_RWQuasiUniformCurveAndRationalBSplineCurve, std::unique_ptr<RWStepGeom_RWQuasiUniformCurveAndRationalBSplineCurve>> cls_RWStepGeom_RWQuasiUniformCurveAndRationalBSplineCurve(mod, "RWStepGeom_RWQuasiUniformCurveAndRationalBSplineCurve", "Read & Write Module for QuasiUniformCurveAndRationalBSplineCurve");
+py::class_<RWStepGeom_RWQuasiUniformCurveAndRationalBSplineCurve> cls_RWStepGeom_RWQuasiUniformCurveAndRationalBSplineCurve(mod, "RWStepGeom_RWQuasiUniformCurveAndRationalBSplineCurve", "Read & Write Module for QuasiUniformCurveAndRationalBSplineCurve");
 
 // Constructors
 cls_RWStepGeom_RWQuasiUniformCurveAndRationalBSplineCurve.def(py::init<>());

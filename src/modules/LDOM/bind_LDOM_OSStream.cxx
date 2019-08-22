@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_LDOM_OSStream(py::module &mod){
 
-py::class_<LDOM_OSStream, std::unique_ptr<LDOM_OSStream>> cls_LDOM_OSStream(mod, "LDOM_OSStream", "Subclass if std::ostream allowing to increase performance of outputting data into a string avoiding reallocation of buffer. Class LDOM_OSStream implements output into a sequence of strings and getting the result as a string. It inherits Standard_OStream (ostream). Beside methods of ostream, it also has additional useful methods: str(), Length() and Clear().");
+py::class_<LDOM_OSStream> cls_LDOM_OSStream(mod, "LDOM_OSStream", "Subclass if std::ostream allowing to increase performance of outputting data into a string avoiding reallocation of buffer. Class LDOM_OSStream implements output into a sequence of strings and getting the result as a string. It inherits Standard_OStream (ostream). Beside methods of ostream, it also has additional useful methods: str(), Length() and Clear().");
 
 // Constructors
 cls_LDOM_OSStream.def(py::init<const Standard_Integer>(), py::arg("theMaxBuf"));

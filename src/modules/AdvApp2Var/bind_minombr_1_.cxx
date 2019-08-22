@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_minombr_1_(py::module &mod){
 
-py::class_<minombr_1_, std::unique_ptr<minombr_1_>> cls_minombr_1_(mod, "minombr_1_", "None");
+py::class_<minombr_1_> cls_minombr_1_(mod, "minombr_1_", "None");
 
 // Constructors
 

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FSD_FileHeader(py::module &mod){
 
-py::class_<FSD_FileHeader, std::unique_ptr<FSD_FileHeader>> cls_FSD_FileHeader(mod, "FSD_FileHeader", "None");
+py::class_<FSD_FileHeader> cls_FSD_FileHeader(mod, "FSD_FileHeader", "None");
 
 // Constructors
 

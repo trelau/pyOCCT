@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_HLRAlgo_Interference(py::module &mod){
 
-py::class_<HLRAlgo_Interference, std::unique_ptr<HLRAlgo_Interference>> cls_HLRAlgo_Interference(mod, "HLRAlgo_Interference", "None");
+py::class_<HLRAlgo_Interference> cls_HLRAlgo_Interference(mod, "HLRAlgo_Interference", "None");
 
 // Constructors
 cls_HLRAlgo_Interference.def(py::init<>());

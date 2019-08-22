@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_VrmlConverter_WFDeflectionShape(py::module &mod){
 
-py::class_<VrmlConverter_WFDeflectionShape, std::unique_ptr<VrmlConverter_WFDeflectionShape>> cls_VrmlConverter_WFDeflectionShape(mod, "VrmlConverter_WFDeflectionShape", "WFDeflectionShape - computes the wireframe presentation of compound set of faces, edges and vertices by displaying a given number of U and/or V isoparametric curves, converts this one into VRML objects and writes (adds) them into anOStream. All requested properties of the representation are specify in aDrawer. This kind of the presentation is converted into IndexedLineSet and PointSet ( VRML ).");
+py::class_<VrmlConverter_WFDeflectionShape> cls_VrmlConverter_WFDeflectionShape(mod, "VrmlConverter_WFDeflectionShape", "WFDeflectionShape - computes the wireframe presentation of compound set of faces, edges and vertices by displaying a given number of U and/or V isoparametric curves, converts this one into VRML objects and writes (adds) them into anOStream. All requested properties of the representation are specify in aDrawer. This kind of the presentation is converted into IndexedLineSet and PointSet ( VRML ).");
 
 // Constructors
 

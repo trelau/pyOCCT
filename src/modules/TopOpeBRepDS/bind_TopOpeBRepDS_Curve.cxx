@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepDS_Curve(py::module &mod){
 
-py::class_<TopOpeBRepDS_Curve, std::unique_ptr<TopOpeBRepDS_Curve>> cls_TopOpeBRepDS_Curve(mod, "TopOpeBRepDS_Curve", "A Geom curve and a tolerance.");
+py::class_<TopOpeBRepDS_Curve> cls_TopOpeBRepDS_Curve(mod, "TopOpeBRepDS_Curve", "A Geom curve and a tolerance.");
 
 // Constructors
 cls_TopOpeBRepDS_Curve.def(py::init<>());

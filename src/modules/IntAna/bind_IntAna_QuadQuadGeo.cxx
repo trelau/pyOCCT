@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntAna_QuadQuadGeo(py::module &mod){
 
-py::class_<IntAna_QuadQuadGeo, std::unique_ptr<IntAna_QuadQuadGeo>> cls_IntAna_QuadQuadGeo(mod, "IntAna_QuadQuadGeo", "Geometric intersections between two natural quadrics (Sphere , Cylinder , Cone , Pln from gp). The possible intersections are : - 1 point - 1 or 2 line(s) - 1 Point and 1 Line - 1 circle - 1 ellipse - 1 parabola - 1 or 2 hyperbola(s). - Empty : there is no intersection between the two quadrics. - Same : the quadrics are identical - NoGeometricSolution : there may be an intersection, but it is necessary to use an analytic algorithm to determine it. See class IntQuadQuad from IntAna.");
+py::class_<IntAna_QuadQuadGeo> cls_IntAna_QuadQuadGeo(mod, "IntAna_QuadQuadGeo", "Geometric intersections between two natural quadrics (Sphere , Cylinder , Cone , Pln from gp). The possible intersections are : - 1 point - 1 or 2 line(s) - 1 Point and 1 Line - 1 circle - 1 ellipse - 1 parabola - 1 or 2 hyperbola(s). - Empty : there is no intersection between the two quadrics. - Same : the quadrics are identical - NoGeometricSolution : there may be an intersection, but it is necessary to use an analytic algorithm to determine it. See class IntQuadQuad from IntAna.");
 
 // Constructors
 cls_IntAna_QuadQuadGeo.def(py::init<>());

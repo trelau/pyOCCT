@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Interface_IntList(py::module &mod){
 
-py::class_<Interface_IntList, std::unique_ptr<Interface_IntList>> cls_Interface_IntList(mod, "Interface_IntList", "This class detains the data which describe a Graph. A Graph has two lists, one for shared refs, one for sharing refs (the reverses). Each list comprises, for each Entity of the Model of the Graph, a list of Entities (shared or sharing). In fact, entities are identified by their numbers in the Model or Graph : this gives better performances.");
+py::class_<Interface_IntList> cls_Interface_IntList(mod, "Interface_IntList", "This class detains the data which describe a Graph. A Graph has two lists, one for shared refs, one for sharing refs (the reverses). Each list comprises, for each Entity of the Model of the Graph, a list of Entities (shared or sharing). In fact, entities are identified by their numbers in the Model or Graph : this gives better performances.");
 
 // Constructors
 cls_Interface_IntList.def(py::init<>());

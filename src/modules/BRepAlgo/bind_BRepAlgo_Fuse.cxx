@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAlgo_Fuse(py::module &mod){
 
-py::class_<BRepAlgo_Fuse, std::unique_ptr<BRepAlgo_Fuse>, BRepAlgo_BooleanOperation> cls_BRepAlgo_Fuse(mod, "BRepAlgo_Fuse", "Describes functions for performing a topological fusion operation (Boolean union). A Fuse object provides the framework for: - defining the construction of a fused shape, - implementing the construction algorithm, and - consulting the result.");
+py::class_<BRepAlgo_Fuse, BRepAlgo_BooleanOperation> cls_BRepAlgo_Fuse(mod, "BRepAlgo_Fuse", "Describes functions for performing a topological fusion operation (Boolean union). A Fuse object provides the framework for: - defining the construction of a fused shape, - implementing the construction algorithm, and - consulting the result.");
 
 // Constructors
 cls_BRepAlgo_Fuse.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &>(), py::arg("S1"), py::arg("S2"));

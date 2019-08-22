@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepTool_AncestorsTool(py::module &mod){
 
-py::class_<TopOpeBRepTool_AncestorsTool, std::unique_ptr<TopOpeBRepTool_AncestorsTool>> cls_TopOpeBRepTool_AncestorsTool(mod, "TopOpeBRepTool_AncestorsTool", "Describes the ancestors tool needed by the class DSFiller from TopOpeInter.");
+py::class_<TopOpeBRepTool_AncestorsTool> cls_TopOpeBRepTool_AncestorsTool(mod, "TopOpeBRepTool_AncestorsTool", "Describes the ancestors tool needed by the class DSFiller from TopOpeInter.");
 
 // Constructors
 

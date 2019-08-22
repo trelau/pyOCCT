@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FSD_CmpFile(py::module &mod){
 
-py::class_<FSD_CmpFile, std::unique_ptr<FSD_CmpFile>, FSD_File> cls_FSD_CmpFile(mod, "FSD_CmpFile", "None");
+py::class_<FSD_CmpFile, FSD_File> cls_FSD_CmpFile(mod, "FSD_CmpFile", "None");
 
 // Constructors
 cls_FSD_CmpFile.def(py::init<>());

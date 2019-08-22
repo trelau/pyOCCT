@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_FairCurve_DistributionOfSagging(py::module &mod){
 
-py::class_<FairCurve_DistributionOfSagging, std::unique_ptr<FairCurve_DistributionOfSagging>, FairCurve_DistributionOfEnergy> cls_FairCurve_DistributionOfSagging(mod, "FairCurve_DistributionOfSagging", "Compute the Sagging Distribution");
+py::class_<FairCurve_DistributionOfSagging, FairCurve_DistributionOfEnergy> cls_FairCurve_DistributionOfSagging(mod, "FairCurve_DistributionOfSagging", "Compute the Sagging Distribution");
 
 // Constructors
 cls_FairCurve_DistributionOfSagging.def(py::init<const Standard_Integer, const opencascade::handle<TColStd_HArray1OfReal> &, const opencascade::handle<TColgp_HArray1OfPnt2d> &, const Standard_Integer, const FairCurve_BattenLaw &>(), py::arg("BSplOrder"), py::arg("FlatKnots"), py::arg("Poles"), py::arg("DerivativeOrder"), py::arg("Law"));

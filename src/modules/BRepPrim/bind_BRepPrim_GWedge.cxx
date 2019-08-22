@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepPrim_GWedge(py::module &mod){
 
-py::class_<BRepPrim_GWedge, std::unique_ptr<BRepPrim_GWedge>> cls_BRepPrim_GWedge(mod, "BRepPrim_GWedge", "A wedge is defined by :");
+py::class_<BRepPrim_GWedge> cls_BRepPrim_GWedge(mod, "BRepPrim_GWedge", "A wedge is defined by :");
 
 // Constructors
 cls_BRepPrim_GWedge.def(py::init<const BRepPrim_Builder &, const gp_Ax2 &, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("B"), py::arg("Axes"), py::arg("dx"), py::arg("dy"), py::arg("dz"));

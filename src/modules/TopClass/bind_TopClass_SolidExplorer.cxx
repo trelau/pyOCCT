@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopClass_SolidExplorer(py::module &mod){
 
-py::class_<TopClass_SolidExplorer, std::unique_ptr<TopClass_SolidExplorer>> cls_TopClass_SolidExplorer(mod, "TopClass_SolidExplorer", "Provide an exploration of a BRep Shape for the classification. Defines the description of a solid for the SolidClassifier.");
+py::class_<TopClass_SolidExplorer> cls_TopClass_SolidExplorer(mod, "TopClass_SolidExplorer", "Provide an exploration of a BRep Shape for the classification. Defines the description of a solid for the SolidClassifier.");
 
 // Fields
 

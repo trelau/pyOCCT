@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Poly_BaseIteratorOfCoherentTriangle(py::module &mod){
 
-py::class_<NCollection_Vector<Poly_CoherentTriangle>::Iterator, std::unique_ptr<NCollection_Vector<Poly_CoherentTriangle>::Iterator>> cls_Poly_BaseIteratorOfCoherentTriangle(mod, "Poly_BaseIteratorOfCoherentTriangle", "Nested class Iterator");
+py::class_<NCollection_Vector<Poly_CoherentTriangle>::Iterator> cls_Poly_BaseIteratorOfCoherentTriangle(mod, "Poly_BaseIteratorOfCoherentTriangle", "Nested class Iterator");
 
 // Constructors
 cls_Poly_BaseIteratorOfCoherentTriangle.def(py::init<>());

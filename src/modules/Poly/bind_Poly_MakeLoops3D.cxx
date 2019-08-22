@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Poly_MakeLoops3D(py::module &mod){
 
-py::class_<Poly_MakeLoops3D, std::unique_ptr<Poly_MakeLoops3D>, Poly_MakeLoops> cls_Poly_MakeLoops3D(mod, "Poly_MakeLoops3D", "None");
+py::class_<Poly_MakeLoops3D, Poly_MakeLoops> cls_Poly_MakeLoops3D(mod, "Poly_MakeLoops3D", "None");
 
 // Constructors
 cls_Poly_MakeLoops3D.def(py::init<const Poly_MakeLoops3D::Helper *, const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theHelper"), py::arg("theAlloc"));

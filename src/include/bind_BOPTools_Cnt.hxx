@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 template <typename TypeFunctor, typename TypeSolverVector>
 void bind_BOPTools_Cnt(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BOPTools_Cnt<TypeFunctor, TypeSolverVector>, std::unique_ptr<BOPTools_Cnt<TypeFunctor, TypeSolverVector>>> cls_BOPTools_Cnt(mod, name.c_str(), "None", local);
+py::class_<BOPTools_Cnt<TypeFunctor, TypeSolverVector>> cls_BOPTools_Cnt(mod, name.c_str(), "None", local);
 
 // Constructors
 

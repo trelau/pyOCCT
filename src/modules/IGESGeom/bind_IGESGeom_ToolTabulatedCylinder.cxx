@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESGeom_ToolTabulatedCylinder(py::module &mod){
 
-py::class_<IGESGeom_ToolTabulatedCylinder, std::unique_ptr<IGESGeom_ToolTabulatedCylinder>> cls_IGESGeom_ToolTabulatedCylinder(mod, "IGESGeom_ToolTabulatedCylinder", "Tool to work on a TabulatedCylinder. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESGeom_ToolTabulatedCylinder> cls_IGESGeom_ToolTabulatedCylinder(mod, "IGESGeom_ToolTabulatedCylinder", "Tool to work on a TabulatedCylinder. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESGeom_ToolTabulatedCylinder.def(py::init<>());

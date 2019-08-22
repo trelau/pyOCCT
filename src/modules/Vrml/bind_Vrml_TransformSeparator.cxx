@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Vrml_TransformSeparator(py::module &mod){
 
-py::class_<Vrml_TransformSeparator, std::unique_ptr<Vrml_TransformSeparator>> cls_Vrml_TransformSeparator(mod, "Vrml_TransformSeparator", "defines a TransformSeparator node of VRML specifying group properties. This group node is similar to separator node in that it saves state before traversing its children and restores it afterwards. This node can be used to isolate transformations to light sources or objects.");
+py::class_<Vrml_TransformSeparator> cls_Vrml_TransformSeparator(mod, "Vrml_TransformSeparator", "defines a TransformSeparator node of VRML specifying group properties. This group node is similar to separator node in that it saves state before traversing its children and restores it afterwards. This node can be used to isolate transformations to light sources or objects.");
 
 // Constructors
 cls_Vrml_TransformSeparator.def(py::init<>());

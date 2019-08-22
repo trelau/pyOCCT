@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepShape_RWPrecisionQualifier(py::module &mod){
 
-py::class_<RWStepShape_RWPrecisionQualifier, std::unique_ptr<RWStepShape_RWPrecisionQualifier>> cls_RWStepShape_RWPrecisionQualifier(mod, "RWStepShape_RWPrecisionQualifier", "Read & Write Module for PrecisionQualifier");
+py::class_<RWStepShape_RWPrecisionQualifier> cls_RWStepShape_RWPrecisionQualifier(mod, "RWStepShape_RWPrecisionQualifier", "Read & Write Module for PrecisionQualifier");
 
 // Constructors
 cls_RWStepShape_RWPrecisionQualifier.def(py::init<>());

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESData_BasicEditor(py::module &mod){
 
-py::class_<IGESData_BasicEditor, std::unique_ptr<IGESData_BasicEditor>> cls_IGESData_BasicEditor(mod, "IGESData_BasicEditor", "This class provides various functions of basic edition, such as : - setting header unit (WARNING : DOES NOT convert entities) - computation of the status (Subordinate, UseFlag) of entities of IGES Entities on a whole model - auto correction of IGES Entities, defined both by DirChecker and by specific service AutoCorrect (this auto correction performs non-ambigious, rather logic, editions)");
+py::class_<IGESData_BasicEditor> cls_IGESData_BasicEditor(mod, "IGESData_BasicEditor", "This class provides various functions of basic edition, such as : - setting header unit (WARNING : DOES NOT convert entities) - computation of the status (Subordinate, UseFlag) of entities of IGES Entities on a whole model - auto correction of IGES Entities, defined both by DirChecker and by specific service AutoCorrect (this auto correction performs non-ambigious, rather logic, editions)");
 
 // Constructors
 cls_IGESData_BasicEditor.def(py::init<>());

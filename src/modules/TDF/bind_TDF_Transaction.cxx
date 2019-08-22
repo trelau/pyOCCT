@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TDF_Transaction(py::module &mod){
 
-py::class_<TDF_Transaction, std::unique_ptr<TDF_Transaction>> cls_TDF_Transaction(mod, "TDF_Transaction", "This class offers services to open, commit or abort a transaction in a more secure way than using Data from TDF. If you forget to close a transaction, it will be automaticaly aborted at the destruction of this object, at the closure of its scope.");
+py::class_<TDF_Transaction> cls_TDF_Transaction(mod, "TDF_Transaction", "This class offers services to open, commit or abort a transaction in a more secure way than using Data from TDF. If you forget to close a transaction, it will be automaticaly aborted at the destruction of this object, at the closure of its scope.");
 
 // Constructors
 cls_TDF_Transaction.def(py::init<>());

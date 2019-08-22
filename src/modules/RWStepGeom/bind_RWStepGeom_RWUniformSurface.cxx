@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepGeom_RWUniformSurface(py::module &mod){
 
-py::class_<RWStepGeom_RWUniformSurface, std::unique_ptr<RWStepGeom_RWUniformSurface>> cls_RWStepGeom_RWUniformSurface(mod, "RWStepGeom_RWUniformSurface", "Read & Write Module for UniformSurface");
+py::class_<RWStepGeom_RWUniformSurface> cls_RWStepGeom_RWUniformSurface(mod, "RWStepGeom_RWUniformSurface", "Read & Write Module for UniformSurface");
 
 // Constructors
 cls_RWStepGeom_RWUniformSurface.def(py::init<>());

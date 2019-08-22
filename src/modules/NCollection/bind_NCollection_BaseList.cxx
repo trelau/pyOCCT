@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_NCollection_BaseList(py::module &mod){
 
-py::class_<NCollection_BaseList, std::unique_ptr<NCollection_BaseList>> cls_NCollection_BaseList(mod, "NCollection_BaseList", "None");
+py::class_<NCollection_BaseList> cls_NCollection_BaseList(mod, "NCollection_BaseList", "None");
 
 // Constructors
 
@@ -51,7 +51,7 @@ cls_NCollection_BaseList.def("Allocator", (const opencascade::handle<NCollection
 // Enums
 
 // Nested classes
-py::class_<NCollection_BaseList::Iterator, std::unique_ptr<NCollection_BaseList::Iterator>> cls_Iterator(cls_NCollection_BaseList, "Iterator", "Memory allocation");
+py::class_<NCollection_BaseList::Iterator> cls_Iterator(cls_NCollection_BaseList, "Iterator", "Memory allocation");
 
 // Constructors
 cls_Iterator.def(py::init<>());

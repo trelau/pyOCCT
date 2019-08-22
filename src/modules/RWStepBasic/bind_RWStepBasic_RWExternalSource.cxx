@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWExternalSource(py::module &mod){
 
-py::class_<RWStepBasic_RWExternalSource, std::unique_ptr<RWStepBasic_RWExternalSource>> cls_RWStepBasic_RWExternalSource(mod, "RWStepBasic_RWExternalSource", "Read & Write tool for ExternalSource");
+py::class_<RWStepBasic_RWExternalSource> cls_RWStepBasic_RWExternalSource(mod, "RWStepBasic_RWExternalSource", "Read & Write tool for ExternalSource");
 
 // Constructors
 cls_RWStepBasic_RWExternalSource.def(py::init<>());

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_Geom2dGcc_QCurve(py::module &mod){
 
-py::class_<Geom2dGcc_QCurve, std::unique_ptr<Geom2dGcc_QCurve>> cls_Geom2dGcc_QCurve(mod, "Geom2dGcc_QCurve", "Creates a qualified 2d line.");
+py::class_<Geom2dGcc_QCurve> cls_Geom2dGcc_QCurve(mod, "Geom2dGcc_QCurve", "Creates a qualified 2d line.");
 
 // Constructors
 cls_Geom2dGcc_QCurve.def(py::init<const Geom2dAdaptor_Curve &, const GccEnt_Position>(), py::arg("Curve"), py::arg("Qualifier"));

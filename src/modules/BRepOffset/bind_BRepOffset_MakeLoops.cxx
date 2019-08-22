@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepOffset_MakeLoops(py::module &mod){
 
-py::class_<BRepOffset_MakeLoops, std::unique_ptr<BRepOffset_MakeLoops>> cls_BRepOffset_MakeLoops(mod, "BRepOffset_MakeLoops", "None");
+py::class_<BRepOffset_MakeLoops> cls_BRepOffset_MakeLoops(mod, "BRepOffset_MakeLoops", "None");
 
 // Constructors
 cls_BRepOffset_MakeLoops.def(py::init<>());

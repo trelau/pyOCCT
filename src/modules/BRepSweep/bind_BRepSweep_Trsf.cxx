@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepSweep_Trsf(py::module &mod){
 
-py::class_<BRepSweep_Trsf, std::unique_ptr<BRepSweep_Trsf>, BRepSweep_NumLinearRegularSweep> cls_BRepSweep_Trsf(mod, "BRepSweep_Trsf", "This class is inherited from NumLinearRegularSweep to implement the simple swept primitives built moving a Shape with a Trsf. It often is possible to build the constructed subshapes by a simple move of the generating subshapes (shared topology and geometry). So two ways of construction are proposed :");
+py::class_<BRepSweep_Trsf, BRepSweep_NumLinearRegularSweep> cls_BRepSweep_Trsf(mod, "BRepSweep_Trsf", "This class is inherited from NumLinearRegularSweep to implement the simple swept primitives built moving a Shape with a Trsf. It often is possible to build the constructed subshapes by a simple move of the generating subshapes (shared topology and geometry). So two ways of construction are proposed :");
 
 // Fields
 

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_CappingAlgo(py::module &mod){
 
-py::class_<OpenGl_CappingAlgo, std::unique_ptr<OpenGl_CappingAlgo>> cls_OpenGl_CappingAlgo(mod, "OpenGl_CappingAlgo", "Capping surface rendering algorithm.");
+py::class_<OpenGl_CappingAlgo> cls_OpenGl_CappingAlgo(mod, "OpenGl_CappingAlgo", "Capping surface rendering algorithm.");
 
 // Constructors
 

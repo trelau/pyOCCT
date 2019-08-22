@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IGESBasic_ToolName(py::module &mod){
 
-py::class_<IGESBasic_ToolName, std::unique_ptr<IGESBasic_ToolName>> cls_IGESBasic_ToolName(mod, "IGESBasic_ToolName", "Tool to work on a Name. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
+py::class_<IGESBasic_ToolName> cls_IGESBasic_ToolName(mod, "IGESBasic_ToolName", "Tool to work on a Name. Called by various Modules (ReadWriteModule, GeneralModule, SpecificModule)");
 
 // Constructors
 cls_IGESBasic_ToolName.def(py::init<>());

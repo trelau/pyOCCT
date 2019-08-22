@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_gp_Ax1(py::module &mod){
 
-py::class_<gp_Ax1, std::unique_ptr<gp_Ax1>> cls_gp_Ax1(mod, "gp_Ax1", "Describes an axis in 3D space. An axis is defined by: - its origin (also referred to as its 'Location point'), and - its unit vector (referred to as its 'Direction' or 'main Direction'). An axis is used: - to describe 3D geometric entities (for example, the axis of a revolution entity). It serves the same purpose as the STEP function 'axis placement one axis', or - to define geometric transformations (axis of symmetry, axis of rotation, and so on). For example, this entity can be used to locate a geometric entity or to define a symmetry axis.");
+py::class_<gp_Ax1> cls_gp_Ax1(mod, "gp_Ax1", "Describes an axis in 3D space. An axis is defined by: - its origin (also referred to as its 'Location point'), and - its unit vector (referred to as its 'Direction' or 'main Direction'). An axis is used: - to describe 3D geometric entities (for example, the axis of a revolution entity). It serves the same purpose as the STEP function 'axis placement one axis', or - to define geometric transformations (axis of symmetry, axis of rotation, and so on). For example, this entity can be used to locate a geometric entity or to define a symmetry axis.");
 
 // Constructors
 cls_gp_Ax1.def(py::init<>());

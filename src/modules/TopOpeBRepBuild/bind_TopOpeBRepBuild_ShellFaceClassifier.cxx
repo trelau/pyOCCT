@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_TopOpeBRepBuild_ShellFaceClassifier(py::module &mod){
 
-py::class_<TopOpeBRepBuild_ShellFaceClassifier, std::unique_ptr<TopOpeBRepBuild_ShellFaceClassifier>, TopOpeBRepBuild_CompositeClassifier> cls_TopOpeBRepBuild_ShellFaceClassifier(mod, "TopOpeBRepBuild_ShellFaceClassifier", "Classify faces and shells. shapes are Shells, Elements are Faces.");
+py::class_<TopOpeBRepBuild_ShellFaceClassifier, TopOpeBRepBuild_CompositeClassifier> cls_TopOpeBRepBuild_ShellFaceClassifier(mod, "TopOpeBRepBuild_ShellFaceClassifier", "Classify faces and shells. shapes are Shells, Elements are Faces.");
 
 // Constructors
 cls_TopOpeBRepBuild_ShellFaceClassifier.def(py::init<const TopOpeBRepBuild_BlockBuilder &>(), py::arg("BB"));

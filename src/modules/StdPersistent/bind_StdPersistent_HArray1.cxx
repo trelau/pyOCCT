@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPersistent_HArray1(py::module &mod){
 
-py::class_<StdPersistent_HArray1, std::unique_ptr<StdPersistent_HArray1>> cls_StdPersistent_HArray1(mod, "StdPersistent_HArray1", "None");
+py::class_<StdPersistent_HArray1> cls_StdPersistent_HArray1(mod, "StdPersistent_HArray1", "None");
 
 // Constructors
 

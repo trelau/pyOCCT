@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OpenGl_Material(py::module &mod){
 
-py::class_<OpenGl_Material, std::unique_ptr<OpenGl_Material>> cls_OpenGl_Material(mod, "OpenGl_Material", "OpenGL material definition");
+py::class_<OpenGl_Material> cls_OpenGl_Material(mod, "OpenGl_Material", "OpenGL material definition");
 
 // Constructors
 

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_GeomToStep_MakeRectangularTrimmedSurface(py::module &mod){
 
-py::class_<GeomToStep_MakeRectangularTrimmedSurface, std::unique_ptr<GeomToStep_MakeRectangularTrimmedSurface>, GeomToStep_Root> cls_GeomToStep_MakeRectangularTrimmedSurface(mod, "GeomToStep_MakeRectangularTrimmedSurface", "This class implements the mapping between class RectangularTrimmedSurface from Geom and the class RectangularTrimmedSurface from StepGeom which describes a rectangular_trimmed_surface from ISO-IS 10303-42");
+py::class_<GeomToStep_MakeRectangularTrimmedSurface, GeomToStep_Root> cls_GeomToStep_MakeRectangularTrimmedSurface(mod, "GeomToStep_MakeRectangularTrimmedSurface", "This class implements the mapping between class RectangularTrimmedSurface from Geom and the class RectangularTrimmedSurface from StepGeom which describes a rectangular_trimmed_surface from ISO-IS 10303-42");
 
 // Constructors
 cls_GeomToStep_MakeRectangularTrimmedSurface.def(py::init<const opencascade::handle<Geom_RectangularTrimmedSurface> &>(), py::arg("RTSurf"));

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepVisual_RWTessellatedGeometricSet(py::module &mod){
 
-py::class_<RWStepVisual_RWTessellatedGeometricSet, std::unique_ptr<RWStepVisual_RWTessellatedGeometricSet>> cls_RWStepVisual_RWTessellatedGeometricSet(mod, "RWStepVisual_RWTessellatedGeometricSet", "Read & Write Module for AnnotationOccurrence");
+py::class_<RWStepVisual_RWTessellatedGeometricSet> cls_RWStepVisual_RWTessellatedGeometricSet(mod, "RWStepVisual_RWTessellatedGeometricSet", "Read & Write Module for AnnotationOccurrence");
 
 // Constructors
 cls_RWStepVisual_RWTessellatedGeometricSet.def(py::init<>());

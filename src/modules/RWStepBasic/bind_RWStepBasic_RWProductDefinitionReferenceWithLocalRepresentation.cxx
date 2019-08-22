@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepBasic_RWProductDefinitionReferenceWithLocalRepresentation(py::module &mod){
 
-py::class_<RWStepBasic_RWProductDefinitionReferenceWithLocalRepresentation, std::unique_ptr<RWStepBasic_RWProductDefinitionReferenceWithLocalRepresentation>> cls_RWStepBasic_RWProductDefinitionReferenceWithLocalRepresentation(mod, "RWStepBasic_RWProductDefinitionReferenceWithLocalRepresentation", "Read & Write Module for ProductDefinitionReferenceWithLocalRepresentation");
+py::class_<RWStepBasic_RWProductDefinitionReferenceWithLocalRepresentation> cls_RWStepBasic_RWProductDefinitionReferenceWithLocalRepresentation(mod, "RWStepBasic_RWProductDefinitionReferenceWithLocalRepresentation", "Read & Write Module for ProductDefinitionReferenceWithLocalRepresentation");
 
 // Constructors
 cls_RWStepBasic_RWProductDefinitionReferenceWithLocalRepresentation.def(py::init<>());

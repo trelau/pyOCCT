@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BRepAdaptor_Curve2d(py::module &mod){
 
-py::class_<BRepAdaptor_Curve2d, std::unique_ptr<BRepAdaptor_Curve2d>, Geom2dAdaptor_Curve> cls_BRepAdaptor_Curve2d(mod, "BRepAdaptor_Curve2d", "The Curve2d from BRepAdaptor allows to use an Edge on a Face like a 2d curve. (curve in the parametric space).");
+py::class_<BRepAdaptor_Curve2d, Geom2dAdaptor_Curve> cls_BRepAdaptor_Curve2d(mod, "BRepAdaptor_Curve2d", "The Curve2d from BRepAdaptor allows to use an Edge on a Face like a 2d curve. (curve in the parametric space).");
 
 // Constructors
 cls_BRepAdaptor_Curve2d.def(py::init<>());

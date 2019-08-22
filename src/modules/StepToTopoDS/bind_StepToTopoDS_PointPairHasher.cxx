@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StepToTopoDS_PointPairHasher(py::module &mod){
 
-py::class_<StepToTopoDS_PointPairHasher, std::unique_ptr<StepToTopoDS_PointPairHasher>> cls_StepToTopoDS_PointPairHasher(mod, "StepToTopoDS_PointPairHasher", "None");
+py::class_<StepToTopoDS_PointPairHasher> cls_StepToTopoDS_PointPairHasher(mod, "StepToTopoDS_PointPairHasher", "None");
 
 // Constructors
 

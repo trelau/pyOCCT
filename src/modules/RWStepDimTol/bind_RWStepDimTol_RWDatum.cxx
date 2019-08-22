@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_RWStepDimTol_RWDatum(py::module &mod){
 
-py::class_<RWStepDimTol_RWDatum, std::unique_ptr<RWStepDimTol_RWDatum>> cls_RWStepDimTol_RWDatum(mod, "RWStepDimTol_RWDatum", "Read & Write tool for Datum");
+py::class_<RWStepDimTol_RWDatum> cls_RWStepDimTol_RWDatum(mod, "RWStepDimTol_RWDatum", "Read & Write tool for Datum");
 
 // Constructors
 cls_RWStepDimTol_RWDatum.def(py::init<>());

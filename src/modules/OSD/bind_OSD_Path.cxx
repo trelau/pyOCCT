@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_OSD_Path(py::module &mod){
 
-py::class_<OSD_Path, std::unique_ptr<OSD_Path>> cls_OSD_Path(mod, "OSD_Path", "None");
+py::class_<OSD_Path> cls_OSD_Path(mod, "OSD_Path", "None");
 
 // Constructors
 cls_OSD_Path.def(py::init<>());

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_BSplSLib_EvaluatorFunction(py::module &mod){
 
-py::class_<BSplSLib_EvaluatorFunction, std::unique_ptr<BSplSLib_EvaluatorFunction>> cls_BSplSLib_EvaluatorFunction(mod, "BSplSLib_EvaluatorFunction", "None");
+py::class_<BSplSLib_EvaluatorFunction> cls_BSplSLib_EvaluatorFunction(mod, "BSplSLib_EvaluatorFunction", "None");
 
 // Fields
 

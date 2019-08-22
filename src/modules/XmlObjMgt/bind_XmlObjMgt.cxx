@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_XmlObjMgt(py::module &mod){
 
-py::class_<XmlObjMgt, std::unique_ptr<XmlObjMgt>> cls_XmlObjMgt(mod, "XmlObjMgt", "This package defines services to manage the storage grain of data produced by applications and those classes to manage persistent extern reference.");
+py::class_<XmlObjMgt> cls_XmlObjMgt(mod, "XmlObjMgt", "This package defines services to manage the storage grain of data produced by applications and those classes to manage persistent extern reference.");
 
 // Constructors
 

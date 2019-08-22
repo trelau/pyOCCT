@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_StdPrs_ToolTriangulatedShape(py::module &mod){
 
-py::class_<StdPrs_ToolTriangulatedShape, std::unique_ptr<StdPrs_ToolTriangulatedShape>> cls_StdPrs_ToolTriangulatedShape(mod, "StdPrs_ToolTriangulatedShape", "None");
+py::class_<StdPrs_ToolTriangulatedShape> cls_StdPrs_ToolTriangulatedShape(mod, "StdPrs_ToolTriangulatedShape", "None");
 
 // Constructors
 

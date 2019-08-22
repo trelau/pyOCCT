@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void bind_IntTools_EdgeEdge(py::module &mod){
 
-py::class_<IntTools_EdgeEdge, std::unique_ptr<IntTools_EdgeEdge>> cls_IntTools_EdgeEdge(mod, "IntTools_EdgeEdge", "The class provides Edge/Edge intersection algorithm based on the intersection between edges bounding boxes.");
+py::class_<IntTools_EdgeEdge> cls_IntTools_EdgeEdge(mod, "IntTools_EdgeEdge", "The class provides Edge/Edge intersection algorithm based on the intersection between edges bounding boxes.");
 
 // Constructors
 cls_IntTools_EdgeEdge.def(py::init<>());
