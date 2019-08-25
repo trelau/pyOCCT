@@ -41,11 +41,6 @@ else(WIN32)
     set(EXTENSION ".so")
 endif(WIN32)
 
-# Use Link Time Optimization per pybind11 documentation
-if(MSVC)
-    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /LTCG /GL /bigobj")
-endif(MSVC)
-
 # Known warnings
 if(NOT ENABLE_WARNINGS)
     if(WIN32)
