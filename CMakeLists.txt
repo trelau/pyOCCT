@@ -43,7 +43,7 @@ endif(WIN32)
 
 # Use Link Time Optimization per pybind11 documentation
 if(MSVC)
-    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /LTCG")
+    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /LTCG /GL /bigobj")
 endif(MSVC)
 
 # Known warnings
