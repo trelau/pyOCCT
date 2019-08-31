@@ -27,11 +27,6 @@ requirements:
     - occt ==7.3.0
 
 test:
-  imports:
-    - OCCT
-    - OCCT.gp
-    - OCCT.TopoDS
-    - OCCT.AIS
   source_files:
     - test
 
