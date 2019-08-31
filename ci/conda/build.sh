@@ -10,7 +10,7 @@ cmake .. -G "Ninja" \
     -DENABLE_SMESH=OFF \
     -DENABLE_NETGEN=OFF \
     -DENABLE_FORCE=OFF \
-    -TBB_INCLUDE_DIR="%LIBRARY_PREFIX%"/include
+    -DTBB_INCLUDE_DIR="%LIBRARY_PREFIX%"/include
 
 ninja install
 
