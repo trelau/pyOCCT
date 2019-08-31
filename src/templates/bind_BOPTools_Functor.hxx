@@ -19,18 +19,23 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#ifndef __BOPTools_Functor__
+#define __BOPTools_Functor__
 
-#ifndef __pyOCCT_Common_Header__
-#define __pyOCCT_Common_Header__
+#include <BOPTools_Parallel.hxx>
+#include <Standard_TypeDef.hxx>
 
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-#include <pybind11/stl_bind.h>
+template <typename TypeSolver, typename TypeSolverVector>
+void bind_BOPTools_Functor(py::module &mod, std::string const &name, py::module_local const &local){
 
-#include <Standard_Handle.hxx>
+py::class_<BOPTools_Functor<TypeSolver, TypeSolverVector>> cls_BOPTools_Functor(mod, name.c_str(), "None", local);
 
-namespace py = pybind11;
+// Constructors
+cls_BOPTools_Functor.def(py::init<TypeSolverVector &>(), py::arg("theSolverVec"));
 
-// Use opencascade::handle as holder type for Standard_Transient types
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
+// Methods
+cls_BOPTools_Functor.def("__call__", (void (BOPTools_Functor<TypeSolver, TypeSolverVector>::*)(const Standard_Integer) const) &BOPTools_Functor<TypeSolver, TypeSolverVector>::operator(), py::is_operator(), "Defines functor interface.", py::arg("theIndex"));
+
+}
+
 #endif

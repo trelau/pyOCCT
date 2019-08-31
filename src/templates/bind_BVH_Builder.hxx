@@ -19,18 +19,23 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#ifndef __BVH_Builder__
+#define __BVH_Builder__
 
-#ifndef __pyOCCT_Common_Header__
-#define __pyOCCT_Common_Header__
+#include <BVH_Builder.hxx>
+#include <BVH_Set.hxx>
+#include <BVH_Tree.hxx>
+#include <BVH_Box.hxx>
+#include <Standard_TypeDef.hxx>
 
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-#include <pybind11/stl_bind.h>
+template <typename T, int N>
+void bind_BVH_Builder(py::module &mod, std::string const &name, py::module_local const &local){
 
-#include <Standard_Handle.hxx>
+py::class_<BVH_Builder<T, N>, opencascade::handle<BVH_Builder<T, N>>, BVH_BuilderTransient> cls_BVH_Builder(mod, name.c_str(), "Performs construction of BVH tree using bounding boxes (AABBs) of abstract objects.", local);
 
-namespace py = pybind11;
+// Methods
+cls_BVH_Builder.def("Build", (void (BVH_Builder<T, N>::*)(BVH_Set<T, N> *, BVH_Tree<T, N> *, const BVH_Box<T, N> &) const) &BVH_Builder<T, N>::Build, "Builds BVH using specific algorithm.", py::arg("theSet"), py::arg("theBVH"), py::arg("theBox"));
 
-// Use opencascade::handle as holder type for Standard_Transient types
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
+}
+
 #endif

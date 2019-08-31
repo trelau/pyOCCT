@@ -19,18 +19,22 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#ifndef __OpenGl_VariableSetter__
+#define __OpenGl_VariableSetter__
 
-#ifndef __pyOCCT_Common_Header__
-#define __pyOCCT_Common_Header__
-
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-#include <pybind11/stl_bind.h>
-
+#include <OpenGl_ShaderProgram.hxx>
 #include <Standard_Handle.hxx>
+#include <OpenGl_Context.hxx>
+#include <Graphic3d_ShaderVariable.hxx>
 
-namespace py = pybind11;
+template <typename T>
+void bind_OpenGl_VariableSetter(py::module &mod, std::string const &name, py::module_local const &local){
 
-// Use opencascade::handle as holder type for Standard_Transient types
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
+py::class_<OpenGl_VariableSetter<T>, OpenGl_SetterInterface> cls_OpenGl_VariableSetter(mod, name.c_str(), "None", local);
+
+// Methods
+cls_OpenGl_VariableSetter.def("Set", (void (OpenGl_VariableSetter<T>::*)(const opencascade::handle<OpenGl_Context> &, const opencascade::handle<Graphic3d_ShaderVariable> &, OpenGl_ShaderProgram *)) &OpenGl_VariableSetter<T>::Set, "None", py::arg("theCtx"), py::arg("theVariable"), py::arg("theProgram"));
+
+}
+
 #endif

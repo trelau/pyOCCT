@@ -19,18 +19,25 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#ifndef __BVH_Bin__
+#define __BVH_Bin__
 
-#ifndef __pyOCCT_Common_Header__
-#define __pyOCCT_Common_Header__
+#include <Standard_TypeDef.hxx>
+#include <BVH_Box.hxx>
+#include <BVH_BinnedBuilder.hxx>
 
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-#include <pybind11/stl_bind.h>
+template <typename T, int N>
+void bind_BVH_Bin(py::module &mod, std::string const &name, py::module_local const &local){
 
-#include <Standard_Handle.hxx>
+py::class_<BVH_Bin<T, N>> cls_BVH_Bin(mod, name.c_str(), "Stores parameters of single bin (slice of AABB).", local);
 
-namespace py = pybind11;
+// Constructors
+cls_BVH_Bin.def(py::init<>());
 
-// Use opencascade::handle as holder type for Standard_Transient types
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
+// Fields
+cls_BVH_Bin.def_readwrite("Count", &BVH_Bin<T, N>::Count, "Number of primitives in the bin");
+cls_BVH_Bin.def_readwrite("Box", &BVH_Bin<T, N>::Box, "AABB of primitives in the bin");
+
+}
+
 #endif

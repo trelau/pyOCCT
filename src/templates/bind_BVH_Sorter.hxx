@@ -19,18 +19,22 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#ifndef __BVH_Sorter__
+#define __BVH_Sorter__
 
-#ifndef __pyOCCT_Common_Header__
-#define __pyOCCT_Common_Header__
+#include <BVH_Set.hxx>
+#include <BVH_Sorter.hxx>
+#include <Standard_TypeDef.hxx>
 
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-#include <pybind11/stl_bind.h>
+template <typename T, int N>
+void bind_BVH_Sorter(py::module &mod, std::string const &name, py::module_local const &local){
 
-#include <Standard_Handle.hxx>
+py::class_<BVH_Sorter<T, N>> cls_BVH_Sorter(mod, name.c_str(), "Tool object to sort abstract primitive set.", local);
 
-namespace py = pybind11;
+// Methods
+cls_BVH_Sorter.def("Perform", (void (BVH_Sorter<T, N>::*)(BVH_Set<T, N> *)) &BVH_Sorter<T, N>::Perform, "Sorts the set.", py::arg("theSet"));
+cls_BVH_Sorter.def("Perform", (void (BVH_Sorter<T, N>::*)(BVH_Set<T, N> *, const Standard_Integer, const Standard_Integer)) &BVH_Sorter<T, N>::Perform, "Sorts the given (inclusive) range in the set.", py::arg("theSet"), py::arg("theStart"), py::arg("theFinal"));
 
-// Use opencascade::handle as holder type for Standard_Transient types
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
+}
+
 #endif

@@ -19,18 +19,16 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#ifndef __Graphic3d_UniformValueTypeID__
+#define __Graphic3d_UniformValueTypeID__
 
-#ifndef __pyOCCT_Common_Header__
-#define __pyOCCT_Common_Header__
+#include <Graphic3d_ShaderVariable.hxx>
 
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-#include <pybind11/stl_bind.h>
+template <typename T>
+void bind_Graphic3d_UniformValueTypeID(py::module &mod, std::string const &name, py::module_local const &local){
 
-#include <Standard_Handle.hxx>
+py::class_<Graphic3d_UniformValueTypeID<T>> cls_Graphic3d_UniformValueTypeID(mod, name.c_str(), "Generates unique type identifier for variable value.", local);
 
-namespace py = pybind11;
+}
 
-// Use opencascade::handle as holder type for Standard_Transient types
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
 #endif

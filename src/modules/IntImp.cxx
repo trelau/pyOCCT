@@ -19,18 +19,20 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#include <pyOCCT_Common.hxx>
+#include <IntImp_ConstIsoparametric.hxx>
 
-#ifndef __pyOCCT_Common_Header__
-#define __pyOCCT_Common_Header__
+PYBIND11_MODULE(IntImp, mod) {
 
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-#include <pybind11/stl_bind.h>
 
-#include <Standard_Handle.hxx>
+// ENUM: INTIMP_CONSTISOPARAMETRIC
+py::enum_<IntImp_ConstIsoparametric>(mod, "IntImp_ConstIsoparametric", "None")
+	.value("IntImp_UIsoparametricOnCaro1", IntImp_ConstIsoparametric::IntImp_UIsoparametricOnCaro1)
+	.value("IntImp_VIsoparametricOnCaro1", IntImp_ConstIsoparametric::IntImp_VIsoparametricOnCaro1)
+	.value("IntImp_UIsoparametricOnCaro2", IntImp_ConstIsoparametric::IntImp_UIsoparametricOnCaro2)
+	.value("IntImp_VIsoparametricOnCaro2", IntImp_ConstIsoparametric::IntImp_VIsoparametricOnCaro2)
+	.export_values();
 
-namespace py = pybind11;
 
-// Use opencascade::handle as holder type for Standard_Transient types
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
-#endif
+
+}

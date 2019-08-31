@@ -19,18 +19,16 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#ifndef __Standard_Static_Assert__
+#define __Standard_Static_Assert__
 
-#ifndef __pyOCCT_Common_Header__
-#define __pyOCCT_Common_Header__
+#include <Standard_Assert.hxx>
 
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-#include <pybind11/stl_bind.h>
+template <bool condition>
+void bind_Standard_Static_Assert(py::module &mod, std::string const &name, py::module_local const &local){
 
-#include <Standard_Handle.hxx>
+py::class_<Standard_Static_Assert<condition>> cls_Standard_Static_Assert(mod, name.c_str(), "Static assert -- empty default template", local);
 
-namespace py = pybind11;
+}
 
-// Use opencascade::handle as holder type for Standard_Transient types
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
 #endif

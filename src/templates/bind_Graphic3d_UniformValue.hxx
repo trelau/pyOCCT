@@ -19,18 +19,26 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#ifndef __Graphic3d_UniformValue__
+#define __Graphic3d_UniformValue__
 
-#ifndef __pyOCCT_Common_Header__
-#define __pyOCCT_Common_Header__
+#include <Graphic3d_ShaderVariable.hxx>
+#include <Standard_TypeDef.hxx>
 
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-#include <pybind11/stl_bind.h>
+template <typename T>
+void bind_Graphic3d_UniformValue(py::module &mod, std::string const &name, py::module_local const &local){
 
-#include <Standard_Handle.hxx>
+py::class_<Graphic3d_UniformValue<T>, Graphic3d_ValueInterface> cls_Graphic3d_UniformValue(mod, name.c_str(), "Describes specific value of custom uniform variable.", local);
 
-namespace py = pybind11;
+// Constructors
+cls_Graphic3d_UniformValue.def(py::init<const T &>(), py::arg("theValue"));
 
-// Use opencascade::handle as holder type for Standard_Transient types
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
+// Fields
+cls_Graphic3d_UniformValue.def_readwrite("Value", &Graphic3d_UniformValue<T>::Value, "Value of custom uniform variable.");
+
+// Methods
+cls_Graphic3d_UniformValue.def("TypeID", (Standard_Size (Graphic3d_UniformValue<T>::*)() const) &Graphic3d_UniformValue<T>::TypeID, "Returns unique identifier of value type.");
+
+}
+
 #endif

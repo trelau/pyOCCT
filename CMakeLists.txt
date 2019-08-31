@@ -26,6 +26,7 @@ project(pyOCCT VERSION 7.3.0.0 LANGUAGES CXX)
 option(ENABLE_SMESH "Enable SMESH" OFF)
 option(ENABLE_NETGEN "Enable Netgen" OFF)
 option(ENABLE_WARNINGS "Disable warning output." OFF)
+option(ENABLE_FORCE "Force build even if unresolved externals are found" ON)
 
 # --------------------------------------------------------------------------- #
 # SETTINGS
@@ -52,11 +53,17 @@ else(NOT ENABLE_WARNINGS)
     set(WARNINGS)
 endif(NOT ENABLE_WARNINGS)
 
+# Use /FORCE to ignore unresolved externals (known issue)
+if(ENABLE_FORCE AND MSVC)
+    message(STATUS "Using /FORCE linker option.")
+    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /FORCE")
+endif()
+
 # --------------------------------------------------------------------------- #
 # OpenCASCADE
 # --------------------------------------------------------------------------- #
 # Include cmake list of modules
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/OCCT_Mods.cmake)
+# include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/OCCT_Mods.cmake)
 
 if(NOT DEFINED OpenCASCADE_INCLUDE_DIR OR NOT DEFINED OpenCASCADE_LIBRARY_DIR)
     message(STATUS "Searching for OpenCASCADE...")
@@ -207,32 +214,28 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${OUTPUT_PATH}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 
-# OCCT modules
-set(MAKE_LIB BOOL ON)
-foreach(MOD ${OCCT_MODULES})
+# Treat each .cxx file in src/modules as a module
+file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/modules/*.cxx)
 
-    # Check if module exists in src
-    if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src/modules/${MOD})
-      set(MAKE_LIB OFF)
-    endif()
+# OCCT modules
+foreach(SRC ${SRCS})
+
+    # Get module name
+    get_filename_component(MOD ${SRC} NAME_WE)
 
     # Check for platform-specific modules
     if((WIN32 AND (${MOD} STREQUAL "XwWindow"))
         OR ((NOT WIN32) AND (${MOD} STREQUAL "WNT")))
             message(STATUS "Skipping platform-specific module ${MOD}")
-            set(MAKE_LIB OFF)
+            continue()
     endif()
 
-    if(MAKE_LIB)
-        file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/modules/${MOD}/*.cxx)
-        pybind11_add_module(${MOD} ${SRCS})
-        target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES})
-        set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
-        target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/include)
-        install(FILES ${OUTPUT_PATH}/${MOD}${EXTENSION}
-                DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/OCCT)
-    endif()
-    set(MAKE_LIB ON)
+    pybind11_add_module(${MOD} ${SRC})
+    target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES})
+    set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
+    target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/templates)
+    install(FILES ${OUTPUT_PATH}/${MOD}${EXTENSION}
+            DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/OCCT)
 endforeach()
 
 # SMESH modules

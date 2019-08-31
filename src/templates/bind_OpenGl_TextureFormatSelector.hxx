@@ -19,18 +19,16 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#ifndef __OpenGl_TextureFormatSelector__
+#define __OpenGl_TextureFormatSelector__
 
-#ifndef __pyOCCT_Common_Header__
-#define __pyOCCT_Common_Header__
+#include <OpenGl_Texture.hxx>
 
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-#include <pybind11/stl_bind.h>
+template <typename T>
+void bind_OpenGl_TextureFormatSelector(py::module &mod, std::string const &name, py::module_local const &local){
 
-#include <Standard_Handle.hxx>
+py::class_<OpenGl_TextureFormatSelector<T>> cls_OpenGl_TextureFormatSelector(mod, name.c_str(), "Selects preferable texture format for specified parameters.", local);
 
-namespace py = pybind11;
+}
 
-// Use opencascade::handle as holder type for Standard_Transient types
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
 #endif

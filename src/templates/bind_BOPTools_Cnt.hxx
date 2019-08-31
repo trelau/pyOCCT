@@ -19,18 +19,20 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#ifndef __BOPTools_Cnt__
+#define __BOPTools_Cnt__
 
-#ifndef __pyOCCT_Common_Header__
-#define __pyOCCT_Common_Header__
+#include <Standard_TypeDef.hxx>
+#include <BOPTools_Parallel.hxx>
 
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-#include <pybind11/stl_bind.h>
+template <typename TypeFunctor, typename TypeSolverVector>
+void bind_BOPTools_Cnt(py::module &mod, std::string const &name, py::module_local const &local){
 
-#include <Standard_Handle.hxx>
+py::class_<BOPTools_Cnt<TypeFunctor, TypeSolverVector>> cls_BOPTools_Cnt(mod, name.c_str(), "None", local);
 
-namespace py = pybind11;
+// Methods
+cls_BOPTools_Cnt.def_static("Perform_", (void (*)(const Standard_Boolean, TypeSolverVector &)) &BOPTools_Cnt<TypeFunctor, TypeSolverVector>::Perform, "None", py::arg("isRunParallel"), py::arg("theSolverVector"));
 
-// Use opencascade::handle as holder type for Standard_Transient types
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
+}
+
 #endif

@@ -19,18 +19,23 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#ifndef __BVH_Object__
+#define __BVH_Object__
 
-#ifndef __pyOCCT_Common_Header__
-#define __pyOCCT_Common_Header__
+#include <BVH_Object.hxx>
+#include <BVH_Box.hxx>
 
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-#include <pybind11/stl_bind.h>
+template <typename T, int N>
+void bind_BVH_Object(py::module &mod, std::string const &name, py::module_local const &local){
 
-#include <Standard_Handle.hxx>
+py::class_<BVH_Object<T, N>, opencascade::handle<BVH_Object<T, N>>, BVH_ObjectTransient> cls_BVH_Object(mod, name.c_str(), "Abstract geometric object bounded by BVH box.", local);
 
-namespace py = pybind11;
+// Constructors
+// cls_BVH_Object.def(py::init<>());
 
-// Use opencascade::handle as holder type for Standard_Transient types
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
+// Methods
+cls_BVH_Object.def("Box", (BVH_Box<T, N> (BVH_Object<T, N>::*)() const) &BVH_Object<T, N>::Box, "Returns AABB of the geometric object.");
+
+}
+
 #endif

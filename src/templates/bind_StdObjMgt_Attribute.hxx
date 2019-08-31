@@ -19,18 +19,23 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#ifndef __StdObjMgt_Attribute__
+#define __StdObjMgt_Attribute__
 
-#ifndef __pyOCCT_Common_Header__
-#define __pyOCCT_Common_Header__
-
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-#include <pybind11/stl_bind.h>
-
+#include <Standard_Transient.hxx>
+#include <StdObjMgt_Persistent.hxx>
 #include <Standard_Handle.hxx>
+#include <TDF_Attribute.hxx>
+#include <StdObjMgt_Attribute.hxx>
+#include <StdObjMgt_ReadData.hxx>
+#include <StdObjMgt_WriteData.hxx>
+#include <Standard_TypeDef.hxx>
 
-namespace py = pybind11;
+template <typename Transient>
+void bind_StdObjMgt_Attribute(py::module &mod, std::string const &name, py::module_local const &local){
 
-// Use opencascade::handle as holder type for Standard_Transient types
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
+py::class_<StdObjMgt_Attribute<Transient>, opencascade::handle<StdObjMgt_Attribute<Transient>>, Standard_Transient> cls_StdObjMgt_Attribute(mod, name.c_str(), "Root class for a temporary persistent object corresponding to an attribute.", local);
+
+}
+
 #endif

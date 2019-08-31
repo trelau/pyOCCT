@@ -19,18 +19,16 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
+#ifndef __OpenGl_TmplCore33__
+#define __OpenGl_TmplCore33__
 
-#ifndef __pyOCCT_Common_Header__
-#define __pyOCCT_Common_Header__
+#include <OpenGl_GlCore33.hxx>
 
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-#include <pybind11/stl_bind.h>
+template <typename theBaseClass_t>
+void bind_OpenGl_TmplCore33(py::module &mod, std::string const &name, py::module_local const &local){
 
-#include <Standard_Handle.hxx>
+py::class_<OpenGl_TmplCore33<theBaseClass_t>, theBaseClass_t> cls_OpenGl_TmplCore33(mod, name.c_str(), "OpenGL 3.3 definition.", local);
 
-namespace py = pybind11;
+}
 
-// Use opencascade::handle as holder type for Standard_Transient types
-PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
 #endif
