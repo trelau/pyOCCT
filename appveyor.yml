@@ -15,6 +15,9 @@ platform:
   - x64
 
 install:
+  - cmd: rmdir C:\cygwin /s /q
+  - cmd: rmdir C:\QT /s /q
+  - cmd: rmdir C:\MSYS64 /s /q
   - cmd: call %CONDA_INSTALL_LOCN%\Scripts\activate.bat
   - cmd: conda.exe update --yes --quiet conda
   - cmd: conda.exe install conda-build --yes

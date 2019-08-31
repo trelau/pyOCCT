@@ -26,7 +26,7 @@ project(pyOCCT VERSION 7.3.0.0 LANGUAGES CXX)
 option(ENABLE_SMESH "Enable SMESH" OFF)
 option(ENABLE_NETGEN "Enable Netgen" OFF)
 option(ENABLE_WARNINGS "Disable warning output." OFF)
-option(ENABLE_FORCE "Force build even if unresolved externals are found" ON)
+option(ENABLE_FORCE "Force build even if unresolved externals are found" OFF)
 
 # --------------------------------------------------------------------------- #
 # SETTINGS
@@ -60,11 +60,23 @@ if(ENABLE_FORCE AND MSVC)
 endif()
 
 # --------------------------------------------------------------------------- #
+# TBB (for BVH header)
+# --------------------------------------------------------------------------- #
+if(NOT DEFINED TBB_INCLUDE_DIR)
+    message(FATAL_ERROR "TBB_INCLUDE_DIR is required.")
+endif()
+
+if (NOT EXISTS ${TBB_INCLUDE_DIR})
+    message(FATAL_ERROR "TBB include directory does not exist.")
+endif()
+
+include_directories(${TBB_INCLUDE_DIR})
+
+# --------------------------------------------------------------------------- #
 # OpenCASCADE
 # --------------------------------------------------------------------------- #
 # Include cmake list of modules
 # include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/OCCT_Mods.cmake)
-
 if(NOT DEFINED OpenCASCADE_INCLUDE_DIR OR NOT DEFINED OpenCASCADE_LIBRARY_DIR)
     message(STATUS "Searching for OpenCASCADE...")
     find_package(OpenCASCADE 7.3.0 REQUIRED)
@@ -82,9 +94,6 @@ message(STATUS "OpenCASCADE include directory: ${OpenCASCADE_INCLUDE_DIR}")
 message(STATUS "OpenCASCADE library directory: ${OpenCASCADE_LIBRARY_DIR}")
 include_directories(${OpenCASCADE_INCLUDE_DIR})
 link_directories(${OpenCASCADE_LIBRARY_DIR})
-
-# Remove HAVE_TBB definition
-remove_definitions(-DHAVE_TBB)
 
 # --------------------------------------------------------------------------- #
 # SMESH
