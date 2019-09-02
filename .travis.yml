@@ -15,9 +15,6 @@ addons:
 
 matrix:
   include:
-    - env: PYTHON="3.5" CONDA_PY=35 ARCH="x86_64"
-      os: linux
-      dist: trusty
     - env: PYTHON="3.6" CONDA_PY=36 ARCH="x86_64"
       os: linux
       dist: trusty
@@ -32,7 +29,7 @@ before_install:
   - conda install conda-build
   - conda install anaconda-client
   - conda config --add channels conda-forge
-  - conda config --add channels trelau
+  - git clone https://github.com/pybind/pybind11.git pybind11
 
 script:
   - conda build ci/conda
