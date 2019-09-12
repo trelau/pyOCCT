@@ -50,6 +50,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Geom_Surface.hxx>
 #include <BRepAlgoAPI_Section.hxx>
 #include <BRepAlgoAPI_Splitter.hxx>
+#include <Message_Alert.hxx>
+#include <Message_ProgressIndicator.hxx>
+#include <Message_Report.hxx>
 
 PYBIND11_MODULE(BRepAlgoAPI, mod) {
 
@@ -62,6 +65,7 @@ py::module::import("OCCT.TopTools");
 py::module::import("OCCT.BRepTools");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.Geom");
+py::module::import("OCCT.Message");
 
 // CLASS: BREPALGOAPI_ALGO
 py::class_<BRepAlgoAPI_Algo, std::unique_ptr<BRepAlgoAPI_Algo, py::nodelete>, BRepBuilderAPI_MakeShape> cls_BRepAlgoAPI_Algo(mod, "BRepAlgoAPI_Algo", "Provides the root interface for the API algorithms", py::multiple_inheritance());
@@ -74,6 +78,34 @@ py::class_<BRepAlgoAPI_Algo, std::unique_ptr<BRepAlgoAPI_Algo, py::nodelete>, BR
 // cls_BRepAlgoAPI_Algo.def_static("operator new_", (void * (*)(size_t, void *)) &BRepAlgoAPI_Algo::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_BRepAlgoAPI_Algo.def_static("operator delete_", (void (*)(void *, void *)) &BRepAlgoAPI_Algo::operator delete, "None", py::arg(""), py::arg(""));
 cls_BRepAlgoAPI_Algo.def("Shape", (const TopoDS_Shape & (BRepAlgoAPI_Algo::*)()) &BRepAlgoAPI_Algo::Shape, "None");
+
+/*
+// FIXME Access protected members of this class that are made available with "using" in BRepAlgoAPI_Algo class definition. Need to write as lambdas.
+// CLASS: BOPALGO_OPTIONS
+// Following method not accessible since protected in parent class, BOPAlgo_Options, and not exposed with using
+//cls_BRepAlgoAPI_Algo.def("Allocator", (const opencascade::handle<NCollection_BaseAllocator> & (BRepAlgoAPI_Algo::*)() const) &BRepAlgoAPI_Algo::Allocator, "Returns allocator");
+cls_BRepAlgoAPI_Algo.def("Clear", (void (BRepAlgoAPI_Algo::*)()) &BRepAlgoAPI_Algo::Clear, "Clears all warnings and errors, and any data cached by the algorithm. User defined options are not cleared.");
+// Following method not accessible since protected in parent class, BOPAlgo_Options, and not exposed with using
+//cls_BRepAlgoAPI_Algo.def("AddError", (void (BRepAlgoAPI_Algo::*)(const opencascade::handle<Message_Alert> &)) &BRepAlgoAPI_Algo::AddError, "Adds the alert as error (fail)", py::arg("theAlert"));
+// Following method not accessible since protected in parent class, BOPAlgo_Options, and not exposed with using
+//cls_BRepAlgoAPI_Algo.def("AddWarning", (void (BRepAlgoAPI_Algo::*)(const opencascade::handle<Message_Alert> &)) &BRepAlgoAPI_Algo::AddWarning, "Adds the alert as warning", py::arg("theAlert"));
+cls_BRepAlgoAPI_Algo.def("HasErrors", (Standard_Boolean (BRepAlgoAPI_Algo::*)() const) &BRepAlgoAPI_Algo::HasErrors, "Returns true if algorithm has failed");
+cls_BRepAlgoAPI_Algo.def("HasError", (Standard_Boolean (BRepAlgoAPI_Algo::*)(const opencascade::handle<Standard_Type> &) const) &BRepAlgoAPI_Algo::HasError, "Returns true if algorithm has generated error of specified type", py::arg("theType"));
+cls_BRepAlgoAPI_Algo.def("HasWarnings", (Standard_Boolean (BRepAlgoAPI_Algo::*)() const) &BRepAlgoAPI_Algo::HasWarnings, "Returns true if algorithm has generated some warning alerts");
+cls_BRepAlgoAPI_Algo.def("HasWarning", (Standard_Boolean (BRepAlgoAPI_Algo::*)(const opencascade::handle<Standard_Type> &) const) &BRepAlgoAPI_Algo::HasWarning, "Returns true if algorithm has generated warning of specified type", py::arg("theType"));
+cls_BRepAlgoAPI_Algo.def("GetReport", (const opencascade::handle<Message_Report> & (BRepAlgoAPI_Algo::*)() const) &BRepAlgoAPI_Algo::GetReport, "Returns report collecting all errors and warnings");
+cls_BRepAlgoAPI_Algo.def("DumpErrors", (void (BRepAlgoAPI_Algo::*)(Standard_OStream &) const) &BRepAlgoAPI_Algo::DumpErrors, "Dumps the error status into the given stream", py::arg("theOS"));
+cls_BRepAlgoAPI_Algo.def("DumpWarnings", (void (BRepAlgoAPI_Algo::*)(Standard_OStream &) const) &BRepAlgoAPI_Algo::DumpWarnings, "Dumps the warning statuses into the given stream", py::arg("theOS"));
+cls_BRepAlgoAPI_Algo.def("ClearWarnings", (void (BRepAlgoAPI_Algo::*)()) &BRepAlgoAPI_Algo::ClearWarnings, "Clears the warnings of the algorithm");
+cls_BRepAlgoAPI_Algo.def("SetFuzzyValue", (void (BRepAlgoAPI_Algo::*)(const Standard_Real)) &BRepAlgoAPI_Algo::SetFuzzyValue, "Sets the additional tolerance", py::arg("theFuzz"));
+cls_BRepAlgoAPI_Algo.def("FuzzyValue", (Standard_Real (BRepAlgoAPI_Algo::*)() const) &BRepAlgoAPI_Algo::FuzzyValue, "Returns the additional tolerance");
+cls_BRepAlgoAPI_Algo.def("SetProgressIndicator", (void (BRepAlgoAPI_Algo::*)(const opencascade::handle<Message_ProgressIndicator> &)) &BRepAlgoAPI_Algo::SetProgressIndicator, "Set the Progress Indicator object.", py::arg("theObj"));
+cls_BRepAlgoAPI_Algo.def("SetRunParallel", (void (BRepAlgoAPI_Algo::*)(const Standard_Boolean)) &BRepAlgoAPI_Algo::SetRunParallel, "Set the flag of parallel processing if <theFlag> is true the parallel processing is switched on if <theFlag> is false the parallel processing is switched off", py::arg("theFlag"));
+cls_BRepAlgoAPI_Algo.def("RunParallel", (Standard_Boolean (BRepAlgoAPI_Algo::*)() const) &BRepAlgoAPI_Algo::RunParallel, "Returns the flag of parallel processing");
+cls_BRepAlgoAPI_Algo.def("SetUseOBB", (void (BRepAlgoAPI_Algo::*)(const Standard_Boolean)) &BRepAlgoAPI_Algo::SetUseOBB, "Enables/Disables the usage of OBB", py::arg("theUseOBB"));
+// Following method not accessible since protected in parent class, BOPAlgo_Options, and not exposed with using
+//cls_BRepAlgoAPI_Algo.def("UseOBB", (Standard_Boolean (BRepAlgoAPI_Algo::*)() const) &BRepAlgoAPI_Algo::UseOBB, "Returns the flag defining usage of OBB");
+*/
 
 // CLASS: BREPALGOAPI_BUILDERALGO
 py::class_<BRepAlgoAPI_BuilderAlgo, BRepAlgoAPI_Algo> cls_BRepAlgoAPI_BuilderAlgo(mod, "BRepAlgoAPI_BuilderAlgo", "The class contains API level of the General Fuse algorithm.");
