@@ -92,6 +92,36 @@ Installation files can be cleaned up by:
 
     conda clean -a
 
+# Build From Source
+
+## Windows
+Per the Conda build documentation, Microsoft Visual Studio 2015, is a preferred 
+compiler. Create a C++ project within Visual Studio to make sure the C++ tools 
+have been installed. CMake is also required and the cmake executable should be 
+in the PATH environment variable. To set up the VS compiler environment within 
+an Anaconda shell, run:
+
+    vsdevcmd.bat
+ 
+Create an Anaconda Python environment within an Anaconda command prompt:
+
+    conda create -n occt-dev python=3.7
+
+This will create an environment named "occt" with Python 3.5. Make sure this
+environment is active when using pyOCCT. For Anaconda Python, activating this
+environment may look like:
+
+    activate occt-dev
+
+From the pyOCCT directory:
+
+    conda build -c conda-forge ci/conda
+
+The build process will create an Anaconda artifact which will be located int the
+{conda_dir}/conda-bld/win-64 directory.
+    
+
+
 # Help Wanted
 For now, contributions to the source code will be incorporated manually. There
 is a (mostly) automated tool for generating the source but it is not yet
