@@ -19,6 +19,7 @@ requirements:
     - ninja
     - occt ==7.3.0
     - tbb-devel
+    - pybind11
 
   run:
     - python
