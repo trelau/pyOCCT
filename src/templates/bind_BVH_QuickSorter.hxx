@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __BVH_QuickSorter__
-#define __BVH_QuickSorter__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <BVH_Sorter.hxx>
 #include <BVH_QuickSorter.hxx>
 #include <Standard_TypeDef.hxx>
@@ -41,5 +41,3 @@ cls_BVH_QuickSorter.def("Perform", (void (BVH_QuickSorter<T, N>::*)(BVH_Set<T, N
 cls_BVH_QuickSorter.def("Perform", (void (BVH_QuickSorter<T, N>::*)(BVH_Set<T, N> *, const Standard_Integer, const Standard_Integer)) &BVH_QuickSorter<T, N>::Perform, "Sorts the given (inclusive) range in the set.", py::arg("theSet"), py::arg("theStart"), py::arg("theFinal"));
 
 }
-
-#endif

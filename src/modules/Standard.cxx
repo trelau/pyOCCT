@@ -678,13 +678,13 @@ cls_Standard_Persistent.def("DynamicType", (const opencascade::handle<Standard_T
 cls_Standard_Persistent.def("TypeNum", (Standard_Integer & (Standard_Persistent::*)()) &Standard_Persistent::TypeNum, "None");
 
 // TYPEDEF: STANDARD_UUID
-py::class_<_GUID> cls__Standard_UUID(mod, "Standard_UUID", "None");
+py::class_<Standard_UUID> cls_Standard_UUID(mod, "Standard_UUID", "None");
 
 // Fields
-cls__Standard_UUID.def_readwrite("Data1", &_GUID::Data1, "None");
-cls__Standard_UUID.def_readwrite("Data2", &_GUID::Data2, "None");
-cls__Standard_UUID.def_readwrite("Data3", &_GUID::Data3, "None");
-// cls__Standard_UUID.def_readwrite("Data4", &_GUID::Data4, "None");
+cls_Standard_UUID.def_readwrite("Data1", &Standard_UUID::Data1, "None");
+cls_Standard_UUID.def_readwrite("Data2", &Standard_UUID::Data2, "None");
+cls_Standard_UUID.def_readwrite("Data3", &Standard_UUID::Data3, "None");
+// cls_Standard_UUID.def_readwrite("Data4", &Standard_UUID::Data4, "None");
 
 // CLASS: STANDARD_GUID
 py::class_<Standard_GUID> cls_Standard_GUID(mod, "Standard_GUID", "None");

@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __NCollection_UtfIterator__
-#define __NCollection_UtfIterator__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <NCollection_UtfIterator.hxx>
 #include <Standard_TypeDef.hxx>
 
@@ -54,5 +54,3 @@ cls_NCollection_UtfIterator.def("GetUtf16", (Standard_Utf16Char * (NCollection_U
 cls_NCollection_UtfIterator.def("GetUtf32", (Standard_Utf32Char * (NCollection_UtfIterator<Type>::*)(Standard_Utf32Char *) const) &NCollection_UtfIterator<Type>::GetUtf32, "Fill the UTF-32 buffer within current Unicode symbol. Use method AdvanceUtf32() to allocate buffer with enough size.", py::arg("theBuffer"));
 
 }
-
-#endif

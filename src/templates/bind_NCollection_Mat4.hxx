@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __NCollection_Mat4__
-#define __NCollection_Mat4__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <NCollection_Mat4.hxx>
 #include <NCollection_Vec4.hxx>
 #include <NCollection_Vec3.hxx>
@@ -76,5 +76,3 @@ cls_NCollection_Mat4.def_static("Map_", (NCollection_Mat4<Element_t> & (*)(Eleme
 cls_NCollection_Mat4.def_static("Map_", (const NCollection_Mat4<Element_t> & (*)(const Element_t *)) &NCollection_Mat4<Element_t>::Map, "Maps plain C array to matrix type.", py::arg("theData"));
 
 }
-
-#endif

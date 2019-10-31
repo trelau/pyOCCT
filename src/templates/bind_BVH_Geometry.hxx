@@ -19,8 +19,7 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __BVH_Geometry__
-#define __BVH_Geometry__
+#pragma once
 
 #include <bind_BVH_ObjectSet.hxx>
 #include <BVH_ObjectSet.hxx>
@@ -51,5 +50,3 @@ cls_BVH_Geometry.def("Builder", (const opencascade::handle<BVH_Builder<T, N> > &
 cls_BVH_Geometry.def("SetBuilder", (void (BVH_Geometry<T, N>::*)(const opencascade::handle<BVH_Builder<T, N> > &)) &BVH_Geometry<T, N>::SetBuilder, "Sets the method (builder) used to construct BVH.", py::arg("theBuilder"));
 
 }
-
-#endif

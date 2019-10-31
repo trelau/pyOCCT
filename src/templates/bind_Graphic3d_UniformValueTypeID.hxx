@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __Graphic3d_UniformValueTypeID__
-#define __Graphic3d_UniformValueTypeID__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <Graphic3d_ShaderVariable.hxx>
 
 template <typename T>
@@ -30,5 +30,3 @@ void bind_Graphic3d_UniformValueTypeID(py::module &mod, std::string const &name,
 py::class_<Graphic3d_UniformValueTypeID<T>> cls_Graphic3d_UniformValueTypeID(mod, name.c_str(), "Generates unique type identifier for variable value.", local);
 
 }
-
-#endif

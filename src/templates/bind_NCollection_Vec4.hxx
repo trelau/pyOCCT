@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __NCollection_Vec4__
-#define __NCollection_Vec4__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <NCollection_Vec4.hxx>
 #include <NCollection_Vec2.hxx>
 #include <NCollection_Vec3.hxx>
@@ -130,5 +130,3 @@ cls_NCollection_Vec4.def("__itruediv__", (NCollection_Vec4<Element_t> & (NCollec
 cls_NCollection_Vec4.def("__truediv__", (NCollection_Vec4<Element_t> (NCollection_Vec4<Element_t>::*)(const Element_t)) &NCollection_Vec4<Element_t>::operator/, py::is_operator(), "Compute per-component division by scale factor.", py::arg("theInvFactor"));
 
 }
-
-#endif

@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __NCollection_Array2__
-#define __NCollection_Array2__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <NCollection_Array2.hxx>
 #include <Standard_TypeDef.hxx>
 
@@ -55,5 +55,3 @@ cls_NCollection_Array2.def("__call__", (TheItemType & (NCollection_Array2<TheIte
 cls_NCollection_Array2.def("SetValue", (void (NCollection_Array2<TheItemType>::*)(const Standard_Integer, const Standard_Integer, const TheItemType &)) &NCollection_Array2<TheItemType>::SetValue, "SetValue", py::arg("theRow"), py::arg("theCol"), py::arg("theItem"));
 
 }
-
-#endif

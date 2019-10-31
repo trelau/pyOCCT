@@ -1,36 +1,39 @@
 /*
 This file is part of pyOCCT which provides Python bindings to the OpenCASCADE
 geometry kernel.
-
-Copyright (C) 2016-2018  Laughlin Research, LLC
-Copyright (C) 2019 Trevor Laughlin and the pyOCCT contributors
-
+Copyright (C) 2018 Keith Preston
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
 version 2.1 of the License, or (at your option) any later version.
-
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 Lesser General Public License for more details.
-
 You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
 
-#include <pyOCCT_Common.hxx>
-#include <Standard_TypeDef.hxx>
-#include <BOPTools_Parallel.hxx>
+/*
+Dummy definitions of _xcolor and __GLXFBConfigRec
+The OCCT include files for Linux use these two X Windows related structs. Since pyOCCT doesn't need their internal details, it seems unnecessary to drag in X library files, which may not be present in all systems anyway.
+*/
 
-template <typename TypeFunctor, typename TypeSolverVector>
-void bind_BOPTools_Cnt(py::module &mod, std::string const &name, py::module_local const &local){
+#ifndef __xTypes_h__
+#define __xTypes_h__
 
-py::class_<BOPTools_Cnt<TypeFunctor, TypeSolverVector>> cls_BOPTools_Cnt(mod, name.c_str(), "None", local);
+struct _xcolor {
+    unsigned long  pixel;
+    unsigned short red;
+    unsigned short green;
+    unsigned short blue;
+    char           flags;
+    char           pad;
+};
 
-// Methods
-cls_BOPTools_Cnt.def_static("Perform_", (void (*)(const Standard_Boolean, TypeSolverVector &)) &BOPTools_Cnt<TypeFunctor, TypeSolverVector>::Perform, "None", py::arg("isRunParallel"), py::arg("theSolverVector"));
+struct __GLXFBConfigRec {
 
-}
+};
+
+#endif /* !__xTypes_h */

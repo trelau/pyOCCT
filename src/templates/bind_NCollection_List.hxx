@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __NCollection_List__
-#define __NCollection_List__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <NCollection_BaseList.hxx>
 #include <NCollection_List.hxx>
 #include <NCollection_TListNode.hxx>
@@ -71,5 +71,3 @@ cls_NCollection_List.def("Reverse", (void (NCollection_List<TheItemType>::*)()) 
 cls_NCollection_List.def("__iter__", [](const NCollection_List<TheItemType> &self) { return py::make_iterator(self.begin(), self.end()); }, py::keep_alive<0, 1>());
 
 }
-
-#endif

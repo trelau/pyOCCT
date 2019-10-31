@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __NCollection_Comparator__
-#define __NCollection_Comparator__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <Standard_TypeDef.hxx>
 #include <Precision.hxx>
 #include <NCollection_Comparator.hxx>
@@ -43,5 +43,3 @@ cls_NCollection_Comparator.def("IsLowerEqual", (Standard_Boolean (NCollection_Co
 cls_NCollection_Comparator.def("IsGreaterEqual", (Standard_Boolean (NCollection_Comparator<TheItemType>::*)(const TheItemType &, const TheItemType &) const) &NCollection_Comparator<TheItemType>::IsGreaterEqual, "None", py::arg("theLeft"), py::arg("theRight"));
 
 }
-
-#endif

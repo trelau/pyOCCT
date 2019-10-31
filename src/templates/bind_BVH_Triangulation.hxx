@@ -19,8 +19,7 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __BVH_Triangulation__
-#define __BVH_Triangulation__
+#pragma once
 
 #include <bind_BVH_PrimitiveSet.hxx>
 #include <BVH_PrimitiveSet.hxx>
@@ -53,5 +52,3 @@ cls_BVH_Triangulation.def("Center", (T (BVH_Triangulation<T, N>::*)(const Standa
 cls_BVH_Triangulation.def("Swap", (void (BVH_Triangulation<T, N>::*)(const Standard_Integer, const Standard_Integer)) &BVH_Triangulation<T, N>::Swap, "Performs transposing the two given triangles in the set.", py::arg("theIndex1"), py::arg("theIndex2"));
 
 }
-
-#endif

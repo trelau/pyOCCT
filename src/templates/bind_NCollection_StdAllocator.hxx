@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __NCollection_StdAllocator__
-#define __NCollection_StdAllocator__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <NCollection_StdAllocator.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
@@ -47,5 +47,3 @@ cls_NCollection_StdAllocator.def("destroy", (void (NCollection_StdAllocator<T>::
 cls_NCollection_StdAllocator.def("Allocator", (const opencascade::handle<NCollection_BaseAllocator> & (NCollection_StdAllocator<T>::*)() const) &NCollection_StdAllocator<T>::Allocator, "Returns an underlying NCollection_BaseAllocator instance. Returns an object specified in the constructor.");
 
 }
-
-#endif

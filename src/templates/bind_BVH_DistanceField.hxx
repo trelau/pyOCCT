@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __BVH_DistanceField__
-#define __BVH_DistanceField__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <BVH_DistanceField.hxx>
 #include <BVH_Types.hxx>
 #include <Standard_TypeDef.hxx>
@@ -48,5 +48,3 @@ cls_BVH_DistanceField.def("CornerMin", (const typename BVH_DistanceField<T, N>::
 cls_BVH_DistanceField.def("CornerMax", (const typename BVH_DistanceField<T, N>::BVH_VecNt & (BVH_DistanceField<T, N>::*)() const) &BVH_DistanceField<T, N>::CornerMax, "Returns maximum corner of voxel grid.");
 
 }
-
-#endif

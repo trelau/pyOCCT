@@ -19,8 +19,7 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __BVH_ObjectSet__
-#define __BVH_ObjectSet__
+#pragma once
 
 #include <bind_BVH_Set.hxx>
 #include <BVH_Set.hxx>
@@ -51,5 +50,3 @@ cls_BVH_ObjectSet.def("Center", (T (BVH_ObjectSet<T, N>::*)(const Standard_Integ
 cls_BVH_ObjectSet.def("Swap", (void (BVH_ObjectSet<T, N>::*)(const Standard_Integer, const Standard_Integer)) &BVH_ObjectSet<T, N>::Swap, "Performs transposing the two given objects in the set.", py::arg("theIndex1"), py::arg("theIndex2"));
 
 }
-
-#endif

@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __NCollection_LocalArray__
-#define __NCollection_LocalArray__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <Standard_TypeDef.hxx>
 #include <NCollection_LocalArray.hxx>
 
@@ -39,5 +39,3 @@ cls_NCollection_LocalArray.def("Allocate", (void (NCollection_LocalArray<theItem
 cls_NCollection_LocalArray.def("Size", (size_t (NCollection_LocalArray<theItem, MAX_ARRAY_SIZE>::*)() const) &NCollection_LocalArray<theItem, MAX_ARRAY_SIZE>::Size, "None");
 
 }
-
-#endif

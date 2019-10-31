@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __BVH_Sorter__
-#define __BVH_Sorter__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <BVH_Set.hxx>
 #include <BVH_Sorter.hxx>
 #include <Standard_TypeDef.hxx>
@@ -36,5 +36,3 @@ cls_BVH_Sorter.def("Perform", (void (BVH_Sorter<T, N>::*)(BVH_Set<T, N> *)) &BVH
 cls_BVH_Sorter.def("Perform", (void (BVH_Sorter<T, N>::*)(BVH_Set<T, N> *, const Standard_Integer, const Standard_Integer)) &BVH_Sorter<T, N>::Perform, "Sorts the given (inclusive) range in the set.", py::arg("theSet"), py::arg("theStart"), py::arg("theFinal"));
 
 }
-
-#endif

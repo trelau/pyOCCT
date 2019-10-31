@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __OpenGl_VertexBufferEditor__
-#define __OpenGl_VertexBufferEditor__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <Standard_TypeDef.hxx>
 #include <OpenGl_VertexBufferEditor.hxx>
 #include <Standard_Handle.hxx>
@@ -47,5 +47,3 @@ cls_OpenGl_VertexBufferEditor.def("Flush", (Standard_Boolean (OpenGl_VertexBuffe
 cls_OpenGl_VertexBufferEditor.def("GetVBO", (const opencascade::handle<OpenGl_VertexBuffer> & (OpenGl_VertexBufferEditor<theVec_t>::*)() const) &OpenGl_VertexBufferEditor<theVec_t>::GetVBO, "Returns assigned VBO");
 
 }
-
-#endif

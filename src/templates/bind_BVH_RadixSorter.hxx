@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __BVH_RadixSorter__
-#define __BVH_RadixSorter__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <BVH_Sorter.hxx>
 #include <BVH_RadixSorter.hxx>
 #include <BVH_Types.hxx>
@@ -45,5 +45,3 @@ cls_BVH_RadixSorter.def("Perform", (void (BVH_RadixSorter<T, N>::*)(BVH_Set<T, N
 cls_BVH_RadixSorter.def("EncodedLinks", (const NCollection_Array1<BVH_EncodedLink> & (BVH_RadixSorter<T, N>::*)() const) &BVH_RadixSorter<T, N>::EncodedLinks, "Returns Morton codes assigned to BVH primitives.");
 
 }
-
-#endif

@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __NCollection_Vec3__
-#define __NCollection_Vec3__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <NCollection_Vec3.hxx>
 #include <NCollection_Vec2.hxx>
 
@@ -99,5 +99,3 @@ cls_NCollection_Vec3.def_static("DY_", (NCollection_Vec3<Element_t> (*)()) &NCol
 cls_NCollection_Vec3.def_static("DZ_", (NCollection_Vec3<Element_t> (*)()) &NCollection_Vec3<Element_t>::DZ, "Constuct DZ unit vector.");
 
 }
-
-#endif

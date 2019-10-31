@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __NCollection_Lerp__
-#define __NCollection_Lerp__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <NCollection_Lerp.hxx>
 
 template <typename T>
@@ -39,5 +39,3 @@ cls_NCollection_Lerp.def("Init", (void (NCollection_Lerp<T>::*)(const T &, const
 cls_NCollection_Lerp.def("Interpolate", (void (NCollection_Lerp<T>::*)(double, T &) const) &NCollection_Lerp<T>::Interpolate, "Compute interpolated value between two values.", py::arg("theT"), py::arg("theResult"));
 
 }
-
-#endif

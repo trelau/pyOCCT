@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __Standard_Static_Assert__
-#define __Standard_Static_Assert__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <Standard_Assert.hxx>
 
 template <bool condition>
@@ -30,5 +30,4 @@ void bind_Standard_Static_Assert(py::module &mod, std::string const &name, py::m
 py::class_<Standard_Static_Assert<condition>> cls_Standard_Static_Assert(mod, name.c_str(), "Static assert -- empty default template", local);
 
 }
-
-#endif
+d

@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __NCollection_DefaultHasher__
-#define __NCollection_DefaultHasher__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <Standard_TypeDef.hxx>
 #include <NCollection_DefaultHasher.hxx>
 
@@ -35,5 +35,3 @@ cls_NCollection_DefaultHasher.def_static("HashCode_", (Standard_Integer (*)(cons
 cls_NCollection_DefaultHasher.def_static("IsEqual_", (Standard_Boolean (*)(const TheKeyType &, const TheKeyType &)) &NCollection_DefaultHasher<TheKeyType>::IsEqual, "None", py::arg("theKey1"), py::arg("theKey2"));
 
 }
-
-#endif

@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __BOPTools_ContextFunctor__
-#define __BOPTools_ContextFunctor__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <Standard_TypeDef.hxx>
 #include <Standard_ThreadId.hxx>
 #include <NCollection_DataMap.hxx>
@@ -42,5 +42,3 @@ cls_BOPTools_ContextFunctor.def("GetThreadContext", (TypeContext & (BOPTools_Con
 cls_BOPTools_ContextFunctor.def("__call__", (void (BOPTools_ContextFunctor<TypeSolver, TypeSolverVector, TypeContext, TN>::*)(const Standard_Integer) const) &BOPTools_ContextFunctor<TypeSolver, TypeSolverVector, TypeContext, TN>::operator(), py::is_operator(), "Defines functor interface", py::arg("theIndex"));
 
 }
-
-#endif

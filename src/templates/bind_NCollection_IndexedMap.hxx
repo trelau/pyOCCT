@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __NCollection_IndexedMap__
-#define __NCollection_IndexedMap__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <NCollection_DefaultHasher.hxx>
 #include <NCollection_IndexedMap.hxx>
 #include <NCollection_BaseMap.hxx>
@@ -66,5 +66,3 @@ cls_NCollection_IndexedMap.def("Clear", (void (NCollection_IndexedMap<TheKeyType
 cls_NCollection_IndexedMap.def("Size", (Standard_Integer (NCollection_IndexedMap<TheKeyType, Hasher>::*)() const) &NCollection_IndexedMap<TheKeyType, Hasher>::Size, "Size");
 
 }
-
-#endif

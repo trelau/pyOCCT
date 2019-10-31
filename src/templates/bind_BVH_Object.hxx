@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __BVH_Object__
-#define __BVH_Object__
+#pragma once
 
+#include <pyOCCT_Common.hxx>
 #include <BVH_Object.hxx>
 #include <BVH_Box.hxx>
 
@@ -37,5 +37,3 @@ py::class_<BVH_Object<T, N>, opencascade::handle<BVH_Object<T, N>>, BVH_ObjectTr
 cls_BVH_Object.def("Box", (BVH_Box<T, N> (BVH_Object<T, N>::*)() const) &BVH_Object<T, N>::Box, "Returns AABB of the geometric object.");
 
 }
-
-#endif
