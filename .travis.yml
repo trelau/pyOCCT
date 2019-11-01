@@ -1,6 +1,6 @@
 # Sets the build environment.
 sudo: required
-dist: xenial
+dist: bionic
 
 language: cpp
 
@@ -14,14 +14,17 @@ addons:
    
 matrix:
   include:
-    - env: PYTHON="3.6" CONDA_PY=36 ARCH="x86_64" CC=gcc-9 CXX=g++-9
+    - env: PYTHON="3.6" CONDA_PY=36 ARCH="x86_64"
       os: linux
-      dist: xenial
-    - env: PYTHON="3.7" CONDA_PY=37 ARCH="x86_64" CC=gcc-9 CXX=g++-9
+      dist: bionic
+    - env: PYTHON="3.7" CONDA_PY=37 ARCH="x86_64"
       os: linux
-      dist: xenial
+      dist: bionic
 
 before_install:
+  # Travis overwrites these
+  - export CC=gcc-9
+  - export CXX=g++-9
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
   - chmod +x miniconda.sh
   - bash miniconda.sh -b -p $HOME/miniconda
