@@ -10,7 +10,6 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-9
-      - libboost1.54-all-dev
       - libxi-dev
    
 matrix:
