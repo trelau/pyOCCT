@@ -928,6 +928,10 @@ cls_OpenGl_GlFunctions.def_readwrite("glIsImageHandleResidentARB", &OpenGl_GlFun
 cls_OpenGl_GlFunctions.def_readwrite("glVertexAttribL1ui64ARB", &OpenGl_GlFunctions::glVertexAttribL1ui64ARB, "None");
 cls_OpenGl_GlFunctions.def_readwrite("glVertexAttribL1ui64vARB", &OpenGl_GlFunctions::glVertexAttribL1ui64vARB, "None");
 cls_OpenGl_GlFunctions.def_readwrite("glGetVertexAttribLui64vARB", &OpenGl_GlFunctions::glGetVertexAttribLui64vARB, "None");
+
+
+#ifdef WIN32
+
 cls_OpenGl_GlFunctions.def_readwrite("wglGetExtensionsStringARB", &OpenGl_GlFunctions::wglGetExtensionsStringARB, "None");
 cls_OpenGl_GlFunctions.def_readwrite("wglSwapIntervalEXT", &OpenGl_GlFunctions::wglSwapIntervalEXT, "None");
 cls_OpenGl_GlFunctions.def_readwrite("wglChoosePixelFormatARB", &OpenGl_GlFunctions::wglChoosePixelFormatARB, "None");
@@ -943,6 +947,8 @@ cls_OpenGl_GlFunctions.def_readwrite("wglDXUnlockObjectsNV", &OpenGl_GlFunctions
 cls_OpenGl_GlFunctions.def_readwrite("wglGetGPUIDsAMD", &OpenGl_GlFunctions::wglGetGPUIDsAMD, "None");
 cls_OpenGl_GlFunctions.def_readwrite("wglGetGPUInfoAMD", &OpenGl_GlFunctions::wglGetGPUInfoAMD, "None");
 cls_OpenGl_GlFunctions.def_readwrite("wglGetContextGPUIDAMD", &OpenGl_GlFunctions::wglGetContextGPUIDAMD, "None");
+
+# endif // WIN32
 
 // CLASS: OPENGL_ARBDBG
 py::class_<OpenGl_ArbDbg> cls_OpenGl_ArbDbg(mod, "OpenGl_ArbDbg", "Debug context routines");

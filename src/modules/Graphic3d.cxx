@@ -1899,7 +1899,8 @@ cls_Graphic3d_GraduatedTrihedron.def(py::init<const TCollection_AsciiString &, c
 cls_Graphic3d_GraduatedTrihedron.def(py::init<const TCollection_AsciiString &, const Font_FontAspect &, const Standard_Integer, const TCollection_AsciiString &, const Font_FontAspect &, const Standard_Integer, const Standard_ShortReal, const Quantity_Color, const Standard_Boolean, const Standard_Boolean>(), py::arg("theNamesFont"), py::arg("theNamesStyle"), py::arg("theNamesSize"), py::arg("theValuesFont"), py::arg("theValuesStyle"), py::arg("theValuesSize"), py::arg("theArrowsLength"), py::arg("theGridColor"), py::arg("theToDrawGrid"), py::arg("theToDrawAxes"));
 
 // Fields
-// FIXME: cls_Graphic3d_GraduatedTrihedron.def_writeonly("CubicAxesCallback", &Graphic3d_GraduatedTrihedron::CubicAxesCallback, "Callback function to define boundary box of displayed objects");
+// FIXME: Only works with -fpermissive
+cls_Graphic3d_GraduatedTrihedron.def_readwrite("CubicAxesCallback", &Graphic3d_GraduatedTrihedron::CubicAxesCallback, "Callback function to define boundary box of displayed objects");
 cls_Graphic3d_GraduatedTrihedron.def_readwrite("PtrView", &Graphic3d_GraduatedTrihedron::PtrView, "None");
 
 // Methods

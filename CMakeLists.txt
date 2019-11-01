@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.10)
 project(pyOCCT VERSION 7.3.0.0 LANGUAGES CXX)
 
 
@@ -35,6 +35,14 @@ set(pyOCCT_MAJOR_VERSION 7)
 set(pyOCCT_MINOR_VERSION 3)
 set(pyOCCT_PATCH_VERSION 0)
 set(pyOCCT_TWEAK_VERSION 0)
+
+# --------------------------------------------------------------------------- #
+# MANUAL BUILD
+# --------------------------------------------------------------------------- #
+# set(TBB_INCLUDE_DIR "$ENV{HOME}/miniconda3/include/tbb")
+# set(OpenCASCADE_INCLUDE_DIR "$ENV{HOME}/miniconda3/include/opencascade")
+# set(OpenCASCADE_LIBRARY_DIR "$ENV{HOME}/miniconda3/lib")
+
 
 if(WIN32)
     set(EXTENSION ".pyd")
@@ -57,6 +65,11 @@ endif(NOT ENABLE_WARNINGS)
 if(ENABLE_FORCE AND MSVC)
     message(STATUS "Using /FORCE linker option.")
     set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /FORCE")
+endif()
+
+# Allow pybind to do function pointer casting to void*
+if (NOT MSVC)
+    set(CMAKE_CXX_FLAGS "-fpermissive")
 endif()
 
 # --------------------------------------------------------------------------- #
