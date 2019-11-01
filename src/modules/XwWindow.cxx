@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifndef _WIN32
 
-#include <pyOCCT_Common.hpp>
-
+#include <pyOCCT_Common.hxx>
 #include <xTypes.h>
 
 #include <Aspect_DisplayConnection.hxx>
