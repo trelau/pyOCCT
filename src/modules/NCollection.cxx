@@ -80,7 +80,7 @@ cls_NCollection_BaseAllocator.def_static("get_type_descriptor_", (const opencasc
 cls_NCollection_BaseAllocator.def("DynamicType", (const opencascade::handle<Standard_Type> & (NCollection_BaseAllocator::*)() const) &NCollection_BaseAllocator::DynamicType, "None");
 
 // CLASS: NCOLLECTION_SEQNODE
-py::class_<NCollection_SeqNode> cls_NCollection_SeqNode(mod, "NCollection_SeqNode", "None");
+py::class_<NCollection_SeqNode, std::unique_ptr<NCollection_SeqNode, py::nodelete>> cls_NCollection_SeqNode(mod, "NCollection_SeqNode", "None");
 
 // Constructors
 // cls_NCollection_SeqNode.def(py::init<>());
@@ -133,7 +133,8 @@ cls_NCollection_Buffer.def_static("get_type_descriptor_", (const opencascade::ha
 cls_NCollection_Buffer.def("DynamicType", (const opencascade::handle<Standard_Type> & (NCollection_Buffer::*)() const) &NCollection_Buffer::DynamicType, "None");
 
 // CLASS: NCOLLECTION_LISTNODE
-py::class_<NCollection_ListNode> cls_NCollection_ListNode(mod, "NCollection_ListNode", "Purpose: This class is used to represent a node in the BaseList and BaseMap.");
+// NOTE: No delete is used because it must be done using the allocator
+py::class_<NCollection_ListNode, std::unique_ptr<NCollection_ListNode, py::nodelete>> cls_NCollection_ListNode(mod, "NCollection_ListNode", "Purpose: This class is used to represent a node in the BaseList and BaseMap.");
 
 // Constructors
 // cls_NCollection_ListNode.def(py::init<NCollection_ListNode *>(), py::arg("theNext"));

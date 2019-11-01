@@ -250,7 +250,7 @@ cls_Poly_CoherentLink.def("IsEmpty", (Standard_Boolean (Poly_CoherentLink::*)() 
 cls_Poly_CoherentLink.def("Nullify", (void (Poly_CoherentLink::*)()) &Poly_CoherentLink::Nullify, "Invalidate this Link.");
 
 // CLASS: POLY_COHERENTTRIPTR
-py::class_<Poly_CoherentTriPtr> cls_Poly_CoherentTriPtr(mod, "Poly_CoherentTriPtr", "Implementation of both list node for Poly_CoherentTriangle type and round double-linked list of these nodes.");
+py::class_<Poly_CoherentTriPtr, std::unique_ptr<Poly_CoherentTriPtr, py::nodelete>> cls_Poly_CoherentTriPtr(mod, "Poly_CoherentTriPtr", "Implementation of both list node for Poly_CoherentTriangle type and round double-linked list of these nodes.");
 
 // Constructors
 // cls_Poly_CoherentTriPtr.def(py::init<const Poly_CoherentTriangle &>(), py::arg("theTri"));
