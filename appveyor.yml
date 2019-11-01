@@ -1,6 +1,8 @@
 version: 7.3.0.0.{build}
 
-image: Visual Studio 2015
+image:
+    - Visual Studio 2015
+    - Ubuntu
 
 environment:
   matrix:
@@ -22,12 +24,34 @@ install:
   - cmd: conda.exe config --add channels conda-forge
   - cmd: git clone https://github.com/pybind/pybind11.git pybind11
 
+
+  - sh: sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sh: sudo apt-get -q update
+  - sh: sudo apt-get -y install g++-9 libxi-dev libgl1-mesa-dev
+  - sh: sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 90 --slave /usr/bin/g++ g++ /usr/bin/g++-9 --slave /usr/bin/gcov gcov /usr/bin/gcov-9
+
+  - sh: wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+  - sh: chmod +x miniconda.sh
+  - sh: bash miniconda.sh -b -p $HOME/miniconda
+  - sh: export PATH="$HOME/miniconda/bin:$HOME/miniconda/lib:$PATH"
+  - sh: conda config --set always_yes yes --set changeps1 no
+  - sh: conda update -q conda
+  - sh: conda install conda-build
+  - sh: conda install anaconda-client
+  - sh: conda config --add channels conda-forge
+  - sh: git clone https://github.com/pybind/pybind11.git pybind11
+
+
 build: off
 
 test_script:
   - cmd: conda.exe build ci\conda
   - cmd: mkdir dist
   - cmd: copy %CONDA_INSTALL_LOCN%\conda-bld\win-%ARCH%\pyocct*.bz2 dist
+
+  - sh: conda build ci/conda
+  - sh: mkdir dist
+  - sh: cp $HOME/miniconda/conda-bld/linux-64/pyocct*.bz2 dist
 
 artifacts:
 - path: dist\*
