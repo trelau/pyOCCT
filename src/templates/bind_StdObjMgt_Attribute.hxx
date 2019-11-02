@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __StdObjMgt_Attribute__
+#define __StdObjMgt_Attribute__
 
-#include <pyOCCT_Common.hxx>
 #include <Standard_Transient.hxx>
 #include <StdObjMgt_Persistent.hxx>
 #include <Standard_Handle.hxx>
@@ -37,3 +37,5 @@ void bind_StdObjMgt_Attribute(py::module &mod, std::string const &name, py::modu
 py::class_<StdObjMgt_Attribute<Transient>, opencascade::handle<StdObjMgt_Attribute<Transient>>, Standard_Transient> cls_StdObjMgt_Attribute(mod, name.c_str(), "Root class for a temporary persistent object corresponding to an attribute.", local);
 
 }
+
+#endif

@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __Prs3d_Point__
+#define __Prs3d_Point__
 
-#include <pyOCCT_Common.hxx>
 #include <Prs3d_Root.hxx>
 #include <Prs3d_Point.hxx>
 #include <Standard_Handle.hxx>
@@ -46,3 +46,5 @@ cls_Prs3d_Point.def_static("Add_", (void (*)(const opencascade::handle<Prs3d_Pre
 cls_Prs3d_Point.def_static("Match_", (Standard_Boolean (*)(const AnyPoint &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real)) &Prs3d_Point<AnyPoint, PointTool>::Match, "None", py::arg("thePoint"), py::arg("theX"), py::arg("theY"), py::arg("theZ"), py::arg("theDistance"));
 
 }
+
+#endif

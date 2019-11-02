@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __SelectMgr_Frustum__
+#define __SelectMgr_Frustum__
 
-#include <pyOCCT_Common.hxx>
 #include <SelectMgr_BaseFrustum.hxx>
 #include <Standard_TypeDef.hxx>
 #include <SelectMgr_VectorTypes.hxx>
@@ -40,3 +40,5 @@ py::class_<SelectMgr_Frustum<N>, opencascade::handle<SelectMgr_Frustum<N>>, Sele
 cls_SelectMgr_Frustum.def(py::init<>());
 
 }
+
+#endif
