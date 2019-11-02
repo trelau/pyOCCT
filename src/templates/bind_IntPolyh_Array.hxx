@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __IntPolyh_Array__
+#define __IntPolyh_Array__
 
-#include <pyOCCT_Common.hxx>
 #include <NCollection_Vector.hxx>
 #include <IntPolyh_Array.hxx>
 #include <Standard_TypeDef.hxx>
@@ -52,3 +52,5 @@ cls_IntPolyh_Array.def("__getitem__", (Type & (IntPolyh_Array<Type>::*)(const St
 // cls_IntPolyh_Array.def("Dump", (void (IntPolyh_Array<Type>::*)() const) &IntPolyh_Array<Type>::Dump, "dump the contents");
 
 }
+
+#endif

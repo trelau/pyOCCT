@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __BOPTools_Cnt__
+#define __BOPTools_Cnt__
 
-#include <pyOCCT_Common.hxx>
 #include <Standard_TypeDef.hxx>
 #include <BOPTools_Parallel.hxx>
 
@@ -34,3 +34,5 @@ py::class_<BOPTools_Cnt<TypeFunctor, TypeSolverVector>> cls_BOPTools_Cnt(mod, na
 cls_BOPTools_Cnt.def_static("Perform_", (void (*)(const Standard_Boolean, TypeSolverVector &)) &BOPTools_Cnt<TypeFunctor, TypeSolverVector>::Perform, "None", py::arg("isRunParallel"), py::arg("theSolverVector"));
 
 }
+
+#endif

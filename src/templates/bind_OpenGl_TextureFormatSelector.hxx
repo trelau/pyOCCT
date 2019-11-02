@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __OpenGl_TextureFormatSelector__
+#define __OpenGl_TextureFormatSelector__
 
-#include <pyOCCT_Common.hxx>
 #include <OpenGl_Texture.hxx>
 
 template <typename T>
@@ -30,3 +30,5 @@ void bind_OpenGl_TextureFormatSelector(py::module &mod, std::string const &name,
 py::class_<OpenGl_TextureFormatSelector<T>> cls_OpenGl_TextureFormatSelector(mod, name.c_str(), "Selects preferable texture format for specified parameters.", local);
 
 }
+
+#endif

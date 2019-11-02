@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __BVH_SpatialMedianBuilder__
+#define __BVH_SpatialMedianBuilder__
 
-#include <pyOCCT_Common.hxx>
 #include <BVH_BinnedBuilder.hxx>
 #include <BVH_SpatialMedianBuilder.hxx>
 #include <Standard_TypeDef.hxx>
@@ -38,3 +38,5 @@ cls_BVH_SpatialMedianBuilder.def(py::init<const Standard_Integer, const Standard
 cls_BVH_SpatialMedianBuilder.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean>(), py::arg("theLeafNodeSize"), py::arg("theMaxTreeDepth"), py::arg("theToUseMainAxis"));
 
 }
+
+#endif

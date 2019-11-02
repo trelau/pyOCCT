@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __OpenGl_TmplCore15__
+#define __OpenGl_TmplCore15__
 
-#include <pyOCCT_Common.hxx>
 #include <OpenGl_GlCore15.hxx>
 
 template <typename theBaseClass_t>
@@ -30,3 +30,5 @@ void bind_OpenGl_TmplCore15(py::module &mod, std::string const &name, py::module
 py::class_<OpenGl_TmplCore15<theBaseClass_t>, theBaseClass_t> cls_OpenGl_TmplCore15(mod, name.c_str(), "OpenGL 1.5 core based on 1.4 version.", local);
 
 }
+
+#endif

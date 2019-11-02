@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __NCollection_DoubleMap__
+#define __NCollection_DoubleMap__
 
-#include <pyOCCT_Common.hxx>
 #include <NCollection_DefaultHasher.hxx>
 #include <NCollection_DoubleMap.hxx>
 #include <NCollection_BaseMap.hxx>
@@ -61,3 +61,5 @@ cls_NCollection_DoubleMap.def("Clear", (void (NCollection_DoubleMap<TheKey1Type,
 cls_NCollection_DoubleMap.def("Size", (Standard_Integer (NCollection_DoubleMap<TheKey1Type, TheKey2Type, Hasher1, Hasher2>::*)() const) &NCollection_DoubleMap<TheKey1Type, TheKey2Type, Hasher1, Hasher2>::Size, "Size");
 
 }
+
+#endif

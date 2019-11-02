@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __NCollection_UtfString__
+#define __NCollection_UtfString__
 
-#include <pyOCCT_Common.hxx>
 #include <NCollection_UtfIterator.hxx>
 #include <NCollection_UtfString.hxx>
 #include <Standard_TypeDef.hxx>
@@ -74,3 +74,5 @@ cls_NCollection_UtfString.def("__eq__", (bool (NCollection_UtfString<Type>::*)(c
 cls_NCollection_UtfString.def("__ne__", (bool (NCollection_UtfString<Type>::*)(const NCollection_UtfString<Type> &) const) &NCollection_UtfString<Type>::operator!=, py::is_operator(), "None", py::arg("theCompare"));
 
 }
+
+#endif

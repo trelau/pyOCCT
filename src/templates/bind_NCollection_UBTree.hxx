@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __NCollection_UBTree__
+#define __NCollection_UBTree__
 
-#include <pyOCCT_Common.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <Standard_TypeDef.hxx>
@@ -54,12 +54,13 @@ cls_NCollection_UBTree.def("Root", (const typename NCollection_UBTree<TheObjType
 cls_NCollection_UBTree.def("Allocator", (const opencascade::handle<NCollection_BaseAllocator> & (NCollection_UBTree<TheObjType, TheBndType>::*)() const) &NCollection_UBTree<TheObjType, TheBndType>::Allocator, "Recommended to be used only in sub-classes.");
 
 // Nested classes
-using NCollection_UBTree_Selector = typename NCollection_UBTree<TheObjType, TheBndType>::Selector;
-py::class_<NCollection_UBTree_Selector> cls_NCollection_UBTree_Selector(cls_NCollection_UBTree, "Selector", "Class defining the minimal interface of selector.", local);
+py::class_<typename NCollection_UBTree<TheObjType, TheBndType>::Selector> cls_NCollection_UBTree_Selector(cls_NCollection_UBTree, "Selector", "Class defining the minimal interface of selector.", local);
 
 // Methods
-cls_NCollection_UBTree_Selector.def("Reject", (Standard_Boolean (NCollection_UBTree_Selector::*)(const TheBndType &) const) &NCollection_UBTree_Selector::Reject, "Rejection base on the bounding type.", py::arg(""));
-cls_NCollection_UBTree_Selector.def("Accept", (Standard_Boolean (NCollection_UBTree_Selector::*)(const TheObjType &)) &NCollection_UBTree_Selector::Accept, "Confirm the object while making necessary tests on it. This method is called when the bounding box of the object conforms to the conditions (see Reject()). It is also supposed to keep record of accepted objects.", py::arg(""));
-cls_NCollection_UBTree_Selector.def("Stop", (Standard_Boolean (NCollection_UBTree_Selector::*)() const) &NCollection_UBTree_Selector::Stop, "This condition is checked after each call to Accept().");
+cls_NCollection_UBTree_Selector.def("Reject", (Standard_Boolean (typename NCollection_UBTree<TheObjType, TheBndType>::Selector::*)(const TheBndType &) const) &NCollection_UBTree<TheObjType, TheBndType>::Selector::Reject, "Rejection base on the bounding type.", py::arg(""));
+cls_NCollection_UBTree_Selector.def("Accept", (Standard_Boolean (typename NCollection_UBTree<TheObjType, TheBndType>::Selector::*)(const TheObjType &)) &NCollection_UBTree<TheObjType, TheBndType>::Selector::Accept, "Confirm the object while making necessary tests on it. This method is called when the bounding box of the object conforms to the conditions (see Reject()). It is also supposed to keep record of accepted objects.", py::arg(""));
+cls_NCollection_UBTree_Selector.def("Stop", (Standard_Boolean (typename NCollection_UBTree<TheObjType, TheBndType>::Selector::*)() const) &NCollection_UBTree<TheObjType, TheBndType>::Selector::Stop, "This condition is checked after each call to Accept().");
 
 }
+
+#endif

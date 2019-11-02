@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __BVH_Box__
+#define __BVH_Box__
 
-#include <pyOCCT_Common.hxx>
 #include <BVH_Types.hxx>
 #include <BVH_Box.hxx>
 #include <Standard_TypeDef.hxx>
@@ -52,3 +52,5 @@ cls_BVH_Box.def("Center", (typename BVH_Box<T, N>::BVH_VecNt (BVH_Box<T, N>::*)(
 cls_BVH_Box.def("Center", (T (BVH_Box<T, N>::*)(const Standard_Integer) const) &BVH_Box<T, N>::Center, "Returns center of bounding box along the given axis.", py::arg("theAxis"));
 
 }
+
+#endif

@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __Graphic3d_UniformValue__
+#define __Graphic3d_UniformValue__
 
-#include <pyOCCT_Common.hxx>
 #include <Graphic3d_ShaderVariable.hxx>
 #include <Standard_TypeDef.hxx>
 
@@ -40,3 +40,5 @@ cls_Graphic3d_UniformValue.def_readwrite("Value", &Graphic3d_UniformValue<T>::Va
 cls_Graphic3d_UniformValue.def("TypeID", (Standard_Size (Graphic3d_UniformValue<T>::*)() const) &Graphic3d_UniformValue<T>::TypeID, "Returns unique identifier of value type.");
 
 }
+
+#endif

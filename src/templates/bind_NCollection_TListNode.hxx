@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __NCollection_TListNode__
+#define __NCollection_TListNode__
 
-#include <pyOCCT_Common.hxx>
 #include <NCollection_ListNode.hxx>
 #include <NCollection_TListNode.hxx>
 #include <Standard_Handle.hxx>
@@ -42,3 +42,5 @@ cls_NCollection_TListNode.def("ChangeValue", (TheItemType & (NCollection_TListNo
 cls_NCollection_TListNode.def_static("delNode_", (void (*)(NCollection_ListNode *, opencascade::handle<NCollection_BaseAllocator> &)) &NCollection_TListNode<TheItemType>::delNode, "Static deleter to be passed to BaseList", py::arg("theNode"), py::arg("theAl"));
 
 }
+
+#endif

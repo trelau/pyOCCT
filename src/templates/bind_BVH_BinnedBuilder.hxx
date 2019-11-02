@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __BVH_BinnedBuilder__
+#define __BVH_BinnedBuilder__
 
-#include <pyOCCT_Common.hxx>
 #include <BVH_QueueBuilder.hxx>
 #include <BVH_BinnedBuilder.hxx>
 #include <Standard_TypeDef.hxx>
@@ -41,3 +41,5 @@ cls_BVH_BinnedBuilder.def(py::init<const Standard_Integer, const Standard_Intege
 cls_BVH_BinnedBuilder.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Integer>(), py::arg("theLeafNodeSize"), py::arg("theMaxTreeDepth"), py::arg("theDoMainSplits"), py::arg("theNumOfThreads"));
 
 }
+
+#endif

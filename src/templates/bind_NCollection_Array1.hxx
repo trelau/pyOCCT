@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __NCollection_Array1__
+#define __NCollection_Array1__
 
-#include <pyOCCT_Common.hxx>
 #include <NCollection_Array1.hxx>
 #include <Standard_TypeDef.hxx>
 #include <NCollection_StlIterator.hxx>
@@ -68,3 +68,5 @@ cls_NCollection_Array1.def("Resize", (void (NCollection_Array1<TheItemType>::*)(
 cls_NCollection_Array1.def("__iter__", [](const NCollection_Array1<TheItemType> &self) { return py::make_iterator(self.begin(), self.end()); }, py::keep_alive<0, 1>());
 
 }
+
+#endif

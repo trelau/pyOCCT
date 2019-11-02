@@ -19,12 +19,13 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+
+#ifndef __pyOCCT_Common_Header__
+#define __pyOCCT_Common_Header__
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <pybind11/stl_bind.h>
-#include <pybind11/functional.h>
 
 #include <Standard_Handle.hxx>
 
@@ -32,3 +33,4 @@ namespace py = pybind11;
 
 // Use opencascade::handle as holder type for Standard_Transient types
 PYBIND11_DECLARE_HOLDER_TYPE(T, opencascade::handle<T>, true);
+#endif

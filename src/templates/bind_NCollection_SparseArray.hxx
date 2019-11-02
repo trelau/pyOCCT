@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __NCollection_SparseArray__
+#define __NCollection_SparseArray__
 
-#include <pyOCCT_Common.hxx>
 #include <NCollection_SparseArrayBase.hxx>
 #include <NCollection_SparseArray.hxx>
 #include <Standard_TypeDef.hxx>
@@ -51,3 +51,5 @@ cls_NCollection_SparseArray.def("IsBound", (Standard_Boolean (NCollection_Sparse
 cls_NCollection_SparseArray.def("UnBind", (Standard_Boolean (NCollection_SparseArray<TheItemType>::*)(const Standard_Size)) &NCollection_SparseArray<TheItemType>::UnBind, "Remove the item from array", py::arg("theIndex"));
 
 }
+
+#endif

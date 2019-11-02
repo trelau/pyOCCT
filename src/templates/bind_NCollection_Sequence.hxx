@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __NCollection_Sequence__
+#define __NCollection_Sequence__
 
-#include <pyOCCT_Common.hxx>
 #include <NCollection_BaseSequence.hxx>
 #include <NCollection_Sequence.hxx>
 #include <Standard_TypeDef.hxx>
@@ -81,3 +81,5 @@ cls_NCollection_Sequence.def("SetValue", (void (NCollection_Sequence<TheItemType
 cls_NCollection_Sequence.def("__iter__", [](const NCollection_Sequence<TheItemType> &self) { return py::make_iterator(self.begin(), self.end()); }, py::keep_alive<0, 1>());
 
 }
+
+#endif

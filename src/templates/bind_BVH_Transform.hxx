@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __BVH_Transform__
+#define __BVH_Transform__
 
-#include <pyOCCT_Common.hxx>
 #include <BVH_Properties.hxx>
 #include <BVH_Types.hxx>
 #include <BVH_Box.hxx>
@@ -42,3 +42,5 @@ cls_BVH_Transform.def("Inversed", (const typename BVH_Transform<T, N>::BVH_MatNt
 cls_BVH_Transform.def("Apply", (BVH_Box<T, N> (BVH_Transform<T, N>::*)(const BVH_Box<T, N> &) const) &BVH_Transform<T, N>::Apply, "Applies transformation matrix to bounding box.", py::arg("theBox"));
 
 }
+
+#endif

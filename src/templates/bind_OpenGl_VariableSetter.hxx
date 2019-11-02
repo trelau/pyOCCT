@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __OpenGl_VariableSetter__
+#define __OpenGl_VariableSetter__
 
-#include <pyOCCT_Common.hxx>
 #include <OpenGl_ShaderProgram.hxx>
 #include <Standard_Handle.hxx>
 #include <OpenGl_Context.hxx>
@@ -36,3 +36,5 @@ py::class_<OpenGl_VariableSetter<T>, OpenGl_SetterInterface> cls_OpenGl_Variable
 cls_OpenGl_VariableSetter.def("Set", (void (OpenGl_VariableSetter<T>::*)(const opencascade::handle<OpenGl_Context> &, const opencascade::handle<Graphic3d_ShaderVariable> &, OpenGl_ShaderProgram *)) &OpenGl_VariableSetter<T>::Set, "None", py::arg("theCtx"), py::arg("theVariable"), py::arg("theProgram"));
 
 }
+
+#endif

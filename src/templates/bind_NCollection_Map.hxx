@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __NCollection_Map__
+#define __NCollection_Map__
 
-#include <pyOCCT_Common.hxx>
 #include <NCollection_DefaultHasher.hxx>
 #include <NCollection_Map.hxx>
 #include <NCollection_BaseMap.hxx>
@@ -71,3 +71,5 @@ cls_NCollection_Map.def("Difference", (void (NCollection_Map<TheKeyType, Hasher>
 cls_NCollection_Map.def("Differ", (Standard_Boolean (NCollection_Map<TheKeyType, Hasher>::*)(const NCollection_Map<TheKeyType, Hasher> &)) &NCollection_Map<TheKeyType, Hasher>::Differ, "Apply to this Map the symmetric difference (aka exclusive disjunction, boolean XOR) operation with another (given) Map. The result contains the values that are contained only in this or the operand map, but not in both. This algorithm is similar to method Difference(). Returns True if contents of this map is changed.", py::arg("theOther"));
 
 }
+
+#endif

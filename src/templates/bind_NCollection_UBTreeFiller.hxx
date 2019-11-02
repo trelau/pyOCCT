@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __NCollection_UBTreeFiller__
+#define __NCollection_UBTreeFiller__
 
-#include <pyOCCT_Common.hxx>
 #include <NCollection_UBTreeFiller.hxx>
 #include <NCollection_UBTree.hxx>
 #include <Standard_Handle.hxx>
@@ -47,3 +47,5 @@ cls_NCollection_UBTreeFiller.def("Reset", (void (NCollection_UBTreeFiller<TheObj
 cls_NCollection_UBTreeFiller.def("CheckTree", (Standard_Integer (NCollection_UBTreeFiller<TheObjType, TheBndType>::*)(Standard_OStream &)) &NCollection_UBTreeFiller<TheObjType, TheBndType>::CheckTree, "Check the filled tree for the total number of items and the balance outputting these results to ostream.", py::arg("theStream"));
 
 }
+
+#endif

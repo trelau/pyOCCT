@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __math_SingleTab__
+#define __math_SingleTab__
 
-#include <pyOCCT_Common.hxx>
 #include <Standard_TypeDef.hxx>
 #include <math_SingleTab.hxx>
 
@@ -50,3 +50,5 @@ cls_math_SingleTab.def("__call__", (T & (math_SingleTab<T>::*)(const Standard_In
 cls_math_SingleTab.def("Free", (void (math_SingleTab<T>::*)()) &math_SingleTab<T>::Free, "None");
 
 }
+
+#endif

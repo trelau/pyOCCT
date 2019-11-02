@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-mkdir -p build
+mkdir build
 cd build
 
 # export CC=gcc-4.9

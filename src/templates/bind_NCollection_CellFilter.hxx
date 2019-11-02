@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __NCollection_CellFilter__
+#define __NCollection_CellFilter__
 
-#include <pyOCCT_Common.hxx>
 #include <NCollection_CellFilter.hxx>
 #include <Standard_TypeDef.hxx>
 #include <Standard_Handle.hxx>
@@ -57,3 +57,5 @@ cls_NCollection_CellFilter.def("Inspect", (void (NCollection_CellFilter<Inspecto
 cls_NCollection_CellFilter.def("Inspect", (void (NCollection_CellFilter<Inspector>::*)(const typename NCollection_CellFilter<Inspector>::Point &, const typename NCollection_CellFilter<Inspector>::Point &, Inspector &)) &NCollection_CellFilter<Inspector>::Inspect, "Inspect all targets in the cells range limited by two given points (the first point must have all co-ordinates equal or less than the same co-ordinate of the second point)", py::arg("thePntMin"), py::arg("thePntMax"), py::arg("theInspector"));
 
 }
+
+#endif

@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __BVH_LinearBuilder__
+#define __BVH_LinearBuilder__
 
-#include <pyOCCT_Common.hxx>
 #include <BVH_Builder.hxx>
 #include <BVH_LinearBuilder.hxx>
 #include <BVH_Types.hxx>
@@ -46,3 +46,5 @@ cls_BVH_LinearBuilder.def(py::init<const Standard_Integer, const Standard_Intege
 cls_BVH_LinearBuilder.def("Build", (void (BVH_LinearBuilder<T, N>::*)(BVH_Set<T, N> *, BVH_Tree<T, N> *, const BVH_Box<T, N> &) const) &BVH_LinearBuilder<T, N>::Build, "Builds BVH.", py::arg("theSet"), py::arg("theBVH"), py::arg("theBox"));
 
 }
+
+#endif

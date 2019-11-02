@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __OpenGl_TmplCore33__
+#define __OpenGl_TmplCore33__
 
-#include <pyOCCT_Common.hxx>
 #include <OpenGl_GlCore33.hxx>
 
 template <typename theBaseClass_t>
@@ -30,3 +30,5 @@ void bind_OpenGl_TmplCore33(py::module &mod, std::string const &name, py::module
 py::class_<OpenGl_TmplCore33<theBaseClass_t>, theBaseClass_t> cls_OpenGl_TmplCore33(mod, name.c_str(), "OpenGL 3.3 definition.", local);
 
 }
+
+#endif

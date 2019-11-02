@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __BVH_TreeBase__
+#define __BVH_TreeBase__
 
-#include <pyOCCT_Common.hxx>
 #include <BVH_Tree.hxx>
 #include <BVH_Builder.hxx>
 #include <BVH_Box.hxx>
@@ -64,3 +64,5 @@ cls_BVH_TreeBase.def("MinPointBuffer", (const typename BVH::ArrayType<T, N>::Typ
 cls_BVH_TreeBase.def("MaxPointBuffer", (const typename BVH::ArrayType<T, N>::Type & (BVH_TreeBase<T, N>::*)() const) &BVH_TreeBase<T, N>::MaxPointBuffer, "Returns array of node maximum points.");
 
 }
+
+#endif

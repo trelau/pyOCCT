@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __OpenGl_MatrixState__
+#define __OpenGl_MatrixState__
 
-#include <pyOCCT_Common.hxx>
 #include <OpenGl_Vec.hxx>
 #include <OpenGl_MatrixState.hxx>
 #include <NCollection_Vector.hxx>
@@ -44,3 +44,5 @@ cls_OpenGl_MatrixState.def("ChangeCurrent", (typename OpenGl::MatrixType<T>::Mat
 cls_OpenGl_MatrixState.def("SetIdentity", (void (OpenGl_MatrixState<T>::*)()) &OpenGl_MatrixState<T>::SetIdentity, "Sets current matrix to identity.");
 
 }
+
+#endif

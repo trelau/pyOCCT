@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __BVH_Builder__
+#define __BVH_Builder__
 
-#include <pyOCCT_Common.hxx>
 #include <BVH_Builder.hxx>
 #include <BVH_Set.hxx>
 #include <BVH_Tree.hxx>
@@ -37,3 +37,5 @@ py::class_<BVH_Builder<T, N>, opencascade::handle<BVH_Builder<T, N>>, BVH_Builde
 cls_BVH_Builder.def("Build", (void (BVH_Builder<T, N>::*)(BVH_Set<T, N> *, BVH_Tree<T, N> *, const BVH_Box<T, N> &) const) &BVH_Builder<T, N>::Build, "Builds BVH using specific algorithm.", py::arg("theSet"), py::arg("theBVH"), py::arg("theBox"));
 
 }
+
+#endif

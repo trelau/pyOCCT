@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __NCollection_Vector__
+#define __NCollection_Vector__
 
-#include <pyOCCT_Common.hxx>
 #include <NCollection_BaseVector.hxx>
 #include <NCollection_Vector.hxx>
 #include <Standard_TypeDef.hxx>
@@ -67,3 +67,5 @@ cls_NCollection_Vector.def("SetValue", (TheItemType & (NCollection_Vector<TheIte
 cls_NCollection_Vector.def("__iter__", [](const NCollection_Vector<TheItemType> &self) { return py::make_iterator(self.begin(), self.end()); }, py::keep_alive<0, 1>());
 
 }
+
+#endif

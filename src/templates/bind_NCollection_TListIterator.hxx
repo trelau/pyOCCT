@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __NCollection_TListIterator__
+#define __NCollection_TListIterator__
 
-#include <pyOCCT_Common.hxx>
 #include <NCollection_BaseList.hxx>
 #include <Standard_TypeDef.hxx>
 #include <NCollection_TListIterator.hxx>
@@ -43,3 +43,5 @@ cls_NCollection_TListIterator.def("Value", (TheItemType & (NCollection_TListIter
 cls_NCollection_TListIterator.def("ChangeValue", (TheItemType & (NCollection_TListIterator<TheItemType>::*)() const) &NCollection_TListIterator<TheItemType>::ChangeValue, "Non-const Value access");
 
 }
+
+#endif

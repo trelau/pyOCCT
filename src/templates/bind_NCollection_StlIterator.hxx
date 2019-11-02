@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __NCollection_StlIterator__
+#define __NCollection_StlIterator__
 
-#include <pyOCCT_Common.hxx>
 #include <NCollection_StlIterator.hxx>
 
 template <typename Category, typename BaseIterator, typename ItemType, bool IsConstant>
@@ -58,3 +58,5 @@ cls_NCollection_StlIterator.def("__le__", (bool (NCollection_StlIterator<Categor
 cls_NCollection_StlIterator.def("__ge__", (bool (NCollection_StlIterator<Category, BaseIterator, ItemType, IsConstant>::*)(const NCollection_StlIterator<Category, BaseIterator, ItemType, IsConstant> &) const) &NCollection_StlIterator<Category, BaseIterator, ItemType, IsConstant>::operator>=, py::is_operator(), "Comparison", py::arg("theOther"));
 
 }
+
+#endif

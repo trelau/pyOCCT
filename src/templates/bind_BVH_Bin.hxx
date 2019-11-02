@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __BVH_Bin__
+#define __BVH_Bin__
 
-#include <pyOCCT_Common.hxx>
 #include <Standard_TypeDef.hxx>
 #include <BVH_Box.hxx>
 #include <BVH_BinnedBuilder.hxx>
@@ -39,3 +39,5 @@ cls_BVH_Bin.def_readwrite("Count", &BVH_Bin<T, N>::Count, "Number of primitives 
 cls_BVH_Bin.def_readwrite("Box", &BVH_Bin<T, N>::Box, "AABB of primitives in the bin");
 
 }
+
+#endif

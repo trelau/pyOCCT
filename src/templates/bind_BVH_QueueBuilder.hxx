@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __BVH_QueueBuilder__
+#define __BVH_QueueBuilder__
 
-#include <pyOCCT_Common.hxx>
 #include <BVH_Builder.hxx>
 #include <BVH_QueueBuilder.hxx>
 #include <Standard_TypeDef.hxx>
@@ -44,3 +44,5 @@ cls_BVH_QueueBuilder.def(py::init<const Standard_Integer, const Standard_Integer
 cls_BVH_QueueBuilder.def("Build", (void (BVH_QueueBuilder<T, N>::*)(BVH_Set<T, N> *, BVH_Tree<T, N> *, const BVH_Box<T, N> &) const) &BVH_QueueBuilder<T, N>::Build, "Builds BVH using specific algorithm.", py::arg("theSet"), py::arg("theBVH"), py::arg("theBox"));
 
 }
+
+#endif

@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __NCollection_Vec2__
+#define __NCollection_Vec2__
 
-#include <pyOCCT_Common.hxx>
 #include <NCollection_Vec2.hxx>
 
 template <typename Element_t>
@@ -72,3 +72,5 @@ cls_NCollection_Vec2.def_static("DX_", (NCollection_Vec2<Element_t> (*)()) &NCol
 cls_NCollection_Vec2.def_static("DY_", (NCollection_Vec2<Element_t> (*)()) &NCollection_Vec2<Element_t>::DY, "Constuct DY unit vector.");
 
 }
+
+#endif

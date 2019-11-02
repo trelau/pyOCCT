@@ -19,9 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#pragma once
+#ifndef __NCollection_Handle__
+#define __NCollection_Handle__
 
-#include <pyOCCT_Common.hxx>
 #include <Standard_Handle.hxx>
 #include <Standard_Transient.hxx>
 #include <NCollection_Handle.hxx>
@@ -45,3 +45,5 @@ cls_NCollection_Handle.def("__mul__", (const T & (NCollection_Handle<T>::*)() co
 cls_NCollection_Handle.def_static("DownCast_", (NCollection_Handle<T> (*)(const opencascade::handle<Standard_Transient> &)) &NCollection_Handle<T>::DownCast, "Downcast arbitrary Handle to the argument type if contained object is Handle for this type; returns null otherwise", py::arg("theOther"));
 
 }
+
+#endif
