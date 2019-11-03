@@ -3455,14 +3455,14 @@ cls_OpenGl_View.def("SetClipPlanes", (void (OpenGl_View::*)(const opencascade::h
 cls_OpenGl_View.def("DiagnosticInformation", (void (OpenGl_View::*)(TColStd_IndexedDataMapOfStringString &, Graphic3d_DiagnosticInfo) const) &OpenGl_View::DiagnosticInformation, "Fill in the dictionary with diagnostic info. Should be called within rendering thread.", py::arg("theDict"), py::arg("theFlags"));
 cls_OpenGl_View.def("BackgroundColor", (const Quantity_ColorRGBA & (OpenGl_View::*)() const) &OpenGl_View::BackgroundColor, "Returns background color.");
 cls_OpenGl_View.def("ChangeGraduatedTrihedron", (OpenGl_GraduatedTrihedron & (OpenGl_View::*)()) &OpenGl_View::ChangeGraduatedTrihedron, "Change graduated trihedron.");
-cls_OpenGl_View.def("SetTextureEnv", (void (OpenGl_View::*)(const opencascade::handle<OpenGl_Context> &, const opencascade::handle<Graphic3d_TextureEnv> &)) &OpenGl_View::SetTextureEnv, "None", py::arg("theCtx"), py::arg("theTexture"));
-// FIXME: These are missing from linux build of occt
+// NOTE: These are missing from linux build of occt
 #ifdef WIN32
+cls_OpenGl_View.def("SetTextureEnv", (void (OpenGl_View::*)(const opencascade::handle<OpenGl_Context> &, const opencascade::handle<Graphic3d_TextureEnv> &)) &OpenGl_View::SetTextureEnv, "None", py::arg("theCtx"), py::arg("theTexture"));
 cls_OpenGl_View.def("SetBackgroundTextureStyle", (void (OpenGl_View::*)(const Aspect_FillMethod)) &OpenGl_View::SetBackgroundTextureStyle, "None", py::arg("FillStyle"));
 cls_OpenGl_View.def("SetBackgroundGradient", (void (OpenGl_View::*)(const Quantity_Color &, const Quantity_Color &, const Aspect_GradientFillMethod)) &OpenGl_View::SetBackgroundGradient, "None", py::arg("AColor1"), py::arg("AColor2"), py::arg("AType"));
 cls_OpenGl_View.def("SetBackgroundGradientType", (void (OpenGl_View::*)(const Aspect_GradientFillMethod)) &OpenGl_View::SetBackgroundGradientType, "None", py::arg("AType"));
-#endif
 cls_OpenGl_View.def("LayerList", (const OpenGl_LayerList & (OpenGl_View::*)() const) &OpenGl_View::LayerList, "Returns list of OpenGL Z-layers.");
+#endif
 cls_OpenGl_View.def("GlWindow", (const opencascade::handle<OpenGl_Window> (OpenGl_View::*)() const) &OpenGl_View::GlWindow, "Returns OpenGL window implementation.");
 cls_OpenGl_View.def("GlTextureEnv", (const opencascade::handle<OpenGl_TextureSet> & (OpenGl_View::*)() const) &OpenGl_View::GlTextureEnv, "Returns OpenGL environment map.");
 cls_OpenGl_View.def("BVHTreeSelector", (const OpenGl_BVHTreeSelector & (OpenGl_View::*)() const) &OpenGl_View::BVHTreeSelector, "Returns selector for BVH tree, providing a possibility to store information about current view volume and to detect which objects are overlapping it.");
