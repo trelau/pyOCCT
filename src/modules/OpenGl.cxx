@@ -3456,9 +3456,12 @@ cls_OpenGl_View.def("DiagnosticInformation", (void (OpenGl_View::*)(TColStd_Inde
 cls_OpenGl_View.def("BackgroundColor", (const Quantity_ColorRGBA & (OpenGl_View::*)() const) &OpenGl_View::BackgroundColor, "Returns background color.");
 cls_OpenGl_View.def("ChangeGraduatedTrihedron", (OpenGl_GraduatedTrihedron & (OpenGl_View::*)()) &OpenGl_View::ChangeGraduatedTrihedron, "Change graduated trihedron.");
 cls_OpenGl_View.def("SetTextureEnv", (void (OpenGl_View::*)(const opencascade::handle<OpenGl_Context> &, const opencascade::handle<Graphic3d_TextureEnv> &)) &OpenGl_View::SetTextureEnv, "None", py::arg("theCtx"), py::arg("theTexture"));
-// FIXME: Undefined symbol cls_OpenGl_View.def("SetBackgroundTextureStyle", (void (OpenGl_View::*)(const Aspect_FillMethod)) &OpenGl_View::SetBackgroundTextureStyle, "None", py::arg("FillStyle"));
+// FIXME: These are missing from linux build of occt
+#ifdef WIN32
+cls_OpenGl_View.def("SetBackgroundTextureStyle", (void (OpenGl_View::*)(const Aspect_FillMethod)) &OpenGl_View::SetBackgroundTextureStyle, "None", py::arg("FillStyle"));
 cls_OpenGl_View.def("SetBackgroundGradient", (void (OpenGl_View::*)(const Quantity_Color &, const Quantity_Color &, const Aspect_GradientFillMethod)) &OpenGl_View::SetBackgroundGradient, "None", py::arg("AColor1"), py::arg("AColor2"), py::arg("AType"));
 cls_OpenGl_View.def("SetBackgroundGradientType", (void (OpenGl_View::*)(const Aspect_GradientFillMethod)) &OpenGl_View::SetBackgroundGradientType, "None", py::arg("AType"));
+#endif
 cls_OpenGl_View.def("LayerList", (const OpenGl_LayerList & (OpenGl_View::*)() const) &OpenGl_View::LayerList, "Returns list of OpenGL Z-layers.");
 cls_OpenGl_View.def("GlWindow", (const opencascade::handle<OpenGl_Window> (OpenGl_View::*)() const) &OpenGl_View::GlWindow, "Returns OpenGL window implementation.");
 cls_OpenGl_View.def("GlTextureEnv", (const opencascade::handle<OpenGl_TextureSet> & (OpenGl_View::*)() const) &OpenGl_View::GlTextureEnv, "Returns OpenGL environment map.");

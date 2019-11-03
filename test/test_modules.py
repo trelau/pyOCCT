@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+import sys
 import unittest
 
 
@@ -658,6 +659,7 @@ class TestModuleImport(unittest.TestCase):
             mod_ok = False
         self.assertTrue(mod_ok)
 
+    @unittest.skipIf(sys.platform != 'darwin', 'Not on OSX')
     def test_Cocoa(self):
         try:
             import OCCT.Cocoa
@@ -2608,6 +2610,7 @@ class TestModuleImport(unittest.TestCase):
             mod_ok = False
         self.assertTrue(mod_ok)
 
+    @unittest.skipIf(sys.platform != 'win32', 'Not on Windows')
     def test_WNT(self):
         try:
             import OCCT.WNT
@@ -2775,6 +2778,16 @@ class TestModuleImport(unittest.TestCase):
         except ImportError:
             mod_ok = False
         self.assertTrue(mod_ok)
+
+    @unittest.skipIf(sys.platform != 'linux', 'Not on linux')
+    def test_XwWindow(self):
+        try:
+            import OCCT.XwWindow
+            mod_ok = True
+        except ImportError:
+            mod_ok = False
+        self.assertTrue(mod_ok)
+
 
 
 if __name__ == '__main__':

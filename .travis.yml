@@ -34,7 +34,7 @@ before_install:
   - git clone https://github.com/pybind/pybind11.git pybind11
 
 script:
-  - conda build ci/conda --python=$PYTHON
+  - conda build ci/conda
 
 after_success:
   - anaconda -t $CONDA_UPLOAD_TOKEN upload $HOME/miniconda/conda-bld/linux-64/pyocct*.bz2 -l $TRAVIS_BRANCH --force
