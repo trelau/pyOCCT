@@ -20,7 +20,7 @@ from OCCT.STEPControl import STEPControl_Reader
 from OCCT.TopAbs import TopAbs_FACE
 from OCCT.TopExp import TopExp_Explorer
 
-from OCCT.Visualization import BasicViewer
+from OCCT.Visualization.QtViewer import BasicViewer
 
 # Read the file and get the shape
 reader = STEPControl_Reader()

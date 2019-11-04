@@ -21,7 +21,7 @@ from OCCT.NETGENPlugin import (NETGENPlugin_Hypothesis_2D,
 from OCCT.SMESH import SMESH_Gen, SMESH_Mesh
 
 from OCCT.Exchange import ExchangeBasic
-from OCCT.Visualization import BasicViewer
+from OCCT.Visualization.QtViewer import BasicViewer
 
 fn = './models/wing_body.brep'
 shape = ExchangeBasic.read_brep(fn)

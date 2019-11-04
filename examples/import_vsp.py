@@ -21,7 +21,7 @@ import time
 
 from OCCT.Boolean import FuseShapes
 from OCCT.Exchange import ImportVSP
-from OCCT.Visualization import BasicViewer
+from OCCT.Visualization.QtViewer import BasicViewer
 
 # Select version of OpenVSP used to export the model. Versions greater than
 # 3.5.0 seem to decrease OpenCASCADE performance. Surface parameterization was

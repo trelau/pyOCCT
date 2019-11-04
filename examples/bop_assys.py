@@ -22,7 +22,7 @@ from OCCT.BRepAlgoAPI import BRepAlgoAPI_Fuse
 from OCCT.TopTools import TopTools_ListOfShape
 
 from OCCT.Exchange import ExchangeBasic
-from OCCT.Visualization import BasicViewer
+from OCCT.Visualization.QtViewer import BasicViewer
 
 fn = './models/wing_assy.brep'
 wing_assy = ExchangeBasic.read_brep(fn)
@@ -31,7 +31,7 @@ fn = './models/fuse_assy.brep'
 fuse_assy = ExchangeBasic.read_brep(fn)
 
 bop = BRepAlgoAPI_Fuse()
-bop.SetRunParallel(True)
+#bop.SetRunParallel(True)
 args = TopTools_ListOfShape()
 args.Append(wing_assy)
 bop.SetArguments(args)

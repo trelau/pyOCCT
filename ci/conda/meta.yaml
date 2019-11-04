@@ -8,8 +8,7 @@ source:
 build:
   number: 0
   features:
-    - vc14 # [win and py35]
-    - vc14 # [win and py36]
+    - vc14 # [win]
 
 requirements:
   build:
@@ -22,7 +21,8 @@ requirements:
 
   run:
     - python
-    - wxpython
+    # - wxpython
+    # - pyqt >=5
     - vc 14 # [win]
     - occt ==7.3.0
 

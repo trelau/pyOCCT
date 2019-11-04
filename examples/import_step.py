@@ -19,7 +19,7 @@
 from OCCT.Graphic3d import Graphic3d_NOM_ALUMINIUM
 
 from OCCT.Exchange import ExchangeBasic
-from OCCT.Visualization import BasicViewer
+from OCCT.Visualization.QtViewer import BasicViewer
 
 shape = ExchangeBasic.read_step('./models/compressor.step')
 

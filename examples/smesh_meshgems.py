@@ -23,7 +23,7 @@ from OCCT.BLSURFPlugin import BLSURFPlugin_BLSURF, BLSURFPlugin_Hypothesis
 from OCCT.SMESH import SMESH_Gen, SMESH_Mesh
 
 from OCCT.Exchange import ExchangeBasic
-from OCCT.Visualization import BasicViewer
+from OCCT.Visualization.QtViewer import BasicViewer
 
 # fn = './models/lhs_wing.brep'
 # fn = './models/wingbox.brep'
