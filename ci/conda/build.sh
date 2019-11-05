@@ -13,7 +13,7 @@ cmake .. -G "Ninja" \
     -DENABLE_FORCE=OFF \
     -DTBB_INCLUDE_DIR=$PREFIX/include
 
-ninja install -j4
+ninja install
 
 cd ..
 python setup.py install
