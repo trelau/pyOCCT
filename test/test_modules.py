@@ -2782,7 +2782,7 @@ class TestModuleImport(unittest.TestCase):
     @unittest.skipIf(sys.platform != 'linux', 'Not on linux')
     def test_XwWindow(self):
         try:
-            import OCCT.XwWindow
+            import OCCT.Xw
             mod_ok = True
         except ImportError:
             mod_ok = False

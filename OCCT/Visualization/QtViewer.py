@@ -45,7 +45,7 @@ from OCCT.Quantity import (Quantity_TOC_RGB,
 from OCCT.TopoDS import TopoDS_Shape
 from OCCT.V3d import (V3d_Viewer,
                       V3d_TypeOfOrientation)
-from OCCT.XwWindow import Xw_Window
+from OCCT.Xw import Xw_Window
 from OCCT.gp import gp_Pnt
 
 from qtpy import QtCore
