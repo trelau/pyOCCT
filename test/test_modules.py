@@ -2780,7 +2780,7 @@ class TestModuleImport(unittest.TestCase):
         self.assertTrue(mod_ok)
 
     @unittest.skipIf(sys.platform != 'linux', 'Not on linux')
-    def test_XwWindow(self):
+    def test_Xw(self):
         try:
             import OCCT.Xw
             mod_ok = True
