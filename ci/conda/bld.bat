@@ -9,7 +9,7 @@ cmake .. -G "Ninja" ^
     -DTBB_INCLUDE_DIR="%LIBRARY_PREFIX%"/include
 
 if errorlevel 1 exit 1
-ninja install
+ninja install -j2
 if errorlevel 1 exit 1
 
 cd ..
