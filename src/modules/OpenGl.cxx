@@ -20,9 +20,9 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include <pyOCCT_Common.hxx>
-#include <bind_BVH_Set.hxx>
-#include <bind_BVH_Geometry.hxx>
 #include <Precision.hxx>
+#include <bind_BVH_Geometry.hxx>
+#include <bind_BVH_Set.hxx>
 #include <OpenGl_Material.hxx>
 #include <OpenGl_Context.hxx>
 #include <OpenGl_ShaderProgram.hxx>
@@ -1490,6 +1490,7 @@ cls_OpenGl_Caps.def("DynamicType", (const opencascade::handle<Standard_Type> & (
 bind_NCollection_DataMap<opencascade::handle<Graphic3d_HatchStyle>, unsigned int, NCollection_DefaultHasher<opencascade::handle<Graphic3d_HatchStyle> > >(mod, "OpenGl_MapOfHatchStylesAndIds", py::module_local(false));
 
 // CLASS: OPENGL_LINEATTRIBUTES
+/*
 py::class_<OpenGl_LineAttributes, opencascade::handle<OpenGl_LineAttributes>, OpenGl_Resource> cls_OpenGl_LineAttributes(mod, "OpenGl_LineAttributes", "Utility class to manage OpenGL state of polygon hatching rasterization and keeping its cached state. The hatching rasterization is implemented using glPolygonStipple function of OpenGL. State of hatching is controlled by two parameters - type of hatching and IsEnabled parameter. The hatching rasterization is enabled only if non-zero index pattern type is selected (zero by default is reserved for solid filling) and if IsEnabled flag is set to true. The IsEnabled parameter is useful for temporarily turning on/off the hatching rasterization without making any costly GL calls for changing the hatch pattern. This is a sharable resource class - it creates OpenGL context objects for each hatch pattern to achieve quicker switching between them, thesse GL objects are freed when the resource is released by owner context.");
 
 // Constructors
@@ -1505,6 +1506,7 @@ cls_OpenGl_LineAttributes.def("SetEnabled", (bool (OpenGl_LineAttributes::*)(con
 cls_OpenGl_LineAttributes.def_static("get_type_name_", (const char * (*)()) &OpenGl_LineAttributes::get_type_name, "None");
 cls_OpenGl_LineAttributes.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &OpenGl_LineAttributes::get_type_descriptor, "None");
 cls_OpenGl_LineAttributes.def("DynamicType", (const opencascade::handle<Standard_Type> & (OpenGl_LineAttributes::*)() const) &OpenGl_LineAttributes::DynamicType, "None");
+*/
 
 // TYPEDEF: OPENGL_VEC2I
 bind_NCollection_Vec2<int>(mod, "OpenGl_Vec2i", py::module_local());
@@ -1961,6 +1963,7 @@ bind_NCollection_DataMap<unsigned long long, OpenGl_SetterInterface *, NCollecti
 */
 
 // CLASS: OPENGL_VARIABLESETTERSELECTOR
+/*
 py::class_<OpenGl_VariableSetterSelector> cls_OpenGl_VariableSetterSelector(mod, "OpenGl_VariableSetterSelector", "Support tool for setting user-defined uniform variables.");
 
 // Constructors
@@ -1968,6 +1971,7 @@ cls_OpenGl_VariableSetterSelector.def(py::init<>());
 
 // Methods
 cls_OpenGl_VariableSetterSelector.def("Set", (void (OpenGl_VariableSetterSelector::*)(const opencascade::handle<OpenGl_Context> &, const opencascade::handle<Graphic3d_ShaderVariable> &, OpenGl_ShaderProgram *) const) &OpenGl_VariableSetterSelector::Set, "Sets user-defined uniform variable to specified program.", py::arg("theCtx"), py::arg("theVariable"), py::arg("theProgram"));
+*/
 
 // CLASS: OPENGL_SHADERPROGRAM
 py::class_<OpenGl_ShaderProgram, opencascade::handle<OpenGl_ShaderProgram>, OpenGl_NamedResource> cls_OpenGl_ShaderProgram(mod, "OpenGl_ShaderProgram", "Wrapper for OpenGL program object.");
@@ -2203,6 +2207,7 @@ py::class_<OpenGl_CappingAlgo> cls_OpenGl_CappingAlgo(mod, "OpenGl_CappingAlgo",
 cls_OpenGl_CappingAlgo.def_static("RenderCapping_", (void (*)(const opencascade::handle<OpenGl_Workspace> &, const OpenGl_Structure &)) &OpenGl_CappingAlgo::RenderCapping, "Draw capping surfaces by OpenGl for the clipping planes enabled in current context state. Depth buffer must be generated for the passed groups.", py::arg("theWorkspace"), py::arg("theStructure"));
 
 // CLASS: OPENGL_CAPPINGALGOFILTER
+/*
 py::class_<OpenGl_CappingAlgoFilter, opencascade::handle<OpenGl_CappingAlgoFilter>, OpenGl_RenderFilter> cls_OpenGl_CappingAlgoFilter(mod, "OpenGl_CappingAlgoFilter", "Graphical capping rendering algorithm filter. Filters out everything except shaded primitives.");
 
 // Constructors
@@ -2214,6 +2219,7 @@ cls_OpenGl_CappingAlgoFilter.def("ShouldRender", (Standard_Boolean (OpenGl_Cappi
 cls_OpenGl_CappingAlgoFilter.def_static("get_type_name_", (const char * (*)()) &OpenGl_CappingAlgoFilter::get_type_name, "None");
 cls_OpenGl_CappingAlgoFilter.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &OpenGl_CappingAlgoFilter::get_type_descriptor, "None");
 cls_OpenGl_CappingAlgoFilter.def("DynamicType", (const opencascade::handle<Standard_Type> & (OpenGl_CappingAlgoFilter::*)() const) &OpenGl_CappingAlgoFilter::DynamicType, "None");
+*/
 
 // CLASS: OPENGL_SAMPLER
 py::class_<OpenGl_Sampler, opencascade::handle<OpenGl_Sampler>, OpenGl_Resource> cls_OpenGl_Sampler(mod, "OpenGl_Sampler", "Class implements OpenGL sampler object resource that stores the sampling parameters for a texture access.");
@@ -2410,6 +2416,7 @@ cls_OpenGl_Window.def("DynamicType", (const opencascade::handle<Standard_Type> &
 // cls_OpenGl_Window.def_static("operator delete_", (void (*)(void *, void *)) &OpenGl_Window::operator delete, "None", py::arg(""), py::arg(""));
 
 // CLASS: OPENGL_RAYTRACEFILTER
+/*
 py::class_<OpenGl_RaytraceFilter, opencascade::handle<OpenGl_RaytraceFilter>, OpenGl_RenderFilter> cls_OpenGl_RaytraceFilter(mod, "OpenGl_RaytraceFilter", "Graphical ray-tracing filter. Filters out all raytracable structures.");
 
 // Constructors
@@ -2422,6 +2429,7 @@ cls_OpenGl_RaytraceFilter.def("ShouldRender", (Standard_Boolean (OpenGl_Raytrace
 cls_OpenGl_RaytraceFilter.def_static("get_type_name_", (const char * (*)()) &OpenGl_RaytraceFilter::get_type_name, "None");
 cls_OpenGl_RaytraceFilter.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &OpenGl_RaytraceFilter::get_type_descriptor, "None");
 cls_OpenGl_RaytraceFilter.def("DynamicType", (const opencascade::handle<Standard_Type> & (OpenGl_RaytraceFilter::*)() const) &OpenGl_RaytraceFilter::DynamicType, "None");
+*/
 
 // CLASS: OPENGL_WORKSPACE
 py::class_<OpenGl_Workspace, opencascade::handle<OpenGl_Workspace>, Standard_Transient> cls_OpenGl_Workspace(mod, "OpenGl_Workspace", "Rendering workspace. Provides methods to render primitives and maintain GL state.");
@@ -2559,6 +2567,7 @@ bind_NCollection_List<const OpenGl_Structure *>(mod, "OpenGl_ListOfStructure", p
 */
 
 // CLASS: OPENGL_STRUCTURE
+/*
 py::class_<OpenGl_Structure, opencascade::handle<OpenGl_Structure>, Graphic3d_CStructure> cls_OpenGl_Structure(mod, "OpenGl_Structure", "Implementation of low-level graphic structure.");
 
 // Constructors
@@ -2594,8 +2603,10 @@ cls_OpenGl_Structure.def("updateLayerTransformation", (void (OpenGl_Structure::*
 cls_OpenGl_Structure.def_static("get_type_name_", (const char * (*)()) &OpenGl_Structure::get_type_name, "None");
 cls_OpenGl_Structure.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &OpenGl_Structure::get_type_descriptor, "None");
 cls_OpenGl_Structure.def("DynamicType", (const opencascade::handle<Standard_Type> & (OpenGl_Structure::*)() const) &OpenGl_Structure::DynamicType, "None");
+*/
 
 // CLASS: OPENGL_BVHCLIPPRIMITIVESET
+/*
 py::class_<OpenGl_BVHClipPrimitiveSet, opencascade::handle<OpenGl_BVHClipPrimitiveSet>, BVH_PrimitiveSet3d> cls_OpenGl_BVHClipPrimitiveSet(mod, "OpenGl_BVHClipPrimitiveSet", "Set of OpenGl_Structures for building BVH tree.");
 
 // Constructors
@@ -2614,9 +2625,10 @@ cls_OpenGl_BVHClipPrimitiveSet.def("Remove", (Standard_Boolean (OpenGl_BVHClipPr
 cls_OpenGl_BVHClipPrimitiveSet.def("Clear", (void (OpenGl_BVHClipPrimitiveSet::*)()) &OpenGl_BVHClipPrimitiveSet::Clear, "Cleans the whole primitive set.");
 cls_OpenGl_BVHClipPrimitiveSet.def("GetStructureById", (const OpenGl_Structure * (OpenGl_BVHClipPrimitiveSet::*)(Standard_Integer)) &OpenGl_BVHClipPrimitiveSet::GetStructureById, "Returns the structure corresponding to the given ID.", py::arg("theId"));
 cls_OpenGl_BVHClipPrimitiveSet.def("Structures", (const NCollection_IndexedMap<const OpenGl_Structure *> & (OpenGl_BVHClipPrimitiveSet::*)() const) &OpenGl_BVHClipPrimitiveSet::Structures, "Access directly a collection of structures.");
+*/
 
 // CLASS: OPENGL_BVHCLIPPRIMITIVETRSFPERSSET
-
+/*
 bind_BVH_Set<Standard_Real, 3>(mod, "BVH_Set_Standard_Real3", py::module_local());
 
 py::class_<OpenGl_BVHClipPrimitiveTrsfPersSet, BVH_Set<Standard_Real, 3>> cls_OpenGl_BVHClipPrimitiveTrsfPersSet(mod, "OpenGl_BVHClipPrimitiveTrsfPersSet", "Set of transformation persistent OpenGl_Structure for building BVH tree. Provides built-in mechanism to invalidate tree when world view projection state changes. Due to frequent invalidation of BVH tree the choice of BVH tree builder is made in favor of BVH linear builder (quick rebuild).");
@@ -2638,6 +2650,7 @@ cls_OpenGl_BVHClipPrimitiveTrsfPersSet.def("MarkDirty", (void (OpenGl_BVHClipPri
 cls_OpenGl_BVHClipPrimitiveTrsfPersSet.def("BVH", (const opencascade::handle<BVH_Tree<Standard_Real, 3> > & (OpenGl_BVHClipPrimitiveTrsfPersSet::*)(const opencascade::handle<Graphic3d_Camera> &, const OpenGl_Mat4d &, const OpenGl_Mat4d &, const Standard_Integer, const Standard_Integer, const Graphic3d_WorldViewProjState &)) &OpenGl_BVHClipPrimitiveTrsfPersSet::BVH, "Returns BVH tree for the given world view projection (builds it if necessary).", py::arg("theCamera"), py::arg("theProjectionMatrix"), py::arg("theWorldViewMatrix"), py::arg("theViewportWidth"), py::arg("theViewportHeight"), py::arg("theWVPState"));
 cls_OpenGl_BVHClipPrimitiveTrsfPersSet.def("Builder", (const opencascade::handle<Select3D_BVHBuilder3d> & (OpenGl_BVHClipPrimitiveTrsfPersSet::*)() const) &OpenGl_BVHClipPrimitiveTrsfPersSet::Builder, "Returns builder for bottom-level BVH.");
 cls_OpenGl_BVHClipPrimitiveTrsfPersSet.def("SetBuilder", (void (OpenGl_BVHClipPrimitiveTrsfPersSet::*)(const opencascade::handle<Select3D_BVHBuilder3d> &)) &OpenGl_BVHClipPrimitiveTrsfPersSet::SetBuilder, "Assigns builder for bottom-level BVH.", py::arg("theBuilder"));
+*/
 
 // CLASS: OPENGL_BVHTREESELECTOR
 py::class_<OpenGl_BVHTreeSelector> cls_OpenGl_BVHTreeSelector(mod, "OpenGl_BVHTreeSelector", "BVHTreeSelector class provides a possibility to store parameters of view volume, such as its vertices and equations, and contains methods detecting if given AABB overlaps view volume.");
@@ -2923,6 +2936,7 @@ if (py::hasattr(mod, "OpenGl_GlCore44")) {
 }
 
 // CLASS: OPENGL_GRADUATEDTRIHEDRON
+/*
 py::class_<OpenGl_GraduatedTrihedron, OpenGl_Element> cls_OpenGl_GraduatedTrihedron(mod, "OpenGl_GraduatedTrihedron", "This class allows to render Graduated Trihedron, i.e. trihedron with grid. it is based on Graphic3d_GraduatedTrihedron parameters and support its customization on construction level only.");
 
 // Constructors
@@ -2939,6 +2953,7 @@ cls_OpenGl_GraduatedTrihedron.def("Render", (void (OpenGl_GraduatedTrihedron::*)
 cls_OpenGl_GraduatedTrihedron.def("Release", (void (OpenGl_GraduatedTrihedron::*)(OpenGl_Context *)) &OpenGl_GraduatedTrihedron::Release, "Release OpenGL resources.", py::arg("theCtx"));
 cls_OpenGl_GraduatedTrihedron.def("SetValues", (void (OpenGl_GraduatedTrihedron::*)(const Graphic3d_GraduatedTrihedron &)) &OpenGl_GraduatedTrihedron::SetValues, "Setup configuration.", py::arg("theData"));
 cls_OpenGl_GraduatedTrihedron.def("SetMinMax", (void (OpenGl_GraduatedTrihedron::*)(const OpenGl_Vec3 &, const OpenGl_Vec3 &)) &OpenGl_GraduatedTrihedron::SetMinMax, "Sets up-to-date values of scene bounding box. Can be used in callback mechanism to get up-to-date values.", py::arg("theMin"), py::arg("theMax"));
+*/
 
 // CLASS: OPENGL_HALTONSAMPLER
 py::class_<OpenGl_HaltonSampler> cls_OpenGl_HaltonSampler(mod, "OpenGl_HaltonSampler", "Compute points of the Halton sequence with with digit-permutations for different bases.");
@@ -2964,6 +2979,7 @@ if (py::hasattr(mod, "OpenGl_IndexedMapOfStructure")) {
 bind_NCollection_Array1<NCollection_IndexedMap<const OpenGl_Structure *, NCollection_DefaultHasher<const OpenGl_Structure *> > >(mod, "OpenGl_ArrayOfIndexedMapOfStructure", py::module_local(false));
 
 // CLASS: OPENGL_LAYER
+/*
 py::class_<OpenGl_Layer, opencascade::handle<OpenGl_Layer>, Standard_Transient> cls_OpenGl_Layer(mod, "OpenGl_Layer", "Presentations list sorted within priorities.");
 
 // Constructors
@@ -2997,6 +3013,7 @@ cls_OpenGl_Layer.def("NbOfTransformPersistenceObjects", (Standard_Integer (OpenG
 cls_OpenGl_Layer.def("CullableStructuresBVH", (const OpenGl_BVHClipPrimitiveSet & (OpenGl_Layer::*)() const) &OpenGl_Layer::CullableStructuresBVH, "Returns set of OpenGl_Structures structures for building BVH tree.");
 cls_OpenGl_Layer.def("CullableTrsfPersStructuresBVH", (const OpenGl_BVHClipPrimitiveTrsfPersSet & (OpenGl_Layer::*)() const) &OpenGl_Layer::CullableTrsfPersStructuresBVH, "Returns set of transform persistent OpenGl_Structures for building BVH tree.");
 cls_OpenGl_Layer.def("NonCullableStructures", (const NCollection_IndexedMap<const OpenGl_Structure *> & (OpenGl_Layer::*)() const) &OpenGl_Layer::NonCullableStructures, "Returns indexed map of always rendered structures.");
+*/
 
 // TYPEDEF: OPENGL_SEQUENCEOFLAYERS
 bind_NCollection_Sequence<opencascade::handle<OpenGl_Layer> >(mod, "OpenGl_SequenceOfLayers", py::module_local(false));
@@ -3005,6 +3022,7 @@ bind_NCollection_Sequence<opencascade::handle<OpenGl_Layer> >(mod, "OpenGl_Seque
 bind_NCollection_DataMap<int, int, NCollection_DefaultHasher<int> >(mod, "OpenGl_LayerSeqIds", py::module_local());
 
 // CLASS: OPENGL_LAYERLIST
+/*
 py::class_<OpenGl_LayerList> cls_OpenGl_LayerList(mod, "OpenGl_LayerList", "Class defining the list of layers.");
 
 // Constructors
@@ -3038,6 +3056,7 @@ cls_OpenGl_LayerList.def("SetFrustumCullingBVHBuilder", (void (OpenGl_LayerList:
 // cls_OpenGl_LayerList.def_static("operator delete[]_", (void (*)(void *)) &OpenGl_LayerList::operator delete[], "None", py::arg("theAddress"));
 // cls_OpenGl_LayerList.def_static("operator new_", (void * (*)(size_t, void *)) &OpenGl_LayerList::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_OpenGl_LayerList.def_static("operator delete_", (void (*)(void *, void *)) &OpenGl_LayerList::operator delete, "None", py::arg(""), py::arg(""));
+*/
 
 // CLASS: OPENGL_STATEINTERFACE
 py::class_<OpenGl_StateInterface> cls_OpenGl_StateInterface(mod, "OpenGl_StateInterface", "Defines interface for OpenGL state.");
@@ -3147,10 +3166,12 @@ cls_OpenGl_PointSprite.def("DynamicType", (const opencascade::handle<Standard_Ty
 py::class_<OpenGl_RaytraceMaterial> cls_OpenGl_RaytraceMaterial(mod, "OpenGl_RaytraceMaterial", "Stores properties of surface material.");
 
 // Constructors
+/*
 cls_OpenGl_RaytraceMaterial.def(py::init<>());
 cls_OpenGl_RaytraceMaterial.def(py::init<const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &>(), py::arg("theAmbient"), py::arg("theDiffuse"), py::arg("theSpecular"));
 cls_OpenGl_RaytraceMaterial.def(py::init<const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &>(), py::arg("theAmbient"), py::arg("theDiffuse"), py::arg("theSpecular"), py::arg("theEmission"), py::arg("theTranspar"));
 cls_OpenGl_RaytraceMaterial.def(py::init<const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &, const BVH_Vec4f &>(), py::arg("theAmbient"), py::arg("theDiffuse"), py::arg("theSpecular"), py::arg("theEmission"), py::arg("theTranspar"), py::arg("theReflection"), py::arg("theRefraction"));
+*/
 
 // Fields
 cls_OpenGl_RaytraceMaterial.def_readwrite("Ambient", &OpenGl_RaytraceMaterial::Ambient, "Ambient reflection coefficient.");
@@ -3210,7 +3231,7 @@ cls_OpenGl_TriangleSet.def("Center", (Standard_ShortReal (OpenGl_TriangleSet::*)
 // cls_OpenGl_TriangleSet.def("QuadBVH", (const QuadBvhHandle & (OpenGl_TriangleSet::*)()) &OpenGl_TriangleSet::QuadBVH, "Returns quad BVH (QBVH) tree produced from binary BVH.");
 
 // CLASS: OPENGL_RAYTRACEGEOMETRY
-
+/*
 bind_BVH_Geometry<Standard_ShortReal, 3>(mod, "BVH_Geometry_Standard_ShortReal3", py::module_local());
 
 py::class_<OpenGl_RaytraceGeometry, BVH_Geometry<Standard_ShortReal, 3>> cls_OpenGl_RaytraceGeometry(mod, "OpenGl_RaytraceGeometry", "Stores geometry of ray-tracing scene.");
@@ -3241,6 +3262,7 @@ cls_OpenGl_RaytraceGeometry.def("TextureHandles", (const std::vector<GLuint64> &
 cls_OpenGl_RaytraceGeometry.def("ReleaseResources", (void (OpenGl_RaytraceGeometry::*)(const opencascade::handle<OpenGl_Context> &)) &OpenGl_RaytraceGeometry::ReleaseResources, "Releases OpenGL resources.", py::arg(""));
 cls_OpenGl_RaytraceGeometry.def("TopLevelTreeDepth", (Standard_Integer (OpenGl_RaytraceGeometry::*)() const) &OpenGl_RaytraceGeometry::TopLevelTreeDepth, "Returns depth of top-level scene BVH from last build.");
 cls_OpenGl_RaytraceGeometry.def("BotLevelTreeDepth", (Standard_Integer (OpenGl_RaytraceGeometry::*)() const) &OpenGl_RaytraceGeometry::BotLevelTreeDepth, "Returns maximum depth of bottom-level scene BVHs from last build.");
+*/
 
 // CLASS: OPENGL_SETOFSHADERPROGRAMS
 py::class_<OpenGl_SetOfShaderPrograms, opencascade::handle<OpenGl_SetOfShaderPrograms>, Standard_Transient> cls_OpenGl_SetOfShaderPrograms(mod, "OpenGl_SetOfShaderPrograms", "Alias to programs array of predefined length");
@@ -3319,6 +3341,7 @@ cls_OpenGl_ShaderManager.def("SetLastView", (void (OpenGl_ShaderManager::*)(cons
 cls_OpenGl_ShaderManager.def("IsSameView", (bool (OpenGl_ShaderManager::*)(const OpenGl_View *) const) &OpenGl_ShaderManager::IsSameView, "Returns true when provided view is the same as cached one.", py::arg("theView"));
 
 // CLASS: OPENGL_STENCILTEST
+/*
 py::class_<OpenGl_StencilTest, std::unique_ptr<OpenGl_StencilTest, py::nodelete>, OpenGl_Element> cls_OpenGl_StencilTest(mod, "OpenGl_StencilTest", "None");
 
 // Constructors
@@ -3334,6 +3357,7 @@ cls_OpenGl_StencilTest.def("SetOptions", (void (OpenGl_StencilTest::*)(const Sta
 // cls_OpenGl_StencilTest.def_static("operator delete[]_", (void (*)(void *)) &OpenGl_StencilTest::operator delete[], "None", py::arg("theAddress"));
 // cls_OpenGl_StencilTest.def_static("operator new_", (void * (*)(size_t, void *)) &OpenGl_StencilTest::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_OpenGl_StencilTest.def_static("operator delete_", (void (*)(void *, void *)) &OpenGl_StencilTest::operator delete, "None", py::arg(""), py::arg(""));
+*/
 
 // CLASS: OPENGL_STRUCTURESHADOW
 py::class_<OpenGl_StructureShadow, opencascade::handle<OpenGl_StructureShadow>, OpenGl_Structure> cls_OpenGl_StructureShadow(mod, "OpenGl_StructureShadow", "Dummy structure which just redirects to groups of another structure.");
@@ -3387,6 +3411,7 @@ cls_OpenGl_VertexBufferCompat.def_static("get_type_descriptor_", (const opencasc
 cls_OpenGl_VertexBufferCompat.def("DynamicType", (const opencascade::handle<Standard_Type> & (OpenGl_VertexBufferCompat::*)() const) &OpenGl_VertexBufferCompat::DynamicType, "None");
 
 // CLASS: OPENGL_VIEW
+/*
 py::class_<OpenGl_View, opencascade::handle<OpenGl_View>, Graphic3d_CView> cls_OpenGl_View(mod, "OpenGl_View", "Implementation of OpenGl view.");
 
 // Constructors
@@ -3467,6 +3492,7 @@ cls_OpenGl_View.def("HasImmediateStructures", (bool (OpenGl_View::*)() const) &O
 cls_OpenGl_View.def_static("get_type_name_", (const char * (*)()) &OpenGl_View::get_type_name, "None");
 cls_OpenGl_View.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &OpenGl_View::get_type_descriptor, "None");
 cls_OpenGl_View.def("DynamicType", (const opencascade::handle<Standard_Type> & (OpenGl_View::*)() const) &OpenGl_View::DynamicType, "None");
+*/
 
 
 }
