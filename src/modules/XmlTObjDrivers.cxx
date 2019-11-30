@@ -60,6 +60,9 @@ py::module::import("OCCT.XmlObjMgt");
 // CLASS: XMLTOBJDRIVERS
 py::class_<XmlTObjDrivers> cls_XmlTObjDrivers(mod, "XmlTObjDrivers", "Class for registering storage/retrieval drivers for TObj XML persistence");
 
+// Constructors
+cls_XmlTObjDrivers.def(py::init<>());
+
 // Methods
 cls_XmlTObjDrivers.def_static("Factory_", (const opencascade::handle<Standard_Transient> & (*)(const Standard_GUID &)) &XmlTObjDrivers::Factory, "Returns a driver corresponding to <aGUID>. Used for plugin.", py::arg("aGUID"));
 cls_XmlTObjDrivers.def_static("DefineFormat_", (void (*)(const opencascade::handle<TDocStd_Application> &)) &XmlTObjDrivers::DefineFormat, "Defines format 'TObjXml' and registers its read and write drivers in the specified application", py::arg("theApp"));

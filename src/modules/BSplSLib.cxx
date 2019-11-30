@@ -57,6 +57,9 @@ cls_BSplSLib_EvaluatorFunction.def("__call__", [](BSplSLib_EvaluatorFunction &se
 // CLASS: BSPLSLIB
 py::class_<BSplSLib> cls_BSplSLib(mod, "BSplSLib", "BSplSLib B-spline surface Library This package provides an implementation of geometric functions for rational and non rational, periodic and non periodic B-spline surface computation.");
 
+// Constructors
+cls_BSplSLib.def(py::init<>());
+
 // Methods
 // cls_BSplSLib.def_static("operator new_", (void * (*)(size_t)) &BSplSLib::operator new, "None", py::arg("theSize"));
 // cls_BSplSLib.def_static("operator delete_", (void (*)(void *)) &BSplSLib::operator delete, "None", py::arg("theAddress"));

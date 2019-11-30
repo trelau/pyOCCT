@@ -53,6 +53,9 @@ bind_NCollection_DataMap<TCollection_AsciiString, int (*)(...), TCollection_Asci
 // CLASS: PLUGIN
 py::class_<Plugin> cls_Plugin(mod, "Plugin", "None");
 
+// Constructors
+cls_Plugin.def(py::init<>());
+
 // Methods
 cls_Plugin.def_static("Load_", [](const Standard_GUID & a0) -> opencascade::handle<Standard_Transient> { return Plugin::Load(a0); });
 cls_Plugin.def_static("Load_", (opencascade::handle<Standard_Transient> (*)(const Standard_GUID &, const Standard_Boolean)) &Plugin::Load, "None", py::arg("aGUID"), py::arg("theVerbose"));

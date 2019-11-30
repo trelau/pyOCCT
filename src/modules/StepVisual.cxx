@@ -310,6 +310,9 @@ cls_StepVisual_TessellatedCurveSet.def("DynamicType", (const opencascade::handle
 // CLASS: STEPVISUAL_PRESENTEDITEM
 py::class_<StepVisual_PresentedItem, opencascade::handle<StepVisual_PresentedItem>, Standard_Transient> cls_StepVisual_PresentedItem(mod, "StepVisual_PresentedItem", "None");
 
+// Constructors
+cls_StepVisual_PresentedItem.def(py::init<>());
+
 // Methods
 cls_StepVisual_PresentedItem.def_static("get_type_name_", (const char * (*)()) &StepVisual_PresentedItem::get_type_name, "None");
 cls_StepVisual_PresentedItem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepVisual_PresentedItem::get_type_descriptor, "None");

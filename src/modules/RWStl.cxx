@@ -44,6 +44,9 @@ py::module::import("OCCT.gp");
 // CLASS: RWSTL
 py::class_<RWStl> cls_RWStl(mod, "RWStl", "This class provides methods to read and write triangulation from / to the STL files.");
 
+// Constructors
+cls_RWStl.def(py::init<>());
+
 // Methods
 cls_RWStl.def_static("WriteBinary_", [](const opencascade::handle<Poly_Triangulation> & a0, const OSD_Path & a1) -> Standard_Boolean { return RWStl::WriteBinary(a0, a1); });
 cls_RWStl.def_static("WriteBinary_", (Standard_Boolean (*)(const opencascade::handle<Poly_Triangulation> &, const OSD_Path &, const opencascade::handle<Message_ProgressIndicator> &)) &RWStl::WriteBinary, "Write triangulation to binary STL file. binary format of an STL file. Returns false if the cannot be opened;", py::arg("theMesh"), py::arg("thePath"), py::arg("theProgInd"));

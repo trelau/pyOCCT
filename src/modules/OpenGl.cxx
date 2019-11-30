@@ -391,6 +391,9 @@ py::enum_<OpenGl_ProgramOptions>(mod, "OpenGl_ProgramOptions", "Standard GLSL pr
 // CLASS: OPENGL_GLFUNCTIONS
 py::class_<OpenGl_GlFunctions> cls_OpenGl_GlFunctions(mod, "OpenGl_GlFunctions", "Mega structure defines the complete list of OpenGL functions.");
 
+// Constructors
+cls_OpenGl_GlFunctions.def(py::init<>());
+
 // Fields
 cls_OpenGl_GlFunctions.def_readwrite("glBlendColor", &OpenGl_GlFunctions::glBlendColor, "");
 cls_OpenGl_GlFunctions.def_readwrite("glBlendEquation", &OpenGl_GlFunctions::glBlendEquation, "None");
@@ -1098,23 +1101,44 @@ cls_OpenGl_GlFunctions.def_readwrite("wglGetContextGPUIDAMD", &OpenGl_GlFunction
 // CLASS: OPENGL_ARBDBG
 py::class_<OpenGl_ArbDbg> cls_OpenGl_ArbDbg(mod, "OpenGl_ArbDbg", "Debug context routines");
 
+// Constructors
+cls_OpenGl_ArbDbg.def(py::init<>());
+
 // CLASS: OPENGL_ARBFBO
 py::class_<OpenGl_ArbFBO> cls_OpenGl_ArbFBO(mod, "OpenGl_ArbFBO", "FBO is available on OpenGL 2.0+ hardware");
+
+// Constructors
+cls_OpenGl_ArbFBO.def(py::init<>());
 
 // CLASS: OPENGL_ARBFBOBLIT
 py::class_<OpenGl_ArbFBOBlit> cls_OpenGl_ArbFBOBlit(mod, "OpenGl_ArbFBOBlit", "FBO blit is available in OpenGL 3.0+. Moved out from OpenGl_ArbFBO since it is unavailable in OpenGL ES 2.0.");
 
+// Constructors
+cls_OpenGl_ArbFBOBlit.def(py::init<>());
+
 // CLASS: OPENGL_ARBINS
 py::class_<OpenGl_ArbIns> cls_OpenGl_ArbIns(mod, "OpenGl_ArbIns", "Instancing is available on OpenGL 3.0+ hardware");
+
+// Constructors
+cls_OpenGl_ArbIns.def(py::init<>());
 
 // CLASS: OPENGL_ARBSAMPLEROBJECT
 py::class_<OpenGl_ArbSamplerObject> cls_OpenGl_ArbSamplerObject(mod, "OpenGl_ArbSamplerObject", "Provide Sampler Object functionality (texture parameters stored independently from texture itself). Available since OpenGL 3.3+ (GL_ARB_sampler_objects extension) and OpenGL ES 3.0+.");
 
+// Constructors
+cls_OpenGl_ArbSamplerObject.def(py::init<>());
+
 // CLASS: OPENGL_ARBTBO
 py::class_<OpenGl_ArbTBO> cls_OpenGl_ArbTBO(mod, "OpenGl_ArbTBO", "TBO is available on OpenGL 3.0+ and OpenGL ES 3.2+ hardware");
 
+// Constructors
+cls_OpenGl_ArbTBO.def(py::init<>());
+
 // CLASS: OPENGL_ARBTEXBINDLESS
 py::class_<OpenGl_ArbTexBindless> cls_OpenGl_ArbTexBindless(mod, "OpenGl_ArbTexBindless", "Provides bindless textures. This extension allows OpenGL applications to access texture objects in shaders without first binding each texture to one of a limited number of texture image units.");
+
+// Constructors
+cls_OpenGl_ArbTexBindless.def(py::init<>());
 
 // CLASS: OPENGL_ELEMENT
 py::class_<OpenGl_Element, std::unique_ptr<OpenGl_Element, py::nodelete>> cls_OpenGl_Element(mod, "OpenGl_Element", "Base interface for drawable elements.");
@@ -1223,6 +1247,9 @@ cls_OpenGl_Aspects.def("DumpJson", (void (OpenGl_Aspects::*)(Standard_OStream &,
 // CLASS: OPENGL_GLCORE11FWD
 py::class_<OpenGl_GlCore11Fwd> cls_OpenGl_GlCore11Fwd(mod, "OpenGl_GlCore11Fwd", "OpenGL 1.1 core without deprecated Fixed Pipeline entry points. Notice that all functions within this structure are actually exported by system GL library. The main purpose for these hint - to control visibility of functions per GL version (global functions should not be used directly to achieve this effect!).");
 
+// Constructors
+cls_OpenGl_GlCore11Fwd.def(py::init<>());
+
 // Methods
 cls_OpenGl_GlCore11Fwd.def("glClearColor", (void (OpenGl_GlCore11Fwd::*)(GLclampf, GLclampf, GLclampf, GLclampf)) &OpenGl_GlCore11Fwd::glClearColor, "", py::arg("theRed"), py::arg("theGreen"), py::arg("theBlue"), py::arg("theAlpha"));
 cls_OpenGl_GlCore11Fwd.def("glClear", (void (OpenGl_GlCore11Fwd::*)(GLbitfield)) &OpenGl_GlCore11Fwd::glClear, "None", py::arg("theMask"));
@@ -1283,6 +1310,9 @@ cls_OpenGl_GlCore11Fwd.def("glPointSize", (void (OpenGl_GlCore11Fwd::*)(GLfloat)
 
 // CLASS: OPENGL_GLCORE11
 py::class_<OpenGl_GlCore11> cls_OpenGl_GlCore11(mod, "OpenGl_GlCore11", "OpenGL 1.1 core. Notice that all functions within this structure are actually exported by system GL library. The main purpose for these hint - to control visibility of functions per GL version (global functions should not be used directly to achieve this effect!).");
+
+// Constructors
+cls_OpenGl_GlCore11.def(py::init<>());
 
 // Methods
 cls_OpenGl_GlCore11.def("glRotated", (void (OpenGl_GlCore11::*)(GLdouble, GLdouble, GLdouble, GLdouble)) &OpenGl_GlCore11::glRotated, "None", py::arg("theAngleDegrees"), py::arg("theX"), py::arg("theY"), py::arg("theZ"));
@@ -1548,8 +1578,14 @@ bind_OpenGl_TmplCore12<OpenGl_GlCore11Fwd>(mod, "OpenGl_GlCore12Fwd", py::module
 // CLASS: OPENGL_GLCORE13FWD
 py::class_<OpenGl_GlCore13Fwd> cls_OpenGl_GlCore13Fwd(mod, "OpenGl_GlCore13Fwd", "OpenGL 1.3 without deprecated entry points.");
 
+// Constructors
+cls_OpenGl_GlCore13Fwd.def(py::init<>());
+
 // CLASS: OPENGL_GLCORE13
 py::class_<OpenGl_GlCore13> cls_OpenGl_GlCore13(mod, "OpenGl_GlCore13", "OpenGL 1.3 core based on 1.2 version.");
+
+// Constructors
+cls_OpenGl_GlCore13.def(py::init<>());
 
 // TYPEDEF: OPENGL_GLCORE14
 bind_OpenGl_TmplCore14<OpenGl_GlCore13>(mod, "OpenGl_GlCore14", py::module_local(false));
@@ -2079,6 +2115,9 @@ cls_OpenGl_Context.def("Vendor", (const TCollection_AsciiString & (OpenGl_Contex
 // CLASS: OPENGL_MATRIX
 py::class_<OpenGl_Matrix> cls_OpenGl_Matrix(mod, "OpenGl_Matrix", "None");
 
+// Constructors
+cls_OpenGl_Matrix.def(py::init<>());
+
 // Fields
 // cls_OpenGl_Matrix.def_readwrite("mat", &OpenGl_Matrix::mat, "None");
 
@@ -2347,6 +2386,9 @@ cls_OpenGl_PrimitiveArray.attr("DRAW_MODE_NONE") = py::cast(int(OpenGl_Primitive
 // CLASS: OPENGL_ELEMENTNODE
 py::class_<OpenGl_ElementNode> cls_OpenGl_ElementNode(mod, "OpenGl_ElementNode", "None");
 
+// Constructors
+cls_OpenGl_ElementNode.def(py::init<>());
+
 // Fields
 cls_OpenGl_ElementNode.def_readwrite("elem", &OpenGl_ElementNode::elem, "None");
 cls_OpenGl_ElementNode.def_readwrite("next", &OpenGl_ElementNode::next, "None");
@@ -2391,6 +2433,9 @@ cls_OpenGl_Group.def("DynamicType", (const opencascade::handle<Standard_Type> & 
 
 // CLASS: OPENGL_CAPPINGALGO
 py::class_<OpenGl_CappingAlgo> cls_OpenGl_CappingAlgo(mod, "OpenGl_CappingAlgo", "Capping surface rendering algorithm.");
+
+// Constructors
+cls_OpenGl_CappingAlgo.def(py::init<>());
 
 // Methods
 cls_OpenGl_CappingAlgo.def_static("RenderCapping_", (void (*)(const opencascade::handle<OpenGl_Workspace> &, const OpenGl_Structure &)) &OpenGl_CappingAlgo::RenderCapping, "Draw capping surfaces by OpenGl for the clipping planes enabled in current context state. Depth buffer must be generated for the passed groups.", py::arg("theWorkspace"), py::arg("theStructure"));
@@ -2689,6 +2734,9 @@ cls_OpenGl_ClippingIterator.def("PlaneIndex", (Standard_Integer (OpenGl_Clipping
 // CLASS: OPENGL_EXTGS
 py::class_<OpenGl_ExtGS> cls_OpenGl_ExtGS(mod, "OpenGl_ExtGS", "Geometry shader as extension is available on OpenGL 2.0+");
 
+// Constructors
+cls_OpenGl_ExtGS.def(py::init<>());
+
 // CLASS: OPENGL_FLIPPER
 py::class_<OpenGl_Flipper, OpenGl_Element> cls_OpenGl_Flipper(mod, "OpenGl_Flipper", "Being rendered, the elements modifies current model-view matrix such that the axes of the specified reference system (in model space) become oriented in the following way: - X - heads to the right side of view. - Y - heads to the up side of view. - N(Z) - heads towards the screen. Originally, this element serves for need of flipping the 3D text of dimension presentations.");
 
@@ -2968,12 +3016,16 @@ cls_OpenGl_GraphicDriver.def("GetNextPrimitiveArrayUID", (Standard_Size (OpenGl_
 // CLASS: OPENGL_HALTONSAMPLER
 py::class_<OpenGl_HaltonSampler> cls_OpenGl_HaltonSampler(mod, "OpenGl_HaltonSampler", "Compute points of the Halton sequence with with digit-permutations for different bases.");
 
+// Constructors
+cls_OpenGl_HaltonSampler.def(py::init<>());
+
 // Methods
 cls_OpenGl_HaltonSampler.def_static("get_num_dimensions_", (unsigned int (*)()) &OpenGl_HaltonSampler::get_num_dimensions, "Return the number of supported dimensions.");
 cls_OpenGl_HaltonSampler.def("initFaure", (void (OpenGl_HaltonSampler::*)()) &OpenGl_HaltonSampler::initFaure, "Init the permutation arrays using Faure-permutations. Alternatively, initRandom() can be called before the sampling functionality can be used.");
 cls_OpenGl_HaltonSampler.def("sample", (float (OpenGl_HaltonSampler::*)(unsigned int, unsigned int) const) &OpenGl_HaltonSampler::sample, "Return the Halton sample for the given dimension (component) and index. The client must have called initRandom or initFaure() at least once before. dimension must be smaller than the value returned by get_num_dimensions().", py::arg("theDimension"), py::arg("theIndex"));
 
 // TYPEDEF: OPENGL_LAYER
+/*
 py::class_<Graphic3d_Layer, opencascade::handle<Graphic3d_Layer>, Standard_Transient> cls_OpenGl_Layer(mod, "OpenGl_Layer", "Presentations list sorted within priorities.", py::module_local());
 
 // Constructors
@@ -3007,6 +3059,7 @@ cls_OpenGl_Layer.def("NbOfTransformPersistenceObjects", (Standard_Integer (Graph
 cls_OpenGl_Layer.def("CullableStructuresBVH", (const Graphic3d_BvhCStructureSet & (Graphic3d_Layer::*)() const) &Graphic3d_Layer::CullableStructuresBVH, "Returns set of Graphic3d_CStructures structures for building BVH tree.");
 cls_OpenGl_Layer.def("CullableTrsfPersStructuresBVH", (const Graphic3d_BvhCStructureSetTrsfPers & (Graphic3d_Layer::*)() const) &Graphic3d_Layer::CullableTrsfPersStructuresBVH, "Returns set of transform persistent Graphic3d_CStructures for building BVH tree.");
 cls_OpenGl_Layer.def("NonCullableStructures", (const NCollection_IndexedMap<const Graphic3d_CStructure *> & (Graphic3d_Layer::*)() const) &Graphic3d_Layer::NonCullableStructures, "Returns indexed map of always rendered structures.");
+*/
 
 // CLASS: OPENGL_LAYERLIST
 py::class_<OpenGl_LayerList> cls_OpenGl_LayerList(mod, "OpenGl_LayerList", "Class defining the list of layers.");

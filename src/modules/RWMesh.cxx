@@ -115,6 +115,9 @@ cls_RWMesh_CoordinateSystemConverter.def("TransformNormal", (void (RWMesh_Coordi
 // CLASS: RWMESH_NODEATTRIBUTES
 py::class_<RWMesh_NodeAttributes> cls_RWMesh_NodeAttributes(mod, "RWMesh_NodeAttributes", "Attributes of the node.");
 
+// Constructors
+cls_RWMesh_NodeAttributes.def(py::init<>());
+
 // Fields
 cls_RWMesh_NodeAttributes.def_readwrite("Name", &RWMesh_NodeAttributes::Name, "name for the user");
 cls_RWMesh_NodeAttributes.def_readwrite("RawName", &RWMesh_NodeAttributes::RawName, "name within low-level format structure");

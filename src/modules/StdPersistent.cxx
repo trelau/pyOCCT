@@ -87,6 +87,9 @@ py::module::import("OCCT.TopLoc");
 // CLASS: STDPERSISTENT_TOPODS
 py::class_<StdPersistent_TopoDS> cls_StdPersistent_TopoDS(mod, "StdPersistent_TopoDS", "None");
 
+// Constructors
+cls_StdPersistent_TopoDS.def(py::init<>());
+
 // CLASS: STDPERSISTENT_HARRAY1OFSHAPE1
 py::class_<StdPersistent_HArray1OfShape1, opencascade::handle<StdPersistent_HArray1OfShape1>, Standard_Transient> cls_StdPersistent_HArray1OfShape1(mod, "StdPersistent_HArray1OfShape1", "None", py::multiple_inheritance());
 
@@ -114,8 +117,14 @@ cls_StdPersistent_HArray1OfShape1.def("DynamicType", (const opencascade::handle<
 // CLASS: STDPERSISTENT_HARRAY1
 py::class_<StdPersistent_HArray1> cls_StdPersistent_HArray1(mod, "StdPersistent_HArray1", "None");
 
+// Constructors
+cls_StdPersistent_HArray1.def(py::init<>());
+
 // CLASS: STDPERSISTENT
 py::class_<StdPersistent> cls_StdPersistent(mod, "StdPersistent", "None");
+
+// Constructors
+cls_StdPersistent.def(py::init<>());
 
 // Methods
 cls_StdPersistent.def_static("BindTypes_", (void (*)(StdObjMgt_MapOfInstantiators &)) &StdPersistent::BindTypes, "Register types.", py::arg("theMap"));
@@ -123,10 +132,16 @@ cls_StdPersistent.def_static("BindTypes_", (void (*)(StdObjMgt_MapOfInstantiator
 // CLASS: STDPERSISTENT_DATAXTD
 py::class_<StdPersistent_DataXtd> cls_StdPersistent_DataXtd(mod, "StdPersistent_DataXtd", "None");
 
+// Constructors
+cls_StdPersistent_DataXtd.def(py::init<>());
+
 // CLASS: STDPERSISTENT_DATAXTD_CONSTRAINT
 bind_StdObjMgt_Attribute<TDataXtd_Constraint>(mod, "StdObjMgt_Attribute_TDataXtd_Constraint", py::module_local());
 
 py::class_<StdPersistent_DataXtd_Constraint, opencascade::handle<StdPersistent_DataXtd_Constraint>, StdObjMgt_Attribute<TDataXtd_Constraint>> cls_StdPersistent_DataXtd_Constraint(mod, "StdPersistent_DataXtd_Constraint", "None");
+
+// Constructors
+cls_StdPersistent_DataXtd_Constraint.def(py::init<>());
 
 // Methods
 cls_StdPersistent_DataXtd_Constraint.def("Read", (void (StdPersistent_DataXtd_Constraint::*)(StdObjMgt_ReadData &)) &StdPersistent_DataXtd_Constraint::Read, "Read persistent data from a file.", py::arg("theReadData"));
@@ -140,6 +155,9 @@ bind_StdObjMgt_Attribute<TDataXtd_PatternStd>(mod, "StdObjMgt_Attribute_TDataXtd
 
 py::class_<StdPersistent_DataXtd_PatternStd, opencascade::handle<StdPersistent_DataXtd_PatternStd>, StdObjMgt_Attribute<TDataXtd_PatternStd>> cls_StdPersistent_DataXtd_PatternStd(mod, "StdPersistent_DataXtd_PatternStd", "None");
 
+// Constructors
+cls_StdPersistent_DataXtd_PatternStd.def(py::init<>());
+
 // Methods
 cls_StdPersistent_DataXtd_PatternStd.def("Read", (void (StdPersistent_DataXtd_PatternStd::*)(StdObjMgt_ReadData &)) &StdPersistent_DataXtd_PatternStd::Read, "Read persistent data from a file.", py::arg("theReadData"));
 cls_StdPersistent_DataXtd_PatternStd.def("Write", (void (StdPersistent_DataXtd_PatternStd::*)(StdObjMgt_WriteData &)) &StdPersistent_DataXtd_PatternStd::Write, "Write persistent data to a file.", py::arg("theWriteData"));
@@ -150,11 +168,20 @@ cls_StdPersistent_DataXtd_PatternStd.def("PName", (Standard_CString (StdPersiste
 // CLASS: STDPERSISTENT_NAMING
 py::class_<StdPersistent_Naming> cls_StdPersistent_Naming(mod, "StdPersistent_Naming", "None");
 
+// Constructors
+cls_StdPersistent_Naming.def(py::init<>());
+
 // CLASS: STDPERSISTENT_PPRSSTD
 py::class_<StdPersistent_PPrsStd> cls_StdPersistent_PPrsStd(mod, "StdPersistent_PPrsStd", "None");
 
+// Constructors
+cls_StdPersistent_PPrsStd.def(py::init<>());
+
 // CLASS: STDPERSISTENT_TOPLOC
 py::class_<StdPersistent_TopLoc> cls_StdPersistent_TopLoc(mod, "StdPersistent_TopLoc", "None");
+
+// Constructors
+cls_StdPersistent_TopLoc.def(py::init<>());
 
 // Methods
 // cls_StdPersistent_TopLoc.def_static("Translate_", (opencascade::handle<ItemLocation> (*)(const TopLoc_Location &, StdObjMgt_TransientPersistentMap &)) &StdPersistent_TopLoc::Translate, "None", py::arg("theLoc"), py::arg("theMap"));

@@ -46,6 +46,9 @@ py::module::import("OCCT.BinObjMgt");
 // CLASS: BINMDOCSTD
 py::class_<BinMDocStd> cls_BinMDocStd(mod, "BinMDocStd", "Storage and Retrieval drivers for TDocStd modelling attributes.");
 
+// Constructors
+cls_BinMDocStd.def(py::init<>());
+
 // Methods
 // cls_BinMDocStd.def_static("operator new_", (void * (*)(size_t)) &BinMDocStd::operator new, "None", py::arg("theSize"));
 // cls_BinMDocStd.def_static("operator delete_", (void (*)(void *)) &BinMDocStd::operator delete, "None", py::arg("theAddress"));

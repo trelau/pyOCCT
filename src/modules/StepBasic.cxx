@@ -284,6 +284,9 @@ py::enum_<StepBasic_Source>(mod, "StepBasic_Source", "None")
 // CLASS: STEPBASIC_APPROVALASSIGNMENT
 py::class_<StepBasic_ApprovalAssignment, opencascade::handle<StepBasic_ApprovalAssignment>, Standard_Transient> cls_StepBasic_ApprovalAssignment(mod, "StepBasic_ApprovalAssignment", "None");
 
+// Constructors
+cls_StepBasic_ApprovalAssignment.def(py::init<>());
+
 // Methods
 cls_StepBasic_ApprovalAssignment.def("Init", (void (StepBasic_ApprovalAssignment::*)(const opencascade::handle<StepBasic_Approval> &)) &StepBasic_ApprovalAssignment::Init, "None", py::arg("aAssignedApproval"));
 cls_StepBasic_ApprovalAssignment.def("SetAssignedApproval", (void (StepBasic_ApprovalAssignment::*)(const opencascade::handle<StepBasic_Approval> &)) &StepBasic_ApprovalAssignment::SetAssignedApproval, "None", py::arg("aAssignedApproval"));
@@ -323,6 +326,9 @@ cls_StepBasic_ContractAssignment.def("DynamicType", (const opencascade::handle<S
 // CLASS: STEPBASIC_DATEANDTIMEASSIGNMENT
 py::class_<StepBasic_DateAndTimeAssignment, opencascade::handle<StepBasic_DateAndTimeAssignment>, Standard_Transient> cls_StepBasic_DateAndTimeAssignment(mod, "StepBasic_DateAndTimeAssignment", "None");
 
+// Constructors
+cls_StepBasic_DateAndTimeAssignment.def(py::init<>());
+
 // Methods
 cls_StepBasic_DateAndTimeAssignment.def("Init", (void (StepBasic_DateAndTimeAssignment::*)(const opencascade::handle<StepBasic_DateAndTime> &, const opencascade::handle<StepBasic_DateTimeRole> &)) &StepBasic_DateAndTimeAssignment::Init, "None", py::arg("aAssignedDateAndTime"), py::arg("aRole"));
 cls_StepBasic_DateAndTimeAssignment.def("SetAssignedDateAndTime", (void (StepBasic_DateAndTimeAssignment::*)(const opencascade::handle<StepBasic_DateAndTime> &)) &StepBasic_DateAndTimeAssignment::SetAssignedDateAndTime, "None", py::arg("aAssignedDateAndTime"));
@@ -335,6 +341,9 @@ cls_StepBasic_DateAndTimeAssignment.def("DynamicType", (const opencascade::handl
 
 // CLASS: STEPBASIC_PERSONANDORGANIZATIONASSIGNMENT
 py::class_<StepBasic_PersonAndOrganizationAssignment, opencascade::handle<StepBasic_PersonAndOrganizationAssignment>, Standard_Transient> cls_StepBasic_PersonAndOrganizationAssignment(mod, "StepBasic_PersonAndOrganizationAssignment", "None");
+
+// Constructors
+cls_StepBasic_PersonAndOrganizationAssignment.def(py::init<>());
 
 // Methods
 cls_StepBasic_PersonAndOrganizationAssignment.def("Init", (void (StepBasic_PersonAndOrganizationAssignment::*)(const opencascade::handle<StepBasic_PersonAndOrganization> &, const opencascade::handle<StepBasic_PersonAndOrganizationRole> &)) &StepBasic_PersonAndOrganizationAssignment::Init, "None", py::arg("aAssignedPersonAndOrganization"), py::arg("aRole"));
@@ -349,6 +358,9 @@ cls_StepBasic_PersonAndOrganizationAssignment.def("DynamicType", (const opencasc
 // CLASS: STEPBASIC_SECURITYCLASSIFICATIONASSIGNMENT
 py::class_<StepBasic_SecurityClassificationAssignment, opencascade::handle<StepBasic_SecurityClassificationAssignment>, Standard_Transient> cls_StepBasic_SecurityClassificationAssignment(mod, "StepBasic_SecurityClassificationAssignment", "None");
 
+// Constructors
+cls_StepBasic_SecurityClassificationAssignment.def(py::init<>());
+
 // Methods
 cls_StepBasic_SecurityClassificationAssignment.def("Init", (void (StepBasic_SecurityClassificationAssignment::*)(const opencascade::handle<StepBasic_SecurityClassification> &)) &StepBasic_SecurityClassificationAssignment::Init, "None", py::arg("aAssignedSecurityClassification"));
 cls_StepBasic_SecurityClassificationAssignment.def("SetAssignedSecurityClassification", (void (StepBasic_SecurityClassificationAssignment::*)(const opencascade::handle<StepBasic_SecurityClassification> &)) &StepBasic_SecurityClassificationAssignment::SetAssignedSecurityClassification, "None", py::arg("aAssignedSecurityClassification"));
@@ -359,6 +371,9 @@ cls_StepBasic_SecurityClassificationAssignment.def("DynamicType", (const opencas
 
 // CLASS: STEPBASIC_DOCUMENTREFERENCE
 py::class_<StepBasic_DocumentReference, opencascade::handle<StepBasic_DocumentReference>, Standard_Transient> cls_StepBasic_DocumentReference(mod, "StepBasic_DocumentReference", "None");
+
+// Constructors
+cls_StepBasic_DocumentReference.def(py::init<>());
 
 // Methods
 cls_StepBasic_DocumentReference.def("Init0", (void (StepBasic_DocumentReference::*)(const opencascade::handle<StepBasic_Document> &, const opencascade::handle<TCollection_HAsciiString> &)) &StepBasic_DocumentReference::Init0, "None", py::arg("aAssignedDocument"), py::arg("aSource"));
@@ -400,6 +415,9 @@ cls_StepBasic_ActionRequestAssignment.def("DynamicType", (const opencascade::han
 
 // CLASS: STEPBASIC_DATEASSIGNMENT
 py::class_<StepBasic_DateAssignment, opencascade::handle<StepBasic_DateAssignment>, Standard_Transient> cls_StepBasic_DateAssignment(mod, "StepBasic_DateAssignment", "None");
+
+// Constructors
+cls_StepBasic_DateAssignment.def(py::init<>());
 
 // Methods
 cls_StepBasic_DateAssignment.def("Init", (void (StepBasic_DateAssignment::*)(const opencascade::handle<StepBasic_Date> &, const opencascade::handle<StepBasic_DateRole> &)) &StepBasic_DateAssignment::Init, "None", py::arg("aAssignedDate"), py::arg("aRole"));
@@ -457,6 +475,9 @@ cls_StepBasic_GroupAssignment.def("DynamicType", (const opencascade::handle<Stan
 
 // CLASS: STEPBASIC_ORGANIZATIONASSIGNMENT
 py::class_<StepBasic_OrganizationAssignment, opencascade::handle<StepBasic_OrganizationAssignment>, Standard_Transient> cls_StepBasic_OrganizationAssignment(mod, "StepBasic_OrganizationAssignment", "None");
+
+// Constructors
+cls_StepBasic_OrganizationAssignment.def(py::init<>());
 
 // Methods
 cls_StepBasic_OrganizationAssignment.def("Init", (void (StepBasic_OrganizationAssignment::*)(const opencascade::handle<StepBasic_Organization> &, const opencascade::handle<StepBasic_OrganizationRole> &)) &StepBasic_OrganizationAssignment::Init, "None", py::arg("aAssignedOrganization"), py::arg("aRole"));

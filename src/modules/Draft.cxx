@@ -82,6 +82,9 @@ py::enum_<Draft_ErrorStatus>(mod, "Draft_ErrorStatus", "None")
 // CLASS: DRAFT
 py::class_<Draft> cls_Draft(mod, "Draft", "None");
 
+// Constructors
+cls_Draft.def(py::init<>());
+
 // Methods
 // cls_Draft.def_static("operator new_", (void * (*)(size_t)) &Draft::operator new, "None", py::arg("theSize"));
 // cls_Draft.def_static("operator delete_", (void (*)(void *)) &Draft::operator delete, "None", py::arg("theAddress"));

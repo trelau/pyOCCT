@@ -95,6 +95,9 @@ py::enum_<SelectBasics_SelectingVolumeManager::SelectionType>(cls_SelectBasics_S
 // CLASS: SELECTBASICS
 py::class_<SelectBasics> cls_SelectBasics(mod, "SelectBasics", "interface class for dynamic selection");
 
+// Constructors
+cls_SelectBasics.def(py::init<>());
+
 // Methods
 cls_SelectBasics.def_static("MaxOwnerPriority_", (Standard_Integer (*)()) &SelectBasics::MaxOwnerPriority, "Structure to provide all-in-one result of selection of sensitive for 'Matches' method of Select3D_SensitiveEntity.");
 cls_SelectBasics.def_static("MinOwnerPriority_", (Standard_Integer (*)()) &SelectBasics::MinOwnerPriority, "None");

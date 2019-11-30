@@ -278,6 +278,9 @@ cls_TopOpeBRepTool_ShapeExplorer.def("DumpCurrent", (Standard_OStream & (TopOpeB
 // CLASS: TOPOPEBREPTOOL
 py::class_<TopOpeBRepTool> cls_TopOpeBRepTool(mod, "TopOpeBRepTool", "This package provides services used by the TopOpeBRep package performing topological operations on the BRep data structure.");
 
+// Constructors
+cls_TopOpeBRepTool.def(py::init<>());
+
 // Methods
 // cls_TopOpeBRepTool.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepTool::operator new, "None", py::arg("theSize"));
 // cls_TopOpeBRepTool.def_static("operator delete_", (void (*)(void *)) &TopOpeBRepTool::operator delete, "None", py::arg("theAddress"));
@@ -297,6 +300,9 @@ cls_TopOpeBRepTool.def_static("Print_", (Standard_OStream & (*)(const TopOpeBRep
 
 // CLASS: TOPOPEBREPTOOL_ANCESTORSTOOL
 py::class_<TopOpeBRepTool_AncestorsTool> cls_TopOpeBRepTool_AncestorsTool(mod, "TopOpeBRepTool_AncestorsTool", "Describes the ancestors tool needed by the class DSFiller from TopOpeInter.");
+
+// Constructors
+cls_TopOpeBRepTool_AncestorsTool.def(py::init<>());
 
 // Methods
 // cls_TopOpeBRepTool_AncestorsTool.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepTool_AncestorsTool::operator new, "None", py::arg("theSize"));
@@ -680,6 +686,9 @@ cls_TopOpeBRepTool_REGUW.def("UpdateMultiple", (Standard_Boolean (TopOpeBRepTool
 // CLASS: TOPOPEBREPTOOL_SHAPETOOL
 py::class_<TopOpeBRepTool_ShapeTool> cls_TopOpeBRepTool_ShapeTool(mod, "TopOpeBRepTool_ShapeTool", "None");
 
+// Constructors
+cls_TopOpeBRepTool_ShapeTool.def(py::init<>());
+
 // Methods
 // cls_TopOpeBRepTool_ShapeTool.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepTool_ShapeTool::operator new, "None", py::arg("theSize"));
 // cls_TopOpeBRepTool_ShapeTool.def_static("operator delete_", (void (*)(void *)) &TopOpeBRepTool_ShapeTool::operator delete, "None", py::arg("theAddress"));
@@ -712,6 +721,9 @@ cls_TopOpeBRepTool_ShapeTool.def_static("Resolution3d_", (Standard_Real (*)(cons
 
 // CLASS: TOPOPEBREPTOOL_TOOL
 py::class_<TopOpeBRepTool_TOOL> cls_TopOpeBRepTool_TOOL(mod, "TopOpeBRepTool_TOOL", "None");
+
+// Constructors
+cls_TopOpeBRepTool_TOOL.def(py::init<>());
 
 // Methods
 // cls_TopOpeBRepTool_TOOL.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepTool_TOOL::operator new, "None", py::arg("theSize"));

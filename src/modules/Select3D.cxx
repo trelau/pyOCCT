@@ -238,6 +238,9 @@ bind_NCollection_IndexedMap<opencascade::handle<Select3D_SensitiveEntity>, NColl
 // CLASS: SELECT3D_PNT
 py::class_<Select3D_Pnt> cls_Select3D_Pnt(mod, "Select3D_Pnt", "None");
 
+// Constructors
+cls_Select3D_Pnt.def(py::init<>());
+
 // Fields
 cls_Select3D_Pnt.def_readwrite("x", &Select3D_Pnt::x, "None");
 cls_Select3D_Pnt.def_readwrite("y", &Select3D_Pnt::y, "None");

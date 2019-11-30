@@ -65,6 +65,9 @@ py::module::import("OCCT.TColStd");
 // CLASS: EXPRINTRP
 py::class_<ExprIntrp> cls_ExprIntrp(mod, "ExprIntrp", "Describes an interpreter for GeneralExpressions, GeneralFunctions, and GeneralRelations defined in package Expr.");
 
+// Constructors
+cls_ExprIntrp.def(py::init<>());
+
 // Methods
 // cls_ExprIntrp.def_static("operator new_", (void * (*)(size_t)) &ExprIntrp::operator new, "None", py::arg("theSize"));
 // cls_ExprIntrp.def_static("operator delete_", (void (*)(void *)) &ExprIntrp::operator delete, "None", py::arg("theAddress"));

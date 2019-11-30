@@ -305,6 +305,9 @@ bind_NCollection_Sequence<IntSurf_PathPoint>(mod, "IntSurf_SequenceOfPathPoint",
 // CLASS: INTSURF
 py::class_<IntSurf> cls_IntSurf(mod, "IntSurf", "This package provides resources for all the packages concerning the intersection between surfaces.");
 
+// Constructors
+cls_IntSurf.def(py::init<>());
+
 // Methods
 // cls_IntSurf.def_static("operator new_", (void * (*)(size_t)) &IntSurf::operator new, "None", py::arg("theSize"));
 // cls_IntSurf.def_static("operator delete_", (void (*)(void *)) &IntSurf::operator delete, "None", py::arg("theAddress"));
@@ -317,6 +320,9 @@ cls_IntSurf.def_static("MakeTransition_", (void (*)(const gp_Vec &, const gp_Vec
 
 // CLASS: INTSURF_INTERIORPOINTTOOL
 py::class_<IntSurf_InteriorPointTool> cls_IntSurf_InteriorPointTool(mod, "IntSurf_InteriorPointTool", "This class provides a tool on the 'interior point' that can be used to instantiates the Walking algorithmes (see package IntWalk).");
+
+// Constructors
+cls_IntSurf_InteriorPointTool.def(py::init<>());
 
 // Methods
 // cls_IntSurf_InteriorPointTool.def_static("operator new_", (void * (*)(size_t)) &IntSurf_InteriorPointTool::operator new, "None", py::arg("theSize"));
@@ -332,6 +338,9 @@ cls_IntSurf_InteriorPointTool.def_static("Direction2d_", (gp_Dir2d (*)(const Int
 
 // CLASS: INTSURF_PATHPOINTTOOL
 py::class_<IntSurf_PathPointTool> cls_IntSurf_PathPointTool(mod, "IntSurf_PathPointTool", "None");
+
+// Constructors
+cls_IntSurf_PathPointTool.def(py::init<>());
 
 // Methods
 // cls_IntSurf_PathPointTool.def_static("operator new_", (void * (*)(size_t)) &IntSurf_PathPointTool::operator new, "None", py::arg("theSize"));
@@ -351,6 +360,9 @@ cls_IntSurf_PathPointTool.def_static("Parameters_", [](const IntSurf_PathPoint &
 
 // CLASS: INTSURF_QUADRICTOOL
 py::class_<IntSurf_QuadricTool> cls_IntSurf_QuadricTool(mod, "IntSurf_QuadricTool", "This class provides a tool on a quadric that can be used to instantiates the Walking algorithmes (see package IntWalk) with a Quadric from IntSurf as implicit surface.");
+
+// Constructors
+cls_IntSurf_QuadricTool.def(py::init<>());
 
 // Methods
 // cls_IntSurf_QuadricTool.def_static("operator new_", (void * (*)(size_t)) &IntSurf_QuadricTool::operator new, "None", py::arg("theSize"));

@@ -688,6 +688,9 @@ cls_BRepMesh_CylinderRangeSplitter.def("GenerateSurfaceNodes", (opencascade::han
 // CLASS: BREPMESH_DEFLECTION
 py::class_<BRepMesh_Deflection, opencascade::handle<BRepMesh_Deflection>, Standard_Transient> cls_BRepMesh_Deflection(mod, "BRepMesh_Deflection", "Auxiliary tool encompassing methods to compute deflection of shapes.");
 
+// Constructors
+cls_BRepMesh_Deflection.def(py::init<>());
+
 // Methods
 cls_BRepMesh_Deflection.def_static("ComputeAbsoluteDeflection_", (Standard_Real (*)(const TopoDS_Shape &, const Standard_Real, const Standard_Real)) &BRepMesh_Deflection::ComputeAbsoluteDeflection, "Returns absolute deflection for theShape with respect to the relative deflection and theMaxShapeSize.", py::arg("theShape"), py::arg("theRelativeDeflection"), py::arg("theMaxShapeSize"));
 cls_BRepMesh_Deflection.def_static("ComputeDeflection_", (void (*)(const IMeshData::IEdgeHandle &, const Standard_Real, const IMeshTools_Parameters &)) &BRepMesh_Deflection::ComputeDeflection, "Computes and updates deflection of the given discrete edge.", py::arg("theDEdge"), py::arg("theMaxShapeSize"), py::arg("theParameters"));
@@ -802,6 +805,9 @@ cls_BRepMesh_FaceDiscret.def("DynamicType", (const opencascade::handle<Standard_
 // CLASS: BREPMESH_FASTDISCRET
 py::class_<BRepMesh_FastDiscret> cls_BRepMesh_FastDiscret(mod, "BRepMesh_FastDiscret", "None");
 
+// Constructors
+cls_BRepMesh_FastDiscret.def(py::init<>());
+
 // CLASS: BREPMESH_INCREMENTALMESH
 py::class_<BRepMesh_IncrementalMesh, opencascade::handle<BRepMesh_IncrementalMesh>, BRepMesh_DiscretRoot> cls_BRepMesh_IncrementalMesh(mod, "BRepMesh_IncrementalMesh", "Builds the mesh of a shape with respect of their correctly triangulated parts");
 
@@ -913,6 +919,9 @@ cls_BRepMesh_SelectorOfDataStructureOfDelaun.def("DynamicType", (const opencasca
 
 // CLASS: BREPMESH_SHAPETOOL
 py::class_<BRepMesh_ShapeTool, opencascade::handle<BRepMesh_ShapeTool>, Standard_Transient> cls_BRepMesh_ShapeTool(mod, "BRepMesh_ShapeTool", "Auxiliary class providing functionality to compute, retrieve and store data to TopoDS and model shape.");
+
+// Constructors
+cls_BRepMesh_ShapeTool.def(py::init<>());
 
 // Methods
 cls_BRepMesh_ShapeTool.def_static("MaxFaceTolerance_", (Standard_Real (*)(const TopoDS_Face &)) &BRepMesh_ShapeTool::MaxFaceTolerance, "Returns maximum tolerance of the given face. Considers tolerances of edges and vertices contained in the given face.", py::arg("theFace"));

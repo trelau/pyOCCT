@@ -29,6 +29,9 @@ void bind_Graphic3d_UniformValueTypeID(py::module &mod, std::string const &name,
 
 py::class_<Graphic3d_UniformValueTypeID<T>> cls_Graphic3d_UniformValueTypeID(mod, name.c_str(), "Generates unique type identifier for variable value.", local);
 
+// Constructors
+cls_Graphic3d_UniformValueTypeID.def(py::init<>());
+
 }
 
 #endif

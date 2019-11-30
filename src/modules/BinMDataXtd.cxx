@@ -56,6 +56,9 @@ py::module::import("OCCT.BinObjMgt");
 // CLASS: BINMDATAXTD
 py::class_<BinMDataXtd> cls_BinMDataXtd(mod, "BinMDataXtd", "Storage and Retrieval drivers for modelling attributes.");
 
+// Constructors
+cls_BinMDataXtd.def(py::init<>());
+
 // Methods
 // cls_BinMDataXtd.def_static("operator new_", (void * (*)(size_t)) &BinMDataXtd::operator new, "None", py::arg("theSize"));
 // cls_BinMDataXtd.def_static("operator delete_", (void (*)(void *)) &BinMDataXtd::operator delete, "None", py::arg("theAddress"));

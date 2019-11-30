@@ -207,6 +207,9 @@ bind_NCollection_DataMap<TopoDS_Shape, NCollection_DataMap<TopoDS_Shape, NCollec
 // CLASS: BREPFILL
 py::class_<BRepFill> cls_BRepFill(mod, "BRepFill", "None");
 
+// Constructors
+cls_BRepFill.def(py::init<>());
+
 // Methods
 // cls_BRepFill.def_static("operator new_", (void * (*)(size_t)) &BRepFill::operator new, "None", py::arg("theSize"));
 // cls_BRepFill.def_static("operator delete_", (void (*)(void *)) &BRepFill::operator delete, "None", py::arg("theAddress"));
@@ -222,6 +225,9 @@ cls_BRepFill.def_static("InsertACR_", (TopoDS_Wire (*)(const TopoDS_Wire &, cons
 
 // CLASS: BREPFILL_LOCATIONLAW
 py::class_<BRepFill_LocationLaw, opencascade::handle<BRepFill_LocationLaw>, Standard_Transient> cls_BRepFill_LocationLaw(mod, "BRepFill_LocationLaw", "Location Law on a Wire.");
+
+// Constructors
+cls_BRepFill_LocationLaw.def(py::init<>());
 
 // Methods
 cls_BRepFill_LocationLaw.def("GetStatus", (GeomFill_PipeError (BRepFill_LocationLaw::*)() const) &BRepFill_LocationLaw::GetStatus, "Return a error status, if the status is not PipeOk then it exist a parameter tlike the law is not valuable for t.");

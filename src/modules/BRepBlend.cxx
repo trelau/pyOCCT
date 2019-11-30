@@ -335,6 +335,9 @@ cls_BRepBlend_AppSurface.def("Dump", (void (BRepBlend_AppSurface::*)(Standard_OS
 // CLASS: BREPBLEND_BLENDTOOL
 py::class_<BRepBlend_BlendTool> cls_BRepBlend_BlendTool(mod, "BRepBlend_BlendTool", "None");
 
+// Constructors
+cls_BRepBlend_BlendTool.def(py::init<>());
+
 // Methods
 // cls_BRepBlend_BlendTool.def_static("operator new_", (void * (*)(size_t)) &BRepBlend_BlendTool::operator new, "None", py::arg("theSize"));
 // cls_BRepBlend_BlendTool.def_static("operator delete_", (void (*)(void *)) &BRepBlend_BlendTool::operator delete, "None", py::arg("theAddress"));
@@ -908,6 +911,9 @@ cls_BRepBlend_Extremity.def("ParameterOnGuide", (Standard_Real (BRepBlend_Extrem
 // CLASS: BREPBLEND_HCURVE2DTOOL
 py::class_<BRepBlend_HCurve2dTool> cls_BRepBlend_HCurve2dTool(mod, "BRepBlend_HCurve2dTool", "None");
 
+// Constructors
+cls_BRepBlend_HCurve2dTool.def(py::init<>());
+
 // Methods
 // cls_BRepBlend_HCurve2dTool.def_static("operator new_", (void * (*)(size_t)) &BRepBlend_HCurve2dTool::operator new, "None", py::arg("theSize"));
 // cls_BRepBlend_HCurve2dTool.def_static("operator delete_", (void (*)(void *)) &BRepBlend_HCurve2dTool::operator delete, "None", py::arg("theAddress"));
@@ -942,6 +948,9 @@ cls_BRepBlend_HCurve2dTool.def_static("NbSamples_", (Standard_Integer (*)(const 
 
 // CLASS: BREPBLEND_HCURVETOOL
 py::class_<BRepBlend_HCurveTool> cls_BRepBlend_HCurveTool(mod, "BRepBlend_HCurveTool", "None");
+
+// Constructors
+cls_BRepBlend_HCurveTool.def(py::init<>());
 
 // Methods
 // cls_BRepBlend_HCurveTool.def_static("operator new_", (void * (*)(size_t)) &BRepBlend_HCurveTool::operator new, "None", py::arg("theSize"));

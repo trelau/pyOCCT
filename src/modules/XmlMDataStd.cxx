@@ -71,6 +71,9 @@ py::module::import("OCCT.XmlObjMgt");
 // CLASS: XMLMDATASTD
 py::class_<XmlMDataStd> cls_XmlMDataStd(mod, "XmlMDataStd", "Storage and Retrieval drivers for modelling attributes. Transient attributes are defined in package TDataStd.");
 
+// Constructors
+cls_XmlMDataStd.def(py::init<>());
+
 // Methods
 // cls_XmlMDataStd.def_static("operator new_", (void * (*)(size_t)) &XmlMDataStd::operator new, "None", py::arg("theSize"));
 // cls_XmlMDataStd.def_static("operator delete_", (void (*)(void *)) &XmlMDataStd::operator delete, "None", py::arg("theAddress"));

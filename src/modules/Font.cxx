@@ -126,6 +126,9 @@ mod.def("IsEqual", (Standard_Boolean (*) (const opencascade::handle<Font_SystemF
 // CLASS: FONT_RECT
 py::class_<Font_Rect> cls_Font_Rect(mod, "Font_Rect", "Auxiliary POD structure - 2D rectangle definition.");
 
+// Constructors
+cls_Font_Rect.def(py::init<>());
+
 // Fields
 cls_Font_Rect.def_readwrite("Left", &Font_Rect::Left, "left position");
 cls_Font_Rect.def_readwrite("Right", &Font_Rect::Right, "right position");
@@ -266,6 +269,9 @@ cls_Font_BRepFont.def("Init", (bool (Font_BRepFont::*)(const NCollection_String 
 
 // CLASS: FONT_BREPTEXTBUILDER
 py::class_<Font_BRepTextBuilder> cls_Font_BRepTextBuilder(mod, "Font_BRepTextBuilder", "Represents class for applying text formatting.");
+
+// Constructors
+cls_Font_BRepTextBuilder.def(py::init<>());
 
 // Methods
 cls_Font_BRepTextBuilder.def("Perform", [](Font_BRepTextBuilder &self, Font_BRepFont & a0, const Font_TextFormatter & a1) -> TopoDS_Shape { return self.Perform(a0, a1); }, py::call_guard<ImportGraphic3d>());

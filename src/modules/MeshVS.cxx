@@ -230,6 +230,9 @@ cls_MeshVS_Buffer.def(py::init<const Standard_Size>(), py::arg("theSize"));
 // TYPEDEF: MESHVS_COLORHASHER
 py::class_<Quantity_ColorHasher> cls_MeshVS_ColorHasher(mod, "MeshVS_ColorHasher", "Hasher of Quantity_Color.", py::module_local());
 
+// Constructors
+cls_MeshVS_ColorHasher.def(py::init<>());
+
 // Methods
 cls_MeshVS_ColorHasher.def_static("HashCode_", (Standard_Integer (*)(const Quantity_Color &, const Standard_Integer)) &Quantity_ColorHasher::HashCode, "Returns hash code for the given RGB color, in the range [1, theUpperBound]", py::arg("theColor"), py::arg("theUpperBound"));
 cls_MeshVS_ColorHasher.def_static("IsEqual_", (Standard_Boolean (*)(const Quantity_Color &, const Quantity_Color &)) &Quantity_ColorHasher::IsEqual, "Returns true if two colors are equal.", py::arg("theColor1"), py::arg("theColor2"));
@@ -455,6 +458,9 @@ bind_NCollection_DataMap<int, opencascade::handle<MeshVS_MeshEntityOwner>, NColl
 /*
 py::class_<> cls_MeshVS_TwoColors(mod, "MeshVS_TwoColors", "None");
 
+// Constructors
+cls_MeshVS_TwoColors.def(py::init<>());
+
 // Fields
 cls_MeshVS_TwoColors.def_readwrite("r1", &r1, "None");
 cls_MeshVS_TwoColors.def_readwrite("g1", &g1, "None");
@@ -522,6 +528,9 @@ cls_MeshVS_DeformedDataSource.def("DynamicType", (const opencascade::handle<Stan
 
 // CLASS: MESHVS_DRAWER
 py::class_<MeshVS_Drawer, opencascade::handle<MeshVS_Drawer>, Standard_Transient> cls_MeshVS_Drawer(mod, "MeshVS_Drawer", "This class provided the common interface to share between classes big set of constants affecting to object appearance. By default, this class can store integers, doubles, OCC colors, OCC materials. Each of OCC enum members can be stored as integers.");
+
+// Constructors
+cls_MeshVS_Drawer.def(py::init<>());
 
 // Methods
 cls_MeshVS_Drawer.def("Assign", (void (MeshVS_Drawer::*)(const opencascade::handle<MeshVS_Drawer> &)) &MeshVS_Drawer::Assign, "This method copies other drawer contents to this.", py::arg("aDrawer"));
@@ -782,6 +791,9 @@ bind_std::pair<int, int>(mod, "MeshVS_NodePair", py::module_local());
 // CLASS: MESHVS_SYMMETRICPAIRHASHER
 py::class_<MeshVS_SymmetricPairHasher> cls_MeshVS_SymmetricPairHasher(mod, "MeshVS_SymmetricPairHasher", "Provides symmetric hash methods pair of integers.");
 
+// Constructors
+cls_MeshVS_SymmetricPairHasher.def(py::init<>());
+
 // Methods
 cls_MeshVS_SymmetricPairHasher.def_static("HashCode_", (Standard_Integer (*)(const MeshVS_NodePair &, const Standard_Integer)) &MeshVS_SymmetricPairHasher::HashCode, "Computes a hash code for the node pair, in the range [1, theUpperBound]", py::arg("theNodePair"), py::arg("theUpperBound"));
 cls_MeshVS_SymmetricPairHasher.def_static("IsEqual_", (Standard_Boolean (*)(const MeshVS_NodePair &, const MeshVS_NodePair &)) &MeshVS_SymmetricPairHasher::IsEqual, "None", py::arg("thePair1"), py::arg("thePair2"));
@@ -809,6 +821,9 @@ cls_MeshVS_TextPrsBuilder.def("DynamicType", (const opencascade::handle<Standard
 
 // CLASS: MESHVS_TOOL
 py::class_<MeshVS_Tool> cls_MeshVS_Tool(mod, "MeshVS_Tool", "This class provides auxiliary methods to create differents aspects");
+
+// Constructors
+cls_MeshVS_Tool.def(py::init<>());
 
 // Methods
 // cls_MeshVS_Tool.def_static("operator new_", (void * (*)(size_t)) &MeshVS_Tool::operator new, "None", py::arg("theSize"));

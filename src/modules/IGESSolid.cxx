@@ -139,6 +139,9 @@ py::module::import("OCCT.Message");
 // CLASS: IGESSOLID
 py::class_<IGESSolid> cls_IGESSolid(mod, "IGESSolid", "This package consists of B-Rep and CSG Solid entities");
 
+// Constructors
+cls_IGESSolid.def(py::init<>());
+
 // Methods
 // cls_IGESSolid.def_static("operator new_", (void * (*)(size_t)) &IGESSolid::operator new, "None", py::arg("theSize"));
 // cls_IGESSolid.def_static("operator delete_", (void (*)(void *)) &IGESSolid::operator delete, "None", py::arg("theAddress"));

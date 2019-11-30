@@ -219,6 +219,9 @@ cls_Transfer_Binder.def("DynamicType", (const opencascade::handle<Standard_Type>
 // CLASS: TRANSFER_FINDHASHER
 py::class_<Transfer_FindHasher> cls_Transfer_FindHasher(mod, "Transfer_FindHasher", "FindHasher defines HashCode for Finder, which is : ask a Finder its HashCode ! Because this is the Finder itself which brings the HashCode for its Key");
 
+// Constructors
+cls_Transfer_FindHasher.def(py::init<>());
+
 // Methods
 // cls_Transfer_FindHasher.def_static("operator new_", (void * (*)(size_t)) &Transfer_FindHasher::operator new, "None", py::arg("theSize"));
 // cls_Transfer_FindHasher.def_static("operator delete_", (void (*)(void *)) &Transfer_FindHasher::operator delete, "None", py::arg("theAddress"));
@@ -610,6 +613,9 @@ cls_Transfer_BinderOfTransientInteger.def("DynamicType", (const opencascade::han
 
 // CLASS: TRANSFER_DATAINFO
 py::class_<Transfer_DataInfo> cls_Transfer_DataInfo(mod, "Transfer_DataInfo", "Gives informations on an object Used as template to instantiate Mapper and SimpleBinder This class is for Transient");
+
+// Constructors
+cls_Transfer_DataInfo.def(py::init<>());
 
 // Methods
 // cls_Transfer_DataInfo.def_static("operator new_", (void * (*)(size_t)) &Transfer_DataInfo::operator new, "None", py::arg("theSize"));

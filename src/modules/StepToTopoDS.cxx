@@ -229,6 +229,9 @@ cls_StepToTopoDS_NMTool.def("IsIDEASCase", (Standard_Boolean (StepToTopoDS_NMToo
 // CLASS: STEPTOTOPODS
 py::class_<StepToTopoDS> cls_StepToTopoDS(mod, "StepToTopoDS", "This package implements the mapping between AP214 Shape representation and CAS.CAD Shape Representation. The source schema is Part42 (which is included in AP214)");
 
+// Constructors
+cls_StepToTopoDS.def(py::init<>());
+
 // Methods
 // cls_StepToTopoDS.def_static("operator new_", (void * (*)(size_t)) &StepToTopoDS::operator new, "None", py::arg("theSize"));
 // cls_StepToTopoDS.def_static("operator delete_", (void (*)(void *)) &StepToTopoDS::operator delete, "None", py::arg("theAddress"));
@@ -296,6 +299,9 @@ cls_StepToTopoDS_Builder.def("Error", (StepToTopoDS_BuilderError (StepToTopoDS_B
 // CLASS: STEPTOTOPODS_CARTESIANPOINTHASHER
 py::class_<StepToTopoDS_CartesianPointHasher> cls_StepToTopoDS_CartesianPointHasher(mod, "StepToTopoDS_CartesianPointHasher", "None");
 
+// Constructors
+cls_StepToTopoDS_CartesianPointHasher.def(py::init<>());
+
 // Methods
 // cls_StepToTopoDS_CartesianPointHasher.def_static("operator new_", (void * (*)(size_t)) &StepToTopoDS_CartesianPointHasher::operator new, "None", py::arg("theSize"));
 // cls_StepToTopoDS_CartesianPointHasher.def_static("operator delete_", (void (*)(void *)) &StepToTopoDS_CartesianPointHasher::operator delete, "None", py::arg("theAddress"));
@@ -328,6 +334,9 @@ cls_StepToTopoDS_PointPair.def(py::init<const opencascade::handle<StepGeom_Carte
 // CLASS: STEPTOTOPODS_POINTPAIRHASHER
 py::class_<StepToTopoDS_PointPairHasher> cls_StepToTopoDS_PointPairHasher(mod, "StepToTopoDS_PointPairHasher", "None");
 
+// Constructors
+cls_StepToTopoDS_PointPairHasher.def(py::init<>());
+
 // Methods
 // cls_StepToTopoDS_PointPairHasher.def_static("operator new_", (void * (*)(size_t)) &StepToTopoDS_PointPairHasher::operator new, "None", py::arg("theSize"));
 // cls_StepToTopoDS_PointPairHasher.def_static("operator delete_", (void (*)(void *)) &StepToTopoDS_PointPairHasher::operator delete, "None", py::arg("theAddress"));
@@ -350,6 +359,9 @@ bind_NCollection_DataMap<opencascade::handle<StepGeom_CartesianPoint>, TopoDS_Ve
 
 // CLASS: STEPTOTOPODS_GEOMETRICTOOL
 py::class_<StepToTopoDS_GeometricTool> cls_StepToTopoDS_GeometricTool(mod, "StepToTopoDS_GeometricTool", "This class contains some algorithmic services specific to the mapping STEP to CAS.CADE");
+
+// Constructors
+cls_StepToTopoDS_GeometricTool.def(py::init<>());
 
 // Methods
 // cls_StepToTopoDS_GeometricTool.def_static("operator new_", (void * (*)(size_t)) &StepToTopoDS_GeometricTool::operator new, "None", py::arg("theSize"));

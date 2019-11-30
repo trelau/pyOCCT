@@ -161,6 +161,9 @@ cls_TDocStd_XLink.def("DynamicType", (const opencascade::handle<Standard_Type> &
 // CLASS: TDOCSTD
 py::class_<TDocStd> cls_TDocStd(mod, "TDocStd", "This package define CAF main classes.");
 
+// Constructors
+cls_TDocStd.def(py::init<>());
+
 // Methods
 // cls_TDocStd.def_static("operator new_", (void * (*)(size_t)) &TDocStd::operator new, "None", py::arg("theSize"));
 // cls_TDocStd.def_static("operator delete_", (void (*)(void *)) &TDocStd::operator delete, "None", py::arg("theAddress"));

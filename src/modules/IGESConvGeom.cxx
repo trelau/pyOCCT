@@ -52,6 +52,9 @@ py::module::import("OCCT.TColgp");
 // CLASS: IGESCONVGEOM
 py::class_<IGESConvGeom> cls_IGESConvGeom(mod, "IGESConvGeom", "This package is intended to gather geometric conversion which are not immediate but can be used for several purposes : mainly, standard conversion to and from CasCade geometric and topologic data, and adaptations of IGES files as required (as replacing Spline entities to BSpline equivalents).");
 
+// Constructors
+cls_IGESConvGeom.def(py::init<>());
+
 // Methods
 // cls_IGESConvGeom.def_static("operator new_", (void * (*)(size_t)) &IGESConvGeom::operator new, "None", py::arg("theSize"));
 // cls_IGESConvGeom.def_static("operator delete_", (void (*)(void *)) &IGESConvGeom::operator delete, "None", py::arg("theAddress"));

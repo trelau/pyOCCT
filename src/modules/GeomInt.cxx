@@ -214,6 +214,9 @@ cls_GeomInt_IntSS.def_static("MakeBSpline2d_", (opencascade::handle<Geom2d_BSpli
 // CLASS: GEOMINT
 py::class_<GeomInt> cls_GeomInt(mod, "GeomInt", "Provides intersections on between two surfaces of Geom. The result are curves from Geom.");
 
+// Constructors
+cls_GeomInt.def(py::init<>());
+
 // Methods
 // cls_GeomInt.def_static("operator new_", (void * (*)(size_t)) &GeomInt::operator new, "None", py::arg("theSize"));
 // cls_GeomInt.def_static("operator delete_", (void (*)(void *)) &GeomInt::operator delete, "None", py::arg("theAddress"));
@@ -371,6 +374,9 @@ cls_GeomInt_Gradient_BFGSOfMyGradientOfTheComputeLineBezierOfWLApprox.def("IsSol
 
 // CLASS: GEOMINT_LINETOOL
 py::class_<GeomInt_LineTool> cls_GeomInt_LineTool(mod, "GeomInt_LineTool", "None");
+
+// Constructors
+cls_GeomInt_LineTool.def(py::init<>());
 
 // Methods
 // cls_GeomInt_LineTool.def_static("operator new_", (void * (*)(size_t)) &GeomInt_LineTool::operator new, "None", py::arg("theSize"));
@@ -886,6 +892,9 @@ cls_GeomInt_TheInt2SOfThePrmPrmSvSurfacesOfWLApprox.def("ChangePoint", (IntSurf_
 
 // CLASS: GEOMINT_THEMULTILINETOOLOFWLAPPROX
 py::class_<GeomInt_TheMultiLineToolOfWLApprox> cls_GeomInt_TheMultiLineToolOfWLApprox(mod, "GeomInt_TheMultiLineToolOfWLApprox", "None");
+
+// Constructors
+cls_GeomInt_TheMultiLineToolOfWLApprox.def(py::init<>());
 
 // Methods
 // cls_GeomInt_TheMultiLineToolOfWLApprox.def_static("operator new_", (void * (*)(size_t)) &GeomInt_TheMultiLineToolOfWLApprox::operator new, "None", py::arg("theSize"));

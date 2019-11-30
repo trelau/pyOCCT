@@ -138,6 +138,9 @@ cls_Geom2dAdaptor_HCurve.def("DynamicType", (const opencascade::handle<Standard_
 // CLASS: GEOM2DADAPTOR
 py::class_<Geom2dAdaptor> cls_Geom2dAdaptor(mod, "Geom2dAdaptor", "this package contains the geometric definition of 2d curves compatible with the Adaptor package templates.");
 
+// Constructors
+cls_Geom2dAdaptor.def(py::init<>());
+
 // Methods
 // cls_Geom2dAdaptor.def_static("operator new_", (void * (*)(size_t)) &Geom2dAdaptor::operator new, "None", py::arg("theSize"));
 // cls_Geom2dAdaptor.def_static("operator delete_", (void (*)(void *)) &Geom2dAdaptor::operator delete, "None", py::arg("theAddress"));

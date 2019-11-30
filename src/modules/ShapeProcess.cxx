@@ -67,6 +67,9 @@ py::module::import("OCCT.GeomAbs");
 // CLASS: SHAPEPROCESS
 py::class_<ShapeProcess> cls_ShapeProcess(mod, "ShapeProcess", "Shape Processing module allows to define and apply general Shape Processing as a customizable sequence of Shape Healing operators. The customization is implemented via user-editable resource file which defines sequence of operators to be executed and their parameters.");
 
+// Constructors
+cls_ShapeProcess.def(py::init<>());
+
 // Methods
 // cls_ShapeProcess.def_static("operator new_", (void * (*)(size_t)) &ShapeProcess::operator new, "None", py::arg("theSize"));
 // cls_ShapeProcess.def_static("operator delete_", (void (*)(void *)) &ShapeProcess::operator delete, "None", py::arg("theAddress"));
@@ -125,6 +128,9 @@ cls_ShapeProcess_Operator.def("DynamicType", (const opencascade::handle<Standard
 
 // CLASS: SHAPEPROCESS_OPERLIBRARY
 py::class_<ShapeProcess_OperLibrary> cls_ShapeProcess_OperLibrary(mod, "ShapeProcess_OperLibrary", "Provides a set of following operators");
+
+// Constructors
+cls_ShapeProcess_OperLibrary.def(py::init<>());
 
 // Methods
 // cls_ShapeProcess_OperLibrary.def_static("operator new_", (void * (*)(size_t)) &ShapeProcess_OperLibrary::operator new, "None", py::arg("theSize"));

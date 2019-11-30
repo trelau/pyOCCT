@@ -56,6 +56,9 @@ py::enum_<LocalAnalysis_StatusErrorType>(mod, "LocalAnalysis_StatusErrorType", "
 // CLASS: LOCALANALYSIS
 py::class_<LocalAnalysis> cls_LocalAnalysis(mod, "LocalAnalysis", "This package gives tools to check the local continuity between two points situated on two curves or two surfaces.");
 
+// Constructors
+cls_LocalAnalysis.def(py::init<>());
+
 // Methods
 // cls_LocalAnalysis.def_static("operator new_", (void * (*)(size_t)) &LocalAnalysis::operator new, "None", py::arg("theSize"));
 // cls_LocalAnalysis.def_static("operator delete_", (void (*)(void *)) &LocalAnalysis::operator delete, "None", py::arg("theAddress"));

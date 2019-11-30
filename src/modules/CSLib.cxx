@@ -75,6 +75,9 @@ py::enum_<CSLib_NormalStatus>(mod, "CSLib_NormalStatus", "if N is the normal")
 // CLASS: CSLIB
 py::class_<CSLib> cls_CSLib(mod, "CSLib", "This package implements functions for basis geometric computation on curves and surfaces. The tolerance criterions used in this package are Resolution from package gp and RealEpsilon from class Real of package Standard.");
 
+// Constructors
+cls_CSLib.def(py::init<>());
+
 // Methods
 // cls_CSLib.def_static("operator new_", (void * (*)(size_t)) &CSLib::operator new, "None", py::arg("theSize"));
 // cls_CSLib.def_static("operator delete_", (void (*)(void *)) &CSLib::operator delete, "None", py::arg("theAddress"));

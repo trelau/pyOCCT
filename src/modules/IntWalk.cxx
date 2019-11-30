@@ -73,6 +73,9 @@ py::enum_<IntWalk_StatusDeflection>(mod, "IntWalk_StatusDeflection", "None")
 // CLASS: INTWALK_WALKINGDATA
 py::class_<IntWalk_WalkingData> cls_IntWalk_WalkingData(mod, "IntWalk_WalkingData", "None");
 
+// Constructors
+cls_IntWalk_WalkingData.def(py::init<>());
+
 // Fields
 cls_IntWalk_WalkingData.def_readwrite("ustart", &IntWalk_WalkingData::ustart, "None");
 cls_IntWalk_WalkingData.def_readwrite("vstart", &IntWalk_WalkingData::vstart, "None");

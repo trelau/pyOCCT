@@ -128,6 +128,9 @@ cls_GeomTools_Curve2dSet.def("GetProgress", (opencascade::handle<Message_Progres
 // CLASS: GEOMTOOLS
 py::class_<GeomTools> cls_GeomTools(mod, "GeomTools", "The GeomTools package provides utilities for Geometry.");
 
+// Constructors
+cls_GeomTools.def(py::init<>());
+
 // Methods
 // cls_GeomTools.def_static("operator new_", (void * (*)(size_t)) &GeomTools::operator new, "None", py::arg("theSize"));
 // cls_GeomTools.def_static("operator delete_", (void (*)(void *)) &GeomTools::operator delete, "None", py::arg("theAddress"));

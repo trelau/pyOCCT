@@ -53,6 +53,9 @@ py::enum_<VrmlAPI_RepresentationOfShape>(mod, "VrmlAPI_RepresentationOfShape", "
 // CLASS: VRMLAPI
 py::class_<VrmlAPI> cls_VrmlAPI(mod, "VrmlAPI", "API for writing to VRML 1.0");
 
+// Constructors
+cls_VrmlAPI.def(py::init<>());
+
 // Methods
 // cls_VrmlAPI.def_static("operator new_", (void * (*)(size_t)) &VrmlAPI::operator new, "None", py::arg("theSize"));
 // cls_VrmlAPI.def_static("operator delete_", (void (*)(void *)) &VrmlAPI::operator delete, "None", py::arg("theAddress"));

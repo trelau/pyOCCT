@@ -29,6 +29,9 @@ void bind_OpenGl_TmplCore20(py::module &mod, std::string const &name, py::module
 
 py::class_<OpenGl_TmplCore20<theBaseClass_t>, theBaseClass_t> cls_OpenGl_TmplCore20(mod, name.c_str(), "OpenGL 2.0 core based on 1.5 version.", local);
 
+// Constructors
+cls_OpenGl_TmplCore20.def(py::init<>());
+
 }
 
 #endif

@@ -196,6 +196,9 @@ py::enum_<TopOpeBRep_P2Dstatus>(mod, "TopOpeBRep_P2Dstatus", "None")
 // CLASS: TOPOPEBREP
 py::class_<TopOpeBRep> cls_TopOpeBRep(mod, "TopOpeBRep", "This package provides the topological operations on the BRep data structure.");
 
+// Constructors
+cls_TopOpeBRep.def(py::init<>());
+
 // Methods
 // cls_TopOpeBRep.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRep::operator new, "None", py::arg("theSize"));
 // cls_TopOpeBRep.def_static("operator delete_", (void (*)(void *)) &TopOpeBRep::operator delete, "None", py::arg("theAddress"));
@@ -846,6 +849,9 @@ cls_TopOpeBRep_FFDumper.def("DynamicType", (const opencascade::handle<Standard_T
 // CLASS: TOPOPEBREP_FFTRANSITIONTOOL
 py::class_<TopOpeBRep_FFTransitionTool> cls_TopOpeBRep_FFTransitionTool(mod, "TopOpeBRep_FFTransitionTool", "None");
 
+// Constructors
+cls_TopOpeBRep_FFTransitionTool.def(py::init<>());
+
 // Methods
 // cls_TopOpeBRep_FFTransitionTool.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRep_FFTransitionTool::operator new, "None", py::arg("theSize"));
 // cls_TopOpeBRep_FFTransitionTool.def_static("operator delete_", (void (*)(void *)) &TopOpeBRep_FFTransitionTool::operator delete, "None", py::arg("theAddress"));
@@ -861,6 +867,9 @@ cls_TopOpeBRep_FFTransitionTool.def_static("ProcessEdgeONTransition_", (TopOpeBR
 
 // CLASS: TOPOPEBREP_GEOMTOOL
 py::class_<TopOpeBRep_GeomTool> cls_TopOpeBRep_GeomTool(mod, "TopOpeBRep_GeomTool", "Provide services needed by the DSFiller");
+
+// Constructors
+cls_TopOpeBRep_GeomTool.def(py::init<>());
 
 // Methods
 // cls_TopOpeBRep_GeomTool.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRep_GeomTool::operator new, "None", py::arg("theSize"));
@@ -920,6 +929,9 @@ bind_NCollection_TListIterator<TopOpeBRep_Bipoint>(mod, "TopOpeBRep_ListIterator
 
 // CLASS: TOPOPEBREP_POINTGEOMTOOL
 py::class_<TopOpeBRep_PointGeomTool> cls_TopOpeBRep_PointGeomTool(mod, "TopOpeBRep_PointGeomTool", "Provide services needed by the Fillers");
+
+// Constructors
+cls_TopOpeBRep_PointGeomTool.def(py::init<>());
 
 // Methods
 // cls_TopOpeBRep_PointGeomTool.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRep_PointGeomTool::operator new, "None", py::arg("theSize"));

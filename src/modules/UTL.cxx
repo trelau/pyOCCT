@@ -46,6 +46,9 @@ py::module::import("OCCT.Resource");
 // CLASS: UTL
 py::class_<UTL> cls_UTL(mod, "UTL", "None");
 
+// Constructors
+cls_UTL.def(py::init<>());
+
 // Methods
 // cls_UTL.def_static("operator new_", (void * (*)(size_t)) &UTL::operator new, "None", py::arg("theSize"));
 // cls_UTL.def_static("operator delete_", (void (*)(void *)) &UTL::operator delete, "None", py::arg("theAddress"));

@@ -233,6 +233,9 @@ cls_IntCurve_MyImpParToolOfIntImpConicParConic.def("Values", [](IntCurve_MyImpPa
 // CLASS: INTCURVE_PCONICTOOL
 py::class_<IntCurve_PConicTool> cls_IntCurve_PConicTool(mod, "IntCurve_PConicTool", "Implementation of the ParTool from IntImpParGen for conics of gp, using the class PConic from IntCurve.");
 
+// Constructors
+cls_IntCurve_PConicTool.def(py::init<>());
+
 // Methods
 // cls_IntCurve_PConicTool.def_static("operator new_", (void * (*)(size_t)) &IntCurve_PConicTool::operator new, "None", py::arg("theSize"));
 // cls_IntCurve_PConicTool.def_static("operator delete_", (void (*)(void *)) &IntCurve_PConicTool::operator delete, "None", py::arg("theAddress"));
@@ -249,6 +252,9 @@ cls_IntCurve_PConicTool.def_static("D2_", (void (*)(const IntCurve_PConic &, con
 
 // CLASS: INTCURVE_PROJECTONPCONICTOOL
 py::class_<IntCurve_ProjectOnPConicTool> cls_IntCurve_ProjectOnPConicTool(mod, "IntCurve_ProjectOnPConicTool", "This class provides a tool which computes the parameter of a point near a parametric conic.");
+
+// Constructors
+cls_IntCurve_ProjectOnPConicTool.def(py::init<>());
 
 // Methods
 // cls_IntCurve_ProjectOnPConicTool.def_static("operator new_", (void * (*)(size_t)) &IntCurve_ProjectOnPConicTool::operator new, "None", py::arg("theSize"));

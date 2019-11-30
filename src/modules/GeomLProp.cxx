@@ -84,6 +84,9 @@ cls_GeomLProp_SLProps.def("GaussianCurvature", (Standard_Real (GeomLProp_SLProps
 // CLASS: GEOMLPROP
 py::class_<GeomLProp> cls_GeomLProp(mod, "GeomLProp", "These global functions compute the degree of continuity of a 3D curve built by concatenation of two other curves (or portions of curves) at their junction point.");
 
+// Constructors
+cls_GeomLProp.def(py::init<>());
+
 // Methods
 // cls_GeomLProp.def_static("operator new_", (void * (*)(size_t)) &GeomLProp::operator new, "None", py::arg("theSize"));
 // cls_GeomLProp.def_static("operator delete_", (void (*)(void *)) &GeomLProp::operator delete, "None", py::arg("theAddress"));
@@ -124,6 +127,9 @@ cls_GeomLProp_CLProps.def("CentreOfCurvature", (void (GeomLProp_CLProps::*)(gp_P
 // CLASS: GEOMLPROP_CURVETOOL
 py::class_<GeomLProp_CurveTool> cls_GeomLProp_CurveTool(mod, "GeomLProp_CurveTool", "None");
 
+// Constructors
+cls_GeomLProp_CurveTool.def(py::init<>());
+
 // Methods
 // cls_GeomLProp_CurveTool.def_static("operator new_", (void * (*)(size_t)) &GeomLProp_CurveTool::operator new, "None", py::arg("theSize"));
 // cls_GeomLProp_CurveTool.def_static("operator delete_", (void (*)(void *)) &GeomLProp_CurveTool::operator delete, "None", py::arg("theAddress"));
@@ -141,6 +147,9 @@ cls_GeomLProp_CurveTool.def_static("LastParameter_", (Standard_Real (*)(const op
 
 // CLASS: GEOMLPROP_SURFACETOOL
 py::class_<GeomLProp_SurfaceTool> cls_GeomLProp_SurfaceTool(mod, "GeomLProp_SurfaceTool", "None");
+
+// Constructors
+cls_GeomLProp_SurfaceTool.def(py::init<>());
 
 // Methods
 // cls_GeomLProp_SurfaceTool.def_static("operator new_", (void * (*)(size_t)) &GeomLProp_SurfaceTool::operator new, "None", py::arg("theSize"));

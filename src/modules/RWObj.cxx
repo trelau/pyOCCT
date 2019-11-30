@@ -77,6 +77,9 @@ py::enum_<RWObj_SubMeshReason>(mod, "RWObj_SubMeshReason", "Reason for creating 
 // CLASS: RWOBJ
 py::class_<RWObj> cls_RWObj(mod, "RWObj", "This class provides methods to read and write triangulation from / to the OBJ files.");
 
+// Constructors
+cls_RWObj.def(py::init<>());
+
 // Methods
 cls_RWObj.def_static("ReadFile_", [](const Standard_CString a0) -> opencascade::handle<Poly_Triangulation> { return RWObj::ReadFile(a0); });
 cls_RWObj.def_static("ReadFile_", (opencascade::handle<Poly_Triangulation> (*)(const Standard_CString, const opencascade::handle<Message_ProgressIndicator> &)) &RWObj::ReadFile, "Read specified OBJ file and returns its content as triangulation. In case of error, returns Null handle.", py::arg("theFile"), py::arg("aProgInd"));
@@ -100,6 +103,9 @@ cls_RWObj_Material.def_readwrite("Transparency", &RWObj_Material::Transparency, 
 
 // CLASS: RWOBJ_SUBMESH
 py::class_<RWObj_SubMesh> cls_RWObj_SubMesh(mod, "RWObj_SubMesh", "Sub-mesh definition for OBJ reader.");
+
+// Constructors
+cls_RWObj_SubMesh.def(py::init<>());
 
 // Fields
 cls_RWObj_SubMesh.def_readwrite("Object", &RWObj_SubMesh::Object, "name of active object");

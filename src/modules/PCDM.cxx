@@ -197,6 +197,9 @@ cls_PCDM_Writer.def("DynamicType", (const opencascade::handle<Standard_Type> & (
 // CLASS: PCDM_DOCUMENT
 py::class_<PCDM_Document, opencascade::handle<PCDM_Document>, Standard_Persistent> cls_PCDM_Document(mod, "PCDM_Document", "None");
 
+// Constructors
+cls_PCDM_Document.def(py::init<>());
+
 // Methods
 cls_PCDM_Document.def_static("get_type_name_", (const char * (*)()) &PCDM_Document::get_type_name, "None");
 cls_PCDM_Document.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &PCDM_Document::get_type_descriptor, "None");
@@ -207,6 +210,9 @@ bind_NCollection_Sequence<opencascade::handle<PCDM_Document> >(mod, "PCDM_Sequen
 
 // CLASS: PCDM_STORAGEDRIVER
 py::class_<PCDM_StorageDriver, opencascade::handle<PCDM_StorageDriver>, PCDM_Writer> cls_PCDM_StorageDriver(mod, "PCDM_StorageDriver", "persistent implemention of storage.");
+
+// Constructors
+cls_PCDM_StorageDriver.def(py::init<>());
 
 // Methods
 cls_PCDM_StorageDriver.def("Make", (opencascade::handle<PCDM_Document> (PCDM_StorageDriver::*)(const opencascade::handle<CDM_Document> &)) &PCDM_StorageDriver::Make, "raises NotImplemented.", py::arg("aDocument"));
@@ -228,6 +234,9 @@ cls_PCDM_StorageDriver.def("DynamicType", (const opencascade::handle<Standard_Ty
 // CLASS: PCDM
 py::class_<PCDM> cls_PCDM(mod, "PCDM", "None");
 
+// Constructors
+cls_PCDM.def(py::init<>());
+
 // Methods
 // cls_PCDM.def_static("FileDriverType_", (PCDM_TypeOfFileDriver (*)(const TCollection_AsciiString &, PCDM_BaseDriverPointer &)) &PCDM::FileDriverType, "None", py::arg("aFileName"), py::arg("aBaseDriver"));
 // cls_PCDM.def_static("FileDriverType_", (PCDM_TypeOfFileDriver (*)(Standard_IStream &, PCDM_BaseDriverPointer &)) &PCDM::FileDriverType, "None", py::arg("theIStream"), py::arg("theBaseDriver"));
@@ -240,6 +249,9 @@ py::class_<PCDM> cls_PCDM(mod, "PCDM", "None");
 
 // CLASS: PCDM_DOMHEADERPARSER
 py::class_<PCDM_DOMHeaderParser, LDOMParser> cls_PCDM_DOMHeaderParser(mod, "PCDM_DOMHeaderParser", "None");
+
+// Constructors
+cls_PCDM_DOMHeaderParser.def(py::init<>());
 
 // Methods
 // cls_PCDM_DOMHeaderParser.def("SetStartElementName", (void (PCDM_DOMHeaderParser::*)(const TCollection_AsciiString &)) &PCDM_DOMHeaderParser::SetStartElementName, "None", py::arg("aStartElementName"));

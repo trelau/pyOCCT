@@ -191,12 +191,18 @@ py::enum_<ShapePersistent_TriangleMode>(mod, "ShapePersistent_TriangleMode", "No
 // CLASS: SHAPEPERSISTENT
 py::class_<ShapePersistent> cls_ShapePersistent(mod, "ShapePersistent", "None");
 
+// Constructors
+cls_ShapePersistent.def(py::init<>());
+
 // Methods
 cls_ShapePersistent.def_static("BindTypes_", (void (*)(StdObjMgt_MapOfInstantiators &)) &ShapePersistent::BindTypes, "Register types.", py::arg("theMap"));
 
 // CLASS: SHAPEPERSISTENT_TOPODS
 /*
 py::class_<ShapePersistent_TopoDS, StdPersistent_TopoDS> cls_ShapePersistent_TopoDS(mod, "ShapePersistent_TopoDS", "None");
+
+// Constructors
+cls_ShapePersistent_TopoDS.def(py::init<>());
 
 // Methods
 cls_ShapePersistent_TopoDS.def_static("Translate_", (opencascade::handle<HShape> (*)(const TopoDS_Shape &, StdObjMgt_TransientPersistentMap &, ShapePersistent_TriangleMode)) &ShapePersistent_TopoDS::Translate, "Create a persistent object for a shape", py::arg("theShape"), py::arg("theMap"), py::arg("theTriangleMode"));
@@ -205,6 +211,9 @@ cls_ShapePersistent_TopoDS.def_static("Translate_", (opencascade::handle<HShape>
 // CLASS: SHAPEPERSISTENT_GEOM
 /*
 py::class_<ShapePersistent_Geom, StdObjMgt_SharedObject> cls_ShapePersistent_Geom(mod, "ShapePersistent_Geom", "None");
+
+// Constructors
+cls_ShapePersistent_Geom.def(py::init<>());
 
 // Methods
 cls_ShapePersistent_Geom.def_static("Translate_", (opencascade::handle<Curve> (*)(const opencascade::handle<Geom_Curve> &, StdObjMgt_TransientPersistentMap &)) &ShapePersistent_Geom::Translate, "Create a persistent object for a curve", py::arg("theCurve"), py::arg("theMap"));
@@ -215,6 +224,9 @@ cls_ShapePersistent_Geom.def_static("Translate_", (opencascade::handle<Surface> 
 /*
 py::class_<ShapePersistent_Geom2d> cls_ShapePersistent_Geom2d(mod, "ShapePersistent_Geom2d", "None");
 
+// Constructors
+cls_ShapePersistent_Geom2d.def(py::init<>());
+
 // Methods
 cls_ShapePersistent_Geom2d.def_static("Translate_", (opencascade::handle<Curve> (*)(const opencascade::handle<Geom2d_Curve> &, StdObjMgt_TransientPersistentMap &)) &ShapePersistent_Geom2d::Translate, "Create a persistent object for a curve", py::arg("theCurve"), py::arg("theMap"));
 */
@@ -222,9 +234,15 @@ cls_ShapePersistent_Geom2d.def_static("Translate_", (opencascade::handle<Curve> 
 // CLASS: SHAPEPERSISTENT_HARRAY1
 py::class_<ShapePersistent_HArray1> cls_ShapePersistent_HArray1(mod, "ShapePersistent_HArray1", "None");
 
+// Constructors
+cls_ShapePersistent_HArray1.def(py::init<>());
+
 // CLASS: SHAPEPERSISTENT_POLY
 /*
 py::class_<ShapePersistent_Poly> cls_ShapePersistent_Poly(mod, "ShapePersistent_Poly", "None");
+
+// Constructors
+cls_ShapePersistent_Poly.def(py::init<>());
 
 // Methods
 cls_ShapePersistent_Poly.def_static("Translate_", (opencascade::handle<Polygon2D> (*)(const opencascade::handle<Poly_Polygon2D> &, StdObjMgt_TransientPersistentMap &)) &ShapePersistent_Poly::Translate, "Create a persistent object for a 2D polygon", py::arg("thePoly"), py::arg("theMap"));
@@ -236,6 +254,9 @@ cls_ShapePersistent_Poly.def_static("Translate_", (opencascade::handle<Triangula
 // CLASS: SHAPEPERSISTENT_BREP
 /*
 py::class_<ShapePersistent_BRep> cls_ShapePersistent_BRep(mod, "ShapePersistent_BRep", "None");
+
+// Constructors
+cls_ShapePersistent_BRep.def(py::init<>());
 
 // Methods
 cls_ShapePersistent_BRep.def_static("Translate_", (opencascade::handle<TVertex::pTObjectT> (*)(const TopoDS_Vertex &, StdObjMgt_TransientPersistentMap &)) &ShapePersistent_BRep::Translate, "Create a persistent object for a vertex", py::arg("theVertex"), py::arg("theMap"));
@@ -259,6 +280,9 @@ cls_ShapePersistent_BRep.def_static("Translate_", (opencascade::handle<PolygonOn
 /*
 py::class_<ShapePersistent_Geom2d_Curve> cls_ShapePersistent_Geom2d_Curve(mod, "ShapePersistent_Geom2d_Curve", "None");
 
+// Constructors
+cls_ShapePersistent_Geom2d_Curve.def(py::init<>());
+
 // Methods
 cls_ShapePersistent_Geom2d_Curve.def_static("Translate_", (opencascade::handle<Curve> (*)(const opencascade::handle<Geom2d_Line> &, StdObjMgt_TransientPersistentMap &)) &ShapePersistent_Geom2d_Curve::Translate, "Create a persistent object for a line", py::arg("theCurve"), py::arg("theMap"));
 cls_ShapePersistent_Geom2d_Curve.def_static("Translate_", (opencascade::handle<Curve> (*)(const opencascade::handle<Geom2d_Circle> &, StdObjMgt_TransientPersistentMap &)) &ShapePersistent_Geom2d_Curve::Translate, "Create a persistent object for a circle", py::arg("theCurve"), py::arg("theMap"));
@@ -275,6 +299,9 @@ cls_ShapePersistent_Geom2d_Curve.def_static("Translate_", (opencascade::handle<C
 /*
 py::class_<ShapePersistent_Geom_Curve> cls_ShapePersistent_Geom_Curve(mod, "ShapePersistent_Geom_Curve", "None");
 
+// Constructors
+cls_ShapePersistent_Geom_Curve.def(py::init<>());
+
 // Methods
 cls_ShapePersistent_Geom_Curve.def_static("Translate_", (opencascade::handle<Curve> (*)(const opencascade::handle<Geom_Line> &, StdObjMgt_TransientPersistentMap &)) &ShapePersistent_Geom_Curve::Translate, "Create a persistent object for a line", py::arg("theCurve"), py::arg("theMap"));
 cls_ShapePersistent_Geom_Curve.def_static("Translate_", (opencascade::handle<Curve> (*)(const opencascade::handle<Geom_Circle> &, StdObjMgt_TransientPersistentMap &)) &ShapePersistent_Geom_Curve::Translate, "Create a persistent object for a circle", py::arg("theCurve"), py::arg("theMap"));
@@ -290,9 +317,15 @@ cls_ShapePersistent_Geom_Curve.def_static("Translate_", (opencascade::handle<Cur
 // CLASS: SHAPEPERSISTENT_HARRAY2
 py::class_<ShapePersistent_HArray2> cls_ShapePersistent_HArray2(mod, "ShapePersistent_HArray2", "None");
 
+// Constructors
+cls_ShapePersistent_HArray2.def(py::init<>());
+
 // CLASS: SHAPEPERSISTENT_GEOM_SURFACE
 /*
 py::class_<ShapePersistent_Geom_Surface> cls_ShapePersistent_Geom_Surface(mod, "ShapePersistent_Geom_Surface", "None");
+
+// Constructors
+cls_ShapePersistent_Geom_Surface.def(py::init<>());
 
 // Methods
 cls_ShapePersistent_Geom_Surface.def_static("Translate_", (opencascade::handle<Surface> (*)(const opencascade::handle<Geom_Plane> &, StdObjMgt_TransientPersistentMap &)) &ShapePersistent_Geom_Surface::Translate, "Create a persistent object for a plane", py::arg("theSurf"), py::arg("theMap"));
@@ -310,6 +343,9 @@ cls_ShapePersistent_Geom_Surface.def_static("Translate_", (opencascade::handle<S
 
 // CLASS: SHAPEPERSISTENT_HSEQUENCE
 py::class_<ShapePersistent_HSequence> cls_ShapePersistent_HSequence(mod, "ShapePersistent_HSequence", "None");
+
+// Constructors
+cls_ShapePersistent_HSequence.def(py::init<>());
 
 
 }

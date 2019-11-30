@@ -130,6 +130,9 @@ py::module::import("OCCT.IFGraph");
 // CLASS: IGESSELECT
 py::class_<IGESSelect> cls_IGESSelect(mod, "IGESSelect", "This package defines the library of the most used tools for IGES Files : Selections & Modifiers specific to the IGES norm, and the most needed converters");
 
+// Constructors
+cls_IGESSelect.def(py::init<>());
+
 // Methods
 // cls_IGESSelect.def_static("operator new_", (void * (*)(size_t)) &IGESSelect::operator new, "None", py::arg("theSize"));
 // cls_IGESSelect.def_static("operator delete_", (void (*)(void *)) &IGESSelect::operator delete, "None", py::arg("theAddress"));

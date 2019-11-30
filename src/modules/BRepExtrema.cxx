@@ -199,6 +199,9 @@ cls_BRepExtrema_DistShapeShape.def("SetAlgo", (void (BRepExtrema_DistShapeShape:
 // CLASS: BREPEXTREMA_ELEMENTFILTER
 py::class_<BRepExtrema_ElementFilter> cls_BRepExtrema_ElementFilter(mod, "BRepExtrema_ElementFilter", "Filtering tool used to detect if two given mesh elements should be tested for overlapping/intersection or not.");
 
+// Constructors
+cls_BRepExtrema_ElementFilter.def(py::init<>());
+
 // Methods
 cls_BRepExtrema_ElementFilter.def("PreCheckElements", (BRepExtrema_ElementFilter::FilterResult (BRepExtrema_ElementFilter::*)(const Standard_Integer, const Standard_Integer)) &BRepExtrema_ElementFilter::PreCheckElements, "Checks if two mesh elements should be tested for overlapping/intersection (used for detection correct/incorrect cases of shared edges and vertices).", py::arg(""), py::arg(""));
 
@@ -389,6 +392,9 @@ cls_BRepExtrema_OverlapTool.def("Accept", (Standard_Boolean (BRepExtrema_Overlap
 
 // CLASS: BREPEXTREMA_POLY
 py::class_<BRepExtrema_Poly> cls_BRepExtrema_Poly(mod, "BRepExtrema_Poly", "None");
+
+// Constructors
+cls_BRepExtrema_Poly.def(py::init<>());
 
 // Methods
 cls_BRepExtrema_Poly.def_static("Distance_", [](const TopoDS_Shape & S1, const TopoDS_Shape & S2, gp_Pnt & P1, gp_Pnt & P2, Standard_Real & dist){ Standard_Boolean rv = BRepExtrema_Poly::Distance(S1, S2, P1, P2, dist); return std::tuple<Standard_Boolean, Standard_Real &>(rv, dist); }, "returns Standard_True if OK.", py::arg("S1"), py::arg("S2"), py::arg("P1"), py::arg("P2"), py::arg("dist"));

@@ -121,6 +121,9 @@ cls_TObj_Application.def("DynamicType", (const opencascade::handle<Standard_Type
 // CLASS: TOBJ_ASSISTANT
 py::class_<TObj_Assistant> cls_TObj_Assistant(mod, "TObj_Assistant", "This class provides interface to the static data to be used during save or load models.");
 
+// Constructors
+cls_TObj_Assistant.def(py::init<>());
+
 // Methods
 cls_TObj_Assistant.def_static("FindModel_", (opencascade::handle<TObj_Model> (*)(const Standard_CString)) &TObj_Assistant::FindModel, "Finds model by name", py::arg("theName"));
 cls_TObj_Assistant.def_static("BindModel_", (void (*)(const opencascade::handle<TObj_Model>)) &TObj_Assistant::BindModel, "Binds model to the map", py::arg("theModel"));
@@ -354,6 +357,9 @@ cls_TObj_HiddenPartition.def("DynamicType", (const opencascade::handle<Standard_
 
 // CLASS: TOBJ_OBJECTITERATOR
 py::class_<TObj_ObjectIterator, opencascade::handle<TObj_ObjectIterator>, Standard_Transient> cls_TObj_ObjectIterator(mod, "TObj_ObjectIterator", "This class provides an iterator by objects in a partition. (implements TObj_ObjectIterator interface)");
+
+// Constructors
+cls_TObj_ObjectIterator.def(py::init<>());
 
 // Methods
 cls_TObj_ObjectIterator.def("More", (Standard_Boolean (TObj_ObjectIterator::*)() const) &TObj_ObjectIterator::More, "Returns True if iteration is not finished and method Current() will give the object. Default implementation returns False");

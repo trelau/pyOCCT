@@ -129,6 +129,9 @@ bind_NCollection_DataMap<XCAFPrs_Style, opencascade::handle<Standard_Transient>,
 // CLASS: XCAFPRS
 py::class_<XCAFPrs> cls_XCAFPrs(mod, "XCAFPrs", "Presentation (visualiation, selection etc.) tools for DECAF documents");
 
+// Constructors
+cls_XCAFPrs.def(py::init<>());
+
 // Methods
 // cls_XCAFPrs.def_static("operator new_", (void * (*)(size_t)) &XCAFPrs::operator new, "None", py::arg("theSize"));
 // cls_XCAFPrs.def_static("operator delete_", (void (*)(void *)) &XCAFPrs::operator delete, "None", py::arg("theAddress"));
@@ -219,6 +222,9 @@ cls_XCAFPrs_DocumentIdIterator.def("Next", (void (XCAFPrs_DocumentIdIterator::*)
 
 // CLASS: XCAFPRS_DRIVER
 py::class_<XCAFPrs_Driver, opencascade::handle<XCAFPrs_Driver>, TPrsStd_Driver> cls_XCAFPrs_Driver(mod, "XCAFPrs_Driver", "Implements a driver for presentation of shapes in DECAF document. Its the only purpose is to initialize and return XCAFPrs_AISObject object on request");
+
+// Constructors
+cls_XCAFPrs_Driver.def(py::init<>());
 
 // Methods
 cls_XCAFPrs_Driver.def("Update", (Standard_Boolean (XCAFPrs_Driver::*)(const TDF_Label &, opencascade::handle<AIS_InteractiveObject> &)) &XCAFPrs_Driver::Update, "None", py::arg("L"), py::arg("ais"));

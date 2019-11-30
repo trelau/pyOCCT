@@ -260,6 +260,9 @@ cls_IGESGraph_HArray1OfColor.def("DynamicType", (const opencascade::handle<Stand
 // CLASS: IGESGRAPH
 py::class_<IGESGraph> cls_IGESGraph(mod, "IGESGraph", "This package contains the group of classes necessary to define Graphic data among Structure Entities. (e.g., Fonts, Colors, Screen management ...)");
 
+// Constructors
+cls_IGESGraph.def(py::init<>());
+
 // Methods
 // cls_IGESGraph.def_static("operator new_", (void * (*)(size_t)) &IGESGraph::operator new, "None", py::arg("theSize"));
 // cls_IGESGraph.def_static("operator delete_", (void (*)(void *)) &IGESGraph::operator delete, "None", py::arg("theAddress"));

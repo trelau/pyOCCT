@@ -116,6 +116,9 @@ cls_XmlLDrivers_DocumentStorageDriver.def("DynamicType", (const opencascade::han
 // CLASS: XMLLDRIVERS
 py::class_<XmlLDrivers> cls_XmlLDrivers(mod, "XmlLDrivers", "None");
 
+// Constructors
+cls_XmlLDrivers.def(py::init<>());
+
 // Methods
 cls_XmlLDrivers.def_static("Factory_", (const opencascade::handle<Standard_Transient> & (*)(const Standard_GUID &)) &XmlLDrivers::Factory, "None", py::arg("theGUID"));
 cls_XmlLDrivers.def_static("CreationDate_", (TCollection_AsciiString (*)()) &XmlLDrivers::CreationDate, "None");

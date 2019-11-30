@@ -35,6 +35,9 @@ void bind_Prs3d_Point(py::module &mod, std::string const &name, py::module_local
 
 py::class_<Prs3d_Point<AnyPoint, PointTool>> cls_Prs3d_Point(mod, name.c_str(), "None", local);
 
+// Constructors
+cls_Prs3d_Point.def(py::init<>());
+
 // Methods
 // cls_Prs3d_Point.def_static("operator new_", (void * (*)(size_t)) &Prs3d_Point<AnyPoint, PointTool>::operator new, "None", py::arg("theSize"));
 // cls_Prs3d_Point.def_static("operator delete_", (void (*)(void *)) &Prs3d_Point<AnyPoint, PointTool>::operator delete, "None", py::arg("theAddress"));

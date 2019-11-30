@@ -130,6 +130,9 @@ cls_Resource_NoSuchResource.def("DynamicType", (const opencascade::handle<Standa
 // CLASS: RESOURCE_UNICODE
 py::class_<Resource_Unicode> cls_Resource_Unicode(mod, "Resource_Unicode", "This class provides functions used to convert a non-ASCII C string given in ANSI, EUC, GB or SJIS format, to a Unicode string of extended characters, and vice versa.");
 
+// Constructors
+cls_Resource_Unicode.def(py::init<>());
+
 // Methods
 // cls_Resource_Unicode.def_static("operator new_", (void * (*)(size_t)) &Resource_Unicode::operator new, "None", py::arg("theSize"));
 // cls_Resource_Unicode.def_static("operator delete_", (void (*)(void *)) &Resource_Unicode::operator delete, "None", py::arg("theAddress"));

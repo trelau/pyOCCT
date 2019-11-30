@@ -60,6 +60,9 @@ py::module::import("OCCT.Adaptor3d");
 // CLASS: BNDLIB
 py::class_<BndLib> cls_BndLib(mod, "BndLib", "The BndLib package provides functions to add a geometric primitive to a bounding box. Note: these functions work with gp objects, optionally limited by parameter values. If the curves and surfaces provided by the gp package are not explicitly parameterized, they still have an implicit parameterization, similar to that which they infer for the equivalent Geom or Geom2d objects. Add : Package to compute the bounding boxes for elementary objects from gp in 2d and 3d .");
 
+// Constructors
+cls_BndLib.def(py::init<>());
+
 // Methods
 // cls_BndLib.def_static("operator new_", (void * (*)(size_t)) &BndLib::operator new, "None", py::arg("theSize"));
 // cls_BndLib.def_static("operator delete_", (void (*)(void *)) &BndLib::operator delete, "None", py::arg("theAddress"));
@@ -93,6 +96,9 @@ cls_BndLib.def_static("Add_", (void (*)(const gp_Torus &, const Standard_Real, c
 // CLASS: BNDLIB_ADD2DCURVE
 py::class_<BndLib_Add2dCurve> cls_BndLib_Add2dCurve(mod, "BndLib_Add2dCurve", "Computes the bounding box for a curve in 2d . Functions to add a 2D curve to a bounding box. The 2D curve is defined from a Geom2d curve.");
 
+// Constructors
+cls_BndLib_Add2dCurve.def(py::init<>());
+
 // Methods
 // cls_BndLib_Add2dCurve.def_static("operator new_", (void * (*)(size_t)) &BndLib_Add2dCurve::operator new, "None", py::arg("theSize"));
 // cls_BndLib_Add2dCurve.def_static("operator delete_", (void (*)(void *)) &BndLib_Add2dCurve::operator delete, "None", py::arg("theAddress"));
@@ -109,6 +115,9 @@ cls_BndLib_Add2dCurve.def_static("AddOptimal_", (void (*)(const opencascade::han
 // CLASS: BNDLIB_ADD3DCURVE
 py::class_<BndLib_Add3dCurve> cls_BndLib_Add3dCurve(mod, "BndLib_Add3dCurve", "Computes the bounding box for a curve in 3d. Functions to add a 3D curve to a bounding box. The 3D curve is defined from a Geom curve.");
 
+// Constructors
+cls_BndLib_Add3dCurve.def(py::init<>());
+
 // Methods
 // cls_BndLib_Add3dCurve.def_static("operator new_", (void * (*)(size_t)) &BndLib_Add3dCurve::operator new, "None", py::arg("theSize"));
 // cls_BndLib_Add3dCurve.def_static("operator delete_", (void (*)(void *)) &BndLib_Add3dCurve::operator delete, "None", py::arg("theAddress"));
@@ -124,6 +133,9 @@ cls_BndLib_Add3dCurve.def_static("AddGenCurv_", (void (*)(const Adaptor3d_Curve 
 
 // CLASS: BNDLIB_ADDSURFACE
 py::class_<BndLib_AddSurface> cls_BndLib_AddSurface(mod, "BndLib_AddSurface", "computes the box from a surface Functions to add a surface to a bounding box. The surface is defined from a Geom surface.");
+
+// Constructors
+cls_BndLib_AddSurface.def(py::init<>());
 
 // Methods
 // cls_BndLib_AddSurface.def_static("operator new_", (void * (*)(size_t)) &BndLib_AddSurface::operator new, "None", py::arg("theSize"));

@@ -45,6 +45,9 @@ py::module::import("OCCT.BinDrivers");
 // CLASS: BINXCAFDRIVERS
 py::class_<BinXCAFDrivers> cls_BinXCAFDrivers(mod, "BinXCAFDrivers", "None");
 
+// Constructors
+cls_BinXCAFDrivers.def(py::init<>());
+
 // Methods
 cls_BinXCAFDrivers.def_static("Factory_", (const opencascade::handle<Standard_Transient> & (*)(const Standard_GUID &)) &BinXCAFDrivers::Factory, "None", py::arg("theGUID"));
 cls_BinXCAFDrivers.def_static("DefineFormat_", (void (*)(const opencascade::handle<TDocStd_Application> &)) &BinXCAFDrivers::DefineFormat, "Defines format 'BinXCAF' and registers its read and write drivers in the specified application", py::arg("theApp"));

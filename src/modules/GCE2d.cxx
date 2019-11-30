@@ -67,6 +67,9 @@ py::module::import("OCCT.Geom2d");
 // CLASS: GCE2D_ROOT
 py::class_<GCE2d_Root> cls_GCE2d_Root(mod, "GCE2d_Root", "This class implements the common services for all classes of gce which report error.");
 
+// Constructors
+cls_GCE2d_Root.def(py::init<>());
+
 // Methods
 // cls_GCE2d_Root.def_static("operator new_", (void * (*)(size_t)) &GCE2d_Root::operator new, "None", py::arg("theSize"));
 // cls_GCE2d_Root.def_static("operator delete_", (void (*)(void *)) &GCE2d_Root::operator delete, "None", py::arg("theAddress"));

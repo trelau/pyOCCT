@@ -35,6 +35,9 @@ py::module::import("OCCT.BRepMesh");
 // CLASS: XBREPMESH
 py::class_<XBRepMesh> cls_XBRepMesh(mod, "XBRepMesh", "None");
 
+// Constructors
+cls_XBRepMesh.def(py::init<>());
+
 // Methods
 // cls_XBRepMesh.def_static("operator new_", (void * (*)(size_t)) &XBRepMesh::operator new, "None", py::arg("theSize"));
 // cls_XBRepMesh.def_static("operator delete_", (void (*)(void *)) &XBRepMesh::operator delete, "None", py::arg("theAddress"));

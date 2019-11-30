@@ -68,6 +68,9 @@ py::module::import("OCCT.TColgp");
 // CLASS: GEOMCONVERT
 py::class_<GeomConvert> cls_GeomConvert(mod, "GeomConvert", "The GeomConvert package provides some global functions as follows - converting classical Geom curves into BSpline curves, - segmenting BSpline curves, particularly at knots values: this function may be used in conjunction with the GeomConvert_BSplineCurveKnotSplitting class to segment a BSpline curve into arcs which comply with required continuity levels, - converting classical Geom surfaces into BSpline surfaces, and - segmenting BSpline surfaces, particularly at knots values: this function may be used in conjunction with the GeomConvert_BSplineSurfaceKnotSplitting class to segment a BSpline surface into patches which comply with required continuity levels. All geometric entities used in this package are bounded.");
 
+// Constructors
+cls_GeomConvert.def(py::init<>());
+
 // Methods
 // cls_GeomConvert.def_static("operator new_", (void * (*)(size_t)) &GeomConvert::operator new, "None", py::arg("theSize"));
 // cls_GeomConvert.def_static("operator delete_", (void (*)(void *)) &GeomConvert::operator delete, "None", py::arg("theAddress"));

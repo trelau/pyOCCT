@@ -235,6 +235,9 @@ cls_IntCurveSurface_TheExactHInter.def("Function", (IntCurveSurface_TheCSFunctio
 // CLASS: INTCURVESURFACE_THEHCURVETOOL
 py::class_<IntCurveSurface_TheHCurveTool> cls_IntCurveSurface_TheHCurveTool(mod, "IntCurveSurface_TheHCurveTool", "None");
 
+// Constructors
+cls_IntCurveSurface_TheHCurveTool.def(py::init<>());
+
 // Methods
 // cls_IntCurveSurface_TheHCurveTool.def_static("operator new_", (void * (*)(size_t)) &IntCurveSurface_TheHCurveTool::operator new, "None", py::arg("theSize"));
 // cls_IntCurveSurface_TheHCurveTool.def_static("operator delete_", (void (*)(void *)) &IntCurveSurface_TheHCurveTool::operator delete, "None", py::arg("theAddress"));
@@ -327,6 +330,9 @@ cls_IntCurveSurface_ThePolygonOfHInter.def("Dump", (void (IntCurveSurface_ThePol
 // CLASS: INTCURVESURFACE_THEPOLYGONTOOLOFHINTER
 py::class_<IntCurveSurface_ThePolygonToolOfHInter> cls_IntCurveSurface_ThePolygonToolOfHInter(mod, "IntCurveSurface_ThePolygonToolOfHInter", "None");
 
+// Constructors
+cls_IntCurveSurface_ThePolygonToolOfHInter.def(py::init<>());
+
 // Methods
 // cls_IntCurveSurface_ThePolygonToolOfHInter.def_static("operator new_", (void * (*)(size_t)) &IntCurveSurface_ThePolygonToolOfHInter::operator new, "None", py::arg("theSize"));
 // cls_IntCurveSurface_ThePolygonToolOfHInter.def_static("operator delete_", (void (*)(void *)) &IntCurveSurface_ThePolygonToolOfHInter::operator delete, "None", py::arg("theAddress"));
@@ -389,6 +395,9 @@ cls_IntCurveSurface_ThePolyhedronOfHInter.def("Dump", (void (IntCurveSurface_The
 
 // CLASS: INTCURVESURFACE_THEPOLYHEDRONTOOLOFHINTER
 py::class_<IntCurveSurface_ThePolyhedronToolOfHInter> cls_IntCurveSurface_ThePolyhedronToolOfHInter(mod, "IntCurveSurface_ThePolyhedronToolOfHInter", "None");
+
+// Constructors
+cls_IntCurveSurface_ThePolyhedronToolOfHInter.def(py::init<>());
 
 // Methods
 // cls_IntCurveSurface_ThePolyhedronToolOfHInter.def_static("operator new_", (void * (*)(size_t)) &IntCurveSurface_ThePolyhedronToolOfHInter::operator new, "None", py::arg("theSize"));

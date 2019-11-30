@@ -58,6 +58,9 @@ py::module::import("OCCT.BinObjMgt");
 // CLASS: BINTOBJDRIVERS
 py::class_<BinTObjDrivers> cls_BinTObjDrivers(mod, "BinTObjDrivers", "Class for registering storage/retrieval drivers for TObj Bin persistence");
 
+// Constructors
+cls_BinTObjDrivers.def(py::init<>());
+
 // Methods
 cls_BinTObjDrivers.def_static("Factory_", (const opencascade::handle<Standard_Transient> & (*)(const Standard_GUID &)) &BinTObjDrivers::Factory, "None", py::arg("aGUID"));
 cls_BinTObjDrivers.def_static("DefineFormat_", (void (*)(const opencascade::handle<TDocStd_Application> &)) &BinTObjDrivers::DefineFormat, "Defines format 'TObjBin' and registers its read and write drivers in the specified application", py::arg("theApp"));

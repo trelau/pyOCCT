@@ -248,6 +248,9 @@ cls_BRepBuilderAPI_MakeShape.def("IsDeleted", (Standard_Boolean (BRepBuilderAPI_
 // CLASS: BREPBUILDERAPI
 py::class_<BRepBuilderAPI> cls_BRepBuilderAPI(mod, "BRepBuilderAPI", "The BRepBuilderAPI package provides an Application Programming Interface for the BRep topology data structure.");
 
+// Constructors
+cls_BRepBuilderAPI.def(py::init<>());
+
 // Methods
 // cls_BRepBuilderAPI.def_static("operator new_", (void * (*)(size_t)) &BRepBuilderAPI::operator new, "None", py::arg("theSize"));
 // cls_BRepBuilderAPI.def_static("operator delete_", (void (*)(void *)) &BRepBuilderAPI::operator delete, "None", py::arg("theAddress"));

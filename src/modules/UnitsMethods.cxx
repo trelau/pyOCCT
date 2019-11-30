@@ -36,6 +36,9 @@ py::module::import("OCCT.Geom");
 // CLASS: UNITSMETHODS
 py::class_<UnitsMethods> cls_UnitsMethods(mod, "UnitsMethods", "None");
 
+// Constructors
+cls_UnitsMethods.def(py::init<>());
+
 // Methods
 // cls_UnitsMethods.def_static("operator new_", (void * (*)(size_t)) &UnitsMethods::operator new, "None", py::arg("theSize"));
 // cls_UnitsMethods.def_static("operator delete_", (void (*)(void *)) &UnitsMethods::operator delete, "None", py::arg("theAddress"));

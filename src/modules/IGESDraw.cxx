@@ -181,6 +181,9 @@ cls_IGESDraw_HArray1OfConnectPoint.def("DynamicType", (const opencascade::handle
 // CLASS: IGESDRAW
 py::class_<IGESDraw> cls_IGESDraw(mod, "IGESDraw", "This package contains the group of classes necessary for Structure Entities implied in Drawings and Structured Graphics (Sets for drawing, Drawings and Views).");
 
+// Constructors
+cls_IGESDraw.def(py::init<>());
+
 // Methods
 // cls_IGESDraw.def_static("operator new_", (void * (*)(size_t)) &IGESDraw::operator new, "None", py::arg("theSize"));
 // cls_IGESDraw.def_static("operator delete_", (void (*)(void *)) &IGESDraw::operator delete, "None", py::arg("theAddress"));

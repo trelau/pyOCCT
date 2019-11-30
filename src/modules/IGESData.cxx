@@ -352,6 +352,9 @@ cls_IGESData_SpecificModule.def("DynamicType", (const opencascade::handle<Standa
 // CLASS: IGESDATA_LINEFONTENTITY
 py::class_<IGESData_LineFontEntity, opencascade::handle<IGESData_LineFontEntity>, IGESData_IGESEntity> cls_IGESData_LineFontEntity(mod, "IGESData_LineFontEntity", "defines required type for LineFont in directory part an effective LineFont entity must inherits it");
 
+// Constructors
+cls_IGESData_LineFontEntity.def(py::init<>());
+
 // Methods
 cls_IGESData_LineFontEntity.def_static("get_type_name_", (const char * (*)()) &IGESData_LineFontEntity::get_type_name, "None");
 cls_IGESData_LineFontEntity.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESData_LineFontEntity::get_type_descriptor, "None");
@@ -439,6 +442,9 @@ cls_IGESData_BasicEditor.def_static("DraftingMax_", (Standard_Integer (*)()) &IG
 // CLASS: IGESDATA
 py::class_<IGESData> cls_IGESData(mod, "IGESData", "basic description of an IGES Interface");
 
+// Constructors
+cls_IGESData.def(py::init<>());
+
 // Methods
 // cls_IGESData.def_static("operator new_", (void * (*)(size_t)) &IGESData::operator new, "None", py::arg("theSize"));
 // cls_IGESData.def_static("operator delete_", (void (*)(void *)) &IGESData::operator delete, "None", py::arg("theAddress"));
@@ -471,6 +477,9 @@ bind_NCollection_Array1<IGESData_DirPart>(mod, "IGESData_Array1OfDirPart", py::m
 
 // CLASS: IGESDATA_COLORENTITY
 py::class_<IGESData_ColorEntity, opencascade::handle<IGESData_ColorEntity>, IGESData_IGESEntity> cls_IGESData_ColorEntity(mod, "IGESData_ColorEntity", "defines required type for Color in directory part an effective Color entity must inherits it");
+
+// Constructors
+cls_IGESData_ColorEntity.def(py::init<>());
 
 // Methods
 cls_IGESData_ColorEntity.def_static("get_type_name_", (const char * (*)()) &IGESData_ColorEntity::get_type_name, "None");
@@ -901,6 +910,9 @@ cls_IGESData_IGESWriter.def("Print", (Standard_Boolean (IGESData_IGESWriter::*)(
 
 // CLASS: IGESDATA_LABELDISPLAYENTITY
 py::class_<IGESData_LabelDisplayEntity, opencascade::handle<IGESData_LabelDisplayEntity>, IGESData_IGESEntity> cls_IGESData_LabelDisplayEntity(mod, "IGESData_LabelDisplayEntity", "defines required type for LabelDisplay in directory part an effective LabelDisplay entity must inherits it");
+
+// Constructors
+cls_IGESData_LabelDisplayEntity.def(py::init<>());
 
 // Methods
 cls_IGESData_LabelDisplayEntity.def_static("get_type_name_", (const char * (*)()) &IGESData_LabelDisplayEntity::get_type_name, "None");

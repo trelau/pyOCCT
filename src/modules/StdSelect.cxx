@@ -169,6 +169,9 @@ cls_StdSelect_ViewerSelector3d.def("DynamicType", (const opencascade::handle<Sta
 // CLASS: STDSELECT
 py::class_<StdSelect> cls_StdSelect(mod, "StdSelect", "The StdSelect package provides the following services - the definition of selection modes for topological shapes - the definition of several concrete filtertandard Selection2d.ap classes - 2D and 3D viewer selectors. Note that each new Interactive Object must have all its selection modes defined. Standard Classes is useful to build 3D Selectable Objects, and to process 3D Selections:");
 
+// Constructors
+cls_StdSelect.def(py::init<>());
+
 // Methods
 // cls_StdSelect.def_static("operator new_", (void * (*)(size_t)) &StdSelect::operator new, "None", py::arg("theSize"));
 // cls_StdSelect.def_static("operator delete_", (void (*)(void *)) &StdSelect::operator delete, "None", py::arg("theAddress"));
@@ -213,6 +216,9 @@ cls_StdSelect_BRepOwner.def("UpdateHighlightTrsf", (void (StdSelect_BRepOwner::*
 
 // CLASS: STDSELECT_BREPSELECTIONTOOL
 py::class_<StdSelect_BRepSelectionTool> cls_StdSelect_BRepSelectionTool(mod, "StdSelect_BRepSelectionTool", "Tool to create specific selections (sets of primitives) for Shapes from Topology. These Selections may be used in dynamic selection Mechanism Given a Shape and a mode of selection (selection of vertices, edges,faces ...) , This Tool Computes corresponding sensitive primitives, puts them in an entity called Selection (see package SelectMgr) and returns it.");
+
+// Constructors
+cls_StdSelect_BRepSelectionTool.def(py::init<>());
 
 // Methods
 // cls_StdSelect_BRepSelectionTool.def_static("operator new_", (void * (*)(size_t)) &StdSelect_BRepSelectionTool::operator new, "None", py::arg("theSize"));

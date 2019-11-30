@@ -94,6 +94,9 @@ bind_IntPolyh_Array<IntPolyh_Edge>(mod, "IntPolyh_ArrayOfEdges", py::module_loca
 // CLASS: INTPOLYH_POINTNORMAL
 py::class_<IntPolyh_PointNormal> cls_IntPolyh_PointNormal(mod, "IntPolyh_PointNormal", "Auxiliary structure to represent pair of point and normal vector in this point on the surface.");
 
+// Constructors
+cls_IntPolyh_PointNormal.def(py::init<>());
+
 // Fields
 cls_IntPolyh_PointNormal.def_readwrite("Point", &IntPolyh_PointNormal::Point, "None");
 cls_IntPolyh_PointNormal.def_readwrite("Normal", &IntPolyh_PointNormal::Normal, "None");
@@ -265,6 +268,9 @@ cls_IntPolyh_Couple.def("Dump", (void (IntPolyh_Couple::*)(const Standard_Intege
 // CLASS: INTPOLYH_COUPLEMAPHASHER
 py::class_<IntPolyh_CoupleMapHasher> cls_IntPolyh_CoupleMapHasher(mod, "IntPolyh_CoupleMapHasher", "None");
 
+// Constructors
+cls_IntPolyh_CoupleMapHasher.def(py::init<>());
+
 // Methods
 cls_IntPolyh_CoupleMapHasher.def_static("HashCode_", (Standard_Integer (*)(const IntPolyh_Couple &, const Standard_Integer)) &IntPolyh_CoupleMapHasher::HashCode, "Computes a hash code for the given couple, in the range [1, theUpperBound]", py::arg("theCouple"), py::arg("theUpperBound"));
 cls_IntPolyh_CoupleMapHasher.def_static("IsEqual_", (Standard_Boolean (*)(const IntPolyh_Couple &, const IntPolyh_Couple &)) &IntPolyh_CoupleMapHasher::IsEqual, "None", py::arg("theCouple1"), py::arg("theCouple2"));
@@ -352,6 +358,9 @@ cls_IntPolyh_MaillageAffinage.def("GetMaxDeflection", (Standard_Real (IntPolyh_M
 
 // CLASS: INTPOLYH_TOOLS
 py::class_<IntPolyh_Tools> cls_IntPolyh_Tools(mod, "IntPolyh_Tools", "The class provides tools for surface sampling.");
+
+// Constructors
+cls_IntPolyh_Tools.def(py::init<>());
 
 // Methods
 cls_IntPolyh_Tools.def_static("IsEnlargePossible_", [](const opencascade::handle<Adaptor3d_HSurface> & theSurf, Standard_Boolean & theUEnlarge, Standard_Boolean & theVEnlarge){ IntPolyh_Tools::IsEnlargePossible(theSurf, theUEnlarge, theVEnlarge); return std::tuple<Standard_Boolean &, Standard_Boolean &>(theUEnlarge, theVEnlarge); }, "Checks if the surface can be enlarged in U or V direction.", py::arg("theSurf"), py::arg("theUEnlarge"), py::arg("theVEnlarge"));

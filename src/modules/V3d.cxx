@@ -704,6 +704,9 @@ cls_V3d_View.def("DynamicType", (const opencascade::handle<Standard_Type> & (V3d
 // CLASS: V3D
 py::class_<V3d> cls_V3d(mod, "V3d", "This package contains the set of commands and services of the 3D Viewer. It provides a set of high level commands to control the views and viewing modes.");
 
+// Constructors
+cls_V3d.def(py::init<>());
+
 // Methods
 // cls_V3d.def_static("operator new_", (void * (*)(size_t)) &V3d::operator new, "None", py::arg("theSize"));
 // cls_V3d.def_static("operator delete_", (void (*)(void *)) &V3d::operator delete, "None", py::arg("theAddress"));

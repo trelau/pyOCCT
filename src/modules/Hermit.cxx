@@ -36,6 +36,9 @@ py::module::import("OCCT.Geom");
 // CLASS: HERMIT
 py::class_<Hermit> cls_Hermit(mod, "Hermit", "This is used to reparameterize Rational BSpline Curves so that we can concatenate them later to build C1 Curves It builds and 1D-reparameterizing function starting from an Hermite interpolation and adding knots and modifying poles of the 1D BSpline obtained that way. The goal is to build a(u) so that if we consider a BSpline curve N(u) f(u) = ----- D(u)");
 
+// Constructors
+cls_Hermit.def(py::init<>());
+
 // Methods
 // cls_Hermit.def_static("operator new_", (void * (*)(size_t)) &Hermit::operator new, "None", py::arg("theSize"));
 // cls_Hermit.def_static("operator delete_", (void (*)(void *)) &Hermit::operator delete, "None", py::arg("theAddress"));

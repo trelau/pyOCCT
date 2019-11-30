@@ -113,6 +113,9 @@ cls_ChFi2d_Builder.def("Status", (ChFi2d_ConstructionError (ChFi2d_Builder::*)()
 // CLASS: CHFI2D
 py::class_<ChFi2d> cls_ChFi2d(mod, "ChFi2d", "This package contains the algorithms used to build fillets or chamfers on planar wire.");
 
+// Constructors
+cls_ChFi2d.def(py::init<>());
+
 // Methods
 // cls_ChFi2d.def_static("operator new_", (void * (*)(size_t)) &ChFi2d::operator new, "None", py::arg("theSize"));
 // cls_ChFi2d.def_static("operator delete_", (void (*)(void *)) &ChFi2d::operator delete, "None", py::arg("theAddress"));

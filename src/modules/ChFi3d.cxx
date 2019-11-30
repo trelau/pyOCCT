@@ -234,6 +234,9 @@ cls_ChFi3d_FilBuilder.def("Sect", (opencascade::handle<ChFiDS_SecHArray1> (ChFi3
 // CLASS: CHFI3D
 py::class_<ChFi3d> cls_ChFi3d(mod, "ChFi3d", "creation of spatial fillets on a solid.");
 
+// Constructors
+cls_ChFi3d.def(py::init<>());
+
 // Methods
 // cls_ChFi3d.def_static("operator new_", (void * (*)(size_t)) &ChFi3d::operator new, "None", py::arg("theSize"));
 // cls_ChFi3d.def_static("operator delete_", (void (*)(void *)) &ChFi3d::operator delete, "None", py::arg("theAddress"));

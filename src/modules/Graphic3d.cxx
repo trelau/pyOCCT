@@ -1466,6 +1466,9 @@ cls_Graphic3d_BufferRange.def("Unite", (void (Graphic3d_BufferRange::*)(const Gr
 // CLASS: GRAPHIC3D_ATTRIBUTE
 py::class_<Graphic3d_Attribute> cls_Graphic3d_Attribute(mod, "Graphic3d_Attribute", "Vertex attribute definition.");
 
+// Constructors
+cls_Graphic3d_Attribute.def(py::init<>());
+
 // Fields
 cls_Graphic3d_Attribute.def_readwrite("Id", &Graphic3d_Attribute::Id, "attribute identifier in vertex shader, 0 is reserved for vertex position");
 cls_Graphic3d_Attribute.def_readwrite("DataType", &Graphic3d_Attribute::DataType, "vec2,vec3,vec4,vec4ub");

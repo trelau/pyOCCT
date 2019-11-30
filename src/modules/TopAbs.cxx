@@ -67,6 +67,9 @@ py::enum_<TopAbs_ShapeEnum>(mod, "TopAbs_ShapeEnum", "Identifies various topolog
 // CLASS: TOPABS
 py::class_<TopAbs> cls_TopAbs(mod, "TopAbs", "This package gives resources for Topology oriented applications such as : Topological Data Structure, Topological Algorithms.");
 
+// Constructors
+cls_TopAbs.def(py::init<>());
+
 // Methods
 // cls_TopAbs.def_static("operator new_", (void * (*)(size_t)) &TopAbs::operator new, "None", py::arg("theSize"));
 // cls_TopAbs.def_static("operator delete_", (void (*)(void *)) &TopAbs::operator delete, "None", py::arg("theAddress"));

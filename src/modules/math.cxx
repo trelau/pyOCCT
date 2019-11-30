@@ -563,6 +563,9 @@ cls_math_TrigonometricFunctionRoots.def("Dump", (void (math_TrigonometricFunctio
 // CLASS: MATH
 py::class_<math> cls_math(mod, "math", "None");
 
+// Constructors
+cls_math.def(py::init<>());
+
 // Methods
 // cls_math.def_static("operator new_", (void * (*)(size_t)) &math::operator new, "None", py::arg("theSize"));
 // cls_math.def_static("operator delete_", (void (*)(void *)) &math::operator delete, "None", py::arg("theAddress"));

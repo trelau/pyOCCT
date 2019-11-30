@@ -447,6 +447,9 @@ cls_GeomFill_ConstrainedFilling.def("CheckResult", (void (GeomFill_ConstrainedFi
 // CLASS: GEOMFILL
 py::class_<GeomFill> cls_GeomFill(mod, "GeomFill", "Tools and Data to filling Surface and Sweep Surfaces");
 
+// Constructors
+cls_GeomFill.def(py::init<>());
+
 // Methods
 // cls_GeomFill.def_static("operator new_", (void * (*)(size_t)) &GeomFill::operator new, "None", py::arg("theSize"));
 // cls_GeomFill.def_static("operator delete_", (void (*)(void *)) &GeomFill::operator delete, "None", py::arg("theAddress"));

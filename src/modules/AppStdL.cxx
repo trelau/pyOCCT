@@ -35,6 +35,9 @@ py::module::import("OCCT.Standard");
 // CLASS: APPSTDL_APPLICATION
 py::class_<AppStdL_Application, opencascade::handle<AppStdL_Application>, TDocStd_Application> cls_AppStdL_Application(mod, "AppStdL_Application", "Legacy class defining resources name for lite OCAF documents");
 
+// Constructors
+cls_AppStdL_Application.def(py::init<>());
+
 // Methods
 cls_AppStdL_Application.def("ResourcesName", (Standard_CString (AppStdL_Application::*)()) &AppStdL_Application::ResourcesName, "returns the file name which contains application resources");
 cls_AppStdL_Application.def_static("get_type_name_", (const char * (*)()) &AppStdL_Application::get_type_name, "None");

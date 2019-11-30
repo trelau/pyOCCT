@@ -96,6 +96,9 @@ py::enum_<VrmlConverter_TypeOfLight>(mod, "VrmlConverter_TypeOfLight", "None")
 // CLASS: VRMLCONVERTER_CURVE
 py::class_<VrmlConverter_Curve> cls_VrmlConverter_Curve(mod, "VrmlConverter_Curve", "Curve - computes the presentation of objects to be seen as curves (the computation will be made with a constant number of points), converts this one into VRML objects and writes (adds) them into anOStream. All requested properties of the representation are specify in aDrawer of Drawer class (VrmlConverter). This kind of the presentation is converted into IndexedLineSet ( VRML ).");
 
+// Constructors
+cls_VrmlConverter_Curve.def(py::init<>());
+
 // Methods
 // cls_VrmlConverter_Curve.def_static("operator new_", (void * (*)(size_t)) &VrmlConverter_Curve::operator new, "None", py::arg("theSize"));
 // cls_VrmlConverter_Curve.def_static("operator delete_", (void (*)(void *)) &VrmlConverter_Curve::operator delete, "None", py::arg("theAddress"));
@@ -109,6 +112,9 @@ cls_VrmlConverter_Curve.def_static("Add_", (void (*)(const Adaptor3d_Curve &, co
 
 // CLASS: VRMLCONVERTER_DEFLECTIONCURVE
 py::class_<VrmlConverter_DeflectionCurve> cls_VrmlConverter_DeflectionCurve(mod, "VrmlConverter_DeflectionCurve", "DeflectionCurve - computes the presentation of objects to be seen as curves, converts this one into VRML objects and writes (adds) into anOStream. All requested properties of the representation are specify in aDrawer. This kind of the presentation is converted into IndexedLineSet ( VRML ). The computation will be made according to a maximal chordial deviation.");
+
+// Constructors
+cls_VrmlConverter_DeflectionCurve.def(py::init<>());
 
 // Methods
 // cls_VrmlConverter_DeflectionCurve.def_static("operator new_", (void * (*)(size_t)) &VrmlConverter_DeflectionCurve::operator new, "None", py::arg("theSize"));
@@ -178,6 +184,9 @@ cls_VrmlConverter_Drawer.def("DynamicType", (const opencascade::handle<Standard_
 
 // CLASS: VRMLCONVERTER_HLRSHAPE
 py::class_<VrmlConverter_HLRShape> cls_VrmlConverter_HLRShape(mod, "VrmlConverter_HLRShape", "HLRShape - computes the presentation of objects with removal of their hidden lines for a specific projector, converts them into VRML objects and writes (adds) them into anOStream. All requested properties of the representation are specify in aDrawer of Drawer class. This kind of the presentation is converted into IndexedLineSet and if they are defined in Projector into : PerspectiveCamera, OrthographicCamera, DirectionLight, PointLight, SpotLight from Vrml package.");
+
+// Constructors
+cls_VrmlConverter_HLRShape.def(py::init<>());
 
 // Methods
 // cls_VrmlConverter_HLRShape.def_static("operator new_", (void * (*)(size_t)) &VrmlConverter_HLRShape::operator new, "None", py::arg("theSize"));
@@ -256,6 +265,9 @@ cls_VrmlConverter_Projector.def("DynamicType", (const opencascade::handle<Standa
 // CLASS: VRMLCONVERTER_SHADEDSHAPE
 py::class_<VrmlConverter_ShadedShape> cls_VrmlConverter_ShadedShape(mod, "VrmlConverter_ShadedShape", "ShadedShape - computes the shading presentation of shapes by triangulation algorithms, converts this one into VRML objects and writes (adds) into anOStream. All requested properties of the representation including the maximal chordial deviation are specify in aDrawer. This kind of the presentation is converted into IndexedFaceSet ( VRML ).");
 
+// Constructors
+cls_VrmlConverter_ShadedShape.def(py::init<>());
+
 // Methods
 // cls_VrmlConverter_ShadedShape.def_static("operator new_", (void * (*)(size_t)) &VrmlConverter_ShadedShape::operator new, "None", py::arg("theSize"));
 // cls_VrmlConverter_ShadedShape.def_static("operator delete_", (void (*)(void *)) &VrmlConverter_ShadedShape::operator delete, "None", py::arg("theAddress"));
@@ -288,6 +300,9 @@ cls_VrmlConverter_ShadingAspect.def("DynamicType", (const opencascade::handle<St
 // CLASS: VRMLCONVERTER_WFDEFLECTIONRESTRICTEDFACE
 py::class_<VrmlConverter_WFDeflectionRestrictedFace> cls_VrmlConverter_WFDeflectionRestrictedFace(mod, "VrmlConverter_WFDeflectionRestrictedFace", "WFDeflectionRestrictedFace - computes the wireframe presentation of faces with restrictions by displaying a given number of U and/or V isoparametric curves, converts his into VRML objects and writes (adds) them into anOStream. All requested properties of the representation are specify in aDrawer of Drawer class (Prs3d). This kind of the presentation is converted into IndexedFaceSet and IndexedLineSet ( VRML ).");
 
+// Constructors
+cls_VrmlConverter_WFDeflectionRestrictedFace.def(py::init<>());
+
 // Methods
 // cls_VrmlConverter_WFDeflectionRestrictedFace.def_static("operator new_", (void * (*)(size_t)) &VrmlConverter_WFDeflectionRestrictedFace::operator new, "None", py::arg("theSize"));
 // cls_VrmlConverter_WFDeflectionRestrictedFace.def_static("operator delete_", (void (*)(void *)) &VrmlConverter_WFDeflectionRestrictedFace::operator delete, "None", py::arg("theAddress"));
@@ -303,6 +318,9 @@ cls_VrmlConverter_WFDeflectionRestrictedFace.def_static("Add_", (void (*)(Standa
 // CLASS: VRMLCONVERTER_WFDEFLECTIONSHAPE
 py::class_<VrmlConverter_WFDeflectionShape> cls_VrmlConverter_WFDeflectionShape(mod, "VrmlConverter_WFDeflectionShape", "WFDeflectionShape - computes the wireframe presentation of compound set of faces, edges and vertices by displaying a given number of U and/or V isoparametric curves, converts this one into VRML objects and writes (adds) them into anOStream. All requested properties of the representation are specify in aDrawer. This kind of the presentation is converted into IndexedLineSet and PointSet ( VRML ).");
 
+// Constructors
+cls_VrmlConverter_WFDeflectionShape.def(py::init<>());
+
 // Methods
 // cls_VrmlConverter_WFDeflectionShape.def_static("operator new_", (void * (*)(size_t)) &VrmlConverter_WFDeflectionShape::operator new, "None", py::arg("theSize"));
 // cls_VrmlConverter_WFDeflectionShape.def_static("operator delete_", (void (*)(void *)) &VrmlConverter_WFDeflectionShape::operator delete, "None", py::arg("theAddress"));
@@ -314,6 +332,9 @@ cls_VrmlConverter_WFDeflectionShape.def_static("Add_", (void (*)(Standard_OStrea
 
 // CLASS: VRMLCONVERTER_WFRESTRICTEDFACE
 py::class_<VrmlConverter_WFRestrictedFace> cls_VrmlConverter_WFRestrictedFace(mod, "VrmlConverter_WFRestrictedFace", "WFRestrictedFace - computes the wireframe presentation of faces with restrictions by displaying a given number of U and/or V isoparametric curves, converts this one into VRML objects and writes (adds) into anOStream. All requested properties of the representation are specify in aDrawer. This kind of the presentation is converted into IndexedLineSet ( VRML ).");
+
+// Constructors
+cls_VrmlConverter_WFRestrictedFace.def(py::init<>());
 
 // Methods
 // cls_VrmlConverter_WFRestrictedFace.def_static("operator new_", (void * (*)(size_t)) &VrmlConverter_WFRestrictedFace::operator new, "None", py::arg("theSize"));
@@ -329,6 +350,9 @@ cls_VrmlConverter_WFRestrictedFace.def_static("Add_", (void (*)(Standard_OStream
 
 // CLASS: VRMLCONVERTER_WFSHAPE
 py::class_<VrmlConverter_WFShape> cls_VrmlConverter_WFShape(mod, "VrmlConverter_WFShape", "WFShape - computes the wireframe presentation of compound set of faces, edges and vertices by displaying a given number of U and/or V isoparametric curves converts this one into VRML objects and writes (adds) them into anOStream. All requested properties of the representation are specify in aDrawer. This kind of the presentation is converted into IndexedLineSet and PointSet ( VRML ).");
+
+// Constructors
+cls_VrmlConverter_WFShape.def(py::init<>());
 
 // Methods
 // cls_VrmlConverter_WFShape.def_static("operator new_", (void * (*)(size_t)) &VrmlConverter_WFShape::operator new, "None", py::arg("theSize"));

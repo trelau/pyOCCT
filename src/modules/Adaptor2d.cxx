@@ -58,6 +58,9 @@ py::module::import("OCCT.Geom2d");
 // CLASS: ADAPTOR2D_CURVE2D
 py::class_<Adaptor2d_Curve2d> cls_Adaptor2d_Curve2d(mod, "Adaptor2d_Curve2d", "Root class for 2D curves on which geometric algorithms work. An adapted curve is an interface between the services provided by a curve, and those required of the curve by algorithms, which use it. A derived concrete class is provided: Geom2dAdaptor_Curve for a curve from the Geom2d package.");
 
+// Constructors
+cls_Adaptor2d_Curve2d.def(py::init<>());
+
 // Methods
 // cls_Adaptor2d_Curve2d.def_static("operator new_", (void * (*)(size_t)) &Adaptor2d_Curve2d::operator new, "None", py::arg("theSize"));
 // cls_Adaptor2d_Curve2d.def_static("operator delete_", (void (*)(void *)) &Adaptor2d_Curve2d::operator delete, "None", py::arg("theAddress"));

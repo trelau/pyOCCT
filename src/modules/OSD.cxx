@@ -411,6 +411,9 @@ cls_OSD_ThreadPool.def("Init", (void (OSD_ThreadPool::*)(int)) &OSD_ThreadPool::
 // CLASS: OSD_PARALLEL
 py::class_<OSD_Parallel> cls_OSD_Parallel(mod, "OSD_Parallel", "Simple tool for code parallelization.");
 
+// Constructors
+cls_OSD_Parallel.def(py::init<>());
+
 // Methods
 cls_OSD_Parallel.def_static("ToUseOcctThreads_", (Standard_Boolean (*)()) &OSD_Parallel::ToUseOcctThreads, "Returns TRUE if OCCT threads should be used instead of auxiliary threads library; default value is FALSE if alternative library has been enabled while OCCT building and TRUE otherwise.");
 cls_OSD_Parallel.def_static("SetUseOcctThreads_", (void (*)(Standard_Boolean)) &OSD_Parallel::SetUseOcctThreads, "Sets if OCCT threads should be used instead of auxiliary threads library. Has no effect if OCCT has been built with no auxiliary threads library.", py::arg("theToUseOcct"));
@@ -420,6 +423,9 @@ cls_OSD_Parallel.def_static("NbLogicalProcessors_", (Standard_Integer (*)()) &OS
 
 // CLASS: OSD
 py::class_<OSD> cls_OSD(mod, "OSD", "Set of Operating Sytem Dependent (OSD) Tools");
+
+// Constructors
+cls_OSD.def(py::init<>());
 
 // Methods
 // cls_OSD.def_static("operator new_", (void * (*)(size_t)) &OSD::operator new, "None", py::arg("theSize"));
@@ -955,6 +961,9 @@ cls_OSD_Host.def("Error", (Standard_Integer (OSD_Host::*)() const) &OSD_Host::Er
 
 // CLASS: OSD_MALLOCHOOK
 py::class_<OSD_MAllocHook> cls_OSD_MAllocHook(mod, "OSD_MAllocHook", "This class provides the possibility to set callback for memory allocation/deallocation. On MS Windows, it works only in Debug builds. It relies on the debug CRT function _CrtSetAllocHook (see MSDN for help).");
+
+// Constructors
+cls_OSD_MAllocHook.def(py::init<>());
 
 // Methods
 cls_OSD_MAllocHook.def_static("SetCallback_", (void (*)(OSD_MAllocHook::Callback *)) &OSD_MAllocHook::SetCallback, "Set handler of allocation/deallocation events", py::arg("theCB"));

@@ -185,6 +185,9 @@ cls_HLRAlgo_WiresBlock.def("DynamicType", (const opencascade::handle<Standard_Ty
 // CLASS: HLRALGO
 py::class_<HLRAlgo> cls_HLRAlgo(mod, "HLRAlgo", "In order to have the precision required in industrial design, drawings need to offer the possibility of removing lines, which are hidden in a given projection. To do this, the Hidden Line Removal component provides two algorithms: HLRBRep_Algo and HLRBRep_PolyAlgo. These algorithms remove or indicate lines hidden by surfaces. For a given projection, they calculate a set of lines characteristic of the object being represented. They are also used in conjunction with extraction utilities, which reconstruct a new, simplified shape from a selection of calculation results. This new shape is made up of edges, which represent the lines of the visualized shape in a plane. This plane is the projection plane. HLRBRep_Algo takes into account the shape itself. HLRBRep_PolyAlgo works with a polyhedral simplification of the shape. When you use HLRBRep_Algo, you obtain an exact result, whereas, when you use HLRBRep_PolyAlgo, you reduce computation time but obtain polygonal segments.");
 
+// Constructors
+cls_HLRAlgo.def(py::init<>());
+
 // Methods
 // cls_HLRAlgo.def_static("operator new_", (void * (*)(size_t)) &HLRAlgo::operator new, "None", py::arg("theSize"));
 // cls_HLRAlgo.def_static("operator delete_", (void (*)(void *)) &HLRAlgo::operator delete, "None", py::arg("theAddress"));
@@ -240,6 +243,9 @@ bind_NCollection_Array1<opencascade::handle<HLRAlgo_PolyInternalNode> >(mod, "HL
 // CLASS: HLRALGO_POLYINTERNALSEGMENT
 py::class_<HLRAlgo_PolyInternalSegment> cls_HLRAlgo_PolyInternalSegment(mod, "HLRAlgo_PolyInternalSegment", "to Update OutLines.");
 
+// Constructors
+cls_HLRAlgo_PolyInternalSegment.def(py::init<>());
+
 // Fields
 cls_HLRAlgo_PolyInternalSegment.def_readwrite("LstSg1", &HLRAlgo_PolyInternalSegment::LstSg1, "None");
 cls_HLRAlgo_PolyInternalSegment.def_readwrite("LstSg2", &HLRAlgo_PolyInternalSegment::LstSg2, "None");
@@ -261,6 +267,9 @@ bind_NCollection_Array1<HLRAlgo_PolyInternalSegment>(mod, "HLRAlgo_Array1OfPISeg
 
 // CLASS: HLRALGO_TRIANGLEDATA
 py::class_<HLRAlgo_TriangleData> cls_HLRAlgo_TriangleData(mod, "HLRAlgo_TriangleData", "Data structure of a triangle.");
+
+// Constructors
+cls_HLRAlgo_TriangleData.def(py::init<>());
 
 // Fields
 cls_HLRAlgo_TriangleData.def_readwrite("Node1", &HLRAlgo_TriangleData::Node1, "None");

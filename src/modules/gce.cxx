@@ -102,6 +102,9 @@ py::enum_<gce_ErrorType>(mod, "gce_ErrorType", "Indicates the outcome of a const
 // CLASS: GCE_ROOT
 py::class_<gce_Root> cls_gce_Root(mod, "gce_Root", "This class implements the common services for all classes of gce which report error.");
 
+// Constructors
+cls_gce_Root.def(py::init<>());
+
 // Methods
 // cls_gce_Root.def_static("operator new_", (void * (*)(size_t)) &gce_Root::operator new, "None", py::arg("theSize"));
 // cls_gce_Root.def_static("operator delete_", (void (*)(void *)) &gce_Root::operator delete, "None", py::arg("theAddress"));

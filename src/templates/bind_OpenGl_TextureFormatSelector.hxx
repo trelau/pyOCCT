@@ -29,6 +29,9 @@ void bind_OpenGl_TextureFormatSelector(py::module &mod, std::string const &name,
 
 py::class_<OpenGl_TextureFormatSelector<T>> cls_OpenGl_TextureFormatSelector(mod, name.c_str(), "Selects preferable texture format for specified parameters.", local);
 
+// Constructors
+cls_OpenGl_TextureFormatSelector.def(py::init<>());
+
 }
 
 #endif

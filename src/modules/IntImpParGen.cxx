@@ -39,6 +39,9 @@ py::module::import("OCCT.gp");
 // CLASS: INTIMPPARGEN
 py::class_<IntImpParGen> cls_IntImpParGen(mod, "IntImpParGen", "Gives a generic algorithm to intersect Implicit Curves and Bounded Parametric Curves.");
 
+// Constructors
+cls_IntImpParGen.def(py::init<>());
+
 // Methods
 // cls_IntImpParGen.def_static("operator new_", (void * (*)(size_t)) &IntImpParGen::operator new, "None", py::arg("theSize"));
 // cls_IntImpParGen.def_static("operator delete_", (void (*)(void *)) &IntImpParGen::operator delete, "None", py::arg("theAddress"));
@@ -53,6 +56,9 @@ cls_IntImpParGen.def_static("NormalizeOnDomain_", [](Standard_Real & Par1, const
 
 // CLASS: INTIMPPARGEN_IMPTOOL
 py::class_<IntImpParGen_ImpTool> cls_IntImpParGen_ImpTool(mod, "IntImpParGen_ImpTool", "Template class for an implicit curve.");
+
+// Constructors
+cls_IntImpParGen_ImpTool.def(py::init<>());
 
 // Methods
 // cls_IntImpParGen_ImpTool.def_static("operator new_", (void * (*)(size_t)) &IntImpParGen_ImpTool::operator new, "None", py::arg("theSize"));

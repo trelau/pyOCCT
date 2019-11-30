@@ -255,6 +255,9 @@ cls_IFSelect_Editor.def("DynamicType", (const opencascade::handle<Standard_Type>
 // CLASS: IFSELECT
 py::class_<IFSelect> cls_IFSelect(mod, "IFSelect", "Gives tools to manage Selecting a group of Entities processed by an Interface, for instance to divide up an original Model (from a File) to several smaller ones They use description of an Interface Model as a graph");
 
+// Constructors
+cls_IFSelect.def(py::init<>());
+
 // Methods
 // cls_IFSelect.def_static("operator new_", (void * (*)(size_t)) &IFSelect::operator new, "None", py::arg("theSize"));
 // cls_IFSelect.def_static("operator delete_", (void (*)(void *)) &IFSelect::operator delete, "None", py::arg("theAddress"));
@@ -711,6 +714,9 @@ cls_IFSelect_EditForm.def("DynamicType", (const opencascade::handle<Standard_Typ
 
 // CLASS: IFSELECT_FUNCTIONS
 py::class_<IFSelect_Functions> cls_IFSelect_Functions(mod, "IFSelect_Functions", "Functions gives access to all the actions which can be commanded with the resources provided by IFSelect : especially WorkSession and various types of Selections and Dispatches");
+
+// Constructors
+cls_IFSelect_Functions.def(py::init<>());
 
 // Methods
 // cls_IFSelect_Functions.def_static("operator new_", (void * (*)(size_t)) &IFSelect_Functions::operator new, "None", py::arg("theSize"));

@@ -81,6 +81,9 @@ cls_BSplCLib_EvaluatorFunction.def("__call__", [](BSplCLib_EvaluatorFunction &se
 // CLASS: BSPLCLIB
 py::class_<BSplCLib> cls_BSplCLib(mod, "BSplCLib", "BSplCLib B-spline curve Library.");
 
+// Constructors
+cls_BSplCLib.def(py::init<>());
+
 // Methods
 // cls_BSplCLib.def_static("operator new_", (void * (*)(size_t)) &BSplCLib::operator new, "None", py::arg("theSize"));
 // cls_BSplCLib.def_static("operator delete_", (void (*)(void *)) &BSplCLib::operator delete, "None", py::arg("theAddress"));

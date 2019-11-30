@@ -135,6 +135,9 @@ py::module::import("OCCT.Message");
 // CLASS: IGESGEOM
 py::class_<IGESGeom> cls_IGESGeom(mod, "IGESGeom", "This package consists of B-Rep and CSG Solid entities");
 
+// Constructors
+cls_IGESGeom.def(py::init<>());
+
 // Methods
 // cls_IGESGeom.def_static("operator new_", (void * (*)(size_t)) &IGESGeom::operator new, "None", py::arg("theSize"));
 // cls_IGESGeom.def_static("operator delete_", (void (*)(void *)) &IGESGeom::operator delete, "None", py::arg("theAddress"));

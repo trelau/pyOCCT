@@ -90,6 +90,9 @@ py::module::import("OCCT.TopAbs");
 // CLASS: BREP_BUILDER
 py::class_<BRep_Builder, TopoDS_Builder> cls_BRep_Builder(mod, "BRep_Builder", "A framework providing advanced tolerance control. It is used to build Shapes. If tolerance control is required, you are advised to: 1. build a default precision for topology, using the classes provided in the BRepAPI package 2. update the tolerance of the resulting shape. Note that only vertices, edges and faces have meaningful tolerance control. The tolerance value must always comply with the condition that face tolerances are more restrictive than edge tolerances which are more restrictive than vertex tolerances. In other words: Tol(Vertex) >= Tol(Edge) >= Tol(Face). Other rules in setting tolerance include: - you can open up tolerance but should never restrict it - an edge cannot be included within the fusion of the tolerance spheres of two vertices");
 
+// Constructors
+cls_BRep_Builder.def(py::init<>());
+
 // Methods
 // cls_BRep_Builder.def_static("operator new_", (void * (*)(size_t)) &BRep_Builder::operator new, "None", py::arg("theSize"));
 // cls_BRep_Builder.def_static("operator delete_", (void (*)(void *)) &BRep_Builder::operator delete, "None", py::arg("theAddress"));
@@ -225,6 +228,9 @@ cls_BRep_TVertex.def("DynamicType", (const opencascade::handle<Standard_Type> & 
 
 // CLASS: BREP_TOOL
 py::class_<BRep_Tool> cls_BRep_Tool(mod, "BRep_Tool", "Provides class methods to access to the geometry of BRep shapes.");
+
+// Constructors
+cls_BRep_Tool.def(py::init<>());
 
 // Methods
 // cls_BRep_Tool.def_static("operator new_", (void * (*)(size_t)) &BRep_Tool::operator new, "None", py::arg("theSize"));

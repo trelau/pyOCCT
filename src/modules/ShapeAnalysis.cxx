@@ -127,6 +127,9 @@ py::module::import("OCCT.IntRes2d");
 // CLASS: SHAPEANALYSIS
 py::class_<ShapeAnalysis> cls_ShapeAnalysis(mod, "ShapeAnalysis", "This package is intended to analyze geometrical objects and topological shapes. Analysis domain includes both exploring geometrical and topological properties of shapes and checking their conformance to Open CASCADE requirements. The directions of analysis provided by tools of this package are: computing quantities of subshapes, computing parameters of points on curve and surface, computing surface singularities, checking edge and wire consistency, checking edges order in the wire, checking face bounds orientation, checking small faces, analyzing shape tolerances, analyzing of free bounds of the shape.");
 
+// Constructors
+cls_ShapeAnalysis.def(py::init<>());
+
 // Methods
 // cls_ShapeAnalysis.def_static("operator new_", (void * (*)(size_t)) &ShapeAnalysis::operator new, "None", py::arg("theSize"));
 // cls_ShapeAnalysis.def_static("operator delete_", (void (*)(void *)) &ShapeAnalysis::operator delete, "None", py::arg("theAddress"));
@@ -214,6 +217,9 @@ cls_ShapeAnalysis_CheckSmallFace.def("StatusPinEdges", (Standard_Boolean (ShapeA
 
 // CLASS: SHAPEANALYSIS_CURVE
 py::class_<ShapeAnalysis_Curve> cls_ShapeAnalysis_Curve(mod, "ShapeAnalysis_Curve", "Analyzing tool for 2d or 3d curve. Computes parameters of projected point onto a curve.");
+
+// Constructors
+cls_ShapeAnalysis_Curve.def(py::init<>());
 
 // Methods
 // cls_ShapeAnalysis_Curve.def_static("operator new_", (void * (*)(size_t)) &ShapeAnalysis_Curve::operator new, "None", py::arg("theSize"));
@@ -426,6 +432,9 @@ cls_ShapeAnalysis_FreeBoundsProperties.def("FillProperties", (Standard_Boolean (
 // CLASS: SHAPEANALYSIS_GEOM
 py::class_<ShapeAnalysis_Geom> cls_ShapeAnalysis_Geom(mod, "ShapeAnalysis_Geom", "Analyzing tool aimed to work on primitive geometrical objects");
 
+// Constructors
+cls_ShapeAnalysis_Geom.def(py::init<>());
+
 // Methods
 // cls_ShapeAnalysis_Geom.def_static("operator new_", (void * (*)(size_t)) &ShapeAnalysis_Geom::operator new, "None", py::arg("theSize"));
 // cls_ShapeAnalysis_Geom.def_static("operator delete_", (void (*)(void *)) &ShapeAnalysis_Geom::operator delete, "None", py::arg("theAddress"));
@@ -524,6 +533,9 @@ cls_ShapeAnalysis_ShapeTolerance.def("GlobalTolerance", (Standard_Real (ShapeAna
 
 // CLASS: SHAPEANALYSIS_SHELL
 py::class_<ShapeAnalysis_Shell> cls_ShapeAnalysis_Shell(mod, "ShapeAnalysis_Shell", "This class provides operators to analyze edges orientation in the shell.");
+
+// Constructors
+cls_ShapeAnalysis_Shell.def(py::init<>());
 
 // Methods
 // cls_ShapeAnalysis_Shell.def_static("operator new_", (void * (*)(size_t)) &ShapeAnalysis_Shell::operator new, "None", py::arg("theSize"));

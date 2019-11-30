@@ -423,6 +423,9 @@ cls_TCollection_BasicMapIterator.def("Next", (void (TCollection_BasicMapIterator
 // CLASS: TCOLLECTION
 py::class_<TCollection> cls_TCollection(mod, "TCollection", "The package <TCollection> provides the services for the transient basic data structures.");
 
+// Constructors
+cls_TCollection.def(py::init<>());
+
 // Methods
 // cls_TCollection.def_static("operator new_", (void * (*)(size_t)) &TCollection::operator new, "None", py::arg("theSize"));
 // cls_TCollection.def_static("operator delete_", (void (*)(void *)) &TCollection::operator delete, "None", py::arg("theAddress"));

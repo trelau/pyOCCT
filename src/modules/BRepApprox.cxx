@@ -692,6 +692,9 @@ cls_BRepApprox_ResConstraintOfMyGradientOfTheComputeLineBezierOfApprox.def("Inve
 // CLASS: BREPAPPROX_SURFACETOOL
 py::class_<BRepApprox_SurfaceTool> cls_BRepApprox_SurfaceTool(mod, "BRepApprox_SurfaceTool", "None");
 
+// Constructors
+cls_BRepApprox_SurfaceTool.def(py::init<>());
+
 // Methods
 // cls_BRepApprox_SurfaceTool.def_static("operator new_", (void * (*)(size_t)) &BRepApprox_SurfaceTool::operator new, "None", py::arg("theSize"));
 // cls_BRepApprox_SurfaceTool.def_static("operator delete_", (void (*)(void *)) &BRepApprox_SurfaceTool::operator delete, "None", py::arg("theAddress"));
@@ -849,6 +852,9 @@ cls_BRepApprox_TheInt2SOfThePrmPrmSvSurfacesOfApprox.def("ChangePoint", (IntSurf
 
 // CLASS: BREPAPPROX_THEMULTILINETOOLOFAPPROX
 py::class_<BRepApprox_TheMultiLineToolOfApprox> cls_BRepApprox_TheMultiLineToolOfApprox(mod, "BRepApprox_TheMultiLineToolOfApprox", "None");
+
+// Constructors
+cls_BRepApprox_TheMultiLineToolOfApprox.def(py::init<>());
 
 // Methods
 // cls_BRepApprox_TheMultiLineToolOfApprox.def_static("operator new_", (void * (*)(size_t)) &BRepApprox_TheMultiLineToolOfApprox::operator new, "None", py::arg("theSize"));

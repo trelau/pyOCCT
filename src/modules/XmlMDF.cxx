@@ -78,6 +78,9 @@ bind_NCollection_DataMap<TCollection_AsciiString, opencascade::handle<XmlMDF_ADr
 // CLASS: XMLMDF
 py::class_<XmlMDF> cls_XmlMDF(mod, "XmlMDF", "This package provides classes and methods to translate a transient DF into a persistent one and vice versa.");
 
+// Constructors
+cls_XmlMDF.def(py::init<>());
+
 // Methods
 // cls_XmlMDF.def_static("operator new_", (void * (*)(size_t)) &XmlMDF::operator new, "None", py::arg("theSize"));
 // cls_XmlMDF.def_static("operator delete_", (void (*)(void *)) &XmlMDF::operator delete, "None", py::arg("theAddress"));

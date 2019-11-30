@@ -75,6 +75,9 @@ py::module::import("OCCT.ShapeExtend");
 // CLASS: SHAPECONSTRUCT
 py::class_<ShapeConstruct> cls_ShapeConstruct(mod, "ShapeConstruct", "This package provides new algorithms for constructing new geometrical objects and topological shapes. It complements and extends algorithms available in Open CASCADE topological and geometrical toolkist. The functionality provided by this package are the following: projecting curves on surface, adjusting curve to have given start and end points. P");
 
+// Constructors
+cls_ShapeConstruct.def(py::init<>());
+
 // Methods
 // cls_ShapeConstruct.def_static("operator new_", (void * (*)(size_t)) &ShapeConstruct::operator new, "None", py::arg("theSize"));
 // cls_ShapeConstruct.def_static("operator delete_", (void (*)(void *)) &ShapeConstruct::operator delete, "None", py::arg("theAddress"));
@@ -91,6 +94,9 @@ cls_ShapeConstruct.def_static("JoinCurves_", [](const opencascade::handle<Geom2d
 
 // CLASS: SHAPECONSTRUCT_CURVE
 py::class_<ShapeConstruct_Curve> cls_ShapeConstruct_Curve(mod, "ShapeConstruct_Curve", "Adjusts curve to have start and end points at the given points (currently works on lines and B-Splines only)");
+
+// Constructors
+cls_ShapeConstruct_Curve.def(py::init<>());
 
 // Methods
 // cls_ShapeConstruct_Curve.def_static("operator new_", (void * (*)(size_t)) &ShapeConstruct_Curve::operator new, "None", py::arg("theSize"));

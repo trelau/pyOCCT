@@ -70,6 +70,9 @@ py::module::import("OCCT.NCollection");
 // CLASS: UNITS
 py::class_<Units> cls_Units(mod, "Units", "This package provides all the facilities to create and question a dictionary of units, and also to manipulate measurements which are real values with units.");
 
+// Constructors
+cls_Units.def(py::init<>());
+
 // Methods
 // cls_Units.def_static("operator new_", (void * (*)(size_t)) &Units::operator new, "None", py::arg("theSize"));
 // cls_Units.def_static("operator delete_", (void (*)(void *)) &Units::operator delete, "None", py::arg("theAddress"));

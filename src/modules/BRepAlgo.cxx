@@ -109,6 +109,9 @@ cls_BRepAlgo_Image.def("Filter", (void (BRepAlgo_Image::*)(const TopoDS_Shape &,
 // CLASS: BREPALGO
 py::class_<BRepAlgo> cls_BRepAlgo(mod, "BRepAlgo", "The BRepAlgo package provides a full range of services to perform Old Boolean Operations in Open CASCADE. Attention: The New Boolean Operation has replaced the Old Boolean Operations algorithm in the BrepAlgoAPI package in Open CASCADE.");
 
+// Constructors
+cls_BRepAlgo.def(py::init<>());
+
 // Methods
 // cls_BRepAlgo.def_static("operator new_", (void * (*)(size_t)) &BRepAlgo::operator new, "None", py::arg("theSize"));
 // cls_BRepAlgo.def_static("operator delete_", (void (*)(void *)) &BRepAlgo::operator delete, "None", py::arg("theAddress"));
@@ -326,6 +329,9 @@ cls_BRepAlgo_Section.def("HasAncestorFaceOn2", (Standard_Boolean (BRepAlgo_Secti
 
 // CLASS: BREPALGO_TOOL
 py::class_<BRepAlgo_Tool> cls_BRepAlgo_Tool(mod, "BRepAlgo_Tool", "None");
+
+// Constructors
+cls_BRepAlgo_Tool.def(py::init<>());
 
 // Methods
 // cls_BRepAlgo_Tool.def_static("operator new_", (void * (*)(size_t)) &BRepAlgo_Tool::operator new, "None", py::arg("theSize"));

@@ -188,6 +188,9 @@ cls_LocOpe_WiresOnShape.def("DynamicType", (const opencascade::handle<Standard_T
 // CLASS: LOCOPE
 py::class_<LocOpe> cls_LocOpe(mod, "LocOpe", "Provides tools to implement local topological operations on a shape.");
 
+// Constructors
+cls_LocOpe.def(py::init<>());
+
 // Methods
 // cls_LocOpe.def_static("operator new_", (void * (*)(size_t)) &LocOpe::operator new, "None", py::arg("theSize"));
 // cls_LocOpe.def_static("operator delete_", (void (*)(void *)) &LocOpe::operator delete, "None", py::arg("theAddress"));

@@ -1189,6 +1189,9 @@ cls_TopOpeBRepBuild_GIter.def("Dump", (void (TopOpeBRepBuild_GIter::*)(Standard_
 // CLASS: TOPOPEBREPBUILD_GTOOL
 py::class_<TopOpeBRepBuild_GTool> cls_TopOpeBRepBuild_GTool(mod, "TopOpeBRepBuild_GTool", "None");
 
+// Constructors
+cls_TopOpeBRepBuild_GTool.def(py::init<>());
+
 // Methods
 // cls_TopOpeBRepBuild_GTool.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepBuild_GTool::operator new, "None", py::arg("theSize"));
 // cls_TopOpeBRepBuild_GTool.def_static("operator delete_", (void (*)(void *)) &TopOpeBRepBuild_GTool::operator delete, "None", py::arg("theAddress"));
@@ -1283,6 +1286,9 @@ cls_TopOpeBRepBuild_ShellToSolid.def("MakeSolids", (void (TopOpeBRepBuild_ShellT
 // CLASS: TOPOPEBREPBUILD_TOOLS
 py::class_<TopOpeBRepBuild_Tools> cls_TopOpeBRepBuild_Tools(mod, "TopOpeBRepBuild_Tools", "Auxiliary methods used in TopOpeBRepBuild_Builder1 class");
 
+// Constructors
+cls_TopOpeBRepBuild_Tools.def(py::init<>());
+
 // Methods
 // cls_TopOpeBRepBuild_Tools.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepBuild_Tools::operator new, "None", py::arg("theSize"));
 // cls_TopOpeBRepBuild_Tools.def_static("operator delete_", (void (*)(void *)) &TopOpeBRepBuild_Tools::operator delete, "None", py::arg("theAddress"));
@@ -1318,6 +1324,9 @@ cls_TopOpeBRepBuild_Tools.def_static("CheckFaceClosed2d_", (Standard_Boolean (*)
 
 // CLASS: TOPOPEBREPBUILD_TOOLS2D
 py::class_<TopOpeBRepBuild_Tools2d> cls_TopOpeBRepBuild_Tools2d(mod, "TopOpeBRepBuild_Tools2d", "None");
+
+// Constructors
+cls_TopOpeBRepBuild_Tools2d.def(py::init<>());
 
 // Methods
 // cls_TopOpeBRepBuild_Tools2d.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepBuild_Tools2d::operator new, "None", py::arg("theSize"));

@@ -105,6 +105,9 @@ py::module::import("OCCT.StepAP214");
 // CLASS: RWSTEPAP214
 py::class_<RWStepAP214> cls_RWStepAP214(mod, "RWStepAP214", "None");
 
+// Constructors
+cls_RWStepAP214.def(py::init<>());
+
 // Methods
 // cls_RWStepAP214.def_static("operator new_", (void * (*)(size_t)) &RWStepAP214::operator new, "None", py::arg("theSize"));
 // cls_RWStepAP214.def_static("operator delete_", (void (*)(void *)) &RWStepAP214::operator delete, "None", py::arg("theAddress"));

@@ -228,6 +228,9 @@ cls_IGESToBRep_ToolContainer.def("DynamicType", (const opencascade::handle<Stand
 // CLASS: IGESTOBREP
 py::class_<IGESToBRep> cls_IGESToBRep(mod, "IGESToBRep", "Provides tools in order to transfer IGES entities to CAS.CADE.");
 
+// Constructors
+cls_IGESToBRep.def(py::init<>());
+
 // Methods
 // cls_IGESToBRep.def_static("operator new_", (void * (*)(size_t)) &IGESToBRep::operator new, "None", py::arg("theSize"));
 // cls_IGESToBRep.def_static("operator delete_", (void (*)(void *)) &IGESToBRep::operator delete, "None", py::arg("theAddress"));

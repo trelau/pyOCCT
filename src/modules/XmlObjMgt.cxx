@@ -58,6 +58,9 @@ py::module::import("OCCT.gp");
 // CLASS: XMLOBJMGT_RRELOCATIONTABLE
 py::class_<XmlObjMgt_RRelocationTable, TColStd_DataMapOfIntegerTransient> cls_XmlObjMgt_RRelocationTable(mod, "XmlObjMgt_RRelocationTable", "Retrieval relocation table is modeled as a child class of TColStd_DataMapOfIntegerTransient that stores a handle to the file header section. With that attribute drivers have access to the file header section.");
 
+// Constructors
+cls_XmlObjMgt_RRelocationTable.def(py::init<>());
+
 // Methods
 cls_XmlObjMgt_RRelocationTable.def("GetHeaderData", (const opencascade::handle<Storage_HeaderData> & (XmlObjMgt_RRelocationTable::*)() const) &XmlObjMgt_RRelocationTable::GetHeaderData, "Returns a handle to the header data of the file that is begin read");
 cls_XmlObjMgt_RRelocationTable.def("SetHeaderData", (void (XmlObjMgt_RRelocationTable::*)(const opencascade::handle<Storage_HeaderData> &)) &XmlObjMgt_RRelocationTable::SetHeaderData, "Sets the storage header data.", py::arg("theHeaderData"));
@@ -88,6 +91,9 @@ cls_XmlObjMgt_Element.def("GetAttributesList", (LDOM_NodeList (LDOM_Element::*)(
 
 // CLASS: XMLOBJMGT_SRELOCATIONTABLE
 py::class_<XmlObjMgt_SRelocationTable, TColStd_IndexedMapOfTransient> cls_XmlObjMgt_SRelocationTable(mod, "XmlObjMgt_SRelocationTable", "Stored relocation table is modeled as a child class of TColStd_DataMapOfIntegerTransient that stores a handle to the file header section. With that attribute drivers have access to the file header section.");
+
+// Constructors
+cls_XmlObjMgt_SRelocationTable.def(py::init<>());
 
 // Methods
 cls_XmlObjMgt_SRelocationTable.def("GetHeaderData", (const opencascade::handle<Storage_HeaderData> & (XmlObjMgt_SRelocationTable::*)() const) &XmlObjMgt_SRelocationTable::GetHeaderData, "Returns a handle to the header data of the file that is begin read");
@@ -136,6 +142,9 @@ cls_XmlObjMgt_DOMString.def("getOwnerDocument", (const LDOM_MemManager & (LDOMSt
 // CLASS: XMLOBJMGT
 py::class_<XmlObjMgt> cls_XmlObjMgt(mod, "XmlObjMgt", "This package defines services to manage the storage grain of data produced by applications and those classes to manage persistent extern reference.");
 
+// Constructors
+cls_XmlObjMgt.def(py::init<>());
+
 // Methods
 // cls_XmlObjMgt.def_static("operator new_", (void * (*)(size_t)) &XmlObjMgt::operator new, "None", py::arg("theSize"));
 // cls_XmlObjMgt.def_static("operator delete_", (void (*)(void *)) &XmlObjMgt::operator delete, "None", py::arg("theAddress"));
@@ -182,6 +191,9 @@ cls_XmlObjMgt_Array1.def("Value", (XmlObjMgt_Element (XmlObjMgt_Array1::*)(const
 
 // CLASS: XMLOBJMGT_GP
 py::class_<XmlObjMgt_GP> cls_XmlObjMgt_GP(mod, "XmlObjMgt_GP", "Translation of gp (simple geometry) objects");
+
+// Constructors
+cls_XmlObjMgt_GP.def(py::init<>());
 
 // Methods
 // cls_XmlObjMgt_GP.def_static("operator new_", (void * (*)(size_t)) &XmlObjMgt_GP::operator new, "None", py::arg("theSize"));

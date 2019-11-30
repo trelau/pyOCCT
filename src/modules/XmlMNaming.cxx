@@ -58,6 +58,9 @@ py::module::import("OCCT.TopoDS");
 // CLASS: XMLMNAMING
 py::class_<XmlMNaming> cls_XmlMNaming(mod, "XmlMNaming", "None");
 
+// Constructors
+cls_XmlMNaming.def(py::init<>());
+
 // Methods
 // cls_XmlMNaming.def_static("operator new_", (void * (*)(size_t)) &XmlMNaming::operator new, "None", py::arg("theSize"));
 // cls_XmlMNaming.def_static("operator delete_", (void (*)(void *)) &XmlMNaming::operator delete, "None", py::arg("theAddress"));

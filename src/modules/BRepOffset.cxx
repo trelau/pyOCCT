@@ -269,6 +269,9 @@ bind_NCollection_DataMap<TopoDS_Shape, BRepOffset_Offset, TopTools_ShapeMapHashe
 // CLASS: BREPOFFSET
 py::class_<BRepOffset> cls_BRepOffset(mod, "BRepOffset", "Auxiliary tools for offset algorithms");
 
+// Constructors
+cls_BRepOffset.def(py::init<>());
+
 // Methods
 cls_BRepOffset.def_static("Surface_", [](const opencascade::handle<Geom_Surface> & a0, const Standard_Real a1, BRepOffset_Status & a2) -> opencascade::handle<Geom_Surface> { return BRepOffset::Surface(a0, a1, a2); });
 cls_BRepOffset.def_static("Surface_", (opencascade::handle<Geom_Surface> (*)(const opencascade::handle<Geom_Surface> &, const Standard_Real, BRepOffset_Status &, Standard_Boolean)) &BRepOffset::Surface, "returns the Offset surface computed from the surface <Surface> at an OffsetDistance <Offset>.", py::arg("Surface"), py::arg("Offset"), py::arg("theStatus"), py::arg("allowC0"));
@@ -366,6 +369,9 @@ bind_NCollection_DataMap<TopoDS_Shape, NCollection_Map<TopoDS_Shape, TopTools_Sh
 // CLASS: BREPOFFSET_INTER2D
 py::class_<BRepOffset_Inter2d> cls_BRepOffset_Inter2d(mod, "BRepOffset_Inter2d", "Computes the intersections betwwen edges on a face stores result is SD as AsDes from BRepOffset.");
 
+// Constructors
+cls_BRepOffset_Inter2d.def(py::init<>());
+
 // Methods
 // cls_BRepOffset_Inter2d.def_static("operator new_", (void * (*)(size_t)) &BRepOffset_Inter2d::operator new, "None", py::arg("theSize"));
 // cls_BRepOffset_Inter2d.def_static("operator delete_", (void (*)(void *)) &BRepOffset_Inter2d::operator delete, "None", py::arg("theAddress"));
@@ -426,6 +432,9 @@ cls_BRepOffset_SimpleOffset.def("Continuity", (GeomAbs_Shape (BRepOffset_SimpleO
 
 // CLASS: BREPOFFSET_TOOL
 py::class_<BRepOffset_Tool> cls_BRepOffset_Tool(mod, "BRepOffset_Tool", "None");
+
+// Constructors
+cls_BRepOffset_Tool.def(py::init<>());
 
 // Methods
 // cls_BRepOffset_Tool.def_static("operator new_", (void * (*)(size_t)) &BRepOffset_Tool::operator new, "None", py::arg("theSize"));

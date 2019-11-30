@@ -253,6 +253,9 @@ cls_NCollection_IncAllocator.def("DynamicType", (const opencascade::handle<Stand
 // CLASS: NCOLLECTION_CELLFILTER_INSPECTORXYZ
 py::class_<NCollection_CellFilter_InspectorXYZ> cls_NCollection_CellFilter_InspectorXYZ(mod, "NCollection_CellFilter_InspectorXYZ", "None");
 
+// Constructors
+cls_NCollection_CellFilter_InspectorXYZ.def(py::init<>());
+
 // Methods
 cls_NCollection_CellFilter_InspectorXYZ.def_static("Coord_", (Standard_Real (*)(int, const NCollection_CellFilter_InspectorXYZ::Point &)) &NCollection_CellFilter_InspectorXYZ::Coord, "Access to co-ordinate", py::arg("i"), py::arg("thePnt"));
 cls_NCollection_CellFilter_InspectorXYZ.def("Shift", (NCollection_CellFilter_InspectorXYZ::Point (NCollection_CellFilter_InspectorXYZ::*)(const NCollection_CellFilter_InspectorXYZ::Point &, Standard_Real) const) &NCollection_CellFilter_InspectorXYZ::Shift, "Auxiliary method to shift point by each coordinate on given value; useful for preparing a points range for Inspect with tolerance", py::arg("thePnt"), py::arg("theTol"));
@@ -262,6 +265,9 @@ cls_NCollection_CellFilter_InspectorXYZ.attr("Dimension") = py::cast(int(NCollec
 
 // CLASS: NCOLLECTION_CELLFILTER_INSPECTORXY
 py::class_<NCollection_CellFilter_InspectorXY> cls_NCollection_CellFilter_InspectorXY(mod, "NCollection_CellFilter_InspectorXY", "None");
+
+// Constructors
+cls_NCollection_CellFilter_InspectorXY.def(py::init<>());
 
 // Methods
 cls_NCollection_CellFilter_InspectorXY.def_static("Coord_", (Standard_Real (*)(int, const NCollection_CellFilter_InspectorXY::Point &)) &NCollection_CellFilter_InspectorXY::Coord, "Access to co-ordinate", py::arg("i"), py::arg("thePnt"));

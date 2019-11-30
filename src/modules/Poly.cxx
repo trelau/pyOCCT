@@ -211,6 +211,9 @@ bind_NCollection_List<opencascade::handle<Poly_Triangulation> >(mod, "Poly_ListO
 // CLASS: POLY
 py::class_<Poly> cls_Poly(mod, "Poly", "This package provides classes and services to handle :");
 
+// Constructors
+cls_Poly.def(py::init<>());
+
 // Methods
 // cls_Poly.def_static("operator new_", (void * (*)(size_t)) &Poly::operator new, "None", py::arg("theSize"));
 // cls_Poly.def_static("operator delete_", (void (*)(void *)) &Poly::operator delete, "None", py::arg("theAddress"));

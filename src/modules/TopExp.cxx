@@ -45,6 +45,9 @@ py::module::import("OCCT.TopTools");
 // CLASS: TOPEXP
 py::class_<TopExp> cls_TopExp(mod, "TopExp", "This package provides basic tools to explore the topological data structures.");
 
+// Constructors
+cls_TopExp.def(py::init<>());
+
 // Methods
 // cls_TopExp.def_static("operator new_", (void * (*)(size_t)) &TopExp::operator new, "None", py::arg("theSize"));
 // cls_TopExp.def_static("operator delete_", (void (*)(void *)) &TopExp::operator delete, "None", py::arg("theAddress"));

@@ -48,6 +48,9 @@ py::module::import("OCCT.XmlObjMgt");
 // CLASS: XMLMFUNCTION
 py::class_<XmlMFunction> cls_XmlMFunction(mod, "XmlMFunction", "None");
 
+// Constructors
+cls_XmlMFunction.def(py::init<>());
+
 // Methods
 // cls_XmlMFunction.def_static("operator new_", (void * (*)(size_t)) &XmlMFunction::operator new, "None", py::arg("theSize"));
 // cls_XmlMFunction.def_static("operator delete_", (void (*)(void *)) &XmlMFunction::operator delete, "None", py::arg("theAddress"));

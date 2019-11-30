@@ -213,6 +213,9 @@ bind_NCollection_Array1<gp_Lin>(mod, "Intf_Array1OfLin", py::module_local(false)
 // CLASS: INTF
 py::class_<Intf> cls_Intf(mod, "Intf", "Interference computation between polygons, lines and polyhedra with only triangular facets. These objects are polygonal representations of complex curves and triangulated representations of complex surfaces.");
 
+// Constructors
+cls_Intf.def(py::init<>());
+
 // Methods
 // cls_Intf.def_static("operator new_", (void * (*)(size_t)) &Intf::operator new, "None", py::arg("theSize"));
 // cls_Intf.def_static("operator delete_", (void (*)(void *)) &Intf::operator delete, "None", py::arg("theAddress"));

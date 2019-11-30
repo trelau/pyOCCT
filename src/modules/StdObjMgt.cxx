@@ -75,6 +75,9 @@ cls_StdObjMgt_Persistent.def("RefNum", (void (StdObjMgt_Persistent::*)(Standard_
 // CLASS: STDOBJMGT_SHAREDOBJECT
 py::class_<StdObjMgt_SharedObject> cls_StdObjMgt_SharedObject(mod, "StdObjMgt_SharedObject", "None");
 
+// Constructors
+cls_StdObjMgt_SharedObject.def(py::init<>());
+
 // CLASS: STDOBJMGT_READDATA
 py::class_<StdObjMgt_ReadData> cls_StdObjMgt_ReadData(mod, "StdObjMgt_ReadData", "Auxiliary data used to read persistent objects from a file.");
 
@@ -114,6 +117,9 @@ bind_NCollection_DataMap<opencascade::handle<Standard_Transient>, opencascade::h
 
 // CLASS: STDOBJMGT_MAPOFINSTANTIATORS
 py::class_<StdObjMgt_MapOfInstantiators> cls_StdObjMgt_MapOfInstantiators(mod, "StdObjMgt_MapOfInstantiators", "None");
+
+// Constructors
+cls_StdObjMgt_MapOfInstantiators.def(py::init<>());
 
 // Methods
 // cls_StdObjMgt_MapOfInstantiators.def_static("operator new_", (void * (*)(size_t)) &StdObjMgt_MapOfInstantiators::operator new, "None", py::arg("theSize"));

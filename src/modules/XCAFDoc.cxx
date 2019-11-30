@@ -195,6 +195,9 @@ cls_XCAFDoc_DimTolTool.def("DynamicType", (const opencascade::handle<Standard_Ty
 // CLASS: XCAFDOC
 py::class_<XCAFDoc> cls_XCAFDoc(mod, "XCAFDoc", "Definition of general structure of DECAF document and tools to work with it");
 
+// Constructors
+cls_XCAFDoc.def(py::init<>());
+
 // Methods
 // cls_XCAFDoc.def_static("operator new_", (void * (*)(size_t)) &XCAFDoc::operator new, "None", py::arg("theSize"));
 // cls_XCAFDoc.def_static("operator delete_", (void (*)(void *)) &XCAFDoc::operator delete, "None", py::arg("theAddress"));
@@ -547,6 +550,9 @@ cls_XCAFDoc_DocumentTool.def("DynamicType", (const opencascade::handle<Standard_
 
 // CLASS: XCAFDOC_EDITOR
 py::class_<XCAFDoc_Editor> cls_XCAFDoc_Editor(mod, "XCAFDoc_Editor", "Tool for edit structure of document.");
+
+// Constructors
+cls_XCAFDoc_Editor.def(py::init<>());
 
 // Methods
 // cls_XCAFDoc_Editor.def_static("operator new_", (void * (*)(size_t)) &XCAFDoc_Editor::operator new, "None", py::arg("theSize"));

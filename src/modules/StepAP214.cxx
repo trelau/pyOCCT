@@ -218,6 +218,9 @@ py::module::import("OCCT.Interface");
 // CLASS: STEPAP214
 py::class_<StepAP214> cls_StepAP214(mod, "StepAP214", "Complete AP214 CC1 , Revision 4 Upgrading from Revision 2 to Revision 4 : 26 Mar 1997 Splitting in sub-schemas : 5 Nov 1997");
 
+// Constructors
+cls_StepAP214.def(py::init<>());
+
 // Methods
 // cls_StepAP214.def_static("operator new_", (void * (*)(size_t)) &StepAP214::operator new, "None", py::arg("theSize"));
 // cls_StepAP214.def_static("operator delete_", (void (*)(void *)) &StepAP214::operator delete, "None", py::arg("theAddress"));

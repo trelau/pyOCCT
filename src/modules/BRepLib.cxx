@@ -471,6 +471,9 @@ cls_BRepLib_MakeWire.def("Vertex", (const TopoDS_Vertex & (BRepLib_MakeWire::*)(
 // CLASS: BREPLIB
 py::class_<BRepLib> cls_BRepLib(mod, "BRepLib", "The BRepLib package provides general utilities for BRep.");
 
+// Constructors
+cls_BRepLib.def(py::init<>());
+
 // Methods
 // cls_BRepLib.def_static("operator new_", (void * (*)(size_t)) &BRepLib::operator new, "None", py::arg("theSize"));
 // cls_BRepLib.def_static("operator delete_", (void (*)(void *)) &BRepLib::operator delete, "None", py::arg("theAddress"));

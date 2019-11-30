@@ -1035,6 +1035,9 @@ cls_Extrema_CCLocFOfLocECC2d.def("SearchOfTolerance", (Standard_Real (Extrema_CC
 // CLASS: EXTREMA_CURVE2DTOOL
 py::class_<Extrema_Curve2dTool> cls_Extrema_Curve2dTool(mod, "Extrema_Curve2dTool", "None");
 
+// Constructors
+cls_Extrema_Curve2dTool.def(py::init<>());
+
 // Methods
 // cls_Extrema_Curve2dTool.def_static("operator new_", (void * (*)(size_t)) &Extrema_Curve2dTool::operator new, "None", py::arg("theSize"));
 // cls_Extrema_Curve2dTool.def_static("operator delete_", (void (*)(void *)) &Extrema_Curve2dTool::operator delete, "None", py::arg("theAddress"));
@@ -1073,6 +1076,9 @@ cls_Extrema_Curve2dTool.def_static("BSpline_", (opencascade::handle<Geom2d_BSpli
 
 // CLASS: EXTREMA_CURVETOOL
 py::class_<Extrema_CurveTool> cls_Extrema_CurveTool(mod, "Extrema_CurveTool", "None");
+
+// Constructors
+cls_Extrema_CurveTool.def(py::init<>());
 
 // Methods
 // cls_Extrema_CurveTool.def_static("operator new_", (void * (*)(size_t)) &Extrema_CurveTool::operator new, "None", py::arg("theSize"));

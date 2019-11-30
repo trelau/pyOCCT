@@ -120,6 +120,9 @@ bind_NCollection_DataMap<int, NCollection_List<TopoDS_Shape>, NCollection_Defaul
 // CLASS: TOPTOOLS_SHAPEMAPHASHER
 py::class_<TopTools_ShapeMapHasher> cls_TopTools_ShapeMapHasher(mod, "TopTools_ShapeMapHasher", "Hash tool, used for generating maps of shapes in topology.");
 
+// Constructors
+cls_TopTools_ShapeMapHasher.def(py::init<>());
+
 // Methods
 // cls_TopTools_ShapeMapHasher.def_static("operator new_", (void * (*)(size_t)) &TopTools_ShapeMapHasher::operator new, "None", py::arg("theSize"));
 // cls_TopTools_ShapeMapHasher.def_static("operator delete_", (void (*)(void *)) &TopTools_ShapeMapHasher::operator delete, "None", py::arg("theAddress"));
@@ -169,6 +172,9 @@ bind_NCollection_DataMap<TopoDS_Shape, Bnd_Box, TopTools_ShapeMapHasher>(mod, "T
 
 // CLASS: TOPTOOLS_ORIENTEDSHAPEMAPHASHER
 py::class_<TopTools_OrientedShapeMapHasher> cls_TopTools_OrientedShapeMapHasher(mod, "TopTools_OrientedShapeMapHasher", "None");
+
+// Constructors
+cls_TopTools_OrientedShapeMapHasher.def(py::init<>());
 
 // Methods
 // cls_TopTools_OrientedShapeMapHasher.def_static("operator new_", (void * (*)(size_t)) &TopTools_OrientedShapeMapHasher::operator new, "None", py::arg("theSize"));
@@ -397,6 +403,9 @@ bind_NCollection_DataMap<TopoDS_Shape, int, TopTools_OrientedShapeMapHasher>(mod
 
 // CLASS: TOPTOOLS
 py::class_<TopTools> cls_TopTools(mod, "TopTools", "The TopTools package provides utilities for the topological data structure.");
+
+// Constructors
+cls_TopTools.def(py::init<>());
 
 // Methods
 // cls_TopTools.def_static("operator new_", (void * (*)(size_t)) &TopTools::operator new, "None", py::arg("theSize"));

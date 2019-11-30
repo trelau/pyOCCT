@@ -345,6 +345,9 @@ bind_NCollection_Sequence<IntTools_Root>(mod, "IntTools_SequenceOfRoots", py::mo
 // CLASS: INTTOOLS
 py::class_<IntTools> cls_IntTools(mod, "IntTools", "Contains classes for intersection and classification purposes and accompanying classes");
 
+// Constructors
+cls_IntTools.def(py::init<>());
+
 // Methods
 // cls_IntTools.def_static("operator new_", (void * (*)(size_t)) &IntTools::operator new, "None", py::arg("theSize"));
 // cls_IntTools.def_static("operator delete_", (void (*)(void *)) &IntTools::operator delete, "None", py::arg("theAddress"));
@@ -572,6 +575,9 @@ cls_IntTools_CArray1OfReal.def("__eq__", (Standard_Boolean (IntTools_CArray1OfRe
 // CLASS: INTTOOLS_CURVERANGESAMPLEMAPHASHER
 py::class_<IntTools_CurveRangeSampleMapHasher> cls_IntTools_CurveRangeSampleMapHasher(mod, "IntTools_CurveRangeSampleMapHasher", "class for range index management of curve");
 
+// Constructors
+cls_IntTools_CurveRangeSampleMapHasher.def(py::init<>());
+
 // Methods
 // cls_IntTools_CurveRangeSampleMapHasher.def_static("operator new_", (void * (*)(size_t)) &IntTools_CurveRangeSampleMapHasher::operator new, "None", py::arg("theSize"));
 // cls_IntTools_CurveRangeSampleMapHasher.def_static("operator delete_", (void (*)(void *)) &IntTools_CurveRangeSampleMapHasher::operator delete, "None", py::arg("theAddress"));
@@ -615,6 +621,9 @@ cls_IntTools_CurveRangeLocalizeData.def("ListRangeOut", (void (IntTools_CurveRan
 
 // CLASS: INTTOOLS_SURFACERANGESAMPLEMAPHASHER
 py::class_<IntTools_SurfaceRangeSampleMapHasher> cls_IntTools_SurfaceRangeSampleMapHasher(mod, "IntTools_SurfaceRangeSampleMapHasher", "None");
+
+// Constructors
+cls_IntTools_SurfaceRangeSampleMapHasher.def(py::init<>());
 
 // Methods
 // cls_IntTools_SurfaceRangeSampleMapHasher.def_static("operator new_", (void * (*)(size_t)) &IntTools_SurfaceRangeSampleMapHasher::operator new, "None", py::arg("theSize"));
@@ -860,6 +869,9 @@ cls_IntTools_SurfaceRangeLocalizeData.def("ClearGrid", (void (IntTools_SurfaceRa
 // CLASS: INTTOOLS_TOOLS
 py::class_<IntTools_Tools> cls_IntTools_Tools(mod, "IntTools_Tools", "The class contains handy static functions dealing with the geometry and topology.");
 
+// Constructors
+cls_IntTools_Tools.def(py::init<>());
+
 // Methods
 // cls_IntTools_Tools.def_static("operator new_", (void * (*)(size_t)) &IntTools_Tools::operator new, "None", py::arg("theSize"));
 // cls_IntTools_Tools.def_static("operator delete_", (void (*)(void *)) &IntTools_Tools::operator delete, "None", py::arg("theAddress"));
@@ -915,6 +927,9 @@ cls_IntTools_TopolTool.def("DynamicType", (const opencascade::handle<Standard_Ty
 
 // CLASS: INTTOOLS_WLINETOOL
 py::class_<IntTools_WLineTool> cls_IntTools_WLineTool(mod, "IntTools_WLineTool", "IntTools_WLineTool provides set of static methods related to walking lines.");
+
+// Constructors
+cls_IntTools_WLineTool.def(py::init<>());
 
 // Methods
 // cls_IntTools_WLineTool.def_static("operator new_", (void * (*)(size_t)) &IntTools_WLineTool::operator new, "None", py::arg("theSize"));

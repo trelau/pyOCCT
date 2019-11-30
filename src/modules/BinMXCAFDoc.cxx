@@ -76,6 +76,9 @@ py::module::import("OCCT.TopLoc");
 // CLASS: BINMXCAFDOC
 py::class_<BinMXCAFDoc> cls_BinMXCAFDoc(mod, "BinMXCAFDoc", "None");
 
+// Constructors
+cls_BinMXCAFDoc.def(py::init<>());
+
 // Methods
 // cls_BinMXCAFDoc.def_static("operator new_", (void * (*)(size_t)) &BinMXCAFDoc::operator new, "None", py::arg("theSize"));
 // cls_BinMXCAFDoc.def_static("operator delete_", (void (*)(void *)) &BinMXCAFDoc::operator delete, "None", py::arg("theAddress"));

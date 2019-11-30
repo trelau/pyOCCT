@@ -36,6 +36,9 @@ py::module::import("OCCT.Bnd");
 // CLASS: BREPBNDLIB
 py::class_<BRepBndLib> cls_BRepBndLib(mod, "BRepBndLib", "This package provides the bounding boxes for curves and surfaces from BRepAdaptor. Functions to add a topological shape to a bounding box");
 
+// Constructors
+cls_BRepBndLib.def(py::init<>());
+
 // Methods
 // cls_BRepBndLib.def_static("operator new_", (void * (*)(size_t)) &BRepBndLib::operator new, "None", py::arg("theSize"));
 // cls_BRepBndLib.def_static("operator delete_", (void (*)(void *)) &BRepBndLib::operator delete, "None", py::arg("theAddress"));

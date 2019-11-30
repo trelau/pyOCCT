@@ -212,6 +212,9 @@ py::enum_<Vrml_WWWAnchorMap>(mod, "Vrml_WWWAnchorMap", "None")
 // CLASS: VRML
 py::class_<Vrml> cls_Vrml(mod, "Vrml", "Vrml package implements the specification of the VRML ( Virtual Reality Modeling Language ). VRML is a standard language for describing interactive 3-D objects and worlds delivered across Internet. Actual version of Vrml package have made for objects of VRML version 1.0. This package is used by VrmlConverter package. The developer should already be familiar with VRML specification before using this package.");
 
+// Constructors
+cls_Vrml.def(py::init<>());
+
 // Methods
 // cls_Vrml.def_static("operator new_", (void * (*)(size_t)) &Vrml::operator new, "None", py::arg("theSize"));
 // cls_Vrml.def_static("operator delete_", (void (*)(void *)) &Vrml::operator delete, "None", py::arg("theAddress"));

@@ -273,6 +273,9 @@ cls_XSControl_SelectForTransfer.def("DynamicType", (const opencascade::handle<St
 // CLASS: XSCONTROL
 py::class_<XSControl> cls_XSControl(mod, "XSControl", "This package provides complements to IFSelect & Co for control of a session");
 
+// Constructors
+cls_XSControl.def(py::init<>());
+
 // Methods
 // cls_XSControl.def_static("operator new_", (void * (*)(size_t)) &XSControl::operator new, "None", py::arg("theSize"));
 // cls_XSControl.def_static("operator delete_", (void (*)(void *)) &XSControl::operator delete, "None", py::arg("theAddress"));
@@ -302,6 +305,9 @@ cls_XSControl_ConnectedShapes.def("DynamicType", (const opencascade::handle<Stan
 // CLASS: XSCONTROL_FUNCSHAPE
 py::class_<XSControl_FuncShape> cls_XSControl_FuncShape(mod, "XSControl_FuncShape", "Defines additionnal commands for XSControl to : - control of initialisation (xinit, xnorm, newmodel) - analyse of the result of a transfer (recorded in a TransientProcess for Read, FinderProcess for Write) : statistics, various lists (roots,complete,abnormal), what about one specific entity, producing a model with the abnormal result");
 
+// Constructors
+cls_XSControl_FuncShape.def(py::init<>());
+
 // Methods
 // cls_XSControl_FuncShape.def_static("operator new_", (void * (*)(size_t)) &XSControl_FuncShape::operator new, "None", py::arg("theSize"));
 // cls_XSControl_FuncShape.def_static("operator delete_", (void (*)(void *)) &XSControl_FuncShape::operator delete, "None", py::arg("theAddress"));
@@ -315,6 +321,9 @@ cls_XSControl_FuncShape.def_static("FileAndVar_", (Standard_Boolean (*)(const op
 
 // CLASS: XSCONTROL_FUNCTIONS
 py::class_<XSControl_Functions> cls_XSControl_Functions(mod, "XSControl_Functions", "Functions from XSControl gives access to actions which can be commanded with the resources provided by XSControl: especially Controller and Transfer");
+
+// Constructors
+cls_XSControl_Functions.def(py::init<>());
 
 // Methods
 cls_XSControl_Functions.def_static("Init_", (void (*)()) &XSControl_Functions::Init, "Defines and loads all functions for XSControl (as ActFunc)");

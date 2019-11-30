@@ -865,6 +865,9 @@ cls_TopOpeBRepDS_HDataStructure.def("DynamicType", (const opencascade::handle<St
 // CLASS: TOPOPEBREPDS
 py::class_<TopOpeBRepDS> cls_TopOpeBRepDS(mod, "TopOpeBRepDS", "This package provides services used by the TopOpeBRepBuild package performing topological operations on the BRep data structure.");
 
+// Constructors
+cls_TopOpeBRepDS.def(py::init<>());
+
 // Methods
 // cls_TopOpeBRepDS.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepDS::operator new, "None", py::arg("theSize"));
 // cls_TopOpeBRepDS.def_static("operator delete_", (void (*)(void *)) &TopOpeBRepDS::operator delete, "None", py::arg("theAddress"));
@@ -1261,6 +1264,9 @@ bind_NCollection_IndexedDataMap<TopoDS_Shape, TopOpeBRepDS_Point, TopTools_Shape
 // CLASS: TOPOPEBREPDS_INTERFERENCETOOL
 py::class_<TopOpeBRepDS_InterferenceTool> cls_TopOpeBRepDS_InterferenceTool(mod, "TopOpeBRepDS_InterferenceTool", "None");
 
+// Constructors
+cls_TopOpeBRepDS_InterferenceTool.def(py::init<>());
+
 // Methods
 // cls_TopOpeBRepDS_InterferenceTool.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepDS_InterferenceTool::operator new, "None", py::arg("theSize"));
 // cls_TopOpeBRepDS_InterferenceTool.def_static("operator delete_", (void (*)(void *)) &TopOpeBRepDS_InterferenceTool::operator delete, "None", py::arg("theAddress"));
@@ -1445,6 +1451,9 @@ cls_TopOpeBRepDS_TKI.def("ChangeValue", [](TopOpeBRepDS_TKI &self, TopOpeBRepDS_
 
 // CLASS: TOPOPEBREPDS_TOOL
 py::class_<TopOpeBRepDS_TOOL> cls_TopOpeBRepDS_TOOL(mod, "TopOpeBRepDS_TOOL", "None");
+
+// Constructors
+cls_TopOpeBRepDS_TOOL.def(py::init<>());
 
 // Methods
 // cls_TopOpeBRepDS_TOOL.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepDS_TOOL::operator new, "None", py::arg("theSize"));

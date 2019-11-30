@@ -48,6 +48,9 @@ py::module::import("OCCT.BinObjMgt");
 // CLASS: BINMFUNCTION
 py::class_<BinMFunction> cls_BinMFunction(mod, "BinMFunction", "Storage and Retrieval drivers for TFunction modelling attributes.");
 
+// Constructors
+cls_BinMFunction.def(py::init<>());
+
 // Methods
 // cls_BinMFunction.def_static("operator new_", (void * (*)(size_t)) &BinMFunction::operator new, "None", py::arg("theSize"));
 // cls_BinMFunction.def_static("operator delete_", (void (*)(void *)) &BinMFunction::operator delete, "None", py::arg("theAddress"));

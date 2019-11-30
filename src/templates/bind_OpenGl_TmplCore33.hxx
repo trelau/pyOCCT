@@ -29,6 +29,9 @@ void bind_OpenGl_TmplCore33(py::module &mod, std::string const &name, py::module
 
 py::class_<OpenGl_TmplCore33<theBaseClass_t>, theBaseClass_t> cls_OpenGl_TmplCore33(mod, name.c_str(), "OpenGL 3.3 definition.", local);
 
+// Constructors
+cls_OpenGl_TmplCore33.def(py::init<>());
+
 }
 
 #endif

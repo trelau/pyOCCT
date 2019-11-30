@@ -81,6 +81,9 @@ py::module::import("OCCT.TColgp");
 // CLASS: SHAPECUSTOM
 py::class_<ShapeCustom> cls_ShapeCustom(mod, "ShapeCustom", "This package is intended to convert geometrical objects and topological. The modifications of one geometrical object to another (one) geometrical object are provided. The supported modifications are the following: conversion of BSpline and Bezier surfaces to analytical form, conversion of indirect elementary surfaces (with left-handed coordinate systems) into direct ones, conversion of elementary surfaces to surfaces of revolution, conversion of surface of linear extrusion, revolution, offset surface to bspline, modification of parameterization, degree, number of segments of bspline surfaces, scale the shape.");
 
+// Constructors
+cls_ShapeCustom.def(py::init<>());
+
 // Methods
 // cls_ShapeCustom.def_static("operator new_", (void * (*)(size_t)) &ShapeCustom::operator new, "None", py::arg("theSize"));
 // cls_ShapeCustom.def_static("operator delete_", (void (*)(void *)) &ShapeCustom::operator delete, "None", py::arg("theAddress"));
@@ -210,6 +213,9 @@ cls_ShapeCustom_Curve.def("ConvertToPeriodic", (opencascade::handle<Geom_Curve> 
 
 // CLASS: SHAPECUSTOM_CURVE2D
 py::class_<ShapeCustom_Curve2d> cls_ShapeCustom_Curve2d(mod, "ShapeCustom_Curve2d", "Converts curve2d to analytical form with given precision or simpify curve2d.");
+
+// Constructors
+cls_ShapeCustom_Curve2d.def(py::init<>());
 
 // Methods
 // cls_ShapeCustom_Curve2d.def_static("operator new_", (void * (*)(size_t)) &ShapeCustom_Curve2d::operator new, "None", py::arg("theSize"));

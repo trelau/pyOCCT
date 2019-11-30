@@ -265,6 +265,9 @@ cls_BOPDS_Pair.def("HashCode", (Standard_Integer (BOPDS_Pair::*)(const Standard_
 // CLASS: BOPDS_PAIRMAPHASHER
 py::class_<BOPDS_PairMapHasher> cls_BOPDS_PairMapHasher(mod, "BOPDS_PairMapHasher", "None");
 
+// Constructors
+cls_BOPDS_PairMapHasher.def(py::init<>());
+
 // Methods
 // cls_BOPDS_PairMapHasher.def_static("operator new_", (void * (*)(size_t)) &BOPDS_PairMapHasher::operator new, "None", py::arg("theSize"));
 // cls_BOPDS_PairMapHasher.def_static("operator delete_", (void (*)(void *)) &BOPDS_PairMapHasher::operator delete, "None", py::arg("theAddress"));
@@ -638,6 +641,9 @@ cls_BOPDS_ShapeInfo.def("Dump", (void (BOPDS_ShapeInfo::*)() const) &BOPDS_Shape
 // CLASS: BOPDS_TOOLS
 py::class_<BOPDS_Tools> cls_BOPDS_Tools(mod, "BOPDS_Tools", "The class BOPDS_Tools contains a set auxiliary static functions of the package BOPDS");
 
+// Constructors
+cls_BOPDS_Tools.def(py::init<>());
+
 // Methods
 // cls_BOPDS_Tools.def_static("operator new_", (void * (*)(size_t)) &BOPDS_Tools::operator new, "None", py::arg("theSize"));
 // cls_BOPDS_Tools.def_static("operator delete_", (void (*)(void *)) &BOPDS_Tools::operator delete, "None", py::arg("theAddress"));
@@ -806,6 +812,9 @@ bind_NCollection_Map<opencascade::handle<BOPDS_CommonBlock>, NCollection_Default
 
 // CLASS: BOPDS_PAVEMAPHASHER
 py::class_<BOPDS_PaveMapHasher> cls_BOPDS_PaveMapHasher(mod, "BOPDS_PaveMapHasher", "None");
+
+// Constructors
+cls_BOPDS_PaveMapHasher.def(py::init<>());
 
 // Methods
 // cls_BOPDS_PaveMapHasher.def_static("operator new_", (void * (*)(size_t)) &BOPDS_PaveMapHasher::operator new, "None", py::arg("theSize"));

@@ -334,6 +334,9 @@ cls_AdvApp2Var_ApproxAFunc2Var.def("Dump", (void (AdvApp2Var_ApproxAFunc2Var::*)
 // CLASS: ADVAPP2VAR_APPROXF2VAR
 py::class_<AdvApp2Var_ApproxF2var> cls_AdvApp2Var_ApproxF2var(mod, "AdvApp2Var_ApproxF2var", "None");
 
+// Constructors
+cls_AdvApp2Var_ApproxF2var.def(py::init<>());
+
 // Methods
 cls_AdvApp2Var_ApproxF2var.def_static("mma2fnc__", (int (*)(integer *, integer *, integer *, doublereal *, const AdvApp2Var_EvaluatorFunc2Var &, doublereal *, integer *, integer *, doublereal *, integer *, integer *, integer *, integer *, integer *, doublereal *, integer *, doublereal *, integer *, doublereal *, doublereal *, doublereal *, doublereal *, doublereal *, doublereal *, doublereal *, integer *)) &AdvApp2Var_ApproxF2var::mma2fnc_, "None", py::arg("ndimen"), py::arg("nbsesp"), py::arg("ndimse"), py::arg("uvfonc"), py::arg("foncnp"), py::arg("tconst"), py::arg("isofav"), py::arg("nbroot"), py::arg("rootlg"), py::arg("iordre"), py::arg("ideriv"), py::arg("ndgjac"), py::arg("nbcrmx"), py::arg("ncflim"), py::arg("epsapr"), py::arg("ncoeff"), py::arg("courbe"), py::arg("nbcrbe"), py::arg("somtab"), py::arg("diftab"), py::arg("contr1"), py::arg("contr2"), py::arg("tabdec"), py::arg("errmax"), py::arg("errmoy"), py::arg("iercod"));
 cls_AdvApp2Var_ApproxF2var.def_static("mma2roo__", (int (*)(integer *, integer *, doublereal *, doublereal *)) &AdvApp2Var_ApproxF2var::mma2roo_, "None", py::arg("nbpntu"), py::arg("nbpntv"), py::arg("urootl"), py::arg("vrootl"));
@@ -368,6 +371,9 @@ cls_AdvApp2Var_Criterion.def("Repartition", (AdvApp2Var_CriterionRepartition (Ad
 // CLASS: MDNOMBR_1_
 py::class_<mdnombr_1_> cls_mdnombr_1_(mod, "mdnombr_1_", "None");
 
+// Constructors
+cls_mdnombr_1_.def(py::init<>());
+
 // Fields
 cls_mdnombr_1_.def_readwrite("pi", &mdnombr_1_::pi, "None");
 cls_mdnombr_1_.def_readwrite("deuxpi", &mdnombr_1_::deuxpi, "None");
@@ -383,11 +389,17 @@ cls_mdnombr_1_.def_readwrite("a90", &mdnombr_1_::a90, "None");
 // CLASS: MINOMBR_1_
 py::class_<minombr_1_> cls_minombr_1_(mod, "minombr_1_", "None");
 
+// Constructors
+cls_minombr_1_.def(py::init<>());
+
 // Fields
 // cls_minombr_1_.def_readwrite("nbr", &minombr_1_::nbr, "None");
 
 // CLASS: MAOVPAR_1_
 py::class_<maovpar_1_> cls_maovpar_1_(mod, "maovpar_1_", "None");
+
+// Constructors
+cls_maovpar_1_.def(py::init<>());
 
 // Fields
 cls_maovpar_1_.def_readwrite("r8und", &maovpar_1_::r8und, "None");
@@ -414,6 +426,9 @@ cls_maovpar_1_.def_readwrite("i2ovn", &maovpar_1_::i2ovn, "None");
 // CLASS: MAOVPCH_1_
 py::class_<maovpch_1_> cls_maovpch_1_(mod, "maovpch_1_", "None");
 
+// Constructors
+cls_maovpch_1_.def(py::init<>());
+
 // Fields
 // cls_maovpch_1_.def_readwrite("cnmmac", &maovpch_1_::cnmmac, "None");
 // cls_maovpch_1_.def_readwrite("frmr4", &maovpch_1_::frmr4, "None");
@@ -423,6 +438,9 @@ py::class_<maovpch_1_> cls_maovpch_1_(mod, "maovpch_1_", "None");
 // CLASS: MLGDRTL_1_
 py::class_<mlgdrtl_1_> cls_mlgdrtl_1_(mod, "mlgdrtl_1_", "None");
 
+// Constructors
+cls_mlgdrtl_1_.def(py::init<>());
+
 // Fields
 // cls_mlgdrtl_1_.def_readwrite("rootab", &mlgdrtl_1_::rootab, "None");
 // cls_mlgdrtl_1_.def_readwrite("hiltab", &mlgdrtl_1_::hiltab, "None");
@@ -431,6 +449,9 @@ py::class_<mlgdrtl_1_> cls_mlgdrtl_1_(mod, "mlgdrtl_1_", "None");
 // CLASS: MMJCOBI_1_
 py::class_<mmjcobi_1_> cls_mmjcobi_1_(mod, "mmjcobi_1_", "None");
 
+// Constructors
+cls_mmjcobi_1_.def(py::init<>());
+
 // Fields
 // cls_mmjcobi_1_.def_readwrite("plgcan", &mmjcobi_1_::plgcan, "None");
 // cls_mmjcobi_1_.def_readwrite("canjac", &mmjcobi_1_::canjac, "None");
@@ -438,11 +459,17 @@ py::class_<mmjcobi_1_> cls_mmjcobi_1_(mod, "mmjcobi_1_", "None");
 // CLASS: MMCMCNP_1_
 py::class_<mmcmcnp_1_> cls_mmcmcnp_1_(mod, "mmcmcnp_1_", "None");
 
+// Constructors
+cls_mmcmcnp_1_.def(py::init<>());
+
 // Fields
 // cls_mmcmcnp_1_.def_readwrite("cnp", &mmcmcnp_1_::cnp, "None");
 
 // CLASS: MMAPGSS_1_
 py::class_<mmapgss_1_> cls_mmapgss_1_(mod, "mmapgss_1_", "None");
+
+// Constructors
+cls_mmapgss_1_.def(py::init<>());
 
 // Fields
 // cls_mmapgss_1_.def_readwrite("gslxjs", &mmapgss_1_::gslxjs, "None");
@@ -451,12 +478,18 @@ py::class_<mmapgss_1_> cls_mmapgss_1_(mod, "mmapgss_1_", "None");
 // CLASS: MMAPGS0_1_
 py::class_<mmapgs0_1_> cls_mmapgs0_1_(mod, "mmapgs0_1_", "None");
 
+// Constructors
+cls_mmapgs0_1_.def(py::init<>());
+
 // Fields
 // cls_mmapgs0_1_.def_readwrite("gslxj0", &mmapgs0_1_::gslxj0, "None");
 // cls_mmapgs0_1_.def_readwrite("gsl0j0", &mmapgs0_1_::gsl0j0, "None");
 
 // CLASS: MMAPGS1_1_
 py::class_<mmapgs1_1_> cls_mmapgs1_1_(mod, "mmapgs1_1_", "None");
+
+// Constructors
+cls_mmapgs1_1_.def(py::init<>());
 
 // Fields
 // cls_mmapgs1_1_.def_readwrite("gslxj1", &mmapgs1_1_::gslxj1, "None");
@@ -465,12 +498,18 @@ py::class_<mmapgs1_1_> cls_mmapgs1_1_(mod, "mmapgs1_1_", "None");
 // CLASS: MMAPGS2_1_
 py::class_<mmapgs2_1_> cls_mmapgs2_1_(mod, "mmapgs2_1_", "None");
 
+// Constructors
+cls_mmapgs2_1_.def(py::init<>());
+
 // Fields
 // cls_mmapgs2_1_.def_readwrite("gslxj2", &mmapgs2_1_::gslxj2, "None");
 // cls_mmapgs2_1_.def_readwrite("gsl0j2", &mmapgs2_1_::gsl0j2, "None");
 
 // CLASS: ADVAPP2VAR_DATA
 py::class_<AdvApp2Var_Data> cls_AdvApp2Var_Data(mod, "AdvApp2Var_Data", "/");
+
+// Constructors
+cls_AdvApp2Var_Data.def(py::init<>());
 
 // Methods
 cls_AdvApp2Var_Data.def_static("Getmdnombr_", (mdnombr_1_ & (*)()) &AdvApp2Var_Data::Getmdnombr, "None");
@@ -487,6 +526,9 @@ cls_AdvApp2Var_Data.def_static("Getmmapgs2_", (mmapgs2_1_ & (*)()) &AdvApp2Var_D
 
 // CLASS: ADVAPP2VAR_MATHBASE
 py::class_<AdvApp2Var_MathBase> cls_AdvApp2Var_MathBase(mod, "AdvApp2Var_MathBase", "None");
+
+// Constructors
+cls_AdvApp2Var_MathBase.def(py::init<>());
 
 // Methods
 cls_AdvApp2Var_MathBase.def_static("mmapcmp__", (int (*)(integer *, integer *, integer *, double *, double *)) &AdvApp2Var_MathBase::mmapcmp_, "", py::arg(""), py::arg(""), py::arg(""), py::arg(""), py::arg(""));

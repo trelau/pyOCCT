@@ -185,6 +185,9 @@ cls_HLRTopoBRep_Data.def("Append", (void (HLRTopoBRep_Data::*)(const TopoDS_Vert
 // CLASS: HLRTOPOBREP_DSFILLER
 py::class_<HLRTopoBRep_DSFiller> cls_HLRTopoBRep_DSFiller(mod, "HLRTopoBRep_DSFiller", "Provides methods to fill a HLRTopoBRep_Data.");
 
+// Constructors
+cls_HLRTopoBRep_DSFiller.def(py::init<>());
+
 // Methods
 // cls_HLRTopoBRep_DSFiller.def_static("operator new_", (void * (*)(size_t)) &HLRTopoBRep_DSFiller::operator new, "None", py::arg("theSize"));
 // cls_HLRTopoBRep_DSFiller.def_static("operator delete_", (void (*)(void *)) &HLRTopoBRep_DSFiller::operator delete, "None", py::arg("theAddress"));
@@ -196,6 +199,9 @@ cls_HLRTopoBRep_DSFiller.def_static("Insert_", (void (*)(const TopoDS_Shape &, C
 
 // CLASS: HLRTOPOBREP_FACEISOLINER
 py::class_<HLRTopoBRep_FaceIsoLiner> cls_HLRTopoBRep_FaceIsoLiner(mod, "HLRTopoBRep_FaceIsoLiner", "None");
+
+// Constructors
+cls_HLRTopoBRep_FaceIsoLiner.def(py::init<>());
 
 // Methods
 // cls_HLRTopoBRep_FaceIsoLiner.def_static("operator new_", (void * (*)(size_t)) &HLRTopoBRep_FaceIsoLiner::operator new, "None", py::arg("theSize"));

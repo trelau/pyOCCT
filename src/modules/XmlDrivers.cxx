@@ -51,6 +51,9 @@ py::module::import("OCCT.TCollection");
 // CLASS: XMLDRIVERS
 py::class_<XmlDrivers> cls_XmlDrivers(mod, "XmlDrivers", "None");
 
+// Constructors
+cls_XmlDrivers.def(py::init<>());
+
 // Methods
 cls_XmlDrivers.def_static("Factory_", (const opencascade::handle<Standard_Transient> & (*)(const Standard_GUID &)) &XmlDrivers::Factory, "None", py::arg("theGUID"));
 cls_XmlDrivers.def_static("DefineFormat_", (void (*)(const opencascade::handle<TDocStd_Application> &)) &XmlDrivers::DefineFormat, "Defines format 'XmlOcaf' and registers its read and write drivers in the specified application", py::arg("theApp"));

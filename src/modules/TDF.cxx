@@ -327,6 +327,9 @@ cls_TDF_Reference.def("DynamicType", (const opencascade::handle<Standard_Type> &
 // CLASS: TDF_LABELMAPHASHER
 py::class_<TDF_LabelMapHasher> cls_TDF_LabelMapHasher(mod, "TDF_LabelMapHasher", "A label hasher for label maps.");
 
+// Constructors
+cls_TDF_LabelMapHasher.def(py::init<>());
+
 // Methods
 cls_TDF_LabelMapHasher.def_static("HashCode_", (Standard_Integer (*)(const TDF_Label &, const Standard_Integer)) &TDF_LabelMapHasher::HashCode, "Computes a hash code for the given label, in the range [1, theUpperBound]", py::arg("theLabel"), py::arg("theUpperBound"));
 cls_TDF_LabelMapHasher.def_static("IsEqual_", (Standard_Boolean (*)(const TDF_Label &, const TDF_Label &)) &TDF_LabelMapHasher::IsEqual, "Returns True when the two keys are the same. Two same keys must have the same hashcode, the contrary is not necessary.", py::arg("aLab1"), py::arg("aLab2"));
@@ -367,6 +370,9 @@ cls_TDF_DeltaOnModification.def("DynamicType", (const opencascade::handle<Standa
 
 // CLASS: TDF
 py::class_<TDF> cls_TDF(mod, "TDF", "This package provides data framework for binding features and data structures.");
+
+// Constructors
+cls_TDF.def(py::init<>());
 
 // Methods
 // cls_TDF.def_static("operator new_", (void * (*)(size_t)) &TDF::operator new, "None", py::arg("theSize"));
@@ -494,6 +500,9 @@ cls_TDF_ClosureMode.def("References", (Standard_Boolean (TDF_ClosureMode::*)() c
 // CLASS: TDF_CLOSURETOOL
 py::class_<TDF_ClosureTool> cls_TDF_ClosureTool(mod, "TDF_ClosureTool", "This class provides services to build the closure of an information set. This class gives services around the transitive enclosure of a set of information, starting from a list of label. You can set closure options by using IDFilter (to select or exclude specific attribute IDs) and CopyOption objects and by giving to Closure method.");
 
+// Constructors
+cls_TDF_ClosureTool.def(py::init<>());
+
 // Methods
 // cls_TDF_ClosureTool.def_static("operator new_", (void * (*)(size_t)) &TDF_ClosureTool::operator new, "None", py::arg("theSize"));
 // cls_TDF_ClosureTool.def_static("operator delete_", (void (*)(void *)) &TDF_ClosureTool::operator delete, "None", py::arg("theAddress"));
@@ -507,6 +516,9 @@ cls_TDF_ClosureTool.def_static("Closure_", (void (*)(const TDF_Label &, TDF_Labe
 
 // CLASS: TDF_COMPARISONTOOL
 py::class_<TDF_ComparisonTool> cls_TDF_ComparisonTool(mod, "TDF_ComparisonTool", "This class provides services to compare sets of information. The use of this tool can works after a copy, acted by a CopyTool.");
+
+// Constructors
+cls_TDF_ComparisonTool.def(py::init<>());
 
 // Methods
 // cls_TDF_ComparisonTool.def_static("operator new_", (void * (*)(size_t)) &TDF_ComparisonTool::operator new, "None", py::arg("theSize"));
@@ -585,6 +597,9 @@ bind_NCollection_DataMap<TDF_Label, TDF_Label, TDF_LabelMapHasher>(mod, "TDF_Lab
 
 // CLASS: TDF_COPYTOOL
 py::class_<TDF_CopyTool> cls_TDF_CopyTool(mod, "TDF_CopyTool", "This class provides services to build, copy or paste a set of information.");
+
+// Constructors
+cls_TDF_CopyTool.def(py::init<>());
 
 // Methods
 // cls_TDF_CopyTool.def_static("operator new_", (void * (*)(size_t)) &TDF_CopyTool::operator new, "None", py::arg("theSize"));
@@ -787,6 +802,9 @@ cls_TDF_RelocationTable.def("DynamicType", (const opencascade::handle<Standard_T
 
 // CLASS: TDF_TOOL
 py::class_<TDF_Tool> cls_TDF_Tool(mod, "TDF_Tool", "This class provides general services for a data framework.");
+
+// Constructors
+cls_TDF_Tool.def(py::init<>());
 
 // Methods
 // cls_TDF_Tool.def_static("operator new_", (void * (*)(size_t)) &TDF_Tool::operator new, "None", py::arg("theSize"));

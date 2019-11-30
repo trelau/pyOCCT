@@ -127,6 +127,9 @@ cls_TransferBRep_HSequenceOfTransferResultInfo.def("DynamicType", (const opencas
 // CLASS: TRANSFERBREP
 py::class_<TransferBRep> cls_TransferBRep(mod, "TransferBRep", "This package gathers services to simply read files and convert them to Shapes from CasCade. IE. it can be used in conjunction with purely CasCade software");
 
+// Constructors
+cls_TransferBRep.def(py::init<>());
+
 // Methods
 // cls_TransferBRep.def_static("operator new_", (void * (*)(size_t)) &TransferBRep::operator new, "None", py::arg("theSize"));
 // cls_TransferBRep.def_static("operator delete_", (void (*)(void *)) &TransferBRep::operator delete, "None", py::arg("theAddress"));
@@ -260,6 +263,9 @@ cls_TransferBRep_ShapeBinder.def("DynamicType", (const opencascade::handle<Stand
 
 // CLASS: TRANSFERBREP_SHAPEINFO
 py::class_<TransferBRep_ShapeInfo> cls_TransferBRep_ShapeInfo(mod, "TransferBRep_ShapeInfo", "Gives informations on an object, see template DataInfo This class is for Shape");
+
+// Constructors
+cls_TransferBRep_ShapeInfo.def(py::init<>());
 
 // Methods
 // cls_TransferBRep_ShapeInfo.def_static("operator new_", (void * (*)(size_t)) &TransferBRep_ShapeInfo::operator new, "None", py::arg("theSize"));

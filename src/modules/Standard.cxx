@@ -405,6 +405,9 @@ if (py::hasattr(mod, "Standard_ExtCharacter")) {
 // CLASS: STANDARD
 py::class_<Standard> cls_Standard(mod, "Standard", "The package Standard provides global memory allocator and other basic services used by other OCCT components.");
 
+// Constructors
+cls_Standard.def(py::init<>());
+
 // Methods
 // cls_Standard.def_static("operator new_", (void * (*)(size_t)) &Standard::operator new, "None", py::arg("theSize"));
 // cls_Standard.def_static("operator delete_", (void (*)(void *)) &Standard::operator delete, "None", py::arg("theAddress"));
@@ -611,6 +614,9 @@ cls_Standard_OutOfRange.def("DynamicType", (const opencascade::handle<Standard_T
 // CLASS: STANDARD_STATIC_ASSERT
 py::class_<Standard_Static_Assert<true>> cls_Standard_Static_Assert(mod, "Standard_Static_Assert", "Static assert -- specialization for condition being true");
 
+// Constructors
+cls_Standard_Static_Assert.def(py::init<>());
+
 // Methods
 cls_Standard_Static_Assert.def_static("assert_ok_", (void (*)()) &Standard_Static_Assert<true>::assert_ok, "None");
 
@@ -659,6 +665,9 @@ cls_Standard_DumpSentry.def(py::init<Standard_OStream &, const char *>(), py::ar
 
 // CLASS: STANDARD_DUMP
 py::class_<Standard_Dump> cls_Standard_Dump(mod, "Standard_Dump", "This interface has some tool methods for stream (in JSON format) processing.");
+
+// Constructors
+cls_Standard_Dump.def(py::init<>());
 
 // Methods
 cls_Standard_Dump.def_static("Text_", (TCollection_AsciiString (*)(const Standard_SStream &)) &Standard_Dump::Text, "Converts stream value to string value. The result is original stream value.", py::arg("theStream"), py::call_guard<ImportTCollection>());
@@ -782,6 +791,9 @@ cls_Standard_Persistent.def("TypeNum", (Standard_Integer & (Standard_Persistent:
 
 // TYPEDEF: STANDARD_UUID
 py::class_<_GUID> cls__Standard_UUID(mod, "Standard_UUID", "None");
+
+// Constructors
+cls__Standard_UUID.def(py::init<>());
 
 // Fields
 cls__Standard_UUID.def_readwrite("Data1", &_GUID::Data1, "None");

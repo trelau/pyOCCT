@@ -113,6 +113,9 @@ py::module::import("OCCT.Geom");
 // CLASS: PROJLIB
 py::class_<ProjLib> cls_ProjLib(mod, "ProjLib", "The projLib package first provides projection of curves on a plane along a given Direction. The result will be a 3D curve. The ProjLib package provides projection of curves on surfaces to compute the curve in the parametric space.");
 
+// Constructors
+cls_ProjLib.def(py::init<>());
+
 // Methods
 // cls_ProjLib.def_static("operator new_", (void * (*)(size_t)) &ProjLib::operator new, "None", py::arg("theSize"));
 // cls_ProjLib.def_static("operator delete_", (void (*)(void *)) &ProjLib::operator delete, "None", py::arg("theAddress"));

@@ -29,6 +29,9 @@ void bind_OpenGl_TmplCore45(py::module &mod, std::string const &name, py::module
 
 py::class_<OpenGl_TmplCore45<theBaseClass_t>, theBaseClass_t> cls_OpenGl_TmplCore45(mod, name.c_str(), "OpenGL 4.5 definition.", local);
 
+// Constructors
+cls_OpenGl_TmplCore45.def(py::init<>());
+
 }
 
 #endif

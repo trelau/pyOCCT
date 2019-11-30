@@ -156,6 +156,9 @@ cls_MAT2d_BiInt.def("__eq__", (Standard_Boolean (MAT2d_BiInt::*)(const MAT2d_BiI
 // CLASS: MAT2D_MAPBIINTHASHER
 py::class_<MAT2d_MapBiIntHasher> cls_MAT2d_MapBiIntHasher(mod, "MAT2d_MapBiIntHasher", "None");
 
+// Constructors
+cls_MAT2d_MapBiIntHasher.def(py::init<>());
+
 // Methods
 // cls_MAT2d_MapBiIntHasher.def_static("operator new_", (void * (*)(size_t)) &MAT2d_MapBiIntHasher::operator new, "None", py::arg("theSize"));
 // cls_MAT2d_MapBiIntHasher.def_static("operator delete_", (void (*)(void *)) &MAT2d_MapBiIntHasher::operator delete, "None", py::arg("theAddress"));

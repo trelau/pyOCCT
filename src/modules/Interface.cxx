@@ -1240,6 +1240,9 @@ cls_Interface_HGraph.def("DynamicType", (const opencascade::handle<Standard_Type
 // CLASS: INTERFACE_MAPASCIISTRINGHASHER
 py::class_<Interface_MapAsciiStringHasher> cls_Interface_MapAsciiStringHasher(mod, "Interface_MapAsciiStringHasher", "None");
 
+// Constructors
+cls_Interface_MapAsciiStringHasher.def(py::init<>());
+
 // Methods
 // cls_Interface_MapAsciiStringHasher.def_static("operator new_", (void * (*)(size_t)) &Interface_MapAsciiStringHasher::operator new, "None", py::arg("theSize"));
 // cls_Interface_MapAsciiStringHasher.def_static("operator delete_", (void (*)(void *)) &Interface_MapAsciiStringHasher::operator delete, "None", py::arg("theAddress"));

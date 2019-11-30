@@ -52,6 +52,9 @@ py::module::import("OCCT.BinTools");
 // CLASS: BINMNAMING
 py::class_<BinMNaming> cls_BinMNaming(mod, "BinMNaming", "Storage/Retrieval drivers for TNaming attributes");
 
+// Constructors
+cls_BinMNaming.def(py::init<>());
+
 // Methods
 // cls_BinMNaming.def_static("operator new_", (void * (*)(size_t)) &BinMNaming::operator new, "None", py::arg("theSize"));
 // cls_BinMNaming.def_static("operator delete_", (void (*)(void *)) &BinMNaming::operator delete, "None", py::arg("theAddress"));

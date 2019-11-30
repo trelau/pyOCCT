@@ -99,6 +99,9 @@ py::enum_<DsgPrs_ArrowSide>(mod, "DsgPrs_ArrowSide", "Designates how many arrows
 // CLASS: DSGPRS
 py::class_<DsgPrs> cls_DsgPrs(mod, "DsgPrs", "Describes Standard Presentations for DsgIHM objects");
 
+// Constructors
+cls_DsgPrs.def(py::init<>());
+
 // Methods
 // cls_DsgPrs.def_static("operator new_", (void * (*)(size_t)) &DsgPrs::operator new, "None", py::arg("theSize"));
 // cls_DsgPrs.def_static("operator delete_", (void (*)(void *)) &DsgPrs::operator delete, "None", py::arg("theAddress"));
@@ -118,6 +121,9 @@ cls_DsgPrs.def_static("DistanceFromApex_", (Standard_Real (*)(const gp_Elips &, 
 // CLASS: DSGPRS_ANGLEPRESENTATION
 py::class_<DsgPrs_AnglePresentation> cls_DsgPrs_AnglePresentation(mod, "DsgPrs_AnglePresentation", "A framework for displaying angles.");
 
+// Constructors
+cls_DsgPrs_AnglePresentation.def(py::init<>());
+
 // Methods
 // cls_DsgPrs_AnglePresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_AnglePresentation::operator new, "None", py::arg("theSize"));
 // cls_DsgPrs_AnglePresentation.def_static("operator delete_", (void (*)(void *)) &DsgPrs_AnglePresentation::operator delete, "None", py::arg("theAddress"));
@@ -136,6 +142,9 @@ cls_DsgPrs_AnglePresentation.def_static("Add_", (void (*)(const opencascade::han
 // CLASS: DSGPRS_CHAMF2DPRESENTATION
 py::class_<DsgPrs_Chamf2dPresentation> cls_DsgPrs_Chamf2dPresentation(mod, "DsgPrs_Chamf2dPresentation", "Framework for display of 2D chamfers.");
 
+// Constructors
+cls_DsgPrs_Chamf2dPresentation.def(py::init<>());
+
 // Methods
 // cls_DsgPrs_Chamf2dPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_Chamf2dPresentation::operator new, "None", py::arg("theSize"));
 // cls_DsgPrs_Chamf2dPresentation.def_static("operator delete_", (void (*)(void *)) &DsgPrs_Chamf2dPresentation::operator delete, "None", py::arg("theAddress"));
@@ -149,6 +158,9 @@ cls_DsgPrs_Chamf2dPresentation.def_static("Add_", (void (*)(const opencascade::h
 // CLASS: DSGPRS_CONCENTRICPRESENTATION
 py::class_<DsgPrs_ConcentricPresentation> cls_DsgPrs_ConcentricPresentation(mod, "DsgPrs_ConcentricPresentation", "A framework to define display of relations of concentricity.");
 
+// Constructors
+cls_DsgPrs_ConcentricPresentation.def(py::init<>());
+
 // Methods
 // cls_DsgPrs_ConcentricPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_ConcentricPresentation::operator new, "None", py::arg("theSize"));
 // cls_DsgPrs_ConcentricPresentation.def_static("operator delete_", (void (*)(void *)) &DsgPrs_ConcentricPresentation::operator delete, "None", py::arg("theAddress"));
@@ -160,6 +172,9 @@ cls_DsgPrs_ConcentricPresentation.def_static("Add_", (void (*)(const opencascade
 
 // CLASS: DSGPRS_DATUMPRS
 py::class_<DsgPrs_DatumPrs, Prs3d_Root> cls_DsgPrs_DatumPrs(mod, "DsgPrs_DatumPrs", "A framework for displaying an XYZ trihedron.");
+
+// Constructors
+cls_DsgPrs_DatumPrs.def(py::init<>());
 
 // Methods
 // cls_DsgPrs_DatumPrs.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_DatumPrs::operator new, "None", py::arg("theSize"));
@@ -173,6 +188,9 @@ cls_DsgPrs_DatumPrs.def_static("Add_", (void (*)(const opencascade::handle<Prs3d
 // CLASS: DSGPRS_DIAMETERPRESENTATION
 py::class_<DsgPrs_DiameterPresentation> cls_DsgPrs_DiameterPresentation(mod, "DsgPrs_DiameterPresentation", "A framework for displaying diameters in shapes.");
 
+// Constructors
+cls_DsgPrs_DiameterPresentation.def(py::init<>());
+
 // Methods
 // cls_DsgPrs_DiameterPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_DiameterPresentation::operator new, "None", py::arg("theSize"));
 // cls_DsgPrs_DiameterPresentation.def_static("operator delete_", (void (*)(void *)) &DsgPrs_DiameterPresentation::operator delete, "None", py::arg("theAddress"));
@@ -185,6 +203,9 @@ cls_DsgPrs_DiameterPresentation.def_static("Add_", (void (*)(const opencascade::
 
 // CLASS: DSGPRS_ELLIPSERADIUSPRESENTATION
 py::class_<DsgPrs_EllipseRadiusPresentation> cls_DsgPrs_EllipseRadiusPresentation(mod, "DsgPrs_EllipseRadiusPresentation", "None");
+
+// Constructors
+cls_DsgPrs_EllipseRadiusPresentation.def(py::init<>());
 
 // Methods
 // cls_DsgPrs_EllipseRadiusPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_EllipseRadiusPresentation::operator new, "None", py::arg("theSize"));
@@ -200,6 +221,9 @@ cls_DsgPrs_EllipseRadiusPresentation.def_static("Add_", (void (*)(const opencasc
 // CLASS: DSGPRS_EQUALDISTANCEPRESENTATION
 py::class_<DsgPrs_EqualDistancePresentation> cls_DsgPrs_EqualDistancePresentation(mod, "DsgPrs_EqualDistancePresentation", "A framework to display equal distances between shapes and a given plane. The distance is the length of a projection from the shape to the plane. These distances are used to compare two shapes by this vector alone.");
 
+// Constructors
+cls_DsgPrs_EqualDistancePresentation.def(py::init<>());
+
 // Methods
 // cls_DsgPrs_EqualDistancePresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_EqualDistancePresentation::operator new, "None", py::arg("theSize"));
 // cls_DsgPrs_EqualDistancePresentation.def_static("operator delete_", (void (*)(void *)) &DsgPrs_EqualDistancePresentation::operator delete, "None", py::arg("theAddress"));
@@ -214,6 +238,9 @@ cls_DsgPrs_EqualDistancePresentation.def_static("AddIntervalBetweenTwoArcs_", (v
 // CLASS: DSGPRS_EQUALRADIUSPRESENTATION
 py::class_<DsgPrs_EqualRadiusPresentation> cls_DsgPrs_EqualRadiusPresentation(mod, "DsgPrs_EqualRadiusPresentation", "A framework to define display of equality in radii.");
 
+// Constructors
+cls_DsgPrs_EqualRadiusPresentation.def(py::init<>());
+
 // Methods
 // cls_DsgPrs_EqualRadiusPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_EqualRadiusPresentation::operator new, "None", py::arg("theSize"));
 // cls_DsgPrs_EqualRadiusPresentation.def_static("operator delete_", (void (*)(void *)) &DsgPrs_EqualRadiusPresentation::operator delete, "None", py::arg("theAddress"));
@@ -225,6 +252,9 @@ cls_DsgPrs_EqualRadiusPresentation.def_static("Add_", (void (*)(const opencascad
 
 // CLASS: DSGPRS_FILLETRADIUSPRESENTATION
 py::class_<DsgPrs_FilletRadiusPresentation> cls_DsgPrs_FilletRadiusPresentation(mod, "DsgPrs_FilletRadiusPresentation", "A framework for displaying radii of fillets.");
+
+// Constructors
+cls_DsgPrs_FilletRadiusPresentation.def(py::init<>());
 
 // Methods
 // cls_DsgPrs_FilletRadiusPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_FilletRadiusPresentation::operator new, "None", py::arg("theSize"));
@@ -238,6 +268,9 @@ cls_DsgPrs_FilletRadiusPresentation.def_static("Add_", [](const opencascade::han
 // CLASS: DSGPRS_FIXPRESENTATION
 py::class_<DsgPrs_FixPresentation> cls_DsgPrs_FixPresentation(mod, "DsgPrs_FixPresentation", "class which draws the presentation of Fixed objects");
 
+// Constructors
+cls_DsgPrs_FixPresentation.def(py::init<>());
+
 // Methods
 // cls_DsgPrs_FixPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_FixPresentation::operator new, "None", py::arg("theSize"));
 // cls_DsgPrs_FixPresentation.def_static("operator delete_", (void (*)(void *)) &DsgPrs_FixPresentation::operator delete, "None", py::arg("theAddress"));
@@ -249,6 +282,9 @@ cls_DsgPrs_FixPresentation.def_static("Add_", (void (*)(const opencascade::handl
 
 // CLASS: DSGPRS_IDENTICPRESENTATION
 py::class_<DsgPrs_IdenticPresentation> cls_DsgPrs_IdenticPresentation(mod, "DsgPrs_IdenticPresentation", "None");
+
+// Constructors
+cls_DsgPrs_IdenticPresentation.def(py::init<>());
 
 // Methods
 // cls_DsgPrs_IdenticPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_IdenticPresentation::operator new, "None", py::arg("theSize"));
@@ -266,6 +302,9 @@ cls_DsgPrs_IdenticPresentation.def_static("Add_", (void (*)(const opencascade::h
 // CLASS: DSGPRS_LENGTHPRESENTATION
 py::class_<DsgPrs_LengthPresentation> cls_DsgPrs_LengthPresentation(mod, "DsgPrs_LengthPresentation", "Framework for displaying lengths. The length displayed is indicated by line segments and text alone or by a combination of line segment, text and arrows at either or both of its ends.");
 
+// Constructors
+cls_DsgPrs_LengthPresentation.def(py::init<>());
+
 // Methods
 // cls_DsgPrs_LengthPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_LengthPresentation::operator new, "None", py::arg("theSize"));
 // cls_DsgPrs_LengthPresentation.def_static("operator delete_", (void (*)(void *)) &DsgPrs_LengthPresentation::operator delete, "None", py::arg("theAddress"));
@@ -282,6 +321,9 @@ cls_DsgPrs_LengthPresentation.def_static("Add_", (void (*)(const opencascade::ha
 // CLASS: DSGPRS_MIDPOINTPRESENTATION
 py::class_<DsgPrs_MidPointPresentation> cls_DsgPrs_MidPointPresentation(mod, "DsgPrs_MidPointPresentation", "None");
 
+// Constructors
+cls_DsgPrs_MidPointPresentation.def(py::init<>());
+
 // Methods
 // cls_DsgPrs_MidPointPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_MidPointPresentation::operator new, "None", py::arg("theSize"));
 // cls_DsgPrs_MidPointPresentation.def_static("operator delete_", (void (*)(void *)) &DsgPrs_MidPointPresentation::operator delete, "None", py::arg("theAddress"));
@@ -297,6 +339,9 @@ cls_DsgPrs_MidPointPresentation.def_static("Add_", (void (*)(const opencascade::
 // CLASS: DSGPRS_OFFSETPRESENTATION
 py::class_<DsgPrs_OffsetPresentation> cls_DsgPrs_OffsetPresentation(mod, "DsgPrs_OffsetPresentation", "A framework to define display of offsets.");
 
+// Constructors
+cls_DsgPrs_OffsetPresentation.def(py::init<>());
+
 // Methods
 // cls_DsgPrs_OffsetPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_OffsetPresentation::operator new, "None", py::arg("theSize"));
 // cls_DsgPrs_OffsetPresentation.def_static("operator delete_", (void (*)(void *)) &DsgPrs_OffsetPresentation::operator delete, "None", py::arg("theAddress"));
@@ -309,6 +354,9 @@ cls_DsgPrs_OffsetPresentation.def_static("AddAxes_", (void (*)(const opencascade
 
 // CLASS: DSGPRS_PARALPRESENTATION
 py::class_<DsgPrs_ParalPresentation> cls_DsgPrs_ParalPresentation(mod, "DsgPrs_ParalPresentation", "A framework to define display of relations of parallelism between shapes.");
+
+// Constructors
+cls_DsgPrs_ParalPresentation.def(py::init<>());
 
 // Methods
 // cls_DsgPrs_ParalPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_ParalPresentation::operator new, "None", py::arg("theSize"));
@@ -323,6 +371,9 @@ cls_DsgPrs_ParalPresentation.def_static("Add_", (void (*)(const opencascade::han
 // CLASS: DSGPRS_PERPENPRESENTATION
 py::class_<DsgPrs_PerpenPresentation> cls_DsgPrs_PerpenPresentation(mod, "DsgPrs_PerpenPresentation", "A framework to define display of perpendicular constraints between shapes.");
 
+// Constructors
+cls_DsgPrs_PerpenPresentation.def(py::init<>());
+
 // Methods
 // cls_DsgPrs_PerpenPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_PerpenPresentation::operator new, "None", py::arg("theSize"));
 // cls_DsgPrs_PerpenPresentation.def_static("operator delete_", (void (*)(void *)) &DsgPrs_PerpenPresentation::operator delete, "None", py::arg("theAddress"));
@@ -334,6 +385,9 @@ cls_DsgPrs_PerpenPresentation.def_static("Add_", (void (*)(const opencascade::ha
 
 // CLASS: DSGPRS_RADIUSPRESENTATION
 py::class_<DsgPrs_RadiusPresentation> cls_DsgPrs_RadiusPresentation(mod, "DsgPrs_RadiusPresentation", "A framework to define display of radii.");
+
+// Constructors
+cls_DsgPrs_RadiusPresentation.def(py::init<>());
 
 // Methods
 // cls_DsgPrs_RadiusPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_RadiusPresentation::operator new, "None", py::arg("theSize"));
@@ -355,6 +409,9 @@ cls_DsgPrs_RadiusPresentation.def_static("Add_", (void (*)(const opencascade::ha
 // CLASS: DSGPRS_SHADEDPLANEPRESENTATION
 py::class_<DsgPrs_ShadedPlanePresentation> cls_DsgPrs_ShadedPlanePresentation(mod, "DsgPrs_ShadedPlanePresentation", "A framework to define display of shaded planes.");
 
+// Constructors
+cls_DsgPrs_ShadedPlanePresentation.def(py::init<>());
+
 // Methods
 // cls_DsgPrs_ShadedPlanePresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_ShadedPlanePresentation::operator new, "None", py::arg("theSize"));
 // cls_DsgPrs_ShadedPlanePresentation.def_static("operator delete_", (void (*)(void *)) &DsgPrs_ShadedPlanePresentation::operator delete, "None", py::arg("theAddress"));
@@ -366,6 +423,9 @@ cls_DsgPrs_ShadedPlanePresentation.def_static("Add_", (void (*)(const opencascad
 
 // CLASS: DSGPRS_SHAPEDIRPRESENTATION
 py::class_<DsgPrs_ShapeDirPresentation> cls_DsgPrs_ShapeDirPresentation(mod, "DsgPrs_ShapeDirPresentation", "A framework to define display of the normal to the surface of a shape.");
+
+// Constructors
+cls_DsgPrs_ShapeDirPresentation.def(py::init<>());
 
 // Methods
 // cls_DsgPrs_ShapeDirPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_ShapeDirPresentation::operator new, "None", py::arg("theSize"));
@@ -379,6 +439,9 @@ cls_DsgPrs_ShapeDirPresentation.def_static("Add_", (void (*)(const opencascade::
 // CLASS: DSGPRS_SYMBPRESENTATION
 py::class_<DsgPrs_SymbPresentation> cls_DsgPrs_SymbPresentation(mod, "DsgPrs_SymbPresentation", "A framework to define display of symbols.");
 
+// Constructors
+cls_DsgPrs_SymbPresentation.def(py::init<>());
+
 // Methods
 // cls_DsgPrs_SymbPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_SymbPresentation::operator new, "None", py::arg("theSize"));
 // cls_DsgPrs_SymbPresentation.def_static("operator delete_", (void (*)(void *)) &DsgPrs_SymbPresentation::operator delete, "None", py::arg("theAddress"));
@@ -390,6 +453,9 @@ cls_DsgPrs_SymbPresentation.def_static("Add_", (void (*)(const opencascade::hand
 
 // CLASS: DSGPRS_SYMMETRICPRESENTATION
 py::class_<DsgPrs_SymmetricPresentation> cls_DsgPrs_SymmetricPresentation(mod, "DsgPrs_SymmetricPresentation", "A framework to define display of symmetry between shapes.");
+
+// Constructors
+cls_DsgPrs_SymmetricPresentation.def(py::init<>());
 
 // Methods
 // cls_DsgPrs_SymmetricPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_SymmetricPresentation::operator new, "None", py::arg("theSize"));
@@ -405,6 +471,9 @@ cls_DsgPrs_SymmetricPresentation.def_static("Add_", (void (*)(const opencascade:
 // CLASS: DSGPRS_TANGENTPRESENTATION
 py::class_<DsgPrs_TangentPresentation> cls_DsgPrs_TangentPresentation(mod, "DsgPrs_TangentPresentation", "A framework to define display of tangents.");
 
+// Constructors
+cls_DsgPrs_TangentPresentation.def(py::init<>());
+
 // Methods
 // cls_DsgPrs_TangentPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_TangentPresentation::operator new, "None", py::arg("theSize"));
 // cls_DsgPrs_TangentPresentation.def_static("operator delete_", (void (*)(void *)) &DsgPrs_TangentPresentation::operator delete, "None", py::arg("theAddress"));
@@ -416,6 +485,9 @@ cls_DsgPrs_TangentPresentation.def_static("Add_", (void (*)(const opencascade::h
 
 // CLASS: DSGPRS_XYZAXISPRESENTATION
 py::class_<DsgPrs_XYZAxisPresentation> cls_DsgPrs_XYZAxisPresentation(mod, "DsgPrs_XYZAxisPresentation", "A framework for displaying the axes of an XYZ trihedron.");
+
+// Constructors
+cls_DsgPrs_XYZAxisPresentation.def(py::init<>());
 
 // Methods
 // cls_DsgPrs_XYZAxisPresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_XYZAxisPresentation::operator new, "None", py::arg("theSize"));
@@ -429,6 +501,9 @@ cls_DsgPrs_XYZAxisPresentation.def_static("Add_", (void (*)(const opencascade::h
 
 // CLASS: DSGPRS_XYZPLANEPRESENTATION
 py::class_<DsgPrs_XYZPlanePresentation> cls_DsgPrs_XYZPlanePresentation(mod, "DsgPrs_XYZPlanePresentation", "A framework for displaying the planes of an XYZ trihedron.");
+
+// Constructors
+cls_DsgPrs_XYZPlanePresentation.def(py::init<>());
 
 // Methods
 // cls_DsgPrs_XYZPlanePresentation.def_static("operator new_", (void * (*)(size_t)) &DsgPrs_XYZPlanePresentation::operator new, "None", py::arg("theSize"));

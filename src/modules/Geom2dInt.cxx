@@ -233,6 +233,9 @@ cls_Geom2dInt_ExactIntersectionPointOfTheIntPCurvePCurveOfGInter.def("AnErrorOcc
 // CLASS: GEOM2DINT_GEOM2DCURVETOOL
 py::class_<Geom2dInt_Geom2dCurveTool> cls_Geom2dInt_Geom2dCurveTool(mod, "Geom2dInt_Geom2dCurveTool", "This class provides a Geom2dCurveTool as < Geom2dCurveTool from IntCurve > from a Tool as < Geom2dCurveTool from Adaptor3d > .");
 
+// Constructors
+cls_Geom2dInt_Geom2dCurveTool.def(py::init<>());
+
 // Methods
 // cls_Geom2dInt_Geom2dCurveTool.def_static("operator new_", (void * (*)(size_t)) &Geom2dInt_Geom2dCurveTool::operator new, "None", py::arg("theSize"));
 // cls_Geom2dInt_Geom2dCurveTool.def_static("operator delete_", (void (*)(void *)) &Geom2dInt_Geom2dCurveTool::operator delete, "None", py::arg("theAddress"));
@@ -311,6 +314,9 @@ cls_Geom2dInt_PCLocFOfTheLocateExtPCOfTheProjPCurOfGInter.def("SearchOfTolerance
 // CLASS: GEOM2DINT_THECURVELOCATOROFTHEPROJPCUROFGINTER
 py::class_<Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter> cls_Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter(mod, "Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter", "None");
 
+// Constructors
+cls_Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter.def(py::init<>());
+
 // Methods
 // cls_Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter.def_static("operator new_", (void * (*)(size_t)) &Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter::operator new, "None", py::arg("theSize"));
 // cls_Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter.def_static("operator delete_", (void (*)(void *)) &Geom2dInt_TheCurveLocatorOfTheProjPCurOfGInter::operator delete, "None", py::arg("theAddress"));
@@ -373,6 +379,9 @@ cls_Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter.def("Dump", (void (Geom2d
 
 // CLASS: GEOM2DINT_THEPROJPCUROFGINTER
 py::class_<Geom2dInt_TheProjPCurOfGInter> cls_Geom2dInt_TheProjPCurOfGInter(mod, "Geom2dInt_TheProjPCurOfGInter", "None");
+
+// Constructors
+cls_Geom2dInt_TheProjPCurOfGInter.def(py::init<>());
 
 // Methods
 // cls_Geom2dInt_TheProjPCurOfGInter.def_static("operator new_", (void * (*)(size_t)) &Geom2dInt_TheProjPCurOfGInter::operator new, "None", py::arg("theSize"));

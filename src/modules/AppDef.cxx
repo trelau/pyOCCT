@@ -587,6 +587,9 @@ cls_AppDef_MyGradientOfCompute.def("AverageError", (Standard_Real (AppDef_MyGrad
 // CLASS: APPDEF_MYLINETOOL
 py::class_<AppDef_MyLineTool> cls_AppDef_MyLineTool(mod, "AppDef_MyLineTool", "example of MultiLine tool corresponding to the tools of the packages AppParCurves and Approx. For Approx, the tool will not addd points if the algorithms want some.");
 
+// Constructors
+cls_AppDef_MyLineTool.def(py::init<>());
+
 // Methods
 // cls_AppDef_MyLineTool.def_static("operator new_", (void * (*)(size_t)) &AppDef_MyLineTool::operator new, "None", py::arg("theSize"));
 // cls_AppDef_MyLineTool.def_static("operator delete_", (void (*)(void *)) &AppDef_MyLineTool::operator delete, "None", py::arg("theAddress"));

@@ -66,6 +66,9 @@ py::module::import("OCCT.IntRes2d");
 // CLASS: BISECTOR
 py::class_<Bisector> cls_Bisector(mod, "Bisector", "This package provides the bisecting line between two geometric elements.");
 
+// Constructors
+cls_Bisector.def(py::init<>());
+
 // Methods
 // cls_Bisector.def_static("operator new_", (void * (*)(size_t)) &Bisector::operator new, "None", py::arg("theSize"));
 // cls_Bisector.def_static("operator delete_", (void (*)(void *)) &Bisector::operator delete, "None", py::arg("theAddress"));

@@ -762,6 +762,9 @@ cls_Prs3d_DatumAspect.def("DumpJson", (void (Prs3d_DatumAspect::*)(Standard_OStr
 // CLASS: PRS3D_ROOT
 py::class_<Prs3d_Root> cls_Prs3d_Root(mod, "Prs3d_Root", "A root class for the standard presentation algorithms of the StdPrs package.");
 
+// Constructors
+cls_Prs3d_Root.def(py::init<>());
+
 // Methods
 // cls_Prs3d_Root.def_static("operator new_", (void * (*)(size_t)) &Prs3d_Root::operator new, "None", py::arg("theSize"));
 // cls_Prs3d_Root.def_static("operator delete_", (void (*)(void *)) &Prs3d_Root::operator delete, "None", py::arg("theAddress"));
@@ -778,6 +781,9 @@ bind_NCollection_List<opencascade::handle<TColgp_HSequenceOfPnt> >(mod, "Prs3d_N
 // CLASS: PRS3D
 py::class_<Prs3d> cls_Prs3d(mod, "Prs3d", "The Prs3d package provides the following services - a presentation object (the context for all modifications to the display, its presentation will be displayed in every view of an active viewer) - an attribute manager governing how objects such as color, width, and type of line are displayed; these are generic objects, whereas those in StdPrs are specific geometries and topologies. - generic algorithms providing default settings for objects such as points, curves, surfaces and shapes - a root object which provides the abstract framework for the DsgPrs definitions at work in display of dimensions, relations and trihedra.");
 
+// Constructors
+cls_Prs3d.def(py::init<>());
+
 // Methods
 // cls_Prs3d.def_static("operator new_", (void * (*)(size_t)) &Prs3d::operator new, "None", py::arg("theSize"));
 // cls_Prs3d.def_static("operator delete_", (void (*)(void *)) &Prs3d::operator delete, "None", py::arg("theAddress"));
@@ -792,6 +798,9 @@ cls_Prs3d.def_static("AddPrimitivesGroup_", (void (*)(const opencascade::handle<
 
 // CLASS: PRS3D_ARROW
 py::class_<Prs3d_Arrow, Prs3d_Root> cls_Prs3d_Arrow(mod, "Prs3d_Arrow", "Provides class methods to draw an arrow at a given location, along a given direction and using a given angle.");
+
+// Constructors
+cls_Prs3d_Arrow.def(py::init<>());
 
 // Methods
 cls_Prs3d_Arrow.def_static("DrawShaded_", (opencascade::handle<Graphic3d_ArrayOfTriangles> (*)(const gp_Ax1 &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Integer)) &Prs3d_Arrow::DrawShaded, "Defines the representation of the arrow as shaded triangulation.", py::arg("theAxis"), py::arg("theTubeRadius"), py::arg("theAxisLength"), py::arg("theConeRadius"), py::arg("theConeLength"), py::arg("theNbFacettes"));
@@ -919,6 +928,9 @@ cls_Prs3d_ShapeTool.def_static("IsPlanarFace_", (Standard_Boolean (*)(const Topo
 
 // CLASS: PRS3D_TEXT
 py::class_<Prs3d_Text, Prs3d_Root> cls_Prs3d_Text(mod, "Prs3d_Text", "A framework to define the display of texts.");
+
+// Constructors
+cls_Prs3d_Text.def(py::init<>());
 
 // Methods
 // cls_Prs3d_Text.def_static("operator new_", (void * (*)(size_t)) &Prs3d_Text::operator new, "None", py::arg("theSize"));

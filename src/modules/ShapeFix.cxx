@@ -116,6 +116,9 @@ py::module::import("OCCT.Geom2d");
 // CLASS: SHAPEFIX
 py::class_<ShapeFix> cls_ShapeFix(mod, "ShapeFix", "This package provides algorithms for fixing problematic (violating Open CASCADE requirements) shapes. Tools from package ShapeAnalysis are used for detecting the problems. The detecting and fixing is done taking in account various criteria implemented in BRepCheck package. Each class of package ShapeFix deals with one certain type of shapes or with some family of problems.");
 
+// Constructors
+cls_ShapeFix.def(py::init<>());
+
 // Methods
 // cls_ShapeFix.def_static("operator new_", (void * (*)(size_t)) &ShapeFix::operator new, "None", py::arg("theSize"));
 // cls_ShapeFix.def_static("operator delete_", (void (*)(void *)) &ShapeFix::operator delete, "None", py::arg("theAddress"));

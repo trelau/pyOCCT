@@ -46,6 +46,9 @@ py::module::import("OCCT.LProp");
 // CLASS: BREPLPROP
 py::class_<BRepLProp> cls_BRepLProp(mod, "BRepLProp", "These global functions compute the degree of continuity of a curve built by concatenation of two edges at their junction point.");
 
+// Constructors
+cls_BRepLProp.def(py::init<>());
+
 // Methods
 // cls_BRepLProp.def_static("operator new_", (void * (*)(size_t)) &BRepLProp::operator new, "None", py::arg("theSize"));
 // cls_BRepLProp.def_static("operator delete_", (void (*)(void *)) &BRepLProp::operator delete, "None", py::arg("theAddress"));
@@ -85,6 +88,9 @@ cls_BRepLProp_CLProps.def("CentreOfCurvature", (void (BRepLProp_CLProps::*)(gp_P
 
 // CLASS: BREPLPROP_CURVETOOL
 py::class_<BRepLProp_CurveTool> cls_BRepLProp_CurveTool(mod, "BRepLProp_CurveTool", "None");
+
+// Constructors
+cls_BRepLProp_CurveTool.def(py::init<>());
 
 // Methods
 // cls_BRepLProp_CurveTool.def_static("operator new_", (void * (*)(size_t)) &BRepLProp_CurveTool::operator new, "None", py::arg("theSize"));
@@ -140,6 +146,9 @@ cls_BRepLProp_SLProps.def("GaussianCurvature", (Standard_Real (BRepLProp_SLProps
 
 // CLASS: BREPLPROP_SURFACETOOL
 py::class_<BRepLProp_SurfaceTool> cls_BRepLProp_SurfaceTool(mod, "BRepLProp_SurfaceTool", "None");
+
+// Constructors
+cls_BRepLProp_SurfaceTool.def(py::init<>());
 
 // Methods
 // cls_BRepLProp_SurfaceTool.def_static("operator new_", (void * (*)(size_t)) &BRepLProp_SurfaceTool::operator new, "None", py::arg("theSize"));

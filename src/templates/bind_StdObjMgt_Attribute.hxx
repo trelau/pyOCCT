@@ -36,6 +36,9 @@ void bind_StdObjMgt_Attribute(py::module &mod, std::string const &name, py::modu
 
 py::class_<StdObjMgt_Attribute<Transient>, opencascade::handle<StdObjMgt_Attribute<Transient>>, Standard_Transient> cls_StdObjMgt_Attribute(mod, name.c_str(), "Root class for a temporary persistent object corresponding to an attribute.", local);
 
+// Constructors
+cls_StdObjMgt_Attribute.def(py::init<>());
+
 }
 
 #endif

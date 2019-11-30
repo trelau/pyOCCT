@@ -47,6 +47,9 @@ py::module::import("OCCT.TCollection");
 // CLASS: XMLXCAFDRIVERS
 py::class_<XmlXCAFDrivers> cls_XmlXCAFDrivers(mod, "XmlXCAFDrivers", "None");
 
+// Constructors
+cls_XmlXCAFDrivers.def(py::init<>());
+
 // Methods
 cls_XmlXCAFDrivers.def_static("Factory_", (const opencascade::handle<Standard_Transient> & (*)(const Standard_GUID &)) &XmlXCAFDrivers::Factory, "Depending from the ID, returns a list of storage or retrieval attribute drivers. Used for plugin.", py::arg("aGUID"));
 cls_XmlXCAFDrivers.def_static("DefineFormat_", (void (*)(const opencascade::handle<TDocStd_Application> &)) &XmlXCAFDrivers::DefineFormat, "Defines format 'XmlXCAF' and registers its read and write drivers in the specified application", py::arg("theApp"));

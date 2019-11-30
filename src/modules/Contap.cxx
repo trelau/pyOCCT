@@ -454,6 +454,9 @@ cls_Contap_Contour.def("SurfaceFunction", (Contap_SurfFunction & (Contap_Contour
 // CLASS: CONTAP_HCONTTOOL
 py::class_<Contap_HContTool> cls_Contap_HContTool(mod, "Contap_HContTool", "Tool for the intersection between 2 surfaces. Regroupe pour l instant les methodes hors Adaptor3d...");
 
+// Constructors
+cls_Contap_HContTool.def(py::init<>());
+
 // Methods
 // cls_Contap_HContTool.def_static("operator new_", (void * (*)(size_t)) &Contap_HContTool::operator new, "None", py::arg("theSize"));
 // cls_Contap_HContTool.def_static("operator delete_", (void (*)(void *)) &Contap_HContTool::operator delete, "None", py::arg("theAddress"));
@@ -482,6 +485,9 @@ cls_Contap_HContTool.def_static("IsAllSolution_", (Standard_Boolean (*)(const op
 
 // CLASS: CONTAP_HCURVE2DTOOL
 py::class_<Contap_HCurve2dTool> cls_Contap_HCurve2dTool(mod, "Contap_HCurve2dTool", "None");
+
+// Constructors
+cls_Contap_HCurve2dTool.def(py::init<>());
 
 // Methods
 // cls_Contap_HCurve2dTool.def_static("operator new_", (void * (*)(size_t)) &Contap_HCurve2dTool::operator new, "None", py::arg("theSize"));
@@ -559,6 +565,9 @@ bind_NCollection_Sequence<opencascade::handle<Contap_TheIWLineOfTheIWalking> >(m
 
 // CLASS: CONTAP_SURFPROPS
 py::class_<Contap_SurfProps> cls_Contap_SurfProps(mod, "Contap_SurfProps", "Internal tool used to compute the normal and its derivatives.");
+
+// Constructors
+cls_Contap_SurfProps.def(py::init<>());
 
 // Methods
 // cls_Contap_SurfProps.def_static("operator new_", (void * (*)(size_t)) &Contap_SurfProps::operator new, "None", py::arg("theSize"));

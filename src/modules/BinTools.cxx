@@ -190,6 +190,9 @@ cls_BinTools_ShapeSet.def("WritePolygonOnTriangulation", (void (BinTools_ShapeSe
 // CLASS: BINTOOLS
 py::class_<BinTools> cls_BinTools(mod, "BinTools", "Tool to keep shapes in binary format");
 
+// Constructors
+cls_BinTools.def(py::init<>());
+
 // Methods
 // cls_BinTools.def_static("operator new_", (void * (*)(size_t)) &BinTools::operator new, "None", py::arg("theSize"));
 // cls_BinTools.def_static("operator delete_", (void (*)(void *)) &BinTools::operator delete, "None", py::arg("theAddress"));

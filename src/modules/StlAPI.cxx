@@ -35,6 +35,9 @@ py::module::import("OCCT.TopoDS");
 // CLASS: STLAPI
 py::class_<StlAPI> cls_StlAPI(mod, "StlAPI", "Offers the API for STL data manipulation.");
 
+// Constructors
+cls_StlAPI.def(py::init<>());
+
 // Methods
 // cls_StlAPI.def_static("operator new_", (void * (*)(size_t)) &StlAPI::operator new, "None", py::arg("theSize"));
 // cls_StlAPI.def_static("operator delete_", (void (*)(void *)) &StlAPI::operator delete, "None", py::arg("theAddress"));
@@ -48,6 +51,9 @@ cls_StlAPI.def_static("Read_", (Standard_Boolean (*)(TopoDS_Shape &, const Stand
 
 // CLASS: STLAPI_READER
 py::class_<StlAPI_Reader> cls_StlAPI_Reader(mod, "StlAPI_Reader", "Reading from stereolithography format.");
+
+// Constructors
+cls_StlAPI_Reader.def(py::init<>());
 
 // Methods
 cls_StlAPI_Reader.def("Read", (Standard_Boolean (StlAPI_Reader::*)(TopoDS_Shape &, const Standard_CString)) &StlAPI_Reader::Read, "Reads STL file to the TopoDS_Shape (each triangle is converted to the face).", py::arg("theShape"), py::arg("theFileName"));

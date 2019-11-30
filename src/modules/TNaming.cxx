@@ -251,6 +251,9 @@ cls_TNaming_Naming.def("DynamicType", (const opencascade::handle<Standard_Type> 
 // CLASS: TNAMING
 py::class_<TNaming> cls_TNaming(mod, "TNaming", "A topological attribute can be seen as a hook into the topological structure. To this hook, data can be attached and references defined. It is used for keeping and access to topological objects and their evolution. All topological objects are stored in the one user-protected TNaming_UsedShapes attribute at the root label of the data framework. This attribute contains map with all topological shapes, used in this document. To all other labels TNaming_NamedShape attribute can be added. This attribute contains references (hooks) to shapes from the TNaming_UsedShapes attribute and evolution of these shapes. TNaming_NamedShape attribute contains a set of pairs of hooks: old shape and new shape (see the figure below). It allows not only get the topological shapes by the labels, but also trace evolution of the shapes and correctly resolve dependent shapes by the changed one. If shape is just-created, then the old shape for accorded named shape is an empty shape. If a shape is deleted, then the new shape in this named shape is empty. Different algorithms may dispose sub-shapes of the result shape at the individual label depending on necessity: - If a sub-shape must have some extra attributes (material of each face or color of each edge). In this case a specific sub-shape is placed to the separate label (usually, sub-label of the result shape label) with all attributes of this sub-shape. - If topological naming is needed, a necessary and sufficient (for selected sub-shapes identification) set of sub-shapes is placed to the child labels of the result shape label. As usual, as far as basic solids and closed shells are concerned, all faces of the shape are disposed. Edges and vertices sub-shapes can be identified as intersection of contiguous faces. Modified/generated shapes may be placed to one named shape and identified as this named shape and source named shape that also can be identified with used algorithms. TNaming_NamedShape may contain a few pairs of hooks with the same evolution. In this case topology shape, which belongs to the named shape, is a compound of new shapes. The data model contains both the topology and the hooks, and functions handle both topological entities and hooks. Consider the case of a box function, which creates a solid with six faces and six hooks. Each hook is attached to a face. If you want, you can also have this function create hooks for edges and vertices as well as for faces. For the sake of simplicity though, let's limit the example. Not all functions can define explicit hooks for all topological entities they create, but all topological entities can be turned into hooks when necessary. This is where topological naming is necessary.");
 
+// Constructors
+cls_TNaming.def(py::init<>());
+
 // Methods
 // cls_TNaming.def_static("operator new_", (void * (*)(size_t)) &TNaming::operator new, "None", py::arg("theSize"));
 // cls_TNaming.def_static("operator delete_", (void (*)(void *)) &TNaming::operator delete, "None", py::arg("theAddress"));
@@ -299,6 +302,9 @@ cls_TNaming_Builder.def("NamedShape", (opencascade::handle<TNaming_NamedShape> (
 
 // CLASS: TNAMING_COPYSHAPE
 py::class_<TNaming_CopyShape> cls_TNaming_CopyShape(mod, "TNaming_CopyShape", "None");
+
+// Constructors
+cls_TNaming_CopyShape.def(py::init<>());
 
 // Methods
 // cls_TNaming_CopyShape.def_static("operator new_", (void * (*)(size_t)) &TNaming_CopyShape::operator new, "None", py::arg("theSize"));
@@ -495,6 +501,9 @@ cls_TNaming_Localizer.def_static("FindShapeContext_", (void (*)(const opencascad
 // CLASS: TNAMING_NAMINGTOOL
 py::class_<TNaming_NamingTool> cls_TNaming_NamingTool(mod, "TNaming_NamingTool", "None");
 
+// Constructors
+cls_TNaming_NamingTool.def(py::init<>());
+
 // Methods
 // cls_TNaming_NamingTool.def_static("operator new_", (void * (*)(size_t)) &TNaming_NamingTool::operator new, "None", py::arg("theSize"));
 // cls_TNaming_NamingTool.def_static("operator delete_", (void (*)(void *)) &TNaming_NamingTool::operator delete, "None", py::arg("theAddress"));
@@ -659,6 +668,9 @@ cls_TNaming_Selector.def("NamedShape", (opencascade::handle<TNaming_NamedShape> 
 // CLASS: TNAMING_TOOL
 py::class_<TNaming_Tool> cls_TNaming_Tool(mod, "TNaming_Tool", "A tool to get information on the topology of a named shape attribute. This information is typically a TopoDS_Shape object. Using this tool, relations between named shapes are also accessible.");
 
+// Constructors
+cls_TNaming_Tool.def(py::init<>());
+
 // Methods
 // cls_TNaming_Tool.def_static("operator new_", (void * (*)(size_t)) &TNaming_Tool::operator new, "None", py::arg("theSize"));
 // cls_TNaming_Tool.def_static("operator delete_", (void (*)(void *)) &TNaming_Tool::operator delete, "None", py::arg("theAddress"));
@@ -684,6 +696,9 @@ cls_TNaming_Tool.def_static("FindShape_", (void (*)(const TDF_LabelMap &, const 
 
 // CLASS: TNAMING_TRANSLATETOOL
 py::class_<TNaming_TranslateTool, opencascade::handle<TNaming_TranslateTool>, Standard_Transient> cls_TNaming_TranslateTool(mod, "TNaming_TranslateTool", "tool to copy underlying TShape of a Shape. The TranslateTool class is provided to support the translation of topological data structures Transient to Transient.");
+
+// Constructors
+cls_TNaming_TranslateTool.def(py::init<>());
 
 // Methods
 cls_TNaming_TranslateTool.def("Add", (void (TNaming_TranslateTool::*)(TopoDS_Shape &, const TopoDS_Shape &) const) &TNaming_TranslateTool::Add, "None", py::arg("S1"), py::arg("S2"));

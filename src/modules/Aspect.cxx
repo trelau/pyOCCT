@@ -854,6 +854,9 @@ if (py::hasattr(mod, "Aspect_VKeyFlags")) {
 // CLASS: _XWD_FILE_HEADER
 py::class_<_xwd_file_header> cls__xwd_file_header(mod, "_xwd_file_header", "None");
 
+// Constructors
+cls__xwd_file_header.def(py::init<>());
+
 // Fields
 cls__xwd_file_header.def_readwrite("header_size", &_xwd_file_header::header_size, "None");
 cls__xwd_file_header.def_readwrite("file_version", &_xwd_file_header::file_version, "None");
@@ -888,6 +891,9 @@ if (py::hasattr(mod, "_xwd_file_header")) {
 
 // CLASS: _XCOLOR
 py::class_<_xcolor> cls__xcolor(mod, "_xcolor", "None");
+
+// Constructors
+cls__xcolor.def(py::init<>());
 
 // Fields
 cls__xcolor.def_readwrite("pixel", &_xcolor::pixel, "None");

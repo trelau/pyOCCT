@@ -42,6 +42,9 @@ py::module::import("OCCT.gp");
 // CLASS: ELSLIB
 py::class_<ElSLib> cls_ElSLib(mod, "ElSLib", "Provides functions for basic geometric computation on elementary surfaces. This includes: - calculation of a point or derived vector on a surface where the surface is provided by the gp package, or defined in canonical form (as in the gp package), and the point is defined with a parameter, - evaluation of the parameters corresponding to a point on an elementary surface from gp, - calculation of isoparametric curves on an elementary surface defined in canonical form (as in the gp package). Notes: - ElSLib stands for Elementary Surfaces Library. - If the surfaces provided by the gp package are not explicitly parameterized, they still have an implicit parameterization, similar to that which they infer on the equivalent Geom surfaces. Note: ElSLib stands for Elementary Surfaces Library.");
 
+// Constructors
+cls_ElSLib.def(py::init<>());
+
 // Methods
 // cls_ElSLib.def_static("operator new_", (void * (*)(size_t)) &ElSLib::operator new, "None", py::arg("theSize"));
 // cls_ElSLib.def_static("operator delete_", (void (*)(void *)) &ElSLib::operator delete, "None", py::arg("theAddress"));

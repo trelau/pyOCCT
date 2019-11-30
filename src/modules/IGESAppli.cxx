@@ -136,6 +136,9 @@ py::module::import("OCCT.Message");
 // CLASS: IGESAPPLI
 py::class_<IGESAppli> cls_IGESAppli(mod, "IGESAppli", "This package represents collection of miscellaneous entities from IGES");
 
+// Constructors
+cls_IGESAppli.def(py::init<>());
+
 // Methods
 // cls_IGESAppli.def_static("operator new_", (void * (*)(size_t)) &IGESAppli::operator new, "None", py::arg("theSize"));
 // cls_IGESAppli.def_static("operator delete_", (void (*)(void *)) &IGESAppli::operator delete, "None", py::arg("theAddress"));

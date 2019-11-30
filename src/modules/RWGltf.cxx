@@ -221,6 +221,9 @@ cls_RWGltf_GltfBufferView.def_readwrite("Target", &RWGltf_GltfBufferView::Target
 // CLASS: RWGLTF_GLTFFACE
 py::class_<RWGltf_GltfFace> cls_RWGltf_GltfFace(mod, "RWGltf_GltfFace", "Low-level glTF data structure holding single Face (one primitive array) definition.");
 
+// Constructors
+cls_RWGltf_GltfFace.def(py::init<>());
+
 // Fields
 cls_RWGltf_GltfFace.def_readwrite("NodePos", &RWGltf_GltfFace::NodePos, "accessor for nodal positions");
 cls_RWGltf_GltfFace.def_readwrite("NodeNorm", &RWGltf_GltfFace::NodeNorm, "accessor for nodal normals");
@@ -307,6 +310,9 @@ cls_RWGltf_MaterialMetallicRoughness.def_readwrite("Roughness", &RWGltf_Material
 
 // CLASS: RWGLTF_GLTFSHAREDISTREAM
 py::class_<RWGltf_GltfSharedIStream> cls_RWGltf_GltfSharedIStream(mod, "RWGltf_GltfSharedIStream", "The interface for shared file.");
+
+// Constructors
+cls_RWGltf_GltfSharedIStream.def(py::init<>());
 
 // Fields
 // cls_RWGltf_GltfSharedIStream.def_readwrite("Stream", &RWGltf_GltfSharedIStream::Stream, "shared file");

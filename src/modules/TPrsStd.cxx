@@ -200,6 +200,9 @@ cls_TPrsStd_ConstraintDriver.def("DynamicType", (const opencascade::handle<Stand
 // CLASS: TPRSSTD_CONSTRAINTTOOLS
 py::class_<TPrsStd_ConstraintTools> cls_TPrsStd_ConstraintTools(mod, "TPrsStd_ConstraintTools", "None");
 
+// Constructors
+cls_TPrsStd_ConstraintTools.def(py::init<>());
+
 // Methods
 // cls_TPrsStd_ConstraintTools.def_static("operator new_", (void * (*)(size_t)) &TPrsStd_ConstraintTools::operator new, "None", py::arg("theSize"));
 // cls_TPrsStd_ConstraintTools.def_static("operator delete_", (void (*)(void *)) &TPrsStd_ConstraintTools::operator delete, "None", py::arg("theAddress"));

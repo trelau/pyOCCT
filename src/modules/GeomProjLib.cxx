@@ -40,6 +40,9 @@ py::module::import("OCCT.gp");
 // CLASS: GEOMPROJLIB
 py::class_<GeomProjLib> cls_GeomProjLib(mod, "GeomProjLib", "Projection of a curve on a surface.");
 
+// Constructors
+cls_GeomProjLib.def(py::init<>());
+
 // Methods
 // cls_GeomProjLib.def_static("operator new_", (void * (*)(size_t)) &GeomProjLib::operator new, "None", py::arg("theSize"));
 // cls_GeomProjLib.def_static("operator delete_", (void (*)(void *)) &GeomProjLib::operator delete, "None", py::arg("theAddress"));

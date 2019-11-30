@@ -29,6 +29,9 @@ void bind_OpenGl_TmplCore14(py::module &mod, std::string const &name, py::module
 
 py::class_<OpenGl_TmplCore14<theBaseClass_t>, theBaseClass_t> cls_OpenGl_TmplCore14(mod, name.c_str(), "OpenGL 1.4 core based on 1.3 version.", local);
 
+// Constructors
+cls_OpenGl_TmplCore14.def(py::init<>());
+
 }
 
 #endif

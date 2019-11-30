@@ -71,6 +71,9 @@ cls_LProp3d_CLProps.def("CentreOfCurvature", (void (LProp3d_CLProps::*)(gp_Pnt &
 // CLASS: LPROP3D_CURVETOOL
 py::class_<LProp3d_CurveTool> cls_LProp3d_CurveTool(mod, "LProp3d_CurveTool", "None");
 
+// Constructors
+cls_LProp3d_CurveTool.def(py::init<>());
+
 // Methods
 // cls_LProp3d_CurveTool.def_static("operator new_", (void * (*)(size_t)) &LProp3d_CurveTool::operator new, "None", py::arg("theSize"));
 // cls_LProp3d_CurveTool.def_static("operator delete_", (void (*)(void *)) &LProp3d_CurveTool::operator delete, "None", py::arg("theAddress"));
@@ -125,6 +128,9 @@ cls_LProp3d_SLProps.def("GaussianCurvature", (Standard_Real (LProp3d_SLProps::*)
 
 // CLASS: LPROP3D_SURFACETOOL
 py::class_<LProp3d_SurfaceTool> cls_LProp3d_SurfaceTool(mod, "LProp3d_SurfaceTool", "None");
+
+// Constructors
+cls_LProp3d_SurfaceTool.def(py::init<>());
 
 // Methods
 // cls_LProp3d_SurfaceTool.def_static("operator new_", (void * (*)(size_t)) &LProp3d_SurfaceTool::operator new, "None", py::arg("theSize"));

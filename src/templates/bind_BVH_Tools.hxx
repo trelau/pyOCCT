@@ -31,6 +31,9 @@ void bind_BVH_Tools(py::module &mod, std::string const &name, py::module_local c
 
 py::class_<BVH_Tools<T, N>> cls_BVH_Tools(mod, name.c_str(), "Defines a set of static methods operating with points and bounding boxes.", local);
 
+// Constructors
+cls_BVH_Tools.def(py::init<>());
+
 // Methods
 cls_BVH_Tools.def_static("BoxBoxSquareDistance_", (T (*)(const BVH_Box<T, N> &, const BVH_Box<T, N> &)) &BVH_Tools<T, N>::BoxBoxSquareDistance, "Computes Square distance between Axis aligned bounding boxes", py::arg("theBox1"), py::arg("theBox2"));
 cls_BVH_Tools.def_static("BoxBoxSquareDistance_", (T (*)(const typename BVH_Tools<T, N>::BVH_VecNt &, const typename BVH_Tools<T, N>::BVH_VecNt &, const typename BVH_Tools<T, N>::BVH_VecNt &, const typename BVH_Tools<T, N>::BVH_VecNt &)) &BVH_Tools<T, N>::BoxBoxSquareDistance, "Computes Square distance between Axis aligned bounding boxes", py::arg("theCMin1"), py::arg("theCMax1"), py::arg("theCMin2"), py::arg("theCMax2"));

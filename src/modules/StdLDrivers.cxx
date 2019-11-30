@@ -52,6 +52,9 @@ py::module::import("OCCT.TDocStd");
 // CLASS: STDLDRIVERS_DOCUMENTRETRIEVALDRIVER
 py::class_<StdLDrivers_DocumentRetrievalDriver, opencascade::handle<StdLDrivers_DocumentRetrievalDriver>, PCDM_RetrievalDriver> cls_StdLDrivers_DocumentRetrievalDriver(mod, "StdLDrivers_DocumentRetrievalDriver", "retrieval driver of a Part document");
 
+// Constructors
+cls_StdLDrivers_DocumentRetrievalDriver.def(py::init<>());
+
 // Methods
 cls_StdLDrivers_DocumentRetrievalDriver.def("CreateDocument", (opencascade::handle<CDM_Document> (StdLDrivers_DocumentRetrievalDriver::*)()) &StdLDrivers_DocumentRetrievalDriver::CreateDocument, "Create an empty TDocStd_Document.");
 cls_StdLDrivers_DocumentRetrievalDriver.def("Read", (void (StdLDrivers_DocumentRetrievalDriver::*)(const TCollection_ExtendedString &, const opencascade::handle<CDM_Document> &, const opencascade::handle<CDM_Application> &)) &StdLDrivers_DocumentRetrievalDriver::Read, "Retrieve the content of a file into a new document.", py::arg("theFileName"), py::arg("theNewDocument"), py::arg("theApplication"));
@@ -62,6 +65,9 @@ cls_StdLDrivers_DocumentRetrievalDriver.def("DynamicType", (const opencascade::h
 
 // CLASS: STDLDRIVERS
 py::class_<StdLDrivers> cls_StdLDrivers(mod, "StdLDrivers", "None");
+
+// Constructors
+cls_StdLDrivers.def(py::init<>());
 
 // Methods
 cls_StdLDrivers.def_static("Factory_", (opencascade::handle<Standard_Transient> (*)(const Standard_GUID &)) &StdLDrivers::Factory, "Depending from the ID, returns a list of storage or retrieval attribute drivers. Used for plugin", py::arg("aGUID"));

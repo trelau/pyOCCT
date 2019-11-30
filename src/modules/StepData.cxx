@@ -345,6 +345,9 @@ cls_StepData_SelectInt.def("DynamicType", (const opencascade::handle<Standard_Ty
 // CLASS: STEPDATA
 py::class_<StepData> cls_StepData(mod, "StepData", "Gives basic data definition for Step Interface. Any class of a data model described in EXPRESS Language is candidate to be managed by a Step Interface");
 
+// Constructors
+cls_StepData.def(py::init<>());
+
 // Methods
 // cls_StepData.def_static("operator new_", (void * (*)(size_t)) &StepData::operator new, "None", py::arg("theSize"));
 // cls_StepData.def_static("operator delete_", (void (*)(void *)) &StepData::operator delete, "None", py::arg("theAddress"));

@@ -79,6 +79,9 @@ py::module::import("OCCT.TopExp");
 // CLASS: BREPCLASS3D
 py::class_<BRepClass3d> cls_BRepClass3d(mod, "BRepClass3d", "None");
 
+// Constructors
+cls_BRepClass3d.def(py::init<>());
+
 // Methods
 // cls_BRepClass3d.def_static("operator new_", (void * (*)(size_t)) &BRepClass3d::operator new, "None", py::arg("theSize"));
 // cls_BRepClass3d.def_static("operator delete_", (void (*)(void *)) &BRepClass3d::operator delete, "None", py::arg("theAddress"));

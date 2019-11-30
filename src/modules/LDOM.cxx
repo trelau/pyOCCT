@@ -318,6 +318,9 @@ cls_LDOM_BasicText.def("GetData", (const LDOMBasicString & (LDOM_BasicText::*)()
 // CLASS: LDOM_CHARREFERENCE
 py::class_<LDOM_CharReference> cls_LDOM_CharReference(mod, "LDOM_CharReference", "None");
 
+// Constructors
+cls_LDOM_CharReference.def(py::init<>());
+
 // Methods
 // cls_LDOM_CharReference.def_static("Decode_", [](char * theSrc, Standard_Integer & theLen){ char * rv = LDOM_CharReference::Decode(theSrc, theLen); return std::tuple<char *, Standard_Integer &>(rv, theLen); }, "None", py::arg("theSrc"), py::arg("theLen"));
 // cls_LDOM_CharReference.def_static("Encode_", [](const char * theSrc, Standard_Integer & theLen, const Standard_Boolean isAttribute){ char * rv = LDOM_CharReference::Encode(theSrc, theLen, isAttribute); return std::tuple<char *, Standard_Integer &>(rv, theLen); }, "None", py::arg("theSrc"), py::arg("theLen"), py::arg("isAttribute"));
@@ -330,6 +333,9 @@ cls_LDOM_DocumentType.def(py::init<>());
 
 // CLASS: LDOM_LDOMIMPLEMENTATION
 py::class_<LDOM_LDOMImplementation> cls_LDOM_LDOMImplementation(mod, "LDOM_LDOMImplementation", "None");
+
+// Constructors
+cls_LDOM_LDOMImplementation.def(py::init<>());
 
 // Methods
 cls_LDOM_LDOMImplementation.def_static("createDocument_", (LDOM_Document (*)(const LDOMString &, const LDOMString &, const LDOM_DocumentType &)) &LDOM_LDOMImplementation::createDocument, "None", py::arg("aNamespaceURI"), py::arg("aQualifiedName"), py::arg("aDocType"));

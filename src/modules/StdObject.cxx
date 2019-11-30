@@ -56,6 +56,9 @@ mod.def("write", (StdObjMgt_WriteData & (*) (StdObjMgt_WriteData &, const gp_Ax1
 // CLASS: STDOBJECT_LOCATION
 py::class_<StdObject_Location> cls_StdObject_Location(mod, "StdObject_Location", "None");
 
+// Constructors
+cls_StdObject_Location.def(py::init<>());
+
 // Methods
 cls_StdObject_Location.def("PChildren", (void (StdObject_Location::*)(StdObjMgt_Persistent::SequenceOfPersistent &) const) &StdObject_Location::PChildren, "Gets persistent child objects", py::arg("theChildren"));
 // cls_StdObject_Location.def("Import", (TopLoc_Location (StdObject_Location::*)() const) &StdObject_Location::Import, "Import transient object from the persistent data.");
@@ -63,6 +66,9 @@ cls_StdObject_Location.def_static("Translate_", (StdObject_Location (*)(const To
 
 // CLASS: STDOBJECT_SHAPE
 py::class_<StdObject_Shape> cls_StdObject_Shape(mod, "StdObject_Shape", "None");
+
+// Constructors
+cls_StdObject_Shape.def(py::init<>());
 
 // Methods
 cls_StdObject_Shape.def("Import", (TopoDS_Shape (StdObject_Shape::*)() const) &StdObject_Shape::Import, "Import transient object from the persistent data.");

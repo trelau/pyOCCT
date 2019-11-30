@@ -29,6 +29,9 @@ void bind_OpenGl_TmplCore30(py::module &mod, std::string const &name, py::module
 
 py::class_<OpenGl_TmplCore30<theBaseClass_t>, theBaseClass_t> cls_OpenGl_TmplCore30(mod, name.c_str(), "OpenGL 3.0 core. This is first version with deprecation model introduced - a lot of functionality regarding to fixed pipeline were marked deprecated. Notice that nothing were actually removed in this version (unless Forward context loaded)!", local);
 
+// Constructors
+cls_OpenGl_TmplCore30.def(py::init<>());
+
 }
 
 #endif

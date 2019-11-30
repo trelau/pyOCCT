@@ -127,6 +127,9 @@ py::enum_<TopoDSToStep_FacetedError>(mod, "TopoDSToStep_FacetedError", "None")
 // CLASS: TOPODSTOSTEP
 py::class_<TopoDSToStep> cls_TopoDSToStep(mod, "TopoDSToStep", "This package implements the mapping between CAS.CAD Shape representation and AP214 Shape Representation. The target schema is pms_c4 (a subset of AP214)");
 
+// Constructors
+cls_TopoDSToStep.def(py::init<>());
+
 // Methods
 // cls_TopoDSToStep.def_static("operator new_", (void * (*)(size_t)) &TopoDSToStep::operator new, "None", py::arg("theSize"));
 // cls_TopoDSToStep.def_static("operator delete_", (void (*)(void *)) &TopoDSToStep::operator delete, "None", py::arg("theAddress"));
@@ -175,6 +178,9 @@ cls_TopoDSToStep_Builder.def("Value", (const opencascade::handle<StepShape_Topol
 
 // CLASS: TOPODSTOSTEP_FACETEDTOOL
 py::class_<TopoDSToStep_FacetedTool> cls_TopoDSToStep_FacetedTool(mod, "TopoDSToStep_FacetedTool", "This Tool Class provides Information about Faceted Shapes to be mapped to STEP.");
+
+// Constructors
+cls_TopoDSToStep_FacetedTool.def(py::init<>());
 
 // Methods
 // cls_TopoDSToStep_FacetedTool.def_static("operator new_", (void * (*)(size_t)) &TopoDSToStep_FacetedTool::operator new, "None", py::arg("theSize"));

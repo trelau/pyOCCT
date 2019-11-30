@@ -164,6 +164,9 @@ bind_NCollection_TListIterator<BOPTools_CoupleOfShape>(mod, "BOPTools_ListIterat
 // CLASS: BOPTOOLS_ALGOTOOLS
 py::class_<BOPTools_AlgoTools> cls_BOPTools_AlgoTools(mod, "BOPTools_AlgoTools", "Provides tools used in Boolean Operations algorithm: - Vertices intersection; - Vertex construction; - Edge construction; - Classification algorithms; - Making connexity blocks; - Shape validation.");
 
+// Constructors
+cls_BOPTools_AlgoTools.def(py::init<>());
+
 // Methods
 // cls_BOPTools_AlgoTools.def_static("operator new_", (void * (*)(size_t)) &BOPTools_AlgoTools::operator new, "None", py::arg("theSize"));
 // cls_BOPTools_AlgoTools.def_static("operator delete_", (void (*)(void *)) &BOPTools_AlgoTools::operator delete, "None", py::arg("theAddress"));
@@ -240,6 +243,9 @@ cls_BOPTools_AlgoTools.def_static("IsOpenShell_", (Standard_Boolean (*)(const To
 // CLASS: BOPTOOLS_ALGOTOOLS2D
 py::class_<BOPTools_AlgoTools2D> cls_BOPTools_AlgoTools2D(mod, "BOPTools_AlgoTools2D", "The class contains handy static functions dealing with the topology This is the copy of the BOPTools_AlgoTools2D.cdl");
 
+// Constructors
+cls_BOPTools_AlgoTools2D.def(py::init<>());
+
 // Methods
 // cls_BOPTools_AlgoTools2D.def_static("operator new_", (void * (*)(size_t)) &BOPTools_AlgoTools2D::operator new, "None", py::arg("theSize"));
 // cls_BOPTools_AlgoTools2D.def_static("operator delete_", (void (*)(void *)) &BOPTools_AlgoTools2D::operator delete, "None", py::arg("theAddress"));
@@ -270,6 +276,9 @@ cls_BOPTools_AlgoTools2D.def_static("IsEdgeIsoline_", [](const TopoDS_Edge & the
 
 // CLASS: BOPTOOLS_ALGOTOOLS3D
 py::class_<BOPTools_AlgoTools3D> cls_BOPTools_AlgoTools3D(mod, "BOPTools_AlgoTools3D", "The class contains handy static functions dealing with the topology This is the copy of BOPTools_AlgoTools3D.cdl file");
+
+// Constructors
+cls_BOPTools_AlgoTools3D.def(py::init<>());
 
 // Methods
 // cls_BOPTools_AlgoTools3D.def_static("operator new_", (void * (*)(size_t)) &BOPTools_AlgoTools3D::operator new, "None", py::arg("theSize"));
@@ -325,6 +334,9 @@ cls_BOPTools_Set.def("HashCode", (Standard_Integer (BOPTools_Set::*)(Standard_In
 // CLASS: BOPTOOLS_SETMAPHASHER
 py::class_<BOPTools_SetMapHasher> cls_BOPTools_SetMapHasher(mod, "BOPTools_SetMapHasher", "None");
 
+// Constructors
+cls_BOPTools_SetMapHasher.def(py::init<>());
+
 // Methods
 // cls_BOPTools_SetMapHasher.def_static("operator new_", (void * (*)(size_t)) &BOPTools_SetMapHasher::operator new, "None", py::arg("theSize"));
 // cls_BOPTools_SetMapHasher.def_static("operator delete_", (void (*)(void *)) &BOPTools_SetMapHasher::operator delete, "None", py::arg("theAddress"));
@@ -345,6 +357,9 @@ bind_NCollection_Map<BOPTools_Set, BOPTools_SetMapHasher>(mod, "BOPTools_MapOfSe
 
 // CLASS: BOPTOOLS_PARALLEL
 py::class_<BOPTools_Parallel> cls_BOPTools_Parallel(mod, "BOPTools_Parallel", "Implementation of Functors/Starters");
+
+// Constructors
+cls_BOPTools_Parallel.def(py::init<>());
 
 
 }

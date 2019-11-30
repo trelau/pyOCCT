@@ -330,6 +330,9 @@ cls_HLRBRep_Algo.def("DynamicType", (const opencascade::handle<Standard_Type> & 
 // CLASS: HLRBREP
 py::class_<HLRBRep> cls_HLRBRep(mod, "HLRBRep", "Hidden Lines Removal algorithms on the BRep DataStructure.");
 
+// Constructors
+cls_HLRBRep.def(py::init<>());
+
 // Methods
 // cls_HLRBRep.def_static("operator new_", (void * (*)(size_t)) &HLRBRep::operator new, "None", py::arg("theSize"));
 // cls_HLRBRep.def_static("operator delete_", (void (*)(void *)) &HLRBRep::operator delete, "None", py::arg("theAddress"));
@@ -428,6 +431,9 @@ cls_HLRBRep_Curve.def("Multiplicities", (void (HLRBRep_Curve::*)(TColStd_Array1O
 
 // CLASS: HLRBREP_BCURVETOOL
 py::class_<HLRBRep_BCurveTool> cls_HLRBRep_BCurveTool(mod, "HLRBRep_BCurveTool", "None");
+
+// Constructors
+cls_HLRBRep_BCurveTool.def(py::init<>());
 
 // Methods
 // cls_HLRBRep_BCurveTool.def_static("operator new_", (void * (*)(size_t)) &HLRBRep_BCurveTool::operator new, "None", py::arg("theSize"));
@@ -580,6 +586,9 @@ cls_HLRBRep_Surface.def("Axis", (gp_Ax1 (HLRBRep_Surface::*)() const) &HLRBRep_S
 
 // CLASS: HLRBREP_BSURFACETOOL
 py::class_<HLRBRep_BSurfaceTool> cls_HLRBRep_BSurfaceTool(mod, "HLRBRep_BSurfaceTool", "None");
+
+// Constructors
+cls_HLRBRep_BSurfaceTool.def(py::init<>());
 
 // Methods
 // cls_HLRBRep_BSurfaceTool.def_static("operator new_", (void * (*)(size_t)) &HLRBRep_BSurfaceTool::operator new, "None", py::arg("theSize"));
@@ -867,6 +876,9 @@ cls_HLRBRep_CLProps.def("CentreOfCurvature", (void (HLRBRep_CLProps::*)(gp_Pnt2d
 // CLASS: HLRBREP_CLPROPSATOOL
 py::class_<HLRBRep_CLPropsATool> cls_HLRBRep_CLPropsATool(mod, "HLRBRep_CLPropsATool", "None");
 
+// Constructors
+cls_HLRBRep_CLPropsATool.def(py::init<>());
+
 // Methods
 // cls_HLRBRep_CLPropsATool.def_static("operator new_", (void * (*)(size_t)) &HLRBRep_CLPropsATool::operator new, "None", py::arg("theSize"));
 // cls_HLRBRep_CLPropsATool.def_static("operator delete_", (void (*)(void *)) &HLRBRep_CLPropsATool::operator delete, "None", py::arg("theAddress"));
@@ -884,6 +896,9 @@ cls_HLRBRep_CLPropsATool.def_static("LastParameter_", (Standard_Real (*)(const H
 
 // CLASS: HLRBREP_CURVETOOL
 py::class_<HLRBRep_CurveTool> cls_HLRBRep_CurveTool(mod, "HLRBRep_CurveTool", "None");
+
+// Constructors
+cls_HLRBRep_CurveTool.def(py::init<>());
 
 // Methods
 // cls_HLRBRep_CurveTool.def_static("operator new_", (void * (*)(size_t)) &HLRBRep_CurveTool::operator new, "None", py::arg("theSize"));
@@ -1114,6 +1129,9 @@ cls_HLRBRep_EdgeBuilder.def("Destroy", (void (HLRBRep_EdgeBuilder::*)()) &HLRBRe
 // CLASS: HLRBREP_EDGEFACETOOL
 py::class_<HLRBRep_EdgeFaceTool> cls_HLRBRep_EdgeFaceTool(mod, "HLRBRep_EdgeFaceTool", "The EdgeFaceTool computes the UV coordinates at a given parameter on a Curve and a Surface. It also compute the signed curvature value in a direction at a given u,v point on a surface.");
 
+// Constructors
+cls_HLRBRep_EdgeFaceTool.def(py::init<>());
+
 // Methods
 // cls_HLRBRep_EdgeFaceTool.def_static("operator new_", (void * (*)(size_t)) &HLRBRep_EdgeFaceTool::operator new, "None", py::arg("theSize"));
 // cls_HLRBRep_EdgeFaceTool.def_static("operator delete_", (void (*)(void *)) &HLRBRep_EdgeFaceTool::operator delete, "None", py::arg("theAddress"));
@@ -1126,6 +1144,9 @@ cls_HLRBRep_EdgeFaceTool.def_static("UVPoint_", [](const Standard_Real Par, cons
 
 // CLASS: HLRBREP_EDGEILIST
 py::class_<HLRBRep_EdgeIList> cls_HLRBRep_EdgeIList(mod, "HLRBRep_EdgeIList", "None");
+
+// Constructors
+cls_HLRBRep_EdgeIList.def(py::init<>());
 
 // Methods
 // cls_HLRBRep_EdgeIList.def_static("operator new_", (void * (*)(size_t)) &HLRBRep_EdgeIList::operator new, "None", py::arg("theSize"));
@@ -1281,6 +1302,9 @@ cls_HLRBRep_IntConicCurveOfCInter.def("Perform", (void (HLRBRep_IntConicCurveOfC
 
 // CLASS: HLRBREP_LINETOOL
 py::class_<HLRBRep_LineTool> cls_HLRBRep_LineTool(mod, "HLRBRep_LineTool", "The LineTool class provides class methods to access the methodes of the Line.");
+
+// Constructors
+cls_HLRBRep_LineTool.def(py::init<>());
 
 // Methods
 // cls_HLRBRep_LineTool.def_static("operator new_", (void * (*)(size_t)) &HLRBRep_LineTool::operator new, "None", py::arg("theSize"));
@@ -1456,6 +1480,9 @@ cls_HLRBRep_PolyHLRToShape.def("OutLineHCompound", (TopoDS_Shape (HLRBRep_PolyHL
 // CLASS: HLRBREP_SHAPETOHLR
 py::class_<HLRBRep_ShapeToHLR> cls_HLRBRep_ShapeToHLR(mod, "HLRBRep_ShapeToHLR", "compute the OutLinedShape of a Shape with an OutLiner, a Projector and create the Data Structure of a Shape.");
 
+// Constructors
+cls_HLRBRep_ShapeToHLR.def(py::init<>());
+
 // Methods
 // cls_HLRBRep_ShapeToHLR.def_static("operator new_", (void * (*)(size_t)) &HLRBRep_ShapeToHLR::operator new, "None", py::arg("theSize"));
 // cls_HLRBRep_ShapeToHLR.def_static("operator delete_", (void (*)(void *)) &HLRBRep_ShapeToHLR::operator delete, "None", py::arg("theAddress"));
@@ -1468,6 +1495,9 @@ cls_HLRBRep_ShapeToHLR.def_static("Load_", (opencascade::handle<HLRBRep_Data> (*
 
 // CLASS: HLRBREP_SLPROPSATOOL
 py::class_<HLRBRep_SLPropsATool> cls_HLRBRep_SLPropsATool(mod, "HLRBRep_SLPropsATool", "None");
+
+// Constructors
+cls_HLRBRep_SLPropsATool.def(py::init<>());
 
 // Methods
 // cls_HLRBRep_SLPropsATool.def_static("operator new_", (void * (*)(size_t)) &HLRBRep_SLPropsATool::operator new, "None", py::arg("theSize"));
@@ -1485,6 +1515,9 @@ cls_HLRBRep_SLPropsATool.def_static("Bounds_", [](const Standard_Address A, Stan
 
 // CLASS: HLRBREP_SURFACETOOL
 py::class_<HLRBRep_SurfaceTool> cls_HLRBRep_SurfaceTool(mod, "HLRBRep_SurfaceTool", "None");
+
+// Constructors
+cls_HLRBRep_SurfaceTool.def(py::init<>());
 
 // Methods
 // cls_HLRBRep_SurfaceTool.def_static("operator new_", (void * (*)(size_t)) &HLRBRep_SurfaceTool::operator new, "None", py::arg("theSize"));
@@ -1560,6 +1593,9 @@ cls_HLRBRep_TheCSFunctionOfInterCSurf.def("AuxillarCurve", (const gp_Lin & (HLRB
 
 // CLASS: HLRBREP_THECURVELOCATOROFTHEPROJPCUROFCINTER
 py::class_<HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter> cls_HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter(mod, "HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter", "None");
+
+// Constructors
+cls_HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter.def(py::init<>());
 
 // Methods
 // cls_HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter.def_static("operator new_", (void * (*)(size_t)) &HLRBRep_TheCurveLocatorOfTheProjPCurOfCInter::operator new, "None", py::arg("theSize"));
@@ -1703,6 +1739,9 @@ cls_HLRBRep_ThePolygonOfInterCSurf.def("Dump", (void (HLRBRep_ThePolygonOfInterC
 // CLASS: HLRBREP_THEPOLYGONTOOLOFINTERCSURF
 py::class_<HLRBRep_ThePolygonToolOfInterCSurf> cls_HLRBRep_ThePolygonToolOfInterCSurf(mod, "HLRBRep_ThePolygonToolOfInterCSurf", "None");
 
+// Constructors
+cls_HLRBRep_ThePolygonToolOfInterCSurf.def(py::init<>());
+
 // Methods
 // cls_HLRBRep_ThePolygonToolOfInterCSurf.def_static("operator new_", (void * (*)(size_t)) &HLRBRep_ThePolygonToolOfInterCSurf::operator new, "None", py::arg("theSize"));
 // cls_HLRBRep_ThePolygonToolOfInterCSurf.def_static("operator delete_", (void (*)(void *)) &HLRBRep_ThePolygonToolOfInterCSurf::operator delete, "None", py::arg("theAddress"));
@@ -1766,6 +1805,9 @@ cls_HLRBRep_ThePolyhedronOfInterCSurf.def("Dump", (void (HLRBRep_ThePolyhedronOf
 // CLASS: HLRBREP_THEPOLYHEDRONTOOLOFINTERCSURF
 py::class_<HLRBRep_ThePolyhedronToolOfInterCSurf> cls_HLRBRep_ThePolyhedronToolOfInterCSurf(mod, "HLRBRep_ThePolyhedronToolOfInterCSurf", "None");
 
+// Constructors
+cls_HLRBRep_ThePolyhedronToolOfInterCSurf.def(py::init<>());
+
 // Methods
 // cls_HLRBRep_ThePolyhedronToolOfInterCSurf.def_static("operator new_", (void * (*)(size_t)) &HLRBRep_ThePolyhedronToolOfInterCSurf::operator new, "None", py::arg("theSize"));
 // cls_HLRBRep_ThePolyhedronToolOfInterCSurf.def_static("operator delete_", (void (*)(void *)) &HLRBRep_ThePolyhedronToolOfInterCSurf::operator delete, "None", py::arg("theAddress"));
@@ -1786,6 +1828,9 @@ cls_HLRBRep_ThePolyhedronToolOfInterCSurf.def_static("Dump_", (void (*)(const HL
 
 // CLASS: HLRBREP_THEPROJPCUROFCINTER
 py::class_<HLRBRep_TheProjPCurOfCInter> cls_HLRBRep_TheProjPCurOfCInter(mod, "HLRBRep_TheProjPCurOfCInter", "None");
+
+// Constructors
+cls_HLRBRep_TheProjPCurOfCInter.def(py::init<>());
 
 // Methods
 // cls_HLRBRep_TheProjPCurOfCInter.def_static("operator new_", (void * (*)(size_t)) &HLRBRep_TheProjPCurOfCInter::operator new, "None", py::arg("theSize"));

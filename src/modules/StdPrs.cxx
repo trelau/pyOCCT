@@ -129,6 +129,9 @@ py::enum_<StdPrs_Volume>(mod, "StdPrs_Volume", "defines the way how to interpret
 // CLASS: STDPRS_BNDBOX
 py::class_<StdPrs_BndBox, Prs3d_Root> cls_StdPrs_BndBox(mod, "StdPrs_BndBox", "Tool for computing bounding box presentation.");
 
+// Constructors
+cls_StdPrs_BndBox.def(py::init<>());
+
 // Methods
 cls_StdPrs_BndBox.def_static("Add_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const Bnd_Box &, const opencascade::handle<Prs3d_Drawer> &)) &StdPrs_BndBox::Add, "Computes presentation of a bounding box.", py::arg("thePresentation"), py::arg("theBndBox"), py::arg("theDrawer"));
 cls_StdPrs_BndBox.def_static("Add_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const Bnd_OBB &, const opencascade::handle<Prs3d_Drawer> &)) &StdPrs_BndBox::Add, "Computes presentation of a bounding box.", py::arg("thePresentation"), py::arg("theBndBox"), py::arg("theDrawer"));
@@ -140,6 +143,9 @@ cls_StdPrs_BndBox.def_static("fillSegments_", (void (*)(const opencascade::handl
 
 // CLASS: STDPRS_CURVE
 py::class_<StdPrs_Curve, Prs3d_Root> cls_StdPrs_Curve(mod, "StdPrs_Curve", "A framework to define display of lines, arcs of circles and conic sections. This is done with a fixed number of points, which can be modified.");
+
+// Constructors
+cls_StdPrs_Curve.def(py::init<>());
 
 // Methods
 // cls_StdPrs_Curve.def_static("operator new_", (void * (*)(size_t)) &StdPrs_Curve::operator new, "None", py::arg("theSize"));
@@ -164,6 +170,9 @@ cls_StdPrs_Curve.def_static("Match_", (Standard_Boolean (*)(const Standard_Real,
 
 // CLASS: STDPRS_DEFLECTIONCURVE
 py::class_<StdPrs_DeflectionCurve, Prs3d_Root> cls_StdPrs_DeflectionCurve(mod, "StdPrs_DeflectionCurve", "A framework to provide display of any curve with respect to the maximal chordal deviation defined in the Prs3d_Drawer attributes manager.");
+
+// Constructors
+cls_StdPrs_DeflectionCurve.def(py::init<>());
 
 // Methods
 // cls_StdPrs_DeflectionCurve.def_static("operator new_", (void * (*)(size_t)) &StdPrs_DeflectionCurve::operator new, "None", py::arg("theSize"));
@@ -192,6 +201,9 @@ cls_StdPrs_DeflectionCurve.def_static("Match_", (Standard_Boolean (*)(const Stan
 // CLASS: STDPRS_HLRPOLYSHAPE
 py::class_<StdPrs_HLRPolyShape, Prs3d_Root> cls_StdPrs_HLRPolyShape(mod, "StdPrs_HLRPolyShape", "Instantiates Prs3d_PolyHLRShape to define a display of a shape where hidden and visible lines are identified with respect to a given projection. StdPrs_HLRPolyShape works with a polyhedral simplification of the shape whereas StdPrs_HLRShape takes the shape itself into account. When you use StdPrs_HLRShape, you obtain an exact result, whereas, when you use StdPrs_HLRPolyShape, you reduce computation time but obtain polygonal segments. The polygonal algorithm is used.");
 
+// Constructors
+cls_StdPrs_HLRPolyShape.def(py::init<>());
+
 // Methods
 // cls_StdPrs_HLRPolyShape.def_static("operator new_", (void * (*)(size_t)) &StdPrs_HLRPolyShape::operator new, "None", py::arg("theSize"));
 // cls_StdPrs_HLRPolyShape.def_static("operator delete_", (void (*)(void *)) &StdPrs_HLRPolyShape::operator delete, "None", py::arg("theAddress"));
@@ -203,6 +215,9 @@ cls_StdPrs_HLRPolyShape.def_static("Add_", (void (*)(const opencascade::handle<P
 
 // CLASS: STDPRS_HLRSHAPE
 py::class_<StdPrs_HLRShape, Prs3d_Root> cls_StdPrs_HLRShape(mod, "StdPrs_HLRShape", "None");
+
+// Constructors
+cls_StdPrs_HLRShape.def(py::init<>());
 
 // Methods
 // cls_StdPrs_HLRShape.def_static("operator new_", (void * (*)(size_t)) &StdPrs_HLRShape::operator new, "None", py::arg("theSize"));
@@ -239,6 +254,9 @@ cls_StdPrs_HLRToolShape.def("Hidden", [](StdPrs_HLRToolShape &self, BRepAdaptor_
 // CLASS: STDPRS_TOOLTRIANGULATEDSHAPE
 py::class_<StdPrs_ToolTriangulatedShape> cls_StdPrs_ToolTriangulatedShape(mod, "StdPrs_ToolTriangulatedShape", "None");
 
+// Constructors
+cls_StdPrs_ToolTriangulatedShape.def(py::init<>());
+
 // Methods
 cls_StdPrs_ToolTriangulatedShape.def_static("IsTriangulated_", (Standard_Boolean (*)(const TopoDS_Shape &)) &StdPrs_ToolTriangulatedShape::IsTriangulated, "Similar to BRepTools::Triangulation() but without extra checks.", py::arg("theShape"));
 cls_StdPrs_ToolTriangulatedShape.def_static("IsClosed_", (Standard_Boolean (*)(const TopoDS_Shape &)) &StdPrs_ToolTriangulatedShape::IsClosed, "Checks back faces visibility for specified shape (to activate back-face culling).", py::arg("theShape"));
@@ -251,6 +269,9 @@ cls_StdPrs_ToolTriangulatedShape.def_static("ClearOnOwnDeflectionChange_", (void
 
 // CLASS: STDPRS_ISOLINES
 py::class_<StdPrs_Isolines, Prs3d_Root> cls_StdPrs_Isolines(mod, "StdPrs_Isolines", "Tool for computing isoline representation for a face or surface. Depending on a flags set to the given Prs3d_Drawer instance, on-surface (is used by default) or on-triangulation isoline builder algorithm will be used. If the given shape is not triangulated, on-surface isoline builder will be applied regardless of Prs3d_Drawer flags.");
+
+// Constructors
+cls_StdPrs_Isolines.def(py::init<>());
 
 // Methods
 cls_StdPrs_Isolines.def_static("Add_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const TopoDS_Face &, const opencascade::handle<Prs3d_Drawer> &, const Standard_Real)) &StdPrs_Isolines::Add, "Computes isolines presentation for a TopoDS face. This method chooses proper version of isoline builder algorithm : on triangulation or surface depending on the flag passed from Prs3d_Drawer attributes. This method is a default way to display isolines for a given TopoDS face.", py::arg("thePresentation"), py::arg("theFace"), py::arg("theDrawer"), py::arg("theDeflection"));
@@ -266,6 +287,9 @@ cls_StdPrs_Isolines.def_static("UVIsoParameters_", [](const TopoDS_Face & theFac
 // CLASS: STDPRS_PLANE
 py::class_<StdPrs_Plane, Prs3d_Root> cls_StdPrs_Plane(mod, "StdPrs_Plane", "A framework to display infinite planes.");
 
+// Constructors
+cls_StdPrs_Plane.def(py::init<>());
+
 // Methods
 // cls_StdPrs_Plane.def_static("operator new_", (void * (*)(size_t)) &StdPrs_Plane::operator new, "None", py::arg("theSize"));
 // cls_StdPrs_Plane.def_static("operator delete_", (void (*)(void *)) &StdPrs_Plane::operator delete, "None", py::arg("theAddress"));
@@ -278,6 +302,9 @@ cls_StdPrs_Plane.def_static("Match_", (Standard_Boolean (*)(const Standard_Real,
 
 // CLASS: STDPRS_TOOLPOINT
 py::class_<StdPrs_ToolPoint> cls_StdPrs_ToolPoint(mod, "StdPrs_ToolPoint", "None");
+
+// Constructors
+cls_StdPrs_ToolPoint.def(py::init<>());
 
 // Methods
 // cls_StdPrs_ToolPoint.def_static("operator new_", (void * (*)(size_t)) &StdPrs_ToolPoint::operator new, "None", py::arg("theSize"));
@@ -294,6 +321,9 @@ bind_Prs3d_Point<opencascade::handle<Geom_Point>, StdPrs_ToolPoint>(mod, "StdPrs
 // CLASS: STDPRS_POLECURVE
 py::class_<StdPrs_PoleCurve, Prs3d_Root> cls_StdPrs_PoleCurve(mod, "StdPrs_PoleCurve", "A framework to provide display of Bezier or BSpline curves (by drawing a broken line linking the poles of the curve).");
 
+// Constructors
+cls_StdPrs_PoleCurve.def(py::init<>());
+
 // Methods
 // cls_StdPrs_PoleCurve.def_static("operator new_", (void * (*)(size_t)) &StdPrs_PoleCurve::operator new, "None", py::arg("theSize"));
 // cls_StdPrs_PoleCurve.def_static("operator delete_", (void (*)(void *)) &StdPrs_PoleCurve::operator delete, "None", py::arg("theAddress"));
@@ -307,6 +337,9 @@ cls_StdPrs_PoleCurve.def_static("Pick_", (Standard_Integer (*)(const Standard_Re
 
 // CLASS: STDPRS_SHADEDSHAPE
 py::class_<StdPrs_ShadedShape, Prs3d_Root> cls_StdPrs_ShadedShape(mod, "StdPrs_ShadedShape", "Auxiliary procedures to prepare Shaded presentation of specified shape.");
+
+// Constructors
+cls_StdPrs_ShadedShape.def(py::init<>());
 
 // Methods
 cls_StdPrs_ShadedShape.def_static("Add_", [](const opencascade::handle<Prs3d_Presentation> & a0, const TopoDS_Shape & a1, const opencascade::handle<Prs3d_Drawer> & a2) -> void { return StdPrs_ShadedShape::Add(a0, a1, a2); });
@@ -323,6 +356,9 @@ cls_StdPrs_ShadedShape.def_static("FillFaceBoundaries_", (opencascade::handle<Gr
 
 // CLASS: STDPRS_SHADEDSURFACE
 py::class_<StdPrs_ShadedSurface, Prs3d_Root> cls_StdPrs_ShadedSurface(mod, "StdPrs_ShadedSurface", "Computes the shading presentation of surfaces. Draws a surface by drawing the isoparametric curves with respect to a maximal chordial deviation. The number of isoparametric curves to be drawn and their color are controlled by the furnished Drawer.");
+
+// Constructors
+cls_StdPrs_ShadedSurface.def(py::init<>());
 
 // Methods
 // cls_StdPrs_ShadedSurface.def_static("operator new_", (void * (*)(size_t)) &StdPrs_ShadedSurface::operator new, "None", py::arg("theSize"));
@@ -358,6 +394,9 @@ cls_StdPrs_ToolRFace.def("IsInvalidGeometry", (Standard_Boolean (StdPrs_ToolRFac
 // CLASS: STDPRS_TOOLVERTEX
 py::class_<StdPrs_ToolVertex> cls_StdPrs_ToolVertex(mod, "StdPrs_ToolVertex", "None");
 
+// Constructors
+cls_StdPrs_ToolVertex.def(py::init<>());
+
 // Methods
 // cls_StdPrs_ToolVertex.def_static("operator new_", (void * (*)(size_t)) &StdPrs_ToolVertex::operator new, "None", py::arg("theSize"));
 // cls_StdPrs_ToolVertex.def_static("operator delete_", (void (*)(void *)) &StdPrs_ToolVertex::operator delete, "None", py::arg("theAddress"));
@@ -372,6 +411,9 @@ bind_Prs3d_Point<TopoDS_Vertex, StdPrs_ToolVertex>(mod, "StdPrs_Vertex", py::mod
 
 // CLASS: STDPRS_WFDEFLECTIONRESTRICTEDFACE
 py::class_<StdPrs_WFDeflectionRestrictedFace, Prs3d_Root> cls_StdPrs_WFDeflectionRestrictedFace(mod, "StdPrs_WFDeflectionRestrictedFace", "A framework to provide display of U and V isoparameters of faces, while allowing you to impose a deflection on them. Computes the wireframe presentation of faces with restrictions by displaying a given number of U and/or V isoparametric curves. The isoparametric curves are drawn with respect to a maximal chordial deviation. The presentation includes the restriction curves.");
+
+// Constructors
+cls_StdPrs_WFDeflectionRestrictedFace.def(py::init<>());
 
 // Methods
 // cls_StdPrs_WFDeflectionRestrictedFace.def_static("operator new_", (void * (*)(size_t)) &StdPrs_WFDeflectionRestrictedFace::operator new, "None", py::arg("theSize"));
@@ -392,6 +434,9 @@ cls_StdPrs_WFDeflectionRestrictedFace.def_static("Match_", (Standard_Boolean (*)
 // CLASS: STDPRS_WFDEFLECTIONSURFACE
 py::class_<StdPrs_WFDeflectionSurface, Prs3d_Root> cls_StdPrs_WFDeflectionSurface(mod, "StdPrs_WFDeflectionSurface", "Draws a surface by drawing the isoparametric curves with respect to a maximal chordial deviation. The number of isoparametric curves to be drawn and their color are controlled by the furnished Drawer.");
 
+// Constructors
+cls_StdPrs_WFDeflectionSurface.def(py::init<>());
+
 // Methods
 // cls_StdPrs_WFDeflectionSurface.def_static("operator new_", (void * (*)(size_t)) &StdPrs_WFDeflectionSurface::operator new, "None", py::arg("theSize"));
 // cls_StdPrs_WFDeflectionSurface.def_static("operator delete_", (void (*)(void *)) &StdPrs_WFDeflectionSurface::operator delete, "None", py::arg("theAddress"));
@@ -404,6 +449,9 @@ cls_StdPrs_WFDeflectionSurface.def_static("Add_", (void (*)(const opencascade::h
 // CLASS: STDPRS_WFPOLESURFACE
 py::class_<StdPrs_WFPoleSurface, Prs3d_Root> cls_StdPrs_WFPoleSurface(mod, "StdPrs_WFPoleSurface", "Computes the presentation of surfaces by drawing a double network of lines linking the poles of the surface in the two parametric direction. The number of lines to be drawn is controlled by the NetworkNumber of the given Drawer.");
 
+// Constructors
+cls_StdPrs_WFPoleSurface.def(py::init<>());
+
 // Methods
 // cls_StdPrs_WFPoleSurface.def_static("operator new_", (void * (*)(size_t)) &StdPrs_WFPoleSurface::operator new, "None", py::arg("theSize"));
 // cls_StdPrs_WFPoleSurface.def_static("operator delete_", (void (*)(void *)) &StdPrs_WFPoleSurface::operator delete, "None", py::arg("theAddress"));
@@ -415,6 +463,9 @@ cls_StdPrs_WFPoleSurface.def_static("Add_", (void (*)(const opencascade::handle<
 
 // CLASS: STDPRS_WFRESTRICTEDFACE
 py::class_<StdPrs_WFRestrictedFace, Prs3d_Root> cls_StdPrs_WFRestrictedFace(mod, "StdPrs_WFRestrictedFace", "None");
+
+// Constructors
+cls_StdPrs_WFRestrictedFace.def(py::init<>());
 
 // Methods
 // cls_StdPrs_WFRestrictedFace.def_static("operator new_", (void * (*)(size_t)) &StdPrs_WFRestrictedFace::operator new, "None", py::arg("theSize"));
@@ -435,6 +486,9 @@ cls_StdPrs_WFRestrictedFace.def_static("AddVIso_", (void (*)(const opencascade::
 // CLASS: STDPRS_WFSHAPE
 py::class_<StdPrs_WFShape, Prs3d_Root> cls_StdPrs_WFShape(mod, "StdPrs_WFShape", "Tool for computing wireframe presentation of a TopoDS_Shape.");
 
+// Constructors
+cls_StdPrs_WFShape.def(py::init<>());
+
 // Methods
 cls_StdPrs_WFShape.def_static("Add_", [](const opencascade::handle<Prs3d_Presentation> & a0, const TopoDS_Shape & a1, const opencascade::handle<Prs3d_Drawer> & a2) -> void { return StdPrs_WFShape::Add(a0, a1, a2); });
 cls_StdPrs_WFShape.def_static("Add_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const TopoDS_Shape &, const opencascade::handle<Prs3d_Drawer> &, Standard_Boolean)) &StdPrs_WFShape::Add, "Computes wireframe presentation of a shape.", py::arg("thePresentation"), py::arg("theShape"), py::arg("theDrawer"), py::arg("theIsParallel"));
@@ -447,6 +501,9 @@ cls_StdPrs_WFShape.def_static("AddVertexes_", (opencascade::handle<Graphic3d_Arr
 
 // CLASS: STDPRS_WFSURFACE
 py::class_<StdPrs_WFSurface, Prs3d_Root> cls_StdPrs_WFSurface(mod, "StdPrs_WFSurface", "Computes the wireframe presentation of surfaces by displaying a given number of U and/or V isoparametric curves. The isoparametric curves are drawn with respect to a given number of points.");
+
+// Constructors
+cls_StdPrs_WFSurface.def(py::init<>());
 
 // Methods
 // cls_StdPrs_WFSurface.def_static("operator new_", (void * (*)(size_t)) &StdPrs_WFSurface::operator new, "None", py::arg("theSize"));

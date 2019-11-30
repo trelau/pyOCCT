@@ -195,6 +195,9 @@ cls_gp_XY.def("__sub__", (gp_XY (gp_XY::*)(const gp_XY &) const) &gp_XY::operato
 // CLASS: GP
 py::class_<gp> cls_gp(mod, "gp", "The geometric processor package, called gp, provides an implementation of entities used : . for algebraic calculation such as 'XYZ' coordinates, 'Mat' matrix . for basis analytic geometry such as Transformations, point, vector, line, plane, axis placement, conics, and elementary surfaces. These entities are defined in 2d and 3d space. All the classes of this package are non-persistent.");
 
+// Constructors
+cls_gp.def(py::init<>());
+
 // Methods
 // cls_gp.def_static("operator new_", (void * (*)(size_t)) &gp::operator new, "None", py::arg("theSize"));
 // cls_gp.def_static("operator delete_", (void (*)(void *)) &gp::operator delete, "None", py::arg("theAddress"));

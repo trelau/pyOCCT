@@ -188,6 +188,9 @@ cls_IGESDimen_HArray1OfGeneralNote.def("DynamicType", (const opencascade::handle
 // CLASS: IGESDIMEN
 py::class_<IGESDimen> cls_IGESDimen(mod, "IGESDimen", "This package represents Entities applied to Dimensions ie. Annotation Entities and attached Properties and Associativities.");
 
+// Constructors
+cls_IGESDimen.def(py::init<>());
+
 // Methods
 // cls_IGESDimen.def_static("operator new_", (void * (*)(size_t)) &IGESDimen::operator new, "None", py::arg("theSize"));
 // cls_IGESDimen.def_static("operator delete_", (void (*)(void *)) &IGESDimen::operator delete, "None", py::arg("theAddress"));

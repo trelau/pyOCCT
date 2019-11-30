@@ -124,6 +124,9 @@ cls_GeomLib_CheckCurveOnSurface.def("MaxParameter", (Standard_Real (GeomLib_Chec
 // CLASS: GEOMLIB
 py::class_<GeomLib> cls_GeomLib(mod, "GeomLib", "Geom Library. This package provides an implementation of functions for basic computation on geometric entity from packages Geom and Geom2d.");
 
+// Constructors
+cls_GeomLib.def(py::init<>());
+
 // Methods
 // cls_GeomLib.def_static("operator new_", (void * (*)(size_t)) &GeomLib::operator new, "None", py::arg("theSize"));
 // cls_GeomLib.def_static("operator delete_", (void (*)(void *)) &GeomLib::operator delete, "None", py::arg("theAddress"));
@@ -301,6 +304,9 @@ cls_GeomLib_PolyFunc.def("Values", [](GeomLib_PolyFunc &self, const Standard_Rea
 
 // CLASS: GEOMLIB_TOOL
 py::class_<GeomLib_Tool> cls_GeomLib_Tool(mod, "GeomLib_Tool", "Provides various methods with Geom2d and Geom curves and surfaces. The methods of this class compute the parameter(s) of a given point on a curve or a surface. To get the valid result the point must be located rather close to the curve (surface) or at least to allow getting unambiguous result (do not put point at center of circle...), but choice of 'trust' distance between curve/surface and point is responcibility of user (parameter MaxDist). Return FALSE if the point is beyond the MaxDist limit or if computation fails.");
+
+// Constructors
+cls_GeomLib_Tool.def(py::init<>());
 
 // Methods
 // cls_GeomLib_Tool.def_static("operator new_", (void * (*)(size_t)) &GeomLib_Tool::operator new, "None", py::arg("theSize"));

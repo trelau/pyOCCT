@@ -206,6 +206,9 @@ cls_TopoDS_Face.def(py::init<>());
 // CLASS: TOPODS
 py::class_<TopoDS> cls_TopoDS(mod, "TopoDS", "Provides methods to cast objects of class TopoDS_Shape to be onjects of more specialized sub-classes. Types are verified, thus in the example below, the first two blocks are correct but the third is rejected by the compiler.");
 
+// Constructors
+cls_TopoDS.def(py::init<>());
+
 // Methods
 // cls_TopoDS.def_static("operator new_", (void * (*)(size_t)) &TopoDS::operator new, "None", py::arg("theSize"));
 // cls_TopoDS.def_static("operator delete_", (void (*)(void *)) &TopoDS::operator delete, "None", py::arg("theAddress"));
@@ -274,6 +277,9 @@ cls_TopoDS_Wire.def(py::init<>());
 
 // CLASS: TOPODS_BUILDER
 py::class_<TopoDS_Builder> cls_TopoDS_Builder(mod, "TopoDS_Builder", "A Builder is used to create Topological Data Structures.It is the root of the Builder class hierarchy.");
+
+// Constructors
+cls_TopoDS_Builder.def(py::init<>());
 
 // Methods
 // cls_TopoDS_Builder.def_static("operator new_", (void * (*)(size_t)) &TopoDS_Builder::operator new, "None", py::arg("theSize"));

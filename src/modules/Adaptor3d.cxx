@@ -89,6 +89,9 @@ py::module::import("OCCT.math");
 // CLASS: ADAPTOR3D_CURVE
 py::class_<Adaptor3d_Curve> cls_Adaptor3d_Curve(mod, "Adaptor3d_Curve", "Root class for 3D curves on which geometric algorithms work. An adapted curve is an interface between the services provided by a curve and those required of the curve by algorithms which use it. Two derived concrete classes are provided: - GeomAdaptor_Curve for a curve from the Geom package - Adaptor3d_CurveOnSurface for a curve lying on a surface from the Geom package.");
 
+// Constructors
+cls_Adaptor3d_Curve.def(py::init<>());
+
 // Methods
 // cls_Adaptor3d_Curve.def_static("operator new_", (void * (*)(size_t)) &Adaptor3d_Curve::operator new, "None", py::arg("theSize"));
 // cls_Adaptor3d_Curve.def_static("operator delete_", (void (*)(void *)) &Adaptor3d_Curve::operator delete, "None", py::arg("theAddress"));
@@ -362,6 +365,9 @@ cls_Adaptor3d_HSurface.def("DynamicType", (const opencascade::handle<Standard_Ty
 // CLASS: ADAPTOR3D_SURFACE
 py::class_<Adaptor3d_Surface> cls_Adaptor3d_Surface(mod, "Adaptor3d_Surface", "Root class for surfaces on which geometric algorithms work. An adapted surface is an interface between the services provided by a surface and those required of the surface by algorithms which use it. A derived concrete class is provided: GeomAdaptor_Surface for a surface from the Geom package. The Surface class describes the standard behaviour of a surface for generic algorithms.");
 
+// Constructors
+cls_Adaptor3d_Surface.def(py::init<>());
+
 // Methods
 // cls_Adaptor3d_Surface.def_static("operator new_", (void * (*)(size_t)) &Adaptor3d_Surface::operator new, "None", py::arg("theSize"));
 // cls_Adaptor3d_Surface.def_static("operator delete_", (void (*)(void *)) &Adaptor3d_Surface::operator delete, "None", py::arg("theAddress"));
@@ -419,6 +425,9 @@ cls_Adaptor3d_Surface.def("OffsetValue", (Standard_Real (Adaptor3d_Surface::*)()
 
 // CLASS: ADAPTOR3D_HSURFACETOOL
 py::class_<Adaptor3d_HSurfaceTool> cls_Adaptor3d_HSurfaceTool(mod, "Adaptor3d_HSurfaceTool", "None");
+
+// Constructors
+cls_Adaptor3d_HSurfaceTool.def(py::init<>());
 
 // Methods
 // cls_Adaptor3d_HSurfaceTool.def_static("operator new_", (void * (*)(size_t)) &Adaptor3d_HSurfaceTool::operator new, "None", py::arg("theSize"));

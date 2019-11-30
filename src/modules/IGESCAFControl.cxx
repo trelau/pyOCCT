@@ -56,6 +56,9 @@ py::module::import("OCCT.TopTools");
 // CLASS: IGESCAFCONTROL
 py::class_<IGESCAFControl> cls_IGESCAFControl(mod, "IGESCAFControl", "Provides high-level API to translate IGES file to and from DECAF document");
 
+// Constructors
+cls_IGESCAFControl.def(py::init<>());
+
 // Methods
 // cls_IGESCAFControl.def_static("operator new_", (void * (*)(size_t)) &IGESCAFControl::operator new, "None", py::arg("theSize"));
 // cls_IGESCAFControl.def_static("operator delete_", (void (*)(void *)) &IGESCAFControl::operator delete, "None", py::arg("theAddress"));

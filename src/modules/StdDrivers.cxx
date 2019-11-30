@@ -41,6 +41,9 @@ py::module::import("OCCT.StdLDrivers");
 // CLASS: STDDRIVERS
 py::class_<StdDrivers> cls_StdDrivers(mod, "StdDrivers", "None");
 
+// Constructors
+cls_StdDrivers.def(py::init<>());
+
 // Methods
 cls_StdDrivers.def_static("Factory_", (opencascade::handle<Standard_Transient> (*)(const Standard_GUID &)) &StdDrivers::Factory, "Depending from the ID, returns a list of storage or retrieval attribute drivers. Used for plugin", py::arg("aGUID"));
 cls_StdDrivers.def_static("DefineFormat_", (void (*)(const opencascade::handle<TDocStd_Application> &)) &StdDrivers::DefineFormat, "Defines format 'MDTV-Standard' and registers its retrieval driver in the specified application", py::arg("theApp"));
@@ -48,6 +51,9 @@ cls_StdDrivers.def_static("BindTypes_", (void (*)(StdObjMgt_MapOfInstantiators &
 
 // CLASS: STDDRIVERS_DOCUMENTRETRIEVALDRIVER
 py::class_<StdDrivers_DocumentRetrievalDriver, opencascade::handle<StdDrivers_DocumentRetrievalDriver>, StdLDrivers_DocumentRetrievalDriver> cls_StdDrivers_DocumentRetrievalDriver(mod, "StdDrivers_DocumentRetrievalDriver", "retrieval driver of a Part document");
+
+// Constructors
+cls_StdDrivers_DocumentRetrievalDriver.def(py::init<>());
 
 // Methods
 cls_StdDrivers_DocumentRetrievalDriver.def_static("get_type_name_", (const char * (*)()) &StdDrivers_DocumentRetrievalDriver::get_type_name, "None");

@@ -998,6 +998,9 @@ cls_TDataStd_NoteBook.def("DynamicType", (const opencascade::handle<Standard_Typ
 // CLASS: TDATASTD
 py::class_<TDataStd> cls_TDataStd(mod, "TDataStd", "This package defines standard attributes for modelling. These allow you to create and modify labels and attributes for many basic data types. Standard topological and visualization attributes have also been created. To find an attribute attached to a specific label, you use the GUID of the type of attribute you are looking for. To do this, first find this information using the method GetID as follows: Standard_GUID anID = MyAttributeClass::GetID(); Then, use the method Find for the label as follows: Standard_Boolean HasAttribute = aLabel.Find(anID,anAttribute); Note For information on the relations between this component of OCAF and the others, refer to the OCAF User's Guide.");
 
+// Constructors
+cls_TDataStd.def(py::init<>());
+
 // Methods
 // cls_TDataStd.def_static("operator new_", (void * (*)(size_t)) &TDataStd::operator new, "None", py::arg("theSize"));
 // cls_TDataStd.def_static("operator delete_", (void (*)(void *)) &TDataStd::operator delete, "None", py::arg("theAddress"));

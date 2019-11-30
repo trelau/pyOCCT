@@ -77,6 +77,9 @@ py::module::import("OCCT.Geom");
 // CLASS: GC_ROOT
 py::class_<GC_Root> cls_GC_Root(mod, "GC_Root", "This class implements the common services for all classes of gce which report error.");
 
+// Constructors
+cls_GC_Root.def(py::init<>());
+
 // Methods
 // cls_GC_Root.def_static("operator new_", (void * (*)(size_t)) &GC_Root::operator new, "None", py::arg("theSize"));
 // cls_GC_Root.def_static("operator delete_", (void (*)(void *)) &GC_Root::operator delete, "None", py::arg("theAddress"));

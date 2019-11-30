@@ -76,6 +76,9 @@ py::enum_<Image_Format>(mod, "Image_Format", "This enumeration defines packed im
 // CLASS: IMAGE_COLORRGB
 py::class_<Image_ColorRGB> cls_Image_ColorRGB(mod, "Image_ColorRGB", "POD structure for packed RGB color value (3 bytes)");
 
+// Constructors
+cls_Image_ColorRGB.def(py::init<>());
+
 // Fields
 // cls_Image_ColorRGB.def_readwrite("v", &Image_ColorRGB::v, "None");
 
@@ -90,6 +93,9 @@ cls_Image_ColorRGB.def("b", (Standard_Byte & (Image_ColorRGB::*)()) &Image_Color
 
 // CLASS: IMAGE_COLORRGB32
 py::class_<Image_ColorRGB32> cls_Image_ColorRGB32(mod, "Image_ColorRGB32", "POD structure for packed RGB color value (4 bytes with extra byte for alignment)");
+
+// Constructors
+cls_Image_ColorRGB32.def(py::init<>());
 
 // Fields
 // cls_Image_ColorRGB32.def_readwrite("v", &Image_ColorRGB32::v, "None");
@@ -108,6 +114,9 @@ cls_Image_ColorRGB32.def("a_", (Standard_Byte & (Image_ColorRGB32::*)()) &Image_
 // CLASS: IMAGE_COLORRGBA
 py::class_<Image_ColorRGBA> cls_Image_ColorRGBA(mod, "Image_ColorRGBA", "POD structure for packed RGBA color value (4 bytes)");
 
+// Constructors
+cls_Image_ColorRGBA.def(py::init<>());
+
 // Fields
 // cls_Image_ColorRGBA.def_readwrite("v", &Image_ColorRGBA::v, "None");
 
@@ -125,6 +134,9 @@ cls_Image_ColorRGBA.def("a", (Standard_Byte & (Image_ColorRGBA::*)()) &Image_Col
 // CLASS: IMAGE_COLORBGR
 py::class_<Image_ColorBGR> cls_Image_ColorBGR(mod, "Image_ColorBGR", "POD structure for packed BGR color value (3 bytes)");
 
+// Constructors
+cls_Image_ColorBGR.def(py::init<>());
+
 // Fields
 // cls_Image_ColorBGR.def_readwrite("v", &Image_ColorBGR::v, "None");
 
@@ -139,6 +151,9 @@ cls_Image_ColorBGR.def("b", (Standard_Byte & (Image_ColorBGR::*)()) &Image_Color
 
 // CLASS: IMAGE_COLORBGR32
 py::class_<Image_ColorBGR32> cls_Image_ColorBGR32(mod, "Image_ColorBGR32", "POD structure for packed BGR color value (4 bytes with extra byte for alignment)");
+
+// Constructors
+cls_Image_ColorBGR32.def(py::init<>());
 
 // Fields
 // cls_Image_ColorBGR32.def_readwrite("v", &Image_ColorBGR32::v, "None");
@@ -157,6 +172,9 @@ cls_Image_ColorBGR32.def("a_", (Standard_Byte & (Image_ColorBGR32::*)()) &Image_
 // CLASS: IMAGE_COLORBGRA
 py::class_<Image_ColorBGRA> cls_Image_ColorBGRA(mod, "Image_ColorBGRA", "POD structure for packed BGRA color value (4 bytes)");
 
+// Constructors
+cls_Image_ColorBGRA.def(py::init<>());
+
 // Fields
 // cls_Image_ColorBGRA.def_readwrite("v", &Image_ColorBGRA::v, "None");
 
@@ -174,6 +192,9 @@ cls_Image_ColorBGRA.def("a", (Standard_Byte & (Image_ColorBGRA::*)()) &Image_Col
 // CLASS: IMAGE_COLORRGBF
 py::class_<Image_ColorRGBF> cls_Image_ColorRGBF(mod, "Image_ColorRGBF", "POD structure for packed float RGB color value (3 floats)");
 
+// Constructors
+cls_Image_ColorRGBF.def(py::init<>());
+
 // Fields
 // cls_Image_ColorRGBF.def_readwrite("v", &Image_ColorRGBF::v, "None");
 
@@ -189,6 +210,9 @@ cls_Image_ColorRGBF.def("b", (Standard_ShortReal & (Image_ColorRGBF::*)()) &Imag
 // CLASS: IMAGE_COLORBGRF
 py::class_<Image_ColorBGRF> cls_Image_ColorBGRF(mod, "Image_ColorBGRF", "POD structure for packed BGR float color value (3 floats)");
 
+// Constructors
+cls_Image_ColorBGRF.def(py::init<>());
+
 // Fields
 // cls_Image_ColorBGRF.def_readwrite("v", &Image_ColorBGRF::v, "None");
 
@@ -203,6 +227,9 @@ cls_Image_ColorBGRF.def("b", (Standard_ShortReal & (Image_ColorBGRF::*)()) &Imag
 
 // CLASS: IMAGE_COLORRGBAF
 py::class_<Image_ColorRGBAF> cls_Image_ColorRGBAF(mod, "Image_ColorRGBAF", "POD structure for packed RGBA color value (4 floats)");
+
+// Constructors
+cls_Image_ColorRGBAF.def(py::init<>());
 
 // Fields
 // cls_Image_ColorRGBAF.def_readwrite("v", &Image_ColorRGBAF::v, "None");
@@ -220,6 +247,9 @@ cls_Image_ColorRGBAF.def("a", (Standard_ShortReal & (Image_ColorRGBAF::*)()) &Im
 
 // CLASS: IMAGE_COLORBGRAF
 py::class_<Image_ColorBGRAF> cls_Image_ColorBGRAF(mod, "Image_ColorBGRAF", "POD structure for packed float BGRA color value (4 floats)");
+
+// Constructors
+cls_Image_ColorBGRAF.def(py::init<>());
 
 // Fields
 // cls_Image_ColorBGRAF.def_readwrite("v", &Image_ColorBGRAF::v, "None");

@@ -29,6 +29,9 @@ void bind_OpenGl_TmplCore42(py::module &mod, std::string const &name, py::module
 
 py::class_<OpenGl_TmplCore42<theBaseClass_t>, theBaseClass_t> cls_OpenGl_TmplCore42(mod, name.c_str(), "OpenGL 4.2 definition.", local);
 
+// Constructors
+cls_OpenGl_TmplCore42.def(py::init<>());
+
 }
 
 #endif

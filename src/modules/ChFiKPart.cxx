@@ -51,6 +51,9 @@ py::module::import("OCCT.TColStd");
 // CLASS: CHFIKPART_COMPUTEDATA
 py::class_<ChFiKPart_ComputeData> cls_ChFiKPart_ComputeData(mod, "ChFiKPart_ComputeData", "Methodes de classe permettant de remplir une SurfData dans les cas particuliers de conges suivants: - cylindre entre 2 surfaces planes, - tore/sphere entre un plan et un cylindre othogonal, - tore/sphere entre un plan et un cone othogonal,");
 
+// Constructors
+cls_ChFiKPart_ComputeData.def(py::init<>());
+
 // Methods
 // cls_ChFiKPart_ComputeData.def_static("operator new_", (void * (*)(size_t)) &ChFiKPart_ComputeData::operator new, "None", py::arg("theSize"));
 // cls_ChFiKPart_ComputeData.def_static("operator delete_", (void (*)(void *)) &ChFiKPart_ComputeData::operator delete, "None", py::arg("theAddress"));

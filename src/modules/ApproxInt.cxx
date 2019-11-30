@@ -49,6 +49,9 @@ py::module::import("OCCT.IntSurf");
 // CLASS: APPROXINT_KNOTTOOLS
 py::class_<ApproxInt_KnotTools> cls_ApproxInt_KnotTools(mod, "ApproxInt_KnotTools", "This class intended to build knots sequence on discrete set of points for further approximation into bspline curve.");
 
+// Constructors
+cls_ApproxInt_KnotTools.def(py::init<>());
+
 // Methods
 // cls_ApproxInt_KnotTools.def_static("operator new_", (void * (*)(size_t)) &ApproxInt_KnotTools::operator new, "None", py::arg("theSize"));
 // cls_ApproxInt_KnotTools.def_static("operator delete_", (void (*)(void *)) &ApproxInt_KnotTools::operator delete, "None", py::arg("theAddress"));

@@ -32,6 +32,9 @@ void bind_OpenGl_VariableSetter(py::module &mod, std::string const &name, py::mo
 
 py::class_<OpenGl_VariableSetter<T>, OpenGl_SetterInterface> cls_OpenGl_VariableSetter(mod, name.c_str(), "None", local);
 
+// Constructors
+cls_OpenGl_VariableSetter.def(py::init<>());
+
 // Methods
 cls_OpenGl_VariableSetter.def("Set", (void (OpenGl_VariableSetter<T>::*)(const opencascade::handle<OpenGl_Context> &, const opencascade::handle<Graphic3d_ShaderVariable> &, OpenGl_ShaderProgram *)) &OpenGl_VariableSetter<T>::Set, "None", py::arg("theCtx"), py::arg("theVariable"), py::arg("theProgram"));
 

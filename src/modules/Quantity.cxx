@@ -852,12 +852,18 @@ cls_Quantity_HArray1OfColor.def("DynamicType", (const opencascade::handle<Standa
 // CLASS: QUANTITY_COLORHASHER
 py::class_<Quantity_ColorHasher> cls_Quantity_ColorHasher(mod, "Quantity_ColorHasher", "Hasher of Quantity_Color.");
 
+// Constructors
+cls_Quantity_ColorHasher.def(py::init<>());
+
 // Methods
 cls_Quantity_ColorHasher.def_static("HashCode_", (Standard_Integer (*)(const Quantity_Color &, const Standard_Integer)) &Quantity_ColorHasher::HashCode, "Returns hash code for the given RGB color, in the range [1, theUpperBound]", py::arg("theColor"), py::arg("theUpperBound"));
 cls_Quantity_ColorHasher.def_static("IsEqual_", (Standard_Boolean (*)(const Quantity_Color &, const Quantity_Color &)) &Quantity_ColorHasher::IsEqual, "Returns true if two colors are equal.", py::arg("theColor1"), py::arg("theColor2"));
 
 // CLASS: QUANTITY_COLORRGBAHASHER
 py::class_<Quantity_ColorRGBAHasher> cls_Quantity_ColorRGBAHasher(mod, "Quantity_ColorRGBAHasher", "Hasher of Quantity_ColorRGBA.");
+
+// Constructors
+cls_Quantity_ColorRGBAHasher.def(py::init<>());
 
 // Methods
 cls_Quantity_ColorRGBAHasher.def_static("HashCode_", (Standard_Integer (*)(const Quantity_ColorRGBA &, const Standard_Integer)) &Quantity_ColorRGBAHasher::HashCode, "Returns hash code for the given RGBA color, in the range [1, theUpperBound]", py::arg("theColor"), py::arg("theUpperBound"));

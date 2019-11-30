@@ -182,6 +182,9 @@ py::enum_<BOPAlgo_GlueEnum>(mod, "BOPAlgo_GlueEnum", "The Enumeration describes 
 // CLASS: BOPALGO_ALERTBOPNOTALLOWED
 py::class_<BOPAlgo_AlertBOPNotAllowed, opencascade::handle<BOPAlgo_AlertBOPNotAllowed>, Message_Alert> cls_BOPAlgo_AlertBOPNotAllowed(mod, "BOPAlgo_AlertBOPNotAllowed", "Boolean operation of given type is not allowed on the given inputs");
 
+// Constructors
+cls_BOPAlgo_AlertBOPNotAllowed.def(py::init<>());
+
 // Methods
 cls_BOPAlgo_AlertBOPNotAllowed.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertBOPNotAllowed::get_type_name, "None");
 cls_BOPAlgo_AlertBOPNotAllowed.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertBOPNotAllowed::get_type_descriptor, "None");
@@ -189,6 +192,9 @@ cls_BOPAlgo_AlertBOPNotAllowed.def("DynamicType", (const opencascade::handle<Sta
 
 // CLASS: BOPALGO_ALERTBOPNOTSET
 py::class_<BOPAlgo_AlertBOPNotSet, opencascade::handle<BOPAlgo_AlertBOPNotSet>, Message_Alert> cls_BOPAlgo_AlertBOPNotSet(mod, "BOPAlgo_AlertBOPNotSet", "The type of Boolean Operation is not set");
+
+// Constructors
+cls_BOPAlgo_AlertBOPNotSet.def(py::init<>());
 
 // Methods
 cls_BOPAlgo_AlertBOPNotSet.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertBOPNotSet::get_type_name, "None");
@@ -198,6 +204,9 @@ cls_BOPAlgo_AlertBOPNotSet.def("DynamicType", (const opencascade::handle<Standar
 // CLASS: BOPALGO_ALERTBUILDERFAILED
 py::class_<BOPAlgo_AlertBuilderFailed, opencascade::handle<BOPAlgo_AlertBuilderFailed>, Message_Alert> cls_BOPAlgo_AlertBuilderFailed(mod, "BOPAlgo_AlertBuilderFailed", "Building of the result shape has failed");
 
+// Constructors
+cls_BOPAlgo_AlertBuilderFailed.def(py::init<>());
+
 // Methods
 cls_BOPAlgo_AlertBuilderFailed.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertBuilderFailed::get_type_name, "None");
 cls_BOPAlgo_AlertBuilderFailed.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertBuilderFailed::get_type_descriptor, "None");
@@ -205,6 +214,9 @@ cls_BOPAlgo_AlertBuilderFailed.def("DynamicType", (const opencascade::handle<Sta
 
 // CLASS: BOPALGO_ALERTINTERSECTIONFAILED
 py::class_<BOPAlgo_AlertIntersectionFailed, opencascade::handle<BOPAlgo_AlertIntersectionFailed>, Message_Alert> cls_BOPAlgo_AlertIntersectionFailed(mod, "BOPAlgo_AlertIntersectionFailed", "The intersection of the arguments has failed");
+
+// Constructors
+cls_BOPAlgo_AlertIntersectionFailed.def(py::init<>());
 
 // Methods
 cls_BOPAlgo_AlertIntersectionFailed.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertIntersectionFailed::get_type_name, "None");
@@ -214,6 +226,9 @@ cls_BOPAlgo_AlertIntersectionFailed.def("DynamicType", (const opencascade::handl
 // CLASS: BOPALGO_ALERTMULTIPLEARGUMENTS
 py::class_<BOPAlgo_AlertMultipleArguments, opencascade::handle<BOPAlgo_AlertMultipleArguments>, Message_Alert> cls_BOPAlgo_AlertMultipleArguments(mod, "BOPAlgo_AlertMultipleArguments", "More than one argument is provided");
 
+// Constructors
+cls_BOPAlgo_AlertMultipleArguments.def(py::init<>());
+
 // Methods
 cls_BOPAlgo_AlertMultipleArguments.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertMultipleArguments::get_type_name, "None");
 cls_BOPAlgo_AlertMultipleArguments.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertMultipleArguments::get_type_descriptor, "None");
@@ -221,6 +236,9 @@ cls_BOPAlgo_AlertMultipleArguments.def("DynamicType", (const opencascade::handle
 
 // CLASS: BOPALGO_ALERTNOFILLER
 py::class_<BOPAlgo_AlertNoFiller, opencascade::handle<BOPAlgo_AlertNoFiller>, Message_Alert> cls_BOPAlgo_AlertNoFiller(mod, "BOPAlgo_AlertNoFiller", "The Pave Filler (the intersection tool) has not been created");
+
+// Constructors
+cls_BOPAlgo_AlertNoFiller.def(py::init<>());
 
 // Methods
 cls_BOPAlgo_AlertNoFiller.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertNoFiller::get_type_name, "None");
@@ -230,6 +248,9 @@ cls_BOPAlgo_AlertNoFiller.def("DynamicType", (const opencascade::handle<Standard
 // CLASS: BOPALGO_ALERTNULLINPUTSHAPES
 py::class_<BOPAlgo_AlertNullInputShapes, opencascade::handle<BOPAlgo_AlertNullInputShapes>, Message_Alert> cls_BOPAlgo_AlertNullInputShapes(mod, "BOPAlgo_AlertNullInputShapes", "Null input shapes");
 
+// Constructors
+cls_BOPAlgo_AlertNullInputShapes.def(py::init<>());
+
 // Methods
 cls_BOPAlgo_AlertNullInputShapes.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertNullInputShapes::get_type_name, "None");
 cls_BOPAlgo_AlertNullInputShapes.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertNullInputShapes::get_type_descriptor, "None");
@@ -237,6 +258,9 @@ cls_BOPAlgo_AlertNullInputShapes.def("DynamicType", (const opencascade::handle<S
 
 // CLASS: BOPALGO_ALERTPOSTTREATFF
 py::class_<BOPAlgo_AlertPostTreatFF, opencascade::handle<BOPAlgo_AlertPostTreatFF>, Message_Alert> cls_BOPAlgo_AlertPostTreatFF(mod, "BOPAlgo_AlertPostTreatFF", "Cannot connect face intersection curves");
+
+// Constructors
+cls_BOPAlgo_AlertPostTreatFF.def(py::init<>());
 
 // Methods
 cls_BOPAlgo_AlertPostTreatFF.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertPostTreatFF::get_type_name, "None");
@@ -246,6 +270,9 @@ cls_BOPAlgo_AlertPostTreatFF.def("DynamicType", (const opencascade::handle<Stand
 // CLASS: BOPALGO_ALERTSOLIDBUILDERFAILED
 py::class_<BOPAlgo_AlertSolidBuilderFailed, opencascade::handle<BOPAlgo_AlertSolidBuilderFailed>, Message_Alert> cls_BOPAlgo_AlertSolidBuilderFailed(mod, "BOPAlgo_AlertSolidBuilderFailed", "The BuilderSolid algorithm has failed");
 
+// Constructors
+cls_BOPAlgo_AlertSolidBuilderFailed.def(py::init<>());
+
 // Methods
 cls_BOPAlgo_AlertSolidBuilderFailed.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertSolidBuilderFailed::get_type_name, "None");
 cls_BOPAlgo_AlertSolidBuilderFailed.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertSolidBuilderFailed::get_type_descriptor, "None");
@@ -253,6 +280,9 @@ cls_BOPAlgo_AlertSolidBuilderFailed.def("DynamicType", (const opencascade::handl
 
 // CLASS: BOPALGO_ALERTTOOFEWARGUMENTS
 py::class_<BOPAlgo_AlertTooFewArguments, opencascade::handle<BOPAlgo_AlertTooFewArguments>, Message_Alert> cls_BOPAlgo_AlertTooFewArguments(mod, "BOPAlgo_AlertTooFewArguments", "There are no enough arguments to perform the operation");
+
+// Constructors
+cls_BOPAlgo_AlertTooFewArguments.def(py::init<>());
 
 // Methods
 cls_BOPAlgo_AlertTooFewArguments.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertTooFewArguments::get_type_name, "None");
@@ -416,6 +446,9 @@ cls_BOPAlgo_AlertUnsupportedType.def("DynamicType", (const opencascade::handle<S
 // CLASS: BOPALGO_ALERTNOFACESTOREMOVE
 py::class_<BOPAlgo_AlertNoFacesToRemove, opencascade::handle<BOPAlgo_AlertNoFacesToRemove>, Message_Alert> cls_BOPAlgo_AlertNoFacesToRemove(mod, "BOPAlgo_AlertNoFacesToRemove", "No faces have been found for removal");
 
+// Constructors
+cls_BOPAlgo_AlertNoFacesToRemove.def(py::init<>());
+
 // Methods
 cls_BOPAlgo_AlertNoFacesToRemove.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertNoFacesToRemove::get_type_name, "None");
 cls_BOPAlgo_AlertNoFacesToRemove.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertNoFacesToRemove::get_type_descriptor, "None");
@@ -434,6 +467,9 @@ cls_BOPAlgo_AlertUnableToRemoveTheFeature.def("DynamicType", (const opencascade:
 
 // CLASS: BOPALGO_ALERTREMOVEFEATURESFAILED
 py::class_<BOPAlgo_AlertRemoveFeaturesFailed, opencascade::handle<BOPAlgo_AlertRemoveFeaturesFailed>, Message_Alert> cls_BOPAlgo_AlertRemoveFeaturesFailed(mod, "BOPAlgo_AlertRemoveFeaturesFailed", "The Feature Removal algorithm has failed");
+
+// Constructors
+cls_BOPAlgo_AlertRemoveFeaturesFailed.def(py::init<>());
 
 // Methods
 cls_BOPAlgo_AlertRemoveFeaturesFailed.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertRemoveFeaturesFailed::get_type_name, "None");
@@ -487,6 +523,9 @@ cls_BOPAlgo_AlertUnknownShape.def("DynamicType", (const opencascade::handle<Stan
 // CLASS: BOPALGO_ALERTNOPERIODICITYREQUIRED
 py::class_<BOPAlgo_AlertNoPeriodicityRequired, opencascade::handle<BOPAlgo_AlertNoPeriodicityRequired>, Message_Alert> cls_BOPAlgo_AlertNoPeriodicityRequired(mod, "BOPAlgo_AlertNoPeriodicityRequired", "No periodicity has been requested for the shape");
 
+// Constructors
+cls_BOPAlgo_AlertNoPeriodicityRequired.def(py::init<>());
+
 // Methods
 cls_BOPAlgo_AlertNoPeriodicityRequired.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertNoPeriodicityRequired::get_type_name, "None");
 cls_BOPAlgo_AlertNoPeriodicityRequired.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertNoPeriodicityRequired::get_type_descriptor, "None");
@@ -527,6 +566,9 @@ cls_BOPAlgo_AlertUnableToRepeat.def("DynamicType", (const opencascade::handle<St
 
 // CLASS: BOPALGO_ALERTMULTIDIMENSIONALARGUMENTS
 py::class_<BOPAlgo_AlertMultiDimensionalArguments, opencascade::handle<BOPAlgo_AlertMultiDimensionalArguments>, Message_Alert> cls_BOPAlgo_AlertMultiDimensionalArguments(mod, "BOPAlgo_AlertMultiDimensionalArguments", "Multi-dimensional arguments");
+
+// Constructors
+cls_BOPAlgo_AlertMultiDimensionalArguments.def(py::init<>());
 
 // Methods
 cls_BOPAlgo_AlertMultiDimensionalArguments.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertMultiDimensionalArguments::get_type_name, "None");
@@ -1120,6 +1162,9 @@ cls_BOPAlgo_Splitter.def("Perform", (void (BOPAlgo_Splitter::*)()) &BOPAlgo_Spli
 
 // CLASS: BOPALGO_TOOLS
 py::class_<BOPAlgo_Tools> cls_BOPAlgo_Tools(mod, "BOPAlgo_Tools", "Provides tools used in the intersection part of Boolean operations");
+
+// Constructors
+cls_BOPAlgo_Tools.def(py::init<>());
 
 // Methods
 cls_BOPAlgo_Tools.def_static("FillMap_", (void (*)(const opencascade::handle<BOPDS_PaveBlock> &, const Standard_Integer, BOPDS_IndexedDataMapOfPaveBlockListOfInteger &, const opencascade::handle<NCollection_BaseAllocator> &)) &BOPAlgo_Tools::FillMap, "None", py::arg("thePB1"), py::arg("theF"), py::arg("theMILI"), py::arg("theAllocator"));

@@ -51,6 +51,9 @@ py::module::import("OCCT.GeomAbs");
 // CLASS: PLIB
 py::class_<PLib> cls_PLib(mod, "PLib", "PLib means Polynomial functions library. This pk provides basic computation functions for polynomial functions. Note: weight arrays can be passed by pointer for some functions so that NULL pointer is valid. That means no weights passed.");
 
+// Constructors
+cls_PLib.def(py::init<>());
+
 // Methods
 // cls_PLib.def_static("operator new_", (void * (*)(size_t)) &PLib::operator new, "None", py::arg("theSize"));
 // cls_PLib.def_static("operator delete_", (void (*)(void *)) &PLib::operator delete, "None", py::arg("theAddress"));

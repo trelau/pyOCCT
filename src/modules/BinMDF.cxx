@@ -76,6 +76,9 @@ cls_BinMDF_ADriver.def("DynamicType", (const opencascade::handle<Standard_Type> 
 // CLASS: BINMDF
 py::class_<BinMDF> cls_BinMDF(mod, "BinMDF", "This package provides classes and methods to translate a transient DF into a persistent one and vice versa.");
 
+// Constructors
+cls_BinMDF.def(py::init<>());
+
 // Methods
 // cls_BinMDF.def_static("operator new_", (void * (*)(size_t)) &BinMDF::operator new, "None", py::arg("theSize"));
 // cls_BinMDF.def_static("operator delete_", (void (*)(void *)) &BinMDF::operator delete, "None", py::arg("theAddress"));

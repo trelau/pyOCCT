@@ -124,6 +124,9 @@ bind_NCollection_TListIterator<BRepCheck_Status>(mod, "BRepCheck_ListIteratorOfL
 // CLASS: BREPCHECK
 py::class_<BRepCheck> cls_BRepCheck(mod, "BRepCheck", "This package provides tools to check the validity of the BRep.");
 
+// Constructors
+cls_BRepCheck.def(py::init<>());
+
 // Methods
 // cls_BRepCheck.def_static("operator new_", (void * (*)(size_t)) &BRepCheck::operator new, "None", py::arg("theSize"));
 // cls_BRepCheck.def_static("operator delete_", (void (*)(void *)) &BRepCheck::operator delete, "None", py::arg("theAddress"));

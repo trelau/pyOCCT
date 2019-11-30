@@ -93,6 +93,9 @@ cls_Geom2dLProp_CurAndInf2d.def("IsDone", (Standard_Boolean (Geom2dLProp_CurAndI
 // CLASS: GEOM2DLPROP_CURVE2DTOOL
 py::class_<Geom2dLProp_Curve2dTool> cls_Geom2dLProp_Curve2dTool(mod, "Geom2dLProp_Curve2dTool", "None");
 
+// Constructors
+cls_Geom2dLProp_Curve2dTool.def(py::init<>());
+
 // Methods
 // cls_Geom2dLProp_Curve2dTool.def_static("operator new_", (void * (*)(size_t)) &Geom2dLProp_Curve2dTool::operator new, "None", py::arg("theSize"));
 // cls_Geom2dLProp_Curve2dTool.def_static("operator delete_", (void (*)(void *)) &Geom2dLProp_Curve2dTool::operator delete, "None", py::arg("theAddress"));

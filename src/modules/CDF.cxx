@@ -130,6 +130,9 @@ cls_CDF_Application.def("DynamicType", (const opencascade::handle<Standard_Type>
 // CLASS: CDF
 py::class_<CDF> cls_CDF(mod, "CDF", "None");
 
+// Constructors
+cls_CDF.def(py::init<>());
+
 // Methods
 cls_CDF.def_static("GetLicense_", (void (*)(const Standard_Integer)) &CDF::GetLicense, "None", py::arg("anApplicationIdentifier"));
 cls_CDF.def_static("IsAvailable_", (Standard_Boolean (*)(const Standard_Integer)) &CDF::IsAvailable, "None", py::arg("anApplicationIdentifier"));

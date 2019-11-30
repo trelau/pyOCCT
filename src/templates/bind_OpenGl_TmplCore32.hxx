@@ -29,6 +29,9 @@ void bind_OpenGl_TmplCore32(py::module &mod, std::string const &name, py::module
 
 py::class_<OpenGl_TmplCore32<theBaseClass_t>, theBaseClass_t> cls_OpenGl_TmplCore32(mod, name.c_str(), "OpenGL 3.2 definition.", local);
 
+// Constructors
+cls_OpenGl_TmplCore32.def(py::init<>());
+
 }
 
 #endif

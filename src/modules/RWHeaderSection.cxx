@@ -58,6 +58,9 @@ py::module::import("OCCT.HeaderSection");
 // CLASS: RWHEADERSECTION
 py::class_<RWHeaderSection> cls_RWHeaderSection(mod, "RWHeaderSection", "None");
 
+// Constructors
+cls_RWHeaderSection.def(py::init<>());
+
 // Methods
 // cls_RWHeaderSection.def_static("operator new_", (void * (*)(size_t)) &RWHeaderSection::operator new, "None", py::arg("theSize"));
 // cls_RWHeaderSection.def_static("operator delete_", (void (*)(void *)) &RWHeaderSection::operator delete, "None", py::arg("theAddress"));

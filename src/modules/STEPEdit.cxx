@@ -50,6 +50,9 @@ py::module::import("OCCT.TCollection");
 // CLASS: STEPEDIT
 py::class_<STEPEdit> cls_STEPEdit(mod, "STEPEdit", "Provides tools to exploit and edit a set of STEP data : editors, selections ..");
 
+// Constructors
+cls_STEPEdit.def(py::init<>());
+
 // Methods
 // cls_STEPEdit.def_static("operator new_", (void * (*)(size_t)) &STEPEdit::operator new, "None", py::arg("theSize"));
 // cls_STEPEdit.def_static("operator delete_", (void (*)(void *)) &STEPEdit::operator delete, "None", py::arg("theAddress"));

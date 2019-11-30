@@ -52,6 +52,9 @@ py::module::import("OCCT.gp");
 // CLASS: ELCLIB
 py::class_<ElCLib> cls_ElCLib(mod, "ElCLib", "Provides functions for basic geometric computations on elementary curves such as conics and lines in 2D and 3D space. This includes: - calculation of a point or derived vector on a 2D or 3D curve where: - the curve is provided by the gp package, or defined in reference form (as in the gp package), and - the point is defined by a parameter, - evaluation of the parameter corresponding to a point on a 2D or 3D curve from gp, - various elementary computations which allow you to position parameterized values within the period of a curve. Notes: - ElCLib stands for Elementary Curves Library. - If the curves provided by the gp package are not explicitly parameterized, they still have an implicit parameterization, analogous to that which they infer for the equivalent Geom or Geom2d curves.");
 
+// Constructors
+cls_ElCLib.def(py::init<>());
+
 // Methods
 // cls_ElCLib.def_static("operator new_", (void * (*)(size_t)) &ElCLib::operator new, "None", py::arg("theSize"));
 // cls_ElCLib.def_static("operator delete_", (void (*)(void *)) &ElCLib::operator delete, "None", py::arg("theAddress"));

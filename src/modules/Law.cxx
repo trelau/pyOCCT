@@ -85,6 +85,9 @@ bind_NCollection_TListIterator<opencascade::handle<Law_Function> >(mod, "Law_Lis
 // CLASS: LAW
 py::class_<Law> cls_Law(mod, "Law", "Multiple services concerning 1d functions.");
 
+// Constructors
+cls_Law.def(py::init<>());
+
 // Methods
 // cls_Law.def_static("operator new_", (void * (*)(size_t)) &Law::operator new, "None", py::arg("theSize"));
 // cls_Law.def_static("operator delete_", (void (*)(void *)) &Law::operator delete, "None", py::arg("theAddress"));

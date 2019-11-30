@@ -131,6 +131,9 @@ py::enum_<Geom2dGcc_Type2>(mod, "Geom2dGcc_Type2", "None")
 // CLASS: GEOM2DGCC
 py::class_<Geom2dGcc> cls_Geom2dGcc(mod, "Geom2dGcc", "The Geom2dGcc package describes qualified 2D curves used in the construction of constrained geometric objects by an algorithm provided by the Geom2dGcc package. A qualified 2D curve is a curve with a qualifier which specifies whether the solution of a construction algorithm using the qualified curve (as an argument): - encloses the curve, or - is enclosed by the curve, or - is built so that both the curve and this solution are external to one another, or - is undefined (all solutions apply). These package methods provide simpler functions to construct a qualified curve. Note: the interior of a curve is defined as the left-hand side of the curve in relation to its orientation.");
 
+// Constructors
+cls_Geom2dGcc.def(py::init<>());
+
 // Methods
 // cls_Geom2dGcc.def_static("operator new_", (void * (*)(size_t)) &Geom2dGcc::operator new, "None", py::arg("theSize"));
 // cls_Geom2dGcc.def_static("operator delete_", (void (*)(void *)) &Geom2dGcc::operator delete, "None", py::arg("theAddress"));
@@ -433,6 +436,9 @@ cls_Geom2dGcc_Circ2dTanOnRadGeo.def("IsTheSame1", (Standard_Boolean (Geom2dGcc_C
 
 // CLASS: GEOM2DGCC_CURVETOOL
 py::class_<Geom2dGcc_CurveTool> cls_Geom2dGcc_CurveTool(mod, "Geom2dGcc_CurveTool", "None");
+
+// Constructors
+cls_Geom2dGcc_CurveTool.def(py::init<>());
 
 // Methods
 // cls_Geom2dGcc_CurveTool.def_static("operator new_", (void * (*)(size_t)) &Geom2dGcc_CurveTool::operator new, "None", py::arg("theSize"));

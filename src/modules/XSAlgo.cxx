@@ -55,6 +55,9 @@ py::enum_<XSAlgo_Caller>(mod, "XSAlgo_Caller", "Identifies the caller of the alg
 // CLASS: XSALGO
 py::class_<XSAlgo> cls_XSAlgo(mod, "XSAlgo", "None");
 
+// Constructors
+cls_XSAlgo.def(py::init<>());
+
 // Methods
 // cls_XSAlgo.def_static("operator new_", (void * (*)(size_t)) &XSAlgo::operator new, "None", py::arg("theSize"));
 // cls_XSAlgo.def_static("operator delete_", (void (*)(void *)) &XSAlgo::operator delete, "None", py::arg("theAddress"));

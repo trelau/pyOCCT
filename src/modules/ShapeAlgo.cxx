@@ -63,6 +63,9 @@ py::module::import("OCCT.ShapeFix");
 // CLASS: SHAPEALGO
 py::class_<ShapeAlgo> cls_ShapeAlgo(mod, "ShapeAlgo", "None");
 
+// Constructors
+cls_ShapeAlgo.def(py::init<>());
+
 // Methods
 // cls_ShapeAlgo.def_static("operator new_", (void * (*)(size_t)) &ShapeAlgo::operator new, "None", py::arg("theSize"));
 // cls_ShapeAlgo.def_static("operator delete_", (void (*)(void *)) &ShapeAlgo::operator delete, "None", py::arg("theAddress"));

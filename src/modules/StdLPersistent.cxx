@@ -135,6 +135,9 @@ cls_StdLPersistent_HArray1OfPersistent.def("DynamicType", (const opencascade::ha
 // CLASS: STDLPERSISTENT_HARRAY1
 py::class_<StdLPersistent_HArray1> cls_StdLPersistent_HArray1(mod, "StdLPersistent_HArray1", "None");
 
+// Constructors
+cls_StdLPersistent_HArray1.def(py::init<>());
+
 // CLASS: STDLPERSISTENT_HARRAY2OFPERSISTENT
 py::class_<StdLPersistent_HArray2OfPersistent, opencascade::handle<StdLPersistent_HArray2OfPersistent>, Standard_Transient> cls_StdLPersistent_HArray2OfPersistent(mod, "StdLPersistent_HArray2OfPersistent", "None", py::multiple_inheritance());
 
@@ -161,8 +164,14 @@ cls_StdLPersistent_HArray2OfPersistent.def("DynamicType", (const opencascade::ha
 // CLASS: STDLPERSISTENT_HARRAY2
 py::class_<StdLPersistent_HArray2> cls_StdLPersistent_HArray2(mod, "StdLPersistent_HArray2", "None");
 
+// Constructors
+cls_StdLPersistent_HArray2.def(py::init<>());
+
 // CLASS: STDLPERSISTENT
 py::class_<StdLPersistent> cls_StdLPersistent(mod, "StdLPersistent", "None");
+
+// Constructors
+cls_StdLPersistent.def(py::init<>());
 
 // Methods
 cls_StdLPersistent.def_static("BindTypes_", (void (*)(StdObjMgt_MapOfInstantiators &)) &StdLPersistent::BindTypes, "Register types.", py::arg("theMap"));
@@ -170,8 +179,14 @@ cls_StdLPersistent.def_static("BindTypes_", (void (*)(StdObjMgt_MapOfInstantiato
 // CLASS: STDLPERSISTENT_COLLECTION
 py::class_<StdLPersistent_Collection> cls_StdLPersistent_Collection(mod, "StdLPersistent_Collection", "None");
 
+// Constructors
+cls_StdLPersistent_Collection.def(py::init<>());
+
 // CLASS: STDLPERSISTENT_DATA
 py::class_<StdLPersistent_Data, opencascade::handle<StdLPersistent_Data>, StdObjMgt_Persistent> cls_StdLPersistent_Data(mod, "StdLPersistent_Data", "None");
+
+// Constructors
+cls_StdLPersistent_Data.def(py::init<>());
 
 // Methods
 cls_StdLPersistent_Data.def("Read", (void (StdLPersistent_Data::*)(StdObjMgt_ReadData &)) &StdLPersistent_Data::Read, "Read persistent data from a file.", py::arg("theReadData"));
@@ -183,11 +198,20 @@ cls_StdLPersistent_Data.def("Import", (opencascade::handle<TDF_Data> (StdLPersis
 // CLASS: STDLPERSISTENT_HSTRING
 py::class_<StdLPersistent_HString> cls_StdLPersistent_HString(mod, "StdLPersistent_HString", "None");
 
+// Constructors
+cls_StdLPersistent_HString.def(py::init<>());
+
 // CLASS: STDLPERSISTENT_DEPENDENCY
 py::class_<StdLPersistent_Dependency> cls_StdLPersistent_Dependency(mod, "StdLPersistent_Dependency", "None");
 
+// Constructors
+cls_StdLPersistent_Dependency.def(py::init<>());
+
 // CLASS: STDLPERSISTENT_DOCUMENT
 py::class_<StdLPersistent_Document, opencascade::handle<StdLPersistent_Document>, StdObjMgt_Persistent> cls_StdLPersistent_Document(mod, "StdLPersistent_Document", "None");
+
+// Constructors
+cls_StdLPersistent_Document.def(py::init<>());
 
 // Methods
 cls_StdLPersistent_Document.def("Read", (void (StdLPersistent_Document::*)(StdObjMgt_ReadData &)) &StdLPersistent_Document::Read, "Read persistent data from a file.", py::arg("theReadData"));
@@ -201,6 +225,9 @@ bind_StdObjMgt_Attribute<TFunction_Function>(mod, "StdObjMgt_Attribute_TFunction
 
 py::class_<StdLPersistent_Function, opencascade::handle<StdLPersistent_Function>, StdObjMgt_Attribute<TFunction_Function>> cls_StdLPersistent_Function(mod, "StdLPersistent_Function", "None");
 
+// Constructors
+cls_StdLPersistent_Function.def(py::init<>());
+
 // Methods
 cls_StdLPersistent_Function.def("Read", (void (StdLPersistent_Function::*)(StdObjMgt_ReadData &)) &StdLPersistent_Function::Read, "Read persistent data from a file.", py::arg("theReadData"));
 cls_StdLPersistent_Function.def("Write", (void (StdLPersistent_Function::*)(StdObjMgt_WriteData &) const) &StdLPersistent_Function::Write, "Write persistent data to a file.", py::arg("theWriteData"));
@@ -212,6 +239,9 @@ cls_StdLPersistent_Function.def("Import", (void (StdLPersistent_Function::*)(con
 bind_StdObjMgt_Attribute<TDataStd_NamedData>(mod, "StdObjMgt_Attribute_TDataStd_NamedData", py::module_local());
 
 py::class_<StdLPersistent_NamedData, opencascade::handle<StdLPersistent_NamedData>, StdObjMgt_Attribute<TDataStd_NamedData>> cls_StdLPersistent_NamedData(mod, "StdLPersistent_NamedData", "None");
+
+// Constructors
+cls_StdLPersistent_NamedData.def(py::init<>());
 
 // Methods
 cls_StdLPersistent_NamedData.def("Read", (void (StdLPersistent_NamedData::*)(StdObjMgt_ReadData &)) &StdLPersistent_NamedData::Read, "Read persistent data from a file.", py::arg("theReadData"));
@@ -225,6 +255,9 @@ bind_StdObjMgt_Attribute<TDataStd_Real>(mod, "StdObjMgt_Attribute_TDataStd_Real"
 
 py::class_<StdLPersistent_Real, opencascade::handle<StdLPersistent_Real>, StdObjMgt_Attribute<TDataStd_Real>> cls_StdLPersistent_Real(mod, "StdLPersistent_Real", "None");
 
+// Constructors
+cls_StdLPersistent_Real.def(py::init<>());
+
 // Methods
 cls_StdLPersistent_Real.def("Read", (void (StdLPersistent_Real::*)(StdObjMgt_ReadData &)) &StdLPersistent_Real::Read, "Read persistent data from a file.", py::arg("theReadData"));
 cls_StdLPersistent_Real.def("Write", (void (StdLPersistent_Real::*)(StdObjMgt_WriteData &) const) &StdLPersistent_Real::Write, "Write persistent data from a file.", py::arg("theWriteData"));
@@ -234,6 +267,9 @@ cls_StdLPersistent_Real.def("Import", (void (StdLPersistent_Real::*)(const openc
 
 // CLASS: STDLPERSISTENT_TREENODE
 py::class_<StdLPersistent_TreeNode, opencascade::handle<StdLPersistent_TreeNode>> cls_StdLPersistent_TreeNode(mod, "StdLPersistent_TreeNode", "None");
+
+// Constructors
+cls_StdLPersistent_TreeNode.def(py::init<>());
 
 // Methods
 cls_StdLPersistent_TreeNode.def("Read", (void (StdLPersistent_TreeNode::*)(StdObjMgt_ReadData &)) &StdLPersistent_TreeNode::Read, "Read persistent data from a file.", py::arg("theReadData"));
@@ -246,10 +282,16 @@ cls_StdLPersistent_TreeNode.def("ImportAttribute", (void (StdLPersistent_TreeNod
 // CLASS: STDLPERSISTENT_VALUE
 py::class_<StdLPersistent_Value> cls_StdLPersistent_Value(mod, "StdLPersistent_Value", "None");
 
+// Constructors
+cls_StdLPersistent_Value.def(py::init<>());
+
 // CLASS: STDLPERSISTENT_VARIABLE
 bind_StdObjMgt_Attribute<TDataStd_Variable>(mod, "StdObjMgt_Attribute_TDataStd_Variable", py::module_local());
 
 py::class_<StdLPersistent_Variable, opencascade::handle<StdLPersistent_Variable>, StdObjMgt_Attribute<TDataStd_Variable>> cls_StdLPersistent_Variable(mod, "StdLPersistent_Variable", "None");
+
+// Constructors
+cls_StdLPersistent_Variable.def(py::init<>());
 
 // Methods
 cls_StdLPersistent_Variable.def("Read", (void (StdLPersistent_Variable::*)(StdObjMgt_ReadData &)) &StdLPersistent_Variable::Read, "Read persistent data from a file.", py::arg("theReadData"));
@@ -261,10 +303,16 @@ cls_StdLPersistent_Variable.def("Import", (void (StdLPersistent_Variable::*)(con
 // CLASS: STDLPERSISTENT_VOID
 py::class_<StdLPersistent_Void> cls_StdLPersistent_Void(mod, "StdLPersistent_Void", "None");
 
+// Constructors
+cls_StdLPersistent_Void.def(py::init<>());
+
 // CLASS: STDLPERSISTENT_XLINK
 bind_StdObjMgt_Attribute<TDocStd_XLink>(mod, "StdObjMgt_Attribute_TDocStd_XLink", py::module_local());
 
 py::class_<StdLPersistent_XLink, opencascade::handle<StdLPersistent_XLink>, StdObjMgt_Attribute<TDocStd_XLink>> cls_StdLPersistent_XLink(mod, "StdLPersistent_XLink", "None");
+
+// Constructors
+cls_StdLPersistent_XLink.def(py::init<>());
 
 // Methods
 cls_StdLPersistent_XLink.def("Read", (void (StdLPersistent_XLink::*)(StdObjMgt_ReadData &)) &StdLPersistent_XLink::Read, "Read persistent data from a file.", py::arg("theReadData"));

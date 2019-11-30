@@ -242,6 +242,9 @@ cls_STEPConstruct_ContextTool.def("GetRootsForAssemblyLink", (opencascade::handl
 // CLASS: STEPCONSTRUCT
 py::class_<STEPConstruct> cls_STEPConstruct(mod, "STEPConstruct", "Defines tools for creation and investigation STEP constructs used for representing various kinds of data, such as product and assembly structure, unit contexts, associated information The creation of these structures is made according to currently active schema (AP203 or AP214 CD2 or DIS) This is taken from parameter write.step.schema");
 
+// Constructors
+cls_STEPConstruct.def(py::init<>());
+
 // Methods
 // cls_STEPConstruct.def_static("operator new_", (void * (*)(size_t)) &STEPConstruct::operator new, "None", py::arg("theSize"));
 // cls_STEPConstruct.def_static("operator delete_", (void (*)(void *)) &STEPConstruct::operator delete, "None", py::arg("theAddress"));
@@ -281,6 +284,9 @@ bind_NCollection_DataMap<TCollection_AsciiString, opencascade::handle<Standard_T
 
 // CLASS: STEPCONSTRUCT_POINTHASHER
 py::class_<STEPConstruct_PointHasher> cls_STEPConstruct_PointHasher(mod, "STEPConstruct_PointHasher", "None");
+
+// Constructors
+cls_STEPConstruct_PointHasher.def(py::init<>());
 
 // Methods
 // cls_STEPConstruct_PointHasher.def_static("operator new_", (void * (*)(size_t)) &STEPConstruct_PointHasher::operator new, "None", py::arg("theSize"));

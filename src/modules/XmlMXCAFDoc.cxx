@@ -74,6 +74,9 @@ py::module::import("OCCT.TopLoc");
 // CLASS: XMLMXCAFDOC
 py::class_<XmlMXCAFDoc> cls_XmlMXCAFDoc(mod, "XmlMXCAFDoc", "Storage and Retrieval drivers for modelling attributes. Transient attributes are defined in package XCAFDoc");
 
+// Constructors
+cls_XmlMXCAFDoc.def(py::init<>());
+
 // Methods
 // cls_XmlMXCAFDoc.def_static("operator new_", (void * (*)(size_t)) &XmlMXCAFDoc::operator new, "None", py::arg("theSize"));
 // cls_XmlMXCAFDoc.def_static("operator delete_", (void (*)(void *)) &XmlMXCAFDoc::operator delete, "None", py::arg("theAddress"));

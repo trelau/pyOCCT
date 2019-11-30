@@ -61,6 +61,9 @@ py::enum_<BinDrivers_Marker>(mod, "BinDrivers_Marker", "None")
 // CLASS: BINDRIVERS
 py::class_<BinDrivers> cls_BinDrivers(mod, "BinDrivers", "None");
 
+// Constructors
+cls_BinDrivers.def(py::init<>());
+
 // Methods
 cls_BinDrivers.def_static("Factory_", (const opencascade::handle<Standard_Transient> & (*)(const Standard_GUID &)) &BinDrivers::Factory, "None", py::arg("theGUID"));
 cls_BinDrivers.def_static("DefineFormat_", (void (*)(const opencascade::handle<TDocStd_Application> &)) &BinDrivers::DefineFormat, "Defines format 'BinOcaf' and registers its read and write drivers in the specified application", py::arg("theApp"));

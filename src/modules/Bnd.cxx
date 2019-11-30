@@ -583,6 +583,9 @@ bind_NCollection_Sequence<Bnd_Box>(mod, "Bnd_SeqOfBox", py::module_local(false))
 // CLASS: BND_TOOLS
 py::class_<Bnd_Tools> cls_Bnd_Tools(mod, "Bnd_Tools", "Defines a set of static methods operating with bounding boxes");
 
+// Constructors
+cls_Bnd_Tools.def(py::init<>());
+
 // Methods
 cls_Bnd_Tools.def_static("Bnd2BVH_", (BVH_Box<Standard_Real, 2> (*)(const Bnd_Box2d &)) &Bnd_Tools::Bnd2BVH, "Converts the given Bnd_Box2d to BVH_Box", py::arg("theBox"));
 cls_Bnd_Tools.def_static("Bnd2BVH_", (BVH_Box<Standard_Real, 3> (*)(const Bnd_Box &)) &Bnd_Tools::Bnd2BVH, "Converts the given Bnd_Box to BVH_Box", py::arg("theBox"));

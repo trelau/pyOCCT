@@ -158,6 +158,9 @@ py::module::import("OCCT.TColgp");
 // CLASS: GEOMTOSTEP_ROOT
 py::class_<GeomToStep_Root> cls_GeomToStep_Root(mod, "GeomToStep_Root", "This class implements the common services for all classes of GeomToStep which report error.");
 
+// Constructors
+cls_GeomToStep_Root.def(py::init<>());
+
 // Methods
 // cls_GeomToStep_Root.def_static("operator new_", (void * (*)(size_t)) &GeomToStep_Root::operator new, "None", py::arg("theSize"));
 // cls_GeomToStep_Root.def_static("operator delete_", (void (*)(void *)) &GeomToStep_Root::operator delete, "None", py::arg("theAddress"));

@@ -88,6 +88,9 @@ py::module::import("OCCT.TopAbs");
 // CLASS: BREPGPROP
 py::class_<BRepGProp> cls_BRepGProp(mod, "BRepGProp", "Provides global functions to compute a shape's global properties for lines, surfaces or volumes, and bring them together with the global properties already computed for a geometric system. The global properties computed for a system are : - its mass, - its center of mass, - its matrix of inertia, - its moment about an axis, - its radius of gyration about an axis, - and its principal properties of inertia such as principal axis, principal moments, principal radius of gyration.");
 
+// Constructors
+cls_BRepGProp.def(py::init<>());
+
 // Methods
 // cls_BRepGProp.def_static("operator new_", (void * (*)(size_t)) &BRepGProp::operator new, "None", py::arg("theSize"));
 // cls_BRepGProp.def_static("operator delete_", (void (*)(void *)) &BRepGProp::operator delete, "None", py::arg("theAddress"));
@@ -164,6 +167,9 @@ cls_BRepGProp_Domain.def("Next", (void (BRepGProp_Domain::*)()) &BRepGProp_Domai
 
 // CLASS: BREPGPROP_EDGETOOL
 py::class_<BRepGProp_EdgeTool> cls_BRepGProp_EdgeTool(mod, "BRepGProp_EdgeTool", "Provides the required methods to instantiate CGProps from GProp with a Curve from BRepAdaptor.");
+
+// Constructors
+cls_BRepGProp_EdgeTool.def(py::init<>());
 
 // Methods
 // cls_BRepGProp_EdgeTool.def_static("operator new_", (void * (*)(size_t)) &BRepGProp_EdgeTool::operator new, "None", py::arg("theSize"));

@@ -71,6 +71,9 @@ py::module::import("OCCT.TDF");
 // CLASS: BINMDATASTD
 py::class_<BinMDataStd> cls_BinMDataStd(mod, "BinMDataStd", "Storage and Retrieval drivers for modelling attributes.");
 
+// Constructors
+cls_BinMDataStd.def(py::init<>());
+
 // Methods
 // cls_BinMDataStd.def_static("operator new_", (void * (*)(size_t)) &BinMDataStd::operator new, "None", py::arg("theSize"));
 // cls_BinMDataStd.def_static("operator delete_", (void (*)(void *)) &BinMDataStd::operator delete, "None", py::arg("theAddress"));

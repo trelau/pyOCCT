@@ -55,6 +55,9 @@ py::module::import("OCCT.TColStd");
 // CLASS: FSD_BASE64DECODER
 py::class_<FSD_Base64Decoder> cls_FSD_Base64Decoder(mod, "FSD_Base64Decoder", "Tool decoding base64 stream.");
 
+// Constructors
+cls_FSD_Base64Decoder.def(py::init<>());
+
 // Methods
 cls_FSD_Base64Decoder.def_static("Decode_", (opencascade::handle<NCollection_Buffer> (*)(const Standard_Byte *, const Standard_Size)) &FSD_Base64Decoder::Decode, "Function decoding base64 stream.", py::arg("theStr"), py::arg("theLen"));
 
@@ -62,6 +65,9 @@ cls_FSD_Base64Decoder.def_static("Decode_", (opencascade::handle<NCollection_Buf
 
 // CLASS: FSD_FILEHEADER
 py::class_<FSD_FileHeader> cls_FSD_FileHeader(mod, "FSD_FileHeader", "None");
+
+// Constructors
+cls_FSD_FileHeader.def(py::init<>());
 
 // Fields
 cls_FSD_FileHeader.def_readwrite("testindian", &FSD_FileHeader::testindian, "None");

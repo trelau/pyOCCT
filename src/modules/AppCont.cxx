@@ -57,6 +57,9 @@ cls_AppCont_Function.def("PeriodInformation", [](AppCont_Function &self, const S
 // CLASS: PERIODICITYINFO
 py::class_<PeriodicityInfo> cls_PeriodicityInfo(mod, "PeriodicityInfo", "None");
 
+// Constructors
+cls_PeriodicityInfo.def(py::init<>());
+
 // Fields
 cls_PeriodicityInfo.def_readwrite("isPeriodic", &PeriodicityInfo::isPeriodic, "None");
 cls_PeriodicityInfo.def_readwrite("myPeriod", &PeriodicityInfo::myPeriod, "None");

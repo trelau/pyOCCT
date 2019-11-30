@@ -307,6 +307,9 @@ cls_MoniTool_CaseData.def("DynamicType", (const opencascade::handle<Standard_Typ
 // CLASS: MONITOOL_DATAINFO
 py::class_<MoniTool_DataInfo> cls_MoniTool_DataInfo(mod, "MoniTool_DataInfo", "Gives informations on an object Used as template to instantiate Elem, etc This class is for Transient");
 
+// Constructors
+cls_MoniTool_DataInfo.def(py::init<>());
+
 // Methods
 // cls_MoniTool_DataInfo.def_static("operator new_", (void * (*)(size_t)) &MoniTool_DataInfo::operator new, "None", py::arg("theSize"));
 // cls_MoniTool_DataInfo.def_static("operator delete_", (void (*)(void *)) &MoniTool_DataInfo::operator delete, "None", py::arg("theAddress"));
@@ -324,6 +327,9 @@ bind_NCollection_DataMap<TopoDS_Shape, opencascade::handle<Standard_Transient>, 
 
 // CLASS: MONITOOL_MTHASHER
 py::class_<MoniTool_MTHasher> cls_MoniTool_MTHasher(mod, "MoniTool_MTHasher", "The auxiliary class provides hash code for mapping objects");
+
+// Constructors
+cls_MoniTool_MTHasher.def(py::init<>());
 
 // Methods
 // cls_MoniTool_MTHasher.def_static("operator new_", (void * (*)(size_t)) &MoniTool_MTHasher::operator new, "None", py::arg("theSize"));
@@ -356,6 +362,9 @@ cls_MoniTool_Element.def("DynamicType", (const opencascade::handle<Standard_Type
 
 // CLASS: MONITOOL_ELEMHASHER
 py::class_<MoniTool_ElemHasher> cls_MoniTool_ElemHasher(mod, "MoniTool_ElemHasher", "ElemHasher defines HashCode for Element, which is : ask a Element its HashCode ! Because this is the Element itself which brings the HashCode for its Key");
+
+// Constructors
+cls_MoniTool_ElemHasher.def(py::init<>());
 
 // Methods
 // cls_MoniTool_ElemHasher.def_static("operator new_", (void * (*)(size_t)) &MoniTool_ElemHasher::operator new, "None", py::arg("theSize"));

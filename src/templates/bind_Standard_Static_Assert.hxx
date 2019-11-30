@@ -29,6 +29,9 @@ void bind_Standard_Static_Assert(py::module &mod, std::string const &name, py::m
 
 py::class_<Standard_Static_Assert<condition>> cls_Standard_Static_Assert(mod, name.c_str(), "Static assert -- empty default template", local);
 
+// Constructors
+cls_Standard_Static_Assert.def(py::init<>());
+
 }
 
 #endif

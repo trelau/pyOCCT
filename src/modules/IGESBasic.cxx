@@ -121,6 +121,9 @@ py::module::import("OCCT.Message");
 // CLASS: IGESBASIC
 py::class_<IGESBasic> cls_IGESBasic(mod, "IGESBasic", "This package represents basic entities from IGES");
 
+// Constructors
+cls_IGESBasic.def(py::init<>());
+
 // Methods
 // cls_IGESBasic.def_static("operator new_", (void * (*)(size_t)) &IGESBasic::operator new, "None", py::arg("theSize"));
 // cls_IGESBasic.def_static("operator delete_", (void (*)(void *)) &IGESBasic::operator delete, "None", py::arg("theAddress"));

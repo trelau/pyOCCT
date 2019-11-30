@@ -114,6 +114,9 @@ cls_GProp_GProps.def("RadiusOfGyration", (Standard_Real (GProp_GProps::*)(const 
 // CLASS: GPROP
 py::class_<GProp> cls_GProp(mod, "GProp", "This package defines algorithmes to compute the global properties of a set of points, a curve, a surface, a solid (non infinite region of space delimited with geometric entities), a compound geometric system (heterogeneous composition of the previous entities).");
 
+// Constructors
+cls_GProp.def(py::init<>());
+
 // Methods
 // cls_GProp.def_static("operator new_", (void * (*)(size_t)) &GProp::operator new, "None", py::arg("theSize"));
 // cls_GProp.def_static("operator delete_", (void (*)(void *)) &GProp::operator delete, "None", py::arg("theAddress"));

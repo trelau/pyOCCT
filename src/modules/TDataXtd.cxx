@@ -440,6 +440,9 @@ cls_TDataXtd_Presentation.def("UnsetSelectionMode", (void (TDataXtd_Presentation
 // CLASS: TDATAXTD
 py::class_<TDataXtd> cls_TDataXtd(mod, "TDataXtd", "This package defines extension of standard attributes for modelling (mainly for work with geometry).");
 
+// Constructors
+cls_TDataXtd.def(py::init<>());
+
 // Methods
 // cls_TDataXtd.def_static("operator new_", (void * (*)(size_t)) &TDataXtd::operator new, "None", py::arg("theSize"));
 // cls_TDataXtd.def_static("operator delete_", (void (*)(void *)) &TDataXtd::operator delete, "None", py::arg("theAddress"));

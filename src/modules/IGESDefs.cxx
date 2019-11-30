@@ -144,6 +144,9 @@ cls_IGESDefs_HArray1OfTabularData.def("DynamicType", (const opencascade::handle<
 // CLASS: IGESDEFS
 py::class_<IGESDefs> cls_IGESDefs(mod, "IGESDefs", "To embody general definitions of Entities (Parameters, Tables ...)");
 
+// Constructors
+cls_IGESDefs.def(py::init<>());
+
 // Methods
 // cls_IGESDefs.def_static("operator new_", (void * (*)(size_t)) &IGESDefs::operator new, "None", py::arg("theSize"));
 // cls_IGESDefs.def_static("operator delete_", (void (*)(void *)) &IGESDefs::operator delete, "None", py::arg("theAddress"));

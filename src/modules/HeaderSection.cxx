@@ -45,6 +45,9 @@ py::module::import("OCCT.StepData");
 // CLASS: HEADERSECTION
 py::class_<HeaderSection> cls_HeaderSection(mod, "HeaderSection", "None");
 
+// Constructors
+cls_HeaderSection.def(py::init<>());
+
 // Methods
 // cls_HeaderSection.def_static("operator new_", (void * (*)(size_t)) &HeaderSection::operator new, "None", py::arg("theSize"));
 // cls_HeaderSection.def_static("operator delete_", (void (*)(void *)) &HeaderSection::operator delete, "None", py::arg("theAddress"));

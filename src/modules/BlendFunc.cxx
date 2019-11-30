@@ -97,6 +97,9 @@ py::enum_<BlendFunc_SectionShape>(mod, "BlendFunc_SectionShape", "None")
 // CLASS: BLENDFUNC
 py::class_<BlendFunc> cls_BlendFunc(mod, "BlendFunc", "This package provides a set of generic functions, that can instantiated to compute blendings between two surfaces (Constant radius, Evolutive radius, Ruled surface).");
 
+// Constructors
+cls_BlendFunc.def(py::init<>());
+
 // Methods
 // cls_BlendFunc.def_static("operator new_", (void * (*)(size_t)) &BlendFunc::operator new, "None", py::arg("theSize"));
 // cls_BlendFunc.def_static("operator delete_", (void (*)(void *)) &BlendFunc::operator delete, "None", py::arg("theAddress"));

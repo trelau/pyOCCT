@@ -46,6 +46,9 @@ py::module::import("OCCT.XmlObjMgt");
 // CLASS: XMLMDOCSTD
 py::class_<XmlMDocStd> cls_XmlMDocStd(mod, "XmlMDocStd", "Driver for TDocStd_XLink");
 
+// Constructors
+cls_XmlMDocStd.def(py::init<>());
+
 // Methods
 // cls_XmlMDocStd.def_static("operator new_", (void * (*)(size_t)) &XmlMDocStd::operator new, "None", py::arg("theSize"));
 // cls_XmlMDocStd.def_static("operator delete_", (void (*)(void *)) &XmlMDocStd::operator delete, "None", py::arg("theAddress"));

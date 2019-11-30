@@ -460,6 +460,9 @@ cls_IntPatch_GLine.def("DynamicType", (const opencascade::handle<Standard_Type> 
 // CLASS: INTPATCH_HCURVE2DTOOL
 py::class_<IntPatch_HCurve2dTool> cls_IntPatch_HCurve2dTool(mod, "IntPatch_HCurve2dTool", "None");
 
+// Constructors
+cls_IntPatch_HCurve2dTool.def(py::init<>());
+
 // Methods
 // cls_IntPatch_HCurve2dTool.def_static("operator new_", (void * (*)(size_t)) &IntPatch_HCurve2dTool::operator new, "None", py::arg("theSize"));
 // cls_IntPatch_HCurve2dTool.def_static("operator delete_", (void (*)(void *)) &IntPatch_HCurve2dTool::operator delete, "None", py::arg("theAddress"));
@@ -819,6 +822,9 @@ cls_IntPatch_Polyhedron.def("Dump", (void (IntPatch_Polyhedron::*)() const) &Int
 // CLASS: INTPATCH_POLYHEDRONTOOL
 py::class_<IntPatch_PolyhedronTool> cls_IntPatch_PolyhedronTool(mod, "IntPatch_PolyhedronTool", "Describe the signature of a polyedral surface with only triangular facets and the necessary informations to compute the interferences.");
 
+// Constructors
+cls_IntPatch_PolyhedronTool.def(py::init<>());
+
 // Methods
 // cls_IntPatch_PolyhedronTool.def_static("operator new_", (void * (*)(size_t)) &IntPatch_PolyhedronTool::operator new, "None", py::arg("theSize"));
 // cls_IntPatch_PolyhedronTool.def_static("operator delete_", (void (*)(void *)) &IntPatch_PolyhedronTool::operator delete, "None", py::arg("theAddress"));
@@ -963,6 +969,9 @@ cls_IntPatch_RLine.def("DynamicType", (const opencascade::handle<Standard_Type> 
 // CLASS: INTPATCH_RSTINT
 py::class_<IntPatch_RstInt> cls_IntPatch_RstInt(mod, "IntPatch_RstInt", "trouver les points d intersection entre la ligne de cheminement et les arcs de restriction");
 
+// Constructors
+cls_IntPatch_RstInt.def(py::init<>());
+
 // Methods
 // cls_IntPatch_RstInt.def_static("operator new_", (void * (*)(size_t)) &IntPatch_RstInt::operator new, "None", py::arg("theSize"));
 // cls_IntPatch_RstInt.def_static("operator delete_", (void (*)(void *)) &IntPatch_RstInt::operator delete, "None", py::arg("theAddress"));
@@ -1035,6 +1044,9 @@ bind_NCollection_Sequence<opencascade::handle<IntPatch_TheIWLineOfTheIWalking> >
 
 // CLASS: INTPATCH_SPECIALPOINTS
 py::class_<IntPatch_SpecialPoints> cls_IntPatch_SpecialPoints(mod, "IntPatch_SpecialPoints", "None");
+
+// Constructors
+cls_IntPatch_SpecialPoints.def(py::init<>());
 
 // Methods
 cls_IntPatch_SpecialPoints.def_static("AddCrossUVIsoPoint_", [](const opencascade::handle<Adaptor3d_HSurface> & a0, const opencascade::handle<Adaptor3d_HSurface> & a1, const IntSurf_PntOn2S & a2, const Standard_Real a3, IntSurf_PntOn2S & a4) -> Standard_Boolean { return IntPatch_SpecialPoints::AddCrossUVIsoPoint(a0, a1, a2, a3, a4); });
@@ -1170,6 +1182,9 @@ py::enum_<IntPatch_WLine::IntPatch_WLType>(cls_IntPatch_WLine, "IntPatch_WLType"
 
 // CLASS: INTPATCH_WLINETOOL
 py::class_<IntPatch_WLineTool> cls_IntPatch_WLineTool(mod, "IntPatch_WLineTool", "IntPatch_WLineTool provides set of static methods related to walking lines.");
+
+// Constructors
+cls_IntPatch_WLineTool.def(py::init<>());
 
 // Methods
 // cls_IntPatch_WLineTool.def_static("operator new_", (void * (*)(size_t)) &IntPatch_WLineTool::operator new, "None", py::arg("theSize"));

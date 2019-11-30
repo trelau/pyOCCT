@@ -276,6 +276,9 @@ cls_Message_Messenger.def("Send", (void (Message_Messenger::*)(const TCollection
 // CLASS: MESSAGE_ALERT
 py::class_<Message_Alert, opencascade::handle<Message_Alert>, Standard_Transient> cls_Message_Alert(mod, "Message_Alert", "Base class of the hierarchy of classes describing various situations occurring during execution of some algorithm or procedure.");
 
+// Constructors
+cls_Message_Alert.def(py::init<>());
+
 // Methods
 cls_Message_Alert.def("GetMessageKey", (Standard_CString (Message_Alert::*)() const) &Message_Alert::GetMessageKey, "Return a C string to be used as a key for generating text user messages describing this alert. The messages are generated with help of Message_Msg class, in Message_Report::Dump(). Base implementation returns dynamic type name of the instance.");
 cls_Message_Alert.def("SupportsMerge", (Standard_Boolean (Message_Alert::*)() const) &Message_Alert::SupportsMerge, "Return true if this type of alert can be merged with other of the same type to avoid duplication. Basis implementation returns true.");
@@ -517,6 +520,9 @@ cls_Message_Algorithm.def("DynamicType", (const opencascade::handle<Standard_Typ
 // CLASS: MESSAGE
 py::class_<Message> cls_Message(mod, "Message", "Defines - tools to work with messages - basic tools intended for progress indication");
 
+// Constructors
+cls_Message.def(py::init<>());
+
 // Methods
 // cls_Message.def_static("operator new_", (void * (*)(size_t)) &Message::operator new, "None", py::arg("theSize"));
 // cls_Message.def_static("operator delete_", (void (*)(void *)) &Message::operator delete, "None", py::arg("theAddress"));
@@ -535,6 +541,9 @@ bind_NCollection_TListIterator<Message_Msg>(mod, "Message_ListIteratorOfListOfMs
 
 // CLASS: MESSAGE_MSGFILE
 py::class_<Message_MsgFile> cls_Message_MsgFile(mod, "Message_MsgFile", "A tool providing facility to load definitions of message strings from resource file(s).");
+
+// Constructors
+cls_Message_MsgFile.def(py::init<>());
 
 // Methods
 // cls_Message_MsgFile.def_static("operator new_", (void * (*)(size_t)) &Message_MsgFile::operator new, "None", py::arg("theSize"));

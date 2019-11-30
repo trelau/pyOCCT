@@ -110,6 +110,9 @@ py::module::import("OCCT.gp");
 // CLASS: STEPTOGEOM
 py::class_<StepToGeom> cls_StepToGeom(mod, "StepToGeom", "This class provides static methods to convert STEP geometric entities to OCCT. The methods returning handles will return null handle in case of error. The methods returning boolean will return True if succeeded and False if error.");
 
+// Constructors
+cls_StepToGeom.def(py::init<>());
+
 // Methods
 cls_StepToGeom.def_static("MakeAxis1Placement_", (opencascade::handle<Geom_Axis1Placement> (*)(const opencascade::handle<StepGeom_Axis1Placement> &)) &StepToGeom::MakeAxis1Placement, "None", py::arg("SA"));
 cls_StepToGeom.def_static("MakeAxis2Placement_", (opencascade::handle<Geom_Axis2Placement> (*)(const opencascade::handle<StepGeom_Axis2Placement3d> &)) &StepToGeom::MakeAxis2Placement, "None", py::arg("SA"));

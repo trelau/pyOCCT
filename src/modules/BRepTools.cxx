@@ -234,6 +234,9 @@ cls_BRepTools_Modification.def("DynamicType", (const opencascade::handle<Standar
 // CLASS: BREPTOOLS
 py::class_<BRepTools> cls_BRepTools(mod, "BRepTools", "The BRepTools package provides utilities for BRep data structures.");
 
+// Constructors
+cls_BRepTools.def(py::init<>());
+
 // Methods
 // cls_BRepTools.def_static("operator new_", (void * (*)(size_t)) &BRepTools::operator new, "None", py::arg("theSize"));
 // cls_BRepTools.def_static("operator delete_", (void (*)(void *)) &BRepTools::operator delete, "None", py::arg("theAddress"));

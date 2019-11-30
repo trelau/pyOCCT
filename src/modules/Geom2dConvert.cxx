@@ -77,6 +77,9 @@ cls_Geom2dConvert_CompCurveToBSplineCurve.def("Clear", (void (Geom2dConvert_Comp
 // CLASS: GEOM2DCONVERT
 py::class_<Geom2dConvert> cls_Geom2dConvert(mod, "Geom2dConvert", "This package provides an implementation of algorithmes to do the conversion between equivalent geometric entities from package Geom2d. It gives the possibility : . to obtain the B-spline representation of bounded curves. . to split a B-spline curve into several B-spline curves with some constraints of continuity, . to convert a B-spline curve into several Bezier curves or surfaces. All the geometric entities used in this package are bounded. References : . Generating the Bezier Points of B-spline curves and surfaces (Wolfgang Bohm) CAGD volume 13 number 6 november 1981 . On NURBS: A Survey (Leslie Piegl) IEEE Computer Graphics and Application January 1991 . Curve and surface construction using rational B-splines (Leslie Piegl and Wayne Tiller) CAD Volume 19 number 9 november 1987 . A survey of curve and surface methods in CAGD (Wolfgang BOHM) CAGD 1 1984");
 
+// Constructors
+cls_Geom2dConvert.def(py::init<>());
+
 // Methods
 // cls_Geom2dConvert.def_static("operator new_", (void * (*)(size_t)) &Geom2dConvert::operator new, "None", py::arg("theSize"));
 // cls_Geom2dConvert.def_static("operator delete_", (void (*)(void *)) &Geom2dConvert::operator delete, "None", py::arg("theAddress"));

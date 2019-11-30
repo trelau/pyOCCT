@@ -112,6 +112,9 @@ py::module::import("OCCT.TCollection");
 // CLASS: EXPR
 py::class_<Expr> cls_Expr(mod, "Expr", "This package describes the data structure of any expression, relation or function used in mathematics. It also describes the assignment of variables. Standard mathematical functions are implemented such as trigonometrics, hyperbolics, and log functions.");
 
+// Constructors
+cls_Expr.def(py::init<>());
+
 // Methods
 // cls_Expr.def_static("operator new_", (void * (*)(size_t)) &Expr::operator new, "None", py::arg("theSize"));
 // cls_Expr.def_static("operator delete_", (void (*)(void *)) &Expr::operator delete, "None", py::arg("theAddress"));

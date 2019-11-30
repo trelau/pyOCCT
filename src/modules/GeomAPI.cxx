@@ -83,6 +83,9 @@ py::module::import("OCCT.Approx");
 // CLASS: GEOMAPI
 py::class_<GeomAPI> cls_GeomAPI(mod, "GeomAPI", "The GeomAPI package provides an Application Programming Interface for the Geometry.");
 
+// Constructors
+cls_GeomAPI.def(py::init<>());
+
 // Methods
 // cls_GeomAPI.def_static("operator new_", (void * (*)(size_t)) &GeomAPI::operator new, "None", py::arg("theSize"));
 // cls_GeomAPI.def_static("operator delete_", (void (*)(void *)) &GeomAPI::operator delete, "None", py::arg("theAddress"));

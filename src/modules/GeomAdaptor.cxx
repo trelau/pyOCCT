@@ -235,6 +235,9 @@ cls_GeomAdaptor_HSurface.def("DynamicType", (const opencascade::handle<Standard_
 // CLASS: GEOMADAPTOR
 py::class_<GeomAdaptor> cls_GeomAdaptor(mod, "GeomAdaptor", "this package contains the geometric definition of curve and surface necessary to use algorithmes.");
 
+// Constructors
+cls_GeomAdaptor.def(py::init<>());
+
 // Methods
 // cls_GeomAdaptor.def_static("operator new_", (void * (*)(size_t)) &GeomAdaptor::operator new, "None", py::arg("theSize"));
 // cls_GeomAdaptor.def_static("operator delete_", (void (*)(void *)) &GeomAdaptor::operator delete, "None", py::arg("theAddress"));

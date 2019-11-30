@@ -140,6 +140,9 @@ cls_BinLDrivers_DocumentStorageDriver.def("DynamicType", (const opencascade::han
 // CLASS: BINLDRIVERS
 py::class_<BinLDrivers> cls_BinLDrivers(mod, "BinLDrivers", "None");
 
+// Constructors
+cls_BinLDrivers.def(py::init<>());
+
 // Methods
 cls_BinLDrivers.def_static("Factory_", (const opencascade::handle<Standard_Transient> & (*)(const Standard_GUID &)) &BinLDrivers::Factory, "None", py::arg("theGUID"));
 cls_BinLDrivers.def_static("DefineFormat_", (void (*)(const opencascade::handle<TDocStd_Application> &)) &BinLDrivers::DefineFormat, "Defines format 'BinLOcaf' and registers its read and write drivers in the specified application", py::arg("theApp"));

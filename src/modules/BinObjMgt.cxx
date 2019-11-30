@@ -156,6 +156,9 @@ cls_BinObjMgt_Persistent.def("Destroy", (void (BinObjMgt_Persistent::*)()) &BinO
 // CLASS: BINOBJMGT_RRELOCATIONTABLE
 py::class_<BinObjMgt_RRelocationTable, TColStd_DataMapOfIntegerTransient> cls_BinObjMgt_RRelocationTable(mod, "BinObjMgt_RRelocationTable", "Retrieval relocation table is modeled as a child class of TColStd_DataMapOfIntegerTransient that stores a handle to the file header section. With that attribute drivers have access to the file header section.");
 
+// Constructors
+cls_BinObjMgt_RRelocationTable.def(py::init<>());
+
 // Methods
 cls_BinObjMgt_RRelocationTable.def("GetHeaderData", (const opencascade::handle<Storage_HeaderData> & (BinObjMgt_RRelocationTable::*)() const) &BinObjMgt_RRelocationTable::GetHeaderData, "Returns a handle to the header data of the file that is begin read");
 cls_BinObjMgt_RRelocationTable.def("SetHeaderData", (void (BinObjMgt_RRelocationTable::*)(const opencascade::handle<Storage_HeaderData> &)) &BinObjMgt_RRelocationTable::SetHeaderData, "Sets the storage header data.", py::arg("theHeaderData"));

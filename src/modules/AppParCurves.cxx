@@ -252,6 +252,9 @@ bind_NCollection_Sequence<AppParCurves_MultiCurve>(mod, "AppParCurves_SequenceOf
 // CLASS: APPPARCURVES
 py::class_<AppParCurves> cls_AppParCurves(mod, "AppParCurves", "Parallel Approximation in n curves. This package gives all the algorithms used to approximate a MultiLine described by the tool MLineTool. The result of the approximation will be a MultiCurve.");
 
+// Constructors
+cls_AppParCurves.def(py::init<>());
+
 // Methods
 // cls_AppParCurves.def_static("operator new_", (void * (*)(size_t)) &AppParCurves::operator new, "None", py::arg("theSize"));
 // cls_AppParCurves.def_static("operator delete_", (void (*)(void *)) &AppParCurves::operator delete, "None", py::arg("theAddress"));

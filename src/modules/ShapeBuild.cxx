@@ -76,6 +76,9 @@ cls_ShapeBuild_ReShape.def("DynamicType", (const opencascade::handle<Standard_Ty
 // CLASS: SHAPEBUILD
 py::class_<ShapeBuild> cls_ShapeBuild(mod, "ShapeBuild", "This package provides basic building tools for other packages in ShapeHealing. These tools are rather internal for ShapeHealing .");
 
+// Constructors
+cls_ShapeBuild.def(py::init<>());
+
 // Methods
 // cls_ShapeBuild.def_static("operator new_", (void * (*)(size_t)) &ShapeBuild::operator new, "None", py::arg("theSize"));
 // cls_ShapeBuild.def_static("operator delete_", (void (*)(void *)) &ShapeBuild::operator delete, "None", py::arg("theAddress"));
@@ -87,6 +90,9 @@ cls_ShapeBuild.def_static("PlaneXOY_", (opencascade::handle<Geom_Plane> (*)()) &
 
 // CLASS: SHAPEBUILD_EDGE
 py::class_<ShapeBuild_Edge> cls_ShapeBuild_Edge(mod, "ShapeBuild_Edge", "This class provides low-level operators for building an edge 3d curve, copying edge with replaced vertices etc.");
+
+// Constructors
+cls_ShapeBuild_Edge.def(py::init<>());
 
 // Methods
 // cls_ShapeBuild_Edge.def_static("operator new_", (void * (*)(size_t)) &ShapeBuild_Edge::operator new, "None", py::arg("theSize"));
@@ -120,6 +126,9 @@ cls_ShapeBuild_Edge.def("MakeEdge", (void (ShapeBuild_Edge::*)(TopoDS_Edge &, co
 
 // CLASS: SHAPEBUILD_VERTEX
 py::class_<ShapeBuild_Vertex> cls_ShapeBuild_Vertex(mod, "ShapeBuild_Vertex", "Provides low-level functions used for constructing vertices");
+
+// Constructors
+cls_ShapeBuild_Vertex.def(py::init<>());
 
 // Methods
 // cls_ShapeBuild_Vertex.def_static("operator new_", (void * (*)(size_t)) &ShapeBuild_Vertex::operator new, "None", py::arg("theSize"));
