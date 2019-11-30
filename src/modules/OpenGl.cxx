@@ -2974,7 +2974,6 @@ cls_OpenGl_HaltonSampler.def("initFaure", (void (OpenGl_HaltonSampler::*)()) &Op
 cls_OpenGl_HaltonSampler.def("sample", (float (OpenGl_HaltonSampler::*)(unsigned int, unsigned int) const) &OpenGl_HaltonSampler::sample, "Return the Halton sample for the given dimension (component) and index. The client must have called initRandom or initFaure() at least once before. dimension must be smaller than the value returned by get_num_dimensions().", py::arg("theDimension"), py::arg("theIndex"));
 
 // TYPEDEF: OPENGL_LAYER
-/*
 py::class_<Graphic3d_Layer, opencascade::handle<Graphic3d_Layer>, Standard_Transient> cls_OpenGl_Layer(mod, "OpenGl_Layer", "Presentations list sorted within priorities.", py::module_local());
 
 // Constructors
@@ -3008,7 +3007,7 @@ cls_OpenGl_Layer.def("NbOfTransformPersistenceObjects", (Standard_Integer (Graph
 cls_OpenGl_Layer.def("CullableStructuresBVH", (const Graphic3d_BvhCStructureSet & (Graphic3d_Layer::*)() const) &Graphic3d_Layer::CullableStructuresBVH, "Returns set of Graphic3d_CStructures structures for building BVH tree.");
 cls_OpenGl_Layer.def("CullableTrsfPersStructuresBVH", (const Graphic3d_BvhCStructureSetTrsfPers & (Graphic3d_Layer::*)() const) &Graphic3d_Layer::CullableTrsfPersStructuresBVH, "Returns set of transform persistent Graphic3d_CStructures for building BVH tree.");
 cls_OpenGl_Layer.def("NonCullableStructures", (const NCollection_IndexedMap<const Graphic3d_CStructure *> & (Graphic3d_Layer::*)() const) &Graphic3d_Layer::NonCullableStructures, "Returns indexed map of always rendered structures.");
-*/
+
 // CLASS: OPENGL_LAYERLIST
 py::class_<OpenGl_LayerList> cls_OpenGl_LayerList(mod, "OpenGl_LayerList", "Class defining the list of layers.");
 
