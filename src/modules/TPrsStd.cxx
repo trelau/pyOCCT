@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Quantity_NameOfColor.hxx>
 #include <TDF_RelocationTable.hxx>
 #include <TDF_AttributeDelta.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <TDataXtd_Presentation.hxx>
 #include <AIS_InteractiveContext.hxx>
@@ -111,10 +112,15 @@ cls_TPrsStd_AISPresentation.def("Mode", (Standard_Integer (TPrsStd_AISPresentati
 cls_TPrsStd_AISPresentation.def("SetMode", (void (TPrsStd_AISPresentation::*)(const Standard_Integer)) &TPrsStd_AISPresentation::SetMode, "None", py::arg("theMode"));
 cls_TPrsStd_AISPresentation.def("HasOwnMode", (Standard_Boolean (TPrsStd_AISPresentation::*)() const) &TPrsStd_AISPresentation::HasOwnMode, "None");
 cls_TPrsStd_AISPresentation.def("UnsetMode", (void (TPrsStd_AISPresentation::*)()) &TPrsStd_AISPresentation::UnsetMode, "None");
-cls_TPrsStd_AISPresentation.def("SelectionMode", (Standard_Integer (TPrsStd_AISPresentation::*)() const) &TPrsStd_AISPresentation::SelectionMode, "None");
-cls_TPrsStd_AISPresentation.def("SetSelectionMode", (void (TPrsStd_AISPresentation::*)(const Standard_Integer)) &TPrsStd_AISPresentation::SetSelectionMode, "None", py::arg("theSelectionMode"));
+cls_TPrsStd_AISPresentation.def("GetNbSelectionModes", (Standard_Integer (TPrsStd_AISPresentation::*)() const) &TPrsStd_AISPresentation::GetNbSelectionModes, "Returns selection mode(s) of the attribute. It starts with 1 .. GetNbSelectionModes().");
+cls_TPrsStd_AISPresentation.def("SelectionMode", [](TPrsStd_AISPresentation &self) -> Standard_Integer { return self.SelectionMode(); });
+cls_TPrsStd_AISPresentation.def("SelectionMode", (Standard_Integer (TPrsStd_AISPresentation::*)(const int) const) &TPrsStd_AISPresentation::SelectionMode, "None", py::arg("index"));
+cls_TPrsStd_AISPresentation.def("SetSelectionMode", [](TPrsStd_AISPresentation &self, const Standard_Integer a0) -> void { return self.SetSelectionMode(a0); });
+cls_TPrsStd_AISPresentation.def("SetSelectionMode", (void (TPrsStd_AISPresentation::*)(const Standard_Integer, const Standard_Boolean)) &TPrsStd_AISPresentation::SetSelectionMode, "Sets selection mode. If 'theTransaction' flag is OFF, modification of the attribute doesn't influence the transaction mechanism (the attribute doesn't participate in undo/redo because of this modification). Certainly, if any other data of the attribute is modified (display mode, color, ...), the attribute will be included into undo/redo.", py::arg("theSelectionMode"), py::arg("theTransaction"));
+cls_TPrsStd_AISPresentation.def("AddSelectionMode", [](TPrsStd_AISPresentation &self, const Standard_Integer a0) -> void { return self.AddSelectionMode(a0); });
+cls_TPrsStd_AISPresentation.def("AddSelectionMode", (void (TPrsStd_AISPresentation::*)(const Standard_Integer, const Standard_Boolean)) &TPrsStd_AISPresentation::AddSelectionMode, "None", py::arg("theSelectionMode"), py::arg("theTransaction"));
 cls_TPrsStd_AISPresentation.def("HasOwnSelectionMode", (Standard_Boolean (TPrsStd_AISPresentation::*)() const) &TPrsStd_AISPresentation::HasOwnSelectionMode, "None");
-cls_TPrsStd_AISPresentation.def("UnsetSelectionMode", (void (TPrsStd_AISPresentation::*)()) &TPrsStd_AISPresentation::UnsetSelectionMode, "None");
+cls_TPrsStd_AISPresentation.def("UnsetSelectionMode", (void (TPrsStd_AISPresentation::*)()) &TPrsStd_AISPresentation::UnsetSelectionMode, "Clears all selection modes of the attribute.");
 cls_TPrsStd_AISPresentation.def("ID", (const Standard_GUID & (TPrsStd_AISPresentation::*)() const) &TPrsStd_AISPresentation::ID, "None");
 cls_TPrsStd_AISPresentation.def("NewEmpty", (opencascade::handle<TDF_Attribute> (TPrsStd_AISPresentation::*)() const) &TPrsStd_AISPresentation::NewEmpty, "None");
 cls_TPrsStd_AISPresentation.def("Restore", (void (TPrsStd_AISPresentation::*)(const opencascade::handle<TDF_Attribute> &)) &TPrsStd_AISPresentation::Restore, "None", py::arg("with"));

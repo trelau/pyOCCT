@@ -21,22 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include <pyOCCT_Common.hxx>
 #include <StepData_Logical.hxx>
-#include <Standard_Transient.hxx>
-#include <Standard_TypeDef.hxx>
-#include <TCollection_AsciiString.hxx>
-#include <Standard_Handle.hxx>
-#include <StepData_FileRecognizer.hxx>
-#include <Standard_Type.hxx>
 #include <Interface_Protocol.hxx>
+#include <Standard_TypeDef.hxx>
+#include <Standard_Handle.hxx>
+#include <Standard_Transient.hxx>
+#include <Standard_Type.hxx>
 #include <Interface_InterfaceModel.hxx>
 #include <StepData_EDescr.hxx>
 #include <StepData_ESDescr.hxx>
 #include <StepData_ECDescr.hxx>
 #include <TColStd_SequenceOfAsciiString.hxx>
 #include <StepData_PDescr.hxx>
+#include <Standard_Std.hxx>
 #include <StepData_Protocol.hxx>
 #include <Interface_DataMapOfTransientInteger.hxx>
 #include <NCollection_DataMap.hxx>
+#include <TCollection_AsciiString.hxx>
 #include <Interface_GeneralModule.hxx>
 #include <Interface_EntityIterator.hxx>
 #include <Interface_ShareTool.hxx>
@@ -72,11 +72,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepData_Simple.hxx>
 #include <StepData_Plex.hxx>
 #include <StepData_FreeFormEntity.hxx>
+#include <StepData_FileRecognizer.hxx>
 #include <StepData_FileProtocol.hxx>
-#include <StepData_HeaderTool.hxx>
-#include <StepData_DescrProtocol.hxx>
-#include <StepData_DescrGeneral.hxx>
-#include <StepData_DescrReadWrite.hxx>
 #include <StepData_StepReaderTool.hxx>
 #include <StepData_StepDumper.hxx>
 #include <StepData_WriterLib.hxx>
@@ -86,16 +83,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepData.hxx>
 #include <NCollection_Array1.hxx>
 #include <StepData_Array1OfField.hxx>
-#include <Interface_Graph.hxx>
-#include <TColStd_SequenceOfTransient.hxx>
 #include <TColStd_HSequenceOfAsciiString.hxx>
+#include <TColStd_SequenceOfTransient.hxx>
 #include <TColStd_HArray1OfTransient.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <StepData_HArray1OfField.hxx>
-#include <Standard_OStream.hxx>
+#include <Interface_Graph.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 #include <Interface_FloatWriter.hxx>
 #include <Interface_CheckIterator.hxx>
+#include <Standard_OStream.hxx>
 #include <TColStd_HSequenceOfHAsciiString.hxx>
 #include <Interface_LineBuffer.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
@@ -109,11 +106,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 PYBIND11_MODULE(StepData, mod) {
 
-py::module::import("OCCT.Standard");
-py::module::import("OCCT.TCollection");
 py::module::import("OCCT.Interface");
+py::module::import("OCCT.Standard");
 py::module::import("OCCT.TColStd");
 py::module::import("OCCT.NCollection");
+py::module::import("OCCT.TCollection");
 py::module::import("OCCT.Message");
 
 // ENUM: STEPDATA_LOGICAL
@@ -123,17 +120,6 @@ py::enum_<StepData_Logical>(mod, "StepData_Logical", "A Standard Definition for 
 	.value("StepData_LUnknown", StepData_Logical::StepData_LUnknown)
 	.export_values();
 
-
-// CLASS: STEPDATA_FILERECOGNIZER
-py::class_<StepData_FileRecognizer, opencascade::handle<StepData_FileRecognizer>, Standard_Transient> cls_StepData_FileRecognizer(mod, "StepData_FileRecognizer", "None");
-
-// Methods
-cls_StepData_FileRecognizer.def("Evaluate", (Standard_Boolean (StepData_FileRecognizer::*)(const TCollection_AsciiString &, opencascade::handle<Standard_Transient> &)) &StepData_FileRecognizer::Evaluate, "Evaluates if recognition has a result, returns it if yes In case of success, Returns True and puts result in 'res' In case of Failure, simply Returns False Works by calling deferred method Eval, and in case of failure, looks for Added Recognizers to work", py::arg("akey"), py::arg("res"));
-cls_StepData_FileRecognizer.def("Result", (opencascade::handle<Standard_Transient> (StepData_FileRecognizer::*)() const) &StepData_FileRecognizer::Result, "Returns result of last recognition (call of Evaluate)");
-cls_StepData_FileRecognizer.def("Add", (void (StepData_FileRecognizer::*)(const opencascade::handle<StepData_FileRecognizer> &)) &StepData_FileRecognizer::Add, "Adds a new Recognizer to the Compound, at the end Several calls to Add work by adding in the order of calls : Hence, when Eval has failed to recognize, Evaluate will call Evaluate from the first added Recognizer if there is one, and to the second if there is still no result, and so on", py::arg("reco"));
-cls_StepData_FileRecognizer.def_static("get_type_name_", (const char * (*)()) &StepData_FileRecognizer::get_type_name, "None");
-cls_StepData_FileRecognizer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepData_FileRecognizer::get_type_descriptor, "None");
-cls_StepData_FileRecognizer.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepData_FileRecognizer::*)() const) &StepData_FileRecognizer::DynamicType, "None");
 
 // CLASS: STEPDATA_PROTOCOL
 py::class_<StepData_Protocol, opencascade::handle<StepData_Protocol>, Interface_Protocol> cls_StepData_Protocol(mod, "StepData_Protocol", "Description of Basic Protocol for Step The class Protocol from StepData itself describes a default Protocol, which recognizes only UnknownEntities. Sub-classes will redefine CaseNumber and, if necessary, NbResources and Resources.");
@@ -481,21 +467,6 @@ cls_StepData_DefaultGeneral.def_static("get_type_name_", (const char * (*)()) &S
 cls_StepData_DefaultGeneral.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepData_DefaultGeneral::get_type_descriptor, "None");
 cls_StepData_DefaultGeneral.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepData_DefaultGeneral::*)() const) &StepData_DefaultGeneral::DynamicType, "None");
 
-// CLASS: STEPDATA_DESCRGENERAL
-py::class_<StepData_DescrGeneral, opencascade::handle<StepData_DescrGeneral>, StepData_GeneralModule> cls_StepData_DescrGeneral(mod, "StepData_DescrGeneral", "Works with a Protocol by considering its entity descriptions");
-
-// Constructors
-cls_StepData_DescrGeneral.def(py::init<const opencascade::handle<StepData_Protocol> &>(), py::arg("proto"));
-
-// Methods
-cls_StepData_DescrGeneral.def("FillSharedCase", (void (StepData_DescrGeneral::*)(const Standard_Integer, const opencascade::handle<Standard_Transient> &, Interface_EntityIterator &) const) &StepData_DescrGeneral::FillSharedCase, "None", py::arg("CN"), py::arg("ent"), py::arg("iter"));
-cls_StepData_DescrGeneral.def("CheckCase", (void (StepData_DescrGeneral::*)(const Standard_Integer, const opencascade::handle<Standard_Transient> &, const Interface_ShareTool &, opencascade::handle<Interface_Check> &) const) &StepData_DescrGeneral::CheckCase, "None", py::arg("CN"), py::arg("ent"), py::arg("shares"), py::arg("ach"));
-cls_StepData_DescrGeneral.def("CopyCase", (void (StepData_DescrGeneral::*)(const Standard_Integer, const opencascade::handle<Standard_Transient> &, const opencascade::handle<Standard_Transient> &, Interface_CopyTool &) const) &StepData_DescrGeneral::CopyCase, "None", py::arg("CN"), py::arg("entfrom"), py::arg("entto"), py::arg("TC"));
-cls_StepData_DescrGeneral.def("NewVoid", (Standard_Boolean (StepData_DescrGeneral::*)(const Standard_Integer, opencascade::handle<Standard_Transient> &) const) &StepData_DescrGeneral::NewVoid, "None", py::arg("CN"), py::arg("ent"));
-cls_StepData_DescrGeneral.def_static("get_type_name_", (const char * (*)()) &StepData_DescrGeneral::get_type_name, "None");
-cls_StepData_DescrGeneral.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepData_DescrGeneral::get_type_descriptor, "None");
-cls_StepData_DescrGeneral.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepData_DescrGeneral::*)() const) &StepData_DescrGeneral::DynamicType, "None");
-
 // CLASS: STEPDATA_DESCRIBED
 py::class_<StepData_Described, opencascade::handle<StepData_Described>, Standard_Transient> cls_StepData_Described(mod, "StepData_Described", "General frame to describe entities with Description (Simple or Complex)");
 
@@ -512,55 +483,6 @@ cls_StepData_Described.def("Shared", (void (StepData_Described::*)(Interface_Ent
 cls_StepData_Described.def_static("get_type_name_", (const char * (*)()) &StepData_Described::get_type_name, "None");
 cls_StepData_Described.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepData_Described::get_type_descriptor, "None");
 cls_StepData_Described.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepData_Described::*)() const) &StepData_Described::DynamicType, "None");
-
-// CLASS: STEPDATA_FILEPROTOCOL
-py::class_<StepData_FileProtocol, opencascade::handle<StepData_FileProtocol>, StepData_Protocol> cls_StepData_FileProtocol(mod, "StepData_FileProtocol", "A FileProtocol is defined as the addition of several already existing Protocols. It corresponds to the definition of a SchemaName with several Names, each one being attached to a specific Protocol. Thus, a File defined with a compound Schema is processed as any other one, once built the equivalent compound Protocol, a FileProtocol");
-
-// Constructors
-cls_StepData_FileProtocol.def(py::init<>());
-
-// Methods
-cls_StepData_FileProtocol.def("Add", (void (StepData_FileProtocol::*)(const opencascade::handle<StepData_Protocol> &)) &StepData_FileProtocol::Add, "Adds a Protocol to the definition list of the FileProtocol But ensures that each class of Protocol is present only once in this list", py::arg("protocol"));
-cls_StepData_FileProtocol.def("NbResources", (Standard_Integer (StepData_FileProtocol::*)() const) &StepData_FileProtocol::NbResources, "Gives the count of Protocols used as Resource (can be zero) i.e. the count of Protocol recorded by calling the method Add");
-cls_StepData_FileProtocol.def("Resource", (opencascade::handle<Interface_Protocol> (StepData_FileProtocol::*)(const Standard_Integer) const) &StepData_FileProtocol::Resource, "Returns a Resource, given a rank. Here, rank of calling Add", py::arg("num"));
-cls_StepData_FileProtocol.def("TypeNumber", (Standard_Integer (StepData_FileProtocol::*)(const opencascade::handle<Standard_Type> &) const) &StepData_FileProtocol::TypeNumber, "Returns a Case Number, specific of each recognized Type Here, NO Type at all is recognized properly : all Types are recognized by the resources", py::arg("atype"));
-cls_StepData_FileProtocol.def("GlobalCheck", (Standard_Boolean (StepData_FileProtocol::*)(const Interface_Graph &, opencascade::handle<Interface_Check> &) const) &StepData_FileProtocol::GlobalCheck, "Calls GlobalCheck for each of its recorded ressources", py::arg("G"), py::arg("ach"));
-cls_StepData_FileProtocol.def("SchemaName", (Standard_CString (StepData_FileProtocol::*)() const) &StepData_FileProtocol::SchemaName, "Returns the Schema Name attached to each class of Protocol To be redefined by each sub-class Here, SchemaName returns '' (empty String) was C++ : return const");
-cls_StepData_FileProtocol.def_static("get_type_name_", (const char * (*)()) &StepData_FileProtocol::get_type_name, "None");
-cls_StepData_FileProtocol.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepData_FileProtocol::get_type_descriptor, "None");
-cls_StepData_FileProtocol.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepData_FileProtocol::*)() const) &StepData_FileProtocol::DynamicType, "None");
-
-// CLASS: STEPDATA_DESCRPROTOCOL
-py::class_<StepData_DescrProtocol, opencascade::handle<StepData_DescrProtocol>, StepData_FileProtocol> cls_StepData_DescrProtocol(mod, "StepData_DescrProtocol", "A DescrProtocol is a protocol dynamically (at execution time) defined with : - a list of resources (inherits FileProtocol) - a list of entity descriptions i.e. it can be defined with only C++ writing to initialize it Its initialization must : - set its schema name - define its resources (which can also be other DescrProtocol) - define its entity descriptions - record it in the system by calling RecordLib");
-
-// Constructors
-cls_StepData_DescrProtocol.def(py::init<>());
-
-// Methods
-cls_StepData_DescrProtocol.def("SetSchemaName", (void (StepData_DescrProtocol::*)(const Standard_CString)) &StepData_DescrProtocol::SetSchemaName, "Defines a specific Schema Name for this Protocol", py::arg("name"));
-cls_StepData_DescrProtocol.def("LibRecord", (void (StepData_DescrProtocol::*)() const) &StepData_DescrProtocol::LibRecord, "Records this Protocol in the service libraries, with a DescrGeneral and a DescrReadWrite Does nothing if the Protocol brings no proper description");
-cls_StepData_DescrProtocol.def("SchemaName", (Standard_CString (StepData_DescrProtocol::*)() const) &StepData_DescrProtocol::SchemaName, "Returns the Schema Name attached to each class of Protocol here, returns the SchemaName set by SetSchemaName was C++ : return const");
-cls_StepData_DescrProtocol.def_static("get_type_name_", (const char * (*)()) &StepData_DescrProtocol::get_type_name, "None");
-cls_StepData_DescrProtocol.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepData_DescrProtocol::get_type_descriptor, "None");
-cls_StepData_DescrProtocol.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepData_DescrProtocol::*)() const) &StepData_DescrProtocol::DynamicType, "None");
-
-// CLASS: STEPDATA_DESCRREADWRITE
-py::class_<StepData_DescrReadWrite, opencascade::handle<StepData_DescrReadWrite>, StepData_ReadWriteModule> cls_StepData_DescrReadWrite(mod, "StepData_DescrReadWrite", "None");
-
-// Constructors
-cls_StepData_DescrReadWrite.def(py::init<const opencascade::handle<StepData_Protocol> &>(), py::arg("proto"));
-
-// Methods
-cls_StepData_DescrReadWrite.def("CaseStep", (Standard_Integer (StepData_DescrReadWrite::*)(const TCollection_AsciiString &) const) &StepData_DescrReadWrite::CaseStep, "None", py::arg("atype"));
-cls_StepData_DescrReadWrite.def("CaseStep", (Standard_Integer (StepData_DescrReadWrite::*)(const TColStd_SequenceOfAsciiString &) const) &StepData_DescrReadWrite::CaseStep, "None", py::arg("types"));
-cls_StepData_DescrReadWrite.def("IsComplex", (Standard_Boolean (StepData_DescrReadWrite::*)(const Standard_Integer) const) &StepData_DescrReadWrite::IsComplex, "None", py::arg("CN"));
-cls_StepData_DescrReadWrite.def("StepType", (const TCollection_AsciiString & (StepData_DescrReadWrite::*)(const Standard_Integer) const) &StepData_DescrReadWrite::StepType, "None", py::arg("CN"));
-cls_StepData_DescrReadWrite.def("ComplexType", (Standard_Boolean (StepData_DescrReadWrite::*)(const Standard_Integer, TColStd_SequenceOfAsciiString &) const) &StepData_DescrReadWrite::ComplexType, "None", py::arg("CN"), py::arg("types"));
-cls_StepData_DescrReadWrite.def("ReadStep", (void (StepData_DescrReadWrite::*)(const Standard_Integer, const opencascade::handle<StepData_StepReaderData> &, const Standard_Integer, opencascade::handle<Interface_Check> &, const opencascade::handle<Standard_Transient> &) const) &StepData_DescrReadWrite::ReadStep, "None", py::arg("CN"), py::arg("data"), py::arg("num"), py::arg("ach"), py::arg("ent"));
-cls_StepData_DescrReadWrite.def("WriteStep", (void (StepData_DescrReadWrite::*)(const Standard_Integer, StepData_StepWriter &, const opencascade::handle<Standard_Transient> &) const) &StepData_DescrReadWrite::WriteStep, "None", py::arg("CN"), py::arg("SW"), py::arg("ent"));
-cls_StepData_DescrReadWrite.def_static("get_type_name_", (const char * (*)()) &StepData_DescrReadWrite::get_type_name, "None");
-cls_StepData_DescrReadWrite.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepData_DescrReadWrite::get_type_descriptor, "None");
-cls_StepData_DescrReadWrite.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepData_DescrReadWrite::*)() const) &StepData_DescrReadWrite::DynamicType, "None");
 
 // CLASS: STEPDATA_EDESCR
 py::class_<StepData_EDescr, opencascade::handle<StepData_EDescr>, Standard_Transient> cls_StepData_EDescr(mod, "StepData_EDescr", "This class is intended to describe the authorized form for an entity, either Simple or Plex");
@@ -720,6 +642,7 @@ cls_StepData_FieldList1.def("CField", (StepData_Field & (StepData_FieldList1::*)
 py::class_<StepData_HArray1OfField, opencascade::handle<StepData_HArray1OfField>, Standard_Transient> cls_StepData_HArray1OfField(mod, "StepData_HArray1OfField", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepData_HArray1OfField.def(py::init<>());
 cls_StepData_HArray1OfField.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepData_HArray1OfField.def(py::init<const Standard_Integer, const Standard_Integer, const StepData_Array1OfField::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepData_HArray1OfField.def(py::init<const StepData_Array1OfField &>(), py::arg("theOther"));
@@ -774,6 +697,34 @@ cls_StepData_FieldListN.def("NbFields", (Standard_Integer (StepData_FieldListN::
 cls_StepData_FieldListN.def("Field", (const StepData_Field & (StepData_FieldListN::*)(const Standard_Integer) const) &StepData_FieldListN::Field, "Returns the field n0 <num> between 1 and NbFields (read only)", py::arg("num"));
 cls_StepData_FieldListN.def("CField", (StepData_Field & (StepData_FieldListN::*)(const Standard_Integer)) &StepData_FieldListN::CField, "Returns the field n0 <num> between 1 and NbFields, in order to modify its content", py::arg("num"));
 
+// CLASS: STEPDATA_FILEPROTOCOL
+py::class_<StepData_FileProtocol, opencascade::handle<StepData_FileProtocol>, StepData_Protocol> cls_StepData_FileProtocol(mod, "StepData_FileProtocol", "A FileProtocol is defined as the addition of several already existing Protocols. It corresponds to the definition of a SchemaName with several Names, each one being attached to a specific Protocol. Thus, a File defined with a compound Schema is processed as any other one, once built the equivalent compound Protocol, a FileProtocol");
+
+// Constructors
+cls_StepData_FileProtocol.def(py::init<>());
+
+// Methods
+cls_StepData_FileProtocol.def("Add", (void (StepData_FileProtocol::*)(const opencascade::handle<StepData_Protocol> &)) &StepData_FileProtocol::Add, "Adds a Protocol to the definition list of the FileProtocol But ensures that each class of Protocol is present only once in this list", py::arg("protocol"));
+cls_StepData_FileProtocol.def("NbResources", (Standard_Integer (StepData_FileProtocol::*)() const) &StepData_FileProtocol::NbResources, "Gives the count of Protocols used as Resource (can be zero) i.e. the count of Protocol recorded by calling the method Add");
+cls_StepData_FileProtocol.def("Resource", (opencascade::handle<Interface_Protocol> (StepData_FileProtocol::*)(const Standard_Integer) const) &StepData_FileProtocol::Resource, "Returns a Resource, given a rank. Here, rank of calling Add", py::arg("num"));
+cls_StepData_FileProtocol.def("TypeNumber", (Standard_Integer (StepData_FileProtocol::*)(const opencascade::handle<Standard_Type> &) const) &StepData_FileProtocol::TypeNumber, "Returns a Case Number, specific of each recognized Type Here, NO Type at all is recognized properly : all Types are recognized by the resources", py::arg("atype"));
+cls_StepData_FileProtocol.def("GlobalCheck", (Standard_Boolean (StepData_FileProtocol::*)(const Interface_Graph &, opencascade::handle<Interface_Check> &) const) &StepData_FileProtocol::GlobalCheck, "Calls GlobalCheck for each of its recorded ressources", py::arg("G"), py::arg("ach"));
+cls_StepData_FileProtocol.def("SchemaName", (Standard_CString (StepData_FileProtocol::*)() const) &StepData_FileProtocol::SchemaName, "Returns the Schema Name attached to each class of Protocol To be redefined by each sub-class Here, SchemaName returns '' (empty String) was C++ : return const");
+cls_StepData_FileProtocol.def_static("get_type_name_", (const char * (*)()) &StepData_FileProtocol::get_type_name, "None");
+cls_StepData_FileProtocol.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepData_FileProtocol::get_type_descriptor, "None");
+cls_StepData_FileProtocol.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepData_FileProtocol::*)() const) &StepData_FileProtocol::DynamicType, "None");
+
+// CLASS: STEPDATA_FILERECOGNIZER
+py::class_<StepData_FileRecognizer, opencascade::handle<StepData_FileRecognizer>, Standard_Transient> cls_StepData_FileRecognizer(mod, "StepData_FileRecognizer", "None");
+
+// Methods
+cls_StepData_FileRecognizer.def("Evaluate", (Standard_Boolean (StepData_FileRecognizer::*)(const TCollection_AsciiString &, opencascade::handle<Standard_Transient> &)) &StepData_FileRecognizer::Evaluate, "Evaluates if recognition has a result, returns it if yes In case of success, Returns True and puts result in 'res' In case of Failure, simply Returns False Works by calling deferred method Eval, and in case of failure, looks for Added Recognizers to work", py::arg("akey"), py::arg("res"));
+cls_StepData_FileRecognizer.def("Result", (opencascade::handle<Standard_Transient> (StepData_FileRecognizer::*)() const) &StepData_FileRecognizer::Result, "Returns result of last recognition (call of Evaluate)");
+cls_StepData_FileRecognizer.def("Add", (void (StepData_FileRecognizer::*)(const opencascade::handle<StepData_FileRecognizer> &)) &StepData_FileRecognizer::Add, "Adds a new Recognizer to the Compound, at the end Several calls to Add work by adding in the order of calls : Hence, when Eval has failed to recognize, Evaluate will call Evaluate from the first added Recognizer if there is one, and to the second if there is still no result, and so on", py::arg("reco"));
+cls_StepData_FileRecognizer.def_static("get_type_name_", (const char * (*)()) &StepData_FileRecognizer::get_type_name, "None");
+cls_StepData_FileRecognizer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepData_FileRecognizer::get_type_descriptor, "None");
+cls_StepData_FileRecognizer.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepData_FileRecognizer::*)() const) &StepData_FileRecognizer::DynamicType, "None");
+
 // CLASS: STEPDATA_FREEFORMENTITY
 py::class_<StepData_FreeFormEntity, opencascade::handle<StepData_FreeFormEntity>, Standard_Transient> cls_StepData_FreeFormEntity(mod, "StepData_FreeFormEntity", "A Free Form Entity allows to record any kind of STEP parameters, in any way of typing It is implemented with an array of fields A Complex entity can be defined, as a chain of FreeFormEntity (see Next and As)");
 
@@ -812,30 +763,6 @@ cls_StepData_GlobalNodeOfWriterLib.def("Next", (const opencascade::handle<StepDa
 cls_StepData_GlobalNodeOfWriterLib.def_static("get_type_name_", (const char * (*)()) &StepData_GlobalNodeOfWriterLib::get_type_name, "None");
 cls_StepData_GlobalNodeOfWriterLib.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepData_GlobalNodeOfWriterLib::get_type_descriptor, "None");
 cls_StepData_GlobalNodeOfWriterLib.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepData_GlobalNodeOfWriterLib::*)() const) &StepData_GlobalNodeOfWriterLib::DynamicType, "None");
-
-// CLASS: STEPDATA_HEADERTOOL
-py::class_<StepData_HeaderTool> cls_StepData_HeaderTool(mod, "StepData_HeaderTool", "HeaderTool exploits data from Header to build a Protocol : it uses the Header Entity FileSchema to do this. It builds a Protocol from the Global List of Protocols stored in the Library ReaderLib");
-
-// Constructors
-cls_StepData_HeaderTool.def(py::init<const opencascade::handle<StepData_StepReaderData> &>(), py::arg("data"));
-cls_StepData_HeaderTool.def(py::init<const TColStd_SequenceOfAsciiString &>(), py::arg("names"));
-
-// Methods
-// cls_StepData_HeaderTool.def_static("operator new_", (void * (*)(size_t)) &StepData_HeaderTool::operator new, "None", py::arg("theSize"));
-// cls_StepData_HeaderTool.def_static("operator delete_", (void (*)(void *)) &StepData_HeaderTool::operator delete, "None", py::arg("theAddress"));
-// cls_StepData_HeaderTool.def_static("operator new[]_", (void * (*)(size_t)) &StepData_HeaderTool::operator new[], "None", py::arg("theSize"));
-// cls_StepData_HeaderTool.def_static("operator delete[]_", (void (*)(void *)) &StepData_HeaderTool::operator delete[], "None", py::arg("theAddress"));
-// cls_StepData_HeaderTool.def_static("operator new_", (void * (*)(size_t, void *)) &StepData_HeaderTool::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepData_HeaderTool.def_static("operator delete_", (void (*)(void *, void *)) &StepData_HeaderTool::operator delete, "None", py::arg(""), py::arg(""));
-cls_StepData_HeaderTool.def("NbSchemaNames", (Standard_Integer (StepData_HeaderTool::*)() const) &StepData_HeaderTool::NbSchemaNames, "Returns the count of SchemaNames");
-cls_StepData_HeaderTool.def("SchemaName", (const TCollection_AsciiString & (StepData_HeaderTool::*)(const Standard_Integer) const) &StepData_HeaderTool::SchemaName, "Returns a SchemaName, given its rank", py::arg("num"));
-cls_StepData_HeaderTool.def("NamedProtocol", (opencascade::handle<StepData_Protocol> (StepData_HeaderTool::*)(const TCollection_AsciiString &) const) &StepData_HeaderTool::NamedProtocol, "Returns the Protocol which corresponds to a Schema Name Returns a Null Handle if this Schema Name is attached to no Protocol recorded in the Global List of ReaderLib", py::arg("name"));
-cls_StepData_HeaderTool.def("Build", (void (StepData_HeaderTool::*)(const opencascade::handle<StepData_FileProtocol> &)) &StepData_HeaderTool::Build, "Fills a FileProtocol with the list of Protocols attached to the list of Schema Names. It can remain empty ...", py::arg("protocol"));
-cls_StepData_HeaderTool.def("Protocol", (opencascade::handle<StepData_Protocol> (StepData_HeaderTool::*)()) &StepData_HeaderTool::Protocol, "Returns a Protocol computed from the list of Schema Names : - a Null Handle if no SchemaName has been recognized (or list empty) - a single Protocol if only one SchemaName has been recognized - a FileProtocol with its componants if several SchemaNames have been recognized");
-cls_StepData_HeaderTool.def("IsDone", (Standard_Boolean (StepData_HeaderTool::*)() const) &StepData_HeaderTool::IsDone, "Returns True if either Build or Protocol has been called If it is False, Ignored and NbIgnored should not be called");
-cls_StepData_HeaderTool.def("NbIgnoreds", (Standard_Integer (StepData_HeaderTool::*)() const) &StepData_HeaderTool::NbIgnoreds, "Returns the count of ignored SchemaNames (0 if all were OK)");
-cls_StepData_HeaderTool.def("Ignored", (const TCollection_AsciiString & (StepData_HeaderTool::*)(const Standard_Integer) const) &StepData_HeaderTool::Ignored, "Returns an ignored SchemaName, given its rank in the list of Ignored SchemaNames (not in the total list)", py::arg("num"));
-cls_StepData_HeaderTool.def("Print", (void (StepData_HeaderTool::*)(Standard_OStream &) const) &StepData_HeaderTool::Print, "Sends the state of the HeaderTool in a comprehensive way, to an output stream", py::arg("S"));
 
 // CLASS: STEPDATA_NODEOFWRITERLIB
 py::class_<StepData_NodeOfWriterLib, opencascade::handle<StepData_NodeOfWriterLib>, Standard_Transient> cls_StepData_NodeOfWriterLib(mod, "StepData_NodeOfWriterLib", "None");

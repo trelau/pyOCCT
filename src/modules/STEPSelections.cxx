@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Handle.hxx>
 #include <StepRepr_NextAssemblyUsageOccurrence.hxx>
 #include <STEPSelections_AssemblyComponent.hxx>
+#include <Standard_Std.hxx>
 #include <STEPSelections_AssemblyLink.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Sequence.hxx>

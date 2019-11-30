@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopAbs_ShapeEnum.hxx>
 #include <Standard_TypeDef.hxx>
 #include <ShapeExtend_Status.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <ShapeBuild_ReShape.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <Standard.hxx>
 #include <Geom_Plane.hxx>

@@ -80,6 +80,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <TCollection_AsciiString.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <Expr_Array1OfGeneralExpression.hxx>
 #include <Expr_Array1OfSingleRelation.hxx>

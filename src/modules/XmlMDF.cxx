@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <XmlObjMgt_Persistent.hxx>
 #include <XmlObjMgt_RRelocationTable.hxx>
 #include <XmlObjMgt_SRelocationTable.hxx>
+#include <Standard_Std.hxx>
 #include <XmlMDF_ADriver.hxx>
 #include <Message_Messenger.hxx>
 #include <XmlMDF.hxx>

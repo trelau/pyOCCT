@@ -70,6 +70,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Geom_Surface.hxx>
 #include <BRepBuilderAPI_FastSewing.hxx>
 #include <Standard_OStream.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <BRep_Builder.hxx>
 #include <gp_Pnt.hxx>
@@ -260,7 +261,7 @@ cls_BRepBuilderAPI.def_static("Precision_", (void (*)(const Standard_Real)) &BRe
 cls_BRepBuilderAPI.def_static("Precision_", (Standard_Real (*)()) &BRepBuilderAPI::Precision, "Returns the default precision.");
 
 // TYPEDEF: BREPBUILDERAPI_BNDBOXTREE
-bind_NCollection_UBTree<int, Bnd_Box>(mod, "BRepBuilderAPI_BndBoxTree", py::module_local());
+bind_NCollection_UBTree<int, Bnd_Box>(mod, "BRepBuilderAPI_BndBoxTree", py::module_local(false));
 
 // CLASS: BREPBUILDERAPI_BNDBOXTREESELECTOR
 py::class_<BRepBuilderAPI_BndBoxTreeSelector, BRepBuilderAPI_BndBoxTree::Selector> cls_BRepBuilderAPI_BndBoxTreeSelector(mod, "BRepBuilderAPI_BndBoxTreeSelector", "Class BRepBuilderAPI_BndBoxTreeSelector derived from UBTree::Selector This class is used to select overlapping boxes, stored in NCollection::UBTree; contains methods to maintain the selection condition and to retrieve selected objects after search.");

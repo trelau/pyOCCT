@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <IGESGraph_TextFontDef.hxx>
 #include <gp_Pnt.hxx>
 #include <TCollection_HAsciiString.hxx>
+#include <Standard_Std.hxx>
 #include <IGESDimen_GeneralNote.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Array1.hxx>
@@ -164,6 +165,7 @@ bind_NCollection_Array1<opencascade::handle<IGESDimen_GeneralNote> >(mod, "IGESD
 py::class_<IGESDimen_HArray1OfGeneralNote, opencascade::handle<IGESDimen_HArray1OfGeneralNote>, Standard_Transient> cls_IGESDimen_HArray1OfGeneralNote(mod, "IGESDimen_HArray1OfGeneralNote", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESDimen_HArray1OfGeneralNote.def(py::init<>());
 cls_IGESDimen_HArray1OfGeneralNote.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESDimen_HArray1OfGeneralNote.def(py::init<const Standard_Integer, const Standard_Integer, const IGESDimen_Array1OfGeneralNote::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESDimen_HArray1OfGeneralNote.def(py::init<const IGESDimen_Array1OfGeneralNote &>(), py::arg("theOther"));
@@ -406,6 +408,7 @@ cls_IGESDimen_DimensionUnits.def("DynamicType", (const opencascade::handle<Stand
 py::class_<IGESDimen_HArray1OfLeaderArrow, opencascade::handle<IGESDimen_HArray1OfLeaderArrow>, Standard_Transient> cls_IGESDimen_HArray1OfLeaderArrow(mod, "IGESDimen_HArray1OfLeaderArrow", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESDimen_HArray1OfLeaderArrow.def(py::init<>());
 cls_IGESDimen_HArray1OfLeaderArrow.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESDimen_HArray1OfLeaderArrow.def(py::init<const Standard_Integer, const Standard_Integer, const IGESDimen_Array1OfLeaderArrow::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESDimen_HArray1OfLeaderArrow.def(py::init<const IGESDimen_Array1OfLeaderArrow &>(), py::arg("theOther"));

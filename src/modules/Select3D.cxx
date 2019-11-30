@@ -25,17 +25,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_TypeDef.hxx>
 #include <Select3D_BndBox3d.hxx>
 #include <NCollection_Vec3.hxx>
-#include <BVH_Builder.hxx>
-#include <Select3D_BVHBuilder3d.hxx>
-#include <SelectBasics_SensitiveEntity.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Transient.hxx>
+#include <Standard_Std.hxx>
 #include <Select3D_SensitiveEntity.hxx>
+#include <Standard_Handle.hxx>
+#include <Standard_Type.hxx>
+#include <SelectMgr_EntityOwner.hxx>
+#include <Standard_ProgramError.hxx>
 #include <SelectBasics_SelectingVolumeManager.hxx>
 #include <SelectBasics_PickResult.hxx>
 #include <gp_Pnt.hxx>
 #include <gp_GTrsf.hxx>
-#include <Standard_Type.hxx>
-#include <SelectBasics_EntityOwner.hxx>
+#include <BVH_Builder.hxx>
+#include <Select3D_BVHBuilder3d.hxx>
 #include <Select3D_SensitiveSet.hxx>
 #include <BVH_PrimitiveSet3d.hxx>
 #include <BVH_Tree.hxx>
@@ -75,8 +77,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColStd_HPackedMapOfInteger.hxx>
 #include <Graphic3d_Vec3.hxx>
 #include <Graphic3d_Vec2.hxx>
-#include <Graphic3d_TypeOfPrimitiveArray.hxx>
 #include <NCollection_SparseArrayBase.hxx>
+#include <Graphic3d_TypeOfPrimitiveArray.hxx>
 #include <Select3D_SensitiveTriangle.hxx>
 #include <Select3D_SensitiveTriangulation.hxx>
 #include <Poly_Triangulation.hxx>
@@ -116,25 +118,34 @@ bind_BVH_Box<double, 3>(mod, "Select3D_BndBox3d", py::module_local());
 // TYPEDEF: SELECT3D_VEC3
 bind_NCollection_Vec3<double>(mod, "Select3D_Vec3", py::module_local());
 
-// TYPEDEF: SELECT3D_BVHBUILDER3D
-bind_BVH_Builder<double, 3>(mod, "Select3D_BVHBuilder3d", py::module_local(false));
-
 // CLASS: SELECT3D_SENSITIVEENTITY
-py::class_<Select3D_SensitiveEntity, opencascade::handle<Select3D_SensitiveEntity>, SelectBasics_SensitiveEntity> cls_Select3D_SensitiveEntity(mod, "Select3D_SensitiveEntity", "Abstract framework to define 3D sensitive entities. As the selection process uses the principle of a projection of 3D shapes onto a 2D view where nearness to a rectangle determines whether a shape is picked or not, all 3D shapes need to be converted into 2D ones in order to be selected.");
+py::class_<Select3D_SensitiveEntity, opencascade::handle<Select3D_SensitiveEntity>, Standard_Transient> cls_Select3D_SensitiveEntity(mod, "Select3D_SensitiveEntity", "Abstract framework to define 3D sensitive entities.");
 
 // Methods
-cls_Select3D_SensitiveEntity.def("GetConnected", (opencascade::handle<Select3D_SensitiveEntity> (Select3D_SensitiveEntity::*)()) &Select3D_SensitiveEntity::GetConnected, "Originally this method intended to return sensitive entity with new location aLocation, but currently sensitive entities do not hold a location, instead HasLocation() and Location() methods call corresponding entity owner's methods. Thus all entities returned by GetConnected() share the same location propagated from corresponding selectable object. You must redefine this function for any type of sensitive entity which can accept another connected sensitive entity.//can be connected to another sensitive entity.");
+cls_Select3D_SensitiveEntity.def_static("get_type_name_", (const char * (*)()) &Select3D_SensitiveEntity::get_type_name, "None");
+cls_Select3D_SensitiveEntity.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Select3D_SensitiveEntity::get_type_descriptor, "None");
+cls_Select3D_SensitiveEntity.def("DynamicType", (const opencascade::handle<Standard_Type> & (Select3D_SensitiveEntity::*)() const) &Select3D_SensitiveEntity::DynamicType, "None");
+cls_Select3D_SensitiveEntity.def("OwnerId", (const opencascade::handle<SelectMgr_EntityOwner> & (Select3D_SensitiveEntity::*)() const) &Select3D_SensitiveEntity::OwnerId, "Returns pointer to owner of the entity");
+cls_Select3D_SensitiveEntity.def("Set", (void (Select3D_SensitiveEntity::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &Select3D_SensitiveEntity::Set, "Sets owner of the entity", py::arg("theOwnerId"));
+cls_Select3D_SensitiveEntity.def("SensitivityFactor", (Standard_Integer (Select3D_SensitiveEntity::*)() const) &Select3D_SensitiveEntity::SensitivityFactor, "allows a better sensitivity for a specific entity in selection algorithms useful for small sized entities.");
+cls_Select3D_SensitiveEntity.def("SetSensitivityFactor", (void (Select3D_SensitiveEntity::*)(const Standard_Integer)) &Select3D_SensitiveEntity::SetSensitivityFactor, "Allows to manage sensitivity of a particular sensitive entity", py::arg("theNewSens"));
+cls_Select3D_SensitiveEntity.def("GetConnected", (opencascade::handle<Select3D_SensitiveEntity> (Select3D_SensitiveEntity::*)()) &Select3D_SensitiveEntity::GetConnected, "Originally this method intended to return sensitive entity with new location aLocation, but currently sensitive entities do not hold a location, instead HasLocation() and Location() methods call corresponding entity owner's methods. Thus all entities returned by GetConnected() share the same location propagated from corresponding selectable object. You must redefine this function for any type of sensitive entity which can accept another connected sensitive entity.");
 cls_Select3D_SensitiveEntity.def("Matches", (Standard_Boolean (Select3D_SensitiveEntity::*)(SelectBasics_SelectingVolumeManager &, SelectBasics_PickResult &)) &Select3D_SensitiveEntity::Matches, "Checks whether sensitive overlaps current selecting volume. Stores minimum depth, distance to center of geometry and closest point detected into thePickResult", py::arg("theMgr"), py::arg("thePickResult"));
-cls_Select3D_SensitiveEntity.def("NbSubElements", (Standard_Integer (Select3D_SensitiveEntity::*)()) &Select3D_SensitiveEntity::NbSubElements, "Returns the number of sub-entities or elements in sensitive entity. Is used to determine if entity is complex and needs to pre-build BVH at the creation of sensitive entity step or is light-weighted so the tree can be build on demand with unnoticeable delay");
+cls_Select3D_SensitiveEntity.def("NbSubElements", (Standard_Integer (Select3D_SensitiveEntity::*)()) &Select3D_SensitiveEntity::NbSubElements, "Returns the number of sub-entities or elements in sensitive entity. Is used to determine if entity is complex and needs to pre-build BVH at the creation of sensitive entity step or is light-weighted so the tree can be build on demand with unnoticeable delay.");
 cls_Select3D_SensitiveEntity.def("BoundingBox", (Select3D_BndBox3d (Select3D_SensitiveEntity::*)()) &Select3D_SensitiveEntity::BoundingBox, "Returns bounding box of a sensitive with transformation applied");
 cls_Select3D_SensitiveEntity.def("CenterOfGeometry", (gp_Pnt (Select3D_SensitiveEntity::*)() const) &Select3D_SensitiveEntity::CenterOfGeometry, "Returns center of a sensitive with transformation applied");
 cls_Select3D_SensitiveEntity.def("BVH", (void (Select3D_SensitiveEntity::*)()) &Select3D_SensitiveEntity::BVH, "Builds BVH tree for a sensitive if needed");
 cls_Select3D_SensitiveEntity.def("Clear", (void (Select3D_SensitiveEntity::*)()) &Select3D_SensitiveEntity::Clear, "Clears up all resources and memory");
 cls_Select3D_SensitiveEntity.def("HasInitLocation", (Standard_Boolean (Select3D_SensitiveEntity::*)() const) &Select3D_SensitiveEntity::HasInitLocation, "Returns true if the shape corresponding to the entity has init location");
 cls_Select3D_SensitiveEntity.def("InvInitLocation", (gp_GTrsf (Select3D_SensitiveEntity::*)() const) &Select3D_SensitiveEntity::InvInitLocation, "Returns inversed location transformation matrix if the shape corresponding to this entity has init location set. Otherwise, returns identity matrix.");
-cls_Select3D_SensitiveEntity.def_static("get_type_name_", (const char * (*)()) &Select3D_SensitiveEntity::get_type_name, "None");
-cls_Select3D_SensitiveEntity.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Select3D_SensitiveEntity::get_type_descriptor, "None");
-cls_Select3D_SensitiveEntity.def("DynamicType", (const opencascade::handle<Standard_Type> & (Select3D_SensitiveEntity::*)() const) &Select3D_SensitiveEntity::DynamicType, "None");
+
+// TYPEDEF: SELECTBASICS_SENSITIVEENTITY
+if (py::hasattr(mod, "Select3D_SensitiveEntity")) {
+	mod.attr("SelectBasics_SensitiveEntity") = mod.attr("Select3D_SensitiveEntity");
+}
+
+// TYPEDEF: SELECT3D_BVHBUILDER3D
+bind_BVH_Builder<double, 3>(mod, "Select3D_BVHBuilder3d", py::module_local(false));
 
 // CLASS: SELECT3D_SENSITIVESET
 py::class_<Select3D_SensitiveSet, opencascade::handle<Select3D_SensitiveSet>, Select3D_SensitiveEntity> cls_Select3D_SensitiveSet(mod, "Select3D_SensitiveSet", "This class is base class for handling overlap detection of complex sensitive entities. It provides an interface for building BVH tree for some set of entities. Thereby, each iteration of overlap detection is a traverse of BVH tree in fact. To use speed-up hierarchical structure in a custom complex sensitive entity, it is necessary to make that custom entity a descendant of this class and organize sub-entities in some container which allows referencing to elements by index. Note that methods taking index as a parameter are used for BVH build and the range of given index is [0; Size() - 1]. For example of usage see Select3D_SensitiveTriangulation.");
@@ -162,8 +173,8 @@ cls_Select3D_SensitiveSet.def("GetLeafNodeSize", (Standard_Integer (Select3D_Sen
 py::class_<Select3D_SensitiveFace, opencascade::handle<Select3D_SensitiveFace>, Select3D_SensitiveEntity> cls_Select3D_SensitiveFace(mod, "Select3D_SensitiveFace", "Sensitive Entity to make a face selectable. In some cases this class can raise Standard_ConstructionError and Standard_OutOfRange exceptions. For more details see Select3D_SensitivePoly.");
 
 // Constructors
-cls_Select3D_SensitiveFace.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const TColgp_Array1OfPnt &, const Select3D_TypeOfSensitivity>(), py::arg("theOwnerId"), py::arg("thePoints"), py::arg("theType"));
-cls_Select3D_SensitiveFace.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<TColgp_HArray1OfPnt> &, const Select3D_TypeOfSensitivity>(), py::arg("theOwnerId"), py::arg("thePoints"), py::arg("theType"));
+cls_Select3D_SensitiveFace.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const TColgp_Array1OfPnt &, const Select3D_TypeOfSensitivity>(), py::arg("theOwnerId"), py::arg("thePoints"), py::arg("theType"));
+cls_Select3D_SensitiveFace.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<TColgp_HArray1OfPnt> &, const Select3D_TypeOfSensitivity>(), py::arg("theOwnerId"), py::arg("thePoints"), py::arg("theType"));
 
 // Methods
 cls_Select3D_SensitiveFace.def_static("get_type_name_", (const char * (*)()) &Select3D_SensitiveFace::get_type_name, "None");
@@ -181,7 +192,7 @@ cls_Select3D_SensitiveFace.def("NbSubElements", (Standard_Integer (Select3D_Sens
 py::class_<Select3D_SensitiveSegment, opencascade::handle<Select3D_SensitiveSegment>, Select3D_SensitiveEntity> cls_Select3D_SensitiveSegment(mod, "Select3D_SensitiveSegment", "A framework to define sensitive zones along a segment One gives the 3D start and end point");
 
 // Constructors
-cls_Select3D_SensitiveSegment.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const gp_Pnt &, const gp_Pnt &>(), py::arg("theOwnerId"), py::arg("theFirstPnt"), py::arg("theLastPnt"));
+cls_Select3D_SensitiveSegment.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const gp_Pnt &, const gp_Pnt &>(), py::arg("theOwnerId"), py::arg("theFirstPnt"), py::arg("theLastPnt"));
 
 // Methods
 cls_Select3D_SensitiveSegment.def_static("get_type_name_", (const char * (*)()) &Select3D_SensitiveSegment::get_type_name, "None");
@@ -252,10 +263,10 @@ cls_Select3D_PointData.def("Size", (Standard_Integer (Select3D_PointData::*)() c
 py::class_<Select3D_SensitivePoly, opencascade::handle<Select3D_SensitivePoly>, Select3D_SensitiveSet> cls_Select3D_SensitivePoly(mod, "Select3D_SensitivePoly", "Sensitive Entity to make a face selectable. In some cases this class can raise Standard_ConstructionError and Standard_OutOfRange exceptions from its member Select3D_PointData myPolyg.");
 
 // Constructors
-cls_Select3D_SensitivePoly.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const TColgp_Array1OfPnt &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("thePoints"), py::arg("theIsBVHEnabled"));
-cls_Select3D_SensitivePoly.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<TColgp_HArray1OfPnt> &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("thePoints"), py::arg("theIsBVHEnabled"));
-cls_Select3D_SensitivePoly.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("theIsBVHEnabled"));
-cls_Select3D_SensitivePoly.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const Standard_Boolean, const Standard_Integer>(), py::arg("theOwnerId"), py::arg("theIsBVHEnabled"), py::arg("theNbPnts"));
+cls_Select3D_SensitivePoly.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const TColgp_Array1OfPnt &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("thePoints"), py::arg("theIsBVHEnabled"));
+cls_Select3D_SensitivePoly.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<TColgp_HArray1OfPnt> &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("thePoints"), py::arg("theIsBVHEnabled"));
+cls_Select3D_SensitivePoly.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("theIsBVHEnabled"));
+cls_Select3D_SensitivePoly.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const Standard_Boolean, const Standard_Integer>(), py::arg("theOwnerId"), py::arg("theIsBVHEnabled"), py::arg("theNbPnts"));
 
 // Methods
 cls_Select3D_SensitivePoly.def_static("get_type_name_", (const char * (*)()) &Select3D_SensitivePoly::get_type_name, "None");
@@ -277,7 +288,7 @@ bind_NCollection_Vector<opencascade::handle<Select3D_SensitivePoly> >(mod, "Sele
 py::class_<Select3D_InteriorSensitivePointSet, opencascade::handle<Select3D_InteriorSensitivePointSet>, Select3D_SensitiveSet> cls_Select3D_InteriorSensitivePointSet(mod, "Select3D_InteriorSensitivePointSet", "This class handles the selection of arbitrary point set with internal type of sensitivity. The main principle is to split the point set given onto planar convex polygons and search for the overlap with one or more of them through traverse of BVH tree.");
 
 // Constructors
-cls_Select3D_InteriorSensitivePointSet.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const TColgp_Array1OfPnt &>(), py::arg("theOwnerId"), py::arg("thePoints"));
+cls_Select3D_InteriorSensitivePointSet.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const TColgp_Array1OfPnt &>(), py::arg("theOwnerId"), py::arg("thePoints"));
 
 // Methods
 cls_Select3D_InteriorSensitivePointSet.def("GetPoints", (void (Select3D_InteriorSensitivePointSet::*)(opencascade::handle<TColgp_HArray1OfPnt> &)) &Select3D_InteriorSensitivePointSet::GetPoints, "Initializes the given array theHArrayOfPnt by 3d coordinates of vertices of the whole point set", py::arg("theHArrayOfPnt"));
@@ -296,8 +307,8 @@ cls_Select3D_InteriorSensitivePointSet.def("DynamicType", (const opencascade::ha
 py::class_<Select3D_SensitiveBox, opencascade::handle<Select3D_SensitiveBox>, Select3D_SensitiveEntity> cls_Select3D_SensitiveBox(mod, "Select3D_SensitiveBox", "A framework to define selection by a sensitive box.");
 
 // Constructors
-cls_Select3D_SensitiveBox.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const Bnd_Box &>(), py::arg("theOwnerId"), py::arg("theBox"));
-cls_Select3D_SensitiveBox.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("theOwnerId"), py::arg("theXMin"), py::arg("theYMin"), py::arg("theZMin"), py::arg("theXMax"), py::arg("theYMax"), py::arg("theZMax"));
+cls_Select3D_SensitiveBox.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const Bnd_Box &>(), py::arg("theOwnerId"), py::arg("theBox"));
+cls_Select3D_SensitiveBox.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("theOwnerId"), py::arg("theXMin"), py::arg("theYMin"), py::arg("theZMin"), py::arg("theXMax"), py::arg("theYMax"), py::arg("theZMax"));
 
 // Methods
 cls_Select3D_SensitiveBox.def_static("get_type_name_", (const char * (*)()) &Select3D_SensitiveBox::get_type_name, "None");
@@ -314,16 +325,16 @@ cls_Select3D_SensitiveBox.def("BoundingBox", (Select3D_BndBox3d (Select3D_Sensit
 py::class_<Select3D_SensitiveCircle, opencascade::handle<Select3D_SensitiveCircle>, Select3D_SensitivePoly> cls_Select3D_SensitiveCircle(mod, "Select3D_SensitiveCircle", "A framework to define sensitive 3D arcs and circles. In some cases this class can raise Standard_ConstructionError and Standard_OutOfRange exceptions. For more details see Select3D_SensitivePoly.");
 
 // Constructors
-cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<Geom_Circle> &>(), py::arg("theOwnerId"), py::arg("theCircle"));
-cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<Geom_Circle> &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("theCircle"), py::arg("theIsFilled"));
-cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<Geom_Circle> &, const Standard_Boolean, const Standard_Integer>(), py::arg("theOwnerId"), py::arg("theCircle"), py::arg("theIsFilled"), py::arg("theNbPnts"));
-cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<Geom_Circle> &, const Standard_Real, const Standard_Real>(), py::arg("theOwnerId"), py::arg("theCircle"), py::arg("theU1"), py::arg("theU2"));
-cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<Geom_Circle> &, const Standard_Real, const Standard_Real, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("theCircle"), py::arg("theU1"), py::arg("theU2"), py::arg("theIsFilled"));
-cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<Geom_Circle> &, const Standard_Real, const Standard_Real, const Standard_Boolean, const Standard_Integer>(), py::arg("theOwnerId"), py::arg("theCircle"), py::arg("theU1"), py::arg("theU2"), py::arg("theIsFilled"), py::arg("theNbPnts"));
-cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<TColgp_HArray1OfPnt> &>(), py::arg("theOwnerId"), py::arg("thePnts3d"));
-cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<TColgp_HArray1OfPnt> &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("thePnts3d"), py::arg("theIsFilled"));
-cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const TColgp_Array1OfPnt &>(), py::arg("theOwnerId"), py::arg("thePnts3d"));
-cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const TColgp_Array1OfPnt &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("thePnts3d"), py::arg("theIsFilled"));
+cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<Geom_Circle> &>(), py::arg("theOwnerId"), py::arg("theCircle"));
+cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<Geom_Circle> &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("theCircle"), py::arg("theIsFilled"));
+cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<Geom_Circle> &, const Standard_Boolean, const Standard_Integer>(), py::arg("theOwnerId"), py::arg("theCircle"), py::arg("theIsFilled"), py::arg("theNbPnts"));
+cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<Geom_Circle> &, const Standard_Real, const Standard_Real>(), py::arg("theOwnerId"), py::arg("theCircle"), py::arg("theU1"), py::arg("theU2"));
+cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<Geom_Circle> &, const Standard_Real, const Standard_Real, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("theCircle"), py::arg("theU1"), py::arg("theU2"), py::arg("theIsFilled"));
+cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<Geom_Circle> &, const Standard_Real, const Standard_Real, const Standard_Boolean, const Standard_Integer>(), py::arg("theOwnerId"), py::arg("theCircle"), py::arg("theU1"), py::arg("theU2"), py::arg("theIsFilled"), py::arg("theNbPnts"));
+cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<TColgp_HArray1OfPnt> &>(), py::arg("theOwnerId"), py::arg("thePnts3d"));
+cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<TColgp_HArray1OfPnt> &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("thePnts3d"), py::arg("theIsFilled"));
+cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const TColgp_Array1OfPnt &>(), py::arg("theOwnerId"), py::arg("thePnts3d"));
+cls_Select3D_SensitiveCircle.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const TColgp_Array1OfPnt &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("thePnts3d"), py::arg("theIsFilled"));
 
 // Methods
 cls_Select3D_SensitiveCircle.def_static("get_type_name_", (const char * (*)()) &Select3D_SensitiveCircle::get_type_name, "None");
@@ -340,10 +351,10 @@ cls_Select3D_SensitiveCircle.def("BVH", (void (Select3D_SensitiveCircle::*)()) &
 py::class_<Select3D_SensitiveCurve, opencascade::handle<Select3D_SensitiveCurve>, Select3D_SensitivePoly> cls_Select3D_SensitiveCurve(mod, "Select3D_SensitiveCurve", "A framework to define a sensitive 3D curve. In some cases this class can raise Standard_ConstructionError and Standard_OutOfRange exceptions. For more details see Select3D_SensitivePoly.");
 
 // Constructors
-cls_Select3D_SensitiveCurve.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<Geom_Curve> &>(), py::arg("theOwnerId"), py::arg("theCurve"));
-cls_Select3D_SensitiveCurve.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<Geom_Curve> &, const Standard_Integer>(), py::arg("theOwnerId"), py::arg("theCurve"), py::arg("theNbPnts"));
-cls_Select3D_SensitiveCurve.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<TColgp_HArray1OfPnt> &>(), py::arg("theOwnerId"), py::arg("thePoints"));
-cls_Select3D_SensitiveCurve.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const TColgp_Array1OfPnt &>(), py::arg("theOwnerId"), py::arg("thePoints"));
+cls_Select3D_SensitiveCurve.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<Geom_Curve> &>(), py::arg("theOwnerId"), py::arg("theCurve"));
+cls_Select3D_SensitiveCurve.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<Geom_Curve> &, const Standard_Integer>(), py::arg("theOwnerId"), py::arg("theCurve"), py::arg("theNbPnts"));
+cls_Select3D_SensitiveCurve.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<TColgp_HArray1OfPnt> &>(), py::arg("theOwnerId"), py::arg("thePoints"));
+cls_Select3D_SensitiveCurve.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const TColgp_Array1OfPnt &>(), py::arg("theOwnerId"), py::arg("thePoints"));
 
 // Methods
 cls_Select3D_SensitiveCurve.def_static("get_type_name_", (const char * (*)()) &Select3D_SensitiveCurve::get_type_name, "None");
@@ -355,10 +366,10 @@ cls_Select3D_SensitiveCurve.def("GetConnected", (opencascade::handle<Select3D_Se
 py::class_<Select3D_SensitiveGroup, opencascade::handle<Select3D_SensitiveGroup>, Select3D_SensitiveSet> cls_Select3D_SensitiveGroup(mod, "Select3D_SensitiveGroup", "A framework to define selection of a sensitive group by a sensitive entity which is a set of 3D sensitive entities. Remark: 2 modes are possible for rectangle selection the group is considered selected 1) when all the entities inside are selected in the rectangle 2) only one entity inside is selected by the rectangle By default the 'Match All entities' mode is set.");
 
 // Constructors
-cls_Select3D_SensitiveGroup.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &>(), py::arg("theOwnerId"));
-cls_Select3D_SensitiveGroup.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("theIsMustMatchAll"));
-cls_Select3D_SensitiveGroup.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, Select3D_EntitySequence &>(), py::arg("theOwnerId"), py::arg("theEntities"));
-cls_Select3D_SensitiveGroup.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, Select3D_EntitySequence &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("theEntities"), py::arg("theIsMustMatchAll"));
+cls_Select3D_SensitiveGroup.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &>(), py::arg("theOwnerId"));
+cls_Select3D_SensitiveGroup.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("theIsMustMatchAll"));
+cls_Select3D_SensitiveGroup.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, Select3D_EntitySequence &>(), py::arg("theOwnerId"), py::arg("theEntities"));
+cls_Select3D_SensitiveGroup.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, Select3D_EntitySequence &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("theEntities"), py::arg("theIsMustMatchAll"));
 
 // Methods
 cls_Select3D_SensitiveGroup.def_static("get_type_name_", (const char * (*)()) &Select3D_SensitiveGroup::get_type_name, "None");
@@ -380,7 +391,7 @@ cls_Select3D_SensitiveGroup.def("SetCheckOverlapAll", (void (Select3D_SensitiveG
 cls_Select3D_SensitiveGroup.def("Matches", (Standard_Boolean (Select3D_SensitiveGroup::*)(SelectBasics_SelectingVolumeManager &, SelectBasics_PickResult &)) &Select3D_SensitiveGroup::Matches, "Checks whether the group overlaps current selecting volume", py::arg("theMgr"), py::arg("thePickResult"));
 cls_Select3D_SensitiveGroup.def("NbSubElements", (Standard_Integer (Select3D_SensitiveGroup::*)()) &Select3D_SensitiveGroup::NbSubElements, "Returns the amount of sub-entities");
 cls_Select3D_SensitiveGroup.def("GetConnected", (opencascade::handle<Select3D_SensitiveEntity> (Select3D_SensitiveGroup::*)()) &Select3D_SensitiveGroup::GetConnected, "None");
-cls_Select3D_SensitiveGroup.def("Set", (void (Select3D_SensitiveGroup::*)(const opencascade::handle<SelectBasics_EntityOwner> &)) &Select3D_SensitiveGroup::Set, "Sets the owner for all entities in group", py::arg("theOwnerId"));
+cls_Select3D_SensitiveGroup.def("Set", (void (Select3D_SensitiveGroup::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &Select3D_SensitiveGroup::Set, "Sets the owner for all entities in group", py::arg("theOwnerId"));
 cls_Select3D_SensitiveGroup.def("BoundingBox", (Select3D_BndBox3d (Select3D_SensitiveGroup::*)()) &Select3D_SensitiveGroup::BoundingBox, "Returns bounding box of the group. If location transformation is set, it will be applied");
 cls_Select3D_SensitiveGroup.def("CenterOfGeometry", (gp_Pnt (Select3D_SensitiveGroup::*)() const) &Select3D_SensitiveGroup::CenterOfGeometry, "Returns center of entity set. If location transformation is set, it will be applied");
 cls_Select3D_SensitiveGroup.def("Box", (Select3D_BndBox3d (Select3D_SensitiveGroup::*)(const Standard_Integer) const) &Select3D_SensitiveGroup::Box, "Returns bounding box of sensitive entity with index theIdx", py::arg("theIdx"));
@@ -392,7 +403,7 @@ cls_Select3D_SensitiveGroup.def("Size", (Standard_Integer (Select3D_SensitiveGro
 py::class_<Select3D_SensitivePoint, opencascade::handle<Select3D_SensitivePoint>, Select3D_SensitiveEntity> cls_Select3D_SensitivePoint(mod, "Select3D_SensitivePoint", "A framework to define sensitive 3D points.");
 
 // Constructors
-cls_Select3D_SensitivePoint.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const gp_Pnt &>(), py::arg("theOwnerId"), py::arg("thePoint"));
+cls_Select3D_SensitivePoint.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const gp_Pnt &>(), py::arg("theOwnerId"), py::arg("thePoint"));
 
 // Methods
 cls_Select3D_SensitivePoint.def_static("get_type_name_", (const char * (*)()) &Select3D_SensitivePoint::get_type_name, "None");
@@ -409,7 +420,7 @@ cls_Select3D_SensitivePoint.def("BoundingBox", (Select3D_BndBox3d (Select3D_Sens
 py::class_<Select3D_SensitivePrimitiveArray, opencascade::handle<Select3D_SensitivePrimitiveArray>, Select3D_SensitiveSet> cls_Select3D_SensitivePrimitiveArray(mod, "Select3D_SensitivePrimitiveArray", "Sensitive for triangulation or point set defined by Primitive Array. The primitives can be optionally combined into patches within BVH tree to reduce its building time in expense of extra traverse time.");
 
 // Constructors
-cls_Select3D_SensitivePrimitiveArray.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &>(), py::arg("theOwnerId"));
+cls_Select3D_SensitivePrimitiveArray.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &>(), py::arg("theOwnerId"));
 
 // Methods
 cls_Select3D_SensitivePrimitiveArray.def("PatchSizeMax", (Standard_Integer (Select3D_SensitivePrimitiveArray::*)() const) &Select3D_SensitivePrimitiveArray::PatchSizeMax, "Return patch size limit (1 by default).");
@@ -459,7 +470,7 @@ cls_Select3D_SensitivePrimitiveArray.def("BoundingBox", (Select3D_BndBox3d (Sele
 cls_Select3D_SensitivePrimitiveArray.def("CenterOfGeometry", (gp_Pnt (Select3D_SensitivePrimitiveArray::*)() const) &Select3D_SensitivePrimitiveArray::CenterOfGeometry, "Returns center of triangulation. If location transformation is set, it will be applied");
 cls_Select3D_SensitivePrimitiveArray.def("HasInitLocation", (Standard_Boolean (Select3D_SensitivePrimitiveArray::*)() const) &Select3D_SensitivePrimitiveArray::HasInitLocation, "Returns true if the shape corresponding to the entity has init location");
 cls_Select3D_SensitivePrimitiveArray.def("InvInitLocation", (gp_GTrsf (Select3D_SensitivePrimitiveArray::*)() const) &Select3D_SensitivePrimitiveArray::InvInitLocation, "Returns inversed location transformation matrix if the shape corresponding to this entity has init location set. Otherwise, returns identity matrix.");
-cls_Select3D_SensitivePrimitiveArray.def("Set", (void (Select3D_SensitivePrimitiveArray::*)(const opencascade::handle<SelectBasics_EntityOwner> &)) &Select3D_SensitivePrimitiveArray::Set, "Sets the owner for all entities in group", py::arg("theOwnerId"));
+cls_Select3D_SensitivePrimitiveArray.def("Set", (void (Select3D_SensitivePrimitiveArray::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &Select3D_SensitivePrimitiveArray::Set, "Sets the owner for all entities in group", py::arg("theOwnerId"));
 cls_Select3D_SensitivePrimitiveArray.def("BVH", (void (Select3D_SensitivePrimitiveArray::*)()) &Select3D_SensitivePrimitiveArray::BVH, "Builds BVH tree for sensitive set.");
 cls_Select3D_SensitivePrimitiveArray.def_static("get_type_name_", (const char * (*)()) &Select3D_SensitivePrimitiveArray::get_type_name, "None");
 cls_Select3D_SensitivePrimitiveArray.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Select3D_SensitivePrimitiveArray::get_type_descriptor, "None");
@@ -469,8 +480,8 @@ cls_Select3D_SensitivePrimitiveArray.def("DynamicType", (const opencascade::hand
 py::class_<Select3D_SensitiveTriangle, opencascade::handle<Select3D_SensitiveTriangle>, Select3D_SensitiveEntity> cls_Select3D_SensitiveTriangle(mod, "Select3D_SensitiveTriangle", "A framework to define selection of triangles in a view. This comes into play in the detection of meshing and triangulation in surfaces. In some cases this class can raise Standard_ConstructionError and Standard_OutOfRange exceptions. For more details see Select3D_SensitivePoly.");
 
 // Constructors
-cls_Select3D_SensitiveTriangle.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const gp_Pnt &, const gp_Pnt &, const gp_Pnt &>(), py::arg("theOwnerId"), py::arg("thePnt0"), py::arg("thePnt1"), py::arg("thePnt2"));
-cls_Select3D_SensitiveTriangle.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const gp_Pnt &, const gp_Pnt &, const gp_Pnt &, const Select3D_TypeOfSensitivity>(), py::arg("theOwnerId"), py::arg("thePnt0"), py::arg("thePnt1"), py::arg("thePnt2"), py::arg("theType"));
+cls_Select3D_SensitiveTriangle.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const gp_Pnt &, const gp_Pnt &, const gp_Pnt &>(), py::arg("theOwnerId"), py::arg("thePnt0"), py::arg("thePnt1"), py::arg("thePnt2"));
+cls_Select3D_SensitiveTriangle.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const gp_Pnt &, const gp_Pnt &, const gp_Pnt &, const Select3D_TypeOfSensitivity>(), py::arg("theOwnerId"), py::arg("thePnt0"), py::arg("thePnt1"), py::arg("thePnt2"), py::arg("theType"));
 
 // Methods
 cls_Select3D_SensitiveTriangle.def("Matches", (Standard_Boolean (Select3D_SensitiveTriangle::*)(SelectBasics_SelectingVolumeManager &, SelectBasics_PickResult &)) &Select3D_SensitiveTriangle::Matches, "Checks whether the triangle overlaps current selecting volume", py::arg("theMgr"), py::arg("thePickResult"));
@@ -488,9 +499,9 @@ cls_Select3D_SensitiveTriangle.def("DynamicType", (const opencascade::handle<Sta
 py::class_<Select3D_SensitiveTriangulation, opencascade::handle<Select3D_SensitiveTriangulation>, Select3D_SensitiveSet> cls_Select3D_SensitiveTriangulation(mod, "Select3D_SensitiveTriangulation", "A framework to define selection of a sensitive entity made of a set of triangles.");
 
 // Constructors
-cls_Select3D_SensitiveTriangulation.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<Poly_Triangulation> &, const TopLoc_Location &>(), py::arg("theOwnerId"), py::arg("theTrg"), py::arg("theInitLoc"));
-cls_Select3D_SensitiveTriangulation.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<Poly_Triangulation> &, const TopLoc_Location &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("theTrg"), py::arg("theInitLoc"), py::arg("theIsInterior"));
-cls_Select3D_SensitiveTriangulation.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<Poly_Triangulation> &, const TopLoc_Location &, const opencascade::handle<TColStd_HArray1OfInteger> &, const gp_Pnt &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("theTrg"), py::arg("theInitLoc"), py::arg("theFreeEdges"), py::arg("theCOG"), py::arg("theIsInterior"));
+cls_Select3D_SensitiveTriangulation.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<Poly_Triangulation> &, const TopLoc_Location &>(), py::arg("theOwnerId"), py::arg("theTrg"), py::arg("theInitLoc"));
+cls_Select3D_SensitiveTriangulation.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<Poly_Triangulation> &, const TopLoc_Location &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("theTrg"), py::arg("theInitLoc"), py::arg("theIsInterior"));
+cls_Select3D_SensitiveTriangulation.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<Poly_Triangulation> &, const TopLoc_Location &, const opencascade::handle<TColStd_HArray1OfInteger> &, const gp_Pnt &, const Standard_Boolean>(), py::arg("theOwnerId"), py::arg("theTrg"), py::arg("theInitLoc"), py::arg("theFreeEdges"), py::arg("theCOG"), py::arg("theIsInterior"));
 
 // Methods
 cls_Select3D_SensitiveTriangulation.def_static("get_type_name_", (const char * (*)()) &Select3D_SensitiveTriangulation::get_type_name, "None");
@@ -513,14 +524,14 @@ cls_Select3D_SensitiveTriangulation.def("GetInitLocation", (const TopLoc_Locatio
 py::class_<Select3D_SensitiveWire, opencascade::handle<Select3D_SensitiveWire>, Select3D_SensitiveSet> cls_Select3D_SensitiveWire(mod, "Select3D_SensitiveWire", "A framework to define selection of a wire owner by an elastic wire band.");
 
 // Constructors
-cls_Select3D_SensitiveWire.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &>(), py::arg("theOwnerId"));
+cls_Select3D_SensitiveWire.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &>(), py::arg("theOwnerId"));
 
 // Methods
 cls_Select3D_SensitiveWire.def("Add", (void (Select3D_SensitiveWire::*)(const opencascade::handle<Select3D_SensitiveEntity> &)) &Select3D_SensitiveWire::Add, "Adds the sensitive entity theSensitive to this framework.", py::arg("theSensitive"));
 cls_Select3D_SensitiveWire.def("NbSubElements", (Standard_Integer (Select3D_SensitiveWire::*)()) &Select3D_SensitiveWire::NbSubElements, "Returns the amount of sub-entities");
 cls_Select3D_SensitiveWire.def("GetConnected", (opencascade::handle<Select3D_SensitiveEntity> (Select3D_SensitiveWire::*)()) &Select3D_SensitiveWire::GetConnected, "None");
 cls_Select3D_SensitiveWire.def("GetEdges", (const NCollection_Vector<opencascade::handle<Select3D_SensitiveEntity> > & (Select3D_SensitiveWire::*)()) &Select3D_SensitiveWire::GetEdges, "returns the sensitive edges stored in this wire");
-cls_Select3D_SensitiveWire.def("Set", (void (Select3D_SensitiveWire::*)(const opencascade::handle<SelectBasics_EntityOwner> &)) &Select3D_SensitiveWire::Set, "Sets the owner for all entities in wire", py::arg("theOwnerId"));
+cls_Select3D_SensitiveWire.def("Set", (void (Select3D_SensitiveWire::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &Select3D_SensitiveWire::Set, "Sets the owner for all entities in wire", py::arg("theOwnerId"));
 cls_Select3D_SensitiveWire.def("GetLastDetected", (opencascade::handle<Select3D_SensitiveEntity> (Select3D_SensitiveWire::*)() const) &Select3D_SensitiveWire::GetLastDetected, "None");
 cls_Select3D_SensitiveWire.def("BoundingBox", (Select3D_BndBox3d (Select3D_SensitiveWire::*)()) &Select3D_SensitiveWire::BoundingBox, "Returns bounding box of the wire. If location transformation is set, it will be applied");
 cls_Select3D_SensitiveWire.def("CenterOfGeometry", (gp_Pnt (Select3D_SensitiveWire::*)() const) &Select3D_SensitiveWire::CenterOfGeometry, "Returns center of the wire. If location transformation is set, it will be applied");

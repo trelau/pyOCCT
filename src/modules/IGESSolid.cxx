@@ -82,6 +82,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <IGESBasic_HArray1OfHArray1OfInteger.hxx>
 #include <IGESBasic_HArray1OfHArray1OfIGESEntity.hxx>
 #include <Standard_TypeDef.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Array1.hxx>
 #include <IGESSolid_Array1OfLoop.hxx>
@@ -177,6 +178,7 @@ bind_NCollection_Array1<opencascade::handle<IGESSolid_Loop> >(mod, "IGESSolid_Ar
 py::class_<IGESSolid_HArray1OfLoop, opencascade::handle<IGESSolid_HArray1OfLoop>, Standard_Transient> cls_IGESSolid_HArray1OfLoop(mod, "IGESSolid_HArray1OfLoop", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESSolid_HArray1OfLoop.def(py::init<>());
 cls_IGESSolid_HArray1OfLoop.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESSolid_HArray1OfLoop.def(py::init<const Standard_Integer, const Standard_Integer, const IGESSolid_Array1OfLoop::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESSolid_HArray1OfLoop.def(py::init<const IGESSolid_Array1OfLoop &>(), py::arg("theOther"));
@@ -219,6 +221,7 @@ bind_NCollection_Array1<opencascade::handle<IGESSolid_Face> >(mod, "IGESSolid_Ar
 py::class_<IGESSolid_HArray1OfFace, opencascade::handle<IGESSolid_HArray1OfFace>, Standard_Transient> cls_IGESSolid_HArray1OfFace(mod, "IGESSolid_HArray1OfFace", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESSolid_HArray1OfFace.def(py::init<>());
 cls_IGESSolid_HArray1OfFace.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESSolid_HArray1OfFace.def(py::init<const Standard_Integer, const Standard_Integer, const IGESSolid_Array1OfFace::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESSolid_HArray1OfFace.def(py::init<const IGESSolid_Array1OfFace &>(), py::arg("theOther"));
@@ -391,6 +394,7 @@ cls_IGESSolid_CylindricalSurface.def("DynamicType", (const opencascade::handle<S
 py::class_<IGESSolid_HArray1OfVertexList, opencascade::handle<IGESSolid_HArray1OfVertexList>, Standard_Transient> cls_IGESSolid_HArray1OfVertexList(mod, "IGESSolid_HArray1OfVertexList", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESSolid_HArray1OfVertexList.def(py::init<>());
 cls_IGESSolid_HArray1OfVertexList.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESSolid_HArray1OfVertexList.def(py::init<const Standard_Integer, const Standard_Integer, const IGESSolid_Array1OfVertexList::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESSolid_HArray1OfVertexList.def(py::init<const IGESSolid_Array1OfVertexList &>(), py::arg("theOther"));
@@ -473,6 +477,7 @@ cls_IGESSolid_GeneralModule.def("DynamicType", (const opencascade::handle<Standa
 py::class_<IGESSolid_HArray1OfShell, opencascade::handle<IGESSolid_HArray1OfShell>, Standard_Transient> cls_IGESSolid_HArray1OfShell(mod, "IGESSolid_HArray1OfShell", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESSolid_HArray1OfShell.def(py::init<>());
 cls_IGESSolid_HArray1OfShell.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESSolid_HArray1OfShell.def(py::init<const Standard_Integer, const Standard_Integer, const IGESSolid_Array1OfShell::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESSolid_HArray1OfShell.def(py::init<const IGESSolid_Array1OfShell &>(), py::arg("theOther"));

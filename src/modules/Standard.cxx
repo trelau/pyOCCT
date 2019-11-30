@@ -26,10 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Real.hxx>
 #include <Standard_ShortReal.hxx>
 #include <Standard_Address.hxx>
-#include <Standard_Size.hxx>
 #include <Standard_CString.hxx>
 #include <Standard_Transient.hxx>
-#include <Standard_ThreadId.hxx>
+#include <Standard_Size.hxx>
 #include <Standard_Character.hxx>
 #include <Standard_ExtCharacter.hxx>
 #include <Standard_Time.hxx>
@@ -39,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_OStream.hxx>
 #include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_SStream.hxx>
 #include <Standard_Failure.hxx>
 #include <Standard_DomainError.hxx>
@@ -52,19 +52,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_NoSuchObject.hxx>
 #include <Standard_PCharacter.hxx>
 #include <Standard_IStream.hxx>
-#include <Standard_PExtCharacter.hxx>
+#include <Standard_Dump.hxx>
+#include <TCollection_AsciiString.hxx>
 #include <Standard_TypeMismatch.hxx>
+#include <Standard_NotImplemented.hxx>
+#include <Standard_PExtCharacter.hxx>
+#include <Standard_ErrorHandler.hxx>
+#include <Standard_PErrorHandler.hxx>
+#include <Standard_JmpBuf.hxx>
+#include <Standard_ThreadId.hxx>
+#include <Standard_Mutex.hxx>
 #include <Standard_Persistent.hxx>
 #include <Standard_UUID.hxx>
 #include <Standard_GUID.hxx>
 #include <Standard_MultiplyDefined.hxx>
 #include <Standard_ImmutableObject.hxx>
-#include <Standard_ErrorHandler.hxx>
-#include <Standard_PErrorHandler.hxx>
-#include <Standard_JmpBuf.hxx>
-#include <Standard_Mutex.hxx>
 #include <Standard_NullObject.hxx>
-#include <Standard_NotImplemented.hxx>
+#include <Standard_Condition.hxx>
 #include <Standard_NegativeValue.hxx>
 #include <Standard_NullValue.hxx>
 #include <Standard_AbortiveTransaction.hxx>
@@ -81,11 +85,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_NoMoreObject.hxx>
 #include <Standard_Overflow.hxx>
 #include <Standard_PByte.hxx>
+#include <Standard_ReadBuffer.hxx>
+#include <Standard_ReadLineBuffer.hxx>
 #include <Standard_TooManyUsers.hxx>
 #include <Standard_Underflow.hxx>
 
 PYBIND11_MODULE(Standard, mod) {
 
+
+struct ImportTCollection{
+	ImportTCollection() { py::module::import("OCCT.TCollection"); }
+};
 
 // ENUM: STANDARD_HANDLERSTATUS
 py::enum_<Standard_HandlerStatus>(mod, "Standard_HandlerStatus", "None")
@@ -101,44 +111,6 @@ mod.def("Abs", (Standard_Integer (*) (const Standard_Integer)) &Abs, "None", py:
 mod.def("Abs", (Standard_Real (*) (const Standard_Real)) &Abs, "None", py::arg("Value"));
 
 mod.def("Abs", (Standard_ShortReal (*) (const Standard_ShortReal)) &Abs, "None", py::arg("Value"));
-
-// FUNCTION: HASHCODE
-mod.def("HashCode", (Standard_Integer (*) (const Standard_Integer, const Standard_Integer)) &HashCode, "None", py::arg("theMe"), py::arg("theUpper"));
-
-mod.def("HashCode", (Standard_Integer (*) (const long long, const Standard_Integer)) &HashCode, "None", py::arg("theMe"), py::arg("theUpper"));
-
-mod.def("HashCode", (Standard_Integer (*) (const Standard_Utf32Char, const Standard_Integer)) &HashCode, "None", py::arg("theMe"), py::arg("theUpper"));
-
-mod.def("HashCode", (Standard_Integer (*) (const Standard_Address, const Standard_Integer)) &HashCode, "None", py::arg("Value"), py::arg("Upper"));
-
-mod.def("HashCode", (Standard_Integer (*) (const Standard_Size, const Standard_Integer)) &HashCode, "None", py::arg("Val"), py::arg("Upper"));
-
-mod.def("HashCode", (Standard_Integer (*) (const Standard_CString, const Standard_Integer, const Standard_Integer)) &HashCode, "Returns bounded hash code for the first theLen characters in the string theStr, in range [1, theUpper]", py::arg("theStr"), py::arg("theLen"), py::arg("theUpper"));
-
-mod.def("HashCode", (Standard_Integer (*) (const Standard_Transient *, const Standard_Integer)) &HashCode, "Global method HashCode(), for use in hash maps", py::arg("theObject"), py::arg("theUpper"));
-
-mod.def("HashCode", (Standard_Integer (*) (const Standard_ThreadId, const Standard_Integer)) &HashCode, "None", py::arg("Value"), py::arg("Upper"));
-
-// FUNCTION: ISEQUAL
-mod.def("IsEqual", (Standard_Boolean (*) (const Standard_Integer, const Standard_Integer)) &IsEqual, "None", py::arg("theOne"), py::arg("theTwo"));
-
-mod.def("IsEqual", (Standard_Boolean (*) (const Standard_Utf32Char, const Standard_Utf32Char)) &IsEqual, "None", py::arg("theOne"), py::arg("theTwo"));
-
-mod.def("IsEqual", (Standard_Boolean (*) (const Standard_Address, const Standard_Address)) &IsEqual, "None", py::arg("One"), py::arg("Two"));
-
-mod.def("IsEqual", (Standard_Boolean (*) (const Standard_Size, const Standard_Size)) &IsEqual, "None", py::arg("One"), py::arg("Two"));
-
-mod.def("IsEqual", (Standard_Boolean (*) (const Standard_Real, const Standard_Real)) &IsEqual, "None", py::arg("Value1"), py::arg("Value2"));
-
-mod.def("IsEqual", (Standard_Boolean (*) (const Standard_Character, const Standard_Character)) &IsEqual, "None", py::arg("One"), py::arg("Two"));
-
-mod.def("IsEqual", (Standard_Boolean (*) (const Standard_ExtCharacter, const Standard_ExtCharacter)) &IsEqual, "None", py::arg("One"), py::arg("Two"));
-
-mod.def("IsEqual", (Standard_Boolean (*) (const Standard_CString, const Standard_CString)) &IsEqual, "Returns Standard_True if two strings are equal", py::arg("theOne"), py::arg("theTwo"));
-
-mod.def("IsEqual", (Standard_Boolean (*) (const Standard_ShortReal, const Standard_ShortReal)) &IsEqual, "None", py::arg("Value1"), py::arg("Value2"));
-
-mod.def("IsEqual", (Standard_Boolean (*) (const Standard_Time, const Standard_Time)) &IsEqual, "None", py::arg("theOne"), py::arg("theTwo"));
 
 // FUNCTION: ISEVEN
 mod.def("IsEven", (Standard_Boolean (*) (const Standard_Integer)) &IsEven, "None", py::arg("Value"));
@@ -176,6 +148,40 @@ mod.def("IntegerLast", (Standard_Integer (*) ()) &IntegerLast, "None");
 
 // FUNCTION: INTEGERSIZE
 mod.def("IntegerSize", (Standard_Integer (*) ()) &IntegerSize, "None");
+
+// FUNCTION: HASHCODE
+mod.def("HashCode", (Standard_Integer (*) (const Standard_Integer, const Standard_Integer)) &HashCode, "Computes a hash code for the given value of the Standard_Integer type, in range [1, theUpperBound]", py::arg("theValue"), py::arg("theUpperBound"));
+
+mod.def("HashCode", (Standard_Integer (*) (const unsigned int, const Standard_Integer)) &HashCode, "Computes a hash value for the given unsigned integer, in range [1, theUpperBound]", py::arg("theValue"), py::arg("theUpperBound"));
+
+mod.def("HashCode", (Standard_Integer (*) (const long long, const Standard_Integer)) &HashCode, "Computes a hash code for the given value of the 'long long int' type, in range [1, theUpperBound]", py::arg("theValue"), py::arg("theUpperBound"));
+
+mod.def("HashCode", (Standard_Integer (*) (const void *const, const Standard_Integer)) &HashCode, "Returns a hash code of the given memory pointer", py::arg("thePointer"), py::arg("theUpperBound"));
+
+mod.def("HashCode", (Standard_Integer (*) (const Standard_CString, const Standard_Integer, const Standard_Integer)) &HashCode, "Returns bounded hash code for the first theLength characters in the string theString, in the range [1, theUpperBound]", py::arg("theString"), py::arg("theLength"), py::arg("theUpperBound"));
+
+mod.def("HashCode", (Standard_Integer (*) (const Standard_Transient *const, const Standard_Integer)) &HashCode, "Computes a hash code for the given transient object, in the range [1, theUpperBound]", py::arg("theTransientObject"), py::arg("theUpperBound"));
+
+// FUNCTION: ISEQUAL
+mod.def("IsEqual", (Standard_Boolean (*) (const Standard_Integer, const Standard_Integer)) &IsEqual, "None", py::arg("theOne"), py::arg("theTwo"));
+
+mod.def("IsEqual", (Standard_Boolean (*) (const Standard_Utf32Char, const Standard_Utf32Char)) &IsEqual, "None", py::arg("theOne"), py::arg("theTwo"));
+
+mod.def("IsEqual", (Standard_Boolean (*) (const Standard_Address, const Standard_Address)) &IsEqual, "None", py::arg("One"), py::arg("Two"));
+
+mod.def("IsEqual", (Standard_Boolean (*) (const Standard_Size, const Standard_Size)) &IsEqual, "None", py::arg("One"), py::arg("Two"));
+
+mod.def("IsEqual", (Standard_Boolean (*) (const Standard_Real, const Standard_Real)) &IsEqual, "None", py::arg("Value1"), py::arg("Value2"));
+
+mod.def("IsEqual", (Standard_Boolean (*) (const Standard_Character, const Standard_Character)) &IsEqual, "None", py::arg("One"), py::arg("Two"));
+
+mod.def("IsEqual", (Standard_Boolean (*) (const Standard_ExtCharacter, const Standard_ExtCharacter)) &IsEqual, "None", py::arg("One"), py::arg("Two"));
+
+mod.def("IsEqual", (Standard_Boolean (*) (const Standard_CString, const Standard_CString)) &IsEqual, "Returns Standard_True if two strings are equal", py::arg("theOne"), py::arg("theTwo"));
+
+mod.def("IsEqual", (Standard_Boolean (*) (const Standard_ShortReal, const Standard_ShortReal)) &IsEqual, "None", py::arg("Value1"), py::arg("Value2"));
+
+mod.def("IsEqual", (Standard_Boolean (*) (const Standard_Time, const Standard_Time)) &IsEqual, "None", py::arg("theOne"), py::arg("theTwo"));
 
 // FUNCTION: REALSMALL
 mod.def("RealSmall", (Standard_Real (*) ()) &RealSmall, "None");
@@ -347,6 +353,9 @@ mod.def("Standard_Atomic_Increment", (int (*) (volatile int *)) &Standard_Atomic
 
 // FUNCTION: STANDARD_ATOMIC_DECREMENT
 mod.def("Standard_Atomic_Decrement", (int (*) (volatile int *)) &Standard_Atomic_Decrement, "Decrements atomically integer variable pointed by theValue and returns resulting decremented value.", py::arg("theValue"));
+
+// FUNCTION: STANDARD_ATOMIC_COMPAREANDSWAP
+mod.def("Standard_Atomic_CompareAndSwap", (bool (*) (volatile int *, int, int)) &Standard_Atomic_CompareAndSwap, "Perform an atomic compare and swap. That is, if the current value of *theValue is theOldValue, then write theNewValue into *theValue.", py::arg("theValue"), py::arg("theOldValue"), py::arg("theNewValue"));
 
 // TYPEDEF: STANDARD_INTEGER
 
@@ -642,7 +651,29 @@ cls_Standard_NoSuchObject.def("DynamicType", (const opencascade::handle<Standard
 bind_std::basic_istream<char, std::char_traits<char> >(mod, "Standard_IStream", py::module_local(false));
 */
 
-// TYPEDEF: STANDARD_PEXTCHARACTER
+// CLASS: STANDARD_DUMPSENTRY
+py::class_<Standard_DumpSentry> cls_Standard_DumpSentry(mod, "Standard_DumpSentry", "Simple sentry class providing convenient interface to dump. Appends start and last rows in dump with class name key. An example of the using: for ClassName, the result is: 'ClassName' { ... } Create instance of that class in the first row of Dump.");
+
+// Constructors
+cls_Standard_DumpSentry.def(py::init<Standard_OStream &, const char *>(), py::arg("theOStream"), py::arg("theClassName"));
+
+// CLASS: STANDARD_DUMP
+py::class_<Standard_Dump> cls_Standard_Dump(mod, "Standard_Dump", "This interface has some tool methods for stream (in JSON format) processing.");
+
+// Methods
+cls_Standard_Dump.def_static("Text_", (TCollection_AsciiString (*)(const Standard_SStream &)) &Standard_Dump::Text, "Converts stream value to string value. The result is original stream value.", py::arg("theStream"), py::call_guard<ImportTCollection>());
+cls_Standard_Dump.def_static("FormatJson_", [](const Standard_SStream & a0) -> TCollection_AsciiString { return Standard_Dump::FormatJson(a0); }, py::call_guard<ImportTCollection>());
+cls_Standard_Dump.def_static("FormatJson_", (TCollection_AsciiString (*)(const Standard_SStream &, const Standard_Integer)) &Standard_Dump::FormatJson, "Converts stream value to string value. Improves the text presentation with the following cases: - for '{' append after '' and indent to the next value, increment current indent value - for '}' append '' and current indent before it, decrement indent value - for ',' append after '' and indent to the next value. If the current symbol is in massive container [], do nothing", py::arg("theStream"), py::arg("theIndent"), py::call_guard<ImportTCollection>());
+cls_Standard_Dump.def_static("AddValuesSeparator_", (void (*)(Standard_OStream &)) &Standard_Dump::AddValuesSeparator, "Add Json values separator if the stream last symbol is not an open brace.", py::arg("theOStream"));
+cls_Standard_Dump.def_static("GetPointerPrefix_", (TCollection_AsciiString (*)()) &Standard_Dump::GetPointerPrefix, "Returns default prefix added for each pointer info string if short presentation of pointer used", py::call_guard<ImportTCollection>());
+cls_Standard_Dump.def_static("GetPointerInfo_", [](const opencascade::handle<Standard_Transient> & a0) -> TCollection_AsciiString { return Standard_Dump::GetPointerInfo(a0); }, py::call_guard<ImportTCollection>());
+cls_Standard_Dump.def_static("GetPointerInfo_", (TCollection_AsciiString (*)(const opencascade::handle<Standard_Transient> &, const bool)) &Standard_Dump::GetPointerInfo, "Convert handle pointer to address of the pointer. If the handle is NULL, the result is an empty string.", py::arg("thePointer"), py::arg("isShortInfo"), py::call_guard<ImportTCollection>());
+cls_Standard_Dump.def_static("GetPointerInfo_", [](const void * a0) -> TCollection_AsciiString { return Standard_Dump::GetPointerInfo(a0); }, py::call_guard<ImportTCollection>());
+cls_Standard_Dump.def_static("GetPointerInfo_", (TCollection_AsciiString (*)(const void *, const bool)) &Standard_Dump::GetPointerInfo, "Convert pointer to address of the pointer. If the handle is NULL, the result is an empty string.", py::arg("thePointer"), py::arg("isShortInfo"), py::call_guard<ImportTCollection>());
+cls_Standard_Dump.def_static("DumpKeyToClass_", (void (*)(Standard_OStream &, const char *, const TCollection_AsciiString &)) &Standard_Dump::DumpKeyToClass, "Append into output value: 'Name': { Field }", py::arg("theOStream"), py::arg("theKey"), py::arg("theField"), py::call_guard<ImportTCollection>());
+cls_Standard_Dump.def_static("DumpCharacterValues_", (void (*)(Standard_OStream &, int)) &Standard_Dump::DumpCharacterValues, "Unite values in one value using template: 'value_1', 'value_2', ..., 'value_n'", py::arg("theOStream"), py::arg("theCount"));
+cls_Standard_Dump.def_static("DumpRealValues_", (void (*)(Standard_OStream &, int)) &Standard_Dump::DumpRealValues, "Unite values in one value using template: value_1, value_2, ..., value_n", py::arg("theOStream"), py::arg("theCount"));
+cls_Standard_Dump.def_static("DumpFieldToName_", (const char * (*)(const char *)) &Standard_Dump::DumpFieldToName, "Convert field name into dump text value, removes '&' and 'my' prefixes An example, for field myValue, theName is Value, for &myCLass, the name is Class", py::arg("theField"));
 
 // CLASS: STANDARD_TYPEMISMATCH
 py::class_<Standard_TypeMismatch, opencascade::handle<Standard_TypeMismatch>, Standard_DomainError> cls_Standard_TypeMismatch(mod, "Standard_TypeMismatch", "None");
@@ -658,6 +689,78 @@ cls_Standard_TypeMismatch.def_static("NewInstance_", (opencascade::handle<Standa
 cls_Standard_TypeMismatch.def_static("get_type_name_", (const char * (*)()) &Standard_TypeMismatch::get_type_name, "None");
 cls_Standard_TypeMismatch.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Standard_TypeMismatch::get_type_descriptor, "None");
 cls_Standard_TypeMismatch.def("DynamicType", (const opencascade::handle<Standard_Type> & (Standard_TypeMismatch::*)() const) &Standard_TypeMismatch::DynamicType, "None");
+
+// CLASS: STANDARD_NOTIMPLEMENTED
+py::class_<Standard_NotImplemented, opencascade::handle<Standard_NotImplemented>, Standard_ProgramError> cls_Standard_NotImplemented(mod, "Standard_NotImplemented", "None");
+
+// Constructors
+cls_Standard_NotImplemented.def(py::init<>());
+cls_Standard_NotImplemented.def(py::init<const Standard_CString>(), py::arg("theMessage"));
+
+// Methods
+cls_Standard_NotImplemented.def_static("Raise_", (void (*)(const Standard_CString)) &Standard_NotImplemented::Raise, "None", py::arg("theMessage"));
+cls_Standard_NotImplemented.def_static("Raise_", (void (*)(Standard_SStream &)) &Standard_NotImplemented::Raise, "None", py::arg("theMessage"));
+cls_Standard_NotImplemented.def_static("NewInstance_", (opencascade::handle<Standard_NotImplemented> (*)(const Standard_CString)) &Standard_NotImplemented::NewInstance, "None", py::arg("theMessage"));
+cls_Standard_NotImplemented.def_static("get_type_name_", (const char * (*)()) &Standard_NotImplemented::get_type_name, "None");
+cls_Standard_NotImplemented.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Standard_NotImplemented::get_type_descriptor, "None");
+cls_Standard_NotImplemented.def("DynamicType", (const opencascade::handle<Standard_Type> & (Standard_NotImplemented::*)() const) &Standard_NotImplemented::DynamicType, "None");
+
+// TYPEDEF: STANDARD_PEXTCHARACTER
+
+// TYPEDEF: STANDARD_PERRORHANDLER
+
+// TYPEDEF: STANDARD_JMPBUF
+
+// TYPEDEF: STANDARD_THREADID
+if (py::hasattr(mod, "Standard_Size")) {
+	mod.attr("Standard_ThreadId") = mod.attr("Standard_Size");
+}
+
+// CLASS: STANDARD_ERRORHANDLER
+py::class_<Standard_ErrorHandler> cls_Standard_ErrorHandler(mod, "Standard_ErrorHandler", "Class implementing mechanics of conversion of signals to exceptions.");
+
+// Constructors
+cls_Standard_ErrorHandler.def(py::init<>());
+
+// Methods
+// cls_Standard_ErrorHandler.def_static("operator new_", (void * (*)(size_t)) &Standard_ErrorHandler::operator new, "None", py::arg("theSize"));
+// cls_Standard_ErrorHandler.def_static("operator delete_", (void (*)(void *)) &Standard_ErrorHandler::operator delete, "None", py::arg("theAddress"));
+// cls_Standard_ErrorHandler.def_static("operator new[]_", (void * (*)(size_t)) &Standard_ErrorHandler::operator new[], "None", py::arg("theSize"));
+// cls_Standard_ErrorHandler.def_static("operator delete[]_", (void (*)(void *)) &Standard_ErrorHandler::operator delete[], "None", py::arg("theAddress"));
+// cls_Standard_ErrorHandler.def_static("operator new_", (void * (*)(size_t, void *)) &Standard_ErrorHandler::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_Standard_ErrorHandler.def_static("operator delete_", (void (*)(void *, void *)) &Standard_ErrorHandler::operator delete, "None", py::arg(""), py::arg(""));
+cls_Standard_ErrorHandler.def("Destroy", (void (Standard_ErrorHandler::*)()) &Standard_ErrorHandler::Destroy, "Unlinks and checks if there is a raised exception.");
+cls_Standard_ErrorHandler.def("Unlink", (void (Standard_ErrorHandler::*)()) &Standard_ErrorHandler::Unlink, "Removes handler from the handlers list");
+cls_Standard_ErrorHandler.def("Catches", (Standard_Boolean (Standard_ErrorHandler::*)(const opencascade::handle<Standard_Type> &)) &Standard_ErrorHandler::Catches, "Returns 'True' if the caught exception has the same type or inherits from 'aType'", py::arg("aType"));
+cls_Standard_ErrorHandler.def("Label", (Standard_JmpBuf & (Standard_ErrorHandler::*)()) &Standard_ErrorHandler::Label, "Returns label for jump");
+cls_Standard_ErrorHandler.def("Error", (opencascade::handle<Standard_Failure> (Standard_ErrorHandler::*)() const) &Standard_ErrorHandler::Error, "Returns the current Error.");
+cls_Standard_ErrorHandler.def_static("LastCaughtError_", (opencascade::handle<Standard_Failure> (*)()) &Standard_ErrorHandler::LastCaughtError, "Returns the caught exception.");
+cls_Standard_ErrorHandler.def_static("IsInTryBlock_", (Standard_Boolean (*)()) &Standard_ErrorHandler::IsInTryBlock, "Test if the code is currently running in a try block");
+
+// TYPEDEF: STANDARD_ERRORHANDLERCALLBACK
+py::class_<Standard_ErrorHandler::Callback> cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback(mod, "Standard_ErrorHandlerCallback", "Defines a base class for callback objects that can be registered in the OCC error handler (the class simulating C++ exceptions) so as to be correctly destroyed when error handler is activated.");
+
+// Methods
+// cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def_static("operator new_", (void * (*)(size_t)) &Standard_ErrorHandler::Callback::operator new, "None", py::arg("theSize"));
+// cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def_static("operator delete_", (void (*)(void *)) &Standard_ErrorHandler::Callback::operator delete, "None", py::arg("theAddress"));
+// cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def_static("operator new[]_", (void * (*)(size_t)) &Standard_ErrorHandler::Callback::operator new[], "None", py::arg("theSize"));
+// cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def_static("operator delete[]_", (void (*)(void *)) &Standard_ErrorHandler::Callback::operator delete[], "None", py::arg("theAddress"));
+// cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def_static("operator new_", (void * (*)(size_t, void *)) &Standard_ErrorHandler::Callback::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def_static("operator delete_", (void (*)(void *, void *)) &Standard_ErrorHandler::Callback::operator delete, "None", py::arg(""), py::arg(""));
+cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def("RegisterCallback", (void (Standard_ErrorHandler::Callback::*)()) &Standard_ErrorHandler::Callback::RegisterCallback, "Registers this callback object in the current error handler (if found).");
+cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def("UnregisterCallback", (void (Standard_ErrorHandler::Callback::*)()) &Standard_ErrorHandler::Callback::UnregisterCallback, "Unregisters this callback object from the error handler.");
+cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def("DestroyCallback", (void (Standard_ErrorHandler::Callback::*)()) &Standard_ErrorHandler::Callback::DestroyCallback, "The callback function to perform necessary callback action. Called by the exception handler when it is being destroyed but still has this callback registered.");
+
+// CLASS: STANDARD_MUTEX
+py::class_<Standard_Mutex, Standard_ErrorHandler::Callback> cls_Standard_Mutex(mod, "Standard_Mutex", "Mutex: a class to synchronize access to shared data.");
+
+// Constructors
+cls_Standard_Mutex.def(py::init<>());
+
+// Methods
+cls_Standard_Mutex.def("Lock", (void (Standard_Mutex::*)()) &Standard_Mutex::Lock, "Method to lock the mutex; waits until the mutex is released by other threads, locks it and then returns");
+cls_Standard_Mutex.def("TryLock", (Standard_Boolean (Standard_Mutex::*)()) &Standard_Mutex::TryLock, "Method to test the mutex; if the mutex is not hold by other thread, locks it and returns True; otherwise returns False without waiting mutex to be released.");
+cls_Standard_Mutex.def("Unlock", (void (Standard_Mutex::*)()) &Standard_Mutex::Unlock, "Method to unlock the mutex; releases it to other users");
 
 // CLASS: STANDARD_PERSISTENT
 py::class_<Standard_Persistent, opencascade::handle<Standard_Persistent>, Standard_Transient> cls_Standard_Persistent(mod, "Standard_Persistent", "Root of 'persistent' classes, a legacy support of object oriented databases, now outdated.");
@@ -718,7 +821,7 @@ cls_Standard_GUID.def("Assign", (void (Standard_GUID::*)(const Standard_UUID &))
 cls_Standard_GUID.def("ShallowDump", (void (Standard_GUID::*)(Standard_OStream &) const) &Standard_GUID::ShallowDump, "Display the GUID with the following format:", py::arg("aStream"));
 cls_Standard_GUID.def_static("CheckGUIDFormat_", (Standard_Boolean (*)(const Standard_CString)) &Standard_GUID::CheckGUIDFormat, "Check the format of a GUID string. It checks the size, the position of the '-' and the correct size of fields.", py::arg("aGuid"));
 cls_Standard_GUID.def("Hash", (Standard_Integer (Standard_GUID::*)(const Standard_Integer) const) &Standard_GUID::Hash, "Hash function for GUID.", py::arg("Upper"));
-cls_Standard_GUID.def_static("HashCode_", (Standard_Integer (*)(const Standard_GUID &, const Standard_Integer)) &Standard_GUID::HashCode, "H method used by collections.", py::arg("aguid"), py::arg("Upper"));
+cls_Standard_GUID.def_static("HashCode_", (Standard_Integer (*)(const Standard_GUID &, Standard_Integer)) &Standard_GUID::HashCode, "Computes a hash code for the given GUID of the Standard_Integer type, in the range [1, theUpperBound]", py::arg("theGUID"), py::arg("theUpperBound"));
 cls_Standard_GUID.def_static("IsEqual_", (Standard_Boolean (*)(const Standard_GUID &, const Standard_GUID &)) &Standard_GUID::IsEqual, "Returns True when the two GUID are the same.", py::arg("string1"), py::arg("string2"));
 
 // CLASS: STANDARD_MULTIPLYDEFINED
@@ -751,58 +854,6 @@ cls_Standard_ImmutableObject.def_static("get_type_name_", (const char * (*)()) &
 cls_Standard_ImmutableObject.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Standard_ImmutableObject::get_type_descriptor, "None");
 cls_Standard_ImmutableObject.def("DynamicType", (const opencascade::handle<Standard_Type> & (Standard_ImmutableObject::*)() const) &Standard_ImmutableObject::DynamicType, "None");
 
-// TYPEDEF: STANDARD_PERRORHANDLER
-
-// TYPEDEF: STANDARD_JMPBUF
-
-// TYPEDEF: STANDARD_THREADID
-
-// CLASS: STANDARD_ERRORHANDLER
-py::class_<Standard_ErrorHandler> cls_Standard_ErrorHandler(mod, "Standard_ErrorHandler", "Class implementing mechanics of conversion of signals to exceptions.");
-
-// Constructors
-cls_Standard_ErrorHandler.def(py::init<>());
-
-// Methods
-// cls_Standard_ErrorHandler.def_static("operator new_", (void * (*)(size_t)) &Standard_ErrorHandler::operator new, "None", py::arg("theSize"));
-// cls_Standard_ErrorHandler.def_static("operator delete_", (void (*)(void *)) &Standard_ErrorHandler::operator delete, "None", py::arg("theAddress"));
-// cls_Standard_ErrorHandler.def_static("operator new[]_", (void * (*)(size_t)) &Standard_ErrorHandler::operator new[], "None", py::arg("theSize"));
-// cls_Standard_ErrorHandler.def_static("operator delete[]_", (void (*)(void *)) &Standard_ErrorHandler::operator delete[], "None", py::arg("theAddress"));
-// cls_Standard_ErrorHandler.def_static("operator new_", (void * (*)(size_t, void *)) &Standard_ErrorHandler::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Standard_ErrorHandler.def_static("operator delete_", (void (*)(void *, void *)) &Standard_ErrorHandler::operator delete, "None", py::arg(""), py::arg(""));
-cls_Standard_ErrorHandler.def("Destroy", (void (Standard_ErrorHandler::*)()) &Standard_ErrorHandler::Destroy, "Unlinks and checks if there is a raised exception.");
-cls_Standard_ErrorHandler.def("Unlink", (void (Standard_ErrorHandler::*)()) &Standard_ErrorHandler::Unlink, "Removes handler from the handlers list");
-cls_Standard_ErrorHandler.def("Catches", (Standard_Boolean (Standard_ErrorHandler::*)(const opencascade::handle<Standard_Type> &)) &Standard_ErrorHandler::Catches, "Returns 'True' if the caught exception has the same type or inherits from 'aType'", py::arg("aType"));
-cls_Standard_ErrorHandler.def("Label", (Standard_JmpBuf & (Standard_ErrorHandler::*)()) &Standard_ErrorHandler::Label, "Returns label for jump");
-cls_Standard_ErrorHandler.def("Error", (opencascade::handle<Standard_Failure> (Standard_ErrorHandler::*)() const) &Standard_ErrorHandler::Error, "Returns the current Error.");
-cls_Standard_ErrorHandler.def_static("LastCaughtError_", (opencascade::handle<Standard_Failure> (*)()) &Standard_ErrorHandler::LastCaughtError, "Returns the caught exception.");
-cls_Standard_ErrorHandler.def_static("IsInTryBlock_", (Standard_Boolean (*)()) &Standard_ErrorHandler::IsInTryBlock, "Test if the code is currently running in a try block");
-
-// TYPEDEF: STANDARD_ERRORHANDLERCALLBACK
-py::class_<Standard_ErrorHandler::Callback> cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback(mod, "Standard_ErrorHandlerCallback", "Defines a base class for callback objects that can be registered in the OCC error handler (the class simulating C++ exceptions) so as to be correctly destroyed when error handler is activated.");
-
-// Methods
-// cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def_static("operator new_", (void * (*)(size_t)) &Standard_ErrorHandler::Callback::operator new, "None", py::arg("theSize"));
-// cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def_static("operator delete_", (void (*)(void *)) &Standard_ErrorHandler::Callback::operator delete, "None", py::arg("theAddress"));
-// cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def_static("operator new[]_", (void * (*)(size_t)) &Standard_ErrorHandler::Callback::operator new[], "None", py::arg("theSize"));
-// cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def_static("operator delete[]_", (void (*)(void *)) &Standard_ErrorHandler::Callback::operator delete[], "None", py::arg("theAddress"));
-// cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def_static("operator new_", (void * (*)(size_t, void *)) &Standard_ErrorHandler::Callback::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def_static("operator delete_", (void (*)(void *, void *)) &Standard_ErrorHandler::Callback::operator delete, "None", py::arg(""), py::arg(""));
-cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def("RegisterCallback", (void (Standard_ErrorHandler::Callback::*)()) &Standard_ErrorHandler::Callback::RegisterCallback, "Registers this callback object in the current error handler (if found).");
-cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def("UnregisterCallback", (void (Standard_ErrorHandler::Callback::*)()) &Standard_ErrorHandler::Callback::UnregisterCallback, "Unregisters this callback object from the error handler.");
-cls_Standard_ErrorHandler_Standard_ErrorHandlerCallback.def("DestroyCallback", (void (Standard_ErrorHandler::Callback::*)()) &Standard_ErrorHandler::Callback::DestroyCallback, "The callback function to perform necessary callback action. Called by the exception handler when it is being destroyed but still has this callback registered.");
-
-// CLASS: STANDARD_MUTEX
-py::class_<Standard_Mutex, Standard_ErrorHandler::Callback> cls_Standard_Mutex(mod, "Standard_Mutex", "Mutex: a class to synchronize access to shared data.");
-
-// Constructors
-cls_Standard_Mutex.def(py::init<>());
-
-// Methods
-cls_Standard_Mutex.def("Lock", (void (Standard_Mutex::*)()) &Standard_Mutex::Lock, "Method to lock the mutex; waits until the mutex is released by other threads, locks it and then returns");
-cls_Standard_Mutex.def("TryLock", (Standard_Boolean (Standard_Mutex::*)()) &Standard_Mutex::TryLock, "Method to test the mutex; if the mutex is not hold by other thread, locks it and returns True; otherwise returns False without waiting mutex to be released.");
-cls_Standard_Mutex.def("Unlock", (void (Standard_Mutex::*)()) &Standard_Mutex::Unlock, "Method to unlock the mutex; releases it to other users");
-
 // CLASS: STANDARD_NULLOBJECT
 py::class_<Standard_NullObject, opencascade::handle<Standard_NullObject>, Standard_DomainError> cls_Standard_NullObject(mod, "Standard_NullObject", "None");
 
@@ -818,20 +869,20 @@ cls_Standard_NullObject.def_static("get_type_name_", (const char * (*)()) &Stand
 cls_Standard_NullObject.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Standard_NullObject::get_type_descriptor, "None");
 cls_Standard_NullObject.def("DynamicType", (const opencascade::handle<Standard_Type> & (Standard_NullObject::*)() const) &Standard_NullObject::DynamicType, "None");
 
-// CLASS: STANDARD_NOTIMPLEMENTED
-py::class_<Standard_NotImplemented, opencascade::handle<Standard_NotImplemented>, Standard_ProgramError> cls_Standard_NotImplemented(mod, "Standard_NotImplemented", "None");
+// CLASS: STANDARD_CONDITION
+py::class_<Standard_Condition> cls_Standard_Condition(mod, "Standard_Condition", "This is boolean flag intended for communication between threads. One thread sets this flag to TRUE to indicate some event happened and another thread either waits this event or checks periodically its state to perform job.");
 
 // Constructors
-cls_Standard_NotImplemented.def(py::init<>());
-cls_Standard_NotImplemented.def(py::init<const Standard_CString>(), py::arg("theMessage"));
+cls_Standard_Condition.def(py::init<bool>(), py::arg("theIsSet"));
 
 // Methods
-cls_Standard_NotImplemented.def_static("Raise_", (void (*)(const Standard_CString)) &Standard_NotImplemented::Raise, "None", py::arg("theMessage"));
-cls_Standard_NotImplemented.def_static("Raise_", (void (*)(Standard_SStream &)) &Standard_NotImplemented::Raise, "None", py::arg("theMessage"));
-cls_Standard_NotImplemented.def_static("NewInstance_", (opencascade::handle<Standard_NotImplemented> (*)(const Standard_CString)) &Standard_NotImplemented::NewInstance, "None", py::arg("theMessage"));
-cls_Standard_NotImplemented.def_static("get_type_name_", (const char * (*)()) &Standard_NotImplemented::get_type_name, "None");
-cls_Standard_NotImplemented.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Standard_NotImplemented::get_type_descriptor, "None");
-cls_Standard_NotImplemented.def("DynamicType", (const opencascade::handle<Standard_Type> & (Standard_NotImplemented::*)() const) &Standard_NotImplemented::DynamicType, "None");
+cls_Standard_Condition.def("Set", (void (Standard_Condition::*)()) &Standard_Condition::Set, "Set event into signaling state.");
+cls_Standard_Condition.def("Reset", (void (Standard_Condition::*)()) &Standard_Condition::Reset, "Reset event (unset signaling state)");
+cls_Standard_Condition.def("Wait", (void (Standard_Condition::*)()) &Standard_Condition::Wait, "Wait for Event (infinity).");
+cls_Standard_Condition.def("Wait", (bool (Standard_Condition::*)(int)) &Standard_Condition::Wait, "Wait for signal requested time.", py::arg("theTimeMilliseconds"));
+cls_Standard_Condition.def("Check", (bool (Standard_Condition::*)()) &Standard_Condition::Check, "Do not wait for signal - just test it state.");
+cls_Standard_Condition.def("CheckReset", (bool (Standard_Condition::*)()) &Standard_Condition::CheckReset, "Method perform two steps at-once - reset the event object and returns true if it was in signaling state.");
+cls_Standard_Condition.def("getHandle", (void * (Standard_Condition::*)() const) &Standard_Condition::getHandle, "Access native HANDLE to Event object.");
 
 // CLASS: STANDARD_NEGATIVEVALUE
 py::class_<Standard_NegativeValue, opencascade::handle<Standard_NegativeValue>, Standard_RangeError> cls_Standard_NegativeValue(mod, "Standard_NegativeValue", "None");
@@ -1042,6 +1093,25 @@ cls_Standard_Overflow.def("DynamicType", (const opencascade::handle<Standard_Typ
 // TYPEDEF: STANDARD_PBYTE
 /*
 */
+
+// CLASS: STANDARD_READBUFFER
+py::class_<Standard_ReadBuffer> cls_Standard_ReadBuffer(mod, "Standard_ReadBuffer", "Auxiliary tool for buffered reading from input stream within chunks of constant size.");
+
+// Constructors
+cls_Standard_ReadBuffer.def(py::init<int64_t, size_t>(), py::arg("theDataLen"), py::arg("theChunkLen"));
+
+// Methods
+cls_Standard_ReadBuffer.def("Init", (void (Standard_ReadBuffer::*)(int64_t, size_t)) &Standard_ReadBuffer::Init, "Initialize the buffer.", py::arg("theDataLen"), py::arg("theChunkLen"));
+cls_Standard_ReadBuffer.def("IsDone", (bool (Standard_ReadBuffer::*)() const) &Standard_ReadBuffer::IsDone, "Return TRUE if amount of read bytes is equal to requested length of entire data.");
+
+// CLASS: STANDARD_READLINEBUFFER
+py::class_<Standard_ReadLineBuffer> cls_Standard_ReadLineBuffer(mod, "Standard_ReadLineBuffer", "Auxiliary tool for buffered reading of lines from input stream.");
+
+// Constructors
+cls_Standard_ReadLineBuffer.def(py::init<size_t>(), py::arg("theMaxBufferSizeBytes"));
+
+// Methods
+cls_Standard_ReadLineBuffer.def("Clear", (void (Standard_ReadLineBuffer::*)()) &Standard_ReadLineBuffer::Clear, "Clear buffer and cached values.");
 
 // CLASS: STANDARD_TOOMANYUSERS
 py::class_<Standard_TooManyUsers, opencascade::handle<Standard_TooManyUsers>, Standard_LicenseError> cls_Standard_TooManyUsers(mod, "Standard_TooManyUsers", "None");

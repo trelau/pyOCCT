@@ -27,8 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepGeom_PreferredSurfaceCurveRepresentation.hxx>
 #include <StepGeom_TrimmingPreference.hxx>
 #include <StepRepr_RepresentationItem.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <StepGeom_GeometricRepresentationItem.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 #include <StepGeom_CartesianPoint.hxx>
@@ -315,6 +316,7 @@ bind_NCollection_Array1<opencascade::handle<StepGeom_CompositeCurveSegment> >(mo
 py::class_<StepGeom_HArray1OfCompositeCurveSegment, opencascade::handle<StepGeom_HArray1OfCompositeCurveSegment>, Standard_Transient> cls_StepGeom_HArray1OfCompositeCurveSegment(mod, "StepGeom_HArray1OfCompositeCurveSegment", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepGeom_HArray1OfCompositeCurveSegment.def(py::init<>());
 cls_StepGeom_HArray1OfCompositeCurveSegment.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepGeom_HArray1OfCompositeCurveSegment.def(py::init<const Standard_Integer, const Standard_Integer, const StepGeom_Array1OfCompositeCurveSegment::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepGeom_HArray1OfCompositeCurveSegment.def(py::init<const StepGeom_Array1OfCompositeCurveSegment &>(), py::arg("theOther"));
@@ -567,6 +569,7 @@ cls_StepGeom_Axis2Placement2d.def("DynamicType", (const opencascade::handle<Stan
 py::class_<StepGeom_HArray1OfCartesianPoint, opencascade::handle<StepGeom_HArray1OfCartesianPoint>, Standard_Transient> cls_StepGeom_HArray1OfCartesianPoint(mod, "StepGeom_HArray1OfCartesianPoint", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepGeom_HArray1OfCartesianPoint.def(py::init<>());
 cls_StepGeom_HArray1OfCartesianPoint.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepGeom_HArray1OfCartesianPoint.def(py::init<const Standard_Integer, const Standard_Integer, const StepGeom_Array1OfCartesianPoint::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepGeom_HArray1OfCartesianPoint.def(py::init<const StepGeom_Array1OfCartesianPoint &>(), py::arg("theOther"));
@@ -987,6 +990,7 @@ cls_StepGeom_ConicalSurface.def("DynamicType", (const opencascade::handle<Standa
 py::class_<StepGeom_HArray1OfSurfaceBoundary, opencascade::handle<StepGeom_HArray1OfSurfaceBoundary>, Standard_Transient> cls_StepGeom_HArray1OfSurfaceBoundary(mod, "StepGeom_HArray1OfSurfaceBoundary", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepGeom_HArray1OfSurfaceBoundary.def(py::init<>());
 cls_StepGeom_HArray1OfSurfaceBoundary.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepGeom_HArray1OfSurfaceBoundary.def(py::init<const Standard_Integer, const Standard_Integer, const StepGeom_Array1OfSurfaceBoundary::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepGeom_HArray1OfSurfaceBoundary.def(py::init<const StepGeom_Array1OfSurfaceBoundary &>(), py::arg("theOther"));
@@ -1253,6 +1257,7 @@ cls_StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx.def("Dynami
 py::class_<StepGeom_HArray1OfBoundaryCurve, opencascade::handle<StepGeom_HArray1OfBoundaryCurve>, Standard_Transient> cls_StepGeom_HArray1OfBoundaryCurve(mod, "StepGeom_HArray1OfBoundaryCurve", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepGeom_HArray1OfBoundaryCurve.def(py::init<>());
 cls_StepGeom_HArray1OfBoundaryCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepGeom_HArray1OfBoundaryCurve.def(py::init<const Standard_Integer, const Standard_Integer, const StepGeom_Array1OfBoundaryCurve::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepGeom_HArray1OfBoundaryCurve.def(py::init<const StepGeom_Array1OfBoundaryCurve &>(), py::arg("theOther"));
@@ -1276,6 +1281,7 @@ cls_StepGeom_HArray1OfBoundaryCurve.def("DynamicType", (const opencascade::handl
 py::class_<StepGeom_HArray1OfCurve, opencascade::handle<StepGeom_HArray1OfCurve>, Standard_Transient> cls_StepGeom_HArray1OfCurve(mod, "StepGeom_HArray1OfCurve", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepGeom_HArray1OfCurve.def(py::init<>());
 cls_StepGeom_HArray1OfCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepGeom_HArray1OfCurve.def(py::init<const Standard_Integer, const Standard_Integer, const StepGeom_Array1OfCurve::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepGeom_HArray1OfCurve.def(py::init<const StepGeom_Array1OfCurve &>(), py::arg("theOther"));
@@ -1299,6 +1305,7 @@ cls_StepGeom_HArray1OfCurve.def("DynamicType", (const opencascade::handle<Standa
 py::class_<StepGeom_HArray1OfPcurveOrSurface, opencascade::handle<StepGeom_HArray1OfPcurveOrSurface>, Standard_Transient> cls_StepGeom_HArray1OfPcurveOrSurface(mod, "StepGeom_HArray1OfPcurveOrSurface", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepGeom_HArray1OfPcurveOrSurface.def(py::init<>());
 cls_StepGeom_HArray1OfPcurveOrSurface.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepGeom_HArray1OfPcurveOrSurface.def(py::init<const Standard_Integer, const Standard_Integer, const StepGeom_Array1OfPcurveOrSurface::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepGeom_HArray1OfPcurveOrSurface.def(py::init<const StepGeom_Array1OfPcurveOrSurface &>(), py::arg("theOther"));
@@ -1322,6 +1329,7 @@ cls_StepGeom_HArray1OfPcurveOrSurface.def("DynamicType", (const opencascade::han
 py::class_<StepGeom_HArray1OfTrimmingSelect, opencascade::handle<StepGeom_HArray1OfTrimmingSelect>, Standard_Transient> cls_StepGeom_HArray1OfTrimmingSelect(mod, "StepGeom_HArray1OfTrimmingSelect", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepGeom_HArray1OfTrimmingSelect.def(py::init<>());
 cls_StepGeom_HArray1OfTrimmingSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepGeom_HArray1OfTrimmingSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepGeom_Array1OfTrimmingSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepGeom_HArray1OfTrimmingSelect.def(py::init<const StepGeom_Array1OfTrimmingSelect &>(), py::arg("theOther"));

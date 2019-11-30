@@ -27,8 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Plate_D1.hxx>
 #include <Plate_D2.hxx>
 #include <Plate_D3.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <NLPlate_HGPPConstraint.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <NLPlate_HPG0Constraint.hxx>
 #include <NLPlate_HPG0G1Constraint.hxx>

@@ -22,26 +22,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <pyOCCT_Common.hxx>
 #include <ShapeExtend_Status.hxx>
 #include <ShapeExtend_Parametrisation.hxx>
-#include <Standard_Transient.hxx>
-#include <Standard_Handle.hxx>
-#include <Message_Msg.hxx>
-#include <Message_Gravity.hxx>
-#include <TopoDS_Shape.hxx>
-#include <ShapeExtend_BasicMsgRegistrator.hxx>
-#include <Standard_Type.hxx>
 #include <Standard.hxx>
 #include <Standard_TypeDef.hxx>
 #include <ShapeExtend_ComplexCurve.hxx>
 #include <ShapeExtend_CompositeSurface.hxx>
 #include <ShapeExtend_WireData.hxx>
+#include <ShapeExtend_BasicMsgRegistrator.hxx>
 #include <ShapeExtend_MsgRegistrator.hxx>
 #include <ShapeExtend_Explorer.hxx>
 #include <ShapeExtend.hxx>
+#include <Standard_Transient.hxx>
 #include <TopoDS_Wire.hxx>
+#include <Standard_Handle.hxx>
 #include <TopoDS_Edge.hxx>
+#include <TopoDS_Shape.hxx>
 #include <TopoDS_Face.hxx>
 #include <TopTools_HSequenceOfShape.hxx>
+#include <Standard_Std.hxx>
+#include <Standard_Type.hxx>
 #include <TColStd_HSequenceOfInteger.hxx>
+#include <Message_Msg.hxx>
+#include <Message_Gravity.hxx>
 #include <Geom_Curve.hxx>
 #include <gp_Trsf.hxx>
 #include <GeomAbs_Shape.hxx>
@@ -67,10 +68,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 PYBIND11_MODULE(ShapeExtend, mod) {
 
 py::module::import("OCCT.Standard");
-py::module::import("OCCT.Message");
 py::module::import("OCCT.TopoDS");
 py::module::import("OCCT.TopTools");
 py::module::import("OCCT.TColStd");
+py::module::import("OCCT.Message");
 py::module::import("OCCT.Geom");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.GeomAbs");
@@ -109,20 +110,6 @@ py::enum_<ShapeExtend_Parametrisation>(mod, "ShapeExtend_Parametrisation", "Defi
 	.value("ShapeExtend_Unitary", ShapeExtend_Parametrisation::ShapeExtend_Unitary)
 	.export_values();
 
-
-// CLASS: SHAPEEXTEND_BASICMSGREGISTRATOR
-py::class_<ShapeExtend_BasicMsgRegistrator, opencascade::handle<ShapeExtend_BasicMsgRegistrator>, Standard_Transient> cls_ShapeExtend_BasicMsgRegistrator(mod, "ShapeExtend_BasicMsgRegistrator", "Abstract class that can be used for attaching messages to the objects (e.g. shapes). It is used by ShapeHealing algorithms to attach a message describing encountered case (e.g. removing small edge from a wire).");
-
-// Constructors
-cls_ShapeExtend_BasicMsgRegistrator.def(py::init<>());
-
-// Methods
-cls_ShapeExtend_BasicMsgRegistrator.def("Send", (void (ShapeExtend_BasicMsgRegistrator::*)(const opencascade::handle<Standard_Transient> &, const Message_Msg &, const Message_Gravity)) &ShapeExtend_BasicMsgRegistrator::Send, "Sends a message to be attached to the object. Object can be of any type interpreted by redefined MsgRegistrator.", py::arg("object"), py::arg("message"), py::arg("gravity"));
-cls_ShapeExtend_BasicMsgRegistrator.def("Send", (void (ShapeExtend_BasicMsgRegistrator::*)(const TopoDS_Shape &, const Message_Msg &, const Message_Gravity)) &ShapeExtend_BasicMsgRegistrator::Send, "Sends a message to be attached to the shape.", py::arg("shape"), py::arg("message"), py::arg("gravity"));
-cls_ShapeExtend_BasicMsgRegistrator.def("Send", (void (ShapeExtend_BasicMsgRegistrator::*)(const Message_Msg &, const Message_Gravity)) &ShapeExtend_BasicMsgRegistrator::Send, "Calls Send method with Null Transient.", py::arg("message"), py::arg("gravity"));
-cls_ShapeExtend_BasicMsgRegistrator.def_static("get_type_name_", (const char * (*)()) &ShapeExtend_BasicMsgRegistrator::get_type_name, "None");
-cls_ShapeExtend_BasicMsgRegistrator.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ShapeExtend_BasicMsgRegistrator::get_type_descriptor, "None");
-cls_ShapeExtend_BasicMsgRegistrator.def("DynamicType", (const opencascade::handle<Standard_Type> & (ShapeExtend_BasicMsgRegistrator::*)() const) &ShapeExtend_BasicMsgRegistrator::DynamicType, "None");
 
 // CLASS: SHAPEEXTEND
 py::class_<ShapeExtend> cls_ShapeExtend(mod, "ShapeExtend", "This package provides general tools and data structures common for other packages in SHAPEWORKS and extending CAS.CADE structures. The following items are provided by this package: - enumeration Status used for coding status flags in methods inside the SHAPEWORKS - enumeration Parametrisation used for setting global parametrisation on the composite surface - class CompositeSurface representing a composite surface made of a grid of surface patches - class WireData representing a wire in the form of ordered list of edges - class MsgRegistrator for attaching messages to the objects - tools for exploring the shapes - tools for creating new shapes.");
@@ -187,6 +174,20 @@ cls_ShapeExtend_WireData.def("WireAPIMake", (TopoDS_Wire (ShapeExtend_WireData::
 cls_ShapeExtend_WireData.def_static("get_type_name_", (const char * (*)()) &ShapeExtend_WireData::get_type_name, "None");
 cls_ShapeExtend_WireData.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ShapeExtend_WireData::get_type_descriptor, "None");
 cls_ShapeExtend_WireData.def("DynamicType", (const opencascade::handle<Standard_Type> & (ShapeExtend_WireData::*)() const) &ShapeExtend_WireData::DynamicType, "None");
+
+// CLASS: SHAPEEXTEND_BASICMSGREGISTRATOR
+py::class_<ShapeExtend_BasicMsgRegistrator, opencascade::handle<ShapeExtend_BasicMsgRegistrator>, Standard_Transient> cls_ShapeExtend_BasicMsgRegistrator(mod, "ShapeExtend_BasicMsgRegistrator", "Abstract class that can be used for attaching messages to the objects (e.g. shapes). It is used by ShapeHealing algorithms to attach a message describing encountered case (e.g. removing small edge from a wire).");
+
+// Constructors
+cls_ShapeExtend_BasicMsgRegistrator.def(py::init<>());
+
+// Methods
+cls_ShapeExtend_BasicMsgRegistrator.def("Send", (void (ShapeExtend_BasicMsgRegistrator::*)(const opencascade::handle<Standard_Transient> &, const Message_Msg &, const Message_Gravity)) &ShapeExtend_BasicMsgRegistrator::Send, "Sends a message to be attached to the object. Object can be of any type interpreted by redefined MsgRegistrator.", py::arg("object"), py::arg("message"), py::arg("gravity"));
+cls_ShapeExtend_BasicMsgRegistrator.def("Send", (void (ShapeExtend_BasicMsgRegistrator::*)(const TopoDS_Shape &, const Message_Msg &, const Message_Gravity)) &ShapeExtend_BasicMsgRegistrator::Send, "Sends a message to be attached to the shape.", py::arg("shape"), py::arg("message"), py::arg("gravity"));
+cls_ShapeExtend_BasicMsgRegistrator.def("Send", (void (ShapeExtend_BasicMsgRegistrator::*)(const Message_Msg &, const Message_Gravity)) &ShapeExtend_BasicMsgRegistrator::Send, "Calls Send method with Null Transient.", py::arg("message"), py::arg("gravity"));
+cls_ShapeExtend_BasicMsgRegistrator.def_static("get_type_name_", (const char * (*)()) &ShapeExtend_BasicMsgRegistrator::get_type_name, "None");
+cls_ShapeExtend_BasicMsgRegistrator.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ShapeExtend_BasicMsgRegistrator::get_type_descriptor, "None");
+cls_ShapeExtend_BasicMsgRegistrator.def("DynamicType", (const opencascade::handle<Standard_Type> & (ShapeExtend_BasicMsgRegistrator::*)() const) &ShapeExtend_BasicMsgRegistrator::DynamicType, "None");
 
 // CLASS: SHAPEEXTEND_COMPLEXCURVE
 py::class_<ShapeExtend_ComplexCurve, opencascade::handle<ShapeExtend_ComplexCurve>, Geom_Curve> cls_ShapeExtend_ComplexCurve(mod, "ShapeExtend_ComplexCurve", "Defines a curve which consists of several segments. Implements basic interface to it.");

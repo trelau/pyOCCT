@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <Extrema_HArray1OfPOnCurv.hxx>
 #include <Standard_Type.hxx>
 #include <Extrema_POnSurf.hxx>
@@ -301,6 +302,7 @@ bind_NCollection_Array1<Extrema_POnCurv>(mod, "Extrema_Array1OfPOnCurv", py::mod
 py::class_<Extrema_HArray1OfPOnCurv, opencascade::handle<Extrema_HArray1OfPOnCurv>, Standard_Transient> cls_Extrema_HArray1OfPOnCurv(mod, "Extrema_HArray1OfPOnCurv", "None", py::multiple_inheritance());
 
 // Constructors
+cls_Extrema_HArray1OfPOnCurv.def(py::init<>());
 cls_Extrema_HArray1OfPOnCurv.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_Extrema_HArray1OfPOnCurv.def(py::init<const Standard_Integer, const Standard_Integer, const Extrema_Array1OfPOnCurv::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_Extrema_HArray1OfPOnCurv.def(py::init<const Extrema_Array1OfPOnCurv &>(), py::arg("theOther"));
@@ -345,6 +347,7 @@ bind_NCollection_Array1<Extrema_POnSurf>(mod, "Extrema_Array1OfPOnSurf", py::mod
 py::class_<Extrema_HArray1OfPOnSurf, opencascade::handle<Extrema_HArray1OfPOnSurf>, Standard_Transient> cls_Extrema_HArray1OfPOnSurf(mod, "Extrema_HArray1OfPOnSurf", "None", py::multiple_inheritance());
 
 // Constructors
+cls_Extrema_HArray1OfPOnSurf.def(py::init<>());
 cls_Extrema_HArray1OfPOnSurf.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_Extrema_HArray1OfPOnSurf.def(py::init<const Standard_Integer, const Standard_Integer, const Extrema_Array1OfPOnSurf::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_Extrema_HArray1OfPOnSurf.def(py::init<const Extrema_Array1OfPOnSurf &>(), py::arg("theOther"));
@@ -1684,6 +1687,7 @@ cls_Extrema_GlobOptFuncCS.def("Values", [](Extrema_GlobOptFuncCS &self, const ma
 py::class_<Extrema_HArray1OfPOnCurv2d, opencascade::handle<Extrema_HArray1OfPOnCurv2d>, Standard_Transient> cls_Extrema_HArray1OfPOnCurv2d(mod, "Extrema_HArray1OfPOnCurv2d", "None", py::multiple_inheritance());
 
 // Constructors
+cls_Extrema_HArray1OfPOnCurv2d.def(py::init<>());
 cls_Extrema_HArray1OfPOnCurv2d.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_Extrema_HArray1OfPOnCurv2d.def(py::init<const Standard_Integer, const Standard_Integer, const Extrema_Array1OfPOnCurv2d::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_Extrema_HArray1OfPOnCurv2d.def(py::init<const Extrema_Array1OfPOnCurv2d &>(), py::arg("theOther"));

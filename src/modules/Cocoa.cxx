@@ -22,11 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <pyOCCT_Common.hxx>
 #include <Cocoa_LocalPool.hxx>
 #include <Aspect_Window.hxx>
+#include <Aspect_VKey.hxx>
 #include <Standard_TypeDef.hxx>
 #include <Aspect_TypeOfResize.hxx>
 #include <Aspect_Drawable.hxx>
 #include <Aspect_FBConfig.hxx>
+#include <TCollection_AsciiString.hxx>
 #include <Standard_Handle.hxx>
+#include <Aspect_DisplayConnection.hxx>
+#include <Standard_Std.hxx>
 #include <Cocoa_Window.hxx>
 #include <Standard_Type.hxx>
 
@@ -34,6 +38,7 @@ PYBIND11_MODULE(Cocoa, mod) {
 
 py::module::import("OCCT.Aspect");
 py::module::import("OCCT.Standard");
+py::module::import("OCCT.TCollection");
 
 // CLASS: COCOA_LOCALPOOL
 /*
@@ -51,6 +56,7 @@ py::class_<Cocoa_Window, opencascade::handle<Cocoa_Window>, Aspect_Window> cls_C
 // cls_Cocoa_Window.def(py::init<NSView *>(), py::arg("theViewNS"));
 
 // Methods
+cls_Cocoa_Window.def_static("VirtualKeyFromNative_", (Aspect_VKey (*)(Standard_Integer)) &Cocoa_Window::VirtualKeyFromNative, "Convert Carbon virtual key into Aspect_VKey.", py::arg("theKey"));
 cls_Cocoa_Window.def("Map", (void (Cocoa_Window::*)() const) &Cocoa_Window::Map, "Opens the window <me>");
 cls_Cocoa_Window.def("Unmap", (void (Cocoa_Window::*)() const) &Cocoa_Window::Unmap, "Closes the window <me>");
 cls_Cocoa_Window.def("DoResize", (Aspect_TypeOfResize (Cocoa_Window::*)() const) &Cocoa_Window::DoResize, "Applies the resizing to the window <me>");
@@ -64,6 +70,9 @@ cls_Cocoa_Window.def("Size", [](Cocoa_Window &self, Standard_Integer & theWidth,
 cls_Cocoa_Window.def("NativeHandle", (Aspect_Drawable (Cocoa_Window::*)() const) &Cocoa_Window::NativeHandle, "Returns native Window handle");
 cls_Cocoa_Window.def("NativeParentHandle", (Aspect_Drawable (Cocoa_Window::*)() const) &Cocoa_Window::NativeParentHandle, "Returns parent of native Window handle");
 cls_Cocoa_Window.def("NativeFBConfig", (Aspect_FBConfig (Cocoa_Window::*)() const) &Cocoa_Window::NativeFBConfig, "Returns nothing on OS X");
+cls_Cocoa_Window.def("SetTitle", (void (Cocoa_Window::*)(const TCollection_AsciiString &)) &Cocoa_Window::SetTitle, "Sets window title.", py::arg("theTitle"));
+cls_Cocoa_Window.def("InvalidateContent", [](Cocoa_Window &self) -> void { return self.InvalidateContent(); });
+cls_Cocoa_Window.def("InvalidateContent", (void (Cocoa_Window::*)(const opencascade::handle<Aspect_DisplayConnection> &)) &Cocoa_Window::InvalidateContent, "Invalidate entire window content by setting NSView::setNeedsDisplay property. Call will be implicitly redirected to the main thread when called from non-GUI thread.", py::arg("theDisp"));
 cls_Cocoa_Window.def_static("get_type_name_", (const char * (*)()) &Cocoa_Window::get_type_name, "None");
 // cls_Cocoa_Window.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Cocoa_Window::get_type_descriptor, "None");
 cls_Cocoa_Window.def("DynamicType", (const opencascade::handle<Standard_Type> & (Cocoa_Window::*)() const) &Cocoa_Window::DynamicType, "None");

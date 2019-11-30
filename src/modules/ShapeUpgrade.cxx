@@ -62,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <ShapeUpgrade.hxx>
 #include <Standard_Transient.hxx>
 #include <ShapeBuild_ReShape.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <TopoDS_Face.hxx>
 #include <TopoDS_Edge.hxx>
@@ -87,6 +88,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <GeomAbs_Shape.hxx>
 #include <TopTools_IndexedMapOfShape.hxx>
 #include <TopTools_MapOfShape.hxx>
+#include <Precision.hxx>
 #include <BRepTools_History.hxx>
 #include <TopoDS_Wire.hxx>
 #include <TopLoc_Location.hxx>
@@ -107,6 +109,7 @@ py::module::import("OCCT.TopTools");
 py::module::import("OCCT.TopAbs");
 py::module::import("OCCT.Message");
 py::module::import("OCCT.GeomAbs");
+py::module::import("OCCT.Precision");
 py::module::import("OCCT.BRepTools");
 py::module::import("OCCT.TopLoc");
 py::module::import("OCCT.ShapeAnalysis");

@@ -144,24 +144,6 @@ class TestModuleImport(unittest.TestCase):
             mod_ok = False
         self.assertTrue(mod_ok)
 
-    @unittest.expectedFailure
-    def test_BaseTraceCollector(self):
-        try:
-            import OCCT.BaseTraceCollector
-            mod_ok = True
-        except ImportError:
-            mod_ok = False
-        self.assertTrue(mod_ok)
-
-    @unittest.expectedFailure
-    def test_BasicsGenericDestructor(self):
-        try:
-            import OCCT.BasicsGenericDestructor
-            mod_ok = True
-        except ImportError:
-            mod_ok = False
-        self.assertTrue(mod_ok)
-
     def test_BinDrivers(self):
         try:
             import OCCT.BinDrivers
@@ -506,6 +488,14 @@ class TestModuleImport(unittest.TestCase):
             mod_ok = False
         self.assertTrue(mod_ok)
 
+    def test_BRepMeshData(self):
+        try:
+            import OCCT.BRepMeshData
+            mod_ok = True
+        except ImportError:
+            mod_ok = False
+        self.assertTrue(mod_ok)
+
     def test_BRepOffset(self):
         try:
             import OCCT.BRepOffset
@@ -701,51 +691,6 @@ class TestModuleImport(unittest.TestCase):
     def test_Draft(self):
         try:
             import OCCT.Draft
-            mod_ok = True
-        except ImportError:
-            mod_ok = False
-        self.assertTrue(mod_ok)
-
-    @unittest.expectedFailure
-    def test_Driver(self):
-        try:
-            import OCCT.Driver
-            mod_ok = True
-        except ImportError:
-            mod_ok = False
-        self.assertTrue(mod_ok)
-
-    @unittest.expectedFailure
-    def test_DriverDAT(self):
-        try:
-            import OCCT.DriverDAT
-            mod_ok = True
-        except ImportError:
-            mod_ok = False
-        self.assertTrue(mod_ok)
-
-    @unittest.expectedFailure
-    def test_DriverGMF(self):
-        try:
-            import OCCT.DriverGMF
-            mod_ok = True
-        except ImportError:
-            mod_ok = False
-        self.assertTrue(mod_ok)
-
-    @unittest.expectedFailure
-    def test_DriverSTL(self):
-        try:
-            import OCCT.DriverSTL
-            mod_ok = True
-        except ImportError:
-            mod_ok = False
-        self.assertTrue(mod_ok)
-
-    @unittest.expectedFailure
-    def test_DriverUNV(self):
-        try:
-            import OCCT.DriverUNV
             mod_ok = True
         except ImportError:
             mod_ok = False
@@ -1327,6 +1272,22 @@ class TestModuleImport(unittest.TestCase):
             mod_ok = False
         self.assertTrue(mod_ok)
 
+    def test_IMeshData(self):
+        try:
+            import OCCT.IMeshData
+            mod_ok = True
+        except ImportError:
+            mod_ok = False
+        self.assertTrue(mod_ok)
+
+    def test_IMeshTools(self):
+        try:
+            import OCCT.IMeshTools
+            mod_ok = True
+        except ImportError:
+            mod_ok = False
+        self.assertTrue(mod_ok)
+
     def test_IntAna(self):
         try:
             import OCCT.IntAna
@@ -1511,15 +1472,6 @@ class TestModuleImport(unittest.TestCase):
             mod_ok = False
         self.assertTrue(mod_ok)
 
-    @unittest.expectedFailure
-    def test_LocalTraceBufferPool(self):
-        try:
-            import OCCT.LocalTraceBufferPool
-            mod_ok = True
-        except ImportError:
-            mod_ok = False
-        self.assertTrue(mod_ok)
-
     def test_LocOpe(self):
         try:
             import OCCT.LocOpe
@@ -1568,6 +1520,14 @@ class TestModuleImport(unittest.TestCase):
             mod_ok = False
         self.assertTrue(mod_ok)
 
+    def test_Media(self):
+        try:
+            import OCCT.Media
+            mod_ok = True
+        except ImportError:
+            mod_ok = False
+        self.assertTrue(mod_ok)
+
     def test_MeshVS(self):
         try:
             import OCCT.MeshVS
@@ -1608,27 +1568,9 @@ class TestModuleImport(unittest.TestCase):
             mod_ok = False
         self.assertTrue(mod_ok)
 
-    @unittest.expectedFailure
-    def test_NETGENPlugin(self):
-        try:
-            import OCCT.NETGENPlugin
-            mod_ok = True
-        except ImportError:
-            mod_ok = False
-        self.assertTrue(mod_ok)
-
     def test_NLPlate(self):
         try:
             import OCCT.NLPlate
-            mod_ok = True
-        except ImportError:
-            mod_ok = False
-        self.assertTrue(mod_ok)
-
-    @unittest.expectedFailure
-    def test_ObjectPool(self):
-        try:
-            import OCCT.ObjectPool
             mod_ok = True
         except ImportError:
             mod_ok = False
@@ -1738,9 +1680,33 @@ class TestModuleImport(unittest.TestCase):
             mod_ok = False
         self.assertTrue(mod_ok)
 
+    def test_RWGltf(self):
+        try:
+            import OCCT.RWGltf
+            mod_ok = True
+        except ImportError:
+            mod_ok = False
+        self.assertTrue(mod_ok)
+
     def test_RWHeaderSection(self):
         try:
             import OCCT.RWHeaderSection
+            mod_ok = True
+        except ImportError:
+            mod_ok = False
+        self.assertTrue(mod_ok)
+
+    def test_RWMesh(self):
+        try:
+            import OCCT.RWMesh
+            mod_ok = True
+        except ImportError:
+            mod_ok = False
+        self.assertTrue(mod_ok)
+
+    def test_RWObj(self):
+        try:
+            import OCCT.RWObj
             mod_ok = True
         except ImportError:
             mod_ok = False
@@ -1922,6 +1888,14 @@ class TestModuleImport(unittest.TestCase):
             mod_ok = False
         self.assertTrue(mod_ok)
 
+    def test_ShapePersistent(self):
+        try:
+            import OCCT.ShapePersistent
+            mod_ok = True
+        except ImportError:
+            mod_ok = False
+        self.assertTrue(mod_ok)
+
     def test_ShapeProcess(self):
         try:
             import OCCT.ShapeProcess
@@ -1941,42 +1915,6 @@ class TestModuleImport(unittest.TestCase):
     def test_ShapeUpgrade(self):
         try:
             import OCCT.ShapeUpgrade
-            mod_ok = True
-        except ImportError:
-            mod_ok = False
-        self.assertTrue(mod_ok)
-
-    @unittest.expectedFailure
-    def test_SMDS(self):
-        try:
-            import OCCT.SMDS
-            mod_ok = True
-        except ImportError:
-            mod_ok = False
-        self.assertTrue(mod_ok)
-
-    @unittest.expectedFailure
-    def test_SMDSAbs(self):
-        try:
-            import OCCT.SMDSAbs
-            mod_ok = True
-        except ImportError:
-            mod_ok = False
-        self.assertTrue(mod_ok)
-
-    @unittest.expectedFailure
-    def test_SMESH(self):
-        try:
-            import OCCT.SMESH
-            mod_ok = True
-        except ImportError:
-            mod_ok = False
-        self.assertTrue(mod_ok)
-
-    @unittest.expectedFailure
-    def test_SMESHDS(self):
-        try:
-            import OCCT.SMESHDS
             mod_ok = True
         except ImportError:
             mod_ok = False
@@ -2017,15 +1955,6 @@ class TestModuleImport(unittest.TestCase):
     def test_StdLPersistent(self):
         try:
             import OCCT.StdLPersistent
-            mod_ok = True
-        except ImportError:
-            mod_ok = False
-        self.assertTrue(mod_ok)
-
-    @unittest.expectedFailure
-    def test_StdMeshers(self):
-        try:
-            import OCCT.StdMeshers
             mod_ok = True
         except ImportError:
             mod_ok = False
@@ -2551,15 +2480,6 @@ class TestModuleImport(unittest.TestCase):
             mod_ok = False
         self.assertTrue(mod_ok)
 
-    @unittest.expectedFailure
-    def test_Utils(self):
-        try:
-            import OCCT.Utils
-            mod_ok = True
-        except ImportError:
-            mod_ok = False
-        self.assertTrue(mod_ok)
-
     def test_UTL(self):
         try:
             import OCCT.UTL
@@ -2643,6 +2563,14 @@ class TestModuleImport(unittest.TestCase):
     def test_XCAFDoc(self):
         try:
             import OCCT.XCAFDoc
+            mod_ok = True
+        except ImportError:
+            mod_ok = False
+        self.assertTrue(mod_ok)
+
+    def test_XCAFNoteObjects(self):
+        try:
+            import OCCT.XCAFNoteObjects
             mod_ok = True
         except ImportError:
             mod_ok = False

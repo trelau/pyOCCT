@@ -19,22 +19,15 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __BOPTools_Functor__
-#define __BOPTools_Functor__
+#ifndef __OpenGl_TmplCore45__
+#define __OpenGl_TmplCore45__
 
-#include <BOPTools_Parallel.hxx>
-#include <Standard_TypeDef.hxx>
+#include <OpenGl_GlCore45.hxx>
 
-template <typename TypeSolver, typename TypeSolverVector>
-void bind_BOPTools_Functor(py::module &mod, std::string const &name, py::module_local const &local){
+template <typename theBaseClass_t>
+void bind_OpenGl_TmplCore45(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BOPTools_Functor<TypeSolver, TypeSolverVector>> cls_BOPTools_Functor(mod, name.c_str(), "None", local);
-
-// Constructors
-cls_BOPTools_Functor.def(py::init<TypeSolverVector &>(), py::arg("theSolverVec"));
-
-// Methods
-cls_BOPTools_Functor.def("__call__", (void (BOPTools_Functor<TypeSolver, TypeSolverVector>::*)(const Standard_Integer) const) &BOPTools_Functor<TypeSolver, TypeSolverVector>::operator(), py::is_operator(), "Defines functor interface.", py::arg("theIndex"));
+py::class_<OpenGl_TmplCore45<theBaseClass_t>, theBaseClass_t> cls_OpenGl_TmplCore45(mod, name.c_str(), "OpenGL 4.5 definition.", local);
 
 }
 

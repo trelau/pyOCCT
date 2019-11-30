@@ -56,12 +56,14 @@ cls_NCollection_Vector.def("Assign", (void (NCollection_Vector<TheItemType>::*)(
 cls_NCollection_Vector.def("Append", (TheItemType & (NCollection_Vector<TheItemType>::*)(const TheItemType &)) &NCollection_Vector<TheItemType>::Append, "Append", py::arg("theValue"));
 cls_NCollection_Vector.def("Appended", (TheItemType & (NCollection_Vector<TheItemType>::*)()) &NCollection_Vector<TheItemType>::Appended, "Appends an empty value and returns the reference to it");
 cls_NCollection_Vector.def("__call__", (const TheItemType & (NCollection_Vector<TheItemType>::*)(const Standard_Integer) const) &NCollection_Vector<TheItemType>::operator(), py::is_operator(), "Operator() - query the const value", py::arg("theIndex"));
+cls_NCollection_Vector.def("__getitem__", (const TheItemType & (NCollection_Vector<TheItemType>::*)(Standard_Integer) const) &NCollection_Vector<TheItemType>::operator[], py::is_operator(), "Operator[] - query the const value", py::arg("theIndex"));
 cls_NCollection_Vector.def("Value", (const TheItemType & (NCollection_Vector<TheItemType>::*)(const Standard_Integer) const) &NCollection_Vector<TheItemType>::Value, "None", py::arg("theIndex"));
 cls_NCollection_Vector.def("First", (const TheItemType & (NCollection_Vector<TheItemType>::*)() const) &NCollection_Vector<TheItemType>::First, "Returns first element");
 cls_NCollection_Vector.def("ChangeFirst", (TheItemType & (NCollection_Vector<TheItemType>::*)()) &NCollection_Vector<TheItemType>::ChangeFirst, "Returns first element");
 cls_NCollection_Vector.def("Last", (const TheItemType & (NCollection_Vector<TheItemType>::*)() const) &NCollection_Vector<TheItemType>::Last, "Returns last element");
 cls_NCollection_Vector.def("ChangeLast", (TheItemType & (NCollection_Vector<TheItemType>::*)()) &NCollection_Vector<TheItemType>::ChangeLast, "Returns last element");
 cls_NCollection_Vector.def("__call__", (TheItemType & (NCollection_Vector<TheItemType>::*)(const Standard_Integer)) &NCollection_Vector<TheItemType>::operator(), py::is_operator(), "Operator() - query the value", py::arg("theIndex"));
+cls_NCollection_Vector.def("__getitem__", (TheItemType & (NCollection_Vector<TheItemType>::*)(Standard_Integer)) &NCollection_Vector<TheItemType>::operator[], py::is_operator(), "Operator[] - query the value", py::arg("theIndex"));
 cls_NCollection_Vector.def("ChangeValue", (TheItemType & (NCollection_Vector<TheItemType>::*)(const Standard_Integer)) &NCollection_Vector<TheItemType>::ChangeValue, "None", py::arg("theIndex"));
 cls_NCollection_Vector.def("SetValue", (TheItemType & (NCollection_Vector<TheItemType>::*)(const Standard_Integer, const TheItemType &)) &NCollection_Vector<TheItemType>::SetValue, "SetValue () - set or append a value", py::arg("theIndex"), py::arg("theValue"));
 cls_NCollection_Vector.def("__iter__", [](const NCollection_Vector<TheItemType> &self) { return py::make_iterator(self.begin(), self.end()); }, py::keep_alive<0, 1>());

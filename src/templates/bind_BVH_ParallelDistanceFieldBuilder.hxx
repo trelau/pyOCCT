@@ -19,19 +19,23 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __BOPTools_Cnt__
-#define __BOPTools_Cnt__
+#ifndef __BVH_ParallelDistanceFieldBuilder__
+#define __BVH_ParallelDistanceFieldBuilder__
 
+#include <BVH_Geometry.hxx>
+#include <BVH_DistanceField.hxx>
 #include <Standard_TypeDef.hxx>
-#include <BOPTools_Parallel.hxx>
 
-template <typename TypeFunctor, typename TypeSolverVector>
-void bind_BOPTools_Cnt(py::module &mod, std::string const &name, py::module_local const &local){
+template <typename T, int N>
+void bind_BVH_ParallelDistanceFieldBuilder(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BOPTools_Cnt<TypeFunctor, TypeSolverVector>> cls_BOPTools_Cnt(mod, name.c_str(), "None", local);
+py::class_<BVH_ParallelDistanceFieldBuilder<T, N>> cls_BVH_ParallelDistanceFieldBuilder(mod, name.c_str(), "Tool object for parallel construction of distance field (uses Intel TBB).", local);
+
+// Constructors
+cls_BVH_ParallelDistanceFieldBuilder.def(py::init<BVH_DistanceField<T, N> *, BVH_Geometry<T, N> *>(), py::arg("theOutField"), py::arg("theGeometry"));
 
 // Methods
-cls_BOPTools_Cnt.def_static("Perform_", (void (*)(const Standard_Boolean, TypeSolverVector &)) &BOPTools_Cnt<TypeFunctor, TypeSolverVector>::Perform, "None", py::arg("isRunParallel"), py::arg("theSolverVector"));
+cls_BVH_ParallelDistanceFieldBuilder.def("__call__", (void (BVH_ParallelDistanceFieldBuilder<T, N>::*)(const Standard_Integer) const) &BVH_ParallelDistanceFieldBuilder<T, N>::operator(), py::is_operator(), "None", py::arg("theIndex"));
 
 }
 

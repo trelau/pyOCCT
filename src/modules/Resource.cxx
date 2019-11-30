@@ -30,8 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_TypeDef.hxx>
 #include <Resource_LexicalCompare.hxx>
 #include <Standard_Transient.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <Resource_Manager.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <Standard_NoSuchObject.hxx>
 #include <Resource_NoSuchResource.hxx>
@@ -48,6 +49,12 @@ py::module::import("OCCT.Standard");
 
 // ENUM: RESOURCE_FORMATTYPE
 py::enum_<Resource_FormatType>(mod, "Resource_FormatType", "List of non ASCII format types which may be converted into the Unicode 16 bits format type. Use the functions provided by the Resource_Unicode class to convert a string from one of these non ASCII format to Unicode, and vice versa.")
+	.value("Resource_FormatType_SJIS", Resource_FormatType::Resource_FormatType_SJIS)
+	.value("Resource_FormatType_EUC", Resource_FormatType::Resource_FormatType_EUC)
+	.value("Resource_FormatType_ANSI", Resource_FormatType::Resource_FormatType_ANSI)
+	.value("Resource_FormatType_GB", Resource_FormatType::Resource_FormatType_GB)
+	.value("Resource_FormatType_UTF8", Resource_FormatType::Resource_FormatType_UTF8)
+	.value("Resource_FormatType_SystemLocale", Resource_FormatType::Resource_FormatType_SystemLocale)
 	.value("Resource_SJIS", Resource_FormatType::Resource_SJIS)
 	.value("Resource_EUC", Resource_FormatType::Resource_EUC)
 	.value("Resource_ANSI", Resource_FormatType::Resource_ANSI)
@@ -143,8 +150,10 @@ cls_Resource_Unicode.def_static("ConvertANSIToUnicode_", (void (*)(const Standar
 cls_Resource_Unicode.def_static("SetFormat_", (void (*)(const Resource_FormatType)) &Resource_Unicode::SetFormat, "Defines the current conversion format as typecode. This conversion format will then be used by the functions ConvertFormatToUnicode and ConvertUnicodeToFormat to convert the strings.", py::arg("typecode"));
 cls_Resource_Unicode.def_static("GetFormat_", (Resource_FormatType (*)()) &Resource_Unicode::GetFormat, "Returns the current conversion format (either ANSI, EUC, GB or SJIS). The current converting format must be defined in advance with the SetFormat function.");
 cls_Resource_Unicode.def_static("ReadFormat_", (void (*)()) &Resource_Unicode::ReadFormat, "Reads converting format from resource 'FormatType' in Resource Manager 'CharSet'");
-cls_Resource_Unicode.def_static("ConvertFormatToUnicode_", (void (*)(const Standard_CString, TCollection_ExtendedString &)) &Resource_Unicode::ConvertFormatToUnicode, "Converts the non-ASCII C string fromstr to the Unicode string of extended characters tostr. fromstr is translated according to the format (either ANSI, EUC, GB or SJIS) returned by the function GetFormat.", py::arg("fromstr"), py::arg("tostr"));
-// cls_Resource_Unicode.def_static("ConvertUnicodeToFormat_", (Standard_Boolean (*)(const TCollection_ExtendedString &, Standard_PCharacter &, const Standard_Integer)) &Resource_Unicode::ConvertUnicodeToFormat, "Converts the Unicode string of extended characters fromstr to the non-ASCII C string tostr according to the format (either ANSI, EUC, GB or SJIS) returned by the function GetFormat. maxsize limits the size of the string tostr to a maximum number of characters. You need more than twice the length of the string fromstr to complete the conversion. The function returns true if conversion is complete, i.e. the maximum number of characters maxsize is not reached by tostr before the end of conversion of fromstr.", py::arg("fromstr"), py::arg("tostr"), py::arg("maxsize"));
+cls_Resource_Unicode.def_static("ConvertFormatToUnicode_", (void (*)(const Standard_CString, TCollection_ExtendedString &)) &Resource_Unicode::ConvertFormatToUnicode, "Converts the non-ASCII C string (as specified by GetFormat()) to the Unicode string of extended characters.", py::arg("theFromStr"), py::arg("theToStr"));
+cls_Resource_Unicode.def_static("ConvertFormatToUnicode_", (void (*)(const Resource_FormatType, const Standard_CString, TCollection_ExtendedString &)) &Resource_Unicode::ConvertFormatToUnicode, "Converts the non-ASCII C string in specified format to the Unicode string of extended characters.", py::arg("theFormat"), py::arg("theFromStr"), py::arg("theToStr"));
+// cls_Resource_Unicode.def_static("ConvertUnicodeToFormat_", (Standard_Boolean (*)(const Resource_FormatType, const TCollection_ExtendedString &, Standard_PCharacter &, const Standard_Integer)) &Resource_Unicode::ConvertUnicodeToFormat, "Converts the Unicode string of extended characters to the non-ASCII string according to specified format. You need more than twice the length of the source string to complete the conversion. The function returns true if conversion is complete, i.e. the maximum number of characters is not reached before the end of conversion.", py::arg("theFormat"), py::arg("theFromStr"), py::arg("theToStr"), py::arg("theMaxSize"));
+// cls_Resource_Unicode.def_static("ConvertUnicodeToFormat_", (Standard_Boolean (*)(const TCollection_ExtendedString &, Standard_PCharacter &, const Standard_Integer)) &Resource_Unicode::ConvertUnicodeToFormat, "Converts the Unicode string of extended characters to the non-ASCII string according to the format returned by the function GetFormat.", py::arg("theFromStr"), py::arg("theToStr"), py::arg("theMaxSize"));
 
 
 }

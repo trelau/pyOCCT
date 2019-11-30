@@ -29,20 +29,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <NCollection_BaseAllocator.hxx>
 #include <BRepAlgoAPI_Algo.hxx>
 #include <BOPAlgo_PaveFiller.hxx>
+#include <TopTools_ListOfShape.hxx>
 #include <Standard_TypeDef.hxx>
 #include <BOPAlgo_GlueEnum.hxx>
-#include <TopTools_ListOfShape.hxx>
+#include <Precision.hxx>
 #include <BOPAlgo_PPaveFiller.hxx>
 #include <BOPAlgo_PBuilder.hxx>
+#include <BRepTools_History.hxx>
 #include <BRepAlgoAPI_BuilderAlgo.hxx>
 #include <BOPAlgo_Operation.hxx>
-#include <TopTools_DataMapOfShapeShape.hxx>
 #include <BRepAlgoAPI_BooleanOperation.hxx>
 #include <BOPAlgo_ListOfCheckResult.hxx>
 #include <BRepAlgoAPI_Check.hxx>
 #include <BRepAlgoAPI_Common.hxx>
 #include <BRepAlgoAPI_Cut.hxx>
-#include <BRepTools_History.hxx>
 #include <BOPAlgo_RemoveFeatures.hxx>
 #include <BRepAlgoAPI_Defeaturing.hxx>
 #include <BRepAlgoAPI_Fuse.hxx>
@@ -59,6 +59,7 @@ py::module::import("OCCT.Standard");
 py::module::import("OCCT.TopoDS");
 py::module::import("OCCT.NCollection");
 py::module::import("OCCT.TopTools");
+py::module::import("OCCT.Precision");
 py::module::import("OCCT.BRepTools");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.Geom");
@@ -89,26 +90,38 @@ cls_BRepAlgoAPI_BuilderAlgo.def(py::init<const BOPAlgo_PaveFiller &>(), py::arg(
 // cls_BRepAlgoAPI_BuilderAlgo.def_static("operator delete[]_", (void (*)(void *)) &BRepAlgoAPI_BuilderAlgo::operator delete[], "None", py::arg("theAddress"));
 // cls_BRepAlgoAPI_BuilderAlgo.def_static("operator new_", (void * (*)(size_t, void *)) &BRepAlgoAPI_BuilderAlgo::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_BRepAlgoAPI_BuilderAlgo.def_static("operator delete_", (void (*)(void *, void *)) &BRepAlgoAPI_BuilderAlgo::operator delete, "None", py::arg(""), py::arg(""));
+cls_BRepAlgoAPI_BuilderAlgo.def("SetArguments", (void (BRepAlgoAPI_BuilderAlgo::*)(const TopTools_ListOfShape &)) &BRepAlgoAPI_BuilderAlgo::SetArguments, "Sets the arguments", py::arg("theLS"));
+cls_BRepAlgoAPI_BuilderAlgo.def("Arguments", (const TopTools_ListOfShape & (BRepAlgoAPI_BuilderAlgo::*)() const) &BRepAlgoAPI_BuilderAlgo::Arguments, "Gets the arguments");
 cls_BRepAlgoAPI_BuilderAlgo.def("SetNonDestructive", (void (BRepAlgoAPI_BuilderAlgo::*)(const Standard_Boolean)) &BRepAlgoAPI_BuilderAlgo::SetNonDestructive, "Sets the flag that defines the mode of treatment. In non-destructive mode the argument shapes are not modified. Instead a copy of a sub-shape is created in the result if it is needed to be updated.", py::arg("theFlag"));
 cls_BRepAlgoAPI_BuilderAlgo.def("NonDestructive", (Standard_Boolean (BRepAlgoAPI_BuilderAlgo::*)() const) &BRepAlgoAPI_BuilderAlgo::NonDestructive, "Returns the flag that defines the mode of treatment. In non-destructive mode the argument shapes are not modified. Instead a copy of a sub-shape is created in the result if it is needed to be updated.");
-cls_BRepAlgoAPI_BuilderAlgo.def("SetGlue", (void (BRepAlgoAPI_BuilderAlgo::*)(const BOPAlgo_GlueEnum)) &BRepAlgoAPI_BuilderAlgo::SetGlue, "Sets the glue option for the algorithm", py::arg("theGlue"));
+cls_BRepAlgoAPI_BuilderAlgo.def("SetGlue", (void (BRepAlgoAPI_BuilderAlgo::*)(const BOPAlgo_GlueEnum)) &BRepAlgoAPI_BuilderAlgo::SetGlue, "Sets the glue option for the algorithm, which allows increasing performance of the intersection of the input shapes.", py::arg("theGlue"));
 cls_BRepAlgoAPI_BuilderAlgo.def("Glue", (BOPAlgo_GlueEnum (BRepAlgoAPI_BuilderAlgo::*)() const) &BRepAlgoAPI_BuilderAlgo::Glue, "Returns the glue option of the algorithm");
 cls_BRepAlgoAPI_BuilderAlgo.def("SetCheckInverted", (void (BRepAlgoAPI_BuilderAlgo::*)(const Standard_Boolean)) &BRepAlgoAPI_BuilderAlgo::SetCheckInverted, "Enables/Disables the check of the input solids for inverted status", py::arg("theCheck"));
 cls_BRepAlgoAPI_BuilderAlgo.def("CheckInverted", (Standard_Boolean (BRepAlgoAPI_BuilderAlgo::*)() const) &BRepAlgoAPI_BuilderAlgo::CheckInverted, "Returns the flag defining whether the check for input solids on inverted status should be performed or not.");
-cls_BRepAlgoAPI_BuilderAlgo.def("SetArguments", (void (BRepAlgoAPI_BuilderAlgo::*)(const TopTools_ListOfShape &)) &BRepAlgoAPI_BuilderAlgo::SetArguments, "Sets the arguments", py::arg("theLS"));
-cls_BRepAlgoAPI_BuilderAlgo.def("Arguments", (const TopTools_ListOfShape & (BRepAlgoAPI_BuilderAlgo::*)() const) &BRepAlgoAPI_BuilderAlgo::Arguments, "Gets the arguments");
 cls_BRepAlgoAPI_BuilderAlgo.def("Build", (void (BRepAlgoAPI_BuilderAlgo::*)()) &BRepAlgoAPI_BuilderAlgo::Build, "Performs the algorithm");
-cls_BRepAlgoAPI_BuilderAlgo.def("Modified", (const TopTools_ListOfShape & (BRepAlgoAPI_BuilderAlgo::*)(const TopoDS_Shape &)) &BRepAlgoAPI_BuilderAlgo::Modified, "Returns the list of shapes modified from the shape <S>.", py::arg("aS"));
-cls_BRepAlgoAPI_BuilderAlgo.def("IsDeleted", (Standard_Boolean (BRepAlgoAPI_BuilderAlgo::*)(const TopoDS_Shape &)) &BRepAlgoAPI_BuilderAlgo::IsDeleted, "Returns true if the shape S has been deleted. The result shape of the operation does not contain the shape S.", py::arg("aS"));
-cls_BRepAlgoAPI_BuilderAlgo.def("Generated", (const TopTools_ListOfShape & (BRepAlgoAPI_BuilderAlgo::*)(const TopoDS_Shape &)) &BRepAlgoAPI_BuilderAlgo::Generated, "Returns the list of shapes generated from the shape <S>. For use in BRepNaming.", py::arg("S"));
-cls_BRepAlgoAPI_BuilderAlgo.def("HasModified", (Standard_Boolean (BRepAlgoAPI_BuilderAlgo::*)() const) &BRepAlgoAPI_BuilderAlgo::HasModified, "Returns true if there is at least one modified shape. For use in BRepNaming.");
-cls_BRepAlgoAPI_BuilderAlgo.def("HasGenerated", (Standard_Boolean (BRepAlgoAPI_BuilderAlgo::*)() const) &BRepAlgoAPI_BuilderAlgo::HasGenerated, "Returns true if there is at least one generated shape. For use in BRepNaming.");
-cls_BRepAlgoAPI_BuilderAlgo.def("HasDeleted", (Standard_Boolean (BRepAlgoAPI_BuilderAlgo::*)() const) &BRepAlgoAPI_BuilderAlgo::HasDeleted, "Returns true if there is at least one deleted shape. For use in BRepNaming.");
+cls_BRepAlgoAPI_BuilderAlgo.def("SimplifyResult", [](BRepAlgoAPI_BuilderAlgo &self) -> void { return self.SimplifyResult(); });
+cls_BRepAlgoAPI_BuilderAlgo.def("SimplifyResult", [](BRepAlgoAPI_BuilderAlgo &self, const Standard_Boolean a0) -> void { return self.SimplifyResult(a0); });
+cls_BRepAlgoAPI_BuilderAlgo.def("SimplifyResult", [](BRepAlgoAPI_BuilderAlgo &self, const Standard_Boolean a0, const Standard_Boolean a1) -> void { return self.SimplifyResult(a0, a1); });
+cls_BRepAlgoAPI_BuilderAlgo.def("SimplifyResult", (void (BRepAlgoAPI_BuilderAlgo::*)(const Standard_Boolean, const Standard_Boolean, const Standard_Real)) &BRepAlgoAPI_BuilderAlgo::SimplifyResult, "Simplification of the result shape is performed by the means of *ShapeUpgrade_UnifySameDomain* algorithm. The result of the operation will be overwritten with the simplified result.", py::arg("theUnifyEdges"), py::arg("theUnifyFaces"), py::arg("theAngularTol"));
+cls_BRepAlgoAPI_BuilderAlgo.def("Modified", (const TopTools_ListOfShape & (BRepAlgoAPI_BuilderAlgo::*)(const TopoDS_Shape &)) &BRepAlgoAPI_BuilderAlgo::Modified, "Returns the shapes modified from the shape <theS>. If any, the list will contain only those splits of the given shape, contained in the result.", py::arg("theS"));
+cls_BRepAlgoAPI_BuilderAlgo.def("Generated", (const TopTools_ListOfShape & (BRepAlgoAPI_BuilderAlgo::*)(const TopoDS_Shape &)) &BRepAlgoAPI_BuilderAlgo::Generated, "Returns the list of shapes generated from the shape <theS>. In frames of Boolean Operations algorithms only Edges and Faces could have Generated elements, as only they produce new elements during intersection: - Edges can generate new vertices; - Faces can generate new edges and vertices.", py::arg("theS"));
+cls_BRepAlgoAPI_BuilderAlgo.def("IsDeleted", (Standard_Boolean (BRepAlgoAPI_BuilderAlgo::*)(const TopoDS_Shape &)) &BRepAlgoAPI_BuilderAlgo::IsDeleted, "Checks if the shape <theS> has been completely removed from the result, i.e. the result does not contain the shape itself and any of its splits. Returns TRUE if the shape has been deleted.", py::arg("aS"));
+cls_BRepAlgoAPI_BuilderAlgo.def("HasModified", (Standard_Boolean (BRepAlgoAPI_BuilderAlgo::*)() const) &BRepAlgoAPI_BuilderAlgo::HasModified, "Returns true if any of the input shapes has been modified during operation.");
+cls_BRepAlgoAPI_BuilderAlgo.def("HasGenerated", (Standard_Boolean (BRepAlgoAPI_BuilderAlgo::*)() const) &BRepAlgoAPI_BuilderAlgo::HasGenerated, "Returns true if any of the input shapes has generated shapes during operation.");
+cls_BRepAlgoAPI_BuilderAlgo.def("HasDeleted", (Standard_Boolean (BRepAlgoAPI_BuilderAlgo::*)() const) &BRepAlgoAPI_BuilderAlgo::HasDeleted, "Returns true if any of the input shapes has been deleted during operation. Normally, General Fuse operation should not have Deleted elements, but all derived operation can have.");
+cls_BRepAlgoAPI_BuilderAlgo.def("SetToFillHistory", (void (BRepAlgoAPI_BuilderAlgo::*)(const Standard_Boolean)) &BRepAlgoAPI_BuilderAlgo::SetToFillHistory, "Allows disabling the history collection", py::arg("theHistFlag"));
+cls_BRepAlgoAPI_BuilderAlgo.def("HasHistory", (Standard_Boolean (BRepAlgoAPI_BuilderAlgo::*)() const) &BRepAlgoAPI_BuilderAlgo::HasHistory, "Returns flag of history availability");
+cls_BRepAlgoAPI_BuilderAlgo.def("SectionEdges", (const TopTools_ListOfShape & (BRepAlgoAPI_BuilderAlgo::*)()) &BRepAlgoAPI_BuilderAlgo::SectionEdges, "Returns a list of section edges. The edges represent the result of intersection between arguments of operation.");
 cls_BRepAlgoAPI_BuilderAlgo.def("DSFiller", (const BOPAlgo_PPaveFiller & (BRepAlgoAPI_BuilderAlgo::*)() const) &BRepAlgoAPI_BuilderAlgo::DSFiller, "Returns the Intersection tool");
 cls_BRepAlgoAPI_BuilderAlgo.def("Builder", (const BOPAlgo_PBuilder & (BRepAlgoAPI_BuilderAlgo::*)() const) &BRepAlgoAPI_BuilderAlgo::Builder, "Returns the Building tool");
+cls_BRepAlgoAPI_BuilderAlgo.def("History", (opencascade::handle<BRepTools_History> (BRepAlgoAPI_BuilderAlgo::*)() const) &BRepAlgoAPI_BuilderAlgo::History, "History tool");
 
 // CLASS: BREPALGOAPI_BOOLEANOPERATION
-py::class_<BRepAlgoAPI_BooleanOperation, BRepAlgoAPI_BuilderAlgo> cls_BRepAlgoAPI_BooleanOperation(mod, "BRepAlgoAPI_BooleanOperation", "The abstract class BooleanOperation is the root class of Boolean Operations (see Overview). Boolean Operations algorithm is divided onto two parts: - The first one is computing interference between arguments; - The second one is building the result of operation; The class BooleanOperation provides API level of both parts.");
+py::class_<BRepAlgoAPI_BooleanOperation, BRepAlgoAPI_BuilderAlgo> cls_BRepAlgoAPI_BooleanOperation(mod, "BRepAlgoAPI_BooleanOperation", "The root API class for performing Boolean Operations on arbitrary shapes.");
+
+// Constructors
+cls_BRepAlgoAPI_BooleanOperation.def(py::init<>());
+cls_BRepAlgoAPI_BooleanOperation.def(py::init<const BOPAlgo_PaveFiller &>(), py::arg("thePF"));
 
 // Methods
 // cls_BRepAlgoAPI_BooleanOperation.def_static("operator new_", (void * (*)(size_t)) &BRepAlgoAPI_BooleanOperation::operator new, "None", py::arg("theSize"));
@@ -119,21 +132,11 @@ py::class_<BRepAlgoAPI_BooleanOperation, BRepAlgoAPI_BuilderAlgo> cls_BRepAlgoAP
 // cls_BRepAlgoAPI_BooleanOperation.def_static("operator delete_", (void (*)(void *, void *)) &BRepAlgoAPI_BooleanOperation::operator delete, "None", py::arg(""), py::arg(""));
 cls_BRepAlgoAPI_BooleanOperation.def("Shape1", (const TopoDS_Shape & (BRepAlgoAPI_BooleanOperation::*)() const) &BRepAlgoAPI_BooleanOperation::Shape1, "Returns the first argument involved in this Boolean operation. Obsolete");
 cls_BRepAlgoAPI_BooleanOperation.def("Shape2", (const TopoDS_Shape & (BRepAlgoAPI_BooleanOperation::*)() const) &BRepAlgoAPI_BooleanOperation::Shape2, "Returns the second argument involved in this Boolean operation. Obsolete");
-cls_BRepAlgoAPI_BooleanOperation.def("SetTools", (void (BRepAlgoAPI_BooleanOperation::*)(const TopTools_ListOfShape &)) &BRepAlgoAPI_BooleanOperation::SetTools, "Sets the tools", py::arg("theLS"));
-cls_BRepAlgoAPI_BooleanOperation.def("Tools", (const TopTools_ListOfShape & (BRepAlgoAPI_BooleanOperation::*)() const) &BRepAlgoAPI_BooleanOperation::Tools, "Gets the tools");
-cls_BRepAlgoAPI_BooleanOperation.def("SetOperation", (void (BRepAlgoAPI_BooleanOperation::*)(const BOPAlgo_Operation)) &BRepAlgoAPI_BooleanOperation::SetOperation, "Sets the type of Boolean operation", py::arg("anOp"));
+cls_BRepAlgoAPI_BooleanOperation.def("SetTools", (void (BRepAlgoAPI_BooleanOperation::*)(const TopTools_ListOfShape &)) &BRepAlgoAPI_BooleanOperation::SetTools, "Sets the Tool arguments", py::arg("theLS"));
+cls_BRepAlgoAPI_BooleanOperation.def("Tools", (const TopTools_ListOfShape & (BRepAlgoAPI_BooleanOperation::*)() const) &BRepAlgoAPI_BooleanOperation::Tools, "Returns the Tools arguments");
+cls_BRepAlgoAPI_BooleanOperation.def("SetOperation", (void (BRepAlgoAPI_BooleanOperation::*)(const BOPAlgo_Operation)) &BRepAlgoAPI_BooleanOperation::SetOperation, "Sets the type of Boolean operation", py::arg("theBOP"));
 cls_BRepAlgoAPI_BooleanOperation.def("Operation", (BOPAlgo_Operation (BRepAlgoAPI_BooleanOperation::*)() const) &BRepAlgoAPI_BooleanOperation::Operation, "Returns the type of Boolean Operation");
-cls_BRepAlgoAPI_BooleanOperation.def("Build", (void (BRepAlgoAPI_BooleanOperation::*)()) &BRepAlgoAPI_BooleanOperation::Build, "Performs the algorithm Filling interference Data Structure (if it is necessary) Building the result of the operation.");
-cls_BRepAlgoAPI_BooleanOperation.def("BuilderCanWork", (Standard_Boolean (BRepAlgoAPI_BooleanOperation::*)() const) &BRepAlgoAPI_BooleanOperation::BuilderCanWork, "Returns True if there was no errors occured obsolete");
-cls_BRepAlgoAPI_BooleanOperation.def("FuseEdges", (Standard_Boolean (BRepAlgoAPI_BooleanOperation::*)() const) &BRepAlgoAPI_BooleanOperation::FuseEdges, "Returns the flag of edge refining");
-cls_BRepAlgoAPI_BooleanOperation.def("RefineEdges", (void (BRepAlgoAPI_BooleanOperation::*)()) &BRepAlgoAPI_BooleanOperation::RefineEdges, "Fuse C1 edges");
-cls_BRepAlgoAPI_BooleanOperation.def("SectionEdges", (const TopTools_ListOfShape & (BRepAlgoAPI_BooleanOperation::*)()) &BRepAlgoAPI_BooleanOperation::SectionEdges, "Returns a list of section edges. The edges represent the result of intersection between arguments of Boolean Operation. They are computed during operation execution.");
-cls_BRepAlgoAPI_BooleanOperation.def("Modified", (const TopTools_ListOfShape & (BRepAlgoAPI_BooleanOperation::*)(const TopoDS_Shape &)) &BRepAlgoAPI_BooleanOperation::Modified, "Returns the list of shapes modified from the shape <S>.", py::arg("aS"));
-cls_BRepAlgoAPI_BooleanOperation.def("IsDeleted", (Standard_Boolean (BRepAlgoAPI_BooleanOperation::*)(const TopoDS_Shape &)) &BRepAlgoAPI_BooleanOperation::IsDeleted, "Returns true if the shape S has been deleted. The result shape of the operation does not contain the shape S.", py::arg("aS"));
-cls_BRepAlgoAPI_BooleanOperation.def("Generated", (const TopTools_ListOfShape & (BRepAlgoAPI_BooleanOperation::*)(const TopoDS_Shape &)) &BRepAlgoAPI_BooleanOperation::Generated, "Returns the list of shapes generated from the shape <S>. For use in BRepNaming.", py::arg("S"));
-cls_BRepAlgoAPI_BooleanOperation.def("HasModified", (Standard_Boolean (BRepAlgoAPI_BooleanOperation::*)() const) &BRepAlgoAPI_BooleanOperation::HasModified, "Returns true if there is at least one modified shape. For use in BRepNaming.");
-cls_BRepAlgoAPI_BooleanOperation.def("HasGenerated", (Standard_Boolean (BRepAlgoAPI_BooleanOperation::*)() const) &BRepAlgoAPI_BooleanOperation::HasGenerated, "Returns true if there is at least one generated shape. For use in BRepNaming.");
-cls_BRepAlgoAPI_BooleanOperation.def("HasDeleted", (Standard_Boolean (BRepAlgoAPI_BooleanOperation::*)() const) &BRepAlgoAPI_BooleanOperation::HasDeleted, "Returns true if there is at least one deleted shape. For use in BRepNaming.");
+cls_BRepAlgoAPI_BooleanOperation.def("Build", (void (BRepAlgoAPI_BooleanOperation::*)()) &BRepAlgoAPI_BooleanOperation::Build, "Performs the Boolean operation.");
 
 // CLASS: BREPALGOAPI_CHECK
 py::class_<BRepAlgoAPI_Check, BOPAlgo_Options> cls_BRepAlgoAPI_Check(mod, "BRepAlgoAPI_Check", "The class Check provides a diagnostic tool for checking the validity of the single shape or couple of shapes. The shapes are checked on: - Topological validity; - Small edges; - Self-interference; - Validity for Boolean operation of certain type (for couple of shapes only).");
@@ -220,12 +223,15 @@ cls_BRepAlgoAPI_Defeaturing.def("AddFaceToRemove", (void (BRepAlgoAPI_Defeaturin
 cls_BRepAlgoAPI_Defeaturing.def("AddFacesToRemove", (void (BRepAlgoAPI_Defeaturing::*)(const TopTools_ListOfShape &)) &BRepAlgoAPI_Defeaturing::AddFacesToRemove, "Adds the faces to remove from the input shape.", py::arg("theFaces"));
 cls_BRepAlgoAPI_Defeaturing.def("FacesToRemove", (const TopTools_ListOfShape & (BRepAlgoAPI_Defeaturing::*)() const) &BRepAlgoAPI_Defeaturing::FacesToRemove, "Returns the list of faces which have been requested for removal from the input shape.");
 cls_BRepAlgoAPI_Defeaturing.def("Build", (void (BRepAlgoAPI_Defeaturing::*)()) &BRepAlgoAPI_Defeaturing::Build, "Performs the operation");
-cls_BRepAlgoAPI_Defeaturing.def("TrackHistory", (void (BRepAlgoAPI_Defeaturing::*)(const Standard_Boolean)) &BRepAlgoAPI_Defeaturing::TrackHistory, "Defines whether to track the modification of the shapes or not.", py::arg("theFlag"));
+cls_BRepAlgoAPI_Defeaturing.def("SetToFillHistory", (void (BRepAlgoAPI_Defeaturing::*)(const Standard_Boolean)) &BRepAlgoAPI_Defeaturing::SetToFillHistory, "Defines whether to track the modification of the shapes or not.", py::arg("theFlag"));
 cls_BRepAlgoAPI_Defeaturing.def("HasHistory", (Standard_Boolean (BRepAlgoAPI_Defeaturing::*)() const) &BRepAlgoAPI_Defeaturing::HasHistory, "Returns whether the history was requested or not.");
 cls_BRepAlgoAPI_Defeaturing.def("Modified", (const TopTools_ListOfShape & (BRepAlgoAPI_Defeaturing::*)(const TopoDS_Shape &)) &BRepAlgoAPI_Defeaturing::Modified, "Returns the list of shapes modified from the shape <theS> during the operation.", py::arg("theS"));
 cls_BRepAlgoAPI_Defeaturing.def("Generated", (const TopTools_ListOfShape & (BRepAlgoAPI_Defeaturing::*)(const TopoDS_Shape &)) &BRepAlgoAPI_Defeaturing::Generated, "Returns the list of shapes generated from the shape <theS> during the operation.", py::arg("theS"));
 cls_BRepAlgoAPI_Defeaturing.def("IsDeleted", (Standard_Boolean (BRepAlgoAPI_Defeaturing::*)(const TopoDS_Shape &)) &BRepAlgoAPI_Defeaturing::IsDeleted, "Returns true if the shape <theS> has been deleted during the operation. It means that the shape has no any trace in the result. Otherwise it returns false.", py::arg("theS"));
-cls_BRepAlgoAPI_Defeaturing.def("GetHistory", (opencascade::handle<BRepTools_History> (BRepAlgoAPI_Defeaturing::*)()) &BRepAlgoAPI_Defeaturing::GetHistory, "Returns the History of shapes modifications");
+cls_BRepAlgoAPI_Defeaturing.def("HasModified", (Standard_Boolean (BRepAlgoAPI_Defeaturing::*)() const) &BRepAlgoAPI_Defeaturing::HasModified, "Returns true if any of the input shapes has been modified during operation.");
+cls_BRepAlgoAPI_Defeaturing.def("HasGenerated", (Standard_Boolean (BRepAlgoAPI_Defeaturing::*)() const) &BRepAlgoAPI_Defeaturing::HasGenerated, "Returns true if any of the input shapes has generated shapes during operation.");
+cls_BRepAlgoAPI_Defeaturing.def("HasDeleted", (Standard_Boolean (BRepAlgoAPI_Defeaturing::*)() const) &BRepAlgoAPI_Defeaturing::HasDeleted, "Returns true if any of the input shapes has been deleted during operation.");
+cls_BRepAlgoAPI_Defeaturing.def("History", (opencascade::handle<BRepTools_History> (BRepAlgoAPI_Defeaturing::*)()) &BRepAlgoAPI_Defeaturing::History, "Returns the History of shapes modifications");
 
 // CLASS: BREPALGOAPI_FUSE
 py::class_<BRepAlgoAPI_Fuse, BRepAlgoAPI_BooleanOperation> cls_BRepAlgoAPI_Fuse(mod, "BRepAlgoAPI_Fuse", "The class provides Boolean fusion operation between arguments and tools (Boolean Union).");
@@ -297,9 +303,9 @@ cls_BRepAlgoAPI_Splitter.def(py::init<const BOPAlgo_PaveFiller &>(), py::arg("th
 // cls_BRepAlgoAPI_Splitter.def_static("operator delete[]_", (void (*)(void *)) &BRepAlgoAPI_Splitter::operator delete[], "None", py::arg("theAddress"));
 // cls_BRepAlgoAPI_Splitter.def_static("operator new_", (void * (*)(size_t, void *)) &BRepAlgoAPI_Splitter::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_BRepAlgoAPI_Splitter.def_static("operator delete_", (void (*)(void *, void *)) &BRepAlgoAPI_Splitter::operator delete, "None", py::arg(""), py::arg(""));
-cls_BRepAlgoAPI_Splitter.def("Build", (void (BRepAlgoAPI_Splitter::*)()) &BRepAlgoAPI_Splitter::Build, "Performs the algorithm. Performs the intersection of the objects with tools and build the result of the operation.");
-cls_BRepAlgoAPI_Splitter.def("SetTools", (void (BRepAlgoAPI_Splitter::*)(const TopTools_ListOfShape &)) &BRepAlgoAPI_Splitter::SetTools, "Sets the tools", py::arg("theLS"));
-cls_BRepAlgoAPI_Splitter.def("Tools", (const TopTools_ListOfShape & (BRepAlgoAPI_Splitter::*)() const) &BRepAlgoAPI_Splitter::Tools, "Gets the tools");
+cls_BRepAlgoAPI_Splitter.def("SetTools", (void (BRepAlgoAPI_Splitter::*)(const TopTools_ListOfShape &)) &BRepAlgoAPI_Splitter::SetTools, "Sets the Tool arguments", py::arg("theLS"));
+cls_BRepAlgoAPI_Splitter.def("Tools", (const TopTools_ListOfShape & (BRepAlgoAPI_Splitter::*)() const) &BRepAlgoAPI_Splitter::Tools, "Returns the Tool arguments");
+cls_BRepAlgoAPI_Splitter.def("Build", (void (BRepAlgoAPI_Splitter::*)()) &BRepAlgoAPI_Splitter::Build, "Performs the Split operation. Performs the intersection of the argument shapes (both objects and tools) and splits objects by the tools.");
 
 
 }

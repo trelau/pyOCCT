@@ -52,13 +52,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BOPAlgo_BOP.hxx>
 #include <TopTools_ListOfShape.hxx>
 #include <TopTools_MapOfShape.hxx>
-#include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopTools_DataMapOfShapeShape.hxx>
-#include <NCollection_BaseAllocator.hxx>
 #include <BRepBuilderAPI_MakeShape.hxx>
 #include <TColGeom_SequenceOfCurve.hxx>
 #include <LocOpe_Gluer.hxx>
 #include <BRepAlgoAPI_BooleanOperation.hxx>
+#include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopoDS_Edge.hxx>
 #include <LocOpe_Operation.hxx>
 #include <gp_Ax1.hxx>
@@ -84,7 +83,6 @@ py::module::import("OCCT.Geom2dAdaptor");
 py::module::import("OCCT.TopAbs");
 py::module::import("OCCT.BOPAlgo");
 py::module::import("OCCT.TopTools");
-py::module::import("OCCT.NCollection");
 py::module::import("OCCT.BRepBuilderAPI");
 py::module::import("OCCT.TColGeom");
 py::module::import("OCCT.LocOpe");

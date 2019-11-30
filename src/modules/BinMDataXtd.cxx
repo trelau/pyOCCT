@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BinObjMgt_Persistent.hxx>
 #include <BinObjMgt_RRelocationTable.hxx>
 #include <BinObjMgt_SRelocationTable.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <BinMDataXtd_PositionDriver.hxx>
 #include <BinMDataXtd_PresentationDriver.hxx>

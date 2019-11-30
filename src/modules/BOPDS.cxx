@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <Bnd_Box.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <TColStd_MapOfInteger.hxx>
 #include <NCollection_DataMap.hxx>
@@ -259,7 +260,7 @@ cls_BOPDS_Pair.def("SetIndices", (void (BOPDS_Pair::*)(const Standard_Integer, c
 cls_BOPDS_Pair.def("Indices", [](BOPDS_Pair &self, Standard_Integer & theIndex1, Standard_Integer & theIndex2){ self.Indices(theIndex1, theIndex2); return std::tuple<Standard_Integer &, Standard_Integer &>(theIndex1, theIndex2); }, "Gets the indices", py::arg("theIndex1"), py::arg("theIndex2"));
 cls_BOPDS_Pair.def("__lt__", (Standard_Boolean (BOPDS_Pair::*)(const BOPDS_Pair &) const) &BOPDS_Pair::operator<, py::is_operator(), "Operator less", py::arg("theOther"));
 cls_BOPDS_Pair.def("IsEqual", (Standard_Boolean (BOPDS_Pair::*)(const BOPDS_Pair &) const) &BOPDS_Pair::IsEqual, "Returns true if the Pair is equal to <the theOther>", py::arg("theOther"));
-cls_BOPDS_Pair.def("HashCode", (Standard_Integer (BOPDS_Pair::*)(const Standard_Integer) const) &BOPDS_Pair::HashCode, "Returns hash code", py::arg("theUpper"));
+cls_BOPDS_Pair.def("HashCode", (Standard_Integer (BOPDS_Pair::*)(const Standard_Integer) const) &BOPDS_Pair::HashCode, "Computes a hash code for this pair, in the range [1, theUpperBound]", py::arg("theUpperBound"));
 
 // CLASS: BOPDS_PAIRMAPHASHER
 py::class_<BOPDS_PairMapHasher> cls_BOPDS_PairMapHasher(mod, "BOPDS_PairMapHasher", "None");
@@ -271,7 +272,7 @@ py::class_<BOPDS_PairMapHasher> cls_BOPDS_PairMapHasher(mod, "BOPDS_PairMapHashe
 // cls_BOPDS_PairMapHasher.def_static("operator delete[]_", (void (*)(void *)) &BOPDS_PairMapHasher::operator delete[], "None", py::arg("theAddress"));
 // cls_BOPDS_PairMapHasher.def_static("operator new_", (void * (*)(size_t, void *)) &BOPDS_PairMapHasher::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_BOPDS_PairMapHasher.def_static("operator delete_", (void (*)(void *, void *)) &BOPDS_PairMapHasher::operator delete, "None", py::arg(""), py::arg(""));
-cls_BOPDS_PairMapHasher.def_static("HashCode_", (Standard_Integer (*)(const BOPDS_Pair &, const Standard_Integer)) &BOPDS_PairMapHasher::HashCode, "None", py::arg("thePair"), py::arg("Upper"));
+cls_BOPDS_PairMapHasher.def_static("HashCode_", (Standard_Integer (*)(const BOPDS_Pair &, const Standard_Integer)) &BOPDS_PairMapHasher::HashCode, "Computes a hash code for the given pair, in the range [1, theUpperBound]", py::arg("thePair"), py::arg("theUpperBound"));
 cls_BOPDS_PairMapHasher.def_static("IsEqual_", (Standard_Boolean (*)(const BOPDS_Pair &, const BOPDS_Pair &)) &BOPDS_PairMapHasher::IsEqual, "None", py::arg("thePair1"), py::arg("thePair2"));
 
 // TYPEDEF: BOPDS_MAPOFPAIR
@@ -332,7 +333,7 @@ cls_BOPDS_CommonBlock.def(py::init<const opencascade::handle<NCollection_BaseAll
 
 // Methods
 cls_BOPDS_CommonBlock.def("AddPaveBlock", (void (BOPDS_CommonBlock::*)(const opencascade::handle<BOPDS_PaveBlock> &)) &BOPDS_CommonBlock::AddPaveBlock, "Modifier Adds the pave block <aPB> to the list of pave blocks of the common block", py::arg("aPB"));
-cls_BOPDS_CommonBlock.def("SetPaveBlocks", (void (BOPDS_CommonBlock::*)(const BOPDS_ListOfPaveBlock &)) &BOPDS_CommonBlock::SetPaveBlocks, "Modifier Adds the list of pave blocks <aLPB> to the list of pave blocks of the common block", py::arg("aLPB"));
+cls_BOPDS_CommonBlock.def("SetPaveBlocks", (void (BOPDS_CommonBlock::*)(const BOPDS_ListOfPaveBlock &)) &BOPDS_CommonBlock::SetPaveBlocks, "Modifier Sets the list of pave blocks for the common block", py::arg("aLPB"));
 cls_BOPDS_CommonBlock.def("AddFace", (void (BOPDS_CommonBlock::*)(const Standard_Integer)) &BOPDS_CommonBlock::AddFace, "Modifier Adds the index of the face <aF> to the list of indices of faces of the common block", py::arg("aF"));
 cls_BOPDS_CommonBlock.def("SetFaces", (void (BOPDS_CommonBlock::*)(const TColStd_ListOfInteger &)) &BOPDS_CommonBlock::SetFaces, "Modifier Sets the list of indices of faces <aLF> of the common block", py::arg("aLF"));
 cls_BOPDS_CommonBlock.def("AppendFaces", (void (BOPDS_CommonBlock::*)(TColStd_ListOfInteger &)) &BOPDS_CommonBlock::AppendFaces, "Modifier Appends the list of indices of faces <aLF> to the list of indices of faces of the common block (the input list is emptied)", py::arg("aLF"));
@@ -348,6 +349,8 @@ cls_BOPDS_CommonBlock.def("SetEdge", (void (BOPDS_CommonBlock::*)(const Standard
 cls_BOPDS_CommonBlock.def("Edge", (Standard_Integer (BOPDS_CommonBlock::*)() const) &BOPDS_CommonBlock::Edge, "Selector Returns the index of the edge of all pave blocks of the common block");
 cls_BOPDS_CommonBlock.def("Dump", (void (BOPDS_CommonBlock::*)() const) &BOPDS_CommonBlock::Dump, "None");
 cls_BOPDS_CommonBlock.def("SetRealPaveBlock", (void (BOPDS_CommonBlock::*)(const opencascade::handle<BOPDS_PaveBlock> &)) &BOPDS_CommonBlock::SetRealPaveBlock, "Moves the pave blocks in the list to make the given pave block to be the first. It will be representative for the whole group.", py::arg("thePB"));
+cls_BOPDS_CommonBlock.def("SetTolerance", (void (BOPDS_CommonBlock::*)(const Standard_Real)) &BOPDS_CommonBlock::SetTolerance, "Sets the tolerance for the common block", py::arg("theTol"));
+cls_BOPDS_CommonBlock.def("Tolerance", (Standard_Real (BOPDS_CommonBlock::*)() const) &BOPDS_CommonBlock::Tolerance, "Return the tolerance of common block");
 cls_BOPDS_CommonBlock.def_static("get_type_name_", (const char * (*)()) &BOPDS_CommonBlock::get_type_name, "None");
 cls_BOPDS_CommonBlock.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPDS_CommonBlock::get_type_descriptor, "None");
 cls_BOPDS_CommonBlock.def("DynamicType", (const opencascade::handle<Standard_Type> & (BOPDS_CommonBlock::*)() const) &BOPDS_CommonBlock::DynamicType, "None");
@@ -700,11 +703,14 @@ cls_BOPDS_DS.def("HasFaceInfo", (Standard_Boolean (BOPDS_DS::*)(const Standard_I
 cls_BOPDS_DS.def("FaceInfo", (const BOPDS_FaceInfo & (BOPDS_DS::*)(const Standard_Integer) const) &BOPDS_DS::FaceInfo, "Selector Returns the state of face with index theIndex", py::arg("theIndex"));
 cls_BOPDS_DS.def("ChangeFaceInfo", (BOPDS_FaceInfo & (BOPDS_DS::*)(const Standard_Integer)) &BOPDS_DS::ChangeFaceInfo, "Selector/Modifier Returns the state of face with index theIndex", py::arg("theIndex"));
 cls_BOPDS_DS.def("UpdateFaceInfoIn", (void (BOPDS_DS::*)(const Standard_Integer)) &BOPDS_DS::UpdateFaceInfoIn, "Update the state In of face with index theIndex", py::arg("theIndex"));
+cls_BOPDS_DS.def("UpdateFaceInfoIn", (void (BOPDS_DS::*)(const TColStd_MapOfInteger &)) &BOPDS_DS::UpdateFaceInfoIn, "Update the state IN for all faces in the given map", py::arg("theFaces"));
 cls_BOPDS_DS.def("UpdateFaceInfoOn", (void (BOPDS_DS::*)(const Standard_Integer)) &BOPDS_DS::UpdateFaceInfoOn, "Update the state On of face with index theIndex", py::arg("theIndex"));
+cls_BOPDS_DS.def("UpdateFaceInfoOn", (void (BOPDS_DS::*)(const TColStd_MapOfInteger &)) &BOPDS_DS::UpdateFaceInfoOn, "Update the state ON for all faces in the given map", py::arg("theFaces"));
 cls_BOPDS_DS.def("FaceInfoOn", (void (BOPDS_DS::*)(const Standard_Integer, BOPDS_IndexedMapOfPaveBlock &, TColStd_MapOfInteger &)) &BOPDS_DS::FaceInfoOn, "Selector Returns the state On [theMPB,theMVP] of face with index theIndex", py::arg("theIndex"), py::arg("theMPB"), py::arg("theMVP"));
 cls_BOPDS_DS.def("FaceInfoIn", (void (BOPDS_DS::*)(const Standard_Integer, BOPDS_IndexedMapOfPaveBlock &, TColStd_MapOfInteger &)) &BOPDS_DS::FaceInfoIn, "Selector Returns the state In [theMPB,theMVP] of face with index theIndex", py::arg("theIndex"), py::arg("theMPB"), py::arg("theMVP"));
 cls_BOPDS_DS.def("AloneVertices", (void (BOPDS_DS::*)(const Standard_Integer, TColStd_ListOfInteger &) const) &BOPDS_DS::AloneVertices, "Selector Returns the indices of alone vertices for the face with index theIndex", py::arg("theF"), py::arg("theLI"));
 cls_BOPDS_DS.def("RefineFaceInfoOn", (void (BOPDS_DS::*)()) &BOPDS_DS::RefineFaceInfoOn, "Refine the state On for the all faces having state information");
+cls_BOPDS_DS.def("RefineFaceInfoIn", (void (BOPDS_DS::*)()) &BOPDS_DS::RefineFaceInfoIn, "Removes any pave block from list of having IN state if it has also the state ON.");
 cls_BOPDS_DS.def("SubShapesOnIn", (void (BOPDS_DS::*)(const Standard_Integer, const Standard_Integer, TColStd_MapOfInteger &, TColStd_MapOfInteger &, BOPDS_IndexedMapOfPaveBlock &, BOPDS_MapOfPaveBlock &) const) &BOPDS_DS::SubShapesOnIn, "Returns information about ON/IN sub-shapes of the given faces.", py::arg("theNF1"), py::arg("theNF2"), py::arg("theMVOnIn"), py::arg("theMVCommon"), py::arg("thePBOnIn"), py::arg("theCommonPB"));
 cls_BOPDS_DS.def("SharedEdges", (void (BOPDS_DS::*)(const Standard_Integer, const Standard_Integer, TColStd_ListOfInteger &, const opencascade::handle<NCollection_BaseAllocator> &)) &BOPDS_DS::SharedEdges, "Returns the indices of edges that are shared for the faces with indices theF1, theF2", py::arg("theF1"), py::arg("theF2"), py::arg("theLI"), py::arg("theAllocator"));
 cls_BOPDS_DS.def("ShapesSD", (TColStd_DataMapOfIntegerInteger & (BOPDS_DS::*)()) &BOPDS_DS::ShapesSD, "Selector Returns the collection same domain shapes");
@@ -721,7 +727,7 @@ cls_BOPDS_DS.def("InterfEZ", (BOPDS_VectorOfInterfEZ & (BOPDS_DS::*)()) &BOPDS_D
 cls_BOPDS_DS.def("InterfFZ", (BOPDS_VectorOfInterfFZ & (BOPDS_DS::*)()) &BOPDS_DS::InterfFZ, "Selector/Modifier Returns the collection of interferences Face/Solid");
 cls_BOPDS_DS.def("InterfZZ", (BOPDS_VectorOfInterfZZ & (BOPDS_DS::*)()) &BOPDS_DS::InterfZZ, "Selector/Modifier Returns the collection of interferences Solid/Solid");
 cls_BOPDS_DS.def_static("NbInterfTypes_", (Standard_Integer (*)()) &BOPDS_DS::NbInterfTypes, "Returns the number of types of the interferences");
-cls_BOPDS_DS.def("AddInterf", (void (BOPDS_DS::*)(const Standard_Integer, const Standard_Integer)) &BOPDS_DS::AddInterf, "Modifier Adds the information about an interference between shapes with indices theI1, theI2 to the summary table of interferences", py::arg("theI1"), py::arg("theI2"));
+cls_BOPDS_DS.def("AddInterf", (Standard_Boolean (BOPDS_DS::*)(const Standard_Integer, const Standard_Integer)) &BOPDS_DS::AddInterf, "Modifier Adds the information about an interference between shapes with indices theI1, theI2 to the summary table of interferences", py::arg("theI1"), py::arg("theI2"));
 cls_BOPDS_DS.def("HasInterf", (Standard_Boolean (BOPDS_DS::*)(const Standard_Integer) const) &BOPDS_DS::HasInterf, "Query Returns true if the shape with index theI is interferred", py::arg("theI"));
 cls_BOPDS_DS.def("HasInterf", (Standard_Boolean (BOPDS_DS::*)(const Standard_Integer, const Standard_Integer) const) &BOPDS_DS::HasInterf, "Query Returns true if the shapes with indices theI1, theI2 are interferred", py::arg("theI1"), py::arg("theI2"));
 cls_BOPDS_DS.def("HasInterfShapeSubShapes", [](BOPDS_DS &self, const Standard_Integer a0, const Standard_Integer a1) -> Standard_Boolean { return self.HasInterfShapeSubShapes(a0, a1); });
@@ -731,8 +737,6 @@ cls_BOPDS_DS.def("Interferences", (const BOPDS_MapOfPair & (BOPDS_DS::*)() const
 cls_BOPDS_DS.def("Dump", (void (BOPDS_DS::*)() const) &BOPDS_DS::Dump, "None");
 cls_BOPDS_DS.def("IsSubShape", (Standard_Boolean (BOPDS_DS::*)(const Standard_Integer, const Standard_Integer)) &BOPDS_DS::IsSubShape, "None", py::arg("theI1"), py::arg("theI2"));
 cls_BOPDS_DS.def("Paves", (void (BOPDS_DS::*)(const Standard_Integer, BOPDS_ListOfPave &)) &BOPDS_DS::Paves, "Fills theLP with sorted paves of the shape with index theIndex", py::arg("theIndex"), py::arg("theLP"));
-cls_BOPDS_DS.def("UpdateEdgeTolerance", [](BOPDS_DS &self, const Standard_Integer a0, const Standard_Real a1) -> void { return self.UpdateEdgeTolerance(a0, a1); });
-cls_BOPDS_DS.def("UpdateEdgeTolerance", (void (BOPDS_DS::*)(const Standard_Integer, const Standard_Real, const Standard_Real)) &BOPDS_DS::UpdateEdgeTolerance, "Updates tolerance of the sub-shapes of the shape with index <theIndex>.", py::arg("theIndex"), py::arg("theTolerance"), py::arg("theFuzz"));
 cls_BOPDS_DS.def("UpdatePaveBlocksWithSDVertices", (void (BOPDS_DS::*)()) &BOPDS_DS::UpdatePaveBlocksWithSDVertices, "Update the pave blocks for all shapes in data structure");
 cls_BOPDS_DS.def("UpdatePaveBlockWithSDVertices", (void (BOPDS_DS::*)(const opencascade::handle<BOPDS_PaveBlock> &)) &BOPDS_DS::UpdatePaveBlockWithSDVertices, "Update the pave block for all shapes in data structure", py::arg("thePB"));
 cls_BOPDS_DS.def("UpdateCommonBlockWithSDVertices", (void (BOPDS_DS::*)(const opencascade::handle<BOPDS_CommonBlock> &)) &BOPDS_DS::UpdateCommonBlockWithSDVertices, "Update the pave block of the common block for all shapes in data structure", py::arg("theCB"));
@@ -749,7 +753,7 @@ bind_NCollection_Vector<BOPDS_Pair>(mod, "BOPDS_VectorOfPair", py::module_local(
 bind_NCollection_Vector<NCollection_Vector<BOPDS_Pair> >(mod, "BOPDS_VectorOfVectorOfPair", py::module_local(false));
 
 // CLASS: BOPDS_ITERATOR
-py::class_<BOPDS_Iterator> cls_BOPDS_Iterator(mod, "BOPDS_Iterator", "The class BOPDS_Iterator is 1.to compute intersections between BRep sub-shapes of arguments of an operation (see the class BOPDS_DS) in terms of theirs bounding boxes 2.provides interface to iterare the pairs of intersected sub-shapes of given type");
+py::class_<BOPDS_Iterator> cls_BOPDS_Iterator(mod, "BOPDS_Iterator", "The class BOPDS_Iterator is 1.to compute intersections between BRep sub-shapes of arguments of an operation (see the class BOPDS_DS) in terms of theirs bounding boxes 2.provides interface to iterate the pairs of intersected sub-shapes of given type");
 
 // Constructors
 cls_BOPDS_Iterator.def(py::init<>());
@@ -772,10 +776,12 @@ cls_BOPDS_Iterator.def("Prepare", [](BOPDS_Iterator &self) -> void { return self
 cls_BOPDS_Iterator.def("Prepare", [](BOPDS_Iterator &self, const opencascade::handle<IntTools_Context> & a0) -> void { return self.Prepare(a0); });
 cls_BOPDS_Iterator.def("Prepare", [](BOPDS_Iterator &self, const opencascade::handle<IntTools_Context> & a0, const Standard_Boolean a1) -> void { return self.Prepare(a0, a1); });
 cls_BOPDS_Iterator.def("Prepare", (void (BOPDS_Iterator::*)(const opencascade::handle<IntTools_Context> &, const Standard_Boolean, const Standard_Real)) &BOPDS_Iterator::Prepare, "Perform the intersection algorithm and prepare the results to be used", py::arg("theCtx"), py::arg("theCheckOBB"), py::arg("theFuzzyValue"));
+cls_BOPDS_Iterator.def("IntersectExt", (void (BOPDS_Iterator::*)(const TColStd_MapOfInteger &)) &BOPDS_Iterator::IntersectExt, "Updates the tree of Bounding Boxes with increased boxes and intersects such elements with the tree.", py::arg("theIndicies"));
 cls_BOPDS_Iterator.def("ExpectedLength", (Standard_Integer (BOPDS_Iterator::*)() const) &BOPDS_Iterator::ExpectedLength, "Returns the number of intersections founded");
 cls_BOPDS_Iterator.def("BlockLength", (Standard_Integer (BOPDS_Iterator::*)() const) &BOPDS_Iterator::BlockLength, "Returns the block length");
 cls_BOPDS_Iterator.def("SetRunParallel", (void (BOPDS_Iterator::*)(const Standard_Boolean)) &BOPDS_Iterator::SetRunParallel, "Set the flag of parallel processing if <theFlag> is true the parallel processing is switched on if <theFlag> is false the parallel processing is switched off", py::arg("theFlag"));
 cls_BOPDS_Iterator.def("RunParallel", (Standard_Boolean (BOPDS_Iterator::*)() const) &BOPDS_Iterator::RunParallel, "Returns the flag of parallel processing");
+cls_BOPDS_Iterator.def_static("NbExtInterfs_", (Standard_Integer (*)()) &BOPDS_Iterator::NbExtInterfs, "");
 
 // CLASS: BOPDS_ITERATORSI
 py::class_<BOPDS_IteratorSI, BOPDS_Iterator> cls_BOPDS_IteratorSI(mod, "BOPDS_IteratorSI", "The class BOPDS_IteratorSI is 1.to compute self-intersections between BRep sub-shapes of each argument of an operation (see the class BOPDS_DS) in terms of theirs bounding boxes 2.provides interface to iterare the pairs of intersected sub-shapes of given type");
@@ -808,7 +814,7 @@ py::class_<BOPDS_PaveMapHasher> cls_BOPDS_PaveMapHasher(mod, "BOPDS_PaveMapHashe
 // cls_BOPDS_PaveMapHasher.def_static("operator delete[]_", (void (*)(void *)) &BOPDS_PaveMapHasher::operator delete[], "None", py::arg("theAddress"));
 // cls_BOPDS_PaveMapHasher.def_static("operator new_", (void * (*)(size_t, void *)) &BOPDS_PaveMapHasher::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_BOPDS_PaveMapHasher.def_static("operator delete_", (void (*)(void *, void *)) &BOPDS_PaveMapHasher::operator delete, "None", py::arg(""), py::arg(""));
-cls_BOPDS_PaveMapHasher.def_static("HashCode_", (Standard_Integer (*)(const BOPDS_Pave &, const Standard_Integer)) &BOPDS_PaveMapHasher::HashCode, "None", py::arg("aPave"), py::arg("Upper"));
+cls_BOPDS_PaveMapHasher.def_static("HashCode_", (Standard_Integer (*)(const BOPDS_Pave &, Standard_Integer)) &BOPDS_PaveMapHasher::HashCode, "Computes a hash code for the given pave, in the range [1, theUpperBound]", py::arg("thePave"), py::arg("theUpperBound"));
 cls_BOPDS_PaveMapHasher.def_static("IsEqual_", (Standard_Boolean (*)(const BOPDS_Pave &, const BOPDS_Pave &)) &BOPDS_PaveMapHasher::IsEqual, "None", py::arg("aPave1"), py::arg("aPave2"));
 
 // TYPEDEF: BOPDS_MAPOFPAVE

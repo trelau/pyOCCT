@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepDimTol_GeometricToleranceTarget.hxx>
 #include <TCollection_HAsciiString.hxx>
 #include <StepBasic_MeasureWithUnit.hxx>
+#include <Standard_Std.hxx>
 #include <StepDimTol_GeometricTolerance.hxx>
 #include <Standard_Type.hxx>
 #include <StepBasic_LengthMeasureWithUnit.hxx>
@@ -321,6 +322,7 @@ bind_NCollection_Array1<StepDimTol_DatumReferenceModifier>(mod, "StepDimTol_Arra
 py::class_<StepDimTol_HArray1OfDatumReferenceModifier, opencascade::handle<StepDimTol_HArray1OfDatumReferenceModifier>, Standard_Transient> cls_StepDimTol_HArray1OfDatumReferenceModifier(mod, "StepDimTol_HArray1OfDatumReferenceModifier", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepDimTol_HArray1OfDatumReferenceModifier.def(py::init<>());
 cls_StepDimTol_HArray1OfDatumReferenceModifier.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepDimTol_HArray1OfDatumReferenceModifier.def(py::init<const Standard_Integer, const Standard_Integer, const StepDimTol_Array1OfDatumReferenceModifier::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepDimTol_HArray1OfDatumReferenceModifier.def(py::init<const StepDimTol_Array1OfDatumReferenceModifier &>(), py::arg("theOther"));
@@ -378,6 +380,7 @@ bind_NCollection_Array1<StepDimTol_DatumSystemOrReference>(mod, "StepDimTol_Arra
 py::class_<StepDimTol_HArray1OfDatumSystemOrReference, opencascade::handle<StepDimTol_HArray1OfDatumSystemOrReference>, Standard_Transient> cls_StepDimTol_HArray1OfDatumSystemOrReference(mod, "StepDimTol_HArray1OfDatumSystemOrReference", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepDimTol_HArray1OfDatumSystemOrReference.def(py::init<>());
 cls_StepDimTol_HArray1OfDatumSystemOrReference.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepDimTol_HArray1OfDatumSystemOrReference.def(py::init<const Standard_Integer, const Standard_Integer, const StepDimTol_Array1OfDatumSystemOrReference::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepDimTol_HArray1OfDatumSystemOrReference.def(py::init<const StepDimTol_Array1OfDatumSystemOrReference &>(), py::arg("theOther"));
@@ -420,6 +423,7 @@ bind_NCollection_Array1<opencascade::handle<StepDimTol_DatumReference> >(mod, "S
 py::class_<StepDimTol_HArray1OfDatumReference, opencascade::handle<StepDimTol_HArray1OfDatumReference>, Standard_Transient> cls_StepDimTol_HArray1OfDatumReference(mod, "StepDimTol_HArray1OfDatumReference", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepDimTol_HArray1OfDatumReference.def(py::init<>());
 cls_StepDimTol_HArray1OfDatumReference.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepDimTol_HArray1OfDatumReference.def(py::init<const Standard_Integer, const Standard_Integer, const StepDimTol_Array1OfDatumReference::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepDimTol_HArray1OfDatumReference.def(py::init<const StepDimTol_Array1OfDatumReference &>(), py::arg("theOther"));
@@ -630,6 +634,7 @@ cls_StepDimTol_DatumFeature.def("DynamicType", (const opencascade::handle<Standa
 py::class_<StepDimTol_HArray1OfDatumReferenceCompartment, opencascade::handle<StepDimTol_HArray1OfDatumReferenceCompartment>, Standard_Transient> cls_StepDimTol_HArray1OfDatumReferenceCompartment(mod, "StepDimTol_HArray1OfDatumReferenceCompartment", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepDimTol_HArray1OfDatumReferenceCompartment.def(py::init<>());
 cls_StepDimTol_HArray1OfDatumReferenceCompartment.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepDimTol_HArray1OfDatumReferenceCompartment.def(py::init<const Standard_Integer, const Standard_Integer, const StepDimTol_Array1OfDatumReferenceCompartment::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepDimTol_HArray1OfDatumReferenceCompartment.def(py::init<const StepDimTol_Array1OfDatumReferenceCompartment &>(), py::arg("theOther"));
@@ -747,6 +752,7 @@ cls_StepDimTol_GeometricToleranceWithDefinedAreaUnit.def("DynamicType", (const o
 py::class_<StepDimTol_HArray1OfGeometricToleranceModifier, opencascade::handle<StepDimTol_HArray1OfGeometricToleranceModifier>, Standard_Transient> cls_StepDimTol_HArray1OfGeometricToleranceModifier(mod, "StepDimTol_HArray1OfGeometricToleranceModifier", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepDimTol_HArray1OfGeometricToleranceModifier.def(py::init<>());
 cls_StepDimTol_HArray1OfGeometricToleranceModifier.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepDimTol_HArray1OfGeometricToleranceModifier.def(py::init<const Standard_Integer, const Standard_Integer, const StepDimTol_Array1OfGeometricToleranceModifier::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepDimTol_HArray1OfGeometricToleranceModifier.def(py::init<const StepDimTol_Array1OfGeometricToleranceModifier &>(), py::arg("theOther"));
@@ -918,6 +924,7 @@ cls_StepDimTol_GeoTolAndGeoTolWthMaxTol.def("DynamicType", (const opencascade::h
 py::class_<StepDimTol_HArray1OfDatumReferenceElement, opencascade::handle<StepDimTol_HArray1OfDatumReferenceElement>, Standard_Transient> cls_StepDimTol_HArray1OfDatumReferenceElement(mod, "StepDimTol_HArray1OfDatumReferenceElement", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepDimTol_HArray1OfDatumReferenceElement.def(py::init<>());
 cls_StepDimTol_HArray1OfDatumReferenceElement.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepDimTol_HArray1OfDatumReferenceElement.def(py::init<const Standard_Integer, const Standard_Integer, const StepDimTol_Array1OfDatumReferenceElement::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepDimTol_HArray1OfDatumReferenceElement.def(py::init<const StepDimTol_Array1OfDatumReferenceElement &>(), py::arg("theOther"));
@@ -941,6 +948,7 @@ cls_StepDimTol_HArray1OfDatumReferenceElement.def("DynamicType", (const opencasc
 py::class_<StepDimTol_HArray1OfToleranceZoneTarget, opencascade::handle<StepDimTol_HArray1OfToleranceZoneTarget>, Standard_Transient> cls_StepDimTol_HArray1OfToleranceZoneTarget(mod, "StepDimTol_HArray1OfToleranceZoneTarget", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepDimTol_HArray1OfToleranceZoneTarget.def(py::init<>());
 cls_StepDimTol_HArray1OfToleranceZoneTarget.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepDimTol_HArray1OfToleranceZoneTarget.def(py::init<const Standard_Integer, const Standard_Integer, const StepDimTol_Array1OfToleranceZoneTarget::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepDimTol_HArray1OfToleranceZoneTarget.def(py::init<const StepDimTol_Array1OfToleranceZoneTarget &>(), py::arg("theOther"));

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Storage_Data.hxx>
 #include <XmlMDF_ADriverTable.hxx>
 #include <Message_Messenger.hxx>
+#include <Standard_Std.hxx>
 #include <XmlLDrivers_DocumentRetrievalDriver.hxx>
 #include <Standard_Type.hxx>
 #include <XmlObjMgt_Element.hxx>
@@ -121,7 +122,6 @@ cls_XmlLDrivers.def_static("CreationDate_", (TCollection_AsciiString (*)()) &Xml
 cls_XmlLDrivers.def_static("DefineFormat_", (void (*)(const opencascade::handle<TDocStd_Application> &)) &XmlLDrivers::DefineFormat, "Defines format 'XmlLOcaf' and registers its read and write drivers in the specified application", py::arg("theApp"));
 cls_XmlLDrivers.def_static("AttributeDrivers_", (opencascade::handle<XmlMDF_ADriverTable> (*)(const opencascade::handle<Message_Messenger> &)) &XmlLDrivers::AttributeDrivers, "None", py::arg("theMsgDriver"));
 cls_XmlLDrivers.def_static("StorageVersion_", (int (*)()) &XmlLDrivers::StorageVersion, "None");
-cls_XmlLDrivers.def_static("SetStorageVersion_", (void (*)(const int)) &XmlLDrivers::SetStorageVersion, "None", py::arg("version"));
 
 
 }

@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_TypeDef.hxx>
 #include <gp_Pnt2d.hxx>
 #include <gp_Vec2d.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <Geom2dEvaluator_Curve.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <Geom2d_Curve.hxx>
 #include <Geom2dAdaptor_HCurve.hxx>

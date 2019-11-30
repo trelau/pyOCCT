@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TDataStd_RealEnum.hxx>
 #include <TDF_Attribute.hxx>
 #include <TDataStd_DeltaOnModificationOfIntArray.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <TDataStd_IntegerArray.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <Standard_GUID.hxx>
 #include <TDF_Label.hxx>
@@ -304,6 +305,7 @@ bind_NCollection_Array1<TDF_Label>(mod, "TDataStd_LabelArray1", py::module_local
 py::class_<TDataStd_HLabelArray1, opencascade::handle<TDataStd_HLabelArray1>, Standard_Transient> cls_TDataStd_HLabelArray1(mod, "TDataStd_HLabelArray1", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TDataStd_HLabelArray1.def(py::init<>());
 cls_TDataStd_HLabelArray1.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TDataStd_HLabelArray1.def(py::init<const Standard_Integer, const Standard_Integer, const TDataStd_LabelArray1::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TDataStd_HLabelArray1.def(py::init<const TDataStd_LabelArray1 &>(), py::arg("theOther"));

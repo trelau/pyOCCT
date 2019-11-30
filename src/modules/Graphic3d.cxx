@@ -20,6 +20,7 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include <pyOCCT_Common.hxx>
+#include <bind_BVH_Set.hxx>
 #include <Precision.hxx>
 #include <Graphic3d_GroupAspect.hxx>
 #include <Graphic3d_AlphaMode.hxx>
@@ -34,52 +35,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Graphic3d_TypeOfTextureMode.hxx>
 #include <Graphic3d_TypeOfTexture.hxx>
 #include <Graphic3d_TypeOfShadingModel.hxx>
-#include <Graphic3d_TypeOfLightSource.hxx>
 #include <Graphic3d_TextPath.hxx>
 #include <Graphic3d_HorizontalTextAlignment.hxx>
 #include <Graphic3d_VerticalTextAlignment.hxx>
 #include <Graphic3d_TypeOfPrimitiveArray.hxx>
 #include <Graphic3d_Buffer.hxx>
 #include <Graphic3d_CappingFlags.hxx>
+#include <Graphic3d_ClipPlane.hxx>
 #include <Graphic3d_TypeOfComposition.hxx>
 #include <Graphic3d_TransModeFlags.hxx>
+#include <Graphic3d_TypeOfConnection.hxx>
+#include <Graphic3d_TypeOfStructure.hxx>
+#include <Graphic3d_CubeMapSide.hxx>
+#include <Graphic3d_TypeOfLightSource.hxx>
 #include <Graphic3d_DiagnosticInfo.hxx>
-#include <Graphic3d_ExportFormat.hxx>
 #include <Graphic3d_RenderTransparentMethod.hxx>
 #include <Graphic3d_RenderingMode.hxx>
 #include <Graphic3d_StereoMode.hxx>
 #include <Graphic3d_ToneMappingMethod.hxx>
-#include <Graphic3d_TypeOfStructure.hxx>
-#include <Graphic3d_TypeOfConnection.hxx>
-#include <Graphic3d_SortType.hxx>
 #include <Graphic3d_NameOfTextureEnv.hxx>
 #include <Graphic3d_TypeOfAnswer.hxx>
 #include <Graphic3d_TypeOfBackfacingModel.hxx>
 #include <Graphic3d_TypeOfVisualization.hxx>
 #include <Graphic3d_ZLayerSettings.hxx>
 #include <Graphic3d_NameOfTexture2D.hxx>
+#include <Graphic3d_FrameStatsCounter.hxx>
+#include <Graphic3d_FrameStatsTimer.hxx>
 #include <Graphic3d_TypeOfLimit.hxx>
 #include <Graphic3d_NameOfTexture1D.hxx>
 #include <Graphic3d_NameOfTexturePlane.hxx>
 #include <Graphic3d_TypeOfBackground.hxx>
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
-#include <Graphic3d_HatchStyle.hxx>
-#include <Standard_Type.hxx>
 #include <Image_PixMap.hxx>
-#include <Aspect_HatchStyle.hxx>
+#include <TColStd_HArray1OfByte.hxx>
 #include <Standard_TypeDef.hxx>
+#include <TCollection_AsciiString.hxx>
+#include <Standard_Std.hxx>
+#include <Graphic3d_MarkerImage.hxx>
+#include <Standard_Type.hxx>
+#include <Graphic3d_HatchStyle.hxx>
+#include <Aspect_HatchStyle.hxx>
 #include <NCollection_Buffer.hxx>
 #include <NCollection_Vec3.hxx>
 #include <Graphic3d_Vec3.hxx>
 #include <NCollection_Vec4.hxx>
 #include <Graphic3d_Vec4.hxx>
 #include <Standard.hxx>
-#include <TCollection_AsciiString.hxx>
 #include <Quantity_Color.hxx>
 #include <Graphic3d_MaterialAspect.hxx>
 #include <Aspect_PolygonOffsetMode.hxx>
 #include <Graphic3d_PolygonOffset.hxx>
+#include <Standard_OStream.hxx>
 #include <Graphic3d_ShaderAttribute.hxx>
 #include <OSD_Path.hxx>
 #include <Graphic3d_ShaderObject.hxx>
@@ -96,73 +103,72 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Graphic3d_TextureMap.hxx>
 #include <Graphic3d_TextureSet.hxx>
 #include <NCollection_Array1.hxx>
-#include <Graphic3d_AspectFillArea3d.hxx>
+#include <Graphic3d_Aspects.hxx>
 #include <Aspect_InteriorStyle.hxx>
-#include <Aspect_TypeOfLine.hxx>
 #include <Quantity_ColorRGBA.hxx>
-#include <Aspect_AspectFillAreaDefinitionError.hxx>
+#include <Aspect_TypeOfLine.hxx>
+#include <Standard_OutOfRange.hxx>
+#include <Aspect_TypeOfMarker.hxx>
+#include <TCollection_HAsciiString.hxx>
+#include <Font_FontAspect.hxx>
+#include <Aspect_TypeOfDisplayText.hxx>
+#include <Aspect_TypeOfStyleText.hxx>
+#include <Graphic3d_AspectFillArea3d.hxx>
 #include <Graphic3d_ZLayerId.hxx>
 #include <Graphic3d_PresentationAttributes.hxx>
 #include <Aspect_TypeOfHighlightMethod.hxx>
-#include <Graphic3d_BufferType.hxx>
-#include <Graphic3d_CameraTile.hxx>
-#include <Graphic3d_WorldViewProjState.hxx>
-#include <Graphic3d_Camera.hxx>
-#include <gp_Pnt.hxx>
-#include <gp_Dir.hxx>
-#include <gp_XYZ.hxx>
-#include <Bnd_Box.hxx>
-#include <gp_Trsf.hxx>
-#include <gp_Pln.hxx>
-#include <NCollection_Lerp.hxx>
-#include <Graphic3d_CLight.hxx>
 #include <BVH_Box.hxx>
-#include <Graphic3d_BndBox3d.hxx>
 #include <Graphic3d_BndBox4f.hxx>
+#include <Graphic3d_BndBox4d.hxx>
+#include <Graphic3d_BndBox3d.hxx>
 #include <Graphic3d_AspectLine3d.hxx>
-#include <Aspect_AspectLineDefinitionError.hxx>
-#include <Standard_OutOfRange.hxx>
-#include <Graphic3d_AspectTextDefinitionError.hxx>
-#include <Standard_SStream.hxx>
 #include <Graphic3d_AspectText3d.hxx>
-#include <Aspect_TypeOfStyleText.hxx>
-#include <Aspect_TypeOfDisplayText.hxx>
-#include <Font_FontAspect.hxx>
-#include <TColStd_HArray1OfByte.hxx>
-#include <Graphic3d_MarkerImage.hxx>
 #include <Graphic3d_AspectMarker3d.hxx>
-#include <Aspect_TypeOfMarker.hxx>
-#include <Aspect_AspectMarkerDefinitionError.hxx>
+#include <NCollection_DataMap.hxx>
+#include <Graphic3d_MapOfAspectsToAspects.hxx>
 #include <Graphic3d_Vertex.hxx>
+#include <Graphic3d_BufferRange.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <Graphic3d_IndexBuffer.hxx>
 #include <Graphic3d_BoundBuffer.hxx>
 #include <Graphic3d_Structure.hxx>
 #include <Graphic3d_Group.hxx>
-#include <TCollection_ExtendedString.hxx>
-#include <gp_Ax2.hxx>
+#include <Graphic3d_Text.hxx>
 #include <Graphic3d_ArrayOfPrimitives.hxx>
+#include <gp_Ax2.hxx>
+#include <TCollection_ExtendedString.hxx>
 #include <Graphic3d_SequenceOfGroup.hxx>
-#include <Graphic3d_ClipPlane.hxx>
+#include <gp_Pln.hxx>
 #include <Graphic3d_SequenceOfHClipPlane.hxx>
 #include <Graphic3d_ViewAffinity.hxx>
+#include <Graphic3d_CameraTile.hxx>
+#include <Graphic3d_WorldViewProjState.hxx>
+#include <Graphic3d_Camera.hxx>
+#include <gp_Dir.hxx>
+#include <gp_Pnt.hxx>
+#include <gp_XYZ.hxx>
+#include <Bnd_Box.hxx>
+#include <gp_Trsf.hxx>
+#include <NCollection_Lerp.hxx>
 #include <Graphic3d_TransformPers.hxx>
 #include <Standard_ProgramError.hxx>
 #include <Aspect_TypeOfTriedronPosition.hxx>
+#include <NCollection_IndexedMap.hxx>
+#include <Graphic3d_CStructure.hxx>
 #include <Graphic3d_GraphicDriver.hxx>
 #include <Geom_Transformation.hxx>
-#include <Graphic3d_CStructure.hxx>
 #include <Graphic3d_StructureManager.hxx>
-#include <Graphic3d_DataStructureManager.hxx>
-#include <Graphic3d_GraduatedTrihedron.hxx>
-#include <Graphic3d_CView.hxx>
 #include <NCollection_Map.hxx>
 #include <Graphic3d_MapOfStructure.hxx>
+#include <Graphic3d_DataStructureManager.hxx>
+#include <Graphic3d_BufferType.hxx>
+#include <Graphic3d_CubeMapOrder.hxx>
+#include <Graphic3d_CubeMap.hxx>
+#include <Graphic3d_CLight.hxx>
+#include <Graphic3d_GraduatedTrihedron.hxx>
+#include <Graphic3d_CView.hxx>
 #include <Graphic3d_NMapOfTransient.hxx>
 #include <Graphic3d_RenderingParams.hxx>
-#include <NCollection_IndexedMap.hxx>
-#include <Graphic3d_IndexedMapOfAddress.hxx>
-#include <Graphic3d_BndBox4d.hxx>
 #include <Graphic3d_SequenceOfStructure.hxx>
 #include <Graphic3d_TextureEnv.hxx>
 #include <Graphic3d_LightSet.hxx>
@@ -170,33 +176,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp.hxx>
 #include <Aspect_Window.hxx>
 #include <Aspect_RenderingContext.hxx>
+#include <NCollection_List.hxx>
+#include <Graphic3d_Layer.hxx>
 #include <Aspect_Background.hxx>
 #include <Aspect_GradientBackground.hxx>
 #include <Aspect_FillMethod.hxx>
 #include <TColStd_IndexedDataMapOfStringString.hxx>
-#include <NCollection_DataMap.hxx>
 #include <Graphic3d_MapOfObject.hxx>
 #include <Aspect_GenId.hxx>
+#include <Graphic3d_ArrayFlags.hxx>
 #include <gp_Pnt2d.hxx>
+#include <Standard_TypeMismatch.hxx>
 #include <Graphic3d_ArrayOfQuadrangles.hxx>
 #include <Graphic3d_ArrayOfTriangles.hxx>
+#include <Graphic3d_Texture2D.hxx>
+#include <Standard_Mutex.hxx>
+#include <Graphic3d_MediaTexture.hxx>
+#include <Media_Frame.hxx>
+#include <Media_IFrameQueue.hxx>
+#include <Graphic3d_MediaTextureSet.hxx>
+#include <Media_PlayerContext.hxx>
 #include <Graphic3d_ArrayOfPoints.hxx>
 #include <Graphic3d_ArrayOfPolylines.hxx>
-#include <Graphic3d_Texture2D.hxx>
 #include <Graphic3d_Texture2Dmanual.hxx>
 #include <Graphic3d_ArrayOfPolygons.hxx>
 #include <Graphic3d_ArrayOfQuadrangleStrips.hxx>
 #include <Graphic3d_ArrayOfSegments.hxx>
 #include <Graphic3d_ArrayOfTriangleFans.hxx>
 #include <Graphic3d_ArrayOfTriangleStrips.hxx>
+#include <Graphic3d_AttribBuffer.hxx>
+#include <BVH_PrimitiveSet3d.hxx>
+#include <Graphic3d_BvhCStructureSet.hxx>
+#include <BVH_Set.hxx>
+#include <Select3D_BVHBuilder3d.hxx>
+#include <BVH_Tree.hxx>
+#include <Graphic3d_BvhCStructureSetTrsfPers.hxx>
 #include <Graphic3d_CTexture.hxx>
+#include <Graphic3d_CubeMapPacked.hxx>
+#include <Graphic3d_CubeMapSeparate.hxx>
+#include <Image_Format.hxx>
+#include <Graphic3d_CullingTool.hxx>
+#include <Graphic3d_FrameStatsData.hxx>
+#include <OSD_Timer.hxx>
+#include <Graphic3d_FrameStats.hxx>
+#include <Graphic3d_MapOfZLayerSettings.hxx>
 #include <TColStd_SequenceOfInteger.hxx>
 #include <Aspect_DisplayConnection.hxx>
 #include <Graphic3d_GroupDefinitionError.hxx>
+#include <Standard_SStream.hxx>
 #include <Graphic3d_MapIteratorOfMapOfStructure.hxx>
 #include <Graphic3d_MaterialDefinitionError.hxx>
+#include <Graphic3d_MutableIndexBuffer.hxx>
 #include <Graphic3d_PriorityDefinitionError.hxx>
 #include <Graphic3d_StructureDefinitionError.hxx>
+#include <NCollection_String.hxx>
 #include <Graphic3d_Texture1D.hxx>
 #include <Graphic3d_Texture1Dmanual.hxx>
 #include <Graphic3d_Texture1Dsegment.hxx>
@@ -208,29 +241,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <bind_NCollection_Mat4.hxx>
 #include <bind_Graphic3d_UniformValue.hxx>
 #include <bind_NCollection_Sequence.hxx>
-#include <bind_NCollection_Lerp.hxx>
 #include <bind_BVH_Box.hxx>
+#include <bind_NCollection_DataMap.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_NCollection_Lerp.hxx>
 #include <bind_NCollection_Map.hxx>
 #include <bind_NCollection_IndexedMap.hxx>
-#include <bind_NCollection_DataMap.hxx>
 
 PYBIND11_MODULE(Graphic3d, mod) {
 
 py::module::import("OCCT.Precision");
 py::module::import("OCCT.Standard");
 py::module::import("OCCT.Image");
+py::module::import("OCCT.TColStd");
+py::module::import("OCCT.TCollection");
 py::module::import("OCCT.Aspect");
 py::module::import("OCCT.NCollection");
-py::module::import("OCCT.TCollection");
 py::module::import("OCCT.Quantity");
 py::module::import("OCCT.OSD");
+py::module::import("OCCT.Font");
+py::module::import("OCCT.BVH");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.Bnd");
-py::module::import("OCCT.BVH");
-py::module::import("OCCT.Font");
-py::module::import("OCCT.TColStd");
 py::module::import("OCCT.Geom");
+py::module::import("OCCT.Media");
+
+struct ImportSelect3D{
+	ImportSelect3D() { py::module::import("OCCT.Select3D"); }
+};
 
 // ENUM: GRAPHIC3D_GROUPASPECT
 py::enum_<Graphic3d_GroupAspect>(mod, "Graphic3d_GroupAspect", "Identifies primitives aspects defined per group. - ASPECT_LINE: aspect for line primitives; - ASPECT_TEXT: aspect for text primitives; - ASPECT_MARKER: aspect for marker primitives; - ASPECT_FILL_AREA: aspect for face primitives.")
@@ -345,6 +383,7 @@ py::enum_<Graphic3d_TextureUnit>(mod, "Graphic3d_TextureUnit", "Texture unit.")
 	.value("Graphic3d_TextureUnit_14", Graphic3d_TextureUnit::Graphic3d_TextureUnit_14)
 	.value("Graphic3d_TextureUnit_15", Graphic3d_TextureUnit::Graphic3d_TextureUnit_15)
 	.value("Graphic3d_TextureUnit_BaseColor", Graphic3d_TextureUnit::Graphic3d_TextureUnit_BaseColor)
+	.value("Graphic3d_TextureUnit_EnvMap", Graphic3d_TextureUnit::Graphic3d_TextureUnit_EnvMap)
 	.export_values();
 
 
@@ -371,6 +410,7 @@ py::enum_<Graphic3d_TypeOfTexture>(mod, "Graphic3d_TypeOfTexture", "Type of the 
 	.value("Graphic3d_TOT_1D", Graphic3d_TypeOfTexture::Graphic3d_TOT_1D)
 	.value("Graphic3d_TOT_2D", Graphic3d_TypeOfTexture::Graphic3d_TOT_2D)
 	.value("Graphic3d_TOT_2D_MIPMAP", Graphic3d_TypeOfTexture::Graphic3d_TOT_2D_MIPMAP)
+	.value("Graphic3d_TOT_CUBEMAP", Graphic3d_TypeOfTexture::Graphic3d_TOT_CUBEMAP)
 	.export_values();
 
 
@@ -386,19 +426,6 @@ py::enum_<Graphic3d_TypeOfShadingModel>(mod, "Graphic3d_TypeOfShadingModel", "De
 	.value("V3d_FLAT", Graphic3d_TypeOfShadingModel::V3d_FLAT)
 	.value("V3d_GOURAUD", Graphic3d_TypeOfShadingModel::V3d_GOURAUD)
 	.value("V3d_PHONG", Graphic3d_TypeOfShadingModel::V3d_PHONG)
-	.export_values();
-
-
-// ENUM: GRAPHIC3D_TYPEOFLIGHTSOURCE
-py::enum_<Graphic3d_TypeOfLightSource>(mod, "Graphic3d_TypeOfLightSource", "Definition of all the type of light source.")
-	.value("Graphic3d_TOLS_AMBIENT", Graphic3d_TypeOfLightSource::Graphic3d_TOLS_AMBIENT)
-	.value("Graphic3d_TOLS_DIRECTIONAL", Graphic3d_TypeOfLightSource::Graphic3d_TOLS_DIRECTIONAL)
-	.value("Graphic3d_TOLS_POSITIONAL", Graphic3d_TypeOfLightSource::Graphic3d_TOLS_POSITIONAL)
-	.value("Graphic3d_TOLS_SPOT", Graphic3d_TypeOfLightSource::Graphic3d_TOLS_SPOT)
-	.value("V3d_AMBIENT", Graphic3d_TypeOfLightSource::V3d_AMBIENT)
-	.value("V3d_DIRECTIONAL", Graphic3d_TypeOfLightSource::V3d_DIRECTIONAL)
-	.value("V3d_POSITIONAL", Graphic3d_TypeOfLightSource::V3d_POSITIONAL)
-	.value("V3d_SPOT", Graphic3d_TypeOfLightSource::V3d_SPOT)
 	.export_values();
 
 
@@ -477,6 +504,14 @@ py::enum_<Graphic3d_CappingFlags>(mod, "Graphic3d_CappingFlags", "Enumeration of
 	.export_values();
 
 
+// ENUM: GRAPHIC3D_CLIPSTATE
+py::enum_<Graphic3d_ClipState>(mod, "Graphic3d_ClipState", "Clipping state.")
+	.value("Graphic3d_ClipState_Out", Graphic3d_ClipState::Graphic3d_ClipState_Out)
+	.value("Graphic3d_ClipState_In", Graphic3d_ClipState::Graphic3d_ClipState_In)
+	.value("Graphic3d_ClipState_On", Graphic3d_ClipState::Graphic3d_ClipState_On)
+	.export_values();
+
+
 // ENUM: GRAPHIC3D_TYPEOFCOMPOSITION
 py::enum_<Graphic3d_TypeOfComposition>(mod, "Graphic3d_TypeOfComposition", "To manage the transformation matrices of structures.")
 	.value("Graphic3d_TOC_REPLACE", Graphic3d_TypeOfComposition::Graphic3d_TOC_REPLACE)
@@ -495,6 +530,46 @@ py::enum_<Graphic3d_TransModeFlags>(mod, "Graphic3d_TransModeFlags", "Transform 
 	.export_values();
 
 
+// ENUM: GRAPHIC3D_TYPEOFCONNECTION
+py::enum_<Graphic3d_TypeOfConnection>(mod, "Graphic3d_TypeOfConnection", "To manage the connections between the structures.")
+	.value("Graphic3d_TOC_ANCESTOR", Graphic3d_TypeOfConnection::Graphic3d_TOC_ANCESTOR)
+	.value("Graphic3d_TOC_DESCENDANT", Graphic3d_TypeOfConnection::Graphic3d_TOC_DESCENDANT)
+	.export_values();
+
+
+// ENUM: GRAPHIC3D_TYPEOFSTRUCTURE
+py::enum_<Graphic3d_TypeOfStructure>(mod, "Graphic3d_TypeOfStructure", "Structural attribute indicating if it can be displayed in wireframe, shadow mode, or both.")
+	.value("Graphic3d_TOS_WIREFRAME", Graphic3d_TypeOfStructure::Graphic3d_TOS_WIREFRAME)
+	.value("Graphic3d_TOS_SHADING", Graphic3d_TypeOfStructure::Graphic3d_TOS_SHADING)
+	.value("Graphic3d_TOS_COMPUTED", Graphic3d_TypeOfStructure::Graphic3d_TOS_COMPUTED)
+	.value("Graphic3d_TOS_ALL", Graphic3d_TypeOfStructure::Graphic3d_TOS_ALL)
+	.export_values();
+
+
+// ENUM: GRAPHIC3D_CUBEMAPSIDE
+py::enum_<Graphic3d_CubeMapSide>(mod, "Graphic3d_CubeMapSide", "Sides of cubemap in order of OpenGL rules")
+	.value("Graphic3d_CMS_POS_X", Graphic3d_CubeMapSide::Graphic3d_CMS_POS_X)
+	.value("Graphic3d_CMS_NEG_X", Graphic3d_CubeMapSide::Graphic3d_CMS_NEG_X)
+	.value("Graphic3d_CMS_POS_Y", Graphic3d_CubeMapSide::Graphic3d_CMS_POS_Y)
+	.value("Graphic3d_CMS_NEG_Y", Graphic3d_CubeMapSide::Graphic3d_CMS_NEG_Y)
+	.value("Graphic3d_CMS_POS_Z", Graphic3d_CubeMapSide::Graphic3d_CMS_POS_Z)
+	.value("Graphic3d_CMS_NEG_Z", Graphic3d_CubeMapSide::Graphic3d_CMS_NEG_Z)
+	.export_values();
+
+
+// ENUM: GRAPHIC3D_TYPEOFLIGHTSOURCE
+py::enum_<Graphic3d_TypeOfLightSource>(mod, "Graphic3d_TypeOfLightSource", "Definition of all the type of light source.")
+	.value("Graphic3d_TOLS_AMBIENT", Graphic3d_TypeOfLightSource::Graphic3d_TOLS_AMBIENT)
+	.value("Graphic3d_TOLS_DIRECTIONAL", Graphic3d_TypeOfLightSource::Graphic3d_TOLS_DIRECTIONAL)
+	.value("Graphic3d_TOLS_POSITIONAL", Graphic3d_TypeOfLightSource::Graphic3d_TOLS_POSITIONAL)
+	.value("Graphic3d_TOLS_SPOT", Graphic3d_TypeOfLightSource::Graphic3d_TOLS_SPOT)
+	.value("V3d_AMBIENT", Graphic3d_TypeOfLightSource::V3d_AMBIENT)
+	.value("V3d_DIRECTIONAL", Graphic3d_TypeOfLightSource::V3d_DIRECTIONAL)
+	.value("V3d_POSITIONAL", Graphic3d_TypeOfLightSource::V3d_POSITIONAL)
+	.value("V3d_SPOT", Graphic3d_TypeOfLightSource::V3d_SPOT)
+	.export_values();
+
+
 // ENUM: GRAPHIC3D_DIAGNOSTICINFO
 py::enum_<Graphic3d_DiagnosticInfo>(mod, "Graphic3d_DiagnosticInfo", "Diagnostic info categories bit flags.")
 	.value("Graphic3d_DiagnosticInfo_Device", Graphic3d_DiagnosticInfo::Graphic3d_DiagnosticInfo_Device)
@@ -506,18 +581,6 @@ py::enum_<Graphic3d_DiagnosticInfo>(mod, "Graphic3d_DiagnosticInfo", "Diagnostic
 	.value("Graphic3d_DiagnosticInfo_Short", Graphic3d_DiagnosticInfo::Graphic3d_DiagnosticInfo_Short)
 	.value("Graphic3d_DiagnosticInfo_Basic", Graphic3d_DiagnosticInfo::Graphic3d_DiagnosticInfo_Basic)
 	.value("Graphic3d_DiagnosticInfo_Complete", Graphic3d_DiagnosticInfo::Graphic3d_DiagnosticInfo_Complete)
-	.export_values();
-
-
-// ENUM: GRAPHIC3D_EXPORTFORMAT
-py::enum_<Graphic3d_ExportFormat>(mod, "Graphic3d_ExportFormat", "None")
-	.value("Graphic3d_EF_PostScript", Graphic3d_ExportFormat::Graphic3d_EF_PostScript)
-	.value("Graphic3d_EF_EnhPostScript", Graphic3d_ExportFormat::Graphic3d_EF_EnhPostScript)
-	.value("Graphic3d_EF_TEX", Graphic3d_ExportFormat::Graphic3d_EF_TEX)
-	.value("Graphic3d_EF_PDF", Graphic3d_ExportFormat::Graphic3d_EF_PDF)
-	.value("Graphic3d_EF_SVG", Graphic3d_ExportFormat::Graphic3d_EF_SVG)
-	.value("Graphic3d_EF_PGF", Graphic3d_ExportFormat::Graphic3d_EF_PGF)
-	.value("Graphic3d_EF_EMF", Graphic3d_ExportFormat::Graphic3d_EF_EMF)
 	.export_values();
 
 
@@ -553,29 +616,6 @@ py::enum_<Graphic3d_StereoMode>(mod, "Graphic3d_StereoMode", "This enumeration d
 py::enum_<Graphic3d_ToneMappingMethod>(mod, "Graphic3d_ToneMappingMethod", "Enumerates tone mapping methods.")
 	.value("Graphic3d_ToneMappingMethod_Disabled", Graphic3d_ToneMappingMethod::Graphic3d_ToneMappingMethod_Disabled)
 	.value("Graphic3d_ToneMappingMethod_Filmic", Graphic3d_ToneMappingMethod::Graphic3d_ToneMappingMethod_Filmic)
-	.export_values();
-
-
-// ENUM: GRAPHIC3D_TYPEOFSTRUCTURE
-py::enum_<Graphic3d_TypeOfStructure>(mod, "Graphic3d_TypeOfStructure", "Structural attribute indicating if it can be displayed in wireframe, shadow mode, or both.")
-	.value("Graphic3d_TOS_WIREFRAME", Graphic3d_TypeOfStructure::Graphic3d_TOS_WIREFRAME)
-	.value("Graphic3d_TOS_SHADING", Graphic3d_TypeOfStructure::Graphic3d_TOS_SHADING)
-	.value("Graphic3d_TOS_COMPUTED", Graphic3d_TypeOfStructure::Graphic3d_TOS_COMPUTED)
-	.value("Graphic3d_TOS_ALL", Graphic3d_TypeOfStructure::Graphic3d_TOS_ALL)
-	.export_values();
-
-
-// ENUM: GRAPHIC3D_TYPEOFCONNECTION
-py::enum_<Graphic3d_TypeOfConnection>(mod, "Graphic3d_TypeOfConnection", "To manage the connections between the structures.")
-	.value("Graphic3d_TOC_ANCESTOR", Graphic3d_TypeOfConnection::Graphic3d_TOC_ANCESTOR)
-	.value("Graphic3d_TOC_DESCENDANT", Graphic3d_TypeOfConnection::Graphic3d_TOC_DESCENDANT)
-	.export_values();
-
-
-// ENUM: GRAPHIC3D_SORTTYPE
-py::enum_<Graphic3d_SortType>(mod, "Graphic3d_SortType", "None")
-	.value("Graphic3d_ST_Simple", Graphic3d_SortType::Graphic3d_ST_Simple)
-	.value("Graphic3d_ST_BSP_Tree", Graphic3d_SortType::Graphic3d_ST_BSP_Tree)
 	.export_values();
 
 
@@ -653,19 +693,55 @@ py::enum_<Graphic3d_NameOfTexture2D>(mod, "Graphic3d_NameOfTexture2D", "Types of
 	.export_values();
 
 
+// ENUM: GRAPHIC3D_FRAMESTATSCOUNTER
+py::enum_<Graphic3d_FrameStatsCounter>(mod, "Graphic3d_FrameStatsCounter", "Stats counter.")
+	.value("Graphic3d_FrameStatsCounter_NbLayers", Graphic3d_FrameStatsCounter::Graphic3d_FrameStatsCounter_NbLayers)
+	.value("Graphic3d_FrameStatsCounter_NbLayersNotCulled", Graphic3d_FrameStatsCounter::Graphic3d_FrameStatsCounter_NbLayersNotCulled)
+	.value("Graphic3d_FrameStatsCounter_NbStructs", Graphic3d_FrameStatsCounter::Graphic3d_FrameStatsCounter_NbStructs)
+	.value("Graphic3d_FrameStatsCounter_NbStructsNotCulled", Graphic3d_FrameStatsCounter::Graphic3d_FrameStatsCounter_NbStructsNotCulled)
+	.value("Graphic3d_FrameStatsCounter_NbGroupsNotCulled", Graphic3d_FrameStatsCounter::Graphic3d_FrameStatsCounter_NbGroupsNotCulled)
+	.value("Graphic3d_FrameStatsCounter_NbElemsNotCulled", Graphic3d_FrameStatsCounter::Graphic3d_FrameStatsCounter_NbElemsNotCulled)
+	.value("Graphic3d_FrameStatsCounter_NbElemsFillNotCulled", Graphic3d_FrameStatsCounter::Graphic3d_FrameStatsCounter_NbElemsFillNotCulled)
+	.value("Graphic3d_FrameStatsCounter_NbElemsLineNotCulled", Graphic3d_FrameStatsCounter::Graphic3d_FrameStatsCounter_NbElemsLineNotCulled)
+	.value("Graphic3d_FrameStatsCounter_NbElemsPointNotCulled", Graphic3d_FrameStatsCounter::Graphic3d_FrameStatsCounter_NbElemsPointNotCulled)
+	.value("Graphic3d_FrameStatsCounter_NbElemsTextNotCulled", Graphic3d_FrameStatsCounter::Graphic3d_FrameStatsCounter_NbElemsTextNotCulled)
+	.value("Graphic3d_FrameStatsCounter_NbTrianglesNotCulled", Graphic3d_FrameStatsCounter::Graphic3d_FrameStatsCounter_NbTrianglesNotCulled)
+	.value("Graphic3d_FrameStatsCounter_NbPointsNotCulled", Graphic3d_FrameStatsCounter::Graphic3d_FrameStatsCounter_NbPointsNotCulled)
+	.value("Graphic3d_FrameStatsCounter_EstimatedBytesGeom", Graphic3d_FrameStatsCounter::Graphic3d_FrameStatsCounter_EstimatedBytesGeom)
+	.value("Graphic3d_FrameStatsCounter_EstimatedBytesFbos", Graphic3d_FrameStatsCounter::Graphic3d_FrameStatsCounter_EstimatedBytesFbos)
+	.value("Graphic3d_FrameStatsCounter_EstimatedBytesTextures", Graphic3d_FrameStatsCounter::Graphic3d_FrameStatsCounter_EstimatedBytesTextures)
+	.export_values();
+
+
+// ENUM: GRAPHIC3D_FRAMESTATSTIMER
+py::enum_<Graphic3d_FrameStatsTimer>(mod, "Graphic3d_FrameStatsTimer", "Timers for collecting frame performance statistics.")
+	.value("Graphic3d_FrameStatsTimer_ElapsedFrame", Graphic3d_FrameStatsTimer::Graphic3d_FrameStatsTimer_ElapsedFrame)
+	.value("Graphic3d_FrameStatsTimer_CpuFrame", Graphic3d_FrameStatsTimer::Graphic3d_FrameStatsTimer_CpuFrame)
+	.value("Graphic3d_FrameStatsTimer_CpuCulling", Graphic3d_FrameStatsTimer::Graphic3d_FrameStatsTimer_CpuCulling)
+	.value("Graphic3d_FrameStatsTimer_CpuPicking", Graphic3d_FrameStatsTimer::Graphic3d_FrameStatsTimer_CpuPicking)
+	.value("Graphic3d_FrameStatsTimer_CpuDynamics", Graphic3d_FrameStatsTimer::Graphic3d_FrameStatsTimer_CpuDynamics)
+	.export_values();
+
+
 // ENUM: GRAPHIC3D_TYPEOFLIMIT
 py::enum_<Graphic3d_TypeOfLimit>(mod, "Graphic3d_TypeOfLimit", "Type of graphic resource limit.")
 	.value("Graphic3d_TypeOfLimit_MaxNbLights", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_MaxNbLights)
 	.value("Graphic3d_TypeOfLimit_MaxNbClipPlanes", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_MaxNbClipPlanes)
 	.value("Graphic3d_TypeOfLimit_MaxNbViews", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_MaxNbViews)
 	.value("Graphic3d_TypeOfLimit_MaxTextureSize", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_MaxTextureSize)
+	.value("Graphic3d_TypeOfLimit_MaxViewDumpSizeX", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_MaxViewDumpSizeX)
+	.value("Graphic3d_TypeOfLimit_MaxViewDumpSizeY", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_MaxViewDumpSizeY)
 	.value("Graphic3d_TypeOfLimit_MaxCombinedTextureUnits", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_MaxCombinedTextureUnits)
 	.value("Graphic3d_TypeOfLimit_MaxMsaa", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_MaxMsaa)
 	.value("Graphic3d_TypeOfLimit_HasRayTracing", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_HasRayTracing)
 	.value("Graphic3d_TypeOfLimit_HasRayTracingTextures", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_HasRayTracingTextures)
 	.value("Graphic3d_TypeOfLimit_HasRayTracingAdaptiveSampling", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_HasRayTracingAdaptiveSampling)
+	.value("Graphic3d_TypeOfLimit_HasRayTracingAdaptiveSamplingAtomic", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_HasRayTracingAdaptiveSamplingAtomic)
 	.value("Graphic3d_TypeOfLimit_HasBlendedOit", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_HasBlendedOit)
 	.value("Graphic3d_TypeOfLimit_HasBlendedOitMsaa", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_HasBlendedOitMsaa)
+	.value("Graphic3d_TypeOfLimit_HasFlatShading", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_HasFlatShading)
+	.value("Graphic3d_TypeOfLimit_HasMeshEdges", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_HasMeshEdges)
+	.value("Graphic3d_TypeOfLimit_IsWorkaroundFBO", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_IsWorkaroundFBO)
 	.value("Graphic3d_TypeOfLimit_NB", Graphic3d_TypeOfLimit::Graphic3d_TypeOfLimit_NB)
 	.export_values();
 
@@ -691,8 +767,28 @@ py::enum_<Graphic3d_TypeOfBackground>(mod, "Graphic3d_TypeOfBackground", "Descri
 	.value("Graphic3d_TOB_NONE", Graphic3d_TypeOfBackground::Graphic3d_TOB_NONE)
 	.value("Graphic3d_TOB_GRADIENT", Graphic3d_TypeOfBackground::Graphic3d_TOB_GRADIENT)
 	.value("Graphic3d_TOB_TEXTURE", Graphic3d_TypeOfBackground::Graphic3d_TOB_TEXTURE)
+	.value("Graphic3d_TOB_CUBEMAP", Graphic3d_TypeOfBackground::Graphic3d_TOB_CUBEMAP)
 	.export_values();
 
+
+// CLASS: GRAPHIC3D_MARKERIMAGE
+py::class_<Graphic3d_MarkerImage, opencascade::handle<Graphic3d_MarkerImage>, Standard_Transient> cls_Graphic3d_MarkerImage(mod, "Graphic3d_MarkerImage", "This class is used to store bitmaps and images for markers rendering. It can convert bitmap texture stored in TColStd_HArray1OfByte to Image_PixMap and vice versa.");
+
+// Constructors
+cls_Graphic3d_MarkerImage.def(py::init<const opencascade::handle<Image_PixMap> &>(), py::arg("theImage"));
+cls_Graphic3d_MarkerImage.def(py::init<const opencascade::handle<TColStd_HArray1OfByte> &, const Standard_Integer &, const Standard_Integer &>(), py::arg("theBitMap"), py::arg("theWidth"), py::arg("theHeight"));
+
+// Methods
+cls_Graphic3d_MarkerImage.def("GetBitMapArray", [](Graphic3d_MarkerImage &self) -> opencascade::handle<TColStd_HArray1OfByte> { return self.GetBitMapArray(); });
+cls_Graphic3d_MarkerImage.def("GetBitMapArray", (opencascade::handle<TColStd_HArray1OfByte> (Graphic3d_MarkerImage::*)(const Standard_Real &) const) &Graphic3d_MarkerImage::GetBitMapArray, "Returns marker image as array of bytes. If an instance of the class has been initialized with image, it will be converted to bitmap based on the parameter theAlphaValue.", py::arg("theAlphaValue"));
+cls_Graphic3d_MarkerImage.def("GetImage", (const opencascade::handle<Image_PixMap> & (Graphic3d_MarkerImage::*)()) &Graphic3d_MarkerImage::GetImage, "Returns marker image. If an instance of the class has been initialized with a bitmap, it will be converted to image.");
+cls_Graphic3d_MarkerImage.def("GetImageAlpha", (const opencascade::handle<Image_PixMap> & (Graphic3d_MarkerImage::*)()) &Graphic3d_MarkerImage::GetImageAlpha, "Returns image alpha as grayscale image. Note that if an instance of the class has been initialized with a bitmap or with grayscale image this method will return exactly the same image as GetImage()");
+cls_Graphic3d_MarkerImage.def("GetImageId", (const TCollection_AsciiString & (Graphic3d_MarkerImage::*)() const) &Graphic3d_MarkerImage::GetImageId, "Returns an unique ID. This ID will be used to manage resource in graphic driver.");
+cls_Graphic3d_MarkerImage.def("GetImageAlphaId", (const TCollection_AsciiString & (Graphic3d_MarkerImage::*)() const) &Graphic3d_MarkerImage::GetImageAlphaId, "Returns an unique ID. This ID will be used to manage resource in graphic driver.");
+cls_Graphic3d_MarkerImage.def("GetTextureSize", [](Graphic3d_MarkerImage &self, Standard_Integer & theWidth, Standard_Integer & theHeight){ self.GetTextureSize(theWidth, theHeight); return std::tuple<Standard_Integer &, Standard_Integer &>(theWidth, theHeight); }, "Returns texture size", py::arg("theWidth"), py::arg("theHeight"));
+cls_Graphic3d_MarkerImage.def_static("get_type_name_", (const char * (*)()) &Graphic3d_MarkerImage::get_type_name, "None");
+cls_Graphic3d_MarkerImage.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_MarkerImage::get_type_descriptor, "None");
+cls_Graphic3d_MarkerImage.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_MarkerImage::*)() const) &Graphic3d_MarkerImage::DynamicType, "None");
 
 // CLASS: GRAPHIC3D_HATCHSTYLE
 py::class_<Graphic3d_HatchStyle, opencascade::handle<Graphic3d_HatchStyle>, Standard_Transient> cls_Graphic3d_HatchStyle(mod, "Graphic3d_HatchStyle", "A class that provides an API to use standard OCCT hatch styles defined in Aspect_HatchStyle enum or to create custom styles from a user-defined bitmap");
@@ -801,6 +897,7 @@ cls_Graphic3d_MaterialAspect.def(py::init<const Graphic3d_NameOfMaterial>(), py:
 cls_Graphic3d_MaterialAspect.def_static("NumberOfMaterials_", (Standard_Integer (*)()) &Graphic3d_MaterialAspect::NumberOfMaterials, "Returns the number of predefined textures.");
 cls_Graphic3d_MaterialAspect.def_static("MaterialName_", (Standard_CString (*)(const Standard_Integer)) &Graphic3d_MaterialAspect::MaterialName, "Returns the name of the predefined material of specified rank within range [1, NumberOfMaterials()].", py::arg("theRank"));
 cls_Graphic3d_MaterialAspect.def_static("MaterialType_", (Graphic3d_TypeOfMaterial (*)(const Standard_Integer)) &Graphic3d_MaterialAspect::MaterialType, "Returns the type of the predefined material of specified rank within range [1, NumberOfMaterials()].", py::arg("theRank"));
+cls_Graphic3d_MaterialAspect.def_static("MaterialFromName_", (Standard_Boolean (*)(const Standard_CString, Graphic3d_NameOfMaterial &)) &Graphic3d_MaterialAspect::MaterialFromName, "Finds the material for specified name.", py::arg("theName"), py::arg("theMat"));
 cls_Graphic3d_MaterialAspect.def_static("MaterialFromName_", (Graphic3d_NameOfMaterial (*)(const Standard_CString)) &Graphic3d_MaterialAspect::MaterialFromName, "Returns the material for specified name or Graphic3d_NOM_DEFAULT if name is unknown.", py::arg("theName"));
 cls_Graphic3d_MaterialAspect.def("Name", (Graphic3d_NameOfMaterial (Graphic3d_MaterialAspect::*)() const) &Graphic3d_MaterialAspect::Name, "Returns the material name (within predefined enumeration).");
 cls_Graphic3d_MaterialAspect.def("RequestedName", (Graphic3d_NameOfMaterial (Graphic3d_MaterialAspect::*)() const) &Graphic3d_MaterialAspect::RequestedName, "Returns the material name within predefined enumeration which has been requested (before modifications).");
@@ -808,8 +905,8 @@ cls_Graphic3d_MaterialAspect.def("StringName", (const TCollection_AsciiString & 
 cls_Graphic3d_MaterialAspect.def("MaterialName", (Standard_CString (Graphic3d_MaterialAspect::*)() const) &Graphic3d_MaterialAspect::MaterialName, "Returns the given name of this material. This might be:");
 cls_Graphic3d_MaterialAspect.def("SetMaterialName", (void (Graphic3d_MaterialAspect::*)(const TCollection_AsciiString &)) &Graphic3d_MaterialAspect::SetMaterialName, "The current material become a 'UserDefined' material. Set the name of the 'UserDefined' material.", py::arg("theName"));
 cls_Graphic3d_MaterialAspect.def("Reset", (void (Graphic3d_MaterialAspect::*)()) &Graphic3d_MaterialAspect::Reset, "Resets the material with the original values according to the material name but leave the current color values untouched for the material of type ASPECT.");
-cls_Graphic3d_MaterialAspect.def("Color", (const Quantity_Color & (Graphic3d_MaterialAspect::*)() const) &Graphic3d_MaterialAspect::Color, "Returns the diffuse color of the surface.");
-cls_Graphic3d_MaterialAspect.def("SetColor", (void (Graphic3d_MaterialAspect::*)(const Quantity_Color &)) &Graphic3d_MaterialAspect::SetColor, "Modifies the ambient and diffuse color of the surface.", py::arg("theColor"));
+cls_Graphic3d_MaterialAspect.def("Color", (const Quantity_Color & (Graphic3d_MaterialAspect::*)() const) &Graphic3d_MaterialAspect::Color, "Returns the diffuse color of the surface. WARNING! This method does NOT return color for Graphic3d_MATERIAL_ASPECT material (color is defined by Graphic3d_Aspects::InteriorColor()).");
+cls_Graphic3d_MaterialAspect.def("SetColor", (void (Graphic3d_MaterialAspect::*)(const Quantity_Color &)) &Graphic3d_MaterialAspect::SetColor, "Modifies the ambient and diffuse color of the surface. WARNING! Has no effect for Graphic3d_MATERIAL_ASPECT material (color should be set to Graphic3d_Aspects::SetInteriorColor()).", py::arg("theColor"));
 cls_Graphic3d_MaterialAspect.def("Transparency", (Standard_ShortReal (Graphic3d_MaterialAspect::*)() const) &Graphic3d_MaterialAspect::Transparency, "Returns the transparency coefficient of the surface (1.0 - Alpha); 0.0 means opaque.");
 cls_Graphic3d_MaterialAspect.def("Alpha", (Standard_ShortReal (Graphic3d_MaterialAspect::*)() const) &Graphic3d_MaterialAspect::Alpha, "Returns the alpha coefficient of the surface (1.0 - Transparency); 1.0 means opaque.");
 cls_Graphic3d_MaterialAspect.def("SetTransparency", (void (Graphic3d_MaterialAspect::*)(const Standard_ShortReal)) &Graphic3d_MaterialAspect::SetTransparency, "Modifies the transparency coefficient of the surface, where 0 is opaque and 1 is fully transparent. Transparency is applicable to materials that have at least one of reflection modes (ambient, diffuse, specular or emissive) enabled. See also SetReflectionModeOn() and SetReflectionModeOff() methods.", py::arg("theValue"));
@@ -822,14 +919,6 @@ cls_Graphic3d_MaterialAspect.def("SpecularColor", (const Quantity_Color & (Graph
 cls_Graphic3d_MaterialAspect.def("SetSpecularColor", (void (Graphic3d_MaterialAspect::*)(const Quantity_Color &)) &Graphic3d_MaterialAspect::SetSpecularColor, "Modifies the specular color of the surface.", py::arg("theColor"));
 cls_Graphic3d_MaterialAspect.def("EmissiveColor", (const Quantity_Color & (Graphic3d_MaterialAspect::*)() const) &Graphic3d_MaterialAspect::EmissiveColor, "Returns the emissive color of the surface.");
 cls_Graphic3d_MaterialAspect.def("SetEmissiveColor", (void (Graphic3d_MaterialAspect::*)(const Quantity_Color &)) &Graphic3d_MaterialAspect::SetEmissiveColor, "Modifies the emissive color of the surface.", py::arg("theColor"));
-cls_Graphic3d_MaterialAspect.def("Ambient", (Standard_ShortReal (Graphic3d_MaterialAspect::*)() const) &Graphic3d_MaterialAspect::Ambient, "Returns the reflection properties of the surface.");
-cls_Graphic3d_MaterialAspect.def("SetAmbient", (void (Graphic3d_MaterialAspect::*)(const Standard_ShortReal)) &Graphic3d_MaterialAspect::SetAmbient, "Modifies the reflection properties of the surface. Warning: Raises MaterialDefinitionError if given value is a negative value or greater than 1.0.", py::arg("theValue"));
-cls_Graphic3d_MaterialAspect.def("Diffuse", (Standard_ShortReal (Graphic3d_MaterialAspect::*)() const) &Graphic3d_MaterialAspect::Diffuse, "Returns the reflection properties of the surface.");
-cls_Graphic3d_MaterialAspect.def("SetDiffuse", (void (Graphic3d_MaterialAspect::*)(const Standard_ShortReal)) &Graphic3d_MaterialAspect::SetDiffuse, "Modifies the reflection properties of the surface. Warning: Raises MaterialDefinitionError if given value is a negative value or greater than 1.0.", py::arg("theValue"));
-cls_Graphic3d_MaterialAspect.def("Specular", (Standard_ShortReal (Graphic3d_MaterialAspect::*)() const) &Graphic3d_MaterialAspect::Specular, "Returns the reflection properties of the surface.");
-cls_Graphic3d_MaterialAspect.def("SetSpecular", (void (Graphic3d_MaterialAspect::*)(const Standard_ShortReal)) &Graphic3d_MaterialAspect::SetSpecular, "Modifies the reflection properties of the surface. Warning: Raises MaterialDefinitionError if given value is a negative value or greater than 1.0.", py::arg("theValue"));
-cls_Graphic3d_MaterialAspect.def("Emissive", (Standard_ShortReal (Graphic3d_MaterialAspect::*)() const) &Graphic3d_MaterialAspect::Emissive, "Returns the emissive coefficient of the surface.");
-cls_Graphic3d_MaterialAspect.def("SetEmissive", (void (Graphic3d_MaterialAspect::*)(const Standard_ShortReal)) &Graphic3d_MaterialAspect::SetEmissive, "Modifies the reflection properties of the surface. Warning: Raises MaterialDefinitionError if given value is a negative value or greater than 1.0.", py::arg("theValue"));
 cls_Graphic3d_MaterialAspect.def("Shininess", (Standard_ShortReal (Graphic3d_MaterialAspect::*)() const) &Graphic3d_MaterialAspect::Shininess, "Returns the luminosity of the surface.");
 cls_Graphic3d_MaterialAspect.def("SetShininess", (void (Graphic3d_MaterialAspect::*)(const Standard_ShortReal)) &Graphic3d_MaterialAspect::SetShininess, "Modifies the luminosity of the surface. Warning: Raises MaterialDefinitionError if given value is a negative value or greater than 1.0.", py::arg("theValue"));
 cls_Graphic3d_MaterialAspect.def("IncreaseShine", (void (Graphic3d_MaterialAspect::*)(const Standard_ShortReal)) &Graphic3d_MaterialAspect::IncreaseShine, "Increases or decreases the luminosity.", py::arg("theDelta"));
@@ -838,15 +927,14 @@ cls_Graphic3d_MaterialAspect.def("SetRefractionIndex", (void (Graphic3d_Material
 cls_Graphic3d_MaterialAspect.def("BSDF", (const Graphic3d_BSDF & (Graphic3d_MaterialAspect::*)() const) &Graphic3d_MaterialAspect::BSDF, "Returns BSDF (bidirectional scattering distribution function).");
 cls_Graphic3d_MaterialAspect.def("SetBSDF", (void (Graphic3d_MaterialAspect::*)(const Graphic3d_BSDF &)) &Graphic3d_MaterialAspect::SetBSDF, "Modifies the BSDF (bidirectional scattering distribution function).", py::arg("theBSDF"));
 cls_Graphic3d_MaterialAspect.def("ReflectionMode", (Standard_Boolean (Graphic3d_MaterialAspect::*)(const Graphic3d_TypeOfReflection) const) &Graphic3d_MaterialAspect::ReflectionMode, "Returns TRUE if the reflection mode is active, FALSE otherwise.", py::arg("theType"));
-cls_Graphic3d_MaterialAspect.def("SetReflectionMode", (void (Graphic3d_MaterialAspect::*)(const Graphic3d_TypeOfReflection, const Standard_Boolean)) &Graphic3d_MaterialAspect::SetReflectionMode, "Activates or deactivates the reflective properties of the surface with specified reflection type.", py::arg("theType"), py::arg("theValue"));
-cls_Graphic3d_MaterialAspect.def("SetReflectionModeOn", (void (Graphic3d_MaterialAspect::*)(const Graphic3d_TypeOfReflection)) &Graphic3d_MaterialAspect::SetReflectionModeOn, "Activates the reflective properties of the surface with specified reflection type.", py::arg("theType"));
-cls_Graphic3d_MaterialAspect.def("SetReflectionModeOff", (void (Graphic3d_MaterialAspect::*)(const Graphic3d_TypeOfReflection)) &Graphic3d_MaterialAspect::SetReflectionModeOff, "Deactivates the reflective properties of the surface with specified reflection type.", py::arg("theType"));
+cls_Graphic3d_MaterialAspect.def("MaterialType", (Graphic3d_TypeOfMaterial (Graphic3d_MaterialAspect::*)() const) &Graphic3d_MaterialAspect::MaterialType, "Returns material type.");
 cls_Graphic3d_MaterialAspect.def("MaterialType", (Standard_Boolean (Graphic3d_MaterialAspect::*)(const Graphic3d_TypeOfMaterial) const) &Graphic3d_MaterialAspect::MaterialType, "Returns TRUE if type of this material is equal to specified type.", py::arg("theType"));
 cls_Graphic3d_MaterialAspect.def("SetMaterialType", (void (Graphic3d_MaterialAspect::*)(const Graphic3d_TypeOfMaterial)) &Graphic3d_MaterialAspect::SetMaterialType, "Set material type.", py::arg("theType"));
 cls_Graphic3d_MaterialAspect.def("IsDifferent", (Standard_Boolean (Graphic3d_MaterialAspect::*)(const Graphic3d_MaterialAspect &) const) &Graphic3d_MaterialAspect::IsDifferent, "Returns TRUE if this material differs from specified one.", py::arg("theOther"));
 cls_Graphic3d_MaterialAspect.def("__ne__", (Standard_Boolean (Graphic3d_MaterialAspect::*)(const Graphic3d_MaterialAspect &) const) &Graphic3d_MaterialAspect::operator!=, py::is_operator(), "Returns TRUE if this material differs from specified one.", py::arg("theOther"));
 cls_Graphic3d_MaterialAspect.def("IsEqual", (Standard_Boolean (Graphic3d_MaterialAspect::*)(const Graphic3d_MaterialAspect &) const) &Graphic3d_MaterialAspect::IsEqual, "Returns TRUE if this material is identical to specified one.", py::arg("theOther"));
 cls_Graphic3d_MaterialAspect.def("__eq__", (Standard_Boolean (Graphic3d_MaterialAspect::*)(const Graphic3d_MaterialAspect &) const) &Graphic3d_MaterialAspect::operator==, py::is_operator(), "Returns TRUE if this material is identical to specified one.", py::arg("theOther"));
+cls_Graphic3d_MaterialAspect.def("SetReflectionModeOff", (void (Graphic3d_MaterialAspect::*)(const Graphic3d_TypeOfReflection)) &Graphic3d_MaterialAspect::SetReflectionModeOff, "Deactivates the reflective properties of the surface with specified reflection type.", py::arg("theType"));
 
 // CLASS: GRAPHIC3D_POLYGONOFFSET
 py::class_<Graphic3d_PolygonOffset> cls_Graphic3d_PolygonOffset(mod, "Graphic3d_PolygonOffset", "Polygon offset parameters.");
@@ -858,6 +946,11 @@ cls_Graphic3d_PolygonOffset.def(py::init<>());
 cls_Graphic3d_PolygonOffset.def_readwrite("Mode", &Graphic3d_PolygonOffset::Mode, "None");
 cls_Graphic3d_PolygonOffset.def_readwrite("Factor", &Graphic3d_PolygonOffset::Factor, "None");
 cls_Graphic3d_PolygonOffset.def_readwrite("Units", &Graphic3d_PolygonOffset::Units, "None");
+
+// Methods
+cls_Graphic3d_PolygonOffset.def("__eq__", (bool (Graphic3d_PolygonOffset::*)(const Graphic3d_PolygonOffset &) const) &Graphic3d_PolygonOffset::operator==, py::is_operator(), "Equality comparison.", py::arg("theOther"));
+cls_Graphic3d_PolygonOffset.def("DumpJson", [](Graphic3d_PolygonOffset &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Graphic3d_PolygonOffset.def("DumpJson", (void (Graphic3d_PolygonOffset::*)(Standard_OStream &, const Standard_Integer) const) &Graphic3d_PolygonOffset::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // CLASS: GRAPHIC3D_SHADERATTRIBUTE
 py::class_<Graphic3d_ShaderAttribute, opencascade::handle<Graphic3d_ShaderAttribute>, Standard_Transient> cls_Graphic3d_ShaderAttribute(mod, "Graphic3d_ShaderAttribute", "Describes custom vertex shader attribute.");
@@ -1005,6 +1098,7 @@ cls_Graphic3d_ShaderProgram.def_static("get_type_descriptor_", (const opencascad
 cls_Graphic3d_ShaderProgram.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_ShaderProgram::*)() const) &Graphic3d_ShaderProgram::DynamicType, "None");
 cls_Graphic3d_ShaderProgram.def("IsDone", (Standard_Boolean (Graphic3d_ShaderProgram::*)() const) &Graphic3d_ShaderProgram::IsDone, "Checks if the program object is valid or not.");
 cls_Graphic3d_ShaderProgram.def("GetId", (const TCollection_AsciiString & (Graphic3d_ShaderProgram::*)() const) &Graphic3d_ShaderProgram::GetId, "Returns unique ID used to manage resource in graphic driver.");
+cls_Graphic3d_ShaderProgram.def("SetId", (void (Graphic3d_ShaderProgram::*)(const TCollection_AsciiString &)) &Graphic3d_ShaderProgram::SetId, "Sets unique ID used to manage resource in graphic driver. WARNING! Graphic3d_ShaderProgram constructor generates a unique id for proper resource management; however if application overrides it, it is responsibility of application to avoid name collisions.", py::arg("theId"));
 cls_Graphic3d_ShaderProgram.def("Header", (const TCollection_AsciiString & (Graphic3d_ShaderProgram::*)() const) &Graphic3d_ShaderProgram::Header, "Returns GLSL header (version code and extensions).");
 cls_Graphic3d_ShaderProgram.def("SetHeader", (void (Graphic3d_ShaderProgram::*)(const TCollection_AsciiString &)) &Graphic3d_ShaderProgram::SetHeader, "Setup GLSL header containing language version code and used extensions. Will be prepended to the very beginning of the source code. Example:", py::arg("theHeader"));
 cls_Graphic3d_ShaderProgram.def("AppendToHeader", (void (Graphic3d_ShaderProgram::*)(const TCollection_AsciiString &)) &Graphic3d_ShaderProgram::AppendToHeader, "Append line to GLSL header.", py::arg("theHeaderLine"));
@@ -1022,6 +1116,8 @@ cls_Graphic3d_ShaderProgram.def("NbFragmentOutputs", (Standard_Integer (Graphic3
 cls_Graphic3d_ShaderProgram.def("SetNbFragmentOutputs", (void (Graphic3d_ShaderProgram::*)(const Standard_Integer)) &Graphic3d_ShaderProgram::SetNbFragmentOutputs, "Sets the number of Fragment Shader outputs to be written to. Should be done before GLSL program initialization.", py::arg("theNbOutputs"));
 cls_Graphic3d_ShaderProgram.def("HasAlphaTest", (Standard_Boolean (Graphic3d_ShaderProgram::*)() const) &Graphic3d_ShaderProgram::HasAlphaTest, "Return true if Fragment Shader should perform alpha test; FALSE by default.");
 cls_Graphic3d_ShaderProgram.def("SetAlphaTest", (void (Graphic3d_ShaderProgram::*)(Standard_Boolean)) &Graphic3d_ShaderProgram::SetAlphaTest, "Set if Fragment Shader should perform alpha test. Note that this flag is designed for usage with - custom shader program may discard fragment regardless this flag.", py::arg("theAlphaTest"));
+cls_Graphic3d_ShaderProgram.def("HasDefaultSampler", (Standard_Boolean (Graphic3d_ShaderProgram::*)() const) &Graphic3d_ShaderProgram::HasDefaultSampler, "Return TRUE if standard program header should define default texture sampler occSampler0; TRUE by default for compatibility.");
+cls_Graphic3d_ShaderProgram.def("SetDefaultSampler", (void (Graphic3d_ShaderProgram::*)(Standard_Boolean)) &Graphic3d_ShaderProgram::SetDefaultSampler, "Set if standard program header should define default texture sampler occSampler0.", py::arg("theHasDefSampler"));
 cls_Graphic3d_ShaderProgram.def("HasWeightOitOutput", (Standard_Boolean (Graphic3d_ShaderProgram::*)() const) &Graphic3d_ShaderProgram::HasWeightOitOutput, "Return true if Fragment Shader color should output the weighted OIT coverage; FALSE by default.");
 cls_Graphic3d_ShaderProgram.def("SetWeightOitOutput", (void (Graphic3d_ShaderProgram::*)(Standard_Boolean)) &Graphic3d_ShaderProgram::SetWeightOitOutput, "Set if Fragment Shader color should output the weighted OIT coverage. Note that weighted OIT also requires at least 2 Fragment Outputs (color + coverage).", py::arg("theOutput"));
 cls_Graphic3d_ShaderProgram.def("ClearVariables", (void (Graphic3d_ShaderProgram::*)()) &Graphic3d_ShaderProgram::ClearVariables, "Removes all custom uniform variables from the program.");
@@ -1092,8 +1188,119 @@ cls_Graphic3d_TextureSet.def("SetFirst", (void (Graphic3d_TextureSet::*)(const o
 cls_Graphic3d_TextureSet.def("Value", (const opencascade::handle<Graphic3d_TextureMap> & (Graphic3d_TextureSet::*)(Standard_Integer) const) &Graphic3d_TextureSet::Value, "Return the texture at specified position within [0, Size()) range.", py::arg("theIndex"));
 cls_Graphic3d_TextureSet.def("SetValue", (void (Graphic3d_TextureSet::*)(Standard_Integer, const opencascade::handle<Graphic3d_TextureMap> &)) &Graphic3d_TextureSet::SetValue, "Return the texture at specified position within [0, Size()) range.", py::arg("theIndex"), py::arg("theTexture"));
 
+// CLASS: GRAPHIC3D_ASPECTS
+py::class_<Graphic3d_Aspects, opencascade::handle<Graphic3d_Aspects>, Standard_Transient> cls_Graphic3d_Aspects(mod, "Graphic3d_Aspects", "This class defines graphic attributes.");
+
+// Constructors
+cls_Graphic3d_Aspects.def(py::init<>());
+
+// Methods
+cls_Graphic3d_Aspects.def_static("get_type_name_", (const char * (*)()) &Graphic3d_Aspects::get_type_name, "None");
+cls_Graphic3d_Aspects.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_Aspects::get_type_descriptor, "None");
+cls_Graphic3d_Aspects.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::DynamicType, "None");
+cls_Graphic3d_Aspects.def("InteriorStyle", (Aspect_InteriorStyle (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::InteriorStyle, "Return interior rendering style; Aspect_IS_SOLID by default.");
+cls_Graphic3d_Aspects.def("SetInteriorStyle", (void (Graphic3d_Aspects::*)(const Aspect_InteriorStyle)) &Graphic3d_Aspects::SetInteriorStyle, "Modifies the interior type used for rendering", py::arg("theStyle"));
+cls_Graphic3d_Aspects.def("ShadingModel", (Graphic3d_TypeOfShadingModel (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::ShadingModel, "Returns shading model; Graphic3d_TOSM_DEFAULT by default. Graphic3d_TOSM_DEFAULT means that Shading Model set as default for entire Viewer will be used.");
+cls_Graphic3d_Aspects.def("SetShadingModel", (void (Graphic3d_Aspects::*)(const Graphic3d_TypeOfShadingModel)) &Graphic3d_Aspects::SetShadingModel, "Sets shading model", py::arg("theShadingModel"));
+cls_Graphic3d_Aspects.def("AlphaMode", (Graphic3d_AlphaMode (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::AlphaMode, "Returns the way how alpha value should be treated (Graphic3d_AlphaMode_BlendAuto by default, for backward compatibility).");
+cls_Graphic3d_Aspects.def("AlphaCutoff", (Standard_ShortReal (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::AlphaCutoff, "Returns alpha cutoff threshold, for discarding fragments within Graphic3d_AlphaMode_Mask mode (0.5 by default). If the alpha value is greater than or equal to this value then it is rendered as fully opaque, otherwise, it is rendered as fully transparent.");
+cls_Graphic3d_Aspects.def("SetAlphaMode", [](Graphic3d_Aspects &self, Graphic3d_AlphaMode a0) -> void { return self.SetAlphaMode(a0); });
+cls_Graphic3d_Aspects.def("SetAlphaMode", (void (Graphic3d_Aspects::*)(Graphic3d_AlphaMode, Standard_ShortReal)) &Graphic3d_Aspects::SetAlphaMode, "Defines the way how alpha value should be treated.", py::arg("theMode"), py::arg("theAlphaCutoff"));
+cls_Graphic3d_Aspects.def("ColorRGBA", (const Quantity_ColorRGBA & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::ColorRGBA, "Return color");
+cls_Graphic3d_Aspects.def("Color", (const Quantity_Color & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::Color, "Return the color.");
+cls_Graphic3d_Aspects.def("SetColor", (void (Graphic3d_Aspects::*)(const Quantity_Color &)) &Graphic3d_Aspects::SetColor, "Modifies the color.", py::arg("theColor"));
+cls_Graphic3d_Aspects.def("InteriorColor", (const Quantity_Color & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::InteriorColor, "Return interior color.");
+cls_Graphic3d_Aspects.def("InteriorColorRGBA", (const Quantity_ColorRGBA & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::InteriorColorRGBA, "Return interior color.");
+cls_Graphic3d_Aspects.def("SetInteriorColor", (void (Graphic3d_Aspects::*)(const Quantity_Color &)) &Graphic3d_Aspects::SetInteriorColor, "Modifies the color of the interior of the face", py::arg("theColor"));
+cls_Graphic3d_Aspects.def("SetInteriorColor", (void (Graphic3d_Aspects::*)(const Quantity_ColorRGBA &)) &Graphic3d_Aspects::SetInteriorColor, "Modifies the color of the interior of the face", py::arg("theColor"));
+cls_Graphic3d_Aspects.def("BackInteriorColor", (const Quantity_Color & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::BackInteriorColor, "Return back interior color.");
+cls_Graphic3d_Aspects.def("BackInteriorColorRGBA", (const Quantity_ColorRGBA & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::BackInteriorColorRGBA, "Return back interior color.");
+cls_Graphic3d_Aspects.def("SetBackInteriorColor", (void (Graphic3d_Aspects::*)(const Quantity_Color &)) &Graphic3d_Aspects::SetBackInteriorColor, "Modifies the color of the interior of the back face", py::arg("theColor"));
+cls_Graphic3d_Aspects.def("SetBackInteriorColor", (void (Graphic3d_Aspects::*)(const Quantity_ColorRGBA &)) &Graphic3d_Aspects::SetBackInteriorColor, "Modifies the color of the interior of the back face", py::arg("theColor"));
+cls_Graphic3d_Aspects.def("FrontMaterial", (const Graphic3d_MaterialAspect & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::FrontMaterial, "Returns the surface material of external faces");
+cls_Graphic3d_Aspects.def("ChangeFrontMaterial", (Graphic3d_MaterialAspect & (Graphic3d_Aspects::*)()) &Graphic3d_Aspects::ChangeFrontMaterial, "Returns the surface material of external faces");
+cls_Graphic3d_Aspects.def("SetFrontMaterial", (void (Graphic3d_Aspects::*)(const Graphic3d_MaterialAspect &)) &Graphic3d_Aspects::SetFrontMaterial, "Modifies the surface material of external faces", py::arg("theMaterial"));
+cls_Graphic3d_Aspects.def("BackMaterial", (const Graphic3d_MaterialAspect & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::BackMaterial, "Returns the surface material of internal faces");
+cls_Graphic3d_Aspects.def("ChangeBackMaterial", (Graphic3d_MaterialAspect & (Graphic3d_Aspects::*)()) &Graphic3d_Aspects::ChangeBackMaterial, "Returns the surface material of internal faces");
+cls_Graphic3d_Aspects.def("SetBackMaterial", (void (Graphic3d_Aspects::*)(const Graphic3d_MaterialAspect &)) &Graphic3d_Aspects::SetBackMaterial, "Modifies the surface material of internal faces", py::arg("theMaterial"));
+cls_Graphic3d_Aspects.def("ToSuppressBackFaces", (bool (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::ToSuppressBackFaces, "Returns true if back faces should be suppressed (true by default).");
+cls_Graphic3d_Aspects.def("SetSuppressBackFaces", (void (Graphic3d_Aspects::*)(bool)) &Graphic3d_Aspects::SetSuppressBackFaces, "Assign back faces culling flag.", py::arg("theToSuppress"));
+cls_Graphic3d_Aspects.def("BackFace", (bool (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::BackFace, "Returns true if back faces should be suppressed (true by default).");
+cls_Graphic3d_Aspects.def("AllowBackFace", (void (Graphic3d_Aspects::*)()) &Graphic3d_Aspects::AllowBackFace, "Allows the display of back-facing filled polygons.");
+cls_Graphic3d_Aspects.def("SuppressBackFace", (void (Graphic3d_Aspects::*)()) &Graphic3d_Aspects::SuppressBackFace, "Suppress the display of back-facing filled polygons. A back-facing polygon is defined as a polygon whose vertices are in a clockwise order with respect to screen coordinates.");
+cls_Graphic3d_Aspects.def("Distinguish", (bool (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::Distinguish, "Returns true if material properties should be distinguished for back and front faces (false by default).");
+cls_Graphic3d_Aspects.def("SetDistinguish", (void (Graphic3d_Aspects::*)(bool)) &Graphic3d_Aspects::SetDistinguish, "Set material distinction between front and back faces.", py::arg("toDistinguish"));
+cls_Graphic3d_Aspects.def("SetDistinguishOn", (void (Graphic3d_Aspects::*)()) &Graphic3d_Aspects::SetDistinguishOn, "Allows material distinction between front and back faces.");
+cls_Graphic3d_Aspects.def("SetDistinguishOff", (void (Graphic3d_Aspects::*)()) &Graphic3d_Aspects::SetDistinguishOff, "Forbids material distinction between front and back faces.");
+cls_Graphic3d_Aspects.def("ShaderProgram", (const opencascade::handle<Graphic3d_ShaderProgram> & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::ShaderProgram, "Return shader program.");
+cls_Graphic3d_Aspects.def("SetShaderProgram", (void (Graphic3d_Aspects::*)(const opencascade::handle<Graphic3d_ShaderProgram> &)) &Graphic3d_Aspects::SetShaderProgram, "Sets up OpenGL/GLSL shader program.", py::arg("theProgram"));
+cls_Graphic3d_Aspects.def("TextureSet", (const opencascade::handle<Graphic3d_TextureSet> & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::TextureSet, "Return texture array to be mapped.");
+cls_Graphic3d_Aspects.def("SetTextureSet", (void (Graphic3d_Aspects::*)(const opencascade::handle<Graphic3d_TextureSet> &)) &Graphic3d_Aspects::SetTextureSet, "Setup texture array to be mapped.", py::arg("theTextures"));
+cls_Graphic3d_Aspects.def("TextureMap", (opencascade::handle<Graphic3d_TextureMap> (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::TextureMap, "Return texture to be mapped.");
+cls_Graphic3d_Aspects.def("SetTextureMap", (void (Graphic3d_Aspects::*)(const opencascade::handle<Graphic3d_TextureMap> &)) &Graphic3d_Aspects::SetTextureMap, "Assign texture to be mapped. See also SetTextureMapOn() to actually activate texture mapping.", py::arg("theTexture"));
+cls_Graphic3d_Aspects.def("ToMapTexture", (bool (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::ToMapTexture, "Return true if texture mapping is enabled (false by default).");
+cls_Graphic3d_Aspects.def("TextureMapState", (bool (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::TextureMapState, "Return true if texture mapping is enabled (false by default).");
+cls_Graphic3d_Aspects.def("SetTextureMapOn", (void (Graphic3d_Aspects::*)(bool)) &Graphic3d_Aspects::SetTextureMapOn, "Enable or disable texture mapping (has no effect if texture is not set).", py::arg("theToMap"));
+cls_Graphic3d_Aspects.def("SetTextureMapOn", (void (Graphic3d_Aspects::*)()) &Graphic3d_Aspects::SetTextureMapOn, "Enable texture mapping (has no effect if texture is not set).");
+cls_Graphic3d_Aspects.def("SetTextureMapOff", (void (Graphic3d_Aspects::*)()) &Graphic3d_Aspects::SetTextureMapOff, "Disable texture mapping.");
+cls_Graphic3d_Aspects.def("PolygonOffset", (const Graphic3d_PolygonOffset & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::PolygonOffset, "Returns current polygon offsets settings.");
+cls_Graphic3d_Aspects.def("SetPolygonOffset", (void (Graphic3d_Aspects::*)(const Graphic3d_PolygonOffset &)) &Graphic3d_Aspects::SetPolygonOffset, "Sets polygon offsets settings.", py::arg("theOffset"));
+cls_Graphic3d_Aspects.def("PolygonOffsets", [](Graphic3d_Aspects &self, Standard_Integer & theMode, Standard_ShortReal & theFactor, Standard_ShortReal & theUnits){ self.PolygonOffsets(theMode, theFactor, theUnits); return theMode; }, "Returns current polygon offsets settings.", py::arg("theMode"), py::arg("theFactor"), py::arg("theUnits"));
+cls_Graphic3d_Aspects.def("SetPolygonOffsets", [](Graphic3d_Aspects &self, const Standard_Integer a0) -> void { return self.SetPolygonOffsets(a0); });
+cls_Graphic3d_Aspects.def("SetPolygonOffsets", [](Graphic3d_Aspects &self, const Standard_Integer a0, const Standard_ShortReal a1) -> void { return self.SetPolygonOffsets(a0, a1); });
+cls_Graphic3d_Aspects.def("SetPolygonOffsets", (void (Graphic3d_Aspects::*)(const Standard_Integer, const Standard_ShortReal, const Standard_ShortReal)) &Graphic3d_Aspects::SetPolygonOffsets, "Sets up OpenGL polygon offsets mechanism. <aMode> parameter can contain various combinations of Aspect_PolygonOffsetMode enumeration elements (Aspect_POM_None means that polygon offsets are not changed). If <aMode> is different from Aspect_POM_Off and Aspect_POM_None, then <aFactor> and <aUnits> arguments are used by graphic renderer to calculate a depth offset value:", py::arg("theMode"), py::arg("theFactor"), py::arg("theUnits"));
+cls_Graphic3d_Aspects.def("LineType", (Aspect_TypeOfLine (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::LineType, "Return line type; Aspect_TOL_SOLID by default.");
+cls_Graphic3d_Aspects.def("SetLineType", (void (Graphic3d_Aspects::*)(Aspect_TypeOfLine)) &Graphic3d_Aspects::SetLineType, "Modifies the line type", py::arg("theType"));
+cls_Graphic3d_Aspects.def("LineWidth", (Standard_ShortReal (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::LineWidth, "Return width for edges in pixels; 1.0 by default.");
+cls_Graphic3d_Aspects.def("SetLineWidth", (void (Graphic3d_Aspects::*)(Standard_ShortReal)) &Graphic3d_Aspects::SetLineWidth, "Modifies the line thickness Warning: Raises Standard_OutOfRange if the width is a negative value.", py::arg("theWidth"));
+cls_Graphic3d_Aspects.def("MarkerType", (Aspect_TypeOfMarker (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::MarkerType, "Return marker type; Aspect_TOM_POINT by default.");
+cls_Graphic3d_Aspects.def("SetMarkerType", (void (Graphic3d_Aspects::*)(Aspect_TypeOfMarker)) &Graphic3d_Aspects::SetMarkerType, "Modifies the type of marker.", py::arg("theType"));
+cls_Graphic3d_Aspects.def("MarkerScale", (Standard_ShortReal (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::MarkerScale, "Return marker scale factor; 1.0 by default.");
+cls_Graphic3d_Aspects.def("SetMarkerScale", (void (Graphic3d_Aspects::*)(const Standard_ShortReal)) &Graphic3d_Aspects::SetMarkerScale, "Modifies the scale factor. Marker type Aspect_TOM_POINT is not affected by the marker size scale factor. It is always the smallest displayable dot. Warning: Raises Standard_OutOfRange if the scale is a negative value.", py::arg("theScale"));
+cls_Graphic3d_Aspects.def("MarkerImage", (const opencascade::handle<Graphic3d_MarkerImage> & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::MarkerImage, "Returns marker's image texture. Could be null handle if marker aspect has been initialized as default type of marker.");
+cls_Graphic3d_Aspects.def("SetMarkerImage", (void (Graphic3d_Aspects::*)(const opencascade::handle<Graphic3d_MarkerImage> &)) &Graphic3d_Aspects::SetMarkerImage, "Set marker's image texture.", py::arg("theImage"));
+cls_Graphic3d_Aspects.def("IsMarkerSprite", (bool (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::IsMarkerSprite, "Returns TRUE if marker should be drawn using marker sprite (either user-provided or generated).");
+cls_Graphic3d_Aspects.def("TextFont", (const opencascade::handle<TCollection_HAsciiString> & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::TextFont, "Returns the font; NULL string by default.");
+cls_Graphic3d_Aspects.def("SetTextFont", (void (Graphic3d_Aspects::*)(const opencascade::handle<TCollection_HAsciiString> &)) &Graphic3d_Aspects::SetTextFont, "Modifies the font.", py::arg("theFont"));
+cls_Graphic3d_Aspects.def("TextFontAspect", (Font_FontAspect (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::TextFontAspect, "Returns text FontAspect");
+cls_Graphic3d_Aspects.def("SetTextFontAspect", (void (Graphic3d_Aspects::*)(Font_FontAspect)) &Graphic3d_Aspects::SetTextFontAspect, "Turns usage of Aspect text", py::arg("theFontAspect"));
+cls_Graphic3d_Aspects.def("TextDisplayType", (Aspect_TypeOfDisplayText (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::TextDisplayType, "Returns display type; Aspect_TODT_NORMAL by default.");
+cls_Graphic3d_Aspects.def("SetTextDisplayType", (void (Graphic3d_Aspects::*)(Aspect_TypeOfDisplayText)) &Graphic3d_Aspects::SetTextDisplayType, "Sets display type.", py::arg("theType"));
+cls_Graphic3d_Aspects.def("ColorSubTitleRGBA", (const Quantity_ColorRGBA & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::ColorSubTitleRGBA, "Returns text background/shadow color; equals to EdgeColor() property.");
+cls_Graphic3d_Aspects.def("ColorSubTitle", (const Quantity_Color & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::ColorSubTitle, "Return text background/shadow color; equals to EdgeColor() property.");
+cls_Graphic3d_Aspects.def("SetColorSubTitle", (void (Graphic3d_Aspects::*)(const Quantity_Color &)) &Graphic3d_Aspects::SetColorSubTitle, "Modifies text background/shadow color; equals to EdgeColor() property.", py::arg("theColor"));
+cls_Graphic3d_Aspects.def("SetColorSubTitle", (void (Graphic3d_Aspects::*)(const Quantity_ColorRGBA &)) &Graphic3d_Aspects::SetColorSubTitle, "Modifies text background/shadow color; equals to EdgeColor() property.", py::arg("theColor"));
+cls_Graphic3d_Aspects.def("IsTextZoomable", (bool (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::IsTextZoomable, "Returns TRUE when the Text Zoomable is on.");
+cls_Graphic3d_Aspects.def("SetTextZoomable", (void (Graphic3d_Aspects::*)(bool)) &Graphic3d_Aspects::SetTextZoomable, "Turns usage of text zoomable on/off", py::arg("theFlag"));
+cls_Graphic3d_Aspects.def("TextStyle", (Aspect_TypeOfStyleText (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::TextStyle, "Returns the text style; Aspect_TOST_NORMAL by default.");
+cls_Graphic3d_Aspects.def("SetTextStyle", (void (Graphic3d_Aspects::*)(Aspect_TypeOfStyleText)) &Graphic3d_Aspects::SetTextStyle, "Modifies the style of the text.", py::arg("theStyle"));
+cls_Graphic3d_Aspects.def("TextAngle", (Standard_ShortReal (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::TextAngle, "Returns Angle of degree");
+cls_Graphic3d_Aspects.def("SetTextAngle", (void (Graphic3d_Aspects::*)(Standard_ShortReal)) &Graphic3d_Aspects::SetTextAngle, "Turns usage of text rotated", py::arg("theAngle"));
+cls_Graphic3d_Aspects.def("ToDrawEdges", (bool (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::ToDrawEdges, "Returns true if mesh edges should be drawn (false by default).");
+cls_Graphic3d_Aspects.def("SetDrawEdges", (void (Graphic3d_Aspects::*)(bool)) &Graphic3d_Aspects::SetDrawEdges, "Set if mesh edges should be drawn or not.", py::arg("theToDraw"));
+cls_Graphic3d_Aspects.def("SetEdgeOn", (void (Graphic3d_Aspects::*)()) &Graphic3d_Aspects::SetEdgeOn, "The edges of FillAreas are drawn.");
+cls_Graphic3d_Aspects.def("SetEdgeOff", (void (Graphic3d_Aspects::*)()) &Graphic3d_Aspects::SetEdgeOff, "The edges of FillAreas are not drawn.");
+cls_Graphic3d_Aspects.def("EdgeColor", (const Quantity_Color & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::EdgeColor, "Return color of edges.");
+cls_Graphic3d_Aspects.def("EdgeColorRGBA", (const Quantity_ColorRGBA & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::EdgeColorRGBA, "Return color of edges.");
+cls_Graphic3d_Aspects.def("SetEdgeColor", (void (Graphic3d_Aspects::*)(const Quantity_Color &)) &Graphic3d_Aspects::SetEdgeColor, "Modifies the color of the edge of the face", py::arg("theColor"));
+cls_Graphic3d_Aspects.def("SetEdgeColor", (void (Graphic3d_Aspects::*)(const Quantity_ColorRGBA &)) &Graphic3d_Aspects::SetEdgeColor, "Modifies the color of the edge of the face", py::arg("theColor"));
+cls_Graphic3d_Aspects.def("EdgeLineType", (Aspect_TypeOfLine (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::EdgeLineType, "Return edges line type (same as LineType()).");
+cls_Graphic3d_Aspects.def("SetEdgeLineType", (void (Graphic3d_Aspects::*)(Aspect_TypeOfLine)) &Graphic3d_Aspects::SetEdgeLineType, "Modifies the edge line type (same as SetLineType())", py::arg("theType"));
+cls_Graphic3d_Aspects.def("EdgeWidth", (Standard_ShortReal (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::EdgeWidth, "Return width for edges in pixels (same as LineWidth()).");
+cls_Graphic3d_Aspects.def("SetEdgeWidth", (void (Graphic3d_Aspects::*)(Standard_Real)) &Graphic3d_Aspects::SetEdgeWidth, "Modifies the edge thickness (same as SetLineWidth())", py::arg("theWidth"));
+cls_Graphic3d_Aspects.def("ToSkipFirstEdge", (bool (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::ToSkipFirstEdge, "Returns TRUE if drawing element edges should discard first edge in triangle; FALSE by default. Graphics hardware works mostly with triangles, so that wireframe presentation will draw triangle edges by default. This flag allows rendering wireframe presentation of quad-only array split into triangles. For this, quads should be split in specific order, so that the quad diagonal (to be NOT rendered) goes first: 1------2 / / Triangle #1: 2-0-1; Triangle #2: 0-2-3 0------3");
+cls_Graphic3d_Aspects.def("SetSkipFirstEdge", (void (Graphic3d_Aspects::*)(bool)) &Graphic3d_Aspects::SetSkipFirstEdge, "Set skip first triangle edge flag for drawing wireframe presentation of quads array split into triangles.", py::arg("theToSkipFirstEdge"));
+cls_Graphic3d_Aspects.def("ToDrawSilhouette", (bool (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::ToDrawSilhouette, "Returns TRUE if silhouette (outline) should be drawn (with edge color and width); FALSE by default.");
+cls_Graphic3d_Aspects.def("SetDrawSilhouette", (void (Graphic3d_Aspects::*)(bool)) &Graphic3d_Aspects::SetDrawSilhouette, "Enables/disables drawing silhouette (outline).", py::arg("theToDraw"));
+cls_Graphic3d_Aspects.def("HatchStyle", (const opencascade::handle<Graphic3d_HatchStyle> & (Graphic3d_Aspects::*)() const) &Graphic3d_Aspects::HatchStyle, "Returns the hatch type used when InteriorStyle is IS_HATCH");
+cls_Graphic3d_Aspects.def("SetHatchStyle", (void (Graphic3d_Aspects::*)(const opencascade::handle<Graphic3d_HatchStyle> &)) &Graphic3d_Aspects::SetHatchStyle, "Modifies the hatch type used when InteriorStyle is IS_HATCH", py::arg("theStyle"));
+cls_Graphic3d_Aspects.def("SetHatchStyle", (void (Graphic3d_Aspects::*)(const Aspect_HatchStyle)) &Graphic3d_Aspects::SetHatchStyle, "Modifies the hatch type used when InteriorStyle is IS_HATCH", py::arg("theStyle"));
+cls_Graphic3d_Aspects.def("IsEqual", (bool (Graphic3d_Aspects::*)(const Graphic3d_Aspects &)) &Graphic3d_Aspects::IsEqual, "Check for equality with another aspects.", py::arg("theOther"));
+cls_Graphic3d_Aspects.def("DumpJson", [](Graphic3d_Aspects &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Graphic3d_Aspects.def("DumpJson", (void (Graphic3d_Aspects::*)(Standard_OStream &, const Standard_Integer) const) &Graphic3d_Aspects::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
+
 // CLASS: GRAPHIC3D_ASPECTFILLAREA3D
-py::class_<Graphic3d_AspectFillArea3d, opencascade::handle<Graphic3d_AspectFillArea3d>, Standard_Transient> cls_Graphic3d_AspectFillArea3d(mod, "Graphic3d_AspectFillArea3d", "This class defines graphic attributes for opaque 3d primitives (polygons, triangles, quadrilaterals).");
+py::class_<Graphic3d_AspectFillArea3d, opencascade::handle<Graphic3d_AspectFillArea3d>, Graphic3d_Aspects> cls_Graphic3d_AspectFillArea3d(mod, "Graphic3d_AspectFillArea3d", "This class defines graphic attributes for opaque 3d primitives (polygons, triangles, quadrilaterals).");
 
 // Constructors
 cls_Graphic3d_AspectFillArea3d.def(py::init<>());
@@ -1103,70 +1310,7 @@ cls_Graphic3d_AspectFillArea3d.def(py::init<const Aspect_InteriorStyle, const Qu
 cls_Graphic3d_AspectFillArea3d.def_static("get_type_name_", (const char * (*)()) &Graphic3d_AspectFillArea3d::get_type_name, "None");
 cls_Graphic3d_AspectFillArea3d.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_AspectFillArea3d::get_type_descriptor, "None");
 cls_Graphic3d_AspectFillArea3d.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::DynamicType, "None");
-cls_Graphic3d_AspectFillArea3d.def("InteriorStyle", (Aspect_InteriorStyle (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::InteriorStyle, "Return interior rendering style (Aspect_IS_EMPTY by default, which means nothing will be rendered!).");
-cls_Graphic3d_AspectFillArea3d.def("SetInteriorStyle", (void (Graphic3d_AspectFillArea3d::*)(const Aspect_InteriorStyle)) &Graphic3d_AspectFillArea3d::SetInteriorStyle, "Modifies the interior type used for rendering", py::arg("theStyle"));
-cls_Graphic3d_AspectFillArea3d.def("ShadingModel", (Graphic3d_TypeOfShadingModel (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::ShadingModel, "Returns shading model (Graphic3d_TOSM_DEFAULT by default, which means that Shading Model set as default for entire Viewer will be used)");
-cls_Graphic3d_AspectFillArea3d.def("SetShadingModel", (void (Graphic3d_AspectFillArea3d::*)(const Graphic3d_TypeOfShadingModel)) &Graphic3d_AspectFillArea3d::SetShadingModel, "Sets shading model", py::arg("theShadingModel"));
-cls_Graphic3d_AspectFillArea3d.def("AlphaMode", (Graphic3d_AlphaMode (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::AlphaMode, "Returns the way how alpha value should be treated (Graphic3d_AlphaMode_BlendAuto by default, for backward compatibility).");
-cls_Graphic3d_AspectFillArea3d.def("AlphaCutoff", (Standard_ShortReal (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::AlphaCutoff, "Returns alpha cutoff threshold, for discarding fragments within Graphic3d_AlphaMode_Mask mode (0.5 by default). If the alpha value is greater than or equal to this value then it is rendered as fully opaque, otherwise, it is rendered as fully transparent.");
-cls_Graphic3d_AspectFillArea3d.def("SetAlphaMode", [](Graphic3d_AspectFillArea3d &self, Graphic3d_AlphaMode a0) -> void { return self.SetAlphaMode(a0); });
-cls_Graphic3d_AspectFillArea3d.def("SetAlphaMode", (void (Graphic3d_AspectFillArea3d::*)(Graphic3d_AlphaMode, Standard_ShortReal)) &Graphic3d_AspectFillArea3d::SetAlphaMode, "Defines the way how alpha value should be treated.", py::arg("theMode"), py::arg("theAlphaCutoff"));
-cls_Graphic3d_AspectFillArea3d.def("InteriorColor", (const Quantity_Color & (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::InteriorColor, "Return interior color.");
-cls_Graphic3d_AspectFillArea3d.def("InteriorColorRGBA", (const Quantity_ColorRGBA & (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::InteriorColorRGBA, "Return interior color.");
-cls_Graphic3d_AspectFillArea3d.def("SetInteriorColor", (void (Graphic3d_AspectFillArea3d::*)(const Quantity_Color &)) &Graphic3d_AspectFillArea3d::SetInteriorColor, "Modifies the color of the interior of the face", py::arg("theColor"));
-cls_Graphic3d_AspectFillArea3d.def("SetInteriorColor", (void (Graphic3d_AspectFillArea3d::*)(const Quantity_ColorRGBA &)) &Graphic3d_AspectFillArea3d::SetInteriorColor, "Modifies the color of the interior of the face", py::arg("theColor"));
-cls_Graphic3d_AspectFillArea3d.def("BackInteriorColor", (const Quantity_Color & (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::BackInteriorColor, "Return back interior color.");
-cls_Graphic3d_AspectFillArea3d.def("BackInteriorColorRGBA", (const Quantity_ColorRGBA & (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::BackInteriorColorRGBA, "Return back interior color.");
-cls_Graphic3d_AspectFillArea3d.def("SetBackInteriorColor", (void (Graphic3d_AspectFillArea3d::*)(const Quantity_Color &)) &Graphic3d_AspectFillArea3d::SetBackInteriorColor, "Modifies the color of the interior of the back face", py::arg("theColor"));
-cls_Graphic3d_AspectFillArea3d.def("SetBackInteriorColor", (void (Graphic3d_AspectFillArea3d::*)(const Quantity_ColorRGBA &)) &Graphic3d_AspectFillArea3d::SetBackInteriorColor, "Modifies the color of the interior of the back face", py::arg("theColor"));
-cls_Graphic3d_AspectFillArea3d.def("FrontMaterial", (const Graphic3d_MaterialAspect & (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::FrontMaterial, "Returns the surface material of external faces");
-cls_Graphic3d_AspectFillArea3d.def("ChangeFrontMaterial", (Graphic3d_MaterialAspect & (Graphic3d_AspectFillArea3d::*)()) &Graphic3d_AspectFillArea3d::ChangeFrontMaterial, "Returns the surface material of external faces");
-cls_Graphic3d_AspectFillArea3d.def("SetFrontMaterial", (void (Graphic3d_AspectFillArea3d::*)(const Graphic3d_MaterialAspect &)) &Graphic3d_AspectFillArea3d::SetFrontMaterial, "Modifies the surface material of external faces", py::arg("theMaterial"));
-cls_Graphic3d_AspectFillArea3d.def("BackMaterial", (const Graphic3d_MaterialAspect & (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::BackMaterial, "Returns the surface material of internal faces");
-cls_Graphic3d_AspectFillArea3d.def("ChangeBackMaterial", (Graphic3d_MaterialAspect & (Graphic3d_AspectFillArea3d::*)()) &Graphic3d_AspectFillArea3d::ChangeBackMaterial, "Returns the surface material of internal faces");
-cls_Graphic3d_AspectFillArea3d.def("SetBackMaterial", (void (Graphic3d_AspectFillArea3d::*)(const Graphic3d_MaterialAspect &)) &Graphic3d_AspectFillArea3d::SetBackMaterial, "Modifies the surface material of internal faces", py::arg("theMaterial"));
-cls_Graphic3d_AspectFillArea3d.def("ToSuppressBackFaces", (bool (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::ToSuppressBackFaces, "Returns true if back faces should be suppressed (true by default).");
-cls_Graphic3d_AspectFillArea3d.def("SetSuppressBackFaces", (void (Graphic3d_AspectFillArea3d::*)(bool)) &Graphic3d_AspectFillArea3d::SetSuppressBackFaces, "Assign back faces culling flag.", py::arg("theToSuppress"));
-cls_Graphic3d_AspectFillArea3d.def("BackFace", (bool (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::BackFace, "Returns true if back faces should be suppressed (true by default).");
-cls_Graphic3d_AspectFillArea3d.def("AllowBackFace", (void (Graphic3d_AspectFillArea3d::*)()) &Graphic3d_AspectFillArea3d::AllowBackFace, "Allows the display of back-facing filled polygons.");
-cls_Graphic3d_AspectFillArea3d.def("SuppressBackFace", (void (Graphic3d_AspectFillArea3d::*)()) &Graphic3d_AspectFillArea3d::SuppressBackFace, "Suppress the display of back-facing filled polygons. A back-facing polygon is defined as a polygon whose vertices are in a clockwise order with respect to screen coordinates.");
-cls_Graphic3d_AspectFillArea3d.def("Distinguish", (bool (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::Distinguish, "Returns true if material properties should be distinguished for back and front faces (false by default).");
-cls_Graphic3d_AspectFillArea3d.def("SetDistinguish", (void (Graphic3d_AspectFillArea3d::*)(bool)) &Graphic3d_AspectFillArea3d::SetDistinguish, "Set material distinction between front and back faces.", py::arg("toDistinguish"));
-cls_Graphic3d_AspectFillArea3d.def("SetDistinguishOn", (void (Graphic3d_AspectFillArea3d::*)()) &Graphic3d_AspectFillArea3d::SetDistinguishOn, "Allows material distinction between front and back faces.");
-cls_Graphic3d_AspectFillArea3d.def("SetDistinguishOff", (void (Graphic3d_AspectFillArea3d::*)()) &Graphic3d_AspectFillArea3d::SetDistinguishOff, "Forbids material distinction between front and back faces.");
-cls_Graphic3d_AspectFillArea3d.def("ShaderProgram", (const opencascade::handle<Graphic3d_ShaderProgram> & (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::ShaderProgram, "Return shader program.");
-cls_Graphic3d_AspectFillArea3d.def("SetShaderProgram", (void (Graphic3d_AspectFillArea3d::*)(const opencascade::handle<Graphic3d_ShaderProgram> &)) &Graphic3d_AspectFillArea3d::SetShaderProgram, "Sets up OpenGL/GLSL shader program.", py::arg("theProgram"));
-cls_Graphic3d_AspectFillArea3d.def("TextureSet", (const opencascade::handle<Graphic3d_TextureSet> & (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::TextureSet, "Return texture array to be mapped.");
-cls_Graphic3d_AspectFillArea3d.def("SetTextureSet", (void (Graphic3d_AspectFillArea3d::*)(const opencascade::handle<Graphic3d_TextureSet> &)) &Graphic3d_AspectFillArea3d::SetTextureSet, "Setup texture array to be mapped.", py::arg("theTextures"));
-cls_Graphic3d_AspectFillArea3d.def("TextureMap", (opencascade::handle<Graphic3d_TextureMap> (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::TextureMap, "Return texture to be mapped.");
-cls_Graphic3d_AspectFillArea3d.def("SetTextureMap", (void (Graphic3d_AspectFillArea3d::*)(const opencascade::handle<Graphic3d_TextureMap> &)) &Graphic3d_AspectFillArea3d::SetTextureMap, "Assign texture to be mapped. See also SetTextureMapOn() to actually activate texture mapping.", py::arg("theTexture"));
-cls_Graphic3d_AspectFillArea3d.def("ToMapTexture", (bool (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::ToMapTexture, "Return true if texture mapping is enabled (false by default).");
-cls_Graphic3d_AspectFillArea3d.def("TextureMapState", (bool (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::TextureMapState, "Return true if texture mapping is enabled (false by default).");
-cls_Graphic3d_AspectFillArea3d.def("SetTextureMapOn", (void (Graphic3d_AspectFillArea3d::*)(bool)) &Graphic3d_AspectFillArea3d::SetTextureMapOn, "Enable or disable texture mapping (has no effect if texture is not set).", py::arg("theToMap"));
-cls_Graphic3d_AspectFillArea3d.def("SetTextureMapOn", (void (Graphic3d_AspectFillArea3d::*)()) &Graphic3d_AspectFillArea3d::SetTextureMapOn, "Enable texture mapping (has no effect if texture is not set).");
-cls_Graphic3d_AspectFillArea3d.def("SetTextureMapOff", (void (Graphic3d_AspectFillArea3d::*)()) &Graphic3d_AspectFillArea3d::SetTextureMapOff, "Disable texture mapping.");
-cls_Graphic3d_AspectFillArea3d.def("PolygonOffset", (const Graphic3d_PolygonOffset & (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::PolygonOffset, "Returns current polygon offsets settings.");
-cls_Graphic3d_AspectFillArea3d.def("PolygonOffsets", [](Graphic3d_AspectFillArea3d &self, Standard_Integer & theMode, Standard_ShortReal & theFactor, Standard_ShortReal & theUnits){ self.PolygonOffsets(theMode, theFactor, theUnits); return theMode; }, "Returns current polygon offsets settings.", py::arg("theMode"), py::arg("theFactor"), py::arg("theUnits"));
-cls_Graphic3d_AspectFillArea3d.def("SetPolygonOffsets", [](Graphic3d_AspectFillArea3d &self, const Standard_Integer a0) -> void { return self.SetPolygonOffsets(a0); });
-cls_Graphic3d_AspectFillArea3d.def("SetPolygonOffsets", [](Graphic3d_AspectFillArea3d &self, const Standard_Integer a0, const Standard_ShortReal a1) -> void { return self.SetPolygonOffsets(a0, a1); });
-cls_Graphic3d_AspectFillArea3d.def("SetPolygonOffsets", (void (Graphic3d_AspectFillArea3d::*)(const Standard_Integer, const Standard_ShortReal, const Standard_ShortReal)) &Graphic3d_AspectFillArea3d::SetPolygonOffsets, "Sets up OpenGL polygon offsets mechanism. <aMode> parameter can contain various combinations of Aspect_PolygonOffsetMode enumeration elements (Aspect_POM_None means that polygon offsets are not changed). If <aMode> is different from Aspect_POM_Off and Aspect_POM_None, then <aFactor> and <aUnits> arguments are used by graphic renderer to calculate a depth offset value:", py::arg("theMode"), py::arg("theFactor"), py::arg("theUnits"));
-cls_Graphic3d_AspectFillArea3d.def("ToDrawEdges", (bool (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::ToDrawEdges, "Returns true if edges should be drawn (false by default).");
-cls_Graphic3d_AspectFillArea3d.def("SetDrawEdges", (void (Graphic3d_AspectFillArea3d::*)(bool)) &Graphic3d_AspectFillArea3d::SetDrawEdges, "Set if edges should be drawn or not.", py::arg("theToDraw"));
-cls_Graphic3d_AspectFillArea3d.def("Edge", (bool (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::Edge, "Returns true if edges should be drawn.");
-cls_Graphic3d_AspectFillArea3d.def("SetEdgeOn", (void (Graphic3d_AspectFillArea3d::*)()) &Graphic3d_AspectFillArea3d::SetEdgeOn, "The edges of FillAreas are drawn.");
-cls_Graphic3d_AspectFillArea3d.def("SetEdgeOff", (void (Graphic3d_AspectFillArea3d::*)()) &Graphic3d_AspectFillArea3d::SetEdgeOff, "The edges of FillAreas are not drawn.");
-cls_Graphic3d_AspectFillArea3d.def("EdgeColor", (const Quantity_Color & (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::EdgeColor, "Return color of edges.");
-cls_Graphic3d_AspectFillArea3d.def("EdgeColorRGBA", (const Quantity_ColorRGBA & (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::EdgeColorRGBA, "Return color of edges.");
-cls_Graphic3d_AspectFillArea3d.def("SetEdgeColor", (void (Graphic3d_AspectFillArea3d::*)(const Quantity_Color &)) &Graphic3d_AspectFillArea3d::SetEdgeColor, "Modifies the color of the edge of the face", py::arg("theColor"));
-cls_Graphic3d_AspectFillArea3d.def("EdgeLineType", (Aspect_TypeOfLine (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::EdgeLineType, "Return edges line type.");
-cls_Graphic3d_AspectFillArea3d.def("SetEdgeLineType", (void (Graphic3d_AspectFillArea3d::*)(const Aspect_TypeOfLine)) &Graphic3d_AspectFillArea3d::SetEdgeLineType, "Modifies the edge line type", py::arg("theType"));
-cls_Graphic3d_AspectFillArea3d.def("EdgeWidth", (Standard_ShortReal (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::EdgeWidth, "Return width for edges in pixels.");
-cls_Graphic3d_AspectFillArea3d.def("SetEdgeWidth", (void (Graphic3d_AspectFillArea3d::*)(const Standard_Real)) &Graphic3d_AspectFillArea3d::SetEdgeWidth, "Modifies the edge thickness Warning: Raises AspectFillAreaDefinitionError if the width is a negative value.", py::arg("theWidth"));
-cls_Graphic3d_AspectFillArea3d.def("HatchStyle", (const opencascade::handle<Graphic3d_HatchStyle> & (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::HatchStyle, "Returns the hatch type used when InteriorStyle is IS_HATCH");
-cls_Graphic3d_AspectFillArea3d.def("SetHatchStyle", (void (Graphic3d_AspectFillArea3d::*)(const opencascade::handle<Graphic3d_HatchStyle> &)) &Graphic3d_AspectFillArea3d::SetHatchStyle, "Modifies the hatch type used when InteriorStyle is IS_HATCH", py::arg("theStyle"));
-cls_Graphic3d_AspectFillArea3d.def("SetHatchStyle", (void (Graphic3d_AspectFillArea3d::*)(const Aspect_HatchStyle)) &Graphic3d_AspectFillArea3d::SetHatchStyle, "Modifies the hatch type used when InteriorStyle is IS_HATCH", py::arg("theStyle"));
-cls_Graphic3d_AspectFillArea3d.def("Values", [](Graphic3d_AspectFillArea3d &self, Aspect_InteriorStyle & theStyle, Quantity_Color & theIntColor, Quantity_Color & theEdgeColor, Aspect_TypeOfLine & theType, Standard_Real & theWidth){ self.Values(theStyle, theIntColor, theEdgeColor, theType, theWidth); return theWidth; }, "Returns the current values.", py::arg("theStyle"), py::arg("theIntColor"), py::arg("theEdgeColor"), py::arg("theType"), py::arg("theWidth"));
-cls_Graphic3d_AspectFillArea3d.def("Values", [](Graphic3d_AspectFillArea3d &self, Aspect_InteriorStyle & theStyle, Quantity_Color & theIntColor, Quantity_Color & theBackIntColor, Quantity_Color & theEdgeColor, Aspect_TypeOfLine & theType, Standard_Real & theWidth){ self.Values(theStyle, theIntColor, theBackIntColor, theEdgeColor, theType, theWidth); return theWidth; }, "Returns the current values.", py::arg("theStyle"), py::arg("theIntColor"), py::arg("theBackIntColor"), py::arg("theEdgeColor"), py::arg("theType"), py::arg("theWidth"));
+cls_Graphic3d_AspectFillArea3d.def("Edge", (bool (Graphic3d_AspectFillArea3d::*)() const) &Graphic3d_AspectFillArea3d::Edge, "None");
 
 // TYPEDEF: GRAPHIC3D_ZLAYERID
 
@@ -1194,7 +1338,364 @@ cls_Graphic3d_PresentationAttributes.def("SetDisplayMode", (void (Graphic3d_Pres
 cls_Graphic3d_PresentationAttributes.def("BasicFillAreaAspect", (const opencascade::handle<Graphic3d_AspectFillArea3d> & (Graphic3d_PresentationAttributes::*)() const) &Graphic3d_PresentationAttributes::BasicFillAreaAspect, "Return basic presentation fill area aspect, NULL by default. When set, might be used instead of Color() property.");
 cls_Graphic3d_PresentationAttributes.def("SetBasicFillAreaAspect", (void (Graphic3d_PresentationAttributes::*)(const opencascade::handle<Graphic3d_AspectFillArea3d> &)) &Graphic3d_PresentationAttributes::SetBasicFillAreaAspect, "Sets basic presentation fill area aspect.", py::arg("theAspect"));
 
-// TYPEDEF: GRAPHIC3D_BUFFERTYPE
+// TYPEDEF: GRAPHIC3D_BNDBOX4F
+bind_BVH_Box<float, 4>(mod, "Graphic3d_BndBox4f", py::module_local(false));
+
+// TYPEDEF: GRAPHIC3D_BNDBOX4D
+bind_BVH_Box<double, 4>(mod, "Graphic3d_BndBox4d", py::module_local(false));
+
+// TYPEDEF: GRAPHIC3D_BNDBOX3D
+bind_BVH_Box<double, 3>(mod, "Graphic3d_BndBox3d", py::module_local(false));
+
+// CLASS: GRAPHIC3D_ASPECTLINE3D
+py::class_<Graphic3d_AspectLine3d, opencascade::handle<Graphic3d_AspectLine3d>, Graphic3d_Aspects> cls_Graphic3d_AspectLine3d(mod, "Graphic3d_AspectLine3d", "Creates and updates a group of attributes for 3d line primitives. This group contains the color, the type of line, and its thickness.");
+
+// Constructors
+cls_Graphic3d_AspectLine3d.def(py::init<>());
+cls_Graphic3d_AspectLine3d.def(py::init<const Quantity_Color &, Aspect_TypeOfLine, Standard_Real>(), py::arg("theColor"), py::arg("theType"), py::arg("theWidth"));
+
+// Methods
+cls_Graphic3d_AspectLine3d.def_static("get_type_name_", (const char * (*)()) &Graphic3d_AspectLine3d::get_type_name, "None");
+cls_Graphic3d_AspectLine3d.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_AspectLine3d::get_type_descriptor, "None");
+cls_Graphic3d_AspectLine3d.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_AspectLine3d::*)() const) &Graphic3d_AspectLine3d::DynamicType, "None");
+cls_Graphic3d_AspectLine3d.def("Type", (Aspect_TypeOfLine (Graphic3d_AspectLine3d::*)() const) &Graphic3d_AspectLine3d::Type, "Return line type.");
+cls_Graphic3d_AspectLine3d.def("SetType", (void (Graphic3d_AspectLine3d::*)(const Aspect_TypeOfLine)) &Graphic3d_AspectLine3d::SetType, "Modifies the type of line.", py::arg("theType"));
+cls_Graphic3d_AspectLine3d.def("Width", (Standard_ShortReal (Graphic3d_AspectLine3d::*)() const) &Graphic3d_AspectLine3d::Width, "Return line width.");
+cls_Graphic3d_AspectLine3d.def("SetWidth", (void (Graphic3d_AspectLine3d::*)(const Standard_Real)) &Graphic3d_AspectLine3d::SetWidth, "Modifies the line thickness. Warning: Raises Standard_OutOfRange if the width is a negative value.", py::arg("theWidth"));
+cls_Graphic3d_AspectLine3d.def("SetWidth", (void (Graphic3d_AspectLine3d::*)(Standard_ShortReal)) &Graphic3d_AspectLine3d::SetWidth, "Modifies the line thickness. Warning: Raises Standard_OutOfRange if the width is a negative value.", py::arg("theWidth"));
+
+// CLASS: GRAPHIC3D_ASPECTTEXT3D
+py::class_<Graphic3d_AspectText3d, opencascade::handle<Graphic3d_AspectText3d>, Graphic3d_Aspects> cls_Graphic3d_AspectText3d(mod, "Graphic3d_AspectText3d", "Creates and updates a group of attributes for text primitives.");
+
+// Constructors
+cls_Graphic3d_AspectText3d.def(py::init<>());
+cls_Graphic3d_AspectText3d.def(py::init<const Quantity_Color &, Standard_CString, Standard_Real, Standard_Real>(), py::arg("theColor"), py::arg("theFont"), py::arg("theExpansionFactor"), py::arg("theSpace"));
+cls_Graphic3d_AspectText3d.def(py::init<const Quantity_Color &, Standard_CString, Standard_Real, Standard_Real, Aspect_TypeOfStyleText>(), py::arg("theColor"), py::arg("theFont"), py::arg("theExpansionFactor"), py::arg("theSpace"), py::arg("theStyle"));
+cls_Graphic3d_AspectText3d.def(py::init<const Quantity_Color &, Standard_CString, Standard_Real, Standard_Real, Aspect_TypeOfStyleText, Aspect_TypeOfDisplayText>(), py::arg("theColor"), py::arg("theFont"), py::arg("theExpansionFactor"), py::arg("theSpace"), py::arg("theStyle"), py::arg("theDisplayType"));
+
+// Methods
+cls_Graphic3d_AspectText3d.def_static("get_type_name_", (const char * (*)()) &Graphic3d_AspectText3d::get_type_name, "None");
+cls_Graphic3d_AspectText3d.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_AspectText3d::get_type_descriptor, "None");
+cls_Graphic3d_AspectText3d.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::DynamicType, "None");
+cls_Graphic3d_AspectText3d.def("Color", (const Quantity_Color & (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::Color, "Return the text color.");
+cls_Graphic3d_AspectText3d.def("ColorRGBA", (const Quantity_ColorRGBA & (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::ColorRGBA, "Return the text color.");
+cls_Graphic3d_AspectText3d.def("SetColor", (void (Graphic3d_AspectText3d::*)(const Quantity_Color &)) &Graphic3d_AspectText3d::SetColor, "Modifies the color.", py::arg("theColor"));
+cls_Graphic3d_AspectText3d.def("SetColor", (void (Graphic3d_AspectText3d::*)(const Quantity_ColorRGBA &)) &Graphic3d_AspectText3d::SetColor, "Modifies the color.", py::arg("theColor"));
+cls_Graphic3d_AspectText3d.def("Font", (const TCollection_AsciiString & (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::Font, "Return the font.");
+cls_Graphic3d_AspectText3d.def("SetFont", (void (Graphic3d_AspectText3d::*)(const TCollection_AsciiString &)) &Graphic3d_AspectText3d::SetFont, "Modifies the font.", py::arg("theFont"));
+cls_Graphic3d_AspectText3d.def("SetFont", (void (Graphic3d_AspectText3d::*)(const Standard_CString)) &Graphic3d_AspectText3d::SetFont, "Modifies the font.", py::arg("theFont"));
+cls_Graphic3d_AspectText3d.def("Style", (Aspect_TypeOfStyleText (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::Style, "Return the text style.");
+cls_Graphic3d_AspectText3d.def("SetStyle", (void (Graphic3d_AspectText3d::*)(Aspect_TypeOfStyleText)) &Graphic3d_AspectText3d::SetStyle, "Modifies the style of the text.", py::arg("theStyle"));
+cls_Graphic3d_AspectText3d.def("DisplayType", (Aspect_TypeOfDisplayText (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::DisplayType, "Return display type.");
+cls_Graphic3d_AspectText3d.def("SetDisplayType", (void (Graphic3d_AspectText3d::*)(Aspect_TypeOfDisplayText)) &Graphic3d_AspectText3d::SetDisplayType, "Define the display type of the text.", py::arg("theDisplayType"));
+cls_Graphic3d_AspectText3d.def("GetTextZoomable", (bool (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::GetTextZoomable, "Returns TRUE when the Text Zoomable is on.");
+cls_Graphic3d_AspectText3d.def("GetTextAngle", (Standard_ShortReal (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::GetTextAngle, "Returns Angle of degree");
+cls_Graphic3d_AspectText3d.def("SetTextAngle", (void (Graphic3d_AspectText3d::*)(const Standard_Real)) &Graphic3d_AspectText3d::SetTextAngle, "Turns usage of text rotated", py::arg("theAngle"));
+cls_Graphic3d_AspectText3d.def("GetTextFontAspect", (Font_FontAspect (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::GetTextFontAspect, "Returns text FontAspect");
+
+// CLASS: GRAPHIC3D_ASPECTMARKER3D
+py::class_<Graphic3d_AspectMarker3d, opencascade::handle<Graphic3d_AspectMarker3d>, Graphic3d_Aspects> cls_Graphic3d_AspectMarker3d(mod, "Graphic3d_AspectMarker3d", "Creates and updates an attribute group for marker type primitives. This group contains the type of marker, its color, and its scale factor.");
+
+// Constructors
+cls_Graphic3d_AspectMarker3d.def(py::init<>());
+cls_Graphic3d_AspectMarker3d.def(py::init<const Aspect_TypeOfMarker, const Quantity_Color &, const Standard_Real>(), py::arg("theType"), py::arg("theColor"), py::arg("theScale"));
+cls_Graphic3d_AspectMarker3d.def(py::init<const Quantity_Color &, const Standard_Integer, const Standard_Integer, const opencascade::handle<TColStd_HArray1OfByte> &>(), py::arg("theColor"), py::arg("theWidth"), py::arg("theHeight"), py::arg("theTextureBitmap"));
+cls_Graphic3d_AspectMarker3d.def(py::init<const opencascade::handle<Image_PixMap> &>(), py::arg("theTextureImage"));
+
+// Methods
+cls_Graphic3d_AspectMarker3d.def_static("get_type_name_", (const char * (*)()) &Graphic3d_AspectMarker3d::get_type_name, "None");
+cls_Graphic3d_AspectMarker3d.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_AspectMarker3d::get_type_descriptor, "None");
+cls_Graphic3d_AspectMarker3d.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_AspectMarker3d::*)() const) &Graphic3d_AspectMarker3d::DynamicType, "None");
+cls_Graphic3d_AspectMarker3d.def("Scale", (Standard_ShortReal (Graphic3d_AspectMarker3d::*)() const) &Graphic3d_AspectMarker3d::Scale, "Return scale factor.");
+cls_Graphic3d_AspectMarker3d.def("SetScale", (void (Graphic3d_AspectMarker3d::*)(const Standard_ShortReal)) &Graphic3d_AspectMarker3d::SetScale, "Modifies the scale factor. Marker type Aspect_TOM_POINT is not affected by the marker size scale factor. It is always the smallest displayable dot. Warning: Raises Standard_OutOfRange if the scale is a negative value.", py::arg("theScale"));
+cls_Graphic3d_AspectMarker3d.def("SetScale", (void (Graphic3d_AspectMarker3d::*)(const Standard_Real)) &Graphic3d_AspectMarker3d::SetScale, "Assign scale factor.", py::arg("theScale"));
+cls_Graphic3d_AspectMarker3d.def("Type", (Aspect_TypeOfMarker (Graphic3d_AspectMarker3d::*)() const) &Graphic3d_AspectMarker3d::Type, "Return marker type.");
+cls_Graphic3d_AspectMarker3d.def("SetType", (void (Graphic3d_AspectMarker3d::*)(const Aspect_TypeOfMarker)) &Graphic3d_AspectMarker3d::SetType, "Modifies the type of marker.", py::arg("theType"));
+cls_Graphic3d_AspectMarker3d.def("GetTextureSize", [](Graphic3d_AspectMarker3d &self, Standard_Integer & theWidth, Standard_Integer & theHeight){ self.GetTextureSize(theWidth, theHeight); return std::tuple<Standard_Integer &, Standard_Integer &>(theWidth, theHeight); }, "Returns marker's texture size.", py::arg("theWidth"), py::arg("theHeight"));
+cls_Graphic3d_AspectMarker3d.def("GetMarkerImage", (const opencascade::handle<Graphic3d_MarkerImage> & (Graphic3d_AspectMarker3d::*)() const) &Graphic3d_AspectMarker3d::GetMarkerImage, "Returns marker's image texture. Could be null handle if marker aspect has been initialized as default type of marker.");
+cls_Graphic3d_AspectMarker3d.def("SetBitMap", (void (Graphic3d_AspectMarker3d::*)(const Standard_Integer, const Standard_Integer, const opencascade::handle<TColStd_HArray1OfByte> &)) &Graphic3d_AspectMarker3d::SetBitMap, "None", py::arg("theWidth"), py::arg("theHeight"), py::arg("theTexture"));
+
+// TYPEDEF: GRAPHIC3D_MAPOFASPECTSTOASPECTS
+bind_NCollection_DataMap<opencascade::handle<Graphic3d_Aspects>, opencascade::handle<Graphic3d_Aspects>, NCollection_DefaultHasher<opencascade::handle<Graphic3d_Aspects> > >(mod, "Graphic3d_MapOfAspectsToAspects", py::module_local(false));
+
+// CLASS: GRAPHIC3D_VERTEX
+py::class_<Graphic3d_Vertex> cls_Graphic3d_Vertex(mod, "Graphic3d_Vertex", "This class represents a graphical 3D point.");
+
+// Constructors
+cls_Graphic3d_Vertex.def(py::init<>());
+cls_Graphic3d_Vertex.def(py::init<const Graphic3d_Vertex &>(), py::arg("thePoint"));
+cls_Graphic3d_Vertex.def(py::init<const Standard_ShortReal, const Standard_ShortReal, const Standard_ShortReal>(), py::arg("theX"), py::arg("theY"), py::arg("theZ"));
+cls_Graphic3d_Vertex.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("theX"), py::arg("theY"), py::arg("theZ"));
+
+// Fields
+// cls_Graphic3d_Vertex.def_readwrite("xyz", &Graphic3d_Vertex::xyz, "None");
+
+// Methods
+// cls_Graphic3d_Vertex.def_static("operator new_", (void * (*)(size_t)) &Graphic3d_Vertex::operator new, "None", py::arg("theSize"));
+// cls_Graphic3d_Vertex.def_static("operator delete_", (void (*)(void *)) &Graphic3d_Vertex::operator delete, "None", py::arg("theAddress"));
+// cls_Graphic3d_Vertex.def_static("operator new[]_", (void * (*)(size_t)) &Graphic3d_Vertex::operator new[], "None", py::arg("theSize"));
+// cls_Graphic3d_Vertex.def_static("operator delete[]_", (void (*)(void *)) &Graphic3d_Vertex::operator delete[], "None", py::arg("theAddress"));
+// cls_Graphic3d_Vertex.def_static("operator new_", (void * (*)(size_t, void *)) &Graphic3d_Vertex::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_Graphic3d_Vertex.def_static("operator delete_", (void (*)(void *, void *)) &Graphic3d_Vertex::operator delete, "None", py::arg(""), py::arg(""));
+cls_Graphic3d_Vertex.def("SetCoord", (void (Graphic3d_Vertex::*)(const Standard_ShortReal, const Standard_ShortReal, const Standard_ShortReal)) &Graphic3d_Vertex::SetCoord, "Modifies the coordinates.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
+cls_Graphic3d_Vertex.def("SetCoord", (void (Graphic3d_Vertex::*)(const Standard_Real, const Standard_Real, const Standard_Real)) &Graphic3d_Vertex::SetCoord, "Modifies the coordinates.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
+cls_Graphic3d_Vertex.def("Coord", (void (Graphic3d_Vertex::*)(Standard_ShortReal &, Standard_ShortReal &, Standard_ShortReal &) const) &Graphic3d_Vertex::Coord, "Returns the coordinates.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
+cls_Graphic3d_Vertex.def("Coord", [](Graphic3d_Vertex &self, Standard_Real & theX, Standard_Real & theY, Standard_Real & theZ){ self.Coord(theX, theY, theZ); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &>(theX, theY, theZ); }, "Returns the coordinates.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
+cls_Graphic3d_Vertex.def("X", (Standard_ShortReal (Graphic3d_Vertex::*)() const) &Graphic3d_Vertex::X, "Returns the X coordinates.");
+cls_Graphic3d_Vertex.def("Y", (Standard_ShortReal (Graphic3d_Vertex::*)() const) &Graphic3d_Vertex::Y, "Returns the Y coordinate.");
+cls_Graphic3d_Vertex.def("Z", (Standard_ShortReal (Graphic3d_Vertex::*)() const) &Graphic3d_Vertex::Z, "Returns the Z coordinate.");
+cls_Graphic3d_Vertex.def("Distance", (Standard_ShortReal (Graphic3d_Vertex::*)(const Graphic3d_Vertex &) const) &Graphic3d_Vertex::Distance, "Returns the distance between two points.", py::arg("theOther"));
+
+// CLASS: GRAPHIC3D_BUFFERRANGE
+py::class_<Graphic3d_BufferRange> cls_Graphic3d_BufferRange(mod, "Graphic3d_BufferRange", "Range of values defined as Start + Length pair.");
+
+// Constructors
+cls_Graphic3d_BufferRange.def(py::init<>());
+cls_Graphic3d_BufferRange.def(py::init<Standard_Integer, Standard_Integer>(), py::arg("theStart"), py::arg("theLength"));
+
+// Fields
+cls_Graphic3d_BufferRange.def_readwrite("Start", &Graphic3d_BufferRange::Start, "first element within the range");
+cls_Graphic3d_BufferRange.def_readwrite("Length", &Graphic3d_BufferRange::Length, "number of elements within the range");
+
+// Methods
+cls_Graphic3d_BufferRange.def("IsEmpty", (Standard_Boolean (Graphic3d_BufferRange::*)() const) &Graphic3d_BufferRange::IsEmpty, "Return TRUE if range is empty.");
+cls_Graphic3d_BufferRange.def("Upper", (Standard_Integer (Graphic3d_BufferRange::*)() const) &Graphic3d_BufferRange::Upper, "Return the Upper element within the range");
+cls_Graphic3d_BufferRange.def("Clear", (void (Graphic3d_BufferRange::*)()) &Graphic3d_BufferRange::Clear, "Clear the range.");
+cls_Graphic3d_BufferRange.def("Unite", (void (Graphic3d_BufferRange::*)(const Graphic3d_BufferRange &)) &Graphic3d_BufferRange::Unite, "Add another range to this one.", py::arg("theRange"));
+
+// CLASS: GRAPHIC3D_ATTRIBUTE
+py::class_<Graphic3d_Attribute> cls_Graphic3d_Attribute(mod, "Graphic3d_Attribute", "Vertex attribute definition.");
+
+// Fields
+cls_Graphic3d_Attribute.def_readwrite("Id", &Graphic3d_Attribute::Id, "attribute identifier in vertex shader, 0 is reserved for vertex position");
+cls_Graphic3d_Attribute.def_readwrite("DataType", &Graphic3d_Attribute::DataType, "vec2,vec3,vec4,vec4ub");
+
+// Methods
+cls_Graphic3d_Attribute.def("Stride", (Standard_Integer (Graphic3d_Attribute::*)() const) &Graphic3d_Attribute::Stride, "None");
+cls_Graphic3d_Attribute.def_static("Stride_", (Standard_Integer (*)(const Graphic3d_TypeOfData)) &Graphic3d_Attribute::Stride, "Returns size of attribute of specified data type", py::arg("theType"));
+
+// TYPEDEF: GRAPHIC3D_ARRAY1OFATTRIBUTE
+bind_NCollection_Array1<Graphic3d_Attribute>(mod, "Graphic3d_Array1OfAttribute", py::module_local(false));
+
+// CLASS: GRAPHIC3D_BUFFER
+py::class_<Graphic3d_Buffer, opencascade::handle<Graphic3d_Buffer>, NCollection_Buffer> cls_Graphic3d_Buffer(mod, "Graphic3d_Buffer", "Buffer of vertex attributes.");
+
+// Constructors
+cls_Graphic3d_Buffer.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAlloc"));
+
+// Fields
+cls_Graphic3d_Buffer.def_readwrite("Stride", &Graphic3d_Buffer::Stride, "the distance to the attributes of the next vertex within interleaved array");
+cls_Graphic3d_Buffer.def_readwrite("NbElements", &Graphic3d_Buffer::NbElements, "number of the elements (");
+cls_Graphic3d_Buffer.def_readwrite("NbAttributes", &Graphic3d_Buffer::NbAttributes, "number of vertex attributes");
+
+// Methods
+cls_Graphic3d_Buffer.def_static("get_type_name_", (const char * (*)()) &Graphic3d_Buffer::get_type_name, "None");
+cls_Graphic3d_Buffer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_Buffer::get_type_descriptor, "None");
+cls_Graphic3d_Buffer.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_Buffer::*)() const) &Graphic3d_Buffer::DynamicType, "None");
+cls_Graphic3d_Buffer.def("NbMaxElements", (Standard_Integer (Graphic3d_Buffer::*)() const) &Graphic3d_Buffer::NbMaxElements, "Return number of initially allocated elements which can fit into this buffer, while NbElements can be overwritten to smaller value.");
+cls_Graphic3d_Buffer.def("AttributesArray", (const Graphic3d_Attribute * (Graphic3d_Buffer::*)() const) &Graphic3d_Buffer::AttributesArray, "Returns array of attributes definitions");
+cls_Graphic3d_Buffer.def("Attribute", (const Graphic3d_Attribute & (Graphic3d_Buffer::*)(const Standard_Integer) const) &Graphic3d_Buffer::Attribute, "Returns attribute definition", py::arg("theAttribIndex"));
+cls_Graphic3d_Buffer.def("ChangeAttribute", (Graphic3d_Attribute & (Graphic3d_Buffer::*)(const Standard_Integer)) &Graphic3d_Buffer::ChangeAttribute, "Returns attribute definition", py::arg("theAttribIndex"));
+cls_Graphic3d_Buffer.def("FindAttribute", (Standard_Integer (Graphic3d_Buffer::*)(Graphic3d_TypeOfAttribute) const) &Graphic3d_Buffer::FindAttribute, "Find attribute index.", py::arg("theAttrib"));
+cls_Graphic3d_Buffer.def("AttributeOffset", (Standard_Integer (Graphic3d_Buffer::*)(const Standard_Integer) const) &Graphic3d_Buffer::AttributeOffset, "Returns data offset to specified attribute", py::arg("theAttribIndex"));
+cls_Graphic3d_Buffer.def("Data", (const Standard_Byte * (Graphic3d_Buffer::*)(const Standard_Integer) const) &Graphic3d_Buffer::Data, "Returns data for specified attribute", py::arg("theAttribIndex"));
+cls_Graphic3d_Buffer.def("ChangeData", (Standard_Byte * (Graphic3d_Buffer::*)(const Standard_Integer)) &Graphic3d_Buffer::ChangeData, "Returns data for specified attribute", py::arg("theAttribIndex"));
+cls_Graphic3d_Buffer.def("value", (const Standard_Byte * (Graphic3d_Buffer::*)(const Standard_Integer) const) &Graphic3d_Buffer::value, "Access specified element.", py::arg("theElem"));
+cls_Graphic3d_Buffer.def("changeValue", (Standard_Byte * (Graphic3d_Buffer::*)(const Standard_Integer)) &Graphic3d_Buffer::changeValue, "Access specified element.", py::arg("theElem"));
+cls_Graphic3d_Buffer.def("ChangeAttributeData", [](Graphic3d_Buffer &self, Graphic3d_TypeOfAttribute theAttrib, Standard_Integer & theAttribIndex, Standard_Size & theAttribStride){ Standard_Byte * rv = self.ChangeAttributeData(theAttrib, theAttribIndex, theAttribStride); return std::tuple<Standard_Byte *, Standard_Integer &>(rv, theAttribIndex); }, "Return the attribute data with stride size specific to this attribute.", py::arg("theAttrib"), py::arg("theAttribIndex"), py::arg("theAttribStride"));
+cls_Graphic3d_Buffer.def("AttributeData", [](Graphic3d_Buffer &self, Graphic3d_TypeOfAttribute theAttrib, Standard_Integer & theAttribIndex, Standard_Size & theAttribStride){ const Standard_Byte * rv = self.AttributeData(theAttrib, theAttribIndex, theAttribStride); return std::tuple<const Standard_Byte *, Standard_Integer &>(rv, theAttribIndex); }, "Return the attribute data with stride size specific to this attribute.", py::arg("theAttrib"), py::arg("theAttribIndex"), py::arg("theAttribStride"));
+cls_Graphic3d_Buffer.def("release", (void (Graphic3d_Buffer::*)()) &Graphic3d_Buffer::release, "Release buffer.");
+cls_Graphic3d_Buffer.def("Init", (bool (Graphic3d_Buffer::*)(const Standard_Integer, const Graphic3d_Attribute *, const Standard_Integer)) &Graphic3d_Buffer::Init, "Allocates new empty array", py::arg("theNbElems"), py::arg("theAttribs"), py::arg("theNbAttribs"));
+cls_Graphic3d_Buffer.def("Init", (bool (Graphic3d_Buffer::*)(const Standard_Integer, const Graphic3d_Array1OfAttribute &)) &Graphic3d_Buffer::Init, "Allocates new empty array", py::arg("theNbElems"), py::arg("theAttribs"));
+cls_Graphic3d_Buffer.def("IsInterleaved", (Standard_Boolean (Graphic3d_Buffer::*)() const) &Graphic3d_Buffer::IsInterleaved, "Flag indicating that attributes in the buffer are interleaved; TRUE by default. Requires sub-classing for creating a non-interleaved buffer (advanced usage).");
+cls_Graphic3d_Buffer.def("IsMutable", (Standard_Boolean (Graphic3d_Buffer::*)() const) &Graphic3d_Buffer::IsMutable, "Return TRUE if data can be invalidated; FALSE by default. Requires sub-classing for creating a mutable buffer (advanced usage).");
+cls_Graphic3d_Buffer.def("InvalidatedRange", (Graphic3d_BufferRange (Graphic3d_Buffer::*)() const) &Graphic3d_Buffer::InvalidatedRange, "Return invalidated range; EMPTY by default. Requires sub-classing for creating a mutable buffer (advanced usage).");
+cls_Graphic3d_Buffer.def("Validate", (void (Graphic3d_Buffer::*)()) &Graphic3d_Buffer::Validate, "Reset invalidated range. Requires sub-classing for creating a mutable buffer (advanced usage).");
+cls_Graphic3d_Buffer.def("Invalidate", (void (Graphic3d_Buffer::*)()) &Graphic3d_Buffer::Invalidate, "Invalidate entire buffer.");
+
+// CLASS: GRAPHIC3D_INDEXBUFFER
+py::class_<Graphic3d_IndexBuffer, opencascade::handle<Graphic3d_IndexBuffer>, Graphic3d_Buffer> cls_Graphic3d_IndexBuffer(mod, "Graphic3d_IndexBuffer", "Index buffer.");
+
+// Constructors
+cls_Graphic3d_IndexBuffer.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAlloc"));
+
+// Methods
+cls_Graphic3d_IndexBuffer.def_static("get_type_name_", (const char * (*)()) &Graphic3d_IndexBuffer::get_type_name, "None");
+cls_Graphic3d_IndexBuffer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_IndexBuffer::get_type_descriptor, "None");
+cls_Graphic3d_IndexBuffer.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_IndexBuffer::*)() const) &Graphic3d_IndexBuffer::DynamicType, "None");
+cls_Graphic3d_IndexBuffer.def("InitInt32", (bool (Graphic3d_IndexBuffer::*)(const Standard_Integer)) &Graphic3d_IndexBuffer::InitInt32, "Allocates new empty index array", py::arg("theNbElems"));
+cls_Graphic3d_IndexBuffer.def("Index", (Standard_Integer (Graphic3d_IndexBuffer::*)(const Standard_Integer) const) &Graphic3d_IndexBuffer::Index, "Access index at specified position", py::arg("theIndex"));
+cls_Graphic3d_IndexBuffer.def("SetIndex", (void (Graphic3d_IndexBuffer::*)(const Standard_Integer, const Standard_Integer)) &Graphic3d_IndexBuffer::SetIndex, "Change index at specified position", py::arg("theIndex"), py::arg("theValue"));
+
+// CLASS: GRAPHIC3D_BOUNDBUFFER
+py::class_<Graphic3d_BoundBuffer, opencascade::handle<Graphic3d_BoundBuffer>, NCollection_Buffer> cls_Graphic3d_BoundBuffer(mod, "Graphic3d_BoundBuffer", "Bounds buffer.");
+
+// Constructors
+cls_Graphic3d_BoundBuffer.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAlloc"));
+
+// Fields
+cls_Graphic3d_BoundBuffer.def_readwrite("Colors", &Graphic3d_BoundBuffer::Colors, "pointer to facet color values");
+cls_Graphic3d_BoundBuffer.def_readwrite("Bounds", &Graphic3d_BoundBuffer::Bounds, "pointer to bounds array");
+cls_Graphic3d_BoundBuffer.def_readwrite("NbBounds", &Graphic3d_BoundBuffer::NbBounds, "number of bounds");
+cls_Graphic3d_BoundBuffer.def_readwrite("NbMaxBounds", &Graphic3d_BoundBuffer::NbMaxBounds, "number of allocated bounds");
+
+// Methods
+cls_Graphic3d_BoundBuffer.def_static("get_type_name_", (const char * (*)()) &Graphic3d_BoundBuffer::get_type_name, "None");
+cls_Graphic3d_BoundBuffer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_BoundBuffer::get_type_descriptor, "None");
+cls_Graphic3d_BoundBuffer.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_BoundBuffer::*)() const) &Graphic3d_BoundBuffer::DynamicType, "None");
+cls_Graphic3d_BoundBuffer.def("Init", (bool (Graphic3d_BoundBuffer::*)(const Standard_Integer, const Standard_Boolean)) &Graphic3d_BoundBuffer::Init, "Allocates new empty array", py::arg("theNbBounds"), py::arg("theHasColors"));
+
+// CLASS: GRAPHIC3D_GROUP
+py::class_<Graphic3d_Group, opencascade::handle<Graphic3d_Group>, Standard_Transient> cls_Graphic3d_Group(mod, "Graphic3d_Group", "This class allows the definition of groups of primitives inside of graphic objects (presentations). A group contains the primitives and attributes for which the range is limited to this group. The primitives of a group can be globally suppressed.");
+
+// Methods
+cls_Graphic3d_Group.def_static("get_type_name_", (const char * (*)()) &Graphic3d_Group::get_type_name, "None");
+cls_Graphic3d_Group.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_Group::get_type_descriptor, "None");
+cls_Graphic3d_Group.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_Group::*)() const) &Graphic3d_Group::DynamicType, "None");
+cls_Graphic3d_Group.def("Clear", [](Graphic3d_Group &self) -> void { return self.Clear(); });
+cls_Graphic3d_Group.def("Clear", (void (Graphic3d_Group::*)(const Standard_Boolean)) &Graphic3d_Group::Clear, "Supress all primitives and attributes of <me>. To clear group without update in Graphic3d_StructureManager pass Standard_False as <theUpdateStructureMgr>. This used on context and viewer destruction, when the pointer to structure manager in Graphic3d_Structure could be already released (pointers are used here to avoid handle cross-reference);", py::arg("theUpdateStructureMgr"));
+cls_Graphic3d_Group.def("Remove", (void (Graphic3d_Group::*)()) &Graphic3d_Group::Remove, "Supress the group <me> in the structure. Warning: No more graphic operations in <me> after this call. Modifies the current modelling transform persistence (pan, zoom or rotate) Get the current modelling transform persistence (pan, zoom or rotate)");
+cls_Graphic3d_Group.def("Aspects", (opencascade::handle<Graphic3d_Aspects> (Graphic3d_Group::*)() const) &Graphic3d_Group::Aspects, "Return fill area aspect.");
+cls_Graphic3d_Group.def("SetGroupPrimitivesAspect", (void (Graphic3d_Group::*)(const opencascade::handle<Graphic3d_Aspects> &)) &Graphic3d_Group::SetGroupPrimitivesAspect, "Modifies the context for all the face primitives of the group.", py::arg("theAspect"));
+cls_Graphic3d_Group.def("SetPrimitivesAspect", (void (Graphic3d_Group::*)(const opencascade::handle<Graphic3d_Aspects> &)) &Graphic3d_Group::SetPrimitivesAspect, "Modifies the current context of the group to give another aspect for all the primitives created after this call in the group.", py::arg("theAspect"));
+cls_Graphic3d_Group.def("SynchronizeAspects", (void (Graphic3d_Group::*)()) &Graphic3d_Group::SynchronizeAspects, "Update presentation aspects after their modification.");
+cls_Graphic3d_Group.def("ReplaceAspects", (void (Graphic3d_Group::*)(const Graphic3d_MapOfAspectsToAspects &)) &Graphic3d_Group::ReplaceAspects, "Replace aspects specified in the replacement map.", py::arg("theMap"));
+cls_Graphic3d_Group.def("AddText", [](Graphic3d_Group &self, const opencascade::handle<Graphic3d_Text> & a0) -> void { return self.AddText(a0); });
+cls_Graphic3d_Group.def("AddText", (void (Graphic3d_Group::*)(const opencascade::handle<Graphic3d_Text> &, const Standard_Boolean)) &Graphic3d_Group::AddText, "Adds a text for display", py::arg("theTextParams"), py::arg("theToEvalMinMax"));
+cls_Graphic3d_Group.def("AddPrimitiveArray", [](Graphic3d_Group &self, const Graphic3d_TypeOfPrimitiveArray a0, const opencascade::handle<Graphic3d_IndexBuffer> & a1, const opencascade::handle<Graphic3d_Buffer> & a2, const opencascade::handle<Graphic3d_BoundBuffer> & a3) -> void { return self.AddPrimitiveArray(a0, a1, a2, a3); });
+cls_Graphic3d_Group.def("AddPrimitiveArray", (void (Graphic3d_Group::*)(const Graphic3d_TypeOfPrimitiveArray, const opencascade::handle<Graphic3d_IndexBuffer> &, const opencascade::handle<Graphic3d_Buffer> &, const opencascade::handle<Graphic3d_BoundBuffer> &, const Standard_Boolean)) &Graphic3d_Group::AddPrimitiveArray, "Adds an array of primitives for display", py::arg("theType"), py::arg("theIndices"), py::arg("theAttribs"), py::arg("theBounds"), py::arg("theToEvalMinMax"));
+cls_Graphic3d_Group.def("AddPrimitiveArray", [](Graphic3d_Group &self, const opencascade::handle<Graphic3d_ArrayOfPrimitives> & a0) -> void { return self.AddPrimitiveArray(a0); });
+cls_Graphic3d_Group.def("AddPrimitiveArray", (void (Graphic3d_Group::*)(const opencascade::handle<Graphic3d_ArrayOfPrimitives> &, const Standard_Boolean)) &Graphic3d_Group::AddPrimitiveArray, "Adds an array of primitives for display", py::arg("thePrim"), py::arg("theToEvalMinMax"));
+cls_Graphic3d_Group.def("Marker", [](Graphic3d_Group &self, const Graphic3d_Vertex & a0) -> void { return self.Marker(a0); });
+cls_Graphic3d_Group.def("Marker", (void (Graphic3d_Group::*)(const Graphic3d_Vertex &, const Standard_Boolean)) &Graphic3d_Group::Marker, "Creates a primitive array with single marker using AddPrimitiveArray().", py::arg("thePoint"), py::arg("theToEvalMinMax"));
+cls_Graphic3d_Group.def("SetStencilTestOptions", (void (Graphic3d_Group::*)(const Standard_Boolean)) &Graphic3d_Group::SetStencilTestOptions, "sets the stencil test to theIsEnabled state;", py::arg("theIsEnabled"));
+cls_Graphic3d_Group.def("SetFlippingOptions", (void (Graphic3d_Group::*)(const Standard_Boolean, const gp_Ax2 &)) &Graphic3d_Group::SetFlippingOptions, "sets the flipping to theIsEnabled state.", py::arg("theIsEnabled"), py::arg("theRefPlane"));
+cls_Graphic3d_Group.def("ContainsFacet", (bool (Graphic3d_Group::*)() const) &Graphic3d_Group::ContainsFacet, "Returns true if the group contains Polygons, Triangles or Quadrangles.");
+cls_Graphic3d_Group.def("IsDeleted", (Standard_Boolean (Graphic3d_Group::*)() const) &Graphic3d_Group::IsDeleted, "Returns Standard_True if the group <me> is deleted. <me> is deleted after the call Remove (me) or the associated structure is deleted.");
+cls_Graphic3d_Group.def("IsEmpty", (Standard_Boolean (Graphic3d_Group::*)() const) &Graphic3d_Group::IsEmpty, "Returns Standard_True if the group <me> is empty.");
+cls_Graphic3d_Group.def("MinMaxValues", [](Graphic3d_Group &self, Standard_Real & theXMin, Standard_Real & theYMin, Standard_Real & theZMin, Standard_Real & theXMax, Standard_Real & theYMax, Standard_Real & theZMax){ self.MinMaxValues(theXMin, theYMin, theZMin, theXMax, theYMax, theZMax); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &, Standard_Real &, Standard_Real &, Standard_Real &>(theXMin, theYMin, theZMin, theXMax, theYMax, theZMax); }, "Returns the coordinates of the boundary box of the group.", py::arg("theXMin"), py::arg("theYMin"), py::arg("theZMin"), py::arg("theXMax"), py::arg("theYMax"), py::arg("theZMax"));
+cls_Graphic3d_Group.def("SetMinMaxValues", (void (Graphic3d_Group::*)(const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real)) &Graphic3d_Group::SetMinMaxValues, "Sets the coordinates of the boundary box of the group.", py::arg("theXMin"), py::arg("theYMin"), py::arg("theZMin"), py::arg("theXMax"), py::arg("theYMax"), py::arg("theZMax"));
+cls_Graphic3d_Group.def("BoundingBox", (const Graphic3d_BndBox4f & (Graphic3d_Group::*)() const) &Graphic3d_Group::BoundingBox, "Returns boundary box of the group <me> without transformation applied,");
+cls_Graphic3d_Group.def("ChangeBoundingBox", (Graphic3d_BndBox4f & (Graphic3d_Group::*)()) &Graphic3d_Group::ChangeBoundingBox, "Returns non-const boundary box of the group <me> without transformation applied,");
+cls_Graphic3d_Group.def("Structure", (opencascade::handle<Graphic3d_Structure> (Graphic3d_Group::*)() const) &Graphic3d_Group::Structure, "Returns the structure containing the group <me>.");
+cls_Graphic3d_Group.def("SetClosed", (void (Graphic3d_Group::*)(const bool)) &Graphic3d_Group::SetClosed, "Changes property shown that primitive arrays within this group form closed volume (do no contain open shells).", py::arg("theIsClosed"));
+cls_Graphic3d_Group.def("IsClosed", (bool (Graphic3d_Group::*)() const) &Graphic3d_Group::IsClosed, "Return true if primitive arrays within this graphic group form closed volume (do no contain open shells).");
+cls_Graphic3d_Group.def("Text", [](Graphic3d_Group &self, const Standard_CString a0, const Graphic3d_Vertex & a1, const Standard_Real a2, const Standard_Real a3, const Graphic3d_TextPath a4, const Graphic3d_HorizontalTextAlignment a5, const Graphic3d_VerticalTextAlignment a6) -> void { return self.Text(a0, a1, a2, a3, a4, a5, a6); });
+cls_Graphic3d_Group.def("Text", (void (Graphic3d_Group::*)(const Standard_CString, const Graphic3d_Vertex &, const Standard_Real, const Standard_Real, const Graphic3d_TextPath, const Graphic3d_HorizontalTextAlignment, const Graphic3d_VerticalTextAlignment, const Standard_Boolean)) &Graphic3d_Group::Text, "Creates the string <AText> at position <APoint>. The 3D point of attachment is projected. The text is written in the plane of projection. The attributes are given with respect to the plane of projection. AHeight : Height of text. (Relative to the Normalized Projection Coordinates (NPC) Space). AAngle : Orientation of the text (with respect to the horizontal).", py::arg("AText"), py::arg("APoint"), py::arg("AHeight"), py::arg("AAngle"), py::arg("ATp"), py::arg("AHta"), py::arg("AVta"), py::arg("EvalMinMax"));
+cls_Graphic3d_Group.def("Text", [](Graphic3d_Group &self, const Standard_CString a0, const Graphic3d_Vertex & a1, const Standard_Real a2) -> void { return self.Text(a0, a1, a2); });
+cls_Graphic3d_Group.def("Text", (void (Graphic3d_Group::*)(const Standard_CString, const Graphic3d_Vertex &, const Standard_Real, const Standard_Boolean)) &Graphic3d_Group::Text, "Creates the string <AText> at position <APoint>. The 3D point of attachment is projected. The text is written in the plane of projection. The attributes are given with respect to the plane of projection. AHeight : Height of text. (Relative to the Normalized Projection Coordinates (NPC) Space). The other attributes have the following default values: AAngle : PI / 2. ATp : TP_RIGHT AHta : HTA_LEFT AVta : VTA_BOTTOM", py::arg("AText"), py::arg("APoint"), py::arg("AHeight"), py::arg("EvalMinMax"));
+cls_Graphic3d_Group.def("Text", [](Graphic3d_Group &self, const TCollection_ExtendedString & a0, const Graphic3d_Vertex & a1, const Standard_Real a2, const Standard_Real a3, const Graphic3d_TextPath a4, const Graphic3d_HorizontalTextAlignment a5, const Graphic3d_VerticalTextAlignment a6) -> void { return self.Text(a0, a1, a2, a3, a4, a5, a6); });
+cls_Graphic3d_Group.def("Text", (void (Graphic3d_Group::*)(const TCollection_ExtendedString &, const Graphic3d_Vertex &, const Standard_Real, const Standard_Real, const Graphic3d_TextPath, const Graphic3d_HorizontalTextAlignment, const Graphic3d_VerticalTextAlignment, const Standard_Boolean)) &Graphic3d_Group::Text, "Creates the string <AText> at position <APoint>. The 3D point of attachment is projected. The text is written in the plane of projection. The attributes are given with respect to the plane of projection. AHeight : Height of text. (Relative to the Normalized Projection Coordinates (NPC) Space). AAngle : Orientation of the text (with respect to the horizontal).", py::arg("AText"), py::arg("APoint"), py::arg("AHeight"), py::arg("AAngle"), py::arg("ATp"), py::arg("AHta"), py::arg("AVta"), py::arg("EvalMinMax"));
+cls_Graphic3d_Group.def("Text", [](Graphic3d_Group &self, const TCollection_ExtendedString & a0, const Graphic3d_Vertex & a1, const Standard_Real a2) -> void { return self.Text(a0, a1, a2); });
+cls_Graphic3d_Group.def("Text", (void (Graphic3d_Group::*)(const TCollection_ExtendedString &, const Graphic3d_Vertex &, const Standard_Real, const Standard_Boolean)) &Graphic3d_Group::Text, "Creates the string <AText> at position <APoint>. The 3D point of attachment is projected. The text is written in the plane of projection. The attributes are given with respect to the plane of projection. AHeight : Height of text. (Relative to the Normalized Projection Coordinates (NPC) Space). The other attributes have the following default values: AAngle : PI / 2. ATp : TP_RIGHT AHta : HTA_LEFT AVta : VTA_BOTTOM", py::arg("AText"), py::arg("APoint"), py::arg("AHeight"), py::arg("EvalMinMax"));
+cls_Graphic3d_Group.def("Text", [](Graphic3d_Group &self, const Standard_CString a0, const gp_Ax2 & a1, const Standard_Real a2, const Standard_Real a3, const Graphic3d_TextPath a4, const Graphic3d_HorizontalTextAlignment a5, const Graphic3d_VerticalTextAlignment a6) -> void { return self.Text(a0, a1, a2, a3, a4, a5, a6); });
+cls_Graphic3d_Group.def("Text", [](Graphic3d_Group &self, const Standard_CString a0, const gp_Ax2 & a1, const Standard_Real a2, const Standard_Real a3, const Graphic3d_TextPath a4, const Graphic3d_HorizontalTextAlignment a5, const Graphic3d_VerticalTextAlignment a6, const Standard_Boolean a7) -> void { return self.Text(a0, a1, a2, a3, a4, a5, a6, a7); });
+cls_Graphic3d_Group.def("Text", (void (Graphic3d_Group::*)(const Standard_CString, const gp_Ax2 &, const Standard_Real, const Standard_Real, const Graphic3d_TextPath, const Graphic3d_HorizontalTextAlignment, const Graphic3d_VerticalTextAlignment, const Standard_Boolean, const Standard_Boolean)) &Graphic3d_Group::Text, "Creates the string <theText> at orientation <theOrientation> in 3D space.", py::arg("theTextUtf"), py::arg("theOrientation"), py::arg("theHeight"), py::arg("theAngle"), py::arg("theTp"), py::arg("theHTA"), py::arg("theVTA"), py::arg("theToEvalMinMax"), py::arg("theHasOwnAnchor"));
+cls_Graphic3d_Group.def("Text", [](Graphic3d_Group &self, const TCollection_ExtendedString & a0, const gp_Ax2 & a1, const Standard_Real a2, const Standard_Real a3, const Graphic3d_TextPath a4, const Graphic3d_HorizontalTextAlignment a5, const Graphic3d_VerticalTextAlignment a6) -> void { return self.Text(a0, a1, a2, a3, a4, a5, a6); });
+cls_Graphic3d_Group.def("Text", [](Graphic3d_Group &self, const TCollection_ExtendedString & a0, const gp_Ax2 & a1, const Standard_Real a2, const Standard_Real a3, const Graphic3d_TextPath a4, const Graphic3d_HorizontalTextAlignment a5, const Graphic3d_VerticalTextAlignment a6, const Standard_Boolean a7) -> void { return self.Text(a0, a1, a2, a3, a4, a5, a6, a7); });
+cls_Graphic3d_Group.def("Text", (void (Graphic3d_Group::*)(const TCollection_ExtendedString &, const gp_Ax2 &, const Standard_Real, const Standard_Real, const Graphic3d_TextPath, const Graphic3d_HorizontalTextAlignment, const Graphic3d_VerticalTextAlignment, const Standard_Boolean, const Standard_Boolean)) &Graphic3d_Group::Text, "Creates the string <theText> at orientation <theOrientation> in 3D space.", py::arg("theText"), py::arg("theOrientation"), py::arg("theHeight"), py::arg("theAngle"), py::arg("theTp"), py::arg("theHTA"), py::arg("theVTA"), py::arg("theToEvalMinMax"), py::arg("theHasOwnAnchor"));
+cls_Graphic3d_Group.def("DumpJson", [](Graphic3d_Group &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Graphic3d_Group.def("DumpJson", (void (Graphic3d_Group::*)(Standard_OStream &, const Standard_Integer) const) &Graphic3d_Group::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
+
+// TYPEDEF: GRAPHIC3D_SEQUENCEOFGROUP
+bind_NCollection_Sequence<opencascade::handle<Graphic3d_Group> >(mod, "Graphic3d_SequenceOfGroup", py::module_local(false));
+
+// CLASS: GRAPHIC3D_CLIPPLANE
+py::class_<Graphic3d_ClipPlane, opencascade::handle<Graphic3d_ClipPlane>, Standard_Transient> cls_Graphic3d_ClipPlane(mod, "Graphic3d_ClipPlane", "Container for properties describing either a Clipping halfspace (single Clipping Plane), or a chain of Clipping Planes defining logical AND (conjunction) operation. The plane equation is specified in 'world' coordinate system.");
+
+// Constructors
+cls_Graphic3d_ClipPlane.def(py::init<>());
+cls_Graphic3d_ClipPlane.def(py::init<const Graphic3d_ClipPlane &>(), py::arg("theOther"));
+cls_Graphic3d_ClipPlane.def(py::init<const Graphic3d_Vec4d &>(), py::arg("theEquation"));
+cls_Graphic3d_ClipPlane.def(py::init<const gp_Pln &>(), py::arg("thePlane"));
+
+// Methods
+cls_Graphic3d_ClipPlane.def_static("get_type_name_", (const char * (*)()) &Graphic3d_ClipPlane::get_type_name, "None");
+cls_Graphic3d_ClipPlane.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_ClipPlane::get_type_descriptor, "None");
+cls_Graphic3d_ClipPlane.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::DynamicType, "None");
+cls_Graphic3d_ClipPlane.def("SetEquation", (void (Graphic3d_ClipPlane::*)(const gp_Pln &)) &Graphic3d_ClipPlane::SetEquation, "Set plane equation by its geometrical definition. The equation is specified in 'world' coordinate system.", py::arg("thePlane"));
+cls_Graphic3d_ClipPlane.def("SetEquation", (void (Graphic3d_ClipPlane::*)(const Graphic3d_Vec4d &)) &Graphic3d_ClipPlane::SetEquation, "Set 4-component equation vector for clipping plane. The equation is specified in 'world' coordinate system.", py::arg("theEquation"));
+cls_Graphic3d_ClipPlane.def("GetEquation", (const Graphic3d_Vec4d & (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::GetEquation, "Get 4-component equation vector for clipping plane.");
+cls_Graphic3d_ClipPlane.def("ReversedEquation", (const Graphic3d_Vec4d & (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::ReversedEquation, "Get 4-component equation vector for clipping plane.");
+cls_Graphic3d_ClipPlane.def("IsOn", (Standard_Boolean (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::IsOn, "Check that the clipping plane is turned on.");
+cls_Graphic3d_ClipPlane.def("SetOn", (void (Graphic3d_ClipPlane::*)(const Standard_Boolean)) &Graphic3d_ClipPlane::SetOn, "Change state of the clipping plane.", py::arg("theIsOn"));
+cls_Graphic3d_ClipPlane.def("SetCapping", (void (Graphic3d_ClipPlane::*)(const Standard_Boolean)) &Graphic3d_ClipPlane::SetCapping, "Change state of capping surface rendering.", py::arg("theIsOn"));
+cls_Graphic3d_ClipPlane.def("IsCapping", (Standard_Boolean (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::IsCapping, "Check state of capping surface rendering.");
+cls_Graphic3d_ClipPlane.def("ToPlane", (const gp_Pln & (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::ToPlane, "Get geometrical definition.");
+cls_Graphic3d_ClipPlane.def("Clone", (opencascade::handle<Graphic3d_ClipPlane> (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::Clone, "Clone plane. Virtual method to simplify copying procedure if plane class is redefined at application level to add specific fields to it e.g. id, name, etc.");
+cls_Graphic3d_ClipPlane.def("IsChain", (Standard_Boolean (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::IsChain, "Return TRUE if this item defines a conjunction (logical AND) between a set of Planes. Graphic3d_ClipPlane item defines either a Clipping halfspace (single Clipping Plane) or a Clipping volume defined by a logical AND (conjunction) operation between a set of Planes defined as a Chain (so that the volume cuts a space only in case if check fails for ALL Planes in the Chain).");
+cls_Graphic3d_ClipPlane.def("ChainPreviousPlane", (opencascade::handle<Graphic3d_ClipPlane> (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::ChainPreviousPlane, "Return the previous plane in a Chain of Planes defining logical AND operation, or NULL if there is no Chain or it is a first element in Chain. When clipping is defined by a Chain of Planes, it cuts a space only in case if check fails for all Planes in Chain.");
+cls_Graphic3d_ClipPlane.def("ChainNextPlane", (const opencascade::handle<Graphic3d_ClipPlane> & (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::ChainNextPlane, "Return the next plane in a Chain of Planes defining logical AND operation, or NULL if there is no chain or it is a last element in chain.");
+cls_Graphic3d_ClipPlane.def("NbChainNextPlanes", (Standard_Integer (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::NbChainNextPlanes, "Return the number of chains in forward direction (including this item, so it is always >= 1). For a head of Chain - returns the length of entire Chain.");
+cls_Graphic3d_ClipPlane.def("SetChainNextPlane", (void (Graphic3d_ClipPlane::*)(const opencascade::handle<Graphic3d_ClipPlane> &)) &Graphic3d_ClipPlane::SetChainNextPlane, "Set the next plane in a Chain of Planes. This operation also updates relationship between chains (Previous/Next items), so that the previously set Next plane is cut off.", py::arg("thePlane"));
+cls_Graphic3d_ClipPlane.def("CappingColor", (Quantity_Color (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::CappingColor, "Return color for rendering capping surface.");
+cls_Graphic3d_ClipPlane.def("SetCappingColor", (void (Graphic3d_ClipPlane::*)(const Quantity_Color &)) &Graphic3d_ClipPlane::SetCappingColor, "Set color for rendering capping surface.", py::arg("theColor"));
+cls_Graphic3d_ClipPlane.def("SetCappingMaterial", (void (Graphic3d_ClipPlane::*)(const Graphic3d_MaterialAspect &)) &Graphic3d_ClipPlane::SetCappingMaterial, "Set material for rendering capping surface.", py::arg("theMat"));
+cls_Graphic3d_ClipPlane.def("CappingMaterial", (const Graphic3d_MaterialAspect & (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::CappingMaterial, "Returns capping material.");
+cls_Graphic3d_ClipPlane.def("SetCappingTexture", (void (Graphic3d_ClipPlane::*)(const opencascade::handle<Graphic3d_TextureMap> &)) &Graphic3d_ClipPlane::SetCappingTexture, "Set texture to be applied on capping surface.", py::arg("theTexture"));
+cls_Graphic3d_ClipPlane.def("CappingTexture", (opencascade::handle<Graphic3d_TextureMap> (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::CappingTexture, "Returns capping texture map.");
+cls_Graphic3d_ClipPlane.def("SetCappingHatch", (void (Graphic3d_ClipPlane::*)(const Aspect_HatchStyle)) &Graphic3d_ClipPlane::SetCappingHatch, "Set hatch style (stipple) and turn hatching on.", py::arg("theStyle"));
+cls_Graphic3d_ClipPlane.def("CappingHatch", (Aspect_HatchStyle (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::CappingHatch, "Returns hatching style.");
+cls_Graphic3d_ClipPlane.def("SetCappingCustomHatch", (void (Graphic3d_ClipPlane::*)(const opencascade::handle<Graphic3d_HatchStyle> &)) &Graphic3d_ClipPlane::SetCappingCustomHatch, "Set custom hatch style (stipple) and turn hatching on.", py::arg("theStyle"));
+cls_Graphic3d_ClipPlane.def("CappingCustomHatch", (const opencascade::handle<Graphic3d_HatchStyle> & (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::CappingCustomHatch, "Returns hatching style.");
+cls_Graphic3d_ClipPlane.def("SetCappingHatchOn", (void (Graphic3d_ClipPlane::*)()) &Graphic3d_ClipPlane::SetCappingHatchOn, "Turn on hatching.");
+cls_Graphic3d_ClipPlane.def("SetCappingHatchOff", (void (Graphic3d_ClipPlane::*)()) &Graphic3d_ClipPlane::SetCappingHatchOff, "Turn off hatching.");
+cls_Graphic3d_ClipPlane.def("IsHatchOn", (Standard_Boolean (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::IsHatchOn, "Returns True if hatching mask is turned on.");
+cls_Graphic3d_ClipPlane.def("GetId", (const TCollection_AsciiString & (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::GetId, "This ID is used for managing associated resources in graphical driver. The clip plane can be assigned within a range of IO which can be displayed in separate OpenGl contexts. For each of the context an associated OpenGl resource for graphical aspects should be created and kept. The resources are stored in graphical driver for each of individual groups of shared context under the clip plane identifier.");
+cls_Graphic3d_ClipPlane.def("CappingAspect", (const opencascade::handle<Graphic3d_AspectFillArea3d> & (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::CappingAspect, "Return capping aspect.");
+cls_Graphic3d_ClipPlane.def("SetCappingAspect", (void (Graphic3d_ClipPlane::*)(const opencascade::handle<Graphic3d_AspectFillArea3d> &)) &Graphic3d_ClipPlane::SetCappingAspect, "Assign capping aspect.", py::arg("theAspect"));
+cls_Graphic3d_ClipPlane.def("ToUseObjectMaterial", (bool (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::ToUseObjectMaterial, "Flag indicating whether material for capping plane should be taken from object. Default value: FALSE (use dedicated capping plane material).");
+cls_Graphic3d_ClipPlane.def("SetUseObjectMaterial", (void (Graphic3d_ClipPlane::*)(bool)) &Graphic3d_ClipPlane::SetUseObjectMaterial, "Set flag for controlling the source of capping plane material.", py::arg("theToUse"));
+cls_Graphic3d_ClipPlane.def("ToUseObjectTexture", (bool (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::ToUseObjectTexture, "Flag indicating whether texture for capping plane should be taken from object. Default value: FALSE.");
+cls_Graphic3d_ClipPlane.def("SetUseObjectTexture", (void (Graphic3d_ClipPlane::*)(bool)) &Graphic3d_ClipPlane::SetUseObjectTexture, "Set flag for controlling the source of capping plane texture.", py::arg("theToUse"));
+cls_Graphic3d_ClipPlane.def("ToUseObjectShader", (bool (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::ToUseObjectShader, "Flag indicating whether shader program for capping plane should be taken from object. Default value: FALSE.");
+cls_Graphic3d_ClipPlane.def("SetUseObjectShader", (void (Graphic3d_ClipPlane::*)(bool)) &Graphic3d_ClipPlane::SetUseObjectShader, "Set flag for controlling the source of capping plane shader program.", py::arg("theToUse"));
+cls_Graphic3d_ClipPlane.def("ToUseObjectProperties", (bool (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::ToUseObjectProperties, "Return true if some fill area aspect properties should be taken from object.");
+cls_Graphic3d_ClipPlane.def("ProbePoint", (Graphic3d_ClipState (Graphic3d_ClipPlane::*)(const Graphic3d_Vec4d &) const) &Graphic3d_ClipPlane::ProbePoint, "Check if the given point is outside / inside / on section.", py::arg("thePoint"));
+cls_Graphic3d_ClipPlane.def("ProbeBox", (Graphic3d_ClipState (Graphic3d_ClipPlane::*)(const Graphic3d_BndBox3d &) const) &Graphic3d_ClipPlane::ProbeBox, "Check if the given bounding box is fully outside / fully inside.", py::arg("theBox"));
+cls_Graphic3d_ClipPlane.def("ProbeBoxTouch", (Standard_Boolean (Graphic3d_ClipPlane::*)(const Graphic3d_BndBox3d &) const) &Graphic3d_ClipPlane::ProbeBoxTouch, "Check if the given bounding box is In and touch the clipping planes", py::arg("theBox"));
+cls_Graphic3d_ClipPlane.def("ProbePointHalfspace", (Graphic3d_ClipState (Graphic3d_ClipPlane::*)(const Graphic3d_Vec4d &) const) &Graphic3d_ClipPlane::ProbePointHalfspace, "Check if the given point is outside of the half-space (e.g. should be discarded by clipping plane).", py::arg("thePoint"));
+cls_Graphic3d_ClipPlane.def("ProbeBoxHalfspace", (Graphic3d_ClipState (Graphic3d_ClipPlane::*)(const Graphic3d_BndBox3d &) const) &Graphic3d_ClipPlane::ProbeBoxHalfspace, "Check if the given bounding box is fully outside / fully inside the half-space.", py::arg("theBox"));
+cls_Graphic3d_ClipPlane.def("IsPointOutHalfspace", (bool (Graphic3d_ClipPlane::*)(const Graphic3d_Vec4d &) const) &Graphic3d_ClipPlane::IsPointOutHalfspace, "Check if the given point is outside of the half-space (e.g. should be discarded by clipping plane).", py::arg("thePoint"));
+cls_Graphic3d_ClipPlane.def("IsBoxFullOutHalfspace", (bool (Graphic3d_ClipPlane::*)(const Graphic3d_BndBox3d &) const) &Graphic3d_ClipPlane::IsBoxFullOutHalfspace, "Check if the given bounding box is fully outside of the half-space (e.g. should be discarded by clipping plane).", py::arg("theBox"));
+cls_Graphic3d_ClipPlane.def("ProbeBoxMaxPointHalfspace", (Graphic3d_ClipState (Graphic3d_ClipPlane::*)(const Graphic3d_BndBox3d &) const) &Graphic3d_ClipPlane::ProbeBoxMaxPointHalfspace, "Check if the given bounding box is fully outside of the half-space (e.g. should be discarded by clipping plane).", py::arg("theBox"));
+cls_Graphic3d_ClipPlane.def("IsBoxFullInHalfspace", (bool (Graphic3d_ClipPlane::*)(const Graphic3d_BndBox3d &) const) &Graphic3d_ClipPlane::IsBoxFullInHalfspace, "Check if the given bounding box is fully inside (or touches from inside) the half-space (e.g. NOT discarded by clipping plane).", py::arg("theBox"));
+cls_Graphic3d_ClipPlane.def("MCountEquation", (unsigned int (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::MCountEquation, "Returns modification counter for equation.");
+cls_Graphic3d_ClipPlane.def("MCountAspect", (unsigned int (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::MCountAspect, "Returns modification counter for aspect.");
+
+// CLASS: GRAPHIC3D_SEQUENCEOFHCLIPPLANE
+py::class_<Graphic3d_SequenceOfHClipPlane, opencascade::handle<Graphic3d_SequenceOfHClipPlane>, Standard_Transient> cls_Graphic3d_SequenceOfHClipPlane(mod, "Graphic3d_SequenceOfHClipPlane", "Class defines a Clipping Volume as a logical OR (disjunction) operation between Graphic3d_ClipPlane in sequence. Each Graphic3d_ClipPlane represents either a single Plane clipping a halfspace (direction is specified by normal), or a sub-chain of planes defining a logical AND (conjunction) operation. Therefore, this collection allows defining a Clipping Volume through the limited set of Boolean operations between clipping Planes.");
+
+// Constructors
+cls_Graphic3d_SequenceOfHClipPlane.def(py::init<>());
+
+// Methods
+cls_Graphic3d_SequenceOfHClipPlane.def_static("get_type_name_", (const char * (*)()) &Graphic3d_SequenceOfHClipPlane::get_type_name, "None");
+cls_Graphic3d_SequenceOfHClipPlane.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_SequenceOfHClipPlane::get_type_descriptor, "None");
+cls_Graphic3d_SequenceOfHClipPlane.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_SequenceOfHClipPlane::*)() const) &Graphic3d_SequenceOfHClipPlane::DynamicType, "None");
+cls_Graphic3d_SequenceOfHClipPlane.def("ToOverrideGlobal", (Standard_Boolean (Graphic3d_SequenceOfHClipPlane::*)() const) &Graphic3d_SequenceOfHClipPlane::ToOverrideGlobal, "Return true if local properties should override global properties.");
+cls_Graphic3d_SequenceOfHClipPlane.def("SetOverrideGlobal", (void (Graphic3d_SequenceOfHClipPlane::*)(const Standard_Boolean)) &Graphic3d_SequenceOfHClipPlane::SetOverrideGlobal, "Setup flag defining if local properties should override global properties.", py::arg("theToOverride"));
+cls_Graphic3d_SequenceOfHClipPlane.def("IsEmpty", (bool (Graphic3d_SequenceOfHClipPlane::*)() const) &Graphic3d_SequenceOfHClipPlane::IsEmpty, "Return TRUE if sequence is empty.");
+cls_Graphic3d_SequenceOfHClipPlane.def("Size", (Standard_Integer (Graphic3d_SequenceOfHClipPlane::*)() const) &Graphic3d_SequenceOfHClipPlane::Size, "Return the number of items in sequence.");
+cls_Graphic3d_SequenceOfHClipPlane.def("Append", (bool (Graphic3d_SequenceOfHClipPlane::*)(const opencascade::handle<Graphic3d_ClipPlane> &)) &Graphic3d_SequenceOfHClipPlane::Append, "Append a plane.", py::arg("theItem"));
+cls_Graphic3d_SequenceOfHClipPlane.def("Remove", (bool (Graphic3d_SequenceOfHClipPlane::*)(const opencascade::handle<Graphic3d_ClipPlane> &)) &Graphic3d_SequenceOfHClipPlane::Remove, "Remove a plane.", py::arg("theItem"));
+cls_Graphic3d_SequenceOfHClipPlane.def("Remove", (void (Graphic3d_SequenceOfHClipPlane::*)(Graphic3d_SequenceOfHClipPlane::Iterator &)) &Graphic3d_SequenceOfHClipPlane::Remove, "Remove a plane.", py::arg("theItem"));
+cls_Graphic3d_SequenceOfHClipPlane.def("Clear", (void (Graphic3d_SequenceOfHClipPlane::*)()) &Graphic3d_SequenceOfHClipPlane::Clear, "Clear the items out.");
+cls_Graphic3d_SequenceOfHClipPlane.def("First", (const opencascade::handle<Graphic3d_ClipPlane> & (Graphic3d_SequenceOfHClipPlane::*)() const) &Graphic3d_SequenceOfHClipPlane::First, "Return the first item in sequence.");
+
+// CLASS: GRAPHIC3D_VIEWAFFINITY
+py::class_<Graphic3d_ViewAffinity, opencascade::handle<Graphic3d_ViewAffinity>, Standard_Transient> cls_Graphic3d_ViewAffinity(mod, "Graphic3d_ViewAffinity", "Structure display state.");
+
+// Constructors
+cls_Graphic3d_ViewAffinity.def(py::init<>());
+
+// Methods
+cls_Graphic3d_ViewAffinity.def("IsVisible", (bool (Graphic3d_ViewAffinity::*)(const Standard_Integer) const) &Graphic3d_ViewAffinity::IsVisible, "Return visibility flag.", py::arg("theViewId"));
+cls_Graphic3d_ViewAffinity.def("SetVisible", (void (Graphic3d_ViewAffinity::*)(const Standard_Boolean)) &Graphic3d_ViewAffinity::SetVisible, "Setup visibility flag for all views.", py::arg("theIsVisible"));
+cls_Graphic3d_ViewAffinity.def("SetVisible", (void (Graphic3d_ViewAffinity::*)(const Standard_Integer, const bool)) &Graphic3d_ViewAffinity::SetVisible, "Setup visibility flag.", py::arg("theViewId"), py::arg("theIsVisible"));
+cls_Graphic3d_ViewAffinity.def_static("get_type_name_", (const char * (*)()) &Graphic3d_ViewAffinity::get_type_name, "None");
+cls_Graphic3d_ViewAffinity.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_ViewAffinity::get_type_descriptor, "None");
+cls_Graphic3d_ViewAffinity.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_ViewAffinity::*)() const) &Graphic3d_ViewAffinity::DynamicType, "None");
 
 // CLASS: GRAPHIC3D_CAMERATILE
 py::class_<Graphic3d_CameraTile> cls_Graphic3d_CameraTile(mod, "Graphic3d_CameraTile", "Class defines the area (Tile) inside a view.");
@@ -1249,22 +1750,25 @@ cls_Graphic3d_Camera.def(py::init<const opencascade::handle<Graphic3d_Camera> &>
 cls_Graphic3d_Camera.def("CopyMappingData", (void (Graphic3d_Camera::*)(const opencascade::handle<Graphic3d_Camera> &)) &Graphic3d_Camera::CopyMappingData, "Initialize mapping related parameters from other camera handle.", py::arg("theOtherCamera"));
 cls_Graphic3d_Camera.def("CopyOrientationData", (void (Graphic3d_Camera::*)(const opencascade::handle<Graphic3d_Camera> &)) &Graphic3d_Camera::CopyOrientationData, "Initialize orientation related parameters from other camera handle.", py::arg("theOtherCamera"));
 cls_Graphic3d_Camera.def("Copy", (void (Graphic3d_Camera::*)(const opencascade::handle<Graphic3d_Camera> &)) &Graphic3d_Camera::Copy, "Copy properties of another camera.", py::arg("theOther"));
-cls_Graphic3d_Camera.def("SetEye", (void (Graphic3d_Camera::*)(const gp_Pnt &)) &Graphic3d_Camera::SetEye, "Sets camera Eye position.", py::arg("theEye"));
-cls_Graphic3d_Camera.def("Eye", (const gp_Pnt & (Graphic3d_Camera::*)() const) &Graphic3d_Camera::Eye, "Get camera Eye position.");
-cls_Graphic3d_Camera.def("SetCenter", (void (Graphic3d_Camera::*)(const gp_Pnt &)) &Graphic3d_Camera::SetCenter, "Sets Center of the camera.", py::arg("theCenter"));
-cls_Graphic3d_Camera.def("Center", (const gp_Pnt & (Graphic3d_Camera::*)() const) &Graphic3d_Camera::Center, "Get Center of the camera.");
-cls_Graphic3d_Camera.def("SetUp", (void (Graphic3d_Camera::*)(const gp_Dir &)) &Graphic3d_Camera::SetUp, "Sets camera Up direction vector, orthogonal to camera direction.", py::arg("theUp"));
+cls_Graphic3d_Camera.def("Direction", (const gp_Dir & (Graphic3d_Camera::*)() const) &Graphic3d_Camera::Direction, "Get camera look direction.");
+cls_Graphic3d_Camera.def("SetDirectionFromEye", (void (Graphic3d_Camera::*)(const gp_Dir &)) &Graphic3d_Camera::SetDirectionFromEye, "Sets camera look direction preserving the current Eye() position. WARNING! This method does NOT verify that the current Up() vector is orthogonal to the new Direction.", py::arg("theDir"));
+cls_Graphic3d_Camera.def("SetDirection", (void (Graphic3d_Camera::*)(const gp_Dir &)) &Graphic3d_Camera::SetDirection, "Sets camera look direction and computes the new Eye position relative to current Center. WARNING! This method does NOT verify that the current Up() vector is orthogonal to the new Direction.", py::arg("theDir"));
+cls_Graphic3d_Camera.def("Up", (const gp_Dir & (Graphic3d_Camera::*)() const) &Graphic3d_Camera::Up, "Get camera Up direction vector.");
+cls_Graphic3d_Camera.def("SetUp", (void (Graphic3d_Camera::*)(const gp_Dir &)) &Graphic3d_Camera::SetUp, "Sets camera Up direction vector, orthogonal to camera direction. WARNING! This method does NOT verify that the new Up vector is orthogonal to the current Direction().", py::arg("theUp"));
 cls_Graphic3d_Camera.def("OrthogonalizeUp", (void (Graphic3d_Camera::*)()) &Graphic3d_Camera::OrthogonalizeUp, "Orthogonalize up direction vector.");
 cls_Graphic3d_Camera.def("OrthogonalizedUp", (gp_Dir (Graphic3d_Camera::*)() const) &Graphic3d_Camera::OrthogonalizedUp, "Return a copy of orthogonalized up direction vector.");
-cls_Graphic3d_Camera.def("Up", (const gp_Dir & (Graphic3d_Camera::*)() const) &Graphic3d_Camera::Up, "Get camera Up direction vector.");
-cls_Graphic3d_Camera.def("SetAxialScale", (void (Graphic3d_Camera::*)(const gp_XYZ &)) &Graphic3d_Camera::SetAxialScale, "Set camera axial scale.", py::arg("theAxialScale"));
-cls_Graphic3d_Camera.def("AxialScale", (const gp_XYZ & (Graphic3d_Camera::*)() const) &Graphic3d_Camera::AxialScale, "Get camera axial scale.");
-cls_Graphic3d_Camera.def("SetDistance", (void (Graphic3d_Camera::*)(const Standard_Real)) &Graphic3d_Camera::SetDistance, "Set distance of Eye from camera Center.", py::arg("theDistance"));
+cls_Graphic3d_Camera.def("Eye", (const gp_Pnt & (Graphic3d_Camera::*)() const) &Graphic3d_Camera::Eye, "Get camera Eye position.");
+cls_Graphic3d_Camera.def("MoveEyeTo", (void (Graphic3d_Camera::*)(const gp_Pnt &)) &Graphic3d_Camera::MoveEyeTo, "Sets camera Eye position. Unlike SetEye(), this method only changes Eye point and preserves camera direction.", py::arg("theEye"));
+cls_Graphic3d_Camera.def("SetEyeAndCenter", (void (Graphic3d_Camera::*)(const gp_Pnt &, const gp_Pnt &)) &Graphic3d_Camera::SetEyeAndCenter, "Sets camera Eye and Center positions.", py::arg("theEye"), py::arg("theCenter"));
+cls_Graphic3d_Camera.def("SetEye", (void (Graphic3d_Camera::*)(const gp_Pnt &)) &Graphic3d_Camera::SetEye, "Sets camera Eye position. WARNING! For backward compatibility reasons, this method also changes view direction, so that the new direction is computed from new Eye position to old Center position.", py::arg("theEye"));
+cls_Graphic3d_Camera.def("Center", (gp_Pnt (Graphic3d_Camera::*)() const) &Graphic3d_Camera::Center, "Get Center of the camera, e.g. the point where camera looks at. This point is computed as Eye() translated along Direction() at Distance().");
+cls_Graphic3d_Camera.def("SetCenter", (void (Graphic3d_Camera::*)(const gp_Pnt &)) &Graphic3d_Camera::SetCenter, "Sets Center of the camera, e.g. the point where camera looks at. This methods changes camera direction, so that the new direction is computed from current Eye position to specified Center position.", py::arg("theCenter"));
 cls_Graphic3d_Camera.def("Distance", (Standard_Real (Graphic3d_Camera::*)() const) &Graphic3d_Camera::Distance, "Get distance of Eye from camera Center.");
-cls_Graphic3d_Camera.def("SetDirection", (void (Graphic3d_Camera::*)(const gp_Dir &)) &Graphic3d_Camera::SetDirection, "Sets camera look direction.", py::arg("theDir"));
-cls_Graphic3d_Camera.def("Direction", (gp_Dir (Graphic3d_Camera::*)() const) &Graphic3d_Camera::Direction, "Get camera look direction.");
-cls_Graphic3d_Camera.def("SetScale", (void (Graphic3d_Camera::*)(const Standard_Real)) &Graphic3d_Camera::SetScale, "Sets camera scale. For orthographic projection the scale factor corresponds to parallel scale of view mapping (i.e. size of viewport). For perspective camera scale is converted to distance. The scale specifies equal size of the view projection in both dimensions assuming that the aspect is 1.0. The projection height and width are specified with the scale and correspondingly multiplied by the aspect.", py::arg("theScale"));
+cls_Graphic3d_Camera.def("SetDistance", (void (Graphic3d_Camera::*)(const Standard_Real)) &Graphic3d_Camera::SetDistance, "Set distance of Eye from camera Center.", py::arg("theDistance"));
 cls_Graphic3d_Camera.def("Scale", (Standard_Real (Graphic3d_Camera::*)() const) &Graphic3d_Camera::Scale, "Get camera scale.");
+cls_Graphic3d_Camera.def("SetScale", (void (Graphic3d_Camera::*)(const Standard_Real)) &Graphic3d_Camera::SetScale, "Sets camera scale. For orthographic projection the scale factor corresponds to parallel scale of view mapping (i.e. size of viewport). For perspective camera scale is converted to distance. The scale specifies equal size of the view projection in both dimensions assuming that the aspect is 1.0. The projection height and width are specified with the scale and correspondingly multiplied by the aspect.", py::arg("theScale"));
+cls_Graphic3d_Camera.def("AxialScale", (const gp_XYZ & (Graphic3d_Camera::*)() const) &Graphic3d_Camera::AxialScale, "Get camera axial scale.");
+cls_Graphic3d_Camera.def("SetAxialScale", (void (Graphic3d_Camera::*)(const gp_XYZ &)) &Graphic3d_Camera::SetAxialScale, "Set camera axial scale.", py::arg("theAxialScale"));
 cls_Graphic3d_Camera.def("SetProjectionType", (void (Graphic3d_Camera::*)(const Graphic3d_Camera::Projection)) &Graphic3d_Camera::SetProjectionType, "Change camera projection type. When switching to perspective projection from orthographic one, the ZNear and ZFar are reset to default values (0.001, 3000.0) if less than 0.0.", py::arg("theProjection"));
 cls_Graphic3d_Camera.def("ProjectionType", (Graphic3d_Camera::Projection (Graphic3d_Camera::*)() const) &Graphic3d_Camera::ProjectionType, "Returns camera projection type.");
 cls_Graphic3d_Camera.def("IsOrthographic", (Standard_Boolean (Graphic3d_Camera::*)() const) &Graphic3d_Camera::IsOrthographic, "Check that the camera projection is orthographic.");
@@ -1309,6 +1813,7 @@ cls_Graphic3d_Camera.def("ProjectionStereoRight", (const Graphic3d_Mat4d & (Grap
 cls_Graphic3d_Camera.def("ProjectionStereoRightF", (const Graphic3d_Mat4 & (Graphic3d_Camera::*)() const) &Graphic3d_Camera::ProjectionStereoRightF, "Returns stereographic matrix of Standard_ShortReal precision computed for right eye. Please note that this method is used for rendering for Projection_Stereo.");
 cls_Graphic3d_Camera.def("InvalidateProjection", (void (Graphic3d_Camera::*)()) &Graphic3d_Camera::InvalidateProjection, "Invalidate state of projection matrix. The matrix will be updated on request.");
 cls_Graphic3d_Camera.def("InvalidateOrientation", (void (Graphic3d_Camera::*)()) &Graphic3d_Camera::InvalidateOrientation, "Invalidate orientation matrix. The matrix will be updated on request.");
+cls_Graphic3d_Camera.def("FrustumPoints", (void (Graphic3d_Camera::*)(NCollection_Array1<Graphic3d_Vec3d> &) const) &Graphic3d_Camera::FrustumPoints, "Fill array of current view frustum corners. The size of this array is equal to FrustumVerticesNB. The order of vertices is as defined in FrustumVert_* enumeration.", py::arg("thePoints"));
 cls_Graphic3d_Camera.def_static("get_type_name_", (const char * (*)()) &Graphic3d_Camera::get_type_name, "None");
 cls_Graphic3d_Camera.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_Camera::get_type_descriptor, "None");
 cls_Graphic3d_Camera.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_Camera::*)() const) &Graphic3d_Camera::DynamicType, "None");
@@ -1329,435 +1834,18 @@ py::enum_<Graphic3d_Camera::IODType>(cls_Graphic3d_Camera, "IODType", "Enumerate
 	.value("IODType_Absolute", Graphic3d_Camera::IODType::IODType_Absolute)
 	.value("IODType_Relative", Graphic3d_Camera::IODType::IODType_Relative)
 	.export_values();
+cls_Graphic3d_Camera.attr("FrustumVert_LeftBottomNear") = py::cast(int(Graphic3d_Camera::FrustumVert_LeftBottomNear));
+cls_Graphic3d_Camera.attr("FrustumVert_LeftBottomFar") = py::cast(int(Graphic3d_Camera::FrustumVert_LeftBottomFar));
+cls_Graphic3d_Camera.attr("FrustumVert_LeftTopNear") = py::cast(int(Graphic3d_Camera::FrustumVert_LeftTopNear));
+cls_Graphic3d_Camera.attr("FrustumVert_LeftTopFar") = py::cast(int(Graphic3d_Camera::FrustumVert_LeftTopFar));
+cls_Graphic3d_Camera.attr("FrustumVert_RightBottomNear") = py::cast(int(Graphic3d_Camera::FrustumVert_RightBottomNear));
+cls_Graphic3d_Camera.attr("FrustumVert_RightBottomFar") = py::cast(int(Graphic3d_Camera::FrustumVert_RightBottomFar));
+cls_Graphic3d_Camera.attr("FrustumVert_RightTopNear") = py::cast(int(Graphic3d_Camera::FrustumVert_RightTopNear));
+cls_Graphic3d_Camera.attr("FrustumVert_RightTopFar") = py::cast(int(Graphic3d_Camera::FrustumVert_RightTopFar));
+cls_Graphic3d_Camera.attr("FrustumVerticesNB") = py::cast(int(Graphic3d_Camera::FrustumVerticesNB));
 
 // TYPEDEF: GRAPHIC3D_CAMERALERP
 bind_NCollection_Lerp<opencascade::handle<Graphic3d_Camera> >(mod, "Graphic3d_CameraLerp", py::module_local(false));
-
-// CLASS: GRAPHIC3D_CLIGHT
-py::class_<Graphic3d_CLight, opencascade::handle<Graphic3d_CLight>, Standard_Transient> cls_Graphic3d_CLight(mod, "Graphic3d_CLight", "Generic light source definition. This class defines arbitrary light source - see Graphic3d_TypeOfLightSource enumeration. Some parameters are applicable only to particular light type; calling methods unrelated to current type will throw an exception.");
-
-// Constructors
-cls_Graphic3d_CLight.def(py::init<Graphic3d_TypeOfLightSource>(), py::arg("theType"));
-
-// Methods
-cls_Graphic3d_CLight.def_static("get_type_name_", (const char * (*)()) &Graphic3d_CLight::get_type_name, "None");
-cls_Graphic3d_CLight.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_CLight::get_type_descriptor, "None");
-cls_Graphic3d_CLight.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_CLight::*)() const) &Graphic3d_CLight::DynamicType, "None");
-cls_Graphic3d_CLight.def("Type", (Graphic3d_TypeOfLightSource (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Type, "Returns the Type of the Light, cannot be changed after object construction.");
-cls_Graphic3d_CLight.def("Name", (const TCollection_AsciiString & (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Name, "Returns light source name; empty string by default.");
-cls_Graphic3d_CLight.def("SetName", (void (Graphic3d_CLight::*)(const TCollection_AsciiString &)) &Graphic3d_CLight::SetName, "Sets light source name.", py::arg("theName"));
-cls_Graphic3d_CLight.def("Color", (const Quantity_Color & (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Color, "Returns the color of the light source; WHITE by default.");
-cls_Graphic3d_CLight.def("SetColor", (void (Graphic3d_CLight::*)(const Quantity_Color &)) &Graphic3d_CLight::SetColor, "Defines the color of a light source by giving the basic color.", py::arg("theColor"));
-cls_Graphic3d_CLight.def("IsEnabled", (Standard_Boolean (Graphic3d_CLight::*)() const) &Graphic3d_CLight::IsEnabled, "Check that the light source is turned on; TRUE by default. This flag affects all occurrences of light sources, where it was registered and activated; so that it is possible defining an active light in View which is actually in disabled state.");
-cls_Graphic3d_CLight.def("SetEnabled", (void (Graphic3d_CLight::*)(Standard_Boolean)) &Graphic3d_CLight::SetEnabled, "Change enabled state of the light state. This call does not remove or deactivate light source in Views/Viewers; instead it turns it OFF so that it just have no effect.", py::arg("theIsOn"));
-cls_Graphic3d_CLight.def("IsHeadlight", (Standard_Boolean (Graphic3d_CLight::*)() const) &Graphic3d_CLight::IsHeadlight, "Returns true if the light is a headlight; FALSE by default. Headlight flag means that light position/direction are defined not in a World coordinate system, but relative to the camera orientation.");
-cls_Graphic3d_CLight.def("Headlight", (Standard_Boolean (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Headlight, "Alias for IsHeadlight().");
-cls_Graphic3d_CLight.def("SetHeadlight", (void (Graphic3d_CLight::*)(Standard_Boolean)) &Graphic3d_CLight::SetHeadlight, "Setup headlight flag.", py::arg("theValue"));
-cls_Graphic3d_CLight.def("Position", (const gp_Pnt & (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Position, "Returns location of positional/spot light; (0, 0, 0) by default.");
-cls_Graphic3d_CLight.def("SetPosition", (void (Graphic3d_CLight::*)(const gp_Pnt &)) &Graphic3d_CLight::SetPosition, "Setup location of positional/spot light.", py::arg("thePosition"));
-cls_Graphic3d_CLight.def("Position", [](Graphic3d_CLight &self, Standard_Real & theX, Standard_Real & theY, Standard_Real & theZ){ self.Position(theX, theY, theZ); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &>(theX, theY, theZ); }, "Returns location of positional/spot light.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
-cls_Graphic3d_CLight.def("SetPosition", (void (Graphic3d_CLight::*)(Standard_Real, Standard_Real, Standard_Real)) &Graphic3d_CLight::SetPosition, "Setup location of positional/spot light.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
-cls_Graphic3d_CLight.def("ConstAttenuation", (Standard_ShortReal (Graphic3d_CLight::*)() const) &Graphic3d_CLight::ConstAttenuation, "Returns constant attenuation factor of positional/spot light source; 1.0f by default. Distance attenuation factors of reducing positional/spot light intensity depending on the distance from its position:");
-cls_Graphic3d_CLight.def("LinearAttenuation", (Standard_ShortReal (Graphic3d_CLight::*)() const) &Graphic3d_CLight::LinearAttenuation, "Returns linear attenuation factor of positional/spot light source; 0.0 by default. Distance attenuation factors of reducing positional/spot light intensity depending on the distance from its position:");
-cls_Graphic3d_CLight.def("Attenuation", [](Graphic3d_CLight &self, Standard_Real & theConstAttenuation, Standard_Real & theLinearAttenuation){ self.Attenuation(theConstAttenuation, theLinearAttenuation); return std::tuple<Standard_Real &, Standard_Real &>(theConstAttenuation, theLinearAttenuation); }, "Returns the attenuation factors.", py::arg("theConstAttenuation"), py::arg("theLinearAttenuation"));
-cls_Graphic3d_CLight.def("SetAttenuation", (void (Graphic3d_CLight::*)(Standard_ShortReal, Standard_ShortReal)) &Graphic3d_CLight::SetAttenuation, "Defines the coefficients of attenuation; values should be >= 0.0 and their summ should not be equal to 0.", py::arg("theConstAttenuation"), py::arg("theLinearAttenuation"));
-cls_Graphic3d_CLight.def("Direction", (gp_Dir (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Direction, "Returns direction of directional/spot light.");
-cls_Graphic3d_CLight.def("SetDirection", (void (Graphic3d_CLight::*)(const gp_Dir &)) &Graphic3d_CLight::SetDirection, "Sets direction of directional/spot light.", py::arg("theDir"));
-cls_Graphic3d_CLight.def("Direction", [](Graphic3d_CLight &self, Standard_Real & theVx, Standard_Real & theVy, Standard_Real & theVz){ self.Direction(theVx, theVy, theVz); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &>(theVx, theVy, theVz); }, "Returns the theVx, theVy, theVz direction of the light source.", py::arg("theVx"), py::arg("theVy"), py::arg("theVz"));
-cls_Graphic3d_CLight.def("SetDirection", (void (Graphic3d_CLight::*)(Standard_Real, Standard_Real, Standard_Real)) &Graphic3d_CLight::SetDirection, "Sets direction of directional/spot light.", py::arg("theVx"), py::arg("theVy"), py::arg("theVz"));
-cls_Graphic3d_CLight.def("Angle", (Standard_ShortReal (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Angle, "Returns an angle in radians of the cone created by the spot; 30 degrees by default.");
-cls_Graphic3d_CLight.def("SetAngle", (void (Graphic3d_CLight::*)(Standard_ShortReal)) &Graphic3d_CLight::SetAngle, "Angle in radians of the cone created by the spot, should be within range (0.0, M_PI).", py::arg("theAngle"));
-cls_Graphic3d_CLight.def("Concentration", (Standard_ShortReal (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Concentration, "Returns intensity distribution of the spot light, within [0.0, 1.0] range; 1.0 by default. This coefficient should be converted into spotlight exponent within [0.0, 128.0] range: The concentration factor determines the dispersion of the light on the surface, the default value (1.0) corresponds to a minimum of dispersion.");
-cls_Graphic3d_CLight.def("SetConcentration", (void (Graphic3d_CLight::*)(Standard_ShortReal)) &Graphic3d_CLight::SetConcentration, "Defines the coefficient of concentration; value should be within range [0.0, 1.0].", py::arg("theConcentration"));
-cls_Graphic3d_CLight.def("Intensity", (Standard_ShortReal (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Intensity, "Returns the intensity of light source; 1.0 by default.");
-cls_Graphic3d_CLight.def("SetIntensity", (void (Graphic3d_CLight::*)(Standard_ShortReal)) &Graphic3d_CLight::SetIntensity, "Modifies the intensity of light source, which should be > 0.0.", py::arg("theValue"));
-cls_Graphic3d_CLight.def("Smoothness", (Standard_ShortReal (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Smoothness, "Returns the smoothness of light source (either smoothing angle for directional light or smoothing radius in case of positional light); 0.0 by default.");
-cls_Graphic3d_CLight.def("SetSmoothRadius", (void (Graphic3d_CLight::*)(Standard_ShortReal)) &Graphic3d_CLight::SetSmoothRadius, "Modifies the smoothing radius of positional/spot light; should be >= 0.0.", py::arg("theValue"));
-cls_Graphic3d_CLight.def("SetSmoothAngle", (void (Graphic3d_CLight::*)(Standard_ShortReal)) &Graphic3d_CLight::SetSmoothAngle, "Modifies the smoothing angle (in radians) of directional light source; should be within range [0.0, M_PI/2].", py::arg("theValue"));
-cls_Graphic3d_CLight.def("GetId", (const TCollection_AsciiString & (Graphic3d_CLight::*)() const) &Graphic3d_CLight::GetId, "Returns light resource identifier string");
-cls_Graphic3d_CLight.def("PackedParams", (const Graphic3d_Vec4 & (Graphic3d_CLight::*)() const) &Graphic3d_CLight::PackedParams, "Packed light parameters.");
-cls_Graphic3d_CLight.def("PackedColor", (const Graphic3d_Vec4 & (Graphic3d_CLight::*)() const) &Graphic3d_CLight::PackedColor, "Returns the color of the light source with dummy Alpha component, which should be ignored.");
-cls_Graphic3d_CLight.def("PackedDirection", (const Graphic3d_Vec4 & (Graphic3d_CLight::*)() const) &Graphic3d_CLight::PackedDirection, "Returns direction of directional/spot light.");
-cls_Graphic3d_CLight.def("Revision", (Standard_Size (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Revision, "Returns modification counter");
-
-// TYPEDEF: GRAPHIC3D_BNDBOX3D
-bind_BVH_Box<double, 3>(mod, "Graphic3d_BndBox3d", py::module_local(false));
-
-// TYPEDEF: GRAPHIC3D_BNDBOX4F
-bind_BVH_Box<float, 4>(mod, "Graphic3d_BndBox4f", py::module_local(false));
-
-// CLASS: GRAPHIC3D_ASPECTLINE3D
-py::class_<Graphic3d_AspectLine3d, opencascade::handle<Graphic3d_AspectLine3d>, Standard_Transient> cls_Graphic3d_AspectLine3d(mod, "Graphic3d_AspectLine3d", "Creates and updates a group of attributes for 3d line primitives. This group contains the color, the type of line, and its thickness.");
-
-// Constructors
-cls_Graphic3d_AspectLine3d.def(py::init<>());
-cls_Graphic3d_AspectLine3d.def(py::init<const Quantity_Color &, const Aspect_TypeOfLine, const Standard_Real>(), py::arg("theColor"), py::arg("theType"), py::arg("theWidth"));
-
-// Methods
-cls_Graphic3d_AspectLine3d.def_static("get_type_name_", (const char * (*)()) &Graphic3d_AspectLine3d::get_type_name, "None");
-cls_Graphic3d_AspectLine3d.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_AspectLine3d::get_type_descriptor, "None");
-cls_Graphic3d_AspectLine3d.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_AspectLine3d::*)() const) &Graphic3d_AspectLine3d::DynamicType, "None");
-cls_Graphic3d_AspectLine3d.def("ColorRGBA", (const Quantity_ColorRGBA & (Graphic3d_AspectLine3d::*)() const) &Graphic3d_AspectLine3d::ColorRGBA, "Return color.");
-cls_Graphic3d_AspectLine3d.def("Color", (const Quantity_Color & (Graphic3d_AspectLine3d::*)() const) &Graphic3d_AspectLine3d::Color, "Return color.");
-cls_Graphic3d_AspectLine3d.def("SetColor", (void (Graphic3d_AspectLine3d::*)(const Quantity_Color &)) &Graphic3d_AspectLine3d::SetColor, "Modifies the color.", py::arg("theColor"));
-cls_Graphic3d_AspectLine3d.def("Type", (Aspect_TypeOfLine (Graphic3d_AspectLine3d::*)() const) &Graphic3d_AspectLine3d::Type, "Return line type.");
-cls_Graphic3d_AspectLine3d.def("SetType", (void (Graphic3d_AspectLine3d::*)(const Aspect_TypeOfLine)) &Graphic3d_AspectLine3d::SetType, "Modifies the type of line.", py::arg("theType"));
-cls_Graphic3d_AspectLine3d.def("Width", (Standard_ShortReal (Graphic3d_AspectLine3d::*)() const) &Graphic3d_AspectLine3d::Width, "Return line width.");
-cls_Graphic3d_AspectLine3d.def("SetWidth", (void (Graphic3d_AspectLine3d::*)(const Standard_Real)) &Graphic3d_AspectLine3d::SetWidth, "Modifies the line thickness. Warning: Raises AspectLineDefinitionError if the width is a negative value.", py::arg("theWidth"));
-cls_Graphic3d_AspectLine3d.def("SetWidth", (void (Graphic3d_AspectLine3d::*)(const Standard_ShortReal)) &Graphic3d_AspectLine3d::SetWidth, "Modifies the line thickness. Warning: Raises AspectLineDefinitionError if the width is a negative value.", py::arg("theWidth"));
-cls_Graphic3d_AspectLine3d.def("ShaderProgram", (const opencascade::handle<Graphic3d_ShaderProgram> & (Graphic3d_AspectLine3d::*)() const) &Graphic3d_AspectLine3d::ShaderProgram, "Return shader program.");
-cls_Graphic3d_AspectLine3d.def("SetShaderProgram", (void (Graphic3d_AspectLine3d::*)(const opencascade::handle<Graphic3d_ShaderProgram> &)) &Graphic3d_AspectLine3d::SetShaderProgram, "Sets up OpenGL/GLSL shader program.", py::arg("theProgram"));
-cls_Graphic3d_AspectLine3d.def("IsEqual", (bool (Graphic3d_AspectLine3d::*)(const Graphic3d_AspectLine3d &)) &Graphic3d_AspectLine3d::IsEqual, "Check for equality with another line aspect.", py::arg("theOther"));
-cls_Graphic3d_AspectLine3d.def("Values", [](Graphic3d_AspectLine3d &self, Quantity_Color & theColor, Aspect_TypeOfLine & theType, Standard_Real & theWidth){ self.Values(theColor, theType, theWidth); return theWidth; }, "Returns the current values of the group.", py::arg("theColor"), py::arg("theType"), py::arg("theWidth"));
-
-// CLASS: GRAPHIC3D_ASPECTTEXTDEFINITIONERROR
-py::class_<Graphic3d_AspectTextDefinitionError, opencascade::handle<Graphic3d_AspectTextDefinitionError>, Standard_OutOfRange> cls_Graphic3d_AspectTextDefinitionError(mod, "Graphic3d_AspectTextDefinitionError", "None");
-
-// Constructors
-cls_Graphic3d_AspectTextDefinitionError.def(py::init<>());
-cls_Graphic3d_AspectTextDefinitionError.def(py::init<const Standard_CString>(), py::arg("theMessage"));
-
-// Methods
-cls_Graphic3d_AspectTextDefinitionError.def_static("Raise_", (void (*)(const Standard_CString)) &Graphic3d_AspectTextDefinitionError::Raise, "None", py::arg("theMessage"));
-cls_Graphic3d_AspectTextDefinitionError.def_static("Raise_", (void (*)(Standard_SStream &)) &Graphic3d_AspectTextDefinitionError::Raise, "None", py::arg("theMessage"));
-cls_Graphic3d_AspectTextDefinitionError.def_static("NewInstance_", (opencascade::handle<Graphic3d_AspectTextDefinitionError> (*)(const Standard_CString)) &Graphic3d_AspectTextDefinitionError::NewInstance, "None", py::arg("theMessage"));
-cls_Graphic3d_AspectTextDefinitionError.def_static("get_type_name_", (const char * (*)()) &Graphic3d_AspectTextDefinitionError::get_type_name, "None");
-cls_Graphic3d_AspectTextDefinitionError.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_AspectTextDefinitionError::get_type_descriptor, "None");
-cls_Graphic3d_AspectTextDefinitionError.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_AspectTextDefinitionError::*)() const) &Graphic3d_AspectTextDefinitionError::DynamicType, "None");
-
-// CLASS: GRAPHIC3D_ASPECTTEXT3D
-py::class_<Graphic3d_AspectText3d, opencascade::handle<Graphic3d_AspectText3d>, Standard_Transient> cls_Graphic3d_AspectText3d(mod, "Graphic3d_AspectText3d", "Creates and updates a group of attributes for text primitives. This group contains the color, font, expansion factor (height/width ratio), and inter-character space.");
-
-// Constructors
-cls_Graphic3d_AspectText3d.def(py::init<>());
-cls_Graphic3d_AspectText3d.def(py::init<const Quantity_Color &, const Standard_CString, const Standard_Real, const Standard_Real>(), py::arg("theColor"), py::arg("theFont"), py::arg("theExpansionFactor"), py::arg("theSpace"));
-cls_Graphic3d_AspectText3d.def(py::init<const Quantity_Color &, const Standard_CString, const Standard_Real, const Standard_Real, const Aspect_TypeOfStyleText>(), py::arg("theColor"), py::arg("theFont"), py::arg("theExpansionFactor"), py::arg("theSpace"), py::arg("theStyle"));
-cls_Graphic3d_AspectText3d.def(py::init<const Quantity_Color &, const Standard_CString, const Standard_Real, const Standard_Real, const Aspect_TypeOfStyleText, const Aspect_TypeOfDisplayText>(), py::arg("theColor"), py::arg("theFont"), py::arg("theExpansionFactor"), py::arg("theSpace"), py::arg("theStyle"), py::arg("theDisplayType"));
-
-// Methods
-cls_Graphic3d_AspectText3d.def_static("get_type_name_", (const char * (*)()) &Graphic3d_AspectText3d::get_type_name, "None");
-cls_Graphic3d_AspectText3d.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_AspectText3d::get_type_descriptor, "None");
-cls_Graphic3d_AspectText3d.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::DynamicType, "None");
-cls_Graphic3d_AspectText3d.def("Color", (const Quantity_Color & (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::Color, "Return the text color.");
-cls_Graphic3d_AspectText3d.def("ColorRGBA", (const Quantity_ColorRGBA & (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::ColorRGBA, "Return the text color.");
-cls_Graphic3d_AspectText3d.def("SetColor", (void (Graphic3d_AspectText3d::*)(const Quantity_Color &)) &Graphic3d_AspectText3d::SetColor, "Modifies the color.", py::arg("theColor"));
-cls_Graphic3d_AspectText3d.def("SetColor", (void (Graphic3d_AspectText3d::*)(const Quantity_ColorRGBA &)) &Graphic3d_AspectText3d::SetColor, "Modifies the color.", py::arg("theColor"));
-cls_Graphic3d_AspectText3d.def("SetExpansionFactor", (void (Graphic3d_AspectText3d::*)(const Standard_Real)) &Graphic3d_AspectText3d::SetExpansionFactor, "Modifies the expansion factor (height/width ratio) If the factor is less than 1, the characters will be higher than they are wide.", py::arg("theFactor"));
-cls_Graphic3d_AspectText3d.def("Font", (const TCollection_AsciiString & (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::Font, "Return the font.");
-cls_Graphic3d_AspectText3d.def("SetFont", (void (Graphic3d_AspectText3d::*)(const TCollection_AsciiString &)) &Graphic3d_AspectText3d::SetFont, "Modifies the font.", py::arg("theFont"));
-cls_Graphic3d_AspectText3d.def("SetFont", (void (Graphic3d_AspectText3d::*)(const Standard_CString)) &Graphic3d_AspectText3d::SetFont, "Modifies the font.", py::arg("theFont"));
-cls_Graphic3d_AspectText3d.def("Space", (Standard_Real (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::Space, "Return the space between characters.");
-cls_Graphic3d_AspectText3d.def("SetSpace", (void (Graphic3d_AspectText3d::*)(const Standard_Real)) &Graphic3d_AspectText3d::SetSpace, "Modifies the space between the characters.", py::arg("theSpace"));
-cls_Graphic3d_AspectText3d.def("Style", (Aspect_TypeOfStyleText (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::Style, "Return the text style.");
-cls_Graphic3d_AspectText3d.def("SetStyle", (void (Graphic3d_AspectText3d::*)(const Aspect_TypeOfStyleText)) &Graphic3d_AspectText3d::SetStyle, "Modifies the style of the text. * TOST_NORMAL Default text. The text is displayed like any other graphic object. This text can be hidden by another object that is nearest from the point of view. * TOST_ANNOTATION The text is always visible. The text is displayed over the other object according to the priority.", py::arg("theStyle"));
-cls_Graphic3d_AspectText3d.def("DisplayType", (Aspect_TypeOfDisplayText (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::DisplayType, "Return display type.");
-cls_Graphic3d_AspectText3d.def("SetDisplayType", (void (Graphic3d_AspectText3d::*)(const Aspect_TypeOfDisplayText)) &Graphic3d_AspectText3d::SetDisplayType, "Define the display type of the text.", py::arg("theDisplayType"));
-cls_Graphic3d_AspectText3d.def("ColorSubTitleRGBA", (const Quantity_ColorRGBA & (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::ColorSubTitleRGBA, "Return subtitle color.");
-cls_Graphic3d_AspectText3d.def("ColorSubTitle", (const Quantity_Color & (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::ColorSubTitle, "Return subtitle color.");
-cls_Graphic3d_AspectText3d.def("SetColorSubTitle", (void (Graphic3d_AspectText3d::*)(const Quantity_Color &)) &Graphic3d_AspectText3d::SetColorSubTitle, "Modifies the color of the subtitle for the TODT_SUBTITLE TextDisplayType and the color of background for the TODT_DEKALE TextDisplayType.", py::arg("theColor"));
-cls_Graphic3d_AspectText3d.def("SetColorSubTitle", (void (Graphic3d_AspectText3d::*)(const Quantity_ColorRGBA &)) &Graphic3d_AspectText3d::SetColorSubTitle, "Modifies the color of the subtitle for the TODT_SUBTITLE TextDisplayType and the color of background for the TODT_DEKALE TextDisplayType.", py::arg("theColor"));
-cls_Graphic3d_AspectText3d.def("GetTextZoomable", (bool (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::GetTextZoomable, "Returns TRUE when the Text Zoomable is on.");
-cls_Graphic3d_AspectText3d.def("SetTextZoomable", (void (Graphic3d_AspectText3d::*)(const bool)) &Graphic3d_AspectText3d::SetTextZoomable, "Turns usage of text zoomable on/off", py::arg("theFlag"));
-cls_Graphic3d_AspectText3d.def("GetTextAngle", (Standard_Real (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::GetTextAngle, "Returns Angle of degree");
-cls_Graphic3d_AspectText3d.def("SetTextAngle", (void (Graphic3d_AspectText3d::*)(const Standard_Real)) &Graphic3d_AspectText3d::SetTextAngle, "Turns usage of text rotated", py::arg("theAngle"));
-cls_Graphic3d_AspectText3d.def("GetTextFontAspect", (Font_FontAspect (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::GetTextFontAspect, "Returns text FontAspect");
-cls_Graphic3d_AspectText3d.def("SetTextFontAspect", (void (Graphic3d_AspectText3d::*)(const Font_FontAspect)) &Graphic3d_AspectText3d::SetTextFontAspect, "Turns usage of Aspect text", py::arg("theFontAspect"));
-cls_Graphic3d_AspectText3d.def("ShaderProgram", (const opencascade::handle<Graphic3d_ShaderProgram> & (Graphic3d_AspectText3d::*)() const) &Graphic3d_AspectText3d::ShaderProgram, "Return the shader program.");
-cls_Graphic3d_AspectText3d.def("SetShaderProgram", (void (Graphic3d_AspectText3d::*)(const opencascade::handle<Graphic3d_ShaderProgram> &)) &Graphic3d_AspectText3d::SetShaderProgram, "Sets up OpenGL/GLSL shader program.", py::arg("theProgram"));
-// cls_Graphic3d_AspectText3d.def("Values", [](Graphic3d_AspectText3d &self, Quantity_Color & theColor, Standard_CString & theFont, Standard_Real & theExpansionFactor, Standard_Real & theSpace){ self.Values(theColor, theFont, theExpansionFactor, theSpace); return std::tuple<Standard_CString &, Standard_Real &, Standard_Real &>(theFont, theExpansionFactor, theSpace); }, "Returns the current values of the group.", py::arg("theColor"), py::arg("theFont"), py::arg("theExpansionFactor"), py::arg("theSpace"));
-// cls_Graphic3d_AspectText3d.def("Values", [](Graphic3d_AspectText3d &self, Quantity_Color & theColor, Standard_CString & theFont, Standard_Real & theExpansionFactor, Standard_Real & theSpace, Aspect_TypeOfStyleText & theStyle, Aspect_TypeOfDisplayText & theDisplayType, Quantity_Color & theColorSubTitle){ self.Values(theColor, theFont, theExpansionFactor, theSpace, theStyle, theDisplayType, theColorSubTitle); return std::tuple<Standard_CString &, Standard_Real &, Standard_Real &>(theFont, theExpansionFactor, theSpace); }, "Returns the current values of the group.", py::arg("theColor"), py::arg("theFont"), py::arg("theExpansionFactor"), py::arg("theSpace"), py::arg("theStyle"), py::arg("theDisplayType"), py::arg("theColorSubTitle"));
-// cls_Graphic3d_AspectText3d.def("Values", [](Graphic3d_AspectText3d &self, Quantity_Color & theColor, Standard_CString & theFont, Standard_Real & theExpansionFactor, Standard_Real & theSpace, Aspect_TypeOfStyleText & theStyle, Aspect_TypeOfDisplayText & theDisplayType, Quantity_Color & theColorSubTitle, Standard_Boolean & theTextZoomable, Standard_Real & theTextAngle){ self.Values(theColor, theFont, theExpansionFactor, theSpace, theStyle, theDisplayType, theColorSubTitle, theTextZoomable, theTextAngle); return std::tuple<Standard_CString &, Standard_Real &, Standard_Real &, Standard_Boolean &, Standard_Real &>(theFont, theExpansionFactor, theSpace, theTextZoomable, theTextAngle); }, "Returns the current values of the group.", py::arg("theColor"), py::arg("theFont"), py::arg("theExpansionFactor"), py::arg("theSpace"), py::arg("theStyle"), py::arg("theDisplayType"), py::arg("theColorSubTitle"), py::arg("theTextZoomable"), py::arg("theTextAngle"));
-// cls_Graphic3d_AspectText3d.def("Values", [](Graphic3d_AspectText3d &self, Quantity_Color & theColor, Standard_CString & theFont, Standard_Real & theExpansionFactor, Standard_Real & theSpace, Aspect_TypeOfStyleText & theStyle, Aspect_TypeOfDisplayText & theDisplayType, Quantity_Color & theColorSubTitle, Standard_Boolean & theTextZoomable, Standard_Real & theTextAngle, Font_FontAspect & theTextFontAspect){ self.Values(theColor, theFont, theExpansionFactor, theSpace, theStyle, theDisplayType, theColorSubTitle, theTextZoomable, theTextAngle, theTextFontAspect); return std::tuple<Standard_CString &, Standard_Real &, Standard_Real &, Standard_Boolean &, Standard_Real &>(theFont, theExpansionFactor, theSpace, theTextZoomable, theTextAngle); }, "Returns the current values of the group.", py::arg("theColor"), py::arg("theFont"), py::arg("theExpansionFactor"), py::arg("theSpace"), py::arg("theStyle"), py::arg("theDisplayType"), py::arg("theColorSubTitle"), py::arg("theTextZoomable"), py::arg("theTextAngle"), py::arg("theTextFontAspect"));
-
-// CLASS: GRAPHIC3D_MARKERIMAGE
-py::class_<Graphic3d_MarkerImage, opencascade::handle<Graphic3d_MarkerImage>, Standard_Transient> cls_Graphic3d_MarkerImage(mod, "Graphic3d_MarkerImage", "This class is used to store bitmaps and images for markers rendering. It can convert bitmap texture stored in TColStd_HArray1OfByte to Image_PixMap and vice versa.");
-
-// Constructors
-cls_Graphic3d_MarkerImage.def(py::init<const opencascade::handle<Image_PixMap> &>(), py::arg("theImage"));
-cls_Graphic3d_MarkerImage.def(py::init<const opencascade::handle<TColStd_HArray1OfByte> &, const Standard_Integer &, const Standard_Integer &>(), py::arg("theBitMap"), py::arg("theWidth"), py::arg("theHeight"));
-
-// Methods
-cls_Graphic3d_MarkerImage.def("GetBitMapArray", [](Graphic3d_MarkerImage &self) -> opencascade::handle<TColStd_HArray1OfByte> { return self.GetBitMapArray(); });
-cls_Graphic3d_MarkerImage.def("GetBitMapArray", (opencascade::handle<TColStd_HArray1OfByte> (Graphic3d_MarkerImage::*)(const Standard_Real &) const) &Graphic3d_MarkerImage::GetBitMapArray, "Returns marker image as array of bytes. If an instance of the class has been initialized with image, it will be converted to bitmap based on the parameter theAlphaValue.", py::arg("theAlphaValue"));
-cls_Graphic3d_MarkerImage.def("GetImage", (const opencascade::handle<Image_PixMap> & (Graphic3d_MarkerImage::*)()) &Graphic3d_MarkerImage::GetImage, "Returns marker image. If an instance of the class has been initialized with a bitmap, it will be converted to image.");
-cls_Graphic3d_MarkerImage.def("GetImageAlpha", (const opencascade::handle<Image_PixMap> & (Graphic3d_MarkerImage::*)()) &Graphic3d_MarkerImage::GetImageAlpha, "Returns image alpha as grayscale image. Note that if an instance of the class has been initialized with a bitmap or with grayscale image this method will return exactly the same image as GetImage()");
-cls_Graphic3d_MarkerImage.def("GetImageId", (const TCollection_AsciiString & (Graphic3d_MarkerImage::*)() const) &Graphic3d_MarkerImage::GetImageId, "Returns an unique ID. This ID will be used to manage resource in graphic driver.");
-cls_Graphic3d_MarkerImage.def("GetImageAlphaId", (const TCollection_AsciiString & (Graphic3d_MarkerImage::*)() const) &Graphic3d_MarkerImage::GetImageAlphaId, "Returns an unique ID. This ID will be used to manage resource in graphic driver.");
-cls_Graphic3d_MarkerImage.def("GetTextureSize", [](Graphic3d_MarkerImage &self, Standard_Integer & theWidth, Standard_Integer & theHeight){ self.GetTextureSize(theWidth, theHeight); return std::tuple<Standard_Integer &, Standard_Integer &>(theWidth, theHeight); }, "Returns texture size", py::arg("theWidth"), py::arg("theHeight"));
-cls_Graphic3d_MarkerImage.def_static("get_type_name_", (const char * (*)()) &Graphic3d_MarkerImage::get_type_name, "None");
-cls_Graphic3d_MarkerImage.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_MarkerImage::get_type_descriptor, "None");
-cls_Graphic3d_MarkerImage.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_MarkerImage::*)() const) &Graphic3d_MarkerImage::DynamicType, "None");
-
-// CLASS: GRAPHIC3D_ASPECTMARKER3D
-py::class_<Graphic3d_AspectMarker3d, opencascade::handle<Graphic3d_AspectMarker3d>, Standard_Transient> cls_Graphic3d_AspectMarker3d(mod, "Graphic3d_AspectMarker3d", "Creates and updates an attribute group for marker type primitives. This group contains the type of marker, its color, and its scale factor.");
-
-// Constructors
-cls_Graphic3d_AspectMarker3d.def(py::init<>());
-cls_Graphic3d_AspectMarker3d.def(py::init<const Aspect_TypeOfMarker, const Quantity_Color &, const Standard_Real>(), py::arg("theType"), py::arg("theColor"), py::arg("theScale"));
-cls_Graphic3d_AspectMarker3d.def(py::init<const Quantity_Color &, const Standard_Integer, const Standard_Integer, const opencascade::handle<TColStd_HArray1OfByte> &>(), py::arg("theColor"), py::arg("theWidth"), py::arg("theHeight"), py::arg("theTextureBitmap"));
-cls_Graphic3d_AspectMarker3d.def(py::init<const opencascade::handle<Image_PixMap> &>(), py::arg("theTextureImage"));
-
-// Methods
-cls_Graphic3d_AspectMarker3d.def_static("get_type_name_", (const char * (*)()) &Graphic3d_AspectMarker3d::get_type_name, "None");
-cls_Graphic3d_AspectMarker3d.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_AspectMarker3d::get_type_descriptor, "None");
-cls_Graphic3d_AspectMarker3d.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_AspectMarker3d::*)() const) &Graphic3d_AspectMarker3d::DynamicType, "None");
-cls_Graphic3d_AspectMarker3d.def("ColorRGBA", (const Quantity_ColorRGBA & (Graphic3d_AspectMarker3d::*)() const) &Graphic3d_AspectMarker3d::ColorRGBA, "Return color.");
-cls_Graphic3d_AspectMarker3d.def("Color", (const Quantity_Color & (Graphic3d_AspectMarker3d::*)() const) &Graphic3d_AspectMarker3d::Color, "Return the color.");
-cls_Graphic3d_AspectMarker3d.def("SetColor", (void (Graphic3d_AspectMarker3d::*)(const Quantity_Color &)) &Graphic3d_AspectMarker3d::SetColor, "Modifies the color.", py::arg("theColor"));
-cls_Graphic3d_AspectMarker3d.def("Scale", (Standard_ShortReal (Graphic3d_AspectMarker3d::*)() const) &Graphic3d_AspectMarker3d::Scale, "Return scale factor.");
-cls_Graphic3d_AspectMarker3d.def("SetScale", (void (Graphic3d_AspectMarker3d::*)(const Standard_ShortReal)) &Graphic3d_AspectMarker3d::SetScale, "Modifies the scale factor. Marker type Aspect_TOM_POINT is not affected by the marker size scale factor. It is always the smallest displayable dot. Warning: Raises AspectMarkerDefinitionError if the scale is a negative value.", py::arg("theScale"));
-cls_Graphic3d_AspectMarker3d.def("SetScale", (void (Graphic3d_AspectMarker3d::*)(const Standard_Real)) &Graphic3d_AspectMarker3d::SetScale, "Assign scale factor.", py::arg("theScale"));
-cls_Graphic3d_AspectMarker3d.def("Type", (Aspect_TypeOfMarker (Graphic3d_AspectMarker3d::*)() const) &Graphic3d_AspectMarker3d::Type, "Return marker type.");
-cls_Graphic3d_AspectMarker3d.def("SetType", (void (Graphic3d_AspectMarker3d::*)(const Aspect_TypeOfMarker)) &Graphic3d_AspectMarker3d::SetType, "Modifies the type of marker.", py::arg("theType"));
-cls_Graphic3d_AspectMarker3d.def("GetTextureSize", [](Graphic3d_AspectMarker3d &self, Standard_Integer & theWidth, Standard_Integer & theHeight){ self.GetTextureSize(theWidth, theHeight); return std::tuple<Standard_Integer &, Standard_Integer &>(theWidth, theHeight); }, "Returns marker's texture size.", py::arg("theWidth"), py::arg("theHeight"));
-cls_Graphic3d_AspectMarker3d.def("GetMarkerImage", (const opencascade::handle<Graphic3d_MarkerImage> & (Graphic3d_AspectMarker3d::*)() const) &Graphic3d_AspectMarker3d::GetMarkerImage, "Returns marker's image texture. Could be null handle if marker aspect has been initialized as default type of marker.");
-cls_Graphic3d_AspectMarker3d.def("SetMarkerImage", (void (Graphic3d_AspectMarker3d::*)(const opencascade::handle<Graphic3d_MarkerImage> &)) &Graphic3d_AspectMarker3d::SetMarkerImage, "Set marker's image texture.", py::arg("theImage"));
-cls_Graphic3d_AspectMarker3d.def("SetBitMap", (void (Graphic3d_AspectMarker3d::*)(const Standard_Integer, const Standard_Integer, const opencascade::handle<TColStd_HArray1OfByte> &)) &Graphic3d_AspectMarker3d::SetBitMap, "None", py::arg("theWidth"), py::arg("theHeight"), py::arg("theTexture"));
-cls_Graphic3d_AspectMarker3d.def("ShaderProgram", (const opencascade::handle<Graphic3d_ShaderProgram> & (Graphic3d_AspectMarker3d::*)() const) &Graphic3d_AspectMarker3d::ShaderProgram, "Return the program.");
-cls_Graphic3d_AspectMarker3d.def("SetShaderProgram", (void (Graphic3d_AspectMarker3d::*)(const opencascade::handle<Graphic3d_ShaderProgram> &)) &Graphic3d_AspectMarker3d::SetShaderProgram, "Sets up OpenGL/GLSL shader program.", py::arg("theProgram"));
-cls_Graphic3d_AspectMarker3d.def("Values", [](Graphic3d_AspectMarker3d &self, Quantity_Color & theColor, Aspect_TypeOfMarker & theType, Standard_Real & theScale){ self.Values(theColor, theType, theScale); return theScale; }, "Returns the current values of the group.", py::arg("theColor"), py::arg("theType"), py::arg("theScale"));
-
-// CLASS: GRAPHIC3D_VERTEX
-py::class_<Graphic3d_Vertex> cls_Graphic3d_Vertex(mod, "Graphic3d_Vertex", "This class represents a graphical 3D point.");
-
-// Constructors
-cls_Graphic3d_Vertex.def(py::init<>());
-cls_Graphic3d_Vertex.def(py::init<const Graphic3d_Vertex &>(), py::arg("thePoint"));
-cls_Graphic3d_Vertex.def(py::init<const Standard_ShortReal, const Standard_ShortReal, const Standard_ShortReal>(), py::arg("theX"), py::arg("theY"), py::arg("theZ"));
-cls_Graphic3d_Vertex.def(py::init<const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("theX"), py::arg("theY"), py::arg("theZ"));
-
-// Fields
-// cls_Graphic3d_Vertex.def_readwrite("xyz", &Graphic3d_Vertex::xyz, "None");
-
-// Methods
-// cls_Graphic3d_Vertex.def_static("operator new_", (void * (*)(size_t)) &Graphic3d_Vertex::operator new, "None", py::arg("theSize"));
-// cls_Graphic3d_Vertex.def_static("operator delete_", (void (*)(void *)) &Graphic3d_Vertex::operator delete, "None", py::arg("theAddress"));
-// cls_Graphic3d_Vertex.def_static("operator new[]_", (void * (*)(size_t)) &Graphic3d_Vertex::operator new[], "None", py::arg("theSize"));
-// cls_Graphic3d_Vertex.def_static("operator delete[]_", (void (*)(void *)) &Graphic3d_Vertex::operator delete[], "None", py::arg("theAddress"));
-// cls_Graphic3d_Vertex.def_static("operator new_", (void * (*)(size_t, void *)) &Graphic3d_Vertex::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Graphic3d_Vertex.def_static("operator delete_", (void (*)(void *, void *)) &Graphic3d_Vertex::operator delete, "None", py::arg(""), py::arg(""));
-cls_Graphic3d_Vertex.def("SetCoord", (void (Graphic3d_Vertex::*)(const Standard_ShortReal, const Standard_ShortReal, const Standard_ShortReal)) &Graphic3d_Vertex::SetCoord, "Modifies the coordinates.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
-cls_Graphic3d_Vertex.def("SetCoord", (void (Graphic3d_Vertex::*)(const Standard_Real, const Standard_Real, const Standard_Real)) &Graphic3d_Vertex::SetCoord, "Modifies the coordinates.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
-cls_Graphic3d_Vertex.def("Coord", (void (Graphic3d_Vertex::*)(Standard_ShortReal &, Standard_ShortReal &, Standard_ShortReal &) const) &Graphic3d_Vertex::Coord, "Returns the coordinates.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
-cls_Graphic3d_Vertex.def("Coord", [](Graphic3d_Vertex &self, Standard_Real & theX, Standard_Real & theY, Standard_Real & theZ){ self.Coord(theX, theY, theZ); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &>(theX, theY, theZ); }, "Returns the coordinates.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
-cls_Graphic3d_Vertex.def("X", (Standard_ShortReal (Graphic3d_Vertex::*)() const) &Graphic3d_Vertex::X, "Returns the X coordinates.");
-cls_Graphic3d_Vertex.def("Y", (Standard_ShortReal (Graphic3d_Vertex::*)() const) &Graphic3d_Vertex::Y, "Returns the Y coordinate.");
-cls_Graphic3d_Vertex.def("Z", (Standard_ShortReal (Graphic3d_Vertex::*)() const) &Graphic3d_Vertex::Z, "Returns the Z coordinate.");
-cls_Graphic3d_Vertex.def("Distance", (Standard_ShortReal (Graphic3d_Vertex::*)(const Graphic3d_Vertex &) const) &Graphic3d_Vertex::Distance, "Returns the distance between two points.", py::arg("theOther"));
-
-// CLASS: GRAPHIC3D_ATTRIBUTE
-py::class_<Graphic3d_Attribute> cls_Graphic3d_Attribute(mod, "Graphic3d_Attribute", "Vertex attribute definition.");
-
-// Fields
-cls_Graphic3d_Attribute.def_readwrite("Id", &Graphic3d_Attribute::Id, "attribute identifier in vertex shader, 0 is reserved for vertex position");
-cls_Graphic3d_Attribute.def_readwrite("DataType", &Graphic3d_Attribute::DataType, "vec2,vec3,vec4,vec4ub");
-
-// Methods
-cls_Graphic3d_Attribute.def("Stride", (Standard_Integer (Graphic3d_Attribute::*)() const) &Graphic3d_Attribute::Stride, "None");
-cls_Graphic3d_Attribute.def_static("Stride_", (Standard_Integer (*)(const Graphic3d_TypeOfData)) &Graphic3d_Attribute::Stride, "Returns size of attribute of specified data type", py::arg("theType"));
-
-// TYPEDEF: GRAPHIC3D_ARRAY1OFATTRIBUTE
-bind_NCollection_Array1<Graphic3d_Attribute>(mod, "Graphic3d_Array1OfAttribute", py::module_local(false));
-
-// CLASS: GRAPHIC3D_BUFFER
-py::class_<Graphic3d_Buffer, opencascade::handle<Graphic3d_Buffer>, NCollection_Buffer> cls_Graphic3d_Buffer(mod, "Graphic3d_Buffer", "Buffer of vertex attributes.");
-
-// Constructors
-cls_Graphic3d_Buffer.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAlloc"));
-
-// Fields
-cls_Graphic3d_Buffer.def_readwrite("Stride", &Graphic3d_Buffer::Stride, "the distance to the attributes of the next vertex");
-cls_Graphic3d_Buffer.def_readwrite("NbElements", &Graphic3d_Buffer::NbElements, "number of the elements");
-cls_Graphic3d_Buffer.def_readwrite("NbAttributes", &Graphic3d_Buffer::NbAttributes, "number of vertex attributes");
-
-// Methods
-cls_Graphic3d_Buffer.def("AttributesArray", (const Graphic3d_Attribute * (Graphic3d_Buffer::*)() const) &Graphic3d_Buffer::AttributesArray, "Returns array of attributes definitions");
-cls_Graphic3d_Buffer.def("Attribute", (const Graphic3d_Attribute & (Graphic3d_Buffer::*)(const Standard_Integer) const) &Graphic3d_Buffer::Attribute, "Returns attribute definition", py::arg("theAttribIndex"));
-cls_Graphic3d_Buffer.def("ChangeAttribute", (Graphic3d_Attribute & (Graphic3d_Buffer::*)(const Standard_Integer)) &Graphic3d_Buffer::ChangeAttribute, "Returns attribute definition", py::arg("theAttribIndex"));
-cls_Graphic3d_Buffer.def("AttributeOffset", (Standard_Integer (Graphic3d_Buffer::*)(const Standard_Integer) const) &Graphic3d_Buffer::AttributeOffset, "Returns data offset to specified attribute", py::arg("theAttribIndex"));
-cls_Graphic3d_Buffer.def("Data", (const Standard_Byte * (Graphic3d_Buffer::*)(const Standard_Integer) const) &Graphic3d_Buffer::Data, "Returns data for specified attribute", py::arg("theAttribIndex"));
-cls_Graphic3d_Buffer.def("ChangeData", (Standard_Byte * (Graphic3d_Buffer::*)(const Standard_Integer)) &Graphic3d_Buffer::ChangeData, "Returns data for specified attribute", py::arg("theAttribIndex"));
-cls_Graphic3d_Buffer.def("value", (const Standard_Byte * (Graphic3d_Buffer::*)(const Standard_Integer) const) &Graphic3d_Buffer::value, "Access specified element.", py::arg("theElem"));
-cls_Graphic3d_Buffer.def("changeValue", (Standard_Byte * (Graphic3d_Buffer::*)(const Standard_Integer)) &Graphic3d_Buffer::changeValue, "Access specified element.", py::arg("theElem"));
-cls_Graphic3d_Buffer.def("release", (void (Graphic3d_Buffer::*)()) &Graphic3d_Buffer::release, "Release buffer.");
-cls_Graphic3d_Buffer.def("Init", (bool (Graphic3d_Buffer::*)(const Standard_Integer, const Graphic3d_Attribute *, const Standard_Integer)) &Graphic3d_Buffer::Init, "Allocates new empty array", py::arg("theNbElems"), py::arg("theAttribs"), py::arg("theNbAttribs"));
-cls_Graphic3d_Buffer.def("Init", (bool (Graphic3d_Buffer::*)(const Standard_Integer, const Graphic3d_Array1OfAttribute &)) &Graphic3d_Buffer::Init, "Allocates new empty array", py::arg("theNbElems"), py::arg("theAttribs"));
-cls_Graphic3d_Buffer.def_static("get_type_name_", (const char * (*)()) &Graphic3d_Buffer::get_type_name, "None");
-cls_Graphic3d_Buffer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_Buffer::get_type_descriptor, "None");
-cls_Graphic3d_Buffer.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_Buffer::*)() const) &Graphic3d_Buffer::DynamicType, "None");
-
-// CLASS: GRAPHIC3D_INDEXBUFFER
-py::class_<Graphic3d_IndexBuffer, opencascade::handle<Graphic3d_IndexBuffer>, Graphic3d_Buffer> cls_Graphic3d_IndexBuffer(mod, "Graphic3d_IndexBuffer", "Index buffer.");
-
-// Constructors
-cls_Graphic3d_IndexBuffer.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAlloc"));
-
-// Methods
-cls_Graphic3d_IndexBuffer.def("InitInt32", (bool (Graphic3d_IndexBuffer::*)(const Standard_Integer)) &Graphic3d_IndexBuffer::InitInt32, "Allocates new empty index array", py::arg("theNbElems"));
-cls_Graphic3d_IndexBuffer.def("Index", (Standard_Integer (Graphic3d_IndexBuffer::*)(const Standard_Integer) const) &Graphic3d_IndexBuffer::Index, "Access index at specified position", py::arg("theIndex"));
-cls_Graphic3d_IndexBuffer.def("SetIndex", (void (Graphic3d_IndexBuffer::*)(const Standard_Integer, const Standard_Integer)) &Graphic3d_IndexBuffer::SetIndex, "Change index at specified position", py::arg("theIndex"), py::arg("theValue"));
-cls_Graphic3d_IndexBuffer.def_static("get_type_name_", (const char * (*)()) &Graphic3d_IndexBuffer::get_type_name, "None");
-cls_Graphic3d_IndexBuffer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_IndexBuffer::get_type_descriptor, "None");
-cls_Graphic3d_IndexBuffer.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_IndexBuffer::*)() const) &Graphic3d_IndexBuffer::DynamicType, "None");
-
-// CLASS: GRAPHIC3D_BOUNDBUFFER
-py::class_<Graphic3d_BoundBuffer, opencascade::handle<Graphic3d_BoundBuffer>, NCollection_Buffer> cls_Graphic3d_BoundBuffer(mod, "Graphic3d_BoundBuffer", "Bounds buffer.");
-
-// Constructors
-cls_Graphic3d_BoundBuffer.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAlloc"));
-
-// Fields
-cls_Graphic3d_BoundBuffer.def_readwrite("Colors", &Graphic3d_BoundBuffer::Colors, "pointer to facet color values");
-cls_Graphic3d_BoundBuffer.def_readwrite("Bounds", &Graphic3d_BoundBuffer::Bounds, "pointer to bounds array");
-cls_Graphic3d_BoundBuffer.def_readwrite("NbBounds", &Graphic3d_BoundBuffer::NbBounds, "number of bounds");
-
-// Methods
-cls_Graphic3d_BoundBuffer.def("Init", (bool (Graphic3d_BoundBuffer::*)(const Standard_Integer, const Standard_Boolean)) &Graphic3d_BoundBuffer::Init, "Allocates new empty array", py::arg("theNbBounds"), py::arg("theHasColors"));
-cls_Graphic3d_BoundBuffer.def_static("get_type_name_", (const char * (*)()) &Graphic3d_BoundBuffer::get_type_name, "None");
-cls_Graphic3d_BoundBuffer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_BoundBuffer::get_type_descriptor, "None");
-cls_Graphic3d_BoundBuffer.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_BoundBuffer::*)() const) &Graphic3d_BoundBuffer::DynamicType, "None");
-
-// CLASS: GRAPHIC3D_GROUP
-py::class_<Graphic3d_Group, opencascade::handle<Graphic3d_Group>, Standard_Transient> cls_Graphic3d_Group(mod, "Graphic3d_Group", "This class allows the definition of groups of primitives inside of graphic objects (presentations). A group contains the primitives and attributes for which the range is limited to this group. The primitives of a group can be globally suppressed.");
-
-// Methods
-cls_Graphic3d_Group.def_static("get_type_name_", (const char * (*)()) &Graphic3d_Group::get_type_name, "None");
-cls_Graphic3d_Group.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_Group::get_type_descriptor, "None");
-cls_Graphic3d_Group.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_Group::*)() const) &Graphic3d_Group::DynamicType, "None");
-cls_Graphic3d_Group.def("Clear", [](Graphic3d_Group &self) -> void { return self.Clear(); });
-cls_Graphic3d_Group.def("Clear", (void (Graphic3d_Group::*)(const Standard_Boolean)) &Graphic3d_Group::Clear, "Supress all primitives and attributes of <me>. To clear group without update in Graphic3d_StructureManager pass Standard_False as <theUpdateStructureMgr>. This used on context and viewer destruction, when the pointer to structure manager in Graphic3d_Structure could be already released (pointers are used here to avoid handle cross-reference);", py::arg("theUpdateStructureMgr"));
-cls_Graphic3d_Group.def("Remove", (void (Graphic3d_Group::*)()) &Graphic3d_Group::Remove, "Supress the group <me> in the structure. Warning: No more graphic operations in <me> after this call. Modifies the current modelling transform persistence (pan, zoom or rotate) Get the current modelling transform persistence (pan, zoom or rotate)");
-cls_Graphic3d_Group.def("LineAspect", (opencascade::handle<Graphic3d_AspectLine3d> (Graphic3d_Group::*)() const) &Graphic3d_Group::LineAspect, "Return line aspect.");
-cls_Graphic3d_Group.def("SetGroupPrimitivesAspect", (void (Graphic3d_Group::*)(const opencascade::handle<Graphic3d_AspectLine3d> &)) &Graphic3d_Group::SetGroupPrimitivesAspect, "Assign line aspect to the group.", py::arg("theAspect"));
-cls_Graphic3d_Group.def("FillAreaAspect", (opencascade::handle<Graphic3d_AspectFillArea3d> (Graphic3d_Group::*)() const) &Graphic3d_Group::FillAreaAspect, "Return fill area aspect.");
-cls_Graphic3d_Group.def("SetGroupPrimitivesAspect", (void (Graphic3d_Group::*)(const opencascade::handle<Graphic3d_AspectFillArea3d> &)) &Graphic3d_Group::SetGroupPrimitivesAspect, "Modifies the context for all the face primitives of the group.", py::arg("theAspect"));
-cls_Graphic3d_Group.def("TextAspect", (opencascade::handle<Graphic3d_AspectText3d> (Graphic3d_Group::*)() const) &Graphic3d_Group::TextAspect, "Return text aspect.");
-cls_Graphic3d_Group.def("SetGroupPrimitivesAspect", (void (Graphic3d_Group::*)(const opencascade::handle<Graphic3d_AspectText3d> &)) &Graphic3d_Group::SetGroupPrimitivesAspect, "Modifies the context for all the text primitives of the group.", py::arg("theAspect"));
-cls_Graphic3d_Group.def("MarkerAspect", (opencascade::handle<Graphic3d_AspectMarker3d> (Graphic3d_Group::*)() const) &Graphic3d_Group::MarkerAspect, "Return marker aspect.");
-cls_Graphic3d_Group.def("SetGroupPrimitivesAspect", (void (Graphic3d_Group::*)(const opencascade::handle<Graphic3d_AspectMarker3d> &)) &Graphic3d_Group::SetGroupPrimitivesAspect, "Modifies the context for all the marker primitives of the group.", py::arg("theAspect"));
-cls_Graphic3d_Group.def("SetPrimitivesAspect", (void (Graphic3d_Group::*)(const opencascade::handle<Graphic3d_AspectLine3d> &)) &Graphic3d_Group::SetPrimitivesAspect, "Modifies the current context of the group to give another aspect for all the line primitives created after this call in the group.", py::arg("theAspect"));
-cls_Graphic3d_Group.def("SetPrimitivesAspect", (void (Graphic3d_Group::*)(const opencascade::handle<Graphic3d_AspectFillArea3d> &)) &Graphic3d_Group::SetPrimitivesAspect, "Modifies the current context of the group to give another aspect for all the face primitives created after this call in the group.", py::arg("theAspect"));
-cls_Graphic3d_Group.def("SetPrimitivesAspect", (void (Graphic3d_Group::*)(const opencascade::handle<Graphic3d_AspectText3d> &)) &Graphic3d_Group::SetPrimitivesAspect, "Modifies the current context of the group to give another aspect for all the text primitives created after this call in the group.", py::arg("theAspect"));
-cls_Graphic3d_Group.def("SetPrimitivesAspect", (void (Graphic3d_Group::*)(const opencascade::handle<Graphic3d_AspectMarker3d> &)) &Graphic3d_Group::SetPrimitivesAspect, "Modifies the current context of the group to give another aspect for all the marker primitives created after this call in the group.", py::arg("theAspect"));
-cls_Graphic3d_Group.def("IsGroupPrimitivesAspectSet", (Standard_Boolean (Graphic3d_Group::*)(const Graphic3d_GroupAspect) const) &Graphic3d_Group::IsGroupPrimitivesAspectSet, "Returns TRUE if aspect is set for the group.", py::arg("theAspect"));
-cls_Graphic3d_Group.def("GroupPrimitivesAspect", (void (Graphic3d_Group::*)(const opencascade::handle<Graphic3d_AspectLine3d> &, const opencascade::handle<Graphic3d_AspectText3d> &, const opencascade::handle<Graphic3d_AspectMarker3d> &, const opencascade::handle<Graphic3d_AspectFillArea3d> &) const) &Graphic3d_Group::GroupPrimitivesAspect, "Returns the context of all the primitives of the group.", py::arg("theAspLine"), py::arg("theAspText"), py::arg("theAspMarker"), py::arg("theAspFill"));
-cls_Graphic3d_Group.def("PrimitivesAspect", (void (Graphic3d_Group::*)(const opencascade::handle<Graphic3d_AspectLine3d> &, const opencascade::handle<Graphic3d_AspectText3d> &, const opencascade::handle<Graphic3d_AspectMarker3d> &, const opencascade::handle<Graphic3d_AspectFillArea3d> &) const) &Graphic3d_Group::PrimitivesAspect, "Returns the last inserted context in the group for each kind of primitives.", py::arg("theAspLine"), py::arg("theAspText"), py::arg("theAspMarker"), py::arg("theAspFill"));
-cls_Graphic3d_Group.def("Text", [](Graphic3d_Group &self, const Standard_CString a0, const Graphic3d_Vertex & a1, const Standard_Real a2, const Standard_Real a3, const Graphic3d_TextPath a4, const Graphic3d_HorizontalTextAlignment a5, const Graphic3d_VerticalTextAlignment a6) -> void { return self.Text(a0, a1, a2, a3, a4, a5, a6); });
-cls_Graphic3d_Group.def("Text", (void (Graphic3d_Group::*)(const Standard_CString, const Graphic3d_Vertex &, const Standard_Real, const Standard_Real, const Graphic3d_TextPath, const Graphic3d_HorizontalTextAlignment, const Graphic3d_VerticalTextAlignment, const Standard_Boolean)) &Graphic3d_Group::Text, "Creates the string <AText> at position <APoint>. The 3D point of attachment is projected. The text is written in the plane of projection. The attributes are given with respect to the plane of projection. AHeight : Height of text. (Relative to the Normalized Projection Coordinates (NPC) Space). AAngle : Orientation of the text (with respect to the horizontal).", py::arg("AText"), py::arg("APoint"), py::arg("AHeight"), py::arg("AAngle"), py::arg("ATp"), py::arg("AHta"), py::arg("AVta"), py::arg("EvalMinMax"));
-cls_Graphic3d_Group.def("Text", [](Graphic3d_Group &self, const Standard_CString a0, const Graphic3d_Vertex & a1, const Standard_Real a2) -> void { return self.Text(a0, a1, a2); });
-cls_Graphic3d_Group.def("Text", (void (Graphic3d_Group::*)(const Standard_CString, const Graphic3d_Vertex &, const Standard_Real, const Standard_Boolean)) &Graphic3d_Group::Text, "Creates the string <AText> at position <APoint>. The 3D point of attachment is projected. The text is written in the plane of projection. The attributes are given with respect to the plane of projection. AHeight : Height of text. (Relative to the Normalized Projection Coordinates (NPC) Space). The other attributes have the following default values: AAngle : PI / 2. ATp : TP_RIGHT AHta : HTA_LEFT AVta : VTA_BOTTOM", py::arg("AText"), py::arg("APoint"), py::arg("AHeight"), py::arg("EvalMinMax"));
-cls_Graphic3d_Group.def("Text", [](Graphic3d_Group &self, const TCollection_ExtendedString & a0, const Graphic3d_Vertex & a1, const Standard_Real a2, const Standard_Real a3, const Graphic3d_TextPath a4, const Graphic3d_HorizontalTextAlignment a5, const Graphic3d_VerticalTextAlignment a6) -> void { return self.Text(a0, a1, a2, a3, a4, a5, a6); });
-cls_Graphic3d_Group.def("Text", (void (Graphic3d_Group::*)(const TCollection_ExtendedString &, const Graphic3d_Vertex &, const Standard_Real, const Standard_Real, const Graphic3d_TextPath, const Graphic3d_HorizontalTextAlignment, const Graphic3d_VerticalTextAlignment, const Standard_Boolean)) &Graphic3d_Group::Text, "Creates the string <AText> at position <APoint>. The 3D point of attachment is projected. The text is written in the plane of projection. The attributes are given with respect to the plane of projection. AHeight : Height of text. (Relative to the Normalized Projection Coordinates (NPC) Space). AAngle : Orientation of the text (with respect to the horizontal).", py::arg("AText"), py::arg("APoint"), py::arg("AHeight"), py::arg("AAngle"), py::arg("ATp"), py::arg("AHta"), py::arg("AVta"), py::arg("EvalMinMax"));
-cls_Graphic3d_Group.def("Text", [](Graphic3d_Group &self, const TCollection_ExtendedString & a0, const Graphic3d_Vertex & a1, const Standard_Real a2) -> void { return self.Text(a0, a1, a2); });
-cls_Graphic3d_Group.def("Text", (void (Graphic3d_Group::*)(const TCollection_ExtendedString &, const Graphic3d_Vertex &, const Standard_Real, const Standard_Boolean)) &Graphic3d_Group::Text, "Creates the string <AText> at position <APoint>. The 3D point of attachment is projected. The text is written in the plane of projection. The attributes are given with respect to the plane of projection. AHeight : Height of text. (Relative to the Normalized Projection Coordinates (NPC) Space). The other attributes have the following default values: AAngle : PI / 2. ATp : TP_RIGHT AHta : HTA_LEFT AVta : VTA_BOTTOM", py::arg("AText"), py::arg("APoint"), py::arg("AHeight"), py::arg("EvalMinMax"));
-cls_Graphic3d_Group.def("Text", [](Graphic3d_Group &self, const Standard_CString a0, const gp_Ax2 & a1, const Standard_Real a2, const Standard_Real a3, const Graphic3d_TextPath a4, const Graphic3d_HorizontalTextAlignment a5, const Graphic3d_VerticalTextAlignment a6) -> void { return self.Text(a0, a1, a2, a3, a4, a5, a6); });
-cls_Graphic3d_Group.def("Text", [](Graphic3d_Group &self, const Standard_CString a0, const gp_Ax2 & a1, const Standard_Real a2, const Standard_Real a3, const Graphic3d_TextPath a4, const Graphic3d_HorizontalTextAlignment a5, const Graphic3d_VerticalTextAlignment a6, const Standard_Boolean a7) -> void { return self.Text(a0, a1, a2, a3, a4, a5, a6, a7); });
-cls_Graphic3d_Group.def("Text", (void (Graphic3d_Group::*)(const Standard_CString, const gp_Ax2 &, const Standard_Real, const Standard_Real, const Graphic3d_TextPath, const Graphic3d_HorizontalTextAlignment, const Graphic3d_VerticalTextAlignment, const Standard_Boolean, const Standard_Boolean)) &Graphic3d_Group::Text, "Creates the string <theText> at orientation <theOrientation> in 3D space.", py::arg("theTextUtf"), py::arg("theOrientation"), py::arg("theHeight"), py::arg("theAngle"), py::arg("theTp"), py::arg("theHTA"), py::arg("theVTA"), py::arg("theToEvalMinMax"), py::arg("theHasOwnAnchor"));
-cls_Graphic3d_Group.def("Text", [](Graphic3d_Group &self, const TCollection_ExtendedString & a0, const gp_Ax2 & a1, const Standard_Real a2, const Standard_Real a3, const Graphic3d_TextPath a4, const Graphic3d_HorizontalTextAlignment a5, const Graphic3d_VerticalTextAlignment a6) -> void { return self.Text(a0, a1, a2, a3, a4, a5, a6); });
-cls_Graphic3d_Group.def("Text", [](Graphic3d_Group &self, const TCollection_ExtendedString & a0, const gp_Ax2 & a1, const Standard_Real a2, const Standard_Real a3, const Graphic3d_TextPath a4, const Graphic3d_HorizontalTextAlignment a5, const Graphic3d_VerticalTextAlignment a6, const Standard_Boolean a7) -> void { return self.Text(a0, a1, a2, a3, a4, a5, a6, a7); });
-cls_Graphic3d_Group.def("Text", (void (Graphic3d_Group::*)(const TCollection_ExtendedString &, const gp_Ax2 &, const Standard_Real, const Standard_Real, const Graphic3d_TextPath, const Graphic3d_HorizontalTextAlignment, const Graphic3d_VerticalTextAlignment, const Standard_Boolean, const Standard_Boolean)) &Graphic3d_Group::Text, "Creates the string <theText> at orientation <theOrientation> in 3D space.", py::arg("theText"), py::arg("theOrientation"), py::arg("theHeight"), py::arg("theAngle"), py::arg("theTp"), py::arg("theHTA"), py::arg("theVTA"), py::arg("theToEvalMinMax"), py::arg("theHasOwnAnchor"));
-cls_Graphic3d_Group.def("AddPrimitiveArray", [](Graphic3d_Group &self, const Graphic3d_TypeOfPrimitiveArray a0, const opencascade::handle<Graphic3d_IndexBuffer> & a1, const opencascade::handle<Graphic3d_Buffer> & a2, const opencascade::handle<Graphic3d_BoundBuffer> & a3) -> void { return self.AddPrimitiveArray(a0, a1, a2, a3); });
-cls_Graphic3d_Group.def("AddPrimitiveArray", (void (Graphic3d_Group::*)(const Graphic3d_TypeOfPrimitiveArray, const opencascade::handle<Graphic3d_IndexBuffer> &, const opencascade::handle<Graphic3d_Buffer> &, const opencascade::handle<Graphic3d_BoundBuffer> &, const Standard_Boolean)) &Graphic3d_Group::AddPrimitiveArray, "Adds an array of primitives for display", py::arg("theType"), py::arg("theIndices"), py::arg("theAttribs"), py::arg("theBounds"), py::arg("theToEvalMinMax"));
-cls_Graphic3d_Group.def("AddPrimitiveArray", [](Graphic3d_Group &self, const opencascade::handle<Graphic3d_ArrayOfPrimitives> & a0) -> void { return self.AddPrimitiveArray(a0); });
-cls_Graphic3d_Group.def("AddPrimitiveArray", (void (Graphic3d_Group::*)(const opencascade::handle<Graphic3d_ArrayOfPrimitives> &, const Standard_Boolean)) &Graphic3d_Group::AddPrimitiveArray, "Adds an array of primitives for display", py::arg("thePrim"), py::arg("theToEvalMinMax"));
-cls_Graphic3d_Group.def("Marker", [](Graphic3d_Group &self, const Graphic3d_Vertex & a0) -> void { return self.Marker(a0); });
-cls_Graphic3d_Group.def("Marker", (void (Graphic3d_Group::*)(const Graphic3d_Vertex &, const Standard_Boolean)) &Graphic3d_Group::Marker, "Creates a primitive array with single marker using AddPrimitiveArray().", py::arg("thePoint"), py::arg("theToEvalMinMax"));
-cls_Graphic3d_Group.def("SetStencilTestOptions", (void (Graphic3d_Group::*)(const Standard_Boolean)) &Graphic3d_Group::SetStencilTestOptions, "sets the stencil test to theIsEnabled state;", py::arg("theIsEnabled"));
-cls_Graphic3d_Group.def("SetFlippingOptions", (void (Graphic3d_Group::*)(const Standard_Boolean, const gp_Ax2 &)) &Graphic3d_Group::SetFlippingOptions, "sets the flipping to theIsEnabled state.", py::arg("theIsEnabled"), py::arg("theRefPlane"));
-cls_Graphic3d_Group.def("ContainsFacet", (bool (Graphic3d_Group::*)() const) &Graphic3d_Group::ContainsFacet, "Returns true if the group contains Polygons, Triangles or Quadrangles.");
-cls_Graphic3d_Group.def("IsDeleted", (Standard_Boolean (Graphic3d_Group::*)() const) &Graphic3d_Group::IsDeleted, "Returns Standard_True if the group <me> is deleted. <me> is deleted after the call Remove (me) or the associated structure is deleted.");
-cls_Graphic3d_Group.def("IsEmpty", (Standard_Boolean (Graphic3d_Group::*)() const) &Graphic3d_Group::IsEmpty, "Returns Standard_True if the group <me> is empty.");
-cls_Graphic3d_Group.def("MinMaxValues", [](Graphic3d_Group &self, Standard_Real & theXMin, Standard_Real & theYMin, Standard_Real & theZMin, Standard_Real & theXMax, Standard_Real & theYMax, Standard_Real & theZMax){ self.MinMaxValues(theXMin, theYMin, theZMin, theXMax, theYMax, theZMax); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &, Standard_Real &, Standard_Real &, Standard_Real &>(theXMin, theYMin, theZMin, theXMax, theYMax, theZMax); }, "Returns the coordinates of the boundary box of the group.", py::arg("theXMin"), py::arg("theYMin"), py::arg("theZMin"), py::arg("theXMax"), py::arg("theYMax"), py::arg("theZMax"));
-cls_Graphic3d_Group.def("SetMinMaxValues", (void (Graphic3d_Group::*)(const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real)) &Graphic3d_Group::SetMinMaxValues, "Sets the coordinates of the boundary box of the group.", py::arg("theXMin"), py::arg("theYMin"), py::arg("theZMin"), py::arg("theXMax"), py::arg("theYMax"), py::arg("theZMax"));
-cls_Graphic3d_Group.def("BoundingBox", (const Graphic3d_BndBox4f & (Graphic3d_Group::*)() const) &Graphic3d_Group::BoundingBox, "Returns boundary box of the group <me> without transformation applied,");
-cls_Graphic3d_Group.def("ChangeBoundingBox", (Graphic3d_BndBox4f & (Graphic3d_Group::*)()) &Graphic3d_Group::ChangeBoundingBox, "Returns non-const boundary box of the group <me> without transformation applied,");
-cls_Graphic3d_Group.def("Structure", (opencascade::handle<Graphic3d_Structure> (Graphic3d_Group::*)() const) &Graphic3d_Group::Structure, "Returns the structure containing the group <me>.");
-cls_Graphic3d_Group.def("SetClosed", (void (Graphic3d_Group::*)(const bool)) &Graphic3d_Group::SetClosed, "Changes property shown that primitive arrays within this group form closed volume (do no contain open shells).", py::arg("theIsClosed"));
-cls_Graphic3d_Group.def("IsClosed", (bool (Graphic3d_Group::*)() const) &Graphic3d_Group::IsClosed, "Return true if primitive arrays within this graphic group form closed volume (do no contain open shells).");
-
-// TYPEDEF: GRAPHIC3D_SEQUENCEOFGROUP
-bind_NCollection_Sequence<opencascade::handle<Graphic3d_Group> >(mod, "Graphic3d_SequenceOfGroup", py::module_local(false));
-
-// CLASS: GRAPHIC3D_CLIPPLANE
-py::class_<Graphic3d_ClipPlane, opencascade::handle<Graphic3d_ClipPlane>, Standard_Transient> cls_Graphic3d_ClipPlane(mod, "Graphic3d_ClipPlane", "Container for properties describing graphic driver clipping planes. It is up to application to create instances of this class and specify its properties. The instances are passed into graphic driver or other facilities that implement clipping features (e.g. selection). Depending on usage context the class can be used to specify: - Global clipping applied over the whole scene. - Object-level clipping applied for each particular object. The plane equation is specified in 'world' coordinate system. Please note that the set of planes can define convex clipping volume. Be aware that number of clip planes supported by OpenGl is implementation dependent: at least 6 planes are available. Thus, take into account number of clipping planes passed for rendering: the object planes plus the view defined ones.");
-
-// Constructors
-cls_Graphic3d_ClipPlane.def(py::init<>());
-cls_Graphic3d_ClipPlane.def(py::init<const Graphic3d_ClipPlane &>(), py::arg("theOther"));
-cls_Graphic3d_ClipPlane.def(py::init<const Graphic3d_ClipPlane::Equation &>(), py::arg("theEquation"));
-cls_Graphic3d_ClipPlane.def(py::init<const gp_Pln &>(), py::arg("thePlane"));
-
-// Methods
-cls_Graphic3d_ClipPlane.def("SetEquation", (void (Graphic3d_ClipPlane::*)(const gp_Pln &)) &Graphic3d_ClipPlane::SetEquation, "Set plane equation by its geometrical definition. The equation is specified in 'world' coordinate system.", py::arg("thePlane"));
-cls_Graphic3d_ClipPlane.def("SetEquation", (void (Graphic3d_ClipPlane::*)(const Graphic3d_ClipPlane::Equation &)) &Graphic3d_ClipPlane::SetEquation, "Set 4-component equation vector for clipping plane. The equation is specified in 'world' coordinate system.", py::arg("theEquation"));
-cls_Graphic3d_ClipPlane.def("GetEquation", (const Graphic3d_ClipPlane::Equation & (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::GetEquation, "Get 4-component equation vector for clipping plane.");
-cls_Graphic3d_ClipPlane.def("IsOn", (Standard_Boolean (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::IsOn, "Check that the clipping plane is turned on.");
-cls_Graphic3d_ClipPlane.def("SetOn", (void (Graphic3d_ClipPlane::*)(const Standard_Boolean)) &Graphic3d_ClipPlane::SetOn, "Change state of the clipping plane.", py::arg("theIsOn"));
-cls_Graphic3d_ClipPlane.def("SetCapping", (void (Graphic3d_ClipPlane::*)(const Standard_Boolean)) &Graphic3d_ClipPlane::SetCapping, "Change state of capping surface rendering.", py::arg("theIsOn"));
-cls_Graphic3d_ClipPlane.def("IsCapping", (Standard_Boolean (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::IsCapping, "Check state of capping surface rendering.");
-cls_Graphic3d_ClipPlane.def("ToPlane", (const gp_Pln & (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::ToPlane, "Get geometrical definition.");
-cls_Graphic3d_ClipPlane.def("Clone", (opencascade::handle<Graphic3d_ClipPlane> (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::Clone, "Clone plane. Virtual method to simplify copying procedure if plane class is redefined at application level to add specific fields to it e.g. id, name, etc.");
-cls_Graphic3d_ClipPlane.def("SetCappingMaterial", (void (Graphic3d_ClipPlane::*)(const Graphic3d_MaterialAspect &)) &Graphic3d_ClipPlane::SetCappingMaterial, "Set material for rendering capping surface.", py::arg("theMat"));
-cls_Graphic3d_ClipPlane.def("CappingMaterial", (const Graphic3d_MaterialAspect & (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::CappingMaterial, "Returns capping material.");
-cls_Graphic3d_ClipPlane.def("SetCappingTexture", (void (Graphic3d_ClipPlane::*)(const opencascade::handle<Graphic3d_TextureMap> &)) &Graphic3d_ClipPlane::SetCappingTexture, "Set texture to be applied on capping surface.", py::arg("theTexture"));
-cls_Graphic3d_ClipPlane.def("CappingTexture", (opencascade::handle<Graphic3d_TextureMap> (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::CappingTexture, "Returns capping texture map.");
-cls_Graphic3d_ClipPlane.def("SetCappingHatch", (void (Graphic3d_ClipPlane::*)(const Aspect_HatchStyle)) &Graphic3d_ClipPlane::SetCappingHatch, "Set hatch style (stipple) and turn hatching on.", py::arg("theStyle"));
-cls_Graphic3d_ClipPlane.def("CappingHatch", (Aspect_HatchStyle (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::CappingHatch, "Returns hatching style.");
-cls_Graphic3d_ClipPlane.def("SetCappingCustomHatch", (void (Graphic3d_ClipPlane::*)(const opencascade::handle<Graphic3d_HatchStyle> &)) &Graphic3d_ClipPlane::SetCappingCustomHatch, "Set custom hatch style (stipple) and turn hatching on.", py::arg("theStyle"));
-cls_Graphic3d_ClipPlane.def("CappingCustomHatch", (const opencascade::handle<Graphic3d_HatchStyle> & (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::CappingCustomHatch, "Returns hatching style.");
-cls_Graphic3d_ClipPlane.def("SetCappingHatchOn", (void (Graphic3d_ClipPlane::*)()) &Graphic3d_ClipPlane::SetCappingHatchOn, "Turn on hatching.");
-cls_Graphic3d_ClipPlane.def("SetCappingHatchOff", (void (Graphic3d_ClipPlane::*)()) &Graphic3d_ClipPlane::SetCappingHatchOff, "Turn off hatching.");
-cls_Graphic3d_ClipPlane.def("IsHatchOn", (Standard_Boolean (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::IsHatchOn, "Returns True if hatching mask is turned on.");
-cls_Graphic3d_ClipPlane.def("GetId", (const TCollection_AsciiString & (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::GetId, "This ID is used for managing associated resources in graphical driver. The clip plane can be assigned within a range of IO which can be displayed in separate OpenGl contexts. For each of the context an associated OpenGl resource for graphical aspects should be created and kept. The resources are stored in graphical driver for each of individual groups of shared context under the clip plane identifier.");
-cls_Graphic3d_ClipPlane.def("CappingAspect", (const opencascade::handle<Graphic3d_AspectFillArea3d> & (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::CappingAspect, "Return capping aspect.");
-cls_Graphic3d_ClipPlane.def("SetCappingAspect", (void (Graphic3d_ClipPlane::*)(const opencascade::handle<Graphic3d_AspectFillArea3d> &)) &Graphic3d_ClipPlane::SetCappingAspect, "Assign capping aspect.", py::arg("theAspect"));
-cls_Graphic3d_ClipPlane.def("ToUseObjectMaterial", (bool (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::ToUseObjectMaterial, "Flag indicating whether material for capping plane should be taken from object. Default value: FALSE (use dedicated capping plane material).");
-cls_Graphic3d_ClipPlane.def("SetUseObjectMaterial", (void (Graphic3d_ClipPlane::*)(bool)) &Graphic3d_ClipPlane::SetUseObjectMaterial, "Set flag for controlling the source of capping plane material.", py::arg("theToUse"));
-cls_Graphic3d_ClipPlane.def("ToUseObjectTexture", (bool (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::ToUseObjectTexture, "Flag indicating whether texture for capping plane should be taken from object. Default value: FALSE.");
-cls_Graphic3d_ClipPlane.def("SetUseObjectTexture", (void (Graphic3d_ClipPlane::*)(bool)) &Graphic3d_ClipPlane::SetUseObjectTexture, "Set flag for controlling the source of capping plane texture.", py::arg("theToUse"));
-cls_Graphic3d_ClipPlane.def("ToUseObjectShader", (bool (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::ToUseObjectShader, "Flag indicating whether shader program for capping plane should be taken from object. Default value: FALSE.");
-cls_Graphic3d_ClipPlane.def("SetUseObjectShader", (void (Graphic3d_ClipPlane::*)(bool)) &Graphic3d_ClipPlane::SetUseObjectShader, "Set flag for controlling the source of capping plane shader program.", py::arg("theToUse"));
-cls_Graphic3d_ClipPlane.def("ToUseObjectProperties", (bool (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::ToUseObjectProperties, "Return true if some fill area aspect properties should be taken from object.");
-cls_Graphic3d_ClipPlane.def("MCountEquation", (unsigned int (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::MCountEquation, "Returns modification counter for equation.");
-cls_Graphic3d_ClipPlane.def("MCountAspect", (unsigned int (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::MCountAspect, "Returns modification counter for aspect.");
-cls_Graphic3d_ClipPlane.def_static("get_type_name_", (const char * (*)()) &Graphic3d_ClipPlane::get_type_name, "None");
-cls_Graphic3d_ClipPlane.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_ClipPlane::get_type_descriptor, "None");
-cls_Graphic3d_ClipPlane.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_ClipPlane::*)() const) &Graphic3d_ClipPlane::DynamicType, "None");
-
-// CLASS: GRAPHIC3D_SEQUENCEOFHCLIPPLANE
-py::class_<Graphic3d_SequenceOfHClipPlane, opencascade::handle<Graphic3d_SequenceOfHClipPlane>, Standard_Transient> cls_Graphic3d_SequenceOfHClipPlane(mod, "Graphic3d_SequenceOfHClipPlane", "Class defining the sequence of clipping planes.", py::multiple_inheritance());
-
-// Constructors
-cls_Graphic3d_SequenceOfHClipPlane.def(py::init<>());
-
-// Methods
-cls_Graphic3d_SequenceOfHClipPlane.def_static("get_type_name_", (const char * (*)()) &Graphic3d_SequenceOfHClipPlane::get_type_name, "None");
-cls_Graphic3d_SequenceOfHClipPlane.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_SequenceOfHClipPlane::get_type_descriptor, "None");
-cls_Graphic3d_SequenceOfHClipPlane.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_SequenceOfHClipPlane::*)() const) &Graphic3d_SequenceOfHClipPlane::DynamicType, "None");
-// cls_Graphic3d_SequenceOfHClipPlane.def_static("operator new_", (void * (*)(size_t)) &Graphic3d_SequenceOfHClipPlane::operator new, "None", py::arg("theSize"));
-// cls_Graphic3d_SequenceOfHClipPlane.def_static("operator delete_", (void (*)(void *)) &Graphic3d_SequenceOfHClipPlane::operator delete, "None", py::arg("theAddress"));
-// cls_Graphic3d_SequenceOfHClipPlane.def_static("operator new[]_", (void * (*)(size_t)) &Graphic3d_SequenceOfHClipPlane::operator new[], "None", py::arg("theSize"));
-// cls_Graphic3d_SequenceOfHClipPlane.def_static("operator delete[]_", (void (*)(void *)) &Graphic3d_SequenceOfHClipPlane::operator delete[], "None", py::arg("theAddress"));
-// cls_Graphic3d_SequenceOfHClipPlane.def_static("operator new_", (void * (*)(size_t, void *)) &Graphic3d_SequenceOfHClipPlane::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Graphic3d_SequenceOfHClipPlane.def_static("operator delete_", (void (*)(void *, void *)) &Graphic3d_SequenceOfHClipPlane::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Graphic3d_SequenceOfHClipPlane.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Graphic3d_SequenceOfHClipPlane::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Graphic3d_SequenceOfHClipPlane.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Graphic3d_SequenceOfHClipPlane::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Graphic3d_SequenceOfHClipPlane.def("ToOverrideGlobal", (Standard_Boolean (Graphic3d_SequenceOfHClipPlane::*)() const) &Graphic3d_SequenceOfHClipPlane::ToOverrideGlobal, "Return true if local properties should override global properties.");
-cls_Graphic3d_SequenceOfHClipPlane.def("SetOverrideGlobal", (void (Graphic3d_SequenceOfHClipPlane::*)(const Standard_Boolean)) &Graphic3d_SequenceOfHClipPlane::SetOverrideGlobal, "Setup flag defining if local properties should override global properties.", py::arg("theToOverride"));
-
-// CLASS: GRAPHIC3D_VIEWAFFINITY
-py::class_<Graphic3d_ViewAffinity, opencascade::handle<Graphic3d_ViewAffinity>, Standard_Transient> cls_Graphic3d_ViewAffinity(mod, "Graphic3d_ViewAffinity", "Structure display state.");
-
-// Constructors
-cls_Graphic3d_ViewAffinity.def(py::init<>());
-
-// Methods
-cls_Graphic3d_ViewAffinity.def("IsVisible", (bool (Graphic3d_ViewAffinity::*)(const Standard_Integer) const) &Graphic3d_ViewAffinity::IsVisible, "Return visibility flag.", py::arg("theViewId"));
-cls_Graphic3d_ViewAffinity.def("SetVisible", (void (Graphic3d_ViewAffinity::*)(const Standard_Boolean)) &Graphic3d_ViewAffinity::SetVisible, "Setup visibility flag for all views.", py::arg("theIsVisible"));
-cls_Graphic3d_ViewAffinity.def("SetVisible", (void (Graphic3d_ViewAffinity::*)(const Standard_Integer, const bool)) &Graphic3d_ViewAffinity::SetVisible, "Setup visibility flag.", py::arg("theViewId"), py::arg("theIsVisible"));
-cls_Graphic3d_ViewAffinity.def_static("get_type_name_", (const char * (*)()) &Graphic3d_ViewAffinity::get_type_name, "None");
-cls_Graphic3d_ViewAffinity.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_ViewAffinity::get_type_descriptor, "None");
-cls_Graphic3d_ViewAffinity.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_ViewAffinity::*)() const) &Graphic3d_ViewAffinity::DynamicType, "None");
 
 // CLASS: GRAPHIC3D_TRANSFORMPERS
 py::class_<Graphic3d_TransformPers, opencascade::handle<Graphic3d_TransformPers>, Standard_Transient> cls_Graphic3d_TransformPers(mod, "Graphic3d_TransformPers", "Transformation Persistence definition.");
@@ -1823,18 +1911,217 @@ cls_Graphic3d_CStructure.def("IsVisible", (bool (Graphic3d_CStructure::*)(const 
 cls_Graphic3d_CStructure.def("SetZLayer", (void (Graphic3d_CStructure::*)(const Graphic3d_ZLayerId)) &Graphic3d_CStructure::SetZLayer, "Set z layer ID to display the structure in specified layer", py::arg("theLayerIndex"));
 cls_Graphic3d_CStructure.def("ZLayer", (Graphic3d_ZLayerId (Graphic3d_CStructure::*)() const) &Graphic3d_CStructure::ZLayer, "Get z layer ID");
 cls_Graphic3d_CStructure.def("HighlightStyle", (const opencascade::handle<Graphic3d_PresentationAttributes> & (Graphic3d_CStructure::*)() const) &Graphic3d_CStructure::HighlightStyle, "Returns valid handle to highlight style of the structure in case if highlight flag is set to true");
+cls_Graphic3d_CStructure.def("IsCulled", (Standard_Boolean (Graphic3d_CStructure::*)() const) &Graphic3d_CStructure::IsCulled, "Returns FALSE if the structure hits the current view volume, otherwise returns TRUE.");
+cls_Graphic3d_CStructure.def("SetCulled", (void (Graphic3d_CStructure::*)(Standard_Boolean) const) &Graphic3d_CStructure::SetCulled, "Marks structure as culled/not culled - note that IsAlwaysRendered() is ignored here!", py::arg("theIsCulled"));
+cls_Graphic3d_CStructure.def("MarkAsNotCulled", (void (Graphic3d_CStructure::*)() const) &Graphic3d_CStructure::MarkAsNotCulled, "Marks structure as overlapping the current view volume one. The method is called during traverse of BVH tree.");
+cls_Graphic3d_CStructure.def("BndBoxClipCheck", (Standard_Boolean (Graphic3d_CStructure::*)() const) &Graphic3d_CStructure::BndBoxClipCheck, "Returns whether check of object's bounding box clipping is enabled before drawing of object; TRUE by default.");
+cls_Graphic3d_CStructure.def("SetBndBoxClipCheck", (void (Graphic3d_CStructure::*)(Standard_Boolean)) &Graphic3d_CStructure::SetBndBoxClipCheck, "Enable/disable check of object's bounding box clipping before drawing of object.", py::arg("theBndBoxClipCheck"));
+cls_Graphic3d_CStructure.def("IsAlwaysRendered", (Standard_Boolean (Graphic3d_CStructure::*)() const) &Graphic3d_CStructure::IsAlwaysRendered, "Checks if the structure should be included into BVH tree or not.");
 cls_Graphic3d_CStructure.def("OnVisibilityChanged", (void (Graphic3d_CStructure::*)()) &Graphic3d_CStructure::OnVisibilityChanged, "Update structure visibility state");
 cls_Graphic3d_CStructure.def("Clear", (void (Graphic3d_CStructure::*)()) &Graphic3d_CStructure::Clear, "Clear graphic data");
 cls_Graphic3d_CStructure.def("Connect", (void (Graphic3d_CStructure::*)(Graphic3d_CStructure &)) &Graphic3d_CStructure::Connect, "Connect other structure to this one", py::arg("theStructure"));
 cls_Graphic3d_CStructure.def("Disconnect", (void (Graphic3d_CStructure::*)(Graphic3d_CStructure &)) &Graphic3d_CStructure::Disconnect, "Disconnect other structure to this one", py::arg("theStructure"));
-cls_Graphic3d_CStructure.def("GraphicHighlight", (void (Graphic3d_CStructure::*)(const opencascade::handle<Graphic3d_PresentationAttributes> &, const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_CStructure::GraphicHighlight, "Highlights structure with the given style", py::arg("theStyle"), py::arg("theStruct"));
+cls_Graphic3d_CStructure.def("GraphicHighlight", (void (Graphic3d_CStructure::*)(const opencascade::handle<Graphic3d_PresentationAttributes> &)) &Graphic3d_CStructure::GraphicHighlight, "Highlights structure with the given style", py::arg("theStyle"));
 cls_Graphic3d_CStructure.def("GraphicUnhighlight", (void (Graphic3d_CStructure::*)()) &Graphic3d_CStructure::GraphicUnhighlight, "Unhighlights the structure and invalidates pointer to structure's highlight style");
 cls_Graphic3d_CStructure.def("ShadowLink", (opencascade::handle<Graphic3d_CStructure> (Graphic3d_CStructure::*)(const opencascade::handle<Graphic3d_StructureManager> &) const) &Graphic3d_CStructure::ShadowLink, "Create shadow link to this structure", py::arg("theManager"));
 cls_Graphic3d_CStructure.def("NewGroup", (opencascade::handle<Graphic3d_Group> (Graphic3d_CStructure::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_CStructure::NewGroup, "Create new group within this structure", py::arg("theStruct"));
 cls_Graphic3d_CStructure.def("RemoveGroup", (void (Graphic3d_CStructure::*)(const opencascade::handle<Graphic3d_Group> &)) &Graphic3d_CStructure::RemoveGroup, "Remove group from this structure", py::arg("theGroup"));
+cls_Graphic3d_CStructure.def("updateLayerTransformation", (void (Graphic3d_CStructure::*)()) &Graphic3d_CStructure::updateLayerTransformation, "Update render transformation matrix.");
 cls_Graphic3d_CStructure.def_static("get_type_name_", (const char * (*)()) &Graphic3d_CStructure::get_type_name, "None");
 cls_Graphic3d_CStructure.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_CStructure::get_type_descriptor, "None");
 cls_Graphic3d_CStructure.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_CStructure::*)() const) &Graphic3d_CStructure::DynamicType, "None");
+
+// TYPEDEF: GRAPHIC3D_MAPOFSTRUCTURE
+bind_NCollection_Map<opencascade::handle<Graphic3d_Structure>, NCollection_DefaultHasher<opencascade::handle<Graphic3d_Structure> > >(mod, "Graphic3d_MapOfStructure", py::module_local(false));
+
+// CLASS: GRAPHIC3D_STRUCTURE
+py::class_<Graphic3d_Structure, opencascade::handle<Graphic3d_Structure>, Standard_Transient> cls_Graphic3d_Structure(mod, "Graphic3d_Structure", "This class allows the definition a graphic object. This graphic structure can be displayed, erased, or highlighted. This graphic structure can be connected with another graphic structure.");
+
+// Constructors
+cls_Graphic3d_Structure.def(py::init<const opencascade::handle<Graphic3d_StructureManager> &>(), py::arg("theManager"));
+cls_Graphic3d_Structure.def(py::init<const opencascade::handle<Graphic3d_StructureManager> &, const opencascade::handle<Graphic3d_Structure> &>(), py::arg("theManager"), py::arg("theLinkPrs"));
+
+// Methods
+cls_Graphic3d_Structure.def_static("get_type_name_", (const char * (*)()) &Graphic3d_Structure::get_type_name, "None");
+cls_Graphic3d_Structure.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_Structure::get_type_descriptor, "None");
+cls_Graphic3d_Structure.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::DynamicType, "None");
+cls_Graphic3d_Structure.def("Clear", [](Graphic3d_Structure &self) -> void { return self.Clear(); });
+cls_Graphic3d_Structure.def("Clear", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::Clear, "if WithDestruction == Standard_True then suppress all the groups of primitives in the structure. and it is mandatory to create a new group in <me>. if WithDestruction == Standard_False then clears all the groups of primitives in the structure. and all the groups are conserved and empty. They will be erased at the next screen update. The structure itself is conserved. The transformation and the attributes of <me> are conserved. The childs of <me> are conserved.", py::arg("WithDestruction"));
+cls_Graphic3d_Structure.def("Display", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::Display, "Displays the structure <me> in all the views of the visualiser.");
+cls_Graphic3d_Structure.def("DisplayPriority", (Standard_Integer (Graphic3d_Structure::*)() const) &Graphic3d_Structure::DisplayPriority, "Returns the current display priority for this structure.");
+cls_Graphic3d_Structure.def("Erase", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::Erase, "Erases the structure <me> in all the views of the visualiser.");
+cls_Graphic3d_Structure.def("Highlight", [](Graphic3d_Structure &self, const opencascade::handle<Graphic3d_PresentationAttributes> & a0) -> void { return self.Highlight(a0); });
+cls_Graphic3d_Structure.def("Highlight", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_PresentationAttributes> &, const Standard_Boolean)) &Graphic3d_Structure::Highlight, "Highlights the structure in all the views with the given style", py::arg("theStyle"), py::arg("theToUpdateMgr"));
+cls_Graphic3d_Structure.def("Remove", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::Remove, "Suppress the structure <me>. It will be erased at the next screen update. Warning: No more graphic operations in <me> after this call. Category: Methods to modify the class definition");
+cls_Graphic3d_Structure.def("CalculateBoundBox", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::CalculateBoundBox, "Computes axis-aligned bounding box of a structure.");
+cls_Graphic3d_Structure.def("SetInfiniteState", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::SetInfiniteState, "Sets infinite flag. When TRUE, the MinMaxValues method returns: theXMin = theYMin = theZMin = RealFirst(). theXMax = theYMax = theZMax = RealLast(). By default, structure is created not infinite but empty.", py::arg("theToSet"));
+cls_Graphic3d_Structure.def("SetDisplayPriority", (void (Graphic3d_Structure::*)(const Standard_Integer)) &Graphic3d_Structure::SetDisplayPriority, "Modifies the order of displaying the structure. Values are between 0 and 10. Structures are drawn according to their display priorities in ascending order. A structure of priority 10 is displayed the last and appears over the others. The default value is 5. Category: Methods to modify the class definition Warning: If <me> is displayed then the SetDisplayPriority method erase <me> and display <me> with the new priority. Raises PriorityDefinitionError if <Priority> is greater than 10 or a negative value.", py::arg("Priority"));
+cls_Graphic3d_Structure.def("ResetDisplayPriority", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::ResetDisplayPriority, "Reset the current priority of the structure to the previous priority. Category: Methods to modify the class definition Warning: If <me> is displayed then the SetDisplayPriority method erase <me> and display <me> with the previous priority.");
+cls_Graphic3d_Structure.def("SetZLayer", (void (Graphic3d_Structure::*)(const Graphic3d_ZLayerId)) &Graphic3d_Structure::SetZLayer, "Set Z layer ID for the structure. The Z layer mechanism allows to display structures presented in higher layers in overlay of structures in lower layers by switching off z buffer depth test between layers", py::arg("theLayerId"));
+cls_Graphic3d_Structure.def("GetZLayer", (Graphic3d_ZLayerId (Graphic3d_Structure::*)() const) &Graphic3d_Structure::GetZLayer, "Get Z layer ID of displayed structure. The method returns -1 if the structure has no ID (deleted from graphic driver).");
+cls_Graphic3d_Structure.def("SetClipPlanes", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_SequenceOfHClipPlane> &)) &Graphic3d_Structure::SetClipPlanes, "Changes a sequence of clip planes slicing the structure on rendering.", py::arg("thePlanes"));
+cls_Graphic3d_Structure.def("ClipPlanes", (const opencascade::handle<Graphic3d_SequenceOfHClipPlane> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::ClipPlanes, "Get clip planes slicing the structure on rendering.");
+cls_Graphic3d_Structure.def("SetVisible", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::SetVisible, "Modifies the visibility indicator to Standard_True or Standard_False for the structure <me>. The default value at the definition of <me> is Standard_True.", py::arg("AValue"));
+cls_Graphic3d_Structure.def("SetVisual", (void (Graphic3d_Structure::*)(const Graphic3d_TypeOfStructure)) &Graphic3d_Structure::SetVisual, "Modifies the visualisation mode for the structure <me>.", py::arg("AVisual"));
+cls_Graphic3d_Structure.def("SetZoomLimit", (void (Graphic3d_Structure::*)(const Standard_Real, const Standard_Real)) &Graphic3d_Structure::SetZoomLimit, "Modifies the minimum and maximum zoom coefficients for the structure <me>. The default value at the definition of <me> is unlimited. Category: Methods to modify the class definition Warning: Raises StructureDefinitionError if <LimitInf> is greater than <LimitSup> or if <LimitInf> or <LimitSup> is a negative value.", py::arg("LimitInf"), py::arg("LimitSup"));
+cls_Graphic3d_Structure.def("SetIsForHighlight", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::SetIsForHighlight, "Marks the structure <me> representing wired structure needed for highlight only so it won't be added to BVH tree.", py::arg("isForHighlight"));
+cls_Graphic3d_Structure.def("UnHighlight", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::UnHighlight, "Suppresses the highlight for the structure <me> in all the views of the visualiser.");
+cls_Graphic3d_Structure.def("Compute", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::Compute, "None");
+cls_Graphic3d_Structure.def("Compute", (opencascade::handle<Graphic3d_Structure> (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_DataStructureManager> &)) &Graphic3d_Structure::Compute, "Returns the new Structure defined for the new visualization", py::arg("theProjector"));
+cls_Graphic3d_Structure.def("Compute", (opencascade::handle<Graphic3d_Structure> (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_DataStructureManager> &, const opencascade::handle<Geom_Transformation> &)) &Graphic3d_Structure::Compute, "Returns the new Structure defined for the new visualization", py::arg("theProjector"), py::arg("theTrsf"));
+cls_Graphic3d_Structure.def("Compute", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_DataStructureManager> &, opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::Compute, "Returns the new Structure defined for the new visualization", py::arg("theProjector"), py::arg("theStructure"));
+cls_Graphic3d_Structure.def("Compute", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_DataStructureManager> &, const opencascade::handle<Geom_Transformation> &, opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::Compute, "Returns the new Structure defined for the new visualization", py::arg("theProjector"), py::arg("theTrsf"), py::arg("theStructure"));
+cls_Graphic3d_Structure.def("ReCompute", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::ReCompute, "Forces a new construction of the structure <me> if <me> is displayed and TOS_COMPUTED.");
+cls_Graphic3d_Structure.def("ReCompute", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_DataStructureManager> &)) &Graphic3d_Structure::ReCompute, "Forces a new construction of the structure <me> if <me> is displayed in <aProjetor> and TOS_COMPUTED.", py::arg("aProjector"));
+cls_Graphic3d_Structure.def("ContainsFacet", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::ContainsFacet, "Returns Standard_True if the structure <me> contains Polygons, Triangles or Quadrangles.");
+cls_Graphic3d_Structure.def("Groups", (const Graphic3d_SequenceOfGroup & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::Groups, "Returns the groups sequence included in this structure.");
+cls_Graphic3d_Structure.def("NumberOfGroups", (Standard_Integer (Graphic3d_Structure::*)() const) &Graphic3d_Structure::NumberOfGroups, "Returns the current number of groups in this structure.");
+cls_Graphic3d_Structure.def("NewGroup", (opencascade::handle<Graphic3d_Group> (Graphic3d_Structure::*)()) &Graphic3d_Structure::NewGroup, "Append new group to this structure.");
+cls_Graphic3d_Structure.def("CurrentGroup", (opencascade::handle<Graphic3d_Group> (Graphic3d_Structure::*)()) &Graphic3d_Structure::CurrentGroup, "Returns the last created group or creates new one if list is empty.");
+cls_Graphic3d_Structure.def("HighlightStyle", (const opencascade::handle<Graphic3d_PresentationAttributes> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::HighlightStyle, "Returns the highlight attributes.");
+cls_Graphic3d_Structure.def("IsDeleted", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsDeleted, "Returns TRUE if this structure is deleted (after Remove() call).");
+cls_Graphic3d_Structure.def("IsDisplayed", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsDisplayed, "Returns the display indicator for this structure.");
+cls_Graphic3d_Structure.def("IsEmpty", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsEmpty, "Returns Standard_True if the structure <me> is empty. Warning: A structure is empty if : it do not have group or all the groups are empties and it do not have descendant or all the descendants are empties.");
+cls_Graphic3d_Structure.def("IsInfinite", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsInfinite, "Returns Standard_True if the structure <me> is infinite.");
+cls_Graphic3d_Structure.def("IsHighlighted", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsHighlighted, "Returns the highlight indicator for this structure.");
+cls_Graphic3d_Structure.def("IsTransformed", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsTransformed, "Returns TRUE if the structure is transformed.");
+cls_Graphic3d_Structure.def("IsVisible", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsVisible, "Returns the visibility indicator for this structure.");
+cls_Graphic3d_Structure.def("MinMaxValues", [](Graphic3d_Structure &self) -> Bnd_Box { return self.MinMaxValues(); });
+cls_Graphic3d_Structure.def("MinMaxValues", (Bnd_Box (Graphic3d_Structure::*)(const Standard_Boolean) const) &Graphic3d_Structure::MinMaxValues, "Returns the coordinates of the boundary box of the structure <me>. If <theToIgnoreInfiniteFlag> is TRUE, the method returns actual graphical boundaries of the Graphic3d_Group components. Otherwise, the method returns boundaries taking into account infinite state of the structure. This approach generally used for application specific fit operation (e.g. fitting the model into screen, not taking into accout infinite helper elements). Warning: If the structure <me> is empty then the empty box is returned, If the structure <me> is infinite then the whole box is returned.", py::arg("theToIgnoreInfiniteFlag"));
+cls_Graphic3d_Structure.def("Visual", (Graphic3d_TypeOfStructure (Graphic3d_Structure::*)() const) &Graphic3d_Structure::Visual, "Returns the visualisation mode for the structure <me>.");
+cls_Graphic3d_Structure.def_static("AcceptConnection_", (Standard_Boolean (*)(Graphic3d_Structure *, Graphic3d_Structure *, Graphic3d_TypeOfConnection)) &Graphic3d_Structure::AcceptConnection, "Returns Standard_True if the connection is possible between <AStructure1> and <AStructure2> without a creation of a cycle.", py::arg("theStructure1"), py::arg("theStructure2"), py::arg("theType"));
+cls_Graphic3d_Structure.def("Ancestors", (void (Graphic3d_Structure::*)(Graphic3d_MapOfStructure &) const) &Graphic3d_Structure::Ancestors, "Returns the group of structures to which <me> is connected.", py::arg("SG"));
+cls_Graphic3d_Structure.def("Connect", [](Graphic3d_Structure &self, Graphic3d_Structure * a0, Graphic3d_TypeOfConnection a1) -> void { return self.Connect(a0, a1); });
+cls_Graphic3d_Structure.def("Connect", (void (Graphic3d_Structure::*)(Graphic3d_Structure *, Graphic3d_TypeOfConnection, Standard_Boolean)) &Graphic3d_Structure::Connect, "If Atype is TOC_DESCENDANT then add <AStructure> as a child structure of <me>. If Atype is TOC_ANCESTOR then add <AStructure> as a parent structure of <me>. The connection propagates Display, Highlight, Erase, Remove, and stacks the transformations. No connection if the graph of the structures contains a cycle and <WithCheck> is Standard_True;", py::arg("theStructure"), py::arg("theType"), py::arg("theWithCheck"));
+cls_Graphic3d_Structure.def("Connect", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::Connect, "None", py::arg("thePrs"));
+cls_Graphic3d_Structure.def("Descendants", (void (Graphic3d_Structure::*)(Graphic3d_MapOfStructure &) const) &Graphic3d_Structure::Descendants, "Returns the group of structures connected to <me>.", py::arg("SG"));
+cls_Graphic3d_Structure.def("Disconnect", (void (Graphic3d_Structure::*)(Graphic3d_Structure *)) &Graphic3d_Structure::Disconnect, "Suppress the connection between <AStructure> and <me>.", py::arg("theStructure"));
+cls_Graphic3d_Structure.def("Remove", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::Remove, "None", py::arg("thePrs"));
+cls_Graphic3d_Structure.def("DisconnectAll", (void (Graphic3d_Structure::*)(const Graphic3d_TypeOfConnection)) &Graphic3d_Structure::DisconnectAll, "If Atype is TOC_DESCENDANT then suppress all the connections with the child structures of <me>. If Atype is TOC_ANCESTOR then suppress all the connections with the parent structures of <me>.", py::arg("AType"));
+cls_Graphic3d_Structure.def("RemoveAll", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::RemoveAll, "None");
+cls_Graphic3d_Structure.def_static("Network_", (void (*)(Graphic3d_Structure *, const Graphic3d_TypeOfConnection, NCollection_Map<Graphic3d_Structure *> &)) &Graphic3d_Structure::Network, "Returns <ASet> the group of structures : - directly or indirectly connected to <AStructure> if the TypeOfConnection == TOC_DESCENDANT - to which <AStructure> is directly or indirectly connected if the TypeOfConnection == TOC_ANCESTOR", py::arg("theStructure"), py::arg("theType"), py::arg("theSet"));
+cls_Graphic3d_Structure.def("SetOwner", (void (Graphic3d_Structure::*)(const Standard_Address)) &Graphic3d_Structure::SetOwner, "None", py::arg("theOwner"));
+cls_Graphic3d_Structure.def("Owner", (Standard_Address (Graphic3d_Structure::*)() const) &Graphic3d_Structure::Owner, "None");
+cls_Graphic3d_Structure.def("SetHLRValidation", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::SetHLRValidation, "None", py::arg("theFlag"));
+cls_Graphic3d_Structure.def("HLRValidation", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::HLRValidation, "Hidden parts stored in this structure are valid if: 1) the owner is defined. 2) they are not invalid.");
+cls_Graphic3d_Structure.def("Transformation", (const opencascade::handle<Geom_Transformation> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::Transformation, "Return local transformation.");
+cls_Graphic3d_Structure.def("SetTransformation", (void (Graphic3d_Structure::*)(const opencascade::handle<Geom_Transformation> &)) &Graphic3d_Structure::SetTransformation, "Modifies the current local transformation", py::arg("theTrsf"));
+cls_Graphic3d_Structure.def("Transform", (void (Graphic3d_Structure::*)(const opencascade::handle<Geom_Transformation> &)) &Graphic3d_Structure::Transform, "None", py::arg("theTrsf"));
+cls_Graphic3d_Structure.def("SetTransformPersistence", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_TransformPers> &)) &Graphic3d_Structure::SetTransformPersistence, "Modifies the current transform persistence (pan, zoom or rotate)", py::arg("theTrsfPers"));
+cls_Graphic3d_Structure.def("TransformPersistence", (const opencascade::handle<Graphic3d_TransformPers> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::TransformPersistence, "Returns transform persistence of the presentable object.");
+cls_Graphic3d_Structure.def("SetMutable", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::SetMutable, "Sets if the structure location has mutable nature (content or location will be changed regularly).", py::arg("theIsMutable"));
+cls_Graphic3d_Structure.def("IsMutable", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsMutable, "Returns true if structure has mutable nature (content or location are be changed regularly). Mutable structure will be managed in different way than static onces.");
+cls_Graphic3d_Structure.def("ComputeVisual", (Graphic3d_TypeOfStructure (Graphic3d_Structure::*)() const) &Graphic3d_Structure::ComputeVisual, "None");
+cls_Graphic3d_Structure.def("GraphicClear", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::GraphicClear, "Clears the structure <me>.", py::arg("WithDestruction"));
+cls_Graphic3d_Structure.def("GraphicConnect", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::GraphicConnect, "None", py::arg("theDaughter"));
+cls_Graphic3d_Structure.def("GraphicDisconnect", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::GraphicDisconnect, "None", py::arg("theDaughter"));
+cls_Graphic3d_Structure.def("GraphicTransform", (void (Graphic3d_Structure::*)(const opencascade::handle<Geom_Transformation> &)) &Graphic3d_Structure::GraphicTransform, "Internal method which sets new transformation without calling graphic manager callbacks.", py::arg("theTrsf"));
+cls_Graphic3d_Structure.def("Identification", (Standard_Integer (Graphic3d_Structure::*)() const) &Graphic3d_Structure::Identification, "Returns the identification number of this structure.");
+cls_Graphic3d_Structure.def_static("PrintNetwork_", (void (*)(const opencascade::handle<Graphic3d_Structure> &, const Graphic3d_TypeOfConnection)) &Graphic3d_Structure::PrintNetwork, "Prints informations about the network associated with the structure <AStructure>.", py::arg("AStructure"), py::arg("AType"));
+cls_Graphic3d_Structure.def("Remove", (void (Graphic3d_Structure::*)(Graphic3d_Structure *, const Graphic3d_TypeOfConnection)) &Graphic3d_Structure::Remove, "Suppress the structure in the list of descendants or in the list of ancestors.", py::arg("thePtr"), py::arg("theType"));
+cls_Graphic3d_Structure.def("SetComputeVisual", (void (Graphic3d_Structure::*)(const Graphic3d_TypeOfStructure)) &Graphic3d_Structure::SetComputeVisual, "None", py::arg("theVisual"));
+cls_Graphic3d_Structure.def_static("Transforms_", [](const gp_Trsf & theTrsf, const Standard_Real theX, const Standard_Real theY, const Standard_Real theZ, Standard_Real & theNewX, Standard_Real & theNewY, Standard_Real & theNewZ){ Graphic3d_Structure::Transforms(theTrsf, theX, theY, theZ, theNewX, theNewY, theNewZ); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &>(theNewX, theNewY, theNewZ); }, "Transforms theX, theY, theZ with the transformation theTrsf.", py::arg("theTrsf"), py::arg("theX"), py::arg("theY"), py::arg("theZ"), py::arg("theNewX"), py::arg("theNewY"), py::arg("theNewZ"));
+cls_Graphic3d_Structure.def("CStructure", (const opencascade::handle<Graphic3d_CStructure> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::CStructure, "Returns the low-level structure");
+
+// TYPEDEF: GRAPHIC3D_BUFFERTYPE
+
+// CLASS: GRAPHIC3D_CUBEMAPORDER
+py::class_<Graphic3d_CubeMapOrder> cls_Graphic3d_CubeMapOrder(mod, "Graphic3d_CubeMapOrder", "Graphic3d_CubeMapOrder maps sides of cubemap on tiles in packed cubemap image to support different tiles order in such images. Also it can be considered as permutation of numbers from 0 to 5. It stores permutation in one integer as convolution.");
+
+// Constructors
+cls_Graphic3d_CubeMapOrder.def(py::init<>());
+cls_Graphic3d_CubeMapOrder.def(py::init<unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char>(), py::arg("thePosXLocation"), py::arg("theNegXLocation"), py::arg("thePosYLocation"), py::arg("theNegYLocation"), py::arg("thePosZLocation"), py::arg("theNegZLocation"));
+cls_Graphic3d_CubeMapOrder.def(py::init<const Graphic3d_ValidatedCubeMapOrder>(), py::arg("theOrder"));
+
+// Methods
+cls_Graphic3d_CubeMapOrder.def("Set", (Graphic3d_CubeMapOrder & (Graphic3d_CubeMapOrder::*)(const Graphic3d_CubeMapOrder &)) &Graphic3d_CubeMapOrder::Set, "Alias of 'operator='.", py::arg("theOrder"));
+cls_Graphic3d_CubeMapOrder.def("Validated", (Graphic3d_ValidatedCubeMapOrder (Graphic3d_CubeMapOrder::*)() const) &Graphic3d_CubeMapOrder::Validated, "Checks whether order is valid and returns object containing it. If order is invalid then exception will be thrown. This method is only way to create Graphic3d_ValidatedCubeMapOrder except copy constructor.");
+cls_Graphic3d_CubeMapOrder.def("Set", (Graphic3d_CubeMapOrder & (Graphic3d_CubeMapOrder::*)(Graphic3d_CubeMapSide, unsigned char)) &Graphic3d_CubeMapOrder::Set, "Sets number of tile in packed cubemap image according passed cubemap side.", py::arg("theCubeMapSide"), py::arg("theValue"));
+cls_Graphic3d_CubeMapOrder.def("SetDefault", (Graphic3d_CubeMapOrder & (Graphic3d_CubeMapOrder::*)()) &Graphic3d_CubeMapOrder::SetDefault, "Sets default order (just from 0 to 5)");
+cls_Graphic3d_CubeMapOrder.def("Permute", (Graphic3d_CubeMapOrder & (Graphic3d_CubeMapOrder::*)(Graphic3d_ValidatedCubeMapOrder)) &Graphic3d_CubeMapOrder::Permute, "Applies another cubemap order as permutation for the current one.", py::arg("anOrder"));
+cls_Graphic3d_CubeMapOrder.def("Permuted", (Graphic3d_CubeMapOrder (Graphic3d_CubeMapOrder::*)(Graphic3d_ValidatedCubeMapOrder) const) &Graphic3d_CubeMapOrder::Permuted, "Returns permuted by other cubemap order copy of current one.", py::arg("anOrder"));
+cls_Graphic3d_CubeMapOrder.def("Swap", (Graphic3d_CubeMapOrder & (Graphic3d_CubeMapOrder::*)(Graphic3d_CubeMapSide, Graphic3d_CubeMapSide)) &Graphic3d_CubeMapOrder::Swap, "Swaps values of two cubemap sides.", py::arg("theFirstSide"), py::arg("theSecondSide"));
+cls_Graphic3d_CubeMapOrder.def("Swapped", (Graphic3d_CubeMapOrder (Graphic3d_CubeMapOrder::*)(Graphic3d_CubeMapSide, Graphic3d_CubeMapSide) const) &Graphic3d_CubeMapOrder::Swapped, "Returns copy of current order with swapped values of two cubemap sides.", py::arg("theFirstSide"), py::arg("theSecondSide"));
+cls_Graphic3d_CubeMapOrder.def("Get", (unsigned char (Graphic3d_CubeMapOrder::*)(Graphic3d_CubeMapSide) const) &Graphic3d_CubeMapOrder::Get, "Returns value of passed cubemap side.", py::arg("theCubeMapSide"));
+cls_Graphic3d_CubeMapOrder.def("__getitem__", (unsigned char (Graphic3d_CubeMapOrder::*)(Graphic3d_CubeMapSide) const) &Graphic3d_CubeMapOrder::operator[], py::is_operator(), "Alias of 'Get'.", py::arg("theCubeMapSide"));
+cls_Graphic3d_CubeMapOrder.def("Clear", (Graphic3d_CubeMapOrder & (Graphic3d_CubeMapOrder::*)()) &Graphic3d_CubeMapOrder::Clear, "Makes order empty.");
+cls_Graphic3d_CubeMapOrder.def("IsEmpty", (bool (Graphic3d_CubeMapOrder::*)() const) &Graphic3d_CubeMapOrder::IsEmpty, "Checks whether order is empty.");
+cls_Graphic3d_CubeMapOrder.def("HasRepetitions", (bool (Graphic3d_CubeMapOrder::*)() const) &Graphic3d_CubeMapOrder::HasRepetitions, "Checks whether order has repetitions.");
+cls_Graphic3d_CubeMapOrder.def("HasOverflows", (bool (Graphic3d_CubeMapOrder::*)() const) &Graphic3d_CubeMapOrder::HasOverflows, "Checks whether attempts to assign index greater than 5 to any side happed.");
+cls_Graphic3d_CubeMapOrder.def("IsValid", (bool (Graphic3d_CubeMapOrder::*)() const) &Graphic3d_CubeMapOrder::IsValid, "Checks whether order is valid. Order is valid when it doesn't have repetitions and there were not attempts to assign indexes greater than 5.");
+cls_Graphic3d_CubeMapOrder.def_static("Default_", (const Graphic3d_ValidatedCubeMapOrder & (*)()) &Graphic3d_CubeMapOrder::Default, "Returns default order in protector container class. It is guaranteed to be valid.");
+
+// CLASS: GRAPHIC3D_VALIDATEDCUBEMAPORDER
+py::class_<Graphic3d_ValidatedCubeMapOrder> cls_Graphic3d_ValidatedCubeMapOrder(mod, "Graphic3d_ValidatedCubeMapOrder", "Graphic3d_ValidatedCubeMapOrder contains completely valid order object. The only way to create this class except copy constructor is 'Validated' method of Graphic3d_CubeMapOrder. This class can initialize Graphic3d_CubeMapOrder. It is supposed to be used in case of necessity of completely valid order (in function argument as example). It helps to automate order's valid checks.");
+
+// Fields
+cls_Graphic3d_ValidatedCubeMapOrder.def_readonly("Order", &Graphic3d_ValidatedCubeMapOrder::Order, "Completely valid order");
+
+// Methods
+// cls_Graphic3d_ValidatedCubeMapOrder.def("operator->", (const Graphic3d_CubeMapOrder * (Graphic3d_ValidatedCubeMapOrder::*)() const) &Graphic3d_ValidatedCubeMapOrder::operator->, "Allows skip access to 'Order' field and work directly.");
+
+// CLASS: GRAPHIC3D_CUBEMAP
+py::class_<Graphic3d_CubeMap, opencascade::handle<Graphic3d_CubeMap>, Graphic3d_TextureMap> cls_Graphic3d_CubeMap(mod, "Graphic3d_CubeMap", "Base class for cubemaps. It is iterator over cubemap sides.");
+
+// Methods
+cls_Graphic3d_CubeMap.def_static("get_type_name_", (const char * (*)()) &Graphic3d_CubeMap::get_type_name, "None");
+cls_Graphic3d_CubeMap.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_CubeMap::get_type_descriptor, "None");
+cls_Graphic3d_CubeMap.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_CubeMap::*)() const) &Graphic3d_CubeMap::DynamicType, "None");
+cls_Graphic3d_CubeMap.def("More", (Standard_Boolean (Graphic3d_CubeMap::*)() const) &Graphic3d_CubeMap::More, "Returns whether the iterator has reached the end (true if it hasn't).");
+cls_Graphic3d_CubeMap.def("CurrentSide", (Graphic3d_CubeMapSide (Graphic3d_CubeMap::*)() const) &Graphic3d_CubeMap::CurrentSide, "Returns current cubemap side (iterator state).");
+cls_Graphic3d_CubeMap.def("Next", (void (Graphic3d_CubeMap::*)()) &Graphic3d_CubeMap::Next, "Moves iterator to the next cubemap side. Uses OpenGL cubemap sides order +X -> -X -> +Y -> -Y -> +Z -> -Z.");
+cls_Graphic3d_CubeMap.def("IsTopDown", (Standard_Boolean (Graphic3d_CubeMap::*)() const) &Graphic3d_CubeMap::IsTopDown, "Returns whether row's memory layout is top-down.");
+cls_Graphic3d_CubeMap.def("SetZInversion", (void (Graphic3d_CubeMap::*)(Standard_Boolean)) &Graphic3d_CubeMap::SetZInversion, "Sets Z axis inversion (vertical flipping).", py::arg("theZIsInverted"));
+cls_Graphic3d_CubeMap.def("ZIsInverted", (Standard_Boolean (Graphic3d_CubeMap::*)() const) &Graphic3d_CubeMap::ZIsInverted, "Returns whether Z axis is inverted.");
+cls_Graphic3d_CubeMap.def("Value", (opencascade::handle<Image_PixMap> (Graphic3d_CubeMap::*)()) &Graphic3d_CubeMap::Value, "Returns PixMap containing current side of cubemap. Returns null handle if current side is invalid.");
+cls_Graphic3d_CubeMap.def("Reset", (Graphic3d_CubeMap & (Graphic3d_CubeMap::*)()) &Graphic3d_CubeMap::Reset, "Sets iterator state to +X cubemap side.");
+
+// CLASS: GRAPHIC3D_CLIGHT
+py::class_<Graphic3d_CLight, opencascade::handle<Graphic3d_CLight>, Standard_Transient> cls_Graphic3d_CLight(mod, "Graphic3d_CLight", "Generic light source definition. This class defines arbitrary light source - see Graphic3d_TypeOfLightSource enumeration. Some parameters are applicable only to particular light type; calling methods unrelated to current type will throw an exception.");
+
+// Constructors
+cls_Graphic3d_CLight.def(py::init<Graphic3d_TypeOfLightSource>(), py::arg("theType"));
+
+// Methods
+cls_Graphic3d_CLight.def_static("get_type_name_", (const char * (*)()) &Graphic3d_CLight::get_type_name, "None");
+cls_Graphic3d_CLight.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_CLight::get_type_descriptor, "None");
+cls_Graphic3d_CLight.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_CLight::*)() const) &Graphic3d_CLight::DynamicType, "None");
+cls_Graphic3d_CLight.def("Type", (Graphic3d_TypeOfLightSource (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Type, "Returns the Type of the Light, cannot be changed after object construction.");
+cls_Graphic3d_CLight.def("Name", (const TCollection_AsciiString & (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Name, "Returns light source name; empty string by default.");
+cls_Graphic3d_CLight.def("SetName", (void (Graphic3d_CLight::*)(const TCollection_AsciiString &)) &Graphic3d_CLight::SetName, "Sets light source name.", py::arg("theName"));
+cls_Graphic3d_CLight.def("Color", (const Quantity_Color & (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Color, "Returns the color of the light source; WHITE by default.");
+cls_Graphic3d_CLight.def("SetColor", (void (Graphic3d_CLight::*)(const Quantity_Color &)) &Graphic3d_CLight::SetColor, "Defines the color of a light source by giving the basic color.", py::arg("theColor"));
+cls_Graphic3d_CLight.def("IsEnabled", (Standard_Boolean (Graphic3d_CLight::*)() const) &Graphic3d_CLight::IsEnabled, "Check that the light source is turned on; TRUE by default. This flag affects all occurrences of light sources, where it was registered and activated; so that it is possible defining an active light in View which is actually in disabled state.");
+cls_Graphic3d_CLight.def("SetEnabled", (void (Graphic3d_CLight::*)(Standard_Boolean)) &Graphic3d_CLight::SetEnabled, "Change enabled state of the light state. This call does not remove or deactivate light source in Views/Viewers; instead it turns it OFF so that it just have no effect.", py::arg("theIsOn"));
+cls_Graphic3d_CLight.def("IsHeadlight", (Standard_Boolean (Graphic3d_CLight::*)() const) &Graphic3d_CLight::IsHeadlight, "Returns true if the light is a headlight; FALSE by default. Headlight flag means that light position/direction are defined not in a World coordinate system, but relative to the camera orientation.");
+cls_Graphic3d_CLight.def("Headlight", (Standard_Boolean (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Headlight, "Alias for IsHeadlight().");
+cls_Graphic3d_CLight.def("SetHeadlight", (void (Graphic3d_CLight::*)(Standard_Boolean)) &Graphic3d_CLight::SetHeadlight, "Setup headlight flag.", py::arg("theValue"));
+cls_Graphic3d_CLight.def("Position", (const gp_Pnt & (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Position, "Returns location of positional/spot light; (0, 0, 0) by default.");
+cls_Graphic3d_CLight.def("SetPosition", (void (Graphic3d_CLight::*)(const gp_Pnt &)) &Graphic3d_CLight::SetPosition, "Setup location of positional/spot light.", py::arg("thePosition"));
+cls_Graphic3d_CLight.def("Position", [](Graphic3d_CLight &self, Standard_Real & theX, Standard_Real & theY, Standard_Real & theZ){ self.Position(theX, theY, theZ); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &>(theX, theY, theZ); }, "Returns location of positional/spot light.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
+cls_Graphic3d_CLight.def("SetPosition", (void (Graphic3d_CLight::*)(Standard_Real, Standard_Real, Standard_Real)) &Graphic3d_CLight::SetPosition, "Setup location of positional/spot light.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
+cls_Graphic3d_CLight.def("ConstAttenuation", (Standard_ShortReal (Graphic3d_CLight::*)() const) &Graphic3d_CLight::ConstAttenuation, "Returns constant attenuation factor of positional/spot light source; 1.0f by default. Distance attenuation factors of reducing positional/spot light intensity depending on the distance from its position:");
+cls_Graphic3d_CLight.def("LinearAttenuation", (Standard_ShortReal (Graphic3d_CLight::*)() const) &Graphic3d_CLight::LinearAttenuation, "Returns linear attenuation factor of positional/spot light source; 0.0 by default. Distance attenuation factors of reducing positional/spot light intensity depending on the distance from its position:");
+cls_Graphic3d_CLight.def("Attenuation", [](Graphic3d_CLight &self, Standard_Real & theConstAttenuation, Standard_Real & theLinearAttenuation){ self.Attenuation(theConstAttenuation, theLinearAttenuation); return std::tuple<Standard_Real &, Standard_Real &>(theConstAttenuation, theLinearAttenuation); }, "Returns the attenuation factors.", py::arg("theConstAttenuation"), py::arg("theLinearAttenuation"));
+cls_Graphic3d_CLight.def("SetAttenuation", (void (Graphic3d_CLight::*)(Standard_ShortReal, Standard_ShortReal)) &Graphic3d_CLight::SetAttenuation, "Defines the coefficients of attenuation; values should be >= 0.0 and their summ should not be equal to 0.", py::arg("theConstAttenuation"), py::arg("theLinearAttenuation"));
+cls_Graphic3d_CLight.def("Direction", (gp_Dir (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Direction, "Returns direction of directional/spot light.");
+cls_Graphic3d_CLight.def("SetDirection", (void (Graphic3d_CLight::*)(const gp_Dir &)) &Graphic3d_CLight::SetDirection, "Sets direction of directional/spot light.", py::arg("theDir"));
+cls_Graphic3d_CLight.def("Direction", [](Graphic3d_CLight &self, Standard_Real & theVx, Standard_Real & theVy, Standard_Real & theVz){ self.Direction(theVx, theVy, theVz); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &>(theVx, theVy, theVz); }, "Returns the theVx, theVy, theVz direction of the light source.", py::arg("theVx"), py::arg("theVy"), py::arg("theVz"));
+cls_Graphic3d_CLight.def("SetDirection", (void (Graphic3d_CLight::*)(Standard_Real, Standard_Real, Standard_Real)) &Graphic3d_CLight::SetDirection, "Sets direction of directional/spot light.", py::arg("theVx"), py::arg("theVy"), py::arg("theVz"));
+cls_Graphic3d_CLight.def("Angle", (Standard_ShortReal (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Angle, "Returns an angle in radians of the cone created by the spot; 30 degrees by default.");
+cls_Graphic3d_CLight.def("SetAngle", (void (Graphic3d_CLight::*)(Standard_ShortReal)) &Graphic3d_CLight::SetAngle, "Angle in radians of the cone created by the spot, should be within range (0.0, M_PI).", py::arg("theAngle"));
+cls_Graphic3d_CLight.def("Concentration", (Standard_ShortReal (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Concentration, "Returns intensity distribution of the spot light, within [0.0, 1.0] range; 1.0 by default. This coefficient should be converted into spotlight exponent within [0.0, 128.0] range: The concentration factor determines the dispersion of the light on the surface, the default value (1.0) corresponds to a minimum of dispersion.");
+cls_Graphic3d_CLight.def("SetConcentration", (void (Graphic3d_CLight::*)(Standard_ShortReal)) &Graphic3d_CLight::SetConcentration, "Defines the coefficient of concentration; value should be within range [0.0, 1.0].", py::arg("theConcentration"));
+cls_Graphic3d_CLight.def("Intensity", (Standard_ShortReal (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Intensity, "Returns the intensity of light source; 1.0 by default.");
+cls_Graphic3d_CLight.def("SetIntensity", (void (Graphic3d_CLight::*)(Standard_ShortReal)) &Graphic3d_CLight::SetIntensity, "Modifies the intensity of light source, which should be > 0.0.", py::arg("theValue"));
+cls_Graphic3d_CLight.def("Smoothness", (Standard_ShortReal (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Smoothness, "Returns the smoothness of light source (either smoothing angle for directional light or smoothing radius in case of positional light); 0.0 by default.");
+cls_Graphic3d_CLight.def("SetSmoothRadius", (void (Graphic3d_CLight::*)(Standard_ShortReal)) &Graphic3d_CLight::SetSmoothRadius, "Modifies the smoothing radius of positional/spot light; should be >= 0.0.", py::arg("theValue"));
+cls_Graphic3d_CLight.def("SetSmoothAngle", (void (Graphic3d_CLight::*)(Standard_ShortReal)) &Graphic3d_CLight::SetSmoothAngle, "Modifies the smoothing angle (in radians) of directional light source; should be within range [0.0, M_PI/2].", py::arg("theValue"));
+cls_Graphic3d_CLight.def("GetId", (const TCollection_AsciiString & (Graphic3d_CLight::*)() const) &Graphic3d_CLight::GetId, "Returns light resource identifier string");
+cls_Graphic3d_CLight.def("PackedParams", (const Graphic3d_Vec4 & (Graphic3d_CLight::*)() const) &Graphic3d_CLight::PackedParams, "Packed light parameters.");
+cls_Graphic3d_CLight.def("PackedColor", (const Graphic3d_Vec4 & (Graphic3d_CLight::*)() const) &Graphic3d_CLight::PackedColor, "Returns the color of the light source with dummy Alpha component, which should be ignored.");
+cls_Graphic3d_CLight.def("PackedDirection", (const Graphic3d_Vec4 & (Graphic3d_CLight::*)() const) &Graphic3d_CLight::PackedDirection, "Returns direction of directional/spot light.");
+cls_Graphic3d_CLight.def("Revision", (Standard_Size (Graphic3d_CLight::*)() const) &Graphic3d_CLight::Revision, "Returns modification counter");
 
 // CLASS: GRAPHIC3D_DATASTRUCTUREMANAGER
 py::class_<Graphic3d_DataStructureManager, opencascade::handle<Graphic3d_DataStructureManager>, Standard_Transient> cls_Graphic3d_DataStructureManager(mod, "Graphic3d_DataStructureManager", "This class allows the definition of a manager to which the graphic objects are associated. It allows them to be globally manipulated. It defines the global attributes.");
@@ -1932,9 +2219,6 @@ cls_Graphic3d_GraduatedTrihedron.def("SetValuesFontAspect", (void (Graphic3d_Gra
 cls_Graphic3d_GraduatedTrihedron.def("ValuesSize", (Standard_Integer (Graphic3d_GraduatedTrihedron::*)() const) &Graphic3d_GraduatedTrihedron::ValuesSize, "None");
 cls_Graphic3d_GraduatedTrihedron.def("SetValuesSize", (void (Graphic3d_GraduatedTrihedron::*)(const Standard_Integer)) &Graphic3d_GraduatedTrihedron::SetValuesSize, "None", py::arg("theValue"));
 
-// TYPEDEF: GRAPHIC3D_MAPOFSTRUCTURE
-bind_NCollection_Map<opencascade::handle<Graphic3d_Structure>, NCollection_DefaultHasher<opencascade::handle<Graphic3d_Structure> > >(mod, "Graphic3d_MapOfStructure", py::module_local(false));
-
 // TYPEDEF: GRAPHIC3D_NMAPOFTRANSIENT
 /*
 bind_NCollection_Shared<NCollection_Map<const Standard_Transient *, NCollection_DefaultHasher<const Standard_Transient *> >, void>(mod, "Graphic3d_NMapOfTransient", py::module_local(false));
@@ -1949,11 +2233,12 @@ cls_Graphic3d_RenderingParams.def(py::init<>());
 // Fields
 cls_Graphic3d_RenderingParams.def_readwrite("Method", &Graphic3d_RenderingParams::Method, "specifies rendering mode, Graphic3d_RM_RASTERIZATION by default");
 cls_Graphic3d_RenderingParams.def_readwrite("TransparencyMethod", &Graphic3d_RenderingParams::TransparencyMethod, "specifies rendering method for transparent graphics");
+cls_Graphic3d_RenderingParams.def_readwrite("LineFeather", &Graphic3d_RenderingParams::LineFeather, "line feater width in pixels (> 0.0), 1.0 by default;");
 cls_Graphic3d_RenderingParams.def_readwrite("OitDepthFactor", &Graphic3d_RenderingParams::OitDepthFactor, "scalar factor [0-1] controlling influence of depth of a fragment to its final coverage");
 cls_Graphic3d_RenderingParams.def_readwrite("NbMsaaSamples", &Graphic3d_RenderingParams::NbMsaaSamples, "number of MSAA samples (should be within 0..GL_MAX_SAMPLES, power-of-two number), 0 by default");
 cls_Graphic3d_RenderingParams.def_readwrite("RenderResolutionScale", &Graphic3d_RenderingParams::RenderResolutionScale, "rendering resolution scale factor, 1 by default;");
 cls_Graphic3d_RenderingParams.def_readwrite("ToEnableDepthPrepass", &Graphic3d_RenderingParams::ToEnableDepthPrepass, "enables/disables depth pre-pass, False by default");
-cls_Graphic3d_RenderingParams.def_readwrite("ToEnableAlphaToCoverage", &Graphic3d_RenderingParams::ToEnableAlphaToCoverage, "enables/disables alpha to coverage, False by default");
+cls_Graphic3d_RenderingParams.def_readwrite("ToEnableAlphaToCoverage", &Graphic3d_RenderingParams::ToEnableAlphaToCoverage, "enables/disables alpha to coverage, True by default");
 cls_Graphic3d_RenderingParams.def_readwrite("IsGlobalIlluminationEnabled", &Graphic3d_RenderingParams::IsGlobalIlluminationEnabled, "enables/disables global illumination effects (path tracing)");
 cls_Graphic3d_RenderingParams.def_readwrite("SamplesPerPixel", &Graphic3d_RenderingParams::SamplesPerPixel, "number of samples per pixel (SPP)");
 cls_Graphic3d_RenderingParams.def_readwrite("RaytracingDepth", &Graphic3d_RenderingParams::RaytracingDepth, "maximum ray-tracing depth, 3 by default");
@@ -1964,13 +2249,16 @@ cls_Graphic3d_RenderingParams.def_readwrite("IsTransparentShadowEnabled", &Graph
 cls_Graphic3d_RenderingParams.def_readwrite("UseEnvironmentMapBackground", &Graphic3d_RenderingParams::UseEnvironmentMapBackground, "enables/disables environment map background");
 cls_Graphic3d_RenderingParams.def_readwrite("CoherentPathTracingMode", &Graphic3d_RenderingParams::CoherentPathTracingMode, "enables/disables 'coherent' tracing mode (single RNG seed within 16x16 image blocks)");
 cls_Graphic3d_RenderingParams.def_readwrite("AdaptiveScreenSampling", &Graphic3d_RenderingParams::AdaptiveScreenSampling, "enables/disables adaptive screen sampling mode for path tracing, FALSE by default");
+cls_Graphic3d_RenderingParams.def_readwrite("AdaptiveScreenSamplingAtomic", &Graphic3d_RenderingParams::AdaptiveScreenSamplingAtomic, "enables/disables usage of atomic float operations within adaptive screen sampling, FALSE by default");
 cls_Graphic3d_RenderingParams.def_readwrite("ShowSamplingTiles", &Graphic3d_RenderingParams::ShowSamplingTiles, "enables/disables debug mode for adaptive screen sampling, FALSE by default");
 cls_Graphic3d_RenderingParams.def_readwrite("TwoSidedBsdfModels", &Graphic3d_RenderingParams::TwoSidedBsdfModels, "forces path tracing to use two-sided versions of original one-sided scattering models");
 cls_Graphic3d_RenderingParams.def_readwrite("RadianceClampingValue", &Graphic3d_RenderingParams::RadianceClampingValue, "maximum radiance value used for clamping radiance estimation.");
 cls_Graphic3d_RenderingParams.def_readwrite("RebuildRayTracingShaders", &Graphic3d_RenderingParams::RebuildRayTracingShaders, "forces rebuilding ray tracing shaders at the next frame");
-cls_Graphic3d_RenderingParams.def_readwrite("NbRayTracingTiles", &Graphic3d_RenderingParams::NbRayTracingTiles, "total number of screen tiles used in adaptive sampling mode (PT only)");
+cls_Graphic3d_RenderingParams.def_readwrite("RayTracingTileSize", &Graphic3d_RenderingParams::RayTracingTileSize, "screen tile size, 32 by default (adaptive sampling mode of path tracing);");
+cls_Graphic3d_RenderingParams.def_readwrite("NbRayTracingTiles", &Graphic3d_RenderingParams::NbRayTracingTiles, "maximum number of screen tiles per frame, 256 by default (adaptive sampling mode of path tracing);");
 cls_Graphic3d_RenderingParams.def_readwrite("CameraApertureRadius", &Graphic3d_RenderingParams::CameraApertureRadius, "aperture radius of perspective camera used for depth-of-field, 0.0 by default (no DOF) (path tracing only)");
 cls_Graphic3d_RenderingParams.def_readwrite("CameraFocalPlaneDist", &Graphic3d_RenderingParams::CameraFocalPlaneDist, "focal distance of perspective camera used for depth-of field, 1.0 by default (path tracing only)");
+cls_Graphic3d_RenderingParams.def_readwrite("FrustumCullingState", &Graphic3d_RenderingParams::FrustumCullingState, "state of frustum culling optimization; FrustumCulling_On by default");
 cls_Graphic3d_RenderingParams.def_readwrite("ToneMappingMethod", &Graphic3d_RenderingParams::ToneMappingMethod, "specifies tone mapping method for path tracing, Graphic3d_ToneMappingMethod_Disabled by default");
 cls_Graphic3d_RenderingParams.def_readwrite("Exposure", &Graphic3d_RenderingParams::Exposure, "exposure value used for tone mapping (path tracing), 0.0 by default");
 cls_Graphic3d_RenderingParams.def_readwrite("WhitePoint", &Graphic3d_RenderingParams::WhitePoint, "white point value used in filmic tone mapping (path tracing), 1.0 by default");
@@ -1980,9 +2268,13 @@ cls_Graphic3d_RenderingParams.def_readwrite("AnaglyphLeft", &Graphic3d_Rendering
 cls_Graphic3d_RenderingParams.def_readwrite("AnaglyphRight", &Graphic3d_RenderingParams::AnaglyphRight, "right anaglyph filter (in normalized colorspace), Color = AnaglyphRight * theColorRight + AnaglyphLeft * theColorLeft;");
 cls_Graphic3d_RenderingParams.def_readwrite("ToReverseStereo", &Graphic3d_RenderingParams::ToReverseStereo, "flag to reverse stereo pair, FALSE by default");
 cls_Graphic3d_RenderingParams.def_readwrite("StatsPosition", &Graphic3d_RenderingParams::StatsPosition, "location of stats, upper-left position by default");
+cls_Graphic3d_RenderingParams.def_readwrite("ChartPosition", &Graphic3d_RenderingParams::ChartPosition, "location of stats chart, upper-right position by default");
+cls_Graphic3d_RenderingParams.def_readwrite("ChartSize", &Graphic3d_RenderingParams::ChartSize, "chart size in pixels, (-1, -1) by default which means that chart will occupy a portion of viewport");
 cls_Graphic3d_RenderingParams.def_readwrite("StatsTextAspect", &Graphic3d_RenderingParams::StatsTextAspect, "stats text aspect");
 cls_Graphic3d_RenderingParams.def_readwrite("StatsUpdateInterval", &Graphic3d_RenderingParams::StatsUpdateInterval, "time interval between stats updates in seconds, 1.0 second by default;");
 cls_Graphic3d_RenderingParams.def_readwrite("StatsTextHeight", &Graphic3d_RenderingParams::StatsTextHeight, "stats text size; 16 by default");
+cls_Graphic3d_RenderingParams.def_readwrite("StatsNbFrames", &Graphic3d_RenderingParams::StatsNbFrames, "number of data frames to collect history; 1 by default");
+cls_Graphic3d_RenderingParams.def_readwrite("StatsMaxChartTime", &Graphic3d_RenderingParams::StatsMaxChartTime, "upper time limit within frame chart in seconds; 0.1 seconds by default (100 ms or 10 FPS)");
 cls_Graphic3d_RenderingParams.def_readwrite("CollectedStats", &Graphic3d_RenderingParams::CollectedStats, "performance counters to collect, PerfCounters_Basic by default;");
 cls_Graphic3d_RenderingParams.def_readwrite("ToShowStats", &Graphic3d_RenderingParams::ToShowStats, "display performance statistics, FALSE by default;");
 cls_Graphic3d_RenderingParams.def_readwrite("Resolution", &Graphic3d_RenderingParams::Resolution, "Pixels density (PPI), defines scaling factor for parameters like text size");
@@ -1999,7 +2291,7 @@ py::enum_<Graphic3d_RenderingParams::Anaglyph>(cls_Graphic3d_RenderingParams, "A
 	.value("Anaglyph_GreenMagenta_Simple", Graphic3d_RenderingParams::Anaglyph::Anaglyph_GreenMagenta_Simple)
 	.value("Anaglyph_UserDefined", Graphic3d_RenderingParams::Anaglyph::Anaglyph_UserDefined)
 	.export_values();
-py::enum_<Graphic3d_RenderingParams::PerfCounters>(cls_Graphic3d_RenderingParams, "PerfCounters", "Statistics display flags.")
+py::enum_<Graphic3d_RenderingParams::PerfCounters>(cls_Graphic3d_RenderingParams, "PerfCounters", "Statistics display flags. If not specified otherwise, the counter value is computed for a single rendered frame.")
 	.value("PerfCounters_NONE", Graphic3d_RenderingParams::PerfCounters::PerfCounters_NONE)
 	.value("PerfCounters_FrameRate", Graphic3d_RenderingParams::PerfCounters::PerfCounters_FrameRate)
 	.value("PerfCounters_CPU", Graphic3d_RenderingParams::PerfCounters::PerfCounters_CPU)
@@ -2010,102 +2302,18 @@ py::enum_<Graphic3d_RenderingParams::PerfCounters>(cls_Graphic3d_RenderingParams
 	.value("PerfCounters_Triangles", Graphic3d_RenderingParams::PerfCounters::PerfCounters_Triangles)
 	.value("PerfCounters_Points", Graphic3d_RenderingParams::PerfCounters::PerfCounters_Points)
 	.value("PerfCounters_EstimMem", Graphic3d_RenderingParams::PerfCounters::PerfCounters_EstimMem)
+	.value("PerfCounters_FrameTime", Graphic3d_RenderingParams::PerfCounters::PerfCounters_FrameTime)
+	.value("PerfCounters_FrameTimeMax", Graphic3d_RenderingParams::PerfCounters::PerfCounters_FrameTimeMax)
+	.value("PerfCounters_SkipImmediate", Graphic3d_RenderingParams::PerfCounters::PerfCounters_SkipImmediate)
 	.value("PerfCounters_Basic", Graphic3d_RenderingParams::PerfCounters::PerfCounters_Basic)
 	.value("PerfCounters_Extended", Graphic3d_RenderingParams::PerfCounters::PerfCounters_Extended)
+	.value("PerfCounters_All", Graphic3d_RenderingParams::PerfCounters::PerfCounters_All)
 	.export_values();
-
-// TYPEDEF: GRAPHIC3D_INDEXEDMAPOFADDRESS
-/*
-bind_NCollection_IndexedMap<void *const, NCollection_DefaultHasher<void *const> >(mod, "Graphic3d_IndexedMapOfAddress", py::module_local(false));
-*/
-
-// TYPEDEF: GRAPHIC3D_BNDBOX4D
-bind_BVH_Box<double, 4>(mod, "Graphic3d_BndBox4d", py::module_local(false));
-
-// CLASS: GRAPHIC3D_STRUCTURE
-py::class_<Graphic3d_Structure, opencascade::handle<Graphic3d_Structure>, Standard_Transient> cls_Graphic3d_Structure(mod, "Graphic3d_Structure", "This class allows the definition a graphic object. This graphic structure can be displayed, erased, or highlighted. This graphic structure can be connected with another graphic structure. Keywords: Structure, StructureManager, Display, Erase, Highlight, UnHighlight, Visible, Priority, Selectable, Visible, Visual, Connection, Ancestors, Descendants, Transformation");
-
-// Constructors
-cls_Graphic3d_Structure.def(py::init<const opencascade::handle<Graphic3d_StructureManager> &>(), py::arg("theManager"));
-cls_Graphic3d_Structure.def(py::init<const opencascade::handle<Graphic3d_StructureManager> &, const opencascade::handle<Graphic3d_Structure> &>(), py::arg("theManager"), py::arg("thePrs"));
-
-// Methods
-cls_Graphic3d_Structure.def("Clear", [](Graphic3d_Structure &self) -> void { return self.Clear(); });
-cls_Graphic3d_Structure.def("Clear", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::Clear, "if WithDestruction == Standard_True then suppress all the groups of primitives in the structure. and it is mandatory to create a new group in <me>. if WithDestruction == Standard_False then clears all the groups of primitives in the structure. and all the groups are conserved and empty. They will be erased at the next screen update. The structure itself is conserved. The transformation and the attributes of <me> are conserved. The childs of <me> are conserved.", py::arg("WithDestruction"));
-cls_Graphic3d_Structure.def("Display", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::Display, "Displays the structure <me> in all the views of the visualiser.");
-cls_Graphic3d_Structure.def("DisplayPriority", (Standard_Integer (Graphic3d_Structure::*)() const) &Graphic3d_Structure::DisplayPriority, "Returns the current display priority for the structure <me>.");
-cls_Graphic3d_Structure.def("Erase", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::Erase, "Erases the structure <me> in all the views of the visualiser.");
-cls_Graphic3d_Structure.def("Highlight", [](Graphic3d_Structure &self, const opencascade::handle<Graphic3d_PresentationAttributes> & a0) -> void { return self.Highlight(a0); });
-cls_Graphic3d_Structure.def("Highlight", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_PresentationAttributes> &, const Standard_Boolean)) &Graphic3d_Structure::Highlight, "Highlights the structure in all the views with the given style", py::arg("theStyle"), py::arg("theToUpdateMgr"));
-cls_Graphic3d_Structure.def("Remove", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::Remove, "Suppress the structure <me>. It will be erased at the next screen update. Warning: No more graphic operations in <me> after this call. Category: Methods to modify the class definition");
-cls_Graphic3d_Structure.def("CalculateBoundBox", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::CalculateBoundBox, "Computes axis-aligned bounding box of a structure.");
-cls_Graphic3d_Structure.def("SetInfiniteState", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::SetInfiniteState, "If <theToSet> is Standard_True then <me> is infinite and the MinMaxValues method method return : theXMin = theYMin = theZMin = RealFirst(). theXMax = theYMax = theZMax = RealLast(). By default, <me> is not infinite but empty.", py::arg("theToSet"));
-cls_Graphic3d_Structure.def("SetDisplayPriority", (void (Graphic3d_Structure::*)(const Standard_Integer)) &Graphic3d_Structure::SetDisplayPriority, "Modifies the order of displaying the structure. Values are between 0 and 10. Structures are drawn according to their display priorities in ascending order. A structure of priority 10 is displayed the last and appears over the others. The default value is 5. Category: Methods to modify the class definition Warning: If <me> is displayed then the SetDisplayPriority method erase <me> and display <me> with the new priority. Raises PriorityDefinitionError if <Priority> is greater than 10 or a negative value.", py::arg("Priority"));
-cls_Graphic3d_Structure.def("ResetDisplayPriority", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::ResetDisplayPriority, "Reset the current priority of the structure to the previous priority. Category: Methods to modify the class definition Warning: If <me> is displayed then the SetDisplayPriority method erase <me> and display <me> with the previous priority.");
-cls_Graphic3d_Structure.def("SetZLayer", (void (Graphic3d_Structure::*)(const Graphic3d_ZLayerId)) &Graphic3d_Structure::SetZLayer, "Set Z layer ID for the structure. The Z layer mechanism allows to display structures presented in higher layers in overlay of structures in lower layers by switching off z buffer depth test between layers", py::arg("theLayerId"));
-cls_Graphic3d_Structure.def("GetZLayer", (Graphic3d_ZLayerId (Graphic3d_Structure::*)() const) &Graphic3d_Structure::GetZLayer, "Get Z layer ID of displayed structure. The method returns -1 if the structure has no ID (deleted from graphic driver).");
-cls_Graphic3d_Structure.def("SetClipPlanes", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_SequenceOfHClipPlane> &)) &Graphic3d_Structure::SetClipPlanes, "Changes a sequence of clip planes slicing the structure on rendering.", py::arg("thePlanes"));
-cls_Graphic3d_Structure.def("ClipPlanes", (const opencascade::handle<Graphic3d_SequenceOfHClipPlane> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::ClipPlanes, "Get clip planes slicing the structure on rendering.");
-cls_Graphic3d_Structure.def("SetVisible", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::SetVisible, "Modifies the visibility indicator to Standard_True or Standard_False for the structure <me>. The default value at the definition of <me> is Standard_True.", py::arg("AValue"));
-cls_Graphic3d_Structure.def("SetVisual", (void (Graphic3d_Structure::*)(const Graphic3d_TypeOfStructure)) &Graphic3d_Structure::SetVisual, "Modifies the visualisation mode for the structure <me>.", py::arg("AVisual"));
-cls_Graphic3d_Structure.def("SetZoomLimit", (void (Graphic3d_Structure::*)(const Standard_Real, const Standard_Real)) &Graphic3d_Structure::SetZoomLimit, "Modifies the minimum and maximum zoom coefficients for the structure <me>. The default value at the definition of <me> is unlimited. Category: Methods to modify the class definition Warning: Raises StructureDefinitionError if <LimitInf> is greater than <LimitSup> or if <LimitInf> or <LimitSup> is a negative value.", py::arg("LimitInf"), py::arg("LimitSup"));
-cls_Graphic3d_Structure.def("SetIsForHighlight", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::SetIsForHighlight, "marks the structure <me> representing wired structure needed for highlight only so it won't be added to BVH tree. Category: Methods to modify the class definition", py::arg("isForHighlight"));
-cls_Graphic3d_Structure.def("UnHighlight", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::UnHighlight, "Suppresses the highlight for the structure <me> in all the views of the visualiser.");
-cls_Graphic3d_Structure.def("Compute", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::Compute, "None");
-cls_Graphic3d_Structure.def("Compute", (opencascade::handle<Graphic3d_Structure> (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_DataStructureManager> &)) &Graphic3d_Structure::Compute, "Returns the new Structure defined for the new visualization", py::arg("aProjector"));
-cls_Graphic3d_Structure.def("Compute", (opencascade::handle<Graphic3d_Structure> (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_DataStructureManager> &, const opencascade::handle<Geom_Transformation> &)) &Graphic3d_Structure::Compute, "Returns the new Structure defined for the new visualization", py::arg("theProjector"), py::arg("theTrsf"));
-cls_Graphic3d_Structure.def("Compute", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_DataStructureManager> &, opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::Compute, "Returns the new Structure defined for the new visualization", py::arg("aProjector"), py::arg("aStructure"));
-cls_Graphic3d_Structure.def("Compute", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_DataStructureManager> &, const opencascade::handle<Geom_Transformation> &, opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::Compute, "Returns the new Structure defined for the new visualization", py::arg("theProjector"), py::arg("theTrsf"), py::arg("theStructure"));
-cls_Graphic3d_Structure.def("ReCompute", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::ReCompute, "Forces a new construction of the structure <me> if <me> is displayed and TOS_COMPUTED.");
-cls_Graphic3d_Structure.def("ReCompute", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_DataStructureManager> &)) &Graphic3d_Structure::ReCompute, "Forces a new construction of the structure <me> if <me> is displayed in <aProjetor> and TOS_COMPUTED.", py::arg("aProjector"));
-cls_Graphic3d_Structure.def("ContainsFacet", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::ContainsFacet, "Returns Standard_True if the structure <me> contains Polygons, Triangles or Quadrangles.");
-cls_Graphic3d_Structure.def("Groups", (const Graphic3d_SequenceOfGroup & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::Groups, "Returns the groups sequence included in the structure <me> (internal storage).");
-cls_Graphic3d_Structure.def("NumberOfGroups", (Standard_Integer (Graphic3d_Structure::*)() const) &Graphic3d_Structure::NumberOfGroups, "Returns the current number of groups in the structure <me>.");
-cls_Graphic3d_Structure.def("NewGroup", (opencascade::handle<Graphic3d_Group> (Graphic3d_Structure::*)()) &Graphic3d_Structure::NewGroup, "Append new group to this structure.");
-cls_Graphic3d_Structure.def("HighlightStyle", (const opencascade::handle<Graphic3d_PresentationAttributes> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::HighlightStyle, "Returns the highlight color for the Highlight method with the highlight method TOHM_COLOR or TOHM_BOUNDBOX.");
-cls_Graphic3d_Structure.def("IsDeleted", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsDeleted, "Returns Standard_True if the structure <me> is deleted. <me> is deleted after the call Remove (me).");
-cls_Graphic3d_Structure.def("IsDisplayed", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsDisplayed, "Returns the display indicator for the structure <me>.");
-cls_Graphic3d_Structure.def("IsEmpty", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsEmpty, "Returns Standard_True if the structure <me> is empty. Warning: A structure is empty if : it do not have group or all the groups are empties and it do not have descendant or all the descendants are empties.");
-cls_Graphic3d_Structure.def("IsInfinite", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsInfinite, "Returns Standard_True if the structure <me> is infinite.");
-cls_Graphic3d_Structure.def("IsHighlighted", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsHighlighted, "Returns the highlight indicator for the structure <me>.");
-cls_Graphic3d_Structure.def("IsTransformed", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsTransformed, "Returns Standard_True if the structure <me> is transformed. <=> The transformation != Identity.");
-cls_Graphic3d_Structure.def("IsVisible", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsVisible, "Returns the visibility indicator for the structure <me>.");
-cls_Graphic3d_Structure.def("MinMaxValues", [](Graphic3d_Structure &self) -> Bnd_Box { return self.MinMaxValues(); });
-cls_Graphic3d_Structure.def("MinMaxValues", (Bnd_Box (Graphic3d_Structure::*)(const Standard_Boolean) const) &Graphic3d_Structure::MinMaxValues, "Returns the coordinates of the boundary box of the structure <me>. If <theToIgnoreInfiniteFlag> is TRUE, the method returns actual graphical boundaries of the Graphic3d_Group components. Otherwise, the method returns boundaries taking into account infinite state of the structure. This approach generally used for application specific fit operation (e.g. fitting the model into screen, not taking into accout infinite helper elements). Warning: If the structure <me> is empty then the empty box is returned, If the structure <me> is infinite then the whole box is returned.", py::arg("theToIgnoreInfiniteFlag"));
-cls_Graphic3d_Structure.def("Visual", (Graphic3d_TypeOfStructure (Graphic3d_Structure::*)() const) &Graphic3d_Structure::Visual, "Returns the visualisation mode for the structure <me>.");
-cls_Graphic3d_Structure.def_static("AcceptConnection_", (Standard_Boolean (*)(const opencascade::handle<Graphic3d_Structure> &, const opencascade::handle<Graphic3d_Structure> &, const Graphic3d_TypeOfConnection)) &Graphic3d_Structure::AcceptConnection, "Returns Standard_True if the connection is possible between <AStructure1> and <AStructure2> without a creation of a cycle.", py::arg("AStructure1"), py::arg("AStructure2"), py::arg("AType"));
-cls_Graphic3d_Structure.def("Ancestors", (void (Graphic3d_Structure::*)(Graphic3d_MapOfStructure &) const) &Graphic3d_Structure::Ancestors, "Returns the group of structures to which <me> is connected.", py::arg("SG"));
-cls_Graphic3d_Structure.def("Connect", [](Graphic3d_Structure &self, const opencascade::handle<Graphic3d_Structure> & a0, const Graphic3d_TypeOfConnection a1) -> void { return self.Connect(a0, a1); });
-cls_Graphic3d_Structure.def("Connect", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_Structure> &, const Graphic3d_TypeOfConnection, const Standard_Boolean)) &Graphic3d_Structure::Connect, "If Atype is TOC_DESCENDANT then add <AStructure> as a child structure of <me>. If Atype is TOC_ANCESTOR then add <AStructure> as a parent structure of <me>. The connection propagates Display, Highlight, Erase, Remove, and stacks the transformations. No connection if the graph of the structures contains a cycle and <WithCheck> is Standard_True;", py::arg("AStructure"), py::arg("AType"), py::arg("WithCheck"));
-cls_Graphic3d_Structure.def("Descendants", (void (Graphic3d_Structure::*)(Graphic3d_MapOfStructure &) const) &Graphic3d_Structure::Descendants, "Returns the group of structures connected to <me>.", py::arg("SG"));
-cls_Graphic3d_Structure.def("Disconnect", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::Disconnect, "Suppress the connection between <AStructure> and <me>.", py::arg("AStructure"));
-cls_Graphic3d_Structure.def("DisconnectAll", (void (Graphic3d_Structure::*)(const Graphic3d_TypeOfConnection)) &Graphic3d_Structure::DisconnectAll, "If Atype is TOC_DESCENDANT then suppress all the connections with the child structures of <me>. If Atype is TOC_ANCESTOR then suppress all the connections with the parent structures of <me>.", py::arg("AType"));
-cls_Graphic3d_Structure.def_static("Network_", (void (*)(const opencascade::handle<Graphic3d_Structure> &, const Graphic3d_TypeOfConnection, Graphic3d_MapOfStructure &)) &Graphic3d_Structure::Network, "Returns <ASet> the group of structures : - directly or indirectly connected to <AStructure> if the TypeOfConnection == TOC_DESCENDANT - to which <AStructure> is directly or indirectly connected if the TypeOfConnection == TOC_ANCESTOR", py::arg("AStructure"), py::arg("AType"), py::arg("ASet"));
-cls_Graphic3d_Structure.def("SetOwner", (void (Graphic3d_Structure::*)(const Standard_Address)) &Graphic3d_Structure::SetOwner, "None", py::arg("Owner"));
-cls_Graphic3d_Structure.def("Owner", (Standard_Address (Graphic3d_Structure::*)() const) &Graphic3d_Structure::Owner, "None");
-cls_Graphic3d_Structure.def("SetHLRValidation", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::SetHLRValidation, "None", py::arg("AFlag"));
-cls_Graphic3d_Structure.def("HLRValidation", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::HLRValidation, "None");
-cls_Graphic3d_Structure.def("Transformation", (const opencascade::handle<Geom_Transformation> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::Transformation, "Return local transformation.");
-cls_Graphic3d_Structure.def("SetTransformation", (void (Graphic3d_Structure::*)(const opencascade::handle<Geom_Transformation> &)) &Graphic3d_Structure::SetTransformation, "Modifies the current local transformation", py::arg("theTrsf"));
-cls_Graphic3d_Structure.def("Transform", (void (Graphic3d_Structure::*)(const opencascade::handle<Geom_Transformation> &)) &Graphic3d_Structure::Transform, "None", py::arg("theTrsf"));
-cls_Graphic3d_Structure.def("SetTransformPersistence", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_TransformPers> &)) &Graphic3d_Structure::SetTransformPersistence, "Modifies the current transform persistence (pan, zoom or rotate)", py::arg("theTrsfPers"));
-cls_Graphic3d_Structure.def("TransformPersistence", (const opencascade::handle<Graphic3d_TransformPers> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::TransformPersistence, "Returns transform persistence of the presentable object.");
-cls_Graphic3d_Structure.def("SetMutable", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::SetMutable, "Sets if the structure location has mutable nature (content or location will be changed regularly).", py::arg("theIsMutable"));
-cls_Graphic3d_Structure.def("IsMutable", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsMutable, "Returns true if structure has mutable nature (content or location are be changed regularly). Mutable structure will be managed in different way than static onces.");
-cls_Graphic3d_Structure.def("ComputeVisual", (Graphic3d_TypeOfStructure (Graphic3d_Structure::*)() const) &Graphic3d_Structure::ComputeVisual, "None");
-cls_Graphic3d_Structure.def("GraphicClear", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::GraphicClear, "Clears the structure <me>.", py::arg("WithDestruction"));
-cls_Graphic3d_Structure.def("GraphicConnect", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::GraphicConnect, "None", py::arg("ADaughter"));
-cls_Graphic3d_Structure.def("GraphicDisconnect", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::GraphicDisconnect, "None", py::arg("ADaughter"));
-cls_Graphic3d_Structure.def("GraphicTransform", (void (Graphic3d_Structure::*)(const opencascade::handle<Geom_Transformation> &)) &Graphic3d_Structure::GraphicTransform, "Internal method which sets new transformation without calling graphic manager callbacks.", py::arg("theTrsf"));
-cls_Graphic3d_Structure.def("Identification", (Standard_Integer (Graphic3d_Structure::*)() const) &Graphic3d_Structure::Identification, "Returns the identification number of the structure <me>.");
-cls_Graphic3d_Structure.def_static("PrintNetwork_", (void (*)(const opencascade::handle<Graphic3d_Structure> &, const Graphic3d_TypeOfConnection)) &Graphic3d_Structure::PrintNetwork, "Prints informations about the network associated with the structure <AStructure>.", py::arg("AStructure"), py::arg("AType"));
-cls_Graphic3d_Structure.def("Remove", (void (Graphic3d_Structure::*)(const Standard_Address, const Graphic3d_TypeOfConnection)) &Graphic3d_Structure::Remove, "Suppress the adress <APtr> in the list of descendants or in the list of ancestors.", py::arg("APtr"), py::arg("AType"));
-cls_Graphic3d_Structure.def("SetComputeVisual", (void (Graphic3d_Structure::*)(const Graphic3d_TypeOfStructure)) &Graphic3d_Structure::SetComputeVisual, "None", py::arg("AVisual"));
-cls_Graphic3d_Structure.def_static("Transforms_", [](const gp_Trsf & theTrsf, const Standard_Real theX, const Standard_Real theY, const Standard_Real theZ, Standard_Real & theNewX, Standard_Real & theNewY, Standard_Real & theNewZ){ Graphic3d_Structure::Transforms(theTrsf, theX, theY, theZ, theNewX, theNewY, theNewZ); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &>(theNewX, theNewY, theNewZ); }, "Transforms theX, theY, theZ with the transformation theTrsf.", py::arg("theTrsf"), py::arg("theX"), py::arg("theY"), py::arg("theZ"), py::arg("theNewX"), py::arg("theNewY"), py::arg("theNewZ"));
-cls_Graphic3d_Structure.def("CStructure", (const opencascade::handle<Graphic3d_CStructure> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::CStructure, "Returns the low-level structure");
-cls_Graphic3d_Structure.def_static("get_type_name_", (const char * (*)()) &Graphic3d_Structure::get_type_name, "None");
-cls_Graphic3d_Structure.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_Structure::get_type_descriptor, "None");
-cls_Graphic3d_Structure.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::DynamicType, "None");
+py::enum_<Graphic3d_RenderingParams::FrustumCulling>(cls_Graphic3d_RenderingParams, "FrustumCulling", "State of frustum culling optimization.")
+	.value("FrustumCulling_Off", Graphic3d_RenderingParams::FrustumCulling::FrustumCulling_Off)
+	.value("FrustumCulling_On", Graphic3d_RenderingParams::FrustumCulling::FrustumCulling_On)
+	.value("FrustumCulling_NoUpdate", Graphic3d_RenderingParams::FrustumCulling::FrustumCulling_NoUpdate)
+	.export_values();
 
 // TYPEDEF: GRAPHIC3D_SEQUENCEOFSTRUCTURE
 bind_NCollection_Sequence<opencascade::handle<Graphic3d_Structure> >(mod, "Graphic3d_SequenceOfStructure", py::module_local(false));
@@ -2183,6 +2391,8 @@ cls_Graphic3d_ZLayerSettings.def("CullingSize", (Standard_Real (Graphic3d_ZLayer
 cls_Graphic3d_ZLayerSettings.def("SetCullingSize", (void (Graphic3d_ZLayerSettings::*)(Standard_Real)) &Graphic3d_ZLayerSettings::SetCullingSize, "Set the distance to discard drawing objects.", py::arg("theSize"));
 cls_Graphic3d_ZLayerSettings.def("IsImmediate", (Standard_Boolean (Graphic3d_ZLayerSettings::*)() const) &Graphic3d_ZLayerSettings::IsImmediate, "Return true if this layer should be drawn after all normal (non-immediate) layers.");
 cls_Graphic3d_ZLayerSettings.def("SetImmediate", (void (Graphic3d_ZLayerSettings::*)(const Standard_Boolean)) &Graphic3d_ZLayerSettings::SetImmediate, "Set the flag indicating the immediate layer, which should be drawn after all normal (non-immediate) layers.", py::arg("theValue"));
+cls_Graphic3d_ZLayerSettings.def("IsRaytracable", (Standard_Boolean (Graphic3d_ZLayerSettings::*)() const) &Graphic3d_ZLayerSettings::IsRaytracable, "Returns TRUE if layer should be processed by ray-tracing renderer; TRUE by default. Note that this flag is IGNORED for layers with IsImmediate() flag.");
+cls_Graphic3d_ZLayerSettings.def("SetRaytracable", (void (Graphic3d_ZLayerSettings::*)(Standard_Boolean)) &Graphic3d_ZLayerSettings::SetRaytracable, "Sets if layer should be processed by ray-tracing renderer.", py::arg("theToRaytrace"));
 cls_Graphic3d_ZLayerSettings.def("UseEnvironmentTexture", (Standard_Boolean (Graphic3d_ZLayerSettings::*)() const) &Graphic3d_ZLayerSettings::UseEnvironmentTexture, "Return flag to allow/prevent environment texture mapping usage for specific layer.");
 cls_Graphic3d_ZLayerSettings.def("SetEnvironmentTexture", (void (Graphic3d_ZLayerSettings::*)(const Standard_Boolean)) &Graphic3d_ZLayerSettings::SetEnvironmentTexture, "Set the flag to allow/prevent environment texture mapping usage for specific layer.", py::arg("theValue"));
 cls_Graphic3d_ZLayerSettings.def("ToEnableDepthTest", (Standard_Boolean (Graphic3d_ZLayerSettings::*)() const) &Graphic3d_ZLayerSettings::ToEnableDepthTest, "Return true if depth test should be enabled.");
@@ -2215,6 +2425,8 @@ cls_Graphic3d_CView.def("Deactivate", (void (Graphic3d_CView::*)()) &Graphic3d_C
 cls_Graphic3d_CView.def("IsActive", (Standard_Boolean (Graphic3d_CView::*)() const) &Graphic3d_CView::IsActive, "Returns the activity flag of the view.");
 cls_Graphic3d_CView.def("Remove", (void (Graphic3d_CView::*)()) &Graphic3d_CView::Remove, "Erases the view and removes from graphic driver. No more graphic operations are allowed in this view after the call.");
 cls_Graphic3d_CView.def("IsRemoved", (Standard_Boolean (Graphic3d_CView::*)() const) &Graphic3d_CView::IsRemoved, "Returns true if the view was removed.");
+cls_Graphic3d_CView.def("Camera", (const opencascade::handle<Graphic3d_Camera> & (Graphic3d_CView::*)() const) &Graphic3d_CView::Camera, "Returns camera object of the view.");
+cls_Graphic3d_CView.def("SetCamera", (void (Graphic3d_CView::*)(const opencascade::handle<Graphic3d_Camera> &)) &Graphic3d_CView::SetCamera, "Sets camera used by the view.", py::arg("theCamera"));
 cls_Graphic3d_CView.def("ShadingModel", (Graphic3d_TypeOfShadingModel (Graphic3d_CView::*)() const) &Graphic3d_CView::ShadingModel, "Returns default Shading Model of the view; Graphic3d_TOSM_FRAGMENT by default.");
 cls_Graphic3d_CView.def("SetShadingModel", (void (Graphic3d_CView::*)(Graphic3d_TypeOfShadingModel)) &Graphic3d_CView::SetShadingModel, "Sets default Shading Model of the view. Will throw an exception on attempt to set Graphic3d_TOSM_DEFAULT.", py::arg("theModel"));
 cls_Graphic3d_CView.def("VisualizationType", (Graphic3d_TypeOfVisualization (Graphic3d_CView::*)() const) &Graphic3d_CView::VisualizationType, "Returns visualization type of the view.");
@@ -2247,18 +2459,14 @@ cls_Graphic3d_CView.def("SetWindow", [](Graphic3d_CView &self, const opencascade
 cls_Graphic3d_CView.def("SetWindow", (void (Graphic3d_CView::*)(const opencascade::handle<Aspect_Window> &, const Aspect_RenderingContext)) &Graphic3d_CView::SetWindow, "Creates and maps rendering window to the view.", py::arg("theWindow"), py::arg("theContext"));
 cls_Graphic3d_CView.def("Window", (opencascade::handle<Aspect_Window> (Graphic3d_CView::*)() const) &Graphic3d_CView::Window, "Returns the window associated to the view.");
 cls_Graphic3d_CView.def("IsDefined", (Standard_Boolean (Graphic3d_CView::*)() const) &Graphic3d_CView::IsDefined, "Returns True if the window associated to the view is defined.");
-cls_Graphic3d_CView.def("GetGraduatedTrihedron", (const Graphic3d_GraduatedTrihedron & (Graphic3d_CView::*)()) &Graphic3d_CView::GetGraduatedTrihedron, "Returns data of a graduated trihedron");
-cls_Graphic3d_CView.def("GraduatedTrihedronDisplay", (void (Graphic3d_CView::*)(const Graphic3d_GraduatedTrihedron &)) &Graphic3d_CView::GraduatedTrihedronDisplay, "Displays Graduated Trihedron.", py::arg("theTrihedronData"));
-cls_Graphic3d_CView.def("GraduatedTrihedronErase", (void (Graphic3d_CView::*)()) &Graphic3d_CView::GraduatedTrihedronErase, "Erases Graduated Trihedron.");
-cls_Graphic3d_CView.def("GraduatedTrihedronMinMaxValues", (void (Graphic3d_CView::*)(const Graphic3d_Vec3, const Graphic3d_Vec3)) &Graphic3d_CView::GraduatedTrihedronMinMaxValues, "Sets minimum and maximum points of scene bounding box for Graduated Trihedron stored in graphic view object.", py::arg("theMin"), py::arg("theMax"));
 cls_Graphic3d_CView.def("BufferDump", (Standard_Boolean (Graphic3d_CView::*)(Image_PixMap &, const Graphic3d_BufferType &)) &Graphic3d_CView::BufferDump, "Dump active rendering buffer into specified memory buffer.", py::arg("theImage"), py::arg("theBufferType"));
-cls_Graphic3d_CView.def("Export", [](Graphic3d_CView &self, const Standard_CString a0, const Graphic3d_ExportFormat a1) -> Standard_Boolean { return self.Export(a0, a1); });
-cls_Graphic3d_CView.def("Export", (Standard_Boolean (Graphic3d_CView::*)(const Standard_CString, const Graphic3d_ExportFormat, const Graphic3d_SortType)) &Graphic3d_CView::Export, "Export scene into the one of the Vector graphics formats (SVG, PS, PDF...). In contrast to Bitmaps, Vector graphics is scalable (so you may got quality benefits on printing to laser printer). Notice however that results may differ a lot and do not contain some elements.", py::arg("theFileName"), py::arg("theFormat"), py::arg("theSortType"));
 cls_Graphic3d_CView.def("InvalidateBVHData", (void (Graphic3d_CView::*)(const Graphic3d_ZLayerId)) &Graphic3d_CView::InvalidateBVHData, "Marks BVH tree and the set of BVH primitives of correspondent priority list with id theLayerId as outdated.", py::arg("theLayerId"));
-cls_Graphic3d_CView.def("AddZLayer", (void (Graphic3d_CView::*)(const Graphic3d_ZLayerId)) &Graphic3d_CView::AddZLayer, "Add a new top-level z layer with ID <theLayerId> for the view. Z layers allow drawing structures in higher layers in foreground of structures in lower layers. To add a structure to desired layer on display it is necessary to set the layer ID for the structure.", py::arg("theLayerId"));
+cls_Graphic3d_CView.def("InsertLayerBefore", (void (Graphic3d_CView::*)(const Graphic3d_ZLayerId, const Graphic3d_ZLayerSettings &, const Graphic3d_ZLayerId)) &Graphic3d_CView::InsertLayerBefore, "Add a layer to the view.", py::arg("theNewLayerId"), py::arg("theSettings"), py::arg("theLayerAfter"));
+cls_Graphic3d_CView.def("InsertLayerAfter", (void (Graphic3d_CView::*)(const Graphic3d_ZLayerId, const Graphic3d_ZLayerSettings &, const Graphic3d_ZLayerId)) &Graphic3d_CView::InsertLayerAfter, "Add a layer to the view.", py::arg("theNewLayerId"), py::arg("theSettings"), py::arg("theLayerBefore"));
 cls_Graphic3d_CView.def("ZLayerMax", (Standard_Integer (Graphic3d_CView::*)() const) &Graphic3d_CView::ZLayerMax, "Returns the maximum Z layer ID. First layer ID is Graphic3d_ZLayerId_Default, last ID is ZLayerMax().");
-cls_Graphic3d_CView.def("InvalidateZLayerBoundingBox", (void (Graphic3d_CView::*)(const Graphic3d_ZLayerId) const) &Graphic3d_CView::InvalidateZLayerBoundingBox, "Returns the bounding box of all structures displayed in the Z layer.", py::arg("theLayerId"));
-cls_Graphic3d_CView.def("ZLayerBoundingBox", (Bnd_Box (Graphic3d_CView::*)(const Graphic3d_ZLayerId, const opencascade::handle<Graphic3d_Camera> &, const Standard_Integer, const Standard_Integer, const Standard_Boolean) const) &Graphic3d_CView::ZLayerBoundingBox, "Returns the bounding box of all structures displayed in the Z layer.", py::arg("theLayerId"), py::arg("theCamera"), py::arg("theWindowWidth"), py::arg("theWindowHeight"), py::arg("theToIncludeAuxiliary"));
+cls_Graphic3d_CView.def("Layers", (const NCollection_List<opencascade::handle<Graphic3d_Layer> > & (Graphic3d_CView::*)() const) &Graphic3d_CView::Layers, "Returns the list of layers.");
+cls_Graphic3d_CView.def("Layer", (opencascade::handle<Graphic3d_Layer> (Graphic3d_CView::*)(const Graphic3d_ZLayerId) const) &Graphic3d_CView::Layer, "Returns layer with given ID or NULL if undefined.", py::arg("theLayerId"));
+cls_Graphic3d_CView.def("InvalidateZLayerBoundingBox", (void (Graphic3d_CView::*)(const Graphic3d_ZLayerId)) &Graphic3d_CView::InvalidateZLayerBoundingBox, "Returns the bounding box of all structures displayed in the Z layer.", py::arg("theLayerId"));
 cls_Graphic3d_CView.def("RemoveZLayer", (void (Graphic3d_CView::*)(const Graphic3d_ZLayerId)) &Graphic3d_CView::RemoveZLayer, "Remove Z layer from the specified view. All structures displayed at the moment in layer will be displayed in default layer ( the bottom-level z layer ). To unset layer ID from associated structures use method UnsetZLayer (...).", py::arg("theLayerId"));
 cls_Graphic3d_CView.def("SetZLayerSettings", (void (Graphic3d_CView::*)(const Graphic3d_ZLayerId, const Graphic3d_ZLayerSettings &)) &Graphic3d_CView::SetZLayerSettings, "Sets the settings for a single Z layer of specified view.", py::arg("theLayerId"), py::arg("theSettings"));
 cls_Graphic3d_CView.def("ConsiderZoomPersistenceObjects", (Standard_Real (Graphic3d_CView::*)()) &Graphic3d_CView::ConsiderZoomPersistenceObjects, "Returns zoom-scale factor.");
@@ -2279,19 +2487,23 @@ cls_Graphic3d_CView.def("BackgroundImage", (TCollection_AsciiString (Graphic3d_C
 cls_Graphic3d_CView.def("SetBackgroundImage", (void (Graphic3d_CView::*)(const TCollection_AsciiString &)) &Graphic3d_CView::SetBackgroundImage, "Sets background image texture file path.", py::arg("theFilePath"));
 cls_Graphic3d_CView.def("BackgroundImageStyle", (Aspect_FillMethod (Graphic3d_CView::*)() const) &Graphic3d_CView::BackgroundImageStyle, "Returns background image fill style.");
 cls_Graphic3d_CView.def("SetBackgroundImageStyle", (void (Graphic3d_CView::*)(const Aspect_FillMethod)) &Graphic3d_CView::SetBackgroundImageStyle, "Sets background image fill style.", py::arg("theFillStyle"));
+cls_Graphic3d_CView.def("BackgroundCubeMap", (opencascade::handle<Graphic3d_CubeMap> (Graphic3d_CView::*)() const) &Graphic3d_CView::BackgroundCubeMap, "Returns cubemap being setted last time on background.");
+cls_Graphic3d_CView.def("SetBackgroundCubeMap", (void (Graphic3d_CView::*)(const opencascade::handle<Graphic3d_CubeMap> &)) &Graphic3d_CView::SetBackgroundCubeMap, "Sets environment cubemap as background.", py::arg("theCubeMap"));
 cls_Graphic3d_CView.def("TextureEnv", (opencascade::handle<Graphic3d_TextureEnv> (Graphic3d_CView::*)() const) &Graphic3d_CView::TextureEnv, "Returns environment texture set for the view.");
 cls_Graphic3d_CView.def("SetTextureEnv", (void (Graphic3d_CView::*)(const opencascade::handle<Graphic3d_TextureEnv> &)) &Graphic3d_CView::SetTextureEnv, "Sets environment texture for the view.", py::arg("theTextureEnv"));
-cls_Graphic3d_CView.def("IsCullingEnabled", (Standard_Boolean (Graphic3d_CView::*)() const) &Graphic3d_CView::IsCullingEnabled, "Returns the state of frustum culling optimization.");
-cls_Graphic3d_CView.def("SetCullingEnabled", (void (Graphic3d_CView::*)(const Standard_Boolean)) &Graphic3d_CView::SetCullingEnabled, "Enables or disables frustum culling optimization.", py::arg("theIsEnabled"));
 cls_Graphic3d_CView.def("BackfacingModel", (Graphic3d_TypeOfBackfacingModel (Graphic3d_CView::*)() const) &Graphic3d_CView::BackfacingModel, "Return backfacing model used for the view.");
 cls_Graphic3d_CView.def("SetBackfacingModel", (void (Graphic3d_CView::*)(const Graphic3d_TypeOfBackfacingModel)) &Graphic3d_CView::SetBackfacingModel, "Sets backfacing model for the view.", py::arg("theModel"));
-cls_Graphic3d_CView.def("Camera", (const opencascade::handle<Graphic3d_Camera> & (Graphic3d_CView::*)() const) &Graphic3d_CView::Camera, "Returns camera object of the view.");
-cls_Graphic3d_CView.def("SetCamera", (void (Graphic3d_CView::*)(const opencascade::handle<Graphic3d_Camera> &)) &Graphic3d_CView::SetCamera, "Sets camera used by the view.", py::arg("theCamera"));
 cls_Graphic3d_CView.def("Lights", (const opencascade::handle<Graphic3d_LightSet> & (Graphic3d_CView::*)() const) &Graphic3d_CView::Lights, "Returns list of lights of the view.");
 cls_Graphic3d_CView.def("SetLights", (void (Graphic3d_CView::*)(const opencascade::handle<Graphic3d_LightSet> &)) &Graphic3d_CView::SetLights, "Sets list of lights for the view.", py::arg("theLights"));
 cls_Graphic3d_CView.def("ClipPlanes", (const opencascade::handle<Graphic3d_SequenceOfHClipPlane> & (Graphic3d_CView::*)() const) &Graphic3d_CView::ClipPlanes, "Returns list of clip planes set for the view.");
 cls_Graphic3d_CView.def("SetClipPlanes", (void (Graphic3d_CView::*)(const opencascade::handle<Graphic3d_SequenceOfHClipPlane> &)) &Graphic3d_CView::SetClipPlanes, "Sets list of clip planes for the view.", py::arg("thePlanes"));
 cls_Graphic3d_CView.def("DiagnosticInformation", (void (Graphic3d_CView::*)(TColStd_IndexedDataMapOfStringString &, Graphic3d_DiagnosticInfo) const) &Graphic3d_CView::DiagnosticInformation, "Fill in the dictionary with diagnostic info. Should be called within rendering thread.", py::arg("theDict"), py::arg("theFlags"));
+cls_Graphic3d_CView.def("StatisticInformation", (TCollection_AsciiString (Graphic3d_CView::*)() const) &Graphic3d_CView::StatisticInformation, "Returns string with statistic performance info.");
+cls_Graphic3d_CView.def("StatisticInformation", (void (Graphic3d_CView::*)(TColStd_IndexedDataMapOfStringString &) const) &Graphic3d_CView::StatisticInformation, "Fills in the dictionary with statistic performance info.", py::arg("theDict"));
+cls_Graphic3d_CView.def("GetGraduatedTrihedron", (const Graphic3d_GraduatedTrihedron & (Graphic3d_CView::*)()) &Graphic3d_CView::GetGraduatedTrihedron, "Returns data of a graduated trihedron");
+cls_Graphic3d_CView.def("GraduatedTrihedronDisplay", (void (Graphic3d_CView::*)(const Graphic3d_GraduatedTrihedron &)) &Graphic3d_CView::GraduatedTrihedronDisplay, "Displays Graduated Trihedron.", py::arg("theTrihedronData"));
+cls_Graphic3d_CView.def("GraduatedTrihedronErase", (void (Graphic3d_CView::*)()) &Graphic3d_CView::GraduatedTrihedronErase, "Erases Graduated Trihedron.");
+cls_Graphic3d_CView.def("GraduatedTrihedronMinMaxValues", (void (Graphic3d_CView::*)(const Graphic3d_Vec3, const Graphic3d_Vec3)) &Graphic3d_CView::GraduatedTrihedronMinMaxValues, "Sets minimum and maximum points of scene bounding box for Graduated Trihedron stored in graphic view object.", py::arg("theMin"), py::arg("theMax"));
 
 // TYPEDEF: GRAPHIC3D_MAPOFOBJECT
 bind_NCollection_DataMap<const Standard_Transient *, opencascade::handle<Graphic3d_ViewAffinity>, NCollection_DefaultHasher<const Standard_Transient *> >(mod, "Graphic3d_MapOfObject", py::module_local(false));
@@ -2317,9 +2529,9 @@ cls_Graphic3d_StructureManager.def("DisplayedStructures", (void (Graphic3d_Struc
 cls_Graphic3d_StructureManager.def("HighlightedStructures", (void (Graphic3d_StructureManager::*)(Graphic3d_MapOfStructure &) const) &Graphic3d_StructureManager::HighlightedStructures, "Returns the set of highlighted structures in a visualiser <me>.", py::arg("SG"));
 cls_Graphic3d_StructureManager.def("ReCompute", (void (Graphic3d_StructureManager::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_StructureManager::ReCompute, "Forces a new construction of the structure. if <theStructure> is displayed and TOS_COMPUTED.", py::arg("theStructure"));
 cls_Graphic3d_StructureManager.def("ReCompute", (void (Graphic3d_StructureManager::*)(const opencascade::handle<Graphic3d_Structure> &, const opencascade::handle<Graphic3d_DataStructureManager> &)) &Graphic3d_StructureManager::ReCompute, "Forces a new construction of the structure. if <theStructure> is displayed in <theProjector> and TOS_COMPUTED.", py::arg("theStructure"), py::arg("theProjector"));
-cls_Graphic3d_StructureManager.def("Clear", (void (Graphic3d_StructureManager::*)(const opencascade::handle<Graphic3d_Structure> &, const Standard_Boolean)) &Graphic3d_StructureManager::Clear, "Clears the structure.", py::arg("theStructure"), py::arg("theWithDestruction"));
-cls_Graphic3d_StructureManager.def("Connect", (void (Graphic3d_StructureManager::*)(const opencascade::handle<Graphic3d_Structure> &, const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_StructureManager::Connect, "Connects the structures.", py::arg("theMother"), py::arg("theDaughter"));
-cls_Graphic3d_StructureManager.def("Disconnect", (void (Graphic3d_StructureManager::*)(const opencascade::handle<Graphic3d_Structure> &, const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_StructureManager::Disconnect, "Disconnects the structures.", py::arg("theMother"), py::arg("theDaughter"));
+cls_Graphic3d_StructureManager.def("Clear", (void (Graphic3d_StructureManager::*)(Graphic3d_Structure *, const Standard_Boolean)) &Graphic3d_StructureManager::Clear, "Clears the structure.", py::arg("theStructure"), py::arg("theWithDestruction"));
+cls_Graphic3d_StructureManager.def("Connect", (void (Graphic3d_StructureManager::*)(const Graphic3d_Structure *, const Graphic3d_Structure *)) &Graphic3d_StructureManager::Connect, "Connects the structures.", py::arg("theMother"), py::arg("theDaughter"));
+cls_Graphic3d_StructureManager.def("Disconnect", (void (Graphic3d_StructureManager::*)(const Graphic3d_Structure *, const Graphic3d_Structure *)) &Graphic3d_StructureManager::Disconnect, "Disconnects the structures.", py::arg("theMother"), py::arg("theDaughter"));
 cls_Graphic3d_StructureManager.def("Display", (void (Graphic3d_StructureManager::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_StructureManager::Display, "Display the structure.", py::arg("theStructure"));
 cls_Graphic3d_StructureManager.def("Erase", (void (Graphic3d_StructureManager::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_StructureManager::Erase, "Erases the structure.", py::arg("theStructure"));
 cls_Graphic3d_StructureManager.def("Highlight", (void (Graphic3d_StructureManager::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_StructureManager::Highlight, "Highlights the structure.", py::arg("theStructure"));
@@ -2335,12 +2547,14 @@ cls_Graphic3d_StructureManager.def("Identification", (opencascade::handle<Graphi
 cls_Graphic3d_StructureManager.def("UnHighlight", (void (Graphic3d_StructureManager::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_StructureManager::UnHighlight, "Suppress the highlighting on the structure <AStructure>.", py::arg("AStructure"));
 cls_Graphic3d_StructureManager.def("UnHighlight", (void (Graphic3d_StructureManager::*)()) &Graphic3d_StructureManager::UnHighlight, "Suppresses the highlighting on all the structures in <me>.");
 cls_Graphic3d_StructureManager.def("RecomputeStructures", (void (Graphic3d_StructureManager::*)()) &Graphic3d_StructureManager::RecomputeStructures, "Recomputes all structures in the manager. Resets Device Lost flag.");
-cls_Graphic3d_StructureManager.def("RecomputeStructures", (void (Graphic3d_StructureManager::*)(const Graphic3d_MapOfStructure &)) &Graphic3d_StructureManager::RecomputeStructures, "Recomputes all structures from theStructures.", py::arg("theStructures"));
+cls_Graphic3d_StructureManager.def("RecomputeStructures", (void (Graphic3d_StructureManager::*)(const NCollection_Map<Graphic3d_Structure *> &)) &Graphic3d_StructureManager::RecomputeStructures, "Recomputes all structures from theStructures.", py::arg("theStructures"));
 cls_Graphic3d_StructureManager.def("RegisterObject", (opencascade::handle<Graphic3d_ViewAffinity> (Graphic3d_StructureManager::*)(const opencascade::handle<Standard_Transient> &)) &Graphic3d_StructureManager::RegisterObject, "None", py::arg("theObject"));
 cls_Graphic3d_StructureManager.def("UnregisterObject", (void (Graphic3d_StructureManager::*)(const opencascade::handle<Standard_Transient> &)) &Graphic3d_StructureManager::UnregisterObject, "None", py::arg("theObject"));
 cls_Graphic3d_StructureManager.def("ObjectAffinity", (opencascade::handle<Graphic3d_ViewAffinity> (Graphic3d_StructureManager::*)(const opencascade::handle<Standard_Transient> &) const) &Graphic3d_StructureManager::ObjectAffinity, "None", py::arg("theObject"));
 cls_Graphic3d_StructureManager.def("IsDeviceLost", (Standard_Boolean (Graphic3d_StructureManager::*)() const) &Graphic3d_StructureManager::IsDeviceLost, "Returns TRUE if Device Lost flag has been set and presentation data should be reuploaded onto graphics driver.");
 cls_Graphic3d_StructureManager.def("SetDeviceLost", (void (Graphic3d_StructureManager::*)()) &Graphic3d_StructureManager::SetDeviceLost, "Sets Device Lost flag.");
+
+// TYPEDEF: GRAPHIC3D_ARRAYFLAGS
 
 // CLASS: GRAPHIC3D_ARRAYOFPRIMITIVES
 py::class_<Graphic3d_ArrayOfPrimitives, opencascade::handle<Graphic3d_ArrayOfPrimitives>, Standard_Transient> cls_Graphic3d_ArrayOfPrimitives(mod, "Graphic3d_ArrayOfPrimitives", "This class furnish services to defined and fill an array of primitives which can be passed directly to graphics rendering API.");
@@ -2349,6 +2563,8 @@ py::class_<Graphic3d_ArrayOfPrimitives, opencascade::handle<Graphic3d_ArrayOfPri
 cls_Graphic3d_ArrayOfPrimitives.def_static("get_type_name_", (const char * (*)()) &Graphic3d_ArrayOfPrimitives::get_type_name, "None");
 cls_Graphic3d_ArrayOfPrimitives.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_ArrayOfPrimitives::get_type_descriptor, "None");
 cls_Graphic3d_ArrayOfPrimitives.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_ArrayOfPrimitives::*)() const) &Graphic3d_ArrayOfPrimitives::DynamicType, "None");
+cls_Graphic3d_ArrayOfPrimitives.def_static("CreateArray_", (opencascade::handle<Graphic3d_ArrayOfPrimitives> (*)(Graphic3d_TypeOfPrimitiveArray, Standard_Integer, Standard_Integer, Graphic3d_ArrayFlags)) &Graphic3d_ArrayOfPrimitives::CreateArray, "Create an array of specified type.", py::arg("theType"), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theArrayFlags"));
+cls_Graphic3d_ArrayOfPrimitives.def_static("CreateArray_", (opencascade::handle<Graphic3d_ArrayOfPrimitives> (*)(Graphic3d_TypeOfPrimitiveArray, Standard_Integer, Standard_Integer, Standard_Integer, Graphic3d_ArrayFlags)) &Graphic3d_ArrayOfPrimitives::CreateArray, "Create an array of specified type.", py::arg("theType"), py::arg("theMaxVertexs"), py::arg("theMaxBounds"), py::arg("theMaxEdges"), py::arg("theArrayFlags"));
 cls_Graphic3d_ArrayOfPrimitives.def("Attributes", (const opencascade::handle<Graphic3d_Buffer> & (Graphic3d_ArrayOfPrimitives::*)() const) &Graphic3d_ArrayOfPrimitives::Attributes, "Returns vertex attributes buffer (colors, normals, texture coordinates).");
 cls_Graphic3d_ArrayOfPrimitives.def("Type", (Graphic3d_TypeOfPrimitiveArray (Graphic3d_ArrayOfPrimitives::*)() const) &Graphic3d_ArrayOfPrimitives::Type, "Returns the type of this primitive");
 cls_Graphic3d_ArrayOfPrimitives.def("StringType", (Standard_CString (Graphic3d_ArrayOfPrimitives::*)() const) &Graphic3d_ArrayOfPrimitives::StringType, "Returns the string type of this primitive");
@@ -2356,6 +2572,7 @@ cls_Graphic3d_ArrayOfPrimitives.def("HasVertexNormals", (Standard_Boolean (Graph
 cls_Graphic3d_ArrayOfPrimitives.def("HasVertexColors", (Standard_Boolean (Graphic3d_ArrayOfPrimitives::*)() const) &Graphic3d_ArrayOfPrimitives::HasVertexColors, "Returns TRUE when vertex colors array is defined.");
 cls_Graphic3d_ArrayOfPrimitives.def("HasVertexTexels", (Standard_Boolean (Graphic3d_ArrayOfPrimitives::*)() const) &Graphic3d_ArrayOfPrimitives::HasVertexTexels, "Returns TRUE when vertex texels array is defined.");
 cls_Graphic3d_ArrayOfPrimitives.def("VertexNumber", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)() const) &Graphic3d_ArrayOfPrimitives::VertexNumber, "Returns the number of defined vertex");
+cls_Graphic3d_ArrayOfPrimitives.def("VertexNumberAllocated", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)() const) &Graphic3d_ArrayOfPrimitives::VertexNumberAllocated, "Returns the number of allocated vertex");
 cls_Graphic3d_ArrayOfPrimitives.def("ItemNumber", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)() const) &Graphic3d_ArrayOfPrimitives::ItemNumber, "Returns the number of total items according to the array type.");
 cls_Graphic3d_ArrayOfPrimitives.def("IsValid", (Standard_Boolean (Graphic3d_ArrayOfPrimitives::*)()) &Graphic3d_ArrayOfPrimitives::IsValid, "Returns TRUE only when the contains of this array is available.");
 cls_Graphic3d_ArrayOfPrimitives.def("AddVertex", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(const gp_Pnt &)) &Graphic3d_ArrayOfPrimitives::AddVertex, "Adds a vertice in the array.", py::arg("theVertex"));
@@ -2398,11 +2615,26 @@ cls_Graphic3d_ArrayOfPrimitives.def("VertexTexel", (gp_Pnt2d (Graphic3d_ArrayOfP
 cls_Graphic3d_ArrayOfPrimitives.def("VertexTexel", [](Graphic3d_ArrayOfPrimitives &self, const Standard_Integer theRank, Standard_Real & theTX, Standard_Real & theTY){ self.VertexTexel(theRank, theTX, theTY); return std::tuple<Standard_Real &, Standard_Real &>(theTX, theTY); }, "Returns the vertex texture coordinates at rank theRank from the vertex table if defined.", py::arg("theRank"), py::arg("theTX"), py::arg("theTY"));
 cls_Graphic3d_ArrayOfPrimitives.def("Indices", (const opencascade::handle<Graphic3d_IndexBuffer> & (Graphic3d_ArrayOfPrimitives::*)() const) &Graphic3d_ArrayOfPrimitives::Indices, "Returns optional index buffer.");
 cls_Graphic3d_ArrayOfPrimitives.def("EdgeNumber", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)() const) &Graphic3d_ArrayOfPrimitives::EdgeNumber, "Returns the number of defined edges");
+cls_Graphic3d_ArrayOfPrimitives.def("EdgeNumberAllocated", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)() const) &Graphic3d_ArrayOfPrimitives::EdgeNumberAllocated, "Returns the number of allocated edges");
 cls_Graphic3d_ArrayOfPrimitives.def("Edge", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(const Standard_Integer) const) &Graphic3d_ArrayOfPrimitives::Edge, "Returns the vertex index at rank theRank in the range [1,EdgeNumber()]", py::arg("theRank"));
 cls_Graphic3d_ArrayOfPrimitives.def("AddEdge", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(const Standard_Integer)) &Graphic3d_ArrayOfPrimitives::AddEdge, "Adds an edge in the range [1,VertexNumber()] in the array.", py::arg("theVertexIndex"));
+cls_Graphic3d_ArrayOfPrimitives.def("AddEdges", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(Standard_Integer, Standard_Integer)) &Graphic3d_ArrayOfPrimitives::AddEdges, "Convenience method, adds two vertex indices (a segment) in the range [1,VertexNumber()] in the array.", py::arg("theVertexIndex1"), py::arg("theVertexIndex2"));
+cls_Graphic3d_ArrayOfPrimitives.def("AddSegmentEdges", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(Standard_Integer, Standard_Integer)) &Graphic3d_ArrayOfPrimitives::AddSegmentEdges, "Convenience method, adds two vertex indices (a segment) in the range [1,VertexNumber()] in the array of segments (Graphic3d_TOPA_SEGMENTS). Raises exception if array is not of type Graphic3d_TOPA_SEGMENTS.", py::arg("theVertexIndex1"), py::arg("theVertexIndex2"));
+cls_Graphic3d_ArrayOfPrimitives.def("AddEdges", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(Standard_Integer, Standard_Integer, Standard_Integer)) &Graphic3d_ArrayOfPrimitives::AddEdges, "Convenience method, adds three vertex indices (a triangle) in the range [1,VertexNumber()] in the array.", py::arg("theVertexIndex1"), py::arg("theVertexIndex2"), py::arg("theVertexIndex3"));
+cls_Graphic3d_ArrayOfPrimitives.def("AddTriangleEdges", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(Standard_Integer, Standard_Integer, Standard_Integer)) &Graphic3d_ArrayOfPrimitives::AddTriangleEdges, "Convenience method, adds three vertex indices of triangle in the range [1,VertexNumber()] in the array of triangles. Raises exception if array is not of type Graphic3d_TOPA_TRIANGLES.", py::arg("theVertexIndex1"), py::arg("theVertexIndex2"), py::arg("theVertexIndex3"));
+cls_Graphic3d_ArrayOfPrimitives.def("AddTriangleEdges", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(const Graphic3d_Vec3i &)) &Graphic3d_ArrayOfPrimitives::AddTriangleEdges, "Convenience method, adds three vertex indices of triangle in the range [1,VertexNumber()] in the array of triangles. Raises exception if array is not of type Graphic3d_TOPA_TRIANGLES.", py::arg("theIndexes"));
+cls_Graphic3d_ArrayOfPrimitives.def("AddTriangleEdges", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(const Graphic3d_Vec4i &)) &Graphic3d_ArrayOfPrimitives::AddTriangleEdges, "Convenience method, adds three vertex indices (4th component is ignored) of triangle in the range [1,VertexNumber()] in the array of triangles. Raises exception if array is not of type Graphic3d_TOPA_TRIANGLES.", py::arg("theIndexes"));
+cls_Graphic3d_ArrayOfPrimitives.def("AddEdges", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(Standard_Integer, Standard_Integer, Standard_Integer, Standard_Integer)) &Graphic3d_ArrayOfPrimitives::AddEdges, "Convenience method, adds four vertex indices (a quad) in the range [1,VertexNumber()] in the array.", py::arg("theVertexIndex1"), py::arg("theVertexIndex2"), py::arg("theVertexIndex3"), py::arg("theVertexIndex4"));
+cls_Graphic3d_ArrayOfPrimitives.def("AddQuadEdges", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(Standard_Integer, Standard_Integer, Standard_Integer, Standard_Integer)) &Graphic3d_ArrayOfPrimitives::AddQuadEdges, "Convenience method, adds four vertex indices (a quad) in the range [1,VertexNumber()] in the array of quads. Raises exception if array is not of type Graphic3d_TOPA_QUADRANGLES.", py::arg("theVertexIndex1"), py::arg("theVertexIndex2"), py::arg("theVertexIndex3"), py::arg("theVertexIndex4"));
+cls_Graphic3d_ArrayOfPrimitives.def("AddQuadTriangleEdges", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(Standard_Integer, Standard_Integer, Standard_Integer, Standard_Integer)) &Graphic3d_ArrayOfPrimitives::AddQuadTriangleEdges, "Convenience method, adds quad indices in the range [1,VertexNumber()] into array or triangles as two triangles. Raises exception if array is not of type Graphic3d_TOPA_TRIANGLES.", py::arg("theVertexIndex1"), py::arg("theVertexIndex2"), py::arg("theVertexIndex3"), py::arg("theVertexIndex4"));
+cls_Graphic3d_ArrayOfPrimitives.def("AddQuadTriangleEdges", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(const Graphic3d_Vec4i &)) &Graphic3d_ArrayOfPrimitives::AddQuadTriangleEdges, "Convenience method, adds quad indices in the range [1,VertexNumber()] into array or triangles as two triangles. Raises exception if array is not of type Graphic3d_TOPA_TRIANGLES.", py::arg("theIndexes"));
+cls_Graphic3d_ArrayOfPrimitives.def("AddTriangleStripEdges", (void (Graphic3d_ArrayOfPrimitives::*)(Standard_Integer, Standard_Integer)) &Graphic3d_ArrayOfPrimitives::AddTriangleStripEdges, "Add triangle strip into indexed triangulation array. N-2 triangles are added from N input nodes. Raises exception if array is not of type Graphic3d_TOPA_TRIANGLES.", py::arg("theVertexLower"), py::arg("theVertexUpper"));
+cls_Graphic3d_ArrayOfPrimitives.def("AddTriangleFanEdges", (void (Graphic3d_ArrayOfPrimitives::*)(Standard_Integer, Standard_Integer, Standard_Boolean)) &Graphic3d_ArrayOfPrimitives::AddTriangleFanEdges, "Add triangle fan into indexed triangulation array. N-2 triangles are added from N input nodes (or N-1 with closed flag). Raises exception if array is not of type Graphic3d_TOPA_TRIANGLES.", py::arg("theVertexLower"), py::arg("theVertexUpper"), py::arg("theToClose"));
+cls_Graphic3d_ArrayOfPrimitives.def("AddPolylineEdges", (void (Graphic3d_ArrayOfPrimitives::*)(Standard_Integer, Standard_Integer, Standard_Boolean)) &Graphic3d_ArrayOfPrimitives::AddPolylineEdges, "Add line strip (polyline) into indexed segments array. N-1 segments are added from N input nodes (or N with closed flag). Raises exception if array is not of type Graphic3d_TOPA_SEGMENTS.", py::arg("theVertexLower"), py::arg("theVertexUpper"), py::arg("theToClose"));
 cls_Graphic3d_ArrayOfPrimitives.def("Bounds", (const opencascade::handle<Graphic3d_BoundBuffer> & (Graphic3d_ArrayOfPrimitives::*)() const) &Graphic3d_ArrayOfPrimitives::Bounds, "Returns optional bounds buffer.");
 cls_Graphic3d_ArrayOfPrimitives.def("HasBoundColors", (Standard_Boolean (Graphic3d_ArrayOfPrimitives::*)() const) &Graphic3d_ArrayOfPrimitives::HasBoundColors, "Returns TRUE when bound colors array is defined.");
 cls_Graphic3d_ArrayOfPrimitives.def("BoundNumber", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)() const) &Graphic3d_ArrayOfPrimitives::BoundNumber, "Returns the number of defined bounds");
+cls_Graphic3d_ArrayOfPrimitives.def("BoundNumberAllocated", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)() const) &Graphic3d_ArrayOfPrimitives::BoundNumberAllocated, "Returns the number of allocated bounds");
 cls_Graphic3d_ArrayOfPrimitives.def("Bound", (Standard_Integer (Graphic3d_ArrayOfPrimitives::*)(const Standard_Integer) const) &Graphic3d_ArrayOfPrimitives::Bound, "Returns the edge number at rank theRank.", py::arg("theRank"));
 cls_Graphic3d_ArrayOfPrimitives.def("BoundColor", (Quantity_Color (Graphic3d_ArrayOfPrimitives::*)(const Standard_Integer) const) &Graphic3d_ArrayOfPrimitives::BoundColor, "Returns the bound color at rank theRank from the bound table if defined.", py::arg("theRank"));
 cls_Graphic3d_ArrayOfPrimitives.def("BoundColor", [](Graphic3d_ArrayOfPrimitives &self, const Standard_Integer theRank, Standard_Real & theR, Standard_Real & theG, Standard_Real & theB){ self.BoundColor(theRank, theR, theG, theB); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &>(theR, theG, theB); }, "Returns the bound color values at rank theRank from the bound table if defined.", py::arg("theRank"), py::arg("theR"), py::arg("theG"), py::arg("theB"));
@@ -2416,11 +2648,12 @@ cls_Graphic3d_ArrayOfPrimitives.def("SetBoundColor", (void (Graphic3d_ArrayOfPri
 py::class_<Graphic3d_ArrayOfQuadrangles, opencascade::handle<Graphic3d_ArrayOfQuadrangles>, Graphic3d_ArrayOfPrimitives> cls_Graphic3d_ArrayOfQuadrangles(mod, "Graphic3d_ArrayOfQuadrangles", "Contains quadrangles array definition. WARNING! Quadrangle primitives might be unsupported by graphics library. Triangulation should be used instead of quads for better compatibility.");
 
 // Constructors
-cls_Graphic3d_ArrayOfQuadrangles.def(py::init<const Standard_Integer>(), py::arg("theMaxVertexs"));
-cls_Graphic3d_ArrayOfQuadrangles.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"));
-cls_Graphic3d_ArrayOfQuadrangles.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theHasVNormals"));
-cls_Graphic3d_ArrayOfQuadrangles.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theHasVNormals"), py::arg("theHasVColors"));
-cls_Graphic3d_ArrayOfQuadrangles.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Boolean, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theHasVNormals"), py::arg("theHasVColors"), py::arg("theHasVTexels"));
+cls_Graphic3d_ArrayOfQuadrangles.def(py::init<Standard_Integer, Standard_Integer, Graphic3d_ArrayFlags>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theArrayFlags"));
+cls_Graphic3d_ArrayOfQuadrangles.def(py::init<Standard_Integer>(), py::arg("theMaxVertexs"));
+cls_Graphic3d_ArrayOfQuadrangles.def(py::init<Standard_Integer, Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"));
+cls_Graphic3d_ArrayOfQuadrangles.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theHasVNormals"));
+cls_Graphic3d_ArrayOfQuadrangles.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theHasVNormals"), py::arg("theHasVColors"));
+cls_Graphic3d_ArrayOfQuadrangles.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean, Standard_Boolean, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theHasVNormals"), py::arg("theHasVColors"), py::arg("theHasVTexels"));
 
 // Methods
 cls_Graphic3d_ArrayOfQuadrangles.def_static("get_type_name_", (const char * (*)()) &Graphic3d_ArrayOfQuadrangles::get_type_name, "None");
@@ -2431,44 +2664,17 @@ cls_Graphic3d_ArrayOfQuadrangles.def("DynamicType", (const opencascade::handle<S
 py::class_<Graphic3d_ArrayOfTriangles, opencascade::handle<Graphic3d_ArrayOfTriangles>, Graphic3d_ArrayOfPrimitives> cls_Graphic3d_ArrayOfTriangles(mod, "Graphic3d_ArrayOfTriangles", "Contains triangles array definition");
 
 // Constructors
-cls_Graphic3d_ArrayOfTriangles.def(py::init<const Standard_Integer>(), py::arg("theMaxVertexs"));
-cls_Graphic3d_ArrayOfTriangles.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"));
-cls_Graphic3d_ArrayOfTriangles.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theHasVNormals"));
-cls_Graphic3d_ArrayOfTriangles.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theHasVNormals"), py::arg("theHasVColors"));
-cls_Graphic3d_ArrayOfTriangles.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Boolean, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theHasVNormals"), py::arg("theHasVColors"), py::arg("theHasVTexels"));
+cls_Graphic3d_ArrayOfTriangles.def(py::init<Standard_Integer, Standard_Integer, Graphic3d_ArrayFlags>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theArrayFlags"));
+cls_Graphic3d_ArrayOfTriangles.def(py::init<Standard_Integer>(), py::arg("theMaxVertexs"));
+cls_Graphic3d_ArrayOfTriangles.def(py::init<Standard_Integer, Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"));
+cls_Graphic3d_ArrayOfTriangles.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theHasVNormals"));
+cls_Graphic3d_ArrayOfTriangles.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theHasVNormals"), py::arg("theHasVColors"));
+cls_Graphic3d_ArrayOfTriangles.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean, Standard_Boolean, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theHasVNormals"), py::arg("theHasVColors"), py::arg("theHasVTexels"));
 
 // Methods
 cls_Graphic3d_ArrayOfTriangles.def_static("get_type_name_", (const char * (*)()) &Graphic3d_ArrayOfTriangles::get_type_name, "None");
 cls_Graphic3d_ArrayOfTriangles.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_ArrayOfTriangles::get_type_descriptor, "None");
 cls_Graphic3d_ArrayOfTriangles.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_ArrayOfTriangles::*)() const) &Graphic3d_ArrayOfTriangles::DynamicType, "None");
-
-// CLASS: GRAPHIC3D_ARRAYOFPOINTS
-py::class_<Graphic3d_ArrayOfPoints, opencascade::handle<Graphic3d_ArrayOfPoints>, Graphic3d_ArrayOfPrimitives> cls_Graphic3d_ArrayOfPoints(mod, "Graphic3d_ArrayOfPoints", "Contains points array definition.");
-
-// Constructors
-cls_Graphic3d_ArrayOfPoints.def(py::init<const Standard_Integer>(), py::arg("theMaxVertexs"));
-cls_Graphic3d_ArrayOfPoints.def(py::init<const Standard_Integer, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theHasVColors"));
-cls_Graphic3d_ArrayOfPoints.def(py::init<const Standard_Integer, const Standard_Boolean, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theHasVColors"), py::arg("theHasVNormals"));
-
-// Methods
-cls_Graphic3d_ArrayOfPoints.def_static("get_type_name_", (const char * (*)()) &Graphic3d_ArrayOfPoints::get_type_name, "None");
-cls_Graphic3d_ArrayOfPoints.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_ArrayOfPoints::get_type_descriptor, "None");
-cls_Graphic3d_ArrayOfPoints.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_ArrayOfPoints::*)() const) &Graphic3d_ArrayOfPoints::DynamicType, "None");
-
-// CLASS: GRAPHIC3D_ARRAYOFPOLYLINES
-py::class_<Graphic3d_ArrayOfPolylines, opencascade::handle<Graphic3d_ArrayOfPolylines>, Graphic3d_ArrayOfPrimitives> cls_Graphic3d_ArrayOfPolylines(mod, "Graphic3d_ArrayOfPolylines", "Contains polylines array definition.");
-
-// Constructors
-cls_Graphic3d_ArrayOfPolylines.def(py::init<const Standard_Integer>(), py::arg("theMaxVertexs"));
-cls_Graphic3d_ArrayOfPolylines.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxBounds"));
-cls_Graphic3d_ArrayOfPolylines.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxBounds"), py::arg("theMaxEdges"));
-cls_Graphic3d_ArrayOfPolylines.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxBounds"), py::arg("theMaxEdges"), py::arg("theHasVColors"));
-cls_Graphic3d_ArrayOfPolylines.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxBounds"), py::arg("theMaxEdges"), py::arg("theHasVColors"), py::arg("theHasBColors"));
-
-// Methods
-cls_Graphic3d_ArrayOfPolylines.def_static("get_type_name_", (const char * (*)()) &Graphic3d_ArrayOfPolylines::get_type_name, "None");
-cls_Graphic3d_ArrayOfPolylines.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_ArrayOfPolylines::get_type_descriptor, "None");
-cls_Graphic3d_ArrayOfPolylines.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_ArrayOfPolylines::*)() const) &Graphic3d_ArrayOfPolylines::DynamicType, "None");
 
 // CLASS: GRAPHIC3D_TEXTURE2D
 py::class_<Graphic3d_Texture2D, opencascade::handle<Graphic3d_Texture2D>, Graphic3d_TextureMap> cls_Graphic3d_Texture2D(mod, "Graphic3d_Texture2D", "This abstract class for managing 2D textures");
@@ -2483,6 +2689,80 @@ cls_Graphic3d_Texture2D.def("Name", (Graphic3d_NameOfTexture2D (Graphic3d_Textur
 cls_Graphic3d_Texture2D.def("SetImage", (void (Graphic3d_Texture2D::*)(const opencascade::handle<Image_PixMap> &)) &Graphic3d_Texture2D::SetImage, "Assign new image to the texture. Note that this method does not invalidate already uploaded resources - consider calling ::UpdateRevision() if needed.", py::arg("thePixMap"));
 cls_Graphic3d_Texture2D.def("HasMipMaps", (Standard_Boolean (Graphic3d_Texture2D::*)() const) &Graphic3d_Texture2D::HasMipMaps, "Return true if mip-maps should be used.");
 cls_Graphic3d_Texture2D.def("SetMipMaps", (void (Graphic3d_Texture2D::*)(const Standard_Boolean)) &Graphic3d_Texture2D::SetMipMaps, "Set if mip-maps should be used (generated if needed). Note that this method should be called before loading / using the texture.", py::arg("theToUse"));
+
+// TYPEDEF: MEDIA_HMUTEX
+/*
+bind_NCollection_Shared<Standard_Mutex, void>(mod, "Media_HMutex", py::module_local(false));
+*/
+
+// CLASS: GRAPHIC3D_MEDIATEXTURE
+py::class_<Graphic3d_MediaTexture, opencascade::handle<Graphic3d_MediaTexture>, Graphic3d_Texture2D> cls_Graphic3d_MediaTexture(mod, "Graphic3d_MediaTexture", "Texture adapter for Media_Frame.");
+
+// Constructors
+cls_Graphic3d_MediaTexture.def(py::init<const opencascade::handle<Media_HMutex> &>(), py::arg("theMutex"));
+cls_Graphic3d_MediaTexture.def(py::init<const opencascade::handle<Media_HMutex> &, Standard_Integer>(), py::arg("theMutex"), py::arg("thePlane"));
+
+// Methods
+cls_Graphic3d_MediaTexture.def_static("get_type_name_", (const char * (*)()) &Graphic3d_MediaTexture::get_type_name, "None");
+cls_Graphic3d_MediaTexture.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_MediaTexture::get_type_descriptor, "None");
+cls_Graphic3d_MediaTexture.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_MediaTexture::*)() const) &Graphic3d_MediaTexture::DynamicType, "None");
+cls_Graphic3d_MediaTexture.def("GetImage", (opencascade::handle<Image_PixMap> (Graphic3d_MediaTexture::*)() const) &Graphic3d_MediaTexture::GetImage, "Image reader.");
+cls_Graphic3d_MediaTexture.def("Frame", (const opencascade::handle<Media_Frame> & (Graphic3d_MediaTexture::*)() const) &Graphic3d_MediaTexture::Frame, "Return the frame.");
+cls_Graphic3d_MediaTexture.def("SetFrame", (void (Graphic3d_MediaTexture::*)(const opencascade::handle<Media_Frame> &)) &Graphic3d_MediaTexture::SetFrame, "Set the frame.", py::arg("theFrame"));
+cls_Graphic3d_MediaTexture.def("GenerateNewId", (void (Graphic3d_MediaTexture::*)()) &Graphic3d_MediaTexture::GenerateNewId, "Regenerate a new texture id");
+
+// CLASS: GRAPHIC3D_MEDIATEXTURESET
+py::class_<Graphic3d_MediaTextureSet, opencascade::handle<Graphic3d_MediaTextureSet>, Graphic3d_TextureSet> cls_Graphic3d_MediaTextureSet(mod, "Graphic3d_MediaTextureSet", "Texture adapter for Media_Frame.", py::multiple_inheritance());
+
+// Constructors
+cls_Graphic3d_MediaTextureSet.def(py::init<>());
+
+// Methods
+cls_Graphic3d_MediaTextureSet.def_static("get_type_name_", (const char * (*)()) &Graphic3d_MediaTextureSet::get_type_name, "None");
+cls_Graphic3d_MediaTextureSet.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_MediaTextureSet::get_type_descriptor, "None");
+cls_Graphic3d_MediaTextureSet.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_MediaTextureSet::*)() const) &Graphic3d_MediaTextureSet::DynamicType, "None");
+cls_Graphic3d_MediaTextureSet.def("SetCallback", (void (Graphic3d_MediaTextureSet::*)(Graphic3d_MediaTextureSet::CallbackOnUpdate_t, void *)) &Graphic3d_MediaTextureSet::SetCallback, "Setup callback to be called on queue progress (e.g. when new frame should be displayed).", py::arg("theCallbackFunction"), py::arg("theCallbackUserPtr"));
+cls_Graphic3d_MediaTextureSet.def("Notify", (void (Graphic3d_MediaTextureSet::*)()) &Graphic3d_MediaTextureSet::Notify, "Call callback.");
+cls_Graphic3d_MediaTextureSet.def("Input", (const TCollection_AsciiString & (Graphic3d_MediaTextureSet::*)() const) &Graphic3d_MediaTextureSet::Input, "Return input media.");
+cls_Graphic3d_MediaTextureSet.def("OpenInput", (void (Graphic3d_MediaTextureSet::*)(const TCollection_AsciiString &, Standard_Boolean)) &Graphic3d_MediaTextureSet::OpenInput, "Open specified file. Passing an empty path would close current input.", py::arg("thePath"), py::arg("theToWait"));
+cls_Graphic3d_MediaTextureSet.def("PlayerContext", (const opencascade::handle<Media_PlayerContext> & (Graphic3d_MediaTextureSet::*)() const) &Graphic3d_MediaTextureSet::PlayerContext, "Return player context; it can be NULL until first OpenInput().");
+cls_Graphic3d_MediaTextureSet.def("SwapFrames", (Standard_Boolean (Graphic3d_MediaTextureSet::*)()) &Graphic3d_MediaTextureSet::SwapFrames, "Swap front/back frames.");
+cls_Graphic3d_MediaTextureSet.def("FrameSize", (Graphic3d_Vec2i (Graphic3d_MediaTextureSet::*)() const) &Graphic3d_MediaTextureSet::FrameSize, "Return front frame dimensions.");
+cls_Graphic3d_MediaTextureSet.def("ShaderProgram", (opencascade::handle<Graphic3d_ShaderProgram> (Graphic3d_MediaTextureSet::*)() const) &Graphic3d_MediaTextureSet::ShaderProgram, "Return shader program for displaying texture set.");
+cls_Graphic3d_MediaTextureSet.def("IsPlanarYUV", (Standard_Boolean (Graphic3d_MediaTextureSet::*)() const) &Graphic3d_MediaTextureSet::IsPlanarYUV, "Return TRUE if texture set defined 3 YUV planes.");
+cls_Graphic3d_MediaTextureSet.def("IsFullRangeYUV", (Standard_Boolean (Graphic3d_MediaTextureSet::*)() const) &Graphic3d_MediaTextureSet::IsFullRangeYUV, "Return TRUE if YUV range is full.");
+cls_Graphic3d_MediaTextureSet.def("Duration", (double (Graphic3d_MediaTextureSet::*)() const) &Graphic3d_MediaTextureSet::Duration, "Return duration in seconds.");
+cls_Graphic3d_MediaTextureSet.def("Progress", (double (Graphic3d_MediaTextureSet::*)() const) &Graphic3d_MediaTextureSet::Progress, "Return playback progress in seconds.");
+
+// CLASS: GRAPHIC3D_ARRAYOFPOINTS
+py::class_<Graphic3d_ArrayOfPoints, opencascade::handle<Graphic3d_ArrayOfPoints>, Graphic3d_ArrayOfPrimitives> cls_Graphic3d_ArrayOfPoints(mod, "Graphic3d_ArrayOfPoints", "Contains points array definition.");
+
+// Constructors
+cls_Graphic3d_ArrayOfPoints.def(py::init<Standard_Integer, Graphic3d_ArrayFlags>(), py::arg("theMaxVertexs"), py::arg("theArrayFlags"));
+cls_Graphic3d_ArrayOfPoints.def(py::init<Standard_Integer>(), py::arg("theMaxVertexs"));
+cls_Graphic3d_ArrayOfPoints.def(py::init<Standard_Integer, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theHasVColors"));
+cls_Graphic3d_ArrayOfPoints.def(py::init<Standard_Integer, Standard_Boolean, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theHasVColors"), py::arg("theHasVNormals"));
+
+// Methods
+cls_Graphic3d_ArrayOfPoints.def_static("get_type_name_", (const char * (*)()) &Graphic3d_ArrayOfPoints::get_type_name, "None");
+cls_Graphic3d_ArrayOfPoints.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_ArrayOfPoints::get_type_descriptor, "None");
+cls_Graphic3d_ArrayOfPoints.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_ArrayOfPoints::*)() const) &Graphic3d_ArrayOfPoints::DynamicType, "None");
+
+// CLASS: GRAPHIC3D_ARRAYOFPOLYLINES
+py::class_<Graphic3d_ArrayOfPolylines, opencascade::handle<Graphic3d_ArrayOfPolylines>, Graphic3d_ArrayOfPrimitives> cls_Graphic3d_ArrayOfPolylines(mod, "Graphic3d_ArrayOfPolylines", "Contains polylines array definition.");
+
+// Constructors
+cls_Graphic3d_ArrayOfPolylines.def(py::init<Standard_Integer, Standard_Integer, Standard_Integer, Graphic3d_ArrayFlags>(), py::arg("theMaxVertexs"), py::arg("theMaxBounds"), py::arg("theMaxEdges"), py::arg("theArrayFlags"));
+cls_Graphic3d_ArrayOfPolylines.def(py::init<Standard_Integer>(), py::arg("theMaxVertexs"));
+cls_Graphic3d_ArrayOfPolylines.def(py::init<Standard_Integer, Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxBounds"));
+cls_Graphic3d_ArrayOfPolylines.def(py::init<Standard_Integer, Standard_Integer, Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxBounds"), py::arg("theMaxEdges"));
+cls_Graphic3d_ArrayOfPolylines.def(py::init<Standard_Integer, Standard_Integer, Standard_Integer, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxBounds"), py::arg("theMaxEdges"), py::arg("theHasVColors"));
+cls_Graphic3d_ArrayOfPolylines.def(py::init<Standard_Integer, Standard_Integer, Standard_Integer, Standard_Boolean, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxBounds"), py::arg("theMaxEdges"), py::arg("theHasVColors"), py::arg("theHasBColors"));
+
+// Methods
+cls_Graphic3d_ArrayOfPolylines.def_static("get_type_name_", (const char * (*)()) &Graphic3d_ArrayOfPolylines::get_type_name, "None");
+cls_Graphic3d_ArrayOfPolylines.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_ArrayOfPolylines::get_type_descriptor, "None");
+cls_Graphic3d_ArrayOfPolylines.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_ArrayOfPolylines::*)() const) &Graphic3d_ArrayOfPolylines::DynamicType, "None");
 
 // CLASS: GRAPHIC3D_TEXTURE2DMANUAL
 py::class_<Graphic3d_Texture2Dmanual, opencascade::handle<Graphic3d_Texture2Dmanual>, Graphic3d_Texture2D> cls_Graphic3d_Texture2Dmanual(mod, "Graphic3d_Texture2Dmanual", "This class defined a manual texture 2D facets MUST define texture coordinate if you want to see somethings on.");
@@ -2501,6 +2781,7 @@ cls_Graphic3d_Texture2Dmanual.def("DynamicType", (const opencascade::handle<Stan
 py::class_<Graphic3d_ArrayOfPolygons, opencascade::handle<Graphic3d_ArrayOfPolygons>, Graphic3d_ArrayOfPrimitives> cls_Graphic3d_ArrayOfPolygons(mod, "Graphic3d_ArrayOfPolygons", "Contains polygons array definition. WARNING! Polygon primitives might be unsupported by graphics library. Triangulation should be used instead of quads for better compatibility.");
 
 // Constructors
+cls_Graphic3d_ArrayOfPolygons.def(py::init<Standard_Integer, Standard_Integer, Standard_Integer, Graphic3d_ArrayFlags>(), py::arg("theMaxVertexs"), py::arg("theMaxBounds"), py::arg("theMaxEdges"), py::arg("theArrayFlags"));
 cls_Graphic3d_ArrayOfPolygons.def(py::init<const Standard_Integer>(), py::arg("theMaxVertexs"));
 cls_Graphic3d_ArrayOfPolygons.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxBounds"));
 cls_Graphic3d_ArrayOfPolygons.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxBounds"), py::arg("theMaxEdges"));
@@ -2518,12 +2799,13 @@ cls_Graphic3d_ArrayOfPolygons.def("DynamicType", (const opencascade::handle<Stan
 py::class_<Graphic3d_ArrayOfQuadrangleStrips, opencascade::handle<Graphic3d_ArrayOfQuadrangleStrips>, Graphic3d_ArrayOfPrimitives> cls_Graphic3d_ArrayOfQuadrangleStrips(mod, "Graphic3d_ArrayOfQuadrangleStrips", "Contains quadrangles strip array definition. WARNING! Quadrangle primitives might be unsupported by graphics library. Triangulation should be used instead of quads for better compatibility.");
 
 // Constructors
-cls_Graphic3d_ArrayOfQuadrangleStrips.def(py::init<const Standard_Integer>(), py::arg("theMaxVertexs"));
-cls_Graphic3d_ArrayOfQuadrangleStrips.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"));
-cls_Graphic3d_ArrayOfQuadrangleStrips.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theHasVNormals"));
-cls_Graphic3d_ArrayOfQuadrangleStrips.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theHasVNormals"), py::arg("theHasVColors"));
-cls_Graphic3d_ArrayOfQuadrangleStrips.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Boolean, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theHasVNormals"), py::arg("theHasVColors"), py::arg("theHasSColors"));
-cls_Graphic3d_ArrayOfQuadrangleStrips.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Boolean, const Standard_Boolean, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theHasVNormals"), py::arg("theHasVColors"), py::arg("theHasSColors"), py::arg("theHasVTexels"));
+cls_Graphic3d_ArrayOfQuadrangleStrips.def(py::init<Standard_Integer, Standard_Integer, Graphic3d_ArrayFlags>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theArrayFlags"));
+cls_Graphic3d_ArrayOfQuadrangleStrips.def(py::init<Standard_Integer>(), py::arg("theMaxVertexs"));
+cls_Graphic3d_ArrayOfQuadrangleStrips.def(py::init<Standard_Integer, Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"));
+cls_Graphic3d_ArrayOfQuadrangleStrips.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theHasVNormals"));
+cls_Graphic3d_ArrayOfQuadrangleStrips.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theHasVNormals"), py::arg("theHasVColors"));
+cls_Graphic3d_ArrayOfQuadrangleStrips.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean, Standard_Boolean, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theHasVNormals"), py::arg("theHasVColors"), py::arg("theHasSColors"));
+cls_Graphic3d_ArrayOfQuadrangleStrips.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean, Standard_Boolean, Standard_Boolean, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theHasVNormals"), py::arg("theHasVColors"), py::arg("theHasSColors"), py::arg("theHasVTexels"));
 
 // Methods
 cls_Graphic3d_ArrayOfQuadrangleStrips.def_static("get_type_name_", (const char * (*)()) &Graphic3d_ArrayOfQuadrangleStrips::get_type_name, "None");
@@ -2534,9 +2816,10 @@ cls_Graphic3d_ArrayOfQuadrangleStrips.def("DynamicType", (const opencascade::han
 py::class_<Graphic3d_ArrayOfSegments, opencascade::handle<Graphic3d_ArrayOfSegments>, Graphic3d_ArrayOfPrimitives> cls_Graphic3d_ArrayOfSegments(mod, "Graphic3d_ArrayOfSegments", "Contains segments array definition.");
 
 // Constructors
-cls_Graphic3d_ArrayOfSegments.def(py::init<const Standard_Integer>(), py::arg("theMaxVertexs"));
-cls_Graphic3d_ArrayOfSegments.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"));
-cls_Graphic3d_ArrayOfSegments.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theHasVColors"));
+cls_Graphic3d_ArrayOfSegments.def(py::init<Standard_Integer, Standard_Integer, Graphic3d_ArrayFlags>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theArrayFlags"));
+cls_Graphic3d_ArrayOfSegments.def(py::init<Standard_Integer>(), py::arg("theMaxVertexs"));
+cls_Graphic3d_ArrayOfSegments.def(py::init<Standard_Integer, Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"));
+cls_Graphic3d_ArrayOfSegments.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxEdges"), py::arg("theHasVColors"));
 
 // Methods
 cls_Graphic3d_ArrayOfSegments.def_static("get_type_name_", (const char * (*)()) &Graphic3d_ArrayOfSegments::get_type_name, "None");
@@ -2547,12 +2830,13 @@ cls_Graphic3d_ArrayOfSegments.def("DynamicType", (const opencascade::handle<Stan
 py::class_<Graphic3d_ArrayOfTriangleFans, opencascade::handle<Graphic3d_ArrayOfTriangleFans>, Graphic3d_ArrayOfPrimitives> cls_Graphic3d_ArrayOfTriangleFans(mod, "Graphic3d_ArrayOfTriangleFans", "Contains triangles fan array definition");
 
 // Constructors
-cls_Graphic3d_ArrayOfTriangleFans.def(py::init<const Standard_Integer>(), py::arg("theMaxVertexs"));
-cls_Graphic3d_ArrayOfTriangleFans.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxFans"));
-cls_Graphic3d_ArrayOfTriangleFans.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxFans"), py::arg("theHasVNormals"));
-cls_Graphic3d_ArrayOfTriangleFans.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxFans"), py::arg("theHasVNormals"), py::arg("theHasVColors"));
-cls_Graphic3d_ArrayOfTriangleFans.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Boolean, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxFans"), py::arg("theHasVNormals"), py::arg("theHasVColors"), py::arg("theHasBColors"));
-cls_Graphic3d_ArrayOfTriangleFans.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Boolean, const Standard_Boolean, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxFans"), py::arg("theHasVNormals"), py::arg("theHasVColors"), py::arg("theHasBColors"), py::arg("theHasVTexels"));
+cls_Graphic3d_ArrayOfTriangleFans.def(py::init<Standard_Integer, Standard_Integer, Graphic3d_ArrayFlags>(), py::arg("theMaxVertexs"), py::arg("theMaxFans"), py::arg("theArrayFlags"));
+cls_Graphic3d_ArrayOfTriangleFans.def(py::init<Standard_Integer>(), py::arg("theMaxVertexs"));
+cls_Graphic3d_ArrayOfTriangleFans.def(py::init<Standard_Integer, Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxFans"));
+cls_Graphic3d_ArrayOfTriangleFans.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxFans"), py::arg("theHasVNormals"));
+cls_Graphic3d_ArrayOfTriangleFans.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxFans"), py::arg("theHasVNormals"), py::arg("theHasVColors"));
+cls_Graphic3d_ArrayOfTriangleFans.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean, Standard_Boolean, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxFans"), py::arg("theHasVNormals"), py::arg("theHasVColors"), py::arg("theHasBColors"));
+cls_Graphic3d_ArrayOfTriangleFans.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean, Standard_Boolean, Standard_Boolean, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxFans"), py::arg("theHasVNormals"), py::arg("theHasVColors"), py::arg("theHasBColors"), py::arg("theHasVTexels"));
 
 // Methods
 cls_Graphic3d_ArrayOfTriangleFans.def_static("get_type_name_", (const char * (*)()) &Graphic3d_ArrayOfTriangleFans::get_type_name, "None");
@@ -2563,17 +2847,85 @@ cls_Graphic3d_ArrayOfTriangleFans.def("DynamicType", (const opencascade::handle<
 py::class_<Graphic3d_ArrayOfTriangleStrips, opencascade::handle<Graphic3d_ArrayOfTriangleStrips>, Graphic3d_ArrayOfPrimitives> cls_Graphic3d_ArrayOfTriangleStrips(mod, "Graphic3d_ArrayOfTriangleStrips", "Contains triangles strip array definition.");
 
 // Constructors
-cls_Graphic3d_ArrayOfTriangleStrips.def(py::init<const Standard_Integer>(), py::arg("theMaxVertexs"));
-cls_Graphic3d_ArrayOfTriangleStrips.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"));
-cls_Graphic3d_ArrayOfTriangleStrips.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theHasVNormals"));
-cls_Graphic3d_ArrayOfTriangleStrips.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theHasVNormals"), py::arg("theHasVColors"));
-cls_Graphic3d_ArrayOfTriangleStrips.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Boolean, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theHasVNormals"), py::arg("theHasVColors"), py::arg("theHasBColors"));
-cls_Graphic3d_ArrayOfTriangleStrips.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Boolean, const Standard_Boolean, const Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theHasVNormals"), py::arg("theHasVColors"), py::arg("theHasBColors"), py::arg("theHasVTexels"));
+cls_Graphic3d_ArrayOfTriangleStrips.def(py::init<Standard_Integer, Standard_Integer, Graphic3d_ArrayFlags>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theArrayFlags"));
+cls_Graphic3d_ArrayOfTriangleStrips.def(py::init<Standard_Integer>(), py::arg("theMaxVertexs"));
+cls_Graphic3d_ArrayOfTriangleStrips.def(py::init<Standard_Integer, Standard_Integer>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"));
+cls_Graphic3d_ArrayOfTriangleStrips.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theHasVNormals"));
+cls_Graphic3d_ArrayOfTriangleStrips.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theHasVNormals"), py::arg("theHasVColors"));
+cls_Graphic3d_ArrayOfTriangleStrips.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean, Standard_Boolean, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theHasVNormals"), py::arg("theHasVColors"), py::arg("theHasBColors"));
+cls_Graphic3d_ArrayOfTriangleStrips.def(py::init<Standard_Integer, Standard_Integer, Standard_Boolean, Standard_Boolean, Standard_Boolean, Standard_Boolean>(), py::arg("theMaxVertexs"), py::arg("theMaxStrips"), py::arg("theHasVNormals"), py::arg("theHasVColors"), py::arg("theHasBColors"), py::arg("theHasVTexels"));
 
 // Methods
 cls_Graphic3d_ArrayOfTriangleStrips.def_static("get_type_name_", (const char * (*)()) &Graphic3d_ArrayOfTriangleStrips::get_type_name, "None");
 cls_Graphic3d_ArrayOfTriangleStrips.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_ArrayOfTriangleStrips::get_type_descriptor, "None");
 cls_Graphic3d_ArrayOfTriangleStrips.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_ArrayOfTriangleStrips::*)() const) &Graphic3d_ArrayOfTriangleStrips::DynamicType, "None");
+
+// CLASS: GRAPHIC3D_ATTRIBBUFFER
+py::class_<Graphic3d_AttribBuffer, opencascade::handle<Graphic3d_AttribBuffer>, Graphic3d_Buffer> cls_Graphic3d_AttribBuffer(mod, "Graphic3d_AttribBuffer", "Buffer of vertex attributes. This class is intended for advanced usage allowing invalidation of entire buffer content or its sub-part.");
+
+// Constructors
+cls_Graphic3d_AttribBuffer.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAlloc"));
+
+// Methods
+cls_Graphic3d_AttribBuffer.def_static("get_type_name_", (const char * (*)()) &Graphic3d_AttribBuffer::get_type_name, "None");
+cls_Graphic3d_AttribBuffer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_AttribBuffer::get_type_descriptor, "None");
+cls_Graphic3d_AttribBuffer.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_AttribBuffer::*)() const) &Graphic3d_AttribBuffer::DynamicType, "None");
+cls_Graphic3d_AttribBuffer.def("Init", (bool (Graphic3d_AttribBuffer::*)(const Standard_Integer, const Graphic3d_Attribute *, const Standard_Integer)) &Graphic3d_AttribBuffer::Init, "Allocates new empty array", py::arg("theNbElems"), py::arg("theAttribs"), py::arg("theNbAttribs"));
+cls_Graphic3d_AttribBuffer.def("Init", (bool (Graphic3d_AttribBuffer::*)(const Standard_Integer, const Graphic3d_Array1OfAttribute &)) &Graphic3d_AttribBuffer::Init, "Allocates new empty array", py::arg("theNbElems"), py::arg("theAttribs"));
+cls_Graphic3d_AttribBuffer.def("IsMutable", (Standard_Boolean (Graphic3d_AttribBuffer::*)() const) &Graphic3d_AttribBuffer::IsMutable, "Return TRUE if data can be invalidated; FALSE by default.");
+cls_Graphic3d_AttribBuffer.def("SetMutable", (void (Graphic3d_AttribBuffer::*)(Standard_Boolean)) &Graphic3d_AttribBuffer::SetMutable, "Set if data can be invalidated.", py::arg("theMutable"));
+cls_Graphic3d_AttribBuffer.def("IsInterleaved", (Standard_Boolean (Graphic3d_AttribBuffer::*)() const) &Graphic3d_AttribBuffer::IsInterleaved, "Return TRUE for interleaved array; TRUE by default.");
+cls_Graphic3d_AttribBuffer.def("SetInterleaved", (void (Graphic3d_AttribBuffer::*)(Standard_Boolean)) &Graphic3d_AttribBuffer::SetInterleaved, "Setup interleaved/non-interleaved array. WARNING! Filling non-interleaved buffer should be implemented on user side without Graphic3d_Buffer auxiliary methods designed for interleaved data.", py::arg("theIsInterleaved"));
+cls_Graphic3d_AttribBuffer.def("InvalidatedRange", (Graphic3d_BufferRange (Graphic3d_AttribBuffer::*)() const) &Graphic3d_AttribBuffer::InvalidatedRange, "Return invalidated range.");
+cls_Graphic3d_AttribBuffer.def("Validate", (void (Graphic3d_AttribBuffer::*)()) &Graphic3d_AttribBuffer::Validate, "Reset invalidated range.");
+cls_Graphic3d_AttribBuffer.def("Invalidate", (void (Graphic3d_AttribBuffer::*)()) &Graphic3d_AttribBuffer::Invalidate, "Invalidate the entire buffer data.");
+cls_Graphic3d_AttribBuffer.def("Invalidate", (void (Graphic3d_AttribBuffer::*)(Standard_Integer)) &Graphic3d_AttribBuffer::Invalidate, "Invalidate the entire attribute data.", py::arg("theAttributeIndex"));
+cls_Graphic3d_AttribBuffer.def("Invalidate", (void (Graphic3d_AttribBuffer::*)(Standard_Integer, Standard_Integer, Standard_Integer)) &Graphic3d_AttribBuffer::Invalidate, "Invalidate attribute data within specified sub-range (starting from 0).", py::arg("theAttributeIndex"), py::arg("theVertexLower"), py::arg("theVertexUpper"));
+cls_Graphic3d_AttribBuffer.def("Invalidate", (void (Graphic3d_AttribBuffer::*)(Standard_Integer, Standard_Integer)) &Graphic3d_AttribBuffer::Invalidate, "Invalidate all attribute data within specified vertex sub-range (starting from 0).", py::arg("theVertexLower"), py::arg("theVertexUpper"));
+cls_Graphic3d_AttribBuffer.def("invalidate", (void (Graphic3d_AttribBuffer::*)(const Graphic3d_BufferRange &)) &Graphic3d_AttribBuffer::invalidate, "Invalidate specified sub-range of data (as byte offsets).", py::arg("theRange"));
+
+// CLASS: GRAPHIC3D_BVHCSTRUCTURESET
+py::class_<Graphic3d_BvhCStructureSet, opencascade::handle<Graphic3d_BvhCStructureSet>, BVH_PrimitiveSet3d> cls_Graphic3d_BvhCStructureSet(mod, "Graphic3d_BvhCStructureSet", "Set of OpenGl_Structures for building BVH tree.");
+
+// Constructors
+cls_Graphic3d_BvhCStructureSet.def(py::init<>());
+
+// Methods
+cls_Graphic3d_BvhCStructureSet.def_static("get_type_name_", (const char * (*)()) &Graphic3d_BvhCStructureSet::get_type_name, "None");
+cls_Graphic3d_BvhCStructureSet.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_BvhCStructureSet::get_type_descriptor, "None");
+cls_Graphic3d_BvhCStructureSet.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_BvhCStructureSet::*)() const) &Graphic3d_BvhCStructureSet::DynamicType, "None");
+cls_Graphic3d_BvhCStructureSet.def("Size", (Standard_Integer (Graphic3d_BvhCStructureSet::*)() const) &Graphic3d_BvhCStructureSet::Size, "Returns total number of structures.");
+cls_Graphic3d_BvhCStructureSet.def("Box", (Graphic3d_BndBox3d (Graphic3d_BvhCStructureSet::*)(const Standard_Integer) const) &Graphic3d_BvhCStructureSet::Box, "Returns AABB of the structure.", py::arg("theIdx"));
+cls_Graphic3d_BvhCStructureSet.def("Center", (Standard_Real (Graphic3d_BvhCStructureSet::*)(const Standard_Integer, const Standard_Integer) const) &Graphic3d_BvhCStructureSet::Center, "Calculates center of the AABB along given axis.", py::arg("theIdx"), py::arg("theAxis"));
+cls_Graphic3d_BvhCStructureSet.def("Swap", (void (Graphic3d_BvhCStructureSet::*)(const Standard_Integer, const Standard_Integer)) &Graphic3d_BvhCStructureSet::Swap, "Swaps structures with the given indices.", py::arg("theIdx1"), py::arg("theIdx2"));
+cls_Graphic3d_BvhCStructureSet.def("Add", (Standard_Boolean (Graphic3d_BvhCStructureSet::*)(const Graphic3d_CStructure *)) &Graphic3d_BvhCStructureSet::Add, "Adds structure to the set.", py::arg("theStruct"));
+cls_Graphic3d_BvhCStructureSet.def("Remove", (Standard_Boolean (Graphic3d_BvhCStructureSet::*)(const Graphic3d_CStructure *)) &Graphic3d_BvhCStructureSet::Remove, "Removes the given structure from the set.", py::arg("theStruct"));
+cls_Graphic3d_BvhCStructureSet.def("Clear", (void (Graphic3d_BvhCStructureSet::*)()) &Graphic3d_BvhCStructureSet::Clear, "Cleans the whole primitive set.");
+cls_Graphic3d_BvhCStructureSet.def("GetStructureById", (const Graphic3d_CStructure * (Graphic3d_BvhCStructureSet::*)(Standard_Integer)) &Graphic3d_BvhCStructureSet::GetStructureById, "Returns the structure corresponding to the given ID.", py::arg("theId"));
+cls_Graphic3d_BvhCStructureSet.def("Structures", (const NCollection_IndexedMap<const Graphic3d_CStructure *> & (Graphic3d_BvhCStructureSet::*)() const) &Graphic3d_BvhCStructureSet::Structures, "Access directly a collection of structures.");
+
+// CLASS: GRAPHIC3D_BVHCSTRUCTURESETTRSFPERS
+bind_BVH_Set<Standard_Real, 3>(mod, "BVH_Set_Standard_Real3", py::module_local());
+
+py::class_<Graphic3d_BvhCStructureSetTrsfPers, BVH_Set<Standard_Real, 3>> cls_Graphic3d_BvhCStructureSetTrsfPers(mod, "Graphic3d_BvhCStructureSetTrsfPers", "Set of transformation persistent OpenGl_Structure for building BVH tree. Provides built-in mechanism to invalidate tree when world view projection state changes. Due to frequent invalidation of BVH tree the choice of BVH tree builder is made in favor of BVH linear builder (quick rebuild).");
+
+// Constructors
+cls_Graphic3d_BvhCStructureSetTrsfPers.def(py::init<const opencascade::handle<Select3D_BVHBuilder3d> &>(), py::arg("theBuilder"));
+
+// Methods
+cls_Graphic3d_BvhCStructureSetTrsfPers.def("Size", (Standard_Integer (Graphic3d_BvhCStructureSetTrsfPers::*)() const) &Graphic3d_BvhCStructureSetTrsfPers::Size, "Returns total number of structures.");
+cls_Graphic3d_BvhCStructureSetTrsfPers.def("Box", (Graphic3d_BndBox3d (Graphic3d_BvhCStructureSetTrsfPers::*)(const Standard_Integer) const) &Graphic3d_BvhCStructureSetTrsfPers::Box, "Returns AABB of the structure.", py::arg("theIdx"));
+cls_Graphic3d_BvhCStructureSetTrsfPers.def("Center", (Standard_Real (Graphic3d_BvhCStructureSetTrsfPers::*)(const Standard_Integer, const Standard_Integer) const) &Graphic3d_BvhCStructureSetTrsfPers::Center, "Calculates center of the AABB along given axis.", py::arg("theIdx"), py::arg("theAxis"));
+cls_Graphic3d_BvhCStructureSetTrsfPers.def("Swap", (void (Graphic3d_BvhCStructureSetTrsfPers::*)(const Standard_Integer, const Standard_Integer)) &Graphic3d_BvhCStructureSetTrsfPers::Swap, "Swaps structures with the given indices.", py::arg("theIdx1"), py::arg("theIdx2"));
+cls_Graphic3d_BvhCStructureSetTrsfPers.def("Add", (Standard_Boolean (Graphic3d_BvhCStructureSetTrsfPers::*)(const Graphic3d_CStructure *)) &Graphic3d_BvhCStructureSetTrsfPers::Add, "Adds structure to the set.", py::arg("theStruct"));
+cls_Graphic3d_BvhCStructureSetTrsfPers.def("Remove", (Standard_Boolean (Graphic3d_BvhCStructureSetTrsfPers::*)(const Graphic3d_CStructure *)) &Graphic3d_BvhCStructureSetTrsfPers::Remove, "Removes the given structure from the set.", py::arg("theStruct"));
+cls_Graphic3d_BvhCStructureSetTrsfPers.def("Clear", (void (Graphic3d_BvhCStructureSetTrsfPers::*)()) &Graphic3d_BvhCStructureSetTrsfPers::Clear, "Cleans the whole primitive set.");
+cls_Graphic3d_BvhCStructureSetTrsfPers.def("GetStructureById", (const Graphic3d_CStructure * (Graphic3d_BvhCStructureSetTrsfPers::*)(Standard_Integer)) &Graphic3d_BvhCStructureSetTrsfPers::GetStructureById, "Returns the structure corresponding to the given ID.", py::arg("theId"));
+cls_Graphic3d_BvhCStructureSetTrsfPers.def("Structures", (const NCollection_IndexedMap<const Graphic3d_CStructure *> & (Graphic3d_BvhCStructureSetTrsfPers::*)() const) &Graphic3d_BvhCStructureSetTrsfPers::Structures, "Access directly a collection of structures.");
+cls_Graphic3d_BvhCStructureSetTrsfPers.def("MarkDirty", (void (Graphic3d_BvhCStructureSetTrsfPers::*)()) &Graphic3d_BvhCStructureSetTrsfPers::MarkDirty, "Marks object state as outdated (needs BVH rebuilding).");
+cls_Graphic3d_BvhCStructureSetTrsfPers.def("BVH", (const opencascade::handle<BVH_Tree<Standard_Real, 3> > & (Graphic3d_BvhCStructureSetTrsfPers::*)(const opencascade::handle<Graphic3d_Camera> &, const Graphic3d_Mat4d &, const Graphic3d_Mat4d &, const Standard_Integer, const Standard_Integer, const Graphic3d_WorldViewProjState &)) &Graphic3d_BvhCStructureSetTrsfPers::BVH, "Returns BVH tree for the given world view projection (builds it if necessary).", py::arg("theCamera"), py::arg("theProjectionMatrix"), py::arg("theWorldViewMatrix"), py::arg("theViewportWidth"), py::arg("theViewportHeight"), py::arg("theWVPState"));
+cls_Graphic3d_BvhCStructureSetTrsfPers.def("Builder", (const opencascade::handle<Select3D_BVHBuilder3d> & (Graphic3d_BvhCStructureSetTrsfPers::*)() const) &Graphic3d_BvhCStructureSetTrsfPers::Builder, "Returns builder for bottom-level BVH.", py::call_guard<ImportSelect3D>());
+cls_Graphic3d_BvhCStructureSetTrsfPers.def("SetBuilder", (void (Graphic3d_BvhCStructureSetTrsfPers::*)(const opencascade::handle<Select3D_BVHBuilder3d> &)) &Graphic3d_BvhCStructureSetTrsfPers::SetBuilder, "Assigns builder for bottom-level BVH.", py::arg("theBuilder"), py::call_guard<ImportSelect3D>());
 
 // CLASS: GRAPHIC3D_CTEXTURE
 py::class_<Graphic3d_CTexture> cls_Graphic3d_CTexture(mod, "Graphic3d_CTexture", "None");
@@ -2585,10 +2937,137 @@ cls_Graphic3d_CTexture.def(py::init<>());
 cls_Graphic3d_CTexture.def_readwrite("TextureMap", &Graphic3d_CTexture::TextureMap, "handle to texture");
 cls_Graphic3d_CTexture.def_readwrite("doTextureMap", &Graphic3d_CTexture::doTextureMap, "flag indicates to use texture or not");
 
+// CLASS: GRAPHIC3D_CUBEMAPPACKED
+py::class_<Graphic3d_CubeMapPacked, opencascade::handle<Graphic3d_CubeMapPacked>, Graphic3d_CubeMap> cls_Graphic3d_CubeMapPacked(mod, "Graphic3d_CubeMapPacked", "Class is intended to process cubemap packed into single image plane.");
+
+// Constructors
+cls_Graphic3d_CubeMapPacked.def(py::init<const TCollection_AsciiString &>(), py::arg("theFileName"));
+cls_Graphic3d_CubeMapPacked.def(py::init<const TCollection_AsciiString &, const Graphic3d_ValidatedCubeMapOrder>(), py::arg("theFileName"), py::arg("theOrder"));
+cls_Graphic3d_CubeMapPacked.def(py::init<const opencascade::handle<Image_PixMap> &>(), py::arg("theImage"));
+cls_Graphic3d_CubeMapPacked.def(py::init<const opencascade::handle<Image_PixMap> &, const Graphic3d_ValidatedCubeMapOrder>(), py::arg("theImage"), py::arg("theOrder"));
+
+// Methods
+cls_Graphic3d_CubeMapPacked.def_static("get_type_name_", (const char * (*)()) &Graphic3d_CubeMapPacked::get_type_name, "None");
+cls_Graphic3d_CubeMapPacked.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_CubeMapPacked::get_type_descriptor, "None");
+cls_Graphic3d_CubeMapPacked.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_CubeMapPacked::*)() const) &Graphic3d_CubeMapPacked::DynamicType, "None");
+cls_Graphic3d_CubeMapPacked.def("Value", (opencascade::handle<Image_PixMap> (Graphic3d_CubeMapPacked::*)()) &Graphic3d_CubeMapPacked::Value, "Returns current cubemap side as PixMap. Resulting PixMap is memory wrapper over original image. Returns null handle if current side or whole cubemap is invalid. Origin image has to contain six quad tiles having one sizes without any gaps to be valid.");
+
+// CLASS: GRAPHIC3D_CUBEMAPSEPARATE
+py::class_<Graphic3d_CubeMapSeparate, opencascade::handle<Graphic3d_CubeMapSeparate>, Graphic3d_CubeMap> cls_Graphic3d_CubeMapSeparate(mod, "Graphic3d_CubeMapSeparate", "Class to manage cubemap located in six different images.");
+
+// Constructors
+cls_Graphic3d_CubeMapSeparate.def(py::init<const NCollection_Array1<TCollection_AsciiString> &>(), py::arg("thePaths"));
+cls_Graphic3d_CubeMapSeparate.def(py::init<const NCollection_Array1<opencascade::handle<Image_PixMap> > &>(), py::arg("theImages"));
+
+// Methods
+cls_Graphic3d_CubeMapSeparate.def_static("get_type_name_", (const char * (*)()) &Graphic3d_CubeMapSeparate::get_type_name, "None");
+cls_Graphic3d_CubeMapSeparate.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_CubeMapSeparate::get_type_descriptor, "None");
+cls_Graphic3d_CubeMapSeparate.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_CubeMapSeparate::*)() const) &Graphic3d_CubeMapSeparate::DynamicType, "None");
+cls_Graphic3d_CubeMapSeparate.def("Value", (opencascade::handle<Image_PixMap> (Graphic3d_CubeMapSeparate::*)()) &Graphic3d_CubeMapSeparate::Value, "Returns current side of cubemap as PixMap. Returns null handle if current side or whole cubemap is invalid. All origin images have to have the same sizes, format and quad shapes to form valid cubemap.");
+cls_Graphic3d_CubeMapSeparate.def("GetImage", (opencascade::handle<Image_PixMap> (Graphic3d_CubeMapSeparate::*)() const) &Graphic3d_CubeMapSeparate::GetImage, "Returns NULL.");
+cls_Graphic3d_CubeMapSeparate.def("IsDone", (Standard_Boolean (Graphic3d_CubeMapSeparate::*)() const) &Graphic3d_CubeMapSeparate::IsDone, "Checks if a texture class is valid or not. Returns true if the construction of the class is correct.");
+
+// CLASS: GRAPHIC3D_CULLINGTOOL
+py::class_<Graphic3d_CullingTool> cls_Graphic3d_CullingTool(mod, "Graphic3d_CullingTool", "Graphic3d_CullingTool class provides a possibility to store parameters of view volume, such as its vertices and equations, and contains methods detecting if given AABB overlaps view volume.");
+
+// Constructors
+cls_Graphic3d_CullingTool.def(py::init<>());
+
+// Methods
+cls_Graphic3d_CullingTool.def("SetViewVolume", (void (Graphic3d_CullingTool::*)(const opencascade::handle<Graphic3d_Camera> &)) &Graphic3d_CullingTool::SetViewVolume, "Retrieves view volume's planes equations and its vertices from projection and world-view matrices.", py::arg("theCamera"));
+cls_Graphic3d_CullingTool.def("SetViewportSize", (void (Graphic3d_CullingTool::*)(Standard_Integer, Standard_Integer, Standard_Real)) &Graphic3d_CullingTool::SetViewportSize, "None", py::arg("theViewportWidth"), py::arg("theViewportHeight"), py::arg("theResolutionRatio"));
+cls_Graphic3d_CullingTool.def("SetCullingDistance", (void (Graphic3d_CullingTool::*)(Graphic3d_CullingTool::CullingContext &, Standard_Real) const) &Graphic3d_CullingTool::SetCullingDistance, "Setup distance culling.", py::arg("theCtx"), py::arg("theDistance"));
+cls_Graphic3d_CullingTool.def("SetCullingSize", (void (Graphic3d_CullingTool::*)(Graphic3d_CullingTool::CullingContext &, Standard_Real) const) &Graphic3d_CullingTool::SetCullingSize, "Setup size culling.", py::arg("theCtx"), py::arg("theSize"));
+cls_Graphic3d_CullingTool.def("CacheClipPtsProjections", (void (Graphic3d_CullingTool::*)()) &Graphic3d_CullingTool::CacheClipPtsProjections, "Caches view volume's vertices projections along its normals and AABBs dimensions. Must be called at the beginning of each BVH tree traverse loop.");
+cls_Graphic3d_CullingTool.def("IsCulled", (bool (Graphic3d_CullingTool::*)(const Graphic3d_CullingTool::CullingContext &, const Graphic3d_Vec3d &, const Graphic3d_Vec3d &) const) &Graphic3d_CullingTool::IsCulled, "Checks whether given AABB should be entirely culled or not.", py::arg("theCtx"), py::arg("theMinPt"), py::arg("theMaxPt"));
+cls_Graphic3d_CullingTool.def("Camera", (const opencascade::handle<Graphic3d_Camera> & (Graphic3d_CullingTool::*)() const) &Graphic3d_CullingTool::Camera, "Return the camera definition.");
+cls_Graphic3d_CullingTool.def("ProjectionMatrix", (const Graphic3d_Mat4d & (Graphic3d_CullingTool::*)() const) &Graphic3d_CullingTool::ProjectionMatrix, "Returns current projection matrix.");
+cls_Graphic3d_CullingTool.def("WorldViewMatrix", (const Graphic3d_Mat4d & (Graphic3d_CullingTool::*)() const) &Graphic3d_CullingTool::WorldViewMatrix, "Returns current world view transformation matrix.");
+cls_Graphic3d_CullingTool.def("ViewportWidth", (Standard_Integer (Graphic3d_CullingTool::*)() const) &Graphic3d_CullingTool::ViewportWidth, "None");
+cls_Graphic3d_CullingTool.def("ViewportHeight", (Standard_Integer (Graphic3d_CullingTool::*)() const) &Graphic3d_CullingTool::ViewportHeight, "None");
+cls_Graphic3d_CullingTool.def("WorldViewProjState", (const Graphic3d_WorldViewProjState & (Graphic3d_CullingTool::*)() const) &Graphic3d_CullingTool::WorldViewProjState, "Returns state of current world view projection transformation matrices.");
+
+// CLASS: GRAPHIC3D_FRAMESTATSDATA
+py::class_<Graphic3d_FrameStatsData> cls_Graphic3d_FrameStatsData(mod, "Graphic3d_FrameStatsData", "Data frame definition.");
+
+// Constructors
+cls_Graphic3d_FrameStatsData.def(py::init<>());
+
+// Methods
+// cls_Graphic3d_FrameStatsData.def_static("operator new_", (void * (*)(size_t)) &Graphic3d_FrameStatsData::operator new, "None", py::arg("theSize"));
+// cls_Graphic3d_FrameStatsData.def_static("operator delete_", (void (*)(void *)) &Graphic3d_FrameStatsData::operator delete, "None", py::arg("theAddress"));
+// cls_Graphic3d_FrameStatsData.def_static("operator new[]_", (void * (*)(size_t)) &Graphic3d_FrameStatsData::operator new[], "None", py::arg("theSize"));
+// cls_Graphic3d_FrameStatsData.def_static("operator delete[]_", (void (*)(void *)) &Graphic3d_FrameStatsData::operator delete[], "None", py::arg("theAddress"));
+// cls_Graphic3d_FrameStatsData.def_static("operator new_", (void * (*)(size_t, void *)) &Graphic3d_FrameStatsData::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_Graphic3d_FrameStatsData.def_static("operator delete_", (void (*)(void *, void *)) &Graphic3d_FrameStatsData::operator delete, "None", py::arg(""), py::arg(""));
+cls_Graphic3d_FrameStatsData.def("FrameRate", (Standard_Real (Graphic3d_FrameStatsData::*)() const) &Graphic3d_FrameStatsData::FrameRate, "Returns FPS (frames per seconds, elapsed time). This number indicates an actual frame rate averaged for several frames within UpdateInterval() duration, basing on a real elapsed time between updates.");
+cls_Graphic3d_FrameStatsData.def("FrameRateCpu", (Standard_Real (Graphic3d_FrameStatsData::*)() const) &Graphic3d_FrameStatsData::FrameRateCpu, "Returns CPU FPS (frames per seconds, CPU time). This number indicates a PREDICTED frame rate, basing on CPU elapsed time between updates and NOT real elapsed time (which might include periods of CPU inactivity). Number is expected to be greater then actual frame rate returned by FrameRate(). Values significantly greater actual frame rate indicate that rendering is limited by GPU performance (CPU is stalled in-between), while values around actual frame rate indicate rendering being limited by CPU performance (GPU is stalled in-between).");
+cls_Graphic3d_FrameStatsData.def("CounterValue", (Standard_Size (Graphic3d_FrameStatsData::*)(Graphic3d_FrameStatsCounter) const) &Graphic3d_FrameStatsData::CounterValue, "Get counter value.", py::arg("theIndex"));
+cls_Graphic3d_FrameStatsData.def("__getitem__", (Standard_Size (Graphic3d_FrameStatsData::*)(Graphic3d_FrameStatsCounter) const) &Graphic3d_FrameStatsData::operator[], py::is_operator(), "Get counter value.", py::arg("theIndex"));
+cls_Graphic3d_FrameStatsData.def("TimerValue", (Standard_Real (Graphic3d_FrameStatsData::*)(Graphic3d_FrameStatsTimer) const) &Graphic3d_FrameStatsData::TimerValue, "Get timer value.", py::arg("theIndex"));
+cls_Graphic3d_FrameStatsData.def("__getitem__", (Standard_Real (Graphic3d_FrameStatsData::*)(Graphic3d_FrameStatsTimer) const) &Graphic3d_FrameStatsData::operator[], py::is_operator(), "Get timer value.", py::arg("theIndex"));
+// cls_Graphic3d_FrameStatsData.def("operator=", (Graphic3d_FrameStatsData & (Graphic3d_FrameStatsData::*)(const Graphic3d_FrameStatsData &)) &Graphic3d_FrameStatsData::operator=, "Assignment operator.", py::arg("theOther"));
+cls_Graphic3d_FrameStatsData.def("Reset", (void (Graphic3d_FrameStatsData::*)()) &Graphic3d_FrameStatsData::Reset, "Reset data.");
+cls_Graphic3d_FrameStatsData.def("FillMax", (void (Graphic3d_FrameStatsData::*)(const Graphic3d_FrameStatsData &)) &Graphic3d_FrameStatsData::FillMax, "Fill with maximum values.", py::arg("theOther"));
+
+// CLASS: GRAPHIC3D_FRAMESTATSDATATMP
+py::class_<Graphic3d_FrameStatsDataTmp, Graphic3d_FrameStatsData> cls_Graphic3d_FrameStatsDataTmp(mod, "Graphic3d_FrameStatsDataTmp", "Temporary data frame definition.");
+
+// Constructors
+cls_Graphic3d_FrameStatsDataTmp.def(py::init<>());
+
+// Methods
+cls_Graphic3d_FrameStatsDataTmp.def("FlushTimers", (void (Graphic3d_FrameStatsDataTmp::*)(Standard_Size, bool)) &Graphic3d_FrameStatsDataTmp::FlushTimers, "Compute average data considering the amount of rendered frames.", py::arg("theNbFrames"), py::arg("theIsFinal"));
+cls_Graphic3d_FrameStatsDataTmp.def("Reset", (void (Graphic3d_FrameStatsDataTmp::*)()) &Graphic3d_FrameStatsDataTmp::Reset, "Reset data.");
+// cls_Graphic3d_FrameStatsDataTmp.def("operator=", (void (Graphic3d_FrameStatsDataTmp::*)(const Graphic3d_FrameStatsData &)) &Graphic3d_FrameStatsDataTmp::operator=, "Assignment operator (skip copying irrelevant properties).", py::arg("theOther"));
+cls_Graphic3d_FrameStatsDataTmp.def("ChangeFrameRate", (Standard_Real & (Graphic3d_FrameStatsDataTmp::*)()) &Graphic3d_FrameStatsDataTmp::ChangeFrameRate, "Returns FPS (frames per seconds, elapsed time).");
+cls_Graphic3d_FrameStatsDataTmp.def("ChangeFrameRateCpu", (Standard_Real & (Graphic3d_FrameStatsDataTmp::*)()) &Graphic3d_FrameStatsDataTmp::ChangeFrameRateCpu, "Returns CPU FPS (frames per seconds, CPU time).");
+cls_Graphic3d_FrameStatsDataTmp.def("ChangeTimer", (OSD_Timer & (Graphic3d_FrameStatsDataTmp::*)(Graphic3d_FrameStatsTimer)) &Graphic3d_FrameStatsDataTmp::ChangeTimer, "Return a timer object for time measurements.", py::arg("theTimer"));
+cls_Graphic3d_FrameStatsDataTmp.def("ChangeCounterValue", (Standard_Size & (Graphic3d_FrameStatsDataTmp::*)(Graphic3d_FrameStatsCounter)) &Graphic3d_FrameStatsDataTmp::ChangeCounterValue, "Get counter value.", py::arg("theIndex"));
+cls_Graphic3d_FrameStatsDataTmp.def("__getitem__", (Standard_Size & (Graphic3d_FrameStatsDataTmp::*)(Graphic3d_FrameStatsCounter)) &Graphic3d_FrameStatsDataTmp::operator[], py::is_operator(), "Modify counter value.", py::arg("theIndex"));
+cls_Graphic3d_FrameStatsDataTmp.def("ChangeTimerValue", (Standard_Real & (Graphic3d_FrameStatsDataTmp::*)(Graphic3d_FrameStatsTimer)) &Graphic3d_FrameStatsDataTmp::ChangeTimerValue, "Modify timer value.", py::arg("theIndex"));
+cls_Graphic3d_FrameStatsDataTmp.def("__getitem__", (Standard_Real & (Graphic3d_FrameStatsDataTmp::*)(Graphic3d_FrameStatsTimer)) &Graphic3d_FrameStatsDataTmp::operator[], py::is_operator(), "Modify timer value.", py::arg("theIndex"));
+
+// CLASS: GRAPHIC3D_FRAMESTATS
+py::class_<Graphic3d_FrameStats, opencascade::handle<Graphic3d_FrameStats>, Standard_Transient> cls_Graphic3d_FrameStats(mod, "Graphic3d_FrameStats", "Class storing the frame statistics.");
+
+// Methods
+cls_Graphic3d_FrameStats.def_static("get_type_name_", (const char * (*)()) &Graphic3d_FrameStats::get_type_name, "None");
+cls_Graphic3d_FrameStats.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_FrameStats::get_type_descriptor, "None");
+cls_Graphic3d_FrameStats.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_FrameStats::*)() const) &Graphic3d_FrameStats::DynamicType, "None");
+cls_Graphic3d_FrameStats.def("UpdateInterval", (Standard_Real (Graphic3d_FrameStats::*)() const) &Graphic3d_FrameStats::UpdateInterval, "Returns interval in seconds for updating meters across several frames; 1 second by default.");
+cls_Graphic3d_FrameStats.def("SetUpdateInterval", (void (Graphic3d_FrameStats::*)(Standard_Real)) &Graphic3d_FrameStats::SetUpdateInterval, "Sets interval in seconds for updating values.", py::arg("theInterval"));
+cls_Graphic3d_FrameStats.def("IsLongLineFormat", (Standard_Boolean (Graphic3d_FrameStats::*)() const) &Graphic3d_FrameStats::IsLongLineFormat, "Prefer longer lines over more greater of lines.");
+cls_Graphic3d_FrameStats.def("SetLongLineFormat", (void (Graphic3d_FrameStats::*)(Standard_Boolean)) &Graphic3d_FrameStats::SetLongLineFormat, "Set if format should prefer longer lines over greater number of lines.", py::arg("theValue"));
+cls_Graphic3d_FrameStats.def("FrameStart", (void (Graphic3d_FrameStats::*)(const opencascade::handle<Graphic3d_CView> &, bool)) &Graphic3d_FrameStats::FrameStart, "Frame redraw started.", py::arg("theView"), py::arg("theIsImmediateOnly"));
+cls_Graphic3d_FrameStats.def("FrameEnd", (void (Graphic3d_FrameStats::*)(const opencascade::handle<Graphic3d_CView> &, bool)) &Graphic3d_FrameStats::FrameEnd, "Frame redraw finished.", py::arg("theView"), py::arg("theIsImmediateOnly"));
+cls_Graphic3d_FrameStats.def("FormatStats", (TCollection_AsciiString (Graphic3d_FrameStats::*)(Graphic3d_RenderingParams::PerfCounters) const) &Graphic3d_FrameStats::FormatStats, "Returns formatted string.", py::arg("theFlags"));
+cls_Graphic3d_FrameStats.def("FormatStats", (void (Graphic3d_FrameStats::*)(TColStd_IndexedDataMapOfStringString &, Graphic3d_RenderingParams::PerfCounters) const) &Graphic3d_FrameStats::FormatStats, "Fill in the dictionary with formatted statistic info.", py::arg("theDict"), py::arg("theFlags"));
+cls_Graphic3d_FrameStats.def("FrameDuration", (Standard_Real (Graphic3d_FrameStats::*)() const) &Graphic3d_FrameStats::FrameDuration, "Returns duration of the last frame in seconds.");
+cls_Graphic3d_FrameStats.def("FrameRate", (Standard_Real (Graphic3d_FrameStats::*)() const) &Graphic3d_FrameStats::FrameRate, "Returns FPS (frames per seconds, elapsed time). This number indicates an actual frame rate averaged for several frames within UpdateInterval() duration, basing on a real elapsed time between updates.");
+cls_Graphic3d_FrameStats.def("FrameRateCpu", (Standard_Real (Graphic3d_FrameStats::*)() const) &Graphic3d_FrameStats::FrameRateCpu, "Returns CPU FPS (frames per seconds, CPU time). This number indicates a PREDICTED frame rate, basing on CPU elapsed time between updates and NOT real elapsed time (which might include periods of CPU inactivity). Number is expected to be greater then actual frame rate returned by FrameRate(). Values significantly greater actual frame rate indicate that rendering is limited by GPU performance (CPU is stalled in-between), while values around actual frame rate indicate rendering being limited by CPU performance (GPU is stalled in-between).");
+cls_Graphic3d_FrameStats.def("CounterValue", (Standard_Size (Graphic3d_FrameStats::*)(Graphic3d_FrameStatsCounter) const) &Graphic3d_FrameStats::CounterValue, "Returns value of specified counter, cached between stats updates. Should NOT be called between ::FrameStart() and ::FrameEnd() calls.", py::arg("theCounter"));
+cls_Graphic3d_FrameStats.def("TimerValue", (Standard_Real (Graphic3d_FrameStats::*)(Graphic3d_FrameStatsTimer) const) &Graphic3d_FrameStats::TimerValue, "Returns value of specified timer for modification, should be called between ::FrameStart() and ::FrameEnd() calls. Should NOT be called between ::FrameStart() and ::FrameEnd() calls.", py::arg("theTimer"));
+cls_Graphic3d_FrameStats.def("HasCulledLayers", (Standard_Boolean (Graphic3d_FrameStats::*)() const) &Graphic3d_FrameStats::HasCulledLayers, "Returns TRUE if some Layers have been culled.");
+cls_Graphic3d_FrameStats.def("HasCulledStructs", (Standard_Boolean (Graphic3d_FrameStats::*)() const) &Graphic3d_FrameStats::HasCulledStructs, "Returns TRUE if some structures have been culled.");
+cls_Graphic3d_FrameStats.def("LastDataFrame", (const Graphic3d_FrameStatsData & (Graphic3d_FrameStats::*)() const) &Graphic3d_FrameStats::LastDataFrame, "Returns last data frame, cached between stats updates. Should NOT be called between ::FrameStart() and ::FrameEnd() calls.");
+cls_Graphic3d_FrameStats.def("LastDataFrameIndex", (Standard_Integer (Graphic3d_FrameStats::*)() const) &Graphic3d_FrameStats::LastDataFrameIndex, "Returns last data frame index.");
+cls_Graphic3d_FrameStats.def("DataFrames", (const NCollection_Array1<Graphic3d_FrameStatsData> & (Graphic3d_FrameStats::*)() const) &Graphic3d_FrameStats::DataFrames, "Returns data frames.");
+cls_Graphic3d_FrameStats.def("ChangeDataFrames", (NCollection_Array1<Graphic3d_FrameStatsData> & (Graphic3d_FrameStats::*)()) &Graphic3d_FrameStats::ChangeDataFrames, "Returns data frames.");
+cls_Graphic3d_FrameStats.def("ChangeCounter", (Standard_Size & (Graphic3d_FrameStats::*)(Graphic3d_FrameStatsCounter)) &Graphic3d_FrameStats::ChangeCounter, "Returns value of specified counter for modification, should be called between ::FrameStart() and ::FrameEnd() calls.", py::arg("theCounter"));
+cls_Graphic3d_FrameStats.def("ChangeTimer", (Standard_Real & (Graphic3d_FrameStats::*)(Graphic3d_FrameStatsTimer)) &Graphic3d_FrameStats::ChangeTimer, "Returns value of specified timer for modification, should be called between ::FrameStart() and ::FrameEnd() calls.", py::arg("theTimer"));
+cls_Graphic3d_FrameStats.def("ActiveDataFrame", (Graphic3d_FrameStatsDataTmp & (Graphic3d_FrameStats::*)()) &Graphic3d_FrameStats::ActiveDataFrame, "Returns currently filling data frame for modification, should be called between ::FrameStart() and ::FrameEnd() calls.");
+
+// TYPEDEF: GRAPHIC3D_MAPOFZLAYERSETTINGS
+bind_NCollection_DataMap<int, Graphic3d_ZLayerSettings, NCollection_DefaultHasher<int> >(mod, "Graphic3d_MapOfZLayerSettings", py::module_local(false));
+
 // CLASS: GRAPHIC3D_GRAPHICDRIVER
 py::class_<Graphic3d_GraphicDriver, opencascade::handle<Graphic3d_GraphicDriver>, Standard_Transient> cls_Graphic3d_GraphicDriver(mod, "Graphic3d_GraphicDriver", "This class allows the definition of a graphic driver for 3d interface (currently only OpenGl driver is used).");
 
 // Methods
+cls_Graphic3d_GraphicDriver.def_static("get_type_name_", (const char * (*)()) &Graphic3d_GraphicDriver::get_type_name, "None");
+cls_Graphic3d_GraphicDriver.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_GraphicDriver::get_type_descriptor, "None");
+cls_Graphic3d_GraphicDriver.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_GraphicDriver::*)() const) &Graphic3d_GraphicDriver::DynamicType, "None");
 cls_Graphic3d_GraphicDriver.def("InquireLimit", (Standard_Integer (Graphic3d_GraphicDriver::*)(const Graphic3d_TypeOfLimit) const) &Graphic3d_GraphicDriver::InquireLimit, "Request limit of graphic resource of specific type.", py::arg("theType"));
 cls_Graphic3d_GraphicDriver.def("InquireLightLimit", (Standard_Integer (Graphic3d_GraphicDriver::*)() const) &Graphic3d_GraphicDriver::InquireLightLimit, "Request maximum number of active light sources supported by driver and hardware.");
 cls_Graphic3d_GraphicDriver.def("InquirePlaneLimit", (Standard_Integer (Graphic3d_GraphicDriver::*)() const) &Graphic3d_GraphicDriver::InquirePlaneLimit, "Request maximum number of active clipping planes supported by driver and hardware.");
@@ -2601,7 +3080,8 @@ cls_Graphic3d_GraphicDriver.def("EnableVBO", (void (Graphic3d_GraphicDriver::*)(
 cls_Graphic3d_GraphicDriver.def("MemoryInfo", (Standard_Boolean (Graphic3d_GraphicDriver::*)(Standard_Size &, TCollection_AsciiString &) const) &Graphic3d_GraphicDriver::MemoryInfo, "Returns information about GPU memory usage.", py::arg("theFreeBytes"), py::arg("theInfo"));
 cls_Graphic3d_GraphicDriver.def("DefaultTextHeight", (Standard_ShortReal (Graphic3d_GraphicDriver::*)() const) &Graphic3d_GraphicDriver::DefaultTextHeight, "None");
 cls_Graphic3d_GraphicDriver.def("TextSize", (void (Graphic3d_GraphicDriver::*)(const opencascade::handle<Graphic3d_CView> &, const Standard_CString, const Standard_ShortReal, Standard_ShortReal &, Standard_ShortReal &, Standard_ShortReal &) const) &Graphic3d_GraphicDriver::TextSize, "Computes text width.", py::arg("theView"), py::arg("theText"), py::arg("theHeight"), py::arg("theWidth"), py::arg("theAscent"), py::arg("theDescent"));
-cls_Graphic3d_GraphicDriver.def("AddZLayer", (void (Graphic3d_GraphicDriver::*)(const Graphic3d_ZLayerId)) &Graphic3d_GraphicDriver::AddZLayer, "Add a new top-level z layer with ID <theLayerId> for the view. Z layers allow drawing structures in higher layers in foreground of structures in lower layers. To add a structure to desired layer on display it is necessary to set the layer ID for the structure.", py::arg("theLayerId"));
+cls_Graphic3d_GraphicDriver.def("InsertLayerBefore", (void (Graphic3d_GraphicDriver::*)(const Graphic3d_ZLayerId, const Graphic3d_ZLayerSettings &, const Graphic3d_ZLayerId)) &Graphic3d_GraphicDriver::InsertLayerBefore, "Adds a layer to all views. To add a structure to desired layer on display it is necessary to set the layer ID for the structure.", py::arg("theNewLayerId"), py::arg("theSettings"), py::arg("theLayerAfter"));
+cls_Graphic3d_GraphicDriver.def("InsertLayerAfter", (void (Graphic3d_GraphicDriver::*)(const Graphic3d_ZLayerId, const Graphic3d_ZLayerSettings &, const Graphic3d_ZLayerId)) &Graphic3d_GraphicDriver::InsertLayerAfter, "Adds a layer to all views.", py::arg("theNewLayerId"), py::arg("theSettings"), py::arg("theLayerBefore"));
 cls_Graphic3d_GraphicDriver.def("RemoveZLayer", (void (Graphic3d_GraphicDriver::*)(const Graphic3d_ZLayerId)) &Graphic3d_GraphicDriver::RemoveZLayer, "Removes Z layer. All structures displayed at the moment in layer will be displayed in default layer (the bottom-level z layer). By default, there are always default bottom-level layer that can't be removed. The passed theLayerId should be not less than 0 (reserved for default layers that can not be removed).", py::arg("theLayerId"));
 cls_Graphic3d_GraphicDriver.def("ZLayers", (void (Graphic3d_GraphicDriver::*)(TColStd_SequenceOfInteger &) const) &Graphic3d_GraphicDriver::ZLayers, "Returns list of Z layers defined for the graphical driver.", py::arg("theLayerSeq"));
 cls_Graphic3d_GraphicDriver.def("SetZLayerSettings", (void (Graphic3d_GraphicDriver::*)(const Graphic3d_ZLayerId, const Graphic3d_ZLayerSettings &)) &Graphic3d_GraphicDriver::SetZLayerSettings, "Sets the settings for a single Z layer.", py::arg("theLayerId"), py::arg("theSettings"));
@@ -2610,9 +3090,6 @@ cls_Graphic3d_GraphicDriver.def("ViewExists", (Standard_Boolean (Graphic3d_Graph
 cls_Graphic3d_GraphicDriver.def("GetDisplayConnection", (const opencascade::handle<Aspect_DisplayConnection> & (Graphic3d_GraphicDriver::*)() const) &Graphic3d_GraphicDriver::GetDisplayConnection, "returns Handle to display connection");
 cls_Graphic3d_GraphicDriver.def("NewIdentification", (Standard_Integer (Graphic3d_GraphicDriver::*)()) &Graphic3d_GraphicDriver::NewIdentification, "Returns a new identification number for a new structure.");
 cls_Graphic3d_GraphicDriver.def("RemoveIdentification", (void (Graphic3d_GraphicDriver::*)(const Standard_Integer)) &Graphic3d_GraphicDriver::RemoveIdentification, "Frees the identifier of a structure.", py::arg("theId"));
-cls_Graphic3d_GraphicDriver.def_static("get_type_name_", (const char * (*)()) &Graphic3d_GraphicDriver::get_type_name, "None");
-cls_Graphic3d_GraphicDriver.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_GraphicDriver::get_type_descriptor, "None");
-cls_Graphic3d_GraphicDriver.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_GraphicDriver::*)() const) &Graphic3d_GraphicDriver::DynamicType, "None");
 
 // CLASS: GRAPHIC3D_GROUPDEFINITIONERROR
 py::class_<Graphic3d_GroupDefinitionError, opencascade::handle<Graphic3d_GroupDefinitionError>, Standard_OutOfRange> cls_Graphic3d_GroupDefinitionError(mod, "Graphic3d_GroupDefinitionError", "None");
@@ -2628,6 +3105,47 @@ cls_Graphic3d_GroupDefinitionError.def_static("NewInstance_", (opencascade::hand
 cls_Graphic3d_GroupDefinitionError.def_static("get_type_name_", (const char * (*)()) &Graphic3d_GroupDefinitionError::get_type_name, "None");
 cls_Graphic3d_GroupDefinitionError.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_GroupDefinitionError::get_type_descriptor, "None");
 cls_Graphic3d_GroupDefinitionError.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_GroupDefinitionError::*)() const) &Graphic3d_GroupDefinitionError::DynamicType, "None");
+
+// TYPEDEF: GRAPHIC3D_INDEXEDMAPOFSTRUCTURE
+bind_NCollection_IndexedMap<const Graphic3d_CStructure *, NCollection_DefaultHasher<const Graphic3d_CStructure *> >(mod, "Graphic3d_IndexedMapOfStructure", py::module_local(false));
+
+// TYPEDEF: GRAPHIC3D_ARRAYOFINDEXEDMAPOFSTRUCTURE
+bind_NCollection_Array1<NCollection_IndexedMap<const Graphic3d_CStructure *, NCollection_DefaultHasher<const Graphic3d_CStructure *> > >(mod, "Graphic3d_ArrayOfIndexedMapOfStructure", py::module_local(false));
+
+// CLASS: GRAPHIC3D_LAYER
+py::class_<Graphic3d_Layer, opencascade::handle<Graphic3d_Layer>, Standard_Transient> cls_Graphic3d_Layer(mod, "Graphic3d_Layer", "Presentations list sorted within priorities.");
+
+// Constructors
+cls_Graphic3d_Layer.def(py::init<Graphic3d_ZLayerId, Standard_Integer, const opencascade::handle<Select3D_BVHBuilder3d> &>(), py::arg("theId"), py::arg("theNbPriorities"), py::arg("theBuilder"));
+
+// Methods
+cls_Graphic3d_Layer.def_static("get_type_name_", (const char * (*)()) &Graphic3d_Layer::get_type_name, "None");
+cls_Graphic3d_Layer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_Layer::get_type_descriptor, "None");
+cls_Graphic3d_Layer.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_Layer::*)() const) &Graphic3d_Layer::DynamicType, "None");
+cls_Graphic3d_Layer.def("LayerId", (Graphic3d_ZLayerId (Graphic3d_Layer::*)() const) &Graphic3d_Layer::LayerId, "Return layer id.");
+cls_Graphic3d_Layer.def("FrustumCullingBVHBuilder", (const opencascade::handle<Select3D_BVHBuilder3d> & (Graphic3d_Layer::*)() const) &Graphic3d_Layer::FrustumCullingBVHBuilder, "Returns BVH tree builder for frustom culling.", py::call_guard<ImportSelect3D>());
+cls_Graphic3d_Layer.def("SetFrustumCullingBVHBuilder", (void (Graphic3d_Layer::*)(const opencascade::handle<Select3D_BVHBuilder3d> &)) &Graphic3d_Layer::SetFrustumCullingBVHBuilder, "Assigns BVH tree builder for frustom culling.", py::arg("theBuilder"), py::call_guard<ImportSelect3D>());
+cls_Graphic3d_Layer.def("IsImmediate", (Standard_Boolean (Graphic3d_Layer::*)() const) &Graphic3d_Layer::IsImmediate, "Return true if layer was marked with immediate flag.");
+cls_Graphic3d_Layer.def("LayerSettings", (const Graphic3d_ZLayerSettings & (Graphic3d_Layer::*)() const) &Graphic3d_Layer::LayerSettings, "Returns settings of the layer object.");
+cls_Graphic3d_Layer.def("SetLayerSettings", (void (Graphic3d_Layer::*)(const Graphic3d_ZLayerSettings &)) &Graphic3d_Layer::SetLayerSettings, "Sets settings of the layer object.", py::arg("theSettings"));
+cls_Graphic3d_Layer.def("Add", [](Graphic3d_Layer &self, const Graphic3d_CStructure * a0, Standard_Integer a1) -> void { return self.Add(a0, a1); });
+cls_Graphic3d_Layer.def("Add", (void (Graphic3d_Layer::*)(const Graphic3d_CStructure *, Standard_Integer, Standard_Boolean)) &Graphic3d_Layer::Add, "None", py::arg("theStruct"), py::arg("thePriority"), py::arg("isForChangePriority"));
+cls_Graphic3d_Layer.def("Remove", [](Graphic3d_Layer &self, const Graphic3d_CStructure * theStruct, Standard_Integer & thePriority, Standard_Boolean isForChangePriority){ bool rv = self.Remove(theStruct, thePriority, isForChangePriority); return std::tuple<bool, Standard_Integer &>(rv, thePriority); }, "Remove structure and returns its priority, if the structure is not found, method returns negative value", py::arg("theStruct"), py::arg("thePriority"), py::arg("isForChangePriority"));
+cls_Graphic3d_Layer.def("NbStructures", (Standard_Integer (Graphic3d_Layer::*)() const) &Graphic3d_Layer::NbStructures, "Returns the number of structures");
+cls_Graphic3d_Layer.def("NbStructuresNotCulled", (Standard_Integer (Graphic3d_Layer::*)() const) &Graphic3d_Layer::NbStructuresNotCulled, "Number of NOT culled structures in the layer.");
+cls_Graphic3d_Layer.def("NbPriorities", (Standard_Integer (Graphic3d_Layer::*)() const) &Graphic3d_Layer::NbPriorities, "Returns the number of available priority levels");
+cls_Graphic3d_Layer.def("Append", (Standard_Boolean (Graphic3d_Layer::*)(const Graphic3d_Layer &)) &Graphic3d_Layer::Append, "Append layer of acceptable type (with similar number of priorities or less). Returns Standard_False if the list can not be accepted.", py::arg("theOther"));
+cls_Graphic3d_Layer.def("ArrayOfStructures", (const Graphic3d_ArrayOfIndexedMapOfStructure & (Graphic3d_Layer::*)() const) &Graphic3d_Layer::ArrayOfStructures, "Returns array of structures.");
+cls_Graphic3d_Layer.def("InvalidateBVHData", (void (Graphic3d_Layer::*)()) &Graphic3d_Layer::InvalidateBVHData, "Marks BVH tree for given priority list as dirty and marks primitive set for rebuild.");
+cls_Graphic3d_Layer.def("InvalidateBoundingBox", (void (Graphic3d_Layer::*)() const) &Graphic3d_Layer::InvalidateBoundingBox, "Marks cached bounding box as obsolete.");
+cls_Graphic3d_Layer.def("BoundingBox", (Bnd_Box (Graphic3d_Layer::*)(Standard_Integer, const opencascade::handle<Graphic3d_Camera> &, Standard_Integer, Standard_Integer, Standard_Boolean) const) &Graphic3d_Layer::BoundingBox, "Returns layer bounding box.", py::arg("theViewId"), py::arg("theCamera"), py::arg("theWindowWidth"), py::arg("theWindowHeight"), py::arg("theToIncludeAuxiliary"));
+cls_Graphic3d_Layer.def("considerZoomPersistenceObjects", (Standard_Real (Graphic3d_Layer::*)(Standard_Integer, const opencascade::handle<Graphic3d_Camera> &, Standard_Integer, Standard_Integer) const) &Graphic3d_Layer::considerZoomPersistenceObjects, "Returns zoom-scale factor.", py::arg("theViewId"), py::arg("theCamera"), py::arg("theWindowWidth"), py::arg("theWindowHeight"));
+cls_Graphic3d_Layer.def("UpdateCulling", (void (Graphic3d_Layer::*)(Standard_Integer, const Graphic3d_CullingTool &, const Graphic3d_RenderingParams::FrustumCulling)) &Graphic3d_Layer::UpdateCulling, "Update culling state - should be called before rendering. Traverses through BVH tree to determine which structures are in view volume.", py::arg("theViewId"), py::arg("theSelector"), py::arg("theFrustumCullingState"));
+cls_Graphic3d_Layer.def("IsCulled", (bool (Graphic3d_Layer::*)() const) &Graphic3d_Layer::IsCulled, "Returns TRUE if layer is empty or has been discarded entirely by culling test.");
+cls_Graphic3d_Layer.def("NbOfTransformPersistenceObjects", (Standard_Integer (Graphic3d_Layer::*)() const) &Graphic3d_Layer::NbOfTransformPersistenceObjects, "Returns number of transform persistence objects.");
+cls_Graphic3d_Layer.def("CullableStructuresBVH", (const Graphic3d_BvhCStructureSet & (Graphic3d_Layer::*)() const) &Graphic3d_Layer::CullableStructuresBVH, "Returns set of Graphic3d_CStructures structures for building BVH tree.");
+cls_Graphic3d_Layer.def("CullableTrsfPersStructuresBVH", (const Graphic3d_BvhCStructureSetTrsfPers & (Graphic3d_Layer::*)() const) &Graphic3d_Layer::CullableTrsfPersStructuresBVH, "Returns set of transform persistent Graphic3d_CStructures for building BVH tree.");
+cls_Graphic3d_Layer.def("NonCullableStructures", (const NCollection_IndexedMap<const Graphic3d_CStructure *> & (Graphic3d_Layer::*)() const) &Graphic3d_Layer::NonCullableStructures, "Returns indexed map of always rendered structures.");
 
 // TYPEDEF: GRAPHIC3D_MAPITERATOROFMAPOFSTRUCTURE
 
@@ -2645,6 +3163,23 @@ cls_Graphic3d_MaterialDefinitionError.def_static("NewInstance_", (opencascade::h
 cls_Graphic3d_MaterialDefinitionError.def_static("get_type_name_", (const char * (*)()) &Graphic3d_MaterialDefinitionError::get_type_name, "None");
 cls_Graphic3d_MaterialDefinitionError.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_MaterialDefinitionError::get_type_descriptor, "None");
 cls_Graphic3d_MaterialDefinitionError.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_MaterialDefinitionError::*)() const) &Graphic3d_MaterialDefinitionError::DynamicType, "None");
+
+// CLASS: GRAPHIC3D_MUTABLEINDEXBUFFER
+py::class_<Graphic3d_MutableIndexBuffer, opencascade::handle<Graphic3d_MutableIndexBuffer>, Graphic3d_IndexBuffer> cls_Graphic3d_MutableIndexBuffer(mod, "Graphic3d_MutableIndexBuffer", "Mutable index buffer.");
+
+// Constructors
+cls_Graphic3d_MutableIndexBuffer.def(py::init<const opencascade::handle<NCollection_BaseAllocator> &>(), py::arg("theAlloc"));
+
+// Methods
+cls_Graphic3d_MutableIndexBuffer.def_static("get_type_name_", (const char * (*)()) &Graphic3d_MutableIndexBuffer::get_type_name, "None");
+cls_Graphic3d_MutableIndexBuffer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_MutableIndexBuffer::get_type_descriptor, "None");
+cls_Graphic3d_MutableIndexBuffer.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_MutableIndexBuffer::*)() const) &Graphic3d_MutableIndexBuffer::DynamicType, "None");
+cls_Graphic3d_MutableIndexBuffer.def("IsMutable", (Standard_Boolean (Graphic3d_MutableIndexBuffer::*)() const) &Graphic3d_MutableIndexBuffer::IsMutable, "Return TRUE if data can be invalidated.");
+cls_Graphic3d_MutableIndexBuffer.def("InvalidatedRange", (Graphic3d_BufferRange (Graphic3d_MutableIndexBuffer::*)() const) &Graphic3d_MutableIndexBuffer::InvalidatedRange, "Return invalidated range.");
+cls_Graphic3d_MutableIndexBuffer.def("Validate", (void (Graphic3d_MutableIndexBuffer::*)()) &Graphic3d_MutableIndexBuffer::Validate, "Reset invalidated range.");
+cls_Graphic3d_MutableIndexBuffer.def("Invalidate", (void (Graphic3d_MutableIndexBuffer::*)()) &Graphic3d_MutableIndexBuffer::Invalidate, "Invalidate the entire buffer data.");
+cls_Graphic3d_MutableIndexBuffer.def("Invalidate", (void (Graphic3d_MutableIndexBuffer::*)(Standard_Integer, Standard_Integer)) &Graphic3d_MutableIndexBuffer::Invalidate, "Invalidate the given indexes (starting from 0)", py::arg("theIndexLower"), py::arg("theIndexUpper"));
+cls_Graphic3d_MutableIndexBuffer.def("invalidate", (void (Graphic3d_MutableIndexBuffer::*)(const Graphic3d_BufferRange &)) &Graphic3d_MutableIndexBuffer::invalidate, "Invalidate specified sub-range of data (as byte offsets).", py::arg("theRange"));
 
 // CLASS: GRAPHIC3D_PRIORITYDEFINITIONERROR
 py::class_<Graphic3d_PriorityDefinitionError, opencascade::handle<Graphic3d_PriorityDefinitionError>, Standard_OutOfRange> cls_Graphic3d_PriorityDefinitionError(mod, "Graphic3d_PriorityDefinitionError", "None");
@@ -2675,6 +3210,35 @@ cls_Graphic3d_StructureDefinitionError.def_static("NewInstance_", (opencascade::
 cls_Graphic3d_StructureDefinitionError.def_static("get_type_name_", (const char * (*)()) &Graphic3d_StructureDefinitionError::get_type_name, "None");
 cls_Graphic3d_StructureDefinitionError.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_StructureDefinitionError::get_type_descriptor, "None");
 cls_Graphic3d_StructureDefinitionError.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_StructureDefinitionError::*)() const) &Graphic3d_StructureDefinitionError::DynamicType, "None");
+
+// CLASS: GRAPHIC3D_TEXT
+py::class_<Graphic3d_Text, opencascade::handle<Graphic3d_Text>, Standard_Transient> cls_Graphic3d_Text(mod, "Graphic3d_Text", "This class allows the definition of a text object for display. The text might be defined in one of ways, using: - text value and position, - text value, orientation and the state whether the text uses position as point of attach. - text formatter. Formatter contains text, height and alignment parameter.");
+
+// Constructors
+cls_Graphic3d_Text.def(py::init<const Standard_ShortReal>(), py::arg("theHeight"));
+
+// Methods
+cls_Graphic3d_Text.def_static("get_type_name_", (const char * (*)()) &Graphic3d_Text::get_type_name, "None");
+cls_Graphic3d_Text.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_Text::get_type_descriptor, "None");
+cls_Graphic3d_Text.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_Text::*)() const) &Graphic3d_Text::DynamicType, "None");
+cls_Graphic3d_Text.def("Text", (const NCollection_String & (Graphic3d_Text::*)() const) &Graphic3d_Text::Text, "Returns text value.");
+cls_Graphic3d_Text.def("SetText", (void (Graphic3d_Text::*)(const NCollection_String &)) &Graphic3d_Text::SetText, "Sets text value.", py::arg("theText"));
+cls_Graphic3d_Text.def("SetText", (void (Graphic3d_Text::*)(const TCollection_AsciiString &)) &Graphic3d_Text::SetText, "Sets text value.", py::arg("theText"));
+cls_Graphic3d_Text.def("SetText", (void (Graphic3d_Text::*)(Standard_CString)) &Graphic3d_Text::SetText, "Sets text value.", py::arg("theText"));
+cls_Graphic3d_Text.def("Position", (const gp_Pnt & (Graphic3d_Text::*)() const) &Graphic3d_Text::Position, "The 3D point of attachment is projected. If the orientation is defined, the text is written in the plane of projection.");
+cls_Graphic3d_Text.def("SetPosition", (void (Graphic3d_Text::*)(const gp_Pnt &)) &Graphic3d_Text::SetPosition, "Sets text point.", py::arg("thePoint"));
+cls_Graphic3d_Text.def("Orientation", (const gp_Ax2 & (Graphic3d_Text::*)() const) &Graphic3d_Text::Orientation, "Returns text orientation in 3D space.");
+cls_Graphic3d_Text.def("HasPlane", (Standard_Boolean (Graphic3d_Text::*)() const) &Graphic3d_Text::HasPlane, "Returns true if the text is filled by a point");
+cls_Graphic3d_Text.def("SetOrientation", (void (Graphic3d_Text::*)(const gp_Ax2 &)) &Graphic3d_Text::SetOrientation, "Sets text orientation in 3D space.", py::arg("theOrientation"));
+cls_Graphic3d_Text.def("ResetOrientation", (void (Graphic3d_Text::*)()) &Graphic3d_Text::ResetOrientation, "Reset text orientation in 3D space.");
+cls_Graphic3d_Text.def("HasOwnAnchorPoint", (Standard_Boolean (Graphic3d_Text::*)() const) &Graphic3d_Text::HasOwnAnchorPoint, "Returns true if the text has an anchor point");
+cls_Graphic3d_Text.def("SetOwnAnchorPoint", (void (Graphic3d_Text::*)(const Standard_Boolean)) &Graphic3d_Text::SetOwnAnchorPoint, "Returns true if the text has an anchor point", py::arg("theHasOwnAnchor"));
+cls_Graphic3d_Text.def("Height", (Standard_ShortReal (Graphic3d_Text::*)() const) &Graphic3d_Text::Height, "Sets height of text. (Relative to the Normalized Projection Coordinates (NPC) Space).");
+cls_Graphic3d_Text.def("SetHeight", (void (Graphic3d_Text::*)(const Standard_ShortReal)) &Graphic3d_Text::SetHeight, "Returns height of text", py::arg("theHeight"));
+cls_Graphic3d_Text.def("HorizontalAlignment", (Graphic3d_HorizontalTextAlignment (Graphic3d_Text::*)() const) &Graphic3d_Text::HorizontalAlignment, "Returns horizontal alignment of text.");
+cls_Graphic3d_Text.def("SetHorizontalAlignment", (void (Graphic3d_Text::*)(const Graphic3d_HorizontalTextAlignment)) &Graphic3d_Text::SetHorizontalAlignment, "Sets horizontal alignment of text.", py::arg("theJustification"));
+cls_Graphic3d_Text.def("VerticalAlignment", (Graphic3d_VerticalTextAlignment (Graphic3d_Text::*)() const) &Graphic3d_Text::VerticalAlignment, "Returns vertical alignment of text.");
+cls_Graphic3d_Text.def("SetVerticalAlignment", (void (Graphic3d_Text::*)(const Graphic3d_VerticalTextAlignment)) &Graphic3d_Text::SetVerticalAlignment, "Sets vertical alignment of text.", py::arg("theJustification"));
 
 // CLASS: GRAPHIC3D_TEXTURE1D
 py::class_<Graphic3d_Texture1D, opencascade::handle<Graphic3d_Texture1D>, Graphic3d_TextureMap> cls_Graphic3d_Texture1D(mod, "Graphic3d_Texture1D", "This is an abstract class for managing 1D textures.");

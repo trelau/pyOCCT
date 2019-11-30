@@ -24,18 +24,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Handle.hxx>
 #include <XmlMDF_ADriverTable.hxx>
 #include <Message_Messenger.hxx>
-#include <Standard_TypeDef.hxx>
 #include <XmlMNaming_NamedShapeDriver.hxx>
 #include <XmlMNaming_NamingDriver.hxx>
 #include <XmlMNaming_Shape1.hxx>
 #include <XmlMNaming.hxx>
 #include <XmlMDF_ADriver.hxx>
 #include <TDF_Attribute.hxx>
+#include <Standard_TypeDef.hxx>
 #include <XmlObjMgt_Persistent.hxx>
 #include <XmlObjMgt_RRelocationTable.hxx>
 #include <XmlObjMgt_SRelocationTable.hxx>
 #include <XmlObjMgt_Element.hxx>
 #include <TopTools_LocationSet.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <BRepTools_ShapeSet.hxx>
 #include <XmlObjMgt_Document.hxx>
@@ -65,8 +66,6 @@ py::class_<XmlMNaming> cls_XmlMNaming(mod, "XmlMNaming", "None");
 // cls_XmlMNaming.def_static("operator new_", (void * (*)(size_t, void *)) &XmlMNaming::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_XmlMNaming.def_static("operator delete_", (void (*)(void *, void *)) &XmlMNaming::operator delete, "None", py::arg(""), py::arg(""));
 cls_XmlMNaming.def_static("AddDrivers_", (void (*)(const opencascade::handle<XmlMDF_ADriverTable> &, const opencascade::handle<Message_Messenger> &)) &XmlMNaming::AddDrivers, "Adds the attribute drivers to <aDriverTable>.", py::arg("aDriverTable"), py::arg("aMessageDriver"));
-cls_XmlMNaming.def_static("SetDocumentVersion_", (void (*)(const Standard_Integer)) &XmlMNaming::SetDocumentVersion, "None", py::arg("DocVersion"));
-cls_XmlMNaming.def_static("DocumentVersion_", (Standard_Integer (*)()) &XmlMNaming::DocumentVersion, "None");
 
 // CLASS: XMLMNAMING_NAMEDSHAPEDRIVER
 py::class_<XmlMNaming_NamedShapeDriver, opencascade::handle<XmlMNaming_NamedShapeDriver>, XmlMDF_ADriver> cls_XmlMNaming_NamedShapeDriver(mod, "XmlMNaming_NamedShapeDriver", "None");

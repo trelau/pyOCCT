@@ -41,39 +41,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BRepAlgo_Tool.hxx>
 #include <BRepAlgo_AsDes.hxx>
 #include <BRepAlgo_FaceRestrictor.hxx>
-#include <BRepAlgo_BooleanOperations.hxx>
-#include <BRepAlgo_DSAccess.hxx>
-#include <BRepAlgo_EdgeConnector.hxx>
 #include <BRepAlgo_NormalProjection.hxx>
 #include <BRepAlgo.hxx>
 #include <Standard_Transient.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <BRepBuilderAPI_MakeShape.hxx>
 #include <TopAbs_State.hxx>
 #include <TopOpeBRepBuild_HBuilder.hxx>
 #include <TopTools_MapOfShape.hxx>
-#include <TopoDS_Vertex.hxx>
-#include <TopOpeBRepDS_HDataStructure.hxx>
-#include <TopOpeBRepDS_Kind.hxx>
-#include <TColStd_ListOfInteger.hxx>
-#include <TopOpeBRep_DSFiller.hxx>
-#include <TColStd_PackedMapOfInteger.hxx>
-#include <NCollection_DataMap.hxx>
-#include <TopTools_ShapeMapHasher.hxx>
-#include <BRepAlgo_DataMapOfShapeBoolean.hxx>
-#include <TopOpeBRepDS_Interference.hxx>
-#include <BRepAlgo_DataMapOfShapeInterference.hxx>
-#include <TopOpeBRepBuild_BlockBuilder.hxx>
 #include <TopoDS_Face.hxx>
 #include <Adaptor3d_Curve.hxx>
 #include <gp_Pln.hxx>
 #include <Geom_Surface.hxx>
-#include <NCollection_Sequence.hxx>
-#include <TColStd_SequenceOfInteger.hxx>
-#include <BRepAlgo_SequenceOfSequenceOfInteger.hxx>
-#include <bind_NCollection_DataMap.hxx>
-#include <bind_NCollection_Sequence.hxx>
 
 PYBIND11_MODULE(BRepAlgo, mod) {
 
@@ -84,10 +65,6 @@ py::module::import("OCCT.TopAbs");
 py::module::import("OCCT.GeomAbs");
 py::module::import("OCCT.BRepBuilderAPI");
 py::module::import("OCCT.TopOpeBRepBuild");
-py::module::import("OCCT.TopOpeBRepDS");
-py::module::import("OCCT.TColStd");
-py::module::import("OCCT.TopOpeBRep");
-py::module::import("OCCT.NCollection");
 py::module::import("OCCT.Adaptor3d");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.Geom");
@@ -188,76 +165,6 @@ cls_BRepAlgo_BooleanOperation.def("Shape2", (const TopoDS_Shape & (BRepAlgo_Bool
 cls_BRepAlgo_BooleanOperation.def("Modified", (const TopTools_ListOfShape & (BRepAlgo_BooleanOperation::*)(const TopoDS_Shape &)) &BRepAlgo_BooleanOperation::Modified, "Returns the list of shapes modified from the shape <S>.", py::arg("S"));
 cls_BRepAlgo_BooleanOperation.def("IsDeleted", (Standard_Boolean (BRepAlgo_BooleanOperation::*)(const TopoDS_Shape &)) &BRepAlgo_BooleanOperation::IsDeleted, "None", py::arg("S"));
 
-// CLASS: BREPALGO_DSACCESS
-py::class_<BRepAlgo_DSAccess> cls_BRepAlgo_DSAccess(mod, "BRepAlgo_DSAccess", "None");
-
-// Constructors
-cls_BRepAlgo_DSAccess.def(py::init<>());
-
-// Methods
-// cls_BRepAlgo_DSAccess.def_static("operator new_", (void * (*)(size_t)) &BRepAlgo_DSAccess::operator new, "None", py::arg("theSize"));
-// cls_BRepAlgo_DSAccess.def_static("operator delete_", (void (*)(void *)) &BRepAlgo_DSAccess::operator delete, "None", py::arg("theAddress"));
-// cls_BRepAlgo_DSAccess.def_static("operator new[]_", (void * (*)(size_t)) &BRepAlgo_DSAccess::operator new[], "None", py::arg("theSize"));
-// cls_BRepAlgo_DSAccess.def_static("operator delete[]_", (void (*)(void *)) &BRepAlgo_DSAccess::operator delete[], "None", py::arg("theAddress"));
-// cls_BRepAlgo_DSAccess.def_static("operator new_", (void * (*)(size_t, void *)) &BRepAlgo_DSAccess::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_BRepAlgo_DSAccess.def_static("operator delete_", (void (*)(void *, void *)) &BRepAlgo_DSAccess::operator delete, "None", py::arg(""), py::arg(""));
-cls_BRepAlgo_DSAccess.def("Init", (void (BRepAlgo_DSAccess::*)()) &BRepAlgo_DSAccess::Init, "Clears the internal data structure, including the");
-cls_BRepAlgo_DSAccess.def("Load", (void (BRepAlgo_DSAccess::*)(const TopoDS_Shape &)) &BRepAlgo_DSAccess::Load, "Loads the shape in DS.", py::arg("S"));
-cls_BRepAlgo_DSAccess.def("Load", (void (BRepAlgo_DSAccess::*)(TopoDS_Shape &, TopoDS_Shape &)) &BRepAlgo_DSAccess::Load, "Loads two shapes in the DS without intersecting them.", py::arg("S1"), py::arg("S2"));
-cls_BRepAlgo_DSAccess.def("Intersect", (void (BRepAlgo_DSAccess::*)()) &BRepAlgo_DSAccess::Intersect, "Intersects two shapes at input and loads the DS with their intersection. Clears the TopOpeBRepBuild_HBuilder if necessary");
-cls_BRepAlgo_DSAccess.def("Intersect", (void (BRepAlgo_DSAccess::*)(const TopoDS_Shape &, const TopoDS_Shape &)) &BRepAlgo_DSAccess::Intersect, "Intersects the faces contained in two given shapes and loads them in the DS. Clears the TopOpeBRepBuild_HBuilder if necessary", py::arg("S1"), py::arg("S2"));
-cls_BRepAlgo_DSAccess.def("SameDomain", (void (BRepAlgo_DSAccess::*)(const TopoDS_Shape &, const TopoDS_Shape &)) &BRepAlgo_DSAccess::SameDomain, "This method does the same thing as the previous, but faster. There is no intersection face/face 3D. The faces have the same support(surface). No test of tangency (that is why it is faster). Intersects in 2d the faces tangent F1 anf F2.", py::arg("S1"), py::arg("S2"));
-cls_BRepAlgo_DSAccess.def("GetSectionEdgeSet", (const TopTools_ListOfShape & (BRepAlgo_DSAccess::*)(const TopoDS_Shape &, const TopoDS_Shape &)) &BRepAlgo_DSAccess::GetSectionEdgeSet, "returns compounds of Edge connected with section, which contains sections between faces contained in S1 and S2. returns an empty list of Shape if S1 or S2 do not contain face. calls GetSectionEdgeSet() if it has not already been done", py::arg("S1"), py::arg("S2"));
-cls_BRepAlgo_DSAccess.def("GetSectionEdgeSet", (const TopTools_ListOfShape & (BRepAlgo_DSAccess::*)()) &BRepAlgo_DSAccess::GetSectionEdgeSet, "returns all compounds of edges connected with section contained in the DS");
-cls_BRepAlgo_DSAccess.def("IsWire", (Standard_Boolean (BRepAlgo_DSAccess::*)(const TopoDS_Shape &)) &BRepAlgo_DSAccess::IsWire, "NYI", py::arg("Compound"));
-cls_BRepAlgo_DSAccess.def("Wire", (const TopoDS_Shape & (BRepAlgo_DSAccess::*)(const TopoDS_Shape &)) &BRepAlgo_DSAccess::Wire, "NYI", py::arg("Compound"));
-cls_BRepAlgo_DSAccess.def("SectionVertex", (const TopTools_ListOfShape & (BRepAlgo_DSAccess::*)(const TopoDS_Shape &, const TopoDS_Shape &)) &BRepAlgo_DSAccess::SectionVertex, "NYI returns the vertex of section, which contains the section between face S1 and edge S2 (returns an empty Shape if S1 is not a face or if S2 is not an edge)", py::arg("S1"), py::arg("S2"));
-cls_BRepAlgo_DSAccess.def("SuppressEdgeSet", (void (BRepAlgo_DSAccess::*)(const TopoDS_Shape &)) &BRepAlgo_DSAccess::SuppressEdgeSet, "Invalidates a complete line of section. All Edges connected by Vertex or a Wire. Can be a group of connected Edges, which do not form a standard Wire.", py::arg("Compound"));
-cls_BRepAlgo_DSAccess.def("ChangeEdgeSet", (void (BRepAlgo_DSAccess::*)(const TopoDS_Shape &, const TopoDS_Shape &)) &BRepAlgo_DSAccess::ChangeEdgeSet, "Modifies a line of section. <New> -- should be a Group of Edges connected by Vertex. -- Can be a Wire. Can be a group of connected Edges that do not form a standard Wire. <New> should be sub-groupn of <Old>", py::arg("Old"), py::arg("New"));
-cls_BRepAlgo_DSAccess.def("SuppressSectionVertex", (void (BRepAlgo_DSAccess::*)(const TopoDS_Vertex &)) &BRepAlgo_DSAccess::SuppressSectionVertex, "NYI Make invalid a Vertex of section. The Vertex shoud be reconstructed from a point.", py::arg("V"));
-cls_BRepAlgo_DSAccess.def("Merge", (const TopoDS_Shape & (BRepAlgo_DSAccess::*)(const TopAbs_State, const TopAbs_State)) &BRepAlgo_DSAccess::Merge, "None", py::arg("state1"), py::arg("state2"));
-cls_BRepAlgo_DSAccess.def("Merge", (const TopoDS_Shape & (BRepAlgo_DSAccess::*)(const TopAbs_State)) &BRepAlgo_DSAccess::Merge, "None", py::arg("state1"));
-cls_BRepAlgo_DSAccess.def("Propagate", (const TopoDS_Shape & (BRepAlgo_DSAccess::*)(const TopAbs_State, const TopoDS_Shape &, const TopoDS_Shape &)) &BRepAlgo_DSAccess::Propagate, "NYI Propagation of a state starting from the shape FromShape = edge or vertex of section, face or Coumpound de section. LoadShape is either S1, or S2 (see the method Load). Propagation from FromShape, on the states <what> of LoadShape. Return a Wire in 2d, a Shell in 3d. Specifications are incomplete, to be redefined for the typologies correpsonding to <FromShape> and the result : exemple : FromShape resultat vertex wire (or edge) edge of section face (or shell) compound of section shell ... ...", py::arg("what"), py::arg("FromShape"), py::arg("LoadShape"));
-cls_BRepAlgo_DSAccess.def("PropagateFromSection", (const TopoDS_Shape & (BRepAlgo_DSAccess::*)(const TopoDS_Shape &)) &BRepAlgo_DSAccess::PropagateFromSection, "SectionShape est soit un Vertex de section(NYI), soit une Edge de section. Propagation des shapes de section en partant de SectionShape. return un Compound de section.", py::arg("SectionShape"));
-cls_BRepAlgo_DSAccess.def("Modified", (const TopTools_ListOfShape & (BRepAlgo_DSAccess::*)(const TopoDS_Shape &)) &BRepAlgo_DSAccess::Modified, "Returns the list of the descendant shapes of the shape <S>.", py::arg("S"));
-// cls_BRepAlgo_DSAccess.def("IsDeleted", (Standard_Boolean (BRepAlgo_DSAccess::*)(const TopoDS_Shape &)) &BRepAlgo_DSAccess::IsDeleted, "Returns the fact that the shape <S> has been deleted or not by the boolean operation.", py::arg("S"));
-cls_BRepAlgo_DSAccess.def("Check", (BRepAlgo_CheckStatus (BRepAlgo_DSAccess::*)()) &BRepAlgo_DSAccess::Check, "NYI coherence of the internal Data Structure.");
-cls_BRepAlgo_DSAccess.def("DS", (const opencascade::handle<TopOpeBRepDS_HDataStructure> & (BRepAlgo_DSAccess::*)() const) &BRepAlgo_DSAccess::DS, "None");
-cls_BRepAlgo_DSAccess.def("ChangeDS", (opencascade::handle<TopOpeBRepDS_HDataStructure> & (BRepAlgo_DSAccess::*)()) &BRepAlgo_DSAccess::ChangeDS, "None");
-cls_BRepAlgo_DSAccess.def("Builder", (const opencascade::handle<TopOpeBRepBuild_HBuilder> & (BRepAlgo_DSAccess::*)() const) &BRepAlgo_DSAccess::Builder, "None");
-cls_BRepAlgo_DSAccess.def("ChangeBuilder", (opencascade::handle<TopOpeBRepBuild_HBuilder> & (BRepAlgo_DSAccess::*)()) &BRepAlgo_DSAccess::ChangeBuilder, "None");
-
-// CLASS: BREPALGO_BOOLEANOPERATIONS
-py::class_<BRepAlgo_BooleanOperations> cls_BRepAlgo_BooleanOperations(mod, "BRepAlgo_BooleanOperations", "None");
-
-// Constructors
-cls_BRepAlgo_BooleanOperations.def(py::init<>());
-
-// Methods
-// cls_BRepAlgo_BooleanOperations.def_static("operator new_", (void * (*)(size_t)) &BRepAlgo_BooleanOperations::operator new, "None", py::arg("theSize"));
-// cls_BRepAlgo_BooleanOperations.def_static("operator delete_", (void (*)(void *)) &BRepAlgo_BooleanOperations::operator delete, "None", py::arg("theAddress"));
-// cls_BRepAlgo_BooleanOperations.def_static("operator new[]_", (void * (*)(size_t)) &BRepAlgo_BooleanOperations::operator new[], "None", py::arg("theSize"));
-// cls_BRepAlgo_BooleanOperations.def_static("operator delete[]_", (void (*)(void *)) &BRepAlgo_BooleanOperations::operator delete[], "None", py::arg("theAddress"));
-// cls_BRepAlgo_BooleanOperations.def_static("operator new_", (void * (*)(size_t, void *)) &BRepAlgo_BooleanOperations::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_BRepAlgo_BooleanOperations.def_static("operator delete_", (void (*)(void *, void *)) &BRepAlgo_BooleanOperations::operator delete, "None", py::arg(""), py::arg(""));
-cls_BRepAlgo_BooleanOperations.def("Shapes2d", (void (BRepAlgo_BooleanOperations::*)(const TopoDS_Shape &, const TopoDS_Shape &)) &BRepAlgo_BooleanOperations::Shapes2d, "S1 is a Shell with ALL faces supported by the SAME S2 is an Edge INCLUDED in that surface with pcurve. this avoids a time-consuming 3D operation, compared to Shapes.", py::arg("S1"), py::arg("S2"));
-cls_BRepAlgo_BooleanOperations.def("Shapes", (void (BRepAlgo_BooleanOperations::*)(const TopoDS_Shape &, const TopoDS_Shape &)) &BRepAlgo_BooleanOperations::Shapes, "Defines the arguments.", py::arg("S1"), py::arg("S2"));
-cls_BRepAlgo_BooleanOperations.def("SetApproxParameters", (void (BRepAlgo_BooleanOperations::*)(const Standard_Integer, const Standard_Real, const Standard_Real)) &BRepAlgo_BooleanOperations::SetApproxParameters, "Sets different parameters for the curve approximations : NbPntMax : Maximum number of points to be approximated at the same time in one curve. Tol3D, Tol2D : Tolerances to be reached by the approximation. RelativeTol : The given tolerances are relative.", py::arg("NbPntMax"), py::arg("Tol3D"), py::arg("Tol2D"));
-cls_BRepAlgo_BooleanOperations.def("Define", (void (BRepAlgo_BooleanOperations::*)(const TopoDS_Shape &, const TopoDS_Shape &, opencascade::handle<TopOpeBRepDS_HDataStructure> &)) &BRepAlgo_BooleanOperations::Define, "None", py::arg("S1"), py::arg("S2"), py::arg("HDS"));
-cls_BRepAlgo_BooleanOperations.def("Common", (const TopoDS_Shape & (BRepAlgo_BooleanOperations::*)()) &BRepAlgo_BooleanOperations::Common, "returns the common part of the shapes.");
-cls_BRepAlgo_BooleanOperations.def("Fus", (const TopoDS_Shape & (BRepAlgo_BooleanOperations::*)()) &BRepAlgo_BooleanOperations::Fus, "returns the fuse part of the shapes.");
-cls_BRepAlgo_BooleanOperations.def("Cut", (const TopoDS_Shape & (BRepAlgo_BooleanOperations::*)()) &BRepAlgo_BooleanOperations::Cut, "returns the cut part of the shapes.");
-cls_BRepAlgo_BooleanOperations.def("Section", (const TopoDS_Shape & (BRepAlgo_BooleanOperations::*)()) &BRepAlgo_BooleanOperations::Section, "returns the intersection of the shapes.");
-cls_BRepAlgo_BooleanOperations.def("Shape", (const TopoDS_Shape & (BRepAlgo_BooleanOperations::*)()) &BRepAlgo_BooleanOperations::Shape, "returns the result of the boolean operation.");
-cls_BRepAlgo_BooleanOperations.def("ShapeFrom", (const TopoDS_Shape & (BRepAlgo_BooleanOperations::*)(const TopoDS_Shape &)) &BRepAlgo_BooleanOperations::ShapeFrom, "Returns the shape(s) resulting of the boolean operation issued from the shape <S>.", py::arg("S"));
-cls_BRepAlgo_BooleanOperations.def("Modified", (const TopTools_ListOfShape & (BRepAlgo_BooleanOperations::*)(const TopoDS_Shape &)) &BRepAlgo_BooleanOperations::Modified, "Returns the list of the descendant shapes of the shape <S>.", py::arg("S"));
-cls_BRepAlgo_BooleanOperations.def("IsDeleted", (Standard_Boolean (BRepAlgo_BooleanOperations::*)(const TopoDS_Shape &)) &BRepAlgo_BooleanOperations::IsDeleted, "Returns the fact that the shape <S> has been deleted or not by the boolean operation.", py::arg("S"));
-cls_BRepAlgo_BooleanOperations.def("DataStructure", (const opencascade::handle<TopOpeBRepDS_HDataStructure> & (BRepAlgo_BooleanOperations::*)() const) &BRepAlgo_BooleanOperations::DataStructure, "None");
-cls_BRepAlgo_BooleanOperations.def("ChangeDataStructure", (opencascade::handle<TopOpeBRepDS_HDataStructure> & (BRepAlgo_BooleanOperations::*)()) &BRepAlgo_BooleanOperations::ChangeDataStructure, "None");
-cls_BRepAlgo_BooleanOperations.def("Builder", (const opencascade::handle<TopOpeBRepBuild_HBuilder> & (BRepAlgo_BooleanOperations::*)() const) &BRepAlgo_BooleanOperations::Builder, "None");
-cls_BRepAlgo_BooleanOperations.def("ChangeBuilder", (opencascade::handle<TopOpeBRepBuild_HBuilder> & (BRepAlgo_BooleanOperations::*)()) &BRepAlgo_BooleanOperations::ChangeBuilder, "None");
-cls_BRepAlgo_BooleanOperations.def("DataStructureAccess", (BRepAlgo_DSAccess & (BRepAlgo_BooleanOperations::*)()) &BRepAlgo_BooleanOperations::DataStructureAccess, "returns the member myDSA. It is useful to then access the method GetSectionEdgeSet (wich is a member of DSAccess)");
-
 // CLASS: BREPALGO_COMMON
 py::class_<BRepAlgo_Common, BRepAlgo_BooleanOperation> cls_BRepAlgo_Common(mod, "BRepAlgo_Common", "Describes functions for performing a topological common operation (Boolean intersection). A Common object provides the framework for: - defining the construction of a common shape, - implementing the construction algorithm, and - consulting the result.");
 
@@ -285,36 +192,6 @@ cls_BRepAlgo_Cut.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &>(), py:
 // cls_BRepAlgo_Cut.def_static("operator delete[]_", (void (*)(void *)) &BRepAlgo_Cut::operator delete[], "None", py::arg("theAddress"));
 // cls_BRepAlgo_Cut.def_static("operator new_", (void * (*)(size_t, void *)) &BRepAlgo_Cut::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_BRepAlgo_Cut.def_static("operator delete_", (void (*)(void *, void *)) &BRepAlgo_Cut::operator delete, "None", py::arg(""), py::arg(""));
-
-// TYPEDEF: BREPALGO_DATAMAPOFSHAPEBOOLEAN
-bind_NCollection_DataMap<TopoDS_Shape, bool, TopTools_ShapeMapHasher>(mod, "BRepAlgo_DataMapOfShapeBoolean", py::module_local(false));
-
-// TYPEDEF: BREPALGO_DATAMAPITERATOROFDATAMAPOFSHAPEBOOLEAN
-
-// TYPEDEF: BREPALGO_DATAMAPOFSHAPEINTERFERENCE
-bind_NCollection_DataMap<TopoDS_Shape, opencascade::handle<TopOpeBRepDS_Interference>, TopTools_ShapeMapHasher>(mod, "BRepAlgo_DataMapOfShapeInterference", py::module_local(false));
-
-// TYPEDEF: BREPALGO_DATAMAPITERATOROFDATAMAPOFSHAPEINTERFERENCE
-
-// CLASS: BREPALGO_EDGECONNECTOR
-py::class_<BRepAlgo_EdgeConnector, opencascade::handle<BRepAlgo_EdgeConnector>, Standard_Transient> cls_BRepAlgo_EdgeConnector(mod, "BRepAlgo_EdgeConnector", "Used by DSAccess to reconstruct an EdgeSet of connected edges. The result produced by MakeBlock is a list of non-standard TopoDS_wire, which can present connexions of edge of order > 2 in certain vertex. The method IsWire indicates standard/non-standard character of all wire produced.");
-
-// Constructors
-cls_BRepAlgo_EdgeConnector.def(py::init<>());
-
-// Methods
-cls_BRepAlgo_EdgeConnector.def("Add", (void (BRepAlgo_EdgeConnector::*)(const TopoDS_Edge &)) &BRepAlgo_EdgeConnector::Add, "None", py::arg("e"));
-cls_BRepAlgo_EdgeConnector.def("Add", (void (BRepAlgo_EdgeConnector::*)(TopTools_ListOfShape &)) &BRepAlgo_EdgeConnector::Add, "None", py::arg("LOEdge"));
-cls_BRepAlgo_EdgeConnector.def("AddStart", (void (BRepAlgo_EdgeConnector::*)(const TopoDS_Shape &)) &BRepAlgo_EdgeConnector::AddStart, "None", py::arg("e"));
-cls_BRepAlgo_EdgeConnector.def("AddStart", (void (BRepAlgo_EdgeConnector::*)(TopTools_ListOfShape &)) &BRepAlgo_EdgeConnector::AddStart, "None", py::arg("LOEdge"));
-cls_BRepAlgo_EdgeConnector.def("ClearStartElement", (void (BRepAlgo_EdgeConnector::*)()) &BRepAlgo_EdgeConnector::ClearStartElement, "None");
-cls_BRepAlgo_EdgeConnector.def("MakeBlock", (TopTools_ListOfShape & (BRepAlgo_EdgeConnector::*)()) &BRepAlgo_EdgeConnector::MakeBlock, "returns a list of wire non standard");
-cls_BRepAlgo_EdgeConnector.def("Done", (void (BRepAlgo_EdgeConnector::*)()) &BRepAlgo_EdgeConnector::Done, "None");
-cls_BRepAlgo_EdgeConnector.def("IsDone", (Standard_Boolean (BRepAlgo_EdgeConnector::*)() const) &BRepAlgo_EdgeConnector::IsDone, "NYI returns true if proceeded to MakeBlock()");
-cls_BRepAlgo_EdgeConnector.def("IsWire", (Standard_Boolean (BRepAlgo_EdgeConnector::*)(const TopoDS_Shape &)) &BRepAlgo_EdgeConnector::IsWire, "NYI returns true if W is a Wire standard. W must belong to the list returned by MakeBlock.", py::arg("W"));
-cls_BRepAlgo_EdgeConnector.def_static("get_type_name_", (const char * (*)()) &BRepAlgo_EdgeConnector::get_type_name, "None");
-cls_BRepAlgo_EdgeConnector.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRepAlgo_EdgeConnector::get_type_descriptor, "None");
-cls_BRepAlgo_EdgeConnector.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepAlgo_EdgeConnector::*)() const) &BRepAlgo_EdgeConnector::DynamicType, "None");
 
 // CLASS: BREPALGO_FACERESTRICTOR
 py::class_<BRepAlgo_FaceRestrictor> cls_BRepAlgo_FaceRestrictor(mod, "BRepAlgo_FaceRestrictor", "Builds all the faces limited with a set of non jointing and planars wires. if <ControlOrientation> is false The Wires must have correct orientations. Sinon orientation des wires de telle sorte que les faces ne soient pas infinies et qu'elles soient disjointes.");
@@ -446,9 +323,6 @@ cls_BRepAlgo_Section.def("ComputePCurveOn2", (void (BRepAlgo_Section::*)(const S
 cls_BRepAlgo_Section.def("Build", (void (BRepAlgo_Section::*)()) &BRepAlgo_Section::Build, "Performs the computation of the section lines between the two parts defined at the time of construction of this framework or reinitialized with the Init1 and Init2 functions. The constructed shape will be returned by the function Shape. This is a compound object composed of edges. These intersection edges may be built: - on new intersection lines, or - on coincident portions of edges in the two intersected shapes. These intersection edges are independent: they are not chained or grouped into wires. If no intersection edge exists, the result is an empty compound object. The shapes involved in the construction of the section lines can be retrieved with the function Shape1 or Shape2. Note that other objects than TopoDS_Shape shapes given as arguments at the construction time of this framework, or to the Init1 or Init2 function, are converted into faces or shells before performing the computation of the intersection. Parametric 2D curves on intersection edges No parametric 2D curve (pcurve) is defined for the elementary edges of the result. To attach parametric curves like this to the constructed edges you have to use: - the function ComputePCurveOn1 to ask for the additional computation of a pcurve in the parametric space of the first shape, - the function ComputePCurveOn2 to ask for the additional computation of a pcurve in the parametric space of the second shape. This must be done before calling this function. Note that as a result, pcurves are added on edges built on new intersection lines only. Approximation of intersection edges The underlying 3D geometry attached to each elementary edge of the result is: - analytic where possible provided the corresponding geometry corresponds to a type of analytic curve defined in the Geom package; for example, the intersection of a cylindrical shape with a plane gives an ellipse or a circle; or - elsewhere, given as a succession of points grouped together in a BSpline curve of degree 1. If, on computed elementary intersection edges whose underlying geometry is not analytic, you prefer to have an attached 3D geometry which is a BSpline approximation of the computed set of points, you have to use the function Approximation to ask for this computation option before calling this function. You may also have combined these computation options: look at the example given above to illustrate the use of the constructors.");
 cls_BRepAlgo_Section.def("HasAncestorFaceOn1", (Standard_Boolean (BRepAlgo_Section::*)(const TopoDS_Shape &, TopoDS_Shape &) const) &BRepAlgo_Section::HasAncestorFaceOn1, "Identifies the ancestor faces of the new intersection edge E resulting from the last computation performed in this framework, that is, the faces of the two original shapes on which the edge E lies: - HasAncestorFaceOn1 gives the ancestor face in the first shape, and These functions return: - true if an ancestor face F is found, or - false if not. An ancestor face is identifiable for the edge E if the three following conditions are satisfied: - the first part on which this algorithm performed its last computation is a shape, that is, it was not given as a surface or a plane at the time of construction of this algorithm or at a later time by the Init1 function, - E is one of the elementary edges built by the last computation of this section algorithm, - the edge E is built on an intersection curve. In other words, E is a new edge built on the intersection curve, not on edges belonging to the intersecting shapes. To use these functions properly, you have to test the returned Boolean value before using the ancestor face: F is significant only if the returned Boolean value equals true.", py::arg("E"), py::arg("F"));
 cls_BRepAlgo_Section.def("HasAncestorFaceOn2", (Standard_Boolean (BRepAlgo_Section::*)(const TopoDS_Shape &, TopoDS_Shape &) const) &BRepAlgo_Section::HasAncestorFaceOn2, "Identifies the ancestor faces of the new intersection edge E resulting from the last computation performed in this framework, that is, the faces of the two original shapes on which the edge E lies: - HasAncestorFaceOn2 gives the ancestor face in the second shape. These functions return: - true if an ancestor face F is found, or - false if not. An ancestor face is identifiable for the edge E if the three following conditions are satisfied: - the first part on which this algorithm performed its last computation is a shape, that is, it was not given as a surface or a plane at the time of construction of this algorithm or at a later time by the Init1 function, - E is one of the elementary edges built by the last computation of this section algorithm, - the edge E is built on an intersection curve. In other words, E is a new edge built on the intersection curve, not on edges belonging to the intersecting shapes. To use these functions properly, you have to test the returned Boolean value before using the ancestor face: F is significant only if the returned Boolean value equals true.", py::arg("E"), py::arg("F"));
-
-// TYPEDEF: BREPALGO_SEQUENCEOFSEQUENCEOFINTEGER
-bind_NCollection_Sequence<NCollection_Sequence<int> >(mod, "BRepAlgo_SequenceOfSequenceOfInteger", py::module_local(false));
 
 // CLASS: BREPALGO_TOOL
 py::class_<BRepAlgo_Tool> cls_BRepAlgo_Tool(mod, "BRepAlgo_Tool", "None");

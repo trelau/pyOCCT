@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Prs3d_Point.hxx>
 #include <Standard_Handle.hxx>
 #include <Graphic3d_Group.hxx>
-#include <Prs3d_Presentation.hxx>
+#include <PrsMgr_PresentationManager.hxx>
 #include <Prs3d_Drawer.hxx>
 #include <Standard_TypeDef.hxx>
 

@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Handle.hxx>
 #include <TCollection_HAsciiString.hxx>
 #include <StepRepr_HArray1OfMaterialPropertyRepresentation.hxx>
+#include <Standard_Std.hxx>
 #include <StepElement_ElementMaterial.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Sequence.hxx>
@@ -599,6 +600,7 @@ bind_NCollection_Array2<opencascade::handle<StepElement_SurfaceElementPurposeMem
 py::class_<StepElement_HArray1OfHSequenceOfCurveElementPurposeMember, opencascade::handle<StepElement_HArray1OfHSequenceOfCurveElementPurposeMember>, Standard_Transient> cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember(mod, "StepElement_HArray1OfHSequenceOfCurveElementPurposeMember", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def(py::init<>());
 cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def(py::init<const Standard_Integer, const Standard_Integer, const StepElement_Array1OfHSequenceOfCurveElementPurposeMember::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def(py::init<const StepElement_Array1OfHSequenceOfCurveElementPurposeMember &>(), py::arg("theOther"));
@@ -688,6 +690,7 @@ cls_StepElement_CurveElementPurpose.def("ApplicationDefinedElementPurpose", (ope
 py::class_<StepElement_HArray1OfMeasureOrUnspecifiedValue, opencascade::handle<StepElement_HArray1OfMeasureOrUnspecifiedValue>, Standard_Transient> cls_StepElement_HArray1OfMeasureOrUnspecifiedValue(mod, "StepElement_HArray1OfMeasureOrUnspecifiedValue", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def(py::init<>());
 cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def(py::init<const Standard_Integer, const Standard_Integer, const StepElement_Array1OfMeasureOrUnspecifiedValue::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def(py::init<const StepElement_Array1OfMeasureOrUnspecifiedValue &>(), py::arg("theOther"));
@@ -758,6 +761,7 @@ cls_StepElement_ElementAspectMember.def("DynamicType", (const opencascade::handl
 py::class_<StepElement_HArray1OfCurveElementEndReleasePacket, opencascade::handle<StepElement_HArray1OfCurveElementEndReleasePacket>, Standard_Transient> cls_StepElement_HArray1OfCurveElementEndReleasePacket(mod, "StepElement_HArray1OfCurveElementEndReleasePacket", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepElement_HArray1OfCurveElementEndReleasePacket.def(py::init<>());
 cls_StepElement_HArray1OfCurveElementEndReleasePacket.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepElement_HArray1OfCurveElementEndReleasePacket.def(py::init<const Standard_Integer, const Standard_Integer, const StepElement_Array1OfCurveElementEndReleasePacket::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepElement_HArray1OfCurveElementEndReleasePacket.def(py::init<const StepElement_Array1OfCurveElementEndReleasePacket &>(), py::arg("theOther"));
@@ -781,6 +785,7 @@ cls_StepElement_HArray1OfCurveElementEndReleasePacket.def("DynamicType", (const 
 py::class_<StepElement_HArray1OfCurveElementSectionDefinition, opencascade::handle<StepElement_HArray1OfCurveElementSectionDefinition>, Standard_Transient> cls_StepElement_HArray1OfCurveElementSectionDefinition(mod, "StepElement_HArray1OfCurveElementSectionDefinition", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepElement_HArray1OfCurveElementSectionDefinition.def(py::init<>());
 cls_StepElement_HArray1OfCurveElementSectionDefinition.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepElement_HArray1OfCurveElementSectionDefinition.def(py::init<const Standard_Integer, const Standard_Integer, const StepElement_Array1OfCurveElementSectionDefinition::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepElement_HArray1OfCurveElementSectionDefinition.def(py::init<const StepElement_Array1OfCurveElementSectionDefinition &>(), py::arg("theOther"));
@@ -804,6 +809,7 @@ cls_StepElement_HArray1OfCurveElementSectionDefinition.def("DynamicType", (const
 py::class_<StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember, opencascade::handle<StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember>, Standard_Transient> cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember(mod, "StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def(py::init<>());
 cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def(py::init<const Standard_Integer, const Standard_Integer, const StepElement_Array1OfHSequenceOfSurfaceElementPurposeMember::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def(py::init<const StepElement_Array1OfHSequenceOfSurfaceElementPurposeMember &>(), py::arg("theOther"));
@@ -827,6 +833,7 @@ cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def("DynamicType
 py::class_<StepElement_HArray1OfSurfaceSection, opencascade::handle<StepElement_HArray1OfSurfaceSection>, Standard_Transient> cls_StepElement_HArray1OfSurfaceSection(mod, "StepElement_HArray1OfSurfaceSection", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepElement_HArray1OfSurfaceSection.def(py::init<>());
 cls_StepElement_HArray1OfSurfaceSection.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepElement_HArray1OfSurfaceSection.def(py::init<const Standard_Integer, const Standard_Integer, const StepElement_Array1OfSurfaceSection::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepElement_HArray1OfSurfaceSection.def(py::init<const StepElement_Array1OfSurfaceSection &>(), py::arg("theOther"));
@@ -850,6 +857,7 @@ cls_StepElement_HArray1OfSurfaceSection.def("DynamicType", (const opencascade::h
 py::class_<StepElement_HArray1OfVolumeElementPurpose, opencascade::handle<StepElement_HArray1OfVolumeElementPurpose>, Standard_Transient> cls_StepElement_HArray1OfVolumeElementPurpose(mod, "StepElement_HArray1OfVolumeElementPurpose", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepElement_HArray1OfVolumeElementPurpose.def(py::init<>());
 cls_StepElement_HArray1OfVolumeElementPurpose.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepElement_HArray1OfVolumeElementPurpose.def(py::init<const Standard_Integer, const Standard_Integer, const StepElement_Array1OfVolumeElementPurpose::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepElement_HArray1OfVolumeElementPurpose.def(py::init<const StepElement_Array1OfVolumeElementPurpose &>(), py::arg("theOther"));
@@ -873,6 +881,7 @@ cls_StepElement_HArray1OfVolumeElementPurpose.def("DynamicType", (const opencasc
 py::class_<StepElement_HArray1OfVolumeElementPurposeMember, opencascade::handle<StepElement_HArray1OfVolumeElementPurposeMember>, Standard_Transient> cls_StepElement_HArray1OfVolumeElementPurposeMember(mod, "StepElement_HArray1OfVolumeElementPurposeMember", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepElement_HArray1OfVolumeElementPurposeMember.def(py::init<>());
 cls_StepElement_HArray1OfVolumeElementPurposeMember.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepElement_HArray1OfVolumeElementPurposeMember.def(py::init<const Standard_Integer, const Standard_Integer, const StepElement_Array1OfVolumeElementPurposeMember::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepElement_HArray1OfVolumeElementPurposeMember.def(py::init<const StepElement_Array1OfVolumeElementPurposeMember &>(), py::arg("theOther"));

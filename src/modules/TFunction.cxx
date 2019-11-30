@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TDF_RelocationTable.hxx>
 #include <TDF_DataSet.hxx>
 #include <Standard_OStream.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <Standard_Transient.hxx>
 #include <TFunction_Logbook.hxx>
@@ -138,6 +139,7 @@ bind_NCollection_DoubleMap<int, TDF_Label, NCollection_DefaultHasher<int>, TDF_L
 py::class_<TFunction_HArray1OfDataMapOfGUIDDriver, opencascade::handle<TFunction_HArray1OfDataMapOfGUIDDriver>, Standard_Transient> cls_TFunction_HArray1OfDataMapOfGUIDDriver(mod, "TFunction_HArray1OfDataMapOfGUIDDriver", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TFunction_HArray1OfDataMapOfGUIDDriver.def(py::init<>());
 cls_TFunction_HArray1OfDataMapOfGUIDDriver.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TFunction_HArray1OfDataMapOfGUIDDriver.def(py::init<const Standard_Integer, const Standard_Integer, const TFunction_Array1OfDataMapOfGUIDDriver::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TFunction_HArray1OfDataMapOfGUIDDriver.def(py::init<const TFunction_Array1OfDataMapOfGUIDDriver &>(), py::arg("theOther"));

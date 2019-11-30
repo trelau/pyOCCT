@@ -63,6 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepAP203_WorkItem.hxx>
 #include <StepAP203_Array1OfWorkItem.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <StepAP203_HArray1OfApprovedItem.hxx>
 #include <Standard_Type.hxx>
 #include <StepBasic_ApprovalAssignment.hxx>
@@ -333,6 +334,7 @@ bind_NCollection_Array1<StepAP203_WorkItem>(mod, "StepAP203_Array1OfWorkItem", p
 py::class_<StepAP203_HArray1OfApprovedItem, opencascade::handle<StepAP203_HArray1OfApprovedItem>, Standard_Transient> cls_StepAP203_HArray1OfApprovedItem(mod, "StepAP203_HArray1OfApprovedItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP203_HArray1OfApprovedItem.def(py::init<>());
 cls_StepAP203_HArray1OfApprovedItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP203_HArray1OfApprovedItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfApprovedItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP203_HArray1OfApprovedItem.def(py::init<const StepAP203_Array1OfApprovedItem &>(), py::arg("theOther"));
@@ -370,6 +372,7 @@ cls_StepAP203_CcDesignApproval.def("DynamicType", (const opencascade::handle<Sta
 py::class_<StepAP203_HArray1OfCertifiedItem, opencascade::handle<StepAP203_HArray1OfCertifiedItem>, Standard_Transient> cls_StepAP203_HArray1OfCertifiedItem(mod, "StepAP203_HArray1OfCertifiedItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP203_HArray1OfCertifiedItem.def(py::init<>());
 cls_StepAP203_HArray1OfCertifiedItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP203_HArray1OfCertifiedItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfCertifiedItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP203_HArray1OfCertifiedItem.def(py::init<const StepAP203_Array1OfCertifiedItem &>(), py::arg("theOther"));
@@ -407,6 +410,7 @@ cls_StepAP203_CcDesignCertification.def("DynamicType", (const opencascade::handl
 py::class_<StepAP203_HArray1OfContractedItem, opencascade::handle<StepAP203_HArray1OfContractedItem>, Standard_Transient> cls_StepAP203_HArray1OfContractedItem(mod, "StepAP203_HArray1OfContractedItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP203_HArray1OfContractedItem.def(py::init<>());
 cls_StepAP203_HArray1OfContractedItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP203_HArray1OfContractedItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfContractedItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP203_HArray1OfContractedItem.def(py::init<const StepAP203_Array1OfContractedItem &>(), py::arg("theOther"));
@@ -444,6 +448,7 @@ cls_StepAP203_CcDesignContract.def("DynamicType", (const opencascade::handle<Sta
 py::class_<StepAP203_HArray1OfDateTimeItem, opencascade::handle<StepAP203_HArray1OfDateTimeItem>, Standard_Transient> cls_StepAP203_HArray1OfDateTimeItem(mod, "StepAP203_HArray1OfDateTimeItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP203_HArray1OfDateTimeItem.def(py::init<>());
 cls_StepAP203_HArray1OfDateTimeItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP203_HArray1OfDateTimeItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfDateTimeItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP203_HArray1OfDateTimeItem.def(py::init<const StepAP203_Array1OfDateTimeItem &>(), py::arg("theOther"));
@@ -481,6 +486,7 @@ cls_StepAP203_CcDesignDateAndTimeAssignment.def("DynamicType", (const opencascad
 py::class_<StepAP203_HArray1OfPersonOrganizationItem, opencascade::handle<StepAP203_HArray1OfPersonOrganizationItem>, Standard_Transient> cls_StepAP203_HArray1OfPersonOrganizationItem(mod, "StepAP203_HArray1OfPersonOrganizationItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP203_HArray1OfPersonOrganizationItem.def(py::init<>());
 cls_StepAP203_HArray1OfPersonOrganizationItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP203_HArray1OfPersonOrganizationItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfPersonOrganizationItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP203_HArray1OfPersonOrganizationItem.def(py::init<const StepAP203_Array1OfPersonOrganizationItem &>(), py::arg("theOther"));
@@ -518,6 +524,7 @@ cls_StepAP203_CcDesignPersonAndOrganizationAssignment.def("DynamicType", (const 
 py::class_<StepAP203_HArray1OfClassifiedItem, opencascade::handle<StepAP203_HArray1OfClassifiedItem>, Standard_Transient> cls_StepAP203_HArray1OfClassifiedItem(mod, "StepAP203_HArray1OfClassifiedItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP203_HArray1OfClassifiedItem.def(py::init<>());
 cls_StepAP203_HArray1OfClassifiedItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP203_HArray1OfClassifiedItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfClassifiedItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP203_HArray1OfClassifiedItem.def(py::init<const StepAP203_Array1OfClassifiedItem &>(), py::arg("theOther"));
@@ -555,6 +562,7 @@ cls_StepAP203_CcDesignSecurityClassification.def("DynamicType", (const opencasca
 py::class_<StepAP203_HArray1OfSpecifiedItem, opencascade::handle<StepAP203_HArray1OfSpecifiedItem>, Standard_Transient> cls_StepAP203_HArray1OfSpecifiedItem(mod, "StepAP203_HArray1OfSpecifiedItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP203_HArray1OfSpecifiedItem.def(py::init<>());
 cls_StepAP203_HArray1OfSpecifiedItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP203_HArray1OfSpecifiedItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfSpecifiedItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP203_HArray1OfSpecifiedItem.def(py::init<const StepAP203_Array1OfSpecifiedItem &>(), py::arg("theOther"));
@@ -592,6 +600,7 @@ cls_StepAP203_CcDesignSpecificationReference.def("DynamicType", (const opencasca
 py::class_<StepAP203_HArray1OfWorkItem, opencascade::handle<StepAP203_HArray1OfWorkItem>, Standard_Transient> cls_StepAP203_HArray1OfWorkItem(mod, "StepAP203_HArray1OfWorkItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP203_HArray1OfWorkItem.def(py::init<>());
 cls_StepAP203_HArray1OfWorkItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP203_HArray1OfWorkItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfWorkItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP203_HArray1OfWorkItem.def(py::init<const StepAP203_Array1OfWorkItem &>(), py::arg("theOther"));
@@ -629,6 +638,7 @@ cls_StepAP203_Change.def("DynamicType", (const opencascade::handle<Standard_Type
 py::class_<StepAP203_HArray1OfChangeRequestItem, opencascade::handle<StepAP203_HArray1OfChangeRequestItem>, Standard_Transient> cls_StepAP203_HArray1OfChangeRequestItem(mod, "StepAP203_HArray1OfChangeRequestItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP203_HArray1OfChangeRequestItem.def(py::init<>());
 cls_StepAP203_HArray1OfChangeRequestItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP203_HArray1OfChangeRequestItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfChangeRequestItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP203_HArray1OfChangeRequestItem.def(py::init<const StepAP203_Array1OfChangeRequestItem &>(), py::arg("theOther"));
@@ -666,6 +676,7 @@ cls_StepAP203_ChangeRequest.def("DynamicType", (const opencascade::handle<Standa
 py::class_<StepAP203_HArray1OfStartRequestItem, opencascade::handle<StepAP203_HArray1OfStartRequestItem>, Standard_Transient> cls_StepAP203_HArray1OfStartRequestItem(mod, "StepAP203_HArray1OfStartRequestItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP203_HArray1OfStartRequestItem.def(py::init<>());
 cls_StepAP203_HArray1OfStartRequestItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP203_HArray1OfStartRequestItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfStartRequestItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP203_HArray1OfStartRequestItem.def(py::init<const StepAP203_Array1OfStartRequestItem &>(), py::arg("theOther"));

@@ -26,15 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <HeaderSection_FileName.hxx>
 #include <HeaderSection_FileDescription.hxx>
 #include <HeaderSection_FileSchema.hxx>
-#include <HeaderSection_HeaderRecognizer.hxx>
 #include <HeaderSection.hxx>
 #include <Standard_Transient.hxx>
 #include <Interface_HArray1OfHAsciiString.hxx>
 #include <TCollection_HAsciiString.hxx>
 #include <Standard_TypeDef.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
-#include <StepData_FileRecognizer.hxx>
-#include <TCollection_AsciiString.hxx>
 #include <StepData_Protocol.hxx>
 
 PYBIND11_MODULE(HeaderSection, mod) {
@@ -119,17 +117,6 @@ cls_HeaderSection_FileSchema.def("NbSchemaIdentifiers", (Standard_Integer (Heade
 cls_HeaderSection_FileSchema.def_static("get_type_name_", (const char * (*)()) &HeaderSection_FileSchema::get_type_name, "None");
 cls_HeaderSection_FileSchema.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &HeaderSection_FileSchema::get_type_descriptor, "None");
 cls_HeaderSection_FileSchema.def("DynamicType", (const opencascade::handle<Standard_Type> & (HeaderSection_FileSchema::*)() const) &HeaderSection_FileSchema::DynamicType, "None");
-
-// CLASS: HEADERSECTION_HEADERRECOGNIZER
-py::class_<HeaderSection_HeaderRecognizer, opencascade::handle<HeaderSection_HeaderRecognizer>, StepData_FileRecognizer> cls_HeaderSection_HeaderRecognizer(mod, "HeaderSection_HeaderRecognizer", "Recognizes STEP Standard Header Entities (FileName, FileDescription, FileSchema)");
-
-// Constructors
-cls_HeaderSection_HeaderRecognizer.def(py::init<>());
-
-// Methods
-cls_HeaderSection_HeaderRecognizer.def_static("get_type_name_", (const char * (*)()) &HeaderSection_HeaderRecognizer::get_type_name, "None");
-cls_HeaderSection_HeaderRecognizer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &HeaderSection_HeaderRecognizer::get_type_descriptor, "None");
-cls_HeaderSection_HeaderRecognizer.def("DynamicType", (const opencascade::handle<Standard_Type> & (HeaderSection_HeaderRecognizer::*)() const) &HeaderSection_HeaderRecognizer::DynamicType, "None");
 
 // CLASS: HEADERSECTION_PROTOCOL
 py::class_<HeaderSection_Protocol, opencascade::handle<HeaderSection_Protocol>, StepData_Protocol> cls_HeaderSection_Protocol(mod, "HeaderSection_Protocol", "Protocol for HeaderSection Entities It requires HeaderSection as a Resource");

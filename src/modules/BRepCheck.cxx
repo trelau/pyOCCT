@@ -29,6 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopoDS_Wire.hxx>
 #include <TopoDS_Face.hxx>
 #include <TopoDS_Edge.hxx>
+#include <Adaptor3d_Curve.hxx>
+#include <Standard_Handle.hxx>
+#include <Adaptor3d_HSurface.hxx>
 #include <BRepCheck_Result.hxx>
 #include <BRepCheck_Vertex.hxx>
 #include <BRepCheck_Edge.hxx>
@@ -43,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopTools_ShapeMapHasher.hxx>
 #include <BRepCheck_DataMapOfShapeListOfStatus.hxx>
 #include <Standard_Transient.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <TopTools_OrientedShapeMapHasher.hxx>
 #include <BRepCheck_DataMapOfShapeResult.hxx>
@@ -65,10 +68,10 @@ PYBIND11_MODULE(BRepCheck, mod) {
 py::module::import("OCCT.NCollection");
 py::module::import("OCCT.Standard");
 py::module::import("OCCT.TopoDS");
+py::module::import("OCCT.Adaptor3d");
 py::module::import("OCCT.TopTools");
 py::module::import("OCCT.TopAbs");
 py::module::import("OCCT.BRep");
-py::module::import("OCCT.Adaptor3d");
 
 // ENUM: BREPCHECK_STATUS
 py::enum_<BRepCheck_Status>(mod, "BRepCheck_Status", "None")
@@ -131,6 +134,8 @@ py::class_<BRepCheck> cls_BRepCheck(mod, "BRepCheck", "This package provides too
 cls_BRepCheck.def_static("Add_", (void (*)(BRepCheck_ListOfStatus &, const BRepCheck_Status)) &BRepCheck::Add, "None", py::arg("List"), py::arg("Stat"));
 cls_BRepCheck.def_static("Print_", (void (*)(const BRepCheck_Status, Standard_OStream &)) &BRepCheck::Print, "None", py::arg("Stat"), py::arg("OS"));
 cls_BRepCheck.def_static("SelfIntersection_", (Standard_Boolean (*)(const TopoDS_Wire &, const TopoDS_Face &, TopoDS_Edge &, TopoDS_Edge &)) &BRepCheck::SelfIntersection, "None", py::arg("W"), py::arg("F"), py::arg("E1"), py::arg("E2"));
+cls_BRepCheck.def_static("PrecCurve_", (Standard_Real (*)(const Adaptor3d_Curve &)) &BRepCheck::PrecCurve, "Returns the resolution on the 3d curve", py::arg("aAC3D"));
+cls_BRepCheck.def_static("PrecSurface_", (Standard_Real (*)(const opencascade::handle<Adaptor3d_HSurface> &)) &BRepCheck::PrecSurface, "Returns the resolution on the surface", py::arg("aAHSurf"));
 
 // TYPEDEF: BREPCHECK_DATAMAPOFSHAPELISTOFSTATUS
 bind_NCollection_DataMap<TopoDS_Shape, NCollection_List<BRepCheck_Status>, TopTools_ShapeMapHasher>(mod, "BRepCheck_DataMapOfShapeListOfStatus", py::module_local(false));

@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <HLRTopoBRep_FaceIsoLiner.hxx>
 #include <Standard_Transient.hxx>
 #include <HLRAlgo_Projector.hxx>
+#include <Standard_Std.hxx>
 #include <HLRTopoBRep_OutLiner.hxx>
 #include <Standard_Type.hxx>
 #include <bind_NCollection_DataMap.hxx>

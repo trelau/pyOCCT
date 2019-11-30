@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <IGESGraph_TextFontDef.hxx>
 #include <gp_XYZ.hxx>
 #include <gp_Pnt.hxx>
+#include <Standard_Std.hxx>
 #include <IGESGraph_TextDisplayTemplate.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Array1.hxx>
@@ -141,6 +142,7 @@ bind_NCollection_Array1<opencascade::handle<IGESGraph_TextDisplayTemplate> >(mod
 py::class_<IGESGraph_HArray1OfTextDisplayTemplate, opencascade::handle<IGESGraph_HArray1OfTextDisplayTemplate>, Standard_Transient> cls_IGESGraph_HArray1OfTextDisplayTemplate(mod, "IGESGraph_HArray1OfTextDisplayTemplate", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESGraph_HArray1OfTextDisplayTemplate.def(py::init<>());
 cls_IGESGraph_HArray1OfTextDisplayTemplate.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESGraph_HArray1OfTextDisplayTemplate.def(py::init<const Standard_Integer, const Standard_Integer, const IGESGraph_Array1OfTextDisplayTemplate::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESGraph_HArray1OfTextDisplayTemplate.def(py::init<const IGESGraph_Array1OfTextDisplayTemplate &>(), py::arg("theOther"));
@@ -191,6 +193,7 @@ bind_NCollection_Array1<opencascade::handle<IGESGraph_TextFontDef> >(mod, "IGESG
 py::class_<IGESGraph_HArray1OfTextFontDef, opencascade::handle<IGESGraph_HArray1OfTextFontDef>, Standard_Transient> cls_IGESGraph_HArray1OfTextFontDef(mod, "IGESGraph_HArray1OfTextFontDef", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESGraph_HArray1OfTextFontDef.def(py::init<>());
 cls_IGESGraph_HArray1OfTextFontDef.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESGraph_HArray1OfTextFontDef.def(py::init<const Standard_Integer, const Standard_Integer, const IGESGraph_Array1OfTextFontDef::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESGraph_HArray1OfTextFontDef.def(py::init<const IGESGraph_Array1OfTextFontDef &>(), py::arg("theOther"));
@@ -234,6 +237,7 @@ bind_NCollection_Array1<opencascade::handle<IGESGraph_Color> >(mod, "IGESGraph_A
 py::class_<IGESGraph_HArray1OfColor, opencascade::handle<IGESGraph_HArray1OfColor>, Standard_Transient> cls_IGESGraph_HArray1OfColor(mod, "IGESGraph_HArray1OfColor", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESGraph_HArray1OfColor.def(py::init<>());
 cls_IGESGraph_HArray1OfColor.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESGraph_HArray1OfColor.def(py::init<const Standard_Integer, const Standard_Integer, const IGESGraph_Array1OfColor::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESGraph_HArray1OfColor.def(py::init<const IGESGraph_Array1OfColor &>(), py::arg("theOther"));

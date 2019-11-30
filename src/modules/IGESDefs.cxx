@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColStd_HArray1OfInteger.hxx>
 #include <IGESBasic_HArray1OfHArray1OfReal.hxx>
 #include <TColStd_HArray1OfReal.hxx>
+#include <Standard_Std.hxx>
 #include <IGESDefs_TabularData.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Array1.hxx>
@@ -120,6 +121,7 @@ bind_NCollection_Array1<opencascade::handle<IGESDefs_TabularData> >(mod, "IGESDe
 py::class_<IGESDefs_HArray1OfTabularData, opencascade::handle<IGESDefs_HArray1OfTabularData>, Standard_Transient> cls_IGESDefs_HArray1OfTabularData(mod, "IGESDefs_HArray1OfTabularData", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESDefs_HArray1OfTabularData.def(py::init<>());
 cls_IGESDefs_HArray1OfTabularData.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESDefs_HArray1OfTabularData.def(py::init<const Standard_Integer, const Standard_Integer, const IGESDefs_Array1OfTabularData::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESDefs_HArray1OfTabularData.def(py::init<const IGESDefs_Array1OfTabularData &>(), py::arg("theOther"));

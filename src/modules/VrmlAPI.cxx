@@ -22,14 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <pyOCCT_Common.hxx>
 #include <VrmlAPI_RepresentationOfShape.hxx>
 #include <Standard.hxx>
-#include <TopoDS_Shape.hxx>
 #include <Standard_TypeDef.hxx>
+#include <TopoDS_Shape.hxx>
 #include <VrmlAPI_Writer.hxx>
 #include <VrmlAPI.hxx>
 #include <Standard_Handle.hxx>
 #include <VrmlConverter_Drawer.hxx>
 #include <Vrml_Material.hxx>
 #include <Quantity_HArray1OfColor.hxx>
+#include <TDocStd_Document.hxx>
 #include <VrmlConverter_Projector.hxx>
 
 PYBIND11_MODULE(VrmlAPI, mod) {
@@ -39,6 +40,7 @@ py::module::import("OCCT.TopoDS");
 py::module::import("OCCT.VrmlConverter");
 py::module::import("OCCT.Vrml");
 py::module::import("OCCT.Quantity");
+py::module::import("OCCT.TDocStd");
 
 // ENUM: VRMLAPI_REPRESENTATIONOFSHAPE
 py::enum_<VrmlAPI_RepresentationOfShape>(mod, "VrmlAPI_RepresentationOfShape", "Identifies the representation of the shape written to a VRML file. The available options are : - VrmlAPI_ShadedRepresentation : the shape is translated with a shaded representation. - VrmlAPI_WireFrameRepresentation : the shape is translated with a wireframe representation. - VrmlAPI_BothRepresentation : the shape is translated to VRML format with both representations : shaded and wireframe. This is the default option.")
@@ -58,8 +60,8 @@ py::class_<VrmlAPI> cls_VrmlAPI(mod, "VrmlAPI", "API for writing to VRML 1.0");
 // cls_VrmlAPI.def_static("operator delete[]_", (void (*)(void *)) &VrmlAPI::operator delete[], "None", py::arg("theAddress"));
 // cls_VrmlAPI.def_static("operator new_", (void * (*)(size_t, void *)) &VrmlAPI::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_VrmlAPI.def_static("operator delete_", (void (*)(void *, void *)) &VrmlAPI::operator delete, "None", py::arg(""), py::arg(""));
-cls_VrmlAPI.def_static("Write_", [](const TopoDS_Shape & a0, const Standard_CString a1) -> void { return VrmlAPI::Write(a0, a1); });
-cls_VrmlAPI.def_static("Write_", (void (*)(const TopoDS_Shape &, const Standard_CString, const Standard_Integer)) &VrmlAPI::Write, "With help of this class user can change parameters of writing. Converts the shape aShape to VRML format of the passed version and writes it to the file identified by aFileName using default parameters.", py::arg("aShape"), py::arg("aFileName"), py::arg("aVersion"));
+cls_VrmlAPI.def_static("Write_", [](const TopoDS_Shape & a0, const Standard_CString a1) -> Standard_Boolean { return VrmlAPI::Write(a0, a1); });
+cls_VrmlAPI.def_static("Write_", (Standard_Boolean (*)(const TopoDS_Shape &, const Standard_CString, const Standard_Integer)) &VrmlAPI::Write, "With help of this class user can change parameters of writing. Converts the shape aShape to VRML format of the passed version and writes it to the file identified by aFileName using default parameters.", py::arg("aShape"), py::arg("aFileName"), py::arg("aVersion"));
 
 // CLASS: VRMLAPI_WRITER
 py::class_<VrmlAPI_Writer> cls_VrmlAPI_Writer(mod, "VrmlAPI_Writer", "Creates and writes VRML files from Open CASCADE shapes. A VRML file can be written to an existing VRML file or to a new one.");
@@ -93,8 +95,9 @@ cls_VrmlAPI_Writer.def("GetLineMaterial", (opencascade::handle<Vrml_Material> (V
 cls_VrmlAPI_Writer.def("GetWireMaterial", (opencascade::handle<Vrml_Material> (VrmlAPI_Writer::*)() const) &VrmlAPI_Writer::GetWireMaterial, "None");
 cls_VrmlAPI_Writer.def("GetFreeBoundsMaterial", (opencascade::handle<Vrml_Material> (VrmlAPI_Writer::*)() const) &VrmlAPI_Writer::GetFreeBoundsMaterial, "None");
 cls_VrmlAPI_Writer.def("GetUnfreeBoundsMaterial", (opencascade::handle<Vrml_Material> (VrmlAPI_Writer::*)() const) &VrmlAPI_Writer::GetUnfreeBoundsMaterial, "None");
-cls_VrmlAPI_Writer.def("Write", [](VrmlAPI_Writer &self, const TopoDS_Shape & a0, const Standard_CString a1) -> void { return self.Write(a0, a1); });
-cls_VrmlAPI_Writer.def("Write", (void (VrmlAPI_Writer::*)(const TopoDS_Shape &, const Standard_CString, const Standard_Integer) const) &VrmlAPI_Writer::Write, "Converts the shape aShape to VRML format of the passed version and writes it to the file identified by aFile.", py::arg("aShape"), py::arg("aFile"), py::arg("aVersion"));
+cls_VrmlAPI_Writer.def("Write", [](VrmlAPI_Writer &self, const TopoDS_Shape & a0, const Standard_CString a1) -> Standard_Boolean { return self.Write(a0, a1); });
+cls_VrmlAPI_Writer.def("Write", (Standard_Boolean (VrmlAPI_Writer::*)(const TopoDS_Shape &, const Standard_CString, const Standard_Integer) const) &VrmlAPI_Writer::Write, "Converts the shape aShape to VRML format of the passed version and writes it to the file identified by aFile.", py::arg("aShape"), py::arg("aFile"), py::arg("aVersion"));
+cls_VrmlAPI_Writer.def("WriteDoc", (Standard_Boolean (VrmlAPI_Writer::*)(const opencascade::handle<TDocStd_Document> &, const Standard_CString, const Standard_Real) const) &VrmlAPI_Writer::WriteDoc, "Converts the document to VRML format of the passed version and writes it to the file identified by aFile.", py::arg("theDoc"), py::arg("theFile"), py::arg("theScale"));
 
 
 }

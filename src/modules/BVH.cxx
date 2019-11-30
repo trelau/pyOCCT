@@ -23,9 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BVH_Types.hxx>
 #include <Standard_TypeDef.hxx>
 #include <Standard_Transient.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <BVH_Tree.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
+#include <Standard_OStream.hxx>
 #include <BVH_Builder.hxx>
 #include <BVH_Properties.hxx>
 #include <BVH_Object.hxx>
@@ -34,9 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BVH_BuildQueue.hxx>
 #include <BVH_BuildThread.hxx>
 #include <OSD_Thread.hxx>
+#include <BVH_RadixSorter.hxx>
 #include <BVH_PrimitiveSet.hxx>
 #include <BVH_PrimitiveSet3d.hxx>
-#include <BVH_RadixSorter.hxx>
 #include <bind_NCollection_Vec2.hxx>
 #include <bind_NCollection_Vec3.hxx>
 #include <bind_NCollection_Vec4.hxx>
@@ -140,6 +142,8 @@ cls_BVH_BuilderTransient.def_static("get_type_descriptor_", (const opencascade::
 cls_BVH_BuilderTransient.def("DynamicType", (const opencascade::handle<Standard_Type> & (BVH_BuilderTransient::*)() const) &BVH_BuilderTransient::DynamicType, "None");
 cls_BVH_BuilderTransient.def("MaxTreeDepth", (Standard_Integer (BVH_BuilderTransient::*)() const) &BVH_BuilderTransient::MaxTreeDepth, "Returns the maximum depth of constructed BVH.");
 cls_BVH_BuilderTransient.def("LeafNodeSize", (Standard_Integer (BVH_BuilderTransient::*)() const) &BVH_BuilderTransient::LeafNodeSize, "Returns the maximum number of sub-elements in the leaf.");
+cls_BVH_BuilderTransient.def("IsParallel", (Standard_Boolean (BVH_BuilderTransient::*)() const) &BVH_BuilderTransient::IsParallel, "Returns parallel flag.");
+cls_BVH_BuilderTransient.def("SetParallel", (void (BVH_BuilderTransient::*)(const Standard_Boolean)) &BVH_BuilderTransient::SetParallel, "Set parallel flag contolling possibility of parallel execution.", py::arg("isParallel"));
 
 // CLASS: BVH_PROPERTIES
 py::class_<BVH_Properties, opencascade::handle<BVH_Properties>, Standard_Transient> cls_BVH_Properties(mod, "BVH_Properties", "Abstract properties of geometric object.");
@@ -192,13 +196,13 @@ cls_BVH_BuildThread.def_static("get_type_name_", (const char * (*)()) &BVH_Build
 cls_BVH_BuildThread.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BVH_BuildThread::get_type_descriptor, "None");
 cls_BVH_BuildThread.def("DynamicType", (const opencascade::handle<Standard_Type> & (BVH_BuildThread::*)() const) &BVH_BuildThread::DynamicType, "None");
 
-// TYPEDEF: BVH_PRIMITIVESET3D
-bind_BVH_PrimitiveSet<double, 3>(mod, "BVH_PrimitiveSet3d", py::module_local(false));
-
 // TYPEDEF: BVH_ENCODEDLINK
 /*
 bind_std::pair<int, int>(mod, "BVH_EncodedLink", py::module_local(false));
 */
+
+// TYPEDEF: BVH_PRIMITIVESET3D
+bind_BVH_PrimitiveSet<double, 3>(mod, "BVH_PrimitiveSet3d", py::module_local(false));
 
 
 }

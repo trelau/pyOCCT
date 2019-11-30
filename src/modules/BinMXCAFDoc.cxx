@@ -20,6 +20,7 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include <pyOCCT_Common.hxx>
+#include <BinTools_LocationSet.hxx>
 #include <Standard.hxx>
 #include <Standard_Handle.hxx>
 #include <BinMDF_ADriverTable.hxx>
@@ -51,9 +52,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BinObjMgt_Persistent.hxx>
 #include <BinObjMgt_RRelocationTable.hxx>
 #include <BinObjMgt_SRelocationTable.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <BinMXCAFDoc_AssemblyItemRefDriver.hxx>
-#include <BinTools_LocationSet.hxx>
 #include <TopLoc_Location.hxx>
 #include <BinTools_LocationSetPtr.hxx>
 #include <BinMXCAFDoc_NoteDriver.hxx>
@@ -64,12 +65,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 PYBIND11_MODULE(BinMXCAFDoc, mod) {
 
+py::module::import("OCCT.BinTools");
 py::module::import("OCCT.Standard");
 py::module::import("OCCT.BinMDF");
 py::module::import("OCCT.Message");
 py::module::import("OCCT.TDF");
 py::module::import("OCCT.BinObjMgt");
-py::module::import("OCCT.BinTools");
 py::module::import("OCCT.TopLoc");
 
 // CLASS: BINMXCAFDOC

@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TCollection_HAsciiString.hxx>
 #include <IGESGraph_TextDisplayTemplate.hxx>
 #include <gp_Pnt.hxx>
+#include <Standard_Std.hxx>
 #include <IGESDraw_ConnectPoint.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Array1.hxx>
@@ -157,6 +158,7 @@ bind_NCollection_Array1<opencascade::handle<IGESDraw_ConnectPoint> >(mod, "IGESD
 py::class_<IGESDraw_HArray1OfConnectPoint, opencascade::handle<IGESDraw_HArray1OfConnectPoint>, Standard_Transient> cls_IGESDraw_HArray1OfConnectPoint(mod, "IGESDraw_HArray1OfConnectPoint", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESDraw_HArray1OfConnectPoint.def(py::init<>());
 cls_IGESDraw_HArray1OfConnectPoint.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESDraw_HArray1OfConnectPoint.def(py::init<const Standard_Integer, const Standard_Integer, const IGESDraw_Array1OfConnectPoint::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESDraw_HArray1OfConnectPoint.def(py::init<const IGESDraw_Array1OfConnectPoint &>(), py::arg("theOther"));
@@ -220,6 +222,7 @@ cls_IGESDraw_CircArraySubfigure.def("DynamicType", (const opencascade::handle<St
 py::class_<IGESDraw_HArray1OfViewKindEntity, opencascade::handle<IGESDraw_HArray1OfViewKindEntity>, Standard_Transient> cls_IGESDraw_HArray1OfViewKindEntity(mod, "IGESDraw_HArray1OfViewKindEntity", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESDraw_HArray1OfViewKindEntity.def(py::init<>());
 cls_IGESDraw_HArray1OfViewKindEntity.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESDraw_HArray1OfViewKindEntity.def(py::init<const Standard_Integer, const Standard_Integer, const IGESDraw_Array1OfViewKindEntity::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESDraw_HArray1OfViewKindEntity.def(py::init<const IGESDraw_Array1OfViewKindEntity &>(), py::arg("theOther"));

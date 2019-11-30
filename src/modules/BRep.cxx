@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BRep_Builder.hxx>
 #include <TopoDS_TFace.hxx>
 #include <TopoDS_TShape.hxx>
+#include <Standard_Std.hxx>
 #include <BRep_TFace.hxx>
 #include <Standard_Type.hxx>
 #include <Standard_Transient.hxx>
@@ -273,6 +274,7 @@ cls_BRep_Tool.def_static("Continuity_", (GeomAbs_Shape (*)(const TopoDS_Edge &, 
 cls_BRep_Tool.def_static("HasContinuity_", (Standard_Boolean (*)(const TopoDS_Edge &, const opencascade::handle<Geom_Surface> &, const opencascade::handle<Geom_Surface> &, const TopLoc_Location &, const TopLoc_Location &)) &BRep_Tool::HasContinuity, "Returns True if the edge is on the surfaces.", py::arg("E"), py::arg("S1"), py::arg("S2"), py::arg("L1"), py::arg("L2"));
 cls_BRep_Tool.def_static("Continuity_", (GeomAbs_Shape (*)(const TopoDS_Edge &, const opencascade::handle<Geom_Surface> &, const opencascade::handle<Geom_Surface> &, const TopLoc_Location &, const TopLoc_Location &)) &BRep_Tool::Continuity, "Returns the continuity.", py::arg("E"), py::arg("S1"), py::arg("S2"), py::arg("L1"), py::arg("L2"));
 cls_BRep_Tool.def_static("HasContinuity_", (Standard_Boolean (*)(const TopoDS_Edge &)) &BRep_Tool::HasContinuity, "Returns True if the edge has regularity on some two surfaces", py::arg("E"));
+cls_BRep_Tool.def_static("MaxContinuity_", (GeomAbs_Shape (*)(const TopoDS_Edge &)) &BRep_Tool::MaxContinuity, "Returns the max continuity of edge between some surfaces or GeomAbs_C0 if there no such surfaces.", py::arg("theEdge"));
 cls_BRep_Tool.def_static("Pnt_", (gp_Pnt (*)(const TopoDS_Vertex &)) &BRep_Tool::Pnt, "Returns the 3d point.", py::arg("V"));
 cls_BRep_Tool.def_static("Tolerance_", (Standard_Real (*)(const TopoDS_Vertex &)) &BRep_Tool::Tolerance, "Returns the tolerance.", py::arg("V"));
 cls_BRep_Tool.def_static("Parameter_", (Standard_Real (*)(const TopoDS_Vertex &, const TopoDS_Edge &)) &BRep_Tool::Parameter, "Returns the parameter of <V> on <E>.", py::arg("V"), py::arg("E"));

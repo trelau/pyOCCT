@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <pyOCCT_Common.hxx>
 #include <LDOM_MemManager.hxx>
 #include <TColStd_DataMapOfIntegerTransient.hxx>
+#include <Standard_Handle.hxx>
+#include <Storage_HeaderData.hxx>
+#include <Standard_TypeDef.hxx>
 #include <XmlObjMgt_RRelocationTable.hxx>
 #include <LDOM_Element.hxx>
 #include <XmlObjMgt_Element.hxx>
@@ -32,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <LDOMString.hxx>
 #include <XmlObjMgt_DOMString.hxx>
 #include <Standard.hxx>
-#include <Standard_TypeDef.hxx>
 #include <TCollection_ExtendedString.hxx>
 #include <TCollection_AsciiString.hxx>
 #include <XmlObjMgt_Persistent.hxx>
@@ -42,20 +44,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_Trsf.hxx>
 #include <gp_Mat.hxx>
 #include <gp_XYZ.hxx>
-#include <bind_NCollection_DataMap.hxx>
-#include <bind_NCollection_IndexedMap.hxx>
 
 PYBIND11_MODULE(XmlObjMgt, mod) {
 
 py::module::import("OCCT.LDOM");
 py::module::import("OCCT.TColStd");
-py::module::import("OCCT.LDOMString");
 py::module::import("OCCT.Standard");
+py::module::import("OCCT.Storage");
+py::module::import("OCCT.LDOMString");
 py::module::import("OCCT.TCollection");
 py::module::import("OCCT.gp");
 
-// TYPEDEF: XMLOBJMGT_RRELOCATIONTABLE
-bind_NCollection_DataMap<int, opencascade::handle<Standard_Transient>, NCollection_DefaultHasher<int> >(mod, "XmlObjMgt_RRelocationTable", py::module_local());
+// CLASS: XMLOBJMGT_RRELOCATIONTABLE
+py::class_<XmlObjMgt_RRelocationTable, TColStd_DataMapOfIntegerTransient> cls_XmlObjMgt_RRelocationTable(mod, "XmlObjMgt_RRelocationTable", "Retrieval relocation table is modeled as a child class of TColStd_DataMapOfIntegerTransient that stores a handle to the file header section. With that attribute drivers have access to the file header section.");
+
+// Methods
+cls_XmlObjMgt_RRelocationTable.def("GetHeaderData", (const opencascade::handle<Storage_HeaderData> & (XmlObjMgt_RRelocationTable::*)() const) &XmlObjMgt_RRelocationTable::GetHeaderData, "Returns a handle to the header data of the file that is begin read");
+cls_XmlObjMgt_RRelocationTable.def("SetHeaderData", (void (XmlObjMgt_RRelocationTable::*)(const opencascade::handle<Storage_HeaderData> &)) &XmlObjMgt_RRelocationTable::SetHeaderData, "Sets the storage header data.", py::arg("theHeaderData"));
+cls_XmlObjMgt_RRelocationTable.def("Clear", [](XmlObjMgt_RRelocationTable &self) -> void { return self.Clear(); });
+cls_XmlObjMgt_RRelocationTable.def("Clear", (void (XmlObjMgt_RRelocationTable::*)(const Standard_Boolean)) &XmlObjMgt_RRelocationTable::Clear, "None", py::arg("doReleaseMemory"));
 
 // TYPEDEF: XMLOBJMGT_ELEMENT
 py::class_<LDOM_Element, LDOM_Node> cls_XmlObjMgt_Element(mod, "XmlObjMgt_Element", "None", py::module_local());
@@ -79,8 +86,14 @@ cls_XmlObjMgt_Element.def("GetSiblingByTagName", (LDOM_Element (LDOM_Element::*)
 cls_XmlObjMgt_Element.def("ReplaceElement", (void (LDOM_Element::*)(const LDOM_Element &)) &LDOM_Element::ReplaceElement, "None", py::arg("anOther"));
 cls_XmlObjMgt_Element.def("GetAttributesList", (LDOM_NodeList (LDOM_Element::*)() const) &LDOM_Element::GetAttributesList, "None");
 
-// TYPEDEF: XMLOBJMGT_SRELOCATIONTABLE
-bind_NCollection_IndexedMap<opencascade::handle<Standard_Transient>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "XmlObjMgt_SRelocationTable", py::module_local());
+// CLASS: XMLOBJMGT_SRELOCATIONTABLE
+py::class_<XmlObjMgt_SRelocationTable, TColStd_IndexedMapOfTransient> cls_XmlObjMgt_SRelocationTable(mod, "XmlObjMgt_SRelocationTable", "Stored relocation table is modeled as a child class of TColStd_DataMapOfIntegerTransient that stores a handle to the file header section. With that attribute drivers have access to the file header section.");
+
+// Methods
+cls_XmlObjMgt_SRelocationTable.def("GetHeaderData", (const opencascade::handle<Storage_HeaderData> & (XmlObjMgt_SRelocationTable::*)() const) &XmlObjMgt_SRelocationTable::GetHeaderData, "Returns a handle to the header data of the file that is begin read");
+cls_XmlObjMgt_SRelocationTable.def("SetHeaderData", (void (XmlObjMgt_SRelocationTable::*)(const opencascade::handle<Storage_HeaderData> &)) &XmlObjMgt_SRelocationTable::SetHeaderData, "Sets the storage header data.", py::arg("theHeaderData"));
+cls_XmlObjMgt_SRelocationTable.def("Clear", [](XmlObjMgt_SRelocationTable &self) -> void { return self.Clear(); });
+cls_XmlObjMgt_SRelocationTable.def("Clear", (void (XmlObjMgt_SRelocationTable::*)(const Standard_Boolean)) &XmlObjMgt_SRelocationTable::Clear, "None", py::arg("doReleaseMemory"));
 
 // TYPEDEF: XMLOBJMGT_DOCUMENT
 py::class_<LDOM_Document> cls_XmlObjMgt_Document(mod, "XmlObjMgt_Document", "None", py::module_local());

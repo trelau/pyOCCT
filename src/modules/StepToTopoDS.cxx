@@ -303,7 +303,7 @@ py::class_<StepToTopoDS_CartesianPointHasher> cls_StepToTopoDS_CartesianPointHas
 // cls_StepToTopoDS_CartesianPointHasher.def_static("operator delete[]_", (void (*)(void *)) &StepToTopoDS_CartesianPointHasher::operator delete[], "None", py::arg("theAddress"));
 // cls_StepToTopoDS_CartesianPointHasher.def_static("operator new_", (void * (*)(size_t, void *)) &StepToTopoDS_CartesianPointHasher::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_StepToTopoDS_CartesianPointHasher.def_static("operator delete_", (void (*)(void *, void *)) &StepToTopoDS_CartesianPointHasher::operator delete, "None", py::arg(""), py::arg(""));
-cls_StepToTopoDS_CartesianPointHasher.def_static("HashCode_", (Standard_Integer (*)(const opencascade::handle<StepGeom_CartesianPoint> &, const Standard_Integer)) &StepToTopoDS_CartesianPointHasher::HashCode, "Returns a HasCode value for the CartesianPoint", py::arg("K"), py::arg("Upper"));
+cls_StepToTopoDS_CartesianPointHasher.def_static("HashCode_", (Standard_Integer (*)(const opencascade::handle<StepGeom_CartesianPoint> &, Standard_Integer)) &StepToTopoDS_CartesianPointHasher::HashCode, "Computes a hash code for the cartesian point, in the range [1, theUpperBound]", py::arg("theCartesianPoint"), py::arg("theUpperBound"));
 cls_StepToTopoDS_CartesianPointHasher.def_static("IsEqual_", (Standard_Boolean (*)(const opencascade::handle<StepGeom_CartesianPoint> &, const opencascade::handle<StepGeom_CartesianPoint> &)) &StepToTopoDS_CartesianPointHasher::IsEqual, "Returns True when the two CartesianPoint are the same", py::arg("K1"), py::arg("K2"));
 
 // TYPEDEF: STEPTOTOPODS_DATAMAPOFTRI
@@ -335,7 +335,7 @@ py::class_<StepToTopoDS_PointPairHasher> cls_StepToTopoDS_PointPairHasher(mod, "
 // cls_StepToTopoDS_PointPairHasher.def_static("operator delete[]_", (void (*)(void *)) &StepToTopoDS_PointPairHasher::operator delete[], "None", py::arg("theAddress"));
 // cls_StepToTopoDS_PointPairHasher.def_static("operator new_", (void * (*)(size_t, void *)) &StepToTopoDS_PointPairHasher::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_StepToTopoDS_PointPairHasher.def_static("operator delete_", (void (*)(void *, void *)) &StepToTopoDS_PointPairHasher::operator delete, "None", py::arg(""), py::arg(""));
-cls_StepToTopoDS_PointPairHasher.def_static("HashCode_", (Standard_Integer (*)(const StepToTopoDS_PointPair &, const Standard_Integer)) &StepToTopoDS_PointPairHasher::HashCode, "Returns a HasCode value for the PointPair", py::arg("K"), py::arg("Upper"));
+cls_StepToTopoDS_PointPairHasher.def_static("HashCode_", (Standard_Integer (*)(const StepToTopoDS_PointPair &, Standard_Integer)) &StepToTopoDS_PointPairHasher::HashCode, "Computes a hash code for the point pair, in the range [1, theUpperBound]", py::arg("thePointPair"), py::arg("theUpperBound"));
 cls_StepToTopoDS_PointPairHasher.def_static("IsEqual_", (Standard_Boolean (*)(const StepToTopoDS_PointPair &, const StepToTopoDS_PointPair &)) &StepToTopoDS_PointPairHasher::IsEqual, "Returns True when the two PointPair are the same", py::arg("K1"), py::arg("K2"));
 
 // TYPEDEF: STEPTOTOPODS_POINTEDGEMAP

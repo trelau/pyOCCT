@@ -23,13 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StdPrs_Volume.hxx>
 #include <Prs3d_Root.hxx>
 #include <Standard_Handle.hxx>
-#include <Prs3d_Presentation.hxx>
+#include <PrsMgr_PresentationManager.hxx>
 #include <Bnd_Box.hxx>
 #include <Prs3d_Drawer.hxx>
+#include <Bnd_OBB.hxx>
+#include <Graphic3d_ArrayOfSegments.hxx>
+#include <gp_Pnt.hxx>
+#include <Standard_TypeDef.hxx>
 #include <StdPrs_BndBox.hxx>
 #include <Standard.hxx>
 #include <Adaptor3d_Curve.hxx>
-#include <Standard_TypeDef.hxx>
 #include <TColgp_SequenceOfPnt.hxx>
 #include <StdPrs_Curve.hxx>
 #include <StdPrs_DeflectionCurve.hxx>
@@ -52,7 +55,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopLoc_Location.hxx>
 #include <TColStd_SequenceOfReal.hxx>
 #include <BRepAdaptor_HSurface.hxx>
-#include <gp_Pnt.hxx>
 #include <StdPrs_Isolines.hxx>
 #include <gp_Lin2d.hxx>
 #include <gp_Pnt2d.hxx>
@@ -66,10 +68,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BRep_Builder.hxx>
 #include <TopoDS_Compound.hxx>
 #include <Graphic3d_ArrayOfTriangles.hxx>
-#include <Graphic3d_ArrayOfSegments.hxx>
+#include <GeomAbs_Shape.hxx>
 #include <StdPrs_ShadedShape.hxx>
 #include <StdPrs_ShadedSurface.hxx>
-#include <Adaptor2d_Curve2dPtr.hxx>
+#include <Adaptor2d_Curve2d.hxx>
 #include <TopAbs_Orientation.hxx>
 #include <TopExp_Explorer.hxx>
 #include <Geom2dAdaptor_Curve.hxx>
@@ -83,8 +85,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StdPrs_WFPoleSurface.hxx>
 #include <StdPrs_WFRestrictedFace.hxx>
 #include <Graphic3d_ArrayOfPrimitives.hxx>
+#include <Graphic3d_ArrayOfPoints.hxx>
+#include <Prs3d_VertexDrawMode.hxx>
 #include <TopTools_ListOfShape.hxx>
-#include <Prs3d_PointAspect.hxx>
 #include <StdPrs_WFShape.hxx>
 #include <StdPrs_WFSurface.hxx>
 #include <bind_Prs3d_Point.hxx>
@@ -93,7 +96,10 @@ PYBIND11_MODULE(StdPrs, mod) {
 
 py::module::import("OCCT.Prs3d");
 py::module::import("OCCT.Standard");
+py::module::import("OCCT.PrsMgr");
 py::module::import("OCCT.Bnd");
+py::module::import("OCCT.Graphic3d");
+py::module::import("OCCT.gp");
 py::module::import("OCCT.Adaptor3d");
 py::module::import("OCCT.TColgp");
 py::module::import("OCCT.TopoDS");
@@ -104,9 +110,8 @@ py::module::import("OCCT.Poly");
 py::module::import("OCCT.Geom");
 py::module::import("OCCT.TopLoc");
 py::module::import("OCCT.TColStd");
-py::module::import("OCCT.gp");
 py::module::import("OCCT.BRep");
-py::module::import("OCCT.Graphic3d");
+py::module::import("OCCT.GeomAbs");
 py::module::import("OCCT.Adaptor2d");
 py::module::import("OCCT.TopAbs");
 py::module::import("OCCT.TopExp");
@@ -126,6 +131,12 @@ py::class_<StdPrs_BndBox, Prs3d_Root> cls_StdPrs_BndBox(mod, "StdPrs_BndBox", "T
 
 // Methods
 cls_StdPrs_BndBox.def_static("Add_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const Bnd_Box &, const opencascade::handle<Prs3d_Drawer> &)) &StdPrs_BndBox::Add, "Computes presentation of a bounding box.", py::arg("thePresentation"), py::arg("theBndBox"), py::arg("theDrawer"));
+cls_StdPrs_BndBox.def_static("Add_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const Bnd_OBB &, const opencascade::handle<Prs3d_Drawer> &)) &StdPrs_BndBox::Add, "Computes presentation of a bounding box.", py::arg("thePresentation"), py::arg("theBndBox"), py::arg("theDrawer"));
+cls_StdPrs_BndBox.def_static("FillSegments_", (opencascade::handle<Graphic3d_ArrayOfSegments> (*)(const Bnd_OBB &)) &StdPrs_BndBox::FillSegments, "Create primitive array with line segments for displaying a box.", py::arg("theBox"));
+cls_StdPrs_BndBox.def_static("FillSegments_", (opencascade::handle<Graphic3d_ArrayOfSegments> (*)(const Bnd_Box &)) &StdPrs_BndBox::FillSegments, "Create primitive array with line segments for displaying a box.", py::arg("theBox"));
+cls_StdPrs_BndBox.def_static("FillSegments_", (void (*)(const opencascade::handle<Graphic3d_ArrayOfSegments> &, const Bnd_OBB &)) &StdPrs_BndBox::FillSegments, "Create primitive array with line segments for displaying a box.", py::arg("theSegments"), py::arg("theBox"));
+cls_StdPrs_BndBox.def_static("FillSegments_", (void (*)(const opencascade::handle<Graphic3d_ArrayOfSegments> &, const Bnd_Box &)) &StdPrs_BndBox::FillSegments, "Create primitive array with line segments for displaying a box.", py::arg("theSegments"), py::arg("theBox"));
+cls_StdPrs_BndBox.def_static("fillSegments_", (void (*)(const opencascade::handle<Graphic3d_ArrayOfSegments> &, const gp_Pnt *)) &StdPrs_BndBox::fillSegments, "Create primitive array with line segments for displaying a box.", py::arg("theSegments"), py::arg("theBox"));
 
 // CLASS: STDPRS_CURVE
 py::class_<StdPrs_Curve, Prs3d_Root> cls_StdPrs_Curve(mod, "StdPrs_Curve", "A framework to define display of lines, arcs of circles and conic sections. This is done with a fixed number of points, which can be modified.");
@@ -250,7 +261,7 @@ cls_StdPrs_Isolines.def_static("AddOnTriangulation_", (void (*)(const opencascad
 cls_StdPrs_Isolines.def_static("AddOnSurface_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const TopoDS_Face &, const opencascade::handle<Prs3d_Drawer> &, const Standard_Real)) &StdPrs_Isolines::AddOnSurface, "Computes isolines on surface and adds them to presentation.", py::arg("thePresentation"), py::arg("theFace"), py::arg("theDrawer"), py::arg("theDeflection"));
 cls_StdPrs_Isolines.def_static("AddOnSurface_", (void (*)(const TopoDS_Face &, const opencascade::handle<Prs3d_Drawer> &, const Standard_Real, Prs3d_NListOfSequenceOfPnt &, Prs3d_NListOfSequenceOfPnt &)) &StdPrs_Isolines::AddOnSurface, "Computes isolines on surface and adds them to presentation.", py::arg("theFace"), py::arg("theDrawer"), py::arg("theDeflection"), py::arg("theUPolylines"), py::arg("theVPolylines"));
 cls_StdPrs_Isolines.def_static("AddOnSurface_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const opencascade::handle<BRepAdaptor_HSurface> &, const opencascade::handle<Prs3d_Drawer> &, const Standard_Real, const TColStd_SequenceOfReal &, const TColStd_SequenceOfReal &)) &StdPrs_Isolines::AddOnSurface, "Computes isolines on surface and adds them to presentation.", py::arg("thePresentation"), py::arg("theSurface"), py::arg("theDrawer"), py::arg("theDeflection"), py::arg("theUIsoParams"), py::arg("theVIsoParams"));
-cls_StdPrs_Isolines.def_static("UVIsoParameters_", (void (*)(const TopoDS_Face &, const Standard_Integer, const Standard_Integer, const Standard_Real, TColStd_SequenceOfReal &, TColStd_SequenceOfReal &)) &StdPrs_Isolines::UVIsoParameters, "Evalute sequence of parameters for drawing uv isolines for a given face.", py::arg("theFace"), py::arg("theNbIsoU"), py::arg("theNbIsoV"), py::arg("theUVLimit"), py::arg("theUIsoParams"), py::arg("theVIsoParams"));
+cls_StdPrs_Isolines.def_static("UVIsoParameters_", [](const TopoDS_Face & theFace, const Standard_Integer theNbIsoU, const Standard_Integer theNbIsoV, const Standard_Real theUVLimit, TColStd_SequenceOfReal & theUIsoParams, TColStd_SequenceOfReal & theVIsoParams, Standard_Real & theUmin, Standard_Real & theUmax, Standard_Real & theVmin, Standard_Real & theVmax){ StdPrs_Isolines::UVIsoParameters(theFace, theNbIsoU, theNbIsoV, theUVLimit, theUIsoParams, theVIsoParams, theUmin, theUmax, theVmin, theVmax); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &, Standard_Real &>(theUmin, theUmax, theVmin, theVmax); }, "Evalute sequence of parameters for drawing uv isolines for a given face.", py::arg("theFace"), py::arg("theNbIsoU"), py::arg("theNbIsoV"), py::arg("theUVLimit"), py::arg("theUIsoParams"), py::arg("theVIsoParams"), py::arg("theUmin"), py::arg("theUmax"), py::arg("theVmin"), py::arg("theVmax"));
 
 // CLASS: STDPRS_PLANE
 py::class_<StdPrs_Plane, Prs3d_Root> cls_StdPrs_Plane(mod, "StdPrs_Plane", "A framework to display infinite planes.");
@@ -307,7 +318,8 @@ cls_StdPrs_ShadedShape.def_static("AddWireframeForFreeElements_", (void (*)(cons
 cls_StdPrs_ShadedShape.def_static("AddWireframeForFacesWithoutTriangles_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const TopoDS_Shape &, const opencascade::handle<Prs3d_Drawer> &)) &StdPrs_ShadedShape::AddWireframeForFacesWithoutTriangles, "Computes special wireframe presentation for faces without triangulation.", py::arg("thePrs"), py::arg("theShape"), py::arg("theDrawer"));
 cls_StdPrs_ShadedShape.def_static("FillTriangles_", (opencascade::handle<Graphic3d_ArrayOfTriangles> (*)(const TopoDS_Shape &)) &StdPrs_ShadedShape::FillTriangles, "Create primitive array with triangles for specified shape.", py::arg("theShape"));
 cls_StdPrs_ShadedShape.def_static("FillTriangles_", (opencascade::handle<Graphic3d_ArrayOfTriangles> (*)(const TopoDS_Shape &, const Standard_Boolean, const gp_Pnt2d &, const gp_Pnt2d &, const gp_Pnt2d &)) &StdPrs_ShadedShape::FillTriangles, "Create primitive array of triangles for specified shape.", py::arg("theShape"), py::arg("theHasTexels"), py::arg("theUVOrigin"), py::arg("theUVRepeat"), py::arg("theUVScale"));
-cls_StdPrs_ShadedShape.def_static("FillFaceBoundaries_", (opencascade::handle<Graphic3d_ArrayOfSegments> (*)(const TopoDS_Shape &)) &StdPrs_ShadedShape::FillFaceBoundaries, "Define primitive array of boundary segments for specified shape.", py::arg("theShape"));
+cls_StdPrs_ShadedShape.def_static("FillFaceBoundaries_", [](const TopoDS_Shape & a0) -> opencascade::handle<Graphic3d_ArrayOfSegments> { return StdPrs_ShadedShape::FillFaceBoundaries(a0); });
+cls_StdPrs_ShadedShape.def_static("FillFaceBoundaries_", (opencascade::handle<Graphic3d_ArrayOfSegments> (*)(const TopoDS_Shape &, GeomAbs_Shape)) &StdPrs_ShadedShape::FillFaceBoundaries, "Define primitive array of boundary segments for specified shape.", py::arg("theShape"), py::arg("theUpperContinuity"));
 
 // CLASS: STDPRS_SHADEDSURFACE
 py::class_<StdPrs_ShadedSurface, Prs3d_Root> cls_StdPrs_ShadedSurface(mod, "StdPrs_ShadedSurface", "Computes the shading presentation of surfaces. Draws a surface by drawing the isoparametric curves with respect to a maximal chordial deviation. The number of isoparametric curves to be drawn and their color are controlled by the furnished Drawer.");
@@ -322,7 +334,7 @@ py::class_<StdPrs_ShadedSurface, Prs3d_Root> cls_StdPrs_ShadedSurface(mod, "StdP
 cls_StdPrs_ShadedSurface.def_static("Add_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const Adaptor3d_Surface &, const opencascade::handle<Prs3d_Drawer> &)) &StdPrs_ShadedSurface::Add, "Adds the surface aSurface to the presentation object aPresentation. The surface's display attributes are set in the attribute manager aDrawer. The surface object from Adaptor3d provides data from a Geom surface in order to use the surface in an algorithm.", py::arg("aPresentation"), py::arg("aSurface"), py::arg("aDrawer"));
 
 // CLASS: STDPRS_TOOLRFACE
-py::class_<StdPrs_ToolRFace> cls_StdPrs_ToolRFace(mod, "StdPrs_ToolRFace", "None");
+py::class_<StdPrs_ToolRFace> cls_StdPrs_ToolRFace(mod, "StdPrs_ToolRFace", "Iterator over 2D curves restricting a face (skipping internal/external edges). In addition, the algorithm skips NULL curves - IsInvalidGeometry() can be checked if this should be handled within algorithm.");
 
 // Constructors
 cls_StdPrs_ToolRFace.def(py::init<>());
@@ -335,12 +347,13 @@ cls_StdPrs_ToolRFace.def(py::init<const opencascade::handle<BRepAdaptor_HSurface
 // cls_StdPrs_ToolRFace.def_static("operator delete[]_", (void (*)(void *)) &StdPrs_ToolRFace::operator delete[], "None", py::arg("theAddress"));
 // cls_StdPrs_ToolRFace.def_static("operator new_", (void * (*)(size_t, void *)) &StdPrs_ToolRFace::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_StdPrs_ToolRFace.def_static("operator delete_", (void (*)(void *, void *)) &StdPrs_ToolRFace::operator delete, "None", py::arg(""), py::arg(""));
-cls_StdPrs_ToolRFace.def("IsOriented", (Standard_Boolean (StdPrs_ToolRFace::*)() const) &StdPrs_ToolRFace::IsOriented, "None");
-cls_StdPrs_ToolRFace.def("Init", (void (StdPrs_ToolRFace::*)()) &StdPrs_ToolRFace::Init, "None");
-cls_StdPrs_ToolRFace.def("More", (Standard_Boolean (StdPrs_ToolRFace::*)() const) &StdPrs_ToolRFace::More, "None");
-cls_StdPrs_ToolRFace.def("Next", (void (StdPrs_ToolRFace::*)()) &StdPrs_ToolRFace::Next, "None");
-cls_StdPrs_ToolRFace.def("Value", (Adaptor2d_Curve2dPtr (StdPrs_ToolRFace::*)() const) &StdPrs_ToolRFace::Value, "None");
-cls_StdPrs_ToolRFace.def("Orientation", (TopAbs_Orientation (StdPrs_ToolRFace::*)() const) &StdPrs_ToolRFace::Orientation, "None");
+cls_StdPrs_ToolRFace.def("IsOriented", (Standard_Boolean (StdPrs_ToolRFace::*)() const) &StdPrs_ToolRFace::IsOriented, "Return TRUE indicating that iterator looks only for oriented edges.");
+cls_StdPrs_ToolRFace.def("Init", (void (StdPrs_ToolRFace::*)()) &StdPrs_ToolRFace::Init, "Move iterator to the first element.");
+cls_StdPrs_ToolRFace.def("More", (Standard_Boolean (StdPrs_ToolRFace::*)() const) &StdPrs_ToolRFace::More, "Return TRUE if iterator points to the curve.");
+cls_StdPrs_ToolRFace.def("Next", (void (StdPrs_ToolRFace::*)()) &StdPrs_ToolRFace::Next, "Go to the next curve in the face.");
+cls_StdPrs_ToolRFace.def("Value", (const Adaptor2d_Curve2d & (StdPrs_ToolRFace::*)() const) &StdPrs_ToolRFace::Value, "Return current curve.");
+cls_StdPrs_ToolRFace.def("Orientation", (TopAbs_Orientation (StdPrs_ToolRFace::*)() const) &StdPrs_ToolRFace::Orientation, "Return current edge orientation.");
+cls_StdPrs_ToolRFace.def("IsInvalidGeometry", (Standard_Boolean (StdPrs_ToolRFace::*)() const) &StdPrs_ToolRFace::IsInvalidGeometry, "Return TRUE if NULL curves have been skipped.");
 
 // CLASS: STDPRS_TOOLVERTEX
 py::class_<StdPrs_ToolVertex> cls_StdPrs_ToolVertex(mod, "StdPrs_ToolVertex", "None");
@@ -429,6 +442,8 @@ cls_StdPrs_WFShape.def_static("AddEdgesOnTriangulation_", [](const TopoDS_Shape 
 cls_StdPrs_WFShape.def_static("AddEdgesOnTriangulation_", (opencascade::handle<Graphic3d_ArrayOfPrimitives> (*)(const TopoDS_Shape &, const Standard_Boolean)) &StdPrs_WFShape::AddEdgesOnTriangulation, "Compute free and boundary edges on a triangulation of each face in the given shape.", py::arg("theShape"), py::arg("theToExcludeGeometric"));
 cls_StdPrs_WFShape.def_static("AddEdgesOnTriangulation_", [](TColgp_SequenceOfPnt & a0, const TopoDS_Shape & a1) -> void { return StdPrs_WFShape::AddEdgesOnTriangulation(a0, a1); });
 cls_StdPrs_WFShape.def_static("AddEdgesOnTriangulation_", (void (*)(TColgp_SequenceOfPnt &, const TopoDS_Shape &, const Standard_Boolean)) &StdPrs_WFShape::AddEdgesOnTriangulation, "Compute free and boundary edges on a triangulation of each face in the given shape.", py::arg("theSegments"), py::arg("theShape"), py::arg("theToExcludeGeometric"));
+cls_StdPrs_WFShape.def_static("AddAllEdges_", (opencascade::handle<Graphic3d_ArrayOfPrimitives> (*)(const TopoDS_Shape &, const opencascade::handle<Prs3d_Drawer> &)) &StdPrs_WFShape::AddAllEdges, "Compute all edges (wire, free, unfree) and put them into single primitive array.", py::arg("theShape"), py::arg("theDrawer"));
+cls_StdPrs_WFShape.def_static("AddVertexes_", (opencascade::handle<Graphic3d_ArrayOfPoints> (*)(const TopoDS_Shape &, Prs3d_VertexDrawMode)) &StdPrs_WFShape::AddVertexes, "Compute vertex presentation for a shape.", py::arg("theShape"), py::arg("theVertexMode"));
 
 // CLASS: STDPRS_WFSURFACE
 py::class_<StdPrs_WFSurface, Prs3d_Root> cls_StdPrs_WFSurface(mod, "StdPrs_WFSurface", "Computes the wireframe presentation of surfaces by displaying a given number of U and/or V isoparametric curves. The isoparametric curves are drawn with respect to a given number of points.");

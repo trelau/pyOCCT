@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TCollection_AsciiString.hxx>
 #include <CDM_Reference.hxx>
 #include <CDM_MetaData.hxx>
+#include <Standard_Std.hxx>
 #include <CDM_Application.hxx>
 #include <Standard_Type.hxx>
 #include <CDM_DocumentPointer.hxx>
@@ -190,6 +191,8 @@ cls_CDM_Document.def("Update", (void (CDM_Document::*)()) &CDM_Document::Update,
 cls_CDM_Document.def("Reference", (opencascade::handle<CDM_Reference> (CDM_Document::*)(const Standard_Integer) const) &CDM_Document::Reference, "None", py::arg("aReferenceIdentifier"));
 cls_CDM_Document.def("SetModifications", (void (CDM_Document::*)(const Standard_Integer)) &CDM_Document::SetModifications, "None", py::arg("Modifications"));
 cls_CDM_Document.def("SetReferenceCounter", (void (CDM_Document::*)(const Standard_Integer)) &CDM_Document::SetReferenceCounter, "None", py::arg("aReferenceCounter"));
+cls_CDM_Document.def("StorageFormatVersion", (Standard_Integer (CDM_Document::*)() const) &CDM_Document::StorageFormatVersion, "Returns version of the format to be used to store the document");
+cls_CDM_Document.def("ChangeStorageFormatVersion", (void (CDM_Document::*)(const Standard_Integer)) &CDM_Document::ChangeStorageFormatVersion, "Sets <theVersion> of the format to be used to store the document", py::arg("theVersion"));
 cls_CDM_Document.def_static("get_type_name_", (const char * (*)()) &CDM_Document::get_type_name, "None");
 cls_CDM_Document.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &CDM_Document::get_type_descriptor, "None");
 cls_CDM_Document.def("DynamicType", (const opencascade::handle<Standard_Type> & (CDM_Document::*)() const) &CDM_Document::DynamicType, "None");

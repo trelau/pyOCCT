@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Adaptor3d_CurveOnSurfacePtr.hxx>
 #include <Adaptor3d_CurvePtr.hxx>
 #include <Standard_Transient.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <Adaptor3d_HCurveOnSurface.hxx>
 #include <GeomAbs_IsoType.hxx>

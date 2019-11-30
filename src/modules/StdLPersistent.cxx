@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <Standard_TypeDef.hxx>
+#include <Standard_Std.hxx>
 #include <StdLPersistent_HArray1.hxx>
 #include <Standard_Type.hxx>
 #include <StdObjMgt_ReadData.hxx>
@@ -111,6 +112,7 @@ py::module::import("OCCT.TFunction");
 py::class_<StdLPersistent_HArray1OfPersistent, opencascade::handle<StdLPersistent_HArray1OfPersistent>, Standard_Transient> cls_StdLPersistent_HArray1OfPersistent(mod, "StdLPersistent_HArray1OfPersistent", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StdLPersistent_HArray1OfPersistent.def(py::init<>());
 cls_StdLPersistent_HArray1OfPersistent.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StdLPersistent_HArray1OfPersistent.def(py::init<const Standard_Integer, const Standard_Integer, const NCollection_Array1<opencascade::handle<StdObjMgt_Persistent> >::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StdLPersistent_HArray1OfPersistent.def(py::init<const NCollection_Array1<opencascade::handle<StdObjMgt_Persistent> > &>(), py::arg("theOther"));

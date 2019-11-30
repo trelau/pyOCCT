@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <Standard_TypeDef.hxx>
+#include <Standard_Std.hxx>
 #include <Interface_HArray1OfHAsciiString.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_DataMap.hxx>
@@ -182,6 +183,7 @@ bind_NCollection_Array1<opencascade::handle<TCollection_HAsciiString> >(mod, "In
 py::class_<Interface_HArray1OfHAsciiString, opencascade::handle<Interface_HArray1OfHAsciiString>, Standard_Transient> cls_Interface_HArray1OfHAsciiString(mod, "Interface_HArray1OfHAsciiString", "None", py::multiple_inheritance());
 
 // Constructors
+cls_Interface_HArray1OfHAsciiString.def(py::init<>());
 cls_Interface_HArray1OfHAsciiString.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_Interface_HArray1OfHAsciiString.def(py::init<const Standard_Integer, const Standard_Integer, const Interface_Array1OfHAsciiString::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_Interface_HArray1OfHAsciiString.def(py::init<const Interface_Array1OfHAsciiString &>(), py::arg("theOther"));
@@ -914,7 +916,7 @@ cls_Interface_LineBuffer.def("Add", (void (Interface_LineBuffer::*)(const TColle
 cls_Interface_LineBuffer.def("Add", (void (Interface_LineBuffer::*)(const Standard_Character)) &Interface_LineBuffer::Add, "Adds a text made of only ONE Character", py::arg("text"));
 
 // CLASS: INTERFACE_FLOATWRITER
-py::class_<Interface_FloatWriter> cls_Interface_FloatWriter(mod, "Interface_FloatWriter", "This class converts a floting number (Real) to a string It can be used if the standard C-C++ output functions (sprintf or cout<<) are not convenient. That is to say : - to suppress trailing '0' and 'E+00' (if desired) - to control exponant output and floating point output");
+py::class_<Interface_FloatWriter> cls_Interface_FloatWriter(mod, "Interface_FloatWriter", "This class converts a floting number (Real) to a string It can be used if the standard C-C++ output functions (sprintf or std::cout<<) are not convenient. That is to say : - to suppress trailing '0' and 'E+00' (if desired) - to control exponant output and floating point output");
 
 // Constructors
 cls_Interface_FloatWriter.def(py::init<>());
@@ -1245,7 +1247,7 @@ py::class_<Interface_MapAsciiStringHasher> cls_Interface_MapAsciiStringHasher(mo
 // cls_Interface_MapAsciiStringHasher.def_static("operator delete[]_", (void (*)(void *)) &Interface_MapAsciiStringHasher::operator delete[], "None", py::arg("theAddress"));
 // cls_Interface_MapAsciiStringHasher.def_static("operator new_", (void * (*)(size_t, void *)) &Interface_MapAsciiStringHasher::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_Interface_MapAsciiStringHasher.def_static("operator delete_", (void (*)(void *, void *)) &Interface_MapAsciiStringHasher::operator delete, "None", py::arg(""), py::arg(""));
-cls_Interface_MapAsciiStringHasher.def_static("HashCode_", (Standard_Integer (*)(const TCollection_AsciiString &, const Standard_Integer)) &Interface_MapAsciiStringHasher::HashCode, "None", py::arg("K"), py::arg("Upper"));
+cls_Interface_MapAsciiStringHasher.def_static("HashCode_", (Standard_Integer (*)(const TCollection_AsciiString &, Standard_Integer)) &Interface_MapAsciiStringHasher::HashCode, "Computes a hash code for the given ASCII string, in the range [1, theUpperBound]", py::arg("theAsciiString"), py::arg("theUpperBound"));
 cls_Interface_MapAsciiStringHasher.def_static("IsEqual_", (Standard_Boolean (*)(const TCollection_AsciiString &, const TCollection_AsciiString &)) &Interface_MapAsciiStringHasher::IsEqual, "None", py::arg("K1"), py::arg("K2"));
 
 // TYPEDEF: INTERFACE_INDEXEDMAPOFASCIISTRING

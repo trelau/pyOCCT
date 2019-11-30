@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Handle.hxx>
 #include <XmlMDF_ADriverTable.hxx>
 #include <Message_Messenger.hxx>
-#include <Standard_TypeDef.hxx>
 #include <XmlMDataStd_NameDriver.hxx>
 #include <XmlMDataStd_IntegerDriver.hxx>
 #include <XmlMDataStd_RealDriver.hxx>
@@ -54,9 +53,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <XmlMDataStd.hxx>
 #include <XmlMDF_ADriver.hxx>
 #include <TDF_Attribute.hxx>
+#include <Standard_TypeDef.hxx>
 #include <XmlObjMgt_Persistent.hxx>
 #include <XmlObjMgt_RRelocationTable.hxx>
 #include <XmlObjMgt_SRelocationTable.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 
 PYBIND11_MODULE(XmlMDataStd, mod) {
@@ -78,8 +79,6 @@ py::class_<XmlMDataStd> cls_XmlMDataStd(mod, "XmlMDataStd", "Storage and Retriev
 // cls_XmlMDataStd.def_static("operator new_", (void * (*)(size_t, void *)) &XmlMDataStd::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_XmlMDataStd.def_static("operator delete_", (void (*)(void *, void *)) &XmlMDataStd::operator delete, "None", py::arg(""), py::arg(""));
 cls_XmlMDataStd.def_static("AddDrivers_", (void (*)(const opencascade::handle<XmlMDF_ADriverTable> &, const opencascade::handle<Message_Messenger> &)) &XmlMDataStd::AddDrivers, "Adds the attribute drivers to <aDriverTable>.", py::arg("aDriverTable"), py::arg("anMsgDrv"));
-cls_XmlMDataStd.def_static("SetDocumentVersion_", (void (*)(const Standard_Integer)) &XmlMDataStd::SetDocumentVersion, "None", py::arg("DocVersion"));
-cls_XmlMDataStd.def_static("DocumentVersion_", (Standard_Integer (*)()) &XmlMDataStd::DocumentVersion, "None");
 
 // CLASS: XMLMDATASTD_ASCIISTRINGDRIVER
 py::class_<XmlMDataStd_AsciiStringDriver, opencascade::handle<XmlMDataStd_AsciiStringDriver>, XmlMDF_ADriver> cls_XmlMDataStd_AsciiStringDriver(mod, "XmlMDataStd_AsciiStringDriver", "TDataStd_AsciiString attribute Driver.");

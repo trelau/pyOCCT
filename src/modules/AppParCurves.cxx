@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <NCollection_Array1.hxx>
 #include <AppParCurves_Array1OfMultiPoint.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <AppParCurves_HArray1OfMultiPoint.hxx>
 #include <Standard_Type.hxx>
 #include <gp_Vec.hxx>
@@ -114,6 +115,7 @@ bind_NCollection_Array1<AppParCurves_MultiPoint>(mod, "AppParCurves_Array1OfMult
 py::class_<AppParCurves_HArray1OfMultiPoint, opencascade::handle<AppParCurves_HArray1OfMultiPoint>, Standard_Transient> cls_AppParCurves_HArray1OfMultiPoint(mod, "AppParCurves_HArray1OfMultiPoint", "None", py::multiple_inheritance());
 
 // Constructors
+cls_AppParCurves_HArray1OfMultiPoint.def(py::init<>());
 cls_AppParCurves_HArray1OfMultiPoint.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_AppParCurves_HArray1OfMultiPoint.def(py::init<const Standard_Integer, const Standard_Integer, const AppParCurves_Array1OfMultiPoint::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_AppParCurves_HArray1OfMultiPoint.def(py::init<const AppParCurves_Array1OfMultiPoint &>(), py::arg("theOther"));
@@ -224,6 +226,7 @@ bind_NCollection_Array1<AppParCurves_ConstraintCouple>(mod, "AppParCurves_Array1
 py::class_<AppParCurves_HArray1OfConstraintCouple, opencascade::handle<AppParCurves_HArray1OfConstraintCouple>, Standard_Transient> cls_AppParCurves_HArray1OfConstraintCouple(mod, "AppParCurves_HArray1OfConstraintCouple", "None", py::multiple_inheritance());
 
 // Constructors
+cls_AppParCurves_HArray1OfConstraintCouple.def(py::init<>());
 cls_AppParCurves_HArray1OfConstraintCouple.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_AppParCurves_HArray1OfConstraintCouple.def(py::init<const Standard_Integer, const Standard_Integer, const AppParCurves_Array1OfConstraintCouple::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_AppParCurves_HArray1OfConstraintCouple.def(py::init<const AppParCurves_Array1OfConstraintCouple &>(), py::arg("theOther"));
@@ -271,6 +274,7 @@ bind_NCollection_Array1<AppParCurves_MultiCurve>(mod, "AppParCurves_Array1OfMult
 py::class_<AppParCurves_HArray1OfMultiBSpCurve, opencascade::handle<AppParCurves_HArray1OfMultiBSpCurve>, Standard_Transient> cls_AppParCurves_HArray1OfMultiBSpCurve(mod, "AppParCurves_HArray1OfMultiBSpCurve", "None", py::multiple_inheritance());
 
 // Constructors
+cls_AppParCurves_HArray1OfMultiBSpCurve.def(py::init<>());
 cls_AppParCurves_HArray1OfMultiBSpCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_AppParCurves_HArray1OfMultiBSpCurve.def(py::init<const Standard_Integer, const Standard_Integer, const AppParCurves_Array1OfMultiBSpCurve::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_AppParCurves_HArray1OfMultiBSpCurve.def(py::init<const AppParCurves_Array1OfMultiBSpCurve &>(), py::arg("theOther"));
@@ -294,6 +298,7 @@ cls_AppParCurves_HArray1OfMultiBSpCurve.def("DynamicType", (const opencascade::h
 py::class_<AppParCurves_HArray1OfMultiCurve, opencascade::handle<AppParCurves_HArray1OfMultiCurve>, Standard_Transient> cls_AppParCurves_HArray1OfMultiCurve(mod, "AppParCurves_HArray1OfMultiCurve", "None", py::multiple_inheritance());
 
 // Constructors
+cls_AppParCurves_HArray1OfMultiCurve.def(py::init<>());
 cls_AppParCurves_HArray1OfMultiCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_AppParCurves_HArray1OfMultiCurve.def(py::init<const Standard_Integer, const Standard_Integer, const AppParCurves_Array1OfMultiCurve::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_AppParCurves_HArray1OfMultiCurve.def(py::init<const AppParCurves_Array1OfMultiCurve &>(), py::arg("theOther"));

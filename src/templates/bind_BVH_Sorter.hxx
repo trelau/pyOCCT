@@ -31,9 +31,14 @@ void bind_BVH_Sorter(py::module &mod, std::string const &name, py::module_local 
 
 py::class_<BVH_Sorter<T, N>> cls_BVH_Sorter(mod, name.c_str(), "Tool object to sort abstract primitive set.", local);
 
+// Constructors
+cls_BVH_Sorter.def(py::init<>());
+
 // Methods
 cls_BVH_Sorter.def("Perform", (void (BVH_Sorter<T, N>::*)(BVH_Set<T, N> *)) &BVH_Sorter<T, N>::Perform, "Sorts the set.", py::arg("theSet"));
 cls_BVH_Sorter.def("Perform", (void (BVH_Sorter<T, N>::*)(BVH_Set<T, N> *, const Standard_Integer, const Standard_Integer)) &BVH_Sorter<T, N>::Perform, "Sorts the given (inclusive) range in the set.", py::arg("theSet"), py::arg("theStart"), py::arg("theFinal"));
+cls_BVH_Sorter.def("IsParallel", (Standard_Boolean (BVH_Sorter<T, N>::*)() const) &BVH_Sorter<T, N>::IsParallel, "Returns parallel flag.");
+cls_BVH_Sorter.def("SetParallel", (void (BVH_Sorter<T, N>::*)(const Standard_Boolean)) &BVH_Sorter<T, N>::SetParallel, "Set parallel flag contolling possibility of parallel execution.", py::arg("isParallel"));
 
 }
 

@@ -35,8 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Graphic3d_BufferType.hxx>
 #include <V3d_ImageDumpOptions.hxx>
 #include <Standard_Transient.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <V3d_Trihedron.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <Aspect_TypeOfTriedronPosition.hxx>
 #include <Quantity_Color.hxx>
@@ -78,23 +79,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Aspect_Window.hxx>
 #include <Aspect_RenderingContext.hxx>
 #include <Aspect_FillMethod.hxx>
+#include <Graphic3d_CubeMap.hxx>
 #include <Graphic3d_TextureEnv.hxx>
 #include <Graphic3d_GraduatedTrihedron.hxx>
 #include <Bnd_Box.hxx>
 #include <Graphic3d_CView.hxx>
-#include <Graphic3d_ExportFormat.hxx>
-#include <Graphic3d_SortType.hxx>
+#include <Graphic3d_Camera.hxx>
 #include <Image_PixMap.hxx>
 #include <Graphic3d_ClipPlane.hxx>
 #include <Graphic3d_SequenceOfHClipPlane.hxx>
-#include <Graphic3d_Camera.hxx>
 #include <TColStd_IndexedDataMapOfStringString.hxx>
 #include <Graphic3d_DiagnosticInfo.hxx>
+#include <TCollection_AsciiString.hxx>
+#include <gp_Pnt.hxx>
 #include <gp_Dir.hxx>
 #include <gp_Vec.hxx>
 #include <gp_XYZ.hxx>
 #include <TColStd_Array2OfReal.hxx>
-#include <gp_Pnt.hxx>
 #include <Standard.hxx>
 #include <gp.hxx>
 #include <V3d.hxx>
@@ -130,6 +131,7 @@ py::module::import("OCCT.TColStd");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.Bnd");
 py::module::import("OCCT.Image");
+py::module::import("OCCT.TCollection");
 
 // ENUM: V3D_STEREODUMPOPTIONS
 py::enum_<V3d_StereoDumpOptions>(mod, "V3d_StereoDumpOptions", "Options to be used with image dumping. Notice that the value will have no effect with disabled stereo output.")
@@ -157,7 +159,7 @@ py::enum_<V3d_TypeOfBackfacingModel>(mod, "V3d_TypeOfBackfacingModel", "Modes of
 
 
 // ENUM: V3D_TYPEOFORIENTATION
-py::enum_<V3d_TypeOfOrientation>(mod, "V3d_TypeOfOrientation", "Determines the type of orientation.")
+py::enum_<V3d_TypeOfOrientation>(mod, "V3d_TypeOfOrientation", "Determines the type of orientation as a combination of standard DX/DY/DZ directions. This enumeration defines a model orientation looking towards the user's eye, which is an opposition to Camera main direction. For example, V3d_Xneg defines +X Camera main direction.")
 	.value("V3d_Xpos", V3d_TypeOfOrientation::V3d_Xpos)
 	.value("V3d_Ypos", V3d_TypeOfOrientation::V3d_Ypos)
 	.value("V3d_Zpos", V3d_TypeOfOrientation::V3d_Zpos)
@@ -184,6 +186,22 @@ py::enum_<V3d_TypeOfOrientation>(mod, "V3d_TypeOfOrientation", "Determines the t
 	.value("V3d_XnegYposZneg", V3d_TypeOfOrientation::V3d_XnegYposZneg)
 	.value("V3d_XnegYnegZpos", V3d_TypeOfOrientation::V3d_XnegYnegZpos)
 	.value("V3d_XnegYnegZneg", V3d_TypeOfOrientation::V3d_XnegYnegZneg)
+	.value("V3d_TypeOfOrientation_Zup_AxoLeft", V3d_TypeOfOrientation::V3d_TypeOfOrientation_Zup_AxoLeft)
+	.value("V3d_TypeOfOrientation_Zup_AxoRight", V3d_TypeOfOrientation::V3d_TypeOfOrientation_Zup_AxoRight)
+	.value("V3d_TypeOfOrientation_Zup_Front", V3d_TypeOfOrientation::V3d_TypeOfOrientation_Zup_Front)
+	.value("V3d_TypeOfOrientation_Zup_Back", V3d_TypeOfOrientation::V3d_TypeOfOrientation_Zup_Back)
+	.value("V3d_TypeOfOrientation_Zup_Top", V3d_TypeOfOrientation::V3d_TypeOfOrientation_Zup_Top)
+	.value("V3d_TypeOfOrientation_Zup_Bottom", V3d_TypeOfOrientation::V3d_TypeOfOrientation_Zup_Bottom)
+	.value("V3d_TypeOfOrientation_Zup_Left", V3d_TypeOfOrientation::V3d_TypeOfOrientation_Zup_Left)
+	.value("V3d_TypeOfOrientation_Zup_Right", V3d_TypeOfOrientation::V3d_TypeOfOrientation_Zup_Right)
+	.value("V3d_TypeOfOrientation_Yup_AxoLeft", V3d_TypeOfOrientation::V3d_TypeOfOrientation_Yup_AxoLeft)
+	.value("V3d_TypeOfOrientation_Yup_AxoRight", V3d_TypeOfOrientation::V3d_TypeOfOrientation_Yup_AxoRight)
+	.value("V3d_TypeOfOrientation_Yup_Front", V3d_TypeOfOrientation::V3d_TypeOfOrientation_Yup_Front)
+	.value("V3d_TypeOfOrientation_Yup_Back", V3d_TypeOfOrientation::V3d_TypeOfOrientation_Yup_Back)
+	.value("V3d_TypeOfOrientation_Yup_Top", V3d_TypeOfOrientation::V3d_TypeOfOrientation_Yup_Top)
+	.value("V3d_TypeOfOrientation_Yup_Bottom", V3d_TypeOfOrientation::V3d_TypeOfOrientation_Yup_Bottom)
+	.value("V3d_TypeOfOrientation_Yup_Left", V3d_TypeOfOrientation::V3d_TypeOfOrientation_Yup_Left)
+	.value("V3d_TypeOfOrientation_Yup_Right", V3d_TypeOfOrientation::V3d_TypeOfOrientation_Yup_Right)
 	.export_values();
 
 
@@ -379,9 +397,12 @@ cls_V3d_Viewer.def("SetDefaultTypeOfView", (void (V3d_Viewer::*)(const V3d_TypeO
 cls_V3d_Viewer.def("DefaultBackgroundColor", (Quantity_Color (V3d_Viewer::*)() const) &V3d_Viewer::DefaultBackgroundColor, "Returns the default background colour object.");
 cls_V3d_Viewer.def("DefaultBgGradientColors", (void (V3d_Viewer::*)(Quantity_Color &, Quantity_Color &) const) &V3d_Viewer::DefaultBgGradientColors, "Returns the gradient background colour objects of the view.", py::arg("theColor1"), py::arg("theColor2"));
 cls_V3d_Viewer.def("GetAllZLayers", (void (V3d_Viewer::*)(TColStd_SequenceOfInteger &) const) &V3d_Viewer::GetAllZLayers, "Return all Z layer ids in sequence ordered by overlay level from lowest layer to highest ( foreground ). The first layer ID in sequence is the default layer that can't be removed.", py::arg("theLayerSeq"));
-cls_V3d_Viewer.def("AddZLayer", (Standard_Boolean (V3d_Viewer::*)(Graphic3d_ZLayerId &)) &V3d_Viewer::AddZLayer, "Add a new top-level Z layer to all managed views and get its ID as <theLayerId> value. The Z layers are controlled entirely by viewer, it is not possible to add a layer to a particular view. The method returns Standard_False if the layer can not be created. The layer mechanism allows to display structures in higher layers in overlay of structures in lower layers.", py::arg("theLayerId"));
+cls_V3d_Viewer.def("AddZLayer", [](V3d_Viewer &self, Graphic3d_ZLayerId & a0) -> Standard_Boolean { return self.AddZLayer(a0); });
+cls_V3d_Viewer.def("AddZLayer", (Standard_Boolean (V3d_Viewer::*)(Graphic3d_ZLayerId &, const Graphic3d_ZLayerSettings &)) &V3d_Viewer::AddZLayer, "Add a new top-level Z layer to all managed views and get its ID as <theLayerId> value. The Z layers are controlled entirely by viewer, it is not possible to add a layer to a particular view. Custom layers will be inserted before Graphic3d_ZLayerId_Top (e.g. between Graphic3d_ZLayerId_Default and before Graphic3d_ZLayerId_Top).", py::arg("theLayerId"), py::arg("theSettings"));
+cls_V3d_Viewer.def("InsertLayerBefore", (Standard_Boolean (V3d_Viewer::*)(Graphic3d_ZLayerId &, const Graphic3d_ZLayerSettings &, const Graphic3d_ZLayerId)) &V3d_Viewer::InsertLayerBefore, "Add a new top-level Z layer to all managed views and get its ID as <theLayerId> value. The Z layers are controlled entirely by viewer, it is not possible to add a layer to a particular view. Layer rendering order is defined by its position in list (altered by theLayerAfter) and IsImmediate() flag (all layers with IsImmediate() flag are drawn afterwards);", py::arg("theNewLayerId"), py::arg("theSettings"), py::arg("theLayerAfter"));
+cls_V3d_Viewer.def("InsertLayerAfter", (Standard_Boolean (V3d_Viewer::*)(Graphic3d_ZLayerId &, const Graphic3d_ZLayerSettings &, const Graphic3d_ZLayerId)) &V3d_Viewer::InsertLayerAfter, "Add a new top-level Z layer to all managed views and get its ID as <theLayerId> value. The Z layers are controlled entirely by viewer, it is not possible to add a layer to a particular view. Layer rendering order is defined by its position in list (altered by theLayerAfter) and IsImmediate() flag (all layers with IsImmediate() flag are drawn afterwards);", py::arg("theNewLayerId"), py::arg("theSettings"), py::arg("theLayerBefore"));
 cls_V3d_Viewer.def("RemoveZLayer", (Standard_Boolean (V3d_Viewer::*)(const Graphic3d_ZLayerId)) &V3d_Viewer::RemoveZLayer, "Remove Z layer with ID <theLayerId>. Method returns Standard_False if the layer can not be removed or doesn't exists. By default, there are always default bottom-level layer that can't be removed.", py::arg("theLayerId"));
-cls_V3d_Viewer.def("ZLayerSettings", (Graphic3d_ZLayerSettings (V3d_Viewer::*)(const Graphic3d_ZLayerId)) &V3d_Viewer::ZLayerSettings, "Returns the settings of a single Z layer.", py::arg("theLayerId"));
+cls_V3d_Viewer.def("ZLayerSettings", (const Graphic3d_ZLayerSettings & (V3d_Viewer::*)(const Graphic3d_ZLayerId) const) &V3d_Viewer::ZLayerSettings, "Returns the settings of a single Z layer.", py::arg("theLayerId"));
 cls_V3d_Viewer.def("SetZLayerSettings", (void (V3d_Viewer::*)(const Graphic3d_ZLayerId, const Graphic3d_ZLayerSettings &)) &V3d_Viewer::SetZLayerSettings, "Sets the settings for a single Z layer.", py::arg("theLayerId"), py::arg("theSettings"));
 cls_V3d_Viewer.def("ActiveViewIterator", (V3d_ListOfViewIterator (V3d_Viewer::*)() const) &V3d_Viewer::ActiveViewIterator, "Return an iterator for active views.");
 cls_V3d_Viewer.def("InitActiveViews", (void (V3d_Viewer::*)()) &V3d_Viewer::InitActiveViews, "Initializes an internal iterator on the active views.");
@@ -466,6 +487,8 @@ cls_V3d_View.def("Redraw", (void (V3d_View::*)() const) &V3d_View::Redraw, "Redi
 cls_V3d_View.def("RedrawImmediate", (void (V3d_View::*)() const) &V3d_View::RedrawImmediate, "Updates layer of immediate presentations.");
 cls_V3d_View.def("Invalidate", (void (V3d_View::*)() const) &V3d_View::Invalidate, "Invalidates view content but does not redraw it.");
 cls_V3d_View.def("IsInvalidated", (Standard_Boolean (V3d_View::*)() const) &V3d_View::IsInvalidated, "Returns true if cached view content has been invalidated.");
+cls_V3d_View.def("IsInvalidatedImmediate", (Standard_Boolean (V3d_View::*)() const) &V3d_View::IsInvalidatedImmediate, "Returns true if immediate layer content has been invalidated.");
+cls_V3d_View.def("InvalidateImmediate", (void (V3d_View::*)()) &V3d_View::InvalidateImmediate, "Invalidates view content within immediate layer but does not redraw it.");
 cls_V3d_View.def("MustBeResized", (void (V3d_View::*)()) &V3d_View::MustBeResized, "Must be called when the window supporting the view changes size. if the view is not mapped on a window. Warning: The view is centered and resized to preserve the height/width ratio of the window.");
 cls_V3d_View.def("DoMapping", (void (V3d_View::*)()) &V3d_View::DoMapping, "Must be called when the window supporting the view is mapped or unmapped.");
 cls_V3d_View.def("IsEmpty", (Standard_Boolean (V3d_View::*)() const) &V3d_View::IsEmpty, "Returns the status of the view regarding the displayed structures inside Returns True is The View is empty");
@@ -490,6 +513,8 @@ cls_V3d_View.def("SetBackgroundImage", [](V3d_View &self, const Standard_CString
 cls_V3d_View.def("SetBackgroundImage", (void (V3d_View::*)(const Standard_CString, const Aspect_FillMethod, const Standard_Boolean)) &V3d_View::SetBackgroundImage, "Defines the background texture of the view by supplying the texture image file name and fill method (centered by default).", py::arg("theFileName"), py::arg("theFillStyle"), py::arg("theToUpdate"));
 cls_V3d_View.def("SetBgImageStyle", [](V3d_View &self, const Aspect_FillMethod a0) -> void { return self.SetBgImageStyle(a0); });
 cls_V3d_View.def("SetBgImageStyle", (void (V3d_View::*)(const Aspect_FillMethod, const Standard_Boolean)) &V3d_View::SetBgImageStyle, "Defines the textured background fill method of the view.", py::arg("theFillStyle"), py::arg("theToUpdate"));
+cls_V3d_View.def("SetBackgroundCubeMap", [](V3d_View &self, const opencascade::handle<Graphic3d_CubeMap> & a0) -> void { return self.SetBackgroundCubeMap(a0); });
+cls_V3d_View.def("SetBackgroundCubeMap", (void (V3d_View::*)(const opencascade::handle<Graphic3d_CubeMap> &, Standard_Boolean)) &V3d_View::SetBackgroundCubeMap, "Sets environment cubemap as interactive background.", py::arg("theCubeMap"), py::arg("theToUpdate"));
 cls_V3d_View.def("SetAxis", (void (V3d_View::*)(const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real)) &V3d_View::SetAxis, "Definition of an axis from its origin and its orientation . This will be the current axis for rotations and movements. Warning! raises BadValue from V3d if the vector normal is NULL. .", py::arg("X"), py::arg("Y"), py::arg("Z"), py::arg("Vx"), py::arg("Vy"), py::arg("Vz"));
 cls_V3d_View.def("SetShadingModel", (void (V3d_View::*)(const Graphic3d_TypeOfShadingModel)) &V3d_View::SetShadingModel, "Defines the shading model for the visualization. Various models are available.", py::arg("theShadingModel"));
 cls_V3d_View.def("SetTextureEnv", (void (V3d_View::*)(const opencascade::handle<Graphic3d_TextureEnv> &)) &V3d_View::SetTextureEnv, "Sets the environment texture to use. No environment texture by default.", py::arg("theTexture"));
@@ -551,7 +576,8 @@ cls_V3d_View.def("SetTwist", (void (V3d_View::*)(const Standard_Real)) &V3d_View
 cls_V3d_View.def("SetEye", (void (V3d_View::*)(const Standard_Real, const Standard_Real, const Standard_Real)) &V3d_View::SetEye, "Defines the position of the eye..", py::arg("X"), py::arg("Y"), py::arg("Z"));
 cls_V3d_View.def("SetDepth", (void (V3d_View::*)(const Standard_Real)) &V3d_View::SetDepth, "Defines the Depth of the eye from the view point without update the projection .", py::arg("Depth"));
 cls_V3d_View.def("SetProj", (void (V3d_View::*)(const Standard_Real, const Standard_Real, const Standard_Real)) &V3d_View::SetProj, "Defines the orientation of the projection.", py::arg("Vx"), py::arg("Vy"), py::arg("Vz"));
-cls_V3d_View.def("SetProj", (void (V3d_View::*)(const V3d_TypeOfOrientation)) &V3d_View::SetProj, "Defines the orientation of the projection .", py::arg("Orientation"));
+cls_V3d_View.def("SetProj", [](V3d_View &self, const V3d_TypeOfOrientation a0) -> void { return self.SetProj(a0); });
+cls_V3d_View.def("SetProj", (void (V3d_View::*)(const V3d_TypeOfOrientation, const Standard_Boolean)) &V3d_View::SetProj, "Defines the orientation of the projection .", py::arg("theOrientation"), py::arg("theIsYup"));
 cls_V3d_View.def("SetAt", (void (V3d_View::*)(const Standard_Real, const Standard_Real, const Standard_Real)) &V3d_View::SetAt, "Defines the position of the view point.", py::arg("X"), py::arg("Y"), py::arg("Z"));
 cls_V3d_View.def("SetUp", (void (V3d_View::*)(const Standard_Real, const Standard_Real, const Standard_Real)) &V3d_View::SetUp, "Defines the orientation of the high point.", py::arg("Vx"), py::arg("Vy"), py::arg("Vz"));
 cls_V3d_View.def("SetUp", (void (V3d_View::*)(const V3d_TypeOfOrientation)) &V3d_View::SetUp, "Defines the orientation(SO) of the high point.", py::arg("Orientation"));
@@ -621,7 +647,7 @@ cls_V3d_View.def("ActiveLight", (const opencascade::handle<V3d_Light> & (V3d_Vie
 cls_V3d_View.def("LightLimit", (Standard_Integer (V3d_View::*)() const) &V3d_View::LightLimit, "Returns the MAX number of light associated to the view.");
 cls_V3d_View.def("Viewer", (opencascade::handle<V3d_Viewer> (V3d_View::*)() const) &V3d_View::Viewer, "Returns the viewer in which the view has been created.");
 cls_V3d_View.def("IfWindow", (Standard_Boolean (V3d_View::*)() const) &V3d_View::IfWindow, "Returns True if MyView is associated with a window .");
-cls_V3d_View.def("Window", (opencascade::handle<Aspect_Window> (V3d_View::*)() const) &V3d_View::Window, "Returns the Aspect Window associated with the view.");
+cls_V3d_View.def("Window", (const opencascade::handle<Aspect_Window> & (V3d_View::*)() const) &V3d_View::Window, "Returns the Aspect Window associated with the view.");
 cls_V3d_View.def("Type", (V3d_TypeOfView (V3d_View::*)() const) &V3d_View::Type, "Returns the Type of the View");
 cls_V3d_View.def("Pan", [](V3d_View &self, const Standard_Integer a0, const Standard_Integer a1) -> void { return self.Pan(a0, a1); });
 cls_V3d_View.def("Pan", [](V3d_View &self, const Standard_Integer a0, const Standard_Integer a1, const Standard_Real a2) -> void { return self.Pan(a0, a1, a2); });
@@ -635,21 +661,22 @@ cls_V3d_View.def("StartRotation", (void (V3d_View::*)(const Standard_Integer, co
 cls_V3d_View.def("Rotation", (void (V3d_View::*)(const Standard_Integer, const Standard_Integer)) &V3d_View::Rotation, "Continues the rotation of the view with an angle computed from the last and new mouse position <X,Y>.", py::arg("X"), py::arg("Y"));
 cls_V3d_View.def("SetFocale", (void (V3d_View::*)(const Standard_Real)) &V3d_View::SetFocale, "Change View Plane Distance for Perspective Views Warning! raises TypeMismatch from Standard if the view is not a perspective view.", py::arg("Focale"));
 cls_V3d_View.def("Focale", (Standard_Real (V3d_View::*)() const) &V3d_View::Focale, "Returns the View Plane Distance for Perspective Views");
-cls_V3d_View.def("View", (opencascade::handle<Graphic3d_CView> (V3d_View::*)() const) &V3d_View::View, "Returns the associated Graphic3d view.");
+cls_V3d_View.def("View", (const opencascade::handle<Graphic3d_CView> & (V3d_View::*)() const) &V3d_View::View, "Returns the associated Graphic3d view.");
 cls_V3d_View.def("SetComputedMode", (void (V3d_View::*)(const Standard_Boolean)) &V3d_View::SetComputedMode, "Switches computed HLR mode in the view.", py::arg("theMode"));
 cls_V3d_View.def("ComputedMode", (Standard_Boolean (V3d_View::*)() const) &V3d_View::ComputedMode, "Returns the computed HLR mode state.");
 cls_V3d_View.def("WindowFitAll", (void (V3d_View::*)(const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer)) &V3d_View::WindowFitAll, "idem than WindowFit", py::arg("Xmin"), py::arg("Ymin"), py::arg("Xmax"), py::arg("Ymax"));
+cls_V3d_View.def("FitMinMax", [](V3d_View &self, const opencascade::handle<Graphic3d_Camera> & a0, const Bnd_Box & a1, const Standard_Real a2) -> Standard_Boolean { return self.FitMinMax(a0, a1, a2); });
+cls_V3d_View.def("FitMinMax", [](V3d_View &self, const opencascade::handle<Graphic3d_Camera> & a0, const Bnd_Box & a1, const Standard_Real a2, const Standard_Real a3) -> Standard_Boolean { return self.FitMinMax(a0, a1, a2, a3); });
+cls_V3d_View.def("FitMinMax", (Standard_Boolean (V3d_View::*)(const opencascade::handle<Graphic3d_Camera> &, const Bnd_Box &, const Standard_Real, const Standard_Real, const Standard_Boolean) const) &V3d_View::FitMinMax, "Transform camera eye, center and scale to fit in the passed bounding box specified in WCS.", py::arg("theCamera"), py::arg("theBox"), py::arg("theMargin"), py::arg("theResolution"), py::arg("theToEnlargeIfLine"));
 cls_V3d_View.def("SetGrid", (void (V3d_View::*)(const gp_Ax3 &, const opencascade::handle<Aspect_Grid> &)) &V3d_View::SetGrid, "Defines or Updates the definition of the grid in <me>", py::arg("aPlane"), py::arg("aGrid"));
 cls_V3d_View.def("SetGridActivity", (void (V3d_View::*)(const Standard_Boolean)) &V3d_View::SetGridActivity, "Defines or Updates the activity of the grid in <me>", py::arg("aFlag"));
 cls_V3d_View.def("Dump", [](V3d_View &self, const Standard_CString a0) -> Standard_Boolean { return self.Dump(a0); });
-cls_V3d_View.def("Dump", (Standard_Boolean (V3d_View::*)(const Standard_CString, const Graphic3d_BufferType &)) &V3d_View::Dump, "dump the full contents of the view at the same scale in the file <theFile>. The file name extension must be one of '.png','.bmp','.jpg','.gif'. Returns FALSE when the dump has failed", py::arg("theFile"), py::arg("theBufferType"));
-cls_V3d_View.def("Export", [](V3d_View &self, const Standard_CString a0, const Graphic3d_ExportFormat a1) -> Standard_Boolean { return self.Export(a0, a1); });
-cls_V3d_View.def("Export", (Standard_Boolean (V3d_View::*)(const Standard_CString, const Graphic3d_ExportFormat, const Graphic3d_SortType)) &V3d_View::Export, "Export scene into the one of the Vector graphics formats (SVG, PS, PDF...). In contrast to Bitmaps, Vector graphics is scalable (so you may got quality benefits on printing to laser printer). Notice however that results may differ a lot and do not contain some elements.", py::arg("theFileName"), py::arg("theFormat"), py::arg("theSortType"));
-cls_V3d_View.def("ToPixMap", (Standard_Boolean (V3d_View::*)(Image_PixMap &, const V3d_ImageDumpOptions &)) &V3d_View::ToPixMap, "Dumps the full contents of the view to a pixmap with specified parameters.", py::arg("theImage"), py::arg("theParams"));
+cls_V3d_View.def("Dump", (Standard_Boolean (V3d_View::*)(const Standard_CString, const Graphic3d_BufferType &)) &V3d_View::Dump, "Dumps the full contents of the View into the image file. This is an alias for ToPixMap() with Image_AlienPixMap.", py::arg("theFile"), py::arg("theBufferType"));
+cls_V3d_View.def("ToPixMap", (Standard_Boolean (V3d_View::*)(Image_PixMap &, const V3d_ImageDumpOptions &)) &V3d_View::ToPixMap, "Dumps the full contents of the view to a pixmap with specified parameters. Internally this method calls Redraw() with an offscreen render buffer of requested target size (theWidth x theHeight), so that there is no need resizing a window control for making a dump of different size.", py::arg("theImage"), py::arg("theParams"));
 cls_V3d_View.def("ToPixMap", [](V3d_View &self, Image_PixMap & a0, const Standard_Integer a1, const Standard_Integer a2) -> Standard_Boolean { return self.ToPixMap(a0, a1, a2); });
 cls_V3d_View.def("ToPixMap", [](V3d_View &self, Image_PixMap & a0, const Standard_Integer a1, const Standard_Integer a2, const Graphic3d_BufferType & a3) -> Standard_Boolean { return self.ToPixMap(a0, a1, a2, a3); });
 cls_V3d_View.def("ToPixMap", [](V3d_View &self, Image_PixMap & a0, const Standard_Integer a1, const Standard_Integer a2, const Graphic3d_BufferType & a3, const Standard_Boolean a4) -> Standard_Boolean { return self.ToPixMap(a0, a1, a2, a3, a4); });
-cls_V3d_View.def("ToPixMap", (Standard_Boolean (V3d_View::*)(Image_PixMap &, const Standard_Integer, const Standard_Integer, const Graphic3d_BufferType &, const Standard_Boolean, const V3d_StereoDumpOptions)) &V3d_View::ToPixMap, "Dumps the full contents of the view to a pixmap.", py::arg("theImage"), py::arg("theWidth"), py::arg("theHeight"), py::arg("theBufferType"), py::arg("theToAdjustAspect"), py::arg("theStereoOptions"));
+cls_V3d_View.def("ToPixMap", (Standard_Boolean (V3d_View::*)(Image_PixMap &, const Standard_Integer, const Standard_Integer, const Graphic3d_BufferType &, const Standard_Boolean, const V3d_StereoDumpOptions)) &V3d_View::ToPixMap, "Dumps the full contents of the view to a pixmap. Internally this method calls Redraw() with an offscreen render buffer of requested target size (theWidth x theHeight), so that there is no need resizing a window control for making a dump of different size.", py::arg("theImage"), py::arg("theWidth"), py::arg("theHeight"), py::arg("theBufferType"), py::arg("theToAdjustAspect"), py::arg("theStereoOptions"));
 cls_V3d_View.def("SetBackFacingModel", [](V3d_View &self) -> void { return self.SetBackFacingModel(); });
 cls_V3d_View.def("SetBackFacingModel", (void (V3d_View::*)(const V3d_TypeOfBackfacingModel)) &V3d_View::SetBackFacingModel, "Manages display of the back faces When <aModel> is TOBM_AUTOMATIC the object backfaces are displayed only for surface objects and never displayed for solid objects. this was the previous mode. <aModel> is TOBM_ALWAYS_DISPLAYED the object backfaces are always displayed both for surfaces or solids. <aModel> is TOBM_NEVER_DISPLAYED the object backfaces are never displayed.", py::arg("theModel"));
 cls_V3d_View.def("BackFacingModel", (V3d_TypeOfBackfacingModel (V3d_View::*)() const) &V3d_View::BackFacingModel, "Returns current state of the back faces display");
@@ -665,8 +692,11 @@ cls_V3d_View.def("DefaultCamera", (const opencascade::handle<Graphic3d_Camera> &
 cls_V3d_View.def("RenderingParams", (const Graphic3d_RenderingParams & (V3d_View::*)() const) &V3d_View::RenderingParams, "Returns current rendering parameters and effect settings. By default it returns default parameters of current viewer. To define view-specific settings use method V3d_View::ChangeRenderingParams().");
 cls_V3d_View.def("ChangeRenderingParams", (Graphic3d_RenderingParams & (V3d_View::*)()) &V3d_View::ChangeRenderingParams, "Returns reference to current rendering parameters and effect settings.");
 cls_V3d_View.def("IsCullingEnabled", (Standard_Boolean (V3d_View::*)() const) &V3d_View::IsCullingEnabled, "Returns flag value of objects culling mechanism");
-cls_V3d_View.def("SetFrustumCulling", (void (V3d_View::*)(const Standard_Boolean)) &V3d_View::SetFrustumCulling, "Turn on/off automatic culling of objects outside frustrum (ON by default)", py::arg("theMode"));
+cls_V3d_View.def("SetFrustumCulling", (void (V3d_View::*)(Standard_Boolean)) &V3d_View::SetFrustumCulling, "Turn on/off automatic culling of objects outside frustum (ON by default)", py::arg("theMode"));
 cls_V3d_View.def("DiagnosticInformation", (void (V3d_View::*)(TColStd_IndexedDataMapOfStringString &, Graphic3d_DiagnosticInfo) const) &V3d_View::DiagnosticInformation, "Fill in the dictionary with diagnostic info. Should be called within rendering thread.", py::arg("theDict"), py::arg("theFlags"));
+cls_V3d_View.def("StatisticInformation", (TCollection_AsciiString (V3d_View::*)() const) &V3d_View::StatisticInformation, "Returns string with statistic performance info.");
+cls_V3d_View.def("StatisticInformation", (void (V3d_View::*)(TColStd_IndexedDataMapOfStringString &) const) &V3d_View::StatisticInformation, "Fills in the dictionary with statistic performance info.", py::arg("theDict"));
+cls_V3d_View.def("GravityPoint", (gp_Pnt (V3d_View::*)() const) &V3d_View::GravityPoint, "Returns the Objects number and the gravity center of ALL viewable points in the view");
 cls_V3d_View.def_static("get_type_name_", (const char * (*)()) &V3d_View::get_type_name, "None");
 cls_V3d_View.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &V3d_View::get_type_descriptor, "None");
 cls_V3d_View.def("DynamicType", (const opencascade::handle<Standard_Type> & (V3d_View::*)() const) &V3d_View::DynamicType, "None");

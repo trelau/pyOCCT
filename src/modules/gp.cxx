@@ -60,11 +60,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_Hypr2d.hxx>
 #include <gp_Parab2d.hxx>
 #include <gp.hxx>
+#include <Standard_OStream.hxx>
 #include <NCollection_Mat4.hxx>
 #include <Standard_DomainError.hxx>
 #include <Standard_Handle.hxx>
 #include <gp_VectorWithNullMagnitude.hxx>
 #include <Standard_SStream.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <gp_QuaternionNLerp.hxx>
@@ -592,6 +594,8 @@ cls_gp_Mat.def("Subtracted", (gp_Mat (gp_Mat::*)(const gp_Mat &) const) &gp_Mat:
 cls_gp_Mat.def("__sub__", (gp_Mat (gp_Mat::*)(const gp_Mat &) const) &gp_Mat::operator-, py::is_operator(), "None", py::arg("Other"));
 cls_gp_Mat.def("Transpose", (void (gp_Mat::*)()) &gp_Mat::Transpose, "None");
 cls_gp_Mat.def("Transposed", (gp_Mat (gp_Mat::*)() const) &gp_Mat::Transposed, "Transposes the matrix. A(j, i) -> A (i, j)");
+cls_gp_Mat.def("DumpJson", [](gp_Mat &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_gp_Mat.def("DumpJson", (void (gp_Mat::*)(Standard_OStream &, const Standard_Integer) const) &gp_Mat::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // CLASS: GP_XYZ
 py::class_<gp_XYZ> cls_gp_XYZ(mod, "gp_XYZ", "This class describes a cartesian coordinate entity in 3D space {X,Y,Z}. This entity is used for algebraic calculation. This entity can be transformed with a 'Trsf' or a 'GTrsf' from package 'gp'. It is used in vectorial computations or for holding this type of information in data structures.");
@@ -667,6 +671,8 @@ cls_gp_XYZ.def("SetLinearForm", (void (gp_XYZ::*)(const Standard_Real, const gp_
 cls_gp_XYZ.def("SetLinearForm", (void (gp_XYZ::*)(const Standard_Real, const gp_XYZ &, const Standard_Real, const gp_XYZ &)) &gp_XYZ::SetLinearForm, "<me> is set to the following linear form : A1 * XYZ1 + A2 * XYZ2", py::arg("A1"), py::arg("XYZ1"), py::arg("A2"), py::arg("XYZ2"));
 cls_gp_XYZ.def("SetLinearForm", (void (gp_XYZ::*)(const Standard_Real, const gp_XYZ &, const gp_XYZ &)) &gp_XYZ::SetLinearForm, "<me> is set to the following linear form : A1 * XYZ1 + XYZ2", py::arg("A1"), py::arg("XYZ1"), py::arg("XYZ2"));
 cls_gp_XYZ.def("SetLinearForm", (void (gp_XYZ::*)(const gp_XYZ &, const gp_XYZ &)) &gp_XYZ::SetLinearForm, "<me> is set to the following linear form : XYZ1 + XYZ2", py::arg("XYZ1"), py::arg("XYZ2"));
+cls_gp_XYZ.def("DumpJson", [](gp_XYZ &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_gp_XYZ.def("DumpJson", (void (gp_XYZ::*)(Standard_OStream &, const Standard_Integer) const) &gp_XYZ::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // CLASS: GP_TRSF
 py::class_<gp_Trsf> cls_gp_Trsf(mod, "gp_Trsf", "Defines a non-persistent transformation in 3D space. The following transformations are implemented : . Translation, Rotation, Scale . Symmetry with respect to a point, a line, a plane. Complex transformations can be obtained by combining the previous elementary transformations using the method Multiply. The transformations can be represented as follow :");
@@ -718,6 +724,8 @@ cls_gp_Trsf.def("Power", (void (gp_Trsf::*)(const Standard_Integer)) &gp_Trsf::P
 cls_gp_Trsf.def("Powered", (gp_Trsf (gp_Trsf::*)(const Standard_Integer) const) &gp_Trsf::Powered, "Computes the following composition of transformations <me> * <me> * .......* <me>, N time. if N = 0 <me> = Identity if N < 0 <me> = <me>.Inverse() *...........* <me>.Inverse().", py::arg("N"));
 cls_gp_Trsf.def("Transforms", [](gp_Trsf &self, Standard_Real & X, Standard_Real & Y, Standard_Real & Z){ self.Transforms(X, Y, Z); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &>(X, Y, Z); }, "None", py::arg("X"), py::arg("Y"), py::arg("Z"));
 cls_gp_Trsf.def("Transforms", (void (gp_Trsf::*)(gp_XYZ &) const) &gp_Trsf::Transforms, "Transformation of a triplet XYZ with a Trsf", py::arg("Coord"));
+cls_gp_Trsf.def("DumpJson", [](gp_Trsf &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_gp_Trsf.def("DumpJson", (void (gp_Trsf::*)(Standard_OStream &, const Standard_Integer) const) &gp_Trsf::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // CLASS: GP_VEC
 py::class_<gp_Vec> cls_gp_Vec(mod, "gp_Vec", "Defines a non-persistent vector in 3D space.");
@@ -1714,7 +1722,7 @@ cls_gp_Cylinder.def("Translate", (void (gp_Cylinder::*)(const gp_Pnt &, const gp
 cls_gp_Cylinder.def("Translated", (gp_Cylinder (gp_Cylinder::*)(const gp_Pnt &, const gp_Pnt &) const) &gp_Cylinder::Translated, "Translates a cylinder from the point P1 to the point P2.", py::arg("P1"), py::arg("P2"));
 
 // CLASS: GP_CONE
-py::class_<gp_Cone> cls_gp_Cone(mod, "gp_Cone", "Defines an infinite conical surface. A cone is defined by its half-angle at the apex and positioned in space with a coordinate system (a gp_Ax3 object) and a 'reference radius' where: - the 'main Axis' of the coordinate system is the axis of revolution of the cone, - the plane defined by the origin, the 'X Direction' and the 'Y Direction' of the coordinate system is the reference plane of the cone; the intersection of the cone with this reference plane is a circle of radius equal to the reference radius, if the half-angle is positive, the apex of the cone is on the negative side of the 'main Axis' of the coordinate system. If the half-angle is negative, the apex is on the positive side. This coordinate system is the 'local coordinate system' of the cone. Note: when a gp_Cone cone is converted into a Geom_ConicalSurface cone, some implicit properties of its local coordinate system are used explicitly: - its origin, 'X Direction', 'Y Direction' and 'main Direction' are used directly to define the parametric directions on the cone and the origin of the parameters, - its implicit orientation (right-handed or left-handed) gives the orientation (direct or indirect) of the Geom_ConicalSurface cone. See Also gce_MakeCone which provides functions for more complex cone constructions Geom_ConicalSurface which provides additional functions for constructing cones and works, in particular, with the parametric equations of cones gp_Ax3");
+py::class_<gp_Cone> cls_gp_Cone(mod, "gp_Cone", "Defines an infinite conical surface. A cone is defined by its half-angle (can be negative) at the apex and positioned in space with a coordinate system (a gp_Ax3 object) and a 'reference radius' where: - the 'main Axis' of the coordinate system is the axis of revolution of the cone, - the plane defined by the origin, the 'X Direction' and the 'Y Direction' of the coordinate system is the reference plane of the cone; the intersection of the cone with this reference plane is a circle of radius equal to the reference radius, if the half-angle is positive, the apex of the cone is on the negative side of the 'main Axis' of the coordinate system. If the half-angle is negative, the apex is on the positive side. This coordinate system is the 'local coordinate system' of the cone. Note: when a gp_Cone cone is converted into a Geom_ConicalSurface cone, some implicit properties of its local coordinate system are used explicitly: - its origin, 'X Direction', 'Y Direction' and 'main Direction' are used directly to define the parametric directions on the cone and the origin of the parameters, - its implicit orientation (right-handed or left-handed) gives the orientation (direct or indirect) of the Geom_ConicalSurface cone. See Also gce_MakeCone which provides functions for more complex cone constructions Geom_ConicalSurface which provides additional functions for constructing cones and works, in particular, with the parametric equations of cones gp_Ax3");
 
 // Constructors
 cls_gp_Cone.def(py::init<>());
@@ -1731,7 +1739,7 @@ cls_gp_Cone.def("SetAxis", (void (gp_Cone::*)(const gp_Ax1 &)) &gp_Cone::SetAxis
 cls_gp_Cone.def("SetLocation", (void (gp_Cone::*)(const gp_Pnt &)) &gp_Cone::SetLocation, "Changes the location of the cone.", py::arg("Loc"));
 cls_gp_Cone.def("SetPosition", (void (gp_Cone::*)(const gp_Ax3 &)) &gp_Cone::SetPosition, "Changes the local coordinate system of the cone. This coordinate system defines the reference plane of the cone.", py::arg("A3"));
 cls_gp_Cone.def("SetRadius", (void (gp_Cone::*)(const Standard_Real)) &gp_Cone::SetRadius, "Changes the radius of the cone in the reference plane of the cone. Raised if R < 0.0", py::arg("R"));
-cls_gp_Cone.def("SetSemiAngle", (void (gp_Cone::*)(const Standard_Real)) &gp_Cone::SetSemiAngle, "Changes the semi-angle of the cone. Ang is the conical surface semi-angle ]0,PI/2[. Raises ConstructionError if Ang < Resolution from gp or Ang >= PI/2 - Resolution", py::arg("Ang"));
+cls_gp_Cone.def("SetSemiAngle", (void (gp_Cone::*)(const Standard_Real)) &gp_Cone::SetSemiAngle, "Changes the semi-angle of the cone. Semi-angle can be negative. Its absolute value Abs(Ang) is in range ]0,PI/2[. Raises ConstructionError if Abs(Ang) < Resolution from gp or Abs(Ang) >= PI/2 - Resolution", py::arg("Ang"));
 cls_gp_Cone.def("Apex", (gp_Pnt (gp_Cone::*)() const) &gp_Cone::Apex, "Computes the cone's top. The Apex of the cone is on the negative side of the symmetry axis of the cone.");
 cls_gp_Cone.def("UReverse", (void (gp_Cone::*)()) &gp_Cone::UReverse, "Reverses the U parametrization of the cone reversing the YAxis.");
 cls_gp_Cone.def("VReverse", (void (gp_Cone::*)()) &gp_Cone::VReverse, "Reverses the V parametrization of the cone reversing the ZAxis.");
@@ -1741,7 +1749,7 @@ cls_gp_Cone.def("Coefficients", [](gp_Cone &self, Standard_Real & A1, Standard_R
 cls_gp_Cone.def("Location", (const gp_Pnt & (gp_Cone::*)() const) &gp_Cone::Location, "returns the 'Location' point of the cone.");
 cls_gp_Cone.def("Position", (const gp_Ax3 & (gp_Cone::*)() const) &gp_Cone::Position, "Returns the local coordinates system of the cone.");
 cls_gp_Cone.def("RefRadius", (Standard_Real (gp_Cone::*)() const) &gp_Cone::RefRadius, "Returns the radius of the cone in the reference plane.");
-cls_gp_Cone.def("SemiAngle", (Standard_Real (gp_Cone::*)() const) &gp_Cone::SemiAngle, "Returns the half-angle at the apex of this cone.");
+cls_gp_Cone.def("SemiAngle", (Standard_Real (gp_Cone::*)() const) &gp_Cone::SemiAngle, "Returns the half-angle at the apex of this cone. Attention! Semi-angle can be negative.");
 cls_gp_Cone.def("XAxis", (gp_Ax1 (gp_Cone::*)() const) &gp_Cone::XAxis, "Returns the XAxis of the reference plane.");
 cls_gp_Cone.def("YAxis", (gp_Ax1 (gp_Cone::*)() const) &gp_Cone::YAxis, "Returns the YAxis of the reference plane.");
 cls_gp_Cone.def("Mirror", (void (gp_Cone::*)(const gp_Pnt &)) &gp_Cone::Mirror, "None", py::arg("P"));

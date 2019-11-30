@@ -1,6 +1,6 @@
 package:
   name: pyocct
-  version: "7.3.0.0"
+  version: "7.4.0.0"
 
 source:
   path: ../..
@@ -17,14 +17,14 @@ requirements:
     - vc 14 # [win]
     - cmake
     - ninja
-    - occt ==7.3.0
+    - occt ==7.4.0
     - tbb-devel
 
   run:
     - python
     - wxpython
     - vc 14 # [win]
-    - occt ==7.3.0
+    - occt ==7.4.0
 
 test:
   source_files:

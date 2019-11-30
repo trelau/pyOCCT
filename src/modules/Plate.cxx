@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <Plate_HArray1OfPinpointConstraint.hxx>
 #include <Standard_Type.hxx>
 #include <TColStd_Array1OfReal.hxx>
@@ -51,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Plate_SampledCurveConstraint.hxx>
 #include <Plate_GtoCConstraint.hxx>
 #include <Plate_FreeGtoCConstraint.hxx>
+#include <Message_ProgressIndicator.hxx>
 #include <TColgp_SequenceOfXY.hxx>
 #include <math_Matrix.hxx>
 #include <Plate_D1.hxx>
@@ -68,6 +70,7 @@ py::module::import("OCCT.gp");
 py::module::import("OCCT.NCollection");
 py::module::import("OCCT.TColStd");
 py::module::import("OCCT.TColgp");
+py::module::import("OCCT.Message");
 py::module::import("OCCT.math");
 
 // CLASS: PLATE_PINPOINTCONSTRAINT
@@ -101,6 +104,7 @@ bind_NCollection_Array1<Plate_PinpointConstraint>(mod, "Plate_Array1OfPinpointCo
 py::class_<Plate_HArray1OfPinpointConstraint, opencascade::handle<Plate_HArray1OfPinpointConstraint>, Standard_Transient> cls_Plate_HArray1OfPinpointConstraint(mod, "Plate_HArray1OfPinpointConstraint", "None", py::multiple_inheritance());
 
 // Constructors
+cls_Plate_HArray1OfPinpointConstraint.def(py::init<>());
 cls_Plate_HArray1OfPinpointConstraint.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_Plate_HArray1OfPinpointConstraint.def(py::init<const Standard_Integer, const Standard_Integer, const Plate_Array1OfPinpointConstraint::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_Plate_HArray1OfPinpointConstraint.def(py::init<const Plate_Array1OfPinpointConstraint &>(), py::arg("theOther"));
@@ -196,7 +200,8 @@ cls_Plate_Plate.def("Load", (void (Plate_Plate::*)(const Plate_GtoCConstraint &)
 cls_Plate_Plate.def("Load", (void (Plate_Plate::*)(const Plate_FreeGtoCConstraint &)) &Plate_Plate::Load, "None", py::arg("FGtoCConst"));
 cls_Plate_Plate.def("SolveTI", [](Plate_Plate &self) -> void { return self.SolveTI(); });
 cls_Plate_Plate.def("SolveTI", [](Plate_Plate &self, const Standard_Integer a0) -> void { return self.SolveTI(a0); });
-cls_Plate_Plate.def("SolveTI", (void (Plate_Plate::*)(const Standard_Integer, const Standard_Real)) &Plate_Plate::SolveTI, "None", py::arg("ord"), py::arg("anisotropie"));
+cls_Plate_Plate.def("SolveTI", [](Plate_Plate &self, const Standard_Integer a0, const Standard_Real a1) -> void { return self.SolveTI(a0, a1); });
+cls_Plate_Plate.def("SolveTI", (void (Plate_Plate::*)(const Standard_Integer, const Standard_Real, const opencascade::handle<Message_ProgressIndicator> &)) &Plate_Plate::SolveTI, "None", py::arg("ord"), py::arg("anisotropie"), py::arg("aProgress"));
 cls_Plate_Plate.def("IsDone", (Standard_Boolean (Plate_Plate::*)() const) &Plate_Plate::IsDone, "returns True if all has been correctly done.");
 cls_Plate_Plate.def("destroy", (void (Plate_Plate::*)()) &Plate_Plate::destroy, "None");
 cls_Plate_Plate.def("Init", (void (Plate_Plate::*)()) &Plate_Plate::Init, "reset the Plate in the initial state ( same as after Create())");

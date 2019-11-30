@@ -27,24 +27,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <AIS_KindOfDimension.hxx>
 #include <AIS_TypeOfAngle.hxx>
 #include <AIS_TypeOfAngleArrowVisibility.hxx>
-#include <AIS_SelectionModesConcurrency.hxx>
-#include <AIS_ClearMode.hxx>
-#include <AIS_StatusOfDetection.hxx>
-#include <AIS_StatusOfPick.hxx>
-#include <AIS_SelectStatus.hxx>
 #include <AIS_DisplayStatus.hxx>
 #include <AIS_DisplayMode.hxx>
+#include <AIS_ClearMode.hxx>
+#include <AIS_SelectStatus.hxx>
+#include <AIS_SelectionModesConcurrency.hxx>
+#include <AIS_StatusOfDetection.hxx>
+#include <AIS_StatusOfPick.hxx>
 #include <AIS_TypeOfIso.hxx>
 #include <AIS_TypeOfAxis.hxx>
 #include <AIS_ConnectStatus.hxx>
+#include <AIS_DragAction.hxx>
 #include <AIS_TypeOfDist.hxx>
 #include <AIS_TypeOfAttribute.hxx>
 #include <AIS_KindOfRelation.hxx>
 #include <AIS_KindOfUnit.hxx>
 #include <AIS_ManipulatorMode.hxx>
+#include <AIS_MouseGesture.hxx>
+#include <AIS_NavigationMode.hxx>
 #include <AIS_TypeOfPlane.hxx>
+#include <AIS_RotationMode.hxx>
 #include <AIS_StandardDatum.hxx>
 #include <AIS_TrihedronSelectionMode.hxx>
+#include <AIS_ViewInputBuffer.hxx>
+#include <AIS_WalkDelta.hxx>
 #include <Standard.hxx>
 #include <gp_Pnt.hxx>
 #include <TopoDS_Shape.hxx>
@@ -68,6 +74,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Aspect_TypeOfMarker.hxx>
 #include <AIS.hxx>
 #include <SelectMgr_EntityOwner.hxx>
+#include <Standard_Std.hxx>
 #include <AIS_DimensionOwner.hxx>
 #include <Standard_Type.hxx>
 #include <SelectMgr_SelectableObject.hxx>
@@ -75,13 +82,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <PrsMgr_PresentationManager.hxx>
 #include <AIS_InteractiveContext.hxx>
 #include <AIS_InteractiveObject.hxx>
-#include <Aspect_TypeOfFacingModel.hxx>
-#include <Quantity_Color.hxx>
 #include <Standard_Transient.hxx>
-#include <Graphic3d_NameOfMaterial.hxx>
-#include <Graphic3d_MaterialAspect.hxx>
 #include <Prs3d_BasicAspect.hxx>
-#include <TColStd_ListOfInteger.hxx>
+#include <Standard_OStream.hxx>
 #include <PrsMgr_TypeOfPresentation3d.hxx>
 #include <TCollection_ExtendedString.hxx>
 #include <Prs3d_DimensionAspect.hxx>
@@ -94,45 +97,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <NCollection_Handle.hxx>
 #include <gp.hxx>
 #include <AIS_AngleDimension.hxx>
+#include <Media_Timer.hxx>
 #include <AIS_AnimationTimer.hxx>
-#include <OSD_Timer.hxx>
 #include <AIS_Animation.hxx>
 #include <AIS_AnimationCamera.hxx>
 #include <V3d_View.hxx>
 #include <Graphic3d_Camera.hxx>
-#include <AIS_LocalStatus.hxx>
+#include <AIS_GlobalStatus.hxx>
+#include <TColStd_ListOfInteger.hxx>
 #include <NCollection_DataMap.hxx>
 #include <TColStd_MapTransientHasher.hxx>
-#include <AIS_DataMapOfSelStat.hxx>
-#include <AIS_SequenceOfInteractive.hxx>
+#include <AIS_DataMapOfIOStatus.hxx>
 #include <NCollection_List.hxx>
+#include <AIS_ListOfInteractive.hxx>
 #include <AIS_NListOfEntityOwner.hxx>
 #include <AIS_Selection.hxx>
-#include <TopAbs_ShapeEnum.hxx>
-#include <SelectMgr_Filter.hxx>
-#include <SelectMgr_ListOfFilter.hxx>
-#include <SelectMgr_OrFilter.hxx>
 #include <V3d_Viewer.hxx>
-#include <TColgp_Array1OfPnt2d.hxx>
-#include <TColStd_MapOfTransient.hxx>
-#include <StdSelect_ViewerSelector3d.hxx>
-#include <AIS_LocalContext.hxx>
-#include <SelectMgr_SelectionManager.hxx>
-#include <SelectMgr_IndexedMapOfOwner.hxx>
-#include <TColStd_SequenceOfInteger.hxx>
-#include <TColStd_MapIntegerHasher.hxx>
-#include <AIS_DataMapOfILC.hxx>
-#include <AIS_GlobalStatus.hxx>
-#include <AIS_DataMapOfIOStatus.hxx>
-#include <AIS_ListOfInteractive.hxx>
 #include <Prs3d_TypeOfHighlight.hxx>
 #include <Graphic3d_ZLayerId.hxx>
 #include <TopLoc_Location.hxx>
 #include <Graphic3d_TransformPers.hxx>
 #include <Graphic3d_TransModeFlags.hxx>
+#include <TColgp_Array1OfPnt2d.hxx>
+#include <SelectMgr_IndexedMapOfOwner.hxx>
+#include <SelectMgr_ListOfFilter.hxx>
+#include <SelectMgr_Filter.hxx>
 #include <SelectMgr_PickingStrategy.hxx>
+#include <SelectMgr_SelectionManager.hxx>
+#include <StdSelect_ViewerSelector3d.hxx>
+#include <Aspect_TypeOfFacingModel.hxx>
+#include <Quantity_Color.hxx>
+#include <Graphic3d_MaterialAspect.hxx>
 #include <Prs3d_LineAspect.hxx>
 #include <Standard_ProgramError.hxx>
+#include <SelectMgr_OrFilter.hxx>
+#include <TColStd_SequenceOfInteger.hxx>
 #include <AIS_AnimationObject.hxx>
 #include <gp_Trsf.hxx>
 #include <gp_TrsfNLerp.hxx>
@@ -143,10 +142,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Geom_Axis1Placement.hxx>
 #include <Prs3d_Projector.hxx>
 #include <Geom_Transformation.hxx>
+#include <TopAbs_ShapeEnum.hxx>
 #include <AIS_BadEdgeFilter.hxx>
 #include <TopTools_DataMapOfIntegerListOfShape.hxx>
 #include <AIS_C0RegularityFilter.hxx>
 #include <TopTools_MapOfShape.hxx>
+#include <AIS_CameraFrustum.hxx>
+#include <NCollection_Array1.hxx>
+#include <Graphic3d_Vec3.hxx>
+#include <Graphic3d_ArrayOfTriangles.hxx>
+#include <Graphic3d_ArrayOfSegments.hxx>
 #include <AIS_Relation.hxx>
 #include <DsgPrs_ArrowSide.hxx>
 #include <AIS_Chamf2dDimension.hxx>
@@ -158,13 +163,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <AIS_DataMapOfShapeDrawer.hxx>
 #include <AIS_Shape.hxx>
 #include <Prs3d_TypeOfHLR.hxx>
+#include <Graphic3d_NameOfMaterial.hxx>
 #include <gp_Pnt2d.hxx>
 #include <NCollection_IndexedDataMap.hxx>
 #include <TopoDS_Compound.hxx>
 #include <AIS_ColoredShape.hxx>
 #include <StdSelect_BRepOwner.hxx>
 #include <AIS_ColorScale.hxx>
-#include <Graphic3d_Vec3.hxx>
 #include <Aspect_TypeOfColorScaleData.hxx>
 #include <TColStd_SequenceOfExtendedString.hxx>
 #include <Aspect_SequenceOfColor.hxx>
@@ -173,7 +178,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Graphic3d_VerticalTextAlignment.hxx>
 #include <AIS_ConcentricRelation.hxx>
 #include <AIS_ConnectedInteractive.hxx>
+#include <TColStd_MapIntegerHasher.hxx>
 #include <AIS_DataMapofIntegerListOfinteractive.hxx>
+#include <AIS_LocalStatus.hxx>
+#include <AIS_DataMapOfSelStat.hxx>
 #include <AIS_DiameterDimension.hxx>
 #include <AIS_EllipseRadiusDimension.hxx>
 #include <Geom_OffsetCurve.hxx>
@@ -181,8 +189,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <AIS_EqualRadiusRelation.hxx>
 #include <AIS_ExclusionFilter.hxx>
 #include <TColStd_DataMapOfIntegerListOfInteger.hxx>
-#include <TopoDS_Wire.hxx>
 #include <AIS_FixRelation.hxx>
+#include <TopoDS_Wire.hxx>
 #include <AIS_GraphicTool.hxx>
 #include <TColStd_ListOfTransient.hxx>
 #include <AIS_IdenticRelation.hxx>
@@ -196,13 +204,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_Ax2.hxx>
 #include <SelectMgr_SequenceOfOwner.hxx>
 #include <Poly_Triangulation.hxx>
-#include <Graphic3d_ArrayOfTriangles.hxx>
 #include <gp_Ax1.hxx>
 #include <Prs3d_ShadingAspect.hxx>
 #include <AIS_ManipulatorOwner.hxx>
 #include <NCollection_Map.hxx>
 #include <AIS_MapOfInteractive.hxx>
 #include <AIS_MaxRadiusDimension.hxx>
+#include <AIS_MediaPlayer.hxx>
+#include <Graphic3d_MediaTextureSet.hxx>
+#include <Graphic3d_Vec2.hxx>
+#include <Media_PlayerContext.hxx>
+#include <Graphic3d_AspectFillArea3d.hxx>
 #include <AIS_MidPointRelation.hxx>
 #include <AIS_MinRadiusDimension.hxx>
 #include <AIS_MultipleConnectedInteractive.hxx>
@@ -213,16 +225,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Select3D_TypeOfSensitivity.hxx>
 #include <AIS_PlaneTrihedron.hxx>
 #include <AIS_Point.hxx>
+#include <Prs3d_PointAspect.hxx>
+#include <AIS_PointCloud.hxx>
 #include <Graphic3d_ArrayOfPoints.hxx>
 #include <TColgp_HArray1OfPnt.hxx>
 #include <Quantity_HArray1OfColor.hxx>
 #include <TColgp_HArray1OfDir.hxx>
-#include <AIS_PointCloud.hxx>
+#include <TColStd_HPackedMapOfInteger.hxx>
 #include <AIS_RadiusDimension.hxx>
 #include <AIS_RubberBand.hxx>
-#include <Graphic3d_Vec2.hxx>
 #include <Graphic3d_ArrayOfPolylines.hxx>
 #include <AIS_SequenceOfDimension.hxx>
+#include <AIS_SequenceOfInteractive.hxx>
 #include <AIS_TypeFilter.hxx>
 #include <AIS_SignatureFilter.hxx>
 #include <AIS_SymmetricRelation.hxx>
@@ -233,27 +247,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <AIS_TextLabel.hxx>
 #include <Image_PixMap.hxx>
 #include <Graphic3d_Texture2Dmanual.hxx>
-#include <Graphic3d_AspectFillArea3d.hxx>
 #include <Graphic3d_NameOfTexture2D.hxx>
 #include <AIS_TexturedShape.hxx>
-#include <TColStd_HArray1OfInteger.hxx>
 #include <AIS_Triangulation.hxx>
+#include <TColStd_HArray1OfInteger.hxx>
 #include <Graphic3d_Vec4.hxx>
 #include <AIS_Trihedron.hxx>
 #include <Prs3d_DatumMode.hxx>
 #include <Prs3d_DatumParts.hxx>
-#include <SelectBasics_SensitiveEntity.hxx>
-#include <SelectBasics_EntityOwner.hxx>
+#include <Select3D_SensitiveEntity.hxx>
 #include <Graphic3d_ArrayOfPrimitives.hxx>
 #include <Prs3d_DatumAspect.hxx>
-#include <Prs3d_PointAspect.hxx>
 #include <AIS_TrihedronOwner.hxx>
+#include <Aspect_ScrollDelta.hxx>
+#include <V3d_TypeOfOrientation.hxx>
+#include <Aspect_VKeySet.hxx>
+#include <Aspect_VKey.hxx>
+#include <Aspect_VKeyFlags.hxx>
+#include <Precision.hxx>
+#include <OSD_Timer.hxx>
+#include <Aspect_TouchMap.hxx>
+#include <gp_Vec.hxx>
+#include <AIS_ViewController.hxx>
+#include <AIS_ViewCube.hxx>
+#include <gp_XY.hxx>
 #include <bind_NCollection_DataMap.hxx>
-#include <bind_NCollection_Sequence.hxx>
 #include <bind_NCollection_List.hxx>
 #include <bind_NCollection_TListIterator.hxx>
 #include <bind_NCollection_IndexedDataMap.hxx>
 #include <bind_NCollection_Map.hxx>
+#include <bind_NCollection_Sequence.hxx>
 
 PYBIND11_MODULE(AIS, mod) {
 
@@ -267,23 +290,24 @@ py::module::import("OCCT.Quantity");
 py::module::import("OCCT.Aspect");
 py::module::import("OCCT.SelectMgr");
 py::module::import("OCCT.PrsMgr");
-py::module::import("OCCT.Graphic3d");
-py::module::import("OCCT.TColStd");
 py::module::import("OCCT.TCollection");
 py::module::import("OCCT.NCollection");
-py::module::import("OCCT.OSD");
+py::module::import("OCCT.Media");
 py::module::import("OCCT.V3d");
-py::module::import("OCCT.TopAbs");
+py::module::import("OCCT.Graphic3d");
+py::module::import("OCCT.TColStd");
+py::module::import("OCCT.TopLoc");
 py::module::import("OCCT.TColgp");
 py::module::import("OCCT.StdSelect");
-py::module::import("OCCT.TopLoc");
+py::module::import("OCCT.TopAbs");
 py::module::import("OCCT.TopTools");
 py::module::import("OCCT.DsgPrs");
 py::module::import("OCCT.Poly");
 py::module::import("OCCT.Select3D");
 py::module::import("OCCT.Font");
 py::module::import("OCCT.Image");
-py::module::import("OCCT.SelectBasics");
+py::module::import("OCCT.Precision");
+py::module::import("OCCT.OSD");
 
 // ENUM: AIS_KINDOFSURFACE
 py::enum_<AIS_KindOfSurface>(mod, "AIS_KindOfSurface", "None")
@@ -360,11 +384,18 @@ py::enum_<AIS_TypeOfAngleArrowVisibility>(mod, "AIS_TypeOfAngleArrowVisibility",
 	.export_values();
 
 
-// ENUM: AIS_SELECTIONMODESCONCURRENCY
-py::enum_<AIS_SelectionModesConcurrency>(mod, "AIS_SelectionModesConcurrency", "The mode specifying how multiple active Selection Modes should be treated during activation of new one.")
-	.value("AIS_SelectionModesConcurrency_Single", AIS_SelectionModesConcurrency::AIS_SelectionModesConcurrency_Single)
-	.value("AIS_SelectionModesConcurrency_GlobalOrLocal", AIS_SelectionModesConcurrency::AIS_SelectionModesConcurrency_GlobalOrLocal)
-	.value("AIS_SelectionModesConcurrency_Multiple", AIS_SelectionModesConcurrency::AIS_SelectionModesConcurrency_Multiple)
+// ENUM: AIS_DISPLAYSTATUS
+py::enum_<AIS_DisplayStatus>(mod, "AIS_DisplayStatus", "To give the display status of an Interactive Object.")
+	.value("AIS_DS_Displayed", AIS_DisplayStatus::AIS_DS_Displayed)
+	.value("AIS_DS_Erased", AIS_DisplayStatus::AIS_DS_Erased)
+	.value("AIS_DS_None", AIS_DisplayStatus::AIS_DS_None)
+	.export_values();
+
+
+// ENUM: AIS_DISPLAYMODE
+py::enum_<AIS_DisplayMode>(mod, "AIS_DisplayMode", "Sets display modes other than neutral point ones, for interactive objects. The possibilities include: - wireframe, - shaded,")
+	.value("AIS_WireFrame", AIS_DisplayMode::AIS_WireFrame)
+	.value("AIS_Shaded", AIS_DisplayMode::AIS_Shaded)
 	.export_values();
 
 
@@ -375,6 +406,22 @@ py::enum_<AIS_ClearMode>(mod, "AIS_ClearMode", "Declares which entities in an op
 	.value("AIS_CM_Filters", AIS_ClearMode::AIS_CM_Filters)
 	.value("AIS_CM_StandardModes", AIS_ClearMode::AIS_CM_StandardModes)
 	.value("AIS_CM_TemporaryShapePrs", AIS_ClearMode::AIS_CM_TemporaryShapePrs)
+	.export_values();
+
+
+// ENUM: AIS_SELECTSTATUS
+py::enum_<AIS_SelectStatus>(mod, "AIS_SelectStatus", "None")
+	.value("AIS_SS_Added", AIS_SelectStatus::AIS_SS_Added)
+	.value("AIS_SS_Removed", AIS_SelectStatus::AIS_SS_Removed)
+	.value("AIS_SS_NotDone", AIS_SelectStatus::AIS_SS_NotDone)
+	.export_values();
+
+
+// ENUM: AIS_SELECTIONMODESCONCURRENCY
+py::enum_<AIS_SelectionModesConcurrency>(mod, "AIS_SelectionModesConcurrency", "The mode specifying how multiple active Selection Modes should be treated during activation of new one.")
+	.value("AIS_SelectionModesConcurrency_Single", AIS_SelectionModesConcurrency::AIS_SelectionModesConcurrency_Single)
+	.value("AIS_SelectionModesConcurrency_GlobalOrLocal", AIS_SelectionModesConcurrency::AIS_SelectionModesConcurrency_GlobalOrLocal)
+	.value("AIS_SelectionModesConcurrency_Multiple", AIS_SelectionModesConcurrency::AIS_SelectionModesConcurrency_Multiple)
 	.export_values();
 
 
@@ -397,30 +444,6 @@ py::enum_<AIS_StatusOfPick>(mod, "AIS_StatusOfPick", "None")
 	.value("AIS_SOP_Removed", AIS_StatusOfPick::AIS_SOP_Removed)
 	.value("AIS_SOP_OneSelected", AIS_StatusOfPick::AIS_SOP_OneSelected)
 	.value("AIS_SOP_SeveralSelected", AIS_StatusOfPick::AIS_SOP_SeveralSelected)
-	.export_values();
-
-
-// ENUM: AIS_SELECTSTATUS
-py::enum_<AIS_SelectStatus>(mod, "AIS_SelectStatus", "None")
-	.value("AIS_SS_Added", AIS_SelectStatus::AIS_SS_Added)
-	.value("AIS_SS_Removed", AIS_SelectStatus::AIS_SS_Removed)
-	.value("AIS_SS_NotDone", AIS_SelectStatus::AIS_SS_NotDone)
-	.export_values();
-
-
-// ENUM: AIS_DISPLAYSTATUS
-py::enum_<AIS_DisplayStatus>(mod, "AIS_DisplayStatus", "To give the display status of an Interactive Object. This will be one of the following: - DS_Displayed: the Interactive Object is displayed in the main viewer; - DS_Erased: the Interactive Object is hidden in main viewer; - DS_Temporary: the Interactive Object is temporarily displayed; - DS_None: the Interactive Object is nowhere displayed.")
-	.value("AIS_DS_Displayed", AIS_DisplayStatus::AIS_DS_Displayed)
-	.value("AIS_DS_Erased", AIS_DisplayStatus::AIS_DS_Erased)
-	.value("AIS_DS_Temporary", AIS_DisplayStatus::AIS_DS_Temporary)
-	.value("AIS_DS_None", AIS_DisplayStatus::AIS_DS_None)
-	.export_values();
-
-
-// ENUM: AIS_DISPLAYMODE
-py::enum_<AIS_DisplayMode>(mod, "AIS_DisplayMode", "Sets display modes other than neutral point ones, for interactive objects. The possibilities include: - wireframe, - shaded,")
-	.value("AIS_WireFrame", AIS_DisplayMode::AIS_WireFrame)
-	.value("AIS_Shaded", AIS_DisplayMode::AIS_Shaded)
 	.export_values();
 
 
@@ -450,6 +473,15 @@ py::enum_<AIS_ConnectStatus>(mod, "AIS_ConnectStatus", "Gives the status of conn
 	.export_values();
 
 
+// ENUM: AIS_DRAGACTION
+py::enum_<AIS_DragAction>(mod, "AIS_DragAction", "Dragging action.")
+	.value("AIS_DragAction_Start", AIS_DragAction::AIS_DragAction_Start)
+	.value("AIS_DragAction_Update", AIS_DragAction::AIS_DragAction_Update)
+	.value("AIS_DragAction_Stop", AIS_DragAction::AIS_DragAction_Stop)
+	.value("AIS_DragAction_Abort", AIS_DragAction::AIS_DragAction_Abort)
+	.export_values();
+
+
 // ENUM: AIS_TYPEOFDIST
 py::enum_<AIS_TypeOfDist>(mod, "AIS_TypeOfDist", "To declare the type of distance.")
 	.value("AIS_TOD_Unknown", AIS_TypeOfDist::AIS_TOD_Unknown)
@@ -472,6 +504,7 @@ py::enum_<AIS_TypeOfAttribute>(mod, "AIS_TypeOfAttribute", "None")
 	.value("AIS_TOA_Section", AIS_TypeOfAttribute::AIS_TOA_Section)
 	.value("AIS_TOA_Hidden", AIS_TypeOfAttribute::AIS_TOA_Hidden)
 	.value("AIS_TOA_Seen", AIS_TypeOfAttribute::AIS_TOA_Seen)
+	.value("AIS_TOA_FaceBoundary", AIS_TypeOfAttribute::AIS_TOA_FaceBoundary)
 	.value("AIS_TOA_FirstAxis", AIS_TypeOfAttribute::AIS_TOA_FirstAxis)
 	.value("AIS_TOA_SecondAxis", AIS_TypeOfAttribute::AIS_TOA_SecondAxis)
 	.value("AIS_TOA_ThirdAxis", AIS_TypeOfAttribute::AIS_TOA_ThirdAxis)
@@ -513,6 +546,27 @@ py::enum_<AIS_ManipulatorMode>(mod, "AIS_ManipulatorMode", "Mode to make definit
 	.value("AIS_MM_Translation", AIS_ManipulatorMode::AIS_MM_Translation)
 	.value("AIS_MM_Rotation", AIS_ManipulatorMode::AIS_MM_Rotation)
 	.value("AIS_MM_Scaling", AIS_ManipulatorMode::AIS_MM_Scaling)
+	.value("AIS_MM_TranslationPlane", AIS_ManipulatorMode::AIS_MM_TranslationPlane)
+	.export_values();
+
+
+// ENUM: AIS_MOUSEGESTURE
+py::enum_<AIS_MouseGesture>(mod, "AIS_MouseGesture", "Mouse gesture - only one can be active at one moment.")
+	.value("AIS_MouseGesture_NONE", AIS_MouseGesture::AIS_MouseGesture_NONE)
+	.value("AIS_MouseGesture_SelectRectangle", AIS_MouseGesture::AIS_MouseGesture_SelectRectangle)
+	.value("AIS_MouseGesture_SelectLasso", AIS_MouseGesture::AIS_MouseGesture_SelectLasso)
+	.value("AIS_MouseGesture_Zoom", AIS_MouseGesture::AIS_MouseGesture_Zoom)
+	.value("AIS_MouseGesture_Pan", AIS_MouseGesture::AIS_MouseGesture_Pan)
+	.value("AIS_MouseGesture_RotateOrbit", AIS_MouseGesture::AIS_MouseGesture_RotateOrbit)
+	.value("AIS_MouseGesture_RotateView", AIS_MouseGesture::AIS_MouseGesture_RotateView)
+	.export_values();
+
+
+// ENUM: AIS_NAVIGATIONMODE
+py::enum_<AIS_NavigationMode>(mod, "AIS_NavigationMode", "Camera navigation mode.")
+	.value("AIS_NavigationMode_Orbit", AIS_NavigationMode::AIS_NavigationMode_Orbit)
+	.value("AIS_NavigationMode_FirstPersonFlight", AIS_NavigationMode::AIS_NavigationMode_FirstPersonFlight)
+	.value("AIS_NavigationMode_FirstPersonWalk", AIS_NavigationMode::AIS_NavigationMode_FirstPersonWalk)
 	.export_values();
 
 
@@ -522,6 +576,16 @@ py::enum_<AIS_TypeOfPlane>(mod, "AIS_TypeOfPlane", "Declares the type of plane."
 	.value("AIS_TOPL_XYPlane", AIS_TypeOfPlane::AIS_TOPL_XYPlane)
 	.value("AIS_TOPL_XZPlane", AIS_TypeOfPlane::AIS_TOPL_XZPlane)
 	.value("AIS_TOPL_YZPlane", AIS_TypeOfPlane::AIS_TOPL_YZPlane)
+	.export_values();
+
+
+// ENUM: AIS_ROTATIONMODE
+py::enum_<AIS_RotationMode>(mod, "AIS_RotationMode", "Camera rotation mode.")
+	.value("AIS_RotationMode_BndBoxActive", AIS_RotationMode::AIS_RotationMode_BndBoxActive)
+	.value("AIS_RotationMode_PickLast", AIS_RotationMode::AIS_RotationMode_PickLast)
+	.value("AIS_RotationMode_PickCenter", AIS_RotationMode::AIS_RotationMode_PickCenter)
+	.value("AIS_RotationMode_CameraAt", AIS_RotationMode::AIS_RotationMode_CameraAt)
+	.value("AIS_RotationMode_BndBoxScene", AIS_RotationMode::AIS_RotationMode_BndBoxScene)
 	.export_values();
 
 
@@ -544,6 +608,33 @@ py::enum_<AIS_TrihedronSelectionMode>(mod, "AIS_TrihedronSelectionMode", "Enumer
 	.value("AIS_TrihedronSelectionMode_Origin", AIS_TrihedronSelectionMode::AIS_TrihedronSelectionMode_Origin)
 	.value("AIS_TrihedronSelectionMode_Axes", AIS_TrihedronSelectionMode::AIS_TrihedronSelectionMode_Axes)
 	.value("AIS_TrihedronSelectionMode_MainPlanes", AIS_TrihedronSelectionMode::AIS_TrihedronSelectionMode_MainPlanes)
+	.export_values();
+
+
+// ENUM: AIS_VIEWSELECTIONTOOL
+py::enum_<AIS_ViewSelectionTool>(mod, "AIS_ViewSelectionTool", "Selection mode")
+	.value("AIS_ViewSelectionTool_Picking", AIS_ViewSelectionTool::AIS_ViewSelectionTool_Picking)
+	.value("AIS_ViewSelectionTool_RubberBand", AIS_ViewSelectionTool::AIS_ViewSelectionTool_RubberBand)
+	.value("AIS_ViewSelectionTool_Polygon", AIS_ViewSelectionTool::AIS_ViewSelectionTool_Polygon)
+	.export_values();
+
+py::enum_<AIS_ViewInputBufferType>(mod, "AIS_ViewInputBufferType", "Input buffer type.")
+	.value("AIS_ViewInputBufferType_UI", AIS_ViewInputBufferType::AIS_ViewInputBufferType_UI)
+	.value("AIS_ViewInputBufferType_GL", AIS_ViewInputBufferType::AIS_ViewInputBufferType_GL)
+	.export_values();
+
+
+// ENUM: AIS_WALKTRANSLATION
+py::enum_<AIS_WalkTranslation>(mod, "AIS_WalkTranslation", "Walking translation components.")
+	.value("AIS_WalkTranslation_Forward", AIS_WalkTranslation::AIS_WalkTranslation_Forward)
+	.value("AIS_WalkTranslation_Side", AIS_WalkTranslation::AIS_WalkTranslation_Side)
+	.value("AIS_WalkTranslation_Up", AIS_WalkTranslation::AIS_WalkTranslation_Up)
+	.export_values();
+
+py::enum_<AIS_WalkRotation>(mod, "AIS_WalkRotation", "Walking rotation components.")
+	.value("AIS_WalkRotation_Yaw", AIS_WalkRotation::AIS_WalkRotation_Yaw)
+	.value("AIS_WalkRotation_Pitch", AIS_WalkRotation::AIS_WalkRotation_Pitch)
+	.value("AIS_WalkRotation_Roll", AIS_WalkRotation::AIS_WalkRotation_Roll)
 	.export_values();
 
 
@@ -613,75 +704,32 @@ cls_AIS_DimensionOwner.def("Unhilight", [](AIS_DimensionOwner &self, const openc
 cls_AIS_DimensionOwner.def("Unhilight", (void (AIS_DimensionOwner::*)(const opencascade::handle<PrsMgr_PresentationManager> &, const Standard_Integer)) &AIS_DimensionOwner::Unhilight, "Removes highlighting from the selected part of dimension.", py::arg("thePM"), py::arg("theMode"));
 
 // CLASS: AIS_INTERACTIVEOBJECT
-py::class_<AIS_InteractiveObject, opencascade::handle<AIS_InteractiveObject>, SelectMgr_SelectableObject> cls_AIS_InteractiveObject(mod, "AIS_InteractiveObject", "Defines a class of objects with display and selection services. Entities which are visualized and selected are Interactive Objects. You can make use of classes of standard Interactive Objects for which all necessary methods have already been programmed, or you can implement your own classes of Interactive Objects. Specific attributes of entities such as arrow aspect for dimensions must be loaded in a Drawer. This Drawer is then applied to the Interactive Object in view. There are four types of Interactive Object in AIS: the construction element or Datum, the Relation, which includes both dimensions and constraints, the Object, and finally, when the object is of an unknown type, the None type. Inside these categories, a signature, or index, provides the possibility of additional characterization. By default, the Interactive Object has a None type and a signature of 0. If you want to give a particular type and signature to your interactive object, you must redefine the methods, Signature and Type. Warning In the case of attribute methods, methods for standard attributes are virtual. They must be redefined by the inheriting classes. Setcolor for a point and Setcolor for a plane, for example, do not affect the same attributes in the Drawer.");
+py::class_<AIS_InteractiveObject, opencascade::handle<AIS_InteractiveObject>, SelectMgr_SelectableObject> cls_AIS_InteractiveObject(mod, "AIS_InteractiveObject", "Defines a class of objects with display and selection services. Entities which are visualized and selected are Interactive Objects. Specific attributes of entities such as arrow aspect for dimensions must be loaded in a Prs3d_Drawer.");
 
 // Methods
 cls_AIS_InteractiveObject.def_static("get_type_name_", (const char * (*)()) &AIS_InteractiveObject::get_type_name, "None");
 cls_AIS_InteractiveObject.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_InteractiveObject::get_type_descriptor, "None");
 cls_AIS_InteractiveObject.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::DynamicType, "None");
-cls_AIS_InteractiveObject.def("Type", (AIS_KindOfInteractive (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::Type, "Returns the kind of Interactive Object: - None - Datum - Relation - Object By default, the interactive object has a None type. Because specific shapes entail different behavior according to their sub-shapes, you may need to create a Local Context. This will allow you to specify the additional characteristics which you need to handle these shapes.");
-cls_AIS_InteractiveObject.def("Signature", (Standard_Integer (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::Signature, "Specifies additional characteristics of Interactive Objects. A signature is, in fact, an index with integer values assigned different properties. This method is frequently used in conjuction with Type to give a particular type and signature to an Interactive Object. By default, the Interactive Object has a None type and a signature of 0. Among the datums, this signature is attributed to the shape The remaining datums have the following default signatures: - Point signature 1 - Axis signature 2 - Trihedron signature 3 - PlaneTrihedron signature 4 - Line signature 5 - Circle signature 6 - Plane signature 7.");
-cls_AIS_InteractiveObject.def("AcceptShapeDecomposition", (Standard_Boolean (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::AcceptShapeDecomposition, "Informs the graphic context that the interactive Object may be decomposed into sub-shapes for dynamic selection. The most used Interactive Object is AIS_Shape. Activation methods for standard selection modes are proposed in the Interactive Context. These include selection by vertex or by edges. For datums with the same behavior as AIS_Shape, such as vetices and edges, we must redefine the virtual method so that AcceptShapeDecomposition returns false. Rule for selection : Mode 0 : Selection of the interactive Object itself Mode 1 : Selection of vertices Mode 2 : Selection Of Edges Mode 3 : Selection Of Wires Mode 4 : Selection Of Faces ...");
-cls_AIS_InteractiveObject.def("SetCurrentFacingModel", [](AIS_InteractiveObject &self) -> void { return self.SetCurrentFacingModel(); });
-cls_AIS_InteractiveObject.def("SetCurrentFacingModel", (void (AIS_InteractiveObject::*)(const Aspect_TypeOfFacingModel)) &AIS_InteractiveObject::SetCurrentFacingModel, "change the current facing model apply on polygons for SetColor(), SetTransparency(), SetMaterial() methods default facing model is Aspect_TOFM_TWO_SIDE. This mean that attributes is applying both on the front and back face.", py::arg("aModel"));
-cls_AIS_InteractiveObject.def("CurrentFacingModel", (Aspect_TypeOfFacingModel (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::CurrentFacingModel, "Returns the current facing model which is in effect.");
-cls_AIS_InteractiveObject.def("SetColor", (void (AIS_InteractiveObject::*)(const Quantity_Color &)) &AIS_InteractiveObject::SetColor, "Only the interactive object knowns which Drawer attribute is affected by the color, if any (ex: for a wire,it's the wireaspect field of the drawer, but for a vertex, only the point aspect field is affected by the color). WARNING : Do not forget to set the corresponding fields here (hasOwnColor and myDrawer->SetColor())", py::arg("theColor"));
-cls_AIS_InteractiveObject.def("UnsetColor", (void (AIS_InteractiveObject::*)()) &AIS_InteractiveObject::UnsetColor, "Removes color settings. Only the Interactive Object knows which Drawer attribute is affected by the color setting. For a wire, for example, wire aspect is the attribute affected. For a vertex, however, only point aspect is affected by the color setting.");
-cls_AIS_InteractiveObject.def("SetWidth", (void (AIS_InteractiveObject::*)(const Standard_Real)) &AIS_InteractiveObject::SetWidth, "Allows you to provide the setting aValue for width. Only the Interactive Object knows which Drawer attribute is affected by the width setting.", py::arg("aValue"));
-cls_AIS_InteractiveObject.def("UnsetWidth", (void (AIS_InteractiveObject::*)()) &AIS_InteractiveObject::UnsetWidth, "None");
-cls_AIS_InteractiveObject.def("AcceptDisplayMode", (Standard_Boolean (AIS_InteractiveObject::*)(const Standard_Integer) const) &AIS_InteractiveObject::AcceptDisplayMode, "Returns true if the class of objects accepts the display mode aMode. The interactive context can have a default mode of representation for the set of Interactive Objects. This mode may not be accepted by a given class of objects. Consequently, this virtual method allowing us to get information about the class in question must be implemented.", py::arg("aMode"));
-cls_AIS_InteractiveObject.def("DefaultDisplayMode", (Standard_Integer (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::DefaultDisplayMode, "Returns the default display mode. This method is to be implemented when the main mode is not mode 0.");
+cls_AIS_InteractiveObject.def("Type", (AIS_KindOfInteractive (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::Type, "Returns the kind of Interactive Object; AIS_KOI_None by default.");
+cls_AIS_InteractiveObject.def("Signature", (Standard_Integer (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::Signature, "Specifies additional characteristics of Interactive Object of Type(); -1 by default. Among the datums, this signature is attributed to the shape. The remaining datums have the following default signatures: - Point signature 1 - Axis signature 2 - Trihedron signature 3 - PlaneTrihedron signature 4 - Line signature 5 - Circle signature 6 - Plane signature 7.");
 cls_AIS_InteractiveObject.def("Redisplay", [](AIS_InteractiveObject &self) -> void { return self.Redisplay(); });
 cls_AIS_InteractiveObject.def("Redisplay", (void (AIS_InteractiveObject::*)(const Standard_Boolean)) &AIS_InteractiveObject::Redisplay, "Updates the active presentation; if <AllModes> = Standard_True all the presentations inside are recomputed. IMPORTANT: It is preferable to call Redisplay method of corresponding AIS_InteractiveContext instance for cases when it is accessible. This method just redirects call to myCTXPtr, so this class field must be up to date for proper result.", py::arg("AllModes"));
-cls_AIS_InteractiveObject.def("SetInfiniteState", [](AIS_InteractiveObject &self) -> void { return self.SetInfiniteState(); });
-cls_AIS_InteractiveObject.def("SetInfiniteState", (void (AIS_InteractiveObject::*)(const Standard_Boolean)) &AIS_InteractiveObject::SetInfiniteState, "Sets the infinite state flag aFlage. if <aFlag> = True , the interactiveObject is considered as infinite, i.e. its graphic presentations are not taken in account for View FitAll...", py::arg("aFlag"));
-cls_AIS_InteractiveObject.def("IsInfinite", (Standard_Boolean (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::IsInfinite, "Returns true if the interactive object is infinite. In this case, its graphic presentations are not taken into account in the fit-all view.");
 cls_AIS_InteractiveObject.def("HasInteractiveContext", (Standard_Boolean (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::HasInteractiveContext, "Indicates whether the Interactive Object has a pointer to an interactive context.");
-cls_AIS_InteractiveObject.def("GetContext", (opencascade::handle<AIS_InteractiveContext> (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::GetContext, "Returns the context pointer to the interactive context.");
+cls_AIS_InteractiveObject.def("InteractiveContext", (AIS_InteractiveContext * (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::InteractiveContext, "Returns the context pointer to the interactive context.");
 cls_AIS_InteractiveObject.def("SetContext", (void (AIS_InteractiveObject::*)(const opencascade::handle<AIS_InteractiveContext> &)) &AIS_InteractiveObject::SetContext, "Sets the interactive context aCtx and provides a link to the default drawing tool or 'Drawer' if there is none.", py::arg("aCtx"));
 cls_AIS_InteractiveObject.def("HasOwner", (Standard_Boolean (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::HasOwner, "Returns true if the object has an owner attributed to it. The owner can be a shape for a set of sub-shapes or a sub-shape for sub-shapes which it is composed of, and takes the form of a transient.");
 cls_AIS_InteractiveObject.def("GetOwner", (const opencascade::handle<Standard_Transient> & (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::GetOwner, "Returns the owner of the Interactive Object. The owner can be a shape for a set of sub-shapes or a sub-shape for sub-shapes which it is composed of, and takes the form of a transient. There are two types of owners: - Direct owners, decomposition shapes such as edges, wires, and faces. - Users, presentable objects connecting to sensitive primitives, or a shape which has been decomposed.");
 cls_AIS_InteractiveObject.def("SetOwner", (void (AIS_InteractiveObject::*)(const opencascade::handle<Standard_Transient> &)) &AIS_InteractiveObject::SetOwner, "Allows you to attribute the owner theApplicativeEntity to an Interactive Object. This can be a shape for a set of sub-shapes or a sub-shape for sub-shapes which it is composed of. The owner takes the form of a transient.", py::arg("theApplicativeEntity"));
 cls_AIS_InteractiveObject.def("ClearOwner", (void (AIS_InteractiveObject::*)()) &AIS_InteractiveObject::ClearOwner, "Each Interactive Object has methods which allow us to attribute an Owner to it in the form of a Transient. This method removes the owner from the graphic entity.");
-cls_AIS_InteractiveObject.def("HasDisplayMode", (Standard_Boolean (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::HasDisplayMode, "Returns true if the Interactive Object has a display mode setting. Otherwise, it is displayed in Neutral Point.");
-cls_AIS_InteractiveObject.def("SetDisplayMode", (void (AIS_InteractiveObject::*)(const Standard_Integer)) &AIS_InteractiveObject::SetDisplayMode, "Sets the display mode aMode for the interactive object. An object can have its own temporary display mode, which is different from that proposed by the interactive context. The range of possibilities currently proposed is the following: - AIS_WireFrame - AIS_Shaded This range can, however, be extended through the creation of new display modes.", py::arg("aMode"));
-cls_AIS_InteractiveObject.def("UnsetDisplayMode", (void (AIS_InteractiveObject::*)()) &AIS_InteractiveObject::UnsetDisplayMode, "Removes display mode settings from the interactive object.");
-cls_AIS_InteractiveObject.def("DisplayMode", (Standard_Integer (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::DisplayMode, "Returns the display mode setting of the Interactive Object. The range of possibilities is the following: - AIS_WireFrame - AIS_Shaded This range can, however, be extended through the creation of new display modes.");
-cls_AIS_InteractiveObject.def("HasHilightMode", (Standard_Boolean (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::HasHilightMode, "Returns true if the Interactive Object is in highlight mode.");
-cls_AIS_InteractiveObject.def("HilightMode", (Standard_Integer (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::HilightMode, "Returns highlight display mode. This is obsolete method for backward compatibility - use ::HilightAttributes() and ::DynamicHilightAttributes() instead.");
-cls_AIS_InteractiveObject.def("SetHilightMode", (void (AIS_InteractiveObject::*)(const Standard_Integer)) &AIS_InteractiveObject::SetHilightMode, "Sets highlight display mode. This is obsolete method for backward compatibility - use ::HilightAttributes() and ::DynamicHilightAttributes() instead.", py::arg("theMode"));
-cls_AIS_InteractiveObject.def("UnsetHilightMode", (void (AIS_InteractiveObject::*)()) &AIS_InteractiveObject::UnsetHilightMode, "Unsets highlight display mode.");
-cls_AIS_InteractiveObject.def("HasColor", (Standard_Boolean (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::HasColor, "Returns true if the Interactive Object has color.");
-cls_AIS_InteractiveObject.def("Color", (void (AIS_InteractiveObject::*)(Quantity_Color &) const) &AIS_InteractiveObject::Color, "Returns the color setting of the Interactive Object.", py::arg("theColor"));
-cls_AIS_InteractiveObject.def("HasWidth", (Standard_Boolean (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::HasWidth, "Returns true if the Interactive Object has width.");
-cls_AIS_InteractiveObject.def("Width", (Standard_Real (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::Width, "Returns the width setting of the Interactive Object.");
-cls_AIS_InteractiveObject.def("HasMaterial", (Standard_Boolean (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::HasMaterial, "Returns true if the Interactive Object has a setting for material.");
-cls_AIS_InteractiveObject.def("Material", (Graphic3d_NameOfMaterial (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::Material, "Returns the current material setting. This will be on of the following materials: - Brass - Bronze - Gold - Pewter - Silver - Stone.");
-cls_AIS_InteractiveObject.def("SetMaterial", (void (AIS_InteractiveObject::*)(const Graphic3d_MaterialAspect &)) &AIS_InteractiveObject::SetMaterial, "Sets the material aMat defining this display attribute for the interactive object. Material aspect determines shading aspect, color and transparency of visible entities.", py::arg("aName"));
-cls_AIS_InteractiveObject.def("UnsetMaterial", (void (AIS_InteractiveObject::*)()) &AIS_InteractiveObject::UnsetMaterial, "Removes the setting for material.");
-cls_AIS_InteractiveObject.def("SetTransparency", [](AIS_InteractiveObject &self) -> void { return self.SetTransparency(); });
-cls_AIS_InteractiveObject.def("SetTransparency", (void (AIS_InteractiveObject::*)(const Standard_Real)) &AIS_InteractiveObject::SetTransparency, "Attributes a setting aValue for transparency. The transparency value should be between 0.0 and 1.0. At 0.0 an object will be totally opaque, and at 1.0, fully transparent. Warning At a value of 1.0, there may be nothing visible.", py::arg("aValue"));
-cls_AIS_InteractiveObject.def("IsTransparent", (Standard_Boolean (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::IsTransparent, "Returns true if there is a transparency setting.");
-cls_AIS_InteractiveObject.def("Transparency", (Standard_Real (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::Transparency, "Returns the transparency setting. This will be between 0.0 and 1.0. At 0.0 an object will be totally opaque, and at 1.0, fully transparent.");
-cls_AIS_InteractiveObject.def("UnsetTransparency", (void (AIS_InteractiveObject::*)()) &AIS_InteractiveObject::UnsetTransparency, "Removes the transparency setting. The object is opaque by default.");
-cls_AIS_InteractiveObject.def("UnsetAttributes", (void (AIS_InteractiveObject::*)()) &AIS_InteractiveObject::UnsetAttributes, "Clears settings provided by the drawing tool aDrawer.");
+cls_AIS_InteractiveObject.def("GetContext", (opencascade::handle<AIS_InteractiveContext> (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::GetContext, "Returns the context pointer to the interactive context.");
 cls_AIS_InteractiveObject.def("HasPresentation", (Standard_Boolean (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::HasPresentation, "Returns TRUE when this object has a presentation in the current DisplayMode()");
 cls_AIS_InteractiveObject.def("Presentation", (opencascade::handle<Prs3d_Presentation> (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::Presentation, "Returns the current presentation of this object according to the current DisplayMode()");
 cls_AIS_InteractiveObject.def("SetAspect", (void (AIS_InteractiveObject::*)(const opencascade::handle<Prs3d_BasicAspect> &)) &AIS_InteractiveObject::SetAspect, "Sets the graphic basic aspect to the current presentation.", py::arg("anAspect"));
-cls_AIS_InteractiveObject.def("SetPolygonOffsets", [](AIS_InteractiveObject &self, const Standard_Integer a0) -> void { return self.SetPolygonOffsets(a0); });
-cls_AIS_InteractiveObject.def("SetPolygonOffsets", [](AIS_InteractiveObject &self, const Standard_Integer a0, const Standard_ShortReal a1) -> void { return self.SetPolygonOffsets(a0, a1); });
-cls_AIS_InteractiveObject.def("SetPolygonOffsets", (void (AIS_InteractiveObject::*)(const Standard_Integer, const Standard_ShortReal, const Standard_ShortReal)) &AIS_InteractiveObject::SetPolygonOffsets, "Sets up polygon offsets for this object. It modifies all existing presentations of <anObj> (if any), so it is reasonable to call this method after <anObj> has been displayed. Otherwise, Compute() method should pass Graphic3d_AspectFillArea3d aspect from <myDrawer> to Graphic3d_Group to make polygon offsets work.", py::arg("aMode"), py::arg("aFactor"), py::arg("aUnits"));
-cls_AIS_InteractiveObject.def("HasPolygonOffsets", (Standard_Boolean (AIS_InteractiveObject::*)() const) &AIS_InteractiveObject::HasPolygonOffsets, "Returns Standard_True if <myDrawer> has non-null shading aspect");
-cls_AIS_InteractiveObject.def("PolygonOffsets", [](AIS_InteractiveObject &self, Standard_Integer & aMode, Standard_ShortReal & aFactor, Standard_ShortReal & aUnits){ self.PolygonOffsets(aMode, aFactor, aUnits); return aMode; }, "Retrieves current polygon offsets settings from <myDrawer>.", py::arg("aMode"), py::arg("aFactor"), py::arg("aUnits"));
-cls_AIS_InteractiveObject.def("BoundingBox", (void (AIS_InteractiveObject::*)(Bnd_Box &)) &AIS_InteractiveObject::BoundingBox, "Returns bounding box of object correspondingly to its current display mode.", py::arg("theBndBox"));
-cls_AIS_InteractiveObject.def("SetIsoOnTriangulation", (void (AIS_InteractiveObject::*)(const Standard_Boolean)) &AIS_InteractiveObject::SetIsoOnTriangulation, "Enables or disables on-triangulation build of isolines according to the flag given.", py::arg("theIsEnabled"));
-cls_AIS_InteractiveObject.def("SynchronizeAspects", (void (AIS_InteractiveObject::*)()) &AIS_InteractiveObject::SynchronizeAspects, "Synchronize presentation aspects after their modification.");
+cls_AIS_InteractiveObject.def("DumpJson", [](AIS_InteractiveObject &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_AIS_InteractiveObject.def("DumpJson", (void (AIS_InteractiveObject::*)(Standard_OStream &, const Standard_Integer) const) &AIS_InteractiveObject::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // CLASS: AIS_DIMENSION
 py::class_<AIS_Dimension, opencascade::handle<AIS_Dimension>, AIS_InteractiveObject> cls_AIS_Dimension(mod, "AIS_Dimension", "AIS_Dimension is a base class for 2D presentations of linear (length, diameter, radius) and angular dimensions.");
-
-// Constructors
-cls_AIS_Dimension.def(py::init<const AIS_KindOfDimension>(), py::arg("theType"));
 
 // Methods
 cls_AIS_Dimension.def("GetValue", (Standard_Real (AIS_Dimension::*)() const) &AIS_Dimension::GetValue, "Gets dimension measurement value. If the value to display is not specified by user, then the dimension object is responsible to compute it on its own in model space coordinates.");
@@ -764,24 +812,24 @@ cls_AIS_AngleDimension.def_static("get_type_name_", (const char * (*)()) &AIS_An
 cls_AIS_AngleDimension.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_AngleDimension::get_type_descriptor, "None");
 cls_AIS_AngleDimension.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_AngleDimension::*)() const) &AIS_AngleDimension::DynamicType, "None");
 
-// CLASS: AIS_ANIMATIONTIMER
-py::class_<AIS_AnimationTimer, opencascade::handle<AIS_AnimationTimer>, Standard_Transient> cls_AIS_AnimationTimer(mod, "AIS_AnimationTimer", "Auxiliary class defining the animation timer.");
+// TYPEDEF: AIS_ANIMATIONTIMER
+py::class_<Media_Timer, opencascade::handle<Media_Timer>, Standard_Transient> cls_AIS_AnimationTimer(mod, "AIS_AnimationTimer", "Auxiliary class defining the animation timer.", py::module_local());
 
 // Constructors
 cls_AIS_AnimationTimer.def(py::init<>());
 
 // Methods
-cls_AIS_AnimationTimer.def_static("get_type_name_", (const char * (*)()) &AIS_AnimationTimer::get_type_name, "None");
-cls_AIS_AnimationTimer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_AnimationTimer::get_type_descriptor, "None");
-cls_AIS_AnimationTimer.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_AnimationTimer::*)() const) &AIS_AnimationTimer::DynamicType, "None");
-cls_AIS_AnimationTimer.def("ElapsedTime", (Standard_Real (AIS_AnimationTimer::*)() const) &AIS_AnimationTimer::ElapsedTime, "Return elapsed time in seconds.");
-cls_AIS_AnimationTimer.def("PlaybackSpeed", (Standard_Real (AIS_AnimationTimer::*)() const) &AIS_AnimationTimer::PlaybackSpeed, "Return playback speed coefficient (1.0 means normal speed).");
-cls_AIS_AnimationTimer.def("SetPlaybackSpeed", (void (AIS_AnimationTimer::*)(const Standard_Real)) &AIS_AnimationTimer::SetPlaybackSpeed, "Setup playback speed coefficient.", py::arg("theSpeed"));
-cls_AIS_AnimationTimer.def("IsStarted", (Standard_Boolean (AIS_AnimationTimer::*)() const) &AIS_AnimationTimer::IsStarted, "Return true if timer has been started.");
-cls_AIS_AnimationTimer.def("Start", (void (AIS_AnimationTimer::*)()) &AIS_AnimationTimer::Start, "Start the timer.");
-cls_AIS_AnimationTimer.def("Pause", (void (AIS_AnimationTimer::*)()) &AIS_AnimationTimer::Pause, "Pause the timer.");
-cls_AIS_AnimationTimer.def("Stop", (void (AIS_AnimationTimer::*)()) &AIS_AnimationTimer::Stop, "Stop the timer.");
-cls_AIS_AnimationTimer.def("Seek", (void (AIS_AnimationTimer::*)(const Standard_Real)) &AIS_AnimationTimer::Seek, "Seek the timer to specified position.", py::arg("theTime"));
+cls_AIS_AnimationTimer.def_static("get_type_name_", (const char * (*)()) &Media_Timer::get_type_name, "None");
+cls_AIS_AnimationTimer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Media_Timer::get_type_descriptor, "None");
+cls_AIS_AnimationTimer.def("DynamicType", (const opencascade::handle<Standard_Type> & (Media_Timer::*)() const) &Media_Timer::DynamicType, "None");
+cls_AIS_AnimationTimer.def("ElapsedTime", (Standard_Real (Media_Timer::*)() const) &Media_Timer::ElapsedTime, "Return elapsed time in seconds.");
+cls_AIS_AnimationTimer.def("PlaybackSpeed", (Standard_Real (Media_Timer::*)() const) &Media_Timer::PlaybackSpeed, "Return playback speed coefficient (1.0 means normal speed).");
+cls_AIS_AnimationTimer.def("SetPlaybackSpeed", (void (Media_Timer::*)(const Standard_Real)) &Media_Timer::SetPlaybackSpeed, "Setup playback speed coefficient.", py::arg("theSpeed"));
+cls_AIS_AnimationTimer.def("IsStarted", (Standard_Boolean (Media_Timer::*)() const) &Media_Timer::IsStarted, "Return true if timer has been started.");
+cls_AIS_AnimationTimer.def("Start", (void (Media_Timer::*)()) &Media_Timer::Start, "Start the timer.");
+cls_AIS_AnimationTimer.def("Pause", (void (Media_Timer::*)()) &Media_Timer::Pause, "Pause the timer.");
+cls_AIS_AnimationTimer.def("Stop", (void (Media_Timer::*)()) &Media_Timer::Stop, "Stop the timer.");
+cls_AIS_AnimationTimer.def("Seek", (void (Media_Timer::*)(const Standard_Real)) &Media_Timer::Seek, "Seek the timer to specified position.", py::arg("theTime"));
 
 // CLASS: AIS_ANIMATIONPROGRESS
 py::class_<AIS_AnimationProgress> cls_AIS_AnimationProgress(mod, "AIS_AnimationProgress", "Structure defining current animation progress.");
@@ -795,7 +843,7 @@ cls_AIS_AnimationProgress.def_readwrite("LocalPts", &AIS_AnimationProgress::Loca
 cls_AIS_AnimationProgress.def_readwrite("LocalNormalized", &AIS_AnimationProgress::LocalNormalized, "normalized position within current animation within 0..1 range");
 
 // CLASS: AIS_ANIMATION
-py::class_<AIS_Animation, opencascade::handle<AIS_Animation>, Standard_Transient> cls_AIS_Animation(mod, "AIS_Animation", "Class represents single animation. It is defined with: - Start time on the timeline started from 0, in seconds - Duration, in seconds - virtual method Update() for handling an update");
+py::class_<AIS_Animation, opencascade::handle<AIS_Animation>, Standard_Transient> cls_AIS_Animation(mod, "AIS_Animation", "Class represents a basic animation class. AIS_Animation can be used as:");
 
 // Constructors
 cls_AIS_Animation.def(py::init<const TCollection_AsciiString &>(), py::arg("theAnimationName"));
@@ -840,232 +888,11 @@ cls_AIS_AnimationCamera.def_static("get_type_name_", (const char * (*)()) &AIS_A
 cls_AIS_AnimationCamera.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_AnimationCamera::get_type_descriptor, "None");
 cls_AIS_AnimationCamera.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_AnimationCamera::*)() const) &AIS_AnimationCamera::DynamicType, "None");
 cls_AIS_AnimationCamera.def("View", (const opencascade::handle<V3d_View> & (AIS_AnimationCamera::*)() const) &AIS_AnimationCamera::View, "Return the target view.");
+cls_AIS_AnimationCamera.def("SetView", (void (AIS_AnimationCamera::*)(const opencascade::handle<V3d_View> &)) &AIS_AnimationCamera::SetView, "Set target view.", py::arg("theView"));
 cls_AIS_AnimationCamera.def("CameraStart", (const opencascade::handle<Graphic3d_Camera> & (AIS_AnimationCamera::*)() const) &AIS_AnimationCamera::CameraStart, "Return camera start position.");
 cls_AIS_AnimationCamera.def("SetCameraStart", (void (AIS_AnimationCamera::*)(const opencascade::handle<Graphic3d_Camera> &)) &AIS_AnimationCamera::SetCameraStart, "Define camera start position.", py::arg("theCameraStart"));
 cls_AIS_AnimationCamera.def("CameraEnd", (const opencascade::handle<Graphic3d_Camera> & (AIS_AnimationCamera::*)() const) &AIS_AnimationCamera::CameraEnd, "Return camera end position.");
 cls_AIS_AnimationCamera.def("SetCameraEnd", (void (AIS_AnimationCamera::*)(const opencascade::handle<Graphic3d_Camera> &)) &AIS_AnimationCamera::SetCameraEnd, "Define camera end position.", py::arg("theCameraEnd"));
-
-// CLASS: AIS_LOCALSTATUS
-py::class_<AIS_LocalStatus, opencascade::handle<AIS_LocalStatus>, Standard_Transient> cls_AIS_LocalStatus(mod, "AIS_LocalStatus", "Stored Info about temporary objects.");
-
-// Constructors
-cls_AIS_LocalStatus.def(py::init<>());
-cls_AIS_LocalStatus.def(py::init<const Standard_Boolean>(), py::arg("theIsTemporary"));
-cls_AIS_LocalStatus.def(py::init<const Standard_Boolean, const Standard_Boolean>(), py::arg("theIsTemporary"), py::arg("theIsToDecompose"));
-cls_AIS_LocalStatus.def(py::init<const Standard_Boolean, const Standard_Boolean, const Standard_Integer>(), py::arg("theIsTemporary"), py::arg("theIsToDecompose"), py::arg("theDisplayMode"));
-cls_AIS_LocalStatus.def(py::init<const Standard_Boolean, const Standard_Boolean, const Standard_Integer, const Standard_Integer>(), py::arg("theIsTemporary"), py::arg("theIsToDecompose"), py::arg("theDisplayMode"), py::arg("theSelectionMode"));
-cls_AIS_LocalStatus.def(py::init<const Standard_Boolean, const Standard_Boolean, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theIsTemporary"), py::arg("theIsToDecompose"), py::arg("theDisplayMode"), py::arg("theSelectionMode"), py::arg("theHilightMode"));
-cls_AIS_LocalStatus.def(py::init<const Standard_Boolean, const Standard_Boolean, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Boolean>(), py::arg("theIsTemporary"), py::arg("theIsToDecompose"), py::arg("theDisplayMode"), py::arg("theSelectionMode"), py::arg("theHilightMode"), py::arg("theIsSubIntensity"));
-cls_AIS_LocalStatus.def(py::init<const Standard_Boolean, const Standard_Boolean, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Boolean, const opencascade::handle<Prs3d_Drawer> &>(), py::arg("theIsTemporary"), py::arg("theIsToDecompose"), py::arg("theDisplayMode"), py::arg("theSelectionMode"), py::arg("theHilightMode"), py::arg("theIsSubIntensity"), py::arg("theStyle"));
-
-// Methods
-cls_AIS_LocalStatus.def_static("get_type_name_", (const char * (*)()) &AIS_LocalStatus::get_type_name, "None");
-cls_AIS_LocalStatus.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_LocalStatus::get_type_descriptor, "None");
-cls_AIS_LocalStatus.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_LocalStatus::*)() const) &AIS_LocalStatus::DynamicType, "None");
-cls_AIS_LocalStatus.def("Decomposed", (Standard_Boolean (AIS_LocalStatus::*)() const) &AIS_LocalStatus::Decomposed, "None");
-cls_AIS_LocalStatus.def("IsTemporary", (Standard_Boolean (AIS_LocalStatus::*)() const) &AIS_LocalStatus::IsTemporary, "None");
-cls_AIS_LocalStatus.def("DisplayMode", (Standard_Integer (AIS_LocalStatus::*)() const) &AIS_LocalStatus::DisplayMode, "None");
-cls_AIS_LocalStatus.def("SelectionModes", (const TColStd_ListOfInteger & (AIS_LocalStatus::*)() const) &AIS_LocalStatus::SelectionModes, "None");
-cls_AIS_LocalStatus.def("IsActivated", (Standard_Boolean (AIS_LocalStatus::*)(const Standard_Integer) const) &AIS_LocalStatus::IsActivated, "None", py::arg("aSelMode"));
-cls_AIS_LocalStatus.def("HilightMode", (Standard_Integer (AIS_LocalStatus::*)() const) &AIS_LocalStatus::HilightMode, "None");
-cls_AIS_LocalStatus.def("IsSubIntensityOn", (Standard_Boolean (AIS_LocalStatus::*)() const) &AIS_LocalStatus::IsSubIntensityOn, "None");
-cls_AIS_LocalStatus.def("HilightStyle", (const opencascade::handle<Prs3d_Drawer> & (AIS_LocalStatus::*)() const) &AIS_LocalStatus::HilightStyle, "None");
-cls_AIS_LocalStatus.def("SetDecomposition", (void (AIS_LocalStatus::*)(const Standard_Boolean)) &AIS_LocalStatus::SetDecomposition, "None", py::arg("astatus"));
-cls_AIS_LocalStatus.def("SetTemporary", (void (AIS_LocalStatus::*)(const Standard_Boolean)) &AIS_LocalStatus::SetTemporary, "None", py::arg("astatus"));
-cls_AIS_LocalStatus.def("SetDisplayMode", (void (AIS_LocalStatus::*)(const Standard_Integer)) &AIS_LocalStatus::SetDisplayMode, "None", py::arg("aMode"));
-cls_AIS_LocalStatus.def("SetFirstDisplay", (void (AIS_LocalStatus::*)(const Standard_Boolean)) &AIS_LocalStatus::SetFirstDisplay, "None", py::arg("aStatus"));
-cls_AIS_LocalStatus.def("IsFirstDisplay", (Standard_Boolean (AIS_LocalStatus::*)() const) &AIS_LocalStatus::IsFirstDisplay, "None");
-cls_AIS_LocalStatus.def("AddSelectionMode", (void (AIS_LocalStatus::*)(const Standard_Integer)) &AIS_LocalStatus::AddSelectionMode, "None", py::arg("aMode"));
-cls_AIS_LocalStatus.def("RemoveSelectionMode", (void (AIS_LocalStatus::*)(const Standard_Integer)) &AIS_LocalStatus::RemoveSelectionMode, "None", py::arg("aMode"));
-cls_AIS_LocalStatus.def("ClearSelectionModes", (void (AIS_LocalStatus::*)()) &AIS_LocalStatus::ClearSelectionModes, "None");
-cls_AIS_LocalStatus.def("IsSelModeIn", (Standard_Boolean (AIS_LocalStatus::*)(const Standard_Integer) const) &AIS_LocalStatus::IsSelModeIn, "None", py::arg("aMode"));
-cls_AIS_LocalStatus.def("SetHilightMode", (void (AIS_LocalStatus::*)(const Standard_Integer)) &AIS_LocalStatus::SetHilightMode, "None", py::arg("aMode"));
-cls_AIS_LocalStatus.def("SetHilightStyle", (void (AIS_LocalStatus::*)(const opencascade::handle<Prs3d_Drawer> &)) &AIS_LocalStatus::SetHilightStyle, "None", py::arg("theStyle"));
-cls_AIS_LocalStatus.def("SubIntensityOn", (void (AIS_LocalStatus::*)()) &AIS_LocalStatus::SubIntensityOn, "None");
-cls_AIS_LocalStatus.def("SubIntensityOff", (void (AIS_LocalStatus::*)()) &AIS_LocalStatus::SubIntensityOff, "None");
-cls_AIS_LocalStatus.def("SetPreviousState", (void (AIS_LocalStatus::*)(const opencascade::handle<Standard_Transient> &)) &AIS_LocalStatus::SetPreviousState, "None", py::arg("aStatus"));
-cls_AIS_LocalStatus.def("PreviousState", (const opencascade::handle<Standard_Transient> & (AIS_LocalStatus::*)() const) &AIS_LocalStatus::PreviousState, "None");
-
-// TYPEDEF: AIS_DATAMAPOFSELSTAT
-bind_NCollection_DataMap<opencascade::handle<SelectMgr_SelectableObject>, opencascade::handle<AIS_LocalStatus>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "AIS_DataMapOfSelStat", py::module_local(false));
-
-// TYPEDEF: AIS_DATAMAPITERATOROFDATAMAPOFSELSTAT
-
-// TYPEDEF: AIS_SEQUENCEOFINTERACTIVE
-bind_NCollection_Sequence<opencascade::handle<AIS_InteractiveObject> >(mod, "AIS_SequenceOfInteractive", py::module_local(false));
-
-// TYPEDEF: AIS_NLISTOFENTITYOWNER
-bind_NCollection_List<opencascade::handle<SelectMgr_EntityOwner> >(mod, "AIS_NListOfEntityOwner", py::module_local(false));
-
-// CLASS: AIS_SELECTION
-py::class_<AIS_Selection, opencascade::handle<AIS_Selection>, Standard_Transient> cls_AIS_Selection(mod, "AIS_Selection", "Class holding the list of selected owners.");
-
-// Constructors
-cls_AIS_Selection.def(py::init<>());
-
-// Methods
-cls_AIS_Selection.def_static("get_type_name_", (const char * (*)()) &AIS_Selection::get_type_name, "None");
-cls_AIS_Selection.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_Selection::get_type_descriptor, "None");
-cls_AIS_Selection.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_Selection::*)() const) &AIS_Selection::DynamicType, "None");
-cls_AIS_Selection.def("Clear", (void (AIS_Selection::*)()) &AIS_Selection::Clear, "removes all the object of the selection.");
-cls_AIS_Selection.def("Select", (AIS_SelectStatus (AIS_Selection::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &AIS_Selection::Select, "if the object is not yet in the selection, it will be added. if the object is already in the selection, it will be removed.", py::arg("theObject"));
-cls_AIS_Selection.def("AddSelect", (AIS_SelectStatus (AIS_Selection::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &AIS_Selection::AddSelect, "the object is always add int the selection. faster when the number of objects selected is great.", py::arg("theObject"));
-cls_AIS_Selection.def("ClearAndSelect", (void (AIS_Selection::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &AIS_Selection::ClearAndSelect, "clears the selection and adds the object in the selection.", py::arg("theObject"));
-cls_AIS_Selection.def("IsSelected", (Standard_Boolean (AIS_Selection::*)(const opencascade::handle<SelectMgr_EntityOwner> &) const) &AIS_Selection::IsSelected, "checks if the object is in the selection.", py::arg("theObject"));
-cls_AIS_Selection.def("Objects", (const AIS_NListOfEntityOwner & (AIS_Selection::*)() const) &AIS_Selection::Objects, "Return the list of selected objects.");
-cls_AIS_Selection.def("Extent", (Standard_Integer (AIS_Selection::*)() const) &AIS_Selection::Extent, "Return the number of selected objects.");
-cls_AIS_Selection.def("IsEmpty", (Standard_Boolean (AIS_Selection::*)() const) &AIS_Selection::IsEmpty, "Return true if list of selected objects is empty.");
-cls_AIS_Selection.def("Init", (void (AIS_Selection::*)()) &AIS_Selection::Init, "Start iteration through selected objects.");
-cls_AIS_Selection.def("More", (Standard_Boolean (AIS_Selection::*)() const) &AIS_Selection::More, "Return true if iterator points to selected object.");
-cls_AIS_Selection.def("Next", (void (AIS_Selection::*)()) &AIS_Selection::Next, "Continue iteration through selected objects.");
-cls_AIS_Selection.def("Value", (const opencascade::handle<SelectMgr_EntityOwner> & (AIS_Selection::*)() const) &AIS_Selection::Value, "Return selected object at iterator position.");
-
-// CLASS: AIS_LOCALCONTEXT
-py::class_<AIS_LocalContext, opencascade::handle<AIS_LocalContext>, Standard_Transient> cls_AIS_LocalContext(mod, "AIS_LocalContext", "Defines a specific context for selection. It becomes possible to: + Load InteractiveObjects with a mode to be activated + associate InteractiveObjects with a set of temporary selectable Objects.... + + activate StandardMode of selection for Entities inheriting BasicShape from AIS (Selection Of vertices, edges, wires,faces... + Add Filters acting on detected owners of sensitive primitives");
-
-// Constructors
-cls_AIS_LocalContext.def(py::init<>());
-cls_AIS_LocalContext.def(py::init<const opencascade::handle<AIS_InteractiveContext> &, const Standard_Integer>(), py::arg("aCtx"), py::arg("anIndex"));
-cls_AIS_LocalContext.def(py::init<const opencascade::handle<AIS_InteractiveContext> &, const Standard_Integer, const Standard_Boolean>(), py::arg("aCtx"), py::arg("anIndex"), py::arg("LoadDisplayed"));
-cls_AIS_LocalContext.def(py::init<const opencascade::handle<AIS_InteractiveContext> &, const Standard_Integer, const Standard_Boolean, const Standard_Boolean>(), py::arg("aCtx"), py::arg("anIndex"), py::arg("LoadDisplayed"), py::arg("AcceptStandardModes"));
-cls_AIS_LocalContext.def(py::init<const opencascade::handle<AIS_InteractiveContext> &, const Standard_Integer, const Standard_Boolean, const Standard_Boolean, const Standard_Boolean>(), py::arg("aCtx"), py::arg("anIndex"), py::arg("LoadDisplayed"), py::arg("AcceptStandardModes"), py::arg("AcceptErase"));
-cls_AIS_LocalContext.def(py::init<const opencascade::handle<AIS_InteractiveContext> &, const Standard_Integer, const Standard_Boolean, const Standard_Boolean, const Standard_Boolean, const Standard_Boolean>(), py::arg("aCtx"), py::arg("anIndex"), py::arg("LoadDisplayed"), py::arg("AcceptStandardModes"), py::arg("AcceptErase"), py::arg("UseBothViewers"));
-
-// Methods
-cls_AIS_LocalContext.def("AcceptErase", (void (AIS_LocalContext::*)(const Standard_Boolean)) &AIS_LocalContext::AcceptErase, "authorize or not others contexts to erase temporary displayed objects here;", py::arg("aStatus"));
-cls_AIS_LocalContext.def("AcceptErase", (Standard_Boolean (AIS_LocalContext::*)() const) &AIS_LocalContext::AcceptErase, "None");
-cls_AIS_LocalContext.def("SetContext", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveContext> &)) &AIS_LocalContext::SetContext, "None", py::arg("aCtx"));
-cls_AIS_LocalContext.def("Selection", (const opencascade::handle<AIS_Selection> & (AIS_LocalContext::*)() const) &AIS_LocalContext::Selection, "None");
-cls_AIS_LocalContext.def("Terminate", [](AIS_LocalContext &self) -> void { return self.Terminate(); });
-cls_AIS_LocalContext.def("Terminate", (void (AIS_LocalContext::*)(const Standard_Boolean)) &AIS_LocalContext::Terminate, "None", py::arg("updateviewer"));
-cls_AIS_LocalContext.def("Display", [](AIS_LocalContext &self, const opencascade::handle<AIS_InteractiveObject> & a0) -> Standard_Boolean { return self.Display(a0); });
-cls_AIS_LocalContext.def("Display", [](AIS_LocalContext &self, const opencascade::handle<AIS_InteractiveObject> & a0, const Standard_Integer a1) -> Standard_Boolean { return self.Display(a0, a1); });
-cls_AIS_LocalContext.def("Display", [](AIS_LocalContext &self, const opencascade::handle<AIS_InteractiveObject> & a0, const Standard_Integer a1, const Standard_Boolean a2) -> Standard_Boolean { return self.Display(a0, a1, a2); });
-cls_AIS_LocalContext.def("Display", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Integer, const Standard_Boolean, const Standard_Integer)) &AIS_LocalContext::Display, "returns true if done...", py::arg("anInteractive"), py::arg("DisplayMode"), py::arg("AllowShapeDecomposition"), py::arg("ActivationMode"));
-cls_AIS_LocalContext.def("Load", [](AIS_LocalContext &self, const opencascade::handle<AIS_InteractiveObject> & a0) -> Standard_Boolean { return self.Load(a0); });
-cls_AIS_LocalContext.def("Load", [](AIS_LocalContext &self, const opencascade::handle<AIS_InteractiveObject> & a0, const Standard_Boolean a1) -> Standard_Boolean { return self.Load(a0, a1); });
-cls_AIS_LocalContext.def("Load", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Boolean, const Standard_Integer)) &AIS_LocalContext::Load, "loads <anInteractive> with nodisplay... returns true if done", py::arg("anInteractive"), py::arg("AllowShapeDecomposition"), py::arg("ActivationMode"));
-cls_AIS_LocalContext.def("Erase", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_LocalContext::Erase, "returns true if done...", py::arg("anInteractive"));
-cls_AIS_LocalContext.def("Remove", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_LocalContext::Remove, "None", py::arg("aSelectable"));
-cls_AIS_LocalContext.def("ClearPrs", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Integer)) &AIS_LocalContext::ClearPrs, "None", py::arg("anInteractive"), py::arg("aMode"));
-cls_AIS_LocalContext.def("SetShapeDecomposition", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Boolean)) &AIS_LocalContext::SetShapeDecomposition, "allows or forbids the shape decomposition into Activated Standard Mode for <aStoredObject> does nothing if the object doesn't inherits BasicShape from AIS", py::arg("aStoredObject"), py::arg("aStatus"));
-cls_AIS_LocalContext.def("Clear", [](AIS_LocalContext &self) -> void { return self.Clear(); });
-cls_AIS_LocalContext.def("Clear", (void (AIS_LocalContext::*)(const AIS_ClearMode)) &AIS_LocalContext::Clear, "according to <atype> , clears the different parts of the selector (filters, modeof activation, objects...)", py::arg("atype"));
-cls_AIS_LocalContext.def("SetSelectionModeActive", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Integer, const Standard_Boolean, const AIS_SelectionModesConcurrency)) &AIS_LocalContext::SetSelectionModeActive, "None", py::arg("theObj"), py::arg("theMode"), py::arg("theIsActive"), py::arg("theActiveFilter"));
-cls_AIS_LocalContext.def("ActivateMode", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Integer)) &AIS_LocalContext::ActivateMode, "optional : activation of a mode which is not 0 for a selectable...", py::arg("theObj"), py::arg("theMode"));
-cls_AIS_LocalContext.def("DeactivateMode", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Integer)) &AIS_LocalContext::DeactivateMode, "None", py::arg("theObj"), py::arg("theMode"));
-cls_AIS_LocalContext.def("Deactivate", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_LocalContext::Deactivate, "None", py::arg("theObj"));
-cls_AIS_LocalContext.def("ActivateStandardMode", (void (AIS_LocalContext::*)(const TopAbs_ShapeEnum)) &AIS_LocalContext::ActivateStandardMode, "decomposition of shapes into <aType>", py::arg("aType"));
-cls_AIS_LocalContext.def("DeactivateStandardMode", (void (AIS_LocalContext::*)(const TopAbs_ShapeEnum)) &AIS_LocalContext::DeactivateStandardMode, "None", py::arg("aType"));
-cls_AIS_LocalContext.def("StandardModes", (const TColStd_ListOfInteger & (AIS_LocalContext::*)() const) &AIS_LocalContext::StandardModes, "None");
-cls_AIS_LocalContext.def("AddFilter", (void (AIS_LocalContext::*)(const opencascade::handle<SelectMgr_Filter> &)) &AIS_LocalContext::AddFilter, "None", py::arg("aFilter"));
-cls_AIS_LocalContext.def("RemoveFilter", (void (AIS_LocalContext::*)(const opencascade::handle<SelectMgr_Filter> &)) &AIS_LocalContext::RemoveFilter, "None", py::arg("aFilter"));
-cls_AIS_LocalContext.def("ListOfFilter", (const SelectMgr_ListOfFilter & (AIS_LocalContext::*)() const) &AIS_LocalContext::ListOfFilter, "None");
-cls_AIS_LocalContext.def("Filter", (const opencascade::handle<SelectMgr_OrFilter> & (AIS_LocalContext::*)() const) &AIS_LocalContext::Filter, "None");
-cls_AIS_LocalContext.def("SetAutomaticHilight", (void (AIS_LocalContext::*)(const Standard_Boolean)) &AIS_LocalContext::SetAutomaticHilight, "if <aStatus> = True , the shapes or subshapes detected by the selector will be automatically hilighted in the main viewer. Else the user has to manage the detected shape outside the Shape Selector....", py::arg("aStatus"));
-cls_AIS_LocalContext.def("AutomaticHilight", (Standard_Boolean (AIS_LocalContext::*)() const) &AIS_LocalContext::AutomaticHilight, "None");
-cls_AIS_LocalContext.def("MoveTo", (AIS_StatusOfDetection (AIS_LocalContext::*)(const Standard_Integer, const Standard_Integer, const opencascade::handle<V3d_View> &, const Standard_Boolean)) &AIS_LocalContext::MoveTo, "None", py::arg("theXpix"), py::arg("theYpix"), py::arg("theView"), py::arg("theToRedrawImmediate"));
-cls_AIS_LocalContext.def("HasNextDetected", (Standard_Boolean (AIS_LocalContext::*)() const) &AIS_LocalContext::HasNextDetected, "returns True if more than one entity was detected at the last Mouse position.");
-cls_AIS_LocalContext.def("HilightNextDetected", (Standard_Integer (AIS_LocalContext::*)(const opencascade::handle<V3d_View> &, const Standard_Boolean)) &AIS_LocalContext::HilightNextDetected, "returns True if last detected. the next detected will be first one (endless loop)", py::arg("theView"), py::arg("theToRedrawImmediate"));
-cls_AIS_LocalContext.def("HilightPreviousDetected", (Standard_Integer (AIS_LocalContext::*)(const opencascade::handle<V3d_View> &, const Standard_Boolean)) &AIS_LocalContext::HilightPreviousDetected, "None", py::arg("theView"), py::arg("theToRedrawImmediate"));
-cls_AIS_LocalContext.def("UnhilightLastDetected", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<V3d_Viewer> &)) &AIS_LocalContext::UnhilightLastDetected, "returns True if something was done...", py::arg("theViewer"));
-cls_AIS_LocalContext.def("UnhilightLastDetected", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<V3d_View> &)) &AIS_LocalContext::UnhilightLastDetected, "returns True if something was done...", py::arg("theView"));
-cls_AIS_LocalContext.def("AddSelect", (AIS_StatusOfPick (AIS_LocalContext::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &AIS_LocalContext::AddSelect, "returns the number of selected", py::arg("theObject"));
-cls_AIS_LocalContext.def("Select", [](AIS_LocalContext &self) -> AIS_StatusOfPick { return self.Select(); });
-cls_AIS_LocalContext.def("Select", (AIS_StatusOfPick (AIS_LocalContext::*)(const Standard_Boolean)) &AIS_LocalContext::Select, "None", py::arg("updateviewer"));
-cls_AIS_LocalContext.def("ShiftSelect", [](AIS_LocalContext &self) -> AIS_StatusOfPick { return self.ShiftSelect(); });
-cls_AIS_LocalContext.def("ShiftSelect", (AIS_StatusOfPick (AIS_LocalContext::*)(const Standard_Boolean)) &AIS_LocalContext::ShiftSelect, "None", py::arg("updateviewer"));
-cls_AIS_LocalContext.def("Select", [](AIS_LocalContext &self, const Standard_Integer a0, const Standard_Integer a1, const Standard_Integer a2, const Standard_Integer a3, const opencascade::handle<V3d_View> & a4) -> AIS_StatusOfPick { return self.Select(a0, a1, a2, a3, a4); });
-cls_AIS_LocalContext.def("Select", (AIS_StatusOfPick (AIS_LocalContext::*)(const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const opencascade::handle<V3d_View> &, const Standard_Boolean)) &AIS_LocalContext::Select, "None", py::arg("XPMin"), py::arg("YPMin"), py::arg("XPMax"), py::arg("YPMax"), py::arg("aView"), py::arg("updateviewer"));
-cls_AIS_LocalContext.def("ShiftSelect", [](AIS_LocalContext &self, const Standard_Integer a0, const Standard_Integer a1, const Standard_Integer a2, const Standard_Integer a3, const opencascade::handle<V3d_View> & a4) -> AIS_StatusOfPick { return self.ShiftSelect(a0, a1, a2, a3, a4); });
-cls_AIS_LocalContext.def("ShiftSelect", (AIS_StatusOfPick (AIS_LocalContext::*)(const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const opencascade::handle<V3d_View> &, const Standard_Boolean)) &AIS_LocalContext::ShiftSelect, "None", py::arg("XPMin"), py::arg("YPMin"), py::arg("XPMax"), py::arg("YPMax"), py::arg("aView"), py::arg("updateviewer"));
-cls_AIS_LocalContext.def("Select", [](AIS_LocalContext &self, const TColgp_Array1OfPnt2d & a0, const opencascade::handle<V3d_View> & a1) -> AIS_StatusOfPick { return self.Select(a0, a1); });
-cls_AIS_LocalContext.def("Select", (AIS_StatusOfPick (AIS_LocalContext::*)(const TColgp_Array1OfPnt2d &, const opencascade::handle<V3d_View> &, const Standard_Boolean)) &AIS_LocalContext::Select, "None", py::arg("Polyline"), py::arg("aView"), py::arg("updateviewer"));
-cls_AIS_LocalContext.def("ShiftSelect", [](AIS_LocalContext &self, const TColgp_Array1OfPnt2d & a0, const opencascade::handle<V3d_View> & a1) -> AIS_StatusOfPick { return self.ShiftSelect(a0, a1); });
-cls_AIS_LocalContext.def("ShiftSelect", (AIS_StatusOfPick (AIS_LocalContext::*)(const TColgp_Array1OfPnt2d &, const opencascade::handle<V3d_View> &, const Standard_Boolean)) &AIS_LocalContext::ShiftSelect, "None", py::arg("Polyline"), py::arg("aView"), py::arg("updateviewer"));
-cls_AIS_LocalContext.def("HilightPicked", [](AIS_LocalContext &self) -> void { return self.HilightPicked(); });
-cls_AIS_LocalContext.def("HilightPicked", (void (AIS_LocalContext::*)(const Standard_Boolean)) &AIS_LocalContext::HilightPicked, "None", py::arg("updateviewer"));
-cls_AIS_LocalContext.def("UnhilightPicked", [](AIS_LocalContext &self) -> void { return self.UnhilightPicked(); });
-cls_AIS_LocalContext.def("UnhilightPicked", (void (AIS_LocalContext::*)(const Standard_Boolean)) &AIS_LocalContext::UnhilightPicked, "None", py::arg("updateviewer"));
-cls_AIS_LocalContext.def("UpdateSelected", [](AIS_LocalContext &self) -> void { return self.UpdateSelected(); });
-cls_AIS_LocalContext.def("UpdateSelected", (void (AIS_LocalContext::*)(const Standard_Boolean)) &AIS_LocalContext::UpdateSelected, "None", py::arg("updateviewer"));
-cls_AIS_LocalContext.def("UpdateSelected", [](AIS_LocalContext &self, const opencascade::handle<AIS_InteractiveObject> & a0) -> void { return self.UpdateSelected(a0); });
-cls_AIS_LocalContext.def("UpdateSelected", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Boolean)) &AIS_LocalContext::UpdateSelected, "Part of advanced selection highlighting mechanism. If no owners belonging to anobj are selected, calls anobj->ClearSelected(), otherwise calls anobj->HilightSelected(). This method can be used to avoid redrawing the whole selection belonging to several Selectable Objects.", py::arg("anobj"), py::arg("updateviewer"));
-cls_AIS_LocalContext.def("SetSelected", [](AIS_LocalContext &self, const opencascade::handle<AIS_InteractiveObject> & a0) -> void { return self.SetSelected(a0); });
-cls_AIS_LocalContext.def("SetSelected", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Boolean)) &AIS_LocalContext::SetSelected, "useful to update selection with objects coming from Collector or stack", py::arg("anobj"), py::arg("updateviewer"));
-cls_AIS_LocalContext.def("AddOrRemoveSelected", [](AIS_LocalContext &self, const opencascade::handle<AIS_InteractiveObject> & a0) -> void { return self.AddOrRemoveSelected(a0); });
-cls_AIS_LocalContext.def("AddOrRemoveSelected", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Boolean)) &AIS_LocalContext::AddOrRemoveSelected, "useful to update selection with objects coming from Collector or stack", py::arg("anobj"), py::arg("updateviewer"));
-cls_AIS_LocalContext.def("AddOrRemoveSelected", [](AIS_LocalContext &self, const TopoDS_Shape & a0) -> void { return self.AddOrRemoveSelected(a0); });
-cls_AIS_LocalContext.def("AddOrRemoveSelected", (void (AIS_LocalContext::*)(const TopoDS_Shape &, const Standard_Boolean)) &AIS_LocalContext::AddOrRemoveSelected, "None", py::arg("aShape"), py::arg("updateviewer"));
-cls_AIS_LocalContext.def("AddOrRemoveSelected", [](AIS_LocalContext &self, const opencascade::handle<SelectMgr_EntityOwner> & a0) -> void { return self.AddOrRemoveSelected(a0); });
-cls_AIS_LocalContext.def("AddOrRemoveSelected", (void (AIS_LocalContext::*)(const opencascade::handle<SelectMgr_EntityOwner> &, const Standard_Boolean)) &AIS_LocalContext::AddOrRemoveSelected, "None", py::arg("theOwner"), py::arg("toUpdateViewer"));
-cls_AIS_LocalContext.def("ClearSelected", [](AIS_LocalContext &self) -> void { return self.ClearSelected(); });
-cls_AIS_LocalContext.def("ClearSelected", (void (AIS_LocalContext::*)(const Standard_Boolean)) &AIS_LocalContext::ClearSelected, "Clears local context selection.", py::arg("toUpdateViewer"));
-cls_AIS_LocalContext.def("ClearOutdatedSelection", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Boolean)) &AIS_LocalContext::ClearOutdatedSelection, "Clears outdated selection and detection of owners for the interactive object. Use this method if selection structures of the interactive object have changed. The method unhilights and removes outdated entity owners from lists of selected and detected owners.", py::arg("theIO"), py::arg("toClearDeactivated"));
-cls_AIS_LocalContext.def("HasDetected", (Standard_Boolean (AIS_LocalContext::*)() const) &AIS_LocalContext::HasDetected, "None");
-cls_AIS_LocalContext.def("InitDetected", (void (AIS_LocalContext::*)()) &AIS_LocalContext::InitDetected, "Initialization for iteration through mouse-detected objects in local context.");
-cls_AIS_LocalContext.def("MoreDetected", (Standard_Boolean (AIS_LocalContext::*)() const) &AIS_LocalContext::MoreDetected, "Returns true if there is more mouse-detected objects after the current one during iteration through mouse-detected interactive objects.");
-cls_AIS_LocalContext.def("NextDetected", (void (AIS_LocalContext::*)()) &AIS_LocalContext::NextDetected, "Gets next current object during iteration through mouse-detected interactive objects.");
-cls_AIS_LocalContext.def("DetectedCurrentOwner", (opencascade::handle<SelectMgr_EntityOwner> (AIS_LocalContext::*)() const) &AIS_LocalContext::DetectedCurrentOwner, "Returns current mouse-detected Owner or null object if there is no current detected.");
-cls_AIS_LocalContext.def("DetectedCurrentShape", (const TopoDS_Shape & (AIS_LocalContext::*)() const) &AIS_LocalContext::DetectedCurrentShape, "Returns current mouse-detected shape or empty (null) shape, if current interactive object is not a shape (AIS_Shape) or there is no current mouse-detected interactive object at all.");
-cls_AIS_LocalContext.def("DetectedCurrentObject", (opencascade::handle<AIS_InteractiveObject> (AIS_LocalContext::*)() const) &AIS_LocalContext::DetectedCurrentObject, "Returns current mouse-detected interactive object or null object if there is no current detected.");
-cls_AIS_LocalContext.def("HasDetectedShape", (Standard_Boolean (AIS_LocalContext::*)() const) &AIS_LocalContext::HasDetectedShape, "None");
-cls_AIS_LocalContext.def("DetectedShape", (const TopoDS_Shape & (AIS_LocalContext::*)() const) &AIS_LocalContext::DetectedShape, "None");
-cls_AIS_LocalContext.def("DetectedInteractive", (opencascade::handle<AIS_InteractiveObject> (AIS_LocalContext::*)() const) &AIS_LocalContext::DetectedInteractive, "None");
-cls_AIS_LocalContext.def("DetectedOwner", (opencascade::handle<SelectMgr_EntityOwner> (AIS_LocalContext::*)() const) &AIS_LocalContext::DetectedOwner, "None");
-cls_AIS_LocalContext.def("InitSelected", (void (AIS_LocalContext::*)()) &AIS_LocalContext::InitSelected, "None");
-cls_AIS_LocalContext.def("MoreSelected", (Standard_Boolean (AIS_LocalContext::*)() const) &AIS_LocalContext::MoreSelected, "None");
-cls_AIS_LocalContext.def("NextSelected", (void (AIS_LocalContext::*)()) &AIS_LocalContext::NextSelected, "None");
-cls_AIS_LocalContext.def("HasShape", (Standard_Boolean (AIS_LocalContext::*)() const) &AIS_LocalContext::HasShape, "returns TRUE if the detected entity is a shape coming from a Decomposition of an element.");
-cls_AIS_LocalContext.def("HasSelectedShape", (Standard_Boolean (AIS_LocalContext::*)() const) &AIS_LocalContext::HasSelectedShape, "returns true if current selection is not empty and the owner of selected object contains a shape. This method does not take into account decomposition status of detected shape.");
-cls_AIS_LocalContext.def("SelectedShape", (TopoDS_Shape (AIS_LocalContext::*)() const) &AIS_LocalContext::SelectedShape, "None");
-cls_AIS_LocalContext.def("SelectedOwner", (opencascade::handle<SelectMgr_EntityOwner> (AIS_LocalContext::*)() const) &AIS_LocalContext::SelectedOwner, "None");
-cls_AIS_LocalContext.def("IsSelected", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &) const) &AIS_LocalContext::IsSelected, "None", py::arg("aniobj"));
-cls_AIS_LocalContext.def("IsSelected", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<SelectMgr_EntityOwner> &) const) &AIS_LocalContext::IsSelected, "None", py::arg("anOwner"));
-cls_AIS_LocalContext.def("SelectedInteractive", (opencascade::handle<AIS_InteractiveObject> (AIS_LocalContext::*)() const) &AIS_LocalContext::SelectedInteractive, "None");
-cls_AIS_LocalContext.def("HasApplicative", (Standard_Boolean (AIS_LocalContext::*)() const) &AIS_LocalContext::HasApplicative, "returns TRUE if an interactive element was associated with the current picked entity.");
-cls_AIS_LocalContext.def("SelectedApplicative", (const opencascade::handle<Standard_Transient> & (AIS_LocalContext::*)() const) &AIS_LocalContext::SelectedApplicative, "None");
-cls_AIS_LocalContext.def("SetDisplayPriority", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Integer)) &AIS_LocalContext::SetDisplayPriority, "None", py::arg("anObject"), py::arg("Prior"));
-cls_AIS_LocalContext.def("DisplayedObjects", (Standard_Integer (AIS_LocalContext::*)(TColStd_MapOfTransient &) const) &AIS_LocalContext::DisplayedObjects, "None", py::arg("theMapToFill"));
-cls_AIS_LocalContext.def("IsIn", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &) const) &AIS_LocalContext::IsIn, "None", py::arg("anObject"));
-cls_AIS_LocalContext.def("IsDisplayed", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &) const) &AIS_LocalContext::IsDisplayed, "None", py::arg("anObject"));
-cls_AIS_LocalContext.def("IsDisplayed", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Integer) const) &AIS_LocalContext::IsDisplayed, "None", py::arg("anObject"), py::arg("aMode"));
-cls_AIS_LocalContext.def("SelectionModes", (const TColStd_ListOfInteger & (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &) const) &AIS_LocalContext::SelectionModes, "None", py::arg("anObject"));
-cls_AIS_LocalContext.def("SubIntensityOn", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_LocalContext::SubIntensityOn, "None", py::arg("anObject"));
-cls_AIS_LocalContext.def("SubIntensityOff", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_LocalContext::SubIntensityOff, "None", py::arg("anObject"));
-cls_AIS_LocalContext.def("Hilight", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_LocalContext::Hilight, "None", py::arg("anObject"));
-cls_AIS_LocalContext.def("Hilight", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const opencascade::handle<Prs3d_Drawer> &)) &AIS_LocalContext::Hilight, "None", py::arg("theObj"), py::arg("theStyle"));
-cls_AIS_LocalContext.def("Unhilight", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_LocalContext::Unhilight, "None", py::arg("anObject"));
-cls_AIS_LocalContext.def("IsHilighted", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &) const) &AIS_LocalContext::IsHilighted, "None", py::arg("anObject"));
-cls_AIS_LocalContext.def("HighlightStyle", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, opencascade::handle<Prs3d_Drawer> &) const) &AIS_LocalContext::HighlightStyle, "None", py::arg("theObject"), py::arg("theStyle"));
-cls_AIS_LocalContext.def("SetPixelTolerance", [](AIS_LocalContext &self) -> void { return self.SetPixelTolerance(); });
-cls_AIS_LocalContext.def("SetPixelTolerance", (void (AIS_LocalContext::*)(const Standard_Integer)) &AIS_LocalContext::SetPixelTolerance, "Define the current selection sensitivity for this local context according to the view size.", py::arg("aPrecision"));
-cls_AIS_LocalContext.def("PixelTolerance", (Standard_Integer (AIS_LocalContext::*)() const) &AIS_LocalContext::PixelTolerance, "Returns the pixel tolerance.");
-cls_AIS_LocalContext.def("SetSelectionSensitivity", (void (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Integer, const Standard_Integer)) &AIS_LocalContext::SetSelectionSensitivity, "Allows to manage sensitivity of a particular selection of interactive object theObject and changes previous sensitivity value of all sensitive entities in selection with theMode to the given theNewSensitivity.", py::arg("theObject"), py::arg("theMode"), py::arg("theNewSensitivity"));
-cls_AIS_LocalContext.def("BeginImmediateDraw", (Standard_Boolean (AIS_LocalContext::*)()) &AIS_LocalContext::BeginImmediateDraw, "Resets the transient list of presentations previously displayed in immediate mode and begins accumulation of new list by following AddToImmediateList()/Color()/Highlight() calls.");
-cls_AIS_LocalContext.def("ClearImmediateDraw", (void (AIS_LocalContext::*)()) &AIS_LocalContext::ClearImmediateDraw, "Resets the transient list of presentations previously displayed in immediate mode.");
-cls_AIS_LocalContext.def("ImmediateAdd", [](AIS_LocalContext &self, const opencascade::handle<AIS_InteractiveObject> & a0) -> Standard_Boolean { return self.ImmediateAdd(a0); });
-cls_AIS_LocalContext.def("ImmediateAdd", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Integer)) &AIS_LocalContext::ImmediateAdd, "Stores presentation theMode of object theObj in the transient list of presentations to be displayed in immediate mode. Will be taken in account in EndImmediateDraw method.", py::arg("theObj"), py::arg("theMode"));
-cls_AIS_LocalContext.def("EndImmediateDraw", (Standard_Boolean (AIS_LocalContext::*)(const opencascade::handle<V3d_Viewer> &)) &AIS_LocalContext::EndImmediateDraw, "Allows rapid drawing of the view theView by avoiding an update of the whole background.", py::arg("theViewer"));
-cls_AIS_LocalContext.def("IsImmediateModeOn", (Standard_Boolean (AIS_LocalContext::*)() const) &AIS_LocalContext::IsImmediateModeOn, "Returns true if Presentation Manager is accumulating transient list of presentations to be displayed in immediate mode.");
-cls_AIS_LocalContext.def("Status", (TCollection_AsciiString (AIS_LocalContext::*)() const) &AIS_LocalContext::Status, "None");
-cls_AIS_LocalContext.def("Status", (const opencascade::handle<AIS_LocalStatus> & (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &) const) &AIS_LocalContext::Status, "None", py::arg("anObject"));
-cls_AIS_LocalContext.def("LoadContextObjects", (void (AIS_LocalContext::*)()) &AIS_LocalContext::LoadContextObjects, "None");
-cls_AIS_LocalContext.def("UnloadContextObjects", (void (AIS_LocalContext::*)()) &AIS_LocalContext::UnloadContextObjects, "None");
-cls_AIS_LocalContext.def("DisplaySensitive", (void (AIS_LocalContext::*)(const opencascade::handle<V3d_View> &)) &AIS_LocalContext::DisplaySensitive, "None", py::arg("aView"));
-cls_AIS_LocalContext.def("ClearSensitive", (void (AIS_LocalContext::*)(const opencascade::handle<V3d_View> &)) &AIS_LocalContext::ClearSensitive, "None", py::arg("aView"));
-cls_AIS_LocalContext.def("MainSelector", (const opencascade::handle<StdSelect_ViewerSelector3d> & (AIS_LocalContext::*)() const) &AIS_LocalContext::MainSelector, "None");
-cls_AIS_LocalContext.def("FindSelectedOwnerFromIO", (opencascade::handle<SelectMgr_EntityOwner> (AIS_LocalContext::*)(const opencascade::handle<AIS_InteractiveObject> &) const) &AIS_LocalContext::FindSelectedOwnerFromIO, "None", py::arg("anIObj"));
-cls_AIS_LocalContext.def("FindSelectedOwnerFromShape", (opencascade::handle<SelectMgr_EntityOwner> (AIS_LocalContext::*)(const TopoDS_Shape &) const) &AIS_LocalContext::FindSelectedOwnerFromShape, "None", py::arg("aShape"));
-cls_AIS_LocalContext.def("RestoreActivatedModes", (void (AIS_LocalContext::*)() const) &AIS_LocalContext::RestoreActivatedModes, "Iterates through all interactive objects of local context and activates selection modes stored in local status");
-cls_AIS_LocalContext.def_static("get_type_name_", (const char * (*)()) &AIS_LocalContext::get_type_name, "None");
-cls_AIS_LocalContext.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_LocalContext::get_type_descriptor, "None");
-cls_AIS_LocalContext.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_LocalContext::*)() const) &AIS_LocalContext::DynamicType, "None");
-
-// TYPEDEF: AIS_DATAMAPOFILC
-bind_NCollection_DataMap<int, opencascade::handle<AIS_LocalContext>, NCollection_DefaultHasher<int> >(mod, "AIS_DataMapOfILC", py::module_local(false));
-
-// TYPEDEF: AIS_DATAMAPITERATOROFDATAMAPOFILC
 
 // CLASS: AIS_GLOBALSTATUS
 py::class_<AIS_GlobalStatus, opencascade::handle<AIS_GlobalStatus>, Standard_Transient> cls_AIS_GlobalStatus(mod, "AIS_GlobalStatus", "Stores information about objects in graphic context: - Status Of Display : in the main viewer hidden in the main viewer - Displayed Modes - Active Selection Modes - is the Interactive Object Current ? - Layer Index");
@@ -1110,6 +937,32 @@ bind_NCollection_List<opencascade::handle<AIS_InteractiveObject> >(mod, "AIS_Lis
 // TYPEDEF: AIS_LISTITERATOROFLISTOFINTERACTIVE
 bind_NCollection_TListIterator<opencascade::handle<AIS_InteractiveObject> >(mod, "AIS_ListIteratorOfListOfInteractive", py::module_local(false));
 
+// TYPEDEF: AIS_NLISTOFENTITYOWNER
+bind_NCollection_List<opencascade::handle<SelectMgr_EntityOwner> >(mod, "AIS_NListOfEntityOwner", py::module_local(false));
+
+// CLASS: AIS_SELECTION
+py::class_<AIS_Selection, opencascade::handle<AIS_Selection>, Standard_Transient> cls_AIS_Selection(mod, "AIS_Selection", "Class holding the list of selected owners.");
+
+// Constructors
+cls_AIS_Selection.def(py::init<>());
+
+// Methods
+cls_AIS_Selection.def_static("get_type_name_", (const char * (*)()) &AIS_Selection::get_type_name, "None");
+cls_AIS_Selection.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_Selection::get_type_descriptor, "None");
+cls_AIS_Selection.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_Selection::*)() const) &AIS_Selection::DynamicType, "None");
+cls_AIS_Selection.def("Clear", (void (AIS_Selection::*)()) &AIS_Selection::Clear, "removes all the object of the selection.");
+cls_AIS_Selection.def("Select", (AIS_SelectStatus (AIS_Selection::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &AIS_Selection::Select, "if the object is not yet in the selection, it will be added. if the object is already in the selection, it will be removed.", py::arg("theObject"));
+cls_AIS_Selection.def("AddSelect", (AIS_SelectStatus (AIS_Selection::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &AIS_Selection::AddSelect, "the object is always add int the selection. faster when the number of objects selected is great.", py::arg("theObject"));
+cls_AIS_Selection.def("ClearAndSelect", (void (AIS_Selection::*)(const opencascade::handle<SelectMgr_EntityOwner> &)) &AIS_Selection::ClearAndSelect, "clears the selection and adds the object in the selection.", py::arg("theObject"));
+cls_AIS_Selection.def("IsSelected", (Standard_Boolean (AIS_Selection::*)(const opencascade::handle<SelectMgr_EntityOwner> &) const) &AIS_Selection::IsSelected, "checks if the object is in the selection.", py::arg("theObject"));
+cls_AIS_Selection.def("Objects", (const AIS_NListOfEntityOwner & (AIS_Selection::*)() const) &AIS_Selection::Objects, "Return the list of selected objects.");
+cls_AIS_Selection.def("Extent", (Standard_Integer (AIS_Selection::*)() const) &AIS_Selection::Extent, "Return the number of selected objects.");
+cls_AIS_Selection.def("IsEmpty", (Standard_Boolean (AIS_Selection::*)() const) &AIS_Selection::IsEmpty, "Return true if list of selected objects is empty.");
+cls_AIS_Selection.def("Init", (void (AIS_Selection::*)()) &AIS_Selection::Init, "Start iteration through selected objects.");
+cls_AIS_Selection.def("More", (Standard_Boolean (AIS_Selection::*)() const) &AIS_Selection::More, "Return true if iterator points to selected object.");
+cls_AIS_Selection.def("Next", (void (AIS_Selection::*)()) &AIS_Selection::Next, "Continue iteration through selected objects.");
+cls_AIS_Selection.def("Value", (const opencascade::handle<SelectMgr_EntityOwner> & (AIS_Selection::*)() const) &AIS_Selection::Value, "Return selected object at iterator position.");
+
 // CLASS: AIS_INTERACTIVECONTEXT
 py::class_<AIS_InteractiveContext, opencascade::handle<AIS_InteractiveContext>, Standard_Transient> cls_AIS_InteractiveContext(mod, "AIS_InteractiveContext", "The Interactive Context allows you to manage graphic behavior and selection of Interactive Objects in one or more viewers. Class methods make this highly transparent. It is essential to remember that an Interactive Object which is already known by the Interactive Context must be modified using Context methods. You can only directly call the methods available for an Interactive Object if it has not been loaded into an Interactive Context.");
 
@@ -1128,11 +981,12 @@ cls_AIS_InteractiveContext.def("SetAutoActivateSelection", (void (AIS_Interactiv
 cls_AIS_InteractiveContext.def("GetAutoActivateSelection", (Standard_Boolean (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::GetAutoActivateSelection, "Manages displaying the new object should also automatically activate default selection mode; TRUE by default.");
 cls_AIS_InteractiveContext.def("Display", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Boolean)) &AIS_InteractiveContext::Display, "Displays the object in this Context using default Display Mode. This will be the object's default display mode, if there is one. Otherwise, it will be the context mode. The Interactive Object's default selection mode is activated if GetAutoActivateSelection() is TRUE. In general, this is 0.", py::arg("theIObj"), py::arg("theToUpdateViewer"));
 cls_AIS_InteractiveContext.def("Display", [](AIS_InteractiveContext &self, const opencascade::handle<AIS_InteractiveObject> & a0, const Standard_Integer a1, const Standard_Integer a2, const Standard_Boolean a3) -> void { return self.Display(a0, a1, a2, a3); });
-cls_AIS_InteractiveContext.def("Display", [](AIS_InteractiveContext &self, const opencascade::handle<AIS_InteractiveObject> & a0, const Standard_Integer a1, const Standard_Integer a2, const Standard_Boolean a3, const Standard_Boolean a4) -> void { return self.Display(a0, a1, a2, a3, a4); });
-cls_AIS_InteractiveContext.def("Display", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Boolean, const AIS_DisplayStatus)) &AIS_InteractiveContext::Display, "Sets status, display mode and selection mode for specified Object If theSelectionMode equals -1, theIObj will not be activated: it will be displayed but will not be selectable.", py::arg("theIObj"), py::arg("theDispMode"), py::arg("theSelectionMode"), py::arg("theToUpdateViewer"), py::arg("theToAllowDecomposition"), py::arg("theDispStatus"));
+cls_AIS_InteractiveContext.def("Display", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Integer, const Standard_Integer, const Standard_Boolean, const AIS_DisplayStatus)) &AIS_InteractiveContext::Display, "Sets status, display mode and selection mode for specified Object If theSelectionMode equals -1, theIObj will not be activated: it will be displayed but will not be selectable.", py::arg("theIObj"), py::arg("theDispMode"), py::arg("theSelectionMode"), py::arg("theToUpdateViewer"), py::arg("theDispStatus"));
 cls_AIS_InteractiveContext.def("Load", [](AIS_InteractiveContext &self, const opencascade::handle<AIS_InteractiveObject> & a0) -> void { return self.Load(a0); });
-cls_AIS_InteractiveContext.def("Load", [](AIS_InteractiveContext &self, const opencascade::handle<AIS_InteractiveObject> & a0, const Standard_Integer a1) -> void { return self.Load(a0, a1); });
-cls_AIS_InteractiveContext.def("Load", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Integer, const Standard_Boolean)) &AIS_InteractiveContext::Load, "Allows you to load the Interactive Object with a given selection mode, and/or with the desired decomposition option, whether the object is visualized or not. If AllowDecomp = Standard_True and, if the interactive object is of the 'Shape' type, these 'standard' selection modes will be automatically activated as a function of the modes present in the Local Context. The loaded objects will be selectable but displayable in highlighting only when detected by the Selector.", py::arg("aniobj"), py::arg("SelectionMode"), py::arg("AllowDecomp"));
+cls_AIS_InteractiveContext.def("Load", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Integer)) &AIS_InteractiveContext::Load, "Allows you to load the Interactive Object with a given selection mode, and/or with the desired decomposition option, whether the object is visualized or not. The loaded objects will be selectable but displayable in highlighting only when detected by the Selector.", py::arg("theObj"), py::arg("theSelectionMode"));
+cls_AIS_InteractiveContext.def("Display", [](AIS_InteractiveContext &self, const opencascade::handle<AIS_InteractiveObject> & a0, const Standard_Integer a1, const Standard_Integer a2, const Standard_Boolean a3, const Standard_Boolean a4) -> void { return self.Display(a0, a1, a2, a3, a4); });
+cls_AIS_InteractiveContext.def("Display", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Integer, const Standard_Integer, const Standard_Boolean, const Standard_Boolean, const AIS_DisplayStatus)) &AIS_InteractiveContext::Display, "None", py::arg("theIObj"), py::arg("theDispMode"), py::arg("theSelectionMode"), py::arg("theToUpdateViewer"), py::arg("theToAllowDecomposition"), py::arg("theDispStatus"));
+cls_AIS_InteractiveContext.def("Load", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, Standard_Integer, Standard_Boolean)) &AIS_InteractiveContext::Load, "None", py::arg("theObj"), py::arg("theSelectionMode"), py::arg(""));
 cls_AIS_InteractiveContext.def("Erase", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Boolean)) &AIS_InteractiveContext::Erase, "Hides the object. The object's presentations are simply flagged as invisible and therefore excluded from redrawing. To show hidden objects, use Display().", py::arg("theIObj"), py::arg("theToUpdateViewer"));
 cls_AIS_InteractiveContext.def("EraseAll", (void (AIS_InteractiveContext::*)(const Standard_Boolean)) &AIS_InteractiveContext::EraseAll, "Hides all objects. The object's presentations are simply flagged as invisible and therefore excluded from redrawing. To show all hidden objects, use DisplayAll().", py::arg("theToUpdateViewer"));
 cls_AIS_InteractiveContext.def("DisplayAll", (void (AIS_InteractiveContext::*)(const Standard_Boolean)) &AIS_InteractiveContext::DisplayAll, "Displays all hidden objects.", py::arg("theToUpdateViewer"));
@@ -1149,9 +1003,9 @@ cls_AIS_InteractiveContext.def("RecomputePrsOnly", (void (AIS_InteractiveContext
 cls_AIS_InteractiveContext.def("RecomputeSelectionOnly", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &)) &AIS_InteractiveContext::RecomputeSelectionOnly, "Recomputes the active selections, flags the others. Doesn't update presentations.", py::arg("anIObj"));
 cls_AIS_InteractiveContext.def("Update", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Boolean)) &AIS_InteractiveContext::Update, "Updates displayed interactive object by checking and recomputing its flagged as 'to be recomputed' presentation and selection structures. This method does not force any recomputation on its own. The method recomputes selections even if they are loaded without activation in particular selector.", py::arg("theIObj"), py::arg("theUpdateViewer"));
 cls_AIS_InteractiveContext.def("HighlightStyle", (const opencascade::handle<Prs3d_Drawer> & (AIS_InteractiveContext::*)(const Prs3d_TypeOfHighlight) const) &AIS_InteractiveContext::HighlightStyle, "Returns highlight style settings.", py::arg("theStyleType"));
-cls_AIS_InteractiveContext.def("SetHighlightStyle", (void (AIS_InteractiveContext::*)(const Prs3d_TypeOfHighlight, const opencascade::handle<Prs3d_Drawer> &)) &AIS_InteractiveContext::SetHighlightStyle, "Setup highlight style settings.", py::arg("theStyleType"), py::arg("theStyle"));
+cls_AIS_InteractiveContext.def("SetHighlightStyle", (void (AIS_InteractiveContext::*)(const Prs3d_TypeOfHighlight, const opencascade::handle<Prs3d_Drawer> &)) &AIS_InteractiveContext::SetHighlightStyle, "Setup highlight style settings. It is preferred modifying existing style returned by method HighlightStyle() instead of creating a new drawer.", py::arg("theStyleType"), py::arg("theStyle"));
 cls_AIS_InteractiveContext.def("HighlightStyle", (const opencascade::handle<Prs3d_Drawer> & (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::HighlightStyle, "Returns current dynamic highlight style settings. By default: - the color of dynamic highlight is Quantity_NOC_CYAN1; - the presentation for dynamic highlight is completely opaque; - the type of highlight is Aspect_TOHM_COLOR.");
-cls_AIS_InteractiveContext.def("SetHighlightStyle", (void (AIS_InteractiveContext::*)(const opencascade::handle<Prs3d_Drawer> &)) &AIS_InteractiveContext::SetHighlightStyle, "Setup the style of dynamic highlighting.", py::arg("theStyle"));
+cls_AIS_InteractiveContext.def("SetHighlightStyle", (void (AIS_InteractiveContext::*)(const opencascade::handle<Prs3d_Drawer> &)) &AIS_InteractiveContext::SetHighlightStyle, "Setup the style of dynamic highlighting. It is preferred modifying existing style returned by method HighlightStyle() instead of creating a new drawer.", py::arg("theStyle"));
 cls_AIS_InteractiveContext.def("SelectionStyle", (const opencascade::handle<Prs3d_Drawer> & (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::SelectionStyle, "Returns current selection style settings. By default: - the color of selection is Quantity_NOC_GRAY80; - the presentation for selection is completely opaque; - the type of highlight is Aspect_TOHM_COLOR.");
 cls_AIS_InteractiveContext.def("SetSelectionStyle", (void (AIS_InteractiveContext::*)(const opencascade::handle<Prs3d_Drawer> &)) &AIS_InteractiveContext::SetSelectionStyle, "Setup the style of selection highlighting.", py::arg("theStyle"));
 cls_AIS_InteractiveContext.def("HighlightStyle", (Standard_Boolean (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, opencascade::handle<Prs3d_Drawer> &) const) &AIS_InteractiveContext::HighlightStyle, "Returns highlight style of the object if it is marked as highlighted via global status", py::arg("theObj"), py::arg("theStyle"));
@@ -1181,11 +1035,12 @@ cls_AIS_InteractiveContext.def("SetPixelTolerance", [](AIS_InteractiveContext &s
 cls_AIS_InteractiveContext.def("SetPixelTolerance", (void (AIS_InteractiveContext::*)(const Standard_Integer)) &AIS_InteractiveContext::SetPixelTolerance, "Setup pixel tolerance for MoveTo() operation.", py::arg("thePrecision"));
 cls_AIS_InteractiveContext.def("PixelTolerance", (Standard_Integer (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::PixelTolerance, "Returns the pixel tolerance, default is 2. Pixel Tolerance extends sensitivity within MoveTo() operation (picking by point) and can be adjusted by application based on user input precision (e.g. screen pixel density, input device precision, etc.).");
 cls_AIS_InteractiveContext.def("SetSelectionSensitivity", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Integer, const Standard_Integer)) &AIS_InteractiveContext::SetSelectionSensitivity, "Allows to manage sensitivity of a particular selection of interactive object theObject and changes previous sensitivity value of all sensitive entities in selection with theMode to the given theNewSensitivity.", py::arg("theObject"), py::arg("theMode"), py::arg("theNewSensitivity"));
+cls_AIS_InteractiveContext.def("LastActiveView", (opencascade::handle<V3d_View> (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::LastActiveView, "Returns last active View (argument of MoveTo()/Select() methods).");
 cls_AIS_InteractiveContext.def("MoveTo", (AIS_StatusOfDetection (AIS_InteractiveContext::*)(const Standard_Integer, const Standard_Integer, const opencascade::handle<V3d_View> &, const Standard_Boolean)) &AIS_InteractiveContext::MoveTo, "Relays mouse position in pixels theXPix and theYPix to the interactive context selectors. This is done by the view theView passing this position to the main viewer and updating it. If theToRedrawOnUpdate is set to false, callee should call RedrawImmediate() to highlight detected object.", py::arg("theXPix"), py::arg("theYPix"), py::arg("theView"), py::arg("theToRedrawOnUpdate"));
 cls_AIS_InteractiveContext.def("ClearDetected", [](AIS_InteractiveContext &self) -> Standard_Boolean { return self.ClearDetected(); });
 cls_AIS_InteractiveContext.def("ClearDetected", (Standard_Boolean (AIS_InteractiveContext::*)(Standard_Boolean)) &AIS_InteractiveContext::ClearDetected, "Clears the list of entities detected by MoveTo() and resets dynamic highlighting.", py::arg("theToRedrawImmediate"));
 cls_AIS_InteractiveContext.def("HasDetected", (Standard_Boolean (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::HasDetected, "Returns true if there is a mouse-detected entity in context.");
-cls_AIS_InteractiveContext.def("DetectedOwner", (opencascade::handle<SelectMgr_EntityOwner> (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::DetectedOwner, "Returns the owner of the detected sensitive primitive which is currently dynamically highlighted. WARNING! This method is irrelevant to InitDetected()/MoreDetected()/NextDetected().");
+cls_AIS_InteractiveContext.def("DetectedOwner", (const opencascade::handle<SelectMgr_EntityOwner> & (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::DetectedOwner, "Returns the owner of the detected sensitive primitive which is currently dynamically highlighted. WARNING! This method is irrelevant to InitDetected()/MoreDetected()/NextDetected().");
 cls_AIS_InteractiveContext.def("DetectedInteractive", (opencascade::handle<AIS_InteractiveObject> (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::DetectedInteractive, "Returns the interactive objects last detected in context. In general this is just a wrapper for Handle(AIS_InteractiveObject)::DownCast(DetectedOwner()->Selectable()).");
 cls_AIS_InteractiveContext.def("HasDetectedShape", (Standard_Boolean (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::HasDetectedShape, "Returns true if there is a detected shape in local context.");
 cls_AIS_InteractiveContext.def("DetectedShape", (const TopoDS_Shape & (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::DetectedShape, "Returns the shape detected in local context.");
@@ -1207,22 +1062,25 @@ cls_AIS_InteractiveContext.def("Select", (AIS_StatusOfPick (AIS_InteractiveConte
 cls_AIS_InteractiveContext.def("ShiftSelect", (AIS_StatusOfPick (AIS_InteractiveContext::*)(const Standard_Boolean)) &AIS_InteractiveContext::ShiftSelect, "Adds the last detected to the list of previous picked. If the last detected was already declared as picked, removes it from the Picked List.", py::arg("theToUpdateViewer"));
 cls_AIS_InteractiveContext.def("ShiftSelect", (AIS_StatusOfPick (AIS_InteractiveContext::*)(const TColgp_Array1OfPnt2d &, const opencascade::handle<V3d_View> &, const Standard_Boolean)) &AIS_InteractiveContext::ShiftSelect, "Adds the last detected to the list of previous picked. If the last detected was already declared as picked, removes it from the Picked List.", py::arg("thePolyline"), py::arg("theView"), py::arg("theToUpdateViewer"));
 cls_AIS_InteractiveContext.def("ShiftSelect", (AIS_StatusOfPick (AIS_InteractiveContext::*)(const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const opencascade::handle<V3d_View> &, const Standard_Boolean)) &AIS_InteractiveContext::ShiftSelect, "Rectangle of selection; adds new detected entities into the picked list, removes the detected entities that were already stored.", py::arg("theXPMin"), py::arg("theYPMin"), py::arg("theXPMax"), py::arg("theYPMax"), py::arg("theView"), py::arg("theToUpdateViewer"));
+cls_AIS_InteractiveContext.def("BoundingBoxOfSelection", (Bnd_Box (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::BoundingBoxOfSelection, "Returns bounding box of selected objects.");
 cls_AIS_InteractiveContext.def("FitSelected", (void (AIS_InteractiveContext::*)(const opencascade::handle<V3d_View> &, const Standard_Real, const Standard_Boolean)) &AIS_InteractiveContext::FitSelected, "Fits the view correspondingly to the bounds of selected objects. Infinite objects are ignored if infinite state of AIS_InteractiveObject is set to true.", py::arg("theView"), py::arg("theMargin"), py::arg("theToUpdate"));
 cls_AIS_InteractiveContext.def("FitSelected", (void (AIS_InteractiveContext::*)(const opencascade::handle<V3d_View> &)) &AIS_InteractiveContext::FitSelected, "Fits the view correspondingly to the bounds of selected objects. Infinite objects are ignored if infinite state of AIS_InteractiveObject is set to true.", py::arg("theView"));
-cls_AIS_InteractiveContext.def("SetToHilightSelected", (void (AIS_InteractiveContext::*)(const Standard_Boolean)) &AIS_InteractiveContext::SetToHilightSelected, "Specify whether selected object must be hilighted when mouse cursor is moved above it (in MoveTo method). By default this value is false and selected object is not hilighted in this case.", py::arg("toHilight"));
 cls_AIS_InteractiveContext.def("ToHilightSelected", (Standard_Boolean (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::ToHilightSelected, "Return value specified whether selected object must be hilighted when mouse cursor is moved above it");
+cls_AIS_InteractiveContext.def("SetToHilightSelected", (void (AIS_InteractiveContext::*)(const Standard_Boolean)) &AIS_InteractiveContext::SetToHilightSelected, "Specify whether selected object must be hilighted when mouse cursor is moved above it (in MoveTo method). By default this value is false and selected object is not hilighted in this case.", py::arg("toHilight"));
+cls_AIS_InteractiveContext.def("AutomaticHilight", (Standard_Boolean (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::AutomaticHilight, "Returns true if the automatic highlight mode is active; TRUE by default.");
+cls_AIS_InteractiveContext.def("SetAutomaticHilight", (void (AIS_InteractiveContext::*)(Standard_Boolean)) &AIS_InteractiveContext::SetAutomaticHilight, "Sets the highlighting status of detected and selected entities. This function allows you to disconnect the automatic mode.", py::arg("theStatus"));
 cls_AIS_InteractiveContext.def("SetSelected", (void (AIS_InteractiveContext::*)(const opencascade::handle<SelectMgr_EntityOwner> &, const Standard_Boolean)) &AIS_InteractiveContext::SetSelected, "Unhighlights previously selected owners and marks them as not selected. Marks owner given as selected and highlights it. Performs selection filters check.", py::arg("theOwners"), py::arg("theToUpdateViewer"));
 cls_AIS_InteractiveContext.def("SetSelected", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Boolean)) &AIS_InteractiveContext::SetSelected, "Puts the interactive object aniObj in the list of selected objects. Performs selection filters check.", py::arg("theObject"), py::arg("theToUpdateViewer"));
 cls_AIS_InteractiveContext.def("AddOrRemoveSelected", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Boolean)) &AIS_InteractiveContext::AddOrRemoveSelected, "Allows to highlight or unhighlight the owner given depending on its selection status", py::arg("theObject"), py::arg("theToUpdateViewer"));
+cls_AIS_InteractiveContext.def("SetSelectedState", (Standard_Boolean (AIS_InteractiveContext::*)(const opencascade::handle<SelectMgr_EntityOwner> &, const Standard_Boolean)) &AIS_InteractiveContext::SetSelectedState, "Updates Selected state of specified owner without calling HilightSelected(). Has no effect if Selected state is not changed, and redirects to AddOrRemoveSelected() otherwise.", py::arg("theOwner"), py::arg("theIsSelected"));
 cls_AIS_InteractiveContext.def("HilightSelected", (void (AIS_InteractiveContext::*)(const Standard_Boolean)) &AIS_InteractiveContext::HilightSelected, "Highlights selected objects.", py::arg("theToUpdateViewer"));
 cls_AIS_InteractiveContext.def("UnhilightSelected", (void (AIS_InteractiveContext::*)(const Standard_Boolean)) &AIS_InteractiveContext::UnhilightSelected, "Removes highlighting from selected objects.", py::arg("theToUpdateViewer"));
-cls_AIS_InteractiveContext.def("UpdateSelected", (void (AIS_InteractiveContext::*)(const Standard_Boolean)) &AIS_InteractiveContext::UpdateSelected, "Updates the list of selected objects: i.e. highlights the newly selected ones and unhighlights previously selected objects.", py::arg("theToUpdateViewer"));
+cls_AIS_InteractiveContext.def("UpdateSelected", (void (AIS_InteractiveContext::*)(Standard_Boolean)) &AIS_InteractiveContext::UpdateSelected, "Updates the list of selected objects: i.e. highlights the newly selected ones and unhighlights previously selected objects.", py::arg("theToUpdateViewer"));
 cls_AIS_InteractiveContext.def("ClearSelected", (void (AIS_InteractiveContext::*)(const Standard_Boolean)) &AIS_InteractiveContext::ClearSelected, "Empties previous selected objects in order to get the selected objects detected by the selector using UpdateSelected.", py::arg("theToUpdateViewer"));
-cls_AIS_InteractiveContext.def("AddOrRemoveSelected", (void (AIS_InteractiveContext::*)(const TopoDS_Shape &, const Standard_Boolean)) &AIS_InteractiveContext::AddOrRemoveSelected, "No right to Add a selected Shape (Internal Management of shape Selection). A Previous selected shape may only be removed.", py::arg("theShape"), py::arg("theToUpdateViewer"));
 cls_AIS_InteractiveContext.def("AddOrRemoveSelected", (void (AIS_InteractiveContext::*)(const opencascade::handle<SelectMgr_EntityOwner> &, const Standard_Boolean)) &AIS_InteractiveContext::AddOrRemoveSelected, "Allows to highlight or unhighlight the owner given depending on its selection status", py::arg("theOwner"), py::arg("theToUpdateViewer"));
 cls_AIS_InteractiveContext.def("IsSelected", (Standard_Boolean (AIS_InteractiveContext::*)(const opencascade::handle<SelectMgr_EntityOwner> &) const) &AIS_InteractiveContext::IsSelected, "Returns true is the owner given is selected", py::arg("theOwner"));
 cls_AIS_InteractiveContext.def("IsSelected", (Standard_Boolean (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &) const) &AIS_InteractiveContext::IsSelected, "Returns true is the object given is selected", py::arg("theObj"));
-cls_AIS_InteractiveContext.def("FirstSelectedObject", (opencascade::handle<AIS_InteractiveObject> (AIS_InteractiveContext::*)()) &AIS_InteractiveContext::FirstSelectedObject, "Returns the first selected object in the list of current selected.");
+cls_AIS_InteractiveContext.def("FirstSelectedObject", (opencascade::handle<AIS_InteractiveObject> (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::FirstSelectedObject, "Returns the first selected object in the list of current selected.");
 cls_AIS_InteractiveContext.def("NbSelected", (Standard_Integer (AIS_InteractiveContext::*)()) &AIS_InteractiveContext::NbSelected, "Count a number of selected entities using InitSelected()+MoreSelected()+NextSelected() iterator.");
 cls_AIS_InteractiveContext.def("InitSelected", (void (AIS_InteractiveContext::*)()) &AIS_InteractiveContext::InitSelected, "Initializes a scan of the selected objects.");
 cls_AIS_InteractiveContext.def("MoreSelected", (Standard_Boolean (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::MoreSelected, "Returns true if there is another object found by the scan of the list of selected objects.");
@@ -1267,12 +1125,10 @@ cls_AIS_InteractiveContext.def("SelectionManager", (const opencascade::handle<Se
 cls_AIS_InteractiveContext.def("MainPrsMgr", (const opencascade::handle<PrsMgr_PresentationManager3d> & (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::MainPrsMgr, "None");
 cls_AIS_InteractiveContext.def("MainSelector", (const opencascade::handle<StdSelect_ViewerSelector3d> & (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::MainSelector, "None");
 cls_AIS_InteractiveContext.def("UpdateCurrentViewer", (void (AIS_InteractiveContext::*)()) &AIS_InteractiveContext::UpdateCurrentViewer, "Updates the current viewer.");
-cls_AIS_InteractiveContext.def("DisplayedObjects", [](AIS_InteractiveContext &self, AIS_ListOfInteractive & a0) -> void { return self.DisplayedObjects(a0); });
-cls_AIS_InteractiveContext.def("DisplayedObjects", (void (AIS_InteractiveContext::*)(AIS_ListOfInteractive &, const Standard_Boolean) const) &AIS_InteractiveContext::DisplayedObjects, "Returns the list of displayed objects of a particular Type WhichKind and Signature WhichSignature. By Default, WhichSignature equals -1. This means that there is a check on type only.", py::arg("aListOfIO"), py::arg("OnlyFromNeutral"));
-cls_AIS_InteractiveContext.def("DisplayedObjects", [](AIS_InteractiveContext &self, const AIS_KindOfInteractive a0, const Standard_Integer a1, AIS_ListOfInteractive & a2) -> void { return self.DisplayedObjects(a0, a1, a2); });
-cls_AIS_InteractiveContext.def("DisplayedObjects", (void (AIS_InteractiveContext::*)(const AIS_KindOfInteractive, const Standard_Integer, AIS_ListOfInteractive &, const Standard_Boolean) const) &AIS_InteractiveContext::DisplayedObjects, "gives the list of displayed objects of a particular Type and signature. by Default, <WhichSignature> = -1 means control only on <WhichKind>.", py::arg("WhichKind"), py::arg("WhichSignature"), py::arg("aListOfIO"), py::arg("OnlyFromNeutral"));
+cls_AIS_InteractiveContext.def("DisplayedObjects", (void (AIS_InteractiveContext::*)(AIS_ListOfInteractive &) const) &AIS_InteractiveContext::DisplayedObjects, "Returns the list of displayed objects of a particular Type WhichKind and Signature WhichSignature. By Default, WhichSignature equals -1. This means that there is a check on type only.", py::arg("aListOfIO"));
+cls_AIS_InteractiveContext.def("DisplayedObjects", (void (AIS_InteractiveContext::*)(const AIS_KindOfInteractive, const Standard_Integer, AIS_ListOfInteractive &) const) &AIS_InteractiveContext::DisplayedObjects, "gives the list of displayed objects of a particular Type and signature. by Default, <WhichSignature> = -1 means control only on <WhichKind>.", py::arg("theWhichKind"), py::arg("theWhichSignature"), py::arg("theListOfIO"));
 cls_AIS_InteractiveContext.def("ErasedObjects", (void (AIS_InteractiveContext::*)(AIS_ListOfInteractive &) const) &AIS_InteractiveContext::ErasedObjects, "Returns the list theListOfIO of erased objects (hidden objects) particular Type WhichKind and Signature WhichSignature. By Default, WhichSignature equals 1. This means that there is a check on type only.", py::arg("theListOfIO"));
-cls_AIS_InteractiveContext.def("ErasedObjects", (void (AIS_InteractiveContext::*)(const AIS_KindOfInteractive, const Standard_Integer, AIS_ListOfInteractive &) const) &AIS_InteractiveContext::ErasedObjects, "gives the list of erased objects (hidden objects) Type and signature by Default, <WhichSignature> = -1 means control only on <WhichKind>.", py::arg("WhichKind"), py::arg("WhichSignature"), py::arg("theListOfIO"));
+cls_AIS_InteractiveContext.def("ErasedObjects", (void (AIS_InteractiveContext::*)(const AIS_KindOfInteractive, const Standard_Integer, AIS_ListOfInteractive &) const) &AIS_InteractiveContext::ErasedObjects, "gives the list of erased objects (hidden objects) Type and signature by Default, <WhichSignature> = -1 means control only on <WhichKind>.", py::arg("theWhichKind"), py::arg("theWhichSignature"), py::arg("theListOfIO"));
 cls_AIS_InteractiveContext.def("ObjectsByDisplayStatus", (void (AIS_InteractiveContext::*)(const AIS_DisplayStatus, AIS_ListOfInteractive &) const) &AIS_InteractiveContext::ObjectsByDisplayStatus, "Returns the list theListOfIO of objects with indicated display status particular Type WhichKind and Signature WhichSignature. By Default, WhichSignature equals 1. This means that there is a check on type only.", py::arg("theStatus"), py::arg("theListOfIO"));
 cls_AIS_InteractiveContext.def("ObjectsByDisplayStatus", (void (AIS_InteractiveContext::*)(const AIS_KindOfInteractive, const Standard_Integer, const AIS_DisplayStatus, AIS_ListOfInteractive &) const) &AIS_InteractiveContext::ObjectsByDisplayStatus, "gives the list of objects with indicated display status Type and signature by Default, <WhichSignature> = -1 means control only on <WhichKind>.", py::arg("WhichKind"), py::arg("WhichSignature"), py::arg("theStatus"), py::arg("theListOfIO"));
 cls_AIS_InteractiveContext.def("ObjectsInside", [](AIS_InteractiveContext &self, AIS_ListOfInteractive & a0) -> void { return self.ObjectsInside(a0); });
@@ -1284,6 +1140,7 @@ cls_AIS_InteractiveContext.def("Disconnect", (void (AIS_InteractiveContext::*)(c
 cls_AIS_InteractiveContext.def("ObjectsForView", [](AIS_InteractiveContext &self, AIS_ListOfInteractive & a0, const opencascade::handle<V3d_View> & a1, const Standard_Boolean a2) -> void { return self.ObjectsForView(a0, a1, a2); });
 cls_AIS_InteractiveContext.def("ObjectsForView", (void (AIS_InteractiveContext::*)(AIS_ListOfInteractive &, const opencascade::handle<V3d_View> &, const Standard_Boolean, const AIS_DisplayStatus) const) &AIS_InteractiveContext::ObjectsForView, "Query objects visible or hidden in specified view due to affinity mask.", py::arg("theListOfIO"), py::arg("theView"), py::arg("theIsVisibleInView"), py::arg("theStatus"));
 cls_AIS_InteractiveContext.def("PurgeDisplay", (Standard_Integer (AIS_InteractiveContext::*)()) &AIS_InteractiveContext::PurgeDisplay, "Clears all the structures which don't belong to objects displayed at neutral point only effective when no Local Context is opened... returns the number of removed structures from the viewers.");
+cls_AIS_InteractiveContext.def("GravityPoint", (gp_Pnt (AIS_InteractiveContext::*)(const opencascade::handle<V3d_View> &) const) &AIS_InteractiveContext::GravityPoint, "Return rotation gravity point.", py::arg("theView"));
 cls_AIS_InteractiveContext.def("DisplayActiveSensitive", (void (AIS_InteractiveContext::*)(const opencascade::handle<V3d_View> &)) &AIS_InteractiveContext::DisplayActiveSensitive, "Visualization of sensitives - for debugging purposes!", py::arg("aView"));
 cls_AIS_InteractiveContext.def("ClearActiveSensitive", (void (AIS_InteractiveContext::*)(const opencascade::handle<V3d_View> &)) &AIS_InteractiveContext::ClearActiveSensitive, "Clear visualization of sensitives.", py::arg("aView"));
 cls_AIS_InteractiveContext.def("DisplayActiveSensitive", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const opencascade::handle<V3d_View> &)) &AIS_InteractiveContext::DisplayActiveSensitive, "Visualization of sensitives - for debugging purposes!", py::arg("anObject"), py::arg("aView"));
@@ -1339,35 +1196,6 @@ cls_AIS_InteractiveContext.def("IsoOnPlane", (Standard_Boolean (AIS_InteractiveC
 cls_AIS_InteractiveContext.def("IsoOnTriangulation", (void (AIS_InteractiveContext::*)(const Standard_Boolean, const opencascade::handle<AIS_InteractiveObject> &)) &AIS_InteractiveContext::IsoOnTriangulation, "Enables or disables on-triangulation build for isolines for a particular object. In case if on-triangulation builder is disabled, default on-plane builder will compute isolines for the object given.", py::arg("theIsEnabled"), py::arg("theObject"));
 cls_AIS_InteractiveContext.def("IsoOnTriangulation", (void (AIS_InteractiveContext::*)(const Standard_Boolean)) &AIS_InteractiveContext::IsoOnTriangulation, "Enables or disables on-triangulation build for isolines for default drawer. In case if on-triangulation builder is disabled, default on-plane builder will compute isolines for the object given.", py::arg("theToSwitchOn"));
 cls_AIS_InteractiveContext.def("IsoOnTriangulation", (Standard_Boolean (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::IsoOnTriangulation, "Returns true if drawing isolines on triangulation algorithm is enabled.");
-cls_AIS_InteractiveContext.def("HasOpenedContext", (Standard_Boolean (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::HasOpenedContext, "Returns true if there is an open context.");
-cls_AIS_InteractiveContext.def("HighestIndex", (Standard_Integer (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::HighestIndex, "None");
-cls_AIS_InteractiveContext.def("LocalContext", (opencascade::handle<AIS_LocalContext> (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::LocalContext, "For advanced usage! You should use other (non-internal) methods of class AIS_InteractiveContext without trying to obtain an instance of AIS_LocalContext.");
-cls_AIS_InteractiveContext.def("LocalSelector", (opencascade::handle<StdSelect_ViewerSelector3d> (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::LocalSelector, "None");
-cls_AIS_InteractiveContext.def("OpenLocalContext", [](AIS_InteractiveContext &self) -> Standard_Integer { return self.OpenLocalContext(); });
-cls_AIS_InteractiveContext.def("OpenLocalContext", [](AIS_InteractiveContext &self, const Standard_Boolean a0) -> Standard_Integer { return self.OpenLocalContext(a0); });
-cls_AIS_InteractiveContext.def("OpenLocalContext", [](AIS_InteractiveContext &self, const Standard_Boolean a0, const Standard_Boolean a1) -> Standard_Integer { return self.OpenLocalContext(a0, a1); });
-cls_AIS_InteractiveContext.def("OpenLocalContext", [](AIS_InteractiveContext &self, const Standard_Boolean a0, const Standard_Boolean a1, const Standard_Boolean a2) -> Standard_Integer { return self.OpenLocalContext(a0, a1, a2); });
-cls_AIS_InteractiveContext.def("OpenLocalContext", (Standard_Integer (AIS_InteractiveContext::*)(const Standard_Boolean, const Standard_Boolean, const Standard_Boolean, const Standard_Boolean)) &AIS_InteractiveContext::OpenLocalContext, "Opens local contexts and specifies how this is to be done. The options listed above function in the following manner: - UseDisplayedObjects - allows you to load or not load the interactive objects visualized at Neutral Point in the local context which you open. If false, the local context is empty after being opened. If true, the objects at Neutral Point are loaded by their default selection mode. - AllowShapeDecomposition - AIS_Shape allows or prevents decomposition in standard shape location mode of objects at Neutral Point which are type-'privileged'. This Flag is only taken into account when UseDisplayedObjects is true. - AcceptEraseOfObjects - authorises other local contexts to erase the interactive objects present in this context. This option is rarely used. - BothViewers - Has no use currently defined. This method returns the index of the created local context. It should be kept and used to close the context. Opening a local context allows you to prepare an environment for temporary presentations and selections which will disappear once the local context is closed. You can open several local contexts, but only the last one will be active.", py::arg("UseDisplayedObjects"), py::arg("AllowShapeDecomposition"), py::arg("AcceptEraseOfObjects"), py::arg("BothViewers"));
-cls_AIS_InteractiveContext.def("CloseLocalContext", [](AIS_InteractiveContext &self) -> void { return self.CloseLocalContext(); });
-cls_AIS_InteractiveContext.def("CloseLocalContext", [](AIS_InteractiveContext &self, const Standard_Integer a0) -> void { return self.CloseLocalContext(a0); });
-cls_AIS_InteractiveContext.def("CloseLocalContext", (void (AIS_InteractiveContext::*)(const Standard_Integer, const Standard_Boolean)) &AIS_InteractiveContext::CloseLocalContext, "Allows you to close local contexts. For greater security, you should close the context with the index Index given on opening. When you close a local context, the one before, which is still on the stack, reactivates. If none is left, you return to Neutral Point. If a local context is open and if updateviewer equals Standard_False, the presentation of the Interactive Object activates the selection mode; the object is displayed but no viewer will be updated. Warning When the index isn't specified, the current context is closed. This option can be dangerous, as other Interactive Functions can open local contexts without necessarily warning the user.", py::arg("theIndex"), py::arg("theToUpdateViewer"));
-cls_AIS_InteractiveContext.def("IndexOfCurrentLocal", (Standard_Integer (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::IndexOfCurrentLocal, "returns -1 if no opened local context.");
-cls_AIS_InteractiveContext.def("CloseAllContexts", (void (AIS_InteractiveContext::*)(const Standard_Boolean)) &AIS_InteractiveContext::CloseAllContexts, "Allows you to close all local contexts at one go and return to Neutral Point. If a local context is open and if updateviewer equals Standard_False, the presentation of the Interactive Object activates the selection mode; the object is displayed but no viewer will be updated.", py::arg("theToUpdateViewer"));
-cls_AIS_InteractiveContext.def("ResetOriginalState", (void (AIS_InteractiveContext::*)(const Standard_Boolean)) &AIS_InteractiveContext::ResetOriginalState, "to be used only with no opened local context.. displays and activates objects in their original state before local contexts were opened...", py::arg("theToUpdateViewer"));
-cls_AIS_InteractiveContext.def("ClearLocalContext", [](AIS_InteractiveContext &self) -> void { return self.ClearLocalContext(); });
-cls_AIS_InteractiveContext.def("ClearLocalContext", (void (AIS_InteractiveContext::*)(const AIS_ClearMode)) &AIS_InteractiveContext::ClearLocalContext, "clears Objects/Filters/Activated Modes list in the current opened local context.", py::arg("TheMode"));
-cls_AIS_InteractiveContext.def("UseDisplayedObjects", (void (AIS_InteractiveContext::*)()) &AIS_InteractiveContext::UseDisplayedObjects, "None");
-cls_AIS_InteractiveContext.def("NotUseDisplayedObjects", (void (AIS_InteractiveContext::*)()) &AIS_InteractiveContext::NotUseDisplayedObjects, "when a local Context is opened, one is able to use/not use the displayed objects at neutral point at anytime.");
-cls_AIS_InteractiveContext.def("SetShapeDecomposition", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Boolean)) &AIS_InteractiveContext::SetShapeDecomposition, "to be Used only with opened local context and if <anIobj> is of type shape... if <aStatus> = True <anIobj> will be sensitive to shape selection modes activation. = False, <anIobj> will not be sensitive any more.", py::arg("anIobj"), py::arg("aStatus"));
-cls_AIS_InteractiveContext.def("SetTemporaryAttributes", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const opencascade::handle<Prs3d_Drawer> &, const Standard_Boolean)) &AIS_InteractiveContext::SetTemporaryAttributes, "Sets the temporary graphic attributes of the entity anObj. These are provided by the attribute manager aDrawer and are valid for a particular local context only. If a local context is open and if updateviewer equals Standard_False, the presentation of the Interactive Object activates the selection mode; the object is displayed but no viewer will be updated.", py::arg("theIObj"), py::arg("theDrawer"), py::arg("theToUpdateViewer"));
-cls_AIS_InteractiveContext.def("ActivateStandardMode", (void (AIS_InteractiveContext::*)(const TopAbs_ShapeEnum)) &AIS_InteractiveContext::ActivateStandardMode, "Provides an alternative to the Display methods when activating specific selection modes. This has the effect of activating the corresponding selection mode aStandardActivation for all objects in Local Context which accept decomposition into sub-shapes. Every new Object which has been loaded into the interactive context and which answers these decomposition criteria is automatically activated according to these modes. Warning If you have opened a local context by loading an object with the default options (<AllowShapeDecomposition >= Standard_True), all objects of the 'Shape' type are also activated with the same modes. You can act on the state of these 'Standard' objects by using SetShapeDecomposition(Status).", py::arg("aStandardActivation"));
-cls_AIS_InteractiveContext.def("DeactivateStandardMode", (void (AIS_InteractiveContext::*)(const TopAbs_ShapeEnum)) &AIS_InteractiveContext::DeactivateStandardMode, "Provides an alternative to the Display methods when deactivating specific selection modes. This has the effect of deactivating the corresponding selection mode aStandardActivation for all objects in Local Context which accept decomposition into sub-shapes.", py::arg("aStandardActivation"));
-cls_AIS_InteractiveContext.def("ActivatedStandardModes", (const TColStd_ListOfInteger & (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::ActivatedStandardModes, "None");
-cls_AIS_InteractiveContext.def("IsInLocal", [](AIS_InteractiveContext &self, const opencascade::handle<AIS_InteractiveObject> & anObject, Standard_Integer & TheIndex){ Standard_Boolean rv = self.IsInLocal(anObject, TheIndex); return std::tuple<Standard_Boolean, Standard_Integer &>(rv, TheIndex); }, "returns if possible, the first local context where the object is seen", py::arg("anObject"), py::arg("TheIndex"));
-cls_AIS_InteractiveContext.def("SetAutomaticHilight", (void (AIS_InteractiveContext::*)(const Standard_Boolean)) &AIS_InteractiveContext::SetAutomaticHilight, "Sets the highlighting status aStatus of detected and selected entities. Whether you are in Neutral Point or local context, this is automatically managed by the Interactive Context. This function allows you to disconnect the automatic mode.", py::arg("aStatus"));
-cls_AIS_InteractiveContext.def("AutomaticHilight", (Standard_Boolean (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::AutomaticHilight, "Returns true if the automatic highlight mode is active in an open context.");
-cls_AIS_InteractiveContext.def("KeepTemporary", [](AIS_InteractiveContext &self, const opencascade::handle<AIS_InteractiveObject> & a0) -> Standard_Boolean { return self.KeepTemporary(a0); });
-cls_AIS_InteractiveContext.def("KeepTemporary", (Standard_Boolean (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Integer)) &AIS_InteractiveContext::KeepTemporary, "Changes the status of a temporary object. It will be kept at the neutral point, i.e. put in the list of displayed objects along with its temporary attributes. These include display mode and selection mode, for example. Returns true if done. inWhichLocal gives the local context in which anIObj is displayed. By default, the index -1 refers to the last Local Context opened.", py::arg("anIObj"), py::arg("InWhichLocal"));
 cls_AIS_InteractiveContext.def("SetCurrentObject", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Boolean)) &AIS_InteractiveContext::SetCurrentObject, "Updates the view of the current object in open context. Objects selected when there is no open local context are called current objects; those selected in open local context, selected objects.", py::arg("theIObj"), py::arg("theToUpdateViewer"));
 cls_AIS_InteractiveContext.def("AddOrRemoveCurrentObject", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Boolean)) &AIS_InteractiveContext::AddOrRemoveCurrentObject, "Allows to add or remove the object given to the list of current and highlight/unhighlight it correspondingly. Is valid for global context only; for local context use method AddOrRemoveSelected. Since this method makes sence only for neutral point selection of a whole object, if 0 selection of the object is empty this method simply does nothing.", py::arg("theObj"), py::arg("theIsToUpdateViewer"));
 cls_AIS_InteractiveContext.def("UpdateCurrent", (void (AIS_InteractiveContext::*)()) &AIS_InteractiveContext::UpdateCurrent, "Updates the list of current objects, i.e. hilights new current objects, removes hilighting from former current objects. Objects selected when there is no open local context are called current objects; those selected in open local context, selected objects.");
@@ -1386,8 +1214,8 @@ cls_AIS_InteractiveContext.def("SubIntensityColor", (const Quantity_Color & (AIS
 cls_AIS_InteractiveContext.def("SetSubIntensityColor", (void (AIS_InteractiveContext::*)(const Quantity_Color &)) &AIS_InteractiveContext::SetSubIntensityColor, "Sub-intensity allows temporary highlighting of particular objects with specified color in a manner of selection highlight, but without actual selection (e.g., global status and owner's selection state will not be updated). The method sets up the color for such highlighting. By default, this is Quantity_NOC_GRAY40.", py::arg("theColor"));
 cls_AIS_InteractiveContext.def("SubIntensityOn", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Boolean)) &AIS_InteractiveContext::SubIntensityOn, "Highlights, and removes highlights from, the displayed object which is displayed at Neutral Point with subintensity color. Available only for active local context. There is no effect if there is no local context. If a local context is open, the presentation of the Interactive Object activates the selection mode.", py::arg("theIObj"), py::arg("theToUpdateViewer"));
 cls_AIS_InteractiveContext.def("SubIntensityOff", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_InteractiveObject> &, const Standard_Boolean)) &AIS_InteractiveContext::SubIntensityOff, "Removes the subintensity option for the entity. If a local context is open, the presentation of the Interactive Object activates the selection mode.", py::arg("theIObj"), py::arg("theToUpdateViewer"));
-cls_AIS_InteractiveContext.def("SubIntensityOn", (void (AIS_InteractiveContext::*)(const Standard_Boolean)) &AIS_InteractiveContext::SubIntensityOn, "hilights/unhilights displayed objects which are displayed at neutral state with subintensity color. Available only for active local context. No effect if no local context.", py::arg("theToUpdateViewer"));
-cls_AIS_InteractiveContext.def("SubIntensityOff", (void (AIS_InteractiveContext::*)(const Standard_Boolean)) &AIS_InteractiveContext::SubIntensityOff, "Removes subintensity option for all objects.", py::arg("theToUpdateViewer"));
+cls_AIS_InteractiveContext.def("Selection", (const opencascade::handle<AIS_Selection> & (AIS_InteractiveContext::*)() const) &AIS_InteractiveContext::Selection, "Returns selection instance");
+cls_AIS_InteractiveContext.def("SetSelection", (void (AIS_InteractiveContext::*)(const opencascade::handle<AIS_Selection> &)) &AIS_InteractiveContext::SetSelection, "Sets selection instance to manipulate a container of selected owners", py::arg("theSelection"));
 
 // CLASS: AIS_ANIMATIONOBJECT
 py::class_<AIS_AnimationObject, opencascade::handle<AIS_AnimationObject>, AIS_Animation> cls_AIS_AnimationObject(mod, "AIS_AnimationObject", "Animation defining object transformation.");
@@ -1478,6 +1306,28 @@ cls_AIS_C0RegularityFilter.def_static("get_type_name_", (const char * (*)()) &AI
 cls_AIS_C0RegularityFilter.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_C0RegularityFilter::get_type_descriptor, "None");
 cls_AIS_C0RegularityFilter.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_C0RegularityFilter::*)() const) &AIS_C0RegularityFilter::DynamicType, "None");
 
+// CLASS: AIS_CAMERAFRUSTUM
+py::class_<AIS_CameraFrustum, opencascade::handle<AIS_CameraFrustum>, AIS_InteractiveObject> cls_AIS_CameraFrustum(mod, "AIS_CameraFrustum", "Presentation for drawing camera frustum. Default configuration is built with filling and some transparency.");
+
+// Constructors
+cls_AIS_CameraFrustum.def(py::init<>());
+
+// Methods
+cls_AIS_CameraFrustum.def_static("get_type_name_", (const char * (*)()) &AIS_CameraFrustum::get_type_name, "None");
+cls_AIS_CameraFrustum.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_CameraFrustum::get_type_descriptor, "None");
+cls_AIS_CameraFrustum.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_CameraFrustum::*)() const) &AIS_CameraFrustum::DynamicType, "None");
+cls_AIS_CameraFrustum.def("SetCameraFrustum", (void (AIS_CameraFrustum::*)(const opencascade::handle<Graphic3d_Camera> &)) &AIS_CameraFrustum::SetCameraFrustum, "Sets camera frustum.", py::arg("theCamera"));
+cls_AIS_CameraFrustum.def("SetColor", (void (AIS_CameraFrustum::*)(const Quantity_Color &)) &AIS_CameraFrustum::SetColor, "Setup custom color.", py::arg("theColor"));
+cls_AIS_CameraFrustum.def("UnsetColor", (void (AIS_CameraFrustum::*)()) &AIS_CameraFrustum::UnsetColor, "Restore default color.");
+cls_AIS_CameraFrustum.def("UnsetTransparency", (void (AIS_CameraFrustum::*)()) &AIS_CameraFrustum::UnsetTransparency, "Restore transparency setting.");
+cls_AIS_CameraFrustum.def("AcceptDisplayMode", (Standard_Boolean (AIS_CameraFrustum::*)(const Standard_Integer) const) &AIS_CameraFrustum::AcceptDisplayMode, "Return true if specified display mode is supported.", py::arg("theMode"));
+
+// Enums
+py::enum_<AIS_CameraFrustum::SelectionMode>(cls_AIS_CameraFrustum, "SelectionMode", "Selection modes supported by this object")
+	.value("SelectionMode_Edges", AIS_CameraFrustum::SelectionMode::SelectionMode_Edges)
+	.value("SelectionMode_Volume", AIS_CameraFrustum::SelectionMode::SelectionMode_Volume)
+	.export_values();
+
 // CLASS: AIS_RELATION
 py::class_<AIS_Relation, opencascade::handle<AIS_Relation>, AIS_InteractiveObject> cls_AIS_Relation(mod, "AIS_Relation", "One of the four types of interactive object in AIS,comprising dimensions and constraints. Serves as the abstract class for the seven relation classes as well as the seven dimension classes. The statuses available for relations between shapes are as follows: - 0 - there is no connection to a shape; - 1 - there is a connection to the first shape; - 2 - there is a connection to the second shape. The connection takes the form of an edge between the two shapes.");
 
@@ -1523,12 +1373,12 @@ cls_AIS_Chamf2dDimension.def(py::init<const TopoDS_Shape &, const opencascade::h
 cls_AIS_Chamf2dDimension.def(py::init<const TopoDS_Shape &, const opencascade::handle<Geom_Plane> &, const Standard_Real, const TCollection_ExtendedString &, const gp_Pnt &, const DsgPrs_ArrowSide, const Standard_Real>(), py::arg("aFShape"), py::arg("aPlane"), py::arg("aVal"), py::arg("aText"), py::arg("aPosition"), py::arg("aSymbolPrs"), py::arg("anArrowSize"));
 
 // Methods
-cls_AIS_Chamf2dDimension.def("KindOfDimension", (AIS_KindOfDimension (AIS_Chamf2dDimension::*)() const) &AIS_Chamf2dDimension::KindOfDimension, "Indicates that we are concerned with a 2d length.");
-cls_AIS_Chamf2dDimension.def("IsMovable", (Standard_Boolean (AIS_Chamf2dDimension::*)() const) &AIS_Chamf2dDimension::IsMovable, "Returns true if the 2d chamfer dimension is movable.");
-cls_AIS_Chamf2dDimension.def("Compute", (void (AIS_Chamf2dDimension::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_Chamf2dDimension::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 cls_AIS_Chamf2dDimension.def_static("get_type_name_", (const char * (*)()) &AIS_Chamf2dDimension::get_type_name, "None");
 cls_AIS_Chamf2dDimension.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_Chamf2dDimension::get_type_descriptor, "None");
 cls_AIS_Chamf2dDimension.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_Chamf2dDimension::*)() const) &AIS_Chamf2dDimension::DynamicType, "None");
+cls_AIS_Chamf2dDimension.def("KindOfDimension", (AIS_KindOfDimension (AIS_Chamf2dDimension::*)() const) &AIS_Chamf2dDimension::KindOfDimension, "Indicates that we are concerned with a 2d length.");
+cls_AIS_Chamf2dDimension.def("IsMovable", (Standard_Boolean (AIS_Chamf2dDimension::*)() const) &AIS_Chamf2dDimension::IsMovable, "Returns true if the 2d chamfer dimension is movable.");
+cls_AIS_Chamf2dDimension.def("Compute", (void (AIS_Chamf2dDimension::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_Chamf2dDimension::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 
 // CLASS: AIS_CHAMF3DDIMENSION
 py::class_<AIS_Chamf3dDimension, opencascade::handle<AIS_Chamf3dDimension>, AIS_Relation> cls_AIS_Chamf3dDimension(mod, "AIS_Chamf3dDimension", "A framework to define display of 3D chamfers. A chamfer is displayed with arrows and text. The text gives the length of the chamfer if it is a symmetrical chamfer, or the angle if it is not.");
@@ -1539,12 +1389,12 @@ cls_AIS_Chamf3dDimension.def(py::init<const TopoDS_Shape &, const Standard_Real,
 cls_AIS_Chamf3dDimension.def(py::init<const TopoDS_Shape &, const Standard_Real, const TCollection_ExtendedString &, const gp_Pnt &, const DsgPrs_ArrowSide, const Standard_Real>(), py::arg("aFShape"), py::arg("aVal"), py::arg("aText"), py::arg("aPosition"), py::arg("aSymbolPrs"), py::arg("anArrowSize"));
 
 // Methods
-cls_AIS_Chamf3dDimension.def("KindOfDimension", (AIS_KindOfDimension (AIS_Chamf3dDimension::*)() const) &AIS_Chamf3dDimension::KindOfDimension, "Indicates that we are concerned with a 3d length.");
-cls_AIS_Chamf3dDimension.def("IsMovable", (Standard_Boolean (AIS_Chamf3dDimension::*)() const) &AIS_Chamf3dDimension::IsMovable, "Returns true if the 3d chamfer dimension is movable.");
-cls_AIS_Chamf3dDimension.def("Compute", (void (AIS_Chamf3dDimension::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_Chamf3dDimension::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 cls_AIS_Chamf3dDimension.def_static("get_type_name_", (const char * (*)()) &AIS_Chamf3dDimension::get_type_name, "None");
 cls_AIS_Chamf3dDimension.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_Chamf3dDimension::get_type_descriptor, "None");
 cls_AIS_Chamf3dDimension.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_Chamf3dDimension::*)() const) &AIS_Chamf3dDimension::DynamicType, "None");
+cls_AIS_Chamf3dDimension.def("KindOfDimension", (AIS_KindOfDimension (AIS_Chamf3dDimension::*)() const) &AIS_Chamf3dDimension::KindOfDimension, "Indicates that we are concerned with a 3d length.");
+cls_AIS_Chamf3dDimension.def("IsMovable", (Standard_Boolean (AIS_Chamf3dDimension::*)() const) &AIS_Chamf3dDimension::IsMovable, "Returns true if the 3d chamfer dimension is movable.");
+cls_AIS_Chamf3dDimension.def("Compute", (void (AIS_Chamf3dDimension::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_Chamf3dDimension::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 
 // CLASS: AIS_CIRCLE
 py::class_<AIS_Circle, opencascade::handle<AIS_Circle>, AIS_InteractiveObject> cls_AIS_Circle(mod, "AIS_Circle", "Constructs circle datums to be used in construction of composite shapes.");
@@ -1582,6 +1432,7 @@ cls_AIS_ColoredDrawer.def(py::init<const opencascade::handle<Prs3d_Drawer> &>(),
 // Fields
 cls_AIS_ColoredDrawer.def_readwrite("myIsHidden", &AIS_ColoredDrawer::myIsHidden, "");
 cls_AIS_ColoredDrawer.def_readwrite("myHasOwnColor", &AIS_ColoredDrawer::myHasOwnColor, "None");
+cls_AIS_ColoredDrawer.def_readwrite("myHasOwnTransp", &AIS_ColoredDrawer::myHasOwnTransp, "None");
 cls_AIS_ColoredDrawer.def_readwrite("myHasOwnWidth", &AIS_ColoredDrawer::myHasOwnWidth, "None");
 
 // Methods
@@ -1593,6 +1444,9 @@ cls_AIS_ColoredDrawer.def("SetHidden", (void (AIS_ColoredDrawer::*)(const bool))
 cls_AIS_ColoredDrawer.def("HasOwnColor", (bool (AIS_ColoredDrawer::*)() const) &AIS_ColoredDrawer::HasOwnColor, "None");
 cls_AIS_ColoredDrawer.def("UnsetOwnColor", (void (AIS_ColoredDrawer::*)()) &AIS_ColoredDrawer::UnsetOwnColor, "None");
 cls_AIS_ColoredDrawer.def("SetOwnColor", (void (AIS_ColoredDrawer::*)(const Quantity_Color &)) &AIS_ColoredDrawer::SetOwnColor, "None", py::arg(""));
+cls_AIS_ColoredDrawer.def("HasOwnTransparency", (bool (AIS_ColoredDrawer::*)() const) &AIS_ColoredDrawer::HasOwnTransparency, "None");
+cls_AIS_ColoredDrawer.def("UnsetOwnTransparency", (void (AIS_ColoredDrawer::*)()) &AIS_ColoredDrawer::UnsetOwnTransparency, "None");
+cls_AIS_ColoredDrawer.def("SetOwnTransparency", (void (AIS_ColoredDrawer::*)(Standard_Real)) &AIS_ColoredDrawer::SetOwnTransparency, "None", py::arg(""));
 cls_AIS_ColoredDrawer.def("HasOwnWidth", (bool (AIS_ColoredDrawer::*)() const) &AIS_ColoredDrawer::HasOwnWidth, "None");
 cls_AIS_ColoredDrawer.def("UnsetOwnWidth", (void (AIS_ColoredDrawer::*)()) &AIS_ColoredDrawer::UnsetOwnWidth, "None");
 cls_AIS_ColoredDrawer.def("SetOwnWidth", (void (AIS_ColoredDrawer::*)(const Standard_Real)) &AIS_ColoredDrawer::SetOwnWidth, "None", py::arg(""));
@@ -1636,7 +1490,7 @@ cls_AIS_Shape.def("SetTypeOfHLR", (void (AIS_Shape::*)(const Prs3d_TypeOfHLR)) &
 cls_AIS_Shape.def("TypeOfHLR", (Prs3d_TypeOfHLR (AIS_Shape::*)() const) &AIS_Shape::TypeOfHLR, "Gets the type of HLR algorithm");
 cls_AIS_Shape.def("SetColor", (void (AIS_Shape::*)(const Quantity_Color &)) &AIS_Shape::SetColor, "Sets the color aColor in the reconstructed compound shape. Acts via the Drawer methods below on the appearance of: - free boundaries: Prs3d_Drawer_FreeBoundaryAspect, - isos: Prs3d_Drawer_UIsoAspect, Prs3dDrawer_VIsoAspect, - shared boundaries: Prs3d_Drawer_UnFreeBoundaryAspect, - shading: Prs3d_Drawer_ShadingAspect, - visible line color in hidden line mode: Prs3d_Drawer_SeenLineAspect - hidden line color in hidden line mode: Prs3d_Drawer_HiddenLineAspect.", py::arg("theColor"));
 cls_AIS_Shape.def("UnsetColor", (void (AIS_Shape::*)()) &AIS_Shape::UnsetColor, "Removes settings for color in the reconstructed compound shape.");
-cls_AIS_Shape.def("SetWidth", (void (AIS_Shape::*)(const Standard_Real)) &AIS_Shape::SetWidth, "Sets the value aValue for line width in the reconstructed compound shape. Changes line aspects for lines-only presentation modes like Wireframe and Bounding Box. Doesn't change face boundary line aspect.", py::arg("aValue"));
+cls_AIS_Shape.def("SetWidth", (void (AIS_Shape::*)(const Standard_Real)) &AIS_Shape::SetWidth, "Sets the value aValue for line width in the reconstructed compound shape. Changes line aspects for lines presentation.", py::arg("aValue"));
 cls_AIS_Shape.def("UnsetWidth", (void (AIS_Shape::*)()) &AIS_Shape::UnsetWidth, "Removes the setting for line width in the reconstructed compound shape.");
 cls_AIS_Shape.def("SetMaterial", (void (AIS_Shape::*)(const Graphic3d_MaterialAspect &)) &AIS_Shape::SetMaterial, "Allows you to provide settings for the material aName in the reconstructed compound shape.", py::arg("aName"));
 cls_AIS_Shape.def("UnsetMaterial", (void (AIS_Shape::*)()) &AIS_Shape::UnsetMaterial, "Removes settings for material in the reconstructed compound shape.");
@@ -1670,14 +1524,16 @@ cls_AIS_ColoredShape.def("ClearCustomAspects", (void (AIS_ColoredShape::*)()) &A
 cls_AIS_ColoredShape.def("UnsetCustomAspects", [](AIS_ColoredShape &self, const TopoDS_Shape & a0) -> void { return self.UnsetCustomAspects(a0); });
 cls_AIS_ColoredShape.def("UnsetCustomAspects", (void (AIS_ColoredShape::*)(const TopoDS_Shape &, const Standard_Boolean)) &AIS_ColoredShape::UnsetCustomAspects, "Reset custom properties of specified sub-shape.", py::arg("theShape"), py::arg("theToUnregister"));
 cls_AIS_ColoredShape.def("SetCustomColor", (void (AIS_ColoredShape::*)(const TopoDS_Shape &, const Quantity_Color &)) &AIS_ColoredShape::SetCustomColor, "Customize color of specified sub-shape", py::arg("theShape"), py::arg("theColor"));
+cls_AIS_ColoredShape.def("SetCustomTransparency", (void (AIS_ColoredShape::*)(const TopoDS_Shape &, Standard_Real)) &AIS_ColoredShape::SetCustomTransparency, "Customize transparency of specified sub-shape", py::arg("theShape"), py::arg("theTransparency"));
 cls_AIS_ColoredShape.def("SetCustomWidth", (void (AIS_ColoredShape::*)(const TopoDS_Shape &, const Standard_Real)) &AIS_ColoredShape::SetCustomWidth, "Customize line width of specified sub-shape", py::arg("theShape"), py::arg("theLineWidth"));
 cls_AIS_ColoredShape.def("CustomAspectsMap", (const AIS_DataMapOfShapeDrawer & (AIS_ColoredShape::*)() const) &AIS_ColoredShape::CustomAspectsMap, "Return the map of custom aspects.");
 cls_AIS_ColoredShape.def("ChangeCustomAspectsMap", (AIS_DataMapOfShapeDrawer & (AIS_ColoredShape::*)()) &AIS_ColoredShape::ChangeCustomAspectsMap, "Return the map of custom aspects.");
 cls_AIS_ColoredShape.def("SetColor", (void (AIS_ColoredShape::*)(const Quantity_Color &)) &AIS_ColoredShape::SetColor, "Setup color of entire shape.", py::arg("theColor"));
 cls_AIS_ColoredShape.def("SetWidth", (void (AIS_ColoredShape::*)(const Standard_Real)) &AIS_ColoredShape::SetWidth, "Setup line width of entire shape.", py::arg("theLineWidth"));
 cls_AIS_ColoredShape.def("SetTransparency", (void (AIS_ColoredShape::*)(const Standard_Real)) &AIS_ColoredShape::SetTransparency, "Sets transparency value.", py::arg("theValue"));
-cls_AIS_ColoredShape.def("UnsetTransparency", (void (AIS_ColoredShape::*)()) &AIS_ColoredShape::UnsetTransparency, "Removes the setting for transparency in the reconstructed compound shape.");
 cls_AIS_ColoredShape.def("SetMaterial", (void (AIS_ColoredShape::*)(const Graphic3d_MaterialAspect &)) &AIS_ColoredShape::SetMaterial, "Sets the material aspect.", py::arg("theAspect"));
+cls_AIS_ColoredShape.def("UnsetTransparency", (void (AIS_ColoredShape::*)()) &AIS_ColoredShape::UnsetTransparency, "Removes the setting for transparency in the reconstructed compound shape.");
+cls_AIS_ColoredShape.def("UnsetWidth", (void (AIS_ColoredShape::*)()) &AIS_ColoredShape::UnsetWidth, "Setup line width of entire shape.");
 cls_AIS_ColoredShape.def_static("get_type_name_", (const char * (*)()) &AIS_ColoredShape::get_type_name, "None");
 cls_AIS_ColoredShape.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_ColoredShape::get_type_descriptor, "None");
 cls_AIS_ColoredShape.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_ColoredShape::*)() const) &AIS_ColoredShape::DynamicType, "None");
@@ -1769,10 +1625,10 @@ py::class_<AIS_ConcentricRelation, opencascade::handle<AIS_ConcentricRelation>, 
 cls_AIS_ConcentricRelation.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &, const opencascade::handle<Geom_Plane> &>(), py::arg("aFShape"), py::arg("aSShape"), py::arg("aPlane"));
 
 // Methods
-cls_AIS_ConcentricRelation.def("Compute", (void (AIS_ConcentricRelation::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_ConcentricRelation::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 cls_AIS_ConcentricRelation.def_static("get_type_name_", (const char * (*)()) &AIS_ConcentricRelation::get_type_name, "None");
 cls_AIS_ConcentricRelation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_ConcentricRelation::get_type_descriptor, "None");
 cls_AIS_ConcentricRelation.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_ConcentricRelation::*)() const) &AIS_ConcentricRelation::DynamicType, "None");
+cls_AIS_ConcentricRelation.def("Compute", (void (AIS_ConcentricRelation::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_ConcentricRelation::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 
 // CLASS: AIS_CONNECTEDINTERACTIVE
 py::class_<AIS_ConnectedInteractive, opencascade::handle<AIS_ConnectedInteractive>, AIS_InteractiveObject> cls_AIS_ConnectedInteractive(mod, "AIS_ConnectedInteractive", "Creates an arbitrary located instance of another Interactive Object, which serves as a reference. This allows you to use the Connected Interactive Object without having to recalculate presentation, selection or graphic structure. These are deduced from your reference object. The relation between the connected interactive object and its source is generally one of geometric transformation. AIS_ConnectedInteractive class supports selection mode 0 for any InteractiveObject and all standard modes if its reference based on AIS_Shape. Descendants may redefine ComputeSelection() though. Also ConnectedInteractive will handle HLR if its reference based on AIS_Shape.");
@@ -1800,6 +1656,54 @@ cls_AIS_ConnectedInteractive.def("AcceptDisplayMode", (Standard_Boolean (AIS_Con
 bind_NCollection_DataMap<int, NCollection_List<opencascade::handle<AIS_InteractiveObject> >, NCollection_DefaultHasher<int> >(mod, "AIS_DataMapofIntegerListOfinteractive", py::module_local(false));
 
 // TYPEDEF: AIS_DATAMAPITERATOROFDATAMAPOFINTEGERLISTOFINTERACTIVE
+
+// CLASS: AIS_LOCALSTATUS
+/*
+py::class_<AIS_LocalStatus, opencascade::handle<AIS_LocalStatus>, Standard_Transient> cls_AIS_LocalStatus(mod, "AIS_LocalStatus", "Stored Info about temporary objects.");
+
+// Constructors
+cls_AIS_LocalStatus.def(py::init<>());
+cls_AIS_LocalStatus.def(py::init<const Standard_Boolean>(), py::arg("theIsTemporary"));
+cls_AIS_LocalStatus.def(py::init<const Standard_Boolean, const Standard_Boolean>(), py::arg("theIsTemporary"), py::arg("theIsToDecompose"));
+cls_AIS_LocalStatus.def(py::init<const Standard_Boolean, const Standard_Boolean, const Standard_Integer>(), py::arg("theIsTemporary"), py::arg("theIsToDecompose"), py::arg("theDisplayMode"));
+cls_AIS_LocalStatus.def(py::init<const Standard_Boolean, const Standard_Boolean, const Standard_Integer, const Standard_Integer>(), py::arg("theIsTemporary"), py::arg("theIsToDecompose"), py::arg("theDisplayMode"), py::arg("theSelectionMode"));
+cls_AIS_LocalStatus.def(py::init<const Standard_Boolean, const Standard_Boolean, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theIsTemporary"), py::arg("theIsToDecompose"), py::arg("theDisplayMode"), py::arg("theSelectionMode"), py::arg("theHilightMode"));
+cls_AIS_LocalStatus.def(py::init<const Standard_Boolean, const Standard_Boolean, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Boolean>(), py::arg("theIsTemporary"), py::arg("theIsToDecompose"), py::arg("theDisplayMode"), py::arg("theSelectionMode"), py::arg("theHilightMode"), py::arg("theIsSubIntensity"));
+cls_AIS_LocalStatus.def(py::init<const Standard_Boolean, const Standard_Boolean, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Boolean, const opencascade::handle<Prs3d_Drawer> &>(), py::arg("theIsTemporary"), py::arg("theIsToDecompose"), py::arg("theDisplayMode"), py::arg("theSelectionMode"), py::arg("theHilightMode"), py::arg("theIsSubIntensity"), py::arg("theStyle"));
+
+// Methods
+cls_AIS_LocalStatus.def_static("get_type_name_", (const char * (*)()) &AIS_LocalStatus::get_type_name, "None");
+cls_AIS_LocalStatus.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_LocalStatus::get_type_descriptor, "None");
+cls_AIS_LocalStatus.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_LocalStatus::*)() const) &AIS_LocalStatus::DynamicType, "None");
+cls_AIS_LocalStatus.def("Decomposed", (Standard_Boolean (AIS_LocalStatus::*)() const) &AIS_LocalStatus::Decomposed, "None");
+cls_AIS_LocalStatus.def("IsTemporary", (Standard_Boolean (AIS_LocalStatus::*)() const) &AIS_LocalStatus::IsTemporary, "None");
+cls_AIS_LocalStatus.def("DisplayMode", (Standard_Integer (AIS_LocalStatus::*)() const) &AIS_LocalStatus::DisplayMode, "None");
+cls_AIS_LocalStatus.def("SelectionModes", (const TColStd_ListOfInteger & (AIS_LocalStatus::*)() const) &AIS_LocalStatus::SelectionModes, "None");
+cls_AIS_LocalStatus.def("IsActivated", (Standard_Boolean (AIS_LocalStatus::*)(const Standard_Integer) const) &AIS_LocalStatus::IsActivated, "None", py::arg("aSelMode"));
+cls_AIS_LocalStatus.def("HilightMode", (Standard_Integer (AIS_LocalStatus::*)() const) &AIS_LocalStatus::HilightMode, "None");
+cls_AIS_LocalStatus.def("IsSubIntensityOn", (Standard_Boolean (AIS_LocalStatus::*)() const) &AIS_LocalStatus::IsSubIntensityOn, "None");
+cls_AIS_LocalStatus.def("HilightStyle", (const opencascade::handle<Prs3d_Drawer> & (AIS_LocalStatus::*)() const) &AIS_LocalStatus::HilightStyle, "None");
+cls_AIS_LocalStatus.def("SetDecomposition", (void (AIS_LocalStatus::*)(const Standard_Boolean)) &AIS_LocalStatus::SetDecomposition, "None", py::arg("astatus"));
+cls_AIS_LocalStatus.def("SetTemporary", (void (AIS_LocalStatus::*)(const Standard_Boolean)) &AIS_LocalStatus::SetTemporary, "None", py::arg("astatus"));
+cls_AIS_LocalStatus.def("SetDisplayMode", (void (AIS_LocalStatus::*)(const Standard_Integer)) &AIS_LocalStatus::SetDisplayMode, "None", py::arg("aMode"));
+cls_AIS_LocalStatus.def("SetFirstDisplay", (void (AIS_LocalStatus::*)(const Standard_Boolean)) &AIS_LocalStatus::SetFirstDisplay, "None", py::arg("aStatus"));
+cls_AIS_LocalStatus.def("IsFirstDisplay", (Standard_Boolean (AIS_LocalStatus::*)() const) &AIS_LocalStatus::IsFirstDisplay, "None");
+cls_AIS_LocalStatus.def("AddSelectionMode", (void (AIS_LocalStatus::*)(const Standard_Integer)) &AIS_LocalStatus::AddSelectionMode, "None", py::arg("aMode"));
+cls_AIS_LocalStatus.def("RemoveSelectionMode", (void (AIS_LocalStatus::*)(const Standard_Integer)) &AIS_LocalStatus::RemoveSelectionMode, "None", py::arg("aMode"));
+cls_AIS_LocalStatus.def("ClearSelectionModes", (void (AIS_LocalStatus::*)()) &AIS_LocalStatus::ClearSelectionModes, "None");
+cls_AIS_LocalStatus.def("IsSelModeIn", (Standard_Boolean (AIS_LocalStatus::*)(const Standard_Integer) const) &AIS_LocalStatus::IsSelModeIn, "None", py::arg("aMode"));
+cls_AIS_LocalStatus.def("SetHilightMode", (void (AIS_LocalStatus::*)(const Standard_Integer)) &AIS_LocalStatus::SetHilightMode, "None", py::arg("aMode"));
+cls_AIS_LocalStatus.def("SetHilightStyle", (void (AIS_LocalStatus::*)(const opencascade::handle<Prs3d_Drawer> &)) &AIS_LocalStatus::SetHilightStyle, "None", py::arg("theStyle"));
+cls_AIS_LocalStatus.def("SubIntensityOn", (void (AIS_LocalStatus::*)()) &AIS_LocalStatus::SubIntensityOn, "None");
+cls_AIS_LocalStatus.def("SubIntensityOff", (void (AIS_LocalStatus::*)()) &AIS_LocalStatus::SubIntensityOff, "None");
+cls_AIS_LocalStatus.def("SetPreviousState", (void (AIS_LocalStatus::*)(const opencascade::handle<Standard_Transient> &)) &AIS_LocalStatus::SetPreviousState, "None", py::arg("aStatus"));
+cls_AIS_LocalStatus.def("PreviousState", (const opencascade::handle<Standard_Transient> & (AIS_LocalStatus::*)() const) &AIS_LocalStatus::PreviousState, "None");
+*/
+
+// TYPEDEF: AIS_DATAMAPOFSELSTAT
+bind_NCollection_DataMap<opencascade::handle<SelectMgr_SelectableObject>, opencascade::handle<AIS_LocalStatus>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "AIS_DataMapOfSelStat", py::module_local(false));
+
+// TYPEDEF: AIS_DATAMAPITERATOROFDATAMAPOFSELSTAT
 
 // CLASS: AIS_DIAMETERDIMENSION
 py::class_<AIS_DiameterDimension, opencascade::handle<AIS_DiameterDimension>, AIS_Dimension> cls_AIS_DiameterDimension(mod, "AIS_DiameterDimension", "Diameter dimension. Can be constructued: - On generic circle. - On generic circle with user-defined anchor point on that circle (dimension plane is oriented to follow the anchor point). - On generic circle in the specified plane. - On generic shape containing geometry that can be measured by diameter dimension: circle wire, circular face, etc. The anchor point is the location of the left attachement point of dimension on the circle. The anchor point computation is processed after dimension plane setting so that positive flyout direction stands with normal of the circle and the normal of the plane. If the plane is user-defined the anchor point was computed as intersection of the plane and the basis circle. Among two intersection points the one is selected so that positive flyout direction vector and the circle normal on the one side form the circle plane. (corner between positive flyout directio nand the circle normal is acute.) If the plane is computed automatically (by default it is the circle plane), the anchor point is the zero parameter point of the circle.");
@@ -1844,6 +1748,9 @@ py::class_<AIS_EqualDistanceRelation, opencascade::handle<AIS_EqualDistanceRelat
 cls_AIS_EqualDistanceRelation.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &, const TopoDS_Shape &, const TopoDS_Shape &, const opencascade::handle<Geom_Plane> &>(), py::arg("aShape1"), py::arg("aShape2"), py::arg("aShape3"), py::arg("aShape4"), py::arg("aPlane"));
 
 // Methods
+cls_AIS_EqualDistanceRelation.def_static("get_type_name_", (const char * (*)()) &AIS_EqualDistanceRelation::get_type_name, "None");
+cls_AIS_EqualDistanceRelation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_EqualDistanceRelation::get_type_descriptor, "None");
+cls_AIS_EqualDistanceRelation.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_EqualDistanceRelation::*)() const) &AIS_EqualDistanceRelation::DynamicType, "None");
 cls_AIS_EqualDistanceRelation.def("SetShape3", (void (AIS_EqualDistanceRelation::*)(const TopoDS_Shape &)) &AIS_EqualDistanceRelation::SetShape3, "Sets the shape aShape to be used as the shape aShape3 in the framework created at construction time.", py::arg("aShape"));
 cls_AIS_EqualDistanceRelation.def("Shape3", (const TopoDS_Shape & (AIS_EqualDistanceRelation::*)() const) &AIS_EqualDistanceRelation::Shape3, "Returns the shape aShape3 from the framework created at construction time.");
 cls_AIS_EqualDistanceRelation.def("SetShape4", (void (AIS_EqualDistanceRelation::*)(const TopoDS_Shape &)) &AIS_EqualDistanceRelation::SetShape4, "Sets the shape aShape to be used as the shape aShape4 in the framework created at construction time.", py::arg("aShape"));
@@ -1852,9 +1759,6 @@ cls_AIS_EqualDistanceRelation.def("Compute", (void (AIS_EqualDistanceRelation::*
 cls_AIS_EqualDistanceRelation.def_static("ComputeTwoEdgesLength_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const opencascade::handle<Prs3d_Drawer> &, const Standard_Real, const TopoDS_Edge &, const TopoDS_Edge &, const opencascade::handle<Geom_Plane> &, const Standard_Boolean, const Standard_Boolean, const Bnd_Box &, gp_Pnt &, gp_Pnt &, gp_Pnt &, gp_Pnt &, gp_Pnt &, DsgPrs_ArrowSide &)) &AIS_EqualDistanceRelation::ComputeTwoEdgesLength, "Computes the location of an intreval between between two edges. FirstAttach , SecondAttach are the returned extreme points of the interval.", py::arg("aPresentation"), py::arg("aDrawer"), py::arg("ArrowSize"), py::arg("FirstEdge"), py::arg("SecondEdge"), py::arg("Plane"), py::arg("AutomaticPos"), py::arg("IsSetBndBox"), py::arg("BndBox"), py::arg("Position"), py::arg("FirstAttach"), py::arg("SecondAttach"), py::arg("FirstExtreme"), py::arg("SecondExtreme"), py::arg("SymbolPrs"));
 cls_AIS_EqualDistanceRelation.def_static("ComputeTwoVerticesLength_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const opencascade::handle<Prs3d_Drawer> &, const Standard_Real, const TopoDS_Vertex &, const TopoDS_Vertex &, const opencascade::handle<Geom_Plane> &, const Standard_Boolean, const Standard_Boolean, const Bnd_Box &, const AIS_TypeOfDist, gp_Pnt &, gp_Pnt &, gp_Pnt &, gp_Pnt &, gp_Pnt &, DsgPrs_ArrowSide &)) &AIS_EqualDistanceRelation::ComputeTwoVerticesLength, "Computes the interval position between two vertexs. FirstAttach, SecondAttach are the returned extreme points of the interval.", py::arg("aPresentation"), py::arg("aDrawer"), py::arg("ArrowSize"), py::arg("FirstVertex"), py::arg("SecondVertex"), py::arg("Plane"), py::arg("AutomaticPos"), py::arg("IsSetBndBox"), py::arg("BndBox"), py::arg("TypeDist"), py::arg("Position"), py::arg("FirstAttach"), py::arg("SecondAttach"), py::arg("FirstExtreme"), py::arg("SecondExtreme"), py::arg("SymbolPrs"));
 cls_AIS_EqualDistanceRelation.def_static("ComputeOneEdgeOneVertexLength_", (void (*)(const opencascade::handle<Prs3d_Presentation> &, const opencascade::handle<Prs3d_Drawer> &, const Standard_Real, const TopoDS_Shape &, const TopoDS_Shape &, const opencascade::handle<Geom_Plane> &, const Standard_Boolean, const Standard_Boolean, const Bnd_Box &, gp_Pnt &, gp_Pnt &, gp_Pnt &, gp_Pnt &, gp_Pnt &, DsgPrs_ArrowSide &)) &AIS_EqualDistanceRelation::ComputeOneEdgeOneVertexLength, "Compute the interval location between a vertex and an edge. Edge may be a line or a circle.", py::arg("aPresentation"), py::arg("aDrawer"), py::arg("ArrowSize"), py::arg("FirstShape"), py::arg("SecondShape"), py::arg("Plane"), py::arg("AutomaticPos"), py::arg("IsSetBndBox"), py::arg("BndBox"), py::arg("Position"), py::arg("FirstAttach"), py::arg("SecondAttach"), py::arg("FirstExtreme"), py::arg("SecondExtreme"), py::arg("SymbolPrs"));
-cls_AIS_EqualDistanceRelation.def_static("get_type_name_", (const char * (*)()) &AIS_EqualDistanceRelation::get_type_name, "None");
-cls_AIS_EqualDistanceRelation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_EqualDistanceRelation::get_type_descriptor, "None");
-cls_AIS_EqualDistanceRelation.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_EqualDistanceRelation::*)() const) &AIS_EqualDistanceRelation::DynamicType, "None");
 
 // CLASS: AIS_EQUALRADIUSRELATION
 py::class_<AIS_EqualRadiusRelation, opencascade::handle<AIS_EqualRadiusRelation>, AIS_Relation> cls_AIS_EqualRadiusRelation(mod, "AIS_EqualRadiusRelation", "None");
@@ -1863,10 +1767,10 @@ py::class_<AIS_EqualRadiusRelation, opencascade::handle<AIS_EqualRadiusRelation>
 cls_AIS_EqualRadiusRelation.def(py::init<const TopoDS_Edge &, const TopoDS_Edge &, const opencascade::handle<Geom_Plane> &>(), py::arg("aFirstEdge"), py::arg("aSecondEdge"), py::arg("aPlane"));
 
 // Methods
-cls_AIS_EqualRadiusRelation.def("Compute", (void (AIS_EqualRadiusRelation::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_EqualRadiusRelation::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 cls_AIS_EqualRadiusRelation.def_static("get_type_name_", (const char * (*)()) &AIS_EqualRadiusRelation::get_type_name, "None");
 cls_AIS_EqualRadiusRelation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_EqualRadiusRelation::get_type_descriptor, "None");
 cls_AIS_EqualRadiusRelation.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_EqualRadiusRelation::*)() const) &AIS_EqualRadiusRelation::DynamicType, "None");
+cls_AIS_EqualRadiusRelation.def("Compute", (void (AIS_EqualRadiusRelation::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_EqualRadiusRelation::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 
 // CLASS: AIS_EXCLUSIONFILTER
 py::class_<AIS_ExclusionFilter, opencascade::handle<AIS_ExclusionFilter>, SelectMgr_Filter> cls_AIS_ExclusionFilter(mod, "AIS_ExclusionFilter", "A framework to reject or to accept only objects of given types and/or signatures. Objects are stored, and the stored objects - along with the flag settings - are used to define the filter. Objects to be filtered are compared with the stored objects added to the filter, and are accepted or rejected according to the exclusion flag setting. - Exclusion flag on - the function IsOk answers true for all objects, except those of the types and signatures stored in the filter framework - Exclusion flag off - the funciton IsOk answers true for all objects which have the same type and signature as the stored ones.");
@@ -1907,13 +1811,13 @@ cls_AIS_FixRelation.def(py::init<const TopoDS_Shape &, const opencascade::handle
 cls_AIS_FixRelation.def(py::init<const TopoDS_Shape &, const opencascade::handle<Geom_Plane> &, const gp_Pnt &, const Standard_Real>(), py::arg("aShape"), py::arg("aPlane"), py::arg("aPosition"), py::arg("anArrowSize"));
 
 // Methods
+cls_AIS_FixRelation.def_static("get_type_name_", (const char * (*)()) &AIS_FixRelation::get_type_name, "None");
+cls_AIS_FixRelation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_FixRelation::get_type_descriptor, "None");
+cls_AIS_FixRelation.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_FixRelation::*)() const) &AIS_FixRelation::DynamicType, "None");
 cls_AIS_FixRelation.def("Wire", (TopoDS_Wire (AIS_FixRelation::*)()) &AIS_FixRelation::Wire, "Returns the wire which connects vertices in a fixed relation.");
 cls_AIS_FixRelation.def("SetWire", (void (AIS_FixRelation::*)(const TopoDS_Wire &)) &AIS_FixRelation::SetWire, "Constructs the wire aWire. This connects vertices which are in a fixed relation.", py::arg("aWire"));
 cls_AIS_FixRelation.def("IsMovable", (Standard_Boolean (AIS_FixRelation::*)() const) &AIS_FixRelation::IsMovable, "Returns true if the Interactive Objects in the relation are movable.");
 cls_AIS_FixRelation.def("Compute", (void (AIS_FixRelation::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_FixRelation::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
-cls_AIS_FixRelation.def_static("get_type_name_", (const char * (*)()) &AIS_FixRelation::get_type_name, "None");
-cls_AIS_FixRelation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_FixRelation::get_type_descriptor, "None");
-cls_AIS_FixRelation.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_FixRelation::*)() const) &AIS_FixRelation::DynamicType, "None");
 
 // CLASS: AIS_GRAPHICTOOL
 py::class_<AIS_GraphicTool> cls_AIS_GraphicTool(mod, "AIS_GraphicTool", "None");
@@ -1952,7 +1856,7 @@ cls_AIS_IdenticRelation.def_static("get_type_descriptor_", (const opencascade::h
 cls_AIS_IdenticRelation.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_IdenticRelation::*)() const) &AIS_IdenticRelation::DynamicType, "None");
 
 // TYPEDEF: AIS_INDEXEDDATAMAPOFOWNERPRS
-bind_NCollection_IndexedDataMap<opencascade::handle<SelectMgr_EntityOwner>, opencascade::handle<Prs3d_Presentation>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "AIS_IndexedDataMapOfOwnerPrs", py::module_local(false));
+bind_NCollection_IndexedDataMap<opencascade::handle<SelectMgr_EntityOwner>, opencascade::handle<Graphic3d_Structure>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "AIS_IndexedDataMapOfOwnerPrs", py::module_local(false));
 
 // CLASS: AIS_LENGTHDIMENSION
 py::class_<AIS_LengthDimension, opencascade::handle<AIS_LengthDimension>, AIS_Dimension> cls_AIS_LengthDimension(mod, "AIS_LengthDimension", "Length dimension. Can be constructued: - Between two generic points. - Between two vertices. - Between two faces. - Between two parallel edges. - Between face and edge.");
@@ -2042,6 +1946,7 @@ cls_AIS_Manipulator.def(py::init<const gp_Ax2 &>(), py::arg("thePosition"));
 
 // Methods
 cls_AIS_Manipulator.def("SetPart", (void (AIS_Manipulator::*)(const Standard_Integer, const AIS_ManipulatorMode, const Standard_Boolean)) &AIS_Manipulator::SetPart, "Disable or enable visual parts for translation, rotation or scaling for some axis. By default all parts are enabled (will be displayed).", py::arg("theAxisIndex"), py::arg("theMode"), py::arg("theIsEnabled"));
+cls_AIS_Manipulator.def("SetPart", (void (AIS_Manipulator::*)(const AIS_ManipulatorMode, const Standard_Boolean)) &AIS_Manipulator::SetPart, "Disable or enable visual parts for translation, rotation or scaling for ALL axes. By default all parts are enabled (will be displayed).", py::arg("theMode"), py::arg("theIsEnabled"));
 cls_AIS_Manipulator.def("Attach", [](AIS_Manipulator &self, const opencascade::handle<AIS_InteractiveObject> & a0) -> void { return self.Attach(a0); });
 cls_AIS_Manipulator.def("Attach", (void (AIS_Manipulator::*)(const opencascade::handle<AIS_InteractiveObject> &, const AIS_Manipulator::OptionsForAttach &)) &AIS_Manipulator::Attach, "Attaches himself to the input interactive object and become displayed in the same context. It is placed in the center of object bounding box, and its size is adjusted to the object bounding box.", py::arg("theObject"), py::arg("theOptions"));
 cls_AIS_Manipulator.def("Attach", [](AIS_Manipulator &self, const opencascade::handle<AIS_ManipulatorObjectSequence> & a0) -> void { return self.Attach(a0); });
@@ -2119,10 +2024,28 @@ cls_AIS_MaxRadiusDimension.def(py::init<const TopoDS_Shape &, const Standard_Rea
 cls_AIS_MaxRadiusDimension.def(py::init<const TopoDS_Shape &, const Standard_Real, const TCollection_ExtendedString &, const gp_Pnt &, const DsgPrs_ArrowSide, const Standard_Real>(), py::arg("aShape"), py::arg("aVal"), py::arg("aText"), py::arg("aPosition"), py::arg("aSymbolPrs"), py::arg("anArrowSize"));
 
 // Methods
-cls_AIS_MaxRadiusDimension.def("Compute", (void (AIS_MaxRadiusDimension::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_MaxRadiusDimension::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 cls_AIS_MaxRadiusDimension.def_static("get_type_name_", (const char * (*)()) &AIS_MaxRadiusDimension::get_type_name, "None");
 cls_AIS_MaxRadiusDimension.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_MaxRadiusDimension::get_type_descriptor, "None");
 cls_AIS_MaxRadiusDimension.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_MaxRadiusDimension::*)() const) &AIS_MaxRadiusDimension::DynamicType, "None");
+cls_AIS_MaxRadiusDimension.def("Compute", (void (AIS_MaxRadiusDimension::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_MaxRadiusDimension::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
+
+// CLASS: AIS_MEDIAPLAYER
+py::class_<AIS_MediaPlayer, opencascade::handle<AIS_MediaPlayer>, AIS_InteractiveObject> cls_AIS_MediaPlayer(mod, "AIS_MediaPlayer", "Presentation for video playback.");
+
+// Constructors
+cls_AIS_MediaPlayer.def(py::init<>());
+
+// Methods
+cls_AIS_MediaPlayer.def_static("get_type_name_", (const char * (*)()) &AIS_MediaPlayer::get_type_name, "None");
+cls_AIS_MediaPlayer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_MediaPlayer::get_type_descriptor, "None");
+cls_AIS_MediaPlayer.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_MediaPlayer::*)() const) &AIS_MediaPlayer::DynamicType, "None");
+cls_AIS_MediaPlayer.def("SetCallback", (void (AIS_MediaPlayer::*)(Graphic3d_MediaTextureSet::CallbackOnUpdate_t, void *)) &AIS_MediaPlayer::SetCallback, "Setup callback to be called on queue progress (e.g. when new frame should be displayed).", py::arg("theCallbackFunction"), py::arg("theCallbackUserPtr"));
+cls_AIS_MediaPlayer.def("OpenInput", (void (AIS_MediaPlayer::*)(const TCollection_AsciiString &, Standard_Boolean)) &AIS_MediaPlayer::OpenInput, "Open specified file.", py::arg("thePath"), py::arg("theToWait"));
+cls_AIS_MediaPlayer.def("PresentFrame", (bool (AIS_MediaPlayer::*)(const Graphic3d_Vec2i &, const Graphic3d_Vec2i &)) &AIS_MediaPlayer::PresentFrame, "Display new frame.", py::arg("theLeftCorner"), py::arg("theMaxSize"));
+cls_AIS_MediaPlayer.def("PlayerContext", (const opencascade::handle<Media_PlayerContext> & (AIS_MediaPlayer::*)() const) &AIS_MediaPlayer::PlayerContext, "Return player context.");
+cls_AIS_MediaPlayer.def("PlayPause", (void (AIS_MediaPlayer::*)()) &AIS_MediaPlayer::PlayPause, "Switch playback state.");
+cls_AIS_MediaPlayer.def("SetClosePlayer", (void (AIS_MediaPlayer::*)()) &AIS_MediaPlayer::SetClosePlayer, "Schedule player to be closed.");
+cls_AIS_MediaPlayer.def("Duration", (double (AIS_MediaPlayer::*)() const) &AIS_MediaPlayer::Duration, "Return duration.");
 
 // CLASS: AIS_MIDPOINTRELATION
 py::class_<AIS_MidPointRelation, opencascade::handle<AIS_MidPointRelation>, AIS_Relation> cls_AIS_MidPointRelation(mod, "AIS_MidPointRelation", "presentation of equal distance to point myMidPoint");
@@ -2131,13 +2054,13 @@ py::class_<AIS_MidPointRelation, opencascade::handle<AIS_MidPointRelation>, AIS_
 cls_AIS_MidPointRelation.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &, const TopoDS_Shape &, const opencascade::handle<Geom_Plane> &>(), py::arg("aSymmTool"), py::arg("FirstShape"), py::arg("SecondShape"), py::arg("aPlane"));
 
 // Methods
+cls_AIS_MidPointRelation.def_static("get_type_name_", (const char * (*)()) &AIS_MidPointRelation::get_type_name, "None");
+cls_AIS_MidPointRelation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_MidPointRelation::get_type_descriptor, "None");
+cls_AIS_MidPointRelation.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_MidPointRelation::*)() const) &AIS_MidPointRelation::DynamicType, "None");
 cls_AIS_MidPointRelation.def("IsMovable", (Standard_Boolean (AIS_MidPointRelation::*)() const) &AIS_MidPointRelation::IsMovable, "None");
 cls_AIS_MidPointRelation.def("SetTool", (void (AIS_MidPointRelation::*)(const TopoDS_Shape &)) &AIS_MidPointRelation::SetTool, "None", py::arg("aMidPointTool"));
 cls_AIS_MidPointRelation.def("GetTool", (const TopoDS_Shape & (AIS_MidPointRelation::*)() const) &AIS_MidPointRelation::GetTool, "None");
 cls_AIS_MidPointRelation.def("Compute", (void (AIS_MidPointRelation::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_MidPointRelation::Compute, "Computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
-cls_AIS_MidPointRelation.def_static("get_type_name_", (const char * (*)()) &AIS_MidPointRelation::get_type_name, "None");
-cls_AIS_MidPointRelation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_MidPointRelation::get_type_descriptor, "None");
-cls_AIS_MidPointRelation.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_MidPointRelation::*)() const) &AIS_MidPointRelation::DynamicType, "None");
 
 // CLASS: AIS_MINRADIUSDIMENSION
 py::class_<AIS_MinRadiusDimension, opencascade::handle<AIS_MinRadiusDimension>, AIS_EllipseRadiusDimension> cls_AIS_MinRadiusDimension(mod, "AIS_MinRadiusDimension", "-- Ellipse Min radius dimension of a Shape which can be Edge or Face (planar or cylindrical(surface of extrusion or surface of offset))");
@@ -2148,10 +2071,13 @@ cls_AIS_MinRadiusDimension.def(py::init<const TopoDS_Shape &, const Standard_Rea
 cls_AIS_MinRadiusDimension.def(py::init<const TopoDS_Shape &, const Standard_Real, const TCollection_ExtendedString &, const gp_Pnt &, const DsgPrs_ArrowSide, const Standard_Real>(), py::arg("aShape"), py::arg("aVal"), py::arg("aText"), py::arg("aPosition"), py::arg("aSymbolPrs"), py::arg("anArrowSize"));
 
 // Methods
-cls_AIS_MinRadiusDimension.def("Compute", (void (AIS_MinRadiusDimension::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_MinRadiusDimension::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 cls_AIS_MinRadiusDimension.def_static("get_type_name_", (const char * (*)()) &AIS_MinRadiusDimension::get_type_name, "None");
 cls_AIS_MinRadiusDimension.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_MinRadiusDimension::get_type_descriptor, "None");
 cls_AIS_MinRadiusDimension.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_MinRadiusDimension::*)() const) &AIS_MinRadiusDimension::DynamicType, "None");
+cls_AIS_MinRadiusDimension.def("Compute", (void (AIS_MinRadiusDimension::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_MinRadiusDimension::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
+
+// TYPEDEF: AIS_MOUSEGESTUREMAP
+bind_NCollection_DataMap<unsigned int, AIS_MouseGesture, NCollection_DefaultHasher<unsigned int> >(mod, "AIS_MouseGestureMap", py::module_local(false));
 
 // CLASS: AIS_MULTIPLECONNECTEDINTERACTIVE
 py::class_<AIS_MultipleConnectedInteractive, opencascade::handle<AIS_MultipleConnectedInteractive>, AIS_InteractiveObject> cls_AIS_MultipleConnectedInteractive(mod, "AIS_MultipleConnectedInteractive", "Defines an Interactive Object by gathering together several object presentations. This is done through a list of interactive objects. These can also be Connected objects. That way memory-costly calculations of presentation are avoided.");
@@ -2187,13 +2113,13 @@ py::class_<AIS_OffsetDimension, opencascade::handle<AIS_OffsetDimension>, AIS_Re
 cls_AIS_OffsetDimension.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &, const Standard_Real, const TCollection_ExtendedString &>(), py::arg("FistShape"), py::arg("SecondShape"), py::arg("aVal"), py::arg("aText"));
 
 // Methods
+cls_AIS_OffsetDimension.def_static("get_type_name_", (const char * (*)()) &AIS_OffsetDimension::get_type_name, "None");
+cls_AIS_OffsetDimension.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_OffsetDimension::get_type_descriptor, "None");
+cls_AIS_OffsetDimension.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_OffsetDimension::*)() const) &AIS_OffsetDimension::DynamicType, "None");
 cls_AIS_OffsetDimension.def("Compute", (void (AIS_OffsetDimension::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_OffsetDimension::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 cls_AIS_OffsetDimension.def("KindOfDimension", (AIS_KindOfDimension (AIS_OffsetDimension::*)() const) &AIS_OffsetDimension::KindOfDimension, "Indicates that the dimension we are concerned with is an offset.");
 cls_AIS_OffsetDimension.def("IsMovable", (Standard_Boolean (AIS_OffsetDimension::*)() const) &AIS_OffsetDimension::IsMovable, "Returns true if the offset datum is movable.");
 cls_AIS_OffsetDimension.def("SetRelativePos", (void (AIS_OffsetDimension::*)(const gp_Trsf &)) &AIS_OffsetDimension::SetRelativePos, "Sets a transformation aTrsf for presentation and selection to a relative position.", py::arg("aTrsf"));
-cls_AIS_OffsetDimension.def_static("get_type_name_", (const char * (*)()) &AIS_OffsetDimension::get_type_name, "None");
-cls_AIS_OffsetDimension.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_OffsetDimension::get_type_descriptor, "None");
-cls_AIS_OffsetDimension.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_OffsetDimension::*)() const) &AIS_OffsetDimension::DynamicType, "None");
 
 // CLASS: AIS_PARALLELRELATION
 py::class_<AIS_ParallelRelation, opencascade::handle<AIS_ParallelRelation>, AIS_Relation> cls_AIS_ParallelRelation(mod, "AIS_ParallelRelation", "A framework to display constraints of parallelism between two or more Interactive Objects. These entities can be faces or edges.");
@@ -2204,11 +2130,11 @@ cls_AIS_ParallelRelation.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &
 cls_AIS_ParallelRelation.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &, const opencascade::handle<Geom_Plane> &, const gp_Pnt &, const DsgPrs_ArrowSide, const Standard_Real>(), py::arg("aFShape"), py::arg("aSShape"), py::arg("aPlane"), py::arg("aPosition"), py::arg("aSymbolPrs"), py::arg("anArrowSize"));
 
 // Methods
-cls_AIS_ParallelRelation.def("IsMovable", (Standard_Boolean (AIS_ParallelRelation::*)() const) &AIS_ParallelRelation::IsMovable, "Returns true if the parallelism is movable.");
-cls_AIS_ParallelRelation.def("Compute", (void (AIS_ParallelRelation::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_ParallelRelation::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 cls_AIS_ParallelRelation.def_static("get_type_name_", (const char * (*)()) &AIS_ParallelRelation::get_type_name, "None");
 cls_AIS_ParallelRelation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_ParallelRelation::get_type_descriptor, "None");
 cls_AIS_ParallelRelation.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_ParallelRelation::*)() const) &AIS_ParallelRelation::DynamicType, "None");
+cls_AIS_ParallelRelation.def("IsMovable", (Standard_Boolean (AIS_ParallelRelation::*)() const) &AIS_ParallelRelation::IsMovable, "Returns true if the parallelism is movable.");
+cls_AIS_ParallelRelation.def("Compute", (void (AIS_ParallelRelation::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_ParallelRelation::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 
 // CLASS: AIS_PERPENDICULARRELATION
 py::class_<AIS_PerpendicularRelation, opencascade::handle<AIS_PerpendicularRelation>, AIS_Relation> cls_AIS_PerpendicularRelation(mod, "AIS_PerpendicularRelation", "A framework to display constraints of perpendicularity between two or more interactive datums. These datums can be edges or faces.");
@@ -2218,10 +2144,10 @@ cls_AIS_PerpendicularRelation.def(py::init<const TopoDS_Shape &, const TopoDS_Sh
 cls_AIS_PerpendicularRelation.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &>(), py::arg("aFShape"), py::arg("aSShape"));
 
 // Methods
-cls_AIS_PerpendicularRelation.def("Compute", (void (AIS_PerpendicularRelation::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_PerpendicularRelation::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 cls_AIS_PerpendicularRelation.def_static("get_type_name_", (const char * (*)()) &AIS_PerpendicularRelation::get_type_name, "None");
 cls_AIS_PerpendicularRelation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_PerpendicularRelation::get_type_descriptor, "None");
 cls_AIS_PerpendicularRelation.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_PerpendicularRelation::*)() const) &AIS_PerpendicularRelation::DynamicType, "None");
+cls_AIS_PerpendicularRelation.def("Compute", (void (AIS_PerpendicularRelation::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_PerpendicularRelation::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 
 // CLASS: AIS_PLANE
 py::class_<AIS_Plane, opencascade::handle<AIS_Plane>, AIS_InteractiveObject> cls_AIS_Plane(mod, "AIS_Plane", "Constructs plane datums to be used in construction of composite shapes.");
@@ -2323,6 +2249,9 @@ py::class_<AIS_PointCloud, opencascade::handle<AIS_PointCloud>, AIS_InteractiveO
 cls_AIS_PointCloud.def(py::init<>());
 
 // Methods
+cls_AIS_PointCloud.def_static("get_type_name_", (const char * (*)()) &AIS_PointCloud::get_type_name, "None");
+cls_AIS_PointCloud.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_PointCloud::get_type_descriptor, "None");
+cls_AIS_PointCloud.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_PointCloud::*)() const) &AIS_PointCloud::DynamicType, "None");
 cls_AIS_PointCloud.def("SetPoints", (void (AIS_PointCloud::*)(const opencascade::handle<Graphic3d_ArrayOfPoints> &)) &AIS_PointCloud::SetPoints, "Sets the points from array of points. Method will not copy the input data - array will be stored as handle.", py::arg("thePoints"));
 cls_AIS_PointCloud.def("SetPoints", [](AIS_PointCloud &self, const opencascade::handle<TColgp_HArray1OfPnt> & a0) -> void { return self.SetPoints(a0); });
 cls_AIS_PointCloud.def("SetPoints", [](AIS_PointCloud &self, const opencascade::handle<TColgp_HArray1OfPnt> & a0, const opencascade::handle<Quantity_HArray1OfColor> & a1) -> void { return self.SetPoints(a0, a1); });
@@ -2333,9 +2262,6 @@ cls_AIS_PointCloud.def("SetColor", (void (AIS_PointCloud::*)(const Quantity_Colo
 cls_AIS_PointCloud.def("UnsetColor", (void (AIS_PointCloud::*)()) &AIS_PointCloud::UnsetColor, "Restore default color.");
 cls_AIS_PointCloud.def("SetMaterial", (void (AIS_PointCloud::*)(const Graphic3d_MaterialAspect &)) &AIS_PointCloud::SetMaterial, "Setup custom material. Affects presentation only when normals are defined.", py::arg("theMat"));
 cls_AIS_PointCloud.def("UnsetMaterial", (void (AIS_PointCloud::*)()) &AIS_PointCloud::UnsetMaterial, "Restore default material.");
-cls_AIS_PointCloud.def_static("get_type_name_", (const char * (*)()) &AIS_PointCloud::get_type_name, "None");
-cls_AIS_PointCloud.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_PointCloud::get_type_descriptor, "None");
-cls_AIS_PointCloud.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_PointCloud::*)() const) &AIS_PointCloud::DynamicType, "None");
 
 // Enums
 py::enum_<AIS_PointCloud::DisplayMode>(cls_AIS_PointCloud, "enumDisplayMode", "Display modes supported by this Point Cloud object")
@@ -2344,8 +2270,26 @@ py::enum_<AIS_PointCloud::DisplayMode>(cls_AIS_PointCloud, "enumDisplayMode", "D
 	.export_values();
 py::enum_<AIS_PointCloud::SelectionMode>(cls_AIS_PointCloud, "SelectionMode", "Selection modes supported by this Point Cloud object")
 	.value("SM_Points", AIS_PointCloud::SelectionMode::SM_Points)
+	.value("SM_SubsetOfPoints", AIS_PointCloud::SelectionMode::SM_SubsetOfPoints)
 	.value("SM_BndBox", AIS_PointCloud::SelectionMode::SM_BndBox)
 	.export_values();
+
+// CLASS: AIS_POINTCLOUDOWNER
+py::class_<AIS_PointCloudOwner, opencascade::handle<AIS_PointCloudOwner>, SelectMgr_EntityOwner> cls_AIS_PointCloudOwner(mod, "AIS_PointCloudOwner", "Custom owner for highlighting selected points.");
+
+// Constructors
+cls_AIS_PointCloudOwner.def(py::init<const opencascade::handle<AIS_PointCloud> &>(), py::arg("theOrigin"));
+
+// Methods
+cls_AIS_PointCloudOwner.def_static("get_type_name_", (const char * (*)()) &AIS_PointCloudOwner::get_type_name, "None");
+cls_AIS_PointCloudOwner.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_PointCloudOwner::get_type_descriptor, "None");
+cls_AIS_PointCloudOwner.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_PointCloudOwner::*)() const) &AIS_PointCloudOwner::DynamicType, "None");
+cls_AIS_PointCloudOwner.def("SelectedPoints", (const opencascade::handle<TColStd_HPackedMapOfInteger> & (AIS_PointCloudOwner::*)() const) &AIS_PointCloudOwner::SelectedPoints, "Return selected points. WARNING! Indexation starts with 0 (shifted by -1 comparing to Graphic3d_ArrayOfPoints::Vertice()).");
+cls_AIS_PointCloudOwner.def("DetectedPoints", (const opencascade::handle<TColStd_HPackedMapOfInteger> & (AIS_PointCloudOwner::*)() const) &AIS_PointCloudOwner::DetectedPoints, "Return last detected points. WARNING! Indexation starts with 0 (shifted by -1 comparing to Graphic3d_ArrayOfPoints::Vertice()).");
+cls_AIS_PointCloudOwner.def("IsForcedHilight", (Standard_Boolean (AIS_PointCloudOwner::*)() const) &AIS_PointCloudOwner::IsForcedHilight, "Always update dynamic highlighting.");
+cls_AIS_PointCloudOwner.def("HilightWithColor", (void (AIS_PointCloudOwner::*)(const opencascade::handle<PrsMgr_PresentationManager3d> &, const opencascade::handle<Prs3d_Drawer> &, const Standard_Integer)) &AIS_PointCloudOwner::HilightWithColor, "Handle dynamic highlighting.", py::arg("thePrsMgr"), py::arg("theStyle"), py::arg("theMode"));
+cls_AIS_PointCloudOwner.def("Unhilight", (void (AIS_PointCloudOwner::*)(const opencascade::handle<PrsMgr_PresentationManager> &, const Standard_Integer)) &AIS_PointCloudOwner::Unhilight, "Removes highlighting.", py::arg("thePrsMgr"), py::arg("theMode"));
+cls_AIS_PointCloudOwner.def("Clear", (void (AIS_PointCloudOwner::*)(const opencascade::handle<PrsMgr_PresentationManager> &, const Standard_Integer)) &AIS_PointCloudOwner::Clear, "Clears presentation.", py::arg("thePrsMgr"), py::arg("theMode"));
 
 // CLASS: AIS_RADIUSDIMENSION
 py::class_<AIS_RadiusDimension, opencascade::handle<AIS_RadiusDimension>, AIS_Dimension> cls_AIS_RadiusDimension(mod, "AIS_RadiusDimension", "Radius dimension. Can be constructued: - On generic circle. - On generic circle with user-defined anchor point on that circle. - On generic shape containing geometry that can be measured by diameter dimension: circle wire, arc, circular face, etc. The anchor point is the location of left attachement point of dimension on the circle. It can be user-specified, or computed as middle point on the arc. The radius dimension always lies in the plane of the measured circle. The dimension is considered as invalid if the user-specified anchor point is not lying on the circle, if the radius of the circle is less than Precision::Confusion(). In case if the dimension is built on the arbitrary shape, it can be considered as invalid if the shape does not contain circle geometry.");
@@ -2416,6 +2360,9 @@ cls_AIS_RubberBand.def("SetPolygonClosed", (void (AIS_RubberBand::*)(Standard_Bo
 // TYPEDEF: AIS_SEQUENCEOFDIMENSION
 bind_NCollection_Sequence<opencascade::handle<AIS_Relation> >(mod, "AIS_SequenceOfDimension", py::module_local(false));
 
+// TYPEDEF: AIS_SEQUENCEOFINTERACTIVE
+bind_NCollection_Sequence<opencascade::handle<AIS_InteractiveObject> >(mod, "AIS_SequenceOfInteractive", py::module_local(false));
+
 // CLASS: AIS_TYPEFILTER
 py::class_<AIS_TypeFilter, opencascade::handle<AIS_TypeFilter>, SelectMgr_Filter> cls_AIS_TypeFilter(mod, "AIS_TypeFilter", "Selects Interactive Objects through their types. The filter questions each Interactive Object in local context to determine whether it has an non-null owner, and if so, whether it is of the desired type. If the object returns true in each case, it is kept. If not, it is rejected. By default, the interactive object has a None type and a signature of 0. A filter for type specifies a choice of type out of a range at any level enumerated for type or kind. The choice could be for kind of interactive object, of dimension, of unit, or type of axis, plane or attribute. If you want to give a particular type and signature to your Interactive Object, you must redefine two virtual methods: Type and Signature. This filter is used in both Neutral Point and open local contexts. In the Collector viewer, you can only locate Interactive Objects which answer positively to the positioned filters when a local context is open. Warning When you close a local context, all temporary interactive objects are deleted, all selection modes concerning the context are cancelled, and all content filters are emptied.");
 
@@ -2447,13 +2394,13 @@ py::class_<AIS_SymmetricRelation, opencascade::handle<AIS_SymmetricRelation>, AI
 cls_AIS_SymmetricRelation.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &, const TopoDS_Shape &, const opencascade::handle<Geom_Plane> &>(), py::arg("aSymmTool"), py::arg("FirstShape"), py::arg("SecondShape"), py::arg("aPlane"));
 
 // Methods
+cls_AIS_SymmetricRelation.def_static("get_type_name_", (const char * (*)()) &AIS_SymmetricRelation::get_type_name, "None");
+cls_AIS_SymmetricRelation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_SymmetricRelation::get_type_descriptor, "None");
+cls_AIS_SymmetricRelation.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_SymmetricRelation::*)() const) &AIS_SymmetricRelation::DynamicType, "None");
 cls_AIS_SymmetricRelation.def("IsMovable", (Standard_Boolean (AIS_SymmetricRelation::*)() const) &AIS_SymmetricRelation::IsMovable, "Returns true if the symmetric constraint display is movable.");
 cls_AIS_SymmetricRelation.def("SetTool", (void (AIS_SymmetricRelation::*)(const TopoDS_Shape &)) &AIS_SymmetricRelation::SetTool, "Sets the tool aSymmetricTool composed of a first shape, a second shape, and a plane. This tool is initially created at construction time.", py::arg("aSymmetricTool"));
 cls_AIS_SymmetricRelation.def("GetTool", (const TopoDS_Shape & (AIS_SymmetricRelation::*)() const) &AIS_SymmetricRelation::GetTool, "Returns the tool composed of a first shape, a second shape, and a plane. This tool is created at construction time.");
 cls_AIS_SymmetricRelation.def("Compute", (void (AIS_SymmetricRelation::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_SymmetricRelation::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
-cls_AIS_SymmetricRelation.def_static("get_type_name_", (const char * (*)()) &AIS_SymmetricRelation::get_type_name, "None");
-cls_AIS_SymmetricRelation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_SymmetricRelation::get_type_descriptor, "None");
-cls_AIS_SymmetricRelation.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_SymmetricRelation::*)() const) &AIS_SymmetricRelation::DynamicType, "None");
 
 // CLASS: AIS_TANGENTRELATION
 py::class_<AIS_TangentRelation, opencascade::handle<AIS_TangentRelation>, AIS_Relation> cls_AIS_TangentRelation(mod, "AIS_TangentRelation", "A framework to display tangency constraints between two or more Interactive Objects of the datum type. The datums are normally faces or edges.");
@@ -2463,12 +2410,12 @@ cls_AIS_TangentRelation.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &,
 cls_AIS_TangentRelation.def(py::init<const TopoDS_Shape &, const TopoDS_Shape &, const opencascade::handle<Geom_Plane> &, const Standard_Integer>(), py::arg("aFShape"), py::arg("aSShape"), py::arg("aPlane"), py::arg("anExternRef"));
 
 // Methods
-cls_AIS_TangentRelation.def("ExternRef", (Standard_Integer (AIS_TangentRelation::*)()) &AIS_TangentRelation::ExternRef, "Returns the external reference for tangency. The values are as follows: - 0 - there is no connection; - 1 - there is a connection to the first shape; - 2 - there is a connection to the second shape. This reference is defined at construction time.");
-cls_AIS_TangentRelation.def("SetExternRef", (void (AIS_TangentRelation::*)(const Standard_Integer)) &AIS_TangentRelation::SetExternRef, "Sets the external reference for tangency, aRef. The values are as follows: - 0 - there is no connection; - 1 - there is a connection to the first shape; - 2 - there is a connection to the second shape. This reference is initially defined at construction time.", py::arg("aRef"));
-cls_AIS_TangentRelation.def("Compute", (void (AIS_TangentRelation::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_TangentRelation::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 cls_AIS_TangentRelation.def_static("get_type_name_", (const char * (*)()) &AIS_TangentRelation::get_type_name, "None");
 cls_AIS_TangentRelation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_TangentRelation::get_type_descriptor, "None");
 cls_AIS_TangentRelation.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_TangentRelation::*)() const) &AIS_TangentRelation::DynamicType, "None");
+cls_AIS_TangentRelation.def("ExternRef", (Standard_Integer (AIS_TangentRelation::*)()) &AIS_TangentRelation::ExternRef, "Returns the external reference for tangency. The values are as follows: - 0 - there is no connection; - 1 - there is a connection to the first shape; - 2 - there is a connection to the second shape. This reference is defined at construction time.");
+cls_AIS_TangentRelation.def("SetExternRef", (void (AIS_TangentRelation::*)(const Standard_Integer)) &AIS_TangentRelation::SetExternRef, "Sets the external reference for tangency, aRef. The values are as follows: - 0 - there is no connection; - 1 - there is a connection to the first shape; - 2 - there is a connection to the second shape. This reference is initially defined at construction time.", py::arg("aRef"));
+cls_AIS_TangentRelation.def("Compute", (void (AIS_TangentRelation::*)(const opencascade::handle<Prs3d_Projector> &, const opencascade::handle<Geom_Transformation> &, const opencascade::handle<Prs3d_Presentation> &)) &AIS_TangentRelation::Compute, "computes the presentation according to a point of view given by <aProjector>. To be Used when the associated degenerated Presentations have been transformed by <aTrsf> which is not a Pure Translation. The HLR Prs can't be deducted automatically WARNING :<aTrsf> must be applied to the object to display before computation !!!", py::arg("aProjector"), py::arg("aTrsf"), py::arg("aPresentation"));
 
 // CLASS: AIS_TEXTLABEL
 py::class_<AIS_TextLabel, opencascade::handle<AIS_TextLabel>, AIS_InteractiveObject> cls_AIS_TextLabel(mod, "AIS_TextLabel", "Presentation of the text.");
@@ -2545,6 +2492,7 @@ cls_AIS_TexturedShape.def("SetTextureScale", (void (AIS_TexturedShape::*)(const 
 cls_AIS_TexturedShape.def("ShowTriangles", (Standard_Boolean (AIS_TexturedShape::*)() const) &AIS_TexturedShape::ShowTriangles, "Returns true if displaying of triangles is requested");
 cls_AIS_TexturedShape.def("ShowTriangles", (void (AIS_TexturedShape::*)(const Standard_Boolean)) &AIS_TexturedShape::ShowTriangles, "Use this method to show the triangulation of the shape (for debugging etc.).", py::arg("theToShowTriangles"));
 cls_AIS_TexturedShape.def("TextureModulate", (Standard_Boolean (AIS_TexturedShape::*)() const) &AIS_TexturedShape::TextureModulate, "Returns true if texture color modulation is turned on");
+cls_AIS_TexturedShape.def("AcceptDisplayMode", (Standard_Boolean (AIS_TexturedShape::*)(const Standard_Integer) const) &AIS_TexturedShape::AcceptDisplayMode, "Return true if specified display mode is supported (extends AIS_Shape with Display Mode 3).", py::arg("theMode"));
 cls_AIS_TexturedShape.def_static("get_type_name_", (const char * (*)()) &AIS_TexturedShape::get_type_name, "None");
 cls_AIS_TexturedShape.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_TexturedShape::get_type_descriptor, "None");
 cls_AIS_TexturedShape.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_TexturedShape::*)() const) &AIS_TexturedShape::DynamicType, "None");
@@ -2556,6 +2504,9 @@ py::class_<AIS_Triangulation, opencascade::handle<AIS_Triangulation>, AIS_Intera
 cls_AIS_Triangulation.def(py::init<const opencascade::handle<Poly_Triangulation> &>(), py::arg("aTriangulation"));
 
 // Methods
+cls_AIS_Triangulation.def_static("get_type_name_", (const char * (*)()) &AIS_Triangulation::get_type_name, "None");
+cls_AIS_Triangulation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_Triangulation::get_type_descriptor, "None");
+cls_AIS_Triangulation.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_Triangulation::*)() const) &AIS_Triangulation::DynamicType, "None");
 cls_AIS_Triangulation.def("SetColors", (void (AIS_Triangulation::*)(const opencascade::handle<TColStd_HArray1OfInteger> &)) &AIS_Triangulation::SetColors, "Set the color for each node. Each 32-bit color is Alpha << 24 + Blue << 16 + Green << 8 + Red Order of color components is essential for further usage by OpenGL", py::arg("aColor"));
 cls_AIS_Triangulation.def("GetColors", (opencascade::handle<TColStd_HArray1OfInteger> (AIS_Triangulation::*)() const) &AIS_Triangulation::GetColors, "Get the color for each node. Each 32-bit color is Alpha << 24 + Blue << 16 + Green << 8 + Red");
 cls_AIS_Triangulation.def("HasVertexColors", (Standard_Boolean (AIS_Triangulation::*)() const) &AIS_Triangulation::HasVertexColors, "Returns true if triangulation has vertex colors.");
@@ -2564,9 +2515,6 @@ cls_AIS_Triangulation.def("GetTriangulation", (opencascade::handle<Poly_Triangul
 cls_AIS_Triangulation.def("SetTransparency", [](AIS_Triangulation &self) -> void { return self.SetTransparency(); });
 cls_AIS_Triangulation.def("SetTransparency", (void (AIS_Triangulation::*)(const Standard_Real)) &AIS_Triangulation::SetTransparency, "Sets the value aValue for transparency in the reconstructed compound shape.", py::arg("aValue"));
 cls_AIS_Triangulation.def("UnsetTransparency", (void (AIS_Triangulation::*)()) &AIS_Triangulation::UnsetTransparency, "Removes the setting for transparency in the reconstructed compound shape.");
-cls_AIS_Triangulation.def_static("get_type_name_", (const char * (*)()) &AIS_Triangulation::get_type_name, "None");
-cls_AIS_Triangulation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_Triangulation::get_type_descriptor, "None");
-cls_AIS_Triangulation.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_Triangulation::*)() const) &AIS_Triangulation::DynamicType, "None");
 
 // CLASS: AIS_TRIHEDRON
 py::class_<AIS_Trihedron, opencascade::handle<AIS_Trihedron>, AIS_InteractiveObject> cls_AIS_Trihedron(mod, "AIS_Trihedron", "Create a selectable trihedron The trihedron includes 1 origin, 3 axes and 3 labels. Default text of labels are 'X', 'Y', 'Z'. Color of origin and any axis, color of arrows and labels may be changed. Visual presentation might be shown in two, shaded and wireframe modes, wireframe by default). There are 4 modes of selection: - AIS_TrihedronSelectionMode_EntireObject to select trihedron, priority = 1 - AIS_TrihedronSelectionMode_Origin to select its origin, priority = 5 - AIS_TrihedronSelectionMode_Axes to select its axis, priority = 3 - AIS_TrihedronSelectionMode_MainPlanes to select its planes, priority = 2");
@@ -2628,6 +2576,288 @@ cls_AIS_TrihedronOwner.def("DatumPart", (Prs3d_DatumParts (AIS_TrihedronOwner::*
 cls_AIS_TrihedronOwner.def("HilightWithColor", (void (AIS_TrihedronOwner::*)(const opencascade::handle<PrsMgr_PresentationManager3d> &, const opencascade::handle<Prs3d_Drawer> &, const Standard_Integer)) &AIS_TrihedronOwner::HilightWithColor, "Highlights selectable object's presentation.", py::arg("thePM"), py::arg("theStyle"), py::arg("theMode"));
 cls_AIS_TrihedronOwner.def("IsHilighted", (Standard_Boolean (AIS_TrihedronOwner::*)(const opencascade::handle<PrsMgr_PresentationManager> &, const Standard_Integer) const) &AIS_TrihedronOwner::IsHilighted, "Returns true if the presentation manager thePM highlights selections corresponding to the selection mode aMode.", py::arg("thePM"), py::arg("theMode"));
 cls_AIS_TrihedronOwner.def("Unhilight", (void (AIS_TrihedronOwner::*)(const opencascade::handle<PrsMgr_PresentationManager> &, const Standard_Integer)) &AIS_TrihedronOwner::Unhilight, "Removes highlighting from the owner of a detected selectable object in the presentation manager thePM.", py::arg("thePM"), py::arg("theMode"));
+
+// CLASS: AIS_VIEWINPUTBUFFER
+py::class_<AIS_ViewInputBuffer> cls_AIS_ViewInputBuffer(mod, "AIS_ViewInputBuffer", "Auxiliary structure defining viewer events");
+
+// Constructors
+cls_AIS_ViewInputBuffer.def(py::init<>());
+
+// Fields
+cls_AIS_ViewInputBuffer.def_readwrite("IsNewGesture", &AIS_ViewInputBuffer::IsNewGesture, "transition from one action to another");
+cls_AIS_ViewInputBuffer.def_readwrite("ZoomActions", &AIS_ViewInputBuffer::ZoomActions, "the queue with zoom actions");
+cls_AIS_ViewInputBuffer.def_readwrite("Orientation", &AIS_ViewInputBuffer::Orientation, "None");
+cls_AIS_ViewInputBuffer.def_readwrite("MoveTo", &AIS_ViewInputBuffer::MoveTo, "None");
+cls_AIS_ViewInputBuffer.def_readwrite("Selection", &AIS_ViewInputBuffer::Selection, "None");
+cls_AIS_ViewInputBuffer.def_readwrite("Panning", &AIS_ViewInputBuffer::Panning, "None");
+cls_AIS_ViewInputBuffer.def_readwrite("Dragging", &AIS_ViewInputBuffer::Dragging, "None");
+cls_AIS_ViewInputBuffer.def_readwrite("OrbitRotation", &AIS_ViewInputBuffer::OrbitRotation, "None");
+cls_AIS_ViewInputBuffer.def_readwrite("ViewRotation", &AIS_ViewInputBuffer::ViewRotation, "None");
+cls_AIS_ViewInputBuffer.def_readwrite("ZRotate", &AIS_ViewInputBuffer::ZRotate, "None");
+
+// Methods
+cls_AIS_ViewInputBuffer.def("Reset", (void (AIS_ViewInputBuffer::*)()) &AIS_ViewInputBuffer::Reset, "Reset events buffer.");
+
+// CLASS: AIS_WALKPART
+py::class_<AIS_WalkPart> cls_AIS_WalkPart(mod, "AIS_WalkPart", "Walking value.");
+
+// Constructors
+cls_AIS_WalkPart.def(py::init<>());
+
+// Fields
+cls_AIS_WalkPart.def_readwrite("Value", &AIS_WalkPart::Value, "value");
+cls_AIS_WalkPart.def_readwrite("Pressure", &AIS_WalkPart::Pressure, "key pressure");
+cls_AIS_WalkPart.def_readwrite("Duration", &AIS_WalkPart::Duration, "duration");
+
+// Methods
+cls_AIS_WalkPart.def("IsEmpty", (bool (AIS_WalkPart::*)() const) &AIS_WalkPart::IsEmpty, "Return TRUE if delta is empty.");
+
+// CLASS: AIS_WALKDELTA
+py::class_<AIS_WalkDelta> cls_AIS_WalkDelta(mod, "AIS_WalkDelta", "Walking values.");
+
+// Constructors
+cls_AIS_WalkDelta.def(py::init<>());
+
+// Methods
+cls_AIS_WalkDelta.def("__getitem__", (const AIS_WalkPart & (AIS_WalkDelta::*)(AIS_WalkTranslation) const) &AIS_WalkDelta::operator[], py::is_operator(), "Return translation component.", py::arg("thePart"));
+cls_AIS_WalkDelta.def("__getitem__", (AIS_WalkPart & (AIS_WalkDelta::*)(AIS_WalkTranslation)) &AIS_WalkDelta::operator[], py::is_operator(), "Return translation component.", py::arg("thePart"));
+cls_AIS_WalkDelta.def("__getitem__", (const AIS_WalkPart & (AIS_WalkDelta::*)(AIS_WalkRotation) const) &AIS_WalkDelta::operator[], py::is_operator(), "Return rotation component.", py::arg("thePart"));
+cls_AIS_WalkDelta.def("__getitem__", (AIS_WalkPart & (AIS_WalkDelta::*)(AIS_WalkRotation)) &AIS_WalkDelta::operator[], py::is_operator(), "Return rotation component.", py::arg("thePart"));
+cls_AIS_WalkDelta.def("IsJumping", (bool (AIS_WalkDelta::*)() const) &AIS_WalkDelta::IsJumping, "Return jumping state.");
+cls_AIS_WalkDelta.def("SetJumping", (void (AIS_WalkDelta::*)(bool)) &AIS_WalkDelta::SetJumping, "Set jumping state.", py::arg("theIsJumping"));
+cls_AIS_WalkDelta.def("IsCrouching", (bool (AIS_WalkDelta::*)() const) &AIS_WalkDelta::IsCrouching, "Return crouching state.");
+cls_AIS_WalkDelta.def("SetCrouching", (void (AIS_WalkDelta::*)(bool)) &AIS_WalkDelta::SetCrouching, "Set crouching state.", py::arg("theIsCrouching"));
+cls_AIS_WalkDelta.def("IsRunning", (bool (AIS_WalkDelta::*)() const) &AIS_WalkDelta::IsRunning, "Return running state.");
+cls_AIS_WalkDelta.def("SetRunning", (void (AIS_WalkDelta::*)(bool)) &AIS_WalkDelta::SetRunning, "Set running state.", py::arg("theIsRunning"));
+cls_AIS_WalkDelta.def("IsEmpty", (bool (AIS_WalkDelta::*)() const) &AIS_WalkDelta::IsEmpty, "Return TRUE when both Rotation and Translation deltas are empty.");
+cls_AIS_WalkDelta.def("ToMove", (bool (AIS_WalkDelta::*)() const) &AIS_WalkDelta::ToMove, "Return TRUE if translation delta is defined.");
+cls_AIS_WalkDelta.def("ToRotate", (bool (AIS_WalkDelta::*)() const) &AIS_WalkDelta::ToRotate, "Return TRUE if rotation delta is defined.");
+
+// CLASS: AIS_VIEWCONTROLLER
+py::class_<AIS_ViewController> cls_AIS_ViewController(mod, "AIS_ViewController", "Auxiliary structure for handling viewer events between GUI and Rendering threads.");
+
+// Constructors
+cls_AIS_ViewController.def(py::init<>());
+
+// Methods
+cls_AIS_ViewController.def("InputBuffer", (const AIS_ViewInputBuffer & (AIS_ViewController::*)(AIS_ViewInputBufferType) const) &AIS_ViewController::InputBuffer, "Return input buffer.", py::arg("theType"));
+cls_AIS_ViewController.def("ChangeInputBuffer", (AIS_ViewInputBuffer & (AIS_ViewController::*)(AIS_ViewInputBufferType)) &AIS_ViewController::ChangeInputBuffer, "Return input buffer.", py::arg("theType"));
+cls_AIS_ViewController.def("ViewAnimation", (const opencascade::handle<AIS_AnimationCamera> & (AIS_ViewController::*)() const) &AIS_ViewController::ViewAnimation, "Return view animation; empty (but not NULL) animation by default.");
+cls_AIS_ViewController.def("SetViewAnimation", (void (AIS_ViewController::*)(const opencascade::handle<AIS_AnimationCamera> &)) &AIS_ViewController::SetViewAnimation, "Set view animation to be handled within handleViewRedraw().", py::arg("theAnimation"));
+cls_AIS_ViewController.def("AbortViewAnimation", (void (AIS_ViewController::*)()) &AIS_ViewController::AbortViewAnimation, "Interrupt active view animation.");
+cls_AIS_ViewController.def("RotationMode", (AIS_RotationMode (AIS_ViewController::*)() const) &AIS_ViewController::RotationMode, "Return camera rotation mode, AIS_RotationMode_BndBoxActive by default.");
+cls_AIS_ViewController.def("SetRotationMode", (void (AIS_ViewController::*)(AIS_RotationMode)) &AIS_ViewController::SetRotationMode, "Set camera rotation mode.", py::arg("theMode"));
+cls_AIS_ViewController.def("NavigationMode", (AIS_NavigationMode (AIS_ViewController::*)() const) &AIS_ViewController::NavigationMode, "Return camera navigation mode; AIS_NavigationMode_Orbit by default.");
+cls_AIS_ViewController.def("SetNavigationMode", (void (AIS_ViewController::*)(AIS_NavigationMode)) &AIS_ViewController::SetNavigationMode, "Set camera navigation mode.", py::arg("theMode"));
+cls_AIS_ViewController.def("MouseAcceleration", (float (AIS_ViewController::*)() const) &AIS_ViewController::MouseAcceleration, "Return mouse input acceleration ratio in First Person mode; 1.0 by default.");
+cls_AIS_ViewController.def("SetMouseAcceleration", (void (AIS_ViewController::*)(float)) &AIS_ViewController::SetMouseAcceleration, "Set mouse input acceleration ratio.", py::arg("theRatio"));
+cls_AIS_ViewController.def("OrbitAcceleration", (float (AIS_ViewController::*)() const) &AIS_ViewController::OrbitAcceleration, "Return orbit rotation acceleration ratio; 1.0 by default.");
+cls_AIS_ViewController.def("SetOrbitAcceleration", (void (AIS_ViewController::*)(float)) &AIS_ViewController::SetOrbitAcceleration, "Set orbit rotation acceleration ratio.", py::arg("theRatio"));
+cls_AIS_ViewController.def("ToShowPanAnchorPoint", (bool (AIS_ViewController::*)() const) &AIS_ViewController::ToShowPanAnchorPoint, "Return TRUE if panning anchor point within perspective projection should be displayed in 3D Viewer; TRUE by default.");
+cls_AIS_ViewController.def("SetShowPanAnchorPoint", (void (AIS_ViewController::*)(bool)) &AIS_ViewController::SetShowPanAnchorPoint, "Set if panning anchor point within perspective projection should be displayed in 3D Viewer.", py::arg("theToShow"));
+cls_AIS_ViewController.def("ToShowRotateCenter", (bool (AIS_ViewController::*)() const) &AIS_ViewController::ToShowRotateCenter, "Return TRUE if rotation point should be displayed in 3D Viewer; TRUE by default.");
+cls_AIS_ViewController.def("SetShowRotateCenter", (void (AIS_ViewController::*)(bool)) &AIS_ViewController::SetShowRotateCenter, "Set if rotation point should be displayed in 3D Viewer.", py::arg("theToShow"));
+cls_AIS_ViewController.def("ToLockOrbitZUp", (bool (AIS_ViewController::*)() const) &AIS_ViewController::ToLockOrbitZUp, "Return TRUE if camera up orientation within AIS_NavigationMode_Orbit rotation mode should be forced Z up; FALSE by default.");
+cls_AIS_ViewController.def("SetLockOrbitZUp", (void (AIS_ViewController::*)(bool)) &AIS_ViewController::SetLockOrbitZUp, "Set if camera up orientation within AIS_NavigationMode_Orbit rotation mode should be forced Z up.", py::arg("theToForceUp"));
+cls_AIS_ViewController.def("ToAllowTouchZRotation", (bool (AIS_ViewController::*)() const) &AIS_ViewController::ToAllowTouchZRotation, "Return TRUE if z-rotation via two-touches gesture is enabled; FALSE by default.");
+cls_AIS_ViewController.def("SetAllowTouchZRotation", (void (AIS_ViewController::*)(bool)) &AIS_ViewController::SetAllowTouchZRotation, "Set if z-rotation via two-touches gesture is enabled.", py::arg("theToEnable"));
+cls_AIS_ViewController.def("ToAllowRotation", (bool (AIS_ViewController::*)() const) &AIS_ViewController::ToAllowRotation, "Return TRUE if camera rotation is allowed; TRUE by default.");
+cls_AIS_ViewController.def("SetAllowRotation", (void (AIS_ViewController::*)(bool)) &AIS_ViewController::SetAllowRotation, "Set if camera rotation is allowed.", py::arg("theToEnable"));
+cls_AIS_ViewController.def("ToAllowPanning", (bool (AIS_ViewController::*)() const) &AIS_ViewController::ToAllowPanning, "Return TRUE if panning is allowed; TRUE by default.");
+cls_AIS_ViewController.def("SetAllowPanning", (void (AIS_ViewController::*)(bool)) &AIS_ViewController::SetAllowPanning, "Set if panning is allowed.", py::arg("theToEnable"));
+cls_AIS_ViewController.def("ToAllowZooming", (bool (AIS_ViewController::*)() const) &AIS_ViewController::ToAllowZooming, "Return TRUE if zooming is allowed; TRUE by default.");
+cls_AIS_ViewController.def("SetAllowZooming", (void (AIS_ViewController::*)(bool)) &AIS_ViewController::SetAllowZooming, "Set if zooming is allowed.", py::arg("theToEnable"));
+cls_AIS_ViewController.def("ToAllowZFocus", (bool (AIS_ViewController::*)() const) &AIS_ViewController::ToAllowZFocus, "Return TRUE if ZFocus change is allowed; TRUE by default.");
+cls_AIS_ViewController.def("SetAllowZFocus", (void (AIS_ViewController::*)(bool)) &AIS_ViewController::SetAllowZFocus, "Set if ZFocus change is allowed.", py::arg("theToEnable"));
+cls_AIS_ViewController.def("ToAllowHighlight", (bool (AIS_ViewController::*)() const) &AIS_ViewController::ToAllowHighlight, "Return TRUE if dynamic highlight on mouse move is allowed; TRUE by default.");
+cls_AIS_ViewController.def("SetAllowHighlight", (void (AIS_ViewController::*)(bool)) &AIS_ViewController::SetAllowHighlight, "Set if dragging object is allowed.", py::arg("theToEnable"));
+cls_AIS_ViewController.def("ToAllowDragging", (bool (AIS_ViewController::*)() const) &AIS_ViewController::ToAllowDragging, "Return TRUE if dragging object is allowed; TRUE by default.");
+cls_AIS_ViewController.def("SetAllowDragging", (void (AIS_ViewController::*)(bool)) &AIS_ViewController::SetAllowDragging, "Set if dynamic highlight on mouse move is allowed.", py::arg("theToEnable"));
+cls_AIS_ViewController.def("ToStickToRayOnZoom", (bool (AIS_ViewController::*)() const) &AIS_ViewController::ToStickToRayOnZoom, "Return TRUE if picked point should be projected to picking ray on zooming at point; TRUE by default.");
+cls_AIS_ViewController.def("SetStickToRayOnZoom", (void (AIS_ViewController::*)(bool)) &AIS_ViewController::SetStickToRayOnZoom, "Set if picked point should be projected to picking ray on zooming at point.", py::arg("theToEnable"));
+cls_AIS_ViewController.def("ToStickToRayOnRotation", (bool (AIS_ViewController::*)() const) &AIS_ViewController::ToStickToRayOnRotation, "Return TRUE if picked point should be projected to picking ray on rotating around point; TRUE by default.");
+cls_AIS_ViewController.def("SetStickToRayOnRotation", (void (AIS_ViewController::*)(bool)) &AIS_ViewController::SetStickToRayOnRotation, "Set if picked point should be projected to picking ray on rotating around point.", py::arg("theToEnable"));
+cls_AIS_ViewController.def("ToInvertPitch", (bool (AIS_ViewController::*)() const) &AIS_ViewController::ToInvertPitch, "Return TRUE if pitch direction should be inverted while processing Aspect_VKey_NavLookUp/Aspect_VKey_NavLookDown; FALSE by default.");
+cls_AIS_ViewController.def("SetInvertPitch", (void (AIS_ViewController::*)(bool)) &AIS_ViewController::SetInvertPitch, "Set flag inverting pitch direction.", py::arg("theToInvert"));
+cls_AIS_ViewController.def("WalkSpeedAbsolute", (float (AIS_ViewController::*)() const) &AIS_ViewController::WalkSpeedAbsolute, "Return normal walking speed, in m/s; 1.5 by default.");
+cls_AIS_ViewController.def("SetWalkSpeedAbsolute", (void (AIS_ViewController::*)(float)) &AIS_ViewController::SetWalkSpeedAbsolute, "Set normal walking speed, in m/s; 1.5 by default.", py::arg("theSpeed"));
+cls_AIS_ViewController.def("WalkSpeedRelative", (float (AIS_ViewController::*)() const) &AIS_ViewController::WalkSpeedRelative, "Return walking speed relative to scene bounding box; 0.1 by default.");
+cls_AIS_ViewController.def("SetWalkSpeedRelative", (void (AIS_ViewController::*)(float)) &AIS_ViewController::SetWalkSpeedRelative, "Set walking speed relative to scene bounding box.", py::arg("theFactor"));
+cls_AIS_ViewController.def("ThrustSpeed", (float (AIS_ViewController::*)() const) &AIS_ViewController::ThrustSpeed, "Return active thrust value; 0.0f by default.");
+cls_AIS_ViewController.def("SetThrustSpeed", (void (AIS_ViewController::*)(float)) &AIS_ViewController::SetThrustSpeed, "Set active thrust value.", py::arg("theSpeed"));
+cls_AIS_ViewController.def("HasPreviousMoveTo", (bool (AIS_ViewController::*)() const) &AIS_ViewController::HasPreviousMoveTo, "Return TRUE if previous position of MoveTo has been defined.");
+cls_AIS_ViewController.def("PreviousMoveTo", (const Graphic3d_Vec2i & (AIS_ViewController::*)() const) &AIS_ViewController::PreviousMoveTo, "Return previous position of MoveTo event in 3D viewer.");
+cls_AIS_ViewController.def("ResetPreviousMoveTo", (void (AIS_ViewController::*)()) &AIS_ViewController::ResetPreviousMoveTo, "Reset previous position of MoveTo.");
+cls_AIS_ViewController.def("Keys", (const Aspect_VKeySet & (AIS_ViewController::*)() const) &AIS_ViewController::Keys, "Return keyboard state.");
+cls_AIS_ViewController.def("ChangeKeys", (Aspect_VKeySet & (AIS_ViewController::*)()) &AIS_ViewController::ChangeKeys, "Return keyboard state.");
+cls_AIS_ViewController.def("KeyDown", [](AIS_ViewController &self, Aspect_VKey a0, double a1) -> void { return self.KeyDown(a0, a1); });
+cls_AIS_ViewController.def("KeyDown", (void (AIS_ViewController::*)(Aspect_VKey, double, double)) &AIS_ViewController::KeyDown, "Press key.", py::arg("theKey"), py::arg("theTime"), py::arg("thePressure"));
+cls_AIS_ViewController.def("KeyUp", (void (AIS_ViewController::*)(Aspect_VKey, double)) &AIS_ViewController::KeyUp, "Release key.", py::arg("theKey"), py::arg("theTime"));
+cls_AIS_ViewController.def("KeyFromAxis", (void (AIS_ViewController::*)(Aspect_VKey, Aspect_VKey, double, double)) &AIS_ViewController::KeyFromAxis, "Simulate key up/down events from axis value.", py::arg("theNegative"), py::arg("thePositive"), py::arg("theTime"), py::arg("thePressure"));
+cls_AIS_ViewController.def("FetchNavigationKeys", (AIS_WalkDelta (AIS_ViewController::*)(Standard_Real, Standard_Real)) &AIS_ViewController::FetchNavigationKeys, "Fetch active navigation actions.", py::arg("theCrouchRatio"), py::arg("theRunRatio"));
+cls_AIS_ViewController.def("MouseGestureMap", (const AIS_MouseGestureMap & (AIS_ViewController::*)() const) &AIS_ViewController::MouseGestureMap, "Return map defining mouse gestures.");
+cls_AIS_ViewController.def("ChangeMouseGestureMap", (AIS_MouseGestureMap & (AIS_ViewController::*)()) &AIS_ViewController::ChangeMouseGestureMap, "Return map defining mouse gestures.");
+cls_AIS_ViewController.def("MouseDoubleClickInterval", (double (AIS_ViewController::*)() const) &AIS_ViewController::MouseDoubleClickInterval, "Return double click interval in seconds; 0.4 by default.");
+cls_AIS_ViewController.def("SetMouseDoubleClickInterval", (void (AIS_ViewController::*)(double)) &AIS_ViewController::SetMouseDoubleClickInterval, "Set double click interval in seconds.", py::arg("theSeconds"));
+cls_AIS_ViewController.def("SelectInViewer", [](AIS_ViewController &self, const Graphic3d_Vec2i & a0) -> void { return self.SelectInViewer(a0); });
+cls_AIS_ViewController.def("SelectInViewer", (void (AIS_ViewController::*)(const Graphic3d_Vec2i &, const bool)) &AIS_ViewController::SelectInViewer, "Perform selection in 3D viewer. This method is expected to be called from UI thread.", py::arg("thePnt"), py::arg("theIsXOR"));
+cls_AIS_ViewController.def("SelectInViewer", [](AIS_ViewController &self, const NCollection_Sequence<Graphic3d_Vec2i> & a0) -> void { return self.SelectInViewer(a0); });
+cls_AIS_ViewController.def("SelectInViewer", (void (AIS_ViewController::*)(const NCollection_Sequence<Graphic3d_Vec2i> &, const bool)) &AIS_ViewController::SelectInViewer, "Perform selection in 3D viewer. This method is expected to be called from UI thread.", py::arg("thePnts"), py::arg("theIsXOR"));
+cls_AIS_ViewController.def("UpdateRubberBand", [](AIS_ViewController &self, const Graphic3d_Vec2i & a0, const Graphic3d_Vec2i & a1) -> void { return self.UpdateRubberBand(a0, a1); });
+cls_AIS_ViewController.def("UpdateRubberBand", (void (AIS_ViewController::*)(const Graphic3d_Vec2i &, const Graphic3d_Vec2i &, const bool)) &AIS_ViewController::UpdateRubberBand, "Update rectangle selection tool. This method is expected to be called from UI thread.", py::arg("thePntFrom"), py::arg("thePntTo"), py::arg("theIsXOR"));
+cls_AIS_ViewController.def("UpdatePolySelection", (void (AIS_ViewController::*)(const Graphic3d_Vec2i &, bool)) &AIS_ViewController::UpdatePolySelection, "Update polygonal selection tool. This method is expected to be called from UI thread.", py::arg("thePnt"), py::arg("theToAppend"));
+cls_AIS_ViewController.def("UpdateZoom", (bool (AIS_ViewController::*)(const Aspect_ScrollDelta &)) &AIS_ViewController::UpdateZoom, "Update zoom event (e.g. from mouse scroll). This method is expected to be called from UI thread.", py::arg("theDelta"));
+cls_AIS_ViewController.def("UpdateZRotation", (bool (AIS_ViewController::*)(double)) &AIS_ViewController::UpdateZRotation, "Update Z rotation event.", py::arg("theAngle"));
+cls_AIS_ViewController.def("UpdateMouseScroll", (bool (AIS_ViewController::*)(const Aspect_ScrollDelta &)) &AIS_ViewController::UpdateMouseScroll, "Update mouse scroll event; redirects to UpdateZoom by default. This method is expected to be called from UI thread.", py::arg("theDelta"));
+cls_AIS_ViewController.def("UpdateMouseButtons", (bool (AIS_ViewController::*)(const Graphic3d_Vec2i &, Aspect_VKeyMouse, Aspect_VKeyFlags, bool)) &AIS_ViewController::UpdateMouseButtons, "Handle mouse button press/release event. This method is expected to be called from UI thread.", py::arg("thePoint"), py::arg("theButtons"), py::arg("theModifiers"), py::arg("theIsEmulated"));
+cls_AIS_ViewController.def("UpdateMousePosition", (bool (AIS_ViewController::*)(const Graphic3d_Vec2i &, Aspect_VKeyMouse, Aspect_VKeyFlags, bool)) &AIS_ViewController::UpdateMousePosition, "Handle mouse cursor movement event. This method is expected to be called from UI thread.", py::arg("thePoint"), py::arg("theButtons"), py::arg("theModifiers"), py::arg("theIsEmulated"));
+cls_AIS_ViewController.def("PressMouseButton", (bool (AIS_ViewController::*)(const Graphic3d_Vec2i &, Aspect_VKeyMouse, Aspect_VKeyFlags, bool)) &AIS_ViewController::PressMouseButton, "Handle mouse button press event. This method is expected to be called from UI thread.", py::arg("thePoint"), py::arg("theButton"), py::arg("theModifiers"), py::arg("theIsEmulated"));
+cls_AIS_ViewController.def("ReleaseMouseButton", (bool (AIS_ViewController::*)(const Graphic3d_Vec2i &, Aspect_VKeyMouse, Aspect_VKeyFlags, bool)) &AIS_ViewController::ReleaseMouseButton, "Handle mouse button release event. This method is expected to be called from UI thread.", py::arg("thePoint"), py::arg("theButton"), py::arg("theModifiers"), py::arg("theIsEmulated"));
+cls_AIS_ViewController.def("UpdateMouseClick", (bool (AIS_ViewController::*)(const Graphic3d_Vec2i &, Aspect_VKeyMouse, Aspect_VKeyFlags, bool)) &AIS_ViewController::UpdateMouseClick, "Handle mouse button click event (emulated by UpdateMouseButtons() while releasing single button). Note that as this method is called by UpdateMouseButtons(), it should be executed from UI thread. Default implementation redirects to SelectInViewer(). This method is expected to be called from UI thread.", py::arg("thePoint"), py::arg("theButton"), py::arg("theModifiers"), py::arg("theIsDoubleClick"));
+cls_AIS_ViewController.def("PressedMouseButtons", (Aspect_VKeyMouse (AIS_ViewController::*)() const) &AIS_ViewController::PressedMouseButtons, "Return currently pressed mouse buttons.");
+cls_AIS_ViewController.def("LastMouseFlags", (Aspect_VKeyFlags (AIS_ViewController::*)() const) &AIS_ViewController::LastMouseFlags, "Return active key modifiers passed with last mouse event.");
+cls_AIS_ViewController.def("LastMousePosition", (const Graphic3d_Vec2i & (AIS_ViewController::*)() const) &AIS_ViewController::LastMousePosition, "Return last mouse position.");
+cls_AIS_ViewController.def("TouchToleranceScale", (float (AIS_ViewController::*)() const) &AIS_ViewController::TouchToleranceScale, "Return scale factor for adjusting tolerances for starting multi-touch gestures; 1.0 by default This scale factor is expected to be computed from touch screen resolution.");
+cls_AIS_ViewController.def("SetTouchToleranceScale", (void (AIS_ViewController::*)(float)) &AIS_ViewController::SetTouchToleranceScale, "Set scale factor for adjusting tolerances for starting multi-touch gestures.", py::arg("theTolerance"));
+cls_AIS_ViewController.def("HasTouchPoints", (bool (AIS_ViewController::*)() const) &AIS_ViewController::HasTouchPoints, "Return TRUE if touches map is not empty.");
+cls_AIS_ViewController.def("AddTouchPoint", [](AIS_ViewController &self, Standard_Size a0, const Graphic3d_Vec2d & a1) -> void { return self.AddTouchPoint(a0, a1); });
+cls_AIS_ViewController.def("AddTouchPoint", (void (AIS_ViewController::*)(Standard_Size, const Graphic3d_Vec2d &, Standard_Boolean)) &AIS_ViewController::AddTouchPoint, "Add touch point with the given ID. This method is expected to be called from UI thread.", py::arg("theId"), py::arg("thePnt"), py::arg("theClearBefore"));
+cls_AIS_ViewController.def("RemoveTouchPoint", [](AIS_ViewController &self, Standard_Size a0) -> bool { return self.RemoveTouchPoint(a0); });
+cls_AIS_ViewController.def("RemoveTouchPoint", (bool (AIS_ViewController::*)(Standard_Size, Standard_Boolean)) &AIS_ViewController::RemoveTouchPoint, "Remove touch point with the given ID. This method is expected to be called from UI thread.", py::arg("theId"), py::arg("theClearSelectPnts"));
+cls_AIS_ViewController.def("UpdateTouchPoint", (void (AIS_ViewController::*)(Standard_Size, const Graphic3d_Vec2d &)) &AIS_ViewController::UpdateTouchPoint, "Update touch point with the given ID. If point with specified ID was not registered before, it will be added. This method is expected to be called from UI thread.", py::arg("theId"), py::arg("thePnt"));
+cls_AIS_ViewController.def("EventTime", (double (AIS_ViewController::*)() const) &AIS_ViewController::EventTime, "Return event time (e.g. current time).");
+cls_AIS_ViewController.def("ResetViewInput", (void (AIS_ViewController::*)()) &AIS_ViewController::ResetViewInput, "Reset input state (pressed keys, mouse buttons, etc.) e.g. on window focus loss. This method is expected to be called from UI thread.");
+cls_AIS_ViewController.def("UpdateViewOrientation", (void (AIS_ViewController::*)(V3d_TypeOfOrientation, bool)) &AIS_ViewController::UpdateViewOrientation, "Reset view orientation. This method is expected to be called from UI thread.", py::arg("theOrientation"), py::arg("theToFitAll"));
+cls_AIS_ViewController.def("FlushViewEvents", [](AIS_ViewController &self, const opencascade::handle<AIS_InteractiveContext> & a0, const opencascade::handle<V3d_View> & a1) -> void { return self.FlushViewEvents(a0, a1); });
+cls_AIS_ViewController.def("FlushViewEvents", (void (AIS_ViewController::*)(const opencascade::handle<AIS_InteractiveContext> &, const opencascade::handle<V3d_View> &, Standard_Boolean)) &AIS_ViewController::FlushViewEvents, "Update buffer for rendering thread. This method is expected to be called within synchronization barrier between GUI and Rendering threads (e.g. GUI thread should be locked beforehand to avoid data races).", py::arg("theCtx"), py::arg("theView"), py::arg("theToHandle"));
+cls_AIS_ViewController.def("HandleViewEvents", (void (AIS_ViewController::*)(const opencascade::handle<AIS_InteractiveContext> &, const opencascade::handle<V3d_View> &)) &AIS_ViewController::HandleViewEvents, "Process events within rendering thread.", py::arg("theCtx"), py::arg("theView"));
+cls_AIS_ViewController.def("OnSelectionChanged", (void (AIS_ViewController::*)(const opencascade::handle<AIS_InteractiveContext> &, const opencascade::handle<V3d_View> &)) &AIS_ViewController::OnSelectionChanged, "Callback called by handleMoveTo() on Selection in 3D Viewer. This method is expected to be called from rendering thread.", py::arg("theCtx"), py::arg("theView"));
+cls_AIS_ViewController.def("OnObjectDragged", (void (AIS_ViewController::*)(const opencascade::handle<AIS_InteractiveContext> &, const opencascade::handle<V3d_View> &, AIS_DragAction)) &AIS_ViewController::OnObjectDragged, "Callback called by handleMoveTo() on dragging object in 3D Viewer. This method is expected to be called from rendering thread.", py::arg("theCtx"), py::arg("theView"), py::arg("theAction"));
+cls_AIS_ViewController.def("PickPoint", (bool (AIS_ViewController::*)(gp_Pnt &, const opencascade::handle<AIS_InteractiveContext> &, const opencascade::handle<V3d_View> &, const Graphic3d_Vec2i &, bool)) &AIS_ViewController::PickPoint, "Pick closest point under mouse cursor. This method is expected to be called from rendering thread.", py::arg("thePnt"), py::arg("theCtx"), py::arg("theView"), py::arg("theCursor"), py::arg("theToStickToPickRay"));
+cls_AIS_ViewController.def("GravityPoint", (gp_Pnt (AIS_ViewController::*)(const opencascade::handle<AIS_InteractiveContext> &, const opencascade::handle<V3d_View> &)) &AIS_ViewController::GravityPoint, "Compute rotation gravity center point depending on rotation mode. This method is expected to be called from rendering thread.", py::arg("theCtx"), py::arg("theView"));
+cls_AIS_ViewController.def("handleCameraActions", (void (AIS_ViewController::*)(const opencascade::handle<AIS_InteractiveContext> &, const opencascade::handle<V3d_View> &, const AIS_WalkDelta &)) &AIS_ViewController::handleCameraActions, "Perform camera actions. This method is expected to be called from rendering thread.", py::arg("theCtx"), py::arg("theView"), py::arg("theWalk"));
+cls_AIS_ViewController.def("handleMoveTo", (void (AIS_ViewController::*)(const opencascade::handle<AIS_InteractiveContext> &, const opencascade::handle<V3d_View> &)) &AIS_ViewController::handleMoveTo, "Perform moveto/selection/dragging. This method is expected to be called from rendering thread.", py::arg("theCtx"), py::arg("theView"));
+cls_AIS_ViewController.def("toAskNextFrame", (bool (AIS_ViewController::*)() const) &AIS_ViewController::toAskNextFrame, "Return TRUE if another frame should be drawn right after this one.");
+cls_AIS_ViewController.def("setAskNextFrame", [](AIS_ViewController &self) -> void { return self.setAskNextFrame(); });
+cls_AIS_ViewController.def("setAskNextFrame", (void (AIS_ViewController::*)(bool)) &AIS_ViewController::setAskNextFrame, "Set if another frame should be drawn right after this one.", py::arg("theToDraw"));
+cls_AIS_ViewController.def("hasPanningAnchorPoint", (bool (AIS_ViewController::*)() const) &AIS_ViewController::hasPanningAnchorPoint, "Return if panning anchor point has been defined.");
+cls_AIS_ViewController.def("panningAnchorPoint", (const gp_Pnt & (AIS_ViewController::*)() const) &AIS_ViewController::panningAnchorPoint, "Return active panning anchor point.");
+cls_AIS_ViewController.def("setPanningAnchorPoint", (void (AIS_ViewController::*)(const gp_Pnt &)) &AIS_ViewController::setPanningAnchorPoint, "Set active panning anchor point.", py::arg("thePnt"));
+cls_AIS_ViewController.def("handlePanning", (void (AIS_ViewController::*)(const opencascade::handle<V3d_View> &)) &AIS_ViewController::handlePanning, "Handle panning event myGL.Panning.", py::arg("theView"));
+cls_AIS_ViewController.def("handleZRotate", (void (AIS_ViewController::*)(const opencascade::handle<V3d_View> &)) &AIS_ViewController::handleZRotate, "Handle Z rotation event myGL.ZRotate.", py::arg("theView"));
+cls_AIS_ViewController.def("MinZoomDistance", (double (AIS_ViewController::*)() const) &AIS_ViewController::MinZoomDistance, "Return minimal camera distance for zoom operation.");
+cls_AIS_ViewController.def("SetMinZoomDistance", (void (AIS_ViewController::*)(double)) &AIS_ViewController::SetMinZoomDistance, "Set minimal camera distance for zoom operation.", py::arg("theDist"));
+cls_AIS_ViewController.def("handleZoom", (void (AIS_ViewController::*)(const opencascade::handle<V3d_View> &, const Aspect_ScrollDelta &, const gp_Pnt *)) &AIS_ViewController::handleZoom, "Handle zoom event myGL.ZoomActions. This method is expected to be called from rendering thread.", py::arg("theView"), py::arg("theParams"), py::arg("thePnt"));
+cls_AIS_ViewController.def("handleZFocusScroll", (void (AIS_ViewController::*)(const opencascade::handle<V3d_View> &, const Aspect_ScrollDelta &)) &AIS_ViewController::handleZFocusScroll, "Handle ZScroll event myGL.ZoomActions. This method is expected to be called from rendering thread.", py::arg("theView"), py::arg("theParams"));
+cls_AIS_ViewController.def("handleOrbitRotation", (void (AIS_ViewController::*)(const opencascade::handle<V3d_View> &, const gp_Pnt &, bool)) &AIS_ViewController::handleOrbitRotation, "Handle orbital rotation events myGL.OrbitRotation.", py::arg("theView"), py::arg("thePnt"), py::arg("theToLockZUp"));
+cls_AIS_ViewController.def("handleViewRotation", (void (AIS_ViewController::*)(const opencascade::handle<V3d_View> &, double, double, double, bool)) &AIS_ViewController::handleViewRotation, "Handle view direction rotation events myGL.ViewRotation. This method is expected to be called from rendering thread.", py::arg("theView"), py::arg("theYawExtra"), py::arg("thePitchExtra"), py::arg("theRoll"), py::arg("theToRestartOnIncrement"));
+cls_AIS_ViewController.def("handleViewRedraw", (void (AIS_ViewController::*)(const opencascade::handle<AIS_InteractiveContext> &, const opencascade::handle<V3d_View> &)) &AIS_ViewController::handleViewRedraw, "Handle view redraw. This method is expected to be called from rendering thread.", py::arg("theCtx"), py::arg("theView"));
+
+// CLASS: AIS_VIEWCUBE
+py::class_<AIS_ViewCube, opencascade::handle<AIS_ViewCube>, AIS_InteractiveObject> cls_AIS_ViewCube(mod, "AIS_ViewCube", "Interactive object for displaying the view manipulation cube.");
+
+// Constructors
+cls_AIS_ViewCube.def(py::init<>());
+
+// Methods
+cls_AIS_ViewCube.def_static("get_type_name_", (const char * (*)()) &AIS_ViewCube::get_type_name, "None");
+cls_AIS_ViewCube.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_ViewCube::get_type_descriptor, "None");
+cls_AIS_ViewCube.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_ViewCube::*)() const) &AIS_ViewCube::DynamicType, "None");
+cls_AIS_ViewCube.def_static("IsBoxSide_", (bool (*)(V3d_TypeOfOrientation)) &AIS_ViewCube::IsBoxSide, "Return TRUE if specified orientation belongs to box side.", py::arg("theOrient"));
+cls_AIS_ViewCube.def_static("IsBoxEdge_", (bool (*)(V3d_TypeOfOrientation)) &AIS_ViewCube::IsBoxEdge, "Return TRUE if specified orientation belongs to box edge.", py::arg("theOrient"));
+cls_AIS_ViewCube.def_static("IsBoxCorner_", (bool (*)(V3d_TypeOfOrientation)) &AIS_ViewCube::IsBoxCorner, "Return TRUE if specified orientation belongs to box corner (vertex).", py::arg("theOrient"));
+cls_AIS_ViewCube.def("ViewAnimation", (const opencascade::handle<AIS_AnimationCamera> & (AIS_ViewCube::*)() const) &AIS_ViewCube::ViewAnimation, "Return view animation.");
+cls_AIS_ViewCube.def("SetViewAnimation", (void (AIS_ViewCube::*)(const opencascade::handle<AIS_AnimationCamera> &)) &AIS_ViewCube::SetViewAnimation, "Set view animation.", py::arg("theAnimation"));
+cls_AIS_ViewCube.def("ToAutoStartAnimation", (Standard_Boolean (AIS_ViewCube::*)() const) &AIS_ViewCube::ToAutoStartAnimation, "Return TRUE if automatic camera transformation on selection (highlighting) is enabled; TRUE by default.");
+cls_AIS_ViewCube.def("SetAutoStartAnimation", (void (AIS_ViewCube::*)(bool)) &AIS_ViewCube::SetAutoStartAnimation, "Enable/disable automatic camera transformation on selection (highlighting). The automatic logic can be disabled if application wants performing action manually basing on picking results (AIS_ViewCubeOwner).", py::arg("theToEnable"));
+cls_AIS_ViewCube.def("IsFixedAnimationLoop", (Standard_Boolean (AIS_ViewCube::*)() const) &AIS_ViewCube::IsFixedAnimationLoop, "Return TRUE if camera animation should be done in uninterruptible loop; TRUE by default.");
+cls_AIS_ViewCube.def("SetFixedAnimationLoop", (void (AIS_ViewCube::*)(bool)) &AIS_ViewCube::SetFixedAnimationLoop, "Set if camera animation should be done in uninterruptible loop.", py::arg("theToEnable"));
+cls_AIS_ViewCube.def("ResetStyles", (void (AIS_ViewCube::*)()) &AIS_ViewCube::ResetStyles, "Reset all size and style parameters to default.");
+cls_AIS_ViewCube.def("Size", (Standard_Real (AIS_ViewCube::*)() const) &AIS_ViewCube::Size, "Returns size (width and height) of View cube sides; 100 by default.");
+cls_AIS_ViewCube.def("SetSize", [](AIS_ViewCube &self, Standard_Real a0) -> void { return self.SetSize(a0); });
+cls_AIS_ViewCube.def("SetSize", (void (AIS_ViewCube::*)(Standard_Real, Standard_Boolean)) &AIS_ViewCube::SetSize, "Sets size (width and height) of View cube sides.", py::arg("theValue"), py::arg("theToAdaptAnother"));
+cls_AIS_ViewCube.def("BoxFacetExtension", (Standard_Real (AIS_ViewCube::*)() const) &AIS_ViewCube::BoxFacetExtension, "Return box facet extension to edge/corner facet split; 10 by default.");
+cls_AIS_ViewCube.def("SetBoxFacetExtension", (void (AIS_ViewCube::*)(Standard_Real)) &AIS_ViewCube::SetBoxFacetExtension, "Set new value of box facet extension.", py::arg("theValue"));
+cls_AIS_ViewCube.def("AxesPadding", (Standard_Real (AIS_ViewCube::*)() const) &AIS_ViewCube::AxesPadding, "Return padding between axes and 3D part (box); 10 by default.");
+cls_AIS_ViewCube.def("SetAxesPadding", (void (AIS_ViewCube::*)(Standard_Real)) &AIS_ViewCube::SetAxesPadding, "Set new value of padding between axes and 3D part (box).", py::arg("theValue"));
+cls_AIS_ViewCube.def("BoxEdgeGap", (Standard_Real (AIS_ViewCube::*)() const) &AIS_ViewCube::BoxEdgeGap, "Return gap between box edges and box sides; 0 by default.");
+cls_AIS_ViewCube.def("SetBoxEdgeGap", (void (AIS_ViewCube::*)(Standard_Real)) &AIS_ViewCube::SetBoxEdgeGap, "Set new value of box edges gap.", py::arg("theValue"));
+cls_AIS_ViewCube.def("BoxEdgeMinSize", (Standard_Real (AIS_ViewCube::*)() const) &AIS_ViewCube::BoxEdgeMinSize, "Return minimal size of box edge; 2 by default.");
+cls_AIS_ViewCube.def("SetBoxEdgeMinSize", (void (AIS_ViewCube::*)(Standard_Real)) &AIS_ViewCube::SetBoxEdgeMinSize, "Set new value of box edge minimal size.", py::arg("theValue"));
+cls_AIS_ViewCube.def("BoxCornerMinSize", (Standard_Real (AIS_ViewCube::*)() const) &AIS_ViewCube::BoxCornerMinSize, "Return minimal size of box corner; 2 by default.");
+cls_AIS_ViewCube.def("SetBoxCornerMinSize", (void (AIS_ViewCube::*)(Standard_Real)) &AIS_ViewCube::SetBoxCornerMinSize, "Set new value of box corner minimal size.", py::arg("theValue"));
+cls_AIS_ViewCube.def("RoundRadius", (Standard_Real (AIS_ViewCube::*)() const) &AIS_ViewCube::RoundRadius, "Return relative radius of side corners (round rectangle); 0.0 by default. The value in within [0, 0.5] range meaning absolute radius = RoundRadius() / Size().");
+cls_AIS_ViewCube.def("SetRoundRadius", (void (AIS_ViewCube::*)(const Standard_Real)) &AIS_ViewCube::SetRoundRadius, "Set relative radius of View Cube sides corners (round rectangle). The value should be within [0, 0.5] range.", py::arg("theValue"));
+cls_AIS_ViewCube.def("ToDrawAxes", (Standard_Boolean (AIS_ViewCube::*)() const) &AIS_ViewCube::ToDrawAxes, "Returns TRUE if trihedron is drawn; TRUE by default.");
+cls_AIS_ViewCube.def("SetDrawAxes", (void (AIS_ViewCube::*)(Standard_Boolean)) &AIS_ViewCube::SetDrawAxes, "Enable/disable drawing of trihedron.", py::arg("theValue"));
+cls_AIS_ViewCube.def("ToDrawEdges", (Standard_Boolean (AIS_ViewCube::*)() const) &AIS_ViewCube::ToDrawEdges, "Returns TRUE if edges of View Cube is drawn; TRUE by default.");
+cls_AIS_ViewCube.def("SetDrawEdges", (void (AIS_ViewCube::*)(Standard_Boolean)) &AIS_ViewCube::SetDrawEdges, "Enable/disable drawing of edges of View Cube.", py::arg("theValue"));
+cls_AIS_ViewCube.def("ToDrawVertices", (Standard_Boolean (AIS_ViewCube::*)() const) &AIS_ViewCube::ToDrawVertices, "Return TRUE if vertices (vertex) of View Cube is drawn; TRUE by default.");
+cls_AIS_ViewCube.def("SetDrawVertices", (void (AIS_ViewCube::*)(Standard_Boolean)) &AIS_ViewCube::SetDrawVertices, "Enable/disable drawing of vertices (corners) of View Cube.", py::arg("theValue"));
+cls_AIS_ViewCube.def("IsYup", (Standard_Boolean (AIS_ViewCube::*)() const) &AIS_ViewCube::IsYup, "Return TRUE if application expects Y-up viewer orientation instead of Z-up; FALSE by default.");
+cls_AIS_ViewCube.def("SetYup", [](AIS_ViewCube &self, Standard_Boolean a0) -> void { return self.SetYup(a0); });
+cls_AIS_ViewCube.def("SetYup", (void (AIS_ViewCube::*)(Standard_Boolean, Standard_Boolean)) &AIS_ViewCube::SetYup, "Set if application expects Y-up viewer orientation instead of Z-up.", py::arg("theIsYup"), py::arg("theToUpdateLabels"));
+cls_AIS_ViewCube.def("BoxSideStyle", (const opencascade::handle<Prs3d_ShadingAspect> & (AIS_ViewCube::*)() const) &AIS_ViewCube::BoxSideStyle, "Return shading style of box sides.");
+cls_AIS_ViewCube.def("BoxEdgeStyle", (const opencascade::handle<Prs3d_ShadingAspect> & (AIS_ViewCube::*)() const) &AIS_ViewCube::BoxEdgeStyle, "Return shading style of box edges.");
+cls_AIS_ViewCube.def("BoxCornerStyle", (const opencascade::handle<Prs3d_ShadingAspect> & (AIS_ViewCube::*)() const) &AIS_ViewCube::BoxCornerStyle, "Return shading style of box corners.");
+cls_AIS_ViewCube.def("BoxColor", (const Quantity_Color & (AIS_ViewCube::*)() const) &AIS_ViewCube::BoxColor, "Return value of front color for the 3D part of object.");
+cls_AIS_ViewCube.def("SetBoxColor", (void (AIS_ViewCube::*)(const Quantity_Color &)) &AIS_ViewCube::SetBoxColor, "Set new value of front color for the 3D part of object.", py::arg("theColor"));
+cls_AIS_ViewCube.def("BoxTransparency", (Standard_Real (AIS_ViewCube::*)() const) &AIS_ViewCube::BoxTransparency, "Return transparency for 3D part of object.");
+cls_AIS_ViewCube.def("SetBoxTransparency", (void (AIS_ViewCube::*)(Standard_Real)) &AIS_ViewCube::SetBoxTransparency, "Set new value of transparency for 3D part of object.", py::arg("theValue"));
+cls_AIS_ViewCube.def("InnerColor", (const Quantity_Color & (AIS_ViewCube::*)() const) &AIS_ViewCube::InnerColor, "Return color of sides back material.");
+cls_AIS_ViewCube.def("SetInnerColor", (void (AIS_ViewCube::*)(const Quantity_Color &)) &AIS_ViewCube::SetInnerColor, "Set color of sides back material. Alias for:", py::arg("theColor"));
+cls_AIS_ViewCube.def("BoxSideLabel", (TCollection_AsciiString (AIS_ViewCube::*)(V3d_TypeOfOrientation) const) &AIS_ViewCube::BoxSideLabel, "Return box side label or empty string if undefined. Default labels: FRONT, BACK, LEFT, RIGHT, TOP, BOTTOM.", py::arg("theSide"));
+cls_AIS_ViewCube.def("SetBoxSideLabel", (void (AIS_ViewCube::*)(const V3d_TypeOfOrientation, const TCollection_AsciiString &)) &AIS_ViewCube::SetBoxSideLabel, "Set box side label.", py::arg("theSide"), py::arg("theLabel"));
+cls_AIS_ViewCube.def("TextColor", (const Quantity_Color & (AIS_ViewCube::*)() const) &AIS_ViewCube::TextColor, "Return text color of labels of box sides; BLACK by default.");
+cls_AIS_ViewCube.def("SetTextColor", (void (AIS_ViewCube::*)(const Quantity_Color &)) &AIS_ViewCube::SetTextColor, "Set color of text labels on box sides. Alias for:", py::arg("theColor"));
+cls_AIS_ViewCube.def("Font", (const TCollection_AsciiString & (AIS_ViewCube::*)() const) &AIS_ViewCube::Font, "Return font name that is used for displaying of sides and axes text. Alias for:");
+cls_AIS_ViewCube.def("SetFont", (void (AIS_ViewCube::*)(const TCollection_AsciiString &)) &AIS_ViewCube::SetFont, "Set font name that is used for displaying of sides and axes text. Alias for:", py::arg("theFont"));
+cls_AIS_ViewCube.def("FontHeight", (Standard_Real (AIS_ViewCube::*)() const) &AIS_ViewCube::FontHeight, "Return height of font");
+cls_AIS_ViewCube.def("SetFontHeight", (void (AIS_ViewCube::*)(Standard_Real)) &AIS_ViewCube::SetFontHeight, "Change font height. Alias for:", py::arg("theValue"));
+cls_AIS_ViewCube.def("AxisLabel", (TCollection_AsciiString (AIS_ViewCube::*)(Prs3d_DatumParts) const) &AIS_ViewCube::AxisLabel, "Return axes labels or empty string if undefined. Default labels: X, Y, Z.", py::arg("theAxis"));
+cls_AIS_ViewCube.def("SetAxesLabels", (void (AIS_ViewCube::*)(const TCollection_AsciiString &, const TCollection_AsciiString &, const TCollection_AsciiString &)) &AIS_ViewCube::SetAxesLabels, "Set axes labels.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
+cls_AIS_ViewCube.def("SetColor", (void (AIS_ViewCube::*)(const Quantity_Color &)) &AIS_ViewCube::SetColor, "Set new value of color for the whole object.", py::arg("theColor"));
+cls_AIS_ViewCube.def("UnsetColor", (void (AIS_ViewCube::*)()) &AIS_ViewCube::UnsetColor, "Reset color for the whole object.");
+cls_AIS_ViewCube.def("SetTransparency", (void (AIS_ViewCube::*)(const Standard_Real)) &AIS_ViewCube::SetTransparency, "Set new value of transparency for the whole object.", py::arg("theValue"));
+cls_AIS_ViewCube.def("UnsetTransparency", (void (AIS_ViewCube::*)()) &AIS_ViewCube::UnsetTransparency, "Reset transparency for the whole object.");
+cls_AIS_ViewCube.def("SetMaterial", (void (AIS_ViewCube::*)(const Graphic3d_MaterialAspect &)) &AIS_ViewCube::SetMaterial, "Sets the material for the interactive object.", py::arg("theMat"));
+cls_AIS_ViewCube.def("UnsetMaterial", (void (AIS_ViewCube::*)()) &AIS_ViewCube::UnsetMaterial, "Sets the material for the interactive object.");
+cls_AIS_ViewCube.def("Duration", (Standard_Real (AIS_ViewCube::*)() const) &AIS_ViewCube::Duration, "Return duration of animation in seconds; 0.5 sec by default");
+cls_AIS_ViewCube.def("SetDuration", (void (AIS_ViewCube::*)(Standard_Real)) &AIS_ViewCube::SetDuration, "Set duration of animation.", py::arg("theValue"));
+cls_AIS_ViewCube.def("ToResetCameraUp", (Standard_Boolean (AIS_ViewCube::*)() const) &AIS_ViewCube::ToResetCameraUp, "Return TRUE if new camera Up direction should be always set to default value for a new camera Direction; FALSE by default. When this flag is FALSE, the new camera Up will be set as current Up orthogonalized to the new camera Direction, and will set to default Up on second click.");
+cls_AIS_ViewCube.def("SetResetCamera", (void (AIS_ViewCube::*)(Standard_Boolean)) &AIS_ViewCube::SetResetCamera, "Set if new camera Up direction should be always set to default value for a new camera Direction.", py::arg("theToReset"));
+cls_AIS_ViewCube.def("ToFitSelected", (Standard_Boolean (AIS_ViewCube::*)() const) &AIS_ViewCube::ToFitSelected, "Return TRUE if animation should fit selected objects and FALSE to fit entire scene; TRUE by default.");
+cls_AIS_ViewCube.def("SetFitSelected", (void (AIS_ViewCube::*)(Standard_Boolean)) &AIS_ViewCube::SetFitSelected, "Set if animation should fit selected objects or to fit entire scene.", py::arg("theToFitSelected"));
+cls_AIS_ViewCube.def("HasAnimation", (Standard_Boolean (AIS_ViewCube::*)() const) &AIS_ViewCube::HasAnimation, "Returns TRUE if View Cube has unfinished animation of view camera.");
+cls_AIS_ViewCube.def("StartAnimation", (void (AIS_ViewCube::*)(const opencascade::handle<AIS_ViewCubeOwner> &)) &AIS_ViewCube::StartAnimation, "Start camera transformation corresponding to the input detected owner.", py::arg("theOwner"));
+cls_AIS_ViewCube.def("UpdateAnimation", (Standard_Boolean (AIS_ViewCube::*)(const Standard_Boolean)) &AIS_ViewCube::UpdateAnimation, "Perform one step of current camera transformation. theToUpdate [in] enable/disable update of view.", py::arg("theToUpdate"));
+cls_AIS_ViewCube.def("HandleClick", (void (AIS_ViewCube::*)(const opencascade::handle<AIS_ViewCubeOwner> &)) &AIS_ViewCube::HandleClick, "Perform camera transformation corresponding to the input detected owner.", py::arg("theOwner"));
+cls_AIS_ViewCube.def("AcceptDisplayMode", (Standard_Boolean (AIS_ViewCube::*)(const Standard_Integer) const) &AIS_ViewCube::AcceptDisplayMode, "Return TRUE for supported display mode.", py::arg("theMode"));
+cls_AIS_ViewCube.def("GlobalSelOwner", (opencascade::handle<SelectMgr_EntityOwner> (AIS_ViewCube::*)() const) &AIS_ViewCube::GlobalSelOwner, "Global selection has no meaning for this class.");
+cls_AIS_ViewCube.def("Compute", [](AIS_ViewCube &self, const opencascade::handle<PrsMgr_PresentationManager3d> & a0, const opencascade::handle<Prs3d_Presentation> & a1) -> void { return self.Compute(a0, a1); });
+cls_AIS_ViewCube.def("Compute", (void (AIS_ViewCube::*)(const opencascade::handle<PrsMgr_PresentationManager3d> &, const opencascade::handle<Prs3d_Presentation> &, const Standard_Integer)) &AIS_ViewCube::Compute, "Compute 3D part of View Cube.", py::arg("thePrsMgr"), py::arg("thePrs"), py::arg("theMode"));
+cls_AIS_ViewCube.def("ComputeSelection", (void (AIS_ViewCube::*)(const opencascade::handle<SelectMgr_Selection> &, const Standard_Integer)) &AIS_ViewCube::ComputeSelection, "Redefine computing of sensitive entities for View Cube.", py::arg("theSelection"), py::arg("theMode"));
+cls_AIS_ViewCube.def("IsAutoHilight", (Standard_Boolean (AIS_ViewCube::*)() const) &AIS_ViewCube::IsAutoHilight, "Disables auto highlighting to use HilightSelected() and HilightOwnerWithColor() overridden methods.");
+cls_AIS_ViewCube.def("ClearSelected", (void (AIS_ViewCube::*)()) &AIS_ViewCube::ClearSelected, "Method which clear all selected owners belonging to this selectable object.");
+cls_AIS_ViewCube.def("HilightOwnerWithColor", (void (AIS_ViewCube::*)(const opencascade::handle<PrsMgr_PresentationManager3d> &, const opencascade::handle<Prs3d_Drawer> &, const opencascade::handle<SelectMgr_EntityOwner> &)) &AIS_ViewCube::HilightOwnerWithColor, "Method which highlights input owner belonging to this selectable object.", py::arg("thePM"), py::arg("theStyle"), py::arg("theOwner"));
+cls_AIS_ViewCube.def("HilightSelected", (void (AIS_ViewCube::*)(const opencascade::handle<PrsMgr_PresentationManager3d> &, const SelectMgr_SequenceOfOwner &)) &AIS_ViewCube::HilightSelected, "Method which draws selected owners.", py::arg("thePM"), py::arg("theSeq"));
+cls_AIS_ViewCube.def("UnsetAttributes", (void (AIS_ViewCube::*)()) &AIS_ViewCube::UnsetAttributes, "Set default parameters for visual attributes");
+cls_AIS_ViewCube.def("UnsetHilightAttributes", (void (AIS_ViewCube::*)()) &AIS_ViewCube::UnsetHilightAttributes, "Set default parameters for dynamic highlighting attributes, reset highlight attributes");
+
+// CLASS: AIS_VIEWCUBEOWNER
+py::class_<AIS_ViewCubeOwner, opencascade::handle<AIS_ViewCubeOwner>, SelectMgr_EntityOwner> cls_AIS_ViewCubeOwner(mod, "AIS_ViewCubeOwner", "Redefined entity owner that is highlighted when owner is detected, even if Interactive Context highlighted on last detection procedure.");
+
+// Constructors
+cls_AIS_ViewCubeOwner.def(py::init<const opencascade::handle<AIS_ViewCube> &, V3d_TypeOfOrientation>(), py::arg("theObject"), py::arg("theOrient"));
+cls_AIS_ViewCubeOwner.def(py::init<const opencascade::handle<AIS_ViewCube> &, V3d_TypeOfOrientation, Standard_Integer>(), py::arg("theObject"), py::arg("theOrient"), py::arg("thePriority"));
+
+// Methods
+cls_AIS_ViewCubeOwner.def_static("get_type_name_", (const char * (*)()) &AIS_ViewCubeOwner::get_type_name, "None");
+cls_AIS_ViewCubeOwner.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AIS_ViewCubeOwner::get_type_descriptor, "None");
+cls_AIS_ViewCubeOwner.def("DynamicType", (const opencascade::handle<Standard_Type> & (AIS_ViewCubeOwner::*)() const) &AIS_ViewCubeOwner::DynamicType, "None");
+cls_AIS_ViewCubeOwner.def("IsForcedHilight", (Standard_Boolean (AIS_ViewCubeOwner::*)() const) &AIS_ViewCubeOwner::IsForcedHilight, "Returns TRUE. This owner will always call method Hilight for its Selectable Object when the owner is detected.");
+cls_AIS_ViewCubeOwner.def("MainOrientation", (V3d_TypeOfOrientation (AIS_ViewCubeOwner::*)() const) &AIS_ViewCubeOwner::MainOrientation, "Return new orientation to set.");
+cls_AIS_ViewCubeOwner.def("HandleMouseClick", (Standard_Boolean (AIS_ViewCubeOwner::*)(const Graphic3d_Vec2i &, Aspect_VKeyMouse, Aspect_VKeyFlags, bool)) &AIS_ViewCubeOwner::HandleMouseClick, "Handle mouse button click event.", py::arg("thePoint"), py::arg("theButton"), py::arg("theModifiers"), py::arg("theIsDoubleClick"));
 
 
 }

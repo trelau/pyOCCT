@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_Pln.hxx>
 #include <TopLoc_Location.hxx>
 #include <GeomAbs_Shape.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <TopAbs_Orientation.hxx>
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>

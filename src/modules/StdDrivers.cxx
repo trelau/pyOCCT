@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StdObjMgt_MapOfInstantiators.hxx>
 #include <StdDrivers.hxx>
 #include <StdLDrivers_DocumentRetrievalDriver.hxx>
+#include <Standard_Std.hxx>
 #include <StdDrivers_DocumentRetrievalDriver.hxx>
 #include <Standard_Type.hxx>
 

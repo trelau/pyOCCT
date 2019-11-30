@@ -37,7 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <IntSurf_Allocator.hxx>
 #include <Standard_Transient.hxx>
 #include <IntSurf_LineOn2S.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
+#include <Bnd_Box2d.hxx>
+#include <Bnd_Box.hxx>
 #include <gp_Pln.hxx>
 #include <gp_Cylinder.hxx>
 #include <gp_Sphere.hxx>
@@ -72,6 +75,7 @@ PYBIND11_MODULE(IntSurf, mod) {
 py::module::import("OCCT.Standard");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.NCollection");
+py::module::import("OCCT.Bnd");
 py::module::import("OCCT.GeomAbs");
 py::module::import("OCCT.TColgp");
 py::module::import("OCCT.Adaptor3d");
@@ -176,6 +180,9 @@ cls_IntSurf_LineOn2S.def("SetUV", (void (IntSurf_LineOn2S::*)(const Standard_Int
 cls_IntSurf_LineOn2S.def("Clear", (void (IntSurf_LineOn2S::*)()) &IntSurf_LineOn2S::Clear, "None");
 cls_IntSurf_LineOn2S.def("InsertBefore", (void (IntSurf_LineOn2S::*)(const Standard_Integer, const IntSurf_PntOn2S &)) &IntSurf_LineOn2S::InsertBefore, "None", py::arg("I"), py::arg("P"));
 cls_IntSurf_LineOn2S.def("RemovePoint", (void (IntSurf_LineOn2S::*)(const Standard_Integer)) &IntSurf_LineOn2S::RemovePoint, "None", py::arg("I"));
+cls_IntSurf_LineOn2S.def("IsOutSurf1Box", (Standard_Boolean (IntSurf_LineOn2S::*)(const gp_Pnt2d &)) &IntSurf_LineOn2S::IsOutSurf1Box, "Returns TRUE if theP is out of the box built from the points on 1st surface", py::arg("theP"));
+cls_IntSurf_LineOn2S.def("IsOutSurf2Box", (Standard_Boolean (IntSurf_LineOn2S::*)(const gp_Pnt2d &)) &IntSurf_LineOn2S::IsOutSurf2Box, "Returns TRUE if theP is out of the box built from the points on 2nd surface", py::arg("theP"));
+cls_IntSurf_LineOn2S.def("IsOutBox", (Standard_Boolean (IntSurf_LineOn2S::*)(const gp_Pnt &)) &IntSurf_LineOn2S::IsOutBox, "Returns TRUE if theP is out of the box built from 3D-points.", py::arg("theP"));
 cls_IntSurf_LineOn2S.def_static("get_type_name_", (const char * (*)()) &IntSurf_LineOn2S::get_type_name, "None");
 cls_IntSurf_LineOn2S.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IntSurf_LineOn2S::get_type_descriptor, "None");
 cls_IntSurf_LineOn2S.def("DynamicType", (const opencascade::handle<Standard_Type> & (IntSurf_LineOn2S::*)() const) &IntSurf_LineOn2S::DynamicType, "None");

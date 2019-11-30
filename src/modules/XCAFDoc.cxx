@@ -39,49 +39,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <NCollection_IndexedDataMap.hxx>
 #include <TDF_LabelMapHasher.hxx>
 #include <TDF_RelocationTable.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <Standard.hxx>
-#include <XCAFDoc_DocumentTool.hxx>
-#include <XCAFDoc_Location.hxx>
-#include <XCAFDoc_Color.hxx>
-#include <XCAFDoc_DimTol.hxx>
-#include <XCAFDoc_Datum.hxx>
-#include <XCAFDoc_Material.hxx>
-#include <XCAFDoc_Volume.hxx>
-#include <XCAFDoc_Area.hxx>
-#include <XCAFDoc_Centroid.hxx>
-#include <XCAFDoc_ClippingPlaneTool.hxx>
-#include <XCAFDoc_ShapeMapTool.hxx>
-#include <XCAFDoc_ColorTool.hxx>
-#include <XCAFDoc_LayerTool.hxx>
-#include <XCAFDoc_MaterialTool.hxx>
-#include <XCAFDoc_GraphNode.hxx>
-#include <XCAFDoc_Editor.hxx>
-#include <XCAFDoc_ViewTool.hxx>
 #include <XCAFDoc.hxx>
+#include <XCAFDoc_Area.hxx>
 #include <Standard_OStream.hxx>
 #include <TColStd_ListOfAsciiString.hxx>
 #include <TCollection_AsciiString.hxx>
 #include <XCAFDoc_AssemblyItemId.hxx>
 #include <XCAFDoc_AssemblyItemRef.hxx>
+#include <XCAFDoc_Centroid.hxx>
 #include <gp_Pnt.hxx>
+#include <XCAFDoc_ClippingPlaneTool.hxx>
 #include <gp_Pln.hxx>
+#include <XCAFDoc_Color.hxx>
 #include <Quantity_Color.hxx>
 #include <Quantity_ColorRGBA.hxx>
 #include <Quantity_NameOfColor.hxx>
+#include <XCAFDoc_ColorTool.hxx>
+#include <XCAFDoc_Datum.hxx>
 #include <XCAFDimTolObjects_DatumObject.hxx>
 #include <XCAFDoc_Dimension.hxx>
 #include <XCAFDimTolObjects_DimensionObject.hxx>
+#include <XCAFDoc_DimTol.hxx>
+#include <XCAFDoc_DocumentTool.hxx>
 #include <TDocStd_Document.hxx>
+#include <XCAFDoc_LayerTool.hxx>
+#include <XCAFDoc_MaterialTool.hxx>
+#include <XCAFDoc_ViewTool.hxx>
 #include <XCAFDoc_NotesTool.hxx>
 #include <TDataStd_Name.hxx>
+#include <XCAFDoc_Editor.hxx>
 #include <XCAFDoc_GeomTolerance.hxx>
 #include <XCAFDimTolObjects_GeomToleranceObject.hxx>
 #include <NCollection_Sequence.hxx>
+#include <XCAFDoc_GraphNode.hxx>
 #include <XCAFDoc_GraphNodeSequence.hxx>
 #include <TDF_DataSet.hxx>
 #include <TColStd_HSequenceOfExtendedString.hxx>
+#include <XCAFDoc_Location.hxx>
 #include <TopLoc_Location.hxx>
+#include <XCAFDoc_Material.hxx>
 #include <XCAFDoc_Note.hxx>
 #include <XCAFNoteObjects_NoteObject.hxx>
 #include <XCAFDoc_NoteComment.hxx>
@@ -90,12 +89,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <OSD_File.hxx>
 #include <TColStd_HArray1OfByte.hxx>
 #include <XCAFDoc_PartId.hxx>
+#include <XCAFDoc_ShapeMapTool.hxx>
 #include <TopTools_IndexedMapOfShape.hxx>
 #include <TColStd_SequenceOfHAsciiString.hxx>
 #include <TDF_AttributeSequence.hxx>
 #include <TopTools_SequenceOfShape.hxx>
+#include <TDataStd_NamedData.hxx>
 #include <XCAFDoc_View.hxx>
 #include <XCAFView_Object.hxx>
+#include <XCAFDoc_Volume.hxx>
 #include <bind_NCollection_DataMap.hxx>
 #include <bind_NCollection_Sequence.hxx>
 
@@ -200,29 +202,29 @@ py::class_<XCAFDoc> cls_XCAFDoc(mod, "XCAFDoc", "Definition of general structure
 // cls_XCAFDoc.def_static("operator delete[]_", (void (*)(void *)) &XCAFDoc::operator delete[], "None", py::arg("theAddress"));
 // cls_XCAFDoc.def_static("operator new_", (void * (*)(size_t, void *)) &XCAFDoc::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_XCAFDoc.def_static("operator delete_", (void (*)(void *, void *)) &XCAFDoc::operator delete, "None", py::arg(""), py::arg(""));
-cls_XCAFDoc.def_static("AssemblyGUID_", (Standard_GUID (*)()) &XCAFDoc::AssemblyGUID, "class for containing GraphNodes. Returns GUID for UAttribute identifying assembly");
-cls_XCAFDoc.def_static("ShapeRefGUID_", (Standard_GUID (*)()) &XCAFDoc::ShapeRefGUID, "Returns GUID for TreeNode representing assembly link");
-cls_XCAFDoc.def_static("ColorRefGUID_", (Standard_GUID (*)(const XCAFDoc_ColorType)) &XCAFDoc::ColorRefGUID, "Return GUIDs for TreeNode representing specified types of colors", py::arg("type"));
-cls_XCAFDoc.def_static("DimTolRefGUID_", (Standard_GUID (*)()) &XCAFDoc::DimTolRefGUID, "Return GUIDs for TreeNode representing specified types of DGT");
-cls_XCAFDoc.def_static("DimensionRefFirstGUID_", (Standard_GUID (*)()) &XCAFDoc::DimensionRefFirstGUID, "Return GUIDs for TreeNode representing specified types of Dimension");
-cls_XCAFDoc.def_static("DimensionRefSecondGUID_", (Standard_GUID (*)()) &XCAFDoc::DimensionRefSecondGUID, "Return GUIDs for TreeNode representing specified types of Dimension");
-cls_XCAFDoc.def_static("GeomToleranceRefGUID_", (Standard_GUID (*)()) &XCAFDoc::GeomToleranceRefGUID, "Return GUIDs for TreeNode representing specified types of GeomTolerance");
-cls_XCAFDoc.def_static("DatumRefGUID_", (Standard_GUID (*)()) &XCAFDoc::DatumRefGUID, "Return GUIDs for TreeNode representing specified types of datum");
-cls_XCAFDoc.def_static("DatumTolRefGUID_", (Standard_GUID (*)()) &XCAFDoc::DatumTolRefGUID, "Return GUIDs for TreeNode representing connections Datum-Toler");
-cls_XCAFDoc.def_static("LayerRefGUID_", (Standard_GUID (*)()) &XCAFDoc::LayerRefGUID, "None");
-cls_XCAFDoc.def_static("MaterialRefGUID_", (Standard_GUID (*)()) &XCAFDoc::MaterialRefGUID, "None");
-cls_XCAFDoc.def_static("NoteRefGUID_", (Standard_GUID (*)()) &XCAFDoc::NoteRefGUID, "Return GUIDs for representing notes");
-cls_XCAFDoc.def_static("InvisibleGUID_", (Standard_GUID (*)()) &XCAFDoc::InvisibleGUID, "None");
-cls_XCAFDoc.def_static("ColorByLayerGUID_", (Standard_GUID (*)()) &XCAFDoc::ColorByLayerGUID, "None");
-cls_XCAFDoc.def_static("ExternRefGUID_", (Standard_GUID (*)()) &XCAFDoc::ExternRefGUID, "Returns GUID for UAttribute identifying external reference on no-step file");
-cls_XCAFDoc.def_static("SHUORefGUID_", (Standard_GUID (*)()) &XCAFDoc::SHUORefGUID, "Returns GUID for UAttribute identifying specified higher usage occurrence");
-cls_XCAFDoc.def_static("ViewRefGUID_", (Standard_GUID (*)()) &XCAFDoc::ViewRefGUID, "Return GUIDs for TreeNode representing specified types of View");
-cls_XCAFDoc.def_static("ViewRefShapeGUID_", (Standard_GUID (*)()) &XCAFDoc::ViewRefShapeGUID, "Return GUIDs for TreeNode representing specified types of View");
-cls_XCAFDoc.def_static("ViewRefGDTGUID_", (Standard_GUID (*)()) &XCAFDoc::ViewRefGDTGUID, "Return GUIDs for TreeNode representing specified types of View");
-cls_XCAFDoc.def_static("ViewRefPlaneGUID_", (Standard_GUID (*)()) &XCAFDoc::ViewRefPlaneGUID, "Return GUIDs for TreeNode representing specified types of View");
-cls_XCAFDoc.def_static("ViewRefNoteGUID_", (Standard_GUID (*)()) &XCAFDoc::ViewRefNoteGUID, "Return GUIDs for GraphNode representing specified types of View");
-cls_XCAFDoc.def_static("ViewRefAnnotationGUID_", (Standard_GUID (*)()) &XCAFDoc::ViewRefAnnotationGUID, "None");
-cls_XCAFDoc.def_static("LockGUID_", (Standard_GUID (*)()) &XCAFDoc::LockGUID, "Returns GUID for UAttribute identifying lock flag");
+cls_XCAFDoc.def_static("AssemblyGUID_", (const Standard_GUID & (*)()) &XCAFDoc::AssemblyGUID, "class for containing GraphNodes. Returns GUID for UAttribute identifying assembly");
+cls_XCAFDoc.def_static("ShapeRefGUID_", (const Standard_GUID & (*)()) &XCAFDoc::ShapeRefGUID, "Returns GUID for TreeNode representing assembly link");
+cls_XCAFDoc.def_static("ColorRefGUID_", (const Standard_GUID & (*)(const XCAFDoc_ColorType)) &XCAFDoc::ColorRefGUID, "Return GUIDs for TreeNode representing specified types of colors", py::arg("type"));
+cls_XCAFDoc.def_static("DimTolRefGUID_", (const Standard_GUID & (*)()) &XCAFDoc::DimTolRefGUID, "Return GUIDs for TreeNode representing specified types of DGT");
+cls_XCAFDoc.def_static("DimensionRefFirstGUID_", (const Standard_GUID & (*)()) &XCAFDoc::DimensionRefFirstGUID, "Return GUIDs for TreeNode representing specified types of Dimension");
+cls_XCAFDoc.def_static("DimensionRefSecondGUID_", (const Standard_GUID & (*)()) &XCAFDoc::DimensionRefSecondGUID, "Return GUIDs for TreeNode representing specified types of Dimension");
+cls_XCAFDoc.def_static("GeomToleranceRefGUID_", (const Standard_GUID & (*)()) &XCAFDoc::GeomToleranceRefGUID, "Return GUIDs for TreeNode representing specified types of GeomTolerance");
+cls_XCAFDoc.def_static("DatumRefGUID_", (const Standard_GUID & (*)()) &XCAFDoc::DatumRefGUID, "Return GUIDs for TreeNode representing specified types of datum");
+cls_XCAFDoc.def_static("DatumTolRefGUID_", (const Standard_GUID & (*)()) &XCAFDoc::DatumTolRefGUID, "Return GUIDs for TreeNode representing connections Datum-Toler");
+cls_XCAFDoc.def_static("LayerRefGUID_", (const Standard_GUID & (*)()) &XCAFDoc::LayerRefGUID, "None");
+cls_XCAFDoc.def_static("MaterialRefGUID_", (const Standard_GUID & (*)()) &XCAFDoc::MaterialRefGUID, "None");
+cls_XCAFDoc.def_static("NoteRefGUID_", (const Standard_GUID & (*)()) &XCAFDoc::NoteRefGUID, "Return GUIDs for representing notes");
+cls_XCAFDoc.def_static("InvisibleGUID_", (const Standard_GUID & (*)()) &XCAFDoc::InvisibleGUID, "None");
+cls_XCAFDoc.def_static("ColorByLayerGUID_", (const Standard_GUID & (*)()) &XCAFDoc::ColorByLayerGUID, "None");
+cls_XCAFDoc.def_static("ExternRefGUID_", (const Standard_GUID & (*)()) &XCAFDoc::ExternRefGUID, "Returns GUID for UAttribute identifying external reference on no-step file");
+cls_XCAFDoc.def_static("SHUORefGUID_", (const Standard_GUID & (*)()) &XCAFDoc::SHUORefGUID, "Returns GUID for UAttribute identifying specified higher usage occurrence");
+cls_XCAFDoc.def_static("ViewRefGUID_", (const Standard_GUID & (*)()) &XCAFDoc::ViewRefGUID, "Return GUIDs for TreeNode representing specified types of View");
+cls_XCAFDoc.def_static("ViewRefShapeGUID_", (const Standard_GUID & (*)()) &XCAFDoc::ViewRefShapeGUID, "Return GUIDs for TreeNode representing specified types of View");
+cls_XCAFDoc.def_static("ViewRefGDTGUID_", (const Standard_GUID & (*)()) &XCAFDoc::ViewRefGDTGUID, "Return GUIDs for TreeNode representing specified types of View");
+cls_XCAFDoc.def_static("ViewRefPlaneGUID_", (const Standard_GUID & (*)()) &XCAFDoc::ViewRefPlaneGUID, "Return GUIDs for TreeNode representing specified types of View");
+cls_XCAFDoc.def_static("ViewRefNoteGUID_", (const Standard_GUID & (*)()) &XCAFDoc::ViewRefNoteGUID, "Return GUIDs for GraphNode representing specified types of View");
+cls_XCAFDoc.def_static("ViewRefAnnotationGUID_", (const Standard_GUID & (*)()) &XCAFDoc::ViewRefAnnotationGUID, "None");
+cls_XCAFDoc.def_static("LockGUID_", (const Standard_GUID & (*)()) &XCAFDoc::LockGUID, "Returns GUID for UAttribute identifying lock flag");
 
 // CLASS: XCAFDOC_AREA
 py::class_<XCAFDoc_Area, opencascade::handle<XCAFDoc_Area>, TDF_Attribute> cls_XCAFDoc_Area(mod, "XCAFDoc_Area", "attribute to store area");
@@ -1018,7 +1020,7 @@ cls_XCAFDoc_PartId.def("Trunc", (void (TCollection_AsciiString::*)(const Standar
 cls_XCAFDoc_PartId.def("UpperCase", (void (TCollection_AsciiString::*)()) &TCollection_AsciiString::UpperCase, "Converts <me> to its upper-case equivalent.");
 cls_XCAFDoc_PartId.def("UsefullLength", (Standard_Integer (TCollection_AsciiString::*)() const) &TCollection_AsciiString::UsefullLength, "Length of the string ignoring all spaces (' ') and the control character at the end.");
 cls_XCAFDoc_PartId.def("Value", (Standard_Character (TCollection_AsciiString::*)(const Standard_Integer) const) &TCollection_AsciiString::Value, "Returns character at position <where> in <me>. If <where> is less than zero or greater than the lenght of <me>, an exception is raised. Example: aString contains 'Hello' aString.Value(2) returns 'e'", py::arg("where"));
-cls_XCAFDoc_PartId.def_static("HashCode_", (Standard_Integer (*)(const TCollection_AsciiString &, const Standard_Integer)) &TCollection_AsciiString::HashCode, "Hash function for AsciiString (returns the same Integer value that the hash function for ExtendedString)", py::arg("astring"), py::arg("Upper"));
+cls_XCAFDoc_PartId.def_static("HashCode_", (Standard_Integer (*)(const TCollection_AsciiString &, Standard_Integer)) &TCollection_AsciiString::HashCode, "Computes a hash code for the given ASCII string, in the range [1, theUpperBound]. Returns the same integer value as the hash function for TCollection_ExtendedString", py::arg("theAsciiString"), py::arg("theUpperBound"));
 cls_XCAFDoc_PartId.def_static("IsEqual_", (Standard_Boolean (*)(const TCollection_AsciiString &, const TCollection_AsciiString &)) &TCollection_AsciiString::IsEqual, "Returns True when the two strings are the same. (Just for HashCode for AsciiString)", py::arg("string1"), py::arg("string2"));
 cls_XCAFDoc_PartId.def_static("IsEqual_", (Standard_Boolean (*)(const TCollection_AsciiString &, const Standard_CString)) &TCollection_AsciiString::IsEqual, "Returns True when the two strings are the same. (Just for HashCode for AsciiString)", py::arg("string1"), py::arg("string2"));
 cls_XCAFDoc_PartId.def_static("IsSameString_", (Standard_Boolean (*)(const TCollection_AsciiString &, const TCollection_AsciiString &, const Standard_Boolean)) &TCollection_AsciiString::IsSameString, "Returns True if the strings contain same characters.", py::arg("theString1"), py::arg("theString2"), py::arg("theIsCaseSensitive"));
@@ -1068,7 +1070,7 @@ cls_XCAFDoc_ShapeTool.def("Search", [](XCAFDoc_ShapeTool &self, const TopoDS_Sha
 cls_XCAFDoc_ShapeTool.def("Search", [](XCAFDoc_ShapeTool &self, const TopoDS_Shape & a0, TDF_Label & a1, const Standard_Boolean a2, const Standard_Boolean a3) -> Standard_Boolean { return self.Search(a0, a1, a2, a3); });
 cls_XCAFDoc_ShapeTool.def("Search", (Standard_Boolean (XCAFDoc_ShapeTool::*)(const TopoDS_Shape &, TDF_Label &, const Standard_Boolean, const Standard_Boolean, const Standard_Boolean) const) &XCAFDoc_ShapeTool::Search, "General tool to find a (sub) shape in the document * If findInstance is True, and S has a non-null location, first tries to find the shape among the top-level shapes with this location * If not found, and findComponent is True, tries to find the shape among the components of assemblies * If not found, tries to find the shape without location among top-level shapes * If not found and findSubshape is True, tries to find a shape as a subshape of top-level simple shapes Returns False if nothing is found", py::arg("S"), py::arg("L"), py::arg("findInstance"), py::arg("findComponent"), py::arg("findSubshape"));
 cls_XCAFDoc_ShapeTool.def("FindShape", [](XCAFDoc_ShapeTool &self, const TopoDS_Shape & a0, TDF_Label & a1) -> Standard_Boolean { return self.FindShape(a0, a1); });
-cls_XCAFDoc_ShapeTool.def("FindShape", (Standard_Boolean (XCAFDoc_ShapeTool::*)(const TopoDS_Shape &, TDF_Label &, const Standard_Boolean) const) &XCAFDoc_ShapeTool::FindShape, "Returns the label corresponding to shape S (searches among top-level shapes, not including subcomponents of assemblies) If findInstance is False (default), searches for the non-located shape (i.e. among original shapes) If findInstance is True, searches for the shape with the same location, including shape instances Return True if <S> is found.", py::arg("S"), py::arg("L"), py::arg("findInstance"));
+cls_XCAFDoc_ShapeTool.def("FindShape", (Standard_Boolean (XCAFDoc_ShapeTool::*)(const TopoDS_Shape &, TDF_Label &, const Standard_Boolean) const) &XCAFDoc_ShapeTool::FindShape, "Returns the label corresponding to shape S (searches among top-level shapes, not including subcomponents of assemblies and subshapes) If findInstance is False (default), seach for the input shape without location If findInstance is True, searches for the input shape as is. Return True if <S> is found.", py::arg("S"), py::arg("L"), py::arg("findInstance"));
 cls_XCAFDoc_ShapeTool.def("FindShape", [](XCAFDoc_ShapeTool &self, const TopoDS_Shape & a0) -> TDF_Label { return self.FindShape(a0); });
 cls_XCAFDoc_ShapeTool.def("FindShape", (TDF_Label (XCAFDoc_ShapeTool::*)(const TopoDS_Shape &, const Standard_Boolean) const) &XCAFDoc_ShapeTool::FindShape, "Does the same as previous method Returns Null label if not found", py::arg("S"), py::arg("findInstance"));
 cls_XCAFDoc_ShapeTool.def_static("GetShape_", (Standard_Boolean (*)(const TDF_Label &, TopoDS_Shape &)) &XCAFDoc_ShapeTool::GetShape, "To get TopoDS_Shape from shape's label For component, returns new shape with correct location Returns False if label does not contain shape", py::arg("L"), py::arg("S"));
@@ -1095,13 +1097,14 @@ cls_XCAFDoc_ShapeTool.def_static("NbComponents_", [](const TDF_Label & a0) -> St
 cls_XCAFDoc_ShapeTool.def_static("NbComponents_", (Standard_Integer (*)(const TDF_Label &, const Standard_Boolean)) &XCAFDoc_ShapeTool::NbComponents, "Returns number of Assembles components", py::arg("L"), py::arg("getsubchilds"));
 cls_XCAFDoc_ShapeTool.def_static("GetComponents_", [](const TDF_Label & a0, TDF_LabelSequence & a1) -> Standard_Boolean { return XCAFDoc_ShapeTool::GetComponents(a0, a1); });
 cls_XCAFDoc_ShapeTool.def_static("GetComponents_", (Standard_Boolean (*)(const TDF_Label &, TDF_LabelSequence &, const Standard_Boolean)) &XCAFDoc_ShapeTool::GetComponents, "Returns list of components of assembly Returns False if label is not assembly", py::arg("L"), py::arg("Labels"), py::arg("getsubchilds"));
-cls_XCAFDoc_ShapeTool.def("AddComponent", (TDF_Label (XCAFDoc_ShapeTool::*)(const TDF_Label &, const TDF_Label &, const TopLoc_Location &) const) &XCAFDoc_ShapeTool::AddComponent, "Adds a component given by its label and location to the assembly Note: assembly must be IsAssembly() or IsSimpleShape()", py::arg("assembly"), py::arg("comp"), py::arg("Loc"));
+cls_XCAFDoc_ShapeTool.def("AddComponent", (TDF_Label (XCAFDoc_ShapeTool::*)(const TDF_Label &, const TDF_Label &, const TopLoc_Location &)) &XCAFDoc_ShapeTool::AddComponent, "Adds a component given by its label and location to the assembly Note: assembly must be IsAssembly() or IsSimpleShape()", py::arg("assembly"), py::arg("comp"), py::arg("Loc"));
 cls_XCAFDoc_ShapeTool.def("AddComponent", [](XCAFDoc_ShapeTool &self, const TDF_Label & a0, const TopoDS_Shape & a1) -> TDF_Label { return self.AddComponent(a0, a1); });
 cls_XCAFDoc_ShapeTool.def("AddComponent", (TDF_Label (XCAFDoc_ShapeTool::*)(const TDF_Label &, const TopoDS_Shape &, const Standard_Boolean)) &XCAFDoc_ShapeTool::AddComponent, "Adds a shape (located) as a component to the assembly If necessary, creates an additional top-level shape for component and return the Label of component. If expand is True and component is Compound, it will be created as assembly also Note: assembly must be IsAssembly() or IsSimpleShape()", py::arg("assembly"), py::arg("comp"), py::arg("expand"));
 cls_XCAFDoc_ShapeTool.def("RemoveComponent", (void (XCAFDoc_ShapeTool::*)(const TDF_Label &) const) &XCAFDoc_ShapeTool::RemoveComponent, "Removes a component from its assembly", py::arg("comp"));
 cls_XCAFDoc_ShapeTool.def("UpdateAssemblies", (void (XCAFDoc_ShapeTool::*)()) &XCAFDoc_ShapeTool::UpdateAssemblies, "Top-down update for all assembly compounds stored in the document.");
 cls_XCAFDoc_ShapeTool.def("FindSubShape", (Standard_Boolean (XCAFDoc_ShapeTool::*)(const TDF_Label &, const TopoDS_Shape &, TDF_Label &) const) &XCAFDoc_ShapeTool::FindSubShape, "Finds a label for subshape of shape stored on label shapeL Returns Null label if it is not found", py::arg("shapeL"), py::arg("sub"), py::arg("L"));
 cls_XCAFDoc_ShapeTool.def("AddSubShape", (TDF_Label (XCAFDoc_ShapeTool::*)(const TDF_Label &, const TopoDS_Shape &) const) &XCAFDoc_ShapeTool::AddSubShape, "Adds a label for subshape of shape stored on label shapeL Returns Null label if it is not subshape", py::arg("shapeL"), py::arg("sub"));
+cls_XCAFDoc_ShapeTool.def("AddSubShape", (Standard_Boolean (XCAFDoc_ShapeTool::*)(const TDF_Label &, const TopoDS_Shape &, TDF_Label &) const) &XCAFDoc_ShapeTool::AddSubShape, "Adds (of finds already existed) a label for subshape of shape stored on label shapeL. Label addedSubShapeL returns added (found) label or empty in case of wrong subshape. Returns True, if new shape was added, False in case of already existed subshape/wrong subshape", py::arg("shapeL"), py::arg("sub"), py::arg("addedSubShapeL"));
 cls_XCAFDoc_ShapeTool.def("FindMainShapeUsingMap", (TDF_Label (XCAFDoc_ShapeTool::*)(const TopoDS_Shape &) const) &XCAFDoc_ShapeTool::FindMainShapeUsingMap, "None", py::arg("sub"));
 cls_XCAFDoc_ShapeTool.def("FindMainShape", (TDF_Label (XCAFDoc_ShapeTool::*)(const TopoDS_Shape &) const) &XCAFDoc_ShapeTool::FindMainShape, "Performs a search among top-level shapes to find the shape containing as subshape Checks only simple shapes, and returns the first found label (which should be the only one for valid model)", py::arg("sub"));
 cls_XCAFDoc_ShapeTool.def_static("GetSubShapes_", (Standard_Boolean (*)(const TDF_Label &, TDF_LabelSequence &)) &XCAFDoc_ShapeTool::GetSubShapes, "Returns list of labels identifying subshapes of the given shape Returns False if no subshapes are placed on that label", py::arg("L"), py::arg("Labels"));
@@ -1110,7 +1113,7 @@ cls_XCAFDoc_ShapeTool.def("Dump", (Standard_OStream & (XCAFDoc_ShapeTool::*)(Sta
 cls_XCAFDoc_ShapeTool.def("Dump", (Standard_OStream & (XCAFDoc_ShapeTool::*)(Standard_OStream &) const) &XCAFDoc_ShapeTool::Dump, "None", py::arg("theDumpLog"));
 cls_XCAFDoc_ShapeTool.def_static("DumpShape_", [](Standard_OStream & a0, const TDF_Label & a1) -> void { return XCAFDoc_ShapeTool::DumpShape(a0, a1); });
 cls_XCAFDoc_ShapeTool.def_static("DumpShape_", [](Standard_OStream & a0, const TDF_Label & a1, const Standard_Integer a2) -> void { return XCAFDoc_ShapeTool::DumpShape(a0, a1, a2); });
-cls_XCAFDoc_ShapeTool.def_static("DumpShape_", (void (*)(Standard_OStream &, const TDF_Label &, const Standard_Integer, const Standard_Boolean)) &XCAFDoc_ShapeTool::DumpShape, "Print to ostream <theDumpLog> type of shape found on <L> label and the entry of <L>, with <level> tabs before. If <deep>, print also TShape and Location addresses", py::arg("theDumpLog"), py::arg("L"), py::arg("level"), py::arg("deep"));
+cls_XCAFDoc_ShapeTool.def_static("DumpShape_", (void (*)(Standard_OStream &, const TDF_Label &, const Standard_Integer, const Standard_Boolean)) &XCAFDoc_ShapeTool::DumpShape, "Print to std::ostream <theDumpLog> type of shape found on <L> label and the entry of <L>, with <level> tabs before. If <deep>, print also TShape and Location addresses", py::arg("theDumpLog"), py::arg("L"), py::arg("level"), py::arg("deep"));
 cls_XCAFDoc_ShapeTool.def("ID", (const Standard_GUID & (XCAFDoc_ShapeTool::*)() const) &XCAFDoc_ShapeTool::ID, "None");
 cls_XCAFDoc_ShapeTool.def("Restore", (void (XCAFDoc_ShapeTool::*)(const opencascade::handle<TDF_Attribute> &)) &XCAFDoc_ShapeTool::Restore, "None", py::arg("with"));
 cls_XCAFDoc_ShapeTool.def("NewEmpty", (opencascade::handle<TDF_Attribute> (XCAFDoc_ShapeTool::*)() const) &XCAFDoc_ShapeTool::NewEmpty, "None");
@@ -1131,7 +1134,10 @@ cls_XCAFDoc_ShapeTool.def("SetInstanceSHUO", (opencascade::handle<XCAFDoc_GraphN
 cls_XCAFDoc_ShapeTool.def("GetAllSHUOInstances", (Standard_Boolean (XCAFDoc_ShapeTool::*)(const opencascade::handle<XCAFDoc_GraphNode> &, TopTools_SequenceOfShape &) const) &XCAFDoc_ShapeTool::GetAllSHUOInstances, "Seaching for component shapes that styled by shuo Returns empty sequence of shape if no any shape is found.", py::arg("theSHUO"), py::arg("theSHUOShapeSeq"));
 cls_XCAFDoc_ShapeTool.def_static("FindSHUO_", (Standard_Boolean (*)(const TDF_LabelSequence &, opencascade::handle<XCAFDoc_GraphNode> &)) &XCAFDoc_ShapeTool::FindSHUO, "Searchs the SHUO by labels of components from upper_usage componet to next_usage Returns null attribute if no SHUO found", py::arg("Labels"), py::arg("theSHUOAttr"));
 cls_XCAFDoc_ShapeTool.def("Expand", (Standard_Boolean (XCAFDoc_ShapeTool::*)(const TDF_Label &)) &XCAFDoc_ShapeTool::Expand, "Convert Shape (compound/compsolid/shell/wire) to assembly", py::arg("Shape"));
-cls_XCAFDoc_ShapeTool.def("makeSubShape", (void (XCAFDoc_ShapeTool::*)(const TDF_Label &, const TopoDS_Shape &, const TopLoc_Location &)) &XCAFDoc_ShapeTool::makeSubShape, "Make subshape for Part from Shape", py::arg("thePart"), py::arg("theShape"), py::arg("theLoc"));
+cls_XCAFDoc_ShapeTool.def("GetNamedProperties", [](XCAFDoc_ShapeTool &self, const TDF_Label & a0) -> opencascade::handle<TDataStd_NamedData> { return self.GetNamedProperties(a0); });
+cls_XCAFDoc_ShapeTool.def("GetNamedProperties", (opencascade::handle<TDataStd_NamedData> (XCAFDoc_ShapeTool::*)(const TDF_Label &, const Standard_Boolean) const) &XCAFDoc_ShapeTool::GetNamedProperties, "Method to get NamedData attribute assigned to the given shape label.", py::arg("theLabel"), py::arg("theToCreate"));
+cls_XCAFDoc_ShapeTool.def("GetNamedProperties", [](XCAFDoc_ShapeTool &self, const TopoDS_Shape & a0) -> opencascade::handle<TDataStd_NamedData> { return self.GetNamedProperties(a0); });
+cls_XCAFDoc_ShapeTool.def("GetNamedProperties", (opencascade::handle<TDataStd_NamedData> (XCAFDoc_ShapeTool::*)(const TopoDS_Shape &, const Standard_Boolean) const) &XCAFDoc_ShapeTool::GetNamedProperties, "Method to get NamedData attribute assigned to a label of the given shape.", py::arg("theShape"), py::arg("theToCreate"));
 cls_XCAFDoc_ShapeTool.def_static("get_type_name_", (const char * (*)()) &XCAFDoc_ShapeTool::get_type_name, "None");
 cls_XCAFDoc_ShapeTool.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &XCAFDoc_ShapeTool::get_type_descriptor, "None");
 cls_XCAFDoc_ShapeTool.def("DynamicType", (const opencascade::handle<Standard_Type> & (XCAFDoc_ShapeTool::*)() const) &XCAFDoc_ShapeTool::DynamicType, "None");

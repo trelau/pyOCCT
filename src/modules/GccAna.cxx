@@ -53,6 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Failure.hxx>
 #include <GccAna_NoSolution.hxx>
 #include <Standard_SStream.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <GccAna_Pnt2dBisec.hxx>
 

@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <GeomAbs_JoinType.hxx>
 #include <Geom2d_Point.hxx>
 #include <Geom2d_TrimmedCurve.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <Geom2d_Geometry.hxx>
 #include <gp_Trsf2d.hxx>

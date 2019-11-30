@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <HLRAlgo_EdgesBlock.hxx>
 #include <TopAbs_Orientation.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <TColStd_Array1OfInteger.hxx>
@@ -380,6 +381,7 @@ cls_HLRAlgo_EdgeStatus.def("AllVisible", (void (HLRAlgo_EdgeStatus::*)(const Sta
 py::class_<HLRAlgo_HArray1OfPHDat, opencascade::handle<HLRAlgo_HArray1OfPHDat>, Standard_Transient> cls_HLRAlgo_HArray1OfPHDat(mod, "HLRAlgo_HArray1OfPHDat", "None", py::multiple_inheritance());
 
 // Constructors
+cls_HLRAlgo_HArray1OfPHDat.def(py::init<>());
 cls_HLRAlgo_HArray1OfPHDat.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_HLRAlgo_HArray1OfPHDat.def(py::init<const Standard_Integer, const Standard_Integer, const HLRAlgo_Array1OfPHDat::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_HLRAlgo_HArray1OfPHDat.def(py::init<const HLRAlgo_Array1OfPHDat &>(), py::arg("theOther"));
@@ -403,6 +405,7 @@ cls_HLRAlgo_HArray1OfPHDat.def("DynamicType", (const opencascade::handle<Standar
 py::class_<HLRAlgo_HArray1OfPINod, opencascade::handle<HLRAlgo_HArray1OfPINod>, Standard_Transient> cls_HLRAlgo_HArray1OfPINod(mod, "HLRAlgo_HArray1OfPINod", "None", py::multiple_inheritance());
 
 // Constructors
+cls_HLRAlgo_HArray1OfPINod.def(py::init<>());
 cls_HLRAlgo_HArray1OfPINod.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_HLRAlgo_HArray1OfPINod.def(py::init<const Standard_Integer, const Standard_Integer, const HLRAlgo_Array1OfPINod::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_HLRAlgo_HArray1OfPINod.def(py::init<const HLRAlgo_Array1OfPINod &>(), py::arg("theOther"));
@@ -426,6 +429,7 @@ cls_HLRAlgo_HArray1OfPINod.def("DynamicType", (const opencascade::handle<Standar
 py::class_<HLRAlgo_HArray1OfPISeg, opencascade::handle<HLRAlgo_HArray1OfPISeg>, Standard_Transient> cls_HLRAlgo_HArray1OfPISeg(mod, "HLRAlgo_HArray1OfPISeg", "None", py::multiple_inheritance());
 
 // Constructors
+cls_HLRAlgo_HArray1OfPISeg.def(py::init<>());
 cls_HLRAlgo_HArray1OfPISeg.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_HLRAlgo_HArray1OfPISeg.def(py::init<const Standard_Integer, const Standard_Integer, const HLRAlgo_Array1OfPISeg::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_HLRAlgo_HArray1OfPISeg.def(py::init<const HLRAlgo_Array1OfPISeg &>(), py::arg("theOther"));
@@ -449,6 +453,7 @@ cls_HLRAlgo_HArray1OfPISeg.def("DynamicType", (const opencascade::handle<Standar
 py::class_<HLRAlgo_HArray1OfTData, opencascade::handle<HLRAlgo_HArray1OfTData>, Standard_Transient> cls_HLRAlgo_HArray1OfTData(mod, "HLRAlgo_HArray1OfTData", "None", py::multiple_inheritance());
 
 // Constructors
+cls_HLRAlgo_HArray1OfTData.def(py::init<>());
 cls_HLRAlgo_HArray1OfTData.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_HLRAlgo_HArray1OfTData.def(py::init<const Standard_Integer, const Standard_Integer, const HLRAlgo_Array1OfTData::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_HLRAlgo_HArray1OfTData.def(py::init<const HLRAlgo_Array1OfTData &>(), py::arg("theOther"));

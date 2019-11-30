@@ -25,24 +25,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopOpeBRep_TypeLineCurve.hxx>
 #include <TopOpeBRep_P2Dstatus.hxx>
 #include <Standard.hxx>
-#include <TopoDS_Shape.hxx>
-#include <TopAbs_ShapeEnum.hxx>
-#include <TopOpeBRepTool_ShapeExplorer.hxx>
-#include <Standard_TypeDef.hxx>
-#include <TopOpeBRepTool_BoxSort.hxx>
 #include <Standard_OStream.hxx>
-#include <TColStd_ListOfInteger.hxx>
+#include <TopOpeBRep_VPointInter.hxx>
+#include <TopOpeBRep_VPointInterIterator.hxx>
+#include <TopOpeBRep_WPointInter.hxx>
+#include <TopOpeBRep_WPointInterIterator.hxx>
+#include <TopOpeBRep_LineInter.hxx>
+#include <TopOpeBRep_Hctxff2d.hxx>
+#include <TopOpeBRep_Hctxee2d.hxx>
+#include <TopOpeBRep_Point2d.hxx>
+#include <TopOpeBRep_PointClassifier.hxx>
+#include <TopOpeBRep_VPointInterClassifier.hxx>
+#include <TopOpeBRep_GeomTool.hxx>
+#include <TopOpeBRep_FacesIntersector.hxx>
+#include <TopOpeBRep_EdgesIntersector.hxx>
+#include <TopOpeBRep_FaceEdgeIntersector.hxx>
 #include <TopOpeBRep_ShapeScanner.hxx>
+#include <TopOpeBRep_ShapeIntersector.hxx>
+#include <TopOpeBRep_ShapeIntersector2d.hxx>
+#include <TopOpeBRep_PointGeomTool.hxx>
+#include <TopOpeBRep_FFTransitionTool.hxx>
+#include <TopOpeBRep_Bipoint.hxx>
+#include <TopOpeBRep_FFDumper.hxx>
+#include <TopOpeBRep_EdgesFiller.hxx>
+#include <TopOpeBRep_FaceEdgeFiller.hxx>
+#include <TopOpeBRep_DSFiller.hxx>
+#include <TopOpeBRep.hxx>
 #include <IntSurf_PntOn2S.hxx>
 #include <TopOpeBRep_PPntOn2S.hxx>
+#include <Standard_TypeDef.hxx>
 #include <gp_Pnt2d.hxx>
 #include <gp_Pnt.hxx>
-#include <TopOpeBRep_WPointInter.hxx>
 #include <IntPatch_Point.hxx>
 #include <TopOpeBRep_PThePointOfIntersection.hxx>
 #include <IntSurf_Transition.hxx>
+#include <TopoDS_Shape.hxx>
 #include <TopAbs_State.hxx>
-#include <TopOpeBRep_VPointInter.hxx>
 #include <TopoDS_Edge.hxx>
 #include <TopoDS_Face.hxx>
 #include <NCollection_Array1.hxx>
@@ -50,6 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <TopOpeBRep_HArray1OfVPointInter.hxx>
 #include <Standard_Type.hxx>
 #include <IntPatch_Line.hxx>
@@ -62,25 +81,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <IntPatch_RLine.hxx>
 #include <TopOpeBRepDS_Transition.hxx>
 #include <TCollection_AsciiString.hxx>
-#include <TopOpeBRep_Bipoint.hxx>
 #include <IntPatch_ALine.hxx>
-#include <TopOpeBRep_LineInter.hxx>
 #include <TopOpeBRep_Array1OfLineInter.hxx>
+#include <NCollection_DataMap.hxx>
+#include <BRepTopAdaptor_TopolTool.hxx>
+#include <TopTools_ShapeMapHasher.hxx>
+#include <TopOpeBRep_DataMapOfTopolTool.hxx>
+#include <TopAbs_ShapeEnum.hxx>
+#include <TopOpeBRepTool_ShapeExplorer.hxx>
+#include <TopOpeBRepTool_BoxSort.hxx>
+#include <TColStd_ListOfInteger.hxx>
 #include <TopOpeBRep_HArray1OfLineInter.hxx>
 #include <Bnd_Box.hxx>
 #include <TopTools_IndexedMapOfShape.hxx>
 #include <IntPatch_Intersection.hxx>
 #include <BRepAdaptor_HSurface.hxx>
 #include <GeomAbs_SurfaceType.hxx>
-#include <BRepTopAdaptor_TopolTool.hxx>
-#include <TopOpeBRep_FacesIntersector.hxx>
 #include <IntRes2d_IntersectionPoint.hxx>
 #include <TopoDS_Vertex.hxx>
 #include <TopOpeBRepDS_Config.hxx>
-#include <TopOpeBRep_Hctxff2d.hxx>
-#include <TopOpeBRep_Hctxee2d.hxx>
-#include <TopOpeBRep_EdgesIntersector.hxx>
-#include <TopOpeBRep_Point2d.hxx>
 #include <NCollection_Sequence.hxx>
 #include <TopOpeBRep_SequenceOfPoint2d.hxx>
 #include <Geom2dAdaptor_Curve.hxx>
@@ -94,21 +113,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <IntCurveSurface_SequenceOfPnt.hxx>
 #include <TColStd_SequenceOfInteger.hxx>
 #include <TopExp_Explorer.hxx>
-#include <TopOpeBRep_FaceEdgeIntersector.hxx>
 #include <TopTools_ListOfShape.hxx>
 #include <TopOpeBRepTool_HBoxTool.hxx>
-#include <TopOpeBRep_ShapeIntersector.hxx>
-#include <TopOpeBRep_ShapeIntersector2d.hxx>
 #include <TopOpeBRep_PFacesIntersector.hxx>
 #include <TopOpeBRep_PLineInter.hxx>
-#include <NCollection_DataMap.hxx>
-#include <TopTools_ShapeMapHasher.hxx>
-#include <TopOpeBRep_DataMapOfTopolTool.hxx>
-#include <TopOpeBRep_PointClassifier.hxx>
 #include <TopOpeBRepDS_HDataStructure.hxx>
 #include <TopOpeBRepTool_PShapeClassifier.hxx>
-#include <TopOpeBRep_VPointInterClassifier.hxx>
-#include <TopOpeBRep_VPointInterIterator.hxx>
 #include <TopOpeBRepDS_Kind.hxx>
 #include <TopOpeBRepDS_Interference.hxx>
 #include <TopOpeBRepDS_ListOfInterference.hxx>
@@ -116,16 +126,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopOpeBRepDS_DataStructure.hxx>
 #include <TopOpeBRepDS_PDataStructure.hxx>
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
-#include <TopOpeBRep_FFDumper.hxx>
 #include <TopOpeBRep_PEdgesIntersector.hxx>
-#include <TopOpeBRep_EdgesFiller.hxx>
-#include <TopOpeBRep_FaceEdgeFiller.hxx>
-#include <TopOpeBRep_DSFiller.hxx>
-#include <TopOpeBRep_WPointInterIterator.hxx>
-#include <TopOpeBRep_GeomTool.hxx>
-#include <TopOpeBRep_PointGeomTool.hxx>
-#include <TopOpeBRep_FFTransitionTool.hxx>
-#include <TopOpeBRep.hxx>
 #include <TopOpeBRep_PFacesFiller.hxx>
 #include <TopTools_DataMapOfShapeInteger.hxx>
 #include <TopOpeBRepDS_Curve.hxx>
@@ -135,8 +136,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopOpeBRep_PIntRes2d_IntersectionPoint.hxx>
 #include <BRepClass_FaceClassifier.hxx>
 #include <bind_NCollection_Array1.hxx>
-#include <bind_NCollection_Sequence.hxx>
 #include <bind_NCollection_DataMap.hxx>
+#include <bind_NCollection_Sequence.hxx>
 #include <bind_NCollection_List.hxx>
 #include <bind_NCollection_TListIterator.hxx>
 
@@ -144,21 +145,21 @@ PYBIND11_MODULE(TopOpeBRep, mod) {
 
 py::module::import("OCCT.TopOpeBRepTool");
 py::module::import("OCCT.Standard");
-py::module::import("OCCT.TopoDS");
-py::module::import("OCCT.TopAbs");
-py::module::import("OCCT.TColStd");
 py::module::import("OCCT.IntSurf");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.IntPatch");
+py::module::import("OCCT.TopoDS");
+py::module::import("OCCT.TopAbs");
 py::module::import("OCCT.NCollection");
 py::module::import("OCCT.BRepAdaptor");
 py::module::import("OCCT.Geom");
 py::module::import("OCCT.TopOpeBRepDS");
 py::module::import("OCCT.TCollection");
-py::module::import("OCCT.Bnd");
-py::module::import("OCCT.TopTools");
-py::module::import("OCCT.GeomAbs");
 py::module::import("OCCT.BRepTopAdaptor");
+py::module::import("OCCT.TopTools");
+py::module::import("OCCT.TColStd");
+py::module::import("OCCT.Bnd");
+py::module::import("OCCT.GeomAbs");
 py::module::import("OCCT.IntRes2d");
 py::module::import("OCCT.Geom2dAdaptor");
 py::module::import("OCCT.Geom2dInt");
@@ -192,31 +193,17 @@ py::enum_<TopOpeBRep_P2Dstatus>(mod, "TopOpeBRep_P2Dstatus", "None")
 	.export_values();
 
 
-// CLASS: TOPOPEBREP_SHAPESCANNER
-py::class_<TopOpeBRep_ShapeScanner> cls_TopOpeBRep_ShapeScanner(mod, "TopOpeBRep_ShapeScanner", "Find, among the subshapes SS of a reference shape RS, the ones which 3D box interfers with the box of a shape S (SS and S are of the same type).");
-
-// Constructors
-cls_TopOpeBRep_ShapeScanner.def(py::init<>());
+// CLASS: TOPOPEBREP
+py::class_<TopOpeBRep> cls_TopOpeBRep(mod, "TopOpeBRep", "This package provides the topological operations on the BRep data structure.");
 
 // Methods
-// cls_TopOpeBRep_ShapeScanner.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRep_ShapeScanner::operator new, "None", py::arg("theSize"));
-// cls_TopOpeBRep_ShapeScanner.def_static("operator delete_", (void (*)(void *)) &TopOpeBRep_ShapeScanner::operator delete, "None", py::arg("theAddress"));
-// cls_TopOpeBRep_ShapeScanner.def_static("operator new[]_", (void * (*)(size_t)) &TopOpeBRep_ShapeScanner::operator new[], "None", py::arg("theSize"));
-// cls_TopOpeBRep_ShapeScanner.def_static("operator delete[]_", (void (*)(void *)) &TopOpeBRep_ShapeScanner::operator delete[], "None", py::arg("theAddress"));
-// cls_TopOpeBRep_ShapeScanner.def_static("operator new_", (void * (*)(size_t, void *)) &TopOpeBRep_ShapeScanner::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TopOpeBRep_ShapeScanner.def_static("operator delete_", (void (*)(void *, void *)) &TopOpeBRep_ShapeScanner::operator delete, "None", py::arg(""), py::arg(""));
-cls_TopOpeBRep_ShapeScanner.def("Clear", (void (TopOpeBRep_ShapeScanner::*)()) &TopOpeBRep_ShapeScanner::Clear, "None");
-cls_TopOpeBRep_ShapeScanner.def("AddBoxesMakeCOB", [](TopOpeBRep_ShapeScanner &self, const TopoDS_Shape & a0, const TopAbs_ShapeEnum a1) -> void { return self.AddBoxesMakeCOB(a0, a1); });
-cls_TopOpeBRep_ShapeScanner.def("AddBoxesMakeCOB", (void (TopOpeBRep_ShapeScanner::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum, const TopAbs_ShapeEnum)) &TopOpeBRep_ShapeScanner::AddBoxesMakeCOB, "None", py::arg("S"), py::arg("TS"), py::arg("TA"));
-cls_TopOpeBRep_ShapeScanner.def("Init", (void (TopOpeBRep_ShapeScanner::*)(const TopoDS_Shape &)) &TopOpeBRep_ShapeScanner::Init, "None", py::arg("E"));
-cls_TopOpeBRep_ShapeScanner.def("Init", (void (TopOpeBRep_ShapeScanner::*)(TopOpeBRepTool_ShapeExplorer &)) &TopOpeBRep_ShapeScanner::Init, "None", py::arg("X"));
-cls_TopOpeBRep_ShapeScanner.def("More", (Standard_Boolean (TopOpeBRep_ShapeScanner::*)() const) &TopOpeBRep_ShapeScanner::More, "None");
-cls_TopOpeBRep_ShapeScanner.def("Next", (void (TopOpeBRep_ShapeScanner::*)()) &TopOpeBRep_ShapeScanner::Next, "None");
-cls_TopOpeBRep_ShapeScanner.def("Current", (const TopoDS_Shape & (TopOpeBRep_ShapeScanner::*)() const) &TopOpeBRep_ShapeScanner::Current, "None");
-cls_TopOpeBRep_ShapeScanner.def("BoxSort", (const TopOpeBRepTool_BoxSort & (TopOpeBRep_ShapeScanner::*)() const) &TopOpeBRep_ShapeScanner::BoxSort, "None");
-cls_TopOpeBRep_ShapeScanner.def("ChangeBoxSort", (TopOpeBRepTool_BoxSort & (TopOpeBRep_ShapeScanner::*)()) &TopOpeBRep_ShapeScanner::ChangeBoxSort, "None");
-cls_TopOpeBRep_ShapeScanner.def("Index", (Standard_Integer (TopOpeBRep_ShapeScanner::*)() const) &TopOpeBRep_ShapeScanner::Index, "None");
-cls_TopOpeBRep_ShapeScanner.def("DumpCurrent", (Standard_OStream & (TopOpeBRep_ShapeScanner::*)(Standard_OStream &) const) &TopOpeBRep_ShapeScanner::DumpCurrent, "None", py::arg("OS"));
+// cls_TopOpeBRep.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRep::operator new, "None", py::arg("theSize"));
+// cls_TopOpeBRep.def_static("operator delete_", (void (*)(void *)) &TopOpeBRep::operator delete, "None", py::arg("theAddress"));
+// cls_TopOpeBRep.def_static("operator new[]_", (void * (*)(size_t)) &TopOpeBRep::operator new[], "None", py::arg("theSize"));
+// cls_TopOpeBRep.def_static("operator delete[]_", (void (*)(void *)) &TopOpeBRep::operator delete[], "None", py::arg("theAddress"));
+// cls_TopOpeBRep.def_static("operator new_", (void * (*)(size_t, void *)) &TopOpeBRep::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_TopOpeBRep.def_static("operator delete_", (void (*)(void *, void *)) &TopOpeBRep::operator delete, "None", py::arg(""), py::arg(""));
+cls_TopOpeBRep.def_static("Print_", (Standard_OStream & (*)(const TopOpeBRep_TypeLineCurve, Standard_OStream &)) &TopOpeBRep::Print, "Prints the name of <TLC> as a String on the Stream <S> and returns <S>.", py::arg("TLC"), py::arg("OS"));
 
 // TYPEDEF: TOPOPEBREP_PPNTON2S
 
@@ -311,6 +298,7 @@ bind_NCollection_Array1<TopOpeBRep_VPointInter>(mod, "TopOpeBRep_Array1OfVPointI
 py::class_<TopOpeBRep_HArray1OfVPointInter, opencascade::handle<TopOpeBRep_HArray1OfVPointInter>, Standard_Transient> cls_TopOpeBRep_HArray1OfVPointInter(mod, "TopOpeBRep_HArray1OfVPointInter", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TopOpeBRep_HArray1OfVPointInter.def(py::init<>());
 cls_TopOpeBRep_HArray1OfVPointInter.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TopOpeBRep_HArray1OfVPointInter.def(py::init<const Standard_Integer, const Standard_Integer, const TopOpeBRep_Array1OfVPointInter::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TopOpeBRep_HArray1OfVPointInter.def(py::init<const TopOpeBRep_Array1OfVPointInter &>(), py::arg("theOther"));
@@ -392,10 +380,59 @@ cls_TopOpeBRep_LineInter.def("DumpLineTransitions", (Standard_OStream & (TopOpeB
 // TYPEDEF: TOPOPEBREP_ARRAY1OFLINEINTER
 bind_NCollection_Array1<TopOpeBRep_LineInter>(mod, "TopOpeBRep_Array1OfLineInter", py::module_local(false));
 
+// CLASS: TOPOPEBREP_BIPOINT
+py::class_<TopOpeBRep_Bipoint> cls_TopOpeBRep_Bipoint(mod, "TopOpeBRep_Bipoint", "None");
+
+// Constructors
+cls_TopOpeBRep_Bipoint.def(py::init<>());
+cls_TopOpeBRep_Bipoint.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("I1"), py::arg("I2"));
+
+// Methods
+// cls_TopOpeBRep_Bipoint.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRep_Bipoint::operator new, "None", py::arg("theSize"));
+// cls_TopOpeBRep_Bipoint.def_static("operator delete_", (void (*)(void *)) &TopOpeBRep_Bipoint::operator delete, "None", py::arg("theAddress"));
+// cls_TopOpeBRep_Bipoint.def_static("operator new[]_", (void * (*)(size_t)) &TopOpeBRep_Bipoint::operator new[], "None", py::arg("theSize"));
+// cls_TopOpeBRep_Bipoint.def_static("operator delete[]_", (void (*)(void *)) &TopOpeBRep_Bipoint::operator delete[], "None", py::arg("theAddress"));
+// cls_TopOpeBRep_Bipoint.def_static("operator new_", (void * (*)(size_t, void *)) &TopOpeBRep_Bipoint::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_TopOpeBRep_Bipoint.def_static("operator delete_", (void (*)(void *, void *)) &TopOpeBRep_Bipoint::operator delete, "None", py::arg(""), py::arg(""));
+cls_TopOpeBRep_Bipoint.def("I1", (Standard_Integer (TopOpeBRep_Bipoint::*)() const) &TopOpeBRep_Bipoint::I1, "None");
+cls_TopOpeBRep_Bipoint.def("I2", (Standard_Integer (TopOpeBRep_Bipoint::*)() const) &TopOpeBRep_Bipoint::I2, "None");
+
+// TYPEDEF: TOPOPEBREP_DATAMAPOFTOPOLTOOL
+bind_NCollection_DataMap<TopoDS_Shape, opencascade::handle<BRepTopAdaptor_TopolTool>, TopTools_ShapeMapHasher>(mod, "TopOpeBRep_DataMapOfTopolTool", py::module_local(false));
+
+// TYPEDEF: TOPOPEBREP_DATAMAPITERATOROFDATAMAPOFTOPOLTOOL
+
+// CLASS: TOPOPEBREP_SHAPESCANNER
+py::class_<TopOpeBRep_ShapeScanner> cls_TopOpeBRep_ShapeScanner(mod, "TopOpeBRep_ShapeScanner", "Find, among the subshapes SS of a reference shape RS, the ones which 3D box interfers with the box of a shape S (SS and S are of the same type).");
+
+// Constructors
+cls_TopOpeBRep_ShapeScanner.def(py::init<>());
+
+// Methods
+// cls_TopOpeBRep_ShapeScanner.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRep_ShapeScanner::operator new, "None", py::arg("theSize"));
+// cls_TopOpeBRep_ShapeScanner.def_static("operator delete_", (void (*)(void *)) &TopOpeBRep_ShapeScanner::operator delete, "None", py::arg("theAddress"));
+// cls_TopOpeBRep_ShapeScanner.def_static("operator new[]_", (void * (*)(size_t)) &TopOpeBRep_ShapeScanner::operator new[], "None", py::arg("theSize"));
+// cls_TopOpeBRep_ShapeScanner.def_static("operator delete[]_", (void (*)(void *)) &TopOpeBRep_ShapeScanner::operator delete[], "None", py::arg("theAddress"));
+// cls_TopOpeBRep_ShapeScanner.def_static("operator new_", (void * (*)(size_t, void *)) &TopOpeBRep_ShapeScanner::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_TopOpeBRep_ShapeScanner.def_static("operator delete_", (void (*)(void *, void *)) &TopOpeBRep_ShapeScanner::operator delete, "None", py::arg(""), py::arg(""));
+cls_TopOpeBRep_ShapeScanner.def("Clear", (void (TopOpeBRep_ShapeScanner::*)()) &TopOpeBRep_ShapeScanner::Clear, "None");
+cls_TopOpeBRep_ShapeScanner.def("AddBoxesMakeCOB", [](TopOpeBRep_ShapeScanner &self, const TopoDS_Shape & a0, const TopAbs_ShapeEnum a1) -> void { return self.AddBoxesMakeCOB(a0, a1); });
+cls_TopOpeBRep_ShapeScanner.def("AddBoxesMakeCOB", (void (TopOpeBRep_ShapeScanner::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum, const TopAbs_ShapeEnum)) &TopOpeBRep_ShapeScanner::AddBoxesMakeCOB, "None", py::arg("S"), py::arg("TS"), py::arg("TA"));
+cls_TopOpeBRep_ShapeScanner.def("Init", (void (TopOpeBRep_ShapeScanner::*)(const TopoDS_Shape &)) &TopOpeBRep_ShapeScanner::Init, "None", py::arg("E"));
+cls_TopOpeBRep_ShapeScanner.def("Init", (void (TopOpeBRep_ShapeScanner::*)(TopOpeBRepTool_ShapeExplorer &)) &TopOpeBRep_ShapeScanner::Init, "None", py::arg("X"));
+cls_TopOpeBRep_ShapeScanner.def("More", (Standard_Boolean (TopOpeBRep_ShapeScanner::*)() const) &TopOpeBRep_ShapeScanner::More, "None");
+cls_TopOpeBRep_ShapeScanner.def("Next", (void (TopOpeBRep_ShapeScanner::*)()) &TopOpeBRep_ShapeScanner::Next, "None");
+cls_TopOpeBRep_ShapeScanner.def("Current", (const TopoDS_Shape & (TopOpeBRep_ShapeScanner::*)() const) &TopOpeBRep_ShapeScanner::Current, "None");
+cls_TopOpeBRep_ShapeScanner.def("BoxSort", (const TopOpeBRepTool_BoxSort & (TopOpeBRep_ShapeScanner::*)() const) &TopOpeBRep_ShapeScanner::BoxSort, "None");
+cls_TopOpeBRep_ShapeScanner.def("ChangeBoxSort", (TopOpeBRepTool_BoxSort & (TopOpeBRep_ShapeScanner::*)()) &TopOpeBRep_ShapeScanner::ChangeBoxSort, "None");
+cls_TopOpeBRep_ShapeScanner.def("Index", (Standard_Integer (TopOpeBRep_ShapeScanner::*)() const) &TopOpeBRep_ShapeScanner::Index, "None");
+cls_TopOpeBRep_ShapeScanner.def("DumpCurrent", (Standard_OStream & (TopOpeBRep_ShapeScanner::*)(Standard_OStream &) const) &TopOpeBRep_ShapeScanner::DumpCurrent, "None", py::arg("OS"));
+
 // CLASS: TOPOPEBREP_HARRAY1OFLINEINTER
 py::class_<TopOpeBRep_HArray1OfLineInter, opencascade::handle<TopOpeBRep_HArray1OfLineInter>, Standard_Transient> cls_TopOpeBRep_HArray1OfLineInter(mod, "TopOpeBRep_HArray1OfLineInter", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TopOpeBRep_HArray1OfLineInter.def(py::init<>());
 cls_TopOpeBRep_HArray1OfLineInter.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TopOpeBRep_HArray1OfLineInter.def(py::init<const Standard_Integer, const Standard_Integer, const TopOpeBRep_Array1OfLineInter::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TopOpeBRep_HArray1OfLineInter.def(py::init<const TopOpeBRep_Array1OfLineInter &>(), py::arg("theOther"));
@@ -633,11 +670,6 @@ cls_TopOpeBRep_ShapeIntersector2d.def("Index", (Standard_Integer (TopOpeBRep_Sha
 
 // TYPEDEF: TOPOPEBREP_PLINEINTER
 
-// TYPEDEF: TOPOPEBREP_DATAMAPOFTOPOLTOOL
-bind_NCollection_DataMap<TopoDS_Shape, opencascade::handle<BRepTopAdaptor_TopolTool>, TopTools_ShapeMapHasher>(mod, "TopOpeBRep_DataMapOfTopolTool", py::module_local(false));
-
-// TYPEDEF: TOPOPEBREP_DATAMAPITERATOROFDATAMAPOFTOPOLTOOL
-
 // CLASS: TOPOPEBREP_POINTCLASSIFIER
 py::class_<TopOpeBRep_PointClassifier> cls_TopOpeBRep_PointClassifier(mod, "TopOpeBRep_PointClassifier", "None");
 
@@ -789,35 +821,6 @@ cls_TopOpeBRep_DSFiller.def("Reducer", (void (TopOpeBRep_DSFiller::*)(const open
 cls_TopOpeBRep_DSFiller.def("RemoveUnsharedGeometry", (void (TopOpeBRep_DSFiller::*)(const opencascade::handle<TopOpeBRepDS_HDataStructure> &)) &TopOpeBRep_DSFiller::RemoveUnsharedGeometry, "None", py::arg("HDS"));
 cls_TopOpeBRep_DSFiller.def("Checker", (void (TopOpeBRep_DSFiller::*)(const opencascade::handle<TopOpeBRepDS_HDataStructure> &) const) &TopOpeBRep_DSFiller::Checker, "None", py::arg("HDS"));
 cls_TopOpeBRep_DSFiller.def("CompleteDS2d", (void (TopOpeBRep_DSFiller::*)(const opencascade::handle<TopOpeBRepDS_HDataStructure> &) const) &TopOpeBRep_DSFiller::CompleteDS2d, "Update the data structure with relevant informations deduced from the intersections 2d.", py::arg("HDS"));
-
-// CLASS: TOPOPEBREP
-py::class_<TopOpeBRep> cls_TopOpeBRep(mod, "TopOpeBRep", "This package provides the topological operations on the BRep data structure.");
-
-// Methods
-// cls_TopOpeBRep.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRep::operator new, "None", py::arg("theSize"));
-// cls_TopOpeBRep.def_static("operator delete_", (void (*)(void *)) &TopOpeBRep::operator delete, "None", py::arg("theAddress"));
-// cls_TopOpeBRep.def_static("operator new[]_", (void * (*)(size_t)) &TopOpeBRep::operator new[], "None", py::arg("theSize"));
-// cls_TopOpeBRep.def_static("operator delete[]_", (void (*)(void *)) &TopOpeBRep::operator delete[], "None", py::arg("theAddress"));
-// cls_TopOpeBRep.def_static("operator new_", (void * (*)(size_t, void *)) &TopOpeBRep::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TopOpeBRep.def_static("operator delete_", (void (*)(void *, void *)) &TopOpeBRep::operator delete, "None", py::arg(""), py::arg(""));
-cls_TopOpeBRep.def_static("Print_", (Standard_OStream & (*)(const TopOpeBRep_TypeLineCurve, Standard_OStream &)) &TopOpeBRep::Print, "Prints the name of <TLC> as a String on the Stream <S> and returns <S>.", py::arg("TLC"), py::arg("OS"));
-
-// CLASS: TOPOPEBREP_BIPOINT
-py::class_<TopOpeBRep_Bipoint> cls_TopOpeBRep_Bipoint(mod, "TopOpeBRep_Bipoint", "None");
-
-// Constructors
-cls_TopOpeBRep_Bipoint.def(py::init<>());
-cls_TopOpeBRep_Bipoint.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("I1"), py::arg("I2"));
-
-// Methods
-// cls_TopOpeBRep_Bipoint.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRep_Bipoint::operator new, "None", py::arg("theSize"));
-// cls_TopOpeBRep_Bipoint.def_static("operator delete_", (void (*)(void *)) &TopOpeBRep_Bipoint::operator delete, "None", py::arg("theAddress"));
-// cls_TopOpeBRep_Bipoint.def_static("operator new[]_", (void * (*)(size_t)) &TopOpeBRep_Bipoint::operator new[], "None", py::arg("theSize"));
-// cls_TopOpeBRep_Bipoint.def_static("operator delete[]_", (void (*)(void *)) &TopOpeBRep_Bipoint::operator delete[], "None", py::arg("theAddress"));
-// cls_TopOpeBRep_Bipoint.def_static("operator new_", (void * (*)(size_t, void *)) &TopOpeBRep_Bipoint::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TopOpeBRep_Bipoint.def_static("operator delete_", (void (*)(void *, void *)) &TopOpeBRep_Bipoint::operator delete, "None", py::arg(""), py::arg(""));
-cls_TopOpeBRep_Bipoint.def("I1", (Standard_Integer (TopOpeBRep_Bipoint::*)() const) &TopOpeBRep_Bipoint::I1, "None");
-cls_TopOpeBRep_Bipoint.def("I2", (Standard_Integer (TopOpeBRep_Bipoint::*)() const) &TopOpeBRep_Bipoint::I2, "None");
 
 // TYPEDEF: TOPOPEBREP_PFACESFILLER
 

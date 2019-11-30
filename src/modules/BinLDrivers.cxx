@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Storage_Data.hxx>
 #include <BinMDF_ADriverTable.hxx>
 #include <Message_Messenger.hxx>
+#include <Standard_Std.hxx>
 #include <BinLDrivers_DocumentRetrievalDriver.hxx>
 #include <Standard_Type.hxx>
 #include <TDF_Label.hxx>
@@ -100,7 +101,7 @@ cls_BinLDrivers_DocumentSection.def("Length", (uint64_t (BinLDrivers_DocumentSec
 cls_BinLDrivers_DocumentSection.def("SetLength", (void (BinLDrivers_DocumentSection::*)(const uint64_t)) &BinLDrivers_DocumentSection::SetLength, "Set the length of the section in the persistent file", py::arg("theLength"));
 cls_BinLDrivers_DocumentSection.def("WriteTOC", (void (BinLDrivers_DocumentSection::*)(Standard_OStream &)) &BinLDrivers_DocumentSection::WriteTOC, "Create a Section entry in the Document TOC (list of sections)", py::arg("theOS"));
 cls_BinLDrivers_DocumentSection.def("Write", (void (BinLDrivers_DocumentSection::*)(Standard_OStream &, const uint64_t)) &BinLDrivers_DocumentSection::Write, "Save Offset and Length data into the Section entry in the Document TOC (list of sections)", py::arg("theOS"), py::arg("theOffset"));
-cls_BinLDrivers_DocumentSection.def_static("ReadTOC_", (void (*)(BinLDrivers_DocumentSection &, Standard_IStream &)) &BinLDrivers_DocumentSection::ReadTOC, "Fill a DocumentSection instance from the data that are read from TOC.", py::arg("theSection"), py::arg("theIS"));
+cls_BinLDrivers_DocumentSection.def_static("ReadTOC_", (void (*)(BinLDrivers_DocumentSection &, Standard_IStream &, const Standard_Integer)) &BinLDrivers_DocumentSection::ReadTOC, "Fill a DocumentSection instance from the data that are read from TOC.", py::arg("theSection"), py::arg("theIS"), py::arg("theDocFormatVersion"));
 
 // TYPEDEF: BINLDRIVERS_VECTOROFDOCUMENTSECTION
 bind_NCollection_Vector<BinLDrivers_DocumentSection>(mod, "BinLDrivers_VectorOfDocumentSection", py::module_local(false));

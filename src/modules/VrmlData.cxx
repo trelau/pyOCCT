@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TCollection_AsciiString.hxx>
 #include <NCollection_List.hxx>
 #include <VrmlData_Group.hxx>
+#include <Standard_Std.hxx>
 #include <Quantity_Color.hxx>
 #include <VrmlData_Material.hxx>
 #include <VrmlData_Texture.hxx>
@@ -67,9 +68,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TCollection_ExtendedString.hxx>
 #include <Standard_OStream.hxx>
 #include <Standard_Mutex.hxx>
+#include <TDocStd_Document.hxx>
 #include <Poly_Triangulation.hxx>
 #include <TopoDS_Face.hxx>
 #include <Poly_Polygon3D.hxx>
+#include <TopAbs_ShapeEnum.hxx>
+#include <TopLoc_Location.hxx>
+#include <TDF_Label.hxx>
+#include <XCAFDoc_ColorTool.hxx>
 #include <VrmlData_ShapeConvert.hxx>
 #include <VrmlData_ShapeNode.hxx>
 #include <VrmlData_Sphere.hxx>
@@ -87,7 +93,12 @@ py::module::import("OCCT.Quantity");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.TopoDS");
 py::module::import("OCCT.Bnd");
+py::module::import("OCCT.TDocStd");
 py::module::import("OCCT.Poly");
+py::module::import("OCCT.TopAbs");
+py::module::import("OCCT.TopLoc");
+py::module::import("OCCT.TDF");
+py::module::import("OCCT.XCAFDoc");
 
 // ENUM: VRMLDATA_ERRORSTATUS
 py::enum_<VrmlData_ErrorStatus>(mod, "VrmlData_ErrorStatus", "Status of read/write or other operation.")
@@ -620,6 +631,7 @@ cls_VrmlData_ShapeConvert.def("AddShape", (void (VrmlData_ShapeConvert::*)(const
 cls_VrmlData_ShapeConvert.def("Convert", [](VrmlData_ShapeConvert &self, const Standard_Boolean a0, const Standard_Boolean a1) -> void { return self.Convert(a0, a1); });
 cls_VrmlData_ShapeConvert.def("Convert", [](VrmlData_ShapeConvert &self, const Standard_Boolean a0, const Standard_Boolean a1, const Standard_Real a2) -> void { return self.Convert(a0, a1, a2); });
 cls_VrmlData_ShapeConvert.def("Convert", (void (VrmlData_ShapeConvert::*)(const Standard_Boolean, const Standard_Boolean, const Standard_Real, const Standard_Real)) &VrmlData_ShapeConvert::Convert, "Convert all accumulated shapes and store them in myScene. The internal data structures are cleared in the end of convertion.", py::arg("theExtractFaces"), py::arg("theExtractEdges"), py::arg("theDeflection"), py::arg("theDeflAngle"));
+cls_VrmlData_ShapeConvert.def("ConvertDocument", (void (VrmlData_ShapeConvert::*)(const opencascade::handle<TDocStd_Document> &)) &VrmlData_ShapeConvert::ConvertDocument, "Add all shapes start from given document with colors and names to the internal structure", py::arg("theDoc"));
 
 // CLASS: VRMLDATA_SHAPENODE
 py::class_<VrmlData_ShapeNode, opencascade::handle<VrmlData_ShapeNode>, VrmlData_Node> cls_VrmlData_ShapeNode(mod, "VrmlData_ShapeNode", "Implementation of the Shape node type");

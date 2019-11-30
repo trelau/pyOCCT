@@ -78,6 +78,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <IGESData_HArray1OfIGESEntity.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 #include <IGESBasic_HArray1OfHArray1OfIGESEntity.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Array1.hxx>
 #include <IGESGeom_Array1OfBoundary.hxx>
@@ -210,6 +211,7 @@ bind_NCollection_Array1<opencascade::handle<IGESGeom_TransformationMatrix> >(mod
 py::class_<IGESGeom_HArray1OfBoundary, opencascade::handle<IGESGeom_HArray1OfBoundary>, Standard_Transient> cls_IGESGeom_HArray1OfBoundary(mod, "IGESGeom_HArray1OfBoundary", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESGeom_HArray1OfBoundary.def(py::init<>());
 cls_IGESGeom_HArray1OfBoundary.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESGeom_HArray1OfBoundary.def(py::init<const Standard_Integer, const Standard_Integer, const IGESGeom_Array1OfBoundary::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESGeom_HArray1OfBoundary.def(py::init<const IGESGeom_Array1OfBoundary &>(), py::arg("theOther"));
@@ -457,6 +459,7 @@ cls_IGESGeom_GeneralModule.def("DynamicType", (const opencascade::handle<Standar
 py::class_<IGESGeom_HArray1OfCurveOnSurface, opencascade::handle<IGESGeom_HArray1OfCurveOnSurface>, Standard_Transient> cls_IGESGeom_HArray1OfCurveOnSurface(mod, "IGESGeom_HArray1OfCurveOnSurface", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESGeom_HArray1OfCurveOnSurface.def(py::init<>());
 cls_IGESGeom_HArray1OfCurveOnSurface.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESGeom_HArray1OfCurveOnSurface.def(py::init<const Standard_Integer, const Standard_Integer, const IGESGeom_Array1OfCurveOnSurface::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESGeom_HArray1OfCurveOnSurface.def(py::init<const IGESGeom_Array1OfCurveOnSurface &>(), py::arg("theOther"));
@@ -480,6 +483,7 @@ cls_IGESGeom_HArray1OfCurveOnSurface.def("DynamicType", (const opencascade::hand
 py::class_<IGESGeom_HArray1OfTransformationMatrix, opencascade::handle<IGESGeom_HArray1OfTransformationMatrix>, Standard_Transient> cls_IGESGeom_HArray1OfTransformationMatrix(mod, "IGESGeom_HArray1OfTransformationMatrix", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESGeom_HArray1OfTransformationMatrix.def(py::init<>());
 cls_IGESGeom_HArray1OfTransformationMatrix.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESGeom_HArray1OfTransformationMatrix.def(py::init<const Standard_Integer, const Standard_Integer, const IGESGeom_Array1OfTransformationMatrix::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESGeom_HArray1OfTransformationMatrix.def(py::init<const IGESGeom_Array1OfTransformationMatrix &>(), py::arg("theOther"));

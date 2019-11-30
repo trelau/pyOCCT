@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <Standard_TypeDef.hxx>
+#include <Standard_Std.hxx>
 #include <TColgp_HArray1OfPnt2d.hxx>
 #include <Standard_Type.hxx>
 #include <gp_Pnt.hxx>
@@ -115,6 +116,7 @@ bind_NCollection_Array1<gp_Pnt2d>(mod, "TColgp_Array1OfPnt2d", py::module_local(
 py::class_<TColgp_HArray1OfPnt2d, opencascade::handle<TColgp_HArray1OfPnt2d>, Standard_Transient> cls_TColgp_HArray1OfPnt2d(mod, "TColgp_HArray1OfPnt2d", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColgp_HArray1OfPnt2d.def(py::init<>());
 cls_TColgp_HArray1OfPnt2d.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColgp_HArray1OfPnt2d.def(py::init<const Standard_Integer, const Standard_Integer, const TColgp_Array1OfPnt2d::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColgp_HArray1OfPnt2d.def(py::init<const TColgp_Array1OfPnt2d &>(), py::arg("theOther"));
@@ -193,6 +195,7 @@ cls_TColgp_HArray2OfPnt2d.def("DynamicType", (const opencascade::handle<Standard
 py::class_<TColgp_HArray1OfPnt, opencascade::handle<TColgp_HArray1OfPnt>, Standard_Transient> cls_TColgp_HArray1OfPnt(mod, "TColgp_HArray1OfPnt", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColgp_HArray1OfPnt.def(py::init<>());
 cls_TColgp_HArray1OfPnt.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColgp_HArray1OfPnt.def(py::init<const Standard_Integer, const Standard_Integer, const TColgp_Array1OfPnt::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColgp_HArray1OfPnt.def(py::init<const TColgp_Array1OfPnt &>(), py::arg("theOther"));
@@ -246,6 +249,7 @@ bind_NCollection_Array1<gp_Dir>(mod, "TColgp_Array1OfDir", py::module_local(fals
 py::class_<TColgp_HArray1OfDir, opencascade::handle<TColgp_HArray1OfDir>, Standard_Transient> cls_TColgp_HArray1OfDir(mod, "TColgp_HArray1OfDir", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColgp_HArray1OfDir.def(py::init<>());
 cls_TColgp_HArray1OfDir.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColgp_HArray1OfDir.def(py::init<const Standard_Integer, const Standard_Integer, const TColgp_Array1OfDir::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColgp_HArray1OfDir.def(py::init<const TColgp_Array1OfDir &>(), py::arg("theOther"));
@@ -272,6 +276,7 @@ bind_NCollection_Array1<gp_Vec>(mod, "TColgp_Array1OfVec", py::module_local(fals
 py::class_<TColgp_HArray1OfVec, opencascade::handle<TColgp_HArray1OfVec>, Standard_Transient> cls_TColgp_HArray1OfVec(mod, "TColgp_HArray1OfVec", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColgp_HArray1OfVec.def(py::init<>());
 cls_TColgp_HArray1OfVec.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColgp_HArray1OfVec.def(py::init<const Standard_Integer, const Standard_Integer, const TColgp_Array1OfVec::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColgp_HArray1OfVec.def(py::init<const TColgp_Array1OfVec &>(), py::arg("theOther"));
@@ -298,6 +303,7 @@ bind_NCollection_Array1<gp_Vec2d>(mod, "TColgp_Array1OfVec2d", py::module_local(
 py::class_<TColgp_HArray1OfVec2d, opencascade::handle<TColgp_HArray1OfVec2d>, Standard_Transient> cls_TColgp_HArray1OfVec2d(mod, "TColgp_HArray1OfVec2d", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColgp_HArray1OfVec2d.def(py::init<>());
 cls_TColgp_HArray1OfVec2d.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColgp_HArray1OfVec2d.def(py::init<const Standard_Integer, const Standard_Integer, const TColgp_Array1OfVec2d::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColgp_HArray1OfVec2d.def(py::init<const TColgp_Array1OfVec2d &>(), py::arg("theOther"));
@@ -404,6 +410,7 @@ bind_NCollection_Sequence<gp_Vec>(mod, "TColgp_SequenceOfVec", py::module_local(
 py::class_<TColgp_HArray1OfXYZ, opencascade::handle<TColgp_HArray1OfXYZ>, Standard_Transient> cls_TColgp_HArray1OfXYZ(mod, "TColgp_HArray1OfXYZ", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColgp_HArray1OfXYZ.def(py::init<>());
 cls_TColgp_HArray1OfXYZ.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColgp_HArray1OfXYZ.def(py::init<const Standard_Integer, const Standard_Integer, const TColgp_Array1OfXYZ::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColgp_HArray1OfXYZ.def(py::init<const TColgp_Array1OfXYZ &>(), py::arg("theOther"));
@@ -427,6 +434,7 @@ cls_TColgp_HArray1OfXYZ.def("DynamicType", (const opencascade::handle<Standard_T
 py::class_<TColgp_HArray1OfXY, opencascade::handle<TColgp_HArray1OfXY>, Standard_Transient> cls_TColgp_HArray1OfXY(mod, "TColgp_HArray1OfXY", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColgp_HArray1OfXY.def(py::init<>());
 cls_TColgp_HArray1OfXY.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColgp_HArray1OfXY.def(py::init<const Standard_Integer, const Standard_Integer, const TColgp_Array1OfXY::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColgp_HArray1OfXY.def(py::init<const TColgp_Array1OfXY &>(), py::arg("theOther"));
@@ -477,6 +485,7 @@ bind_NCollection_Array1<gp_Dir2d>(mod, "TColgp_Array1OfDir2d", py::module_local(
 py::class_<TColgp_HArray1OfDir2d, opencascade::handle<TColgp_HArray1OfDir2d>, Standard_Transient> cls_TColgp_HArray1OfDir2d(mod, "TColgp_HArray1OfDir2d", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColgp_HArray1OfDir2d.def(py::init<>());
 cls_TColgp_HArray1OfDir2d.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColgp_HArray1OfDir2d.def(py::init<const Standard_Integer, const Standard_Integer, const TColgp_Array1OfDir2d::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColgp_HArray1OfDir2d.def(py::init<const TColgp_Array1OfDir2d &>(), py::arg("theOther"));
@@ -500,6 +509,7 @@ cls_TColgp_HArray1OfDir2d.def("DynamicType", (const opencascade::handle<Standard
 py::class_<TColgp_HArray1OfLin2d, opencascade::handle<TColgp_HArray1OfLin2d>, Standard_Transient> cls_TColgp_HArray1OfLin2d(mod, "TColgp_HArray1OfLin2d", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColgp_HArray1OfLin2d.def(py::init<>());
 cls_TColgp_HArray1OfLin2d.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColgp_HArray1OfLin2d.def(py::init<const Standard_Integer, const Standard_Integer, const TColgp_Array1OfLin2d::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColgp_HArray1OfLin2d.def(py::init<const TColgp_Array1OfLin2d &>(), py::arg("theOther"));
@@ -523,6 +533,7 @@ cls_TColgp_HArray1OfLin2d.def("DynamicType", (const opencascade::handle<Standard
 py::class_<TColgp_HArray1OfCirc2d, opencascade::handle<TColgp_HArray1OfCirc2d>, Standard_Transient> cls_TColgp_HArray1OfCirc2d(mod, "TColgp_HArray1OfCirc2d", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColgp_HArray1OfCirc2d.def(py::init<>());
 cls_TColgp_HArray1OfCirc2d.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColgp_HArray1OfCirc2d.def(py::init<const Standard_Integer, const Standard_Integer, const TColgp_Array1OfCirc2d::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColgp_HArray1OfCirc2d.def(py::init<const TColgp_Array1OfCirc2d &>(), py::arg("theOther"));

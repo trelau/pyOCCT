@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepGeom_Axis2Placement3d.hxx>
 #include <TopTools_HSequenceOfShape.hxx>
 #include <TopoDS_Shape.hxx>
+#include <Standard_Std.hxx>
 #include <STEPControl_ActorWrite.hxx>
 #include <Standard_Type.hxx>
 #include <StepShape_NonManifoldSurfaceShapeRepresentation.hxx>

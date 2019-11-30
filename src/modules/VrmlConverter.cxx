@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <VrmlConverter_LineAspect.hxx>
 #include <VrmlConverter_PointAspect.hxx>
 #include <VrmlConverter_ShadingAspect.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <TopoDS_Shape.hxx>
 #include <VrmlConverter_Projector.hxx>

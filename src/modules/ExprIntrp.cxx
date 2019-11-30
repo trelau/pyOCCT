@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColStd_ListOfAsciiString.hxx>
 #include <TColStd_ListOfInteger.hxx>
 #include <Standard_Transient.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <Standard_Failure.hxx>
 #include <ExprIntrp_SyntaxError.hxx>

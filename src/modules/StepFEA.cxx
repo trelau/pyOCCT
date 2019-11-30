@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepFEA_ElementOrElementGroup.hxx>
 #include <StepElement_AnalysisItemWithinRepresentation.hxx>
 #include <StepElement_ElementAspect.hxx>
+#include <Standard_Std.hxx>
 #include <StepFEA_ElementGeometricRelationship.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Sequence.hxx>
@@ -283,6 +284,7 @@ bind_NCollection_Array1<opencascade::handle<StepFEA_NodeRepresentation> >(mod, "
 py::class_<StepFEA_HArray1OfNodeRepresentation, opencascade::handle<StepFEA_HArray1OfNodeRepresentation>, Standard_Transient> cls_StepFEA_HArray1OfNodeRepresentation(mod, "StepFEA_HArray1OfNodeRepresentation", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepFEA_HArray1OfNodeRepresentation.def(py::init<>());
 cls_StepFEA_HArray1OfNodeRepresentation.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepFEA_HArray1OfNodeRepresentation.def(py::init<const Standard_Integer, const Standard_Integer, const StepFEA_Array1OfNodeRepresentation::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepFEA_HArray1OfNodeRepresentation.def(py::init<const StepFEA_Array1OfNodeRepresentation &>(), py::arg("theOther"));
@@ -518,6 +520,7 @@ cls_StepFEA_ConstantSurface3dElementCoordinateSystem.def("DynamicType", (const o
 py::class_<StepFEA_HArray1OfCurveElementInterval, opencascade::handle<StepFEA_HArray1OfCurveElementInterval>, Standard_Transient> cls_StepFEA_HArray1OfCurveElementInterval(mod, "StepFEA_HArray1OfCurveElementInterval", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepFEA_HArray1OfCurveElementInterval.def(py::init<>());
 cls_StepFEA_HArray1OfCurveElementInterval.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepFEA_HArray1OfCurveElementInterval.def(py::init<const Standard_Integer, const Standard_Integer, const StepFEA_Array1OfCurveElementInterval::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepFEA_HArray1OfCurveElementInterval.def(py::init<const StepFEA_Array1OfCurveElementInterval &>(), py::arg("theOther"));
@@ -541,6 +544,7 @@ cls_StepFEA_HArray1OfCurveElementInterval.def("DynamicType", (const opencascade:
 py::class_<StepFEA_HArray1OfCurveElementEndOffset, opencascade::handle<StepFEA_HArray1OfCurveElementEndOffset>, Standard_Transient> cls_StepFEA_HArray1OfCurveElementEndOffset(mod, "StepFEA_HArray1OfCurveElementEndOffset", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepFEA_HArray1OfCurveElementEndOffset.def(py::init<>());
 cls_StepFEA_HArray1OfCurveElementEndOffset.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepFEA_HArray1OfCurveElementEndOffset.def(py::init<const Standard_Integer, const Standard_Integer, const StepFEA_Array1OfCurveElementEndOffset::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepFEA_HArray1OfCurveElementEndOffset.def(py::init<const StepFEA_Array1OfCurveElementEndOffset &>(), py::arg("theOther"));
@@ -564,6 +568,7 @@ cls_StepFEA_HArray1OfCurveElementEndOffset.def("DynamicType", (const opencascade
 py::class_<StepFEA_HArray1OfCurveElementEndRelease, opencascade::handle<StepFEA_HArray1OfCurveElementEndRelease>, Standard_Transient> cls_StepFEA_HArray1OfCurveElementEndRelease(mod, "StepFEA_HArray1OfCurveElementEndRelease", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepFEA_HArray1OfCurveElementEndRelease.def(py::init<>());
 cls_StepFEA_HArray1OfCurveElementEndRelease.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepFEA_HArray1OfCurveElementEndRelease.def(py::init<const Standard_Integer, const Standard_Integer, const StepFEA_Array1OfCurveElementEndRelease::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepFEA_HArray1OfCurveElementEndRelease.def(py::init<const StepFEA_Array1OfCurveElementEndRelease &>(), py::arg("theOther"));
@@ -697,6 +702,7 @@ cls_StepFEA_DummyNode.def("DynamicType", (const opencascade::handle<Standard_Typ
 py::class_<StepFEA_HArray1OfElementRepresentation, opencascade::handle<StepFEA_HArray1OfElementRepresentation>, Standard_Transient> cls_StepFEA_HArray1OfElementRepresentation(mod, "StepFEA_HArray1OfElementRepresentation", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepFEA_HArray1OfElementRepresentation.def(py::init<>());
 cls_StepFEA_HArray1OfElementRepresentation.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepFEA_HArray1OfElementRepresentation.def(py::init<const Standard_Integer, const Standard_Integer, const StepFEA_Array1OfElementRepresentation::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepFEA_HArray1OfElementRepresentation.def(py::init<const StepFEA_Array1OfElementRepresentation &>(), py::arg("theOther"));
@@ -1111,6 +1117,7 @@ cls_StepFEA_FreedomAndCoefficient.def("DynamicType", (const opencascade::handle<
 py::class_<StepFEA_HArray1OfDegreeOfFreedom, opencascade::handle<StepFEA_HArray1OfDegreeOfFreedom>, Standard_Transient> cls_StepFEA_HArray1OfDegreeOfFreedom(mod, "StepFEA_HArray1OfDegreeOfFreedom", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepFEA_HArray1OfDegreeOfFreedom.def(py::init<>());
 cls_StepFEA_HArray1OfDegreeOfFreedom.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepFEA_HArray1OfDegreeOfFreedom.def(py::init<const Standard_Integer, const Standard_Integer, const StepFEA_Array1OfDegreeOfFreedom::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepFEA_HArray1OfDegreeOfFreedom.def(py::init<const StepFEA_Array1OfDegreeOfFreedom &>(), py::arg("theOther"));

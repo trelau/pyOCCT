@@ -27,7 +27,6 @@ class TestAISLine(unittest.TestCase):
     Test for AIS_Line class
     """
 
-    @unittest.expectedFailure
     def test_Points(self):
         """
         Test AIS_Line::Points method.

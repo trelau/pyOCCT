@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BVH_Builder.hxx>
 #include <BVH_Box.hxx>
 #include <BVH_Types.hxx>
+#include <Standard_OStream.hxx>
+#include <Standard_TypeDef.hxx>
 
 template <typename T, int N>
 void bind_BVH_TreeBase(py::module &mod, std::string const &name, py::module_local const &local){
@@ -62,6 +64,9 @@ cls_BVH_TreeBase.def("MinPointBuffer", (typename BVH::ArrayType<T, N>::Type & (B
 cls_BVH_TreeBase.def("MaxPointBuffer", (typename BVH::ArrayType<T, N>::Type & (BVH_TreeBase<T, N>::*)()) &BVH_TreeBase<T, N>::MaxPointBuffer, "Returns array of node maximum points.");
 cls_BVH_TreeBase.def("MinPointBuffer", (const typename BVH::ArrayType<T, N>::Type & (BVH_TreeBase<T, N>::*)() const) &BVH_TreeBase<T, N>::MinPointBuffer, "Returns array of node minimum points.");
 cls_BVH_TreeBase.def("MaxPointBuffer", (const typename BVH::ArrayType<T, N>::Type & (BVH_TreeBase<T, N>::*)() const) &BVH_TreeBase<T, N>::MaxPointBuffer, "Returns array of node maximum points.");
+cls_BVH_TreeBase.def("DumpJson", [](BVH_TreeBase<T, N> &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_BVH_TreeBase.def("DumpJson", (void (BVH_TreeBase<T, N>::*)(Standard_OStream &, const Standard_Integer) const) &BVH_TreeBase<T, N>::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
+cls_BVH_TreeBase.def("DumpNode", (void (BVH_TreeBase<T, N>::*)(const int, Standard_OStream &, const Standard_Integer) const) &BVH_TreeBase<T, N>::DumpNode, "Dumps the content of node into the stream", py::arg("theNodeIndex"), py::arg("theOStream"), py::arg("theDepth"));
 
 }
 

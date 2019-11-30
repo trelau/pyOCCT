@@ -75,6 +75,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <IFSelect_Activator.hxx>
 #include <IFSelect_ReturnStatus.hxx>
 #include <IFSelect_SessionPilot.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <IFSelect_GeneralModifier.hxx>
 #include <IFSelect_ContextWrite.hxx>

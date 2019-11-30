@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopoDS_Face.hxx>
 #include <Geom_Curve.hxx>
 #include <GeomAbs_Shape.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <ShapeFix_Shape.hxx>
 #include <ShapeFix_EdgeProjAux.hxx>

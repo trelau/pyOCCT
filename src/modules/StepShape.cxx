@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepShape_AngleRelator.hxx>
 #include <StepShape_BooleanOperator.hxx>
 #include <StepRepr_PropertyDefinitionRepresentation.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <StepShape_ShapeDefinitionRepresentation.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <Standard_Transient.hxx>
 #include <TCollection_HAsciiString.hxx>
@@ -300,6 +301,7 @@ bind_NCollection_Array1<opencascade::handle<StepShape_FaceBound> >(mod, "StepSha
 py::class_<StepShape_HArray1OfFaceBound, opencascade::handle<StepShape_HArray1OfFaceBound>, Standard_Transient> cls_StepShape_HArray1OfFaceBound(mod, "StepShape_HArray1OfFaceBound", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepShape_HArray1OfFaceBound.def(py::init<>());
 cls_StepShape_HArray1OfFaceBound.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepShape_HArray1OfFaceBound.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfFaceBound::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepShape_HArray1OfFaceBound.def(py::init<const StepShape_Array1OfFaceBound &>(), py::arg("theOther"));
@@ -451,6 +453,7 @@ bind_NCollection_Array1<opencascade::handle<StepShape_Edge> >(mod, "StepShape_Ar
 py::class_<StepShape_HArray1OfEdge, opencascade::handle<StepShape_HArray1OfEdge>, Standard_Transient> cls_StepShape_HArray1OfEdge(mod, "StepShape_HArray1OfEdge", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepShape_HArray1OfEdge.def(py::init<>());
 cls_StepShape_HArray1OfEdge.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepShape_HArray1OfEdge.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfEdge::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepShape_HArray1OfEdge.def(py::init<const StepShape_Array1OfEdge &>(), py::arg("theOther"));
@@ -494,6 +497,7 @@ bind_NCollection_Array1<opencascade::handle<StepShape_Face> >(mod, "StepShape_Ar
 py::class_<StepShape_HArray1OfFace, opencascade::handle<StepShape_HArray1OfFace>, Standard_Transient> cls_StepShape_HArray1OfFace(mod, "StepShape_HArray1OfFace", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepShape_HArray1OfFace.def(py::init<>());
 cls_StepShape_HArray1OfFace.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepShape_HArray1OfFace.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfFace::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepShape_HArray1OfFace.def(py::init<const StepShape_Array1OfFace &>(), py::arg("theOther"));
@@ -810,6 +814,7 @@ cls_StepShape_BoxedHalfSpace.def("DynamicType", (const opencascade::handle<Stand
 py::class_<StepShape_HArray1OfOrientedClosedShell, opencascade::handle<StepShape_HArray1OfOrientedClosedShell>, Standard_Transient> cls_StepShape_HArray1OfOrientedClosedShell(mod, "StepShape_HArray1OfOrientedClosedShell", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepShape_HArray1OfOrientedClosedShell.def(py::init<>());
 cls_StepShape_HArray1OfOrientedClosedShell.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepShape_HArray1OfOrientedClosedShell.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfOrientedClosedShell::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepShape_HArray1OfOrientedClosedShell.def(py::init<const StepShape_Array1OfOrientedClosedShell &>(), py::arg("theOther"));
@@ -1055,6 +1060,7 @@ cls_StepShape_DirectedDimensionalLocation.def("DynamicType", (const opencascade:
 py::class_<StepShape_HArray1OfConnectedEdgeSet, opencascade::handle<StepShape_HArray1OfConnectedEdgeSet>, Standard_Transient> cls_StepShape_HArray1OfConnectedEdgeSet(mod, "StepShape_HArray1OfConnectedEdgeSet", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepShape_HArray1OfConnectedEdgeSet.def(py::init<>());
 cls_StepShape_HArray1OfConnectedEdgeSet.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepShape_HArray1OfConnectedEdgeSet.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfConnectedEdgeSet::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepShape_HArray1OfConnectedEdgeSet.def(py::init<const StepShape_Array1OfConnectedEdgeSet &>(), py::arg("theOther"));
@@ -1119,6 +1125,7 @@ cls_StepShape_EdgeCurve.def("DynamicType", (const opencascade::handle<Standard_T
 py::class_<StepShape_HArray1OfOrientedEdge, opencascade::handle<StepShape_HArray1OfOrientedEdge>, Standard_Transient> cls_StepShape_HArray1OfOrientedEdge(mod, "StepShape_HArray1OfOrientedEdge", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepShape_HArray1OfOrientedEdge.def(py::init<>());
 cls_StepShape_HArray1OfOrientedEdge.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepShape_HArray1OfOrientedEdge.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfOrientedEdge::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepShape_HArray1OfOrientedEdge.def(py::init<const StepShape_Array1OfOrientedEdge &>(), py::arg("theOther"));
@@ -1229,6 +1236,7 @@ cls_StepShape_ExtrudedFaceSolid.def("DynamicType", (const opencascade::handle<St
 py::class_<StepShape_HArray1OfConnectedFaceSet, opencascade::handle<StepShape_HArray1OfConnectedFaceSet>, Standard_Transient> cls_StepShape_HArray1OfConnectedFaceSet(mod, "StepShape_HArray1OfConnectedFaceSet", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepShape_HArray1OfConnectedFaceSet.def(py::init<>());
 cls_StepShape_HArray1OfConnectedFaceSet.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepShape_HArray1OfConnectedFaceSet.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfConnectedFaceSet::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepShape_HArray1OfConnectedFaceSet.def(py::init<const StepShape_Array1OfConnectedFaceSet &>(), py::arg("theOther"));
@@ -1342,6 +1350,7 @@ cls_StepShape_GeometricallyBoundedWireframeShapeRepresentation.def("DynamicType"
 py::class_<StepShape_HArray1OfGeometricSetSelect, opencascade::handle<StepShape_HArray1OfGeometricSetSelect>, Standard_Transient> cls_StepShape_HArray1OfGeometricSetSelect(mod, "StepShape_HArray1OfGeometricSetSelect", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepShape_HArray1OfGeometricSetSelect.def(py::init<>());
 cls_StepShape_HArray1OfGeometricSetSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepShape_HArray1OfGeometricSetSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfGeometricSetSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepShape_HArray1OfGeometricSetSelect.def(py::init<const StepShape_Array1OfGeometricSetSelect &>(), py::arg("theOther"));
@@ -1392,6 +1401,7 @@ cls_StepShape_GeometricCurveSet.def("DynamicType", (const opencascade::handle<St
 py::class_<StepShape_HArray1OfShapeDimensionRepresentationItem, opencascade::handle<StepShape_HArray1OfShapeDimensionRepresentationItem>, Standard_Transient> cls_StepShape_HArray1OfShapeDimensionRepresentationItem(mod, "StepShape_HArray1OfShapeDimensionRepresentationItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def(py::init<>());
 cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfShapeDimensionRepresentationItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def(py::init<const StepShape_Array1OfShapeDimensionRepresentationItem &>(), py::arg("theOther"));
@@ -1415,6 +1425,7 @@ cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def("DynamicType", (cons
 py::class_<StepShape_HArray1OfShell, opencascade::handle<StepShape_HArray1OfShell>, Standard_Transient> cls_StepShape_HArray1OfShell(mod, "StepShape_HArray1OfShell", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepShape_HArray1OfShell.def(py::init<>());
 cls_StepShape_HArray1OfShell.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepShape_HArray1OfShell.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfShell::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepShape_HArray1OfShell.def(py::init<const StepShape_Array1OfShell &>(), py::arg("theOther"));
@@ -1438,6 +1449,7 @@ cls_StepShape_HArray1OfShell.def("DynamicType", (const opencascade::handle<Stand
 py::class_<StepShape_HArray1OfValueQualifier, opencascade::handle<StepShape_HArray1OfValueQualifier>, Standard_Transient> cls_StepShape_HArray1OfValueQualifier(mod, "StepShape_HArray1OfValueQualifier", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepShape_HArray1OfValueQualifier.def(py::init<>());
 cls_StepShape_HArray1OfValueQualifier.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepShape_HArray1OfValueQualifier.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfValueQualifier::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepShape_HArray1OfValueQualifier.def(py::init<const StepShape_Array1OfValueQualifier &>(), py::arg("theOther"));
@@ -1973,11 +1985,11 @@ py::class_<StepShape_ToleranceValue, opencascade::handle<StepShape_ToleranceValu
 cls_StepShape_ToleranceValue.def(py::init<>());
 
 // Methods
-cls_StepShape_ToleranceValue.def("Init", (void (StepShape_ToleranceValue::*)(const opencascade::handle<StepBasic_MeasureWithUnit> &, const opencascade::handle<StepBasic_MeasureWithUnit> &)) &StepShape_ToleranceValue::Init, "None", py::arg("lower_bound"), py::arg("upper_bound"));
-cls_StepShape_ToleranceValue.def("LowerBound", (opencascade::handle<StepBasic_MeasureWithUnit> (StepShape_ToleranceValue::*)() const) &StepShape_ToleranceValue::LowerBound, "None");
-cls_StepShape_ToleranceValue.def("SetLowerBound", (void (StepShape_ToleranceValue::*)(const opencascade::handle<StepBasic_MeasureWithUnit> &)) &StepShape_ToleranceValue::SetLowerBound, "None", py::arg("lower_bound"));
-cls_StepShape_ToleranceValue.def("UpperBound", (opencascade::handle<StepBasic_MeasureWithUnit> (StepShape_ToleranceValue::*)() const) &StepShape_ToleranceValue::UpperBound, "None");
-cls_StepShape_ToleranceValue.def("SetUpperBound", (void (StepShape_ToleranceValue::*)(const opencascade::handle<StepBasic_MeasureWithUnit> &)) &StepShape_ToleranceValue::SetUpperBound, "None", py::arg("upper_bound"));
+cls_StepShape_ToleranceValue.def("Init", (void (StepShape_ToleranceValue::*)(const opencascade::handle<Standard_Transient> &, const opencascade::handle<Standard_Transient> &)) &StepShape_ToleranceValue::Init, "None", py::arg("lower_bound"), py::arg("upper_bound"));
+cls_StepShape_ToleranceValue.def("LowerBound", (opencascade::handle<Standard_Transient> (StepShape_ToleranceValue::*)() const) &StepShape_ToleranceValue::LowerBound, "None");
+cls_StepShape_ToleranceValue.def("SetLowerBound", (void (StepShape_ToleranceValue::*)(const opencascade::handle<Standard_Transient> &)) &StepShape_ToleranceValue::SetLowerBound, "None", py::arg("lower_bound"));
+cls_StepShape_ToleranceValue.def("UpperBound", (opencascade::handle<Standard_Transient> (StepShape_ToleranceValue::*)() const) &StepShape_ToleranceValue::UpperBound, "None");
+cls_StepShape_ToleranceValue.def("SetUpperBound", (void (StepShape_ToleranceValue::*)(const opencascade::handle<Standard_Transient> &)) &StepShape_ToleranceValue::SetUpperBound, "None", py::arg("upper_bound"));
 cls_StepShape_ToleranceValue.def_static("get_type_name_", (const char * (*)()) &StepShape_ToleranceValue::get_type_name, "None");
 cls_StepShape_ToleranceValue.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepShape_ToleranceValue::get_type_descriptor, "None");
 cls_StepShape_ToleranceValue.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_ToleranceValue::*)() const) &StepShape_ToleranceValue::DynamicType, "None");

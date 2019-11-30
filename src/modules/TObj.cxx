@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Message_Messenger.hxx>
 #include <TDocStd_Document.hxx>
 #include <Message_Gravity.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <TObj_Model.hxx>
 #include <TColStd_SequenceOfTransient.hxx>
@@ -94,7 +95,7 @@ py::module::import("OCCT.TDF");
 py::module::import("OCCT.gp");
 
 // FUNCTION: HASHCODE
-mod.def("HashCode", (Standard_Integer (*) (const opencascade::handle<TCollection_HExtendedString> &, const Standard_Integer)) &HashCode, "Methods inline implimentation for HExtendedString", py::arg("theStr"), py::arg("theBnd"));
+mod.def("HashCode", (Standard_Integer (*) (const opencascade::handle<TCollection_HExtendedString> &, const Standard_Integer)) &HashCode, "Computes a hash code for the given handle referred to extended string, in the range [1, theUpperBound]", py::arg("theHExtendedString"), py::arg("theUpperBound"));
 
 // FUNCTION: ISEQUAL
 mod.def("IsEqual", (Standard_Boolean (*) (const opencascade::handle<TCollection_HExtendedString> &, const opencascade::handle<TCollection_HExtendedString> &)) &IsEqual, "None", py::arg("theStr1"), py::arg("theStr2"));

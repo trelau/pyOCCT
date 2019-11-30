@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColStd_Array1OfReal.hxx>
 #include <Standard_Handle.hxx>
 #include <Law_Function.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_List.hxx>
 #include <Law_Laws.hxx>

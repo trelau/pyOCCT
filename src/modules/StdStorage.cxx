@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StdStorage_HeaderData.hxx>
 #include <StdStorage_TypeData.hxx>
 #include <StdStorage_RootData.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <TCollection_ExtendedString.hxx>
 #include <TColStd_SequenceOfAsciiString.hxx>

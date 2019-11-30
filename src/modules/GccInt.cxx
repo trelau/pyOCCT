@@ -28,8 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_Hypr2d.hxx>
 #include <gp_Parab2d.hxx>
 #include <gp_Elips2d.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <GccInt_Bisec.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <GccInt_BCirc.hxx>
 #include <GccInt_BElips.hxx>

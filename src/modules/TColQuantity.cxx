@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <Standard_TypeDef.hxx>
+#include <Standard_Std.hxx>
 #include <TColQuantity_HArray1OfLength.hxx>
 #include <Standard_Type.hxx>
 #include <TColQuantity_HArray2OfLength.hxx>
@@ -52,6 +53,7 @@ bind_NCollection_Array2<double>(mod, "TColQuantity_Array2OfLength", py::module_l
 py::class_<TColQuantity_HArray1OfLength, opencascade::handle<TColQuantity_HArray1OfLength>, Standard_Transient> cls_TColQuantity_HArray1OfLength(mod, "TColQuantity_HArray1OfLength", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColQuantity_HArray1OfLength.def(py::init<>());
 cls_TColQuantity_HArray1OfLength.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColQuantity_HArray1OfLength.def(py::init<const Standard_Integer, const Standard_Integer, const TColQuantity_Array1OfLength::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColQuantity_HArray1OfLength.def(py::init<const TColQuantity_Array1OfLength &>(), py::arg("theOther"));

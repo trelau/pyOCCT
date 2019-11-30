@@ -32,11 +32,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColgp_Array1OfPnt.hxx>
 #include <BSplSLib.hxx>
 #include <Standard_Transient.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <BSplSLib_Cache.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
+#include <BSplCLib_CacheParams.hxx>
 #include <TColStd_HArray2OfReal.hxx>
-#include <TColStd_HArray1OfReal.hxx>
 
 PYBIND11_MODULE(BSplSLib, mod) {
 
@@ -44,6 +45,7 @@ py::module::import("OCCT.Standard");
 py::module::import("OCCT.TColgp");
 py::module::import("OCCT.TColStd");
 py::module::import("OCCT.gp");
+py::module::import("OCCT.BSplCLib");
 
 // CLASS: BSPLSLIB_EVALUATORFUNCTION
 py::class_<BSplSLib_EvaluatorFunction> cls_BSplSLib_EvaluatorFunction(mod, "BSplSLib_EvaluatorFunction", "None");
@@ -105,14 +107,13 @@ cls_BSplSLib.def_static("FunctionMultiply_", [](const BSplSLib_EvaluatorFunction
 py::class_<BSplSLib_Cache, opencascade::handle<BSplSLib_Cache>, Standard_Transient> cls_BSplSLib_Cache(mod, "BSplSLib_Cache", "A cache class for Bezier and B-spline surfaces.");
 
 // Constructors
-cls_BSplSLib_Cache.def(py::init<>());
-cls_BSplSLib_Cache.def(py::init<const Standard_Integer &, const Standard_Boolean &, const TColStd_Array1OfReal &, const Standard_Integer &, const Standard_Boolean &, const TColStd_Array1OfReal &, const TColgp_Array2OfPnt &>(), py::arg("theDegreeU"), py::arg("thePeriodicU"), py::arg("theFlatKnotsU"), py::arg("theDegreeV"), py::arg("thePeriodicV"), py::arg("theFlatKnotsV"), py::arg("thePoles"));
-cls_BSplSLib_Cache.def(py::init<const Standard_Integer &, const Standard_Boolean &, const TColStd_Array1OfReal &, const Standard_Integer &, const Standard_Boolean &, const TColStd_Array1OfReal &, const TColgp_Array2OfPnt &, const TColStd_Array2OfReal *>(), py::arg("theDegreeU"), py::arg("thePeriodicU"), py::arg("theFlatKnotsU"), py::arg("theDegreeV"), py::arg("thePeriodicV"), py::arg("theFlatKnotsV"), py::arg("thePoles"), py::arg("theWeights"));
+cls_BSplSLib_Cache.def(py::init<const Standard_Integer &, const Standard_Boolean &, const TColStd_Array1OfReal &, const Standard_Integer &, const Standard_Boolean &, const TColStd_Array1OfReal &>(), py::arg("theDegreeU"), py::arg("thePeriodicU"), py::arg("theFlatKnotsU"), py::arg("theDegreeV"), py::arg("thePeriodicV"), py::arg("theFlatKnotsV"));
+cls_BSplSLib_Cache.def(py::init<const Standard_Integer &, const Standard_Boolean &, const TColStd_Array1OfReal &, const Standard_Integer &, const Standard_Boolean &, const TColStd_Array1OfReal &, const TColStd_Array2OfReal *>(), py::arg("theDegreeU"), py::arg("thePeriodicU"), py::arg("theFlatKnotsU"), py::arg("theDegreeV"), py::arg("thePeriodicV"), py::arg("theFlatKnotsV"), py::arg("theWeights"));
 
 // Methods
 cls_BSplSLib_Cache.def("IsCacheValid", (Standard_Boolean (BSplSLib_Cache::*)(Standard_Real, Standard_Real) const) &BSplSLib_Cache::IsCacheValid, "Verifies validity of the cache using parameters of the point", py::arg("theParameterU"), py::arg("theParameterV"));
-cls_BSplSLib_Cache.def("BuildCache", [](BSplSLib_Cache &self, const Standard_Real & a0, const Standard_Real & a1, const Standard_Integer & a2, const Standard_Boolean & a3, const TColStd_Array1OfReal & a4, const Standard_Integer & a5, const Standard_Boolean & a6, const TColStd_Array1OfReal & a7, const TColgp_Array2OfPnt & a8) -> void { return self.BuildCache(a0, a1, a2, a3, a4, a5, a6, a7, a8); });
-cls_BSplSLib_Cache.def("BuildCache", (void (BSplSLib_Cache::*)(const Standard_Real &, const Standard_Real &, const Standard_Integer &, const Standard_Boolean &, const TColStd_Array1OfReal &, const Standard_Integer &, const Standard_Boolean &, const TColStd_Array1OfReal &, const TColgp_Array2OfPnt &, const TColStd_Array2OfReal *)) &BSplSLib_Cache::BuildCache, "Recomputes the cache data. Does not verify validity of the cache", py::arg("theParameterU"), py::arg("theParameterV"), py::arg("theDegreeU"), py::arg("thePeriodicU"), py::arg("theFlatKnotsU"), py::arg("theDegreeV"), py::arg("thePeriodicV"), py::arg("theFlatKnotsV"), py::arg("thePoles"), py::arg("theWeights"));
+cls_BSplSLib_Cache.def("BuildCache", [](BSplSLib_Cache &self, const Standard_Real & a0, const Standard_Real & a1, const TColStd_Array1OfReal & a2, const TColStd_Array1OfReal & a3, const TColgp_Array2OfPnt & a4) -> void { return self.BuildCache(a0, a1, a2, a3, a4); });
+cls_BSplSLib_Cache.def("BuildCache", (void (BSplSLib_Cache::*)(const Standard_Real &, const Standard_Real &, const TColStd_Array1OfReal &, const TColStd_Array1OfReal &, const TColgp_Array2OfPnt &, const TColStd_Array2OfReal *)) &BSplSLib_Cache::BuildCache, "Recomputes the cache data. Does not verify validity of the cache", py::arg("theParameterU"), py::arg("theParameterV"), py::arg("theFlatKnotsU"), py::arg("theFlatKnotsV"), py::arg("thePoles"), py::arg("theWeights"));
 cls_BSplSLib_Cache.def("D0", (void (BSplSLib_Cache::*)(const Standard_Real &, const Standard_Real &, gp_Pnt &) const) &BSplSLib_Cache::D0, "Calculates the point on the surface for specified parameters", py::arg("theU"), py::arg("theV"), py::arg("thePoint"));
 cls_BSplSLib_Cache.def("D1", (void (BSplSLib_Cache::*)(const Standard_Real &, const Standard_Real &, gp_Pnt &, gp_Vec &, gp_Vec &) const) &BSplSLib_Cache::D1, "Calculates the point on the surface and its first derivative", py::arg("theU"), py::arg("theV"), py::arg("thePoint"), py::arg("theTangentU"), py::arg("theTangentV"));
 cls_BSplSLib_Cache.def("D2", (void (BSplSLib_Cache::*)(const Standard_Real &, const Standard_Real &, gp_Pnt &, gp_Vec &, gp_Vec &, gp_Vec &, gp_Vec &, gp_Vec &) const) &BSplSLib_Cache::D2, "Calculates the point on the surface and derivatives till second order", py::arg("theU"), py::arg("theV"), py::arg("thePoint"), py::arg("theTangentU"), py::arg("theTangentV"), py::arg("theCurvatureU"), py::arg("theCurvatureV"), py::arg("theCurvatureUV"));

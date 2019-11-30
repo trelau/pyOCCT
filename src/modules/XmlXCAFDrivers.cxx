@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <XmlDrivers_DocumentRetrievalDriver.hxx>
 #include <XmlMDF_ADriverTable.hxx>
 #include <Message_Messenger.hxx>
+#include <Standard_Std.hxx>
 #include <XmlXCAFDrivers_DocumentRetrievalDriver.hxx>
 #include <Standard_Type.hxx>
 #include <XmlDrivers_DocumentStorageDriver.hxx>

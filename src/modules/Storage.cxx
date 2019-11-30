@@ -31,8 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColStd_SequenceOfAsciiString.hxx>
 #include <TColStd_SequenceOfExtendedString.hxx>
 #include <Storage_Schema.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <Storage_HeaderData.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <Standard_Persistent.hxx>
 #include <Storage_Root.hxx>
@@ -467,6 +468,7 @@ cls_Storage_DefaultCallBack.def("DynamicType", (const opencascade::handle<Standa
 py::class_<Storage_HArrayOfCallBack, opencascade::handle<Storage_HArrayOfCallBack>, Standard_Transient> cls_Storage_HArrayOfCallBack(mod, "Storage_HArrayOfCallBack", "None", py::multiple_inheritance());
 
 // Constructors
+cls_Storage_HArrayOfCallBack.def(py::init<>());
 cls_Storage_HArrayOfCallBack.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_Storage_HArrayOfCallBack.def(py::init<const Standard_Integer, const Standard_Integer, const Storage_ArrayOfCallBack::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_Storage_HArrayOfCallBack.def(py::init<const Storage_ArrayOfCallBack &>(), py::arg("theOther"));
@@ -525,6 +527,7 @@ bind_NCollection_Array1<opencascade::handle<Standard_Persistent> >(mod, "Storage
 py::class_<Storage_HPArray, opencascade::handle<Storage_HPArray>, Standard_Transient> cls_Storage_HPArray(mod, "Storage_HPArray", "None", py::multiple_inheritance());
 
 // Constructors
+cls_Storage_HPArray.def(py::init<>());
 cls_Storage_HPArray.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_Storage_HPArray.def(py::init<const Standard_Integer, const Standard_Integer, const Storage_PArray::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_Storage_HPArray.def(py::init<const Storage_PArray &>(), py::arg("theOther"));
@@ -561,6 +564,7 @@ cls_Storage_InternalData.def("DynamicType", (const opencascade::handle<Standard_
 py::class_<Storage_HArrayOfSchema, opencascade::handle<Storage_HArrayOfSchema>, Standard_Transient> cls_Storage_HArrayOfSchema(mod, "Storage_HArrayOfSchema", "None", py::multiple_inheritance());
 
 // Constructors
+cls_Storage_HArrayOfSchema.def(py::init<>());
 cls_Storage_HArrayOfSchema.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_Storage_HArrayOfSchema.def(py::init<const Standard_Integer, const Standard_Integer, const Storage_ArrayOfSchema::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_Storage_HArrayOfSchema.def(py::init<const Storage_ArrayOfSchema &>(), py::arg("theOther"));

@@ -50,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Geom2d_BSplineCurve.hxx>
 #include <IntSurf_LineOn2S.hxx>
 #include <IntSurf_PntOn2S.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <math_BFGS.hxx>
 #include <math_MultipleVarFunctionWithGradient.hxx>
@@ -187,6 +188,7 @@ cls_BRepApprox_TheComputeLineOfApprox.def("SetDegrees", (void (BRepApprox_TheCom
 cls_BRepApprox_TheComputeLineOfApprox.def("SetTolerances", (void (BRepApprox_TheComputeLineOfApprox::*)(const Standard_Real, const Standard_Real)) &BRepApprox_TheComputeLineOfApprox::SetTolerances, "Changes the tolerances of the approximation.", py::arg("Tolerance3d"), py::arg("Tolerance2d"));
 cls_BRepApprox_TheComputeLineOfApprox.def("SetContinuity", (void (BRepApprox_TheComputeLineOfApprox::*)(const Standard_Integer)) &BRepApprox_TheComputeLineOfApprox::SetContinuity, "sets the continuity of the spline. if C = 2, the spline will be C2.", py::arg("C"));
 cls_BRepApprox_TheComputeLineOfApprox.def("SetConstraints", (void (BRepApprox_TheComputeLineOfApprox::*)(const AppParCurves_Constraint, const AppParCurves_Constraint)) &BRepApprox_TheComputeLineOfApprox::SetConstraints, "changes the first and the last constraint points.", py::arg("firstC"), py::arg("lastC"));
+cls_BRepApprox_TheComputeLineOfApprox.def("SetPeriodic", (void (BRepApprox_TheComputeLineOfApprox::*)(const Standard_Boolean)) &BRepApprox_TheComputeLineOfApprox::SetPeriodic, "Sets periodic flag. If thePeriodic = Standard_True, algorith tries to build periodic multicurve using corresponding C1 boundary condition for first and last multipoints. Multiline must be closed.", py::arg("thePeriodic"));
 cls_BRepApprox_TheComputeLineOfApprox.def("IsAllApproximated", (Standard_Boolean (BRepApprox_TheComputeLineOfApprox::*)() const) &BRepApprox_TheComputeLineOfApprox::IsAllApproximated, "returns False if at a moment of the approximation, the status NoApproximation has been sent by the user when more points were needed.");
 cls_BRepApprox_TheComputeLineOfApprox.def("IsToleranceReached", (Standard_Boolean (BRepApprox_TheComputeLineOfApprox::*)() const) &BRepApprox_TheComputeLineOfApprox::IsToleranceReached, "returns False if the status NoPointsAdded has been sent.");
 cls_BRepApprox_TheComputeLineOfApprox.def("Error", [](BRepApprox_TheComputeLineOfApprox &self, Standard_Real & tol3d, Standard_Real & tol2d){ self.Error(tol3d, tol2d); return std::tuple<Standard_Real &, Standard_Real &>(tol3d, tol2d); }, "returns the tolerances 2d and 3d of the MultiBSpCurve.", py::arg("tol3d"), py::arg("tol2d"));
@@ -307,7 +309,8 @@ py::class_<BRepApprox_ApproxLine, opencascade::handle<BRepApprox_ApproxLine>, St
 
 // Constructors
 cls_BRepApprox_ApproxLine.def(py::init<const opencascade::handle<Geom_BSplineCurve> &, const opencascade::handle<Geom2d_BSplineCurve> &, const opencascade::handle<Geom2d_BSplineCurve> &>(), py::arg("CurveXYZ"), py::arg("CurveUV1"), py::arg("CurveUV2"));
-cls_BRepApprox_ApproxLine.def(py::init<const opencascade::handle<IntSurf_LineOn2S> &, const Standard_Boolean>(), py::arg("lin"), py::arg("Tang"));
+cls_BRepApprox_ApproxLine.def(py::init<const opencascade::handle<IntSurf_LineOn2S> &>(), py::arg("lin"));
+cls_BRepApprox_ApproxLine.def(py::init<const opencascade::handle<IntSurf_LineOn2S> &, const Standard_Boolean>(), py::arg("lin"), py::arg("theTang"));
 
 // Methods
 cls_BRepApprox_ApproxLine.def("NbPnts", (Standard_Integer (BRepApprox_ApproxLine::*)() const) &BRepApprox_ApproxLine::NbPnts, "None");

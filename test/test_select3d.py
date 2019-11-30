@@ -19,6 +19,7 @@
 import unittest
 
 from OCCT.Select3D import Select3D_SensitiveTriangle
+from OCCT.SelectMgr import SelectMgr_EntityOwner
 from OCCT.gp import gp_Pnt
 
 
@@ -32,7 +33,8 @@ class TestSelect3DSensitiveTriangle(unittest.TestCase):
         p0 = gp_Pnt(1., 0., 0.)
         p1 = gp_Pnt(2., 0., 0.)
         p2 = gp_Pnt(2., 1., 0.)
-        cls.tri = Select3D_SensitiveTriangle(None, p0, p1, p2)
+        owner = SelectMgr_EntityOwner()
+        cls.tri = Select3D_SensitiveTriangle(owner, p0, p1, p2)
 
     def test_Points3D(self):
         """

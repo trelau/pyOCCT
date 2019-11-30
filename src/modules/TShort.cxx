@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <TShort_HArray1OfShortReal.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Array2.hxx>
@@ -51,6 +52,7 @@ bind_NCollection_Array1<float>(mod, "TShort_Array1OfShortReal", py::module_local
 py::class_<TShort_HArray1OfShortReal, opencascade::handle<TShort_HArray1OfShortReal>, Standard_Transient> cls_TShort_HArray1OfShortReal(mod, "TShort_HArray1OfShortReal", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TShort_HArray1OfShortReal.def(py::init<>());
 cls_TShort_HArray1OfShortReal.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TShort_HArray1OfShortReal.def(py::init<const Standard_Integer, const Standard_Integer, const TShort_Array1OfShortReal::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TShort_HArray1OfShortReal.def(py::init<const TShort_Array1OfShortReal &>(), py::arg("theOther"));

@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <MAT_BasicElt.hxx>
 #include <MAT_Node.hxx>
 #include <MAT_Arc.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Sequence.hxx>
 #include <MAT_SequenceOfArc.hxx>

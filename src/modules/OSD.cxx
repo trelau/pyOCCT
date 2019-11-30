@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include <pyOCCT_Common.hxx>
 #include <OSD_SysType.hxx>
+#include <OSD_SignalMode.hxx>
 #include <OSD_WhoAmI.hxx>
 #include <OSD_FromWhere.hxx>
 #include <OSD_KindFile.hxx>
@@ -38,12 +39,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_OStream.hxx>
 #include <OSD_Chronometer.hxx>
 #include <OSD_Timer.hxx>
-#include <OSD_Parallel.hxx>
 #include <OSD_ThreadFunction.hxx>
 #include <Aspect_Handle.hxx>
 #include <OSD_PThread.hxx>
 #include <OSD_Thread.hxx>
 #include <Standard_ThreadId.hxx>
+#include <Standard_Transient.hxx>
+#include <Standard_Std.hxx>
+#include <OSD_ThreadPool.hxx>
+#include <Standard_Handle.hxx>
+#include <Standard_Type.hxx>
+#include <Standard_Failure.hxx>
+#include <Standard_Condition.hxx>
+#include <NCollection_Array1.hxx>
+#include <OSD_Parallel.hxx>
 #include <OSD_Function.hxx>
 #include <Standard_PCharacter.hxx>
 #include <OSD.hxx>
@@ -55,11 +64,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <OSD_DirectoryIterator.hxx>
 #include <OSD_Disk.hxx>
 #include <OSD_Environment.hxx>
-#include <Standard_Failure.hxx>
-#include <Standard_Handle.hxx>
 #include <OSD_Exception.hxx>
 #include <Standard_SStream.hxx>
-#include <Standard_Type.hxx>
 #include <OSD_Exception_ACCESS_VIOLATION.hxx>
 #include <OSD_Exception_ARRAY_BOUNDS_EXCEEDED.hxx>
 #include <OSD_Exception_CTRL_BREAK.hxx>
@@ -105,8 +111,8 @@ PYBIND11_MODULE(OSD, mod) {
 py::module::import("OCCT.TCollection");
 py::module::import("OCCT.Standard");
 py::module::import("OCCT.Aspect");
-py::module::import("OCCT.Quantity");
 py::module::import("OCCT.NCollection");
+py::module::import("OCCT.Quantity");
 
 // ENUM: OSD_SYSTYPE
 py::enum_<OSD_SysType>(mod, "OSD_SysType", "Thisd is a set of possible system types. 'Default' means SysType of machine operating this process. This can be used with the Path class. All UNIX-like are grouped under 'UnixBSD' or 'UnixSystemV'. Such systems are Solaris, NexTOS ... A category of systems accept MSDOS-like path such as WindowsNT and OS2.")
@@ -122,6 +128,15 @@ py::enum_<OSD_SysType>(mod, "OSD_SysType", "Thisd is a set of possible system ty
 	.value("OSD_WindowsNT", OSD_SysType::OSD_WindowsNT)
 	.value("OSD_LinuxREDHAT", OSD_SysType::OSD_LinuxREDHAT)
 	.value("OSD_Aix", OSD_SysType::OSD_Aix)
+	.export_values();
+
+
+// ENUM: OSD_SIGNALMODE
+py::enum_<OSD_SignalMode>(mod, "OSD_SignalMode", "Mode of operation for OSD::SetSignal() function")
+	.value("OSD_SignalMode_AsIs", OSD_SignalMode::OSD_SignalMode_AsIs)
+	.value("OSD_SignalMode_Set", OSD_SignalMode::OSD_SignalMode_Set)
+	.value("OSD_SignalMode_SetUnhandled", OSD_SignalMode::OSD_SignalMode_SetUnhandled)
+	.value("OSD_SignalMode_Unset", OSD_SignalMode::OSD_SignalMode_Unset)
 	.export_values();
 
 
@@ -273,8 +288,18 @@ cls_OSD_Path.def("SetTrek", (void (OSD_Path::*)(const TCollection_AsciiString &)
 cls_OSD_Path.def("SetName", (void (OSD_Path::*)(const TCollection_AsciiString &)) &OSD_Path::SetName, "Sets file name of <me>. If <me> hasn't been initialized, it returns an empty AsciiString.", py::arg("aName"));
 cls_OSD_Path.def("SetExtension", (void (OSD_Path::*)(const TCollection_AsciiString &)) &OSD_Path::SetExtension, "Sets my extension name.", py::arg("aName"));
 // cls_OSD_Path.def("LocateExecFile", (Standard_Boolean (OSD_Path::*)(OSD_Path &)) &OSD_Path::LocateExecFile, "Finds the full path of an executable file, like the 'which' Unix utility. Uses the path environment variable. Returns False if executable file not found.", py::arg("aPath"));
-cls_OSD_Path.def_static("RelativePath_", (TCollection_AsciiString (*)(const TCollection_AsciiString &, const TCollection_AsciiString &)) &OSD_Path::RelativePath, "Returns the relative file path between the absolute directory path <DirPath> and the absolute file path <AbsFilePath>. If <DirPath> starts with '/', pathes are handled as on Unix, if it starts with a letter followed by ':', as on WNT. In particular on WNT directory names are not key sensitive. If handling fails, an empty string is returned.", py::arg("DirPath"), py::arg("AbsFilePath"));
+cls_OSD_Path.def_static("RelativePath_", (TCollection_AsciiString (*)(const TCollection_AsciiString &, const TCollection_AsciiString &)) &OSD_Path::RelativePath, "Returns the relative file path between the absolute directory path <DirPath> and the absolute file path <AbsFilePath>. If <DirPath> starts with '/', paths are handled as on Unix, if it starts with a letter followed by ':', as on WNT. In particular on WNT directory names are not key sensitive. If handling fails, an empty string is returned.", py::arg("DirPath"), py::arg("AbsFilePath"));
 cls_OSD_Path.def_static("AbsolutePath_", (TCollection_AsciiString (*)(const TCollection_AsciiString &, const TCollection_AsciiString &)) &OSD_Path::AbsolutePath, "Returns the absolute file path from the absolute directory path <DirPath> and the relative file path returned by RelativePath(). If the RelFilePath is an absolute path, it is returned and the directory path is ignored. If handling fails, an empty string is returned.", py::arg("DirPath"), py::arg("RelFilePath"));
+cls_OSD_Path.def_static("FolderAndFileFromPath_", (void (*)(const TCollection_AsciiString &, TCollection_AsciiString &, TCollection_AsciiString &)) &OSD_Path::FolderAndFileFromPath, "Split absolute filepath into folder path and file name. Example: IN theFilePath ='/media/cdrom/image.jpg' OUT theFolder ='/media/cdrom/' OUT theFileName ='image.jpg'", py::arg("theFilePath"), py::arg("theFolder"), py::arg("theFileName"));
+cls_OSD_Path.def_static("IsDosPath_", (Standard_Boolean (*)(const char *)) &OSD_Path::IsDosPath, "Detect absolute DOS-path also used in Windows. The total path length is limited to 256 characters. Sample path: C:", py::arg("thePath"));
+cls_OSD_Path.def_static("IsNtExtendedPath_", (Standard_Boolean (*)(const char *)) &OSD_Path::IsNtExtendedPath, "Detect extended-length NT path (can be only absolute). Approximate maximum path is 32767 characters. Sample path: \?: long path File I/O functions in the Windows API convert '/' to '' as part of converting the name to an NT-style name, except when using the '\?' prefix.", py::arg("thePath"));
+cls_OSD_Path.def_static("IsUncPath_", (Standard_Boolean (*)(const char *)) &OSD_Path::IsUncPath, "UNC is a naming convention used primarily to specify and map network drives in Microsoft Windows. Sample path: \server", py::arg("thePath"));
+cls_OSD_Path.def_static("IsUncExtendedPath_", (Standard_Boolean (*)(const char *)) &OSD_Path::IsUncExtendedPath, "Detect extended-length UNC path. Sample path: \?", py::arg("thePath"));
+cls_OSD_Path.def_static("IsUnixPath_", (Standard_Boolean (*)(const char *)) &OSD_Path::IsUnixPath, "Detect absolute UNIX-path. Sample path: /media/cdrom/file", py::arg("thePath"));
+cls_OSD_Path.def_static("IsContentProtocolPath_", (Standard_Boolean (*)(const char *)) &OSD_Path::IsContentProtocolPath, "Detect special URLs on Android platform. Sample path: content://filename", py::arg("thePath"));
+cls_OSD_Path.def_static("IsRemoteProtocolPath_", (Standard_Boolean (*)(const char *)) &OSD_Path::IsRemoteProtocolPath, "Detect remote protocol path (http / ftp / ...). Actually shouldn't be remote... Sample path: http://domain/path/file", py::arg("thePath"));
+cls_OSD_Path.def_static("IsRelativePath_", (Standard_Boolean (*)(const char *)) &OSD_Path::IsRelativePath, "Method to recognize path is absolute or not. Detection is based on path syntax - no any filesystem / network access performed.", py::arg("thePath"));
+cls_OSD_Path.def_static("IsAbsolutePath_", (Standard_Boolean (*)(const char *)) &OSD_Path::IsAbsolutePath, "Method to recognize path is absolute or not. Detection is based on path syntax - no any filesystem / network access performed.", py::arg("thePath"));
 
 // CLASS: OSD_CHRONOMETER
 py::class_<OSD_Chronometer> cls_OSD_Chronometer(mod, "OSD_Chronometer", "This class measures CPU time (both user and system) consumed by current process or thread. The chronometer can be started and stopped multiple times, and measures cumulative time.");
@@ -328,12 +353,6 @@ cls_OSD_Timer.def("Stop", (void (OSD_Timer::*)()) &OSD_Timer::Stop, "Stops the T
 cls_OSD_Timer.def("Start", (void (OSD_Timer::*)()) &OSD_Timer::Start, "Starts (after Create or Reset) or restarts (after Stop) the Timer.");
 cls_OSD_Timer.def("ElapsedTime", (Standard_Real (OSD_Timer::*)() const) &OSD_Timer::ElapsedTime, "Returns elapsed time in seconds.");
 
-// CLASS: OSD_PARALLEL
-py::class_<OSD_Parallel> cls_OSD_Parallel(mod, "OSD_Parallel", "Simple tool for code parallelization.");
-
-// Methods
-cls_OSD_Parallel.def_static("NbLogicalProcessors_", (Standard_Integer (*)()) &OSD_Parallel::NbLogicalProcessors, "Returns number of logical proccesrs.");
-
 // TYPEDEF: OSD_THREADFUNCTION
 
 // TYPEDEF: OSD_PTHREAD
@@ -367,10 +386,40 @@ cls_OSD_Thread.def("Wait", (Standard_Boolean (OSD_Thread::*)(const Standard_Inte
 cls_OSD_Thread.def("GetId", (Standard_ThreadId (OSD_Thread::*)() const) &OSD_Thread::GetId, "Returns ID of the currently controlled thread ID, or 0 if no thread is run");
 cls_OSD_Thread.def_static("Current_", (Standard_ThreadId (*)()) &OSD_Thread::Current, "Auxiliary: returns ID of the current thread");
 
+// CLASS: OSD_THREADPOOL
+py::class_<OSD_ThreadPool, opencascade::handle<OSD_ThreadPool>, Standard_Transient> cls_OSD_ThreadPool(mod, "OSD_ThreadPool", "Class defining a thread pool for executing algorithms in multi-threaded mode. Thread pool allocates requested amount of threads and keep them alive (in sleep mode when unused) during thread pool lifetime. The same pool can be used by multiple consumers, including nested multi-threading algorithms and concurrent threads: - Thread pool can be used either by multi-threaded algorithm by creating OSD_ThreadPool::Launcher. The functor performing a job takes two parameters - Thread Index and Data Index: void operator(int theThreadIndex, int theDataIndex){} Multi-threaded algorithm may rely on Thread Index for allocating thread-local variables in array form, since the Thread Index is guaranteed to be within range OSD_ThreadPool::Lower() and OSD_ThreadPool::Upper(). - Default thread pool (OSD_ThreadPool::DefaultPool()) can be used in general case, but application may prefer creating a dedicated pool for better control. - Default thread pool allocates the amount of threads considering concurrency level of the system (amount of logical processors). This can be overridden during OSD_ThreadPool construction or by calling OSD_ThreadPool::Init() (the pool should not be used!). - OSD_ThreadPool::Launcher reserves specific amount of threads from the pool for executing multi-threaded Job. Normally, single Launcher instance will occupy all threads available in thread pool, so that nested multi-threaded algorithms (within the same thread) and concurrent threads trying to use the same thread pool will run sequentially. This behavior is affected by OSD_ThreadPool::NbDefaultThreadsToLaunch() parameter and Launcher constructor, so that single Launcher instance will occupy not all threads in the pool allowing other threads to be used concurrently. - OSD_ThreadPool::Launcher locks thread one-by-one from thread pool in a thread-safe way. - Each working thread catches exceptions occurred during job execution, and Launcher will throw Standard_Failure in a caller thread on completed execution.");
+
+// Constructors
+cls_OSD_ThreadPool.def(py::init<>());
+cls_OSD_ThreadPool.def(py::init<int>(), py::arg("theNbThreads"));
+
+// Methods
+cls_OSD_ThreadPool.def_static("get_type_name_", (const char * (*)()) &OSD_ThreadPool::get_type_name, "None");
+cls_OSD_ThreadPool.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &OSD_ThreadPool::get_type_descriptor, "None");
+cls_OSD_ThreadPool.def("DynamicType", (const opencascade::handle<Standard_Type> & (OSD_ThreadPool::*)() const) &OSD_ThreadPool::DynamicType, "None");
+cls_OSD_ThreadPool.def_static("DefaultPool_", []() -> const opencascade::handle<OSD_ThreadPool> & { return OSD_ThreadPool::DefaultPool(); });
+cls_OSD_ThreadPool.def_static("DefaultPool_", (const opencascade::handle<OSD_ThreadPool> & (*)(int)) &OSD_ThreadPool::DefaultPool, "Return (or create) a default thread pool. Number of threads argument will be considered only when called first time.", py::arg("theNbThreads"));
+cls_OSD_ThreadPool.def("HasThreads", (bool (OSD_ThreadPool::*)() const) &OSD_ThreadPool::HasThreads, "Return TRUE if at least 2 threads are available (including self-thread).");
+cls_OSD_ThreadPool.def("LowerThreadIndex", (int (OSD_ThreadPool::*)() const) &OSD_ThreadPool::LowerThreadIndex, "Return the lower thread index.");
+cls_OSD_ThreadPool.def("UpperThreadIndex", (int (OSD_ThreadPool::*)() const) &OSD_ThreadPool::UpperThreadIndex, "Return the upper thread index (last index is reserved for self-thread).");
+cls_OSD_ThreadPool.def("NbThreads", (int (OSD_ThreadPool::*)() const) &OSD_ThreadPool::NbThreads, "Return the number of threads; >= 1.");
+cls_OSD_ThreadPool.def("NbDefaultThreadsToLaunch", (int (OSD_ThreadPool::*)() const) &OSD_ThreadPool::NbDefaultThreadsToLaunch, "Return maximum number of threads to be locked by a single Launcher object by default; the entire thread pool size is returned by default.");
+cls_OSD_ThreadPool.def("SetNbDefaultThreadsToLaunch", (void (OSD_ThreadPool::*)(int)) &OSD_ThreadPool::SetNbDefaultThreadsToLaunch, "Set maximum number of threads to be locked by a single Launcher object by default. Should be set BEFORE first usage.", py::arg("theNbThreads"));
+cls_OSD_ThreadPool.def("IsInUse", (bool (OSD_ThreadPool::*)()) &OSD_ThreadPool::IsInUse, "Checks if thread pools has active consumers.");
+cls_OSD_ThreadPool.def("Init", (void (OSD_ThreadPool::*)(int)) &OSD_ThreadPool::Init, "Reinitialize the thread pool with a different number of threads. Should be called only with no active jobs, or exception Standard_ProgramError will be thrown!", py::arg("theNbThreads"));
+
+// CLASS: OSD_PARALLEL
+py::class_<OSD_Parallel> cls_OSD_Parallel(mod, "OSD_Parallel", "Simple tool for code parallelization.");
+
+// Methods
+cls_OSD_Parallel.def_static("ToUseOcctThreads_", (Standard_Boolean (*)()) &OSD_Parallel::ToUseOcctThreads, "Returns TRUE if OCCT threads should be used instead of auxiliary threads library; default value is FALSE if alternative library has been enabled while OCCT building and TRUE otherwise.");
+cls_OSD_Parallel.def_static("SetUseOcctThreads_", (void (*)(Standard_Boolean)) &OSD_Parallel::SetUseOcctThreads, "Sets if OCCT threads should be used instead of auxiliary threads library. Has no effect if OCCT has been built with no auxiliary threads library.", py::arg("theToUseOcct"));
+cls_OSD_Parallel.def_static("NbLogicalProcessors_", (Standard_Integer (*)()) &OSD_Parallel::NbLogicalProcessors, "Returns number of logical processors.");
+
 // TYPEDEF: OSD_FUNCTION
 
 // CLASS: OSD
-py::class_<OSD> cls_OSD(mod, "OSD", "Set of Operating Sytem Dependent Tools (O)perating (S)ystem (D)ependent");
+py::class_<OSD> cls_OSD(mod, "OSD", "Set of Operating Sytem Dependent (OSD) Tools");
 
 // Methods
 // cls_OSD.def_static("operator new_", (void * (*)(size_t)) &OSD::operator new, "None", py::arg("theSize"));
@@ -379,8 +428,13 @@ py::class_<OSD> cls_OSD(mod, "OSD", "Set of Operating Sytem Dependent Tools (O)p
 // cls_OSD.def_static("operator delete[]_", (void (*)(void *)) &OSD::operator delete[], "None", py::arg("theAddress"));
 // cls_OSD.def_static("operator new_", (void * (*)(size_t, void *)) &OSD::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_OSD.def_static("operator delete_", (void (*)(void *, void *)) &OSD::operator delete, "None", py::arg(""), py::arg(""));
+cls_OSD.def_static("SetSignal_", (void (*)(OSD_SignalMode, Standard_Boolean)) &OSD::SetSignal, "Sets or removes signal and FPE (floating-point exception) handlers. OCCT signal handlers translate signals raised by C subsystem to C++ exceptions inheriting Standard_Failure.", py::arg("theSignalMode"), py::arg("theFloatingSignal"));
 cls_OSD.def_static("SetSignal_", []() -> void { return OSD::SetSignal(); });
-cls_OSD.def_static("SetSignal_", (void (*)(const Standard_Boolean)) &OSD::SetSignal, "Sets signal and exception handlers.", py::arg("theFloatingSignal"));
+cls_OSD.def_static("SetSignal_", (void (*)(const Standard_Boolean)) &OSD::SetSignal, "Sets signal and FPE handlers. Short-cut for OSD::SetSignal (OSD_SignalMode_Set, theFloatingSignal).", py::arg("theFloatingSignal"));
+cls_OSD.def_static("SetThreadLocalSignal_", (void (*)(OSD_SignalMode, Standard_Boolean)) &OSD::SetThreadLocalSignal, "Initializes thread-local signal handlers. This includes _set_se_translator() on Windows platform, and SetFloatingSignal(). The main purpose of this method is initializing handlers for newly created threads without overriding global handlers (set by application or by OSD::SetSignal()).", py::arg("theSignalMode"), py::arg("theFloatingSignal"));
+cls_OSD.def_static("SetFloatingSignal_", (void (*)(Standard_Boolean)) &OSD::SetFloatingSignal, "Enables / disables generation of C signal on floating point exceptions (FPE). This call does NOT register a handler for signal raised in case of FPE - SetSignal() should be called beforehand for complete setup. Note that FPE setting is thread-local, new threads inherit it from parent.", py::arg("theFloatingSignal"));
+cls_OSD.def_static("SignalMode_", (OSD_SignalMode (*)()) &OSD::SignalMode, "Returns signal mode set by the last call to SetSignal(). By default, returns OSD_SignalMode_AsIs.");
+cls_OSD.def_static("ToCatchFloatingSignals_", (Standard_Boolean (*)()) &OSD::ToCatchFloatingSignals, "Returns true if floating point exceptions will raise C signal according to current (platform-dependent) settings in this thread.");
 cls_OSD.def_static("SecSleep_", (void (*)(const Standard_Integer)) &OSD::SecSleep, "Commands the process to sleep for a number of seconds.", py::arg("aDelay"));
 cls_OSD.def_static("MilliSecSleep_", (void (*)(const Standard_Integer)) &OSD::MilliSecSleep, "Commands the process to sleep for a number of milliseconds", py::arg("aDelay"));
 // cls_OSD.def_static("RealToCString_", (Standard_Boolean (*)(const Standard_Real, Standard_PCharacter &)) &OSD::RealToCString, "Converts aReal into aCstring in exponential format with a period as decimal point, no thousand separator and no grouping of digits. The conversion is independant from the current locale", py::arg("aReal"), py::arg("aString"));
@@ -850,7 +904,6 @@ cls_OSD_File.def("IsExecutable", (Standard_Boolean (OSD_File::*)()) &OSD_File::I
 cls_OSD_File.def("ReadLastLine", (Standard_Boolean (OSD_File::*)(TCollection_AsciiString &, const Standard_Integer, const Standard_Integer)) &OSD_File::ReadLastLine, "Enables to emulate unix 'tail -f' command. If a line is available in the file <me> returns it. Otherwise attemps to read again aNbTries times in the file waiting aDelay seconds between each read. If meanwhile the file increases returns the next line, otherwise returns FALSE.", py::arg("aLine"), py::arg("aDelay"), py::arg("aNbTries"));
 cls_OSD_File.def("Edit", (Standard_Boolean (OSD_File::*)()) &OSD_File::Edit, "find an editor on the system and edit the given file");
 cls_OSD_File.def("Rewind", (void (OSD_File::*)()) &OSD_File::Rewind, "Set file pointer position to the beginning of the file");
-cls_OSD_File.def("Capture", (int (OSD_File::*)(int)) &OSD_File::Capture, "Redirect a standard handle (fileno(stdout), fileno(stdin) or fileno(stderr) to this OSD_File and return the copy of the original standard handle. Example: OSD_File aTmp; aTmp.BuildTemporary(); int stdfd = _fileno(stdout);", py::arg("theDescr"));
 
 // CLASS: OSD_FILEITERATOR
 py::class_<OSD_FileIterator> cls_OSD_FileIterator(mod, "OSD_FileIterator", "Manages a breadth-only search for files in the specified Path. There is no specific order of results.");
@@ -914,12 +967,15 @@ py::class_<OSD_MemInfo> cls_OSD_MemInfo(mod, "OSD_MemInfo", "This class provide 
 
 // Constructors
 cls_OSD_MemInfo.def(py::init<>());
+cls_OSD_MemInfo.def(py::init<const Standard_Boolean>(), py::arg("theImmediateUpdate"));
 
 // Methods
+cls_OSD_MemInfo.def("Clear", (void (OSD_MemInfo::*)()) &OSD_MemInfo::Clear, "Clear counters");
 cls_OSD_MemInfo.def("Update", (void (OSD_MemInfo::*)()) &OSD_MemInfo::Update, "Update counters");
 cls_OSD_MemInfo.def("ToString", (TCollection_AsciiString (OSD_MemInfo::*)() const) &OSD_MemInfo::ToString, "Return the string representation for all available counter.");
-cls_OSD_MemInfo.def("Value", (Standard_Size (OSD_MemInfo::*)(const OSD_MemInfo::Counter) const) &OSD_MemInfo::Value, "Return value or specified counter in bytes. Notice that NOT all counters are available on various systems. Standard_Size(-1) means invalid (unavailable) value.", py::arg("theCounter"));
-cls_OSD_MemInfo.def("ValueMiB", (Standard_Size (OSD_MemInfo::*)(const OSD_MemInfo::Counter) const) &OSD_MemInfo::ValueMiB, "Return value or specified counter in MiB. Notice that NOT all counters are available on various systems. Standard_Size(-1) means invalid (unavailable) value.", py::arg("theCounter"));
+cls_OSD_MemInfo.def("Value", (Standard_Size (OSD_MemInfo::*)(const OSD_MemInfo::Counter) const) &OSD_MemInfo::Value, "Return value of specified counter in bytes. Notice that NOT all counters are available on various systems. Standard_Size(-1) means invalid (unavailable) value.", py::arg("theCounter"));
+cls_OSD_MemInfo.def("ValueMiB", (Standard_Size (OSD_MemInfo::*)(const OSD_MemInfo::Counter) const) &OSD_MemInfo::ValueMiB, "Return value of specified counter in MiB. Notice that NOT all counters are available on various systems. Standard_Size(-1) means invalid (unavailable) value.", py::arg("theCounter"));
+cls_OSD_MemInfo.def("ValuePreciseMiB", (Standard_Real (OSD_MemInfo::*)(const OSD_MemInfo::Counter) const) &OSD_MemInfo::ValuePreciseMiB, "Return floating value of specified counter in MiB. Notice that NOT all counters are available on various systems. Standard_Real(-1) means invalid (unavailable) value.", py::arg("theCounter"));
 cls_OSD_MemInfo.def_static("PrintInfo_", (TCollection_AsciiString (*)()) &OSD_MemInfo::PrintInfo, "Return the string representation for all available counter.");
 
 // Enums
@@ -971,6 +1027,8 @@ py::class_<OSD_Process> cls_OSD_Process(mod, "OSD_Process", "A set of system pro
 cls_OSD_Process.def(py::init<>());
 
 // Methods
+cls_OSD_Process.def_static("ExecutablePath_", (TCollection_AsciiString (*)()) &OSD_Process::ExecutablePath, "Return full path to the current process executable.");
+cls_OSD_Process.def_static("ExecutableFolder_", (TCollection_AsciiString (*)()) &OSD_Process::ExecutableFolder, "Return full path to the folder containing current process executable with trailing separator.");
 // cls_OSD_Process.def_static("operator new_", (void * (*)(size_t)) &OSD_Process::operator new, "None", py::arg("theSize"));
 // cls_OSD_Process.def_static("operator delete_", (void (*)(void *)) &OSD_Process::operator delete, "None", py::arg("theAddress"));
 // cls_OSD_Process.def_static("operator new[]_", (void * (*)(size_t)) &OSD_Process::operator new[], "None", py::arg("theSize"));

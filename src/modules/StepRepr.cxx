@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
 #include <TCollection_HAsciiString.hxx>
+#include <Standard_Std.hxx>
 #include <StepRepr_RepresentationItem.hxx>
 #include <Standard_Type.hxx>
 #include <StepData_SelectType.hxx>
@@ -227,6 +228,7 @@ bind_NCollection_Array1<opencascade::handle<StepRepr_MaterialPropertyRepresentat
 py::class_<StepRepr_HArray1OfMaterialPropertyRepresentation, opencascade::handle<StepRepr_HArray1OfMaterialPropertyRepresentation>, Standard_Transient> cls_StepRepr_HArray1OfMaterialPropertyRepresentation(mod, "StepRepr_HArray1OfMaterialPropertyRepresentation", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def(py::init<>());
 cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def(py::init<const Standard_Integer, const Standard_Integer, const StepRepr_Array1OfMaterialPropertyRepresentation::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def(py::init<const StepRepr_Array1OfMaterialPropertyRepresentation &>(), py::arg("theOther"));
@@ -253,6 +255,7 @@ bind_NCollection_Array1<opencascade::handle<StepRepr_RepresentationItem> >(mod, 
 py::class_<StepRepr_HArray1OfRepresentationItem, opencascade::handle<StepRepr_HArray1OfRepresentationItem>, Standard_Transient> cls_StepRepr_HArray1OfRepresentationItem(mod, "StepRepr_HArray1OfRepresentationItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepRepr_HArray1OfRepresentationItem.def(py::init<>());
 cls_StepRepr_HArray1OfRepresentationItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepRepr_HArray1OfRepresentationItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepRepr_Array1OfRepresentationItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepRepr_HArray1OfRepresentationItem.def(py::init<const StepRepr_Array1OfRepresentationItem &>(), py::arg("theOther"));
@@ -399,6 +402,7 @@ bind_NCollection_Array1<opencascade::handle<StepRepr_ShapeAspect> >(mod, "StepRe
 py::class_<StepRepr_HArray1OfShapeAspect, opencascade::handle<StepRepr_HArray1OfShapeAspect>, Standard_Transient> cls_StepRepr_HArray1OfShapeAspect(mod, "StepRepr_HArray1OfShapeAspect", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepRepr_HArray1OfShapeAspect.def(py::init<>());
 cls_StepRepr_HArray1OfShapeAspect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepRepr_HArray1OfShapeAspect.def(py::init<const Standard_Integer, const Standard_Integer, const StepRepr_Array1OfShapeAspect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepRepr_HArray1OfShapeAspect.def(py::init<const StepRepr_Array1OfShapeAspect &>(), py::arg("theOther"));
@@ -714,6 +718,7 @@ cls_StepRepr_ConstructiveGeometryRepresentationRelationship.def("DynamicType", (
 py::class_<StepRepr_HArray1OfPropertyDefinitionRepresentation, opencascade::handle<StepRepr_HArray1OfPropertyDefinitionRepresentation>, Standard_Transient> cls_StepRepr_HArray1OfPropertyDefinitionRepresentation(mod, "StepRepr_HArray1OfPropertyDefinitionRepresentation", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def(py::init<>());
 cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def(py::init<const Standard_Integer, const Standard_Integer, const StepRepr_Array1OfPropertyDefinitionRepresentation::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def(py::init<const StepRepr_Array1OfPropertyDefinitionRepresentation &>(), py::arg("theOther"));

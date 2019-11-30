@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_Trsf2d.hxx>
 #include <Standard_Handle.hxx>
 #include <Geom2d_Geometry.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <Geom2d_Curve.hxx>
 #include <GeomAbs_Shape.hxx>
@@ -39,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColgp_HArray1OfPnt2d.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 #include <TColStd_Array1OfInteger.hxx>
+#include <Precision.hxx>
 #include <GeomAbs_BSplKnotDistribution.hxx>
 #include <Geom2d_BSplineCurve.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
@@ -79,6 +81,7 @@ py::module::import("OCCT.GeomAbs");
 py::module::import("OCCT.TColgp");
 py::module::import("OCCT.TColStd");
 py::module::import("OCCT.BSplCLib");
+py::module::import("OCCT.Precision");
 
 // CLASS: GEOM2D_GEOMETRY
 py::class_<Geom2d_Geometry, opencascade::handle<Geom2d_Geometry>, Standard_Transient> cls_Geom2d_Geometry(mod, "Geom2d_Geometry", "The general abstract class Geometry in 2D space describes the common behaviour of all the geometric entities.");
@@ -217,7 +220,8 @@ cls_Geom2d_BSplineCurve.def("InsertPoleBefore", (void (Geom2d_BSplineCurve::*)(c
 cls_Geom2d_BSplineCurve.def("RemovePole", (void (Geom2d_BSplineCurve::*)(const Standard_Integer)) &Geom2d_BSplineCurve::RemovePole, "Removes the pole of range Index If the curve was rational it can become non rational.", py::arg("Index"));
 cls_Geom2d_BSplineCurve.def("Reverse", (void (Geom2d_BSplineCurve::*)()) &Geom2d_BSplineCurve::Reverse, "Reverses the orientation of this BSpline curve. As a result - the knots and poles tables are modified; - the start point of the initial curve becomes the end point of the reversed curve; - the end point of the initial curve becomes the start point of the reversed curve.");
 cls_Geom2d_BSplineCurve.def("ReversedParameter", (Standard_Real (Geom2d_BSplineCurve::*)(const Standard_Real) const) &Geom2d_BSplineCurve::ReversedParameter, "Computes the parameter on the reversed curve for the point of parameter U on this BSpline curve. The returned value is: UFirst + ULast - U, where UFirst and ULast are the values of the first and last parameters of this BSpline curve.", py::arg("U"));
-cls_Geom2d_BSplineCurve.def("Segment", (void (Geom2d_BSplineCurve::*)(const Standard_Real, const Standard_Real)) &Geom2d_BSplineCurve::Segment, "Modifies this BSpline curve by segmenting it between U1 and U2. Either of these values can be outside the bounds of the curve, but U2 must be greater than U1. All data structure tables of this BSpline curve are modified, but the knots located between U1 and U2 are retained. The degree of the curve is not modified. Warnings : Even if <me> is not closed it can become closed after the segmentation for example if U1 or U2 are out of the bounds of the curve <me> or if the curve makes loop. After the segmentation the length of a curve can be null. - The segmentation of a periodic curve over an interval corresponding to its period generates a non-periodic curve with equivalent geometry. Exceptions Standard_DomainError if U2 is less than U1. raises if U2 < U1. Standard_DomainError if U2 - U1 exceeds the period for periodic curves. i.e. ((U2 - U1) - Period) > Precision::PConfusion().", py::arg("U1"), py::arg("U2"));
+cls_Geom2d_BSplineCurve.def("Segment", [](Geom2d_BSplineCurve &self, const Standard_Real a0, const Standard_Real a1) -> void { return self.Segment(a0, a1); });
+cls_Geom2d_BSplineCurve.def("Segment", (void (Geom2d_BSplineCurve::*)(const Standard_Real, const Standard_Real, const Standard_Real)) &Geom2d_BSplineCurve::Segment, "Modifies this BSpline curve by segmenting it between U1 and U2. Either of these values can be outside the bounds of the curve, but U2 must be greater than U1. All data structure tables of this BSpline curve are modified, but the knots located between U1 and U2 are retained. The degree of the curve is not modified.", py::arg("U1"), py::arg("U2"), py::arg("theTolerance"));
 cls_Geom2d_BSplineCurve.def("SetKnot", (void (Geom2d_BSplineCurve::*)(const Standard_Integer, const Standard_Real)) &Geom2d_BSplineCurve::SetKnot, "Modifies this BSpline curve by assigning the value K to the knot of index Index in the knots table. This is a relatively local modification because K must be such that: Knots(Index - 1) < K < Knots(Index + 1) Exceptions Standard_ConstructionError if: - K is not such that: Knots(Index - 1) < K < Knots(Index + 1) - M is greater than the degree of this BSpline curve or lower than the previous multiplicity of knot of index Index in the knots table. Standard_OutOfRange if Index is outside the bounds of the knots table.", py::arg("Index"), py::arg("K"));
 cls_Geom2d_BSplineCurve.def("SetKnots", (void (Geom2d_BSplineCurve::*)(const TColStd_Array1OfReal &)) &Geom2d_BSplineCurve::SetKnots, "Modifies this BSpline curve by assigning the array K to its knots table. The multiplicity of the knots is not modified. Exceptions Standard_ConstructionError if the values in the array K are not in ascending order. Standard_OutOfRange if the bounds of the array K are not respectively 1 and the number of knots of this BSpline curve.", py::arg("K"));
 cls_Geom2d_BSplineCurve.def("SetKnot", (void (Geom2d_BSplineCurve::*)(const Standard_Integer, const Standard_Real, const Standard_Integer)) &Geom2d_BSplineCurve::SetKnot, "Modifies this BSpline curve by assigning the value K to the knot of index Index in the knots table. This is a relatively local modification because K must be such that: Knots(Index - 1) < K < Knots(Index + 1) The second syntax allows you also to increase the multiplicity of the knot to M (but it is not possible to decrease the multiplicity of the knot with this function). Exceptions Standard_ConstructionError if: - K is not such that: Knots(Index - 1) < K < Knots(Index + 1) - M is greater than the degree of this BSpline curve or lower than the previous multiplicity of knot of index Index in the knots table. Standard_OutOfRange if Index is outside the bounds of the knots table.", py::arg("Index"), py::arg("K"), py::arg("M"));

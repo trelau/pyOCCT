@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BSplCLib_Cache.hxx>
 #include <Geom2dEvaluator_Curve.hxx>
 #include <Geom2dAdaptor_Curve.hxx>
+#include <Standard_Std.hxx>
 #include <Geom2dAdaptor_GHCurve.hxx>
 #include <Standard_Type.hxx>
 #include <Geom2dAdaptor_HCurve.hxx>
@@ -71,6 +72,7 @@ cls_Geom2dAdaptor_Curve.def(py::init<const opencascade::handle<Geom2d_Curve> &, 
 // cls_Geom2dAdaptor_Curve.def_static("operator delete[]_", (void (*)(void *)) &Geom2dAdaptor_Curve::operator delete[], "None", py::arg("theAddress"));
 // cls_Geom2dAdaptor_Curve.def_static("operator new_", (void * (*)(size_t, void *)) &Geom2dAdaptor_Curve::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_Geom2dAdaptor_Curve.def_static("operator delete_", (void (*)(void *, void *)) &Geom2dAdaptor_Curve::operator delete, "None", py::arg(""), py::arg(""));
+cls_Geom2dAdaptor_Curve.def("Reset", (void (Geom2dAdaptor_Curve::*)()) &Geom2dAdaptor_Curve::Reset, "Reset currently loaded curve (undone Load()).");
 cls_Geom2dAdaptor_Curve.def("Load", (void (Geom2dAdaptor_Curve::*)(const opencascade::handle<Geom2d_Curve> &)) &Geom2dAdaptor_Curve::Load, "None", py::arg("C"));
 cls_Geom2dAdaptor_Curve.def("Load", (void (Geom2dAdaptor_Curve::*)(const opencascade::handle<Geom2d_Curve> &, const Standard_Real, const Standard_Real)) &Geom2dAdaptor_Curve::Load, "ConstructionError is raised if Ufirst>Ulast", py::arg("C"), py::arg("UFirst"), py::arg("ULast"));
 cls_Geom2dAdaptor_Curve.def("Curve", (const opencascade::handle<Geom2d_Curve> & (Geom2dAdaptor_Curve::*)() const) &Geom2dAdaptor_Curve::Curve, "None");

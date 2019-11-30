@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <IFSelect_ListEditor.hxx>
 #include <TColStd_HSequenceOfHAsciiString.hxx>
 #include <Interface_InterfaceModel.hxx>
+#include <Standard_Std.hxx>
 #include <IFSelect_Editor.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_DataMap.hxx>

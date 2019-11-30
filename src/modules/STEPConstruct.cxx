@@ -289,7 +289,7 @@ py::class_<STEPConstruct_PointHasher> cls_STEPConstruct_PointHasher(mod, "STEPCo
 // cls_STEPConstruct_PointHasher.def_static("operator delete[]_", (void (*)(void *)) &STEPConstruct_PointHasher::operator delete[], "None", py::arg("theAddress"));
 // cls_STEPConstruct_PointHasher.def_static("operator new_", (void * (*)(size_t, void *)) &STEPConstruct_PointHasher::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_STEPConstruct_PointHasher.def_static("operator delete_", (void (*)(void *, void *)) &STEPConstruct_PointHasher::operator delete, "None", py::arg(""), py::arg(""));
-cls_STEPConstruct_PointHasher.def_static("HashCode_", (Standard_Integer (*)(const gp_Pnt &, const Standard_Integer)) &STEPConstruct_PointHasher::HashCode, "Returns a HasCode value for the Key <K> in the range 0..Upper.", py::arg("Point"), py::arg("Upper"));
+cls_STEPConstruct_PointHasher.def_static("HashCode_", (Standard_Integer (*)(const gp_Pnt &, const Standard_Integer)) &STEPConstruct_PointHasher::HashCode, "Computes a hash code for the point, in the range [1, theUpperBound]", py::arg("thePoint"), py::arg("theUpperBound"));
 cls_STEPConstruct_PointHasher.def_static("IsEqual_", (Standard_Boolean (*)(const gp_Pnt &, const gp_Pnt &)) &STEPConstruct_PointHasher::IsEqual, "Returns True when the two keys are the same. Two same keys must have the same hashcode, the contrary is not necessary.", py::arg("Point1"), py::arg("Point2"));
 
 // TYPEDEF: STEPCONSTRUCT_DATAMAPOFPOINTTRANSIENT

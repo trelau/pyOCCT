@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Transfer_ActorOfFinderProcess.hxx>
 #include <Transfer_Finder.hxx>
 #include <Transfer_Binder.hxx>
+#include <Standard_Std.hxx>
 #include <IGESControl_ActorWrite.hxx>
 #include <Standard_Type.hxx>
 #include <IGESToBRep_AlgoContainer.hxx>

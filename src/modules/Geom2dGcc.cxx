@@ -77,6 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_DomainError.hxx>
 #include <Geom2dGcc_IsParallel.hxx>
 #include <Standard_SStream.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <TColgp_Array1OfLin2d.hxx>
 

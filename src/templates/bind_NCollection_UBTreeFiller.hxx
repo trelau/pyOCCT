@@ -44,7 +44,7 @@ cls_NCollection_UBTreeFiller.def(py::init<typename NCollection_UBTreeFiller<TheO
 cls_NCollection_UBTreeFiller.def("Add", (void (NCollection_UBTreeFiller<TheObjType, TheBndType>::*)(const TheObjType &, const TheBndType &)) &NCollection_UBTreeFiller<TheObjType, TheBndType>::Add, "Adds a pair (theObj, theBnd) to my sequence", py::arg("theObj"), py::arg("theBnd"));
 cls_NCollection_UBTreeFiller.def("Fill", (Standard_Integer (NCollection_UBTreeFiller<TheObjType, TheBndType>::*)()) &NCollection_UBTreeFiller<TheObjType, TheBndType>::Fill, "Fills the tree with the objects from my sequence. This method clears the internal buffer of added items making sure that no item would be added twice.");
 cls_NCollection_UBTreeFiller.def("Reset", (void (NCollection_UBTreeFiller<TheObjType, TheBndType>::*)()) &NCollection_UBTreeFiller<TheObjType, TheBndType>::Reset, "Remove all data from Filler, partculary if the Tree no more needed so the destructor of this Filler should not populate the useless Tree.");
-cls_NCollection_UBTreeFiller.def("CheckTree", (Standard_Integer (NCollection_UBTreeFiller<TheObjType, TheBndType>::*)(Standard_OStream &)) &NCollection_UBTreeFiller<TheObjType, TheBndType>::CheckTree, "Check the filled tree for the total number of items and the balance outputting these results to ostream.", py::arg("theStream"));
+cls_NCollection_UBTreeFiller.def("CheckTree", (Standard_Integer (NCollection_UBTreeFiller<TheObjType, TheBndType>::*)(Standard_OStream &)) &NCollection_UBTreeFiller<TheObjType, TheBndType>::CheckTree, "Check the filled tree for the total number of items and the balance outputting these results to std::ostream.", py::arg("theStream"));
 
 }
 

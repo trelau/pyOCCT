@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <XmlObjMgt_Persistent.hxx>
 #include <XmlObjMgt_RRelocationTable.hxx>
 #include <XmlObjMgt_SRelocationTable.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 
 PYBIND11_MODULE(XmlMFunction, mod) {

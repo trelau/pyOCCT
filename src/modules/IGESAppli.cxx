@@ -71,6 +71,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_Pnt.hxx>
 #include <IGESData_TransfEntity.hxx>
 #include <Standard_TypeDef.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Array1.hxx>
 #include <IGESAppli_Array1OfNode.hxx>
@@ -168,6 +169,7 @@ bind_NCollection_Array1<opencascade::handle<IGESAppli_Node> >(mod, "IGESAppli_Ar
 py::class_<IGESAppli_HArray1OfNode, opencascade::handle<IGESAppli_HArray1OfNode>, Standard_Transient> cls_IGESAppli_HArray1OfNode(mod, "IGESAppli_HArray1OfNode", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESAppli_HArray1OfNode.def(py::init<>());
 cls_IGESAppli_HArray1OfNode.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESAppli_HArray1OfNode.def(py::init<const Standard_Integer, const Standard_Integer, const IGESAppli_Array1OfNode::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESAppli_HArray1OfNode.def(py::init<const IGESAppli_Array1OfNode &>(), py::arg("theOther"));
@@ -259,6 +261,7 @@ cls_IGESAppli_DrilledHole.def("DynamicType", (const opencascade::handle<Standard
 py::class_<IGESAppli_HArray1OfFiniteElement, opencascade::handle<IGESAppli_HArray1OfFiniteElement>, Standard_Transient> cls_IGESAppli_HArray1OfFiniteElement(mod, "IGESAppli_HArray1OfFiniteElement", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESAppli_HArray1OfFiniteElement.def(py::init<>());
 cls_IGESAppli_HArray1OfFiniteElement.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESAppli_HArray1OfFiniteElement.def(py::init<const Standard_Integer, const Standard_Integer, const IGESAppli_Array1OfFiniteElement::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESAppli_HArray1OfFiniteElement.def(py::init<const IGESAppli_Array1OfFiniteElement &>(), py::arg("theOther"));
@@ -345,6 +348,7 @@ cls_IGESAppli_GeneralModule.def("DynamicType", (const opencascade::handle<Standa
 py::class_<IGESAppli_HArray1OfFlow, opencascade::handle<IGESAppli_HArray1OfFlow>, Standard_Transient> cls_IGESAppli_HArray1OfFlow(mod, "IGESAppli_HArray1OfFlow", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESAppli_HArray1OfFlow.def(py::init<>());
 cls_IGESAppli_HArray1OfFlow.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESAppli_HArray1OfFlow.def(py::init<const Standard_Integer, const Standard_Integer, const IGESAppli_Array1OfFlow::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESAppli_HArray1OfFlow.def(py::init<const IGESAppli_Array1OfFlow &>(), py::arg("theOther"));

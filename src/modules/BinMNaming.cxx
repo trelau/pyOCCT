@@ -24,18 +24,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Handle.hxx>
 #include <BinMDF_ADriverTable.hxx>
 #include <Message_Messenger.hxx>
-#include <Standard_TypeDef.hxx>
 #include <BinMNaming_NamedShapeDriver.hxx>
 #include <BinMNaming_NamingDriver.hxx>
 #include <BinMNaming.hxx>
 #include <BinMDF_ADriver.hxx>
 #include <TDF_Attribute.hxx>
+#include <Standard_TypeDef.hxx>
 #include <BinObjMgt_Persistent.hxx>
 #include <BinObjMgt_RRelocationTable.hxx>
 #include <BinObjMgt_SRelocationTable.hxx>
 #include <Standard_IStream.hxx>
 #include <Standard_OStream.hxx>
 #include <BinTools_LocationSet.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <BinTools_ShapeSet.hxx>
 
@@ -59,8 +60,6 @@ py::class_<BinMNaming> cls_BinMNaming(mod, "BinMNaming", "Storage/Retrieval driv
 // cls_BinMNaming.def_static("operator new_", (void * (*)(size_t, void *)) &BinMNaming::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_BinMNaming.def_static("operator delete_", (void (*)(void *, void *)) &BinMNaming::operator delete, "None", py::arg(""), py::arg(""));
 cls_BinMNaming.def_static("AddDrivers_", (void (*)(const opencascade::handle<BinMDF_ADriverTable> &, const opencascade::handle<Message_Messenger> &)) &BinMNaming::AddDrivers, "Adds the attribute drivers to <theDriverTable>.", py::arg("theDriverTable"), py::arg("aMsgDrv"));
-cls_BinMNaming.def_static("SetDocumentVersion_", (void (*)(const Standard_Integer)) &BinMNaming::SetDocumentVersion, "None", py::arg("DocVersion"));
-cls_BinMNaming.def_static("DocumentVersion_", (Standard_Integer (*)()) &BinMNaming::DocumentVersion, "None");
 
 // CLASS: BINMNAMING_NAMEDSHAPEDRIVER
 py::class_<BinMNaming_NamedShapeDriver, opencascade::handle<BinMNaming_NamedShapeDriver>, BinMDF_ADriver> cls_BinMNaming_NamedShapeDriver(mod, "BinMNaming_NamedShapeDriver", "NamedShape Attribute Driver.");

@@ -48,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_Pnt.hxx>
 #include <TopoDS_Shape.hxx>
 #include <gp_Pln.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <XCAFDimTolObjects_DatumObject.hxx>
 #include <XCAFDimTolObjects_DatumObjectSequence.hxx>

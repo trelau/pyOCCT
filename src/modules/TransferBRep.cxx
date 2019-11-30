@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <pyOCCT_Common.hxx>
 #include <Standard_Transient.hxx>
 #include <Standard_TypeDef.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <TransferBRep_TransferResultInfo.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Sequence.hxx>
 #include <TransferBRep_SequenceOfTransferResultInfo.hxx>

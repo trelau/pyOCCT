@@ -21,35 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include <pyOCCT_Common.hxx>
 #include <TColStd_HArray1OfReal.hxx>
-#include <Standard_Transient.hxx>
-#include <Standard_Handle.hxx>
-#include <ShapeFix_Root.hxx>
-#include <ShapeBuild_ReShape.hxx>
-#include <ShapeExtend_BasicMsgRegistrator.hxx>
+#include <Standard.hxx>
 #include <Standard_TypeDef.hxx>
 #include <TopoDS_Shape.hxx>
-#include <Message_Msg.hxx>
-#include <Message_Gravity.hxx>
-#include <Standard_Type.hxx>
-#include <NCollection_DataMap.hxx>
-#include <Bnd_Box2d.hxx>
-#include <TopTools_ShapeMapHasher.hxx>
-#include <ShapeFix_DataMapOfShapeBox2d.hxx>
-#include <TopoDS_Face.hxx>
-#include <Geom_Surface.hxx>
-#include <ShapeAnalysis_Surface.hxx>
-#include <TopoDS_Wire.hxx>
-#include <TopTools_DataMapOfShapeListOfShape.hxx>
-#include <TopTools_SequenceOfShape.hxx>
-#include <ShapeExtend_Status.hxx>
-#include <ShapeFix_Wire.hxx>
-#include <ShapeFix_Face.hxx>
-#include <ShapeExtend_WireData.hxx>
-#include <TopoDS_Vertex.hxx>
-#include <Standard.hxx>
+#include <Standard_Handle.hxx>
 #include <Message_ProgressIndicator.hxx>
+#include <ShapeExtend_BasicMsgRegistrator.hxx>
+#include <ShapeBuild_ReShape.hxx>
+#include <ShapeFix_Root.hxx>
 #include <ShapeFix_EdgeProjAux.hxx>
 #include <ShapeFix_Edge.hxx>
+#include <ShapeFix_Wire.hxx>
+#include <ShapeFix_Face.hxx>
 #include <ShapeFix_FixSmallFace.hxx>
 #include <ShapeFix_FixSmallSolid.hxx>
 #include <ShapeFix_WireVertex.hxx>
@@ -67,19 +50,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <ShapeFix_IntersectionTool.hxx>
 #include <ShapeFix_SplitTool.hxx>
 #include <ShapeFix.hxx>
+#include <Standard_Transient.hxx>
+#include <Message_Msg.hxx>
+#include <Message_Gravity.hxx>
+#include <Standard_Std.hxx>
+#include <Standard_Type.hxx>
+#include <ShapeExtend_WireData.hxx>
 #include <TopAbs_Orientation.hxx>
+#include <TopoDS_Wire.hxx>
+#include <TopoDS_Vertex.hxx>
 #include <TopoDS_Edge.hxx>
 #include <TColStd_HSequenceOfInteger.hxx>
 #include <NCollection_Sequence.hxx>
 #include <ShapeFix_SequenceOfWireSegment.hxx>
 #include <ShapeExtend_CompositeSurface.hxx>
 #include <TopLoc_Location.hxx>
+#include <TopoDS_Face.hxx>
+#include <ShapeExtend_Status.hxx>
+#include <TopTools_SequenceOfShape.hxx>
 #include <ShapeAnalysis_TransferParameters.hxx>
 #include <gp_Lin2d.hxx>
 #include <TColStd_SequenceOfInteger.hxx>
 #include <TColStd_SequenceOfReal.hxx>
+#include <Geom_Surface.hxx>
+#include <NCollection_DataMap.hxx>
+#include <Bnd_Box2d.hxx>
+#include <TopTools_ShapeMapHasher.hxx>
+#include <ShapeFix_DataMapOfShapeBox2d.hxx>
 #include <ShapeConstruct_ProjectCurveOnSurface.hxx>
+#include <ShapeAnalysis_Surface.hxx>
 #include <TopTools_DataMapOfShapeShape.hxx>
+#include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <Geom2d_Curve.hxx>
 #include <TopoDS_Shell.hxx>
 #include <TopoDS_Compound.hxx>
@@ -90,27 +91,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <ShapeAnalysis_WireOrder.hxx>
 #include <TopAbs_ShapeEnum.hxx>
 #include <ShapeAnalysis_WireVertex.hxx>
-#include <bind_NCollection_DataMap.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_NCollection_DataMap.hxx>
 
 PYBIND11_MODULE(ShapeFix, mod) {
 
 py::module::import("OCCT.TColStd");
 py::module::import("OCCT.Standard");
-py::module::import("OCCT.ShapeBuild");
-py::module::import("OCCT.ShapeExtend");
 py::module::import("OCCT.TopoDS");
 py::module::import("OCCT.Message");
-py::module::import("OCCT.NCollection");
-py::module::import("OCCT.Bnd");
-py::module::import("OCCT.TopTools");
-py::module::import("OCCT.Geom");
-py::module::import("OCCT.ShapeAnalysis");
+py::module::import("OCCT.ShapeExtend");
+py::module::import("OCCT.ShapeBuild");
 py::module::import("OCCT.TopAbs");
+py::module::import("OCCT.NCollection");
 py::module::import("OCCT.TopLoc");
+py::module::import("OCCT.TopTools");
+py::module::import("OCCT.ShapeAnalysis");
 py::module::import("OCCT.gp");
+py::module::import("OCCT.Geom");
+py::module::import("OCCT.Bnd");
 py::module::import("OCCT.ShapeConstruct");
 py::module::import("OCCT.Geom2d");
+
+// CLASS: SHAPEFIX
+py::class_<ShapeFix> cls_ShapeFix(mod, "ShapeFix", "This package provides algorithms for fixing problematic (violating Open CASCADE requirements) shapes. Tools from package ShapeAnalysis are used for detecting the problems. The detecting and fixing is done taking in account various criteria implemented in BRepCheck package. Each class of package ShapeFix deals with one certain type of shapes or with some family of problems.");
+
+// Methods
+// cls_ShapeFix.def_static("operator new_", (void * (*)(size_t)) &ShapeFix::operator new, "None", py::arg("theSize"));
+// cls_ShapeFix.def_static("operator delete_", (void (*)(void *)) &ShapeFix::operator delete, "None", py::arg("theAddress"));
+// cls_ShapeFix.def_static("operator new[]_", (void * (*)(size_t)) &ShapeFix::operator new[], "None", py::arg("theSize"));
+// cls_ShapeFix.def_static("operator delete[]_", (void (*)(void *)) &ShapeFix::operator delete[], "None", py::arg("theAddress"));
+// cls_ShapeFix.def_static("operator new_", (void * (*)(size_t, void *)) &ShapeFix::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_ShapeFix.def_static("operator delete_", (void (*)(void *, void *)) &ShapeFix::operator delete, "None", py::arg(""), py::arg(""));
+cls_ShapeFix.def_static("SameParameter_", [](const TopoDS_Shape & a0, const Standard_Boolean a1) -> Standard_Boolean { return ShapeFix::SameParameter(a0, a1); });
+cls_ShapeFix.def_static("SameParameter_", [](const TopoDS_Shape & a0, const Standard_Boolean a1, const Standard_Real a2) -> Standard_Boolean { return ShapeFix::SameParameter(a0, a1, a2); });
+cls_ShapeFix.def_static("SameParameter_", [](const TopoDS_Shape & a0, const Standard_Boolean a1, const Standard_Real a2, const opencascade::handle<Message_ProgressIndicator> & a3) -> Standard_Boolean { return ShapeFix::SameParameter(a0, a1, a2, a3); });
+cls_ShapeFix.def_static("SameParameter_", (Standard_Boolean (*)(const TopoDS_Shape &, const Standard_Boolean, const Standard_Real, const opencascade::handle<Message_ProgressIndicator> &, const opencascade::handle<ShapeExtend_BasicMsgRegistrator> &)) &ShapeFix::SameParameter, "Runs SameParameter from BRepLib with these adaptations : <enforce> forces computations, else they are made only on Edges with flag SameParameter false <preci>, if not precised, is taken for each EDge as its own Tolerance Returns True when done, False if an exception has been raised In case of exception anyway, as many edges as possible have been processed. The passed progress indicator allows user to consult the current progress stage and abort algorithm if needed.", py::arg("shape"), py::arg("enforce"), py::arg("preci"), py::arg("theProgress"), py::arg("theMsgReg"));
+cls_ShapeFix.def_static("EncodeRegularity_", [](const TopoDS_Shape & a0) -> void { return ShapeFix::EncodeRegularity(a0); });
+cls_ShapeFix.def_static("EncodeRegularity_", (void (*)(const TopoDS_Shape &, const Standard_Real)) &ShapeFix::EncodeRegularity, "Runs EncodeRegularity from BRepLib taking into account shared components of assemblies, so that each component is processed only once", py::arg("shape"), py::arg("tolang"));
+cls_ShapeFix.def_static("RemoveSmallEdges_", (TopoDS_Shape (*)(TopoDS_Shape &, const Standard_Real, opencascade::handle<ShapeBuild_ReShape> &)) &ShapeFix::RemoveSmallEdges, "Removes edges which are less than given tolerance from shape with help of ShapeFix_Wire::FixSmall()", py::arg("shape"), py::arg("Tolerance"), py::arg("context"));
+cls_ShapeFix.def_static("FixVertexPosition_", (Standard_Boolean (*)(TopoDS_Shape &, const Standard_Real, const opencascade::handle<ShapeBuild_ReShape> &)) &ShapeFix::FixVertexPosition, "Fix position of the vertices having tolerance more tnan specified one.;", py::arg("theshape"), py::arg("theTolerance"), py::arg("thecontext"));
+cls_ShapeFix.def_static("LeastEdgeSize_", (Standard_Real (*)(TopoDS_Shape &)) &ShapeFix::LeastEdgeSize, "Calculate size of least edge;", py::arg("theshape"));
 
 // CLASS: SHAPEFIX_ROOT
 py::class_<ShapeFix_Root, opencascade::handle<ShapeFix_Root>, Standard_Transient> cls_ShapeFix_Root(mod, "ShapeFix_Root", "Root class for fixing operations Provides context for recording changes (optional), basic precision value and limit (minimal and maximal) values for tolerances, and message registrator");
@@ -142,80 +163,6 @@ cls_ShapeFix_Root.def("SendFail", (void (ShapeFix_Root::*)(const Message_Msg &) 
 cls_ShapeFix_Root.def_static("get_type_name_", (const char * (*)()) &ShapeFix_Root::get_type_name, "None");
 cls_ShapeFix_Root.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ShapeFix_Root::get_type_descriptor, "None");
 cls_ShapeFix_Root.def("DynamicType", (const opencascade::handle<Standard_Type> & (ShapeFix_Root::*)() const) &ShapeFix_Root::DynamicType, "None");
-
-// TYPEDEF: SHAPEFIX_DATAMAPOFSHAPEBOX2D
-bind_NCollection_DataMap<TopoDS_Shape, Bnd_Box2d, TopTools_ShapeMapHasher>(mod, "ShapeFix_DataMapOfShapeBox2d", py::module_local(false));
-
-// TYPEDEF: SHAPEFIX_DATAMAPITERATOROFDATAMAPOFSHAPEBOX2D
-
-// CLASS: SHAPEFIX_FACE
-py::class_<ShapeFix_Face, opencascade::handle<ShapeFix_Face>, ShapeFix_Root> cls_ShapeFix_Face(mod, "ShapeFix_Face", "This operator allows to perform various fixes on face and its wires: fixes provided by ShapeFix_Wire, fixing orientation of wires, addition of natural bounds, fixing of missing seam edge, and detection and removal of null-area wires");
-
-// Constructors
-cls_ShapeFix_Face.def(py::init<>());
-cls_ShapeFix_Face.def(py::init<const TopoDS_Face &>(), py::arg("face"));
-
-// Methods
-cls_ShapeFix_Face.def("ClearModes", (void (ShapeFix_Face::*)()) &ShapeFix_Face::ClearModes, "Sets all modes to default");
-cls_ShapeFix_Face.def("Init", (void (ShapeFix_Face::*)(const TopoDS_Face &)) &ShapeFix_Face::Init, "Loads a whole face already created, with its wires, sense and location", py::arg("face"));
-cls_ShapeFix_Face.def("Init", [](ShapeFix_Face &self, const opencascade::handle<Geom_Surface> & a0, const Standard_Real a1) -> void { return self.Init(a0, a1); });
-cls_ShapeFix_Face.def("Init", (void (ShapeFix_Face::*)(const opencascade::handle<Geom_Surface> &, const Standard_Real, const Standard_Boolean)) &ShapeFix_Face::Init, "Starts the creation of the face By default it will be FORWARD, or REVERSED if <fwd> is False", py::arg("surf"), py::arg("preci"), py::arg("fwd"));
-cls_ShapeFix_Face.def("Init", [](ShapeFix_Face &self, const opencascade::handle<ShapeAnalysis_Surface> & a0, const Standard_Real a1) -> void { return self.Init(a0, a1); });
-cls_ShapeFix_Face.def("Init", (void (ShapeFix_Face::*)(const opencascade::handle<ShapeAnalysis_Surface> &, const Standard_Real, const Standard_Boolean)) &ShapeFix_Face::Init, "Starts the creation of the face By default it will be FORWARD, or REVERSED if <fwd> is False", py::arg("surf"), py::arg("preci"), py::arg("fwd"));
-cls_ShapeFix_Face.def("SetMsgRegistrator", (void (ShapeFix_Face::*)(const opencascade::handle<ShapeExtend_BasicMsgRegistrator> &)) &ShapeFix_Face::SetMsgRegistrator, "Sets message registrator", py::arg("msgreg"));
-cls_ShapeFix_Face.def("SetPrecision", (void (ShapeFix_Face::*)(const Standard_Real)) &ShapeFix_Face::SetPrecision, "Sets basic precision value (also to FixWireTool)", py::arg("preci"));
-cls_ShapeFix_Face.def("SetMinTolerance", (void (ShapeFix_Face::*)(const Standard_Real)) &ShapeFix_Face::SetMinTolerance, "Sets minimal allowed tolerance (also to FixWireTool)", py::arg("mintol"));
-cls_ShapeFix_Face.def("SetMaxTolerance", (void (ShapeFix_Face::*)(const Standard_Real)) &ShapeFix_Face::SetMaxTolerance, "Sets maximal allowed tolerance (also to FixWireTool)", py::arg("maxtol"));
-cls_ShapeFix_Face.def("FixWireMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixWireMode, "Returns (modifiable) the mode for applying fixes of ShapeFix_Wire, by default True.");
-cls_ShapeFix_Face.def("FixOrientationMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixOrientationMode, "Returns (modifiable) the fix orientation mode, by default True. If True, wires oriented to border limited square.");
-cls_ShapeFix_Face.def("FixAddNaturalBoundMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixAddNaturalBoundMode, "Returns (modifiable) the add natural bound mode. If true, natural boundary is added on faces that miss them. Default is False for faces with single wire (they are handled by FixOrientation in that case) and True for others.");
-cls_ShapeFix_Face.def("FixMissingSeamMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixMissingSeamMode, "Returns (modifiable) the fix missing seam mode, by default True. If True, tries to insert seam is missed.");
-cls_ShapeFix_Face.def("FixSmallAreaWireMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixSmallAreaWireMode, "Returns (modifiable) the fix small area wire mode, by default False. If True, drops small wires.");
-cls_ShapeFix_Face.def("RemoveSmallAreaFaceMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::RemoveSmallAreaFaceMode, "Returns (modifiable) the remove face with small area, by default False. If True, drops faces with small outer wires.");
-cls_ShapeFix_Face.def("FixIntersectingWiresMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixIntersectingWiresMode, "Returns (modifiable) the fix intersecting wires mode by default True.");
-cls_ShapeFix_Face.def("FixLoopWiresMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixLoopWiresMode, "Returns (modifiable) the fix loop wires mode by default True.");
-cls_ShapeFix_Face.def("FixSplitFaceMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixSplitFaceMode, "Returns (modifiable) the fix split face mode by default True.");
-cls_ShapeFix_Face.def("AutoCorrectPrecisionMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::AutoCorrectPrecisionMode, "Returns (modifiable) the auto-correct precision mode by default False.");
-cls_ShapeFix_Face.def("FixPeriodicDegeneratedMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixPeriodicDegeneratedMode, "Returns (modifiable) the activation flag for periodic degenerated fix. False by default.");
-cls_ShapeFix_Face.def("Face", (TopoDS_Face (ShapeFix_Face::*)() const) &ShapeFix_Face::Face, "Returns a face which corresponds to the current state Warning: The finally produced face may be another one ... but with the same support");
-cls_ShapeFix_Face.def("Result", (TopoDS_Shape (ShapeFix_Face::*)() const) &ShapeFix_Face::Result, "Returns resulting shape (Face or Shell if splitted) To be used instead of Face() if FixMissingSeam involved");
-cls_ShapeFix_Face.def("Add", (void (ShapeFix_Face::*)(const TopoDS_Wire &)) &ShapeFix_Face::Add, "Add a wire to current face using BRep_Builder. Wire is added without taking into account orientation of face (as if face were FORWARD).", py::arg("wire"));
-cls_ShapeFix_Face.def("Perform", (Standard_Boolean (ShapeFix_Face::*)()) &ShapeFix_Face::Perform, "Performs all the fixes, depending on modes Function Status returns the status of last call to Perform() ShapeExtend_OK : face was OK, nothing done ShapeExtend_DONE1: some wires are fixed ShapeExtend_DONE2: orientation of wires fixed ShapeExtend_DONE3: missing seam added ShapeExtend_DONE4: small area wire removed ShapeExtend_DONE5: natural bounds added ShapeExtend_FAIL1: some fails during fixing wires ShapeExtend_FAIL2: cannot fix orientation of wires ShapeExtend_FAIL3: cannot add missing seam ShapeExtend_FAIL4: cannot remove small area wire");
-cls_ShapeFix_Face.def("FixOrientation", (Standard_Boolean (ShapeFix_Face::*)()) &ShapeFix_Face::FixOrientation, "Fixes orientation of wires on the face It tries to make all wires lie outside all others (according to orientation) by reversing orientation of some of them. If face lying on sphere or torus has single wire and AddNaturalBoundMode is True, that wire is not reversed in any case (supposing that natural bound will be added). Returns True if wires were reversed");
-cls_ShapeFix_Face.def("FixOrientation", (Standard_Boolean (ShapeFix_Face::*)(TopTools_DataMapOfShapeListOfShape &)) &ShapeFix_Face::FixOrientation, "Fixes orientation of wires on the face It tries to make all wires lie outside all others (according to orientation) by reversing orientation of some of them. If face lying on sphere or torus has single wire and AddNaturalBoundMode is True, that wire is not reversed in any case (supposing that natural bound will be added). Returns True if wires were reversed OutWires return information about out wires + list of internal wires for each (for performing split face).", py::arg("MapWires"));
-cls_ShapeFix_Face.def("FixAddNaturalBound", (Standard_Boolean (ShapeFix_Face::*)()) &ShapeFix_Face::FixAddNaturalBound, "Adds natural boundary on face if it is missing. Two cases are supported: - face has no wires - face lies on geometrically double-closed surface (sphere or torus) and none of wires is left-oriented Returns True if natural boundary was added");
-cls_ShapeFix_Face.def("FixMissingSeam", (Standard_Boolean (ShapeFix_Face::*)()) &ShapeFix_Face::FixMissingSeam, "Detects and fixes the special case when face on a closed surface is given by two wires closed in 3d but with gap in 2d. In that case it creates a new wire from the two, and adds a missing seam edge Returns True if missing seam was added");
-cls_ShapeFix_Face.def("FixSmallAreaWire", (Standard_Boolean (ShapeFix_Face::*)(const Standard_Boolean)) &ShapeFix_Face::FixSmallAreaWire, "Detects wires with small area (that is less than 100*Precision::PConfusion(). Removes these wires if they are internal. Returns : True if at least one small wire removed, False if does nothing.", py::arg("theIsRemoveSmallFace"));
-cls_ShapeFix_Face.def("FixLoopWire", (Standard_Boolean (ShapeFix_Face::*)(TopTools_SequenceOfShape &)) &ShapeFix_Face::FixLoopWire, "Detects if wire has a loop and fixes this situation by splitting on the few parts. if wire has a loops and it was splitted Status was set to value ShapeExtend_DONE6.", py::arg("aResWires"));
-cls_ShapeFix_Face.def("FixIntersectingWires", (Standard_Boolean (ShapeFix_Face::*)()) &ShapeFix_Face::FixIntersectingWires, "Detects and fixes the special case when face has more than one wire and this wires have intersection point");
-cls_ShapeFix_Face.def("FixWiresTwoCoincEdges", (Standard_Boolean (ShapeFix_Face::*)()) &ShapeFix_Face::FixWiresTwoCoincEdges, "If wire contains two coincidence edges it must be removed Queries on status after Perform()");
-cls_ShapeFix_Face.def("FixSplitFace", (Standard_Boolean (ShapeFix_Face::*)(const TopTools_DataMapOfShapeListOfShape &)) &ShapeFix_Face::FixSplitFace, "Split face if there are more than one out wire using inrormation after FixOrientation()", py::arg("MapWires"));
-cls_ShapeFix_Face.def("FixPeriodicDegenerated", (Standard_Boolean (ShapeFix_Face::*)()) &ShapeFix_Face::FixPeriodicDegenerated, "Fixes topology for a specific case when face is composed by a single wire belting a periodic surface. In that case a degenerated edge is reconstructed in the degenerated pole of the surface. Initial wire gets consistent orientation. Must be used in couple and before FixMissingSeam routine");
-cls_ShapeFix_Face.def("Status", (Standard_Boolean (ShapeFix_Face::*)(const ShapeExtend_Status) const) &ShapeFix_Face::Status, "Returns the status of last call to Perform() ShapeExtend_OK : face was OK, nothing done ShapeExtend_DONE1: some wires are fixed ShapeExtend_DONE2: orientation of wires fixed ShapeExtend_DONE3: missing seam added ShapeExtend_DONE4: small area wire removed ShapeExtend_DONE5: natural bounds added ShapeExtend_DONE8: face may be splited ShapeExtend_FAIL1: some fails during fixing wires ShapeExtend_FAIL2: cannot fix orientation of wires ShapeExtend_FAIL3: cannot add missing seam ShapeExtend_FAIL4: cannot remove small area wire", py::arg("status"));
-cls_ShapeFix_Face.def("FixWireTool", (opencascade::handle<ShapeFix_Wire> (ShapeFix_Face::*)()) &ShapeFix_Face::FixWireTool, "Returns tool for fixing wires.");
-cls_ShapeFix_Face.def_static("get_type_name_", (const char * (*)()) &ShapeFix_Face::get_type_name, "None");
-cls_ShapeFix_Face.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ShapeFix_Face::get_type_descriptor, "None");
-cls_ShapeFix_Face.def("DynamicType", (const opencascade::handle<Standard_Type> & (ShapeFix_Face::*)() const) &ShapeFix_Face::DynamicType, "None");
-
-// CLASS: SHAPEFIX
-py::class_<ShapeFix> cls_ShapeFix(mod, "ShapeFix", "This package provides algorithms for fixing problematic (violating Open CASCADE requirements) shapes. Tools from package ShapeAnalysis are used for detecting the problems. The detecting and fixing is done taking in account various criteria implemented in BRepCheck package. Each class of package ShapeFix deals with one certain type of shapes or with some family of problems.");
-
-// Methods
-// cls_ShapeFix.def_static("operator new_", (void * (*)(size_t)) &ShapeFix::operator new, "None", py::arg("theSize"));
-// cls_ShapeFix.def_static("operator delete_", (void (*)(void *)) &ShapeFix::operator delete, "None", py::arg("theAddress"));
-// cls_ShapeFix.def_static("operator new[]_", (void * (*)(size_t)) &ShapeFix::operator new[], "None", py::arg("theSize"));
-// cls_ShapeFix.def_static("operator delete[]_", (void (*)(void *)) &ShapeFix::operator delete[], "None", py::arg("theAddress"));
-// cls_ShapeFix.def_static("operator new_", (void * (*)(size_t, void *)) &ShapeFix::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_ShapeFix.def_static("operator delete_", (void (*)(void *, void *)) &ShapeFix::operator delete, "None", py::arg(""), py::arg(""));
-cls_ShapeFix.def_static("SameParameter_", [](const TopoDS_Shape & a0, const Standard_Boolean a1) -> Standard_Boolean { return ShapeFix::SameParameter(a0, a1); });
-cls_ShapeFix.def_static("SameParameter_", [](const TopoDS_Shape & a0, const Standard_Boolean a1, const Standard_Real a2) -> Standard_Boolean { return ShapeFix::SameParameter(a0, a1, a2); });
-cls_ShapeFix.def_static("SameParameter_", [](const TopoDS_Shape & a0, const Standard_Boolean a1, const Standard_Real a2, const opencascade::handle<Message_ProgressIndicator> & a3) -> Standard_Boolean { return ShapeFix::SameParameter(a0, a1, a2, a3); });
-cls_ShapeFix.def_static("SameParameter_", (Standard_Boolean (*)(const TopoDS_Shape &, const Standard_Boolean, const Standard_Real, const opencascade::handle<Message_ProgressIndicator> &, const opencascade::handle<ShapeExtend_BasicMsgRegistrator> &)) &ShapeFix::SameParameter, "Runs SameParameter from BRepLib with these adaptations : <enforce> forces computations, else they are made only on Edges with flag SameParameter false <preci>, if not precised, is taken for each EDge as its own Tolerance Returns True when done, False if an exception has been raised In case of exception anyway, as many edges as possible have been processed. The passed progress indicator allows user to consult the current progress stage and abort algorithm if needed.", py::arg("shape"), py::arg("enforce"), py::arg("preci"), py::arg("theProgress"), py::arg("theMsgReg"));
-cls_ShapeFix.def_static("EncodeRegularity_", [](const TopoDS_Shape & a0) -> void { return ShapeFix::EncodeRegularity(a0); });
-cls_ShapeFix.def_static("EncodeRegularity_", (void (*)(const TopoDS_Shape &, const Standard_Real)) &ShapeFix::EncodeRegularity, "Runs EncodeRegularity from BRepLib taking into account shared components of assemblies, so that each component is processed only once", py::arg("shape"), py::arg("tolang"));
-cls_ShapeFix.def_static("RemoveSmallEdges_", (TopoDS_Shape (*)(TopoDS_Shape &, const Standard_Real, opencascade::handle<ShapeBuild_ReShape> &)) &ShapeFix::RemoveSmallEdges, "Removes edges which are less than given tolerance from shape with help of ShapeFix_Wire::FixSmall()", py::arg("shape"), py::arg("Tolerance"), py::arg("context"));
-cls_ShapeFix.def_static("FixVertexPosition_", (Standard_Boolean (*)(TopoDS_Shape &, const Standard_Real, const opencascade::handle<ShapeBuild_ReShape> &)) &ShapeFix::FixVertexPosition, "Fix position of the vertices having tolerance more tnan specified one.;", py::arg("theshape"), py::arg("theTolerance"), py::arg("thecontext"));
-cls_ShapeFix.def_static("LeastEdgeSize_", (Standard_Real (*)(TopoDS_Shape &)) &ShapeFix::LeastEdgeSize, "Calculate size of least edge;", py::arg("theshape"));
 
 // CLASS: SHAPEFIX_WIRESEGMENT
 py::class_<ShapeFix_WireSegment> cls_ShapeFix_WireSegment(mod, "ShapeFix_WireSegment", "This class is auxiliary class (data storage) used in ComposeShell. It is intended for representing segment of the wire (or whole wire). The segment itself is represented by ShapeExtend_WireData. In addition, some associated data necessary for computations are stored:");
@@ -280,6 +227,11 @@ cls_ShapeFix_ComposeShell.def("GetTransferParamTool", (opencascade::handle<Shape
 cls_ShapeFix_ComposeShell.def_static("get_type_name_", (const char * (*)()) &ShapeFix_ComposeShell::get_type_name, "None");
 cls_ShapeFix_ComposeShell.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ShapeFix_ComposeShell::get_type_descriptor, "None");
 cls_ShapeFix_ComposeShell.def("DynamicType", (const opencascade::handle<Standard_Type> & (ShapeFix_ComposeShell::*)() const) &ShapeFix_ComposeShell::DynamicType, "None");
+
+// TYPEDEF: SHAPEFIX_DATAMAPOFSHAPEBOX2D
+bind_NCollection_DataMap<TopoDS_Shape, Bnd_Box2d, TopTools_ShapeMapHasher>(mod, "ShapeFix_DataMapOfShapeBox2d", py::module_local(false));
+
+// TYPEDEF: SHAPEFIX_DATAMAPITERATOROFDATAMAPOFSHAPEBOX2D
 
 // CLASS: SHAPEFIX_EDGE
 py::class_<ShapeFix_Edge, opencascade::handle<ShapeFix_Edge>, Standard_Transient> cls_ShapeFix_Edge(mod, "ShapeFix_Edge", "Fixing invalid edge. Geometrical and/or topological inconsistency: - no 3d curve or pcurve, - mismatching orientation of 3d curve and pcurve, - incorrect SameParameter flag (curve deviation is greater than edge tolerance), - not adjacent curves (3d or pcurve) to the vertices.");
@@ -352,6 +304,55 @@ cls_ShapeFix_EdgeProjAux.def("IsIso", (Standard_Boolean (ShapeFix_EdgeProjAux::*
 cls_ShapeFix_EdgeProjAux.def_static("get_type_name_", (const char * (*)()) &ShapeFix_EdgeProjAux::get_type_name, "None");
 cls_ShapeFix_EdgeProjAux.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ShapeFix_EdgeProjAux::get_type_descriptor, "None");
 cls_ShapeFix_EdgeProjAux.def("DynamicType", (const opencascade::handle<Standard_Type> & (ShapeFix_EdgeProjAux::*)() const) &ShapeFix_EdgeProjAux::DynamicType, "None");
+
+// CLASS: SHAPEFIX_FACE
+py::class_<ShapeFix_Face, opencascade::handle<ShapeFix_Face>, ShapeFix_Root> cls_ShapeFix_Face(mod, "ShapeFix_Face", "This operator allows to perform various fixes on face and its wires: fixes provided by ShapeFix_Wire, fixing orientation of wires, addition of natural bounds, fixing of missing seam edge, and detection and removal of null-area wires");
+
+// Constructors
+cls_ShapeFix_Face.def(py::init<>());
+cls_ShapeFix_Face.def(py::init<const TopoDS_Face &>(), py::arg("face"));
+
+// Methods
+cls_ShapeFix_Face.def("ClearModes", (void (ShapeFix_Face::*)()) &ShapeFix_Face::ClearModes, "Sets all modes to default");
+cls_ShapeFix_Face.def("Init", (void (ShapeFix_Face::*)(const TopoDS_Face &)) &ShapeFix_Face::Init, "Loads a whole face already created, with its wires, sense and location", py::arg("face"));
+cls_ShapeFix_Face.def("Init", [](ShapeFix_Face &self, const opencascade::handle<Geom_Surface> & a0, const Standard_Real a1) -> void { return self.Init(a0, a1); });
+cls_ShapeFix_Face.def("Init", (void (ShapeFix_Face::*)(const opencascade::handle<Geom_Surface> &, const Standard_Real, const Standard_Boolean)) &ShapeFix_Face::Init, "Starts the creation of the face By default it will be FORWARD, or REVERSED if <fwd> is False", py::arg("surf"), py::arg("preci"), py::arg("fwd"));
+cls_ShapeFix_Face.def("Init", [](ShapeFix_Face &self, const opencascade::handle<ShapeAnalysis_Surface> & a0, const Standard_Real a1) -> void { return self.Init(a0, a1); });
+cls_ShapeFix_Face.def("Init", (void (ShapeFix_Face::*)(const opencascade::handle<ShapeAnalysis_Surface> &, const Standard_Real, const Standard_Boolean)) &ShapeFix_Face::Init, "Starts the creation of the face By default it will be FORWARD, or REVERSED if <fwd> is False", py::arg("surf"), py::arg("preci"), py::arg("fwd"));
+cls_ShapeFix_Face.def("SetMsgRegistrator", (void (ShapeFix_Face::*)(const opencascade::handle<ShapeExtend_BasicMsgRegistrator> &)) &ShapeFix_Face::SetMsgRegistrator, "Sets message registrator", py::arg("msgreg"));
+cls_ShapeFix_Face.def("SetPrecision", (void (ShapeFix_Face::*)(const Standard_Real)) &ShapeFix_Face::SetPrecision, "Sets basic precision value (also to FixWireTool)", py::arg("preci"));
+cls_ShapeFix_Face.def("SetMinTolerance", (void (ShapeFix_Face::*)(const Standard_Real)) &ShapeFix_Face::SetMinTolerance, "Sets minimal allowed tolerance (also to FixWireTool)", py::arg("mintol"));
+cls_ShapeFix_Face.def("SetMaxTolerance", (void (ShapeFix_Face::*)(const Standard_Real)) &ShapeFix_Face::SetMaxTolerance, "Sets maximal allowed tolerance (also to FixWireTool)", py::arg("maxtol"));
+cls_ShapeFix_Face.def("FixWireMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixWireMode, "Returns (modifiable) the mode for applying fixes of ShapeFix_Wire, by default True.");
+cls_ShapeFix_Face.def("FixOrientationMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixOrientationMode, "Returns (modifiable) the fix orientation mode, by default True. If True, wires oriented to border limited square.");
+cls_ShapeFix_Face.def("FixAddNaturalBoundMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixAddNaturalBoundMode, "Returns (modifiable) the add natural bound mode. If true, natural boundary is added on faces that miss them. Default is False for faces with single wire (they are handled by FixOrientation in that case) and True for others.");
+cls_ShapeFix_Face.def("FixMissingSeamMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixMissingSeamMode, "Returns (modifiable) the fix missing seam mode, by default True. If True, tries to insert seam is missed.");
+cls_ShapeFix_Face.def("FixSmallAreaWireMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixSmallAreaWireMode, "Returns (modifiable) the fix small area wire mode, by default False. If True, drops small wires.");
+cls_ShapeFix_Face.def("RemoveSmallAreaFaceMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::RemoveSmallAreaFaceMode, "Returns (modifiable) the remove face with small area, by default False. If True, drops faces with small outer wires.");
+cls_ShapeFix_Face.def("FixIntersectingWiresMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixIntersectingWiresMode, "Returns (modifiable) the fix intersecting wires mode by default True.");
+cls_ShapeFix_Face.def("FixLoopWiresMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixLoopWiresMode, "Returns (modifiable) the fix loop wires mode by default True.");
+cls_ShapeFix_Face.def("FixSplitFaceMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixSplitFaceMode, "Returns (modifiable) the fix split face mode by default True.");
+cls_ShapeFix_Face.def("AutoCorrectPrecisionMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::AutoCorrectPrecisionMode, "Returns (modifiable) the auto-correct precision mode by default False.");
+cls_ShapeFix_Face.def("FixPeriodicDegeneratedMode", (Standard_Integer & (ShapeFix_Face::*)()) &ShapeFix_Face::FixPeriodicDegeneratedMode, "Returns (modifiable) the activation flag for periodic degenerated fix. False by default.");
+cls_ShapeFix_Face.def("Face", (TopoDS_Face (ShapeFix_Face::*)() const) &ShapeFix_Face::Face, "Returns a face which corresponds to the current state Warning: The finally produced face may be another one ... but with the same support");
+cls_ShapeFix_Face.def("Result", (TopoDS_Shape (ShapeFix_Face::*)() const) &ShapeFix_Face::Result, "Returns resulting shape (Face or Shell if splitted) To be used instead of Face() if FixMissingSeam involved");
+cls_ShapeFix_Face.def("Add", (void (ShapeFix_Face::*)(const TopoDS_Wire &)) &ShapeFix_Face::Add, "Add a wire to current face using BRep_Builder. Wire is added without taking into account orientation of face (as if face were FORWARD).", py::arg("wire"));
+cls_ShapeFix_Face.def("Perform", (Standard_Boolean (ShapeFix_Face::*)()) &ShapeFix_Face::Perform, "Performs all the fixes, depending on modes Function Status returns the status of last call to Perform() ShapeExtend_OK : face was OK, nothing done ShapeExtend_DONE1: some wires are fixed ShapeExtend_DONE2: orientation of wires fixed ShapeExtend_DONE3: missing seam added ShapeExtend_DONE4: small area wire removed ShapeExtend_DONE5: natural bounds added ShapeExtend_FAIL1: some fails during fixing wires ShapeExtend_FAIL2: cannot fix orientation of wires ShapeExtend_FAIL3: cannot add missing seam ShapeExtend_FAIL4: cannot remove small area wire");
+cls_ShapeFix_Face.def("FixOrientation", (Standard_Boolean (ShapeFix_Face::*)()) &ShapeFix_Face::FixOrientation, "Fixes orientation of wires on the face It tries to make all wires lie outside all others (according to orientation) by reversing orientation of some of them. If face lying on sphere or torus has single wire and AddNaturalBoundMode is True, that wire is not reversed in any case (supposing that natural bound will be added). Returns True if wires were reversed");
+cls_ShapeFix_Face.def("FixOrientation", (Standard_Boolean (ShapeFix_Face::*)(TopTools_DataMapOfShapeListOfShape &)) &ShapeFix_Face::FixOrientation, "Fixes orientation of wires on the face It tries to make all wires lie outside all others (according to orientation) by reversing orientation of some of them. If face lying on sphere or torus has single wire and AddNaturalBoundMode is True, that wire is not reversed in any case (supposing that natural bound will be added). Returns True if wires were reversed OutWires return information about out wires + list of internal wires for each (for performing split face).", py::arg("MapWires"));
+cls_ShapeFix_Face.def("FixAddNaturalBound", (Standard_Boolean (ShapeFix_Face::*)()) &ShapeFix_Face::FixAddNaturalBound, "Adds natural boundary on face if it is missing. Two cases are supported: - face has no wires - face lies on geometrically double-closed surface (sphere or torus) and none of wires is left-oriented Returns True if natural boundary was added");
+cls_ShapeFix_Face.def("FixMissingSeam", (Standard_Boolean (ShapeFix_Face::*)()) &ShapeFix_Face::FixMissingSeam, "Detects and fixes the special case when face on a closed surface is given by two wires closed in 3d but with gap in 2d. In that case it creates a new wire from the two, and adds a missing seam edge Returns True if missing seam was added");
+cls_ShapeFix_Face.def("FixSmallAreaWire", (Standard_Boolean (ShapeFix_Face::*)(const Standard_Boolean)) &ShapeFix_Face::FixSmallAreaWire, "Detects wires with small area (that is less than 100*Precision::PConfusion(). Removes these wires if they are internal. Returns : True if at least one small wire removed, False if does nothing.", py::arg("theIsRemoveSmallFace"));
+cls_ShapeFix_Face.def("FixLoopWire", (Standard_Boolean (ShapeFix_Face::*)(TopTools_SequenceOfShape &)) &ShapeFix_Face::FixLoopWire, "Detects if wire has a loop and fixes this situation by splitting on the few parts. if wire has a loops and it was splitted Status was set to value ShapeExtend_DONE6.", py::arg("aResWires"));
+cls_ShapeFix_Face.def("FixIntersectingWires", (Standard_Boolean (ShapeFix_Face::*)()) &ShapeFix_Face::FixIntersectingWires, "Detects and fixes the special case when face has more than one wire and this wires have intersection point");
+cls_ShapeFix_Face.def("FixWiresTwoCoincEdges", (Standard_Boolean (ShapeFix_Face::*)()) &ShapeFix_Face::FixWiresTwoCoincEdges, "If wire contains two coincidence edges it must be removed Queries on status after Perform()");
+cls_ShapeFix_Face.def("FixSplitFace", (Standard_Boolean (ShapeFix_Face::*)(const TopTools_DataMapOfShapeListOfShape &)) &ShapeFix_Face::FixSplitFace, "Split face if there are more than one out wire using inrormation after FixOrientation()", py::arg("MapWires"));
+cls_ShapeFix_Face.def("FixPeriodicDegenerated", (Standard_Boolean (ShapeFix_Face::*)()) &ShapeFix_Face::FixPeriodicDegenerated, "Fixes topology for a specific case when face is composed by a single wire belting a periodic surface. In that case a degenerated edge is reconstructed in the degenerated pole of the surface. Initial wire gets consistent orientation. Must be used in couple and before FixMissingSeam routine");
+cls_ShapeFix_Face.def("Status", (Standard_Boolean (ShapeFix_Face::*)(const ShapeExtend_Status) const) &ShapeFix_Face::Status, "Returns the status of last call to Perform() ShapeExtend_OK : face was OK, nothing done ShapeExtend_DONE1: some wires are fixed ShapeExtend_DONE2: orientation of wires fixed ShapeExtend_DONE3: missing seam added ShapeExtend_DONE4: small area wire removed ShapeExtend_DONE5: natural bounds added ShapeExtend_DONE8: face may be splited ShapeExtend_FAIL1: some fails during fixing wires ShapeExtend_FAIL2: cannot fix orientation of wires ShapeExtend_FAIL3: cannot add missing seam ShapeExtend_FAIL4: cannot remove small area wire", py::arg("status"));
+cls_ShapeFix_Face.def("FixWireTool", (opencascade::handle<ShapeFix_Wire> (ShapeFix_Face::*)()) &ShapeFix_Face::FixWireTool, "Returns tool for fixing wires.");
+cls_ShapeFix_Face.def_static("get_type_name_", (const char * (*)()) &ShapeFix_Face::get_type_name, "None");
+cls_ShapeFix_Face.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ShapeFix_Face::get_type_descriptor, "None");
+cls_ShapeFix_Face.def("DynamicType", (const opencascade::handle<Standard_Type> & (ShapeFix_Face::*)() const) &ShapeFix_Face::DynamicType, "None");
 
 // CLASS: SHAPEFIX_FACECONNECT
 py::class_<ShapeFix_FaceConnect> cls_ShapeFix_FaceConnect(mod, "ShapeFix_FaceConnect", "Rebuilds connectivity between faces in shell");

@@ -67,6 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <ProjLib_HSequenceOfHSequenceOfPnt.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <Adaptor2d_Curve2d.hxx>
 #include <Adaptor3d_HCurve.hxx>

@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BOPAlgo_CheckStatus.hxx>
 #include <BOPAlgo_GlueEnum.hxx>
 #include <Message_Alert.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <BOPAlgo_Alerts.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <TopoDS_AlertWithShape.hxx>
 #include <TopoDS_Shape.hxx>
@@ -47,11 +48,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BOPAlgo_ArgumentAnalyzer.hxx>
 #include <BOPAlgo_PaveFiller.hxx>
 #include <BOPAlgo_PPaveFiller.hxx>
-#include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
+#include <BRepTools_History.hxx>
 #include <TopTools_MapOfShape.hxx>
 #include <BOPAlgo_BuilderShape.hxx>
 #include <BOPDS_PDS.hxx>
 #include <IntTools_Context.hxx>
+#include <TopAbs_State.hxx>
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopTools_DataMapOfShapeShape.hxx>
 #include <BOPAlgo_Builder.hxx>
@@ -64,6 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BOPAlgo_BuilderFace.hxx>
 #include <TopTools_DataMapOfShapeBox.hxx>
 #include <BOPAlgo_BuilderSolid.hxx>
+#include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 #include <TopTools_DataMapOfIntegerListOfShape.hxx>
 #include <TopTools_DataMapOfShapeInteger.hxx>
 #include <BOPAlgo_CellsBuilder.hxx>
@@ -73,11 +76,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BOPDS_PaveBlock.hxx>
 #include <Bnd_Box.hxx>
 #include <TColStd_MapTransientHasher.hxx>
+#include <TColStd_ListOfInteger.hxx>
+#include <BOPDS_MapOfPaveBlock.hxx>
 #include <BOPDS_IndexedDataMapOfPaveBlockListOfInteger.hxx>
 #include <TColStd_MapOfInteger.hxx>
 #include <TColStd_DataMapOfIntegerListOfInteger.hxx>
 #include <TColStd_DataMapOfIntegerInteger.hxx>
-#include <TColStd_ListOfInteger.hxx>
 #include <IntTools_ShrunkRange.hxx>
 #include <BOPDS_IndexedDataMapOfShapeCoupleOfPaveBlocks.hxx>
 #include <TopoDS_Vertex.hxx>
@@ -86,13 +90,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColStd_DataMapOfIntegerReal.hxx>
 #include <BOPDS_VectorOfCurve.hxx>
 #include <BOPDS_IndexedMapOfPaveBlock.hxx>
-#include <BOPDS_MapOfPaveBlock.hxx>
 #include <BOPDS_DataMapOfPaveBlockListOfPaveBlock.hxx>
 #include <TopTools_IndexedMapOfShape.hxx>
 #include <BOPDS_ListOfPaveBlock.hxx>
 #include <IntSurf_ListOfPntOn2S.hxx>
 #include <TopoDS_Edge.hxx>
 #include <BOPAlgo_CheckerSI.hxx>
+#include <BOPAlgo_MakePeriodic.hxx>
+#include <TopTools_OrientedShapeMapHasher.hxx>
+#include <BOPAlgo_MakeConnected.hxx>
 #include <TopoDS_Solid.hxx>
 #include <BOPAlgo_MakerVolume.hxx>
 #include <BOPAlgo_PArgumentAnalyzer.hxx>
@@ -102,7 +108,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BOPAlgo_PSection.hxx>
 #include <BOPAlgo_WireEdgeSet.hxx>
 #include <BOPAlgo_PWireEdgeSet.hxx>
-#include <BRepTools_History.hxx>
 #include <BOPAlgo_RemoveFeatures.hxx>
 #include <BOPTools_ConnexityBlock.hxx>
 #include <BOPTools_ListOfConnexityBlock.hxx>
@@ -130,12 +135,12 @@ py::module::import("OCCT.TopoDS");
 py::module::import("OCCT.NCollection");
 py::module::import("OCCT.TopTools");
 py::module::import("OCCT.TopAbs");
+py::module::import("OCCT.BRepTools");
 py::module::import("OCCT.IntTools");
 py::module::import("OCCT.Bnd");
 py::module::import("OCCT.TColStd");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.IntSurf");
-py::module::import("OCCT.BRepTools");
 py::module::import("OCCT.BOPTools");
 
 // ENUM: BOPALGO_OPERATION
@@ -207,7 +212,7 @@ cls_BOPAlgo_AlertIntersectionFailed.def_static("get_type_descriptor_", (const op
 cls_BOPAlgo_AlertIntersectionFailed.def("DynamicType", (const opencascade::handle<Standard_Type> & (BOPAlgo_AlertIntersectionFailed::*)() const) &BOPAlgo_AlertIntersectionFailed::DynamicType, "None");
 
 // CLASS: BOPALGO_ALERTMULTIPLEARGUMENTS
-py::class_<BOPAlgo_AlertMultipleArguments, opencascade::handle<BOPAlgo_AlertMultipleArguments>, Message_Alert> cls_BOPAlgo_AlertMultipleArguments(mod, "BOPAlgo_AlertMultipleArguments", "The type of Boolean Operation is not set");
+py::class_<BOPAlgo_AlertMultipleArguments, opencascade::handle<BOPAlgo_AlertMultipleArguments>, Message_Alert> cls_BOPAlgo_AlertMultipleArguments(mod, "BOPAlgo_AlertMultipleArguments", "More than one argument is provided");
 
 // Methods
 cls_BOPAlgo_AlertMultipleArguments.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertMultipleArguments::get_type_name, "None");
@@ -446,6 +451,17 @@ cls_BOPAlgo_AlertSolidBuilderUnusedFaces.def_static("get_type_name_", (const cha
 cls_BOPAlgo_AlertSolidBuilderUnusedFaces.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertSolidBuilderUnusedFaces::get_type_descriptor, "None");
 cls_BOPAlgo_AlertSolidBuilderUnusedFaces.def("DynamicType", (const opencascade::handle<Standard_Type> & (BOPAlgo_AlertSolidBuilderUnusedFaces::*)() const) &BOPAlgo_AlertSolidBuilderUnusedFaces::DynamicType, "None");
 
+// CLASS: BOPALGO_ALERTFACEBUILDERUNUSEDEDGES
+py::class_<BOPAlgo_AlertFaceBuilderUnusedEdges, opencascade::handle<BOPAlgo_AlertFaceBuilderUnusedEdges>, TopoDS_AlertWithShape> cls_BOPAlgo_AlertFaceBuilderUnusedEdges(mod, "BOPAlgo_AlertFaceBuilderUnusedEdges", "Some of the edges passed to the Face Builder algorithm have not been classified and not used for faces creation");
+
+// Constructors
+cls_BOPAlgo_AlertFaceBuilderUnusedEdges.def(py::init<const TopoDS_Shape &>(), py::arg("theShape"));
+
+// Methods
+cls_BOPAlgo_AlertFaceBuilderUnusedEdges.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertFaceBuilderUnusedEdges::get_type_name, "None");
+cls_BOPAlgo_AlertFaceBuilderUnusedEdges.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertFaceBuilderUnusedEdges::get_type_descriptor, "None");
+cls_BOPAlgo_AlertFaceBuilderUnusedEdges.def("DynamicType", (const opencascade::handle<Standard_Type> & (BOPAlgo_AlertFaceBuilderUnusedEdges::*)() const) &BOPAlgo_AlertFaceBuilderUnusedEdges::DynamicType, "None");
+
 // CLASS: BOPALGO_ALERTUNABLETOORIENTTHESHAPE
 py::class_<BOPAlgo_AlertUnableToOrientTheShape, opencascade::handle<BOPAlgo_AlertUnableToOrientTheShape>, TopoDS_AlertWithShape> cls_BOPAlgo_AlertUnableToOrientTheShape(mod, "BOPAlgo_AlertUnableToOrientTheShape", "Unable to orient the shape correctly");
 
@@ -456,6 +472,99 @@ cls_BOPAlgo_AlertUnableToOrientTheShape.def(py::init<const TopoDS_Shape &>(), py
 cls_BOPAlgo_AlertUnableToOrientTheShape.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertUnableToOrientTheShape::get_type_name, "None");
 cls_BOPAlgo_AlertUnableToOrientTheShape.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertUnableToOrientTheShape::get_type_descriptor, "None");
 cls_BOPAlgo_AlertUnableToOrientTheShape.def("DynamicType", (const opencascade::handle<Standard_Type> & (BOPAlgo_AlertUnableToOrientTheShape::*)() const) &BOPAlgo_AlertUnableToOrientTheShape::DynamicType, "None");
+
+// CLASS: BOPALGO_ALERTUNKNOWNSHAPE
+py::class_<BOPAlgo_AlertUnknownShape, opencascade::handle<BOPAlgo_AlertUnknownShape>, TopoDS_AlertWithShape> cls_BOPAlgo_AlertUnknownShape(mod, "BOPAlgo_AlertUnknownShape", "Shape is unknown for operation");
+
+// Constructors
+cls_BOPAlgo_AlertUnknownShape.def(py::init<const TopoDS_Shape &>(), py::arg("theShape"));
+
+// Methods
+cls_BOPAlgo_AlertUnknownShape.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertUnknownShape::get_type_name, "None");
+cls_BOPAlgo_AlertUnknownShape.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertUnknownShape::get_type_descriptor, "None");
+cls_BOPAlgo_AlertUnknownShape.def("DynamicType", (const opencascade::handle<Standard_Type> & (BOPAlgo_AlertUnknownShape::*)() const) &BOPAlgo_AlertUnknownShape::DynamicType, "None");
+
+// CLASS: BOPALGO_ALERTNOPERIODICITYREQUIRED
+py::class_<BOPAlgo_AlertNoPeriodicityRequired, opencascade::handle<BOPAlgo_AlertNoPeriodicityRequired>, Message_Alert> cls_BOPAlgo_AlertNoPeriodicityRequired(mod, "BOPAlgo_AlertNoPeriodicityRequired", "No periodicity has been requested for the shape");
+
+// Methods
+cls_BOPAlgo_AlertNoPeriodicityRequired.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertNoPeriodicityRequired::get_type_name, "None");
+cls_BOPAlgo_AlertNoPeriodicityRequired.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertNoPeriodicityRequired::get_type_descriptor, "None");
+cls_BOPAlgo_AlertNoPeriodicityRequired.def("DynamicType", (const opencascade::handle<Standard_Type> & (BOPAlgo_AlertNoPeriodicityRequired::*)() const) &BOPAlgo_AlertNoPeriodicityRequired::DynamicType, "None");
+
+// CLASS: BOPALGO_ALERTUNABLETOTRIM
+py::class_<BOPAlgo_AlertUnableToTrim, opencascade::handle<BOPAlgo_AlertUnableToTrim>, TopoDS_AlertWithShape> cls_BOPAlgo_AlertUnableToTrim(mod, "BOPAlgo_AlertUnableToTrim", "Unable to trim the shape for making it periodic (BOP Common fails)");
+
+// Constructors
+cls_BOPAlgo_AlertUnableToTrim.def(py::init<const TopoDS_Shape &>(), py::arg("theShape"));
+
+// Methods
+cls_BOPAlgo_AlertUnableToTrim.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertUnableToTrim::get_type_name, "None");
+cls_BOPAlgo_AlertUnableToTrim.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertUnableToTrim::get_type_descriptor, "None");
+cls_BOPAlgo_AlertUnableToTrim.def("DynamicType", (const opencascade::handle<Standard_Type> & (BOPAlgo_AlertUnableToTrim::*)() const) &BOPAlgo_AlertUnableToTrim::DynamicType, "None");
+
+// CLASS: BOPALGO_ALERTUNABLETOMAKEIDENTICAL
+py::class_<BOPAlgo_AlertUnableToMakeIdentical, opencascade::handle<BOPAlgo_AlertUnableToMakeIdentical>, TopoDS_AlertWithShape> cls_BOPAlgo_AlertUnableToMakeIdentical(mod, "BOPAlgo_AlertUnableToMakeIdentical", "Unable to make the shape to look identical on opposite sides (Splitter fails)");
+
+// Constructors
+cls_BOPAlgo_AlertUnableToMakeIdentical.def(py::init<const TopoDS_Shape &>(), py::arg("theShape"));
+
+// Methods
+cls_BOPAlgo_AlertUnableToMakeIdentical.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertUnableToMakeIdentical::get_type_name, "None");
+cls_BOPAlgo_AlertUnableToMakeIdentical.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertUnableToMakeIdentical::get_type_descriptor, "None");
+cls_BOPAlgo_AlertUnableToMakeIdentical.def("DynamicType", (const opencascade::handle<Standard_Type> & (BOPAlgo_AlertUnableToMakeIdentical::*)() const) &BOPAlgo_AlertUnableToMakeIdentical::DynamicType, "None");
+
+// CLASS: BOPALGO_ALERTUNABLETOREPEAT
+py::class_<BOPAlgo_AlertUnableToRepeat, opencascade::handle<BOPAlgo_AlertUnableToRepeat>, TopoDS_AlertWithShape> cls_BOPAlgo_AlertUnableToRepeat(mod, "BOPAlgo_AlertUnableToRepeat", "Unable to repeat the shape (Gluer fails)");
+
+// Constructors
+cls_BOPAlgo_AlertUnableToRepeat.def(py::init<const TopoDS_Shape &>(), py::arg("theShape"));
+
+// Methods
+cls_BOPAlgo_AlertUnableToRepeat.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertUnableToRepeat::get_type_name, "None");
+cls_BOPAlgo_AlertUnableToRepeat.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertUnableToRepeat::get_type_descriptor, "None");
+cls_BOPAlgo_AlertUnableToRepeat.def("DynamicType", (const opencascade::handle<Standard_Type> & (BOPAlgo_AlertUnableToRepeat::*)() const) &BOPAlgo_AlertUnableToRepeat::DynamicType, "None");
+
+// CLASS: BOPALGO_ALERTMULTIDIMENSIONALARGUMENTS
+py::class_<BOPAlgo_AlertMultiDimensionalArguments, opencascade::handle<BOPAlgo_AlertMultiDimensionalArguments>, Message_Alert> cls_BOPAlgo_AlertMultiDimensionalArguments(mod, "BOPAlgo_AlertMultiDimensionalArguments", "Multi-dimensional arguments");
+
+// Methods
+cls_BOPAlgo_AlertMultiDimensionalArguments.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertMultiDimensionalArguments::get_type_name, "None");
+cls_BOPAlgo_AlertMultiDimensionalArguments.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertMultiDimensionalArguments::get_type_descriptor, "None");
+cls_BOPAlgo_AlertMultiDimensionalArguments.def("DynamicType", (const opencascade::handle<Standard_Type> & (BOPAlgo_AlertMultiDimensionalArguments::*)() const) &BOPAlgo_AlertMultiDimensionalArguments::DynamicType, "None");
+
+// CLASS: BOPALGO_ALERTUNABLETOMAKEPERIODIC
+py::class_<BOPAlgo_AlertUnableToMakePeriodic, opencascade::handle<BOPAlgo_AlertUnableToMakePeriodic>, TopoDS_AlertWithShape> cls_BOPAlgo_AlertUnableToMakePeriodic(mod, "BOPAlgo_AlertUnableToMakePeriodic", "Unable to make the shape periodic");
+
+// Constructors
+cls_BOPAlgo_AlertUnableToMakePeriodic.def(py::init<const TopoDS_Shape &>(), py::arg("theShape"));
+
+// Methods
+cls_BOPAlgo_AlertUnableToMakePeriodic.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertUnableToMakePeriodic::get_type_name, "None");
+cls_BOPAlgo_AlertUnableToMakePeriodic.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertUnableToMakePeriodic::get_type_descriptor, "None");
+cls_BOPAlgo_AlertUnableToMakePeriodic.def("DynamicType", (const opencascade::handle<Standard_Type> & (BOPAlgo_AlertUnableToMakePeriodic::*)() const) &BOPAlgo_AlertUnableToMakePeriodic::DynamicType, "None");
+
+// CLASS: BOPALGO_ALERTUNABLETOGLUE
+py::class_<BOPAlgo_AlertUnableToGlue, opencascade::handle<BOPAlgo_AlertUnableToGlue>, TopoDS_AlertWithShape> cls_BOPAlgo_AlertUnableToGlue(mod, "BOPAlgo_AlertUnableToGlue", "Unable to glue the shapes");
+
+// Constructors
+cls_BOPAlgo_AlertUnableToGlue.def(py::init<const TopoDS_Shape &>(), py::arg("theShape"));
+
+// Methods
+cls_BOPAlgo_AlertUnableToGlue.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertUnableToGlue::get_type_name, "None");
+cls_BOPAlgo_AlertUnableToGlue.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertUnableToGlue::get_type_descriptor, "None");
+cls_BOPAlgo_AlertUnableToGlue.def("DynamicType", (const opencascade::handle<Standard_Type> & (BOPAlgo_AlertUnableToGlue::*)() const) &BOPAlgo_AlertUnableToGlue::DynamicType, "None");
+
+// CLASS: BOPALGO_ALERTSHAPEISNOTPERIODIC
+py::class_<BOPAlgo_AlertShapeIsNotPeriodic, opencascade::handle<BOPAlgo_AlertShapeIsNotPeriodic>, TopoDS_AlertWithShape> cls_BOPAlgo_AlertShapeIsNotPeriodic(mod, "BOPAlgo_AlertShapeIsNotPeriodic", "The shape is not periodic");
+
+// Constructors
+cls_BOPAlgo_AlertShapeIsNotPeriodic.def(py::init<const TopoDS_Shape &>(), py::arg("theShape"));
+
+// Methods
+cls_BOPAlgo_AlertShapeIsNotPeriodic.def_static("get_type_name_", (const char * (*)()) &BOPAlgo_AlertShapeIsNotPeriodic::get_type_name, "None");
+cls_BOPAlgo_AlertShapeIsNotPeriodic.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BOPAlgo_AlertShapeIsNotPeriodic::get_type_descriptor, "None");
+cls_BOPAlgo_AlertShapeIsNotPeriodic.def("DynamicType", (const opencascade::handle<Standard_Type> & (BOPAlgo_AlertShapeIsNotPeriodic::*)() const) &BOPAlgo_AlertShapeIsNotPeriodic::DynamicType, "None");
 
 // CLASS: BOPALGO_OPTIONS
 py::class_<BOPAlgo_Options> cls_BOPAlgo_Options(mod, "BOPAlgo_Options", "The class provides the following options for the algorithms in Boolean Component: - *Memory allocation tool* - tool for memory allocations; - *Error and warning reporting* - allows recording warnings and errors occurred during the operation. Error means that the algorithm has failed. - *Parallel processing mode* - provides the possibility to perform operation in parallel mode; - *Fuzzy tolerance* - additional tolerance for the operation to detect touching or coinciding cases; - *Progress indicator* - provides interface to track the progress of operation and stop the operation by user's break. - *Using the Oriented Bounding Boxes* - Allows using the Oriented Bounding Boxes of the shapes for filtering the intersections.");
@@ -578,7 +687,7 @@ cls_BOPAlgo_ArgumentAnalyzer.def("GetCheckResult", (const BOPAlgo_ListOfCheckRes
 // TYPEDEF: BOPALGO_PPAVEFILLER
 
 // CLASS: BOPALGO_BUILDERSHAPE
-py::class_<BOPAlgo_BuilderShape, std::unique_ptr<BOPAlgo_BuilderShape, py::nodelete>, BOPAlgo_Algo> cls_BOPAlgo_BuilderShape(mod, "BOPAlgo_BuilderShape", "Root class for algorithms that has shape as result. The class provides the History mechanism, which allows tracking the modification of the input shapes during the operation.");
+py::class_<BOPAlgo_BuilderShape, BOPAlgo_Algo> cls_BOPAlgo_BuilderShape(mod, "BOPAlgo_BuilderShape", "Root class for algorithms that has shape as result.");
 
 // Methods
 // cls_BOPAlgo_BuilderShape.def_static("operator new_", (void * (*)(size_t)) &BOPAlgo_BuilderShape::operator new, "None", py::arg("theSize"));
@@ -588,13 +697,15 @@ py::class_<BOPAlgo_BuilderShape, std::unique_ptr<BOPAlgo_BuilderShape, py::nodel
 // cls_BOPAlgo_BuilderShape.def_static("operator new_", (void * (*)(size_t, void *)) &BOPAlgo_BuilderShape::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_BOPAlgo_BuilderShape.def_static("operator delete_", (void (*)(void *, void *)) &BOPAlgo_BuilderShape::operator delete, "None", py::arg(""), py::arg(""));
 cls_BOPAlgo_BuilderShape.def("Shape", (const TopoDS_Shape & (BOPAlgo_BuilderShape::*)() const) &BOPAlgo_BuilderShape::Shape, "Returns the result of algorithm");
-cls_BOPAlgo_BuilderShape.def("Generated", (const TopTools_ListOfShape & (BOPAlgo_BuilderShape::*)(const TopoDS_Shape &)) &BOPAlgo_BuilderShape::Generated, "Returns the list of shapes generated from the shape theS.", py::arg("theS"));
-cls_BOPAlgo_BuilderShape.def("Modified", (const TopTools_ListOfShape & (BOPAlgo_BuilderShape::*)(const TopoDS_Shape &)) &BOPAlgo_BuilderShape::Modified, "Returns the list of shapes modified from the shape theS.", py::arg("theS"));
-cls_BOPAlgo_BuilderShape.def("IsDeleted", (Standard_Boolean (BOPAlgo_BuilderShape::*)(const TopoDS_Shape &)) &BOPAlgo_BuilderShape::IsDeleted, "Returns true if the shape theS has been deleted.", py::arg("theS"));
-cls_BOPAlgo_BuilderShape.def("HasDeleted", (Standard_Boolean (BOPAlgo_BuilderShape::*)() const) &BOPAlgo_BuilderShape::HasDeleted, "Returns true if the at least one shape(or subshape) of arguments has been deleted.");
-cls_BOPAlgo_BuilderShape.def("HasGenerated", (Standard_Boolean (BOPAlgo_BuilderShape::*)() const) &BOPAlgo_BuilderShape::HasGenerated, "Returns true if the at least one shape(or subshape) of arguments has generated shapes.");
-cls_BOPAlgo_BuilderShape.def("HasModified", (Standard_Boolean (BOPAlgo_BuilderShape::*)() const) &BOPAlgo_BuilderShape::HasModified, "Returns true if the at least one shape(or subshape) of arguments has modified shapes.");
-cls_BOPAlgo_BuilderShape.def("ImagesResult", (const TopTools_IndexedDataMapOfShapeListOfShape & (BOPAlgo_BuilderShape::*)() const) &BOPAlgo_BuilderShape::ImagesResult, "None");
+cls_BOPAlgo_BuilderShape.def("Modified", (const TopTools_ListOfShape & (BOPAlgo_BuilderShape::*)(const TopoDS_Shape &)) &BOPAlgo_BuilderShape::Modified, "Returns the list of shapes Modified from the shape theS.", py::arg("theS"));
+cls_BOPAlgo_BuilderShape.def("Generated", (const TopTools_ListOfShape & (BOPAlgo_BuilderShape::*)(const TopoDS_Shape &)) &BOPAlgo_BuilderShape::Generated, "Returns the list of shapes Generated from the shape theS.", py::arg("theS"));
+cls_BOPAlgo_BuilderShape.def("IsDeleted", (Standard_Boolean (BOPAlgo_BuilderShape::*)(const TopoDS_Shape &)) &BOPAlgo_BuilderShape::IsDeleted, "Returns true if the shape theS has been deleted. In this case the shape will have no Modified elements, but can have Generated elements.", py::arg("theS"));
+cls_BOPAlgo_BuilderShape.def("HasModified", (Standard_Boolean (BOPAlgo_BuilderShape::*)() const) &BOPAlgo_BuilderShape::HasModified, "Returns true if any of the input shapes has been modified during operation.");
+cls_BOPAlgo_BuilderShape.def("HasGenerated", (Standard_Boolean (BOPAlgo_BuilderShape::*)() const) &BOPAlgo_BuilderShape::HasGenerated, "Returns true if any of the input shapes has generated shapes during operation.");
+cls_BOPAlgo_BuilderShape.def("HasDeleted", (Standard_Boolean (BOPAlgo_BuilderShape::*)() const) &BOPAlgo_BuilderShape::HasDeleted, "Returns true if any of the input shapes has been deleted during operation.");
+cls_BOPAlgo_BuilderShape.def("History", (opencascade::handle<BRepTools_History> (BOPAlgo_BuilderShape::*)()) &BOPAlgo_BuilderShape::History, "History Tool");
+cls_BOPAlgo_BuilderShape.def("SetToFillHistory", (void (BOPAlgo_BuilderShape::*)(const Standard_Boolean)) &BOPAlgo_BuilderShape::SetToFillHistory, "Allows disabling the history collection", py::arg("theHistFlag"));
+cls_BOPAlgo_BuilderShape.def("HasHistory", (Standard_Boolean (BOPAlgo_BuilderShape::*)() const) &BOPAlgo_BuilderShape::HasHistory, "Returns flag of history availability");
 
 // CLASS: BOPALGO_BUILDER
 py::class_<BOPAlgo_Builder, BOPAlgo_BuilderShape> cls_BOPAlgo_Builder(mod, "BOPAlgo_Builder", "The class is a General Fuse algorithm - base algorithm for the algorithms in the Boolean Component. Its main purpose is to build the split parts of the argument shapes from which the result of the operations is combined. The result of the General Fuse algorithm itself is a compound containing all split parts of the arguments.");
@@ -625,9 +736,8 @@ cls_BOPAlgo_Builder.def("SetCheckInverted", (void (BOPAlgo_Builder::*)(const Sta
 cls_BOPAlgo_Builder.def("CheckInverted", (Standard_Boolean (BOPAlgo_Builder::*)() const) &BOPAlgo_Builder::CheckInverted, "Returns the flag defining whether the check for input solids on inverted status should be performed or not.");
 cls_BOPAlgo_Builder.def("Perform", (void (BOPAlgo_Builder::*)()) &BOPAlgo_Builder::Perform, "Performs the operation. The intersection will be performed also.");
 cls_BOPAlgo_Builder.def("PerformWithFiller", (void (BOPAlgo_Builder::*)(const BOPAlgo_PaveFiller &)) &BOPAlgo_Builder::PerformWithFiller, "Performs the operation with the prepared filler. The intersection will not be performed in this case.", py::arg("theFiller"));
-cls_BOPAlgo_Builder.def("Generated", (const TopTools_ListOfShape & (BOPAlgo_Builder::*)(const TopoDS_Shape &)) &BOPAlgo_Builder::Generated, "Returns the list of shapes generated from the shape theS.", py::arg("theS"));
-cls_BOPAlgo_Builder.def("Modified", (const TopTools_ListOfShape & (BOPAlgo_Builder::*)(const TopoDS_Shape &)) &BOPAlgo_Builder::Modified, "Returns the list of shapes modified from the shape theS.", py::arg("theS"));
-cls_BOPAlgo_Builder.def("IsDeleted", (Standard_Boolean (BOPAlgo_Builder::*)(const TopoDS_Shape &)) &BOPAlgo_Builder::IsDeleted, "Returns true if the shape theS has been deleted.", py::arg("theS"));
+cls_BOPAlgo_Builder.def("BuildBOP", (void (BOPAlgo_Builder::*)(const TopTools_ListOfShape &, const TopAbs_State, const TopTools_ListOfShape &, const TopAbs_State, opencascade::handle<Message_Report>)) &BOPAlgo_Builder::BuildBOP, "Builds the result shape according to the given states for the objects and tools. These states can be unambiguously converted into the Boolean operation type. Thus, it performs the Boolean operation on the given groups of shapes.", py::arg("theObjects"), py::arg("theObjState"), py::arg("theTools"), py::arg("theToolsState"), py::arg("theReport"));
+cls_BOPAlgo_Builder.def("BuildBOP", (void (BOPAlgo_Builder::*)(const TopTools_ListOfShape &, const TopTools_ListOfShape &, const BOPAlgo_Operation, opencascade::handle<Message_Report>)) &BOPAlgo_Builder::BuildBOP, "Builds the result of Boolean operation of given type basing on the result of Builder operation (GF or any other).", py::arg("theObjects"), py::arg("theTools"), py::arg("theOperation"), py::arg("theReport"));
 cls_BOPAlgo_Builder.def("Images", (const TopTools_DataMapOfShapeListOfShape & (BOPAlgo_Builder::*)() const) &BOPAlgo_Builder::Images, "Returns the map of images.");
 cls_BOPAlgo_Builder.def("Origins", (const TopTools_DataMapOfShapeListOfShape & (BOPAlgo_Builder::*)() const) &BOPAlgo_Builder::Origins, "Returns the map of origins.");
 cls_BOPAlgo_Builder.def("ShapesSD", (const TopTools_DataMapOfShapeShape & (BOPAlgo_Builder::*)() const) &BOPAlgo_Builder::ShapesSD, "Returns the map of Same Domain (SD) shapes - coinciding shapes from different arguments.");
@@ -783,8 +893,9 @@ cls_BOPAlgo_PaveFiller.def(py::init<const opencascade::handle<NCollection_BaseAl
 cls_BOPAlgo_PaveFiller.def("DS", (const BOPDS_DS & (BOPAlgo_PaveFiller::*)()) &BOPAlgo_PaveFiller::DS, "None");
 cls_BOPAlgo_PaveFiller.def("PDS", (BOPDS_PDS (BOPAlgo_PaveFiller::*)()) &BOPAlgo_PaveFiller::PDS, "None");
 // cls_BOPAlgo_PaveFiller.def("Iterator", (const BOPDS_PIterator & (BOPAlgo_PaveFiller::*)()) &BOPAlgo_PaveFiller::Iterator, "None");
-cls_BOPAlgo_PaveFiller.def("SetArguments", (void (BOPAlgo_PaveFiller::*)(const TopTools_ListOfShape &)) &BOPAlgo_PaveFiller::SetArguments, "None", py::arg("theLS"));
-cls_BOPAlgo_PaveFiller.def("Arguments", (const TopTools_ListOfShape & (BOPAlgo_PaveFiller::*)() const) &BOPAlgo_PaveFiller::Arguments, "None");
+cls_BOPAlgo_PaveFiller.def("SetArguments", (void (BOPAlgo_PaveFiller::*)(const TopTools_ListOfShape &)) &BOPAlgo_PaveFiller::SetArguments, "Sets the arguments for operation", py::arg("theLS"));
+cls_BOPAlgo_PaveFiller.def("AddArgument", (void (BOPAlgo_PaveFiller::*)(const TopoDS_Shape &)) &BOPAlgo_PaveFiller::AddArgument, "Adds the argument for operation", py::arg("theShape"));
+cls_BOPAlgo_PaveFiller.def("Arguments", (const TopTools_ListOfShape & (BOPAlgo_PaveFiller::*)() const) &BOPAlgo_PaveFiller::Arguments, "Returns the list of arguments");
 cls_BOPAlgo_PaveFiller.def("Context", (const opencascade::handle<IntTools_Context> & (BOPAlgo_PaveFiller::*)()) &BOPAlgo_PaveFiller::Context, "None");
 cls_BOPAlgo_PaveFiller.def("SetSectionAttribute", (void (BOPAlgo_PaveFiller::*)(const BOPAlgo_SectionAttribute &)) &BOPAlgo_PaveFiller::SetSectionAttribute, "None", py::arg("theSecAttr"));
 cls_BOPAlgo_PaveFiller.def("SetNonDestructive", (void (BOPAlgo_PaveFiller::*)(const Standard_Boolean)) &BOPAlgo_PaveFiller::SetNonDestructive, "Sets the flag that defines the mode of treatment. In non-destructive mode the argument shapes are not modified. Instead a copy of a sub-shape is created in the result if it is needed to be updated.", py::arg("theFlag"));
@@ -810,6 +921,97 @@ cls_BOPAlgo_CheckerSI.def(py::init<>());
 // cls_BOPAlgo_CheckerSI.def_static("operator delete_", (void (*)(void *, void *)) &BOPAlgo_CheckerSI::operator delete, "None", py::arg(""), py::arg(""));
 cls_BOPAlgo_CheckerSI.def("Perform", (void (BOPAlgo_CheckerSI::*)()) &BOPAlgo_CheckerSI::Perform, "None");
 cls_BOPAlgo_CheckerSI.def("SetLevelOfCheck", (void (BOPAlgo_CheckerSI::*)(const Standard_Integer)) &BOPAlgo_CheckerSI::SetLevelOfCheck, "Sets the level of checking shape on self-interference. It defines which interferences will be checked: 0 - only V/V; 1 - V/V and V/E; 2 - V/V, V/E and E/E; 3 - V/V, V/E, E/E and V/F; 4 - V/V, V/E, E/E, V/F and E/F; 5 - V/V, V/E, E/E, V/F, E/F and F/F; 6 - V/V, V/E, E/E, V/F, E/F, F/F and V/S; 7 - V/V, V/E, E/E, V/F, E/F, F/F, V/S and E/S; 8 - V/V, V/E, E/E, V/F, E/F, F/F, V/S, E/S and F/S; 9 - V/V, V/E, E/E, V/F, E/F, F/F, V/S, E/S, F/S and S/S - all interferences (Default value)", py::arg("theLevel"));
+
+// CLASS: BOPALGO_MAKEPERIODIC
+py::class_<BOPAlgo_MakePeriodic, BOPAlgo_Options> cls_BOPAlgo_MakePeriodic(mod, "BOPAlgo_MakePeriodic", "BOPAlgo_MakePeriodic is the tool for making an arbitrary shape periodic in 3D space in specified directions.");
+
+// Constructors
+cls_BOPAlgo_MakePeriodic.def(py::init<>());
+
+// Methods
+// cls_BOPAlgo_MakePeriodic.def_static("operator new_", (void * (*)(size_t)) &BOPAlgo_MakePeriodic::operator new, "None", py::arg("theSize"));
+// cls_BOPAlgo_MakePeriodic.def_static("operator delete_", (void (*)(void *)) &BOPAlgo_MakePeriodic::operator delete, "None", py::arg("theAddress"));
+// cls_BOPAlgo_MakePeriodic.def_static("operator new[]_", (void * (*)(size_t)) &BOPAlgo_MakePeriodic::operator new[], "None", py::arg("theSize"));
+// cls_BOPAlgo_MakePeriodic.def_static("operator delete[]_", (void (*)(void *)) &BOPAlgo_MakePeriodic::operator delete[], "None", py::arg("theAddress"));
+// cls_BOPAlgo_MakePeriodic.def_static("operator new_", (void * (*)(size_t, void *)) &BOPAlgo_MakePeriodic::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_BOPAlgo_MakePeriodic.def_static("operator delete_", (void (*)(void *, void *)) &BOPAlgo_MakePeriodic::operator delete, "None", py::arg(""), py::arg(""));
+cls_BOPAlgo_MakePeriodic.def("SetShape", (void (BOPAlgo_MakePeriodic::*)(const TopoDS_Shape &)) &BOPAlgo_MakePeriodic::SetShape, "Sets the shape to make it periodic.", py::arg("theShape"));
+cls_BOPAlgo_MakePeriodic.def("SetPeriodicityParameters", (void (BOPAlgo_MakePeriodic::*)(const BOPAlgo_MakePeriodic::PeriodicityParams &)) &BOPAlgo_MakePeriodic::SetPeriodicityParameters, "Sets the periodicity parameters.", py::arg("theParams"));
+cls_BOPAlgo_MakePeriodic.def("PeriodicityParameters", (const BOPAlgo_MakePeriodic::PeriodicityParams & (BOPAlgo_MakePeriodic::*)() const) &BOPAlgo_MakePeriodic::PeriodicityParameters, "None");
+cls_BOPAlgo_MakePeriodic.def("MakePeriodic", [](BOPAlgo_MakePeriodic &self, const Standard_Integer a0, const Standard_Boolean a1) -> void { return self.MakePeriodic(a0, a1); });
+cls_BOPAlgo_MakePeriodic.def("MakePeriodic", (void (BOPAlgo_MakePeriodic::*)(const Standard_Integer, const Standard_Boolean, const Standard_Real)) &BOPAlgo_MakePeriodic::MakePeriodic, "Sets the flag to make the shape periodic in specified direction: - 0 - X direction; - 1 - Y direction; - 2 - Z direction.", py::arg("theDirectionID"), py::arg("theIsPeriodic"), py::arg("thePeriod"));
+cls_BOPAlgo_MakePeriodic.def("IsPeriodic", (Standard_Boolean (BOPAlgo_MakePeriodic::*)(const Standard_Integer) const) &BOPAlgo_MakePeriodic::IsPeriodic, "Returns the info about Periodicity of the shape in specified direction.", py::arg("theDirectionID"));
+cls_BOPAlgo_MakePeriodic.def("Period", (Standard_Real (BOPAlgo_MakePeriodic::*)(const Standard_Integer) const) &BOPAlgo_MakePeriodic::Period, "Returns the Period of the shape in specified direction.", py::arg("theDirectionID"));
+cls_BOPAlgo_MakePeriodic.def("MakeXPeriodic", [](BOPAlgo_MakePeriodic &self, const Standard_Boolean a0) -> void { return self.MakeXPeriodic(a0); });
+cls_BOPAlgo_MakePeriodic.def("MakeXPeriodic", (void (BOPAlgo_MakePeriodic::*)(const Standard_Boolean, const Standard_Real)) &BOPAlgo_MakePeriodic::MakeXPeriodic, "Sets the flag to make the shape periodic in X direction.", py::arg("theIsPeriodic"), py::arg("thePeriod"));
+cls_BOPAlgo_MakePeriodic.def("IsXPeriodic", (Standard_Boolean (BOPAlgo_MakePeriodic::*)() const) &BOPAlgo_MakePeriodic::IsXPeriodic, "Returns the info about periodicity of the shape in X direction.");
+cls_BOPAlgo_MakePeriodic.def("XPeriod", (Standard_Real (BOPAlgo_MakePeriodic::*)() const) &BOPAlgo_MakePeriodic::XPeriod, "Returns the XPeriod of the shape");
+cls_BOPAlgo_MakePeriodic.def("MakeYPeriodic", [](BOPAlgo_MakePeriodic &self, const Standard_Boolean a0) -> void { return self.MakeYPeriodic(a0); });
+cls_BOPAlgo_MakePeriodic.def("MakeYPeriodic", (void (BOPAlgo_MakePeriodic::*)(const Standard_Boolean, const Standard_Real)) &BOPAlgo_MakePeriodic::MakeYPeriodic, "Sets the flag to make the shape periodic in Y direction.", py::arg("theIsPeriodic"), py::arg("thePeriod"));
+cls_BOPAlgo_MakePeriodic.def("IsYPeriodic", (Standard_Boolean (BOPAlgo_MakePeriodic::*)() const) &BOPAlgo_MakePeriodic::IsYPeriodic, "Returns the info about periodicity of the shape in Y direction.");
+cls_BOPAlgo_MakePeriodic.def("YPeriod", (Standard_Real (BOPAlgo_MakePeriodic::*)() const) &BOPAlgo_MakePeriodic::YPeriod, "Returns the YPeriod of the shape.");
+cls_BOPAlgo_MakePeriodic.def("MakeZPeriodic", [](BOPAlgo_MakePeriodic &self, const Standard_Boolean a0) -> void { return self.MakeZPeriodic(a0); });
+cls_BOPAlgo_MakePeriodic.def("MakeZPeriodic", (void (BOPAlgo_MakePeriodic::*)(const Standard_Boolean, const Standard_Real)) &BOPAlgo_MakePeriodic::MakeZPeriodic, "Sets the flag to make the shape periodic in Z direction.", py::arg("theIsPeriodic"), py::arg("thePeriod"));
+cls_BOPAlgo_MakePeriodic.def("IsZPeriodic", (Standard_Boolean (BOPAlgo_MakePeriodic::*)() const) &BOPAlgo_MakePeriodic::IsZPeriodic, "Returns the info about periodicity of the shape in Z direction.");
+cls_BOPAlgo_MakePeriodic.def("ZPeriod", (Standard_Real (BOPAlgo_MakePeriodic::*)() const) &BOPAlgo_MakePeriodic::ZPeriod, "Returns the ZPeriod of the shape.");
+cls_BOPAlgo_MakePeriodic.def("SetTrimmed", [](BOPAlgo_MakePeriodic &self, const Standard_Integer a0, const Standard_Boolean a1) -> void { return self.SetTrimmed(a0, a1); });
+cls_BOPAlgo_MakePeriodic.def("SetTrimmed", (void (BOPAlgo_MakePeriodic::*)(const Standard_Integer, const Standard_Boolean, const Standard_Real)) &BOPAlgo_MakePeriodic::SetTrimmed, "Defines whether the input shape is already trimmed in specified direction to fit the period in this direction. Direction is defined by an ID: - 0 - X direction; - 1 - Y direction; - 2 - Z direction.", py::arg("theDirectionID"), py::arg("theIsTrimmed"), py::arg("theFirst"));
+cls_BOPAlgo_MakePeriodic.def("IsInputTrimmed", (Standard_Boolean (BOPAlgo_MakePeriodic::*)(const Standard_Integer) const) &BOPAlgo_MakePeriodic::IsInputTrimmed, "Returns whether the input shape was trimmed in the specified direction.", py::arg("theDirectionID"));
+cls_BOPAlgo_MakePeriodic.def("PeriodFirst", (Standard_Real (BOPAlgo_MakePeriodic::*)(const Standard_Integer) const) &BOPAlgo_MakePeriodic::PeriodFirst, "Returns the first periodic parameter in the specified direction.", py::arg("theDirectionID"));
+cls_BOPAlgo_MakePeriodic.def("SetXTrimmed", [](BOPAlgo_MakePeriodic &self, const Standard_Boolean a0) -> void { return self.SetXTrimmed(a0); });
+cls_BOPAlgo_MakePeriodic.def("SetXTrimmed", (void (BOPAlgo_MakePeriodic::*)(const Standard_Boolean, const Standard_Boolean)) &BOPAlgo_MakePeriodic::SetXTrimmed, "Defines whether the input shape is already trimmed in X direction to fit the X period. If the shape is not trimmed it is required to set the first parameter for the X period. The algorithm will make the shape fit into the period.", py::arg("theIsTrimmed"), py::arg("theFirst"));
+cls_BOPAlgo_MakePeriodic.def("IsInputXTrimmed", (Standard_Boolean (BOPAlgo_MakePeriodic::*)() const) &BOPAlgo_MakePeriodic::IsInputXTrimmed, "Returns whether the input shape was already trimmed for X period.");
+cls_BOPAlgo_MakePeriodic.def("XPeriodFirst", (Standard_Real (BOPAlgo_MakePeriodic::*)() const) &BOPAlgo_MakePeriodic::XPeriodFirst, "Returns the first parameter for the X period.");
+cls_BOPAlgo_MakePeriodic.def("SetYTrimmed", [](BOPAlgo_MakePeriodic &self, const Standard_Boolean a0) -> void { return self.SetYTrimmed(a0); });
+cls_BOPAlgo_MakePeriodic.def("SetYTrimmed", (void (BOPAlgo_MakePeriodic::*)(const Standard_Boolean, const Standard_Boolean)) &BOPAlgo_MakePeriodic::SetYTrimmed, "Defines whether the input shape is already trimmed in Y direction to fit the Y period. If the shape is not trimmed it is required to set the first parameter for the Y period. The algorithm will make the shape fit into the period.", py::arg("theIsTrimmed"), py::arg("theFirst"));
+cls_BOPAlgo_MakePeriodic.def("IsInputYTrimmed", (Standard_Boolean (BOPAlgo_MakePeriodic::*)() const) &BOPAlgo_MakePeriodic::IsInputYTrimmed, "Returns whether the input shape was already trimmed for Y period.");
+cls_BOPAlgo_MakePeriodic.def("YPeriodFirst", (Standard_Real (BOPAlgo_MakePeriodic::*)() const) &BOPAlgo_MakePeriodic::YPeriodFirst, "Returns the first parameter for the Y period.");
+cls_BOPAlgo_MakePeriodic.def("SetZTrimmed", [](BOPAlgo_MakePeriodic &self, const Standard_Boolean a0) -> void { return self.SetZTrimmed(a0); });
+cls_BOPAlgo_MakePeriodic.def("SetZTrimmed", (void (BOPAlgo_MakePeriodic::*)(const Standard_Boolean, const Standard_Boolean)) &BOPAlgo_MakePeriodic::SetZTrimmed, "Defines whether the input shape is already trimmed in Z direction to fit the Z period. If the shape is not trimmed it is required to set the first parameter for the Z period. The algorithm will make the shape fit into the period.", py::arg("theIsTrimmed"), py::arg("theFirst"));
+cls_BOPAlgo_MakePeriodic.def("IsInputZTrimmed", (Standard_Boolean (BOPAlgo_MakePeriodic::*)() const) &BOPAlgo_MakePeriodic::IsInputZTrimmed, "Returns whether the input shape was already trimmed for Z period.");
+cls_BOPAlgo_MakePeriodic.def("ZPeriodFirst", (Standard_Real (BOPAlgo_MakePeriodic::*)() const) &BOPAlgo_MakePeriodic::ZPeriodFirst, "Returns the first parameter for the Z period.");
+cls_BOPAlgo_MakePeriodic.def("Perform", (void (BOPAlgo_MakePeriodic::*)()) &BOPAlgo_MakePeriodic::Perform, "Makes the shape periodic in necessary directions");
+cls_BOPAlgo_MakePeriodic.def("RepeatShape", (const TopoDS_Shape & (BOPAlgo_MakePeriodic::*)(const Standard_Integer, const Standard_Integer)) &BOPAlgo_MakePeriodic::RepeatShape, "Performs repetition of the shape in specified direction required number of times. Negative value of times means that the repetition should be perform in negative direction. Makes the repeated shape a base for following repetitions.", py::arg("theDirectionID"), py::arg("theTimes"));
+cls_BOPAlgo_MakePeriodic.def("XRepeat", (const TopoDS_Shape & (BOPAlgo_MakePeriodic::*)(const Standard_Integer)) &BOPAlgo_MakePeriodic::XRepeat, "Repeats the shape in X direction specified number of times. Negative value of times means that the repetition should be perform in negative X direction. Makes the repeated shape a base for following repetitions.", py::arg("theTimes"));
+cls_BOPAlgo_MakePeriodic.def("YRepeat", (const TopoDS_Shape & (BOPAlgo_MakePeriodic::*)(const Standard_Integer)) &BOPAlgo_MakePeriodic::YRepeat, "Repeats the shape in Y direction specified number of times. Negative value of times means that the repetition should be perform in negative Y direction. Makes the repeated shape a base for following repetitions.", py::arg("theTimes"));
+cls_BOPAlgo_MakePeriodic.def("ZRepeat", (const TopoDS_Shape & (BOPAlgo_MakePeriodic::*)(const Standard_Integer)) &BOPAlgo_MakePeriodic::ZRepeat, "Repeats the shape in Z direction specified number of times. Negative value of times means that the repetition should be perform in negative Z direction. Makes the repeated shape a base for following repetitions.", py::arg("theTimes"));
+cls_BOPAlgo_MakePeriodic.def("RepeatedShape", (const TopoDS_Shape & (BOPAlgo_MakePeriodic::*)() const) &BOPAlgo_MakePeriodic::RepeatedShape, "Returns the repeated shape");
+cls_BOPAlgo_MakePeriodic.def("ClearRepetitions", (void (BOPAlgo_MakePeriodic::*)()) &BOPAlgo_MakePeriodic::ClearRepetitions, "Clears all performed repetitions. The next repetition will be performed on the base shape.");
+cls_BOPAlgo_MakePeriodic.def("Shape", (const TopoDS_Shape & (BOPAlgo_MakePeriodic::*)() const) &BOPAlgo_MakePeriodic::Shape, "Returns the resulting periodic shape");
+cls_BOPAlgo_MakePeriodic.def("GetTwins", (const TopTools_ListOfShape & (BOPAlgo_MakePeriodic::*)(const TopoDS_Shape &) const) &BOPAlgo_MakePeriodic::GetTwins, "Returns the identical shapes for the given shape located on the opposite periodic side. Returns empty list in case the shape has no twin.", py::arg("theS"));
+cls_BOPAlgo_MakePeriodic.def("History", (const opencascade::handle<BRepTools_History> & (BOPAlgo_MakePeriodic::*)() const) &BOPAlgo_MakePeriodic::History, "Returns the History of the algorithm");
+cls_BOPAlgo_MakePeriodic.def("Clear", (void (BOPAlgo_MakePeriodic::*)()) &BOPAlgo_MakePeriodic::Clear, "Clears the algorithm from previous runs");
+cls_BOPAlgo_MakePeriodic.def_static("ToDirectionID_", (Standard_Integer (*)(const Standard_Integer)) &BOPAlgo_MakePeriodic::ToDirectionID, "Converts the integer to ID of periodic direction", py::arg("theDirectionID"));
+
+// CLASS: BOPALGO_MAKECONNECTED
+py::class_<BOPAlgo_MakeConnected, BOPAlgo_Options> cls_BOPAlgo_MakeConnected(mod, "BOPAlgo_MakeConnected", "BOPAlgo_MakeConnected is the algorithm for making the touching shapes connected or glued, i.e. for making the coinciding geometries be topologically shared among the shapes.");
+
+// Constructors
+cls_BOPAlgo_MakeConnected.def(py::init<>());
+
+// Methods
+// cls_BOPAlgo_MakeConnected.def_static("operator new_", (void * (*)(size_t)) &BOPAlgo_MakeConnected::operator new, "None", py::arg("theSize"));
+// cls_BOPAlgo_MakeConnected.def_static("operator delete_", (void (*)(void *)) &BOPAlgo_MakeConnected::operator delete, "None", py::arg("theAddress"));
+// cls_BOPAlgo_MakeConnected.def_static("operator new[]_", (void * (*)(size_t)) &BOPAlgo_MakeConnected::operator new[], "None", py::arg("theSize"));
+// cls_BOPAlgo_MakeConnected.def_static("operator delete[]_", (void (*)(void *)) &BOPAlgo_MakeConnected::operator delete[], "None", py::arg("theAddress"));
+// cls_BOPAlgo_MakeConnected.def_static("operator new_", (void * (*)(size_t, void *)) &BOPAlgo_MakeConnected::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_BOPAlgo_MakeConnected.def_static("operator delete_", (void (*)(void *, void *)) &BOPAlgo_MakeConnected::operator delete, "None", py::arg(""), py::arg(""));
+cls_BOPAlgo_MakeConnected.def("SetArguments", (void (BOPAlgo_MakeConnected::*)(const TopTools_ListOfShape &)) &BOPAlgo_MakeConnected::SetArguments, "Sets the shape for making them connected.", py::arg("theArgs"));
+cls_BOPAlgo_MakeConnected.def("AddArgument", (void (BOPAlgo_MakeConnected::*)(const TopoDS_Shape &)) &BOPAlgo_MakeConnected::AddArgument, "Adds the shape to the arguments.", py::arg("theS"));
+cls_BOPAlgo_MakeConnected.def("Arguments", (const TopTools_ListOfShape & (BOPAlgo_MakeConnected::*)() const) &BOPAlgo_MakeConnected::Arguments, "Returns the list of arguments of the operation.");
+cls_BOPAlgo_MakeConnected.def("Perform", (void (BOPAlgo_MakeConnected::*)()) &BOPAlgo_MakeConnected::Perform, "Performs the operation, i.e. makes the input shapes connected.");
+cls_BOPAlgo_MakeConnected.def("MakePeriodic", (void (BOPAlgo_MakeConnected::*)(const BOPAlgo_MakePeriodic::PeriodicityParams &)) &BOPAlgo_MakeConnected::MakePeriodic, "Makes the connected shape periodic. Repeated calls of this method overwrite the previous calls working with the basis connected shape.", py::arg("theParams"));
+cls_BOPAlgo_MakeConnected.def("RepeatShape", (void (BOPAlgo_MakeConnected::*)(const Standard_Integer, const Standard_Integer)) &BOPAlgo_MakeConnected::RepeatShape, "Performs repetition of the periodic shape in specified direction required number of times.", py::arg("theDirectionID"), py::arg("theTimes"));
+cls_BOPAlgo_MakeConnected.def("ClearRepetitions", (void (BOPAlgo_MakeConnected::*)()) &BOPAlgo_MakeConnected::ClearRepetitions, "Clears the repetitions performed on the periodic shape, keeping the shape periodic.");
+cls_BOPAlgo_MakeConnected.def("PeriodicityTool", (const BOPAlgo_MakePeriodic & (BOPAlgo_MakeConnected::*)() const) &BOPAlgo_MakeConnected::PeriodicityTool, "Returns the periodicity tool.");
+cls_BOPAlgo_MakeConnected.def("MaterialsOnPositiveSide", (const TopTools_ListOfShape & (BOPAlgo_MakeConnected::*)(const TopoDS_Shape &)) &BOPAlgo_MakeConnected::MaterialsOnPositiveSide, "Returns the original shapes which images contain the the given shape with FORWARD orientation.", py::arg("theS"));
+cls_BOPAlgo_MakeConnected.def("MaterialsOnNegativeSide", (const TopTools_ListOfShape & (BOPAlgo_MakeConnected::*)(const TopoDS_Shape &)) &BOPAlgo_MakeConnected::MaterialsOnNegativeSide, "Returns the original shapes which images contain the the given shape with REVERSED orientation.", py::arg("theS"));
+cls_BOPAlgo_MakeConnected.def("History", (const opencascade::handle<BRepTools_History> & (BOPAlgo_MakeConnected::*)() const) &BOPAlgo_MakeConnected::History, "Returns the history of operations");
+cls_BOPAlgo_MakeConnected.def("GetModified", (const TopTools_ListOfShape & (BOPAlgo_MakeConnected::*)(const TopoDS_Shape &)) &BOPAlgo_MakeConnected::GetModified, "Returns the list of shapes modified from the given shape.", py::arg("theS"));
+cls_BOPAlgo_MakeConnected.def("GetOrigins", (const TopTools_ListOfShape & (BOPAlgo_MakeConnected::*)(const TopoDS_Shape &)) &BOPAlgo_MakeConnected::GetOrigins, "Returns the list of original shapes from which the current shape has been created.", py::arg("theS"));
+cls_BOPAlgo_MakeConnected.def("Shape", (const TopoDS_Shape & (BOPAlgo_MakeConnected::*)() const) &BOPAlgo_MakeConnected::Shape, "Returns the resulting connected shape");
+cls_BOPAlgo_MakeConnected.def("PeriodicShape", (const TopoDS_Shape & (BOPAlgo_MakeConnected::*)() const) &BOPAlgo_MakeConnected::PeriodicShape, "Returns the resulting periodic & repeated shape");
+cls_BOPAlgo_MakeConnected.def("Clear", (void (BOPAlgo_MakeConnected::*)()) &BOPAlgo_MakeConnected::Clear, "Clears the contents of the algorithm.");
 
 // CLASS: BOPALGO_MAKERVOLUME
 py::class_<BOPAlgo_MakerVolume, BOPAlgo_Builder> cls_BOPAlgo_MakerVolume(mod, "BOPAlgo_MakerVolume", "The algorithm is to build solids from set of shapes. It uses the BOPAlgo_Builder algorithm to intersect the given shapes and build the images of faces (if needed) and BOPAlgo_BuilderSolid algorithm to build the solids.");
@@ -845,7 +1047,7 @@ cls_BOPAlgo_MakerVolume.def("Perform", (void (BOPAlgo_MakerVolume::*)()) &BOPAlg
 // TYPEDEF: BOPALGO_PWIREEDGESET
 
 // CLASS: BOPALGO_REMOVEFEATURES
-py::class_<BOPAlgo_RemoveFeatures, BOPAlgo_Options> cls_BOPAlgo_RemoveFeatures(mod, "BOPAlgo_RemoveFeatures", "The RemoveFeatures algorithm is intended for reconstruction of the shape by removal of the unwanted parts from it. These parts can be holes, protrusions, spikes, fillets etc. The shape itself is not modified, the new shape is built in the result.");
+py::class_<BOPAlgo_RemoveFeatures, BOPAlgo_BuilderShape> cls_BOPAlgo_RemoveFeatures(mod, "BOPAlgo_RemoveFeatures", "The RemoveFeatures algorithm is intended for reconstruction of the shape by removal of the unwanted parts from it. These parts can be holes, protrusions, spikes, fillets etc. The shape itself is not modified, the new shape is built in the result.");
 
 // Constructors
 cls_BOPAlgo_RemoveFeatures.def(py::init<>());
@@ -864,9 +1066,6 @@ cls_BOPAlgo_RemoveFeatures.def("AddFacesToRemove", (void (BOPAlgo_RemoveFeatures
 cls_BOPAlgo_RemoveFeatures.def("FacesToRemove", (const TopTools_ListOfShape & (BOPAlgo_RemoveFeatures::*)() const) &BOPAlgo_RemoveFeatures::FacesToRemove, "Returns the list of faces which have been requested for removal from the input shape.");
 cls_BOPAlgo_RemoveFeatures.def("Perform", (void (BOPAlgo_RemoveFeatures::*)()) &BOPAlgo_RemoveFeatures::Perform, "Performs the operation");
 cls_BOPAlgo_RemoveFeatures.def("Clear", (void (BOPAlgo_RemoveFeatures::*)()) &BOPAlgo_RemoveFeatures::Clear, "Clears the contents of the algorithm from previous run, allowing reusing it for following removals.");
-cls_BOPAlgo_RemoveFeatures.def("TrackHistory", (void (BOPAlgo_RemoveFeatures::*)(const Standard_Boolean)) &BOPAlgo_RemoveFeatures::TrackHistory, "Defines whether to track the modification of the shapes or not", py::arg("theFlag"));
-cls_BOPAlgo_RemoveFeatures.def("History", (opencascade::handle<BRepTools_History> (BOPAlgo_RemoveFeatures::*)()) &BOPAlgo_RemoveFeatures::History, "Gets the History object");
-cls_BOPAlgo_RemoveFeatures.def("Shape", (const TopoDS_Shape & (BOPAlgo_RemoveFeatures::*)() const) &BOPAlgo_RemoveFeatures::Shape, "Returns the resulting shape");
 
 // CLASS: BOPALGO_SECTION
 py::class_<BOPAlgo_Section, BOPAlgo_Builder> cls_BOPAlgo_Section(mod, "BOPAlgo_Section", "The algorithm to build a Section between the arguments. The Section consists of vertices and edges. The Section contains: 1. new vertices that are subjects of V/V, E/E, E/F, F/F interferences 2. vertices that are subjects of V/E, V/F interferences 3. new edges that are subjects of F/F interferences 4. edges that are Common Blocks");
@@ -924,19 +1123,22 @@ py::class_<BOPAlgo_Tools> cls_BOPAlgo_Tools(mod, "BOPAlgo_Tools", "Provides tool
 
 // Methods
 cls_BOPAlgo_Tools.def_static("FillMap_", (void (*)(const opencascade::handle<BOPDS_PaveBlock> &, const Standard_Integer, BOPDS_IndexedDataMapOfPaveBlockListOfInteger &, const opencascade::handle<NCollection_BaseAllocator> &)) &BOPAlgo_Tools::FillMap, "None", py::arg("thePB1"), py::arg("theF"), py::arg("theMILI"), py::arg("theAllocator"));
-// cls_BOPAlgo_Tools.def_static("PerformCommonBlocks_", (void (*)(BOPDS_IndexedDataMapOfPaveBlockListOfPaveBlock &, const opencascade::handle<NCollection_BaseAllocator> &, BOPDS_PDS &)) &BOPAlgo_Tools::PerformCommonBlocks, "None", py::arg("theMBlocks"), py::arg("theAllocator"), py::arg("theDS"));
-// cls_BOPAlgo_Tools.def_static("PerformCommonBlocks_", (void (*)(const BOPDS_IndexedDataMapOfPaveBlockListOfInteger &, const opencascade::handle<NCollection_BaseAllocator> &, BOPDS_PDS &)) &BOPAlgo_Tools::PerformCommonBlocks, "None", py::arg("theMBlocks"), py::arg("theAllocator"), py::arg("pDS"));
+// cls_BOPAlgo_Tools.def_static("PerformCommonBlocks_", [](BOPDS_IndexedDataMapOfPaveBlockListOfPaveBlock & a0, const opencascade::handle<NCollection_BaseAllocator> & a1, BOPDS_PDS & a2) -> void { return BOPAlgo_Tools::PerformCommonBlocks(a0, a1, a2); });
+// cls_BOPAlgo_Tools.def_static("PerformCommonBlocks_", (void (*)(BOPDS_IndexedDataMapOfPaveBlockListOfPaveBlock &, const opencascade::handle<NCollection_BaseAllocator> &, BOPDS_PDS &, const opencascade::handle<IntTools_Context> &)) &BOPAlgo_Tools::PerformCommonBlocks, "Create Common Blocks from the groups of pave blocks of <theMBlocks> connection map.", py::arg("theMBlocks"), py::arg("theAllocator"), py::arg("theDS"), py::arg("theContext"));
+// cls_BOPAlgo_Tools.def_static("PerformCommonBlocks_", [](const BOPDS_IndexedDataMapOfPaveBlockListOfInteger & a0, const opencascade::handle<NCollection_BaseAllocator> & a1, BOPDS_PDS & a2) -> void { return BOPAlgo_Tools::PerformCommonBlocks(a0, a1, a2); });
+// cls_BOPAlgo_Tools.def_static("PerformCommonBlocks_", (void (*)(const BOPDS_IndexedDataMapOfPaveBlockListOfInteger &, const opencascade::handle<NCollection_BaseAllocator> &, BOPDS_PDS &, const opencascade::handle<IntTools_Context> &)) &BOPAlgo_Tools::PerformCommonBlocks, "Create Common Blocks on faces using the PB->Faces connection map <theMBlocks>.", py::arg("theMBlocks"), py::arg("theAllocator"), py::arg("pDS"), py::arg("theContext"));
 cls_BOPAlgo_Tools.def_static("ComputeToleranceOfCB_", (Standard_Real (*)(const opencascade::handle<BOPDS_CommonBlock> &, const BOPDS_PDS, const opencascade::handle<IntTools_Context> &)) &BOPAlgo_Tools::ComputeToleranceOfCB, "None", py::arg("theCB"), py::arg("theDS"), py::arg("theContext"));
 cls_BOPAlgo_Tools.def_static("EdgesToWires_", [](const TopoDS_Shape & a0, TopoDS_Shape & a1) -> Standard_Integer { return BOPAlgo_Tools::EdgesToWires(a0, a1); });
 cls_BOPAlgo_Tools.def_static("EdgesToWires_", [](const TopoDS_Shape & a0, TopoDS_Shape & a1, const Standard_Boolean a2) -> Standard_Integer { return BOPAlgo_Tools::EdgesToWires(a0, a1, a2); });
 cls_BOPAlgo_Tools.def_static("EdgesToWires_", (Standard_Integer (*)(const TopoDS_Shape &, TopoDS_Shape &, const Standard_Boolean, const Standard_Real)) &BOPAlgo_Tools::EdgesToWires, "Creates planar wires from the given edges. The input edges are expected to be planar. And for the performance sake the method does not check if the edges are really planar. Thus, the result wires will also be not planar if the input edges are not planar. The edges may be not shared, but the resulting wires will be sharing the coinciding parts and intersecting parts. The output wires may be non-manifold and contain free and multi-connected vertices. Parameters: <theEdges> - input edges; <theWires> - output wires; <theShared> - boolean flag which defines whether the input edges are already shared or have to be intersected; <theAngTol> - the angular tolerance which will be used for distinguishing the planes in which the edges are located. Default value is 1.e-8 which is used for intersection of planes in IntTools_FaceFace. Method returns the following error statuses: 0 - in case of success (at least one wire has been built); 1 - in case there are no edges in the given shape; 2 - sharing of the edges has failed.", py::arg("theEdges"), py::arg("theWires"), py::arg("theShared"), py::arg("theAngTol"));
 cls_BOPAlgo_Tools.def_static("WiresToFaces_", [](const TopoDS_Shape & a0, TopoDS_Shape & a1) -> Standard_Boolean { return BOPAlgo_Tools::WiresToFaces(a0, a1); });
 cls_BOPAlgo_Tools.def_static("WiresToFaces_", (Standard_Boolean (*)(const TopoDS_Shape &, TopoDS_Shape &, const Standard_Real)) &BOPAlgo_Tools::WiresToFaces, "Creates planar faces from given planar wires. The method does not check if the wires are really planar. The input wires may be non-manifold but should be shared. The wires located in the same planes and included into other wires will create holes in the faces built from outer wires. The tolerance values of the input shapes may be modified during the operation due to projection of the edges on the planes for creation of 2D curves. Parameters: <theWires> - the given wires; <theFaces> - the output faces; <theAngTol> - the angular tolerance for distinguishing the planes in which the wires are located. Default value is 1.e-8 which is used for intersection of planes in IntTools_FaceFace. Method returns TRUE in case of success, i.e. at least one face has been built.", py::arg("theWires"), py::arg("theFaces"), py::arg("theAngTol"));
-cls_BOPAlgo_Tools.def_static("IntersectVertices_", (void (*)(const TopTools_IndexedDataMapOfShapeReal &, const Standard_Boolean, const Standard_Real, TopTools_ListOfListOfShape &)) &BOPAlgo_Tools::IntersectVertices, "Finds chains of intersecting vertices", py::arg("theVertices"), py::arg("theRunParallel"), py::arg("theFuzzyValue"), py::arg("theChains"));
+cls_BOPAlgo_Tools.def_static("IntersectVertices_", (void (*)(const TopTools_IndexedDataMapOfShapeReal &, const Standard_Real, TopTools_ListOfListOfShape &)) &BOPAlgo_Tools::IntersectVertices, "Finds chains of intersecting vertices", py::arg("theVertices"), py::arg("theFuzzyValue"), py::arg("theChains"));
 cls_BOPAlgo_Tools.def_static("TreatCompound_", (void (*)(const TopoDS_Shape &, TopTools_MapOfShape &, TopTools_ListOfShape &)) &BOPAlgo_Tools::TreatCompound, "Collect in the output list recursively all non-compound subshapes of the first level of the given shape theS. If a shape presents in the map theMFence it is skipped. All shapes put in the output are also added into theMFence.", py::arg("theS"), py::arg("theMFence"), py::arg("theLS"));
 cls_BOPAlgo_Tools.def_static("ClassifyFaces_", [](const TopTools_ListOfShape & a0, const TopTools_ListOfShape & a1, const Standard_Boolean a2, opencascade::handle<IntTools_Context> & a3, TopTools_IndexedDataMapOfShapeListOfShape & a4) -> void { return BOPAlgo_Tools::ClassifyFaces(a0, a1, a2, a3, a4); });
 cls_BOPAlgo_Tools.def_static("ClassifyFaces_", [](const TopTools_ListOfShape & a0, const TopTools_ListOfShape & a1, const Standard_Boolean a2, opencascade::handle<IntTools_Context> & a3, TopTools_IndexedDataMapOfShapeListOfShape & a4, const TopTools_DataMapOfShapeBox & a5) -> void { return BOPAlgo_Tools::ClassifyFaces(a0, a1, a2, a3, a4, a5); });
 cls_BOPAlgo_Tools.def_static("ClassifyFaces_", (void (*)(const TopTools_ListOfShape &, const TopTools_ListOfShape &, const Standard_Boolean, opencascade::handle<IntTools_Context> &, TopTools_IndexedDataMapOfShapeListOfShape &, const TopTools_DataMapOfShapeBox &, const TopTools_DataMapOfShapeListOfShape &)) &BOPAlgo_Tools::ClassifyFaces, "Classifies the faces <theFaces> relatively solids <theSolids>. The IN faces for solids are stored into output data map <theInParts>.", py::arg("theFaces"), py::arg("theSolids"), py::arg("theRunParallel"), py::arg("theContext"), py::arg("theInParts"), py::arg("theShapeBoxMap"), py::arg("theSolidsIF"));
+cls_BOPAlgo_Tools.def_static("FillInternals_", (void (*)(const TopTools_ListOfShape &, const TopTools_ListOfShape &, const TopTools_DataMapOfShapeListOfShape &, const opencascade::handle<IntTools_Context> &)) &BOPAlgo_Tools::FillInternals, "Classifies the given parts relatively the given solids and fills the solids with the parts classified as INTERNAL.", py::arg("theSolids"), py::arg("theParts"), py::arg("theImages"), py::arg("theContext"));
 
 // CLASS: BOPALGO_WIREEDGESET
 py::class_<BOPAlgo_WireEdgeSet> cls_BOPAlgo_WireEdgeSet(mod, "BOPAlgo_WireEdgeSet", "None");

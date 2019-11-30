@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <pyOCCT_Common.hxx>
 #include <TDocStd_Application.hxx>
 #include <Standard_TypeDef.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <AppStdL_Application.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 
 PYBIND11_MODULE(AppStdL, mod) {

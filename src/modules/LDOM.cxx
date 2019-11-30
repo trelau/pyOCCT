@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <LDOM_BasicElement.hxx>
 #include <LDOM_Document.hxx>
 #include <LDOMParser.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <LDOM_Node.hxx>
@@ -238,7 +239,7 @@ cls_LDOM_Document.def("isNull", (Standard_Boolean (LDOM_Document::*)() const) &L
 // cls_LDOM_Document.def("operator=", (LDOM_Document & (LDOM_Document::*)(const LDOM_NullPtr *)) &LDOM_Document::operator=, "None", py::arg(""));
 
 // CLASS: LDOM_SBUFFER
-py::class_<LDOM_SBuffer> cls_LDOM_SBuffer(mod, "LDOM_SBuffer", "Class LDOM_SBuffer inherits streambuf and redefines some virtual methods of it (overflow() and xsputn()). This class contains pointers on first and current element of sequence, also it has methods for the sequence management.");
+py::class_<LDOM_SBuffer> cls_LDOM_SBuffer(mod, "LDOM_SBuffer", "Class LDOM_SBuffer inherits std::streambuf and redefines some virtual methods of it (overflow() and xsputn()). This class contains pointers on first and current element of sequence, also it has methods for the sequence management.");
 
 // Constructors
 cls_LDOM_SBuffer.def(py::init<const Standard_Integer>(), py::arg("theMaxBuf"));
@@ -253,7 +254,7 @@ cls_LDOM_SBuffer.def("underflow", (int (LDOM_SBuffer::*)()) &LDOM_SBuffer::under
 cls_LDOM_SBuffer.def("xsputn", (std::streamsize (LDOM_SBuffer::*)(const char *, std::streamsize)) &LDOM_SBuffer::xsputn, "None", py::arg("s"), py::arg("n"));
 
 // CLASS: LDOM_OSSTREAM
-py::class_<LDOM_OSStream> cls_LDOM_OSStream(mod, "LDOM_OSStream", "Subclass if std::ostream allowing to increase performance of outputting data into a string avoiding reallocation of buffer. Class LDOM_OSStream implements output into a sequence of strings and getting the result as a string. It inherits Standard_OStream (ostream). Beside methods of ostream, it also has additional useful methods: str(), Length() and Clear().");
+py::class_<LDOM_OSStream> cls_LDOM_OSStream(mod, "LDOM_OSStream", "Subclass if std::ostream allowing to increase performance of outputting data into a string avoiding reallocation of buffer. Class LDOM_OSStream implements output into a sequence of strings and getting the result as a string. It inherits Standard_OStream (std::ostream). Beside methods of std::ostream, it also has additional useful methods: str(), Length() and Clear().");
 
 // Constructors
 cls_LDOM_OSStream.def(py::init<const Standard_Integer>(), py::arg("theMaxBuf"));

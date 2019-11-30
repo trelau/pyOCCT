@@ -66,7 +66,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BVH_PrimitiveSet3d.hxx>
 #include <BVH_Box.hxx>
 #include <BVH_Types.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
+#include <BVH_Traverse.hxx>
 #include <BRepExtrema_OverlapTool.hxx>
 #include <BRepExtrema_Poly.hxx>
 #include <BRepExtrema_SelfIntersection.hxx>
@@ -382,6 +384,8 @@ cls_BRepExtrema_OverlapTool.def("MarkDirty", (void (BRepExtrema_OverlapTool::*)(
 cls_BRepExtrema_OverlapTool.def("OverlapSubShapes1", (const BRepExtrema_MapOfIntegerPackedMapOfInteger & (BRepExtrema_OverlapTool::*)() const) &BRepExtrema_OverlapTool::OverlapSubShapes1, "Returns set of overlapped sub-shapes of 1st shape (currently only faces are detected).");
 cls_BRepExtrema_OverlapTool.def("OverlapSubShapes2", (const BRepExtrema_MapOfIntegerPackedMapOfInteger & (BRepExtrema_OverlapTool::*)() const) &BRepExtrema_OverlapTool::OverlapSubShapes2, "Returns set of overlapped sub-shapes of 2nd shape (currently only faces are detected).");
 cls_BRepExtrema_OverlapTool.def("SetElementFilter", (void (BRepExtrema_OverlapTool::*)(BRepExtrema_ElementFilter *)) &BRepExtrema_OverlapTool::SetElementFilter, "Sets filtering tool for preliminary checking pairs of mesh elements.", py::arg("theFilter"));
+cls_BRepExtrema_OverlapTool.def("RejectNode", [](BRepExtrema_OverlapTool &self, const BVH_Vec3d & theCornerMin1, const BVH_Vec3d & theCornerMax1, const BVH_Vec3d & theCornerMin2, const BVH_Vec3d & theCornerMax2, Standard_Real & a0){ Standard_Boolean rv = self.RejectNode(theCornerMin1, theCornerMax1, theCornerMin2, theCornerMax2, a0); return std::tuple<Standard_Boolean, Standard_Real &>(rv, a0); }, "Defines the rules for node rejection by bounding box", py::arg("theCornerMin1"), py::arg("theCornerMax1"), py::arg("theCornerMin2"), py::arg("theCornerMax2"), py::arg(""));
+cls_BRepExtrema_OverlapTool.def("Accept", (Standard_Boolean (BRepExtrema_OverlapTool::*)(const Standard_Integer, const Standard_Integer)) &BRepExtrema_OverlapTool::Accept, "Defines the rules for leaf acceptance", py::arg("theLeaf1"), py::arg("theLeaf2"));
 
 // CLASS: BREPEXTREMA_POLY
 py::class_<BRepExtrema_Poly> cls_BRepExtrema_Poly(mod, "BRepExtrema_Poly", "None");

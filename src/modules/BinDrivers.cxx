@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_IStream.hxx>
 #include <Standard_TypeDef.hxx>
 #include <Storage_Position.hxx>
+#include <Standard_Std.hxx>
 #include <BinDrivers_DocumentRetrievalDriver.hxx>
 #include <Standard_Type.hxx>
 #include <BinLDrivers_DocumentStorageDriver.hxx>
@@ -78,7 +79,6 @@ cls_BinDrivers_DocumentRetrievalDriver.def("ReadShapeSection", [](BinDrivers_Doc
 cls_BinDrivers_DocumentRetrievalDriver.def("ReadShapeSection", (void (BinDrivers_DocumentRetrievalDriver::*)(BinLDrivers_DocumentSection &, Standard_IStream &, const Standard_Boolean)) &BinDrivers_DocumentRetrievalDriver::ReadShapeSection, "None", py::arg("theSection"), py::arg("theIS"), py::arg("isMess"));
 cls_BinDrivers_DocumentRetrievalDriver.def("CheckShapeSection", (void (BinDrivers_DocumentRetrievalDriver::*)(const Storage_Position &, Standard_IStream &)) &BinDrivers_DocumentRetrievalDriver::CheckShapeSection, "None", py::arg("thePos"), py::arg("theIS"));
 cls_BinDrivers_DocumentRetrievalDriver.def("Clear", (void (BinDrivers_DocumentRetrievalDriver::*)()) &BinDrivers_DocumentRetrievalDriver::Clear, "Clears the NamedShape driver");
-cls_BinDrivers_DocumentRetrievalDriver.def("PropagateDocumentVersion", (void (BinDrivers_DocumentRetrievalDriver::*)(const Standard_Integer)) &BinDrivers_DocumentRetrievalDriver::PropagateDocumentVersion, "None", py::arg("theVersion"));
 cls_BinDrivers_DocumentRetrievalDriver.def_static("get_type_name_", (const char * (*)()) &BinDrivers_DocumentRetrievalDriver::get_type_name, "None");
 cls_BinDrivers_DocumentRetrievalDriver.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BinDrivers_DocumentRetrievalDriver::get_type_descriptor, "None");
 cls_BinDrivers_DocumentRetrievalDriver.def("DynamicType", (const opencascade::handle<Standard_Type> & (BinDrivers_DocumentRetrievalDriver::*)() const) &BinDrivers_DocumentRetrievalDriver::DynamicType, "None");

@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TNaming_Iterator.hxx>
 #include <TNaming_NewShapeIterator.hxx>
 #include <TNaming_OldShapeIterator.hxx>
+#include <Standard_Std.hxx>
 #include <TNaming_NamedShape.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_List.hxx>

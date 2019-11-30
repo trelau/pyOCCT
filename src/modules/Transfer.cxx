@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Interface_ParamType.hxx>
 #include <NCollection_DataMap.hxx>
 #include <TCollection_AsciiString.hxx>
+#include <Standard_Std.hxx>
 #include <NCollection_Sequence.hxx>
 #include <Transfer_SequenceOfFinder.hxx>
 #include <Standard.hxx>
@@ -225,7 +226,7 @@ py::class_<Transfer_FindHasher> cls_Transfer_FindHasher(mod, "Transfer_FindHashe
 // cls_Transfer_FindHasher.def_static("operator delete[]_", (void (*)(void *)) &Transfer_FindHasher::operator delete[], "None", py::arg("theAddress"));
 // cls_Transfer_FindHasher.def_static("operator new_", (void * (*)(size_t, void *)) &Transfer_FindHasher::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_Transfer_FindHasher.def_static("operator delete_", (void (*)(void *, void *)) &Transfer_FindHasher::operator delete, "None", py::arg(""), py::arg(""));
-cls_Transfer_FindHasher.def_static("HashCode_", (Standard_Integer (*)(const opencascade::handle<Transfer_Finder> &, const Standard_Integer)) &Transfer_FindHasher::HashCode, "Returns a HashCode in the range <0,Upper> for a Finder : asks the Finder its HashCode then transforms it to be in the required range", py::arg("K"), py::arg("Upper"));
+cls_Transfer_FindHasher.def_static("HashCode_", (Standard_Integer (*)(const opencascade::handle<Transfer_Finder> &, Standard_Integer)) &Transfer_FindHasher::HashCode, "Returns hash code for the given finder, in the range [1, theUpperBound]. Asks the finder its hash code, then transforms it to be in the required range", py::arg("theFinder"), py::arg("theUpperBound"));
 cls_Transfer_FindHasher.def_static("IsEqual_", (Standard_Boolean (*)(const opencascade::handle<Transfer_Finder> &, const opencascade::handle<Transfer_Finder> &)) &Transfer_FindHasher::IsEqual, "Returns True if two keys are the same. The test does not work on the Finders themselves but by calling their methods Equates", py::arg("K1"), py::arg("K2"));
 
 // TYPEDEF: TRANSFER_TRANSFERMAPOFPROCESSFORFINDER

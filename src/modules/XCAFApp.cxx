@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Handle.hxx>
 #include <TDocStd_Document.hxx>
 #include <XCAFApp_Application.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 
 PYBIND11_MODULE(XCAFApp, mod) {

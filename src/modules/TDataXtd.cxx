@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TDF_RelocationTable.hxx>
 #include <TDF_DataSet.hxx>
 #include <Standard_OStream.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <TDataXtd_Point.hxx>
 #include <gp_Pnt.hxx>
@@ -58,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TDataStd_Integer.hxx>
 #include <TDataXtd_Presentation.hxx>
 #include <Quantity_NameOfColor.hxx>
+#include <TColStd_ListOfInteger.hxx>
 #include <Standard.hxx>
 #include <TDF_IDList.hxx>
 #include <TDataXtd_Triangulation.hxx>
@@ -82,6 +84,7 @@ py::module::import("OCCT.TNaming");
 py::module::import("OCCT.TDataStd");
 py::module::import("OCCT.NCollection");
 py::module::import("OCCT.Quantity");
+py::module::import("OCCT.TColStd");
 py::module::import("OCCT.Poly");
 py::module::import("OCCT.TShort");
 
@@ -415,13 +418,18 @@ cls_TDataXtd_Presentation.def("SetTransparency", (void (TDataXtd_Presentation::*
 cls_TDataXtd_Presentation.def("SetColor", (void (TDataXtd_Presentation::*)(const Quantity_NameOfColor)) &TDataXtd_Presentation::SetColor, "None", py::arg("theColor"));
 cls_TDataXtd_Presentation.def("SetWidth", (void (TDataXtd_Presentation::*)(const Standard_Real)) &TDataXtd_Presentation::SetWidth, "None", py::arg("theWidth"));
 cls_TDataXtd_Presentation.def("SetMode", (void (TDataXtd_Presentation::*)(const Standard_Integer)) &TDataXtd_Presentation::SetMode, "None", py::arg("theMode"));
-cls_TDataXtd_Presentation.def("SetSelectionMode", (void (TDataXtd_Presentation::*)(const Standard_Integer)) &TDataXtd_Presentation::SetSelectionMode, "None", py::arg("theSelectionMode"));
+cls_TDataXtd_Presentation.def("GetNbSelectionModes", (Standard_Integer (TDataXtd_Presentation::*)() const) &TDataXtd_Presentation::GetNbSelectionModes, "Returns the number of selection modes of the attribute. It starts with 1 .. GetNbSelectionModes().");
+cls_TDataXtd_Presentation.def("SetSelectionMode", [](TDataXtd_Presentation &self, const Standard_Integer a0) -> void { return self.SetSelectionMode(a0); });
+cls_TDataXtd_Presentation.def("SetSelectionMode", (void (TDataXtd_Presentation::*)(const Standard_Integer, const Standard_Boolean)) &TDataXtd_Presentation::SetSelectionMode, "Sets selection mode. If 'theTransaction' flag is OFF, modification of the attribute doesn't influence the transaction mechanism (the attribute doesn't participate in undo/redo because of this modification). Certainly, if any other data of the attribute is modified (display mode, color, ...), the attribute will be included into undo/redo.", py::arg("theSelectionMode"), py::arg("theTransaction"));
+cls_TDataXtd_Presentation.def("AddSelectionMode", [](TDataXtd_Presentation &self, const Standard_Integer a0) -> void { return self.AddSelectionMode(a0); });
+cls_TDataXtd_Presentation.def("AddSelectionMode", (void (TDataXtd_Presentation::*)(const Standard_Integer, const Standard_Boolean)) &TDataXtd_Presentation::AddSelectionMode, "None", py::arg("theSelectionMode"), py::arg("theTransaction"));
 cls_TDataXtd_Presentation.def("MaterialIndex", (Standard_Integer (TDataXtd_Presentation::*)() const) &TDataXtd_Presentation::MaterialIndex, "None");
 cls_TDataXtd_Presentation.def("Transparency", (Standard_Real (TDataXtd_Presentation::*)() const) &TDataXtd_Presentation::Transparency, "None");
 cls_TDataXtd_Presentation.def("Color", (Quantity_NameOfColor (TDataXtd_Presentation::*)() const) &TDataXtd_Presentation::Color, "None");
 cls_TDataXtd_Presentation.def("Width", (Standard_Real (TDataXtd_Presentation::*)() const) &TDataXtd_Presentation::Width, "None");
 cls_TDataXtd_Presentation.def("Mode", (Standard_Integer (TDataXtd_Presentation::*)() const) &TDataXtd_Presentation::Mode, "None");
-cls_TDataXtd_Presentation.def("SelectionMode", (Standard_Integer (TDataXtd_Presentation::*)() const) &TDataXtd_Presentation::SelectionMode, "None");
+cls_TDataXtd_Presentation.def("SelectionMode", [](TDataXtd_Presentation &self) -> Standard_Integer { return self.SelectionMode(); });
+cls_TDataXtd_Presentation.def("SelectionMode", (Standard_Integer (TDataXtd_Presentation::*)(const int) const) &TDataXtd_Presentation::SelectionMode, "None", py::arg("index"));
 cls_TDataXtd_Presentation.def("UnsetMaterial", (void (TDataXtd_Presentation::*)()) &TDataXtd_Presentation::UnsetMaterial, "None");
 cls_TDataXtd_Presentation.def("UnsetTransparency", (void (TDataXtd_Presentation::*)()) &TDataXtd_Presentation::UnsetTransparency, "None");
 cls_TDataXtd_Presentation.def("UnsetColor", (void (TDataXtd_Presentation::*)()) &TDataXtd_Presentation::UnsetColor, "None");
@@ -447,6 +455,7 @@ cls_TDataXtd.def_static("Print_", (Standard_OStream & (*)(const TDataXtd_Constra
 py::class_<TDataXtd_HArray1OfTrsf, opencascade::handle<TDataXtd_HArray1OfTrsf>, Standard_Transient> cls_TDataXtd_HArray1OfTrsf(mod, "TDataXtd_HArray1OfTrsf", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TDataXtd_HArray1OfTrsf.def(py::init<>());
 cls_TDataXtd_HArray1OfTrsf.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TDataXtd_HArray1OfTrsf.def(py::init<const Standard_Integer, const Standard_Integer, const TDataXtd_Array1OfTrsf::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TDataXtd_HArray1OfTrsf.def(py::init<const TDataXtd_Array1OfTrsf &>(), py::arg("theOther"));

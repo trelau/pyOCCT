@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BinObjMgt_Persistent.hxx>
 #include <BinObjMgt_RRelocationTable.hxx>
 #include <BinObjMgt_SRelocationTable.hxx>
+#include <Standard_Std.hxx>
 #include <BinMDF_ADriver.hxx>
 #include <Message_Messenger.hxx>
 #include <Standard.hxx>
@@ -90,7 +91,9 @@ bind_NCollection_DataMap<opencascade::handle<Standard_Type>, opencascade::handle
 // TYPEDEF: BINMDF_DATAMAPITERATOROFTYPEADRIVERMAP
 
 // TYPEDEF: BINMDF_TYPEIDMAP
+/*
 bind_NCollection_DoubleMap<opencascade::handle<Standard_Type>, int, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> >, NCollection_DefaultHasher<int> >(mod, "BinMDF_TypeIdMap", py::module_local(false));
+*/
 
 // TYPEDEF: BINMDF_DOUBLEMAPITERATOROFTYPEIDMAP
 

@@ -29,9 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_XYZ.hxx>
 #include <math_Vector.hxx>
 #include <math_Matrix.hxx>
-#include <Standard_RangeError.hxx>
 #include <Standard_OStream.hxx>
-#include <math_SingleTab.hxx>
+#include <NCollection_LocalArray.hxx>
+#include <NCollection_Array1.hxx>
 #include <math_DoubleTab.hxx>
 #include <math_MultipleVarFunctionWithGradient.hxx>
 #include <math_BFGS.hxx>
@@ -74,7 +74,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <math_ComputeKronrodPointsAndWeights.hxx>
 #include <math.hxx>
 #include <math_ValueAndWeight.hxx>
-#include <NCollection_Array1.hxx>
 #include <math_Array1OfValueAndWeight.hxx>
 #include <math_BullardGenerator.hxx>
 #include <Standard_Handle.hxx>
@@ -82,12 +81,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColStd_HArray2OfReal.hxx>
 #include <TColStd_SequenceOfReal.hxx>
 #include <TColStd_SequenceOfInteger.hxx>
+#include <Message_ProgressIndicator.hxx>
 #include <math_GlobOptMin.hxx>
 #include <NCollection_CellFilter.hxx>
 #include <NCollection_Sequence.hxx>
 #include <Standard_DimensionError.hxx>
 #include <math_NotSquare.hxx>
 #include <Standard_SStream.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <math_PSOParticlesPool.hxx>
 #include <math_PSO.hxx>
@@ -100,9 +101,10 @@ PYBIND11_MODULE(math, mod) {
 
 py::module::import("OCCT.Standard");
 py::module::import("OCCT.gp");
+py::module::import("OCCT.NCollection");
 py::module::import("OCCT.Precision");
 py::module::import("OCCT.TColStd");
-py::module::import("OCCT.NCollection");
+py::module::import("OCCT.Message");
 
 // ENUM: MATH_STATUS
 py::enum_<math_Status>(mod, "math_Status", "None")
@@ -147,7 +149,7 @@ py::class_<math_Vector> cls_math_Vector(mod, "math_Vector", "This class implemen
 // Constructors
 cls_math_Vector.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_math_Vector.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Real>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theInitialValue"));
-cls_math_Vector.def(py::init<const Standard_Address, const Standard_Integer, const Standard_Integer>(), py::arg("theTab"), py::arg("theLower"), py::arg("theUpper"));
+cls_math_Vector.def(py::init<const Standard_Real *, const Standard_Integer, const Standard_Integer>(), py::arg("theTab"), py::arg("theLower"), py::arg("theUpper"));
 cls_math_Vector.def(py::init<const gp_XY &>(), py::arg("Other"));
 cls_math_Vector.def(py::init<const gp_XYZ &>(), py::arg("Other"));
 cls_math_Vector.def(py::init<const math_Vector &>(), py::arg("theOther"));
@@ -192,8 +194,10 @@ cls_math_Vector.def("TMultiply", (void (math_Vector::*)(const math_Matrix &, con
 cls_math_Vector.def("TMultiply", (void (math_Vector::*)(const math_Vector &, const math_Matrix &)) &math_Vector::TMultiply, "sets a vector to the product of the vector 'theLeft' by the transpose of the matrix 'theTRight'.", py::arg("theLeft"), py::arg("theTRight"));
 cls_math_Vector.def("Add", (void (math_Vector::*)(const math_Vector &, const math_Vector &)) &math_Vector::Add, "sets a vector to the sum of the vector 'theLeft' and the vector 'theRight'. An exception is raised if the lengths are different.", py::arg("theLeft"), py::arg("theRight"));
 cls_math_Vector.def("Subtract", (void (math_Vector::*)(const math_Vector &, const math_Vector &)) &math_Vector::Subtract, "sets a vector to the Subtraction of the vector theRight from the vector theLeft. An exception is raised if the vectors have not the same length. Warning In order to avoid time-consuming copying of vectors, it is preferable to use operator -= or the function Subtract whenever possible.", py::arg("theLeft"), py::arg("theRight"));
-cls_math_Vector.def("Value", (Standard_Real & (math_Vector::*)(const Standard_Integer) const) &math_Vector::Value, "accesses (in read or write mode) the value of index 'theNum' of a vector.", py::arg("theNum"));
-cls_math_Vector.def("__call__", (Standard_Real & (math_Vector::*)(const Standard_Integer) const) &math_Vector::operator(), py::is_operator(), "None", py::arg("theNum"));
+cls_math_Vector.def("Value", (const Standard_Real & (math_Vector::*)(const Standard_Integer) const) &math_Vector::Value, "accesses the value of index 'theNum' of a vector.", py::arg("theNum"));
+cls_math_Vector.def("Value", (Standard_Real & (math_Vector::*)(const Standard_Integer)) &math_Vector::Value, "accesses (in read or write mode) the value of index 'theNum' of a vector.", py::arg("theNum"));
+cls_math_Vector.def("__call__", (const Standard_Real & (math_Vector::*)(const Standard_Integer) const) &math_Vector::operator(), py::is_operator(), "None", py::arg("theNum"));
+cls_math_Vector.def("__call__", (Standard_Real & (math_Vector::*)(const Standard_Integer)) &math_Vector::operator(), py::is_operator(), "None", py::arg("theNum"));
 cls_math_Vector.def("Initialized", (math_Vector & (math_Vector::*)(const math_Vector &)) &math_Vector::Initialized, "Initialises a vector by copying 'theOther'. An exception is raised if the Lengths are differents.", py::arg("theOther"));
 // cls_math_Vector.def("operator=", (math_Vector & (math_Vector::*)(const math_Vector &)) &math_Vector::operator=, "None", py::arg("theOther"));
 cls_math_Vector.def("Multiplied", (Standard_Real (math_Vector::*)(const math_Vector &) const) &math_Vector::Multiplied, "returns the inner product of 2 vectors. An exception is raised if the lengths are not equal.", py::arg("theRight"));
@@ -339,7 +343,7 @@ py::class_<math_IntegerVector> cls_math_IntegerVector(mod, "math_IntegerVector",
 // Constructors
 cls_math_IntegerVector.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theFirst"), py::arg("theLast"));
 cls_math_IntegerVector.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theFirst"), py::arg("theLast"), py::arg("theInitialValue"));
-cls_math_IntegerVector.def(py::init<const Standard_Address, const Standard_Integer, const Standard_Integer>(), py::arg("theTab"), py::arg("theFirst"), py::arg("theLast"));
+cls_math_IntegerVector.def(py::init<const Standard_Integer *, const Standard_Integer, const Standard_Integer>(), py::arg("theTab"), py::arg("theFirst"), py::arg("theLast"));
 cls_math_IntegerVector.def(py::init<const math_IntegerVector &>(), py::arg("theOther"));
 
 // Methods
@@ -372,8 +376,10 @@ cls_math_IntegerVector.def("Added", (math_IntegerVector (math_IntegerVector::*)(
 cls_math_IntegerVector.def("__add__", (math_IntegerVector (math_IntegerVector::*)(const math_IntegerVector &) const) &math_IntegerVector::operator+, py::is_operator(), "None", py::arg("theRight"));
 cls_math_IntegerVector.def("Add", (void (math_IntegerVector::*)(const math_IntegerVector &, const math_IntegerVector &)) &math_IntegerVector::Add, "sets an IntegerVector to the sum of the IntegerVector 'theLeft' and the IntegerVector 'theRight'. An exception is raised if the lengths are different.", py::arg("theLeft"), py::arg("theRight"));
 cls_math_IntegerVector.def("Subtract", (void (math_IntegerVector::*)(const math_IntegerVector &, const math_IntegerVector &)) &math_IntegerVector::Subtract, "sets an IntegerVector to the substraction of 'theRight' from 'theLeft'. An exception is raised if the IntegerVectors have not the same length.", py::arg("theLeft"), py::arg("theRight"));
-cls_math_IntegerVector.def("Value", (Standard_Integer & (math_IntegerVector::*)(const Standard_Integer) const) &math_IntegerVector::Value, "accesses (in read or write mode) the value of index theNum of an IntegerVector.", py::arg("theNum"));
-cls_math_IntegerVector.def("__call__", (Standard_Integer & (math_IntegerVector::*)(const Standard_Integer) const) &math_IntegerVector::operator(), py::is_operator(), "None", py::arg("theNum"));
+cls_math_IntegerVector.def("Value", (const Standard_Integer & (math_IntegerVector::*)(const Standard_Integer) const) &math_IntegerVector::Value, "accesses the value of index theNum of an IntegerVector.", py::arg("theNum"));
+cls_math_IntegerVector.def("Value", (Standard_Integer & (math_IntegerVector::*)(const Standard_Integer)) &math_IntegerVector::Value, "accesses (in read or write mode) the value of index theNum of an IntegerVector.", py::arg("theNum"));
+cls_math_IntegerVector.def("__call__", (const Standard_Integer & (math_IntegerVector::*)(const Standard_Integer) const) &math_IntegerVector::operator(), py::is_operator(), "None", py::arg("theNum"));
+cls_math_IntegerVector.def("__call__", (Standard_Integer & (math_IntegerVector::*)(const Standard_Integer)) &math_IntegerVector::operator(), py::is_operator(), "None", py::arg("theNum"));
 cls_math_IntegerVector.def("Initialized", (math_IntegerVector & (math_IntegerVector::*)(const math_IntegerVector &)) &math_IntegerVector::Initialized, "Initialises an IntegerVector by copying 'theOther'. An exception is raised if the Lengths are different.", py::arg("theOther"));
 // cls_math_IntegerVector.def("operator=", (math_IntegerVector & (math_IntegerVector::*)(const math_IntegerVector &)) &math_IntegerVector::operator=, "None", py::arg("theOther"));
 cls_math_IntegerVector.def("Multiplied", (Standard_Integer (math_IntegerVector::*)(const math_IntegerVector &) const) &math_IntegerVector::Multiplied, "returns the inner product of 2 IntegerVectors. An exception is raised if the lengths are not equal.", py::arg("theRight"));
@@ -906,6 +912,7 @@ py::class_<math_Gauss> cls_math_Gauss(mod, "math_Gauss", "This class implements 
 // Constructors
 cls_math_Gauss.def(py::init<const math_Matrix &>(), py::arg("A"));
 cls_math_Gauss.def(py::init<const math_Matrix &, const Standard_Real>(), py::arg("A"), py::arg("MinPivot"));
+cls_math_Gauss.def(py::init<const math_Matrix &, const Standard_Real, const opencascade::handle<Message_ProgressIndicator> &>(), py::arg("A"), py::arg("MinPivot"), py::arg("aProgress"));
 
 // Methods
 // cls_math_Gauss.def_static("operator new_", (void * (*)(size_t)) &math_Gauss::operator new, "None", py::arg("theSize"));
@@ -1256,9 +1263,9 @@ cls_math_SVD.def(py::init<const math_Matrix &>(), py::arg("A"));
 // cls_math_SVD.def_static("operator delete_", (void (*)(void *, void *)) &math_SVD::operator delete, "None", py::arg(""), py::arg(""));
 cls_math_SVD.def("IsDone", (Standard_Boolean (math_SVD::*)() const) &math_SVD::IsDone, "Returns true if the computations are successful, otherwise returns false.");
 cls_math_SVD.def("Solve", [](math_SVD &self, const math_Vector & a0, math_Vector & a1) -> void { return self.Solve(a0, a1); });
-cls_math_SVD.def("Solve", (void (math_SVD::*)(const math_Vector &, math_Vector &, const Standard_Real) const) &math_SVD::Solve, "Given the input Vector B this routine solves the set of linear equations A . X = B. Exception NotDone is raised if the decomposition of A was not done successfully. Exception DimensionError is raised if the range of B is not equal to the rowrange of A. Exception DimensionError is raised if the range of X is not equal to the colrange of A.", py::arg("B"), py::arg("X"), py::arg("Eps"));
+cls_math_SVD.def("Solve", (void (math_SVD::*)(const math_Vector &, math_Vector &, const Standard_Real)) &math_SVD::Solve, "Given the input Vector B this routine solves the set of linear equations A . X = B. Exception NotDone is raised if the decomposition of A was not done successfully. Exception DimensionError is raised if the range of B is not equal to the rowrange of A. Exception DimensionError is raised if the range of X is not equal to the colrange of A.", py::arg("B"), py::arg("X"), py::arg("Eps"));
 cls_math_SVD.def("PseudoInverse", [](math_SVD &self, math_Matrix & a0) -> void { return self.PseudoInverse(a0); });
-cls_math_SVD.def("PseudoInverse", (void (math_SVD::*)(math_Matrix &, const Standard_Real) const) &math_SVD::PseudoInverse, "Computes the inverse Inv of matrix A such as A * Inverse = Identity. Exceptions StdFail_NotDone if the algorithm fails (and IsDone returns false). Standard_DimensionError if the ranges of Inv are compatible with the ranges of A.", py::arg("Inv"), py::arg("Eps"));
+cls_math_SVD.def("PseudoInverse", (void (math_SVD::*)(math_Matrix &, const Standard_Real)) &math_SVD::PseudoInverse, "Computes the inverse Inv of matrix A such as A * Inverse = Identity. Exceptions StdFail_NotDone if the algorithm fails (and IsDone returns false). Standard_DimensionError if the ranges of Inv are compatible with the ranges of A.", py::arg("Inv"), py::arg("Eps"));
 cls_math_SVD.def("Dump", (void (math_SVD::*)(Standard_OStream &) const) &math_SVD::Dump, "Prints information on the current state of the object. Is used to redefine the operator <<.", py::arg("o"));
 
 // CLASS: MATH_TRIGONOMETRICEQUATIONFUNCTION

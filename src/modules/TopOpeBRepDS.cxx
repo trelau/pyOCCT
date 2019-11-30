@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <pyOCCT_Common.hxx>
 #include <TopOpeBRepDS_DataStructure.hxx>
 #include <TopOpeBRepTool_ShapeClassifier.hxx>
-#include <TopOpeBRepDS_Config.hxx>
 #include <TopOpeBRepDS_Kind.hxx>
+#include <TopOpeBRepDS_Config.hxx>
 #include <TopOpeBRepDS_CheckStatus.hxx>
 #include <Standard.hxx>
 #include <TopAbs_State.hxx>
@@ -34,16 +34,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
 #include <TopOpeBRepDS_Interference.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
-#include <NCollection_List.hxx>
-#include <TopOpeBRepDS_ListOfInterference.hxx>
-#include <TopOpeBRepDS_ShapeShapeInterference.hxx>
+#include <Geom2d_Curve.hxx>
+#include <TopOpeBRepDS_SurfaceCurveInterference.hxx>
 #include <TopOpeBRepDS_CurvePointInterference.hxx>
-#include <TopOpeBRepDS_EdgeVertexInterference.hxx>
-#include <TopOpeBRepDS_FaceEdgeInterference.hxx>
-#include <TopOpeBRepDS_InterferenceIterator.hxx>
 #include <Geom_Surface.hxx>
 #include <TopOpeBRepDS_Surface.hxx>
+#include <NCollection_List.hxx>
+#include <TopOpeBRepDS_ListOfInterference.hxx>
 #include <TopOpeBRepDS_GeometryData.hxx>
 #include <TopOpeBRepDS_SurfaceData.hxx>
 #include <NCollection_DataMap.hxx>
@@ -51,7 +50,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopOpeBRepDS_MapOfSurface.hxx>
 #include <Geom_Curve.hxx>
 #include <TopoDS_Shape.hxx>
-#include <Geom2d_Curve.hxx>
 #include <TopOpeBRepDS_Curve.hxx>
 #include <TopOpeBRepDS_CurveData.hxx>
 #include <TopOpeBRepDS_MapOfCurve.hxx>
@@ -72,23 +70,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopOpeBRepDS_SurfaceExplorer.hxx>
 #include <TopOpeBRepDS_CurveExplorer.hxx>
 #include <TopOpeBRepDS_PointExplorer.hxx>
-#include <TopOpeBRepDS_CurveIterator.hxx>
-#include <TopOpeBRepDS_PointIterator.hxx>
-#include <TopOpeBRepDS_SurfaceIterator.hxx>
-#include <TCollection_AsciiString.hxx>
-#include <TopOpeBRepDS_HDataStructure.hxx>
-#include <TopOpeBRepDS_PDataStructure.hxx>
-#include <TopOpeBRepDS_SurfaceCurveInterference.hxx>
 #include <TopOpeBRepTool_OutCurveType.hxx>
 #include <TopOpeBRepTool_GeomTool.hxx>
 #include <TopoDS_Vertex.hxx>
 #include <TopoDS_Face.hxx>
+#include <TopOpeBRepDS_HDataStructure.hxx>
 #include <BRep_Builder.hxx>
 #include <TopOpeBRepTool_CurveTool.hxx>
 #include <TopOpeBRepDS_BuildTool.hxx>
 #include <TopOpeBRepDS_ListOfShapeOn1State.hxx>
 #include <TopOpeBRepDS_DataMapOfShapeListOfShapeOn1State.hxx>
 #include <TopOpeBRepDS_DataMapOfShapeState.hxx>
+#include <TopOpeBRepDS_ShapeShapeInterference.hxx>
+#include <TopOpeBRepDS_EdgeVertexInterference.hxx>
+#include <TopOpeBRepDS_FaceEdgeInterference.hxx>
+#include <TopOpeBRepDS_InterferenceIterator.hxx>
+#include <TopOpeBRepDS_CurveIterator.hxx>
+#include <TopOpeBRepDS_PointIterator.hxx>
+#include <TopOpeBRepDS_SurfaceIterator.hxx>
+#include <TCollection_AsciiString.hxx>
+#include <TopOpeBRepDS_PDataStructure.hxx>
 #include <Standard_OStream.hxx>
 #include <TopOpeBRepDS_TKI.hxx>
 #include <TopOpeBRepDS_SolidSurfaceInterference.hxx>
@@ -140,24 +141,16 @@ PYBIND11_MODULE(TopOpeBRepDS, mod) {
 py::module::import("OCCT.TopOpeBRepTool");
 py::module::import("OCCT.Standard");
 py::module::import("OCCT.TopAbs");
-py::module::import("OCCT.NCollection");
+py::module::import("OCCT.Geom2d");
 py::module::import("OCCT.Geom");
+py::module::import("OCCT.NCollection");
 py::module::import("OCCT.TColStd");
 py::module::import("OCCT.TopoDS");
-py::module::import("OCCT.Geom2d");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.TopTools");
-py::module::import("OCCT.TCollection");
 py::module::import("OCCT.BRep");
+py::module::import("OCCT.TCollection");
 py::module::import("OCCT.TopTrans");
-
-// ENUM: TOPOPEBREPDS_CONFIG
-py::enum_<TopOpeBRepDS_Config>(mod, "TopOpeBRepDS_Config", "None")
-	.value("TopOpeBRepDS_UNSHGEOMETRY", TopOpeBRepDS_Config::TopOpeBRepDS_UNSHGEOMETRY)
-	.value("TopOpeBRepDS_SAMEORIENTED", TopOpeBRepDS_Config::TopOpeBRepDS_SAMEORIENTED)
-	.value("TopOpeBRepDS_DIFFORIENTED", TopOpeBRepDS_Config::TopOpeBRepDS_DIFFORIENTED)
-	.export_values();
-
 
 // ENUM: TOPOPEBREPDS_KIND
 py::enum_<TopOpeBRepDS_Kind>(mod, "TopOpeBRepDS_Kind", "different types of objects in DataStructure")
@@ -173,6 +166,14 @@ py::enum_<TopOpeBRepDS_Kind>(mod, "TopOpeBRepDS_Kind", "different types of objec
 	.value("TopOpeBRepDS_COMPSOLID", TopOpeBRepDS_Kind::TopOpeBRepDS_COMPSOLID)
 	.value("TopOpeBRepDS_COMPOUND", TopOpeBRepDS_Kind::TopOpeBRepDS_COMPOUND)
 	.value("TopOpeBRepDS_UNKNOWN", TopOpeBRepDS_Kind::TopOpeBRepDS_UNKNOWN)
+	.export_values();
+
+
+// ENUM: TOPOPEBREPDS_CONFIG
+py::enum_<TopOpeBRepDS_Config>(mod, "TopOpeBRepDS_Config", "None")
+	.value("TopOpeBRepDS_UNSHGEOMETRY", TopOpeBRepDS_Config::TopOpeBRepDS_UNSHGEOMETRY)
+	.value("TopOpeBRepDS_SAMEORIENTED", TopOpeBRepDS_Config::TopOpeBRepDS_SAMEORIENTED)
+	.value("TopOpeBRepDS_DIFFORIENTED", TopOpeBRepDS_Config::TopOpeBRepDS_DIFFORIENTED)
 	.export_values();
 
 
@@ -257,25 +258,20 @@ cls_TopOpeBRepDS_Interference.def_static("get_type_name_", (const char * (*)()) 
 cls_TopOpeBRepDS_Interference.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRepDS_Interference::get_type_descriptor, "None");
 cls_TopOpeBRepDS_Interference.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRepDS_Interference::*)() const) &TopOpeBRepDS_Interference::DynamicType, "None");
 
-// TYPEDEF: TOPOPEBREPDS_LISTOFINTERFERENCE
-bind_NCollection_List<opencascade::handle<TopOpeBRepDS_Interference> >(mod, "TopOpeBRepDS_ListOfInterference", py::module_local(false));
-
-// TYPEDEF: TOPOPEBREPDS_LISTITERATOROFLISTOFINTERFERENCE
-bind_NCollection_TListIterator<opencascade::handle<TopOpeBRepDS_Interference> >(mod, "TopOpeBRepDS_ListIteratorOfListOfInterference", py::module_local(false));
-
-// CLASS: TOPOPEBREPDS_SHAPESHAPEINTERFERENCE
-py::class_<TopOpeBRepDS_ShapeShapeInterference, opencascade::handle<TopOpeBRepDS_ShapeShapeInterference>, TopOpeBRepDS_Interference> cls_TopOpeBRepDS_ShapeShapeInterference(mod, "TopOpeBRepDS_ShapeShapeInterference", "Interference");
+// CLASS: TOPOPEBREPDS_SURFACECURVEINTERFERENCE
+py::class_<TopOpeBRepDS_SurfaceCurveInterference, opencascade::handle<TopOpeBRepDS_SurfaceCurveInterference>, TopOpeBRepDS_Interference> cls_TopOpeBRepDS_SurfaceCurveInterference(mod, "TopOpeBRepDS_SurfaceCurveInterference", "an interference with a 2d curve");
 
 // Constructors
-cls_TopOpeBRepDS_ShapeShapeInterference.def(py::init<const TopOpeBRepDS_Transition &, const TopOpeBRepDS_Kind, const Standard_Integer, const TopOpeBRepDS_Kind, const Standard_Integer, const Standard_Boolean, const TopOpeBRepDS_Config>(), py::arg("T"), py::arg("ST"), py::arg("S"), py::arg("GT"), py::arg("G"), py::arg("GBound"), py::arg("C"));
+cls_TopOpeBRepDS_SurfaceCurveInterference.def(py::init<>());
+cls_TopOpeBRepDS_SurfaceCurveInterference.def(py::init<const TopOpeBRepDS_Transition &, const TopOpeBRepDS_Kind, const Standard_Integer, const TopOpeBRepDS_Kind, const Standard_Integer, const opencascade::handle<Geom2d_Curve> &>(), py::arg("Transition"), py::arg("SupportType"), py::arg("Support"), py::arg("GeometryType"), py::arg("Geometry"), py::arg("PC"));
+cls_TopOpeBRepDS_SurfaceCurveInterference.def(py::init<const opencascade::handle<TopOpeBRepDS_Interference> &>(), py::arg("I"));
 
 // Methods
-cls_TopOpeBRepDS_ShapeShapeInterference.def("Config", (TopOpeBRepDS_Config (TopOpeBRepDS_ShapeShapeInterference::*)() const) &TopOpeBRepDS_ShapeShapeInterference::Config, "None");
-cls_TopOpeBRepDS_ShapeShapeInterference.def("GBound", (Standard_Boolean (TopOpeBRepDS_ShapeShapeInterference::*)() const) &TopOpeBRepDS_ShapeShapeInterference::GBound, "None");
-cls_TopOpeBRepDS_ShapeShapeInterference.def("SetGBound", (void (TopOpeBRepDS_ShapeShapeInterference::*)(const Standard_Boolean)) &TopOpeBRepDS_ShapeShapeInterference::SetGBound, "None", py::arg("b"));
-cls_TopOpeBRepDS_ShapeShapeInterference.def_static("get_type_name_", (const char * (*)()) &TopOpeBRepDS_ShapeShapeInterference::get_type_name, "None");
-cls_TopOpeBRepDS_ShapeShapeInterference.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRepDS_ShapeShapeInterference::get_type_descriptor, "None");
-cls_TopOpeBRepDS_ShapeShapeInterference.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRepDS_ShapeShapeInterference::*)() const) &TopOpeBRepDS_ShapeShapeInterference::DynamicType, "None");
+cls_TopOpeBRepDS_SurfaceCurveInterference.def("PCurve", (const opencascade::handle<Geom2d_Curve> & (TopOpeBRepDS_SurfaceCurveInterference::*)() const) &TopOpeBRepDS_SurfaceCurveInterference::PCurve, "None");
+cls_TopOpeBRepDS_SurfaceCurveInterference.def("PCurve", (void (TopOpeBRepDS_SurfaceCurveInterference::*)(const opencascade::handle<Geom2d_Curve> &)) &TopOpeBRepDS_SurfaceCurveInterference::PCurve, "None", py::arg("PC"));
+cls_TopOpeBRepDS_SurfaceCurveInterference.def_static("get_type_name_", (const char * (*)()) &TopOpeBRepDS_SurfaceCurveInterference::get_type_name, "None");
+cls_TopOpeBRepDS_SurfaceCurveInterference.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRepDS_SurfaceCurveInterference::get_type_descriptor, "None");
+cls_TopOpeBRepDS_SurfaceCurveInterference.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRepDS_SurfaceCurveInterference::*)() const) &TopOpeBRepDS_SurfaceCurveInterference::DynamicType, "None");
 
 // CLASS: TOPOPEBREPDS_CURVEPOINTINTERFERENCE
 py::class_<TopOpeBRepDS_CurvePointInterference, opencascade::handle<TopOpeBRepDS_CurvePointInterference>, TopOpeBRepDS_Interference> cls_TopOpeBRepDS_CurvePointInterference(mod, "TopOpeBRepDS_CurvePointInterference", "An interference with a parameter.");
@@ -289,57 +285,6 @@ cls_TopOpeBRepDS_CurvePointInterference.def("Parameter", (void (TopOpeBRepDS_Cur
 cls_TopOpeBRepDS_CurvePointInterference.def_static("get_type_name_", (const char * (*)()) &TopOpeBRepDS_CurvePointInterference::get_type_name, "None");
 cls_TopOpeBRepDS_CurvePointInterference.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRepDS_CurvePointInterference::get_type_descriptor, "None");
 cls_TopOpeBRepDS_CurvePointInterference.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRepDS_CurvePointInterference::*)() const) &TopOpeBRepDS_CurvePointInterference::DynamicType, "None");
-
-// CLASS: TOPOPEBREPDS_EDGEVERTEXINTERFERENCE
-py::class_<TopOpeBRepDS_EdgeVertexInterference, opencascade::handle<TopOpeBRepDS_EdgeVertexInterference>, TopOpeBRepDS_ShapeShapeInterference> cls_TopOpeBRepDS_EdgeVertexInterference(mod, "TopOpeBRepDS_EdgeVertexInterference", "An interference with a parameter (ShapeShapeInterference).");
-
-// Constructors
-cls_TopOpeBRepDS_EdgeVertexInterference.def(py::init<const TopOpeBRepDS_Transition &, const TopOpeBRepDS_Kind, const Standard_Integer, const Standard_Integer, const Standard_Boolean, const TopOpeBRepDS_Config, const Standard_Real>(), py::arg("T"), py::arg("ST"), py::arg("S"), py::arg("G"), py::arg("GIsBound"), py::arg("C"), py::arg("P"));
-cls_TopOpeBRepDS_EdgeVertexInterference.def(py::init<const TopOpeBRepDS_Transition &, const Standard_Integer, const Standard_Integer, const Standard_Boolean, const TopOpeBRepDS_Config, const Standard_Real>(), py::arg("T"), py::arg("S"), py::arg("G"), py::arg("GIsBound"), py::arg("C"), py::arg("P"));
-
-// Methods
-cls_TopOpeBRepDS_EdgeVertexInterference.def("Parameter", (Standard_Real (TopOpeBRepDS_EdgeVertexInterference::*)() const) &TopOpeBRepDS_EdgeVertexInterference::Parameter, "None");
-cls_TopOpeBRepDS_EdgeVertexInterference.def("Parameter", (void (TopOpeBRepDS_EdgeVertexInterference::*)(const Standard_Real)) &TopOpeBRepDS_EdgeVertexInterference::Parameter, "None", py::arg("P"));
-cls_TopOpeBRepDS_EdgeVertexInterference.def_static("get_type_name_", (const char * (*)()) &TopOpeBRepDS_EdgeVertexInterference::get_type_name, "None");
-cls_TopOpeBRepDS_EdgeVertexInterference.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRepDS_EdgeVertexInterference::get_type_descriptor, "None");
-cls_TopOpeBRepDS_EdgeVertexInterference.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRepDS_EdgeVertexInterference::*)() const) &TopOpeBRepDS_EdgeVertexInterference::DynamicType, "None");
-
-// CLASS: TOPOPEBREPDS_FACEEDGEINTERFERENCE
-py::class_<TopOpeBRepDS_FaceEdgeInterference, opencascade::handle<TopOpeBRepDS_FaceEdgeInterference>, TopOpeBRepDS_ShapeShapeInterference> cls_TopOpeBRepDS_FaceEdgeInterference(mod, "TopOpeBRepDS_FaceEdgeInterference", "ShapeShapeInterference");
-
-// Constructors
-cls_TopOpeBRepDS_FaceEdgeInterference.def(py::init<const TopOpeBRepDS_Transition &, const Standard_Integer, const Standard_Integer, const Standard_Boolean, const TopOpeBRepDS_Config>(), py::arg("T"), py::arg("S"), py::arg("G"), py::arg("GIsBound"), py::arg("C"));
-
-// Methods
-cls_TopOpeBRepDS_FaceEdgeInterference.def_static("get_type_name_", (const char * (*)()) &TopOpeBRepDS_FaceEdgeInterference::get_type_name, "None");
-cls_TopOpeBRepDS_FaceEdgeInterference.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRepDS_FaceEdgeInterference::get_type_descriptor, "None");
-cls_TopOpeBRepDS_FaceEdgeInterference.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRepDS_FaceEdgeInterference::*)() const) &TopOpeBRepDS_FaceEdgeInterference::DynamicType, "None");
-
-// CLASS: TOPOPEBREPDS_INTERFERENCEITERATOR
-py::class_<TopOpeBRepDS_InterferenceIterator> cls_TopOpeBRepDS_InterferenceIterator(mod, "TopOpeBRepDS_InterferenceIterator", "Iterate on interferences of a list, matching conditions on interferences. Nota : inheritance of ListIteratorOfListOfInterference from TopOpeBRepDS has not been done because of the impossibility of naming the classical More, Next methods which are declared as static in TCollection_ListIteratorOfList ... . ListIteratorOfList has benn placed as a field of InterferenceIterator.");
-
-// Constructors
-cls_TopOpeBRepDS_InterferenceIterator.def(py::init<>());
-cls_TopOpeBRepDS_InterferenceIterator.def(py::init<const TopOpeBRepDS_ListOfInterference &>(), py::arg("L"));
-
-// Methods
-// cls_TopOpeBRepDS_InterferenceIterator.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepDS_InterferenceIterator::operator new, "None", py::arg("theSize"));
-// cls_TopOpeBRepDS_InterferenceIterator.def_static("operator delete_", (void (*)(void *)) &TopOpeBRepDS_InterferenceIterator::operator delete, "None", py::arg("theAddress"));
-// cls_TopOpeBRepDS_InterferenceIterator.def_static("operator new[]_", (void * (*)(size_t)) &TopOpeBRepDS_InterferenceIterator::operator new[], "None", py::arg("theSize"));
-// cls_TopOpeBRepDS_InterferenceIterator.def_static("operator delete[]_", (void (*)(void *)) &TopOpeBRepDS_InterferenceIterator::operator delete[], "None", py::arg("theAddress"));
-// cls_TopOpeBRepDS_InterferenceIterator.def_static("operator new_", (void * (*)(size_t, void *)) &TopOpeBRepDS_InterferenceIterator::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TopOpeBRepDS_InterferenceIterator.def_static("operator delete_", (void (*)(void *, void *)) &TopOpeBRepDS_InterferenceIterator::operator delete, "None", py::arg(""), py::arg(""));
-cls_TopOpeBRepDS_InterferenceIterator.def("Init", (void (TopOpeBRepDS_InterferenceIterator::*)(const TopOpeBRepDS_ListOfInterference &)) &TopOpeBRepDS_InterferenceIterator::Init, "re-initialize interference iteration process on the list of interference <L>. Conditions are not modified.", py::arg("L"));
-cls_TopOpeBRepDS_InterferenceIterator.def("GeometryKind", (void (TopOpeBRepDS_InterferenceIterator::*)(const TopOpeBRepDS_Kind)) &TopOpeBRepDS_InterferenceIterator::GeometryKind, "define a condition on interference iteration process. Interference must match the Geometry Kind <ST>", py::arg("GK"));
-cls_TopOpeBRepDS_InterferenceIterator.def("Geometry", (void (TopOpeBRepDS_InterferenceIterator::*)(const Standard_Integer)) &TopOpeBRepDS_InterferenceIterator::Geometry, "define a condition on interference iteration process. Interference must match the Geometry <G>", py::arg("G"));
-cls_TopOpeBRepDS_InterferenceIterator.def("SupportKind", (void (TopOpeBRepDS_InterferenceIterator::*)(const TopOpeBRepDS_Kind)) &TopOpeBRepDS_InterferenceIterator::SupportKind, "define a condition on interference iteration process. Interference must match the Support Kind <ST>", py::arg("ST"));
-cls_TopOpeBRepDS_InterferenceIterator.def("Support", (void (TopOpeBRepDS_InterferenceIterator::*)(const Standard_Integer)) &TopOpeBRepDS_InterferenceIterator::Support, "define a condition on interference iteration process. Interference must match the Support <S>", py::arg("S"));
-cls_TopOpeBRepDS_InterferenceIterator.def("Match", (void (TopOpeBRepDS_InterferenceIterator::*)()) &TopOpeBRepDS_InterferenceIterator::Match, "reach for an interference matching the conditions (if defined).");
-cls_TopOpeBRepDS_InterferenceIterator.def("MatchInterference", (Standard_Boolean (TopOpeBRepDS_InterferenceIterator::*)(const opencascade::handle<TopOpeBRepDS_Interference> &) const) &TopOpeBRepDS_InterferenceIterator::MatchInterference, "Returns True if the Interference <I> matches the conditions (if defined). If no conditions defined, returns True.", py::arg("I"));
-cls_TopOpeBRepDS_InterferenceIterator.def("More", (Standard_Boolean (TopOpeBRepDS_InterferenceIterator::*)() const) &TopOpeBRepDS_InterferenceIterator::More, "Returns True if there is a current Interference in the iteration.");
-cls_TopOpeBRepDS_InterferenceIterator.def("Next", (void (TopOpeBRepDS_InterferenceIterator::*)()) &TopOpeBRepDS_InterferenceIterator::Next, "Move to the next Interference.");
-cls_TopOpeBRepDS_InterferenceIterator.def("Value", (const opencascade::handle<TopOpeBRepDS_Interference> & (TopOpeBRepDS_InterferenceIterator::*)() const) &TopOpeBRepDS_InterferenceIterator::Value, "Returns the current Interference, matching the conditions (if defined).");
-cls_TopOpeBRepDS_InterferenceIterator.def("ChangeIterator", (TopOpeBRepDS_ListIteratorOfListOfInterference & (TopOpeBRepDS_InterferenceIterator::*)()) &TopOpeBRepDS_InterferenceIterator::ChangeIterator, "None");
 
 // CLASS: TOPOPEBREPDS_SURFACE
 py::class_<TopOpeBRepDS_Surface> cls_TopOpeBRepDS_Surface(mod, "TopOpeBRepDS_Surface", "A Geom surface and a tolerance.");
@@ -360,9 +305,15 @@ cls_TopOpeBRepDS_Surface.def("Assign", (void (TopOpeBRepDS_Surface::*)(const Top
 // cls_TopOpeBRepDS_Surface.def("operator=", (void (TopOpeBRepDS_Surface::*)(const TopOpeBRepDS_Surface &)) &TopOpeBRepDS_Surface::operator=, "None", py::arg("Other"));
 cls_TopOpeBRepDS_Surface.def("Surface", (const opencascade::handle<Geom_Surface> & (TopOpeBRepDS_Surface::*)() const) &TopOpeBRepDS_Surface::Surface, "None");
 cls_TopOpeBRepDS_Surface.def("Tolerance", (Standard_Real (TopOpeBRepDS_Surface::*)() const) &TopOpeBRepDS_Surface::Tolerance, "None");
-cls_TopOpeBRepDS_Surface.def("Tolerance", (void (TopOpeBRepDS_Surface::*)(const Standard_Real)) &TopOpeBRepDS_Surface::Tolerance, "Update the tolerance", py::arg("tol"));
+cls_TopOpeBRepDS_Surface.def("Tolerance", (void (TopOpeBRepDS_Surface::*)(Standard_Real)) &TopOpeBRepDS_Surface::Tolerance, "Update the tolerance", py::arg("theTol"));
 cls_TopOpeBRepDS_Surface.def("Keep", (Standard_Boolean (TopOpeBRepDS_Surface::*)() const) &TopOpeBRepDS_Surface::Keep, "None");
-cls_TopOpeBRepDS_Surface.def("ChangeKeep", (void (TopOpeBRepDS_Surface::*)(const Standard_Boolean)) &TopOpeBRepDS_Surface::ChangeKeep, "None", py::arg("B"));
+cls_TopOpeBRepDS_Surface.def("ChangeKeep", (void (TopOpeBRepDS_Surface::*)(Standard_Boolean)) &TopOpeBRepDS_Surface::ChangeKeep, "None", py::arg("theToKeep"));
+
+// TYPEDEF: TOPOPEBREPDS_LISTOFINTERFERENCE
+bind_NCollection_List<opencascade::handle<TopOpeBRepDS_Interference> >(mod, "TopOpeBRepDS_ListOfInterference", py::module_local(false));
+
+// TYPEDEF: TOPOPEBREPDS_LISTITERATOROFLISTOFINTERFERENCE
+bind_NCollection_TListIterator<opencascade::handle<TopOpeBRepDS_Interference> >(mod, "TopOpeBRepDS_ListIteratorOfListOfInterference", py::module_local(false));
 
 // CLASS: TOPOPEBREPDS_GEOMETRYDATA
 py::class_<TopOpeBRepDS_GeometryData> cls_TopOpeBRepDS_GeometryData(mod, "TopOpeBRepDS_GeometryData", "mother-class of SurfaceData, CurveData, PointData");
@@ -688,91 +639,6 @@ cls_TopOpeBRepDS_DataStructure.def("GetShapeWithState", (const TopOpeBRepDS_Shap
 cls_TopOpeBRepDS_DataStructure.def("ChangeMapOfRejectedShapesObj", (TopTools_IndexedMapOfShape & (TopOpeBRepDS_DataStructure::*)()) &TopOpeBRepDS_DataStructure::ChangeMapOfRejectedShapesObj, "None");
 cls_TopOpeBRepDS_DataStructure.def("ChangeMapOfRejectedShapesTool", (TopTools_IndexedMapOfShape & (TopOpeBRepDS_DataStructure::*)()) &TopOpeBRepDS_DataStructure::ChangeMapOfRejectedShapesTool, "None");
 
-// CLASS: TOPOPEBREPDS_HDATASTRUCTURE
-py::class_<TopOpeBRepDS_HDataStructure, opencascade::handle<TopOpeBRepDS_HDataStructure>, Standard_Transient> cls_TopOpeBRepDS_HDataStructure(mod, "TopOpeBRepDS_HDataStructure", "None");
-
-// Constructors
-cls_TopOpeBRepDS_HDataStructure.def(py::init<>());
-
-// Methods
-cls_TopOpeBRepDS_HDataStructure.def("AddAncestors", (void (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &)) &TopOpeBRepDS_HDataStructure::AddAncestors, "None", py::arg("S"));
-cls_TopOpeBRepDS_HDataStructure.def("AddAncestors", (void (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum, const TopAbs_ShapeEnum)) &TopOpeBRepDS_HDataStructure::AddAncestors, "Update the data structure with shapes of type T1 containing a subshape of type T2 which is stored in the DS. Used by the previous one.", py::arg("S"), py::arg("T1"), py::arg("T2"));
-cls_TopOpeBRepDS_HDataStructure.def("ChkIntg", (void (TopOpeBRepDS_HDataStructure::*)()) &TopOpeBRepDS_HDataStructure::ChkIntg, "Check the integrity of the DS");
-cls_TopOpeBRepDS_HDataStructure.def("DS", (const TopOpeBRepDS_DataStructure & (TopOpeBRepDS_HDataStructure::*)() const) &TopOpeBRepDS_HDataStructure::DS, "None");
-cls_TopOpeBRepDS_HDataStructure.def("ChangeDS", (TopOpeBRepDS_DataStructure & (TopOpeBRepDS_HDataStructure::*)()) &TopOpeBRepDS_HDataStructure::ChangeDS, "None");
-cls_TopOpeBRepDS_HDataStructure.def("NbSurfaces", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)() const) &TopOpeBRepDS_HDataStructure::NbSurfaces, "None");
-cls_TopOpeBRepDS_HDataStructure.def("NbCurves", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)() const) &TopOpeBRepDS_HDataStructure::NbCurves, "None");
-cls_TopOpeBRepDS_HDataStructure.def("NbPoints", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)() const) &TopOpeBRepDS_HDataStructure::NbPoints, "None");
-cls_TopOpeBRepDS_HDataStructure.def("Surface", (const TopOpeBRepDS_Surface & (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer) const) &TopOpeBRepDS_HDataStructure::Surface, "Returns the surface of index <I>.", py::arg("I"));
-cls_TopOpeBRepDS_HDataStructure.def("SurfaceCurves", (TopOpeBRepDS_CurveIterator (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer) const) &TopOpeBRepDS_HDataStructure::SurfaceCurves, "Returns an iterator on the curves on the surface <I>.", py::arg("I"));
-cls_TopOpeBRepDS_HDataStructure.def("Curve", (const TopOpeBRepDS_Curve & (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer) const) &TopOpeBRepDS_HDataStructure::Curve, "Returns the Curve of index <I>.", py::arg("I"));
-cls_TopOpeBRepDS_HDataStructure.def("ChangeCurve", (TopOpeBRepDS_Curve & (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer)) &TopOpeBRepDS_HDataStructure::ChangeCurve, "Returns the Curve of index <I>.", py::arg("I"));
-cls_TopOpeBRepDS_HDataStructure.def("CurvePoints", (TopOpeBRepDS_PointIterator (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer) const) &TopOpeBRepDS_HDataStructure::CurvePoints, "Returns an iterator on the points on the curve <I>.", py::arg("I"));
-cls_TopOpeBRepDS_HDataStructure.def("Point", (const TopOpeBRepDS_Point & (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer) const) &TopOpeBRepDS_HDataStructure::Point, "Returns the point of index <I>.", py::arg("I"));
-cls_TopOpeBRepDS_HDataStructure.def("NbShapes", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)() const) &TopOpeBRepDS_HDataStructure::NbShapes, "None");
-cls_TopOpeBRepDS_HDataStructure.def("Shape", [](TopOpeBRepDS_HDataStructure &self, const Standard_Integer a0) -> const TopoDS_Shape & { return self.Shape(a0); });
-cls_TopOpeBRepDS_HDataStructure.def("Shape", (const TopoDS_Shape & (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer, const Standard_Boolean) const) &TopOpeBRepDS_HDataStructure::Shape, "Returns the shape of index <I> in the DS", py::arg("I"), py::arg("FindKeep"));
-cls_TopOpeBRepDS_HDataStructure.def("Shape", [](TopOpeBRepDS_HDataStructure &self, const TopoDS_Shape & a0) -> Standard_Integer { return self.Shape(a0); });
-cls_TopOpeBRepDS_HDataStructure.def("Shape", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &, const Standard_Boolean) const) &TopOpeBRepDS_HDataStructure::Shape, "Returns the index of shape <S> in the DS returns 0 if <S> is not in the DS", py::arg("S"), py::arg("FindKeep"));
-cls_TopOpeBRepDS_HDataStructure.def("HasGeometry", (Standard_Boolean (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &) const) &TopOpeBRepDS_HDataStructure::HasGeometry, "Returns True if <S> has new geometries.", py::arg("S"));
-cls_TopOpeBRepDS_HDataStructure.def("HasShape", [](TopOpeBRepDS_HDataStructure &self, const TopoDS_Shape & a0) -> Standard_Boolean { return self.HasShape(a0); });
-cls_TopOpeBRepDS_HDataStructure.def("HasShape", (Standard_Boolean (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &, const Standard_Boolean) const) &TopOpeBRepDS_HDataStructure::HasShape, "Returns True if <S> has new geometries (SOLID,FACE,EDGE) or if <S> (SHELL,WIRE) has sub-shape (FACE,EDGE) with new geometries", py::arg("S"), py::arg("FindKeep"));
-cls_TopOpeBRepDS_HDataStructure.def("HasSameDomain", [](TopOpeBRepDS_HDataStructure &self, const TopoDS_Shape & a0) -> Standard_Boolean { return self.HasSameDomain(a0); });
-cls_TopOpeBRepDS_HDataStructure.def("HasSameDomain", (Standard_Boolean (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &, const Standard_Boolean) const) &TopOpeBRepDS_HDataStructure::HasSameDomain, "Returns True if <S> share a geometrical domain with some other shapes.", py::arg("S"), py::arg("FindKeep"));
-cls_TopOpeBRepDS_HDataStructure.def("SameDomain", (TopTools_ListIteratorOfListOfShape (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &) const) &TopOpeBRepDS_HDataStructure::SameDomain, "Returns an iterator on the SameDomain shapes attached to the shape <S>.", py::arg("S"));
-cls_TopOpeBRepDS_HDataStructure.def("SameDomainOrientation", (TopOpeBRepDS_Config (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &) const) &TopOpeBRepDS_HDataStructure::SameDomainOrientation, "Returns orientation of shape <S> compared with its reference shape", py::arg("S"));
-cls_TopOpeBRepDS_HDataStructure.def("SameDomainReference", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &) const) &TopOpeBRepDS_HDataStructure::SameDomainReference, "Returns orientation of shape <S> compared with its reference shape", py::arg("S"));
-cls_TopOpeBRepDS_HDataStructure.def("SolidSurfaces", (TopOpeBRepDS_SurfaceIterator (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &) const) &TopOpeBRepDS_HDataStructure::SolidSurfaces, "Returns an iterator on the surfaces attached to the solid <S>.", py::arg("S"));
-cls_TopOpeBRepDS_HDataStructure.def("SolidSurfaces", (TopOpeBRepDS_SurfaceIterator (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer) const) &TopOpeBRepDS_HDataStructure::SolidSurfaces, "Returns an iterator on the surfaces attached to the solid <I>.", py::arg("I"));
-cls_TopOpeBRepDS_HDataStructure.def("FaceCurves", (TopOpeBRepDS_CurveIterator (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &) const) &TopOpeBRepDS_HDataStructure::FaceCurves, "Returns an iterator on the curves attached to the face <F>.", py::arg("F"));
-cls_TopOpeBRepDS_HDataStructure.def("FaceCurves", (TopOpeBRepDS_CurveIterator (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer) const) &TopOpeBRepDS_HDataStructure::FaceCurves, "Returns an iterator on the curves attached to the face <I>.", py::arg("I"));
-cls_TopOpeBRepDS_HDataStructure.def("EdgePoints", (TopOpeBRepDS_PointIterator (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &) const) &TopOpeBRepDS_HDataStructure::EdgePoints, "Returns an iterator on the points attached to the edge <E>.", py::arg("E"));
-cls_TopOpeBRepDS_HDataStructure.def("MakeCurve", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)(const TopOpeBRepDS_Curve &, TopOpeBRepDS_Curve &)) &TopOpeBRepDS_HDataStructure::MakeCurve, "None", py::arg("C1"), py::arg("C2"));
-cls_TopOpeBRepDS_HDataStructure.def("RemoveCurve", (void (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer)) &TopOpeBRepDS_HDataStructure::RemoveCurve, "None", py::arg("iC"));
-cls_TopOpeBRepDS_HDataStructure.def("NbGeometry", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)(const TopOpeBRepDS_Kind) const) &TopOpeBRepDS_HDataStructure::NbGeometry, "None", py::arg("K"));
-cls_TopOpeBRepDS_HDataStructure.def("NbTopology", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)(const TopOpeBRepDS_Kind) const) &TopOpeBRepDS_HDataStructure::NbTopology, "None", py::arg("K"));
-cls_TopOpeBRepDS_HDataStructure.def("NbTopology", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)() const) &TopOpeBRepDS_HDataStructure::NbTopology, "None");
-cls_TopOpeBRepDS_HDataStructure.def("EdgesSameParameter", (Standard_Boolean (TopOpeBRepDS_HDataStructure::*)() const) &TopOpeBRepDS_HDataStructure::EdgesSameParameter, "returns True if all the edges stored as shapes in the DS are SameParameter, otherwise False.");
-cls_TopOpeBRepDS_HDataStructure.def("SortOnParameter", (void (TopOpeBRepDS_HDataStructure::*)(const TopOpeBRepDS_ListOfInterference &, TopOpeBRepDS_ListOfInterference &) const) &TopOpeBRepDS_HDataStructure::SortOnParameter, "None", py::arg("L1"), py::arg("L2"));
-cls_TopOpeBRepDS_HDataStructure.def("SortOnParameter", (void (TopOpeBRepDS_HDataStructure::*)(TopOpeBRepDS_ListOfInterference &) const) &TopOpeBRepDS_HDataStructure::SortOnParameter, "None", py::arg("L"));
-cls_TopOpeBRepDS_HDataStructure.def("MinMaxOnParameter", [](TopOpeBRepDS_HDataStructure &self, const TopOpeBRepDS_ListOfInterference & L, Standard_Real & Min, Standard_Real & Max){ self.MinMaxOnParameter(L, Min, Max); return std::tuple<Standard_Real &, Standard_Real &>(Min, Max); }, "None", py::arg("L"), py::arg("Min"), py::arg("Max"));
-cls_TopOpeBRepDS_HDataStructure.def("ScanInterfList", (Standard_Boolean (TopOpeBRepDS_HDataStructure::*)(TopOpeBRepDS_ListIteratorOfListOfInterference &, const TopOpeBRepDS_Point &) const) &TopOpeBRepDS_HDataStructure::ScanInterfList, "Search, among a list of interferences accessed by the iterator <IT>, a geometry <G> whose 3D point is identical to the 3D point of the TheDSPoint <PDS>. returns True if such an interference has been found, False else. if True, iterator It points (by the Value() method) on the first interference accessing an identical 3D point.", py::arg("IT"), py::arg("PDS"));
-cls_TopOpeBRepDS_HDataStructure.def("GetGeometry", [](TopOpeBRepDS_HDataStructure &self, TopOpeBRepDS_ListIteratorOfListOfInterference & IT, const TopOpeBRepDS_Point & PDS, Standard_Integer & G, TopOpeBRepDS_Kind & K){ Standard_Boolean rv = self.GetGeometry(IT, PDS, G, K); return std::tuple<Standard_Boolean, Standard_Integer &>(rv, G); }, "Get the geometry of a DS point <PDS>. Search for it with ScanInterfList (previous method). if found, set <G,K> to the geometry,kind of the interference found. returns the value of ScanInterfList().", py::arg("IT"), py::arg("PDS"), py::arg("G"), py::arg("K"));
-cls_TopOpeBRepDS_HDataStructure.def("StoreInterference", [](TopOpeBRepDS_HDataStructure &self, const opencascade::handle<TopOpeBRepDS_Interference> & a0, TopOpeBRepDS_ListOfInterference & a1) -> void { return self.StoreInterference(a0, a1); });
-cls_TopOpeBRepDS_HDataStructure.def("StoreInterference", (void (TopOpeBRepDS_HDataStructure::*)(const opencascade::handle<TopOpeBRepDS_Interference> &, TopOpeBRepDS_ListOfInterference &, const TCollection_AsciiString &)) &TopOpeBRepDS_HDataStructure::StoreInterference, "Add interference <I> to list <LI>.", py::arg("I"), py::arg("LI"), py::arg("str"));
-cls_TopOpeBRepDS_HDataStructure.def("StoreInterference", [](TopOpeBRepDS_HDataStructure &self, const opencascade::handle<TopOpeBRepDS_Interference> & a0, const TopoDS_Shape & a1) -> void { return self.StoreInterference(a0, a1); });
-cls_TopOpeBRepDS_HDataStructure.def("StoreInterference", (void (TopOpeBRepDS_HDataStructure::*)(const opencascade::handle<TopOpeBRepDS_Interference> &, const TopoDS_Shape &, const TCollection_AsciiString &)) &TopOpeBRepDS_HDataStructure::StoreInterference, "Add interference <I> to list of interference of shape <S>.", py::arg("I"), py::arg("S"), py::arg("str"));
-cls_TopOpeBRepDS_HDataStructure.def("StoreInterference", [](TopOpeBRepDS_HDataStructure &self, const opencascade::handle<TopOpeBRepDS_Interference> & a0, const Standard_Integer a1) -> void { return self.StoreInterference(a0, a1); });
-cls_TopOpeBRepDS_HDataStructure.def("StoreInterference", (void (TopOpeBRepDS_HDataStructure::*)(const opencascade::handle<TopOpeBRepDS_Interference> &, const Standard_Integer, const TCollection_AsciiString &)) &TopOpeBRepDS_HDataStructure::StoreInterference, "Add interference <I> to list of interference of shape <IS>.", py::arg("I"), py::arg("IS"), py::arg("str"));
-cls_TopOpeBRepDS_HDataStructure.def("StoreInterferences", [](TopOpeBRepDS_HDataStructure &self, const TopOpeBRepDS_ListOfInterference & a0, const TopoDS_Shape & a1) -> void { return self.StoreInterferences(a0, a1); });
-cls_TopOpeBRepDS_HDataStructure.def("StoreInterferences", (void (TopOpeBRepDS_HDataStructure::*)(const TopOpeBRepDS_ListOfInterference &, const TopoDS_Shape &, const TCollection_AsciiString &)) &TopOpeBRepDS_HDataStructure::StoreInterferences, "None", py::arg("LI"), py::arg("S"), py::arg("str"));
-cls_TopOpeBRepDS_HDataStructure.def("StoreInterferences", [](TopOpeBRepDS_HDataStructure &self, const TopOpeBRepDS_ListOfInterference & a0, const Standard_Integer a1) -> void { return self.StoreInterferences(a0, a1); });
-cls_TopOpeBRepDS_HDataStructure.def("StoreInterferences", (void (TopOpeBRepDS_HDataStructure::*)(const TopOpeBRepDS_ListOfInterference &, const Standard_Integer, const TCollection_AsciiString &)) &TopOpeBRepDS_HDataStructure::StoreInterferences, "None", py::arg("LI"), py::arg("IS"), py::arg("str"));
-cls_TopOpeBRepDS_HDataStructure.def("ClearStoreInterferences", [](TopOpeBRepDS_HDataStructure &self, const TopOpeBRepDS_ListOfInterference & a0, const TopoDS_Shape & a1) -> void { return self.ClearStoreInterferences(a0, a1); });
-cls_TopOpeBRepDS_HDataStructure.def("ClearStoreInterferences", (void (TopOpeBRepDS_HDataStructure::*)(const TopOpeBRepDS_ListOfInterference &, const TopoDS_Shape &, const TCollection_AsciiString &)) &TopOpeBRepDS_HDataStructure::ClearStoreInterferences, "None", py::arg("LI"), py::arg("S"), py::arg("str"));
-cls_TopOpeBRepDS_HDataStructure.def("ClearStoreInterferences", [](TopOpeBRepDS_HDataStructure &self, const TopOpeBRepDS_ListOfInterference & a0, const Standard_Integer a1) -> void { return self.ClearStoreInterferences(a0, a1); });
-cls_TopOpeBRepDS_HDataStructure.def("ClearStoreInterferences", (void (TopOpeBRepDS_HDataStructure::*)(const TopOpeBRepDS_ListOfInterference &, const Standard_Integer, const TCollection_AsciiString &)) &TopOpeBRepDS_HDataStructure::ClearStoreInterferences, "None", py::arg("LI"), py::arg("IS"), py::arg("str"));
-cls_TopOpeBRepDS_HDataStructure.def_static("get_type_name_", (const char * (*)()) &TopOpeBRepDS_HDataStructure::get_type_name, "None");
-cls_TopOpeBRepDS_HDataStructure.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRepDS_HDataStructure::get_type_descriptor, "None");
-cls_TopOpeBRepDS_HDataStructure.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRepDS_HDataStructure::*)() const) &TopOpeBRepDS_HDataStructure::DynamicType, "None");
-
-// TYPEDEF: TOPOPEBREPDS_PDATASTRUCTURE
-
-// CLASS: TOPOPEBREPDS_SURFACECURVEINTERFERENCE
-py::class_<TopOpeBRepDS_SurfaceCurveInterference, opencascade::handle<TopOpeBRepDS_SurfaceCurveInterference>, TopOpeBRepDS_Interference> cls_TopOpeBRepDS_SurfaceCurveInterference(mod, "TopOpeBRepDS_SurfaceCurveInterference", "an interference with a 2d curve");
-
-// Constructors
-cls_TopOpeBRepDS_SurfaceCurveInterference.def(py::init<>());
-cls_TopOpeBRepDS_SurfaceCurveInterference.def(py::init<const TopOpeBRepDS_Transition &, const TopOpeBRepDS_Kind, const Standard_Integer, const TopOpeBRepDS_Kind, const Standard_Integer, const opencascade::handle<Geom2d_Curve> &>(), py::arg("Transition"), py::arg("SupportType"), py::arg("Support"), py::arg("GeometryType"), py::arg("Geometry"), py::arg("PC"));
-cls_TopOpeBRepDS_SurfaceCurveInterference.def(py::init<const opencascade::handle<TopOpeBRepDS_Interference> &>(), py::arg("I"));
-
-// Methods
-cls_TopOpeBRepDS_SurfaceCurveInterference.def("PCurve", (const opencascade::handle<Geom2d_Curve> & (TopOpeBRepDS_SurfaceCurveInterference::*)() const) &TopOpeBRepDS_SurfaceCurveInterference::PCurve, "None");
-cls_TopOpeBRepDS_SurfaceCurveInterference.def("PCurve", (void (TopOpeBRepDS_SurfaceCurveInterference::*)(const opencascade::handle<Geom2d_Curve> &)) &TopOpeBRepDS_SurfaceCurveInterference::PCurve, "None", py::arg("PC"));
-cls_TopOpeBRepDS_SurfaceCurveInterference.def_static("get_type_name_", (const char * (*)()) &TopOpeBRepDS_SurfaceCurveInterference::get_type_name, "None");
-cls_TopOpeBRepDS_SurfaceCurveInterference.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRepDS_SurfaceCurveInterference::get_type_descriptor, "None");
-cls_TopOpeBRepDS_SurfaceCurveInterference.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRepDS_SurfaceCurveInterference::*)() const) &TopOpeBRepDS_SurfaceCurveInterference::DynamicType, "None");
-
 // CLASS: TOPOPEBREPDS_BUILDTOOL
 py::class_<TopOpeBRepDS_BuildTool> cls_TopOpeBRepDS_BuildTool(mod, "TopOpeBRepDS_BuildTool", "Provides a Tool to build topologies. Used to instantiate the Builder algorithm.");
 
@@ -860,6 +726,141 @@ bind_NCollection_DataMap<TopoDS_Shape, TopOpeBRepDS_ListOfShapeOn1State, TopTool
 bind_NCollection_DataMap<TopoDS_Shape, TopAbs_State, TopTools_ShapeMapHasher>(mod, "TopOpeBRepDS_DataMapOfShapeState", py::module_local(false));
 
 // TYPEDEF: TOPOPEBREPDS_DATAMAPITERATOROFDATAMAPOFSHAPESTATE
+
+// CLASS: TOPOPEBREPDS_SHAPESHAPEINTERFERENCE
+py::class_<TopOpeBRepDS_ShapeShapeInterference, opencascade::handle<TopOpeBRepDS_ShapeShapeInterference>, TopOpeBRepDS_Interference> cls_TopOpeBRepDS_ShapeShapeInterference(mod, "TopOpeBRepDS_ShapeShapeInterference", "Interference");
+
+// Constructors
+cls_TopOpeBRepDS_ShapeShapeInterference.def(py::init<const TopOpeBRepDS_Transition &, const TopOpeBRepDS_Kind, const Standard_Integer, const TopOpeBRepDS_Kind, const Standard_Integer, const Standard_Boolean, const TopOpeBRepDS_Config>(), py::arg("T"), py::arg("ST"), py::arg("S"), py::arg("GT"), py::arg("G"), py::arg("GBound"), py::arg("C"));
+
+// Methods
+cls_TopOpeBRepDS_ShapeShapeInterference.def("Config", (TopOpeBRepDS_Config (TopOpeBRepDS_ShapeShapeInterference::*)() const) &TopOpeBRepDS_ShapeShapeInterference::Config, "None");
+cls_TopOpeBRepDS_ShapeShapeInterference.def("GBound", (Standard_Boolean (TopOpeBRepDS_ShapeShapeInterference::*)() const) &TopOpeBRepDS_ShapeShapeInterference::GBound, "None");
+cls_TopOpeBRepDS_ShapeShapeInterference.def("SetGBound", (void (TopOpeBRepDS_ShapeShapeInterference::*)(const Standard_Boolean)) &TopOpeBRepDS_ShapeShapeInterference::SetGBound, "None", py::arg("b"));
+cls_TopOpeBRepDS_ShapeShapeInterference.def_static("get_type_name_", (const char * (*)()) &TopOpeBRepDS_ShapeShapeInterference::get_type_name, "None");
+cls_TopOpeBRepDS_ShapeShapeInterference.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRepDS_ShapeShapeInterference::get_type_descriptor, "None");
+cls_TopOpeBRepDS_ShapeShapeInterference.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRepDS_ShapeShapeInterference::*)() const) &TopOpeBRepDS_ShapeShapeInterference::DynamicType, "None");
+
+// CLASS: TOPOPEBREPDS_EDGEVERTEXINTERFERENCE
+py::class_<TopOpeBRepDS_EdgeVertexInterference, opencascade::handle<TopOpeBRepDS_EdgeVertexInterference>, TopOpeBRepDS_ShapeShapeInterference> cls_TopOpeBRepDS_EdgeVertexInterference(mod, "TopOpeBRepDS_EdgeVertexInterference", "An interference with a parameter (ShapeShapeInterference).");
+
+// Constructors
+cls_TopOpeBRepDS_EdgeVertexInterference.def(py::init<const TopOpeBRepDS_Transition &, const TopOpeBRepDS_Kind, const Standard_Integer, const Standard_Integer, const Standard_Boolean, const TopOpeBRepDS_Config, const Standard_Real>(), py::arg("T"), py::arg("ST"), py::arg("S"), py::arg("G"), py::arg("GIsBound"), py::arg("C"), py::arg("P"));
+cls_TopOpeBRepDS_EdgeVertexInterference.def(py::init<const TopOpeBRepDS_Transition &, const Standard_Integer, const Standard_Integer, const Standard_Boolean, const TopOpeBRepDS_Config, const Standard_Real>(), py::arg("T"), py::arg("S"), py::arg("G"), py::arg("GIsBound"), py::arg("C"), py::arg("P"));
+
+// Methods
+cls_TopOpeBRepDS_EdgeVertexInterference.def("Parameter", (Standard_Real (TopOpeBRepDS_EdgeVertexInterference::*)() const) &TopOpeBRepDS_EdgeVertexInterference::Parameter, "None");
+cls_TopOpeBRepDS_EdgeVertexInterference.def("Parameter", (void (TopOpeBRepDS_EdgeVertexInterference::*)(const Standard_Real)) &TopOpeBRepDS_EdgeVertexInterference::Parameter, "None", py::arg("P"));
+cls_TopOpeBRepDS_EdgeVertexInterference.def_static("get_type_name_", (const char * (*)()) &TopOpeBRepDS_EdgeVertexInterference::get_type_name, "None");
+cls_TopOpeBRepDS_EdgeVertexInterference.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRepDS_EdgeVertexInterference::get_type_descriptor, "None");
+cls_TopOpeBRepDS_EdgeVertexInterference.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRepDS_EdgeVertexInterference::*)() const) &TopOpeBRepDS_EdgeVertexInterference::DynamicType, "None");
+
+// CLASS: TOPOPEBREPDS_FACEEDGEINTERFERENCE
+py::class_<TopOpeBRepDS_FaceEdgeInterference, opencascade::handle<TopOpeBRepDS_FaceEdgeInterference>, TopOpeBRepDS_ShapeShapeInterference> cls_TopOpeBRepDS_FaceEdgeInterference(mod, "TopOpeBRepDS_FaceEdgeInterference", "ShapeShapeInterference");
+
+// Constructors
+cls_TopOpeBRepDS_FaceEdgeInterference.def(py::init<const TopOpeBRepDS_Transition &, const Standard_Integer, const Standard_Integer, const Standard_Boolean, const TopOpeBRepDS_Config>(), py::arg("T"), py::arg("S"), py::arg("G"), py::arg("GIsBound"), py::arg("C"));
+
+// Methods
+cls_TopOpeBRepDS_FaceEdgeInterference.def_static("get_type_name_", (const char * (*)()) &TopOpeBRepDS_FaceEdgeInterference::get_type_name, "None");
+cls_TopOpeBRepDS_FaceEdgeInterference.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRepDS_FaceEdgeInterference::get_type_descriptor, "None");
+cls_TopOpeBRepDS_FaceEdgeInterference.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRepDS_FaceEdgeInterference::*)() const) &TopOpeBRepDS_FaceEdgeInterference::DynamicType, "None");
+
+// CLASS: TOPOPEBREPDS_INTERFERENCEITERATOR
+py::class_<TopOpeBRepDS_InterferenceIterator> cls_TopOpeBRepDS_InterferenceIterator(mod, "TopOpeBRepDS_InterferenceIterator", "Iterate on interferences of a list, matching conditions on interferences. Nota : inheritance of ListIteratorOfListOfInterference from TopOpeBRepDS has not been done because of the impossibility of naming the classical More, Next methods which are declared as static in TCollection_ListIteratorOfList ... . ListIteratorOfList has benn placed as a field of InterferenceIterator.");
+
+// Constructors
+cls_TopOpeBRepDS_InterferenceIterator.def(py::init<>());
+cls_TopOpeBRepDS_InterferenceIterator.def(py::init<const TopOpeBRepDS_ListOfInterference &>(), py::arg("L"));
+
+// Methods
+// cls_TopOpeBRepDS_InterferenceIterator.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepDS_InterferenceIterator::operator new, "None", py::arg("theSize"));
+// cls_TopOpeBRepDS_InterferenceIterator.def_static("operator delete_", (void (*)(void *)) &TopOpeBRepDS_InterferenceIterator::operator delete, "None", py::arg("theAddress"));
+// cls_TopOpeBRepDS_InterferenceIterator.def_static("operator new[]_", (void * (*)(size_t)) &TopOpeBRepDS_InterferenceIterator::operator new[], "None", py::arg("theSize"));
+// cls_TopOpeBRepDS_InterferenceIterator.def_static("operator delete[]_", (void (*)(void *)) &TopOpeBRepDS_InterferenceIterator::operator delete[], "None", py::arg("theAddress"));
+// cls_TopOpeBRepDS_InterferenceIterator.def_static("operator new_", (void * (*)(size_t, void *)) &TopOpeBRepDS_InterferenceIterator::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_TopOpeBRepDS_InterferenceIterator.def_static("operator delete_", (void (*)(void *, void *)) &TopOpeBRepDS_InterferenceIterator::operator delete, "None", py::arg(""), py::arg(""));
+cls_TopOpeBRepDS_InterferenceIterator.def("Init", (void (TopOpeBRepDS_InterferenceIterator::*)(const TopOpeBRepDS_ListOfInterference &)) &TopOpeBRepDS_InterferenceIterator::Init, "re-initialize interference iteration process on the list of interference <L>. Conditions are not modified.", py::arg("L"));
+cls_TopOpeBRepDS_InterferenceIterator.def("GeometryKind", (void (TopOpeBRepDS_InterferenceIterator::*)(const TopOpeBRepDS_Kind)) &TopOpeBRepDS_InterferenceIterator::GeometryKind, "define a condition on interference iteration process. Interference must match the Geometry Kind <ST>", py::arg("GK"));
+cls_TopOpeBRepDS_InterferenceIterator.def("Geometry", (void (TopOpeBRepDS_InterferenceIterator::*)(const Standard_Integer)) &TopOpeBRepDS_InterferenceIterator::Geometry, "define a condition on interference iteration process. Interference must match the Geometry <G>", py::arg("G"));
+cls_TopOpeBRepDS_InterferenceIterator.def("SupportKind", (void (TopOpeBRepDS_InterferenceIterator::*)(const TopOpeBRepDS_Kind)) &TopOpeBRepDS_InterferenceIterator::SupportKind, "define a condition on interference iteration process. Interference must match the Support Kind <ST>", py::arg("ST"));
+cls_TopOpeBRepDS_InterferenceIterator.def("Support", (void (TopOpeBRepDS_InterferenceIterator::*)(const Standard_Integer)) &TopOpeBRepDS_InterferenceIterator::Support, "define a condition on interference iteration process. Interference must match the Support <S>", py::arg("S"));
+cls_TopOpeBRepDS_InterferenceIterator.def("Match", (void (TopOpeBRepDS_InterferenceIterator::*)()) &TopOpeBRepDS_InterferenceIterator::Match, "reach for an interference matching the conditions (if defined).");
+cls_TopOpeBRepDS_InterferenceIterator.def("MatchInterference", (Standard_Boolean (TopOpeBRepDS_InterferenceIterator::*)(const opencascade::handle<TopOpeBRepDS_Interference> &) const) &TopOpeBRepDS_InterferenceIterator::MatchInterference, "Returns True if the Interference <I> matches the conditions (if defined). If no conditions defined, returns True.", py::arg("I"));
+cls_TopOpeBRepDS_InterferenceIterator.def("More", (Standard_Boolean (TopOpeBRepDS_InterferenceIterator::*)() const) &TopOpeBRepDS_InterferenceIterator::More, "Returns True if there is a current Interference in the iteration.");
+cls_TopOpeBRepDS_InterferenceIterator.def("Next", (void (TopOpeBRepDS_InterferenceIterator::*)()) &TopOpeBRepDS_InterferenceIterator::Next, "Move to the next Interference.");
+cls_TopOpeBRepDS_InterferenceIterator.def("Value", (const opencascade::handle<TopOpeBRepDS_Interference> & (TopOpeBRepDS_InterferenceIterator::*)() const) &TopOpeBRepDS_InterferenceIterator::Value, "Returns the current Interference, matching the conditions (if defined).");
+cls_TopOpeBRepDS_InterferenceIterator.def("ChangeIterator", (TopOpeBRepDS_ListIteratorOfListOfInterference & (TopOpeBRepDS_InterferenceIterator::*)()) &TopOpeBRepDS_InterferenceIterator::ChangeIterator, "None");
+
+// CLASS: TOPOPEBREPDS_HDATASTRUCTURE
+py::class_<TopOpeBRepDS_HDataStructure, opencascade::handle<TopOpeBRepDS_HDataStructure>, Standard_Transient> cls_TopOpeBRepDS_HDataStructure(mod, "TopOpeBRepDS_HDataStructure", "None");
+
+// Constructors
+cls_TopOpeBRepDS_HDataStructure.def(py::init<>());
+
+// Methods
+cls_TopOpeBRepDS_HDataStructure.def("AddAncestors", (void (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &)) &TopOpeBRepDS_HDataStructure::AddAncestors, "None", py::arg("S"));
+cls_TopOpeBRepDS_HDataStructure.def("AddAncestors", (void (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum, const TopAbs_ShapeEnum)) &TopOpeBRepDS_HDataStructure::AddAncestors, "Update the data structure with shapes of type T1 containing a subshape of type T2 which is stored in the DS. Used by the previous one.", py::arg("S"), py::arg("T1"), py::arg("T2"));
+cls_TopOpeBRepDS_HDataStructure.def("ChkIntg", (void (TopOpeBRepDS_HDataStructure::*)()) &TopOpeBRepDS_HDataStructure::ChkIntg, "Check the integrity of the DS");
+cls_TopOpeBRepDS_HDataStructure.def("DS", (const TopOpeBRepDS_DataStructure & (TopOpeBRepDS_HDataStructure::*)() const) &TopOpeBRepDS_HDataStructure::DS, "None");
+cls_TopOpeBRepDS_HDataStructure.def("ChangeDS", (TopOpeBRepDS_DataStructure & (TopOpeBRepDS_HDataStructure::*)()) &TopOpeBRepDS_HDataStructure::ChangeDS, "None");
+cls_TopOpeBRepDS_HDataStructure.def("NbSurfaces", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)() const) &TopOpeBRepDS_HDataStructure::NbSurfaces, "None");
+cls_TopOpeBRepDS_HDataStructure.def("NbCurves", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)() const) &TopOpeBRepDS_HDataStructure::NbCurves, "None");
+cls_TopOpeBRepDS_HDataStructure.def("NbPoints", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)() const) &TopOpeBRepDS_HDataStructure::NbPoints, "None");
+cls_TopOpeBRepDS_HDataStructure.def("Surface", (const TopOpeBRepDS_Surface & (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer) const) &TopOpeBRepDS_HDataStructure::Surface, "Returns the surface of index <I>.", py::arg("I"));
+cls_TopOpeBRepDS_HDataStructure.def("SurfaceCurves", (TopOpeBRepDS_CurveIterator (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer) const) &TopOpeBRepDS_HDataStructure::SurfaceCurves, "Returns an iterator on the curves on the surface <I>.", py::arg("I"));
+cls_TopOpeBRepDS_HDataStructure.def("Curve", (const TopOpeBRepDS_Curve & (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer) const) &TopOpeBRepDS_HDataStructure::Curve, "Returns the Curve of index <I>.", py::arg("I"));
+cls_TopOpeBRepDS_HDataStructure.def("ChangeCurve", (TopOpeBRepDS_Curve & (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer)) &TopOpeBRepDS_HDataStructure::ChangeCurve, "Returns the Curve of index <I>.", py::arg("I"));
+cls_TopOpeBRepDS_HDataStructure.def("CurvePoints", (TopOpeBRepDS_PointIterator (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer) const) &TopOpeBRepDS_HDataStructure::CurvePoints, "Returns an iterator on the points on the curve <I>.", py::arg("I"));
+cls_TopOpeBRepDS_HDataStructure.def("Point", (const TopOpeBRepDS_Point & (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer) const) &TopOpeBRepDS_HDataStructure::Point, "Returns the point of index <I>.", py::arg("I"));
+cls_TopOpeBRepDS_HDataStructure.def("NbShapes", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)() const) &TopOpeBRepDS_HDataStructure::NbShapes, "None");
+cls_TopOpeBRepDS_HDataStructure.def("Shape", [](TopOpeBRepDS_HDataStructure &self, const Standard_Integer a0) -> const TopoDS_Shape & { return self.Shape(a0); });
+cls_TopOpeBRepDS_HDataStructure.def("Shape", (const TopoDS_Shape & (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer, const Standard_Boolean) const) &TopOpeBRepDS_HDataStructure::Shape, "Returns the shape of index <I> in the DS", py::arg("I"), py::arg("FindKeep"));
+cls_TopOpeBRepDS_HDataStructure.def("Shape", [](TopOpeBRepDS_HDataStructure &self, const TopoDS_Shape & a0) -> Standard_Integer { return self.Shape(a0); });
+cls_TopOpeBRepDS_HDataStructure.def("Shape", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &, const Standard_Boolean) const) &TopOpeBRepDS_HDataStructure::Shape, "Returns the index of shape <S> in the DS returns 0 if <S> is not in the DS", py::arg("S"), py::arg("FindKeep"));
+cls_TopOpeBRepDS_HDataStructure.def("HasGeometry", (Standard_Boolean (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &) const) &TopOpeBRepDS_HDataStructure::HasGeometry, "Returns True if <S> has new geometries.", py::arg("S"));
+cls_TopOpeBRepDS_HDataStructure.def("HasShape", [](TopOpeBRepDS_HDataStructure &self, const TopoDS_Shape & a0) -> Standard_Boolean { return self.HasShape(a0); });
+cls_TopOpeBRepDS_HDataStructure.def("HasShape", (Standard_Boolean (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &, const Standard_Boolean) const) &TopOpeBRepDS_HDataStructure::HasShape, "Returns True if <S> has new geometries (SOLID,FACE,EDGE) or if <S> (SHELL,WIRE) has sub-shape (FACE,EDGE) with new geometries", py::arg("S"), py::arg("FindKeep"));
+cls_TopOpeBRepDS_HDataStructure.def("HasSameDomain", [](TopOpeBRepDS_HDataStructure &self, const TopoDS_Shape & a0) -> Standard_Boolean { return self.HasSameDomain(a0); });
+cls_TopOpeBRepDS_HDataStructure.def("HasSameDomain", (Standard_Boolean (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &, const Standard_Boolean) const) &TopOpeBRepDS_HDataStructure::HasSameDomain, "Returns True if <S> share a geometrical domain with some other shapes.", py::arg("S"), py::arg("FindKeep"));
+cls_TopOpeBRepDS_HDataStructure.def("SameDomain", (TopTools_ListIteratorOfListOfShape (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &) const) &TopOpeBRepDS_HDataStructure::SameDomain, "Returns an iterator on the SameDomain shapes attached to the shape <S>.", py::arg("S"));
+cls_TopOpeBRepDS_HDataStructure.def("SameDomainOrientation", (TopOpeBRepDS_Config (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &) const) &TopOpeBRepDS_HDataStructure::SameDomainOrientation, "Returns orientation of shape <S> compared with its reference shape", py::arg("S"));
+cls_TopOpeBRepDS_HDataStructure.def("SameDomainReference", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &) const) &TopOpeBRepDS_HDataStructure::SameDomainReference, "Returns orientation of shape <S> compared with its reference shape", py::arg("S"));
+cls_TopOpeBRepDS_HDataStructure.def("SolidSurfaces", (TopOpeBRepDS_SurfaceIterator (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &) const) &TopOpeBRepDS_HDataStructure::SolidSurfaces, "Returns an iterator on the surfaces attached to the solid <S>.", py::arg("S"));
+cls_TopOpeBRepDS_HDataStructure.def("SolidSurfaces", (TopOpeBRepDS_SurfaceIterator (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer) const) &TopOpeBRepDS_HDataStructure::SolidSurfaces, "Returns an iterator on the surfaces attached to the solid <I>.", py::arg("I"));
+cls_TopOpeBRepDS_HDataStructure.def("FaceCurves", (TopOpeBRepDS_CurveIterator (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &) const) &TopOpeBRepDS_HDataStructure::FaceCurves, "Returns an iterator on the curves attached to the face <F>.", py::arg("F"));
+cls_TopOpeBRepDS_HDataStructure.def("FaceCurves", (TopOpeBRepDS_CurveIterator (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer) const) &TopOpeBRepDS_HDataStructure::FaceCurves, "Returns an iterator on the curves attached to the face <I>.", py::arg("I"));
+cls_TopOpeBRepDS_HDataStructure.def("EdgePoints", (TopOpeBRepDS_PointIterator (TopOpeBRepDS_HDataStructure::*)(const TopoDS_Shape &) const) &TopOpeBRepDS_HDataStructure::EdgePoints, "Returns an iterator on the points attached to the edge <E>.", py::arg("E"));
+cls_TopOpeBRepDS_HDataStructure.def("MakeCurve", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)(const TopOpeBRepDS_Curve &, TopOpeBRepDS_Curve &)) &TopOpeBRepDS_HDataStructure::MakeCurve, "None", py::arg("C1"), py::arg("C2"));
+cls_TopOpeBRepDS_HDataStructure.def("RemoveCurve", (void (TopOpeBRepDS_HDataStructure::*)(const Standard_Integer)) &TopOpeBRepDS_HDataStructure::RemoveCurve, "None", py::arg("iC"));
+cls_TopOpeBRepDS_HDataStructure.def("NbGeometry", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)(const TopOpeBRepDS_Kind) const) &TopOpeBRepDS_HDataStructure::NbGeometry, "None", py::arg("K"));
+cls_TopOpeBRepDS_HDataStructure.def("NbTopology", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)(const TopOpeBRepDS_Kind) const) &TopOpeBRepDS_HDataStructure::NbTopology, "None", py::arg("K"));
+cls_TopOpeBRepDS_HDataStructure.def("NbTopology", (Standard_Integer (TopOpeBRepDS_HDataStructure::*)() const) &TopOpeBRepDS_HDataStructure::NbTopology, "None");
+cls_TopOpeBRepDS_HDataStructure.def("EdgesSameParameter", (Standard_Boolean (TopOpeBRepDS_HDataStructure::*)() const) &TopOpeBRepDS_HDataStructure::EdgesSameParameter, "returns True if all the edges stored as shapes in the DS are SameParameter, otherwise False.");
+cls_TopOpeBRepDS_HDataStructure.def("SortOnParameter", (void (TopOpeBRepDS_HDataStructure::*)(const TopOpeBRepDS_ListOfInterference &, TopOpeBRepDS_ListOfInterference &) const) &TopOpeBRepDS_HDataStructure::SortOnParameter, "None", py::arg("L1"), py::arg("L2"));
+cls_TopOpeBRepDS_HDataStructure.def("SortOnParameter", (void (TopOpeBRepDS_HDataStructure::*)(TopOpeBRepDS_ListOfInterference &) const) &TopOpeBRepDS_HDataStructure::SortOnParameter, "None", py::arg("L"));
+cls_TopOpeBRepDS_HDataStructure.def("MinMaxOnParameter", [](TopOpeBRepDS_HDataStructure &self, const TopOpeBRepDS_ListOfInterference & L, Standard_Real & Min, Standard_Real & Max){ self.MinMaxOnParameter(L, Min, Max); return std::tuple<Standard_Real &, Standard_Real &>(Min, Max); }, "None", py::arg("L"), py::arg("Min"), py::arg("Max"));
+cls_TopOpeBRepDS_HDataStructure.def("ScanInterfList", (Standard_Boolean (TopOpeBRepDS_HDataStructure::*)(TopOpeBRepDS_ListIteratorOfListOfInterference &, const TopOpeBRepDS_Point &) const) &TopOpeBRepDS_HDataStructure::ScanInterfList, "Search, among a list of interferences accessed by the iterator <IT>, a geometry <G> whose 3D point is identical to the 3D point of the TheDSPoint <PDS>. returns True if such an interference has been found, False else. if True, iterator It points (by the Value() method) on the first interference accessing an identical 3D point.", py::arg("IT"), py::arg("PDS"));
+cls_TopOpeBRepDS_HDataStructure.def("GetGeometry", [](TopOpeBRepDS_HDataStructure &self, TopOpeBRepDS_ListIteratorOfListOfInterference & IT, const TopOpeBRepDS_Point & PDS, Standard_Integer & G, TopOpeBRepDS_Kind & K){ Standard_Boolean rv = self.GetGeometry(IT, PDS, G, K); return std::tuple<Standard_Boolean, Standard_Integer &>(rv, G); }, "Get the geometry of a DS point <PDS>. Search for it with ScanInterfList (previous method). if found, set <G,K> to the geometry,kind of the interference found. returns the value of ScanInterfList().", py::arg("IT"), py::arg("PDS"), py::arg("G"), py::arg("K"));
+cls_TopOpeBRepDS_HDataStructure.def("StoreInterference", [](TopOpeBRepDS_HDataStructure &self, const opencascade::handle<TopOpeBRepDS_Interference> & a0, TopOpeBRepDS_ListOfInterference & a1) -> void { return self.StoreInterference(a0, a1); });
+cls_TopOpeBRepDS_HDataStructure.def("StoreInterference", (void (TopOpeBRepDS_HDataStructure::*)(const opencascade::handle<TopOpeBRepDS_Interference> &, TopOpeBRepDS_ListOfInterference &, const TCollection_AsciiString &)) &TopOpeBRepDS_HDataStructure::StoreInterference, "Add interference <I> to list <LI>.", py::arg("I"), py::arg("LI"), py::arg("str"));
+cls_TopOpeBRepDS_HDataStructure.def("StoreInterference", [](TopOpeBRepDS_HDataStructure &self, const opencascade::handle<TopOpeBRepDS_Interference> & a0, const TopoDS_Shape & a1) -> void { return self.StoreInterference(a0, a1); });
+cls_TopOpeBRepDS_HDataStructure.def("StoreInterference", (void (TopOpeBRepDS_HDataStructure::*)(const opencascade::handle<TopOpeBRepDS_Interference> &, const TopoDS_Shape &, const TCollection_AsciiString &)) &TopOpeBRepDS_HDataStructure::StoreInterference, "Add interference <I> to list of interference of shape <S>.", py::arg("I"), py::arg("S"), py::arg("str"));
+cls_TopOpeBRepDS_HDataStructure.def("StoreInterference", [](TopOpeBRepDS_HDataStructure &self, const opencascade::handle<TopOpeBRepDS_Interference> & a0, const Standard_Integer a1) -> void { return self.StoreInterference(a0, a1); });
+cls_TopOpeBRepDS_HDataStructure.def("StoreInterference", (void (TopOpeBRepDS_HDataStructure::*)(const opencascade::handle<TopOpeBRepDS_Interference> &, const Standard_Integer, const TCollection_AsciiString &)) &TopOpeBRepDS_HDataStructure::StoreInterference, "Add interference <I> to list of interference of shape <IS>.", py::arg("I"), py::arg("IS"), py::arg("str"));
+cls_TopOpeBRepDS_HDataStructure.def("StoreInterferences", [](TopOpeBRepDS_HDataStructure &self, const TopOpeBRepDS_ListOfInterference & a0, const TopoDS_Shape & a1) -> void { return self.StoreInterferences(a0, a1); });
+cls_TopOpeBRepDS_HDataStructure.def("StoreInterferences", (void (TopOpeBRepDS_HDataStructure::*)(const TopOpeBRepDS_ListOfInterference &, const TopoDS_Shape &, const TCollection_AsciiString &)) &TopOpeBRepDS_HDataStructure::StoreInterferences, "None", py::arg("LI"), py::arg("S"), py::arg("str"));
+cls_TopOpeBRepDS_HDataStructure.def("StoreInterferences", [](TopOpeBRepDS_HDataStructure &self, const TopOpeBRepDS_ListOfInterference & a0, const Standard_Integer a1) -> void { return self.StoreInterferences(a0, a1); });
+cls_TopOpeBRepDS_HDataStructure.def("StoreInterferences", (void (TopOpeBRepDS_HDataStructure::*)(const TopOpeBRepDS_ListOfInterference &, const Standard_Integer, const TCollection_AsciiString &)) &TopOpeBRepDS_HDataStructure::StoreInterferences, "None", py::arg("LI"), py::arg("IS"), py::arg("str"));
+cls_TopOpeBRepDS_HDataStructure.def("ClearStoreInterferences", [](TopOpeBRepDS_HDataStructure &self, const TopOpeBRepDS_ListOfInterference & a0, const TopoDS_Shape & a1) -> void { return self.ClearStoreInterferences(a0, a1); });
+cls_TopOpeBRepDS_HDataStructure.def("ClearStoreInterferences", (void (TopOpeBRepDS_HDataStructure::*)(const TopOpeBRepDS_ListOfInterference &, const TopoDS_Shape &, const TCollection_AsciiString &)) &TopOpeBRepDS_HDataStructure::ClearStoreInterferences, "None", py::arg("LI"), py::arg("S"), py::arg("str"));
+cls_TopOpeBRepDS_HDataStructure.def("ClearStoreInterferences", [](TopOpeBRepDS_HDataStructure &self, const TopOpeBRepDS_ListOfInterference & a0, const Standard_Integer a1) -> void { return self.ClearStoreInterferences(a0, a1); });
+cls_TopOpeBRepDS_HDataStructure.def("ClearStoreInterferences", (void (TopOpeBRepDS_HDataStructure::*)(const TopOpeBRepDS_ListOfInterference &, const Standard_Integer, const TCollection_AsciiString &)) &TopOpeBRepDS_HDataStructure::ClearStoreInterferences, "None", py::arg("LI"), py::arg("IS"), py::arg("str"));
+cls_TopOpeBRepDS_HDataStructure.def_static("get_type_name_", (const char * (*)()) &TopOpeBRepDS_HDataStructure::get_type_name, "None");
+cls_TopOpeBRepDS_HDataStructure.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRepDS_HDataStructure::get_type_descriptor, "None");
+cls_TopOpeBRepDS_HDataStructure.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRepDS_HDataStructure::*)() const) &TopOpeBRepDS_HDataStructure::DynamicType, "None");
+
+// TYPEDEF: TOPOPEBREPDS_PDATASTRUCTURE
 
 // CLASS: TOPOPEBREPDS
 py::class_<TopOpeBRepDS> cls_TopOpeBRepDS(mod, "TopOpeBRepDS", "This package provides services used by the TopOpeBRepBuild package performing topological operations on the BRep data structure.");
@@ -1234,6 +1235,7 @@ cls_TopOpeBRepDS_GapTool.def("DynamicType", (const opencascade::handle<Standard_
 py::class_<TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference, opencascade::handle<TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference>, Standard_Transient> cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference(mod, "TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def(py::init<>());
 cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def(py::init<const Standard_Integer, const Standard_Integer, const TopOpeBRepDS_Array1OfDataMapOfIntegerListOfInterference::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def(py::init<const TopOpeBRepDS_Array1OfDataMapOfIntegerListOfInterference &>(), py::arg("theOther"));

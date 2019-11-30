@@ -31,7 +31,7 @@ void bind_NCollection_DefaultHasher(py::module &mod, std::string const &name, py
 py::class_<NCollection_DefaultHasher<TheKeyType>> cls_NCollection_DefaultHasher(mod, name.c_str(), "Purpose: The DefaultHasher is a Hasher that is used by default in NCollection maps. To compute the hash code of the key is used the global function HashCode. To compare two keys is used the global function IsEqual.", local);
 
 // Methods
-cls_NCollection_DefaultHasher.def_static("HashCode_", (Standard_Integer (*)(const TheKeyType &, const Standard_Integer)) &NCollection_DefaultHasher<TheKeyType>::HashCode, "None", py::arg("theKey"), py::arg("Upper"));
+cls_NCollection_DefaultHasher.def_static("HashCode_", (Standard_Integer (*)(const TheKeyType &, const Standard_Integer)) &NCollection_DefaultHasher<TheKeyType>::HashCode, "Returns hash code for the given key, in the range [1, theUpperBound]", py::arg("theKey"), py::arg("theUpperBound"));
 cls_NCollection_DefaultHasher.def_static("IsEqual_", (Standard_Boolean (*)(const TheKeyType &, const TheKeyType &)) &NCollection_DefaultHasher<TheKeyType>::IsEqual, "None", py::arg("theKey1"), py::arg("theKey2"));
 
 }

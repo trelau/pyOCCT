@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <MeshVS_HArray1OfSequenceOfInteger.hxx>
 #include <Standard_Type.hxx>
 #include <TColStd_Array1OfReal.hxx>
@@ -51,16 +52,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <MeshVS_DataSource.hxx>
 #include <MeshVS_MeshPtr.hxx>
 #include <MeshVS_DisplayModeFlags.hxx>
-#include <Prs3d_Presentation.hxx>
-#include <SelectBasics_SensitiveEntity.hxx>
-#include <SelectBasics_EntityOwner.hxx>
+#include <PrsMgr_PresentationManager.hxx>
+#include <Select3D_SensitiveEntity.hxx>
+#include <SelectMgr_EntityOwner.hxx>
 #include <MeshVS_Drawer.hxx>
 #include <PrsMgr_PresentationManager3d.hxx>
 #include <MeshVS_PrsBuilder.hxx>
 #include <NCollection_Sequence.hxx>
 #include <MeshVS_SequenceOfPrsBuilder.hxx>
 #include <NCollection_DataMap.hxx>
-#include <SelectMgr_EntityOwner.hxx>
 #include <TColStd_MapIntegerHasher.hxx>
 #include <MeshVS_DataMapOfIntegerOwner.hxx>
 #include <AIS_InteractiveObject.hxx>
@@ -70,7 +70,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Select3D_SensitiveSet.hxx>
 #include <MeshVS_CommonSensitiveEntity.hxx>
 #include <Select3D_BndBox3d.hxx>
-#include <Select3D_SensitiveEntity.hxx>
+#include <SelectBasics_PickResult.hxx>
 #include <SelectBasics_SelectingVolumeManager.hxx>
 #include <NCollection_Vector.hxx>
 #include <Quantity_Color.hxx>
@@ -84,7 +84,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Graphic3d_MaterialAspect.hxx>
 #include <MeshVS_DataMapOfIntegerMaterial.hxx>
 #include <SelectMgr_SOPtr.hxx>
-#include <PrsMgr_PresentationManager.hxx>
 #include <MeshVS_MeshEntityOwner.hxx>
 #include <MeshVS_DataMapOfIntegerMeshEntityOwner.hxx>
 #include <MeshVS_TwoColors.hxx>
@@ -98,7 +97,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <MeshVS_DeformedDataSource.hxx>
 #include <TColStd_DataMapOfIntegerInteger.hxx>
 #include <TColStd_DataMapOfIntegerReal.hxx>
-#include <SelectBasics_PickResult.hxx>
 #include <gp_GTrsf.hxx>
 #include <MeshVS_DummySensitiveEntity.hxx>
 #include <MeshVS_ElementalColorPrsBuilder.hxx>
@@ -152,12 +150,12 @@ py::module::import("OCCT.gp");
 py::module::import("OCCT.Quantity");
 py::module::import("OCCT.Bnd");
 py::module::import("OCCT.TColgp");
-py::module::import("OCCT.Prs3d");
-py::module::import("OCCT.SelectBasics");
 py::module::import("OCCT.PrsMgr");
+py::module::import("OCCT.Select3D");
 py::module::import("OCCT.SelectMgr");
 py::module::import("OCCT.AIS");
-py::module::import("OCCT.Select3D");
+py::module::import("OCCT.Prs3d");
+py::module::import("OCCT.SelectBasics");
 py::module::import("OCCT.TCollection");
 py::module::import("OCCT.Graphic3d");
 py::module::import("OCCT.Aspect");
@@ -216,7 +214,7 @@ py::enum_<MeshVS_DrawerAttribute>(mod, "MeshVS_DrawerAttribute", "Is it allowed 
 
 
 // FUNCTION: HASHCODE
-mod.def("HashCode", (Standard_Integer (*) (const MeshVS_TwoNodes &, const Standard_Integer)) &HashCode, "None", py::arg("obj"), py::arg("Upper"));
+mod.def("HashCode", (Standard_Integer (*) (const MeshVS_TwoNodes &, const Standard_Integer)) &HashCode, "Computes a hash code for two nodes, in the range [1, theUpperBound]", py::arg("theTwoNodes"), py::arg("theUpperBound"));
 
 // TYPEDEF: MESHVS_ARRAY1OFSEQUENCEOFINTEGER
 bind_NCollection_Array1<NCollection_Sequence<int> >(mod, "MeshVS_Array1OfSequenceOfInteger", py::module_local(false));
@@ -233,7 +231,7 @@ cls_MeshVS_Buffer.def(py::init<const Standard_Size>(), py::arg("theSize"));
 py::class_<Quantity_ColorHasher> cls_MeshVS_ColorHasher(mod, "MeshVS_ColorHasher", "Hasher of Quantity_Color.", py::module_local());
 
 // Methods
-cls_MeshVS_ColorHasher.def_static("HashCode_", (Standard_Integer (*)(const Quantity_Color &, const Standard_Integer)) &Quantity_ColorHasher::HashCode, "Returns hash code for the given color.", py::arg("theColor"), py::arg("theUpper"));
+cls_MeshVS_ColorHasher.def_static("HashCode_", (Standard_Integer (*)(const Quantity_Color &, const Standard_Integer)) &Quantity_ColorHasher::HashCode, "Returns hash code for the given RGB color, in the range [1, theUpperBound]", py::arg("theColor"), py::arg("theUpperBound"));
 cls_MeshVS_ColorHasher.def_static("IsEqual_", (Standard_Boolean (*)(const Quantity_Color &, const Quantity_Color &)) &Quantity_ColorHasher::IsEqual, "Returns true if two colors are equal.", py::arg("theColor1"), py::arg("theColor2"));
 
 // TYPEDEF: MESHVS_ENTITYTYPE
@@ -242,6 +240,7 @@ cls_MeshVS_ColorHasher.def_static("IsEqual_", (Standard_Boolean (*)(const Quanti
 py::class_<MeshVS_HArray1OfSequenceOfInteger, opencascade::handle<MeshVS_HArray1OfSequenceOfInteger>, Standard_Transient> cls_MeshVS_HArray1OfSequenceOfInteger(mod, "MeshVS_HArray1OfSequenceOfInteger", "None", py::multiple_inheritance());
 
 // Constructors
+cls_MeshVS_HArray1OfSequenceOfInteger.def(py::init<>());
 cls_MeshVS_HArray1OfSequenceOfInteger.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_MeshVS_HArray1OfSequenceOfInteger.def(py::init<const Standard_Integer, const Standard_Integer, const MeshVS_Array1OfSequenceOfInteger::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_MeshVS_HArray1OfSequenceOfInteger.def(py::init<const MeshVS_Array1OfSequenceOfInteger &>(), py::arg("theOther"));
@@ -298,7 +297,7 @@ py::class_<MeshVS_PrsBuilder, opencascade::handle<MeshVS_PrsBuilder>, Standard_T
 // Methods
 cls_MeshVS_PrsBuilder.def("Build", (void (MeshVS_PrsBuilder::*)(const opencascade::handle<Prs3d_Presentation> &, const TColStd_PackedMapOfInteger &, TColStd_PackedMapOfInteger &, const Standard_Boolean, const Standard_Integer) const) &MeshVS_PrsBuilder::Build, "Builds presentation of certain type of data. Prs is presentation object which this method constructs. IDs is set of numeric identificators forming object appearance. IDsToExclude is set of IDs to exclude from processing. If some entity has been excluded, it is not processed by other builders. IsElement indicates, IDs is identificators of nodes or elements. DisplayMode is numeric constant describing display mode (see MeshVS_DisplayModeFlags.hxx)", py::arg("Prs"), py::arg("IDs"), py::arg("IDsToExclude"), py::arg("IsElement"), py::arg("DisplayMode"));
 cls_MeshVS_PrsBuilder.def("CustomBuild", (void (MeshVS_PrsBuilder::*)(const opencascade::handle<Prs3d_Presentation> &, const TColStd_PackedMapOfInteger &, TColStd_PackedMapOfInteger &, const Standard_Integer) const) &MeshVS_PrsBuilder::CustomBuild, "This method is called to build presentation of custom elements (they have MeshVS_ET_0D type). IDs is set of numeric identificators of elements for custom building. IDsToExclude is set of IDs to exclude from processing. If some entity has been excluded, it is not processed by other builders. DisplayMode is numeric constant describing display mode (see MeshVS_DisplayModeFlags.hxx)", py::arg("Prs"), py::arg("IDs"), py::arg("IDsToExclude"), py::arg("DisplayMode"));
-cls_MeshVS_PrsBuilder.def("CustomSensitiveEntity", (opencascade::handle<SelectBasics_SensitiveEntity> (MeshVS_PrsBuilder::*)(const opencascade::handle<SelectBasics_EntityOwner> &, const Standard_Integer) const) &MeshVS_PrsBuilder::CustomSensitiveEntity, "This method is called to build sensitive of custom elements ( they have MeshVS_ET_0D type )", py::arg("Owner"), py::arg("SelectMode"));
+cls_MeshVS_PrsBuilder.def("CustomSensitiveEntity", (opencascade::handle<Select3D_SensitiveEntity> (MeshVS_PrsBuilder::*)(const opencascade::handle<SelectMgr_EntityOwner> &, const Standard_Integer) const) &MeshVS_PrsBuilder::CustomSensitiveEntity, "This method is called to build sensitive of custom elements ( they have MeshVS_ET_0D type )", py::arg("Owner"), py::arg("SelectMode"));
 cls_MeshVS_PrsBuilder.def("GetFlags", (Standard_Integer (MeshVS_PrsBuilder::*)() const) &MeshVS_PrsBuilder::GetFlags, "Returns flags, assigned with builder during creation");
 cls_MeshVS_PrsBuilder.def("TestFlags", (Standard_Boolean (MeshVS_PrsBuilder::*)(const Standard_Integer) const) &MeshVS_PrsBuilder::TestFlags, "Test whether display mode has flags assigned with this builder. This method has default implementation and can be redefined for advance behavior Returns Standard_True only if display mode is appropriate for this builder", py::arg("DisplayMode"));
 cls_MeshVS_PrsBuilder.def("GetId", (Standard_Integer (MeshVS_PrsBuilder::*)() const) &MeshVS_PrsBuilder::GetId, "Returns builder ID");
@@ -377,7 +376,7 @@ cls_MeshVS_Mesh.def("DynamicType", (const opencascade::handle<Standard_Type> & (
 py::class_<MeshVS_CommonSensitiveEntity, opencascade::handle<MeshVS_CommonSensitiveEntity>, Select3D_SensitiveSet> cls_MeshVS_CommonSensitiveEntity(mod, "MeshVS_CommonSensitiveEntity", "Sensitive entity covering entire mesh for global selection.");
 
 // Constructors
-cls_MeshVS_CommonSensitiveEntity.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const opencascade::handle<MeshVS_Mesh> &, const MeshVS_MeshSelectionMethod>(), py::arg("theOwner"), py::arg("theParentMesh"), py::arg("theSelMethod"));
+cls_MeshVS_CommonSensitiveEntity.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const opencascade::handle<MeshVS_Mesh> &, const MeshVS_MeshSelectionMethod>(), py::arg("theOwner"), py::arg("theParentMesh"), py::arg("theSelMethod"));
 
 // Methods
 cls_MeshVS_CommonSensitiveEntity.def_static("get_type_name_", (const char * (*)()) &MeshVS_CommonSensitiveEntity::get_type_name, "None");
@@ -549,10 +548,10 @@ cls_MeshVS_Drawer.def_static("get_type_descriptor_", (const opencascade::handle<
 cls_MeshVS_Drawer.def("DynamicType", (const opencascade::handle<Standard_Type> & (MeshVS_Drawer::*)() const) &MeshVS_Drawer::DynamicType, "None");
 
 // CLASS: MESHVS_DUMMYSENSITIVEENTITY
-py::class_<MeshVS_DummySensitiveEntity, opencascade::handle<MeshVS_DummySensitiveEntity>, SelectBasics_SensitiveEntity> cls_MeshVS_DummySensitiveEntity(mod, "MeshVS_DummySensitiveEntity", "This class allows to create owners to all elements or nodes, both hidden and shown, but these owners user cannot select 'by hands' in viewer. They means for internal application tasks, for example, receiving all owners, both for hidden and shown entities.");
+py::class_<MeshVS_DummySensitiveEntity, opencascade::handle<MeshVS_DummySensitiveEntity>, Select3D_SensitiveEntity> cls_MeshVS_DummySensitiveEntity(mod, "MeshVS_DummySensitiveEntity", "This class allows to create owners to all elements or nodes, both hidden and shown, but these owners user cannot select 'by hands' in viewer. They means for internal application tasks, for example, receiving all owners, both for hidden and shown entities.");
 
 // Constructors
-cls_MeshVS_DummySensitiveEntity.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &>(), py::arg("theOwnerId"));
+cls_MeshVS_DummySensitiveEntity.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &>(), py::arg("theOwnerId"));
 
 // Methods
 cls_MeshVS_DummySensitiveEntity.def("Matches", (Standard_Boolean (MeshVS_DummySensitiveEntity::*)(SelectBasics_SelectingVolumeManager &, SelectBasics_PickResult &)) &MeshVS_DummySensitiveEntity::Matches, "None", py::arg("theMgr"), py::arg("thePickResult"));
@@ -562,6 +561,7 @@ cls_MeshVS_DummySensitiveEntity.def("BVH", (void (MeshVS_DummySensitiveEntity::*
 cls_MeshVS_DummySensitiveEntity.def("Clear", (void (MeshVS_DummySensitiveEntity::*)()) &MeshVS_DummySensitiveEntity::Clear, "None");
 cls_MeshVS_DummySensitiveEntity.def("HasInitLocation", (Standard_Boolean (MeshVS_DummySensitiveEntity::*)() const) &MeshVS_DummySensitiveEntity::HasInitLocation, "None");
 cls_MeshVS_DummySensitiveEntity.def("InvInitLocation", (gp_GTrsf (MeshVS_DummySensitiveEntity::*)() const) &MeshVS_DummySensitiveEntity::InvInitLocation, "None");
+cls_MeshVS_DummySensitiveEntity.def("CenterOfGeometry", (gp_Pnt (MeshVS_DummySensitiveEntity::*)() const) &MeshVS_DummySensitiveEntity::CenterOfGeometry, "None");
 cls_MeshVS_DummySensitiveEntity.def_static("get_type_name_", (const char * (*)()) &MeshVS_DummySensitiveEntity::get_type_name, "None");
 cls_MeshVS_DummySensitiveEntity.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &MeshVS_DummySensitiveEntity::get_type_descriptor, "None");
 cls_MeshVS_DummySensitiveEntity.def("DynamicType", (const opencascade::handle<Standard_Type> & (MeshVS_DummySensitiveEntity::*)() const) &MeshVS_DummySensitiveEntity::DynamicType, "None");
@@ -698,8 +698,8 @@ cls_MeshVS_NodalColorPrsBuilder.def("DynamicType", (const opencascade::handle<St
 py::class_<MeshVS_SensitiveFace, opencascade::handle<MeshVS_SensitiveFace>, Select3D_SensitiveFace> cls_MeshVS_SensitiveFace(mod, "MeshVS_SensitiveFace", "This class provides custom sensitive face, which will be selected if it center is in rectangle.");
 
 // Constructors
-cls_MeshVS_SensitiveFace.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const TColgp_Array1OfPnt &>(), py::arg("theOwner"), py::arg("thePoints"));
-cls_MeshVS_SensitiveFace.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const TColgp_Array1OfPnt &, const Select3D_TypeOfSensitivity>(), py::arg("theOwner"), py::arg("thePoints"), py::arg("theSensType"));
+cls_MeshVS_SensitiveFace.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const TColgp_Array1OfPnt &>(), py::arg("theOwner"), py::arg("thePoints"));
+cls_MeshVS_SensitiveFace.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const TColgp_Array1OfPnt &, const Select3D_TypeOfSensitivity>(), py::arg("theOwner"), py::arg("thePoints"), py::arg("theSensType"));
 
 // Methods
 cls_MeshVS_SensitiveFace.def_static("get_type_name_", (const char * (*)()) &MeshVS_SensitiveFace::get_type_name, "None");
@@ -710,12 +710,13 @@ cls_MeshVS_SensitiveFace.def("DynamicType", (const opencascade::handle<Standard_
 py::class_<MeshVS_SensitiveMesh, opencascade::handle<MeshVS_SensitiveMesh>, Select3D_SensitiveEntity> cls_MeshVS_SensitiveMesh(mod, "MeshVS_SensitiveMesh", "This class provides custom mesh sensitive entity used in advanced mesh selection.");
 
 // Constructors
-cls_MeshVS_SensitiveMesh.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &>(), py::arg("theOwner"));
-cls_MeshVS_SensitiveMesh.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const Standard_Integer>(), py::arg("theOwner"), py::arg("theMode"));
+cls_MeshVS_SensitiveMesh.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &>(), py::arg("theOwner"));
+cls_MeshVS_SensitiveMesh.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const Standard_Integer>(), py::arg("theOwner"), py::arg("theMode"));
 
 // Methods
 cls_MeshVS_SensitiveMesh.def("GetMode", (Standard_Integer (MeshVS_SensitiveMesh::*)() const) &MeshVS_SensitiveMesh::GetMode, "None");
 cls_MeshVS_SensitiveMesh.def("GetConnected", (opencascade::handle<Select3D_SensitiveEntity> (MeshVS_SensitiveMesh::*)()) &MeshVS_SensitiveMesh::GetConnected, "None");
+cls_MeshVS_SensitiveMesh.def("Matches", (Standard_Boolean (MeshVS_SensitiveMesh::*)(SelectBasics_SelectingVolumeManager &, SelectBasics_PickResult &)) &MeshVS_SensitiveMesh::Matches, "Checks whether sensitive overlaps current selecting volume.", py::arg("theMgr"), py::arg("thePickResult"));
 cls_MeshVS_SensitiveMesh.def("NbSubElements", (Standard_Integer (MeshVS_SensitiveMesh::*)()) &MeshVS_SensitiveMesh::NbSubElements, "Returns the amount of mesh nodes");
 cls_MeshVS_SensitiveMesh.def("BoundingBox", (Select3D_BndBox3d (MeshVS_SensitiveMesh::*)()) &MeshVS_SensitiveMesh::BoundingBox, "Returns bounding box of mesh");
 cls_MeshVS_SensitiveMesh.def("CenterOfGeometry", (gp_Pnt (MeshVS_SensitiveMesh::*)() const) &MeshVS_SensitiveMesh::CenterOfGeometry, "Returns center of mesh");
@@ -733,7 +734,7 @@ bind_NCollection_TListIterator<opencascade::handle<TColgp_HArray1OfPnt> >(mod, "
 py::class_<MeshVS_SensitivePolyhedron, opencascade::handle<MeshVS_SensitivePolyhedron>, Select3D_SensitiveEntity> cls_MeshVS_SensitivePolyhedron(mod, "MeshVS_SensitivePolyhedron", "This class is used to detect selection of a polyhedron. The main principle of detection algorithm is to search for overlap with each polyhedron's face separately, treating them as planar convex polygons.");
 
 // Constructors
-cls_MeshVS_SensitivePolyhedron.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const TColgp_Array1OfPnt &, const opencascade::handle<MeshVS_HArray1OfSequenceOfInteger> &>(), py::arg("theOwner"), py::arg("theNodes"), py::arg("theTopo"));
+cls_MeshVS_SensitivePolyhedron.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const TColgp_Array1OfPnt &, const opencascade::handle<MeshVS_HArray1OfSequenceOfInteger> &>(), py::arg("theOwner"), py::arg("theNodes"), py::arg("theTopo"));
 
 // Methods
 cls_MeshVS_SensitivePolyhedron.def("GetConnected", (opencascade::handle<Select3D_SensitiveEntity> (MeshVS_SensitivePolyhedron::*)()) &MeshVS_SensitivePolyhedron::GetConnected, "None");
@@ -766,7 +767,7 @@ cls_MeshVS_SensitiveQuad.def("DynamicType", (const opencascade::handle<Standard_
 py::class_<MeshVS_SensitiveSegment, opencascade::handle<MeshVS_SensitiveSegment>, Select3D_SensitiveSegment> cls_MeshVS_SensitiveSegment(mod, "MeshVS_SensitiveSegment", "This class provides custom sensitive face, which will be selected if it center is in rectangle.");
 
 // Constructors
-cls_MeshVS_SensitiveSegment.def(py::init<const opencascade::handle<SelectBasics_EntityOwner> &, const gp_Pnt &, const gp_Pnt &>(), py::arg("theOwner"), py::arg("theFirstPnt"), py::arg("theLastPnt"));
+cls_MeshVS_SensitiveSegment.def(py::init<const opencascade::handle<SelectMgr_EntityOwner> &, const gp_Pnt &, const gp_Pnt &>(), py::arg("theOwner"), py::arg("theFirstPnt"), py::arg("theLastPnt"));
 
 // Methods
 cls_MeshVS_SensitiveSegment.def_static("get_type_name_", (const char * (*)()) &MeshVS_SensitiveSegment::get_type_name, "None");
@@ -782,7 +783,7 @@ bind_std::pair<int, int>(mod, "MeshVS_NodePair", py::module_local());
 py::class_<MeshVS_SymmetricPairHasher> cls_MeshVS_SymmetricPairHasher(mod, "MeshVS_SymmetricPairHasher", "Provides symmetric hash methods pair of integers.");
 
 // Methods
-cls_MeshVS_SymmetricPairHasher.def_static("HashCode_", (Standard_Integer (*)(const MeshVS_NodePair &, const Standard_Integer)) &MeshVS_SymmetricPairHasher::HashCode, "None", py::arg("thePair"), py::arg("theMaxCode"));
+cls_MeshVS_SymmetricPairHasher.def_static("HashCode_", (Standard_Integer (*)(const MeshVS_NodePair &, const Standard_Integer)) &MeshVS_SymmetricPairHasher::HashCode, "Computes a hash code for the node pair, in the range [1, theUpperBound]", py::arg("theNodePair"), py::arg("theUpperBound"));
 cls_MeshVS_SymmetricPairHasher.def_static("IsEqual_", (Standard_Boolean (*)(const MeshVS_NodePair &, const MeshVS_NodePair &)) &MeshVS_SymmetricPairHasher::IsEqual, "None", py::arg("thePair1"), py::arg("thePair2"));
 
 // CLASS: MESHVS_TEXTPRSBUILDER

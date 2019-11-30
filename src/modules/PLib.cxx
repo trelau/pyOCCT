@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <PLib_DoubleJacobiPolynomial.hxx>
 #include <PLib.hxx>
 #include <Standard_Transient.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <TColStd_HArray1OfReal.hxx>

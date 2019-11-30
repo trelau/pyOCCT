@@ -31,14 +31,18 @@ void bind_NCollection_Array2(py::module &mod, std::string const &name, py::modul
 py::class_<NCollection_Array2<TheItemType>> cls_NCollection_Array2(mod, name.c_str(), "Purpose: The class Array2 represents bi-dimensional arrays of fixed size known at run time. The ranges of indices are user defined.", local);
 
 // Constructors
+cls_NCollection_Array2.def(py::init<>());
 cls_NCollection_Array2.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
 cls_NCollection_Array2.def(py::init<const NCollection_Array2<TheItemType> &>(), py::arg("theOther"));
+// cls_NCollection_Array2.def(py::init<NCollection_Array2<TheItemType> &&>(), py::arg("theOther"));
 cls_NCollection_Array2.def(py::init<const TheItemType &, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theBegin"), py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"));
 
 // Methods
 cls_NCollection_Array2.def("Init", (void (NCollection_Array2<TheItemType>::*)(const TheItemType &)) &NCollection_Array2<TheItemType>::Init, "Initialise the values", py::arg("theValue"));
 cls_NCollection_Array2.def("Size", (Standard_Integer (NCollection_Array2<TheItemType>::*)() const) &NCollection_Array2<TheItemType>::Size, "Size (number of items)");
 cls_NCollection_Array2.def("Length", (Standard_Integer (NCollection_Array2<TheItemType>::*)() const) &NCollection_Array2<TheItemType>::Length, "Length (number of items)");
+cls_NCollection_Array2.def("NbRows", (Standard_Integer (NCollection_Array2<TheItemType>::*)() const) &NCollection_Array2<TheItemType>::NbRows, "Returns number of rows");
+cls_NCollection_Array2.def("NbColumns", (Standard_Integer (NCollection_Array2<TheItemType>::*)() const) &NCollection_Array2<TheItemType>::NbColumns, "Returns number of columns");
 cls_NCollection_Array2.def("RowLength", (Standard_Integer (NCollection_Array2<TheItemType>::*)() const) &NCollection_Array2<TheItemType>::RowLength, "Returns length of the row, i.e. number of columns");
 cls_NCollection_Array2.def("ColLength", (Standard_Integer (NCollection_Array2<TheItemType>::*)() const) &NCollection_Array2<TheItemType>::ColLength, "Returns length of the column, i.e. number of rows");
 cls_NCollection_Array2.def("LowerRow", (Standard_Integer (NCollection_Array2<TheItemType>::*)() const) &NCollection_Array2<TheItemType>::LowerRow, "LowerRow");
@@ -47,12 +51,15 @@ cls_NCollection_Array2.def("LowerCol", (Standard_Integer (NCollection_Array2<The
 cls_NCollection_Array2.def("UpperCol", (Standard_Integer (NCollection_Array2<TheItemType>::*)() const) &NCollection_Array2<TheItemType>::UpperCol, "UpperCol");
 cls_NCollection_Array2.def("IsDeletable", (Standard_Boolean (NCollection_Array2<TheItemType>::*)() const) &NCollection_Array2<TheItemType>::IsDeletable, "myDeletable flag");
 cls_NCollection_Array2.def("Assign", (NCollection_Array2<TheItemType> & (NCollection_Array2<TheItemType>::*)(const NCollection_Array2<TheItemType> &)) &NCollection_Array2<TheItemType>::Assign, "Assignment", py::arg("theOther"));
+cls_NCollection_Array2.def("Move", (NCollection_Array2<TheItemType> & (NCollection_Array2<TheItemType>::*)(NCollection_Array2<TheItemType> &)) &NCollection_Array2<TheItemType>::Move, "Move assignment. This array will borrow all the data from theOther. The moved object will be left unitialized and should not be used anymore.", py::arg("theOther"));
 // cls_NCollection_Array2.def("operator=", (NCollection_Array2<TheItemType> & (NCollection_Array2<TheItemType>::*)(const NCollection_Array2<TheItemType> &)) &NCollection_Array2<TheItemType>::operator=, "Assignment operator", py::arg("theOther"));
+// cls_NCollection_Array2.def("operator=", (NCollection_Array2<TheItemType> & (NCollection_Array2<TheItemType>::*)(NCollection_Array2<TheItemType> &&)) &NCollection_Array2<TheItemType>::operator=, "Move assignment operator;", py::arg("theOther"));
 cls_NCollection_Array2.def("Value", (const TheItemType & (NCollection_Array2<TheItemType>::*)(const Standard_Integer, const Standard_Integer) const) &NCollection_Array2<TheItemType>::Value, "Constant value access", py::arg("theRow"), py::arg("theCol"));
 cls_NCollection_Array2.def("__call__", (const TheItemType & (NCollection_Array2<TheItemType>::*)(const Standard_Integer, const Standard_Integer) const) &NCollection_Array2<TheItemType>::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
 cls_NCollection_Array2.def("ChangeValue", (TheItemType & (NCollection_Array2<TheItemType>::*)(const Standard_Integer, const Standard_Integer)) &NCollection_Array2<TheItemType>::ChangeValue, "Variable value access", py::arg("theRow"), py::arg("theCol"));
 cls_NCollection_Array2.def("__call__", (TheItemType & (NCollection_Array2<TheItemType>::*)(const Standard_Integer, const Standard_Integer)) &NCollection_Array2<TheItemType>::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theRow"), py::arg("theCol"));
 cls_NCollection_Array2.def("SetValue", (void (NCollection_Array2<TheItemType>::*)(const Standard_Integer, const Standard_Integer, const TheItemType &)) &NCollection_Array2<TheItemType>::SetValue, "SetValue", py::arg("theRow"), py::arg("theCol"), py::arg("theItem"));
+cls_NCollection_Array2.def("Resize", (void (NCollection_Array2<TheItemType>::*)(Standard_Integer, Standard_Integer, Standard_Integer, Standard_Integer, Standard_Boolean)) &NCollection_Array2<TheItemType>::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theRowLower"), py::arg("theRowUpper"), py::arg("theColLower"), py::arg("theColUpper"), py::arg("theToCopyData"));
 
 }
 

@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 #include <Standard_Type.hxx>
 #include <TColStd_Array1OfInteger.hxx>
@@ -37,24 +38,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColStd_SequenceOfReal.hxx>
 #include <TColStd_HSequenceOfReal.hxx>
 #include <TColStd_HArray2OfReal.hxx>
-#include <NCollection_List.hxx>
-#include <TColStd_ListOfInteger.hxx>
 #include <TColStd_Array1OfByte.hxx>
 #include <TColStd_HArray1OfByte.hxx>
+#include <NCollection_List.hxx>
+#include <TColStd_ListOfInteger.hxx>
 #include <NCollection_IndexedDataMap.hxx>
 #include <TCollection_AsciiString.hxx>
 #include <TColStd_IndexedDataMapOfStringString.hxx>
-#include <TColStd_ListOfTransient.hxx>
-#include <TColStd_SequenceOfInteger.hxx>
 #include <NCollection_DefaultHasher.hxx>
 #include <TColStd_MapTransientHasher.hxx>
-#include <NCollection_Map.hxx>
-#include <TColStd_MapOfTransient.hxx>
+#include <TColStd_SequenceOfInteger.hxx>
 #include <TColStd_MapIntegerHasher.hxx>
 #include <TCollection_ExtendedString.hxx>
 #include <TColStd_SequenceOfExtendedString.hxx>
 #include <NCollection_DataMap.hxx>
 #include <TColStd_DataMapOfIntegerListOfInteger.hxx>
+#include <TColStd_ListOfTransient.hxx>
+#include <NCollection_Map.hxx>
 #include <TColStd_MapOfInteger.hxx>
 #include <TColStd_Array1OfTransient.hxx>
 #include <TColStd_Array1OfAsciiString.hxx>
@@ -69,19 +69,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColStd_HSequenceOfAsciiString.hxx>
 #include <NCollection_IndexedMap.hxx>
 #include <TColStd_IndexedMapOfTransient.hxx>
+#include <TColStd_MapOfTransient.hxx>
 #include <TColStd_DataMapOfAsciiStringInteger.hxx>
 #include <TColStd_DataMapOfIntegerInteger.hxx>
 #include <TColStd_Array1OfListOfInteger.hxx>
 #include <TColStd_HArray1OfListOfInteger.hxx>
 #include <TColStd_DataMapOfIntegerReal.hxx>
+#include <TColStd_IndexedMapOfInteger.hxx>
+#include <TColStd_SequenceOfBoolean.hxx>
+#include <TColStd_Array1OfBoolean.hxx>
 #include <TCollection_BasicMap.hxx>
 #include <TCollection_BasicMapIterator.hxx>
 #include <TColStd_PackedMapOfInteger.hxx>
 #include <Standard_NoSuchObject.hxx>
 #include <Standard_OStream.hxx>
-#include <TColStd_IndexedMapOfInteger.hxx>
-#include <TColStd_SequenceOfBoolean.hxx>
-#include <TColStd_Array1OfBoolean.hxx>
+#include <TColStd_MapIteratorOfPackedMapOfInteger.hxx>
+#include <TColStd_HArray1OfTransient.hxx>
+#include <TCollection_HExtendedString.hxx>
+#include <TColStd_SequenceOfHExtendedString.hxx>
+#include <TColStd_HSequenceOfHExtendedString.hxx>
 #include <TColStd_MapOfAsciiString.hxx>
 #include <TColStd_Array2OfBoolean.hxx>
 #include <TColStd_IndexedDataMapOfTransientTransient.hxx>
@@ -90,17 +96,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColStd_ListOfAsciiString.hxx>
 #include <TColStd_HArray1OfBoolean.hxx>
 #include <TColStd_HSequenceOfInteger.hxx>
-#include <TColStd_HArray1OfTransient.hxx>
 #include <TColStd_SequenceOfTransient.hxx>
 #include <TColStd_HSequenceOfTransient.hxx>
 #include <TColStd_Array2OfTransient.hxx>
 #include <TColStd_HArray2OfTransient.hxx>
 #include <TColStd_HPackedMapOfInteger.hxx>
 #include <TColStd_HArray1OfAsciiString.hxx>
-#include <TCollection_HExtendedString.hxx>
-#include <TColStd_SequenceOfHExtendedString.hxx>
-#include <TColStd_HSequenceOfHExtendedString.hxx>
-#include <TColStd_MapIteratorOfPackedMapOfInteger.hxx>
 #include <TColStd_Array1OfExtendedString.hxx>
 #include <TColStd_HArray1OfExtendedString.hxx>
 #include <TColStd_Array1OfCharacter.hxx>
@@ -120,8 +121,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <bind_NCollection_TListIterator.hxx>
 #include <bind_NCollection_IndexedDataMap.hxx>
 #include <bind_NCollection_DefaultHasher.hxx>
-#include <bind_NCollection_Map.hxx>
 #include <bind_NCollection_DataMap.hxx>
+#include <bind_NCollection_Map.hxx>
 #include <bind_NCollection_IndexedMap.hxx>
 
 PYBIND11_MODULE(TColStd, mod) {
@@ -137,6 +138,7 @@ bind_NCollection_Array1<double>(mod, "TColStd_Array1OfReal", py::module_local(fa
 py::class_<TColStd_HArray1OfReal, opencascade::handle<TColStd_HArray1OfReal>, Standard_Transient> cls_TColStd_HArray1OfReal(mod, "TColStd_HArray1OfReal", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColStd_HArray1OfReal.def(py::init<>());
 cls_TColStd_HArray1OfReal.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColStd_HArray1OfReal.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfReal::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColStd_HArray1OfReal.def(py::init<const TColStd_Array1OfReal &>(), py::arg("theOther"));
@@ -163,6 +165,7 @@ bind_NCollection_Array1<int>(mod, "TColStd_Array1OfInteger", py::module_local(fa
 py::class_<TColStd_HArray1OfInteger, opencascade::handle<TColStd_HArray1OfInteger>, Standard_Transient> cls_TColStd_HArray1OfInteger(mod, "TColStd_HArray1OfInteger", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColStd_HArray1OfInteger.def(py::init<>());
 cls_TColStd_HArray1OfInteger.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColStd_HArray1OfInteger.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfInteger::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColStd_HArray1OfInteger.def(py::init<const TColStd_Array1OfInteger &>(), py::arg("theOther"));
@@ -235,12 +238,6 @@ cls_TColStd_HArray2OfReal.def_static("get_type_name_", (const char * (*)()) &TCo
 cls_TColStd_HArray2OfReal.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray2OfReal::get_type_descriptor, "None");
 cls_TColStd_HArray2OfReal.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray2OfReal::*)() const) &TColStd_HArray2OfReal::DynamicType, "None");
 
-// TYPEDEF: TCOLSTD_LISTOFINTEGER
-bind_NCollection_List<int>(mod, "TColStd_ListOfInteger", py::module_local(false));
-
-// TYPEDEF: TCOLSTD_LISTITERATOROFLISTOFINTEGER
-bind_NCollection_TListIterator<int>(mod, "TColStd_ListIteratorOfListOfInteger", py::module_local(false));
-
 // TYPEDEF: TCOLSTD_ARRAY1OFBYTE
 bind_NCollection_Array1<unsigned char>(mod, "TColStd_Array1OfByte", py::module_local(false));
 
@@ -248,6 +245,7 @@ bind_NCollection_Array1<unsigned char>(mod, "TColStd_Array1OfByte", py::module_l
 py::class_<TColStd_HArray1OfByte, opencascade::handle<TColStd_HArray1OfByte>, Standard_Transient> cls_TColStd_HArray1OfByte(mod, "TColStd_HArray1OfByte", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColStd_HArray1OfByte.def(py::init<>());
 cls_TColStd_HArray1OfByte.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColStd_HArray1OfByte.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfByte::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColStd_HArray1OfByte.def(py::init<const TColStd_Array1OfByte &>(), py::arg("theOther"));
@@ -267,25 +265,20 @@ cls_TColStd_HArray1OfByte.def_static("get_type_name_", (const char * (*)()) &TCo
 cls_TColStd_HArray1OfByte.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray1OfByte::get_type_descriptor, "None");
 cls_TColStd_HArray1OfByte.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray1OfByte::*)() const) &TColStd_HArray1OfByte::DynamicType, "None");
 
+// TYPEDEF: TCOLSTD_LISTOFINTEGER
+bind_NCollection_List<int>(mod, "TColStd_ListOfInteger", py::module_local(false));
+
+// TYPEDEF: TCOLSTD_LISTITERATOROFLISTOFINTEGER
+bind_NCollection_TListIterator<int>(mod, "TColStd_ListIteratorOfListOfInteger", py::module_local(false));
+
 // TYPEDEF: TCOLSTD_INDEXEDDATAMAPOFSTRINGSTRING
 bind_NCollection_IndexedDataMap<TCollection_AsciiString, TCollection_AsciiString, TCollection_AsciiString>(mod, "TColStd_IndexedDataMapOfStringString", py::module_local(false));
-
-// TYPEDEF: TCOLSTD_LISTOFTRANSIENT
-bind_NCollection_List<opencascade::handle<Standard_Transient> >(mod, "TColStd_ListOfTransient", py::module_local(false));
-
-// TYPEDEF: TCOLSTD_LISTITERATOROFLISTOFTRANSIENT
-bind_NCollection_TListIterator<opencascade::handle<Standard_Transient> >(mod, "TColStd_ListIteratorOfListOfTransient", py::module_local(false));
-
-// TYPEDEF: TCOLSTD_SEQUENCEOFINTEGER
-bind_NCollection_Sequence<int>(mod, "TColStd_SequenceOfInteger", py::module_local(false));
 
 // TYPEDEF: TCOLSTD_MAPTRANSIENTHASHER
 bind_NCollection_DefaultHasher<opencascade::handle<Standard_Transient> >(mod, "TColStd_MapTransientHasher", py::module_local(false));
 
-// TYPEDEF: TCOLSTD_MAPOFTRANSIENT
-bind_NCollection_Map<opencascade::handle<Standard_Transient>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "TColStd_MapOfTransient", py::module_local(false));
-
-// TYPEDEF: TCOLSTD_MAPITERATOROFMAPOFTRANSIENT
+// TYPEDEF: TCOLSTD_SEQUENCEOFINTEGER
+bind_NCollection_Sequence<int>(mod, "TColStd_SequenceOfInteger", py::module_local(false));
 
 // TYPEDEF: TCOLSTD_MAPINTEGERHASHER
 bind_NCollection_DefaultHasher<int>(mod, "TColStd_MapIntegerHasher", py::module_local(false));
@@ -297,6 +290,12 @@ bind_NCollection_Sequence<TCollection_ExtendedString>(mod, "TColStd_SequenceOfEx
 bind_NCollection_DataMap<int, NCollection_List<int>, NCollection_DefaultHasher<int> >(mod, "TColStd_DataMapOfIntegerListOfInteger", py::module_local(false));
 
 // TYPEDEF: TCOLSTD_DATAMAPITERATOROFDATAMAPOFINTEGERLISTOFINTEGER
+
+// TYPEDEF: TCOLSTD_LISTOFTRANSIENT
+bind_NCollection_List<opencascade::handle<Standard_Transient> >(mod, "TColStd_ListOfTransient", py::module_local(false));
+
+// TYPEDEF: TCOLSTD_LISTITERATOROFLISTOFTRANSIENT
+bind_NCollection_TListIterator<opencascade::handle<Standard_Transient> >(mod, "TColStd_ListIteratorOfListOfTransient", py::module_local(false));
 
 // TYPEDEF: TCOLSTD_MAPOFINTEGER
 bind_NCollection_Map<int, NCollection_DefaultHasher<int> >(mod, "TColStd_MapOfInteger", py::module_local(false));
@@ -400,6 +399,11 @@ cls_TColStd_HSequenceOfAsciiString.def("DynamicType", (const opencascade::handle
 // TYPEDEF: TCOLSTD_INDEXEDMAPOFTRANSIENT
 bind_NCollection_IndexedMap<opencascade::handle<Standard_Transient>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "TColStd_IndexedMapOfTransient", py::module_local(false));
 
+// TYPEDEF: TCOLSTD_MAPOFTRANSIENT
+bind_NCollection_Map<opencascade::handle<Standard_Transient>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "TColStd_MapOfTransient", py::module_local(false));
+
+// TYPEDEF: TCOLSTD_MAPITERATOROFMAPOFTRANSIENT
+
 // TYPEDEF: TCOLSTD_DATAMAPOFASCIISTRINGINTEGER
 bind_NCollection_DataMap<TCollection_AsciiString, int, TCollection_AsciiString>(mod, "TColStd_DataMapOfAsciiStringInteger", py::module_local(false));
 
@@ -417,6 +421,7 @@ bind_NCollection_Array1<NCollection_List<int> >(mod, "TColStd_Array1OfListOfInte
 py::class_<TColStd_HArray1OfListOfInteger, opencascade::handle<TColStd_HArray1OfListOfInteger>, Standard_Transient> cls_TColStd_HArray1OfListOfInteger(mod, "TColStd_HArray1OfListOfInteger", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColStd_HArray1OfListOfInteger.def(py::init<>());
 cls_TColStd_HArray1OfListOfInteger.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColStd_HArray1OfListOfInteger.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfListOfInteger::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColStd_HArray1OfListOfInteger.def(py::init<const TColStd_Array1OfListOfInteger &>(), py::arg("theOther"));
@@ -440,6 +445,15 @@ cls_TColStd_HArray1OfListOfInteger.def("DynamicType", (const opencascade::handle
 bind_NCollection_DataMap<int, double, NCollection_DefaultHasher<int> >(mod, "TColStd_DataMapOfIntegerReal", py::module_local(false));
 
 // TYPEDEF: TCOLSTD_DATAMAPITERATOROFDATAMAPOFINTEGERREAL
+
+// TYPEDEF: TCOLSTD_INDEXEDMAPOFINTEGER
+bind_NCollection_IndexedMap<int, NCollection_DefaultHasher<int> >(mod, "TColStd_IndexedMapOfInteger", py::module_local(false));
+
+// TYPEDEF: TCOLSTD_SEQUENCEOFBOOLEAN
+bind_NCollection_Sequence<bool>(mod, "TColStd_SequenceOfBoolean", py::module_local(false));
+
+// TYPEDEF: TCOLSTD_ARRAY1OFBOOLEAN
+bind_NCollection_Array1<bool>(mod, "TColStd_Array1OfBoolean", py::module_local(false));
 
 // CLASS: TCOLSTD_PACKEDMAPOFINTEGER
 py::class_<TColStd_PackedMapOfInteger> cls_TColStd_PackedMapOfInteger(mod, "TColStd_PackedMapOfInteger", "Optimized Map of integer values. Each block of 32 integers is stored in 8 bytes in memory.");
@@ -487,14 +501,69 @@ cls_TColStd_PackedMapOfInteger.def("IsSubset", (Standard_Boolean (TColStd_Packed
 cls_TColStd_PackedMapOfInteger.def("__le__", (Standard_Boolean (TColStd_PackedMapOfInteger::*)(const TColStd_PackedMapOfInteger &) const) &TColStd_PackedMapOfInteger::operator<=, py::is_operator(), "Overloaded operator version of IsSubset().", py::arg("MM"));
 cls_TColStd_PackedMapOfInteger.def("HasIntersection", (Standard_Boolean (TColStd_PackedMapOfInteger::*)(const TColStd_PackedMapOfInteger &) const) &TColStd_PackedMapOfInteger::HasIntersection, "Returns True if this map has common items with the given one.", py::arg(""));
 
-// TYPEDEF: TCOLSTD_INDEXEDMAPOFINTEGER
-bind_NCollection_IndexedMap<int, NCollection_DefaultHasher<int> >(mod, "TColStd_IndexedMapOfInteger", py::module_local(false));
+// TYPEDEF: TCOLSTD_MAPITERATOROFPACKEDMAPOFINTEGER
+py::class_<TColStd_PackedMapOfInteger::Iterator, TCollection_BasicMapIterator> cls_TColStd_PackedMapOfInteger_TColStd_MapIteratorOfPackedMapOfInteger(mod, "TColStd_MapIteratorOfPackedMapOfInteger", "Iterator of class TColStd_PackedMapOfInteger.");
 
-// TYPEDEF: TCOLSTD_SEQUENCEOFBOOLEAN
-bind_NCollection_Sequence<bool>(mod, "TColStd_SequenceOfBoolean", py::module_local(false));
+// Constructors
+cls_TColStd_PackedMapOfInteger_TColStd_MapIteratorOfPackedMapOfInteger.def(py::init<>());
+cls_TColStd_PackedMapOfInteger_TColStd_MapIteratorOfPackedMapOfInteger.def(py::init<const TColStd_PackedMapOfInteger &>(), py::arg("theMap"));
 
-// TYPEDEF: TCOLSTD_ARRAY1OFBOOLEAN
-bind_NCollection_Array1<bool>(mod, "TColStd_Array1OfBoolean", py::module_local(false));
+// Methods
+cls_TColStd_PackedMapOfInteger_TColStd_MapIteratorOfPackedMapOfInteger.def("Initialize", (void (TColStd_PackedMapOfInteger::Iterator::*)(const TColStd_PackedMapOfInteger &)) &TColStd_PackedMapOfInteger::Iterator::Initialize, "Re-initialize with the same or another Map instance.", py::arg("theMap"));
+cls_TColStd_PackedMapOfInteger_TColStd_MapIteratorOfPackedMapOfInteger.def("Reset", (void (TColStd_PackedMapOfInteger::Iterator::*)()) &TColStd_PackedMapOfInteger::Iterator::Reset, "Restart the iteration");
+cls_TColStd_PackedMapOfInteger_TColStd_MapIteratorOfPackedMapOfInteger.def("Key", (Standard_Integer (TColStd_PackedMapOfInteger::Iterator::*)() const) &TColStd_PackedMapOfInteger::Iterator::Key, "Query the iterated key.");
+cls_TColStd_PackedMapOfInteger_TColStd_MapIteratorOfPackedMapOfInteger.def("Next", (void (TColStd_PackedMapOfInteger::Iterator::*)()) &TColStd_PackedMapOfInteger::Iterator::Next, "Increment the iterator");
+
+// CLASS: TCOLSTD_HARRAY1OFTRANSIENT
+py::class_<TColStd_HArray1OfTransient, opencascade::handle<TColStd_HArray1OfTransient>, Standard_Transient> cls_TColStd_HArray1OfTransient(mod, "TColStd_HArray1OfTransient", "None", py::multiple_inheritance());
+
+// Constructors
+cls_TColStd_HArray1OfTransient.def(py::init<>());
+cls_TColStd_HArray1OfTransient.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
+cls_TColStd_HArray1OfTransient.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfTransient::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
+cls_TColStd_HArray1OfTransient.def(py::init<const TColStd_Array1OfTransient &>(), py::arg("theOther"));
+
+// Methods
+// cls_TColStd_HArray1OfTransient.def_static("operator new_", (void * (*)(size_t)) &TColStd_HArray1OfTransient::operator new, "None", py::arg("theSize"));
+// cls_TColStd_HArray1OfTransient.def_static("operator delete_", (void (*)(void *)) &TColStd_HArray1OfTransient::operator delete, "None", py::arg("theAddress"));
+// cls_TColStd_HArray1OfTransient.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HArray1OfTransient::operator new[], "None", py::arg("theSize"));
+// cls_TColStd_HArray1OfTransient.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HArray1OfTransient::operator delete[], "None", py::arg("theAddress"));
+// cls_TColStd_HArray1OfTransient.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HArray1OfTransient::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_TColStd_HArray1OfTransient.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HArray1OfTransient::operator delete, "None", py::arg(""), py::arg(""));
+// cls_TColStd_HArray1OfTransient.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfTransient::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
+// cls_TColStd_HArray1OfTransient.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfTransient::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
+cls_TColStd_HArray1OfTransient.def("Array1", (const TColStd_Array1OfTransient & (TColStd_HArray1OfTransient::*)() const) &TColStd_HArray1OfTransient::Array1, "None");
+cls_TColStd_HArray1OfTransient.def("ChangeArray1", (TColStd_Array1OfTransient & (TColStd_HArray1OfTransient::*)()) &TColStd_HArray1OfTransient::ChangeArray1, "None");
+cls_TColStd_HArray1OfTransient.def_static("get_type_name_", (const char * (*)()) &TColStd_HArray1OfTransient::get_type_name, "None");
+cls_TColStd_HArray1OfTransient.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray1OfTransient::get_type_descriptor, "None");
+cls_TColStd_HArray1OfTransient.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray1OfTransient::*)() const) &TColStd_HArray1OfTransient::DynamicType, "None");
+
+// TYPEDEF: TCOLSTD_SEQUENCEOFHEXTENDEDSTRING
+bind_NCollection_Sequence<opencascade::handle<TCollection_HExtendedString> >(mod, "TColStd_SequenceOfHExtendedString", py::module_local(false));
+
+// CLASS: TCOLSTD_HSEQUENCEOFHEXTENDEDSTRING
+py::class_<TColStd_HSequenceOfHExtendedString, opencascade::handle<TColStd_HSequenceOfHExtendedString>, Standard_Transient> cls_TColStd_HSequenceOfHExtendedString(mod, "TColStd_HSequenceOfHExtendedString", "None", py::multiple_inheritance());
+
+// Constructors
+cls_TColStd_HSequenceOfHExtendedString.def(py::init<>());
+cls_TColStd_HSequenceOfHExtendedString.def(py::init<const TColStd_SequenceOfHExtendedString &>(), py::arg("theOther"));
+
+// Methods
+// cls_TColStd_HSequenceOfHExtendedString.def_static("operator new_", (void * (*)(size_t)) &TColStd_HSequenceOfHExtendedString::operator new, "None", py::arg("theSize"));
+// cls_TColStd_HSequenceOfHExtendedString.def_static("operator delete_", (void (*)(void *)) &TColStd_HSequenceOfHExtendedString::operator delete, "None", py::arg("theAddress"));
+// cls_TColStd_HSequenceOfHExtendedString.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HSequenceOfHExtendedString::operator new[], "None", py::arg("theSize"));
+// cls_TColStd_HSequenceOfHExtendedString.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HSequenceOfHExtendedString::operator delete[], "None", py::arg("theAddress"));
+// cls_TColStd_HSequenceOfHExtendedString.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HSequenceOfHExtendedString::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_TColStd_HSequenceOfHExtendedString.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HSequenceOfHExtendedString::operator delete, "None", py::arg(""), py::arg(""));
+// cls_TColStd_HSequenceOfHExtendedString.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfHExtendedString::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
+// cls_TColStd_HSequenceOfHExtendedString.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfHExtendedString::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
+cls_TColStd_HSequenceOfHExtendedString.def("Sequence", (const TColStd_SequenceOfHExtendedString & (TColStd_HSequenceOfHExtendedString::*)() const) &TColStd_HSequenceOfHExtendedString::Sequence, "None");
+cls_TColStd_HSequenceOfHExtendedString.def("Append", (void (TColStd_HSequenceOfHExtendedString::*)(const TColStd_SequenceOfHExtendedString::value_type &)) &TColStd_HSequenceOfHExtendedString::Append, "None", py::arg("theItem"));
+cls_TColStd_HSequenceOfHExtendedString.def("Append", (void (TColStd_HSequenceOfHExtendedString::*)(TColStd_SequenceOfHExtendedString &)) &TColStd_HSequenceOfHExtendedString::Append, "None", py::arg("theSequence"));
+cls_TColStd_HSequenceOfHExtendedString.def("ChangeSequence", (TColStd_SequenceOfHExtendedString & (TColStd_HSequenceOfHExtendedString::*)()) &TColStd_HSequenceOfHExtendedString::ChangeSequence, "None");
+cls_TColStd_HSequenceOfHExtendedString.def_static("get_type_name_", (const char * (*)()) &TColStd_HSequenceOfHExtendedString::get_type_name, "None");
+cls_TColStd_HSequenceOfHExtendedString.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HSequenceOfHExtendedString::get_type_descriptor, "None");
+cls_TColStd_HSequenceOfHExtendedString.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HSequenceOfHExtendedString::*)() const) &TColStd_HSequenceOfHExtendedString::DynamicType, "None");
 
 // TYPEDEF: TCOLSTD_MAPOFASCIISTRING
 bind_NCollection_Map<TCollection_AsciiString, TCollection_AsciiString>(mod, "TColStd_MapOfAsciiString", py::module_local(false));
@@ -528,6 +597,7 @@ bind_NCollection_TListIterator<TCollection_AsciiString>(mod, "TColStd_ListIterat
 py::class_<TColStd_HArray1OfBoolean, opencascade::handle<TColStd_HArray1OfBoolean>, Standard_Transient> cls_TColStd_HArray1OfBoolean(mod, "TColStd_HArray1OfBoolean", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColStd_HArray1OfBoolean.def(py::init<>());
 cls_TColStd_HArray1OfBoolean.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColStd_HArray1OfBoolean.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfBoolean::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColStd_HArray1OfBoolean.def(py::init<const TColStd_Array1OfBoolean &>(), py::arg("theOther"));
@@ -570,29 +640,6 @@ cls_TColStd_HSequenceOfInteger.def("ChangeSequence", (TColStd_SequenceOfInteger 
 cls_TColStd_HSequenceOfInteger.def_static("get_type_name_", (const char * (*)()) &TColStd_HSequenceOfInteger::get_type_name, "None");
 cls_TColStd_HSequenceOfInteger.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HSequenceOfInteger::get_type_descriptor, "None");
 cls_TColStd_HSequenceOfInteger.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HSequenceOfInteger::*)() const) &TColStd_HSequenceOfInteger::DynamicType, "None");
-
-// CLASS: TCOLSTD_HARRAY1OFTRANSIENT
-py::class_<TColStd_HArray1OfTransient, opencascade::handle<TColStd_HArray1OfTransient>, Standard_Transient> cls_TColStd_HArray1OfTransient(mod, "TColStd_HArray1OfTransient", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HArray1OfTransient.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TColStd_HArray1OfTransient.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfTransient::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TColStd_HArray1OfTransient.def(py::init<const TColStd_Array1OfTransient &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HArray1OfTransient.def_static("operator new_", (void * (*)(size_t)) &TColStd_HArray1OfTransient::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfTransient.def_static("operator delete_", (void (*)(void *)) &TColStd_HArray1OfTransient::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfTransient.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HArray1OfTransient::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfTransient.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HArray1OfTransient::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfTransient.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HArray1OfTransient::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HArray1OfTransient.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HArray1OfTransient::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HArray1OfTransient.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfTransient::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HArray1OfTransient.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfTransient::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HArray1OfTransient.def("Array1", (const TColStd_Array1OfTransient & (TColStd_HArray1OfTransient::*)() const) &TColStd_HArray1OfTransient::Array1, "None");
-cls_TColStd_HArray1OfTransient.def("ChangeArray1", (TColStd_Array1OfTransient & (TColStd_HArray1OfTransient::*)()) &TColStd_HArray1OfTransient::ChangeArray1, "None");
-cls_TColStd_HArray1OfTransient.def_static("get_type_name_", (const char * (*)()) &TColStd_HArray1OfTransient::get_type_name, "None");
-cls_TColStd_HArray1OfTransient.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray1OfTransient::get_type_descriptor, "None");
-cls_TColStd_HArray1OfTransient.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray1OfTransient::*)() const) &TColStd_HArray1OfTransient::DynamicType, "None");
 
 // TYPEDEF: TCOLSTD_SEQUENCEOFTRANSIENT
 bind_NCollection_Sequence<opencascade::handle<Standard_Transient> >(mod, "TColStd_SequenceOfTransient", py::module_local(false));
@@ -666,6 +713,7 @@ cls_TColStd_HPackedMapOfInteger.def("DynamicType", (const opencascade::handle<St
 py::class_<TColStd_HArray1OfAsciiString, opencascade::handle<TColStd_HArray1OfAsciiString>, Standard_Transient> cls_TColStd_HArray1OfAsciiString(mod, "TColStd_HArray1OfAsciiString", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColStd_HArray1OfAsciiString.def(py::init<>());
 cls_TColStd_HArray1OfAsciiString.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColStd_HArray1OfAsciiString.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfAsciiString::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColStd_HArray1OfAsciiString.def(py::init<const TColStd_Array1OfAsciiString &>(), py::arg("theOther"));
@@ -685,46 +733,6 @@ cls_TColStd_HArray1OfAsciiString.def_static("get_type_name_", (const char * (*)(
 cls_TColStd_HArray1OfAsciiString.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray1OfAsciiString::get_type_descriptor, "None");
 cls_TColStd_HArray1OfAsciiString.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray1OfAsciiString::*)() const) &TColStd_HArray1OfAsciiString::DynamicType, "None");
 
-// TYPEDEF: TCOLSTD_SEQUENCEOFHEXTENDEDSTRING
-bind_NCollection_Sequence<opencascade::handle<TCollection_HExtendedString> >(mod, "TColStd_SequenceOfHExtendedString", py::module_local(false));
-
-// CLASS: TCOLSTD_HSEQUENCEOFHEXTENDEDSTRING
-py::class_<TColStd_HSequenceOfHExtendedString, opencascade::handle<TColStd_HSequenceOfHExtendedString>, Standard_Transient> cls_TColStd_HSequenceOfHExtendedString(mod, "TColStd_HSequenceOfHExtendedString", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HSequenceOfHExtendedString.def(py::init<>());
-cls_TColStd_HSequenceOfHExtendedString.def(py::init<const TColStd_SequenceOfHExtendedString &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HSequenceOfHExtendedString.def_static("operator new_", (void * (*)(size_t)) &TColStd_HSequenceOfHExtendedString::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HSequenceOfHExtendedString.def_static("operator delete_", (void (*)(void *)) &TColStd_HSequenceOfHExtendedString::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HSequenceOfHExtendedString.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HSequenceOfHExtendedString::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HSequenceOfHExtendedString.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HSequenceOfHExtendedString::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HSequenceOfHExtendedString.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HSequenceOfHExtendedString::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HSequenceOfHExtendedString.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HSequenceOfHExtendedString::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HSequenceOfHExtendedString.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfHExtendedString::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HSequenceOfHExtendedString.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfHExtendedString::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HSequenceOfHExtendedString.def("Sequence", (const TColStd_SequenceOfHExtendedString & (TColStd_HSequenceOfHExtendedString::*)() const) &TColStd_HSequenceOfHExtendedString::Sequence, "None");
-cls_TColStd_HSequenceOfHExtendedString.def("Append", (void (TColStd_HSequenceOfHExtendedString::*)(const TColStd_SequenceOfHExtendedString::value_type &)) &TColStd_HSequenceOfHExtendedString::Append, "None", py::arg("theItem"));
-cls_TColStd_HSequenceOfHExtendedString.def("Append", (void (TColStd_HSequenceOfHExtendedString::*)(TColStd_SequenceOfHExtendedString &)) &TColStd_HSequenceOfHExtendedString::Append, "None", py::arg("theSequence"));
-cls_TColStd_HSequenceOfHExtendedString.def("ChangeSequence", (TColStd_SequenceOfHExtendedString & (TColStd_HSequenceOfHExtendedString::*)()) &TColStd_HSequenceOfHExtendedString::ChangeSequence, "None");
-cls_TColStd_HSequenceOfHExtendedString.def_static("get_type_name_", (const char * (*)()) &TColStd_HSequenceOfHExtendedString::get_type_name, "None");
-cls_TColStd_HSequenceOfHExtendedString.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HSequenceOfHExtendedString::get_type_descriptor, "None");
-cls_TColStd_HSequenceOfHExtendedString.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HSequenceOfHExtendedString::*)() const) &TColStd_HSequenceOfHExtendedString::DynamicType, "None");
-
-// TYPEDEF: TCOLSTD_MAPITERATOROFPACKEDMAPOFINTEGER
-py::class_<TColStd_PackedMapOfInteger::Iterator, TCollection_BasicMapIterator> cls_TColStd_PackedMapOfInteger_TColStd_MapIteratorOfPackedMapOfInteger(mod, "TColStd_MapIteratorOfPackedMapOfInteger", "Iterator of class TColStd_PackedMapOfInteger.");
-
-// Constructors
-cls_TColStd_PackedMapOfInteger_TColStd_MapIteratorOfPackedMapOfInteger.def(py::init<>());
-cls_TColStd_PackedMapOfInteger_TColStd_MapIteratorOfPackedMapOfInteger.def(py::init<const TColStd_PackedMapOfInteger &>(), py::arg("theMap"));
-
-// Methods
-cls_TColStd_PackedMapOfInteger_TColStd_MapIteratorOfPackedMapOfInteger.def("Initialize", (void (TColStd_PackedMapOfInteger::Iterator::*)(const TColStd_PackedMapOfInteger &)) &TColStd_PackedMapOfInteger::Iterator::Initialize, "Re-initialize with the same or another Map instance.", py::arg("theMap"));
-cls_TColStd_PackedMapOfInteger_TColStd_MapIteratorOfPackedMapOfInteger.def("Reset", (void (TColStd_PackedMapOfInteger::Iterator::*)()) &TColStd_PackedMapOfInteger::Iterator::Reset, "Restart the iteration");
-cls_TColStd_PackedMapOfInteger_TColStd_MapIteratorOfPackedMapOfInteger.def("Key", (Standard_Integer (TColStd_PackedMapOfInteger::Iterator::*)() const) &TColStd_PackedMapOfInteger::Iterator::Key, "Query the iterated key.");
-cls_TColStd_PackedMapOfInteger_TColStd_MapIteratorOfPackedMapOfInteger.def("Next", (void (TColStd_PackedMapOfInteger::Iterator::*)()) &TColStd_PackedMapOfInteger::Iterator::Next, "Increment the iterator");
-
 // TYPEDEF: TCOLSTD_ARRAY1OFEXTENDEDSTRING
 bind_NCollection_Array1<TCollection_ExtendedString>(mod, "TColStd_Array1OfExtendedString", py::module_local(false));
 
@@ -732,6 +740,7 @@ bind_NCollection_Array1<TCollection_ExtendedString>(mod, "TColStd_Array1OfExtend
 py::class_<TColStd_HArray1OfExtendedString, opencascade::handle<TColStd_HArray1OfExtendedString>, Standard_Transient> cls_TColStd_HArray1OfExtendedString(mod, "TColStd_HArray1OfExtendedString", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColStd_HArray1OfExtendedString.def(py::init<>());
 cls_TColStd_HArray1OfExtendedString.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColStd_HArray1OfExtendedString.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfExtendedString::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColStd_HArray1OfExtendedString.def(py::init<const TColStd_Array1OfExtendedString &>(), py::arg("theOther"));
@@ -766,6 +775,7 @@ bind_NCollection_DataMap<opencascade::handle<Standard_Transient>, opencascade::h
 py::class_<TColStd_HArray1OfCharacter, opencascade::handle<TColStd_HArray1OfCharacter>, Standard_Transient> cls_TColStd_HArray1OfCharacter(mod, "TColStd_HArray1OfCharacter", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColStd_HArray1OfCharacter.def(py::init<>());
 cls_TColStd_HArray1OfCharacter.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColStd_HArray1OfCharacter.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfCharacter::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColStd_HArray1OfCharacter.def(py::init<const TColStd_Array1OfCharacter &>(), py::arg("theOther"));

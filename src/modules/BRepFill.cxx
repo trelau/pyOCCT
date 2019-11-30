@@ -73,11 +73,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Handle.hxx>
 #include <GeomFill_LocationLaw.hxx>
 #include <TopoDS_Vertex.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <GeomFill_HArray1OfLocationLaw.hxx>
 #include <TColStd_HArray1OfReal.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
 #include <GeomFill_LocationGuide.hxx>
+#include <TopTools_ListOfShape.hxx>
+#include <BOPAlgo_MakerVolume.hxx>
+#include <TopTools_IndexedMapOfShape.hxx>
+#include <TopoDS_Compound.hxx>
+#include <BRepFill_AdvancedEvolved.hxx>
 #include <AppCont_Function.hxx>
 #include <Geom2d_Curve.hxx>
 #include <GeomAbs_Shape.hxx>
@@ -88,7 +94,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Geom2dAdaptor_Curve.hxx>
 #include <BRepFill_MultiLine.hxx>
 #include <TopTools_SequenceOfShape.hxx>
-#include <TopTools_ListOfShape.hxx>
 #include <AppParCurves_Constraint.hxx>
 #include <AppParCurves_MultiCurve.hxx>
 #include <AppParCurves_SequenceOfMultiCurve.hxx>
@@ -159,6 +164,7 @@ py::module::import("OCCT.Standard");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.TColStd");
 py::module::import("OCCT.GeomFill");
+py::module::import("OCCT.BOPAlgo");
 py::module::import("OCCT.AppCont");
 py::module::import("OCCT.Geom2d");
 py::module::import("OCCT.GeomAbs");
@@ -254,6 +260,27 @@ cls_BRepFill_ACRLaw.def(py::init<const TopoDS_Wire &, const opencascade::handle<
 cls_BRepFill_ACRLaw.def_static("get_type_name_", (const char * (*)()) &BRepFill_ACRLaw::get_type_name, "None");
 cls_BRepFill_ACRLaw.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRepFill_ACRLaw::get_type_descriptor, "None");
 cls_BRepFill_ACRLaw.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepFill_ACRLaw::*)() const) &BRepFill_ACRLaw::DynamicType, "None");
+
+// CLASS: BREPFILL_ADVANCEDEVOLVED
+py::class_<BRepFill_AdvancedEvolved> cls_BRepFill_AdvancedEvolved(mod, "BRepFill_AdvancedEvolved", "Constructs an evolved volume from a spine (wire or face) and a profile ( wire).");
+
+// Constructors
+cls_BRepFill_AdvancedEvolved.def(py::init<>());
+
+// Methods
+// cls_BRepFill_AdvancedEvolved.def_static("operator new_", (void * (*)(size_t)) &BRepFill_AdvancedEvolved::operator new, "None", py::arg("theSize"));
+// cls_BRepFill_AdvancedEvolved.def_static("operator delete_", (void (*)(void *)) &BRepFill_AdvancedEvolved::operator delete, "None", py::arg("theAddress"));
+// cls_BRepFill_AdvancedEvolved.def_static("operator new[]_", (void * (*)(size_t)) &BRepFill_AdvancedEvolved::operator new[], "None", py::arg("theSize"));
+// cls_BRepFill_AdvancedEvolved.def_static("operator delete[]_", (void (*)(void *)) &BRepFill_AdvancedEvolved::operator delete[], "None", py::arg("theAddress"));
+// cls_BRepFill_AdvancedEvolved.def_static("operator new_", (void * (*)(size_t, void *)) &BRepFill_AdvancedEvolved::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_BRepFill_AdvancedEvolved.def_static("operator delete_", (void (*)(void *, void *)) &BRepFill_AdvancedEvolved::operator delete, "None", py::arg(""), py::arg(""));
+cls_BRepFill_AdvancedEvolved.def("Perform", [](BRepFill_AdvancedEvolved &self, const TopoDS_Wire & a0, const TopoDS_Wire & a1, const Standard_Real a2) -> void { return self.Perform(a0, a1, a2); });
+cls_BRepFill_AdvancedEvolved.def("Perform", (void (BRepFill_AdvancedEvolved::*)(const TopoDS_Wire &, const TopoDS_Wire &, const Standard_Real, const Standard_Boolean)) &BRepFill_AdvancedEvolved::Perform, "None", py::arg("theSpine"), py::arg("theProfile"), py::arg("theTolerance"), py::arg("theSolidReq"));
+cls_BRepFill_AdvancedEvolved.def("IsDone", [](BRepFill_AdvancedEvolved &self) -> Standard_Boolean { return self.IsDone(); });
+cls_BRepFill_AdvancedEvolved.def("IsDone", (Standard_Boolean (BRepFill_AdvancedEvolved::*)(unsigned int *) const) &BRepFill_AdvancedEvolved::IsDone, "None", py::arg("theErrorCode"));
+cls_BRepFill_AdvancedEvolved.def("Shape", (const TopoDS_Shape & (BRepFill_AdvancedEvolved::*)() const) &BRepFill_AdvancedEvolved::Shape, "returns the resulting shape.");
+cls_BRepFill_AdvancedEvolved.def("SetTemporaryDirectory", (void (BRepFill_AdvancedEvolved::*)(const Standard_CString &)) &BRepFill_AdvancedEvolved::SetTemporaryDirectory, "Sets directory where the debug shapes will be saved", py::arg("thePath"));
+cls_BRepFill_AdvancedEvolved.def("SetParallelMode", (void (BRepFill_AdvancedEvolved::*)(const Standard_Boolean)) &BRepFill_AdvancedEvolved::SetParallelMode, "Sets/Unsets computation in parallel mode", py::arg("theVal"));
 
 // CLASS: BREPFILL_MULTILINE
 py::class_<BRepFill_MultiLine, AppCont_Function> cls_BRepFill_MultiLine(mod, "BRepFill_MultiLine", "Class used to compute the 3d curve and the two 2d curves resulting from the intersection of a surface of linear extrusion( Bissec, Dz) and the 2 faces. This 3 curves will have the same parametrization as the Bissectrice. This class is to be send to an approximation routine.");
@@ -360,6 +387,7 @@ cls_BRepFill_ComputeCLine.def("SetDegrees", (void (BRepFill_ComputeCLine::*)(con
 cls_BRepFill_ComputeCLine.def("SetTolerances", (void (BRepFill_ComputeCLine::*)(const Standard_Real, const Standard_Real)) &BRepFill_ComputeCLine::SetTolerances, "Changes the tolerances of the approximation.", py::arg("Tolerance3d"), py::arg("Tolerance2d"));
 cls_BRepFill_ComputeCLine.def("SetConstraints", (void (BRepFill_ComputeCLine::*)(const AppParCurves_Constraint, const AppParCurves_Constraint)) &BRepFill_ComputeCLine::SetConstraints, "Changes the constraints of the approximation.", py::arg("FirstC"), py::arg("LastC"));
 cls_BRepFill_ComputeCLine.def("SetMaxSegments", (void (BRepFill_ComputeCLine::*)(const Standard_Integer)) &BRepFill_ComputeCLine::SetMaxSegments, "Changes the max number of segments, which is allowed for cutting.", py::arg("theMaxSegments"));
+cls_BRepFill_ComputeCLine.def("SetInvOrder", (void (BRepFill_ComputeCLine::*)(const Standard_Boolean)) &BRepFill_ComputeCLine::SetInvOrder, "Set inverse order of degree selection: if theInvOrdr = true, current degree is chosen by inverse order - from maxdegree to mindegree. By default inverse order is used.", py::arg("theInvOrder"));
 cls_BRepFill_ComputeCLine.def("IsAllApproximated", (Standard_Boolean (BRepFill_ComputeCLine::*)() const) &BRepFill_ComputeCLine::IsAllApproximated, "returns False if at a moment of the approximation, the status NoApproximation has been sent by the user when more points were needed.");
 cls_BRepFill_ComputeCLine.def("IsToleranceReached", (Standard_Boolean (BRepFill_ComputeCLine::*)() const) &BRepFill_ComputeCLine::IsToleranceReached, "returns False if the status NoPointsAdded has been sent.");
 cls_BRepFill_ComputeCLine.def("Error", [](BRepFill_ComputeCLine &self, const Standard_Integer Index, Standard_Real & tol3d, Standard_Real & tol2d){ self.Error(Index, tol3d, tol2d); return std::tuple<Standard_Real &, Standard_Real &>(tol3d, tol2d); }, "returns the tolerances 2d and 3d of the <Index> MultiCurve.", py::arg("Index"), py::arg("tol3d"), py::arg("tol2d"));
@@ -832,6 +860,7 @@ cls_BRepFill_PipeShell.def("ErrorOnSurface", (Standard_Real (BRepFill_PipeShell:
 cls_BRepFill_PipeShell.def("FirstShape", (const TopoDS_Shape & (BRepFill_PipeShell::*)() const) &BRepFill_PipeShell::FirstShape, "Returns the TopoDS Shape of the bottom of the sweep.");
 cls_BRepFill_PipeShell.def("LastShape", (const TopoDS_Shape & (BRepFill_PipeShell::*)() const) &BRepFill_PipeShell::LastShape, "Returns the TopoDS Shape of the top of the sweep.");
 cls_BRepFill_PipeShell.def("Profiles", (void (BRepFill_PipeShell::*)(TopTools_ListOfShape &)) &BRepFill_PipeShell::Profiles, "Returns the list of original profiles", py::arg("theProfiles"));
+cls_BRepFill_PipeShell.def("Spine", (const TopoDS_Wire & (BRepFill_PipeShell::*)()) &BRepFill_PipeShell::Spine, "Returns the spine");
 cls_BRepFill_PipeShell.def("Generated", (void (BRepFill_PipeShell::*)(const TopoDS_Shape &, TopTools_ListOfShape &)) &BRepFill_PipeShell::Generated, "Returns the list of shapes generated from the shape <S>.", py::arg("S"), py::arg("L"));
 cls_BRepFill_PipeShell.def_static("get_type_name_", (const char * (*)()) &BRepFill_PipeShell::get_type_name, "None");
 cls_BRepFill_PipeShell.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRepFill_PipeShell::get_type_descriptor, "None");
@@ -909,7 +938,7 @@ cls_BRepFill_Sweep.def("Build", [](BRepFill_Sweep &self, TopTools_MapOfShape & a
 cls_BRepFill_Sweep.def("Build", [](BRepFill_Sweep &self, TopTools_MapOfShape & a0, BRepFill_DataMapOfShapeHArray2OfShape & a1, BRepFill_DataMapOfShapeHArray2OfShape & a2, const BRepFill_TransitionStyle a3, const GeomAbs_Shape a4) -> void { return self.Build(a0, a1, a2, a3, a4); });
 cls_BRepFill_Sweep.def("Build", [](BRepFill_Sweep &self, TopTools_MapOfShape & a0, BRepFill_DataMapOfShapeHArray2OfShape & a1, BRepFill_DataMapOfShapeHArray2OfShape & a2, const BRepFill_TransitionStyle a3, const GeomAbs_Shape a4, const GeomFill_ApproxStyle a5) -> void { return self.Build(a0, a1, a2, a3, a4, a5); });
 cls_BRepFill_Sweep.def("Build", [](BRepFill_Sweep &self, TopTools_MapOfShape & a0, BRepFill_DataMapOfShapeHArray2OfShape & a1, BRepFill_DataMapOfShapeHArray2OfShape & a2, const BRepFill_TransitionStyle a3, const GeomAbs_Shape a4, const GeomFill_ApproxStyle a5, const Standard_Integer a6) -> void { return self.Build(a0, a1, a2, a3, a4, a5, a6); });
-cls_BRepFill_Sweep.def("Build", (void (BRepFill_Sweep::*)(TopTools_MapOfShape &, BRepFill_DataMapOfShapeHArray2OfShape &, BRepFill_DataMapOfShapeHArray2OfShape &, const BRepFill_TransitionStyle, const GeomAbs_Shape, const GeomFill_ApproxStyle, const Standard_Integer, const Standard_Integer)) &BRepFill_Sweep::Build, "Build the Sweeep Surface Transition define Transition strategy Approx define Approximation Strategy - GeomFill_Section : The composed Function Location X Section is directly approximed. - GeomFill_Location : The location law is approximed, and the SweepSurface is bulid algebric composition of approximed location law and section law This option is Ok, if Section.Surface() methode is effective. Continuity : The continuity in v waiting on the surface Degmax : The maximum degree in v requiered on the surface Segmax : The maximum number of span in v requiered on the surface.", py::arg("ReversedEdges"), py::arg("Tapes"), py::arg("Rails"), py::arg("Transition"), py::arg("Continuity"), py::arg("Approx"), py::arg("Degmax"), py::arg("Segmax"));
+cls_BRepFill_Sweep.def("Build", (void (BRepFill_Sweep::*)(TopTools_MapOfShape &, BRepFill_DataMapOfShapeHArray2OfShape &, BRepFill_DataMapOfShapeHArray2OfShape &, const BRepFill_TransitionStyle, const GeomAbs_Shape, const GeomFill_ApproxStyle, const Standard_Integer, const Standard_Integer)) &BRepFill_Sweep::Build, "Build the Sweep Surface Transition define Transition strategy Approx define Approximation Strategy - GeomFill_Section : The composed Function Location X Section is directly approximed. - GeomFill_Location : The location law is approximed, and the SweepSurface is bulid algebric composition of approximed location law and section law This option is Ok, if Section.Surface() methode is effective. Continuity : The continuity in v waiting on the surface Degmax : The maximum degree in v requiered on the surface Segmax : The maximum number of span in v requiered on the surface.", py::arg("ReversedEdges"), py::arg("Tapes"), py::arg("Rails"), py::arg("Transition"), py::arg("Continuity"), py::arg("Approx"), py::arg("Degmax"), py::arg("Segmax"));
 cls_BRepFill_Sweep.def("IsDone", (Standard_Boolean (BRepFill_Sweep::*)() const) &BRepFill_Sweep::IsDone, "Say if the Shape is Build.");
 cls_BRepFill_Sweep.def("Shape", (TopoDS_Shape (BRepFill_Sweep::*)() const) &BRepFill_Sweep::Shape, "returns the Sweeping Shape");
 cls_BRepFill_Sweep.def("ErrorOnSurface", (Standard_Real (BRepFill_Sweep::*)() const) &BRepFill_Sweep::ErrorOnSurface, "Get the Approximation error.");
@@ -951,6 +980,7 @@ cls_BRepFill_TrimShellCorner.def(py::init<const opencascade::handle<TopTools_HAr
 // cls_BRepFill_TrimShellCorner.def_static("operator delete_", (void (*)(void *, void *)) &BRepFill_TrimShellCorner::operator delete, "None", py::arg(""), py::arg(""));
 cls_BRepFill_TrimShellCorner.def("AddBounds", (void (BRepFill_TrimShellCorner::*)(const opencascade::handle<TopTools_HArray2OfShape> &)) &BRepFill_TrimShellCorner::AddBounds, "None", py::arg("Bounds"));
 cls_BRepFill_TrimShellCorner.def("AddUEdges", (void (BRepFill_TrimShellCorner::*)(const opencascade::handle<TopTools_HArray2OfShape> &)) &BRepFill_TrimShellCorner::AddUEdges, "None", py::arg("theUEdges"));
+cls_BRepFill_TrimShellCorner.def("AddVEdges", (void (BRepFill_TrimShellCorner::*)(const opencascade::handle<TopTools_HArray2OfShape> &, const Standard_Integer)) &BRepFill_TrimShellCorner::AddVEdges, "None", py::arg("theVEdges"), py::arg("theIndex"));
 cls_BRepFill_TrimShellCorner.def("Perform", (void (BRepFill_TrimShellCorner::*)()) &BRepFill_TrimShellCorner::Perform, "None");
 cls_BRepFill_TrimShellCorner.def("IsDone", (Standard_Boolean (BRepFill_TrimShellCorner::*)() const) &BRepFill_TrimShellCorner::IsDone, "None");
 cls_BRepFill_TrimShellCorner.def("HasSection", (Standard_Boolean (BRepFill_TrimShellCorner::*)() const) &BRepFill_TrimShellCorner::HasSection, "None");

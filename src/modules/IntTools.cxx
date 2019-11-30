@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Precision.hxx>
 #include <TopAbs_State.hxx>
 #include <gp_Pnt2d.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_DataMap.hxx>
 #include <TopTools_ShapeMapHasher.hxx>
@@ -102,6 +103,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <GeomInt_LineConstructor.hxx>
 #include <GeomAdaptor_HSurface.hxx>
 #include <BRepTopAdaptor_SeqOfPtr.hxx>
+#include <BRepClass_FaceExplorer.hxx>
 #include <IntTools_ListOfBox.hxx>
 #include <IntTools_MapOfSurfaceSample.hxx>
 #include <TColStd_HArray1OfReal.hxx>
@@ -146,6 +148,7 @@ py::module::import("OCCT.IntPatch");
 py::module::import("OCCT.GeomInt");
 py::module::import("OCCT.GeomAdaptor");
 py::module::import("OCCT.BRepTopAdaptor");
+py::module::import("OCCT.BRepClass");
 py::module::import("OCCT.TColgp");
 
 // CLASS: INTTOOLS_CURVE
@@ -203,6 +206,7 @@ cls_IntTools_ShrunkRange.def("Edge", (const TopoDS_Edge & (IntTools_ShrunkRange:
 cls_IntTools_ShrunkRange.def("Perform", (void (IntTools_ShrunkRange::*)()) &IntTools_ShrunkRange::Perform, "None");
 cls_IntTools_ShrunkRange.def("IsDone", (Standard_Boolean (IntTools_ShrunkRange::*)() const) &IntTools_ShrunkRange::IsDone, "Returns TRUE in case the shrunk range is computed");
 cls_IntTools_ShrunkRange.def("IsSplittable", (Standard_Boolean (IntTools_ShrunkRange::*)() const) &IntTools_ShrunkRange::IsSplittable, "Returns FALSE in case the shrunk range is too short and the edge cannot be split, otherwise returns TRUE");
+cls_IntTools_ShrunkRange.def("Length", (Standard_Real (IntTools_ShrunkRange::*)() const) &IntTools_ShrunkRange::Length, "Returns the length of the edge if computed.");
 
 // CLASS: INTTOOLS_CONTEXT
 py::class_<IntTools_Context, opencascade::handle<IntTools_Context>, Standard_Transient> cls_IntTools_Context(mod, "IntTools_Context", "The intersection Context contains geometrical and topological toolkit (classifiers, projectors, etc). The intersection Context is for caching the tools to increase the performance.");
@@ -575,7 +579,7 @@ py::class_<IntTools_CurveRangeSampleMapHasher> cls_IntTools_CurveRangeSampleMapH
 // cls_IntTools_CurveRangeSampleMapHasher.def_static("operator delete[]_", (void (*)(void *)) &IntTools_CurveRangeSampleMapHasher::operator delete[], "None", py::arg("theAddress"));
 // cls_IntTools_CurveRangeSampleMapHasher.def_static("operator new_", (void * (*)(size_t, void *)) &IntTools_CurveRangeSampleMapHasher::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_IntTools_CurveRangeSampleMapHasher.def_static("operator delete_", (void (*)(void *, void *)) &IntTools_CurveRangeSampleMapHasher::operator delete, "None", py::arg(""), py::arg(""));
-cls_IntTools_CurveRangeSampleMapHasher.def_static("HashCode_", (Standard_Integer (*)(const IntTools_CurveRangeSample &, const Standard_Integer)) &IntTools_CurveRangeSampleMapHasher::HashCode, "Returns a HasCode value for the Key <K> in the range 0..Upper.", py::arg("K"), py::arg("Upper"));
+cls_IntTools_CurveRangeSampleMapHasher.def_static("HashCode_", (Standard_Integer (*)(const IntTools_CurveRangeSample &, const Standard_Integer)) &IntTools_CurveRangeSampleMapHasher::HashCode, "Computes a hash code for the given key, in the range [1, theUpperBound]", py::arg("theKey"), py::arg("theUpperBound"));
 cls_IntTools_CurveRangeSampleMapHasher.def_static("IsEqual_", (Standard_Boolean (*)(const IntTools_CurveRangeSample &, const IntTools_CurveRangeSample &)) &IntTools_CurveRangeSampleMapHasher::IsEqual, "Returns True when the two keys are the same. Two same keys must have the same hashcode, the contrary is not necessary.", py::arg("S1"), py::arg("S2"));
 
 // TYPEDEF: INTTOOLS_MAPOFCURVESAMPLE
@@ -619,7 +623,7 @@ py::class_<IntTools_SurfaceRangeSampleMapHasher> cls_IntTools_SurfaceRangeSample
 // cls_IntTools_SurfaceRangeSampleMapHasher.def_static("operator delete[]_", (void (*)(void *)) &IntTools_SurfaceRangeSampleMapHasher::operator delete[], "None", py::arg("theAddress"));
 // cls_IntTools_SurfaceRangeSampleMapHasher.def_static("operator new_", (void * (*)(size_t, void *)) &IntTools_SurfaceRangeSampleMapHasher::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_IntTools_SurfaceRangeSampleMapHasher.def_static("operator delete_", (void (*)(void *, void *)) &IntTools_SurfaceRangeSampleMapHasher::operator delete, "None", py::arg(""), py::arg(""));
-cls_IntTools_SurfaceRangeSampleMapHasher.def_static("HashCode_", (Standard_Integer (*)(const IntTools_SurfaceRangeSample &, const Standard_Integer)) &IntTools_SurfaceRangeSampleMapHasher::HashCode, "Returns a HasCode value for the Key <K> in the range 0..Upper.", py::arg("K"), py::arg("Upper"));
+cls_IntTools_SurfaceRangeSampleMapHasher.def_static("HashCode_", (Standard_Integer (*)(const IntTools_SurfaceRangeSample &, Standard_Integer)) &IntTools_SurfaceRangeSampleMapHasher::HashCode, "Computes a hash code for the given key, in the range [1, theUpperBound]", py::arg("theKey"), py::arg("theUpperBound"));
 cls_IntTools_SurfaceRangeSampleMapHasher.def_static("IsEqual_", (Standard_Boolean (*)(const IntTools_SurfaceRangeSample &, const IntTools_SurfaceRangeSample &)) &IntTools_SurfaceRangeSampleMapHasher::IsEqual, "Returns True when the two keys are the same. Two same keys must have the same hashcode, the contrary is not necessary.", py::arg("S1"), py::arg("S2"));
 
 // TYPEDEF: INTTOOLS_DATAMAPOFSURFACESAMPLEBOX

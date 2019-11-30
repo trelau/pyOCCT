@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Image_PixMap.hxx>
 #include <SelectMgr_Selection.hxx>
 #include <gp_Trsf.hxx>
-#include <SelectMgr_EntityOwner.hxx>
+#include <Standard_Std.hxx>
 #include <StdSelect_ViewerSelector3d.hxx>
 #include <Standard_Type.hxx>
 #include <Graphic3d_Structure.hxx>
@@ -50,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StdSelect_Prs.hxx>
 #include <StdSelect_Shape.hxx>
 #include <StdSelect.hxx>
+#include <SelectMgr_EntityOwner.hxx>
 #include <TopoDS_Shape.hxx>
 #include <SelectMgr_SelectableObject.hxx>
 #include <PrsMgr_PresentationManager.hxx>
@@ -61,10 +62,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Select3D_EntitySequence.hxx>
 #include <Select3D_SensitiveEntity.hxx>
 #include <SelectMgr_Filter.hxx>
-#include <Prs3d_Presentation.hxx>
 #include <Graphic3d_StructureManager.hxx>
 #include <NCollection_IndexedDataMap.hxx>
-#include <SelectBasics_EntityOwner.hxx>
 #include <TColStd_MapTransientHasher.hxx>
 #include <StdSelect_IndexedDataMapOfOwnerPrs.hxx>
 #include <PrsMgr_PresentableObject.hxx>
@@ -88,7 +87,6 @@ py::module::import("OCCT.TopLoc");
 py::module::import("OCCT.TopAbs");
 py::module::import("OCCT.Select3D");
 py::module::import("OCCT.NCollection");
-py::module::import("OCCT.SelectBasics");
 py::module::import("OCCT.TColStd");
 py::module::import("OCCT.Geom");
 
@@ -164,7 +162,6 @@ cls_StdSelect_ViewerSelector3d.def("DisplaySensitive", (void (StdSelect_ViewerSe
 cls_StdSelect_ViewerSelector3d.def("ClearSensitive", (void (StdSelect_ViewerSelector3d::*)(const opencascade::handle<V3d_View> &)) &StdSelect_ViewerSelector3d::ClearSensitive, "None", py::arg("theView"));
 cls_StdSelect_ViewerSelector3d.def("DisplaySensitive", [](StdSelect_ViewerSelector3d &self, const opencascade::handle<SelectMgr_Selection> & a0, const gp_Trsf & a1, const opencascade::handle<V3d_View> & a2) -> void { return self.DisplaySensitive(a0, a1, a2); });
 cls_StdSelect_ViewerSelector3d.def("DisplaySensitive", (void (StdSelect_ViewerSelector3d::*)(const opencascade::handle<SelectMgr_Selection> &, const gp_Trsf &, const opencascade::handle<V3d_View> &, const Standard_Boolean)) &StdSelect_ViewerSelector3d::DisplaySensitive, "None", py::arg("theSel"), py::arg("theTrsf"), py::arg("theView"), py::arg("theToClearOthers"));
-cls_StdSelect_ViewerSelector3d.def("HasDepthClipping", (Standard_Boolean (StdSelect_ViewerSelector3d::*)(const opencascade::handle<SelectMgr_EntityOwner> &) const) &StdSelect_ViewerSelector3d::HasDepthClipping, "None", py::arg("theOwner"));
 cls_StdSelect_ViewerSelector3d.def_static("get_type_name_", (const char * (*)()) &StdSelect_ViewerSelector3d::get_type_name, "None");
 cls_StdSelect_ViewerSelector3d.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StdSelect_ViewerSelector3d::get_type_descriptor, "None");
 cls_StdSelect_ViewerSelector3d.def("DynamicType", (const opencascade::handle<Standard_Type> & (StdSelect_ViewerSelector3d::*)() const) &StdSelect_ViewerSelector3d::DynamicType, "None");
@@ -198,9 +195,7 @@ cls_StdSelect_BRepOwner.def_static("get_type_name_", (const char * (*)()) &StdSe
 cls_StdSelect_BRepOwner.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StdSelect_BRepOwner::get_type_descriptor, "None");
 cls_StdSelect_BRepOwner.def("DynamicType", (const opencascade::handle<Standard_Type> & (StdSelect_BRepOwner::*)() const) &StdSelect_BRepOwner::DynamicType, "None");
 cls_StdSelect_BRepOwner.def("HasShape", (Standard_Boolean (StdSelect_BRepOwner::*)() const) &StdSelect_BRepOwner::HasShape, "returns False if no shape was set");
-// cls_StdSelect_BRepOwner.def("Set", [](StdSelect_BRepOwner &self, const TopoDS_Shape & a0) -> void { return self.Set(a0); });
-// cls_StdSelect_BRepOwner.def("Set", (void (StdSelect_BRepOwner::*)(const TopoDS_Shape &, const Standard_Boolean)) &StdSelect_BRepOwner::Set, "<FromDecomposition> indicates whether <aShape> comes from decomposition of a bigger shape.", py::arg("aShape"), py::arg("FromDecomposition"));
-cls_StdSelect_BRepOwner.def("Shape", (const TopoDS_Shape & (StdSelect_BRepOwner::*)() const) &StdSelect_BRepOwner::Shape, "None");
+cls_StdSelect_BRepOwner.def("Shape", (const TopoDS_Shape & (StdSelect_BRepOwner::*)() const) &StdSelect_BRepOwner::Shape, "Returns the shape.");
 cls_StdSelect_BRepOwner.def("HasHilightMode", (Standard_Boolean (StdSelect_BRepOwner::*)() const) &StdSelect_BRepOwner::HasHilightMode, "Returns true if this framework has a highlight mode defined for it.");
 cls_StdSelect_BRepOwner.def("SetHilightMode", (void (StdSelect_BRepOwner::*)(const Standard_Integer)) &StdSelect_BRepOwner::SetHilightMode, "Sets the highlight mode for this framework. This defines the type of display used to highlight the owner of the shape when it is detected by the selector. The default type of display is wireframe, defined by the index 0.", py::arg("theMode"));
 cls_StdSelect_BRepOwner.def("ResetHilightMode", (void (StdSelect_BRepOwner::*)()) &StdSelect_BRepOwner::ResetHilightMode, "Resets the higlight mode for this framework. This defines the type of display used to highlight the owner of the shape when it is detected by the selector. The default type of display is wireframe, defined by the index 0.");
@@ -214,7 +209,6 @@ cls_StdSelect_BRepOwner.def("Unhilight", (void (StdSelect_BRepOwner::*)(const op
 cls_StdSelect_BRepOwner.def("Clear", [](StdSelect_BRepOwner &self, const opencascade::handle<PrsMgr_PresentationManager> & a0) -> void { return self.Clear(a0); });
 cls_StdSelect_BRepOwner.def("Clear", (void (StdSelect_BRepOwner::*)(const opencascade::handle<PrsMgr_PresentationManager> &, const Standard_Integer)) &StdSelect_BRepOwner::Clear, "Clears the presentation manager object aPM of all shapes with the selection mode aMode.", py::arg("aPM"), py::arg("aMode"));
 cls_StdSelect_BRepOwner.def("SetLocation", (void (StdSelect_BRepOwner::*)(const TopLoc_Location &)) &StdSelect_BRepOwner::SetLocation, "None", py::arg("aLoc"));
-cls_StdSelect_BRepOwner.def("ResetLocation", (void (StdSelect_BRepOwner::*)()) &StdSelect_BRepOwner::ResetLocation, "None");
 cls_StdSelect_BRepOwner.def("UpdateHighlightTrsf", (void (StdSelect_BRepOwner::*)(const opencascade::handle<V3d_Viewer> &, const opencascade::handle<PrsMgr_PresentationManager3d> &, const Standard_Integer)) &StdSelect_BRepOwner::UpdateHighlightTrsf, "Implements immediate application of location transformation of parent object to dynamic highlight structure", py::arg("theViewer"), py::arg("theManager"), py::arg("theDispMode"));
 
 // CLASS: STDSELECT_BREPSELECTIONTOOL
@@ -291,7 +285,7 @@ cls_StdSelect_Prs.def_static("get_type_descriptor_", (const opencascade::handle<
 cls_StdSelect_Prs.def("DynamicType", (const opencascade::handle<Standard_Type> & (StdSelect_Prs::*)() const) &StdSelect_Prs::DynamicType, "None");
 
 // TYPEDEF: STDSELECT_INDEXEDDATAMAPOFOWNERPRS
-bind_NCollection_IndexedDataMap<opencascade::handle<SelectBasics_EntityOwner>, opencascade::handle<StdSelect_Prs>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "StdSelect_IndexedDataMapOfOwnerPrs", py::module_local(false));
+bind_NCollection_IndexedDataMap<opencascade::handle<SelectMgr_EntityOwner>, opencascade::handle<StdSelect_Prs>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "StdSelect_IndexedDataMapOfOwnerPrs", py::module_local(false));
 
 // CLASS: STDSELECT_SHAPE
 py::class_<StdSelect_Shape, opencascade::handle<StdSelect_Shape>, PrsMgr_PresentableObject> cls_StdSelect_Shape(mod, "StdSelect_Shape", "Presentable shape only for purpose of display for BRepOwner...");

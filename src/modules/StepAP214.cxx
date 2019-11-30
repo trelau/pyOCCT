@@ -95,6 +95,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <NCollection_Array1.hxx>
 #include <StepAP214_Array1OfApprovalItem.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <StepAP214_HArray1OfApprovalItem.hxx>
 #include <Standard_Type.hxx>
 #include <StepBasic_ApprovalAssignment.hxx>
@@ -269,6 +270,7 @@ bind_NCollection_Array1<StepAP214_ApprovalItem>(mod, "StepAP214_Array1OfApproval
 py::class_<StepAP214_HArray1OfApprovalItem, opencascade::handle<StepAP214_HArray1OfApprovalItem>, Standard_Transient> cls_StepAP214_HArray1OfApprovalItem(mod, "StepAP214_HArray1OfApprovalItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfApprovalItem.def(py::init<>());
 cls_StepAP214_HArray1OfApprovalItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfApprovalItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfApprovalItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfApprovalItem.def(py::init<const StepAP214_Array1OfApprovalItem &>(), py::arg("theOther"));
@@ -329,6 +331,7 @@ bind_NCollection_Array1<StepAP214_DateAndTimeItem>(mod, "StepAP214_Array1OfDateA
 py::class_<StepAP214_HArray1OfDateAndTimeItem, opencascade::handle<StepAP214_HArray1OfDateAndTimeItem>, Standard_Transient> cls_StepAP214_HArray1OfDateAndTimeItem(mod, "StepAP214_HArray1OfDateAndTimeItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfDateAndTimeItem.def(py::init<>());
 cls_StepAP214_HArray1OfDateAndTimeItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfDateAndTimeItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfDateAndTimeItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfDateAndTimeItem.def(py::init<const StepAP214_Array1OfDateAndTimeItem &>(), py::arg("theOther"));
@@ -390,6 +393,7 @@ bind_NCollection_Array1<StepAP214_DateItem>(mod, "StepAP214_Array1OfDateItem", p
 py::class_<StepAP214_HArray1OfDateItem, opencascade::handle<StepAP214_HArray1OfDateItem>, Standard_Transient> cls_StepAP214_HArray1OfDateItem(mod, "StepAP214_HArray1OfDateItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfDateItem.def(py::init<>());
 cls_StepAP214_HArray1OfDateItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfDateItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfDateItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfDateItem.def(py::init<const StepAP214_Array1OfDateItem &>(), py::arg("theOther"));
@@ -467,6 +471,7 @@ bind_NCollection_Array1<StepAP214_DocumentReferenceItem>(mod, "StepAP214_Array1O
 py::class_<StepAP214_HArray1OfDocumentReferenceItem, opencascade::handle<StepAP214_HArray1OfDocumentReferenceItem>, Standard_Transient> cls_StepAP214_HArray1OfDocumentReferenceItem(mod, "StepAP214_HArray1OfDocumentReferenceItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfDocumentReferenceItem.def(py::init<>());
 cls_StepAP214_HArray1OfDocumentReferenceItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfDocumentReferenceItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfDocumentReferenceItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfDocumentReferenceItem.def(py::init<const StepAP214_Array1OfDocumentReferenceItem &>(), py::arg("theOther"));
@@ -539,6 +544,7 @@ bind_NCollection_Array1<StepAP214_ExternalIdentificationItem>(mod, "StepAP214_Ar
 py::class_<StepAP214_HArray1OfExternalIdentificationItem, opencascade::handle<StepAP214_HArray1OfExternalIdentificationItem>, Standard_Transient> cls_StepAP214_HArray1OfExternalIdentificationItem(mod, "StepAP214_HArray1OfExternalIdentificationItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfExternalIdentificationItem.def(py::init<>());
 cls_StepAP214_HArray1OfExternalIdentificationItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfExternalIdentificationItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfExternalIdentificationItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfExternalIdentificationItem.def(py::init<const StepAP214_Array1OfExternalIdentificationItem &>(), py::arg("theOther"));
@@ -608,6 +614,7 @@ bind_NCollection_Array1<StepAP214_GroupItem>(mod, "StepAP214_Array1OfGroupItem",
 py::class_<StepAP214_HArray1OfGroupItem, opencascade::handle<StepAP214_HArray1OfGroupItem>, Standard_Transient> cls_StepAP214_HArray1OfGroupItem(mod, "StepAP214_HArray1OfGroupItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfGroupItem.def(py::init<>());
 cls_StepAP214_HArray1OfGroupItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfGroupItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfGroupItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfGroupItem.def(py::init<const StepAP214_Array1OfGroupItem &>(), py::arg("theOther"));
@@ -666,6 +673,7 @@ bind_NCollection_Array1<StepAP214_OrganizationItem>(mod, "StepAP214_Array1OfOrga
 py::class_<StepAP214_HArray1OfOrganizationItem, opencascade::handle<StepAP214_HArray1OfOrganizationItem>, Standard_Transient> cls_StepAP214_HArray1OfOrganizationItem(mod, "StepAP214_HArray1OfOrganizationItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfOrganizationItem.def(py::init<>());
 cls_StepAP214_HArray1OfOrganizationItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfOrganizationItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfOrganizationItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfOrganizationItem.def(py::init<const StepAP214_Array1OfOrganizationItem &>(), py::arg("theOther"));
@@ -726,6 +734,7 @@ bind_NCollection_Array1<StepAP214_PersonAndOrganizationItem>(mod, "StepAP214_Arr
 py::class_<StepAP214_HArray1OfPersonAndOrganizationItem, opencascade::handle<StepAP214_HArray1OfPersonAndOrganizationItem>, Standard_Transient> cls_StepAP214_HArray1OfPersonAndOrganizationItem(mod, "StepAP214_HArray1OfPersonAndOrganizationItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfPersonAndOrganizationItem.def(py::init<>());
 cls_StepAP214_HArray1OfPersonAndOrganizationItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfPersonAndOrganizationItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfPersonAndOrganizationItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfPersonAndOrganizationItem.def(py::init<const StepAP214_Array1OfPersonAndOrganizationItem &>(), py::arg("theOther"));
@@ -785,6 +794,7 @@ bind_NCollection_Array1<StepAP214_PresentedItemSelect>(mod, "StepAP214_Array1OfP
 py::class_<StepAP214_HArray1OfPresentedItemSelect, opencascade::handle<StepAP214_HArray1OfPresentedItemSelect>, Standard_Transient> cls_StepAP214_HArray1OfPresentedItemSelect(mod, "StepAP214_HArray1OfPresentedItemSelect", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfPresentedItemSelect.def(py::init<>());
 cls_StepAP214_HArray1OfPresentedItemSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfPresentedItemSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfPresentedItemSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfPresentedItemSelect.def(py::init<const StepAP214_Array1OfPresentedItemSelect &>(), py::arg("theOther"));
@@ -852,6 +862,7 @@ bind_NCollection_Array1<StepAP214_SecurityClassificationItem>(mod, "StepAP214_Ar
 py::class_<StepAP214_HArray1OfSecurityClassificationItem, opencascade::handle<StepAP214_HArray1OfSecurityClassificationItem>, Standard_Transient> cls_StepAP214_HArray1OfSecurityClassificationItem(mod, "StepAP214_HArray1OfSecurityClassificationItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfSecurityClassificationItem.def(py::init<>());
 cls_StepAP214_HArray1OfSecurityClassificationItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfSecurityClassificationItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfSecurityClassificationItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfSecurityClassificationItem.def(py::init<const StepAP214_Array1OfSecurityClassificationItem &>(), py::arg("theOther"));
@@ -1071,6 +1082,7 @@ bind_NCollection_Array1<StepAP214_AutoDesignReferencingItem>(mod, "StepAP214_Arr
 py::class_<StepAP214_HArray1OfAutoDesignDateAndTimeItem, opencascade::handle<StepAP214_HArray1OfAutoDesignDateAndTimeItem>, Standard_Transient> cls_StepAP214_HArray1OfAutoDesignDateAndTimeItem(mod, "StepAP214_HArray1OfAutoDesignDateAndTimeItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfAutoDesignDateAndTimeItem.def(py::init<>());
 cls_StepAP214_HArray1OfAutoDesignDateAndTimeItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfAutoDesignDateAndTimeItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfAutoDesignDateAndTimeItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfAutoDesignDateAndTimeItem.def(py::init<const StepAP214_Array1OfAutoDesignDateAndTimeItem &>(), py::arg("theOther"));
@@ -1110,6 +1122,7 @@ cls_StepAP214_AutoDesignActualDateAndTimeAssignment.def("DynamicType", (const op
 py::class_<StepAP214_HArray1OfAutoDesignDatedItem, opencascade::handle<StepAP214_HArray1OfAutoDesignDatedItem>, Standard_Transient> cls_StepAP214_HArray1OfAutoDesignDatedItem(mod, "StepAP214_HArray1OfAutoDesignDatedItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfAutoDesignDatedItem.def(py::init<>());
 cls_StepAP214_HArray1OfAutoDesignDatedItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfAutoDesignDatedItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfAutoDesignDatedItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfAutoDesignDatedItem.def(py::init<const StepAP214_Array1OfAutoDesignDatedItem &>(), py::arg("theOther"));
@@ -1149,6 +1162,7 @@ cls_StepAP214_AutoDesignActualDateAssignment.def("DynamicType", (const opencasca
 py::class_<StepAP214_HArray1OfAutoDesignGeneralOrgItem, opencascade::handle<StepAP214_HArray1OfAutoDesignGeneralOrgItem>, Standard_Transient> cls_StepAP214_HArray1OfAutoDesignGeneralOrgItem(mod, "StepAP214_HArray1OfAutoDesignGeneralOrgItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfAutoDesignGeneralOrgItem.def(py::init<>());
 cls_StepAP214_HArray1OfAutoDesignGeneralOrgItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfAutoDesignGeneralOrgItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfAutoDesignGeneralOrgItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfAutoDesignGeneralOrgItem.def(py::init<const StepAP214_Array1OfAutoDesignGeneralOrgItem &>(), py::arg("theOther"));
@@ -1188,6 +1202,7 @@ cls_StepAP214_AutoDesignApprovalAssignment.def("DynamicType", (const opencascade
 py::class_<StepAP214_HArray1OfAutoDesignDateAndPersonItem, opencascade::handle<StepAP214_HArray1OfAutoDesignDateAndPersonItem>, Standard_Transient> cls_StepAP214_HArray1OfAutoDesignDateAndPersonItem(mod, "StepAP214_HArray1OfAutoDesignDateAndPersonItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfAutoDesignDateAndPersonItem.def(py::init<>());
 cls_StepAP214_HArray1OfAutoDesignDateAndPersonItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfAutoDesignDateAndPersonItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfAutoDesignDateAndPersonItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfAutoDesignDateAndPersonItem.def(py::init<const StepAP214_Array1OfAutoDesignDateAndPersonItem &>(), py::arg("theOther"));
@@ -1227,6 +1242,7 @@ cls_StepAP214_AutoDesignDateAndPersonAssignment.def("DynamicType", (const openca
 py::class_<StepAP214_HArray1OfAutoDesignReferencingItem, opencascade::handle<StepAP214_HArray1OfAutoDesignReferencingItem>, Standard_Transient> cls_StepAP214_HArray1OfAutoDesignReferencingItem(mod, "StepAP214_HArray1OfAutoDesignReferencingItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfAutoDesignReferencingItem.def(py::init<>());
 cls_StepAP214_HArray1OfAutoDesignReferencingItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfAutoDesignReferencingItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfAutoDesignReferencingItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfAutoDesignReferencingItem.def(py::init<const StepAP214_Array1OfAutoDesignReferencingItem &>(), py::arg("theOther"));
@@ -1266,6 +1282,7 @@ cls_StepAP214_AutoDesignDocumentReference.def("DynamicType", (const opencascade:
 py::class_<StepAP214_HArray1OfAutoDesignGroupedItem, opencascade::handle<StepAP214_HArray1OfAutoDesignGroupedItem>, Standard_Transient> cls_StepAP214_HArray1OfAutoDesignGroupedItem(mod, "StepAP214_HArray1OfAutoDesignGroupedItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfAutoDesignGroupedItem.def(py::init<>());
 cls_StepAP214_HArray1OfAutoDesignGroupedItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfAutoDesignGroupedItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfAutoDesignGroupedItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfAutoDesignGroupedItem.def(py::init<const StepAP214_Array1OfAutoDesignGroupedItem &>(), py::arg("theOther"));
@@ -1386,6 +1403,7 @@ cls_StepAP214_AutoDesignPersonAndOrganizationAssignment.def("DynamicType", (cons
 py::class_<StepAP214_HArray1OfAutoDesignPresentedItemSelect, opencascade::handle<StepAP214_HArray1OfAutoDesignPresentedItemSelect>, Standard_Transient> cls_StepAP214_HArray1OfAutoDesignPresentedItemSelect(mod, "StepAP214_HArray1OfAutoDesignPresentedItemSelect", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepAP214_HArray1OfAutoDesignPresentedItemSelect.def(py::init<>());
 cls_StepAP214_HArray1OfAutoDesignPresentedItemSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepAP214_HArray1OfAutoDesignPresentedItemSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP214_Array1OfAutoDesignPresentedItemSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepAP214_HArray1OfAutoDesignPresentedItemSelect.def(py::init<const StepAP214_Array1OfAutoDesignPresentedItemSelect &>(), py::arg("theOther"));

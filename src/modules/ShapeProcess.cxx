@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TCollection_AsciiString.hxx>
 #include <Message_Messenger.hxx>
 #include <Message_ProgressIndicator.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <TColStd_HSequenceOfHAsciiString.hxx>
 #include <ShapeProcess_OperFunc.hxx>

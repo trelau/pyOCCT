@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_Vec.hxx>
 #include <Geom2d_Curve.hxx>
 #include <Adaptor2d_HCurve2d.hxx>
+#include <Standard_Std.hxx>
 #include <GeomPlate_CurveConstraint.hxx>
 #include <Standard_Type.hxx>
 #include <Adaptor3d_HCurveOnSurface.hxx>
@@ -50,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <GeomPlate_Array1OfHCurve.hxx>
 #include <GeomPlate_HArray1OfHCurve.hxx>
 #include <TColStd_HArray1OfInteger.hxx>
+#include <Message_ProgressIndicator.hxx>
 #include <TColgp_SequenceOfXY.hxx>
 #include <TColgp_SequenceOfXYZ.hxx>
 #include <GeomPlate_Surface.hxx>
@@ -94,6 +96,7 @@ py::module::import("OCCT.Adaptor2d");
 py::module::import("OCCT.NCollection");
 py::module::import("OCCT.TColStd");
 py::module::import("OCCT.Geom");
+py::module::import("OCCT.Message");
 py::module::import("OCCT.TColgp");
 py::module::import("OCCT.TColGeom2d");
 py::module::import("OCCT.Plate");
@@ -173,6 +176,7 @@ bind_NCollection_Array1<NCollection_Sequence<double> >(mod, "GeomPlate_Array1OfS
 py::class_<GeomPlate_HArray1OfSequenceOfReal, opencascade::handle<GeomPlate_HArray1OfSequenceOfReal>, Standard_Transient> cls_GeomPlate_HArray1OfSequenceOfReal(mod, "GeomPlate_HArray1OfSequenceOfReal", "None", py::multiple_inheritance());
 
 // Constructors
+cls_GeomPlate_HArray1OfSequenceOfReal.def(py::init<>());
 cls_GeomPlate_HArray1OfSequenceOfReal.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_GeomPlate_HArray1OfSequenceOfReal.def(py::init<const Standard_Integer, const Standard_Integer, const GeomPlate_Array1OfSequenceOfReal::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_GeomPlate_HArray1OfSequenceOfReal.def(py::init<const GeomPlate_Array1OfSequenceOfReal &>(), py::arg("theOther"));
@@ -257,6 +261,7 @@ bind_NCollection_Array1<opencascade::handle<Adaptor3d_HCurve> >(mod, "GeomPlate_
 py::class_<GeomPlate_HArray1OfHCurve, opencascade::handle<GeomPlate_HArray1OfHCurve>, Standard_Transient> cls_GeomPlate_HArray1OfHCurve(mod, "GeomPlate_HArray1OfHCurve", "None", py::multiple_inheritance());
 
 // Constructors
+cls_GeomPlate_HArray1OfHCurve.def(py::init<>());
 cls_GeomPlate_HArray1OfHCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_GeomPlate_HArray1OfHCurve.def(py::init<const Standard_Integer, const Standard_Integer, const GeomPlate_Array1OfHCurve::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_GeomPlate_HArray1OfHCurve.def(py::init<const GeomPlate_Array1OfHCurve &>(), py::arg("theOther"));
@@ -318,7 +323,8 @@ cls_GeomPlate_BuildPlateSurface.def("LoadInitSurface", (void (GeomPlate_BuildPla
 cls_GeomPlate_BuildPlateSurface.def("Add", (void (GeomPlate_BuildPlateSurface::*)(const opencascade::handle<GeomPlate_CurveConstraint> &)) &GeomPlate_BuildPlateSurface::Add, "Adds the linear constraint cont.", py::arg("Cont"));
 cls_GeomPlate_BuildPlateSurface.def("SetNbBounds", (void (GeomPlate_BuildPlateSurface::*)(const Standard_Integer)) &GeomPlate_BuildPlateSurface::SetNbBounds, "None", py::arg("NbBounds"));
 cls_GeomPlate_BuildPlateSurface.def("Add", (void (GeomPlate_BuildPlateSurface::*)(const opencascade::handle<GeomPlate_PointConstraint> &)) &GeomPlate_BuildPlateSurface::Add, "Adds the point constraint cont.", py::arg("Cont"));
-cls_GeomPlate_BuildPlateSurface.def("Perform", (void (GeomPlate_BuildPlateSurface::*)()) &GeomPlate_BuildPlateSurface::Perform, "Calls the algorithm and computes the plate surface using the loaded constraints. If no initial surface is given, the algorithm automatically computes one. Exceptions Standard_RangeError if the value of the constraint is null or if plate is not done.");
+cls_GeomPlate_BuildPlateSurface.def("Perform", [](GeomPlate_BuildPlateSurface &self) -> void { return self.Perform(); });
+cls_GeomPlate_BuildPlateSurface.def("Perform", (void (GeomPlate_BuildPlateSurface::*)(const opencascade::handle<Message_ProgressIndicator> &)) &GeomPlate_BuildPlateSurface::Perform, "Calls the algorithm and computes the plate surface using the loaded constraints. If no initial surface is given, the algorithm automatically computes one. Exceptions Standard_RangeError if the value of the constraint is null or if plate is not done.", py::arg("aProgress"));
 cls_GeomPlate_BuildPlateSurface.def("CurveConstraint", (opencascade::handle<GeomPlate_CurveConstraint> (GeomPlate_BuildPlateSurface::*)(const Standard_Integer) const) &GeomPlate_BuildPlateSurface::CurveConstraint, "returns the CurveConstraints of order order", py::arg("order"));
 cls_GeomPlate_BuildPlateSurface.def("PointConstraint", (opencascade::handle<GeomPlate_PointConstraint> (GeomPlate_BuildPlateSurface::*)(const Standard_Integer) const) &GeomPlate_BuildPlateSurface::PointConstraint, "returns the PointConstraint of order order", py::arg("order"));
 cls_GeomPlate_BuildPlateSurface.def("Disc2dContour", (void (GeomPlate_BuildPlateSurface::*)(const Standard_Integer, TColgp_SequenceOfXY &)) &GeomPlate_BuildPlateSurface::Disc2dContour, "None", py::arg("nbp"), py::arg("Seq2d"));

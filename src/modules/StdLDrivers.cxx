@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <CDM_Application.hxx>
 #include <Standard_IStream.hxx>
 #include <Storage_Data.hxx>
+#include <Standard_Std.hxx>
 #include <StdLDrivers_DocumentRetrievalDriver.hxx>
 #include <Standard_Type.hxx>
 #include <StdObjMgt_MapOfInstantiators.hxx>

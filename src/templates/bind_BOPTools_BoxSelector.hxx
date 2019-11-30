@@ -22,25 +22,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #ifndef __BOPTools_BoxSelector__
 #define __BOPTools_BoxSelector__
 
-#include <NCollection_UBTree.hxx>
+#include <bind_BVH_Traverse.hxx>
+#include <BVH_Traverse.hxx>
 #include <Standard_TypeDef.hxx>
-#include <BOPTools_BoxSelector.hxx>
+#include <BVH_BoxSet.hxx>
+#include <BVH_Types.hxx>
+#include <BVH_Box.hxx>
 #include <TColStd_ListOfInteger.hxx>
+#include <BOPTools_BoxSelector.hxx>
 
-template <typename BoxType>
+template <int Dimension>
 void bind_BOPTools_BoxSelector(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BOPTools_BoxSelector<BoxType>, NCollection_UBTree<Standard_Integer, BoxType>::Selector> cls_BOPTools_BoxSelector(mod, name.c_str(), "Template Selector for the unbalanced binary tree of overlapped bounding boxes.", local);
+bind_BVH_Traverse<Standard_Real, Dimension, BVH_BoxSet<Standard_Real, Dimension, Standard_Integer>, Standard_Boolean>(mod, "BOPTools_BoxSelector_Base", py::module_local());
+
+py::class_<BOPTools_BoxSelector<Dimension>, BVH_Traverse<Standard_Real, Dimension, BVH_BoxSet<Standard_Real, Dimension, Standard_Integer>, Standard_Boolean>> cls_BOPTools_BoxSelector(mod, name.c_str(), "Template Selector for elements selection from BVH tree.", local);
 
 // Constructors
 cls_BOPTools_BoxSelector.def(py::init<>());
 
 // Methods
-cls_BOPTools_BoxSelector.def("Reject", (Standard_Boolean (BOPTools_BoxSelector<BoxType>::*)(const BoxType &) const) &BOPTools_BoxSelector<BoxType>::Reject, "Checks if the box should be rejected", py::arg("theOther"));
-cls_BOPTools_BoxSelector.def("Accept", (Standard_Boolean (BOPTools_BoxSelector<BoxType>::*)(const Standard_Integer &)) &BOPTools_BoxSelector<BoxType>::Accept, "Accepts the index", py::arg("theIndex"));
-cls_BOPTools_BoxSelector.def("Clear", (void (BOPTools_BoxSelector<BoxType>::*)()) &BOPTools_BoxSelector<BoxType>::Clear, "Clears the indices");
-cls_BOPTools_BoxSelector.def("SetBox", (void (BOPTools_BoxSelector<BoxType>::*)(const BoxType &)) &BOPTools_BoxSelector<BoxType>::SetBox, "Sets the box", py::arg("theBox"));
-cls_BOPTools_BoxSelector.def("Indices", (const TColStd_ListOfInteger & (BOPTools_BoxSelector<BoxType>::*)() const) &BOPTools_BoxSelector<BoxType>::Indices, "Returns the list of accepted indices");
+cls_BOPTools_BoxSelector.def("Clear", (void (BOPTools_BoxSelector<Dimension>::*)()) &BOPTools_BoxSelector<Dimension>::Clear, "Clears the indices");
+cls_BOPTools_BoxSelector.def("SetBox", (void (BOPTools_BoxSelector<Dimension>::*)(const BVH_Box<Standard_Real, Dimension> &)) &BOPTools_BoxSelector<Dimension>::SetBox, "Sets the box", py::arg("theBox"));
+cls_BOPTools_BoxSelector.def("Indices", (const TColStd_ListOfInteger & (BOPTools_BoxSelector<Dimension>::*)() const) &BOPTools_BoxSelector<Dimension>::Indices, "Returns the list of accepted indices");
+cls_BOPTools_BoxSelector.def("RejectNode", [](BOPTools_BoxSelector<Dimension> &self, const typename BOPTools_BoxSelector<Dimension>::BVH_VecNd & theCMin, const typename BOPTools_BoxSelector<Dimension>::BVH_VecNd & theCMax, Standard_Boolean & theIsInside){ Standard_Boolean rv = self.RejectNode(theCMin, theCMax, theIsInside); return std::tuple<Standard_Boolean, Standard_Boolean &>(rv, theIsInside); }, "Checks if the box should be rejected", py::arg("theCMin"), py::arg("theCMax"), py::arg("theIsInside"));
+cls_BOPTools_BoxSelector.def("RejectElement", (Standard_Boolean (BOPTools_BoxSelector<Dimension>::*)(const Standard_Integer)) &BOPTools_BoxSelector<Dimension>::RejectElement, "Checks if the element should be rejected", py::arg("theIndex"));
+cls_BOPTools_BoxSelector.def("AcceptMetric", (Standard_Boolean (BOPTools_BoxSelector<Dimension>::*)(const Standard_Boolean &) const) &BOPTools_BoxSelector<Dimension>::AcceptMetric, "Checks if the metric of the node may be accepted", py::arg("theIsInside"));
+cls_BOPTools_BoxSelector.def("Accept", (Standard_Boolean (BOPTools_BoxSelector<Dimension>::*)(const Standard_Integer, const Standard_Boolean &)) &BOPTools_BoxSelector<Dimension>::Accept, "Accepts the element with the index <theIndex> in BVH tree", py::arg("theIndex"), py::arg("theIsInside"));
 
 }
 

@@ -45,8 +45,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BRepPrimAPI_MakePrism.hxx>
 #include <gp_Ax1.hxx>
 #include <BRepSweep_Revol.hxx>
-#include <BRepPrimAPI_MakeRevol.hxx>
 #include <Standard_Handle.hxx>
+#include <BRepTools_History.hxx>
+#include <BRepPrimAPI_MakeRevol.hxx>
 #include <Geom_Curve.hxx>
 #include <BRepPrim_Revolution.hxx>
 #include <BRepPrimAPI_MakeRevolution.hxx>
@@ -65,6 +66,7 @@ py::module::import("OCCT.gp");
 py::module::import("OCCT.BRepPrim");
 py::module::import("OCCT.BRepSweep");
 py::module::import("OCCT.TopTools");
+py::module::import("OCCT.BRepTools");
 py::module::import("OCCT.Geom");
 
 // CLASS: BREPPRIMAPI_MAKESWEEP
@@ -201,6 +203,7 @@ cls_BRepPrimAPI_MakePrism.def("Build", (void (BRepPrimAPI_MakePrism::*)()) &BRep
 cls_BRepPrimAPI_MakePrism.def("FirstShape", (TopoDS_Shape (BRepPrimAPI_MakePrism::*)()) &BRepPrimAPI_MakePrism::FirstShape, "Returns the TopoDS Shape of the bottom of the prism.");
 cls_BRepPrimAPI_MakePrism.def("LastShape", (TopoDS_Shape (BRepPrimAPI_MakePrism::*)()) &BRepPrimAPI_MakePrism::LastShape, "Returns the TopoDS Shape of the top of the prism. In the case of a finite prism, FirstShape returns the basis of the prism, in other words, S if Copy is false; otherwise, the copy of S belonging to the prism. LastShape returns the copy of S translated by V at the time of construction.");
 cls_BRepPrimAPI_MakePrism.def("Generated", (const TopTools_ListOfShape & (BRepPrimAPI_MakePrism::*)(const TopoDS_Shape &)) &BRepPrimAPI_MakePrism::Generated, "Returns ListOfShape from TopTools.", py::arg("S"));
+cls_BRepPrimAPI_MakePrism.def("IsDeleted", (Standard_Boolean (BRepPrimAPI_MakePrism::*)(const TopoDS_Shape &)) &BRepPrimAPI_MakePrism::IsDeleted, "Returns true if the shape S has been deleted.", py::arg("S"));
 cls_BRepPrimAPI_MakePrism.def("FirstShape", (TopoDS_Shape (BRepPrimAPI_MakePrism::*)(const TopoDS_Shape &)) &BRepPrimAPI_MakePrism::FirstShape, "Returns the TopoDS Shape of the bottom of the prism. generated with theShape (subShape of the generating shape).", py::arg("theShape"));
 cls_BRepPrimAPI_MakePrism.def("LastShape", (TopoDS_Shape (BRepPrimAPI_MakePrism::*)(const TopoDS_Shape &)) &BRepPrimAPI_MakePrism::LastShape, "Returns the TopoDS Shape of the top of the prism. generated with theShape (subShape of the generating shape).", py::arg("theShape"));
 
@@ -224,11 +227,12 @@ cls_BRepPrimAPI_MakeRevol.def("Revol", (const BRepSweep_Revol & (BRepPrimAPI_Mak
 cls_BRepPrimAPI_MakeRevol.def("Build", (void (BRepPrimAPI_MakeRevol::*)()) &BRepPrimAPI_MakeRevol::Build, "Builds the resulting shape (redefined from MakeShape).");
 cls_BRepPrimAPI_MakeRevol.def("FirstShape", (TopoDS_Shape (BRepPrimAPI_MakeRevol::*)()) &BRepPrimAPI_MakeRevol::FirstShape, "Returns the first shape of the revol (coinciding with the generating shape).");
 cls_BRepPrimAPI_MakeRevol.def("LastShape", (TopoDS_Shape (BRepPrimAPI_MakeRevol::*)()) &BRepPrimAPI_MakeRevol::LastShape, "Returns the TopoDS Shape of the end of the revol.");
-cls_BRepPrimAPI_MakeRevol.def("Generated", (const TopTools_ListOfShape & (BRepPrimAPI_MakeRevol::*)(const TopoDS_Shape &)) &BRepPrimAPI_MakeRevol::Generated, "None", py::arg("S"));
+cls_BRepPrimAPI_MakeRevol.def("Generated", (const TopTools_ListOfShape & (BRepPrimAPI_MakeRevol::*)(const TopoDS_Shape &)) &BRepPrimAPI_MakeRevol::Generated, "Returns list of shape generated from shape S Warning: shape S must be shape of type VERTEX, EDGE, FACE, SOLID. For shapes of other types method always returns empty list", py::arg("S"));
+cls_BRepPrimAPI_MakeRevol.def("IsDeleted", (Standard_Boolean (BRepPrimAPI_MakeRevol::*)(const TopoDS_Shape &)) &BRepPrimAPI_MakeRevol::IsDeleted, "Returns true if the shape S has been deleted.", py::arg("S"));
 cls_BRepPrimAPI_MakeRevol.def("FirstShape", (TopoDS_Shape (BRepPrimAPI_MakeRevol::*)(const TopoDS_Shape &)) &BRepPrimAPI_MakeRevol::FirstShape, "Returns the TopoDS Shape of the beginning of the revolution, generated with theShape (subShape of the generating shape).", py::arg("theShape"));
 cls_BRepPrimAPI_MakeRevol.def("LastShape", (TopoDS_Shape (BRepPrimAPI_MakeRevol::*)(const TopoDS_Shape &)) &BRepPrimAPI_MakeRevol::LastShape, "Returns the TopoDS Shape of the end of the revolution, generated with theShape (subShape of the generating shape).", py::arg("theShape"));
 cls_BRepPrimAPI_MakeRevol.def("HasDegenerated", (Standard_Boolean (BRepPrimAPI_MakeRevol::*)() const) &BRepPrimAPI_MakeRevol::HasDegenerated, "Check if there are degenerated edges in the result.");
-cls_BRepPrimAPI_MakeRevol.def("Degenerated", (const TopTools_ListOfShape & (BRepPrimAPI_MakeRevol::*)() const) &BRepPrimAPI_MakeRevol::Degenerated, "None");
+cls_BRepPrimAPI_MakeRevol.def("Degenerated", (const TopTools_ListOfShape & (BRepPrimAPI_MakeRevol::*)() const) &BRepPrimAPI_MakeRevol::Degenerated, "Returns the list of degenerated edges");
 
 // CLASS: BREPPRIMAPI_MAKEREVOLUTION
 py::class_<BRepPrimAPI_MakeRevolution, BRepPrimAPI_MakeOneAxis> cls_BRepPrimAPI_MakeRevolution(mod, "BRepPrimAPI_MakeRevolution", "Describes functions to build revolved shapes. A MakeRevolution object provides a framework for: - defining the construction of a revolved shape, - implementing the construction algorithm, and - consulting the result.");

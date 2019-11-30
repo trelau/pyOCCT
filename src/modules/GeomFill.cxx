@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <GeomAbs_Shape.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <gp_Pnt.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Array1.hxx>
 #include <GeomFill_Array1OfLocationLaw.hxx>
@@ -254,6 +255,7 @@ bind_NCollection_Array1<opencascade::handle<GeomFill_LocationLaw> >(mod, "GeomFi
 py::class_<GeomFill_HArray1OfLocationLaw, opencascade::handle<GeomFill_HArray1OfLocationLaw>, Standard_Transient> cls_GeomFill_HArray1OfLocationLaw(mod, "GeomFill_HArray1OfLocationLaw", "None", py::multiple_inheritance());
 
 // Constructors
+cls_GeomFill_HArray1OfLocationLaw.def(py::init<>());
 cls_GeomFill_HArray1OfLocationLaw.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_GeomFill_HArray1OfLocationLaw.def(py::init<const Standard_Integer, const Standard_Integer, const GeomFill_Array1OfLocationLaw::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_GeomFill_HArray1OfLocationLaw.def(py::init<const GeomFill_Array1OfLocationLaw &>(), py::arg("theOther"));
@@ -315,6 +317,7 @@ bind_NCollection_Array1<opencascade::handle<GeomFill_SectionLaw> >(mod, "GeomFil
 py::class_<GeomFill_HArray1OfSectionLaw, opencascade::handle<GeomFill_HArray1OfSectionLaw>, Standard_Transient> cls_GeomFill_HArray1OfSectionLaw(mod, "GeomFill_HArray1OfSectionLaw", "None", py::multiple_inheritance());
 
 // Constructors
+cls_GeomFill_HArray1OfSectionLaw.def(py::init<>());
 cls_GeomFill_HArray1OfSectionLaw.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_GeomFill_HArray1OfSectionLaw.def(py::init<const Standard_Integer, const Standard_Integer, const GeomFill_Array1OfSectionLaw::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_GeomFill_HArray1OfSectionLaw.def(py::init<const GeomFill_Array1OfSectionLaw &>(), py::arg("theOther"));

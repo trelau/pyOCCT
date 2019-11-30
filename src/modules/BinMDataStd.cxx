@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Handle.hxx>
 #include <BinMDF_ADriverTable.hxx>
 #include <Message_Messenger.hxx>
-#include <Standard_TypeDef.hxx>
 #include <BinObjMgt_Persistent.hxx>
 #include <BinMDataStd.hxx>
+#include <Standard_TypeDef.hxx>
 #include <BinMDataStd_NameDriver.hxx>
 #include <BinMDataStd_IntegerDriver.hxx>
 #include <BinMDataStd_RealDriver.hxx>
@@ -57,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TDF_Attribute.hxx>
 #include <BinObjMgt_RRelocationTable.hxx>
 #include <BinObjMgt_SRelocationTable.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 
 PYBIND11_MODULE(BinMDataStd, mod) {
@@ -78,8 +79,6 @@ py::class_<BinMDataStd> cls_BinMDataStd(mod, "BinMDataStd", "Storage and Retriev
 // cls_BinMDataStd.def_static("operator new_", (void * (*)(size_t, void *)) &BinMDataStd::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_BinMDataStd.def_static("operator delete_", (void (*)(void *, void *)) &BinMDataStd::operator delete, "None", py::arg(""), py::arg(""));
 cls_BinMDataStd.def_static("AddDrivers_", (void (*)(const opencascade::handle<BinMDF_ADriverTable> &, const opencascade::handle<Message_Messenger> &)) &BinMDataStd::AddDrivers, "Adds the attribute drivers to <theDriverTable>.", py::arg("theDriverTable"), py::arg("aMsgDrv"));
-cls_BinMDataStd.def_static("SetDocumentVersion_", (void (*)(const Standard_Integer)) &BinMDataStd::SetDocumentVersion, "None", py::arg("DocVersion"));
-cls_BinMDataStd.def_static("DocumentVersion_", (Standard_Integer (*)()) &BinMDataStd::DocumentVersion, "None");
 
 // CLASS: BINMDATASTD_ASCIISTRINGDRIVER
 py::class_<BinMDataStd_AsciiStringDriver, opencascade::handle<BinMDataStd_AsciiStringDriver>, BinMDF_ADriver> cls_BinMDataStd_AsciiStringDriver(mod, "BinMDataStd_AsciiStringDriver", "TDataStd_AsciiString attribute Driver.");

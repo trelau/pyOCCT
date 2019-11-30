@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Units_Measurement.hxx>
 #include <Units.hxx>
 #include <Standard_Transient.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <TCollection_AsciiString.hxx>
 #include <TColStd_HSequenceOfHAsciiString.hxx>

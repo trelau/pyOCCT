@@ -27,8 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <NCollection_Array1.hxx>
 #include <Poly_Array1OfTriangle.hxx>
 #include <Standard_Transient.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <Poly_Triangulation.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <TColgp_Array1OfPnt.hxx>
 #include <TColgp_Array1OfPnt2d.hxx>
@@ -49,8 +50,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_OStream.hxx>
 #include <Standard_IStream.hxx>
 #include <gp_XY.hxx>
-#include <Poly_Connect.hxx>
 #include <Poly.hxx>
+#include <Poly_Connect.hxx>
 #include <Poly_CoherentTriangle.hxx>
 #include <Poly_CoherentTriangulation.hxx>
 #include <Poly_CoherentLink.hxx>
@@ -81,7 +82,7 @@ py::module::import("OCCT.TColStd");
 py::module::import("OCCT.Precision");
 
 // FUNCTION: HASHCODE
-mod.def("HashCode", (Standard_Integer (*) (const Poly_MakeLoops::Link &, int)) &HashCode, "HashCode method is needed for maps", py::arg("theKey"), py::arg("theLimit"));
+mod.def("HashCode", (Standard_Integer (*) (const Poly_MakeLoops::Link &, const Standard_Integer)) &HashCode, "Computes a hash code for the given link, in the range [1, theUpperBound]", py::arg("theLink"), py::arg("theUpperBound"));
 
 // FUNCTION: ISEQUAL
 mod.def("IsEqual", (Standard_Boolean (*) (const Poly_MakeLoops::Link &, const Poly_MakeLoops::Link &)) &IsEqual, "IsEqual method is needed for maps", py::arg("theKey1"), py::arg("theKey2"));
@@ -442,6 +443,7 @@ cls_Poly_Connect.def("Value", (Standard_Integer (Poly_Connect::*)() const) &Poly
 py::class_<Poly_HArray1OfTriangle, opencascade::handle<Poly_HArray1OfTriangle>, Standard_Transient> cls_Poly_HArray1OfTriangle(mod, "Poly_HArray1OfTriangle", "None", py::multiple_inheritance());
 
 // Constructors
+cls_Poly_HArray1OfTriangle.def(py::init<>());
 cls_Poly_HArray1OfTriangle.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_Poly_HArray1OfTriangle.def(py::init<const Standard_Integer, const Standard_Integer, const Poly_Array1OfTriangle::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_Poly_HArray1OfTriangle.def(py::init<const Poly_Array1OfTriangle &>(), py::arg("theOther"));

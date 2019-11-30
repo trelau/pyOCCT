@@ -58,10 +58,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColgp_Array1OfVec.hxx>
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TColgp_Array1OfVec2d.hxx>
+#include <BlendFunc_GenChamfer.hxx>
 #include <Blend_FuncInv.hxx>
 #include <Adaptor2d_HCurve2d.hxx>
+#include <BlendFunc_GenChamfInv.hxx>
 #include <gp_Circ.hxx>
 #include <gp_Ax1.hxx>
+#include <BlendFunc_ConstThroat.hxx>
+#include <BlendFunc_ConstThroatInv.hxx>
+#include <BlendFunc_ConstThroatWithPenetration.hxx>
+#include <BlendFunc_ConstThroatWithPenetrationInv.hxx>
 #include <Blend_CSFunction.hxx>
 #include <Law_Function.hxx>
 
@@ -132,8 +138,40 @@ cls_BlendFunc_Corde.def("Tangent2dOnS", (const gp_Vec2d & (BlendFunc_Corde::*)()
 cls_BlendFunc_Corde.def("DerFguide", (void (BlendFunc_Corde::*)(const math_Vector &, gp_Vec2d &)) &BlendFunc_Corde::DerFguide, "Derived of the function compared to the parameter of the guideline", py::arg("Sol"), py::arg("DerF"));
 cls_BlendFunc_Corde.def("IsSolution", (Standard_Boolean (BlendFunc_Corde::*)(const math_Vector &, const Standard_Real)) &BlendFunc_Corde::IsSolution, "Returns False if Sol is not solution else returns True and updates the fields tgs and tg2d", py::arg("Sol"), py::arg("Tol"));
 
+// CLASS: BLENDFUNC_GENCHAMFER
+py::class_<BlendFunc_GenChamfer, Blend_Function> cls_BlendFunc_GenChamfer(mod, "BlendFunc_GenChamfer", "Deferred class for a function used to compute a general chamfer");
+
+// Methods
+// cls_BlendFunc_GenChamfer.def_static("operator new_", (void * (*)(size_t)) &BlendFunc_GenChamfer::operator new, "None", py::arg("theSize"));
+// cls_BlendFunc_GenChamfer.def_static("operator delete_", (void (*)(void *)) &BlendFunc_GenChamfer::operator delete, "None", py::arg("theAddress"));
+// cls_BlendFunc_GenChamfer.def_static("operator new[]_", (void * (*)(size_t)) &BlendFunc_GenChamfer::operator new[], "None", py::arg("theSize"));
+// cls_BlendFunc_GenChamfer.def_static("operator delete[]_", (void (*)(void *)) &BlendFunc_GenChamfer::operator delete[], "None", py::arg("theAddress"));
+// cls_BlendFunc_GenChamfer.def_static("operator new_", (void * (*)(size_t, void *)) &BlendFunc_GenChamfer::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_BlendFunc_GenChamfer.def_static("operator delete_", (void (*)(void *, void *)) &BlendFunc_GenChamfer::operator delete, "None", py::arg(""), py::arg(""));
+cls_BlendFunc_GenChamfer.def("NbEquations", (Standard_Integer (BlendFunc_GenChamfer::*)() const) &BlendFunc_GenChamfer::NbEquations, "returns the number of equations of the function.");
+cls_BlendFunc_GenChamfer.def("Values", (Standard_Boolean (BlendFunc_GenChamfer::*)(const math_Vector &, math_Vector &, math_Matrix &)) &BlendFunc_GenChamfer::Values, "returns the values <F> of the functions and the derivatives <D> for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("F"), py::arg("D"));
+cls_BlendFunc_GenChamfer.def("Set", (void (BlendFunc_GenChamfer::*)(const Standard_Real)) &BlendFunc_GenChamfer::Set, "Sets the value of the parameter along the guide line. This determines the plane in which the solution has to be found.", py::arg("Param"));
+cls_BlendFunc_GenChamfer.def("Set", (void (BlendFunc_GenChamfer::*)(const Standard_Real, const Standard_Real)) &BlendFunc_GenChamfer::Set, "Sets the bounds of the parametric interval on the guide line. This determines the derivatives in these values if the function is not Cn.", py::arg("First"), py::arg("Last"));
+cls_BlendFunc_GenChamfer.def("GetTolerance", (void (BlendFunc_GenChamfer::*)(math_Vector &, const Standard_Real) const) &BlendFunc_GenChamfer::GetTolerance, "None", py::arg("Tolerance"), py::arg("Tol"));
+cls_BlendFunc_GenChamfer.def("GetBounds", (void (BlendFunc_GenChamfer::*)(math_Vector &, math_Vector &) const) &BlendFunc_GenChamfer::GetBounds, "None", py::arg("InfBound"), py::arg("SupBound"));
+cls_BlendFunc_GenChamfer.def("GetMinimalDistance", (Standard_Real (BlendFunc_GenChamfer::*)() const) &BlendFunc_GenChamfer::GetMinimalDistance, "Returns the minimal Distance beetween two extremitys of calculed sections.");
+cls_BlendFunc_GenChamfer.def("Set", (void (BlendFunc_GenChamfer::*)(const Standard_Real, const Standard_Real, const Standard_Integer)) &BlendFunc_GenChamfer::Set, "Sets the distances and the 'quadrant'.", py::arg("Dist1"), py::arg("Dist2"), py::arg("Choix"));
+cls_BlendFunc_GenChamfer.def("IsRational", (Standard_Boolean (BlendFunc_GenChamfer::*)() const) &BlendFunc_GenChamfer::IsRational, "Returns False");
+cls_BlendFunc_GenChamfer.def("GetMinimalWeight", (void (BlendFunc_GenChamfer::*)(TColStd_Array1OfReal &) const) &BlendFunc_GenChamfer::GetMinimalWeight, "Compute the minimal value of weight for each poles of all sections.", py::arg("Weigths"));
+cls_BlendFunc_GenChamfer.def("NbIntervals", (Standard_Integer (BlendFunc_GenChamfer::*)(const GeomAbs_Shape) const) &BlendFunc_GenChamfer::NbIntervals, "Returns the number of intervals for continuity <S>. May be one if Continuity(me) >= <S>", py::arg("S"));
+cls_BlendFunc_GenChamfer.def("Intervals", (void (BlendFunc_GenChamfer::*)(TColStd_Array1OfReal &, const GeomAbs_Shape) const) &BlendFunc_GenChamfer::Intervals, "Stores in <T> the parameters bounding the intervals of continuity <S>.", py::arg("T"), py::arg("S"));
+cls_BlendFunc_GenChamfer.def("GetShape", [](BlendFunc_GenChamfer &self, Standard_Integer & NbPoles, Standard_Integer & NbKnots, Standard_Integer & Degree, Standard_Integer & NbPoles2d){ self.GetShape(NbPoles, NbKnots, Degree, NbPoles2d); return std::tuple<Standard_Integer &, Standard_Integer &, Standard_Integer &, Standard_Integer &>(NbPoles, NbKnots, Degree, NbPoles2d); }, "None", py::arg("NbPoles"), py::arg("NbKnots"), py::arg("Degree"), py::arg("NbPoles2d"));
+cls_BlendFunc_GenChamfer.def("GetTolerance", (void (BlendFunc_GenChamfer::*)(const Standard_Real, const Standard_Real, const Standard_Real, math_Vector &, math_Vector &) const) &BlendFunc_GenChamfer::GetTolerance, "Returns the tolerance to reach in approximation to respecte BoundTol error at the Boundary AngleTol tangent error at the Boundary SurfTol error inside the surface.", py::arg("BoundTol"), py::arg("SurfTol"), py::arg("AngleTol"), py::arg("Tol3d"), py::arg("Tol1D"));
+cls_BlendFunc_GenChamfer.def("Knots", (void (BlendFunc_GenChamfer::*)(TColStd_Array1OfReal &)) &BlendFunc_GenChamfer::Knots, "None", py::arg("TKnots"));
+cls_BlendFunc_GenChamfer.def("Mults", (void (BlendFunc_GenChamfer::*)(TColStd_Array1OfInteger &)) &BlendFunc_GenChamfer::Mults, "None", py::arg("TMults"));
+cls_BlendFunc_GenChamfer.def("Section", [](BlendFunc_GenChamfer &self, const Standard_Real Param, const Standard_Real U1, const Standard_Real V1, const Standard_Real U2, const Standard_Real V2, Standard_Real & Pdeb, Standard_Real & Pfin, gp_Lin & C){ self.Section(Param, U1, V1, U2, V2, Pdeb, Pfin, C); return std::tuple<Standard_Real &, Standard_Real &>(Pdeb, Pfin); }, "Obsolete method", py::arg("Param"), py::arg("U1"), py::arg("V1"), py::arg("U2"), py::arg("V2"), py::arg("Pdeb"), py::arg("Pfin"), py::arg("C"));
+cls_BlendFunc_GenChamfer.def("Section", (Standard_Boolean (BlendFunc_GenChamfer::*)(const Blend_Point &, TColgp_Array1OfPnt &, TColgp_Array1OfVec &, TColgp_Array1OfVec &, TColgp_Array1OfPnt2d &, TColgp_Array1OfVec2d &, TColgp_Array1OfVec2d &, TColStd_Array1OfReal &, TColStd_Array1OfReal &, TColStd_Array1OfReal &)) &BlendFunc_GenChamfer::Section, "Used for the first and last section", py::arg("P"), py::arg("Poles"), py::arg("DPoles"), py::arg("D2Poles"), py::arg("Poles2d"), py::arg("DPoles2d"), py::arg("D2Poles2d"), py::arg("Weigths"), py::arg("DWeigths"), py::arg("D2Weigths"));
+cls_BlendFunc_GenChamfer.def("Section", (Standard_Boolean (BlendFunc_GenChamfer::*)(const Blend_Point &, TColgp_Array1OfPnt &, TColgp_Array1OfVec &, TColgp_Array1OfPnt2d &, TColgp_Array1OfVec2d &, TColStd_Array1OfReal &, TColStd_Array1OfReal &)) &BlendFunc_GenChamfer::Section, "Used for the first and last section", py::arg("P"), py::arg("Poles"), py::arg("DPoles"), py::arg("Poles2d"), py::arg("DPoles2d"), py::arg("Weigths"), py::arg("DWeigths"));
+cls_BlendFunc_GenChamfer.def("Section", (void (BlendFunc_GenChamfer::*)(const Blend_Point &, TColgp_Array1OfPnt &, TColgp_Array1OfPnt2d &, TColStd_Array1OfReal &)) &BlendFunc_GenChamfer::Section, "None", py::arg("P"), py::arg("Poles"), py::arg("Poles2d"), py::arg("Weigths"));
+cls_BlendFunc_GenChamfer.def("Resolution", [](BlendFunc_GenChamfer &self, const Standard_Integer IC2d, const Standard_Real Tol, Standard_Real & TolU, Standard_Real & TolV){ self.Resolution(IC2d, Tol, TolU, TolV); return std::tuple<Standard_Real &, Standard_Real &>(TolU, TolV); }, "None", py::arg("IC2d"), py::arg("Tol"), py::arg("TolU"), py::arg("TolV"));
+
 // CLASS: BLENDFUNC_CHAMFER
-py::class_<BlendFunc_Chamfer, Blend_Function> cls_BlendFunc_Chamfer(mod, "BlendFunc_Chamfer", "None");
+py::class_<BlendFunc_Chamfer, BlendFunc_GenChamfer> cls_BlendFunc_Chamfer(mod, "BlendFunc_Chamfer", "Class for a function used to compute a 'ordinary' chamfer: when distances from spine to surfaces are constant");
 
 // Constructors
 cls_BlendFunc_Chamfer.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S1"), py::arg("S2"), py::arg("CG"));
@@ -145,16 +183,10 @@ cls_BlendFunc_Chamfer.def(py::init<const opencascade::handle<Adaptor3d_HSurface>
 // cls_BlendFunc_Chamfer.def_static("operator delete[]_", (void (*)(void *)) &BlendFunc_Chamfer::operator delete[], "None", py::arg("theAddress"));
 // cls_BlendFunc_Chamfer.def_static("operator new_", (void * (*)(size_t, void *)) &BlendFunc_Chamfer::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_BlendFunc_Chamfer.def_static("operator delete_", (void (*)(void *, void *)) &BlendFunc_Chamfer::operator delete, "None", py::arg(""), py::arg(""));
-cls_BlendFunc_Chamfer.def("NbEquations", (Standard_Integer (BlendFunc_Chamfer::*)() const) &BlendFunc_Chamfer::NbEquations, "returns the number of equations of the function.");
 cls_BlendFunc_Chamfer.def("Value", (Standard_Boolean (BlendFunc_Chamfer::*)(const math_Vector &, math_Vector &)) &BlendFunc_Chamfer::Value, "computes the values <F> of the Functions for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("F"));
 cls_BlendFunc_Chamfer.def("Derivatives", (Standard_Boolean (BlendFunc_Chamfer::*)(const math_Vector &, math_Matrix &)) &BlendFunc_Chamfer::Derivatives, "returns the values <D> of the derivatives for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("D"));
-cls_BlendFunc_Chamfer.def("Values", (Standard_Boolean (BlendFunc_Chamfer::*)(const math_Vector &, math_Vector &, math_Matrix &)) &BlendFunc_Chamfer::Values, "returns the values <F> of the functions and the derivatives <D> for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("F"), py::arg("D"));
 cls_BlendFunc_Chamfer.def("Set", (void (BlendFunc_Chamfer::*)(const Standard_Real)) &BlendFunc_Chamfer::Set, "None", py::arg("Param"));
-cls_BlendFunc_Chamfer.def("Set", (void (BlendFunc_Chamfer::*)(const Standard_Real, const Standard_Real)) &BlendFunc_Chamfer::Set, "None", py::arg("First"), py::arg("Last"));
-cls_BlendFunc_Chamfer.def("GetTolerance", (void (BlendFunc_Chamfer::*)(math_Vector &, const Standard_Real) const) &BlendFunc_Chamfer::GetTolerance, "None", py::arg("Tolerance"), py::arg("Tol"));
-cls_BlendFunc_Chamfer.def("GetBounds", (void (BlendFunc_Chamfer::*)(math_Vector &, math_Vector &) const) &BlendFunc_Chamfer::GetBounds, "None", py::arg("InfBound"), py::arg("SupBound"));
 cls_BlendFunc_Chamfer.def("IsSolution", (Standard_Boolean (BlendFunc_Chamfer::*)(const math_Vector &, const Standard_Real)) &BlendFunc_Chamfer::IsSolution, "None", py::arg("Sol"), py::arg("Tol"));
-cls_BlendFunc_Chamfer.def("GetMinimalDistance", (Standard_Real (BlendFunc_Chamfer::*)() const) &BlendFunc_Chamfer::GetMinimalDistance, "Returns the minimal Distance beetween two extremitys of calculed sections.");
 cls_BlendFunc_Chamfer.def("PointOnS1", (const gp_Pnt & (BlendFunc_Chamfer::*)() const) &BlendFunc_Chamfer::PointOnS1, "None");
 cls_BlendFunc_Chamfer.def("PointOnS2", (const gp_Pnt & (BlendFunc_Chamfer::*)() const) &BlendFunc_Chamfer::PointOnS2, "None");
 cls_BlendFunc_Chamfer.def("IsTangencyPoint", (Standard_Boolean (BlendFunc_Chamfer::*)() const) &BlendFunc_Chamfer::IsTangencyPoint, "None");
@@ -164,23 +196,27 @@ cls_BlendFunc_Chamfer.def("TangentOnS2", (const gp_Vec & (BlendFunc_Chamfer::*)(
 cls_BlendFunc_Chamfer.def("Tangent2dOnS2", (const gp_Vec2d & (BlendFunc_Chamfer::*)() const) &BlendFunc_Chamfer::Tangent2dOnS2, "None");
 cls_BlendFunc_Chamfer.def("Tangent", (void (BlendFunc_Chamfer::*)(const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, gp_Vec &, gp_Vec &, gp_Vec &, gp_Vec &) const) &BlendFunc_Chamfer::Tangent, "Returns the tangent vector at the section, at the beginning and the end of the section, and returns the normal (of the surfaces) at these points.", py::arg("U1"), py::arg("V1"), py::arg("U2"), py::arg("V2"), py::arg("TgFirst"), py::arg("TgLast"), py::arg("NormFirst"), py::arg("NormLast"));
 cls_BlendFunc_Chamfer.def("Set", (void (BlendFunc_Chamfer::*)(const Standard_Real, const Standard_Real, const Standard_Integer)) &BlendFunc_Chamfer::Set, "Sets the distances and the 'quadrant'.", py::arg("Dist1"), py::arg("Dist2"), py::arg("Choix"));
-cls_BlendFunc_Chamfer.def("IsRational", (Standard_Boolean (BlendFunc_Chamfer::*)() const) &BlendFunc_Chamfer::IsRational, "Returns False");
 cls_BlendFunc_Chamfer.def("GetSectionSize", (Standard_Real (BlendFunc_Chamfer::*)() const) &BlendFunc_Chamfer::GetSectionSize, "Returns the length of the maximum section");
-cls_BlendFunc_Chamfer.def("GetMinimalWeight", (void (BlendFunc_Chamfer::*)(TColStd_Array1OfReal &) const) &BlendFunc_Chamfer::GetMinimalWeight, "Compute the minimal value of weight for each poles of all sections.", py::arg("Weigths"));
-cls_BlendFunc_Chamfer.def("NbIntervals", (Standard_Integer (BlendFunc_Chamfer::*)(const GeomAbs_Shape) const) &BlendFunc_Chamfer::NbIntervals, "Returns the number of intervals for continuity <S>. May be one if Continuity(me) >= <S>", py::arg("S"));
-cls_BlendFunc_Chamfer.def("Intervals", (void (BlendFunc_Chamfer::*)(TColStd_Array1OfReal &, const GeomAbs_Shape) const) &BlendFunc_Chamfer::Intervals, "Stores in <T> the parameters bounding the intervals of continuity <S>.", py::arg("T"), py::arg("S"));
-cls_BlendFunc_Chamfer.def("GetShape", [](BlendFunc_Chamfer &self, Standard_Integer & NbPoles, Standard_Integer & NbKnots, Standard_Integer & Degree, Standard_Integer & NbPoles2d){ self.GetShape(NbPoles, NbKnots, Degree, NbPoles2d); return std::tuple<Standard_Integer &, Standard_Integer &, Standard_Integer &, Standard_Integer &>(NbPoles, NbKnots, Degree, NbPoles2d); }, "None", py::arg("NbPoles"), py::arg("NbKnots"), py::arg("Degree"), py::arg("NbPoles2d"));
-cls_BlendFunc_Chamfer.def("GetTolerance", (void (BlendFunc_Chamfer::*)(const Standard_Real, const Standard_Real, const Standard_Real, math_Vector &, math_Vector &) const) &BlendFunc_Chamfer::GetTolerance, "Returns the tolerance to reach in approximation to respecte BoundTol error at the Boundary AngleTol tangent error at the Boundary SurfTol error inside the surface.", py::arg("BoundTol"), py::arg("SurfTol"), py::arg("AngleTol"), py::arg("Tol3d"), py::arg("Tol1D"));
-cls_BlendFunc_Chamfer.def("Knots", (void (BlendFunc_Chamfer::*)(TColStd_Array1OfReal &)) &BlendFunc_Chamfer::Knots, "None", py::arg("TKnots"));
-cls_BlendFunc_Chamfer.def("Mults", (void (BlendFunc_Chamfer::*)(TColStd_Array1OfInteger &)) &BlendFunc_Chamfer::Mults, "None", py::arg("TMults"));
-cls_BlendFunc_Chamfer.def("Section", [](BlendFunc_Chamfer &self, const Standard_Real Param, const Standard_Real U1, const Standard_Real V1, const Standard_Real U2, const Standard_Real V2, Standard_Real & Pdeb, Standard_Real & Pfin, gp_Lin & C){ self.Section(Param, U1, V1, U2, V2, Pdeb, Pfin, C); return std::tuple<Standard_Real &, Standard_Real &>(Pdeb, Pfin); }, "Obsolete method", py::arg("Param"), py::arg("U1"), py::arg("V1"), py::arg("U2"), py::arg("V2"), py::arg("Pdeb"), py::arg("Pfin"), py::arg("C"));
-cls_BlendFunc_Chamfer.def("Section", (Standard_Boolean (BlendFunc_Chamfer::*)(const Blend_Point &, TColgp_Array1OfPnt &, TColgp_Array1OfVec &, TColgp_Array1OfVec &, TColgp_Array1OfPnt2d &, TColgp_Array1OfVec2d &, TColgp_Array1OfVec2d &, TColStd_Array1OfReal &, TColStd_Array1OfReal &, TColStd_Array1OfReal &)) &BlendFunc_Chamfer::Section, "Used for the first and last section", py::arg("P"), py::arg("Poles"), py::arg("DPoles"), py::arg("D2Poles"), py::arg("Poles2d"), py::arg("DPoles2d"), py::arg("D2Poles2d"), py::arg("Weigths"), py::arg("DWeigths"), py::arg("D2Weigths"));
-cls_BlendFunc_Chamfer.def("Section", (Standard_Boolean (BlendFunc_Chamfer::*)(const Blend_Point &, TColgp_Array1OfPnt &, TColgp_Array1OfVec &, TColgp_Array1OfPnt2d &, TColgp_Array1OfVec2d &, TColStd_Array1OfReal &, TColStd_Array1OfReal &)) &BlendFunc_Chamfer::Section, "Used for the first and last section", py::arg("P"), py::arg("Poles"), py::arg("DPoles"), py::arg("Poles2d"), py::arg("DPoles2d"), py::arg("Weigths"), py::arg("DWeigths"));
-cls_BlendFunc_Chamfer.def("Section", (void (BlendFunc_Chamfer::*)(const Blend_Point &, TColgp_Array1OfPnt &, TColgp_Array1OfPnt2d &, TColStd_Array1OfReal &)) &BlendFunc_Chamfer::Section, "None", py::arg("P"), py::arg("Poles"), py::arg("Poles2d"), py::arg("Weigths"));
-cls_BlendFunc_Chamfer.def("Resolution", [](BlendFunc_Chamfer &self, const Standard_Integer IC2d, const Standard_Real Tol, Standard_Real & TolU, Standard_Real & TolV){ self.Resolution(IC2d, Tol, TolU, TolV); return std::tuple<Standard_Real &, Standard_Real &>(TolU, TolV); }, "None", py::arg("IC2d"), py::arg("Tol"), py::arg("TolU"), py::arg("TolV"));
+
+// CLASS: BLENDFUNC_GENCHAMFINV
+py::class_<BlendFunc_GenChamfInv, Blend_FuncInv> cls_BlendFunc_GenChamfInv(mod, "BlendFunc_GenChamfInv", "Deferred class for a function used to compute a general chamfer on a surface's boundary");
+
+// Methods
+// cls_BlendFunc_GenChamfInv.def_static("operator new_", (void * (*)(size_t)) &BlendFunc_GenChamfInv::operator new, "None", py::arg("theSize"));
+// cls_BlendFunc_GenChamfInv.def_static("operator delete_", (void (*)(void *)) &BlendFunc_GenChamfInv::operator delete, "None", py::arg("theAddress"));
+// cls_BlendFunc_GenChamfInv.def_static("operator new[]_", (void * (*)(size_t)) &BlendFunc_GenChamfInv::operator new[], "None", py::arg("theSize"));
+// cls_BlendFunc_GenChamfInv.def_static("operator delete[]_", (void (*)(void *)) &BlendFunc_GenChamfInv::operator delete[], "None", py::arg("theAddress"));
+// cls_BlendFunc_GenChamfInv.def_static("operator new_", (void * (*)(size_t, void *)) &BlendFunc_GenChamfInv::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_BlendFunc_GenChamfInv.def_static("operator delete_", (void (*)(void *, void *)) &BlendFunc_GenChamfInv::operator delete, "None", py::arg(""), py::arg(""));
+cls_BlendFunc_GenChamfInv.def("Set", (void (BlendFunc_GenChamfInv::*)(const Standard_Boolean, const opencascade::handle<Adaptor2d_HCurve2d> &)) &BlendFunc_GenChamfInv::Set, "None", py::arg("OnFirst"), py::arg("COnSurf"));
+cls_BlendFunc_GenChamfInv.def("GetTolerance", (void (BlendFunc_GenChamfInv::*)(math_Vector &, const Standard_Real) const) &BlendFunc_GenChamfInv::GetTolerance, "None", py::arg("Tolerance"), py::arg("Tol"));
+cls_BlendFunc_GenChamfInv.def("GetBounds", (void (BlendFunc_GenChamfInv::*)(math_Vector &, math_Vector &) const) &BlendFunc_GenChamfInv::GetBounds, "None", py::arg("InfBound"), py::arg("SupBound"));
+cls_BlendFunc_GenChamfInv.def("NbEquations", (Standard_Integer (BlendFunc_GenChamfInv::*)() const) &BlendFunc_GenChamfInv::NbEquations, "returns the number of equations of the function.");
+cls_BlendFunc_GenChamfInv.def("Values", (Standard_Boolean (BlendFunc_GenChamfInv::*)(const math_Vector &, math_Vector &, math_Matrix &)) &BlendFunc_GenChamfInv::Values, "returns the values <F> of the functions and the derivatives <D> for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("F"), py::arg("D"));
+cls_BlendFunc_GenChamfInv.def("Set", (void (BlendFunc_GenChamfInv::*)(const Standard_Real, const Standard_Real, const Standard_Integer)) &BlendFunc_GenChamfInv::Set, "None", py::arg("Dist1"), py::arg("Dist2"), py::arg("Choix"));
 
 // CLASS: BLENDFUNC_CHAMFINV
-py::class_<BlendFunc_ChamfInv, Blend_FuncInv> cls_BlendFunc_ChamfInv(mod, "BlendFunc_ChamfInv", "None");
+py::class_<BlendFunc_ChamfInv, BlendFunc_GenChamfInv> cls_BlendFunc_ChamfInv(mod, "BlendFunc_ChamfInv", "Class for a function used to compute a chamfer with two constant distances on a surface's boundary");
 
 // Constructors
 cls_BlendFunc_ChamfInv.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S1"), py::arg("S2"), py::arg("C"));
@@ -192,14 +228,9 @@ cls_BlendFunc_ChamfInv.def(py::init<const opencascade::handle<Adaptor3d_HSurface
 // cls_BlendFunc_ChamfInv.def_static("operator delete[]_", (void (*)(void *)) &BlendFunc_ChamfInv::operator delete[], "None", py::arg("theAddress"));
 // cls_BlendFunc_ChamfInv.def_static("operator new_", (void * (*)(size_t, void *)) &BlendFunc_ChamfInv::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_BlendFunc_ChamfInv.def_static("operator delete_", (void (*)(void *, void *)) &BlendFunc_ChamfInv::operator delete, "None", py::arg(""), py::arg(""));
-cls_BlendFunc_ChamfInv.def("Set", (void (BlendFunc_ChamfInv::*)(const Standard_Boolean, const opencascade::handle<Adaptor2d_HCurve2d> &)) &BlendFunc_ChamfInv::Set, "None", py::arg("OnFirst"), py::arg("COnSurf"));
-cls_BlendFunc_ChamfInv.def("GetTolerance", (void (BlendFunc_ChamfInv::*)(math_Vector &, const Standard_Real) const) &BlendFunc_ChamfInv::GetTolerance, "None", py::arg("Tolerance"), py::arg("Tol"));
-cls_BlendFunc_ChamfInv.def("GetBounds", (void (BlendFunc_ChamfInv::*)(math_Vector &, math_Vector &) const) &BlendFunc_ChamfInv::GetBounds, "None", py::arg("InfBound"), py::arg("SupBound"));
 cls_BlendFunc_ChamfInv.def("IsSolution", (Standard_Boolean (BlendFunc_ChamfInv::*)(const math_Vector &, const Standard_Real)) &BlendFunc_ChamfInv::IsSolution, "None", py::arg("Sol"), py::arg("Tol"));
-cls_BlendFunc_ChamfInv.def("NbEquations", (Standard_Integer (BlendFunc_ChamfInv::*)() const) &BlendFunc_ChamfInv::NbEquations, "returns the number of equations of the function.");
 cls_BlendFunc_ChamfInv.def("Value", (Standard_Boolean (BlendFunc_ChamfInv::*)(const math_Vector &, math_Vector &)) &BlendFunc_ChamfInv::Value, "computes the values <F> of the Functions for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("F"));
 cls_BlendFunc_ChamfInv.def("Derivatives", (Standard_Boolean (BlendFunc_ChamfInv::*)(const math_Vector &, math_Matrix &)) &BlendFunc_ChamfInv::Derivatives, "returns the values <D> of the derivatives for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("D"));
-cls_BlendFunc_ChamfInv.def("Values", (Standard_Boolean (BlendFunc_ChamfInv::*)(const math_Vector &, math_Vector &, math_Matrix &)) &BlendFunc_ChamfInv::Values, "returns the values <F> of the functions and the derivatives <D> for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("F"), py::arg("D"));
 cls_BlendFunc_ChamfInv.def("Set", (void (BlendFunc_ChamfInv::*)(const Standard_Real, const Standard_Real, const Standard_Integer)) &BlendFunc_ChamfInv::Set, "None", py::arg("Dist1"), py::arg("Dist2"), py::arg("Choix"));
 
 // CLASS: BLENDFUNC_CHASYM
@@ -369,6 +400,91 @@ cls_BlendFunc_ConstRadInv.def("Value", (Standard_Boolean (BlendFunc_ConstRadInv:
 cls_BlendFunc_ConstRadInv.def("Derivatives", (Standard_Boolean (BlendFunc_ConstRadInv::*)(const math_Vector &, math_Matrix &)) &BlendFunc_ConstRadInv::Derivatives, "returns the values <D> of the derivatives for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("D"));
 cls_BlendFunc_ConstRadInv.def("Values", (Standard_Boolean (BlendFunc_ConstRadInv::*)(const math_Vector &, math_Vector &, math_Matrix &)) &BlendFunc_ConstRadInv::Values, "returns the values <F> of the functions and the derivatives <D> for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("F"), py::arg("D"));
 cls_BlendFunc_ConstRadInv.def("Set", (void (BlendFunc_ConstRadInv::*)(const Standard_Real, const Standard_Integer)) &BlendFunc_ConstRadInv::Set, "None", py::arg("R"), py::arg("Choix"));
+
+// CLASS: BLENDFUNC_CONSTTHROAT
+py::class_<BlendFunc_ConstThroat, BlendFunc_GenChamfer> cls_BlendFunc_ConstThroat(mod, "BlendFunc_ConstThroat", "Class for a function used to compute a symmetric chamfer with constant throat that is the height of isosceles triangle in section");
+
+// Constructors
+cls_BlendFunc_ConstThroat.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S1"), py::arg("S2"), py::arg("C"));
+
+// Methods
+// cls_BlendFunc_ConstThroat.def_static("operator new_", (void * (*)(size_t)) &BlendFunc_ConstThroat::operator new, "None", py::arg("theSize"));
+// cls_BlendFunc_ConstThroat.def_static("operator delete_", (void (*)(void *)) &BlendFunc_ConstThroat::operator delete, "None", py::arg("theAddress"));
+// cls_BlendFunc_ConstThroat.def_static("operator new[]_", (void * (*)(size_t)) &BlendFunc_ConstThroat::operator new[], "None", py::arg("theSize"));
+// cls_BlendFunc_ConstThroat.def_static("operator delete[]_", (void (*)(void *)) &BlendFunc_ConstThroat::operator delete[], "None", py::arg("theAddress"));
+// cls_BlendFunc_ConstThroat.def_static("operator new_", (void * (*)(size_t, void *)) &BlendFunc_ConstThroat::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_BlendFunc_ConstThroat.def_static("operator delete_", (void (*)(void *, void *)) &BlendFunc_ConstThroat::operator delete, "None", py::arg(""), py::arg(""));
+cls_BlendFunc_ConstThroat.def("Value", (Standard_Boolean (BlendFunc_ConstThroat::*)(const math_Vector &, math_Vector &)) &BlendFunc_ConstThroat::Value, "computes the values <F> of the Functions for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("F"));
+cls_BlendFunc_ConstThroat.def("Derivatives", (Standard_Boolean (BlendFunc_ConstThroat::*)(const math_Vector &, math_Matrix &)) &BlendFunc_ConstThroat::Derivatives, "returns the values <D> of the derivatives for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("D"));
+cls_BlendFunc_ConstThroat.def("Set", (void (BlendFunc_ConstThroat::*)(const Standard_Real)) &BlendFunc_ConstThroat::Set, "None", py::arg("Param"));
+cls_BlendFunc_ConstThroat.def("IsSolution", (Standard_Boolean (BlendFunc_ConstThroat::*)(const math_Vector &, const Standard_Real)) &BlendFunc_ConstThroat::IsSolution, "None", py::arg("Sol"), py::arg("Tol"));
+cls_BlendFunc_ConstThroat.def("PointOnS1", (const gp_Pnt & (BlendFunc_ConstThroat::*)() const) &BlendFunc_ConstThroat::PointOnS1, "None");
+cls_BlendFunc_ConstThroat.def("PointOnS2", (const gp_Pnt & (BlendFunc_ConstThroat::*)() const) &BlendFunc_ConstThroat::PointOnS2, "None");
+cls_BlendFunc_ConstThroat.def("IsTangencyPoint", (Standard_Boolean (BlendFunc_ConstThroat::*)() const) &BlendFunc_ConstThroat::IsTangencyPoint, "None");
+cls_BlendFunc_ConstThroat.def("TangentOnS1", (const gp_Vec & (BlendFunc_ConstThroat::*)() const) &BlendFunc_ConstThroat::TangentOnS1, "None");
+cls_BlendFunc_ConstThroat.def("Tangent2dOnS1", (const gp_Vec2d & (BlendFunc_ConstThroat::*)() const) &BlendFunc_ConstThroat::Tangent2dOnS1, "None");
+cls_BlendFunc_ConstThroat.def("TangentOnS2", (const gp_Vec & (BlendFunc_ConstThroat::*)() const) &BlendFunc_ConstThroat::TangentOnS2, "None");
+cls_BlendFunc_ConstThroat.def("Tangent2dOnS2", (const gp_Vec2d & (BlendFunc_ConstThroat::*)() const) &BlendFunc_ConstThroat::Tangent2dOnS2, "None");
+cls_BlendFunc_ConstThroat.def("Tangent", (void (BlendFunc_ConstThroat::*)(const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, gp_Vec &, gp_Vec &, gp_Vec &, gp_Vec &) const) &BlendFunc_ConstThroat::Tangent, "Returns the tangent vector at the section, at the beginning and the end of the section, and returns the normal (of the surfaces) at these points.", py::arg("U1"), py::arg("V1"), py::arg("U2"), py::arg("V2"), py::arg("TgFirst"), py::arg("TgLast"), py::arg("NormFirst"), py::arg("NormLast"));
+cls_BlendFunc_ConstThroat.def("Set", (void (BlendFunc_ConstThroat::*)(const Standard_Real, const Standard_Real, const Standard_Integer)) &BlendFunc_ConstThroat::Set, "Sets the throat and the 'quadrant'.", py::arg("aThroat"), py::arg(""), py::arg("Choix"));
+cls_BlendFunc_ConstThroat.def("GetSectionSize", (Standard_Real (BlendFunc_ConstThroat::*)() const) &BlendFunc_ConstThroat::GetSectionSize, "Returns the length of the maximum section");
+
+// CLASS: BLENDFUNC_CONSTTHROATINV
+py::class_<BlendFunc_ConstThroatInv, BlendFunc_GenChamfInv> cls_BlendFunc_ConstThroatInv(mod, "BlendFunc_ConstThroatInv", "Class for a function used to compute a ConstThroat chamfer on a surface's boundary");
+
+// Constructors
+cls_BlendFunc_ConstThroatInv.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S1"), py::arg("S2"), py::arg("C"));
+
+// Methods
+// cls_BlendFunc_ConstThroatInv.def_static("operator new_", (void * (*)(size_t)) &BlendFunc_ConstThroatInv::operator new, "None", py::arg("theSize"));
+// cls_BlendFunc_ConstThroatInv.def_static("operator delete_", (void (*)(void *)) &BlendFunc_ConstThroatInv::operator delete, "None", py::arg("theAddress"));
+// cls_BlendFunc_ConstThroatInv.def_static("operator new[]_", (void * (*)(size_t)) &BlendFunc_ConstThroatInv::operator new[], "None", py::arg("theSize"));
+// cls_BlendFunc_ConstThroatInv.def_static("operator delete[]_", (void (*)(void *)) &BlendFunc_ConstThroatInv::operator delete[], "None", py::arg("theAddress"));
+// cls_BlendFunc_ConstThroatInv.def_static("operator new_", (void * (*)(size_t, void *)) &BlendFunc_ConstThroatInv::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_BlendFunc_ConstThroatInv.def_static("operator delete_", (void (*)(void *, void *)) &BlendFunc_ConstThroatInv::operator delete, "None", py::arg(""), py::arg(""));
+cls_BlendFunc_ConstThroatInv.def("IsSolution", (Standard_Boolean (BlendFunc_ConstThroatInv::*)(const math_Vector &, const Standard_Real)) &BlendFunc_ConstThroatInv::IsSolution, "None", py::arg("Sol"), py::arg("Tol"));
+cls_BlendFunc_ConstThroatInv.def("Value", (Standard_Boolean (BlendFunc_ConstThroatInv::*)(const math_Vector &, math_Vector &)) &BlendFunc_ConstThroatInv::Value, "computes the values <F> of the Functions for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("F"));
+cls_BlendFunc_ConstThroatInv.def("Derivatives", (Standard_Boolean (BlendFunc_ConstThroatInv::*)(const math_Vector &, math_Matrix &)) &BlendFunc_ConstThroatInv::Derivatives, "returns the values <D> of the derivatives for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("D"));
+cls_BlendFunc_ConstThroatInv.def("Set", (void (BlendFunc_ConstThroatInv::*)(const Standard_Real, const Standard_Real, const Standard_Integer)) &BlendFunc_ConstThroatInv::Set, "None", py::arg("theThroat"), py::arg(""), py::arg("Choix"));
+
+// CLASS: BLENDFUNC_CONSTTHROATWITHPENETRATION
+py::class_<BlendFunc_ConstThroatWithPenetration, BlendFunc_ConstThroat> cls_BlendFunc_ConstThroatWithPenetration(mod, "BlendFunc_ConstThroatWithPenetration", "Class for a function used to compute a chamfer with constant throat: the section of chamfer is right-angled triangle, the first of two surfaces (where is the top of the chamfer) is virtually moved inside the solid by offset operation, the apex of the section is on the intersection curve between moved surface and second surface, right angle is at the top of the chamfer, the length of the leg from apex to top is constant - it is throat");
+
+// Constructors
+cls_BlendFunc_ConstThroatWithPenetration.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S1"), py::arg("S2"), py::arg("C"));
+
+// Methods
+// cls_BlendFunc_ConstThroatWithPenetration.def_static("operator new_", (void * (*)(size_t)) &BlendFunc_ConstThroatWithPenetration::operator new, "None", py::arg("theSize"));
+// cls_BlendFunc_ConstThroatWithPenetration.def_static("operator delete_", (void (*)(void *)) &BlendFunc_ConstThroatWithPenetration::operator delete, "None", py::arg("theAddress"));
+// cls_BlendFunc_ConstThroatWithPenetration.def_static("operator new[]_", (void * (*)(size_t)) &BlendFunc_ConstThroatWithPenetration::operator new[], "None", py::arg("theSize"));
+// cls_BlendFunc_ConstThroatWithPenetration.def_static("operator delete[]_", (void (*)(void *)) &BlendFunc_ConstThroatWithPenetration::operator delete[], "None", py::arg("theAddress"));
+// cls_BlendFunc_ConstThroatWithPenetration.def_static("operator new_", (void * (*)(size_t, void *)) &BlendFunc_ConstThroatWithPenetration::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_BlendFunc_ConstThroatWithPenetration.def_static("operator delete_", (void (*)(void *, void *)) &BlendFunc_ConstThroatWithPenetration::operator delete, "None", py::arg(""), py::arg(""));
+cls_BlendFunc_ConstThroatWithPenetration.def("Value", (Standard_Boolean (BlendFunc_ConstThroatWithPenetration::*)(const math_Vector &, math_Vector &)) &BlendFunc_ConstThroatWithPenetration::Value, "computes the values <F> of the Functions for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("F"));
+cls_BlendFunc_ConstThroatWithPenetration.def("Derivatives", (Standard_Boolean (BlendFunc_ConstThroatWithPenetration::*)(const math_Vector &, math_Matrix &)) &BlendFunc_ConstThroatWithPenetration::Derivatives, "returns the values <D> of the derivatives for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("D"));
+cls_BlendFunc_ConstThroatWithPenetration.def("IsSolution", (Standard_Boolean (BlendFunc_ConstThroatWithPenetration::*)(const math_Vector &, const Standard_Real)) &BlendFunc_ConstThroatWithPenetration::IsSolution, "None", py::arg("Sol"), py::arg("Tol"));
+cls_BlendFunc_ConstThroatWithPenetration.def("TangentOnS1", (const gp_Vec & (BlendFunc_ConstThroatWithPenetration::*)() const) &BlendFunc_ConstThroatWithPenetration::TangentOnS1, "None");
+cls_BlendFunc_ConstThroatWithPenetration.def("Tangent2dOnS1", (const gp_Vec2d & (BlendFunc_ConstThroatWithPenetration::*)() const) &BlendFunc_ConstThroatWithPenetration::Tangent2dOnS1, "None");
+cls_BlendFunc_ConstThroatWithPenetration.def("TangentOnS2", (const gp_Vec & (BlendFunc_ConstThroatWithPenetration::*)() const) &BlendFunc_ConstThroatWithPenetration::TangentOnS2, "None");
+cls_BlendFunc_ConstThroatWithPenetration.def("Tangent2dOnS2", (const gp_Vec2d & (BlendFunc_ConstThroatWithPenetration::*)() const) &BlendFunc_ConstThroatWithPenetration::Tangent2dOnS2, "None");
+cls_BlendFunc_ConstThroatWithPenetration.def("GetSectionSize", (Standard_Real (BlendFunc_ConstThroatWithPenetration::*)() const) &BlendFunc_ConstThroatWithPenetration::GetSectionSize, "Returns the length of the maximum section");
+
+// CLASS: BLENDFUNC_CONSTTHROATWITHPENETRATIONINV
+py::class_<BlendFunc_ConstThroatWithPenetrationInv, BlendFunc_ConstThroatInv> cls_BlendFunc_ConstThroatWithPenetrationInv(mod, "BlendFunc_ConstThroatWithPenetrationInv", "Class for a function used to compute a ConstThroatWithPenetration chamfer on a surface's boundary");
+
+// Constructors
+cls_BlendFunc_ConstThroatWithPenetrationInv.def(py::init<const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HSurface> &, const opencascade::handle<Adaptor3d_HCurve> &>(), py::arg("S1"), py::arg("S2"), py::arg("C"));
+
+// Methods
+// cls_BlendFunc_ConstThroatWithPenetrationInv.def_static("operator new_", (void * (*)(size_t)) &BlendFunc_ConstThroatWithPenetrationInv::operator new, "None", py::arg("theSize"));
+// cls_BlendFunc_ConstThroatWithPenetrationInv.def_static("operator delete_", (void (*)(void *)) &BlendFunc_ConstThroatWithPenetrationInv::operator delete, "None", py::arg("theAddress"));
+// cls_BlendFunc_ConstThroatWithPenetrationInv.def_static("operator new[]_", (void * (*)(size_t)) &BlendFunc_ConstThroatWithPenetrationInv::operator new[], "None", py::arg("theSize"));
+// cls_BlendFunc_ConstThroatWithPenetrationInv.def_static("operator delete[]_", (void (*)(void *)) &BlendFunc_ConstThroatWithPenetrationInv::operator delete[], "None", py::arg("theAddress"));
+// cls_BlendFunc_ConstThroatWithPenetrationInv.def_static("operator new_", (void * (*)(size_t, void *)) &BlendFunc_ConstThroatWithPenetrationInv::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_BlendFunc_ConstThroatWithPenetrationInv.def_static("operator delete_", (void (*)(void *, void *)) &BlendFunc_ConstThroatWithPenetrationInv::operator delete, "None", py::arg(""), py::arg(""));
+cls_BlendFunc_ConstThroatWithPenetrationInv.def("IsSolution", (Standard_Boolean (BlendFunc_ConstThroatWithPenetrationInv::*)(const math_Vector &, const Standard_Real)) &BlendFunc_ConstThroatWithPenetrationInv::IsSolution, "None", py::arg("Sol"), py::arg("Tol"));
+cls_BlendFunc_ConstThroatWithPenetrationInv.def("Value", (Standard_Boolean (BlendFunc_ConstThroatWithPenetrationInv::*)(const math_Vector &, math_Vector &)) &BlendFunc_ConstThroatWithPenetrationInv::Value, "computes the values <F> of the Functions for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("F"));
+cls_BlendFunc_ConstThroatWithPenetrationInv.def("Derivatives", (Standard_Boolean (BlendFunc_ConstThroatWithPenetrationInv::*)(const math_Vector &, math_Matrix &)) &BlendFunc_ConstThroatWithPenetrationInv::Derivatives, "returns the values <D> of the derivatives for the variable <X>. Returns True if the computation was done successfully, False otherwise.", py::arg("X"), py::arg("D"));
 
 // CLASS: BLENDFUNC_CSCIRCULAR
 py::class_<BlendFunc_CSCircular, Blend_CSFunction> cls_BlendFunc_CSCircular(mod, "BlendFunc_CSCircular", "None");

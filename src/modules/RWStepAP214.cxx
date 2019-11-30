@@ -59,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Interface_Check.hxx>
 #include <Interface_CopyTool.hxx>
 #include <TCollection_HAsciiString.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <StepData_ReadWriteModule.hxx>
 #include <TCollection_AsciiString.hxx>

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_TypeDef.hxx>
 #include <Standard_Transient.hxx>
 #include <Interface_InterfaceModel.hxx>
+#include <Standard_Std.hxx>
 #include <StepSelect_StepType.hxx>
 #include <Standard_Type.hxx>
 #include <StepData_WriterLib.hxx>

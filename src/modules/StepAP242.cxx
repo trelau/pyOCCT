@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepRepr_Representation.hxx>
 #include <StepRepr_HArray1OfRepresentationItem.hxx>
 #include <StepRepr_RepresentationItem.hxx>
+#include <Standard_Std.hxx>
 #include <StepAP242_ItemIdentifiedRepresentationUsage.hxx>
 #include <Standard_Type.hxx>
 #include <StepAP242_DraughtingModelItemAssociation.hxx>

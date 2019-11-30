@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <Adaptor3d_Curve.hxx>
+#include <Standard_Std.hxx>
 #include <Approx_CurvlinFunc.hxx>
 #include <Standard_Type.hxx>
 #include <AppCont_Function.hxx>
@@ -275,6 +276,7 @@ cls_Approx_FitAndDivide.def("SetDegrees", (void (Approx_FitAndDivide::*)(const S
 cls_Approx_FitAndDivide.def("SetTolerances", (void (Approx_FitAndDivide::*)(const Standard_Real, const Standard_Real)) &Approx_FitAndDivide::SetTolerances, "Changes the tolerances of the approximation.", py::arg("Tolerance3d"), py::arg("Tolerance2d"));
 cls_Approx_FitAndDivide.def("SetConstraints", (void (Approx_FitAndDivide::*)(const AppParCurves_Constraint, const AppParCurves_Constraint)) &Approx_FitAndDivide::SetConstraints, "Changes the constraints of the approximation.", py::arg("FirstC"), py::arg("LastC"));
 cls_Approx_FitAndDivide.def("SetMaxSegments", (void (Approx_FitAndDivide::*)(const Standard_Integer)) &Approx_FitAndDivide::SetMaxSegments, "Changes the max number of segments, which is allowed for cutting.", py::arg("theMaxSegments"));
+cls_Approx_FitAndDivide.def("SetInvOrder", (void (Approx_FitAndDivide::*)(const Standard_Boolean)) &Approx_FitAndDivide::SetInvOrder, "Set inverse order of degree selection: if theInvOrdr = true, current degree is chosen by inverse order - from maxdegree to mindegree. By default inverse order is used.", py::arg("theInvOrder"));
 cls_Approx_FitAndDivide.def("IsAllApproximated", (Standard_Boolean (Approx_FitAndDivide::*)() const) &Approx_FitAndDivide::IsAllApproximated, "returns False if at a moment of the approximation, the status NoApproximation has been sent by the user when more points were needed.");
 cls_Approx_FitAndDivide.def("IsToleranceReached", (Standard_Boolean (Approx_FitAndDivide::*)() const) &Approx_FitAndDivide::IsToleranceReached, "returns False if the status NoPointsAdded has been sent.");
 cls_Approx_FitAndDivide.def("Error", [](Approx_FitAndDivide &self, const Standard_Integer Index, Standard_Real & tol3d, Standard_Real & tol2d){ self.Error(Index, tol3d, tol2d); return std::tuple<Standard_Real &, Standard_Real &>(tol3d, tol2d); }, "returns the tolerances 2d and 3d of the <Index> MultiCurve.", py::arg("Index"), py::arg("tol3d"), py::arg("tol2d"));
@@ -316,6 +318,7 @@ cls_Approx_FitAndDivide2d.def("SetDegrees", (void (Approx_FitAndDivide2d::*)(con
 cls_Approx_FitAndDivide2d.def("SetTolerances", (void (Approx_FitAndDivide2d::*)(const Standard_Real, const Standard_Real)) &Approx_FitAndDivide2d::SetTolerances, "Changes the tolerances of the approximation.", py::arg("Tolerance3d"), py::arg("Tolerance2d"));
 cls_Approx_FitAndDivide2d.def("SetConstraints", (void (Approx_FitAndDivide2d::*)(const AppParCurves_Constraint, const AppParCurves_Constraint)) &Approx_FitAndDivide2d::SetConstraints, "Changes the constraints of the approximation.", py::arg("FirstC"), py::arg("LastC"));
 cls_Approx_FitAndDivide2d.def("SetMaxSegments", (void (Approx_FitAndDivide2d::*)(const Standard_Integer)) &Approx_FitAndDivide2d::SetMaxSegments, "Changes the max number of segments, which is allowed for cutting.", py::arg("theMaxSegments"));
+cls_Approx_FitAndDivide2d.def("SetInvOrder", (void (Approx_FitAndDivide2d::*)(const Standard_Boolean)) &Approx_FitAndDivide2d::SetInvOrder, "Set inverse order of degree selection: if theInvOrdr = true, current degree is chosen by inverse order - from maxdegree to mindegree. By default inverse order is used.", py::arg("theInvOrder"));
 cls_Approx_FitAndDivide2d.def("IsAllApproximated", (Standard_Boolean (Approx_FitAndDivide2d::*)() const) &Approx_FitAndDivide2d::IsAllApproximated, "returns False if at a moment of the approximation, the status NoApproximation has been sent by the user when more points were needed.");
 cls_Approx_FitAndDivide2d.def("IsToleranceReached", (Standard_Boolean (Approx_FitAndDivide2d::*)() const) &Approx_FitAndDivide2d::IsToleranceReached, "returns False if the status NoPointsAdded has been sent.");
 cls_Approx_FitAndDivide2d.def("Error", [](Approx_FitAndDivide2d &self, const Standard_Integer Index, Standard_Real & tol3d, Standard_Real & tol2d){ self.Error(Index, tol3d, tol2d); return std::tuple<Standard_Real &, Standard_Real &>(tol3d, tol2d); }, "returns the tolerances 2d and 3d of the <Index> MultiCurve.", py::arg("Index"), py::arg("tol3d"), py::arg("tol2d"));
@@ -328,6 +331,7 @@ cls_Approx_FitAndDivide2d.def("Parameters", [](Approx_FitAndDivide2d &self, cons
 py::class_<Approx_HArray1OfAdHSurface, opencascade::handle<Approx_HArray1OfAdHSurface>, Standard_Transient> cls_Approx_HArray1OfAdHSurface(mod, "Approx_HArray1OfAdHSurface", "None", py::multiple_inheritance());
 
 // Constructors
+cls_Approx_HArray1OfAdHSurface.def(py::init<>());
 cls_Approx_HArray1OfAdHSurface.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_Approx_HArray1OfAdHSurface.def(py::init<const Standard_Integer, const Standard_Integer, const Approx_Array1OfAdHSurface::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_Approx_HArray1OfAdHSurface.def(py::init<const Approx_Array1OfAdHSurface &>(), py::arg("theOther"));
@@ -351,6 +355,7 @@ cls_Approx_HArray1OfAdHSurface.def("DynamicType", (const opencascade::handle<Sta
 py::class_<Approx_HArray1OfGTrsf2d, opencascade::handle<Approx_HArray1OfGTrsf2d>, Standard_Transient> cls_Approx_HArray1OfGTrsf2d(mod, "Approx_HArray1OfGTrsf2d", "None", py::multiple_inheritance());
 
 // Constructors
+cls_Approx_HArray1OfGTrsf2d.def(py::init<>());
 cls_Approx_HArray1OfGTrsf2d.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_Approx_HArray1OfGTrsf2d.def(py::init<const Standard_Integer, const Standard_Integer, const Approx_Array1OfGTrsf2d::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_Approx_HArray1OfGTrsf2d.def(py::init<const Approx_Array1OfGTrsf2d &>(), py::arg("theOther"));

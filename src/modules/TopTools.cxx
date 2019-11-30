@@ -44,7 +44,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopTools_DataMapOfShapeInteger.hxx>
 #include <TopTools_IndexedDataMapOfShapeReal.hxx>
 #include <TopTools_ListOfListOfShape.hxx>
-#include <TopTools_DataMapOfOrientedShapeInteger.hxx>
 #include <TopTools_IndexedDataMapOfShapeShape.hxx>
 #include <NCollection_Sequence.hxx>
 #include <TopTools_SequenceOfShape.hxx>
@@ -55,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <TopTools_HArray1OfShape.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Array2.hxx>
@@ -62,10 +62,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopTools_HArray2OfShape.hxx>
 #include <TopTools_DataMapOfIntegerShape.hxx>
 #include <TopTools_DataMapOfShapeReal.hxx>
-#include <TopAbs_ShapeEnum.hxx>
-#include <Standard_Mutex.hxx>
-#include <TopTools_MutexForShapeProvider.hxx>
-#include <TopoDS_TShape.hxx>
 #include <TopTools_HSequenceOfShape.hxx>
 #include <TopLoc_Location.hxx>
 #include <Standard_OStream.hxx>
@@ -74,15 +70,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopLoc_IndexedMapOfLocation.hxx>
 #include <TopTools_LocationSet.hxx>
 #include <TCollection_AsciiString.hxx>
+#include <TopAbs_ShapeEnum.hxx>
 #include <TopTools_ShapeSet.hxx>
 #include <TopTools_Array1OfListOfShape.hxx>
 #include <TopTools_HArray1OfListOfShape.hxx>
 #include <TopTools_IndexedDataMapOfShapeAddress.hxx>
+#include <TopTools_DataMapOfOrientedShapeInteger.hxx>
 #include <TopTools.hxx>
 #include <TopTools_DataMapOfOrientedShapeShape.hxx>
 #include <TopTools_DataMapOfShapeSequenceOfShape.hxx>
 #include <TopTools_LocationSetPtr.hxx>
 #include <TopTools_MapOfOrientedShape.hxx>
+#include <Standard_Mutex.hxx>
+#include <TopTools_MutexForShapeProvider.hxx>
+#include <TopoDS_TShape.hxx>
 #include <bind_NCollection_List.hxx>
 #include <bind_NCollection_TListIterator.hxx>
 #include <bind_NCollection_DataMap.hxx>
@@ -100,10 +101,10 @@ py::module::import("OCCT.TopoDS");
 py::module::import("OCCT.Standard");
 py::module::import("OCCT.TColStd");
 py::module::import("OCCT.Bnd");
-py::module::import("OCCT.TopAbs");
 py::module::import("OCCT.TopLoc");
 py::module::import("OCCT.Message");
 py::module::import("OCCT.TCollection");
+py::module::import("OCCT.TopAbs");
 
 // TYPEDEF: TOPTOOLS_LISTOFSHAPE
 bind_NCollection_List<TopoDS_Shape>(mod, "TopTools_ListOfShape", py::module_local());
@@ -126,7 +127,7 @@ py::class_<TopTools_ShapeMapHasher> cls_TopTools_ShapeMapHasher(mod, "TopTools_S
 // cls_TopTools_ShapeMapHasher.def_static("operator delete[]_", (void (*)(void *)) &TopTools_ShapeMapHasher::operator delete[], "None", py::arg("theAddress"));
 // cls_TopTools_ShapeMapHasher.def_static("operator new_", (void * (*)(size_t, void *)) &TopTools_ShapeMapHasher::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_TopTools_ShapeMapHasher.def_static("operator delete_", (void (*)(void *, void *)) &TopTools_ShapeMapHasher::operator delete, "None", py::arg(""), py::arg(""));
-cls_TopTools_ShapeMapHasher.def_static("HashCode_", (Standard_Integer (*)(const TopoDS_Shape &, const Standard_Integer)) &TopTools_ShapeMapHasher::HashCode, "Returns a HasCode value for the Key <K> in the range 0..Upper.", py::arg("S"), py::arg("Upper"));
+cls_TopTools_ShapeMapHasher.def_static("HashCode_", (Standard_Integer (*)(const TopoDS_Shape &, Standard_Integer)) &TopTools_ShapeMapHasher::HashCode, "Computes a hash code for the given shape, in the range [1, theUpperBound]", py::arg("theShape"), py::arg("theUpperBound"));
 cls_TopTools_ShapeMapHasher.def_static("IsEqual_", (Standard_Boolean (*)(const TopoDS_Shape &, const TopoDS_Shape &)) &TopTools_ShapeMapHasher::IsEqual, "Returns True when the two keys are the same. Two same keys must have the same hashcode, the contrary is not necessary.", py::arg("S1"), py::arg("S2"));
 
 // TYPEDEF: TOPTOOLS_MAPOFSHAPE
@@ -176,7 +177,7 @@ py::class_<TopTools_OrientedShapeMapHasher> cls_TopTools_OrientedShapeMapHasher(
 // cls_TopTools_OrientedShapeMapHasher.def_static("operator delete[]_", (void (*)(void *)) &TopTools_OrientedShapeMapHasher::operator delete[], "None", py::arg("theAddress"));
 // cls_TopTools_OrientedShapeMapHasher.def_static("operator new_", (void * (*)(size_t, void *)) &TopTools_OrientedShapeMapHasher::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_TopTools_OrientedShapeMapHasher.def_static("operator delete_", (void (*)(void *, void *)) &TopTools_OrientedShapeMapHasher::operator delete, "None", py::arg(""), py::arg(""));
-cls_TopTools_OrientedShapeMapHasher.def_static("HashCode_", (Standard_Integer (*)(const TopoDS_Shape &, const Standard_Integer)) &TopTools_OrientedShapeMapHasher::HashCode, "Returns a HasCode value for the Key <K> in the range 0..Upper.", py::arg("S"), py::arg("Upper"));
+cls_TopTools_OrientedShapeMapHasher.def_static("HashCode_", (Standard_Integer (*)(const TopoDS_Shape &, const Standard_Integer)) &TopTools_OrientedShapeMapHasher::HashCode, "Computes a hash code for the given shape, in the range [1, theUpperBound]", py::arg("theShape"), py::arg("theUpperBound"));
 cls_TopTools_OrientedShapeMapHasher.def_static("IsEqual_", (Standard_Boolean (*)(const TopoDS_Shape &, const TopoDS_Shape &)) &TopTools_OrientedShapeMapHasher::IsEqual, "Returns True when the two keys are equal. Two same keys must have the same hashcode, the contrary is not necessary.", py::arg("S1"), py::arg("S2"));
 
 // TYPEDEF: TOPTOOLS_INDEXEDMAPOFORIENTEDSHAPE
@@ -196,11 +197,6 @@ bind_NCollection_List<NCollection_List<TopoDS_Shape> >(mod, "TopTools_ListOfList
 // TYPEDEF: TOPTOOLS_LISTITERATOROFLISTOFLISTOFSHAPE
 bind_NCollection_TListIterator<NCollection_List<TopoDS_Shape> >(mod, "TopTools_ListIteratorOfListOfListOfShape", py::module_local(false));
 
-// TYPEDEF: TOPTOOLS_DATAMAPOFORIENTEDSHAPEINTEGER
-bind_NCollection_DataMap<TopoDS_Shape, int, TopTools_OrientedShapeMapHasher>(mod, "TopTools_DataMapOfOrientedShapeInteger", py::module_local(false));
-
-// TYPEDEF: TOPTOOLS_DATAMAPITERATOROFDATAMAPOFORIENTEDSHAPEINTEGER
-
 // TYPEDEF: TOPTOOLS_INDEXEDDATAMAPOFSHAPESHAPE
 bind_NCollection_IndexedDataMap<TopoDS_Shape, TopoDS_Shape, TopTools_ShapeMapHasher>(mod, "TopTools_IndexedDataMapOfShapeShape", py::module_local(false));
 
@@ -219,6 +215,7 @@ bind_NCollection_Array1<TopoDS_Shape>(mod, "TopTools_Array1OfShape", py::module_
 py::class_<TopTools_HArray1OfShape, opencascade::handle<TopTools_HArray1OfShape>, Standard_Transient> cls_TopTools_HArray1OfShape(mod, "TopTools_HArray1OfShape", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TopTools_HArray1OfShape.def(py::init<>());
 cls_TopTools_HArray1OfShape.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TopTools_HArray1OfShape.def(py::init<const Standard_Integer, const Standard_Integer, const TopTools_Array1OfShape::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TopTools_HArray1OfShape.def(py::init<const TopTools_Array1OfShape &>(), py::arg("theOther"));
@@ -273,18 +270,6 @@ bind_NCollection_DataMap<int, TopoDS_Shape, NCollection_DefaultHasher<int> >(mod
 bind_NCollection_DataMap<TopoDS_Shape, double, TopTools_ShapeMapHasher>(mod, "TopTools_DataMapOfShapeReal", py::module_local(false));
 
 // TYPEDEF: TOPTOOLS_DATAMAPITERATOROFDATAMAPOFSHAPEREAL
-
-// CLASS: TOPTOOLS_MUTEXFORSHAPEPROVIDER
-py::class_<TopTools_MutexForShapeProvider> cls_TopTools_MutexForShapeProvider(mod, "TopTools_MutexForShapeProvider", "Class TopTools_MutexForShapeProvider This class is used to create and store mutexes associated with shapes.");
-
-// Constructors
-cls_TopTools_MutexForShapeProvider.def(py::init<>());
-
-// Methods
-cls_TopTools_MutexForShapeProvider.def("CreateMutexesForSubShapes", (void (TopTools_MutexForShapeProvider::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum)) &TopTools_MutexForShapeProvider::CreateMutexesForSubShapes, "Creates and associates mutexes with each sub-shape of type theType in theShape.", py::arg("theShape"), py::arg("theType"));
-cls_TopTools_MutexForShapeProvider.def("CreateMutexForShape", (void (TopTools_MutexForShapeProvider::*)(const TopoDS_Shape &)) &TopTools_MutexForShapeProvider::CreateMutexForShape, "Creates and associates mutex with theShape", py::arg("theShape"));
-cls_TopTools_MutexForShapeProvider.def("GetMutex", (Standard_Mutex * (TopTools_MutexForShapeProvider::*)(const TopoDS_Shape &) const) &TopTools_MutexForShapeProvider::GetMutex, "Returns pointer to mutex associated with theShape. In case when mutex not found returns NULL.", py::arg("theShape"));
-cls_TopTools_MutexForShapeProvider.def("RemoveAllMutexes", (void (TopTools_MutexForShapeProvider::*)()) &TopTools_MutexForShapeProvider::RemoveAllMutexes, "Removes all mutexes");
 
 // CLASS: TOPTOOLS_HSEQUENCEOFSHAPE
 py::class_<TopTools_HSequenceOfShape, opencascade::handle<TopTools_HSequenceOfShape>, Standard_Transient> cls_TopTools_HSequenceOfShape(mod, "TopTools_HSequenceOfShape", "None", py::multiple_inheritance());
@@ -382,6 +367,7 @@ bind_NCollection_Array1<NCollection_List<TopoDS_Shape> >(mod, "TopTools_Array1Of
 py::class_<TopTools_HArray1OfListOfShape, opencascade::handle<TopTools_HArray1OfListOfShape>, Standard_Transient> cls_TopTools_HArray1OfListOfShape(mod, "TopTools_HArray1OfListOfShape", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TopTools_HArray1OfListOfShape.def(py::init<>());
 cls_TopTools_HArray1OfListOfShape.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TopTools_HArray1OfListOfShape.def(py::init<const Standard_Integer, const Standard_Integer, const TopTools_Array1OfListOfShape::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TopTools_HArray1OfListOfShape.def(py::init<const TopTools_Array1OfListOfShape &>(), py::arg("theOther"));
@@ -403,6 +389,11 @@ cls_TopTools_HArray1OfListOfShape.def("DynamicType", (const opencascade::handle<
 
 // TYPEDEF: TOPTOOLS_INDEXEDDATAMAPOFSHAPEADDRESS
 bind_NCollection_IndexedDataMap<TopoDS_Shape, void *, TopTools_ShapeMapHasher>(mod, "TopTools_IndexedDataMapOfShapeAddress", py::module_local(false));
+
+// TYPEDEF: TOPTOOLS_DATAMAPOFORIENTEDSHAPEINTEGER
+bind_NCollection_DataMap<TopoDS_Shape, int, TopTools_OrientedShapeMapHasher>(mod, "TopTools_DataMapOfOrientedShapeInteger", py::module_local(false));
+
+// TYPEDEF: TOPTOOLS_DATAMAPITERATOROFDATAMAPOFORIENTEDSHAPEINTEGER
 
 // CLASS: TOPTOOLS
 py::class_<TopTools> cls_TopTools(mod, "TopTools", "The TopTools package provides utilities for the topological data structure.");
@@ -433,6 +424,18 @@ bind_NCollection_DataMap<TopoDS_Shape, NCollection_Sequence<TopoDS_Shape>, TopTo
 bind_NCollection_Map<TopoDS_Shape, TopTools_OrientedShapeMapHasher>(mod, "TopTools_MapOfOrientedShape", py::module_local(false));
 
 // TYPEDEF: TOPTOOLS_MAPITERATOROFMAPOFORIENTEDSHAPE
+
+// CLASS: TOPTOOLS_MUTEXFORSHAPEPROVIDER
+py::class_<TopTools_MutexForShapeProvider> cls_TopTools_MutexForShapeProvider(mod, "TopTools_MutexForShapeProvider", "Class TopTools_MutexForShapeProvider This class is used to create and store mutexes associated with shapes.");
+
+// Constructors
+cls_TopTools_MutexForShapeProvider.def(py::init<>());
+
+// Methods
+cls_TopTools_MutexForShapeProvider.def("CreateMutexesForSubShapes", (void (TopTools_MutexForShapeProvider::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum)) &TopTools_MutexForShapeProvider::CreateMutexesForSubShapes, "Creates and associates mutexes with each sub-shape of type theType in theShape.", py::arg("theShape"), py::arg("theType"));
+cls_TopTools_MutexForShapeProvider.def("CreateMutexForShape", (void (TopTools_MutexForShapeProvider::*)(const TopoDS_Shape &)) &TopTools_MutexForShapeProvider::CreateMutexForShape, "Creates and associates mutex with theShape", py::arg("theShape"));
+cls_TopTools_MutexForShapeProvider.def("GetMutex", (Standard_Mutex * (TopTools_MutexForShapeProvider::*)(const TopoDS_Shape &) const) &TopTools_MutexForShapeProvider::GetMutex, "Returns pointer to mutex associated with theShape. In case when mutex not found returns NULL.", py::arg("theShape"));
+cls_TopTools_MutexForShapeProvider.def("RemoveAllMutexes", (void (TopTools_MutexForShapeProvider::*)()) &TopTools_MutexForShapeProvider::RemoveAllMutexes, "Removes all mutexes");
 
 
 }

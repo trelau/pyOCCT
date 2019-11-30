@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TDF_DeltaOnRemoval.hxx>
 #include <TDF_RelocationTable.hxx>
 #include <TDF_DataSet.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <TDF_HAllocator.hxx>
@@ -327,7 +328,7 @@ cls_TDF_Reference.def("DynamicType", (const opencascade::handle<Standard_Type> &
 py::class_<TDF_LabelMapHasher> cls_TDF_LabelMapHasher(mod, "TDF_LabelMapHasher", "A label hasher for label maps.");
 
 // Methods
-cls_TDF_LabelMapHasher.def_static("HashCode_", (Standard_Integer (*)(const TDF_Label &, const Standard_Integer)) &TDF_LabelMapHasher::HashCode, "Returns a HasCode value for the Key <K> in the range 0..Upper.", py::arg("aLab"), py::arg("Upper"));
+cls_TDF_LabelMapHasher.def_static("HashCode_", (Standard_Integer (*)(const TDF_Label &, const Standard_Integer)) &TDF_LabelMapHasher::HashCode, "Computes a hash code for the given label, in the range [1, theUpperBound]", py::arg("theLabel"), py::arg("theUpperBound"));
 cls_TDF_LabelMapHasher.def_static("IsEqual_", (Standard_Boolean (*)(const TDF_Label &, const TDF_Label &)) &TDF_LabelMapHasher::IsEqual, "Returns True when the two keys are the same. Two same keys must have the same hashcode, the contrary is not necessary.", py::arg("aLab1"), py::arg("aLab2"));
 
 // TYPEDEF: TDF_LABELMAP
@@ -395,7 +396,9 @@ bind_NCollection_List<opencascade::handle<TDF_AttributeDelta> >(mod, "TDF_Attrib
 bind_NCollection_TListIterator<opencascade::handle<TDF_AttributeDelta> >(mod, "TDF_ListIteratorOfAttributeDeltaList", py::module_local(false));
 
 // TYPEDEF: TDF_ATTRIBUTEDOUBLEMAP
+/*
 bind_NCollection_DoubleMap<opencascade::handle<TDF_Attribute>, opencascade::handle<TDF_Attribute>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> >, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "TDF_AttributeDoubleMap", py::module_local(false));
+*/
 
 // TYPEDEF: TDF_DOUBLEMAPITERATOROFATTRIBUTEDOUBLEMAP
 
@@ -415,6 +418,7 @@ cls_TDF_AttributeIterator.def("Initialize", (void (TDF_AttributeIterator::*)(con
 cls_TDF_AttributeIterator.def("More", (Standard_Boolean (TDF_AttributeIterator::*)() const) &TDF_AttributeIterator::More, "None");
 cls_TDF_AttributeIterator.def("Next", (void (TDF_AttributeIterator::*)()) &TDF_AttributeIterator::Next, "None");
 cls_TDF_AttributeIterator.def("Value", (opencascade::handle<TDF_Attribute> (TDF_AttributeIterator::*)() const) &TDF_AttributeIterator::Value, "None");
+cls_TDF_AttributeIterator.def("PtrValue", (const TDF_Attribute * (TDF_AttributeIterator::*)() const) &TDF_AttributeIterator::PtrValue, "Provides an access to the internal pointer of the current attribute. The method has better performance as not-creating handle.");
 
 // TYPEDEF: TDF_ATTRIBUTEMAP
 bind_NCollection_Map<opencascade::handle<TDF_Attribute>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "TDF_AttributeMap", py::module_local(false));
@@ -440,7 +444,7 @@ cls_TDF_ChildIterator.def(py::init<const TDF_Label &, const Standard_Boolean>(),
 // cls_TDF_ChildIterator.def_static("operator new_", (void * (*)(size_t, void *)) &TDF_ChildIterator::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_TDF_ChildIterator.def_static("operator delete_", (void (*)(void *, void *)) &TDF_ChildIterator::operator delete, "None", py::arg(""), py::arg(""));
 cls_TDF_ChildIterator.def("Initialize", [](TDF_ChildIterator &self, const TDF_Label & a0) -> void { return self.Initialize(a0); });
-cls_TDF_ChildIterator.def("Initialize", (void (TDF_ChildIterator::*)(const TDF_Label &, const Standard_Boolean)) &TDF_ChildIterator::Initialize, "Initializes the iteration on the children of the given label. If <allLevels> option is set to true, it explores not only the first, but all the sub label levels. If allLevels is false, only the first level of child labels is explored. In the example below, the label is iterated using Initialize, More and Next and its child labels dumped using TDF_Tool::Entry. Example void DumpChildren(const TDF_Label& aLabel) { TDF_ChildIterator it; TCollection_AsciiString es; for (it.Initialize(aLabel,Standard_True); it.More(); it.Next()){ TDF_Tool::Entry(it.Value(),es); cout << as.ToCString() << endl; } }", py::arg("aLabel"), py::arg("allLevels"));
+cls_TDF_ChildIterator.def("Initialize", (void (TDF_ChildIterator::*)(const TDF_Label &, const Standard_Boolean)) &TDF_ChildIterator::Initialize, "Initializes the iteration on the children of the given label. If <allLevels> option is set to true, it explores not only the first, but all the sub label levels. If allLevels is false, only the first level of child labels is explored. In the example below, the label is iterated using Initialize, More and Next and its child labels dumped using TDF_Tool::Entry. Example void DumpChildren(const TDF_Label& aLabel) { TDF_ChildIterator it; TCollection_AsciiString es; for (it.Initialize(aLabel,Standard_True); it.More(); it.Next()){ TDF_Tool::Entry(it.Value(),es); std::cout << as.ToCString() << std::endl; } }", py::arg("aLabel"), py::arg("allLevels"));
 cls_TDF_ChildIterator.def("More", (Standard_Boolean (TDF_ChildIterator::*)() const) &TDF_ChildIterator::More, "Returns true if a current label is found in the iteration process.");
 cls_TDF_ChildIterator.def("Next", (void (TDF_ChildIterator::*)()) &TDF_ChildIterator::Next, "Move the current iteration to the next Item.");
 cls_TDF_ChildIterator.def("NextBrother", (void (TDF_ChildIterator::*)()) &TDF_ChildIterator::NextBrother, "Moves this iteration to the next brother label. A brother label is one with the same father as an initial label. Use this function when the non-empty constructor or Initialize has allLevels set to true. The result is that the iteration does not explore the children of the current label. This method is interesting only with 'allLevels' behavior, because it avoids to explore the current label children.");
@@ -729,6 +733,7 @@ bind_NCollection_DoubleMap<TDF_Label, TDF_Label, TDF_LabelMapHasher, TDF_LabelMa
 py::class_<TDF_HAttributeArray1, opencascade::handle<TDF_HAttributeArray1>, Standard_Transient> cls_TDF_HAttributeArray1(mod, "TDF_HAttributeArray1", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TDF_HAttributeArray1.def(py::init<>());
 cls_TDF_HAttributeArray1.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TDF_HAttributeArray1.def(py::init<const Standard_Integer, const Standard_Integer, const TDF_AttributeArray1::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TDF_HAttributeArray1.def(py::init<const TDF_AttributeArray1 &>(), py::arg("theOther"));

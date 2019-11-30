@@ -63,6 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BRepAdaptor_Array1OfCurve.hxx>
 #include <Standard_Transient.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <BRepAdaptor_HArray1OfCurve.hxx>
 #include <Standard_Type.hxx>
 #include <TopoDS_Wire.hxx>
@@ -177,6 +178,7 @@ cls_BRepAdaptor_Curve.def(py::init<const TopoDS_Edge &, const TopoDS_Face &>(), 
 // cls_BRepAdaptor_Curve.def_static("operator delete[]_", (void (*)(void *)) &BRepAdaptor_Curve::operator delete[], "None", py::arg("theAddress"));
 // cls_BRepAdaptor_Curve.def_static("operator new_", (void * (*)(size_t, void *)) &BRepAdaptor_Curve::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_BRepAdaptor_Curve.def_static("operator delete_", (void (*)(void *, void *)) &BRepAdaptor_Curve::operator delete, "None", py::arg(""), py::arg(""));
+cls_BRepAdaptor_Curve.def("Reset", (void (BRepAdaptor_Curve::*)()) &BRepAdaptor_Curve::Reset, "Reset currently loaded curve (undone Load()).");
 cls_BRepAdaptor_Curve.def("Initialize", (void (BRepAdaptor_Curve::*)(const TopoDS_Edge &)) &BRepAdaptor_Curve::Initialize, "Sets the Curve <me> to acces to the geometry of edge <E>.", py::arg("E"));
 cls_BRepAdaptor_Curve.def("Initialize", (void (BRepAdaptor_Curve::*)(const TopoDS_Edge &, const TopoDS_Face &)) &BRepAdaptor_Curve::Initialize, "Sets the Curve <me> to acces to the geometry of edge <E>. The geometry will be computed using the parametric curve of <E> on the face <F>. An Error is raised if the edge does not have a pcurve on the face.", py::arg("E"), py::arg("F"));
 cls_BRepAdaptor_Curve.def("Trsf", (const gp_Trsf & (BRepAdaptor_Curve::*)() const) &BRepAdaptor_Curve::Trsf, "Returns the coordinate system of the curve.");
@@ -223,6 +225,7 @@ bind_NCollection_Array1<BRepAdaptor_Curve>(mod, "BRepAdaptor_Array1OfCurve", py:
 py::class_<BRepAdaptor_HArray1OfCurve, opencascade::handle<BRepAdaptor_HArray1OfCurve>, Standard_Transient> cls_BRepAdaptor_HArray1OfCurve(mod, "BRepAdaptor_HArray1OfCurve", "None", py::multiple_inheritance());
 
 // Constructors
+cls_BRepAdaptor_HArray1OfCurve.def(py::init<>());
 cls_BRepAdaptor_HArray1OfCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_BRepAdaptor_HArray1OfCurve.def(py::init<const Standard_Integer, const Standard_Integer, const BRepAdaptor_Array1OfCurve::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_BRepAdaptor_HArray1OfCurve.def(py::init<const BRepAdaptor_Array1OfCurve &>(), py::arg("theOther"));

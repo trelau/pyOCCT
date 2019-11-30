@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <PCDM_Reader.hxx>
 #include <PCDM_StorageDriver.hxx>
 #include <CDF_Session.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_IndexedDataMap.hxx>
 #include <PCDM_RetrievalDriver.hxx>

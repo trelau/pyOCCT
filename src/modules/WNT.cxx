@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Handle.hxx>
 #include <WNT_ClassDefinitionError.hxx>
 #include <Standard_SStream.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <WNT_Dword.hxx>
 #include <Standard_Transient.hxx>
@@ -34,10 +35,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TCollection_AsciiString.hxx>
 #include <Aspect_Handle.hxx>
 #include <Aspect_Window.hxx>
+#include <Aspect_VKey.hxx>
+#include <Aspect_VKeyFlags.hxx>
 #include <Quantity_NameOfColor.hxx>
 #include <Aspect_TypeOfResize.hxx>
 #include <Aspect_Drawable.hxx>
 #include <Aspect_FBConfig.hxx>
+#include <Aspect_DisplayConnection.hxx>
 #include <WNT_WindowPtr.hxx>
 
 PYBIND11_MODULE(WNT, mod) {
@@ -103,6 +107,11 @@ cls_WNT_Window.def(py::init<const Aspect_Handle>(), py::arg("aHandle"));
 cls_WNT_Window.def(py::init<const Aspect_Handle, const Quantity_NameOfColor>(), py::arg("aHandle"), py::arg("aBackColor"));
 
 // Methods
+cls_WNT_Window.def_static("VirtualKeyFromNative_", (Aspect_VKey (*)(Standard_Integer)) &WNT_Window::VirtualKeyFromNative, "Convert WInAPI virtual key (VK_ enumeration) into Aspect_VKey.", py::arg("theKey"));
+cls_WNT_Window.def_static("MouseKeyFlagsFromEvent_", (Aspect_VKeyFlags (*)(WPARAM)) &WNT_Window::MouseKeyFlagsFromEvent, "Convert WPARAM from mouse event to key flags.", py::arg("theKeys"));
+cls_WNT_Window.def_static("MouseButtonsFromEvent_", (Aspect_VKeyMouse (*)(WPARAM)) &WNT_Window::MouseButtonsFromEvent, "Convert WPARAM from mouse event to mouse buttons bitmask.", py::arg("theKeys"));
+cls_WNT_Window.def_static("MouseKeyFlagsAsync_", (Aspect_VKeyFlags (*)()) &WNT_Window::MouseKeyFlagsAsync, "Use GetAsyncKeyState() to fetch actual mouse key flags regardless of event loop.");
+cls_WNT_Window.def_static("MouseButtonsAsync_", (Aspect_VKeyMouse (*)()) &WNT_Window::MouseButtonsAsync, "Use GetAsyncKeyState() to fetch actual mouse buttons state regardless of event loop.");
 cls_WNT_Window.def("SetCursor", (void (WNT_Window::*)(const Aspect_Handle) const) &WNT_Window::SetCursor, "Sets cursor <aCursor> for ENTIRE WINDOW CLASS to which the Window belongs.", py::arg("aCursor"));
 cls_WNT_Window.def("Map", (void (WNT_Window::*)() const) &WNT_Window::Map, "Opens the window <me>.");
 cls_WNT_Window.def("Map", (void (WNT_Window::*)(const Standard_Integer) const) &WNT_Window::Map, "Opens a window <me> according to <aMapMode>. This method is specific to Windows NT. <aMapMode> can be one of SW_xxx constants defined in <windows.h>. See documentation.", py::arg("aMapMode"));
@@ -119,6 +128,9 @@ cls_WNT_Window.def("HParentWindow", (Aspect_Handle (WNT_Window::*)() const) &WNT
 cls_WNT_Window.def("NativeHandle", (Aspect_Drawable (WNT_Window::*)() const) &WNT_Window::NativeHandle, "Returns native Window handle (HWND)");
 cls_WNT_Window.def("NativeParentHandle", (Aspect_Drawable (WNT_Window::*)() const) &WNT_Window::NativeParentHandle, "Returns parent of native Window handle (HWND on Windows, Window with Xlib, and so on)");
 cls_WNT_Window.def("NativeFBConfig", (Aspect_FBConfig (WNT_Window::*)() const) &WNT_Window::NativeFBConfig, "Returns nothing on Windows");
+cls_WNT_Window.def("SetTitle", (void (WNT_Window::*)(const TCollection_AsciiString &)) &WNT_Window::SetTitle, "Sets window title.", py::arg("theTitle"));
+cls_WNT_Window.def("InvalidateContent", [](WNT_Window &self) -> void { return self.InvalidateContent(); });
+cls_WNT_Window.def("InvalidateContent", (void (WNT_Window::*)(const opencascade::handle<Aspect_DisplayConnection> &)) &WNT_Window::InvalidateContent, "Invalidate entire window content by calling InvalidateRect() WinAPI function, resulting in WM_PAINT event put into window message loop. Method can be called from non-window thread, and system will also automatically aggregate multiple events into single one.", py::arg("theDisp"));
 cls_WNT_Window.def_static("get_type_name_", (const char * (*)()) &WNT_Window::get_type_name, "None");
 cls_WNT_Window.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &WNT_Window::get_type_descriptor, "None");
 cls_WNT_Window.def("DynamicType", (const opencascade::handle<Standard_Type> & (WNT_Window::*)() const) &WNT_Window::DynamicType, "None");

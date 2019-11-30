@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
 #include <StepBasic_Approval.hxx>
+#include <Standard_Std.hxx>
 #include <StepBasic_ApprovalAssignment.hxx>
 #include <Standard_Type.hxx>
 #include <StepBasic_Certification.hxx>
@@ -490,6 +491,7 @@ bind_NCollection_Array1<opencascade::handle<StepBasic_Approval> >(mod, "StepBasi
 py::class_<StepBasic_HArray1OfApproval, opencascade::handle<StepBasic_HArray1OfApproval>, Standard_Transient> cls_StepBasic_HArray1OfApproval(mod, "StepBasic_HArray1OfApproval", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepBasic_HArray1OfApproval.def(py::init<>());
 cls_StepBasic_HArray1OfApproval.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepBasic_HArray1OfApproval.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfApproval::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepBasic_HArray1OfApproval.def(py::init<const StepBasic_Array1OfApproval &>(), py::arg("theOther"));
@@ -987,6 +989,7 @@ bind_NCollection_Array1<opencascade::handle<StepBasic_ProductContext> >(mod, "St
 py::class_<StepBasic_HArray1OfProductContext, opencascade::handle<StepBasic_HArray1OfProductContext>, Standard_Transient> cls_StepBasic_HArray1OfProductContext(mod, "StepBasic_HArray1OfProductContext", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepBasic_HArray1OfProductContext.def(py::init<>());
 cls_StepBasic_HArray1OfProductContext.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepBasic_HArray1OfProductContext.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfProductContext::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepBasic_HArray1OfProductContext.def(py::init<const StepBasic_Array1OfProductContext &>(), py::arg("theOther"));
@@ -1413,6 +1416,7 @@ cls_StepBasic_DateTimeRole.def("DynamicType", (const opencascade::handle<Standar
 py::class_<StepBasic_HArray1OfDerivedUnitElement, opencascade::handle<StepBasic_HArray1OfDerivedUnitElement>, Standard_Transient> cls_StepBasic_HArray1OfDerivedUnitElement(mod, "StepBasic_HArray1OfDerivedUnitElement", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepBasic_HArray1OfDerivedUnitElement.def(py::init<>());
 cls_StepBasic_HArray1OfDerivedUnitElement.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepBasic_HArray1OfDerivedUnitElement.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfDerivedUnitElement::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepBasic_HArray1OfDerivedUnitElement.def(py::init<const StepBasic_Array1OfDerivedUnitElement &>(), py::arg("theOther"));
@@ -1756,6 +1760,7 @@ cls_StepBasic_GroupRelationship.def("DynamicType", (const opencascade::handle<St
 py::class_<StepBasic_HArray1OfDocument, opencascade::handle<StepBasic_HArray1OfDocument>, Standard_Transient> cls_StepBasic_HArray1OfDocument(mod, "StepBasic_HArray1OfDocument", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepBasic_HArray1OfDocument.def(py::init<>());
 cls_StepBasic_HArray1OfDocument.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepBasic_HArray1OfDocument.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfDocument::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepBasic_HArray1OfDocument.def(py::init<const StepBasic_Array1OfDocument &>(), py::arg("theOther"));
@@ -1779,6 +1784,7 @@ cls_StepBasic_HArray1OfDocument.def("DynamicType", (const opencascade::handle<St
 py::class_<StepBasic_HArray1OfNamedUnit, opencascade::handle<StepBasic_HArray1OfNamedUnit>, Standard_Transient> cls_StepBasic_HArray1OfNamedUnit(mod, "StepBasic_HArray1OfNamedUnit", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepBasic_HArray1OfNamedUnit.def(py::init<>());
 cls_StepBasic_HArray1OfNamedUnit.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepBasic_HArray1OfNamedUnit.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfNamedUnit::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepBasic_HArray1OfNamedUnit.def(py::init<const StepBasic_Array1OfNamedUnit &>(), py::arg("theOther"));
@@ -1802,6 +1808,7 @@ cls_StepBasic_HArray1OfNamedUnit.def("DynamicType", (const opencascade::handle<S
 py::class_<StepBasic_HArray1OfOrganization, opencascade::handle<StepBasic_HArray1OfOrganization>, Standard_Transient> cls_StepBasic_HArray1OfOrganization(mod, "StepBasic_HArray1OfOrganization", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepBasic_HArray1OfOrganization.def(py::init<>());
 cls_StepBasic_HArray1OfOrganization.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepBasic_HArray1OfOrganization.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfOrganization::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepBasic_HArray1OfOrganization.def(py::init<const StepBasic_Array1OfOrganization &>(), py::arg("theOther"));
@@ -1825,6 +1832,7 @@ cls_StepBasic_HArray1OfOrganization.def("DynamicType", (const opencascade::handl
 py::class_<StepBasic_HArray1OfPerson, opencascade::handle<StepBasic_HArray1OfPerson>, Standard_Transient> cls_StepBasic_HArray1OfPerson(mod, "StepBasic_HArray1OfPerson", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepBasic_HArray1OfPerson.def(py::init<>());
 cls_StepBasic_HArray1OfPerson.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepBasic_HArray1OfPerson.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfPerson::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepBasic_HArray1OfPerson.def(py::init<const StepBasic_Array1OfPerson &>(), py::arg("theOther"));
@@ -1848,6 +1856,7 @@ cls_StepBasic_HArray1OfPerson.def("DynamicType", (const opencascade::handle<Stan
 py::class_<StepBasic_HArray1OfProduct, opencascade::handle<StepBasic_HArray1OfProduct>, Standard_Transient> cls_StepBasic_HArray1OfProduct(mod, "StepBasic_HArray1OfProduct", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepBasic_HArray1OfProduct.def(py::init<>());
 cls_StepBasic_HArray1OfProduct.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepBasic_HArray1OfProduct.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfProduct::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepBasic_HArray1OfProduct.def(py::init<const StepBasic_Array1OfProduct &>(), py::arg("theOther"));
@@ -1871,6 +1880,7 @@ cls_StepBasic_HArray1OfProduct.def("DynamicType", (const opencascade::handle<Sta
 py::class_<StepBasic_HArray1OfProductDefinition, opencascade::handle<StepBasic_HArray1OfProductDefinition>, Standard_Transient> cls_StepBasic_HArray1OfProductDefinition(mod, "StepBasic_HArray1OfProductDefinition", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepBasic_HArray1OfProductDefinition.def(py::init<>());
 cls_StepBasic_HArray1OfProductDefinition.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepBasic_HArray1OfProductDefinition.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfProductDefinition::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepBasic_HArray1OfProductDefinition.def(py::init<const StepBasic_Array1OfProductDefinition &>(), py::arg("theOther"));
@@ -1894,6 +1904,7 @@ cls_StepBasic_HArray1OfProductDefinition.def("DynamicType", (const opencascade::
 py::class_<StepBasic_HArray1OfUncertaintyMeasureWithUnit, opencascade::handle<StepBasic_HArray1OfUncertaintyMeasureWithUnit>, Standard_Transient> cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit(mod, "StepBasic_HArray1OfUncertaintyMeasureWithUnit", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def(py::init<>());
 cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfUncertaintyMeasureWithUnit::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def(py::init<const StepBasic_Array1OfUncertaintyMeasureWithUnit &>(), py::arg("theOther"));

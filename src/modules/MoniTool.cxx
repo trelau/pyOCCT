@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_TypeDef.hxx>
 #include <TCollection_AsciiString.hxx>
 #include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <MoniTool_SignText.hxx>
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
@@ -331,7 +332,7 @@ py::class_<MoniTool_MTHasher> cls_MoniTool_MTHasher(mod, "MoniTool_MTHasher", "T
 // cls_MoniTool_MTHasher.def_static("operator delete[]_", (void (*)(void *)) &MoniTool_MTHasher::operator delete[], "None", py::arg("theAddress"));
 // cls_MoniTool_MTHasher.def_static("operator new_", (void * (*)(size_t, void *)) &MoniTool_MTHasher::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_MoniTool_MTHasher.def_static("operator delete_", (void (*)(void *, void *)) &MoniTool_MTHasher::operator delete, "None", py::arg(""), py::arg(""));
-cls_MoniTool_MTHasher.def_static("HashCode_", (Standard_Integer (*)(const Standard_CString, const Standard_Integer)) &MoniTool_MTHasher::HashCode, "Returns a HasCode value for the CString <Str> in the range 0..Upper. Default ::HashCode(Str,Upper)", py::arg("Str"), py::arg("Upper"));
+cls_MoniTool_MTHasher.def_static("HashCode_", (Standard_Integer (*)(Standard_CString, Standard_Integer)) &MoniTool_MTHasher::HashCode, "Returns hash code for the given string, in the range [1, theUpperBound]", py::arg("theString"), py::arg("theUpperBound"));
 cls_MoniTool_MTHasher.def_static("IsEqual_", (Standard_Boolean (*)(const Standard_CString, const Standard_CString)) &MoniTool_MTHasher::IsEqual, "Returns True when the two CString are the same. Two same strings must have the same hashcode, the contrary is not necessary. Default Str1 == Str2", py::arg("Str1"), py::arg("Str2"));
 
 // TYPEDEF: MONITOOL_DATAMAPOFTIMER
@@ -363,7 +364,7 @@ py::class_<MoniTool_ElemHasher> cls_MoniTool_ElemHasher(mod, "MoniTool_ElemHashe
 // cls_MoniTool_ElemHasher.def_static("operator delete[]_", (void (*)(void *)) &MoniTool_ElemHasher::operator delete[], "None", py::arg("theAddress"));
 // cls_MoniTool_ElemHasher.def_static("operator new_", (void * (*)(size_t, void *)) &MoniTool_ElemHasher::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_MoniTool_ElemHasher.def_static("operator delete_", (void (*)(void *, void *)) &MoniTool_ElemHasher::operator delete, "None", py::arg(""), py::arg(""));
-cls_MoniTool_ElemHasher.def_static("HashCode_", (Standard_Integer (*)(const opencascade::handle<MoniTool_Element> &, const Standard_Integer)) &MoniTool_ElemHasher::HashCode, "Returns a HashCode in the range <0,Upper> for a Element : asks the Element its HashCode then transforms it to be in the required range", py::arg("K"), py::arg("Upper"));
+cls_MoniTool_ElemHasher.def_static("HashCode_", (Standard_Integer (*)(const opencascade::handle<MoniTool_Element> &, Standard_Integer)) &MoniTool_ElemHasher::HashCode, "Returns hash code for the given element, in the range [1, theUpperBound]. Asks theElement its HashCode, then transforms it to be in the required range.", py::arg("theElement"), py::arg("theUpperBound"));
 cls_MoniTool_ElemHasher.def_static("IsEqual_", (Standard_Boolean (*)(const opencascade::handle<MoniTool_Element> &, const opencascade::handle<MoniTool_Element> &)) &MoniTool_ElemHasher::IsEqual, "Returns True if two keys are the same. The test does not work on the Elements themselves but by calling their methods Equates", py::arg("K1"), py::arg("K2"));
 
 // TYPEDEF: MONITOOL_SEQUENCEOFELEMENT

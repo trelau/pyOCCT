@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Handle.hxx>
 #include <Message_Messenger.hxx>
 #include <Standard_Transient.hxx>
+#include <Standard_Std.hxx>
 #include <Message_Printer.hxx>
 #include <Standard_Type.hxx>
 #include <TCollection_ExtendedString.hxx>
@@ -44,22 +45,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Message_ProgressScale.hxx>
 #include <Message_SequenceOfProgressScale.hxx>
 #include <Message_ProgressIndicator.hxx>
-#include <Message_Msg.hxx>
-#include <Message_MsgFile.hxx>
-#include <Message_Algorithm.hxx>
-#include <Message_PrinterOStream.hxx>
-#include <Message_ProgressSentry.hxx>
-#include <Message.hxx>
 #include <Message_ExecStatus.hxx>
+#include <Message_Msg.hxx>
 #include <TCollection_HExtendedString.hxx>
 #include <TColStd_SequenceOfInteger.hxx>
 #include <NCollection_Array1.hxx>
 #include <NCollection_Handle.hxx>
 #include <Message_HArrayOfMsg.hxx>
+#include <Message_Algorithm.hxx>
 #include <TColStd_HPackedMapOfInteger.hxx>
 #include <TColStd_HSequenceOfHExtendedString.hxx>
 #include <TColStd_SequenceOfHExtendedString.hxx>
 #include <TColStd_HArray1OfTransient.hxx>
+#include <Message_MsgFile.hxx>
+#include <Message_PrinterOStream.hxx>
+#include <Message_ProgressSentry.hxx>
+#include <Message.hxx>
 #include <Message_ListOfMsg.hxx>
 #include <bind_NCollection_Sequence.hxx>
 #include <bind_NCollection_List.hxx>
@@ -227,8 +228,8 @@ py::enum_<Message_Status>(mod, "Message_Status", "Enumeration covering all execu
 	.export_values();
 
 
-// FUNCTION: ENDL
-mod.def("endl", (const opencascade::handle<Message_Messenger> & (*) (const opencascade::handle<Message_Messenger> &)) &endl, "None", py::arg("theMessenger"));
+// FUNCTION: MESSAGE_ENDLINE
+mod.def("Message_EndLine", (const opencascade::handle<Message_Messenger> & (*) (const opencascade::handle<Message_Messenger> &)) &Message_EndLine, "None", py::arg("theMessenger"));
 
 // CLASS: MESSAGE_PRINTER
 py::class_<Message_Printer, opencascade::handle<Message_Printer>, Standard_Transient> cls_Message_Printer(mod, "Message_Printer", "Abstract interface class defining printer as output context for text messages");
@@ -388,19 +389,6 @@ cls_Message_ProgressIndicator.def_static("get_type_name_", (const char * (*)()) 
 cls_Message_ProgressIndicator.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Message_ProgressIndicator::get_type_descriptor, "None");
 cls_Message_ProgressIndicator.def("DynamicType", (const opencascade::handle<Standard_Type> & (Message_ProgressIndicator::*)() const) &Message_ProgressIndicator::DynamicType, "None");
 
-// CLASS: MESSAGE
-py::class_<Message> cls_Message(mod, "Message", "Defines - tools to work with messages - basic tools intended for progress indication");
-
-// Methods
-// cls_Message.def_static("operator new_", (void * (*)(size_t)) &Message::operator new, "None", py::arg("theSize"));
-// cls_Message.def_static("operator delete_", (void (*)(void *)) &Message::operator delete, "None", py::arg("theAddress"));
-// cls_Message.def_static("operator new[]_", (void * (*)(size_t)) &Message::operator new[], "None", py::arg("theSize"));
-// cls_Message.def_static("operator delete[]_", (void (*)(void *)) &Message::operator delete[], "None", py::arg("theAddress"));
-// cls_Message.def_static("operator new_", (void * (*)(size_t, void *)) &Message::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Message.def_static("operator delete_", (void (*)(void *, void *)) &Message::operator delete, "None", py::arg(""), py::arg(""));
-cls_Message.def_static("DefaultMessenger_", (const opencascade::handle<Message_Messenger> & (*)()) &Message::DefaultMessenger, "Defines default messenger for OCCT applications. This is global static instance of the messenger. By default, it contains single printer directed to cout. It can be customized according to the application needs.");
-cls_Message.def_static("FillTime_", (TCollection_AsciiString (*)(const Standard_Integer, const Standard_Integer, const Standard_Real)) &Message::FillTime, "Returns the string filled with values of hours, minutes and seconds. Example: 1. (5, 12, 26.3345) returns '05h:12m:26.33s', 2. (0, 6, 34.496 ) returns '06m:34.50s', 3. (0, 0, 4.5 ) returns '4.50s'", py::arg("Hour"), py::arg("Minute"), py::arg("Second"));
-
 // CLASS: MESSAGE_EXECSTATUS
 py::class_<Message_ExecStatus> cls_Message_ExecStatus(mod, "Message_ExecStatus", "Tiny class for extended handling of error / execution status of algorithm in universal way.");
 
@@ -526,6 +514,19 @@ cls_Message_Algorithm.def_static("get_type_name_", (const char * (*)()) &Message
 cls_Message_Algorithm.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Message_Algorithm::get_type_descriptor, "None");
 cls_Message_Algorithm.def("DynamicType", (const opencascade::handle<Standard_Type> & (Message_Algorithm::*)() const) &Message_Algorithm::DynamicType, "None");
 
+// CLASS: MESSAGE
+py::class_<Message> cls_Message(mod, "Message", "Defines - tools to work with messages - basic tools intended for progress indication");
+
+// Methods
+// cls_Message.def_static("operator new_", (void * (*)(size_t)) &Message::operator new, "None", py::arg("theSize"));
+// cls_Message.def_static("operator delete_", (void (*)(void *)) &Message::operator delete, "None", py::arg("theAddress"));
+// cls_Message.def_static("operator new[]_", (void * (*)(size_t)) &Message::operator new[], "None", py::arg("theSize"));
+// cls_Message.def_static("operator delete[]_", (void (*)(void *)) &Message::operator delete[], "None", py::arg("theAddress"));
+// cls_Message.def_static("operator new_", (void * (*)(size_t, void *)) &Message::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_Message.def_static("operator delete_", (void (*)(void *, void *)) &Message::operator delete, "None", py::arg(""), py::arg(""));
+cls_Message.def_static("DefaultMessenger_", (const opencascade::handle<Message_Messenger> & (*)()) &Message::DefaultMessenger, "Defines default messenger for OCCT applications. This is global static instance of the messenger. By default, it contains single printer directed to std::cout. It can be customized according to the application needs.");
+cls_Message.def_static("FillTime_", (TCollection_AsciiString (*)(const Standard_Integer, const Standard_Integer, const Standard_Real)) &Message::FillTime, "Returns the string filled with values of hours, minutes and seconds. Example: 1. (5, 12, 26.3345) returns '05h:12m:26.33s', 2. (0, 6, 34.496 ) returns '06m:34.50s', 3. (0, 0, 4.5 ) returns '4.50s'", py::arg("Hour"), py::arg("Minute"), py::arg("Second"));
+
 // TYPEDEF: MESSAGE_LISTOFMSG
 bind_NCollection_List<Message_Msg>(mod, "Message_ListOfMsg", py::module_local(false));
 
@@ -554,7 +555,7 @@ cls_Message_MsgFile.def_static("Msg_", (const TCollection_ExtendedString & (*)(c
 cls_Message_MsgFile.def_static("Msg_", (const TCollection_ExtendedString & (*)(const TCollection_AsciiString &)) &Message_MsgFile::Msg, "Gives the text for the message identified by the keyword <key> If there are no messages with such keyword defined, the error message is returned. In that case reference to static string is returned, it can be chenged with next call(s) to Msg(). Note: The error message is constructed like 'Unknown message: <key>', and can itself be customized by defining message with key Message_Msg_BadKeyword.", py::arg("key"));
 
 // CLASS: MESSAGE_PRINTEROSTREAM
-py::class_<Message_PrinterOStream, opencascade::handle<Message_PrinterOStream>, Message_Printer> cls_Message_PrinterOStream(mod, "Message_PrinterOStream", "Implementation of a message printer associated with an ostream The ostream may be either externally defined one (e.g. cout), or file stream maintained internally (depending on constructor).");
+py::class_<Message_PrinterOStream, opencascade::handle<Message_PrinterOStream>, Message_Printer> cls_Message_PrinterOStream(mod, "Message_PrinterOStream", "Implementation of a message printer associated with an std::ostream The std::ostream may be either externally defined one (e.g. std::cout), or file stream maintained internally (depending on constructor).");
 
 // Constructors
 cls_Message_PrinterOStream.def(py::init<>());

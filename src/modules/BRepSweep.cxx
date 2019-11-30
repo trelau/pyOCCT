@@ -127,8 +127,11 @@ cls_BRepSweep_NumLinearRegularSweep.def("SeparatedWires", (Standard_Boolean (BRe
 cls_BRepSweep_NumLinearRegularSweep.def("SplitShell", (TopoDS_Shape (BRepSweep_NumLinearRegularSweep::*)(const TopoDS_Shape &) const) &BRepSweep_NumLinearRegularSweep::SplitShell, "In some particular cases the topology of a generated Shell must be composed of independant closed Shells, in this case this function returns a Compound of independant Shells.", py::arg("aNewShape"));
 cls_BRepSweep_NumLinearRegularSweep.def("SetContinuity", (void (BRepSweep_NumLinearRegularSweep::*)(const TopoDS_Shape &, const Sweep_NumShape &)) &BRepSweep_NumLinearRegularSweep::SetContinuity, "Called to propagate the continuity of every vertex between two edges of the generating wire aGenS on the generated edge and faces.", py::arg("aGenS"), py::arg("aDirS"));
 cls_BRepSweep_NumLinearRegularSweep.def("HasShape", (Standard_Boolean (BRepSweep_NumLinearRegularSweep::*)(const TopoDS_Shape &, const Sweep_NumShape &) const) &BRepSweep_NumLinearRegularSweep::HasShape, "Returns true if aDirS and aGenS addresses a resulting Shape. In some specific cases the shape can be geometrically inexsistant, then this function returns false.", py::arg("aGenS"), py::arg("aDirS"));
+cls_BRepSweep_NumLinearRegularSweep.def("IsInvariant", (Standard_Boolean (BRepSweep_NumLinearRegularSweep::*)(const TopoDS_Shape &) const) &BRepSweep_NumLinearRegularSweep::IsInvariant, "Returns true if aGenS cannot be transformed.", py::arg("aGenS"));
 cls_BRepSweep_NumLinearRegularSweep.def("Shape", (TopoDS_Shape (BRepSweep_NumLinearRegularSweep::*)(const TopoDS_Shape &, const Sweep_NumShape &)) &BRepSweep_NumLinearRegularSweep::Shape, "Returns the resulting Shape indexed by aDirS and aGenS.", py::arg("aGenS"), py::arg("aDirS"));
 cls_BRepSweep_NumLinearRegularSweep.def("Shape", (TopoDS_Shape (BRepSweep_NumLinearRegularSweep::*)(const TopoDS_Shape &)) &BRepSweep_NumLinearRegularSweep::Shape, "Returns the resulting Shape indexed by myDirWire and aGenS.", py::arg("aGenS"));
+cls_BRepSweep_NumLinearRegularSweep.def("IsUsed", (Standard_Boolean (BRepSweep_NumLinearRegularSweep::*)(const TopoDS_Shape &) const) &BRepSweep_NumLinearRegularSweep::IsUsed, "Returns true if the initial shape aGenS is used in result shape", py::arg("aGenS"));
+cls_BRepSweep_NumLinearRegularSweep.def("GenIsUsed", (Standard_Boolean (BRepSweep_NumLinearRegularSweep::*)(const TopoDS_Shape &) const) &BRepSweep_NumLinearRegularSweep::GenIsUsed, "Returns true if the shape, generated from theS is used in result shape", py::arg("theS"));
 cls_BRepSweep_NumLinearRegularSweep.def("Shape", (TopoDS_Shape (BRepSweep_NumLinearRegularSweep::*)()) &BRepSweep_NumLinearRegularSweep::Shape, "Returns the resulting Shape indexed by myDirWire and myGenShape.");
 cls_BRepSweep_NumLinearRegularSweep.def("FirstShape", (TopoDS_Shape (BRepSweep_NumLinearRegularSweep::*)()) &BRepSweep_NumLinearRegularSweep::FirstShape, "Returns the resulting Shape indexed by the first Vertex of myDirWire and myGenShape.");
 cls_BRepSweep_NumLinearRegularSweep.def("LastShape", (TopoDS_Shape (BRepSweep_NumLinearRegularSweep::*)()) &BRepSweep_NumLinearRegularSweep::LastShape, "Returns the resulting Shape indexed by the last Vertex of myDirWire and myGenShape.");
@@ -223,6 +226,8 @@ cls_BRepSweep_Prism.def("FirstShape", (TopoDS_Shape (BRepSweep_Prism::*)(const T
 cls_BRepSweep_Prism.def("LastShape", (TopoDS_Shape (BRepSweep_Prism::*)()) &BRepSweep_Prism::LastShape, "Returns the TopoDS Shape of the top of the prism.");
 cls_BRepSweep_Prism.def("LastShape", (TopoDS_Shape (BRepSweep_Prism::*)(const TopoDS_Shape &)) &BRepSweep_Prism::LastShape, "Returns the TopoDS Shape of the top of the prism. generated with aGenS (subShape of the generating shape).", py::arg("aGenS"));
 cls_BRepSweep_Prism.def("Vec", (gp_Vec (BRepSweep_Prism::*)() const) &BRepSweep_Prism::Vec, "Returns the Vector of the Prism, if it is an infinite prism the Vec is unitar.");
+cls_BRepSweep_Prism.def("IsUsed", (Standard_Boolean (BRepSweep_Prism::*)(const TopoDS_Shape &) const) &BRepSweep_Prism::IsUsed, "Returns true if the aGenS is used in resulting shape", py::arg("aGenS"));
+cls_BRepSweep_Prism.def("GenIsUsed", (Standard_Boolean (BRepSweep_Prism::*)(const TopoDS_Shape &) const) &BRepSweep_Prism::GenIsUsed, "Returns true if the shape, generated from theS is used in result shape", py::arg("theS"));
 
 // CLASS: BREPSWEEP_ROTATION
 py::class_<BRepSweep_Rotation, BRepSweep_Trsf> cls_BRepSweep_Rotation(mod, "BRepSweep_Rotation", "Provides an algorithm to build object by Rotation sweep.");
@@ -281,6 +286,7 @@ cls_BRepSweep_Revol.def("LastShape", (TopoDS_Shape (BRepSweep_Revol::*)()) &BRep
 cls_BRepSweep_Revol.def("LastShape", (TopoDS_Shape (BRepSweep_Revol::*)(const TopoDS_Shape &)) &BRepSweep_Revol::LastShape, "Returns the TopoDS Shape of the top of the prism. generated with aGenS (subShape of the generating shape).", py::arg("aGenS"));
 cls_BRepSweep_Revol.def("Axe", (gp_Ax1 (BRepSweep_Revol::*)() const) &BRepSweep_Revol::Axe, "returns the axis");
 cls_BRepSweep_Revol.def("Angle", (Standard_Real (BRepSweep_Revol::*)() const) &BRepSweep_Revol::Angle, "returns the angle.");
+cls_BRepSweep_Revol.def("IsUsed", (Standard_Boolean (BRepSweep_Revol::*)(const TopoDS_Shape &) const) &BRepSweep_Revol::IsUsed, "Returns true if the aGenS is used in resulting Shape", py::arg("aGenS"));
 
 // CLASS: BREPSWEEP_ITERATOR
 py::class_<BRepSweep_Iterator> cls_BRepSweep_Iterator(mod, "BRepSweep_Iterator", "This class provides iteration services required by the Generating Line (TopoDS Shape) of a BRepSweep. This tool is used to iterate on the direct sub-shapes of a Shape.");

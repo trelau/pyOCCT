@@ -48,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <ShapeAnalysis_Surface.hxx>
 #include <ShapeExtend_Status.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <TColgp_SequenceOfPnt.hxx>
 #include <TColStd_SequenceOfReal.hxx>

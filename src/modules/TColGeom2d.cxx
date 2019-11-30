@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <Standard_TypeDef.hxx>
+#include <Standard_Std.hxx>
 #include <TColGeom2d_HArray1OfCurve.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Sequence.hxx>
@@ -60,6 +61,7 @@ bind_NCollection_Array1<opencascade::handle<Geom2d_Curve> >(mod, "TColGeom2d_Arr
 py::class_<TColGeom2d_HArray1OfCurve, opencascade::handle<TColGeom2d_HArray1OfCurve>, Standard_Transient> cls_TColGeom2d_HArray1OfCurve(mod, "TColGeom2d_HArray1OfCurve", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColGeom2d_HArray1OfCurve.def(py::init<>());
 cls_TColGeom2d_HArray1OfCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColGeom2d_HArray1OfCurve.def(py::init<const Standard_Integer, const Standard_Integer, const TColGeom2d_Array1OfCurve::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColGeom2d_HArray1OfCurve.def(py::init<const TColGeom2d_Array1OfCurve &>(), py::arg("theOther"));
@@ -89,6 +91,7 @@ bind_NCollection_Array1<opencascade::handle<Geom2d_BSplineCurve> >(mod, "TColGeo
 py::class_<TColGeom2d_HArray1OfBSplineCurve, opencascade::handle<TColGeom2d_HArray1OfBSplineCurve>, Standard_Transient> cls_TColGeom2d_HArray1OfBSplineCurve(mod, "TColGeom2d_HArray1OfBSplineCurve", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColGeom2d_HArray1OfBSplineCurve.def(py::init<>());
 cls_TColGeom2d_HArray1OfBSplineCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColGeom2d_HArray1OfBSplineCurve.def(py::init<const Standard_Integer, const Standard_Integer, const TColGeom2d_Array1OfBSplineCurve::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColGeom2d_HArray1OfBSplineCurve.def(py::init<const TColGeom2d_Array1OfBSplineCurve &>(), py::arg("theOther"));
@@ -169,6 +172,7 @@ cls_TColGeom2d_HSequenceOfCurve.def("DynamicType", (const opencascade::handle<St
 py::class_<TColGeom2d_HArray1OfBezierCurve, opencascade::handle<TColGeom2d_HArray1OfBezierCurve>, Standard_Transient> cls_TColGeom2d_HArray1OfBezierCurve(mod, "TColGeom2d_HArray1OfBezierCurve", "None", py::multiple_inheritance());
 
 // Constructors
+cls_TColGeom2d_HArray1OfBezierCurve.def(py::init<>());
 cls_TColGeom2d_HArray1OfBezierCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_TColGeom2d_HArray1OfBezierCurve.def(py::init<const Standard_Integer, const Standard_Integer, const TColGeom2d_Array1OfBezierCurve::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_TColGeom2d_HArray1OfBezierCurve.def(py::init<const TColGeom2d_Array1OfBezierCurve &>(), py::arg("theOther"));

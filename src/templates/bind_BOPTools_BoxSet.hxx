@@ -19,19 +19,25 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef __BOPTools_ContextCnt__
-#define __BOPTools_ContextCnt__
+#ifndef __BOPTools_BoxSet__
+#define __BOPTools_BoxSet__
 
-#include <Standard_TypeDef.hxx>
-#include <BOPTools_Parallel.hxx>
+#include <bind_BVH_BoxSet.hxx>
+#include <BVH_BoxSet.hxx>
+#include <BOPTools_BoxTree.hxx>
+#include <Standard_Handle.hxx>
+#include <BVH_Builder.hxx>
 
-template <typename TypeFunctor, typename TypeSolverVector, typename TypeContext>
-void bind_BOPTools_ContextCnt(py::module &mod, std::string const &name, py::module_local const &local){
+template <typename NumType, int Dimension, typename DataType>
+void bind_BOPTools_BoxSet(py::module &mod, std::string const &name, py::module_local const &local){
 
-py::class_<BOPTools_ContextCnt<TypeFunctor, TypeSolverVector, TypeContext>> cls_BOPTools_ContextCnt(mod, name.c_str(), "None", local);
+bind_BVH_BoxSet<NumType, Dimension, DataType>(mod, "BOPTools_BoxSet_Base", py::module_local());
 
-// Methods
-cls_BOPTools_ContextCnt.def_static("Perform_", (void (*)(const Standard_Boolean, TypeSolverVector &, TypeContext &)) &BOPTools_ContextCnt<TypeFunctor, TypeSolverVector, TypeContext>::Perform, "None", py::arg("isRunParallel"), py::arg("theSolverVector"), py::arg("theContext"));
+py::class_<BOPTools_BoxSet<NumType, Dimension, DataType>, opencascade::handle<BOPTools_BoxSet<NumType, Dimension, DataType>>, BVH_BoxSet<NumType, Dimension, DataType>> cls_BOPTools_BoxSet(mod, name.c_str(), "Redefines BoxSet to use the Linear builder by default", local);
+
+// Constructors
+cls_BOPTools_BoxSet.def(py::init<>());
+cls_BOPTools_BoxSet.def(py::init<const opencascade::handle<BVH_Builder<NumType, Dimension> > &>(), py::arg("theBuilder"));
 
 }
 

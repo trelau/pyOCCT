@@ -29,16 +29,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_BaseSequence.hxx>
 #include <Standard.hxx>
 #include <NCollection_Buffer.hxx>
-#include <NCollection_ListNode.hxx>
-#include <NCollection_BaseList.hxx>
 #include <Standard_OutOfRange.hxx>
+#include <NCollection_ListNode.hxx>
 #include <NCollection_BaseMap.hxx>
 #include <Standard_OStream.hxx>
+#include <NCollection_BaseList.hxx>
 #include <NCollection_IncAllocator.hxx>
+#include <Standard_Mutex.hxx>
 #include <NCollection_StdAllocator.hxx>
 #include <NCollection_UtfIterator.hxx>
 #include <NCollection_UtfString.hxx>
@@ -132,6 +134,22 @@ cls_NCollection_Buffer.def_static("get_type_name_", (const char * (*)()) &NColle
 cls_NCollection_Buffer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &NCollection_Buffer::get_type_descriptor, "None");
 cls_NCollection_Buffer.def("DynamicType", (const opencascade::handle<Standard_Type> & (NCollection_Buffer::*)() const) &NCollection_Buffer::DynamicType, "None");
 
+// CLASS: NCOLLECTION_BASEVECTOR
+py::class_<NCollection_BaseVector, std::unique_ptr<NCollection_BaseVector, py::nodelete>> cls_NCollection_BaseVector(mod, "NCollection_BaseVector", "Class NCollection_BaseVector - base for NCollection_Vector template");
+
+// Methods
+// cls_NCollection_BaseVector.def_static("operator new_", (void * (*)(size_t)) &NCollection_BaseVector::operator new, "None", py::arg("theSize"));
+// cls_NCollection_BaseVector.def_static("operator delete_", (void (*)(void *)) &NCollection_BaseVector::operator delete, "None", py::arg("theAddress"));
+// cls_NCollection_BaseVector.def_static("operator new[]_", (void * (*)(size_t)) &NCollection_BaseVector::operator new[], "None", py::arg("theSize"));
+// cls_NCollection_BaseVector.def_static("operator delete[]_", (void (*)(void *)) &NCollection_BaseVector::operator delete[], "None", py::arg("theAddress"));
+// cls_NCollection_BaseVector.def_static("operator new_", (void * (*)(size_t, void *)) &NCollection_BaseVector::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_NCollection_BaseVector.def_static("operator delete_", (void (*)(void *, void *)) &NCollection_BaseVector::operator delete, "None", py::arg(""), py::arg(""));
+// cls_NCollection_BaseVector.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &NCollection_BaseVector::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
+// cls_NCollection_BaseVector.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &NCollection_BaseVector::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
+cls_NCollection_BaseVector.def("Clear", (void (NCollection_BaseVector::*)()) &NCollection_BaseVector::Clear, "Empty the vector of its objects");
+cls_NCollection_BaseVector.def("SetIncrement", (void (NCollection_BaseVector::*)(const Standard_Integer)) &NCollection_BaseVector::SetIncrement, "None", py::arg("aIncrement"));
+cls_NCollection_BaseVector.def("Allocator", (const opencascade::handle<NCollection_BaseAllocator> & (NCollection_BaseVector::*)() const) &NCollection_BaseVector::Allocator, "Returns attached allocator");
+
 // CLASS: NCOLLECTION_LISTNODE
 py::class_<NCollection_ListNode> cls_NCollection_ListNode(mod, "NCollection_ListNode", "Purpose: This class is used to represent a node in the BaseList and BaseMap.");
 
@@ -144,7 +162,38 @@ py::class_<NCollection_ListNode> cls_NCollection_ListNode(mod, "NCollection_List
 cls_NCollection_ListNode.def("Next", (NCollection_ListNode *& (NCollection_ListNode::*)()) &NCollection_ListNode::Next, "Next pointer access");
 cls_NCollection_ListNode.def("Next", (NCollection_ListNode * (NCollection_ListNode::*)() const) &NCollection_ListNode::Next, "Next pointer const access");
 
+// TYPEDEF: NCOLLECTION_DELMAPNODE
+
+// CLASS: NCOLLECTION_BASEMAP
+py::class_<NCollection_BaseMap, std::unique_ptr<NCollection_BaseMap, py::nodelete>> cls_NCollection_BaseMap(mod, "NCollection_BaseMap", "Purpose: This is a base class for all Maps: Map DataMap DoubleMap IndexedMap IndexedDataMap Provides utilitites for managing the buckets.");
+
+// Methods
+// cls_NCollection_BaseMap.def_static("operator new_", (void * (*)(size_t)) &NCollection_BaseMap::operator new, "None", py::arg("theSize"));
+// cls_NCollection_BaseMap.def_static("operator delete_", (void (*)(void *)) &NCollection_BaseMap::operator delete, "None", py::arg("theAddress"));
+// cls_NCollection_BaseMap.def_static("operator new[]_", (void * (*)(size_t)) &NCollection_BaseMap::operator new[], "None", py::arg("theSize"));
+// cls_NCollection_BaseMap.def_static("operator delete[]_", (void (*)(void *)) &NCollection_BaseMap::operator delete[], "None", py::arg("theAddress"));
+// cls_NCollection_BaseMap.def_static("operator new_", (void * (*)(size_t, void *)) &NCollection_BaseMap::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_NCollection_BaseMap.def_static("operator delete_", (void (*)(void *, void *)) &NCollection_BaseMap::operator delete, "None", py::arg(""), py::arg(""));
+// cls_NCollection_BaseMap.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &NCollection_BaseMap::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
+// cls_NCollection_BaseMap.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &NCollection_BaseMap::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
+cls_NCollection_BaseMap.def("NbBuckets", (Standard_Integer (NCollection_BaseMap::*)() const) &NCollection_BaseMap::NbBuckets, "NbBuckets");
+cls_NCollection_BaseMap.def("Extent", (Standard_Integer (NCollection_BaseMap::*)() const) &NCollection_BaseMap::Extent, "Extent");
+cls_NCollection_BaseMap.def("IsEmpty", (Standard_Boolean (NCollection_BaseMap::*)() const) &NCollection_BaseMap::IsEmpty, "IsEmpty");
+cls_NCollection_BaseMap.def("Statistics", (void (NCollection_BaseMap::*)(Standard_OStream &) const) &NCollection_BaseMap::Statistics, "Statistics", py::arg("S"));
+cls_NCollection_BaseMap.def("Allocator", (const opencascade::handle<NCollection_BaseAllocator> & (NCollection_BaseMap::*)() const) &NCollection_BaseMap::Allocator, "Returns attached allocator");
+
+// Nested classes
+py::class_<NCollection_BaseMap::Iterator> cls_NCollection_BaseMap_Iterator(cls_NCollection_BaseMap, "Iterator", "Memory allocation");
+
+// Methods
+cls_NCollection_BaseMap_Iterator.def("Initialize", (void (NCollection_BaseMap::Iterator::*)(const NCollection_BaseMap &)) &NCollection_BaseMap::Iterator::Initialize, "Initialize", py::arg("theMap"));
+cls_NCollection_BaseMap_Iterator.def("Reset", (void (NCollection_BaseMap::Iterator::*)()) &NCollection_BaseMap::Iterator::Reset, "Reset");
+cls_NCollection_BaseMap_Iterator.def("IsEqual", (Standard_Boolean (NCollection_BaseMap::Iterator::*)(const NCollection_BaseMap::Iterator &) const) &NCollection_BaseMap::Iterator::IsEqual, "Performs comparison of two iterators.", py::arg("theOther"));
+
 // TYPEDEF: NCOLLECTION_DELLISTNODE
+if (py::hasattr(mod, "NCollection_DelMapNode")) {
+	mod.attr("NCollection_DelListNode") = mod.attr("NCollection_DelMapNode");
+}
 
 // CLASS: NCOLLECTION_BASELIST
 py::class_<NCollection_BaseList> cls_NCollection_BaseList(mod, "NCollection_BaseList", "None");
@@ -181,61 +230,16 @@ cls_NCollection_BaseList_Iterator.def("More", (Standard_Boolean (NCollection_Bas
 cls_NCollection_BaseList_Iterator.def("__eq__", (Standard_Boolean (NCollection_BaseList::Iterator::*)(const NCollection_BaseList::Iterator &) const) &NCollection_BaseList::Iterator::operator==, py::is_operator(), "None", py::arg("theIt"));
 cls_NCollection_BaseList_Iterator.def("IsEqual", (Standard_Boolean (NCollection_BaseList::Iterator::*)(const NCollection_BaseList::Iterator &) const) &NCollection_BaseList::Iterator::IsEqual, "Performs comparison of two iterators", py::arg("theOther"));
 
-// CLASS: NCOLLECTION_BASEVECTOR
-py::class_<NCollection_BaseVector, std::unique_ptr<NCollection_BaseVector, py::nodelete>> cls_NCollection_BaseVector(mod, "NCollection_BaseVector", "Class NCollection_BaseVector - base for NCollection_Vector template");
-
-// Methods
-// cls_NCollection_BaseVector.def_static("operator new_", (void * (*)(size_t)) &NCollection_BaseVector::operator new, "None", py::arg("theSize"));
-// cls_NCollection_BaseVector.def_static("operator delete_", (void (*)(void *)) &NCollection_BaseVector::operator delete, "None", py::arg("theAddress"));
-// cls_NCollection_BaseVector.def_static("operator new[]_", (void * (*)(size_t)) &NCollection_BaseVector::operator new[], "None", py::arg("theSize"));
-// cls_NCollection_BaseVector.def_static("operator delete[]_", (void (*)(void *)) &NCollection_BaseVector::operator delete[], "None", py::arg("theAddress"));
-// cls_NCollection_BaseVector.def_static("operator new_", (void * (*)(size_t, void *)) &NCollection_BaseVector::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_NCollection_BaseVector.def_static("operator delete_", (void (*)(void *, void *)) &NCollection_BaseVector::operator delete, "None", py::arg(""), py::arg(""));
-// cls_NCollection_BaseVector.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &NCollection_BaseVector::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_NCollection_BaseVector.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &NCollection_BaseVector::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_NCollection_BaseVector.def("Clear", (void (NCollection_BaseVector::*)()) &NCollection_BaseVector::Clear, "Empty the vector of its objects");
-cls_NCollection_BaseVector.def("SetIncrement", (void (NCollection_BaseVector::*)(const Standard_Integer)) &NCollection_BaseVector::SetIncrement, "None", py::arg("aIncrement"));
-cls_NCollection_BaseVector.def("Allocator", (const opencascade::handle<NCollection_BaseAllocator> & (NCollection_BaseVector::*)() const) &NCollection_BaseVector::Allocator, "Returns attached allocator");
-
-// TYPEDEF: NCOLLECTION_DELMAPNODE
-if (py::hasattr(mod, "NCollection_DelListNode")) {
-	mod.attr("NCollection_DelMapNode") = mod.attr("NCollection_DelListNode");
-}
-
-// CLASS: NCOLLECTION_BASEMAP
-py::class_<NCollection_BaseMap, std::unique_ptr<NCollection_BaseMap, py::nodelete>> cls_NCollection_BaseMap(mod, "NCollection_BaseMap", "Purpose: This is a base class for all Maps: Map DataMap DoubleMap IndexedMap IndexedDataMap Provides utilitites for managing the buckets.");
-
-// Methods
-// cls_NCollection_BaseMap.def_static("operator new_", (void * (*)(size_t)) &NCollection_BaseMap::operator new, "None", py::arg("theSize"));
-// cls_NCollection_BaseMap.def_static("operator delete_", (void (*)(void *)) &NCollection_BaseMap::operator delete, "None", py::arg("theAddress"));
-// cls_NCollection_BaseMap.def_static("operator new[]_", (void * (*)(size_t)) &NCollection_BaseMap::operator new[], "None", py::arg("theSize"));
-// cls_NCollection_BaseMap.def_static("operator delete[]_", (void (*)(void *)) &NCollection_BaseMap::operator delete[], "None", py::arg("theAddress"));
-// cls_NCollection_BaseMap.def_static("operator new_", (void * (*)(size_t, void *)) &NCollection_BaseMap::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_NCollection_BaseMap.def_static("operator delete_", (void (*)(void *, void *)) &NCollection_BaseMap::operator delete, "None", py::arg(""), py::arg(""));
-// cls_NCollection_BaseMap.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &NCollection_BaseMap::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_NCollection_BaseMap.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &NCollection_BaseMap::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_NCollection_BaseMap.def("NbBuckets", (Standard_Integer (NCollection_BaseMap::*)() const) &NCollection_BaseMap::NbBuckets, "NbBuckets");
-cls_NCollection_BaseMap.def("Extent", (Standard_Integer (NCollection_BaseMap::*)() const) &NCollection_BaseMap::Extent, "Extent");
-cls_NCollection_BaseMap.def("IsEmpty", (Standard_Boolean (NCollection_BaseMap::*)() const) &NCollection_BaseMap::IsEmpty, "IsEmpty");
-cls_NCollection_BaseMap.def("Statistics", (void (NCollection_BaseMap::*)(Standard_OStream &) const) &NCollection_BaseMap::Statistics, "Statistics", py::arg("S"));
-cls_NCollection_BaseMap.def("Allocator", (const opencascade::handle<NCollection_BaseAllocator> & (NCollection_BaseMap::*)() const) &NCollection_BaseMap::Allocator, "Returns attached allocator");
-
-// Nested classes
-py::class_<NCollection_BaseMap::Iterator> cls_NCollection_BaseMap_Iterator(cls_NCollection_BaseMap, "Iterator", "Memory allocation");
-
-// Methods
-cls_NCollection_BaseMap_Iterator.def("Initialize", (void (NCollection_BaseMap::Iterator::*)(const NCollection_BaseMap &)) &NCollection_BaseMap::Iterator::Initialize, "Initialize", py::arg("theMap"));
-cls_NCollection_BaseMap_Iterator.def("Reset", (void (NCollection_BaseMap::Iterator::*)()) &NCollection_BaseMap::Iterator::Reset, "Reset");
-cls_NCollection_BaseMap_Iterator.def("IsEqual", (Standard_Boolean (NCollection_BaseMap::Iterator::*)(const NCollection_BaseMap::Iterator &) const) &NCollection_BaseMap::Iterator::IsEqual, "Performs comparison of two iterators.", py::arg("theOther"));
-
 // CLASS: NCOLLECTION_INCALLOCATOR
 py::class_<NCollection_IncAllocator, opencascade::handle<NCollection_IncAllocator>, NCollection_BaseAllocator> cls_NCollection_IncAllocator(mod, "NCollection_IncAllocator", "Class NCollection_IncAllocator - incremental memory allocator. This class allocates memory on request returning the pointer to an allocated block. This memory is never returned to the system until the allocator is destroyed.");
 
 // Constructors
 cls_NCollection_IncAllocator.def(py::init<>());
-cls_NCollection_IncAllocator.def(py::init<const size_t>(), py::arg("theBlockSize"));
+cls_NCollection_IncAllocator.def(py::init<size_t>(), py::arg("theBlockSize"));
 
 // Methods
+cls_NCollection_IncAllocator.def("SetThreadSafe", [](NCollection_IncAllocator &self) -> void { return self.SetThreadSafe(); });
+cls_NCollection_IncAllocator.def("SetThreadSafe", (void (NCollection_IncAllocator::*)(bool)) &NCollection_IncAllocator::SetThreadSafe, "Setup mutex for thread-safe allocations.", py::arg("theIsThreadSafe"));
 cls_NCollection_IncAllocator.def("Allocate", (void * (NCollection_IncAllocator::*)(const size_t)) &NCollection_IncAllocator::Allocate, "Allocate memory with given size. Returns NULL on failure", py::arg("size"));
 cls_NCollection_IncAllocator.def("Free", (void (NCollection_IncAllocator::*)(void *)) &NCollection_IncAllocator::Free, "Free a previously allocated memory. Does nothing", py::arg("anAddress"));
 cls_NCollection_IncAllocator.def("GetMemSize", (size_t (NCollection_IncAllocator::*)() const) &NCollection_IncAllocator::GetMemSize, "Diagnostic method, returns the total allocated size");

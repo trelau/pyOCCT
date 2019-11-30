@@ -30,11 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <XmlLDrivers_DocumentRetrievalDriver.hxx>
 #include <XmlMDF_ADriver.hxx>
 #include <XmlObjMgt_Element.hxx>
-#include <Standard_TypeDef.hxx>
+#include <Standard_Std.hxx>
 #include <XmlDrivers_DocumentRetrievalDriver.hxx>
 #include <Standard_Type.hxx>
 #include <XmlLDrivers_DocumentStorageDriver.hxx>
 #include <TCollection_ExtendedString.hxx>
+#include <Standard_TypeDef.hxx>
 #include <XmlDrivers_DocumentStorageDriver.hxx>
 
 PYBIND11_MODULE(XmlDrivers, mod) {
@@ -65,7 +66,6 @@ cls_XmlDrivers_DocumentRetrievalDriver.def(py::init<>());
 cls_XmlDrivers_DocumentRetrievalDriver.def("AttributeDrivers", (opencascade::handle<XmlMDF_ADriverTable> (XmlDrivers_DocumentRetrievalDriver::*)(const opencascade::handle<Message_Messenger> &)) &XmlDrivers_DocumentRetrievalDriver::AttributeDrivers, "None", py::arg("theMsgDriver"));
 cls_XmlDrivers_DocumentRetrievalDriver.def("ReadShapeSection", (opencascade::handle<XmlMDF_ADriver> (XmlDrivers_DocumentRetrievalDriver::*)(const XmlObjMgt_Element &, const opencascade::handle<Message_Messenger> &)) &XmlDrivers_DocumentRetrievalDriver::ReadShapeSection, "None", py::arg("thePDoc"), py::arg("theMsgDriver"));
 cls_XmlDrivers_DocumentRetrievalDriver.def("ShapeSetCleaning", (void (XmlDrivers_DocumentRetrievalDriver::*)(const opencascade::handle<XmlMDF_ADriver> &)) &XmlDrivers_DocumentRetrievalDriver::ShapeSetCleaning, "None", py::arg("theDriver"));
-cls_XmlDrivers_DocumentRetrievalDriver.def("PropagateDocumentVersion", (void (XmlDrivers_DocumentRetrievalDriver::*)(const Standard_Integer)) &XmlDrivers_DocumentRetrievalDriver::PropagateDocumentVersion, "None", py::arg("theDocVersion"));
 cls_XmlDrivers_DocumentRetrievalDriver.def_static("get_type_name_", (const char * (*)()) &XmlDrivers_DocumentRetrievalDriver::get_type_name, "None");
 cls_XmlDrivers_DocumentRetrievalDriver.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &XmlDrivers_DocumentRetrievalDriver::get_type_descriptor, "None");
 cls_XmlDrivers_DocumentRetrievalDriver.def("DynamicType", (const opencascade::handle<Standard_Type> & (XmlDrivers_DocumentRetrievalDriver::*)() const) &XmlDrivers_DocumentRetrievalDriver::DynamicType, "None");

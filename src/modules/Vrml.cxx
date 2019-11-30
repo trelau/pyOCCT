@@ -82,6 +82,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
 #include <TColStd_HArray1OfAsciiString.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <TColgp_HArray1OfVec.hxx>
 #include <TColStd_HArray1OfInteger.hxx>

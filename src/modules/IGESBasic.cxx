@@ -73,6 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <IGESData_IGESEntity.hxx>
 #include <Standard_TypeDef.hxx>
 #include <TCollection_HAsciiString.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <Interface_HArray1OfHAsciiString.hxx>
 #include <IGESData_HArray1OfIGESEntity.hxx>
@@ -370,6 +371,7 @@ cls_IGESBasic_HArray1OfHArray1OfXYZ.def("DynamicType", (const opencascade::handl
 py::class_<IGESBasic_HArray1OfLineFontEntity, opencascade::handle<IGESBasic_HArray1OfLineFontEntity>, Standard_Transient> cls_IGESBasic_HArray1OfLineFontEntity(mod, "IGESBasic_HArray1OfLineFontEntity", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESBasic_HArray1OfLineFontEntity.def(py::init<>());
 cls_IGESBasic_HArray1OfLineFontEntity.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESBasic_HArray1OfLineFontEntity.def(py::init<const Standard_Integer, const Standard_Integer, const IGESBasic_Array1OfLineFontEntity::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESBasic_HArray1OfLineFontEntity.def(py::init<const IGESBasic_Array1OfLineFontEntity &>(), py::arg("theOther"));

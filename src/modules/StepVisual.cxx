@@ -27,8 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepVisual_TextPath.hxx>
 #include <StepGeom_GeometricRepresentationItem.hxx>
 #include <Standard.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <StepVisual_TessellatedItem.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <TCollection_HAsciiString.hxx>
 #include <TColgp_HArray1OfXYZ.hxx>
@@ -373,6 +374,7 @@ bind_NCollection_Array1<StepVisual_PresentationStyleSelect>(mod, "StepVisual_Arr
 py::class_<StepVisual_HArray1OfPresentationStyleSelect, opencascade::handle<StepVisual_HArray1OfPresentationStyleSelect>, Standard_Transient> cls_StepVisual_HArray1OfPresentationStyleSelect(mod, "StepVisual_HArray1OfPresentationStyleSelect", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepVisual_HArray1OfPresentationStyleSelect.def(py::init<>());
 cls_StepVisual_HArray1OfPresentationStyleSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepVisual_HArray1OfPresentationStyleSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfPresentationStyleSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepVisual_HArray1OfPresentationStyleSelect.def(py::init<const StepVisual_Array1OfPresentationStyleSelect &>(), py::arg("theOther"));
@@ -415,6 +417,7 @@ bind_NCollection_Array1<opencascade::handle<StepVisual_PresentationStyleAssignme
 py::class_<StepVisual_HArray1OfPresentationStyleAssignment, opencascade::handle<StepVisual_HArray1OfPresentationStyleAssignment>, Standard_Transient> cls_StepVisual_HArray1OfPresentationStyleAssignment(mod, "StepVisual_HArray1OfPresentationStyleAssignment", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepVisual_HArray1OfPresentationStyleAssignment.def(py::init<>());
 cls_StepVisual_HArray1OfPresentationStyleAssignment.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepVisual_HArray1OfPresentationStyleAssignment.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfPresentationStyleAssignment::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepVisual_HArray1OfPresentationStyleAssignment.def(py::init<const StepVisual_Array1OfPresentationStyleAssignment &>(), py::arg("theOther"));
@@ -462,11 +465,11 @@ cls_StepVisual_StyledItem.def(py::init<>());
 // Methods
 cls_StepVisual_StyledItem.def("Init", (void (StepVisual_StyledItem::*)(const opencascade::handle<TCollection_HAsciiString> &, const opencascade::handle<StepVisual_HArray1OfPresentationStyleAssignment> &, const opencascade::handle<Standard_Transient> &)) &StepVisual_StyledItem::Init, "None", py::arg("aName"), py::arg("aStyles"), py::arg("aItem"));
 cls_StepVisual_StyledItem.def("SetStyles", (void (StepVisual_StyledItem::*)(const opencascade::handle<StepVisual_HArray1OfPresentationStyleAssignment> &)) &StepVisual_StyledItem::SetStyles, "None", py::arg("aStyles"));
-cls_StepVisual_StyledItem.def("Styles", (opencascade::handle<StepVisual_HArray1OfPresentationStyleAssignment> (StepVisual_StyledItem::*)() const) &StepVisual_StyledItem::Styles, "None");
-cls_StepVisual_StyledItem.def("StylesValue", (opencascade::handle<StepVisual_PresentationStyleAssignment> (StepVisual_StyledItem::*)(const Standard_Integer) const) &StepVisual_StyledItem::StylesValue, "None", py::arg("num"));
+cls_StepVisual_StyledItem.def("Styles", (const opencascade::handle<StepVisual_HArray1OfPresentationStyleAssignment> & (StepVisual_StyledItem::*)() const) &StepVisual_StyledItem::Styles, "None");
+cls_StepVisual_StyledItem.def("StylesValue", (const opencascade::handle<StepVisual_PresentationStyleAssignment> & (StepVisual_StyledItem::*)(const Standard_Integer) const) &StepVisual_StyledItem::StylesValue, "None", py::arg("num"));
 cls_StepVisual_StyledItem.def("NbStyles", (Standard_Integer (StepVisual_StyledItem::*)() const) &StepVisual_StyledItem::NbStyles, "None");
 cls_StepVisual_StyledItem.def("SetItem", (void (StepVisual_StyledItem::*)(const opencascade::handle<StepRepr_RepresentationItem> &)) &StepVisual_StyledItem::SetItem, "None", py::arg("aItem"));
-cls_StepVisual_StyledItem.def("Item", (opencascade::handle<StepRepr_RepresentationItem> (StepVisual_StyledItem::*)() const) &StepVisual_StyledItem::Item, "None");
+cls_StepVisual_StyledItem.def("Item", (const opencascade::handle<StepRepr_RepresentationItem> & (StepVisual_StyledItem::*)() const) &StepVisual_StyledItem::Item, "None");
 cls_StepVisual_StyledItem.def("SetItem", (void (StepVisual_StyledItem::*)(const StepVisual_StyledItemTarget &)) &StepVisual_StyledItem::SetItem, "None", py::arg("aItem"));
 cls_StepVisual_StyledItem.def("ItemAP242", (StepVisual_StyledItemTarget (StepVisual_StyledItem::*)() const) &StepVisual_StyledItem::ItemAP242, "None");
 cls_StepVisual_StyledItem.def_static("get_type_name_", (const char * (*)()) &StepVisual_StyledItem::get_type_name, "None");
@@ -555,6 +558,7 @@ bind_NCollection_Array1<StepVisual_AnnotationPlaneElement>(mod, "StepVisual_Arra
 py::class_<StepVisual_HArray1OfAnnotationPlaneElement, opencascade::handle<StepVisual_HArray1OfAnnotationPlaneElement>, Standard_Transient> cls_StepVisual_HArray1OfAnnotationPlaneElement(mod, "StepVisual_HArray1OfAnnotationPlaneElement", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepVisual_HArray1OfAnnotationPlaneElement.def(py::init<>());
 cls_StepVisual_HArray1OfAnnotationPlaneElement.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepVisual_HArray1OfAnnotationPlaneElement.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfAnnotationPlaneElement::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepVisual_HArray1OfAnnotationPlaneElement.def(py::init<const StepVisual_Array1OfAnnotationPlaneElement &>(), py::arg("theOther"));
@@ -1095,6 +1099,7 @@ cls_StepVisual_ColourRgb.def("DynamicType", (const opencascade::handle<Standard_
 py::class_<StepVisual_HArray1OfTextOrCharacter, opencascade::handle<StepVisual_HArray1OfTextOrCharacter>, Standard_Transient> cls_StepVisual_HArray1OfTextOrCharacter(mod, "StepVisual_HArray1OfTextOrCharacter", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepVisual_HArray1OfTextOrCharacter.def(py::init<>());
 cls_StepVisual_HArray1OfTextOrCharacter.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepVisual_HArray1OfTextOrCharacter.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfTextOrCharacter::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepVisual_HArray1OfTextOrCharacter.def(py::init<const StepVisual_Array1OfTextOrCharacter &>(), py::arg("theOther"));
@@ -1166,6 +1171,7 @@ cls_StepVisual_InvisibilityContext.def("DraughtingModel", (opencascade::handle<S
 py::class_<StepVisual_HArray1OfInvisibleItem, opencascade::handle<StepVisual_HArray1OfInvisibleItem>, Standard_Transient> cls_StepVisual_HArray1OfInvisibleItem(mod, "StepVisual_HArray1OfInvisibleItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepVisual_HArray1OfInvisibleItem.def(py::init<>());
 cls_StepVisual_HArray1OfInvisibleItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepVisual_HArray1OfInvisibleItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfInvisibleItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepVisual_HArray1OfInvisibleItem.def(py::init<const StepVisual_Array1OfInvisibleItem &>(), py::arg("theOther"));
@@ -1219,6 +1225,7 @@ cls_StepVisual_ContextDependentInvisibility.def("DynamicType", (const opencascad
 py::class_<StepVisual_HArray1OfStyleContextSelect, opencascade::handle<StepVisual_HArray1OfStyleContextSelect>, Standard_Transient> cls_StepVisual_HArray1OfStyleContextSelect(mod, "StepVisual_HArray1OfStyleContextSelect", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepVisual_HArray1OfStyleContextSelect.def(py::init<>());
 cls_StepVisual_HArray1OfStyleContextSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepVisual_HArray1OfStyleContextSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfStyleContextSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepVisual_HArray1OfStyleContextSelect.def(py::init<const StepVisual_Array1OfStyleContextSelect &>(), py::arg("theOther"));
@@ -1310,6 +1317,7 @@ cls_StepVisual_CurveStyle.def("DynamicType", (const opencascade::handle<Standard
 py::class_<StepVisual_HArray1OfCurveStyleFontPattern, opencascade::handle<StepVisual_HArray1OfCurveStyleFontPattern>, Standard_Transient> cls_StepVisual_HArray1OfCurveStyleFontPattern(mod, "StepVisual_HArray1OfCurveStyleFontPattern", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepVisual_HArray1OfCurveStyleFontPattern.def(py::init<>());
 cls_StepVisual_HArray1OfCurveStyleFontPattern.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepVisual_HArray1OfCurveStyleFontPattern.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfCurveStyleFontPattern::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepVisual_HArray1OfCurveStyleFontPattern.def(py::init<const StepVisual_Array1OfCurveStyleFontPattern &>(), py::arg("theOther"));
@@ -1362,6 +1370,7 @@ cls_StepVisual_DraughtingAnnotationOccurrence.def("DynamicType", (const opencasc
 py::class_<StepVisual_HArray1OfDraughtingCalloutElement, opencascade::handle<StepVisual_HArray1OfDraughtingCalloutElement>, Standard_Transient> cls_StepVisual_HArray1OfDraughtingCalloutElement(mod, "StepVisual_HArray1OfDraughtingCalloutElement", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepVisual_HArray1OfDraughtingCalloutElement.def(py::init<>());
 cls_StepVisual_HArray1OfDraughtingCalloutElement.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepVisual_HArray1OfDraughtingCalloutElement.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfDraughtingCalloutElement::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepVisual_HArray1OfDraughtingCalloutElement.def(py::init<const StepVisual_Array1OfDraughtingCalloutElement &>(), py::arg("theOther"));
@@ -1484,6 +1493,7 @@ cls_StepVisual_ExternallyDefinedTextFont.def("DynamicType", (const opencascade::
 py::class_<StepVisual_HArray1OfFillStyleSelect, opencascade::handle<StepVisual_HArray1OfFillStyleSelect>, Standard_Transient> cls_StepVisual_HArray1OfFillStyleSelect(mod, "StepVisual_HArray1OfFillStyleSelect", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepVisual_HArray1OfFillStyleSelect.def(py::init<>());
 cls_StepVisual_HArray1OfFillStyleSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepVisual_HArray1OfFillStyleSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfFillStyleSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepVisual_HArray1OfFillStyleSelect.def(py::init<const StepVisual_Array1OfFillStyleSelect &>(), py::arg("theOther"));
@@ -1558,6 +1568,7 @@ cls_StepVisual_FontSelect.def("ExternallyDefinedTextFont", (opencascade::handle<
 py::class_<StepVisual_HArray1OfBoxCharacteristicSelect, opencascade::handle<StepVisual_HArray1OfBoxCharacteristicSelect>, Standard_Transient> cls_StepVisual_HArray1OfBoxCharacteristicSelect(mod, "StepVisual_HArray1OfBoxCharacteristicSelect", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepVisual_HArray1OfBoxCharacteristicSelect.def(py::init<>());
 cls_StepVisual_HArray1OfBoxCharacteristicSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepVisual_HArray1OfBoxCharacteristicSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfBoxCharacteristicSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepVisual_HArray1OfBoxCharacteristicSelect.def(py::init<const StepVisual_Array1OfBoxCharacteristicSelect &>(), py::arg("theOther"));
@@ -1581,6 +1592,7 @@ cls_StepVisual_HArray1OfBoxCharacteristicSelect.def("DynamicType", (const openca
 py::class_<StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect, opencascade::handle<StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect>, Standard_Transient> cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect(mod, "StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def(py::init<>());
 cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfCameraModelD3MultiClippingInterectionSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def(py::init<const StepVisual_Array1OfCameraModelD3MultiClippingInterectionSelect &>(), py::arg("theOther"));
@@ -1604,6 +1616,7 @@ cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def("Dynamic
 py::class_<StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect, opencascade::handle<StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect>, Standard_Transient> cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect(mod, "StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def(py::init<>());
 cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfCameraModelD3MultiClippingUnionSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def(py::init<const StepVisual_Array1OfCameraModelD3MultiClippingUnionSelect &>(), py::arg("theOther"));
@@ -1627,6 +1640,7 @@ cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def("DynamicType",
 py::class_<StepVisual_HArray1OfDirectionCountSelect, opencascade::handle<StepVisual_HArray1OfDirectionCountSelect>, Standard_Transient> cls_StepVisual_HArray1OfDirectionCountSelect(mod, "StepVisual_HArray1OfDirectionCountSelect", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepVisual_HArray1OfDirectionCountSelect.def(py::init<>());
 cls_StepVisual_HArray1OfDirectionCountSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepVisual_HArray1OfDirectionCountSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfDirectionCountSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepVisual_HArray1OfDirectionCountSelect.def(py::init<const StepVisual_Array1OfDirectionCountSelect &>(), py::arg("theOther"));
@@ -1650,6 +1664,7 @@ cls_StepVisual_HArray1OfDirectionCountSelect.def("DynamicType", (const opencasca
 py::class_<StepVisual_HArray1OfLayeredItem, opencascade::handle<StepVisual_HArray1OfLayeredItem>, Standard_Transient> cls_StepVisual_HArray1OfLayeredItem(mod, "StepVisual_HArray1OfLayeredItem", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepVisual_HArray1OfLayeredItem.def(py::init<>());
 cls_StepVisual_HArray1OfLayeredItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepVisual_HArray1OfLayeredItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfLayeredItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepVisual_HArray1OfLayeredItem.def(py::init<const StepVisual_Array1OfLayeredItem &>(), py::arg("theOther"));
@@ -1673,6 +1688,7 @@ cls_StepVisual_HArray1OfLayeredItem.def("DynamicType", (const opencascade::handl
 py::class_<StepVisual_HArray1OfSurfaceStyleElementSelect, opencascade::handle<StepVisual_HArray1OfSurfaceStyleElementSelect>, Standard_Transient> cls_StepVisual_HArray1OfSurfaceStyleElementSelect(mod, "StepVisual_HArray1OfSurfaceStyleElementSelect", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def(py::init<>());
 cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfSurfaceStyleElementSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def(py::init<const StepVisual_Array1OfSurfaceStyleElementSelect &>(), py::arg("theOther"));

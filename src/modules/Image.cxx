@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <NCollection_Buffer.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <Image_PixMapData.hxx>
 #include <Standard_Type.hxx>
 #include <Standard_Transient.hxx>
@@ -39,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <NCollection_List.hxx>
 #include <TColStd_HPackedMapOfInteger.hxx>
 #include <Image_Diff.hxx>
+#include <Image_Texture.hxx>
 #include <Resource_DataMapOfAsciiStringAsciiString.hxx>
 #include <Image_VideoRecorder.hxx>
 
@@ -247,7 +249,8 @@ cls_Image_PixMapData.def_readwrite("SizeRowBytes", &Image_PixMapData::SizeRowByt
 cls_Image_PixMapData.def_readwrite("TopToDown", &Image_PixMapData::TopToDown, "image scanlines direction in memory from Top to the Down");
 
 // Methods
-cls_Image_PixMapData.def("Init", (void (Image_PixMapData::*)(const opencascade::handle<NCollection_BaseAllocator> &, const Standard_Size, const Standard_Size, const Standard_Size, const Standard_Size, Standard_Byte *)) &Image_PixMapData::Init, "Initializer.", py::arg("theAlloc"), py::arg("theSizeBPP"), py::arg("theSizeX"), py::arg("theSizeY"), py::arg("theSizeRowBytes"), py::arg("theDataPtr"));
+cls_Image_PixMapData.def("Init", (bool (Image_PixMapData::*)(const opencascade::handle<NCollection_BaseAllocator> &, const Standard_Size, const Standard_Size, const Standard_Size, const Standard_Size, Standard_Byte *)) &Image_PixMapData::Init, "Initializer.", py::arg("theAlloc"), py::arg("theSizeBPP"), py::arg("theSizeX"), py::arg("theSizeY"), py::arg("theSizeRowBytes"), py::arg("theDataPtr"));
+cls_Image_PixMapData.def("ZeroData", (void (Image_PixMapData::*)()) &Image_PixMapData::ZeroData, "Reset all values to zeros.");
 cls_Image_PixMapData.def("Row", (const Standard_Byte * (Image_PixMapData::*)(const Standard_Size) const) &Image_PixMapData::Row, "Returns data pointer to requested row (first column).", py::arg("theRow"));
 cls_Image_PixMapData.def("ChangeRow", (Standard_Byte * (Image_PixMapData::*)(const Standard_Size)) &Image_PixMapData::ChangeRow, "Returns data pointer to requested row (first column).", py::arg("theRow"));
 cls_Image_PixMapData.def("Value", (const Standard_Byte * (Image_PixMapData::*)(const Standard_Size, const Standard_Size) const) &Image_PixMapData::Value, "Returns data pointer to requested position.", py::arg("theRow"), py::arg("theCol"));
@@ -304,6 +307,8 @@ cls_Image_PixMap.def("SizeRowBytes", (Standard_Size (Image_PixMap::*)() const) &
 cls_Image_PixMap.def("RowExtraBytes", (Standard_Size (Image_PixMap::*)() const) &Image_PixMap::RowExtraBytes, "Returns the extra bytes in the row.");
 cls_Image_PixMap.def("MaxRowAligmentBytes", (Standard_Size (Image_PixMap::*)() const) &Image_PixMap::MaxRowAligmentBytes, "Compute the maximal row alignment for current row size.");
 cls_Image_PixMap.def("SizeBytes", (Standard_Size (Image_PixMap::*)() const) &Image_PixMap::SizeBytes, "Returns buffer size");
+cls_Image_PixMap.def("RawValue", (const Standard_Byte * (Image_PixMap::*)(Standard_Size, Standard_Size) const) &Image_PixMap::RawValue, "Access image pixel as raw data pointer. This method does not perform any type checks - use on own risk (check Format() before)!", py::arg("theRow"), py::arg("theCol"));
+cls_Image_PixMap.def("ChangeRawValue", (Standard_Byte * (Image_PixMap::*)(Standard_Size, Standard_Size)) &Image_PixMap::ChangeRawValue, "Access image pixel as raw data pointer. This method does not perform any type checks - use on own risk (check Format() before)!", py::arg("theRow"), py::arg("theCol"));
 
 // CLASS: IMAGE_ALIENPIXMAP
 py::class_<Image_AlienPixMap, opencascade::handle<Image_AlienPixMap>, Image_PixMap> cls_Image_AlienPixMap(mod, "Image_AlienPixMap", "Image class that support file reading/writing operations using auxiliary image library. Supported image formats: - *.bmp - bitmap image, lossless format without compression. - *.ppm - PPM (Portable Pixmap Format), lossless format without compression. - *.png - PNG (Portable Network Graphics) lossless format with compression. - *.jpg, *.jpe, *.jpeg - JPEG/JIFF (Joint Photographic Experts Group) lossy format (compressed with quality losses). YUV color space used (automatically converted from/to RGB). - *.tif, *.tiff - TIFF (Tagged Image File Format). - *.tga - TGA (Truevision Targa Graphic), lossless format. - *.gif - GIF (Graphical Interchange Format), lossy format. Color stored using palette (up to 256 distinct colors). - *.exr - OpenEXR high dynamic-range format (supports float pixel formats).");
@@ -315,7 +320,10 @@ cls_Image_AlienPixMap.def(py::init<>());
 cls_Image_AlienPixMap.def_static("get_type_name_", (const char * (*)()) &Image_AlienPixMap::get_type_name, "None");
 cls_Image_AlienPixMap.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Image_AlienPixMap::get_type_descriptor, "None");
 cls_Image_AlienPixMap.def("DynamicType", (const opencascade::handle<Standard_Type> & (Image_AlienPixMap::*)() const) &Image_AlienPixMap::DynamicType, "None");
+cls_Image_AlienPixMap.def_static("IsTopDownDefault_", (bool (*)()) &Image_AlienPixMap::IsTopDownDefault, "Return default rows order used by underlying image library.");
 cls_Image_AlienPixMap.def("Load", (bool (Image_AlienPixMap::*)(const TCollection_AsciiString &)) &Image_AlienPixMap::Load, "Read image data from file.", py::arg("theFileName"));
+cls_Image_AlienPixMap.def("Load", (bool (Image_AlienPixMap::*)(std::istream &, const TCollection_AsciiString &)) &Image_AlienPixMap::Load, "Read image data from stream.", py::arg("theStream"), py::arg("theFileName"));
+cls_Image_AlienPixMap.def("Load", (bool (Image_AlienPixMap::*)(const Standard_Byte *, Standard_Size, const TCollection_AsciiString &)) &Image_AlienPixMap::Load, "Read image data from memory buffer.", py::arg("theData"), py::arg("theLength"), py::arg("theFileName"));
 cls_Image_AlienPixMap.def("Save", (bool (Image_AlienPixMap::*)(const TCollection_AsciiString &)) &Image_AlienPixMap::Save, "Write image data to file using file extension to determine compression format.", py::arg("theFileName"));
 cls_Image_AlienPixMap.def("InitTrash", [](Image_AlienPixMap &self, Image_Format a0, const Standard_Size a1, const Standard_Size a2) -> bool { return self.InitTrash(a0, a1, a2); });
 cls_Image_AlienPixMap.def("InitTrash", (bool (Image_AlienPixMap::*)(Image_Format, const Standard_Size, const Standard_Size, const Standard_Size)) &Image_AlienPixMap::InitTrash, "Initialize image plane with required dimensions. thePixelFormat - if specified pixel format doesn't supported by image library than nearest supported will be used instead! theSizeRowBytes - may be ignored by this class and required alignemnt will be used instead!", py::arg("thePixelFormat"), py::arg("theSizeX"), py::arg("theSizeY"), py::arg("theSizeRowBytes"));
@@ -344,6 +352,29 @@ cls_Image_Diff.def("SaveDiffImage", (Standard_Boolean (Image_Diff::*)(const TCol
 cls_Image_Diff.def_static("get_type_name_", (const char * (*)()) &Image_Diff::get_type_name, "None");
 cls_Image_Diff.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Image_Diff::get_type_descriptor, "None");
 cls_Image_Diff.def("DynamicType", (const opencascade::handle<Standard_Type> & (Image_Diff::*)() const) &Image_Diff::DynamicType, "None");
+
+// CLASS: IMAGE_TEXTURE
+py::class_<Image_Texture, opencascade::handle<Image_Texture>, Standard_Transient> cls_Image_Texture(mod, "Image_Texture", "Texture image definition. The image can be stored as path to image file, as file path with the given offset and as a data buffer of encoded image.");
+
+// Constructors
+cls_Image_Texture.def(py::init<const TCollection_AsciiString &>(), py::arg("theFileName"));
+cls_Image_Texture.def(py::init<const TCollection_AsciiString &, int64_t, int64_t>(), py::arg("theFileName"), py::arg("theOffset"), py::arg("theLength"));
+cls_Image_Texture.def(py::init<const opencascade::handle<NCollection_Buffer> &, const TCollection_AsciiString &>(), py::arg("theBuffer"), py::arg("theId"));
+
+// Methods
+cls_Image_Texture.def_static("get_type_name_", (const char * (*)()) &Image_Texture::get_type_name, "None");
+cls_Image_Texture.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Image_Texture::get_type_descriptor, "None");
+cls_Image_Texture.def("DynamicType", (const opencascade::handle<Standard_Type> & (Image_Texture::*)() const) &Image_Texture::DynamicType, "None");
+cls_Image_Texture.def("TextureId", (const TCollection_AsciiString & (Image_Texture::*)() const) &Image_Texture::TextureId, "Return generated texture id.");
+cls_Image_Texture.def("FilePath", (const TCollection_AsciiString & (Image_Texture::*)() const) &Image_Texture::FilePath, "Return image file path.");
+cls_Image_Texture.def("FileOffset", (int64_t (Image_Texture::*)() const) &Image_Texture::FileOffset, "Return offset within file.");
+cls_Image_Texture.def("FileLength", (int64_t (Image_Texture::*)() const) &Image_Texture::FileLength, "Return length of image data within the file after offset.");
+cls_Image_Texture.def("DataBuffer", (const opencascade::handle<NCollection_Buffer> & (Image_Texture::*)() const) &Image_Texture::DataBuffer, "Return buffer holding encoded image content.");
+cls_Image_Texture.def("ProbeImageFileFormat", (TCollection_AsciiString (Image_Texture::*)() const) &Image_Texture::ProbeImageFileFormat, "Return image file format.");
+cls_Image_Texture.def("ReadImage", (opencascade::handle<Image_PixMap> (Image_Texture::*)() const) &Image_Texture::ReadImage, "Image reader.");
+cls_Image_Texture.def("WriteImage", (Standard_Boolean (Image_Texture::*)(const TCollection_AsciiString &)) &Image_Texture::WriteImage, "Write image to specified file without decoding data.", py::arg("theFile"));
+cls_Image_Texture.def_static("HashCode_", (int (*)(const opencascade::handle<Image_Texture> &, const int)) &Image_Texture::HashCode, "Hash value, for Map interface.", py::arg("theTexture"), py::arg("theUpper"));
+cls_Image_Texture.def_static("IsEqual_", (Standard_Boolean (*)(const opencascade::handle<Image_Texture> &, const opencascade::handle<Image_Texture> &)) &Image_Texture::IsEqual, "Matching two instances, for Map interface.", py::arg("theTex1"), py::arg("theTex2"));
 
 // CLASS: IMAGE_VIDEOPARAMS
 py::class_<Image_VideoParams> cls_Image_VideoParams(mod, "Image_VideoParams", "Auxiliary structure defining video parameters. Please refer to FFmpeg documentation for defining text values.");

@@ -62,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BiTgte_CurveOnEdge.hxx>
 #include <TopoDS_Vertex.hxx>
 #include <BiTgte_CurveOnVertex.hxx>
+#include <Standard_Std.hxx>
 #include <BiTgte_HCurveOnEdge.hxx>
 #include <Standard_Type.hxx>
 #include <BiTgte_HCurveOnVertex.hxx>

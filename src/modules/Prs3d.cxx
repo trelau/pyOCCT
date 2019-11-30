@@ -34,8 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Prs3d_DimensionUnits.hxx>
 #include <TCollection_AsciiString.hxx>
 #include <Graphic3d_PresentationAttributes.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <Prs3d_Drawer.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <Aspect_TypeOfDeflection.hxx>
 #include <Standard_TypeDef.hxx>
@@ -47,17 +48,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Prs3d_PlaneAspect.hxx>
 #include <Prs3d_ArrowAspect.hxx>
 #include <Prs3d_DatumAspect.hxx>
+#include <GeomAbs_Shape.hxx>
 #include <Prs3d_DimensionAspect.hxx>
 #include <Graphic3d_ShaderProgram.hxx>
 #include <Graphic3d_GroupAspect.hxx>
 #include <Graphic3d_TypeOfShadingModel.hxx>
+#include <Standard_OStream.hxx>
 #include <Graphic3d_Structure.hxx>
-#include <Graphic3d_StructureManager.hxx>
 #include <Prs3d_Presentation.hxx>
-#include <Graphic3d_DataStructureManager.hxx>
-#include <Geom_Transformation.hxx>
-#include <Prs3d_Root.hxx>
-#include <Graphic3d_Group.hxx>
 #include <Standard_Transient.hxx>
 #include <Prs3d_BasicAspect.hxx>
 #include <Graphic3d_AspectLine3d.hxx>
@@ -78,6 +76,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Graphic3d_MarkerImage.hxx>
 #include <NCollection_DataMap.hxx>
 #include <Standard.hxx>
+#include <Graphic3d_Group.hxx>
+#include <PrsMgr_PresentationManager.hxx>
+#include <Prs3d_Root.hxx>
 #include <NCollection_List.hxx>
 #include <TColgp_HSequenceOfPnt.hxx>
 #include <Prs3d_NListOfSequenceOfPnt.hxx>
@@ -94,8 +95,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Prs3d_InvalidAngle.hxx>
 #include <Standard_SStream.hxx>
 #include <Prs3d_NListIteratorOfListOfSequenceOfPnt.hxx>
-#include <Graphic3d_ViewAffinity.hxx>
 #include <Prs3d_PresentationShadow.hxx>
+#include <Graphic3d_StructureManager.hxx>
+#include <Graphic3d_ViewAffinity.hxx>
 #include <TopoDS_Face.hxx>
 #include <Bnd_Box.hxx>
 #include <TopoDS.hxx>
@@ -119,6 +121,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Prs3d_ToolQuadric.hxx>
 #include <Prs3d_ToolCylinder.hxx>
 #include <Prs3d_ToolDisk.hxx>
+#include <Prs3d_ToolSector.hxx>
 #include <Prs3d_ToolSphere.hxx>
 #include <bind_NCollection_List.hxx>
 #include <bind_NCollection_TListIterator.hxx>
@@ -129,7 +132,7 @@ py::module::import("OCCT.TCollection");
 py::module::import("OCCT.Graphic3d");
 py::module::import("OCCT.Standard");
 py::module::import("OCCT.Aspect");
-py::module::import("OCCT.Geom");
+py::module::import("OCCT.GeomAbs");
 py::module::import("OCCT.Quantity");
 py::module::import("OCCT.HLRAlgo");
 py::module::import("OCCT.TColStd");
@@ -335,15 +338,23 @@ cls_Prs3d_Drawer.def("HasOwnWireDraw", (Standard_Boolean (Prs3d_Drawer::*)() con
 cls_Prs3d_Drawer.def("PointAspect", (const opencascade::handle<Prs3d_PointAspect> & (Prs3d_Drawer::*)()) &Prs3d_Drawer::PointAspect, "Returns the point aspect setting. The default values are Color: Quantity_NOC_YELLOW Type of marker: Aspect_TOM_PLUS Scale: 1.0 These attributes are used by the algorithms Prs3d_Point.");
 cls_Prs3d_Drawer.def("SetPointAspect", (void (Prs3d_Drawer::*)(const opencascade::handle<Prs3d_PointAspect> &)) &Prs3d_Drawer::SetPointAspect, "Sets the parameter theAspect for display attributes of points", py::arg("theAspect"));
 cls_Prs3d_Drawer.def("HasOwnPointAspect", (Standard_Boolean (Prs3d_Drawer::*)() const) &Prs3d_Drawer::HasOwnPointAspect, "Returns true if the drawer has its own attribute for point aspect that overrides the one in the link.");
+cls_Prs3d_Drawer.def("SetupOwnPointAspect", [](Prs3d_Drawer &self) -> Standard_Boolean { return self.SetupOwnPointAspect(); });
+cls_Prs3d_Drawer.def("SetupOwnPointAspect", (Standard_Boolean (Prs3d_Drawer::*)(const opencascade::handle<Prs3d_Drawer> &)) &Prs3d_Drawer::SetupOwnPointAspect, "Sets own point aspect. Returns FALSE if the drawer already has its own attribute for point aspect.", py::arg("theDefaults"));
 cls_Prs3d_Drawer.def("LineAspect", (const opencascade::handle<Prs3d_LineAspect> & (Prs3d_Drawer::*)()) &Prs3d_Drawer::LineAspect, "Returns settings for line aspects. These settings can be edited. The default values are: Color: Quantity_NOC_YELLOW Type of line: Aspect_TOL_SOLID Width: 1.0 These attributes are used by the following algorithms: Prs3d_Curve Prs3d_Line Prs3d_HLRShape");
 cls_Prs3d_Drawer.def("SetLineAspect", (void (Prs3d_Drawer::*)(const opencascade::handle<Prs3d_LineAspect> &)) &Prs3d_Drawer::SetLineAspect, "Sets the parameter theAspect for display attributes of lines.", py::arg("theAspect"));
 cls_Prs3d_Drawer.def("HasOwnLineAspect", (Standard_Boolean (Prs3d_Drawer::*)() const) &Prs3d_Drawer::HasOwnLineAspect, "Returns true if the drawer has its own attribute for line aspect that overrides the one in the link.");
+cls_Prs3d_Drawer.def("SetOwnLineAspects", [](Prs3d_Drawer &self) -> Standard_Boolean { return self.SetOwnLineAspects(); });
+cls_Prs3d_Drawer.def("SetOwnLineAspects", (Standard_Boolean (Prs3d_Drawer::*)(const opencascade::handle<Prs3d_Drawer> &)) &Prs3d_Drawer::SetOwnLineAspects, "Sets own line aspects. Returns FALSE if own line aspect are already set.", py::arg("theDefaults"));
+cls_Prs3d_Drawer.def("SetOwnDatumAspects", [](Prs3d_Drawer &self) -> Standard_Boolean { return self.SetOwnDatumAspects(); });
+cls_Prs3d_Drawer.def("SetOwnDatumAspects", (Standard_Boolean (Prs3d_Drawer::*)(const opencascade::handle<Prs3d_Drawer> &)) &Prs3d_Drawer::SetOwnDatumAspects, "Sets own line aspects for datums. Returns FALSE if own line for datums are already set.", py::arg("theDefaults"));
 cls_Prs3d_Drawer.def("TextAspect", (const opencascade::handle<Prs3d_TextAspect> & (Prs3d_Drawer::*)()) &Prs3d_Drawer::TextAspect, "Returns settings for text aspect. These settings can be edited. The default value is: - Color: Quantity_NOC_YELLOW");
 cls_Prs3d_Drawer.def("SetTextAspect", (void (Prs3d_Drawer::*)(const opencascade::handle<Prs3d_TextAspect> &)) &Prs3d_Drawer::SetTextAspect, "Sets the parameter theAspect for display attributes of text.", py::arg("theAspect"));
 cls_Prs3d_Drawer.def("HasOwnTextAspect", (Standard_Boolean (Prs3d_Drawer::*)() const) &Prs3d_Drawer::HasOwnTextAspect, "Returns true if the drawer has its own attribute for text aspect that overrides the one in the link.");
 cls_Prs3d_Drawer.def("ShadingAspect", (const opencascade::handle<Prs3d_ShadingAspect> & (Prs3d_Drawer::*)()) &Prs3d_Drawer::ShadingAspect, "Returns settings for shading aspects. These settings can be edited. The default values are: - Color: Quantity_NOC_YELLOW - Material: Graphic3d_NOM_BRASS Shading aspect is obtained through decomposition of 3d faces into triangles, each side of each triangle being a chord of the corresponding curved edge in the face. Reflection of light in each projector perspective is then calculated for each of the resultant triangular planes.");
 cls_Prs3d_Drawer.def("SetShadingAspect", (void (Prs3d_Drawer::*)(const opencascade::handle<Prs3d_ShadingAspect> &)) &Prs3d_Drawer::SetShadingAspect, "Sets the parameter theAspect for display attributes of shading.", py::arg("theAspect"));
 cls_Prs3d_Drawer.def("HasOwnShadingAspect", (Standard_Boolean (Prs3d_Drawer::*)() const) &Prs3d_Drawer::HasOwnShadingAspect, "Returns true if the drawer has its own attribute for shading aspect that overrides the one in the link.");
+cls_Prs3d_Drawer.def("SetupOwnShadingAspect", [](Prs3d_Drawer &self) -> Standard_Boolean { return self.SetupOwnShadingAspect(); });
+cls_Prs3d_Drawer.def("SetupOwnShadingAspect", (Standard_Boolean (Prs3d_Drawer::*)(const opencascade::handle<Prs3d_Drawer> &)) &Prs3d_Drawer::SetupOwnShadingAspect, "Sets own shading aspect. Returns FALSE if the drawer already has its own attribute for shading aspect.", py::arg("theDefaults"));
 cls_Prs3d_Drawer.def("SeenLineAspect", (const opencascade::handle<Prs3d_LineAspect> & (Prs3d_Drawer::*)()) &Prs3d_Drawer::SeenLineAspect, "Returns settings for seen line aspects. These settings can be edited. The default values are: Color: Quantity_NOC_YELLOW Type of line: Aspect_TOL_SOLID Width: 1.0");
 cls_Prs3d_Drawer.def("SetSeenLineAspect", (void (Prs3d_Drawer::*)(const opencascade::handle<Prs3d_LineAspect> &)) &Prs3d_Drawer::SetSeenLineAspect, "Sets the parameter theAspect for the display of seen lines in hidden line removal mode.", py::arg("theAspect"));
 cls_Prs3d_Drawer.def("HasOwnSeenLineAspect", (Standard_Boolean (Prs3d_Drawer::*)() const) &Prs3d_Drawer::HasOwnSeenLineAspect, "Returns true if the drawer has its own attribute for seen line aspect that overrides the one in the link.");
@@ -390,9 +401,15 @@ cls_Prs3d_Drawer.def("HasOwnUnFreeBoundaryDraw", (Standard_Boolean (Prs3d_Drawer
 cls_Prs3d_Drawer.def("SetFaceBoundaryAspect", (void (Prs3d_Drawer::*)(const opencascade::handle<Prs3d_LineAspect> &)) &Prs3d_Drawer::SetFaceBoundaryAspect, "Sets line aspect for face boundaries. The method sets line aspect owned by the drawer that will be used during visualization instead of the one set in link. theAspect is the line aspect that determines the look of the face boundaries.", py::arg("theAspect"));
 cls_Prs3d_Drawer.def("FaceBoundaryAspect", (const opencascade::handle<Prs3d_LineAspect> & (Prs3d_Drawer::*)()) &Prs3d_Drawer::FaceBoundaryAspect, "Returns line aspect of face boundaries.");
 cls_Prs3d_Drawer.def("HasOwnFaceBoundaryAspect", (Standard_Boolean (Prs3d_Drawer::*)() const) &Prs3d_Drawer::HasOwnFaceBoundaryAspect, "Returns true if the drawer has its own attribute for face boundaries aspect that overrides the one in the link.");
+cls_Prs3d_Drawer.def("SetupOwnFaceBoundaryAspect", [](Prs3d_Drawer &self) -> Standard_Boolean { return self.SetupOwnFaceBoundaryAspect(); });
+cls_Prs3d_Drawer.def("SetupOwnFaceBoundaryAspect", (Standard_Boolean (Prs3d_Drawer::*)(const opencascade::handle<Prs3d_Drawer> &)) &Prs3d_Drawer::SetupOwnFaceBoundaryAspect, "Sets own face boundary aspect. Returns FALSE if the drawer already has its own attribute for face boundary aspect.", py::arg("theDefaults"));
 cls_Prs3d_Drawer.def("SetFaceBoundaryDraw", (void (Prs3d_Drawer::*)(const Standard_Boolean)) &Prs3d_Drawer::SetFaceBoundaryDraw, "Enables or disables face boundary drawing for shading presentations. The method sets drawing flag owned by the drawer that will be used during visualization instead of the one set in link. theIsEnabled is a boolean flag indicating whether the face boundaries should be drawn or not.", py::arg("theIsEnabled"));
 cls_Prs3d_Drawer.def("FaceBoundaryDraw", (Standard_Boolean (Prs3d_Drawer::*)() const) &Prs3d_Drawer::FaceBoundaryDraw, "Checks whether the face boundary drawing is enabled or not.");
 cls_Prs3d_Drawer.def("HasOwnFaceBoundaryDraw", (Standard_Boolean (Prs3d_Drawer::*)() const) &Prs3d_Drawer::HasOwnFaceBoundaryDraw, "Returns true if the drawer has its own attribute for 'draw face boundaries' flag that overrides the one in the link.");
+cls_Prs3d_Drawer.def("HasOwnFaceBoundaryUpperContinuity", (Standard_Boolean (Prs3d_Drawer::*)() const) &Prs3d_Drawer::HasOwnFaceBoundaryUpperContinuity, "Returns true if the drawer has its own attribute for face boundaries upper edge continuity class that overrides the one in the link.");
+cls_Prs3d_Drawer.def("FaceBoundaryUpperContinuity", (GeomAbs_Shape (Prs3d_Drawer::*)() const) &Prs3d_Drawer::FaceBoundaryUpperContinuity, "Get the most edge continuity class; GeomAbs_CN by default (all edges).");
+cls_Prs3d_Drawer.def("SetFaceBoundaryUpperContinuity", (void (Prs3d_Drawer::*)(GeomAbs_Shape)) &Prs3d_Drawer::SetFaceBoundaryUpperContinuity, "Set the most edge continuity class for face boundaries.", py::arg("theMostAllowedEdgeClass"));
+cls_Prs3d_Drawer.def("UnsetFaceBoundaryUpperContinuity", (void (Prs3d_Drawer::*)()) &Prs3d_Drawer::UnsetFaceBoundaryUpperContinuity, "Unset the most edge continuity class for face boundaries.");
 cls_Prs3d_Drawer.def("DimensionAspect", (const opencascade::handle<Prs3d_DimensionAspect> & (Prs3d_Drawer::*)()) &Prs3d_Drawer::DimensionAspect, "Returns settings for the appearance of dimensions.");
 cls_Prs3d_Drawer.def("SetDimensionAspect", (void (Prs3d_Drawer::*)(const opencascade::handle<Prs3d_DimensionAspect> &)) &Prs3d_Drawer::SetDimensionAspect, "Sets the settings for the appearance of dimensions. The method sets aspect owned by the drawer that will be used during visualization instead of the one set in link.", py::arg("theAspect"));
 cls_Prs3d_Drawer.def("HasOwnDimensionAspect", (Standard_Boolean (Prs3d_Drawer::*)() const) &Prs3d_Drawer::HasOwnDimensionAspect, "Returns true if the drawer has its own attribute for the appearance of dimensions that overrides the one in the link.");
@@ -417,6 +434,8 @@ cls_Prs3d_Drawer.def("SetShaderProgram", [](Prs3d_Drawer &self, const opencascad
 cls_Prs3d_Drawer.def("SetShaderProgram", (bool (Prs3d_Drawer::*)(const opencascade::handle<Graphic3d_ShaderProgram> &, const Graphic3d_GroupAspect, const bool)) &Prs3d_Drawer::SetShaderProgram, "Assign shader program for specified type of primitives.", py::arg("theProgram"), py::arg("theAspect"), py::arg("theToOverrideDefaults"));
 cls_Prs3d_Drawer.def("SetShadingModel", [](Prs3d_Drawer &self, Graphic3d_TypeOfShadingModel a0) -> bool { return self.SetShadingModel(a0); });
 cls_Prs3d_Drawer.def("SetShadingModel", (bool (Prs3d_Drawer::*)(Graphic3d_TypeOfShadingModel, bool)) &Prs3d_Drawer::SetShadingModel, "Sets Shading Model type for the shading aspect.", py::arg("theModel"), py::arg("theToOverrideDefaults"));
+cls_Prs3d_Drawer.def("DumpJson", [](Prs3d_Drawer &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Prs3d_Drawer.def("DumpJson", (void (Prs3d_Drawer::*)(Standard_OStream &, const Standard_Integer) const) &Prs3d_Drawer::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // TYPEDEF: GRAPHIC3D_HIGHLIGHTSTYLE
 /*
@@ -425,25 +444,94 @@ if (py::hasattr(mod, "Prs3d_Drawer")) {
 }
 */
 
-// CLASS: PRS3D_PRESENTATION
-py::class_<Prs3d_Presentation, opencascade::handle<Prs3d_Presentation>, Graphic3d_Structure> cls_Prs3d_Presentation(mod, "Prs3d_Presentation", "Defines a presentation object which can be displayed, highlighted or erased. The presentation object stores the results of the presentation algorithms as defined in the StdPrs classes and the Prs3d classes inheriting Prs3d_Root. This presentation object is used to give display attributes defined at this level to ApplicationInteractiveServices classes at the level above. A presentation object is attached to a given Viewer.");
+// TYPEDEF: PRS3D_PRESENTATION
+py::class_<Graphic3d_Structure, opencascade::handle<Graphic3d_Structure>, Standard_Transient> cls_Prs3d_Presentation(mod, "Prs3d_Presentation", "This class allows the definition a graphic object. This graphic structure can be displayed, erased, or highlighted. This graphic structure can be connected with another graphic structure.", py::module_local());
 
 // Constructors
-cls_Prs3d_Presentation.def(py::init<const opencascade::handle<Graphic3d_StructureManager> &>(), py::arg("theStructManager"));
-cls_Prs3d_Presentation.def(py::init<const opencascade::handle<Graphic3d_StructureManager> &, const Standard_Boolean>(), py::arg("theStructManager"), py::arg("theToInit"));
-cls_Prs3d_Presentation.def(py::init<const opencascade::handle<Graphic3d_StructureManager> &, const opencascade::handle<Prs3d_Presentation> &>(), py::arg("theStructManager"), py::arg("thePrs"));
+cls_Prs3d_Presentation.def(py::init<const opencascade::handle<Graphic3d_StructureManager> &>(), py::arg("theManager"));
+cls_Prs3d_Presentation.def(py::init<const opencascade::handle<Graphic3d_StructureManager> &, const opencascade::handle<Graphic3d_Structure> &>(), py::arg("theManager"), py::arg("theLinkPrs"));
 
 // Methods
-cls_Prs3d_Presentation.def("Compute", (opencascade::handle<Graphic3d_Structure> (Prs3d_Presentation::*)(const opencascade::handle<Graphic3d_DataStructureManager> &)) &Prs3d_Presentation::Compute, "None", py::arg("aProjector"));
-cls_Prs3d_Presentation.def("Compute", (opencascade::handle<Graphic3d_Structure> (Prs3d_Presentation::*)(const opencascade::handle<Graphic3d_DataStructureManager> &, const opencascade::handle<Geom_Transformation> &)) &Prs3d_Presentation::Compute, "Returns the new Structure defined for the new visualization", py::arg("theProjector"), py::arg("theTrsf"));
-cls_Prs3d_Presentation.def("Compute", (void (Prs3d_Presentation::*)(const opencascade::handle<Graphic3d_DataStructureManager> &, opencascade::handle<Graphic3d_Structure> &)) &Prs3d_Presentation::Compute, "Returns the new Structure defined for the new visualization", py::arg("aProjector"), py::arg("aStructure"));
-cls_Prs3d_Presentation.def("Compute", (void (Prs3d_Presentation::*)(const opencascade::handle<Graphic3d_DataStructureManager> &, const opencascade::handle<Geom_Transformation> &, opencascade::handle<Graphic3d_Structure> &)) &Prs3d_Presentation::Compute, "Returns the new Structure defined for the new visualization", py::arg("theProjector"), py::arg("theTrsf"), py::arg("theStructure"));
-cls_Prs3d_Presentation.def("Connect", (void (Prs3d_Presentation::*)(const opencascade::handle<Prs3d_Presentation> &)) &Prs3d_Presentation::Connect, "None", py::arg("aPresentation"));
-cls_Prs3d_Presentation.def("Remove", (void (Prs3d_Presentation::*)(const opencascade::handle<Prs3d_Presentation> &)) &Prs3d_Presentation::Remove, "None", py::arg("aPresentation"));
-cls_Prs3d_Presentation.def("RemoveAll", (void (Prs3d_Presentation::*)()) &Prs3d_Presentation::RemoveAll, "None");
-cls_Prs3d_Presentation.def_static("get_type_name_", (const char * (*)()) &Prs3d_Presentation::get_type_name, "None");
-cls_Prs3d_Presentation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Prs3d_Presentation::get_type_descriptor, "None");
-cls_Prs3d_Presentation.def("DynamicType", (const opencascade::handle<Standard_Type> & (Prs3d_Presentation::*)() const) &Prs3d_Presentation::DynamicType, "None");
+cls_Prs3d_Presentation.def_static("get_type_name_", (const char * (*)()) &Graphic3d_Structure::get_type_name, "None");
+cls_Prs3d_Presentation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Graphic3d_Structure::get_type_descriptor, "None");
+cls_Prs3d_Presentation.def("DynamicType", (const opencascade::handle<Standard_Type> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::DynamicType, "None");
+cls_Prs3d_Presentation.def("Clear", [](Graphic3d_Structure &self) -> void { return self.Clear(); });
+cls_Prs3d_Presentation.def("Clear", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::Clear, "if WithDestruction == Standard_True then suppress all the groups of primitives in the structure. and it is mandatory to create a new group in <me>. if WithDestruction == Standard_False then clears all the groups of primitives in the structure. and all the groups are conserved and empty. They will be erased at the next screen update. The structure itself is conserved. The transformation and the attributes of <me> are conserved. The childs of <me> are conserved.", py::arg("WithDestruction"));
+cls_Prs3d_Presentation.def("Display", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::Display, "Displays the structure <me> in all the views of the visualiser.");
+cls_Prs3d_Presentation.def("DisplayPriority", (Standard_Integer (Graphic3d_Structure::*)() const) &Graphic3d_Structure::DisplayPriority, "Returns the current display priority for this structure.");
+cls_Prs3d_Presentation.def("Erase", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::Erase, "Erases the structure <me> in all the views of the visualiser.");
+cls_Prs3d_Presentation.def("Highlight", [](Graphic3d_Structure &self, const opencascade::handle<Graphic3d_PresentationAttributes> & a0) -> void { return self.Highlight(a0); });
+cls_Prs3d_Presentation.def("Highlight", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_PresentationAttributes> &, const Standard_Boolean)) &Graphic3d_Structure::Highlight, "Highlights the structure in all the views with the given style", py::arg("theStyle"), py::arg("theToUpdateMgr"));
+cls_Prs3d_Presentation.def("Remove", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::Remove, "Suppress the structure <me>. It will be erased at the next screen update. Warning: No more graphic operations in <me> after this call. Category: Methods to modify the class definition");
+cls_Prs3d_Presentation.def("CalculateBoundBox", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::CalculateBoundBox, "Computes axis-aligned bounding box of a structure.");
+cls_Prs3d_Presentation.def("SetInfiniteState", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::SetInfiniteState, "Sets infinite flag. When TRUE, the MinMaxValues method returns: theXMin = theYMin = theZMin = RealFirst(). theXMax = theYMax = theZMax = RealLast(). By default, structure is created not infinite but empty.", py::arg("theToSet"));
+cls_Prs3d_Presentation.def("SetDisplayPriority", (void (Graphic3d_Structure::*)(const Standard_Integer)) &Graphic3d_Structure::SetDisplayPriority, "Modifies the order of displaying the structure. Values are between 0 and 10. Structures are drawn according to their display priorities in ascending order. A structure of priority 10 is displayed the last and appears over the others. The default value is 5. Category: Methods to modify the class definition Warning: If <me> is displayed then the SetDisplayPriority method erase <me> and display <me> with the new priority. Raises PriorityDefinitionError if <Priority> is greater than 10 or a negative value.", py::arg("Priority"));
+cls_Prs3d_Presentation.def("ResetDisplayPriority", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::ResetDisplayPriority, "Reset the current priority of the structure to the previous priority. Category: Methods to modify the class definition Warning: If <me> is displayed then the SetDisplayPriority method erase <me> and display <me> with the previous priority.");
+cls_Prs3d_Presentation.def("SetZLayer", (void (Graphic3d_Structure::*)(const Graphic3d_ZLayerId)) &Graphic3d_Structure::SetZLayer, "Set Z layer ID for the structure. The Z layer mechanism allows to display structures presented in higher layers in overlay of structures in lower layers by switching off z buffer depth test between layers", py::arg("theLayerId"));
+cls_Prs3d_Presentation.def("GetZLayer", (Graphic3d_ZLayerId (Graphic3d_Structure::*)() const) &Graphic3d_Structure::GetZLayer, "Get Z layer ID of displayed structure. The method returns -1 if the structure has no ID (deleted from graphic driver).");
+cls_Prs3d_Presentation.def("SetClipPlanes", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_SequenceOfHClipPlane> &)) &Graphic3d_Structure::SetClipPlanes, "Changes a sequence of clip planes slicing the structure on rendering.", py::arg("thePlanes"));
+cls_Prs3d_Presentation.def("ClipPlanes", (const opencascade::handle<Graphic3d_SequenceOfHClipPlane> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::ClipPlanes, "Get clip planes slicing the structure on rendering.");
+cls_Prs3d_Presentation.def("SetVisible", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::SetVisible, "Modifies the visibility indicator to Standard_True or Standard_False for the structure <me>. The default value at the definition of <me> is Standard_True.", py::arg("AValue"));
+cls_Prs3d_Presentation.def("SetVisual", (void (Graphic3d_Structure::*)(const Graphic3d_TypeOfStructure)) &Graphic3d_Structure::SetVisual, "Modifies the visualisation mode for the structure <me>.", py::arg("AVisual"));
+cls_Prs3d_Presentation.def("SetZoomLimit", (void (Graphic3d_Structure::*)(const Standard_Real, const Standard_Real)) &Graphic3d_Structure::SetZoomLimit, "Modifies the minimum and maximum zoom coefficients for the structure <me>. The default value at the definition of <me> is unlimited. Category: Methods to modify the class definition Warning: Raises StructureDefinitionError if <LimitInf> is greater than <LimitSup> or if <LimitInf> or <LimitSup> is a negative value.", py::arg("LimitInf"), py::arg("LimitSup"));
+cls_Prs3d_Presentation.def("SetIsForHighlight", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::SetIsForHighlight, "Marks the structure <me> representing wired structure needed for highlight only so it won't be added to BVH tree.", py::arg("isForHighlight"));
+cls_Prs3d_Presentation.def("UnHighlight", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::UnHighlight, "Suppresses the highlight for the structure <me> in all the views of the visualiser.");
+cls_Prs3d_Presentation.def("Compute", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::Compute, "None");
+cls_Prs3d_Presentation.def("Compute", (opencascade::handle<Graphic3d_Structure> (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_DataStructureManager> &)) &Graphic3d_Structure::Compute, "Returns the new Structure defined for the new visualization", py::arg("theProjector"));
+cls_Prs3d_Presentation.def("Compute", (opencascade::handle<Graphic3d_Structure> (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_DataStructureManager> &, const opencascade::handle<Geom_Transformation> &)) &Graphic3d_Structure::Compute, "Returns the new Structure defined for the new visualization", py::arg("theProjector"), py::arg("theTrsf"));
+cls_Prs3d_Presentation.def("Compute", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_DataStructureManager> &, opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::Compute, "Returns the new Structure defined for the new visualization", py::arg("theProjector"), py::arg("theStructure"));
+cls_Prs3d_Presentation.def("Compute", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_DataStructureManager> &, const opencascade::handle<Geom_Transformation> &, opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::Compute, "Returns the new Structure defined for the new visualization", py::arg("theProjector"), py::arg("theTrsf"), py::arg("theStructure"));
+cls_Prs3d_Presentation.def("ReCompute", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::ReCompute, "Forces a new construction of the structure <me> if <me> is displayed and TOS_COMPUTED.");
+cls_Prs3d_Presentation.def("ReCompute", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_DataStructureManager> &)) &Graphic3d_Structure::ReCompute, "Forces a new construction of the structure <me> if <me> is displayed in <aProjetor> and TOS_COMPUTED.", py::arg("aProjector"));
+cls_Prs3d_Presentation.def("ContainsFacet", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::ContainsFacet, "Returns Standard_True if the structure <me> contains Polygons, Triangles or Quadrangles.");
+cls_Prs3d_Presentation.def("Groups", (const Graphic3d_SequenceOfGroup & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::Groups, "Returns the groups sequence included in this structure.");
+cls_Prs3d_Presentation.def("NumberOfGroups", (Standard_Integer (Graphic3d_Structure::*)() const) &Graphic3d_Structure::NumberOfGroups, "Returns the current number of groups in this structure.");
+cls_Prs3d_Presentation.def("NewGroup", (opencascade::handle<Graphic3d_Group> (Graphic3d_Structure::*)()) &Graphic3d_Structure::NewGroup, "Append new group to this structure.");
+cls_Prs3d_Presentation.def("CurrentGroup", (opencascade::handle<Graphic3d_Group> (Graphic3d_Structure::*)()) &Graphic3d_Structure::CurrentGroup, "Returns the last created group or creates new one if list is empty.");
+cls_Prs3d_Presentation.def("HighlightStyle", (const opencascade::handle<Graphic3d_PresentationAttributes> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::HighlightStyle, "Returns the highlight attributes.");
+cls_Prs3d_Presentation.def("IsDeleted", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsDeleted, "Returns TRUE if this structure is deleted (after Remove() call).");
+cls_Prs3d_Presentation.def("IsDisplayed", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsDisplayed, "Returns the display indicator for this structure.");
+cls_Prs3d_Presentation.def("IsEmpty", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsEmpty, "Returns Standard_True if the structure <me> is empty. Warning: A structure is empty if : it do not have group or all the groups are empties and it do not have descendant or all the descendants are empties.");
+cls_Prs3d_Presentation.def("IsInfinite", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsInfinite, "Returns Standard_True if the structure <me> is infinite.");
+cls_Prs3d_Presentation.def("IsHighlighted", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsHighlighted, "Returns the highlight indicator for this structure.");
+cls_Prs3d_Presentation.def("IsTransformed", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsTransformed, "Returns TRUE if the structure is transformed.");
+cls_Prs3d_Presentation.def("IsVisible", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsVisible, "Returns the visibility indicator for this structure.");
+cls_Prs3d_Presentation.def("MinMaxValues", [](Graphic3d_Structure &self) -> Bnd_Box { return self.MinMaxValues(); });
+cls_Prs3d_Presentation.def("MinMaxValues", (Bnd_Box (Graphic3d_Structure::*)(const Standard_Boolean) const) &Graphic3d_Structure::MinMaxValues, "Returns the coordinates of the boundary box of the structure <me>. If <theToIgnoreInfiniteFlag> is TRUE, the method returns actual graphical boundaries of the Graphic3d_Group components. Otherwise, the method returns boundaries taking into account infinite state of the structure. This approach generally used for application specific fit operation (e.g. fitting the model into screen, not taking into accout infinite helper elements). Warning: If the structure <me> is empty then the empty box is returned, If the structure <me> is infinite then the whole box is returned.", py::arg("theToIgnoreInfiniteFlag"));
+cls_Prs3d_Presentation.def("Visual", (Graphic3d_TypeOfStructure (Graphic3d_Structure::*)() const) &Graphic3d_Structure::Visual, "Returns the visualisation mode for the structure <me>.");
+cls_Prs3d_Presentation.def_static("AcceptConnection_", (Standard_Boolean (*)(Graphic3d_Structure *, Graphic3d_Structure *, Graphic3d_TypeOfConnection)) &Graphic3d_Structure::AcceptConnection, "Returns Standard_True if the connection is possible between <AStructure1> and <AStructure2> without a creation of a cycle.", py::arg("theStructure1"), py::arg("theStructure2"), py::arg("theType"));
+cls_Prs3d_Presentation.def("Ancestors", (void (Graphic3d_Structure::*)(Graphic3d_MapOfStructure &) const) &Graphic3d_Structure::Ancestors, "Returns the group of structures to which <me> is connected.", py::arg("SG"));
+cls_Prs3d_Presentation.def("Connect", [](Graphic3d_Structure &self, Graphic3d_Structure * a0, Graphic3d_TypeOfConnection a1) -> void { return self.Connect(a0, a1); });
+cls_Prs3d_Presentation.def("Connect", (void (Graphic3d_Structure::*)(Graphic3d_Structure *, Graphic3d_TypeOfConnection, Standard_Boolean)) &Graphic3d_Structure::Connect, "If Atype is TOC_DESCENDANT then add <AStructure> as a child structure of <me>. If Atype is TOC_ANCESTOR then add <AStructure> as a parent structure of <me>. The connection propagates Display, Highlight, Erase, Remove, and stacks the transformations. No connection if the graph of the structures contains a cycle and <WithCheck> is Standard_True;", py::arg("theStructure"), py::arg("theType"), py::arg("theWithCheck"));
+cls_Prs3d_Presentation.def("Connect", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::Connect, "None", py::arg("thePrs"));
+cls_Prs3d_Presentation.def("Descendants", (void (Graphic3d_Structure::*)(Graphic3d_MapOfStructure &) const) &Graphic3d_Structure::Descendants, "Returns the group of structures connected to <me>.", py::arg("SG"));
+cls_Prs3d_Presentation.def("Disconnect", (void (Graphic3d_Structure::*)(Graphic3d_Structure *)) &Graphic3d_Structure::Disconnect, "Suppress the connection between <AStructure> and <me>.", py::arg("theStructure"));
+cls_Prs3d_Presentation.def("Remove", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::Remove, "None", py::arg("thePrs"));
+cls_Prs3d_Presentation.def("DisconnectAll", (void (Graphic3d_Structure::*)(const Graphic3d_TypeOfConnection)) &Graphic3d_Structure::DisconnectAll, "If Atype is TOC_DESCENDANT then suppress all the connections with the child structures of <me>. If Atype is TOC_ANCESTOR then suppress all the connections with the parent structures of <me>.", py::arg("AType"));
+cls_Prs3d_Presentation.def("RemoveAll", (void (Graphic3d_Structure::*)()) &Graphic3d_Structure::RemoveAll, "None");
+cls_Prs3d_Presentation.def_static("Network_", (void (*)(Graphic3d_Structure *, const Graphic3d_TypeOfConnection, NCollection_Map<Graphic3d_Structure *> &)) &Graphic3d_Structure::Network, "Returns <ASet> the group of structures : - directly or indirectly connected to <AStructure> if the TypeOfConnection == TOC_DESCENDANT - to which <AStructure> is directly or indirectly connected if the TypeOfConnection == TOC_ANCESTOR", py::arg("theStructure"), py::arg("theType"), py::arg("theSet"));
+cls_Prs3d_Presentation.def("SetOwner", (void (Graphic3d_Structure::*)(const Standard_Address)) &Graphic3d_Structure::SetOwner, "None", py::arg("theOwner"));
+cls_Prs3d_Presentation.def("Owner", (Standard_Address (Graphic3d_Structure::*)() const) &Graphic3d_Structure::Owner, "None");
+cls_Prs3d_Presentation.def("SetHLRValidation", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::SetHLRValidation, "None", py::arg("theFlag"));
+cls_Prs3d_Presentation.def("HLRValidation", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::HLRValidation, "Hidden parts stored in this structure are valid if: 1) the owner is defined. 2) they are not invalid.");
+cls_Prs3d_Presentation.def("Transformation", (const opencascade::handle<Geom_Transformation> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::Transformation, "Return local transformation.");
+cls_Prs3d_Presentation.def("SetTransformation", (void (Graphic3d_Structure::*)(const opencascade::handle<Geom_Transformation> &)) &Graphic3d_Structure::SetTransformation, "Modifies the current local transformation", py::arg("theTrsf"));
+cls_Prs3d_Presentation.def("Transform", (void (Graphic3d_Structure::*)(const opencascade::handle<Geom_Transformation> &)) &Graphic3d_Structure::Transform, "None", py::arg("theTrsf"));
+cls_Prs3d_Presentation.def("SetTransformPersistence", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_TransformPers> &)) &Graphic3d_Structure::SetTransformPersistence, "Modifies the current transform persistence (pan, zoom or rotate)", py::arg("theTrsfPers"));
+cls_Prs3d_Presentation.def("TransformPersistence", (const opencascade::handle<Graphic3d_TransformPers> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::TransformPersistence, "Returns transform persistence of the presentable object.");
+cls_Prs3d_Presentation.def("SetMutable", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::SetMutable, "Sets if the structure location has mutable nature (content or location will be changed regularly).", py::arg("theIsMutable"));
+cls_Prs3d_Presentation.def("IsMutable", (Standard_Boolean (Graphic3d_Structure::*)() const) &Graphic3d_Structure::IsMutable, "Returns true if structure has mutable nature (content or location are be changed regularly). Mutable structure will be managed in different way than static onces.");
+cls_Prs3d_Presentation.def("ComputeVisual", (Graphic3d_TypeOfStructure (Graphic3d_Structure::*)() const) &Graphic3d_Structure::ComputeVisual, "None");
+cls_Prs3d_Presentation.def("GraphicClear", (void (Graphic3d_Structure::*)(const Standard_Boolean)) &Graphic3d_Structure::GraphicClear, "Clears the structure <me>.", py::arg("WithDestruction"));
+cls_Prs3d_Presentation.def("GraphicConnect", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::GraphicConnect, "None", py::arg("theDaughter"));
+cls_Prs3d_Presentation.def("GraphicDisconnect", (void (Graphic3d_Structure::*)(const opencascade::handle<Graphic3d_Structure> &)) &Graphic3d_Structure::GraphicDisconnect, "None", py::arg("theDaughter"));
+cls_Prs3d_Presentation.def("GraphicTransform", (void (Graphic3d_Structure::*)(const opencascade::handle<Geom_Transformation> &)) &Graphic3d_Structure::GraphicTransform, "Internal method which sets new transformation without calling graphic manager callbacks.", py::arg("theTrsf"));
+cls_Prs3d_Presentation.def("Identification", (Standard_Integer (Graphic3d_Structure::*)() const) &Graphic3d_Structure::Identification, "Returns the identification number of this structure.");
+cls_Prs3d_Presentation.def_static("PrintNetwork_", (void (*)(const opencascade::handle<Graphic3d_Structure> &, const Graphic3d_TypeOfConnection)) &Graphic3d_Structure::PrintNetwork, "Prints informations about the network associated with the structure <AStructure>.", py::arg("AStructure"), py::arg("AType"));
+cls_Prs3d_Presentation.def("Remove", (void (Graphic3d_Structure::*)(Graphic3d_Structure *, const Graphic3d_TypeOfConnection)) &Graphic3d_Structure::Remove, "Suppress the structure in the list of descendants or in the list of ancestors.", py::arg("thePtr"), py::arg("theType"));
+cls_Prs3d_Presentation.def("SetComputeVisual", (void (Graphic3d_Structure::*)(const Graphic3d_TypeOfStructure)) &Graphic3d_Structure::SetComputeVisual, "None", py::arg("theVisual"));
+cls_Prs3d_Presentation.def_static("Transforms_", [](const gp_Trsf & theTrsf, const Standard_Real theX, const Standard_Real theY, const Standard_Real theZ, Standard_Real & theNewX, Standard_Real & theNewY, Standard_Real & theNewZ){ Graphic3d_Structure::Transforms(theTrsf, theX, theY, theZ, theNewX, theNewY, theNewZ); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &>(theNewX, theNewY, theNewZ); }, "Transforms theX, theY, theZ with the transformation theTrsf.", py::arg("theTrsf"), py::arg("theX"), py::arg("theY"), py::arg("theZ"), py::arg("theNewX"), py::arg("theNewY"), py::arg("theNewZ"));
+cls_Prs3d_Presentation.def("CStructure", (const opencascade::handle<Graphic3d_CStructure> & (Graphic3d_Structure::*)() const) &Graphic3d_Structure::CStructure, "Returns the low-level structure");
 
 // CLASS: PRS3D_BASICASPECT
 py::class_<Prs3d_BasicAspect, opencascade::handle<Prs3d_BasicAspect>, Standard_Transient> cls_Prs3d_BasicAspect(mod, "Prs3d_BasicAspect", "All basic Prs3d_xxxAspect must inherits from this class The aspect classes qualifies how to represent a given kind of object.");
@@ -452,6 +540,8 @@ py::class_<Prs3d_BasicAspect, opencascade::handle<Prs3d_BasicAspect>, Standard_T
 cls_Prs3d_BasicAspect.def_static("get_type_name_", (const char * (*)()) &Prs3d_BasicAspect::get_type_name, "None");
 cls_Prs3d_BasicAspect.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Prs3d_BasicAspect::get_type_descriptor, "None");
 cls_Prs3d_BasicAspect.def("DynamicType", (const opencascade::handle<Standard_Type> & (Prs3d_BasicAspect::*)() const) &Prs3d_BasicAspect::DynamicType, "None");
+cls_Prs3d_BasicAspect.def("DumpJson", [](Prs3d_BasicAspect &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Prs3d_BasicAspect.def("DumpJson", (void (Prs3d_BasicAspect::*)(Standard_OStream &, const Standard_Integer) const) &Prs3d_BasicAspect::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // CLASS: PRS3D_ARROWASPECT
 py::class_<Prs3d_ArrowAspect, opencascade::handle<Prs3d_ArrowAspect>, Prs3d_BasicAspect> cls_Prs3d_ArrowAspect(mod, "Prs3d_ArrowAspect", "A framework for displaying arrows in representations of dimensions and relations.");
@@ -472,6 +562,8 @@ cls_Prs3d_ArrowAspect.def("Length", (Standard_Real (Prs3d_ArrowAspect::*)() cons
 cls_Prs3d_ArrowAspect.def("SetColor", (void (Prs3d_ArrowAspect::*)(const Quantity_Color &)) &Prs3d_ArrowAspect::SetColor, "None", py::arg("theColor"));
 cls_Prs3d_ArrowAspect.def("Aspect", (const opencascade::handle<Graphic3d_AspectLine3d> & (Prs3d_ArrowAspect::*)() const) &Prs3d_ArrowAspect::Aspect, "None");
 cls_Prs3d_ArrowAspect.def("SetAspect", (void (Prs3d_ArrowAspect::*)(const opencascade::handle<Graphic3d_AspectLine3d> &)) &Prs3d_ArrowAspect::SetAspect, "None", py::arg("theAspect"));
+cls_Prs3d_ArrowAspect.def("DumpJson", [](Prs3d_ArrowAspect &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Prs3d_ArrowAspect.def("DumpJson", (void (Prs3d_ArrowAspect::*)(Standard_OStream &, const Standard_Integer) const) &Prs3d_ArrowAspect::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // CLASS: PRS3D_LINEASPECT
 py::class_<Prs3d_LineAspect, opencascade::handle<Prs3d_LineAspect>, Prs3d_BasicAspect> cls_Prs3d_LineAspect(mod, "Prs3d_LineAspect", "A framework for defining how a line will be displayed in a presentation. Aspects of line display include width, color and type of line. The definition set by this class is then passed to the attribute manager Prs3d_Drawer. Any object which requires a value for line aspect as an argument may then be given the attribute manager as a substitute argument in the form of a field such as myDrawer for example.");
@@ -489,6 +581,8 @@ cls_Prs3d_LineAspect.def("SetTypeOfLine", (void (Prs3d_LineAspect::*)(const Aspe
 cls_Prs3d_LineAspect.def("SetWidth", (void (Prs3d_LineAspect::*)(const Standard_Real)) &Prs3d_LineAspect::SetWidth, "Sets the line width defined at the time of construction. Default value: 1.", py::arg("theWidth"));
 cls_Prs3d_LineAspect.def("Aspect", (const opencascade::handle<Graphic3d_AspectLine3d> & (Prs3d_LineAspect::*)() const) &Prs3d_LineAspect::Aspect, "Returns the line aspect. This is defined as the set of color, type and thickness attributes.");
 cls_Prs3d_LineAspect.def("SetAspect", (void (Prs3d_LineAspect::*)(const opencascade::handle<Graphic3d_AspectLine3d> &)) &Prs3d_LineAspect::SetAspect, "None", py::arg("theAspect"));
+cls_Prs3d_LineAspect.def("DumpJson", [](Prs3d_LineAspect &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Prs3d_LineAspect.def("DumpJson", (void (Prs3d_LineAspect::*)(Standard_OStream &, const Standard_Integer) const) &Prs3d_LineAspect::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // CLASS: PRS3D_TEXTASPECT
 py::class_<Prs3d_TextAspect, opencascade::handle<Prs3d_TextAspect>, Prs3d_BasicAspect> cls_Prs3d_TextAspect(mod, "Prs3d_TextAspect", "Defines the attributes when displaying a text.");
@@ -503,8 +597,6 @@ cls_Prs3d_TextAspect.def_static("get_type_descriptor_", (const opencascade::hand
 cls_Prs3d_TextAspect.def("DynamicType", (const opencascade::handle<Standard_Type> & (Prs3d_TextAspect::*)() const) &Prs3d_TextAspect::DynamicType, "None");
 cls_Prs3d_TextAspect.def("SetColor", (void (Prs3d_TextAspect::*)(const Quantity_Color &)) &Prs3d_TextAspect::SetColor, "Sets the color of the type used in text display.", py::arg("theColor"));
 cls_Prs3d_TextAspect.def("SetFont", (void (Prs3d_TextAspect::*)(const Standard_CString)) &Prs3d_TextAspect::SetFont, "Sets the font used in text display.", py::arg("theFont"));
-cls_Prs3d_TextAspect.def("SetHeightWidthRatio", (void (Prs3d_TextAspect::*)(const Standard_Real)) &Prs3d_TextAspect::SetHeightWidthRatio, "Returns the height-width ratio, also known as the expansion factor.", py::arg("theRatio"));
-cls_Prs3d_TextAspect.def("SetSpace", (void (Prs3d_TextAspect::*)(const Standard_Real)) &Prs3d_TextAspect::SetSpace, "Sets the length of the box which text will occupy.", py::arg("theSpace"));
 cls_Prs3d_TextAspect.def("SetHeight", (void (Prs3d_TextAspect::*)(const Standard_Real)) &Prs3d_TextAspect::SetHeight, "Sets the height of the text.", py::arg("theHeight"));
 cls_Prs3d_TextAspect.def("SetAngle", (void (Prs3d_TextAspect::*)(const Standard_Real)) &Prs3d_TextAspect::SetAngle, "Sets the angle", py::arg("theAngle"));
 cls_Prs3d_TextAspect.def("Height", (Standard_Real (Prs3d_TextAspect::*)() const) &Prs3d_TextAspect::Height, "Returns the height of the text box.");
@@ -517,6 +609,8 @@ cls_Prs3d_TextAspect.def("VerticalJustification", (Graphic3d_VerticalTextAlignme
 cls_Prs3d_TextAspect.def("Orientation", (Graphic3d_TextPath (Prs3d_TextAspect::*)() const) &Prs3d_TextAspect::Orientation, "Returns the orientation of the text. Text can be displayed in the following directions: - up - down - left, or - right");
 cls_Prs3d_TextAspect.def("Aspect", (const opencascade::handle<Graphic3d_AspectText3d> & (Prs3d_TextAspect::*)() const) &Prs3d_TextAspect::Aspect, "Returns the purely textual attributes used in the display of text. These include: - color - font - height/width ratio, that is, the expansion factor, and - space between characters.");
 cls_Prs3d_TextAspect.def("SetAspect", (void (Prs3d_TextAspect::*)(const opencascade::handle<Graphic3d_AspectText3d> &)) &Prs3d_TextAspect::SetAspect, "None", py::arg("theAspect"));
+cls_Prs3d_TextAspect.def("DumpJson", [](Prs3d_TextAspect &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Prs3d_TextAspect.def("DumpJson", (void (Prs3d_TextAspect::*)(Standard_OStream &, const Standard_Integer) const) &Prs3d_TextAspect::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // CLASS: PRS3D_DIMENSIONASPECT
 py::class_<Prs3d_DimensionAspect, opencascade::handle<Prs3d_DimensionAspect>, Prs3d_BasicAspect> cls_Prs3d_DimensionAspect(mod, "Prs3d_DimensionAspect", "defines the attributes when drawing a Length Presentation.");
@@ -555,6 +649,8 @@ cls_Prs3d_DimensionAspect.def("SetArrowTailSize", (void (Prs3d_DimensionAspect::
 cls_Prs3d_DimensionAspect.def("ArrowTailSize", (Standard_Real (Prs3d_DimensionAspect::*)() const) &Prs3d_DimensionAspect::ArrowTailSize, "Returns arrow tail size.");
 cls_Prs3d_DimensionAspect.def("SetValueStringFormat", (void (Prs3d_DimensionAspect::*)(const TCollection_AsciiString &)) &Prs3d_DimensionAspect::SetValueStringFormat, "Sets 'sprintf'-syntax format for formatting dimension value labels.", py::arg("theFormat"));
 cls_Prs3d_DimensionAspect.def("ValueStringFormat", (const TCollection_AsciiString & (Prs3d_DimensionAspect::*)() const) &Prs3d_DimensionAspect::ValueStringFormat, "Returns format.");
+cls_Prs3d_DimensionAspect.def("DumpJson", [](Prs3d_DimensionAspect &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Prs3d_DimensionAspect.def("DumpJson", (void (Prs3d_DimensionAspect::*)(Standard_OStream &, const Standard_Integer) const) &Prs3d_DimensionAspect::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // CLASS: PRS3D_PROJECTOR
 py::class_<Prs3d_Projector, opencascade::handle<Prs3d_Projector>, Standard_Transient> cls_Prs3d_Projector(mod, "Prs3d_Projector", "A projector object. This object defines the parameters of a view for a visualization algorithm. It is, for example, used by the hidden line removal algorithms.");
@@ -594,6 +690,8 @@ cls_Prs3d_ShadingAspect.def("Transparency", [](Prs3d_ShadingAspect &self) -> Sta
 cls_Prs3d_ShadingAspect.def("Transparency", (Standard_Real (Prs3d_ShadingAspect::*)(const Aspect_TypeOfFacingModel) const) &Prs3d_ShadingAspect::Transparency, "Returns the polygons transparency value.", py::arg("aModel"));
 cls_Prs3d_ShadingAspect.def("Aspect", (const opencascade::handle<Graphic3d_AspectFillArea3d> & (Prs3d_ShadingAspect::*)() const) &Prs3d_ShadingAspect::Aspect, "Returns the polygons aspect properties.");
 cls_Prs3d_ShadingAspect.def("SetAspect", (void (Prs3d_ShadingAspect::*)(const opencascade::handle<Graphic3d_AspectFillArea3d> &)) &Prs3d_ShadingAspect::SetAspect, "None", py::arg("theAspect"));
+cls_Prs3d_ShadingAspect.def("DumpJson", [](Prs3d_ShadingAspect &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Prs3d_ShadingAspect.def("DumpJson", (void (Prs3d_ShadingAspect::*)(Standard_OStream &, const Standard_Integer) const) &Prs3d_ShadingAspect::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // CLASS: PRS3D_POINTASPECT
 py::class_<Prs3d_PointAspect, opencascade::handle<Prs3d_PointAspect>, Prs3d_BasicAspect> cls_Prs3d_PointAspect(mod, "Prs3d_PointAspect", "This class defines attributes for the points The points are drawn using markers, whose size does not depend on the zoom value of the views.");
@@ -614,6 +712,8 @@ cls_Prs3d_PointAspect.def("Aspect", (const opencascade::handle<Graphic3d_AspectM
 cls_Prs3d_PointAspect.def("SetAspect", (void (Prs3d_PointAspect::*)(const opencascade::handle<Graphic3d_AspectMarker3d> &)) &Prs3d_PointAspect::SetAspect, "None", py::arg("theAspect"));
 cls_Prs3d_PointAspect.def("GetTextureSize", [](Prs3d_PointAspect &self, Standard_Integer & theWidth, Standard_Integer & theHeight){ self.GetTextureSize(theWidth, theHeight); return std::tuple<Standard_Integer &, Standard_Integer &>(theWidth, theHeight); }, "Returns marker's texture size.", py::arg("theWidth"), py::arg("theHeight"));
 cls_Prs3d_PointAspect.def("GetTexture", (const opencascade::handle<Graphic3d_MarkerImage> & (Prs3d_PointAspect::*)() const) &Prs3d_PointAspect::GetTexture, "Returns marker's texture.");
+cls_Prs3d_PointAspect.def("DumpJson", [](Prs3d_PointAspect &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Prs3d_PointAspect.def("DumpJson", (void (Prs3d_PointAspect::*)(Standard_OStream &, const Standard_Integer) const) &Prs3d_PointAspect::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // CLASS: PRS3D_DATUMASPECT
 py::class_<Prs3d_DatumAspect, opencascade::handle<Prs3d_DatumAspect>, Prs3d_BasicAspect> cls_Prs3d_DatumAspect(mod, "Prs3d_DatumAspect", "A framework to define the display of datums.");
@@ -627,9 +727,12 @@ cls_Prs3d_DatumAspect.def_static("get_type_descriptor_", (const opencascade::han
 cls_Prs3d_DatumAspect.def("DynamicType", (const opencascade::handle<Standard_Type> & (Prs3d_DatumAspect::*)() const) &Prs3d_DatumAspect::DynamicType, "None");
 cls_Prs3d_DatumAspect.def("LineAspect", (opencascade::handle<Prs3d_LineAspect> (Prs3d_DatumAspect::*)(Prs3d_DatumParts) const) &Prs3d_DatumAspect::LineAspect, "Returns the right-handed coordinate system set in SetComponent.", py::arg("thePart"));
 cls_Prs3d_DatumAspect.def("ShadingAspect", (opencascade::handle<Prs3d_ShadingAspect> (Prs3d_DatumAspect::*)(Prs3d_DatumParts) const) &Prs3d_DatumAspect::ShadingAspect, "Returns the right-handed coordinate system set in SetComponent.", py::arg("thePart"));
-cls_Prs3d_DatumAspect.def("TextAspect", (const opencascade::handle<Prs3d_TextAspect> & (Prs3d_DatumAspect::*)() const) &Prs3d_DatumAspect::TextAspect, "Returns the right-handed coordinate system set in SetComponent.");
+cls_Prs3d_DatumAspect.def("TextAspect", (const opencascade::handle<Prs3d_TextAspect> & (Prs3d_DatumAspect::*)() const) &Prs3d_DatumAspect::TextAspect, "Returns the text attributes for rendering labels.");
+cls_Prs3d_DatumAspect.def("SetTextAspect", (void (Prs3d_DatumAspect::*)(const opencascade::handle<Prs3d_TextAspect> &)) &Prs3d_DatumAspect::SetTextAspect, "Sets text attributes for rendering labels.", py::arg("theTextAspect"));
 cls_Prs3d_DatumAspect.def("PointAspect", (const opencascade::handle<Prs3d_PointAspect> & (Prs3d_DatumAspect::*)() const) &Prs3d_DatumAspect::PointAspect, "Returns the point aspect of origin wireframe presentation");
+cls_Prs3d_DatumAspect.def("SetPointAspect", (void (Prs3d_DatumAspect::*)(const opencascade::handle<Prs3d_PointAspect> &)) &Prs3d_DatumAspect::SetPointAspect, "Returns the point aspect of origin wireframe presentation", py::arg("theAspect"));
 cls_Prs3d_DatumAspect.def("ArrowAspect", (const opencascade::handle<Prs3d_ArrowAspect> & (Prs3d_DatumAspect::*)() const) &Prs3d_DatumAspect::ArrowAspect, "Returns the arrow aspect of presentation");
+cls_Prs3d_DatumAspect.def("SetArrowAspect", (void (Prs3d_DatumAspect::*)(const opencascade::handle<Prs3d_ArrowAspect> &)) &Prs3d_DatumAspect::SetArrowAspect, "Sets the arrow aspect of presentation", py::arg("theAspect"));
 cls_Prs3d_DatumAspect.def("FirstAxisAspect", (const opencascade::handle<Prs3d_LineAspect> & (Prs3d_DatumAspect::*)() const) &Prs3d_DatumAspect::FirstAxisAspect, "Returns the attributes for display of the first axis.");
 cls_Prs3d_DatumAspect.def("SecondAxisAspect", (const opencascade::handle<Prs3d_LineAspect> & (Prs3d_DatumAspect::*)() const) &Prs3d_DatumAspect::SecondAxisAspect, "Returns the attributes for display of the second axis.");
 cls_Prs3d_DatumAspect.def("ThirdAxisAspect", (const opencascade::handle<Prs3d_LineAspect> & (Prs3d_DatumAspect::*)() const) &Prs3d_DatumAspect::ThirdAxisAspect, "Returns the attributes for display of the third axis.");
@@ -653,6 +756,8 @@ cls_Prs3d_DatumAspect.def("SetToDrawLabels", (void (Prs3d_DatumAspect::*)(Standa
 cls_Prs3d_DatumAspect.def("ToDrawArrows", (Standard_Boolean (Prs3d_DatumAspect::*)() const) &Prs3d_DatumAspect::ToDrawArrows, "Returns true if axes arrows are drawn; TRUE by default.");
 cls_Prs3d_DatumAspect.def("SetDrawArrows", (void (Prs3d_DatumAspect::*)(Standard_Boolean)) &Prs3d_DatumAspect::SetDrawArrows, "Sets option to draw or not arrows for axes", py::arg("theToDraw"));
 cls_Prs3d_DatumAspect.def("ArrowPartForAxis", (Prs3d_DatumParts (Prs3d_DatumAspect::*)(Prs3d_DatumParts) const) &Prs3d_DatumAspect::ArrowPartForAxis, "Returns type of arrow for a type of axis", py::arg("thePart"));
+cls_Prs3d_DatumAspect.def("DumpJson", [](Prs3d_DatumAspect &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Prs3d_DatumAspect.def("DumpJson", (void (Prs3d_DatumAspect::*)(Standard_OStream &, const Standard_Integer) const) &Prs3d_DatumAspect::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // CLASS: PRS3D_ROOT
 py::class_<Prs3d_Root> cls_Prs3d_Root(mod, "Prs3d_Root", "A root class for the standard presentation algorithms of the StdPrs package.");
@@ -757,20 +862,22 @@ cls_Prs3d_PlaneAspect.def("PlaneXLength", (Standard_Real (Prs3d_PlaneAspect::*)(
 cls_Prs3d_PlaneAspect.def("PlaneYLength", (Standard_Real (Prs3d_PlaneAspect::*)() const) &Prs3d_PlaneAspect::PlaneYLength, "Returns the length of the y axis used in the display of planes.");
 cls_Prs3d_PlaneAspect.def("SetIsoDistance", (void (Prs3d_PlaneAspect::*)(const Standard_Real)) &Prs3d_PlaneAspect::SetIsoDistance, "Sets the distance L between isoparameters used in the display of planes.", py::arg("theL"));
 cls_Prs3d_PlaneAspect.def("IsoDistance", (Standard_Real (Prs3d_PlaneAspect::*)() const) &Prs3d_PlaneAspect::IsoDistance, "Returns the distance between isoparameters used in the display of planes.");
+cls_Prs3d_PlaneAspect.def("DumpJson", [](Prs3d_PlaneAspect &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Prs3d_PlaneAspect.def("DumpJson", (void (Prs3d_PlaneAspect::*)(Standard_OStream &, const Standard_Integer) const) &Prs3d_PlaneAspect::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // CLASS: PRS3D_PRESENTATIONSHADOW
-py::class_<Prs3d_PresentationShadow, opencascade::handle<Prs3d_PresentationShadow>, Prs3d_Presentation> cls_Prs3d_PresentationShadow(mod, "Prs3d_PresentationShadow", "Defines a 'shadow' of existing presentation object with custom aspects.");
+py::class_<Prs3d_PresentationShadow, opencascade::handle<Prs3d_PresentationShadow>, Graphic3d_Structure> cls_Prs3d_PresentationShadow(mod, "Prs3d_PresentationShadow", "Defines a 'shadow' of existing presentation object with custom aspects.");
 
 // Constructors
-cls_Prs3d_PresentationShadow.def(py::init<const opencascade::handle<Graphic3d_StructureManager> &, const opencascade::handle<Prs3d_Presentation> &>(), py::arg("theViewer"), py::arg("thePrs"));
+cls_Prs3d_PresentationShadow.def(py::init<const opencascade::handle<Graphic3d_StructureManager> &, const opencascade::handle<Graphic3d_Structure> &>(), py::arg("theViewer"), py::arg("thePrs"));
 
 // Methods
-cls_Prs3d_PresentationShadow.def("ParentId", (Standard_Integer (Prs3d_PresentationShadow::*)() const) &Prs3d_PresentationShadow::ParentId, "Returns the id of the parent presentation");
-cls_Prs3d_PresentationShadow.def("ParentAffinity", (const opencascade::handle<Graphic3d_ViewAffinity> & (Prs3d_PresentationShadow::*)() const) &Prs3d_PresentationShadow::ParentAffinity, "Returns view affinity of the parent presentation");
-cls_Prs3d_PresentationShadow.def("CalculateBoundBox", (void (Prs3d_PresentationShadow::*)()) &Prs3d_PresentationShadow::CalculateBoundBox, "Do nothing - axis-aligned bounding box should be initialized from parent structure.");
 cls_Prs3d_PresentationShadow.def_static("get_type_name_", (const char * (*)()) &Prs3d_PresentationShadow::get_type_name, "None");
 cls_Prs3d_PresentationShadow.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Prs3d_PresentationShadow::get_type_descriptor, "None");
 cls_Prs3d_PresentationShadow.def("DynamicType", (const opencascade::handle<Standard_Type> & (Prs3d_PresentationShadow::*)() const) &Prs3d_PresentationShadow::DynamicType, "None");
+cls_Prs3d_PresentationShadow.def("ParentId", (Standard_Integer (Prs3d_PresentationShadow::*)() const) &Prs3d_PresentationShadow::ParentId, "Returns the id of the parent presentation");
+cls_Prs3d_PresentationShadow.def("ParentAffinity", (const opencascade::handle<Graphic3d_ViewAffinity> & (Prs3d_PresentationShadow::*)() const) &Prs3d_PresentationShadow::ParentAffinity, "Returns view affinity of the parent presentation");
+cls_Prs3d_PresentationShadow.def("CalculateBoundBox", (void (Prs3d_PresentationShadow::*)()) &Prs3d_PresentationShadow::CalculateBoundBox, "Do nothing - axis-aligned bounding box should be initialized from parent structure.");
 
 // CLASS: PRS3D_SHAPETOOL
 py::class_<Prs3d_ShapeTool> cls_Prs3d_ShapeTool(mod, "Prs3d_ShapeTool", "describes the behaviour requested for a wireframe shape presentation.");
@@ -859,6 +966,16 @@ cls_Prs3d_ToolDisk.def(py::init<const Standard_Real, const Standard_Real, const 
 
 // Methods
 cls_Prs3d_ToolDisk.def_static("Create_", (opencascade::handle<Graphic3d_ArrayOfTriangles> (*)(const Standard_Real, const Standard_Real, const Standard_Integer, const Standard_Integer, const gp_Trsf &)) &Prs3d_ToolDisk::Create, "Generate primitives for 3D quadric surface and return a filled array.", py::arg("theInnerRadius"), py::arg("theOuterRadius"), py::arg("theNbSlices"), py::arg("theNbStacks"), py::arg("theTrsf"));
+cls_Prs3d_ToolDisk.def("SetAngleRange", (void (Prs3d_ToolDisk::*)(Standard_Real, Standard_Real)) &Prs3d_ToolDisk::SetAngleRange, "Set angle range in radians [0, 2*PI] by default.", py::arg("theStartAngle"), py::arg("theEndAngle"));
+
+// CLASS: PRS3D_TOOLSECTOR
+py::class_<Prs3d_ToolSector, Prs3d_ToolQuadric> cls_Prs3d_ToolSector(mod, "Prs3d_ToolSector", "Standard presentation algorithm that outputs graphical primitives for disk surface.");
+
+// Constructors
+cls_Prs3d_ToolSector.def(py::init<const Standard_Real, const Standard_Integer, const Standard_Integer>(), py::arg("theRadius"), py::arg("theNbSlices"), py::arg("theNbStacks"));
+
+// Methods
+cls_Prs3d_ToolSector.def_static("Create_", (opencascade::handle<Graphic3d_ArrayOfTriangles> (*)(const Standard_Real, const Standard_Integer, const Standard_Integer, const gp_Trsf &)) &Prs3d_ToolSector::Create, "Generate primitives for 3D quadric surface and return a filled array.", py::arg("theRadius"), py::arg("theNbSlices"), py::arg("theNbStacks"), py::arg("theTrsf"));
 
 // CLASS: PRS3D_TOOLSPHERE
 py::class_<Prs3d_ToolSphere, Prs3d_ToolQuadric> cls_Prs3d_ToolSphere(mod, "Prs3d_ToolSphere", "Standard presentation algorithm that outputs graphical primitives for spherical surface.");

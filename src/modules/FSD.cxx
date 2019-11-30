@@ -20,8 +20,11 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include <pyOCCT_Common.hxx>
-#include <FSD_BStream.hxx>
+#include <Standard_Handle.hxx>
+#include <NCollection_Buffer.hxx>
 #include <Standard_TypeDef.hxx>
+#include <FSD_Base64Decoder.hxx>
+#include <FSD_BStream.hxx>
 #include <FSD_FileHeader.hxx>
 #include <Storage_BaseDriver.hxx>
 #include <Standard.hxx>
@@ -33,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TCollection_ExtendedString.hxx>
 #include <TColStd_SequenceOfAsciiString.hxx>
 #include <Standard_IStream.hxx>
-#include <Standard_Handle.hxx>
 #include <Storage_Data.hxx>
 #include <TColStd_SequenceOfExtendedString.hxx>
 #include <Storage_HeaderData.hxx>
@@ -45,9 +47,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 PYBIND11_MODULE(FSD, mod) {
 
 py::module::import("OCCT.Standard");
+py::module::import("OCCT.NCollection");
 py::module::import("OCCT.Storage");
 py::module::import("OCCT.TCollection");
 py::module::import("OCCT.TColStd");
+
+// CLASS: FSD_BASE64DECODER
+py::class_<FSD_Base64Decoder> cls_FSD_Base64Decoder(mod, "FSD_Base64Decoder", "Tool decoding base64 stream.");
+
+// Methods
+cls_FSD_Base64Decoder.def_static("Decode_", (opencascade::handle<NCollection_Buffer> (*)(const Standard_Byte *, const Standard_Size)) &FSD_Base64Decoder::Decode, "Function decoding base64 stream.", py::arg("theStr"), py::arg("theLen"));
 
 // TYPEDEF: FSD_BSTREAM
 

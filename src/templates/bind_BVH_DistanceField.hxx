@@ -37,6 +37,8 @@ cls_BVH_DistanceField.def(py::init<const Standard_Integer, const Standard_Boolea
 
 // Methods
 cls_BVH_DistanceField.def("Build", (Standard_Boolean (BVH_DistanceField<T, N>::*)(BVH_Geometry<T, N> &)) &BVH_DistanceField<T, N>::Build, "Builds 3D distance field from BVH geometry.", py::arg("theGeometry"));
+cls_BVH_DistanceField.def("IsParallel", (Standard_Boolean (BVH_DistanceField<T, N>::*)() const) &BVH_DistanceField<T, N>::IsParallel, "Returns parallel flag.");
+cls_BVH_DistanceField.def("SetParallel", (void (BVH_DistanceField<T, N>::*)(const Standard_Boolean)) &BVH_DistanceField<T, N>::SetParallel, "Set parallel flag contolling possibility of parallel execution.", py::arg("isParallel"));
 cls_BVH_DistanceField.def("PackedData", (const T * (BVH_DistanceField<T, N>::*)() const) &BVH_DistanceField<T, N>::PackedData, "Returns packed voxel data.");
 cls_BVH_DistanceField.def("Voxel", (T & (BVH_DistanceField<T, N>::*)(const Standard_Integer, const Standard_Integer, const Standard_Integer)) &BVH_DistanceField<T, N>::Voxel, "Returns distance value for the given voxel.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
 cls_BVH_DistanceField.def("Voxel", (T (BVH_DistanceField<T, N>::*)(const Standard_Integer, const Standard_Integer, const Standard_Integer) const) &BVH_DistanceField<T, N>::Voxel, "Returns distance value for the given voxel.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));

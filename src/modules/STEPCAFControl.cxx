@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <STEPControl_ActorWrite.hxx>
 #include <Standard_TypeDef.hxx>
 #include <TopoDS_Shape.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <STEPCAFControl_ActorWrite.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <TopTools_MapOfShape.hxx>
 #include <STEPControl_Controller.hxx>
@@ -76,11 +77,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <XCAFDoc_ShapeTool.hxx>
 #include <STEPConstruct_Tool.hxx>
 #include <XCAFDoc_DataMapOfShapeLabel.hxx>
+#include <Resource_FormatType.hxx>
 #include <TDF_LabelSequence.hxx>
 #include <TColStd_HSequenceOfTransient.hxx>
 #include <StepRepr_RepresentationItem.hxx>
 #include <Transfer_TransientProcess.hxx>
 #include <StepShape_ConnectedFaceSet.hxx>
+#include <TCollection_ExtendedString.hxx>
 #include <StepDimTol_Datum.hxx>
 #include <STEPCAFControl_Reader.hxx>
 #include <STEPControl_StepModelType.hxx>
@@ -121,6 +124,7 @@ py::module::import("OCCT.StepVisual");
 py::module::import("OCCT.TDocStd");
 py::module::import("OCCT.XCAFDoc");
 py::module::import("OCCT.STEPConstruct");
+py::module::import("OCCT.Resource");
 py::module::import("OCCT.Transfer");
 py::module::import("OCCT.StepAP242");
 py::module::import("OCCT.gp");
@@ -268,11 +272,13 @@ cls_STEPCAFControl_Reader.def("ExternFiles", (const NCollection_DataMap<TCollect
 cls_STEPCAFControl_Reader.def("ExternFile", (Standard_Boolean (STEPCAFControl_Reader::*)(const Standard_CString, opencascade::handle<STEPCAFControl_ExternFile> &) const) &STEPCAFControl_Reader::ExternFile, "Returns data on external file by its name Returns False if no external file with given name is read", py::arg("name"), py::arg("ef"));
 cls_STEPCAFControl_Reader.def("ChangeReader", (STEPControl_Reader & (STEPCAFControl_Reader::*)()) &STEPCAFControl_Reader::ChangeReader, "Returns basic reader");
 cls_STEPCAFControl_Reader.def("Reader", (const STEPControl_Reader & (STEPCAFControl_Reader::*)() const) &STEPCAFControl_Reader::Reader, "Returns basic reader as const");
-cls_STEPCAFControl_Reader.def_static("FindInstance_", (TDF_Label (*)(const opencascade::handle<StepRepr_NextAssemblyUsageOccurrence> &, const opencascade::handle<XCAFDoc_ShapeTool> &, const STEPConstruct_Tool &, const STEPCAFControl_DataMapOfPDExternFile &, const XCAFDoc_DataMapOfShapeLabel &)) &STEPCAFControl_Reader::FindInstance, "Returns label of instance of an assembly component corresponding to a given NAUO", py::arg("NAUO"), py::arg("STool"), py::arg("Tool"), py::arg("PDRFileMap"), py::arg("ShapeLabelMap"));
+cls_STEPCAFControl_Reader.def_static("FindInstance_", (TDF_Label (*)(const opencascade::handle<StepRepr_NextAssemblyUsageOccurrence> &, const opencascade::handle<XCAFDoc_ShapeTool> &, const STEPConstruct_Tool &, const XCAFDoc_DataMapOfShapeLabel &)) &STEPCAFControl_Reader::FindInstance, "Returns label of instance of an assembly component corresponding to a given NAUO", py::arg("NAUO"), py::arg("STool"), py::arg("Tool"), py::arg("ShapeLabelMap"));
 cls_STEPCAFControl_Reader.def("SetColorMode", (void (STEPCAFControl_Reader::*)(const Standard_Boolean)) &STEPCAFControl_Reader::SetColorMode, "Set ColorMode for indicate read Colors or not.", py::arg("colormode"));
 cls_STEPCAFControl_Reader.def("GetColorMode", (Standard_Boolean (STEPCAFControl_Reader::*)() const) &STEPCAFControl_Reader::GetColorMode, "None");
 cls_STEPCAFControl_Reader.def("SetNameMode", (void (STEPCAFControl_Reader::*)(const Standard_Boolean)) &STEPCAFControl_Reader::SetNameMode, "Set NameMode for indicate read Name or not.", py::arg("namemode"));
 cls_STEPCAFControl_Reader.def("GetNameMode", (Standard_Boolean (STEPCAFControl_Reader::*)() const) &STEPCAFControl_Reader::GetNameMode, "None");
+cls_STEPCAFControl_Reader.def("SourceCodePage", (Resource_FormatType (STEPCAFControl_Reader::*)() const) &STEPCAFControl_Reader::SourceCodePage, "Return the encoding of STEP file for converting names into UNICODE. Initialized from 'read.stepcaf.codepage' variable by constructor, which is Resource_UTF8 by default.");
+cls_STEPCAFControl_Reader.def("SetSourceCodePage", (void (STEPCAFControl_Reader::*)(Resource_FormatType)) &STEPCAFControl_Reader::SetSourceCodePage, "Return the encoding of STEP file for converting names into UNICODE.", py::arg("theCode"));
 cls_STEPCAFControl_Reader.def("SetLayerMode", (void (STEPCAFControl_Reader::*)(const Standard_Boolean)) &STEPCAFControl_Reader::SetLayerMode, "Set LayerMode for indicate read Layers or not.", py::arg("layermode"));
 cls_STEPCAFControl_Reader.def("GetLayerMode", (Standard_Boolean (STEPCAFControl_Reader::*)() const) &STEPCAFControl_Reader::GetLayerMode, "None");
 cls_STEPCAFControl_Reader.def("SetPropsMode", (void (STEPCAFControl_Reader::*)(const Standard_Boolean)) &STEPCAFControl_Reader::SetPropsMode, "PropsMode for indicate read Validation properties or not.", py::arg("propsmode"));

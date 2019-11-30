@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
 #include <IGESToBRep_ToolContainer.hxx>
+#include <Standard_Std.hxx>
 #include <IGESToBRep_AlgoContainer.hxx>
 #include <Standard_Type.hxx>
 #include <Standard.hxx>

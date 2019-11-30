@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_Dir.hxx>
 #include <Standard_TypeDef.hxx>
 #include <TColgp_HArray1OfPnt.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 
 PYBIND11_MODULE(XCAFView, mod) {

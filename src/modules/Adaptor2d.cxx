@@ -37,8 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Geom2d_BezierCurve.hxx>
 #include <Geom2d_BSplineCurve.hxx>
 #include <Adaptor2d_Curve2d.hxx>
-#include <Adaptor2d_Curve2dPtr.hxx>
 #include <Standard_Transient.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <gp_Dir2d.hxx>
 #include <gp_Ax2d.hxx>
@@ -94,8 +94,6 @@ cls_Adaptor2d_Curve2d.def("NbKnots", (Standard_Integer (Adaptor2d_Curve2d::*)() 
 cls_Adaptor2d_Curve2d.def("NbSamples", (Standard_Integer (Adaptor2d_Curve2d::*)() const) &Adaptor2d_Curve2d::NbSamples, "None");
 cls_Adaptor2d_Curve2d.def("Bezier", (opencascade::handle<Geom2d_BezierCurve> (Adaptor2d_Curve2d::*)() const) &Adaptor2d_Curve2d::Bezier, "None");
 cls_Adaptor2d_Curve2d.def("BSpline", (opencascade::handle<Geom2d_BSplineCurve> (Adaptor2d_Curve2d::*)() const) &Adaptor2d_Curve2d::BSpline, "None");
-
-// TYPEDEF: ADAPTOR2D_CURVE2DPTR
 
 // CLASS: ADAPTOR2D_HCURVE2D
 py::class_<Adaptor2d_HCurve2d, opencascade::handle<Adaptor2d_HCurve2d>, Standard_Transient> cls_Adaptor2d_HCurve2d(mod, "Adaptor2d_HCurve2d", "Root class for 2D curves manipulated by handles, on which geometric algorithms work. An adapted curve is an interface between the services provided by a curve, and those required of the curve by algorithms, which use it. A derived specific class is provided: Geom2dAdaptor_HCurve for a curve from the Geom2d package.");
@@ -243,6 +241,7 @@ cls_Adaptor2d_OffsetCurve.def("NbPoles", (Standard_Integer (Adaptor2d_OffsetCurv
 cls_Adaptor2d_OffsetCurve.def("NbKnots", (Standard_Integer (Adaptor2d_OffsetCurve::*)() const) &Adaptor2d_OffsetCurve::NbKnots, "None");
 cls_Adaptor2d_OffsetCurve.def("Bezier", (opencascade::handle<Geom2d_BezierCurve> (Adaptor2d_OffsetCurve::*)() const) &Adaptor2d_OffsetCurve::Bezier, "None");
 cls_Adaptor2d_OffsetCurve.def("BSpline", (opencascade::handle<Geom2d_BSplineCurve> (Adaptor2d_OffsetCurve::*)() const) &Adaptor2d_OffsetCurve::BSpline, "None");
+cls_Adaptor2d_OffsetCurve.def("NbSamples", (Standard_Integer (Adaptor2d_OffsetCurve::*)() const) &Adaptor2d_OffsetCurve::NbSamples, "None");
 
 // CLASS: ADAPTOR2D_HOFFSETCURVE
 py::class_<Adaptor2d_HOffsetCurve, opencascade::handle<Adaptor2d_HOffsetCurve>, Adaptor2d_HCurve2d> cls_Adaptor2d_HOffsetCurve(mod, "Adaptor2d_HOffsetCurve", "None");

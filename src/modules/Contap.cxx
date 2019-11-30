@@ -48,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <Contap_TheHSequenceOfPoint.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <IntSurf_LineOn2S.hxx>
 #include <IntSurf_PntOn2S.hxx>
@@ -93,6 +94,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColStd_SequenceOfReal.hxx>
 #include <TColStd_SequenceOfInteger.hxx>
 #include <IntWalk_StatusDeflection.hxx>
+#include <math_FunctionSetRoot.hxx>
 #include <IntWalk_VectorOfWalkingData.hxx>
 #include <IntWalk_VectorOfInteger.hxx>
 #include <Bnd_Range.hxx>
@@ -415,6 +417,7 @@ cls_Contap_SurfFunction.def("Eye", (const gp_Pnt & (Contap_SurfFunction::*)() co
 cls_Contap_SurfFunction.def("Direction", (const gp_Dir & (Contap_SurfFunction::*)() const) &Contap_SurfFunction::Direction, "None");
 cls_Contap_SurfFunction.def("Angle", (Standard_Real (Contap_SurfFunction::*)() const) &Contap_SurfFunction::Angle, "None");
 cls_Contap_SurfFunction.def("Surface", (const opencascade::handle<Adaptor3d_HSurface> & (Contap_SurfFunction::*)() const) &Contap_SurfFunction::Surface, "None");
+cls_Contap_SurfFunction.def("PSurface", (const opencascade::handle<Adaptor3d_HSurface> & (Contap_SurfFunction::*)() const) &Contap_SurfFunction::PSurface, "Method is entered for compatibility with IntPatch_TheSurfFunction.");
 
 // CLASS: CONTAP_CONTOUR
 py::class_<Contap_Contour> cls_Contap_Contour(mod, "Contap_Contour", "None");

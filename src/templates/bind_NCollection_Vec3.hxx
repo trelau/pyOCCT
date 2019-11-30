@@ -35,10 +35,12 @@ cls_NCollection_Vec3.def(py::init<>());
 cls_NCollection_Vec3.def(py::init<Element_t>(), py::arg("theValue"));
 cls_NCollection_Vec3.def(py::init<const Element_t, const Element_t, const Element_t>(), py::arg("theX"), py::arg("theY"), py::arg("theZ"));
 cls_NCollection_Vec3.def(py::init<const NCollection_Vec2<Element_t> &>(), py::arg("theVec2"));
+cls_NCollection_Vec3.def(py::init<const NCollection_Vec2<Element_t> &, Element_t>(), py::arg("theVec2"), py::arg("theZ"));
 
 // Methods
 cls_NCollection_Vec3.def_static("Length_", (int (*)()) &NCollection_Vec3<Element_t>::Length, "Returns the number of components.");
 cls_NCollection_Vec3.def("SetValues", (void (NCollection_Vec3<Element_t>::*)(const Element_t, const Element_t, const Element_t)) &NCollection_Vec3<Element_t>::SetValues, "Assign new values to the vector.", py::arg("theX"), py::arg("theY"), py::arg("theZ"));
+cls_NCollection_Vec3.def("SetValues", (void (NCollection_Vec3<Element_t>::*)(const NCollection_Vec2<Element_t> &, Element_t)) &NCollection_Vec3<Element_t>::SetValues, "Assign new values to the vector.", py::arg("theVec2"), py::arg("theZ"));
 cls_NCollection_Vec3.def("x", (Element_t (NCollection_Vec3<Element_t>::*)() const) &NCollection_Vec3<Element_t>::x, "Alias to 1st component as X coordinate in XYZ.");
 cls_NCollection_Vec3.def("r", (Element_t (NCollection_Vec3<Element_t>::*)() const) &NCollection_Vec3<Element_t>::r, "Alias to 1st component as RED channel in RGB.");
 cls_NCollection_Vec3.def("y", (Element_t (NCollection_Vec3<Element_t>::*)() const) &NCollection_Vec3<Element_t>::y, "Alias to 2nd component as Y coordinate in XYZ.");
@@ -63,8 +65,6 @@ cls_NCollection_Vec3.def("y", (Element_t & (NCollection_Vec3<Element_t>::*)()) &
 cls_NCollection_Vec3.def("g", (Element_t & (NCollection_Vec3<Element_t>::*)()) &NCollection_Vec3<Element_t>::g, "Alias to 2nd component as GREEN channel in RGB.");
 cls_NCollection_Vec3.def("z", (Element_t & (NCollection_Vec3<Element_t>::*)()) &NCollection_Vec3<Element_t>::z, "Alias to 3rd component as Z coordinate in XYZ.");
 cls_NCollection_Vec3.def("b", (Element_t & (NCollection_Vec3<Element_t>::*)()) &NCollection_Vec3<Element_t>::b, "Alias to 3rd component as BLUE channel in RGB.");
-cls_NCollection_Vec3.def("xy", (NCollection_Vec2<Element_t> & (NCollection_Vec3<Element_t>::*)()) &NCollection_Vec3<Element_t>::xy, "Returns XY-components modifiable vector");
-cls_NCollection_Vec3.def("yz", (NCollection_Vec2<Element_t> & (NCollection_Vec3<Element_t>::*)()) &NCollection_Vec3<Element_t>::yz, "Returns YZ-components modifiable vector");
 cls_NCollection_Vec3.def("IsEqual", (bool (NCollection_Vec3<Element_t>::*)(const NCollection_Vec3<Element_t> &) const) &NCollection_Vec3<Element_t>::IsEqual, "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
 cls_NCollection_Vec3.def("__eq__", (bool (NCollection_Vec3<Element_t>::*)(const NCollection_Vec3<Element_t> &)) &NCollection_Vec3<Element_t>::operator==, py::is_operator(), "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
 cls_NCollection_Vec3.def("__eq__", (bool (NCollection_Vec3<Element_t>::*)(const NCollection_Vec3<Element_t> &) const) &NCollection_Vec3<Element_t>::operator==, py::is_operator(), "None", py::arg("theOther"));
@@ -86,7 +86,8 @@ cls_NCollection_Vec3.def("cwiseMax", (NCollection_Vec3<Element_t> (NCollection_V
 cls_NCollection_Vec3.def("maxComp", (Element_t (NCollection_Vec3<Element_t>::*)() const) &NCollection_Vec3<Element_t>::maxComp, "Compute maximum component of the vector.");
 cls_NCollection_Vec3.def("minComp", (Element_t (NCollection_Vec3<Element_t>::*)() const) &NCollection_Vec3<Element_t>::minComp, "Compute minimum component of the vector.");
 cls_NCollection_Vec3.def("__itruediv__", (NCollection_Vec3<Element_t> & (NCollection_Vec3<Element_t>::*)(const Element_t)) &NCollection_Vec3<Element_t>::operator/=, py::is_operator(), "Compute per-component division by scale factor.", py::arg("theInvFactor"));
-cls_NCollection_Vec3.def("__truediv__", (NCollection_Vec3<Element_t> (NCollection_Vec3<Element_t>::*)(const Element_t)) &NCollection_Vec3<Element_t>::operator/, py::is_operator(), "Compute per-component division by scale factor.", py::arg("theInvFactor"));
+cls_NCollection_Vec3.def("__itruediv__", (NCollection_Vec3<Element_t> & (NCollection_Vec3<Element_t>::*)(const NCollection_Vec3<Element_t> &)) &NCollection_Vec3<Element_t>::operator/=, py::is_operator(), "Compute per-component division.", py::arg("theRight"));
+cls_NCollection_Vec3.def("__truediv__", (NCollection_Vec3<Element_t> (NCollection_Vec3<Element_t>::*)(const Element_t) const) &NCollection_Vec3<Element_t>::operator/, py::is_operator(), "Compute per-component division by scale factor.", py::arg("theInvFactor"));
 cls_NCollection_Vec3.def("Dot", (Element_t (NCollection_Vec3<Element_t>::*)(const NCollection_Vec3<Element_t> &) const) &NCollection_Vec3<Element_t>::Dot, "Computes the dot product.", py::arg("theOther"));
 cls_NCollection_Vec3.def("Modulus", (Element_t (NCollection_Vec3<Element_t>::*)() const) &NCollection_Vec3<Element_t>::Modulus, "Computes the vector modulus (magnitude, length).");
 cls_NCollection_Vec3.def("SquareModulus", (Element_t (NCollection_Vec3<Element_t>::*)() const) &NCollection_Vec3<Element_t>::SquareModulus, "Computes the square of vector modulus (magnitude, length). This method may be used for performance tricks.");

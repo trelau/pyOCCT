@@ -58,6 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BSplCLib_Cache.hxx>
 #include <GeomEvaluator_Curve.hxx>
 #include <GeomAdaptor_Curve.hxx>
+#include <Standard_Std.hxx>
 #include <GeomAdaptor_GHSurface.hxx>
 #include <Standard_Type.hxx>
 #include <GeomAdaptor_HSurface.hxx>
@@ -166,6 +167,7 @@ cls_GeomAdaptor_Curve.def(py::init<const opencascade::handle<Geom_Curve> &, cons
 // cls_GeomAdaptor_Curve.def_static("operator delete[]_", (void (*)(void *)) &GeomAdaptor_Curve::operator delete[], "None", py::arg("theAddress"));
 // cls_GeomAdaptor_Curve.def_static("operator new_", (void * (*)(size_t, void *)) &GeomAdaptor_Curve::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_GeomAdaptor_Curve.def_static("operator delete_", (void (*)(void *, void *)) &GeomAdaptor_Curve::operator delete, "None", py::arg(""), py::arg(""));
+cls_GeomAdaptor_Curve.def("Reset", (void (GeomAdaptor_Curve::*)()) &GeomAdaptor_Curve::Reset, "Reset currently loaded curve (undone Load()).");
 cls_GeomAdaptor_Curve.def("Load", (void (GeomAdaptor_Curve::*)(const opencascade::handle<Geom_Curve> &)) &GeomAdaptor_Curve::Load, "None", py::arg("C"));
 cls_GeomAdaptor_Curve.def("Load", (void (GeomAdaptor_Curve::*)(const opencascade::handle<Geom_Curve> &, const Standard_Real, const Standard_Real)) &GeomAdaptor_Curve::Load, "ConstructionError is raised if Ufirst>Ulast", py::arg("C"), py::arg("UFirst"), py::arg("ULast"));
 cls_GeomAdaptor_Curve.def("Curve", (const opencascade::handle<Geom_Curve> & (GeomAdaptor_Curve::*)() const) &GeomAdaptor_Curve::Curve, "Provides a curve inherited from Hcurve from Adaptor. This is inherited to provide easy to use constructors.");

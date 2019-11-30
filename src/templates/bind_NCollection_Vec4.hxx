@@ -37,11 +37,12 @@ cls_NCollection_Vec4.def(py::init<const Element_t>(), py::arg("theValue"));
 cls_NCollection_Vec4.def(py::init<const Element_t, const Element_t, const Element_t, const Element_t>(), py::arg("theX"), py::arg("theY"), py::arg("theZ"), py::arg("theW"));
 cls_NCollection_Vec4.def(py::init<const NCollection_Vec2<Element_t> &>(), py::arg("theVec2"));
 cls_NCollection_Vec4.def(py::init<const NCollection_Vec3<Element_t> &>(), py::arg("theVec3"));
-cls_NCollection_Vec4.def(py::init<const NCollection_Vec3<Element_t> &, const Element_t>(), py::arg("theVec3"), py::arg("theAlpha"));
+cls_NCollection_Vec4.def(py::init<const NCollection_Vec3<Element_t> &, const Element_t>(), py::arg("theVec3"), py::arg("theW"));
 
 // Methods
 cls_NCollection_Vec4.def_static("Length_", (int (*)()) &NCollection_Vec4<Element_t>::Length, "Returns the number of components.");
 cls_NCollection_Vec4.def("SetValues", (void (NCollection_Vec4<Element_t>::*)(const Element_t, const Element_t, const Element_t, const Element_t)) &NCollection_Vec4<Element_t>::SetValues, "Assign new values to the vector.", py::arg("theX"), py::arg("theY"), py::arg("theZ"), py::arg("theW"));
+cls_NCollection_Vec4.def("SetValues", (void (NCollection_Vec4<Element_t>::*)(const NCollection_Vec3<Element_t> &, const Element_t)) &NCollection_Vec4<Element_t>::SetValues, "Assign new values as 3-component vector and a 4-th value.", py::arg("theVec3"), py::arg("theW"));
 cls_NCollection_Vec4.def("x", (Element_t (NCollection_Vec4<Element_t>::*)() const) &NCollection_Vec4<Element_t>::x, "Alias to 1st component as X coordinate in XYZW.");
 cls_NCollection_Vec4.def("r", (Element_t (NCollection_Vec4<Element_t>::*)() const) &NCollection_Vec4<Element_t>::r, "Alias to 1st component as RED channel in RGBA.");
 cls_NCollection_Vec4.def("y", (Element_t (NCollection_Vec4<Element_t>::*)() const) &NCollection_Vec4<Element_t>::y, "Alias to 2nd component as Y coordinate in XYZW.");
@@ -100,11 +101,6 @@ cls_NCollection_Vec4.def("z", (Element_t & (NCollection_Vec4<Element_t>::*)()) &
 cls_NCollection_Vec4.def("b", (Element_t & (NCollection_Vec4<Element_t>::*)()) &NCollection_Vec4<Element_t>::b, "Alias to 3rd component as BLUE channel in RGBA.");
 cls_NCollection_Vec4.def("w", (Element_t & (NCollection_Vec4<Element_t>::*)()) &NCollection_Vec4<Element_t>::w, "Alias to 4th component as W coordinate in XYZW.");
 cls_NCollection_Vec4.def("a", (Element_t & (NCollection_Vec4<Element_t>::*)()) &NCollection_Vec4<Element_t>::a, "Alias to 4th component as ALPHA channel in RGBA.");
-cls_NCollection_Vec4.def("xy", (NCollection_Vec2<Element_t> & (NCollection_Vec4<Element_t>::*)()) &NCollection_Vec4<Element_t>::xy, "Returns XY-components modifiable vector");
-cls_NCollection_Vec4.def("yz", (NCollection_Vec2<Element_t> & (NCollection_Vec4<Element_t>::*)()) &NCollection_Vec4<Element_t>::yz, "Returns YZ-components modifiable vector");
-cls_NCollection_Vec4.def("zw", (NCollection_Vec2<Element_t> & (NCollection_Vec4<Element_t>::*)()) &NCollection_Vec4<Element_t>::zw, "Returns YZ-components modifiable vector");
-cls_NCollection_Vec4.def("xyz", (NCollection_Vec3<Element_t> & (NCollection_Vec4<Element_t>::*)()) &NCollection_Vec4<Element_t>::xyz, "Returns XYZ-components modifiable vector");
-cls_NCollection_Vec4.def("yzw", (NCollection_Vec3<Element_t> & (NCollection_Vec4<Element_t>::*)()) &NCollection_Vec4<Element_t>::yzw, "Returns YZW-components modifiable vector");
 cls_NCollection_Vec4.def("IsEqual", (bool (NCollection_Vec4<Element_t>::*)(const NCollection_Vec4<Element_t> &) const) &NCollection_Vec4<Element_t>::IsEqual, "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
 cls_NCollection_Vec4.def("__eq__", (bool (NCollection_Vec4<Element_t>::*)(const NCollection_Vec4<Element_t> &)) &NCollection_Vec4<Element_t>::operator==, py::is_operator(), "Check this vector with another vector for equality (without tolerance!).", py::arg("theOther"));
 cls_NCollection_Vec4.def("__eq__", (bool (NCollection_Vec4<Element_t>::*)(const NCollection_Vec4<Element_t> &) const) &NCollection_Vec4<Element_t>::operator==, py::is_operator(), "None", py::arg("theOther"));
@@ -127,6 +123,7 @@ cls_NCollection_Vec4.def("maxComp", (Element_t (NCollection_Vec4<Element_t>::*)(
 cls_NCollection_Vec4.def("minComp", (Element_t (NCollection_Vec4<Element_t>::*)() const) &NCollection_Vec4<Element_t>::minComp, "Compute minimum component of the vector.");
 cls_NCollection_Vec4.def("Dot", (Element_t (NCollection_Vec4<Element_t>::*)(const NCollection_Vec4<Element_t> &) const) &NCollection_Vec4<Element_t>::Dot, "Computes the dot product.", py::arg("theOther"));
 cls_NCollection_Vec4.def("__itruediv__", (NCollection_Vec4<Element_t> & (NCollection_Vec4<Element_t>::*)(const Element_t)) &NCollection_Vec4<Element_t>::operator/=, py::is_operator(), "Compute per-component division by scale factor.", py::arg("theInvFactor"));
+cls_NCollection_Vec4.def("__itruediv__", (NCollection_Vec4<Element_t> & (NCollection_Vec4<Element_t>::*)(const NCollection_Vec4<Element_t> &)) &NCollection_Vec4<Element_t>::operator/=, py::is_operator(), "Compute per-component division.", py::arg("theRight"));
 cls_NCollection_Vec4.def("__truediv__", (NCollection_Vec4<Element_t> (NCollection_Vec4<Element_t>::*)(const Element_t)) &NCollection_Vec4<Element_t>::operator/, py::is_operator(), "Compute per-component division by scale factor.", py::arg("theInvFactor"));
 
 }

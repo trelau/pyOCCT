@@ -71,7 +71,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopTools_IndexedMapOfShape.hxx>
 #include <BRepLib_MakeWire.hxx>
 #include <NCollection_List.hxx>
-#include <NCollection_DataMap.hxx>
+#include <TopTools_DataMapOfShapeShape.hxx>
 #include <Geom_Plane.hxx>
 #include <GeomAbs_Shape.hxx>
 #include <BRepLib.hxx>
@@ -84,7 +84,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopLoc_Location.hxx>
 #include <TopTools_DataMapOfIntegerListOfShape.hxx>
 #include <TopTools_DataMapOfIntegerShape.hxx>
-#include <TopTools_DataMapOfShapeShape.hxx>
 #include <TopTools_MapOfShape.hxx>
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 

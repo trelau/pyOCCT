@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Message_Messenger.hxx>
 #include <BinTObjDrivers.hxx>
 #include <BinLDrivers_DocumentRetrievalDriver.hxx>
+#include <Standard_Std.hxx>
 #include <BinTObjDrivers_DocumentRetrievalDriver.hxx>
 #include <Standard_Type.hxx>
 #include <BinLDrivers_DocumentStorageDriver.hxx>

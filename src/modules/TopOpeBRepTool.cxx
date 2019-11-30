@@ -21,27 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include <pyOCCT_Common.hxx>
 #include <TopOpeBRepTool_OutCurveType.hxx>
-#include <TopExp_Explorer.hxx>
-#include <TopoDS_Shape.hxx>
-#include <TopAbs_ShapeEnum.hxx>
-#include <Standard_TypeDef.hxx>
-#include <Standard_OStream.hxx>
-#include <TopAbs.hxx>
-#include <TopOpeBRepTool_ShapeExplorer.hxx>
 #include <Standard.hxx>
-#include <Standard_Handle.hxx>
-#include <TopOpeBRepTool_HBoxTool.hxx>
-#include <Bnd_HArray1OfBox.hxx>
-#include <Bnd_Box.hxx>
-#include <TColStd_ListOfInteger.hxx>
-#include <Bnd_BoundSortBox.hxx>
-#include <TColStd_HArray1OfInteger.hxx>
-#include <TopOpeBRepTool_BoxSort.hxx>
-#include <TopOpeBRepTool_ShapeClassifier.hxx>
-#include <TopOpeBRepTool_PShapeClassifier.hxx>
+#include <Standard_TypeDef.hxx>
 #include <TopOpeBRepTool_GeomTool.hxx>
+#include <Standard_Handle.hxx>
 #include <Geom_Curve.hxx>
 #include <Geom2d_Curve.hxx>
+#include <TopoDS_Shape.hxx>
 #include <TColgp_Array1OfPnt.hxx>
 #include <TColgp_Array1OfPnt2d.hxx>
 #include <TopOpeBRepTool_CurveTool.hxx>
@@ -60,11 +46,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopTools_IndexedMapOfShape.hxx>
 #include <TopoDS_Edge.hxx>
 #include <TopoDS_Face.hxx>
+#include <TopOpeBRepTool_ShapeClassifier.hxx>
+#include <TopExp_Explorer.hxx>
+#include <TopAbs_ShapeEnum.hxx>
+#include <Standard_OStream.hxx>
+#include <TopAbs.hxx>
+#include <TopOpeBRepTool_ShapeExplorer.hxx>
+#include <TopOpeBRepTool_PShapeClassifier.hxx>
 #include <TopTools_DataMapOfShapeInteger.hxx>
 #include <TopTools_IndexedMapOfOrientedShape.hxx>
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopOpeBRepTool_AncestorsTool.hxx>
 #include <TopOpeBRepTool_C2DF.hxx>
+#include <TopOpeBRepTool_HBoxTool.hxx>
+#include <TopOpeBRepTool_BoxSort.hxx>
 #include <TopOpeBRepTool_ShapeTool.hxx>
 #include <TopOpeBRepTool_connexity.hxx>
 #include <TopOpeBRepTool_face.hxx>
@@ -80,10 +75,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopOpeBRepTool.hxx>
 #include <TopTools_IndexedDataMapOfShapeListOfShape.hxx>
 #include <NCollection_IndexedDataMap.hxx>
+#include <Bnd_Box.hxx>
 #include <TopTools_OrientedShapeMapHasher.hxx>
 #include <TopOpeBRepTool_IndexedDataMapOfShapeBox.hxx>
 #include <Standard_Transient.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
+#include <Bnd_HArray1OfBox.hxx>
+#include <TColStd_ListOfInteger.hxx>
+#include <Bnd_BoundSortBox.hxx>
+#include <TColStd_HArray1OfInteger.hxx>
 #include <Bnd_Box2d.hxx>
 #include <TopOpeBRepTool_IndexedDataMapOfShapeBox2d.hxx>
 #include <TopoDS_Wire.hxx>
@@ -120,20 +121,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 PYBIND11_MODULE(TopOpeBRepTool, mod) {
 
-py::module::import("OCCT.TopExp");
-py::module::import("OCCT.TopoDS");
-py::module::import("OCCT.TopAbs");
 py::module::import("OCCT.Standard");
-py::module::import("OCCT.Bnd");
-py::module::import("OCCT.TColStd");
 py::module::import("OCCT.Geom");
 py::module::import("OCCT.Geom2d");
+py::module::import("OCCT.TopoDS");
 py::module::import("OCCT.TColgp");
 py::module::import("OCCT.TopTools");
 py::module::import("OCCT.BRepClass3d");
+py::module::import("OCCT.TopAbs");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.BRep");
+py::module::import("OCCT.TopExp");
 py::module::import("OCCT.NCollection");
+py::module::import("OCCT.Bnd");
+py::module::import("OCCT.TColStd");
 py::module::import("OCCT.GeomAdaptor");
 py::module::import("OCCT.BRepAdaptor");
 
@@ -144,55 +145,6 @@ py::enum_<TopOpeBRepTool_OutCurveType>(mod, "TopOpeBRepTool_OutCurveType", "None
 	.value("TopOpeBRepTool_INTERPOL", TopOpeBRepTool_OutCurveType::TopOpeBRepTool_INTERPOL)
 	.export_values();
 
-
-// CLASS: TOPOPEBREPTOOL_SHAPEEXPLORER
-py::class_<TopOpeBRepTool_ShapeExplorer, TopExp_Explorer> cls_TopOpeBRepTool_ShapeExplorer(mod, "TopOpeBRepTool_ShapeExplorer", "Extends TopExp_Explorer by counting index of current item (for tracing and debug)");
-
-// Constructors
-cls_TopOpeBRepTool_ShapeExplorer.def(py::init<>());
-cls_TopOpeBRepTool_ShapeExplorer.def(py::init<const TopoDS_Shape &, const TopAbs_ShapeEnum>(), py::arg("S"), py::arg("ToFind"));
-cls_TopOpeBRepTool_ShapeExplorer.def(py::init<const TopoDS_Shape &, const TopAbs_ShapeEnum, const TopAbs_ShapeEnum>(), py::arg("S"), py::arg("ToFind"), py::arg("ToAvoid"));
-
-// Methods
-cls_TopOpeBRepTool_ShapeExplorer.def("Init", [](TopOpeBRepTool_ShapeExplorer &self, const TopoDS_Shape & a0, const TopAbs_ShapeEnum a1) -> void { return self.Init(a0, a1); });
-cls_TopOpeBRepTool_ShapeExplorer.def("Init", (void (TopOpeBRepTool_ShapeExplorer::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum, const TopAbs_ShapeEnum)) &TopOpeBRepTool_ShapeExplorer::Init, "None", py::arg("S"), py::arg("ToFind"), py::arg("ToAvoid"));
-cls_TopOpeBRepTool_ShapeExplorer.def("Next", (void (TopOpeBRepTool_ShapeExplorer::*)()) &TopOpeBRepTool_ShapeExplorer::Next, "Moves to the next Shape in the exploration.");
-cls_TopOpeBRepTool_ShapeExplorer.def("Index", (Standard_Integer (TopOpeBRepTool_ShapeExplorer::*)() const) &TopOpeBRepTool_ShapeExplorer::Index, "Index of current sub-shape");
-cls_TopOpeBRepTool_ShapeExplorer.def("DumpCurrent", (Standard_OStream & (TopOpeBRepTool_ShapeExplorer::*)(Standard_OStream &) const) &TopOpeBRepTool_ShapeExplorer::DumpCurrent, "Dump info on current shape to stream", py::arg("OS"));
-
-// CLASS: TOPOPEBREPTOOL_BOXSORT
-py::class_<TopOpeBRepTool_BoxSort> cls_TopOpeBRepTool_BoxSort(mod, "TopOpeBRepTool_BoxSort", "None");
-
-// Constructors
-cls_TopOpeBRepTool_BoxSort.def(py::init<>());
-cls_TopOpeBRepTool_BoxSort.def(py::init<const opencascade::handle<TopOpeBRepTool_HBoxTool> &>(), py::arg("T"));
-
-// Methods
-// cls_TopOpeBRepTool_BoxSort.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepTool_BoxSort::operator new, "None", py::arg("theSize"));
-// cls_TopOpeBRepTool_BoxSort.def_static("operator delete_", (void (*)(void *)) &TopOpeBRepTool_BoxSort::operator delete, "None", py::arg("theAddress"));
-// cls_TopOpeBRepTool_BoxSort.def_static("operator new[]_", (void * (*)(size_t)) &TopOpeBRepTool_BoxSort::operator new[], "None", py::arg("theSize"));
-// cls_TopOpeBRepTool_BoxSort.def_static("operator delete[]_", (void (*)(void *)) &TopOpeBRepTool_BoxSort::operator delete[], "None", py::arg("theAddress"));
-// cls_TopOpeBRepTool_BoxSort.def_static("operator new_", (void * (*)(size_t, void *)) &TopOpeBRepTool_BoxSort::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TopOpeBRepTool_BoxSort.def_static("operator delete_", (void (*)(void *, void *)) &TopOpeBRepTool_BoxSort::operator delete, "None", py::arg(""), py::arg(""));
-cls_TopOpeBRepTool_BoxSort.def("SetHBoxTool", (void (TopOpeBRepTool_BoxSort::*)(const opencascade::handle<TopOpeBRepTool_HBoxTool> &)) &TopOpeBRepTool_BoxSort::SetHBoxTool, "None", py::arg("T"));
-cls_TopOpeBRepTool_BoxSort.def("HBoxTool", (const opencascade::handle<TopOpeBRepTool_HBoxTool> & (TopOpeBRepTool_BoxSort::*)() const) &TopOpeBRepTool_BoxSort::HBoxTool, "None");
-cls_TopOpeBRepTool_BoxSort.def("Clear", (void (TopOpeBRepTool_BoxSort::*)()) &TopOpeBRepTool_BoxSort::Clear, "None");
-cls_TopOpeBRepTool_BoxSort.def("AddBoxes", [](TopOpeBRepTool_BoxSort &self, const TopoDS_Shape & a0, const TopAbs_ShapeEnum a1) -> void { return self.AddBoxes(a0, a1); });
-cls_TopOpeBRepTool_BoxSort.def("AddBoxes", (void (TopOpeBRepTool_BoxSort::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum, const TopAbs_ShapeEnum)) &TopOpeBRepTool_BoxSort::AddBoxes, "None", py::arg("S"), py::arg("TS"), py::arg("TA"));
-cls_TopOpeBRepTool_BoxSort.def("MakeHAB", [](TopOpeBRepTool_BoxSort &self, const TopoDS_Shape & a0, const TopAbs_ShapeEnum a1) -> void { return self.MakeHAB(a0, a1); });
-cls_TopOpeBRepTool_BoxSort.def("MakeHAB", (void (TopOpeBRepTool_BoxSort::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum, const TopAbs_ShapeEnum)) &TopOpeBRepTool_BoxSort::MakeHAB, "None", py::arg("S"), py::arg("TS"), py::arg("TA"));
-cls_TopOpeBRepTool_BoxSort.def("HAB", (const opencascade::handle<Bnd_HArray1OfBox> & (TopOpeBRepTool_BoxSort::*)() const) &TopOpeBRepTool_BoxSort::HAB, "None");
-cls_TopOpeBRepTool_BoxSort.def_static("MakeHABCOB_", (void (*)(const opencascade::handle<Bnd_HArray1OfBox> &, Bnd_Box &)) &TopOpeBRepTool_BoxSort::MakeHABCOB, "None", py::arg("HAB"), py::arg("COB"));
-cls_TopOpeBRepTool_BoxSort.def("HABShape", (const TopoDS_Shape & (TopOpeBRepTool_BoxSort::*)(const Standard_Integer) const) &TopOpeBRepTool_BoxSort::HABShape, "None", py::arg("I"));
-cls_TopOpeBRepTool_BoxSort.def("MakeCOB", [](TopOpeBRepTool_BoxSort &self, const TopoDS_Shape & a0, const TopAbs_ShapeEnum a1) -> void { return self.MakeCOB(a0, a1); });
-cls_TopOpeBRepTool_BoxSort.def("MakeCOB", (void (TopOpeBRepTool_BoxSort::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum, const TopAbs_ShapeEnum)) &TopOpeBRepTool_BoxSort::MakeCOB, "None", py::arg("S"), py::arg("TS"), py::arg("TA"));
-cls_TopOpeBRepTool_BoxSort.def("AddBoxesMakeCOB", [](TopOpeBRepTool_BoxSort &self, const TopoDS_Shape & a0, const TopAbs_ShapeEnum a1) -> void { return self.AddBoxesMakeCOB(a0, a1); });
-cls_TopOpeBRepTool_BoxSort.def("AddBoxesMakeCOB", (void (TopOpeBRepTool_BoxSort::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum, const TopAbs_ShapeEnum)) &TopOpeBRepTool_BoxSort::AddBoxesMakeCOB, "None", py::arg("S"), py::arg("TS"), py::arg("TA"));
-cls_TopOpeBRepTool_BoxSort.def("Compare", (const TColStd_ListIteratorOfListOfInteger & (TopOpeBRepTool_BoxSort::*)(const TopoDS_Shape &)) &TopOpeBRepTool_BoxSort::Compare, "None", py::arg("S"));
-cls_TopOpeBRepTool_BoxSort.def("TouchedShape", (const TopoDS_Shape & (TopOpeBRepTool_BoxSort::*)(const TColStd_ListIteratorOfListOfInteger &) const) &TopOpeBRepTool_BoxSort::TouchedShape, "None", py::arg("I"));
-cls_TopOpeBRepTool_BoxSort.def("Box", (const Bnd_Box & (TopOpeBRepTool_BoxSort::*)(const TopoDS_Shape &) const) &TopOpeBRepTool_BoxSort::Box, "None", py::arg("S"));
-
-// TYPEDEF: TOPOPEBREPTOOL_PSHAPECLASSIFIER
 
 // CLASS: TOPOPEBREPTOOL_GEOMTOOL
 py::class_<TopOpeBRepTool_GeomTool> cls_TopOpeBRepTool_GeomTool(mod, "TopOpeBRepTool_GeomTool", "None");
@@ -306,6 +258,23 @@ cls_TopOpeBRepTool_ShapeClassifier.def("State", (TopAbs_State (TopOpeBRepTool_Sh
 cls_TopOpeBRepTool_ShapeClassifier.def("P2D", (const gp_Pnt2d & (TopOpeBRepTool_ShapeClassifier::*)() const) &TopOpeBRepTool_ShapeClassifier::P2D, "None");
 cls_TopOpeBRepTool_ShapeClassifier.def("P3D", (const gp_Pnt & (TopOpeBRepTool_ShapeClassifier::*)() const) &TopOpeBRepTool_ShapeClassifier::P3D, "None");
 
+// CLASS: TOPOPEBREPTOOL_SHAPEEXPLORER
+py::class_<TopOpeBRepTool_ShapeExplorer, TopExp_Explorer> cls_TopOpeBRepTool_ShapeExplorer(mod, "TopOpeBRepTool_ShapeExplorer", "Extends TopExp_Explorer by counting index of current item (for tracing and debug)");
+
+// Constructors
+cls_TopOpeBRepTool_ShapeExplorer.def(py::init<>());
+cls_TopOpeBRepTool_ShapeExplorer.def(py::init<const TopoDS_Shape &, const TopAbs_ShapeEnum>(), py::arg("S"), py::arg("ToFind"));
+cls_TopOpeBRepTool_ShapeExplorer.def(py::init<const TopoDS_Shape &, const TopAbs_ShapeEnum, const TopAbs_ShapeEnum>(), py::arg("S"), py::arg("ToFind"), py::arg("ToAvoid"));
+
+// Methods
+cls_TopOpeBRepTool_ShapeExplorer.def("Init", [](TopOpeBRepTool_ShapeExplorer &self, const TopoDS_Shape & a0, const TopAbs_ShapeEnum a1) -> void { return self.Init(a0, a1); });
+cls_TopOpeBRepTool_ShapeExplorer.def("Init", (void (TopOpeBRepTool_ShapeExplorer::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum, const TopAbs_ShapeEnum)) &TopOpeBRepTool_ShapeExplorer::Init, "None", py::arg("S"), py::arg("ToFind"), py::arg("ToAvoid"));
+cls_TopOpeBRepTool_ShapeExplorer.def("Next", (void (TopOpeBRepTool_ShapeExplorer::*)()) &TopOpeBRepTool_ShapeExplorer::Next, "Moves to the next Shape in the exploration.");
+cls_TopOpeBRepTool_ShapeExplorer.def("Index", (Standard_Integer (TopOpeBRepTool_ShapeExplorer::*)() const) &TopOpeBRepTool_ShapeExplorer::Index, "Index of current sub-shape");
+cls_TopOpeBRepTool_ShapeExplorer.def("DumpCurrent", (Standard_OStream & (TopOpeBRepTool_ShapeExplorer::*)(Standard_OStream &) const) &TopOpeBRepTool_ShapeExplorer::DumpCurrent, "Dump info on current shape to stream", py::arg("OS"));
+
+// TYPEDEF: TOPOPEBREPTOOL_PSHAPECLASSIFIER
+
 // CLASS: TOPOPEBREPTOOL
 py::class_<TopOpeBRepTool> cls_TopOpeBRepTool(mod, "TopOpeBRepTool", "This package provides services used by the TopOpeBRep package performing topological operations on the BRep data structure.");
 
@@ -366,6 +335,38 @@ cls_TopOpeBRepTool_HBoxTool.def("IMS", (const TopOpeBRepTool_IndexedDataMapOfSha
 cls_TopOpeBRepTool_HBoxTool.def_static("get_type_name_", (const char * (*)()) &TopOpeBRepTool_HBoxTool::get_type_name, "None");
 cls_TopOpeBRepTool_HBoxTool.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRepTool_HBoxTool::get_type_descriptor, "None");
 cls_TopOpeBRepTool_HBoxTool.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRepTool_HBoxTool::*)() const) &TopOpeBRepTool_HBoxTool::DynamicType, "None");
+
+// CLASS: TOPOPEBREPTOOL_BOXSORT
+py::class_<TopOpeBRepTool_BoxSort> cls_TopOpeBRepTool_BoxSort(mod, "TopOpeBRepTool_BoxSort", "None");
+
+// Constructors
+cls_TopOpeBRepTool_BoxSort.def(py::init<>());
+cls_TopOpeBRepTool_BoxSort.def(py::init<const opencascade::handle<TopOpeBRepTool_HBoxTool> &>(), py::arg("T"));
+
+// Methods
+// cls_TopOpeBRepTool_BoxSort.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepTool_BoxSort::operator new, "None", py::arg("theSize"));
+// cls_TopOpeBRepTool_BoxSort.def_static("operator delete_", (void (*)(void *)) &TopOpeBRepTool_BoxSort::operator delete, "None", py::arg("theAddress"));
+// cls_TopOpeBRepTool_BoxSort.def_static("operator new[]_", (void * (*)(size_t)) &TopOpeBRepTool_BoxSort::operator new[], "None", py::arg("theSize"));
+// cls_TopOpeBRepTool_BoxSort.def_static("operator delete[]_", (void (*)(void *)) &TopOpeBRepTool_BoxSort::operator delete[], "None", py::arg("theAddress"));
+// cls_TopOpeBRepTool_BoxSort.def_static("operator new_", (void * (*)(size_t, void *)) &TopOpeBRepTool_BoxSort::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_TopOpeBRepTool_BoxSort.def_static("operator delete_", (void (*)(void *, void *)) &TopOpeBRepTool_BoxSort::operator delete, "None", py::arg(""), py::arg(""));
+cls_TopOpeBRepTool_BoxSort.def("SetHBoxTool", (void (TopOpeBRepTool_BoxSort::*)(const opencascade::handle<TopOpeBRepTool_HBoxTool> &)) &TopOpeBRepTool_BoxSort::SetHBoxTool, "None", py::arg("T"));
+cls_TopOpeBRepTool_BoxSort.def("HBoxTool", (const opencascade::handle<TopOpeBRepTool_HBoxTool> & (TopOpeBRepTool_BoxSort::*)() const) &TopOpeBRepTool_BoxSort::HBoxTool, "None");
+cls_TopOpeBRepTool_BoxSort.def("Clear", (void (TopOpeBRepTool_BoxSort::*)()) &TopOpeBRepTool_BoxSort::Clear, "None");
+cls_TopOpeBRepTool_BoxSort.def("AddBoxes", [](TopOpeBRepTool_BoxSort &self, const TopoDS_Shape & a0, const TopAbs_ShapeEnum a1) -> void { return self.AddBoxes(a0, a1); });
+cls_TopOpeBRepTool_BoxSort.def("AddBoxes", (void (TopOpeBRepTool_BoxSort::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum, const TopAbs_ShapeEnum)) &TopOpeBRepTool_BoxSort::AddBoxes, "None", py::arg("S"), py::arg("TS"), py::arg("TA"));
+cls_TopOpeBRepTool_BoxSort.def("MakeHAB", [](TopOpeBRepTool_BoxSort &self, const TopoDS_Shape & a0, const TopAbs_ShapeEnum a1) -> void { return self.MakeHAB(a0, a1); });
+cls_TopOpeBRepTool_BoxSort.def("MakeHAB", (void (TopOpeBRepTool_BoxSort::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum, const TopAbs_ShapeEnum)) &TopOpeBRepTool_BoxSort::MakeHAB, "None", py::arg("S"), py::arg("TS"), py::arg("TA"));
+cls_TopOpeBRepTool_BoxSort.def("HAB", (const opencascade::handle<Bnd_HArray1OfBox> & (TopOpeBRepTool_BoxSort::*)() const) &TopOpeBRepTool_BoxSort::HAB, "None");
+cls_TopOpeBRepTool_BoxSort.def_static("MakeHABCOB_", (void (*)(const opencascade::handle<Bnd_HArray1OfBox> &, Bnd_Box &)) &TopOpeBRepTool_BoxSort::MakeHABCOB, "None", py::arg("HAB"), py::arg("COB"));
+cls_TopOpeBRepTool_BoxSort.def("HABShape", (const TopoDS_Shape & (TopOpeBRepTool_BoxSort::*)(const Standard_Integer) const) &TopOpeBRepTool_BoxSort::HABShape, "None", py::arg("I"));
+cls_TopOpeBRepTool_BoxSort.def("MakeCOB", [](TopOpeBRepTool_BoxSort &self, const TopoDS_Shape & a0, const TopAbs_ShapeEnum a1) -> void { return self.MakeCOB(a0, a1); });
+cls_TopOpeBRepTool_BoxSort.def("MakeCOB", (void (TopOpeBRepTool_BoxSort::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum, const TopAbs_ShapeEnum)) &TopOpeBRepTool_BoxSort::MakeCOB, "None", py::arg("S"), py::arg("TS"), py::arg("TA"));
+cls_TopOpeBRepTool_BoxSort.def("AddBoxesMakeCOB", [](TopOpeBRepTool_BoxSort &self, const TopoDS_Shape & a0, const TopAbs_ShapeEnum a1) -> void { return self.AddBoxesMakeCOB(a0, a1); });
+cls_TopOpeBRepTool_BoxSort.def("AddBoxesMakeCOB", (void (TopOpeBRepTool_BoxSort::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum, const TopAbs_ShapeEnum)) &TopOpeBRepTool_BoxSort::AddBoxesMakeCOB, "None", py::arg("S"), py::arg("TS"), py::arg("TA"));
+cls_TopOpeBRepTool_BoxSort.def("Compare", (const TColStd_ListIteratorOfListOfInteger & (TopOpeBRepTool_BoxSort::*)(const TopoDS_Shape &)) &TopOpeBRepTool_BoxSort::Compare, "None", py::arg("S"));
+cls_TopOpeBRepTool_BoxSort.def("TouchedShape", (const TopoDS_Shape & (TopOpeBRepTool_BoxSort::*)(const TColStd_ListIteratorOfListOfInteger &) const) &TopOpeBRepTool_BoxSort::TouchedShape, "None", py::arg("I"));
+cls_TopOpeBRepTool_BoxSort.def("Box", (const Bnd_Box & (TopOpeBRepTool_BoxSort::*)(const TopoDS_Shape &) const) &TopOpeBRepTool_BoxSort::Box, "None", py::arg("S"));
 
 // CLASS: TOPOPEBREPTOOL_C2DF
 py::class_<TopOpeBRepTool_C2DF> cls_TopOpeBRepTool_C2DF(mod, "TopOpeBRepTool_C2DF", "None");

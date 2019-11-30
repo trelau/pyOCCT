@@ -25,17 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopOpeBRepBuild_Builder.hxx>
 #include <TopOpeBRepBuild_LoopEnum.hxx>
 #include <Standard.hxx>
-#include <TopOpeBRepBuild_ShapeSet.hxx>
 #include <Standard_TypeDef.hxx>
 #include <TopOpeBRepBuild_BlockIterator.hxx>
-#include <TopoDS_Shape.hxx>
-#include <TColStd_DataMapOfIntegerInteger.hxx>
-#include <TopTools_IndexedMapOfOrientedShape.hxx>
-#include <TColStd_SequenceOfInteger.hxx>
-#include <TopOpeBRepBuild_BlockBuilder.hxx>
 #include <Standard_Transient.hxx>
-#include <Standard_Handle.hxx>
+#include <TopoDS_Shape.hxx>
+#include <Standard_Std.hxx>
 #include <TopOpeBRepBuild_Loop.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_List.hxx>
 #include <TopOpeBRepBuild_ListOfLoop.hxx>
@@ -49,6 +45,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopOpeBRepBuild_Area1dBuilder.hxx>
 #include <TopOpeBRepBuild_Area2dBuilder.hxx>
 #include <TopOpeBRepBuild_Area3dBuilder.hxx>
+#include <TopOpeBRepBuild_ShapeSet.hxx>
+#include <TColStd_DataMapOfIntegerInteger.hxx>
+#include <TopTools_IndexedMapOfOrientedShape.hxx>
+#include <TColStd_SequenceOfInteger.hxx>
+#include <TopOpeBRepBuild_BlockBuilder.hxx>
 #include <TopOpeBRepDS_BuildTool.hxx>
 #include <TopOpeBRepDS_HDataStructure.hxx>
 #include <TopTools_ListOfShape.hxx>
@@ -142,10 +143,10 @@ PYBIND11_MODULE(TopOpeBRepBuild, mod) {
 
 py::module::import("OCCT.Standard");
 py::module::import("OCCT.TopoDS");
-py::module::import("OCCT.TColStd");
-py::module::import("OCCT.TopTools");
 py::module::import("OCCT.NCollection");
 py::module::import("OCCT.TopAbs");
+py::module::import("OCCT.TColStd");
+py::module::import("OCCT.TopTools");
 py::module::import("OCCT.TopOpeBRepDS");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.TCollection");
@@ -162,35 +163,6 @@ py::enum_<TopOpeBRepBuild_LoopEnum>(mod, "TopOpeBRepBuild_LoopEnum", "None")
 	.value("TopOpeBRepBuild_BLOCK", TopOpeBRepBuild_LoopEnum::TopOpeBRepBuild_BLOCK)
 	.export_values();
 
-
-// CLASS: TOPOPEBREPBUILD_BLOCKBUILDER
-py::class_<TopOpeBRepBuild_BlockBuilder> cls_TopOpeBRepBuild_BlockBuilder(mod, "TopOpeBRepBuild_BlockBuilder", "None");
-
-// Constructors
-cls_TopOpeBRepBuild_BlockBuilder.def(py::init<>());
-cls_TopOpeBRepBuild_BlockBuilder.def(py::init<TopOpeBRepBuild_ShapeSet &>(), py::arg("SS"));
-
-// Methods
-// cls_TopOpeBRepBuild_BlockBuilder.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepBuild_BlockBuilder::operator new, "None", py::arg("theSize"));
-// cls_TopOpeBRepBuild_BlockBuilder.def_static("operator delete_", (void (*)(void *)) &TopOpeBRepBuild_BlockBuilder::operator delete, "None", py::arg("theAddress"));
-// cls_TopOpeBRepBuild_BlockBuilder.def_static("operator new[]_", (void * (*)(size_t)) &TopOpeBRepBuild_BlockBuilder::operator new[], "None", py::arg("theSize"));
-// cls_TopOpeBRepBuild_BlockBuilder.def_static("operator delete[]_", (void (*)(void *)) &TopOpeBRepBuild_BlockBuilder::operator delete[], "None", py::arg("theAddress"));
-// cls_TopOpeBRepBuild_BlockBuilder.def_static("operator new_", (void * (*)(size_t, void *)) &TopOpeBRepBuild_BlockBuilder::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TopOpeBRepBuild_BlockBuilder.def_static("operator delete_", (void (*)(void *, void *)) &TopOpeBRepBuild_BlockBuilder::operator delete, "None", py::arg(""), py::arg(""));
-cls_TopOpeBRepBuild_BlockBuilder.def("MakeBlock", (void (TopOpeBRepBuild_BlockBuilder::*)(TopOpeBRepBuild_ShapeSet &)) &TopOpeBRepBuild_BlockBuilder::MakeBlock, "None", py::arg("SS"));
-cls_TopOpeBRepBuild_BlockBuilder.def("InitBlock", (void (TopOpeBRepBuild_BlockBuilder::*)()) &TopOpeBRepBuild_BlockBuilder::InitBlock, "None");
-cls_TopOpeBRepBuild_BlockBuilder.def("MoreBlock", (Standard_Boolean (TopOpeBRepBuild_BlockBuilder::*)() const) &TopOpeBRepBuild_BlockBuilder::MoreBlock, "None");
-cls_TopOpeBRepBuild_BlockBuilder.def("NextBlock", (void (TopOpeBRepBuild_BlockBuilder::*)()) &TopOpeBRepBuild_BlockBuilder::NextBlock, "None");
-cls_TopOpeBRepBuild_BlockBuilder.def("BlockIterator", (TopOpeBRepBuild_BlockIterator (TopOpeBRepBuild_BlockBuilder::*)() const) &TopOpeBRepBuild_BlockBuilder::BlockIterator, "None");
-cls_TopOpeBRepBuild_BlockBuilder.def("Element", (const TopoDS_Shape & (TopOpeBRepBuild_BlockBuilder::*)(const TopOpeBRepBuild_BlockIterator &) const) &TopOpeBRepBuild_BlockBuilder::Element, "Returns the current element of <BI>.", py::arg("BI"));
-cls_TopOpeBRepBuild_BlockBuilder.def("Element", (const TopoDS_Shape & (TopOpeBRepBuild_BlockBuilder::*)(const Standard_Integer) const) &TopOpeBRepBuild_BlockBuilder::Element, "None", py::arg("I"));
-cls_TopOpeBRepBuild_BlockBuilder.def("Element", (Standard_Integer (TopOpeBRepBuild_BlockBuilder::*)(const TopoDS_Shape &) const) &TopOpeBRepBuild_BlockBuilder::Element, "None", py::arg("S"));
-cls_TopOpeBRepBuild_BlockBuilder.def("ElementIsValid", (Standard_Boolean (TopOpeBRepBuild_BlockBuilder::*)(const TopOpeBRepBuild_BlockIterator &) const) &TopOpeBRepBuild_BlockBuilder::ElementIsValid, "None", py::arg("BI"));
-cls_TopOpeBRepBuild_BlockBuilder.def("ElementIsValid", (Standard_Boolean (TopOpeBRepBuild_BlockBuilder::*)(const Standard_Integer) const) &TopOpeBRepBuild_BlockBuilder::ElementIsValid, "None", py::arg("I"));
-cls_TopOpeBRepBuild_BlockBuilder.def("AddElement", (Standard_Integer (TopOpeBRepBuild_BlockBuilder::*)(const TopoDS_Shape &)) &TopOpeBRepBuild_BlockBuilder::AddElement, "None", py::arg("S"));
-cls_TopOpeBRepBuild_BlockBuilder.def("SetValid", (void (TopOpeBRepBuild_BlockBuilder::*)(const TopOpeBRepBuild_BlockIterator &, const Standard_Boolean)) &TopOpeBRepBuild_BlockBuilder::SetValid, "None", py::arg("BI"), py::arg("isvalid"));
-cls_TopOpeBRepBuild_BlockBuilder.def("SetValid", (void (TopOpeBRepBuild_BlockBuilder::*)(const Standard_Integer, const Standard_Boolean)) &TopOpeBRepBuild_BlockBuilder::SetValid, "None", py::arg("I"), py::arg("isvalid"));
-cls_TopOpeBRepBuild_BlockBuilder.def("CurrentBlockIsRegular", (Standard_Boolean (TopOpeBRepBuild_BlockBuilder::*)()) &TopOpeBRepBuild_BlockBuilder::CurrentBlockIsRegular, "None");
 
 // CLASS: TOPOPEBREPBUILD_BLOCKITERATOR
 py::class_<TopOpeBRepBuild_BlockIterator> cls_TopOpeBRepBuild_BlockIterator(mod, "TopOpeBRepBuild_BlockIterator", "Iterator on the elements of a block.");
@@ -335,6 +307,35 @@ cls_TopOpeBRepBuild_Area3dBuilder.def(py::init<TopOpeBRepBuild_LoopSet &, TopOpe
 // cls_TopOpeBRepBuild_Area3dBuilder.def_static("operator delete_", (void (*)(void *, void *)) &TopOpeBRepBuild_Area3dBuilder::operator delete, "None", py::arg(""), py::arg(""));
 cls_TopOpeBRepBuild_Area3dBuilder.def("InitAreaBuilder", [](TopOpeBRepBuild_Area3dBuilder &self, TopOpeBRepBuild_LoopSet & a0, TopOpeBRepBuild_LoopClassifier & a1) -> void { return self.InitAreaBuilder(a0, a1); });
 cls_TopOpeBRepBuild_Area3dBuilder.def("InitAreaBuilder", (void (TopOpeBRepBuild_Area3dBuilder::*)(TopOpeBRepBuild_LoopSet &, TopOpeBRepBuild_LoopClassifier &, const Standard_Boolean)) &TopOpeBRepBuild_Area3dBuilder::InitAreaBuilder, "Sets a Area1dBuilder to find the areas of the shapes described by <LS> using the classifier <LC>.", py::arg("LS"), py::arg("LC"), py::arg("ForceClass"));
+
+// CLASS: TOPOPEBREPBUILD_BLOCKBUILDER
+py::class_<TopOpeBRepBuild_BlockBuilder> cls_TopOpeBRepBuild_BlockBuilder(mod, "TopOpeBRepBuild_BlockBuilder", "None");
+
+// Constructors
+cls_TopOpeBRepBuild_BlockBuilder.def(py::init<>());
+cls_TopOpeBRepBuild_BlockBuilder.def(py::init<TopOpeBRepBuild_ShapeSet &>(), py::arg("SS"));
+
+// Methods
+// cls_TopOpeBRepBuild_BlockBuilder.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepBuild_BlockBuilder::operator new, "None", py::arg("theSize"));
+// cls_TopOpeBRepBuild_BlockBuilder.def_static("operator delete_", (void (*)(void *)) &TopOpeBRepBuild_BlockBuilder::operator delete, "None", py::arg("theAddress"));
+// cls_TopOpeBRepBuild_BlockBuilder.def_static("operator new[]_", (void * (*)(size_t)) &TopOpeBRepBuild_BlockBuilder::operator new[], "None", py::arg("theSize"));
+// cls_TopOpeBRepBuild_BlockBuilder.def_static("operator delete[]_", (void (*)(void *)) &TopOpeBRepBuild_BlockBuilder::operator delete[], "None", py::arg("theAddress"));
+// cls_TopOpeBRepBuild_BlockBuilder.def_static("operator new_", (void * (*)(size_t, void *)) &TopOpeBRepBuild_BlockBuilder::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_TopOpeBRepBuild_BlockBuilder.def_static("operator delete_", (void (*)(void *, void *)) &TopOpeBRepBuild_BlockBuilder::operator delete, "None", py::arg(""), py::arg(""));
+cls_TopOpeBRepBuild_BlockBuilder.def("MakeBlock", (void (TopOpeBRepBuild_BlockBuilder::*)(TopOpeBRepBuild_ShapeSet &)) &TopOpeBRepBuild_BlockBuilder::MakeBlock, "None", py::arg("SS"));
+cls_TopOpeBRepBuild_BlockBuilder.def("InitBlock", (void (TopOpeBRepBuild_BlockBuilder::*)()) &TopOpeBRepBuild_BlockBuilder::InitBlock, "None");
+cls_TopOpeBRepBuild_BlockBuilder.def("MoreBlock", (Standard_Boolean (TopOpeBRepBuild_BlockBuilder::*)() const) &TopOpeBRepBuild_BlockBuilder::MoreBlock, "None");
+cls_TopOpeBRepBuild_BlockBuilder.def("NextBlock", (void (TopOpeBRepBuild_BlockBuilder::*)()) &TopOpeBRepBuild_BlockBuilder::NextBlock, "None");
+cls_TopOpeBRepBuild_BlockBuilder.def("BlockIterator", (TopOpeBRepBuild_BlockIterator (TopOpeBRepBuild_BlockBuilder::*)() const) &TopOpeBRepBuild_BlockBuilder::BlockIterator, "None");
+cls_TopOpeBRepBuild_BlockBuilder.def("Element", (const TopoDS_Shape & (TopOpeBRepBuild_BlockBuilder::*)(const TopOpeBRepBuild_BlockIterator &) const) &TopOpeBRepBuild_BlockBuilder::Element, "Returns the current element of <BI>.", py::arg("BI"));
+cls_TopOpeBRepBuild_BlockBuilder.def("Element", (const TopoDS_Shape & (TopOpeBRepBuild_BlockBuilder::*)(const Standard_Integer) const) &TopOpeBRepBuild_BlockBuilder::Element, "None", py::arg("I"));
+cls_TopOpeBRepBuild_BlockBuilder.def("Element", (Standard_Integer (TopOpeBRepBuild_BlockBuilder::*)(const TopoDS_Shape &) const) &TopOpeBRepBuild_BlockBuilder::Element, "None", py::arg("S"));
+cls_TopOpeBRepBuild_BlockBuilder.def("ElementIsValid", (Standard_Boolean (TopOpeBRepBuild_BlockBuilder::*)(const TopOpeBRepBuild_BlockIterator &) const) &TopOpeBRepBuild_BlockBuilder::ElementIsValid, "None", py::arg("BI"));
+cls_TopOpeBRepBuild_BlockBuilder.def("ElementIsValid", (Standard_Boolean (TopOpeBRepBuild_BlockBuilder::*)(const Standard_Integer) const) &TopOpeBRepBuild_BlockBuilder::ElementIsValid, "None", py::arg("I"));
+cls_TopOpeBRepBuild_BlockBuilder.def("AddElement", (Standard_Integer (TopOpeBRepBuild_BlockBuilder::*)(const TopoDS_Shape &)) &TopOpeBRepBuild_BlockBuilder::AddElement, "None", py::arg("S"));
+cls_TopOpeBRepBuild_BlockBuilder.def("SetValid", (void (TopOpeBRepBuild_BlockBuilder::*)(const TopOpeBRepBuild_BlockIterator &, const Standard_Boolean)) &TopOpeBRepBuild_BlockBuilder::SetValid, "None", py::arg("BI"), py::arg("isvalid"));
+cls_TopOpeBRepBuild_BlockBuilder.def("SetValid", (void (TopOpeBRepBuild_BlockBuilder::*)(const Standard_Integer, const Standard_Boolean)) &TopOpeBRepBuild_BlockBuilder::SetValid, "None", py::arg("I"), py::arg("isvalid"));
+cls_TopOpeBRepBuild_BlockBuilder.def("CurrentBlockIsRegular", (Standard_Boolean (TopOpeBRepBuild_BlockBuilder::*)()) &TopOpeBRepBuild_BlockBuilder::CurrentBlockIsRegular, "None");
 
 // CLASS: TOPOPEBREPBUILD_BUILDER
 py::class_<TopOpeBRepBuild_Builder> cls_TopOpeBRepBuild_Builder(mod, "TopOpeBRepBuild_Builder", "The Builder algorithm constructs topological objects from an existing topology and new geometries attached to the topology. It is used to construct the result of a topological operation; the existing topologies are the parts involved in the topological operation and the new geometries are the intersection lines and points.");

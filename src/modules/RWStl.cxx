@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Message_ProgressIndicator.hxx>
 #include <RWStl.hxx>
 #include <Standard_Transient.hxx>
+#include <Standard_Std.hxx>
 #include <RWStl_Reader.hxx>
 #include <Standard_Type.hxx>
 #include <Standard_IStream.hxx>

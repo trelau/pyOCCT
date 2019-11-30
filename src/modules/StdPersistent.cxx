@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StdObjMgt_SharedObject.hxx>
 #include <Standard_Transient.hxx>
 #include <ShapePersistent_TopoDS.hxx>
-#include <Standard_Handle.hxx>
+#include <Standard_Std.hxx>
 #include <StdPersistent_TopoDS.hxx>
+#include <Standard_Handle.hxx>
 #include <Standard_Type.hxx>
 #include <StdObjMgt_ReadData.hxx>
 #include <StdObjMgt_WriteData.hxx>
@@ -90,6 +91,7 @@ py::class_<StdPersistent_TopoDS> cls_StdPersistent_TopoDS(mod, "StdPersistent_To
 py::class_<StdPersistent_HArray1OfShape1, opencascade::handle<StdPersistent_HArray1OfShape1>, Standard_Transient> cls_StdPersistent_HArray1OfShape1(mod, "StdPersistent_HArray1OfShape1", "None", py::multiple_inheritance());
 
 // Constructors
+cls_StdPersistent_HArray1OfShape1.def(py::init<>());
 cls_StdPersistent_HArray1OfShape1.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_StdPersistent_HArray1OfShape1.def(py::init<const Standard_Integer, const Standard_Integer, const NCollection_Array1<StdObject_Shape>::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_StdPersistent_HArray1OfShape1.def(py::init<const NCollection_Array1<StdObject_Shape> &>(), py::arg("theOther"));

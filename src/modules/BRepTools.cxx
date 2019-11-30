@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopAbs_ShapeEnum.hxx>
 #include <Standard_Handle.hxx>
 #include <Standard_OStream.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <TopTools_DataMapOfShapeListOfShape.hxx>
 #include <TopTools_MapOfShape.hxx>
@@ -121,6 +122,9 @@ cls_BRepTools_History.def("Clear", (void (BRepTools_History::*)()) &BRepTools_Hi
 cls_BRepTools_History.def("Generated", (const TopTools_ListOfShape & (BRepTools_History::*)(const TopoDS_Shape &) const) &BRepTools_History::Generated, "Returns all shapes generated from the shape.", py::arg("theInitial"));
 cls_BRepTools_History.def("Modified", (const TopTools_ListOfShape & (BRepTools_History::*)(const TopoDS_Shape &) const) &BRepTools_History::Modified, "Returns all shapes modified from the shape.", py::arg("theInitial"));
 cls_BRepTools_History.def("IsRemoved", (Standard_Boolean (BRepTools_History::*)(const TopoDS_Shape &) const) &BRepTools_History::IsRemoved, "Returns 'true' if the shape is removed.", py::arg("theInitial"));
+cls_BRepTools_History.def("HasGenerated", (Standard_Boolean (BRepTools_History::*)() const) &BRepTools_History::HasGenerated, "Returns 'true' if there any shapes with Generated elements present");
+cls_BRepTools_History.def("HasModified", (Standard_Boolean (BRepTools_History::*)() const) &BRepTools_History::HasModified, "Returns 'true' if there any Modified shapes present");
+cls_BRepTools_History.def("HasRemoved", (Standard_Boolean (BRepTools_History::*)() const) &BRepTools_History::HasRemoved, "Returns 'true' if there any removed shapes present");
 cls_BRepTools_History.def("Merge", (void (BRepTools_History::*)(const opencascade::handle<BRepTools_History> &)) &BRepTools_History::Merge, "Merges the next history to this history.", py::arg("theHistory23"));
 cls_BRepTools_History.def("Merge", (void (BRepTools_History::*)(const BRepTools_History &)) &BRepTools_History::Merge, "Merges the next history to this history.", py::arg("theHistory23"));
 cls_BRepTools_History.def("Dump", (void (BRepTools_History::*)(Standard_OStream &)) &BRepTools_History::Dump, "Prints the brief description of the history into a stream", py::arg("theS"));
@@ -254,6 +258,7 @@ cls_BRepTools.def_static("Update_", (void (*)(const TopoDS_Compound &)) &BRepToo
 cls_BRepTools.def_static("Update_", (void (*)(const TopoDS_Shape &)) &BRepTools::Update, "Update a shape, call the corect update.", py::arg("S"));
 cls_BRepTools.def_static("UpdateFaceUVPoints_", (void (*)(const TopoDS_Face &)) &BRepTools::UpdateFaceUVPoints, "For each edge of the face <F> reset the UV points to the bounding points of the parametric curve of the edge on the face.", py::arg("theF"));
 cls_BRepTools.def_static("Clean_", (void (*)(const TopoDS_Shape &)) &BRepTools::Clean, "Removes all the triangulations of the faces of <S> and removes all polygons on triangulations of the edges.", py::arg("S"));
+cls_BRepTools.def_static("CleanGeometry_", (void (*)(const TopoDS_Shape &)) &BRepTools::CleanGeometry, "Removes geometry (curves and surfaces) from all edges and faces of the shape", py::arg("theShape"));
 cls_BRepTools.def_static("RemoveUnusedPCurves_", (void (*)(const TopoDS_Shape &)) &BRepTools::RemoveUnusedPCurves, "Removes all the pcurves of the edges of <S> that refer to surfaces not belonging to any face of <S>", py::arg("S"));
 cls_BRepTools.def_static("Triangulation_", (Standard_Boolean (*)(const TopoDS_Shape &, const Standard_Real)) &BRepTools::Triangulation, "verifies that each face from the shape <S> has got a triangulation with a deflection <= deflec and the edges a discretisation on this triangulation.", py::arg("S"), py::arg("deflec"));
 cls_BRepTools.def_static("Compare_", (Standard_Boolean (*)(const TopoDS_Vertex &, const TopoDS_Vertex &)) &BRepTools::Compare, "Returns True if the distance between the two vertices is lower than their tolerance.", py::arg("V1"), py::arg("V2"));

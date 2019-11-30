@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_TypeDef.hxx>
 #include <NCollection_Vec3.hxx>
 #include <Quantity_Color.hxx>
+#include <TCollection_AsciiString.hxx>
+#include <Standard_OStream.hxx>
 #include <NCollection_Vec4.hxx>
 #include <Quantity_ColorRGBA.hxx>
 #include <Standard_Assert.hxx>
@@ -35,10 +37,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <Quantity_HArray1OfColor.hxx>
 #include <Standard_Type.hxx>
 #include <Quantity_ColorHasher.hxx>
 #include <Quantity_ColorRGBAHasher.hxx>
+#include <Quantity_Period.hxx>
+#include <Quantity_Date.hxx>
 #include <Quantity_AbsorbedDose.hxx>
 #include <Quantity_Acceleration.hxx>
 #include <Quantity_AcousticIntensity.hxx>
@@ -60,8 +65,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Quantity_Constant.hxx>
 #include <Quantity_Consumption.hxx>
 #include <Quantity_Content.hxx>
-#include <Quantity_Period.hxx>
-#include <Quantity_Date.hxx>
 #include <Quantity_DateDefinitionError.hxx>
 #include <Quantity_Density.hxx>
 #include <Quantity_DoseEquivalent.hxx>
@@ -134,9 +137,10 @@ PYBIND11_MODULE(Quantity, mod) {
 
 py::module::import("OCCT.Standard");
 py::module::import("OCCT.NCollection");
+py::module::import("OCCT.TCollection");
 
 // ENUM: QUANTITY_NAMEOFCOLOR
-py::enum_<Quantity_NameOfColor>(mod, "Quantity_NameOfColor", "Definition of names of known colours.")
+py::enum_<Quantity_NameOfColor>(mod, "Quantity_NameOfColor", "Definition of names of known colors. The names come (mostly) from the X11 specification.")
 	.value("Quantity_NOC_BLACK", Quantity_NameOfColor::Quantity_NOC_BLACK)
 	.value("Quantity_NOC_MATRABLUE", Quantity_NameOfColor::Quantity_NOC_MATRABLUE)
 	.value("Quantity_NOC_MATRAGRAY", Quantity_NameOfColor::Quantity_NOC_MATRAGRAY)
@@ -756,7 +760,7 @@ cls_Quantity_Color.def(py::init<const NCollection_Vec3<float> &>(), py::arg("the
 cls_Quantity_Color.def("ChangeContrast", (void (Quantity_Color::*)(const Standard_Real)) &Quantity_Color::ChangeContrast, "Increases or decreases the contrast by <ADelta>. <ADelta> is a percentage. Any value greater than zero will increase the contrast. The variation is expressed as a percentage of the current value. It is a variation of the saturation.", py::arg("ADelta"));
 cls_Quantity_Color.def("ChangeIntensity", (void (Quantity_Color::*)(const Standard_Real)) &Quantity_Color::ChangeIntensity, "Increases or decreases the intensity by <ADelta>. <ADelta> is a percentage. Any value greater than zero will increase the intensity. The variation is expressed as a percentage of the current value. It is a variation of the lightness.", py::arg("ADelta"));
 cls_Quantity_Color.def("SetValues", (void (Quantity_Color::*)(const Quantity_NameOfColor)) &Quantity_Color::SetValues, "Updates the colour <me> from the definition of the colour <AName>.", py::arg("AName"));
-cls_Quantity_Color.def("SetValues", (void (Quantity_Color::*)(const Standard_Real, const Standard_Real, const Standard_Real, const Quantity_TypeOfColor)) &Quantity_Color::SetValues, "Updates a color according to the mode specified by theType. TOC_RGB: - theR1 the value of Red within range [0.0; 1.0] - theR2 the value of Green within range [0.0; 1.0] - theR3 the value of Blue within range [0.0; 1.0]", py::arg("theR1"), py::arg("theR2"), py::arg("theR3"), py::arg("theType"));
+cls_Quantity_Color.def("SetValues", (void (Quantity_Color::*)(const Standard_Real, const Standard_Real, const Standard_Real, const Quantity_TypeOfColor)) &Quantity_Color::SetValues, "Updates a color according to the mode specified by theType. Quantity_TOC_RGB: - theR1 the value of Red within range [0.0; 1.0] - theR2 the value of Green within range [0.0; 1.0] - theR3 the value of Blue within range [0.0; 1.0]", py::arg("theR1"), py::arg("theR2"), py::arg("theR3"), py::arg("theType"));
 cls_Quantity_Color.def("Delta", [](Quantity_Color &self, const Quantity_Color & AColor, Standard_Real & DC, Standard_Real & DI){ self.Delta(AColor, DC, DI); return std::tuple<Standard_Real &, Standard_Real &>(DC, DI); }, "Returns the percentage change of contrast and intensity between <me> and <AColor>. <DC> and <DI> are percentages, either positive or negative. The calculation is with respect to the current value of <me> If <DC> is positive then <me> is more contrasty. If <DI> is positive then <me> is more intense.", py::arg("AColor"), py::arg("DC"), py::arg("DI"));
 cls_Quantity_Color.def("Distance", (Standard_Real (Quantity_Color::*)(const Quantity_Color &) const) &Quantity_Color::Distance, "Returns the distance between two colours. It's a value between 0 and the square root of 3 (the black/white distance)", py::arg("AColor"));
 cls_Quantity_Color.def("SquareDistance", (Standard_Real (Quantity_Color::*)(const Quantity_Color &) const) &Quantity_Color::SquareDistance, "Returns the square of distance between two colours.", py::arg("AColor"));
@@ -777,11 +781,17 @@ cls_Quantity_Color.def_static("Epsilon_", (Standard_Real (*)()) &Quantity_Color:
 cls_Quantity_Color.def_static("Name_", (Quantity_NameOfColor (*)(const Standard_Real, const Standard_Real, const Standard_Real)) &Quantity_Color::Name, "Returns the name of the colour for which the RGB components are nearest to <R>, <G> and <B>.", py::arg("R"), py::arg("G"), py::arg("B"));
 cls_Quantity_Color.def_static("StringName_", (Standard_CString (*)(const Quantity_NameOfColor)) &Quantity_Color::StringName, "Returns the name of the color identified by AName in the Quantity_NameOfColor enumeration. For example, the name of the color which corresponds to Quantity_NOC_BLACK is 'BLACK'. Exceptions Standard_OutOfRange if AName in not known in the Quantity_NameOfColor enumeration.", py::arg("AColor"));
 cls_Quantity_Color.def_static("ColorFromName_", (Standard_Boolean (*)(const Standard_CString, Quantity_NameOfColor &)) &Quantity_Color::ColorFromName, "Finds color from predefined names. For example, the name of the color which corresponds to 'BLACK' is Quantity_NOC_BLACK. Returns false if name is unknown.", py::arg("theName"), py::arg("theColor"));
+cls_Quantity_Color.def_static("ColorFromName_", (Standard_Boolean (*)(const Standard_CString, Quantity_Color &)) &Quantity_Color::ColorFromName, "Finds color from predefined names. For example, the name of the color which corresponds to 'BLACK' is Quantity_NOC_BLACK. Returns false if name is unknown.", py::arg("theColorNameString"), py::arg("theColor"));
+cls_Quantity_Color.def_static("ColorFromHex_", (bool (*)(const Standard_CString, Quantity_Color &)) &Quantity_Color::ColorFromHex, "Parses the string as a hex color (like '#FF0' for short RGB color, or '#FFFF00' for RGB color)", py::arg("theHexColorString"), py::arg("theColor"));
+cls_Quantity_Color.def_static("ColorToHex_", [](const Quantity_Color & a0) -> TCollection_AsciiString { return Quantity_Color::ColorToHex(a0); });
+cls_Quantity_Color.def_static("ColorToHex_", (TCollection_AsciiString (*)(const Quantity_Color &, const bool)) &Quantity_Color::ColorToHex, "Returns hex sRGB string in format '#FFAAFF'.", py::arg("theColor"), py::arg("theToPrefixHash"));
 cls_Quantity_Color.def_static("HlsRgb_", [](const Standard_Real H, const Standard_Real L, const Standard_Real S, Standard_Real & R, Standard_Real & G, Standard_Real & B){ Quantity_Color::HlsRgb(H, L, S, R, G, B); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &>(R, G, B); }, "Converts HLS components into RGB ones.", py::arg("H"), py::arg("L"), py::arg("S"), py::arg("R"), py::arg("G"), py::arg("B"));
 cls_Quantity_Color.def_static("RgbHls_", [](const Standard_Real R, const Standard_Real G, const Standard_Real B, Standard_Real & H, Standard_Real & L, Standard_Real & S){ Quantity_Color::RgbHls(R, G, B, H, L, S); return std::tuple<Standard_Real &, Standard_Real &, Standard_Real &>(H, L, S); }, "Converts RGB components into HLS ones.", py::arg("R"), py::arg("G"), py::arg("B"), py::arg("H"), py::arg("L"), py::arg("S"));
 cls_Quantity_Color.def_static("Color2argb_", [](const Quantity_Color & theColor, Standard_Integer & theARGB){ Quantity_Color::Color2argb(theColor, theARGB); return theARGB; }, "Convert the Color value to ARGB integer value. theARGB has Alpha equal to zero, so the output is formatted as 0x00RRGGBB", py::arg("theColor"), py::arg("theARGB"));
 cls_Quantity_Color.def_static("Argb2color_", (void (*)(const Standard_Integer, Quantity_Color &)) &Quantity_Color::Argb2color, "Convert integer ARGB value to Color. Alpha bits are ignored", py::arg("theARGB"), py::arg("theColor"));
 cls_Quantity_Color.def_static("Test_", (void (*)()) &Quantity_Color::Test, "Internal test");
+cls_Quantity_Color.def("DumpJson", [](Quantity_Color &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Quantity_Color.def("DumpJson", (void (Quantity_Color::*)(Standard_OStream &, const Standard_Integer) const) &Quantity_Color::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // CLASS: QUANTITY_COLORRGBA
 py::class_<Quantity_ColorRGBA> cls_Quantity_ColorRGBA(mod, "Quantity_ColorRGBA", "The pair of Quantity_Color and Alpha component (1.0 opaque, 0.0 transparent).");
@@ -804,6 +814,13 @@ cls_Quantity_ColorRGBA.def("IsDifferent", (bool (Quantity_ColorRGBA::*)(const Qu
 cls_Quantity_ColorRGBA.def("__ne__", (bool (Quantity_ColorRGBA::*)(const Quantity_ColorRGBA &) const) &Quantity_ColorRGBA::operator!=, py::is_operator(), "Returns true if the distance between colors is greater than Epsilon().", py::arg("theOther"));
 cls_Quantity_ColorRGBA.def("IsEqual", (bool (Quantity_ColorRGBA::*)(const Quantity_ColorRGBA &) const) &Quantity_ColorRGBA::IsEqual, "Two colors are considered to be equal if their distance is no greater than Epsilon().", py::arg("theOther"));
 cls_Quantity_ColorRGBA.def("__eq__", (bool (Quantity_ColorRGBA::*)(const Quantity_ColorRGBA &) const) &Quantity_ColorRGBA::operator==, py::is_operator(), "Two colors are considered to be equal if their distance is no greater than Epsilon().", py::arg("theOther"));
+cls_Quantity_ColorRGBA.def_static("ColorFromName_", (Standard_Boolean (*)(const Standard_CString, Quantity_ColorRGBA &)) &Quantity_ColorRGBA::ColorFromName, "Finds color from predefined names. For example, the name of the color which corresponds to 'BLACK' is Quantity_NOC_BLACK. Returns false if name is unknown. An alpha component is set to 1.0.", py::arg("theColorNameString"), py::arg("theColor"));
+cls_Quantity_ColorRGBA.def_static("ColorFromHex_", [](const char *const a0, Quantity_ColorRGBA & a1) -> bool { return Quantity_ColorRGBA::ColorFromHex(a0, a1); });
+cls_Quantity_ColorRGBA.def_static("ColorFromHex_", (bool (*)(const char *const, Quantity_ColorRGBA &, const bool)) &Quantity_ColorRGBA::ColorFromHex, "Parses the string as a hex color (like '#FF0' for short RGB color, '#FF0F' for short RGBA color, '#FFFF00' for RGB color, or '#FFFF00FF' for RGBA color)", py::arg("theHexColorString"), py::arg("theColor"), py::arg("theAlphaComponentIsOff"));
+cls_Quantity_ColorRGBA.def_static("ColorToHex_", [](const Quantity_ColorRGBA & a0) -> TCollection_AsciiString { return Quantity_ColorRGBA::ColorToHex(a0); });
+cls_Quantity_ColorRGBA.def_static("ColorToHex_", (TCollection_AsciiString (*)(const Quantity_ColorRGBA &, const bool)) &Quantity_ColorRGBA::ColorToHex, "Returns hex sRGBA string in format '#RRGGBBAA'.", py::arg("theColor"), py::arg("theToPrefixHash"));
+cls_Quantity_ColorRGBA.def("DumpJson", [](Quantity_ColorRGBA &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Quantity_ColorRGBA.def("DumpJson", (void (Quantity_ColorRGBA::*)(Standard_OStream &, const Standard_Integer) const) &Quantity_ColorRGBA::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // TYPEDEF: QUANTITY_ARRAY1OFCOLOR
 bind_NCollection_Array1<Quantity_Color>(mod, "Quantity_Array1OfColor", py::module_local(false));
@@ -812,6 +829,7 @@ bind_NCollection_Array1<Quantity_Color>(mod, "Quantity_Array1OfColor", py::modul
 py::class_<Quantity_HArray1OfColor, opencascade::handle<Quantity_HArray1OfColor>, Standard_Transient> cls_Quantity_HArray1OfColor(mod, "Quantity_HArray1OfColor", "None", py::multiple_inheritance());
 
 // Constructors
+cls_Quantity_HArray1OfColor.def(py::init<>());
 cls_Quantity_HArray1OfColor.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_Quantity_HArray1OfColor.def(py::init<const Standard_Integer, const Standard_Integer, const Quantity_Array1OfColor::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_Quantity_HArray1OfColor.def(py::init<const Quantity_Array1OfColor &>(), py::arg("theOther"));
@@ -835,15 +853,59 @@ cls_Quantity_HArray1OfColor.def("DynamicType", (const opencascade::handle<Standa
 py::class_<Quantity_ColorHasher> cls_Quantity_ColorHasher(mod, "Quantity_ColorHasher", "Hasher of Quantity_Color.");
 
 // Methods
-cls_Quantity_ColorHasher.def_static("HashCode_", (Standard_Integer (*)(const Quantity_Color &, const Standard_Integer)) &Quantity_ColorHasher::HashCode, "Returns hash code for the given color.", py::arg("theColor"), py::arg("theUpper"));
+cls_Quantity_ColorHasher.def_static("HashCode_", (Standard_Integer (*)(const Quantity_Color &, const Standard_Integer)) &Quantity_ColorHasher::HashCode, "Returns hash code for the given RGB color, in the range [1, theUpperBound]", py::arg("theColor"), py::arg("theUpperBound"));
 cls_Quantity_ColorHasher.def_static("IsEqual_", (Standard_Boolean (*)(const Quantity_Color &, const Quantity_Color &)) &Quantity_ColorHasher::IsEqual, "Returns true if two colors are equal.", py::arg("theColor1"), py::arg("theColor2"));
 
 // CLASS: QUANTITY_COLORRGBAHASHER
 py::class_<Quantity_ColorRGBAHasher> cls_Quantity_ColorRGBAHasher(mod, "Quantity_ColorRGBAHasher", "Hasher of Quantity_ColorRGBA.");
 
 // Methods
-cls_Quantity_ColorRGBAHasher.def_static("HashCode_", (Standard_Integer (*)(const Quantity_ColorRGBA &, const Standard_Integer)) &Quantity_ColorRGBAHasher::HashCode, "Returns hash code for the given color.", py::arg("theColor"), py::arg("theUpper"));
+cls_Quantity_ColorRGBAHasher.def_static("HashCode_", (Standard_Integer (*)(const Quantity_ColorRGBA &, const Standard_Integer)) &Quantity_ColorRGBAHasher::HashCode, "Returns hash code for the given RGBA color, in the range [1, theUpperBound]", py::arg("theColor"), py::arg("theUpperBound"));
 cls_Quantity_ColorRGBAHasher.def_static("IsEqual_", (Standard_Boolean (*)(const Quantity_ColorRGBA &, const Quantity_ColorRGBA &)) &Quantity_ColorRGBAHasher::IsEqual, "Returns true if two colors are equal.", py::arg("theColor1"), py::arg("theColor2"));
+
+// CLASS: QUANTITY_DATE
+py::class_<Quantity_Date> cls_Quantity_Date(mod, "Quantity_Date", "This class provides services to manage date information. A date represents the following time intervals: year, month, day, hour, minute, second, millisecond and microsecond. Current time is expressed in elapsed seconds and microseconds beginning from 00:00 GMT, January 1, 1979 (zero hour). The valid date can only be later than this one. Note: a Period object gives the interval between two dates.");
+
+// Constructors
+cls_Quantity_Date.def(py::init<>());
+cls_Quantity_Date.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("mm"), py::arg("dd"), py::arg("yyyy"), py::arg("hh"), py::arg("mn"), py::arg("ss"));
+cls_Quantity_Date.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("mm"), py::arg("dd"), py::arg("yyyy"), py::arg("hh"), py::arg("mn"), py::arg("ss"), py::arg("mis"));
+cls_Quantity_Date.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("mm"), py::arg("dd"), py::arg("yyyy"), py::arg("hh"), py::arg("mn"), py::arg("ss"), py::arg("mis"), py::arg("mics"));
+
+// Methods
+// cls_Quantity_Date.def_static("operator new_", (void * (*)(size_t)) &Quantity_Date::operator new, "None", py::arg("theSize"));
+// cls_Quantity_Date.def_static("operator delete_", (void (*)(void *)) &Quantity_Date::operator delete, "None", py::arg("theAddress"));
+// cls_Quantity_Date.def_static("operator new[]_", (void * (*)(size_t)) &Quantity_Date::operator new[], "None", py::arg("theSize"));
+// cls_Quantity_Date.def_static("operator delete[]_", (void (*)(void *)) &Quantity_Date::operator delete[], "None", py::arg("theAddress"));
+// cls_Quantity_Date.def_static("operator new_", (void * (*)(size_t, void *)) &Quantity_Date::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_Quantity_Date.def_static("operator delete_", (void (*)(void *, void *)) &Quantity_Date::operator delete, "None", py::arg(""), py::arg(""));
+cls_Quantity_Date.def("Values", [](Quantity_Date &self, Standard_Integer & mm, Standard_Integer & dd, Standard_Integer & yy, Standard_Integer & hh, Standard_Integer & mn, Standard_Integer & ss, Standard_Integer & mis, Standard_Integer & mics){ self.Values(mm, dd, yy, hh, mn, ss, mis, mics); return std::tuple<Standard_Integer &, Standard_Integer &, Standard_Integer &, Standard_Integer &, Standard_Integer &, Standard_Integer &, Standard_Integer &, Standard_Integer &>(mm, dd, yy, hh, mn, ss, mis, mics); }, "Gets a complete Date. - in mm - the month, - in dd - the day, - in yyyy - the year, - in hh - the hour, - in mn - the minute, - in ss - the second, - in mis - the millisecond, and - in mics - the microsecond", py::arg("mm"), py::arg("dd"), py::arg("yy"), py::arg("hh"), py::arg("mn"), py::arg("ss"), py::arg("mis"), py::arg("mics"));
+cls_Quantity_Date.def("SetValues", [](Quantity_Date &self, const Standard_Integer a0, const Standard_Integer a1, const Standard_Integer a2, const Standard_Integer a3, const Standard_Integer a4, const Standard_Integer a5) -> void { return self.SetValues(a0, a1, a2, a3, a4, a5); });
+cls_Quantity_Date.def("SetValues", [](Quantity_Date &self, const Standard_Integer a0, const Standard_Integer a1, const Standard_Integer a2, const Standard_Integer a3, const Standard_Integer a4, const Standard_Integer a5, const Standard_Integer a6) -> void { return self.SetValues(a0, a1, a2, a3, a4, a5, a6); });
+cls_Quantity_Date.def("SetValues", (void (Quantity_Date::*)(const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer)) &Quantity_Date::SetValues, "Assigns to this date the year yyyy, the month mm, the day dd, the hour hh, the minute mn, the second ss, the millisecond mis (defaulted to 0) and the microsecond mics (defaulted to 0). Exceptions Quantity_DateDefinitionError if mm, dd, hh, mn, ss, mis and mics are not components of a valid date.", py::arg("mm"), py::arg("dd"), py::arg("yy"), py::arg("hh"), py::arg("mn"), py::arg("ss"), py::arg("mis"), py::arg("mics"));
+cls_Quantity_Date.def("Difference", (Quantity_Period (Quantity_Date::*)(const Quantity_Date &)) &Quantity_Date::Difference, "Subtracts one Date from another one to find the period between and returns the value. The result is the absolute value between the difference of two dates.", py::arg("anOther"));
+cls_Quantity_Date.def("Subtract", (Quantity_Date (Quantity_Date::*)(const Quantity_Period &)) &Quantity_Date::Subtract, "Subtracts a period from a Date and returns the new Date. Raises an exception if the result date is anterior to Jan 1, 1979.", py::arg("aPeriod"));
+cls_Quantity_Date.def("__sub__", (Quantity_Date (Quantity_Date::*)(const Quantity_Period &)) &Quantity_Date::operator-, py::is_operator(), "None", py::arg("aPeriod"));
+cls_Quantity_Date.def("Add", (Quantity_Date (Quantity_Date::*)(const Quantity_Period &)) &Quantity_Date::Add, "Adds a Period to a Date and returns the new Date.", py::arg("aPeriod"));
+cls_Quantity_Date.def("__add__", (Quantity_Date (Quantity_Date::*)(const Quantity_Period &)) &Quantity_Date::operator+, py::is_operator(), "None", py::arg("aPeriod"));
+cls_Quantity_Date.def("Year", (Standard_Integer (Quantity_Date::*)()) &Quantity_Date::Year, "Returns year of a Date.");
+cls_Quantity_Date.def("Month", (Standard_Integer (Quantity_Date::*)()) &Quantity_Date::Month, "Returns month of a Date.");
+cls_Quantity_Date.def("Day", (Standard_Integer (Quantity_Date::*)()) &Quantity_Date::Day, "Returns Day of a Date.");
+cls_Quantity_Date.def("Hour", (Standard_Integer (Quantity_Date::*)()) &Quantity_Date::Hour, "Returns Hour of a Date.");
+cls_Quantity_Date.def("Minute", (Standard_Integer (Quantity_Date::*)()) &Quantity_Date::Minute, "Returns minute of a Date.");
+cls_Quantity_Date.def("Second", (Standard_Integer (Quantity_Date::*)()) &Quantity_Date::Second, "Returns seconde of a Date.");
+cls_Quantity_Date.def("MilliSecond", (Standard_Integer (Quantity_Date::*)()) &Quantity_Date::MilliSecond, "Returns millisecond of a Date.");
+cls_Quantity_Date.def("MicroSecond", (Standard_Integer (Quantity_Date::*)()) &Quantity_Date::MicroSecond, "Returns microsecond of a Date.");
+cls_Quantity_Date.def("IsEqual", (Standard_Boolean (Quantity_Date::*)(const Quantity_Date &) const) &Quantity_Date::IsEqual, "Returns TRUE if both <me> and <other> are equal. This method is an alias of operator ==.", py::arg("anOther"));
+cls_Quantity_Date.def("__eq__", (Standard_Boolean (Quantity_Date::*)(const Quantity_Date &) const) &Quantity_Date::operator==, py::is_operator(), "None", py::arg("anOther"));
+cls_Quantity_Date.def("IsEarlier", (Standard_Boolean (Quantity_Date::*)(const Quantity_Date &) const) &Quantity_Date::IsEarlier, "Returns TRUE if <me> is earlier than <other>.", py::arg("anOther"));
+cls_Quantity_Date.def("__lt__", (Standard_Boolean (Quantity_Date::*)(const Quantity_Date &) const) &Quantity_Date::operator<, py::is_operator(), "None", py::arg("anOther"));
+cls_Quantity_Date.def("IsLater", (Standard_Boolean (Quantity_Date::*)(const Quantity_Date &) const) &Quantity_Date::IsLater, "Returns TRUE if <me> is later then <other>.", py::arg("anOther"));
+cls_Quantity_Date.def("__gt__", (Standard_Boolean (Quantity_Date::*)(const Quantity_Date &) const) &Quantity_Date::operator>, py::is_operator(), "None", py::arg("anOther"));
+cls_Quantity_Date.def_static("IsValid_", [](const Standard_Integer a0, const Standard_Integer a1, const Standard_Integer a2, const Standard_Integer a3, const Standard_Integer a4, const Standard_Integer a5) -> Standard_Boolean { return Quantity_Date::IsValid(a0, a1, a2, a3, a4, a5); });
+cls_Quantity_Date.def_static("IsValid_", [](const Standard_Integer a0, const Standard_Integer a1, const Standard_Integer a2, const Standard_Integer a3, const Standard_Integer a4, const Standard_Integer a5, const Standard_Integer a6) -> Standard_Boolean { return Quantity_Date::IsValid(a0, a1, a2, a3, a4, a5, a6); });
+cls_Quantity_Date.def_static("IsValid_", (Standard_Boolean (*)(const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer)) &Quantity_Date::IsValid, "Checks the validity of a date - returns true if a date defined from the year yyyy, the month mm, the day dd, the hour hh, the minute mn, the second ss, the millisecond mis (defaulted to 0) and the microsecond mics (defaulted to 0) is valid. A date must satisfy the conditions above: - yyyy is greater than or equal to 1979, - mm lies within the range [1, 12] (with 1 corresponding to January and 12 to December), - dd lies within a valid range for the month mm (from 1 to 28, 29, 30 or 31 depending on mm and whether yyyy is a leap year or not), - hh lies within the range [0, 23], - mn lies within the range [0, 59], - ss lies within the range [0, 59], - mis lies within the range [0, 999], - mics lies within the range [0, 999].C", py::arg("mm"), py::arg("dd"), py::arg("yy"), py::arg("hh"), py::arg("mn"), py::arg("ss"), py::arg("mis"), py::arg("mics"));
+cls_Quantity_Date.def_static("IsLeap_", (Standard_Boolean (*)(const Standard_Integer)) &Quantity_Date::IsLeap, "Returns true if a year is a leap year. The leap years are divisable by 4 and not by 100 except the years divisable by 400.", py::arg("yy"));
 
 // TYPEDEF: QUANTITY_ABSORBEDDOSE
 
@@ -894,50 +956,6 @@ cls_Quantity_ColorDefinitionError.def("DynamicType", (const opencascade::handle<
 // TYPEDEF: QUANTITY_CONSUMPTION
 
 // TYPEDEF: QUANTITY_CONTENT
-
-// CLASS: QUANTITY_DATE
-py::class_<Quantity_Date> cls_Quantity_Date(mod, "Quantity_Date", "This class provides services to manage date information. A date represents the following time intervals: year, month, day, hour, minute, second, millisecond and microsecond. Current time is expressed in elapsed seconds and microseconds beginning from 00:00 GMT, January 1, 1979 (zero hour). The valid date can only be later than this one. Note: a Period object gives the interval between two dates.");
-
-// Constructors
-cls_Quantity_Date.def(py::init<>());
-cls_Quantity_Date.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("mm"), py::arg("dd"), py::arg("yyyy"), py::arg("hh"), py::arg("mn"), py::arg("ss"));
-cls_Quantity_Date.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("mm"), py::arg("dd"), py::arg("yyyy"), py::arg("hh"), py::arg("mn"), py::arg("ss"), py::arg("mis"));
-cls_Quantity_Date.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("mm"), py::arg("dd"), py::arg("yyyy"), py::arg("hh"), py::arg("mn"), py::arg("ss"), py::arg("mis"), py::arg("mics"));
-
-// Methods
-// cls_Quantity_Date.def_static("operator new_", (void * (*)(size_t)) &Quantity_Date::operator new, "None", py::arg("theSize"));
-// cls_Quantity_Date.def_static("operator delete_", (void (*)(void *)) &Quantity_Date::operator delete, "None", py::arg("theAddress"));
-// cls_Quantity_Date.def_static("operator new[]_", (void * (*)(size_t)) &Quantity_Date::operator new[], "None", py::arg("theSize"));
-// cls_Quantity_Date.def_static("operator delete[]_", (void (*)(void *)) &Quantity_Date::operator delete[], "None", py::arg("theAddress"));
-// cls_Quantity_Date.def_static("operator new_", (void * (*)(size_t, void *)) &Quantity_Date::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Quantity_Date.def_static("operator delete_", (void (*)(void *, void *)) &Quantity_Date::operator delete, "None", py::arg(""), py::arg(""));
-cls_Quantity_Date.def("Values", [](Quantity_Date &self, Standard_Integer & mm, Standard_Integer & dd, Standard_Integer & yy, Standard_Integer & hh, Standard_Integer & mn, Standard_Integer & ss, Standard_Integer & mis, Standard_Integer & mics){ self.Values(mm, dd, yy, hh, mn, ss, mis, mics); return std::tuple<Standard_Integer &, Standard_Integer &, Standard_Integer &, Standard_Integer &, Standard_Integer &, Standard_Integer &, Standard_Integer &, Standard_Integer &>(mm, dd, yy, hh, mn, ss, mis, mics); }, "Gets a complete Date. - in mm - the month, - in dd - the day, - in yyyy - the year, - in hh - the hour, - in mn - the minute, - in ss - the second, - in mis - the millisecond, and - in mics - the microsecond", py::arg("mm"), py::arg("dd"), py::arg("yy"), py::arg("hh"), py::arg("mn"), py::arg("ss"), py::arg("mis"), py::arg("mics"));
-cls_Quantity_Date.def("SetValues", [](Quantity_Date &self, const Standard_Integer a0, const Standard_Integer a1, const Standard_Integer a2, const Standard_Integer a3, const Standard_Integer a4, const Standard_Integer a5) -> void { return self.SetValues(a0, a1, a2, a3, a4, a5); });
-cls_Quantity_Date.def("SetValues", [](Quantity_Date &self, const Standard_Integer a0, const Standard_Integer a1, const Standard_Integer a2, const Standard_Integer a3, const Standard_Integer a4, const Standard_Integer a5, const Standard_Integer a6) -> void { return self.SetValues(a0, a1, a2, a3, a4, a5, a6); });
-cls_Quantity_Date.def("SetValues", (void (Quantity_Date::*)(const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer)) &Quantity_Date::SetValues, "Assigns to this date the year yyyy, the month mm, the day dd, the hour hh, the minute mn, the second ss, the millisecond mis (defaulted to 0) and the microsecond mics (defaulted to 0). Exceptions Quantity_DateDefinitionError if mm, dd, hh, mn, ss, mis and mics are not components of a valid date.", py::arg("mm"), py::arg("dd"), py::arg("yy"), py::arg("hh"), py::arg("mn"), py::arg("ss"), py::arg("mis"), py::arg("mics"));
-cls_Quantity_Date.def("Difference", (Quantity_Period (Quantity_Date::*)(const Quantity_Date &)) &Quantity_Date::Difference, "Subtracts one Date from another one to find the period between and returns the value. The result is the absolute value between the difference of two dates.", py::arg("anOther"));
-cls_Quantity_Date.def("Subtract", (Quantity_Date (Quantity_Date::*)(const Quantity_Period &)) &Quantity_Date::Subtract, "Subtracts a period from a Date and returns the new Date. Raises an exception if the result date is anterior to Jan 1, 1979.", py::arg("aPeriod"));
-cls_Quantity_Date.def("__sub__", (Quantity_Date (Quantity_Date::*)(const Quantity_Period &)) &Quantity_Date::operator-, py::is_operator(), "None", py::arg("aPeriod"));
-cls_Quantity_Date.def("Add", (Quantity_Date (Quantity_Date::*)(const Quantity_Period &)) &Quantity_Date::Add, "Adds a Period to a Date and returns the new Date.", py::arg("aPeriod"));
-cls_Quantity_Date.def("__add__", (Quantity_Date (Quantity_Date::*)(const Quantity_Period &)) &Quantity_Date::operator+, py::is_operator(), "None", py::arg("aPeriod"));
-cls_Quantity_Date.def("Year", (Standard_Integer (Quantity_Date::*)()) &Quantity_Date::Year, "Returns year of a Date.");
-cls_Quantity_Date.def("Month", (Standard_Integer (Quantity_Date::*)()) &Quantity_Date::Month, "Returns month of a Date.");
-cls_Quantity_Date.def("Day", (Standard_Integer (Quantity_Date::*)()) &Quantity_Date::Day, "Returns Day of a Date.");
-cls_Quantity_Date.def("Hour", (Standard_Integer (Quantity_Date::*)()) &Quantity_Date::Hour, "Returns Hour of a Date.");
-cls_Quantity_Date.def("Minute", (Standard_Integer (Quantity_Date::*)()) &Quantity_Date::Minute, "Returns minute of a Date.");
-cls_Quantity_Date.def("Second", (Standard_Integer (Quantity_Date::*)()) &Quantity_Date::Second, "Returns seconde of a Date.");
-cls_Quantity_Date.def("MilliSecond", (Standard_Integer (Quantity_Date::*)()) &Quantity_Date::MilliSecond, "Returns millisecond of a Date.");
-cls_Quantity_Date.def("MicroSecond", (Standard_Integer (Quantity_Date::*)()) &Quantity_Date::MicroSecond, "Returns microsecond of a Date.");
-cls_Quantity_Date.def("IsEqual", (Standard_Boolean (Quantity_Date::*)(const Quantity_Date &) const) &Quantity_Date::IsEqual, "Returns TRUE if both <me> and <other> are equal. This method is an alias of operator ==.", py::arg("anOther"));
-cls_Quantity_Date.def("__eq__", (Standard_Boolean (Quantity_Date::*)(const Quantity_Date &) const) &Quantity_Date::operator==, py::is_operator(), "None", py::arg("anOther"));
-cls_Quantity_Date.def("IsEarlier", (Standard_Boolean (Quantity_Date::*)(const Quantity_Date &) const) &Quantity_Date::IsEarlier, "Returns TRUE if <me> is earlier than <other>.", py::arg("anOther"));
-cls_Quantity_Date.def("__lt__", (Standard_Boolean (Quantity_Date::*)(const Quantity_Date &) const) &Quantity_Date::operator<, py::is_operator(), "None", py::arg("anOther"));
-cls_Quantity_Date.def("IsLater", (Standard_Boolean (Quantity_Date::*)(const Quantity_Date &) const) &Quantity_Date::IsLater, "Returns TRUE if <me> is later then <other>.", py::arg("anOther"));
-cls_Quantity_Date.def("__gt__", (Standard_Boolean (Quantity_Date::*)(const Quantity_Date &) const) &Quantity_Date::operator>, py::is_operator(), "None", py::arg("anOther"));
-cls_Quantity_Date.def_static("IsValid_", [](const Standard_Integer a0, const Standard_Integer a1, const Standard_Integer a2, const Standard_Integer a3, const Standard_Integer a4, const Standard_Integer a5) -> Standard_Boolean { return Quantity_Date::IsValid(a0, a1, a2, a3, a4, a5); });
-cls_Quantity_Date.def_static("IsValid_", [](const Standard_Integer a0, const Standard_Integer a1, const Standard_Integer a2, const Standard_Integer a3, const Standard_Integer a4, const Standard_Integer a5, const Standard_Integer a6) -> Standard_Boolean { return Quantity_Date::IsValid(a0, a1, a2, a3, a4, a5, a6); });
-cls_Quantity_Date.def_static("IsValid_", (Standard_Boolean (*)(const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer)) &Quantity_Date::IsValid, "Checks the validity of a date - returns true if a date defined from the year yyyy, the month mm, the day dd, the hour hh, the minute mn, the second ss, the millisecond mis (defaulted to 0) and the microsecond mics (defaulted to 0) is valid. A date must satisfy the conditions above: - yyyy is greater than or equal to 1979, - mm lies within the range [1, 12] (with 1 corresponding to January and 12 to December), - dd lies within a valid range for the month mm (from 1 to 28, 29, 30 or 31 depending on mm and whether yyyy is a leap year or not), - hh lies within the range [0, 23], - mn lies within the range [0, 59], - ss lies within the range [0, 59], - mis lies within the range [0, 999], - mics lies within the range [0, 999].C", py::arg("mm"), py::arg("dd"), py::arg("yy"), py::arg("hh"), py::arg("mn"), py::arg("ss"), py::arg("mis"), py::arg("mics"));
-cls_Quantity_Date.def_static("IsLeap_", (Standard_Boolean (*)(const Standard_Integer)) &Quantity_Date::IsLeap, "Returns true if a year is a leap year. The leap years are divisable by 4 and not by 100 except the years divisable by 400.", py::arg("yy"));
 
 // CLASS: QUANTITY_DATEDEFINITIONERROR
 py::class_<Quantity_DateDefinitionError, opencascade::handle<Quantity_DateDefinitionError>, Standard_DomainError> cls_Quantity_DateDefinitionError(mod, "Quantity_DateDefinitionError", "None");

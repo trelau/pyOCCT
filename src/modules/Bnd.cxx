@@ -28,6 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_Trsf.hxx>
 #include <gp_Lin.hxx>
 #include <gp_Pln.hxx>
+#include <Standard_OStream.hxx>
+#include <Standard_ConstructionError.hxx>
+#include <Bnd_Range.hxx>
+#include <NCollection_List.hxx>
 #include <NCollection_Array1.hxx>
 #include <Bnd_Array1OfBox.hxx>
 #include <gp_Pnt2d.hxx>
@@ -49,6 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <Bnd_HArray1OfBox.hxx>
 #include <Standard_Type.hxx>
 #include <TColStd_ListOfInteger.hxx>
@@ -61,11 +66,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColgp_Array1OfPnt.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <Bnd_OBB.hxx>
-#include <Standard_ConstructionError.hxx>
-#include <Bnd_Range.hxx>
-#include <NCollection_List.hxx>
 #include <NCollection_Sequence.hxx>
 #include <Bnd_SeqOfBox.hxx>
+#include <BVH_Box.hxx>
+#include <BVH_Types.hxx>
+#include <Bnd_Tools.hxx>
 #include <bind_NCollection_Array1.hxx>
 #include <bind_NCollection_Sequence.hxx>
 
@@ -76,12 +81,14 @@ py::module::import("OCCT.gp");
 py::module::import("OCCT.NCollection");
 py::module::import("OCCT.TColStd");
 py::module::import("OCCT.TColgp");
+py::module::import("OCCT.BVH");
 
 // CLASS: BND_BOX
 py::class_<Bnd_Box> cls_Bnd_Box(mod, "Bnd_Box", "Describes a bounding box in 3D space. A bounding box is parallel to the axes of the coordinates system. If it is finite, it is defined by the three intervals: - [ Xmin,Xmax ], - [ Ymin,Ymax ], - [ Zmin,Zmax ]. A bounding box may be infinite (i.e. open) in one or more directions. It is said to be: - OpenXmin if it is infinite on the negative side of the 'X Direction'; - OpenXmax if it is infinite on the positive side of the 'X Direction'; - OpenYmin if it is infinite on the negative side of the 'Y Direction'; - OpenYmax if it is infinite on the positive side of the 'Y Direction'; - OpenZmin if it is infinite on the negative side of the 'Z Direction'; - OpenZmax if it is infinite on the positive side of the 'Z Direction'; - WholeSpace if it is infinite in all six directions. In this case, any point of the space is inside the box; - Void if it is empty. In this case, there is no point included in the box. A bounding box is defined by: - six bounds (Xmin, Xmax, Ymin, Ymax, Zmin and Zmax) which limit the bounding box if it is finite, - eight flags (OpenXmin, OpenXmax, OpenYmin, OpenYmax, OpenZmin, OpenZmax, WholeSpace and Void) which describe the bounding box if it is infinite or empty, and - a gap, which is included on both sides in any direction when consulting the finite bounds of the box.");
 
 // Constructors
 cls_Bnd_Box.def(py::init<>());
+cls_Bnd_Box.def(py::init<const gp_Pnt, const gp_Pnt>(), py::arg("theMin"), py::arg("theMax"));
 
 // Methods
 // cls_Bnd_Box.def_static("operator new_", (void * (*)(size_t)) &Bnd_Box::operator new, "None", py::arg("theSize"));
@@ -108,6 +115,7 @@ cls_Bnd_Box.def("OpenYmin", (void (Bnd_Box::*)()) &Bnd_Box::OpenYmin, "The Box w
 cls_Bnd_Box.def("OpenYmax", (void (Bnd_Box::*)()) &Bnd_Box::OpenYmax, "The Box will be infinitely long in the Ymax direction.");
 cls_Bnd_Box.def("OpenZmin", (void (Bnd_Box::*)()) &Bnd_Box::OpenZmin, "The Box will be infinitely long in the Zmin direction.");
 cls_Bnd_Box.def("OpenZmax", (void (Bnd_Box::*)()) &Bnd_Box::OpenZmax, "The Box will be infinitely long in the Zmax direction.");
+cls_Bnd_Box.def("IsOpen", (Standard_Boolean (Bnd_Box::*)() const) &Bnd_Box::IsOpen, "Returns true if this bounding box has at least one open direction.");
 cls_Bnd_Box.def("IsOpenXmin", (Standard_Boolean (Bnd_Box::*)() const) &Bnd_Box::IsOpenXmin, "Returns true if this bounding box is open in the Xmin direction.");
 cls_Bnd_Box.def("IsOpenXmax", (Standard_Boolean (Bnd_Box::*)() const) &Bnd_Box::IsOpenXmax, "Returns true if this bounding box is open in the Xmax direction.");
 cls_Bnd_Box.def("IsOpenYmin", (Standard_Boolean (Bnd_Box::*)() const) &Bnd_Box::IsOpenYmin, "Returns true if this bounding box is open in the Ymix direction.");
@@ -135,6 +143,44 @@ cls_Bnd_Box.def("IsOut", (Standard_Boolean (Bnd_Box::*)(const gp_Pnt &, const gp
 cls_Bnd_Box.def("Distance", (Standard_Real (Bnd_Box::*)(const Bnd_Box &) const) &Bnd_Box::Distance, "Computes the minimum distance between two boxes.", py::arg("Other"));
 cls_Bnd_Box.def("Dump", (void (Bnd_Box::*)() const) &Bnd_Box::Dump, "None");
 cls_Bnd_Box.def("SquareExtent", (Standard_Real (Bnd_Box::*)() const) &Bnd_Box::SquareExtent, "Computes the squared diagonal of me.");
+cls_Bnd_Box.def("FinitePart", (Bnd_Box (Bnd_Box::*)() const) &Bnd_Box::FinitePart, "Returns a finite part of an infinite bounding box (returns self if this is already finite box). This can be a Void box in case if its sides has been defined as infinite (Open) without adding any finite points. WARNING! This method relies on Open flags, the infinite points added using Add() method will be returned as is.");
+cls_Bnd_Box.def("HasFinitePart", (Standard_Boolean (Bnd_Box::*)() const) &Bnd_Box::HasFinitePart, "Returns TRUE if this box has finite part.");
+cls_Bnd_Box.def("DumpJson", [](Bnd_Box &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Bnd_Box.def("DumpJson", (void (Bnd_Box::*)(Standard_OStream &, const Standard_Integer) const) &Bnd_Box::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
+
+// CLASS: BND_RANGE
+py::class_<Bnd_Range> cls_Bnd_Range(mod, "Bnd_Range", "This class describes a range in 1D space restricted by two real values. A range can be void indicating there is no point included in the range.");
+
+// Constructors
+cls_Bnd_Range.def(py::init<>());
+cls_Bnd_Range.def(py::init<const Standard_Real, const Standard_Real>(), py::arg("theMin"), py::arg("theMax"));
+
+// Methods
+cls_Bnd_Range.def("Common", (void (Bnd_Range::*)(const Bnd_Range &)) &Bnd_Range::Common, "Replaces <this> with common-part of <this> and theOther", py::arg("theOther"));
+cls_Bnd_Range.def("Union", (Standard_Boolean (Bnd_Range::*)(const Bnd_Range &)) &Bnd_Range::Union, "Joins *this and theOther to one interval. Replaces *this to the result. Returns false if the operation cannot be done (e.g. input arguments are empty or separated).", py::arg("theOther"));
+cls_Bnd_Range.def("Split", [](Bnd_Range &self, const Standard_Real a0, NCollection_List<Bnd_Range> & a1) -> void { return self.Split(a0, a1); });
+cls_Bnd_Range.def("Split", (void (Bnd_Range::*)(const Standard_Real, NCollection_List<Bnd_Range> &, const Standard_Real) const) &Bnd_Range::Split, "Splits <this> to several sub-ranges by theVal value (e.g. range [3, 15] will be split by theVal==5 to the two ranges: [3, 5] and [5, 15]). New ranges will be pushed to theList (theList must be initialized correctly before calling this method). If thePeriod != 0.0 then at least one boundary of new ranges (if <*this> intersects theVal+k*thePeriod) will be equal to theVal+thePeriod*k, where k is an integer number (k = 0, +/-1, +/-2, ...). (let thePeriod in above example be 4 ==> we will obtain four ranges: [3, 5], [5, 9], [9, 13] and [13, 15].", py::arg("theVal"), py::arg("theList"), py::arg("thePeriod"));
+cls_Bnd_Range.def("IsIntersected", [](Bnd_Range &self, const Standard_Real a0) -> Standard_Integer { return self.IsIntersected(a0); });
+cls_Bnd_Range.def("IsIntersected", (Standard_Integer (Bnd_Range::*)(const Standard_Real, const Standard_Real) const) &Bnd_Range::IsIntersected, "Checks if <this> intersects values like theVal+k*thePeriod, where k is an integer number (k = 0, +/-1, +/-2, ...). Returns: 0 - if <this> does not intersect the theVal+k*thePeriod. 1 - if <this> intersects theVal+k*thePeriod. 2 - if myFirst or/and myLast are equal to theVal+k*thePeriod.", py::arg("theVal"), py::arg("thePeriod"));
+cls_Bnd_Range.def("Add", (void (Bnd_Range::*)(const Standard_Real)) &Bnd_Range::Add, "Extends <this> to include theParameter", py::arg("theParameter"));
+cls_Bnd_Range.def("Add", (void (Bnd_Range::*)(const Bnd_Range &)) &Bnd_Range::Add, "Extends this range to include both ranges.", py::arg("theRange"));
+cls_Bnd_Range.def("GetMin", [](Bnd_Range &self, Standard_Real & thePar){ Standard_Boolean rv = self.GetMin(thePar); return std::tuple<Standard_Boolean, Standard_Real &>(rv, thePar); }, "Obtain MIN boundary of <this>. If <this> is VOID the method returns false.", py::arg("thePar"));
+cls_Bnd_Range.def("GetMax", [](Bnd_Range &self, Standard_Real & thePar){ Standard_Boolean rv = self.GetMax(thePar); return std::tuple<Standard_Boolean, Standard_Real &>(rv, thePar); }, "Obtain MAX boundary of <this>. If <this> is VOID the method returns false.", py::arg("thePar"));
+cls_Bnd_Range.def("GetBounds", [](Bnd_Range &self, Standard_Real & theFirstPar, Standard_Real & theLastPar){ Standard_Boolean rv = self.GetBounds(theFirstPar, theLastPar); return std::tuple<Standard_Boolean, Standard_Real &, Standard_Real &>(rv, theFirstPar, theLastPar); }, "Obtain first and last boundary of <this>. If <this> is VOID the method returns false.", py::arg("theFirstPar"), py::arg("theLastPar"));
+cls_Bnd_Range.def("GetIntermediatePoint", [](Bnd_Range &self, const Standard_Real theLambda, Standard_Real & theParameter){ Standard_Boolean rv = self.GetIntermediatePoint(theLambda, theParameter); return std::tuple<Standard_Boolean, Standard_Real &>(rv, theParameter); }, "Obtain theParameter satisfied to the equation (theParameter-MIN)/(MAX-MIN) == theLambda. * theLambda == 0 --> MIN boundary will be returned; * theLambda == 0.5 --> Middle point will be returned; * theLambda == 1 --> MAX boundary will be returned; * theLambda < 0 --> the value less than MIN will be returned; * theLambda > 1 --> the value greater than MAX will be returned. If <this> is VOID the method returns false.", py::arg("theLambda"), py::arg("theParameter"));
+cls_Bnd_Range.def("Delta", (Standard_Real (Bnd_Range::*)() const) &Bnd_Range::Delta, "Returns range value (MAX-MIN). Returns negative value for VOID range.");
+cls_Bnd_Range.def("IsVoid", (Standard_Boolean (Bnd_Range::*)() const) &Bnd_Range::IsVoid, "Is <this> initialized.");
+cls_Bnd_Range.def("SetVoid", (void (Bnd_Range::*)()) &Bnd_Range::SetVoid, "Initializes <this> by default parameters. Makes <this> VOID.");
+cls_Bnd_Range.def("Enlarge", (void (Bnd_Range::*)(const Standard_Real)) &Bnd_Range::Enlarge, "Extends this to the given value (in both side)", py::arg("theDelta"));
+cls_Bnd_Range.def("Shifted", (Bnd_Range (Bnd_Range::*)(const Standard_Real) const) &Bnd_Range::Shifted, "Returns the copy of <*this> shifted by theVal", py::arg("theVal"));
+cls_Bnd_Range.def("Shift", (void (Bnd_Range::*)(const Standard_Real)) &Bnd_Range::Shift, "Shifts <*this> by theVal", py::arg("theVal"));
+cls_Bnd_Range.def("TrimFrom", (void (Bnd_Range::*)(const Standard_Real)) &Bnd_Range::TrimFrom, "Trims the First value in range by the given lower limit. Marks range as Void if the given Lower value is greater than range Max.", py::arg("theValLower"));
+cls_Bnd_Range.def("TrimTo", (void (Bnd_Range::*)(const Standard_Real)) &Bnd_Range::TrimTo, "Trim the Last value in range by the given Upper limit. Marks range as Void if the given Upper value is smaller than range Max.", py::arg("theValUpper"));
+cls_Bnd_Range.def("IsOut", (Standard_Boolean (Bnd_Range::*)(Standard_Real) const) &Bnd_Range::IsOut, "Returns True if the value is out of this range.", py::arg("theValue"));
+cls_Bnd_Range.def("IsOut", (Standard_Boolean (Bnd_Range::*)(const Bnd_Range &) const) &Bnd_Range::IsOut, "Returns True if the given range is out of this range.", py::arg("theRange"));
+cls_Bnd_Range.def("__eq__", (Standard_Boolean (Bnd_Range::*)(const Bnd_Range &) const) &Bnd_Range::operator==, py::is_operator(), "Returns TRUE if theOther is equal to <*this>", py::arg("theOther"));
+cls_Bnd_Range.def("DumpJson", [](Bnd_Range &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Bnd_Range.def("DumpJson", (void (Bnd_Range::*)(Standard_OStream &, const Standard_Integer) const) &Bnd_Range::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // TYPEDEF: BND_ARRAY1OFBOX
 bind_NCollection_Array1<Bnd_Box>(mod, "Bnd_Array1OfBox", py::module_local(false));
@@ -376,6 +422,7 @@ cls_Bnd_B3f.def("SetHSize", (void (Bnd_B3f::*)(const gp_XYZ &)) &Bnd_B3f::SetHSi
 py::class_<Bnd_HArray1OfBox, opencascade::handle<Bnd_HArray1OfBox>, Standard_Transient> cls_Bnd_HArray1OfBox(mod, "Bnd_HArray1OfBox", "None", py::multiple_inheritance());
 
 // Constructors
+cls_Bnd_HArray1OfBox.def(py::init<>());
 cls_Bnd_HArray1OfBox.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_Bnd_HArray1OfBox.def(py::init<const Standard_Integer, const Standard_Integer, const Bnd_Array1OfBox::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_Bnd_HArray1OfBox.def(py::init<const Bnd_Array1OfBox &>(), py::arg("theOther"));
@@ -421,6 +468,7 @@ cls_Bnd_BoundSortBox.def("Destroy", (void (Bnd_BoundSortBox::*)()) &Bnd_BoundSor
 py::class_<Bnd_HArray1OfBox2d, opencascade::handle<Bnd_HArray1OfBox2d>, Standard_Transient> cls_Bnd_HArray1OfBox2d(mod, "Bnd_HArray1OfBox2d", "None", py::multiple_inheritance());
 
 // Constructors
+cls_Bnd_HArray1OfBox2d.def(py::init<>());
 cls_Bnd_HArray1OfBox2d.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_Bnd_HArray1OfBox2d.def(py::init<const Standard_Integer, const Standard_Integer, const Bnd_Array1OfBox2d::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_Bnd_HArray1OfBox2d.def(py::init<const Bnd_Array1OfBox2d &>(), py::arg("theOther"));
@@ -464,6 +512,7 @@ cls_Bnd_BoundSortBox2d.def("Dump", (void (Bnd_BoundSortBox2d::*)() const) &Bnd_B
 py::class_<Bnd_HArray1OfSphere, opencascade::handle<Bnd_HArray1OfSphere>, Standard_Transient> cls_Bnd_HArray1OfSphere(mod, "Bnd_HArray1OfSphere", "None", py::multiple_inheritance());
 
 // Constructors
+cls_Bnd_HArray1OfSphere.def(py::init<>());
 cls_Bnd_HArray1OfSphere.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_Bnd_HArray1OfSphere.def(py::init<const Standard_Integer, const Standard_Integer, const Bnd_Array1OfSphere::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_Bnd_HArray1OfSphere.def(py::init<const Bnd_Array1OfSphere &>(), py::arg("theOther"));
@@ -499,11 +548,13 @@ cls_Bnd_OBB.def(py::init<const Bnd_Box &>(), py::arg("theBox"));
 // cls_Bnd_OBB.def_static("operator new_", (void * (*)(size_t, void *)) &Bnd_OBB::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_Bnd_OBB.def_static("operator delete_", (void (*)(void *, void *)) &Bnd_OBB::operator delete, "None", py::arg(""), py::arg(""));
 cls_Bnd_OBB.def("ReBuild", [](Bnd_OBB &self, const TColgp_Array1OfPnt & a0) -> void { return self.ReBuild(a0); });
-cls_Bnd_OBB.def("ReBuild", (void (Bnd_OBB::*)(const TColgp_Array1OfPnt &, const TColStd_Array1OfReal *)) &Bnd_OBB::ReBuild, "Created new OBB covering every point in theListOfPoints. Tolerance of every such point is set by *theListOfTolerances array. If this array is not void (not null-pointer) then the resulted Bnd_OBB will be enlarged using tolerances of points lying on the box surface.", py::arg("theListOfPoints"), py::arg("theListOfTolerances"));
+cls_Bnd_OBB.def("ReBuild", [](Bnd_OBB &self, const TColgp_Array1OfPnt & a0, const TColStd_Array1OfReal * a1) -> void { return self.ReBuild(a0, a1); });
+cls_Bnd_OBB.def("ReBuild", (void (Bnd_OBB::*)(const TColgp_Array1OfPnt &, const TColStd_Array1OfReal *, const Standard_Boolean)) &Bnd_OBB::ReBuild, "Creates new OBB covering every point in theListOfPoints. Tolerance of every such point is set by *theListOfTolerances array. If this array is not void (not null-pointer) then the resulted Bnd_OBB will be enlarged using tolerances of points lying on the box surface. <theIsOptimal> flag defines the mode in which the OBB will be built. Constructing Optimal box takes more time, but the resulting box is usually more tight. In case of construction of Optimal OBB more possible axes are checked.", py::arg("theListOfPoints"), py::arg("theListOfTolerances"), py::arg("theIsOptimal"));
 cls_Bnd_OBB.def("SetCenter", (void (Bnd_OBB::*)(const gp_Pnt &)) &Bnd_OBB::SetCenter, "Sets the center of OBB", py::arg("theCenter"));
 cls_Bnd_OBB.def("SetXComponent", (void (Bnd_OBB::*)(const gp_Dir &, const Standard_Real)) &Bnd_OBB::SetXComponent, "Sets the X component of OBB - direction and size", py::arg("theXDirection"), py::arg("theHXSize"));
 cls_Bnd_OBB.def("SetYComponent", (void (Bnd_OBB::*)(const gp_Dir &, const Standard_Real)) &Bnd_OBB::SetYComponent, "Sets the Y component of OBB - direction and size", py::arg("theYDirection"), py::arg("theHYSize"));
 cls_Bnd_OBB.def("SetZComponent", (void (Bnd_OBB::*)(const gp_Dir &, const Standard_Real)) &Bnd_OBB::SetZComponent, "Sets the Z component of OBB - direction and size", py::arg("theZDirection"), py::arg("theHZSize"));
+cls_Bnd_OBB.def("Position", (gp_Ax3 (Bnd_OBB::*)() const) &Bnd_OBB::Position, "Returns the local coordinates system of this oriented box. So that applying it to axis-aligned box ((-XHSize, -YHSize, -ZHSize), (XHSize, YHSize, ZHSize)) will produce this oriented box.");
 cls_Bnd_OBB.def("Center", (const gp_XYZ & (Bnd_OBB::*)() const) &Bnd_OBB::Center, "Returns the center of OBB");
 cls_Bnd_OBB.def("XDirection", (const gp_XYZ & (Bnd_OBB::*)() const) &Bnd_OBB::XDirection, "Returns the X Direction of OBB");
 cls_Bnd_OBB.def("YDirection", (const gp_XYZ & (Bnd_OBB::*)() const) &Bnd_OBB::YDirection, "Returns the Y Direction of OBB");
@@ -523,38 +574,18 @@ cls_Bnd_OBB.def("IsOut", (Standard_Boolean (Bnd_OBB::*)(const gp_Pnt &) const) &
 cls_Bnd_OBB.def("IsCompletelyInside", (Standard_Boolean (Bnd_OBB::*)(const Bnd_OBB &) const) &Bnd_OBB::IsCompletelyInside, "Check if the theOther is completely inside *this.", py::arg("theOther"));
 cls_Bnd_OBB.def("Add", (void (Bnd_OBB::*)(const Bnd_OBB &)) &Bnd_OBB::Add, "Rebuilds this in order to include all previous objects (which it was created from) and theOther.", py::arg("theOther"));
 cls_Bnd_OBB.def("Add", (void (Bnd_OBB::*)(const gp_Pnt &)) &Bnd_OBB::Add, "Rebuilds this in order to include all previous objects (which it was created from) and theP.", py::arg("theP"));
-
-// CLASS: BND_RANGE
-py::class_<Bnd_Range> cls_Bnd_Range(mod, "Bnd_Range", "This class describes a range in 1D space restricted by two real values. A range can be void indicating there is no point included in the range.");
-
-// Constructors
-cls_Bnd_Range.def(py::init<>());
-cls_Bnd_Range.def(py::init<const Standard_Real, const Standard_Real>(), py::arg("theMin"), py::arg("theMax"));
-
-// Methods
-cls_Bnd_Range.def("Common", (void (Bnd_Range::*)(const Bnd_Range &)) &Bnd_Range::Common, "Replaces <this> with common-part of <this> and theOther", py::arg("theOther"));
-cls_Bnd_Range.def("Union", (Standard_Boolean (Bnd_Range::*)(const Bnd_Range &)) &Bnd_Range::Union, "Joins *this and theOther to one interval. Replaces *this to the result. Returns false if the operation cannot be done (e.g. input arguments are empty or separated).", py::arg("theOther"));
-cls_Bnd_Range.def("Split", [](Bnd_Range &self, const Standard_Real a0, NCollection_List<Bnd_Range> & a1) -> void { return self.Split(a0, a1); });
-cls_Bnd_Range.def("Split", (void (Bnd_Range::*)(const Standard_Real, NCollection_List<Bnd_Range> &, const Standard_Real) const) &Bnd_Range::Split, "Splits <this> to several sub-ranges by theVal value (e.g. range [3, 15] will be split by theVal==5 to the two ranges: [3, 5] and [5, 15]). New ranges will be pushed to theList (theList must be initialized correctly before calling this method). If thePeriod != 0.0 then at least one boundary of new ranges (if <*this> intersects theVal+k*thePeriod) will be equal to theVal+thePeriod*k, where k is an integer number (k = 0, +/-1, +/-2, ...). (let thePeriod in above example be 4 ==> we will obtain four ranges: [3, 5], [5, 9], [9, 13] and [13, 15].", py::arg("theVal"), py::arg("theList"), py::arg("thePeriod"));
-cls_Bnd_Range.def("IsIntersected", [](Bnd_Range &self, const Standard_Real a0) -> Standard_Integer { return self.IsIntersected(a0); });
-cls_Bnd_Range.def("IsIntersected", (Standard_Integer (Bnd_Range::*)(const Standard_Real, const Standard_Real) const) &Bnd_Range::IsIntersected, "Checks if <this> intersects values like theVal+k*thePeriod, where k is an integer number (k = 0, +/-1, +/-2, ...). Returns: 0 - if <this> does not intersect the theVal+k*thePeriod. 1 - if <this> intersects theVal+k*thePeriod. 2 - if myFirst or/and myLast are equal to theVal+k*thePeriod.", py::arg("theVal"), py::arg("thePeriod"));
-cls_Bnd_Range.def("Add", (void (Bnd_Range::*)(const Standard_Real)) &Bnd_Range::Add, "Extends <this> to include theParameter", py::arg("theParameter"));
-cls_Bnd_Range.def("Add", (void (Bnd_Range::*)(const Bnd_Range &)) &Bnd_Range::Add, "Extends this range to include both ranges.", py::arg("theRange"));
-cls_Bnd_Range.def("GetMin", [](Bnd_Range &self, Standard_Real & thePar){ Standard_Boolean rv = self.GetMin(thePar); return std::tuple<Standard_Boolean, Standard_Real &>(rv, thePar); }, "Obtain MIN boundary of <this>. If <this> is VOID the method returns false.", py::arg("thePar"));
-cls_Bnd_Range.def("GetMax", [](Bnd_Range &self, Standard_Real & thePar){ Standard_Boolean rv = self.GetMax(thePar); return std::tuple<Standard_Boolean, Standard_Real &>(rv, thePar); }, "Obtain MAX boundary of <this>. If <this> is VOID the method returns false.", py::arg("thePar"));
-cls_Bnd_Range.def("GetBounds", [](Bnd_Range &self, Standard_Real & theFirstPar, Standard_Real & theLastPar){ Standard_Boolean rv = self.GetBounds(theFirstPar, theLastPar); return std::tuple<Standard_Boolean, Standard_Real &, Standard_Real &>(rv, theFirstPar, theLastPar); }, "Obtain first and last boundary of <this>. If <this> is VOID the method returns false.", py::arg("theFirstPar"), py::arg("theLastPar"));
-cls_Bnd_Range.def("Delta", (Standard_Real (Bnd_Range::*)() const) &Bnd_Range::Delta, "Returns range value (MAX-MIN). Returns negative value for VOID range.");
-cls_Bnd_Range.def("IsVoid", (Standard_Boolean (Bnd_Range::*)() const) &Bnd_Range::IsVoid, "Is <this> initialized.");
-cls_Bnd_Range.def("SetVoid", (void (Bnd_Range::*)()) &Bnd_Range::SetVoid, "Initializes <this> by default parameters. Makes <this> VOID.");
-cls_Bnd_Range.def("Enlarge", (void (Bnd_Range::*)(const Standard_Real)) &Bnd_Range::Enlarge, "Extends this to the given value (in both side)", py::arg("theDelta"));
-cls_Bnd_Range.def("Shifted", (Bnd_Range (Bnd_Range::*)(const Standard_Real) const) &Bnd_Range::Shifted, "Returns the copy of <*this> shifted by theVal", py::arg("theVal"));
-cls_Bnd_Range.def("Shift", (void (Bnd_Range::*)(const Standard_Real)) &Bnd_Range::Shift, "Shifts <*this> by theVal", py::arg("theVal"));
-cls_Bnd_Range.def("IsOut", (Standard_Boolean (Bnd_Range::*)(Standard_Real) const) &Bnd_Range::IsOut, "Returns True if the value is out of this range.", py::arg("theValue"));
-cls_Bnd_Range.def("IsOut", (Standard_Boolean (Bnd_Range::*)(const Bnd_Range &) const) &Bnd_Range::IsOut, "Returns True if the given range is out of this range.", py::arg("theRange"));
-cls_Bnd_Range.def("__eq__", (Standard_Boolean (Bnd_Range::*)(const Bnd_Range &) const) &Bnd_Range::operator==, py::is_operator(), "Returns TRUE if theOther is equal to <*this>", py::arg("theOther"));
+cls_Bnd_OBB.def("DumpJson", [](Bnd_OBB &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
+cls_Bnd_OBB.def("DumpJson", (void (Bnd_OBB::*)(Standard_OStream &, const Standard_Integer) const) &Bnd_OBB::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
 // TYPEDEF: BND_SEQOFBOX
 bind_NCollection_Sequence<Bnd_Box>(mod, "Bnd_SeqOfBox", py::module_local(false));
+
+// CLASS: BND_TOOLS
+py::class_<Bnd_Tools> cls_Bnd_Tools(mod, "Bnd_Tools", "Defines a set of static methods operating with bounding boxes");
+
+// Methods
+cls_Bnd_Tools.def_static("Bnd2BVH_", (BVH_Box<Standard_Real, 2> (*)(const Bnd_Box2d &)) &Bnd_Tools::Bnd2BVH, "Converts the given Bnd_Box2d to BVH_Box", py::arg("theBox"));
+cls_Bnd_Tools.def_static("Bnd2BVH_", (BVH_Box<Standard_Real, 3> (*)(const Bnd_Box &)) &Bnd_Tools::Bnd2BVH, "Converts the given Bnd_Box to BVH_Box", py::arg("theBox"));
 
 
 }

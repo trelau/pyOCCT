@@ -35,11 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_Pnt2d.hxx>
 #include <TColStd_Array1OfReal.hxx>
 #include <Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter.hxx>
+#include <IntCurve_IntConicConic.hxx>
+#include <Geom2dInt_IntConicCurveOfGInter.hxx>
 #include <Geom2dInt_ThePolygon2dOfTheIntPCurvePCurveOfGInter.hxx>
 #include <Geom2dInt_TheIntPCurvePCurveOfGInter.hxx>
-#include <IntCurve_IntConicConic.hxx>
 #include <Geom2dInt_GInter.hxx>
-#include <Geom2dInt_IntConicCurveOfGInter.hxx>
 #include <math_FunctionSetWithDerivatives.hxx>
 #include <math_Vector.hxx>
 #include <math_Matrix.hxx>
@@ -121,6 +121,30 @@ cls_Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter.def("FindU", (Standard_Re
 cls_Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter.def("FindV", (Standard_Real (Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter::*)(const Standard_Real, gp_Pnt2d &, const IntCurve_IConicTool &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real, const Standard_Real) const) &Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter::FindV, "None", py::arg("parameter"), py::arg("point"), py::arg("IntCurve_IConicTool"), py::arg("ParCurve"), py::arg("TheParCurveDomain"), py::arg("V0"), py::arg("V1"), py::arg("Tolerance"));
 cls_Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter.def("And_Domaine_Objet1_Intersections", [](Geom2dInt_TheIntersectorOfTheIntConicCurveOfGInter &self, const IntCurve_IConicTool & IntCurve_IConicTool, const Adaptor2d_Curve2d & TheParCurve, const IntRes2d_Domain & TheImpCurveDomain, const IntRes2d_Domain & TheParCurveDomain, Standard_Integer & NbResultats, TColStd_Array1OfReal & Inter2_And_Domain2, TColStd_Array1OfReal & Inter1, TColStd_Array1OfReal & Resultat1, TColStd_Array1OfReal & Resultat2, const Standard_Real EpsNul){ self.And_Domaine_Objet1_Intersections(IntCurve_IConicTool, TheParCurve, TheImpCurveDomain, TheParCurveDomain, NbResultats, Inter2_And_Domain2, Inter1, Resultat1, Resultat2, EpsNul); return NbResultats; }, "None", py::arg("IntCurve_IConicTool"), py::arg("TheParCurve"), py::arg("TheImpCurveDomain"), py::arg("TheParCurveDomain"), py::arg("NbResultats"), py::arg("Inter2_And_Domain2"), py::arg("Inter1"), py::arg("Resultat1"), py::arg("Resultat2"), py::arg("EpsNul"));
 
+// CLASS: GEOM2DINT_INTCONICCURVEOFGINTER
+py::class_<Geom2dInt_IntConicCurveOfGInter, IntRes2d_Intersection> cls_Geom2dInt_IntConicCurveOfGInter(mod, "Geom2dInt_IntConicCurveOfGInter", "None");
+
+// Constructors
+cls_Geom2dInt_IntConicCurveOfGInter.def(py::init<>());
+cls_Geom2dInt_IntConicCurveOfGInter.def(py::init<const gp_Lin2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real>(), py::arg("L"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
+cls_Geom2dInt_IntConicCurveOfGInter.def(py::init<const gp_Circ2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real>(), py::arg("C"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
+cls_Geom2dInt_IntConicCurveOfGInter.def(py::init<const gp_Elips2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real>(), py::arg("E"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
+cls_Geom2dInt_IntConicCurveOfGInter.def(py::init<const gp_Parab2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real>(), py::arg("Prb"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
+cls_Geom2dInt_IntConicCurveOfGInter.def(py::init<const gp_Hypr2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real>(), py::arg("H"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
+
+// Methods
+// cls_Geom2dInt_IntConicCurveOfGInter.def_static("operator new_", (void * (*)(size_t)) &Geom2dInt_IntConicCurveOfGInter::operator new, "None", py::arg("theSize"));
+// cls_Geom2dInt_IntConicCurveOfGInter.def_static("operator delete_", (void (*)(void *)) &Geom2dInt_IntConicCurveOfGInter::operator delete, "None", py::arg("theAddress"));
+// cls_Geom2dInt_IntConicCurveOfGInter.def_static("operator new[]_", (void * (*)(size_t)) &Geom2dInt_IntConicCurveOfGInter::operator new[], "None", py::arg("theSize"));
+// cls_Geom2dInt_IntConicCurveOfGInter.def_static("operator delete[]_", (void (*)(void *)) &Geom2dInt_IntConicCurveOfGInter::operator delete[], "None", py::arg("theAddress"));
+// cls_Geom2dInt_IntConicCurveOfGInter.def_static("operator new_", (void * (*)(size_t, void *)) &Geom2dInt_IntConicCurveOfGInter::operator new, "None", py::arg(""), py::arg("theAddress"));
+// cls_Geom2dInt_IntConicCurveOfGInter.def_static("operator delete_", (void (*)(void *, void *)) &Geom2dInt_IntConicCurveOfGInter::operator delete, "None", py::arg(""), py::arg(""));
+cls_Geom2dInt_IntConicCurveOfGInter.def("Perform", (void (Geom2dInt_IntConicCurveOfGInter::*)(const gp_Lin2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real)) &Geom2dInt_IntConicCurveOfGInter::Perform, "Intersection between a line and a parametric curve.", py::arg("L"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
+cls_Geom2dInt_IntConicCurveOfGInter.def("Perform", (void (Geom2dInt_IntConicCurveOfGInter::*)(const gp_Circ2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real)) &Geom2dInt_IntConicCurveOfGInter::Perform, "Intersection between a line and a parametric curve.", py::arg("C"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
+cls_Geom2dInt_IntConicCurveOfGInter.def("Perform", (void (Geom2dInt_IntConicCurveOfGInter::*)(const gp_Elips2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real)) &Geom2dInt_IntConicCurveOfGInter::Perform, "Intersection between an ellipse and a parametric curve.", py::arg("E"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
+cls_Geom2dInt_IntConicCurveOfGInter.def("Perform", (void (Geom2dInt_IntConicCurveOfGInter::*)(const gp_Parab2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real)) &Geom2dInt_IntConicCurveOfGInter::Perform, "Intersection between a parabola and a parametric curve.", py::arg("Prb"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
+cls_Geom2dInt_IntConicCurveOfGInter.def("Perform", (void (Geom2dInt_IntConicCurveOfGInter::*)(const gp_Hypr2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real)) &Geom2dInt_IntConicCurveOfGInter::Perform, "Intersection between the main branch of an hyperbola and a parametric curve.", py::arg("H"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
+
 // CLASS: GEOM2DINT_THEINTPCURVEPCURVEOFGINTER
 py::class_<Geom2dInt_TheIntPCurvePCurveOfGInter, IntRes2d_Intersection> cls_Geom2dInt_TheIntPCurvePCurveOfGInter(mod, "Geom2dInt_TheIntPCurvePCurveOfGInter", "None");
 
@@ -167,30 +191,6 @@ cls_Geom2dInt_GInter.def("Perform", (void (Geom2dInt_GInter::*)(const Adaptor2d_
 cls_Geom2dInt_GInter.def("ComputeDomain", (IntRes2d_Domain (Geom2dInt_GInter::*)(const Adaptor2d_Curve2d &, const Standard_Real) const) &Geom2dInt_GInter::ComputeDomain, "Create a domain from a curve", py::arg("C1"), py::arg("TolDomain"));
 cls_Geom2dInt_GInter.def("SetMinNbSamples", (void (Geom2dInt_GInter::*)(const Standard_Integer)) &Geom2dInt_GInter::SetMinNbSamples, "Set / get minimum number of points in polygon intersection.", py::arg("theMinNbSamples"));
 cls_Geom2dInt_GInter.def("GetMinNbSamples", (Standard_Integer (Geom2dInt_GInter::*)() const) &Geom2dInt_GInter::GetMinNbSamples, "None");
-
-// CLASS: GEOM2DINT_INTCONICCURVEOFGINTER
-py::class_<Geom2dInt_IntConicCurveOfGInter, IntRes2d_Intersection> cls_Geom2dInt_IntConicCurveOfGInter(mod, "Geom2dInt_IntConicCurveOfGInter", "None");
-
-// Constructors
-cls_Geom2dInt_IntConicCurveOfGInter.def(py::init<>());
-cls_Geom2dInt_IntConicCurveOfGInter.def(py::init<const gp_Lin2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real>(), py::arg("L"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
-cls_Geom2dInt_IntConicCurveOfGInter.def(py::init<const gp_Circ2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real>(), py::arg("C"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
-cls_Geom2dInt_IntConicCurveOfGInter.def(py::init<const gp_Elips2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real>(), py::arg("E"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
-cls_Geom2dInt_IntConicCurveOfGInter.def(py::init<const gp_Parab2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real>(), py::arg("Prb"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
-cls_Geom2dInt_IntConicCurveOfGInter.def(py::init<const gp_Hypr2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real>(), py::arg("H"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
-
-// Methods
-// cls_Geom2dInt_IntConicCurveOfGInter.def_static("operator new_", (void * (*)(size_t)) &Geom2dInt_IntConicCurveOfGInter::operator new, "None", py::arg("theSize"));
-// cls_Geom2dInt_IntConicCurveOfGInter.def_static("operator delete_", (void (*)(void *)) &Geom2dInt_IntConicCurveOfGInter::operator delete, "None", py::arg("theAddress"));
-// cls_Geom2dInt_IntConicCurveOfGInter.def_static("operator new[]_", (void * (*)(size_t)) &Geom2dInt_IntConicCurveOfGInter::operator new[], "None", py::arg("theSize"));
-// cls_Geom2dInt_IntConicCurveOfGInter.def_static("operator delete[]_", (void (*)(void *)) &Geom2dInt_IntConicCurveOfGInter::operator delete[], "None", py::arg("theAddress"));
-// cls_Geom2dInt_IntConicCurveOfGInter.def_static("operator new_", (void * (*)(size_t, void *)) &Geom2dInt_IntConicCurveOfGInter::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Geom2dInt_IntConicCurveOfGInter.def_static("operator delete_", (void (*)(void *, void *)) &Geom2dInt_IntConicCurveOfGInter::operator delete, "None", py::arg(""), py::arg(""));
-cls_Geom2dInt_IntConicCurveOfGInter.def("Perform", (void (Geom2dInt_IntConicCurveOfGInter::*)(const gp_Lin2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real)) &Geom2dInt_IntConicCurveOfGInter::Perform, "Intersection between a line and a parametric curve.", py::arg("L"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
-cls_Geom2dInt_IntConicCurveOfGInter.def("Perform", (void (Geom2dInt_IntConicCurveOfGInter::*)(const gp_Circ2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real)) &Geom2dInt_IntConicCurveOfGInter::Perform, "Intersection between a line and a parametric curve.", py::arg("C"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
-cls_Geom2dInt_IntConicCurveOfGInter.def("Perform", (void (Geom2dInt_IntConicCurveOfGInter::*)(const gp_Elips2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real)) &Geom2dInt_IntConicCurveOfGInter::Perform, "Intersection between an ellipse and a parametric curve.", py::arg("E"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
-cls_Geom2dInt_IntConicCurveOfGInter.def("Perform", (void (Geom2dInt_IntConicCurveOfGInter::*)(const gp_Parab2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real)) &Geom2dInt_IntConicCurveOfGInter::Perform, "Intersection between a parabola and a parametric curve.", py::arg("Prb"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
-cls_Geom2dInt_IntConicCurveOfGInter.def("Perform", (void (Geom2dInt_IntConicCurveOfGInter::*)(const gp_Hypr2d &, const IntRes2d_Domain &, const Adaptor2d_Curve2d &, const IntRes2d_Domain &, const Standard_Real, const Standard_Real)) &Geom2dInt_IntConicCurveOfGInter::Perform, "Intersection between the main branch of an hyperbola and a parametric curve.", py::arg("H"), py::arg("D1"), py::arg("PCurve"), py::arg("D2"), py::arg("TolConf"), py::arg("Tol"));
 
 // CLASS: GEOM2DINT_THEDISTBETWEENPCURVESOFTHEINTPCURVEPCURVEOFGINTER
 py::class_<Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter, math_FunctionSetWithDerivatives> cls_Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter(mod, "Geom2dInt_TheDistBetweenPCurvesOfTheIntPCurvePCurveOfGInter", "None");

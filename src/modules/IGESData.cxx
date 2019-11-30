@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <IGESData_GeneralModule.hxx>
 #include <IGESData_IGESReaderTool.hxx>
 #include <IGESData_DirChecker.hxx>
+#include <Standard_Std.hxx>
 #include <Interface_EntityList.hxx>
 #include <NCollection_Array1.hxx>
 #include <IGESData_Array1OfIGESEntity.hxx>
@@ -263,6 +264,7 @@ bind_NCollection_Array1<opencascade::handle<IGESData_IGESEntity> >(mod, "IGESDat
 py::class_<IGESData_HArray1OfIGESEntity, opencascade::handle<IGESData_HArray1OfIGESEntity>, Standard_Transient> cls_IGESData_HArray1OfIGESEntity(mod, "IGESData_HArray1OfIGESEntity", "None", py::multiple_inheritance());
 
 // Constructors
+cls_IGESData_HArray1OfIGESEntity.def(py::init<>());
 cls_IGESData_HArray1OfIGESEntity.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_IGESData_HArray1OfIGESEntity.def(py::init<const Standard_Integer, const Standard_Integer, const IGESData_Array1OfIGESEntity::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_IGESData_HArray1OfIGESEntity.def(py::init<const IGESData_Array1OfIGESEntity &>(), py::arg("theOther"));

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <DsgPrs_ArrowSide.hxx>
 #include <Standard.hxx>
 #include <Standard_Handle.hxx>
-#include <Prs3d_Presentation.hxx>
+#include <PrsMgr_PresentationManager.hxx>
 #include <Prs3d_DimensionAspect.hxx>
 #include <gp_Pnt.hxx>
 #include <gp_Dir.hxx>
@@ -34,47 +34,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_Ax1.hxx>
 #include <gp_Circ.hxx>
 #include <gp_Elips.hxx>
-#include <DsgPrs_EllipseRadiusPresentation.hxx>
-#include <DsgPrs_LengthPresentation.hxx>
-#include <DsgPrs_RadiusPresentation.hxx>
-#include <DsgPrs_DiameterPresentation.hxx>
-#include <DsgPrs_FilletRadiusPresentation.hxx>
-#include <DsgPrs_AnglePresentation.hxx>
-#include <DsgPrs_Chamf2dPresentation.hxx>
-#include <DsgPrs_ParalPresentation.hxx>
-#include <DsgPrs_PerpenPresentation.hxx>
-#include <DsgPrs_SymmetricPresentation.hxx>
-#include <DsgPrs_MidPointPresentation.hxx>
-#include <DsgPrs_TangentPresentation.hxx>
-#include <DsgPrs_ConcentricPresentation.hxx>
-#include <DsgPrs_FixPresentation.hxx>
-#include <DsgPrs_IdenticPresentation.hxx>
-#include <DsgPrs_EqualRadiusPresentation.hxx>
-#include <DsgPrs_EqualDistancePresentation.hxx>
-#include <DsgPrs_SymbPresentation.hxx>
-#include <DsgPrs_ShapeDirPresentation.hxx>
-#include <DsgPrs_OffsetPresentation.hxx>
-#include <DsgPrs_XYZAxisPresentation.hxx>
-#include <DsgPrs_XYZPlanePresentation.hxx>
-#include <DsgPrs_ShadedPlanePresentation.hxx>
 #include <DsgPrs.hxx>
 #include <Prs3d_Drawer.hxx>
 #include <TCollection_ExtendedString.hxx>
+#include <DsgPrs_AnglePresentation.hxx>
+#include <DsgPrs_Chamf2dPresentation.hxx>
+#include <DsgPrs_ConcentricPresentation.hxx>
 #include <Prs3d_Root.hxx>
 #include <gp_Ax2.hxx>
 #include <DsgPrs_DatumPrs.hxx>
+#include <DsgPrs_DiameterPresentation.hxx>
 #include <Geom_OffsetCurve.hxx>
+#include <DsgPrs_EllipseRadiusPresentation.hxx>
 #include <Geom_Plane.hxx>
+#include <DsgPrs_EqualDistancePresentation.hxx>
+#include <DsgPrs_EqualRadiusPresentation.hxx>
 #include <Geom_TrimmedCurve.hxx>
+#include <DsgPrs_FilletRadiusPresentation.hxx>
+#include <DsgPrs_FixPresentation.hxx>
+#include <DsgPrs_IdenticPresentation.hxx>
+#include <DsgPrs_LengthPresentation.hxx>
+#include <DsgPrs_MidPointPresentation.hxx>
+#include <DsgPrs_OffsetPresentation.hxx>
+#include <DsgPrs_ParalPresentation.hxx>
+#include <DsgPrs_PerpenPresentation.hxx>
+#include <DsgPrs_RadiusPresentation.hxx>
+#include <DsgPrs_ShadedPlanePresentation.hxx>
 #include <TopoDS_Shape.hxx>
+#include <DsgPrs_ShapeDirPresentation.hxx>
+#include <DsgPrs_SymbPresentation.hxx>
 #include <gp_Lin.hxx>
+#include <DsgPrs_SymmetricPresentation.hxx>
+#include <DsgPrs_TangentPresentation.hxx>
 #include <Prs3d_LineAspect.hxx>
 #include <Prs3d_ArrowAspect.hxx>
 #include <Prs3d_TextAspect.hxx>
+#include <DsgPrs_XYZAxisPresentation.hxx>
+#include <DsgPrs_XYZPlanePresentation.hxx>
 
 PYBIND11_MODULE(DsgPrs, mod) {
 
 py::module::import("OCCT.Standard");
+py::module::import("OCCT.PrsMgr");
 py::module::import("OCCT.Prs3d");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.Geom");

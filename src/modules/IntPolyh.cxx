@@ -259,14 +259,14 @@ cls_IntPolyh_Couple.def("SetCoupleValue", (void (IntPolyh_Couple::*)(const Stand
 cls_IntPolyh_Couple.def("SetAnalyzed", (void (IntPolyh_Couple::*)(const Standard_Boolean)) &IntPolyh_Couple::SetAnalyzed, "Sets the analyzed flag", py::arg("theAnalyzed"));
 cls_IntPolyh_Couple.def("SetAngle", (void (IntPolyh_Couple::*)(const Standard_Real)) &IntPolyh_Couple::SetAngle, "Sets the angle", py::arg("theAngle"));
 cls_IntPolyh_Couple.def("IsEqual", (Standard_Boolean (IntPolyh_Couple::*)(const IntPolyh_Couple &) const) &IntPolyh_Couple::IsEqual, "Returns true if the Couple is equal to <theOther>", py::arg("theOther"));
-cls_IntPolyh_Couple.def("HashCode", (Standard_Integer (IntPolyh_Couple::*)(const Standard_Integer) const) &IntPolyh_Couple::HashCode, "Returns hash code", py::arg("theUpper"));
+cls_IntPolyh_Couple.def("HashCode", (Standard_Integer (IntPolyh_Couple::*)(const Standard_Integer) const) &IntPolyh_Couple::HashCode, "Computes a hash code for this couple, in the range [1, theUpperBound]", py::arg("theUpperBound"));
 cls_IntPolyh_Couple.def("Dump", (void (IntPolyh_Couple::*)(const Standard_Integer) const) &IntPolyh_Couple::Dump, "None", py::arg("v"));
 
 // CLASS: INTPOLYH_COUPLEMAPHASHER
 py::class_<IntPolyh_CoupleMapHasher> cls_IntPolyh_CoupleMapHasher(mod, "IntPolyh_CoupleMapHasher", "None");
 
 // Methods
-cls_IntPolyh_CoupleMapHasher.def_static("HashCode_", (Standard_Integer (*)(const IntPolyh_Couple &, const Standard_Integer)) &IntPolyh_CoupleMapHasher::HashCode, "None", py::arg("theCouple"), py::arg("Upper"));
+cls_IntPolyh_CoupleMapHasher.def_static("HashCode_", (Standard_Integer (*)(const IntPolyh_Couple &, const Standard_Integer)) &IntPolyh_CoupleMapHasher::HashCode, "Computes a hash code for the given couple, in the range [1, theUpperBound]", py::arg("theCouple"), py::arg("theUpperBound"));
 cls_IntPolyh_CoupleMapHasher.def_static("IsEqual_", (Standard_Boolean (*)(const IntPolyh_Couple &, const IntPolyh_Couple &)) &IntPolyh_CoupleMapHasher::IsEqual, "None", py::arg("theCouple1"), py::arg("theCouple2"));
 
 // TYPEDEF: INTPOLYH_LISTOFCOUPLES

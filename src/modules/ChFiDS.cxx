@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <pyOCCT_Common.hxx>
 #include <ChFiDS_ErrorStatus.hxx>
 #include <ChFiDS_ChamfMethod.hxx>
+#include <ChFiDS_ChamfMode.hxx>
 #include <ChFiDS_State.hxx>
 #include <Standard.hxx>
 #include <gp_Circ.hxx>
@@ -33,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Transient.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <ChFiDS_SecHArray1.hxx>
 #include <Standard_Type.hxx>
 #include <TopoDS_Shape.hxx>
@@ -45,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopAbs_Orientation.hxx>
 #include <gp_Pnt.hxx>
 #include <gp_Vec.hxx>
+#include <Standard_DomainError.hxx>
 #include <ChFiDS_CommonPoint.hxx>
 #include <Geom2d_Curve.hxx>
 #include <ChFiDS_FaceInterference.hxx>
@@ -134,6 +137,14 @@ py::enum_<ChFiDS_ChamfMethod>(mod, "ChFiDS_ChamfMethod", "None")
 	.export_values();
 
 
+// ENUM: CHFIDS_CHAMFMODE
+py::enum_<ChFiDS_ChamfMode>(mod, "ChFiDS_ChamfMode", "this enumeration defines several modes of chamfer")
+	.value("ChFiDS_ClassicChamfer", ChFiDS_ChamfMode::ChFiDS_ClassicChamfer)
+	.value("ChFiDS_ConstThroatChamfer", ChFiDS_ChamfMode::ChFiDS_ConstThroatChamfer)
+	.value("ChFiDS_ConstThroatWithPenetrationChamfer", ChFiDS_ChamfMode::ChFiDS_ConstThroatWithPenetrationChamfer)
+	.export_values();
+
+
 // ENUM: CHFIDS_STATE
 py::enum_<ChFiDS_State>(mod, "ChFiDS_State", "This enum describe the different kinds of extremities of a fillet. OnSame, Ondiff and AllSame are particular cases of BreakPoint for a corner with 3 edges and three faces : - AllSame means that the three concavities are on the same side of the Shape, - OnDiff means that the edge of the fillet has a concave side different than the two other edges, - OnSame means that the edge of the fillet has a concave side different than one of the two other edges and identical to the third edge.")
 	.value("ChFiDS_OnSame", ChFiDS_State::ChFiDS_OnSame)
@@ -171,6 +182,7 @@ bind_NCollection_Array1<ChFiDS_CircSection>(mod, "ChFiDS_SecArray1", py::module_
 py::class_<ChFiDS_SecHArray1, opencascade::handle<ChFiDS_SecHArray1>, Standard_Transient> cls_ChFiDS_SecHArray1(mod, "ChFiDS_SecHArray1", "None", py::multiple_inheritance());
 
 // Constructors
+cls_ChFiDS_SecHArray1.def(py::init<>());
 cls_ChFiDS_SecHArray1.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_ChFiDS_SecHArray1.def(py::init<const Standard_Integer, const Standard_Integer, const ChFiDS_SecArray1::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_ChFiDS_SecHArray1.def(py::init<const ChFiDS_SecArray1 &>(), py::arg("theOther"));
@@ -224,11 +236,11 @@ cls_ChFiDS_CommonPoint.def(py::init<>());
 // cls_ChFiDS_CommonPoint.def_static("operator new_", (void * (*)(size_t, void *)) &ChFiDS_CommonPoint::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_ChFiDS_CommonPoint.def_static("operator delete_", (void (*)(void *, void *)) &ChFiDS_CommonPoint::operator delete, "None", py::arg(""), py::arg(""));
 cls_ChFiDS_CommonPoint.def("Reset", (void (ChFiDS_CommonPoint::*)()) &ChFiDS_CommonPoint::Reset, "default value for all fields");
-cls_ChFiDS_CommonPoint.def("SetVertex", (void (ChFiDS_CommonPoint::*)(const TopoDS_Vertex &)) &ChFiDS_CommonPoint::SetVertex, "Sets the values of a point which is a vertex on the initial facet of restriction of one of the surface.", py::arg("V"));
+cls_ChFiDS_CommonPoint.def("SetVertex", (void (ChFiDS_CommonPoint::*)(const TopoDS_Vertex &)) &ChFiDS_CommonPoint::SetVertex, "Sets the values of a point which is a vertex on the initial facet of restriction of one of the surface.", py::arg("theVertex"));
 cls_ChFiDS_CommonPoint.def("SetArc", (void (ChFiDS_CommonPoint::*)(const Standard_Real, const TopoDS_Edge &, const Standard_Real, const TopAbs_Orientation)) &ChFiDS_CommonPoint::SetArc, "Sets the values of a point which is on the arc A, at parameter Param.", py::arg("Tol"), py::arg("A"), py::arg("Param"), py::arg("TArc"));
 cls_ChFiDS_CommonPoint.def("SetParameter", (void (ChFiDS_CommonPoint::*)(const Standard_Real)) &ChFiDS_CommonPoint::SetParameter, "Sets the value of the parameter on the spine", py::arg("Param"));
-cls_ChFiDS_CommonPoint.def("SetPoint", (void (ChFiDS_CommonPoint::*)(const gp_Pnt &)) &ChFiDS_CommonPoint::SetPoint, "Set the 3d point for a commonpoint that is not a vertex or on an arc.", py::arg("Point"));
-cls_ChFiDS_CommonPoint.def("SetVector", (void (ChFiDS_CommonPoint::*)(const gp_Vec &)) &ChFiDS_CommonPoint::SetVector, "Set the output 3d vector", py::arg("Vector"));
+cls_ChFiDS_CommonPoint.def("SetPoint", (void (ChFiDS_CommonPoint::*)(const gp_Pnt &)) &ChFiDS_CommonPoint::SetPoint, "Set the 3d point for a commonpoint that is not a vertex or on an arc.", py::arg("thePoint"));
+cls_ChFiDS_CommonPoint.def("SetVector", (void (ChFiDS_CommonPoint::*)(const gp_Vec &)) &ChFiDS_CommonPoint::SetVector, "Set the output 3d vector", py::arg("theVector"));
 cls_ChFiDS_CommonPoint.def("SetTolerance", (void (ChFiDS_CommonPoint::*)(const Standard_Real)) &ChFiDS_CommonPoint::SetTolerance, "This method set the fuzziness on the point.", py::arg("Tol"));
 cls_ChFiDS_CommonPoint.def("Tolerance", (Standard_Real (ChFiDS_CommonPoint::*)() const) &ChFiDS_CommonPoint::Tolerance, "This method returns the fuzziness on the point.");
 cls_ChFiDS_CommonPoint.def("IsVertex", (Standard_Boolean (ChFiDS_CommonPoint::*)() const) &ChFiDS_CommonPoint::IsVertex, "Returns TRUE if the point is a vertex on the initial restriction facet of the surface.");
@@ -572,16 +584,21 @@ cls_ChFiDS_Spine.def(py::init<const Standard_Real>(), py::arg("Tol"));
 
 // Methods
 cls_ChFiDS_Spine.def("SetEdges", (void (ChFiDS_Spine::*)(const TopoDS_Edge &)) &ChFiDS_Spine::SetEdges, "store edges composing the guideline", py::arg("E"));
+cls_ChFiDS_Spine.def("SetOffsetEdges", (void (ChFiDS_Spine::*)(const TopoDS_Edge &)) &ChFiDS_Spine::SetOffsetEdges, "store offset edges composing the offset guideline", py::arg("E"));
 cls_ChFiDS_Spine.def("PutInFirst", (void (ChFiDS_Spine::*)(const TopoDS_Edge &)) &ChFiDS_Spine::PutInFirst, "store the edge at the first position before all others", py::arg("E"));
+cls_ChFiDS_Spine.def("PutInFirstOffset", (void (ChFiDS_Spine::*)(const TopoDS_Edge &)) &ChFiDS_Spine::PutInFirstOffset, "store the offset edge at the first position before all others", py::arg("E"));
 cls_ChFiDS_Spine.def("NbEdges", (Standard_Integer (ChFiDS_Spine::*)() const) &ChFiDS_Spine::NbEdges, "None");
 cls_ChFiDS_Spine.def("Edges", (const TopoDS_Edge & (ChFiDS_Spine::*)(const Standard_Integer) const) &ChFiDS_Spine::Edges, "None", py::arg("I"));
+cls_ChFiDS_Spine.def("OffsetEdges", (const TopoDS_Edge & (ChFiDS_Spine::*)(const Standard_Integer) const) &ChFiDS_Spine::OffsetEdges, "None", py::arg("I"));
 cls_ChFiDS_Spine.def("SetFirstStatus", (void (ChFiDS_Spine::*)(const ChFiDS_State)) &ChFiDS_Spine::SetFirstStatus, "stores if the start of a set of edges starts on a section of free border or forms a closed contour", py::arg("S"));
 cls_ChFiDS_Spine.def("SetLastStatus", (void (ChFiDS_Spine::*)(const ChFiDS_State)) &ChFiDS_Spine::SetLastStatus, "stores if the end of a set of edges starts on a section of free border or forms a closed contour", py::arg("S"));
 cls_ChFiDS_Spine.def("AppendElSpine", (void (ChFiDS_Spine::*)(const opencascade::handle<ChFiDS_HElSpine> &)) &ChFiDS_Spine::AppendElSpine, "None", py::arg("Els"));
+cls_ChFiDS_Spine.def("AppendOffsetElSpine", (void (ChFiDS_Spine::*)(const opencascade::handle<ChFiDS_HElSpine> &)) &ChFiDS_Spine::AppendOffsetElSpine, "None", py::arg("Els"));
 cls_ChFiDS_Spine.def("ElSpine", (opencascade::handle<ChFiDS_HElSpine> (ChFiDS_Spine::*)(const Standard_Integer) const) &ChFiDS_Spine::ElSpine, "None", py::arg("IE"));
 cls_ChFiDS_Spine.def("ElSpine", (opencascade::handle<ChFiDS_HElSpine> (ChFiDS_Spine::*)(const TopoDS_Edge &) const) &ChFiDS_Spine::ElSpine, "None", py::arg("E"));
 cls_ChFiDS_Spine.def("ElSpine", (opencascade::handle<ChFiDS_HElSpine> (ChFiDS_Spine::*)(const Standard_Real) const) &ChFiDS_Spine::ElSpine, "None", py::arg("W"));
 cls_ChFiDS_Spine.def("ChangeElSpines", (ChFiDS_ListOfHElSpine & (ChFiDS_Spine::*)()) &ChFiDS_Spine::ChangeElSpines, "None");
+cls_ChFiDS_Spine.def("ChangeOffsetElSpines", (ChFiDS_ListOfHElSpine & (ChFiDS_Spine::*)()) &ChFiDS_Spine::ChangeOffsetElSpines, "None");
 cls_ChFiDS_Spine.def("Reset", [](ChFiDS_Spine &self) -> void { return self.Reset(); });
 cls_ChFiDS_Spine.def("Reset", (void (ChFiDS_Spine::*)(const Standard_Boolean)) &ChFiDS_Spine::Reset, "None", py::arg("AllData"));
 cls_ChFiDS_Spine.def("SplitDone", (Standard_Boolean (ChFiDS_Spine::*)() const) &ChFiDS_Spine::SplitDone, "None");
@@ -633,6 +650,7 @@ cls_ChFiDS_Spine.def("Index", (Standard_Integer (ChFiDS_Spine::*)(const TopoDS_E
 cls_ChFiDS_Spine.def("UnsetReference", (void (ChFiDS_Spine::*)()) &ChFiDS_Spine::UnsetReference, "None");
 cls_ChFiDS_Spine.def("SetErrorStatus", (void (ChFiDS_Spine::*)(const ChFiDS_ErrorStatus)) &ChFiDS_Spine::SetErrorStatus, "None", py::arg("state"));
 cls_ChFiDS_Spine.def("ErrorStatus", (ChFiDS_ErrorStatus (ChFiDS_Spine::*)() const) &ChFiDS_Spine::ErrorStatus, "None");
+cls_ChFiDS_Spine.def("Mode", (ChFiDS_ChamfMode (ChFiDS_Spine::*)() const) &ChFiDS_Spine::Mode, "Return the mode of chamfers used");
 cls_ChFiDS_Spine.def_static("get_type_name_", (const char * (*)()) &ChFiDS_Spine::get_type_name, "None");
 cls_ChFiDS_Spine.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ChFiDS_Spine::get_type_descriptor, "None");
 cls_ChFiDS_Spine.def("DynamicType", (const opencascade::handle<Standard_Type> & (ChFiDS_Spine::*)() const) &ChFiDS_Spine::DynamicType, "None");
@@ -649,8 +667,9 @@ cls_ChFiDS_ChamfSpine.def("SetDist", (void (ChFiDS_ChamfSpine::*)(const Standard
 cls_ChFiDS_ChamfSpine.def("GetDist", [](ChFiDS_ChamfSpine &self, Standard_Real & Dis){ self.GetDist(Dis); return Dis; }, "None", py::arg("Dis"));
 cls_ChFiDS_ChamfSpine.def("SetDists", (void (ChFiDS_ChamfSpine::*)(const Standard_Real, const Standard_Real)) &ChFiDS_ChamfSpine::SetDists, "None", py::arg("Dis1"), py::arg("Dis2"));
 cls_ChFiDS_ChamfSpine.def("Dists", [](ChFiDS_ChamfSpine &self, Standard_Real & Dis1, Standard_Real & Dis2){ self.Dists(Dis1, Dis2); return std::tuple<Standard_Real &, Standard_Real &>(Dis1, Dis2); }, "None", py::arg("Dis1"), py::arg("Dis2"));
-cls_ChFiDS_ChamfSpine.def("GetDistAngle", [](ChFiDS_ChamfSpine &self, Standard_Real & Dis, Standard_Real & Angle, Standard_Boolean & DisOnF1){ self.GetDistAngle(Dis, Angle, DisOnF1); return std::tuple<Standard_Real &, Standard_Real &, Standard_Boolean &>(Dis, Angle, DisOnF1); }, "None", py::arg("Dis"), py::arg("Angle"), py::arg("DisOnF1"));
-cls_ChFiDS_ChamfSpine.def("SetDistAngle", (void (ChFiDS_ChamfSpine::*)(const Standard_Real, const Standard_Real, const Standard_Boolean)) &ChFiDS_ChamfSpine::SetDistAngle, "None", py::arg("Dis"), py::arg("Angle"), py::arg("DisOnF1"));
+cls_ChFiDS_ChamfSpine.def("GetDistAngle", [](ChFiDS_ChamfSpine &self, Standard_Real & Dis, Standard_Real & Angle){ self.GetDistAngle(Dis, Angle); return std::tuple<Standard_Real &, Standard_Real &>(Dis, Angle); }, "None", py::arg("Dis"), py::arg("Angle"));
+cls_ChFiDS_ChamfSpine.def("SetDistAngle", (void (ChFiDS_ChamfSpine::*)(const Standard_Real, const Standard_Real)) &ChFiDS_ChamfSpine::SetDistAngle, "None", py::arg("Dis"), py::arg("Angle"));
+cls_ChFiDS_ChamfSpine.def("SetMode", (void (ChFiDS_ChamfSpine::*)(const ChFiDS_ChamfMode)) &ChFiDS_ChamfSpine::SetMode, "None", py::arg("theMode"));
 cls_ChFiDS_ChamfSpine.def("IsChamfer", (ChFiDS_ChamfMethod (ChFiDS_ChamfSpine::*)() const) &ChFiDS_ChamfSpine::IsChamfer, "Return the method of chamfers used");
 cls_ChFiDS_ChamfSpine.def_static("get_type_name_", (const char * (*)()) &ChFiDS_ChamfSpine::get_type_name, "None");
 cls_ChFiDS_ChamfSpine.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ChFiDS_ChamfSpine::get_type_descriptor, "None");

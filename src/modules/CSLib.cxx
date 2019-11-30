@@ -31,17 +31,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <CSLib_NormalPolyDef.hxx>
 #include <CSLib.hxx>
 #include <TColgp_Array1OfPnt2d.hxx>
+#include <TColgp_SequenceOfPnt2d.hxx>
 #include <gp_Pnt2d.hxx>
-#include <math_FunctionWithDerivative.hxx>
+#include <NCollection_Handle.hxx>
 #include <TColStd_Array1OfReal.hxx>
+#include <math_FunctionWithDerivative.hxx>
 
 PYBIND11_MODULE(CSLib, mod) {
 
 py::module::import("OCCT.Standard");
 py::module::import("OCCT.gp");
 py::module::import("OCCT.TColgp");
-py::module::import("OCCT.math");
+py::module::import("OCCT.NCollection");
 py::module::import("OCCT.TColStd");
+py::module::import("OCCT.math");
 
 // ENUM: CSLIB_DERIVATIVESTATUS
 py::enum_<CSLib_DerivativeStatus>(mod, "CSLib_DerivativeStatus", "D1uIsNull : ||D1U|| <= Resolution")
@@ -93,7 +96,8 @@ cls_CSLib.def_static("DNNormal_", (gp_Vec (*)(const Standard_Integer, const Stan
 py::class_<CSLib_Class2d> cls_CSLib_Class2d(mod, "CSLib_Class2d", "*** Class2d : Low level algorithm for 2d classification this class was moved from package BRepTopAdaptor");
 
 // Constructors
-cls_CSLib_Class2d.def(py::init<const TColgp_Array1OfPnt2d &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("TP"), py::arg("aTolu"), py::arg("aTolv"), py::arg("umin"), py::arg("vmin"), py::arg("umax"), py::arg("vmax"));
+cls_CSLib_Class2d.def(py::init<const TColgp_Array1OfPnt2d &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("thePnts2d"), py::arg("theTolU"), py::arg("theTolV"), py::arg("theUMin"), py::arg("theVMin"), py::arg("theUMax"), py::arg("theVMax"));
+cls_CSLib_Class2d.def(py::init<const TColgp_SequenceOfPnt2d &, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real, const Standard_Real>(), py::arg("thePnts2d"), py::arg("theTolU"), py::arg("theTolV"), py::arg("theUMin"), py::arg("theVMin"), py::arg("theUMax"), py::arg("theVMax"));
 
 // Methods
 // cls_CSLib_Class2d.def_static("operator new_", (void * (*)(size_t)) &CSLib_Class2d::operator new, "None", py::arg("theSize"));
@@ -106,9 +110,6 @@ cls_CSLib_Class2d.def("SiDans", (Standard_Integer (CSLib_Class2d::*)(const gp_Pn
 cls_CSLib_Class2d.def("SiDans_OnMode", (Standard_Integer (CSLib_Class2d::*)(const gp_Pnt2d &, const Standard_Real) const) &CSLib_Class2d::SiDans_OnMode, "None", py::arg("P"), py::arg("Tol"));
 cls_CSLib_Class2d.def("InternalSiDans", (Standard_Integer (CSLib_Class2d::*)(const Standard_Real, const Standard_Real) const) &CSLib_Class2d::InternalSiDans, "None", py::arg("X"), py::arg("Y"));
 cls_CSLib_Class2d.def("InternalSiDansOuOn", (Standard_Integer (CSLib_Class2d::*)(const Standard_Real, const Standard_Real) const) &CSLib_Class2d::InternalSiDansOuOn, "None", py::arg("X"), py::arg("Y"));
-cls_CSLib_Class2d.def("Copy", (const CSLib_Class2d & (CSLib_Class2d::*)(const CSLib_Class2d &) const) &CSLib_Class2d::Copy, "None", py::arg("Other"));
-// cls_CSLib_Class2d.def("operator=", (const CSLib_Class2d & (CSLib_Class2d::*)(const CSLib_Class2d &) const) &CSLib_Class2d::operator=, "None", py::arg("Other"));
-cls_CSLib_Class2d.def("Destroy", (void (CSLib_Class2d::*)()) &CSLib_Class2d::Destroy, "None");
 
 // CLASS: CSLIB_NORMALPOLYDEF
 py::class_<CSLib_NormalPolyDef, math_FunctionWithDerivative> cls_CSLib_NormalPolyDef(mod, "CSLib_NormalPolyDef", "None");

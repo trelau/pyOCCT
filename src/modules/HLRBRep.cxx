@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <HLRBRep_InternalAlgo.hxx>
 #include <HLRAlgo_Projector.hxx>
 #include <HLRBRep_Data.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <BRepTopAdaptor_MapOfShapeTool.hxx>
 #include <HLRBRep_Algo.hxx>

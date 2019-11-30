@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TCollection_ExtendedString.hxx>
 #include <CDM_Application.hxx>
 #include <Storage_Data.hxx>
+#include <Standard_Std.hxx>
 #include <PCDM_Reader.hxx>
 #include <Standard_Type.hxx>
 #include <Standard.hxx>

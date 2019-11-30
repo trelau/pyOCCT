@@ -117,6 +117,7 @@ cls_BRepClass3d_BndBoxTreeSelectorLine.def("GetVertParam", [](BRepClass3d_BndBox
 cls_BRepClass3d_BndBoxTreeSelectorLine.def("GetNbEdgeParam", (Standard_Integer (BRepClass3d_BndBoxTreeSelectorLine::*)() const) &BRepClass3d_BndBoxTreeSelectorLine::GetNbEdgeParam, "None");
 cls_BRepClass3d_BndBoxTreeSelectorLine.def("GetNbVertParam", (Standard_Integer (BRepClass3d_BndBoxTreeSelectorLine::*)() const) &BRepClass3d_BndBoxTreeSelectorLine::GetNbVertParam, "None");
 cls_BRepClass3d_BndBoxTreeSelectorLine.def("ClearResults", (void (BRepClass3d_BndBoxTreeSelectorLine::*)()) &BRepClass3d_BndBoxTreeSelectorLine::ClearResults, "None");
+cls_BRepClass3d_BndBoxTreeSelectorLine.def("IsCorrect", (Standard_Boolean (BRepClass3d_BndBoxTreeSelectorLine::*)() const) &BRepClass3d_BndBoxTreeSelectorLine::IsCorrect, "Returns TRUE if correct classification is possible");
 
 // TYPEDEF: BREPCLASS3D_MAPOFINTER
 bind_NCollection_DataMap<TopoDS_Shape, void *, TopTools_ShapeMapHasher>(mod, "BRepClass3d_MapOfInter", py::module_local(false));

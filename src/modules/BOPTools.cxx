@@ -27,6 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BOPTools_ConnexityBlock.hxx>
 #include <NCollection_List.hxx>
 #include <BOPTools_ListOfConnexityBlock.hxx>
+#include <BOPTools_BoxTree.hxx>
+#include <BOPTools_BoxSelector.hxx>
+#include <BOPTools_PairSelector.hxx>
 #include <TopoDS_Shape.hxx>
 #include <BOPTools_CoupleOfShape.hxx>
 #include <BOPTools_ListOfCoupleOfShape.hxx>
@@ -57,20 +60,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Geom_Surface.hxx>
 #include <gp_Pnt2d.hxx>
 #include <BOPTools_AlgoTools3D.hxx>
-#include <NCollection_UBTree.hxx>
-#include <Bnd_Box.hxx>
-#include <BOPTools_BoxBndTree.hxx>
-#include <BOPTools_BoxSelector.hxx>
 #include <BOPTools_Set.hxx>
 #include <BOPTools_SetMapHasher.hxx>
 #include <NCollection_IndexedDataMap.hxx>
 #include <BOPTools_IndexedDataMapOfSetShape.hxx>
 #include <NCollection_Map.hxx>
 #include <BOPTools_MapOfSet.hxx>
+#include <BOPTools_Parallel.hxx>
+#include <Standard_ThreadId.hxx>
+#include <NCollection_DataMap.hxx>
+#include <Standard_Mutex.hxx>
+#include <OSD_ThreadPool.hxx>
+#include <NCollection_Array1.hxx>
 #include <bind_NCollection_List.hxx>
 #include <bind_NCollection_TListIterator.hxx>
-#include <bind_NCollection_UBTree.hxx>
+#include <bind_BOPTools_BoxSet.hxx>
 #include <bind_BOPTools_BoxSelector.hxx>
+#include <bind_BOPTools_PairSelector.hxx>
 #include <bind_NCollection_IndexedDataMap.hxx>
 #include <bind_NCollection_Map.hxx>
 
@@ -88,7 +94,7 @@ py::module::import("OCCT.Message");
 py::module::import("OCCT.Geom2d");
 py::module::import("OCCT.Geom");
 py::module::import("OCCT.BRepAdaptor");
-py::module::import("OCCT.Bnd");
+py::module::import("OCCT.OSD");
 
 // CLASS: BOPTOOLS_CONNEXITYBLOCK
 py::class_<BOPTools_ConnexityBlock> cls_BOPTools_ConnexityBlock(mod, "BOPTools_ConnexityBlock", "None");
@@ -110,6 +116,32 @@ bind_NCollection_List<BOPTools_ConnexityBlock>(mod, "BOPTools_ListOfConnexityBlo
 
 // TYPEDEF: BOPTOOLS_LISTITERATOROFLISTOFCONNEXITYBLOCK
 bind_NCollection_TListIterator<BOPTools_ConnexityBlock>(mod, "BOPTools_ListIteratorOfListOfConnexityBlock", py::module_local(false));
+
+// TYPEDEF: BOPTOOLS_BOX2DTREE
+bind_BOPTools_BoxSet<double, 2, int>(mod, "BOPTools_Box2dTree", py::module_local(false));
+
+// TYPEDEF: BOPTOOLS_BOX2DTREESELECTOR
+bind_BOPTools_BoxSelector<2>(mod, "BOPTools_Box2dTreeSelector", py::module_local(false));
+
+// TYPEDEF: BOPTOOLS_BOX2DPAIRSELECTOR
+/*
+bind_BOPTools_PairSelector<2>(mod, "BOPTools_Box2dPairSelector", py::module_local(false));
+*/
+
+// TYPEDEF: BOPTOOLS_BOXTREE
+/*
+bind_BOPTools_BoxSet<double, 3, int>(mod, "BOPTools_BoxTree", py::module_local(false));
+*/
+
+// TYPEDEF: BOPTOOLS_BOXTREESELECTOR
+/*
+bind_BOPTools_BoxSelector<3>(mod, "BOPTools_BoxTreeSelector", py::module_local(false));
+*/
+
+// TYPEDEF: BOPTOOLS_BOXPAIRSELECTOR
+/*
+bind_BOPTools_PairSelector<3>(mod, "BOPTools_BoxPairSelector", py::module_local(false));
+*/
 
 // CLASS: BOPTOOLS_COUPLEOFSHAPE
 py::class_<BOPTools_CoupleOfShape> cls_BOPTools_CoupleOfShape(mod, "BOPTools_CoupleOfShape", "None");
@@ -157,7 +189,7 @@ cls_BOPTools_AlgoTools.def_static("MakeSectEdge_", (void (*)(const IntTools_Curv
 cls_BOPTools_AlgoTools.def_static("ComputeState_", (TopAbs_State (*)(const gp_Pnt &, const TopoDS_Solid &, const Standard_Real, const opencascade::handle<IntTools_Context> &)) &BOPTools_AlgoTools::ComputeState, "Computes the 3-D state of the point thePoint toward solid theSolid. theTol - value of precision of computation theContext- cahed geometrical tools Returns 3-D state.", py::arg("thePoint"), py::arg("theSolid"), py::arg("theTol"), py::arg("theContext"));
 cls_BOPTools_AlgoTools.def_static("ComputeState_", (TopAbs_State (*)(const TopoDS_Vertex &, const TopoDS_Solid &, const Standard_Real, const opencascade::handle<IntTools_Context> &)) &BOPTools_AlgoTools::ComputeState, "Computes the 3-D state of the vertex theVertex toward solid theSolid. theTol - value of precision of computation theContext- cahed geometrical tools Returns 3-D state.", py::arg("theVertex"), py::arg("theSolid"), py::arg("theTol"), py::arg("theContext"));
 cls_BOPTools_AlgoTools.def_static("ComputeState_", (TopAbs_State (*)(const TopoDS_Edge &, const TopoDS_Solid &, const Standard_Real, const opencascade::handle<IntTools_Context> &)) &BOPTools_AlgoTools::ComputeState, "Computes the 3-D state of the edge theEdge toward solid theSolid. theTol - value of precision of computation theContext- cahed geometrical tools Returns 3-D state.", py::arg("theEdge"), py::arg("theSolid"), py::arg("theTol"), py::arg("theContext"));
-cls_BOPTools_AlgoTools.def_static("ComputeState_", (TopAbs_State (*)(const TopoDS_Face &, const TopoDS_Solid &, const Standard_Real, TopTools_IndexedMapOfShape &, const opencascade::handle<IntTools_Context> &)) &BOPTools_AlgoTools::ComputeState, "Computes the 3-D state of the face theFace toward solid theSolid. theTol - value of precision of computation theBounds - set of edges of theFace to avoid theContext- cahed geometrical tools Returns 3-D state.", py::arg("theFace"), py::arg("theSolid"), py::arg("theTol"), py::arg("theBounds"), py::arg("theContext"));
+cls_BOPTools_AlgoTools.def_static("ComputeState_", (TopAbs_State (*)(const TopoDS_Face &, const TopoDS_Solid &, const Standard_Real, const TopTools_IndexedMapOfShape &, const opencascade::handle<IntTools_Context> &)) &BOPTools_AlgoTools::ComputeState, "Computes the 3-D state of the face theFace toward solid theSolid. theTol - value of precision of computation theBounds - set of edges of <theSolid> to avoid theContext- cahed geometrical tools Returns 3-D state.", py::arg("theFace"), py::arg("theSolid"), py::arg("theTol"), py::arg("theBounds"), py::arg("theContext"));
 cls_BOPTools_AlgoTools.def_static("ComputeStateByOnePoint_", (TopAbs_State (*)(const TopoDS_Shape &, const TopoDS_Solid &, const Standard_Real, const opencascade::handle<IntTools_Context> &)) &BOPTools_AlgoTools::ComputeStateByOnePoint, "Computes the 3-D state of the shape theShape toward solid theSolid. theTol - value of precision of computation theContext- cahed geometrical tools Returns 3-D state.", py::arg("theShape"), py::arg("theSolid"), py::arg("theTol"), py::arg("theContext"));
 cls_BOPTools_AlgoTools.def_static("GetFaceOff_", (Standard_Boolean (*)(const TopoDS_Edge &, const TopoDS_Face &, BOPTools_ListOfCoupleOfShape &, TopoDS_Face &, const opencascade::handle<IntTools_Context> &)) &BOPTools_AlgoTools::GetFaceOff, "For the face theFace and its edge theEdge finds the face suitable to produce shell. theLCEF - set of faces to search. All faces from theLCEF must share edge theEdge", py::arg("theEdge"), py::arg("theFace"), py::arg("theLCEF"), py::arg("theFaceOff"), py::arg("theContext"));
 cls_BOPTools_AlgoTools.def_static("IsInternalFace_", (Standard_Integer (*)(const TopoDS_Face &, const TopoDS_Edge &, const TopoDS_Face &, const TopoDS_Face &, const opencascade::handle<IntTools_Context> &)) &BOPTools_AlgoTools::IsInternalFace, "Returns True if the face theFace is inside of the couple of faces theFace1, theFace2. The faces theFace, theFace1, theFace2 must share the edge theEdge Return values: * 0 state is not IN * 1 state is IN * 2 state can not be found by the method of angles", py::arg("theFace"), py::arg("theEdge"), py::arg("theFace1"), py::arg("theFace2"), py::arg("theContext"));
@@ -268,12 +300,6 @@ cls_BOPTools_AlgoTools3D.def_static("PointInFace_", (Standard_Integer (*)(const 
 cls_BOPTools_AlgoTools3D.def_static("PointInFace_", [](const TopoDS_Face & a0, const opencascade::handle<Geom2d_Curve> & a1, gp_Pnt & a2, gp_Pnt2d & a3, const opencascade::handle<IntTools_Context> & a4) -> Standard_Integer { return BOPTools_AlgoTools3D::PointInFace(a0, a1, a2, a3, a4); });
 cls_BOPTools_AlgoTools3D.def_static("PointInFace_", (Standard_Integer (*)(const TopoDS_Face &, const opencascade::handle<Geom2d_Curve> &, gp_Pnt &, gp_Pnt2d &, const opencascade::handle<IntTools_Context> &, const Standard_Real)) &BOPTools_AlgoTools3D::PointInFace, "Computes a point <theP> inside the face <theF> using the line <theL> so that 2D point <theP2D>, 2D representation of <theP> on the surface of <theF>, lies on that line. Returns 0 in case of success.", py::arg("theF"), py::arg("theL"), py::arg("theP"), py::arg("theP2D"), py::arg("theContext"), py::arg("theDt2D"));
 
-// TYPEDEF: BOPTOOLS_BOXBNDTREE
-bind_NCollection_UBTree<int, Bnd_Box>(mod, "BOPTools_BoxBndTree", py::module_local(false));
-
-// TYPEDEF: BOPTOOLS_BOXBNDTREESELECTOR
-bind_BOPTools_BoxSelector<Bnd_Box>(mod, "BOPTools_BoxBndTreeSelector", py::module_local(false));
-
 // CLASS: BOPTOOLS_SET
 py::class_<BOPTools_Set> cls_BOPTools_Set(mod, "BOPTools_Set", "None");
 
@@ -294,7 +320,7 @@ cls_BOPTools_Set.def("Shape", (const TopoDS_Shape & (BOPTools_Set::*)() const) &
 cls_BOPTools_Set.def("Add", (void (BOPTools_Set::*)(const TopoDS_Shape &, const TopAbs_ShapeEnum)) &BOPTools_Set::Add, "None", py::arg("theS"), py::arg("theType"));
 cls_BOPTools_Set.def("NbShapes", (Standard_Integer (BOPTools_Set::*)() const) &BOPTools_Set::NbShapes, "None");
 cls_BOPTools_Set.def("IsEqual", (Standard_Boolean (BOPTools_Set::*)(const BOPTools_Set &) const) &BOPTools_Set::IsEqual, "None", py::arg("aOther"));
-cls_BOPTools_Set.def("HashCode", (Standard_Integer (BOPTools_Set::*)(const Standard_Integer) const) &BOPTools_Set::HashCode, "None", py::arg("Upper"));
+cls_BOPTools_Set.def("HashCode", (Standard_Integer (BOPTools_Set::*)(Standard_Integer) const) &BOPTools_Set::HashCode, "Computes a hash code for this set, in the range [1, theUpperBound]", py::arg("theUpperBound"));
 
 // CLASS: BOPTOOLS_SETMAPHASHER
 py::class_<BOPTools_SetMapHasher> cls_BOPTools_SetMapHasher(mod, "BOPTools_SetMapHasher", "None");
@@ -306,7 +332,7 @@ py::class_<BOPTools_SetMapHasher> cls_BOPTools_SetMapHasher(mod, "BOPTools_SetMa
 // cls_BOPTools_SetMapHasher.def_static("operator delete[]_", (void (*)(void *)) &BOPTools_SetMapHasher::operator delete[], "None", py::arg("theAddress"));
 // cls_BOPTools_SetMapHasher.def_static("operator new_", (void * (*)(size_t, void *)) &BOPTools_SetMapHasher::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_BOPTools_SetMapHasher.def_static("operator delete_", (void (*)(void *, void *)) &BOPTools_SetMapHasher::operator delete, "None", py::arg(""), py::arg(""));
-cls_BOPTools_SetMapHasher.def_static("HashCode_", (Standard_Integer (*)(const BOPTools_Set &, const Standard_Integer)) &BOPTools_SetMapHasher::HashCode, "None", py::arg("aSet"), py::arg("Upper"));
+cls_BOPTools_SetMapHasher.def_static("HashCode_", (Standard_Integer (*)(const BOPTools_Set &, Standard_Integer)) &BOPTools_SetMapHasher::HashCode, "Computes a hash code for the given set, in the range [1, theUpperBound]", py::arg("theSet"), py::arg("theUpperBound"));
 cls_BOPTools_SetMapHasher.def_static("IsEqual_", (Standard_Boolean (*)(const BOPTools_Set &, const BOPTools_Set &)) &BOPTools_SetMapHasher::IsEqual, "None", py::arg("aSet1"), py::arg("aSet2"));
 
 // TYPEDEF: BOPTOOLS_INDEXEDDATAMAPOFSETSHAPE
@@ -316,6 +342,9 @@ bind_NCollection_IndexedDataMap<BOPTools_Set, TopoDS_Shape, BOPTools_SetMapHashe
 bind_NCollection_Map<BOPTools_Set, BOPTools_SetMapHasher>(mod, "BOPTools_MapOfSet", py::module_local(false));
 
 // TYPEDEF: BOPTOOLS_MAPITERATOROFMAPOFSET
+
+// CLASS: BOPTOOLS_PARALLEL
+py::class_<BOPTools_Parallel> cls_BOPTools_Parallel(mod, "BOPTools_Parallel", "Implementation of Functors/Starters");
 
 
 }

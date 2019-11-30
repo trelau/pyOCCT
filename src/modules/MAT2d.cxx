@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <MAT2d_SequenceOfSequenceOfCurve.hxx>
 #include <Standard_Transient.hxx>
 #include <MAT2d_Connexion.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 #include <NCollection_Array2.hxx>
 #include <MAT2d_Array2OfConnexion.hxx>
@@ -162,7 +163,7 @@ py::class_<MAT2d_MapBiIntHasher> cls_MAT2d_MapBiIntHasher(mod, "MAT2d_MapBiIntHa
 // cls_MAT2d_MapBiIntHasher.def_static("operator delete[]_", (void (*)(void *)) &MAT2d_MapBiIntHasher::operator delete[], "None", py::arg("theAddress"));
 // cls_MAT2d_MapBiIntHasher.def_static("operator new_", (void * (*)(size_t, void *)) &MAT2d_MapBiIntHasher::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_MAT2d_MapBiIntHasher.def_static("operator delete_", (void (*)(void *, void *)) &MAT2d_MapBiIntHasher::operator delete, "None", py::arg(""), py::arg(""));
-cls_MAT2d_MapBiIntHasher.def_static("HashCode_", (Standard_Integer (*)(const MAT2d_BiInt &, const Standard_Integer)) &MAT2d_MapBiIntHasher::HashCode, "None", py::arg("Key1"), py::arg("Upper"));
+cls_MAT2d_MapBiIntHasher.def_static("HashCode_", (Standard_Integer (*)(const MAT2d_BiInt &, const Standard_Integer)) &MAT2d_MapBiIntHasher::HashCode, "Computes a hash code for the given key, in the range [1, theUpperBound]", py::arg("theKey"), py::arg("theUpperBound"));
 cls_MAT2d_MapBiIntHasher.def_static("IsEqual_", (Standard_Boolean (*)(const MAT2d_BiInt &, const MAT2d_BiInt &)) &MAT2d_MapBiIntHasher::IsEqual, "None", py::arg("Key1"), py::arg("Key2"));
 
 // TYPEDEF: MAT2D_DATAMAPOFBIINTINTEGER

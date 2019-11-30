@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TCollection_HAsciiString.hxx>
 #include <Standard_Transient.hxx>
 #include <Interface_InterfaceModel.hxx>
+#include <Standard_Std.hxx>
 #include <Standard_Type.hxx>
 
 PYBIND11_MODULE(STEPEdit, mod) {

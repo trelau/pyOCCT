@@ -53,6 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <AppDef_BSplineCompute.hxx>
 #include <Standard_Transient.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Std.hxx>
 #include <AppDef_HArray1OfMultiPointConstraint.hxx>
 #include <Standard_Type.hxx>
 #include <math_Matrix.hxx>
@@ -228,6 +229,7 @@ cls_AppDef_BSplineCompute.def("SetDegrees", (void (AppDef_BSplineCompute::*)(con
 cls_AppDef_BSplineCompute.def("SetTolerances", (void (AppDef_BSplineCompute::*)(const Standard_Real, const Standard_Real)) &AppDef_BSplineCompute::SetTolerances, "Changes the tolerances of the approximation.", py::arg("Tolerance3d"), py::arg("Tolerance2d"));
 cls_AppDef_BSplineCompute.def("SetContinuity", (void (AppDef_BSplineCompute::*)(const Standard_Integer)) &AppDef_BSplineCompute::SetContinuity, "sets the continuity of the spline. if C = 2, the spline will be C2.", py::arg("C"));
 cls_AppDef_BSplineCompute.def("SetConstraints", (void (AppDef_BSplineCompute::*)(const AppParCurves_Constraint, const AppParCurves_Constraint)) &AppDef_BSplineCompute::SetConstraints, "changes the first and the last constraint points.", py::arg("firstC"), py::arg("lastC"));
+cls_AppDef_BSplineCompute.def("SetPeriodic", (void (AppDef_BSplineCompute::*)(const Standard_Boolean)) &AppDef_BSplineCompute::SetPeriodic, "Sets periodic flag. If thePeriodic = Standard_True, algorith tries to build periodic multicurve using corresponding C1 boundary condition for first and last multipoints. Multiline must be closed.", py::arg("thePeriodic"));
 cls_AppDef_BSplineCompute.def("IsAllApproximated", (Standard_Boolean (AppDef_BSplineCompute::*)() const) &AppDef_BSplineCompute::IsAllApproximated, "returns False if at a moment of the approximation, the status NoApproximation has been sent by the user when more points were needed.");
 cls_AppDef_BSplineCompute.def("IsToleranceReached", (Standard_Boolean (AppDef_BSplineCompute::*)() const) &AppDef_BSplineCompute::IsToleranceReached, "returns False if the status NoPointsAdded has been sent.");
 cls_AppDef_BSplineCompute.def("Error", [](AppDef_BSplineCompute &self, Standard_Real & tol3d, Standard_Real & tol2d){ self.Error(tol3d, tol2d); return std::tuple<Standard_Real &, Standard_Real &>(tol3d, tol2d); }, "returns the tolerances 2d and 3d of the MultiBSpCurve.", py::arg("tol3d"), py::arg("tol2d"));
@@ -239,6 +241,7 @@ cls_AppDef_BSplineCompute.def("Parameters", (const TColStd_Array1OfReal & (AppDe
 py::class_<AppDef_HArray1OfMultiPointConstraint, opencascade::handle<AppDef_HArray1OfMultiPointConstraint>, Standard_Transient> cls_AppDef_HArray1OfMultiPointConstraint(mod, "AppDef_HArray1OfMultiPointConstraint", "None", py::multiple_inheritance());
 
 // Constructors
+cls_AppDef_HArray1OfMultiPointConstraint.def(py::init<>());
 cls_AppDef_HArray1OfMultiPointConstraint.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
 cls_AppDef_HArray1OfMultiPointConstraint.def(py::init<const Standard_Integer, const Standard_Integer, const AppDef_Array1OfMultiPointConstraint::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls_AppDef_HArray1OfMultiPointConstraint.def(py::init<const AppDef_Array1OfMultiPointConstraint &>(), py::arg("theOther"));
