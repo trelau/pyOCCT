@@ -168,6 +168,7 @@ cls_RWObj_CafReader.def("IsSinglePrecision", (Standard_Boolean (RWObj_CafReader:
 cls_RWObj_CafReader.def("SetSinglePrecision", (void (RWObj_CafReader::*)(Standard_Boolean)) &RWObj_CafReader::SetSinglePrecision, "Setup single/double precision flag for reading vertex data (coordinates).", py::arg("theIsSinglePrecision"));
 
 // CLASS: RWOBJ_MTLREADER
+/*
 py::class_<RWObj_MtlReader> cls_RWObj_MtlReader(mod, "RWObj_MtlReader", "Reader of mtl files.");
 
 // Constructors
@@ -175,6 +176,7 @@ cls_RWObj_MtlReader.def(py::init<NCollection_DataMap<TCollection_AsciiString, RW
 
 // Methods
 cls_RWObj_MtlReader.def("Read", (bool (RWObj_MtlReader::*)(const TCollection_AsciiString &, const TCollection_AsciiString &)) &RWObj_MtlReader::Read, "Read the file.", py::arg("theFolder"), py::arg("theFile"));
+*/
 
 
 }

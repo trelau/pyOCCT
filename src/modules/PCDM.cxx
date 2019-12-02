@@ -248,6 +248,7 @@ cls_PCDM.def(py::init<>());
 // cls_PCDM.def_static("operator delete_", (void (*)(void *, void *)) &PCDM::operator delete, "None", py::arg(""), py::arg(""));
 
 // CLASS: PCDM_DOMHEADERPARSER
+/*
 py::class_<PCDM_DOMHeaderParser, LDOMParser> cls_PCDM_DOMHeaderParser(mod, "PCDM_DOMHeaderParser", "None");
 
 // Constructors
@@ -256,9 +257,10 @@ cls_PCDM_DOMHeaderParser.def(py::init<>());
 // Methods
 // cls_PCDM_DOMHeaderParser.def("SetStartElementName", (void (PCDM_DOMHeaderParser::*)(const TCollection_AsciiString &)) &PCDM_DOMHeaderParser::SetStartElementName, "None", py::arg("aStartElementName"));
 // cls_PCDM_DOMHeaderParser.def("SetEndElementName", (void (PCDM_DOMHeaderParser::*)(const TCollection_AsciiString &)) &PCDM_DOMHeaderParser::SetEndElementName, "None", py::arg("anEndElementName"));
-cls_PCDM_DOMHeaderParser.def("startElement", (Standard_Boolean (PCDM_DOMHeaderParser::*)()) &PCDM_DOMHeaderParser::startElement, "None");
-cls_PCDM_DOMHeaderParser.def("endElement", (Standard_Boolean (PCDM_DOMHeaderParser::*)()) &PCDM_DOMHeaderParser::endElement, "None");
+// cls_PCDM_DOMHeaderParser.def("startElement", (Standard_Boolean (PCDM_DOMHeaderParser::*)()) &PCDM_DOMHeaderParser::startElement, "None");
+// cls_PCDM_DOMHeaderParser.def("endElement", (Standard_Boolean (PCDM_DOMHeaderParser::*)()) &PCDM_DOMHeaderParser::endElement, "None");
 cls_PCDM_DOMHeaderParser.def("GetElement", (const LDOM_Element & (PCDM_DOMHeaderParser::*)() const) &PCDM_DOMHeaderParser::GetElement, "None");
+*/
 
 // CLASS: PCDM_DRIVERERROR
 py::class_<PCDM_DriverError, opencascade::handle<PCDM_DriverError>, Standard_Failure> cls_PCDM_DriverError(mod, "PCDM_DriverError", "None");

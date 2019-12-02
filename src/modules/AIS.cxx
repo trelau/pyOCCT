@@ -180,7 +180,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <AIS_ConnectedInteractive.hxx>
 #include <TColStd_MapIntegerHasher.hxx>
 #include <AIS_DataMapofIntegerListOfinteractive.hxx>
-#include <AIS_DataMapOfSelStat.hxx>
 #include <AIS_DiameterDimension.hxx>
 #include <AIS_EllipseRadiusDimension.hxx>
 #include <Geom_OffsetCurve.hxx>
@@ -1658,8 +1657,6 @@ cls_AIS_ConnectedInteractive.def("AcceptDisplayMode", (Standard_Boolean (AIS_Con
 bind_NCollection_DataMap<int, NCollection_List<opencascade::handle<AIS_InteractiveObject> >, NCollection_DefaultHasher<int> >(mod, "AIS_DataMapofIntegerListOfinteractive", py::module_local(false));
 
 // TYPEDEF: AIS_DATAMAPITERATOROFDATAMAPOFINTEGERLISTOFINTERACTIVE
-
-// TYPEDEF: AIS_DATAMAPITERATOROFDATAMAPOFSELSTAT
 
 // CLASS: AIS_DIAMETERDIMENSION
 py::class_<AIS_DiameterDimension, opencascade::handle<AIS_DiameterDimension>, AIS_Dimension> cls_AIS_DiameterDimension(mod, "AIS_DiameterDimension", "Diameter dimension. Can be constructued: - On generic circle. - On generic circle with user-defined anchor point on that circle (dimension plane is oriented to follow the anchor point). - On generic circle in the specified plane. - On generic shape containing geometry that can be measured by diameter dimension: circle wire, circular face, etc. The anchor point is the location of the left attachement point of dimension on the circle. The anchor point computation is processed after dimension plane setting so that positive flyout direction stands with normal of the circle and the normal of the plane. If the plane is user-defined the anchor point was computed as intersection of the plane and the basis circle. Among two intersection points the one is selected so that positive flyout direction vector and the circle normal on the one side form the circle plane. (corner between positive flyout directio nand the circle normal is acute.) If the plane is computed automatically (by default it is the circle plane), the anchor point is the zero parameter point of the circle.");

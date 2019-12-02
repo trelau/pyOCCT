@@ -2888,6 +2888,7 @@ cls_Graphic3d_AttribBuffer.def("Invalidate", (void (Graphic3d_AttribBuffer::*)(S
 cls_Graphic3d_AttribBuffer.def("invalidate", (void (Graphic3d_AttribBuffer::*)(const Graphic3d_BufferRange &)) &Graphic3d_AttribBuffer::invalidate, "Invalidate specified sub-range of data (as byte offsets).", py::arg("theRange"));
 
 // CLASS: GRAPHIC3D_BVHCSTRUCTURESET
+/*
 py::class_<Graphic3d_BvhCStructureSet, opencascade::handle<Graphic3d_BvhCStructureSet>, BVH_PrimitiveSet3d> cls_Graphic3d_BvhCStructureSet(mod, "Graphic3d_BvhCStructureSet", "Set of OpenGl_Structures for building BVH tree.");
 
 // Constructors
@@ -2906,8 +2907,10 @@ cls_Graphic3d_BvhCStructureSet.def("Remove", (Standard_Boolean (Graphic3d_BvhCSt
 cls_Graphic3d_BvhCStructureSet.def("Clear", (void (Graphic3d_BvhCStructureSet::*)()) &Graphic3d_BvhCStructureSet::Clear, "Cleans the whole primitive set.");
 cls_Graphic3d_BvhCStructureSet.def("GetStructureById", (const Graphic3d_CStructure * (Graphic3d_BvhCStructureSet::*)(Standard_Integer)) &Graphic3d_BvhCStructureSet::GetStructureById, "Returns the structure corresponding to the given ID.", py::arg("theId"));
 cls_Graphic3d_BvhCStructureSet.def("Structures", (const NCollection_IndexedMap<const Graphic3d_CStructure *> & (Graphic3d_BvhCStructureSet::*)() const) &Graphic3d_BvhCStructureSet::Structures, "Access directly a collection of structures.");
+*/
 
 // CLASS: GRAPHIC3D_BVHCSTRUCTURESETTRSFPERS
+/*
 bind_BVH_Set<Standard_Real, 3>(mod, "BVH_Set_Standard_Real3", py::module_local());
 
 py::class_<Graphic3d_BvhCStructureSetTrsfPers, BVH_Set<Standard_Real, 3>> cls_Graphic3d_BvhCStructureSetTrsfPers(mod, "Graphic3d_BvhCStructureSetTrsfPers", "Set of transformation persistent OpenGl_Structure for building BVH tree. Provides built-in mechanism to invalidate tree when world view projection state changes. Due to frequent invalidation of BVH tree the choice of BVH tree builder is made in favor of BVH linear builder (quick rebuild).");
@@ -2929,6 +2932,7 @@ cls_Graphic3d_BvhCStructureSetTrsfPers.def("MarkDirty", (void (Graphic3d_BvhCStr
 cls_Graphic3d_BvhCStructureSetTrsfPers.def("BVH", (const opencascade::handle<BVH_Tree<Standard_Real, 3> > & (Graphic3d_BvhCStructureSetTrsfPers::*)(const opencascade::handle<Graphic3d_Camera> &, const Graphic3d_Mat4d &, const Graphic3d_Mat4d &, const Standard_Integer, const Standard_Integer, const Graphic3d_WorldViewProjState &)) &Graphic3d_BvhCStructureSetTrsfPers::BVH, "Returns BVH tree for the given world view projection (builds it if necessary).", py::arg("theCamera"), py::arg("theProjectionMatrix"), py::arg("theWorldViewMatrix"), py::arg("theViewportWidth"), py::arg("theViewportHeight"), py::arg("theWVPState"));
 cls_Graphic3d_BvhCStructureSetTrsfPers.def("Builder", (const opencascade::handle<Select3D_BVHBuilder3d> & (Graphic3d_BvhCStructureSetTrsfPers::*)() const) &Graphic3d_BvhCStructureSetTrsfPers::Builder, "Returns builder for bottom-level BVH.", py::call_guard<ImportSelect3D>());
 cls_Graphic3d_BvhCStructureSetTrsfPers.def("SetBuilder", (void (Graphic3d_BvhCStructureSetTrsfPers::*)(const opencascade::handle<Select3D_BVHBuilder3d> &)) &Graphic3d_BvhCStructureSetTrsfPers::SetBuilder, "Assigns builder for bottom-level BVH.", py::arg("theBuilder"), py::call_guard<ImportSelect3D>());
+*/
 
 // CLASS: GRAPHIC3D_CTEXTURE
 py::class_<Graphic3d_CTexture> cls_Graphic3d_CTexture(mod, "Graphic3d_CTexture", "None");
@@ -3116,6 +3120,7 @@ bind_NCollection_IndexedMap<const Graphic3d_CStructure *, NCollection_DefaultHas
 bind_NCollection_Array1<NCollection_IndexedMap<const Graphic3d_CStructure *, NCollection_DefaultHasher<const Graphic3d_CStructure *> > >(mod, "Graphic3d_ArrayOfIndexedMapOfStructure", py::module_local(false));
 
 // CLASS: GRAPHIC3D_LAYER
+/*
 py::class_<Graphic3d_Layer, opencascade::handle<Graphic3d_Layer>, Standard_Transient> cls_Graphic3d_Layer(mod, "Graphic3d_Layer", "Presentations list sorted within priorities.");
 
 // Constructors
@@ -3149,6 +3154,7 @@ cls_Graphic3d_Layer.def("NbOfTransformPersistenceObjects", (Standard_Integer (Gr
 cls_Graphic3d_Layer.def("CullableStructuresBVH", (const Graphic3d_BvhCStructureSet & (Graphic3d_Layer::*)() const) &Graphic3d_Layer::CullableStructuresBVH, "Returns set of Graphic3d_CStructures structures for building BVH tree.");
 cls_Graphic3d_Layer.def("CullableTrsfPersStructuresBVH", (const Graphic3d_BvhCStructureSetTrsfPers & (Graphic3d_Layer::*)() const) &Graphic3d_Layer::CullableTrsfPersStructuresBVH, "Returns set of transform persistent Graphic3d_CStructures for building BVH tree.");
 cls_Graphic3d_Layer.def("NonCullableStructures", (const NCollection_IndexedMap<const Graphic3d_CStructure *> & (Graphic3d_Layer::*)() const) &Graphic3d_Layer::NonCullableStructures, "Returns indexed map of always rendered structures.");
+*/
 
 // TYPEDEF: GRAPHIC3D_MAPITERATOROFMAPOFSTRUCTURE
 

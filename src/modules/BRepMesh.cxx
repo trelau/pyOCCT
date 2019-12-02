@@ -95,7 +95,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp.hxx>
 #include <BRepMesh_MeshTool.hxx>
 #include <gp_Lin2d.hxx>
-#include <BRepMesh_CustomBaseMeshAlgo.hxx>
 #include <BRepMesh_CylinderRangeSplitter.hxx>
 #include <TopoDS_Shape.hxx>
 #include <BRepMesh_Deflection.hxx>
@@ -328,6 +327,7 @@ cls_BRepMesh_BaseMeshAlgo.def_static("get_type_descriptor_", (const opencascade:
 cls_BRepMesh_BaseMeshAlgo.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepMesh_BaseMeshAlgo::*)() const) &BRepMesh_BaseMeshAlgo::DynamicType, "None");
 
 // CLASS: BREPMESH_DEFAULTRANGESPLITTER
+/*
 py::class_<BRepMesh_DefaultRangeSplitter> cls_BRepMesh_DefaultRangeSplitter(mod, "BRepMesh_DefaultRangeSplitter", "Default tool to define range of discrete face model and obtain grid points distributed within this range.");
 
 // Constructors
@@ -347,9 +347,11 @@ cls_BRepMesh_DefaultRangeSplitter.def("GetRangeU", (const std::pair<Standard_Rea
 cls_BRepMesh_DefaultRangeSplitter.def("GetRangeV", (const std::pair<Standard_Real, Standard_Real> & (BRepMesh_DefaultRangeSplitter::*)() const) &BRepMesh_DefaultRangeSplitter::GetRangeV, "Returns V range.");
 cls_BRepMesh_DefaultRangeSplitter.def("GetDelta", (const std::pair<Standard_Real, Standard_Real> & (BRepMesh_DefaultRangeSplitter::*)() const) &BRepMesh_DefaultRangeSplitter::GetDelta, "Returns delta.");
 cls_BRepMesh_DefaultRangeSplitter.def("GetToleranceUV", (const std::pair<Standard_Real, Standard_Real> & (BRepMesh_DefaultRangeSplitter::*)() const) &BRepMesh_DefaultRangeSplitter::GetToleranceUV, "None");
+*/
 
 // CLASS: BREPMESH_UVPARAMRANGESPLITTER
-py::class_<BRepMesh_UVParamRangeSplitter, BRepMesh_DefaultRangeSplitter> cls_BRepMesh_UVParamRangeSplitter(mod, "BRepMesh_UVParamRangeSplitter", "Intended to generate internal mesh nodes using UV parameters of boundary discrete points.");
+/*
+py::class_<BRepMesh_UVParamRangeSplitter> cls_BRepMesh_UVParamRangeSplitter(mod, "BRepMesh_UVParamRangeSplitter", "Intended to generate internal mesh nodes using UV parameters of boundary discrete points.");
 
 // Constructors
 cls_BRepMesh_UVParamRangeSplitter.def(py::init<>());
@@ -360,9 +362,11 @@ cls_BRepMesh_UVParamRangeSplitter.def("GetParametersU", (const IMeshData::IMapOf
 cls_BRepMesh_UVParamRangeSplitter.def("GetParametersU", (IMeshData::IMapOfReal & (BRepMesh_UVParamRangeSplitter::*)()) &BRepMesh_UVParamRangeSplitter::GetParametersU, "Returns U parameters.");
 cls_BRepMesh_UVParamRangeSplitter.def("GetParametersV", (const IMeshData::IMapOfReal & (BRepMesh_UVParamRangeSplitter::*)() const) &BRepMesh_UVParamRangeSplitter::GetParametersV, "Returns V parameters.");
 cls_BRepMesh_UVParamRangeSplitter.def("GetParametersV", (IMeshData::IMapOfReal & (BRepMesh_UVParamRangeSplitter::*)()) &BRepMesh_UVParamRangeSplitter::GetParametersV, "Returns V parameters.");
+*/
 
 // CLASS: BREPMESH_NURBSRANGESPLITTER
-py::class_<BRepMesh_NURBSRangeSplitter, BRepMesh_UVParamRangeSplitter> cls_BRepMesh_NURBSRangeSplitter(mod, "BRepMesh_NURBSRangeSplitter", "Auxiliary class extending UV range splitter in order to generate internal nodes for NURBS surface.");
+/*
+py::class_<BRepMesh_NURBSRangeSplitter> cls_BRepMesh_NURBSRangeSplitter(mod, "BRepMesh_NURBSRangeSplitter", "Auxiliary class extending UV range splitter in order to generate internal nodes for NURBS surface.");
 
 // Constructors
 cls_BRepMesh_NURBSRangeSplitter.def(py::init<>());
@@ -370,15 +374,18 @@ cls_BRepMesh_NURBSRangeSplitter.def(py::init<>());
 // Methods
 cls_BRepMesh_NURBSRangeSplitter.def("AdjustRange", (void (BRepMesh_NURBSRangeSplitter::*)()) &BRepMesh_NURBSRangeSplitter::AdjustRange, "Updates discrete range of surface according to its geometric range.");
 cls_BRepMesh_NURBSRangeSplitter.def("GenerateSurfaceNodes", (opencascade::handle<IMeshData::ListOfPnt2d> (BRepMesh_NURBSRangeSplitter::*)(const IMeshTools_Parameters &) const) &BRepMesh_NURBSRangeSplitter::GenerateSurfaceNodes, "Returns list of nodes generated using surface data and specified parameters.", py::arg("theParameters"));
+*/
 
 // CLASS: BREPMESH_BOUNDARYPARAMSRANGESPLITTER
-py::class_<BRepMesh_BoundaryParamsRangeSplitter, BRepMesh_NURBSRangeSplitter> cls_BRepMesh_BoundaryParamsRangeSplitter(mod, "BRepMesh_BoundaryParamsRangeSplitter", "Auxiliary class extending UV range splitter in order to generate internal nodes for NURBS surface.");
+/*
+py::class_<BRepMesh_BoundaryParamsRangeSplitter> cls_BRepMesh_BoundaryParamsRangeSplitter(mod, "BRepMesh_BoundaryParamsRangeSplitter", "Auxiliary class extending UV range splitter in order to generate internal nodes for NURBS surface.");
 
 // Constructors
 cls_BRepMesh_BoundaryParamsRangeSplitter.def(py::init<>());
 
 // Methods
 cls_BRepMesh_BoundaryParamsRangeSplitter.def("AddPoint", (void (BRepMesh_BoundaryParamsRangeSplitter::*)(const gp_Pnt2d &)) &BRepMesh_BoundaryParamsRangeSplitter::AddPoint, "Registers border point.", py::arg("thePoint"));
+*/
 
 // CLASS: BREPMESH_CIRCLEINSPECTOR
 py::class_<BRepMesh_CircleInspector, NCollection_CellFilter_InspectorXY> cls_BRepMesh_CircleInspector(mod, "BRepMesh_CircleInspector", "Auxilary class to find circles shot by the given point.");
@@ -435,7 +442,8 @@ cls_BRepMesh_Classifier.def_static("get_type_descriptor_", (const opencascade::h
 cls_BRepMesh_Classifier.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepMesh_Classifier::*)() const) &BRepMesh_Classifier::DynamicType, "None");
 
 // CLASS: BREPMESH_CONERANGESPLITTER
-py::class_<BRepMesh_ConeRangeSplitter, BRepMesh_DefaultRangeSplitter> cls_BRepMesh_ConeRangeSplitter(mod, "BRepMesh_ConeRangeSplitter", "Auxiliary class extending default range splitter in order to generate internal nodes for conical surface.");
+/*
+py::class_<BRepMesh_ConeRangeSplitter> cls_BRepMesh_ConeRangeSplitter(mod, "BRepMesh_ConeRangeSplitter", "Auxiliary class extending default range splitter in order to generate internal nodes for conical surface.");
 
 // Constructors
 cls_BRepMesh_ConeRangeSplitter.def(py::init<>());
@@ -443,6 +451,7 @@ cls_BRepMesh_ConeRangeSplitter.def(py::init<>());
 // Methods
 // cls_BRepMesh_ConeRangeSplitter.def("GetSplitSteps", (std::pair<Standard_Real, Standard_Real> (BRepMesh_ConeRangeSplitter::*)(const IMeshTools_Parameters &, std::pair<Standard_Integer, Standard_Integer> &) const) &BRepMesh_ConeRangeSplitter::GetSplitSteps, "Returns split intervals along U and V direction.", py::arg("theParameters"), py::arg("theStepsNb"));
 cls_BRepMesh_ConeRangeSplitter.def("GenerateSurfaceNodes", (opencascade::handle<IMeshData::ListOfPnt2d> (BRepMesh_ConeRangeSplitter::*)(const IMeshTools_Parameters &) const) &BRepMesh_ConeRangeSplitter::GenerateSurfaceNodes, "Returns list of nodes generated using surface data and specified parameters.", py::arg("theParameters"));
+*/
 
 // CLASS: BREPMESH_CONSTRAINEDBASEMESHALGO
 py::class_<BRepMesh_ConstrainedBaseMeshAlgo, opencascade::handle<BRepMesh_ConstrainedBaseMeshAlgo>, BRepMesh_BaseMeshAlgo> cls_BRepMesh_ConstrainedBaseMeshAlgo(mod, "BRepMesh_ConstrainedBaseMeshAlgo", "Class provides base fuctionality to build face triangulation using Dealunay approach. Performs generation of mesh using raw data from model.");
@@ -633,7 +642,7 @@ cls_BRepMesh_Delaun.def("RemoveVertex", (void (BRepMesh_Delaun::*)(const BRepMes
 cls_BRepMesh_Delaun.def("AddVertices", (void (BRepMesh_Delaun::*)(IMeshData::VectorOfInteger &)) &BRepMesh_Delaun::AddVertices, "Adds some vertices into the triangulation.", py::arg("theVerticesIndices"));
 cls_BRepMesh_Delaun.def("UseEdge", (Standard_Boolean (BRepMesh_Delaun::*)(const Standard_Integer)) &BRepMesh_Delaun::UseEdge, "Modify mesh to use the edge.", py::arg("theEdge"));
 cls_BRepMesh_Delaun.def("Result", (const opencascade::handle<BRepMesh_DataStructureOfDelaun> & (BRepMesh_Delaun::*)() const) &BRepMesh_Delaun::Result, "Gives the Mesh data structure.");
-cls_BRepMesh_Delaun.def("ProcessConstraints", (void (BRepMesh_Delaun::*)()) &BRepMesh_Delaun::ProcessConstraints, "Forces insertion of constraint edges into the base triangulation.");
+// cls_BRepMesh_Delaun.def("ProcessConstraints", (void (BRepMesh_Delaun::*)()) &BRepMesh_Delaun::ProcessConstraints, "Forces insertion of constraint edges into the base triangulation.");
 // cls_BRepMesh_Delaun.def("Frontier", (opencascade::handle<IMeshData::MapOfInteger> (BRepMesh_Delaun::*)() const) &BRepMesh_Delaun::Frontier, "Gives the list of frontier edges.");
 // cls_BRepMesh_Delaun.def("InternalEdges", (opencascade::handle<IMeshData::MapOfInteger> (BRepMesh_Delaun::*)() const) &BRepMesh_Delaun::InternalEdges, "Gives the list of internal edges.");
 // cls_BRepMesh_Delaun.def("FreeEdges", (opencascade::handle<IMeshData::MapOfInteger> (BRepMesh_Delaun::*)() const) &BRepMesh_Delaun::FreeEdges, "Gives the list of free edges used only one time");
@@ -667,16 +676,9 @@ cls_BRepMesh_MeshTool.def_static("get_type_name_", (const char * (*)()) &BRepMes
 cls_BRepMesh_MeshTool.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRepMesh_MeshTool::get_type_descriptor, "None");
 cls_BRepMesh_MeshTool.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepMesh_MeshTool::*)() const) &BRepMesh_MeshTool::DynamicType, "None");
 
-// CLASS: BREPMESH_CUSTOMBASEMESHALGO
-py::class_<BRepMesh_CustomBaseMeshAlgo, opencascade::handle<BRepMesh_CustomBaseMeshAlgo>, BRepMesh_ConstrainedBaseMeshAlgo> cls_BRepMesh_CustomBaseMeshAlgo(mod, "BRepMesh_CustomBaseMeshAlgo", "Class provides base fuctionality to build face triangulation using custom triangulation algorithm. Performs generation of mesh using raw data from model.");
-
-// Methods
-cls_BRepMesh_CustomBaseMeshAlgo.def_static("get_type_name_", (const char * (*)()) &BRepMesh_CustomBaseMeshAlgo::get_type_name, "None");
-cls_BRepMesh_CustomBaseMeshAlgo.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRepMesh_CustomBaseMeshAlgo::get_type_descriptor, "None");
-cls_BRepMesh_CustomBaseMeshAlgo.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepMesh_CustomBaseMeshAlgo::*)() const) &BRepMesh_CustomBaseMeshAlgo::DynamicType, "None");
-
 // CLASS: BREPMESH_CYLINDERRANGESPLITTER
-py::class_<BRepMesh_CylinderRangeSplitter, BRepMesh_DefaultRangeSplitter> cls_BRepMesh_CylinderRangeSplitter(mod, "BRepMesh_CylinderRangeSplitter", "Auxiliary class extending default range splitter in order to generate internal nodes for cylindrical surface.");
+/*
+py::class_<BRepMesh_CylinderRangeSplitter> cls_BRepMesh_CylinderRangeSplitter(mod, "BRepMesh_CylinderRangeSplitter", "Auxiliary class extending default range splitter in order to generate internal nodes for cylindrical surface.");
 
 // Constructors
 cls_BRepMesh_CylinderRangeSplitter.def(py::init<>());
@@ -684,6 +686,7 @@ cls_BRepMesh_CylinderRangeSplitter.def(py::init<>());
 // Methods
 cls_BRepMesh_CylinderRangeSplitter.def("Reset", (void (BRepMesh_CylinderRangeSplitter::*)(const IMeshData::IFaceHandle &, const IMeshTools_Parameters &)) &BRepMesh_CylinderRangeSplitter::Reset, "Resets this splitter. Must be called before first use.", py::arg("theDFace"), py::arg("theParameters"));
 cls_BRepMesh_CylinderRangeSplitter.def("GenerateSurfaceNodes", (opencascade::handle<IMeshData::ListOfPnt2d> (BRepMesh_CylinderRangeSplitter::*)(const IMeshTools_Parameters &) const) &BRepMesh_CylinderRangeSplitter::GenerateSurfaceNodes, "Returns list of nodes generated using surface data and specified parameters.", py::arg("theParameters"));
+*/
 
 // CLASS: BREPMESH_DEFLECTION
 py::class_<BRepMesh_Deflection, opencascade::handle<BRepMesh_Deflection>, Standard_Transient> cls_BRepMesh_Deflection(mod, "BRepMesh_Deflection", "Auxiliary tool encompassing methods to compute deflection of shapes.");
@@ -756,7 +759,7 @@ cls_BRepMesh_EdgeDiscret.def(py::init<>());
 cls_BRepMesh_EdgeDiscret.def_static("CreateEdgeTessellator_", (opencascade::handle<IMeshTools_CurveTessellator> (*)(const IMeshData::IEdgeHandle &, const IMeshTools_Parameters &)) &BRepMesh_EdgeDiscret::CreateEdgeTessellator, "Creates instance of free edge tessellator.", py::arg("theDEdge"), py::arg("theParameters"));
 cls_BRepMesh_EdgeDiscret.def_static("CreateEdgeTessellator_", (opencascade::handle<IMeshTools_CurveTessellator> (*)(const IMeshData::IEdgeHandle &, const TopAbs_Orientation, const IMeshData::IFaceHandle &, const IMeshTools_Parameters &)) &BRepMesh_EdgeDiscret::CreateEdgeTessellator, "Creates instance of edge tessellator.", py::arg("theDEdge"), py::arg("theOrientation"), py::arg("theDFace"), py::arg("theParameters"));
 cls_BRepMesh_EdgeDiscret.def_static("CreateEdgeTessellationExtractor_", (opencascade::handle<IMeshTools_CurveTessellator> (*)(const IMeshData::IEdgeHandle &, const IMeshData::IFaceHandle &)) &BRepMesh_EdgeDiscret::CreateEdgeTessellationExtractor, "Creates instance of tessellation extractor.", py::arg("theDEdge"), py::arg("theDFace"));
-cls_BRepMesh_EdgeDiscret.def("__call__", (void (BRepMesh_EdgeDiscret::*)(const Standard_Integer) const) &BRepMesh_EdgeDiscret::operator(), py::is_operator(), "Functor API to discretize the given edge.", py::arg("theEdgeIndex"));
+// cls_BRepMesh_EdgeDiscret.def("__call__", (void (BRepMesh_EdgeDiscret::*)(const Standard_Integer) const) &BRepMesh_EdgeDiscret::operator(), py::is_operator(), "Functor API to discretize the given edge.", py::arg("theEdgeIndex"));
 cls_BRepMesh_EdgeDiscret.def_static("Tessellate3d_", (void (*)(const IMeshData::IEdgeHandle &, const opencascade::handle<IMeshTools_CurveTessellator> &, const Standard_Boolean)) &BRepMesh_EdgeDiscret::Tessellate3d, "Updates 3d discrete edge model using the given tessellation tool.", py::arg("theDEdge"), py::arg("theTessellator"), py::arg("theUpdateEnds"));
 cls_BRepMesh_EdgeDiscret.def_static("Tessellate2d_", (void (*)(const IMeshData::IEdgeHandle &, const Standard_Boolean)) &BRepMesh_EdgeDiscret::Tessellate2d, "Updates 2d discrete edge model using tessellation of 3D curve.", py::arg("theDEdge"), py::arg("theUpdateEnds"));
 cls_BRepMesh_EdgeDiscret.def_static("get_type_name_", (const char * (*)()) &BRepMesh_EdgeDiscret::get_type_name, "None");
@@ -785,7 +788,7 @@ cls_BRepMesh_FaceChecker.def(py::init<const IMeshData::IFaceHandle &, const IMes
 // Methods
 cls_BRepMesh_FaceChecker.def("Perform", (Standard_Boolean (BRepMesh_FaceChecker::*)()) &BRepMesh_FaceChecker::Perform, "Performs check wires of the face for intersections.");
 cls_BRepMesh_FaceChecker.def("GetIntersectingEdges", (const opencascade::handle<IMeshData::MapOfIEdgePtr> & (BRepMesh_FaceChecker::*)() const) &BRepMesh_FaceChecker::GetIntersectingEdges, "Returns intersecting edges.");
-cls_BRepMesh_FaceChecker.def("__call__", (void (BRepMesh_FaceChecker::*)(const Standard_Integer) const) &BRepMesh_FaceChecker::operator(), py::is_operator(), "Checks wire with the given index for intersection with others.", py::arg("theWireIndex"));
+// cls_BRepMesh_FaceChecker.def("__call__", (void (BRepMesh_FaceChecker::*)(const Standard_Integer) const) &BRepMesh_FaceChecker::operator(), py::is_operator(), "Checks wire with the given index for intersection with others.", py::arg("theWireIndex"));
 cls_BRepMesh_FaceChecker.def_static("get_type_name_", (const char * (*)()) &BRepMesh_FaceChecker::get_type_name, "None");
 cls_BRepMesh_FaceChecker.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRepMesh_FaceChecker::get_type_descriptor, "None");
 cls_BRepMesh_FaceChecker.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepMesh_FaceChecker::*)() const) &BRepMesh_FaceChecker::DynamicType, "None");
@@ -797,7 +800,7 @@ py::class_<BRepMesh_FaceDiscret, opencascade::handle<BRepMesh_FaceDiscret>, IMes
 cls_BRepMesh_FaceDiscret.def(py::init<const opencascade::handle<IMeshTools_MeshAlgoFactory> &>(), py::arg("theAlgoFactory"));
 
 // Methods
-cls_BRepMesh_FaceDiscret.def("__call__", (void (BRepMesh_FaceDiscret::*)(const Standard_Integer) const) &BRepMesh_FaceDiscret::operator(), py::is_operator(), "Functor API to discretize the given edge.", py::arg("theFaceIndex"));
+// cls_BRepMesh_FaceDiscret.def("__call__", (void (BRepMesh_FaceDiscret::*)(const Standard_Integer) const) &BRepMesh_FaceDiscret::operator(), py::is_operator(), "Functor API to discretize the given edge.", py::arg("theFaceIndex"));
 cls_BRepMesh_FaceDiscret.def_static("get_type_name_", (const char * (*)()) &BRepMesh_FaceDiscret::get_type_name, "None");
 cls_BRepMesh_FaceDiscret.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRepMesh_FaceDiscret::get_type_descriptor, "None");
 cls_BRepMesh_FaceDiscret.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepMesh_FaceDiscret::*)() const) &BRepMesh_FaceDiscret::DynamicType, "None");
@@ -863,8 +866,8 @@ py::class_<BRepMesh_ModelHealer, opencascade::handle<BRepMesh_ModelHealer>, IMes
 cls_BRepMesh_ModelHealer.def(py::init<>());
 
 // Methods
-cls_BRepMesh_ModelHealer.def("__call__", (void (BRepMesh_ModelHealer::*)(const Standard_Integer) const) &BRepMesh_ModelHealer::operator(), py::is_operator(), "Functor API to discretize the given edge.", py::arg("theEdgeIndex"));
-cls_BRepMesh_ModelHealer.def("__call__", (void (BRepMesh_ModelHealer::*)(const IMeshData::IFaceHandle &) const) &BRepMesh_ModelHealer::operator(), py::is_operator(), "Functor API to discretize the given edge.", py::arg("theDFace"));
+// cls_BRepMesh_ModelHealer.def("__call__", (void (BRepMesh_ModelHealer::*)(const Standard_Integer) const) &BRepMesh_ModelHealer::operator(), py::is_operator(), "Functor API to discretize the given edge.", py::arg("theEdgeIndex"));
+// cls_BRepMesh_ModelHealer.def("__call__", (void (BRepMesh_ModelHealer::*)(const IMeshData::IFaceHandle &) const) &BRepMesh_ModelHealer::operator(), py::is_operator(), "Functor API to discretize the given edge.", py::arg("theDFace"));
 cls_BRepMesh_ModelHealer.def_static("get_type_name_", (const char * (*)()) &BRepMesh_ModelHealer::get_type_name, "None");
 cls_BRepMesh_ModelHealer.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRepMesh_ModelHealer::get_type_descriptor, "None");
 cls_BRepMesh_ModelHealer.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepMesh_ModelHealer::*)() const) &BRepMesh_ModelHealer::DynamicType, "None");
@@ -957,16 +960,19 @@ cls_BRepMesh_ShapeVisitor.def_static("get_type_descriptor_", (const opencascade:
 cls_BRepMesh_ShapeVisitor.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepMesh_ShapeVisitor::*)() const) &BRepMesh_ShapeVisitor::DynamicType, "None");
 
 // CLASS: BREPMESH_SPHERERANGESPLITTER
-py::class_<BRepMesh_SphereRangeSplitter, BRepMesh_DefaultRangeSplitter> cls_BRepMesh_SphereRangeSplitter(mod, "BRepMesh_SphereRangeSplitter", "Auxiliary class extending default range splitter in order to generate internal nodes for spherical surface.");
+/*
+py::class_<BRepMesh_SphereRangeSplitter> cls_BRepMesh_SphereRangeSplitter(mod, "BRepMesh_SphereRangeSplitter", "Auxiliary class extending default range splitter in order to generate internal nodes for spherical surface.");
 
 // Constructors
 cls_BRepMesh_SphereRangeSplitter.def(py::init<>());
 
 // Methods
 cls_BRepMesh_SphereRangeSplitter.def("GenerateSurfaceNodes", (opencascade::handle<IMeshData::ListOfPnt2d> (BRepMesh_SphereRangeSplitter::*)(const IMeshTools_Parameters &) const) &BRepMesh_SphereRangeSplitter::GenerateSurfaceNodes, "Returns list of nodes generated using surface data and specified parameters.", py::arg("theParameters"));
+*/
 
 // CLASS: BREPMESH_TORUSRANGESPLITTER
-py::class_<BRepMesh_TorusRangeSplitter, BRepMesh_UVParamRangeSplitter> cls_BRepMesh_TorusRangeSplitter(mod, "BRepMesh_TorusRangeSplitter", "Auxiliary class extending UV range splitter in order to generate internal nodes for NURBS surface.");
+/*
+py::class_<BRepMesh_TorusRangeSplitter> cls_BRepMesh_TorusRangeSplitter(mod, "BRepMesh_TorusRangeSplitter", "Auxiliary class extending UV range splitter in order to generate internal nodes for NURBS surface.");
 
 // Constructors
 cls_BRepMesh_TorusRangeSplitter.def(py::init<>());
@@ -974,6 +980,7 @@ cls_BRepMesh_TorusRangeSplitter.def(py::init<>());
 // Methods
 cls_BRepMesh_TorusRangeSplitter.def("GenerateSurfaceNodes", (opencascade::handle<IMeshData::ListOfPnt2d> (BRepMesh_TorusRangeSplitter::*)(const IMeshTools_Parameters &) const) &BRepMesh_TorusRangeSplitter::GenerateSurfaceNodes, "Returns list of nodes generated using surface data and specified parameters.", py::arg("theParameters"));
 cls_BRepMesh_TorusRangeSplitter.def("AddPoint", (void (BRepMesh_TorusRangeSplitter::*)(const gp_Pnt2d &)) &BRepMesh_TorusRangeSplitter::AddPoint, "Registers border point.", py::arg("thePoint"));
+*/
 
 
 }

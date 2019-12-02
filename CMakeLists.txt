@@ -26,7 +26,7 @@ project(pyOCCT VERSION 7.4.0.0 LANGUAGES CXX)
 option(ENABLE_SMESH "Enable SMESH" OFF)
 option(ENABLE_NETGEN "Enable Netgen" OFF)
 option(ENABLE_WARNINGS "Disable warning output." OFF)
-option(ENABLE_FORCE "Force build even if unresolved externals are found" ON)
+option(ENABLE_FORCE "Force build even if unresolved externals are found" OFF)
 
 # --------------------------------------------------------------------------- #
 # SETTINGS

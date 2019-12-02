@@ -56,7 +56,7 @@ py::class_<Cocoa_Window, opencascade::handle<Cocoa_Window>, Aspect_Window> cls_C
 // cls_Cocoa_Window.def(py::init<NSView *>(), py::arg("theViewNS"));
 
 // Methods
-cls_Cocoa_Window.def_static("VirtualKeyFromNative_", (Aspect_VKey (*)(Standard_Integer)) &Cocoa_Window::VirtualKeyFromNative, "Convert Carbon virtual key into Aspect_VKey.", py::arg("theKey"));
+// cls_Cocoa_Window.def_static("VirtualKeyFromNative_", (Aspect_VKey (*)(Standard_Integer)) &Cocoa_Window::VirtualKeyFromNative, "Convert Carbon virtual key into Aspect_VKey.", py::arg("theKey"));
 cls_Cocoa_Window.def("Map", (void (Cocoa_Window::*)() const) &Cocoa_Window::Map, "Opens the window <me>");
 cls_Cocoa_Window.def("Unmap", (void (Cocoa_Window::*)() const) &Cocoa_Window::Unmap, "Closes the window <me>");
 cls_Cocoa_Window.def("DoResize", (Aspect_TypeOfResize (Cocoa_Window::*)() const) &Cocoa_Window::DoResize, "Applies the resizing to the window <me>");
