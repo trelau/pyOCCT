@@ -1,7 +1,8 @@
 # This file is part of pyOCCT which provides Python bindings to the OpenCASCADE
 # geometry kernel.
 #
-# Copyright (C) 2016-2018  Laughlin Research, LLC (info@laughlinresearch.com)
+# Copyright (C) 2016-2018  Laughlin Research, LLC
+# Copyright (C) 2019 Trevor Laughlin and the pyOCCT contributors
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -24,7 +25,7 @@ from OCCT.Graphic3d import (Graphic3d_RenderingParams, Graphic3d_RenderingMode,
                             Graphic3d_Mat4)
 
 
-class TestGraphic3dRenderingParams(unittest.TestCase):
+class Test_Graphic3d_RenderingParams(unittest.TestCase):
     """
     Tests for Graphic3d_RenderingParams class.
     """

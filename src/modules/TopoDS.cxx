@@ -175,6 +175,9 @@ cls_TopoDS_Shape.def("TShape", (void (TopoDS_Shape::*)(const opencascade::handle
 cls_TopoDS_Shape.def("DumpJson", [](TopoDS_Shape &self, Standard_OStream & a0) -> void { return self.DumpJson(a0); });
 cls_TopoDS_Shape.def("DumpJson", (void (TopoDS_Shape::*)(Standard_OStream &, const Standard_Integer) const) &TopoDS_Shape::DumpJson, "Dumps the content of me into the stream", py::arg("theOStream"), py::arg("theDepth"));
 
+// Extra
+cls_TopoDS_Shape.def("__hash__", [](TopoDS_Shape &self) {return self.HashCode(999999); });
+
 // CLASS: TOPODS_EDGE
 py::class_<TopoDS_Edge, TopoDS_Shape> cls_TopoDS_Edge(mod, "TopoDS_Edge", "Describes an edge which - references an underlying edge with the potential to be given a location and an orientation - has a location for the underlying edge, giving its placement in the local coordinate system - has an orientation for the underlying edge, in terms of its geometry (as opposed to orientation in relation to other shapes).");
 

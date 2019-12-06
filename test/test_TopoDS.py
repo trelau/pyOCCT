@@ -1,7 +1,8 @@
 # This file is part of pyOCCT which provides Python bindings to the OpenCASCADE
 # geometry kernel.
 #
-# Copyright (C) 2016-2018  Laughlin Research, LLC (info@laughlinresearch.com)
+# Copyright (C) 2016-2018  Laughlin Research, LLC
+# Copyright (C) 2019 Trevor Laughlin and the pyOCCT contributors
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -18,12 +19,30 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 import unittest
 
+from OCCT.BRepPrimAPI import BRepPrimAPI_MakeBox
 from OCCT.TopoDS import TopoDS_Shape, TopoDS_ListOfShape
 
 
-class TestTopoDSListOfShape(unittest.TestCase):
+class Test_TopoDS_Shape(unittest.TestCase):
     """
-    Test for TopoDS_ListOfShape.
+    Test for TopoDS_Shape class.
+    """
+
+    def test_hash(self):
+        """
+        Test __hash__ method.
+        """
+        s1 = BRepPrimAPI_MakeBox(1, 1, 1).Shape()
+        s2 = BRepPrimAPI_MakeBox(1, 1, 1).Shape()
+        s3 = BRepPrimAPI_MakeBox(1, 1, 1).Shape()
+
+        self.assertEqual(len({s1, s2, s3}), 3)
+        self.assertEqual(len({s1, s1, s2}), 2)
+
+
+class Test_TopoDS_ListOfShape(unittest.TestCase):
+    """
+    Test for TopoDS_ListOfShape class.
     """
 
     def test_iter(self):

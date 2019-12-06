@@ -1,7 +1,8 @@
 # This file is part of pyOCCT which provides Python bindings to the OpenCASCADE
 # geometry kernel.
 #
-# Copyright (C) 2016-2018  Laughlin Research, LLC (info@laughlinresearch.com)
+# Copyright (C) 2016-2018  Laughlin Research, LLC
+# Copyright (C) 2019 Trevor Laughlin and the pyOCCT contributors
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -18,13 +19,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
 import unittest
 
-from OCCT.AIS import AIS_Line
+from OCCT.AIS import AIS_Line, AIS_PointCloud
 from OCCT.Geom import Geom_CartesianPoint
 
 
-class TestAISLine(unittest.TestCase):
+class Test_AIS_Line(unittest.TestCase):
     """
-    Test for AIS_Line class
+    Test for AIS_Line class.
     """
 
     @unittest.expectedFailure
@@ -47,6 +48,20 @@ class TestAISLine(unittest.TestCase):
         self.assertAlmostEqual(p4.X(), 10.)
         self.assertAlmostEqual(p4.Y(), 20.)
         self.assertAlmostEqual(p4.Z(), 30.)
+
+
+class Test_AIS_Point_Cloud(unittest.TestCase):
+    """
+    Test for AIS_PointCloud class.
+    """
+
+    def test_SelectionMode(self):
+        """
+        Test for AIS_PointCloud::SelectionMode enum.
+        """
+        self.assertEqual(int(AIS_PointCloud.SM_Points), 0)
+        self.assertEqual(int(AIS_PointCloud.SM_SubsetOfPoints), 1)
+        self.assertEqual(int(AIS_PointCloud.SM_BndBox), 2)
 
 
 if __name__ == '__main__':

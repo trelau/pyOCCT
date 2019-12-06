@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include <pyOCCT_Common.hxx>
 #include <BOPAlgo_Builder.hxx>
+#include <Message_ProgressIndicator.hxx>
 #include <BRepBuilderAPI_MakeShape.hxx>
 #include <BOPAlgo_Options.hxx>
 #include <Standard.hxx>
@@ -54,6 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 PYBIND11_MODULE(BRepAlgoAPI, mod) {
 
 py::module::import("OCCT.BOPAlgo");
+py::module::import("OCCT.Message");
 py::module::import("OCCT.BRepBuilderAPI");
 py::module::import("OCCT.Standard");
 py::module::import("OCCT.TopoDS");
@@ -75,6 +77,20 @@ py::class_<BRepAlgoAPI_Algo, std::unique_ptr<BRepAlgoAPI_Algo, py::nodelete>, BR
 // cls_BRepAlgoAPI_Algo.def_static("operator new_", (void * (*)(size_t, void *)) &BRepAlgoAPI_Algo::operator new, "None", py::arg(""), py::arg("theAddress"));
 // cls_BRepAlgoAPI_Algo.def_static("operator delete_", (void (*)(void *, void *)) &BRepAlgoAPI_Algo::operator delete, "None", py::arg(""), py::arg(""));
 cls_BRepAlgoAPI_Algo.def("Shape", (const TopoDS_Shape & (BRepAlgoAPI_Algo::*)()) &BRepAlgoAPI_Algo::Shape, "None");
+
+// Extra
+cls_BRepAlgoAPI_Algo.def("Clear", [](BRepAlgoAPI_Algo &self) {return self.Clear(); }, "Clears all warnings and errors, and any data cached by the algorithm. User defined options are not cleared.");
+cls_BRepAlgoAPI_Algo.def("SetRunParallel", [](BRepAlgoAPI_Algo &self, const Standard_Boolean theFlag) { return self.SetRunParallel(theFlag); }, "Set the flag of parallel processing if <theFlag> is true the parallel processing is switched on if <theFlag> is false the parallel processing is switched off", py::arg("theFlag"));
+cls_BRepAlgoAPI_Algo.def("RunParallel", [](BRepAlgoAPI_Algo &self) {return self.RunParallel(); }, "Returns the flag of parallel processing");
+cls_BRepAlgoAPI_Algo.def("SetFuzzyValue", [](BRepAlgoAPI_Algo &self, const Standard_Real theFuzz) { return self.SetFuzzyValue(theFuzz); }, "Sets the additional tolerance", py::arg("theFuzz"));
+cls_BRepAlgoAPI_Algo.def("FuzzyValue", [](BRepAlgoAPI_Algo &self) { return self.FuzzyValue(); }, "Returns the additional tolerance");
+cls_BRepAlgoAPI_Algo.def("HasErrors", [](BRepAlgoAPI_Algo &self) { return self.HasErrors(); }, "Returns true if algorithm has failed");
+cls_BRepAlgoAPI_Algo.def("HasWarnings", [](BRepAlgoAPI_Algo &self) { return self.HasWarnings(); }, "Returns true if algorithm has generated some warning alerts");
+cls_BRepAlgoAPI_Algo.def("HasError", [](BRepAlgoAPI_Algo &self, Handle(Standard_Type) &theType) { return self.HasError(theType); }, "Returns true if algorithm has generated error of specified type", py::arg("theType"));
+cls_BRepAlgoAPI_Algo.def("HasWarning", [](BRepAlgoAPI_Algo &self, Handle(Standard_Type) &theType) { return self.HasWarning(theType); }, "Returns true if algorithm has generated warning of specified type", py::arg("theType"));
+cls_BRepAlgoAPI_Algo.def("ClearWarnings", [](BRepAlgoAPI_Algo &self) { self.ClearWarnings(); }, "Clears the warnings of the algorithm");
+cls_BRepAlgoAPI_Algo.def("GetReport", [](BRepAlgoAPI_Algo &self) { const Handle(Message_Report) r = self.GetReport(); return r; }, "Returns report collecting all errors and warnings");
+cls_BRepAlgoAPI_Algo.def("SetProgressIndicator", [](BRepAlgoAPI_Algo &self, const Handle(Message_ProgressIndicator) &pi) {return self.SetProgressIndicator(pi); }, "Set the Progress Indicator object.", py::arg("theObj"));
 
 // CLASS: BREPALGOAPI_BUILDERALGO
 py::class_<BRepAlgoAPI_BuilderAlgo, BRepAlgoAPI_Algo> cls_BRepAlgoAPI_BuilderAlgo(mod, "BRepAlgoAPI_BuilderAlgo", "The class contains API level of the General Fuse algorithm.");

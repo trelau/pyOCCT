@@ -1,7 +1,8 @@
 # This file is part of pyOCCT which provides Python bindings to the OpenCASCADE
 # geometry kernel.
 #
-# Copyright (C) 2016-2018  Laughlin Research, LLC (info@laughlinresearch.com)
+# Copyright (C) 2016-2018  Laughlin Research, LLC
+# Copyright (C) 2019 Trevor Laughlin and the pyOCCT contributors
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,7 +24,7 @@ from OCCT.SelectMgr import SelectMgr_EntityOwner
 from OCCT.gp import gp_Pnt
 
 
-class TestSelect3DSensitiveTriangle(unittest.TestCase):
+class Test_Select3D_SensitiveTriangle(unittest.TestCase):
     """
     Test for Select3D_SensitiveTriangle class.
     """
