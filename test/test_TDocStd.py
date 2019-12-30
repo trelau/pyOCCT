@@ -55,6 +55,8 @@ class Test_TDocStd_Application(unittest.TestCase):
         self.assertFalse(doc.IsEmpty())
         self.assertEqual(doc.FileExtension().ToExtString(), 'xml')
 
+        self._app.Close(doc)
+
 
 if __name__ == '__main__':
     unittest.main()

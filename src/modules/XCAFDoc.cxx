@@ -1108,7 +1108,7 @@ cls_XCAFDoc_ShapeTool.def("AddComponent", [](XCAFDoc_ShapeTool &self, const TDF_
 cls_XCAFDoc_ShapeTool.def("AddComponent", (TDF_Label (XCAFDoc_ShapeTool::*)(const TDF_Label &, const TopoDS_Shape &, const Standard_Boolean)) &XCAFDoc_ShapeTool::AddComponent, "Adds a shape (located) as a component to the assembly If necessary, creates an additional top-level shape for component and return the Label of component. If expand is True and component is Compound, it will be created as assembly also Note: assembly must be IsAssembly() or IsSimpleShape()", py::arg("assembly"), py::arg("comp"), py::arg("expand"));
 cls_XCAFDoc_ShapeTool.def("RemoveComponent", (void (XCAFDoc_ShapeTool::*)(const TDF_Label &) const) &XCAFDoc_ShapeTool::RemoveComponent, "Removes a component from its assembly", py::arg("comp"));
 cls_XCAFDoc_ShapeTool.def("UpdateAssemblies", (void (XCAFDoc_ShapeTool::*)()) &XCAFDoc_ShapeTool::UpdateAssemblies, "Top-down update for all assembly compounds stored in the document.");
-cls_XCAFDoc_ShapeTool.def("FindSubShape", (Standard_Boolean (XCAFDoc_ShapeTool::*)(const TDF_Label &, const TopoDS_Shape &, TDF_Label &) const) &XCAFDoc_ShapeTool::FindSubShape, "Finds a label for subshape of shape stored on label shapeL Returns Null label if it is not found", py::arg("shapeL"), py::arg("sub"), py::arg("L"));
+// cls_XCAFDoc_ShapeTool.def("FindSubShape", (Standard_Boolean (XCAFDoc_ShapeTool::*)(const TDF_Label &, const TopoDS_Shape &, TDF_Label &) const) &XCAFDoc_ShapeTool::FindSubShape, "Finds a label for subshape of shape stored on label shapeL Returns Null label if it is not found", py::arg("shapeL"), py::arg("sub"), py::arg("L"));
 cls_XCAFDoc_ShapeTool.def("AddSubShape", (TDF_Label (XCAFDoc_ShapeTool::*)(const TDF_Label &, const TopoDS_Shape &) const) &XCAFDoc_ShapeTool::AddSubShape, "Adds a label for subshape of shape stored on label shapeL Returns Null label if it is not subshape", py::arg("shapeL"), py::arg("sub"));
 cls_XCAFDoc_ShapeTool.def("AddSubShape", (Standard_Boolean (XCAFDoc_ShapeTool::*)(const TDF_Label &, const TopoDS_Shape &, TDF_Label &) const) &XCAFDoc_ShapeTool::AddSubShape, "Adds (of finds already existed) a label for subshape of shape stored on label shapeL. Label addedSubShapeL returns added (found) label or empty in case of wrong subshape. Returns True, if new shape was added, False in case of already existed subshape/wrong subshape", py::arg("shapeL"), py::arg("sub"), py::arg("addedSubShapeL"));
 cls_XCAFDoc_ShapeTool.def("FindMainShapeUsingMap", (TDF_Label (XCAFDoc_ShapeTool::*)(const TopoDS_Shape &) const) &XCAFDoc_ShapeTool::FindMainShapeUsingMap, "None", py::arg("sub"));
@@ -1147,6 +1147,9 @@ cls_XCAFDoc_ShapeTool.def("GetNamedProperties", (opencascade::handle<TDataStd_Na
 cls_XCAFDoc_ShapeTool.def_static("get_type_name_", (const char * (*)()) &XCAFDoc_ShapeTool::get_type_name, "None");
 cls_XCAFDoc_ShapeTool.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &XCAFDoc_ShapeTool::get_type_descriptor, "None");
 cls_XCAFDoc_ShapeTool.def("DynamicType", (const opencascade::handle<Standard_Type> & (XCAFDoc_ShapeTool::*)() const) &XCAFDoc_ShapeTool::DynamicType, "None");
+
+// Extra
+cls_XCAFDoc_ShapeTool.def("FindSubShape", [](XCAFDoc_ShapeTool &self, const TDF_Label &shapeL, const TopoDS_Shape &sub) { TDF_Label L; Standard_Boolean status = self.FindSubShape(shapeL, sub, L); return std::tuple<Standard_Boolean, TDF_Label>(status, L); }, "Finds a label for subshape of shape stored on label shapeL Returns Null label if it is not found", py::arg("shapeL"), py::arg("sub"));
 
 // CLASS: XCAFDOC_VIEW
 py::class_<XCAFDoc_View, opencascade::handle<XCAFDoc_View>, TDF_Attribute> cls_XCAFDoc_View(mod, "XCAFDoc_View", "Attribute to store view");

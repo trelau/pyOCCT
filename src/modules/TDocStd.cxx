@@ -128,7 +128,6 @@ cls_TDocStd_Application.def("DynamicType", (const opencascade::handle<Standard_T
 // Extra
 cls_TDocStd_Application.def("Open", [](TDocStd_Application &self, const TCollection_ExtendedString &path, opencascade::handle<TDocStd_Document> &aDoc) {PCDM_ReaderStatus status = self.Open(path, aDoc);  return std::tuple<PCDM_ReaderStatus, opencascade::handle<TDocStd_Document>>(status, aDoc); }, "Retrieves the document aDoc stored under the name aName in the directory directory. In order not to override a version of aDoc which is already in memory, this method can be made to depend on the value returned by IsInSession.", py::arg("path"), py::arg("aDoc"));
 
-
 // TYPEDEF: TDOCSTD_XLINKPTR
 
 // CLASS: TDOCSTD_XLINK
