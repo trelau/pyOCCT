@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BVH_Box.hxx>
 #include <BVH_BuildThread.hxx>
 #include <BVH_BuildQueue.hxx>
+#include <Standard_ProgramError.hxx>
 
 template <typename T, int N>
 void bind_BVH_QueueBuilder(py::module &mod, std::string const &name, py::module_local const &local){

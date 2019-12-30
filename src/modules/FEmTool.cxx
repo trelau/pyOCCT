@@ -58,6 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <FEmTool_LinearTension.hxx>
 #include <FEmTool_SparseMatrix.hxx>
 #include <bind_NCollection_Array2.hxx>
+#include <bind_Define_HArray2.hxx>
 #include <bind_NCollection_List.hxx>
 #include <bind_NCollection_TListIterator.hxx>
 #include <bind_NCollection_Sequence.hxx>
@@ -75,27 +76,7 @@ py::module::import("OCCT.GeomAbs");
 bind_NCollection_Array2<opencascade::handle<TColStd_HArray1OfInteger> >(mod, "FEmTool_AssemblyTable", py::module_local(false));
 
 // CLASS: FEMTOOL_HASSEMBLYTABLE
-py::class_<FEmTool_HAssemblyTable, opencascade::handle<FEmTool_HAssemblyTable>, Standard_Transient> cls_FEmTool_HAssemblyTable(mod, "FEmTool_HAssemblyTable", "None", py::multiple_inheritance());
-
-// Constructors
-cls_FEmTool_HAssemblyTable.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_FEmTool_HAssemblyTable.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const FEmTool_AssemblyTable::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_FEmTool_HAssemblyTable.def(py::init<const FEmTool_AssemblyTable &>(), py::arg("theOther"));
-
-// Methods
-// cls_FEmTool_HAssemblyTable.def_static("operator new_", (void * (*)(size_t)) &FEmTool_HAssemblyTable::operator new, "None", py::arg("theSize"));
-// cls_FEmTool_HAssemblyTable.def_static("operator delete_", (void (*)(void *)) &FEmTool_HAssemblyTable::operator delete, "None", py::arg("theAddress"));
-// cls_FEmTool_HAssemblyTable.def_static("operator new[]_", (void * (*)(size_t)) &FEmTool_HAssemblyTable::operator new[], "None", py::arg("theSize"));
-// cls_FEmTool_HAssemblyTable.def_static("operator delete[]_", (void (*)(void *)) &FEmTool_HAssemblyTable::operator delete[], "None", py::arg("theAddress"));
-// cls_FEmTool_HAssemblyTable.def_static("operator new_", (void * (*)(size_t, void *)) &FEmTool_HAssemblyTable::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_FEmTool_HAssemblyTable.def_static("operator delete_", (void (*)(void *, void *)) &FEmTool_HAssemblyTable::operator delete, "None", py::arg(""), py::arg(""));
-// cls_FEmTool_HAssemblyTable.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &FEmTool_HAssemblyTable::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_FEmTool_HAssemblyTable.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &FEmTool_HAssemblyTable::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_FEmTool_HAssemblyTable.def("Array2", (const FEmTool_AssemblyTable & (FEmTool_HAssemblyTable::*)() const) &FEmTool_HAssemblyTable::Array2, "None");
-cls_FEmTool_HAssemblyTable.def("ChangeArray2", (FEmTool_AssemblyTable & (FEmTool_HAssemblyTable::*)()) &FEmTool_HAssemblyTable::ChangeArray2, "None");
-cls_FEmTool_HAssemblyTable.def_static("get_type_name_", (const char * (*)()) &FEmTool_HAssemblyTable::get_type_name, "None");
-cls_FEmTool_HAssemblyTable.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &FEmTool_HAssemblyTable::get_type_descriptor, "None");
-cls_FEmTool_HAssemblyTable.def("DynamicType", (const opencascade::handle<Standard_Type> & (FEmTool_HAssemblyTable::*)() const) &FEmTool_HAssemblyTable::DynamicType, "None");
+bind_Define_HArray2<FEmTool_HAssemblyTable, FEmTool_AssemblyTable>(mod, "FEmTool_HAssemblyTable");
 
 // TYPEDEF: FEMTOOL_LISTOFVECTORS
 bind_NCollection_List<opencascade::handle<TColStd_HArray1OfReal> >(mod, "FEmTool_ListOfVectors", py::module_local(false));

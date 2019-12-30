@@ -165,7 +165,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Extrema_LocECC2d.hxx>
 #include <bind_NCollection_Sequence.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 #include <bind_NCollection_Array2.hxx>
+#include <bind_Define_HArray2.hxx>
 #include <bind_NCollection_UBTree.hxx>
 #include <bind_NCollection_UBTreeFiller.hxx>
 #include <bind_NCollection_Handle.hxx>
@@ -299,28 +301,7 @@ cls_Extrema_ExtCC.def("GetSingleSolutionFlag", (Standard_Boolean (Extrema_ExtCC:
 bind_NCollection_Array1<Extrema_POnCurv>(mod, "Extrema_Array1OfPOnCurv", py::module_local(false));
 
 // CLASS: EXTREMA_HARRAY1OFPONCURV
-py::class_<Extrema_HArray1OfPOnCurv, opencascade::handle<Extrema_HArray1OfPOnCurv>, Standard_Transient> cls_Extrema_HArray1OfPOnCurv(mod, "Extrema_HArray1OfPOnCurv", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Extrema_HArray1OfPOnCurv.def(py::init<>());
-cls_Extrema_HArray1OfPOnCurv.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_Extrema_HArray1OfPOnCurv.def(py::init<const Standard_Integer, const Standard_Integer, const Extrema_Array1OfPOnCurv::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_Extrema_HArray1OfPOnCurv.def(py::init<const Extrema_Array1OfPOnCurv &>(), py::arg("theOther"));
-
-// Methods
-// cls_Extrema_HArray1OfPOnCurv.def_static("operator new_", (void * (*)(size_t)) &Extrema_HArray1OfPOnCurv::operator new, "None", py::arg("theSize"));
-// cls_Extrema_HArray1OfPOnCurv.def_static("operator delete_", (void (*)(void *)) &Extrema_HArray1OfPOnCurv::operator delete, "None", py::arg("theAddress"));
-// cls_Extrema_HArray1OfPOnCurv.def_static("operator new[]_", (void * (*)(size_t)) &Extrema_HArray1OfPOnCurv::operator new[], "None", py::arg("theSize"));
-// cls_Extrema_HArray1OfPOnCurv.def_static("operator delete[]_", (void (*)(void *)) &Extrema_HArray1OfPOnCurv::operator delete[], "None", py::arg("theAddress"));
-// cls_Extrema_HArray1OfPOnCurv.def_static("operator new_", (void * (*)(size_t, void *)) &Extrema_HArray1OfPOnCurv::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Extrema_HArray1OfPOnCurv.def_static("operator delete_", (void (*)(void *, void *)) &Extrema_HArray1OfPOnCurv::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Extrema_HArray1OfPOnCurv.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_HArray1OfPOnCurv::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Extrema_HArray1OfPOnCurv.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_HArray1OfPOnCurv::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Extrema_HArray1OfPOnCurv.def("Array1", (const Extrema_Array1OfPOnCurv & (Extrema_HArray1OfPOnCurv::*)() const) &Extrema_HArray1OfPOnCurv::Array1, "None");
-cls_Extrema_HArray1OfPOnCurv.def("ChangeArray1", (Extrema_Array1OfPOnCurv & (Extrema_HArray1OfPOnCurv::*)()) &Extrema_HArray1OfPOnCurv::ChangeArray1, "None");
-cls_Extrema_HArray1OfPOnCurv.def_static("get_type_name_", (const char * (*)()) &Extrema_HArray1OfPOnCurv::get_type_name, "None");
-cls_Extrema_HArray1OfPOnCurv.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Extrema_HArray1OfPOnCurv::get_type_descriptor, "None");
-cls_Extrema_HArray1OfPOnCurv.def("DynamicType", (const opencascade::handle<Standard_Type> & (Extrema_HArray1OfPOnCurv::*)() const) &Extrema_HArray1OfPOnCurv::DynamicType, "None");
+bind_Define_HArray1<Extrema_HArray1OfPOnCurv, Extrema_Array1OfPOnCurv>(mod, "Extrema_HArray1OfPOnCurv");
 
 // CLASS: EXTREMA_PONSURF
 py::class_<Extrema_POnSurf> cls_Extrema_POnSurf(mod, "Extrema_POnSurf", "Definition of a point on surface.");
@@ -344,28 +325,7 @@ cls_Extrema_POnSurf.def("Parameter", [](Extrema_POnSurf &self, Standard_Real & U
 bind_NCollection_Array1<Extrema_POnSurf>(mod, "Extrema_Array1OfPOnSurf", py::module_local(false));
 
 // CLASS: EXTREMA_HARRAY1OFPONSURF
-py::class_<Extrema_HArray1OfPOnSurf, opencascade::handle<Extrema_HArray1OfPOnSurf>, Standard_Transient> cls_Extrema_HArray1OfPOnSurf(mod, "Extrema_HArray1OfPOnSurf", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Extrema_HArray1OfPOnSurf.def(py::init<>());
-cls_Extrema_HArray1OfPOnSurf.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_Extrema_HArray1OfPOnSurf.def(py::init<const Standard_Integer, const Standard_Integer, const Extrema_Array1OfPOnSurf::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_Extrema_HArray1OfPOnSurf.def(py::init<const Extrema_Array1OfPOnSurf &>(), py::arg("theOther"));
-
-// Methods
-// cls_Extrema_HArray1OfPOnSurf.def_static("operator new_", (void * (*)(size_t)) &Extrema_HArray1OfPOnSurf::operator new, "None", py::arg("theSize"));
-// cls_Extrema_HArray1OfPOnSurf.def_static("operator delete_", (void (*)(void *)) &Extrema_HArray1OfPOnSurf::operator delete, "None", py::arg("theAddress"));
-// cls_Extrema_HArray1OfPOnSurf.def_static("operator new[]_", (void * (*)(size_t)) &Extrema_HArray1OfPOnSurf::operator new[], "None", py::arg("theSize"));
-// cls_Extrema_HArray1OfPOnSurf.def_static("operator delete[]_", (void (*)(void *)) &Extrema_HArray1OfPOnSurf::operator delete[], "None", py::arg("theAddress"));
-// cls_Extrema_HArray1OfPOnSurf.def_static("operator new_", (void * (*)(size_t, void *)) &Extrema_HArray1OfPOnSurf::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Extrema_HArray1OfPOnSurf.def_static("operator delete_", (void (*)(void *, void *)) &Extrema_HArray1OfPOnSurf::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Extrema_HArray1OfPOnSurf.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_HArray1OfPOnSurf::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Extrema_HArray1OfPOnSurf.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_HArray1OfPOnSurf::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Extrema_HArray1OfPOnSurf.def("Array1", (const Extrema_Array1OfPOnSurf & (Extrema_HArray1OfPOnSurf::*)() const) &Extrema_HArray1OfPOnSurf::Array1, "None");
-cls_Extrema_HArray1OfPOnSurf.def("ChangeArray1", (Extrema_Array1OfPOnSurf & (Extrema_HArray1OfPOnSurf::*)()) &Extrema_HArray1OfPOnSurf::ChangeArray1, "None");
-cls_Extrema_HArray1OfPOnSurf.def_static("get_type_name_", (const char * (*)()) &Extrema_HArray1OfPOnSurf::get_type_name, "None");
-cls_Extrema_HArray1OfPOnSurf.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Extrema_HArray1OfPOnSurf::get_type_descriptor, "None");
-cls_Extrema_HArray1OfPOnSurf.def("DynamicType", (const opencascade::handle<Standard_Type> & (Extrema_HArray1OfPOnSurf::*)() const) &Extrema_HArray1OfPOnSurf::DynamicType, "None");
+bind_Define_HArray1<Extrema_HArray1OfPOnSurf, Extrema_Array1OfPOnSurf>(mod, "Extrema_HArray1OfPOnSurf");
 
 // CLASS: EXTREMA_EXTELCS
 py::class_<Extrema_ExtElCS> cls_Extrema_ExtElCS(mod, "Extrema_ExtElCS", "It calculates all the distances between a curve and a surface. These distances can be maximum or minimum.");
@@ -652,27 +612,7 @@ cls_Extrema_POnSurfParams.def("GetIndices", [](Extrema_POnSurfParams &self, Stan
 bind_NCollection_Array2<Extrema_POnSurfParams>(mod, "Extrema_Array2OfPOnSurfParams", py::module_local(false));
 
 // CLASS: EXTREMA_HARRAY2OFPONSURFPARAMS
-py::class_<Extrema_HArray2OfPOnSurfParams, opencascade::handle<Extrema_HArray2OfPOnSurfParams>, Standard_Transient> cls_Extrema_HArray2OfPOnSurfParams(mod, "Extrema_HArray2OfPOnSurfParams", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Extrema_HArray2OfPOnSurfParams.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_Extrema_HArray2OfPOnSurfParams.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Extrema_Array2OfPOnSurfParams::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_Extrema_HArray2OfPOnSurfParams.def(py::init<const Extrema_Array2OfPOnSurfParams &>(), py::arg("theOther"));
-
-// Methods
-// cls_Extrema_HArray2OfPOnSurfParams.def_static("operator new_", (void * (*)(size_t)) &Extrema_HArray2OfPOnSurfParams::operator new, "None", py::arg("theSize"));
-// cls_Extrema_HArray2OfPOnSurfParams.def_static("operator delete_", (void (*)(void *)) &Extrema_HArray2OfPOnSurfParams::operator delete, "None", py::arg("theAddress"));
-// cls_Extrema_HArray2OfPOnSurfParams.def_static("operator new[]_", (void * (*)(size_t)) &Extrema_HArray2OfPOnSurfParams::operator new[], "None", py::arg("theSize"));
-// cls_Extrema_HArray2OfPOnSurfParams.def_static("operator delete[]_", (void (*)(void *)) &Extrema_HArray2OfPOnSurfParams::operator delete[], "None", py::arg("theAddress"));
-// cls_Extrema_HArray2OfPOnSurfParams.def_static("operator new_", (void * (*)(size_t, void *)) &Extrema_HArray2OfPOnSurfParams::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Extrema_HArray2OfPOnSurfParams.def_static("operator delete_", (void (*)(void *, void *)) &Extrema_HArray2OfPOnSurfParams::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Extrema_HArray2OfPOnSurfParams.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_HArray2OfPOnSurfParams::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Extrema_HArray2OfPOnSurfParams.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_HArray2OfPOnSurfParams::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Extrema_HArray2OfPOnSurfParams.def("Array2", (const Extrema_Array2OfPOnSurfParams & (Extrema_HArray2OfPOnSurfParams::*)() const) &Extrema_HArray2OfPOnSurfParams::Array2, "None");
-cls_Extrema_HArray2OfPOnSurfParams.def("ChangeArray2", (Extrema_Array2OfPOnSurfParams & (Extrema_HArray2OfPOnSurfParams::*)()) &Extrema_HArray2OfPOnSurfParams::ChangeArray2, "None");
-cls_Extrema_HArray2OfPOnSurfParams.def_static("get_type_name_", (const char * (*)()) &Extrema_HArray2OfPOnSurfParams::get_type_name, "None");
-cls_Extrema_HArray2OfPOnSurfParams.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Extrema_HArray2OfPOnSurfParams::get_type_descriptor, "None");
-cls_Extrema_HArray2OfPOnSurfParams.def("DynamicType", (const opencascade::handle<Standard_Type> & (Extrema_HArray2OfPOnSurfParams::*)() const) &Extrema_HArray2OfPOnSurfParams::DynamicType, "None");
+bind_Define_HArray2<Extrema_HArray2OfPOnSurfParams, Extrema_Array2OfPOnSurfParams>(mod, "Extrema_HArray2OfPOnSurfParams");
 
 // TYPEDEF: EXTREMA_UBTREEOFSPHERE
 bind_NCollection_UBTree<int, Bnd_Sphere>(mod, "Extrema_UBTreeOfSphere", py::module_local(false));
@@ -1690,97 +1630,16 @@ cls_Extrema_GlobOptFuncCS.def("Values", [](Extrema_GlobOptFuncCS &self, const ma
 cls_Extrema_GlobOptFuncCS.def("Values", [](Extrema_GlobOptFuncCS &self, const math_Vector & theX, Standard_Real & theF, math_Vector & theG, math_Matrix & theH){ Standard_Boolean rv = self.Values(theX, theF, theG, theH); return std::tuple<Standard_Boolean, Standard_Real &>(rv, theF); }, "None", py::arg("theX"), py::arg("theF"), py::arg("theG"), py::arg("theH"));
 
 // CLASS: EXTREMA_HARRAY1OFPONCURV2D
-py::class_<Extrema_HArray1OfPOnCurv2d, opencascade::handle<Extrema_HArray1OfPOnCurv2d>, Standard_Transient> cls_Extrema_HArray1OfPOnCurv2d(mod, "Extrema_HArray1OfPOnCurv2d", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Extrema_HArray1OfPOnCurv2d.def(py::init<>());
-cls_Extrema_HArray1OfPOnCurv2d.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_Extrema_HArray1OfPOnCurv2d.def(py::init<const Standard_Integer, const Standard_Integer, const Extrema_Array1OfPOnCurv2d::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_Extrema_HArray1OfPOnCurv2d.def(py::init<const Extrema_Array1OfPOnCurv2d &>(), py::arg("theOther"));
-
-// Methods
-// cls_Extrema_HArray1OfPOnCurv2d.def_static("operator new_", (void * (*)(size_t)) &Extrema_HArray1OfPOnCurv2d::operator new, "None", py::arg("theSize"));
-// cls_Extrema_HArray1OfPOnCurv2d.def_static("operator delete_", (void (*)(void *)) &Extrema_HArray1OfPOnCurv2d::operator delete, "None", py::arg("theAddress"));
-// cls_Extrema_HArray1OfPOnCurv2d.def_static("operator new[]_", (void * (*)(size_t)) &Extrema_HArray1OfPOnCurv2d::operator new[], "None", py::arg("theSize"));
-// cls_Extrema_HArray1OfPOnCurv2d.def_static("operator delete[]_", (void (*)(void *)) &Extrema_HArray1OfPOnCurv2d::operator delete[], "None", py::arg("theAddress"));
-// cls_Extrema_HArray1OfPOnCurv2d.def_static("operator new_", (void * (*)(size_t, void *)) &Extrema_HArray1OfPOnCurv2d::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Extrema_HArray1OfPOnCurv2d.def_static("operator delete_", (void (*)(void *, void *)) &Extrema_HArray1OfPOnCurv2d::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Extrema_HArray1OfPOnCurv2d.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_HArray1OfPOnCurv2d::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Extrema_HArray1OfPOnCurv2d.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_HArray1OfPOnCurv2d::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Extrema_HArray1OfPOnCurv2d.def("Array1", (const Extrema_Array1OfPOnCurv2d & (Extrema_HArray1OfPOnCurv2d::*)() const) &Extrema_HArray1OfPOnCurv2d::Array1, "None");
-cls_Extrema_HArray1OfPOnCurv2d.def("ChangeArray1", (Extrema_Array1OfPOnCurv2d & (Extrema_HArray1OfPOnCurv2d::*)()) &Extrema_HArray1OfPOnCurv2d::ChangeArray1, "None");
-cls_Extrema_HArray1OfPOnCurv2d.def_static("get_type_name_", (const char * (*)()) &Extrema_HArray1OfPOnCurv2d::get_type_name, "None");
-cls_Extrema_HArray1OfPOnCurv2d.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Extrema_HArray1OfPOnCurv2d::get_type_descriptor, "None");
-cls_Extrema_HArray1OfPOnCurv2d.def("DynamicType", (const opencascade::handle<Standard_Type> & (Extrema_HArray1OfPOnCurv2d::*)() const) &Extrema_HArray1OfPOnCurv2d::DynamicType, "None");
+bind_Define_HArray1<Extrema_HArray1OfPOnCurv2d, Extrema_Array1OfPOnCurv2d>(mod, "Extrema_HArray1OfPOnCurv2d");
 
 // CLASS: EXTREMA_HARRAY2OFPONCURV
-py::class_<Extrema_HArray2OfPOnCurv, opencascade::handle<Extrema_HArray2OfPOnCurv>, Standard_Transient> cls_Extrema_HArray2OfPOnCurv(mod, "Extrema_HArray2OfPOnCurv", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Extrema_HArray2OfPOnCurv.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_Extrema_HArray2OfPOnCurv.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Extrema_Array2OfPOnCurv::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_Extrema_HArray2OfPOnCurv.def(py::init<const Extrema_Array2OfPOnCurv &>(), py::arg("theOther"));
-
-// Methods
-// cls_Extrema_HArray2OfPOnCurv.def_static("operator new_", (void * (*)(size_t)) &Extrema_HArray2OfPOnCurv::operator new, "None", py::arg("theSize"));
-// cls_Extrema_HArray2OfPOnCurv.def_static("operator delete_", (void (*)(void *)) &Extrema_HArray2OfPOnCurv::operator delete, "None", py::arg("theAddress"));
-// cls_Extrema_HArray2OfPOnCurv.def_static("operator new[]_", (void * (*)(size_t)) &Extrema_HArray2OfPOnCurv::operator new[], "None", py::arg("theSize"));
-// cls_Extrema_HArray2OfPOnCurv.def_static("operator delete[]_", (void (*)(void *)) &Extrema_HArray2OfPOnCurv::operator delete[], "None", py::arg("theAddress"));
-// cls_Extrema_HArray2OfPOnCurv.def_static("operator new_", (void * (*)(size_t, void *)) &Extrema_HArray2OfPOnCurv::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Extrema_HArray2OfPOnCurv.def_static("operator delete_", (void (*)(void *, void *)) &Extrema_HArray2OfPOnCurv::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Extrema_HArray2OfPOnCurv.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_HArray2OfPOnCurv::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Extrema_HArray2OfPOnCurv.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_HArray2OfPOnCurv::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Extrema_HArray2OfPOnCurv.def("Array2", (const Extrema_Array2OfPOnCurv & (Extrema_HArray2OfPOnCurv::*)() const) &Extrema_HArray2OfPOnCurv::Array2, "None");
-cls_Extrema_HArray2OfPOnCurv.def("ChangeArray2", (Extrema_Array2OfPOnCurv & (Extrema_HArray2OfPOnCurv::*)()) &Extrema_HArray2OfPOnCurv::ChangeArray2, "None");
-cls_Extrema_HArray2OfPOnCurv.def_static("get_type_name_", (const char * (*)()) &Extrema_HArray2OfPOnCurv::get_type_name, "None");
-cls_Extrema_HArray2OfPOnCurv.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Extrema_HArray2OfPOnCurv::get_type_descriptor, "None");
-cls_Extrema_HArray2OfPOnCurv.def("DynamicType", (const opencascade::handle<Standard_Type> & (Extrema_HArray2OfPOnCurv::*)() const) &Extrema_HArray2OfPOnCurv::DynamicType, "None");
+bind_Define_HArray2<Extrema_HArray2OfPOnCurv, Extrema_Array2OfPOnCurv>(mod, "Extrema_HArray2OfPOnCurv");
 
 // CLASS: EXTREMA_HARRAY2OFPONCURV2D
-py::class_<Extrema_HArray2OfPOnCurv2d, opencascade::handle<Extrema_HArray2OfPOnCurv2d>, Standard_Transient> cls_Extrema_HArray2OfPOnCurv2d(mod, "Extrema_HArray2OfPOnCurv2d", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Extrema_HArray2OfPOnCurv2d.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_Extrema_HArray2OfPOnCurv2d.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Extrema_Array2OfPOnCurv2d::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_Extrema_HArray2OfPOnCurv2d.def(py::init<const Extrema_Array2OfPOnCurv2d &>(), py::arg("theOther"));
-
-// Methods
-// cls_Extrema_HArray2OfPOnCurv2d.def_static("operator new_", (void * (*)(size_t)) &Extrema_HArray2OfPOnCurv2d::operator new, "None", py::arg("theSize"));
-// cls_Extrema_HArray2OfPOnCurv2d.def_static("operator delete_", (void (*)(void *)) &Extrema_HArray2OfPOnCurv2d::operator delete, "None", py::arg("theAddress"));
-// cls_Extrema_HArray2OfPOnCurv2d.def_static("operator new[]_", (void * (*)(size_t)) &Extrema_HArray2OfPOnCurv2d::operator new[], "None", py::arg("theSize"));
-// cls_Extrema_HArray2OfPOnCurv2d.def_static("operator delete[]_", (void (*)(void *)) &Extrema_HArray2OfPOnCurv2d::operator delete[], "None", py::arg("theAddress"));
-// cls_Extrema_HArray2OfPOnCurv2d.def_static("operator new_", (void * (*)(size_t, void *)) &Extrema_HArray2OfPOnCurv2d::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Extrema_HArray2OfPOnCurv2d.def_static("operator delete_", (void (*)(void *, void *)) &Extrema_HArray2OfPOnCurv2d::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Extrema_HArray2OfPOnCurv2d.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_HArray2OfPOnCurv2d::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Extrema_HArray2OfPOnCurv2d.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_HArray2OfPOnCurv2d::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Extrema_HArray2OfPOnCurv2d.def("Array2", (const Extrema_Array2OfPOnCurv2d & (Extrema_HArray2OfPOnCurv2d::*)() const) &Extrema_HArray2OfPOnCurv2d::Array2, "None");
-cls_Extrema_HArray2OfPOnCurv2d.def("ChangeArray2", (Extrema_Array2OfPOnCurv2d & (Extrema_HArray2OfPOnCurv2d::*)()) &Extrema_HArray2OfPOnCurv2d::ChangeArray2, "None");
-cls_Extrema_HArray2OfPOnCurv2d.def_static("get_type_name_", (const char * (*)()) &Extrema_HArray2OfPOnCurv2d::get_type_name, "None");
-cls_Extrema_HArray2OfPOnCurv2d.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Extrema_HArray2OfPOnCurv2d::get_type_descriptor, "None");
-cls_Extrema_HArray2OfPOnCurv2d.def("DynamicType", (const opencascade::handle<Standard_Type> & (Extrema_HArray2OfPOnCurv2d::*)() const) &Extrema_HArray2OfPOnCurv2d::DynamicType, "None");
+bind_Define_HArray2<Extrema_HArray2OfPOnCurv2d, Extrema_Array2OfPOnCurv2d>(mod, "Extrema_HArray2OfPOnCurv2d");
 
 // CLASS: EXTREMA_HARRAY2OFPONSURF
-py::class_<Extrema_HArray2OfPOnSurf, opencascade::handle<Extrema_HArray2OfPOnSurf>, Standard_Transient> cls_Extrema_HArray2OfPOnSurf(mod, "Extrema_HArray2OfPOnSurf", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Extrema_HArray2OfPOnSurf.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_Extrema_HArray2OfPOnSurf.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const Extrema_Array2OfPOnSurf::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_Extrema_HArray2OfPOnSurf.def(py::init<const Extrema_Array2OfPOnSurf &>(), py::arg("theOther"));
-
-// Methods
-// cls_Extrema_HArray2OfPOnSurf.def_static("operator new_", (void * (*)(size_t)) &Extrema_HArray2OfPOnSurf::operator new, "None", py::arg("theSize"));
-// cls_Extrema_HArray2OfPOnSurf.def_static("operator delete_", (void (*)(void *)) &Extrema_HArray2OfPOnSurf::operator delete, "None", py::arg("theAddress"));
-// cls_Extrema_HArray2OfPOnSurf.def_static("operator new[]_", (void * (*)(size_t)) &Extrema_HArray2OfPOnSurf::operator new[], "None", py::arg("theSize"));
-// cls_Extrema_HArray2OfPOnSurf.def_static("operator delete[]_", (void (*)(void *)) &Extrema_HArray2OfPOnSurf::operator delete[], "None", py::arg("theAddress"));
-// cls_Extrema_HArray2OfPOnSurf.def_static("operator new_", (void * (*)(size_t, void *)) &Extrema_HArray2OfPOnSurf::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Extrema_HArray2OfPOnSurf.def_static("operator delete_", (void (*)(void *, void *)) &Extrema_HArray2OfPOnSurf::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Extrema_HArray2OfPOnSurf.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_HArray2OfPOnSurf::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Extrema_HArray2OfPOnSurf.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Extrema_HArray2OfPOnSurf::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Extrema_HArray2OfPOnSurf.def("Array2", (const Extrema_Array2OfPOnSurf & (Extrema_HArray2OfPOnSurf::*)() const) &Extrema_HArray2OfPOnSurf::Array2, "None");
-cls_Extrema_HArray2OfPOnSurf.def("ChangeArray2", (Extrema_Array2OfPOnSurf & (Extrema_HArray2OfPOnSurf::*)()) &Extrema_HArray2OfPOnSurf::ChangeArray2, "None");
-cls_Extrema_HArray2OfPOnSurf.def_static("get_type_name_", (const char * (*)()) &Extrema_HArray2OfPOnSurf::get_type_name, "None");
-cls_Extrema_HArray2OfPOnSurf.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Extrema_HArray2OfPOnSurf::get_type_descriptor, "None");
-cls_Extrema_HArray2OfPOnSurf.def("DynamicType", (const opencascade::handle<Standard_Type> & (Extrema_HArray2OfPOnSurf::*)() const) &Extrema_HArray2OfPOnSurf::DynamicType, "None");
+bind_Define_HArray2<Extrema_HArray2OfPOnSurf, Extrema_Array2OfPOnSurf>(mod, "Extrema_HArray2OfPOnSurf");
 
 // CLASS: EXTREMA_LOCATEEXTCC2D
 py::class_<Extrema_LocateExtCC2d> cls_Extrema_LocateExtCC2d(mod, "Extrema_LocateExtCC2d", "It calculates the distance between two curves with a close point; these distances can be maximum or minimum.");

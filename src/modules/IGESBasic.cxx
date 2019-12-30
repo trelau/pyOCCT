@@ -105,6 +105,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Message_Messenger.hxx>
 #include <bind_NCollection_Array1.hxx>
 #include <bind_NCollection_Array2.hxx>
+#include <bind_Define_HArray1.hxx>
+#include <bind_Define_HArray2.hxx>
 
 PYBIND11_MODULE(IGESBasic, mod) {
 
@@ -371,51 +373,10 @@ cls_IGESBasic_HArray1OfHArray1OfXYZ.def_static("get_type_descriptor_", (const op
 cls_IGESBasic_HArray1OfHArray1OfXYZ.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESBasic_HArray1OfHArray1OfXYZ::*)() const) &IGESBasic_HArray1OfHArray1OfXYZ::DynamicType, "None");
 
 // CLASS: IGESBASIC_HARRAY1OFLINEFONTENTITY
-py::class_<IGESBasic_HArray1OfLineFontEntity, opencascade::handle<IGESBasic_HArray1OfLineFontEntity>, Standard_Transient> cls_IGESBasic_HArray1OfLineFontEntity(mod, "IGESBasic_HArray1OfLineFontEntity", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESBasic_HArray1OfLineFontEntity.def(py::init<>());
-cls_IGESBasic_HArray1OfLineFontEntity.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESBasic_HArray1OfLineFontEntity.def(py::init<const Standard_Integer, const Standard_Integer, const IGESBasic_Array1OfLineFontEntity::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESBasic_HArray1OfLineFontEntity.def(py::init<const IGESBasic_Array1OfLineFontEntity &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESBasic_HArray1OfLineFontEntity.def_static("operator new_", (void * (*)(size_t)) &IGESBasic_HArray1OfLineFontEntity::operator new, "None", py::arg("theSize"));
-// cls_IGESBasic_HArray1OfLineFontEntity.def_static("operator delete_", (void (*)(void *)) &IGESBasic_HArray1OfLineFontEntity::operator delete, "None", py::arg("theAddress"));
-// cls_IGESBasic_HArray1OfLineFontEntity.def_static("operator new[]_", (void * (*)(size_t)) &IGESBasic_HArray1OfLineFontEntity::operator new[], "None", py::arg("theSize"));
-// cls_IGESBasic_HArray1OfLineFontEntity.def_static("operator delete[]_", (void (*)(void *)) &IGESBasic_HArray1OfLineFontEntity::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESBasic_HArray1OfLineFontEntity.def_static("operator new_", (void * (*)(size_t, void *)) &IGESBasic_HArray1OfLineFontEntity::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESBasic_HArray1OfLineFontEntity.def_static("operator delete_", (void (*)(void *, void *)) &IGESBasic_HArray1OfLineFontEntity::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESBasic_HArray1OfLineFontEntity.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESBasic_HArray1OfLineFontEntity::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESBasic_HArray1OfLineFontEntity.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESBasic_HArray1OfLineFontEntity::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESBasic_HArray1OfLineFontEntity.def("Array1", (const IGESBasic_Array1OfLineFontEntity & (IGESBasic_HArray1OfLineFontEntity::*)() const) &IGESBasic_HArray1OfLineFontEntity::Array1, "None");
-cls_IGESBasic_HArray1OfLineFontEntity.def("ChangeArray1", (IGESBasic_Array1OfLineFontEntity & (IGESBasic_HArray1OfLineFontEntity::*)()) &IGESBasic_HArray1OfLineFontEntity::ChangeArray1, "None");
-cls_IGESBasic_HArray1OfLineFontEntity.def_static("get_type_name_", (const char * (*)()) &IGESBasic_HArray1OfLineFontEntity::get_type_name, "None");
-cls_IGESBasic_HArray1OfLineFontEntity.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESBasic_HArray1OfLineFontEntity::get_type_descriptor, "None");
-cls_IGESBasic_HArray1OfLineFontEntity.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESBasic_HArray1OfLineFontEntity::*)() const) &IGESBasic_HArray1OfLineFontEntity::DynamicType, "None");
+bind_Define_HArray1<IGESBasic_HArray1OfLineFontEntity, IGESBasic_Array1OfLineFontEntity>(mod, "IGESBasic_HArray1OfLineFontEntity");
 
 // CLASS: IGESBASIC_HARRAY2OFHARRAY1OFREAL
-py::class_<IGESBasic_HArray2OfHArray1OfReal, opencascade::handle<IGESBasic_HArray2OfHArray1OfReal>, Standard_Transient> cls_IGESBasic_HArray2OfHArray1OfReal(mod, "IGESBasic_HArray2OfHArray1OfReal", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESBasic_HArray2OfHArray1OfReal.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_IGESBasic_HArray2OfHArray1OfReal.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const IGESBasic_Array2OfHArray1OfReal::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_IGESBasic_HArray2OfHArray1OfReal.def(py::init<const IGESBasic_Array2OfHArray1OfReal &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESBasic_HArray2OfHArray1OfReal.def_static("operator new_", (void * (*)(size_t)) &IGESBasic_HArray2OfHArray1OfReal::operator new, "None", py::arg("theSize"));
-// cls_IGESBasic_HArray2OfHArray1OfReal.def_static("operator delete_", (void (*)(void *)) &IGESBasic_HArray2OfHArray1OfReal::operator delete, "None", py::arg("theAddress"));
-// cls_IGESBasic_HArray2OfHArray1OfReal.def_static("operator new[]_", (void * (*)(size_t)) &IGESBasic_HArray2OfHArray1OfReal::operator new[], "None", py::arg("theSize"));
-// cls_IGESBasic_HArray2OfHArray1OfReal.def_static("operator delete[]_", (void (*)(void *)) &IGESBasic_HArray2OfHArray1OfReal::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESBasic_HArray2OfHArray1OfReal.def_static("operator new_", (void * (*)(size_t, void *)) &IGESBasic_HArray2OfHArray1OfReal::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESBasic_HArray2OfHArray1OfReal.def_static("operator delete_", (void (*)(void *, void *)) &IGESBasic_HArray2OfHArray1OfReal::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESBasic_HArray2OfHArray1OfReal.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESBasic_HArray2OfHArray1OfReal::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESBasic_HArray2OfHArray1OfReal.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESBasic_HArray2OfHArray1OfReal::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESBasic_HArray2OfHArray1OfReal.def("Array2", (const IGESBasic_Array2OfHArray1OfReal & (IGESBasic_HArray2OfHArray1OfReal::*)() const) &IGESBasic_HArray2OfHArray1OfReal::Array2, "None");
-cls_IGESBasic_HArray2OfHArray1OfReal.def("ChangeArray2", (IGESBasic_Array2OfHArray1OfReal & (IGESBasic_HArray2OfHArray1OfReal::*)()) &IGESBasic_HArray2OfHArray1OfReal::ChangeArray2, "None");
-cls_IGESBasic_HArray2OfHArray1OfReal.def_static("get_type_name_", (const char * (*)()) &IGESBasic_HArray2OfHArray1OfReal::get_type_name, "None");
-cls_IGESBasic_HArray2OfHArray1OfReal.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESBasic_HArray2OfHArray1OfReal::get_type_descriptor, "None");
-cls_IGESBasic_HArray2OfHArray1OfReal.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESBasic_HArray2OfHArray1OfReal::*)() const) &IGESBasic_HArray2OfHArray1OfReal::DynamicType, "None");
+bind_Define_HArray2<IGESBasic_HArray2OfHArray1OfReal, IGESBasic_Array2OfHArray1OfReal>(mod, "IGESBasic_HArray2OfHArray1OfReal");
 
 // CLASS: IGESBASIC_HIERARCHY
 py::class_<IGESBasic_Hierarchy, opencascade::handle<IGESBasic_Hierarchy>, IGESData_IGESEntity> cls_IGESBasic_Hierarchy(mod, "IGESBasic_Hierarchy", "defines Hierarchy, Type <406> Form <10> in package IGESBasic Provides ability to control the hierarchy of each directory entry attribute.");

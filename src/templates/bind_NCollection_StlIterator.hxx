@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #define __NCollection_StlIterator__
 
 #include <NCollection_StlIterator.hxx>
+#include <Standard_Assert.hxx>
 
 template <typename Category, typename BaseIterator, typename ItemType, bool IsConstant>
 void bind_NCollection_StlIterator(py::module &mod, std::string const &name, py::module_local const &local){

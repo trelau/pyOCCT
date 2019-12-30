@@ -97,6 +97,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_Pnt2d.hxx>
 #include <gp_Vec2d.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(IGESGraph, mod) {
 
@@ -139,28 +140,7 @@ cls_IGESGraph_TextDisplayTemplate.def("DynamicType", (const opencascade::handle<
 bind_NCollection_Array1<opencascade::handle<IGESGraph_TextDisplayTemplate> >(mod, "IGESGraph_Array1OfTextDisplayTemplate", py::module_local(false));
 
 // CLASS: IGESGRAPH_HARRAY1OFTEXTDISPLAYTEMPLATE
-py::class_<IGESGraph_HArray1OfTextDisplayTemplate, opencascade::handle<IGESGraph_HArray1OfTextDisplayTemplate>, Standard_Transient> cls_IGESGraph_HArray1OfTextDisplayTemplate(mod, "IGESGraph_HArray1OfTextDisplayTemplate", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESGraph_HArray1OfTextDisplayTemplate.def(py::init<>());
-cls_IGESGraph_HArray1OfTextDisplayTemplate.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESGraph_HArray1OfTextDisplayTemplate.def(py::init<const Standard_Integer, const Standard_Integer, const IGESGraph_Array1OfTextDisplayTemplate::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESGraph_HArray1OfTextDisplayTemplate.def(py::init<const IGESGraph_Array1OfTextDisplayTemplate &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESGraph_HArray1OfTextDisplayTemplate.def_static("operator new_", (void * (*)(size_t)) &IGESGraph_HArray1OfTextDisplayTemplate::operator new, "None", py::arg("theSize"));
-// cls_IGESGraph_HArray1OfTextDisplayTemplate.def_static("operator delete_", (void (*)(void *)) &IGESGraph_HArray1OfTextDisplayTemplate::operator delete, "None", py::arg("theAddress"));
-// cls_IGESGraph_HArray1OfTextDisplayTemplate.def_static("operator new[]_", (void * (*)(size_t)) &IGESGraph_HArray1OfTextDisplayTemplate::operator new[], "None", py::arg("theSize"));
-// cls_IGESGraph_HArray1OfTextDisplayTemplate.def_static("operator delete[]_", (void (*)(void *)) &IGESGraph_HArray1OfTextDisplayTemplate::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESGraph_HArray1OfTextDisplayTemplate.def_static("operator new_", (void * (*)(size_t, void *)) &IGESGraph_HArray1OfTextDisplayTemplate::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESGraph_HArray1OfTextDisplayTemplate.def_static("operator delete_", (void (*)(void *, void *)) &IGESGraph_HArray1OfTextDisplayTemplate::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESGraph_HArray1OfTextDisplayTemplate.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESGraph_HArray1OfTextDisplayTemplate::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESGraph_HArray1OfTextDisplayTemplate.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESGraph_HArray1OfTextDisplayTemplate::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESGraph_HArray1OfTextDisplayTemplate.def("Array1", (const IGESGraph_Array1OfTextDisplayTemplate & (IGESGraph_HArray1OfTextDisplayTemplate::*)() const) &IGESGraph_HArray1OfTextDisplayTemplate::Array1, "None");
-cls_IGESGraph_HArray1OfTextDisplayTemplate.def("ChangeArray1", (IGESGraph_Array1OfTextDisplayTemplate & (IGESGraph_HArray1OfTextDisplayTemplate::*)()) &IGESGraph_HArray1OfTextDisplayTemplate::ChangeArray1, "None");
-cls_IGESGraph_HArray1OfTextDisplayTemplate.def_static("get_type_name_", (const char * (*)()) &IGESGraph_HArray1OfTextDisplayTemplate::get_type_name, "None");
-cls_IGESGraph_HArray1OfTextDisplayTemplate.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESGraph_HArray1OfTextDisplayTemplate::get_type_descriptor, "None");
-cls_IGESGraph_HArray1OfTextDisplayTemplate.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESGraph_HArray1OfTextDisplayTemplate::*)() const) &IGESGraph_HArray1OfTextDisplayTemplate::DynamicType, "None");
+bind_Define_HArray1<IGESGraph_HArray1OfTextDisplayTemplate, IGESGraph_Array1OfTextDisplayTemplate>(mod, "IGESGraph_HArray1OfTextDisplayTemplate");
 
 // CLASS: IGESGRAPH_TEXTFONTDEF
 py::class_<IGESGraph_TextFontDef, opencascade::handle<IGESGraph_TextFontDef>, IGESData_IGESEntity> cls_IGESGraph_TextFontDef(mod, "IGESGraph_TextFontDef", "defines IGES Text Font Definition Entity, Type <310> in package IGESGraph");
@@ -190,28 +170,7 @@ cls_IGESGraph_TextFontDef.def("DynamicType", (const opencascade::handle<Standard
 bind_NCollection_Array1<opencascade::handle<IGESGraph_TextFontDef> >(mod, "IGESGraph_Array1OfTextFontDef", py::module_local(false));
 
 // CLASS: IGESGRAPH_HARRAY1OFTEXTFONTDEF
-py::class_<IGESGraph_HArray1OfTextFontDef, opencascade::handle<IGESGraph_HArray1OfTextFontDef>, Standard_Transient> cls_IGESGraph_HArray1OfTextFontDef(mod, "IGESGraph_HArray1OfTextFontDef", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESGraph_HArray1OfTextFontDef.def(py::init<>());
-cls_IGESGraph_HArray1OfTextFontDef.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESGraph_HArray1OfTextFontDef.def(py::init<const Standard_Integer, const Standard_Integer, const IGESGraph_Array1OfTextFontDef::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESGraph_HArray1OfTextFontDef.def(py::init<const IGESGraph_Array1OfTextFontDef &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESGraph_HArray1OfTextFontDef.def_static("operator new_", (void * (*)(size_t)) &IGESGraph_HArray1OfTextFontDef::operator new, "None", py::arg("theSize"));
-// cls_IGESGraph_HArray1OfTextFontDef.def_static("operator delete_", (void (*)(void *)) &IGESGraph_HArray1OfTextFontDef::operator delete, "None", py::arg("theAddress"));
-// cls_IGESGraph_HArray1OfTextFontDef.def_static("operator new[]_", (void * (*)(size_t)) &IGESGraph_HArray1OfTextFontDef::operator new[], "None", py::arg("theSize"));
-// cls_IGESGraph_HArray1OfTextFontDef.def_static("operator delete[]_", (void (*)(void *)) &IGESGraph_HArray1OfTextFontDef::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESGraph_HArray1OfTextFontDef.def_static("operator new_", (void * (*)(size_t, void *)) &IGESGraph_HArray1OfTextFontDef::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESGraph_HArray1OfTextFontDef.def_static("operator delete_", (void (*)(void *, void *)) &IGESGraph_HArray1OfTextFontDef::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESGraph_HArray1OfTextFontDef.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESGraph_HArray1OfTextFontDef::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESGraph_HArray1OfTextFontDef.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESGraph_HArray1OfTextFontDef::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESGraph_HArray1OfTextFontDef.def("Array1", (const IGESGraph_Array1OfTextFontDef & (IGESGraph_HArray1OfTextFontDef::*)() const) &IGESGraph_HArray1OfTextFontDef::Array1, "None");
-cls_IGESGraph_HArray1OfTextFontDef.def("ChangeArray1", (IGESGraph_Array1OfTextFontDef & (IGESGraph_HArray1OfTextFontDef::*)()) &IGESGraph_HArray1OfTextFontDef::ChangeArray1, "None");
-cls_IGESGraph_HArray1OfTextFontDef.def_static("get_type_name_", (const char * (*)()) &IGESGraph_HArray1OfTextFontDef::get_type_name, "None");
-cls_IGESGraph_HArray1OfTextFontDef.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESGraph_HArray1OfTextFontDef::get_type_descriptor, "None");
-cls_IGESGraph_HArray1OfTextFontDef.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESGraph_HArray1OfTextFontDef::*)() const) &IGESGraph_HArray1OfTextFontDef::DynamicType, "None");
+bind_Define_HArray1<IGESGraph_HArray1OfTextFontDef, IGESGraph_Array1OfTextFontDef>(mod, "IGESGraph_HArray1OfTextFontDef");
 
 // CLASS: IGESGRAPH_COLOR
 py::class_<IGESGraph_Color, opencascade::handle<IGESGraph_Color>, IGESData_ColorEntity> cls_IGESGraph_Color(mod, "IGESGraph_Color", "defines IGESColor, Type <314> Form <0> in package IGESGraph");
@@ -234,28 +193,7 @@ cls_IGESGraph_Color.def("DynamicType", (const opencascade::handle<Standard_Type>
 bind_NCollection_Array1<opencascade::handle<IGESGraph_Color> >(mod, "IGESGraph_Array1OfColor", py::module_local(false));
 
 // CLASS: IGESGRAPH_HARRAY1OFCOLOR
-py::class_<IGESGraph_HArray1OfColor, opencascade::handle<IGESGraph_HArray1OfColor>, Standard_Transient> cls_IGESGraph_HArray1OfColor(mod, "IGESGraph_HArray1OfColor", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESGraph_HArray1OfColor.def(py::init<>());
-cls_IGESGraph_HArray1OfColor.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESGraph_HArray1OfColor.def(py::init<const Standard_Integer, const Standard_Integer, const IGESGraph_Array1OfColor::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESGraph_HArray1OfColor.def(py::init<const IGESGraph_Array1OfColor &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESGraph_HArray1OfColor.def_static("operator new_", (void * (*)(size_t)) &IGESGraph_HArray1OfColor::operator new, "None", py::arg("theSize"));
-// cls_IGESGraph_HArray1OfColor.def_static("operator delete_", (void (*)(void *)) &IGESGraph_HArray1OfColor::operator delete, "None", py::arg("theAddress"));
-// cls_IGESGraph_HArray1OfColor.def_static("operator new[]_", (void * (*)(size_t)) &IGESGraph_HArray1OfColor::operator new[], "None", py::arg("theSize"));
-// cls_IGESGraph_HArray1OfColor.def_static("operator delete[]_", (void (*)(void *)) &IGESGraph_HArray1OfColor::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESGraph_HArray1OfColor.def_static("operator new_", (void * (*)(size_t, void *)) &IGESGraph_HArray1OfColor::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESGraph_HArray1OfColor.def_static("operator delete_", (void (*)(void *, void *)) &IGESGraph_HArray1OfColor::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESGraph_HArray1OfColor.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESGraph_HArray1OfColor::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESGraph_HArray1OfColor.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESGraph_HArray1OfColor::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESGraph_HArray1OfColor.def("Array1", (const IGESGraph_Array1OfColor & (IGESGraph_HArray1OfColor::*)() const) &IGESGraph_HArray1OfColor::Array1, "None");
-cls_IGESGraph_HArray1OfColor.def("ChangeArray1", (IGESGraph_Array1OfColor & (IGESGraph_HArray1OfColor::*)()) &IGESGraph_HArray1OfColor::ChangeArray1, "None");
-cls_IGESGraph_HArray1OfColor.def_static("get_type_name_", (const char * (*)()) &IGESGraph_HArray1OfColor::get_type_name, "None");
-cls_IGESGraph_HArray1OfColor.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESGraph_HArray1OfColor::get_type_descriptor, "None");
-cls_IGESGraph_HArray1OfColor.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESGraph_HArray1OfColor::*)() const) &IGESGraph_HArray1OfColor::DynamicType, "None");
+bind_Define_HArray1<IGESGraph_HArray1OfColor, IGESGraph_Array1OfColor>(mod, "IGESGraph_HArray1OfColor");
 
 // CLASS: IGESGRAPH
 py::class_<IGESGraph> cls_IGESGraph(mod, "IGESGraph", "This package contains the group of classes necessary to define Graphic data among Structure Entities. (e.g., Fonts, Colors, Screen management ...)");

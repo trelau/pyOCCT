@@ -135,6 +135,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <bind_NCollection_IndexedDataMap.hxx>
 #include <bind_NCollection_Array1.hxx>
 #include <bind_NCollection_DoubleMap.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(TopOpeBRepDS, mod) {
 
@@ -1235,28 +1236,7 @@ cls_TopOpeBRepDS_GapTool.def_static("get_type_descriptor_", (const opencascade::
 cls_TopOpeBRepDS_GapTool.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRepDS_GapTool::*)() const) &TopOpeBRepDS_GapTool::DynamicType, "None");
 
 // CLASS: TOPOPEBREPDS_HARRAY1OFDATAMAPOFINTEGERLISTOFINTERFERENCE
-py::class_<TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference, opencascade::handle<TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference>, Standard_Transient> cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference(mod, "TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def(py::init<>());
-cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def(py::init<const Standard_Integer, const Standard_Integer, const TopOpeBRepDS_Array1OfDataMapOfIntegerListOfInterference::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def(py::init<const TopOpeBRepDS_Array1OfDataMapOfIntegerListOfInterference &>(), py::arg("theOther"));
-
-// Methods
-// cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference::operator new, "None", py::arg("theSize"));
-// cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def_static("operator delete_", (void (*)(void *)) &TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference::operator delete, "None", py::arg("theAddress"));
-// cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def_static("operator new[]_", (void * (*)(size_t)) &TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference::operator new[], "None", py::arg("theSize"));
-// cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def_static("operator delete[]_", (void (*)(void *)) &TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference::operator delete[], "None", py::arg("theAddress"));
-// cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def_static("operator new_", (void * (*)(size_t, void *)) &TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def_static("operator delete_", (void (*)(void *, void *)) &TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def("Array1", (const TopOpeBRepDS_Array1OfDataMapOfIntegerListOfInterference & (TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference::*)() const) &TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference::Array1, "None");
-cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def("ChangeArray1", (TopOpeBRepDS_Array1OfDataMapOfIntegerListOfInterference & (TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference::*)()) &TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference::ChangeArray1, "None");
-cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def_static("get_type_name_", (const char * (*)()) &TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference::get_type_name, "None");
-cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference::get_type_descriptor, "None");
-cls_TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference::*)() const) &TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference::DynamicType, "None");
+bind_Define_HArray1<TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference, TopOpeBRepDS_Array1OfDataMapOfIntegerListOfInterference>(mod, "TopOpeBRepDS_HArray1OfDataMapOfIntegerListOfInterference");
 
 // TYPEDEF: TOPOPEBREPDS_INDEXEDDATAMAPOFVERTEXPOINT
 bind_NCollection_IndexedDataMap<TopoDS_Shape, TopOpeBRepDS_Point, TopTools_ShapeMapHasher>(mod, "TopOpeBRepDS_IndexedDataMapOfVertexPoint", py::module_local(false));

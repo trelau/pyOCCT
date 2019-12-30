@@ -149,7 +149,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepElement_Volume3dElementDescriptor.hxx>
 #include <StepFEA_Volume3dElementRepresentation.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(StepFEA, mod) {
 
@@ -240,28 +242,7 @@ cls_StepFEA_ElementGeometricRelationship.def("DynamicType", (const opencascade::
 bind_NCollection_Sequence<opencascade::handle<StepFEA_ElementGeometricRelationship> >(mod, "StepFEA_SequenceOfElementGeometricRelationship", py::module_local(false));
 
 // CLASS: STEPFEA_HSEQUENCEOFELEMENTGEOMETRICRELATIONSHIP
-py::class_<StepFEA_HSequenceOfElementGeometricRelationship, opencascade::handle<StepFEA_HSequenceOfElementGeometricRelationship>, Standard_Transient> cls_StepFEA_HSequenceOfElementGeometricRelationship(mod, "StepFEA_HSequenceOfElementGeometricRelationship", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepFEA_HSequenceOfElementGeometricRelationship.def(py::init<>());
-cls_StepFEA_HSequenceOfElementGeometricRelationship.def(py::init<const StepFEA_SequenceOfElementGeometricRelationship &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepFEA_HSequenceOfElementGeometricRelationship.def_static("operator new_", (void * (*)(size_t)) &StepFEA_HSequenceOfElementGeometricRelationship::operator new, "None", py::arg("theSize"));
-// cls_StepFEA_HSequenceOfElementGeometricRelationship.def_static("operator delete_", (void (*)(void *)) &StepFEA_HSequenceOfElementGeometricRelationship::operator delete, "None", py::arg("theAddress"));
-// cls_StepFEA_HSequenceOfElementGeometricRelationship.def_static("operator new[]_", (void * (*)(size_t)) &StepFEA_HSequenceOfElementGeometricRelationship::operator new[], "None", py::arg("theSize"));
-// cls_StepFEA_HSequenceOfElementGeometricRelationship.def_static("operator delete[]_", (void (*)(void *)) &StepFEA_HSequenceOfElementGeometricRelationship::operator delete[], "None", py::arg("theAddress"));
-// cls_StepFEA_HSequenceOfElementGeometricRelationship.def_static("operator new_", (void * (*)(size_t, void *)) &StepFEA_HSequenceOfElementGeometricRelationship::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepFEA_HSequenceOfElementGeometricRelationship.def_static("operator delete_", (void (*)(void *, void *)) &StepFEA_HSequenceOfElementGeometricRelationship::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepFEA_HSequenceOfElementGeometricRelationship.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HSequenceOfElementGeometricRelationship::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepFEA_HSequenceOfElementGeometricRelationship.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HSequenceOfElementGeometricRelationship::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepFEA_HSequenceOfElementGeometricRelationship.def("Sequence", (const StepFEA_SequenceOfElementGeometricRelationship & (StepFEA_HSequenceOfElementGeometricRelationship::*)() const) &StepFEA_HSequenceOfElementGeometricRelationship::Sequence, "None");
-cls_StepFEA_HSequenceOfElementGeometricRelationship.def("Append", (void (StepFEA_HSequenceOfElementGeometricRelationship::*)(const StepFEA_SequenceOfElementGeometricRelationship::value_type &)) &StepFEA_HSequenceOfElementGeometricRelationship::Append, "None", py::arg("theItem"));
-cls_StepFEA_HSequenceOfElementGeometricRelationship.def("Append", (void (StepFEA_HSequenceOfElementGeometricRelationship::*)(StepFEA_SequenceOfElementGeometricRelationship &)) &StepFEA_HSequenceOfElementGeometricRelationship::Append, "None", py::arg("theSequence"));
-cls_StepFEA_HSequenceOfElementGeometricRelationship.def("ChangeSequence", (StepFEA_SequenceOfElementGeometricRelationship & (StepFEA_HSequenceOfElementGeometricRelationship::*)()) &StepFEA_HSequenceOfElementGeometricRelationship::ChangeSequence, "None");
-cls_StepFEA_HSequenceOfElementGeometricRelationship.def_static("get_type_name_", (const char * (*)()) &StepFEA_HSequenceOfElementGeometricRelationship::get_type_name, "None");
-cls_StepFEA_HSequenceOfElementGeometricRelationship.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepFEA_HSequenceOfElementGeometricRelationship::get_type_descriptor, "None");
-cls_StepFEA_HSequenceOfElementGeometricRelationship.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepFEA_HSequenceOfElementGeometricRelationship::*)() const) &StepFEA_HSequenceOfElementGeometricRelationship::DynamicType, "None");
+bind_Define_HSequence<StepFEA_HSequenceOfElementGeometricRelationship, StepFEA_SequenceOfElementGeometricRelationship>(mod, "StepFEA_HSequenceOfElementGeometricRelationship");
 
 // CLASS: STEPFEA_NODEREPRESENTATION
 py::class_<StepFEA_NodeRepresentation, opencascade::handle<StepFEA_NodeRepresentation>, StepRepr_Representation> cls_StepFEA_NodeRepresentation(mod, "StepFEA_NodeRepresentation", "Representation of STEP entity NodeRepresentation");
@@ -281,28 +262,7 @@ cls_StepFEA_NodeRepresentation.def("DynamicType", (const opencascade::handle<Sta
 bind_NCollection_Array1<opencascade::handle<StepFEA_NodeRepresentation> >(mod, "StepFEA_Array1OfNodeRepresentation", py::module_local(false));
 
 // CLASS: STEPFEA_HARRAY1OFNODEREPRESENTATION
-py::class_<StepFEA_HArray1OfNodeRepresentation, opencascade::handle<StepFEA_HArray1OfNodeRepresentation>, Standard_Transient> cls_StepFEA_HArray1OfNodeRepresentation(mod, "StepFEA_HArray1OfNodeRepresentation", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepFEA_HArray1OfNodeRepresentation.def(py::init<>());
-cls_StepFEA_HArray1OfNodeRepresentation.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepFEA_HArray1OfNodeRepresentation.def(py::init<const Standard_Integer, const Standard_Integer, const StepFEA_Array1OfNodeRepresentation::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepFEA_HArray1OfNodeRepresentation.def(py::init<const StepFEA_Array1OfNodeRepresentation &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepFEA_HArray1OfNodeRepresentation.def_static("operator new_", (void * (*)(size_t)) &StepFEA_HArray1OfNodeRepresentation::operator new, "None", py::arg("theSize"));
-// cls_StepFEA_HArray1OfNodeRepresentation.def_static("operator delete_", (void (*)(void *)) &StepFEA_HArray1OfNodeRepresentation::operator delete, "None", py::arg("theAddress"));
-// cls_StepFEA_HArray1OfNodeRepresentation.def_static("operator new[]_", (void * (*)(size_t)) &StepFEA_HArray1OfNodeRepresentation::operator new[], "None", py::arg("theSize"));
-// cls_StepFEA_HArray1OfNodeRepresentation.def_static("operator delete[]_", (void (*)(void *)) &StepFEA_HArray1OfNodeRepresentation::operator delete[], "None", py::arg("theAddress"));
-// cls_StepFEA_HArray1OfNodeRepresentation.def_static("operator new_", (void * (*)(size_t, void *)) &StepFEA_HArray1OfNodeRepresentation::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepFEA_HArray1OfNodeRepresentation.def_static("operator delete_", (void (*)(void *, void *)) &StepFEA_HArray1OfNodeRepresentation::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepFEA_HArray1OfNodeRepresentation.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HArray1OfNodeRepresentation::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepFEA_HArray1OfNodeRepresentation.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HArray1OfNodeRepresentation::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepFEA_HArray1OfNodeRepresentation.def("Array1", (const StepFEA_Array1OfNodeRepresentation & (StepFEA_HArray1OfNodeRepresentation::*)() const) &StepFEA_HArray1OfNodeRepresentation::Array1, "None");
-cls_StepFEA_HArray1OfNodeRepresentation.def("ChangeArray1", (StepFEA_Array1OfNodeRepresentation & (StepFEA_HArray1OfNodeRepresentation::*)()) &StepFEA_HArray1OfNodeRepresentation::ChangeArray1, "None");
-cls_StepFEA_HArray1OfNodeRepresentation.def_static("get_type_name_", (const char * (*)()) &StepFEA_HArray1OfNodeRepresentation::get_type_name, "None");
-cls_StepFEA_HArray1OfNodeRepresentation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepFEA_HArray1OfNodeRepresentation::get_type_descriptor, "None");
-cls_StepFEA_HArray1OfNodeRepresentation.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepFEA_HArray1OfNodeRepresentation::*)() const) &StepFEA_HArray1OfNodeRepresentation::DynamicType, "None");
+bind_Define_HArray1<StepFEA_HArray1OfNodeRepresentation, StepFEA_Array1OfNodeRepresentation>(mod, "StepFEA_HArray1OfNodeRepresentation");
 
 // CLASS: STEPFEA_ELEMENTREPRESENTATION
 py::class_<StepFEA_ElementRepresentation, opencascade::handle<StepFEA_ElementRepresentation>, StepRepr_Representation> cls_StepFEA_ElementRepresentation(mod, "StepFEA_ElementRepresentation", "Representation of STEP entity ElementRepresentation");
@@ -322,28 +282,7 @@ cls_StepFEA_ElementRepresentation.def("DynamicType", (const opencascade::handle<
 bind_NCollection_Sequence<opencascade::handle<StepFEA_ElementRepresentation> >(mod, "StepFEA_SequenceOfElementRepresentation", py::module_local(false));
 
 // CLASS: STEPFEA_HSEQUENCEOFELEMENTREPRESENTATION
-py::class_<StepFEA_HSequenceOfElementRepresentation, opencascade::handle<StepFEA_HSequenceOfElementRepresentation>, Standard_Transient> cls_StepFEA_HSequenceOfElementRepresentation(mod, "StepFEA_HSequenceOfElementRepresentation", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepFEA_HSequenceOfElementRepresentation.def(py::init<>());
-cls_StepFEA_HSequenceOfElementRepresentation.def(py::init<const StepFEA_SequenceOfElementRepresentation &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepFEA_HSequenceOfElementRepresentation.def_static("operator new_", (void * (*)(size_t)) &StepFEA_HSequenceOfElementRepresentation::operator new, "None", py::arg("theSize"));
-// cls_StepFEA_HSequenceOfElementRepresentation.def_static("operator delete_", (void (*)(void *)) &StepFEA_HSequenceOfElementRepresentation::operator delete, "None", py::arg("theAddress"));
-// cls_StepFEA_HSequenceOfElementRepresentation.def_static("operator new[]_", (void * (*)(size_t)) &StepFEA_HSequenceOfElementRepresentation::operator new[], "None", py::arg("theSize"));
-// cls_StepFEA_HSequenceOfElementRepresentation.def_static("operator delete[]_", (void (*)(void *)) &StepFEA_HSequenceOfElementRepresentation::operator delete[], "None", py::arg("theAddress"));
-// cls_StepFEA_HSequenceOfElementRepresentation.def_static("operator new_", (void * (*)(size_t, void *)) &StepFEA_HSequenceOfElementRepresentation::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepFEA_HSequenceOfElementRepresentation.def_static("operator delete_", (void (*)(void *, void *)) &StepFEA_HSequenceOfElementRepresentation::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepFEA_HSequenceOfElementRepresentation.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HSequenceOfElementRepresentation::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepFEA_HSequenceOfElementRepresentation.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HSequenceOfElementRepresentation::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepFEA_HSequenceOfElementRepresentation.def("Sequence", (const StepFEA_SequenceOfElementRepresentation & (StepFEA_HSequenceOfElementRepresentation::*)() const) &StepFEA_HSequenceOfElementRepresentation::Sequence, "None");
-cls_StepFEA_HSequenceOfElementRepresentation.def("Append", (void (StepFEA_HSequenceOfElementRepresentation::*)(const StepFEA_SequenceOfElementRepresentation::value_type &)) &StepFEA_HSequenceOfElementRepresentation::Append, "None", py::arg("theItem"));
-cls_StepFEA_HSequenceOfElementRepresentation.def("Append", (void (StepFEA_HSequenceOfElementRepresentation::*)(StepFEA_SequenceOfElementRepresentation &)) &StepFEA_HSequenceOfElementRepresentation::Append, "None", py::arg("theSequence"));
-cls_StepFEA_HSequenceOfElementRepresentation.def("ChangeSequence", (StepFEA_SequenceOfElementRepresentation & (StepFEA_HSequenceOfElementRepresentation::*)()) &StepFEA_HSequenceOfElementRepresentation::ChangeSequence, "None");
-cls_StepFEA_HSequenceOfElementRepresentation.def_static("get_type_name_", (const char * (*)()) &StepFEA_HSequenceOfElementRepresentation::get_type_name, "None");
-cls_StepFEA_HSequenceOfElementRepresentation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepFEA_HSequenceOfElementRepresentation::get_type_descriptor, "None");
-cls_StepFEA_HSequenceOfElementRepresentation.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepFEA_HSequenceOfElementRepresentation::*)() const) &StepFEA_HSequenceOfElementRepresentation::DynamicType, "None");
+bind_Define_HSequence<StepFEA_HSequenceOfElementRepresentation, StepFEA_SequenceOfElementRepresentation>(mod, "StepFEA_HSequenceOfElementRepresentation");
 
 // CLASS: STEPFEA_FEAREPRESENTATIONITEM
 py::class_<StepFEA_FeaRepresentationItem, opencascade::handle<StepFEA_FeaRepresentationItem>, StepRepr_RepresentationItem> cls_StepFEA_FeaRepresentationItem(mod, "StepFEA_FeaRepresentationItem", "Representation of STEP entity FeaRepresentationItem");
@@ -517,76 +456,13 @@ cls_StepFEA_ConstantSurface3dElementCoordinateSystem.def_static("get_type_descri
 cls_StepFEA_ConstantSurface3dElementCoordinateSystem.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepFEA_ConstantSurface3dElementCoordinateSystem::*)() const) &StepFEA_ConstantSurface3dElementCoordinateSystem::DynamicType, "None");
 
 // CLASS: STEPFEA_HARRAY1OFCURVEELEMENTINTERVAL
-py::class_<StepFEA_HArray1OfCurveElementInterval, opencascade::handle<StepFEA_HArray1OfCurveElementInterval>, Standard_Transient> cls_StepFEA_HArray1OfCurveElementInterval(mod, "StepFEA_HArray1OfCurveElementInterval", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepFEA_HArray1OfCurveElementInterval.def(py::init<>());
-cls_StepFEA_HArray1OfCurveElementInterval.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepFEA_HArray1OfCurveElementInterval.def(py::init<const Standard_Integer, const Standard_Integer, const StepFEA_Array1OfCurveElementInterval::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepFEA_HArray1OfCurveElementInterval.def(py::init<const StepFEA_Array1OfCurveElementInterval &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepFEA_HArray1OfCurveElementInterval.def_static("operator new_", (void * (*)(size_t)) &StepFEA_HArray1OfCurveElementInterval::operator new, "None", py::arg("theSize"));
-// cls_StepFEA_HArray1OfCurveElementInterval.def_static("operator delete_", (void (*)(void *)) &StepFEA_HArray1OfCurveElementInterval::operator delete, "None", py::arg("theAddress"));
-// cls_StepFEA_HArray1OfCurveElementInterval.def_static("operator new[]_", (void * (*)(size_t)) &StepFEA_HArray1OfCurveElementInterval::operator new[], "None", py::arg("theSize"));
-// cls_StepFEA_HArray1OfCurveElementInterval.def_static("operator delete[]_", (void (*)(void *)) &StepFEA_HArray1OfCurveElementInterval::operator delete[], "None", py::arg("theAddress"));
-// cls_StepFEA_HArray1OfCurveElementInterval.def_static("operator new_", (void * (*)(size_t, void *)) &StepFEA_HArray1OfCurveElementInterval::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepFEA_HArray1OfCurveElementInterval.def_static("operator delete_", (void (*)(void *, void *)) &StepFEA_HArray1OfCurveElementInterval::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepFEA_HArray1OfCurveElementInterval.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HArray1OfCurveElementInterval::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepFEA_HArray1OfCurveElementInterval.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HArray1OfCurveElementInterval::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepFEA_HArray1OfCurveElementInterval.def("Array1", (const StepFEA_Array1OfCurveElementInterval & (StepFEA_HArray1OfCurveElementInterval::*)() const) &StepFEA_HArray1OfCurveElementInterval::Array1, "None");
-cls_StepFEA_HArray1OfCurveElementInterval.def("ChangeArray1", (StepFEA_Array1OfCurveElementInterval & (StepFEA_HArray1OfCurveElementInterval::*)()) &StepFEA_HArray1OfCurveElementInterval::ChangeArray1, "None");
-cls_StepFEA_HArray1OfCurveElementInterval.def_static("get_type_name_", (const char * (*)()) &StepFEA_HArray1OfCurveElementInterval::get_type_name, "None");
-cls_StepFEA_HArray1OfCurveElementInterval.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepFEA_HArray1OfCurveElementInterval::get_type_descriptor, "None");
-cls_StepFEA_HArray1OfCurveElementInterval.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepFEA_HArray1OfCurveElementInterval::*)() const) &StepFEA_HArray1OfCurveElementInterval::DynamicType, "None");
+bind_Define_HArray1<StepFEA_HArray1OfCurveElementInterval, StepFEA_Array1OfCurveElementInterval>(mod, "StepFEA_HArray1OfCurveElementInterval");
 
 // CLASS: STEPFEA_HARRAY1OFCURVEELEMENTENDOFFSET
-py::class_<StepFEA_HArray1OfCurveElementEndOffset, opencascade::handle<StepFEA_HArray1OfCurveElementEndOffset>, Standard_Transient> cls_StepFEA_HArray1OfCurveElementEndOffset(mod, "StepFEA_HArray1OfCurveElementEndOffset", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepFEA_HArray1OfCurveElementEndOffset.def(py::init<>());
-cls_StepFEA_HArray1OfCurveElementEndOffset.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepFEA_HArray1OfCurveElementEndOffset.def(py::init<const Standard_Integer, const Standard_Integer, const StepFEA_Array1OfCurveElementEndOffset::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepFEA_HArray1OfCurveElementEndOffset.def(py::init<const StepFEA_Array1OfCurveElementEndOffset &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepFEA_HArray1OfCurveElementEndOffset.def_static("operator new_", (void * (*)(size_t)) &StepFEA_HArray1OfCurveElementEndOffset::operator new, "None", py::arg("theSize"));
-// cls_StepFEA_HArray1OfCurveElementEndOffset.def_static("operator delete_", (void (*)(void *)) &StepFEA_HArray1OfCurveElementEndOffset::operator delete, "None", py::arg("theAddress"));
-// cls_StepFEA_HArray1OfCurveElementEndOffset.def_static("operator new[]_", (void * (*)(size_t)) &StepFEA_HArray1OfCurveElementEndOffset::operator new[], "None", py::arg("theSize"));
-// cls_StepFEA_HArray1OfCurveElementEndOffset.def_static("operator delete[]_", (void (*)(void *)) &StepFEA_HArray1OfCurveElementEndOffset::operator delete[], "None", py::arg("theAddress"));
-// cls_StepFEA_HArray1OfCurveElementEndOffset.def_static("operator new_", (void * (*)(size_t, void *)) &StepFEA_HArray1OfCurveElementEndOffset::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepFEA_HArray1OfCurveElementEndOffset.def_static("operator delete_", (void (*)(void *, void *)) &StepFEA_HArray1OfCurveElementEndOffset::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepFEA_HArray1OfCurveElementEndOffset.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HArray1OfCurveElementEndOffset::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepFEA_HArray1OfCurveElementEndOffset.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HArray1OfCurveElementEndOffset::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepFEA_HArray1OfCurveElementEndOffset.def("Array1", (const StepFEA_Array1OfCurveElementEndOffset & (StepFEA_HArray1OfCurveElementEndOffset::*)() const) &StepFEA_HArray1OfCurveElementEndOffset::Array1, "None");
-cls_StepFEA_HArray1OfCurveElementEndOffset.def("ChangeArray1", (StepFEA_Array1OfCurveElementEndOffset & (StepFEA_HArray1OfCurveElementEndOffset::*)()) &StepFEA_HArray1OfCurveElementEndOffset::ChangeArray1, "None");
-cls_StepFEA_HArray1OfCurveElementEndOffset.def_static("get_type_name_", (const char * (*)()) &StepFEA_HArray1OfCurveElementEndOffset::get_type_name, "None");
-cls_StepFEA_HArray1OfCurveElementEndOffset.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepFEA_HArray1OfCurveElementEndOffset::get_type_descriptor, "None");
-cls_StepFEA_HArray1OfCurveElementEndOffset.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepFEA_HArray1OfCurveElementEndOffset::*)() const) &StepFEA_HArray1OfCurveElementEndOffset::DynamicType, "None");
+bind_Define_HArray1<StepFEA_HArray1OfCurveElementEndOffset, StepFEA_Array1OfCurveElementEndOffset>(mod, "StepFEA_HArray1OfCurveElementEndOffset");
 
 // CLASS: STEPFEA_HARRAY1OFCURVEELEMENTENDRELEASE
-py::class_<StepFEA_HArray1OfCurveElementEndRelease, opencascade::handle<StepFEA_HArray1OfCurveElementEndRelease>, Standard_Transient> cls_StepFEA_HArray1OfCurveElementEndRelease(mod, "StepFEA_HArray1OfCurveElementEndRelease", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepFEA_HArray1OfCurveElementEndRelease.def(py::init<>());
-cls_StepFEA_HArray1OfCurveElementEndRelease.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepFEA_HArray1OfCurveElementEndRelease.def(py::init<const Standard_Integer, const Standard_Integer, const StepFEA_Array1OfCurveElementEndRelease::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepFEA_HArray1OfCurveElementEndRelease.def(py::init<const StepFEA_Array1OfCurveElementEndRelease &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepFEA_HArray1OfCurveElementEndRelease.def_static("operator new_", (void * (*)(size_t)) &StepFEA_HArray1OfCurveElementEndRelease::operator new, "None", py::arg("theSize"));
-// cls_StepFEA_HArray1OfCurveElementEndRelease.def_static("operator delete_", (void (*)(void *)) &StepFEA_HArray1OfCurveElementEndRelease::operator delete, "None", py::arg("theAddress"));
-// cls_StepFEA_HArray1OfCurveElementEndRelease.def_static("operator new[]_", (void * (*)(size_t)) &StepFEA_HArray1OfCurveElementEndRelease::operator new[], "None", py::arg("theSize"));
-// cls_StepFEA_HArray1OfCurveElementEndRelease.def_static("operator delete[]_", (void (*)(void *)) &StepFEA_HArray1OfCurveElementEndRelease::operator delete[], "None", py::arg("theAddress"));
-// cls_StepFEA_HArray1OfCurveElementEndRelease.def_static("operator new_", (void * (*)(size_t, void *)) &StepFEA_HArray1OfCurveElementEndRelease::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepFEA_HArray1OfCurveElementEndRelease.def_static("operator delete_", (void (*)(void *, void *)) &StepFEA_HArray1OfCurveElementEndRelease::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepFEA_HArray1OfCurveElementEndRelease.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HArray1OfCurveElementEndRelease::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepFEA_HArray1OfCurveElementEndRelease.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HArray1OfCurveElementEndRelease::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepFEA_HArray1OfCurveElementEndRelease.def("Array1", (const StepFEA_Array1OfCurveElementEndRelease & (StepFEA_HArray1OfCurveElementEndRelease::*)() const) &StepFEA_HArray1OfCurveElementEndRelease::Array1, "None");
-cls_StepFEA_HArray1OfCurveElementEndRelease.def("ChangeArray1", (StepFEA_Array1OfCurveElementEndRelease & (StepFEA_HArray1OfCurveElementEndRelease::*)()) &StepFEA_HArray1OfCurveElementEndRelease::ChangeArray1, "None");
-cls_StepFEA_HArray1OfCurveElementEndRelease.def_static("get_type_name_", (const char * (*)()) &StepFEA_HArray1OfCurveElementEndRelease::get_type_name, "None");
-cls_StepFEA_HArray1OfCurveElementEndRelease.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepFEA_HArray1OfCurveElementEndRelease::get_type_descriptor, "None");
-cls_StepFEA_HArray1OfCurveElementEndRelease.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepFEA_HArray1OfCurveElementEndRelease::*)() const) &StepFEA_HArray1OfCurveElementEndRelease::DynamicType, "None");
+bind_Define_HArray1<StepFEA_HArray1OfCurveElementEndRelease, StepFEA_Array1OfCurveElementEndRelease>(mod, "StepFEA_HArray1OfCurveElementEndRelease");
 
 // CLASS: STEPFEA_CURVE3DELEMENTPROPERTY
 py::class_<StepFEA_Curve3dElementProperty, opencascade::handle<StepFEA_Curve3dElementProperty>, Standard_Transient> cls_StepFEA_Curve3dElementProperty(mod, "StepFEA_Curve3dElementProperty", "Representation of STEP entity Curve3dElementProperty");
@@ -699,28 +575,7 @@ cls_StepFEA_DummyNode.def_static("get_type_descriptor_", (const opencascade::han
 cls_StepFEA_DummyNode.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepFEA_DummyNode::*)() const) &StepFEA_DummyNode::DynamicType, "None");
 
 // CLASS: STEPFEA_HARRAY1OFELEMENTREPRESENTATION
-py::class_<StepFEA_HArray1OfElementRepresentation, opencascade::handle<StepFEA_HArray1OfElementRepresentation>, Standard_Transient> cls_StepFEA_HArray1OfElementRepresentation(mod, "StepFEA_HArray1OfElementRepresentation", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepFEA_HArray1OfElementRepresentation.def(py::init<>());
-cls_StepFEA_HArray1OfElementRepresentation.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepFEA_HArray1OfElementRepresentation.def(py::init<const Standard_Integer, const Standard_Integer, const StepFEA_Array1OfElementRepresentation::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepFEA_HArray1OfElementRepresentation.def(py::init<const StepFEA_Array1OfElementRepresentation &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepFEA_HArray1OfElementRepresentation.def_static("operator new_", (void * (*)(size_t)) &StepFEA_HArray1OfElementRepresentation::operator new, "None", py::arg("theSize"));
-// cls_StepFEA_HArray1OfElementRepresentation.def_static("operator delete_", (void (*)(void *)) &StepFEA_HArray1OfElementRepresentation::operator delete, "None", py::arg("theAddress"));
-// cls_StepFEA_HArray1OfElementRepresentation.def_static("operator new[]_", (void * (*)(size_t)) &StepFEA_HArray1OfElementRepresentation::operator new[], "None", py::arg("theSize"));
-// cls_StepFEA_HArray1OfElementRepresentation.def_static("operator delete[]_", (void (*)(void *)) &StepFEA_HArray1OfElementRepresentation::operator delete[], "None", py::arg("theAddress"));
-// cls_StepFEA_HArray1OfElementRepresentation.def_static("operator new_", (void * (*)(size_t, void *)) &StepFEA_HArray1OfElementRepresentation::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepFEA_HArray1OfElementRepresentation.def_static("operator delete_", (void (*)(void *, void *)) &StepFEA_HArray1OfElementRepresentation::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepFEA_HArray1OfElementRepresentation.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HArray1OfElementRepresentation::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepFEA_HArray1OfElementRepresentation.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HArray1OfElementRepresentation::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepFEA_HArray1OfElementRepresentation.def("Array1", (const StepFEA_Array1OfElementRepresentation & (StepFEA_HArray1OfElementRepresentation::*)() const) &StepFEA_HArray1OfElementRepresentation::Array1, "None");
-cls_StepFEA_HArray1OfElementRepresentation.def("ChangeArray1", (StepFEA_Array1OfElementRepresentation & (StepFEA_HArray1OfElementRepresentation::*)()) &StepFEA_HArray1OfElementRepresentation::ChangeArray1, "None");
-cls_StepFEA_HArray1OfElementRepresentation.def_static("get_type_name_", (const char * (*)()) &StepFEA_HArray1OfElementRepresentation::get_type_name, "None");
-cls_StepFEA_HArray1OfElementRepresentation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepFEA_HArray1OfElementRepresentation::get_type_descriptor, "None");
-cls_StepFEA_HArray1OfElementRepresentation.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepFEA_HArray1OfElementRepresentation::*)() const) &StepFEA_HArray1OfElementRepresentation::DynamicType, "None");
+bind_Define_HArray1<StepFEA_HArray1OfElementRepresentation, StepFEA_Array1OfElementRepresentation>(mod, "StepFEA_HArray1OfElementRepresentation");
 
 // CLASS: STEPFEA_FEAGROUP
 py::class_<StepFEA_FeaGroup, opencascade::handle<StepFEA_FeaGroup>, StepBasic_Group> cls_StepFEA_FeaGroup(mod, "StepFEA_FeaGroup", "Representation of STEP entity FeaGroup");
@@ -1114,28 +969,7 @@ cls_StepFEA_FreedomAndCoefficient.def_static("get_type_descriptor_", (const open
 cls_StepFEA_FreedomAndCoefficient.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepFEA_FreedomAndCoefficient::*)() const) &StepFEA_FreedomAndCoefficient::DynamicType, "None");
 
 // CLASS: STEPFEA_HARRAY1OFDEGREEOFFREEDOM
-py::class_<StepFEA_HArray1OfDegreeOfFreedom, opencascade::handle<StepFEA_HArray1OfDegreeOfFreedom>, Standard_Transient> cls_StepFEA_HArray1OfDegreeOfFreedom(mod, "StepFEA_HArray1OfDegreeOfFreedom", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepFEA_HArray1OfDegreeOfFreedom.def(py::init<>());
-cls_StepFEA_HArray1OfDegreeOfFreedom.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepFEA_HArray1OfDegreeOfFreedom.def(py::init<const Standard_Integer, const Standard_Integer, const StepFEA_Array1OfDegreeOfFreedom::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepFEA_HArray1OfDegreeOfFreedom.def(py::init<const StepFEA_Array1OfDegreeOfFreedom &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepFEA_HArray1OfDegreeOfFreedom.def_static("operator new_", (void * (*)(size_t)) &StepFEA_HArray1OfDegreeOfFreedom::operator new, "None", py::arg("theSize"));
-// cls_StepFEA_HArray1OfDegreeOfFreedom.def_static("operator delete_", (void (*)(void *)) &StepFEA_HArray1OfDegreeOfFreedom::operator delete, "None", py::arg("theAddress"));
-// cls_StepFEA_HArray1OfDegreeOfFreedom.def_static("operator new[]_", (void * (*)(size_t)) &StepFEA_HArray1OfDegreeOfFreedom::operator new[], "None", py::arg("theSize"));
-// cls_StepFEA_HArray1OfDegreeOfFreedom.def_static("operator delete[]_", (void (*)(void *)) &StepFEA_HArray1OfDegreeOfFreedom::operator delete[], "None", py::arg("theAddress"));
-// cls_StepFEA_HArray1OfDegreeOfFreedom.def_static("operator new_", (void * (*)(size_t, void *)) &StepFEA_HArray1OfDegreeOfFreedom::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepFEA_HArray1OfDegreeOfFreedom.def_static("operator delete_", (void (*)(void *, void *)) &StepFEA_HArray1OfDegreeOfFreedom::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepFEA_HArray1OfDegreeOfFreedom.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HArray1OfDegreeOfFreedom::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepFEA_HArray1OfDegreeOfFreedom.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HArray1OfDegreeOfFreedom::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepFEA_HArray1OfDegreeOfFreedom.def("Array1", (const StepFEA_Array1OfDegreeOfFreedom & (StepFEA_HArray1OfDegreeOfFreedom::*)() const) &StepFEA_HArray1OfDegreeOfFreedom::Array1, "None");
-cls_StepFEA_HArray1OfDegreeOfFreedom.def("ChangeArray1", (StepFEA_Array1OfDegreeOfFreedom & (StepFEA_HArray1OfDegreeOfFreedom::*)()) &StepFEA_HArray1OfDegreeOfFreedom::ChangeArray1, "None");
-cls_StepFEA_HArray1OfDegreeOfFreedom.def_static("get_type_name_", (const char * (*)()) &StepFEA_HArray1OfDegreeOfFreedom::get_type_name, "None");
-cls_StepFEA_HArray1OfDegreeOfFreedom.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepFEA_HArray1OfDegreeOfFreedom::get_type_descriptor, "None");
-cls_StepFEA_HArray1OfDegreeOfFreedom.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepFEA_HArray1OfDegreeOfFreedom::*)() const) &StepFEA_HArray1OfDegreeOfFreedom::DynamicType, "None");
+bind_Define_HArray1<StepFEA_HArray1OfDegreeOfFreedom, StepFEA_Array1OfDegreeOfFreedom>(mod, "StepFEA_HArray1OfDegreeOfFreedom");
 
 // CLASS: STEPFEA_FREEDOMSLIST
 py::class_<StepFEA_FreedomsList, opencascade::handle<StepFEA_FreedomsList>, Standard_Transient> cls_StepFEA_FreedomsList(mod, "StepFEA_FreedomsList", "Representation of STEP entity FreedomsList");
@@ -1166,55 +1000,13 @@ cls_StepFEA_GeometricNode.def("DynamicType", (const opencascade::handle<Standard
 bind_NCollection_Sequence<opencascade::handle<StepFEA_Curve3dElementProperty> >(mod, "StepFEA_SequenceOfCurve3dElementProperty", py::module_local(false));
 
 // CLASS: STEPFEA_HSEQUENCEOFCURVE3DELEMENTPROPERTY
-py::class_<StepFEA_HSequenceOfCurve3dElementProperty, opencascade::handle<StepFEA_HSequenceOfCurve3dElementProperty>, Standard_Transient> cls_StepFEA_HSequenceOfCurve3dElementProperty(mod, "StepFEA_HSequenceOfCurve3dElementProperty", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepFEA_HSequenceOfCurve3dElementProperty.def(py::init<>());
-cls_StepFEA_HSequenceOfCurve3dElementProperty.def(py::init<const StepFEA_SequenceOfCurve3dElementProperty &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepFEA_HSequenceOfCurve3dElementProperty.def_static("operator new_", (void * (*)(size_t)) &StepFEA_HSequenceOfCurve3dElementProperty::operator new, "None", py::arg("theSize"));
-// cls_StepFEA_HSequenceOfCurve3dElementProperty.def_static("operator delete_", (void (*)(void *)) &StepFEA_HSequenceOfCurve3dElementProperty::operator delete, "None", py::arg("theAddress"));
-// cls_StepFEA_HSequenceOfCurve3dElementProperty.def_static("operator new[]_", (void * (*)(size_t)) &StepFEA_HSequenceOfCurve3dElementProperty::operator new[], "None", py::arg("theSize"));
-// cls_StepFEA_HSequenceOfCurve3dElementProperty.def_static("operator delete[]_", (void (*)(void *)) &StepFEA_HSequenceOfCurve3dElementProperty::operator delete[], "None", py::arg("theAddress"));
-// cls_StepFEA_HSequenceOfCurve3dElementProperty.def_static("operator new_", (void * (*)(size_t, void *)) &StepFEA_HSequenceOfCurve3dElementProperty::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepFEA_HSequenceOfCurve3dElementProperty.def_static("operator delete_", (void (*)(void *, void *)) &StepFEA_HSequenceOfCurve3dElementProperty::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepFEA_HSequenceOfCurve3dElementProperty.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HSequenceOfCurve3dElementProperty::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepFEA_HSequenceOfCurve3dElementProperty.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HSequenceOfCurve3dElementProperty::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepFEA_HSequenceOfCurve3dElementProperty.def("Sequence", (const StepFEA_SequenceOfCurve3dElementProperty & (StepFEA_HSequenceOfCurve3dElementProperty::*)() const) &StepFEA_HSequenceOfCurve3dElementProperty::Sequence, "None");
-cls_StepFEA_HSequenceOfCurve3dElementProperty.def("Append", (void (StepFEA_HSequenceOfCurve3dElementProperty::*)(const StepFEA_SequenceOfCurve3dElementProperty::value_type &)) &StepFEA_HSequenceOfCurve3dElementProperty::Append, "None", py::arg("theItem"));
-cls_StepFEA_HSequenceOfCurve3dElementProperty.def("Append", (void (StepFEA_HSequenceOfCurve3dElementProperty::*)(StepFEA_SequenceOfCurve3dElementProperty &)) &StepFEA_HSequenceOfCurve3dElementProperty::Append, "None", py::arg("theSequence"));
-cls_StepFEA_HSequenceOfCurve3dElementProperty.def("ChangeSequence", (StepFEA_SequenceOfCurve3dElementProperty & (StepFEA_HSequenceOfCurve3dElementProperty::*)()) &StepFEA_HSequenceOfCurve3dElementProperty::ChangeSequence, "None");
-cls_StepFEA_HSequenceOfCurve3dElementProperty.def_static("get_type_name_", (const char * (*)()) &StepFEA_HSequenceOfCurve3dElementProperty::get_type_name, "None");
-cls_StepFEA_HSequenceOfCurve3dElementProperty.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepFEA_HSequenceOfCurve3dElementProperty::get_type_descriptor, "None");
-cls_StepFEA_HSequenceOfCurve3dElementProperty.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepFEA_HSequenceOfCurve3dElementProperty::*)() const) &StepFEA_HSequenceOfCurve3dElementProperty::DynamicType, "None");
+bind_Define_HSequence<StepFEA_HSequenceOfCurve3dElementProperty, StepFEA_SequenceOfCurve3dElementProperty>(mod, "StepFEA_HSequenceOfCurve3dElementProperty");
 
 // TYPEDEF: STEPFEA_SEQUENCEOFNODEREPRESENTATION
 bind_NCollection_Sequence<opencascade::handle<StepFEA_NodeRepresentation> >(mod, "StepFEA_SequenceOfNodeRepresentation", py::module_local(false));
 
 // CLASS: STEPFEA_HSEQUENCEOFNODEREPRESENTATION
-py::class_<StepFEA_HSequenceOfNodeRepresentation, opencascade::handle<StepFEA_HSequenceOfNodeRepresentation>, Standard_Transient> cls_StepFEA_HSequenceOfNodeRepresentation(mod, "StepFEA_HSequenceOfNodeRepresentation", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepFEA_HSequenceOfNodeRepresentation.def(py::init<>());
-cls_StepFEA_HSequenceOfNodeRepresentation.def(py::init<const StepFEA_SequenceOfNodeRepresentation &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepFEA_HSequenceOfNodeRepresentation.def_static("operator new_", (void * (*)(size_t)) &StepFEA_HSequenceOfNodeRepresentation::operator new, "None", py::arg("theSize"));
-// cls_StepFEA_HSequenceOfNodeRepresentation.def_static("operator delete_", (void (*)(void *)) &StepFEA_HSequenceOfNodeRepresentation::operator delete, "None", py::arg("theAddress"));
-// cls_StepFEA_HSequenceOfNodeRepresentation.def_static("operator new[]_", (void * (*)(size_t)) &StepFEA_HSequenceOfNodeRepresentation::operator new[], "None", py::arg("theSize"));
-// cls_StepFEA_HSequenceOfNodeRepresentation.def_static("operator delete[]_", (void (*)(void *)) &StepFEA_HSequenceOfNodeRepresentation::operator delete[], "None", py::arg("theAddress"));
-// cls_StepFEA_HSequenceOfNodeRepresentation.def_static("operator new_", (void * (*)(size_t, void *)) &StepFEA_HSequenceOfNodeRepresentation::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepFEA_HSequenceOfNodeRepresentation.def_static("operator delete_", (void (*)(void *, void *)) &StepFEA_HSequenceOfNodeRepresentation::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepFEA_HSequenceOfNodeRepresentation.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HSequenceOfNodeRepresentation::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepFEA_HSequenceOfNodeRepresentation.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepFEA_HSequenceOfNodeRepresentation::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepFEA_HSequenceOfNodeRepresentation.def("Sequence", (const StepFEA_SequenceOfNodeRepresentation & (StepFEA_HSequenceOfNodeRepresentation::*)() const) &StepFEA_HSequenceOfNodeRepresentation::Sequence, "None");
-cls_StepFEA_HSequenceOfNodeRepresentation.def("Append", (void (StepFEA_HSequenceOfNodeRepresentation::*)(const StepFEA_SequenceOfNodeRepresentation::value_type &)) &StepFEA_HSequenceOfNodeRepresentation::Append, "None", py::arg("theItem"));
-cls_StepFEA_HSequenceOfNodeRepresentation.def("Append", (void (StepFEA_HSequenceOfNodeRepresentation::*)(StepFEA_SequenceOfNodeRepresentation &)) &StepFEA_HSequenceOfNodeRepresentation::Append, "None", py::arg("theSequence"));
-cls_StepFEA_HSequenceOfNodeRepresentation.def("ChangeSequence", (StepFEA_SequenceOfNodeRepresentation & (StepFEA_HSequenceOfNodeRepresentation::*)()) &StepFEA_HSequenceOfNodeRepresentation::ChangeSequence, "None");
-cls_StepFEA_HSequenceOfNodeRepresentation.def_static("get_type_name_", (const char * (*)()) &StepFEA_HSequenceOfNodeRepresentation::get_type_name, "None");
-cls_StepFEA_HSequenceOfNodeRepresentation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepFEA_HSequenceOfNodeRepresentation::get_type_descriptor, "None");
-cls_StepFEA_HSequenceOfNodeRepresentation.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepFEA_HSequenceOfNodeRepresentation::*)() const) &StepFEA_HSequenceOfNodeRepresentation::DynamicType, "None");
+bind_Define_HSequence<StepFEA_HSequenceOfNodeRepresentation, StepFEA_SequenceOfNodeRepresentation>(mod, "StepFEA_HSequenceOfNodeRepresentation");
 
 // CLASS: STEPFEA_NODE
 py::class_<StepFEA_Node, opencascade::handle<StepFEA_Node>, StepFEA_NodeRepresentation> cls_StepFEA_Node(mod, "StepFEA_Node", "Representation of STEP entity Node");

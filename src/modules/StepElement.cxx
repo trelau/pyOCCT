@@ -106,8 +106,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepElement_UniformSurfaceSection.hxx>
 #include <StepElement_Volume3dElementDescriptor.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 #include <bind_NCollection_Array1.hxx>
 #include <bind_NCollection_Array2.hxx>
+#include <bind_Define_HArray1.hxx>
+#include <bind_Define_HArray2.hxx>
 
 PYBIND11_MODULE(StepElement, mod) {
 
@@ -223,28 +226,7 @@ cls_StepElement_ElementMaterial.def("DynamicType", (const opencascade::handle<St
 bind_NCollection_Sequence<opencascade::handle<StepElement_ElementMaterial> >(mod, "StepElement_SequenceOfElementMaterial", py::module_local(false));
 
 // CLASS: STEPELEMENT_HSEQUENCEOFELEMENTMATERIAL
-py::class_<StepElement_HSequenceOfElementMaterial, opencascade::handle<StepElement_HSequenceOfElementMaterial>, Standard_Transient> cls_StepElement_HSequenceOfElementMaterial(mod, "StepElement_HSequenceOfElementMaterial", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepElement_HSequenceOfElementMaterial.def(py::init<>());
-cls_StepElement_HSequenceOfElementMaterial.def(py::init<const StepElement_SequenceOfElementMaterial &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepElement_HSequenceOfElementMaterial.def_static("operator new_", (void * (*)(size_t)) &StepElement_HSequenceOfElementMaterial::operator new, "None", py::arg("theSize"));
-// cls_StepElement_HSequenceOfElementMaterial.def_static("operator delete_", (void (*)(void *)) &StepElement_HSequenceOfElementMaterial::operator delete, "None", py::arg("theAddress"));
-// cls_StepElement_HSequenceOfElementMaterial.def_static("operator new[]_", (void * (*)(size_t)) &StepElement_HSequenceOfElementMaterial::operator new[], "None", py::arg("theSize"));
-// cls_StepElement_HSequenceOfElementMaterial.def_static("operator delete[]_", (void (*)(void *)) &StepElement_HSequenceOfElementMaterial::operator delete[], "None", py::arg("theAddress"));
-// cls_StepElement_HSequenceOfElementMaterial.def_static("operator new_", (void * (*)(size_t, void *)) &StepElement_HSequenceOfElementMaterial::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepElement_HSequenceOfElementMaterial.def_static("operator delete_", (void (*)(void *, void *)) &StepElement_HSequenceOfElementMaterial::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepElement_HSequenceOfElementMaterial.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HSequenceOfElementMaterial::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepElement_HSequenceOfElementMaterial.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HSequenceOfElementMaterial::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepElement_HSequenceOfElementMaterial.def("Sequence", (const StepElement_SequenceOfElementMaterial & (StepElement_HSequenceOfElementMaterial::*)() const) &StepElement_HSequenceOfElementMaterial::Sequence, "None");
-cls_StepElement_HSequenceOfElementMaterial.def("Append", (void (StepElement_HSequenceOfElementMaterial::*)(const StepElement_SequenceOfElementMaterial::value_type &)) &StepElement_HSequenceOfElementMaterial::Append, "None", py::arg("theItem"));
-cls_StepElement_HSequenceOfElementMaterial.def("Append", (void (StepElement_HSequenceOfElementMaterial::*)(StepElement_SequenceOfElementMaterial &)) &StepElement_HSequenceOfElementMaterial::Append, "None", py::arg("theSequence"));
-cls_StepElement_HSequenceOfElementMaterial.def("ChangeSequence", (StepElement_SequenceOfElementMaterial & (StepElement_HSequenceOfElementMaterial::*)()) &StepElement_HSequenceOfElementMaterial::ChangeSequence, "None");
-cls_StepElement_HSequenceOfElementMaterial.def_static("get_type_name_", (const char * (*)()) &StepElement_HSequenceOfElementMaterial::get_type_name, "None");
-cls_StepElement_HSequenceOfElementMaterial.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepElement_HSequenceOfElementMaterial::get_type_descriptor, "None");
-cls_StepElement_HSequenceOfElementMaterial.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepElement_HSequenceOfElementMaterial::*)() const) &StepElement_HSequenceOfElementMaterial::DynamicType, "None");
+bind_Define_HSequence<StepElement_HSequenceOfElementMaterial, StepElement_SequenceOfElementMaterial>(mod, "StepElement_HSequenceOfElementMaterial");
 
 // CLASS: STEPELEMENT_ELEMENTASPECT
 py::class_<StepElement_ElementAspect, StepData_SelectType> cls_StepElement_ElementAspect(mod, "StepElement_ElementAspect", "Representation of STEP SELECT type ElementAspect");
@@ -303,28 +285,7 @@ cls_StepElement_CurveElementSectionDefinition.def("DynamicType", (const opencasc
 bind_NCollection_Sequence<opencascade::handle<StepElement_CurveElementSectionDefinition> >(mod, "StepElement_SequenceOfCurveElementSectionDefinition", py::module_local(false));
 
 // CLASS: STEPELEMENT_HSEQUENCEOFCURVEELEMENTSECTIONDEFINITION
-py::class_<StepElement_HSequenceOfCurveElementSectionDefinition, opencascade::handle<StepElement_HSequenceOfCurveElementSectionDefinition>, Standard_Transient> cls_StepElement_HSequenceOfCurveElementSectionDefinition(mod, "StepElement_HSequenceOfCurveElementSectionDefinition", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepElement_HSequenceOfCurveElementSectionDefinition.def(py::init<>());
-cls_StepElement_HSequenceOfCurveElementSectionDefinition.def(py::init<const StepElement_SequenceOfCurveElementSectionDefinition &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepElement_HSequenceOfCurveElementSectionDefinition.def_static("operator new_", (void * (*)(size_t)) &StepElement_HSequenceOfCurveElementSectionDefinition::operator new, "None", py::arg("theSize"));
-// cls_StepElement_HSequenceOfCurveElementSectionDefinition.def_static("operator delete_", (void (*)(void *)) &StepElement_HSequenceOfCurveElementSectionDefinition::operator delete, "None", py::arg("theAddress"));
-// cls_StepElement_HSequenceOfCurveElementSectionDefinition.def_static("operator new[]_", (void * (*)(size_t)) &StepElement_HSequenceOfCurveElementSectionDefinition::operator new[], "None", py::arg("theSize"));
-// cls_StepElement_HSequenceOfCurveElementSectionDefinition.def_static("operator delete[]_", (void (*)(void *)) &StepElement_HSequenceOfCurveElementSectionDefinition::operator delete[], "None", py::arg("theAddress"));
-// cls_StepElement_HSequenceOfCurveElementSectionDefinition.def_static("operator new_", (void * (*)(size_t, void *)) &StepElement_HSequenceOfCurveElementSectionDefinition::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepElement_HSequenceOfCurveElementSectionDefinition.def_static("operator delete_", (void (*)(void *, void *)) &StepElement_HSequenceOfCurveElementSectionDefinition::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepElement_HSequenceOfCurveElementSectionDefinition.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HSequenceOfCurveElementSectionDefinition::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepElement_HSequenceOfCurveElementSectionDefinition.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HSequenceOfCurveElementSectionDefinition::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepElement_HSequenceOfCurveElementSectionDefinition.def("Sequence", (const StepElement_SequenceOfCurveElementSectionDefinition & (StepElement_HSequenceOfCurveElementSectionDefinition::*)() const) &StepElement_HSequenceOfCurveElementSectionDefinition::Sequence, "None");
-cls_StepElement_HSequenceOfCurveElementSectionDefinition.def("Append", (void (StepElement_HSequenceOfCurveElementSectionDefinition::*)(const StepElement_SequenceOfCurveElementSectionDefinition::value_type &)) &StepElement_HSequenceOfCurveElementSectionDefinition::Append, "None", py::arg("theItem"));
-cls_StepElement_HSequenceOfCurveElementSectionDefinition.def("Append", (void (StepElement_HSequenceOfCurveElementSectionDefinition::*)(StepElement_SequenceOfCurveElementSectionDefinition &)) &StepElement_HSequenceOfCurveElementSectionDefinition::Append, "None", py::arg("theSequence"));
-cls_StepElement_HSequenceOfCurveElementSectionDefinition.def("ChangeSequence", (StepElement_SequenceOfCurveElementSectionDefinition & (StepElement_HSequenceOfCurveElementSectionDefinition::*)()) &StepElement_HSequenceOfCurveElementSectionDefinition::ChangeSequence, "None");
-cls_StepElement_HSequenceOfCurveElementSectionDefinition.def_static("get_type_name_", (const char * (*)()) &StepElement_HSequenceOfCurveElementSectionDefinition::get_type_name, "None");
-cls_StepElement_HSequenceOfCurveElementSectionDefinition.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepElement_HSequenceOfCurveElementSectionDefinition::get_type_descriptor, "None");
-cls_StepElement_HSequenceOfCurveElementSectionDefinition.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepElement_HSequenceOfCurveElementSectionDefinition::*)() const) &StepElement_HSequenceOfCurveElementSectionDefinition::DynamicType, "None");
+bind_Define_HSequence<StepElement_HSequenceOfCurveElementSectionDefinition, StepElement_SequenceOfCurveElementSectionDefinition>(mod, "StepElement_HSequenceOfCurveElementSectionDefinition");
 
 // CLASS: STEPELEMENT_ANALYSISITEMWITHINREPRESENTATION
 py::class_<StepElement_AnalysisItemWithinRepresentation, opencascade::handle<StepElement_AnalysisItemWithinRepresentation>, Standard_Transient> cls_StepElement_AnalysisItemWithinRepresentation(mod, "StepElement_AnalysisItemWithinRepresentation", "Representation of STEP entity AnalysisItemWithinRepresentation");
@@ -408,28 +369,7 @@ cls_StepElement_CurveElementPurposeMember.def("DynamicType", (const opencascade:
 bind_NCollection_Sequence<opencascade::handle<StepElement_CurveElementPurposeMember> >(mod, "StepElement_SequenceOfCurveElementPurposeMember", py::module_local(false));
 
 // CLASS: STEPELEMENT_HSEQUENCEOFCURVEELEMENTPURPOSEMEMBER
-py::class_<StepElement_HSequenceOfCurveElementPurposeMember, opencascade::handle<StepElement_HSequenceOfCurveElementPurposeMember>, Standard_Transient> cls_StepElement_HSequenceOfCurveElementPurposeMember(mod, "StepElement_HSequenceOfCurveElementPurposeMember", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepElement_HSequenceOfCurveElementPurposeMember.def(py::init<>());
-cls_StepElement_HSequenceOfCurveElementPurposeMember.def(py::init<const StepElement_SequenceOfCurveElementPurposeMember &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepElement_HSequenceOfCurveElementPurposeMember.def_static("operator new_", (void * (*)(size_t)) &StepElement_HSequenceOfCurveElementPurposeMember::operator new, "None", py::arg("theSize"));
-// cls_StepElement_HSequenceOfCurveElementPurposeMember.def_static("operator delete_", (void (*)(void *)) &StepElement_HSequenceOfCurveElementPurposeMember::operator delete, "None", py::arg("theAddress"));
-// cls_StepElement_HSequenceOfCurveElementPurposeMember.def_static("operator new[]_", (void * (*)(size_t)) &StepElement_HSequenceOfCurveElementPurposeMember::operator new[], "None", py::arg("theSize"));
-// cls_StepElement_HSequenceOfCurveElementPurposeMember.def_static("operator delete[]_", (void (*)(void *)) &StepElement_HSequenceOfCurveElementPurposeMember::operator delete[], "None", py::arg("theAddress"));
-// cls_StepElement_HSequenceOfCurveElementPurposeMember.def_static("operator new_", (void * (*)(size_t, void *)) &StepElement_HSequenceOfCurveElementPurposeMember::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepElement_HSequenceOfCurveElementPurposeMember.def_static("operator delete_", (void (*)(void *, void *)) &StepElement_HSequenceOfCurveElementPurposeMember::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepElement_HSequenceOfCurveElementPurposeMember.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HSequenceOfCurveElementPurposeMember::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepElement_HSequenceOfCurveElementPurposeMember.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HSequenceOfCurveElementPurposeMember::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepElement_HSequenceOfCurveElementPurposeMember.def("Sequence", (const StepElement_SequenceOfCurveElementPurposeMember & (StepElement_HSequenceOfCurveElementPurposeMember::*)() const) &StepElement_HSequenceOfCurveElementPurposeMember::Sequence, "None");
-cls_StepElement_HSequenceOfCurveElementPurposeMember.def("Append", (void (StepElement_HSequenceOfCurveElementPurposeMember::*)(const StepElement_SequenceOfCurveElementPurposeMember::value_type &)) &StepElement_HSequenceOfCurveElementPurposeMember::Append, "None", py::arg("theItem"));
-cls_StepElement_HSequenceOfCurveElementPurposeMember.def("Append", (void (StepElement_HSequenceOfCurveElementPurposeMember::*)(StepElement_SequenceOfCurveElementPurposeMember &)) &StepElement_HSequenceOfCurveElementPurposeMember::Append, "None", py::arg("theSequence"));
-cls_StepElement_HSequenceOfCurveElementPurposeMember.def("ChangeSequence", (StepElement_SequenceOfCurveElementPurposeMember & (StepElement_HSequenceOfCurveElementPurposeMember::*)()) &StepElement_HSequenceOfCurveElementPurposeMember::ChangeSequence, "None");
-cls_StepElement_HSequenceOfCurveElementPurposeMember.def_static("get_type_name_", (const char * (*)()) &StepElement_HSequenceOfCurveElementPurposeMember::get_type_name, "None");
-cls_StepElement_HSequenceOfCurveElementPurposeMember.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepElement_HSequenceOfCurveElementPurposeMember::get_type_descriptor, "None");
-cls_StepElement_HSequenceOfCurveElementPurposeMember.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepElement_HSequenceOfCurveElementPurposeMember::*)() const) &StepElement_HSequenceOfCurveElementPurposeMember::DynamicType, "None");
+bind_Define_HSequence<StepElement_HSequenceOfCurveElementPurposeMember, StepElement_SequenceOfCurveElementPurposeMember>(mod, "StepElement_HSequenceOfCurveElementPurposeMember");
 
 // TYPEDEF: STEPELEMENT_ARRAY1OFHSEQUENCEOFCURVEELEMENTPURPOSEMEMBER
 bind_NCollection_Array1<opencascade::handle<StepElement_HSequenceOfCurveElementPurposeMember> >(mod, "StepElement_Array1OfHSequenceOfCurveElementPurposeMember", py::module_local(false));
@@ -453,28 +393,7 @@ cls_StepElement_SurfaceElementPurposeMember.def("DynamicType", (const opencascad
 bind_NCollection_Sequence<opencascade::handle<StepElement_SurfaceElementPurposeMember> >(mod, "StepElement_SequenceOfSurfaceElementPurposeMember", py::module_local(false));
 
 // CLASS: STEPELEMENT_HSEQUENCEOFSURFACEELEMENTPURPOSEMEMBER
-py::class_<StepElement_HSequenceOfSurfaceElementPurposeMember, opencascade::handle<StepElement_HSequenceOfSurfaceElementPurposeMember>, Standard_Transient> cls_StepElement_HSequenceOfSurfaceElementPurposeMember(mod, "StepElement_HSequenceOfSurfaceElementPurposeMember", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def(py::init<>());
-cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def(py::init<const StepElement_SequenceOfSurfaceElementPurposeMember &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def_static("operator new_", (void * (*)(size_t)) &StepElement_HSequenceOfSurfaceElementPurposeMember::operator new, "None", py::arg("theSize"));
-// cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def_static("operator delete_", (void (*)(void *)) &StepElement_HSequenceOfSurfaceElementPurposeMember::operator delete, "None", py::arg("theAddress"));
-// cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def_static("operator new[]_", (void * (*)(size_t)) &StepElement_HSequenceOfSurfaceElementPurposeMember::operator new[], "None", py::arg("theSize"));
-// cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def_static("operator delete[]_", (void (*)(void *)) &StepElement_HSequenceOfSurfaceElementPurposeMember::operator delete[], "None", py::arg("theAddress"));
-// cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def_static("operator new_", (void * (*)(size_t, void *)) &StepElement_HSequenceOfSurfaceElementPurposeMember::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def_static("operator delete_", (void (*)(void *, void *)) &StepElement_HSequenceOfSurfaceElementPurposeMember::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HSequenceOfSurfaceElementPurposeMember::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HSequenceOfSurfaceElementPurposeMember::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def("Sequence", (const StepElement_SequenceOfSurfaceElementPurposeMember & (StepElement_HSequenceOfSurfaceElementPurposeMember::*)() const) &StepElement_HSequenceOfSurfaceElementPurposeMember::Sequence, "None");
-cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def("Append", (void (StepElement_HSequenceOfSurfaceElementPurposeMember::*)(const StepElement_SequenceOfSurfaceElementPurposeMember::value_type &)) &StepElement_HSequenceOfSurfaceElementPurposeMember::Append, "None", py::arg("theItem"));
-cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def("Append", (void (StepElement_HSequenceOfSurfaceElementPurposeMember::*)(StepElement_SequenceOfSurfaceElementPurposeMember &)) &StepElement_HSequenceOfSurfaceElementPurposeMember::Append, "None", py::arg("theSequence"));
-cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def("ChangeSequence", (StepElement_SequenceOfSurfaceElementPurposeMember & (StepElement_HSequenceOfSurfaceElementPurposeMember::*)()) &StepElement_HSequenceOfSurfaceElementPurposeMember::ChangeSequence, "None");
-cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def_static("get_type_name_", (const char * (*)()) &StepElement_HSequenceOfSurfaceElementPurposeMember::get_type_name, "None");
-cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepElement_HSequenceOfSurfaceElementPurposeMember::get_type_descriptor, "None");
-cls_StepElement_HSequenceOfSurfaceElementPurposeMember.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepElement_HSequenceOfSurfaceElementPurposeMember::*)() const) &StepElement_HSequenceOfSurfaceElementPurposeMember::DynamicType, "None");
+bind_Define_HSequence<StepElement_HSequenceOfSurfaceElementPurposeMember, StepElement_SequenceOfSurfaceElementPurposeMember>(mod, "StepElement_HSequenceOfSurfaceElementPurposeMember");
 
 // TYPEDEF: STEPELEMENT_ARRAY1OFHSEQUENCEOFSURFACEELEMENTPURPOSEMEMBER
 bind_NCollection_Array1<opencascade::handle<StepElement_HSequenceOfSurfaceElementPurposeMember> >(mod, "StepElement_Array1OfHSequenceOfSurfaceElementPurposeMember", py::module_local(false));
@@ -597,28 +516,7 @@ bind_NCollection_Array2<StepElement_SurfaceElementPurpose>(mod, "StepElement_Arr
 bind_NCollection_Array2<opencascade::handle<StepElement_SurfaceElementPurposeMember> >(mod, "StepElement_Array2OfSurfaceElementPurposeMember", py::module_local(false));
 
 // CLASS: STEPELEMENT_HARRAY1OFHSEQUENCEOFCURVEELEMENTPURPOSEMEMBER
-py::class_<StepElement_HArray1OfHSequenceOfCurveElementPurposeMember, opencascade::handle<StepElement_HArray1OfHSequenceOfCurveElementPurposeMember>, Standard_Transient> cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember(mod, "StepElement_HArray1OfHSequenceOfCurveElementPurposeMember", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def(py::init<>());
-cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def(py::init<const Standard_Integer, const Standard_Integer, const StepElement_Array1OfHSequenceOfCurveElementPurposeMember::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def(py::init<const StepElement_Array1OfHSequenceOfCurveElementPurposeMember &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def_static("operator new_", (void * (*)(size_t)) &StepElement_HArray1OfHSequenceOfCurveElementPurposeMember::operator new, "None", py::arg("theSize"));
-// cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def_static("operator delete_", (void (*)(void *)) &StepElement_HArray1OfHSequenceOfCurveElementPurposeMember::operator delete, "None", py::arg("theAddress"));
-// cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def_static("operator new[]_", (void * (*)(size_t)) &StepElement_HArray1OfHSequenceOfCurveElementPurposeMember::operator new[], "None", py::arg("theSize"));
-// cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def_static("operator delete[]_", (void (*)(void *)) &StepElement_HArray1OfHSequenceOfCurveElementPurposeMember::operator delete[], "None", py::arg("theAddress"));
-// cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def_static("operator new_", (void * (*)(size_t, void *)) &StepElement_HArray1OfHSequenceOfCurveElementPurposeMember::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def_static("operator delete_", (void (*)(void *, void *)) &StepElement_HArray1OfHSequenceOfCurveElementPurposeMember::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray1OfHSequenceOfCurveElementPurposeMember::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray1OfHSequenceOfCurveElementPurposeMember::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def("Array1", (const StepElement_Array1OfHSequenceOfCurveElementPurposeMember & (StepElement_HArray1OfHSequenceOfCurveElementPurposeMember::*)() const) &StepElement_HArray1OfHSequenceOfCurveElementPurposeMember::Array1, "None");
-cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def("ChangeArray1", (StepElement_Array1OfHSequenceOfCurveElementPurposeMember & (StepElement_HArray1OfHSequenceOfCurveElementPurposeMember::*)()) &StepElement_HArray1OfHSequenceOfCurveElementPurposeMember::ChangeArray1, "None");
-cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def_static("get_type_name_", (const char * (*)()) &StepElement_HArray1OfHSequenceOfCurveElementPurposeMember::get_type_name, "None");
-cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepElement_HArray1OfHSequenceOfCurveElementPurposeMember::get_type_descriptor, "None");
-cls_StepElement_HArray1OfHSequenceOfCurveElementPurposeMember.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepElement_HArray1OfHSequenceOfCurveElementPurposeMember::*)() const) &StepElement_HArray1OfHSequenceOfCurveElementPurposeMember::DynamicType, "None");
+bind_Define_HArray1<StepElement_HArray1OfHSequenceOfCurveElementPurposeMember, StepElement_Array1OfHSequenceOfCurveElementPurposeMember>(mod, "StepElement_HArray1OfHSequenceOfCurveElementPurposeMember");
 
 // CLASS: STEPELEMENT_ELEMENTDESCRIPTOR
 py::class_<StepElement_ElementDescriptor, opencascade::handle<StepElement_ElementDescriptor>, Standard_Transient> cls_StepElement_ElementDescriptor(mod, "StepElement_ElementDescriptor", "Representation of STEP entity ElementDescriptor");
@@ -687,28 +585,7 @@ cls_StepElement_CurveElementPurpose.def("SetApplicationDefinedElementPurpose", (
 cls_StepElement_CurveElementPurpose.def("ApplicationDefinedElementPurpose", (opencascade::handle<TCollection_HAsciiString> (StepElement_CurveElementPurpose::*)() const) &StepElement_CurveElementPurpose::ApplicationDefinedElementPurpose, "Returns Value as ApplicationDefinedElementPurpose (or Null if another type)");
 
 // CLASS: STEPELEMENT_HARRAY1OFMEASUREORUNSPECIFIEDVALUE
-py::class_<StepElement_HArray1OfMeasureOrUnspecifiedValue, opencascade::handle<StepElement_HArray1OfMeasureOrUnspecifiedValue>, Standard_Transient> cls_StepElement_HArray1OfMeasureOrUnspecifiedValue(mod, "StepElement_HArray1OfMeasureOrUnspecifiedValue", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def(py::init<>());
-cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def(py::init<const Standard_Integer, const Standard_Integer, const StepElement_Array1OfMeasureOrUnspecifiedValue::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def(py::init<const StepElement_Array1OfMeasureOrUnspecifiedValue &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def_static("operator new_", (void * (*)(size_t)) &StepElement_HArray1OfMeasureOrUnspecifiedValue::operator new, "None", py::arg("theSize"));
-// cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def_static("operator delete_", (void (*)(void *)) &StepElement_HArray1OfMeasureOrUnspecifiedValue::operator delete, "None", py::arg("theAddress"));
-// cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def_static("operator new[]_", (void * (*)(size_t)) &StepElement_HArray1OfMeasureOrUnspecifiedValue::operator new[], "None", py::arg("theSize"));
-// cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def_static("operator delete[]_", (void (*)(void *)) &StepElement_HArray1OfMeasureOrUnspecifiedValue::operator delete[], "None", py::arg("theAddress"));
-// cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def_static("operator new_", (void * (*)(size_t, void *)) &StepElement_HArray1OfMeasureOrUnspecifiedValue::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def_static("operator delete_", (void (*)(void *, void *)) &StepElement_HArray1OfMeasureOrUnspecifiedValue::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray1OfMeasureOrUnspecifiedValue::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray1OfMeasureOrUnspecifiedValue::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def("Array1", (const StepElement_Array1OfMeasureOrUnspecifiedValue & (StepElement_HArray1OfMeasureOrUnspecifiedValue::*)() const) &StepElement_HArray1OfMeasureOrUnspecifiedValue::Array1, "None");
-cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def("ChangeArray1", (StepElement_Array1OfMeasureOrUnspecifiedValue & (StepElement_HArray1OfMeasureOrUnspecifiedValue::*)()) &StepElement_HArray1OfMeasureOrUnspecifiedValue::ChangeArray1, "None");
-cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def_static("get_type_name_", (const char * (*)()) &StepElement_HArray1OfMeasureOrUnspecifiedValue::get_type_name, "None");
-cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepElement_HArray1OfMeasureOrUnspecifiedValue::get_type_descriptor, "None");
-cls_StepElement_HArray1OfMeasureOrUnspecifiedValue.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepElement_HArray1OfMeasureOrUnspecifiedValue::*)() const) &StepElement_HArray1OfMeasureOrUnspecifiedValue::DynamicType, "None");
+bind_Define_HArray1<StepElement_HArray1OfMeasureOrUnspecifiedValue, StepElement_Array1OfMeasureOrUnspecifiedValue>(mod, "StepElement_HArray1OfMeasureOrUnspecifiedValue");
 
 // CLASS: STEPELEMENT_CURVEELEMENTSECTIONDERIVEDDEFINITIONS
 py::class_<StepElement_CurveElementSectionDerivedDefinitions, opencascade::handle<StepElement_CurveElementSectionDerivedDefinitions>, StepElement_CurveElementSectionDefinition> cls_StepElement_CurveElementSectionDerivedDefinitions(mod, "StepElement_CurveElementSectionDerivedDefinitions", "Representation of STEP entity CurveElementSectionDerivedDefinitions");
@@ -758,217 +635,31 @@ cls_StepElement_ElementAspectMember.def_static("get_type_descriptor_", (const op
 cls_StepElement_ElementAspectMember.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepElement_ElementAspectMember::*)() const) &StepElement_ElementAspectMember::DynamicType, "None");
 
 // CLASS: STEPELEMENT_HARRAY1OFCURVEELEMENTENDRELEASEPACKET
-py::class_<StepElement_HArray1OfCurveElementEndReleasePacket, opencascade::handle<StepElement_HArray1OfCurveElementEndReleasePacket>, Standard_Transient> cls_StepElement_HArray1OfCurveElementEndReleasePacket(mod, "StepElement_HArray1OfCurveElementEndReleasePacket", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepElement_HArray1OfCurveElementEndReleasePacket.def(py::init<>());
-cls_StepElement_HArray1OfCurveElementEndReleasePacket.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepElement_HArray1OfCurveElementEndReleasePacket.def(py::init<const Standard_Integer, const Standard_Integer, const StepElement_Array1OfCurveElementEndReleasePacket::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepElement_HArray1OfCurveElementEndReleasePacket.def(py::init<const StepElement_Array1OfCurveElementEndReleasePacket &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepElement_HArray1OfCurveElementEndReleasePacket.def_static("operator new_", (void * (*)(size_t)) &StepElement_HArray1OfCurveElementEndReleasePacket::operator new, "None", py::arg("theSize"));
-// cls_StepElement_HArray1OfCurveElementEndReleasePacket.def_static("operator delete_", (void (*)(void *)) &StepElement_HArray1OfCurveElementEndReleasePacket::operator delete, "None", py::arg("theAddress"));
-// cls_StepElement_HArray1OfCurveElementEndReleasePacket.def_static("operator new[]_", (void * (*)(size_t)) &StepElement_HArray1OfCurveElementEndReleasePacket::operator new[], "None", py::arg("theSize"));
-// cls_StepElement_HArray1OfCurveElementEndReleasePacket.def_static("operator delete[]_", (void (*)(void *)) &StepElement_HArray1OfCurveElementEndReleasePacket::operator delete[], "None", py::arg("theAddress"));
-// cls_StepElement_HArray1OfCurveElementEndReleasePacket.def_static("operator new_", (void * (*)(size_t, void *)) &StepElement_HArray1OfCurveElementEndReleasePacket::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepElement_HArray1OfCurveElementEndReleasePacket.def_static("operator delete_", (void (*)(void *, void *)) &StepElement_HArray1OfCurveElementEndReleasePacket::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepElement_HArray1OfCurveElementEndReleasePacket.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray1OfCurveElementEndReleasePacket::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepElement_HArray1OfCurveElementEndReleasePacket.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray1OfCurveElementEndReleasePacket::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepElement_HArray1OfCurveElementEndReleasePacket.def("Array1", (const StepElement_Array1OfCurveElementEndReleasePacket & (StepElement_HArray1OfCurveElementEndReleasePacket::*)() const) &StepElement_HArray1OfCurveElementEndReleasePacket::Array1, "None");
-cls_StepElement_HArray1OfCurveElementEndReleasePacket.def("ChangeArray1", (StepElement_Array1OfCurveElementEndReleasePacket & (StepElement_HArray1OfCurveElementEndReleasePacket::*)()) &StepElement_HArray1OfCurveElementEndReleasePacket::ChangeArray1, "None");
-cls_StepElement_HArray1OfCurveElementEndReleasePacket.def_static("get_type_name_", (const char * (*)()) &StepElement_HArray1OfCurveElementEndReleasePacket::get_type_name, "None");
-cls_StepElement_HArray1OfCurveElementEndReleasePacket.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepElement_HArray1OfCurveElementEndReleasePacket::get_type_descriptor, "None");
-cls_StepElement_HArray1OfCurveElementEndReleasePacket.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepElement_HArray1OfCurveElementEndReleasePacket::*)() const) &StepElement_HArray1OfCurveElementEndReleasePacket::DynamicType, "None");
+bind_Define_HArray1<StepElement_HArray1OfCurveElementEndReleasePacket, StepElement_Array1OfCurveElementEndReleasePacket>(mod, "StepElement_HArray1OfCurveElementEndReleasePacket");
 
 // CLASS: STEPELEMENT_HARRAY1OFCURVEELEMENTSECTIONDEFINITION
-py::class_<StepElement_HArray1OfCurveElementSectionDefinition, opencascade::handle<StepElement_HArray1OfCurveElementSectionDefinition>, Standard_Transient> cls_StepElement_HArray1OfCurveElementSectionDefinition(mod, "StepElement_HArray1OfCurveElementSectionDefinition", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepElement_HArray1OfCurveElementSectionDefinition.def(py::init<>());
-cls_StepElement_HArray1OfCurveElementSectionDefinition.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepElement_HArray1OfCurveElementSectionDefinition.def(py::init<const Standard_Integer, const Standard_Integer, const StepElement_Array1OfCurveElementSectionDefinition::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepElement_HArray1OfCurveElementSectionDefinition.def(py::init<const StepElement_Array1OfCurveElementSectionDefinition &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepElement_HArray1OfCurveElementSectionDefinition.def_static("operator new_", (void * (*)(size_t)) &StepElement_HArray1OfCurveElementSectionDefinition::operator new, "None", py::arg("theSize"));
-// cls_StepElement_HArray1OfCurveElementSectionDefinition.def_static("operator delete_", (void (*)(void *)) &StepElement_HArray1OfCurveElementSectionDefinition::operator delete, "None", py::arg("theAddress"));
-// cls_StepElement_HArray1OfCurveElementSectionDefinition.def_static("operator new[]_", (void * (*)(size_t)) &StepElement_HArray1OfCurveElementSectionDefinition::operator new[], "None", py::arg("theSize"));
-// cls_StepElement_HArray1OfCurveElementSectionDefinition.def_static("operator delete[]_", (void (*)(void *)) &StepElement_HArray1OfCurveElementSectionDefinition::operator delete[], "None", py::arg("theAddress"));
-// cls_StepElement_HArray1OfCurveElementSectionDefinition.def_static("operator new_", (void * (*)(size_t, void *)) &StepElement_HArray1OfCurveElementSectionDefinition::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepElement_HArray1OfCurveElementSectionDefinition.def_static("operator delete_", (void (*)(void *, void *)) &StepElement_HArray1OfCurveElementSectionDefinition::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepElement_HArray1OfCurveElementSectionDefinition.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray1OfCurveElementSectionDefinition::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepElement_HArray1OfCurveElementSectionDefinition.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray1OfCurveElementSectionDefinition::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepElement_HArray1OfCurveElementSectionDefinition.def("Array1", (const StepElement_Array1OfCurveElementSectionDefinition & (StepElement_HArray1OfCurveElementSectionDefinition::*)() const) &StepElement_HArray1OfCurveElementSectionDefinition::Array1, "None");
-cls_StepElement_HArray1OfCurveElementSectionDefinition.def("ChangeArray1", (StepElement_Array1OfCurveElementSectionDefinition & (StepElement_HArray1OfCurveElementSectionDefinition::*)()) &StepElement_HArray1OfCurveElementSectionDefinition::ChangeArray1, "None");
-cls_StepElement_HArray1OfCurveElementSectionDefinition.def_static("get_type_name_", (const char * (*)()) &StepElement_HArray1OfCurveElementSectionDefinition::get_type_name, "None");
-cls_StepElement_HArray1OfCurveElementSectionDefinition.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepElement_HArray1OfCurveElementSectionDefinition::get_type_descriptor, "None");
-cls_StepElement_HArray1OfCurveElementSectionDefinition.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepElement_HArray1OfCurveElementSectionDefinition::*)() const) &StepElement_HArray1OfCurveElementSectionDefinition::DynamicType, "None");
+bind_Define_HArray1<StepElement_HArray1OfCurveElementSectionDefinition, StepElement_Array1OfCurveElementSectionDefinition>(mod, "StepElement_HArray1OfCurveElementSectionDefinition");
 
 // CLASS: STEPELEMENT_HARRAY1OFHSEQUENCEOFSURFACEELEMENTPURPOSEMEMBER
-py::class_<StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember, opencascade::handle<StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember>, Standard_Transient> cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember(mod, "StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def(py::init<>());
-cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def(py::init<const Standard_Integer, const Standard_Integer, const StepElement_Array1OfHSequenceOfSurfaceElementPurposeMember::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def(py::init<const StepElement_Array1OfHSequenceOfSurfaceElementPurposeMember &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def_static("operator new_", (void * (*)(size_t)) &StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember::operator new, "None", py::arg("theSize"));
-// cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def_static("operator delete_", (void (*)(void *)) &StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember::operator delete, "None", py::arg("theAddress"));
-// cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def_static("operator new[]_", (void * (*)(size_t)) &StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember::operator new[], "None", py::arg("theSize"));
-// cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def_static("operator delete[]_", (void (*)(void *)) &StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember::operator delete[], "None", py::arg("theAddress"));
-// cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def_static("operator new_", (void * (*)(size_t, void *)) &StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def_static("operator delete_", (void (*)(void *, void *)) &StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def("Array1", (const StepElement_Array1OfHSequenceOfSurfaceElementPurposeMember & (StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember::*)() const) &StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember::Array1, "None");
-cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def("ChangeArray1", (StepElement_Array1OfHSequenceOfSurfaceElementPurposeMember & (StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember::*)()) &StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember::ChangeArray1, "None");
-cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def_static("get_type_name_", (const char * (*)()) &StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember::get_type_name, "None");
-cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember::get_type_descriptor, "None");
-cls_StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember::*)() const) &StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember::DynamicType, "None");
+bind_Define_HArray1<StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember, StepElement_Array1OfHSequenceOfSurfaceElementPurposeMember>(mod, "StepElement_HArray1OfHSequenceOfSurfaceElementPurposeMember");
 
 // CLASS: STEPELEMENT_HARRAY1OFSURFACESECTION
-py::class_<StepElement_HArray1OfSurfaceSection, opencascade::handle<StepElement_HArray1OfSurfaceSection>, Standard_Transient> cls_StepElement_HArray1OfSurfaceSection(mod, "StepElement_HArray1OfSurfaceSection", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepElement_HArray1OfSurfaceSection.def(py::init<>());
-cls_StepElement_HArray1OfSurfaceSection.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepElement_HArray1OfSurfaceSection.def(py::init<const Standard_Integer, const Standard_Integer, const StepElement_Array1OfSurfaceSection::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepElement_HArray1OfSurfaceSection.def(py::init<const StepElement_Array1OfSurfaceSection &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepElement_HArray1OfSurfaceSection.def_static("operator new_", (void * (*)(size_t)) &StepElement_HArray1OfSurfaceSection::operator new, "None", py::arg("theSize"));
-// cls_StepElement_HArray1OfSurfaceSection.def_static("operator delete_", (void (*)(void *)) &StepElement_HArray1OfSurfaceSection::operator delete, "None", py::arg("theAddress"));
-// cls_StepElement_HArray1OfSurfaceSection.def_static("operator new[]_", (void * (*)(size_t)) &StepElement_HArray1OfSurfaceSection::operator new[], "None", py::arg("theSize"));
-// cls_StepElement_HArray1OfSurfaceSection.def_static("operator delete[]_", (void (*)(void *)) &StepElement_HArray1OfSurfaceSection::operator delete[], "None", py::arg("theAddress"));
-// cls_StepElement_HArray1OfSurfaceSection.def_static("operator new_", (void * (*)(size_t, void *)) &StepElement_HArray1OfSurfaceSection::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepElement_HArray1OfSurfaceSection.def_static("operator delete_", (void (*)(void *, void *)) &StepElement_HArray1OfSurfaceSection::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepElement_HArray1OfSurfaceSection.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray1OfSurfaceSection::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepElement_HArray1OfSurfaceSection.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray1OfSurfaceSection::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepElement_HArray1OfSurfaceSection.def("Array1", (const StepElement_Array1OfSurfaceSection & (StepElement_HArray1OfSurfaceSection::*)() const) &StepElement_HArray1OfSurfaceSection::Array1, "None");
-cls_StepElement_HArray1OfSurfaceSection.def("ChangeArray1", (StepElement_Array1OfSurfaceSection & (StepElement_HArray1OfSurfaceSection::*)()) &StepElement_HArray1OfSurfaceSection::ChangeArray1, "None");
-cls_StepElement_HArray1OfSurfaceSection.def_static("get_type_name_", (const char * (*)()) &StepElement_HArray1OfSurfaceSection::get_type_name, "None");
-cls_StepElement_HArray1OfSurfaceSection.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepElement_HArray1OfSurfaceSection::get_type_descriptor, "None");
-cls_StepElement_HArray1OfSurfaceSection.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepElement_HArray1OfSurfaceSection::*)() const) &StepElement_HArray1OfSurfaceSection::DynamicType, "None");
+bind_Define_HArray1<StepElement_HArray1OfSurfaceSection, StepElement_Array1OfSurfaceSection>(mod, "StepElement_HArray1OfSurfaceSection");
 
 // CLASS: STEPELEMENT_HARRAY1OFVOLUMEELEMENTPURPOSE
-py::class_<StepElement_HArray1OfVolumeElementPurpose, opencascade::handle<StepElement_HArray1OfVolumeElementPurpose>, Standard_Transient> cls_StepElement_HArray1OfVolumeElementPurpose(mod, "StepElement_HArray1OfVolumeElementPurpose", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepElement_HArray1OfVolumeElementPurpose.def(py::init<>());
-cls_StepElement_HArray1OfVolumeElementPurpose.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepElement_HArray1OfVolumeElementPurpose.def(py::init<const Standard_Integer, const Standard_Integer, const StepElement_Array1OfVolumeElementPurpose::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepElement_HArray1OfVolumeElementPurpose.def(py::init<const StepElement_Array1OfVolumeElementPurpose &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepElement_HArray1OfVolumeElementPurpose.def_static("operator new_", (void * (*)(size_t)) &StepElement_HArray1OfVolumeElementPurpose::operator new, "None", py::arg("theSize"));
-// cls_StepElement_HArray1OfVolumeElementPurpose.def_static("operator delete_", (void (*)(void *)) &StepElement_HArray1OfVolumeElementPurpose::operator delete, "None", py::arg("theAddress"));
-// cls_StepElement_HArray1OfVolumeElementPurpose.def_static("operator new[]_", (void * (*)(size_t)) &StepElement_HArray1OfVolumeElementPurpose::operator new[], "None", py::arg("theSize"));
-// cls_StepElement_HArray1OfVolumeElementPurpose.def_static("operator delete[]_", (void (*)(void *)) &StepElement_HArray1OfVolumeElementPurpose::operator delete[], "None", py::arg("theAddress"));
-// cls_StepElement_HArray1OfVolumeElementPurpose.def_static("operator new_", (void * (*)(size_t, void *)) &StepElement_HArray1OfVolumeElementPurpose::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepElement_HArray1OfVolumeElementPurpose.def_static("operator delete_", (void (*)(void *, void *)) &StepElement_HArray1OfVolumeElementPurpose::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepElement_HArray1OfVolumeElementPurpose.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray1OfVolumeElementPurpose::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepElement_HArray1OfVolumeElementPurpose.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray1OfVolumeElementPurpose::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepElement_HArray1OfVolumeElementPurpose.def("Array1", (const StepElement_Array1OfVolumeElementPurpose & (StepElement_HArray1OfVolumeElementPurpose::*)() const) &StepElement_HArray1OfVolumeElementPurpose::Array1, "None");
-cls_StepElement_HArray1OfVolumeElementPurpose.def("ChangeArray1", (StepElement_Array1OfVolumeElementPurpose & (StepElement_HArray1OfVolumeElementPurpose::*)()) &StepElement_HArray1OfVolumeElementPurpose::ChangeArray1, "None");
-cls_StepElement_HArray1OfVolumeElementPurpose.def_static("get_type_name_", (const char * (*)()) &StepElement_HArray1OfVolumeElementPurpose::get_type_name, "None");
-cls_StepElement_HArray1OfVolumeElementPurpose.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepElement_HArray1OfVolumeElementPurpose::get_type_descriptor, "None");
-cls_StepElement_HArray1OfVolumeElementPurpose.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepElement_HArray1OfVolumeElementPurpose::*)() const) &StepElement_HArray1OfVolumeElementPurpose::DynamicType, "None");
+bind_Define_HArray1<StepElement_HArray1OfVolumeElementPurpose, StepElement_Array1OfVolumeElementPurpose>(mod, "StepElement_HArray1OfVolumeElementPurpose");
 
 // CLASS: STEPELEMENT_HARRAY1OFVOLUMEELEMENTPURPOSEMEMBER
-py::class_<StepElement_HArray1OfVolumeElementPurposeMember, opencascade::handle<StepElement_HArray1OfVolumeElementPurposeMember>, Standard_Transient> cls_StepElement_HArray1OfVolumeElementPurposeMember(mod, "StepElement_HArray1OfVolumeElementPurposeMember", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepElement_HArray1OfVolumeElementPurposeMember.def(py::init<>());
-cls_StepElement_HArray1OfVolumeElementPurposeMember.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepElement_HArray1OfVolumeElementPurposeMember.def(py::init<const Standard_Integer, const Standard_Integer, const StepElement_Array1OfVolumeElementPurposeMember::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepElement_HArray1OfVolumeElementPurposeMember.def(py::init<const StepElement_Array1OfVolumeElementPurposeMember &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepElement_HArray1OfVolumeElementPurposeMember.def_static("operator new_", (void * (*)(size_t)) &StepElement_HArray1OfVolumeElementPurposeMember::operator new, "None", py::arg("theSize"));
-// cls_StepElement_HArray1OfVolumeElementPurposeMember.def_static("operator delete_", (void (*)(void *)) &StepElement_HArray1OfVolumeElementPurposeMember::operator delete, "None", py::arg("theAddress"));
-// cls_StepElement_HArray1OfVolumeElementPurposeMember.def_static("operator new[]_", (void * (*)(size_t)) &StepElement_HArray1OfVolumeElementPurposeMember::operator new[], "None", py::arg("theSize"));
-// cls_StepElement_HArray1OfVolumeElementPurposeMember.def_static("operator delete[]_", (void (*)(void *)) &StepElement_HArray1OfVolumeElementPurposeMember::operator delete[], "None", py::arg("theAddress"));
-// cls_StepElement_HArray1OfVolumeElementPurposeMember.def_static("operator new_", (void * (*)(size_t, void *)) &StepElement_HArray1OfVolumeElementPurposeMember::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepElement_HArray1OfVolumeElementPurposeMember.def_static("operator delete_", (void (*)(void *, void *)) &StepElement_HArray1OfVolumeElementPurposeMember::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepElement_HArray1OfVolumeElementPurposeMember.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray1OfVolumeElementPurposeMember::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepElement_HArray1OfVolumeElementPurposeMember.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray1OfVolumeElementPurposeMember::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepElement_HArray1OfVolumeElementPurposeMember.def("Array1", (const StepElement_Array1OfVolumeElementPurposeMember & (StepElement_HArray1OfVolumeElementPurposeMember::*)() const) &StepElement_HArray1OfVolumeElementPurposeMember::Array1, "None");
-cls_StepElement_HArray1OfVolumeElementPurposeMember.def("ChangeArray1", (StepElement_Array1OfVolumeElementPurposeMember & (StepElement_HArray1OfVolumeElementPurposeMember::*)()) &StepElement_HArray1OfVolumeElementPurposeMember::ChangeArray1, "None");
-cls_StepElement_HArray1OfVolumeElementPurposeMember.def_static("get_type_name_", (const char * (*)()) &StepElement_HArray1OfVolumeElementPurposeMember::get_type_name, "None");
-cls_StepElement_HArray1OfVolumeElementPurposeMember.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepElement_HArray1OfVolumeElementPurposeMember::get_type_descriptor, "None");
-cls_StepElement_HArray1OfVolumeElementPurposeMember.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepElement_HArray1OfVolumeElementPurposeMember::*)() const) &StepElement_HArray1OfVolumeElementPurposeMember::DynamicType, "None");
+bind_Define_HArray1<StepElement_HArray1OfVolumeElementPurposeMember, StepElement_Array1OfVolumeElementPurposeMember>(mod, "StepElement_HArray1OfVolumeElementPurposeMember");
 
 // CLASS: STEPELEMENT_HARRAY2OFCURVEELEMENTPURPOSEMEMBER
-py::class_<StepElement_HArray2OfCurveElementPurposeMember, opencascade::handle<StepElement_HArray2OfCurveElementPurposeMember>, Standard_Transient> cls_StepElement_HArray2OfCurveElementPurposeMember(mod, "StepElement_HArray2OfCurveElementPurposeMember", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepElement_HArray2OfCurveElementPurposeMember.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_StepElement_HArray2OfCurveElementPurposeMember.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const StepElement_Array2OfCurveElementPurposeMember::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_StepElement_HArray2OfCurveElementPurposeMember.def(py::init<const StepElement_Array2OfCurveElementPurposeMember &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepElement_HArray2OfCurveElementPurposeMember.def_static("operator new_", (void * (*)(size_t)) &StepElement_HArray2OfCurveElementPurposeMember::operator new, "None", py::arg("theSize"));
-// cls_StepElement_HArray2OfCurveElementPurposeMember.def_static("operator delete_", (void (*)(void *)) &StepElement_HArray2OfCurveElementPurposeMember::operator delete, "None", py::arg("theAddress"));
-// cls_StepElement_HArray2OfCurveElementPurposeMember.def_static("operator new[]_", (void * (*)(size_t)) &StepElement_HArray2OfCurveElementPurposeMember::operator new[], "None", py::arg("theSize"));
-// cls_StepElement_HArray2OfCurveElementPurposeMember.def_static("operator delete[]_", (void (*)(void *)) &StepElement_HArray2OfCurveElementPurposeMember::operator delete[], "None", py::arg("theAddress"));
-// cls_StepElement_HArray2OfCurveElementPurposeMember.def_static("operator new_", (void * (*)(size_t, void *)) &StepElement_HArray2OfCurveElementPurposeMember::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepElement_HArray2OfCurveElementPurposeMember.def_static("operator delete_", (void (*)(void *, void *)) &StepElement_HArray2OfCurveElementPurposeMember::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepElement_HArray2OfCurveElementPurposeMember.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray2OfCurveElementPurposeMember::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepElement_HArray2OfCurveElementPurposeMember.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray2OfCurveElementPurposeMember::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepElement_HArray2OfCurveElementPurposeMember.def("Array2", (const StepElement_Array2OfCurveElementPurposeMember & (StepElement_HArray2OfCurveElementPurposeMember::*)() const) &StepElement_HArray2OfCurveElementPurposeMember::Array2, "None");
-cls_StepElement_HArray2OfCurveElementPurposeMember.def("ChangeArray2", (StepElement_Array2OfCurveElementPurposeMember & (StepElement_HArray2OfCurveElementPurposeMember::*)()) &StepElement_HArray2OfCurveElementPurposeMember::ChangeArray2, "None");
-cls_StepElement_HArray2OfCurveElementPurposeMember.def_static("get_type_name_", (const char * (*)()) &StepElement_HArray2OfCurveElementPurposeMember::get_type_name, "None");
-cls_StepElement_HArray2OfCurveElementPurposeMember.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepElement_HArray2OfCurveElementPurposeMember::get_type_descriptor, "None");
-cls_StepElement_HArray2OfCurveElementPurposeMember.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepElement_HArray2OfCurveElementPurposeMember::*)() const) &StepElement_HArray2OfCurveElementPurposeMember::DynamicType, "None");
+bind_Define_HArray2<StepElement_HArray2OfCurveElementPurposeMember, StepElement_Array2OfCurveElementPurposeMember>(mod, "StepElement_HArray2OfCurveElementPurposeMember");
 
 // CLASS: STEPELEMENT_HARRAY2OFSURFACEELEMENTPURPOSE
-py::class_<StepElement_HArray2OfSurfaceElementPurpose, opencascade::handle<StepElement_HArray2OfSurfaceElementPurpose>, Standard_Transient> cls_StepElement_HArray2OfSurfaceElementPurpose(mod, "StepElement_HArray2OfSurfaceElementPurpose", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepElement_HArray2OfSurfaceElementPurpose.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_StepElement_HArray2OfSurfaceElementPurpose.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const StepElement_Array2OfSurfaceElementPurpose::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_StepElement_HArray2OfSurfaceElementPurpose.def(py::init<const StepElement_Array2OfSurfaceElementPurpose &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepElement_HArray2OfSurfaceElementPurpose.def_static("operator new_", (void * (*)(size_t)) &StepElement_HArray2OfSurfaceElementPurpose::operator new, "None", py::arg("theSize"));
-// cls_StepElement_HArray2OfSurfaceElementPurpose.def_static("operator delete_", (void (*)(void *)) &StepElement_HArray2OfSurfaceElementPurpose::operator delete, "None", py::arg("theAddress"));
-// cls_StepElement_HArray2OfSurfaceElementPurpose.def_static("operator new[]_", (void * (*)(size_t)) &StepElement_HArray2OfSurfaceElementPurpose::operator new[], "None", py::arg("theSize"));
-// cls_StepElement_HArray2OfSurfaceElementPurpose.def_static("operator delete[]_", (void (*)(void *)) &StepElement_HArray2OfSurfaceElementPurpose::operator delete[], "None", py::arg("theAddress"));
-// cls_StepElement_HArray2OfSurfaceElementPurpose.def_static("operator new_", (void * (*)(size_t, void *)) &StepElement_HArray2OfSurfaceElementPurpose::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepElement_HArray2OfSurfaceElementPurpose.def_static("operator delete_", (void (*)(void *, void *)) &StepElement_HArray2OfSurfaceElementPurpose::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepElement_HArray2OfSurfaceElementPurpose.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray2OfSurfaceElementPurpose::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepElement_HArray2OfSurfaceElementPurpose.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray2OfSurfaceElementPurpose::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepElement_HArray2OfSurfaceElementPurpose.def("Array2", (const StepElement_Array2OfSurfaceElementPurpose & (StepElement_HArray2OfSurfaceElementPurpose::*)() const) &StepElement_HArray2OfSurfaceElementPurpose::Array2, "None");
-cls_StepElement_HArray2OfSurfaceElementPurpose.def("ChangeArray2", (StepElement_Array2OfSurfaceElementPurpose & (StepElement_HArray2OfSurfaceElementPurpose::*)()) &StepElement_HArray2OfSurfaceElementPurpose::ChangeArray2, "None");
-cls_StepElement_HArray2OfSurfaceElementPurpose.def_static("get_type_name_", (const char * (*)()) &StepElement_HArray2OfSurfaceElementPurpose::get_type_name, "None");
-cls_StepElement_HArray2OfSurfaceElementPurpose.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepElement_HArray2OfSurfaceElementPurpose::get_type_descriptor, "None");
-cls_StepElement_HArray2OfSurfaceElementPurpose.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepElement_HArray2OfSurfaceElementPurpose::*)() const) &StepElement_HArray2OfSurfaceElementPurpose::DynamicType, "None");
+bind_Define_HArray2<StepElement_HArray2OfSurfaceElementPurpose, StepElement_Array2OfSurfaceElementPurpose>(mod, "StepElement_HArray2OfSurfaceElementPurpose");
 
 // CLASS: STEPELEMENT_HARRAY2OFSURFACEELEMENTPURPOSEMEMBER
-py::class_<StepElement_HArray2OfSurfaceElementPurposeMember, opencascade::handle<StepElement_HArray2OfSurfaceElementPurposeMember>, Standard_Transient> cls_StepElement_HArray2OfSurfaceElementPurposeMember(mod, "StepElement_HArray2OfSurfaceElementPurposeMember", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepElement_HArray2OfSurfaceElementPurposeMember.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_StepElement_HArray2OfSurfaceElementPurposeMember.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const StepElement_Array2OfSurfaceElementPurposeMember::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_StepElement_HArray2OfSurfaceElementPurposeMember.def(py::init<const StepElement_Array2OfSurfaceElementPurposeMember &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepElement_HArray2OfSurfaceElementPurposeMember.def_static("operator new_", (void * (*)(size_t)) &StepElement_HArray2OfSurfaceElementPurposeMember::operator new, "None", py::arg("theSize"));
-// cls_StepElement_HArray2OfSurfaceElementPurposeMember.def_static("operator delete_", (void (*)(void *)) &StepElement_HArray2OfSurfaceElementPurposeMember::operator delete, "None", py::arg("theAddress"));
-// cls_StepElement_HArray2OfSurfaceElementPurposeMember.def_static("operator new[]_", (void * (*)(size_t)) &StepElement_HArray2OfSurfaceElementPurposeMember::operator new[], "None", py::arg("theSize"));
-// cls_StepElement_HArray2OfSurfaceElementPurposeMember.def_static("operator delete[]_", (void (*)(void *)) &StepElement_HArray2OfSurfaceElementPurposeMember::operator delete[], "None", py::arg("theAddress"));
-// cls_StepElement_HArray2OfSurfaceElementPurposeMember.def_static("operator new_", (void * (*)(size_t, void *)) &StepElement_HArray2OfSurfaceElementPurposeMember::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepElement_HArray2OfSurfaceElementPurposeMember.def_static("operator delete_", (void (*)(void *, void *)) &StepElement_HArray2OfSurfaceElementPurposeMember::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepElement_HArray2OfSurfaceElementPurposeMember.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray2OfSurfaceElementPurposeMember::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepElement_HArray2OfSurfaceElementPurposeMember.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepElement_HArray2OfSurfaceElementPurposeMember::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepElement_HArray2OfSurfaceElementPurposeMember.def("Array2", (const StepElement_Array2OfSurfaceElementPurposeMember & (StepElement_HArray2OfSurfaceElementPurposeMember::*)() const) &StepElement_HArray2OfSurfaceElementPurposeMember::Array2, "None");
-cls_StepElement_HArray2OfSurfaceElementPurposeMember.def("ChangeArray2", (StepElement_Array2OfSurfaceElementPurposeMember & (StepElement_HArray2OfSurfaceElementPurposeMember::*)()) &StepElement_HArray2OfSurfaceElementPurposeMember::ChangeArray2, "None");
-cls_StepElement_HArray2OfSurfaceElementPurposeMember.def_static("get_type_name_", (const char * (*)()) &StepElement_HArray2OfSurfaceElementPurposeMember::get_type_name, "None");
-cls_StepElement_HArray2OfSurfaceElementPurposeMember.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepElement_HArray2OfSurfaceElementPurposeMember::get_type_descriptor, "None");
-cls_StepElement_HArray2OfSurfaceElementPurposeMember.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepElement_HArray2OfSurfaceElementPurposeMember::*)() const) &StepElement_HArray2OfSurfaceElementPurposeMember::DynamicType, "None");
+bind_Define_HArray2<StepElement_HArray2OfSurfaceElementPurposeMember, StepElement_Array2OfSurfaceElementPurposeMember>(mod, "StepElement_HArray2OfSurfaceElementPurposeMember");
 
 // CLASS: STEPELEMENT_MEASUREORUNSPECIFIEDVALUEMEMBER
 py::class_<StepElement_MeasureOrUnspecifiedValueMember, opencascade::handle<StepElement_MeasureOrUnspecifiedValueMember>, StepData_SelectNamed> cls_StepElement_MeasureOrUnspecifiedValueMember(mod, "StepElement_MeasureOrUnspecifiedValueMember", "Representation of member for STEP SELECT type MeasureOrUnspecifiedValue");

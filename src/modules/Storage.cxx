@@ -76,8 +76,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Storage_StreamUnknownTypeError.hxx>
 #include <Storage_StreamWriteError.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 #include <bind_NCollection_Array1.hxx>
 #include <bind_NCollection_DataMap.hxx>
+#include <bind_Define_HArray1.hxx>
 #include <bind_NCollection_IndexedDataMap.hxx>
 
 PYBIND11_MODULE(Storage, mod) {
@@ -183,28 +185,7 @@ cls_Storage_Root.def("DynamicType", (const opencascade::handle<Standard_Type> & 
 bind_NCollection_Sequence<opencascade::handle<Storage_Root> >(mod, "Storage_SeqOfRoot", py::module_local(false));
 
 // CLASS: STORAGE_HSEQOFROOT
-py::class_<Storage_HSeqOfRoot, opencascade::handle<Storage_HSeqOfRoot>, Standard_Transient> cls_Storage_HSeqOfRoot(mod, "Storage_HSeqOfRoot", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Storage_HSeqOfRoot.def(py::init<>());
-cls_Storage_HSeqOfRoot.def(py::init<const Storage_SeqOfRoot &>(), py::arg("theOther"));
-
-// Methods
-// cls_Storage_HSeqOfRoot.def_static("operator new_", (void * (*)(size_t)) &Storage_HSeqOfRoot::operator new, "None", py::arg("theSize"));
-// cls_Storage_HSeqOfRoot.def_static("operator delete_", (void (*)(void *)) &Storage_HSeqOfRoot::operator delete, "None", py::arg("theAddress"));
-// cls_Storage_HSeqOfRoot.def_static("operator new[]_", (void * (*)(size_t)) &Storage_HSeqOfRoot::operator new[], "None", py::arg("theSize"));
-// cls_Storage_HSeqOfRoot.def_static("operator delete[]_", (void (*)(void *)) &Storage_HSeqOfRoot::operator delete[], "None", py::arg("theAddress"));
-// cls_Storage_HSeqOfRoot.def_static("operator new_", (void * (*)(size_t, void *)) &Storage_HSeqOfRoot::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Storage_HSeqOfRoot.def_static("operator delete_", (void (*)(void *, void *)) &Storage_HSeqOfRoot::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Storage_HSeqOfRoot.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Storage_HSeqOfRoot::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Storage_HSeqOfRoot.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Storage_HSeqOfRoot::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Storage_HSeqOfRoot.def("Sequence", (const Storage_SeqOfRoot & (Storage_HSeqOfRoot::*)() const) &Storage_HSeqOfRoot::Sequence, "None");
-cls_Storage_HSeqOfRoot.def("Append", (void (Storage_HSeqOfRoot::*)(const Storage_SeqOfRoot::value_type &)) &Storage_HSeqOfRoot::Append, "None", py::arg("theItem"));
-cls_Storage_HSeqOfRoot.def("Append", (void (Storage_HSeqOfRoot::*)(Storage_SeqOfRoot &)) &Storage_HSeqOfRoot::Append, "None", py::arg("theSequence"));
-cls_Storage_HSeqOfRoot.def("ChangeSequence", (Storage_SeqOfRoot & (Storage_HSeqOfRoot::*)()) &Storage_HSeqOfRoot::ChangeSequence, "None");
-cls_Storage_HSeqOfRoot.def_static("get_type_name_", (const char * (*)()) &Storage_HSeqOfRoot::get_type_name, "None");
-cls_Storage_HSeqOfRoot.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Storage_HSeqOfRoot::get_type_descriptor, "None");
-cls_Storage_HSeqOfRoot.def("DynamicType", (const opencascade::handle<Standard_Type> & (Storage_HSeqOfRoot::*)() const) &Storage_HSeqOfRoot::DynamicType, "None");
+bind_Define_HSequence<Storage_HSeqOfRoot, Storage_SeqOfRoot>(mod, "Storage_HSeqOfRoot");
 
 // CLASS: STORAGE_DATA
 py::class_<Storage_Data, opencascade::handle<Storage_Data>, Standard_Transient> cls_Storage_Data(mod, "Storage_Data", "A picture memorizing the data stored in a container (for example, in a file). A Storage_Data object represents either: - persistent data to be written into a container, or - persistent data which are read from a container. A Storage_Data object is used in both the storage and retrieval operations: - Storage mechanism: create an empty Storage_Data object, then add successively persistent objects (roots) to be stored using the function AddRoot. When the set of data is complete, write it to a container using the function Write in your Storage_Schema storage/retrieval algorithm. - Retrieval mechanism: a Storage_Data object is returned by the Read function from your Storage_Schema storage/retrieval algorithm. Use the functions NumberOfRoots and Roots to find the roots which were stored in the read container. The roots of a Storage_Data object may share references on objects. The shared internal references of a Storage_Data object are maintained by the storage/retrieval mechanism. Note: References shared by objects which are contained in two distinct Storage_Data objects are not maintained by the storage/retrieval mechanism: external references are not supported by Storage_Schema algorithm");
@@ -468,28 +449,7 @@ cls_Storage_DefaultCallBack.def_static("get_type_descriptor_", (const opencascad
 cls_Storage_DefaultCallBack.def("DynamicType", (const opencascade::handle<Standard_Type> & (Storage_DefaultCallBack::*)() const) &Storage_DefaultCallBack::DynamicType, "None");
 
 // CLASS: STORAGE_HARRAYOFCALLBACK
-py::class_<Storage_HArrayOfCallBack, opencascade::handle<Storage_HArrayOfCallBack>, Standard_Transient> cls_Storage_HArrayOfCallBack(mod, "Storage_HArrayOfCallBack", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Storage_HArrayOfCallBack.def(py::init<>());
-cls_Storage_HArrayOfCallBack.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_Storage_HArrayOfCallBack.def(py::init<const Standard_Integer, const Standard_Integer, const Storage_ArrayOfCallBack::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_Storage_HArrayOfCallBack.def(py::init<const Storage_ArrayOfCallBack &>(), py::arg("theOther"));
-
-// Methods
-// cls_Storage_HArrayOfCallBack.def_static("operator new_", (void * (*)(size_t)) &Storage_HArrayOfCallBack::operator new, "None", py::arg("theSize"));
-// cls_Storage_HArrayOfCallBack.def_static("operator delete_", (void (*)(void *)) &Storage_HArrayOfCallBack::operator delete, "None", py::arg("theAddress"));
-// cls_Storage_HArrayOfCallBack.def_static("operator new[]_", (void * (*)(size_t)) &Storage_HArrayOfCallBack::operator new[], "None", py::arg("theSize"));
-// cls_Storage_HArrayOfCallBack.def_static("operator delete[]_", (void (*)(void *)) &Storage_HArrayOfCallBack::operator delete[], "None", py::arg("theAddress"));
-// cls_Storage_HArrayOfCallBack.def_static("operator new_", (void * (*)(size_t, void *)) &Storage_HArrayOfCallBack::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Storage_HArrayOfCallBack.def_static("operator delete_", (void (*)(void *, void *)) &Storage_HArrayOfCallBack::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Storage_HArrayOfCallBack.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Storage_HArrayOfCallBack::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Storage_HArrayOfCallBack.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Storage_HArrayOfCallBack::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Storage_HArrayOfCallBack.def("Array1", (const Storage_ArrayOfCallBack & (Storage_HArrayOfCallBack::*)() const) &Storage_HArrayOfCallBack::Array1, "None");
-cls_Storage_HArrayOfCallBack.def("ChangeArray1", (Storage_ArrayOfCallBack & (Storage_HArrayOfCallBack::*)()) &Storage_HArrayOfCallBack::ChangeArray1, "None");
-cls_Storage_HArrayOfCallBack.def_static("get_type_name_", (const char * (*)()) &Storage_HArrayOfCallBack::get_type_name, "None");
-cls_Storage_HArrayOfCallBack.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Storage_HArrayOfCallBack::get_type_descriptor, "None");
-cls_Storage_HArrayOfCallBack.def("DynamicType", (const opencascade::handle<Standard_Type> & (Storage_HArrayOfCallBack::*)() const) &Storage_HArrayOfCallBack::DynamicType, "None");
+bind_Define_HArray1<Storage_HArrayOfCallBack, Storage_ArrayOfCallBack>(mod, "Storage_HArrayOfCallBack");
 
 // CLASS: STORAGE_SCHEMA
 py::class_<Storage_Schema, opencascade::handle<Storage_Schema>, Standard_Transient> cls_Storage_Schema(mod, "Storage_Schema", "Root class for basic storage/retrieval algorithms. A Storage_Schema object processes: - writing of a set of persistent data into a container (store mechanism), - reading of a container to extract all the contained persistent data (retrieve mechanism). A Storage_Schema object is based on the data schema for the persistent data of the application, i.e.: - the list of all persistent objects which may be known by the application, - the organization of their data; a data schema knows how to browse each persistent object it contains. During the store or retrieve operation, only persistent objects known from the data schema can be processed; they are then stored or retrieved according to their description in the schema. A data schema is specific to the object classes to be read or written. Tools dedicated to the environment in use allow a description of the application persistent data structure. Storage_Schema algorithms are called basic because they do not support external references between containers.");
@@ -527,28 +487,7 @@ cls_Storage_Schema.def("DynamicType", (const opencascade::handle<Standard_Type> 
 bind_NCollection_Array1<opencascade::handle<Standard_Persistent> >(mod, "Storage_PArray", py::module_local(false));
 
 // CLASS: STORAGE_HPARRAY
-py::class_<Storage_HPArray, opencascade::handle<Storage_HPArray>, Standard_Transient> cls_Storage_HPArray(mod, "Storage_HPArray", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Storage_HPArray.def(py::init<>());
-cls_Storage_HPArray.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_Storage_HPArray.def(py::init<const Standard_Integer, const Standard_Integer, const Storage_PArray::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_Storage_HPArray.def(py::init<const Storage_PArray &>(), py::arg("theOther"));
-
-// Methods
-// cls_Storage_HPArray.def_static("operator new_", (void * (*)(size_t)) &Storage_HPArray::operator new, "None", py::arg("theSize"));
-// cls_Storage_HPArray.def_static("operator delete_", (void (*)(void *)) &Storage_HPArray::operator delete, "None", py::arg("theAddress"));
-// cls_Storage_HPArray.def_static("operator new[]_", (void * (*)(size_t)) &Storage_HPArray::operator new[], "None", py::arg("theSize"));
-// cls_Storage_HPArray.def_static("operator delete[]_", (void (*)(void *)) &Storage_HPArray::operator delete[], "None", py::arg("theAddress"));
-// cls_Storage_HPArray.def_static("operator new_", (void * (*)(size_t, void *)) &Storage_HPArray::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Storage_HPArray.def_static("operator delete_", (void (*)(void *, void *)) &Storage_HPArray::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Storage_HPArray.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Storage_HPArray::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Storage_HPArray.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Storage_HPArray::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Storage_HPArray.def("Array1", (const Storage_PArray & (Storage_HPArray::*)() const) &Storage_HPArray::Array1, "None");
-cls_Storage_HPArray.def("ChangeArray1", (Storage_PArray & (Storage_HPArray::*)()) &Storage_HPArray::ChangeArray1, "None");
-cls_Storage_HPArray.def_static("get_type_name_", (const char * (*)()) &Storage_HPArray::get_type_name, "None");
-cls_Storage_HPArray.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Storage_HPArray::get_type_descriptor, "None");
-cls_Storage_HPArray.def("DynamicType", (const opencascade::handle<Standard_Type> & (Storage_HPArray::*)() const) &Storage_HPArray::DynamicType, "None");
+bind_Define_HArray1<Storage_HPArray, Storage_PArray>(mod, "Storage_HPArray");
 
 // CLASS: STORAGE_INTERNALDATA
 py::class_<Storage_InternalData, opencascade::handle<Storage_InternalData>, Standard_Transient> cls_Storage_InternalData(mod, "Storage_InternalData", "None");
@@ -564,28 +503,7 @@ cls_Storage_InternalData.def_static("get_type_descriptor_", (const opencascade::
 cls_Storage_InternalData.def("DynamicType", (const opencascade::handle<Standard_Type> & (Storage_InternalData::*)() const) &Storage_InternalData::DynamicType, "None");
 
 // CLASS: STORAGE_HARRAYOFSCHEMA
-py::class_<Storage_HArrayOfSchema, opencascade::handle<Storage_HArrayOfSchema>, Standard_Transient> cls_Storage_HArrayOfSchema(mod, "Storage_HArrayOfSchema", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Storage_HArrayOfSchema.def(py::init<>());
-cls_Storage_HArrayOfSchema.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_Storage_HArrayOfSchema.def(py::init<const Standard_Integer, const Standard_Integer, const Storage_ArrayOfSchema::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_Storage_HArrayOfSchema.def(py::init<const Storage_ArrayOfSchema &>(), py::arg("theOther"));
-
-// Methods
-// cls_Storage_HArrayOfSchema.def_static("operator new_", (void * (*)(size_t)) &Storage_HArrayOfSchema::operator new, "None", py::arg("theSize"));
-// cls_Storage_HArrayOfSchema.def_static("operator delete_", (void (*)(void *)) &Storage_HArrayOfSchema::operator delete, "None", py::arg("theAddress"));
-// cls_Storage_HArrayOfSchema.def_static("operator new[]_", (void * (*)(size_t)) &Storage_HArrayOfSchema::operator new[], "None", py::arg("theSize"));
-// cls_Storage_HArrayOfSchema.def_static("operator delete[]_", (void (*)(void *)) &Storage_HArrayOfSchema::operator delete[], "None", py::arg("theAddress"));
-// cls_Storage_HArrayOfSchema.def_static("operator new_", (void * (*)(size_t, void *)) &Storage_HArrayOfSchema::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Storage_HArrayOfSchema.def_static("operator delete_", (void (*)(void *, void *)) &Storage_HArrayOfSchema::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Storage_HArrayOfSchema.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Storage_HArrayOfSchema::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Storage_HArrayOfSchema.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Storage_HArrayOfSchema::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Storage_HArrayOfSchema.def("Array1", (const Storage_ArrayOfSchema & (Storage_HArrayOfSchema::*)() const) &Storage_HArrayOfSchema::Array1, "None");
-cls_Storage_HArrayOfSchema.def("ChangeArray1", (Storage_ArrayOfSchema & (Storage_HArrayOfSchema::*)()) &Storage_HArrayOfSchema::ChangeArray1, "None");
-cls_Storage_HArrayOfSchema.def_static("get_type_name_", (const char * (*)()) &Storage_HArrayOfSchema::get_type_name, "None");
-cls_Storage_HArrayOfSchema.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Storage_HArrayOfSchema::get_type_descriptor, "None");
-cls_Storage_HArrayOfSchema.def("DynamicType", (const opencascade::handle<Standard_Type> & (Storage_HArrayOfSchema::*)() const) &Storage_HArrayOfSchema::DynamicType, "None");
+bind_Define_HArray1<Storage_HArrayOfSchema, Storage_ArrayOfSchema>(mod, "Storage_HArrayOfSchema");
 
 // TYPEDEF: STORAGE_PTYPE
 bind_NCollection_IndexedDataMap<TCollection_AsciiString, int, TCollection_AsciiString>(mod, "Storage_PType", py::module_local());

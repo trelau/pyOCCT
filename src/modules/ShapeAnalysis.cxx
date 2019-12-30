@@ -103,6 +103,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <bind_NCollection_UBTree.hxx>
 #include <bind_NCollection_DataMap.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 
 PYBIND11_MODULE(ShapeAnalysis, mod) {
 
@@ -359,28 +360,7 @@ cls_ShapeAnalysis_FreeBounds.def_static("DispatchWires_", (void (*)(const openca
 bind_NCollection_Sequence<opencascade::handle<ShapeAnalysis_FreeBoundData> >(mod, "ShapeAnalysis_SequenceOfFreeBounds", py::module_local(false));
 
 // CLASS: SHAPEANALYSIS_HSEQUENCEOFFREEBOUNDS
-py::class_<ShapeAnalysis_HSequenceOfFreeBounds, opencascade::handle<ShapeAnalysis_HSequenceOfFreeBounds>, Standard_Transient> cls_ShapeAnalysis_HSequenceOfFreeBounds(mod, "ShapeAnalysis_HSequenceOfFreeBounds", "None", py::multiple_inheritance());
-
-// Constructors
-cls_ShapeAnalysis_HSequenceOfFreeBounds.def(py::init<>());
-cls_ShapeAnalysis_HSequenceOfFreeBounds.def(py::init<const ShapeAnalysis_SequenceOfFreeBounds &>(), py::arg("theOther"));
-
-// Methods
-// cls_ShapeAnalysis_HSequenceOfFreeBounds.def_static("operator new_", (void * (*)(size_t)) &ShapeAnalysis_HSequenceOfFreeBounds::operator new, "None", py::arg("theSize"));
-// cls_ShapeAnalysis_HSequenceOfFreeBounds.def_static("operator delete_", (void (*)(void *)) &ShapeAnalysis_HSequenceOfFreeBounds::operator delete, "None", py::arg("theAddress"));
-// cls_ShapeAnalysis_HSequenceOfFreeBounds.def_static("operator new[]_", (void * (*)(size_t)) &ShapeAnalysis_HSequenceOfFreeBounds::operator new[], "None", py::arg("theSize"));
-// cls_ShapeAnalysis_HSequenceOfFreeBounds.def_static("operator delete[]_", (void (*)(void *)) &ShapeAnalysis_HSequenceOfFreeBounds::operator delete[], "None", py::arg("theAddress"));
-// cls_ShapeAnalysis_HSequenceOfFreeBounds.def_static("operator new_", (void * (*)(size_t, void *)) &ShapeAnalysis_HSequenceOfFreeBounds::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_ShapeAnalysis_HSequenceOfFreeBounds.def_static("operator delete_", (void (*)(void *, void *)) &ShapeAnalysis_HSequenceOfFreeBounds::operator delete, "None", py::arg(""), py::arg(""));
-// cls_ShapeAnalysis_HSequenceOfFreeBounds.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &ShapeAnalysis_HSequenceOfFreeBounds::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_ShapeAnalysis_HSequenceOfFreeBounds.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &ShapeAnalysis_HSequenceOfFreeBounds::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_ShapeAnalysis_HSequenceOfFreeBounds.def("Sequence", (const ShapeAnalysis_SequenceOfFreeBounds & (ShapeAnalysis_HSequenceOfFreeBounds::*)() const) &ShapeAnalysis_HSequenceOfFreeBounds::Sequence, "None");
-cls_ShapeAnalysis_HSequenceOfFreeBounds.def("Append", (void (ShapeAnalysis_HSequenceOfFreeBounds::*)(const ShapeAnalysis_SequenceOfFreeBounds::value_type &)) &ShapeAnalysis_HSequenceOfFreeBounds::Append, "None", py::arg("theItem"));
-cls_ShapeAnalysis_HSequenceOfFreeBounds.def("Append", (void (ShapeAnalysis_HSequenceOfFreeBounds::*)(ShapeAnalysis_SequenceOfFreeBounds &)) &ShapeAnalysis_HSequenceOfFreeBounds::Append, "None", py::arg("theSequence"));
-cls_ShapeAnalysis_HSequenceOfFreeBounds.def("ChangeSequence", (ShapeAnalysis_SequenceOfFreeBounds & (ShapeAnalysis_HSequenceOfFreeBounds::*)()) &ShapeAnalysis_HSequenceOfFreeBounds::ChangeSequence, "None");
-cls_ShapeAnalysis_HSequenceOfFreeBounds.def_static("get_type_name_", (const char * (*)()) &ShapeAnalysis_HSequenceOfFreeBounds::get_type_name, "None");
-cls_ShapeAnalysis_HSequenceOfFreeBounds.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ShapeAnalysis_HSequenceOfFreeBounds::get_type_descriptor, "None");
-cls_ShapeAnalysis_HSequenceOfFreeBounds.def("DynamicType", (const opencascade::handle<Standard_Type> & (ShapeAnalysis_HSequenceOfFreeBounds::*)() const) &ShapeAnalysis_HSequenceOfFreeBounds::DynamicType, "None");
+bind_Define_HSequence<ShapeAnalysis_HSequenceOfFreeBounds, ShapeAnalysis_SequenceOfFreeBounds>(mod, "ShapeAnalysis_HSequenceOfFreeBounds");
 
 // CLASS: SHAPEANALYSIS_FREEBOUNDSPROPERTIES
 py::class_<ShapeAnalysis_FreeBoundsProperties> cls_ShapeAnalysis_FreeBoundsProperties(mod, "ShapeAnalysis_FreeBoundsProperties", "This class is intended to calculate shape free bounds properties. This class provides the following functionalities: - calculates area of the contour, - calculates perimeter of the contour, - calculates ratio of average length to average width of the contour, - estimates average width of contour, - finds the notches (narrow 'V'-like sub-contour) on the contour.");

@@ -101,6 +101,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepBasic_VersionedActionRequest.hxx>
 #include <StepAP203_HArray1OfStartRequestItem.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(StepAP203, mod) {
 
@@ -331,28 +332,7 @@ cls_StepAP203_WorkItem.def("ProductDefinitionFormation", (opencascade::handle<St
 bind_NCollection_Array1<StepAP203_WorkItem>(mod, "StepAP203_Array1OfWorkItem", py::module_local(false));
 
 // CLASS: STEPAP203_HARRAY1OFAPPROVEDITEM
-py::class_<StepAP203_HArray1OfApprovedItem, opencascade::handle<StepAP203_HArray1OfApprovedItem>, Standard_Transient> cls_StepAP203_HArray1OfApprovedItem(mod, "StepAP203_HArray1OfApprovedItem", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepAP203_HArray1OfApprovedItem.def(py::init<>());
-cls_StepAP203_HArray1OfApprovedItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepAP203_HArray1OfApprovedItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfApprovedItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepAP203_HArray1OfApprovedItem.def(py::init<const StepAP203_Array1OfApprovedItem &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepAP203_HArray1OfApprovedItem.def_static("operator new_", (void * (*)(size_t)) &StepAP203_HArray1OfApprovedItem::operator new, "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfApprovedItem.def_static("operator delete_", (void (*)(void *)) &StepAP203_HArray1OfApprovedItem::operator delete, "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfApprovedItem.def_static("operator new[]_", (void * (*)(size_t)) &StepAP203_HArray1OfApprovedItem::operator new[], "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfApprovedItem.def_static("operator delete[]_", (void (*)(void *)) &StepAP203_HArray1OfApprovedItem::operator delete[], "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfApprovedItem.def_static("operator new_", (void * (*)(size_t, void *)) &StepAP203_HArray1OfApprovedItem::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepAP203_HArray1OfApprovedItem.def_static("operator delete_", (void (*)(void *, void *)) &StepAP203_HArray1OfApprovedItem::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepAP203_HArray1OfApprovedItem.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfApprovedItem::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepAP203_HArray1OfApprovedItem.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfApprovedItem::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepAP203_HArray1OfApprovedItem.def("Array1", (const StepAP203_Array1OfApprovedItem & (StepAP203_HArray1OfApprovedItem::*)() const) &StepAP203_HArray1OfApprovedItem::Array1, "None");
-cls_StepAP203_HArray1OfApprovedItem.def("ChangeArray1", (StepAP203_Array1OfApprovedItem & (StepAP203_HArray1OfApprovedItem::*)()) &StepAP203_HArray1OfApprovedItem::ChangeArray1, "None");
-cls_StepAP203_HArray1OfApprovedItem.def_static("get_type_name_", (const char * (*)()) &StepAP203_HArray1OfApprovedItem::get_type_name, "None");
-cls_StepAP203_HArray1OfApprovedItem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepAP203_HArray1OfApprovedItem::get_type_descriptor, "None");
-cls_StepAP203_HArray1OfApprovedItem.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_HArray1OfApprovedItem::*)() const) &StepAP203_HArray1OfApprovedItem::DynamicType, "None");
+bind_Define_HArray1<StepAP203_HArray1OfApprovedItem, StepAP203_Array1OfApprovedItem>(mod, "StepAP203_HArray1OfApprovedItem");
 
 // CLASS: STEPAP203_CCDESIGNAPPROVAL
 py::class_<StepAP203_CcDesignApproval, opencascade::handle<StepAP203_CcDesignApproval>, StepBasic_ApprovalAssignment> cls_StepAP203_CcDesignApproval(mod, "StepAP203_CcDesignApproval", "Representation of STEP entity CcDesignApproval");
@@ -369,28 +349,7 @@ cls_StepAP203_CcDesignApproval.def_static("get_type_descriptor_", (const opencas
 cls_StepAP203_CcDesignApproval.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_CcDesignApproval::*)() const) &StepAP203_CcDesignApproval::DynamicType, "None");
 
 // CLASS: STEPAP203_HARRAY1OFCERTIFIEDITEM
-py::class_<StepAP203_HArray1OfCertifiedItem, opencascade::handle<StepAP203_HArray1OfCertifiedItem>, Standard_Transient> cls_StepAP203_HArray1OfCertifiedItem(mod, "StepAP203_HArray1OfCertifiedItem", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepAP203_HArray1OfCertifiedItem.def(py::init<>());
-cls_StepAP203_HArray1OfCertifiedItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepAP203_HArray1OfCertifiedItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfCertifiedItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepAP203_HArray1OfCertifiedItem.def(py::init<const StepAP203_Array1OfCertifiedItem &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepAP203_HArray1OfCertifiedItem.def_static("operator new_", (void * (*)(size_t)) &StepAP203_HArray1OfCertifiedItem::operator new, "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfCertifiedItem.def_static("operator delete_", (void (*)(void *)) &StepAP203_HArray1OfCertifiedItem::operator delete, "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfCertifiedItem.def_static("operator new[]_", (void * (*)(size_t)) &StepAP203_HArray1OfCertifiedItem::operator new[], "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfCertifiedItem.def_static("operator delete[]_", (void (*)(void *)) &StepAP203_HArray1OfCertifiedItem::operator delete[], "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfCertifiedItem.def_static("operator new_", (void * (*)(size_t, void *)) &StepAP203_HArray1OfCertifiedItem::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepAP203_HArray1OfCertifiedItem.def_static("operator delete_", (void (*)(void *, void *)) &StepAP203_HArray1OfCertifiedItem::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepAP203_HArray1OfCertifiedItem.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfCertifiedItem::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepAP203_HArray1OfCertifiedItem.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfCertifiedItem::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepAP203_HArray1OfCertifiedItem.def("Array1", (const StepAP203_Array1OfCertifiedItem & (StepAP203_HArray1OfCertifiedItem::*)() const) &StepAP203_HArray1OfCertifiedItem::Array1, "None");
-cls_StepAP203_HArray1OfCertifiedItem.def("ChangeArray1", (StepAP203_Array1OfCertifiedItem & (StepAP203_HArray1OfCertifiedItem::*)()) &StepAP203_HArray1OfCertifiedItem::ChangeArray1, "None");
-cls_StepAP203_HArray1OfCertifiedItem.def_static("get_type_name_", (const char * (*)()) &StepAP203_HArray1OfCertifiedItem::get_type_name, "None");
-cls_StepAP203_HArray1OfCertifiedItem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepAP203_HArray1OfCertifiedItem::get_type_descriptor, "None");
-cls_StepAP203_HArray1OfCertifiedItem.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_HArray1OfCertifiedItem::*)() const) &StepAP203_HArray1OfCertifiedItem::DynamicType, "None");
+bind_Define_HArray1<StepAP203_HArray1OfCertifiedItem, StepAP203_Array1OfCertifiedItem>(mod, "StepAP203_HArray1OfCertifiedItem");
 
 // CLASS: STEPAP203_CCDESIGNCERTIFICATION
 py::class_<StepAP203_CcDesignCertification, opencascade::handle<StepAP203_CcDesignCertification>, StepBasic_CertificationAssignment> cls_StepAP203_CcDesignCertification(mod, "StepAP203_CcDesignCertification", "Representation of STEP entity CcDesignCertification");
@@ -407,28 +366,7 @@ cls_StepAP203_CcDesignCertification.def_static("get_type_descriptor_", (const op
 cls_StepAP203_CcDesignCertification.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_CcDesignCertification::*)() const) &StepAP203_CcDesignCertification::DynamicType, "None");
 
 // CLASS: STEPAP203_HARRAY1OFCONTRACTEDITEM
-py::class_<StepAP203_HArray1OfContractedItem, opencascade::handle<StepAP203_HArray1OfContractedItem>, Standard_Transient> cls_StepAP203_HArray1OfContractedItem(mod, "StepAP203_HArray1OfContractedItem", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepAP203_HArray1OfContractedItem.def(py::init<>());
-cls_StepAP203_HArray1OfContractedItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepAP203_HArray1OfContractedItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfContractedItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepAP203_HArray1OfContractedItem.def(py::init<const StepAP203_Array1OfContractedItem &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepAP203_HArray1OfContractedItem.def_static("operator new_", (void * (*)(size_t)) &StepAP203_HArray1OfContractedItem::operator new, "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfContractedItem.def_static("operator delete_", (void (*)(void *)) &StepAP203_HArray1OfContractedItem::operator delete, "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfContractedItem.def_static("operator new[]_", (void * (*)(size_t)) &StepAP203_HArray1OfContractedItem::operator new[], "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfContractedItem.def_static("operator delete[]_", (void (*)(void *)) &StepAP203_HArray1OfContractedItem::operator delete[], "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfContractedItem.def_static("operator new_", (void * (*)(size_t, void *)) &StepAP203_HArray1OfContractedItem::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepAP203_HArray1OfContractedItem.def_static("operator delete_", (void (*)(void *, void *)) &StepAP203_HArray1OfContractedItem::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepAP203_HArray1OfContractedItem.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfContractedItem::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepAP203_HArray1OfContractedItem.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfContractedItem::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepAP203_HArray1OfContractedItem.def("Array1", (const StepAP203_Array1OfContractedItem & (StepAP203_HArray1OfContractedItem::*)() const) &StepAP203_HArray1OfContractedItem::Array1, "None");
-cls_StepAP203_HArray1OfContractedItem.def("ChangeArray1", (StepAP203_Array1OfContractedItem & (StepAP203_HArray1OfContractedItem::*)()) &StepAP203_HArray1OfContractedItem::ChangeArray1, "None");
-cls_StepAP203_HArray1OfContractedItem.def_static("get_type_name_", (const char * (*)()) &StepAP203_HArray1OfContractedItem::get_type_name, "None");
-cls_StepAP203_HArray1OfContractedItem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepAP203_HArray1OfContractedItem::get_type_descriptor, "None");
-cls_StepAP203_HArray1OfContractedItem.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_HArray1OfContractedItem::*)() const) &StepAP203_HArray1OfContractedItem::DynamicType, "None");
+bind_Define_HArray1<StepAP203_HArray1OfContractedItem, StepAP203_Array1OfContractedItem>(mod, "StepAP203_HArray1OfContractedItem");
 
 // CLASS: STEPAP203_CCDESIGNCONTRACT
 py::class_<StepAP203_CcDesignContract, opencascade::handle<StepAP203_CcDesignContract>, StepBasic_ContractAssignment> cls_StepAP203_CcDesignContract(mod, "StepAP203_CcDesignContract", "Representation of STEP entity CcDesignContract");
@@ -445,28 +383,7 @@ cls_StepAP203_CcDesignContract.def_static("get_type_descriptor_", (const opencas
 cls_StepAP203_CcDesignContract.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_CcDesignContract::*)() const) &StepAP203_CcDesignContract::DynamicType, "None");
 
 // CLASS: STEPAP203_HARRAY1OFDATETIMEITEM
-py::class_<StepAP203_HArray1OfDateTimeItem, opencascade::handle<StepAP203_HArray1OfDateTimeItem>, Standard_Transient> cls_StepAP203_HArray1OfDateTimeItem(mod, "StepAP203_HArray1OfDateTimeItem", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepAP203_HArray1OfDateTimeItem.def(py::init<>());
-cls_StepAP203_HArray1OfDateTimeItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepAP203_HArray1OfDateTimeItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfDateTimeItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepAP203_HArray1OfDateTimeItem.def(py::init<const StepAP203_Array1OfDateTimeItem &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepAP203_HArray1OfDateTimeItem.def_static("operator new_", (void * (*)(size_t)) &StepAP203_HArray1OfDateTimeItem::operator new, "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfDateTimeItem.def_static("operator delete_", (void (*)(void *)) &StepAP203_HArray1OfDateTimeItem::operator delete, "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfDateTimeItem.def_static("operator new[]_", (void * (*)(size_t)) &StepAP203_HArray1OfDateTimeItem::operator new[], "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfDateTimeItem.def_static("operator delete[]_", (void (*)(void *)) &StepAP203_HArray1OfDateTimeItem::operator delete[], "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfDateTimeItem.def_static("operator new_", (void * (*)(size_t, void *)) &StepAP203_HArray1OfDateTimeItem::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepAP203_HArray1OfDateTimeItem.def_static("operator delete_", (void (*)(void *, void *)) &StepAP203_HArray1OfDateTimeItem::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepAP203_HArray1OfDateTimeItem.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfDateTimeItem::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepAP203_HArray1OfDateTimeItem.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfDateTimeItem::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepAP203_HArray1OfDateTimeItem.def("Array1", (const StepAP203_Array1OfDateTimeItem & (StepAP203_HArray1OfDateTimeItem::*)() const) &StepAP203_HArray1OfDateTimeItem::Array1, "None");
-cls_StepAP203_HArray1OfDateTimeItem.def("ChangeArray1", (StepAP203_Array1OfDateTimeItem & (StepAP203_HArray1OfDateTimeItem::*)()) &StepAP203_HArray1OfDateTimeItem::ChangeArray1, "None");
-cls_StepAP203_HArray1OfDateTimeItem.def_static("get_type_name_", (const char * (*)()) &StepAP203_HArray1OfDateTimeItem::get_type_name, "None");
-cls_StepAP203_HArray1OfDateTimeItem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepAP203_HArray1OfDateTimeItem::get_type_descriptor, "None");
-cls_StepAP203_HArray1OfDateTimeItem.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_HArray1OfDateTimeItem::*)() const) &StepAP203_HArray1OfDateTimeItem::DynamicType, "None");
+bind_Define_HArray1<StepAP203_HArray1OfDateTimeItem, StepAP203_Array1OfDateTimeItem>(mod, "StepAP203_HArray1OfDateTimeItem");
 
 // CLASS: STEPAP203_CCDESIGNDATEANDTIMEASSIGNMENT
 py::class_<StepAP203_CcDesignDateAndTimeAssignment, opencascade::handle<StepAP203_CcDesignDateAndTimeAssignment>, StepBasic_DateAndTimeAssignment> cls_StepAP203_CcDesignDateAndTimeAssignment(mod, "StepAP203_CcDesignDateAndTimeAssignment", "Representation of STEP entity CcDesignDateAndTimeAssignment");
@@ -483,28 +400,7 @@ cls_StepAP203_CcDesignDateAndTimeAssignment.def_static("get_type_descriptor_", (
 cls_StepAP203_CcDesignDateAndTimeAssignment.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_CcDesignDateAndTimeAssignment::*)() const) &StepAP203_CcDesignDateAndTimeAssignment::DynamicType, "None");
 
 // CLASS: STEPAP203_HARRAY1OFPERSONORGANIZATIONITEM
-py::class_<StepAP203_HArray1OfPersonOrganizationItem, opencascade::handle<StepAP203_HArray1OfPersonOrganizationItem>, Standard_Transient> cls_StepAP203_HArray1OfPersonOrganizationItem(mod, "StepAP203_HArray1OfPersonOrganizationItem", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepAP203_HArray1OfPersonOrganizationItem.def(py::init<>());
-cls_StepAP203_HArray1OfPersonOrganizationItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepAP203_HArray1OfPersonOrganizationItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfPersonOrganizationItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepAP203_HArray1OfPersonOrganizationItem.def(py::init<const StepAP203_Array1OfPersonOrganizationItem &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepAP203_HArray1OfPersonOrganizationItem.def_static("operator new_", (void * (*)(size_t)) &StepAP203_HArray1OfPersonOrganizationItem::operator new, "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfPersonOrganizationItem.def_static("operator delete_", (void (*)(void *)) &StepAP203_HArray1OfPersonOrganizationItem::operator delete, "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfPersonOrganizationItem.def_static("operator new[]_", (void * (*)(size_t)) &StepAP203_HArray1OfPersonOrganizationItem::operator new[], "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfPersonOrganizationItem.def_static("operator delete[]_", (void (*)(void *)) &StepAP203_HArray1OfPersonOrganizationItem::operator delete[], "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfPersonOrganizationItem.def_static("operator new_", (void * (*)(size_t, void *)) &StepAP203_HArray1OfPersonOrganizationItem::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepAP203_HArray1OfPersonOrganizationItem.def_static("operator delete_", (void (*)(void *, void *)) &StepAP203_HArray1OfPersonOrganizationItem::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepAP203_HArray1OfPersonOrganizationItem.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfPersonOrganizationItem::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepAP203_HArray1OfPersonOrganizationItem.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfPersonOrganizationItem::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepAP203_HArray1OfPersonOrganizationItem.def("Array1", (const StepAP203_Array1OfPersonOrganizationItem & (StepAP203_HArray1OfPersonOrganizationItem::*)() const) &StepAP203_HArray1OfPersonOrganizationItem::Array1, "None");
-cls_StepAP203_HArray1OfPersonOrganizationItem.def("ChangeArray1", (StepAP203_Array1OfPersonOrganizationItem & (StepAP203_HArray1OfPersonOrganizationItem::*)()) &StepAP203_HArray1OfPersonOrganizationItem::ChangeArray1, "None");
-cls_StepAP203_HArray1OfPersonOrganizationItem.def_static("get_type_name_", (const char * (*)()) &StepAP203_HArray1OfPersonOrganizationItem::get_type_name, "None");
-cls_StepAP203_HArray1OfPersonOrganizationItem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepAP203_HArray1OfPersonOrganizationItem::get_type_descriptor, "None");
-cls_StepAP203_HArray1OfPersonOrganizationItem.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_HArray1OfPersonOrganizationItem::*)() const) &StepAP203_HArray1OfPersonOrganizationItem::DynamicType, "None");
+bind_Define_HArray1<StepAP203_HArray1OfPersonOrganizationItem, StepAP203_Array1OfPersonOrganizationItem>(mod, "StepAP203_HArray1OfPersonOrganizationItem");
 
 // CLASS: STEPAP203_CCDESIGNPERSONANDORGANIZATIONASSIGNMENT
 py::class_<StepAP203_CcDesignPersonAndOrganizationAssignment, opencascade::handle<StepAP203_CcDesignPersonAndOrganizationAssignment>, StepBasic_PersonAndOrganizationAssignment> cls_StepAP203_CcDesignPersonAndOrganizationAssignment(mod, "StepAP203_CcDesignPersonAndOrganizationAssignment", "Representation of STEP entity CcDesignPersonAndOrganizationAssignment");
@@ -521,28 +417,7 @@ cls_StepAP203_CcDesignPersonAndOrganizationAssignment.def_static("get_type_descr
 cls_StepAP203_CcDesignPersonAndOrganizationAssignment.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_CcDesignPersonAndOrganizationAssignment::*)() const) &StepAP203_CcDesignPersonAndOrganizationAssignment::DynamicType, "None");
 
 // CLASS: STEPAP203_HARRAY1OFCLASSIFIEDITEM
-py::class_<StepAP203_HArray1OfClassifiedItem, opencascade::handle<StepAP203_HArray1OfClassifiedItem>, Standard_Transient> cls_StepAP203_HArray1OfClassifiedItem(mod, "StepAP203_HArray1OfClassifiedItem", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepAP203_HArray1OfClassifiedItem.def(py::init<>());
-cls_StepAP203_HArray1OfClassifiedItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepAP203_HArray1OfClassifiedItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfClassifiedItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepAP203_HArray1OfClassifiedItem.def(py::init<const StepAP203_Array1OfClassifiedItem &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepAP203_HArray1OfClassifiedItem.def_static("operator new_", (void * (*)(size_t)) &StepAP203_HArray1OfClassifiedItem::operator new, "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfClassifiedItem.def_static("operator delete_", (void (*)(void *)) &StepAP203_HArray1OfClassifiedItem::operator delete, "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfClassifiedItem.def_static("operator new[]_", (void * (*)(size_t)) &StepAP203_HArray1OfClassifiedItem::operator new[], "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfClassifiedItem.def_static("operator delete[]_", (void (*)(void *)) &StepAP203_HArray1OfClassifiedItem::operator delete[], "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfClassifiedItem.def_static("operator new_", (void * (*)(size_t, void *)) &StepAP203_HArray1OfClassifiedItem::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepAP203_HArray1OfClassifiedItem.def_static("operator delete_", (void (*)(void *, void *)) &StepAP203_HArray1OfClassifiedItem::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepAP203_HArray1OfClassifiedItem.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfClassifiedItem::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepAP203_HArray1OfClassifiedItem.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfClassifiedItem::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepAP203_HArray1OfClassifiedItem.def("Array1", (const StepAP203_Array1OfClassifiedItem & (StepAP203_HArray1OfClassifiedItem::*)() const) &StepAP203_HArray1OfClassifiedItem::Array1, "None");
-cls_StepAP203_HArray1OfClassifiedItem.def("ChangeArray1", (StepAP203_Array1OfClassifiedItem & (StepAP203_HArray1OfClassifiedItem::*)()) &StepAP203_HArray1OfClassifiedItem::ChangeArray1, "None");
-cls_StepAP203_HArray1OfClassifiedItem.def_static("get_type_name_", (const char * (*)()) &StepAP203_HArray1OfClassifiedItem::get_type_name, "None");
-cls_StepAP203_HArray1OfClassifiedItem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepAP203_HArray1OfClassifiedItem::get_type_descriptor, "None");
-cls_StepAP203_HArray1OfClassifiedItem.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_HArray1OfClassifiedItem::*)() const) &StepAP203_HArray1OfClassifiedItem::DynamicType, "None");
+bind_Define_HArray1<StepAP203_HArray1OfClassifiedItem, StepAP203_Array1OfClassifiedItem>(mod, "StepAP203_HArray1OfClassifiedItem");
 
 // CLASS: STEPAP203_CCDESIGNSECURITYCLASSIFICATION
 py::class_<StepAP203_CcDesignSecurityClassification, opencascade::handle<StepAP203_CcDesignSecurityClassification>, StepBasic_SecurityClassificationAssignment> cls_StepAP203_CcDesignSecurityClassification(mod, "StepAP203_CcDesignSecurityClassification", "Representation of STEP entity CcDesignSecurityClassification");
@@ -559,28 +434,7 @@ cls_StepAP203_CcDesignSecurityClassification.def_static("get_type_descriptor_", 
 cls_StepAP203_CcDesignSecurityClassification.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_CcDesignSecurityClassification::*)() const) &StepAP203_CcDesignSecurityClassification::DynamicType, "None");
 
 // CLASS: STEPAP203_HARRAY1OFSPECIFIEDITEM
-py::class_<StepAP203_HArray1OfSpecifiedItem, opencascade::handle<StepAP203_HArray1OfSpecifiedItem>, Standard_Transient> cls_StepAP203_HArray1OfSpecifiedItem(mod, "StepAP203_HArray1OfSpecifiedItem", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepAP203_HArray1OfSpecifiedItem.def(py::init<>());
-cls_StepAP203_HArray1OfSpecifiedItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepAP203_HArray1OfSpecifiedItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfSpecifiedItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepAP203_HArray1OfSpecifiedItem.def(py::init<const StepAP203_Array1OfSpecifiedItem &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepAP203_HArray1OfSpecifiedItem.def_static("operator new_", (void * (*)(size_t)) &StepAP203_HArray1OfSpecifiedItem::operator new, "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfSpecifiedItem.def_static("operator delete_", (void (*)(void *)) &StepAP203_HArray1OfSpecifiedItem::operator delete, "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfSpecifiedItem.def_static("operator new[]_", (void * (*)(size_t)) &StepAP203_HArray1OfSpecifiedItem::operator new[], "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfSpecifiedItem.def_static("operator delete[]_", (void (*)(void *)) &StepAP203_HArray1OfSpecifiedItem::operator delete[], "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfSpecifiedItem.def_static("operator new_", (void * (*)(size_t, void *)) &StepAP203_HArray1OfSpecifiedItem::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepAP203_HArray1OfSpecifiedItem.def_static("operator delete_", (void (*)(void *, void *)) &StepAP203_HArray1OfSpecifiedItem::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepAP203_HArray1OfSpecifiedItem.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfSpecifiedItem::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepAP203_HArray1OfSpecifiedItem.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfSpecifiedItem::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepAP203_HArray1OfSpecifiedItem.def("Array1", (const StepAP203_Array1OfSpecifiedItem & (StepAP203_HArray1OfSpecifiedItem::*)() const) &StepAP203_HArray1OfSpecifiedItem::Array1, "None");
-cls_StepAP203_HArray1OfSpecifiedItem.def("ChangeArray1", (StepAP203_Array1OfSpecifiedItem & (StepAP203_HArray1OfSpecifiedItem::*)()) &StepAP203_HArray1OfSpecifiedItem::ChangeArray1, "None");
-cls_StepAP203_HArray1OfSpecifiedItem.def_static("get_type_name_", (const char * (*)()) &StepAP203_HArray1OfSpecifiedItem::get_type_name, "None");
-cls_StepAP203_HArray1OfSpecifiedItem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepAP203_HArray1OfSpecifiedItem::get_type_descriptor, "None");
-cls_StepAP203_HArray1OfSpecifiedItem.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_HArray1OfSpecifiedItem::*)() const) &StepAP203_HArray1OfSpecifiedItem::DynamicType, "None");
+bind_Define_HArray1<StepAP203_HArray1OfSpecifiedItem, StepAP203_Array1OfSpecifiedItem>(mod, "StepAP203_HArray1OfSpecifiedItem");
 
 // CLASS: STEPAP203_CCDESIGNSPECIFICATIONREFERENCE
 py::class_<StepAP203_CcDesignSpecificationReference, opencascade::handle<StepAP203_CcDesignSpecificationReference>, StepBasic_DocumentReference> cls_StepAP203_CcDesignSpecificationReference(mod, "StepAP203_CcDesignSpecificationReference", "Representation of STEP entity CcDesignSpecificationReference");
@@ -597,28 +451,7 @@ cls_StepAP203_CcDesignSpecificationReference.def_static("get_type_descriptor_", 
 cls_StepAP203_CcDesignSpecificationReference.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_CcDesignSpecificationReference::*)() const) &StepAP203_CcDesignSpecificationReference::DynamicType, "None");
 
 // CLASS: STEPAP203_HARRAY1OFWORKITEM
-py::class_<StepAP203_HArray1OfWorkItem, opencascade::handle<StepAP203_HArray1OfWorkItem>, Standard_Transient> cls_StepAP203_HArray1OfWorkItem(mod, "StepAP203_HArray1OfWorkItem", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepAP203_HArray1OfWorkItem.def(py::init<>());
-cls_StepAP203_HArray1OfWorkItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepAP203_HArray1OfWorkItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfWorkItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepAP203_HArray1OfWorkItem.def(py::init<const StepAP203_Array1OfWorkItem &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepAP203_HArray1OfWorkItem.def_static("operator new_", (void * (*)(size_t)) &StepAP203_HArray1OfWorkItem::operator new, "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfWorkItem.def_static("operator delete_", (void (*)(void *)) &StepAP203_HArray1OfWorkItem::operator delete, "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfWorkItem.def_static("operator new[]_", (void * (*)(size_t)) &StepAP203_HArray1OfWorkItem::operator new[], "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfWorkItem.def_static("operator delete[]_", (void (*)(void *)) &StepAP203_HArray1OfWorkItem::operator delete[], "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfWorkItem.def_static("operator new_", (void * (*)(size_t, void *)) &StepAP203_HArray1OfWorkItem::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepAP203_HArray1OfWorkItem.def_static("operator delete_", (void (*)(void *, void *)) &StepAP203_HArray1OfWorkItem::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepAP203_HArray1OfWorkItem.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfWorkItem::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepAP203_HArray1OfWorkItem.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfWorkItem::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepAP203_HArray1OfWorkItem.def("Array1", (const StepAP203_Array1OfWorkItem & (StepAP203_HArray1OfWorkItem::*)() const) &StepAP203_HArray1OfWorkItem::Array1, "None");
-cls_StepAP203_HArray1OfWorkItem.def("ChangeArray1", (StepAP203_Array1OfWorkItem & (StepAP203_HArray1OfWorkItem::*)()) &StepAP203_HArray1OfWorkItem::ChangeArray1, "None");
-cls_StepAP203_HArray1OfWorkItem.def_static("get_type_name_", (const char * (*)()) &StepAP203_HArray1OfWorkItem::get_type_name, "None");
-cls_StepAP203_HArray1OfWorkItem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepAP203_HArray1OfWorkItem::get_type_descriptor, "None");
-cls_StepAP203_HArray1OfWorkItem.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_HArray1OfWorkItem::*)() const) &StepAP203_HArray1OfWorkItem::DynamicType, "None");
+bind_Define_HArray1<StepAP203_HArray1OfWorkItem, StepAP203_Array1OfWorkItem>(mod, "StepAP203_HArray1OfWorkItem");
 
 // CLASS: STEPAP203_CHANGE
 py::class_<StepAP203_Change, opencascade::handle<StepAP203_Change>, StepBasic_ActionAssignment> cls_StepAP203_Change(mod, "StepAP203_Change", "Representation of STEP entity Change");
@@ -635,28 +468,7 @@ cls_StepAP203_Change.def_static("get_type_descriptor_", (const opencascade::hand
 cls_StepAP203_Change.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_Change::*)() const) &StepAP203_Change::DynamicType, "None");
 
 // CLASS: STEPAP203_HARRAY1OFCHANGEREQUESTITEM
-py::class_<StepAP203_HArray1OfChangeRequestItem, opencascade::handle<StepAP203_HArray1OfChangeRequestItem>, Standard_Transient> cls_StepAP203_HArray1OfChangeRequestItem(mod, "StepAP203_HArray1OfChangeRequestItem", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepAP203_HArray1OfChangeRequestItem.def(py::init<>());
-cls_StepAP203_HArray1OfChangeRequestItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepAP203_HArray1OfChangeRequestItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfChangeRequestItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepAP203_HArray1OfChangeRequestItem.def(py::init<const StepAP203_Array1OfChangeRequestItem &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepAP203_HArray1OfChangeRequestItem.def_static("operator new_", (void * (*)(size_t)) &StepAP203_HArray1OfChangeRequestItem::operator new, "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfChangeRequestItem.def_static("operator delete_", (void (*)(void *)) &StepAP203_HArray1OfChangeRequestItem::operator delete, "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfChangeRequestItem.def_static("operator new[]_", (void * (*)(size_t)) &StepAP203_HArray1OfChangeRequestItem::operator new[], "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfChangeRequestItem.def_static("operator delete[]_", (void (*)(void *)) &StepAP203_HArray1OfChangeRequestItem::operator delete[], "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfChangeRequestItem.def_static("operator new_", (void * (*)(size_t, void *)) &StepAP203_HArray1OfChangeRequestItem::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepAP203_HArray1OfChangeRequestItem.def_static("operator delete_", (void (*)(void *, void *)) &StepAP203_HArray1OfChangeRequestItem::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepAP203_HArray1OfChangeRequestItem.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfChangeRequestItem::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepAP203_HArray1OfChangeRequestItem.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfChangeRequestItem::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepAP203_HArray1OfChangeRequestItem.def("Array1", (const StepAP203_Array1OfChangeRequestItem & (StepAP203_HArray1OfChangeRequestItem::*)() const) &StepAP203_HArray1OfChangeRequestItem::Array1, "None");
-cls_StepAP203_HArray1OfChangeRequestItem.def("ChangeArray1", (StepAP203_Array1OfChangeRequestItem & (StepAP203_HArray1OfChangeRequestItem::*)()) &StepAP203_HArray1OfChangeRequestItem::ChangeArray1, "None");
-cls_StepAP203_HArray1OfChangeRequestItem.def_static("get_type_name_", (const char * (*)()) &StepAP203_HArray1OfChangeRequestItem::get_type_name, "None");
-cls_StepAP203_HArray1OfChangeRequestItem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepAP203_HArray1OfChangeRequestItem::get_type_descriptor, "None");
-cls_StepAP203_HArray1OfChangeRequestItem.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_HArray1OfChangeRequestItem::*)() const) &StepAP203_HArray1OfChangeRequestItem::DynamicType, "None");
+bind_Define_HArray1<StepAP203_HArray1OfChangeRequestItem, StepAP203_Array1OfChangeRequestItem>(mod, "StepAP203_HArray1OfChangeRequestItem");
 
 // CLASS: STEPAP203_CHANGEREQUEST
 py::class_<StepAP203_ChangeRequest, opencascade::handle<StepAP203_ChangeRequest>, StepBasic_ActionRequestAssignment> cls_StepAP203_ChangeRequest(mod, "StepAP203_ChangeRequest", "Representation of STEP entity ChangeRequest");
@@ -673,28 +485,7 @@ cls_StepAP203_ChangeRequest.def_static("get_type_descriptor_", (const opencascad
 cls_StepAP203_ChangeRequest.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_ChangeRequest::*)() const) &StepAP203_ChangeRequest::DynamicType, "None");
 
 // CLASS: STEPAP203_HARRAY1OFSTARTREQUESTITEM
-py::class_<StepAP203_HArray1OfStartRequestItem, opencascade::handle<StepAP203_HArray1OfStartRequestItem>, Standard_Transient> cls_StepAP203_HArray1OfStartRequestItem(mod, "StepAP203_HArray1OfStartRequestItem", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepAP203_HArray1OfStartRequestItem.def(py::init<>());
-cls_StepAP203_HArray1OfStartRequestItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepAP203_HArray1OfStartRequestItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepAP203_Array1OfStartRequestItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepAP203_HArray1OfStartRequestItem.def(py::init<const StepAP203_Array1OfStartRequestItem &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepAP203_HArray1OfStartRequestItem.def_static("operator new_", (void * (*)(size_t)) &StepAP203_HArray1OfStartRequestItem::operator new, "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfStartRequestItem.def_static("operator delete_", (void (*)(void *)) &StepAP203_HArray1OfStartRequestItem::operator delete, "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfStartRequestItem.def_static("operator new[]_", (void * (*)(size_t)) &StepAP203_HArray1OfStartRequestItem::operator new[], "None", py::arg("theSize"));
-// cls_StepAP203_HArray1OfStartRequestItem.def_static("operator delete[]_", (void (*)(void *)) &StepAP203_HArray1OfStartRequestItem::operator delete[], "None", py::arg("theAddress"));
-// cls_StepAP203_HArray1OfStartRequestItem.def_static("operator new_", (void * (*)(size_t, void *)) &StepAP203_HArray1OfStartRequestItem::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepAP203_HArray1OfStartRequestItem.def_static("operator delete_", (void (*)(void *, void *)) &StepAP203_HArray1OfStartRequestItem::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepAP203_HArray1OfStartRequestItem.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfStartRequestItem::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepAP203_HArray1OfStartRequestItem.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepAP203_HArray1OfStartRequestItem::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepAP203_HArray1OfStartRequestItem.def("Array1", (const StepAP203_Array1OfStartRequestItem & (StepAP203_HArray1OfStartRequestItem::*)() const) &StepAP203_HArray1OfStartRequestItem::Array1, "None");
-cls_StepAP203_HArray1OfStartRequestItem.def("ChangeArray1", (StepAP203_Array1OfStartRequestItem & (StepAP203_HArray1OfStartRequestItem::*)()) &StepAP203_HArray1OfStartRequestItem::ChangeArray1, "None");
-cls_StepAP203_HArray1OfStartRequestItem.def_static("get_type_name_", (const char * (*)()) &StepAP203_HArray1OfStartRequestItem::get_type_name, "None");
-cls_StepAP203_HArray1OfStartRequestItem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepAP203_HArray1OfStartRequestItem::get_type_descriptor, "None");
-cls_StepAP203_HArray1OfStartRequestItem.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepAP203_HArray1OfStartRequestItem::*)() const) &StepAP203_HArray1OfStartRequestItem::DynamicType, "None");
+bind_Define_HArray1<StepAP203_HArray1OfStartRequestItem, StepAP203_Array1OfStartRequestItem>(mod, "StepAP203_HArray1OfStartRequestItem");
 
 // CLASS: STEPAP203_STARTREQUEST
 py::class_<StepAP203_StartRequest, opencascade::handle<StepAP203_StartRequest>, StepBasic_ActionRequestAssignment> cls_StepAP203_StartRequest(mod, "StepAP203_StartRequest", "Representation of STEP entity StartRequest");

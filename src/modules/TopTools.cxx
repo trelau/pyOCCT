@@ -92,7 +92,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <bind_NCollection_IndexedDataMap.hxx>
 #include <bind_NCollection_Sequence.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 #include <bind_NCollection_Array2.hxx>
+#include <bind_Define_HArray2.hxx>
+#include <bind_Define_HSequence.hxx>
 
 PYBIND11_MODULE(TopTools, mod) {
 
@@ -218,54 +221,13 @@ bind_NCollection_DataMap<TopoDS_Shape, NCollection_List<int>, TopTools_ShapeMapH
 bind_NCollection_Array1<TopoDS_Shape>(mod, "TopTools_Array1OfShape", py::module_local(false));
 
 // CLASS: TOPTOOLS_HARRAY1OFSHAPE
-py::class_<TopTools_HArray1OfShape, opencascade::handle<TopTools_HArray1OfShape>, Standard_Transient> cls_TopTools_HArray1OfShape(mod, "TopTools_HArray1OfShape", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TopTools_HArray1OfShape.def(py::init<>());
-cls_TopTools_HArray1OfShape.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TopTools_HArray1OfShape.def(py::init<const Standard_Integer, const Standard_Integer, const TopTools_Array1OfShape::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TopTools_HArray1OfShape.def(py::init<const TopTools_Array1OfShape &>(), py::arg("theOther"));
-
-// Methods
-// cls_TopTools_HArray1OfShape.def_static("operator new_", (void * (*)(size_t)) &TopTools_HArray1OfShape::operator new, "None", py::arg("theSize"));
-// cls_TopTools_HArray1OfShape.def_static("operator delete_", (void (*)(void *)) &TopTools_HArray1OfShape::operator delete, "None", py::arg("theAddress"));
-// cls_TopTools_HArray1OfShape.def_static("operator new[]_", (void * (*)(size_t)) &TopTools_HArray1OfShape::operator new[], "None", py::arg("theSize"));
-// cls_TopTools_HArray1OfShape.def_static("operator delete[]_", (void (*)(void *)) &TopTools_HArray1OfShape::operator delete[], "None", py::arg("theAddress"));
-// cls_TopTools_HArray1OfShape.def_static("operator new_", (void * (*)(size_t, void *)) &TopTools_HArray1OfShape::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TopTools_HArray1OfShape.def_static("operator delete_", (void (*)(void *, void *)) &TopTools_HArray1OfShape::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TopTools_HArray1OfShape.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TopTools_HArray1OfShape::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TopTools_HArray1OfShape.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TopTools_HArray1OfShape::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TopTools_HArray1OfShape.def("Array1", (const TopTools_Array1OfShape & (TopTools_HArray1OfShape::*)() const) &TopTools_HArray1OfShape::Array1, "None");
-cls_TopTools_HArray1OfShape.def("ChangeArray1", (TopTools_Array1OfShape & (TopTools_HArray1OfShape::*)()) &TopTools_HArray1OfShape::ChangeArray1, "None");
-cls_TopTools_HArray1OfShape.def_static("get_type_name_", (const char * (*)()) &TopTools_HArray1OfShape::get_type_name, "None");
-cls_TopTools_HArray1OfShape.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopTools_HArray1OfShape::get_type_descriptor, "None");
-cls_TopTools_HArray1OfShape.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopTools_HArray1OfShape::*)() const) &TopTools_HArray1OfShape::DynamicType, "None");
+bind_Define_HArray1<TopTools_HArray1OfShape, TopTools_Array1OfShape>(mod, "TopTools_HArray1OfShape");
 
 // TYPEDEF: TOPTOOLS_ARRAY2OFSHAPE
 bind_NCollection_Array2<TopoDS_Shape>(mod, "TopTools_Array2OfShape", py::module_local(false));
 
 // CLASS: TOPTOOLS_HARRAY2OFSHAPE
-py::class_<TopTools_HArray2OfShape, opencascade::handle<TopTools_HArray2OfShape>, Standard_Transient> cls_TopTools_HArray2OfShape(mod, "TopTools_HArray2OfShape", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TopTools_HArray2OfShape.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_TopTools_HArray2OfShape.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const TopTools_Array2OfShape::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_TopTools_HArray2OfShape.def(py::init<const TopTools_Array2OfShape &>(), py::arg("theOther"));
-
-// Methods
-// cls_TopTools_HArray2OfShape.def_static("operator new_", (void * (*)(size_t)) &TopTools_HArray2OfShape::operator new, "None", py::arg("theSize"));
-// cls_TopTools_HArray2OfShape.def_static("operator delete_", (void (*)(void *)) &TopTools_HArray2OfShape::operator delete, "None", py::arg("theAddress"));
-// cls_TopTools_HArray2OfShape.def_static("operator new[]_", (void * (*)(size_t)) &TopTools_HArray2OfShape::operator new[], "None", py::arg("theSize"));
-// cls_TopTools_HArray2OfShape.def_static("operator delete[]_", (void (*)(void *)) &TopTools_HArray2OfShape::operator delete[], "None", py::arg("theAddress"));
-// cls_TopTools_HArray2OfShape.def_static("operator new_", (void * (*)(size_t, void *)) &TopTools_HArray2OfShape::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TopTools_HArray2OfShape.def_static("operator delete_", (void (*)(void *, void *)) &TopTools_HArray2OfShape::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TopTools_HArray2OfShape.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TopTools_HArray2OfShape::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TopTools_HArray2OfShape.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TopTools_HArray2OfShape::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TopTools_HArray2OfShape.def("Array2", (const TopTools_Array2OfShape & (TopTools_HArray2OfShape::*)() const) &TopTools_HArray2OfShape::Array2, "None");
-cls_TopTools_HArray2OfShape.def("ChangeArray2", (TopTools_Array2OfShape & (TopTools_HArray2OfShape::*)()) &TopTools_HArray2OfShape::ChangeArray2, "None");
-cls_TopTools_HArray2OfShape.def_static("get_type_name_", (const char * (*)()) &TopTools_HArray2OfShape::get_type_name, "None");
-cls_TopTools_HArray2OfShape.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopTools_HArray2OfShape::get_type_descriptor, "None");
-cls_TopTools_HArray2OfShape.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopTools_HArray2OfShape::*)() const) &TopTools_HArray2OfShape::DynamicType, "None");
+bind_Define_HArray2<TopTools_HArray2OfShape, TopTools_Array2OfShape>(mod, "TopTools_HArray2OfShape");
 
 // TYPEDEF: TOPTOOLS_DATAMAPOFINTEGERSHAPE
 bind_NCollection_DataMap<int, TopoDS_Shape, NCollection_DefaultHasher<int> >(mod, "TopTools_DataMapOfIntegerShape", py::module_local(false));
@@ -278,28 +240,7 @@ bind_NCollection_DataMap<TopoDS_Shape, double, TopTools_ShapeMapHasher>(mod, "To
 // TYPEDEF: TOPTOOLS_DATAMAPITERATOROFDATAMAPOFSHAPEREAL
 
 // CLASS: TOPTOOLS_HSEQUENCEOFSHAPE
-py::class_<TopTools_HSequenceOfShape, opencascade::handle<TopTools_HSequenceOfShape>, Standard_Transient> cls_TopTools_HSequenceOfShape(mod, "TopTools_HSequenceOfShape", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TopTools_HSequenceOfShape.def(py::init<>());
-cls_TopTools_HSequenceOfShape.def(py::init<const TopTools_SequenceOfShape &>(), py::arg("theOther"));
-
-// Methods
-// cls_TopTools_HSequenceOfShape.def_static("operator new_", (void * (*)(size_t)) &TopTools_HSequenceOfShape::operator new, "None", py::arg("theSize"));
-// cls_TopTools_HSequenceOfShape.def_static("operator delete_", (void (*)(void *)) &TopTools_HSequenceOfShape::operator delete, "None", py::arg("theAddress"));
-// cls_TopTools_HSequenceOfShape.def_static("operator new[]_", (void * (*)(size_t)) &TopTools_HSequenceOfShape::operator new[], "None", py::arg("theSize"));
-// cls_TopTools_HSequenceOfShape.def_static("operator delete[]_", (void (*)(void *)) &TopTools_HSequenceOfShape::operator delete[], "None", py::arg("theAddress"));
-// cls_TopTools_HSequenceOfShape.def_static("operator new_", (void * (*)(size_t, void *)) &TopTools_HSequenceOfShape::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TopTools_HSequenceOfShape.def_static("operator delete_", (void (*)(void *, void *)) &TopTools_HSequenceOfShape::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TopTools_HSequenceOfShape.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TopTools_HSequenceOfShape::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TopTools_HSequenceOfShape.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TopTools_HSequenceOfShape::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TopTools_HSequenceOfShape.def("Sequence", (const TopTools_SequenceOfShape & (TopTools_HSequenceOfShape::*)() const) &TopTools_HSequenceOfShape::Sequence, "None");
-cls_TopTools_HSequenceOfShape.def("Append", (void (TopTools_HSequenceOfShape::*)(const TopTools_SequenceOfShape::value_type &)) &TopTools_HSequenceOfShape::Append, "None", py::arg("theItem"));
-cls_TopTools_HSequenceOfShape.def("Append", (void (TopTools_HSequenceOfShape::*)(TopTools_SequenceOfShape &)) &TopTools_HSequenceOfShape::Append, "None", py::arg("theSequence"));
-cls_TopTools_HSequenceOfShape.def("ChangeSequence", (TopTools_SequenceOfShape & (TopTools_HSequenceOfShape::*)()) &TopTools_HSequenceOfShape::ChangeSequence, "None");
-cls_TopTools_HSequenceOfShape.def_static("get_type_name_", (const char * (*)()) &TopTools_HSequenceOfShape::get_type_name, "None");
-cls_TopTools_HSequenceOfShape.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopTools_HSequenceOfShape::get_type_descriptor, "None");
-cls_TopTools_HSequenceOfShape.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopTools_HSequenceOfShape::*)() const) &TopTools_HSequenceOfShape::DynamicType, "None");
+bind_Define_HSequence<TopTools_HSequenceOfShape, TopTools_SequenceOfShape>(mod, "TopTools_HSequenceOfShape");
 
 // CLASS: TOPTOOLS_LOCATIONSET
 py::class_<TopTools_LocationSet> cls_TopTools_LocationSet(mod, "TopTools_LocationSet", "The class LocationSet stores a set of location in a relocatable state.");
@@ -370,28 +311,7 @@ cls_TopTools_ShapeSet.def("GetProgress", (opencascade::handle<Message_ProgressIn
 bind_NCollection_Array1<NCollection_List<TopoDS_Shape> >(mod, "TopTools_Array1OfListOfShape", py::module_local(false));
 
 // CLASS: TOPTOOLS_HARRAY1OFLISTOFSHAPE
-py::class_<TopTools_HArray1OfListOfShape, opencascade::handle<TopTools_HArray1OfListOfShape>, Standard_Transient> cls_TopTools_HArray1OfListOfShape(mod, "TopTools_HArray1OfListOfShape", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TopTools_HArray1OfListOfShape.def(py::init<>());
-cls_TopTools_HArray1OfListOfShape.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TopTools_HArray1OfListOfShape.def(py::init<const Standard_Integer, const Standard_Integer, const TopTools_Array1OfListOfShape::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TopTools_HArray1OfListOfShape.def(py::init<const TopTools_Array1OfListOfShape &>(), py::arg("theOther"));
-
-// Methods
-// cls_TopTools_HArray1OfListOfShape.def_static("operator new_", (void * (*)(size_t)) &TopTools_HArray1OfListOfShape::operator new, "None", py::arg("theSize"));
-// cls_TopTools_HArray1OfListOfShape.def_static("operator delete_", (void (*)(void *)) &TopTools_HArray1OfListOfShape::operator delete, "None", py::arg("theAddress"));
-// cls_TopTools_HArray1OfListOfShape.def_static("operator new[]_", (void * (*)(size_t)) &TopTools_HArray1OfListOfShape::operator new[], "None", py::arg("theSize"));
-// cls_TopTools_HArray1OfListOfShape.def_static("operator delete[]_", (void (*)(void *)) &TopTools_HArray1OfListOfShape::operator delete[], "None", py::arg("theAddress"));
-// cls_TopTools_HArray1OfListOfShape.def_static("operator new_", (void * (*)(size_t, void *)) &TopTools_HArray1OfListOfShape::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TopTools_HArray1OfListOfShape.def_static("operator delete_", (void (*)(void *, void *)) &TopTools_HArray1OfListOfShape::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TopTools_HArray1OfListOfShape.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TopTools_HArray1OfListOfShape::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TopTools_HArray1OfListOfShape.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TopTools_HArray1OfListOfShape::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TopTools_HArray1OfListOfShape.def("Array1", (const TopTools_Array1OfListOfShape & (TopTools_HArray1OfListOfShape::*)() const) &TopTools_HArray1OfListOfShape::Array1, "None");
-cls_TopTools_HArray1OfListOfShape.def("ChangeArray1", (TopTools_Array1OfListOfShape & (TopTools_HArray1OfListOfShape::*)()) &TopTools_HArray1OfListOfShape::ChangeArray1, "None");
-cls_TopTools_HArray1OfListOfShape.def_static("get_type_name_", (const char * (*)()) &TopTools_HArray1OfListOfShape::get_type_name, "None");
-cls_TopTools_HArray1OfListOfShape.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopTools_HArray1OfListOfShape::get_type_descriptor, "None");
-cls_TopTools_HArray1OfListOfShape.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopTools_HArray1OfListOfShape::*)() const) &TopTools_HArray1OfListOfShape::DynamicType, "None");
+bind_Define_HArray1<TopTools_HArray1OfListOfShape, TopTools_Array1OfListOfShape>(mod, "TopTools_HArray1OfListOfShape");
 
 // TYPEDEF: TOPTOOLS_INDEXEDDATAMAPOFSHAPEADDRESS
 bind_NCollection_IndexedDataMap<TopoDS_Shape, void *, TopTools_ShapeMapHasher>(mod, "TopTools_IndexedDataMapOfShapeAddress", py::module_local(false));

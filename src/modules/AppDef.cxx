@@ -96,6 +96,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <PLib_Base.hxx>
 #include <AppDef_Variational.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(AppDef, mod) {
 
@@ -238,28 +239,7 @@ cls_AppDef_BSplineCompute.def("ChangeValue", (AppParCurves_MultiBSpCurve & (AppD
 cls_AppDef_BSplineCompute.def("Parameters", (const TColStd_Array1OfReal & (AppDef_BSplineCompute::*)() const) &AppDef_BSplineCompute::Parameters, "returns the new parameters of the approximation corresponding to the points of the MultiBSpCurve.");
 
 // CLASS: APPDEF_HARRAY1OFMULTIPOINTCONSTRAINT
-py::class_<AppDef_HArray1OfMultiPointConstraint, opencascade::handle<AppDef_HArray1OfMultiPointConstraint>, Standard_Transient> cls_AppDef_HArray1OfMultiPointConstraint(mod, "AppDef_HArray1OfMultiPointConstraint", "None", py::multiple_inheritance());
-
-// Constructors
-cls_AppDef_HArray1OfMultiPointConstraint.def(py::init<>());
-cls_AppDef_HArray1OfMultiPointConstraint.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_AppDef_HArray1OfMultiPointConstraint.def(py::init<const Standard_Integer, const Standard_Integer, const AppDef_Array1OfMultiPointConstraint::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_AppDef_HArray1OfMultiPointConstraint.def(py::init<const AppDef_Array1OfMultiPointConstraint &>(), py::arg("theOther"));
-
-// Methods
-// cls_AppDef_HArray1OfMultiPointConstraint.def_static("operator new_", (void * (*)(size_t)) &AppDef_HArray1OfMultiPointConstraint::operator new, "None", py::arg("theSize"));
-// cls_AppDef_HArray1OfMultiPointConstraint.def_static("operator delete_", (void (*)(void *)) &AppDef_HArray1OfMultiPointConstraint::operator delete, "None", py::arg("theAddress"));
-// cls_AppDef_HArray1OfMultiPointConstraint.def_static("operator new[]_", (void * (*)(size_t)) &AppDef_HArray1OfMultiPointConstraint::operator new[], "None", py::arg("theSize"));
-// cls_AppDef_HArray1OfMultiPointConstraint.def_static("operator delete[]_", (void (*)(void *)) &AppDef_HArray1OfMultiPointConstraint::operator delete[], "None", py::arg("theAddress"));
-// cls_AppDef_HArray1OfMultiPointConstraint.def_static("operator new_", (void * (*)(size_t, void *)) &AppDef_HArray1OfMultiPointConstraint::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_AppDef_HArray1OfMultiPointConstraint.def_static("operator delete_", (void (*)(void *, void *)) &AppDef_HArray1OfMultiPointConstraint::operator delete, "None", py::arg(""), py::arg(""));
-// cls_AppDef_HArray1OfMultiPointConstraint.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &AppDef_HArray1OfMultiPointConstraint::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_AppDef_HArray1OfMultiPointConstraint.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &AppDef_HArray1OfMultiPointConstraint::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_AppDef_HArray1OfMultiPointConstraint.def("Array1", (const AppDef_Array1OfMultiPointConstraint & (AppDef_HArray1OfMultiPointConstraint::*)() const) &AppDef_HArray1OfMultiPointConstraint::Array1, "None");
-cls_AppDef_HArray1OfMultiPointConstraint.def("ChangeArray1", (AppDef_Array1OfMultiPointConstraint & (AppDef_HArray1OfMultiPointConstraint::*)()) &AppDef_HArray1OfMultiPointConstraint::ChangeArray1, "None");
-cls_AppDef_HArray1OfMultiPointConstraint.def_static("get_type_name_", (const char * (*)()) &AppDef_HArray1OfMultiPointConstraint::get_type_name, "None");
-cls_AppDef_HArray1OfMultiPointConstraint.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AppDef_HArray1OfMultiPointConstraint::get_type_descriptor, "None");
-cls_AppDef_HArray1OfMultiPointConstraint.def("DynamicType", (const opencascade::handle<Standard_Type> & (AppDef_HArray1OfMultiPointConstraint::*)() const) &AppDef_HArray1OfMultiPointConstraint::DynamicType, "None");
+bind_Define_HArray1<AppDef_HArray1OfMultiPointConstraint, AppDef_Array1OfMultiPointConstraint>(mod, "AppDef_HArray1OfMultiPointConstraint");
 
 // CLASS: APPDEF_MULTILINE
 py::class_<AppDef_MultiLine> cls_AppDef_MultiLine(mod, "AppDef_MultiLine", "This class describes the organized set of points used in the approximations. A MultiLine is composed of n MultiPointConstraints. The approximation of the MultiLine will be done in the order of the given n MultiPointConstraints.");

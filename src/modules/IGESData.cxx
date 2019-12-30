@@ -109,6 +109,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Interface_HArray1OfHAsciiString.hxx>
 #include <gp_Trsf.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(IGESData, mod) {
 
@@ -261,28 +262,7 @@ cls_IGESData_IGESEntity.def("DynamicType", (const opencascade::handle<Standard_T
 bind_NCollection_Array1<opencascade::handle<IGESData_IGESEntity> >(mod, "IGESData_Array1OfIGESEntity", py::module_local(false));
 
 // CLASS: IGESDATA_HARRAY1OFIGESENTITY
-py::class_<IGESData_HArray1OfIGESEntity, opencascade::handle<IGESData_HArray1OfIGESEntity>, Standard_Transient> cls_IGESData_HArray1OfIGESEntity(mod, "IGESData_HArray1OfIGESEntity", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESData_HArray1OfIGESEntity.def(py::init<>());
-cls_IGESData_HArray1OfIGESEntity.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESData_HArray1OfIGESEntity.def(py::init<const Standard_Integer, const Standard_Integer, const IGESData_Array1OfIGESEntity::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESData_HArray1OfIGESEntity.def(py::init<const IGESData_Array1OfIGESEntity &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESData_HArray1OfIGESEntity.def_static("operator new_", (void * (*)(size_t)) &IGESData_HArray1OfIGESEntity::operator new, "None", py::arg("theSize"));
-// cls_IGESData_HArray1OfIGESEntity.def_static("operator delete_", (void (*)(void *)) &IGESData_HArray1OfIGESEntity::operator delete, "None", py::arg("theAddress"));
-// cls_IGESData_HArray1OfIGESEntity.def_static("operator new[]_", (void * (*)(size_t)) &IGESData_HArray1OfIGESEntity::operator new[], "None", py::arg("theSize"));
-// cls_IGESData_HArray1OfIGESEntity.def_static("operator delete[]_", (void (*)(void *)) &IGESData_HArray1OfIGESEntity::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESData_HArray1OfIGESEntity.def_static("operator new_", (void * (*)(size_t, void *)) &IGESData_HArray1OfIGESEntity::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESData_HArray1OfIGESEntity.def_static("operator delete_", (void (*)(void *, void *)) &IGESData_HArray1OfIGESEntity::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESData_HArray1OfIGESEntity.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESData_HArray1OfIGESEntity::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESData_HArray1OfIGESEntity.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESData_HArray1OfIGESEntity::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESData_HArray1OfIGESEntity.def("Array1", (const IGESData_Array1OfIGESEntity & (IGESData_HArray1OfIGESEntity::*)() const) &IGESData_HArray1OfIGESEntity::Array1, "None");
-cls_IGESData_HArray1OfIGESEntity.def("ChangeArray1", (IGESData_Array1OfIGESEntity & (IGESData_HArray1OfIGESEntity::*)()) &IGESData_HArray1OfIGESEntity::ChangeArray1, "None");
-cls_IGESData_HArray1OfIGESEntity.def_static("get_type_name_", (const char * (*)()) &IGESData_HArray1OfIGESEntity::get_type_name, "None");
-cls_IGESData_HArray1OfIGESEntity.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESData_HArray1OfIGESEntity::get_type_descriptor, "None");
-cls_IGESData_HArray1OfIGESEntity.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESData_HArray1OfIGESEntity::*)() const) &IGESData_HArray1OfIGESEntity::DynamicType, "None");
+bind_Define_HArray1<IGESData_HArray1OfIGESEntity, IGESData_Array1OfIGESEntity>(mod, "IGESData_HArray1OfIGESEntity");
 
 // CLASS: IGESDATA_GENERALMODULE
 py::class_<IGESData_GeneralModule, opencascade::handle<IGESData_GeneralModule>, Interface_GeneralModule> cls_IGESData_GeneralModule(mod, "IGESData_GeneralModule", "Definition of General Services adapted to IGES. This Services comprise : Shared & Implied Lists, Copy, Check They are adapted according to the organisation of IGES Entities : Directory Part, Lists of Associativities and Properties are specifically processed");

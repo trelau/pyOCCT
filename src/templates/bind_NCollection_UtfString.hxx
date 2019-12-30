@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <NCollection_UtfIterator.hxx>
 #include <NCollection_UtfString.hxx>
 #include <Standard_TypeDef.hxx>
+#include <Standard.hxx>
+#include <NCollection_SparseArrayBase.hxx>
 
 template <typename Type>
 void bind_NCollection_UtfString(py::module &mod, std::string const &name, py::module_local const &local){

@@ -78,6 +78,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <IGESData_IGESDumper.hxx>
 #include <Message_Messenger.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(IGESDefs, mod) {
 
@@ -118,28 +119,7 @@ cls_IGESDefs_TabularData.def("DynamicType", (const opencascade::handle<Standard_
 bind_NCollection_Array1<opencascade::handle<IGESDefs_TabularData> >(mod, "IGESDefs_Array1OfTabularData", py::module_local(false));
 
 // CLASS: IGESDEFS_HARRAY1OFTABULARDATA
-py::class_<IGESDefs_HArray1OfTabularData, opencascade::handle<IGESDefs_HArray1OfTabularData>, Standard_Transient> cls_IGESDefs_HArray1OfTabularData(mod, "IGESDefs_HArray1OfTabularData", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESDefs_HArray1OfTabularData.def(py::init<>());
-cls_IGESDefs_HArray1OfTabularData.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESDefs_HArray1OfTabularData.def(py::init<const Standard_Integer, const Standard_Integer, const IGESDefs_Array1OfTabularData::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESDefs_HArray1OfTabularData.def(py::init<const IGESDefs_Array1OfTabularData &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESDefs_HArray1OfTabularData.def_static("operator new_", (void * (*)(size_t)) &IGESDefs_HArray1OfTabularData::operator new, "None", py::arg("theSize"));
-// cls_IGESDefs_HArray1OfTabularData.def_static("operator delete_", (void (*)(void *)) &IGESDefs_HArray1OfTabularData::operator delete, "None", py::arg("theAddress"));
-// cls_IGESDefs_HArray1OfTabularData.def_static("operator new[]_", (void * (*)(size_t)) &IGESDefs_HArray1OfTabularData::operator new[], "None", py::arg("theSize"));
-// cls_IGESDefs_HArray1OfTabularData.def_static("operator delete[]_", (void (*)(void *)) &IGESDefs_HArray1OfTabularData::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESDefs_HArray1OfTabularData.def_static("operator new_", (void * (*)(size_t, void *)) &IGESDefs_HArray1OfTabularData::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESDefs_HArray1OfTabularData.def_static("operator delete_", (void (*)(void *, void *)) &IGESDefs_HArray1OfTabularData::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESDefs_HArray1OfTabularData.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESDefs_HArray1OfTabularData::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESDefs_HArray1OfTabularData.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESDefs_HArray1OfTabularData::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESDefs_HArray1OfTabularData.def("Array1", (const IGESDefs_Array1OfTabularData & (IGESDefs_HArray1OfTabularData::*)() const) &IGESDefs_HArray1OfTabularData::Array1, "None");
-cls_IGESDefs_HArray1OfTabularData.def("ChangeArray1", (IGESDefs_Array1OfTabularData & (IGESDefs_HArray1OfTabularData::*)()) &IGESDefs_HArray1OfTabularData::ChangeArray1, "None");
-cls_IGESDefs_HArray1OfTabularData.def_static("get_type_name_", (const char * (*)()) &IGESDefs_HArray1OfTabularData::get_type_name, "None");
-cls_IGESDefs_HArray1OfTabularData.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESDefs_HArray1OfTabularData::get_type_descriptor, "None");
-cls_IGESDefs_HArray1OfTabularData.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESDefs_HArray1OfTabularData::*)() const) &IGESDefs_HArray1OfTabularData::DynamicType, "None");
+bind_Define_HArray1<IGESDefs_HArray1OfTabularData, IGESDefs_Array1OfTabularData>(mod, "IGESDefs_HArray1OfTabularData");
 
 // CLASS: IGESDEFS
 py::class_<IGESDefs> cls_IGESDefs(mod, "IGESDefs", "To embody general definitions of Entities (Parameters, Tables ...)");

@@ -114,6 +114,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Geom_UndefinedValue.hxx>
 #include <Geom_VectorWithMagnitude.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 
 PYBIND11_MODULE(Geom, mod) {
 
@@ -1000,28 +1001,7 @@ cls_Geom_RectangularTrimmedSurface.def("DynamicType", (const opencascade::handle
 bind_NCollection_Sequence<opencascade::handle<Geom_BSplineSurface> >(mod, "Geom_SequenceOfBSplineSurface", py::module_local(false));
 
 // CLASS: GEOM_HSEQUENCEOFBSPLINESURFACE
-py::class_<Geom_HSequenceOfBSplineSurface, opencascade::handle<Geom_HSequenceOfBSplineSurface>, Standard_Transient> cls_Geom_HSequenceOfBSplineSurface(mod, "Geom_HSequenceOfBSplineSurface", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Geom_HSequenceOfBSplineSurface.def(py::init<>());
-cls_Geom_HSequenceOfBSplineSurface.def(py::init<const Geom_SequenceOfBSplineSurface &>(), py::arg("theOther"));
-
-// Methods
-// cls_Geom_HSequenceOfBSplineSurface.def_static("operator new_", (void * (*)(size_t)) &Geom_HSequenceOfBSplineSurface::operator new, "None", py::arg("theSize"));
-// cls_Geom_HSequenceOfBSplineSurface.def_static("operator delete_", (void (*)(void *)) &Geom_HSequenceOfBSplineSurface::operator delete, "None", py::arg("theAddress"));
-// cls_Geom_HSequenceOfBSplineSurface.def_static("operator new[]_", (void * (*)(size_t)) &Geom_HSequenceOfBSplineSurface::operator new[], "None", py::arg("theSize"));
-// cls_Geom_HSequenceOfBSplineSurface.def_static("operator delete[]_", (void (*)(void *)) &Geom_HSequenceOfBSplineSurface::operator delete[], "None", py::arg("theAddress"));
-// cls_Geom_HSequenceOfBSplineSurface.def_static("operator new_", (void * (*)(size_t, void *)) &Geom_HSequenceOfBSplineSurface::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Geom_HSequenceOfBSplineSurface.def_static("operator delete_", (void (*)(void *, void *)) &Geom_HSequenceOfBSplineSurface::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Geom_HSequenceOfBSplineSurface.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Geom_HSequenceOfBSplineSurface::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Geom_HSequenceOfBSplineSurface.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Geom_HSequenceOfBSplineSurface::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Geom_HSequenceOfBSplineSurface.def("Sequence", (const Geom_SequenceOfBSplineSurface & (Geom_HSequenceOfBSplineSurface::*)() const) &Geom_HSequenceOfBSplineSurface::Sequence, "None");
-cls_Geom_HSequenceOfBSplineSurface.def("Append", (void (Geom_HSequenceOfBSplineSurface::*)(const Geom_SequenceOfBSplineSurface::value_type &)) &Geom_HSequenceOfBSplineSurface::Append, "None", py::arg("theItem"));
-cls_Geom_HSequenceOfBSplineSurface.def("Append", (void (Geom_HSequenceOfBSplineSurface::*)(Geom_SequenceOfBSplineSurface &)) &Geom_HSequenceOfBSplineSurface::Append, "None", py::arg("theSequence"));
-cls_Geom_HSequenceOfBSplineSurface.def("ChangeSequence", (Geom_SequenceOfBSplineSurface & (Geom_HSequenceOfBSplineSurface::*)()) &Geom_HSequenceOfBSplineSurface::ChangeSequence, "None");
-cls_Geom_HSequenceOfBSplineSurface.def_static("get_type_name_", (const char * (*)()) &Geom_HSequenceOfBSplineSurface::get_type_name, "None");
-cls_Geom_HSequenceOfBSplineSurface.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Geom_HSequenceOfBSplineSurface::get_type_descriptor, "None");
-cls_Geom_HSequenceOfBSplineSurface.def("DynamicType", (const opencascade::handle<Standard_Type> & (Geom_HSequenceOfBSplineSurface::*)() const) &Geom_HSequenceOfBSplineSurface::DynamicType, "None");
+bind_Define_HSequence<Geom_HSequenceOfBSplineSurface, Geom_SequenceOfBSplineSurface>(mod, "Geom_HSequenceOfBSplineSurface");
 
 // CLASS: GEOM_OSCULATINGSURFACE
 py::class_<Geom_OsculatingSurface, opencascade::handle<Geom_OsculatingSurface>, Standard_Transient> cls_Geom_OsculatingSurface(mod, "Geom_OsculatingSurface", "None");

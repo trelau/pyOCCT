@@ -64,6 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopoDS_CompSolid.hxx>
 #include <TopoDS_Compound.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 
 PYBIND11_MODULE(TransferBRep, mod) {
 
@@ -101,28 +102,7 @@ cls_TransferBRep_TransferResultInfo.def("DynamicType", (const opencascade::handl
 bind_NCollection_Sequence<opencascade::handle<TransferBRep_TransferResultInfo> >(mod, "TransferBRep_SequenceOfTransferResultInfo", py::module_local(false));
 
 // CLASS: TRANSFERBREP_HSEQUENCEOFTRANSFERRESULTINFO
-py::class_<TransferBRep_HSequenceOfTransferResultInfo, opencascade::handle<TransferBRep_HSequenceOfTransferResultInfo>, Standard_Transient> cls_TransferBRep_HSequenceOfTransferResultInfo(mod, "TransferBRep_HSequenceOfTransferResultInfo", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TransferBRep_HSequenceOfTransferResultInfo.def(py::init<>());
-cls_TransferBRep_HSequenceOfTransferResultInfo.def(py::init<const TransferBRep_SequenceOfTransferResultInfo &>(), py::arg("theOther"));
-
-// Methods
-// cls_TransferBRep_HSequenceOfTransferResultInfo.def_static("operator new_", (void * (*)(size_t)) &TransferBRep_HSequenceOfTransferResultInfo::operator new, "None", py::arg("theSize"));
-// cls_TransferBRep_HSequenceOfTransferResultInfo.def_static("operator delete_", (void (*)(void *)) &TransferBRep_HSequenceOfTransferResultInfo::operator delete, "None", py::arg("theAddress"));
-// cls_TransferBRep_HSequenceOfTransferResultInfo.def_static("operator new[]_", (void * (*)(size_t)) &TransferBRep_HSequenceOfTransferResultInfo::operator new[], "None", py::arg("theSize"));
-// cls_TransferBRep_HSequenceOfTransferResultInfo.def_static("operator delete[]_", (void (*)(void *)) &TransferBRep_HSequenceOfTransferResultInfo::operator delete[], "None", py::arg("theAddress"));
-// cls_TransferBRep_HSequenceOfTransferResultInfo.def_static("operator new_", (void * (*)(size_t, void *)) &TransferBRep_HSequenceOfTransferResultInfo::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TransferBRep_HSequenceOfTransferResultInfo.def_static("operator delete_", (void (*)(void *, void *)) &TransferBRep_HSequenceOfTransferResultInfo::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TransferBRep_HSequenceOfTransferResultInfo.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TransferBRep_HSequenceOfTransferResultInfo::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TransferBRep_HSequenceOfTransferResultInfo.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TransferBRep_HSequenceOfTransferResultInfo::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TransferBRep_HSequenceOfTransferResultInfo.def("Sequence", (const TransferBRep_SequenceOfTransferResultInfo & (TransferBRep_HSequenceOfTransferResultInfo::*)() const) &TransferBRep_HSequenceOfTransferResultInfo::Sequence, "None");
-cls_TransferBRep_HSequenceOfTransferResultInfo.def("Append", (void (TransferBRep_HSequenceOfTransferResultInfo::*)(const TransferBRep_SequenceOfTransferResultInfo::value_type &)) &TransferBRep_HSequenceOfTransferResultInfo::Append, "None", py::arg("theItem"));
-cls_TransferBRep_HSequenceOfTransferResultInfo.def("Append", (void (TransferBRep_HSequenceOfTransferResultInfo::*)(TransferBRep_SequenceOfTransferResultInfo &)) &TransferBRep_HSequenceOfTransferResultInfo::Append, "None", py::arg("theSequence"));
-cls_TransferBRep_HSequenceOfTransferResultInfo.def("ChangeSequence", (TransferBRep_SequenceOfTransferResultInfo & (TransferBRep_HSequenceOfTransferResultInfo::*)()) &TransferBRep_HSequenceOfTransferResultInfo::ChangeSequence, "None");
-cls_TransferBRep_HSequenceOfTransferResultInfo.def_static("get_type_name_", (const char * (*)()) &TransferBRep_HSequenceOfTransferResultInfo::get_type_name, "None");
-cls_TransferBRep_HSequenceOfTransferResultInfo.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TransferBRep_HSequenceOfTransferResultInfo::get_type_descriptor, "None");
-cls_TransferBRep_HSequenceOfTransferResultInfo.def("DynamicType", (const opencascade::handle<Standard_Type> & (TransferBRep_HSequenceOfTransferResultInfo::*)() const) &TransferBRep_HSequenceOfTransferResultInfo::DynamicType, "None");
+bind_Define_HSequence<TransferBRep_HSequenceOfTransferResultInfo, TransferBRep_SequenceOfTransferResultInfo>(mod, "TransferBRep_HSequenceOfTransferResultInfo");
 
 // CLASS: TRANSFERBREP
 py::class_<TransferBRep> cls_TransferBRep(mod, "TransferBRep", "This package gathers services to simply read files and convert them to Shapes from CasCade. IE. it can be used in conjunction with purely CasCade software");

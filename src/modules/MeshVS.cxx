@@ -134,6 +134,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_Trsf.hxx>
 #include <MeshVS_VectorPrsBuilder.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 #include <bind_NCollection_Sequence.hxx>
 #include <bind_NCollection_DataMap.hxx>
 #include <bind_NCollection_DefaultHasher.hxx>
@@ -240,28 +241,7 @@ cls_MeshVS_ColorHasher.def_static("IsEqual_", (Standard_Boolean (*)(const Quanti
 // TYPEDEF: MESHVS_ENTITYTYPE
 
 // CLASS: MESHVS_HARRAY1OFSEQUENCEOFINTEGER
-py::class_<MeshVS_HArray1OfSequenceOfInteger, opencascade::handle<MeshVS_HArray1OfSequenceOfInteger>, Standard_Transient> cls_MeshVS_HArray1OfSequenceOfInteger(mod, "MeshVS_HArray1OfSequenceOfInteger", "None", py::multiple_inheritance());
-
-// Constructors
-cls_MeshVS_HArray1OfSequenceOfInteger.def(py::init<>());
-cls_MeshVS_HArray1OfSequenceOfInteger.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_MeshVS_HArray1OfSequenceOfInteger.def(py::init<const Standard_Integer, const Standard_Integer, const MeshVS_Array1OfSequenceOfInteger::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_MeshVS_HArray1OfSequenceOfInteger.def(py::init<const MeshVS_Array1OfSequenceOfInteger &>(), py::arg("theOther"));
-
-// Methods
-// cls_MeshVS_HArray1OfSequenceOfInteger.def_static("operator new_", (void * (*)(size_t)) &MeshVS_HArray1OfSequenceOfInteger::operator new, "None", py::arg("theSize"));
-// cls_MeshVS_HArray1OfSequenceOfInteger.def_static("operator delete_", (void (*)(void *)) &MeshVS_HArray1OfSequenceOfInteger::operator delete, "None", py::arg("theAddress"));
-// cls_MeshVS_HArray1OfSequenceOfInteger.def_static("operator new[]_", (void * (*)(size_t)) &MeshVS_HArray1OfSequenceOfInteger::operator new[], "None", py::arg("theSize"));
-// cls_MeshVS_HArray1OfSequenceOfInteger.def_static("operator delete[]_", (void (*)(void *)) &MeshVS_HArray1OfSequenceOfInteger::operator delete[], "None", py::arg("theAddress"));
-// cls_MeshVS_HArray1OfSequenceOfInteger.def_static("operator new_", (void * (*)(size_t, void *)) &MeshVS_HArray1OfSequenceOfInteger::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_MeshVS_HArray1OfSequenceOfInteger.def_static("operator delete_", (void (*)(void *, void *)) &MeshVS_HArray1OfSequenceOfInteger::operator delete, "None", py::arg(""), py::arg(""));
-// cls_MeshVS_HArray1OfSequenceOfInteger.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_HArray1OfSequenceOfInteger::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_MeshVS_HArray1OfSequenceOfInteger.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &MeshVS_HArray1OfSequenceOfInteger::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_MeshVS_HArray1OfSequenceOfInteger.def("Array1", (const MeshVS_Array1OfSequenceOfInteger & (MeshVS_HArray1OfSequenceOfInteger::*)() const) &MeshVS_HArray1OfSequenceOfInteger::Array1, "None");
-cls_MeshVS_HArray1OfSequenceOfInteger.def("ChangeArray1", (MeshVS_Array1OfSequenceOfInteger & (MeshVS_HArray1OfSequenceOfInteger::*)()) &MeshVS_HArray1OfSequenceOfInteger::ChangeArray1, "None");
-cls_MeshVS_HArray1OfSequenceOfInteger.def_static("get_type_name_", (const char * (*)()) &MeshVS_HArray1OfSequenceOfInteger::get_type_name, "None");
-cls_MeshVS_HArray1OfSequenceOfInteger.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &MeshVS_HArray1OfSequenceOfInteger::get_type_descriptor, "None");
-cls_MeshVS_HArray1OfSequenceOfInteger.def("DynamicType", (const opencascade::handle<Standard_Type> & (MeshVS_HArray1OfSequenceOfInteger::*)() const) &MeshVS_HArray1OfSequenceOfInteger::DynamicType, "None");
+bind_Define_HArray1<MeshVS_HArray1OfSequenceOfInteger, MeshVS_Array1OfSequenceOfInteger>(mod, "MeshVS_HArray1OfSequenceOfInteger");
 
 // CLASS: MESHVS_DATASOURCE
 py::class_<MeshVS_DataSource, opencascade::handle<MeshVS_DataSource>, Standard_Transient> cls_MeshVS_DataSource(mod, "MeshVS_DataSource", "The deferred class using for the following tasks: 1) Receiving geometry data about single element of node by its number; 2) Receiving type of element or node by its number; 3) Receiving topological information about links between element and nodes it consist of; 4) Receiving information about what element cover this node; 5) Receiving information about all nodes and elements the object consist of 6) Activation of advanced mesh selection. In the advanced mesh selection mode there is created: - one owner for the whole mesh and for all selection modes - one sensitive entity for the whole mesh and for each selection mode Receiving of IDs of detected entities (nodes and elements) in a viewer is achieved by implementation of a group of methods GetDetectedEntities.");

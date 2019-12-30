@@ -58,6 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <bind_NCollection_DataMap.hxx>
 #include <bind_NCollection_Array1.hxx>
 #include <bind_NCollection_DoubleMap.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(TFunction, mod) {
 
@@ -121,6 +122,18 @@ cls_TFunction_Driver.def("DynamicType", (const opencascade::handle<Standard_Type
 bind_NCollection_DataMap<Standard_GUID, opencascade::handle<TFunction_Driver>, Standard_GUID>(mod, "TFunction_DataMapOfGUIDDriver", py::module_local(false));
 
 // TYPEDEF: TFUNCTION_DATAMAPITERATOROFDATAMAPOFGUIDDRIVER
+py::class_<NCollection_DataMap<Standard_GUID, opencascade::handle<TFunction_Driver>, Standard_GUID>::Iterator, NCollection_BaseMap::Iterator> cls_NCollection_DataMap_TFunction_DataMapIteratorOfDataMapOfGUIDDriver(mod, "TFunction_DataMapIteratorOfDataMapOfGUIDDriver", "None");
+
+// Constructors
+cls_NCollection_DataMap_TFunction_DataMapIteratorOfDataMapOfGUIDDriver.def(py::init<>());
+cls_NCollection_DataMap_TFunction_DataMapIteratorOfDataMapOfGUIDDriver.def(py::init<const NCollection_DataMap<Standard_GUID, opencascade::handle<TFunction_Driver>, Standard_GUID> &>(), py::arg("theMap"));
+
+// Methods
+cls_NCollection_DataMap_TFunction_DataMapIteratorOfDataMapOfGUIDDriver.def("More", (Standard_Boolean (NCollection_DataMap<Standard_GUID, opencascade::handle<TFunction_Driver>, Standard_GUID>::Iterator::*)() const) &NCollection_DataMap<Standard_GUID, opencascade::handle<TFunction_Driver>, Standard_GUID>::Iterator::More, "Query if the end of collection is reached by iterator");
+cls_NCollection_DataMap_TFunction_DataMapIteratorOfDataMapOfGUIDDriver.def("Next", (void (NCollection_DataMap<Standard_GUID, opencascade::handle<TFunction_Driver>, Standard_GUID>::Iterator::*)()) &NCollection_DataMap<Standard_GUID, opencascade::handle<TFunction_Driver>, Standard_GUID>::Iterator::Next, "Make a step along the collection");
+cls_NCollection_DataMap_TFunction_DataMapIteratorOfDataMapOfGUIDDriver.def("Value", (const opencascade::handle<TFunction_Driver> & (NCollection_DataMap<Standard_GUID, opencascade::handle<TFunction_Driver>, Standard_GUID>::Iterator::*)() const) &NCollection_DataMap<Standard_GUID, opencascade::handle<TFunction_Driver>, Standard_GUID>::Iterator::Value, "Value inquiry");
+cls_NCollection_DataMap_TFunction_DataMapIteratorOfDataMapOfGUIDDriver.def("ChangeValue", (opencascade::handle<TFunction_Driver> & (NCollection_DataMap<Standard_GUID, opencascade::handle<TFunction_Driver>, Standard_GUID>::Iterator::*)() const) &NCollection_DataMap<Standard_GUID, opencascade::handle<TFunction_Driver>, Standard_GUID>::Iterator::ChangeValue, "Value change access");
+cls_NCollection_DataMap_TFunction_DataMapIteratorOfDataMapOfGUIDDriver.def("Key", (const Standard_GUID & (NCollection_DataMap<Standard_GUID, opencascade::handle<TFunction_Driver>, Standard_GUID>::Iterator::*)() const) &NCollection_DataMap<Standard_GUID, opencascade::handle<TFunction_Driver>, Standard_GUID>::Iterator::Key, "Key");
 
 // TYPEDEF: TFUNCTION_ARRAY1OFDATAMAPOFGUIDDRIVER
 bind_NCollection_Array1<NCollection_DataMap<Standard_GUID, opencascade::handle<TFunction_Driver>, Standard_GUID> >(mod, "TFunction_Array1OfDataMapOfGUIDDriver", py::module_local(false));
@@ -136,28 +149,7 @@ bind_NCollection_DoubleMap<int, TDF_Label, NCollection_DefaultHasher<int>, TDF_L
 // TYPEDEF: TFUNCTION_DOUBLEMAPITERATOROFDOUBLEMAPOFINTEGERLABEL
 
 // CLASS: TFUNCTION_HARRAY1OFDATAMAPOFGUIDDRIVER
-py::class_<TFunction_HArray1OfDataMapOfGUIDDriver, opencascade::handle<TFunction_HArray1OfDataMapOfGUIDDriver>, Standard_Transient> cls_TFunction_HArray1OfDataMapOfGUIDDriver(mod, "TFunction_HArray1OfDataMapOfGUIDDriver", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TFunction_HArray1OfDataMapOfGUIDDriver.def(py::init<>());
-cls_TFunction_HArray1OfDataMapOfGUIDDriver.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TFunction_HArray1OfDataMapOfGUIDDriver.def(py::init<const Standard_Integer, const Standard_Integer, const TFunction_Array1OfDataMapOfGUIDDriver::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TFunction_HArray1OfDataMapOfGUIDDriver.def(py::init<const TFunction_Array1OfDataMapOfGUIDDriver &>(), py::arg("theOther"));
-
-// Methods
-// cls_TFunction_HArray1OfDataMapOfGUIDDriver.def_static("operator new_", (void * (*)(size_t)) &TFunction_HArray1OfDataMapOfGUIDDriver::operator new, "None", py::arg("theSize"));
-// cls_TFunction_HArray1OfDataMapOfGUIDDriver.def_static("operator delete_", (void (*)(void *)) &TFunction_HArray1OfDataMapOfGUIDDriver::operator delete, "None", py::arg("theAddress"));
-// cls_TFunction_HArray1OfDataMapOfGUIDDriver.def_static("operator new[]_", (void * (*)(size_t)) &TFunction_HArray1OfDataMapOfGUIDDriver::operator new[], "None", py::arg("theSize"));
-// cls_TFunction_HArray1OfDataMapOfGUIDDriver.def_static("operator delete[]_", (void (*)(void *)) &TFunction_HArray1OfDataMapOfGUIDDriver::operator delete[], "None", py::arg("theAddress"));
-// cls_TFunction_HArray1OfDataMapOfGUIDDriver.def_static("operator new_", (void * (*)(size_t, void *)) &TFunction_HArray1OfDataMapOfGUIDDriver::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TFunction_HArray1OfDataMapOfGUIDDriver.def_static("operator delete_", (void (*)(void *, void *)) &TFunction_HArray1OfDataMapOfGUIDDriver::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TFunction_HArray1OfDataMapOfGUIDDriver.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TFunction_HArray1OfDataMapOfGUIDDriver::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TFunction_HArray1OfDataMapOfGUIDDriver.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TFunction_HArray1OfDataMapOfGUIDDriver::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TFunction_HArray1OfDataMapOfGUIDDriver.def("Array1", (const TFunction_Array1OfDataMapOfGUIDDriver & (TFunction_HArray1OfDataMapOfGUIDDriver::*)() const) &TFunction_HArray1OfDataMapOfGUIDDriver::Array1, "None");
-cls_TFunction_HArray1OfDataMapOfGUIDDriver.def("ChangeArray1", (TFunction_Array1OfDataMapOfGUIDDriver & (TFunction_HArray1OfDataMapOfGUIDDriver::*)()) &TFunction_HArray1OfDataMapOfGUIDDriver::ChangeArray1, "None");
-cls_TFunction_HArray1OfDataMapOfGUIDDriver.def_static("get_type_name_", (const char * (*)()) &TFunction_HArray1OfDataMapOfGUIDDriver::get_type_name, "None");
-cls_TFunction_HArray1OfDataMapOfGUIDDriver.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TFunction_HArray1OfDataMapOfGUIDDriver::get_type_descriptor, "None");
-cls_TFunction_HArray1OfDataMapOfGUIDDriver.def("DynamicType", (const opencascade::handle<Standard_Type> & (TFunction_HArray1OfDataMapOfGUIDDriver::*)() const) &TFunction_HArray1OfDataMapOfGUIDDriver::DynamicType, "None");
+bind_Define_HArray1<TFunction_HArray1OfDataMapOfGUIDDriver, TFunction_Array1OfDataMapOfGUIDDriver>(mod, "TFunction_HArray1OfDataMapOfGUIDDriver");
 
 // CLASS: TFUNCTION_DRIVERTABLE
 py::class_<TFunction_DriverTable, opencascade::handle<TFunction_DriverTable>, Standard_Transient> cls_TFunction_DriverTable(mod, "TFunction_DriverTable", "A container for instances of drivers. You create a new instance of TFunction_Driver and use the method AddDriver to load it into the driver table.");

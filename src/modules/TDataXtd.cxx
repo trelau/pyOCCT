@@ -73,6 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TShort_HArray1OfShortReal.hxx>
 #include <gp_Dir.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(TDataXtd, mod) {
 
@@ -455,28 +456,7 @@ cls_TDataXtd.def_static("Print_", (Standard_OStream & (*)(const TDataXtd_Geometr
 cls_TDataXtd.def_static("Print_", (Standard_OStream & (*)(const TDataXtd_ConstraintEnum, Standard_OStream &)) &TDataXtd::Print, "Prints the name of the constraint <CTR> as a String on the Stream <S> and returns <S>.", py::arg("CTR"), py::arg("S"));
 
 // CLASS: TDATAXTD_HARRAY1OFTRSF
-py::class_<TDataXtd_HArray1OfTrsf, opencascade::handle<TDataXtd_HArray1OfTrsf>, Standard_Transient> cls_TDataXtd_HArray1OfTrsf(mod, "TDataXtd_HArray1OfTrsf", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TDataXtd_HArray1OfTrsf.def(py::init<>());
-cls_TDataXtd_HArray1OfTrsf.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TDataXtd_HArray1OfTrsf.def(py::init<const Standard_Integer, const Standard_Integer, const TDataXtd_Array1OfTrsf::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TDataXtd_HArray1OfTrsf.def(py::init<const TDataXtd_Array1OfTrsf &>(), py::arg("theOther"));
-
-// Methods
-// cls_TDataXtd_HArray1OfTrsf.def_static("operator new_", (void * (*)(size_t)) &TDataXtd_HArray1OfTrsf::operator new, "None", py::arg("theSize"));
-// cls_TDataXtd_HArray1OfTrsf.def_static("operator delete_", (void (*)(void *)) &TDataXtd_HArray1OfTrsf::operator delete, "None", py::arg("theAddress"));
-// cls_TDataXtd_HArray1OfTrsf.def_static("operator new[]_", (void * (*)(size_t)) &TDataXtd_HArray1OfTrsf::operator new[], "None", py::arg("theSize"));
-// cls_TDataXtd_HArray1OfTrsf.def_static("operator delete[]_", (void (*)(void *)) &TDataXtd_HArray1OfTrsf::operator delete[], "None", py::arg("theAddress"));
-// cls_TDataXtd_HArray1OfTrsf.def_static("operator new_", (void * (*)(size_t, void *)) &TDataXtd_HArray1OfTrsf::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TDataXtd_HArray1OfTrsf.def_static("operator delete_", (void (*)(void *, void *)) &TDataXtd_HArray1OfTrsf::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TDataXtd_HArray1OfTrsf.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TDataXtd_HArray1OfTrsf::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TDataXtd_HArray1OfTrsf.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TDataXtd_HArray1OfTrsf::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TDataXtd_HArray1OfTrsf.def("Array1", (const TDataXtd_Array1OfTrsf & (TDataXtd_HArray1OfTrsf::*)() const) &TDataXtd_HArray1OfTrsf::Array1, "None");
-cls_TDataXtd_HArray1OfTrsf.def("ChangeArray1", (TDataXtd_Array1OfTrsf & (TDataXtd_HArray1OfTrsf::*)()) &TDataXtd_HArray1OfTrsf::ChangeArray1, "None");
-cls_TDataXtd_HArray1OfTrsf.def_static("get_type_name_", (const char * (*)()) &TDataXtd_HArray1OfTrsf::get_type_name, "None");
-cls_TDataXtd_HArray1OfTrsf.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TDataXtd_HArray1OfTrsf::get_type_descriptor, "None");
-cls_TDataXtd_HArray1OfTrsf.def("DynamicType", (const opencascade::handle<Standard_Type> & (TDataXtd_HArray1OfTrsf::*)() const) &TDataXtd_HArray1OfTrsf::DynamicType, "None");
+bind_Define_HArray1<TDataXtd_HArray1OfTrsf, TDataXtd_Array1OfTrsf>(mod, "TDataXtd_HArray1OfTrsf");
 
 // CLASS: TDATAXTD_TRIANGULATION
 py::class_<TDataXtd_Triangulation, opencascade::handle<TDataXtd_Triangulation>, TDF_Attribute> cls_TDataXtd_Triangulation(mod, "TDataXtd_Triangulation", "An Ocaf attribute containing a mesh (Poly_Triangulation). It duplicates all methods from Poly_Triangulation. It is highly recommended to modify the mesh through the methods of this attribute, but not directly via the underlying Poly_Triangulation object. In this case Undo/Redo will work fine and robust.");

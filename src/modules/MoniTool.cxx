@@ -72,6 +72,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <MoniTool_TransientElem.hxx>
 #include <bind_NCollection_DataMap.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 #include <bind_NCollection_IndexedDataMap.hxx>
 
 PYBIND11_MODULE(MoniTool, mod) {
@@ -380,28 +381,7 @@ cls_MoniTool_ElemHasher.def_static("IsEqual_", (Standard_Boolean (*)(const openc
 bind_NCollection_Sequence<opencascade::handle<MoniTool_Element> >(mod, "MoniTool_SequenceOfElement", py::module_local(false));
 
 // CLASS: MONITOOL_HSEQUENCEOFELEMENT
-py::class_<MoniTool_HSequenceOfElement, opencascade::handle<MoniTool_HSequenceOfElement>, Standard_Transient> cls_MoniTool_HSequenceOfElement(mod, "MoniTool_HSequenceOfElement", "None", py::multiple_inheritance());
-
-// Constructors
-cls_MoniTool_HSequenceOfElement.def(py::init<>());
-cls_MoniTool_HSequenceOfElement.def(py::init<const MoniTool_SequenceOfElement &>(), py::arg("theOther"));
-
-// Methods
-// cls_MoniTool_HSequenceOfElement.def_static("operator new_", (void * (*)(size_t)) &MoniTool_HSequenceOfElement::operator new, "None", py::arg("theSize"));
-// cls_MoniTool_HSequenceOfElement.def_static("operator delete_", (void (*)(void *)) &MoniTool_HSequenceOfElement::operator delete, "None", py::arg("theAddress"));
-// cls_MoniTool_HSequenceOfElement.def_static("operator new[]_", (void * (*)(size_t)) &MoniTool_HSequenceOfElement::operator new[], "None", py::arg("theSize"));
-// cls_MoniTool_HSequenceOfElement.def_static("operator delete[]_", (void (*)(void *)) &MoniTool_HSequenceOfElement::operator delete[], "None", py::arg("theAddress"));
-// cls_MoniTool_HSequenceOfElement.def_static("operator new_", (void * (*)(size_t, void *)) &MoniTool_HSequenceOfElement::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_MoniTool_HSequenceOfElement.def_static("operator delete_", (void (*)(void *, void *)) &MoniTool_HSequenceOfElement::operator delete, "None", py::arg(""), py::arg(""));
-// cls_MoniTool_HSequenceOfElement.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &MoniTool_HSequenceOfElement::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_MoniTool_HSequenceOfElement.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &MoniTool_HSequenceOfElement::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_MoniTool_HSequenceOfElement.def("Sequence", (const MoniTool_SequenceOfElement & (MoniTool_HSequenceOfElement::*)() const) &MoniTool_HSequenceOfElement::Sequence, "None");
-cls_MoniTool_HSequenceOfElement.def("Append", (void (MoniTool_HSequenceOfElement::*)(const MoniTool_SequenceOfElement::value_type &)) &MoniTool_HSequenceOfElement::Append, "None", py::arg("theItem"));
-cls_MoniTool_HSequenceOfElement.def("Append", (void (MoniTool_HSequenceOfElement::*)(MoniTool_SequenceOfElement &)) &MoniTool_HSequenceOfElement::Append, "None", py::arg("theSequence"));
-cls_MoniTool_HSequenceOfElement.def("ChangeSequence", (MoniTool_SequenceOfElement & (MoniTool_HSequenceOfElement::*)()) &MoniTool_HSequenceOfElement::ChangeSequence, "None");
-cls_MoniTool_HSequenceOfElement.def_static("get_type_name_", (const char * (*)()) &MoniTool_HSequenceOfElement::get_type_name, "None");
-cls_MoniTool_HSequenceOfElement.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &MoniTool_HSequenceOfElement::get_type_descriptor, "None");
-cls_MoniTool_HSequenceOfElement.def("DynamicType", (const opencascade::handle<Standard_Type> & (MoniTool_HSequenceOfElement::*)() const) &MoniTool_HSequenceOfElement::DynamicType, "None");
+bind_Define_HSequence<MoniTool_HSequenceOfElement, MoniTool_SequenceOfElement>(mod, "MoniTool_HSequenceOfElement");
 
 // TYPEDEF: MONITOOL_INDEXEDDATAMAPOFSHAPETRANSIENT
 bind_NCollection_IndexedDataMap<TopoDS_Shape, opencascade::handle<Standard_Transient>, TopTools_ShapeMapHasher>(mod, "MoniTool_IndexedDataMapOfShapeTransient", py::module_local(false));

@@ -82,7 +82,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Geom_Curve.hxx>
 #include <Geom_Geometry.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(GeomPlate, mod) {
 
@@ -146,55 +148,13 @@ cls_GeomPlate_CurveConstraint.def("DynamicType", (const opencascade::handle<Stan
 bind_NCollection_Sequence<opencascade::handle<GeomPlate_CurveConstraint> >(mod, "GeomPlate_SequenceOfCurveConstraint", py::module_local(false));
 
 // CLASS: GEOMPLATE_HSEQUENCEOFCURVECONSTRAINT
-py::class_<GeomPlate_HSequenceOfCurveConstraint, opencascade::handle<GeomPlate_HSequenceOfCurveConstraint>, Standard_Transient> cls_GeomPlate_HSequenceOfCurveConstraint(mod, "GeomPlate_HSequenceOfCurveConstraint", "None", py::multiple_inheritance());
-
-// Constructors
-cls_GeomPlate_HSequenceOfCurveConstraint.def(py::init<>());
-cls_GeomPlate_HSequenceOfCurveConstraint.def(py::init<const GeomPlate_SequenceOfCurveConstraint &>(), py::arg("theOther"));
-
-// Methods
-// cls_GeomPlate_HSequenceOfCurveConstraint.def_static("operator new_", (void * (*)(size_t)) &GeomPlate_HSequenceOfCurveConstraint::operator new, "None", py::arg("theSize"));
-// cls_GeomPlate_HSequenceOfCurveConstraint.def_static("operator delete_", (void (*)(void *)) &GeomPlate_HSequenceOfCurveConstraint::operator delete, "None", py::arg("theAddress"));
-// cls_GeomPlate_HSequenceOfCurveConstraint.def_static("operator new[]_", (void * (*)(size_t)) &GeomPlate_HSequenceOfCurveConstraint::operator new[], "None", py::arg("theSize"));
-// cls_GeomPlate_HSequenceOfCurveConstraint.def_static("operator delete[]_", (void (*)(void *)) &GeomPlate_HSequenceOfCurveConstraint::operator delete[], "None", py::arg("theAddress"));
-// cls_GeomPlate_HSequenceOfCurveConstraint.def_static("operator new_", (void * (*)(size_t, void *)) &GeomPlate_HSequenceOfCurveConstraint::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_GeomPlate_HSequenceOfCurveConstraint.def_static("operator delete_", (void (*)(void *, void *)) &GeomPlate_HSequenceOfCurveConstraint::operator delete, "None", py::arg(""), py::arg(""));
-// cls_GeomPlate_HSequenceOfCurveConstraint.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &GeomPlate_HSequenceOfCurveConstraint::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_GeomPlate_HSequenceOfCurveConstraint.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &GeomPlate_HSequenceOfCurveConstraint::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_GeomPlate_HSequenceOfCurveConstraint.def("Sequence", (const GeomPlate_SequenceOfCurveConstraint & (GeomPlate_HSequenceOfCurveConstraint::*)() const) &GeomPlate_HSequenceOfCurveConstraint::Sequence, "None");
-cls_GeomPlate_HSequenceOfCurveConstraint.def("Append", (void (GeomPlate_HSequenceOfCurveConstraint::*)(const GeomPlate_SequenceOfCurveConstraint::value_type &)) &GeomPlate_HSequenceOfCurveConstraint::Append, "None", py::arg("theItem"));
-cls_GeomPlate_HSequenceOfCurveConstraint.def("Append", (void (GeomPlate_HSequenceOfCurveConstraint::*)(GeomPlate_SequenceOfCurveConstraint &)) &GeomPlate_HSequenceOfCurveConstraint::Append, "None", py::arg("theSequence"));
-cls_GeomPlate_HSequenceOfCurveConstraint.def("ChangeSequence", (GeomPlate_SequenceOfCurveConstraint & (GeomPlate_HSequenceOfCurveConstraint::*)()) &GeomPlate_HSequenceOfCurveConstraint::ChangeSequence, "None");
-cls_GeomPlate_HSequenceOfCurveConstraint.def_static("get_type_name_", (const char * (*)()) &GeomPlate_HSequenceOfCurveConstraint::get_type_name, "None");
-cls_GeomPlate_HSequenceOfCurveConstraint.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &GeomPlate_HSequenceOfCurveConstraint::get_type_descriptor, "None");
-cls_GeomPlate_HSequenceOfCurveConstraint.def("DynamicType", (const opencascade::handle<Standard_Type> & (GeomPlate_HSequenceOfCurveConstraint::*)() const) &GeomPlate_HSequenceOfCurveConstraint::DynamicType, "None");
+bind_Define_HSequence<GeomPlate_HSequenceOfCurveConstraint, GeomPlate_SequenceOfCurveConstraint>(mod, "GeomPlate_HSequenceOfCurveConstraint");
 
 // TYPEDEF: GEOMPLATE_ARRAY1OFSEQUENCEOFREAL
 bind_NCollection_Array1<NCollection_Sequence<double> >(mod, "GeomPlate_Array1OfSequenceOfReal", py::module_local(false));
 
 // CLASS: GEOMPLATE_HARRAY1OFSEQUENCEOFREAL
-py::class_<GeomPlate_HArray1OfSequenceOfReal, opencascade::handle<GeomPlate_HArray1OfSequenceOfReal>, Standard_Transient> cls_GeomPlate_HArray1OfSequenceOfReal(mod, "GeomPlate_HArray1OfSequenceOfReal", "None", py::multiple_inheritance());
-
-// Constructors
-cls_GeomPlate_HArray1OfSequenceOfReal.def(py::init<>());
-cls_GeomPlate_HArray1OfSequenceOfReal.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_GeomPlate_HArray1OfSequenceOfReal.def(py::init<const Standard_Integer, const Standard_Integer, const GeomPlate_Array1OfSequenceOfReal::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_GeomPlate_HArray1OfSequenceOfReal.def(py::init<const GeomPlate_Array1OfSequenceOfReal &>(), py::arg("theOther"));
-
-// Methods
-// cls_GeomPlate_HArray1OfSequenceOfReal.def_static("operator new_", (void * (*)(size_t)) &GeomPlate_HArray1OfSequenceOfReal::operator new, "None", py::arg("theSize"));
-// cls_GeomPlate_HArray1OfSequenceOfReal.def_static("operator delete_", (void (*)(void *)) &GeomPlate_HArray1OfSequenceOfReal::operator delete, "None", py::arg("theAddress"));
-// cls_GeomPlate_HArray1OfSequenceOfReal.def_static("operator new[]_", (void * (*)(size_t)) &GeomPlate_HArray1OfSequenceOfReal::operator new[], "None", py::arg("theSize"));
-// cls_GeomPlate_HArray1OfSequenceOfReal.def_static("operator delete[]_", (void (*)(void *)) &GeomPlate_HArray1OfSequenceOfReal::operator delete[], "None", py::arg("theAddress"));
-// cls_GeomPlate_HArray1OfSequenceOfReal.def_static("operator new_", (void * (*)(size_t, void *)) &GeomPlate_HArray1OfSequenceOfReal::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_GeomPlate_HArray1OfSequenceOfReal.def_static("operator delete_", (void (*)(void *, void *)) &GeomPlate_HArray1OfSequenceOfReal::operator delete, "None", py::arg(""), py::arg(""));
-// cls_GeomPlate_HArray1OfSequenceOfReal.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &GeomPlate_HArray1OfSequenceOfReal::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_GeomPlate_HArray1OfSequenceOfReal.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &GeomPlate_HArray1OfSequenceOfReal::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_GeomPlate_HArray1OfSequenceOfReal.def("Array1", (const GeomPlate_Array1OfSequenceOfReal & (GeomPlate_HArray1OfSequenceOfReal::*)() const) &GeomPlate_HArray1OfSequenceOfReal::Array1, "None");
-cls_GeomPlate_HArray1OfSequenceOfReal.def("ChangeArray1", (GeomPlate_Array1OfSequenceOfReal & (GeomPlate_HArray1OfSequenceOfReal::*)()) &GeomPlate_HArray1OfSequenceOfReal::ChangeArray1, "None");
-cls_GeomPlate_HArray1OfSequenceOfReal.def_static("get_type_name_", (const char * (*)()) &GeomPlate_HArray1OfSequenceOfReal::get_type_name, "None");
-cls_GeomPlate_HArray1OfSequenceOfReal.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &GeomPlate_HArray1OfSequenceOfReal::get_type_descriptor, "None");
-cls_GeomPlate_HArray1OfSequenceOfReal.def("DynamicType", (const opencascade::handle<Standard_Type> & (GeomPlate_HArray1OfSequenceOfReal::*)() const) &GeomPlate_HArray1OfSequenceOfReal::DynamicType, "None");
+bind_Define_HArray1<GeomPlate_HArray1OfSequenceOfReal, GeomPlate_Array1OfSequenceOfReal>(mod, "GeomPlate_HArray1OfSequenceOfReal");
 
 // CLASS: GEOMPLATE_POINTCONSTRAINT
 py::class_<GeomPlate_PointConstraint, opencascade::handle<GeomPlate_PointConstraint>, Standard_Transient> cls_GeomPlate_PointConstraint(mod, "GeomPlate_PointConstraint", "Defines points as constraints to be used to deform a surface.");
@@ -231,55 +191,13 @@ cls_GeomPlate_PointConstraint.def("DynamicType", (const opencascade::handle<Stan
 bind_NCollection_Sequence<opencascade::handle<GeomPlate_PointConstraint> >(mod, "GeomPlate_SequenceOfPointConstraint", py::module_local(false));
 
 // CLASS: GEOMPLATE_HSEQUENCEOFPOINTCONSTRAINT
-py::class_<GeomPlate_HSequenceOfPointConstraint, opencascade::handle<GeomPlate_HSequenceOfPointConstraint>, Standard_Transient> cls_GeomPlate_HSequenceOfPointConstraint(mod, "GeomPlate_HSequenceOfPointConstraint", "None", py::multiple_inheritance());
-
-// Constructors
-cls_GeomPlate_HSequenceOfPointConstraint.def(py::init<>());
-cls_GeomPlate_HSequenceOfPointConstraint.def(py::init<const GeomPlate_SequenceOfPointConstraint &>(), py::arg("theOther"));
-
-// Methods
-// cls_GeomPlate_HSequenceOfPointConstraint.def_static("operator new_", (void * (*)(size_t)) &GeomPlate_HSequenceOfPointConstraint::operator new, "None", py::arg("theSize"));
-// cls_GeomPlate_HSequenceOfPointConstraint.def_static("operator delete_", (void (*)(void *)) &GeomPlate_HSequenceOfPointConstraint::operator delete, "None", py::arg("theAddress"));
-// cls_GeomPlate_HSequenceOfPointConstraint.def_static("operator new[]_", (void * (*)(size_t)) &GeomPlate_HSequenceOfPointConstraint::operator new[], "None", py::arg("theSize"));
-// cls_GeomPlate_HSequenceOfPointConstraint.def_static("operator delete[]_", (void (*)(void *)) &GeomPlate_HSequenceOfPointConstraint::operator delete[], "None", py::arg("theAddress"));
-// cls_GeomPlate_HSequenceOfPointConstraint.def_static("operator new_", (void * (*)(size_t, void *)) &GeomPlate_HSequenceOfPointConstraint::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_GeomPlate_HSequenceOfPointConstraint.def_static("operator delete_", (void (*)(void *, void *)) &GeomPlate_HSequenceOfPointConstraint::operator delete, "None", py::arg(""), py::arg(""));
-// cls_GeomPlate_HSequenceOfPointConstraint.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &GeomPlate_HSequenceOfPointConstraint::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_GeomPlate_HSequenceOfPointConstraint.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &GeomPlate_HSequenceOfPointConstraint::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_GeomPlate_HSequenceOfPointConstraint.def("Sequence", (const GeomPlate_SequenceOfPointConstraint & (GeomPlate_HSequenceOfPointConstraint::*)() const) &GeomPlate_HSequenceOfPointConstraint::Sequence, "None");
-cls_GeomPlate_HSequenceOfPointConstraint.def("Append", (void (GeomPlate_HSequenceOfPointConstraint::*)(const GeomPlate_SequenceOfPointConstraint::value_type &)) &GeomPlate_HSequenceOfPointConstraint::Append, "None", py::arg("theItem"));
-cls_GeomPlate_HSequenceOfPointConstraint.def("Append", (void (GeomPlate_HSequenceOfPointConstraint::*)(GeomPlate_SequenceOfPointConstraint &)) &GeomPlate_HSequenceOfPointConstraint::Append, "None", py::arg("theSequence"));
-cls_GeomPlate_HSequenceOfPointConstraint.def("ChangeSequence", (GeomPlate_SequenceOfPointConstraint & (GeomPlate_HSequenceOfPointConstraint::*)()) &GeomPlate_HSequenceOfPointConstraint::ChangeSequence, "None");
-cls_GeomPlate_HSequenceOfPointConstraint.def_static("get_type_name_", (const char * (*)()) &GeomPlate_HSequenceOfPointConstraint::get_type_name, "None");
-cls_GeomPlate_HSequenceOfPointConstraint.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &GeomPlate_HSequenceOfPointConstraint::get_type_descriptor, "None");
-cls_GeomPlate_HSequenceOfPointConstraint.def("DynamicType", (const opencascade::handle<Standard_Type> & (GeomPlate_HSequenceOfPointConstraint::*)() const) &GeomPlate_HSequenceOfPointConstraint::DynamicType, "None");
+bind_Define_HSequence<GeomPlate_HSequenceOfPointConstraint, GeomPlate_SequenceOfPointConstraint>(mod, "GeomPlate_HSequenceOfPointConstraint");
 
 // TYPEDEF: GEOMPLATE_ARRAY1OFHCURVE
 bind_NCollection_Array1<opencascade::handle<Adaptor3d_HCurve> >(mod, "GeomPlate_Array1OfHCurve", py::module_local(false));
 
 // CLASS: GEOMPLATE_HARRAY1OFHCURVE
-py::class_<GeomPlate_HArray1OfHCurve, opencascade::handle<GeomPlate_HArray1OfHCurve>, Standard_Transient> cls_GeomPlate_HArray1OfHCurve(mod, "GeomPlate_HArray1OfHCurve", "None", py::multiple_inheritance());
-
-// Constructors
-cls_GeomPlate_HArray1OfHCurve.def(py::init<>());
-cls_GeomPlate_HArray1OfHCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_GeomPlate_HArray1OfHCurve.def(py::init<const Standard_Integer, const Standard_Integer, const GeomPlate_Array1OfHCurve::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_GeomPlate_HArray1OfHCurve.def(py::init<const GeomPlate_Array1OfHCurve &>(), py::arg("theOther"));
-
-// Methods
-// cls_GeomPlate_HArray1OfHCurve.def_static("operator new_", (void * (*)(size_t)) &GeomPlate_HArray1OfHCurve::operator new, "None", py::arg("theSize"));
-// cls_GeomPlate_HArray1OfHCurve.def_static("operator delete_", (void (*)(void *)) &GeomPlate_HArray1OfHCurve::operator delete, "None", py::arg("theAddress"));
-// cls_GeomPlate_HArray1OfHCurve.def_static("operator new[]_", (void * (*)(size_t)) &GeomPlate_HArray1OfHCurve::operator new[], "None", py::arg("theSize"));
-// cls_GeomPlate_HArray1OfHCurve.def_static("operator delete[]_", (void (*)(void *)) &GeomPlate_HArray1OfHCurve::operator delete[], "None", py::arg("theAddress"));
-// cls_GeomPlate_HArray1OfHCurve.def_static("operator new_", (void * (*)(size_t, void *)) &GeomPlate_HArray1OfHCurve::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_GeomPlate_HArray1OfHCurve.def_static("operator delete_", (void (*)(void *, void *)) &GeomPlate_HArray1OfHCurve::operator delete, "None", py::arg(""), py::arg(""));
-// cls_GeomPlate_HArray1OfHCurve.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &GeomPlate_HArray1OfHCurve::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_GeomPlate_HArray1OfHCurve.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &GeomPlate_HArray1OfHCurve::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_GeomPlate_HArray1OfHCurve.def("Array1", (const GeomPlate_Array1OfHCurve & (GeomPlate_HArray1OfHCurve::*)() const) &GeomPlate_HArray1OfHCurve::Array1, "None");
-cls_GeomPlate_HArray1OfHCurve.def("ChangeArray1", (GeomPlate_Array1OfHCurve & (GeomPlate_HArray1OfHCurve::*)()) &GeomPlate_HArray1OfHCurve::ChangeArray1, "None");
-cls_GeomPlate_HArray1OfHCurve.def_static("get_type_name_", (const char * (*)()) &GeomPlate_HArray1OfHCurve::get_type_name, "None");
-cls_GeomPlate_HArray1OfHCurve.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &GeomPlate_HArray1OfHCurve::get_type_descriptor, "None");
-cls_GeomPlate_HArray1OfHCurve.def("DynamicType", (const opencascade::handle<Standard_Type> & (GeomPlate_HArray1OfHCurve::*)() const) &GeomPlate_HArray1OfHCurve::DynamicType, "None");
+bind_Define_HArray1<GeomPlate_HArray1OfHCurve, GeomPlate_Array1OfHCurve>(mod, "GeomPlate_HArray1OfHCurve");
 
 // CLASS: GEOMPLATE_BUILDPLATESURFACE
 py::class_<GeomPlate_BuildPlateSurface> cls_GeomPlate_BuildPlateSurface(mod, "GeomPlate_BuildPlateSurface", "This class provides an algorithm for constructing such a plate surface that it conforms to given curve and/or point constraints. The algorithm accepts or constructs an initial surface and looks for a deformation of it satisfying the constraints and minimizing energy input. A BuildPlateSurface object provides a framework for: - defining or setting constraints - implementing the construction algorithm - consulting the result.");

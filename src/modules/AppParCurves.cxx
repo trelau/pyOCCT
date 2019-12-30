@@ -60,6 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <AppParCurves_HArray1OfMultiCurve.hxx>
 #include <AppParCurves_SequenceOfMultiBSpCurve.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 #include <bind_NCollection_Sequence.hxx>
 
 PYBIND11_MODULE(AppParCurves, mod) {
@@ -112,28 +113,7 @@ cls_AppParCurves_MultiPoint.def("Dump", (void (AppParCurves_MultiPoint::*)(Stand
 bind_NCollection_Array1<AppParCurves_MultiPoint>(mod, "AppParCurves_Array1OfMultiPoint", py::module_local(false));
 
 // CLASS: APPPARCURVES_HARRAY1OFMULTIPOINT
-py::class_<AppParCurves_HArray1OfMultiPoint, opencascade::handle<AppParCurves_HArray1OfMultiPoint>, Standard_Transient> cls_AppParCurves_HArray1OfMultiPoint(mod, "AppParCurves_HArray1OfMultiPoint", "None", py::multiple_inheritance());
-
-// Constructors
-cls_AppParCurves_HArray1OfMultiPoint.def(py::init<>());
-cls_AppParCurves_HArray1OfMultiPoint.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_AppParCurves_HArray1OfMultiPoint.def(py::init<const Standard_Integer, const Standard_Integer, const AppParCurves_Array1OfMultiPoint::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_AppParCurves_HArray1OfMultiPoint.def(py::init<const AppParCurves_Array1OfMultiPoint &>(), py::arg("theOther"));
-
-// Methods
-// cls_AppParCurves_HArray1OfMultiPoint.def_static("operator new_", (void * (*)(size_t)) &AppParCurves_HArray1OfMultiPoint::operator new, "None", py::arg("theSize"));
-// cls_AppParCurves_HArray1OfMultiPoint.def_static("operator delete_", (void (*)(void *)) &AppParCurves_HArray1OfMultiPoint::operator delete, "None", py::arg("theAddress"));
-// cls_AppParCurves_HArray1OfMultiPoint.def_static("operator new[]_", (void * (*)(size_t)) &AppParCurves_HArray1OfMultiPoint::operator new[], "None", py::arg("theSize"));
-// cls_AppParCurves_HArray1OfMultiPoint.def_static("operator delete[]_", (void (*)(void *)) &AppParCurves_HArray1OfMultiPoint::operator delete[], "None", py::arg("theAddress"));
-// cls_AppParCurves_HArray1OfMultiPoint.def_static("operator new_", (void * (*)(size_t, void *)) &AppParCurves_HArray1OfMultiPoint::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_AppParCurves_HArray1OfMultiPoint.def_static("operator delete_", (void (*)(void *, void *)) &AppParCurves_HArray1OfMultiPoint::operator delete, "None", py::arg(""), py::arg(""));
-// cls_AppParCurves_HArray1OfMultiPoint.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &AppParCurves_HArray1OfMultiPoint::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_AppParCurves_HArray1OfMultiPoint.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &AppParCurves_HArray1OfMultiPoint::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_AppParCurves_HArray1OfMultiPoint.def("Array1", (const AppParCurves_Array1OfMultiPoint & (AppParCurves_HArray1OfMultiPoint::*)() const) &AppParCurves_HArray1OfMultiPoint::Array1, "None");
-cls_AppParCurves_HArray1OfMultiPoint.def("ChangeArray1", (AppParCurves_Array1OfMultiPoint & (AppParCurves_HArray1OfMultiPoint::*)()) &AppParCurves_HArray1OfMultiPoint::ChangeArray1, "None");
-cls_AppParCurves_HArray1OfMultiPoint.def_static("get_type_name_", (const char * (*)()) &AppParCurves_HArray1OfMultiPoint::get_type_name, "None");
-cls_AppParCurves_HArray1OfMultiPoint.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AppParCurves_HArray1OfMultiPoint::get_type_descriptor, "None");
-cls_AppParCurves_HArray1OfMultiPoint.def("DynamicType", (const opencascade::handle<Standard_Type> & (AppParCurves_HArray1OfMultiPoint::*)() const) &AppParCurves_HArray1OfMultiPoint::DynamicType, "None");
+bind_Define_HArray1<AppParCurves_HArray1OfMultiPoint, AppParCurves_Array1OfMultiPoint>(mod, "AppParCurves_HArray1OfMultiPoint");
 
 // CLASS: APPPARCURVES_MULTICURVE
 py::class_<AppParCurves_MultiCurve> cls_AppParCurves_MultiCurve(mod, "AppParCurves_MultiCurve", "This class describes a MultiCurve approximating a Multiline. As a Multiline is a set of n lines, a MultiCurve is a set of n curves. These curves are Bezier curves. A MultiCurve is composed of m MultiPoint. The approximating degree of these n curves is the same for each one.");
@@ -223,28 +203,7 @@ cls_AppParCurves_ConstraintCouple.def("SetConstraint", (void (AppParCurves_Const
 bind_NCollection_Array1<AppParCurves_ConstraintCouple>(mod, "AppParCurves_Array1OfConstraintCouple", py::module_local(false));
 
 // CLASS: APPPARCURVES_HARRAY1OFCONSTRAINTCOUPLE
-py::class_<AppParCurves_HArray1OfConstraintCouple, opencascade::handle<AppParCurves_HArray1OfConstraintCouple>, Standard_Transient> cls_AppParCurves_HArray1OfConstraintCouple(mod, "AppParCurves_HArray1OfConstraintCouple", "None", py::multiple_inheritance());
-
-// Constructors
-cls_AppParCurves_HArray1OfConstraintCouple.def(py::init<>());
-cls_AppParCurves_HArray1OfConstraintCouple.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_AppParCurves_HArray1OfConstraintCouple.def(py::init<const Standard_Integer, const Standard_Integer, const AppParCurves_Array1OfConstraintCouple::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_AppParCurves_HArray1OfConstraintCouple.def(py::init<const AppParCurves_Array1OfConstraintCouple &>(), py::arg("theOther"));
-
-// Methods
-// cls_AppParCurves_HArray1OfConstraintCouple.def_static("operator new_", (void * (*)(size_t)) &AppParCurves_HArray1OfConstraintCouple::operator new, "None", py::arg("theSize"));
-// cls_AppParCurves_HArray1OfConstraintCouple.def_static("operator delete_", (void (*)(void *)) &AppParCurves_HArray1OfConstraintCouple::operator delete, "None", py::arg("theAddress"));
-// cls_AppParCurves_HArray1OfConstraintCouple.def_static("operator new[]_", (void * (*)(size_t)) &AppParCurves_HArray1OfConstraintCouple::operator new[], "None", py::arg("theSize"));
-// cls_AppParCurves_HArray1OfConstraintCouple.def_static("operator delete[]_", (void (*)(void *)) &AppParCurves_HArray1OfConstraintCouple::operator delete[], "None", py::arg("theAddress"));
-// cls_AppParCurves_HArray1OfConstraintCouple.def_static("operator new_", (void * (*)(size_t, void *)) &AppParCurves_HArray1OfConstraintCouple::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_AppParCurves_HArray1OfConstraintCouple.def_static("operator delete_", (void (*)(void *, void *)) &AppParCurves_HArray1OfConstraintCouple::operator delete, "None", py::arg(""), py::arg(""));
-// cls_AppParCurves_HArray1OfConstraintCouple.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &AppParCurves_HArray1OfConstraintCouple::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_AppParCurves_HArray1OfConstraintCouple.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &AppParCurves_HArray1OfConstraintCouple::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_AppParCurves_HArray1OfConstraintCouple.def("Array1", (const AppParCurves_Array1OfConstraintCouple & (AppParCurves_HArray1OfConstraintCouple::*)() const) &AppParCurves_HArray1OfConstraintCouple::Array1, "None");
-cls_AppParCurves_HArray1OfConstraintCouple.def("ChangeArray1", (AppParCurves_Array1OfConstraintCouple & (AppParCurves_HArray1OfConstraintCouple::*)()) &AppParCurves_HArray1OfConstraintCouple::ChangeArray1, "None");
-cls_AppParCurves_HArray1OfConstraintCouple.def_static("get_type_name_", (const char * (*)()) &AppParCurves_HArray1OfConstraintCouple::get_type_name, "None");
-cls_AppParCurves_HArray1OfConstraintCouple.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AppParCurves_HArray1OfConstraintCouple::get_type_descriptor, "None");
-cls_AppParCurves_HArray1OfConstraintCouple.def("DynamicType", (const opencascade::handle<Standard_Type> & (AppParCurves_HArray1OfConstraintCouple::*)() const) &AppParCurves_HArray1OfConstraintCouple::DynamicType, "None");
+bind_Define_HArray1<AppParCurves_HArray1OfConstraintCouple, AppParCurves_Array1OfConstraintCouple>(mod, "AppParCurves_HArray1OfConstraintCouple");
 
 // TYPEDEF: APPPARCURVES_SEQUENCEOFMULTICURVE
 bind_NCollection_Sequence<AppParCurves_MultiCurve>(mod, "AppParCurves_SequenceOfMultiCurve", py::module_local(false));
@@ -274,52 +233,10 @@ bind_NCollection_Array1<AppParCurves_MultiBSpCurve>(mod, "AppParCurves_Array1OfM
 bind_NCollection_Array1<AppParCurves_MultiCurve>(mod, "AppParCurves_Array1OfMultiCurve", py::module_local(false));
 
 // CLASS: APPPARCURVES_HARRAY1OFMULTIBSPCURVE
-py::class_<AppParCurves_HArray1OfMultiBSpCurve, opencascade::handle<AppParCurves_HArray1OfMultiBSpCurve>, Standard_Transient> cls_AppParCurves_HArray1OfMultiBSpCurve(mod, "AppParCurves_HArray1OfMultiBSpCurve", "None", py::multiple_inheritance());
-
-// Constructors
-cls_AppParCurves_HArray1OfMultiBSpCurve.def(py::init<>());
-cls_AppParCurves_HArray1OfMultiBSpCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_AppParCurves_HArray1OfMultiBSpCurve.def(py::init<const Standard_Integer, const Standard_Integer, const AppParCurves_Array1OfMultiBSpCurve::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_AppParCurves_HArray1OfMultiBSpCurve.def(py::init<const AppParCurves_Array1OfMultiBSpCurve &>(), py::arg("theOther"));
-
-// Methods
-// cls_AppParCurves_HArray1OfMultiBSpCurve.def_static("operator new_", (void * (*)(size_t)) &AppParCurves_HArray1OfMultiBSpCurve::operator new, "None", py::arg("theSize"));
-// cls_AppParCurves_HArray1OfMultiBSpCurve.def_static("operator delete_", (void (*)(void *)) &AppParCurves_HArray1OfMultiBSpCurve::operator delete, "None", py::arg("theAddress"));
-// cls_AppParCurves_HArray1OfMultiBSpCurve.def_static("operator new[]_", (void * (*)(size_t)) &AppParCurves_HArray1OfMultiBSpCurve::operator new[], "None", py::arg("theSize"));
-// cls_AppParCurves_HArray1OfMultiBSpCurve.def_static("operator delete[]_", (void (*)(void *)) &AppParCurves_HArray1OfMultiBSpCurve::operator delete[], "None", py::arg("theAddress"));
-// cls_AppParCurves_HArray1OfMultiBSpCurve.def_static("operator new_", (void * (*)(size_t, void *)) &AppParCurves_HArray1OfMultiBSpCurve::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_AppParCurves_HArray1OfMultiBSpCurve.def_static("operator delete_", (void (*)(void *, void *)) &AppParCurves_HArray1OfMultiBSpCurve::operator delete, "None", py::arg(""), py::arg(""));
-// cls_AppParCurves_HArray1OfMultiBSpCurve.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &AppParCurves_HArray1OfMultiBSpCurve::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_AppParCurves_HArray1OfMultiBSpCurve.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &AppParCurves_HArray1OfMultiBSpCurve::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_AppParCurves_HArray1OfMultiBSpCurve.def("Array1", (const AppParCurves_Array1OfMultiBSpCurve & (AppParCurves_HArray1OfMultiBSpCurve::*)() const) &AppParCurves_HArray1OfMultiBSpCurve::Array1, "None");
-cls_AppParCurves_HArray1OfMultiBSpCurve.def("ChangeArray1", (AppParCurves_Array1OfMultiBSpCurve & (AppParCurves_HArray1OfMultiBSpCurve::*)()) &AppParCurves_HArray1OfMultiBSpCurve::ChangeArray1, "None");
-cls_AppParCurves_HArray1OfMultiBSpCurve.def_static("get_type_name_", (const char * (*)()) &AppParCurves_HArray1OfMultiBSpCurve::get_type_name, "None");
-cls_AppParCurves_HArray1OfMultiBSpCurve.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AppParCurves_HArray1OfMultiBSpCurve::get_type_descriptor, "None");
-cls_AppParCurves_HArray1OfMultiBSpCurve.def("DynamicType", (const opencascade::handle<Standard_Type> & (AppParCurves_HArray1OfMultiBSpCurve::*)() const) &AppParCurves_HArray1OfMultiBSpCurve::DynamicType, "None");
+bind_Define_HArray1<AppParCurves_HArray1OfMultiBSpCurve, AppParCurves_Array1OfMultiBSpCurve>(mod, "AppParCurves_HArray1OfMultiBSpCurve");
 
 // CLASS: APPPARCURVES_HARRAY1OFMULTICURVE
-py::class_<AppParCurves_HArray1OfMultiCurve, opencascade::handle<AppParCurves_HArray1OfMultiCurve>, Standard_Transient> cls_AppParCurves_HArray1OfMultiCurve(mod, "AppParCurves_HArray1OfMultiCurve", "None", py::multiple_inheritance());
-
-// Constructors
-cls_AppParCurves_HArray1OfMultiCurve.def(py::init<>());
-cls_AppParCurves_HArray1OfMultiCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_AppParCurves_HArray1OfMultiCurve.def(py::init<const Standard_Integer, const Standard_Integer, const AppParCurves_Array1OfMultiCurve::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_AppParCurves_HArray1OfMultiCurve.def(py::init<const AppParCurves_Array1OfMultiCurve &>(), py::arg("theOther"));
-
-// Methods
-// cls_AppParCurves_HArray1OfMultiCurve.def_static("operator new_", (void * (*)(size_t)) &AppParCurves_HArray1OfMultiCurve::operator new, "None", py::arg("theSize"));
-// cls_AppParCurves_HArray1OfMultiCurve.def_static("operator delete_", (void (*)(void *)) &AppParCurves_HArray1OfMultiCurve::operator delete, "None", py::arg("theAddress"));
-// cls_AppParCurves_HArray1OfMultiCurve.def_static("operator new[]_", (void * (*)(size_t)) &AppParCurves_HArray1OfMultiCurve::operator new[], "None", py::arg("theSize"));
-// cls_AppParCurves_HArray1OfMultiCurve.def_static("operator delete[]_", (void (*)(void *)) &AppParCurves_HArray1OfMultiCurve::operator delete[], "None", py::arg("theAddress"));
-// cls_AppParCurves_HArray1OfMultiCurve.def_static("operator new_", (void * (*)(size_t, void *)) &AppParCurves_HArray1OfMultiCurve::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_AppParCurves_HArray1OfMultiCurve.def_static("operator delete_", (void (*)(void *, void *)) &AppParCurves_HArray1OfMultiCurve::operator delete, "None", py::arg(""), py::arg(""));
-// cls_AppParCurves_HArray1OfMultiCurve.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &AppParCurves_HArray1OfMultiCurve::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_AppParCurves_HArray1OfMultiCurve.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &AppParCurves_HArray1OfMultiCurve::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_AppParCurves_HArray1OfMultiCurve.def("Array1", (const AppParCurves_Array1OfMultiCurve & (AppParCurves_HArray1OfMultiCurve::*)() const) &AppParCurves_HArray1OfMultiCurve::Array1, "None");
-cls_AppParCurves_HArray1OfMultiCurve.def("ChangeArray1", (AppParCurves_Array1OfMultiCurve & (AppParCurves_HArray1OfMultiCurve::*)()) &AppParCurves_HArray1OfMultiCurve::ChangeArray1, "None");
-cls_AppParCurves_HArray1OfMultiCurve.def_static("get_type_name_", (const char * (*)()) &AppParCurves_HArray1OfMultiCurve::get_type_name, "None");
-cls_AppParCurves_HArray1OfMultiCurve.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &AppParCurves_HArray1OfMultiCurve::get_type_descriptor, "None");
-cls_AppParCurves_HArray1OfMultiCurve.def("DynamicType", (const opencascade::handle<Standard_Type> & (AppParCurves_HArray1OfMultiCurve::*)() const) &AppParCurves_HArray1OfMultiCurve::DynamicType, "None");
+bind_Define_HArray1<AppParCurves_HArray1OfMultiCurve, AppParCurves_Array1OfMultiCurve>(mod, "AppParCurves_HArray1OfMultiCurve");
 
 // TYPEDEF: APPPARCURVES_SEQUENCEOFMULTIBSPCURVE
 bind_NCollection_Sequence<AppParCurves_MultiBSpCurve>(mod, "AppParCurves_SequenceOfMultiBSpCurve", py::module_local(false));

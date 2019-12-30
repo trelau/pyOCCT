@@ -101,6 +101,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColStd_DataMapOfIntegerListOfInteger.hxx>
 #include <Contap_TheIWalking.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 
 PYBIND11_MODULE(Contap, mod) {
 
@@ -230,28 +231,7 @@ cls_Contap_Point.def("IsInternal", (Standard_Boolean (Contap_Point::*)() const) 
 bind_NCollection_Sequence<Contap_Point>(mod, "Contap_TheSequenceOfPoint", py::module_local(false));
 
 // CLASS: CONTAP_THEHSEQUENCEOFPOINT
-py::class_<Contap_TheHSequenceOfPoint, opencascade::handle<Contap_TheHSequenceOfPoint>, Standard_Transient> cls_Contap_TheHSequenceOfPoint(mod, "Contap_TheHSequenceOfPoint", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Contap_TheHSequenceOfPoint.def(py::init<>());
-cls_Contap_TheHSequenceOfPoint.def(py::init<const Contap_TheSequenceOfPoint &>(), py::arg("theOther"));
-
-// Methods
-// cls_Contap_TheHSequenceOfPoint.def_static("operator new_", (void * (*)(size_t)) &Contap_TheHSequenceOfPoint::operator new, "None", py::arg("theSize"));
-// cls_Contap_TheHSequenceOfPoint.def_static("operator delete_", (void (*)(void *)) &Contap_TheHSequenceOfPoint::operator delete, "None", py::arg("theAddress"));
-// cls_Contap_TheHSequenceOfPoint.def_static("operator new[]_", (void * (*)(size_t)) &Contap_TheHSequenceOfPoint::operator new[], "None", py::arg("theSize"));
-// cls_Contap_TheHSequenceOfPoint.def_static("operator delete[]_", (void (*)(void *)) &Contap_TheHSequenceOfPoint::operator delete[], "None", py::arg("theAddress"));
-// cls_Contap_TheHSequenceOfPoint.def_static("operator new_", (void * (*)(size_t, void *)) &Contap_TheHSequenceOfPoint::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Contap_TheHSequenceOfPoint.def_static("operator delete_", (void (*)(void *, void *)) &Contap_TheHSequenceOfPoint::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Contap_TheHSequenceOfPoint.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Contap_TheHSequenceOfPoint::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Contap_TheHSequenceOfPoint.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Contap_TheHSequenceOfPoint::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Contap_TheHSequenceOfPoint.def("Sequence", (const Contap_TheSequenceOfPoint & (Contap_TheHSequenceOfPoint::*)() const) &Contap_TheHSequenceOfPoint::Sequence, "None");
-cls_Contap_TheHSequenceOfPoint.def("Append", (void (Contap_TheHSequenceOfPoint::*)(const Contap_TheSequenceOfPoint::value_type &)) &Contap_TheHSequenceOfPoint::Append, "None", py::arg("theItem"));
-cls_Contap_TheHSequenceOfPoint.def("Append", (void (Contap_TheHSequenceOfPoint::*)(Contap_TheSequenceOfPoint &)) &Contap_TheHSequenceOfPoint::Append, "None", py::arg("theSequence"));
-cls_Contap_TheHSequenceOfPoint.def("ChangeSequence", (Contap_TheSequenceOfPoint & (Contap_TheHSequenceOfPoint::*)()) &Contap_TheHSequenceOfPoint::ChangeSequence, "None");
-cls_Contap_TheHSequenceOfPoint.def_static("get_type_name_", (const char * (*)()) &Contap_TheHSequenceOfPoint::get_type_name, "None");
-cls_Contap_TheHSequenceOfPoint.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Contap_TheHSequenceOfPoint::get_type_descriptor, "None");
-cls_Contap_TheHSequenceOfPoint.def("DynamicType", (const opencascade::handle<Standard_Type> & (Contap_TheHSequenceOfPoint::*)() const) &Contap_TheHSequenceOfPoint::DynamicType, "None");
+bind_Define_HSequence<Contap_TheHSequenceOfPoint, Contap_TheSequenceOfPoint>(mod, "Contap_TheHSequenceOfPoint");
 
 // CLASS: CONTAP_LINE
 py::class_<Contap_Line> cls_Contap_Line(mod, "Contap_Line", "None");

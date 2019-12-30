@@ -76,6 +76,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <HLRAlgo_PolyInternalData.hxx>
 #include <HLRAlgo_PolyShellData.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 #include <bind_NCollection_List.hxx>
 #include <bind_NCollection_TListIterator.hxx>
 
@@ -387,100 +388,16 @@ cls_HLRAlgo_EdgeStatus.def("AllVisible", (Standard_Boolean (HLRAlgo_EdgeStatus::
 cls_HLRAlgo_EdgeStatus.def("AllVisible", (void (HLRAlgo_EdgeStatus::*)(const Standard_Boolean)) &HLRAlgo_EdgeStatus::AllVisible, "None", py::arg("B"));
 
 // CLASS: HLRALGO_HARRAY1OFPHDAT
-py::class_<HLRAlgo_HArray1OfPHDat, opencascade::handle<HLRAlgo_HArray1OfPHDat>, Standard_Transient> cls_HLRAlgo_HArray1OfPHDat(mod, "HLRAlgo_HArray1OfPHDat", "None", py::multiple_inheritance());
-
-// Constructors
-cls_HLRAlgo_HArray1OfPHDat.def(py::init<>());
-cls_HLRAlgo_HArray1OfPHDat.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_HLRAlgo_HArray1OfPHDat.def(py::init<const Standard_Integer, const Standard_Integer, const HLRAlgo_Array1OfPHDat::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_HLRAlgo_HArray1OfPHDat.def(py::init<const HLRAlgo_Array1OfPHDat &>(), py::arg("theOther"));
-
-// Methods
-// cls_HLRAlgo_HArray1OfPHDat.def_static("operator new_", (void * (*)(size_t)) &HLRAlgo_HArray1OfPHDat::operator new, "None", py::arg("theSize"));
-// cls_HLRAlgo_HArray1OfPHDat.def_static("operator delete_", (void (*)(void *)) &HLRAlgo_HArray1OfPHDat::operator delete, "None", py::arg("theAddress"));
-// cls_HLRAlgo_HArray1OfPHDat.def_static("operator new[]_", (void * (*)(size_t)) &HLRAlgo_HArray1OfPHDat::operator new[], "None", py::arg("theSize"));
-// cls_HLRAlgo_HArray1OfPHDat.def_static("operator delete[]_", (void (*)(void *)) &HLRAlgo_HArray1OfPHDat::operator delete[], "None", py::arg("theAddress"));
-// cls_HLRAlgo_HArray1OfPHDat.def_static("operator new_", (void * (*)(size_t, void *)) &HLRAlgo_HArray1OfPHDat::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_HLRAlgo_HArray1OfPHDat.def_static("operator delete_", (void (*)(void *, void *)) &HLRAlgo_HArray1OfPHDat::operator delete, "None", py::arg(""), py::arg(""));
-// cls_HLRAlgo_HArray1OfPHDat.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &HLRAlgo_HArray1OfPHDat::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_HLRAlgo_HArray1OfPHDat.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &HLRAlgo_HArray1OfPHDat::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_HLRAlgo_HArray1OfPHDat.def("Array1", (const HLRAlgo_Array1OfPHDat & (HLRAlgo_HArray1OfPHDat::*)() const) &HLRAlgo_HArray1OfPHDat::Array1, "None");
-cls_HLRAlgo_HArray1OfPHDat.def("ChangeArray1", (HLRAlgo_Array1OfPHDat & (HLRAlgo_HArray1OfPHDat::*)()) &HLRAlgo_HArray1OfPHDat::ChangeArray1, "None");
-cls_HLRAlgo_HArray1OfPHDat.def_static("get_type_name_", (const char * (*)()) &HLRAlgo_HArray1OfPHDat::get_type_name, "None");
-cls_HLRAlgo_HArray1OfPHDat.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &HLRAlgo_HArray1OfPHDat::get_type_descriptor, "None");
-cls_HLRAlgo_HArray1OfPHDat.def("DynamicType", (const opencascade::handle<Standard_Type> & (HLRAlgo_HArray1OfPHDat::*)() const) &HLRAlgo_HArray1OfPHDat::DynamicType, "None");
+bind_Define_HArray1<HLRAlgo_HArray1OfPHDat, HLRAlgo_Array1OfPHDat>(mod, "HLRAlgo_HArray1OfPHDat");
 
 // CLASS: HLRALGO_HARRAY1OFPINOD
-py::class_<HLRAlgo_HArray1OfPINod, opencascade::handle<HLRAlgo_HArray1OfPINod>, Standard_Transient> cls_HLRAlgo_HArray1OfPINod(mod, "HLRAlgo_HArray1OfPINod", "None", py::multiple_inheritance());
-
-// Constructors
-cls_HLRAlgo_HArray1OfPINod.def(py::init<>());
-cls_HLRAlgo_HArray1OfPINod.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_HLRAlgo_HArray1OfPINod.def(py::init<const Standard_Integer, const Standard_Integer, const HLRAlgo_Array1OfPINod::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_HLRAlgo_HArray1OfPINod.def(py::init<const HLRAlgo_Array1OfPINod &>(), py::arg("theOther"));
-
-// Methods
-// cls_HLRAlgo_HArray1OfPINod.def_static("operator new_", (void * (*)(size_t)) &HLRAlgo_HArray1OfPINod::operator new, "None", py::arg("theSize"));
-// cls_HLRAlgo_HArray1OfPINod.def_static("operator delete_", (void (*)(void *)) &HLRAlgo_HArray1OfPINod::operator delete, "None", py::arg("theAddress"));
-// cls_HLRAlgo_HArray1OfPINod.def_static("operator new[]_", (void * (*)(size_t)) &HLRAlgo_HArray1OfPINod::operator new[], "None", py::arg("theSize"));
-// cls_HLRAlgo_HArray1OfPINod.def_static("operator delete[]_", (void (*)(void *)) &HLRAlgo_HArray1OfPINod::operator delete[], "None", py::arg("theAddress"));
-// cls_HLRAlgo_HArray1OfPINod.def_static("operator new_", (void * (*)(size_t, void *)) &HLRAlgo_HArray1OfPINod::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_HLRAlgo_HArray1OfPINod.def_static("operator delete_", (void (*)(void *, void *)) &HLRAlgo_HArray1OfPINod::operator delete, "None", py::arg(""), py::arg(""));
-// cls_HLRAlgo_HArray1OfPINod.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &HLRAlgo_HArray1OfPINod::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_HLRAlgo_HArray1OfPINod.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &HLRAlgo_HArray1OfPINod::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_HLRAlgo_HArray1OfPINod.def("Array1", (const HLRAlgo_Array1OfPINod & (HLRAlgo_HArray1OfPINod::*)() const) &HLRAlgo_HArray1OfPINod::Array1, "None");
-cls_HLRAlgo_HArray1OfPINod.def("ChangeArray1", (HLRAlgo_Array1OfPINod & (HLRAlgo_HArray1OfPINod::*)()) &HLRAlgo_HArray1OfPINod::ChangeArray1, "None");
-cls_HLRAlgo_HArray1OfPINod.def_static("get_type_name_", (const char * (*)()) &HLRAlgo_HArray1OfPINod::get_type_name, "None");
-cls_HLRAlgo_HArray1OfPINod.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &HLRAlgo_HArray1OfPINod::get_type_descriptor, "None");
-cls_HLRAlgo_HArray1OfPINod.def("DynamicType", (const opencascade::handle<Standard_Type> & (HLRAlgo_HArray1OfPINod::*)() const) &HLRAlgo_HArray1OfPINod::DynamicType, "None");
+bind_Define_HArray1<HLRAlgo_HArray1OfPINod, HLRAlgo_Array1OfPINod>(mod, "HLRAlgo_HArray1OfPINod");
 
 // CLASS: HLRALGO_HARRAY1OFPISEG
-py::class_<HLRAlgo_HArray1OfPISeg, opencascade::handle<HLRAlgo_HArray1OfPISeg>, Standard_Transient> cls_HLRAlgo_HArray1OfPISeg(mod, "HLRAlgo_HArray1OfPISeg", "None", py::multiple_inheritance());
-
-// Constructors
-cls_HLRAlgo_HArray1OfPISeg.def(py::init<>());
-cls_HLRAlgo_HArray1OfPISeg.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_HLRAlgo_HArray1OfPISeg.def(py::init<const Standard_Integer, const Standard_Integer, const HLRAlgo_Array1OfPISeg::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_HLRAlgo_HArray1OfPISeg.def(py::init<const HLRAlgo_Array1OfPISeg &>(), py::arg("theOther"));
-
-// Methods
-// cls_HLRAlgo_HArray1OfPISeg.def_static("operator new_", (void * (*)(size_t)) &HLRAlgo_HArray1OfPISeg::operator new, "None", py::arg("theSize"));
-// cls_HLRAlgo_HArray1OfPISeg.def_static("operator delete_", (void (*)(void *)) &HLRAlgo_HArray1OfPISeg::operator delete, "None", py::arg("theAddress"));
-// cls_HLRAlgo_HArray1OfPISeg.def_static("operator new[]_", (void * (*)(size_t)) &HLRAlgo_HArray1OfPISeg::operator new[], "None", py::arg("theSize"));
-// cls_HLRAlgo_HArray1OfPISeg.def_static("operator delete[]_", (void (*)(void *)) &HLRAlgo_HArray1OfPISeg::operator delete[], "None", py::arg("theAddress"));
-// cls_HLRAlgo_HArray1OfPISeg.def_static("operator new_", (void * (*)(size_t, void *)) &HLRAlgo_HArray1OfPISeg::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_HLRAlgo_HArray1OfPISeg.def_static("operator delete_", (void (*)(void *, void *)) &HLRAlgo_HArray1OfPISeg::operator delete, "None", py::arg(""), py::arg(""));
-// cls_HLRAlgo_HArray1OfPISeg.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &HLRAlgo_HArray1OfPISeg::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_HLRAlgo_HArray1OfPISeg.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &HLRAlgo_HArray1OfPISeg::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_HLRAlgo_HArray1OfPISeg.def("Array1", (const HLRAlgo_Array1OfPISeg & (HLRAlgo_HArray1OfPISeg::*)() const) &HLRAlgo_HArray1OfPISeg::Array1, "None");
-cls_HLRAlgo_HArray1OfPISeg.def("ChangeArray1", (HLRAlgo_Array1OfPISeg & (HLRAlgo_HArray1OfPISeg::*)()) &HLRAlgo_HArray1OfPISeg::ChangeArray1, "None");
-cls_HLRAlgo_HArray1OfPISeg.def_static("get_type_name_", (const char * (*)()) &HLRAlgo_HArray1OfPISeg::get_type_name, "None");
-cls_HLRAlgo_HArray1OfPISeg.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &HLRAlgo_HArray1OfPISeg::get_type_descriptor, "None");
-cls_HLRAlgo_HArray1OfPISeg.def("DynamicType", (const opencascade::handle<Standard_Type> & (HLRAlgo_HArray1OfPISeg::*)() const) &HLRAlgo_HArray1OfPISeg::DynamicType, "None");
+bind_Define_HArray1<HLRAlgo_HArray1OfPISeg, HLRAlgo_Array1OfPISeg>(mod, "HLRAlgo_HArray1OfPISeg");
 
 // CLASS: HLRALGO_HARRAY1OFTDATA
-py::class_<HLRAlgo_HArray1OfTData, opencascade::handle<HLRAlgo_HArray1OfTData>, Standard_Transient> cls_HLRAlgo_HArray1OfTData(mod, "HLRAlgo_HArray1OfTData", "None", py::multiple_inheritance());
-
-// Constructors
-cls_HLRAlgo_HArray1OfTData.def(py::init<>());
-cls_HLRAlgo_HArray1OfTData.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_HLRAlgo_HArray1OfTData.def(py::init<const Standard_Integer, const Standard_Integer, const HLRAlgo_Array1OfTData::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_HLRAlgo_HArray1OfTData.def(py::init<const HLRAlgo_Array1OfTData &>(), py::arg("theOther"));
-
-// Methods
-// cls_HLRAlgo_HArray1OfTData.def_static("operator new_", (void * (*)(size_t)) &HLRAlgo_HArray1OfTData::operator new, "None", py::arg("theSize"));
-// cls_HLRAlgo_HArray1OfTData.def_static("operator delete_", (void (*)(void *)) &HLRAlgo_HArray1OfTData::operator delete, "None", py::arg("theAddress"));
-// cls_HLRAlgo_HArray1OfTData.def_static("operator new[]_", (void * (*)(size_t)) &HLRAlgo_HArray1OfTData::operator new[], "None", py::arg("theSize"));
-// cls_HLRAlgo_HArray1OfTData.def_static("operator delete[]_", (void (*)(void *)) &HLRAlgo_HArray1OfTData::operator delete[], "None", py::arg("theAddress"));
-// cls_HLRAlgo_HArray1OfTData.def_static("operator new_", (void * (*)(size_t, void *)) &HLRAlgo_HArray1OfTData::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_HLRAlgo_HArray1OfTData.def_static("operator delete_", (void (*)(void *, void *)) &HLRAlgo_HArray1OfTData::operator delete, "None", py::arg(""), py::arg(""));
-// cls_HLRAlgo_HArray1OfTData.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &HLRAlgo_HArray1OfTData::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_HLRAlgo_HArray1OfTData.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &HLRAlgo_HArray1OfTData::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_HLRAlgo_HArray1OfTData.def("Array1", (const HLRAlgo_Array1OfTData & (HLRAlgo_HArray1OfTData::*)() const) &HLRAlgo_HArray1OfTData::Array1, "None");
-cls_HLRAlgo_HArray1OfTData.def("ChangeArray1", (HLRAlgo_Array1OfTData & (HLRAlgo_HArray1OfTData::*)()) &HLRAlgo_HArray1OfTData::ChangeArray1, "None");
-cls_HLRAlgo_HArray1OfTData.def_static("get_type_name_", (const char * (*)()) &HLRAlgo_HArray1OfTData::get_type_name, "None");
-cls_HLRAlgo_HArray1OfTData.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &HLRAlgo_HArray1OfTData::get_type_descriptor, "None");
-cls_HLRAlgo_HArray1OfTData.def("DynamicType", (const opencascade::handle<Standard_Type> & (HLRAlgo_HArray1OfTData::*)() const) &HLRAlgo_HArray1OfTData::DynamicType, "None");
+bind_Define_HArray1<HLRAlgo_HArray1OfTData, HLRAlgo_Array1OfTData>(mod, "HLRAlgo_HArray1OfTData");
 
 // CLASS: HLRALGO_INTERSECTION
 py::class_<HLRAlgo_Intersection> cls_HLRAlgo_Intersection(mod, "HLRAlgo_Intersection", "Describes an intersection on an edge to hide. Contains a parameter and a state (ON = on the face, OUT = above the face, IN = under the Face)");

@@ -201,6 +201,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepBasic_TimeMeasureWithUnit.hxx>
 #include <StepBasic_WeekOfYearAndDayDate.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(StepBasic, mod) {
 
@@ -509,28 +510,7 @@ cls_StepBasic_Approval.def("DynamicType", (const opencascade::handle<Standard_Ty
 bind_NCollection_Array1<opencascade::handle<StepBasic_Approval> >(mod, "StepBasic_Array1OfApproval", py::module_local(false));
 
 // CLASS: STEPBASIC_HARRAY1OFAPPROVAL
-py::class_<StepBasic_HArray1OfApproval, opencascade::handle<StepBasic_HArray1OfApproval>, Standard_Transient> cls_StepBasic_HArray1OfApproval(mod, "StepBasic_HArray1OfApproval", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepBasic_HArray1OfApproval.def(py::init<>());
-cls_StepBasic_HArray1OfApproval.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepBasic_HArray1OfApproval.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfApproval::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepBasic_HArray1OfApproval.def(py::init<const StepBasic_Array1OfApproval &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepBasic_HArray1OfApproval.def_static("operator new_", (void * (*)(size_t)) &StepBasic_HArray1OfApproval::operator new, "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfApproval.def_static("operator delete_", (void (*)(void *)) &StepBasic_HArray1OfApproval::operator delete, "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfApproval.def_static("operator new[]_", (void * (*)(size_t)) &StepBasic_HArray1OfApproval::operator new[], "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfApproval.def_static("operator delete[]_", (void (*)(void *)) &StepBasic_HArray1OfApproval::operator delete[], "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfApproval.def_static("operator new_", (void * (*)(size_t, void *)) &StepBasic_HArray1OfApproval::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepBasic_HArray1OfApproval.def_static("operator delete_", (void (*)(void *, void *)) &StepBasic_HArray1OfApproval::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepBasic_HArray1OfApproval.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfApproval::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepBasic_HArray1OfApproval.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfApproval::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepBasic_HArray1OfApproval.def("Array1", (const StepBasic_Array1OfApproval & (StepBasic_HArray1OfApproval::*)() const) &StepBasic_HArray1OfApproval::Array1, "None");
-cls_StepBasic_HArray1OfApproval.def("ChangeArray1", (StepBasic_Array1OfApproval & (StepBasic_HArray1OfApproval::*)()) &StepBasic_HArray1OfApproval::ChangeArray1, "None");
-cls_StepBasic_HArray1OfApproval.def_static("get_type_name_", (const char * (*)()) &StepBasic_HArray1OfApproval::get_type_name, "None");
-cls_StepBasic_HArray1OfApproval.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepBasic_HArray1OfApproval::get_type_descriptor, "None");
-cls_StepBasic_HArray1OfApproval.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepBasic_HArray1OfApproval::*)() const) &StepBasic_HArray1OfApproval::DynamicType, "None");
+bind_Define_HArray1<StepBasic_HArray1OfApproval, StepBasic_Array1OfApproval>(mod, "StepBasic_HArray1OfApproval");
 
 // CLASS: STEPBASIC_GROUP
 py::class_<StepBasic_Group, opencascade::handle<StepBasic_Group>, Standard_Transient> cls_StepBasic_Group(mod, "StepBasic_Group", "Representation of STEP entity Group");
@@ -1007,28 +987,7 @@ cls_StepBasic_ProductContext.def("DynamicType", (const opencascade::handle<Stand
 bind_NCollection_Array1<opencascade::handle<StepBasic_ProductContext> >(mod, "StepBasic_Array1OfProductContext", py::module_local(false));
 
 // CLASS: STEPBASIC_HARRAY1OFPRODUCTCONTEXT
-py::class_<StepBasic_HArray1OfProductContext, opencascade::handle<StepBasic_HArray1OfProductContext>, Standard_Transient> cls_StepBasic_HArray1OfProductContext(mod, "StepBasic_HArray1OfProductContext", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepBasic_HArray1OfProductContext.def(py::init<>());
-cls_StepBasic_HArray1OfProductContext.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepBasic_HArray1OfProductContext.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfProductContext::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepBasic_HArray1OfProductContext.def(py::init<const StepBasic_Array1OfProductContext &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepBasic_HArray1OfProductContext.def_static("operator new_", (void * (*)(size_t)) &StepBasic_HArray1OfProductContext::operator new, "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfProductContext.def_static("operator delete_", (void (*)(void *)) &StepBasic_HArray1OfProductContext::operator delete, "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfProductContext.def_static("operator new[]_", (void * (*)(size_t)) &StepBasic_HArray1OfProductContext::operator new[], "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfProductContext.def_static("operator delete[]_", (void (*)(void *)) &StepBasic_HArray1OfProductContext::operator delete[], "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfProductContext.def_static("operator new_", (void * (*)(size_t, void *)) &StepBasic_HArray1OfProductContext::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepBasic_HArray1OfProductContext.def_static("operator delete_", (void (*)(void *, void *)) &StepBasic_HArray1OfProductContext::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepBasic_HArray1OfProductContext.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfProductContext::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepBasic_HArray1OfProductContext.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfProductContext::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepBasic_HArray1OfProductContext.def("Array1", (const StepBasic_Array1OfProductContext & (StepBasic_HArray1OfProductContext::*)() const) &StepBasic_HArray1OfProductContext::Array1, "None");
-cls_StepBasic_HArray1OfProductContext.def("ChangeArray1", (StepBasic_Array1OfProductContext & (StepBasic_HArray1OfProductContext::*)()) &StepBasic_HArray1OfProductContext::ChangeArray1, "None");
-cls_StepBasic_HArray1OfProductContext.def_static("get_type_name_", (const char * (*)()) &StepBasic_HArray1OfProductContext::get_type_name, "None");
-cls_StepBasic_HArray1OfProductContext.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepBasic_HArray1OfProductContext::get_type_descriptor, "None");
-cls_StepBasic_HArray1OfProductContext.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepBasic_HArray1OfProductContext::*)() const) &StepBasic_HArray1OfProductContext::DynamicType, "None");
+bind_Define_HArray1<StepBasic_HArray1OfProductContext, StepBasic_Array1OfProductContext>(mod, "StepBasic_HArray1OfProductContext");
 
 // CLASS: STEPBASIC_PRODUCT
 py::class_<StepBasic_Product, opencascade::handle<StepBasic_Product>, Standard_Transient> cls_StepBasic_Product(mod, "StepBasic_Product", "None");
@@ -1434,28 +1393,7 @@ cls_StepBasic_DateTimeRole.def_static("get_type_descriptor_", (const opencascade
 cls_StepBasic_DateTimeRole.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepBasic_DateTimeRole::*)() const) &StepBasic_DateTimeRole::DynamicType, "None");
 
 // CLASS: STEPBASIC_HARRAY1OFDERIVEDUNITELEMENT
-py::class_<StepBasic_HArray1OfDerivedUnitElement, opencascade::handle<StepBasic_HArray1OfDerivedUnitElement>, Standard_Transient> cls_StepBasic_HArray1OfDerivedUnitElement(mod, "StepBasic_HArray1OfDerivedUnitElement", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepBasic_HArray1OfDerivedUnitElement.def(py::init<>());
-cls_StepBasic_HArray1OfDerivedUnitElement.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepBasic_HArray1OfDerivedUnitElement.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfDerivedUnitElement::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepBasic_HArray1OfDerivedUnitElement.def(py::init<const StepBasic_Array1OfDerivedUnitElement &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepBasic_HArray1OfDerivedUnitElement.def_static("operator new_", (void * (*)(size_t)) &StepBasic_HArray1OfDerivedUnitElement::operator new, "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfDerivedUnitElement.def_static("operator delete_", (void (*)(void *)) &StepBasic_HArray1OfDerivedUnitElement::operator delete, "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfDerivedUnitElement.def_static("operator new[]_", (void * (*)(size_t)) &StepBasic_HArray1OfDerivedUnitElement::operator new[], "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfDerivedUnitElement.def_static("operator delete[]_", (void (*)(void *)) &StepBasic_HArray1OfDerivedUnitElement::operator delete[], "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfDerivedUnitElement.def_static("operator new_", (void * (*)(size_t, void *)) &StepBasic_HArray1OfDerivedUnitElement::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepBasic_HArray1OfDerivedUnitElement.def_static("operator delete_", (void (*)(void *, void *)) &StepBasic_HArray1OfDerivedUnitElement::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepBasic_HArray1OfDerivedUnitElement.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfDerivedUnitElement::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepBasic_HArray1OfDerivedUnitElement.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfDerivedUnitElement::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepBasic_HArray1OfDerivedUnitElement.def("Array1", (const StepBasic_Array1OfDerivedUnitElement & (StepBasic_HArray1OfDerivedUnitElement::*)() const) &StepBasic_HArray1OfDerivedUnitElement::Array1, "None");
-cls_StepBasic_HArray1OfDerivedUnitElement.def("ChangeArray1", (StepBasic_Array1OfDerivedUnitElement & (StepBasic_HArray1OfDerivedUnitElement::*)()) &StepBasic_HArray1OfDerivedUnitElement::ChangeArray1, "None");
-cls_StepBasic_HArray1OfDerivedUnitElement.def_static("get_type_name_", (const char * (*)()) &StepBasic_HArray1OfDerivedUnitElement::get_type_name, "None");
-cls_StepBasic_HArray1OfDerivedUnitElement.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepBasic_HArray1OfDerivedUnitElement::get_type_descriptor, "None");
-cls_StepBasic_HArray1OfDerivedUnitElement.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepBasic_HArray1OfDerivedUnitElement::*)() const) &StepBasic_HArray1OfDerivedUnitElement::DynamicType, "None");
+bind_Define_HArray1<StepBasic_HArray1OfDerivedUnitElement, StepBasic_Array1OfDerivedUnitElement>(mod, "StepBasic_HArray1OfDerivedUnitElement");
 
 // CLASS: STEPBASIC_DERIVEDUNIT
 py::class_<StepBasic_DerivedUnit, opencascade::handle<StepBasic_DerivedUnit>, Standard_Transient> cls_StepBasic_DerivedUnit(mod, "StepBasic_DerivedUnit", "Added from StepBasic Rev2 to Rev4");
@@ -1778,172 +1716,25 @@ cls_StepBasic_GroupRelationship.def_static("get_type_descriptor_", (const openca
 cls_StepBasic_GroupRelationship.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepBasic_GroupRelationship::*)() const) &StepBasic_GroupRelationship::DynamicType, "None");
 
 // CLASS: STEPBASIC_HARRAY1OFDOCUMENT
-py::class_<StepBasic_HArray1OfDocument, opencascade::handle<StepBasic_HArray1OfDocument>, Standard_Transient> cls_StepBasic_HArray1OfDocument(mod, "StepBasic_HArray1OfDocument", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepBasic_HArray1OfDocument.def(py::init<>());
-cls_StepBasic_HArray1OfDocument.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepBasic_HArray1OfDocument.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfDocument::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepBasic_HArray1OfDocument.def(py::init<const StepBasic_Array1OfDocument &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepBasic_HArray1OfDocument.def_static("operator new_", (void * (*)(size_t)) &StepBasic_HArray1OfDocument::operator new, "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfDocument.def_static("operator delete_", (void (*)(void *)) &StepBasic_HArray1OfDocument::operator delete, "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfDocument.def_static("operator new[]_", (void * (*)(size_t)) &StepBasic_HArray1OfDocument::operator new[], "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfDocument.def_static("operator delete[]_", (void (*)(void *)) &StepBasic_HArray1OfDocument::operator delete[], "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfDocument.def_static("operator new_", (void * (*)(size_t, void *)) &StepBasic_HArray1OfDocument::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepBasic_HArray1OfDocument.def_static("operator delete_", (void (*)(void *, void *)) &StepBasic_HArray1OfDocument::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepBasic_HArray1OfDocument.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfDocument::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepBasic_HArray1OfDocument.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfDocument::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepBasic_HArray1OfDocument.def("Array1", (const StepBasic_Array1OfDocument & (StepBasic_HArray1OfDocument::*)() const) &StepBasic_HArray1OfDocument::Array1, "None");
-cls_StepBasic_HArray1OfDocument.def("ChangeArray1", (StepBasic_Array1OfDocument & (StepBasic_HArray1OfDocument::*)()) &StepBasic_HArray1OfDocument::ChangeArray1, "None");
-cls_StepBasic_HArray1OfDocument.def_static("get_type_name_", (const char * (*)()) &StepBasic_HArray1OfDocument::get_type_name, "None");
-cls_StepBasic_HArray1OfDocument.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepBasic_HArray1OfDocument::get_type_descriptor, "None");
-cls_StepBasic_HArray1OfDocument.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepBasic_HArray1OfDocument::*)() const) &StepBasic_HArray1OfDocument::DynamicType, "None");
+bind_Define_HArray1<StepBasic_HArray1OfDocument, StepBasic_Array1OfDocument>(mod, "StepBasic_HArray1OfDocument");
 
 // CLASS: STEPBASIC_HARRAY1OFNAMEDUNIT
-py::class_<StepBasic_HArray1OfNamedUnit, opencascade::handle<StepBasic_HArray1OfNamedUnit>, Standard_Transient> cls_StepBasic_HArray1OfNamedUnit(mod, "StepBasic_HArray1OfNamedUnit", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepBasic_HArray1OfNamedUnit.def(py::init<>());
-cls_StepBasic_HArray1OfNamedUnit.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepBasic_HArray1OfNamedUnit.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfNamedUnit::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepBasic_HArray1OfNamedUnit.def(py::init<const StepBasic_Array1OfNamedUnit &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepBasic_HArray1OfNamedUnit.def_static("operator new_", (void * (*)(size_t)) &StepBasic_HArray1OfNamedUnit::operator new, "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfNamedUnit.def_static("operator delete_", (void (*)(void *)) &StepBasic_HArray1OfNamedUnit::operator delete, "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfNamedUnit.def_static("operator new[]_", (void * (*)(size_t)) &StepBasic_HArray1OfNamedUnit::operator new[], "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfNamedUnit.def_static("operator delete[]_", (void (*)(void *)) &StepBasic_HArray1OfNamedUnit::operator delete[], "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfNamedUnit.def_static("operator new_", (void * (*)(size_t, void *)) &StepBasic_HArray1OfNamedUnit::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepBasic_HArray1OfNamedUnit.def_static("operator delete_", (void (*)(void *, void *)) &StepBasic_HArray1OfNamedUnit::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepBasic_HArray1OfNamedUnit.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfNamedUnit::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepBasic_HArray1OfNamedUnit.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfNamedUnit::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepBasic_HArray1OfNamedUnit.def("Array1", (const StepBasic_Array1OfNamedUnit & (StepBasic_HArray1OfNamedUnit::*)() const) &StepBasic_HArray1OfNamedUnit::Array1, "None");
-cls_StepBasic_HArray1OfNamedUnit.def("ChangeArray1", (StepBasic_Array1OfNamedUnit & (StepBasic_HArray1OfNamedUnit::*)()) &StepBasic_HArray1OfNamedUnit::ChangeArray1, "None");
-cls_StepBasic_HArray1OfNamedUnit.def_static("get_type_name_", (const char * (*)()) &StepBasic_HArray1OfNamedUnit::get_type_name, "None");
-cls_StepBasic_HArray1OfNamedUnit.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepBasic_HArray1OfNamedUnit::get_type_descriptor, "None");
-cls_StepBasic_HArray1OfNamedUnit.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepBasic_HArray1OfNamedUnit::*)() const) &StepBasic_HArray1OfNamedUnit::DynamicType, "None");
+bind_Define_HArray1<StepBasic_HArray1OfNamedUnit, StepBasic_Array1OfNamedUnit>(mod, "StepBasic_HArray1OfNamedUnit");
 
 // CLASS: STEPBASIC_HARRAY1OFORGANIZATION
-py::class_<StepBasic_HArray1OfOrganization, opencascade::handle<StepBasic_HArray1OfOrganization>, Standard_Transient> cls_StepBasic_HArray1OfOrganization(mod, "StepBasic_HArray1OfOrganization", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepBasic_HArray1OfOrganization.def(py::init<>());
-cls_StepBasic_HArray1OfOrganization.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepBasic_HArray1OfOrganization.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfOrganization::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepBasic_HArray1OfOrganization.def(py::init<const StepBasic_Array1OfOrganization &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepBasic_HArray1OfOrganization.def_static("operator new_", (void * (*)(size_t)) &StepBasic_HArray1OfOrganization::operator new, "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfOrganization.def_static("operator delete_", (void (*)(void *)) &StepBasic_HArray1OfOrganization::operator delete, "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfOrganization.def_static("operator new[]_", (void * (*)(size_t)) &StepBasic_HArray1OfOrganization::operator new[], "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfOrganization.def_static("operator delete[]_", (void (*)(void *)) &StepBasic_HArray1OfOrganization::operator delete[], "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfOrganization.def_static("operator new_", (void * (*)(size_t, void *)) &StepBasic_HArray1OfOrganization::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepBasic_HArray1OfOrganization.def_static("operator delete_", (void (*)(void *, void *)) &StepBasic_HArray1OfOrganization::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepBasic_HArray1OfOrganization.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfOrganization::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepBasic_HArray1OfOrganization.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfOrganization::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepBasic_HArray1OfOrganization.def("Array1", (const StepBasic_Array1OfOrganization & (StepBasic_HArray1OfOrganization::*)() const) &StepBasic_HArray1OfOrganization::Array1, "None");
-cls_StepBasic_HArray1OfOrganization.def("ChangeArray1", (StepBasic_Array1OfOrganization & (StepBasic_HArray1OfOrganization::*)()) &StepBasic_HArray1OfOrganization::ChangeArray1, "None");
-cls_StepBasic_HArray1OfOrganization.def_static("get_type_name_", (const char * (*)()) &StepBasic_HArray1OfOrganization::get_type_name, "None");
-cls_StepBasic_HArray1OfOrganization.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepBasic_HArray1OfOrganization::get_type_descriptor, "None");
-cls_StepBasic_HArray1OfOrganization.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepBasic_HArray1OfOrganization::*)() const) &StepBasic_HArray1OfOrganization::DynamicType, "None");
+bind_Define_HArray1<StepBasic_HArray1OfOrganization, StepBasic_Array1OfOrganization>(mod, "StepBasic_HArray1OfOrganization");
 
 // CLASS: STEPBASIC_HARRAY1OFPERSON
-py::class_<StepBasic_HArray1OfPerson, opencascade::handle<StepBasic_HArray1OfPerson>, Standard_Transient> cls_StepBasic_HArray1OfPerson(mod, "StepBasic_HArray1OfPerson", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepBasic_HArray1OfPerson.def(py::init<>());
-cls_StepBasic_HArray1OfPerson.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepBasic_HArray1OfPerson.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfPerson::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepBasic_HArray1OfPerson.def(py::init<const StepBasic_Array1OfPerson &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepBasic_HArray1OfPerson.def_static("operator new_", (void * (*)(size_t)) &StepBasic_HArray1OfPerson::operator new, "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfPerson.def_static("operator delete_", (void (*)(void *)) &StepBasic_HArray1OfPerson::operator delete, "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfPerson.def_static("operator new[]_", (void * (*)(size_t)) &StepBasic_HArray1OfPerson::operator new[], "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfPerson.def_static("operator delete[]_", (void (*)(void *)) &StepBasic_HArray1OfPerson::operator delete[], "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfPerson.def_static("operator new_", (void * (*)(size_t, void *)) &StepBasic_HArray1OfPerson::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepBasic_HArray1OfPerson.def_static("operator delete_", (void (*)(void *, void *)) &StepBasic_HArray1OfPerson::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepBasic_HArray1OfPerson.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfPerson::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepBasic_HArray1OfPerson.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfPerson::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepBasic_HArray1OfPerson.def("Array1", (const StepBasic_Array1OfPerson & (StepBasic_HArray1OfPerson::*)() const) &StepBasic_HArray1OfPerson::Array1, "None");
-cls_StepBasic_HArray1OfPerson.def("ChangeArray1", (StepBasic_Array1OfPerson & (StepBasic_HArray1OfPerson::*)()) &StepBasic_HArray1OfPerson::ChangeArray1, "None");
-cls_StepBasic_HArray1OfPerson.def_static("get_type_name_", (const char * (*)()) &StepBasic_HArray1OfPerson::get_type_name, "None");
-cls_StepBasic_HArray1OfPerson.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepBasic_HArray1OfPerson::get_type_descriptor, "None");
-cls_StepBasic_HArray1OfPerson.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepBasic_HArray1OfPerson::*)() const) &StepBasic_HArray1OfPerson::DynamicType, "None");
+bind_Define_HArray1<StepBasic_HArray1OfPerson, StepBasic_Array1OfPerson>(mod, "StepBasic_HArray1OfPerson");
 
 // CLASS: STEPBASIC_HARRAY1OFPRODUCT
-py::class_<StepBasic_HArray1OfProduct, opencascade::handle<StepBasic_HArray1OfProduct>, Standard_Transient> cls_StepBasic_HArray1OfProduct(mod, "StepBasic_HArray1OfProduct", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepBasic_HArray1OfProduct.def(py::init<>());
-cls_StepBasic_HArray1OfProduct.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepBasic_HArray1OfProduct.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfProduct::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepBasic_HArray1OfProduct.def(py::init<const StepBasic_Array1OfProduct &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepBasic_HArray1OfProduct.def_static("operator new_", (void * (*)(size_t)) &StepBasic_HArray1OfProduct::operator new, "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfProduct.def_static("operator delete_", (void (*)(void *)) &StepBasic_HArray1OfProduct::operator delete, "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfProduct.def_static("operator new[]_", (void * (*)(size_t)) &StepBasic_HArray1OfProduct::operator new[], "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfProduct.def_static("operator delete[]_", (void (*)(void *)) &StepBasic_HArray1OfProduct::operator delete[], "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfProduct.def_static("operator new_", (void * (*)(size_t, void *)) &StepBasic_HArray1OfProduct::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepBasic_HArray1OfProduct.def_static("operator delete_", (void (*)(void *, void *)) &StepBasic_HArray1OfProduct::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepBasic_HArray1OfProduct.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfProduct::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepBasic_HArray1OfProduct.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfProduct::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepBasic_HArray1OfProduct.def("Array1", (const StepBasic_Array1OfProduct & (StepBasic_HArray1OfProduct::*)() const) &StepBasic_HArray1OfProduct::Array1, "None");
-cls_StepBasic_HArray1OfProduct.def("ChangeArray1", (StepBasic_Array1OfProduct & (StepBasic_HArray1OfProduct::*)()) &StepBasic_HArray1OfProduct::ChangeArray1, "None");
-cls_StepBasic_HArray1OfProduct.def_static("get_type_name_", (const char * (*)()) &StepBasic_HArray1OfProduct::get_type_name, "None");
-cls_StepBasic_HArray1OfProduct.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepBasic_HArray1OfProduct::get_type_descriptor, "None");
-cls_StepBasic_HArray1OfProduct.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepBasic_HArray1OfProduct::*)() const) &StepBasic_HArray1OfProduct::DynamicType, "None");
+bind_Define_HArray1<StepBasic_HArray1OfProduct, StepBasic_Array1OfProduct>(mod, "StepBasic_HArray1OfProduct");
 
 // CLASS: STEPBASIC_HARRAY1OFPRODUCTDEFINITION
-py::class_<StepBasic_HArray1OfProductDefinition, opencascade::handle<StepBasic_HArray1OfProductDefinition>, Standard_Transient> cls_StepBasic_HArray1OfProductDefinition(mod, "StepBasic_HArray1OfProductDefinition", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepBasic_HArray1OfProductDefinition.def(py::init<>());
-cls_StepBasic_HArray1OfProductDefinition.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepBasic_HArray1OfProductDefinition.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfProductDefinition::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepBasic_HArray1OfProductDefinition.def(py::init<const StepBasic_Array1OfProductDefinition &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepBasic_HArray1OfProductDefinition.def_static("operator new_", (void * (*)(size_t)) &StepBasic_HArray1OfProductDefinition::operator new, "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfProductDefinition.def_static("operator delete_", (void (*)(void *)) &StepBasic_HArray1OfProductDefinition::operator delete, "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfProductDefinition.def_static("operator new[]_", (void * (*)(size_t)) &StepBasic_HArray1OfProductDefinition::operator new[], "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfProductDefinition.def_static("operator delete[]_", (void (*)(void *)) &StepBasic_HArray1OfProductDefinition::operator delete[], "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfProductDefinition.def_static("operator new_", (void * (*)(size_t, void *)) &StepBasic_HArray1OfProductDefinition::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepBasic_HArray1OfProductDefinition.def_static("operator delete_", (void (*)(void *, void *)) &StepBasic_HArray1OfProductDefinition::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepBasic_HArray1OfProductDefinition.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfProductDefinition::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepBasic_HArray1OfProductDefinition.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfProductDefinition::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepBasic_HArray1OfProductDefinition.def("Array1", (const StepBasic_Array1OfProductDefinition & (StepBasic_HArray1OfProductDefinition::*)() const) &StepBasic_HArray1OfProductDefinition::Array1, "None");
-cls_StepBasic_HArray1OfProductDefinition.def("ChangeArray1", (StepBasic_Array1OfProductDefinition & (StepBasic_HArray1OfProductDefinition::*)()) &StepBasic_HArray1OfProductDefinition::ChangeArray1, "None");
-cls_StepBasic_HArray1OfProductDefinition.def_static("get_type_name_", (const char * (*)()) &StepBasic_HArray1OfProductDefinition::get_type_name, "None");
-cls_StepBasic_HArray1OfProductDefinition.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepBasic_HArray1OfProductDefinition::get_type_descriptor, "None");
-cls_StepBasic_HArray1OfProductDefinition.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepBasic_HArray1OfProductDefinition::*)() const) &StepBasic_HArray1OfProductDefinition::DynamicType, "None");
+bind_Define_HArray1<StepBasic_HArray1OfProductDefinition, StepBasic_Array1OfProductDefinition>(mod, "StepBasic_HArray1OfProductDefinition");
 
 // CLASS: STEPBASIC_HARRAY1OFUNCERTAINTYMEASUREWITHUNIT
-py::class_<StepBasic_HArray1OfUncertaintyMeasureWithUnit, opencascade::handle<StepBasic_HArray1OfUncertaintyMeasureWithUnit>, Standard_Transient> cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit(mod, "StepBasic_HArray1OfUncertaintyMeasureWithUnit", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def(py::init<>());
-cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def(py::init<const Standard_Integer, const Standard_Integer, const StepBasic_Array1OfUncertaintyMeasureWithUnit::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def(py::init<const StepBasic_Array1OfUncertaintyMeasureWithUnit &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def_static("operator new_", (void * (*)(size_t)) &StepBasic_HArray1OfUncertaintyMeasureWithUnit::operator new, "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def_static("operator delete_", (void (*)(void *)) &StepBasic_HArray1OfUncertaintyMeasureWithUnit::operator delete, "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def_static("operator new[]_", (void * (*)(size_t)) &StepBasic_HArray1OfUncertaintyMeasureWithUnit::operator new[], "None", py::arg("theSize"));
-// cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def_static("operator delete[]_", (void (*)(void *)) &StepBasic_HArray1OfUncertaintyMeasureWithUnit::operator delete[], "None", py::arg("theAddress"));
-// cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def_static("operator new_", (void * (*)(size_t, void *)) &StepBasic_HArray1OfUncertaintyMeasureWithUnit::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def_static("operator delete_", (void (*)(void *, void *)) &StepBasic_HArray1OfUncertaintyMeasureWithUnit::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfUncertaintyMeasureWithUnit::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepBasic_HArray1OfUncertaintyMeasureWithUnit::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def("Array1", (const StepBasic_Array1OfUncertaintyMeasureWithUnit & (StepBasic_HArray1OfUncertaintyMeasureWithUnit::*)() const) &StepBasic_HArray1OfUncertaintyMeasureWithUnit::Array1, "None");
-cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def("ChangeArray1", (StepBasic_Array1OfUncertaintyMeasureWithUnit & (StepBasic_HArray1OfUncertaintyMeasureWithUnit::*)()) &StepBasic_HArray1OfUncertaintyMeasureWithUnit::ChangeArray1, "None");
-cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def_static("get_type_name_", (const char * (*)()) &StepBasic_HArray1OfUncertaintyMeasureWithUnit::get_type_name, "None");
-cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepBasic_HArray1OfUncertaintyMeasureWithUnit::get_type_descriptor, "None");
-cls_StepBasic_HArray1OfUncertaintyMeasureWithUnit.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepBasic_HArray1OfUncertaintyMeasureWithUnit::*)() const) &StepBasic_HArray1OfUncertaintyMeasureWithUnit::DynamicType, "None");
+bind_Define_HArray1<StepBasic_HArray1OfUncertaintyMeasureWithUnit, StepBasic_Array1OfUncertaintyMeasureWithUnit>(mod, "StepBasic_HArray1OfUncertaintyMeasureWithUnit");
 
 // CLASS: STEPBASIC_IDENTIFICATIONROLE
 py::class_<StepBasic_IdentificationRole, opencascade::handle<StepBasic_IdentificationRole>, Standard_Transient> cls_StepBasic_IdentificationRole(mod, "StepBasic_IdentificationRole", "Representation of STEP entity IdentificationRole");

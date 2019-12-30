@@ -153,6 +153,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColStd_IndexedDataMapOfTransientTransient.hxx>
 #include <Interface_GTool.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 
 PYBIND11_MODULE(IFSelect, mod) {
 
@@ -801,28 +802,7 @@ cls_IFSelect_Selection.def("DynamicType", (const opencascade::handle<Standard_Ty
 bind_NCollection_Sequence<opencascade::handle<IFSelect_Selection> >(mod, "IFSelect_TSeqOfSelection", py::module_local(false));
 
 // CLASS: IFSELECT_HSEQOFSELECTION
-py::class_<IFSelect_HSeqOfSelection, opencascade::handle<IFSelect_HSeqOfSelection>, Standard_Transient> cls_IFSelect_HSeqOfSelection(mod, "IFSelect_HSeqOfSelection", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IFSelect_HSeqOfSelection.def(py::init<>());
-cls_IFSelect_HSeqOfSelection.def(py::init<const IFSelect_TSeqOfSelection &>(), py::arg("theOther"));
-
-// Methods
-// cls_IFSelect_HSeqOfSelection.def_static("operator new_", (void * (*)(size_t)) &IFSelect_HSeqOfSelection::operator new, "None", py::arg("theSize"));
-// cls_IFSelect_HSeqOfSelection.def_static("operator delete_", (void (*)(void *)) &IFSelect_HSeqOfSelection::operator delete, "None", py::arg("theAddress"));
-// cls_IFSelect_HSeqOfSelection.def_static("operator new[]_", (void * (*)(size_t)) &IFSelect_HSeqOfSelection::operator new[], "None", py::arg("theSize"));
-// cls_IFSelect_HSeqOfSelection.def_static("operator delete[]_", (void (*)(void *)) &IFSelect_HSeqOfSelection::operator delete[], "None", py::arg("theAddress"));
-// cls_IFSelect_HSeqOfSelection.def_static("operator new_", (void * (*)(size_t, void *)) &IFSelect_HSeqOfSelection::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IFSelect_HSeqOfSelection.def_static("operator delete_", (void (*)(void *, void *)) &IFSelect_HSeqOfSelection::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IFSelect_HSeqOfSelection.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IFSelect_HSeqOfSelection::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IFSelect_HSeqOfSelection.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IFSelect_HSeqOfSelection::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IFSelect_HSeqOfSelection.def("Sequence", (const IFSelect_TSeqOfSelection & (IFSelect_HSeqOfSelection::*)() const) &IFSelect_HSeqOfSelection::Sequence, "None");
-cls_IFSelect_HSeqOfSelection.def("Append", (void (IFSelect_HSeqOfSelection::*)(const IFSelect_TSeqOfSelection::value_type &)) &IFSelect_HSeqOfSelection::Append, "None", py::arg("theItem"));
-cls_IFSelect_HSeqOfSelection.def("Append", (void (IFSelect_HSeqOfSelection::*)(IFSelect_TSeqOfSelection &)) &IFSelect_HSeqOfSelection::Append, "None", py::arg("theSequence"));
-cls_IFSelect_HSeqOfSelection.def("ChangeSequence", (IFSelect_TSeqOfSelection & (IFSelect_HSeqOfSelection::*)()) &IFSelect_HSeqOfSelection::ChangeSequence, "None");
-cls_IFSelect_HSeqOfSelection.def_static("get_type_name_", (const char * (*)()) &IFSelect_HSeqOfSelection::get_type_name, "None");
-cls_IFSelect_HSeqOfSelection.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IFSelect_HSeqOfSelection::get_type_descriptor, "None");
-cls_IFSelect_HSeqOfSelection.def("DynamicType", (const opencascade::handle<Standard_Type> & (IFSelect_HSeqOfSelection::*)() const) &IFSelect_HSeqOfSelection::DynamicType, "None");
+bind_Define_HSequence<IFSelect_HSeqOfSelection, IFSelect_TSeqOfSelection>(mod, "IFSelect_HSeqOfSelection");
 
 // CLASS: IFSELECT_INTPARAM
 py::class_<IFSelect_IntParam, opencascade::handle<IFSelect_IntParam>, Standard_Transient> cls_IFSelect_IntParam(mod, "IFSelect_IntParam", "This class simply allows to access an Integer value through a Handle, as a String can be (by using HString). Hence, this value can be accessed : read and modified, without passing through the specific object which detains it. Thus, parameters of a Selection or a Dispatch (according its type) can be controlled directly from the ShareOut which contains them");

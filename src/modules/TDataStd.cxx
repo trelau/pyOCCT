@@ -104,6 +104,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TDataStd_Current.hxx>
 #include <TDataStd.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 #include <bind_NCollection_List.hxx>
 #include <bind_NCollection_TListIterator.hxx>
 #include <bind_NCollection_DataMap.hxx>
@@ -302,28 +303,7 @@ cls_TDataStd_BooleanArray.def("DynamicType", (const opencascade::handle<Standard
 bind_NCollection_Array1<TDF_Label>(mod, "TDataStd_LabelArray1", py::module_local(false));
 
 // CLASS: TDATASTD_HLABELARRAY1
-py::class_<TDataStd_HLabelArray1, opencascade::handle<TDataStd_HLabelArray1>, Standard_Transient> cls_TDataStd_HLabelArray1(mod, "TDataStd_HLabelArray1", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TDataStd_HLabelArray1.def(py::init<>());
-cls_TDataStd_HLabelArray1.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TDataStd_HLabelArray1.def(py::init<const Standard_Integer, const Standard_Integer, const TDataStd_LabelArray1::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TDataStd_HLabelArray1.def(py::init<const TDataStd_LabelArray1 &>(), py::arg("theOther"));
-
-// Methods
-// cls_TDataStd_HLabelArray1.def_static("operator new_", (void * (*)(size_t)) &TDataStd_HLabelArray1::operator new, "None", py::arg("theSize"));
-// cls_TDataStd_HLabelArray1.def_static("operator delete_", (void (*)(void *)) &TDataStd_HLabelArray1::operator delete, "None", py::arg("theAddress"));
-// cls_TDataStd_HLabelArray1.def_static("operator new[]_", (void * (*)(size_t)) &TDataStd_HLabelArray1::operator new[], "None", py::arg("theSize"));
-// cls_TDataStd_HLabelArray1.def_static("operator delete[]_", (void (*)(void *)) &TDataStd_HLabelArray1::operator delete[], "None", py::arg("theAddress"));
-// cls_TDataStd_HLabelArray1.def_static("operator new_", (void * (*)(size_t, void *)) &TDataStd_HLabelArray1::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TDataStd_HLabelArray1.def_static("operator delete_", (void (*)(void *, void *)) &TDataStd_HLabelArray1::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TDataStd_HLabelArray1.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TDataStd_HLabelArray1::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TDataStd_HLabelArray1.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TDataStd_HLabelArray1::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TDataStd_HLabelArray1.def("Array1", (const TDataStd_LabelArray1 & (TDataStd_HLabelArray1::*)() const) &TDataStd_HLabelArray1::Array1, "None");
-cls_TDataStd_HLabelArray1.def("ChangeArray1", (TDataStd_LabelArray1 & (TDataStd_HLabelArray1::*)()) &TDataStd_HLabelArray1::ChangeArray1, "None");
-cls_TDataStd_HLabelArray1.def_static("get_type_name_", (const char * (*)()) &TDataStd_HLabelArray1::get_type_name, "None");
-cls_TDataStd_HLabelArray1.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TDataStd_HLabelArray1::get_type_descriptor, "None");
-cls_TDataStd_HLabelArray1.def("DynamicType", (const opencascade::handle<Standard_Type> & (TDataStd_HLabelArray1::*)() const) &TDataStd_HLabelArray1::DynamicType, "None");
+bind_Define_HArray1<TDataStd_HLabelArray1, TDataStd_LabelArray1>(mod, "TDataStd_HLabelArray1");
 
 // CLASS: TDATASTD_REFERENCEARRAY
 py::class_<TDataStd_ReferenceArray, opencascade::handle<TDataStd_ReferenceArray>, TDF_Attribute> cls_TDataStd_ReferenceArray(mod, "TDataStd_ReferenceArray", "Contains an array of references to the labels.");

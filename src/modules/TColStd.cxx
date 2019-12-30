@@ -115,8 +115,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColStd_IndexedMapOfReal.hxx>
 #include <TColStd_MapOfReal.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 #include <bind_NCollection_Array2.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
+#include <bind_Define_HArray2.hxx>
 #include <bind_NCollection_List.hxx>
 #include <bind_NCollection_TListIterator.hxx>
 #include <bind_NCollection_IndexedDataMap.hxx>
@@ -135,55 +138,13 @@ py::module::import("OCCT.TCollection");
 bind_NCollection_Array1<double>(mod, "TColStd_Array1OfReal", py::module_local(false));
 
 // CLASS: TCOLSTD_HARRAY1OFREAL
-py::class_<TColStd_HArray1OfReal, opencascade::handle<TColStd_HArray1OfReal>, Standard_Transient> cls_TColStd_HArray1OfReal(mod, "TColStd_HArray1OfReal", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HArray1OfReal.def(py::init<>());
-cls_TColStd_HArray1OfReal.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TColStd_HArray1OfReal.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfReal::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TColStd_HArray1OfReal.def(py::init<const TColStd_Array1OfReal &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HArray1OfReal.def_static("operator new_", (void * (*)(size_t)) &TColStd_HArray1OfReal::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfReal.def_static("operator delete_", (void (*)(void *)) &TColStd_HArray1OfReal::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfReal.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HArray1OfReal::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfReal.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HArray1OfReal::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfReal.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HArray1OfReal::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HArray1OfReal.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HArray1OfReal::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HArray1OfReal.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfReal::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HArray1OfReal.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfReal::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HArray1OfReal.def("Array1", (const TColStd_Array1OfReal & (TColStd_HArray1OfReal::*)() const) &TColStd_HArray1OfReal::Array1, "None");
-cls_TColStd_HArray1OfReal.def("ChangeArray1", (TColStd_Array1OfReal & (TColStd_HArray1OfReal::*)()) &TColStd_HArray1OfReal::ChangeArray1, "None");
-cls_TColStd_HArray1OfReal.def_static("get_type_name_", (const char * (*)()) &TColStd_HArray1OfReal::get_type_name, "None");
-cls_TColStd_HArray1OfReal.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray1OfReal::get_type_descriptor, "None");
-cls_TColStd_HArray1OfReal.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray1OfReal::*)() const) &TColStd_HArray1OfReal::DynamicType, "None");
+bind_Define_HArray1<TColStd_HArray1OfReal, TColStd_Array1OfReal>(mod, "TColStd_HArray1OfReal");
 
 // TYPEDEF: TCOLSTD_ARRAY1OFINTEGER
 bind_NCollection_Array1<int>(mod, "TColStd_Array1OfInteger", py::module_local(false));
 
 // CLASS: TCOLSTD_HARRAY1OFINTEGER
-py::class_<TColStd_HArray1OfInteger, opencascade::handle<TColStd_HArray1OfInteger>, Standard_Transient> cls_TColStd_HArray1OfInteger(mod, "TColStd_HArray1OfInteger", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HArray1OfInteger.def(py::init<>());
-cls_TColStd_HArray1OfInteger.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TColStd_HArray1OfInteger.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfInteger::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TColStd_HArray1OfInteger.def(py::init<const TColStd_Array1OfInteger &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HArray1OfInteger.def_static("operator new_", (void * (*)(size_t)) &TColStd_HArray1OfInteger::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfInteger.def_static("operator delete_", (void (*)(void *)) &TColStd_HArray1OfInteger::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfInteger.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HArray1OfInteger::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfInteger.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HArray1OfInteger::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfInteger.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HArray1OfInteger::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HArray1OfInteger.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HArray1OfInteger::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HArray1OfInteger.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfInteger::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HArray1OfInteger.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfInteger::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HArray1OfInteger.def("Array1", (const TColStd_Array1OfInteger & (TColStd_HArray1OfInteger::*)() const) &TColStd_HArray1OfInteger::Array1, "None");
-cls_TColStd_HArray1OfInteger.def("ChangeArray1", (TColStd_Array1OfInteger & (TColStd_HArray1OfInteger::*)()) &TColStd_HArray1OfInteger::ChangeArray1, "None");
-cls_TColStd_HArray1OfInteger.def_static("get_type_name_", (const char * (*)()) &TColStd_HArray1OfInteger::get_type_name, "None");
-cls_TColStd_HArray1OfInteger.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray1OfInteger::get_type_descriptor, "None");
-cls_TColStd_HArray1OfInteger.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray1OfInteger::*)() const) &TColStd_HArray1OfInteger::DynamicType, "None");
+bind_Define_HArray1<TColStd_HArray1OfInteger, TColStd_Array1OfInteger>(mod, "TColStd_HArray1OfInteger");
 
 // TYPEDEF: TCOLSTD_ARRAY2OFREAL
 bind_NCollection_Array2<double>(mod, "TColStd_Array2OfReal", py::module_local(false));
@@ -192,78 +153,16 @@ bind_NCollection_Array2<double>(mod, "TColStd_Array2OfReal", py::module_local(fa
 bind_NCollection_Sequence<double>(mod, "TColStd_SequenceOfReal", py::module_local(false));
 
 // CLASS: TCOLSTD_HSEQUENCEOFREAL
-py::class_<TColStd_HSequenceOfReal, opencascade::handle<TColStd_HSequenceOfReal>, Standard_Transient> cls_TColStd_HSequenceOfReal(mod, "TColStd_HSequenceOfReal", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HSequenceOfReal.def(py::init<>());
-cls_TColStd_HSequenceOfReal.def(py::init<const TColStd_SequenceOfReal &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HSequenceOfReal.def_static("operator new_", (void * (*)(size_t)) &TColStd_HSequenceOfReal::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HSequenceOfReal.def_static("operator delete_", (void (*)(void *)) &TColStd_HSequenceOfReal::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HSequenceOfReal.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HSequenceOfReal::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HSequenceOfReal.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HSequenceOfReal::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HSequenceOfReal.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HSequenceOfReal::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HSequenceOfReal.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HSequenceOfReal::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HSequenceOfReal.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfReal::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HSequenceOfReal.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfReal::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HSequenceOfReal.def("Sequence", (const TColStd_SequenceOfReal & (TColStd_HSequenceOfReal::*)() const) &TColStd_HSequenceOfReal::Sequence, "None");
-cls_TColStd_HSequenceOfReal.def("Append", (void (TColStd_HSequenceOfReal::*)(const TColStd_SequenceOfReal::value_type &)) &TColStd_HSequenceOfReal::Append, "None", py::arg("theItem"));
-cls_TColStd_HSequenceOfReal.def("Append", (void (TColStd_HSequenceOfReal::*)(TColStd_SequenceOfReal &)) &TColStd_HSequenceOfReal::Append, "None", py::arg("theSequence"));
-cls_TColStd_HSequenceOfReal.def("ChangeSequence", (TColStd_SequenceOfReal & (TColStd_HSequenceOfReal::*)()) &TColStd_HSequenceOfReal::ChangeSequence, "None");
-cls_TColStd_HSequenceOfReal.def_static("get_type_name_", (const char * (*)()) &TColStd_HSequenceOfReal::get_type_name, "None");
-cls_TColStd_HSequenceOfReal.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HSequenceOfReal::get_type_descriptor, "None");
-cls_TColStd_HSequenceOfReal.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HSequenceOfReal::*)() const) &TColStd_HSequenceOfReal::DynamicType, "None");
+bind_Define_HSequence<TColStd_HSequenceOfReal, TColStd_SequenceOfReal>(mod, "TColStd_HSequenceOfReal");
 
 // CLASS: TCOLSTD_HARRAY2OFREAL
-py::class_<TColStd_HArray2OfReal, opencascade::handle<TColStd_HArray2OfReal>, Standard_Transient> cls_TColStd_HArray2OfReal(mod, "TColStd_HArray2OfReal", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HArray2OfReal.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_TColStd_HArray2OfReal.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const TColStd_Array2OfReal::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_TColStd_HArray2OfReal.def(py::init<const TColStd_Array2OfReal &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HArray2OfReal.def_static("operator new_", (void * (*)(size_t)) &TColStd_HArray2OfReal::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HArray2OfReal.def_static("operator delete_", (void (*)(void *)) &TColStd_HArray2OfReal::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HArray2OfReal.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HArray2OfReal::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HArray2OfReal.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HArray2OfReal::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HArray2OfReal.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HArray2OfReal::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HArray2OfReal.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HArray2OfReal::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HArray2OfReal.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray2OfReal::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HArray2OfReal.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray2OfReal::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HArray2OfReal.def("Array2", (const TColStd_Array2OfReal & (TColStd_HArray2OfReal::*)() const) &TColStd_HArray2OfReal::Array2, "None");
-cls_TColStd_HArray2OfReal.def("ChangeArray2", (TColStd_Array2OfReal & (TColStd_HArray2OfReal::*)()) &TColStd_HArray2OfReal::ChangeArray2, "None");
-cls_TColStd_HArray2OfReal.def_static("get_type_name_", (const char * (*)()) &TColStd_HArray2OfReal::get_type_name, "None");
-cls_TColStd_HArray2OfReal.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray2OfReal::get_type_descriptor, "None");
-cls_TColStd_HArray2OfReal.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray2OfReal::*)() const) &TColStd_HArray2OfReal::DynamicType, "None");
+bind_Define_HArray2<TColStd_HArray2OfReal, TColStd_Array2OfReal>(mod, "TColStd_HArray2OfReal");
 
 // TYPEDEF: TCOLSTD_ARRAY1OFBYTE
 bind_NCollection_Array1<unsigned char>(mod, "TColStd_Array1OfByte", py::module_local(false));
 
 // CLASS: TCOLSTD_HARRAY1OFBYTE
-py::class_<TColStd_HArray1OfByte, opencascade::handle<TColStd_HArray1OfByte>, Standard_Transient> cls_TColStd_HArray1OfByte(mod, "TColStd_HArray1OfByte", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HArray1OfByte.def(py::init<>());
-cls_TColStd_HArray1OfByte.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TColStd_HArray1OfByte.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfByte::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TColStd_HArray1OfByte.def(py::init<const TColStd_Array1OfByte &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HArray1OfByte.def_static("operator new_", (void * (*)(size_t)) &TColStd_HArray1OfByte::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfByte.def_static("operator delete_", (void (*)(void *)) &TColStd_HArray1OfByte::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfByte.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HArray1OfByte::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfByte.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HArray1OfByte::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfByte.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HArray1OfByte::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HArray1OfByte.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HArray1OfByte::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HArray1OfByte.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfByte::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HArray1OfByte.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfByte::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HArray1OfByte.def("Array1", (const TColStd_Array1OfByte & (TColStd_HArray1OfByte::*)() const) &TColStd_HArray1OfByte::Array1, "None");
-cls_TColStd_HArray1OfByte.def("ChangeArray1", (TColStd_Array1OfByte & (TColStd_HArray1OfByte::*)()) &TColStd_HArray1OfByte::ChangeArray1, "None");
-cls_TColStd_HArray1OfByte.def_static("get_type_name_", (const char * (*)()) &TColStd_HArray1OfByte::get_type_name, "None");
-cls_TColStd_HArray1OfByte.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray1OfByte::get_type_descriptor, "None");
-cls_TColStd_HArray1OfByte.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray1OfByte::*)() const) &TColStd_HArray1OfByte::DynamicType, "None");
+bind_Define_HArray1<TColStd_HArray1OfByte, TColStd_Array1OfByte>(mod, "TColStd_HArray1OfByte");
 
 // TYPEDEF: TCOLSTD_LISTOFINTEGER
 bind_NCollection_List<int>(mod, "TColStd_ListOfInteger", py::module_local(false));
@@ -312,54 +211,13 @@ bind_NCollection_Array1<TCollection_AsciiString>(mod, "TColStd_Array1OfAsciiStri
 bind_NCollection_Sequence<opencascade::handle<TCollection_HAsciiString> >(mod, "TColStd_SequenceOfHAsciiString", py::module_local(false));
 
 // CLASS: TCOLSTD_HSEQUENCEOFHASCIISTRING
-py::class_<TColStd_HSequenceOfHAsciiString, opencascade::handle<TColStd_HSequenceOfHAsciiString>, Standard_Transient> cls_TColStd_HSequenceOfHAsciiString(mod, "TColStd_HSequenceOfHAsciiString", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HSequenceOfHAsciiString.def(py::init<>());
-cls_TColStd_HSequenceOfHAsciiString.def(py::init<const TColStd_SequenceOfHAsciiString &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HSequenceOfHAsciiString.def_static("operator new_", (void * (*)(size_t)) &TColStd_HSequenceOfHAsciiString::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HSequenceOfHAsciiString.def_static("operator delete_", (void (*)(void *)) &TColStd_HSequenceOfHAsciiString::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HSequenceOfHAsciiString.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HSequenceOfHAsciiString::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HSequenceOfHAsciiString.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HSequenceOfHAsciiString::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HSequenceOfHAsciiString.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HSequenceOfHAsciiString::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HSequenceOfHAsciiString.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HSequenceOfHAsciiString::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HSequenceOfHAsciiString.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfHAsciiString::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HSequenceOfHAsciiString.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfHAsciiString::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HSequenceOfHAsciiString.def("Sequence", (const TColStd_SequenceOfHAsciiString & (TColStd_HSequenceOfHAsciiString::*)() const) &TColStd_HSequenceOfHAsciiString::Sequence, "None");
-cls_TColStd_HSequenceOfHAsciiString.def("Append", (void (TColStd_HSequenceOfHAsciiString::*)(const TColStd_SequenceOfHAsciiString::value_type &)) &TColStd_HSequenceOfHAsciiString::Append, "None", py::arg("theItem"));
-cls_TColStd_HSequenceOfHAsciiString.def("Append", (void (TColStd_HSequenceOfHAsciiString::*)(TColStd_SequenceOfHAsciiString &)) &TColStd_HSequenceOfHAsciiString::Append, "None", py::arg("theSequence"));
-cls_TColStd_HSequenceOfHAsciiString.def("ChangeSequence", (TColStd_SequenceOfHAsciiString & (TColStd_HSequenceOfHAsciiString::*)()) &TColStd_HSequenceOfHAsciiString::ChangeSequence, "None");
-cls_TColStd_HSequenceOfHAsciiString.def_static("get_type_name_", (const char * (*)()) &TColStd_HSequenceOfHAsciiString::get_type_name, "None");
-cls_TColStd_HSequenceOfHAsciiString.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HSequenceOfHAsciiString::get_type_descriptor, "None");
-cls_TColStd_HSequenceOfHAsciiString.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HSequenceOfHAsciiString::*)() const) &TColStd_HSequenceOfHAsciiString::DynamicType, "None");
+bind_Define_HSequence<TColStd_HSequenceOfHAsciiString, TColStd_SequenceOfHAsciiString>(mod, "TColStd_HSequenceOfHAsciiString");
 
 // TYPEDEF: TCOLSTD_ARRAY2OFINTEGER
 bind_NCollection_Array2<int>(mod, "TColStd_Array2OfInteger", py::module_local(false));
 
 // CLASS: TCOLSTD_HARRAY2OFINTEGER
-py::class_<TColStd_HArray2OfInteger, opencascade::handle<TColStd_HArray2OfInteger>, Standard_Transient> cls_TColStd_HArray2OfInteger(mod, "TColStd_HArray2OfInteger", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HArray2OfInteger.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_TColStd_HArray2OfInteger.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const TColStd_Array2OfInteger::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_TColStd_HArray2OfInteger.def(py::init<const TColStd_Array2OfInteger &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HArray2OfInteger.def_static("operator new_", (void * (*)(size_t)) &TColStd_HArray2OfInteger::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HArray2OfInteger.def_static("operator delete_", (void (*)(void *)) &TColStd_HArray2OfInteger::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HArray2OfInteger.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HArray2OfInteger::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HArray2OfInteger.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HArray2OfInteger::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HArray2OfInteger.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HArray2OfInteger::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HArray2OfInteger.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HArray2OfInteger::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HArray2OfInteger.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray2OfInteger::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HArray2OfInteger.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray2OfInteger::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HArray2OfInteger.def("Array2", (const TColStd_Array2OfInteger & (TColStd_HArray2OfInteger::*)() const) &TColStd_HArray2OfInteger::Array2, "None");
-cls_TColStd_HArray2OfInteger.def("ChangeArray2", (TColStd_Array2OfInteger & (TColStd_HArray2OfInteger::*)()) &TColStd_HArray2OfInteger::ChangeArray2, "None");
-cls_TColStd_HArray2OfInteger.def_static("get_type_name_", (const char * (*)()) &TColStd_HArray2OfInteger::get_type_name, "None");
-cls_TColStd_HArray2OfInteger.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray2OfInteger::get_type_descriptor, "None");
-cls_TColStd_HArray2OfInteger.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray2OfInteger::*)() const) &TColStd_HArray2OfInteger::DynamicType, "None");
+bind_Define_HArray2<TColStd_HArray2OfInteger, TColStd_Array2OfInteger>(mod, "TColStd_HArray2OfInteger");
 
 // TYPEDEF: TCOLSTD_SEQUENCEOFASCIISTRING
 bind_NCollection_Sequence<TCollection_AsciiString>(mod, "TColStd_SequenceOfAsciiString", py::module_local(false));
@@ -373,28 +231,7 @@ bind_NCollection_DataMap<int, opencascade::handle<Standard_Transient>, NCollecti
 // TYPEDEF: TCOLSTD_DATAMAPITERATOROFDATAMAPOFINTEGERTRANSIENT
 
 // CLASS: TCOLSTD_HSEQUENCEOFASCIISTRING
-py::class_<TColStd_HSequenceOfAsciiString, opencascade::handle<TColStd_HSequenceOfAsciiString>, Standard_Transient> cls_TColStd_HSequenceOfAsciiString(mod, "TColStd_HSequenceOfAsciiString", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HSequenceOfAsciiString.def(py::init<>());
-cls_TColStd_HSequenceOfAsciiString.def(py::init<const TColStd_SequenceOfAsciiString &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HSequenceOfAsciiString.def_static("operator new_", (void * (*)(size_t)) &TColStd_HSequenceOfAsciiString::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HSequenceOfAsciiString.def_static("operator delete_", (void (*)(void *)) &TColStd_HSequenceOfAsciiString::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HSequenceOfAsciiString.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HSequenceOfAsciiString::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HSequenceOfAsciiString.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HSequenceOfAsciiString::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HSequenceOfAsciiString.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HSequenceOfAsciiString::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HSequenceOfAsciiString.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HSequenceOfAsciiString::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HSequenceOfAsciiString.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfAsciiString::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HSequenceOfAsciiString.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfAsciiString::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HSequenceOfAsciiString.def("Sequence", (const TColStd_SequenceOfAsciiString & (TColStd_HSequenceOfAsciiString::*)() const) &TColStd_HSequenceOfAsciiString::Sequence, "None");
-cls_TColStd_HSequenceOfAsciiString.def("Append", (void (TColStd_HSequenceOfAsciiString::*)(const TColStd_SequenceOfAsciiString::value_type &)) &TColStd_HSequenceOfAsciiString::Append, "None", py::arg("theItem"));
-cls_TColStd_HSequenceOfAsciiString.def("Append", (void (TColStd_HSequenceOfAsciiString::*)(TColStd_SequenceOfAsciiString &)) &TColStd_HSequenceOfAsciiString::Append, "None", py::arg("theSequence"));
-cls_TColStd_HSequenceOfAsciiString.def("ChangeSequence", (TColStd_SequenceOfAsciiString & (TColStd_HSequenceOfAsciiString::*)()) &TColStd_HSequenceOfAsciiString::ChangeSequence, "None");
-cls_TColStd_HSequenceOfAsciiString.def_static("get_type_name_", (const char * (*)()) &TColStd_HSequenceOfAsciiString::get_type_name, "None");
-cls_TColStd_HSequenceOfAsciiString.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HSequenceOfAsciiString::get_type_descriptor, "None");
-cls_TColStd_HSequenceOfAsciiString.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HSequenceOfAsciiString::*)() const) &TColStd_HSequenceOfAsciiString::DynamicType, "None");
+bind_Define_HSequence<TColStd_HSequenceOfAsciiString, TColStd_SequenceOfAsciiString>(mod, "TColStd_HSequenceOfAsciiString");
 
 // TYPEDEF: TCOLSTD_INDEXEDMAPOFTRANSIENT
 bind_NCollection_IndexedMap<opencascade::handle<Standard_Transient>, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "TColStd_IndexedMapOfTransient", py::module_local(false));
@@ -418,28 +255,7 @@ bind_NCollection_DataMap<int, int, NCollection_DefaultHasher<int> >(mod, "TColSt
 bind_NCollection_Array1<NCollection_List<int> >(mod, "TColStd_Array1OfListOfInteger", py::module_local(false));
 
 // CLASS: TCOLSTD_HARRAY1OFLISTOFINTEGER
-py::class_<TColStd_HArray1OfListOfInteger, opencascade::handle<TColStd_HArray1OfListOfInteger>, Standard_Transient> cls_TColStd_HArray1OfListOfInteger(mod, "TColStd_HArray1OfListOfInteger", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HArray1OfListOfInteger.def(py::init<>());
-cls_TColStd_HArray1OfListOfInteger.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TColStd_HArray1OfListOfInteger.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfListOfInteger::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TColStd_HArray1OfListOfInteger.def(py::init<const TColStd_Array1OfListOfInteger &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HArray1OfListOfInteger.def_static("operator new_", (void * (*)(size_t)) &TColStd_HArray1OfListOfInteger::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfListOfInteger.def_static("operator delete_", (void (*)(void *)) &TColStd_HArray1OfListOfInteger::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfListOfInteger.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HArray1OfListOfInteger::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfListOfInteger.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HArray1OfListOfInteger::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfListOfInteger.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HArray1OfListOfInteger::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HArray1OfListOfInteger.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HArray1OfListOfInteger::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HArray1OfListOfInteger.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfListOfInteger::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HArray1OfListOfInteger.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfListOfInteger::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HArray1OfListOfInteger.def("Array1", (const TColStd_Array1OfListOfInteger & (TColStd_HArray1OfListOfInteger::*)() const) &TColStd_HArray1OfListOfInteger::Array1, "None");
-cls_TColStd_HArray1OfListOfInteger.def("ChangeArray1", (TColStd_Array1OfListOfInteger & (TColStd_HArray1OfListOfInteger::*)()) &TColStd_HArray1OfListOfInteger::ChangeArray1, "None");
-cls_TColStd_HArray1OfListOfInteger.def_static("get_type_name_", (const char * (*)()) &TColStd_HArray1OfListOfInteger::get_type_name, "None");
-cls_TColStd_HArray1OfListOfInteger.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray1OfListOfInteger::get_type_descriptor, "None");
-cls_TColStd_HArray1OfListOfInteger.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray1OfListOfInteger::*)() const) &TColStd_HArray1OfListOfInteger::DynamicType, "None");
+bind_Define_HArray1<TColStd_HArray1OfListOfInteger, TColStd_Array1OfListOfInteger>(mod, "TColStd_HArray1OfListOfInteger");
 
 // TYPEDEF: TCOLSTD_DATAMAPOFINTEGERREAL
 bind_NCollection_DataMap<int, double, NCollection_DefaultHasher<int> >(mod, "TColStd_DataMapOfIntegerReal", py::module_local(false));
@@ -515,55 +331,13 @@ cls_TColStd_PackedMapOfInteger_TColStd_MapIteratorOfPackedMapOfInteger.def("Key"
 cls_TColStd_PackedMapOfInteger_TColStd_MapIteratorOfPackedMapOfInteger.def("Next", (void (TColStd_PackedMapOfInteger::Iterator::*)()) &TColStd_PackedMapOfInteger::Iterator::Next, "Increment the iterator");
 
 // CLASS: TCOLSTD_HARRAY1OFTRANSIENT
-py::class_<TColStd_HArray1OfTransient, opencascade::handle<TColStd_HArray1OfTransient>, Standard_Transient> cls_TColStd_HArray1OfTransient(mod, "TColStd_HArray1OfTransient", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HArray1OfTransient.def(py::init<>());
-cls_TColStd_HArray1OfTransient.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TColStd_HArray1OfTransient.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfTransient::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TColStd_HArray1OfTransient.def(py::init<const TColStd_Array1OfTransient &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HArray1OfTransient.def_static("operator new_", (void * (*)(size_t)) &TColStd_HArray1OfTransient::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfTransient.def_static("operator delete_", (void (*)(void *)) &TColStd_HArray1OfTransient::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfTransient.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HArray1OfTransient::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfTransient.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HArray1OfTransient::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfTransient.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HArray1OfTransient::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HArray1OfTransient.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HArray1OfTransient::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HArray1OfTransient.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfTransient::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HArray1OfTransient.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfTransient::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HArray1OfTransient.def("Array1", (const TColStd_Array1OfTransient & (TColStd_HArray1OfTransient::*)() const) &TColStd_HArray1OfTransient::Array1, "None");
-cls_TColStd_HArray1OfTransient.def("ChangeArray1", (TColStd_Array1OfTransient & (TColStd_HArray1OfTransient::*)()) &TColStd_HArray1OfTransient::ChangeArray1, "None");
-cls_TColStd_HArray1OfTransient.def_static("get_type_name_", (const char * (*)()) &TColStd_HArray1OfTransient::get_type_name, "None");
-cls_TColStd_HArray1OfTransient.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray1OfTransient::get_type_descriptor, "None");
-cls_TColStd_HArray1OfTransient.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray1OfTransient::*)() const) &TColStd_HArray1OfTransient::DynamicType, "None");
+bind_Define_HArray1<TColStd_HArray1OfTransient, TColStd_Array1OfTransient>(mod, "TColStd_HArray1OfTransient");
 
 // TYPEDEF: TCOLSTD_SEQUENCEOFHEXTENDEDSTRING
 bind_NCollection_Sequence<opencascade::handle<TCollection_HExtendedString> >(mod, "TColStd_SequenceOfHExtendedString", py::module_local(false));
 
 // CLASS: TCOLSTD_HSEQUENCEOFHEXTENDEDSTRING
-py::class_<TColStd_HSequenceOfHExtendedString, opencascade::handle<TColStd_HSequenceOfHExtendedString>, Standard_Transient> cls_TColStd_HSequenceOfHExtendedString(mod, "TColStd_HSequenceOfHExtendedString", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HSequenceOfHExtendedString.def(py::init<>());
-cls_TColStd_HSequenceOfHExtendedString.def(py::init<const TColStd_SequenceOfHExtendedString &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HSequenceOfHExtendedString.def_static("operator new_", (void * (*)(size_t)) &TColStd_HSequenceOfHExtendedString::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HSequenceOfHExtendedString.def_static("operator delete_", (void (*)(void *)) &TColStd_HSequenceOfHExtendedString::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HSequenceOfHExtendedString.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HSequenceOfHExtendedString::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HSequenceOfHExtendedString.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HSequenceOfHExtendedString::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HSequenceOfHExtendedString.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HSequenceOfHExtendedString::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HSequenceOfHExtendedString.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HSequenceOfHExtendedString::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HSequenceOfHExtendedString.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfHExtendedString::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HSequenceOfHExtendedString.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfHExtendedString::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HSequenceOfHExtendedString.def("Sequence", (const TColStd_SequenceOfHExtendedString & (TColStd_HSequenceOfHExtendedString::*)() const) &TColStd_HSequenceOfHExtendedString::Sequence, "None");
-cls_TColStd_HSequenceOfHExtendedString.def("Append", (void (TColStd_HSequenceOfHExtendedString::*)(const TColStd_SequenceOfHExtendedString::value_type &)) &TColStd_HSequenceOfHExtendedString::Append, "None", py::arg("theItem"));
-cls_TColStd_HSequenceOfHExtendedString.def("Append", (void (TColStd_HSequenceOfHExtendedString::*)(TColStd_SequenceOfHExtendedString &)) &TColStd_HSequenceOfHExtendedString::Append, "None", py::arg("theSequence"));
-cls_TColStd_HSequenceOfHExtendedString.def("ChangeSequence", (TColStd_SequenceOfHExtendedString & (TColStd_HSequenceOfHExtendedString::*)()) &TColStd_HSequenceOfHExtendedString::ChangeSequence, "None");
-cls_TColStd_HSequenceOfHExtendedString.def_static("get_type_name_", (const char * (*)()) &TColStd_HSequenceOfHExtendedString::get_type_name, "None");
-cls_TColStd_HSequenceOfHExtendedString.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HSequenceOfHExtendedString::get_type_descriptor, "None");
-cls_TColStd_HSequenceOfHExtendedString.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HSequenceOfHExtendedString::*)() const) &TColStd_HSequenceOfHExtendedString::DynamicType, "None");
+bind_Define_HSequence<TColStd_HSequenceOfHExtendedString, TColStd_SequenceOfHExtendedString>(mod, "TColStd_HSequenceOfHExtendedString");
 
 // TYPEDEF: TCOLSTD_MAPOFASCIISTRING
 bind_NCollection_Map<TCollection_AsciiString, TCollection_AsciiString>(mod, "TColStd_MapOfAsciiString", py::module_local(false));
@@ -594,105 +368,22 @@ bind_NCollection_List<TCollection_AsciiString>(mod, "TColStd_ListOfAsciiString",
 bind_NCollection_TListIterator<TCollection_AsciiString>(mod, "TColStd_ListIteratorOfListOfAsciiString", py::module_local(false));
 
 // CLASS: TCOLSTD_HARRAY1OFBOOLEAN
-py::class_<TColStd_HArray1OfBoolean, opencascade::handle<TColStd_HArray1OfBoolean>, Standard_Transient> cls_TColStd_HArray1OfBoolean(mod, "TColStd_HArray1OfBoolean", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HArray1OfBoolean.def(py::init<>());
-cls_TColStd_HArray1OfBoolean.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TColStd_HArray1OfBoolean.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfBoolean::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TColStd_HArray1OfBoolean.def(py::init<const TColStd_Array1OfBoolean &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HArray1OfBoolean.def_static("operator new_", (void * (*)(size_t)) &TColStd_HArray1OfBoolean::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfBoolean.def_static("operator delete_", (void (*)(void *)) &TColStd_HArray1OfBoolean::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfBoolean.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HArray1OfBoolean::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfBoolean.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HArray1OfBoolean::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfBoolean.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HArray1OfBoolean::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HArray1OfBoolean.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HArray1OfBoolean::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HArray1OfBoolean.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfBoolean::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HArray1OfBoolean.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfBoolean::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HArray1OfBoolean.def("Array1", (const TColStd_Array1OfBoolean & (TColStd_HArray1OfBoolean::*)() const) &TColStd_HArray1OfBoolean::Array1, "None");
-cls_TColStd_HArray1OfBoolean.def("ChangeArray1", (TColStd_Array1OfBoolean & (TColStd_HArray1OfBoolean::*)()) &TColStd_HArray1OfBoolean::ChangeArray1, "None");
-cls_TColStd_HArray1OfBoolean.def_static("get_type_name_", (const char * (*)()) &TColStd_HArray1OfBoolean::get_type_name, "None");
-cls_TColStd_HArray1OfBoolean.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray1OfBoolean::get_type_descriptor, "None");
-cls_TColStd_HArray1OfBoolean.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray1OfBoolean::*)() const) &TColStd_HArray1OfBoolean::DynamicType, "None");
+bind_Define_HArray1<TColStd_HArray1OfBoolean, TColStd_Array1OfBoolean>(mod, "TColStd_HArray1OfBoolean");
 
 // CLASS: TCOLSTD_HSEQUENCEOFINTEGER
-py::class_<TColStd_HSequenceOfInteger, opencascade::handle<TColStd_HSequenceOfInteger>, Standard_Transient> cls_TColStd_HSequenceOfInteger(mod, "TColStd_HSequenceOfInteger", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HSequenceOfInteger.def(py::init<>());
-cls_TColStd_HSequenceOfInteger.def(py::init<const TColStd_SequenceOfInteger &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HSequenceOfInteger.def_static("operator new_", (void * (*)(size_t)) &TColStd_HSequenceOfInteger::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HSequenceOfInteger.def_static("operator delete_", (void (*)(void *)) &TColStd_HSequenceOfInteger::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HSequenceOfInteger.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HSequenceOfInteger::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HSequenceOfInteger.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HSequenceOfInteger::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HSequenceOfInteger.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HSequenceOfInteger::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HSequenceOfInteger.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HSequenceOfInteger::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HSequenceOfInteger.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfInteger::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HSequenceOfInteger.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfInteger::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HSequenceOfInteger.def("Sequence", (const TColStd_SequenceOfInteger & (TColStd_HSequenceOfInteger::*)() const) &TColStd_HSequenceOfInteger::Sequence, "None");
-cls_TColStd_HSequenceOfInteger.def("Append", (void (TColStd_HSequenceOfInteger::*)(const TColStd_SequenceOfInteger::value_type &)) &TColStd_HSequenceOfInteger::Append, "None", py::arg("theItem"));
-cls_TColStd_HSequenceOfInteger.def("Append", (void (TColStd_HSequenceOfInteger::*)(TColStd_SequenceOfInteger &)) &TColStd_HSequenceOfInteger::Append, "None", py::arg("theSequence"));
-cls_TColStd_HSequenceOfInteger.def("ChangeSequence", (TColStd_SequenceOfInteger & (TColStd_HSequenceOfInteger::*)()) &TColStd_HSequenceOfInteger::ChangeSequence, "None");
-cls_TColStd_HSequenceOfInteger.def_static("get_type_name_", (const char * (*)()) &TColStd_HSequenceOfInteger::get_type_name, "None");
-cls_TColStd_HSequenceOfInteger.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HSequenceOfInteger::get_type_descriptor, "None");
-cls_TColStd_HSequenceOfInteger.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HSequenceOfInteger::*)() const) &TColStd_HSequenceOfInteger::DynamicType, "None");
+bind_Define_HSequence<TColStd_HSequenceOfInteger, TColStd_SequenceOfInteger>(mod, "TColStd_HSequenceOfInteger");
 
 // TYPEDEF: TCOLSTD_SEQUENCEOFTRANSIENT
 bind_NCollection_Sequence<opencascade::handle<Standard_Transient> >(mod, "TColStd_SequenceOfTransient", py::module_local(false));
 
 // CLASS: TCOLSTD_HSEQUENCEOFTRANSIENT
-py::class_<TColStd_HSequenceOfTransient, opencascade::handle<TColStd_HSequenceOfTransient>, Standard_Transient> cls_TColStd_HSequenceOfTransient(mod, "TColStd_HSequenceOfTransient", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HSequenceOfTransient.def(py::init<>());
-cls_TColStd_HSequenceOfTransient.def(py::init<const TColStd_SequenceOfTransient &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HSequenceOfTransient.def_static("operator new_", (void * (*)(size_t)) &TColStd_HSequenceOfTransient::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HSequenceOfTransient.def_static("operator delete_", (void (*)(void *)) &TColStd_HSequenceOfTransient::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HSequenceOfTransient.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HSequenceOfTransient::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HSequenceOfTransient.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HSequenceOfTransient::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HSequenceOfTransient.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HSequenceOfTransient::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HSequenceOfTransient.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HSequenceOfTransient::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HSequenceOfTransient.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfTransient::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HSequenceOfTransient.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfTransient::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HSequenceOfTransient.def("Sequence", (const TColStd_SequenceOfTransient & (TColStd_HSequenceOfTransient::*)() const) &TColStd_HSequenceOfTransient::Sequence, "None");
-cls_TColStd_HSequenceOfTransient.def("Append", (void (TColStd_HSequenceOfTransient::*)(const TColStd_SequenceOfTransient::value_type &)) &TColStd_HSequenceOfTransient::Append, "None", py::arg("theItem"));
-cls_TColStd_HSequenceOfTransient.def("Append", (void (TColStd_HSequenceOfTransient::*)(TColStd_SequenceOfTransient &)) &TColStd_HSequenceOfTransient::Append, "None", py::arg("theSequence"));
-cls_TColStd_HSequenceOfTransient.def("ChangeSequence", (TColStd_SequenceOfTransient & (TColStd_HSequenceOfTransient::*)()) &TColStd_HSequenceOfTransient::ChangeSequence, "None");
-cls_TColStd_HSequenceOfTransient.def_static("get_type_name_", (const char * (*)()) &TColStd_HSequenceOfTransient::get_type_name, "None");
-cls_TColStd_HSequenceOfTransient.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HSequenceOfTransient::get_type_descriptor, "None");
-cls_TColStd_HSequenceOfTransient.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HSequenceOfTransient::*)() const) &TColStd_HSequenceOfTransient::DynamicType, "None");
+bind_Define_HSequence<TColStd_HSequenceOfTransient, TColStd_SequenceOfTransient>(mod, "TColStd_HSequenceOfTransient");
 
 // TYPEDEF: TCOLSTD_ARRAY2OFTRANSIENT
 bind_NCollection_Array2<opencascade::handle<Standard_Transient> >(mod, "TColStd_Array2OfTransient", py::module_local(false));
 
 // CLASS: TCOLSTD_HARRAY2OFTRANSIENT
-py::class_<TColStd_HArray2OfTransient, opencascade::handle<TColStd_HArray2OfTransient>, Standard_Transient> cls_TColStd_HArray2OfTransient(mod, "TColStd_HArray2OfTransient", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HArray2OfTransient.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_TColStd_HArray2OfTransient.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const TColStd_Array2OfTransient::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_TColStd_HArray2OfTransient.def(py::init<const TColStd_Array2OfTransient &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HArray2OfTransient.def_static("operator new_", (void * (*)(size_t)) &TColStd_HArray2OfTransient::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HArray2OfTransient.def_static("operator delete_", (void (*)(void *)) &TColStd_HArray2OfTransient::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HArray2OfTransient.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HArray2OfTransient::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HArray2OfTransient.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HArray2OfTransient::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HArray2OfTransient.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HArray2OfTransient::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HArray2OfTransient.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HArray2OfTransient::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HArray2OfTransient.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray2OfTransient::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HArray2OfTransient.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray2OfTransient::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HArray2OfTransient.def("Array2", (const TColStd_Array2OfTransient & (TColStd_HArray2OfTransient::*)() const) &TColStd_HArray2OfTransient::Array2, "None");
-cls_TColStd_HArray2OfTransient.def("ChangeArray2", (TColStd_Array2OfTransient & (TColStd_HArray2OfTransient::*)()) &TColStd_HArray2OfTransient::ChangeArray2, "None");
-cls_TColStd_HArray2OfTransient.def_static("get_type_name_", (const char * (*)()) &TColStd_HArray2OfTransient::get_type_name, "None");
-cls_TColStd_HArray2OfTransient.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray2OfTransient::get_type_descriptor, "None");
-cls_TColStd_HArray2OfTransient.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray2OfTransient::*)() const) &TColStd_HArray2OfTransient::DynamicType, "None");
+bind_Define_HArray2<TColStd_HArray2OfTransient, TColStd_Array2OfTransient>(mod, "TColStd_HArray2OfTransient");
 
 // CLASS: TCOLSTD_HPACKEDMAPOFINTEGER
 py::class_<TColStd_HPackedMapOfInteger, opencascade::handle<TColStd_HPackedMapOfInteger>, Standard_Transient> cls_TColStd_HPackedMapOfInteger(mod, "TColStd_HPackedMapOfInteger", "Extension of TColStd_PackedMapOfInteger class to be manipulated by handle.");
@@ -710,55 +401,13 @@ cls_TColStd_HPackedMapOfInteger.def_static("get_type_descriptor_", (const openca
 cls_TColStd_HPackedMapOfInteger.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HPackedMapOfInteger::*)() const) &TColStd_HPackedMapOfInteger::DynamicType, "None");
 
 // CLASS: TCOLSTD_HARRAY1OFASCIISTRING
-py::class_<TColStd_HArray1OfAsciiString, opencascade::handle<TColStd_HArray1OfAsciiString>, Standard_Transient> cls_TColStd_HArray1OfAsciiString(mod, "TColStd_HArray1OfAsciiString", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HArray1OfAsciiString.def(py::init<>());
-cls_TColStd_HArray1OfAsciiString.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TColStd_HArray1OfAsciiString.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfAsciiString::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TColStd_HArray1OfAsciiString.def(py::init<const TColStd_Array1OfAsciiString &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HArray1OfAsciiString.def_static("operator new_", (void * (*)(size_t)) &TColStd_HArray1OfAsciiString::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfAsciiString.def_static("operator delete_", (void (*)(void *)) &TColStd_HArray1OfAsciiString::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfAsciiString.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HArray1OfAsciiString::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfAsciiString.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HArray1OfAsciiString::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfAsciiString.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HArray1OfAsciiString::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HArray1OfAsciiString.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HArray1OfAsciiString::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HArray1OfAsciiString.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfAsciiString::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HArray1OfAsciiString.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfAsciiString::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HArray1OfAsciiString.def("Array1", (const TColStd_Array1OfAsciiString & (TColStd_HArray1OfAsciiString::*)() const) &TColStd_HArray1OfAsciiString::Array1, "None");
-cls_TColStd_HArray1OfAsciiString.def("ChangeArray1", (TColStd_Array1OfAsciiString & (TColStd_HArray1OfAsciiString::*)()) &TColStd_HArray1OfAsciiString::ChangeArray1, "None");
-cls_TColStd_HArray1OfAsciiString.def_static("get_type_name_", (const char * (*)()) &TColStd_HArray1OfAsciiString::get_type_name, "None");
-cls_TColStd_HArray1OfAsciiString.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray1OfAsciiString::get_type_descriptor, "None");
-cls_TColStd_HArray1OfAsciiString.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray1OfAsciiString::*)() const) &TColStd_HArray1OfAsciiString::DynamicType, "None");
+bind_Define_HArray1<TColStd_HArray1OfAsciiString, TColStd_Array1OfAsciiString>(mod, "TColStd_HArray1OfAsciiString");
 
 // TYPEDEF: TCOLSTD_ARRAY1OFEXTENDEDSTRING
 bind_NCollection_Array1<TCollection_ExtendedString>(mod, "TColStd_Array1OfExtendedString", py::module_local(false));
 
 // CLASS: TCOLSTD_HARRAY1OFEXTENDEDSTRING
-py::class_<TColStd_HArray1OfExtendedString, opencascade::handle<TColStd_HArray1OfExtendedString>, Standard_Transient> cls_TColStd_HArray1OfExtendedString(mod, "TColStd_HArray1OfExtendedString", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HArray1OfExtendedString.def(py::init<>());
-cls_TColStd_HArray1OfExtendedString.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TColStd_HArray1OfExtendedString.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfExtendedString::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TColStd_HArray1OfExtendedString.def(py::init<const TColStd_Array1OfExtendedString &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HArray1OfExtendedString.def_static("operator new_", (void * (*)(size_t)) &TColStd_HArray1OfExtendedString::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfExtendedString.def_static("operator delete_", (void (*)(void *)) &TColStd_HArray1OfExtendedString::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfExtendedString.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HArray1OfExtendedString::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfExtendedString.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HArray1OfExtendedString::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfExtendedString.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HArray1OfExtendedString::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HArray1OfExtendedString.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HArray1OfExtendedString::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HArray1OfExtendedString.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfExtendedString::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HArray1OfExtendedString.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfExtendedString::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HArray1OfExtendedString.def("Array1", (const TColStd_Array1OfExtendedString & (TColStd_HArray1OfExtendedString::*)() const) &TColStd_HArray1OfExtendedString::Array1, "None");
-cls_TColStd_HArray1OfExtendedString.def("ChangeArray1", (TColStd_Array1OfExtendedString & (TColStd_HArray1OfExtendedString::*)()) &TColStd_HArray1OfExtendedString::ChangeArray1, "None");
-cls_TColStd_HArray1OfExtendedString.def_static("get_type_name_", (const char * (*)()) &TColStd_HArray1OfExtendedString::get_type_name, "None");
-cls_TColStd_HArray1OfExtendedString.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray1OfExtendedString::get_type_descriptor, "None");
-cls_TColStd_HArray1OfExtendedString.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray1OfExtendedString::*)() const) &TColStd_HArray1OfExtendedString::DynamicType, "None");
+bind_Define_HArray1<TColStd_HArray1OfExtendedString, TColStd_Array1OfExtendedString>(mod, "TColStd_HArray1OfExtendedString");
 
 // TYPEDEF: TCOLSTD_ARRAY1OFCHARACTER
 bind_NCollection_Array1<char>(mod, "TColStd_Array1OfCharacter", py::module_local(false));
@@ -772,98 +421,16 @@ bind_NCollection_DataMap<opencascade::handle<Standard_Transient>, opencascade::h
 // TYPEDEF: TCOLSTD_DATAMAPITERATOROFDATAMAPOFTRANSIENTTRANSIENT
 
 // CLASS: TCOLSTD_HARRAY1OFCHARACTER
-py::class_<TColStd_HArray1OfCharacter, opencascade::handle<TColStd_HArray1OfCharacter>, Standard_Transient> cls_TColStd_HArray1OfCharacter(mod, "TColStd_HArray1OfCharacter", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HArray1OfCharacter.def(py::init<>());
-cls_TColStd_HArray1OfCharacter.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TColStd_HArray1OfCharacter.def(py::init<const Standard_Integer, const Standard_Integer, const TColStd_Array1OfCharacter::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TColStd_HArray1OfCharacter.def(py::init<const TColStd_Array1OfCharacter &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HArray1OfCharacter.def_static("operator new_", (void * (*)(size_t)) &TColStd_HArray1OfCharacter::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfCharacter.def_static("operator delete_", (void (*)(void *)) &TColStd_HArray1OfCharacter::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfCharacter.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HArray1OfCharacter::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HArray1OfCharacter.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HArray1OfCharacter::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HArray1OfCharacter.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HArray1OfCharacter::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HArray1OfCharacter.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HArray1OfCharacter::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HArray1OfCharacter.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfCharacter::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HArray1OfCharacter.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray1OfCharacter::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HArray1OfCharacter.def("Array1", (const TColStd_Array1OfCharacter & (TColStd_HArray1OfCharacter::*)() const) &TColStd_HArray1OfCharacter::Array1, "None");
-cls_TColStd_HArray1OfCharacter.def("ChangeArray1", (TColStd_Array1OfCharacter & (TColStd_HArray1OfCharacter::*)()) &TColStd_HArray1OfCharacter::ChangeArray1, "None");
-cls_TColStd_HArray1OfCharacter.def_static("get_type_name_", (const char * (*)()) &TColStd_HArray1OfCharacter::get_type_name, "None");
-cls_TColStd_HArray1OfCharacter.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray1OfCharacter::get_type_descriptor, "None");
-cls_TColStd_HArray1OfCharacter.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray1OfCharacter::*)() const) &TColStd_HArray1OfCharacter::DynamicType, "None");
+bind_Define_HArray1<TColStd_HArray1OfCharacter, TColStd_Array1OfCharacter>(mod, "TColStd_HArray1OfCharacter");
 
 // CLASS: TCOLSTD_HARRAY2OFBOOLEAN
-py::class_<TColStd_HArray2OfBoolean, opencascade::handle<TColStd_HArray2OfBoolean>, Standard_Transient> cls_TColStd_HArray2OfBoolean(mod, "TColStd_HArray2OfBoolean", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HArray2OfBoolean.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_TColStd_HArray2OfBoolean.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const TColStd_Array2OfBoolean::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_TColStd_HArray2OfBoolean.def(py::init<const TColStd_Array2OfBoolean &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HArray2OfBoolean.def_static("operator new_", (void * (*)(size_t)) &TColStd_HArray2OfBoolean::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HArray2OfBoolean.def_static("operator delete_", (void (*)(void *)) &TColStd_HArray2OfBoolean::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HArray2OfBoolean.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HArray2OfBoolean::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HArray2OfBoolean.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HArray2OfBoolean::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HArray2OfBoolean.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HArray2OfBoolean::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HArray2OfBoolean.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HArray2OfBoolean::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HArray2OfBoolean.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray2OfBoolean::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HArray2OfBoolean.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray2OfBoolean::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HArray2OfBoolean.def("Array2", (const TColStd_Array2OfBoolean & (TColStd_HArray2OfBoolean::*)() const) &TColStd_HArray2OfBoolean::Array2, "None");
-cls_TColStd_HArray2OfBoolean.def("ChangeArray2", (TColStd_Array2OfBoolean & (TColStd_HArray2OfBoolean::*)()) &TColStd_HArray2OfBoolean::ChangeArray2, "None");
-cls_TColStd_HArray2OfBoolean.def_static("get_type_name_", (const char * (*)()) &TColStd_HArray2OfBoolean::get_type_name, "None");
-cls_TColStd_HArray2OfBoolean.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray2OfBoolean::get_type_descriptor, "None");
-cls_TColStd_HArray2OfBoolean.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray2OfBoolean::*)() const) &TColStd_HArray2OfBoolean::DynamicType, "None");
+bind_Define_HArray2<TColStd_HArray2OfBoolean, TColStd_Array2OfBoolean>(mod, "TColStd_HArray2OfBoolean");
 
 // CLASS: TCOLSTD_HARRAY2OFCHARACTER
-py::class_<TColStd_HArray2OfCharacter, opencascade::handle<TColStd_HArray2OfCharacter>, Standard_Transient> cls_TColStd_HArray2OfCharacter(mod, "TColStd_HArray2OfCharacter", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HArray2OfCharacter.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_TColStd_HArray2OfCharacter.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const TColStd_Array2OfCharacter::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_TColStd_HArray2OfCharacter.def(py::init<const TColStd_Array2OfCharacter &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HArray2OfCharacter.def_static("operator new_", (void * (*)(size_t)) &TColStd_HArray2OfCharacter::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HArray2OfCharacter.def_static("operator delete_", (void (*)(void *)) &TColStd_HArray2OfCharacter::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HArray2OfCharacter.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HArray2OfCharacter::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HArray2OfCharacter.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HArray2OfCharacter::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HArray2OfCharacter.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HArray2OfCharacter::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HArray2OfCharacter.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HArray2OfCharacter::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HArray2OfCharacter.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray2OfCharacter::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HArray2OfCharacter.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HArray2OfCharacter::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HArray2OfCharacter.def("Array2", (const TColStd_Array2OfCharacter & (TColStd_HArray2OfCharacter::*)() const) &TColStd_HArray2OfCharacter::Array2, "None");
-cls_TColStd_HArray2OfCharacter.def("ChangeArray2", (TColStd_Array2OfCharacter & (TColStd_HArray2OfCharacter::*)()) &TColStd_HArray2OfCharacter::ChangeArray2, "None");
-cls_TColStd_HArray2OfCharacter.def_static("get_type_name_", (const char * (*)()) &TColStd_HArray2OfCharacter::get_type_name, "None");
-cls_TColStd_HArray2OfCharacter.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HArray2OfCharacter::get_type_descriptor, "None");
-cls_TColStd_HArray2OfCharacter.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HArray2OfCharacter::*)() const) &TColStd_HArray2OfCharacter::DynamicType, "None");
+bind_Define_HArray2<TColStd_HArray2OfCharacter, TColStd_Array2OfCharacter>(mod, "TColStd_HArray2OfCharacter");
 
 // CLASS: TCOLSTD_HSEQUENCEOFEXTENDEDSTRING
-py::class_<TColStd_HSequenceOfExtendedString, opencascade::handle<TColStd_HSequenceOfExtendedString>, Standard_Transient> cls_TColStd_HSequenceOfExtendedString(mod, "TColStd_HSequenceOfExtendedString", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TColStd_HSequenceOfExtendedString.def(py::init<>());
-cls_TColStd_HSequenceOfExtendedString.def(py::init<const TColStd_SequenceOfExtendedString &>(), py::arg("theOther"));
-
-// Methods
-// cls_TColStd_HSequenceOfExtendedString.def_static("operator new_", (void * (*)(size_t)) &TColStd_HSequenceOfExtendedString::operator new, "None", py::arg("theSize"));
-// cls_TColStd_HSequenceOfExtendedString.def_static("operator delete_", (void (*)(void *)) &TColStd_HSequenceOfExtendedString::operator delete, "None", py::arg("theAddress"));
-// cls_TColStd_HSequenceOfExtendedString.def_static("operator new[]_", (void * (*)(size_t)) &TColStd_HSequenceOfExtendedString::operator new[], "None", py::arg("theSize"));
-// cls_TColStd_HSequenceOfExtendedString.def_static("operator delete[]_", (void (*)(void *)) &TColStd_HSequenceOfExtendedString::operator delete[], "None", py::arg("theAddress"));
-// cls_TColStd_HSequenceOfExtendedString.def_static("operator new_", (void * (*)(size_t, void *)) &TColStd_HSequenceOfExtendedString::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TColStd_HSequenceOfExtendedString.def_static("operator delete_", (void (*)(void *, void *)) &TColStd_HSequenceOfExtendedString::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TColStd_HSequenceOfExtendedString.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfExtendedString::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TColStd_HSequenceOfExtendedString.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TColStd_HSequenceOfExtendedString::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TColStd_HSequenceOfExtendedString.def("Sequence", (const TColStd_SequenceOfExtendedString & (TColStd_HSequenceOfExtendedString::*)() const) &TColStd_HSequenceOfExtendedString::Sequence, "None");
-cls_TColStd_HSequenceOfExtendedString.def("Append", (void (TColStd_HSequenceOfExtendedString::*)(const TColStd_SequenceOfExtendedString::value_type &)) &TColStd_HSequenceOfExtendedString::Append, "None", py::arg("theItem"));
-cls_TColStd_HSequenceOfExtendedString.def("Append", (void (TColStd_HSequenceOfExtendedString::*)(TColStd_SequenceOfExtendedString &)) &TColStd_HSequenceOfExtendedString::Append, "None", py::arg("theSequence"));
-cls_TColStd_HSequenceOfExtendedString.def("ChangeSequence", (TColStd_SequenceOfExtendedString & (TColStd_HSequenceOfExtendedString::*)()) &TColStd_HSequenceOfExtendedString::ChangeSequence, "None");
-cls_TColStd_HSequenceOfExtendedString.def_static("get_type_name_", (const char * (*)()) &TColStd_HSequenceOfExtendedString::get_type_name, "None");
-cls_TColStd_HSequenceOfExtendedString.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TColStd_HSequenceOfExtendedString::get_type_descriptor, "None");
-cls_TColStd_HSequenceOfExtendedString.def("DynamicType", (const opencascade::handle<Standard_Type> & (TColStd_HSequenceOfExtendedString::*)() const) &TColStd_HSequenceOfExtendedString::DynamicType, "None");
+bind_Define_HSequence<TColStd_HSequenceOfExtendedString, TColStd_SequenceOfExtendedString>(mod, "TColStd_HSequenceOfExtendedString");
 
 // TYPEDEF: TCOLSTD_MAPREALHASHER
 bind_NCollection_DefaultHasher<double>(mod, "TColStd_MapRealHasher", py::module_local(false));

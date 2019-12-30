@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <Standard_TypeDef.hxx>
+#include <Standard_NoSuchObject.hxx>
 #include <NCollection_ListNode.hxx>
 
 template <typename TheItemType>
@@ -43,10 +44,10 @@ cls_NCollection_List.def(py::init<const opencascade::handle<NCollection_BaseAllo
 cls_NCollection_List.def(py::init<const NCollection_List<TheItemType> &>(), py::arg("theOther"));
 
 // Methods
-cls_NCollection_List.def("begin", (typename NCollection_List<TheItemType>::iterator (NCollection_List<TheItemType>::*)() const) &NCollection_List<TheItemType>::begin, "Returns an iterator pointing to the first element in the list.");
-cls_NCollection_List.def("end", (typename NCollection_List<TheItemType>::iterator (NCollection_List<TheItemType>::*)() const) &NCollection_List<TheItemType>::end, "Returns an iterator referring to the past-the-end element in the list.");
-cls_NCollection_List.def("cbegin", (typename NCollection_List<TheItemType>::const_iterator (NCollection_List<TheItemType>::*)() const) &NCollection_List<TheItemType>::cbegin, "Returns a const iterator pointing to the first element in the list.");
-cls_NCollection_List.def("cend", (typename NCollection_List<TheItemType>::const_iterator (NCollection_List<TheItemType>::*)() const) &NCollection_List<TheItemType>::cend, "Returns a const iterator referring to the past-the-end element in the list.");
+// cls_NCollection_List.def("begin", (typename NCollection_List<TheItemType>::iterator (NCollection_List<TheItemType>::*)() const) &NCollection_List<TheItemType>::begin, "Returns an iterator pointing to the first element in the list.");
+// cls_NCollection_List.def("end", (typename NCollection_List<TheItemType>::iterator (NCollection_List<TheItemType>::*)() const) &NCollection_List<TheItemType>::end, "Returns an iterator referring to the past-the-end element in the list.");
+// cls_NCollection_List.def("cbegin", (typename NCollection_List<TheItemType>::const_iterator (NCollection_List<TheItemType>::*)() const) &NCollection_List<TheItemType>::cbegin, "Returns a const iterator pointing to the first element in the list.");
+// cls_NCollection_List.def("cend", (typename NCollection_List<TheItemType>::const_iterator (NCollection_List<TheItemType>::*)() const) &NCollection_List<TheItemType>::cend, "Returns a const iterator referring to the past-the-end element in the list.");
 cls_NCollection_List.def("Size", (Standard_Integer (NCollection_List<TheItemType>::*)() const) &NCollection_List<TheItemType>::Size, "Size - Number of items");
 cls_NCollection_List.def("Assign", (NCollection_List<TheItemType> & (NCollection_List<TheItemType>::*)(const NCollection_List<TheItemType> &)) &NCollection_List<TheItemType>::Assign, "Replace this list by the items of another list (theOther parameter). This method does not change the internal allocator.", py::arg("theOther"));
 // cls_NCollection_List.def("operator=", (NCollection_List<TheItemType> & (NCollection_List<TheItemType>::*)(const NCollection_List<TheItemType> &)) &NCollection_List<TheItemType>::operator=, "Replacement operator", py::arg("theOther"));

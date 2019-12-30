@@ -95,6 +95,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Transfer_TransientListBinder.hxx>
 #include <Transfer_VoidBinder.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 #include <bind_NCollection_IndexedDataMap.hxx>
 
 PYBIND11_MODULE(Transfer, mod) {
@@ -168,28 +169,7 @@ cls_Transfer_Finder.def("DynamicType", (const opencascade::handle<Standard_Type>
 bind_NCollection_Sequence<opencascade::handle<Transfer_Finder> >(mod, "Transfer_SequenceOfFinder", py::module_local(false));
 
 // CLASS: TRANSFER_HSEQUENCEOFFINDER
-py::class_<Transfer_HSequenceOfFinder, opencascade::handle<Transfer_HSequenceOfFinder>, Standard_Transient> cls_Transfer_HSequenceOfFinder(mod, "Transfer_HSequenceOfFinder", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Transfer_HSequenceOfFinder.def(py::init<>());
-cls_Transfer_HSequenceOfFinder.def(py::init<const Transfer_SequenceOfFinder &>(), py::arg("theOther"));
-
-// Methods
-// cls_Transfer_HSequenceOfFinder.def_static("operator new_", (void * (*)(size_t)) &Transfer_HSequenceOfFinder::operator new, "None", py::arg("theSize"));
-// cls_Transfer_HSequenceOfFinder.def_static("operator delete_", (void (*)(void *)) &Transfer_HSequenceOfFinder::operator delete, "None", py::arg("theAddress"));
-// cls_Transfer_HSequenceOfFinder.def_static("operator new[]_", (void * (*)(size_t)) &Transfer_HSequenceOfFinder::operator new[], "None", py::arg("theSize"));
-// cls_Transfer_HSequenceOfFinder.def_static("operator delete[]_", (void (*)(void *)) &Transfer_HSequenceOfFinder::operator delete[], "None", py::arg("theAddress"));
-// cls_Transfer_HSequenceOfFinder.def_static("operator new_", (void * (*)(size_t, void *)) &Transfer_HSequenceOfFinder::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Transfer_HSequenceOfFinder.def_static("operator delete_", (void (*)(void *, void *)) &Transfer_HSequenceOfFinder::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Transfer_HSequenceOfFinder.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Transfer_HSequenceOfFinder::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Transfer_HSequenceOfFinder.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Transfer_HSequenceOfFinder::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Transfer_HSequenceOfFinder.def("Sequence", (const Transfer_SequenceOfFinder & (Transfer_HSequenceOfFinder::*)() const) &Transfer_HSequenceOfFinder::Sequence, "None");
-cls_Transfer_HSequenceOfFinder.def("Append", (void (Transfer_HSequenceOfFinder::*)(const Transfer_SequenceOfFinder::value_type &)) &Transfer_HSequenceOfFinder::Append, "None", py::arg("theItem"));
-cls_Transfer_HSequenceOfFinder.def("Append", (void (Transfer_HSequenceOfFinder::*)(Transfer_SequenceOfFinder &)) &Transfer_HSequenceOfFinder::Append, "None", py::arg("theSequence"));
-cls_Transfer_HSequenceOfFinder.def("ChangeSequence", (Transfer_SequenceOfFinder & (Transfer_HSequenceOfFinder::*)()) &Transfer_HSequenceOfFinder::ChangeSequence, "None");
-cls_Transfer_HSequenceOfFinder.def_static("get_type_name_", (const char * (*)()) &Transfer_HSequenceOfFinder::get_type_name, "None");
-cls_Transfer_HSequenceOfFinder.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Transfer_HSequenceOfFinder::get_type_descriptor, "None");
-cls_Transfer_HSequenceOfFinder.def("DynamicType", (const opencascade::handle<Standard_Type> & (Transfer_HSequenceOfFinder::*)() const) &Transfer_HSequenceOfFinder::DynamicType, "None");
+bind_Define_HSequence<Transfer_HSequenceOfFinder, Transfer_SequenceOfFinder>(mod, "Transfer_HSequenceOfFinder");
 
 // CLASS: TRANSFER_BINDER
 py::class_<Transfer_Binder, opencascade::handle<Transfer_Binder>, Standard_Transient> cls_Transfer_Binder(mod, "Transfer_Binder", "A Binder is an auxiliary object to Map the Result of the Transfer of a given Object : it records the Result of the Unitary Transfer (Resulting Object), status of progress and error (if any) of the Process");
@@ -647,28 +627,7 @@ cls_Transfer_DispatchControl.def("DynamicType", (const opencascade::handle<Stand
 bind_NCollection_Sequence<opencascade::handle<Transfer_Binder> >(mod, "Transfer_SequenceOfBinder", py::module_local(false));
 
 // CLASS: TRANSFER_HSEQUENCEOFBINDER
-py::class_<Transfer_HSequenceOfBinder, opencascade::handle<Transfer_HSequenceOfBinder>, Standard_Transient> cls_Transfer_HSequenceOfBinder(mod, "Transfer_HSequenceOfBinder", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Transfer_HSequenceOfBinder.def(py::init<>());
-cls_Transfer_HSequenceOfBinder.def(py::init<const Transfer_SequenceOfBinder &>(), py::arg("theOther"));
-
-// Methods
-// cls_Transfer_HSequenceOfBinder.def_static("operator new_", (void * (*)(size_t)) &Transfer_HSequenceOfBinder::operator new, "None", py::arg("theSize"));
-// cls_Transfer_HSequenceOfBinder.def_static("operator delete_", (void (*)(void *)) &Transfer_HSequenceOfBinder::operator delete, "None", py::arg("theAddress"));
-// cls_Transfer_HSequenceOfBinder.def_static("operator new[]_", (void * (*)(size_t)) &Transfer_HSequenceOfBinder::operator new[], "None", py::arg("theSize"));
-// cls_Transfer_HSequenceOfBinder.def_static("operator delete[]_", (void (*)(void *)) &Transfer_HSequenceOfBinder::operator delete[], "None", py::arg("theAddress"));
-// cls_Transfer_HSequenceOfBinder.def_static("operator new_", (void * (*)(size_t, void *)) &Transfer_HSequenceOfBinder::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Transfer_HSequenceOfBinder.def_static("operator delete_", (void (*)(void *, void *)) &Transfer_HSequenceOfBinder::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Transfer_HSequenceOfBinder.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Transfer_HSequenceOfBinder::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Transfer_HSequenceOfBinder.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Transfer_HSequenceOfBinder::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Transfer_HSequenceOfBinder.def("Sequence", (const Transfer_SequenceOfBinder & (Transfer_HSequenceOfBinder::*)() const) &Transfer_HSequenceOfBinder::Sequence, "None");
-cls_Transfer_HSequenceOfBinder.def("Append", (void (Transfer_HSequenceOfBinder::*)(const Transfer_SequenceOfBinder::value_type &)) &Transfer_HSequenceOfBinder::Append, "None", py::arg("theItem"));
-cls_Transfer_HSequenceOfBinder.def("Append", (void (Transfer_HSequenceOfBinder::*)(Transfer_SequenceOfBinder &)) &Transfer_HSequenceOfBinder::Append, "None", py::arg("theSequence"));
-cls_Transfer_HSequenceOfBinder.def("ChangeSequence", (Transfer_SequenceOfBinder & (Transfer_HSequenceOfBinder::*)()) &Transfer_HSequenceOfBinder::ChangeSequence, "None");
-cls_Transfer_HSequenceOfBinder.def_static("get_type_name_", (const char * (*)()) &Transfer_HSequenceOfBinder::get_type_name, "None");
-cls_Transfer_HSequenceOfBinder.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Transfer_HSequenceOfBinder::get_type_descriptor, "None");
-cls_Transfer_HSequenceOfBinder.def("DynamicType", (const opencascade::handle<Standard_Type> & (Transfer_HSequenceOfBinder::*)() const) &Transfer_HSequenceOfBinder::DynamicType, "None");
+bind_Define_HSequence<Transfer_HSequenceOfBinder, Transfer_SequenceOfBinder>(mod, "Transfer_HSequenceOfBinder");
 
 // CLASS: TRANSFER_TRANSFERITERATOR
 py::class_<Transfer_TransferIterator> cls_Transfer_TransferIterator(mod, "Transfer_TransferIterator", "Defines an Iterator on the result of a Transfer Available for Normal Results or not (Erroneous Transfer) It gives several kinds of Informations, and allows to consider various criteria (criteria are cumulative)");

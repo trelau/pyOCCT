@@ -119,6 +119,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Message_Messenger.hxx>
 #include <IGESBasic_HArray2OfHArray1OfReal.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(IGESGeom, mod) {
 
@@ -211,28 +212,7 @@ cls_IGESGeom_TransformationMatrix.def("DynamicType", (const opencascade::handle<
 bind_NCollection_Array1<opencascade::handle<IGESGeom_TransformationMatrix> >(mod, "IGESGeom_Array1OfTransformationMatrix", py::module_local(false));
 
 // CLASS: IGESGEOM_HARRAY1OFBOUNDARY
-py::class_<IGESGeom_HArray1OfBoundary, opencascade::handle<IGESGeom_HArray1OfBoundary>, Standard_Transient> cls_IGESGeom_HArray1OfBoundary(mod, "IGESGeom_HArray1OfBoundary", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESGeom_HArray1OfBoundary.def(py::init<>());
-cls_IGESGeom_HArray1OfBoundary.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESGeom_HArray1OfBoundary.def(py::init<const Standard_Integer, const Standard_Integer, const IGESGeom_Array1OfBoundary::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESGeom_HArray1OfBoundary.def(py::init<const IGESGeom_Array1OfBoundary &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESGeom_HArray1OfBoundary.def_static("operator new_", (void * (*)(size_t)) &IGESGeom_HArray1OfBoundary::operator new, "None", py::arg("theSize"));
-// cls_IGESGeom_HArray1OfBoundary.def_static("operator delete_", (void (*)(void *)) &IGESGeom_HArray1OfBoundary::operator delete, "None", py::arg("theAddress"));
-// cls_IGESGeom_HArray1OfBoundary.def_static("operator new[]_", (void * (*)(size_t)) &IGESGeom_HArray1OfBoundary::operator new[], "None", py::arg("theSize"));
-// cls_IGESGeom_HArray1OfBoundary.def_static("operator delete[]_", (void (*)(void *)) &IGESGeom_HArray1OfBoundary::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESGeom_HArray1OfBoundary.def_static("operator new_", (void * (*)(size_t, void *)) &IGESGeom_HArray1OfBoundary::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESGeom_HArray1OfBoundary.def_static("operator delete_", (void (*)(void *, void *)) &IGESGeom_HArray1OfBoundary::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESGeom_HArray1OfBoundary.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESGeom_HArray1OfBoundary::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESGeom_HArray1OfBoundary.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESGeom_HArray1OfBoundary::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESGeom_HArray1OfBoundary.def("Array1", (const IGESGeom_Array1OfBoundary & (IGESGeom_HArray1OfBoundary::*)() const) &IGESGeom_HArray1OfBoundary::Array1, "None");
-cls_IGESGeom_HArray1OfBoundary.def("ChangeArray1", (IGESGeom_Array1OfBoundary & (IGESGeom_HArray1OfBoundary::*)()) &IGESGeom_HArray1OfBoundary::ChangeArray1, "None");
-cls_IGESGeom_HArray1OfBoundary.def_static("get_type_name_", (const char * (*)()) &IGESGeom_HArray1OfBoundary::get_type_name, "None");
-cls_IGESGeom_HArray1OfBoundary.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESGeom_HArray1OfBoundary::get_type_descriptor, "None");
-cls_IGESGeom_HArray1OfBoundary.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESGeom_HArray1OfBoundary::*)() const) &IGESGeom_HArray1OfBoundary::DynamicType, "None");
+bind_Define_HArray1<IGESGeom_HArray1OfBoundary, IGESGeom_Array1OfBoundary>(mod, "IGESGeom_HArray1OfBoundary");
 
 // CLASS: IGESGEOM_BOUNDEDSURFACE
 py::class_<IGESGeom_BoundedSurface, opencascade::handle<IGESGeom_BoundedSurface>, IGESData_IGESEntity> cls_IGESGeom_BoundedSurface(mod, "IGESGeom_BoundedSurface", "defines BoundedSurface, Type <143> Form <0> in package IGESGeom A bounded surface is used to communicate trimmed surfaces. The surface and trimming curves are assumed to be represented parametrically.");
@@ -459,52 +439,10 @@ cls_IGESGeom_GeneralModule.def_static("get_type_descriptor_", (const opencascade
 cls_IGESGeom_GeneralModule.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESGeom_GeneralModule::*)() const) &IGESGeom_GeneralModule::DynamicType, "None");
 
 // CLASS: IGESGEOM_HARRAY1OFCURVEONSURFACE
-py::class_<IGESGeom_HArray1OfCurveOnSurface, opencascade::handle<IGESGeom_HArray1OfCurveOnSurface>, Standard_Transient> cls_IGESGeom_HArray1OfCurveOnSurface(mod, "IGESGeom_HArray1OfCurveOnSurface", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESGeom_HArray1OfCurveOnSurface.def(py::init<>());
-cls_IGESGeom_HArray1OfCurveOnSurface.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESGeom_HArray1OfCurveOnSurface.def(py::init<const Standard_Integer, const Standard_Integer, const IGESGeom_Array1OfCurveOnSurface::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESGeom_HArray1OfCurveOnSurface.def(py::init<const IGESGeom_Array1OfCurveOnSurface &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESGeom_HArray1OfCurveOnSurface.def_static("operator new_", (void * (*)(size_t)) &IGESGeom_HArray1OfCurveOnSurface::operator new, "None", py::arg("theSize"));
-// cls_IGESGeom_HArray1OfCurveOnSurface.def_static("operator delete_", (void (*)(void *)) &IGESGeom_HArray1OfCurveOnSurface::operator delete, "None", py::arg("theAddress"));
-// cls_IGESGeom_HArray1OfCurveOnSurface.def_static("operator new[]_", (void * (*)(size_t)) &IGESGeom_HArray1OfCurveOnSurface::operator new[], "None", py::arg("theSize"));
-// cls_IGESGeom_HArray1OfCurveOnSurface.def_static("operator delete[]_", (void (*)(void *)) &IGESGeom_HArray1OfCurveOnSurface::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESGeom_HArray1OfCurveOnSurface.def_static("operator new_", (void * (*)(size_t, void *)) &IGESGeom_HArray1OfCurveOnSurface::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESGeom_HArray1OfCurveOnSurface.def_static("operator delete_", (void (*)(void *, void *)) &IGESGeom_HArray1OfCurveOnSurface::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESGeom_HArray1OfCurveOnSurface.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESGeom_HArray1OfCurveOnSurface::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESGeom_HArray1OfCurveOnSurface.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESGeom_HArray1OfCurveOnSurface::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESGeom_HArray1OfCurveOnSurface.def("Array1", (const IGESGeom_Array1OfCurveOnSurface & (IGESGeom_HArray1OfCurveOnSurface::*)() const) &IGESGeom_HArray1OfCurveOnSurface::Array1, "None");
-cls_IGESGeom_HArray1OfCurveOnSurface.def("ChangeArray1", (IGESGeom_Array1OfCurveOnSurface & (IGESGeom_HArray1OfCurveOnSurface::*)()) &IGESGeom_HArray1OfCurveOnSurface::ChangeArray1, "None");
-cls_IGESGeom_HArray1OfCurveOnSurface.def_static("get_type_name_", (const char * (*)()) &IGESGeom_HArray1OfCurveOnSurface::get_type_name, "None");
-cls_IGESGeom_HArray1OfCurveOnSurface.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESGeom_HArray1OfCurveOnSurface::get_type_descriptor, "None");
-cls_IGESGeom_HArray1OfCurveOnSurface.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESGeom_HArray1OfCurveOnSurface::*)() const) &IGESGeom_HArray1OfCurveOnSurface::DynamicType, "None");
+bind_Define_HArray1<IGESGeom_HArray1OfCurveOnSurface, IGESGeom_Array1OfCurveOnSurface>(mod, "IGESGeom_HArray1OfCurveOnSurface");
 
 // CLASS: IGESGEOM_HARRAY1OFTRANSFORMATIONMATRIX
-py::class_<IGESGeom_HArray1OfTransformationMatrix, opencascade::handle<IGESGeom_HArray1OfTransformationMatrix>, Standard_Transient> cls_IGESGeom_HArray1OfTransformationMatrix(mod, "IGESGeom_HArray1OfTransformationMatrix", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESGeom_HArray1OfTransformationMatrix.def(py::init<>());
-cls_IGESGeom_HArray1OfTransformationMatrix.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESGeom_HArray1OfTransformationMatrix.def(py::init<const Standard_Integer, const Standard_Integer, const IGESGeom_Array1OfTransformationMatrix::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESGeom_HArray1OfTransformationMatrix.def(py::init<const IGESGeom_Array1OfTransformationMatrix &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESGeom_HArray1OfTransformationMatrix.def_static("operator new_", (void * (*)(size_t)) &IGESGeom_HArray1OfTransformationMatrix::operator new, "None", py::arg("theSize"));
-// cls_IGESGeom_HArray1OfTransformationMatrix.def_static("operator delete_", (void (*)(void *)) &IGESGeom_HArray1OfTransformationMatrix::operator delete, "None", py::arg("theAddress"));
-// cls_IGESGeom_HArray1OfTransformationMatrix.def_static("operator new[]_", (void * (*)(size_t)) &IGESGeom_HArray1OfTransformationMatrix::operator new[], "None", py::arg("theSize"));
-// cls_IGESGeom_HArray1OfTransformationMatrix.def_static("operator delete[]_", (void (*)(void *)) &IGESGeom_HArray1OfTransformationMatrix::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESGeom_HArray1OfTransformationMatrix.def_static("operator new_", (void * (*)(size_t, void *)) &IGESGeom_HArray1OfTransformationMatrix::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESGeom_HArray1OfTransformationMatrix.def_static("operator delete_", (void (*)(void *, void *)) &IGESGeom_HArray1OfTransformationMatrix::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESGeom_HArray1OfTransformationMatrix.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESGeom_HArray1OfTransformationMatrix::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESGeom_HArray1OfTransformationMatrix.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESGeom_HArray1OfTransformationMatrix::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESGeom_HArray1OfTransformationMatrix.def("Array1", (const IGESGeom_Array1OfTransformationMatrix & (IGESGeom_HArray1OfTransformationMatrix::*)() const) &IGESGeom_HArray1OfTransformationMatrix::Array1, "None");
-cls_IGESGeom_HArray1OfTransformationMatrix.def("ChangeArray1", (IGESGeom_Array1OfTransformationMatrix & (IGESGeom_HArray1OfTransformationMatrix::*)()) &IGESGeom_HArray1OfTransformationMatrix::ChangeArray1, "None");
-cls_IGESGeom_HArray1OfTransformationMatrix.def_static("get_type_name_", (const char * (*)()) &IGESGeom_HArray1OfTransformationMatrix::get_type_name, "None");
-cls_IGESGeom_HArray1OfTransformationMatrix.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESGeom_HArray1OfTransformationMatrix::get_type_descriptor, "None");
-cls_IGESGeom_HArray1OfTransformationMatrix.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESGeom_HArray1OfTransformationMatrix::*)() const) &IGESGeom_HArray1OfTransformationMatrix::DynamicType, "None");
+bind_Define_HArray1<IGESGeom_HArray1OfTransformationMatrix, IGESGeom_Array1OfTransformationMatrix>(mod, "IGESGeom_HArray1OfTransformationMatrix");
 
 // CLASS: IGESGEOM_LINE
 py::class_<IGESGeom_Line, opencascade::handle<IGESGeom_Line>, IGESData_IGESEntity> cls_IGESGeom_Line(mod, "IGESGeom_Line", "defines IGESLine, Type <110> Form <0> in package IGESGeom A line is a bounded, connected portion of a parent straight line which consists of more than one point. A line is defined by its end points.");

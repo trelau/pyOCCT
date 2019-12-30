@@ -123,8 +123,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Interface_ValueInterpret.hxx>
 #include <Interface_ValueSatisfies.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 #include <bind_NCollection_DataMap.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 #include <bind_NCollection_IndexedMap.hxx>
 #include <bind_NCollection_Vector.hxx>
 
@@ -180,28 +182,7 @@ py::enum_<Interface_ParamType>(mod, "Interface_ParamType", "None")
 bind_NCollection_Array1<opencascade::handle<TCollection_HAsciiString> >(mod, "Interface_Array1OfHAsciiString", py::module_local(false));
 
 // CLASS: INTERFACE_HARRAY1OFHASCIISTRING
-py::class_<Interface_HArray1OfHAsciiString, opencascade::handle<Interface_HArray1OfHAsciiString>, Standard_Transient> cls_Interface_HArray1OfHAsciiString(mod, "Interface_HArray1OfHAsciiString", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Interface_HArray1OfHAsciiString.def(py::init<>());
-cls_Interface_HArray1OfHAsciiString.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_Interface_HArray1OfHAsciiString.def(py::init<const Standard_Integer, const Standard_Integer, const Interface_Array1OfHAsciiString::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_Interface_HArray1OfHAsciiString.def(py::init<const Interface_Array1OfHAsciiString &>(), py::arg("theOther"));
-
-// Methods
-// cls_Interface_HArray1OfHAsciiString.def_static("operator new_", (void * (*)(size_t)) &Interface_HArray1OfHAsciiString::operator new, "None", py::arg("theSize"));
-// cls_Interface_HArray1OfHAsciiString.def_static("operator delete_", (void (*)(void *)) &Interface_HArray1OfHAsciiString::operator delete, "None", py::arg("theAddress"));
-// cls_Interface_HArray1OfHAsciiString.def_static("operator new[]_", (void * (*)(size_t)) &Interface_HArray1OfHAsciiString::operator new[], "None", py::arg("theSize"));
-// cls_Interface_HArray1OfHAsciiString.def_static("operator delete[]_", (void (*)(void *)) &Interface_HArray1OfHAsciiString::operator delete[], "None", py::arg("theAddress"));
-// cls_Interface_HArray1OfHAsciiString.def_static("operator new_", (void * (*)(size_t, void *)) &Interface_HArray1OfHAsciiString::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Interface_HArray1OfHAsciiString.def_static("operator delete_", (void (*)(void *, void *)) &Interface_HArray1OfHAsciiString::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Interface_HArray1OfHAsciiString.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Interface_HArray1OfHAsciiString::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Interface_HArray1OfHAsciiString.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Interface_HArray1OfHAsciiString::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Interface_HArray1OfHAsciiString.def("Array1", (const Interface_Array1OfHAsciiString & (Interface_HArray1OfHAsciiString::*)() const) &Interface_HArray1OfHAsciiString::Array1, "None");
-cls_Interface_HArray1OfHAsciiString.def("ChangeArray1", (Interface_Array1OfHAsciiString & (Interface_HArray1OfHAsciiString::*)()) &Interface_HArray1OfHAsciiString::ChangeArray1, "None");
-cls_Interface_HArray1OfHAsciiString.def_static("get_type_name_", (const char * (*)()) &Interface_HArray1OfHAsciiString::get_type_name, "None");
-cls_Interface_HArray1OfHAsciiString.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Interface_HArray1OfHAsciiString::get_type_descriptor, "None");
-cls_Interface_HArray1OfHAsciiString.def("DynamicType", (const opencascade::handle<Standard_Type> & (Interface_HArray1OfHAsciiString::*)() const) &Interface_HArray1OfHAsciiString::DynamicType, "None");
+bind_Define_HArray1<Interface_HArray1OfHAsciiString, Interface_Array1OfHAsciiString>(mod, "Interface_HArray1OfHAsciiString");
 
 // TYPEDEF: INTERFACE_DATAMAPOFTRANSIENTINTEGER
 bind_NCollection_DataMap<opencascade::handle<Standard_Transient>, int, NCollection_DefaultHasher<opencascade::handle<Standard_Transient> > >(mod, "Interface_DataMapOfTransientInteger", py::module_local(false));
@@ -584,28 +565,7 @@ cls_Interface_Check.def("DynamicType", (const opencascade::handle<Standard_Type>
 bind_NCollection_Sequence<opencascade::handle<Interface_Check> >(mod, "Interface_SequenceOfCheck", py::module_local(false));
 
 // CLASS: INTERFACE_HSEQUENCEOFCHECK
-py::class_<Interface_HSequenceOfCheck, opencascade::handle<Interface_HSequenceOfCheck>, Standard_Transient> cls_Interface_HSequenceOfCheck(mod, "Interface_HSequenceOfCheck", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Interface_HSequenceOfCheck.def(py::init<>());
-cls_Interface_HSequenceOfCheck.def(py::init<const Interface_SequenceOfCheck &>(), py::arg("theOther"));
-
-// Methods
-// cls_Interface_HSequenceOfCheck.def_static("operator new_", (void * (*)(size_t)) &Interface_HSequenceOfCheck::operator new, "None", py::arg("theSize"));
-// cls_Interface_HSequenceOfCheck.def_static("operator delete_", (void (*)(void *)) &Interface_HSequenceOfCheck::operator delete, "None", py::arg("theAddress"));
-// cls_Interface_HSequenceOfCheck.def_static("operator new[]_", (void * (*)(size_t)) &Interface_HSequenceOfCheck::operator new[], "None", py::arg("theSize"));
-// cls_Interface_HSequenceOfCheck.def_static("operator delete[]_", (void (*)(void *)) &Interface_HSequenceOfCheck::operator delete[], "None", py::arg("theAddress"));
-// cls_Interface_HSequenceOfCheck.def_static("operator new_", (void * (*)(size_t, void *)) &Interface_HSequenceOfCheck::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Interface_HSequenceOfCheck.def_static("operator delete_", (void (*)(void *, void *)) &Interface_HSequenceOfCheck::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Interface_HSequenceOfCheck.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Interface_HSequenceOfCheck::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Interface_HSequenceOfCheck.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Interface_HSequenceOfCheck::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Interface_HSequenceOfCheck.def("Sequence", (const Interface_SequenceOfCheck & (Interface_HSequenceOfCheck::*)() const) &Interface_HSequenceOfCheck::Sequence, "None");
-cls_Interface_HSequenceOfCheck.def("Append", (void (Interface_HSequenceOfCheck::*)(const Interface_SequenceOfCheck::value_type &)) &Interface_HSequenceOfCheck::Append, "None", py::arg("theItem"));
-cls_Interface_HSequenceOfCheck.def("Append", (void (Interface_HSequenceOfCheck::*)(Interface_SequenceOfCheck &)) &Interface_HSequenceOfCheck::Append, "None", py::arg("theSequence"));
-cls_Interface_HSequenceOfCheck.def("ChangeSequence", (Interface_SequenceOfCheck & (Interface_HSequenceOfCheck::*)()) &Interface_HSequenceOfCheck::ChangeSequence, "None");
-cls_Interface_HSequenceOfCheck.def_static("get_type_name_", (const char * (*)()) &Interface_HSequenceOfCheck::get_type_name, "None");
-cls_Interface_HSequenceOfCheck.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Interface_HSequenceOfCheck::get_type_descriptor, "None");
-cls_Interface_HSequenceOfCheck.def("DynamicType", (const opencascade::handle<Standard_Type> & (Interface_HSequenceOfCheck::*)() const) &Interface_HSequenceOfCheck::DynamicType, "None");
+bind_Define_HSequence<Interface_HSequenceOfCheck, Interface_SequenceOfCheck>(mod, "Interface_HSequenceOfCheck");
 
 // CLASS: INTERFACE_CHECKITERATOR
 py::class_<Interface_CheckIterator> cls_Interface_CheckIterator(mod, "Interface_CheckIterator", "Result of a Check operation (especially from InterfaceModel)");

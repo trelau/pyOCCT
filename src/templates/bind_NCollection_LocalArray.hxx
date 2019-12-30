@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include <Standard_TypeDef.hxx>
 #include <NCollection_LocalArray.hxx>
+#include <Standard.hxx>
 
 template <typename theItem, Standard_Integer MAX_ARRAY_SIZE>
 void bind_NCollection_LocalArray(py::module &mod, std::string const &name, py::module_local const &local){

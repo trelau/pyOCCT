@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_TypeDef.hxx>
 #include <Standard_Handle.hxx>
 #include <BVH_Builder.hxx>
-#include <BVH_Box.hxx>
 #include <BVH_Tree.hxx>
+#include <BVH_Box.hxx>
 
 template <typename T, int N>
 void bind_BVH_PrimitiveSet(py::module &mod, std::string const &name, py::module_local const &local){

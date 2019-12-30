@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <NCollection_TListNode.hxx>
 #include <NCollection_ListNode.hxx>
 #include <Standard_TypeDef.hxx>
+#include <Standard_NoSuchObject.hxx>
 #include <NCollection_StlIterator.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
@@ -44,8 +45,8 @@ cls_NCollection_Map.def(py::init<const Standard_Integer, const opencascade::hand
 cls_NCollection_Map.def(py::init<const NCollection_Map<TheKeyType, Hasher> &>(), py::arg("theOther"));
 
 // Methods
-cls_NCollection_Map.def("cbegin", (typename NCollection_Map<TheKeyType, Hasher>::const_iterator (NCollection_Map<TheKeyType, Hasher>::*)() const) &NCollection_Map<TheKeyType, Hasher>::cbegin, "Returns a const iterator pointing to the first element in the map.");
-cls_NCollection_Map.def("cend", (typename NCollection_Map<TheKeyType, Hasher>::const_iterator (NCollection_Map<TheKeyType, Hasher>::*)() const) &NCollection_Map<TheKeyType, Hasher>::cend, "Returns a const iterator referring to the past-the-end element in the map.");
+// cls_NCollection_Map.def("cbegin", (typename NCollection_Map<TheKeyType, Hasher>::const_iterator (NCollection_Map<TheKeyType, Hasher>::*)() const) &NCollection_Map<TheKeyType, Hasher>::cbegin, "Returns a const iterator pointing to the first element in the map.");
+// cls_NCollection_Map.def("cend", (typename NCollection_Map<TheKeyType, Hasher>::const_iterator (NCollection_Map<TheKeyType, Hasher>::*)() const) &NCollection_Map<TheKeyType, Hasher>::cend, "Returns a const iterator referring to the past-the-end element in the map.");
 cls_NCollection_Map.def("Exchange", (void (NCollection_Map<TheKeyType, Hasher>::*)(NCollection_Map<TheKeyType, Hasher> &)) &NCollection_Map<TheKeyType, Hasher>::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
 cls_NCollection_Map.def("Assign", (NCollection_Map<TheKeyType, Hasher> & (NCollection_Map<TheKeyType, Hasher>::*)(const NCollection_Map<TheKeyType, Hasher> &)) &NCollection_Map<TheKeyType, Hasher>::Assign, "Assign. This method does not change the internal allocator.", py::arg("theOther"));
 // cls_NCollection_Map.def("operator=", (NCollection_Map<TheKeyType, Hasher> & (NCollection_Map<TheKeyType, Hasher>::*)(const NCollection_Map<TheKeyType, Hasher> &)) &NCollection_Map<TheKeyType, Hasher>::operator=, "Assign operator", py::arg("theOther"));

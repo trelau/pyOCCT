@@ -153,7 +153,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColGeom2d_HArray1OfCurve.hxx>
 #include <Law_BSpline.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 
 PYBIND11_MODULE(GeomFill, mod) {
 
@@ -252,28 +254,7 @@ cls_GeomFill_LocationLaw.def("DynamicType", (const opencascade::handle<Standard_
 bind_NCollection_Array1<opencascade::handle<GeomFill_LocationLaw> >(mod, "GeomFill_Array1OfLocationLaw", py::module_local(false));
 
 // CLASS: GEOMFILL_HARRAY1OFLOCATIONLAW
-py::class_<GeomFill_HArray1OfLocationLaw, opencascade::handle<GeomFill_HArray1OfLocationLaw>, Standard_Transient> cls_GeomFill_HArray1OfLocationLaw(mod, "GeomFill_HArray1OfLocationLaw", "None", py::multiple_inheritance());
-
-// Constructors
-cls_GeomFill_HArray1OfLocationLaw.def(py::init<>());
-cls_GeomFill_HArray1OfLocationLaw.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_GeomFill_HArray1OfLocationLaw.def(py::init<const Standard_Integer, const Standard_Integer, const GeomFill_Array1OfLocationLaw::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_GeomFill_HArray1OfLocationLaw.def(py::init<const GeomFill_Array1OfLocationLaw &>(), py::arg("theOther"));
-
-// Methods
-// cls_GeomFill_HArray1OfLocationLaw.def_static("operator new_", (void * (*)(size_t)) &GeomFill_HArray1OfLocationLaw::operator new, "None", py::arg("theSize"));
-// cls_GeomFill_HArray1OfLocationLaw.def_static("operator delete_", (void (*)(void *)) &GeomFill_HArray1OfLocationLaw::operator delete, "None", py::arg("theAddress"));
-// cls_GeomFill_HArray1OfLocationLaw.def_static("operator new[]_", (void * (*)(size_t)) &GeomFill_HArray1OfLocationLaw::operator new[], "None", py::arg("theSize"));
-// cls_GeomFill_HArray1OfLocationLaw.def_static("operator delete[]_", (void (*)(void *)) &GeomFill_HArray1OfLocationLaw::operator delete[], "None", py::arg("theAddress"));
-// cls_GeomFill_HArray1OfLocationLaw.def_static("operator new_", (void * (*)(size_t, void *)) &GeomFill_HArray1OfLocationLaw::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_GeomFill_HArray1OfLocationLaw.def_static("operator delete_", (void (*)(void *, void *)) &GeomFill_HArray1OfLocationLaw::operator delete, "None", py::arg(""), py::arg(""));
-// cls_GeomFill_HArray1OfLocationLaw.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &GeomFill_HArray1OfLocationLaw::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_GeomFill_HArray1OfLocationLaw.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &GeomFill_HArray1OfLocationLaw::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_GeomFill_HArray1OfLocationLaw.def("Array1", (const GeomFill_Array1OfLocationLaw & (GeomFill_HArray1OfLocationLaw::*)() const) &GeomFill_HArray1OfLocationLaw::Array1, "None");
-cls_GeomFill_HArray1OfLocationLaw.def("ChangeArray1", (GeomFill_Array1OfLocationLaw & (GeomFill_HArray1OfLocationLaw::*)()) &GeomFill_HArray1OfLocationLaw::ChangeArray1, "None");
-cls_GeomFill_HArray1OfLocationLaw.def_static("get_type_name_", (const char * (*)()) &GeomFill_HArray1OfLocationLaw::get_type_name, "None");
-cls_GeomFill_HArray1OfLocationLaw.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &GeomFill_HArray1OfLocationLaw::get_type_descriptor, "None");
-cls_GeomFill_HArray1OfLocationLaw.def("DynamicType", (const opencascade::handle<Standard_Type> & (GeomFill_HArray1OfLocationLaw::*)() const) &GeomFill_HArray1OfLocationLaw::DynamicType, "None");
+bind_Define_HArray1<GeomFill_HArray1OfLocationLaw, GeomFill_Array1OfLocationLaw>(mod, "GeomFill_HArray1OfLocationLaw");
 
 // TYPEDEF: GEOMFILL_SEQUENCEOFTRSF
 bind_NCollection_Sequence<gp_Trsf>(mod, "GeomFill_SequenceOfTrsf", py::module_local(false));
@@ -314,28 +295,7 @@ cls_GeomFill_SectionLaw.def("DynamicType", (const opencascade::handle<Standard_T
 bind_NCollection_Array1<opencascade::handle<GeomFill_SectionLaw> >(mod, "GeomFill_Array1OfSectionLaw", py::module_local(false));
 
 // CLASS: GEOMFILL_HARRAY1OFSECTIONLAW
-py::class_<GeomFill_HArray1OfSectionLaw, opencascade::handle<GeomFill_HArray1OfSectionLaw>, Standard_Transient> cls_GeomFill_HArray1OfSectionLaw(mod, "GeomFill_HArray1OfSectionLaw", "None", py::multiple_inheritance());
-
-// Constructors
-cls_GeomFill_HArray1OfSectionLaw.def(py::init<>());
-cls_GeomFill_HArray1OfSectionLaw.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_GeomFill_HArray1OfSectionLaw.def(py::init<const Standard_Integer, const Standard_Integer, const GeomFill_Array1OfSectionLaw::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_GeomFill_HArray1OfSectionLaw.def(py::init<const GeomFill_Array1OfSectionLaw &>(), py::arg("theOther"));
-
-// Methods
-// cls_GeomFill_HArray1OfSectionLaw.def_static("operator new_", (void * (*)(size_t)) &GeomFill_HArray1OfSectionLaw::operator new, "None", py::arg("theSize"));
-// cls_GeomFill_HArray1OfSectionLaw.def_static("operator delete_", (void (*)(void *)) &GeomFill_HArray1OfSectionLaw::operator delete, "None", py::arg("theAddress"));
-// cls_GeomFill_HArray1OfSectionLaw.def_static("operator new[]_", (void * (*)(size_t)) &GeomFill_HArray1OfSectionLaw::operator new[], "None", py::arg("theSize"));
-// cls_GeomFill_HArray1OfSectionLaw.def_static("operator delete[]_", (void (*)(void *)) &GeomFill_HArray1OfSectionLaw::operator delete[], "None", py::arg("theAddress"));
-// cls_GeomFill_HArray1OfSectionLaw.def_static("operator new_", (void * (*)(size_t, void *)) &GeomFill_HArray1OfSectionLaw::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_GeomFill_HArray1OfSectionLaw.def_static("operator delete_", (void (*)(void *, void *)) &GeomFill_HArray1OfSectionLaw::operator delete, "None", py::arg(""), py::arg(""));
-// cls_GeomFill_HArray1OfSectionLaw.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &GeomFill_HArray1OfSectionLaw::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_GeomFill_HArray1OfSectionLaw.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &GeomFill_HArray1OfSectionLaw::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_GeomFill_HArray1OfSectionLaw.def("Array1", (const GeomFill_Array1OfSectionLaw & (GeomFill_HArray1OfSectionLaw::*)() const) &GeomFill_HArray1OfSectionLaw::Array1, "None");
-cls_GeomFill_HArray1OfSectionLaw.def("ChangeArray1", (GeomFill_Array1OfSectionLaw & (GeomFill_HArray1OfSectionLaw::*)()) &GeomFill_HArray1OfSectionLaw::ChangeArray1, "None");
-cls_GeomFill_HArray1OfSectionLaw.def_static("get_type_name_", (const char * (*)()) &GeomFill_HArray1OfSectionLaw::get_type_name, "None");
-cls_GeomFill_HArray1OfSectionLaw.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &GeomFill_HArray1OfSectionLaw::get_type_descriptor, "None");
-cls_GeomFill_HArray1OfSectionLaw.def("DynamicType", (const opencascade::handle<Standard_Type> & (GeomFill_HArray1OfSectionLaw::*)() const) &GeomFill_HArray1OfSectionLaw::DynamicType, "None");
+bind_Define_HArray1<GeomFill_HArray1OfSectionLaw, GeomFill_Array1OfSectionLaw>(mod, "GeomFill_HArray1OfSectionLaw");
 
 // CLASS: GEOMFILL_BOUNDARY
 py::class_<GeomFill_Boundary, opencascade::handle<GeomFill_Boundary>, Standard_Transient> cls_GeomFill_Boundary(mod, "GeomFill_Boundary", "Root class to define a boundary which will form part of a contour around a gap requiring filling. Any new type of constrained boundary must inherit this class. The GeomFill package provides two classes to define constrained boundaries: - GeomFill_SimpleBound to define an unattached boundary - GeomFill_BoundWithSurf to define a boundary attached to a surface. These objects are used to define the boundaries for a GeomFill_ConstrainedFilling framework.");
@@ -847,28 +807,7 @@ cls_GeomFill_DegeneratedBound.def("DynamicType", (const opencascade::handle<Stan
 bind_NCollection_Sequence<gp_Ax2>(mod, "GeomFill_SequenceOfAx2", py::module_local(false));
 
 // CLASS: GEOMFILL_HSEQUENCEOFAX2
-py::class_<GeomFill_HSequenceOfAx2, opencascade::handle<GeomFill_HSequenceOfAx2>, Standard_Transient> cls_GeomFill_HSequenceOfAx2(mod, "GeomFill_HSequenceOfAx2", "None", py::multiple_inheritance());
-
-// Constructors
-cls_GeomFill_HSequenceOfAx2.def(py::init<>());
-cls_GeomFill_HSequenceOfAx2.def(py::init<const GeomFill_SequenceOfAx2 &>(), py::arg("theOther"));
-
-// Methods
-// cls_GeomFill_HSequenceOfAx2.def_static("operator new_", (void * (*)(size_t)) &GeomFill_HSequenceOfAx2::operator new, "None", py::arg("theSize"));
-// cls_GeomFill_HSequenceOfAx2.def_static("operator delete_", (void (*)(void *)) &GeomFill_HSequenceOfAx2::operator delete, "None", py::arg("theAddress"));
-// cls_GeomFill_HSequenceOfAx2.def_static("operator new[]_", (void * (*)(size_t)) &GeomFill_HSequenceOfAx2::operator new[], "None", py::arg("theSize"));
-// cls_GeomFill_HSequenceOfAx2.def_static("operator delete[]_", (void (*)(void *)) &GeomFill_HSequenceOfAx2::operator delete[], "None", py::arg("theAddress"));
-// cls_GeomFill_HSequenceOfAx2.def_static("operator new_", (void * (*)(size_t, void *)) &GeomFill_HSequenceOfAx2::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_GeomFill_HSequenceOfAx2.def_static("operator delete_", (void (*)(void *, void *)) &GeomFill_HSequenceOfAx2::operator delete, "None", py::arg(""), py::arg(""));
-// cls_GeomFill_HSequenceOfAx2.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &GeomFill_HSequenceOfAx2::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_GeomFill_HSequenceOfAx2.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &GeomFill_HSequenceOfAx2::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_GeomFill_HSequenceOfAx2.def("Sequence", (const GeomFill_SequenceOfAx2 & (GeomFill_HSequenceOfAx2::*)() const) &GeomFill_HSequenceOfAx2::Sequence, "None");
-cls_GeomFill_HSequenceOfAx2.def("Append", (void (GeomFill_HSequenceOfAx2::*)(const GeomFill_SequenceOfAx2::value_type &)) &GeomFill_HSequenceOfAx2::Append, "None", py::arg("theItem"));
-cls_GeomFill_HSequenceOfAx2.def("Append", (void (GeomFill_HSequenceOfAx2::*)(GeomFill_SequenceOfAx2 &)) &GeomFill_HSequenceOfAx2::Append, "None", py::arg("theSequence"));
-cls_GeomFill_HSequenceOfAx2.def("ChangeSequence", (GeomFill_SequenceOfAx2 & (GeomFill_HSequenceOfAx2::*)()) &GeomFill_HSequenceOfAx2::ChangeSequence, "None");
-cls_GeomFill_HSequenceOfAx2.def_static("get_type_name_", (const char * (*)()) &GeomFill_HSequenceOfAx2::get_type_name, "None");
-cls_GeomFill_HSequenceOfAx2.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &GeomFill_HSequenceOfAx2::get_type_descriptor, "None");
-cls_GeomFill_HSequenceOfAx2.def("DynamicType", (const opencascade::handle<Standard_Type> & (GeomFill_HSequenceOfAx2::*)() const) &GeomFill_HSequenceOfAx2::DynamicType, "None");
+bind_Define_HSequence<GeomFill_HSequenceOfAx2, GeomFill_SequenceOfAx2>(mod, "GeomFill_HSequenceOfAx2");
 
 // CLASS: GEOMFILL_DISCRETETRIHEDRON
 py::class_<GeomFill_DiscreteTrihedron, opencascade::handle<GeomFill_DiscreteTrihedron>, GeomFill_TrihedronLaw> cls_GeomFill_DiscreteTrihedron(mod, "GeomFill_DiscreteTrihedron", "Defined Discrete Trihedron Law. The requirement for path curve is only G1. The result is C0-continuous surface that can be later approximated to C1.");

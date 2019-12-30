@@ -101,6 +101,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <bind_NCollection_Array1.hxx>
 #include <bind_NCollection_DataMap.hxx>
 #include <bind_NCollection_DoubleMap.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(TDF, mod) {
 
@@ -745,28 +746,7 @@ bind_NCollection_DoubleMap<TDF_Label, TDF_Label, TDF_LabelMapHasher, TDF_LabelMa
 // TYPEDEF: TDF_DOUBLEMAPITERATOROFLABELDOUBLEMAP
 
 // CLASS: TDF_HATTRIBUTEARRAY1
-py::class_<TDF_HAttributeArray1, opencascade::handle<TDF_HAttributeArray1>, Standard_Transient> cls_TDF_HAttributeArray1(mod, "TDF_HAttributeArray1", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TDF_HAttributeArray1.def(py::init<>());
-cls_TDF_HAttributeArray1.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TDF_HAttributeArray1.def(py::init<const Standard_Integer, const Standard_Integer, const TDF_AttributeArray1::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TDF_HAttributeArray1.def(py::init<const TDF_AttributeArray1 &>(), py::arg("theOther"));
-
-// Methods
-// cls_TDF_HAttributeArray1.def_static("operator new_", (void * (*)(size_t)) &TDF_HAttributeArray1::operator new, "None", py::arg("theSize"));
-// cls_TDF_HAttributeArray1.def_static("operator delete_", (void (*)(void *)) &TDF_HAttributeArray1::operator delete, "None", py::arg("theAddress"));
-// cls_TDF_HAttributeArray1.def_static("operator new[]_", (void * (*)(size_t)) &TDF_HAttributeArray1::operator new[], "None", py::arg("theSize"));
-// cls_TDF_HAttributeArray1.def_static("operator delete[]_", (void (*)(void *)) &TDF_HAttributeArray1::operator delete[], "None", py::arg("theAddress"));
-// cls_TDF_HAttributeArray1.def_static("operator new_", (void * (*)(size_t, void *)) &TDF_HAttributeArray1::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TDF_HAttributeArray1.def_static("operator delete_", (void (*)(void *, void *)) &TDF_HAttributeArray1::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TDF_HAttributeArray1.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_HAttributeArray1::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TDF_HAttributeArray1.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TDF_HAttributeArray1::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TDF_HAttributeArray1.def("Array1", (const TDF_AttributeArray1 & (TDF_HAttributeArray1::*)() const) &TDF_HAttributeArray1::Array1, "None");
-cls_TDF_HAttributeArray1.def("ChangeArray1", (TDF_AttributeArray1 & (TDF_HAttributeArray1::*)()) &TDF_HAttributeArray1::ChangeArray1, "None");
-cls_TDF_HAttributeArray1.def_static("get_type_name_", (const char * (*)()) &TDF_HAttributeArray1::get_type_name, "None");
-cls_TDF_HAttributeArray1.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TDF_HAttributeArray1::get_type_descriptor, "None");
-cls_TDF_HAttributeArray1.def("DynamicType", (const opencascade::handle<Standard_Type> & (TDF_HAttributeArray1::*)() const) &TDF_HAttributeArray1::DynamicType, "None");
+bind_Define_HArray1<TDF_HAttributeArray1, TDF_AttributeArray1>(mod, "TDF_HAttributeArray1");
 
 // TYPEDEF: TDF_LABELINDEXEDMAP
 bind_NCollection_IndexedMap<TDF_Label, TDF_LabelMapHasher>(mod, "TDF_LabelIndexedMap", py::module_local(false));

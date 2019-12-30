@@ -80,6 +80,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TObj_TXYZ.hxx>
 #include <gp_XYZ.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 #include <bind_NCollection_DataMap.hxx>
 #include <bind_NCollection_SparseArray.hxx>
 
@@ -143,28 +144,7 @@ cls_TObj_Assistant.def_static("GetAppVersion_", (Standard_Integer (*)()) &TObj_A
 bind_NCollection_Sequence<opencascade::handle<TObj_Object> >(mod, "TObj_SequenceOfObject", py::module_local(false));
 
 // CLASS: TOBJ_HSEQUENCEOFOBJECT
-py::class_<TObj_HSequenceOfObject, opencascade::handle<TObj_HSequenceOfObject>, Standard_Transient> cls_TObj_HSequenceOfObject(mod, "TObj_HSequenceOfObject", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TObj_HSequenceOfObject.def(py::init<>());
-cls_TObj_HSequenceOfObject.def(py::init<const TObj_SequenceOfObject &>(), py::arg("theOther"));
-
-// Methods
-// cls_TObj_HSequenceOfObject.def_static("operator new_", (void * (*)(size_t)) &TObj_HSequenceOfObject::operator new, "None", py::arg("theSize"));
-// cls_TObj_HSequenceOfObject.def_static("operator delete_", (void (*)(void *)) &TObj_HSequenceOfObject::operator delete, "None", py::arg("theAddress"));
-// cls_TObj_HSequenceOfObject.def_static("operator new[]_", (void * (*)(size_t)) &TObj_HSequenceOfObject::operator new[], "None", py::arg("theSize"));
-// cls_TObj_HSequenceOfObject.def_static("operator delete[]_", (void (*)(void *)) &TObj_HSequenceOfObject::operator delete[], "None", py::arg("theAddress"));
-// cls_TObj_HSequenceOfObject.def_static("operator new_", (void * (*)(size_t, void *)) &TObj_HSequenceOfObject::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TObj_HSequenceOfObject.def_static("operator delete_", (void (*)(void *, void *)) &TObj_HSequenceOfObject::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TObj_HSequenceOfObject.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TObj_HSequenceOfObject::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TObj_HSequenceOfObject.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TObj_HSequenceOfObject::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TObj_HSequenceOfObject.def("Sequence", (const TObj_SequenceOfObject & (TObj_HSequenceOfObject::*)() const) &TObj_HSequenceOfObject::Sequence, "None");
-cls_TObj_HSequenceOfObject.def("Append", (void (TObj_HSequenceOfObject::*)(const TObj_SequenceOfObject::value_type &)) &TObj_HSequenceOfObject::Append, "None", py::arg("theItem"));
-cls_TObj_HSequenceOfObject.def("Append", (void (TObj_HSequenceOfObject::*)(TObj_SequenceOfObject &)) &TObj_HSequenceOfObject::Append, "None", py::arg("theSequence"));
-cls_TObj_HSequenceOfObject.def("ChangeSequence", (TObj_SequenceOfObject & (TObj_HSequenceOfObject::*)()) &TObj_HSequenceOfObject::ChangeSequence, "None");
-cls_TObj_HSequenceOfObject.def_static("get_type_name_", (const char * (*)()) &TObj_HSequenceOfObject::get_type_name, "None");
-cls_TObj_HSequenceOfObject.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TObj_HSequenceOfObject::get_type_descriptor, "None");
-cls_TObj_HSequenceOfObject.def("DynamicType", (const opencascade::handle<Standard_Type> & (TObj_HSequenceOfObject::*)() const) &TObj_HSequenceOfObject::DynamicType, "None");
+bind_Define_HSequence<TObj_HSequenceOfObject, TObj_SequenceOfObject>(mod, "TObj_HSequenceOfObject");
 
 // CLASS: TOBJ_OBJECT
 py::class_<TObj_Object, opencascade::handle<TObj_Object>, Standard_Transient> cls_TObj_Object(mod, "TObj_Object", "Basis class for transient objects in OCAF-based models");

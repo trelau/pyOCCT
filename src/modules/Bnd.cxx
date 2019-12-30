@@ -72,6 +72,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BVH_Types.hxx>
 #include <Bnd_Tools.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 #include <bind_NCollection_Sequence.hxx>
 
 PYBIND11_MODULE(Bnd, mod) {
@@ -419,28 +420,7 @@ cls_Bnd_B3f.def("SetCenter", (void (Bnd_B3f::*)(const gp_XYZ &)) &Bnd_B3f::SetCe
 cls_Bnd_B3f.def("SetHSize", (void (Bnd_B3f::*)(const gp_XYZ &)) &Bnd_B3f::SetHSize, "Set the HSize (half-diagonal) coordinates. All components of theHSize must be non-negative.", py::arg("theHSize"));
 
 // CLASS: BND_HARRAY1OFBOX
-py::class_<Bnd_HArray1OfBox, opencascade::handle<Bnd_HArray1OfBox>, Standard_Transient> cls_Bnd_HArray1OfBox(mod, "Bnd_HArray1OfBox", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Bnd_HArray1OfBox.def(py::init<>());
-cls_Bnd_HArray1OfBox.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_Bnd_HArray1OfBox.def(py::init<const Standard_Integer, const Standard_Integer, const Bnd_Array1OfBox::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_Bnd_HArray1OfBox.def(py::init<const Bnd_Array1OfBox &>(), py::arg("theOther"));
-
-// Methods
-// cls_Bnd_HArray1OfBox.def_static("operator new_", (void * (*)(size_t)) &Bnd_HArray1OfBox::operator new, "None", py::arg("theSize"));
-// cls_Bnd_HArray1OfBox.def_static("operator delete_", (void (*)(void *)) &Bnd_HArray1OfBox::operator delete, "None", py::arg("theAddress"));
-// cls_Bnd_HArray1OfBox.def_static("operator new[]_", (void * (*)(size_t)) &Bnd_HArray1OfBox::operator new[], "None", py::arg("theSize"));
-// cls_Bnd_HArray1OfBox.def_static("operator delete[]_", (void (*)(void *)) &Bnd_HArray1OfBox::operator delete[], "None", py::arg("theAddress"));
-// cls_Bnd_HArray1OfBox.def_static("operator new_", (void * (*)(size_t, void *)) &Bnd_HArray1OfBox::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Bnd_HArray1OfBox.def_static("operator delete_", (void (*)(void *, void *)) &Bnd_HArray1OfBox::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Bnd_HArray1OfBox.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Bnd_HArray1OfBox::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Bnd_HArray1OfBox.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Bnd_HArray1OfBox::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Bnd_HArray1OfBox.def("Array1", (const Bnd_Array1OfBox & (Bnd_HArray1OfBox::*)() const) &Bnd_HArray1OfBox::Array1, "None");
-cls_Bnd_HArray1OfBox.def("ChangeArray1", (Bnd_Array1OfBox & (Bnd_HArray1OfBox::*)()) &Bnd_HArray1OfBox::ChangeArray1, "None");
-cls_Bnd_HArray1OfBox.def_static("get_type_name_", (const char * (*)()) &Bnd_HArray1OfBox::get_type_name, "None");
-cls_Bnd_HArray1OfBox.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Bnd_HArray1OfBox::get_type_descriptor, "None");
-cls_Bnd_HArray1OfBox.def("DynamicType", (const opencascade::handle<Standard_Type> & (Bnd_HArray1OfBox::*)() const) &Bnd_HArray1OfBox::DynamicType, "None");
+bind_Define_HArray1<Bnd_HArray1OfBox, Bnd_Array1OfBox>(mod, "Bnd_HArray1OfBox");
 
 // CLASS: BND_BOUNDSORTBOX
 py::class_<Bnd_BoundSortBox> cls_Bnd_BoundSortBox(mod, "Bnd_BoundSortBox", "A tool to compare a bounding box or a plane with a set of bounding boxes. It sorts the set of bounding boxes to give the list of boxes which intersect the element being compared. The boxes being sorted generally bound a set of shapes, while the box being compared bounds a shape to be compared. The resulting list of intersecting boxes therefore gives the list of items which potentially intersect the shape to be compared.");
@@ -465,28 +445,7 @@ cls_Bnd_BoundSortBox.def("Dump", (void (Bnd_BoundSortBox::*)() const) &Bnd_Bound
 cls_Bnd_BoundSortBox.def("Destroy", (void (Bnd_BoundSortBox::*)()) &Bnd_BoundSortBox::Destroy, "None");
 
 // CLASS: BND_HARRAY1OFBOX2D
-py::class_<Bnd_HArray1OfBox2d, opencascade::handle<Bnd_HArray1OfBox2d>, Standard_Transient> cls_Bnd_HArray1OfBox2d(mod, "Bnd_HArray1OfBox2d", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Bnd_HArray1OfBox2d.def(py::init<>());
-cls_Bnd_HArray1OfBox2d.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_Bnd_HArray1OfBox2d.def(py::init<const Standard_Integer, const Standard_Integer, const Bnd_Array1OfBox2d::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_Bnd_HArray1OfBox2d.def(py::init<const Bnd_Array1OfBox2d &>(), py::arg("theOther"));
-
-// Methods
-// cls_Bnd_HArray1OfBox2d.def_static("operator new_", (void * (*)(size_t)) &Bnd_HArray1OfBox2d::operator new, "None", py::arg("theSize"));
-// cls_Bnd_HArray1OfBox2d.def_static("operator delete_", (void (*)(void *)) &Bnd_HArray1OfBox2d::operator delete, "None", py::arg("theAddress"));
-// cls_Bnd_HArray1OfBox2d.def_static("operator new[]_", (void * (*)(size_t)) &Bnd_HArray1OfBox2d::operator new[], "None", py::arg("theSize"));
-// cls_Bnd_HArray1OfBox2d.def_static("operator delete[]_", (void (*)(void *)) &Bnd_HArray1OfBox2d::operator delete[], "None", py::arg("theAddress"));
-// cls_Bnd_HArray1OfBox2d.def_static("operator new_", (void * (*)(size_t, void *)) &Bnd_HArray1OfBox2d::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Bnd_HArray1OfBox2d.def_static("operator delete_", (void (*)(void *, void *)) &Bnd_HArray1OfBox2d::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Bnd_HArray1OfBox2d.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Bnd_HArray1OfBox2d::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Bnd_HArray1OfBox2d.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Bnd_HArray1OfBox2d::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Bnd_HArray1OfBox2d.def("Array1", (const Bnd_Array1OfBox2d & (Bnd_HArray1OfBox2d::*)() const) &Bnd_HArray1OfBox2d::Array1, "None");
-cls_Bnd_HArray1OfBox2d.def("ChangeArray1", (Bnd_Array1OfBox2d & (Bnd_HArray1OfBox2d::*)()) &Bnd_HArray1OfBox2d::ChangeArray1, "None");
-cls_Bnd_HArray1OfBox2d.def_static("get_type_name_", (const char * (*)()) &Bnd_HArray1OfBox2d::get_type_name, "None");
-cls_Bnd_HArray1OfBox2d.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Bnd_HArray1OfBox2d::get_type_descriptor, "None");
-cls_Bnd_HArray1OfBox2d.def("DynamicType", (const opencascade::handle<Standard_Type> & (Bnd_HArray1OfBox2d::*)() const) &Bnd_HArray1OfBox2d::DynamicType, "None");
+bind_Define_HArray1<Bnd_HArray1OfBox2d, Bnd_Array1OfBox2d>(mod, "Bnd_HArray1OfBox2d");
 
 // CLASS: BND_BOUNDSORTBOX2D
 py::class_<Bnd_BoundSortBox2d> cls_Bnd_BoundSortBox2d(mod, "Bnd_BoundSortBox2d", "A tool to compare a 2D bounding box with a set of 2D bounding boxes. It sorts the set of bounding boxes to give the list of boxes which intersect the element being compared. The boxes being sorted generally bound a set of shapes, while the box being compared bounds a shape to be compared. The resulting list of intersecting boxes therefore gives the list of items which potentially intersect the shape to be compared.");
@@ -509,28 +468,7 @@ cls_Bnd_BoundSortBox2d.def("Compare", (const TColStd_ListOfInteger & (Bnd_BoundS
 cls_Bnd_BoundSortBox2d.def("Dump", (void (Bnd_BoundSortBox2d::*)() const) &Bnd_BoundSortBox2d::Dump, "None");
 
 // CLASS: BND_HARRAY1OFSPHERE
-py::class_<Bnd_HArray1OfSphere, opencascade::handle<Bnd_HArray1OfSphere>, Standard_Transient> cls_Bnd_HArray1OfSphere(mod, "Bnd_HArray1OfSphere", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Bnd_HArray1OfSphere.def(py::init<>());
-cls_Bnd_HArray1OfSphere.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_Bnd_HArray1OfSphere.def(py::init<const Standard_Integer, const Standard_Integer, const Bnd_Array1OfSphere::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_Bnd_HArray1OfSphere.def(py::init<const Bnd_Array1OfSphere &>(), py::arg("theOther"));
-
-// Methods
-// cls_Bnd_HArray1OfSphere.def_static("operator new_", (void * (*)(size_t)) &Bnd_HArray1OfSphere::operator new, "None", py::arg("theSize"));
-// cls_Bnd_HArray1OfSphere.def_static("operator delete_", (void (*)(void *)) &Bnd_HArray1OfSphere::operator delete, "None", py::arg("theAddress"));
-// cls_Bnd_HArray1OfSphere.def_static("operator new[]_", (void * (*)(size_t)) &Bnd_HArray1OfSphere::operator new[], "None", py::arg("theSize"));
-// cls_Bnd_HArray1OfSphere.def_static("operator delete[]_", (void (*)(void *)) &Bnd_HArray1OfSphere::operator delete[], "None", py::arg("theAddress"));
-// cls_Bnd_HArray1OfSphere.def_static("operator new_", (void * (*)(size_t, void *)) &Bnd_HArray1OfSphere::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Bnd_HArray1OfSphere.def_static("operator delete_", (void (*)(void *, void *)) &Bnd_HArray1OfSphere::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Bnd_HArray1OfSphere.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Bnd_HArray1OfSphere::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Bnd_HArray1OfSphere.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Bnd_HArray1OfSphere::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Bnd_HArray1OfSphere.def("Array1", (const Bnd_Array1OfSphere & (Bnd_HArray1OfSphere::*)() const) &Bnd_HArray1OfSphere::Array1, "None");
-cls_Bnd_HArray1OfSphere.def("ChangeArray1", (Bnd_Array1OfSphere & (Bnd_HArray1OfSphere::*)()) &Bnd_HArray1OfSphere::ChangeArray1, "None");
-cls_Bnd_HArray1OfSphere.def_static("get_type_name_", (const char * (*)()) &Bnd_HArray1OfSphere::get_type_name, "None");
-cls_Bnd_HArray1OfSphere.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Bnd_HArray1OfSphere::get_type_descriptor, "None");
-cls_Bnd_HArray1OfSphere.def("DynamicType", (const opencascade::handle<Standard_Type> & (Bnd_HArray1OfSphere::*)() const) &Bnd_HArray1OfSphere::DynamicType, "None");
+bind_Define_HArray1<Bnd_HArray1OfSphere, Bnd_Array1OfSphere>(mod, "Bnd_HArray1OfSphere");
 
 // CLASS: BND_OBB
 py::class_<Bnd_OBB> cls_Bnd_OBB(mod, "Bnd_OBB", "The class describes the Oriented Bounding Box (OBB), much tighter enclosing volume for the shape than the Axis Aligned Bounding Box (AABB). The OBB is defined by a center of the box, the axes and the halves of its three dimensions. The OBB can be used more effectively than AABB as a rejection mechanism for non-interfering objects.");

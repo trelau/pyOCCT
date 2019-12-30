@@ -93,6 +93,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Geom_BezierCurve.hxx>
 #include <Geom_BSplineCurve.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 
 PYBIND11_MODULE(ProjLib, mod) {
 
@@ -146,28 +147,7 @@ cls_ProjLib.def_static("IsAnaSurf_", (Standard_Boolean (*)(const opencascade::ha
 bind_NCollection_Sequence<opencascade::handle<TColgp_HSequenceOfPnt> >(mod, "ProjLib_SequenceOfHSequenceOfPnt", py::module_local(false));
 
 // CLASS: PROJLIB_HSEQUENCEOFHSEQUENCEOFPNT
-py::class_<ProjLib_HSequenceOfHSequenceOfPnt, opencascade::handle<ProjLib_HSequenceOfHSequenceOfPnt>, Standard_Transient> cls_ProjLib_HSequenceOfHSequenceOfPnt(mod, "ProjLib_HSequenceOfHSequenceOfPnt", "None", py::multiple_inheritance());
-
-// Constructors
-cls_ProjLib_HSequenceOfHSequenceOfPnt.def(py::init<>());
-cls_ProjLib_HSequenceOfHSequenceOfPnt.def(py::init<const ProjLib_SequenceOfHSequenceOfPnt &>(), py::arg("theOther"));
-
-// Methods
-// cls_ProjLib_HSequenceOfHSequenceOfPnt.def_static("operator new_", (void * (*)(size_t)) &ProjLib_HSequenceOfHSequenceOfPnt::operator new, "None", py::arg("theSize"));
-// cls_ProjLib_HSequenceOfHSequenceOfPnt.def_static("operator delete_", (void (*)(void *)) &ProjLib_HSequenceOfHSequenceOfPnt::operator delete, "None", py::arg("theAddress"));
-// cls_ProjLib_HSequenceOfHSequenceOfPnt.def_static("operator new[]_", (void * (*)(size_t)) &ProjLib_HSequenceOfHSequenceOfPnt::operator new[], "None", py::arg("theSize"));
-// cls_ProjLib_HSequenceOfHSequenceOfPnt.def_static("operator delete[]_", (void (*)(void *)) &ProjLib_HSequenceOfHSequenceOfPnt::operator delete[], "None", py::arg("theAddress"));
-// cls_ProjLib_HSequenceOfHSequenceOfPnt.def_static("operator new_", (void * (*)(size_t, void *)) &ProjLib_HSequenceOfHSequenceOfPnt::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_ProjLib_HSequenceOfHSequenceOfPnt.def_static("operator delete_", (void (*)(void *, void *)) &ProjLib_HSequenceOfHSequenceOfPnt::operator delete, "None", py::arg(""), py::arg(""));
-// cls_ProjLib_HSequenceOfHSequenceOfPnt.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &ProjLib_HSequenceOfHSequenceOfPnt::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_ProjLib_HSequenceOfHSequenceOfPnt.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &ProjLib_HSequenceOfHSequenceOfPnt::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_ProjLib_HSequenceOfHSequenceOfPnt.def("Sequence", (const ProjLib_SequenceOfHSequenceOfPnt & (ProjLib_HSequenceOfHSequenceOfPnt::*)() const) &ProjLib_HSequenceOfHSequenceOfPnt::Sequence, "None");
-cls_ProjLib_HSequenceOfHSequenceOfPnt.def("Append", (void (ProjLib_HSequenceOfHSequenceOfPnt::*)(const ProjLib_SequenceOfHSequenceOfPnt::value_type &)) &ProjLib_HSequenceOfHSequenceOfPnt::Append, "None", py::arg("theItem"));
-cls_ProjLib_HSequenceOfHSequenceOfPnt.def("Append", (void (ProjLib_HSequenceOfHSequenceOfPnt::*)(ProjLib_SequenceOfHSequenceOfPnt &)) &ProjLib_HSequenceOfHSequenceOfPnt::Append, "None", py::arg("theSequence"));
-cls_ProjLib_HSequenceOfHSequenceOfPnt.def("ChangeSequence", (ProjLib_SequenceOfHSequenceOfPnt & (ProjLib_HSequenceOfHSequenceOfPnt::*)()) &ProjLib_HSequenceOfHSequenceOfPnt::ChangeSequence, "None");
-cls_ProjLib_HSequenceOfHSequenceOfPnt.def_static("get_type_name_", (const char * (*)()) &ProjLib_HSequenceOfHSequenceOfPnt::get_type_name, "None");
-cls_ProjLib_HSequenceOfHSequenceOfPnt.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ProjLib_HSequenceOfHSequenceOfPnt::get_type_descriptor, "None");
-cls_ProjLib_HSequenceOfHSequenceOfPnt.def("DynamicType", (const opencascade::handle<Standard_Type> & (ProjLib_HSequenceOfHSequenceOfPnt::*)() const) &ProjLib_HSequenceOfHSequenceOfPnt::DynamicType, "None");
+bind_Define_HSequence<ProjLib_HSequenceOfHSequenceOfPnt, ProjLib_SequenceOfHSequenceOfPnt>(mod, "ProjLib_HSequenceOfHSequenceOfPnt");
 
 // CLASS: PROJLIB_COMPPROJECTEDCURVE
 py::class_<ProjLib_CompProjectedCurve, Adaptor2d_Curve2d> cls_ProjLib_CompProjectedCurve(mod, "ProjLib_CompProjectedCurve", "None");

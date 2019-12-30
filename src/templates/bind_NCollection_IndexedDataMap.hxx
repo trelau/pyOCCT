@@ -30,7 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <NCollection_ListNode.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_NoSuchObject.hxx>
 #include <NCollection_StlIterator.hxx>
+#include <Standard_OutOfRange.hxx>
 
 template <typename TheKeyType, typename TheItemType, typename Hasher>
 void bind_NCollection_IndexedDataMap(py::module &mod, std::string const &name, py::module_local const &local){
@@ -44,10 +46,10 @@ cls_NCollection_IndexedDataMap.def(py::init<const Standard_Integer, const openca
 cls_NCollection_IndexedDataMap.def(py::init<const NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher> &>(), py::arg("theOther"));
 
 // Methods
-cls_NCollection_IndexedDataMap.def("begin", (typename NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::iterator (NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::*)() const) &NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::begin, "Returns an iterator pointing to the first element in the map.");
-cls_NCollection_IndexedDataMap.def("end", (typename NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::iterator (NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::*)() const) &NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::end, "Returns an iterator referring to the past-the-end element in the map.");
-cls_NCollection_IndexedDataMap.def("cbegin", (typename NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::const_iterator (NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::*)() const) &NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::cbegin, "Returns a const iterator pointing to the first element in the map.");
-cls_NCollection_IndexedDataMap.def("cend", (typename NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::const_iterator (NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::*)() const) &NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::cend, "Returns a const iterator referring to the past-the-end element in the map.");
+// cls_NCollection_IndexedDataMap.def("begin", (typename NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::iterator (NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::*)() const) &NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::begin, "Returns an iterator pointing to the first element in the map.");
+// cls_NCollection_IndexedDataMap.def("end", (typename NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::iterator (NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::*)() const) &NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::end, "Returns an iterator referring to the past-the-end element in the map.");
+// cls_NCollection_IndexedDataMap.def("cbegin", (typename NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::const_iterator (NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::*)() const) &NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::cbegin, "Returns a const iterator pointing to the first element in the map.");
+// cls_NCollection_IndexedDataMap.def("cend", (typename NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::const_iterator (NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::*)() const) &NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::cend, "Returns a const iterator referring to the past-the-end element in the map.");
 cls_NCollection_IndexedDataMap.def("Exchange", (void (NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::*)(NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher> &)) &NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
 cls_NCollection_IndexedDataMap.def("Assign", (NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher> & (NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::*)(const NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher> &)) &NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
 // cls_NCollection_IndexedDataMap.def("operator=", (NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher> & (NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::*)(const NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher> &)) &NCollection_IndexedDataMap<TheKeyType, TheItemType, Hasher>::operator=, "Assignment operator", py::arg("theOther"));

@@ -70,6 +70,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <gp_Dir2d.hxx>
 #include <bind_NCollection_Array1.hxx>
 #include <bind_NCollection_List.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(Poly, mod) {
 
@@ -443,28 +444,7 @@ cls_Poly_Connect.def("Next", (void (Poly_Connect::*)()) &Poly_Connect::Next, "Ad
 cls_Poly_Connect.def("Value", (Standard_Integer (Poly_Connect::*)() const) &Poly_Connect::Value, "Returns the index of the current triangle to which the iterator, defined with the function Initialize, points. This is an index in the triangles table specific to the triangulation analyzed by this tool");
 
 // CLASS: POLY_HARRAY1OFTRIANGLE
-py::class_<Poly_HArray1OfTriangle, opencascade::handle<Poly_HArray1OfTriangle>, Standard_Transient> cls_Poly_HArray1OfTriangle(mod, "Poly_HArray1OfTriangle", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Poly_HArray1OfTriangle.def(py::init<>());
-cls_Poly_HArray1OfTriangle.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_Poly_HArray1OfTriangle.def(py::init<const Standard_Integer, const Standard_Integer, const Poly_Array1OfTriangle::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_Poly_HArray1OfTriangle.def(py::init<const Poly_Array1OfTriangle &>(), py::arg("theOther"));
-
-// Methods
-// cls_Poly_HArray1OfTriangle.def_static("operator new_", (void * (*)(size_t)) &Poly_HArray1OfTriangle::operator new, "None", py::arg("theSize"));
-// cls_Poly_HArray1OfTriangle.def_static("operator delete_", (void (*)(void *)) &Poly_HArray1OfTriangle::operator delete, "None", py::arg("theAddress"));
-// cls_Poly_HArray1OfTriangle.def_static("operator new[]_", (void * (*)(size_t)) &Poly_HArray1OfTriangle::operator new[], "None", py::arg("theSize"));
-// cls_Poly_HArray1OfTriangle.def_static("operator delete[]_", (void (*)(void *)) &Poly_HArray1OfTriangle::operator delete[], "None", py::arg("theAddress"));
-// cls_Poly_HArray1OfTriangle.def_static("operator new_", (void * (*)(size_t, void *)) &Poly_HArray1OfTriangle::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Poly_HArray1OfTriangle.def_static("operator delete_", (void (*)(void *, void *)) &Poly_HArray1OfTriangle::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Poly_HArray1OfTriangle.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Poly_HArray1OfTriangle::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Poly_HArray1OfTriangle.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Poly_HArray1OfTriangle::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Poly_HArray1OfTriangle.def("Array1", (const Poly_Array1OfTriangle & (Poly_HArray1OfTriangle::*)() const) &Poly_HArray1OfTriangle::Array1, "None");
-cls_Poly_HArray1OfTriangle.def("ChangeArray1", (Poly_Array1OfTriangle & (Poly_HArray1OfTriangle::*)()) &Poly_HArray1OfTriangle::ChangeArray1, "None");
-cls_Poly_HArray1OfTriangle.def_static("get_type_name_", (const char * (*)()) &Poly_HArray1OfTriangle::get_type_name, "None");
-cls_Poly_HArray1OfTriangle.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Poly_HArray1OfTriangle::get_type_descriptor, "None");
-cls_Poly_HArray1OfTriangle.def("DynamicType", (const opencascade::handle<Standard_Type> & (Poly_HArray1OfTriangle::*)() const) &Poly_HArray1OfTriangle::DynamicType, "None");
+bind_Define_HArray1<Poly_HArray1OfTriangle, Poly_Array1OfTriangle>(mod, "Poly_HArray1OfTriangle");
 
 // CLASS: POLY_MAKELOOPS
 py::class_<Poly_MakeLoops> cls_Poly_MakeLoops(mod, "Poly_MakeLoops", "Make loops from a set of connected links. A link is represented by a pair of integer indices of nodes.");

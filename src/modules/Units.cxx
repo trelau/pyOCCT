@@ -59,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_SStream.hxx>
 #include <Units_NoSuchUnit.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 
 PYBIND11_MODULE(Units, mod) {
 
@@ -161,28 +162,7 @@ cls_Units_Unit.def("DynamicType", (const opencascade::handle<Standard_Type> & (U
 bind_NCollection_Sequence<opencascade::handle<Units_Unit> >(mod, "Units_UtsSequence", py::module_local(false));
 
 // CLASS: UNITS_UNITSSEQUENCE
-py::class_<Units_UnitsSequence, opencascade::handle<Units_UnitsSequence>, Standard_Transient> cls_Units_UnitsSequence(mod, "Units_UnitsSequence", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Units_UnitsSequence.def(py::init<>());
-cls_Units_UnitsSequence.def(py::init<const Units_UtsSequence &>(), py::arg("theOther"));
-
-// Methods
-// cls_Units_UnitsSequence.def_static("operator new_", (void * (*)(size_t)) &Units_UnitsSequence::operator new, "None", py::arg("theSize"));
-// cls_Units_UnitsSequence.def_static("operator delete_", (void (*)(void *)) &Units_UnitsSequence::operator delete, "None", py::arg("theAddress"));
-// cls_Units_UnitsSequence.def_static("operator new[]_", (void * (*)(size_t)) &Units_UnitsSequence::operator new[], "None", py::arg("theSize"));
-// cls_Units_UnitsSequence.def_static("operator delete[]_", (void (*)(void *)) &Units_UnitsSequence::operator delete[], "None", py::arg("theAddress"));
-// cls_Units_UnitsSequence.def_static("operator new_", (void * (*)(size_t, void *)) &Units_UnitsSequence::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Units_UnitsSequence.def_static("operator delete_", (void (*)(void *, void *)) &Units_UnitsSequence::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Units_UnitsSequence.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Units_UnitsSequence::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Units_UnitsSequence.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Units_UnitsSequence::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Units_UnitsSequence.def("Sequence", (const Units_UtsSequence & (Units_UnitsSequence::*)() const) &Units_UnitsSequence::Sequence, "None");
-cls_Units_UnitsSequence.def("Append", (void (Units_UnitsSequence::*)(const Units_UtsSequence::value_type &)) &Units_UnitsSequence::Append, "None", py::arg("theItem"));
-cls_Units_UnitsSequence.def("Append", (void (Units_UnitsSequence::*)(Units_UtsSequence &)) &Units_UnitsSequence::Append, "None", py::arg("theSequence"));
-cls_Units_UnitsSequence.def("ChangeSequence", (Units_UtsSequence & (Units_UnitsSequence::*)()) &Units_UnitsSequence::ChangeSequence, "None");
-cls_Units_UnitsSequence.def_static("get_type_name_", (const char * (*)()) &Units_UnitsSequence::get_type_name, "None");
-cls_Units_UnitsSequence.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Units_UnitsSequence::get_type_descriptor, "None");
-cls_Units_UnitsSequence.def("DynamicType", (const opencascade::handle<Standard_Type> & (Units_UnitsSequence::*)() const) &Units_UnitsSequence::DynamicType, "None");
+bind_Define_HSequence<Units_UnitsSequence, Units_UtsSequence>(mod, "Units_UnitsSequence");
 
 // CLASS: UNITS_QUANTITY
 py::class_<Units_Quantity, opencascade::handle<Units_Quantity>, Standard_Transient> cls_Units_Quantity(mod, "Units_Quantity", "This class stores in its field all the possible units of all the unit systems for a given physical quantity. Each unit's value is expressed in the S.I. unit system.");
@@ -204,28 +184,7 @@ cls_Units_Quantity.def("DynamicType", (const opencascade::handle<Standard_Type> 
 bind_NCollection_Sequence<opencascade::handle<Units_Quantity> >(mod, "Units_QtsSequence", py::module_local(false));
 
 // CLASS: UNITS_QUANTITIESSEQUENCE
-py::class_<Units_QuantitiesSequence, opencascade::handle<Units_QuantitiesSequence>, Standard_Transient> cls_Units_QuantitiesSequence(mod, "Units_QuantitiesSequence", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Units_QuantitiesSequence.def(py::init<>());
-cls_Units_QuantitiesSequence.def(py::init<const Units_QtsSequence &>(), py::arg("theOther"));
-
-// Methods
-// cls_Units_QuantitiesSequence.def_static("operator new_", (void * (*)(size_t)) &Units_QuantitiesSequence::operator new, "None", py::arg("theSize"));
-// cls_Units_QuantitiesSequence.def_static("operator delete_", (void (*)(void *)) &Units_QuantitiesSequence::operator delete, "None", py::arg("theAddress"));
-// cls_Units_QuantitiesSequence.def_static("operator new[]_", (void * (*)(size_t)) &Units_QuantitiesSequence::operator new[], "None", py::arg("theSize"));
-// cls_Units_QuantitiesSequence.def_static("operator delete[]_", (void (*)(void *)) &Units_QuantitiesSequence::operator delete[], "None", py::arg("theAddress"));
-// cls_Units_QuantitiesSequence.def_static("operator new_", (void * (*)(size_t, void *)) &Units_QuantitiesSequence::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Units_QuantitiesSequence.def_static("operator delete_", (void (*)(void *, void *)) &Units_QuantitiesSequence::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Units_QuantitiesSequence.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Units_QuantitiesSequence::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Units_QuantitiesSequence.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Units_QuantitiesSequence::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Units_QuantitiesSequence.def("Sequence", (const Units_QtsSequence & (Units_QuantitiesSequence::*)() const) &Units_QuantitiesSequence::Sequence, "None");
-cls_Units_QuantitiesSequence.def("Append", (void (Units_QuantitiesSequence::*)(const Units_QtsSequence::value_type &)) &Units_QuantitiesSequence::Append, "None", py::arg("theItem"));
-cls_Units_QuantitiesSequence.def("Append", (void (Units_QuantitiesSequence::*)(Units_QtsSequence &)) &Units_QuantitiesSequence::Append, "None", py::arg("theSequence"));
-cls_Units_QuantitiesSequence.def("ChangeSequence", (Units_QtsSequence & (Units_QuantitiesSequence::*)()) &Units_QuantitiesSequence::ChangeSequence, "None");
-cls_Units_QuantitiesSequence.def_static("get_type_name_", (const char * (*)()) &Units_QuantitiesSequence::get_type_name, "None");
-cls_Units_QuantitiesSequence.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Units_QuantitiesSequence::get_type_descriptor, "None");
-cls_Units_QuantitiesSequence.def("DynamicType", (const opencascade::handle<Standard_Type> & (Units_QuantitiesSequence::*)() const) &Units_QuantitiesSequence::DynamicType, "None");
+bind_Define_HSequence<Units_QuantitiesSequence, Units_QtsSequence>(mod, "Units_QuantitiesSequence");
 
 // CLASS: UNITS_EXPLORER
 py::class_<Units_Explorer> cls_Units_Explorer(mod, "Units_Explorer", "This class provides all the services to explore UnitsSystem or UnitsDictionary.");
@@ -305,28 +264,7 @@ cls_Units_Token.def("DynamicType", (const opencascade::handle<Standard_Type> & (
 bind_NCollection_Sequence<opencascade::handle<Units_Token> >(mod, "Units_TksSequence", py::module_local(false));
 
 // CLASS: UNITS_TOKENSSEQUENCE
-py::class_<Units_TokensSequence, opencascade::handle<Units_TokensSequence>, Standard_Transient> cls_Units_TokensSequence(mod, "Units_TokensSequence", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Units_TokensSequence.def(py::init<>());
-cls_Units_TokensSequence.def(py::init<const Units_TksSequence &>(), py::arg("theOther"));
-
-// Methods
-// cls_Units_TokensSequence.def_static("operator new_", (void * (*)(size_t)) &Units_TokensSequence::operator new, "None", py::arg("theSize"));
-// cls_Units_TokensSequence.def_static("operator delete_", (void (*)(void *)) &Units_TokensSequence::operator delete, "None", py::arg("theAddress"));
-// cls_Units_TokensSequence.def_static("operator new[]_", (void * (*)(size_t)) &Units_TokensSequence::operator new[], "None", py::arg("theSize"));
-// cls_Units_TokensSequence.def_static("operator delete[]_", (void (*)(void *)) &Units_TokensSequence::operator delete[], "None", py::arg("theAddress"));
-// cls_Units_TokensSequence.def_static("operator new_", (void * (*)(size_t, void *)) &Units_TokensSequence::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Units_TokensSequence.def_static("operator delete_", (void (*)(void *, void *)) &Units_TokensSequence::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Units_TokensSequence.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Units_TokensSequence::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Units_TokensSequence.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Units_TokensSequence::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Units_TokensSequence.def("Sequence", (const Units_TksSequence & (Units_TokensSequence::*)() const) &Units_TokensSequence::Sequence, "None");
-cls_Units_TokensSequence.def("Append", (void (Units_TokensSequence::*)(const Units_TksSequence::value_type &)) &Units_TokensSequence::Append, "None", py::arg("theItem"));
-cls_Units_TokensSequence.def("Append", (void (Units_TokensSequence::*)(Units_TksSequence &)) &Units_TokensSequence::Append, "None", py::arg("theSequence"));
-cls_Units_TokensSequence.def("ChangeSequence", (Units_TksSequence & (Units_TokensSequence::*)()) &Units_TokensSequence::ChangeSequence, "None");
-cls_Units_TokensSequence.def_static("get_type_name_", (const char * (*)()) &Units_TokensSequence::get_type_name, "None");
-cls_Units_TokensSequence.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Units_TokensSequence::get_type_descriptor, "None");
-cls_Units_TokensSequence.def("DynamicType", (const opencascade::handle<Standard_Type> & (Units_TokensSequence::*)() const) &Units_TokensSequence::DynamicType, "None");
+bind_Define_HSequence<Units_TokensSequence, Units_TksSequence>(mod, "Units_TokensSequence");
 
 // CLASS: UNITS_LEXICON
 py::class_<Units_Lexicon, opencascade::handle<Units_Lexicon>, Standard_Transient> cls_Units_Lexicon(mod, "Units_Lexicon", "This class defines a lexicon useful to analyse and recognize the different key words included in a sentence. The lexicon is stored in a sequence of tokens.");

@@ -119,6 +119,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepDimTol_SymmetryTolerance.hxx>
 #include <StepDimTol_TotalRunoutTolerance.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(StepDimTol, mod) {
 
@@ -319,28 +320,7 @@ cls_StepDimTol_DatumReferenceModifier.def("SimpleDatumReferenceModifierMember", 
 bind_NCollection_Array1<StepDimTol_DatumReferenceModifier>(mod, "StepDimTol_Array1OfDatumReferenceModifier", py::module_local(false));
 
 // CLASS: STEPDIMTOL_HARRAY1OFDATUMREFERENCEMODIFIER
-py::class_<StepDimTol_HArray1OfDatumReferenceModifier, opencascade::handle<StepDimTol_HArray1OfDatumReferenceModifier>, Standard_Transient> cls_StepDimTol_HArray1OfDatumReferenceModifier(mod, "StepDimTol_HArray1OfDatumReferenceModifier", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepDimTol_HArray1OfDatumReferenceModifier.def(py::init<>());
-cls_StepDimTol_HArray1OfDatumReferenceModifier.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepDimTol_HArray1OfDatumReferenceModifier.def(py::init<const Standard_Integer, const Standard_Integer, const StepDimTol_Array1OfDatumReferenceModifier::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepDimTol_HArray1OfDatumReferenceModifier.def(py::init<const StepDimTol_Array1OfDatumReferenceModifier &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepDimTol_HArray1OfDatumReferenceModifier.def_static("operator new_", (void * (*)(size_t)) &StepDimTol_HArray1OfDatumReferenceModifier::operator new, "None", py::arg("theSize"));
-// cls_StepDimTol_HArray1OfDatumReferenceModifier.def_static("operator delete_", (void (*)(void *)) &StepDimTol_HArray1OfDatumReferenceModifier::operator delete, "None", py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfDatumReferenceModifier.def_static("operator new[]_", (void * (*)(size_t)) &StepDimTol_HArray1OfDatumReferenceModifier::operator new[], "None", py::arg("theSize"));
-// cls_StepDimTol_HArray1OfDatumReferenceModifier.def_static("operator delete[]_", (void (*)(void *)) &StepDimTol_HArray1OfDatumReferenceModifier::operator delete[], "None", py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfDatumReferenceModifier.def_static("operator new_", (void * (*)(size_t, void *)) &StepDimTol_HArray1OfDatumReferenceModifier::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfDatumReferenceModifier.def_static("operator delete_", (void (*)(void *, void *)) &StepDimTol_HArray1OfDatumReferenceModifier::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepDimTol_HArray1OfDatumReferenceModifier.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepDimTol_HArray1OfDatumReferenceModifier::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepDimTol_HArray1OfDatumReferenceModifier.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepDimTol_HArray1OfDatumReferenceModifier::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepDimTol_HArray1OfDatumReferenceModifier.def("Array1", (const StepDimTol_Array1OfDatumReferenceModifier & (StepDimTol_HArray1OfDatumReferenceModifier::*)() const) &StepDimTol_HArray1OfDatumReferenceModifier::Array1, "None");
-cls_StepDimTol_HArray1OfDatumReferenceModifier.def("ChangeArray1", (StepDimTol_Array1OfDatumReferenceModifier & (StepDimTol_HArray1OfDatumReferenceModifier::*)()) &StepDimTol_HArray1OfDatumReferenceModifier::ChangeArray1, "None");
-cls_StepDimTol_HArray1OfDatumReferenceModifier.def_static("get_type_name_", (const char * (*)()) &StepDimTol_HArray1OfDatumReferenceModifier::get_type_name, "None");
-cls_StepDimTol_HArray1OfDatumReferenceModifier.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepDimTol_HArray1OfDatumReferenceModifier::get_type_descriptor, "None");
-cls_StepDimTol_HArray1OfDatumReferenceModifier.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepDimTol_HArray1OfDatumReferenceModifier::*)() const) &StepDimTol_HArray1OfDatumReferenceModifier::DynamicType, "None");
+bind_Define_HArray1<StepDimTol_HArray1OfDatumReferenceModifier, StepDimTol_Array1OfDatumReferenceModifier>(mod, "StepDimTol_HArray1OfDatumReferenceModifier");
 
 // CLASS: STEPDIMTOL_DATUM
 py::class_<StepDimTol_Datum, opencascade::handle<StepDimTol_Datum>, StepRepr_ShapeAspect> cls_StepDimTol_Datum(mod, "StepDimTol_Datum", "Representation of STEP entity Datum");
@@ -377,28 +357,7 @@ cls_StepDimTol_DatumSystemOrReference.def("DatumReference", (opencascade::handle
 bind_NCollection_Array1<StepDimTol_DatumSystemOrReference>(mod, "StepDimTol_Array1OfDatumSystemOrReference", py::module_local(false));
 
 // CLASS: STEPDIMTOL_HARRAY1OFDATUMSYSTEMORREFERENCE
-py::class_<StepDimTol_HArray1OfDatumSystemOrReference, opencascade::handle<StepDimTol_HArray1OfDatumSystemOrReference>, Standard_Transient> cls_StepDimTol_HArray1OfDatumSystemOrReference(mod, "StepDimTol_HArray1OfDatumSystemOrReference", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepDimTol_HArray1OfDatumSystemOrReference.def(py::init<>());
-cls_StepDimTol_HArray1OfDatumSystemOrReference.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepDimTol_HArray1OfDatumSystemOrReference.def(py::init<const Standard_Integer, const Standard_Integer, const StepDimTol_Array1OfDatumSystemOrReference::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepDimTol_HArray1OfDatumSystemOrReference.def(py::init<const StepDimTol_Array1OfDatumSystemOrReference &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepDimTol_HArray1OfDatumSystemOrReference.def_static("operator new_", (void * (*)(size_t)) &StepDimTol_HArray1OfDatumSystemOrReference::operator new, "None", py::arg("theSize"));
-// cls_StepDimTol_HArray1OfDatumSystemOrReference.def_static("operator delete_", (void (*)(void *)) &StepDimTol_HArray1OfDatumSystemOrReference::operator delete, "None", py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfDatumSystemOrReference.def_static("operator new[]_", (void * (*)(size_t)) &StepDimTol_HArray1OfDatumSystemOrReference::operator new[], "None", py::arg("theSize"));
-// cls_StepDimTol_HArray1OfDatumSystemOrReference.def_static("operator delete[]_", (void (*)(void *)) &StepDimTol_HArray1OfDatumSystemOrReference::operator delete[], "None", py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfDatumSystemOrReference.def_static("operator new_", (void * (*)(size_t, void *)) &StepDimTol_HArray1OfDatumSystemOrReference::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfDatumSystemOrReference.def_static("operator delete_", (void (*)(void *, void *)) &StepDimTol_HArray1OfDatumSystemOrReference::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepDimTol_HArray1OfDatumSystemOrReference.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepDimTol_HArray1OfDatumSystemOrReference::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepDimTol_HArray1OfDatumSystemOrReference.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepDimTol_HArray1OfDatumSystemOrReference::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepDimTol_HArray1OfDatumSystemOrReference.def("Array1", (const StepDimTol_Array1OfDatumSystemOrReference & (StepDimTol_HArray1OfDatumSystemOrReference::*)() const) &StepDimTol_HArray1OfDatumSystemOrReference::Array1, "None");
-cls_StepDimTol_HArray1OfDatumSystemOrReference.def("ChangeArray1", (StepDimTol_Array1OfDatumSystemOrReference & (StepDimTol_HArray1OfDatumSystemOrReference::*)()) &StepDimTol_HArray1OfDatumSystemOrReference::ChangeArray1, "None");
-cls_StepDimTol_HArray1OfDatumSystemOrReference.def_static("get_type_name_", (const char * (*)()) &StepDimTol_HArray1OfDatumSystemOrReference::get_type_name, "None");
-cls_StepDimTol_HArray1OfDatumSystemOrReference.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepDimTol_HArray1OfDatumSystemOrReference::get_type_descriptor, "None");
-cls_StepDimTol_HArray1OfDatumSystemOrReference.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepDimTol_HArray1OfDatumSystemOrReference::*)() const) &StepDimTol_HArray1OfDatumSystemOrReference::DynamicType, "None");
+bind_Define_HArray1<StepDimTol_HArray1OfDatumSystemOrReference, StepDimTol_Array1OfDatumSystemOrReference>(mod, "StepDimTol_HArray1OfDatumSystemOrReference");
 
 // CLASS: STEPDIMTOL_DATUMREFERENCE
 py::class_<StepDimTol_DatumReference, opencascade::handle<StepDimTol_DatumReference>, Standard_Transient> cls_StepDimTol_DatumReference(mod, "StepDimTol_DatumReference", "Representation of STEP entity DatumReference");
@@ -420,28 +379,7 @@ cls_StepDimTol_DatumReference.def("DynamicType", (const opencascade::handle<Stan
 bind_NCollection_Array1<opencascade::handle<StepDimTol_DatumReference> >(mod, "StepDimTol_Array1OfDatumReference", py::module_local(false));
 
 // CLASS: STEPDIMTOL_HARRAY1OFDATUMREFERENCE
-py::class_<StepDimTol_HArray1OfDatumReference, opencascade::handle<StepDimTol_HArray1OfDatumReference>, Standard_Transient> cls_StepDimTol_HArray1OfDatumReference(mod, "StepDimTol_HArray1OfDatumReference", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepDimTol_HArray1OfDatumReference.def(py::init<>());
-cls_StepDimTol_HArray1OfDatumReference.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepDimTol_HArray1OfDatumReference.def(py::init<const Standard_Integer, const Standard_Integer, const StepDimTol_Array1OfDatumReference::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepDimTol_HArray1OfDatumReference.def(py::init<const StepDimTol_Array1OfDatumReference &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepDimTol_HArray1OfDatumReference.def_static("operator new_", (void * (*)(size_t)) &StepDimTol_HArray1OfDatumReference::operator new, "None", py::arg("theSize"));
-// cls_StepDimTol_HArray1OfDatumReference.def_static("operator delete_", (void (*)(void *)) &StepDimTol_HArray1OfDatumReference::operator delete, "None", py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfDatumReference.def_static("operator new[]_", (void * (*)(size_t)) &StepDimTol_HArray1OfDatumReference::operator new[], "None", py::arg("theSize"));
-// cls_StepDimTol_HArray1OfDatumReference.def_static("operator delete[]_", (void (*)(void *)) &StepDimTol_HArray1OfDatumReference::operator delete[], "None", py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfDatumReference.def_static("operator new_", (void * (*)(size_t, void *)) &StepDimTol_HArray1OfDatumReference::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfDatumReference.def_static("operator delete_", (void (*)(void *, void *)) &StepDimTol_HArray1OfDatumReference::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepDimTol_HArray1OfDatumReference.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepDimTol_HArray1OfDatumReference::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepDimTol_HArray1OfDatumReference.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepDimTol_HArray1OfDatumReference::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepDimTol_HArray1OfDatumReference.def("Array1", (const StepDimTol_Array1OfDatumReference & (StepDimTol_HArray1OfDatumReference::*)() const) &StepDimTol_HArray1OfDatumReference::Array1, "None");
-cls_StepDimTol_HArray1OfDatumReference.def("ChangeArray1", (StepDimTol_Array1OfDatumReference & (StepDimTol_HArray1OfDatumReference::*)()) &StepDimTol_HArray1OfDatumReference::ChangeArray1, "None");
-cls_StepDimTol_HArray1OfDatumReference.def_static("get_type_name_", (const char * (*)()) &StepDimTol_HArray1OfDatumReference::get_type_name, "None");
-cls_StepDimTol_HArray1OfDatumReference.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepDimTol_HArray1OfDatumReference::get_type_descriptor, "None");
-cls_StepDimTol_HArray1OfDatumReference.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepDimTol_HArray1OfDatumReference::*)() const) &StepDimTol_HArray1OfDatumReference::DynamicType, "None");
+bind_Define_HArray1<StepDimTol_HArray1OfDatumReference, StepDimTol_Array1OfDatumReference>(mod, "StepDimTol_HArray1OfDatumReference");
 
 // CLASS: STEPDIMTOL_GEOMETRICTOLERANCEWITHDATUMREFERENCE
 py::class_<StepDimTol_GeometricToleranceWithDatumReference, opencascade::handle<StepDimTol_GeometricToleranceWithDatumReference>, StepDimTol_GeometricTolerance> cls_StepDimTol_GeometricToleranceWithDatumReference(mod, "StepDimTol_GeometricToleranceWithDatumReference", "Representation of STEP entity GeometricToleranceWithDatumReference");
@@ -631,28 +569,7 @@ cls_StepDimTol_DatumFeature.def_static("get_type_descriptor_", (const opencascad
 cls_StepDimTol_DatumFeature.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepDimTol_DatumFeature::*)() const) &StepDimTol_DatumFeature::DynamicType, "None");
 
 // CLASS: STEPDIMTOL_HARRAY1OFDATUMREFERENCECOMPARTMENT
-py::class_<StepDimTol_HArray1OfDatumReferenceCompartment, opencascade::handle<StepDimTol_HArray1OfDatumReferenceCompartment>, Standard_Transient> cls_StepDimTol_HArray1OfDatumReferenceCompartment(mod, "StepDimTol_HArray1OfDatumReferenceCompartment", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepDimTol_HArray1OfDatumReferenceCompartment.def(py::init<>());
-cls_StepDimTol_HArray1OfDatumReferenceCompartment.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepDimTol_HArray1OfDatumReferenceCompartment.def(py::init<const Standard_Integer, const Standard_Integer, const StepDimTol_Array1OfDatumReferenceCompartment::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepDimTol_HArray1OfDatumReferenceCompartment.def(py::init<const StepDimTol_Array1OfDatumReferenceCompartment &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepDimTol_HArray1OfDatumReferenceCompartment.def_static("operator new_", (void * (*)(size_t)) &StepDimTol_HArray1OfDatumReferenceCompartment::operator new, "None", py::arg("theSize"));
-// cls_StepDimTol_HArray1OfDatumReferenceCompartment.def_static("operator delete_", (void (*)(void *)) &StepDimTol_HArray1OfDatumReferenceCompartment::operator delete, "None", py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfDatumReferenceCompartment.def_static("operator new[]_", (void * (*)(size_t)) &StepDimTol_HArray1OfDatumReferenceCompartment::operator new[], "None", py::arg("theSize"));
-// cls_StepDimTol_HArray1OfDatumReferenceCompartment.def_static("operator delete[]_", (void (*)(void *)) &StepDimTol_HArray1OfDatumReferenceCompartment::operator delete[], "None", py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfDatumReferenceCompartment.def_static("operator new_", (void * (*)(size_t, void *)) &StepDimTol_HArray1OfDatumReferenceCompartment::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfDatumReferenceCompartment.def_static("operator delete_", (void (*)(void *, void *)) &StepDimTol_HArray1OfDatumReferenceCompartment::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepDimTol_HArray1OfDatumReferenceCompartment.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepDimTol_HArray1OfDatumReferenceCompartment::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepDimTol_HArray1OfDatumReferenceCompartment.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepDimTol_HArray1OfDatumReferenceCompartment::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepDimTol_HArray1OfDatumReferenceCompartment.def("Array1", (const StepDimTol_Array1OfDatumReferenceCompartment & (StepDimTol_HArray1OfDatumReferenceCompartment::*)() const) &StepDimTol_HArray1OfDatumReferenceCompartment::Array1, "None");
-cls_StepDimTol_HArray1OfDatumReferenceCompartment.def("ChangeArray1", (StepDimTol_Array1OfDatumReferenceCompartment & (StepDimTol_HArray1OfDatumReferenceCompartment::*)()) &StepDimTol_HArray1OfDatumReferenceCompartment::ChangeArray1, "None");
-cls_StepDimTol_HArray1OfDatumReferenceCompartment.def_static("get_type_name_", (const char * (*)()) &StepDimTol_HArray1OfDatumReferenceCompartment::get_type_name, "None");
-cls_StepDimTol_HArray1OfDatumReferenceCompartment.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepDimTol_HArray1OfDatumReferenceCompartment::get_type_descriptor, "None");
-cls_StepDimTol_HArray1OfDatumReferenceCompartment.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepDimTol_HArray1OfDatumReferenceCompartment::*)() const) &StepDimTol_HArray1OfDatumReferenceCompartment::DynamicType, "None");
+bind_Define_HArray1<StepDimTol_HArray1OfDatumReferenceCompartment, StepDimTol_Array1OfDatumReferenceCompartment>(mod, "StepDimTol_HArray1OfDatumReferenceCompartment");
 
 // CLASS: STEPDIMTOL_DATUMSYSTEM
 py::class_<StepDimTol_DatumSystem, opencascade::handle<StepDimTol_DatumSystem>, StepRepr_ShapeAspect> cls_StepDimTol_DatumSystem(mod, "StepDimTol_DatumSystem", "Representation of STEP entity DatumSystem");
@@ -749,28 +666,7 @@ cls_StepDimTol_GeometricToleranceWithDefinedAreaUnit.def_static("get_type_descri
 cls_StepDimTol_GeometricToleranceWithDefinedAreaUnit.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepDimTol_GeometricToleranceWithDefinedAreaUnit::*)() const) &StepDimTol_GeometricToleranceWithDefinedAreaUnit::DynamicType, "None");
 
 // CLASS: STEPDIMTOL_HARRAY1OFGEOMETRICTOLERANCEMODIFIER
-py::class_<StepDimTol_HArray1OfGeometricToleranceModifier, opencascade::handle<StepDimTol_HArray1OfGeometricToleranceModifier>, Standard_Transient> cls_StepDimTol_HArray1OfGeometricToleranceModifier(mod, "StepDimTol_HArray1OfGeometricToleranceModifier", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepDimTol_HArray1OfGeometricToleranceModifier.def(py::init<>());
-cls_StepDimTol_HArray1OfGeometricToleranceModifier.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepDimTol_HArray1OfGeometricToleranceModifier.def(py::init<const Standard_Integer, const Standard_Integer, const StepDimTol_Array1OfGeometricToleranceModifier::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepDimTol_HArray1OfGeometricToleranceModifier.def(py::init<const StepDimTol_Array1OfGeometricToleranceModifier &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepDimTol_HArray1OfGeometricToleranceModifier.def_static("operator new_", (void * (*)(size_t)) &StepDimTol_HArray1OfGeometricToleranceModifier::operator new, "None", py::arg("theSize"));
-// cls_StepDimTol_HArray1OfGeometricToleranceModifier.def_static("operator delete_", (void (*)(void *)) &StepDimTol_HArray1OfGeometricToleranceModifier::operator delete, "None", py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfGeometricToleranceModifier.def_static("operator new[]_", (void * (*)(size_t)) &StepDimTol_HArray1OfGeometricToleranceModifier::operator new[], "None", py::arg("theSize"));
-// cls_StepDimTol_HArray1OfGeometricToleranceModifier.def_static("operator delete[]_", (void (*)(void *)) &StepDimTol_HArray1OfGeometricToleranceModifier::operator delete[], "None", py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfGeometricToleranceModifier.def_static("operator new_", (void * (*)(size_t, void *)) &StepDimTol_HArray1OfGeometricToleranceModifier::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfGeometricToleranceModifier.def_static("operator delete_", (void (*)(void *, void *)) &StepDimTol_HArray1OfGeometricToleranceModifier::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepDimTol_HArray1OfGeometricToleranceModifier.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepDimTol_HArray1OfGeometricToleranceModifier::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepDimTol_HArray1OfGeometricToleranceModifier.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepDimTol_HArray1OfGeometricToleranceModifier::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepDimTol_HArray1OfGeometricToleranceModifier.def("Array1", (const StepDimTol_Array1OfGeometricToleranceModifier & (StepDimTol_HArray1OfGeometricToleranceModifier::*)() const) &StepDimTol_HArray1OfGeometricToleranceModifier::Array1, "None");
-cls_StepDimTol_HArray1OfGeometricToleranceModifier.def("ChangeArray1", (StepDimTol_Array1OfGeometricToleranceModifier & (StepDimTol_HArray1OfGeometricToleranceModifier::*)()) &StepDimTol_HArray1OfGeometricToleranceModifier::ChangeArray1, "None");
-cls_StepDimTol_HArray1OfGeometricToleranceModifier.def_static("get_type_name_", (const char * (*)()) &StepDimTol_HArray1OfGeometricToleranceModifier::get_type_name, "None");
-cls_StepDimTol_HArray1OfGeometricToleranceModifier.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepDimTol_HArray1OfGeometricToleranceModifier::get_type_descriptor, "None");
-cls_StepDimTol_HArray1OfGeometricToleranceModifier.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepDimTol_HArray1OfGeometricToleranceModifier::*)() const) &StepDimTol_HArray1OfGeometricToleranceModifier::DynamicType, "None");
+bind_Define_HArray1<StepDimTol_HArray1OfGeometricToleranceModifier, StepDimTol_Array1OfGeometricToleranceModifier>(mod, "StepDimTol_HArray1OfGeometricToleranceModifier");
 
 // CLASS: STEPDIMTOL_GEOMETRICTOLERANCEWITHMODIFIERS
 py::class_<StepDimTol_GeometricToleranceWithModifiers, opencascade::handle<StepDimTol_GeometricToleranceWithModifiers>, StepDimTol_GeometricTolerance> cls_StepDimTol_GeometricToleranceWithModifiers(mod, "StepDimTol_GeometricToleranceWithModifiers", "Representation of STEP entity GeometricToleranceWithModifiers");
@@ -921,52 +817,10 @@ cls_StepDimTol_GeoTolAndGeoTolWthMaxTol.def_static("get_type_descriptor_", (cons
 cls_StepDimTol_GeoTolAndGeoTolWthMaxTol.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepDimTol_GeoTolAndGeoTolWthMaxTol::*)() const) &StepDimTol_GeoTolAndGeoTolWthMaxTol::DynamicType, "None");
 
 // CLASS: STEPDIMTOL_HARRAY1OFDATUMREFERENCEELEMENT
-py::class_<StepDimTol_HArray1OfDatumReferenceElement, opencascade::handle<StepDimTol_HArray1OfDatumReferenceElement>, Standard_Transient> cls_StepDimTol_HArray1OfDatumReferenceElement(mod, "StepDimTol_HArray1OfDatumReferenceElement", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepDimTol_HArray1OfDatumReferenceElement.def(py::init<>());
-cls_StepDimTol_HArray1OfDatumReferenceElement.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepDimTol_HArray1OfDatumReferenceElement.def(py::init<const Standard_Integer, const Standard_Integer, const StepDimTol_Array1OfDatumReferenceElement::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepDimTol_HArray1OfDatumReferenceElement.def(py::init<const StepDimTol_Array1OfDatumReferenceElement &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepDimTol_HArray1OfDatumReferenceElement.def_static("operator new_", (void * (*)(size_t)) &StepDimTol_HArray1OfDatumReferenceElement::operator new, "None", py::arg("theSize"));
-// cls_StepDimTol_HArray1OfDatumReferenceElement.def_static("operator delete_", (void (*)(void *)) &StepDimTol_HArray1OfDatumReferenceElement::operator delete, "None", py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfDatumReferenceElement.def_static("operator new[]_", (void * (*)(size_t)) &StepDimTol_HArray1OfDatumReferenceElement::operator new[], "None", py::arg("theSize"));
-// cls_StepDimTol_HArray1OfDatumReferenceElement.def_static("operator delete[]_", (void (*)(void *)) &StepDimTol_HArray1OfDatumReferenceElement::operator delete[], "None", py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfDatumReferenceElement.def_static("operator new_", (void * (*)(size_t, void *)) &StepDimTol_HArray1OfDatumReferenceElement::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfDatumReferenceElement.def_static("operator delete_", (void (*)(void *, void *)) &StepDimTol_HArray1OfDatumReferenceElement::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepDimTol_HArray1OfDatumReferenceElement.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepDimTol_HArray1OfDatumReferenceElement::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepDimTol_HArray1OfDatumReferenceElement.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepDimTol_HArray1OfDatumReferenceElement::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepDimTol_HArray1OfDatumReferenceElement.def("Array1", (const StepDimTol_Array1OfDatumReferenceElement & (StepDimTol_HArray1OfDatumReferenceElement::*)() const) &StepDimTol_HArray1OfDatumReferenceElement::Array1, "None");
-cls_StepDimTol_HArray1OfDatumReferenceElement.def("ChangeArray1", (StepDimTol_Array1OfDatumReferenceElement & (StepDimTol_HArray1OfDatumReferenceElement::*)()) &StepDimTol_HArray1OfDatumReferenceElement::ChangeArray1, "None");
-cls_StepDimTol_HArray1OfDatumReferenceElement.def_static("get_type_name_", (const char * (*)()) &StepDimTol_HArray1OfDatumReferenceElement::get_type_name, "None");
-cls_StepDimTol_HArray1OfDatumReferenceElement.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepDimTol_HArray1OfDatumReferenceElement::get_type_descriptor, "None");
-cls_StepDimTol_HArray1OfDatumReferenceElement.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepDimTol_HArray1OfDatumReferenceElement::*)() const) &StepDimTol_HArray1OfDatumReferenceElement::DynamicType, "None");
+bind_Define_HArray1<StepDimTol_HArray1OfDatumReferenceElement, StepDimTol_Array1OfDatumReferenceElement>(mod, "StepDimTol_HArray1OfDatumReferenceElement");
 
 // CLASS: STEPDIMTOL_HARRAY1OFTOLERANCEZONETARGET
-py::class_<StepDimTol_HArray1OfToleranceZoneTarget, opencascade::handle<StepDimTol_HArray1OfToleranceZoneTarget>, Standard_Transient> cls_StepDimTol_HArray1OfToleranceZoneTarget(mod, "StepDimTol_HArray1OfToleranceZoneTarget", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepDimTol_HArray1OfToleranceZoneTarget.def(py::init<>());
-cls_StepDimTol_HArray1OfToleranceZoneTarget.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepDimTol_HArray1OfToleranceZoneTarget.def(py::init<const Standard_Integer, const Standard_Integer, const StepDimTol_Array1OfToleranceZoneTarget::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepDimTol_HArray1OfToleranceZoneTarget.def(py::init<const StepDimTol_Array1OfToleranceZoneTarget &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepDimTol_HArray1OfToleranceZoneTarget.def_static("operator new_", (void * (*)(size_t)) &StepDimTol_HArray1OfToleranceZoneTarget::operator new, "None", py::arg("theSize"));
-// cls_StepDimTol_HArray1OfToleranceZoneTarget.def_static("operator delete_", (void (*)(void *)) &StepDimTol_HArray1OfToleranceZoneTarget::operator delete, "None", py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfToleranceZoneTarget.def_static("operator new[]_", (void * (*)(size_t)) &StepDimTol_HArray1OfToleranceZoneTarget::operator new[], "None", py::arg("theSize"));
-// cls_StepDimTol_HArray1OfToleranceZoneTarget.def_static("operator delete[]_", (void (*)(void *)) &StepDimTol_HArray1OfToleranceZoneTarget::operator delete[], "None", py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfToleranceZoneTarget.def_static("operator new_", (void * (*)(size_t, void *)) &StepDimTol_HArray1OfToleranceZoneTarget::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepDimTol_HArray1OfToleranceZoneTarget.def_static("operator delete_", (void (*)(void *, void *)) &StepDimTol_HArray1OfToleranceZoneTarget::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepDimTol_HArray1OfToleranceZoneTarget.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepDimTol_HArray1OfToleranceZoneTarget::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepDimTol_HArray1OfToleranceZoneTarget.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepDimTol_HArray1OfToleranceZoneTarget::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepDimTol_HArray1OfToleranceZoneTarget.def("Array1", (const StepDimTol_Array1OfToleranceZoneTarget & (StepDimTol_HArray1OfToleranceZoneTarget::*)() const) &StepDimTol_HArray1OfToleranceZoneTarget::Array1, "None");
-cls_StepDimTol_HArray1OfToleranceZoneTarget.def("ChangeArray1", (StepDimTol_Array1OfToleranceZoneTarget & (StepDimTol_HArray1OfToleranceZoneTarget::*)()) &StepDimTol_HArray1OfToleranceZoneTarget::ChangeArray1, "None");
-cls_StepDimTol_HArray1OfToleranceZoneTarget.def_static("get_type_name_", (const char * (*)()) &StepDimTol_HArray1OfToleranceZoneTarget::get_type_name, "None");
-cls_StepDimTol_HArray1OfToleranceZoneTarget.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepDimTol_HArray1OfToleranceZoneTarget::get_type_descriptor, "None");
-cls_StepDimTol_HArray1OfToleranceZoneTarget.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepDimTol_HArray1OfToleranceZoneTarget::*)() const) &StepDimTol_HArray1OfToleranceZoneTarget::DynamicType, "None");
+bind_Define_HArray1<StepDimTol_HArray1OfToleranceZoneTarget, StepDimTol_Array1OfToleranceZoneTarget>(mod, "StepDimTol_HArray1OfToleranceZoneTarget");
 
 // CLASS: STEPDIMTOL_LINEPROFILETOLERANCE
 py::class_<StepDimTol_LineProfileTolerance, opencascade::handle<StepDimTol_LineProfileTolerance>, StepDimTol_GeometricTolerance> cls_StepDimTol_LineProfileTolerance(mod, "StepDimTol_LineProfileTolerance", "Representation of STEP entity LineProfileTolerance");

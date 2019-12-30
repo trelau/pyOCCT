@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #define __NCollection_StdAllocator__
 
 #include <NCollection_StdAllocator.hxx>
-#include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_Handle.hxx>
 
 template <typename T>
 void bind_NCollection_StdAllocator(py::module &mod, std::string const &name, py::module_local const &local){

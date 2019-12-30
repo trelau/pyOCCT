@@ -192,6 +192,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepGeom_CartesianPoint.hxx>
 #include <bind_NCollection_Vector.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(StepVisual, mod) {
 
@@ -374,28 +375,7 @@ cls_StepVisual_PresentationStyleSelect.def("SurfaceStyleUsage", (opencascade::ha
 bind_NCollection_Array1<StepVisual_PresentationStyleSelect>(mod, "StepVisual_Array1OfPresentationStyleSelect", py::module_local(false));
 
 // CLASS: STEPVISUAL_HARRAY1OFPRESENTATIONSTYLESELECT
-py::class_<StepVisual_HArray1OfPresentationStyleSelect, opencascade::handle<StepVisual_HArray1OfPresentationStyleSelect>, Standard_Transient> cls_StepVisual_HArray1OfPresentationStyleSelect(mod, "StepVisual_HArray1OfPresentationStyleSelect", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepVisual_HArray1OfPresentationStyleSelect.def(py::init<>());
-cls_StepVisual_HArray1OfPresentationStyleSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepVisual_HArray1OfPresentationStyleSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfPresentationStyleSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepVisual_HArray1OfPresentationStyleSelect.def(py::init<const StepVisual_Array1OfPresentationStyleSelect &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepVisual_HArray1OfPresentationStyleSelect.def_static("operator new_", (void * (*)(size_t)) &StepVisual_HArray1OfPresentationStyleSelect::operator new, "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfPresentationStyleSelect.def_static("operator delete_", (void (*)(void *)) &StepVisual_HArray1OfPresentationStyleSelect::operator delete, "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfPresentationStyleSelect.def_static("operator new[]_", (void * (*)(size_t)) &StepVisual_HArray1OfPresentationStyleSelect::operator new[], "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfPresentationStyleSelect.def_static("operator delete[]_", (void (*)(void *)) &StepVisual_HArray1OfPresentationStyleSelect::operator delete[], "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfPresentationStyleSelect.def_static("operator new_", (void * (*)(size_t, void *)) &StepVisual_HArray1OfPresentationStyleSelect::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepVisual_HArray1OfPresentationStyleSelect.def_static("operator delete_", (void (*)(void *, void *)) &StepVisual_HArray1OfPresentationStyleSelect::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepVisual_HArray1OfPresentationStyleSelect.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfPresentationStyleSelect::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepVisual_HArray1OfPresentationStyleSelect.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfPresentationStyleSelect::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepVisual_HArray1OfPresentationStyleSelect.def("Array1", (const StepVisual_Array1OfPresentationStyleSelect & (StepVisual_HArray1OfPresentationStyleSelect::*)() const) &StepVisual_HArray1OfPresentationStyleSelect::Array1, "None");
-cls_StepVisual_HArray1OfPresentationStyleSelect.def("ChangeArray1", (StepVisual_Array1OfPresentationStyleSelect & (StepVisual_HArray1OfPresentationStyleSelect::*)()) &StepVisual_HArray1OfPresentationStyleSelect::ChangeArray1, "None");
-cls_StepVisual_HArray1OfPresentationStyleSelect.def_static("get_type_name_", (const char * (*)()) &StepVisual_HArray1OfPresentationStyleSelect::get_type_name, "None");
-cls_StepVisual_HArray1OfPresentationStyleSelect.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepVisual_HArray1OfPresentationStyleSelect::get_type_descriptor, "None");
-cls_StepVisual_HArray1OfPresentationStyleSelect.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_HArray1OfPresentationStyleSelect::*)() const) &StepVisual_HArray1OfPresentationStyleSelect::DynamicType, "None");
+bind_Define_HArray1<StepVisual_HArray1OfPresentationStyleSelect, StepVisual_Array1OfPresentationStyleSelect>(mod, "StepVisual_HArray1OfPresentationStyleSelect");
 
 // CLASS: STEPVISUAL_PRESENTATIONSTYLEASSIGNMENT
 py::class_<StepVisual_PresentationStyleAssignment, opencascade::handle<StepVisual_PresentationStyleAssignment>, Standard_Transient> cls_StepVisual_PresentationStyleAssignment(mod, "StepVisual_PresentationStyleAssignment", "None");
@@ -417,28 +397,7 @@ cls_StepVisual_PresentationStyleAssignment.def("DynamicType", (const opencascade
 bind_NCollection_Array1<opencascade::handle<StepVisual_PresentationStyleAssignment> >(mod, "StepVisual_Array1OfPresentationStyleAssignment", py::module_local(false));
 
 // CLASS: STEPVISUAL_HARRAY1OFPRESENTATIONSTYLEASSIGNMENT
-py::class_<StepVisual_HArray1OfPresentationStyleAssignment, opencascade::handle<StepVisual_HArray1OfPresentationStyleAssignment>, Standard_Transient> cls_StepVisual_HArray1OfPresentationStyleAssignment(mod, "StepVisual_HArray1OfPresentationStyleAssignment", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepVisual_HArray1OfPresentationStyleAssignment.def(py::init<>());
-cls_StepVisual_HArray1OfPresentationStyleAssignment.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepVisual_HArray1OfPresentationStyleAssignment.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfPresentationStyleAssignment::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepVisual_HArray1OfPresentationStyleAssignment.def(py::init<const StepVisual_Array1OfPresentationStyleAssignment &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepVisual_HArray1OfPresentationStyleAssignment.def_static("operator new_", (void * (*)(size_t)) &StepVisual_HArray1OfPresentationStyleAssignment::operator new, "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfPresentationStyleAssignment.def_static("operator delete_", (void (*)(void *)) &StepVisual_HArray1OfPresentationStyleAssignment::operator delete, "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfPresentationStyleAssignment.def_static("operator new[]_", (void * (*)(size_t)) &StepVisual_HArray1OfPresentationStyleAssignment::operator new[], "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfPresentationStyleAssignment.def_static("operator delete[]_", (void (*)(void *)) &StepVisual_HArray1OfPresentationStyleAssignment::operator delete[], "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfPresentationStyleAssignment.def_static("operator new_", (void * (*)(size_t, void *)) &StepVisual_HArray1OfPresentationStyleAssignment::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepVisual_HArray1OfPresentationStyleAssignment.def_static("operator delete_", (void (*)(void *, void *)) &StepVisual_HArray1OfPresentationStyleAssignment::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepVisual_HArray1OfPresentationStyleAssignment.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfPresentationStyleAssignment::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepVisual_HArray1OfPresentationStyleAssignment.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfPresentationStyleAssignment::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepVisual_HArray1OfPresentationStyleAssignment.def("Array1", (const StepVisual_Array1OfPresentationStyleAssignment & (StepVisual_HArray1OfPresentationStyleAssignment::*)() const) &StepVisual_HArray1OfPresentationStyleAssignment::Array1, "None");
-cls_StepVisual_HArray1OfPresentationStyleAssignment.def("ChangeArray1", (StepVisual_Array1OfPresentationStyleAssignment & (StepVisual_HArray1OfPresentationStyleAssignment::*)()) &StepVisual_HArray1OfPresentationStyleAssignment::ChangeArray1, "None");
-cls_StepVisual_HArray1OfPresentationStyleAssignment.def_static("get_type_name_", (const char * (*)()) &StepVisual_HArray1OfPresentationStyleAssignment::get_type_name, "None");
-cls_StepVisual_HArray1OfPresentationStyleAssignment.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepVisual_HArray1OfPresentationStyleAssignment::get_type_descriptor, "None");
-cls_StepVisual_HArray1OfPresentationStyleAssignment.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_HArray1OfPresentationStyleAssignment::*)() const) &StepVisual_HArray1OfPresentationStyleAssignment::DynamicType, "None");
+bind_Define_HArray1<StepVisual_HArray1OfPresentationStyleAssignment, StepVisual_Array1OfPresentationStyleAssignment>(mod, "StepVisual_HArray1OfPresentationStyleAssignment");
 
 // CLASS: STEPVISUAL_STYLEDITEMTARGET
 py::class_<StepVisual_StyledItemTarget, StepData_SelectType> cls_StepVisual_StyledItemTarget(mod, "StepVisual_StyledItemTarget", "None");
@@ -558,28 +517,7 @@ cls_StepVisual_AnnotationPlaneElement.def("StyledItem", (opencascade::handle<Ste
 bind_NCollection_Array1<StepVisual_AnnotationPlaneElement>(mod, "StepVisual_Array1OfAnnotationPlaneElement", py::module_local(false));
 
 // CLASS: STEPVISUAL_HARRAY1OFANNOTATIONPLANEELEMENT
-py::class_<StepVisual_HArray1OfAnnotationPlaneElement, opencascade::handle<StepVisual_HArray1OfAnnotationPlaneElement>, Standard_Transient> cls_StepVisual_HArray1OfAnnotationPlaneElement(mod, "StepVisual_HArray1OfAnnotationPlaneElement", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepVisual_HArray1OfAnnotationPlaneElement.def(py::init<>());
-cls_StepVisual_HArray1OfAnnotationPlaneElement.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepVisual_HArray1OfAnnotationPlaneElement.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfAnnotationPlaneElement::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepVisual_HArray1OfAnnotationPlaneElement.def(py::init<const StepVisual_Array1OfAnnotationPlaneElement &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepVisual_HArray1OfAnnotationPlaneElement.def_static("operator new_", (void * (*)(size_t)) &StepVisual_HArray1OfAnnotationPlaneElement::operator new, "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfAnnotationPlaneElement.def_static("operator delete_", (void (*)(void *)) &StepVisual_HArray1OfAnnotationPlaneElement::operator delete, "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfAnnotationPlaneElement.def_static("operator new[]_", (void * (*)(size_t)) &StepVisual_HArray1OfAnnotationPlaneElement::operator new[], "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfAnnotationPlaneElement.def_static("operator delete[]_", (void (*)(void *)) &StepVisual_HArray1OfAnnotationPlaneElement::operator delete[], "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfAnnotationPlaneElement.def_static("operator new_", (void * (*)(size_t, void *)) &StepVisual_HArray1OfAnnotationPlaneElement::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepVisual_HArray1OfAnnotationPlaneElement.def_static("operator delete_", (void (*)(void *, void *)) &StepVisual_HArray1OfAnnotationPlaneElement::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepVisual_HArray1OfAnnotationPlaneElement.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfAnnotationPlaneElement::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepVisual_HArray1OfAnnotationPlaneElement.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfAnnotationPlaneElement::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepVisual_HArray1OfAnnotationPlaneElement.def("Array1", (const StepVisual_Array1OfAnnotationPlaneElement & (StepVisual_HArray1OfAnnotationPlaneElement::*)() const) &StepVisual_HArray1OfAnnotationPlaneElement::Array1, "None");
-cls_StepVisual_HArray1OfAnnotationPlaneElement.def("ChangeArray1", (StepVisual_Array1OfAnnotationPlaneElement & (StepVisual_HArray1OfAnnotationPlaneElement::*)()) &StepVisual_HArray1OfAnnotationPlaneElement::ChangeArray1, "None");
-cls_StepVisual_HArray1OfAnnotationPlaneElement.def_static("get_type_name_", (const char * (*)()) &StepVisual_HArray1OfAnnotationPlaneElement::get_type_name, "None");
-cls_StepVisual_HArray1OfAnnotationPlaneElement.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepVisual_HArray1OfAnnotationPlaneElement::get_type_descriptor, "None");
-cls_StepVisual_HArray1OfAnnotationPlaneElement.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_HArray1OfAnnotationPlaneElement::*)() const) &StepVisual_HArray1OfAnnotationPlaneElement::DynamicType, "None");
+bind_Define_HArray1<StepVisual_HArray1OfAnnotationPlaneElement, StepVisual_Array1OfAnnotationPlaneElement>(mod, "StepVisual_HArray1OfAnnotationPlaneElement");
 
 // CLASS: STEPVISUAL_ANNOTATIONPLANE
 py::class_<StepVisual_AnnotationPlane, opencascade::handle<StepVisual_AnnotationPlane>, StepVisual_AnnotationOccurrence> cls_StepVisual_AnnotationPlane(mod, "StepVisual_AnnotationPlane", "None");
@@ -1099,28 +1037,7 @@ cls_StepVisual_ColourRgb.def_static("get_type_descriptor_", (const opencascade::
 cls_StepVisual_ColourRgb.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_ColourRgb::*)() const) &StepVisual_ColourRgb::DynamicType, "None");
 
 // CLASS: STEPVISUAL_HARRAY1OFTEXTORCHARACTER
-py::class_<StepVisual_HArray1OfTextOrCharacter, opencascade::handle<StepVisual_HArray1OfTextOrCharacter>, Standard_Transient> cls_StepVisual_HArray1OfTextOrCharacter(mod, "StepVisual_HArray1OfTextOrCharacter", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepVisual_HArray1OfTextOrCharacter.def(py::init<>());
-cls_StepVisual_HArray1OfTextOrCharacter.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepVisual_HArray1OfTextOrCharacter.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfTextOrCharacter::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepVisual_HArray1OfTextOrCharacter.def(py::init<const StepVisual_Array1OfTextOrCharacter &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepVisual_HArray1OfTextOrCharacter.def_static("operator new_", (void * (*)(size_t)) &StepVisual_HArray1OfTextOrCharacter::operator new, "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfTextOrCharacter.def_static("operator delete_", (void (*)(void *)) &StepVisual_HArray1OfTextOrCharacter::operator delete, "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfTextOrCharacter.def_static("operator new[]_", (void * (*)(size_t)) &StepVisual_HArray1OfTextOrCharacter::operator new[], "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfTextOrCharacter.def_static("operator delete[]_", (void (*)(void *)) &StepVisual_HArray1OfTextOrCharacter::operator delete[], "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfTextOrCharacter.def_static("operator new_", (void * (*)(size_t, void *)) &StepVisual_HArray1OfTextOrCharacter::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepVisual_HArray1OfTextOrCharacter.def_static("operator delete_", (void (*)(void *, void *)) &StepVisual_HArray1OfTextOrCharacter::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepVisual_HArray1OfTextOrCharacter.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfTextOrCharacter::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepVisual_HArray1OfTextOrCharacter.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfTextOrCharacter::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepVisual_HArray1OfTextOrCharacter.def("Array1", (const StepVisual_Array1OfTextOrCharacter & (StepVisual_HArray1OfTextOrCharacter::*)() const) &StepVisual_HArray1OfTextOrCharacter::Array1, "None");
-cls_StepVisual_HArray1OfTextOrCharacter.def("ChangeArray1", (StepVisual_Array1OfTextOrCharacter & (StepVisual_HArray1OfTextOrCharacter::*)()) &StepVisual_HArray1OfTextOrCharacter::ChangeArray1, "None");
-cls_StepVisual_HArray1OfTextOrCharacter.def_static("get_type_name_", (const char * (*)()) &StepVisual_HArray1OfTextOrCharacter::get_type_name, "None");
-cls_StepVisual_HArray1OfTextOrCharacter.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepVisual_HArray1OfTextOrCharacter::get_type_descriptor, "None");
-cls_StepVisual_HArray1OfTextOrCharacter.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_HArray1OfTextOrCharacter::*)() const) &StepVisual_HArray1OfTextOrCharacter::DynamicType, "None");
+bind_Define_HArray1<StepVisual_HArray1OfTextOrCharacter, StepVisual_Array1OfTextOrCharacter>(mod, "StepVisual_HArray1OfTextOrCharacter");
 
 // CLASS: STEPVISUAL_COMPOSITETEXT
 py::class_<StepVisual_CompositeText, opencascade::handle<StepVisual_CompositeText>, StepGeom_GeometricRepresentationItem> cls_StepVisual_CompositeText(mod, "StepVisual_CompositeText", "None");
@@ -1171,28 +1088,7 @@ cls_StepVisual_InvisibilityContext.def("PresentationSet", (opencascade::handle<S
 cls_StepVisual_InvisibilityContext.def("DraughtingModel", (opencascade::handle<StepVisual_DraughtingModel> (StepVisual_InvisibilityContext::*)() const) &StepVisual_InvisibilityContext::DraughtingModel, "returns Value as a PresentationSet (Null if another type)");
 
 // CLASS: STEPVISUAL_HARRAY1OFINVISIBLEITEM
-py::class_<StepVisual_HArray1OfInvisibleItem, opencascade::handle<StepVisual_HArray1OfInvisibleItem>, Standard_Transient> cls_StepVisual_HArray1OfInvisibleItem(mod, "StepVisual_HArray1OfInvisibleItem", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepVisual_HArray1OfInvisibleItem.def(py::init<>());
-cls_StepVisual_HArray1OfInvisibleItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepVisual_HArray1OfInvisibleItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfInvisibleItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepVisual_HArray1OfInvisibleItem.def(py::init<const StepVisual_Array1OfInvisibleItem &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepVisual_HArray1OfInvisibleItem.def_static("operator new_", (void * (*)(size_t)) &StepVisual_HArray1OfInvisibleItem::operator new, "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfInvisibleItem.def_static("operator delete_", (void (*)(void *)) &StepVisual_HArray1OfInvisibleItem::operator delete, "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfInvisibleItem.def_static("operator new[]_", (void * (*)(size_t)) &StepVisual_HArray1OfInvisibleItem::operator new[], "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfInvisibleItem.def_static("operator delete[]_", (void (*)(void *)) &StepVisual_HArray1OfInvisibleItem::operator delete[], "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfInvisibleItem.def_static("operator new_", (void * (*)(size_t, void *)) &StepVisual_HArray1OfInvisibleItem::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepVisual_HArray1OfInvisibleItem.def_static("operator delete_", (void (*)(void *, void *)) &StepVisual_HArray1OfInvisibleItem::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepVisual_HArray1OfInvisibleItem.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfInvisibleItem::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepVisual_HArray1OfInvisibleItem.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfInvisibleItem::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepVisual_HArray1OfInvisibleItem.def("Array1", (const StepVisual_Array1OfInvisibleItem & (StepVisual_HArray1OfInvisibleItem::*)() const) &StepVisual_HArray1OfInvisibleItem::Array1, "None");
-cls_StepVisual_HArray1OfInvisibleItem.def("ChangeArray1", (StepVisual_Array1OfInvisibleItem & (StepVisual_HArray1OfInvisibleItem::*)()) &StepVisual_HArray1OfInvisibleItem::ChangeArray1, "None");
-cls_StepVisual_HArray1OfInvisibleItem.def_static("get_type_name_", (const char * (*)()) &StepVisual_HArray1OfInvisibleItem::get_type_name, "None");
-cls_StepVisual_HArray1OfInvisibleItem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepVisual_HArray1OfInvisibleItem::get_type_descriptor, "None");
-cls_StepVisual_HArray1OfInvisibleItem.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_HArray1OfInvisibleItem::*)() const) &StepVisual_HArray1OfInvisibleItem::DynamicType, "None");
+bind_Define_HArray1<StepVisual_HArray1OfInvisibleItem, StepVisual_Array1OfInvisibleItem>(mod, "StepVisual_HArray1OfInvisibleItem");
 
 // CLASS: STEPVISUAL_INVISIBILITY
 py::class_<StepVisual_Invisibility, opencascade::handle<StepVisual_Invisibility>, Standard_Transient> cls_StepVisual_Invisibility(mod, "StepVisual_Invisibility", "None");
@@ -1225,28 +1121,7 @@ cls_StepVisual_ContextDependentInvisibility.def_static("get_type_descriptor_", (
 cls_StepVisual_ContextDependentInvisibility.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_ContextDependentInvisibility::*)() const) &StepVisual_ContextDependentInvisibility::DynamicType, "None");
 
 // CLASS: STEPVISUAL_HARRAY1OFSTYLECONTEXTSELECT
-py::class_<StepVisual_HArray1OfStyleContextSelect, opencascade::handle<StepVisual_HArray1OfStyleContextSelect>, Standard_Transient> cls_StepVisual_HArray1OfStyleContextSelect(mod, "StepVisual_HArray1OfStyleContextSelect", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepVisual_HArray1OfStyleContextSelect.def(py::init<>());
-cls_StepVisual_HArray1OfStyleContextSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepVisual_HArray1OfStyleContextSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfStyleContextSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepVisual_HArray1OfStyleContextSelect.def(py::init<const StepVisual_Array1OfStyleContextSelect &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepVisual_HArray1OfStyleContextSelect.def_static("operator new_", (void * (*)(size_t)) &StepVisual_HArray1OfStyleContextSelect::operator new, "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfStyleContextSelect.def_static("operator delete_", (void (*)(void *)) &StepVisual_HArray1OfStyleContextSelect::operator delete, "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfStyleContextSelect.def_static("operator new[]_", (void * (*)(size_t)) &StepVisual_HArray1OfStyleContextSelect::operator new[], "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfStyleContextSelect.def_static("operator delete[]_", (void (*)(void *)) &StepVisual_HArray1OfStyleContextSelect::operator delete[], "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfStyleContextSelect.def_static("operator new_", (void * (*)(size_t, void *)) &StepVisual_HArray1OfStyleContextSelect::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepVisual_HArray1OfStyleContextSelect.def_static("operator delete_", (void (*)(void *, void *)) &StepVisual_HArray1OfStyleContextSelect::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepVisual_HArray1OfStyleContextSelect.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfStyleContextSelect::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepVisual_HArray1OfStyleContextSelect.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfStyleContextSelect::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepVisual_HArray1OfStyleContextSelect.def("Array1", (const StepVisual_Array1OfStyleContextSelect & (StepVisual_HArray1OfStyleContextSelect::*)() const) &StepVisual_HArray1OfStyleContextSelect::Array1, "None");
-cls_StepVisual_HArray1OfStyleContextSelect.def("ChangeArray1", (StepVisual_Array1OfStyleContextSelect & (StepVisual_HArray1OfStyleContextSelect::*)()) &StepVisual_HArray1OfStyleContextSelect::ChangeArray1, "None");
-cls_StepVisual_HArray1OfStyleContextSelect.def_static("get_type_name_", (const char * (*)()) &StepVisual_HArray1OfStyleContextSelect::get_type_name, "None");
-cls_StepVisual_HArray1OfStyleContextSelect.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepVisual_HArray1OfStyleContextSelect::get_type_descriptor, "None");
-cls_StepVisual_HArray1OfStyleContextSelect.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_HArray1OfStyleContextSelect::*)() const) &StepVisual_HArray1OfStyleContextSelect::DynamicType, "None");
+bind_Define_HArray1<StepVisual_HArray1OfStyleContextSelect, StepVisual_Array1OfStyleContextSelect>(mod, "StepVisual_HArray1OfStyleContextSelect");
 
 // CLASS: STEPVISUAL_OVERRIDINGSTYLEDITEM
 py::class_<StepVisual_OverRidingStyledItem, opencascade::handle<StepVisual_OverRidingStyledItem>, StepVisual_StyledItem> cls_StepVisual_OverRidingStyledItem(mod, "StepVisual_OverRidingStyledItem", "None");
@@ -1317,28 +1192,7 @@ cls_StepVisual_CurveStyle.def_static("get_type_descriptor_", (const opencascade:
 cls_StepVisual_CurveStyle.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_CurveStyle::*)() const) &StepVisual_CurveStyle::DynamicType, "None");
 
 // CLASS: STEPVISUAL_HARRAY1OFCURVESTYLEFONTPATTERN
-py::class_<StepVisual_HArray1OfCurveStyleFontPattern, opencascade::handle<StepVisual_HArray1OfCurveStyleFontPattern>, Standard_Transient> cls_StepVisual_HArray1OfCurveStyleFontPattern(mod, "StepVisual_HArray1OfCurveStyleFontPattern", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepVisual_HArray1OfCurveStyleFontPattern.def(py::init<>());
-cls_StepVisual_HArray1OfCurveStyleFontPattern.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepVisual_HArray1OfCurveStyleFontPattern.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfCurveStyleFontPattern::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepVisual_HArray1OfCurveStyleFontPattern.def(py::init<const StepVisual_Array1OfCurveStyleFontPattern &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepVisual_HArray1OfCurveStyleFontPattern.def_static("operator new_", (void * (*)(size_t)) &StepVisual_HArray1OfCurveStyleFontPattern::operator new, "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfCurveStyleFontPattern.def_static("operator delete_", (void (*)(void *)) &StepVisual_HArray1OfCurveStyleFontPattern::operator delete, "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfCurveStyleFontPattern.def_static("operator new[]_", (void * (*)(size_t)) &StepVisual_HArray1OfCurveStyleFontPattern::operator new[], "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfCurveStyleFontPattern.def_static("operator delete[]_", (void (*)(void *)) &StepVisual_HArray1OfCurveStyleFontPattern::operator delete[], "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfCurveStyleFontPattern.def_static("operator new_", (void * (*)(size_t, void *)) &StepVisual_HArray1OfCurveStyleFontPattern::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepVisual_HArray1OfCurveStyleFontPattern.def_static("operator delete_", (void (*)(void *, void *)) &StepVisual_HArray1OfCurveStyleFontPattern::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepVisual_HArray1OfCurveStyleFontPattern.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfCurveStyleFontPattern::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepVisual_HArray1OfCurveStyleFontPattern.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfCurveStyleFontPattern::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepVisual_HArray1OfCurveStyleFontPattern.def("Array1", (const StepVisual_Array1OfCurveStyleFontPattern & (StepVisual_HArray1OfCurveStyleFontPattern::*)() const) &StepVisual_HArray1OfCurveStyleFontPattern::Array1, "None");
-cls_StepVisual_HArray1OfCurveStyleFontPattern.def("ChangeArray1", (StepVisual_Array1OfCurveStyleFontPattern & (StepVisual_HArray1OfCurveStyleFontPattern::*)()) &StepVisual_HArray1OfCurveStyleFontPattern::ChangeArray1, "None");
-cls_StepVisual_HArray1OfCurveStyleFontPattern.def_static("get_type_name_", (const char * (*)()) &StepVisual_HArray1OfCurveStyleFontPattern::get_type_name, "None");
-cls_StepVisual_HArray1OfCurveStyleFontPattern.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepVisual_HArray1OfCurveStyleFontPattern::get_type_descriptor, "None");
-cls_StepVisual_HArray1OfCurveStyleFontPattern.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_HArray1OfCurveStyleFontPattern::*)() const) &StepVisual_HArray1OfCurveStyleFontPattern::DynamicType, "None");
+bind_Define_HArray1<StepVisual_HArray1OfCurveStyleFontPattern, StepVisual_Array1OfCurveStyleFontPattern>(mod, "StepVisual_HArray1OfCurveStyleFontPattern");
 
 // CLASS: STEPVISUAL_CURVESTYLEFONT
 py::class_<StepVisual_CurveStyleFont, opencascade::handle<StepVisual_CurveStyleFont>, Standard_Transient> cls_StepVisual_CurveStyleFont(mod, "StepVisual_CurveStyleFont", "None");
@@ -1370,28 +1224,7 @@ cls_StepVisual_DraughtingAnnotationOccurrence.def_static("get_type_descriptor_",
 cls_StepVisual_DraughtingAnnotationOccurrence.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_DraughtingAnnotationOccurrence::*)() const) &StepVisual_DraughtingAnnotationOccurrence::DynamicType, "None");
 
 // CLASS: STEPVISUAL_HARRAY1OFDRAUGHTINGCALLOUTELEMENT
-py::class_<StepVisual_HArray1OfDraughtingCalloutElement, opencascade::handle<StepVisual_HArray1OfDraughtingCalloutElement>, Standard_Transient> cls_StepVisual_HArray1OfDraughtingCalloutElement(mod, "StepVisual_HArray1OfDraughtingCalloutElement", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepVisual_HArray1OfDraughtingCalloutElement.def(py::init<>());
-cls_StepVisual_HArray1OfDraughtingCalloutElement.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepVisual_HArray1OfDraughtingCalloutElement.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfDraughtingCalloutElement::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepVisual_HArray1OfDraughtingCalloutElement.def(py::init<const StepVisual_Array1OfDraughtingCalloutElement &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepVisual_HArray1OfDraughtingCalloutElement.def_static("operator new_", (void * (*)(size_t)) &StepVisual_HArray1OfDraughtingCalloutElement::operator new, "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfDraughtingCalloutElement.def_static("operator delete_", (void (*)(void *)) &StepVisual_HArray1OfDraughtingCalloutElement::operator delete, "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfDraughtingCalloutElement.def_static("operator new[]_", (void * (*)(size_t)) &StepVisual_HArray1OfDraughtingCalloutElement::operator new[], "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfDraughtingCalloutElement.def_static("operator delete[]_", (void (*)(void *)) &StepVisual_HArray1OfDraughtingCalloutElement::operator delete[], "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfDraughtingCalloutElement.def_static("operator new_", (void * (*)(size_t, void *)) &StepVisual_HArray1OfDraughtingCalloutElement::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepVisual_HArray1OfDraughtingCalloutElement.def_static("operator delete_", (void (*)(void *, void *)) &StepVisual_HArray1OfDraughtingCalloutElement::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepVisual_HArray1OfDraughtingCalloutElement.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfDraughtingCalloutElement::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepVisual_HArray1OfDraughtingCalloutElement.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfDraughtingCalloutElement::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepVisual_HArray1OfDraughtingCalloutElement.def("Array1", (const StepVisual_Array1OfDraughtingCalloutElement & (StepVisual_HArray1OfDraughtingCalloutElement::*)() const) &StepVisual_HArray1OfDraughtingCalloutElement::Array1, "None");
-cls_StepVisual_HArray1OfDraughtingCalloutElement.def("ChangeArray1", (StepVisual_Array1OfDraughtingCalloutElement & (StepVisual_HArray1OfDraughtingCalloutElement::*)()) &StepVisual_HArray1OfDraughtingCalloutElement::ChangeArray1, "None");
-cls_StepVisual_HArray1OfDraughtingCalloutElement.def_static("get_type_name_", (const char * (*)()) &StepVisual_HArray1OfDraughtingCalloutElement::get_type_name, "None");
-cls_StepVisual_HArray1OfDraughtingCalloutElement.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepVisual_HArray1OfDraughtingCalloutElement::get_type_descriptor, "None");
-cls_StepVisual_HArray1OfDraughtingCalloutElement.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_HArray1OfDraughtingCalloutElement::*)() const) &StepVisual_HArray1OfDraughtingCalloutElement::DynamicType, "None");
+bind_Define_HArray1<StepVisual_HArray1OfDraughtingCalloutElement, StepVisual_Array1OfDraughtingCalloutElement>(mod, "StepVisual_HArray1OfDraughtingCalloutElement");
 
 // CLASS: STEPVISUAL_DRAUGHTINGCALLOUT
 py::class_<StepVisual_DraughtingCallout, opencascade::handle<StepVisual_DraughtingCallout>, StepGeom_GeometricRepresentationItem> cls_StepVisual_DraughtingCallout(mod, "StepVisual_DraughtingCallout", "None");
@@ -1493,28 +1326,7 @@ cls_StepVisual_ExternallyDefinedTextFont.def_static("get_type_descriptor_", (con
 cls_StepVisual_ExternallyDefinedTextFont.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_ExternallyDefinedTextFont::*)() const) &StepVisual_ExternallyDefinedTextFont::DynamicType, "None");
 
 // CLASS: STEPVISUAL_HARRAY1OFFILLSTYLESELECT
-py::class_<StepVisual_HArray1OfFillStyleSelect, opencascade::handle<StepVisual_HArray1OfFillStyleSelect>, Standard_Transient> cls_StepVisual_HArray1OfFillStyleSelect(mod, "StepVisual_HArray1OfFillStyleSelect", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepVisual_HArray1OfFillStyleSelect.def(py::init<>());
-cls_StepVisual_HArray1OfFillStyleSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepVisual_HArray1OfFillStyleSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfFillStyleSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepVisual_HArray1OfFillStyleSelect.def(py::init<const StepVisual_Array1OfFillStyleSelect &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepVisual_HArray1OfFillStyleSelect.def_static("operator new_", (void * (*)(size_t)) &StepVisual_HArray1OfFillStyleSelect::operator new, "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfFillStyleSelect.def_static("operator delete_", (void (*)(void *)) &StepVisual_HArray1OfFillStyleSelect::operator delete, "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfFillStyleSelect.def_static("operator new[]_", (void * (*)(size_t)) &StepVisual_HArray1OfFillStyleSelect::operator new[], "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfFillStyleSelect.def_static("operator delete[]_", (void (*)(void *)) &StepVisual_HArray1OfFillStyleSelect::operator delete[], "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfFillStyleSelect.def_static("operator new_", (void * (*)(size_t, void *)) &StepVisual_HArray1OfFillStyleSelect::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepVisual_HArray1OfFillStyleSelect.def_static("operator delete_", (void (*)(void *, void *)) &StepVisual_HArray1OfFillStyleSelect::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepVisual_HArray1OfFillStyleSelect.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfFillStyleSelect::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepVisual_HArray1OfFillStyleSelect.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfFillStyleSelect::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepVisual_HArray1OfFillStyleSelect.def("Array1", (const StepVisual_Array1OfFillStyleSelect & (StepVisual_HArray1OfFillStyleSelect::*)() const) &StepVisual_HArray1OfFillStyleSelect::Array1, "None");
-cls_StepVisual_HArray1OfFillStyleSelect.def("ChangeArray1", (StepVisual_Array1OfFillStyleSelect & (StepVisual_HArray1OfFillStyleSelect::*)()) &StepVisual_HArray1OfFillStyleSelect::ChangeArray1, "None");
-cls_StepVisual_HArray1OfFillStyleSelect.def_static("get_type_name_", (const char * (*)()) &StepVisual_HArray1OfFillStyleSelect::get_type_name, "None");
-cls_StepVisual_HArray1OfFillStyleSelect.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepVisual_HArray1OfFillStyleSelect::get_type_descriptor, "None");
-cls_StepVisual_HArray1OfFillStyleSelect.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_HArray1OfFillStyleSelect::*)() const) &StepVisual_HArray1OfFillStyleSelect::DynamicType, "None");
+bind_Define_HArray1<StepVisual_HArray1OfFillStyleSelect, StepVisual_Array1OfFillStyleSelect>(mod, "StepVisual_HArray1OfFillStyleSelect");
 
 // CLASS: STEPVISUAL_FILLAREASTYLE
 py::class_<StepVisual_FillAreaStyle, opencascade::handle<StepVisual_FillAreaStyle>, Standard_Transient> cls_StepVisual_FillAreaStyle(mod, "StepVisual_FillAreaStyle", "None");
@@ -1568,148 +1380,22 @@ cls_StepVisual_FontSelect.def("PreDefinedTextFont", (opencascade::handle<StepVis
 cls_StepVisual_FontSelect.def("ExternallyDefinedTextFont", (opencascade::handle<StepVisual_ExternallyDefinedTextFont> (StepVisual_FontSelect::*)() const) &StepVisual_FontSelect::ExternallyDefinedTextFont, "returns Value as a ExternallyDefinedTextFont (Null if another type)");
 
 // CLASS: STEPVISUAL_HARRAY1OFBOXCHARACTERISTICSELECT
-py::class_<StepVisual_HArray1OfBoxCharacteristicSelect, opencascade::handle<StepVisual_HArray1OfBoxCharacteristicSelect>, Standard_Transient> cls_StepVisual_HArray1OfBoxCharacteristicSelect(mod, "StepVisual_HArray1OfBoxCharacteristicSelect", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepVisual_HArray1OfBoxCharacteristicSelect.def(py::init<>());
-cls_StepVisual_HArray1OfBoxCharacteristicSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepVisual_HArray1OfBoxCharacteristicSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfBoxCharacteristicSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepVisual_HArray1OfBoxCharacteristicSelect.def(py::init<const StepVisual_Array1OfBoxCharacteristicSelect &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepVisual_HArray1OfBoxCharacteristicSelect.def_static("operator new_", (void * (*)(size_t)) &StepVisual_HArray1OfBoxCharacteristicSelect::operator new, "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfBoxCharacteristicSelect.def_static("operator delete_", (void (*)(void *)) &StepVisual_HArray1OfBoxCharacteristicSelect::operator delete, "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfBoxCharacteristicSelect.def_static("operator new[]_", (void * (*)(size_t)) &StepVisual_HArray1OfBoxCharacteristicSelect::operator new[], "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfBoxCharacteristicSelect.def_static("operator delete[]_", (void (*)(void *)) &StepVisual_HArray1OfBoxCharacteristicSelect::operator delete[], "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfBoxCharacteristicSelect.def_static("operator new_", (void * (*)(size_t, void *)) &StepVisual_HArray1OfBoxCharacteristicSelect::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepVisual_HArray1OfBoxCharacteristicSelect.def_static("operator delete_", (void (*)(void *, void *)) &StepVisual_HArray1OfBoxCharacteristicSelect::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepVisual_HArray1OfBoxCharacteristicSelect.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfBoxCharacteristicSelect::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepVisual_HArray1OfBoxCharacteristicSelect.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfBoxCharacteristicSelect::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepVisual_HArray1OfBoxCharacteristicSelect.def("Array1", (const StepVisual_Array1OfBoxCharacteristicSelect & (StepVisual_HArray1OfBoxCharacteristicSelect::*)() const) &StepVisual_HArray1OfBoxCharacteristicSelect::Array1, "None");
-cls_StepVisual_HArray1OfBoxCharacteristicSelect.def("ChangeArray1", (StepVisual_Array1OfBoxCharacteristicSelect & (StepVisual_HArray1OfBoxCharacteristicSelect::*)()) &StepVisual_HArray1OfBoxCharacteristicSelect::ChangeArray1, "None");
-cls_StepVisual_HArray1OfBoxCharacteristicSelect.def_static("get_type_name_", (const char * (*)()) &StepVisual_HArray1OfBoxCharacteristicSelect::get_type_name, "None");
-cls_StepVisual_HArray1OfBoxCharacteristicSelect.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepVisual_HArray1OfBoxCharacteristicSelect::get_type_descriptor, "None");
-cls_StepVisual_HArray1OfBoxCharacteristicSelect.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_HArray1OfBoxCharacteristicSelect::*)() const) &StepVisual_HArray1OfBoxCharacteristicSelect::DynamicType, "None");
+bind_Define_HArray1<StepVisual_HArray1OfBoxCharacteristicSelect, StepVisual_Array1OfBoxCharacteristicSelect>(mod, "StepVisual_HArray1OfBoxCharacteristicSelect");
 
 // CLASS: STEPVISUAL_HARRAY1OFCAMERAMODELD3MULTICLIPPINGINTERECTIONSELECT
-py::class_<StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect, opencascade::handle<StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect>, Standard_Transient> cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect(mod, "StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def(py::init<>());
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfCameraModelD3MultiClippingInterectionSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def(py::init<const StepVisual_Array1OfCameraModelD3MultiClippingInterectionSelect &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def_static("operator new_", (void * (*)(size_t)) &StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect::operator new, "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def_static("operator delete_", (void (*)(void *)) &StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect::operator delete, "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def_static("operator new[]_", (void * (*)(size_t)) &StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect::operator new[], "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def_static("operator delete[]_", (void (*)(void *)) &StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect::operator delete[], "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def_static("operator new_", (void * (*)(size_t, void *)) &StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def_static("operator delete_", (void (*)(void *, void *)) &StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def("Array1", (const StepVisual_Array1OfCameraModelD3MultiClippingInterectionSelect & (StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect::*)() const) &StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect::Array1, "None");
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def("ChangeArray1", (StepVisual_Array1OfCameraModelD3MultiClippingInterectionSelect & (StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect::*)()) &StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect::ChangeArray1, "None");
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def_static("get_type_name_", (const char * (*)()) &StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect::get_type_name, "None");
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect::get_type_descriptor, "None");
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect::*)() const) &StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect::DynamicType, "None");
+bind_Define_HArray1<StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect, StepVisual_Array1OfCameraModelD3MultiClippingInterectionSelect>(mod, "StepVisual_HArray1OfCameraModelD3MultiClippingInterectionSelect");
 
 // CLASS: STEPVISUAL_HARRAY1OFCAMERAMODELD3MULTICLIPPINGUNIONSELECT
-py::class_<StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect, opencascade::handle<StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect>, Standard_Transient> cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect(mod, "StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def(py::init<>());
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfCameraModelD3MultiClippingUnionSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def(py::init<const StepVisual_Array1OfCameraModelD3MultiClippingUnionSelect &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def_static("operator new_", (void * (*)(size_t)) &StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect::operator new, "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def_static("operator delete_", (void (*)(void *)) &StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect::operator delete, "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def_static("operator new[]_", (void * (*)(size_t)) &StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect::operator new[], "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def_static("operator delete[]_", (void (*)(void *)) &StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect::operator delete[], "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def_static("operator new_", (void * (*)(size_t, void *)) &StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def_static("operator delete_", (void (*)(void *, void *)) &StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def("Array1", (const StepVisual_Array1OfCameraModelD3MultiClippingUnionSelect & (StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect::*)() const) &StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect::Array1, "None");
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def("ChangeArray1", (StepVisual_Array1OfCameraModelD3MultiClippingUnionSelect & (StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect::*)()) &StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect::ChangeArray1, "None");
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def_static("get_type_name_", (const char * (*)()) &StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect::get_type_name, "None");
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect::get_type_descriptor, "None");
-cls_StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect::*)() const) &StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect::DynamicType, "None");
+bind_Define_HArray1<StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect, StepVisual_Array1OfCameraModelD3MultiClippingUnionSelect>(mod, "StepVisual_HArray1OfCameraModelD3MultiClippingUnionSelect");
 
 // CLASS: STEPVISUAL_HARRAY1OFDIRECTIONCOUNTSELECT
-py::class_<StepVisual_HArray1OfDirectionCountSelect, opencascade::handle<StepVisual_HArray1OfDirectionCountSelect>, Standard_Transient> cls_StepVisual_HArray1OfDirectionCountSelect(mod, "StepVisual_HArray1OfDirectionCountSelect", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepVisual_HArray1OfDirectionCountSelect.def(py::init<>());
-cls_StepVisual_HArray1OfDirectionCountSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepVisual_HArray1OfDirectionCountSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfDirectionCountSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepVisual_HArray1OfDirectionCountSelect.def(py::init<const StepVisual_Array1OfDirectionCountSelect &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepVisual_HArray1OfDirectionCountSelect.def_static("operator new_", (void * (*)(size_t)) &StepVisual_HArray1OfDirectionCountSelect::operator new, "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfDirectionCountSelect.def_static("operator delete_", (void (*)(void *)) &StepVisual_HArray1OfDirectionCountSelect::operator delete, "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfDirectionCountSelect.def_static("operator new[]_", (void * (*)(size_t)) &StepVisual_HArray1OfDirectionCountSelect::operator new[], "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfDirectionCountSelect.def_static("operator delete[]_", (void (*)(void *)) &StepVisual_HArray1OfDirectionCountSelect::operator delete[], "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfDirectionCountSelect.def_static("operator new_", (void * (*)(size_t, void *)) &StepVisual_HArray1OfDirectionCountSelect::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepVisual_HArray1OfDirectionCountSelect.def_static("operator delete_", (void (*)(void *, void *)) &StepVisual_HArray1OfDirectionCountSelect::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepVisual_HArray1OfDirectionCountSelect.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfDirectionCountSelect::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepVisual_HArray1OfDirectionCountSelect.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfDirectionCountSelect::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepVisual_HArray1OfDirectionCountSelect.def("Array1", (const StepVisual_Array1OfDirectionCountSelect & (StepVisual_HArray1OfDirectionCountSelect::*)() const) &StepVisual_HArray1OfDirectionCountSelect::Array1, "None");
-cls_StepVisual_HArray1OfDirectionCountSelect.def("ChangeArray1", (StepVisual_Array1OfDirectionCountSelect & (StepVisual_HArray1OfDirectionCountSelect::*)()) &StepVisual_HArray1OfDirectionCountSelect::ChangeArray1, "None");
-cls_StepVisual_HArray1OfDirectionCountSelect.def_static("get_type_name_", (const char * (*)()) &StepVisual_HArray1OfDirectionCountSelect::get_type_name, "None");
-cls_StepVisual_HArray1OfDirectionCountSelect.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepVisual_HArray1OfDirectionCountSelect::get_type_descriptor, "None");
-cls_StepVisual_HArray1OfDirectionCountSelect.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_HArray1OfDirectionCountSelect::*)() const) &StepVisual_HArray1OfDirectionCountSelect::DynamicType, "None");
+bind_Define_HArray1<StepVisual_HArray1OfDirectionCountSelect, StepVisual_Array1OfDirectionCountSelect>(mod, "StepVisual_HArray1OfDirectionCountSelect");
 
 // CLASS: STEPVISUAL_HARRAY1OFLAYEREDITEM
-py::class_<StepVisual_HArray1OfLayeredItem, opencascade::handle<StepVisual_HArray1OfLayeredItem>, Standard_Transient> cls_StepVisual_HArray1OfLayeredItem(mod, "StepVisual_HArray1OfLayeredItem", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepVisual_HArray1OfLayeredItem.def(py::init<>());
-cls_StepVisual_HArray1OfLayeredItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepVisual_HArray1OfLayeredItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfLayeredItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepVisual_HArray1OfLayeredItem.def(py::init<const StepVisual_Array1OfLayeredItem &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepVisual_HArray1OfLayeredItem.def_static("operator new_", (void * (*)(size_t)) &StepVisual_HArray1OfLayeredItem::operator new, "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfLayeredItem.def_static("operator delete_", (void (*)(void *)) &StepVisual_HArray1OfLayeredItem::operator delete, "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfLayeredItem.def_static("operator new[]_", (void * (*)(size_t)) &StepVisual_HArray1OfLayeredItem::operator new[], "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfLayeredItem.def_static("operator delete[]_", (void (*)(void *)) &StepVisual_HArray1OfLayeredItem::operator delete[], "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfLayeredItem.def_static("operator new_", (void * (*)(size_t, void *)) &StepVisual_HArray1OfLayeredItem::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepVisual_HArray1OfLayeredItem.def_static("operator delete_", (void (*)(void *, void *)) &StepVisual_HArray1OfLayeredItem::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepVisual_HArray1OfLayeredItem.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfLayeredItem::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepVisual_HArray1OfLayeredItem.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfLayeredItem::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepVisual_HArray1OfLayeredItem.def("Array1", (const StepVisual_Array1OfLayeredItem & (StepVisual_HArray1OfLayeredItem::*)() const) &StepVisual_HArray1OfLayeredItem::Array1, "None");
-cls_StepVisual_HArray1OfLayeredItem.def("ChangeArray1", (StepVisual_Array1OfLayeredItem & (StepVisual_HArray1OfLayeredItem::*)()) &StepVisual_HArray1OfLayeredItem::ChangeArray1, "None");
-cls_StepVisual_HArray1OfLayeredItem.def_static("get_type_name_", (const char * (*)()) &StepVisual_HArray1OfLayeredItem::get_type_name, "None");
-cls_StepVisual_HArray1OfLayeredItem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepVisual_HArray1OfLayeredItem::get_type_descriptor, "None");
-cls_StepVisual_HArray1OfLayeredItem.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_HArray1OfLayeredItem::*)() const) &StepVisual_HArray1OfLayeredItem::DynamicType, "None");
+bind_Define_HArray1<StepVisual_HArray1OfLayeredItem, StepVisual_Array1OfLayeredItem>(mod, "StepVisual_HArray1OfLayeredItem");
 
 // CLASS: STEPVISUAL_HARRAY1OFSURFACESTYLEELEMENTSELECT
-py::class_<StepVisual_HArray1OfSurfaceStyleElementSelect, opencascade::handle<StepVisual_HArray1OfSurfaceStyleElementSelect>, Standard_Transient> cls_StepVisual_HArray1OfSurfaceStyleElementSelect(mod, "StepVisual_HArray1OfSurfaceStyleElementSelect", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def(py::init<>());
-cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepVisual_Array1OfSurfaceStyleElementSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def(py::init<const StepVisual_Array1OfSurfaceStyleElementSelect &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def_static("operator new_", (void * (*)(size_t)) &StepVisual_HArray1OfSurfaceStyleElementSelect::operator new, "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def_static("operator delete_", (void (*)(void *)) &StepVisual_HArray1OfSurfaceStyleElementSelect::operator delete, "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def_static("operator new[]_", (void * (*)(size_t)) &StepVisual_HArray1OfSurfaceStyleElementSelect::operator new[], "None", py::arg("theSize"));
-// cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def_static("operator delete[]_", (void (*)(void *)) &StepVisual_HArray1OfSurfaceStyleElementSelect::operator delete[], "None", py::arg("theAddress"));
-// cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def_static("operator new_", (void * (*)(size_t, void *)) &StepVisual_HArray1OfSurfaceStyleElementSelect::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def_static("operator delete_", (void (*)(void *, void *)) &StepVisual_HArray1OfSurfaceStyleElementSelect::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfSurfaceStyleElementSelect::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepVisual_HArray1OfSurfaceStyleElementSelect::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def("Array1", (const StepVisual_Array1OfSurfaceStyleElementSelect & (StepVisual_HArray1OfSurfaceStyleElementSelect::*)() const) &StepVisual_HArray1OfSurfaceStyleElementSelect::Array1, "None");
-cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def("ChangeArray1", (StepVisual_Array1OfSurfaceStyleElementSelect & (StepVisual_HArray1OfSurfaceStyleElementSelect::*)()) &StepVisual_HArray1OfSurfaceStyleElementSelect::ChangeArray1, "None");
-cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def_static("get_type_name_", (const char * (*)()) &StepVisual_HArray1OfSurfaceStyleElementSelect::get_type_name, "None");
-cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepVisual_HArray1OfSurfaceStyleElementSelect::get_type_descriptor, "None");
-cls_StepVisual_HArray1OfSurfaceStyleElementSelect.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepVisual_HArray1OfSurfaceStyleElementSelect::*)() const) &StepVisual_HArray1OfSurfaceStyleElementSelect::DynamicType, "None");
+bind_Define_HArray1<StepVisual_HArray1OfSurfaceStyleElementSelect, StepVisual_Array1OfSurfaceStyleElementSelect>(mod, "StepVisual_HArray1OfSurfaceStyleElementSelect");
 
 // CLASS: STEPVISUAL_MARKERMEMBER
 py::class_<StepVisual_MarkerMember, opencascade::handle<StepVisual_MarkerMember>, StepData_SelectInt> cls_StepVisual_MarkerMember(mod, "StepVisual_MarkerMember", "Defines MarkerType as unique member of MarkerSelect Works with an EnumTool");

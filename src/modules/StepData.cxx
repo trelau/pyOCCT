@@ -103,6 +103,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Interface_ReaderLib.hxx>
 #include <Interface_UndefinedContent.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(StepData, mod) {
 
@@ -642,28 +643,7 @@ cls_StepData_FieldList1.def("Field", (const StepData_Field & (StepData_FieldList
 cls_StepData_FieldList1.def("CField", (StepData_Field & (StepData_FieldList1::*)(const Standard_Integer)) &StepData_FieldList1::CField, "Returns the field n0 <num> between 1 and NbFields, in order to modify its content", py::arg("num"));
 
 // CLASS: STEPDATA_HARRAY1OFFIELD
-py::class_<StepData_HArray1OfField, opencascade::handle<StepData_HArray1OfField>, Standard_Transient> cls_StepData_HArray1OfField(mod, "StepData_HArray1OfField", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepData_HArray1OfField.def(py::init<>());
-cls_StepData_HArray1OfField.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepData_HArray1OfField.def(py::init<const Standard_Integer, const Standard_Integer, const StepData_Array1OfField::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepData_HArray1OfField.def(py::init<const StepData_Array1OfField &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepData_HArray1OfField.def_static("operator new_", (void * (*)(size_t)) &StepData_HArray1OfField::operator new, "None", py::arg("theSize"));
-// cls_StepData_HArray1OfField.def_static("operator delete_", (void (*)(void *)) &StepData_HArray1OfField::operator delete, "None", py::arg("theAddress"));
-// cls_StepData_HArray1OfField.def_static("operator new[]_", (void * (*)(size_t)) &StepData_HArray1OfField::operator new[], "None", py::arg("theSize"));
-// cls_StepData_HArray1OfField.def_static("operator delete[]_", (void (*)(void *)) &StepData_HArray1OfField::operator delete[], "None", py::arg("theAddress"));
-// cls_StepData_HArray1OfField.def_static("operator new_", (void * (*)(size_t, void *)) &StepData_HArray1OfField::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepData_HArray1OfField.def_static("operator delete_", (void (*)(void *, void *)) &StepData_HArray1OfField::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepData_HArray1OfField.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepData_HArray1OfField::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepData_HArray1OfField.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepData_HArray1OfField::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepData_HArray1OfField.def("Array1", (const StepData_Array1OfField & (StepData_HArray1OfField::*)() const) &StepData_HArray1OfField::Array1, "None");
-cls_StepData_HArray1OfField.def("ChangeArray1", (StepData_Array1OfField & (StepData_HArray1OfField::*)()) &StepData_HArray1OfField::ChangeArray1, "None");
-cls_StepData_HArray1OfField.def_static("get_type_name_", (const char * (*)()) &StepData_HArray1OfField::get_type_name, "None");
-cls_StepData_HArray1OfField.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepData_HArray1OfField::get_type_descriptor, "None");
-cls_StepData_HArray1OfField.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepData_HArray1OfField::*)() const) &StepData_HArray1OfField::DynamicType, "None");
+bind_Define_HArray1<StepData_HArray1OfField, StepData_Array1OfField>(mod, "StepData_HArray1OfField");
 
 // CLASS: STEPDATA_FIELDLISTD
 py::class_<StepData_FieldListD, StepData_FieldList> cls_StepData_FieldListD(mod, "StepData_FieldListD", "Describes a list of fields, in a general way This basic class is for a null size list Subclasses are for 1, N (fixed) or Dynamic sizes");

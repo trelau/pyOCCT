@@ -115,6 +115,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <IGESData_IGESDumper.hxx>
 #include <Message_Messenger.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(IGESAppli, mod) {
 
@@ -169,28 +170,7 @@ cls_IGESAppli_Node.def("DynamicType", (const opencascade::handle<Standard_Type> 
 bind_NCollection_Array1<opencascade::handle<IGESAppli_Node> >(mod, "IGESAppli_Array1OfNode", py::module_local(false));
 
 // CLASS: IGESAPPLI_HARRAY1OFNODE
-py::class_<IGESAppli_HArray1OfNode, opencascade::handle<IGESAppli_HArray1OfNode>, Standard_Transient> cls_IGESAppli_HArray1OfNode(mod, "IGESAppli_HArray1OfNode", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESAppli_HArray1OfNode.def(py::init<>());
-cls_IGESAppli_HArray1OfNode.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESAppli_HArray1OfNode.def(py::init<const Standard_Integer, const Standard_Integer, const IGESAppli_Array1OfNode::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESAppli_HArray1OfNode.def(py::init<const IGESAppli_Array1OfNode &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESAppli_HArray1OfNode.def_static("operator new_", (void * (*)(size_t)) &IGESAppli_HArray1OfNode::operator new, "None", py::arg("theSize"));
-// cls_IGESAppli_HArray1OfNode.def_static("operator delete_", (void (*)(void *)) &IGESAppli_HArray1OfNode::operator delete, "None", py::arg("theAddress"));
-// cls_IGESAppli_HArray1OfNode.def_static("operator new[]_", (void * (*)(size_t)) &IGESAppli_HArray1OfNode::operator new[], "None", py::arg("theSize"));
-// cls_IGESAppli_HArray1OfNode.def_static("operator delete[]_", (void (*)(void *)) &IGESAppli_HArray1OfNode::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESAppli_HArray1OfNode.def_static("operator new_", (void * (*)(size_t, void *)) &IGESAppli_HArray1OfNode::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESAppli_HArray1OfNode.def_static("operator delete_", (void (*)(void *, void *)) &IGESAppli_HArray1OfNode::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESAppli_HArray1OfNode.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESAppli_HArray1OfNode::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESAppli_HArray1OfNode.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESAppli_HArray1OfNode::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESAppli_HArray1OfNode.def("Array1", (const IGESAppli_Array1OfNode & (IGESAppli_HArray1OfNode::*)() const) &IGESAppli_HArray1OfNode::Array1, "None");
-cls_IGESAppli_HArray1OfNode.def("ChangeArray1", (IGESAppli_Array1OfNode & (IGESAppli_HArray1OfNode::*)()) &IGESAppli_HArray1OfNode::ChangeArray1, "None");
-cls_IGESAppli_HArray1OfNode.def_static("get_type_name_", (const char * (*)()) &IGESAppli_HArray1OfNode::get_type_name, "None");
-cls_IGESAppli_HArray1OfNode.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESAppli_HArray1OfNode::get_type_descriptor, "None");
-cls_IGESAppli_HArray1OfNode.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESAppli_HArray1OfNode::*)() const) &IGESAppli_HArray1OfNode::DynamicType, "None");
+bind_Define_HArray1<IGESAppli_HArray1OfNode, IGESAppli_Array1OfNode>(mod, "IGESAppli_HArray1OfNode");
 
 // CLASS: IGESAPPLI_FINITEELEMENT
 py::class_<IGESAppli_FiniteElement, opencascade::handle<IGESAppli_FiniteElement>, IGESData_IGESEntity> cls_IGESAppli_FiniteElement(mod, "IGESAppli_FiniteElement", "defines FiniteElement, Type <136> Form <0> in package IGESAppli Used to define a finite element with the help of an element topology.");
@@ -261,28 +241,7 @@ cls_IGESAppli_DrilledHole.def_static("get_type_descriptor_", (const opencascade:
 cls_IGESAppli_DrilledHole.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESAppli_DrilledHole::*)() const) &IGESAppli_DrilledHole::DynamicType, "None");
 
 // CLASS: IGESAPPLI_HARRAY1OFFINITEELEMENT
-py::class_<IGESAppli_HArray1OfFiniteElement, opencascade::handle<IGESAppli_HArray1OfFiniteElement>, Standard_Transient> cls_IGESAppli_HArray1OfFiniteElement(mod, "IGESAppli_HArray1OfFiniteElement", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESAppli_HArray1OfFiniteElement.def(py::init<>());
-cls_IGESAppli_HArray1OfFiniteElement.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESAppli_HArray1OfFiniteElement.def(py::init<const Standard_Integer, const Standard_Integer, const IGESAppli_Array1OfFiniteElement::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESAppli_HArray1OfFiniteElement.def(py::init<const IGESAppli_Array1OfFiniteElement &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESAppli_HArray1OfFiniteElement.def_static("operator new_", (void * (*)(size_t)) &IGESAppli_HArray1OfFiniteElement::operator new, "None", py::arg("theSize"));
-// cls_IGESAppli_HArray1OfFiniteElement.def_static("operator delete_", (void (*)(void *)) &IGESAppli_HArray1OfFiniteElement::operator delete, "None", py::arg("theAddress"));
-// cls_IGESAppli_HArray1OfFiniteElement.def_static("operator new[]_", (void * (*)(size_t)) &IGESAppli_HArray1OfFiniteElement::operator new[], "None", py::arg("theSize"));
-// cls_IGESAppli_HArray1OfFiniteElement.def_static("operator delete[]_", (void (*)(void *)) &IGESAppli_HArray1OfFiniteElement::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESAppli_HArray1OfFiniteElement.def_static("operator new_", (void * (*)(size_t, void *)) &IGESAppli_HArray1OfFiniteElement::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESAppli_HArray1OfFiniteElement.def_static("operator delete_", (void (*)(void *, void *)) &IGESAppli_HArray1OfFiniteElement::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESAppli_HArray1OfFiniteElement.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESAppli_HArray1OfFiniteElement::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESAppli_HArray1OfFiniteElement.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESAppli_HArray1OfFiniteElement::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESAppli_HArray1OfFiniteElement.def("Array1", (const IGESAppli_Array1OfFiniteElement & (IGESAppli_HArray1OfFiniteElement::*)() const) &IGESAppli_HArray1OfFiniteElement::Array1, "None");
-cls_IGESAppli_HArray1OfFiniteElement.def("ChangeArray1", (IGESAppli_Array1OfFiniteElement & (IGESAppli_HArray1OfFiniteElement::*)()) &IGESAppli_HArray1OfFiniteElement::ChangeArray1, "None");
-cls_IGESAppli_HArray1OfFiniteElement.def_static("get_type_name_", (const char * (*)()) &IGESAppli_HArray1OfFiniteElement::get_type_name, "None");
-cls_IGESAppli_HArray1OfFiniteElement.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESAppli_HArray1OfFiniteElement::get_type_descriptor, "None");
-cls_IGESAppli_HArray1OfFiniteElement.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESAppli_HArray1OfFiniteElement::*)() const) &IGESAppli_HArray1OfFiniteElement::DynamicType, "None");
+bind_Define_HArray1<IGESAppli_HArray1OfFiniteElement, IGESAppli_Array1OfFiniteElement>(mod, "IGESAppli_HArray1OfFiniteElement");
 
 // CLASS: IGESAPPLI_ELEMENTRESULTS
 py::class_<IGESAppli_ElementResults, opencascade::handle<IGESAppli_ElementResults>, IGESData_IGESEntity> cls_IGESAppli_ElementResults(mod, "IGESAppli_ElementResults", "defines ElementResults, Type <148> in package IGESAppli Used to find the results of FEM analysis");
@@ -348,28 +307,7 @@ cls_IGESAppli_GeneralModule.def_static("get_type_descriptor_", (const opencascad
 cls_IGESAppli_GeneralModule.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESAppli_GeneralModule::*)() const) &IGESAppli_GeneralModule::DynamicType, "None");
 
 // CLASS: IGESAPPLI_HARRAY1OFFLOW
-py::class_<IGESAppli_HArray1OfFlow, opencascade::handle<IGESAppli_HArray1OfFlow>, Standard_Transient> cls_IGESAppli_HArray1OfFlow(mod, "IGESAppli_HArray1OfFlow", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESAppli_HArray1OfFlow.def(py::init<>());
-cls_IGESAppli_HArray1OfFlow.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESAppli_HArray1OfFlow.def(py::init<const Standard_Integer, const Standard_Integer, const IGESAppli_Array1OfFlow::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESAppli_HArray1OfFlow.def(py::init<const IGESAppli_Array1OfFlow &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESAppli_HArray1OfFlow.def_static("operator new_", (void * (*)(size_t)) &IGESAppli_HArray1OfFlow::operator new, "None", py::arg("theSize"));
-// cls_IGESAppli_HArray1OfFlow.def_static("operator delete_", (void (*)(void *)) &IGESAppli_HArray1OfFlow::operator delete, "None", py::arg("theAddress"));
-// cls_IGESAppli_HArray1OfFlow.def_static("operator new[]_", (void * (*)(size_t)) &IGESAppli_HArray1OfFlow::operator new[], "None", py::arg("theSize"));
-// cls_IGESAppli_HArray1OfFlow.def_static("operator delete[]_", (void (*)(void *)) &IGESAppli_HArray1OfFlow::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESAppli_HArray1OfFlow.def_static("operator new_", (void * (*)(size_t, void *)) &IGESAppli_HArray1OfFlow::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESAppli_HArray1OfFlow.def_static("operator delete_", (void (*)(void *, void *)) &IGESAppli_HArray1OfFlow::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESAppli_HArray1OfFlow.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESAppli_HArray1OfFlow::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESAppli_HArray1OfFlow.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESAppli_HArray1OfFlow::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESAppli_HArray1OfFlow.def("Array1", (const IGESAppli_Array1OfFlow & (IGESAppli_HArray1OfFlow::*)() const) &IGESAppli_HArray1OfFlow::Array1, "None");
-cls_IGESAppli_HArray1OfFlow.def("ChangeArray1", (IGESAppli_Array1OfFlow & (IGESAppli_HArray1OfFlow::*)()) &IGESAppli_HArray1OfFlow::ChangeArray1, "None");
-cls_IGESAppli_HArray1OfFlow.def_static("get_type_name_", (const char * (*)()) &IGESAppli_HArray1OfFlow::get_type_name, "None");
-cls_IGESAppli_HArray1OfFlow.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESAppli_HArray1OfFlow::get_type_descriptor, "None");
-cls_IGESAppli_HArray1OfFlow.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESAppli_HArray1OfFlow::*)() const) &IGESAppli_HArray1OfFlow::DynamicType, "None");
+bind_Define_HArray1<IGESAppli_HArray1OfFlow, IGESAppli_Array1OfFlow>(mod, "IGESAppli_HArray1OfFlow");
 
 // CLASS: IGESAPPLI_LEVELFUNCTION
 py::class_<IGESAppli_LevelFunction, opencascade::handle<IGESAppli_LevelFunction>, IGESData_IGESEntity> cls_IGESAppli_LevelFunction(mod, "IGESAppli_LevelFunction", "defines LevelFunction, Type <406> Form <3> in package IGESAppli Used to transfer the meaning or intended use of a level in the sending system");

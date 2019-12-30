@@ -131,6 +131,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Quantity_Weight.hxx>
 #include <Quantity_Work.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 #include <bind_NCollection_Array2.hxx>
 
 PYBIND11_MODULE(Quantity, mod) {
@@ -826,28 +827,7 @@ cls_Quantity_ColorRGBA.def("DumpJson", (void (Quantity_ColorRGBA::*)(Standard_OS
 bind_NCollection_Array1<Quantity_Color>(mod, "Quantity_Array1OfColor", py::module_local(false));
 
 // CLASS: QUANTITY_HARRAY1OFCOLOR
-py::class_<Quantity_HArray1OfColor, opencascade::handle<Quantity_HArray1OfColor>, Standard_Transient> cls_Quantity_HArray1OfColor(mod, "Quantity_HArray1OfColor", "None", py::multiple_inheritance());
-
-// Constructors
-cls_Quantity_HArray1OfColor.def(py::init<>());
-cls_Quantity_HArray1OfColor.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_Quantity_HArray1OfColor.def(py::init<const Standard_Integer, const Standard_Integer, const Quantity_Array1OfColor::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_Quantity_HArray1OfColor.def(py::init<const Quantity_Array1OfColor &>(), py::arg("theOther"));
-
-// Methods
-// cls_Quantity_HArray1OfColor.def_static("operator new_", (void * (*)(size_t)) &Quantity_HArray1OfColor::operator new, "None", py::arg("theSize"));
-// cls_Quantity_HArray1OfColor.def_static("operator delete_", (void (*)(void *)) &Quantity_HArray1OfColor::operator delete, "None", py::arg("theAddress"));
-// cls_Quantity_HArray1OfColor.def_static("operator new[]_", (void * (*)(size_t)) &Quantity_HArray1OfColor::operator new[], "None", py::arg("theSize"));
-// cls_Quantity_HArray1OfColor.def_static("operator delete[]_", (void (*)(void *)) &Quantity_HArray1OfColor::operator delete[], "None", py::arg("theAddress"));
-// cls_Quantity_HArray1OfColor.def_static("operator new_", (void * (*)(size_t, void *)) &Quantity_HArray1OfColor::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_Quantity_HArray1OfColor.def_static("operator delete_", (void (*)(void *, void *)) &Quantity_HArray1OfColor::operator delete, "None", py::arg(""), py::arg(""));
-// cls_Quantity_HArray1OfColor.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &Quantity_HArray1OfColor::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_Quantity_HArray1OfColor.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &Quantity_HArray1OfColor::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_Quantity_HArray1OfColor.def("Array1", (const Quantity_Array1OfColor & (Quantity_HArray1OfColor::*)() const) &Quantity_HArray1OfColor::Array1, "None");
-cls_Quantity_HArray1OfColor.def("ChangeArray1", (Quantity_Array1OfColor & (Quantity_HArray1OfColor::*)()) &Quantity_HArray1OfColor::ChangeArray1, "None");
-cls_Quantity_HArray1OfColor.def_static("get_type_name_", (const char * (*)()) &Quantity_HArray1OfColor::get_type_name, "None");
-cls_Quantity_HArray1OfColor.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Quantity_HArray1OfColor::get_type_descriptor, "None");
-cls_Quantity_HArray1OfColor.def("DynamicType", (const opencascade::handle<Standard_Type> & (Quantity_HArray1OfColor::*)() const) &Quantity_HArray1OfColor::DynamicType, "None");
+bind_Define_HArray1<Quantity_HArray1OfColor, Quantity_Array1OfColor>(mod, "Quantity_HArray1OfColor");
 
 // CLASS: QUANTITY_COLORHASHER
 py::class_<Quantity_ColorHasher> cls_Quantity_ColorHasher(mod, "Quantity_ColorHasher", "Hasher of Quantity_Color.");

@@ -122,6 +122,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColStd_HSequenceOfInteger.hxx>
 #include <TColgp_HSequenceOfXYZ.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(IGESSolid, mod) {
 
@@ -178,28 +179,7 @@ cls_IGESSolid_Loop.def("DynamicType", (const opencascade::handle<Standard_Type> 
 bind_NCollection_Array1<opencascade::handle<IGESSolid_Loop> >(mod, "IGESSolid_Array1OfLoop", py::module_local(false));
 
 // CLASS: IGESSOLID_HARRAY1OFLOOP
-py::class_<IGESSolid_HArray1OfLoop, opencascade::handle<IGESSolid_HArray1OfLoop>, Standard_Transient> cls_IGESSolid_HArray1OfLoop(mod, "IGESSolid_HArray1OfLoop", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESSolid_HArray1OfLoop.def(py::init<>());
-cls_IGESSolid_HArray1OfLoop.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESSolid_HArray1OfLoop.def(py::init<const Standard_Integer, const Standard_Integer, const IGESSolid_Array1OfLoop::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESSolid_HArray1OfLoop.def(py::init<const IGESSolid_Array1OfLoop &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESSolid_HArray1OfLoop.def_static("operator new_", (void * (*)(size_t)) &IGESSolid_HArray1OfLoop::operator new, "None", py::arg("theSize"));
-// cls_IGESSolid_HArray1OfLoop.def_static("operator delete_", (void (*)(void *)) &IGESSolid_HArray1OfLoop::operator delete, "None", py::arg("theAddress"));
-// cls_IGESSolid_HArray1OfLoop.def_static("operator new[]_", (void * (*)(size_t)) &IGESSolid_HArray1OfLoop::operator new[], "None", py::arg("theSize"));
-// cls_IGESSolid_HArray1OfLoop.def_static("operator delete[]_", (void (*)(void *)) &IGESSolid_HArray1OfLoop::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESSolid_HArray1OfLoop.def_static("operator new_", (void * (*)(size_t, void *)) &IGESSolid_HArray1OfLoop::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESSolid_HArray1OfLoop.def_static("operator delete_", (void (*)(void *, void *)) &IGESSolid_HArray1OfLoop::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESSolid_HArray1OfLoop.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESSolid_HArray1OfLoop::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESSolid_HArray1OfLoop.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESSolid_HArray1OfLoop::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESSolid_HArray1OfLoop.def("Array1", (const IGESSolid_Array1OfLoop & (IGESSolid_HArray1OfLoop::*)() const) &IGESSolid_HArray1OfLoop::Array1, "None");
-cls_IGESSolid_HArray1OfLoop.def("ChangeArray1", (IGESSolid_Array1OfLoop & (IGESSolid_HArray1OfLoop::*)()) &IGESSolid_HArray1OfLoop::ChangeArray1, "None");
-cls_IGESSolid_HArray1OfLoop.def_static("get_type_name_", (const char * (*)()) &IGESSolid_HArray1OfLoop::get_type_name, "None");
-cls_IGESSolid_HArray1OfLoop.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESSolid_HArray1OfLoop::get_type_descriptor, "None");
-cls_IGESSolid_HArray1OfLoop.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESSolid_HArray1OfLoop::*)() const) &IGESSolid_HArray1OfLoop::DynamicType, "None");
+bind_Define_HArray1<IGESSolid_HArray1OfLoop, IGESSolid_Array1OfLoop>(mod, "IGESSolid_HArray1OfLoop");
 
 // CLASS: IGESSOLID_FACE
 py::class_<IGESSolid_Face, opencascade::handle<IGESSolid_Face>, IGESData_IGESEntity> cls_IGESSolid_Face(mod, "IGESSolid_Face", "defines Face, Type <510> Form Number <1> in package IGESSolid Face entity is a bound (partial) which has finite area");
@@ -221,28 +201,7 @@ cls_IGESSolid_Face.def("DynamicType", (const opencascade::handle<Standard_Type> 
 bind_NCollection_Array1<opencascade::handle<IGESSolid_Face> >(mod, "IGESSolid_Array1OfFace", py::module_local(false));
 
 // CLASS: IGESSOLID_HARRAY1OFFACE
-py::class_<IGESSolid_HArray1OfFace, opencascade::handle<IGESSolid_HArray1OfFace>, Standard_Transient> cls_IGESSolid_HArray1OfFace(mod, "IGESSolid_HArray1OfFace", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESSolid_HArray1OfFace.def(py::init<>());
-cls_IGESSolid_HArray1OfFace.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESSolid_HArray1OfFace.def(py::init<const Standard_Integer, const Standard_Integer, const IGESSolid_Array1OfFace::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESSolid_HArray1OfFace.def(py::init<const IGESSolid_Array1OfFace &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESSolid_HArray1OfFace.def_static("operator new_", (void * (*)(size_t)) &IGESSolid_HArray1OfFace::operator new, "None", py::arg("theSize"));
-// cls_IGESSolid_HArray1OfFace.def_static("operator delete_", (void (*)(void *)) &IGESSolid_HArray1OfFace::operator delete, "None", py::arg("theAddress"));
-// cls_IGESSolid_HArray1OfFace.def_static("operator new[]_", (void * (*)(size_t)) &IGESSolid_HArray1OfFace::operator new[], "None", py::arg("theSize"));
-// cls_IGESSolid_HArray1OfFace.def_static("operator delete[]_", (void (*)(void *)) &IGESSolid_HArray1OfFace::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESSolid_HArray1OfFace.def_static("operator new_", (void * (*)(size_t, void *)) &IGESSolid_HArray1OfFace::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESSolid_HArray1OfFace.def_static("operator delete_", (void (*)(void *, void *)) &IGESSolid_HArray1OfFace::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESSolid_HArray1OfFace.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESSolid_HArray1OfFace::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESSolid_HArray1OfFace.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESSolid_HArray1OfFace::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESSolid_HArray1OfFace.def("Array1", (const IGESSolid_Array1OfFace & (IGESSolid_HArray1OfFace::*)() const) &IGESSolid_HArray1OfFace::Array1, "None");
-cls_IGESSolid_HArray1OfFace.def("ChangeArray1", (IGESSolid_Array1OfFace & (IGESSolid_HArray1OfFace::*)()) &IGESSolid_HArray1OfFace::ChangeArray1, "None");
-cls_IGESSolid_HArray1OfFace.def_static("get_type_name_", (const char * (*)()) &IGESSolid_HArray1OfFace::get_type_name, "None");
-cls_IGESSolid_HArray1OfFace.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESSolid_HArray1OfFace::get_type_descriptor, "None");
-cls_IGESSolid_HArray1OfFace.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESSolid_HArray1OfFace::*)() const) &IGESSolid_HArray1OfFace::DynamicType, "None");
+bind_Define_HArray1<IGESSolid_HArray1OfFace, IGESSolid_Array1OfFace>(mod, "IGESSolid_HArray1OfFace");
 
 // CLASS: IGESSOLID_SHELL
 py::class_<IGESSolid_Shell, opencascade::handle<IGESSolid_Shell>, IGESData_IGESEntity> cls_IGESSolid_Shell(mod, "IGESSolid_Shell", "defines Shell, Type <514> Form Number <1> in package IGESSolid Shell entity is a connected entity of dimensionality 2 which divides R3 into two arcwise connected open subsets, one of which is finite. Inside of the shell is defined to be the finite region. From IGES-5.3, Form can be <1> for Closed or <2> for Open");
@@ -394,28 +353,7 @@ cls_IGESSolid_CylindricalSurface.def_static("get_type_descriptor_", (const openc
 cls_IGESSolid_CylindricalSurface.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESSolid_CylindricalSurface::*)() const) &IGESSolid_CylindricalSurface::DynamicType, "None");
 
 // CLASS: IGESSOLID_HARRAY1OFVERTEXLIST
-py::class_<IGESSolid_HArray1OfVertexList, opencascade::handle<IGESSolid_HArray1OfVertexList>, Standard_Transient> cls_IGESSolid_HArray1OfVertexList(mod, "IGESSolid_HArray1OfVertexList", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESSolid_HArray1OfVertexList.def(py::init<>());
-cls_IGESSolid_HArray1OfVertexList.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESSolid_HArray1OfVertexList.def(py::init<const Standard_Integer, const Standard_Integer, const IGESSolid_Array1OfVertexList::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESSolid_HArray1OfVertexList.def(py::init<const IGESSolid_Array1OfVertexList &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESSolid_HArray1OfVertexList.def_static("operator new_", (void * (*)(size_t)) &IGESSolid_HArray1OfVertexList::operator new, "None", py::arg("theSize"));
-// cls_IGESSolid_HArray1OfVertexList.def_static("operator delete_", (void (*)(void *)) &IGESSolid_HArray1OfVertexList::operator delete, "None", py::arg("theAddress"));
-// cls_IGESSolid_HArray1OfVertexList.def_static("operator new[]_", (void * (*)(size_t)) &IGESSolid_HArray1OfVertexList::operator new[], "None", py::arg("theSize"));
-// cls_IGESSolid_HArray1OfVertexList.def_static("operator delete[]_", (void (*)(void *)) &IGESSolid_HArray1OfVertexList::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESSolid_HArray1OfVertexList.def_static("operator new_", (void * (*)(size_t, void *)) &IGESSolid_HArray1OfVertexList::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESSolid_HArray1OfVertexList.def_static("operator delete_", (void (*)(void *, void *)) &IGESSolid_HArray1OfVertexList::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESSolid_HArray1OfVertexList.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESSolid_HArray1OfVertexList::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESSolid_HArray1OfVertexList.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESSolid_HArray1OfVertexList::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESSolid_HArray1OfVertexList.def("Array1", (const IGESSolid_Array1OfVertexList & (IGESSolid_HArray1OfVertexList::*)() const) &IGESSolid_HArray1OfVertexList::Array1, "None");
-cls_IGESSolid_HArray1OfVertexList.def("ChangeArray1", (IGESSolid_Array1OfVertexList & (IGESSolid_HArray1OfVertexList::*)()) &IGESSolid_HArray1OfVertexList::ChangeArray1, "None");
-cls_IGESSolid_HArray1OfVertexList.def_static("get_type_name_", (const char * (*)()) &IGESSolid_HArray1OfVertexList::get_type_name, "None");
-cls_IGESSolid_HArray1OfVertexList.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESSolid_HArray1OfVertexList::get_type_descriptor, "None");
-cls_IGESSolid_HArray1OfVertexList.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESSolid_HArray1OfVertexList::*)() const) &IGESSolid_HArray1OfVertexList::DynamicType, "None");
+bind_Define_HArray1<IGESSolid_HArray1OfVertexList, IGESSolid_Array1OfVertexList>(mod, "IGESSolid_HArray1OfVertexList");
 
 // CLASS: IGESSOLID_EDGELIST
 py::class_<IGESSolid_EdgeList, opencascade::handle<IGESSolid_EdgeList>, IGESData_IGESEntity> cls_IGESSolid_EdgeList(mod, "IGESSolid_EdgeList", "defines EdgeList, Type <504> Form <1> in package IGESSolid EdgeList is defined as a segment joining two vertices It contains one or more edge tuples.");
@@ -477,28 +415,7 @@ cls_IGESSolid_GeneralModule.def_static("get_type_descriptor_", (const opencascad
 cls_IGESSolid_GeneralModule.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESSolid_GeneralModule::*)() const) &IGESSolid_GeneralModule::DynamicType, "None");
 
 // CLASS: IGESSOLID_HARRAY1OFSHELL
-py::class_<IGESSolid_HArray1OfShell, opencascade::handle<IGESSolid_HArray1OfShell>, Standard_Transient> cls_IGESSolid_HArray1OfShell(mod, "IGESSolid_HArray1OfShell", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESSolid_HArray1OfShell.def(py::init<>());
-cls_IGESSolid_HArray1OfShell.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESSolid_HArray1OfShell.def(py::init<const Standard_Integer, const Standard_Integer, const IGESSolid_Array1OfShell::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESSolid_HArray1OfShell.def(py::init<const IGESSolid_Array1OfShell &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESSolid_HArray1OfShell.def_static("operator new_", (void * (*)(size_t)) &IGESSolid_HArray1OfShell::operator new, "None", py::arg("theSize"));
-// cls_IGESSolid_HArray1OfShell.def_static("operator delete_", (void (*)(void *)) &IGESSolid_HArray1OfShell::operator delete, "None", py::arg("theAddress"));
-// cls_IGESSolid_HArray1OfShell.def_static("operator new[]_", (void * (*)(size_t)) &IGESSolid_HArray1OfShell::operator new[], "None", py::arg("theSize"));
-// cls_IGESSolid_HArray1OfShell.def_static("operator delete[]_", (void (*)(void *)) &IGESSolid_HArray1OfShell::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESSolid_HArray1OfShell.def_static("operator new_", (void * (*)(size_t, void *)) &IGESSolid_HArray1OfShell::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESSolid_HArray1OfShell.def_static("operator delete_", (void (*)(void *, void *)) &IGESSolid_HArray1OfShell::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESSolid_HArray1OfShell.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESSolid_HArray1OfShell::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESSolid_HArray1OfShell.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESSolid_HArray1OfShell::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESSolid_HArray1OfShell.def("Array1", (const IGESSolid_Array1OfShell & (IGESSolid_HArray1OfShell::*)() const) &IGESSolid_HArray1OfShell::Array1, "None");
-cls_IGESSolid_HArray1OfShell.def("ChangeArray1", (IGESSolid_Array1OfShell & (IGESSolid_HArray1OfShell::*)()) &IGESSolid_HArray1OfShell::ChangeArray1, "None");
-cls_IGESSolid_HArray1OfShell.def_static("get_type_name_", (const char * (*)()) &IGESSolid_HArray1OfShell::get_type_name, "None");
-cls_IGESSolid_HArray1OfShell.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESSolid_HArray1OfShell::get_type_descriptor, "None");
-cls_IGESSolid_HArray1OfShell.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESSolid_HArray1OfShell::*)() const) &IGESSolid_HArray1OfShell::DynamicType, "None");
+bind_Define_HArray1<IGESSolid_HArray1OfShell, IGESSolid_Array1OfShell>(mod, "IGESSolid_HArray1OfShell");
 
 // CLASS: IGESSOLID_MANIFOLDSOLID
 py::class_<IGESSolid_ManifoldSolid, opencascade::handle<IGESSolid_ManifoldSolid>, IGESData_IGESEntity> cls_IGESSolid_ManifoldSolid(mod, "IGESSolid_ManifoldSolid", "defines ManifoldSolid, Type <186> Form Number <0> in package IGESSolid A manifold solid is a bounded, closed, and finite volume in three dimensional Euclidean space");

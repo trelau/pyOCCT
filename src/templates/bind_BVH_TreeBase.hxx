@@ -28,6 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BVH_Types.hxx>
 #include <Standard_OStream.hxx>
 #include <Standard_TypeDef.hxx>
+#include <Standard_Dump.hxx>
+#include <Bnd_Box.hxx>
+#include <Standard_SStream.hxx>
 
 template <typename T, int N>
 void bind_BVH_TreeBase(py::module &mod, std::string const &name, py::module_local const &local){

@@ -25,11 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <bind_BVH_ObjectSet.hxx>
 #include <BVH_ObjectSet.hxx>
 #include <BVH_Geometry.hxx>
+#include <BVH_Tree.hxx>
+#include <BVH_BinnedBuilder.hxx>
 #include <Standard_Handle.hxx>
 #include <BVH_Builder.hxx>
 #include <Standard_TypeDef.hxx>
 #include <BVH_Box.hxx>
-#include <BVH_Tree.hxx>
+#include <BVH_Set.hxx>
 
 template <typename T, int N>
 void bind_BVH_Geometry(py::module &mod, std::string const &name, py::module_local const &local){

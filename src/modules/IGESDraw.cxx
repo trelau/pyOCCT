@@ -105,6 +105,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Message_Messenger.hxx>
 #include <IGESGeom_Plane.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(IGESDraw, mod) {
 
@@ -155,28 +156,7 @@ cls_IGESDraw_ConnectPoint.def("DynamicType", (const opencascade::handle<Standard
 bind_NCollection_Array1<opencascade::handle<IGESDraw_ConnectPoint> >(mod, "IGESDraw_Array1OfConnectPoint", py::module_local(false));
 
 // CLASS: IGESDRAW_HARRAY1OFCONNECTPOINT
-py::class_<IGESDraw_HArray1OfConnectPoint, opencascade::handle<IGESDraw_HArray1OfConnectPoint>, Standard_Transient> cls_IGESDraw_HArray1OfConnectPoint(mod, "IGESDraw_HArray1OfConnectPoint", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESDraw_HArray1OfConnectPoint.def(py::init<>());
-cls_IGESDraw_HArray1OfConnectPoint.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESDraw_HArray1OfConnectPoint.def(py::init<const Standard_Integer, const Standard_Integer, const IGESDraw_Array1OfConnectPoint::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESDraw_HArray1OfConnectPoint.def(py::init<const IGESDraw_Array1OfConnectPoint &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESDraw_HArray1OfConnectPoint.def_static("operator new_", (void * (*)(size_t)) &IGESDraw_HArray1OfConnectPoint::operator new, "None", py::arg("theSize"));
-// cls_IGESDraw_HArray1OfConnectPoint.def_static("operator delete_", (void (*)(void *)) &IGESDraw_HArray1OfConnectPoint::operator delete, "None", py::arg("theAddress"));
-// cls_IGESDraw_HArray1OfConnectPoint.def_static("operator new[]_", (void * (*)(size_t)) &IGESDraw_HArray1OfConnectPoint::operator new[], "None", py::arg("theSize"));
-// cls_IGESDraw_HArray1OfConnectPoint.def_static("operator delete[]_", (void (*)(void *)) &IGESDraw_HArray1OfConnectPoint::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESDraw_HArray1OfConnectPoint.def_static("operator new_", (void * (*)(size_t, void *)) &IGESDraw_HArray1OfConnectPoint::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESDraw_HArray1OfConnectPoint.def_static("operator delete_", (void (*)(void *, void *)) &IGESDraw_HArray1OfConnectPoint::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESDraw_HArray1OfConnectPoint.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESDraw_HArray1OfConnectPoint::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESDraw_HArray1OfConnectPoint.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESDraw_HArray1OfConnectPoint::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESDraw_HArray1OfConnectPoint.def("Array1", (const IGESDraw_Array1OfConnectPoint & (IGESDraw_HArray1OfConnectPoint::*)() const) &IGESDraw_HArray1OfConnectPoint::Array1, "None");
-cls_IGESDraw_HArray1OfConnectPoint.def("ChangeArray1", (IGESDraw_Array1OfConnectPoint & (IGESDraw_HArray1OfConnectPoint::*)()) &IGESDraw_HArray1OfConnectPoint::ChangeArray1, "None");
-cls_IGESDraw_HArray1OfConnectPoint.def_static("get_type_name_", (const char * (*)()) &IGESDraw_HArray1OfConnectPoint::get_type_name, "None");
-cls_IGESDraw_HArray1OfConnectPoint.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESDraw_HArray1OfConnectPoint::get_type_descriptor, "None");
-cls_IGESDraw_HArray1OfConnectPoint.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESDraw_HArray1OfConnectPoint::*)() const) &IGESDraw_HArray1OfConnectPoint::DynamicType, "None");
+bind_Define_HArray1<IGESDraw_HArray1OfConnectPoint, IGESDraw_Array1OfConnectPoint>(mod, "IGESDraw_HArray1OfConnectPoint");
 
 // CLASS: IGESDRAW
 py::class_<IGESDraw> cls_IGESDraw(mod, "IGESDraw", "This package contains the group of classes necessary for Structure Entities implied in Drawings and Structured Graphics (Sets for drawing, Drawings and Views).");
@@ -222,28 +202,7 @@ cls_IGESDraw_CircArraySubfigure.def_static("get_type_descriptor_", (const openca
 cls_IGESDraw_CircArraySubfigure.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESDraw_CircArraySubfigure::*)() const) &IGESDraw_CircArraySubfigure::DynamicType, "None");
 
 // CLASS: IGESDRAW_HARRAY1OFVIEWKINDENTITY
-py::class_<IGESDraw_HArray1OfViewKindEntity, opencascade::handle<IGESDraw_HArray1OfViewKindEntity>, Standard_Transient> cls_IGESDraw_HArray1OfViewKindEntity(mod, "IGESDraw_HArray1OfViewKindEntity", "None", py::multiple_inheritance());
-
-// Constructors
-cls_IGESDraw_HArray1OfViewKindEntity.def(py::init<>());
-cls_IGESDraw_HArray1OfViewKindEntity.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_IGESDraw_HArray1OfViewKindEntity.def(py::init<const Standard_Integer, const Standard_Integer, const IGESDraw_Array1OfViewKindEntity::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_IGESDraw_HArray1OfViewKindEntity.def(py::init<const IGESDraw_Array1OfViewKindEntity &>(), py::arg("theOther"));
-
-// Methods
-// cls_IGESDraw_HArray1OfViewKindEntity.def_static("operator new_", (void * (*)(size_t)) &IGESDraw_HArray1OfViewKindEntity::operator new, "None", py::arg("theSize"));
-// cls_IGESDraw_HArray1OfViewKindEntity.def_static("operator delete_", (void (*)(void *)) &IGESDraw_HArray1OfViewKindEntity::operator delete, "None", py::arg("theAddress"));
-// cls_IGESDraw_HArray1OfViewKindEntity.def_static("operator new[]_", (void * (*)(size_t)) &IGESDraw_HArray1OfViewKindEntity::operator new[], "None", py::arg("theSize"));
-// cls_IGESDraw_HArray1OfViewKindEntity.def_static("operator delete[]_", (void (*)(void *)) &IGESDraw_HArray1OfViewKindEntity::operator delete[], "None", py::arg("theAddress"));
-// cls_IGESDraw_HArray1OfViewKindEntity.def_static("operator new_", (void * (*)(size_t, void *)) &IGESDraw_HArray1OfViewKindEntity::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_IGESDraw_HArray1OfViewKindEntity.def_static("operator delete_", (void (*)(void *, void *)) &IGESDraw_HArray1OfViewKindEntity::operator delete, "None", py::arg(""), py::arg(""));
-// cls_IGESDraw_HArray1OfViewKindEntity.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESDraw_HArray1OfViewKindEntity::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_IGESDraw_HArray1OfViewKindEntity.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &IGESDraw_HArray1OfViewKindEntity::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_IGESDraw_HArray1OfViewKindEntity.def("Array1", (const IGESDraw_Array1OfViewKindEntity & (IGESDraw_HArray1OfViewKindEntity::*)() const) &IGESDraw_HArray1OfViewKindEntity::Array1, "None");
-cls_IGESDraw_HArray1OfViewKindEntity.def("ChangeArray1", (IGESDraw_Array1OfViewKindEntity & (IGESDraw_HArray1OfViewKindEntity::*)()) &IGESDraw_HArray1OfViewKindEntity::ChangeArray1, "None");
-cls_IGESDraw_HArray1OfViewKindEntity.def_static("get_type_name_", (const char * (*)()) &IGESDraw_HArray1OfViewKindEntity::get_type_name, "None");
-cls_IGESDraw_HArray1OfViewKindEntity.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &IGESDraw_HArray1OfViewKindEntity::get_type_descriptor, "None");
-cls_IGESDraw_HArray1OfViewKindEntity.def("DynamicType", (const opencascade::handle<Standard_Type> & (IGESDraw_HArray1OfViewKindEntity::*)() const) &IGESDraw_HArray1OfViewKindEntity::DynamicType, "None");
+bind_Define_HArray1<IGESDraw_HArray1OfViewKindEntity, IGESDraw_Array1OfViewKindEntity>(mod, "IGESDraw_HArray1OfViewKindEntity");
 
 // CLASS: IGESDRAW_DRAWING
 py::class_<IGESDraw_Drawing, opencascade::handle<IGESDraw_Drawing>, IGESData_IGESEntity> cls_IGESDraw_Drawing(mod, "IGESDraw_Drawing", "defines IGESDrawing, Type <404> Form <0> in package IGESDraw");

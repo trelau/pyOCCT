@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <NCollection_StlIterator.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_OutOfRange.hxx>
 
 template <typename TheItemType>
 void bind_NCollection_Vector(py::module &mod, std::string const &name, py::module_local const &local){
@@ -41,10 +42,10 @@ cls_NCollection_Vector.def(py::init<const Standard_Integer, const opencascade::h
 cls_NCollection_Vector.def(py::init<const NCollection_Vector<TheItemType> &>(), py::arg("theOther"));
 
 // Methods
-cls_NCollection_Vector.def("begin", (typename NCollection_Vector<TheItemType>::iterator (NCollection_Vector<TheItemType>::*)() const) &NCollection_Vector<TheItemType>::begin, "Returns an iterator pointing to the first element in the vector.");
-cls_NCollection_Vector.def("end", (typename NCollection_Vector<TheItemType>::iterator (NCollection_Vector<TheItemType>::*)() const) &NCollection_Vector<TheItemType>::end, "Returns an iterator referring to the past-the-end element in the vector.");
-cls_NCollection_Vector.def("cbegin", (typename NCollection_Vector<TheItemType>::const_iterator (NCollection_Vector<TheItemType>::*)() const) &NCollection_Vector<TheItemType>::cbegin, "Returns a const iterator pointing to the first element in the vector.");
-cls_NCollection_Vector.def("cend", (typename NCollection_Vector<TheItemType>::const_iterator (NCollection_Vector<TheItemType>::*)() const) &NCollection_Vector<TheItemType>::cend, "Returns a const iterator referring to the past-the-end element in the vector.");
+// cls_NCollection_Vector.def("begin", (typename NCollection_Vector<TheItemType>::iterator (NCollection_Vector<TheItemType>::*)() const) &NCollection_Vector<TheItemType>::begin, "Returns an iterator pointing to the first element in the vector.");
+// cls_NCollection_Vector.def("end", (typename NCollection_Vector<TheItemType>::iterator (NCollection_Vector<TheItemType>::*)() const) &NCollection_Vector<TheItemType>::end, "Returns an iterator referring to the past-the-end element in the vector.");
+// cls_NCollection_Vector.def("cbegin", (typename NCollection_Vector<TheItemType>::const_iterator (NCollection_Vector<TheItemType>::*)() const) &NCollection_Vector<TheItemType>::cbegin, "Returns a const iterator pointing to the first element in the vector.");
+// cls_NCollection_Vector.def("cend", (typename NCollection_Vector<TheItemType>::const_iterator (NCollection_Vector<TheItemType>::*)() const) &NCollection_Vector<TheItemType>::cend, "Returns a const iterator referring to the past-the-end element in the vector.");
 cls_NCollection_Vector.def("Length", (Standard_Integer (NCollection_Vector<TheItemType>::*)() const) &NCollection_Vector<TheItemType>::Length, "Total number of items");
 cls_NCollection_Vector.def("Size", (Standard_Integer (NCollection_Vector<TheItemType>::*)() const) &NCollection_Vector<TheItemType>::Size, "Total number of items in the vector");
 cls_NCollection_Vector.def("Lower", (Standard_Integer (NCollection_Vector<TheItemType>::*)() const) &NCollection_Vector<TheItemType>::Lower, "Method for consistency with other collections.");

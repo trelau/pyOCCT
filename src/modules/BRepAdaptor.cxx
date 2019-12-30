@@ -78,6 +78,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <BRepAdaptor_HCurve2d.hxx>
 #include <BRepAdaptor_HSurface.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(BRepAdaptor, mod) {
 
@@ -222,28 +223,7 @@ cls_BRepAdaptor_Curve.def("OffsetCurve", (opencascade::handle<Geom_OffsetCurve> 
 bind_NCollection_Array1<BRepAdaptor_Curve>(mod, "BRepAdaptor_Array1OfCurve", py::module_local(false));
 
 // CLASS: BREPADAPTOR_HARRAY1OFCURVE
-py::class_<BRepAdaptor_HArray1OfCurve, opencascade::handle<BRepAdaptor_HArray1OfCurve>, Standard_Transient> cls_BRepAdaptor_HArray1OfCurve(mod, "BRepAdaptor_HArray1OfCurve", "None", py::multiple_inheritance());
-
-// Constructors
-cls_BRepAdaptor_HArray1OfCurve.def(py::init<>());
-cls_BRepAdaptor_HArray1OfCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_BRepAdaptor_HArray1OfCurve.def(py::init<const Standard_Integer, const Standard_Integer, const BRepAdaptor_Array1OfCurve::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_BRepAdaptor_HArray1OfCurve.def(py::init<const BRepAdaptor_Array1OfCurve &>(), py::arg("theOther"));
-
-// Methods
-// cls_BRepAdaptor_HArray1OfCurve.def_static("operator new_", (void * (*)(size_t)) &BRepAdaptor_HArray1OfCurve::operator new, "None", py::arg("theSize"));
-// cls_BRepAdaptor_HArray1OfCurve.def_static("operator delete_", (void (*)(void *)) &BRepAdaptor_HArray1OfCurve::operator delete, "None", py::arg("theAddress"));
-// cls_BRepAdaptor_HArray1OfCurve.def_static("operator new[]_", (void * (*)(size_t)) &BRepAdaptor_HArray1OfCurve::operator new[], "None", py::arg("theSize"));
-// cls_BRepAdaptor_HArray1OfCurve.def_static("operator delete[]_", (void (*)(void *)) &BRepAdaptor_HArray1OfCurve::operator delete[], "None", py::arg("theAddress"));
-// cls_BRepAdaptor_HArray1OfCurve.def_static("operator new_", (void * (*)(size_t, void *)) &BRepAdaptor_HArray1OfCurve::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_BRepAdaptor_HArray1OfCurve.def_static("operator delete_", (void (*)(void *, void *)) &BRepAdaptor_HArray1OfCurve::operator delete, "None", py::arg(""), py::arg(""));
-// cls_BRepAdaptor_HArray1OfCurve.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &BRepAdaptor_HArray1OfCurve::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_BRepAdaptor_HArray1OfCurve.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &BRepAdaptor_HArray1OfCurve::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_BRepAdaptor_HArray1OfCurve.def("Array1", (const BRepAdaptor_Array1OfCurve & (BRepAdaptor_HArray1OfCurve::*)() const) &BRepAdaptor_HArray1OfCurve::Array1, "None");
-cls_BRepAdaptor_HArray1OfCurve.def("ChangeArray1", (BRepAdaptor_Array1OfCurve & (BRepAdaptor_HArray1OfCurve::*)()) &BRepAdaptor_HArray1OfCurve::ChangeArray1, "None");
-cls_BRepAdaptor_HArray1OfCurve.def_static("get_type_name_", (const char * (*)()) &BRepAdaptor_HArray1OfCurve::get_type_name, "None");
-cls_BRepAdaptor_HArray1OfCurve.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &BRepAdaptor_HArray1OfCurve::get_type_descriptor, "None");
-cls_BRepAdaptor_HArray1OfCurve.def("DynamicType", (const opencascade::handle<Standard_Type> & (BRepAdaptor_HArray1OfCurve::*)() const) &BRepAdaptor_HArray1OfCurve::DynamicType, "None");
+bind_Define_HArray1<BRepAdaptor_HArray1OfCurve, BRepAdaptor_Array1OfCurve>(mod, "BRepAdaptor_HArray1OfCurve");
 
 // CLASS: BREPADAPTOR_COMPCURVE
 py::class_<BRepAdaptor_CompCurve, Adaptor3d_Curve> cls_BRepAdaptor_CompCurve(mod, "BRepAdaptor_CompCurve", "The Curve from BRepAdaptor allows to use a Wire of the BRep topology like a 3D curve. Warning: With this class of curve, C0 and C1 continuities are not assumed. So be careful with some algorithm! Please note that BRepAdaptor_CompCurve cannot be periodic curve at all (even if it contains single periodic edge).");

@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <Standard_TypeDef.hxx>
+#include <Standard_NoSuchObject.hxx>
 #include <NCollection_StlIterator.hxx>
 
 template <typename TheKeyType, typename TheItemType, typename Hasher>
@@ -44,10 +45,10 @@ cls_NCollection_DataMap.def(py::init<const Standard_Integer, const opencascade::
 cls_NCollection_DataMap.def(py::init<const NCollection_DataMap<TheKeyType, TheItemType, Hasher> &>(), py::arg("theOther"));
 
 // Methods
-cls_NCollection_DataMap.def("begin", (typename NCollection_DataMap<TheKeyType, TheItemType, Hasher>::iterator (NCollection_DataMap<TheKeyType, TheItemType, Hasher>::*)() const) &NCollection_DataMap<TheKeyType, TheItemType, Hasher>::begin, "Returns an iterator pointing to the first element in the map.");
-cls_NCollection_DataMap.def("end", (typename NCollection_DataMap<TheKeyType, TheItemType, Hasher>::iterator (NCollection_DataMap<TheKeyType, TheItemType, Hasher>::*)() const) &NCollection_DataMap<TheKeyType, TheItemType, Hasher>::end, "Returns an iterator referring to the past-the-end element in the map.");
-cls_NCollection_DataMap.def("cbegin", (typename NCollection_DataMap<TheKeyType, TheItemType, Hasher>::const_iterator (NCollection_DataMap<TheKeyType, TheItemType, Hasher>::*)() const) &NCollection_DataMap<TheKeyType, TheItemType, Hasher>::cbegin, "Returns a const iterator pointing to the first element in the map.");
-cls_NCollection_DataMap.def("cend", (typename NCollection_DataMap<TheKeyType, TheItemType, Hasher>::const_iterator (NCollection_DataMap<TheKeyType, TheItemType, Hasher>::*)() const) &NCollection_DataMap<TheKeyType, TheItemType, Hasher>::cend, "Returns a const iterator referring to the past-the-end element in the map.");
+// cls_NCollection_DataMap.def("begin", (typename NCollection_DataMap<TheKeyType, TheItemType, Hasher>::iterator (NCollection_DataMap<TheKeyType, TheItemType, Hasher>::*)() const) &NCollection_DataMap<TheKeyType, TheItemType, Hasher>::begin, "Returns an iterator pointing to the first element in the map.");
+// cls_NCollection_DataMap.def("end", (typename NCollection_DataMap<TheKeyType, TheItemType, Hasher>::iterator (NCollection_DataMap<TheKeyType, TheItemType, Hasher>::*)() const) &NCollection_DataMap<TheKeyType, TheItemType, Hasher>::end, "Returns an iterator referring to the past-the-end element in the map.");
+// cls_NCollection_DataMap.def("cbegin", (typename NCollection_DataMap<TheKeyType, TheItemType, Hasher>::const_iterator (NCollection_DataMap<TheKeyType, TheItemType, Hasher>::*)() const) &NCollection_DataMap<TheKeyType, TheItemType, Hasher>::cbegin, "Returns a const iterator pointing to the first element in the map.");
+// cls_NCollection_DataMap.def("cend", (typename NCollection_DataMap<TheKeyType, TheItemType, Hasher>::const_iterator (NCollection_DataMap<TheKeyType, TheItemType, Hasher>::*)() const) &NCollection_DataMap<TheKeyType, TheItemType, Hasher>::cend, "Returns a const iterator referring to the past-the-end element in the map.");
 cls_NCollection_DataMap.def("Exchange", (void (NCollection_DataMap<TheKeyType, TheItemType, Hasher>::*)(NCollection_DataMap<TheKeyType, TheItemType, Hasher> &)) &NCollection_DataMap<TheKeyType, TheItemType, Hasher>::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
 cls_NCollection_DataMap.def("Assign", (NCollection_DataMap<TheKeyType, TheItemType, Hasher> & (NCollection_DataMap<TheKeyType, TheItemType, Hasher>::*)(const NCollection_DataMap<TheKeyType, TheItemType, Hasher> &)) &NCollection_DataMap<TheKeyType, TheItemType, Hasher>::Assign, "Assignment. This method does not change the internal allocator.", py::arg("theOther"));
 // cls_NCollection_DataMap.def("operator=", (NCollection_DataMap<TheKeyType, TheItemType, Hasher> & (NCollection_DataMap<TheKeyType, TheItemType, Hasher>::*)(const NCollection_DataMap<TheKeyType, TheItemType, Hasher> &)) &NCollection_DataMap<TheKeyType, TheItemType, Hasher>::operator=, "Assignment operator", py::arg("theOther"));

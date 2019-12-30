@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
 #include <Standard_TypeDef.hxx>
+#include <Standard_MultiplyDefined.hxx>
+#include <Standard_NoSuchObject.hxx>
 
 template <typename TheKey1Type, typename TheKey2Type, typename Hasher1, typename Hasher2>
 void bind_NCollection_DoubleMap(py::module &mod, std::string const &name, py::module_local const &local){

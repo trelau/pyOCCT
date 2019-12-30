@@ -50,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TColStd_HSequenceOfAsciiString.hxx>
 #include <StdObjMgt_MapOfInstantiators.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 #include <bind_NCollection_IndexedDataMap.hxx>
 
 PYBIND11_MODULE(StdStorage, mod) {
@@ -183,28 +184,7 @@ cls_StdStorage_Root.def("Reference", (Standard_Integer (StdStorage_Root::*)() co
 bind_NCollection_Sequence<opencascade::handle<StdStorage_Root> >(mod, "StdStorage_SequenceOfRoots", py::module_local(false));
 
 // CLASS: STDSTORAGE_HSEQUENCEOFROOTS
-py::class_<StdStorage_HSequenceOfRoots, opencascade::handle<StdStorage_HSequenceOfRoots>, Standard_Transient> cls_StdStorage_HSequenceOfRoots(mod, "StdStorage_HSequenceOfRoots", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StdStorage_HSequenceOfRoots.def(py::init<>());
-cls_StdStorage_HSequenceOfRoots.def(py::init<const StdStorage_SequenceOfRoots &>(), py::arg("theOther"));
-
-// Methods
-// cls_StdStorage_HSequenceOfRoots.def_static("operator new_", (void * (*)(size_t)) &StdStorage_HSequenceOfRoots::operator new, "None", py::arg("theSize"));
-// cls_StdStorage_HSequenceOfRoots.def_static("operator delete_", (void (*)(void *)) &StdStorage_HSequenceOfRoots::operator delete, "None", py::arg("theAddress"));
-// cls_StdStorage_HSequenceOfRoots.def_static("operator new[]_", (void * (*)(size_t)) &StdStorage_HSequenceOfRoots::operator new[], "None", py::arg("theSize"));
-// cls_StdStorage_HSequenceOfRoots.def_static("operator delete[]_", (void (*)(void *)) &StdStorage_HSequenceOfRoots::operator delete[], "None", py::arg("theAddress"));
-// cls_StdStorage_HSequenceOfRoots.def_static("operator new_", (void * (*)(size_t, void *)) &StdStorage_HSequenceOfRoots::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StdStorage_HSequenceOfRoots.def_static("operator delete_", (void (*)(void *, void *)) &StdStorage_HSequenceOfRoots::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StdStorage_HSequenceOfRoots.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StdStorage_HSequenceOfRoots::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StdStorage_HSequenceOfRoots.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StdStorage_HSequenceOfRoots::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StdStorage_HSequenceOfRoots.def("Sequence", (const StdStorage_SequenceOfRoots & (StdStorage_HSequenceOfRoots::*)() const) &StdStorage_HSequenceOfRoots::Sequence, "None");
-cls_StdStorage_HSequenceOfRoots.def("Append", (void (StdStorage_HSequenceOfRoots::*)(const StdStorage_SequenceOfRoots::value_type &)) &StdStorage_HSequenceOfRoots::Append, "None", py::arg("theItem"));
-cls_StdStorage_HSequenceOfRoots.def("Append", (void (StdStorage_HSequenceOfRoots::*)(StdStorage_SequenceOfRoots &)) &StdStorage_HSequenceOfRoots::Append, "None", py::arg("theSequence"));
-cls_StdStorage_HSequenceOfRoots.def("ChangeSequence", (StdStorage_SequenceOfRoots & (StdStorage_HSequenceOfRoots::*)()) &StdStorage_HSequenceOfRoots::ChangeSequence, "None");
-cls_StdStorage_HSequenceOfRoots.def_static("get_type_name_", (const char * (*)()) &StdStorage_HSequenceOfRoots::get_type_name, "None");
-cls_StdStorage_HSequenceOfRoots.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StdStorage_HSequenceOfRoots::get_type_descriptor, "None");
-cls_StdStorage_HSequenceOfRoots.def("DynamicType", (const opencascade::handle<Standard_Type> & (StdStorage_HSequenceOfRoots::*)() const) &StdStorage_HSequenceOfRoots::DynamicType, "None");
+bind_Define_HSequence<StdStorage_HSequenceOfRoots, StdStorage_SequenceOfRoots>(mod, "StdStorage_HSequenceOfRoots");
 
 // TYPEDEF: STDSTORAGE_MAPOFROOTS
 bind_NCollection_IndexedDataMap<TCollection_AsciiString, opencascade::handle<StdStorage_Root>, TCollection_AsciiString>(mod, "StdStorage_MapOfRoots", py::module_local(false));

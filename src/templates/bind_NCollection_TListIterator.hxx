@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <NCollection_BaseList.hxx>
 #include <Standard_TypeDef.hxx>
 #include <NCollection_TListIterator.hxx>
+#include <NCollection_TListNode.hxx>
 
 template <typename TheItemType>
 void bind_NCollection_TListIterator(py::module &mod, std::string const &name, py::module_local const &local){

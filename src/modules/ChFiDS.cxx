@@ -96,7 +96,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <ChFiDS_SequenceOfSpine.hxx>
 #include <ChFiDS_StripeArray1.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 #include <bind_NCollection_List.hxx>
 #include <bind_NCollection_TListIterator.hxx>
 #include <bind_NCollection_IndexedDataMap.hxx>
@@ -179,28 +181,7 @@ cls_ChFiDS_CircSection.def("Get", [](ChFiDS_CircSection &self, gp_Lin & C, Stand
 bind_NCollection_Array1<ChFiDS_CircSection>(mod, "ChFiDS_SecArray1", py::module_local(false));
 
 // CLASS: CHFIDS_SECHARRAY1
-py::class_<ChFiDS_SecHArray1, opencascade::handle<ChFiDS_SecHArray1>, Standard_Transient> cls_ChFiDS_SecHArray1(mod, "ChFiDS_SecHArray1", "None", py::multiple_inheritance());
-
-// Constructors
-cls_ChFiDS_SecHArray1.def(py::init<>());
-cls_ChFiDS_SecHArray1.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_ChFiDS_SecHArray1.def(py::init<const Standard_Integer, const Standard_Integer, const ChFiDS_SecArray1::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_ChFiDS_SecHArray1.def(py::init<const ChFiDS_SecArray1 &>(), py::arg("theOther"));
-
-// Methods
-// cls_ChFiDS_SecHArray1.def_static("operator new_", (void * (*)(size_t)) &ChFiDS_SecHArray1::operator new, "None", py::arg("theSize"));
-// cls_ChFiDS_SecHArray1.def_static("operator delete_", (void (*)(void *)) &ChFiDS_SecHArray1::operator delete, "None", py::arg("theAddress"));
-// cls_ChFiDS_SecHArray1.def_static("operator new[]_", (void * (*)(size_t)) &ChFiDS_SecHArray1::operator new[], "None", py::arg("theSize"));
-// cls_ChFiDS_SecHArray1.def_static("operator delete[]_", (void (*)(void *)) &ChFiDS_SecHArray1::operator delete[], "None", py::arg("theAddress"));
-// cls_ChFiDS_SecHArray1.def_static("operator new_", (void * (*)(size_t, void *)) &ChFiDS_SecHArray1::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_ChFiDS_SecHArray1.def_static("operator delete_", (void (*)(void *, void *)) &ChFiDS_SecHArray1::operator delete, "None", py::arg(""), py::arg(""));
-// cls_ChFiDS_SecHArray1.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &ChFiDS_SecHArray1::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_ChFiDS_SecHArray1.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &ChFiDS_SecHArray1::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_ChFiDS_SecHArray1.def("Array1", (const ChFiDS_SecArray1 & (ChFiDS_SecHArray1::*)() const) &ChFiDS_SecHArray1::Array1, "None");
-cls_ChFiDS_SecHArray1.def("ChangeArray1", (ChFiDS_SecArray1 & (ChFiDS_SecHArray1::*)()) &ChFiDS_SecHArray1::ChangeArray1, "None");
-cls_ChFiDS_SecHArray1.def_static("get_type_name_", (const char * (*)()) &ChFiDS_SecHArray1::get_type_name, "None");
-cls_ChFiDS_SecHArray1.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ChFiDS_SecHArray1::get_type_descriptor, "None");
-cls_ChFiDS_SecHArray1.def("DynamicType", (const opencascade::handle<Standard_Type> & (ChFiDS_SecHArray1::*)() const) &ChFiDS_SecHArray1::DynamicType, "None");
+bind_Define_HArray1<ChFiDS_SecHArray1, ChFiDS_SecArray1>(mod, "ChFiDS_SecHArray1");
 
 // CLASS: CHFIDS_MAP
 py::class_<ChFiDS_Map> cls_ChFiDS_Map(mod, "ChFiDS_Map", "Encapsulation of IndexedDataMapOfShapeListOfShape.");
@@ -350,28 +331,7 @@ cls_ChFiDS_SurfData.def("DynamicType", (const opencascade::handle<Standard_Type>
 bind_NCollection_Sequence<opencascade::handle<ChFiDS_SurfData> >(mod, "ChFiDS_SequenceOfSurfData", py::module_local(false));
 
 // CLASS: CHFIDS_HDATA
-py::class_<ChFiDS_HData, opencascade::handle<ChFiDS_HData>, Standard_Transient> cls_ChFiDS_HData(mod, "ChFiDS_HData", "None", py::multiple_inheritance());
-
-// Constructors
-cls_ChFiDS_HData.def(py::init<>());
-cls_ChFiDS_HData.def(py::init<const ChFiDS_SequenceOfSurfData &>(), py::arg("theOther"));
-
-// Methods
-// cls_ChFiDS_HData.def_static("operator new_", (void * (*)(size_t)) &ChFiDS_HData::operator new, "None", py::arg("theSize"));
-// cls_ChFiDS_HData.def_static("operator delete_", (void (*)(void *)) &ChFiDS_HData::operator delete, "None", py::arg("theAddress"));
-// cls_ChFiDS_HData.def_static("operator new[]_", (void * (*)(size_t)) &ChFiDS_HData::operator new[], "None", py::arg("theSize"));
-// cls_ChFiDS_HData.def_static("operator delete[]_", (void (*)(void *)) &ChFiDS_HData::operator delete[], "None", py::arg("theAddress"));
-// cls_ChFiDS_HData.def_static("operator new_", (void * (*)(size_t, void *)) &ChFiDS_HData::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_ChFiDS_HData.def_static("operator delete_", (void (*)(void *, void *)) &ChFiDS_HData::operator delete, "None", py::arg(""), py::arg(""));
-// cls_ChFiDS_HData.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &ChFiDS_HData::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_ChFiDS_HData.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &ChFiDS_HData::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_ChFiDS_HData.def("Sequence", (const ChFiDS_SequenceOfSurfData & (ChFiDS_HData::*)() const) &ChFiDS_HData::Sequence, "None");
-cls_ChFiDS_HData.def("Append", (void (ChFiDS_HData::*)(const ChFiDS_SequenceOfSurfData::value_type &)) &ChFiDS_HData::Append, "None", py::arg("theItem"));
-cls_ChFiDS_HData.def("Append", (void (ChFiDS_HData::*)(ChFiDS_SequenceOfSurfData &)) &ChFiDS_HData::Append, "None", py::arg("theSequence"));
-cls_ChFiDS_HData.def("ChangeSequence", (ChFiDS_SequenceOfSurfData & (ChFiDS_HData::*)()) &ChFiDS_HData::ChangeSequence, "None");
-cls_ChFiDS_HData.def_static("get_type_name_", (const char * (*)()) &ChFiDS_HData::get_type_name, "None");
-cls_ChFiDS_HData.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &ChFiDS_HData::get_type_descriptor, "None");
-cls_ChFiDS_HData.def("DynamicType", (const opencascade::handle<Standard_Type> & (ChFiDS_HData::*)() const) &ChFiDS_HData::DynamicType, "None");
+bind_Define_HSequence<ChFiDS_HData, ChFiDS_SequenceOfSurfData>(mod, "ChFiDS_HData");
 
 // CLASS: CHFIDS_STRIPE
 py::class_<ChFiDS_Stripe, opencascade::handle<ChFiDS_Stripe>, Standard_Transient> cls_ChFiDS_Stripe(mod, "ChFiDS_Stripe", "Data characterising a band of fillet.");

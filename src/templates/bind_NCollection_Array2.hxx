@@ -24,6 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include <NCollection_Array2.hxx>
 #include <Standard_TypeDef.hxx>
+#include <Standard_DimensionMismatch.hxx>
+#include <Standard_OutOfRange.hxx>
+#include <Standard_RangeError.hxx>
+#include <Standard_OutOfMemory.hxx>
+#include <NCollection_SparseArrayBase.hxx>
 
 template <typename TheItemType>
 void bind_NCollection_Array2(py::module &mod, std::string const &name, py::module_local const &local){

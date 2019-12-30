@@ -30,7 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <NCollection_ListNode.hxx>
 #include <Standard_Handle.hxx>
 #include <NCollection_BaseAllocator.hxx>
+#include <Standard_NoSuchObject.hxx>
 #include <NCollection_StlIterator.hxx>
+#include <Standard_OutOfRange.hxx>
 
 template <typename TheKeyType, typename Hasher>
 void bind_NCollection_IndexedMap(py::module &mod, std::string const &name, py::module_local const &local){
@@ -44,8 +46,8 @@ cls_NCollection_IndexedMap.def(py::init<const Standard_Integer, const opencascad
 cls_NCollection_IndexedMap.def(py::init<const NCollection_IndexedMap<TheKeyType, Hasher> &>(), py::arg("theOther"));
 
 // Methods
-cls_NCollection_IndexedMap.def("cbegin", (typename NCollection_IndexedMap<TheKeyType, Hasher>::const_iterator (NCollection_IndexedMap<TheKeyType, Hasher>::*)() const) &NCollection_IndexedMap<TheKeyType, Hasher>::cbegin, "Returns a const iterator pointing to the first element in the map.");
-cls_NCollection_IndexedMap.def("cend", (typename NCollection_IndexedMap<TheKeyType, Hasher>::const_iterator (NCollection_IndexedMap<TheKeyType, Hasher>::*)() const) &NCollection_IndexedMap<TheKeyType, Hasher>::cend, "Returns a const iterator referring to the past-the-end element in the map.");
+// cls_NCollection_IndexedMap.def("cbegin", (typename NCollection_IndexedMap<TheKeyType, Hasher>::const_iterator (NCollection_IndexedMap<TheKeyType, Hasher>::*)() const) &NCollection_IndexedMap<TheKeyType, Hasher>::cbegin, "Returns a const iterator pointing to the first element in the map.");
+// cls_NCollection_IndexedMap.def("cend", (typename NCollection_IndexedMap<TheKeyType, Hasher>::const_iterator (NCollection_IndexedMap<TheKeyType, Hasher>::*)() const) &NCollection_IndexedMap<TheKeyType, Hasher>::cend, "Returns a const iterator referring to the past-the-end element in the map.");
 cls_NCollection_IndexedMap.def("Exchange", (void (NCollection_IndexedMap<TheKeyType, Hasher>::*)(NCollection_IndexedMap<TheKeyType, Hasher> &)) &NCollection_IndexedMap<TheKeyType, Hasher>::Exchange, "Exchange the content of two maps without re-allocations. Notice that allocators will be swapped as well!", py::arg("theOther"));
 cls_NCollection_IndexedMap.def("Assign", (NCollection_IndexedMap<TheKeyType, Hasher> & (NCollection_IndexedMap<TheKeyType, Hasher>::*)(const NCollection_IndexedMap<TheKeyType, Hasher> &)) &NCollection_IndexedMap<TheKeyType, Hasher>::Assign, "Assign. This method does not change the internal allocator.", py::arg("theOther"));
 // cls_NCollection_IndexedMap.def("operator=", (NCollection_IndexedMap<TheKeyType, Hasher> & (NCollection_IndexedMap<TheKeyType, Hasher>::*)(const NCollection_IndexedMap<TheKeyType, Hasher> &)) &NCollection_IndexedMap<TheKeyType, Hasher>::operator=, "Assignment operator", py::arg("theOther"));

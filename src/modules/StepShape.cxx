@@ -187,6 +187,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepShape_VertexLoop.hxx>
 #include <StepShape_VertexPoint.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 
 PYBIND11_MODULE(StepShape, mod) {
 
@@ -298,28 +299,7 @@ cls_StepShape_FaceBound.def("DynamicType", (const opencascade::handle<Standard_T
 bind_NCollection_Array1<opencascade::handle<StepShape_FaceBound> >(mod, "StepShape_Array1OfFaceBound", py::module_local(false));
 
 // CLASS: STEPSHAPE_HARRAY1OFFACEBOUND
-py::class_<StepShape_HArray1OfFaceBound, opencascade::handle<StepShape_HArray1OfFaceBound>, Standard_Transient> cls_StepShape_HArray1OfFaceBound(mod, "StepShape_HArray1OfFaceBound", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepShape_HArray1OfFaceBound.def(py::init<>());
-cls_StepShape_HArray1OfFaceBound.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepShape_HArray1OfFaceBound.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfFaceBound::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepShape_HArray1OfFaceBound.def(py::init<const StepShape_Array1OfFaceBound &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepShape_HArray1OfFaceBound.def_static("operator new_", (void * (*)(size_t)) &StepShape_HArray1OfFaceBound::operator new, "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfFaceBound.def_static("operator delete_", (void (*)(void *)) &StepShape_HArray1OfFaceBound::operator delete, "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfFaceBound.def_static("operator new[]_", (void * (*)(size_t)) &StepShape_HArray1OfFaceBound::operator new[], "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfFaceBound.def_static("operator delete[]_", (void (*)(void *)) &StepShape_HArray1OfFaceBound::operator delete[], "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfFaceBound.def_static("operator new_", (void * (*)(size_t, void *)) &StepShape_HArray1OfFaceBound::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepShape_HArray1OfFaceBound.def_static("operator delete_", (void (*)(void *, void *)) &StepShape_HArray1OfFaceBound::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepShape_HArray1OfFaceBound.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfFaceBound::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepShape_HArray1OfFaceBound.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfFaceBound::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepShape_HArray1OfFaceBound.def("Array1", (const StepShape_Array1OfFaceBound & (StepShape_HArray1OfFaceBound::*)() const) &StepShape_HArray1OfFaceBound::Array1, "None");
-cls_StepShape_HArray1OfFaceBound.def("ChangeArray1", (StepShape_Array1OfFaceBound & (StepShape_HArray1OfFaceBound::*)()) &StepShape_HArray1OfFaceBound::ChangeArray1, "None");
-cls_StepShape_HArray1OfFaceBound.def_static("get_type_name_", (const char * (*)()) &StepShape_HArray1OfFaceBound::get_type_name, "None");
-cls_StepShape_HArray1OfFaceBound.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepShape_HArray1OfFaceBound::get_type_descriptor, "None");
-cls_StepShape_HArray1OfFaceBound.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_HArray1OfFaceBound::*)() const) &StepShape_HArray1OfFaceBound::DynamicType, "None");
+bind_Define_HArray1<StepShape_HArray1OfFaceBound, StepShape_Array1OfFaceBound>(mod, "StepShape_HArray1OfFaceBound");
 
 // CLASS: STEPSHAPE_FACE
 py::class_<StepShape_Face, opencascade::handle<StepShape_Face>, StepShape_TopologicalRepresentationItem> cls_StepShape_Face(mod, "StepShape_Face", "None");
@@ -450,28 +430,7 @@ cls_StepShape_Edge.def("DynamicType", (const opencascade::handle<Standard_Type> 
 bind_NCollection_Array1<opencascade::handle<StepShape_Edge> >(mod, "StepShape_Array1OfEdge", py::module_local(false));
 
 // CLASS: STEPSHAPE_HARRAY1OFEDGE
-py::class_<StepShape_HArray1OfEdge, opencascade::handle<StepShape_HArray1OfEdge>, Standard_Transient> cls_StepShape_HArray1OfEdge(mod, "StepShape_HArray1OfEdge", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepShape_HArray1OfEdge.def(py::init<>());
-cls_StepShape_HArray1OfEdge.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepShape_HArray1OfEdge.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfEdge::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepShape_HArray1OfEdge.def(py::init<const StepShape_Array1OfEdge &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepShape_HArray1OfEdge.def_static("operator new_", (void * (*)(size_t)) &StepShape_HArray1OfEdge::operator new, "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfEdge.def_static("operator delete_", (void (*)(void *)) &StepShape_HArray1OfEdge::operator delete, "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfEdge.def_static("operator new[]_", (void * (*)(size_t)) &StepShape_HArray1OfEdge::operator new[], "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfEdge.def_static("operator delete[]_", (void (*)(void *)) &StepShape_HArray1OfEdge::operator delete[], "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfEdge.def_static("operator new_", (void * (*)(size_t, void *)) &StepShape_HArray1OfEdge::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepShape_HArray1OfEdge.def_static("operator delete_", (void (*)(void *, void *)) &StepShape_HArray1OfEdge::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepShape_HArray1OfEdge.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfEdge::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepShape_HArray1OfEdge.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfEdge::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepShape_HArray1OfEdge.def("Array1", (const StepShape_Array1OfEdge & (StepShape_HArray1OfEdge::*)() const) &StepShape_HArray1OfEdge::Array1, "None");
-cls_StepShape_HArray1OfEdge.def("ChangeArray1", (StepShape_Array1OfEdge & (StepShape_HArray1OfEdge::*)()) &StepShape_HArray1OfEdge::ChangeArray1, "None");
-cls_StepShape_HArray1OfEdge.def_static("get_type_name_", (const char * (*)()) &StepShape_HArray1OfEdge::get_type_name, "None");
-cls_StepShape_HArray1OfEdge.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepShape_HArray1OfEdge::get_type_descriptor, "None");
-cls_StepShape_HArray1OfEdge.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_HArray1OfEdge::*)() const) &StepShape_HArray1OfEdge::DynamicType, "None");
+bind_Define_HArray1<StepShape_HArray1OfEdge, StepShape_Array1OfEdge>(mod, "StepShape_HArray1OfEdge");
 
 // CLASS: STEPSHAPE_CONNECTEDEDGESET
 py::class_<StepShape_ConnectedEdgeSet, opencascade::handle<StepShape_ConnectedEdgeSet>, StepShape_TopologicalRepresentationItem> cls_StepShape_ConnectedEdgeSet(mod, "StepShape_ConnectedEdgeSet", "Representation of STEP entity ConnectedEdgeSet");
@@ -494,28 +453,7 @@ bind_NCollection_Array1<opencascade::handle<StepShape_ConnectedEdgeSet> >(mod, "
 bind_NCollection_Array1<opencascade::handle<StepShape_Face> >(mod, "StepShape_Array1OfFace", py::module_local(false));
 
 // CLASS: STEPSHAPE_HARRAY1OFFACE
-py::class_<StepShape_HArray1OfFace, opencascade::handle<StepShape_HArray1OfFace>, Standard_Transient> cls_StepShape_HArray1OfFace(mod, "StepShape_HArray1OfFace", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepShape_HArray1OfFace.def(py::init<>());
-cls_StepShape_HArray1OfFace.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepShape_HArray1OfFace.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfFace::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepShape_HArray1OfFace.def(py::init<const StepShape_Array1OfFace &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepShape_HArray1OfFace.def_static("operator new_", (void * (*)(size_t)) &StepShape_HArray1OfFace::operator new, "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfFace.def_static("operator delete_", (void (*)(void *)) &StepShape_HArray1OfFace::operator delete, "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfFace.def_static("operator new[]_", (void * (*)(size_t)) &StepShape_HArray1OfFace::operator new[], "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfFace.def_static("operator delete[]_", (void (*)(void *)) &StepShape_HArray1OfFace::operator delete[], "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfFace.def_static("operator new_", (void * (*)(size_t, void *)) &StepShape_HArray1OfFace::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepShape_HArray1OfFace.def_static("operator delete_", (void (*)(void *, void *)) &StepShape_HArray1OfFace::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepShape_HArray1OfFace.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfFace::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepShape_HArray1OfFace.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfFace::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepShape_HArray1OfFace.def("Array1", (const StepShape_Array1OfFace & (StepShape_HArray1OfFace::*)() const) &StepShape_HArray1OfFace::Array1, "None");
-cls_StepShape_HArray1OfFace.def("ChangeArray1", (StepShape_Array1OfFace & (StepShape_HArray1OfFace::*)()) &StepShape_HArray1OfFace::ChangeArray1, "None");
-cls_StepShape_HArray1OfFace.def_static("get_type_name_", (const char * (*)()) &StepShape_HArray1OfFace::get_type_name, "None");
-cls_StepShape_HArray1OfFace.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepShape_HArray1OfFace::get_type_descriptor, "None");
-cls_StepShape_HArray1OfFace.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_HArray1OfFace::*)() const) &StepShape_HArray1OfFace::DynamicType, "None");
+bind_Define_HArray1<StepShape_HArray1OfFace, StepShape_Array1OfFace>(mod, "StepShape_HArray1OfFace");
 
 // CLASS: STEPSHAPE_CONNECTEDFACESET
 py::class_<StepShape_ConnectedFaceSet, opencascade::handle<StepShape_ConnectedFaceSet>, StepShape_TopologicalRepresentationItem> cls_StepShape_ConnectedFaceSet(mod, "StepShape_ConnectedFaceSet", "None");
@@ -811,28 +749,7 @@ cls_StepShape_BoxedHalfSpace.def_static("get_type_descriptor_", (const opencasca
 cls_StepShape_BoxedHalfSpace.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_BoxedHalfSpace::*)() const) &StepShape_BoxedHalfSpace::DynamicType, "None");
 
 // CLASS: STEPSHAPE_HARRAY1OFORIENTEDCLOSEDSHELL
-py::class_<StepShape_HArray1OfOrientedClosedShell, opencascade::handle<StepShape_HArray1OfOrientedClosedShell>, Standard_Transient> cls_StepShape_HArray1OfOrientedClosedShell(mod, "StepShape_HArray1OfOrientedClosedShell", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepShape_HArray1OfOrientedClosedShell.def(py::init<>());
-cls_StepShape_HArray1OfOrientedClosedShell.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepShape_HArray1OfOrientedClosedShell.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfOrientedClosedShell::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepShape_HArray1OfOrientedClosedShell.def(py::init<const StepShape_Array1OfOrientedClosedShell &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepShape_HArray1OfOrientedClosedShell.def_static("operator new_", (void * (*)(size_t)) &StepShape_HArray1OfOrientedClosedShell::operator new, "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfOrientedClosedShell.def_static("operator delete_", (void (*)(void *)) &StepShape_HArray1OfOrientedClosedShell::operator delete, "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfOrientedClosedShell.def_static("operator new[]_", (void * (*)(size_t)) &StepShape_HArray1OfOrientedClosedShell::operator new[], "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfOrientedClosedShell.def_static("operator delete[]_", (void (*)(void *)) &StepShape_HArray1OfOrientedClosedShell::operator delete[], "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfOrientedClosedShell.def_static("operator new_", (void * (*)(size_t, void *)) &StepShape_HArray1OfOrientedClosedShell::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepShape_HArray1OfOrientedClosedShell.def_static("operator delete_", (void (*)(void *, void *)) &StepShape_HArray1OfOrientedClosedShell::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepShape_HArray1OfOrientedClosedShell.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfOrientedClosedShell::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepShape_HArray1OfOrientedClosedShell.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfOrientedClosedShell::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepShape_HArray1OfOrientedClosedShell.def("Array1", (const StepShape_Array1OfOrientedClosedShell & (StepShape_HArray1OfOrientedClosedShell::*)() const) &StepShape_HArray1OfOrientedClosedShell::Array1, "None");
-cls_StepShape_HArray1OfOrientedClosedShell.def("ChangeArray1", (StepShape_Array1OfOrientedClosedShell & (StepShape_HArray1OfOrientedClosedShell::*)()) &StepShape_HArray1OfOrientedClosedShell::ChangeArray1, "None");
-cls_StepShape_HArray1OfOrientedClosedShell.def_static("get_type_name_", (const char * (*)()) &StepShape_HArray1OfOrientedClosedShell::get_type_name, "None");
-cls_StepShape_HArray1OfOrientedClosedShell.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepShape_HArray1OfOrientedClosedShell::get_type_descriptor, "None");
-cls_StepShape_HArray1OfOrientedClosedShell.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_HArray1OfOrientedClosedShell::*)() const) &StepShape_HArray1OfOrientedClosedShell::DynamicType, "None");
+bind_Define_HArray1<StepShape_HArray1OfOrientedClosedShell, StepShape_Array1OfOrientedClosedShell>(mod, "StepShape_HArray1OfOrientedClosedShell");
 
 // CLASS: STEPSHAPE_SOLIDMODEL
 py::class_<StepShape_SolidModel, opencascade::handle<StepShape_SolidModel>, StepGeom_GeometricRepresentationItem> cls_StepShape_SolidModel(mod, "StepShape_SolidModel", "None");
@@ -1057,28 +974,7 @@ cls_StepShape_DirectedDimensionalLocation.def_static("get_type_descriptor_", (co
 cls_StepShape_DirectedDimensionalLocation.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_DirectedDimensionalLocation::*)() const) &StepShape_DirectedDimensionalLocation::DynamicType, "None");
 
 // CLASS: STEPSHAPE_HARRAY1OFCONNECTEDEDGESET
-py::class_<StepShape_HArray1OfConnectedEdgeSet, opencascade::handle<StepShape_HArray1OfConnectedEdgeSet>, Standard_Transient> cls_StepShape_HArray1OfConnectedEdgeSet(mod, "StepShape_HArray1OfConnectedEdgeSet", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepShape_HArray1OfConnectedEdgeSet.def(py::init<>());
-cls_StepShape_HArray1OfConnectedEdgeSet.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepShape_HArray1OfConnectedEdgeSet.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfConnectedEdgeSet::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepShape_HArray1OfConnectedEdgeSet.def(py::init<const StepShape_Array1OfConnectedEdgeSet &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepShape_HArray1OfConnectedEdgeSet.def_static("operator new_", (void * (*)(size_t)) &StepShape_HArray1OfConnectedEdgeSet::operator new, "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfConnectedEdgeSet.def_static("operator delete_", (void (*)(void *)) &StepShape_HArray1OfConnectedEdgeSet::operator delete, "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfConnectedEdgeSet.def_static("operator new[]_", (void * (*)(size_t)) &StepShape_HArray1OfConnectedEdgeSet::operator new[], "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfConnectedEdgeSet.def_static("operator delete[]_", (void (*)(void *)) &StepShape_HArray1OfConnectedEdgeSet::operator delete[], "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfConnectedEdgeSet.def_static("operator new_", (void * (*)(size_t, void *)) &StepShape_HArray1OfConnectedEdgeSet::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepShape_HArray1OfConnectedEdgeSet.def_static("operator delete_", (void (*)(void *, void *)) &StepShape_HArray1OfConnectedEdgeSet::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepShape_HArray1OfConnectedEdgeSet.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfConnectedEdgeSet::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepShape_HArray1OfConnectedEdgeSet.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfConnectedEdgeSet::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepShape_HArray1OfConnectedEdgeSet.def("Array1", (const StepShape_Array1OfConnectedEdgeSet & (StepShape_HArray1OfConnectedEdgeSet::*)() const) &StepShape_HArray1OfConnectedEdgeSet::Array1, "None");
-cls_StepShape_HArray1OfConnectedEdgeSet.def("ChangeArray1", (StepShape_Array1OfConnectedEdgeSet & (StepShape_HArray1OfConnectedEdgeSet::*)()) &StepShape_HArray1OfConnectedEdgeSet::ChangeArray1, "None");
-cls_StepShape_HArray1OfConnectedEdgeSet.def_static("get_type_name_", (const char * (*)()) &StepShape_HArray1OfConnectedEdgeSet::get_type_name, "None");
-cls_StepShape_HArray1OfConnectedEdgeSet.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepShape_HArray1OfConnectedEdgeSet::get_type_descriptor, "None");
-cls_StepShape_HArray1OfConnectedEdgeSet.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_HArray1OfConnectedEdgeSet::*)() const) &StepShape_HArray1OfConnectedEdgeSet::DynamicType, "None");
+bind_Define_HArray1<StepShape_HArray1OfConnectedEdgeSet, StepShape_Array1OfConnectedEdgeSet>(mod, "StepShape_HArray1OfConnectedEdgeSet");
 
 // CLASS: STEPSHAPE_EDGEBASEDWIREFRAMEMODEL
 py::class_<StepShape_EdgeBasedWireframeModel, opencascade::handle<StepShape_EdgeBasedWireframeModel>, StepGeom_GeometricRepresentationItem> cls_StepShape_EdgeBasedWireframeModel(mod, "StepShape_EdgeBasedWireframeModel", "Representation of STEP entity EdgeBasedWireframeModel");
@@ -1122,28 +1018,7 @@ cls_StepShape_EdgeCurve.def_static("get_type_descriptor_", (const opencascade::h
 cls_StepShape_EdgeCurve.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_EdgeCurve::*)() const) &StepShape_EdgeCurve::DynamicType, "None");
 
 // CLASS: STEPSHAPE_HARRAY1OFORIENTEDEDGE
-py::class_<StepShape_HArray1OfOrientedEdge, opencascade::handle<StepShape_HArray1OfOrientedEdge>, Standard_Transient> cls_StepShape_HArray1OfOrientedEdge(mod, "StepShape_HArray1OfOrientedEdge", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepShape_HArray1OfOrientedEdge.def(py::init<>());
-cls_StepShape_HArray1OfOrientedEdge.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepShape_HArray1OfOrientedEdge.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfOrientedEdge::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepShape_HArray1OfOrientedEdge.def(py::init<const StepShape_Array1OfOrientedEdge &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepShape_HArray1OfOrientedEdge.def_static("operator new_", (void * (*)(size_t)) &StepShape_HArray1OfOrientedEdge::operator new, "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfOrientedEdge.def_static("operator delete_", (void (*)(void *)) &StepShape_HArray1OfOrientedEdge::operator delete, "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfOrientedEdge.def_static("operator new[]_", (void * (*)(size_t)) &StepShape_HArray1OfOrientedEdge::operator new[], "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfOrientedEdge.def_static("operator delete[]_", (void (*)(void *)) &StepShape_HArray1OfOrientedEdge::operator delete[], "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfOrientedEdge.def_static("operator new_", (void * (*)(size_t, void *)) &StepShape_HArray1OfOrientedEdge::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepShape_HArray1OfOrientedEdge.def_static("operator delete_", (void (*)(void *, void *)) &StepShape_HArray1OfOrientedEdge::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepShape_HArray1OfOrientedEdge.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfOrientedEdge::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepShape_HArray1OfOrientedEdge.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfOrientedEdge::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepShape_HArray1OfOrientedEdge.def("Array1", (const StepShape_Array1OfOrientedEdge & (StepShape_HArray1OfOrientedEdge::*)() const) &StepShape_HArray1OfOrientedEdge::Array1, "None");
-cls_StepShape_HArray1OfOrientedEdge.def("ChangeArray1", (StepShape_Array1OfOrientedEdge & (StepShape_HArray1OfOrientedEdge::*)()) &StepShape_HArray1OfOrientedEdge::ChangeArray1, "None");
-cls_StepShape_HArray1OfOrientedEdge.def_static("get_type_name_", (const char * (*)()) &StepShape_HArray1OfOrientedEdge::get_type_name, "None");
-cls_StepShape_HArray1OfOrientedEdge.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepShape_HArray1OfOrientedEdge::get_type_descriptor, "None");
-cls_StepShape_HArray1OfOrientedEdge.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_HArray1OfOrientedEdge::*)() const) &StepShape_HArray1OfOrientedEdge::DynamicType, "None");
+bind_Define_HArray1<StepShape_HArray1OfOrientedEdge, StepShape_Array1OfOrientedEdge>(mod, "StepShape_HArray1OfOrientedEdge");
 
 // CLASS: STEPSHAPE_LOOP
 py::class_<StepShape_Loop, opencascade::handle<StepShape_Loop>, StepShape_TopologicalRepresentationItem> cls_StepShape_Loop(mod, "StepShape_Loop", "None");
@@ -1233,28 +1108,7 @@ cls_StepShape_ExtrudedFaceSolid.def_static("get_type_descriptor_", (const openca
 cls_StepShape_ExtrudedFaceSolid.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_ExtrudedFaceSolid::*)() const) &StepShape_ExtrudedFaceSolid::DynamicType, "None");
 
 // CLASS: STEPSHAPE_HARRAY1OFCONNECTEDFACESET
-py::class_<StepShape_HArray1OfConnectedFaceSet, opencascade::handle<StepShape_HArray1OfConnectedFaceSet>, Standard_Transient> cls_StepShape_HArray1OfConnectedFaceSet(mod, "StepShape_HArray1OfConnectedFaceSet", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepShape_HArray1OfConnectedFaceSet.def(py::init<>());
-cls_StepShape_HArray1OfConnectedFaceSet.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepShape_HArray1OfConnectedFaceSet.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfConnectedFaceSet::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepShape_HArray1OfConnectedFaceSet.def(py::init<const StepShape_Array1OfConnectedFaceSet &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepShape_HArray1OfConnectedFaceSet.def_static("operator new_", (void * (*)(size_t)) &StepShape_HArray1OfConnectedFaceSet::operator new, "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfConnectedFaceSet.def_static("operator delete_", (void (*)(void *)) &StepShape_HArray1OfConnectedFaceSet::operator delete, "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfConnectedFaceSet.def_static("operator new[]_", (void * (*)(size_t)) &StepShape_HArray1OfConnectedFaceSet::operator new[], "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfConnectedFaceSet.def_static("operator delete[]_", (void (*)(void *)) &StepShape_HArray1OfConnectedFaceSet::operator delete[], "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfConnectedFaceSet.def_static("operator new_", (void * (*)(size_t, void *)) &StepShape_HArray1OfConnectedFaceSet::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepShape_HArray1OfConnectedFaceSet.def_static("operator delete_", (void (*)(void *, void *)) &StepShape_HArray1OfConnectedFaceSet::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepShape_HArray1OfConnectedFaceSet.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfConnectedFaceSet::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepShape_HArray1OfConnectedFaceSet.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfConnectedFaceSet::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepShape_HArray1OfConnectedFaceSet.def("Array1", (const StepShape_Array1OfConnectedFaceSet & (StepShape_HArray1OfConnectedFaceSet::*)() const) &StepShape_HArray1OfConnectedFaceSet::Array1, "None");
-cls_StepShape_HArray1OfConnectedFaceSet.def("ChangeArray1", (StepShape_Array1OfConnectedFaceSet & (StepShape_HArray1OfConnectedFaceSet::*)()) &StepShape_HArray1OfConnectedFaceSet::ChangeArray1, "None");
-cls_StepShape_HArray1OfConnectedFaceSet.def_static("get_type_name_", (const char * (*)()) &StepShape_HArray1OfConnectedFaceSet::get_type_name, "None");
-cls_StepShape_HArray1OfConnectedFaceSet.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepShape_HArray1OfConnectedFaceSet::get_type_descriptor, "None");
-cls_StepShape_HArray1OfConnectedFaceSet.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_HArray1OfConnectedFaceSet::*)() const) &StepShape_HArray1OfConnectedFaceSet::DynamicType, "None");
+bind_Define_HArray1<StepShape_HArray1OfConnectedFaceSet, StepShape_Array1OfConnectedFaceSet>(mod, "StepShape_HArray1OfConnectedFaceSet");
 
 // CLASS: STEPSHAPE_FACEBASEDSURFACEMODEL
 py::class_<StepShape_FaceBasedSurfaceModel, opencascade::handle<StepShape_FaceBasedSurfaceModel>, StepGeom_GeometricRepresentationItem> cls_StepShape_FaceBasedSurfaceModel(mod, "StepShape_FaceBasedSurfaceModel", "Representation of STEP entity FaceBasedSurfaceModel");
@@ -1347,28 +1201,7 @@ cls_StepShape_GeometricallyBoundedWireframeShapeRepresentation.def_static("get_t
 cls_StepShape_GeometricallyBoundedWireframeShapeRepresentation.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_GeometricallyBoundedWireframeShapeRepresentation::*)() const) &StepShape_GeometricallyBoundedWireframeShapeRepresentation::DynamicType, "None");
 
 // CLASS: STEPSHAPE_HARRAY1OFGEOMETRICSETSELECT
-py::class_<StepShape_HArray1OfGeometricSetSelect, opencascade::handle<StepShape_HArray1OfGeometricSetSelect>, Standard_Transient> cls_StepShape_HArray1OfGeometricSetSelect(mod, "StepShape_HArray1OfGeometricSetSelect", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepShape_HArray1OfGeometricSetSelect.def(py::init<>());
-cls_StepShape_HArray1OfGeometricSetSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepShape_HArray1OfGeometricSetSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfGeometricSetSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepShape_HArray1OfGeometricSetSelect.def(py::init<const StepShape_Array1OfGeometricSetSelect &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepShape_HArray1OfGeometricSetSelect.def_static("operator new_", (void * (*)(size_t)) &StepShape_HArray1OfGeometricSetSelect::operator new, "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfGeometricSetSelect.def_static("operator delete_", (void (*)(void *)) &StepShape_HArray1OfGeometricSetSelect::operator delete, "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfGeometricSetSelect.def_static("operator new[]_", (void * (*)(size_t)) &StepShape_HArray1OfGeometricSetSelect::operator new[], "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfGeometricSetSelect.def_static("operator delete[]_", (void (*)(void *)) &StepShape_HArray1OfGeometricSetSelect::operator delete[], "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfGeometricSetSelect.def_static("operator new_", (void * (*)(size_t, void *)) &StepShape_HArray1OfGeometricSetSelect::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepShape_HArray1OfGeometricSetSelect.def_static("operator delete_", (void (*)(void *, void *)) &StepShape_HArray1OfGeometricSetSelect::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepShape_HArray1OfGeometricSetSelect.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfGeometricSetSelect::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepShape_HArray1OfGeometricSetSelect.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfGeometricSetSelect::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepShape_HArray1OfGeometricSetSelect.def("Array1", (const StepShape_Array1OfGeometricSetSelect & (StepShape_HArray1OfGeometricSetSelect::*)() const) &StepShape_HArray1OfGeometricSetSelect::Array1, "None");
-cls_StepShape_HArray1OfGeometricSetSelect.def("ChangeArray1", (StepShape_Array1OfGeometricSetSelect & (StepShape_HArray1OfGeometricSetSelect::*)()) &StepShape_HArray1OfGeometricSetSelect::ChangeArray1, "None");
-cls_StepShape_HArray1OfGeometricSetSelect.def_static("get_type_name_", (const char * (*)()) &StepShape_HArray1OfGeometricSetSelect::get_type_name, "None");
-cls_StepShape_HArray1OfGeometricSetSelect.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepShape_HArray1OfGeometricSetSelect::get_type_descriptor, "None");
-cls_StepShape_HArray1OfGeometricSetSelect.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_HArray1OfGeometricSetSelect::*)() const) &StepShape_HArray1OfGeometricSetSelect::DynamicType, "None");
+bind_Define_HArray1<StepShape_HArray1OfGeometricSetSelect, StepShape_Array1OfGeometricSetSelect>(mod, "StepShape_HArray1OfGeometricSetSelect");
 
 // CLASS: STEPSHAPE_GEOMETRICSET
 py::class_<StepShape_GeometricSet, opencascade::handle<StepShape_GeometricSet>, StepGeom_GeometricRepresentationItem> cls_StepShape_GeometricSet(mod, "StepShape_GeometricSet", "None");
@@ -1398,76 +1231,13 @@ cls_StepShape_GeometricCurveSet.def_static("get_type_descriptor_", (const openca
 cls_StepShape_GeometricCurveSet.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_GeometricCurveSet::*)() const) &StepShape_GeometricCurveSet::DynamicType, "None");
 
 // CLASS: STEPSHAPE_HARRAY1OFSHAPEDIMENSIONREPRESENTATIONITEM
-py::class_<StepShape_HArray1OfShapeDimensionRepresentationItem, opencascade::handle<StepShape_HArray1OfShapeDimensionRepresentationItem>, Standard_Transient> cls_StepShape_HArray1OfShapeDimensionRepresentationItem(mod, "StepShape_HArray1OfShapeDimensionRepresentationItem", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def(py::init<>());
-cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfShapeDimensionRepresentationItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def(py::init<const StepShape_Array1OfShapeDimensionRepresentationItem &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def_static("operator new_", (void * (*)(size_t)) &StepShape_HArray1OfShapeDimensionRepresentationItem::operator new, "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def_static("operator delete_", (void (*)(void *)) &StepShape_HArray1OfShapeDimensionRepresentationItem::operator delete, "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def_static("operator new[]_", (void * (*)(size_t)) &StepShape_HArray1OfShapeDimensionRepresentationItem::operator new[], "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def_static("operator delete[]_", (void (*)(void *)) &StepShape_HArray1OfShapeDimensionRepresentationItem::operator delete[], "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def_static("operator new_", (void * (*)(size_t, void *)) &StepShape_HArray1OfShapeDimensionRepresentationItem::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def_static("operator delete_", (void (*)(void *, void *)) &StepShape_HArray1OfShapeDimensionRepresentationItem::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfShapeDimensionRepresentationItem::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfShapeDimensionRepresentationItem::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def("Array1", (const StepShape_Array1OfShapeDimensionRepresentationItem & (StepShape_HArray1OfShapeDimensionRepresentationItem::*)() const) &StepShape_HArray1OfShapeDimensionRepresentationItem::Array1, "None");
-cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def("ChangeArray1", (StepShape_Array1OfShapeDimensionRepresentationItem & (StepShape_HArray1OfShapeDimensionRepresentationItem::*)()) &StepShape_HArray1OfShapeDimensionRepresentationItem::ChangeArray1, "None");
-cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def_static("get_type_name_", (const char * (*)()) &StepShape_HArray1OfShapeDimensionRepresentationItem::get_type_name, "None");
-cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepShape_HArray1OfShapeDimensionRepresentationItem::get_type_descriptor, "None");
-cls_StepShape_HArray1OfShapeDimensionRepresentationItem.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_HArray1OfShapeDimensionRepresentationItem::*)() const) &StepShape_HArray1OfShapeDimensionRepresentationItem::DynamicType, "None");
+bind_Define_HArray1<StepShape_HArray1OfShapeDimensionRepresentationItem, StepShape_Array1OfShapeDimensionRepresentationItem>(mod, "StepShape_HArray1OfShapeDimensionRepresentationItem");
 
 // CLASS: STEPSHAPE_HARRAY1OFSHELL
-py::class_<StepShape_HArray1OfShell, opencascade::handle<StepShape_HArray1OfShell>, Standard_Transient> cls_StepShape_HArray1OfShell(mod, "StepShape_HArray1OfShell", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepShape_HArray1OfShell.def(py::init<>());
-cls_StepShape_HArray1OfShell.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepShape_HArray1OfShell.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfShell::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepShape_HArray1OfShell.def(py::init<const StepShape_Array1OfShell &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepShape_HArray1OfShell.def_static("operator new_", (void * (*)(size_t)) &StepShape_HArray1OfShell::operator new, "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfShell.def_static("operator delete_", (void (*)(void *)) &StepShape_HArray1OfShell::operator delete, "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfShell.def_static("operator new[]_", (void * (*)(size_t)) &StepShape_HArray1OfShell::operator new[], "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfShell.def_static("operator delete[]_", (void (*)(void *)) &StepShape_HArray1OfShell::operator delete[], "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfShell.def_static("operator new_", (void * (*)(size_t, void *)) &StepShape_HArray1OfShell::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepShape_HArray1OfShell.def_static("operator delete_", (void (*)(void *, void *)) &StepShape_HArray1OfShell::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepShape_HArray1OfShell.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfShell::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepShape_HArray1OfShell.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfShell::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepShape_HArray1OfShell.def("Array1", (const StepShape_Array1OfShell & (StepShape_HArray1OfShell::*)() const) &StepShape_HArray1OfShell::Array1, "None");
-cls_StepShape_HArray1OfShell.def("ChangeArray1", (StepShape_Array1OfShell & (StepShape_HArray1OfShell::*)()) &StepShape_HArray1OfShell::ChangeArray1, "None");
-cls_StepShape_HArray1OfShell.def_static("get_type_name_", (const char * (*)()) &StepShape_HArray1OfShell::get_type_name, "None");
-cls_StepShape_HArray1OfShell.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepShape_HArray1OfShell::get_type_descriptor, "None");
-cls_StepShape_HArray1OfShell.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_HArray1OfShell::*)() const) &StepShape_HArray1OfShell::DynamicType, "None");
+bind_Define_HArray1<StepShape_HArray1OfShell, StepShape_Array1OfShell>(mod, "StepShape_HArray1OfShell");
 
 // CLASS: STEPSHAPE_HARRAY1OFVALUEQUALIFIER
-py::class_<StepShape_HArray1OfValueQualifier, opencascade::handle<StepShape_HArray1OfValueQualifier>, Standard_Transient> cls_StepShape_HArray1OfValueQualifier(mod, "StepShape_HArray1OfValueQualifier", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepShape_HArray1OfValueQualifier.def(py::init<>());
-cls_StepShape_HArray1OfValueQualifier.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepShape_HArray1OfValueQualifier.def(py::init<const Standard_Integer, const Standard_Integer, const StepShape_Array1OfValueQualifier::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepShape_HArray1OfValueQualifier.def(py::init<const StepShape_Array1OfValueQualifier &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepShape_HArray1OfValueQualifier.def_static("operator new_", (void * (*)(size_t)) &StepShape_HArray1OfValueQualifier::operator new, "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfValueQualifier.def_static("operator delete_", (void (*)(void *)) &StepShape_HArray1OfValueQualifier::operator delete, "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfValueQualifier.def_static("operator new[]_", (void * (*)(size_t)) &StepShape_HArray1OfValueQualifier::operator new[], "None", py::arg("theSize"));
-// cls_StepShape_HArray1OfValueQualifier.def_static("operator delete[]_", (void (*)(void *)) &StepShape_HArray1OfValueQualifier::operator delete[], "None", py::arg("theAddress"));
-// cls_StepShape_HArray1OfValueQualifier.def_static("operator new_", (void * (*)(size_t, void *)) &StepShape_HArray1OfValueQualifier::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepShape_HArray1OfValueQualifier.def_static("operator delete_", (void (*)(void *, void *)) &StepShape_HArray1OfValueQualifier::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepShape_HArray1OfValueQualifier.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfValueQualifier::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepShape_HArray1OfValueQualifier.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepShape_HArray1OfValueQualifier::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepShape_HArray1OfValueQualifier.def("Array1", (const StepShape_Array1OfValueQualifier & (StepShape_HArray1OfValueQualifier::*)() const) &StepShape_HArray1OfValueQualifier::Array1, "None");
-cls_StepShape_HArray1OfValueQualifier.def("ChangeArray1", (StepShape_Array1OfValueQualifier & (StepShape_HArray1OfValueQualifier::*)()) &StepShape_HArray1OfValueQualifier::ChangeArray1, "None");
-cls_StepShape_HArray1OfValueQualifier.def_static("get_type_name_", (const char * (*)()) &StepShape_HArray1OfValueQualifier::get_type_name, "None");
-cls_StepShape_HArray1OfValueQualifier.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepShape_HArray1OfValueQualifier::get_type_descriptor, "None");
-cls_StepShape_HArray1OfValueQualifier.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepShape_HArray1OfValueQualifier::*)() const) &StepShape_HArray1OfValueQualifier::DynamicType, "None");
+bind_Define_HArray1<StepShape_HArray1OfValueQualifier, StepShape_Array1OfValueQualifier>(mod, "StepShape_HArray1OfValueQualifier");
 
 // CLASS: STEPSHAPE_LOOPANDPATH
 py::class_<StepShape_LoopAndPath, opencascade::handle<StepShape_LoopAndPath>, StepShape_TopologicalRepresentationItem> cls_StepShape_LoopAndPath(mod, "StepShape_LoopAndPath", "None");

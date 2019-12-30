@@ -143,7 +143,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepRepr_ValueRange.hxx>
 #include <StepRepr_ValueRepresentationItem.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 #include <bind_NCollection_Sequence.hxx>
+#include <bind_Define_HSequence.hxx>
 
 PYBIND11_MODULE(StepRepr, mod) {
 
@@ -225,55 +227,13 @@ cls_StepRepr_MaterialPropertyRepresentation.def("DynamicType", (const opencascad
 bind_NCollection_Array1<opencascade::handle<StepRepr_MaterialPropertyRepresentation> >(mod, "StepRepr_Array1OfMaterialPropertyRepresentation", py::module_local(false));
 
 // CLASS: STEPREPR_HARRAY1OFMATERIALPROPERTYREPRESENTATION
-py::class_<StepRepr_HArray1OfMaterialPropertyRepresentation, opencascade::handle<StepRepr_HArray1OfMaterialPropertyRepresentation>, Standard_Transient> cls_StepRepr_HArray1OfMaterialPropertyRepresentation(mod, "StepRepr_HArray1OfMaterialPropertyRepresentation", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def(py::init<>());
-cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def(py::init<const Standard_Integer, const Standard_Integer, const StepRepr_Array1OfMaterialPropertyRepresentation::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def(py::init<const StepRepr_Array1OfMaterialPropertyRepresentation &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def_static("operator new_", (void * (*)(size_t)) &StepRepr_HArray1OfMaterialPropertyRepresentation::operator new, "None", py::arg("theSize"));
-// cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def_static("operator delete_", (void (*)(void *)) &StepRepr_HArray1OfMaterialPropertyRepresentation::operator delete, "None", py::arg("theAddress"));
-// cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def_static("operator new[]_", (void * (*)(size_t)) &StepRepr_HArray1OfMaterialPropertyRepresentation::operator new[], "None", py::arg("theSize"));
-// cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def_static("operator delete[]_", (void (*)(void *)) &StepRepr_HArray1OfMaterialPropertyRepresentation::operator delete[], "None", py::arg("theAddress"));
-// cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def_static("operator new_", (void * (*)(size_t, void *)) &StepRepr_HArray1OfMaterialPropertyRepresentation::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def_static("operator delete_", (void (*)(void *, void *)) &StepRepr_HArray1OfMaterialPropertyRepresentation::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepRepr_HArray1OfMaterialPropertyRepresentation::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepRepr_HArray1OfMaterialPropertyRepresentation::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def("Array1", (const StepRepr_Array1OfMaterialPropertyRepresentation & (StepRepr_HArray1OfMaterialPropertyRepresentation::*)() const) &StepRepr_HArray1OfMaterialPropertyRepresentation::Array1, "None");
-cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def("ChangeArray1", (StepRepr_Array1OfMaterialPropertyRepresentation & (StepRepr_HArray1OfMaterialPropertyRepresentation::*)()) &StepRepr_HArray1OfMaterialPropertyRepresentation::ChangeArray1, "None");
-cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def_static("get_type_name_", (const char * (*)()) &StepRepr_HArray1OfMaterialPropertyRepresentation::get_type_name, "None");
-cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepRepr_HArray1OfMaterialPropertyRepresentation::get_type_descriptor, "None");
-cls_StepRepr_HArray1OfMaterialPropertyRepresentation.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepRepr_HArray1OfMaterialPropertyRepresentation::*)() const) &StepRepr_HArray1OfMaterialPropertyRepresentation::DynamicType, "None");
+bind_Define_HArray1<StepRepr_HArray1OfMaterialPropertyRepresentation, StepRepr_Array1OfMaterialPropertyRepresentation>(mod, "StepRepr_HArray1OfMaterialPropertyRepresentation");
 
 // TYPEDEF: STEPREPR_ARRAY1OFREPRESENTATIONITEM
 bind_NCollection_Array1<opencascade::handle<StepRepr_RepresentationItem> >(mod, "StepRepr_Array1OfRepresentationItem", py::module_local(false));
 
 // CLASS: STEPREPR_HARRAY1OFREPRESENTATIONITEM
-py::class_<StepRepr_HArray1OfRepresentationItem, opencascade::handle<StepRepr_HArray1OfRepresentationItem>, Standard_Transient> cls_StepRepr_HArray1OfRepresentationItem(mod, "StepRepr_HArray1OfRepresentationItem", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepRepr_HArray1OfRepresentationItem.def(py::init<>());
-cls_StepRepr_HArray1OfRepresentationItem.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepRepr_HArray1OfRepresentationItem.def(py::init<const Standard_Integer, const Standard_Integer, const StepRepr_Array1OfRepresentationItem::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepRepr_HArray1OfRepresentationItem.def(py::init<const StepRepr_Array1OfRepresentationItem &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepRepr_HArray1OfRepresentationItem.def_static("operator new_", (void * (*)(size_t)) &StepRepr_HArray1OfRepresentationItem::operator new, "None", py::arg("theSize"));
-// cls_StepRepr_HArray1OfRepresentationItem.def_static("operator delete_", (void (*)(void *)) &StepRepr_HArray1OfRepresentationItem::operator delete, "None", py::arg("theAddress"));
-// cls_StepRepr_HArray1OfRepresentationItem.def_static("operator new[]_", (void * (*)(size_t)) &StepRepr_HArray1OfRepresentationItem::operator new[], "None", py::arg("theSize"));
-// cls_StepRepr_HArray1OfRepresentationItem.def_static("operator delete[]_", (void (*)(void *)) &StepRepr_HArray1OfRepresentationItem::operator delete[], "None", py::arg("theAddress"));
-// cls_StepRepr_HArray1OfRepresentationItem.def_static("operator new_", (void * (*)(size_t, void *)) &StepRepr_HArray1OfRepresentationItem::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepRepr_HArray1OfRepresentationItem.def_static("operator delete_", (void (*)(void *, void *)) &StepRepr_HArray1OfRepresentationItem::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepRepr_HArray1OfRepresentationItem.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepRepr_HArray1OfRepresentationItem::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepRepr_HArray1OfRepresentationItem.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepRepr_HArray1OfRepresentationItem::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepRepr_HArray1OfRepresentationItem.def("Array1", (const StepRepr_Array1OfRepresentationItem & (StepRepr_HArray1OfRepresentationItem::*)() const) &StepRepr_HArray1OfRepresentationItem::Array1, "None");
-cls_StepRepr_HArray1OfRepresentationItem.def("ChangeArray1", (StepRepr_Array1OfRepresentationItem & (StepRepr_HArray1OfRepresentationItem::*)()) &StepRepr_HArray1OfRepresentationItem::ChangeArray1, "None");
-cls_StepRepr_HArray1OfRepresentationItem.def_static("get_type_name_", (const char * (*)()) &StepRepr_HArray1OfRepresentationItem::get_type_name, "None");
-cls_StepRepr_HArray1OfRepresentationItem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepRepr_HArray1OfRepresentationItem::get_type_descriptor, "None");
-cls_StepRepr_HArray1OfRepresentationItem.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepRepr_HArray1OfRepresentationItem::*)() const) &StepRepr_HArray1OfRepresentationItem::DynamicType, "None");
+bind_Define_HArray1<StepRepr_HArray1OfRepresentationItem, StepRepr_Array1OfRepresentationItem>(mod, "StepRepr_HArray1OfRepresentationItem");
 
 // CLASS: STEPREPR_REPRESENTATION
 py::class_<StepRepr_Representation, opencascade::handle<StepRepr_Representation>, Standard_Transient> cls_StepRepr_Representation(mod, "StepRepr_Representation", "None");
@@ -399,28 +359,7 @@ cls_StepRepr_CompositeShapeAspect.def("DynamicType", (const opencascade::handle<
 bind_NCollection_Array1<opencascade::handle<StepRepr_ShapeAspect> >(mod, "StepRepr_Array1OfShapeAspect", py::module_local(false));
 
 // CLASS: STEPREPR_HARRAY1OFSHAPEASPECT
-py::class_<StepRepr_HArray1OfShapeAspect, opencascade::handle<StepRepr_HArray1OfShapeAspect>, Standard_Transient> cls_StepRepr_HArray1OfShapeAspect(mod, "StepRepr_HArray1OfShapeAspect", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepRepr_HArray1OfShapeAspect.def(py::init<>());
-cls_StepRepr_HArray1OfShapeAspect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepRepr_HArray1OfShapeAspect.def(py::init<const Standard_Integer, const Standard_Integer, const StepRepr_Array1OfShapeAspect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepRepr_HArray1OfShapeAspect.def(py::init<const StepRepr_Array1OfShapeAspect &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepRepr_HArray1OfShapeAspect.def_static("operator new_", (void * (*)(size_t)) &StepRepr_HArray1OfShapeAspect::operator new, "None", py::arg("theSize"));
-// cls_StepRepr_HArray1OfShapeAspect.def_static("operator delete_", (void (*)(void *)) &StepRepr_HArray1OfShapeAspect::operator delete, "None", py::arg("theAddress"));
-// cls_StepRepr_HArray1OfShapeAspect.def_static("operator new[]_", (void * (*)(size_t)) &StepRepr_HArray1OfShapeAspect::operator new[], "None", py::arg("theSize"));
-// cls_StepRepr_HArray1OfShapeAspect.def_static("operator delete[]_", (void (*)(void *)) &StepRepr_HArray1OfShapeAspect::operator delete[], "None", py::arg("theAddress"));
-// cls_StepRepr_HArray1OfShapeAspect.def_static("operator new_", (void * (*)(size_t, void *)) &StepRepr_HArray1OfShapeAspect::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepRepr_HArray1OfShapeAspect.def_static("operator delete_", (void (*)(void *, void *)) &StepRepr_HArray1OfShapeAspect::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepRepr_HArray1OfShapeAspect.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepRepr_HArray1OfShapeAspect::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepRepr_HArray1OfShapeAspect.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepRepr_HArray1OfShapeAspect::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepRepr_HArray1OfShapeAspect.def("Array1", (const StepRepr_Array1OfShapeAspect & (StepRepr_HArray1OfShapeAspect::*)() const) &StepRepr_HArray1OfShapeAspect::Array1, "None");
-cls_StepRepr_HArray1OfShapeAspect.def("ChangeArray1", (StepRepr_Array1OfShapeAspect & (StepRepr_HArray1OfShapeAspect::*)()) &StepRepr_HArray1OfShapeAspect::ChangeArray1, "None");
-cls_StepRepr_HArray1OfShapeAspect.def_static("get_type_name_", (const char * (*)()) &StepRepr_HArray1OfShapeAspect::get_type_name, "None");
-cls_StepRepr_HArray1OfShapeAspect.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepRepr_HArray1OfShapeAspect::get_type_descriptor, "None");
-cls_StepRepr_HArray1OfShapeAspect.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepRepr_HArray1OfShapeAspect::*)() const) &StepRepr_HArray1OfShapeAspect::DynamicType, "None");
+bind_Define_HArray1<StepRepr_HArray1OfShapeAspect, StepRepr_Array1OfShapeAspect>(mod, "StepRepr_HArray1OfShapeAspect");
 
 // CLASS: STEPREPR_REPRESENTATIONCONTEXT
 py::class_<StepRepr_RepresentationContext, opencascade::handle<StepRepr_RepresentationContext>, Standard_Transient> cls_StepRepr_RepresentationContext(mod, "StepRepr_RepresentationContext", "None");
@@ -715,28 +654,7 @@ cls_StepRepr_ConstructiveGeometryRepresentationRelationship.def_static("get_type
 cls_StepRepr_ConstructiveGeometryRepresentationRelationship.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepRepr_ConstructiveGeometryRepresentationRelationship::*)() const) &StepRepr_ConstructiveGeometryRepresentationRelationship::DynamicType, "None");
 
 // CLASS: STEPREPR_HARRAY1OFPROPERTYDEFINITIONREPRESENTATION
-py::class_<StepRepr_HArray1OfPropertyDefinitionRepresentation, opencascade::handle<StepRepr_HArray1OfPropertyDefinitionRepresentation>, Standard_Transient> cls_StepRepr_HArray1OfPropertyDefinitionRepresentation(mod, "StepRepr_HArray1OfPropertyDefinitionRepresentation", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def(py::init<>());
-cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def(py::init<const Standard_Integer, const Standard_Integer, const StepRepr_Array1OfPropertyDefinitionRepresentation::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def(py::init<const StepRepr_Array1OfPropertyDefinitionRepresentation &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def_static("operator new_", (void * (*)(size_t)) &StepRepr_HArray1OfPropertyDefinitionRepresentation::operator new, "None", py::arg("theSize"));
-// cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def_static("operator delete_", (void (*)(void *)) &StepRepr_HArray1OfPropertyDefinitionRepresentation::operator delete, "None", py::arg("theAddress"));
-// cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def_static("operator new[]_", (void * (*)(size_t)) &StepRepr_HArray1OfPropertyDefinitionRepresentation::operator new[], "None", py::arg("theSize"));
-// cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def_static("operator delete[]_", (void (*)(void *)) &StepRepr_HArray1OfPropertyDefinitionRepresentation::operator delete[], "None", py::arg("theAddress"));
-// cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def_static("operator new_", (void * (*)(size_t, void *)) &StepRepr_HArray1OfPropertyDefinitionRepresentation::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def_static("operator delete_", (void (*)(void *, void *)) &StepRepr_HArray1OfPropertyDefinitionRepresentation::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepRepr_HArray1OfPropertyDefinitionRepresentation::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepRepr_HArray1OfPropertyDefinitionRepresentation::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def("Array1", (const StepRepr_Array1OfPropertyDefinitionRepresentation & (StepRepr_HArray1OfPropertyDefinitionRepresentation::*)() const) &StepRepr_HArray1OfPropertyDefinitionRepresentation::Array1, "None");
-cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def("ChangeArray1", (StepRepr_Array1OfPropertyDefinitionRepresentation & (StepRepr_HArray1OfPropertyDefinitionRepresentation::*)()) &StepRepr_HArray1OfPropertyDefinitionRepresentation::ChangeArray1, "None");
-cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def_static("get_type_name_", (const char * (*)()) &StepRepr_HArray1OfPropertyDefinitionRepresentation::get_type_name, "None");
-cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepRepr_HArray1OfPropertyDefinitionRepresentation::get_type_descriptor, "None");
-cls_StepRepr_HArray1OfPropertyDefinitionRepresentation.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepRepr_HArray1OfPropertyDefinitionRepresentation::*)() const) &StepRepr_HArray1OfPropertyDefinitionRepresentation::DynamicType, "None");
+bind_Define_HArray1<StepRepr_HArray1OfPropertyDefinitionRepresentation, StepRepr_Array1OfPropertyDefinitionRepresentation>(mod, "StepRepr_HArray1OfPropertyDefinitionRepresentation");
 
 // CLASS: STEPREPR_DATAENVIRONMENT
 py::class_<StepRepr_DataEnvironment, opencascade::handle<StepRepr_DataEnvironment>, Standard_Transient> cls_StepRepr_DataEnvironment(mod, "StepRepr_DataEnvironment", "Representation of STEP entity DataEnvironment");
@@ -898,55 +816,13 @@ cls_StepRepr_GlobalUnitAssignedContext.def("DynamicType", (const opencascade::ha
 bind_NCollection_Sequence<opencascade::handle<StepRepr_MaterialPropertyRepresentation> >(mod, "StepRepr_SequenceOfMaterialPropertyRepresentation", py::module_local(false));
 
 // CLASS: STEPREPR_HSEQUENCEOFMATERIALPROPERTYREPRESENTATION
-py::class_<StepRepr_HSequenceOfMaterialPropertyRepresentation, opencascade::handle<StepRepr_HSequenceOfMaterialPropertyRepresentation>, Standard_Transient> cls_StepRepr_HSequenceOfMaterialPropertyRepresentation(mod, "StepRepr_HSequenceOfMaterialPropertyRepresentation", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def(py::init<>());
-cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def(py::init<const StepRepr_SequenceOfMaterialPropertyRepresentation &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def_static("operator new_", (void * (*)(size_t)) &StepRepr_HSequenceOfMaterialPropertyRepresentation::operator new, "None", py::arg("theSize"));
-// cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def_static("operator delete_", (void (*)(void *)) &StepRepr_HSequenceOfMaterialPropertyRepresentation::operator delete, "None", py::arg("theAddress"));
-// cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def_static("operator new[]_", (void * (*)(size_t)) &StepRepr_HSequenceOfMaterialPropertyRepresentation::operator new[], "None", py::arg("theSize"));
-// cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def_static("operator delete[]_", (void (*)(void *)) &StepRepr_HSequenceOfMaterialPropertyRepresentation::operator delete[], "None", py::arg("theAddress"));
-// cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def_static("operator new_", (void * (*)(size_t, void *)) &StepRepr_HSequenceOfMaterialPropertyRepresentation::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def_static("operator delete_", (void (*)(void *, void *)) &StepRepr_HSequenceOfMaterialPropertyRepresentation::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepRepr_HSequenceOfMaterialPropertyRepresentation::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepRepr_HSequenceOfMaterialPropertyRepresentation::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def("Sequence", (const StepRepr_SequenceOfMaterialPropertyRepresentation & (StepRepr_HSequenceOfMaterialPropertyRepresentation::*)() const) &StepRepr_HSequenceOfMaterialPropertyRepresentation::Sequence, "None");
-cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def("Append", (void (StepRepr_HSequenceOfMaterialPropertyRepresentation::*)(const StepRepr_SequenceOfMaterialPropertyRepresentation::value_type &)) &StepRepr_HSequenceOfMaterialPropertyRepresentation::Append, "None", py::arg("theItem"));
-cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def("Append", (void (StepRepr_HSequenceOfMaterialPropertyRepresentation::*)(StepRepr_SequenceOfMaterialPropertyRepresentation &)) &StepRepr_HSequenceOfMaterialPropertyRepresentation::Append, "None", py::arg("theSequence"));
-cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def("ChangeSequence", (StepRepr_SequenceOfMaterialPropertyRepresentation & (StepRepr_HSequenceOfMaterialPropertyRepresentation::*)()) &StepRepr_HSequenceOfMaterialPropertyRepresentation::ChangeSequence, "None");
-cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def_static("get_type_name_", (const char * (*)()) &StepRepr_HSequenceOfMaterialPropertyRepresentation::get_type_name, "None");
-cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepRepr_HSequenceOfMaterialPropertyRepresentation::get_type_descriptor, "None");
-cls_StepRepr_HSequenceOfMaterialPropertyRepresentation.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepRepr_HSequenceOfMaterialPropertyRepresentation::*)() const) &StepRepr_HSequenceOfMaterialPropertyRepresentation::DynamicType, "None");
+bind_Define_HSequence<StepRepr_HSequenceOfMaterialPropertyRepresentation, StepRepr_SequenceOfMaterialPropertyRepresentation>(mod, "StepRepr_HSequenceOfMaterialPropertyRepresentation");
 
 // TYPEDEF: STEPREPR_SEQUENCEOFREPRESENTATIONITEM
 bind_NCollection_Sequence<opencascade::handle<StepRepr_RepresentationItem> >(mod, "StepRepr_SequenceOfRepresentationItem", py::module_local(false));
 
 // CLASS: STEPREPR_HSEQUENCEOFREPRESENTATIONITEM
-py::class_<StepRepr_HSequenceOfRepresentationItem, opencascade::handle<StepRepr_HSequenceOfRepresentationItem>, Standard_Transient> cls_StepRepr_HSequenceOfRepresentationItem(mod, "StepRepr_HSequenceOfRepresentationItem", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepRepr_HSequenceOfRepresentationItem.def(py::init<>());
-cls_StepRepr_HSequenceOfRepresentationItem.def(py::init<const StepRepr_SequenceOfRepresentationItem &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepRepr_HSequenceOfRepresentationItem.def_static("operator new_", (void * (*)(size_t)) &StepRepr_HSequenceOfRepresentationItem::operator new, "None", py::arg("theSize"));
-// cls_StepRepr_HSequenceOfRepresentationItem.def_static("operator delete_", (void (*)(void *)) &StepRepr_HSequenceOfRepresentationItem::operator delete, "None", py::arg("theAddress"));
-// cls_StepRepr_HSequenceOfRepresentationItem.def_static("operator new[]_", (void * (*)(size_t)) &StepRepr_HSequenceOfRepresentationItem::operator new[], "None", py::arg("theSize"));
-// cls_StepRepr_HSequenceOfRepresentationItem.def_static("operator delete[]_", (void (*)(void *)) &StepRepr_HSequenceOfRepresentationItem::operator delete[], "None", py::arg("theAddress"));
-// cls_StepRepr_HSequenceOfRepresentationItem.def_static("operator new_", (void * (*)(size_t, void *)) &StepRepr_HSequenceOfRepresentationItem::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepRepr_HSequenceOfRepresentationItem.def_static("operator delete_", (void (*)(void *, void *)) &StepRepr_HSequenceOfRepresentationItem::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepRepr_HSequenceOfRepresentationItem.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepRepr_HSequenceOfRepresentationItem::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepRepr_HSequenceOfRepresentationItem.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepRepr_HSequenceOfRepresentationItem::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepRepr_HSequenceOfRepresentationItem.def("Sequence", (const StepRepr_SequenceOfRepresentationItem & (StepRepr_HSequenceOfRepresentationItem::*)() const) &StepRepr_HSequenceOfRepresentationItem::Sequence, "None");
-cls_StepRepr_HSequenceOfRepresentationItem.def("Append", (void (StepRepr_HSequenceOfRepresentationItem::*)(const StepRepr_SequenceOfRepresentationItem::value_type &)) &StepRepr_HSequenceOfRepresentationItem::Append, "None", py::arg("theItem"));
-cls_StepRepr_HSequenceOfRepresentationItem.def("Append", (void (StepRepr_HSequenceOfRepresentationItem::*)(StepRepr_SequenceOfRepresentationItem &)) &StepRepr_HSequenceOfRepresentationItem::Append, "None", py::arg("theSequence"));
-cls_StepRepr_HSequenceOfRepresentationItem.def("ChangeSequence", (StepRepr_SequenceOfRepresentationItem & (StepRepr_HSequenceOfRepresentationItem::*)()) &StepRepr_HSequenceOfRepresentationItem::ChangeSequence, "None");
-cls_StepRepr_HSequenceOfRepresentationItem.def_static("get_type_name_", (const char * (*)()) &StepRepr_HSequenceOfRepresentationItem::get_type_name, "None");
-cls_StepRepr_HSequenceOfRepresentationItem.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepRepr_HSequenceOfRepresentationItem::get_type_descriptor, "None");
-cls_StepRepr_HSequenceOfRepresentationItem.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepRepr_HSequenceOfRepresentationItem::*)() const) &StepRepr_HSequenceOfRepresentationItem::DynamicType, "None");
+bind_Define_HSequence<StepRepr_HSequenceOfRepresentationItem, StepRepr_SequenceOfRepresentationItem>(mod, "StepRepr_HSequenceOfRepresentationItem");
 
 // CLASS: STEPREPR_INTEGERREPRESENTATIONITEM
 py::class_<StepRepr_IntegerRepresentationItem, opencascade::handle<StepRepr_IntegerRepresentationItem>, StepRepr_RepresentationItem> cls_StepRepr_IntegerRepresentationItem(mod, "StepRepr_IntegerRepresentationItem", "None");

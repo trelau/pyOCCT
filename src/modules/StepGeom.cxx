@@ -162,7 +162,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <StepGeom_UniformSurfaceAndRationalBSplineSurface.hxx>
 #include <StepGeom_VectorOrDirection.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 #include <bind_NCollection_Array2.hxx>
+#include <bind_Define_HArray2.hxx>
 
 PYBIND11_MODULE(StepGeom, mod) {
 
@@ -313,28 +315,7 @@ cls_StepGeom_CompositeCurveSegment.def("DynamicType", (const opencascade::handle
 bind_NCollection_Array1<opencascade::handle<StepGeom_CompositeCurveSegment> >(mod, "StepGeom_Array1OfCompositeCurveSegment", py::module_local(false));
 
 // CLASS: STEPGEOM_HARRAY1OFCOMPOSITECURVESEGMENT
-py::class_<StepGeom_HArray1OfCompositeCurveSegment, opencascade::handle<StepGeom_HArray1OfCompositeCurveSegment>, Standard_Transient> cls_StepGeom_HArray1OfCompositeCurveSegment(mod, "StepGeom_HArray1OfCompositeCurveSegment", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepGeom_HArray1OfCompositeCurveSegment.def(py::init<>());
-cls_StepGeom_HArray1OfCompositeCurveSegment.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepGeom_HArray1OfCompositeCurveSegment.def(py::init<const Standard_Integer, const Standard_Integer, const StepGeom_Array1OfCompositeCurveSegment::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepGeom_HArray1OfCompositeCurveSegment.def(py::init<const StepGeom_Array1OfCompositeCurveSegment &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepGeom_HArray1OfCompositeCurveSegment.def_static("operator new_", (void * (*)(size_t)) &StepGeom_HArray1OfCompositeCurveSegment::operator new, "None", py::arg("theSize"));
-// cls_StepGeom_HArray1OfCompositeCurveSegment.def_static("operator delete_", (void (*)(void *)) &StepGeom_HArray1OfCompositeCurveSegment::operator delete, "None", py::arg("theAddress"));
-// cls_StepGeom_HArray1OfCompositeCurveSegment.def_static("operator new[]_", (void * (*)(size_t)) &StepGeom_HArray1OfCompositeCurveSegment::operator new[], "None", py::arg("theSize"));
-// cls_StepGeom_HArray1OfCompositeCurveSegment.def_static("operator delete[]_", (void (*)(void *)) &StepGeom_HArray1OfCompositeCurveSegment::operator delete[], "None", py::arg("theAddress"));
-// cls_StepGeom_HArray1OfCompositeCurveSegment.def_static("operator new_", (void * (*)(size_t, void *)) &StepGeom_HArray1OfCompositeCurveSegment::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepGeom_HArray1OfCompositeCurveSegment.def_static("operator delete_", (void (*)(void *, void *)) &StepGeom_HArray1OfCompositeCurveSegment::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepGeom_HArray1OfCompositeCurveSegment.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray1OfCompositeCurveSegment::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepGeom_HArray1OfCompositeCurveSegment.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray1OfCompositeCurveSegment::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepGeom_HArray1OfCompositeCurveSegment.def("Array1", (const StepGeom_Array1OfCompositeCurveSegment & (StepGeom_HArray1OfCompositeCurveSegment::*)() const) &StepGeom_HArray1OfCompositeCurveSegment::Array1, "None");
-cls_StepGeom_HArray1OfCompositeCurveSegment.def("ChangeArray1", (StepGeom_Array1OfCompositeCurveSegment & (StepGeom_HArray1OfCompositeCurveSegment::*)()) &StepGeom_HArray1OfCompositeCurveSegment::ChangeArray1, "None");
-cls_StepGeom_HArray1OfCompositeCurveSegment.def_static("get_type_name_", (const char * (*)()) &StepGeom_HArray1OfCompositeCurveSegment::get_type_name, "None");
-cls_StepGeom_HArray1OfCompositeCurveSegment.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepGeom_HArray1OfCompositeCurveSegment::get_type_descriptor, "None");
-cls_StepGeom_HArray1OfCompositeCurveSegment.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepGeom_HArray1OfCompositeCurveSegment::*)() const) &StepGeom_HArray1OfCompositeCurveSegment::DynamicType, "None");
+bind_Define_HArray1<StepGeom_HArray1OfCompositeCurveSegment, StepGeom_Array1OfCompositeCurveSegment>(mod, "StepGeom_HArray1OfCompositeCurveSegment");
 
 // CLASS: STEPGEOM_CURVE
 py::class_<StepGeom_Curve, opencascade::handle<StepGeom_Curve>, StepGeom_GeometricRepresentationItem> cls_StepGeom_Curve(mod, "StepGeom_Curve", "None");
@@ -566,28 +547,7 @@ cls_StepGeom_Axis2Placement2d.def_static("get_type_descriptor_", (const opencasc
 cls_StepGeom_Axis2Placement2d.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepGeom_Axis2Placement2d::*)() const) &StepGeom_Axis2Placement2d::DynamicType, "None");
 
 // CLASS: STEPGEOM_HARRAY1OFCARTESIANPOINT
-py::class_<StepGeom_HArray1OfCartesianPoint, opencascade::handle<StepGeom_HArray1OfCartesianPoint>, Standard_Transient> cls_StepGeom_HArray1OfCartesianPoint(mod, "StepGeom_HArray1OfCartesianPoint", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepGeom_HArray1OfCartesianPoint.def(py::init<>());
-cls_StepGeom_HArray1OfCartesianPoint.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepGeom_HArray1OfCartesianPoint.def(py::init<const Standard_Integer, const Standard_Integer, const StepGeom_Array1OfCartesianPoint::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepGeom_HArray1OfCartesianPoint.def(py::init<const StepGeom_Array1OfCartesianPoint &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepGeom_HArray1OfCartesianPoint.def_static("operator new_", (void * (*)(size_t)) &StepGeom_HArray1OfCartesianPoint::operator new, "None", py::arg("theSize"));
-// cls_StepGeom_HArray1OfCartesianPoint.def_static("operator delete_", (void (*)(void *)) &StepGeom_HArray1OfCartesianPoint::operator delete, "None", py::arg("theAddress"));
-// cls_StepGeom_HArray1OfCartesianPoint.def_static("operator new[]_", (void * (*)(size_t)) &StepGeom_HArray1OfCartesianPoint::operator new[], "None", py::arg("theSize"));
-// cls_StepGeom_HArray1OfCartesianPoint.def_static("operator delete[]_", (void (*)(void *)) &StepGeom_HArray1OfCartesianPoint::operator delete[], "None", py::arg("theAddress"));
-// cls_StepGeom_HArray1OfCartesianPoint.def_static("operator new_", (void * (*)(size_t, void *)) &StepGeom_HArray1OfCartesianPoint::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepGeom_HArray1OfCartesianPoint.def_static("operator delete_", (void (*)(void *, void *)) &StepGeom_HArray1OfCartesianPoint::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepGeom_HArray1OfCartesianPoint.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray1OfCartesianPoint::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepGeom_HArray1OfCartesianPoint.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray1OfCartesianPoint::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepGeom_HArray1OfCartesianPoint.def("Array1", (const StepGeom_Array1OfCartesianPoint & (StepGeom_HArray1OfCartesianPoint::*)() const) &StepGeom_HArray1OfCartesianPoint::Array1, "None");
-cls_StepGeom_HArray1OfCartesianPoint.def("ChangeArray1", (StepGeom_Array1OfCartesianPoint & (StepGeom_HArray1OfCartesianPoint::*)()) &StepGeom_HArray1OfCartesianPoint::ChangeArray1, "None");
-cls_StepGeom_HArray1OfCartesianPoint.def_static("get_type_name_", (const char * (*)()) &StepGeom_HArray1OfCartesianPoint::get_type_name, "None");
-cls_StepGeom_HArray1OfCartesianPoint.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepGeom_HArray1OfCartesianPoint::get_type_descriptor, "None");
-cls_StepGeom_HArray1OfCartesianPoint.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepGeom_HArray1OfCartesianPoint::*)() const) &StepGeom_HArray1OfCartesianPoint::DynamicType, "None");
+bind_Define_HArray1<StepGeom_HArray1OfCartesianPoint, StepGeom_Array1OfCartesianPoint>(mod, "StepGeom_HArray1OfCartesianPoint");
 
 // CLASS: STEPGEOM_BSPLINECURVE
 py::class_<StepGeom_BSplineCurve, opencascade::handle<StepGeom_BSplineCurve>, StepGeom_BoundedCurve> cls_StepGeom_BSplineCurve(mod, "StepGeom_BSplineCurve", "None");
@@ -646,27 +606,7 @@ cls_StepGeom_BezierCurveAndRationalBSplineCurve.def_static("get_type_descriptor_
 cls_StepGeom_BezierCurveAndRationalBSplineCurve.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepGeom_BezierCurveAndRationalBSplineCurve::*)() const) &StepGeom_BezierCurveAndRationalBSplineCurve::DynamicType, "None");
 
 // CLASS: STEPGEOM_HARRAY2OFCARTESIANPOINT
-py::class_<StepGeom_HArray2OfCartesianPoint, opencascade::handle<StepGeom_HArray2OfCartesianPoint>, Standard_Transient> cls_StepGeom_HArray2OfCartesianPoint(mod, "StepGeom_HArray2OfCartesianPoint", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepGeom_HArray2OfCartesianPoint.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_StepGeom_HArray2OfCartesianPoint.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const StepGeom_Array2OfCartesianPoint::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_StepGeom_HArray2OfCartesianPoint.def(py::init<const StepGeom_Array2OfCartesianPoint &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepGeom_HArray2OfCartesianPoint.def_static("operator new_", (void * (*)(size_t)) &StepGeom_HArray2OfCartesianPoint::operator new, "None", py::arg("theSize"));
-// cls_StepGeom_HArray2OfCartesianPoint.def_static("operator delete_", (void (*)(void *)) &StepGeom_HArray2OfCartesianPoint::operator delete, "None", py::arg("theAddress"));
-// cls_StepGeom_HArray2OfCartesianPoint.def_static("operator new[]_", (void * (*)(size_t)) &StepGeom_HArray2OfCartesianPoint::operator new[], "None", py::arg("theSize"));
-// cls_StepGeom_HArray2OfCartesianPoint.def_static("operator delete[]_", (void (*)(void *)) &StepGeom_HArray2OfCartesianPoint::operator delete[], "None", py::arg("theAddress"));
-// cls_StepGeom_HArray2OfCartesianPoint.def_static("operator new_", (void * (*)(size_t, void *)) &StepGeom_HArray2OfCartesianPoint::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepGeom_HArray2OfCartesianPoint.def_static("operator delete_", (void (*)(void *, void *)) &StepGeom_HArray2OfCartesianPoint::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepGeom_HArray2OfCartesianPoint.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray2OfCartesianPoint::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepGeom_HArray2OfCartesianPoint.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray2OfCartesianPoint::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepGeom_HArray2OfCartesianPoint.def("Array2", (const StepGeom_Array2OfCartesianPoint & (StepGeom_HArray2OfCartesianPoint::*)() const) &StepGeom_HArray2OfCartesianPoint::Array2, "None");
-cls_StepGeom_HArray2OfCartesianPoint.def("ChangeArray2", (StepGeom_Array2OfCartesianPoint & (StepGeom_HArray2OfCartesianPoint::*)()) &StepGeom_HArray2OfCartesianPoint::ChangeArray2, "None");
-cls_StepGeom_HArray2OfCartesianPoint.def_static("get_type_name_", (const char * (*)()) &StepGeom_HArray2OfCartesianPoint::get_type_name, "None");
-cls_StepGeom_HArray2OfCartesianPoint.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepGeom_HArray2OfCartesianPoint::get_type_descriptor, "None");
-cls_StepGeom_HArray2OfCartesianPoint.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepGeom_HArray2OfCartesianPoint::*)() const) &StepGeom_HArray2OfCartesianPoint::DynamicType, "None");
+bind_Define_HArray2<StepGeom_HArray2OfCartesianPoint, StepGeom_Array2OfCartesianPoint>(mod, "StepGeom_HArray2OfCartesianPoint");
 
 // CLASS: STEPGEOM_SURFACE
 py::class_<StepGeom_Surface, opencascade::handle<StepGeom_Surface>, StepGeom_GeometricRepresentationItem> cls_StepGeom_Surface(mod, "StepGeom_Surface", "None");
@@ -987,28 +927,7 @@ cls_StepGeom_ConicalSurface.def_static("get_type_descriptor_", (const opencascad
 cls_StepGeom_ConicalSurface.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepGeom_ConicalSurface::*)() const) &StepGeom_ConicalSurface::DynamicType, "None");
 
 // CLASS: STEPGEOM_HARRAY1OFSURFACEBOUNDARY
-py::class_<StepGeom_HArray1OfSurfaceBoundary, opencascade::handle<StepGeom_HArray1OfSurfaceBoundary>, Standard_Transient> cls_StepGeom_HArray1OfSurfaceBoundary(mod, "StepGeom_HArray1OfSurfaceBoundary", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepGeom_HArray1OfSurfaceBoundary.def(py::init<>());
-cls_StepGeom_HArray1OfSurfaceBoundary.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepGeom_HArray1OfSurfaceBoundary.def(py::init<const Standard_Integer, const Standard_Integer, const StepGeom_Array1OfSurfaceBoundary::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepGeom_HArray1OfSurfaceBoundary.def(py::init<const StepGeom_Array1OfSurfaceBoundary &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepGeom_HArray1OfSurfaceBoundary.def_static("operator new_", (void * (*)(size_t)) &StepGeom_HArray1OfSurfaceBoundary::operator new, "None", py::arg("theSize"));
-// cls_StepGeom_HArray1OfSurfaceBoundary.def_static("operator delete_", (void (*)(void *)) &StepGeom_HArray1OfSurfaceBoundary::operator delete, "None", py::arg("theAddress"));
-// cls_StepGeom_HArray1OfSurfaceBoundary.def_static("operator new[]_", (void * (*)(size_t)) &StepGeom_HArray1OfSurfaceBoundary::operator new[], "None", py::arg("theSize"));
-// cls_StepGeom_HArray1OfSurfaceBoundary.def_static("operator delete[]_", (void (*)(void *)) &StepGeom_HArray1OfSurfaceBoundary::operator delete[], "None", py::arg("theAddress"));
-// cls_StepGeom_HArray1OfSurfaceBoundary.def_static("operator new_", (void * (*)(size_t, void *)) &StepGeom_HArray1OfSurfaceBoundary::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepGeom_HArray1OfSurfaceBoundary.def_static("operator delete_", (void (*)(void *, void *)) &StepGeom_HArray1OfSurfaceBoundary::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepGeom_HArray1OfSurfaceBoundary.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray1OfSurfaceBoundary::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepGeom_HArray1OfSurfaceBoundary.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray1OfSurfaceBoundary::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepGeom_HArray1OfSurfaceBoundary.def("Array1", (const StepGeom_Array1OfSurfaceBoundary & (StepGeom_HArray1OfSurfaceBoundary::*)() const) &StepGeom_HArray1OfSurfaceBoundary::Array1, "None");
-cls_StepGeom_HArray1OfSurfaceBoundary.def("ChangeArray1", (StepGeom_Array1OfSurfaceBoundary & (StepGeom_HArray1OfSurfaceBoundary::*)()) &StepGeom_HArray1OfSurfaceBoundary::ChangeArray1, "None");
-cls_StepGeom_HArray1OfSurfaceBoundary.def_static("get_type_name_", (const char * (*)()) &StepGeom_HArray1OfSurfaceBoundary::get_type_name, "None");
-cls_StepGeom_HArray1OfSurfaceBoundary.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepGeom_HArray1OfSurfaceBoundary::get_type_descriptor, "None");
-cls_StepGeom_HArray1OfSurfaceBoundary.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepGeom_HArray1OfSurfaceBoundary::*)() const) &StepGeom_HArray1OfSurfaceBoundary::DynamicType, "None");
+bind_Define_HArray1<StepGeom_HArray1OfSurfaceBoundary, StepGeom_Array1OfSurfaceBoundary>(mod, "StepGeom_HArray1OfSurfaceBoundary");
 
 // CLASS: STEPGEOM_CURVEBOUNDEDSURFACE
 py::class_<StepGeom_CurveBoundedSurface, opencascade::handle<StepGeom_CurveBoundedSurface>, StepGeom_BoundedSurface> cls_StepGeom_CurveBoundedSurface(mod, "StepGeom_CurveBoundedSurface", "Representation of STEP entity CurveBoundedSurface");
@@ -1254,123 +1173,19 @@ cls_StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx.def_static(
 cls_StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx::*)() const) &StepGeom_GeomRepContextAndGlobUnitAssCtxAndGlobUncertaintyAssCtx::DynamicType, "None");
 
 // CLASS: STEPGEOM_HARRAY1OFBOUNDARYCURVE
-py::class_<StepGeom_HArray1OfBoundaryCurve, opencascade::handle<StepGeom_HArray1OfBoundaryCurve>, Standard_Transient> cls_StepGeom_HArray1OfBoundaryCurve(mod, "StepGeom_HArray1OfBoundaryCurve", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepGeom_HArray1OfBoundaryCurve.def(py::init<>());
-cls_StepGeom_HArray1OfBoundaryCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepGeom_HArray1OfBoundaryCurve.def(py::init<const Standard_Integer, const Standard_Integer, const StepGeom_Array1OfBoundaryCurve::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepGeom_HArray1OfBoundaryCurve.def(py::init<const StepGeom_Array1OfBoundaryCurve &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepGeom_HArray1OfBoundaryCurve.def_static("operator new_", (void * (*)(size_t)) &StepGeom_HArray1OfBoundaryCurve::operator new, "None", py::arg("theSize"));
-// cls_StepGeom_HArray1OfBoundaryCurve.def_static("operator delete_", (void (*)(void *)) &StepGeom_HArray1OfBoundaryCurve::operator delete, "None", py::arg("theAddress"));
-// cls_StepGeom_HArray1OfBoundaryCurve.def_static("operator new[]_", (void * (*)(size_t)) &StepGeom_HArray1OfBoundaryCurve::operator new[], "None", py::arg("theSize"));
-// cls_StepGeom_HArray1OfBoundaryCurve.def_static("operator delete[]_", (void (*)(void *)) &StepGeom_HArray1OfBoundaryCurve::operator delete[], "None", py::arg("theAddress"));
-// cls_StepGeom_HArray1OfBoundaryCurve.def_static("operator new_", (void * (*)(size_t, void *)) &StepGeom_HArray1OfBoundaryCurve::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepGeom_HArray1OfBoundaryCurve.def_static("operator delete_", (void (*)(void *, void *)) &StepGeom_HArray1OfBoundaryCurve::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepGeom_HArray1OfBoundaryCurve.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray1OfBoundaryCurve::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepGeom_HArray1OfBoundaryCurve.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray1OfBoundaryCurve::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepGeom_HArray1OfBoundaryCurve.def("Array1", (const StepGeom_Array1OfBoundaryCurve & (StepGeom_HArray1OfBoundaryCurve::*)() const) &StepGeom_HArray1OfBoundaryCurve::Array1, "None");
-cls_StepGeom_HArray1OfBoundaryCurve.def("ChangeArray1", (StepGeom_Array1OfBoundaryCurve & (StepGeom_HArray1OfBoundaryCurve::*)()) &StepGeom_HArray1OfBoundaryCurve::ChangeArray1, "None");
-cls_StepGeom_HArray1OfBoundaryCurve.def_static("get_type_name_", (const char * (*)()) &StepGeom_HArray1OfBoundaryCurve::get_type_name, "None");
-cls_StepGeom_HArray1OfBoundaryCurve.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepGeom_HArray1OfBoundaryCurve::get_type_descriptor, "None");
-cls_StepGeom_HArray1OfBoundaryCurve.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepGeom_HArray1OfBoundaryCurve::*)() const) &StepGeom_HArray1OfBoundaryCurve::DynamicType, "None");
+bind_Define_HArray1<StepGeom_HArray1OfBoundaryCurve, StepGeom_Array1OfBoundaryCurve>(mod, "StepGeom_HArray1OfBoundaryCurve");
 
 // CLASS: STEPGEOM_HARRAY1OFCURVE
-py::class_<StepGeom_HArray1OfCurve, opencascade::handle<StepGeom_HArray1OfCurve>, Standard_Transient> cls_StepGeom_HArray1OfCurve(mod, "StepGeom_HArray1OfCurve", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepGeom_HArray1OfCurve.def(py::init<>());
-cls_StepGeom_HArray1OfCurve.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepGeom_HArray1OfCurve.def(py::init<const Standard_Integer, const Standard_Integer, const StepGeom_Array1OfCurve::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepGeom_HArray1OfCurve.def(py::init<const StepGeom_Array1OfCurve &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepGeom_HArray1OfCurve.def_static("operator new_", (void * (*)(size_t)) &StepGeom_HArray1OfCurve::operator new, "None", py::arg("theSize"));
-// cls_StepGeom_HArray1OfCurve.def_static("operator delete_", (void (*)(void *)) &StepGeom_HArray1OfCurve::operator delete, "None", py::arg("theAddress"));
-// cls_StepGeom_HArray1OfCurve.def_static("operator new[]_", (void * (*)(size_t)) &StepGeom_HArray1OfCurve::operator new[], "None", py::arg("theSize"));
-// cls_StepGeom_HArray1OfCurve.def_static("operator delete[]_", (void (*)(void *)) &StepGeom_HArray1OfCurve::operator delete[], "None", py::arg("theAddress"));
-// cls_StepGeom_HArray1OfCurve.def_static("operator new_", (void * (*)(size_t, void *)) &StepGeom_HArray1OfCurve::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepGeom_HArray1OfCurve.def_static("operator delete_", (void (*)(void *, void *)) &StepGeom_HArray1OfCurve::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepGeom_HArray1OfCurve.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray1OfCurve::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepGeom_HArray1OfCurve.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray1OfCurve::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepGeom_HArray1OfCurve.def("Array1", (const StepGeom_Array1OfCurve & (StepGeom_HArray1OfCurve::*)() const) &StepGeom_HArray1OfCurve::Array1, "None");
-cls_StepGeom_HArray1OfCurve.def("ChangeArray1", (StepGeom_Array1OfCurve & (StepGeom_HArray1OfCurve::*)()) &StepGeom_HArray1OfCurve::ChangeArray1, "None");
-cls_StepGeom_HArray1OfCurve.def_static("get_type_name_", (const char * (*)()) &StepGeom_HArray1OfCurve::get_type_name, "None");
-cls_StepGeom_HArray1OfCurve.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepGeom_HArray1OfCurve::get_type_descriptor, "None");
-cls_StepGeom_HArray1OfCurve.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepGeom_HArray1OfCurve::*)() const) &StepGeom_HArray1OfCurve::DynamicType, "None");
+bind_Define_HArray1<StepGeom_HArray1OfCurve, StepGeom_Array1OfCurve>(mod, "StepGeom_HArray1OfCurve");
 
 // CLASS: STEPGEOM_HARRAY1OFPCURVEORSURFACE
-py::class_<StepGeom_HArray1OfPcurveOrSurface, opencascade::handle<StepGeom_HArray1OfPcurveOrSurface>, Standard_Transient> cls_StepGeom_HArray1OfPcurveOrSurface(mod, "StepGeom_HArray1OfPcurveOrSurface", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepGeom_HArray1OfPcurveOrSurface.def(py::init<>());
-cls_StepGeom_HArray1OfPcurveOrSurface.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepGeom_HArray1OfPcurveOrSurface.def(py::init<const Standard_Integer, const Standard_Integer, const StepGeom_Array1OfPcurveOrSurface::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepGeom_HArray1OfPcurveOrSurface.def(py::init<const StepGeom_Array1OfPcurveOrSurface &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepGeom_HArray1OfPcurveOrSurface.def_static("operator new_", (void * (*)(size_t)) &StepGeom_HArray1OfPcurveOrSurface::operator new, "None", py::arg("theSize"));
-// cls_StepGeom_HArray1OfPcurveOrSurface.def_static("operator delete_", (void (*)(void *)) &StepGeom_HArray1OfPcurveOrSurface::operator delete, "None", py::arg("theAddress"));
-// cls_StepGeom_HArray1OfPcurveOrSurface.def_static("operator new[]_", (void * (*)(size_t)) &StepGeom_HArray1OfPcurveOrSurface::operator new[], "None", py::arg("theSize"));
-// cls_StepGeom_HArray1OfPcurveOrSurface.def_static("operator delete[]_", (void (*)(void *)) &StepGeom_HArray1OfPcurveOrSurface::operator delete[], "None", py::arg("theAddress"));
-// cls_StepGeom_HArray1OfPcurveOrSurface.def_static("operator new_", (void * (*)(size_t, void *)) &StepGeom_HArray1OfPcurveOrSurface::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepGeom_HArray1OfPcurveOrSurface.def_static("operator delete_", (void (*)(void *, void *)) &StepGeom_HArray1OfPcurveOrSurface::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepGeom_HArray1OfPcurveOrSurface.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray1OfPcurveOrSurface::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepGeom_HArray1OfPcurveOrSurface.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray1OfPcurveOrSurface::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepGeom_HArray1OfPcurveOrSurface.def("Array1", (const StepGeom_Array1OfPcurveOrSurface & (StepGeom_HArray1OfPcurveOrSurface::*)() const) &StepGeom_HArray1OfPcurveOrSurface::Array1, "None");
-cls_StepGeom_HArray1OfPcurveOrSurface.def("ChangeArray1", (StepGeom_Array1OfPcurveOrSurface & (StepGeom_HArray1OfPcurveOrSurface::*)()) &StepGeom_HArray1OfPcurveOrSurface::ChangeArray1, "None");
-cls_StepGeom_HArray1OfPcurveOrSurface.def_static("get_type_name_", (const char * (*)()) &StepGeom_HArray1OfPcurveOrSurface::get_type_name, "None");
-cls_StepGeom_HArray1OfPcurveOrSurface.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepGeom_HArray1OfPcurveOrSurface::get_type_descriptor, "None");
-cls_StepGeom_HArray1OfPcurveOrSurface.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepGeom_HArray1OfPcurveOrSurface::*)() const) &StepGeom_HArray1OfPcurveOrSurface::DynamicType, "None");
+bind_Define_HArray1<StepGeom_HArray1OfPcurveOrSurface, StepGeom_Array1OfPcurveOrSurface>(mod, "StepGeom_HArray1OfPcurveOrSurface");
 
 // CLASS: STEPGEOM_HARRAY1OFTRIMMINGSELECT
-py::class_<StepGeom_HArray1OfTrimmingSelect, opencascade::handle<StepGeom_HArray1OfTrimmingSelect>, Standard_Transient> cls_StepGeom_HArray1OfTrimmingSelect(mod, "StepGeom_HArray1OfTrimmingSelect", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepGeom_HArray1OfTrimmingSelect.def(py::init<>());
-cls_StepGeom_HArray1OfTrimmingSelect.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StepGeom_HArray1OfTrimmingSelect.def(py::init<const Standard_Integer, const Standard_Integer, const StepGeom_Array1OfTrimmingSelect::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StepGeom_HArray1OfTrimmingSelect.def(py::init<const StepGeom_Array1OfTrimmingSelect &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepGeom_HArray1OfTrimmingSelect.def_static("operator new_", (void * (*)(size_t)) &StepGeom_HArray1OfTrimmingSelect::operator new, "None", py::arg("theSize"));
-// cls_StepGeom_HArray1OfTrimmingSelect.def_static("operator delete_", (void (*)(void *)) &StepGeom_HArray1OfTrimmingSelect::operator delete, "None", py::arg("theAddress"));
-// cls_StepGeom_HArray1OfTrimmingSelect.def_static("operator new[]_", (void * (*)(size_t)) &StepGeom_HArray1OfTrimmingSelect::operator new[], "None", py::arg("theSize"));
-// cls_StepGeom_HArray1OfTrimmingSelect.def_static("operator delete[]_", (void (*)(void *)) &StepGeom_HArray1OfTrimmingSelect::operator delete[], "None", py::arg("theAddress"));
-// cls_StepGeom_HArray1OfTrimmingSelect.def_static("operator new_", (void * (*)(size_t, void *)) &StepGeom_HArray1OfTrimmingSelect::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepGeom_HArray1OfTrimmingSelect.def_static("operator delete_", (void (*)(void *, void *)) &StepGeom_HArray1OfTrimmingSelect::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepGeom_HArray1OfTrimmingSelect.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray1OfTrimmingSelect::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepGeom_HArray1OfTrimmingSelect.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray1OfTrimmingSelect::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepGeom_HArray1OfTrimmingSelect.def("Array1", (const StepGeom_Array1OfTrimmingSelect & (StepGeom_HArray1OfTrimmingSelect::*)() const) &StepGeom_HArray1OfTrimmingSelect::Array1, "None");
-cls_StepGeom_HArray1OfTrimmingSelect.def("ChangeArray1", (StepGeom_Array1OfTrimmingSelect & (StepGeom_HArray1OfTrimmingSelect::*)()) &StepGeom_HArray1OfTrimmingSelect::ChangeArray1, "None");
-cls_StepGeom_HArray1OfTrimmingSelect.def_static("get_type_name_", (const char * (*)()) &StepGeom_HArray1OfTrimmingSelect::get_type_name, "None");
-cls_StepGeom_HArray1OfTrimmingSelect.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepGeom_HArray1OfTrimmingSelect::get_type_descriptor, "None");
-cls_StepGeom_HArray1OfTrimmingSelect.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepGeom_HArray1OfTrimmingSelect::*)() const) &StepGeom_HArray1OfTrimmingSelect::DynamicType, "None");
+bind_Define_HArray1<StepGeom_HArray1OfTrimmingSelect, StepGeom_Array1OfTrimmingSelect>(mod, "StepGeom_HArray1OfTrimmingSelect");
 
 // CLASS: STEPGEOM_HARRAY2OFSURFACEPATCH
-py::class_<StepGeom_HArray2OfSurfacePatch, opencascade::handle<StepGeom_HArray2OfSurfacePatch>, Standard_Transient> cls_StepGeom_HArray2OfSurfacePatch(mod, "StepGeom_HArray2OfSurfacePatch", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StepGeom_HArray2OfSurfacePatch.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_StepGeom_HArray2OfSurfacePatch.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const StepGeom_Array2OfSurfacePatch::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_StepGeom_HArray2OfSurfacePatch.def(py::init<const StepGeom_Array2OfSurfacePatch &>(), py::arg("theOther"));
-
-// Methods
-// cls_StepGeom_HArray2OfSurfacePatch.def_static("operator new_", (void * (*)(size_t)) &StepGeom_HArray2OfSurfacePatch::operator new, "None", py::arg("theSize"));
-// cls_StepGeom_HArray2OfSurfacePatch.def_static("operator delete_", (void (*)(void *)) &StepGeom_HArray2OfSurfacePatch::operator delete, "None", py::arg("theAddress"));
-// cls_StepGeom_HArray2OfSurfacePatch.def_static("operator new[]_", (void * (*)(size_t)) &StepGeom_HArray2OfSurfacePatch::operator new[], "None", py::arg("theSize"));
-// cls_StepGeom_HArray2OfSurfacePatch.def_static("operator delete[]_", (void (*)(void *)) &StepGeom_HArray2OfSurfacePatch::operator delete[], "None", py::arg("theAddress"));
-// cls_StepGeom_HArray2OfSurfacePatch.def_static("operator new_", (void * (*)(size_t, void *)) &StepGeom_HArray2OfSurfacePatch::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StepGeom_HArray2OfSurfacePatch.def_static("operator delete_", (void (*)(void *, void *)) &StepGeom_HArray2OfSurfacePatch::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StepGeom_HArray2OfSurfacePatch.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray2OfSurfacePatch::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StepGeom_HArray2OfSurfacePatch.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StepGeom_HArray2OfSurfacePatch::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StepGeom_HArray2OfSurfacePatch.def("Array2", (const StepGeom_Array2OfSurfacePatch & (StepGeom_HArray2OfSurfacePatch::*)() const) &StepGeom_HArray2OfSurfacePatch::Array2, "None");
-cls_StepGeom_HArray2OfSurfacePatch.def("ChangeArray2", (StepGeom_Array2OfSurfacePatch & (StepGeom_HArray2OfSurfacePatch::*)()) &StepGeom_HArray2OfSurfacePatch::ChangeArray2, "None");
-cls_StepGeom_HArray2OfSurfacePatch.def_static("get_type_name_", (const char * (*)()) &StepGeom_HArray2OfSurfacePatch::get_type_name, "None");
-cls_StepGeom_HArray2OfSurfacePatch.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StepGeom_HArray2OfSurfacePatch::get_type_descriptor, "None");
-cls_StepGeom_HArray2OfSurfacePatch.def("DynamicType", (const opencascade::handle<Standard_Type> & (StepGeom_HArray2OfSurfacePatch::*)() const) &StepGeom_HArray2OfSurfacePatch::DynamicType, "None");
+bind_Define_HArray2<StepGeom_HArray2OfSurfacePatch, StepGeom_Array2OfSurfacePatch>(mod, "StepGeom_HArray2OfSurfacePatch");
 
 // CLASS: STEPGEOM_HYPERBOLA
 py::class_<StepGeom_Hyperbola, opencascade::handle<StepGeom_Hyperbola>, StepGeom_Conic> cls_StepGeom_Hyperbola(mod, "StepGeom_Hyperbola", "None");

@@ -136,6 +136,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TopOpeBRep_PIntRes2d_IntersectionPoint.hxx>
 #include <BRepClass_FaceClassifier.hxx>
 #include <bind_NCollection_Array1.hxx>
+#include <bind_Define_HArray1.hxx>
 #include <bind_NCollection_DataMap.hxx>
 #include <bind_NCollection_Sequence.hxx>
 #include <bind_NCollection_List.hxx>
@@ -298,28 +299,7 @@ cls_TopOpeBRep_VPointInter.def("PThePointOfIntersectionDummy", (TopOpeBRep_PTheP
 bind_NCollection_Array1<TopOpeBRep_VPointInter>(mod, "TopOpeBRep_Array1OfVPointInter", py::module_local(false));
 
 // CLASS: TOPOPEBREP_HARRAY1OFVPOINTINTER
-py::class_<TopOpeBRep_HArray1OfVPointInter, opencascade::handle<TopOpeBRep_HArray1OfVPointInter>, Standard_Transient> cls_TopOpeBRep_HArray1OfVPointInter(mod, "TopOpeBRep_HArray1OfVPointInter", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TopOpeBRep_HArray1OfVPointInter.def(py::init<>());
-cls_TopOpeBRep_HArray1OfVPointInter.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TopOpeBRep_HArray1OfVPointInter.def(py::init<const Standard_Integer, const Standard_Integer, const TopOpeBRep_Array1OfVPointInter::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TopOpeBRep_HArray1OfVPointInter.def(py::init<const TopOpeBRep_Array1OfVPointInter &>(), py::arg("theOther"));
-
-// Methods
-// cls_TopOpeBRep_HArray1OfVPointInter.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRep_HArray1OfVPointInter::operator new, "None", py::arg("theSize"));
-// cls_TopOpeBRep_HArray1OfVPointInter.def_static("operator delete_", (void (*)(void *)) &TopOpeBRep_HArray1OfVPointInter::operator delete, "None", py::arg("theAddress"));
-// cls_TopOpeBRep_HArray1OfVPointInter.def_static("operator new[]_", (void * (*)(size_t)) &TopOpeBRep_HArray1OfVPointInter::operator new[], "None", py::arg("theSize"));
-// cls_TopOpeBRep_HArray1OfVPointInter.def_static("operator delete[]_", (void (*)(void *)) &TopOpeBRep_HArray1OfVPointInter::operator delete[], "None", py::arg("theAddress"));
-// cls_TopOpeBRep_HArray1OfVPointInter.def_static("operator new_", (void * (*)(size_t, void *)) &TopOpeBRep_HArray1OfVPointInter::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TopOpeBRep_HArray1OfVPointInter.def_static("operator delete_", (void (*)(void *, void *)) &TopOpeBRep_HArray1OfVPointInter::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TopOpeBRep_HArray1OfVPointInter.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TopOpeBRep_HArray1OfVPointInter::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TopOpeBRep_HArray1OfVPointInter.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TopOpeBRep_HArray1OfVPointInter::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TopOpeBRep_HArray1OfVPointInter.def("Array1", (const TopOpeBRep_Array1OfVPointInter & (TopOpeBRep_HArray1OfVPointInter::*)() const) &TopOpeBRep_HArray1OfVPointInter::Array1, "None");
-cls_TopOpeBRep_HArray1OfVPointInter.def("ChangeArray1", (TopOpeBRep_Array1OfVPointInter & (TopOpeBRep_HArray1OfVPointInter::*)()) &TopOpeBRep_HArray1OfVPointInter::ChangeArray1, "None");
-cls_TopOpeBRep_HArray1OfVPointInter.def_static("get_type_name_", (const char * (*)()) &TopOpeBRep_HArray1OfVPointInter::get_type_name, "None");
-cls_TopOpeBRep_HArray1OfVPointInter.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRep_HArray1OfVPointInter::get_type_descriptor, "None");
-cls_TopOpeBRep_HArray1OfVPointInter.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRep_HArray1OfVPointInter::*)() const) &TopOpeBRep_HArray1OfVPointInter::DynamicType, "None");
+bind_Define_HArray1<TopOpeBRep_HArray1OfVPointInter, TopOpeBRep_Array1OfVPointInter>(mod, "TopOpeBRep_HArray1OfVPointInter");
 
 // CLASS: TOPOPEBREP_LINEINTER
 py::class_<TopOpeBRep_LineInter> cls_TopOpeBRep_LineInter(mod, "TopOpeBRep_LineInter", "None");
@@ -432,28 +412,7 @@ cls_TopOpeBRep_ShapeScanner.def("Index", (Standard_Integer (TopOpeBRep_ShapeScan
 cls_TopOpeBRep_ShapeScanner.def("DumpCurrent", (Standard_OStream & (TopOpeBRep_ShapeScanner::*)(Standard_OStream &) const) &TopOpeBRep_ShapeScanner::DumpCurrent, "None", py::arg("OS"));
 
 // CLASS: TOPOPEBREP_HARRAY1OFLINEINTER
-py::class_<TopOpeBRep_HArray1OfLineInter, opencascade::handle<TopOpeBRep_HArray1OfLineInter>, Standard_Transient> cls_TopOpeBRep_HArray1OfLineInter(mod, "TopOpeBRep_HArray1OfLineInter", "None", py::multiple_inheritance());
-
-// Constructors
-cls_TopOpeBRep_HArray1OfLineInter.def(py::init<>());
-cls_TopOpeBRep_HArray1OfLineInter.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_TopOpeBRep_HArray1OfLineInter.def(py::init<const Standard_Integer, const Standard_Integer, const TopOpeBRep_Array1OfLineInter::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_TopOpeBRep_HArray1OfLineInter.def(py::init<const TopOpeBRep_Array1OfLineInter &>(), py::arg("theOther"));
-
-// Methods
-// cls_TopOpeBRep_HArray1OfLineInter.def_static("operator new_", (void * (*)(size_t)) &TopOpeBRep_HArray1OfLineInter::operator new, "None", py::arg("theSize"));
-// cls_TopOpeBRep_HArray1OfLineInter.def_static("operator delete_", (void (*)(void *)) &TopOpeBRep_HArray1OfLineInter::operator delete, "None", py::arg("theAddress"));
-// cls_TopOpeBRep_HArray1OfLineInter.def_static("operator new[]_", (void * (*)(size_t)) &TopOpeBRep_HArray1OfLineInter::operator new[], "None", py::arg("theSize"));
-// cls_TopOpeBRep_HArray1OfLineInter.def_static("operator delete[]_", (void (*)(void *)) &TopOpeBRep_HArray1OfLineInter::operator delete[], "None", py::arg("theAddress"));
-// cls_TopOpeBRep_HArray1OfLineInter.def_static("operator new_", (void * (*)(size_t, void *)) &TopOpeBRep_HArray1OfLineInter::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_TopOpeBRep_HArray1OfLineInter.def_static("operator delete_", (void (*)(void *, void *)) &TopOpeBRep_HArray1OfLineInter::operator delete, "None", py::arg(""), py::arg(""));
-// cls_TopOpeBRep_HArray1OfLineInter.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &TopOpeBRep_HArray1OfLineInter::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_TopOpeBRep_HArray1OfLineInter.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &TopOpeBRep_HArray1OfLineInter::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_TopOpeBRep_HArray1OfLineInter.def("Array1", (const TopOpeBRep_Array1OfLineInter & (TopOpeBRep_HArray1OfLineInter::*)() const) &TopOpeBRep_HArray1OfLineInter::Array1, "None");
-cls_TopOpeBRep_HArray1OfLineInter.def("ChangeArray1", (TopOpeBRep_Array1OfLineInter & (TopOpeBRep_HArray1OfLineInter::*)()) &TopOpeBRep_HArray1OfLineInter::ChangeArray1, "None");
-cls_TopOpeBRep_HArray1OfLineInter.def_static("get_type_name_", (const char * (*)()) &TopOpeBRep_HArray1OfLineInter::get_type_name, "None");
-cls_TopOpeBRep_HArray1OfLineInter.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &TopOpeBRep_HArray1OfLineInter::get_type_descriptor, "None");
-cls_TopOpeBRep_HArray1OfLineInter.def("DynamicType", (const opencascade::handle<Standard_Type> & (TopOpeBRep_HArray1OfLineInter::*)() const) &TopOpeBRep_HArray1OfLineInter::DynamicType, "None");
+bind_Define_HArray1<TopOpeBRep_HArray1OfLineInter, TopOpeBRep_Array1OfLineInter>(mod, "TopOpeBRep_HArray1OfLineInter");
 
 // CLASS: TOPOPEBREP_FACESINTERSECTOR
 py::class_<TopOpeBRep_FacesIntersector> cls_TopOpeBRep_FacesIntersector(mod, "TopOpeBRep_FacesIntersector", "Describes the intersection of two faces.");

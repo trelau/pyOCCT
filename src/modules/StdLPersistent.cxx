@@ -95,6 +95,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <TDataStd_NoteBook.hxx>
 #include <TDocStd_XLink.hxx>
 #include <StdLPersistent_XLink.hxx>
+#include <bind_Define_HArray1.hxx>
+#include <bind_Define_HArray2.hxx>
 
 PYBIND11_MODULE(StdLPersistent, mod) {
 
@@ -109,28 +111,7 @@ py::module::import("OCCT.TDocStd");
 py::module::import("OCCT.TFunction");
 
 // CLASS: STDLPERSISTENT_HARRAY1OFPERSISTENT
-py::class_<StdLPersistent_HArray1OfPersistent, opencascade::handle<StdLPersistent_HArray1OfPersistent>, Standard_Transient> cls_StdLPersistent_HArray1OfPersistent(mod, "StdLPersistent_HArray1OfPersistent", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StdLPersistent_HArray1OfPersistent.def(py::init<>());
-cls_StdLPersistent_HArray1OfPersistent.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls_StdLPersistent_HArray1OfPersistent.def(py::init<const Standard_Integer, const Standard_Integer, const NCollection_Array1<opencascade::handle<StdObjMgt_Persistent> >::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
-cls_StdLPersistent_HArray1OfPersistent.def(py::init<const NCollection_Array1<opencascade::handle<StdObjMgt_Persistent> > &>(), py::arg("theOther"));
-
-// Methods
-// cls_StdLPersistent_HArray1OfPersistent.def_static("operator new_", (void * (*)(size_t)) &StdLPersistent_HArray1OfPersistent::operator new, "None", py::arg("theSize"));
-// cls_StdLPersistent_HArray1OfPersistent.def_static("operator delete_", (void (*)(void *)) &StdLPersistent_HArray1OfPersistent::operator delete, "None", py::arg("theAddress"));
-// cls_StdLPersistent_HArray1OfPersistent.def_static("operator new[]_", (void * (*)(size_t)) &StdLPersistent_HArray1OfPersistent::operator new[], "None", py::arg("theSize"));
-// cls_StdLPersistent_HArray1OfPersistent.def_static("operator delete[]_", (void (*)(void *)) &StdLPersistent_HArray1OfPersistent::operator delete[], "None", py::arg("theAddress"));
-// cls_StdLPersistent_HArray1OfPersistent.def_static("operator new_", (void * (*)(size_t, void *)) &StdLPersistent_HArray1OfPersistent::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StdLPersistent_HArray1OfPersistent.def_static("operator delete_", (void (*)(void *, void *)) &StdLPersistent_HArray1OfPersistent::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StdLPersistent_HArray1OfPersistent.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StdLPersistent_HArray1OfPersistent::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StdLPersistent_HArray1OfPersistent.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StdLPersistent_HArray1OfPersistent::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StdLPersistent_HArray1OfPersistent.def("Array1", (const NCollection_Array1<opencascade::handle<StdObjMgt_Persistent> > & (StdLPersistent_HArray1OfPersistent::*)() const) &StdLPersistent_HArray1OfPersistent::Array1, "None");
-cls_StdLPersistent_HArray1OfPersistent.def("ChangeArray1", (NCollection_Array1<opencascade::handle<StdObjMgt_Persistent> > & (StdLPersistent_HArray1OfPersistent::*)()) &StdLPersistent_HArray1OfPersistent::ChangeArray1, "None");
-cls_StdLPersistent_HArray1OfPersistent.def_static("get_type_name_", (const char * (*)()) &StdLPersistent_HArray1OfPersistent::get_type_name, "None");
-cls_StdLPersistent_HArray1OfPersistent.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StdLPersistent_HArray1OfPersistent::get_type_descriptor, "None");
-cls_StdLPersistent_HArray1OfPersistent.def("DynamicType", (const opencascade::handle<Standard_Type> & (StdLPersistent_HArray1OfPersistent::*)() const) &StdLPersistent_HArray1OfPersistent::DynamicType, "None");
+bind_Define_HArray1<StdLPersistent_HArray1OfPersistent, NCollection_Array1<Handle(StdObjMgt_Persistent)>>(mod, "StdLPersistent_HArray1OfPersistent");
 
 // CLASS: STDLPERSISTENT_HARRAY1
 py::class_<StdLPersistent_HArray1> cls_StdLPersistent_HArray1(mod, "StdLPersistent_HArray1", "None");
@@ -139,27 +120,7 @@ py::class_<StdLPersistent_HArray1> cls_StdLPersistent_HArray1(mod, "StdLPersiste
 cls_StdLPersistent_HArray1.def(py::init<>());
 
 // CLASS: STDLPERSISTENT_HARRAY2OFPERSISTENT
-py::class_<StdLPersistent_HArray2OfPersistent, opencascade::handle<StdLPersistent_HArray2OfPersistent>, Standard_Transient> cls_StdLPersistent_HArray2OfPersistent(mod, "StdLPersistent_HArray2OfPersistent", "None", py::multiple_inheritance());
-
-// Constructors
-cls_StdLPersistent_HArray2OfPersistent.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"));
-cls_StdLPersistent_HArray2OfPersistent.def(py::init<const Standard_Integer, const Standard_Integer, const Standard_Integer, const Standard_Integer, const NCollection_Array2<opencascade::handle<StdObjMgt_Persistent> >::value_type &>(), py::arg("theRowLow"), py::arg("theRowUpp"), py::arg("theColLow"), py::arg("theColUpp"), py::arg("theValue"));
-cls_StdLPersistent_HArray2OfPersistent.def(py::init<const NCollection_Array2<opencascade::handle<StdObjMgt_Persistent> > &>(), py::arg("theOther"));
-
-// Methods
-// cls_StdLPersistent_HArray2OfPersistent.def_static("operator new_", (void * (*)(size_t)) &StdLPersistent_HArray2OfPersistent::operator new, "None", py::arg("theSize"));
-// cls_StdLPersistent_HArray2OfPersistent.def_static("operator delete_", (void (*)(void *)) &StdLPersistent_HArray2OfPersistent::operator delete, "None", py::arg("theAddress"));
-// cls_StdLPersistent_HArray2OfPersistent.def_static("operator new[]_", (void * (*)(size_t)) &StdLPersistent_HArray2OfPersistent::operator new[], "None", py::arg("theSize"));
-// cls_StdLPersistent_HArray2OfPersistent.def_static("operator delete[]_", (void (*)(void *)) &StdLPersistent_HArray2OfPersistent::operator delete[], "None", py::arg("theAddress"));
-// cls_StdLPersistent_HArray2OfPersistent.def_static("operator new_", (void * (*)(size_t, void *)) &StdLPersistent_HArray2OfPersistent::operator new, "None", py::arg(""), py::arg("theAddress"));
-// cls_StdLPersistent_HArray2OfPersistent.def_static("operator delete_", (void (*)(void *, void *)) &StdLPersistent_HArray2OfPersistent::operator delete, "None", py::arg(""), py::arg(""));
-// cls_StdLPersistent_HArray2OfPersistent.def_static("operator new_", (void * (*)(size_t, const opencascade::handle<NCollection_BaseAllocator> &)) &StdLPersistent_HArray2OfPersistent::operator new, "None", py::arg("theSize"), py::arg("theAllocator"));
-// cls_StdLPersistent_HArray2OfPersistent.def_static("operator delete_", (void (*)(void *, const opencascade::handle<NCollection_BaseAllocator> &)) &StdLPersistent_HArray2OfPersistent::operator delete, "None", py::arg("theAddress"), py::arg("theAllocator"));
-cls_StdLPersistent_HArray2OfPersistent.def("Array2", (const NCollection_Array2<opencascade::handle<StdObjMgt_Persistent> > & (StdLPersistent_HArray2OfPersistent::*)() const) &StdLPersistent_HArray2OfPersistent::Array2, "None");
-cls_StdLPersistent_HArray2OfPersistent.def("ChangeArray2", (NCollection_Array2<opencascade::handle<StdObjMgt_Persistent> > & (StdLPersistent_HArray2OfPersistent::*)()) &StdLPersistent_HArray2OfPersistent::ChangeArray2, "None");
-cls_StdLPersistent_HArray2OfPersistent.def_static("get_type_name_", (const char * (*)()) &StdLPersistent_HArray2OfPersistent::get_type_name, "None");
-cls_StdLPersistent_HArray2OfPersistent.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &StdLPersistent_HArray2OfPersistent::get_type_descriptor, "None");
-cls_StdLPersistent_HArray2OfPersistent.def("DynamicType", (const opencascade::handle<Standard_Type> & (StdLPersistent_HArray2OfPersistent::*)() const) &StdLPersistent_HArray2OfPersistent::DynamicType, "None");
+bind_Define_HArray2<StdLPersistent_HArray2OfPersistent, NCollection_Array2<Handle(StdObjMgt_Persistent)>>(mod, "StdLPersistent_HArray2OfPersistent");
 
 // CLASS: STDLPERSISTENT_HARRAY2
 py::class_<StdLPersistent_HArray2> cls_StdLPersistent_HArray2(mod, "StdLPersistent_HArray2", "None");
