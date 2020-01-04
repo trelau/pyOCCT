@@ -1861,13 +1861,16 @@ cls_AIS_Line.def("Compute", (void (AIS_Line::*)(const opencascade::handle<Prs3d_
 cls_AIS_Line.def("Signature", (Standard_Integer (AIS_Line::*)() const) &AIS_Line::Signature, "Returns the signature 5.");
 cls_AIS_Line.def("Type", (AIS_KindOfInteractive (AIS_Line::*)() const) &AIS_Line::Type, "Returns the type Datum.");
 cls_AIS_Line.def("Line", (const opencascade::handle<Geom_Line> & (AIS_Line::*)() const) &AIS_Line::Line, "Constructs an infinite line.");
-cls_AIS_Line.def("Points", (void (AIS_Line::*)(opencascade::handle<Geom_Point> &, opencascade::handle<Geom_Point> &) const) &AIS_Line::Points, "Returns the starting point thePStart and the end point thePEnd of the line set by SetPoints.", py::arg("thePStart"), py::arg("thePEnd"));
+// cls_AIS_Line.def("Points", (void (AIS_Line::*)(opencascade::handle<Geom_Point> &, opencascade::handle<Geom_Point> &) const) &AIS_Line::Points, "Returns the starting point thePStart and the end point thePEnd of the line set by SetPoints.", py::arg("thePStart"), py::arg("thePEnd"));
 cls_AIS_Line.def("SetLine", (void (AIS_Line::*)(const opencascade::handle<Geom_Line> &)) &AIS_Line::SetLine, "instantiates an infinite line.", py::arg("theLine"));
 cls_AIS_Line.def("SetPoints", (void (AIS_Line::*)(const opencascade::handle<Geom_Point> &, const opencascade::handle<Geom_Point> &)) &AIS_Line::SetPoints, "Sets the starting point thePStart and ending point thePEnd of the infinite line to create a finite line segment.", py::arg("thePStart"), py::arg("thePEnd"));
 cls_AIS_Line.def("SetColor", (void (AIS_Line::*)(const Quantity_Color &)) &AIS_Line::SetColor, "Provides a new color setting aColor for the line in the drawing tool, or 'Drawer'.", py::arg("aColor"));
 cls_AIS_Line.def("SetWidth", (void (AIS_Line::*)(const Standard_Real)) &AIS_Line::SetWidth, "Provides the new width setting aValue for the line in the drawing tool, or 'Drawer'.", py::arg("aValue"));
 cls_AIS_Line.def("UnsetColor", (void (AIS_Line::*)()) &AIS_Line::UnsetColor, "Removes the color setting and returns the original color.");
 cls_AIS_Line.def("UnsetWidth", (void (AIS_Line::*)()) &AIS_Line::UnsetWidth, "Removes the width setting and returns the original width.");
+
+// Extra
+cls_AIS_Line.def("Points", [](AIS_Line &self, opencascade::handle<Geom_Point> & thePStart, opencascade::handle<Geom_Point> & thePEnd) {self.Points(thePStart, thePEnd); return std::tuple<opencascade::handle<Geom_Point>, opencascade::handle<Geom_Point>>(thePStart, thePEnd); }, "Returns the starting point thePStart and the end point thePEnd of the line set by SetPoints.", py::arg("thePStart"), py::arg("thePEnd"));
 
 // CLASS: AIS_MANIPULATOROBJECTSEQUENCE
 py::class_<AIS_ManipulatorObjectSequence, opencascade::handle<AIS_ManipulatorObjectSequence>, Standard_Transient> cls_AIS_ManipulatorObjectSequence(mod, "AIS_ManipulatorObjectSequence", "None", py::multiple_inheritance());
