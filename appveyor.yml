@@ -8,8 +8,8 @@ environment:
         TARGET_ARCH: x64
         ARCH: 64
     - CONDA_INSTALL_LOCN: C:\Miniconda36-x64
-      TARGET_ARCH: x64
-      ARCH: 64
+        TARGET_ARCH: x64
+        ARCH: 64
 
 platform:
   - x64
