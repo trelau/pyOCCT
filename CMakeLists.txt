@@ -235,5 +235,12 @@ if(ENABLE_SMESH)
         target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/smesh)
         install(FILES ${OUTPUT_PATH}/${MOD}${EXTENSION}
                 DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/OCCT)
+
+        # Special hack for handling static member variables causing link errors
+        # with pybind11
+        if(MSVC AND ${MOD} STREQUAL "SMESHDS")
+            set_property(TARGET ${MOD} APPEND_STRING PROPERTY LINK_FLAGS " /FORCE")
+        endif()
+
     endforeach()
 endif()
