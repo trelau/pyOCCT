@@ -9,8 +9,7 @@ cmake .. -G "Ninja" \
     -DCMAKE_BUILD_TYPE="Release" \
     -DENABLE_SMESH=OFF \
     -DENABLE_NETGEN=OFF \
-    -DENABLE_FORCE=OFF \
-    -DTBB_INCLUDE_DIR=$PREFIX/include
+    -DENABLE_FORCE=OFF
 
 ninja install
 

@@ -3,10 +3,10 @@ cd build
 
 cmake .. -G "Ninja" ^
     -DCMAKE_BUILD_TYPE="Release" ^
-    -DENABLE_SMESH=OFF ^
-    -DENABLE_NETGEN=OFF ^
-    -DENABLE_FORCE=ON ^
-    -DTBB_INCLUDE_DIR="%LIBRARY_PREFIX%"/include
+    -DENABLE_SMESH=ON ^
+    -DENABLE_NETGEN=ON ^
+    -DENABLE_FORCE=OFF ^
+    -DPTHREAD_INCLUDE_DIRS:FILEPATH="%LIBRARY_PREFIX%/include"
 
 if errorlevel 1 exit 1
 ninja install

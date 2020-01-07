@@ -89,29 +89,13 @@ link_directories(${OpenCASCADE_LIBRARY_DIR})
 # --------------------------------------------------------------------------- #
 # SMESH
 # --------------------------------------------------------------------------- #
-# Include cmake list of modules
-# include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/SMESH_Mods.cmake)
 set(SMESH_ABS_LIBS)
 if(ENABLE_SMESH)
 
-    if(NOT DEFINED SMESH_INCLUDE_PATH OR NOT DEFINED SMESH_LIB_PATH)
-        message(STATUS "Searching for SMESH...")
-        find_package(SMESH REQUIRED)
-    endif()
+    add_definitions(-DBUILD_SMESH)
 
-    if(NOT EXISTS ${SMESH_INCLUDE_PATH})
-        message(FATAL_ERROR "Failed to find SMESH include directory.")
-    endif()
-
-    if(NOT EXISTS ${SMESH_LIB_PATH})
-        message(FATAL_ERROR "Failed to find SMESH library directory.")
-    endif()
-
-    if(NOT DEFINED SMESH_LIBRARIES)
-        message(FATAL_ERROR "SMESH libraries were not found.")
-    else()
-        message(STATUS "SMESH libraries: ${SMESH_LIBRARIES}")
-    endif()
+    message(STATUS "Searching for SMESH...")
+    find_package(SMESH REQUIRED)
 
     message(STATUS "SMESH include directory: ${SMESH_INCLUDE_PATH}")
     message(STATUS "SMESH library directory: ${SMESH_LIB_PATH}")
@@ -131,10 +115,8 @@ if(ENABLE_SMESH)
     # ----------------------------------------------------------------------- #
     # VTK
     # ----------------------------------------------------------------------- #
-    if(NOT DEFINED VTK_INCLUDE_DIRS)
-        message(STATUS "Searching for VTK...")
-        find_package(VTK REQUIRED)
-    endif()
+    message(STATUS "Searching for VTK...")
+    find_package(VTK REQUIRED)
 
     message(STATUS "VTK include directory: ${VTK_INCLUDE_DIRS}")
     include_directories(${VTK_INCLUDE_DIRS})
@@ -143,17 +125,16 @@ if(ENABLE_SMESH)
     # ----------------------------------------------------------------------- #
     # BOOST
     # ----------------------------------------------------------------------- #
-    if(NOT DEFINED Boost_INCLUDE_DIR)
-        message(STATUS "Searching for Boost...")
-        find_package(Boost REQUIRED)
+    message(STATUS "Searching for Boost...")
+    find_package(Boost REQUIRED COMPONENTS filesystem thread)
+
+    if (MSVC)
+        # Find the shared boost libs
+        add_definitions(-DBOOST_ALL_DYN_LINK)
     endif()
 
-    if(NOT EXISTS ${Boost_INCLUDE_DIR})
-        message(FATAL_ERROR "Failed to find Boost include directory.")
-    endif()
-
-    message(STATUS "Boost include directory: ${Boost_INCLUDE_DIR}")
-    include_directories(${Boost_INCLUDE_DIR})
+    # message(STATUS "Boost include directory: ${Boost_INCLUDE_DIR}")
+    # include_directories(${Boost_INCLUDE_DIR})
 
 
     # ----------------------------------------------------------------------- #
@@ -173,18 +154,11 @@ if(ENABLE_SMESH)
     # NETGEN
     # ----------------------------------------------------------------------- #
     if(ENABLE_NETGEN AND ENABLE_SMESH)
-        if(NOT DEFINED NETGEN_INCLUDE_DIR)
-            message(STATUS "Searching for Netgen...")
-            find_package(Netgen REQUIRED)
-        endif()
-
-        if(NOT EXISTS ${NETGEN_INCLUDE_DIR})
-            message(FATAL_ERROR "Failed to find Netgen include directory.")
-        endif()
+        message(STATUS "Searching for Netgen...")
+        find_package(Netgen REQUIRED)
 
         message(STATUS "Netgen include directory: ${NETGEN_INCLUDE_DIR}")
         include_directories(${NETGEN_INCLUDE_DIR})
-
     endif()
 
 endif(ENABLE_SMESH)
@@ -215,10 +189,10 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${OUTPUT_PATH}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_PATH}")
 
 # Treat each .cxx file in src/modules as a module
-file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/occt/*.cxx)
+file(GLOB OCCT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/occt/*.cxx)
 
 # OCCT modules
-foreach(SRC ${SRCS})
+foreach(SRC ${OCCT_SRCS})
 
     # Get module name
     get_filename_component(MOD ${SRC} NAME_WE)
@@ -240,24 +214,26 @@ endforeach()
 
 # SMESH modules
 if(ENABLE_SMESH)
-    set(MAKE_LIB BOOL ON)
-    foreach(MOD ${SMESH_MODULES})
+
+    file(GLOB SMESH_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/smesh/*.cxx)
+
+    foreach(SRC ${SMESH_SRCS})
+
+        # Get module name
+        get_filename_component(MOD ${SRC} NAME_WE)
 
         # Check Netgen
-        if(NOT ENABLE_NETGEN AND ${MOD} STREQUAL "NETGENPlugin" AND MAKE_LIB)
+        if(NOT ENABLE_NETGEN AND ${MOD} STREQUAL "NETGENPlugin")
             message(STATUS "Skipping ${MOD}")
-            set(MAKE_LIB OFF)
+            continue()
         endif()
 
-        if(MAKE_LIB)
-            file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/${MOD}.* ${CMAKE_CURRENT_SOURCE_DIR}/src/${MOD}_*)
-            pybind11_add_module(${MOD} ${SRCS})
-            target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
-                                                ${SMESH_ABS_LIBS})
-            set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
-            install(FILES ${OUTPUT_PATH}/${MOD}${EXTENSION}
-                    DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/OCCT)
-        endif()
-        set(MAKE_LIB ON)
+        pybind11_add_module(${MOD} ${SRC})
+        target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
+                                            ${SMESH_ABS_LIBS})
+        set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
+        target_include_directories(${MOD} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/smesh)
+        install(FILES ${OUTPUT_PATH}/${MOD}${EXTENSION}
+                DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/OCCT)
     endforeach()
 endif()
