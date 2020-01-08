@@ -1045,7 +1045,7 @@ PYBIND11_MODULE(SMDS, mod) {
 	*/
 
 	// C:\Users\Trevor\Work\Products\SMESH\install\include\smesh\SMDS_IteratorOfElements.hxx
-	py::class_<SMDS_IteratorOfElements, std::unique_ptr<SMDS_IteratorOfElements, Deleter<SMDS_IteratorOfElements>>, SMDS_ElemIterator> cls_SMDS_IteratorOfElements(mod, "SMDS_IteratorOfElements", "None");
+	py::class_<SMDS_IteratorOfElements, boost::shared_ptr<SMDS_IteratorOfElements>, SMDS_ElemIterator> cls_SMDS_IteratorOfElements(mod, "SMDS_IteratorOfElements", "None");
 	cls_SMDS_IteratorOfElements.def(py::init<const SMDS_MeshElement *, SMDSAbs_ElementType, const SMDS_ElemIteratorPtr &>(), py::arg("element"), py::arg("type"), py::arg("it"));
 	cls_SMDS_IteratorOfElements.def("more", (bool (SMDS_IteratorOfElements::*)()) &SMDS_IteratorOfElements::more, "None");
 	cls_SMDS_IteratorOfElements.def("next", (const SMDS_MeshElement * (SMDS_IteratorOfElements::*)()) &SMDS_IteratorOfElements::next, "None");

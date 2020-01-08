@@ -1155,5 +1155,14 @@ cls_Standard_Underflow.def_static("get_type_name_", (const char * (*)()) &Standa
 cls_Standard_Underflow.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type> & (*)()) &Standard_Underflow::get_type_descriptor, "None");
 cls_Standard_Underflow.def("DynamicType", (const opencascade::handle<Standard_Type> & (Standard_Underflow::*)() const) &Standard_Underflow::DynamicType, "None");
 
+// Register Standard_Failure as Python RuntimeError.
+py::register_exception_translator([](std::exception_ptr p) {
+	try {
+		if (p) std::rethrow_exception(p);
+	}
+	catch (const Standard_Failure &e) {
+		PyErr_SetString(PyExc_RuntimeError, e.GetMessageString());
+	}
+});
 
 }

@@ -33,11 +33,15 @@ PYBIND11_MODULE(Utils, mod) {
 	mod.def("makeText", (const char * (*)(const char *, const char *, const unsigned int)) &makeText, "None", py::arg("text"), py::arg("fileName"), py::arg("lineNumber"));
 
 	// CLASSES
+	/*
 	py::class_<SALOME_Exception, std::exception> cls_SALOME_Exception(mod, "SALOME_Exception", "None");
 	cls_SALOME_Exception.def(py::init<const char *>(), py::arg("text"));
 	cls_SALOME_Exception.def(py::init<const char *, const char *>(), py::arg("text"), py::arg("fileName"));
 	cls_SALOME_Exception.def(py::init<const char *, const char *, const unsigned int>(), py::arg("text"), py::arg("fileName"), py::arg("lineNumber"));
 	cls_SALOME_Exception.def(py::init([] (const SALOME_Exception &other) {return new SALOME_Exception(other);}), "Copy constructor", py::arg("other"));
 	cls_SALOME_Exception.def("what", (const char * (SALOME_Exception::*)() const ) &SALOME_Exception::what, "None");
+	*/
+
+	py::register_exception<SALOME_Exception>(mod, "PySALOME_Exception");
 
 }
