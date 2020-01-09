@@ -38,7 +38,7 @@ py::class_<TheHArray1Type, opencascade::handle<TheHArray1Type>, Standard_Transie
 // Constructors
 cls.def(py::init<>());
 cls.def(py::init<const Standard_Integer, const Standard_Integer>(), py::arg("theLower"), py::arg("theUpper"));
-cls.def(py::init<const Standard_Integer, const Standard_Integer, const TheArray1Type::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
+cls.def(py::init<const Standard_Integer, const Standard_Integer, const typename TheArray1Type::value_type &>(), py::arg("theLower"), py::arg("theUpper"), py::arg("theValue"));
 cls.def(py::init<const TheArray1Type &>(), py::arg("theOther"));
 
 // Methods
@@ -49,7 +49,7 @@ cls.def_static("get_type_descriptor_", (const opencascade::handle<Standard_Type>
 cls.def("DynamicType", (const opencascade::handle<Standard_Type> & (TheHArray1Type::*)() const) &TheHArray1Type::DynamicType, "None");
 
 // Methods for excluded base of TheArray1Type which is the NCollection_Array1<TheItemType> class template
-cls.def("Init", (void (TheHArray1Type::*)(const TheArray1Type::value_type &)) &TheHArray1Type::Init, "Initialise the items with theValue", py::arg("theValue"));
+cls.def("Init", (void (TheHArray1Type::*)(const typename TheArray1Type::value_type &)) &TheHArray1Type::Init, "Initialise the items with theValue", py::arg("theValue"));
 cls.def("Size", (Standard_Integer(TheHArray1Type::*)() const) &TheHArray1Type::Size, "Size query");
 cls.def("Length", (Standard_Integer(TheHArray1Type::*)() const) &TheHArray1Type::Length, "Length query (the same)");
 cls.def("IsEmpty", (Standard_Boolean(TheHArray1Type::*)() const) &TheHArray1Type::IsEmpty, "Return TRUE if array has zero length.");
@@ -61,17 +61,17 @@ cls.def("Assign", (TheArray1Type & (TheHArray1Type::*)(const TheArray1Type &)) &
 cls.def("Move", (TheArray1Type & (TheHArray1Type::*)(TheArray1Type &)) &TheHArray1Type::Move, "Move assignment. This array will borrow all the data from theOther. The moved object will keep pointer to the memory buffer and range, but it will not free the buffer on destruction.", py::arg("theOther"));
 // cls.def("operator=", (TheArray1Type & (TheHArray1Type::*)(const TheArray1Type &)) &TheHArray1Type::operator=, "Assignment operator;", py::arg("theOther"));
 // cls.def("operator=", (TheArray1Type & (TheHArray1Type::*)(TheArray1Type &&)) &TheHArray1Type::operator=, "Move assignment operator;", py::arg("theOther"));
-cls.def("First", (const TheArray1Type::value_type & (TheHArray1Type::*)() const) &TheHArray1Type::First, "Returns first element");
-cls.def("ChangeFirst", (TheArray1Type::value_type & (TheHArray1Type::*)()) &TheHArray1Type::ChangeFirst, "Returns first element");
-cls.def("Last", (const TheArray1Type::value_type & (TheHArray1Type::*)() const) &TheHArray1Type::Last, "Returns last element");
-cls.def("ChangeLast", (TheArray1Type::value_type & (TheHArray1Type::*)()) &TheHArray1Type::ChangeLast, "Returns last element");
-cls.def("Value", (const TheArray1Type::value_type & (TheHArray1Type::*)(const Standard_Integer) const) &TheHArray1Type::Value, "Constant value access", py::arg("theIndex"));
-cls.def("__call__", (const TheArray1Type::value_type & (TheHArray1Type::*)(const Standard_Integer) const) &TheHArray1Type::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
-cls.def("__getitem__", (const TheArray1Type::value_type & (TheHArray1Type::*)(Standard_Integer) const) &TheHArray1Type::operator[], py::is_operator(), "operator[] - alias to Value", py::arg("theIndex"));
-cls.def("ChangeValue", (TheArray1Type::value_type & (TheHArray1Type::*)(const Standard_Integer)) &TheHArray1Type::ChangeValue, "Variable value access", py::arg("theIndex"));
-cls.def("__call__", (TheArray1Type::value_type & (TheHArray1Type::*)(const Standard_Integer)) &TheHArray1Type::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
-cls.def("__getitem__", (TheArray1Type::value_type & (TheHArray1Type::*)(Standard_Integer)) &TheHArray1Type::operator[], py::is_operator(), "operator[] - alias to ChangeValue", py::arg("theIndex"));
-cls.def("SetValue", (void (TheHArray1Type::*)(const Standard_Integer, const TheArray1Type::value_type &)) &TheHArray1Type::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
+cls.def("First", (const typename TheArray1Type::value_type & (TheHArray1Type::*)() const) &TheHArray1Type::First, "Returns first element");
+cls.def("ChangeFirst", (typename TheArray1Type::value_type & (TheHArray1Type::*)()) &TheHArray1Type::ChangeFirst, "Returns first element");
+cls.def("Last", (const typename TheArray1Type::value_type & (TheHArray1Type::*)() const) &TheHArray1Type::Last, "Returns last element");
+cls.def("ChangeLast", (typename TheArray1Type::value_type & (TheHArray1Type::*)()) &TheHArray1Type::ChangeLast, "Returns last element");
+cls.def("Value", (const typename TheArray1Type::value_type & (TheHArray1Type::*)(const Standard_Integer) const) &TheHArray1Type::Value, "Constant value access", py::arg("theIndex"));
+cls.def("__call__", (const typename TheArray1Type::value_type & (TheHArray1Type::*)(const Standard_Integer) const) &TheHArray1Type::operator(), py::is_operator(), "operator() - alias to Value", py::arg("theIndex"));
+cls.def("__getitem__", (const typename TheArray1Type::value_type & (TheHArray1Type::*)(Standard_Integer) const) &TheHArray1Type::operator[], py::is_operator(), "operator[] - alias to Value", py::arg("theIndex"));
+cls.def("ChangeValue", (typename TheArray1Type::value_type & (TheHArray1Type::*)(const Standard_Integer)) &TheHArray1Type::ChangeValue, "Variable value access", py::arg("theIndex"));
+cls.def("__call__", (typename TheArray1Type::value_type & (TheHArray1Type::*)(const Standard_Integer)) &TheHArray1Type::operator(), py::is_operator(), "operator() - alias to ChangeValue", py::arg("theIndex"));
+cls.def("__getitem__", (typename TheArray1Type::value_type & (TheHArray1Type::*)(Standard_Integer)) &TheHArray1Type::operator[], py::is_operator(), "operator[] - alias to ChangeValue", py::arg("theIndex"));
+cls.def("SetValue", (void (TheHArray1Type::*)(const Standard_Integer, const typename TheArray1Type::value_type &)) &TheHArray1Type::SetValue, "Set value", py::arg("theIndex"), py::arg("theItem"));
 cls.def("Resize", (void (TheHArray1Type::*)(const Standard_Integer, const Standard_Integer, const Standard_Boolean)) &TheHArray1Type::Resize, "Resizes the array to specified bounds. No re-allocation will be done if length of array does not change, but existing values will not be discarded if theToCopyData set to FALSE.", py::arg("theLower"), py::arg("theUpper"), py::arg("theToCopyData"));
 cls.def("__iter__", [](const TheArray1Type &self) { return py::make_iterator(self.begin(), self.end()); }, py::keep_alive<0, 1>());
 
