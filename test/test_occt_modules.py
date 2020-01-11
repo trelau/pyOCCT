@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301 USA
+import sys
 import unittest
 
 
@@ -2529,6 +2530,7 @@ class TestModuleImport(unittest.TestCase):
             mod_ok = False
         self.assertTrue(mod_ok)
 
+    @unittest.skipUnless(sys.platform.startswith('win'), 'WNT is for Windows')
     def test_WNT(self):
         try:
             import OCCT.WNT
@@ -2700,6 +2702,16 @@ class TestModuleImport(unittest.TestCase):
     def test_XSControl(self):
         try:
             import OCCT.XSControl
+            mod_ok = True
+        except ImportError:
+            mod_ok = False
+        self.assertTrue(mod_ok)
+
+    @unittest.skipUnless(sys.platform.startswith('linux'), "XwWindow is for "
+                                                           "Linux")
+    def test_XwWindow(self):
+        try:
+            import OCCT.WNT
             mod_ok = True
         except ImportError:
             mod_ok = False
