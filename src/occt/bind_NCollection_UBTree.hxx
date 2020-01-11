@@ -54,7 +54,7 @@ cls_NCollection_UBTree.def("Root", (const typename NCollection_UBTree<TheObjType
 cls_NCollection_UBTree.def("Allocator", (const opencascade::handle<NCollection_BaseAllocator> & (NCollection_UBTree<TheObjType, TheBndType>::*)() const) &NCollection_UBTree<TheObjType, TheBndType>::Allocator, "Recommended to be used only in sub-classes.");
 
 // Nested classes
-py::class_<NCollection_UBTree<TheObjType, TheBndType>::Selector> cls_NCollection_UBTree_Selector(cls_NCollection_UBTree, "Selector", "Class defining the minimal interface of selector.", local);
+py::class_<typename NCollection_UBTree<TheObjType, TheBndType>::Selector> cls_NCollection_UBTree_Selector(cls_NCollection_UBTree, "Selector", "Class defining the minimal interface of selector.", local);
 
 // Methods
 cls_NCollection_UBTree_Selector.def("Reject", (Standard_Boolean (NCollection_UBTree<TheObjType, TheBndType>::Selector::*)(const TheBndType &) const) &NCollection_UBTree<TheObjType, TheBndType>::Selector::Reject, "Rejection base on the bounding type.", py::arg(""));
