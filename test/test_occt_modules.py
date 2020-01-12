@@ -650,6 +650,8 @@ class TestModuleImport(unittest.TestCase):
             mod_ok = False
         self.assertTrue(mod_ok)
 
+    @unittest.skipIf(sys.platform.startswith('linux'), 'Cocoa is not for '
+                                                       'Linux')
     def test_Cocoa(self):
         try:
             import OCCT.Cocoa
@@ -2707,8 +2709,8 @@ class TestModuleImport(unittest.TestCase):
             mod_ok = False
         self.assertTrue(mod_ok)
 
-    @unittest.skipUnless(sys.platform.startswith('linux'), "XwWindow is for "
-                                                           "Linux")
+    @unittest.skipUnless(sys.platform.startswith('linux'), 'XwWindow is for '
+                                                           'Linux')
     def test_XwWindow(self):
         try:
             import OCCT.WNT

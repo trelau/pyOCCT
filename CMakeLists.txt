@@ -198,12 +198,22 @@ foreach(SRC ${OCCT_SRCS})
     get_filename_component(MOD ${SRC} NAME_WE)
 
     # Check for platform-specific modules
-    if((WIN32 AND (${MOD} STREQUAL "XwWindow"))
-        OR ((NOT WIN32) AND (${MOD} STREQUAL "WNT")))
-            message(STATUS "Skipping platform-specific module ${MOD}")
-            continue()
+    if(WIN32 AND ${MOD} STREQUAL "XwWindow")
+        message(STATUS "Skipping platform-specific module ${MOD}")
+        continue()
     endif()
 
+    if(NOT WIN32 AND ${MOD} STREQUAL "WNT")
+        message(STATUS "Skipping platform-specific module ${MOD}")
+        continue()
+    endif()
+
+    if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux" AND ${MOD} STREQUAL "Cocoa")
+        message(STATUS "Skipping platform-specific module ${MOD}")
+        continue()
+    endif()
+
+    # Add pybind11 module
     pybind11_add_module(${MOD} ${SRC})
     target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES})
     set_target_properties(${MOD} PROPERTIES SUFFIX ${EXTENSION} COMPILE_FLAGS ${WARNINGS})
@@ -228,6 +238,7 @@ if(ENABLE_SMESH)
             continue()
         endif()
 
+        # Add pybind11 module
         pybind11_add_module(${MOD} ${SRC})
         target_link_libraries(${MOD} PUBLIC ${OpenCASCADE_LIBRARIES}
                                             ${SMESH_ABS_LIBS})
