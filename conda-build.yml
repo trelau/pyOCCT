@@ -15,14 +15,14 @@ jobs:
       displayName: 'Clone pybind11'
 
   # Ubuntu install OpenGL items
-  - ${{ if contains(parameters.vmImage, 'Ubuntu') }}:
+  - ${{ if contains(parameters.vmImage, 'ubuntu') }}:
     - bash: |
         sudo apt-get update && \
         sudo apt-get -q -y install libglu1-mesa-dev libgl1-mesa-dev
       displayName: 'Install OpenGL headers'
 
   # add conda to the path
-  - ${{ if or(contains(parameters.vmImage, 'macOS'),contains(parameters.vmImage, 'Ubuntu')) }}:
+  - ${{ if or(contains(parameters.vmImage, 'macOS'),contains(parameters.vmImage, 'ubuntu')) }}:
     - bash: echo "##vso[task.prependpath]$CONDA/bin"
       displayName: 'Add conda to PATH'
   - ${{ if contains(parameters.vmImage, 'win') }}:
