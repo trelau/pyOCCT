@@ -32,9 +32,16 @@ in X library files, which may not be present in all systems anyway.
 #ifndef __xTypes_h__
 #define __xTypes_h__
 
-struct _xcolor {
+typedef struct _xcolor {
 
-};
+	unsigned long  pixel;
+	unsigned short red;
+	unsigned short green;
+	unsigned short blue;
+	char           flags;
+	char           pad;
+
+} XColor;
 
 struct __GLXFBConfigRec {
 
