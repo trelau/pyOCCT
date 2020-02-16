@@ -1,0 +1,31 @@
+parameters:
+  name: 'Windows_VS2017_py36'
+  vmImage: 'vs2017-win2016'
+  python: '3.6'
+
+jobs:
+- job: ${{ parameters.name }}
+  pool:
+    vmImage: ${{ parameters.vmImage }}
+
+  steps:
+    - bash: |
+        git clone https://github.com/pybind/pybind11.git pybind11
+      displayName: 'Clone pybind11'
+
+    - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
+      displayName: 'Add conda to PATH'
+
+    - bash: |
+        conda info -a && \
+        conda config --add channels conda-forge
+      displayName: 'Configure conda'
+
+    - bash: |
+        conda create --yes --quiet --name pyOCCT python=${{ parameters.python }} conda-build
+      displayName: 'Create conda environment'
+
+    - bash: |
+        source activate pyOCCT && \
+        conda build  ci/conda
+      displayName: 'Run conda build'

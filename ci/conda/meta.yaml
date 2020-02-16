@@ -1,22 +1,21 @@
 package:
   name: pyocct
-  version: "7.4.0.0"
+  version: 7.4.0.0
 
 source:
   path: ../..
 
 build:
   number: 0
-  features:
-    - vc14 # [win and py35]
-    - vc14 # [win and py36]
 
 requirements:
   build:
-    - python
-    - vc 14 # [win]
+    - {{ compiler('cxx') }}
     - cmake
     - ninja
+
+  host:
+    - python
     - occt ==7.4.0
     - tbb-devel
     - smesh ==8.3.0.3
@@ -24,7 +23,6 @@ requirements:
   run:
     - python
     - wxpython
-    - vc 14 # [win]
     - occt ==7.4.0
     - smesh ==8.3.0.3
 

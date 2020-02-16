@@ -7,8 +7,11 @@ cmake .. -G "Ninja" ^
     -DENABLE_NETGEN=ON ^
     -DENABLE_FORCE=OFF ^
     -DPTHREAD_INCLUDE_DIRS:FILEPATH="%LIBRARY_PREFIX%/include"
-
 if errorlevel 1 exit 1
+
+ninja
+if errorlevel 1 exit 1
+
 ninja install
 if errorlevel 1 exit 1
 
