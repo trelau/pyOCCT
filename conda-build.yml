@@ -9,13 +9,27 @@ jobs:
     vmImage: ${{ parameters.vmImage }}
 
   steps:
+    # clone pybind11
     - bash: |
         git clone https://github.com/pybind/pybind11.git pybind11
       displayName: 'Clone pybind11'
 
+  # Ubuntu install OpenGL items
+  - ${{ if contains(parameters.vmImage, 'Ubuntu') }}:
+    - bash: |
+        sudo apt-get update && \
+        sudo apt-get -q -y install libglu1-mesa-dev libgl1-mesa-dev
+      displayName: 'Install OpenGL headers'
+
+  # add conda to the path
+  - ${{ if or(contains(parameters.vmImage, 'macOS'),contains(parameters.vmImage, 'Ubuntu')) }}:
+    - bash: echo "##vso[task.prependpath]$CONDA/bin"
+      displayName: 'Add conda to PATH'
+  - ${{ if contains(parameters.vmImage, 'win') }}:
     - powershell: Write-Host "##vso[task.prependpath]$env:CONDA\Scripts"
       displayName: 'Add conda to PATH'
 
+    # configure conda and build
     - bash: |
         conda info -a && \
         conda config --add channels conda-forge

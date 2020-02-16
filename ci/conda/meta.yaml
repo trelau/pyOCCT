@@ -11,6 +11,9 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - {{ cdt('libx11-devel') }}  # [linux]
+    - {{ cdt('xorg-x11-proto-devel') }}  # [linux]
+    - {{ cdt('mesa-libgl-devel') }}  # [linux]
     - cmake
     - ninja
 
@@ -18,13 +21,13 @@ requirements:
     - python
     - occt ==7.4.0
     - tbb-devel
-    - smesh ==8.3.0.3
+    - smesh ==8.3.0.3  # [win]
 
   run:
     - python
     - wxpython
     - occt ==7.4.0
-    - smesh ==8.3.0.3
+    - smesh ==8.3.0.3  # [win]
 
 test:
   source_files:

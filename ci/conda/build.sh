@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
+
+declare -a CMAKE_PLATFORM_FLAGS
+if [[ ${HOST} =~ .*linux.* ]]; then
+    CMAKE_PLATFORM_FLAGS+=(-DCMAKE_TOOLCHAIN_FILE="${RECIPE_DIR}/cross-linux.cmake")
+fi
+
 mkdir build
 cd build
-
-# export CC=gcc-4.9
-# export CXX=g++-4.9
 
 cmake .. -G "Ninja" \
     -DCMAKE_BUILD_TYPE="Release" \

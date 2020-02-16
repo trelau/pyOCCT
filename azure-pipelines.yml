@@ -7,6 +7,6 @@ jobs:
 
   - template: conda-build.yml
     parameters:
-      name: 'Windows_VS2017_py37'
-      vmImage: 'vs2017-win2016'
-      python: '3.7'
+      name: 'Ubuntu_18_04_py36'
+      vmImage: 'ubuntu-18.04'
+      python: '3.6'
