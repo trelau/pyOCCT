@@ -14,7 +14,7 @@ jobs:
     - ${{ if contains(parameters.vmImage, 'ubuntu') }}:
       - bash: |
           sudo apt-get update && \
-          sudo apt-get -q -y install libglu1-mesa-dev libgl1-mesa-dev
+          sudo apt-get -q -y install libglu1-mesa-dev libgl1-mesa-dev libxi-dev
         displayName: 'Install OpenGL headers'
 
     # add conda to the path
