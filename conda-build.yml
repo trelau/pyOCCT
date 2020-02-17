@@ -5,6 +5,7 @@ parameters:
 
 jobs:
 - job: ${{ parameters.name }}
+  timeoutInMinutes: 360
   pool:
     vmImage: ${{ parameters.vmImage }}
 
@@ -42,5 +43,5 @@ jobs:
 
     - bash: |
         source activate pyOCCT && \
-        conda build  ci/conda
+        conda build  --build-only ci/conda
       displayName: 'Run conda build'
