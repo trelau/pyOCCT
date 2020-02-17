@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include <pyOCCT_Common.hxx>
 
-// #include <xTypes.h>
+#include <xTypes.h>
 
 #include <Aspect_DisplayConnection.hxx>
 #include <Aspect_FBConfig.hxx>

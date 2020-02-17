@@ -45,7 +45,7 @@ typedef struct _xcolor {
 } XColor;
 */
 
-// struct __GLXFBConfigRec {
+struct __GLXFBConfigRec {
 
 };
 
