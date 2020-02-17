@@ -194,6 +194,10 @@ file(GLOB OCCT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/occt/*.cxx)
 # OCCT modules
 foreach(SRC ${OCCT_SRCS})
 
+    if(NOT ${MOD} STREQUAL "Standard")
+        continue()
+    endif()
+
     # Get module name
     get_filename_component(MOD ${SRC} NAME_WE)
 
