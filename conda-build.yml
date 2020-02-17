@@ -43,5 +43,6 @@ jobs:
 
     - bash: |
         source activate pyOCCT && \
-        conda build  --build-only ci/conda
+        mkdir conda && \
+        conda build  ci/conda --build-only --output --output-folder conda
       displayName: 'Run conda build'

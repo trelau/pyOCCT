@@ -194,12 +194,12 @@ file(GLOB OCCT_SRCS ${CMAKE_CURRENT_SOURCE_DIR}/src/occt/*.cxx)
 # OCCT modules
 foreach(SRC ${OCCT_SRCS})
 
+    # Get module name
+    get_filename_component(MOD ${SRC} NAME_WE)
+
     if(NOT ${MOD} STREQUAL "Standard")
         continue()
     endif()
-
-    # Get module name
-    get_filename_component(MOD ${SRC} NAME_WE)
 
     # Check for platform-specific modules
     if(WIN32 AND ${MOD} STREQUAL "XwWindow")
