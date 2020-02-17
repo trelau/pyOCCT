@@ -32,6 +32,7 @@ in X library files, which may not be present in all systems anyway.
 #ifndef __xTypes_h__
 #define __xTypes_h__
 
+/*
 typedef struct _xcolor {
 
 	unsigned long  pixel;
@@ -42,8 +43,9 @@ typedef struct _xcolor {
 	char           pad;
 
 } XColor;
+*/
 
-struct __GLXFBConfigRec {
+// struct __GLXFBConfigRec {
 
 };
 

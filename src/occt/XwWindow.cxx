@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include <pyOCCT_Common.hxx>
 
-#include <xTypes.h>
+// #include <xTypes.h>
 
 #include <Aspect_DisplayConnection.hxx>
 #include <Aspect_FBConfig.hxx>
@@ -36,7 +36,9 @@ PYBIND11_MODULE(XwWindow, mod) {
 
     // Class definition to avoid "type not registered yet?" error.
     // (Aspect_FBConfig is a typedef of__GLXFBConfigRec)
+    /*
     py::class_<__GLXFBConfigRec>(mod, "__GLXFBConfigRec");
+    */
 
     py::class_<Xw_Window, opencascade::handle<Xw_Window>, Aspect_Window>(mod, "Xw_Window", "This class defines XLib window intended for creation of OpenGL context.")
         //! Creates a XLib window defined by his position and size in pixels.
