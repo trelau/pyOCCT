@@ -894,7 +894,7 @@ cls_Standard_Condition.def("Wait", (void (Standard_Condition::*)()) &Standard_Co
 cls_Standard_Condition.def("Wait", (bool (Standard_Condition::*)(int)) &Standard_Condition::Wait, "Wait for signal requested time.", py::arg("theTimeMilliseconds"));
 cls_Standard_Condition.def("Check", (bool (Standard_Condition::*)()) &Standard_Condition::Check, "Do not wait for signal - just test it state.");
 cls_Standard_Condition.def("CheckReset", (bool (Standard_Condition::*)()) &Standard_Condition::CheckReset, "Method perform two steps at-once - reset the event object and returns true if it was in signaling state.");
-cls_Standard_Condition.def("getHandle", (void * (Standard_Condition::*)() const) &Standard_Condition::getHandle, "Access native HANDLE to Event object.");
+// cls_Standard_Condition.def("getHandle", (void * (Standard_Condition::*)() const) &Standard_Condition::getHandle, "Access native HANDLE to Event object.");
 
 // CLASS: STANDARD_NEGATIVEVALUE
 py::class_<Standard_NegativeValue, opencascade::handle<Standard_NegativeValue>, Standard_RangeError> cls_Standard_NegativeValue(mod, "Standard_NegativeValue", "None");
