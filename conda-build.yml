@@ -46,3 +46,8 @@ jobs:
         mkdir conda && \
         conda build  ci/conda --build-only --output-folder conda
       displayName: 'Run conda build'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathToPublish: './conda'
+        artifactName: 'pyocct_dev'
