@@ -59,6 +59,13 @@ if(ENABLE_FORCE AND MSVC)
     set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} /FORCE")
 endif()
 
+
+# --------------------------------------------------------------------------- #
+# pyOCCT
+# --------------------------------------------------------------------------- #
+# Must be included before opencascade so the InterfaceGraphic.hxx patch works
+include_directories(inc)
+
 # --------------------------------------------------------------------------- #
 # TBB (for BVH header)
 # --------------------------------------------------------------------------- #
@@ -87,6 +94,33 @@ include_directories(${OpenCASCADE_INCLUDE_DIR})
 link_directories(${OpenCASCADE_LIBRARY_DIR})
 
 # --------------------------------------------------------------------------- #
+# VTK
+# --------------------------------------------------------------------------- #
+message(STATUS "Searching for VTK...")
+find_package(VTK REQUIRED)
+
+message(STATUS "VTK include directory: ${VTK_INCLUDE_DIRS}")
+include_directories(${VTK_INCLUDE_DIRS})
+
+# --------------------------------------------------------------------------- #
+# OpenGL
+# --------------------------------------------------------------------------- #
+if(NOT WIN32)
+    if (NOT DEFINED OPENGL_EGL_INCLUDE_DIRS)
+        message(STATUS "Searching for OpenGL...")
+        find_package(OpenGL REQUIRED GLX EGL)
+    endif()
+    if(NOT EXISTS ${OPENGL_EGL_INCLUDE_DIRS})
+        message(FATAL_ERROR "Failed to find OpenGL library directory.")
+    endif()
+    message(STATUS "EGL include directory: ${OPENGL_EGL_INCLUDE_DIRS}")
+    #message(STATUS "EGL include libs: ${OPENGL_egl_LIBRARY}")
+    include_directories(${OPENGL_EGL_INCLUDE_DIRS})
+    #link_directories(${OPENGL_egl_LIBRARY})
+
+endif()
+
+# --------------------------------------------------------------------------- #
 # SMESH
 # --------------------------------------------------------------------------- #
 set(SMESH_ABS_LIBS)
@@ -110,17 +144,6 @@ if(ENABLE_SMESH)
         list(APPEND SMESH_ABS_LIBS ${FOUND_LIB})
     endforeach(LIB)
     unset(FOUND_LIB CACHE)
-
-
-    # ----------------------------------------------------------------------- #
-    # VTK
-    # ----------------------------------------------------------------------- #
-    message(STATUS "Searching for VTK...")
-    find_package(VTK REQUIRED)
-
-    message(STATUS "VTK include directory: ${VTK_INCLUDE_DIRS}")
-    include_directories(${VTK_INCLUDE_DIRS})
-
 
     # ----------------------------------------------------------------------- #
     # BOOST
@@ -167,13 +190,13 @@ endif(ENABLE_SMESH)
 # --------------------------------------------------------------------------- #
 # PYBIND11
 # --------------------------------------------------------------------------- #
-IF(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/pybind11")
+if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/pybind11")
     message(STATUS "Adding pybind11 subdirectory.")
     add_subdirectory(pybind11)
-ELSE()
+else()
     message(STATUS "Searching for pybind11...")
     find_package(pybind11 REQUIRED)
-ENDIF()
+endif()
 
 
 # --------------------------------------------------------------------------- #

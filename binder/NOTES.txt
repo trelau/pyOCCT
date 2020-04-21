@@ -1,0 +1,3 @@
+Issues:
+- How to handle types that get reset with "=" in implementation?
+- Error handling types

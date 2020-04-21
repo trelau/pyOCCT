@@ -23,6 +23,9 @@ requirements:
     - occt ==7.4.0
     - tbb-devel
     - smesh ==8.3.0.3  # [win]
+    - pybind11
+    - libclang ==10.0.0
+    - clang ==10.0.0
 
   run:
     - python
@@ -31,8 +34,12 @@ requirements:
     - smesh ==8.3.0.3  # [win]
 
 test:
+  requires:
+    - pytest
   source_files:
     - test
+  commands:
+    - pytest test -v
 
 about:
   home: https://github.com/LaughlinResearch/pyOCCT
